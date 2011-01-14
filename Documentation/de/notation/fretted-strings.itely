@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.46"
 
 @c Translators: Till Paala
 
@@ -514,7 +514,10 @@ mynotes = {
     \mynotes
   }
   \new TabStaff {
-    \set TabStaff.stringTunings = #'(21 14 7 0)
+    \set TabStaff.stringTunings = #`(,(ly:make-pitch 1 5 0)
+				     ,(ly:make-pitch 1 1 0)
+				     ,(ly:make-pitch 0 4 0)
+				     ,(ly:make-pitch 0 0 0))
     \mynotes
   }
 >>

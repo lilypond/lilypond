@@ -6,7 +6,7 @@
 \header {
   lsrtags = "staff-notation, editorial-annotations"
 
-%% Translation of GIT committish: 5160eccb26cee0bfd802d844233e4a8d795a1e94
+%% Translation of GIT committish: a874fda3641c9e02f61be5c41b215b8304b8ed00
   texidoces = "
 Se puede engrosar una línea del pentagrama con fines pedagógicos
 (p.ej. la tercera línea o la de la clave de Sol).  Esto se puede

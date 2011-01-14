@@ -168,6 +168,10 @@ LY_DEFINE (ly_set_middle_C_x, "ly:set-middle-C!",
   Context *c = unsmob_context (context);
   int clef_pos = robust_scm2int (c->get_property ("middleCClefPosition"), 0);
   int offset = robust_scm2int (c->get_property ("middleCOffset"), 0);
+  /* middleCCuePosition overrides the clef! */
+  SCM cue_pos = c->get_property ("middleCCuePosition");
+  if (scm_is_number (cue_pos))
+    clef_pos = robust_scm2int (cue_pos, 0);
 
   c->set_property (ly_symbol2scm ("middleCPosition"), scm_from_int (clef_pos + offset));
   return SCM_UNDEFINED;

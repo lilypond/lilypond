@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks, vocal-music"
 
-%% Translation of GIT committish: 8b9a694a483632437fb5110b3531074ddb31c04a
+%% Translation of GIT committish: a874fda3641c9e02f61be5c41b215b8304b8ed00
   texidoces = "
 El corchete de arpegios @code{arpeggioBracket} se puede usar para
 indicar la división de voces cuando no hay plicas que puedan ofrecer

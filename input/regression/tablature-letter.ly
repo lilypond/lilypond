@@ -1,6 +1,8 @@
-\version "2.13.10"
+\version "2.13.46"
 
-\header { texidoc = "A sample tablature with lettered tab,
+\header {
+  texidoc = "
+A sample tablature with lettered tab,
 using fretLabels to modify the fret letters.
 
 By default, letters are drawn sequentially from the alphabet,
@@ -27,13 +29,15 @@ notes = \relative c' {
 \score {
   \new TabStaff
   \with {
-    stringTunings = #'(17 14 9 5 2 -3)
+    stringTunings = #`(,(ly:make-pitch 1 3 0)
+                       ,(ly:make-pitch 1 1 0)
+		       ,(ly:make-pitch 0 5 0)
+		       ,(ly:make-pitch 0 3 0)
+		       ,(ly:make-pitch 0 1 0)
+		       ,(ly:make-pitch -1 5 0))
     tablatureFormat = #fret-letter-tablature-format
   }
   \new TabVoice {
     \notes
   }
 }
-
-
-

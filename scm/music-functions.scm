@@ -782,6 +782,7 @@ Syntax:
 
   (if (vector? (ly:music-property quote-music 'quoted-events))
       (let* ((dir (ly:music-property quote-music 'quoted-voice-direction))
+	     (clef (ly:music-property quote-music 'quoted-music-clef))
 	     (main-voice (if (eq? 1 dir) 1 0))
 	     (cue-voice (if (eq? 1 dir) 0 1))
 	     (main-music (ly:music-property quote-music 'element))
@@ -793,14 +794,19 @@ Syntax:
 	    ;; to have opposite stems.
 	    (begin
 	      (set! return-value
-
 		    ;; cannot context-spec Quote-music, since context
 		    ;; for the quotes is determined in the iterator.
 		    (make-sequential-music
 		     (list
+		      (if (null? clef)
+		          (make-music 'Music)
+		          (make-cue-clef-set clef))
 		      (context-spec-music (make-voice-props-set cue-voice) 'CueVoice "cue")
 		      quote-music
-		      (context-spec-music (make-voice-props-revert)  'CueVoice "cue"))))
+		      (context-spec-music (make-voice-props-revert) 'CueVoice "cue")
+		      (if (null? clef)
+		          (make-music 'Music)
+		          (make-cue-clef-unset)))))
 	      (set! main-music
 		    (make-sequential-music
 		     (list

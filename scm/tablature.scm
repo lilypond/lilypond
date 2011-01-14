@@ -15,39 +15,6 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-;; default tunings for common string instruments
-;; guitar tunings
-(define-public guitar-tuning '(4 -1 -5 -10 -15 -20))
-(define-public guitar-seven-string-tuning '(4 -1 -5 -10 -15 -20 -25))
-(define-public guitar-drop-d-tuning '(4 -1 -5 -10 -15 -22))
-(define-public guitar-open-g-tuning '(2 -1 -5 -10 -17 -22))
-(define-public guitar-open-d-tuning '(2 -3 -6 -10 -15 -22))
-(define-public guitar-dadgad-tuning '(2 -3 -5 -10 -15 -22))
-(define-public guitar-lute-tuning '(4 -1 -6 -10 -15 -20))
-(define-public guitar-asus4-tuning '(4 -3 -8 -10 -15 -20))
-;; bass tunings
-(define-public bass-tuning '(-17 -22 -27 -32))
-(define-public bass-four-string-tuning '(-17 -22 -27 -32))
-(define-public bass-drop-d-tuning '(-17 -22 -27 -34))
-(define-public bass-five-string-tuning '(-17 -22 -27 -32 -37))
-(define-public bass-six-string-tuning '(-12 -17 -22 -27 -32 -37))
-;; mandolin
-(define-public mandolin-tuning '(16 9 2 -5))
-;; tunings for 5-string banjo
-(define-public banjo-open-g-tuning '(2 -1 -5 -10 7))
-(define-public banjo-c-tuning '(2 -1 -5 -12 7))
-(define-public banjo-modal-tuning '(2 0 -5 -10 7))
-(define-public banjo-open-d-tuning '(2 -3 -6 -10 9))
-(define-public banjo-open-dm-tuning '(2 -3 -6 -10 9))
-;; convert 5-string banjo tuning to 4-string by removing the 5th string
-(define-public (four-string-banjo tuning)
-  (reverse (cdr (reverse tuning))))
-;; ukulele tunings
-(define-public ukulele-tuning '(9 4 0 7)) ;ukulele  a' e' c' g'
-(define-public ukulele-d-tuning '(11 6 2 9)) ;ukulele d tuning, b' fis' d' a'
-(define-public ukulele-tenor-tuning '(-5 0 4 9)) ;tenor ukulele, g c' e' a'
-(define-public ukulele-baritone-tuning '(-10 -5 -1 4)) ;baritone ukulele, d g b e'
-
 
 ;; for more control over glyph-name calculations,
 ;; we use a custom callback for tab note heads

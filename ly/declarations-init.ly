@@ -94,39 +94,8 @@ melismaEnd = #(context-spec-music (make-property-unset 'melismaBusy) 'Bottom)
 laissezVibrer = #(make-music 'LaissezVibrerEvent)
 repeatTie = #(make-music 'RepeatTieEvent)
 
-\include "grace-init.ly"
-\include "midi-init.ly"
-\include "paper-defaults-init.ly"
-
-\layout {
-    mm = #(ly:output-def-lookup $defaultpaper 'mm)
-    unit = #(ly:output-def-lookup $defaultpaper 'unit)
-
-    in = #(* 25.4 mm)
-    pt = #(/  in 72.27)
-    cm = #(* 10 mm)
-
-    \include "engraver-init.ly"
-
-    #(set-paper-dimension-variables (current-module))
-}
-
-#(set-default-paper-size (ly:get-option 'paper-size))
-
-partCombineListener = \layout {
-    \context {
-	\Score
-	skipTypesetting = ##t
-	ignoreBarChecks = ##t
-	\alias "Timing"
-    }
-}
-
 \include "dynamic-scripts-init.ly"
 \include "spanners-init.ly"
-\include "property-init.ly"
-
-setDefaultDurationToQuarter = { c4 }
 
 %% MAKE-HASH-TABLE in GUILE 1.6 takes mandatory size parameter.
 #(define musicQuotes (make-hash-table 29))
@@ -147,3 +116,37 @@ setDefaultDurationToQuarter = { c4 }
 #(define bookpart-music-handler collect-book-music-for-book)
 
 \include "predefined-fretboards-init.ly"
+\include "string-tunings-init.ly"
+\include "property-init.ly"
+
+\include "grace-init.ly"
+\include "midi-init.ly"
+\include "paper-defaults-init.ly"
+
+\layout {
+    mm = #(ly:output-def-lookup $defaultpaper 'mm)
+    unit = #(ly:output-def-lookup $defaultpaper 'unit)
+
+    in = #(* 25.4 mm)
+    pt = #(/  in 72.27)
+    cm = #(* 10 mm)
+
+    \include "engraver-init.ly"
+
+    #(set-paper-dimension-variables (current-module))
+}
+
+#(set-default-paper-size (ly:get-option 'paper-size))
+partCombineListener = \layout {
+    \context {
+	\Score
+	skipTypesetting = ##t
+	ignoreBarChecks = ##t
+	\alias "Timing"
+    }
+}
+
+setDefaultDurationToQuarter = { c4 }
+
+
+

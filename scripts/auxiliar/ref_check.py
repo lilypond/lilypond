@@ -47,7 +47,7 @@ class CrossRefs:
     global returnCode
 #    print "Node: ", nodeName, " in ", manualName, " found in ", fileName
     if manualName+"/"+nodeName in self.Nodes.keys():
-      print "Error: Duplicate nodename ",nodeName, " in ", fileName, " and ", self.Nodes[manualName+nodeName]
+      print "Error: Duplicate nodename ",nodeName, " in ", fileName, " and ", self.Nodes[manualName+"/"+nodeName][1]
       returnCode=1
     self.Nodes[manualName + "/" + nodeName] = [manualName, fileName]
     self.nodeNames[nodeName] = fileName
@@ -158,7 +158,7 @@ class File:
             if refStart >= 0:
               refFound = True
               if actualToManualName == File.CurrentManualName:
-                print "Warning: xref should be internal around line ", lineNo, " in ", self.fileName
+                print "Warning: should xref be internal around line ", lineNo, " in ", self.fileName, "?"
               twoLines = twoLines[refStart:]
               refNodeStart = twoLines.find("{") + 1
               # TODO Need to check here for nested {}

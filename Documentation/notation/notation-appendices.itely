@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.46"
 
 @node Notation manual tables
 @appendix Notation manual tables
@@ -16,6 +16,7 @@
 @menu
 * Chord name chart::
 * Common chord modifiers::
+* Predefined string tunings::
 * Predefined fretboard diagrams::
 * MIDI instruments::
 * List of colors::
@@ -415,6 +416,13 @@ Perfect fifth, octave
 @end lilypond
 
 @end multitable
+
+@node Predefined string tunings
+@appendixsec Predefined string tunings
+
+The chart below shows the predefined string tunings.
+
+@lilypondfile{display-predefined-string-tunings.ly}
 
 @node Predefined fretboard diagrams
 @appendixsec Predefined fretboard diagrams

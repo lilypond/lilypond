@@ -542,9 +542,9 @@ menos) estable, hemos escrito un manual para los colaboradores.
 
 @docLinksBare{Guía del colaborador, contributor,
   @rcontribnamed{Top,Guía del colaborador},
-  @manualDevelContributorSplit-es,
-  @manualDevelContributorBig-es, 500 kB,
-  @manualDevelContributorPdf-es, 2.8 MB}
+  @manualDevelContributorSplit,
+  @manualDevelContributorBig, 500 kB,
+  @manualDevelContributorPdf, 2.8 MB}
 
 @divEnd
 
@@ -645,11 +645,11 @@ están en @url{http://lilypond.org}}
 @docLinkPdf{Aprendizaje,learning,@manualDevelLearningPdf-es}
 
 @item
-@docLinkSplit{Glosario,music-glossary,@manualDevelGlossarySplit-es}
+@docLinkSplit{Glosario,music-glossary,@manualDevelGlossarySplit}
 @tab
-@docLinkBig{Glosario,music-glossary,@manualDevelGlossaryBig-es}
+@docLinkBig{Glosario,music-glossary,@manualDevelGlossaryBig}
 @tab
-@docLinkPdf{Glosario,music-glossary,@manualDevelGlossaryPdf-es}
+@docLinkPdf{Glosario,music-glossary,@manualDevelGlossaryPdf}
 
 @item
 @docLinkSplit{Ensayo,essay,@manualDevelEssaySplit-es}
@@ -675,11 +675,11 @@ están en @url{http://lilypond.org}}
 @docLinkPdf{Utilización,usage,@manualDevelUsagePdf-es}
 
 @item
-@docLinkSplit{Fragmentos,snippets,@manualDevelSnippetsSplit-es}
+@docLinkSplit{Fragmentos,snippets,@manualDevelSnippetsSplit}
 @tab
-@docLinkBig{Fragmentos,snippets,@manualDevelSnippetsBig-es}
+@docLinkBig{Fragmentos,snippets,@manualDevelSnippetsBig}
 @tab
-@docLinkPdf{Fragmentos,snippets,@manualDevelSnippetsPdf-es}
+@docLinkPdf{Fragmentos,snippets,@manualDevelSnippetsPdf}
 
 @headitem Poco frecuentes
 
@@ -688,12 +688,12 @@ están en @url{http://lilypond.org}}
 @tab
 @docLinkBig{Web,web,@manualDevelWebBig-es}
 @tab
-@docLinkPdf{Web,web,@manualDevelWebPdf-es}
+@docLinkPdf{Web,web,@manualDevelWebPdf}
 
 @item
-@docLinkSplit{Cambios,changes,@manualDevelChangesSplit-es}
+@docLinkSplit{Cambios,changes,@manualDevelChangesSplit}
 @tab
-@docLinkBig{Cambios,changes,@manualDevelChangesBig-es}
+@docLinkBig{Cambios,changes,@manualDevelChangesBig}
 @tab
 @docLinkPdf{Cambios,changes,@manualDevelChangesPdf-es}
 
@@ -705,11 +705,11 @@ están en @url{http://lilypond.org}}
 @docLinkPdf{Extensiones,extending,@manualDevelExtendingPdf-es}
 
 @item
-@docLinkSplit{Funcionamiento interno,internals,@manualDevelInternalsSplit-es}
+@docLinkSplit{Funcionamiento interno,internals,@manualDevelInternalsSplit}
 @tab
-@docLinkBig{Funcionamiento interno,internals,@manualDevelInternalsBig-es}
+@docLinkBig{Funcionamiento interno,internals,@manualDevelInternalsBig}
 @tab
-@docLinkPdf{Funcionamiento interno,internals,@manualDevelInternalsPdf-es}
+@docLinkPdf{Funcionamiento interno,internals,@manualDevelInternalsPdf}
 
 @ifset web_version
 @headitem Para descargar

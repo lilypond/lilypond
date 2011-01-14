@@ -6,7 +6,7 @@
 \header {
   lsrtags = "repeats"
 
-%% Translation of GIT committish: 298a2c322d7e4f437f3dd1a24db2839e3f35acce
+%% Translation of GIT committish: a874fda3641c9e02f61be5c41b215b8304b8ed00
   texidoces = "
 Las repeticiones de compases completos de más de dos repeticiones
 pueden llevar un contador si se activa la propiedad adecuada, como se

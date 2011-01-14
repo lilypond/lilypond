@@ -1,3 +1,5 @@
+\version "2.13.46"
+
 \header {
 
   texidoc = "For other tunings, it is sufficient to set
@@ -6,12 +8,13 @@
 
 }
 
-\version "2.12.0"
-
 
 \new TabStaff {
-  \set TabStaff.stringTunings = #'(5  10 15 20)
+  \set TabStaff.stringTunings = #`(,(ly:make-pitch 0 3 0)
+				   ,(ly:make-pitch 0 5 SHARP)
+				   ,(ly:make-pitch 1 1 SHARP)
+				   ,(ly:make-pitch 1 4 SHARP))
   \relative c''  { c4 d e f }
 }
 
- 
+

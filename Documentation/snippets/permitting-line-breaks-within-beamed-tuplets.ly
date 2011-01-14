@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 5160eccb26cee0bfd802d844233e4a8d795a1e94
+%% Translation of GIT committish: a874fda3641c9e02f61be5c41b215b8304b8ed00
  doctitlees = "Permitir saltos de línea dentro de grupos especiales con barra"
  texidoces = "
 Este ejemplo artificial muestra cómo se pueden permitir tanto los

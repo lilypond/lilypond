@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ede6552ee0a9954a6ced5922cfc0cfa2c40733af
+    Translation of GIT committish: 79165c00e7aadfefb0748ff55b29a1927cb87acd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -15,7 +15,7 @@
 
 @node Exécution de LilyPond
 @chapter Exécution de @command{lilypond}
-@translationof Running LilyPond
+@translationof Running lilyPond
 
 Ce chapitre passe en revue ce qui se passe lorsque vous lancez LilyPond.
 
@@ -62,7 +62,7 @@ nombreuses documentations que vous pourrez trouver sur ce sujet.
 
 @menu
 * Lancement de lilypond::
-* Options en ligne de commande::
+* Options en ligne de commande pour lilypond::
 * Variables d'environnement::
 * Exécution de LilyPond en mode protégé::
 @end menu
@@ -109,6 +109,7 @@ fournira grâce à LilyPond @file{@var{racine}-violon.pdf} et
 
 
 @unnumberedsubsubsec Commandes standard de l'interpréteur
+@translationof Standard shell commands
 
 Si votre interpréteur -- terminal, console, etc. -- prend en charge les
 redirections, les commandes qui suivent vous permettront de
@@ -135,9 +136,9 @@ Notez bien qu'il s'agit ici de commandes internes à l'interpréteur et
 qui n'ont rien à voir avec LilyPond.
 
 
-@node Options en ligne de commande
+@node Options en ligne de commande pour lilypond
 @unnumberedsubsec Options en ligne de commande pour @command{lilypond}
-@translationof Command line options
+@translationof Command line options for lilypond
 
 @cindex lancement de @command{lilypond}
 @cindex ligne de commande, options pour @command{lilypond}
@@ -733,6 +734,7 @@ facilement.
 * Erreur renvoyant à ../ly/init.ly::
 * Message d'erreur Unbound variable %::
 * Message d'erreur FT_Get_Glyph_Name::
+* staff-affinities devraient aller en ordre décroissant::
 @end menu
 
 @node La musique déborde de la page
@@ -867,3 +869,22 @@ caractères non ASCII et qu'il n'a pas été enregistré avec un encodage
 UTF-8.  Pour plus de détails, reportez-vous au chapitre
 @ruser{Codage du texte}.
 
+
+@node staff-affinities devraient aller en ordre décroissant
+@unnumberedsubsec staff-affinities devraient aller en ordre décroissant
+@translationof Warning staff affinities should only decrease
+
+Cet avertissement est émis lorsque la partition ne comporte pas de
+portée, comme par exemple une feuille de chant avec un contexte
+@code{ChordName} et un contexte @code{Lyrics}.  Ce message disparaîtra
+dès lors que autoriserez l'un de ces contextes à se comporter comme une
+portée, à l'aide de l'instruction
+
+@example
+\override VerticalAxisGroup #'staff-affinity = ##f
+@end example
+
+@noindent
+que vous insérerez dès sa création.  Pouur plus d'information,
+reportez-vous à la rubrique
+@ruser{Espacement des lignes rattachées à des portées}.

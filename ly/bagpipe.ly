@@ -67,11 +67,9 @@ showKeySignature = {
 % Some common timing tweaks.
 
 % Sets the autobeamer to span quarter notes only. Use for fast music.
-% TODO: Needs more tweaking
 quarterBeaming = {
   \set Staff.beamExceptions = #'()
 }
-
 halfBeaming = {
   \set Staff.beamExceptions = #'((end . (((1 . 8) . (4 4))
                                          ((1 . 12) . (3 3)))))
@@ -82,190 +80,231 @@ reelTime = {
   \time 2/2
   \halfBeaming
 }
-
 % 4/4 marches are written with numerical time signature and with quarter beaming.
 marchTime = {
   \time 4/4
-  \override Staff.TimeSignature #'style = #'()
+  \numericTimeSignature
   \quarterBeaming
 }
 
+% Add appropriate tweaks needed for piping grace notes to look great.
+stemspace = #(define-music-function (parser location extent) (pair?) #{
+  \once \override Staff.Stem #'X-extent = #$extent
+#})
+pgrace = #(define-music-function (parser location notes) (ly:music?) #{
+  \override Score.GraceSpacing #'spacing-increment = #0
+  \override Score.Stem #'beamlet-max-length-proportion = #'(0.5 . 0.5)
+  \grace $notes
+  \revert Score.Stem #'beamlet-default-length
+#})
+
 % Single grace notes
-grG = { \grace { \small G32 } }
-gra = { \grace { \small a32 } }
-grb = { \grace { \small b32 } }
-grc = { \grace { \small c32 } }
-grd = { \grace { \small d32 } }
-gre = { \grace { \small e32 } }
-grf = { \grace { \small f32 } }
-grg = { \grace { \small g32 } }
-grA = { \grace { \small A32 } }
+grG = { \pgrace { \small G32 } }
+gra = { \pgrace { \small a32 } }
+grb = { \pgrace { \small b32 } }
+grc = { \pgrace { \small c32 } }
+grd = { \pgrace { \small d32 } }
+gre = { \pgrace { \small e32 } }
+grf = { \pgrace { \small f32 } }
+grg = { \pgrace { \small g32 } }
+grA = { \pgrace { \small A32 } }
 
 % Doublings
-dblG = { \grace { \small g32[ G d] } }
-dbla = { \grace { \small g32[ a d] } }
-dblb = { \grace { \small g32[ b d] } }
-dblc = { \grace { \small g32[ c d] } }
-dbld = { \grace { \small g32[ d e] } }
-dble = { \grace { \small g32[ e f] } }
-dblf = { \grace { \small g32[ f g] } }
+dblG = { \pgrace { \small g32[ G d] } }
+dbla = { \pgrace { \small g32[ a d] } }
+dblb = { \pgrace { \small g32[ b d] } }
+dblc = { \pgrace { \small g32[ c d] } }
+dbld = { \pgrace { \small g32[ d e] } }
+dble = { \pgrace { \small g32[ e f] } }
+dblf = { \pgrace { \small g32[ f g] } }
 % These are the same as the half doublings.
-dblg = { \grace { \small g32[ f] } }
-dblA = { \grace { \small A32[ g] } }
+dblg = { \pgrace { \small g32[ f] } }
+dblA = { \pgrace { \small A32[ g] } }
 
 % Half doublings
-hdblG = { \grace { \small G32[ d] } }
-hdbla = { \grace { \small a32[ d] } }
-hdblb = { \grace { \small b32[ d] } }
-hdblc = { \grace { \small c32[ d] } }
-hdbld = { \grace { \small d32[ e] } }
-hdble = { \grace { \small e32[ f] } }
-hdblf = { \grace { \small f32[ g] } }
-hdblg = { \grace { \small g32[ f] } }
-hdblA = { \grace { \small A32[ g] } }
+hdblG = { \pgrace { \small G32[ d] } }
+hdbla = { \pgrace { \small a32[ d] } }
+hdblb = { \pgrace { \small b32[ d] } }
+hdblc = { \pgrace { \small c32[ d] } }
+hdbld = { \pgrace { \small d32[ e] } }
+hdble = { \pgrace { \small e32[ f] } }
+hdblf = { \pgrace { \small f32[ g] } }
+hdblg = { \pgrace { \small g32[ f] } }
+hdblA = { \pgrace { \small A32[ g] } }
 
 % Thumb doublings
-tdblG = { \grace { \small A32[ G d] } }
-tdbla = { \grace { \small A32[ a d] } }
-tdblb = { \grace { \small A32[ b d] } }
-tdblc = { \grace { \small A32[ c d] } }
-tdbld = { \grace { \small A32[ d e] } }
-tdble = { \grace { \small A32[ e f] } }
-tdblf = { \grace { \small A32[ f g] } }
-tdblg = { \grace { \small A32[ g f] } }
+tdblG = { \pgrace { \small A32[ G d] } }
+tdbla = { \pgrace { \small A32[ a d] } }
+tdblb = { \pgrace { \small A32[ b d] } }
+tdblc = { \pgrace { \small A32[ c d] } }
+tdbld = { \pgrace { \small A32[ d e] } }
+tdble = { \pgrace { \small A32[ e f] } }
+tdblf = { \pgrace { \small A32[ f g] } }
+tdblg = { \pgrace { \small A32[ g f] } }
 
 % Shakes
 % A few of these can't really be played and are here only for consistency.
-shakea = { \grace { \small g32[ a d a G] } }
-shakeb = { \grace { \small g32[ b d b G] } }
-shakec = { \grace { \small g32[ c d c G] } }
-shaked = { \grace { \small g32[ d e d G] } }
-shakee = { \grace { \small g32[ e f e a] } }
-shakef = { \grace { \small g32[ f g f a] } }
-shakeg = { \grace { \small A32[ f g a] } }
-shakeA = { \grace { \small A32[ g A a] } }
+shakea = { \pgrace { \small g32[ a e a G] } }
+shakeb = { \pgrace { \small g32[ b e b G] } }
+shakec = { \pgrace { \small g32[ c e c G] } }
+shaked = { \pgrace { \small g32[ d e d G] } }
+shakee = { \pgrace { \small g32[ e f e a] } }
+shakef = { \pgrace { \small g32[ f g f a] } }
+shakeg = { \pgrace { \small A32[ f g a] } }
+shakeA = { \pgrace { \small A32[ g A a] } }
 
 % Half shakes
-hshakea = { \grace { \small a32[ d a G] } }
-hshakeb = { \grace { \small b32[ d b G] } }
-hshakec = { \grace { \small c32[ d c G] } }
-hshaked = { \grace { \small d32[ e d G] } }
-hshakee = { \grace { \small e32[ f e a] } }
-hshakef = { \grace { \small f32[ g f a] } }
-hshakeg = { \grace { \small g32[ f g a] } }
-hshakeA = { \grace { \small A32[ g A a] } }
+hshakea = { \pgrace { \small a32[ d a G] } }
+hshakeb = { \pgrace { \small b32[ d b G] } }
+hshakec = { \pgrace { \small c32[ d c G] } }
+hshaked = { \pgrace { \small d32[ e d G] } }
+hshakee = { \pgrace { \small e32[ f e a] } }
+hshakef = { \pgrace { \small f32[ g f a] } }
+hshakeg = { \pgrace { \small g32[ f g a] } }
+hshakeA = { \pgrace { \small A32[ g A a] } }
 
 % Thumb shakes
-tshakea = { \grace { \small A32[ a d a G] } }
-tshakeb = { \grace { \small A32[ b d b G] } }
-tshakec = { \grace { \small A32[ c d c G] } }
-tshaked = { \grace { \small A32[ d e d G] } }
-tshakee = { \grace { \small A32[ e f e a] } }
-tshakef = { \grace { \small A32[ f g f a] } }
-tshakeg = { \grace { \small A32[ f g a] } }
-tshakeA = { \grace { \small A32[ g A a] } }
+tshakea = { \pgrace { \small A32[ a d a G] } }
+tshakeb = { \pgrace { \small A32[ b d b G] } }
+tshakec = { \pgrace { \small A32[ c d c G] } }
+tshaked = { \pgrace { \small A32[ d e d G] } }
+tshakee = { \pgrace { \small A32[ e f e a] } }
+tshakef = { \pgrace { \small A32[ f g f a] } }
+tshakeg = { \pgrace { \small A32[ f g a] } }
+tshakeA = { \pgrace { \small A32[ g A a] } }
 
 % Slurs
 % A few of these can't really be played and are here only for consistency.
-slura = { \grace { \small g32[ a G] } }
-slurb = { \grace { \small g32[ b G] } }
-slurc = { \grace { \small g32[ c G] } }
-slurd = { \grace { \small g32[ d G] } }
-slure = { \grace { \small g32[ e a] } }
-slurf = { \grace { \small g32[ f a] } }
-slurg = { \grace { \small A32[ f a] } }
-slurA = { \grace { \small f32[ a] } }
+slura  = { \pgrace { \small g32[ a G] } }
+slurb  = { \pgrace { \small g32[ b G] } }
+slurc  = { \pgrace { \small g32[ c G] } }
+slurd  = { \pgrace { \small g32[ d G] } }
+wslurd = { \pgrace { \small g32[ d c] } }
+slure  = { \pgrace { \small g32[ e a] } }
+slurf  = { \pgrace { \small g32[ f a] } }
+slurg  = { \pgrace { \small A32[ f a] } }
+slurA  = { \pgrace { \small f32[ a] } }
 
 % Half slurs
-hslura = { \grace { \small a32[ G] } }
-hslurb = { \grace { \small b32[ G] } }
-hslurc = { \grace { \small c32[ G] } }
-hslurd = { \grace { \small d32[ G] } }
-hslure = { \grace { \small e32[ a] } }
-hslurf = { \grace { \small f32[ a] } }
-hslurg = { \grace { \small g32[ a] } }
-hslurA = { \grace { \small A32[ a] } }
+hslura  = { \pgrace { \small a32[ G] } }
+hslurb  = { \pgrace { \small b32[ G] } }
+hslurc  = { \pgrace { \small c32[ G] } }
+hslurd  = { \pgrace { \small d32[ G] } }
+whslurd = { \pgrace { \small d32[ c] } }
+hslure  = { \pgrace { \small e32[ a] } }
+hslurf  = { \pgrace { \small f32[ a] } }
+hslurg  = { \pgrace { \small g32[ a] } }
+hslurA  = { \pgrace { \small A32[ a] } }
 
 % Thumb slurs
-tslura = { \grace { \small A32[ a G] } }
-tslurb = { \grace { \small A32[ b G] } }
-tslurc = { \grace { \small A32[ c G] } }
-tslurd = { \grace { \small A32[ d a] } }
-tslure = { \grace { \small A32[ e a] } }
-tslurf = { \grace { \small A32[ f a] } }
-tslurg = { \grace { \small A32[ f a] } }
-tslurA = { \grace { \small f32[ a] } }
+tslura  = { \pgrace { \small A32[ a G] } }
+tslurb  = { \pgrace { \small A32[ b G] } }
+tslurc  = { \pgrace { \small A32[ c G] } }
+tslurd  = { \pgrace { \small A32[ d G] } }
+wtslurd = { \pgrace { \small A32[ d c] } }
+tslure  = { \pgrace { \small A32[ e a] } }
+tslurf  = { \pgrace { \small A32[ f a] } }
+tslurg  = { \pgrace { \small A32[ f a] } }
+tslurA  = { \pgrace { \small f32[ a] } }
 
 % Catches
-catcha = { \grace { \small a32[ G d G] } }
-catchb = { \grace { \small b32[ G d G] } }
-catchc = { \grace { \small c32[ G d G] } }
-catchd = { \grace { \small d32[ G b G] } }
-catche = { \grace { \small e32[ G d G] } }
+catcha = { \pgrace { \small a32[ G d G] } }
+catchb = { \pgrace { \small b32[ G d G] } }
+catchc = { \pgrace { \small c32[ G d G] } }
+catchd = { \pgrace { \small d32[ G b G] } }
+catche = { \pgrace { \small e32[ G d G] } }
 
 % G-grace catches
-gcatcha = { \grace { \small g32[ a G d G] } }
-gcatchb = { \grace { \small g32[ b G d G] } }
-gcatchc = { \grace { \small g32[ c G d G] } }
-gcatchd = { \grace { \small g32[ d G b G] } }
-gcatche = { \grace { \small g32[ e G d G] } }
+gcatcha = { \pgrace { \small g32[ a G d G] } }
+gcatchb = { \pgrace { \small g32[ b G d G] } }
+gcatchc = { \pgrace { \small g32[ c G d G] } }
+gcatchd = { \pgrace { \small g32[ d G b G] } }
+gcatche = { \pgrace { \small g32[ e G d G] } }
 
 % Thumb catches
-tcatcha = { \grace { \small A32[ a G d G] } }
-tcatchb = { \grace { \small A32[ b G d G] } }
-tcatchc = { \grace { \small A32[ c G d G] } }
-tcatchd = { \grace { \small A32[ d G b G] } }
-tcatche = { \grace { \small A32[ e G d G] } }
+tcatcha = { \pgrace { \small A32[ a G d G] } }
+tcatchb = { \pgrace { \small A32[ b G d G] } }
+tcatchc = { \pgrace { \small A32[ c G d G] } }
+tcatchd = { \pgrace { \small A32[ d G b G] } }
+tcatche = { \pgrace { \small A32[ e G d G] } }
+
+% Triple strikes (BMW has them all, but I've never seen any but the A one used, so ...)
+tripleA = { \pgrace { \small A32[ g A g A g] } }
 
 % Throws
-thrwd     = { \grace { \small G32[ d c] } }
-Gthrwd    = { \grace { \small d32[ c] } }
-gripthrwd = { \grace { \small G32[ d G c] } }
-thrwf     = { \grace { \small f32[ e g e] } }
+thrwd     = { \pgrace { \small G32[ d c] } }
+Gthrwd    = { \pgrace { \small d32[ c] } }
+gripthrwd = { \pgrace { \small G32[ d G c] } }
+thrwe     = { \pgrace { \small e32[ a f a] } }
+wthrwe    = { \pgrace { \small e32[ d f d] } }
+thrwf     = { \pgrace { \small f32[ e g e] } }
 
 % Birls
-birl  = { \grace { \small a32[ G a G] } }
-wbirl = { \grace { \small G32[ a G] } }
-gbirl = { \grace { \small g32[ a G a G] } }
-dbirl = { \grace { \small d32[ a G a G] } }
+birl  = { \pgrace { \small a32[ G a G] } }
+wbirl = { \pgrace { \small G32[ a G] } }
+gbirl = { \pgrace { \small g32[ a G a G] } }
+dbirl = { \pgrace { \small d32[ a G a G] } }
 
 % Grips
-grip  = { \grace { \small G32[ d G] } }
-dgrip = { \grace { \small G32[ b G] } }
-egrip = { \grace { \small G32[ e G] } }
+grip  = { \pgrace { \small G32[ d G] } }
+dgrip = { \pgrace { \small G32[ b G] } }
+egrip = { \pgrace { \small G32[ e G] } }
 
 % Taorluaths
-taor    = { \grace { \small G32[ d G e] } }
-dtaor   = { \grace { \small G32[ b G e] } }
-Gtaor   = { \grace { \small d32[ G e] } }
-taoramb = { \grace { \small G32[ d G b e] } }
-taoramc = { \grace { \small G32[ d G c e] } }
-taoramd = { \grace { \small G32[ d G c d e] } }
+taor    = { \pgrace { \small G32[ d G e] } }
+taorjmd = { \pgrace { \small G32[ d a e] } }
+taorold = { \pgrace { \small G32[ d G a e] } }
+dtaor   = { \pgrace { \small G32[ b G e] } }
+Gtaor   = { \pgrace { \small d32[ G e] } }
+taoramb = { \pgrace { \small G32[ d G b e] } }
+taoramc = { \pgrace { \small G32[ d G c e] } }
+taoramd = { \pgrace { \small G32[ d G c d e] } }
 
 % Crunluaths
-crun    = { \grace { \small G32[ d G e a f a ] } }
-dcrun   = { \grace { \small G32[ b G e a f a ] } }
-Gcrun   = { \grace { \small d32[ G e G f a ] } }
-crunamb = { \grace { \small G32[ d G b e b f b ] } }
-crunamc = { \grace { \small G32[ d G c e c f c ] } }
-crunamd = { \grace { \small G32[ d G c d e d f d ] } }
+crun    = { \pgrace { \small G32[ d G e a f a ] } }
+dcrun   = { \pgrace { \small G32[ b G e a f a ] } }
+Gcrun   = { \pgrace { \small d32[ G e G f a ] } }
+crunamb = { \pgrace { \small G32[ d G b e b f b ] } }
+crunamc = { \pgrace { \small G32[ d G c e c f c ] } }
+crunamd = { \pgrace { \small G32[ d G c d e d f d ] } }
+crunambfosg = { \pgrace { \small e32[ b f b ] } }
+crunamcfosg = { \pgrace { \small e32[ c f c ] } }
+crunamdfosg = { \pgrace { \small e32[ d f d ] } }
 
 % Special piobaireachd notations
-grGcad  = { \grace { \small G16 } }
-gracad  = { \grace { \small a16 } }
-cad     = { \grace { \small g32[ e8 d32] } }
-hcad    = { \grace { \small g32[ e8] } }
-dre     = { \grace { \small e32[ a f a] } }
+grGcad   = { \pgrace { \small G16 } }
+gracad   = { \pgrace { \small a16 } }
+cad      = { \pgrace { \small \stemspace #'(0 . 0.5) g32[ e8 d32] } }
+hcad     = { \pgrace { \small \stemspace #'(0 . 0.5) g32[ e8] } }
+tcad     = { \pgrace { \small e8[ d32] } }
+thcad    = { \pgrace { \small e8 } }
+% This is the same as thrwe
+dre      = { \pgrace { \small e32[ a f a] } }
 % This is the same as thrwf
-dare    = { \grace { \small f32[ e g e] } }
-bari    = { \grace { \small e32[ G f G] } }
-dari    = { \grace { \small f32[ e g e f e] } }
-pthrwd  = { \grace { \small G16[ d32 c] } }
-darodo  = { \grace { \small G32[ d G c G] } }
-Gdarodo = { \grace { \small d32[ G c G] } }
+dare     = { \pgrace { \small f32[ e g e] } }
+bari     = { \pgrace { \small e32[ G f G] } }
+dari     = { \pgrace { \small f32[ e g e f e] } }
+pthrwd   = { \pgrace { \small G16[ d32 c] } }
+darodo   = { \pgrace { \small G32[ d G c G] } }
+Gdarodo  = { \pgrace { \small d32[ G c G] } }
+pdarodo  = { \pgrace { \small G16[ d32 G c G16] } }
+pGdarodo = { \pgrace { \small d32[ G c G16] } }
+% Weird stuff from Joseph MacDonald’s book
+fifteenthcutting     = { \pgrace { \small G32[ d a e a f a e a d] } }
+fifteenthcuttingG    = { \pgrace { \small G32[ d a e G f G e G d] } }
+Gfifteenthcutting    = { \pgrace { \small d32[ a e a f a e a d] } }
+GfifteenthcuttingG   = { \pgrace { \small d32[ a e G f G e G d] } }
+seventeenthcutting   = { \pgrace { \small G32[ d a e a f a e a d a c] } }
+seventeenthcuttingG  = { \pgrace { \small G32[ d a e G f G e G d G c] } }
+Gseventeenthcutting  = { \pgrace { \small d32[ a e a f a e a d a c] } }
+GseventeenthcuttingG = { \pgrace { \small d32[ a e G f G e G d G c] } }
+barluadh   = { \pgrace { \small G32[ d a e a f a e a d a c a b a e a f a] } }
+barluadhG  = { \pgrace { \small G32[ d a e G f G e G d G c G b G e G f G] } }
+Gbarluadh  = { \pgrace { \small d32[ a e a f a e a d a c a b a e a f a] } }
+GbarluadhG = { \pgrace { \small d32[ a e G f G e G d G c G b G e G f G] } }
 % Non-gracenote piobaireachd markup.
 trebling = \markup {
-  \override #'(baseline-skip . 0.3)
+  \override #'(baseline-skip . 0.4)
   \column {
     \musicglyph #"scripts.tenuto"
     \musicglyph #"scripts.tenuto"
@@ -274,11 +313,22 @@ trebling = \markup {
 }
 % Abbreviated notation common in piobaireachd scores.
 % TODO: Make sure these are put on a fixed Y-position.
-txtaor = \markup { "T" }
-txcrun = \markup { "C" }
-txtaorcrun = \markup { \column { "T" "C" } }
-% TODO: These characters should be shown upside down.
-% Use a postscript markup command for this.
-txtaoram = \markup { "T" }
-txcrunam = \markup { "C" }
-txtaorcrunam = \markup { \column { "T" "C" } }
+txtaor = \markup { \center-align "T" }
+txcrun = \markup { \center-align "C" }
+txtaorcrun = \markup {
+  \override #'(baseline-skip . 1.8)
+  \column {
+    \center-align "T"
+    \center-align "C"
+  }
+}
+% Turn these upside down, as in the Kilberry book.
+txtaoram = \markup { \center-align \scale #'(-1 . -1) "T" }
+txcrunam = \markup { \center-align \scale #'(-1 . -1) "C" }
+txtaorcrunam = \markup {
+  \override #'(baseline-skip . 1.8)
+  \column {
+    \center-align \scale #'(-1 . -1) "T"
+    \center-align \scale #'(-1 . -1) "C"
+  }
+}

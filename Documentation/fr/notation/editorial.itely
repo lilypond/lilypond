@@ -607,8 +607,8 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Quadrillage temporel
 @translationof Grid lines
 
-@cindex cadrillage temporel
-@cindex temporel, cadrillage
+@cindex quadrillage temporel
+@cindex temporel, quadrillage
 
 @funindex Grid_point_engraver
 @funindex Grid_line_span_engraver
@@ -618,7 +618,7 @@ Vous pouvez tracer des lignes entre les portées, synchronisées avec
 les notes.
 
 LilyPond a recours à deux graveurs distincts afin d'afficher le
-cadrillage@tie{}:  le @code{Grid_point_engraver} se charge de
+quadrillage@tie{}:  le @code{Grid_point_engraver} se charge de
 déterminer l'envergure du crochet, alors que le
 @code{Grid_line_span_engraver} se consacrera au tracé des lignes.
 Les lignes sont par défaut centrées horizontalement sous les notes et

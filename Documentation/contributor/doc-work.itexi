@@ -441,7 +441,7 @@ Beam, slur and tie marks should begin immediately after the first
 note with beam and phrase marks ending immediately after the last.
 
 @example
-a8(\ ais16[ b cis( d] b) cis4~ b' cis,\)
+a8\( ais16[ b cis( d] b) cis4~ b' cis,\)
 @end example
 
 @item

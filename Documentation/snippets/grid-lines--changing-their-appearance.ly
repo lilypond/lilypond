@@ -6,7 +6,7 @@
 \header {
   lsrtags = "editorial-annotations"
 
-%% Translation of GIT committish: 5160eccb26cee0bfd802d844233e4a8d795a1e94
+%% Translation of GIT committish: a874fda3641c9e02f61be5c41b215b8304b8ed00
   texidoces = "
 Se puede cambiar el aspecto de las líneas de rejilla
 sobreescribiendo algunas de sus propiedades.
@@ -25,11 +25,11 @@ geändert werden.
 
 %% Translation of GIT committish: 9ccf7f0f5e52e074f3b7852416ad5b78718395c8
   texidocfr = "
-Modifier certaines des propriétés du cadrillage temporel aura pour effet
+Modifier certaines des propriétés du quadrillage temporel aura pour effet
 d'en changer l'apparence.
 
 "
-  doctitlefr = "Apparence du cadrillage temporel"
+  doctitlefr = "Apparence du quadrillage temporel"
 
 
   texidoc = "

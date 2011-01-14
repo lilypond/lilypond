@@ -35,11 +35,6 @@
 
 @itemize
 
-@item Mats Bengtsson:
-@email{mats.bengtsson@@ee.kth.se},
-@uref{http://www.s3.kth.se/~mabe/},
-Support guru
-
 @item Trevor Daniels:
 @email{t.daniels@@treda.co.uk},
 Assistant documentation editor
@@ -47,7 +42,7 @@ Assistant documentation editor
 @item Reinhold Kainhofer:
 @email{reinhold@@kainhofer.com},
 @uref{http://reinhold.kainhofer.com},
-Music2xml wrangler, bug squasher
+Core developer, Music2xml wrangler
 
 @item David Kastrup:
 @email{dak@@gnu.org}
@@ -91,9 +86,6 @@ Assistant documentation editor, Code cleanup
 @item Neil Puttock:
 Core developer
 
-@item Nicolas Sceaux:
-Core developer, Schemer extraordinaire
-
 @item Carl Sorensen:
 @email{c_sorensen@@byu.edu},
 Core developer, Frog meister
@@ -115,6 +107,11 @@ LSR editor and Bug squad member
 
 @c use colons not commas for @item entries.
 
+@item Mats Bengtsson:
+@email{mats.bengtsson@@ee.kth.se},
+@uref{http://www.s3.kth.se/~mabe/},
+Support guru
+
 @item Pedro Kroeger:
 Build meister
 
@@ -134,6 +131,9 @@ Ancient notation
 @item Erik Sandberg:
 Bug meister
 
+@item Nicolas Sceaux:
+Core developer, Schemer extraordinaire
+
 @end itemize
 @end macro
 
@@ -144,18 +144,30 @@ Bug meister
 
 @c use commas not colons
 
+Sven Axelsson,
 Pál Benkő,
 Frédéric Bron,
 Hajo Dezelski,
 Richard Gay,
+Keith OHara,
 Andrew Hawryluk,
+Christian Hitz,
+Marc Hohl,
+Henning Hraban Ramm,
 Ian Hulin,
 Michael Käppler,
 Marek Klein,
 Kieren MacMillan,
 Thomas Morgan,
+Benjamin Peterson,
+Nathan Reed,
+Julien Rioux,
 Boris Shingarov,
-Andrew Wilson
+Patrick Schmidt,
+Mike Solomon,
+Owen Tuz,
+Andrew Wilson,
+Rodolfo Zitellini
 
 @c no comma for last entry
 
@@ -167,7 +179,10 @@ Andrew Wilson
 
 @c use commas not colons
 
+Keith OHara,
 Marc Hohl,
+Alexander Kobel,
+Mike Solomon,
 Carsten Steger
 
 @c no comma for last entry
@@ -181,8 +196,11 @@ Carsten Steger
 @c use commas not colons
 
 Colin Campbell,
+Andrew Hawryluk,
 James Lowe,
+Mike Moral,
 Ralph Palmer,
+David Pounder,
 Patrick Schmidt
 
 @c no comma for last entry
@@ -192,12 +210,13 @@ Patrick Schmidt
 
 @macro bugsquadCurrent
 
-Dmytro O. Redchuk,
 James E. Bailey,
-Ralph Palmer,
+Colin Campbell,
 Phil Holmes,
 Urs Liska,
-Kieren MacMillan
+Ralph Palmer,
+Kieren MacMillan,
+Dmytro O. Redchuk
 
 @c no comma for last entry
 
@@ -220,10 +239,13 @@ Christian Hitz
 
 @c use commas not colons
 
+Federico Bruni,
 Dénes Harmath,
 Jean-Charles Malahieude,
 @c @email{lolyfan@@wanadoo.fr},
+Tineke de Munnik,
 Till Paala,
+Ralf Wildenhues,
 Yoshiki Sawada
 
 @c no comma for last entry
