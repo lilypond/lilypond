@@ -1031,7 +1031,6 @@
 			(right-edge . (extra-space . 0.5))
 			(first-note . (fixed-space . 2.5))))
 	(stencil . ,ly:key-signature-interface::print)
-	(extra-spacing-height . (-0.5 . 0.5))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
