@@ -3131,7 +3131,7 @@ sind.
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with @{
         \override VerticalAxisGroup
-          #'staff-staff-spacing = #'stretchability . 5
+          #'staff-staff-spacing #'stretchability = 5
       @} <<
         \keyTime
         \clef "bass"
@@ -3197,7 +3197,7 @@ PedalOrganMusic = \relative c {
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with {
         \override VerticalAxisGroup
-          #'staff-staff-spacing = #'stretchability . 5
+          #'staff-staff-spacing #'stretchability = 5
       } <<
         \keyTime
         \clef "bass"
