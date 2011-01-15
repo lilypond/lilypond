@@ -8,6 +8,7 @@ paper column is very wide."
 
 \version "2.12.0"
 <<
+  \override Score.PaperColumn #'keep-inside-line = ##f
   \new Staff \relative c' {
     \key aes \major
     \context Voice = "1" { 

@@ -3422,7 +3422,6 @@ lhMusic = \relative c' {
 * Using variables for tweaks::
 * Style sheets::
 * Other sources of information::
-* Avoiding tweaks with slower processing::
 * Advanced tweaks with Scheme::
 @end menu
 
@@ -4105,40 +4104,6 @@ interest are:
   @tab Default settings for articulations
 @end multitable
 
-
-
-@node Avoiding tweaks with slower processing
-@subsection Avoiding tweaks with slower processing
-
-LilyPond can perform extra checks while it processes input files.
-These checks will take extra time to perform, but fewer manual tweaks
-may be required to obtain an acceptable result.  If a text script
-or part of the lyrics extends over the margins these checks will
-compress that line of the score just enough to fit within the
-margins.
-
-To be effective under all circumstances these checks must be enabled
-by placing the overrides using @code{\context} within a @code{\layout}
-block, rather than in-line in music, as follows:
-
-@example
-\score @{
-  @{ @dots{}notes@dots{} @}
-  \layout @{
-    \context @{
-      \Score
-      % Makes sure text scripts and lyrics are within the paper margins
-      \override PaperColumn #'keep-inside-line = ##t
-      \override NonMusicalPaperColumn #'keep-inside-line = ##t
-    @}
-  @}
-@}
-@end example
-
-However, @code{keep-inside-line} is expensive and the recommendation
-is to not enable it, to allow for faster processing, until creating
-a final version.  This way you do not need to manually add @code{\break}
-commands to avoid text running off the right-hand side of the page.
 
 @node Advanced tweaks with Scheme
 @subsection Advanced tweaks with Scheme

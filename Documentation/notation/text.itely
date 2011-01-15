@@ -123,12 +123,11 @@ Internals Reference:
 
 @knownissues
 Checking to make sure that text scripts and lyrics are within the
-margins is a relatively large computational task.  To speed up
-processing, LilyPond does not perform such calculations by
-default; to enable it, use
+margins requires additonal calculations. In cases where slightly faster
+performance is desired, use
 
 @example
-\override Score.PaperColumn #'keep-inside-line = ##t
+\override Score.PaperColumn #'keep-inside-line = ##f
 @end example
 
 

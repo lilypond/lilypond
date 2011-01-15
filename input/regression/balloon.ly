@@ -9,10 +9,19 @@ with lines and explanatory text added."
 
 \layout{ ragged-right = ##t }
 
-\new Voice \with {\consists "Balloon_engraver" }
-{
-  \relative c'  {
-    \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-    <c-\balloonText #'(-2 . -2) \markup { \simple #"hoi" }  >8
+\score{
+  \new Voice \with {\consists "Balloon_engraver" }
+  {
+    \relative c'  {
+      \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
+      <c-\balloonText #'(-2 . -2) \markup { \simple #"hoi" }  >8
+    }
+  }
+
+  \layout {
+    \context {
+      \Score
+      \override PaperColumn #'keep-inside-line = ##f
+    }
   }
 }

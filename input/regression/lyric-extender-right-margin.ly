@@ -6,7 +6,6 @@
 \score{
   {
     \relative c' {
-      \override Score.PaperColumn #'keep-inside-line = ##t
       c4 d e f ~ | \break
       f4 e d c |
     }

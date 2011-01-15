@@ -14,14 +14,6 @@
   doctitle = "headword"
 }
 
-\layout {
-  \context {
-    \Score
-    \override PaperColumn #'keep-inside-line = ##t
-    \override NonMusicalPaperColumn #'keep-inside-line = ##t
-  }
-}
-
 \include "gregorian.ly"
 
 \score {

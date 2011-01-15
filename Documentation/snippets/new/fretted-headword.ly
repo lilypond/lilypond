@@ -22,8 +22,6 @@
   \context {
     \Score
     \remove "Bar_number_engraver"
-    \override PaperColumn #'keep-inside-line = ##t
-    \override NonMusicalPaperColumn #'keep-inside-line = ##t
   }
 }
 

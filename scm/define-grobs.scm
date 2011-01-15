@@ -1326,6 +1326,7 @@
 	(skyline-vertical-padding . 0.6)
 	;;		      (stencil . ,ly:paper-column::print)
 
+	(keep-inside-line . #t)
 	(line-break-permission . allow)
 	(non-musical . #t)
 	(page-break-permission . allow)
@@ -1463,6 +1464,7 @@
 	(axes . (,X))
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
+	(keep-inside-line . #t)
 	;; (stencil . ,ly:paper-column::print)
 	(X-extent . ,ly:axis-group-interface::width)
 

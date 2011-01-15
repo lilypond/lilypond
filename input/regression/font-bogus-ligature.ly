@@ -11,6 +11,15 @@ This may happen with incorrect font versions.
   ragged-right = ##T
 }
 
-{
-  c4^"November WHITMAN"
+\score{
+  {
+    c4^"November WHITMAN"
+  }
+
+  \layout {
+    \context {
+      \Score
+      \override PaperColumn #'keep-inside-line = ##f
+    }
+  }
 }
