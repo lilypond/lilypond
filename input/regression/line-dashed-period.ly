@@ -5,7 +5,7 @@ starts and ends on a full dash. "
 
 }
 
-\version "2.12.0"
+\version "2.13.45"
 
 \layout {
   indent = 0.0\mm
@@ -15,7 +15,6 @@ starts and ends on a full dash. "
 \relative <<
   \new Staff {
     \crescTextCresc
-    \set crescendoSpanner = #'line
     c1_\< c c1\!
   }
   \new Staff {
