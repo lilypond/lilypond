@@ -1879,11 +1879,12 @@ individually, and the second completely re-defines the property:
 
 @example
 \new Staff \with @{
-  \override VerticalAxisGroup #'staff-staff-spacing #'basic-distance = #10
+  \override VerticalAxisGroup #'default-staff-staff-spacing
+       #'basic-distance = #10
 @} @{ @dots{} @}
 
 \new Staff \with @{
-  \override VerticalAxisGroup #'staff-staff-spacing =
+  \override VerticalAxisGroup #'default-staff-staff-spacing =
     #'((basic-distance . 10)
        (minimum-distance . 9)
        (padding . 1)
@@ -1898,7 +1899,8 @@ To change any spacing settings globally, put them in the
 \layout @{
   \context @{
     \Staff
-    \override VerticalAxisGroup #'staff-staff-spacing #'basic-distance = #10
+    \override VerticalAxisGroup #'default-staff-staff-spacing
+         #'basic-distance = #10
   @}
 @}
 @end example
