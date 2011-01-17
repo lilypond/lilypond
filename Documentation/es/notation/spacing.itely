@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
+    Translation of GIT committish: 36dd3392bcc0462f7d8af5f5a8bf24c544e43cda
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -125,10 +125,12 @@ Para fijarlo en @code{0.5} pulgadas, utilice el sufijo de unidades
 @}
 @end example
 
-Los sufijos de unidades que esan disponibles son @code{\mm},
-@code{\cm}, @code{\in} y @code{\pt}.  Por claridad, al usar
-milímetros, se suele escribir el sufijo @code{\mm} aunque no es
-necesario técnicamente.
+Los sufijos de unidades que están disponibles son @code{\mm},
+@code{\cm}, @code{\in} y @code{\pt}.  Estas unidades son valores
+simples para convertir a partir de milímetros; están definidos en
+@file{ly/paper-defaults-init.ly}.  Por claridad, al usar milímetros,
+se suele escribir el sufijo @code{\mm} aunque no es necesario
+técnicamente.
 
 También es posible definir valores de @code{\paper} utilizando Scheme.
 El equivalente de Scheme del ejemplo anterior es:
@@ -141,7 +143,12 @@ El equivalente de Scheme del ejemplo anterior es:
 
 @seealso
 Referencia de la notación:
-@ref{Encabezamientos pies y títulos personalizados}.
+@ref{Tamaño del papel y escalado automático},
+@ref{Encabezamientos pies y títulos personalizados},
+@ref{El bloque \layout}.
+
+Archivos instalados:
+@file{ly/paper-defaults-init.ly}.
 
 
 @node Tamaño del papel y escalado automático
@@ -224,6 +231,9 @@ establece en consonancia una mayor longitud de las líneas.
 @end example
 
 @seealso
+Referencia de la notación:
+@ref{Escalado automático al tamaño del papel}.
+
 Archivos instalados:
 @file{scm/paper.scm}.
 
@@ -238,18 +248,22 @@ de algunas variables de @code{\paper} se escalan automáticamente al
 nuevo tamaño.  Para sortear el escalado automático para una variable
 determinada, fije el valor de la variable después de establecer el
 tamaño del papel.  Observe que el escalado automático no se activa
-mediante el ajuste de @code{paper-height} o de @code{paper-width},
+mediante el ajuste de las variables
+@code{paper-height} o de @code{paper-width},
 incluso aunque @code{paper-width} puede influir sobre otros valores
 (esto es distinto al escalado y se estudia más abajo).  Las funciones
 @code{set-default-paper-size} y @code{set-paper-size} se describen en
 @ref{Fijar el tamaño del papel}.
 
 Las dimensiones verticales afectadas por el escalado automático son
-@code{top-margin} y @code{bottom-margin}.  Las dimensiones
+@code{top-margin} y @code{bottom-margin}
+(véase @ref{Variables de espaciado de \paper verticales fijas}).
+Las dimensiones
 horizontales afectadas por el escalado automático son
 @code{left-margin}, @code{right-margin}, @code{inner-margin},
 @code{outer-margin}, @code{binding-offset}, @code{indent} y
-@code{short-indent}.
+@code{short-indent} (véase
+@ref{Variables de espaciado de \paper horizontales}).
 
 Los valores predeterminados para estas dimensiones están fijados en el
 archivo @file{ly/paper-defaults-init.ly}, usando variables internas
@@ -260,6 +274,10 @@ Estos son los valores que resultan del tamaño predeterminado del papel
 es @code{210\mm}.
 
 @seealso
+Referencia de la notación:
+@ref{Variables de espaciado de \paper verticales fijas},
+@ref{Variables de espaciado de \paper horizontales}.
+
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly},
 @file{scm/paper.scm}.
@@ -319,6 +337,9 @@ un libro creadas con bloques @code{\bookpart}.
 @end table
 
 @seealso
+Referencia de la notación:
+@ref{Escalado automático al tamaño del papel}.
+
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
 
@@ -370,14 +391,7 @@ una lista-A (lista asociativa) que contiene cuatro @emph{claves}:
 @itemize
 
 @item
-@code{padding} (relleno):
-mínimo espacio vertical vacío necesario entre dos elementos, medido en
-espacios de pentagrama.  Se puede pensar como la altura mínima de un
-rectángulo invisible que abarca desde el punto más a la izquierda
-hasta el situado más a la derecha de los elementos combinados.
-
-@item
-@code{space} (espacio):
+@code{basic-distance} (distancia básica):
 distancia vertical, medida en espacios de pentagrama, entre los
 @emph{puntos de referencia} de los dos elementos, cuando no resulte
 ninguna colisión, y no se produzca ninguna ampliación o compresión.
@@ -385,7 +399,7 @@ El punto de referencia de un elemento de marcado (de título o del
 nivel jerárquico superior) es su punto más alto, y el punto de
 referencia de un sistema es el centro vertical del @code{StaffSymbol}
 más cercano (incluso si se trata de una línea que no es un pentagrama,
-como un contexto @code{Lyrics}).  Los valores de @code{space} menores
+como un contexto @code{Lyrics}).  Los valores de @code{distancia básica} menores
 de @code{padding} o de @code{minimum-distance} no son significativos,
 porque la distancia resultante nunca será menor de @code{padding} o de
 @code{minimum-distance}.
@@ -399,6 +413,14 @@ cuando se produce una compresión.  Los valores de
 significativos, porque la distancia resultante nunca será menor de
 @code{padding}.
 
+@c TODO: explain skylines somewhere and xref to it from here.
+
+@item
+@code{padding} (relleno):
+mínimo espacio vertical vacío necesario entre los rectángulos
+circundantes (o las líneas de horizonte) de los dos elementos,
+medido en espacios de pentagrama.
+
 @item
 @code{stretchability} (ampliabilidad):
 medida sin unidades de la propensión relativa de esta dimensión a
@@ -411,10 +433,10 @@ dimensiones.  Por ejemplo, si una dimensión tiene el doble de
 Los valores deben ser no negativos y finitos.  El valor @code{+inf.0}
 desencadena un error de programación y se ignora, pero se puede usar
 @code{1.0e7} para un muelle casi infinitamente ampliable.  Si no se
-fija un valor, el valor predeterminado se establece a @code{space}.
+fija un valor, el valor predeterminado se establece a @code{basic-distance}.
 Observe que la propensión de la dimensión a @emph{comprimirse} no se
 puede establecer directamente por el usuario y es igual a
-(@code{space}@tie{}@minus{}@tie{}@code{minimum-distance}).
+(@code{basic-distance}@tie{}@minus{}@tie{}@code{minimum-distance}).
 
 @end itemize
 
@@ -424,7 +446,7 @@ resultante es la mayor de:
 @itemize
 
 @item
-@code{space},
+@code{basic-distance},
 
 @item
 @code{minimum-distance}, y
@@ -445,9 +467,9 @@ segunda redefine la variable completamente:
 \paper @{
   system-system-spacing #'basic-distance = #8
   score-system-spacing =
-    #'((padding . 1)
-       (basic-distance . 12)
+    #'((basic-distance . 12)
        (minimum-distance . 6)
+       (padding . 1)
        (stretchability . 12))
 @}
 @end example
@@ -587,6 +609,7 @@ cuando está sin fijar.  Si @code{line-width} está fijado, y tanto
 @code{left-margin} como @code{right-margin} están sin fijar, entonces
 los márgenes se actualizan para centrar los sistemas automáticamente
 sobre la página.  Véase también @code{check-consistency}.
+Esta variable también se puede fijar dentro de un bloque @code{\layout}.
 
 @item left-margin
 @funindex left-margin
@@ -654,6 +677,9 @@ dentro de un bloque @code{\layout}.
 @end table
 
 @seealso
+Referencia de la notación:
+@ref{Escalado automático al tamaño del papel}.
+
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
 
@@ -707,6 +733,9 @@ valor verdadero.
 @end table
 
 @seealso
+Referencia de la notación:
+@ref{Escalado automático al tamaño del papel}.
+
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
 
@@ -748,6 +777,9 @@ también se puede ajustar dentro de un bloque @code{\layout}.
 @end table
 
 @seealso
+Referencia de la notación:
+@ref{Escalado automático al tamaño del papel}.
+
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
 
@@ -918,6 +950,11 @@ Si está fijado a falso, no se imprimen los números de página.
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
 
+@knownissues
+Los números de página impares siempre están a la derecha.
+Si quiere que la música comience en la página 1 debe haber
+una página en blanco en el reverso de la página de cubierta
+de manera que la página 1 esté en el lado derecho.
 
 @node Variables de \paper diversas
 @unnumberedsubsubsec Variables de @code{\paper} diversas
@@ -1028,25 +1065,33 @@ modificaciones de contexto se estudian en un capítulo distinto; véase
 son:
 
 @itemize
-@item @code{ragged-right}
-@item @code{ragged-last}
-@item @code{indent}
-@item @code{short-indent}
-@item @code{system-count}
+
+@item
+@code{line-width}, @code{ragged-right} y @code{ragged-last}
+(véase @ref{Variables de \paper para la anchura y los márgenes})
+
+@item
+@code{indent} y @code{short-indent}
+(véase @ref{Variables de \paper para desplazamientos y sangrados})
+
+@item
+@code{system-count}
+(véase @ref{Variables de \paper para los saltos de línea})
+
 @end itemize
 
 He aquí un ejemplo de un bloque @code{\layout}:
 
 @example
 \layout @{
-  indent = 2.0\cm
+  indent = 2\cm
   \context @{
     \StaffGroup
-    \override StaffGrouper #'staff-staff-spacing #space = #8
+    \override StaffGrouper #'staff-staff-spacing #'basic-distance = #8
   @}
   \context @{
     \Voice
-    \override TextScript #'padding = #1.0
+    \override TextScript #'padding = #1
     \override Glissando #'thickness = #3
   @}
 @}
@@ -1088,9 +1133,9 @@ Para establecer el tamaño del pentagrama de forma individual para cada
 partitura, use
 @example
 \score@{
-  ...
-  \layout@{
-  #(layout-set-staff-size 15)
+  @dots{}
+  \layout @{
+    #(layout-set-staff-size 15)
   @}
 @}
 @end example
@@ -1200,17 +1245,60 @@ del pentagrama.
 Normalmente los saltos de línea se determinan automáticamente. Se
 eligen de forma que las líneas no aparezcan demasiado apretadas ni
 demasiado sueltas, y que las líneas consecutivas tengan una densidad
-similar.  Ocasionalmente podemos querer sobreescribir los saltos
-automáticos; podemos hacerlo especificando @code{\break}. Esto fuerza
-un salto de línea en ese punto.  Sin embargo, los saltos de línea sólo
-pueden suceder al final de los compases @q{completos}, es decir, donde
-no queda ninguna nota o grupo especial @q{colgando} por encima de la
-línea divisoria.  Si queremos poner un salto de línea donde no hay
-línea divisoria, podemos forzar una barra de compás invisible
-introduciendo @code{\bar ""}, aunque de nuevo no deben quedar notas
-colgando en ninguno de los pentagramas en este punto, o se ignorarán.
+similar.
 
-La instrucción opuesta, @code{\noBreak}, prohíbe un salto de línea en
+Para forzar manualmente un salto de línea sobre la línea divisoria,
+utilice la instrucción @code{\break}:
+
+@lilypond[quote,ragged-right,relative=2,verbatim]
+c4 c c c | \break
+c4 c c c |
+@end lilypond
+
+De forma predeterminada se ignora cualquier @code{\break} en la mitad
+de un compás, y se imprime una advertencia.  Para forzar un salto de
+línea en medio de un compás, añada una barra de compás invisible con
+@w{@samp{\bar ""}}:
+
+@lilypond[quote,ragged-right,relative=2,verbatim]
+c4 c c
+\bar "" \break
+c |
+c4 c c c |
+@end lilypond
+
+También se ignora un @code{\break} que se produce en la línea
+divisoria si el compás anterior termina en medio de una nota, como
+cuando un grupo de valoración especial inicia y termina en compases
+diferentes.  Para permitir que las instrucciones @code{\break}
+funcionen en estas situaciones, elimine el grabador
+@code{Forbid_line_break_engraver} del contexto @code{Voice}.  Observe
+que los saltos de línea forzados manualmente se deben añadir en
+paralelo con la música:
+
+@lilypond[quote,ragged-right,verbatim]
+\new Voice \with {
+  \remove Forbid_line_break_engraver
+} \relative c'' {
+  <<
+    { c2. \times 2/3 { c4 c c } c2. | }
+    { s1 | \break s1 | }
+  >>
+}
+@end lilypond
+
+De forma similar, los saltos de línea están normalmente prohibidos
+cuando hay barras de corchea que cruzan la línea divisoria.  Se puede
+cambiar este comportamiento fijando @code{\override Beam #'breakable =
+##t}:
+
+@lilypond[quote,ragged-right,relative=2,verbatim]
+\override Beam #'breakable = ##t
+c2. c8[ c | \break
+c8 c] c2. |
+@end lilypond
+
+La instrucción @code{\noBreak}, prohíbe un salto de línea en
 la barra divisoria en que se inserta.
 
 Los ajustes más básicos que influyen sobre el espaciado de las líneas
@@ -1231,9 +1319,9 @@ afecta sólo a la última línea de la pieza.
 
 @example
 \layout @{
-indent = #0
-line-width = #150
-ragged-last = ##t
+  indent = 0\mm
+  line-width = 150\mm
+  ragged-last = ##t
 @}
 @end example
 
@@ -1249,10 +1337,12 @@ siguientes (suponiendo un compás de 4/4) se dividan cada cuatro
 compases, y sólo en dichos lugares:
 
 @example
-<< \repeat unfold 7 @{
-         s1 \noBreak s1 \noBreak
-         s1 \noBreak s1 \break @}
-   @emph{la música real}
+<<
+  \repeat unfold 7 @{
+    s1 \noBreak s1 \noBreak
+    s1 \noBreak s1 \break
+  @}
+  @{ @var{la música real@dots{}} @}
 >>
 @end example
 
@@ -1273,43 +1363,14 @@ novedosa y difícil.  Hay más detalles disponibles en @rlsr{Spacing}.
 
 
 @seealso
+Referencia de la notación:
+@ref{Variables de \paper para los saltos de línea}.
+
 Fragmentos de código:
 @rlsr{Spacing}.
 
 Referencia de funcionamiento interno:
 @rinternals{LineBreakEvent}.
-
-
-@knownissues
-
-Sólo pueden ocurrir saltos de línea si hay una @q{buena} línea
-divisoria.  Una nota colgando de una línea divisoria no es adecuada,
-como
-
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4 c2 << c2 {s4 \break } >>  % this does nothing
-c2 c4 |           % a break here would work
-c4 c2 c4 ~ \break % as does this break
-c4 c2 c4
-@end lilypond
-
-Esto se puede evitar eliminando el grabador
-@code{Forbid_line_break_engraver}.  Observe que los saltos de línea
-forzados manualmente se tienen que añadir en paralelo con la música.
-
-@lilypond[quote,ragged-right,verbatim]
-\new Voice \with {
-  \remove Forbid_line_break_engraver
-} {
-  c4 c2 << c2 {s4 \break } >>  % now the break is allowed
-  c2 c4
-}
-@end lilypond
-
-De forma parecida, los saltos de línea están prohibidos normalmente
-cuando las barras cruzan a las líneas divisorias.  Este comportamiento
-se puede modificar con el establecimiento de @code{\override Beam
-#'breakable = ##t}.
 
 
 @node Saltos de página
@@ -1333,9 +1394,8 @@ tienen el mismo efecto sobre el espaciado vertical:
 @code{ragged-bottom} y @code{ragged-last-bottom}.  Si están
 establecidos a @code{##t} los sistemas de todas las páginas o sólo de
 la última página, respectivamente, no se verán justificados
-verticalmente.
-
-Para ver más detalles, consulte @ref{Espaciado vertical}.
+verticalmente.  Véase
+@ref{Variables de espaciado de \paper verticales fijas}.
 
 Los saltos de página se calculan por medio de la función
 @code{page-breaking}.  LilyPond ofrece tres algoritmos para el cómputo
@@ -1345,8 +1405,8 @@ predeterminado es @code{ly:optimal-breaking}, pero el valor se puede
 cambiar en el bloque @code{\paper}:
 
 @example
-\paper@{
-  #(define page-breaking ly:page-turn-breaking)
+\paper @{
+  page-breaking = #ly:page-turn-breaking
 @}
 @end example
 
@@ -1369,7 +1429,7 @@ partes del libro.
   \paper @{
      %% En una parte que consiste en texto principalmente,
      %% puede ser preferible ly:minimal-breaking
-     #(define page-breaking ly:minimal-breaking)
+     page-breaking = #ly:minimal-breaking
   @}
   \markup @{ @dots{} @}
   @dots{}
@@ -1395,6 +1455,9 @@ partes del libro.
 
 
 @seealso
+Referencia de la notación:
+@ref{Variables de \paper para los saltos de página}.
+
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -1531,7 +1594,7 @@ de memoria, o con una gran cantidad de textos.  Se habilita utilizando:
 
 @example
 \paper @{
-  #(define page-breaking ly:minimal-breaking)
+  page-breaking = #ly:minimal-breaking
 @}
 @end example
 
@@ -1567,17 +1630,19 @@ las instrucciones @code{\pageBreak} explícitas y en ningún otro lugar.
   ragged-bottom = ##t
 }
 
+music = \relative c'' { c8 c c c }
+
 \score {
   \new Staff {
-    \repeat unfold 2 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 4 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 6 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 8 { c'8 c'8 c'8 c'8 } \pageBreak
-    \repeat unfold 8 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 6 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 4 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 2 { c'8 c'8 c'8 c'8 }
-    }
+    \repeat unfold 2 { \music } \break
+    \repeat unfold 4 { \music } \break
+    \repeat unfold 6 { \music } \break
+    \repeat unfold 8 { \music } \pageBreak
+    \repeat unfold 8 { \music } \break
+    \repeat unfold 6 { \music } \break
+    \repeat unfold 4 { \music } \break
+    \repeat unfold 2 { \music }
+  }
   \layout {
     \context {
       \Score
@@ -1602,11 +1667,12 @@ La información sobre saltos de línea y de página suele aparecer
 directamente entremezclado dentro del código de notas.
 
 @example
+music = \relative c'' @{ c4 c c c @}
+
 \score @{
   \new Staff @{
-    \repeat unfold 2 @{ c'4 c'4 c'4 c'4 @}
-    \break
-    \repeat unfold 3 @{ c'4 c'4 c'4 c'4 @}
+    \repeat unfold 2 @{ \music @} \break
+    \repeat unfold 3 @{ \music @}
   @}
 @}
 @end example
@@ -1622,6 +1688,8 @@ contiene solamente desplazamientos o @q{skips} junto con los
 disposición de los saltos.
 
 @lilypond[quote,verbatim]
+music = \relative c'' { c4 c c c }
+
 \score {
   \new Staff <<
     \new Voice {
@@ -1631,10 +1699,10 @@ disposición de los saltos.
       s1 * 5 \break
     }
     \new Voice {
-      \repeat unfold 2 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 3 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 6 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 2 { \music }
+      \repeat unfold 3 { \music }
+      \repeat unfold 6 { \music }
+      \repeat unfold 5 { \music }
     }
   >>
 }
@@ -1646,6 +1714,8 @@ propiedades de @code{NonMusicalPaperColumnGrob}, como se explica en
 @ref{Espaciado vertical}.
 
 @lilypond[quote,verbatim]
+music = \relative c'' { c4 c c c }
+
 \score {
   \new Staff <<
     \new Voice {
@@ -1666,10 +1736,10 @@ propiedades de @code{NonMusicalPaperColumnGrob}, como se explica en
       s1 * 5 \break
     }
     \new Voice {
-      \repeat unfold 2 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 3 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 6 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 2 { \music }
+      \repeat unfold 3 { \music }
+      \repeat unfold 6 { \music }
+      \repeat unfold 5 { \music }
     }
   >>
 }
@@ -1898,9 +1968,9 @@ forma individual, y la segunda redefine la propiedad completamente:
 
 \new Staff \with @{
   \override VerticalAxisGroup #'staff-staff-spacing =
-    #'((padding . 1)
-       (basic-distance . 10)
+    #'((basic-distance . 10)
        (minimum-distance . 9)
+       (padding . 1)
        (stretchability . 10))
 @} @{ @dots{} @}
 @end example
@@ -2061,30 +2131,30 @@ agrupadas:
   \context {
     \Staff
     \override VerticalAxisGroup #'staff-staff-spacing =
-      #'((padding . 1)
-         (basic-distance . 8)
-         (minimum-distance . 7))
+      #'((basic-distance . 8)
+         (minimum-distance . 7)
+         (padding . 1))
   }
 }
 
 \new StaffGroup <<
-  % The very low note here needs more room than 'space can
-  % provide, so the distance between this staff and the next is
-  % determined by 'padding.
+  % The very low note here needs more room than 'basic-distance
+  % can provide, so the distance between this staff and the next
+  % is determined by 'padding.
   \new Staff { b,2 r | }
 
-  % Here, 'space provides enough room, and there is no need to
-  % compress the space (towards 'minimum-distance) to make room
-  % for anything else on the page, so the distance between this
-  % staff and the next is determined by 'space.
+  % Here, 'basic-distance provides enough room, and there is no
+  % need to compress the space (towards 'minimum-distance) to make
+  % room for anything else on the page, so the distance between
+  % this staff and the next is determined by 'basic-distance.
   \new Staff { \clef bass g2 r | }
 
   % By setting 'padding to a negative value, staves can be made to
-  % collide.  The lowest acceptable value for 'space is 0.
+  % collide.  The lowest acceptable value for 'basic-distance is 0.
   \new Staff \with {
     \override VerticalAxisGroup #'staff-staff-spacing =
-      #'((padding . -10)
-         (basic-distance . 3.5))
+      #'((basic-distance . 3.5)
+         (padding . -10))
   } { \clef bass g2 r | }
   \new Staff { \clef bass g2 r | }
 >>
@@ -2250,19 +2320,17 @@ Referencia de funcionamiento interno:
 @subsection Posicionamiento explícito de los pentagramas y los sistemas
 @translationof Explicit staff and system positioning
 
-Una forma de comprender los ajustes de @code{VerticalAxisGroup} y de
-@code{\paper} que se han explicado en las dos secciones precedentes es
-como una colección de distintos ajustes que conciernen principalmente
-a la cantidad de relleno vertical entre distintos pentagramas y
-sistemas que ocupan toda la página.
-@c running down the page.
+Una forma de entender los mecanismos del espaciado vertical
+flexible que se han explicado más arriba es como una
+colección de ajustes que controlan la cantidad de relleno
+vertical entre los pentagramas y los sistemas.
 
 Es posible enfrentarse al espaciado vertical de una forma distinta
 utilizando @code{NonMusicalPaperColumn #'line-break-system-details}.
-Cuando los ajustes de @code{VerticalAxisGroup} y de @code{\paper}
+Mientras que los mecanismos del espaciado vertical flexible
 especifican relleno vertical, @code{NonMusicalPaperColumn
-#'line-break-system-details} especifica posiciones verticales exactas
-sobre la página.
+#'line-break-system-details} puede especificar posiciones verticales
+exactas sobre la página.
 
 @code{NonMusicalPaperColumn #'line-break-system-details} acepta una
 lista asociativa de tres ajustes diferentes:
@@ -2299,13 +2367,15 @@ instrucción especial @code{\overrideProperty}:
   #'line-break-system-details #'((Y-offset . 40))
 
 \overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((X-offset . 20) (Y-offset . 40))
+  #'line-break-system-details #'((X-offset . 20)
+                                 (Y-offset . 40))
 
 \overrideProperty NonMusicalPaperColumn
   #'line-break-system-details #'((alignment-distances . (15)))
 
 \overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((X-offset . 20) (Y-offset . 40)
+  #'line-break-system-details #'((X-offset . 20)
+                                 (Y-offset . 40)
                                  (alignment-distances . (15)))
 @end example
 
@@ -2316,7 +2386,7 @@ sobreescritura.
 @c \book { } is required in these examples to ensure the spacing
 @c overrides can be seen between systems. -np
 
-@lilypond[quote]
+@lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
 \paper { left-margin = 0\mm }
 \book {
@@ -2351,7 +2421,7 @@ el punto de origen vertical de cada sistema, podemos establecer el par
 @code{Y-offset} en el atributo @code{line-break-system-details} del
 grob (objeto gráfico) @code{NonMusicalPaperColumn}:
 
-@lilypond[quote]
+@lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
 \paper { left-margin = 0\mm }
 \book {
@@ -2391,7 +2461,7 @@ verticales entre los pentagramas dentro de cada sistema.  Lo hacemos
 usando la subpropiedad @code{alignment-distances} de
 @code{line-break-system-details}.
 
-@lilypond[quote]
+@lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
 \paper { left-margin = 0\mm }
 \book {
@@ -2433,7 +2503,7 @@ el punto de origen vertical de cada sistema y pentagrama.  Finalmente,
 observe que @code{alignment-distances} especifica el posicionamiento
 vertical de los pentagramas pero no de los grupos de pentagramas.
 
-@lilypond[quote]
+@lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
 \paper { left-margin = 0\mm }
 \book {
@@ -3406,7 +3476,7 @@ parte baja del papel.
 
 @example
 \paper @{
-  system-system-spacing = #'((padding . 0) (basic-distance . 0.1))
+  system-system-spacing = #'((basic-distance . 0.1) (padding . 0))
   ragged-last-bottom = ##f
   ragged-bottom = ##f
 @}

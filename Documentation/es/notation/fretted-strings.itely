@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: e72d11948551faad1f6bdc9eef217d1bd63725c7
+    Translation of GIT committish: 17f11c2f5ab963bfb07b7652b4860dc4dda5540a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -444,6 +444,11 @@ Los efectos especiales de guitarra se limitan a armónicos y @emph{slides}.
 @cindex tablatura de guitarra
 @cindex tablatura de bajo
 @cindex tablatura de ukelele
+@cindex tablatura de violin
+@cindex tablatura de viola
+@cindex tablatura de violoncello
+@cindex tablatura de bajo
+@cindex tablatura de contrabajo
 @cindex tablatura, afinaciones predefinidas de
 @cindex trastes, instrumentos con, afinaciones predefinidas
 @cindex predefinidas, afinaciones, para instrumentos de traste
@@ -456,9 +461,10 @@ hacerlo, es necesario especificar la afinación de las cuerdas.  La
 afinación de las cuerdas se da en la propiedad @code{stringTunings}.
 
 LilyPond trae afinaciones predefinidas para el banjo, la mandolina, la
-guitarra, el bajo y el ukelele.  LilyPond establece automáticamente la
-transposición correcta para las afinaciones predefinidas.  El ejemplo
-siguiente es para bajo, que suena una octava por debajo de lo escrito.
+guitarra, el bajo, el ukelele, el violín, la viola, el violoncello y
+el contrabajo.  LilyPond establece automáticamente la transposición
+correcta para las afinaciones predefinidas.  El ejemplo siguiente es
+para bajo, que suena una octava por debajo de lo escrito.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
@@ -482,29 +488,96 @@ estándar Mi-La-Re-Sol-Si-Mi).  Otras afinaciones predefinidas son
 @code{guitar-open-g-tuning} (Sol Mayor al aire, Re-Sol-Re-Sol-Si-Re),
 @code{mandolin-tuning} (mandolina) y @code{banjo-open-g-tuning} (banjo
 con Sol Mayor al aire).  Las afinaciones predefinidas están en
-@file{scm/tablature.scm}.
+@file{ly/string-tuning-init.ly}.
 
-Una afinación de las cuerdas es una lista de Scheme de alturas, una
-por cada cuerda, ordenadas de 1 a N, donde la cuerda 1 está arriba en
-la pauta de tablatura y la cuerda N está abajo.  Esto resulta
-generalmente en un orden de la nota más aguda a la más grave, pero
-algunos instrumentos (p.ej. el ukelele) no tienen las cuerdas
+@funindex contextStringTunings
+@funindex \contextStringTunings
+@cindex tablaturea, afinaciones personalizadas
+@cindex personalizadas, afinaciones de cuerdas
+
+Es posible crear cualquier afinación de cuerdas que se desee.  Se
+puede usar la función @code{\contextStringTuning} para definir una
+afinación de cuerdas y establecerla como el valor de
+@code{stringTunings} para el contexto actual.
+@code{\contextStringTuning} admite dos argumentos: el símbolo en que
+la afinación de cuerdas y una construcción de acorde que define la
+altura de las notas de cada cuerda al aire en dicha afinación.  La
+construcción de acorde debe estar en el modo de octava absoluto, véase
+@ref{Escritura de octava absoluta}.  La cuerda con el número más alto
+(generalmente la más grave) debe ir primero en el acorde.  Por
+ejemplo, podemos definir una afinación para un instrumento de cuatro
+cuerdas con las alturas @code{a''}, @code{d''}, @code{g'} y @code{c'}:
+
+@lilypond[quote,verbatim]
+
+mynotes = {
+  c'4 e' g' c'' |
+  e''4 g'' b'' c'''
+}
+
+<<
+  \new Staff {
+    \clef treble
+    \mynotes
+  }
+  \new TabStaff {
+    \contextStringTuning #'custom-tuning <c' g' d'' a''>
+    \mynotes
+  }
+>>
+@end lilypond
+
+La propiedad @code{stringTunings} también se utiliza por parte de
+@code{FretBoards} para calcular los diagramas de posición automáticos.
+
+@funindex makeStringTuning
+@funindex \makeStringTuning
+
+Las afinaciones de cuerdas se utilizan como parte de la clave de
+asociación para los diagramas de posición predefinidos (véase
+@ref{Diagramas predefinidos de trastes}).  Se usa la función
+@code{\makeStringTuning} para crear una afinación sin fijar el valor
+de la propiedad @code{stringTunings} en el contexto actual.  Los
+argumentos de @code{\makeStringTuning} son el símbolo que usar para la
+nueva afinación y una construcción de acorde que se usa para definir
+la afinación.  El ejemplo anterior también se podría haber escrito
+como sigue:
+
+@lilypond[quote,verbatim]
+\makeStringTuning #'custom-tuning <c' g' d'' a''>
+
+mynotes = {
+  c'4 e' g' c'' |
+  e''4 g'' b'' c'''
+}
+
+<<
+  \new Staff {
+    \clef treble
+    \mynotes
+  }
+  \new TabStaff {
+    \set TabStaff.stringTunings = #custom-tuning
+    \mynotes
+  }
+>>
+@end lilypond
+
+Internamente, una afinación de las cuerdas es una lista de Scheme de
+alturas, una por cada cuerda, ordenadas de 1 a N, donde la cuerda 1
+está arriba en la pauta de tablatura y la cuerda N está abajo.  Esto
+resulta generalmente en un orden de la nota más aguda a la más grave,
+pero algunos instrumentos (p.ej. el ukelele) no tienen las cuerdas
 dispuestas en orden de altura.
 
-La altura de una cuerda en una lista de afinación de cuerdas es el
-intervalo que forma la cuerda al aire con el Do central, medido en
-semitonos.  La altura debe ser un número entero.  LilyPond calcula la
-altura real de la cuerda añadiendo la altura de la afinación a la
-altura real del Do central.
+La altura de una cuerda dentro de una lista de alturas de cuerdas es
+un objeto altura de LilyPond.  Los objetos altura se crean con la
+función de Scheme @code{ly:make-pitch} (véase
+@ref{Funciones de Scheme}).
 
-LilyPond calcula automáticamente el número de cuerdas de la pauta
-@code{TabStaff} como el número de elementos de la lista
-@code{stringTunings}.
-
-Se puede crear cualquier afinación de cuerdas deseada.  Por ejemplo,
-podemos definir una afinación para un instrumento de cuatro cuerdas
-con las alturas @code{a''}, @code{d''}, @code{g'} y @code{c'}:
-
+Se así se desea, puede crearse una afinación de cuerdas como un
+literal de Scheme.  El ejemplo de abajo recrea los ejemplos
+anteriores, pero la afinación no se guarda como un objeto separado:
 
 @lilypond[quote,verbatim]
 mynotes = {
@@ -527,6 +600,11 @@ mynotes = {
 >>
 @end lilypond
 
+LilyPond calcula automáticamente el número de cuerdas dentro del
+@code{TabStaff} y el número de cuerdas dentro de un @code{FretBoard}
+calculado automáticamente como el número de elementos de
+@code{stringTunings}.
+
 @cindex moderntab, clave
 @cindex clave moderntab
 @cindex clave de tablatura
@@ -547,7 +625,13 @@ También se puede usar una clave moderna de tablatura.
 La clave moderna de tablatura contempla tablaturas de 4 a 7 cuerdas.
 
 @seealso
-Archivos de inicio:
+Referencia de la notación:
+@ref{Escritura de octava absoluta},
+@ref{Diagramas predefinidos de trastes},
+@ref{Funciones de Scheme}.
+
+Archivos instalados:
+@file{ly/string-tuning-init.ly}
 @file{scm/tablature.scm}.
 
 Fragmentos de código:

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
+    Translation of GIT committish: 33903a90b916b4c42d767aa0feb800de1c3d8dbe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -181,10 +181,7 @@ e,\stopTextSpan
 
 El estilo de la línea, así como la cadena de texto, se pueden definir
 como una propiedad de objeto.  Esta sintaxis se describe en
-@ref{Estilos de línea}. Los extensores de texto
-forman parte del contexto @code{Dynamics}; véase
-@rinternals{Dynamics}.
-
+@ref{Estilos de línea}.
 
 @funindex \textSpannerUp
 @funindex textSpannerUp
@@ -222,8 +219,7 @@ Fragmentos de código:
 @rlsr{Expressive marks}.
 
 Referencia de funcionamiento interno:
-@rinternals{TextSpanner},
-@rinternals{Dynamics}.
+@rinternals{TextSpanner}.
 
 
 @node Indicaciones de texto
@@ -408,7 +404,7 @@ usando la sintaxis específica del modo de @code{\markup}.
 
 @menu
 * Introducción al marcado de texto::
-* Instrucciones de marcado de texto más usuales::
+* Seleccionar la tipografía y su tamaño::
 * Alineación de texto::
 * Notación gráfica dentro de elementos de marcado::
 * Notación musical dentro de elementos de marcado::
@@ -524,8 +520,8 @@ Los errores de sintaxis para el modo de marcado a menudo producen
 confusión.
 
 
-@node Instrucciones de marcado de texto más usuales
-@unnumberedsubsubsec Instrucciones de marcado de texto más usuales
+@node Seleccionar la tipografía y su tamaño
+@unnumberedsubsubsec Seleccionar la tipografía y su tamaño
 @translationof Selecting font and font size
 
 @cindex fuente tipográfica, cambiar
@@ -645,7 +641,8 @@ diferencia entre la primera y la segunda palabra.
 @noindent
 Algunas de estas familias, usadas para elementos específicos como
 números o matices, no ofrecen todos los caracteres, como se explica en
-@ref{Indicaciones dinámicas contemporáneas} y @ref{Marcas de repetición manual}.
+@ref{Indicaciones dinámicas contemporáneas} y
+@ref{Marcas de repetición manual}.
 
 @c \concat is actually documented in Align (it is not
 @c a font-switching command).  But we need it here. -vv
@@ -721,6 +718,13 @@ Referencia de funcionamiento interno:
 
 Archivos de inicio:
 @file{scm/define-markup-commands.scm}.
+
+@knownissues
+La utilización de las instrucciones de tamaño de texto
+@code{\teeny}, @code{\tiny},
+@code{\small}, @code{\normalsize}, @code{\large} y
+@code{\huge} conducen a un espaciado de las líneas inconsistente
+comparado con el uso de @code{\fontsize}.
 
 
 @node Alineación de texto
@@ -1471,7 +1475,7 @@ c4^smaller
 @noindent
 Se puede usar una sintaxis similar en el modo de marcado, aunque en
 este caso es preferible usar la sintaxis sencilla que se explica en
-@ref{Instrucciones de marcado de texto más usuales}:
+@ref{Seleccionar la tipografía y su tamaño}:
 
 @lilypond[quote,verbatim]
 \markup {
@@ -1505,7 +1509,7 @@ explica en las siguientes secciones: @ref{Fuentes de un solo elemento} y
 Referencia de la notación:
 @ref{La tipografía Feta},
 @ref{Notación musical dentro de elementos de marcado},
-@ref{Instrucciones de marcado de texto más usuales},
+@ref{Seleccionar la tipografía y su tamaño},
 @ref{Font}.
 
 
@@ -1597,6 +1601,6 @@ sobre las fuentes tipográficas, consulte @ref{Explicación de las fuentes tipog
 Referencia de la notación:
 @ref{Explicación de las fuentes tipográficas},
 @ref{Fuentes de un solo elemento},
-@ref{Instrucciones de marcado de texto más usuales},
+@ref{Seleccionar la tipografía y su tamaño},
 @ref{Font}.
 
