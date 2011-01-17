@@ -153,12 +153,15 @@ Internals Reference:
 Music for plucked string instruments is frequently notated using a
 finger/touch notation or tablature.  In contrast to traditional
 notation pitches are not denoted with note heads, but by numbers (or
-letter-like symbols in historical intavolatura).  The numbers
-indicate on which string and fret a note must be played.  The numbers
-are printed on top of each other if they are to be played
-simultaneously.
+letter-like symbols in historical intavolatura).  The staff lines
+in tablature indicate the string on which the note is to be played,
+and a number placed on a staff line indicated the fret at which
+the corresponding string is to be pressed.
+Notes that are to be played simultaneously are vertically aligned.
 
-By default, string 1 is the highest, and the tuning defaults to the
+By default, string 1 is the highest string, and corresponds to the top
+line on the @code{TabStaff}.  The tuning of the @code{TabStaff}
+strings defaults to the
 standard guitar tuning (with 6 strings).  The notes are printed as
 tablature, by using @code{TabStaff} and @code{TabVoice} contexts.  A
 calligraphic tablature clef is added automatically.
@@ -486,7 +489,8 @@ Any desired string tuning can be created.  The
 used to define a string tuning and set it as the
 @code{stringTunings} for the current context.
 @code{\contextStringTuning} takes two arguments: the
-symbol in which the string tuning, and a chord construct
+symbol in which the string tuning will be stored,
+and a chord construct
 that defines the pitches of each string in the tuning.
 The chord construct must be in absolute octave mode,
 see @ref{Absolute octave entry}.  The string
@@ -586,7 +590,7 @@ mynotes = {
 >>
 @end lilypond
 
-LilyPond automatically calculates the number of strings in the
+LilyPond automatically calculates the number of lines in the
 @code{TabStaff} and the number of strings in an automatically
 calculated @code{FretBoard} as the number of elements
 in @code{stringTunings}.
