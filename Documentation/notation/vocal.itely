@@ -205,7 +205,8 @@ Notation Reference:
 @ref{Automatic syllable durations},
 @ref{Fonts},
 @ref{Input modes},
-@ref{Manual syllable durations}.
+@ref{Manual syllable durations},
+@ref{Text encoding}.
 
 Internals Reference:
 @rinternals{LyricText}.
@@ -321,6 +322,14 @@ specifying an associated voice, if one exists.  For details, see
 @seealso
 Learning Manual:
 @rlearning{Aligning lyrics to a melody}.
+
+Notation Reference:
+@ref{Contexts explained},
+@ref{Automatic syllable durations}.
+@ref{Stanzas},
+@ref{Manual syllable durations},
+@ref{Dialogue over music},
+@ref{Manual syllable durations}.
 
 Internals Reference:
 @rinternals{Lyrics}.
@@ -487,7 +496,8 @@ Here is an example demonstrating its use:
 @seealso
 Notation Reference:
 @ref{Extenders and hyphens},
-@ref{Keeping contexts alive}.
+@ref{Keeping contexts alive},
+@ref{Placing lyrics vertically}.
 
 @node Manual syllable durations
 @unnumberedsubsubsec Manual syllable durations
@@ -1116,9 +1126,9 @@ To make this change for all lyrics in the score, set the property in the
 
 @c TODO: move to LSR -vv
 
-Checking to make sure that text scripts and lyrics are within the margins is
-a relatively large computational task.  To speed up processing, LilyPond does
-not perform such calculations by default; to enable it, use
+Checking to make sure that text scripts and lyrics are within the
+margins is a relatively large computational task.  To speed up processing,
+LilyPond does not perform such calculations by default; to enable it, use
 
 @example
 \override Score.PaperColumn #'keep-inside-line = ##t
@@ -1516,6 +1526,10 @@ alternative sections these must be inserted manually.
 }
 @end lilypond
 
+@seealso
+Notation Reference:
+@ref{Keeping contexts alive},
+@ref{Repeats}.
 
 
 @node Divisi lyrics
@@ -1660,9 +1674,9 @@ stanzaOneThree =  {
 
 Stanzas differing in loudness may be indicated by putting a
 dynamics mark before each stanza.  In LilyPond, everything coming in
-front of a stanza goes into the @code{StanzaNumber} object; dynamics marks
-are no different.  For technical reasons, you have to set the stanza
-outside @code{\lyricmode}:
+front of a stanza goes into the @code{StanzaNumber} object; dynamics
+marks are no different.  For technical reasons, you have to set the
+stanza outside @code{\lyricmode}:
 
 @lilypond[quote,ragged-right,verbatim]
 text = {
@@ -1936,10 +1950,11 @@ text = \lyricmode {
   It has two lines.
 }
 
-\score{ <<
+\score {
+  <<
     \new Voice = "one" { \melody }
     \new Lyrics \lyricsto "one" \text
-   >>
+  >>
   \layout { }
 }
 
@@ -2037,8 +2052,7 @@ For entering stanzas, see @ref{Stanzas}.
 
 @item
 Songs are frequently printed with the chording indicated by chord
-names above the staves.  This is described in
-@ref{Displaying chords}.
+names above the staves.  This is described in @ref{Displaying chords}.
 
 @item
 To print fret diagrams of the chords for guitar accompaniment or
@@ -2608,8 +2622,8 @@ declaring separate @code{CueVoice} contexts and using
 
 @cindex parlato
 @cindex Sprechgesang
-Such effects as @q{parlato} or @q{Sprechgesang} require performers to speak
-without pitch but still with rhythm; these are notated by cross
+Such effects as @q{parlato} or @q{Sprechgesang} require performers to
+speak without pitch but still with rhythm; these are notated by cross
 note heads, as demonstrated in @ref{Special note heads}.
 
 @c TODO add "marking-notes-on-spoken-parts" snippet -vv
