@@ -45,6 +45,7 @@
   shortInstrumentName = #'()
 
   predefinedDiagramTable = #default-fret-table
+  handleNegativeFrets = #'recalculate
 }
 
 \context {
@@ -864,6 +865,8 @@ contexts and handles the line spacing, the tablature clef etc. properly."
   %% Special "TAB" clef
   clefGlyph = #"clefs.tab"
   clefPosition = #0
+  %% Change string if note results in negative fret number
+  handleNegativeFrets = #'recalculate
 }
 
 \context {

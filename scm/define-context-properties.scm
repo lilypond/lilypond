@@ -261,6 +261,11 @@ frets in tablature.")
 @code{GridPoint}s.")
 
 
+     (handleNegativeFrets ,symbol? "How the automatic fret calculator
+should handle calculated negative frets.  Values include @code{'ignore},
+to leave them out of the diagram completely, @code{'include}, to include
+them as calculated, and @code{'recalculate}, to ignore the specified
+string and find a string where they will fit with a positive fret number.")
      (harmonicAccidentals ,boolean? "If set, harmonic notes in chords
 get accidentals.")
      (harmonicDots ,boolean? "If set, harmonic notes in dotted chords get
