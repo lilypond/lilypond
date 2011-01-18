@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: cd0fa693cd2297298aabfdc2d2d9d8b0d7746a5c
+    Translation of GIT committish: f6bf37c38cba6b224187f910b03d1ddad76f88dd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1108,10 +1108,6 @@ presentación gráfica, y los errores de sintaxis de sus trucos de
 LilyPond se destacan en la ventana de texto cuando se imprimen desde
 el programa.
 
-@warning{Denemo contempla oficialmente una versión antigua de LilyPond
-2.8.7, que adolece de la falta de muchas de las posibilidades añadidas
-desde entonces.  Los desarrolladores de Denemo están trabajando
-activamente para actualizarlo a nuestra versión estable actual, 2.12.}
 @divEnd
 
 @divClass{column-center-top}
