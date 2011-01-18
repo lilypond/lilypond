@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: fcc48a26a65cff0acc26cad55d29b36f42794e8c
+    Translation of GIT committish: de924bddd22886a0a67decbde45acd5da441bf6d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -190,7 +190,7 @@ estilos.  Si nos satisfacen estos valores predeterminados, podemos a
 continuación introducir directamente las notas sin la necesidad de
 preocuparnos de los detalles sobre cómo personalizar un contexto.
 Véanse uno de los contextos predefinidos @code{VaticanaVoice},
-@code{VaticanaStaff}, @code{MensuralVoice}, y
+@code{VaticanaStaff}, @code{MensuralVoice} y
 @code{MensuralStaff}.
 
 @itemize
@@ -244,7 +244,8 @@ y con ciertas limitaciones).  Para usar cualquiera de estos estilos,
 se debe sustituir el grabador predeterminado
 @code{Ligature_bracket_engraver} por uno de los grabadores
 especializados en ligaduras del contexto @code{Voice}, como se
-explica en @ref{Ligaduras mensurales blancas} y @ref{Ligaduras de neumas cuadrados gregorianos}.
+explica en @ref{Ligaduras mensurales blancas} y
+@ref{Ligaduras de neumas cuadrados gregorianos}.
 
 @seealso
 Glosario musical:
@@ -267,9 +268,9 @@ Las alteraciones accidentales no se deben imprimir dentro de las
 ligaduras, sino que deben reunirse e imprimirse juntas delante de
 ellas.
 
-La sintaxis todavía utiliza el obsoleto estilo infijo @code{\[
-expresión_musical \]}.  Por motivos de consistencia, esto cambiará
-algún día al estilo postfijo @code{nota\[ ... nota\]}.
+La sintaxis todavía utiliza el obsoleto estilo infijo
+@code{\[ expresión_musical \]}.  Por motivos de consistencia, esto
+cambiará algún día al estilo postfijo @code{nota\[ ... nota\]}.
 
 
 @node Custos
@@ -558,9 +559,9 @@ Los símbolos de mensuración (que son algo similar, pero no exactamente
 igual que las indicaciones de compás) están contemplados de forma
 limitada.  Los glifos están configurados de forma fija para
 determinadas fracciones de tiempo.  En otras palabras, para obtener un
-símbolo de mensuración determinado con la instrucción @code{\time
-n/m}, se tienen que escoger @code{n} y @code{m} según la siguiente
-tabla
+símbolo de mensuración determinado con la instrucción
+@code{\time n/m}, se tienen que escoger @code{n} y @code{m} según la
+siguiente tabla
 
 @lilypond[quote,ragged-right]
 \layout {
@@ -666,8 +667,8 @@ veces una redonda.
 
 Los símbolos @code{mensural68alt} y @code{neomensural68alt}
 (alternativos al símbolo de 6/8) no se puede seleccionar directamente
-con @code{\time}.  En su lugar, utilice @code{\markup @{\musicglyph
-#"timesig.mensural68alt" @}}.
+con @code{\time}.  En su lugar, utilice
+@code{\markup @{\musicglyph #"timesig.mensural68alt" @}}.
 
 
 @node Cabezas de nota de la música mensural
@@ -888,10 +889,10 @@ ais bis
 @end lilypond
 
 Esto hará que se traten @emph{todas} las alteraciones siguientes como
-@emph{musica ficta} hasta que se desactive con @code{\set
-suggestAccidentals = ##f}.  Una forma más práctica es usar @code{\once
-\set suggestAccidentals = ##t}, que puede incluso definirse como una
-forma breve muy conveniente:
+@emph{musica ficta} hasta que se desactive con
+@code{\set suggestAccidentals = ##f}.  Una forma más práctica es usar
+@code{\once \set suggestAccidentals = ##t}, que puede incluso
+definirse como una forma breve muy conveniente:
 
 @lilypond[quote,verbatim]
 ficta = { \once \set suggestAccidentals = ##t }
@@ -1356,7 +1357,7 @@ Glosario musical:
 @rglos{divisio}.
 
 Referencia de la notación:
-@ref{Breath marks}.
+@ref{Marcas de respiración}.
 
 Archivos de inicio:
 @file{gregorian.ly}.
@@ -1420,10 +1421,10 @@ con la función musical @code{\augmentum}.  Observe que
 @code{\augmentum} está programado como una función musical unaria y no
 como un prefijo de cabeza.  Se aplica solamente a la expresión musical
 que sigue inmediatamente.  Esto es, @code{\augmentum \virga c} no
-tendrá ningún efecto visible.  En su lugar, escriba @code{\virga
-\augmentum c} o @code{\augmentum @{\virga c@}}.  Tenga en cuenta
-también que puede escribir @code{\augmentum @{a g@}} como abreviatura
-de @code{\augmentum a \augmentum g}.
+tendrá ningún efecto visible.  En su lugar, escriba
+@code{\virga \augmentum c} o @code{\augmentum @{\virga c@}}.  Tenga en
+cuenta también que puede escribir @code{\augmentum @{a g@}} como
+abreviatura de @code{\augmentum a \augmentum g}.
 
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
@@ -1532,17 +1533,18 @@ A diferencia de casi todos los otros sistemas de notación de neumas,
 el aspecto tipográfico de las ligaduras no viene dictado directamente
 por las instrucciones de la entrada, sino que sigue unas convenciones
 que dependen del significado musical.  Por ejemplo, una ligadura de
-tres notas con la forma musical bajo-alto-bajo, como @code{\[ a \pes b
-\flexa g \]}, produce un Torculus que consiste en tres cabezas de
-Punctum, mientras que la forma alto-bajo-alto, como @code{\[ a \flexa
-g \pes b \]}, produce un Porrectus con una forma de flexa curvada y
-una sola cabeza de Punctum.  No existe ninguna instrucción para
-tipografiar explícitamente la forma de flexa curvada; la decisión de
-cuándo tipografiar una forma de flexa curvada está basada en la
-entrada musical.  La idea de este enfoque es separar los aspectos
-musicales de la entrada, del estilo de notación de la salida.  De esta
-forma, la misma entrada se puede reutilizar para tipografiar la misma
-música en un estilo diferente de notación de canto gregoriano.
+tres notas con la forma musical bajo-alto-bajo, como
+@code{\[ a \pes b \flexa g \]}, produce un Torculus que consiste en
+tres cabezas de Punctum, mientras que la forma alto-bajo-alto, como
+@code{\[ a \flexa g \pes b \]}, produce un Porrectus con una forma de
+flexa curvada y una sola cabeza de Punctum.  No existe ninguna
+instrucción para tipografiar explícitamente la forma de flexa curvada;
+la decisión de cuándo tipografiar una forma de flexa curvada está
+basada en la entrada musical.  La idea de este enfoque es separar los
+aspectos musicales de la entrada, del estilo de notación de la salida.
+De esta forma, la misma entrada se puede reutilizar para tipografiar
+la misma música en un estilo diferente de notación de canto
+gregoriano.
 
 @noindent
 Neumas licuescentes
@@ -1563,8 +1565,8 @@ forma se produce haciendo un @code{pes} o una @code{flexa} normales y
 modificando la forma de la segunda nota: @code{\[ a \pes \deminutum b
 \] }, mientras que la segunda se hace modificando la forma de un neuma
 de una nota con @code{\auctum} y uno de los generadores de
-dirección @code{\descendens} o @code{\ascendens}, p.ej. @code{ \[
-\auctum \descendens a \] }.
+dirección @code{\descendens} o @code{\ascendens}, p.ej.
+@code{ \[ \auctum \descendens a \] }.
 
 @noindent
 Símbolos especiales
@@ -1591,13 +1593,13 @@ es la nota intermedia de una ligadura ascendente, y suele caer sobre
 un intervalo de semitono, pero es perfectamente posible, si bien
 incorrecto, hacer un quilisma de una nota.
 
-Además de los símbolos de nota, el archivo @file{gregorian.ly} define también
-las instrucciones @code{\versus}, @code{\responsum}, @code{\ij},
-@code{\iij}, @code{\IJ} y @code{\IIJ}, que producen los caracteres
-correspondientes, p.ej. para utilizarlos en la letra, como marcas de
-sección, etc.  Estas instrucciones utilizan caracteres de Unicode
-especiales y sólo funcionan si se usa una fuente tipográfica que los
-contemple.
+Además de los símbolos de nota, el archivo @file{gregorian.ly} define
+también las instrucciones @code{\versus}, @code{\responsum},
+@code{\ij}, @code{\iij}, @code{\IJ} y @code{\IIJ}, que producen los
+caracteres correspondientes, p.ej. para utilizarlos en la letra, como
+marcas de sección, etc.  Estas instrucciones utilizan caracteres de
+Unicode especiales y sólo funcionan si se usa una fuente tipográfica
+que los contemple.
 
 La tabla siguiente muestra un conjunto limitado, pero representativo,
 de ligaduras gregorianas, junto a los fragmentos de código que las
