@@ -712,11 +712,20 @@ def dump_channel (thread, skip):
 
     return '\n  '.join (lines) + '\n'
 
+def number2ascii (i):
+    s = ''
+    i += 1
+    while i > 0:
+        m = (i - 1) % 26
+        s = '%c' % (m + ord ('A')) + s
+        i = (i - m)/26
+    return s
+
 def track_name (i):
-    return 'track%c' % (i + ord ('A'))
+    return 'track' + number2ascii (i)
 
 def channel_name (i):
-    return 'channel%c' % (i + ord ('A'))
+    return 'channel' + number2ascii (i)
 
 def dump_track (channels, n):
     s = '\n'
