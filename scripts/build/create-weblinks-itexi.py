@@ -438,13 +438,13 @@ def make_regtest_links(name, version, lang):
         url+"lilypond-book/collated-files.html",
         getTrans("lilypond-book Regression tests for ", lang)+version)
     make_ver_link(macroLang("regtest"+name+"XmlPdf", lang),
-         url+"musicxml/collated-files.html",
+         url+"musicxml/collated-files.pdf",
         getTrans("PDF of MusicXML regtests for ", lang)+version)
     make_ver_link(macroLang("regtest"+name+"AbcPdf", lang),
-         url+"abc2ly/collated-files.html",
+         url+"abc2ly/collated-files.pdf",
         getTrans("PDF of abc2ly regtests for ", lang)+version)
     make_ver_link(macroLang("regtest"+name+"LilypondBookPdf", lang),
-         url+"lilypond-book/collated-files.html",
+         url+"lilypond-book/collated-files.pdf",
         getTrans("PDF of lilypond-book regtests for ", lang)+version)
 
 def make_doctarball_links(name, version, lang):

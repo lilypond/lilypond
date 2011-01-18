@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2006--2010 Joe Neeman <joeneeman@gmail.com>
+  Copyright (C) 2006--2011 Joe Neeman <joeneeman@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -53,7 +53,7 @@ class Skyline
 private:
   list<Building> buildings_;
   Direction sky_;
-  
+
   void internal_merge_skyline (list<Building>*, list<Building>*,
 			       list<Building> *const result);
   list<Building> internal_build_skyline (list<Box>*, Real, Axis, Direction);
@@ -63,10 +63,11 @@ private:
 public:
   Skyline ();
   Skyline (Skyline const &src);
+  Skyline (Skyline const &src, Real horizon_padding, Axis a);
   Skyline (Direction sky);
   Skyline (vector<Box> const &bldgs, Real horizon_padding, Axis a, Direction sky);
   Skyline (Box const &b, Real horizon_padding, Axis a, Direction sky);
-  
+
   vector<Offset> to_points (Axis) const;
   void merge (Skyline const &);
   void insert (Box const &, Real horizon_padding, Axis);
@@ -74,7 +75,7 @@ public:
   void print_points () const;
   void raise (Real);
   void shift (Real);
-  Real distance (Skyline const &) const;
+  Real distance (Skyline const &, Real horizon_padding = 0) const;
   Real height (Real airplane) const;
   Real max_height () const;
   void set_minimum_height (Real height);

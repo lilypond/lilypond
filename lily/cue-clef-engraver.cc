@@ -1,9 +1,9 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2010 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2011 Han-Wen Nienhuys <hanwen@xs4all.nl>
                            Mats Bengtsson <matsb@s3.kth.se>
-  Copyright (C) 2010 Reinhold Kainhofer <reinhold@kainhofer.com>
+  Copyright (C) 2010--2011 Reinhold Kainhofer <reinhold@kainhofer.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by

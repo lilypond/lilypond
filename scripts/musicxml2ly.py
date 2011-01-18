@@ -358,7 +358,7 @@ def staff_attributes_to_string_tunings (mxl_attr):
     if staff_lines:
         lines = string.atoi (staff_lines.get_text ())
 
-    tunings = [0]*lines
+    tunings = [musicexp.Pitch()]*lines
     staff_tunings = details.get_named_children ('staff-tuning')
     for i in staff_tunings:
         p = musicexp.Pitch()
@@ -2666,7 +2666,7 @@ If the given filename is -, musicxml2ly reads from the command line.
 
     p.version = ('''%prog (LilyPond) @TOPLEVEL_VERSION@\n\n'''
 +
-_ ("""Copyright (c) 2005--2010 by
+_ ("""Copyright (c) 2005--2011 by
     Han-Wen Nienhuys <hanwen@xs4all.nl>,
     Jan Nieuwenhuizen <janneke@gnu.org> and
     Reinhold Kainhofer <reinhold@kainhofer.com>

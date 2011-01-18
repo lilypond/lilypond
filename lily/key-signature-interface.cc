@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1996--2010 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1996--2011 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   keyplacement by Mats Bengtsson
 

@@ -4,7 +4,7 @@
 
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 1998--2010  Han-Wen Nienhuys <hanwen@xs4all.nl>
+# Copyright (C) 1998--2011  Han-Wen Nienhuys <hanwen@xs4all.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 #
 # LilyPond is free software: you can redistribute it and/or modify
@@ -87,7 +87,7 @@ def warranty ():
 
 %s
 %s
-''' % ( _ ('Copyright (c) %s by') % '2001--2010',
+''' % ( _ ('Copyright (c) %s by') % '2001--2011',
         '\n  '.join (authors),
         _ ('Distributed under terms of the GNU General Public License.'),
         _ ('It comes with NO WARRANTY.')))
@@ -712,11 +712,20 @@ def dump_channel (thread, skip):
 
     return '\n  '.join (lines) + '\n'
 
+def number2ascii (i):
+    s = ''
+    i += 1
+    while i > 0:
+        m = (i - 1) % 26
+        s = '%c' % (m + ord ('A')) + s
+        i = (i - m)/26
+    return s
+
 def track_name (i):
-    return 'track%c' % (i + ord ('A'))
+    return 'track' + number2ascii (i)
 
 def channel_name (i):
-    return 'channel%c' % (i + ord ('A'))
+    return 'channel' + number2ascii (i)
 
 def dump_track (channels, n):
     s = '\n'

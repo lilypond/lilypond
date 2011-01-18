@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2009--2010 Joe Neeman <joeneeman@gmail.com>
+  Copyright (C) 2009--2011 Joe Neeman <joeneeman@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -201,7 +201,13 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real inde
   up_skyline.shift (indent);
   down_skyline.shift (indent);
 
-  Real minimum_distance = up_skyline.distance (bottom_skyline_) + padding;
+  /*
+    We need to call distance with skyline-horizontal-padding because
+    the system skyline-horizontal-padding is not added during the creation
+    of an individual staff.  So we add the padding for the distance check
+    at the time of adding in the system.
+  */
+  Real minimum_distance = up_skyline.distance (bottom_skyline_, robust_scm2double (sys->get_property ("skyline-horizontal-padding"), 0)) + padding;
 
   Spring spring_copy = spring;
   spring_copy.ensure_min_distance (minimum_distance);

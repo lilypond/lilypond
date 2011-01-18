@@ -146,7 +146,7 @@ Seventh chords can be created:
 @funindex maj
 @funindex m
 
-The table belows shows the actions of the quality modifiers on
+The table below shows the actions of the quality modifiers on
 triads and seventh chords.  The default seventh step added to
 chords is a minor or flatted seventh, which makes the dominant
 seventh the basic seventh chord.  All alterations are relative to
@@ -564,8 +564,7 @@ by Klaus Ignatzek (see @ressay{Literature list}).  The chord naming
 system can be modified as described below.  An alternate jazz
 chord system has been developed using these modifications.
 The Ignatzek and alternate
-Jazz notation are shown on the chart in @ref{Chord
-name chart}.
+Jazz notation are shown on the chart in @ref{Chord name chart}.
 
 @c TODO --  Change this so we don't have a non-verbatim example.
 @c  Make short example in docs, then move longer example to
@@ -695,6 +694,9 @@ The spacer is not used when the root is altered.
 Notation Reference:
 @ref{Chord name chart},
 @ref{Common chord modifiers}.
+
+Essay on automated music engraving:
+@ressay{Literature list}.
 
 Installed Files:
 @file{scm/chords-ignatzek.scm},

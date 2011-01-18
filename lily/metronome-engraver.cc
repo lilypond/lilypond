@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1998--2010 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 1998--2011 Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -95,7 +95,10 @@ Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
 	   && safe_is_member (g->get_property ("break-align-symbol"),
 			      text_->get_property ("break-align-symbols"))
 	   && Item::break_visible (g))
-    support_ = g;
+    {
+      support_ = g;
+      text_->set_parent (g, X_AXIS);
+    }
 }
 
 void

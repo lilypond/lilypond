@@ -55,13 +55,14 @@ tablature.  Sometimes the two types are combined, and it is
 especially common in popular music to use chord diagrams above
 a staff of traditional notation.  The guitar and the banjo are
 transposing instruments, sounding an octave lower than written.
-Scores for these instruments should use the @code{"treble_8"} clef (or
-@code{\transposition c} to get correct MIDI output).
+Scores for these instruments should use the @code{"treble_8"} clef
+(or @code{\transposition c} to get correct MIDI output).
 Some other elements pertinent to fretted string instruments
 are covered elsewhere:
 
 @itemize
-@item Fingerings are indicated as shown in @ref{Fingering instructions}.
+@item Fingerings are indicated as shown in
+@ref{Fingering instructions}.
 
 @item Instructions for @notation{Laissez vibrer} ties
 as well as ties on arpeggios and tremolos can be found in
@@ -152,12 +153,15 @@ Internals Reference:
 Music for plucked string instruments is frequently notated using a
 finger/touch notation or tablature.  In contrast to traditional
 notation pitches are not denoted with note heads, but by numbers (or
-letterlike symbols in historical intavolatura).  The numbers
-indicate on which string and fret a note must be played.  The numbers
-are printed on top of each other if they are to be played
-simultaneously.
+letter-like symbols in historical intavolatura).  The staff lines
+in tablature indicate the string on which the note is to be played,
+and a number placed on a staff line indicated the fret at which
+the corresponding string is to be pressed.
+Notes that are to be played simultaneously are vertically aligned.
 
-By default, string 1 is the highest, and the tuning defaults to the
+By default, string 1 is the highest string, and corresponds to the top
+line on the @code{TabStaff}.  The tuning of the @code{TabStaff}
+strings defaults to the
 standard guitar tuning (with 6 strings).  The notes are printed as
 tablature, by using @code{TabStaff} and @code{TabVoice} contexts.  A
 calligraphic tablature clef is added automatically.
@@ -251,10 +255,11 @@ minimumFret is 0.
 
 @funindex \tabChordRepetition
 
-Chord constructs can be repeated by the chord repetition symbol @code{q}.
-To use this feature in combination with tablature, @code{\tabChordRepetition}
-is provided.  It preserves the string information explicitly given within
-chord constructs so repeated chords get identical tablature representations.
+Chord constructs can be repeated by the chord repetition symbol
+@code{q}. To use this feature in combination with tablature,
+@code{\tabChordRepetition} is provided.  It preserves the string
+information explicitly given within chord constructs so repeated chords
+get identical tablature representations.
 
 @lilypond[quote,verbatim]
 \tabChordRepetition
@@ -438,7 +443,7 @@ Guitar special effects are limited to harmonics and slides.
 
 @funindex StringTunings
 
-LilyPond tabulature automatically calculates the fret for
+LilyPond tablature automatically calculates the fret for
 a note based on the string to which the note is assigned.
 In order to do this, the tuning of the strings must be
 specified.  The tuning of the strings is given in the
@@ -484,7 +489,8 @@ Any desired string tuning can be created.  The
 used to define a string tuning and set it as the
 @code{stringTunings} for the current context.
 @code{\contextStringTuning} takes two arguments: the
-symbol in which the string tuning, and a chord construct
+symbol in which the string tuning will be stored,
+and a chord construct
 that defines the pitches of each string in the tuning.
 The chord construct must be in absolute octave mode,
 see @ref{Absolute octave entry}.  The string
@@ -584,7 +590,7 @@ mynotes = {
 >>
 @end lilypond
 
-LilyPond automatically calculates the number of strings in the
+LilyPond automatically calculates the number of lines in the
 @code{TabStaff} and the number of strings in an automatically
 calculated @code{FretBoard} as the number of elements
 in @code{stringTunings}.
@@ -862,8 +868,8 @@ Fingering indications can be included in the fret-diagram-terse markup string.
 >>
 @end lilypond
 
-Other fret diagram properties must be adjusted using @code{\override} when using
-the fret-diagram-terse markup.
+Other fret diagram properties must be adjusted using
+@code{\override} when using the fret-diagram-terse markup.
 
 @cindex fret-diagram-verbose markup
 @cindex capo
@@ -960,8 +966,8 @@ capo will be the lowest fret in the fret diagram.
 >>
 @end lilypond
 
-All other fret diagram properties must be adjusted using @code{\override}
-when using the fret-diagram-verbose markup.
+All other fret diagram properties must be adjusted using
+@code{\override} when using the fret-diagram-verbose markup.
 
 @ignore
 The following example shows the three fret-diagram markup
@@ -1012,8 +1018,9 @@ and color of dots.
 @funindex fret-diagram-interface
 
 The graphical layout of a fret diagram can be customized according to
-user preference through the properties of the @code{fret-diagram-interface}.
-Details are found at @rinternals{fret-diagram-interface}.  For a fret diagram
+user preference through the properties of the
+@code{fret-diagram-interface}. Details are found at
+@rinternals{fret-diagram-interface}.  For a fret diagram
 markup, the interface properties belong to @code{Voice.TextScript}.
 
 @snippets
@@ -1294,10 +1301,10 @@ mychords = \chordmode{
 @end lilypond
 
 The graphical layout of a fret diagram can be customized according to
-user preference through the properties of the @code{fret-diagram-interface}.
-Details are found at @rinternals{fret-diagram-interface}.  For a
-predefined fret diagram, the interface properties belong to
-@code{FretBoards.FretBoard}.
+user preference through the properties of the
+@code{fret-diagram-interface}. Details are found at
+@rinternals{fret-diagram-interface}.  For a predefined fret diagram,
+the interface properties belong to @code{FretBoards.FretBoard}.
 
 @snippets
 
@@ -1409,8 +1416,8 @@ Sometimes the fretboard calculator will be unable to find
 an acceptable diagram.  This can often be remedied by
 manually assigning a note to a string.  In many cases, only one
 note need be manually placed on a string; the rest of
-the notes will then be placed appropriately by the @code{FretBoards}
-context.
+the notes will then be placed appropriately by the
+@code{FretBoards} context.
 
 @cindex fret diagrams, adding fingerings
 @cindex fingerings, adding to fret diagrams
@@ -1468,9 +1475,10 @@ as in the TabStaff context.  See @ref{Custom tablatures} for
 information on the @code{stringTunings} property.
 
 The graphical layout of a fret diagram can be customized according to
-user preference through the properties of the @code{fret-diagram-interface}.
-Details are found at @rinternals{fret-diagram-interface}.  For a
-@code{FretBoards} fret diagram, the interface properties belong to
+user preference through the properties of the
+@code{fret-diagram-interface}. Details are found at
+@rinternals{fret-diagram-interface}.  For a @code{FretBoards} fret
+diagram, the interface properties belong to
 @code{FretBoards.FretBoard}.
 
 

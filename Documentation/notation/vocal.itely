@@ -1072,8 +1072,8 @@ Notation Reference:
 @cindex Spacing lyrics
 @cindex Lyrics, increasing space between
 
-To increase the spacing between lyrics, set the @code{minimum-distance}
-property of @code{LyricSpace}.
+To increase the spacing between lyrics, set the
+@code{minimum-distance} property of @code{LyricSpace}.
 
 @lilypond[relative=1,verbatim,quote,ragged-right]
 {
@@ -1689,7 +1689,8 @@ text = {
 
 Names of singers can also be added.  They are printed at the start of
 the line, just like instrument names.  They are created by setting
-@code{vocalName}.  A short version may be entered as @code{shortVocalName}.
+@code{vocalName}.  A short version may be entered as
+@code{shortVocalName}.
 
 @lilypond[ragged-right,quote,verbatim,relative=2]
 \new Voice {
@@ -1747,28 +1748,34 @@ are to be ignored.
 
 @subsubheading Adding syllables to grace notes
 
+@cindex grace notes and lyrics
+@cindex lyrics on grace notes
+
 By default, grace notes (e.g. via @code{\grace}) do not get assigned
 syllables when using @code{\lyricsto}, but this behavior can be
 changed:
 
 @lilypond[verbatim,ragged-right,quote]
-\relative c' {
-  f4 \appoggiatura a32 b4
-  \grace { f16[ a16] } b2
-  \afterGrace b2 { f16[ a16] }
-  \appoggiatura a32 b4
-  \acciaccatura a8 b4
-}
-\addlyrics {
-  normal
-  \set includeGraceNotes = ##t
-  case,
-  gra -- ce case,
-  after -- grace case,
-  \set ignoreMelismata = ##t
-  app. case,
-  acc. case.
-}
+<<
+  \new Voice = melody \relative c' {
+    f4 \appoggiatura a32 b4
+    \grace { f16[ a16] } b2
+    \afterGrace b2 { f16[ a16] }
+    \appoggiatura a32 b4
+    \acciaccatura a8 b4
+  }
+  \new Lyrics
+  \lyricsto melody {
+    normal
+    \set includeGraceNotes = ##t
+    case,
+    gra -- ce case,
+    after -- grace case,
+    \set ignoreMelismata = ##t
+    app. case,
+    acc. case.
+  }
+>>
 @end lilypond
 
 @knownissues
@@ -1837,10 +1844,11 @@ within the lyrics by setting the @code{associatedVoice} property:
 @end lilypond
 
 @noindent
-The text for the first stanza is set to the melody called @q{lahlah}
-in the usual way, but the second stanza is set initally to the
-@code{lahlah} context and is then switched to the @code{alternative}
-melody for the syllables @q{ran} to @q{sau} by the lines:
+The text for the first stanza is set to the melody called
+@q{lahlah} in the usual way, but the second stanza is set initally
+to the @code{lahlah} context and is then switched to the
+@code{alternative} melody for the syllables @q{ran} to @q{sau} by
+the lines:
 
 @example
 \set associatedVoice = "alternative" % applies to "ran"
@@ -2057,8 +2065,8 @@ Snippets:
 @node Lead sheets
 @unnumberedsubsubsec Lead sheets
 
-Lead sheets may be printed by combining vocal parts and @q{chord mode};
-this syntax is explained in @ref{Chord notation}.
+Lead sheets may be printed by combining vocal parts and
+@q{chord mode}; this syntax is explained in @ref{Chord notation}.
 
 @snippets
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
@@ -2120,7 +2128,7 @@ For information about @code{ChoirStaff} and @code{PianoStaff} see
 @ref{Grouping staves}.
 
 @item
-Shape noteheads, as used in Sacred Harp and similar notation, are
+Shape note heads, as used in Sacred Harp and similar notation, are
 described in @ref{Shape note heads}.
 
 @item
@@ -2643,7 +2651,7 @@ to manually insert @code{\break}s and adjust the placing of the
 dialogue to avoid running into the right margin.  The final word of
 the last measure on a line should also be separated out, as above.
 
-Here is an example illustating how this might be done.
+Here is an example illustrating how this might be done.
 
 @c This should be a snippet, but it can't be as it needs to be
 @c manually adjusted to suit the imposed line length.  -td
@@ -2800,7 +2808,7 @@ Bar lines can also be removed on a staff-by-staff basis:
 
 To remove bar lines from just a section of music treat it as a
 cadenza.  If the section is long you may need to insert dummy
-barlines with @code{\bar ""} to show where the line should break.
+bar lines with @code{\bar ""} to show where the line should break.
 
 @lilypond[verbatim,quote,relative=2]
 a4 b c2 |
@@ -3187,7 +3195,8 @@ commands at the end of each line.
 @node Ancient vocal music
 @subsection Ancient vocal music
 
-Ancient vocal music is supported, as explained in @ref{Ancient notation}.
+Ancient vocal music is supported, as explained in
+@ref{Ancient notation}.
 
 @c TODO
 

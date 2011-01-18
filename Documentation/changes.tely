@@ -454,6 +454,14 @@ from being typeset.
 @item
 The vertical spacing engine has been drastically changed, making
 it more flexible and easier to control.
+The spacing between staves within a system can now change
+to better use the space on the page.
+User-defined contexts may participate in this flexible spacing,
+depending on how their @code{staff-affinity} is defined.
+Some page formatting variables (@code{page-top-space},
+@code{between-system-space -padding}, and
+@code{before- between- after-title-space}) have been replaced
+by flexible vertical dimensions.
 
 @end itemize
 

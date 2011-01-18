@@ -1,22 +1,22 @@
 ;;;; Common note names in various languages.
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2010 Valentin Villenave <valentin@villenave.net> et al:
+;;;; Copyright (C) 2010--2011 Valentin Villenave <valentin@villenave.net> et al:
 ;;;;
-;;;; Copyright (C) 1996--2010 Han-Wen Nienhuys <hanwen@xs4all.nl> (Nederlands)
-;;;; Copyright (C) 1998--2010 Jaume Obrador <jobrador@ipc4.uib.es> (Catalan)
-;;;; Copyright (C) 1997--2010 Roland Meier <meier@informatik.th-darmstadt.de>
+;;;; Copyright (C) 1996--2011 Han-Wen Nienhuys <hanwen@xs4all.nl> (Nederlands)
+;;;; Copyright (C) 1998--2011 Jaume Obrador <jobrador@ipc4.uib.es> (Catalan)
+;;;; Copyright (C) 1997--2011 Roland Meier <meier@informatik.th-darmstadt.de>
 ;;;;                Bjoern Jacke <bjoern.jacke@gmx.de> (Deutsch)
-;;;; Copyright (C) 1996--2010 Han-Wen Nienhuys <hanwen@xs4all.nl> (English)
-;;;; Copyright (C) 2002--2010 Carlos García Suárez <cgscqmp@terra.es>
+;;;; Copyright (C) 1996--2011 Han-Wen Nienhuys <hanwen@xs4all.nl> (English)
+;;;; Copyright (C) 2002--2011 Carlos García Suárez <cgscqmp@terra.es>
 ;;;;                Maximiliano G. G. <mxgdvg@yahoo.it> (Espanol)
-;;;; Copyright (C) 1998--2010 Paolo Zuliani <zuliap@easynet.it>
+;;;; Copyright (C) 1998--2011 Paolo Zuliani <zuliap@easynet.it>
 ;;;;                Eric Wurbel <wurbel@univ-tln.fr> (Italiano)
-;;;; Copyright (C) 1998--2010 Arvid Grøtting <arvidg@ifi.uio.no> (Norsk)
-;;;; Copyright (C) 2004--2010 Pedro Kröger <kroeger@pedrokroeger.net> (Portugues)
-;;;; Copyright (C) 2001--2010 Heikki Junes <heikki.junes@hut.fi> (Suomi)
-;;;; Copyright (C) 1997--2010 Mats Bengtsson <mabe@violin.s3.kth.se> (Svenska)
-;;;; Copyright (C) 2004--2010 Hendrik Maryns <hendrik.maryns@ugent.be> (Vlaams)
+;;;; Copyright (C) 1998--2011 Arvid Grøtting <arvidg@ifi.uio.no> (Norsk)
+;;;; Copyright (C) 2004--2011 Pedro Kröger <kroeger@pedrokroeger.net> (Portugues)
+;;;; Copyright (C) 2001--2011 Heikki Junes <heikki.junes@hut.fi> (Suomi)
+;;;; Copyright (C) 1997--2011 Mats Bengtsson <mabe@violin.s3.kth.se> (Svenska)
+;;;; Copyright (C) 2004--2011 Hendrik Maryns <hendrik.maryns@ugent.be> (Vlaams)
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by

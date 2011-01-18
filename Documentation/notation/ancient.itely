@@ -101,7 +101,7 @@ such as the quilisma and the oriscus.
 used in the Medicaea (or Ratisbona) editions which were used prior
 to the Solesmes editions.  The most significant differences from
 the @emph{Vaticana} style are the clefs, which have
-downward-slanted strokes, and the noteheads, which are square and
+downward-slanted strokes, and the note heads, which are square and
 regular.
 
 @cindex Ratisbona, Editio
@@ -121,13 +121,13 @@ renaissance manuscripts and prints of mensural music:
 @itemize
 @item The @emph{Mensural} style most closely resembles the
 writing style used in late-medieval and early renaissance
-manuscripts, with its small and narrow, diamond-shaped noteheads
+manuscripts, with its small and narrow, diamond-shaped note heads
 and its rests which approach a hand-drawn style.
 
 @cindex mensural
 
 @item The @emph{Neomensural} style is a modernized and
-stylized version of the former: the noteheads are broader and the
+stylized version of the former: the note heads are broader and the
 rests are made up of straight lines.  This style is particularly
 suited, e.g., for incipits of transcribed pieces of mensural
 music.
@@ -145,7 +145,7 @@ larger note heads than the other mensural styles.
 
 @emph{Baroque} and @emph{Classical} are not complete styles
 but differ from the default style only in some details: certain
-noteheads (Baroque) and the quarter rest (Classical).
+note heads (Baroque) and the quarter rest (Classical).
 
 Only the mensural style has alternatives for all aspects of the
 notation.  Thus, there are no rests or flags in the Gregorian
@@ -153,7 +153,7 @@ styles, since these signs are not used in plainchant notation, and
 the Petrucci style has no flags or accidentals of its own.
 
 Each element of the notation can be changed independently of the
-others, so that one can use mensural flags, petrucci noteheads,
+others, so that one can use mensural flags, petrucci note heads,
 classical rests and vaticana clefs in the same piece, if one
 wishes.
 
@@ -234,8 +234,8 @@ mensural ligatures are supported for mensural music, and with
 certain limitations).  To use any of these styles, the default
 @code{Ligature_bracket_engraver} has to be replaced with one of the
 specialized ligature engravers in the @code{Voice} context,
-as explained in @ref{White mensural ligatures} and @ref{Gregorian
-square neume ligatures}.
+as explained in @ref{White mensural ligatures} and
+@ref{Gregorian square neume ligatures}.
 
 @seealso
 Music Glossary:
@@ -254,9 +254,9 @@ correctly align with ligatures.
 Accidentals must not be printed within a ligature, but instead need to
 be collected and printed in front of it.
 
-The syntax still uses the deprecated infix style @code{\[ music expr
-\]}.  For consistency reasons, it will eventually be changed to
-postfix style @code{note\[ ... note\]}.
+The syntax still uses the deprecated infix style
+@code{\[ music expr \]}.  For consistency reasons, it will eventually
+be changed to postfix style @code{note\[ ... note\]}.
 
 @c Alternatively, the file
 @c @file{gregorian-init.ly} can be included; it provides a scheme
@@ -276,9 +276,9 @@ postfix style @code{note\[ ... note\]}.
 @cindex custos
 @cindex custodes
 
-A @emph{custos} (plural: @emph{custodes}; Latin word for @qq{guard}) is a
-symbol that appears at the end of a staff.  It anticipates the pitch
-of the first note of the following line, thus helping the performer
+A @emph{custos} (plural: @emph{custodes}; Latin word for @qq{guard})
+is a symbol that appears at the end of a staff.  It anticipates the
+pitch of the first note of the following line, thus helping the performer
 to manage line breaks during performance.
 
 Custodes were frequently used in music notation until the
@@ -540,11 +540,10 @@ The mensural g clef is mapped to the Petrucci g clef.
 @cindex mensuration sign
 @cindex time signatures
 
-There is limited support for mensuration signs (which are similar to, but
-not exactly the same as time signatures).  The glyphs are hard-wired to
-particular time fractions.  In other words, to get a particular mensuration
-sign with the @code{\time n/m} command, @code{n} and @code{m} have to be
-chosen according to the following table
+There is limited support for mensuration signs (which are similar to,
+but not exactly the same as time signatures).  The glyphs are hard-wired
+to particular time fractions.  In other words, to get a particular mensuration sign with the @code{\time n/m} command, @code{n} and
+@code{m} have to be chosen according to the following table
 
 @lilypond[quote,ragged-right]
 \layout {
@@ -633,8 +632,8 @@ Notation Reference:
 
 @knownissues
 Ratios of note durations do not change with the time signature.  For
-example, the ratio of 1@tie{}breve = 3@tie{}semibreves (@emph{tempus
-perfectum}) must be made by hand, by setting
+example, the ratio of 1@tie{}breve = 3@tie{}semibreves
+(@emph{tempus perfectum}) must be made by hand, by setting
 
 @example
 breveTP = #(ly:make-duration -1 0 3 2)
@@ -655,10 +654,11 @@ Use @code{\markup @{\musicglyph #"timesig.mensural68alt" @}} instead.
 
 @cindex note heads, ancient
 
-For ancient notation, a note head style other than the @code{default} style
-may be chosen.  This is accomplished by setting the @code{style} property of
-the @code{NoteHead} object to @code{baroque}, @code{neomensural},
-@code{mensural} or @code{petrucci}.
+For ancient notation, a note head style other than the
+@code{default} style may be chosen.  This is accomplished by setting
+the @code{style} property of the @code{NoteHead} object to
+@code{baroque}, @code{neomensural}, @code{mensural} or
+@code{petrucci}.
 
 The @code{baroque} style differs from the @code{default} style by:
 
@@ -667,11 +667,12 @@ The @code{baroque} style differs from the @code{default} style by:
 @item Using a square shape for @code{\breve} note heads.
 @end itemize
 
-The @code{neomensural}, @code{mensural}, and @code{petrucci} styles differ from
-the @code{baroque} style by:
+The @code{neomensural}, @code{mensural}, and @code{petrucci} styles
+differ from the @code{baroque} style by:
 
 @itemize
-@item Using rhomboidal heads for semibreves and all smaller durations, and
+@item Using rhomboidal heads for semibreves and all smaller durations,
+and
 @item Centering the stems on the note heads.
 @end itemize
 
@@ -690,7 +691,8 @@ a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
 @end lilypond
 
 
-@ref{Note head styles}, gives an overview of all available note head styles.
+@ref{Note head styles}, gives an overview of all available note head
+styles.
 
 @seealso
 Music Glossary:
@@ -854,11 +856,11 @@ fis gis
 ais bis
 @end lilypond
 
-This will treat @emph{every} subsequent accidental as @emph{musica
-ficta} until it is unset with @code{\set suggestAccidentals =
-##f}.  A more practical way is to use @code{\once \set
-suggestAccidentals = ##t}, which can even be defined as a
-convenient shorthand:
+This will treat @emph{every} subsequent accidental as
+@emph{musica ficta} until it is unset with
+@code{\set suggestAccidentals = ##f}.  A more practical way is to
+use @code{\once \set suggestAccidentals = ##t}, which can even be
+defined as a convenient shorthand:
 
 @lilypond[quote,verbatim]
 ficta = { \once \set suggestAccidentals = ##t }
@@ -1249,12 +1251,13 @@ There are no rests in Gregorian chant notation; instead, it uses
 
 A @emph{divisio} (plural: @emph{divisiones}; Latin word for
 @q{division}) is a staff context symbol that is used to indicate
-the phrase and section structure of Gregorian music.  The musical meaning of
-@emph{divisio minima}, @emph{divisio maior}, and @emph{divisio maxima}
-can be characterized as short, medium, and long pause, somewhat like
-the breathmarks from @ref{Breath marks}.  The @emph{finalis} sign not
-only marks the end of a chant, but is also frequently used within a
-single antiphonal/responsorial chant to mark the end of each section.
+the phrase and section structure of Gregorian music.  The musical
+meaning of @emph{divisio minima}, @emph{divisio maior}, and
+@emph{divisio maxima} can be characterized as short, medium, and
+long pause, somewhat like the breath marks from @ref{Breath marks}.
+The  @emph{finalis} sign not only marks the end of a chant, but is
+also frequently used within a single antiphonal/responsorial chant
+to mark the end of each section.
 
 To use divisiones, include the file @file{gregorian.ly}.  It
 contains definitions that you can apply by just inserting
@@ -1330,8 +1333,8 @@ Installed Files:
 
 In addition to the standard articulation signs described in
 section @ref{Articulations and ornamentations}, articulation signs
-specifically designed for use with notation in @emph{Editio
-Vaticana} style are provided.
+specifically designed for use with notation in
+@emph{Editio Vaticana} style are provided.
 
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
@@ -1509,7 +1512,7 @@ Another main category of notes in Gregorian chant is the so-called
 liquescent neumes.  They are used under certain circumstances at
 the end of a syllable which ends in a @q{liquescent} letter, i.e.
 the sounding consonants that can hold a tone (the nasals, l, r, v,
-j, and their diphtong equivalents).  Thus, the liquescent neumes
+j, and their diphthong equivalents).  Thus, the liquescent neumes
 are never used alone (although some of them can be produced), and
 they always fall at the end of a ligature.
 
@@ -1517,11 +1520,11 @@ Liquescent neumes are represented graphically in two different,
 more or less interchangeable ways: with a smaller note or by
 @q{twisting} the main note upwards or downwards.  The first is
 produced by making a regular @code{pes} or @code{flexa} and
-modifying the shape of the second note: @code{\[ a \pes \deminutum
-b \] }, the second by modifying the shape of a single-note neume
-with @code{\auctum} and one of the direction markers
-@code{\descendens} or @code{\ascendens}, e.g., @code{ \[ \auctum
-\descendens a \] }.
+modifying the shape of the second note:
+@code{\[ a \pes \deminutum b \] }, the second by modifying the shape
+of a single-note neume with @code{\auctum} and one of the direction
+markers @code{\descendens} or @code{\ascendens}, e.g.,
+@code{ \[ \auctum \descendens a \] }.
 
 @noindent
 Special signs
@@ -1552,7 +1555,7 @@ In addition to the note signs, @file{gregorian.ly} also defines the
 commands @code{\versus}, @code{\responsum}, @code{\ij},
 @code{\iij}, @code{\IJ}, and @code{\IIJ}, that will produce the
 corresponding characters, e.g., for use in lyrics, as section
-markers, etc.  These commands use special unicode characters and
+markers, etc.  These commands use special Unicode characters and
 will only work if a font is used which supports them.
 
 
@@ -1561,9 +1564,9 @@ will only work if a font is used which supports them.
 The following table shows a limited, but still representative pool
 of Gregorian ligatures, together with the code fragments that
 produce the ligatures.  The table is based on the extended neumes
-table of the 2nd volume of the Antiphonale Romanum (@emph{Liber
-Hymnarius}), published 1983 by the monks of Solesmes.  The first
-column gives the name of the ligature, with the main form in
+table of the 2nd volume of the Antiphonale Romanum
+(@emph{Liber Hymnarius}), published 1983 by the monks of Solesmes.
+The first column gives the name of the ligature, with the main form in
 boldface and the liquescent forms in italics.  The third column
 shows the code fragment that produces this ligature, using
 @code{g}, @code{a}, and @code{b} as example pitches.
@@ -2472,7 +2475,7 @@ In many cases, @code{\set Score.timing = ##f} will give good
 results.  Another alternative is to use @code{\CadenzaOn} and
 @code{\CadenzaOff}.
 
-To remove the barlines, the radical approach is to @code{\remove}
+To remove the bar lines, the radical approach is to @code{\remove}
 the Bar_engraver from the Staff context.  Again, one may want to
 use @code{\override BarLine #'transparent = ##t} instead, if an
 occasional barline is wanted.
@@ -2558,8 +2561,8 @@ syllable groups clearly apart, usually also the subdivisions of a
 longer melisma.  One way to achieve this is to use a fixed
 @code{\time}, e.g., 1/4, and let each syllable or note group fill
 one of these measures, with the help of tuplets or shorter
-durations.  If the barlines and all other rhythmical indications
-are made transparent, and the space around the barlines is
+durations.  If the bar lines and all other rhythmical indications
+are made transparent, and the space around the bar lines is
 increased, this will give a fairly good representation in modern
 notation of the original.
 
@@ -2630,8 +2633,8 @@ TBC
 
 @c TODO Add text
 @c try Till Rettig
-@c Add example of white noteheads:
-@c In the french baroque some composers used white noteheads in slow pieces,
+@c Add example of white note heads:
+@c In the french baroque some composers used white note heads in slow pieces,
 @c mainly in 3/2-time.  A quarter looks there like a eighth with a white
 @c notehead.  (Franz-Rudolf Kuhnen)
 

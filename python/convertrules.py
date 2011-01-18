@@ -2964,22 +2964,29 @@ def conv(str):
                   '(Note|Rest|Skip_event)_swallow_translator|String_number_engraver)"*',
                   '', str)
 
-    str = re.sub (r"page-top-space\s*=\s*#([0-9.]+)",
-                  r"top-system-spacing #'space = #\1",
+    # match through the end of assignments in the form "x = 30", "x = 1 \in", or "x = #3"
+    str = re.sub (r"(page-top-space)\s*=\s*(([+-]?[.\d]*\s*\\[-\w]+)|(#?\s*[-+]?[.\d]+))",
+                  r"obsolete-\g<0>"
+                  r"  top-system-spacing #'space = #(/ obsolete-\1 staff-space)",
                   str)
-    str = re.sub (r"between-system-space\s*=\s*#([0-9.]+)",
-                  r"between-system-spacing #'space = #\1\nbetween-scores-system-spacing #'space = #\1",
+    str = re.sub (r"(between-system-space)\s*=\s*(([+-]?[.\d]*\s*\\[-\w]+)|(#?\s*[-+]?[.\d]+))",
+                  r"obsolete-\g<0>"
+                  r"  between-system-spacing #'space = #(/ obsolete-\1 staff-space)"
+                  r"  between-scores-system-spacing #'space = #(/ obsolete-\1 staff-space)",
                   str)
-    str = re.sub (r"between-system-padding\s*=\s*#([0-9.]+)",
-                  r"between-system-spacing #'padding = #\1\nbetween-scores-system-spacing #'padding = #\1",
+    str = re.sub (r"(between-system-padding)\s*=\s*(([+-]?[.\d]*\s*\\[-\w]+)|(#?\s*[-+]?[.\d]+))",
+                  r"obsolete-\g<0>"
+                  r"  between-system-spacing #'padding = #(/ obsolete-\1 staff-space)"
+                  r"  between-scores-system-spacing #'padding = #(/ obsolete-\1 staff-space)",
                   str)
-    str = re.sub (r"(after|between|before)-title-space\s*=\s*#([0-9.]+)",
-                  r"\1-title-spacing #'space = #\2",
+    str = re.sub (r"((before|between|after)-title-space)\s*=\s*(([+-]?[.\d]*\s*\\[-\w]+)|(#?\s*[-+]?[.\d]+))",
+                  r"obsolete-\g<0>"
+                  r"  \2-title-spacing #'space = #(/ obsolete-\1 staff-space)",
                   str)
 
-    if re.search(r'minimum-Y-extent', str):
+    if re.search(r"VerticalAxisGroup\s*#\s*'minimum-Y-extent", str):
         stderr_write("\n")
-        stderr_write(NOT_SMART % _("vertical spacing has been changed; minimum-Y-extent is obsolete.\n"))
+        stderr_write(NOT_SMART % _("minimum-Y-extent; vertical spacing no longer depends on the Y-extent of a VerticalAxisGroup.\n"))
         stderr_write(UPDATE_MANUALLY)
 
     return str
@@ -3131,7 +3138,8 @@ def conv(str):
 
 @rule ((2, 13, 46),
     _ ("Change stringTunings from a list of semitones to a list of pitches.\n"\
-	"Change tenor and baritone ukulele names in string tunings."))
+       "Change tenor and baritone ukulele names in string tunings.\n"\
+       "Generate messages for manual conversion of vertical spacing if required."))
 
 def conv(str):
     def semitones2pitch(semitones):
@@ -3161,6 +3169,16 @@ def conv(str):
           new_tunings , str)
 
     str = re.sub (r"ukulele-(tenor|baritone)-tuning", r"\1-ukulele-tuning", str)
+
+    if re.search (r"[^-]page-top-space", str):
+        stderr_write (NOT_SMART % "page-top-space.  " + UPDATE_MANUALLY)
+    if re.search (r"[^-]between-system-(space|padding)", str):
+        stderr_write (NOT_SMART % "between-system-space, -padding.  " + UPDATE_MANUALLY)
+    if re.search (r"[^-](before|between|after)-title-space", str):
+        stderr_write (NOT_SMART % "-title-space.  " + UPDATE_MANUALLY)
+    if re.search (r"\\name\s", str):
+        stderr_write("\n" + _("Vertical spacing changes might affect user-defined contexts.  ") + UPDATE_MANUALLY)
+
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

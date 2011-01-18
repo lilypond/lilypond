@@ -1,6 +1,6 @@
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 1996--2010 Han-Wen Nienhuys <hanwen@xs4all.nl>
+%%%% Copyright (C) 1996--2011 Han-Wen Nienhuys <hanwen@xs4all.nl>
 %%%%                          Jan Nieuwenhuizen <janneke@gnu.org>
 %%%%
 %%%% LilyPond is free software: you can redistribute it and/or modify
@@ -462,9 +462,13 @@ printing of a single line of lyrics."
 
 RemoveEmptyStaves = \with {
   \remove "Axis_group_engraver"
+    % If RemoveEmptyStaves is called twice, two
+    % Hara_kiri_engravers would be added, which leads to a
+    % warning.
+    % This code makes sure that no previous Hara_kiri_engraver
+    % is left before adding a new one.
   \remove "Hara_kiri_engraver"
   \consists "Hara_kiri_engraver"
-  \override Beam #'auto-knee-gap = #'()
   \override VerticalAxisGroup #'remove-empty = ##t
 }
 

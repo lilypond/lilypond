@@ -23,7 +23,7 @@ prácticas} para una utilización eficiente.
 
 @c `Usage' was born 1999-10-10 with git commit c82c30c...
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2010 por los autores.
+Copyright @copyright{} 1999--2011 por los autores.
 @end macro
 
 @set FDL

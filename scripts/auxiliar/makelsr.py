@@ -62,6 +62,8 @@ else:
 # which convert-ly to use
 if os.path.isfile("out/bin/convert-ly"):
     conv_path='out/bin/'
+elif os.path.isfile("build/out/bin/convert-ly"):
+    conv_path='build/out/bin/'
 else:
     conv_path=''
 convert_ly=conv_path+'convert-ly'
@@ -163,7 +165,7 @@ def copy_ly (srcdir, name, tags):
     s = escape_backslashes_in_header (s)
     open (dest, 'w').write (s)
 
-    e = os.system (convert_ly+(" -e '%s'" % dest))
+    e = os.system (convert_ly+(" -d -e '%s'" % dest))
     if e:
         unconverted.append (dest)
     if os.path.exists (dest + '~'):

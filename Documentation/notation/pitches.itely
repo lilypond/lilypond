@@ -2135,7 +2135,7 @@ musicB = {
 @funindex teaching
 
 This rule is intended for students, and makes it easy to create
-scale sheets with automagically created cautionary accidentals.
+scale sheets with automatically created cautionary accidentals.
 Accidentals are printed like with @code{modern}, but cautionary
 accidentals are added for all sharp or flat tones specified by the
 key signature, except if the note is immediately repeated.

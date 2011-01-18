@@ -15,7 +15,7 @@
 
 @c `Web' was imported 2009-08-05 with git commit b938d71...
 @c @macro copyrightDeclare
-@c Copyright @copyright{} 2009--2010 par les auteurs.
+@c Copyright @copyright{} 2009--2011 par les auteurs.
 @c @end macro
 
 @set FDL
@@ -38,7 +38,7 @@
 @c Translators checkers: Jean-Charles Malahieude
 
 @copying
-Copyright @copyright{} 2009--2010 par les auteurs.
+Copyright @copyright{} 2009--2011 par les auteurs.
 
 @c next line is necessary for broken pre-4.13 texinfo's
 @c install-info, so leave it there until we officially

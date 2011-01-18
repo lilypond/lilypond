@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2006--2010 Joe Neeman <joeneeman@gmail.com>
+  Copyright (C) 2006--2011 Joe Neeman <joeneeman@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -119,7 +119,7 @@ Building::precompute (Real start, Real start_height, Real end_height, Real end)
     y_intercept_ = start_height - slope_ * start;
 }
 
-Real 
+Real
 Building::height (Real x) const
 {
   return isinf (x) ? y_intercept_ : slope_*x + y_intercept_;
@@ -248,7 +248,7 @@ single_skyline (Building b, Real start, Real horizon_padding, list<Building> *co
 			       -infinity_f, infinity_f));
   if (sloped_neighbours)
     ret->push_front (b.sloped_neighbour (start, horizon_padding, RIGHT));
-  
+
   if (b.end_ > start + EPS)
     ret->push_front (b);
 
@@ -367,7 +367,7 @@ Skyline::Skyline ()
 Skyline::Skyline (Skyline const &src)
 {
   sky_ = src.sky_;
- 
+
   /* doesn't a list's copy constructor do this? -- jneem */
   for (list<Building>::const_iterator i = src.buildings_.begin ();
        i != src.buildings_.end (); i++)
@@ -381,6 +381,37 @@ Skyline::Skyline (Direction sky)
   sky_ = sky;
   empty_skyline (&buildings_);
 }
+
+/*
+  build padded skyline from an existing skyline with padding
+  added to it.
+*/
+
+Skyline::Skyline (Skyline const &src, Real horizon_padding, Axis a)
+{
+  /*
+     We extract boxes from the skyline, then build a new skyline from
+     the boxes.
+     A box is created for every horizontal portion of the skyline
+     Because skylines are defined positive, and then inverted if they
+     are to be down-facing, we create the new skyline in the UP
+     direction, then give it the down direction if needed.
+  */
+  Real start = -infinity_f;
+  list<Box> boxes;
+
+  // establish a baseline box
+  boxes.push_back (Box (Interval (-infinity_f, infinity_f),
+			Interval (0, 0)));
+  list<Building>::const_iterator end = src.buildings_.end ();
+  for (list<Building>::const_iterator i = src.buildings_.begin (); i != end; start=i->end_, i++ )
+    if ((i->slope_ == 0) && !isinf (i->y_intercept_))
+      boxes.push_back (Box (Interval (start, i->end_),
+			    Interval (-infinity_f , i->y_intercept_)));
+  buildings_ = internal_build_skyline (&boxes, horizon_padding, X_AXIS, UP);
+  sky_ = src.sky_;
+}
+
 
 /*
   build skyline from a set of boxes. If horizon_padding > 0, expand all the boxes
@@ -404,7 +435,7 @@ Skyline::Skyline (vector<Box> const &boxes, Real horizon_padding, Axis horizon_a
       if (iv.length () > EPS && !boxes[i][vert_axis].is_empty ())
 	filtered_boxes.push_front (boxes[i]);
     }
-  
+
   buildings_ = internal_build_skyline (&filtered_boxes, horizon_padding, horizon_axis, sky);
 }
 
@@ -470,15 +501,31 @@ Skyline::shift (Real s)
 }
 
 Real
-Skyline::distance (Skyline const &other) const
+Skyline::distance (Skyline const &other, Real horizon_padding) const
 {
   assert (sky_ == -other.sky_);
-  list<Building>::const_iterator i = buildings_.begin ();
-  list<Building>::const_iterator j = other.buildings_.begin ();
+
+  Skyline const *padded_this = this;
+  Skyline const *padded_other = &other;
+
+  /*
+    For systems, padding is not added at creation time.  Padding is
+    added to AxisGroup objects when outside-staff objects are added.
+    Thus, when we want to place systems with horizontal padding,
+    we do it at distance calculation time.
+  */
+  if (horizon_padding != 0.0)
+    {
+      padded_this = new Skyline (*padded_this, horizon_padding, X_AXIS);
+      padded_other = new Skyline (*padded_other, horizon_padding, X_AXIS);
+    }
+
+  list<Building>::const_iterator i = padded_this->buildings_.begin ();
+  list<Building>::const_iterator j = padded_other->buildings_.begin ();
 
   Real dist = -infinity_f;
   Real start = -infinity_f;
-  while (i != buildings_.end () && j != other.buildings_.end ())
+  while (i != padded_this->buildings_.end () && j != padded_other->buildings_.end ())
     {
       Real end = min (i->end_, j->end_);
       Real start_dist = i->height (start) + j->height (start);

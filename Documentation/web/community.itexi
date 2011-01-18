@@ -372,14 +372,14 @@ every bug can be demonstrated in four notes or less!}
 Here is an example of a good bug report:
 
 @example
-%% the octavation command doesn't
-%% change the output at all!
+% Accidentals should be printed for only
+% the first note in a tie, but this version
+% prints flats on both notes.
+\version "2.10.1"
 
-\version "2.10.0"
-\relative c''' @{
-  c1
-  #(set-octavation 1)
-  c1
+\relative c'' @{
+ bes1 ~
+ bes1
 @}
 @end example
 
@@ -418,6 +418,10 @@ report.
 
 @end itemize
 @divEnd
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Step 4: Wait for a response
 
 Once your bug has been sent to the list, our Bug Squad will
 examine the report.  Please allow up to 24 hours, as we have a
@@ -429,6 +433,17 @@ You may mark the bug so that you automatically receive emails when
 any activity on the bug occurs.  This requires you have a google
 account.
 @divEnd
+
+@divClass{column-center-bottom}
+@subheading Optional help: show the desired behavior
+
+Once an issue has been added to the tracker, it can be very
+helpful if we can see the desired output.  Feel free to add input
+code and/or images (possibly created with other tools) which
+demonstrate what you think it should look like!
+
+@divEnd
+
 
 
 @node Help us

@@ -38,8 +38,7 @@ manuscriptBreak = { \break }
 %#(set-global-staff-size (* 5.8 mm))
     line-width = #(* mm 160)
     indent = 8\mm
-    interscoreline = 2.\mm
-    between-system-space = 15\mm
+    system-system-spacing #'basic-distance = #10.3
     ragged-bottom = ##t 
     }
 
@@ -171,7 +170,6 @@ pianoLH =  \relative c'' \repeat volta 2 {
 	\layout {
 	    \context {
 		\Lyrics
-		\override VerticalAxisGroup #'minimum-Y-extent = #'(-0.5 . 2.5)
 		\override LyricText #'font-size = #-1
 	    }
 	    \context {
