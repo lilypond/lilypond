@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: de924bddd22886a0a67decbde45acd5da441bf6d
+    Translation of GIT committish: 42d5df998cb69b0c66f967b3b5043e83bc504be6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -117,7 +117,8 @@ Manual de aprendizaje:
 
 Referencia de la notación:
 @ref{Formatear el texto},
-@ref{Dirección y posición}.
+@ref{Dirección y posición},
+@ref{Articulaciones y ornamentos}.
 
 Fragmentos de código:
 @rlsr{Text}.
@@ -133,7 +134,6 @@ Referencia de funcionamiento interno:
 
 
 @knownissues
-
 La comprobación necesaria para asegurar que las inscripciones de texto
 y la letra de las canciones se mantienen dentro de los márgenes, es
 una tarea computacional relativamente grande.  Para acelerar el
@@ -212,7 +212,8 @@ voz.
 @seealso
 Referencia de la notación:
 @ref{Estilos de línea},
-@ref{Matices dinámicos}.
+@ref{Matices dinámicos},
+@ref{Formatear el texto}.
 
 Fragmentos de código:
 @rlsr{Text},
@@ -266,7 +267,8 @@ usando un bloque @code{\markup}, como está explicado en
 @noindent
 Esta sintaxis también permite imprimir símbolos especiales como
 llamadas, segno o calderones, especificando el nombre del símbolo
-correspondiente como se explica en @ref{Notación musical dentro de elementos de marcado}:
+correspondiente como se explica en
+@ref{Notación musical dentro de elementos de marcado}:
 
 @lilypond[quote,verbatim,relative=2]
 <bes f>2 <aes d>
@@ -516,7 +518,6 @@ Archivos de inicio:
 
 
 @knownissues
-
 Los errores de sintaxis para el modo de marcado a menudo producen
 confusión.
 
@@ -1510,6 +1511,7 @@ explica en las siguientes secciones: @ref{Fuentes de un solo elemento} y
 Referencia de la notación:
 @ref{La tipografía Feta},
 @ref{Notación musical dentro de elementos de marcado},
+@ref{Rotación de objetos},
 @ref{Seleccionar la tipografía y su tamaño},
 @ref{Font}.
 
