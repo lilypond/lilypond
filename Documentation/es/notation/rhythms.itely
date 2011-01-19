@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
+    Translation of GIT committish: 9a40bd63b77375ac7ac1085d7eda9f5680bf06dd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1094,24 +1094,23 @@ existentes se pueden cambiar, o pueden añadirse valores nuevos:
 
 @lilypond[quote,verbatim]
 \score {
-  \relative c' {
-    \overrideTimeSignatureSettings
-      #'(4 . 4)  % timeSignatureFraction
-      #'(1 . 4)  % baseMomentFraction
-      #'(3 1)    % beatStructure
-      #'()       % beamExceptions
-    \time 4/4
-    \repeat unfold 8 { c8 } |
+  \new Staff {
+    \relative c' {
+      \overrideTimeSignatureSettings
+        #'(4 . 4)  % timeSignatureFraction
+        #'(1 . 4)  % baseMomentFraction
+        #'(3 1)    % beatStructure
+        #'()       % beamExceptions
+      \time 4/4
+      \repeat unfold 8 { c8 } |
+    }
   }
 }
 @end lilypond
 
-@code{\overrideTimeSignatureSettings} toma cinco argumentos:
+@code{\overrideTimeSignatureSettings} toma cuatro argumentos:
 
 @enumerate
-@item
-@code{@var{context}}, un símbolo de Scheme que describe el contexto al
-que se aplica el valor predeterminado.
 
 @item
 @code{@var{timeSignatureFraction}}, una pareja de Scheme que describe
@@ -1133,6 +1132,38 @@ terminar en cada pulso, como se describe en @ref{Establecer el
 comportamiento de las barras automáticas}.
 @end enumerate
 
+El contexto que contiene @code{\overrideTimeSignatureSettings} se debe
+instanciar antes de que se ejecute la llamada a
+@code{\overrideTimeSignatureSettings}.  Ello significa que debe
+instanciarse explícitamente o debe existir música dentro del contexto
+antes de la llamada a @code{\overrideTimeSignatureSettings}:
+
+@lilypond[quote,verbatim]
+\score {
+  \relative c' {
+    % This call will fail because the context isn't yet instantiated
+    \overrideTimeSignatureSettings
+      #'(4 . 4)  % timeSignatureFraction
+      #'(1 . 4)  % baseMomentFraction
+      #'(3 1)    % beatStructure
+      #'()       % beamExceptions
+    \time 4/4
+    c8^\markup {"Beamed (2 2)"}
+    \repeat unfold 7 { c8 } |
+    % This call will succeed
+    \overrideTimeSignatureSettings
+      #'(4 . 4)  % timeSignatureFraction
+      #'(1 . 4)  % baseMomentFraction
+      #'(3 1)    % beatStructure
+      #'()       % beamExceptions
+    \time 4/4
+    c8^\markup {"Beamed (3 1)"}
+    \repeat unfold 7 { c8 } |
+  }
+}
+@end lilypond
+
+
 @cindex compás, propiedades, restaurar los valores predeterminados
 @cindex restaurar las propiedades predeterminadas del tipo de compás
 @funindex \revertTimeSignatureSettings
@@ -1145,15 +1176,58 @@ compás se pueden restaurar a los valores originales:
   \relative c' {
     \repeat unfold 8 { c8 } |
     \overrideTimeSignatureSettings
-      #'(4 . 4)                       % timeSignatureFraction
-      #'(1 . 4)                       % baseMomentFraction
-      #'(3 1)                         % beatStructure
-      #'((end . (((1 . 8) . (3 1))))) % beamExceptions
+      #'(4 . 4)  % timeSignatureFraction
+      #'(1 . 4)  % baseMomentFraction
+      #'(3 1)    % beatStructure
+      #'()       % beamExceptions
     \time 4/4
     \repeat unfold 8 { c8 } |
     \revertTimeSignatureSettings #'(4 . 4)
     \time 4/4
     \repeat unfold 8 { c8 } |
+  }
+}
+@end lilypond
+
+Se pueden establecer diferentes valores de las propiedades
+predeterminadas del tipo de compás para los distintos pentagramas
+moviendo el @code{Timing_translator} y el
+@code{Default_bar_line_engraver} del contexto @code{Score} al contexto
+@code{Staff}.
+
+@lilypond[quote, verbatim]
+\score {
+  \new StaffGroup <<
+     \new Staff {
+        \overrideTimeSignatureSettings
+          #'(4 . 4)  % timeSignatureFraction
+          #'(1 . 4)  % baseMomentFraction
+          #'(3 1)    % beatStructure
+          #'()       % beamExceptions
+        \time 4/4
+        \repeat unfold 8 {c''8}
+     }
+     \new Staff {
+        \overrideTimeSignatureSettings
+          #'(4 . 4)  % timeSignatureFraction
+          #'(1 . 4)  % baseMomentFraction
+          #'(1 3)    % beatStructure
+          #'()       % beamExceptions
+        \time 4/4
+        \repeat unfold 8 {c''8}
+     }
+  >>
+  \layout {
+    \context {
+      \Score
+      \remove "Timing_translator"
+      \remove "Default_bar_line_engraver"
+    }
+    \context {
+      \Staff
+      \consists "Timing_translator"
+      \consists "Default_bar_line_engraver"
+    }
   }
 }
 @end lilypond
@@ -1213,6 +1287,15 @@ Es muy sencillo escribir una indicación metronómica básica:
 \tempo 4 = 120
 c2 d
 e4. d8 c2
+@end lilypond
+
+También se pueden imprimir indicaciones metronómicas
+como un intervalo entre dos números:
+
+@lilypond[verbatim,quote,relative=1]
+\tempo 4 = 40 ~ 46
+c4. e8 a4 g
+b,2 d4 r
 @end lilypond
 
 Se pueden usar indicaciones de tempo con texto:
@@ -2074,6 +2157,37 @@ compás están determinados en el archivo
 barrado automático para un tipo de compás pueden cambiarse como se
 describe en @ref{Indicación de compás}.
 
+Casi todos los ajustes de barrado automáticos para un tipo de compás
+contienen una entrada para @code{beamExceptions}.  Por ejemplo, el
+compás de 4/4 trata de unir el compás en dos partes si solo hay
+corcheas.  La regla @code{beamExceptions} puede sobreescribir el
+ajuste @code{beatStructure} si no se reinicia @code{beamExceptions}.
+
+@lilypond[quote,verbatim,relative=2]
+\time 4/4
+\set Timing.baseMoment = #(ly:make-moment 1 8)
+\set Timing.beatStructure = #'(3 3 2)
+% This won't beam (3 3 2) because of beamExceptions
+\repeat unfold 8 {c8} |
+% This will beam (3 3 2) because we clear beamExceptions
+\set Timing.beamExceptions = #'()
+\repeat unfold 8 {c8}
+@end lilypond
+
+De un modo similar, las corcheas en compás de 3/4 se unen como un
+compás completo, de forma predeterminada.  Para unir las corcheas
+mediante barras sobre los pulsos en un compás de 3/4, reinicie
+@code{beamExceptions}.
+
+@lilypond[quote,verbatim,relative=2]
+\time 3/4
+% by default we beam in (3) due to beamExceptions
+\repeat unfold 6 {a8} |
+% This will beam (1 1 1) due to beatLength
+\set Timing.beamExceptions = #'()
+\repeat unfold 6 {a8}
+@end lilypond
+
 @i{@strong{Cómo funciona el barrado automático}}
 
 Cuando se habilita el barrado automático, la colocación de las barras
@@ -2149,7 +2263,6 @@ Referencia de funcionamiento interno:
 
 
 @knownissues
-
 Si una partitura termina mientras una barra automática no ha terminado
 aún todavía está aceptando notas, esta última barra no se imprimirá en
 absoluto.  Lo mismo sirve para las voces polifónicas, introducidas con
@@ -2282,7 +2395,8 @@ se debe indicar manualmente usando @code{[} y @code{]}, el efecto de
 propiedad @code{grow-direction} del objeto @code{Beam}.
 
 Si queremos que la colocación de las notas y el sonido de la salida
-MIDI refleje el ritardando o accelerando indicado por la barra
+MIDI refleje el @emph{ritardando} o @emph{accelerando}
+indicado por la barra
 progresiva, las notas se deben agrupar como una expresión musical
 delimitada por llaves y precedida de una instrucción
 @code{featheredDurations} que especifica la razón entre las duraciones

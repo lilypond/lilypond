@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: e72d11948551faad1f6bdc9eef217d1bd63725c7
+    Translation of GIT committish: 3c00bd3295cf8542f610a4975b5e11d26cf6e009
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -163,14 +163,20 @@ Referencia de funcionamiento interno:
 La notación para instrumentos de cuerda pulsada se realiza con
 frecuencia utilizando un sistema de dedos y cifras, o tablatura.  A
 diferencia de la notación tradicional, las notas no se designan
-mediante figuras, sino mediante números que indican sobre qué cuerda y
-traste se debe tocar la nota.  Los números se imprimen verticalmente
-unos encima de otros si las notas son simultáneas.
+mediante figuras, sino mediante números (o símbolos semejantes a
+letras en la intavolatura histórica).  Las líneas de la tablatura
+indican sobre qué cuerda se debe tocar la nota, y el número sobre
+una línea indica el traste en que la cuerda correspondiente debe
+pisarse.  Las notas que se deben tocar simultáneamente se
+alinean en sentido vertical.
 
-De forma predeterminada, la cuerda 1 es la más aguda, y la afinación
-normal es la afinación estándar de guitarra (con 6 cuerdas).  Las
-notas se imprimen como tablatura, usando los contextos @code{TabStaff}
-y @code{TabVoice}.  Se añade automáticamente una clave caligráfica de tablatura.
+De forma predeterminada, la cuerda 1 es la más aguda y corresponde
+a la línea superior de la pauta @code{TabStaff}.  La afinación
+predeterminada de las cuerdas del @code{TabStaff} es la afinación
+estándar de guitarra (con 6 cuerdas).  Las notas se imprimen
+como tablatura, usando los contextos @code{TabStaff}
+y @code{TabVoice}.  Se añade automáticamente una clave caligráfica
+de tablatura.
 
 @lilypond[quote,ragged-right,verbatim]
 \new TabStaff \relative c' {
@@ -444,6 +450,11 @@ Los efectos especiales de guitarra se limitan a armónicos y @emph{slides}.
 @cindex tablatura de guitarra
 @cindex tablatura de bajo
 @cindex tablatura de ukelele
+@cindex tablatura de violin
+@cindex tablatura de viola
+@cindex tablatura de violoncello
+@cindex tablatura de bajo
+@cindex tablatura de contrabajo
 @cindex tablatura, afinaciones predefinidas de
 @cindex trastes, instrumentos con, afinaciones predefinidas
 @cindex predefinidas, afinaciones, para instrumentos de traste
@@ -456,9 +467,10 @@ hacerlo, es necesario especificar la afinación de las cuerdas.  La
 afinación de las cuerdas se da en la propiedad @code{stringTunings}.
 
 LilyPond trae afinaciones predefinidas para el banjo, la mandolina, la
-guitarra, el bajo y el ukelele.  LilyPond establece automáticamente la
-transposición correcta para las afinaciones predefinidas.  El ejemplo
-siguiente es para bajo, que suena una octava por debajo de lo escrito.
+guitarra, el bajo, el ukelele, el violín, la viola, el violoncello y
+el contrabajo.  LilyPond establece automáticamente la transposición
+correcta para las afinaciones predefinidas.  El ejemplo siguiente es
+para bajo, que suena una octava por debajo de lo escrito.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
@@ -482,29 +494,97 @@ estándar Mi-La-Re-Sol-Si-Mi).  Otras afinaciones predefinidas son
 @code{guitar-open-g-tuning} (Sol Mayor al aire, Re-Sol-Re-Sol-Si-Re),
 @code{mandolin-tuning} (mandolina) y @code{banjo-open-g-tuning} (banjo
 con Sol Mayor al aire).  Las afinaciones predefinidas están en
-@file{scm/tablature.scm}.
+@file{ly/string-tuning-init.ly}.
 
-Una afinación de las cuerdas es una lista de Scheme de alturas, una
-por cada cuerda, ordenadas de 1 a N, donde la cuerda 1 está arriba en
-la pauta de tablatura y la cuerda N está abajo.  Esto resulta
-generalmente en un orden de la nota más aguda a la más grave, pero
-algunos instrumentos (p.ej. el ukelele) no tienen las cuerdas
+@funindex contextStringTunings
+@funindex \contextStringTunings
+@cindex tablaturea, afinaciones personalizadas
+@cindex personalizadas, afinaciones de cuerdas
+
+Es posible crear cualquier afinación de cuerdas que se desee.  Se
+puede usar la función @code{\contextStringTuning} para definir una
+afinación de cuerdas y establecerla como el valor de
+@code{stringTunings} para el contexto actual.
+@code{\contextStringTuning} admite dos argumentos: el símbolo en que
+se almacena la afinación de cuerdas y una construcción de acorde
+que define la altura de las notas de cada cuerda al aire en dicha
+afinación.  La construcción de acorde debe estar en el modo de
+octava absoluto, véase @ref{Escritura de octava absoluta}.
+La cuerda con el número más alto (generalmente la más grave)
+debe ir primero en el acorde.  Por ejemplo, podemos definir una
+afinación para un instrumento de cuatro cuerdas con las alturas
+@code{a''}, @code{d''}, @code{g'} y @code{c'}:
+
+@lilypond[quote,verbatim]
+
+mynotes = {
+  c'4 e' g' c'' |
+  e''4 g'' b'' c'''
+}
+
+<<
+  \new Staff {
+    \clef treble
+    \mynotes
+  }
+  \new TabStaff {
+    \contextStringTuning #'custom-tuning <c' g' d'' a''>
+    \mynotes
+  }
+>>
+@end lilypond
+
+La propiedad @code{stringTunings} también se utiliza por parte de
+@code{FretBoards} para calcular los diagramas de posición automáticos.
+
+@funindex makeStringTuning
+@funindex \makeStringTuning
+
+Las afinaciones de cuerdas se utilizan como parte de la clave de
+asociación para los diagramas de posición predefinidos (véase
+@ref{Diagramas predefinidos de trastes}).  Se usa la función
+@code{\makeStringTuning} para crear una afinación sin fijar el valor
+de la propiedad @code{stringTunings} en el contexto actual.  Los
+argumentos de @code{\makeStringTuning} son el símbolo que usar para la
+nueva afinación y una construcción de acorde que se usa para definir
+la afinación.  El ejemplo anterior también se podría haber escrito
+como sigue:
+
+@lilypond[quote,verbatim]
+\makeStringTuning #'custom-tuning <c' g' d'' a''>
+
+mynotes = {
+  c'4 e' g' c'' |
+  e''4 g'' b'' c'''
+}
+
+<<
+  \new Staff {
+    \clef treble
+    \mynotes
+  }
+  \new TabStaff {
+    \set TabStaff.stringTunings = #custom-tuning
+    \mynotes
+  }
+>>
+@end lilypond
+
+Internamente, una afinación de las cuerdas es una lista de Scheme de
+alturas, una por cada cuerda, ordenadas de 1 a N, donde la cuerda 1
+está arriba en la pauta de tablatura y la cuerda N está abajo.  Esto
+resulta generalmente en un orden de la nota más aguda a la más grave,
+pero algunos instrumentos (p.ej. el ukelele) no tienen las cuerdas
 dispuestas en orden de altura.
 
-La altura de una cuerda en una lista de afinación de cuerdas es el
-intervalo que forma la cuerda al aire con el Do central, medido en
-semitonos.  La altura debe ser un número entero.  LilyPond calcula la
-altura real de la cuerda añadiendo la altura de la afinación a la
-altura real del Do central.
+La altura de una cuerda dentro de una lista de alturas de cuerdas es
+un objeto altura de LilyPond.  Los objetos altura se crean con la
+función de Scheme @code{ly:make-pitch} (véase
+@ref{Funciones de Scheme}).
 
-LilyPond calcula automáticamente el número de cuerdas de la pauta
-@code{TabStaff} como el número de elementos de la lista
-@code{stringTunings}.
-
-Se puede crear cualquier afinación de cuerdas deseada.  Por ejemplo,
-podemos definir una afinación para un instrumento de cuatro cuerdas
-con las alturas @code{a''}, @code{d''}, @code{g'} y @code{c'}:
-
+Se así se desea, puede crearse una afinación de cuerdas como un
+literal de Scheme.  El ejemplo de abajo recrea los ejemplos
+anteriores, pero la afinación no se guarda como un objeto separado:
 
 @lilypond[quote,verbatim]
 mynotes = {
@@ -527,6 +607,11 @@ mynotes = {
 >>
 @end lilypond
 
+LilyPond calcula automáticamente el número de líneas dentro del
+@code{TabStaff} y el número de cuerdas dentro de un @code{FretBoard}
+calculado automáticamente como el número de elementos de
+@code{stringTunings}.
+
 @cindex moderntab, clave
 @cindex clave moderntab
 @cindex clave de tablatura
@@ -547,7 +632,13 @@ También se puede usar una clave moderna de tablatura.
 La clave moderna de tablatura contempla tablaturas de 4 a 7 cuerdas.
 
 @seealso
-Archivos de inicio:
+Referencia de la notación:
+@ref{Escritura de octava absoluta},
+@ref{Diagramas predefinidos de trastes},
+@ref{Funciones de Scheme}.
+
+Archivos instalados:
+@file{ly/string-tuning-init.ly}
 @file{scm/tablature.scm}.
 
 Fragmentos de código:
@@ -803,9 +894,9 @@ escueta @code{fret-diagram-terse}
 >>
 @end lilypond
 
-Otras propiedades de los diagramas de trastes se deben ajustar usando
-@code{\override} al utilizar el marcado escueto con
-fret-diagram-terse.
+Otras propiedades de los diagramas de trastes se deben
+ajustar usando @code{\override} al utilizar el marcado
+escueto con fret-diagram-terse.
 
 @cindex fret-diagram-verbose, marcado con
 @cindex capo
@@ -1035,7 +1126,8 @@ myChords = \chordmode { a1 a:m a:aug }
 @end lilypond
 
 Las notas de los acordes se pueden introducir como música simultánea o
-bien usando el modo de acordes (véase @ref{Panorámica del modo de acordes}).
+bien usando el modo de acordes (véase
+@ref{Panorámica del modo de acordes}).
 
 @lilypond[verbatim, ragged-right,quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1109,8 +1201,9 @@ séptima mayor, menor séptima y novena domniante) para 17 tonalidades
 distintas.  La tabla de diagramas predefinidos para el ukelele
 contiene estos acordes y además otros tres (sexta mayor, segunda
 suspendida y cuarta suspendida).  Se puede ver una lista completa de
-los diagramas de traste predefinidos en @ref{Diagramas predefinidos de
-trastes}.  Si no hay una entrada en la tabla para un acorde, el
+los diagramas de traste predefinidos en
+@ref{Diagramas predefinidos de trastes}.
+Si no hay una entrada en la tabla para un acorde, el
 grabador FretBoards calcula un cadena de diagrama fret-diagram usando
 la funcionalidad de diagramas automáticos que se describe en
 @ref{Diagramas de traste automáticos}.
@@ -1140,10 +1233,9 @@ posiciones.  Para añadir un diagrama debemos especificar la
 tabla de correspondencias para el diagrama, el acorde del
 diagrama, la afinación utilizada y una definición del diagrama.
 Normalmente la tabla de correspondencias será
-@var{default-fret-table}.  La
-definición del diagrama puede ser una cadena de definición escueta
-fret-diagram-terse o una lista de marcados prolija
-fret-diagram-verbose.
+@var{default-fret-table}.  La definición del diagrama puede ser
+una cadena de definición escueta fret-diagram-terse o una lista
+de marcados prolija fret-diagram-verbose.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1366,7 +1458,8 @@ A veces el calculador de trastes es incapaz de encontrar un diagrama
 aceptable.  Esto se puede remediar generalmente mediante la asignación
 manual de una nota a una cuerda.  En muchos casos sólo hay que colocar
 manualmente una nota sobre una cuerda; el resto de las notas se
-situará en el lugar adecuado por parte del contexto @code{FretBoards}.
+situará en el lugar adecuado por parte del contexto
+@code{FretBoards}.
 
 @cindex trastes, añadir digitaciones a diagramas de
 @cindex digitaciones, añadir, a diagramas de trastes
@@ -1420,8 +1513,9 @@ contexto FretBoard se puede fijar con la propiedad @code{minimumFret}.
 
 Las cuerdas y los trastes para el contexto @code{FretBoards} dependen
 de la propiedad @code{stringTunings}, que tiene el mismo significado
-que en el contexto de tablatura TabStaff.  Consulte @ref{Tablaturas personalizadas} para ver más información sobre la propiedad
-@code{stringTunings}.
+que en el contexto de tablatura TabStaff.
+Consulte @ref{Tablaturas personalizadas} para ver más información
+sobre la propiedad @code{stringTunings}.
 
 El aspecto gráfico de un diagrama de trastes se puede personalizar de
 acuerdo a las preferencias del usuario a través de las propiedades del
@@ -1650,9 +1744,9 @@ Referencia de la notación:
 @cindex quinta vacía, acordes de
 @cindex vacía, acordes de quinta
 
-Los acordes de quinta vacía o acordes de potencia (@emph{power
-chords}) y sus símbolos se pueden tipografiar en el modo de acordes o
-como construcciones de acorde normales:
+Los acordes de quinta vacía o acordes de potencia
+(@emph{power chords}) y sus símbolos se pueden tipografiar
+en el modo de acordes o como construcciones de acorde normales:
 
 @lilypond[quote,ragged-right,verbatim]
 ChordsAndSymbols = {

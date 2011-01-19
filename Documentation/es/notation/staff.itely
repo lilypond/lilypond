@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 7044a6e78c052315e4fbc05cb9a05fbfb16de9f5
+    Translation of GIT committish: 36dd3392bcc0462f7d8af5f5a8bf24c544e43cda
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -279,6 +279,9 @@ Referencia de funcionamiento interno:
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
+
+@knownissues
+@code{PianoStaff} no acepta @code{ChordNames} de forma predeterminada.
 
 
 @node Grupos de pentagramas anidados

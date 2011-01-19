@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
+Translation of GIT committish: de924bddd22886a0a67decbde45acd5da441bf6d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1993,21 +1993,23 @@ afecte a las otras claves.
 Por ejemplo, para reducir el espacio entre pentagramas adyacentes
 dentro de un grupo, use la propiedad @code{staff-staff-spacing}
 del grob @code{StaffGrouper}.  La propiedad es una lista-A con cuatro
-claves: @code{padding} (relleno), @code{space} (espacio),
-@code{minimum-distance} (distancia mínima) y @code{stretchability}
-(ampliabilidad).  Tres de las cuatro claves tienen valores
-predeterminados en el inicio; éstos se relacionan en la sección
+claves: @code{basic-distance} (distancia básica),
+@code{minimum-distance} (distancia mínima), @code{padding} (relleno)
+y @code{stretchability} (ampliabilidad).
+Los ajustes estándar para esta propiedad
+se relacionan en la sección
 @qq{Backend} de la Referencia de Funcionamiento Interno
 (véase @rinternals{StaffGrouper}):
 
-@file{scm/define-grobs.scm}:
-
 @example
-'((basic-distance . 9) (minimum-distance . 7) (padding . 1))
+'((basic-distance . 9)
+  (minimum-distance . 7)
+  (padding . 1)
+  (stretchability . 5))
 @end example
 
 Una forma de acercar los pentagramas entre sí es reducir el valor de
-la clave @code{space} (@code{9}) para que se corresponda con el valor
+la clave @code{basic-distance} (@code{9}) para que se corresponda con el valor
 de @code{minimum-distance} (@code{7}).  Para modificar una única clave
 de forma individual, utilice una @emph{declaración anidada}:
 
@@ -2029,7 +2031,8 @@ de forma individual, utilice una @emph{declaración anidada}:
 @end lilypond
 
 La utilización de una declaración anidada actualiza la clave
-especificada (como @code{space} en el ejemplo anterior) sin alterar ninguna
+especificada (como @code{basic-distance} en el ejemplo anterior)
+sin alterar ninguna
 de las otras claves que ya se habían establecido para la misma
 propiedad.
 
@@ -2043,9 +2046,9 @@ completamente la propiedad con una sola declaración, como una lista-A:
 @lilypond[quote,verbatim]
 \new PianoStaff \with {
   \override StaffGrouper #'staff-staff-spacing =
-    #'((padding . 0)
-       (basic-distance . 0)
+    #'((basic-distance . 0)
        (minimum-distance . 0)
+       (padding . 0)
        (stretchability . 0))
 } <<
   \new Staff { \clef treble c''1 }
@@ -2058,7 +2061,7 @@ explícitamente en la definición de la lista-A, será reiniciada a sus
 valores @emph{predeterminados si no se han fijado}.  En el caso de
 @code{staff-staff-spacing}, el valor de cualquier clave no fijada se
 reiniciaría a cero (excepto @code{stretchability}, que toma el valor
-de @code{space} si no se fija).  Así, las dos declaraciones siguientes
+de @code{basic-distance} si no se fija).  Así, las dos declaraciones siguientes
 son equivalentes:
 
 @example
@@ -2066,24 +2069,24 @@ son equivalentes:
   #'((basic-distance . 7))
 
 \override StaffGrouper #'staff-staff-spacing =
-  #'((padding . 0)
-     (basic-distance . 7)
+  #'((basic-distance . 7)
      (minimum-distance . 0)
+     (padding . 0)
      (stretchability . 7))
 @end example
 
 Una consecuencia de esto (posiblemente no intencionada) es la
-eliminación de cualquier valor predeterminado @emph{inicializado} que
+eliminación de cualquier valor estándar que
 se establezca en un archivo de inicio y que se carga cada vez que se
-compila un archivo de entrada.  En el ejemplo anterior, los valores
-predeterminados inicializados para @code{padding} y
+compila un archivo de entrada.  En el ejemplo anterior, los ajustes
+estándar para @code{padding} y
 @code{minimum-distance} (definidos en @file{scm/define-grobs.scm}) se
 reinician a sus valores predeterminados si no se han fijado (cero para
 las dos claves).  La definición de una propiedad o variable como una
 lista-A (de cualquier tamaño) siempre reinicia todos los valores de
 clave no establecidos a sus valores predeterminados si no se han
 fijado.  Ano ser que este sea el resultado deseado, es más seguro
-actualizar los valores de clave inddividualmente con una declaración
+actualizar los valores de clave individualmente con una declaración
 anidada.
 
 @warning{Las declaraciones anidadas no funcionan para las listas-A de
@@ -3093,11 +3096,11 @@ explícitas.
 
 El pequeño símbolo de octava sobre las claves en octava alta o baja se
 produce por parte del objeto @code{OctavateEight}.  Su visibilidad se
-controla independientemente de la del objeto @code{Clef}, así que es
+hereda automáticamente de la del objeto @code{Clef}, así que no es
 necesario aplicar las sobreescrituras correspondientes
-@code{break-visibility} tanto a los objetos @code{Clef} como
-@code{OctavateEight} para suprimir completamente estos símbolos de
-clave al comienzo de cada línea.
+@code{break-visibility} a los objetos
+@code{OctavateEight} para suprimir los símbolos de octavación
+para las claves invisibles.
 
 Para los cambios de clave explícitos, la propiedad
 @code{explicitClefVisibility} controla tanto el símbolo de clave como

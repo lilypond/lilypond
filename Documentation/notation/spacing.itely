@@ -281,11 +281,11 @@ are described in @ref{Setting paper size}.
 
 The vertical dimensions affected by automatic scaling are
 @code{top-margin} and @code{bottom-margin} (see
-@ref{Fixed vertical spacing \paper variables}.  The horizontal
+@ref{Fixed vertical spacing \paper variables}).  The horizontal
 dimensions affected by automatic scaling are @code{left-margin},
 @code{right-margin}, @code{inner-margin}, @code{outer-margin},
 @code{binding-offset}, @code{indent}, and @code{short-indent} (see
-@ref{Horizontal spacing \paper variables}.
+@ref{Horizontal spacing \paper variables}).
 
 The default values for these dimensions are set in
 @file{ly/paper-defaults-init.ly}, using internal variables named

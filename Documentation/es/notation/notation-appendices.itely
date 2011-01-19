@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
+    Translation of GIT committish: 17f11c2f5ab963bfb07b7652b4860dc4dda5540a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.46"
 
 @node Tablas del manual sobre notación
 @appendix Tablas del manual sobre notación
@@ -17,6 +17,7 @@
 @menu
 * Cuadro de nombres de acordes::
 * Modificadores de acorde más usuales::
+* Afinaciones de cuerdas predefinidas::
 * Diagramas predefinidos de posiciones::
 * Instrumentos MIDI::
 * Lista de colores::
@@ -418,6 +419,14 @@ Perfect fifth, octave
 @end lilypond
 
 @end multitable
+
+@node Afinaciones de cuerdas predefinidas
+@appendixsec Afinaciones de cuerdas predefinidas
+@translationof Predefined string tunings
+
+El cuadro de abajo muestra las afinaciones predefinidas de cuerdas.
+
+@lilypondfile{display-predefined-string-tunings.ly}
 
 @node Diagramas predefinidos de posiciones
 @appendixsec Diagramas predefinidos de posiciones

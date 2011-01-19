@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 70aaf0159410169678942abd39eb13c876521437
+    Translation of GIT committish: a463d80d4be008ce05b12de86fc21f2b7c1c120f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -561,7 +561,7 @@ zur Verfügung gestellt.
 
 @menu
 * Titel erstellen::
-* Eigene Titel::
+* Eigene Kopf und Fußzeilen sowie Titel::
 * Verweis auf die Seitenzahlen::
 * Inhaltsverzeichnis::
 @end menu
@@ -763,9 +763,9 @@ falsch gesetzt wird:
 @end example
 
 
-@node Eigene Titel
-@subsection Eigene Titel
-@translationof Custom titles
+@node Eigene Kopf und Fußzeilen sowie Titel
+@subsection Eigene Kopf- und Fußzeilen sowie Titel
+@translationof Custom headers footers and titles
 
 Kompliziertere Anpassungen können vorgenommen werden, indem die
 folgenden Variablen innerhalb der @code{\paper}-Umgebung geändert
@@ -829,16 +829,46 @@ und auf der letzten Seite die Tag-Zeile gesetzt.
 Die folgende Definition setzt die Überschrift linksbündig und
 den Komponisten rechtsbündig auf einer einzelnen Zeile:
 
-@verbatim
-\paper {
-  bookTitleMarkup = \markup {
-   \fill-line {
+@example
+\paper @{
+  bookTitleMarkup = \markup @{
+   \fill-line @{
      \fromproperty #'header:title
      \fromproperty #'header:composer
-   }
-  }
-}
-@end verbatim
+   @}
+  @}
+@}
+@end example
+
+Kopf- und Fußzeile werden mit den Funktionen @code{make-header} und
+@code{make-footer} erstellt, welche in @code{\paper} definiert werden.
+Die Standardimplementationen finden sich in @file{ly/paper-defaults-init.ly} und
+@file{ly/titling-init.ly}.
+
+Dieses Beispiel zentriert die Seitenzahlen unten auf jeder Seite:
+
+@example
+\paper @{
+  print-page-number = ##t
+  print-first-page-number = ##t
+  oddHeaderMarkup = \markup \fill-line @{ " " @}
+  evenHeaderMarkup = \markup \fill-line @{ " " @}
+  oddFooterMarkup = \markup @{
+    \fill-line @{
+      \bold \fontsize #3
+      \on-the-fly #print-page-number-check-first
+      \fromproperty #'page:page-number-string
+    @}
+  @}
+  evenFooterMarkup = \markup @{
+    \fill-line @{
+      \bold \fontsize #3
+      \on-the-fly #print-page-number-check-first
+      \fromproperty #'page:page-number-string
+    @}
+  @}
+@}
+@end example
 
 
 @node Verweis auf die Seitenzahlen

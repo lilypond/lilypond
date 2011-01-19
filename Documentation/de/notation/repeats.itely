@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish: a463d80d4be008ce05b12de86fc21f2b7c1c120f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -119,10 +119,10 @@ die ersten Wiederholungen den ersten Schluss.
 Eine einfache Wiederholung mit einer Alternative:
 
 @lilypond[verbatim,quote,relative=2]
-\repeat volta 2 { c4 d e f }
+\repeat volta 2 { c4 d e f | }
 \alternative {
-  { c2 e }
-  { f2 g }
+  { c2 e | }
+  { f2 g | }
 }
 c1
 @end lilypond
@@ -130,14 +130,30 @@ c1
 Eine einfache Wiederholung mit mehr als einer Alternative:
 
 @lilypond[verbatim,quote,relative=2]
-\repeat volta 3 { c4 d e f }
+\repeat volta 4 { c4 d e f | }
 \alternative {
-  { c2 e }
-  { f2 g }
-  { a2 g }
+  { c2 e | }
+  { f2 g | }
 }
 c1
 @end lilypond
+
+Mehrfache Wiederholungen mit mehr als einer Alternative:
+
+@lilypond[verbatim,quote,relative=2]
+\repeat volta 3 { c4 d e f | }
+\alternative {
+  { c2 e | }
+  { f2 g | }
+  { a2 g | }
+}
+c1
+@end lilypond
+
+@warning{Wenn es zwei oder mehr Alternativen gibt, darf nicht zwischen
+der schließenden Klammer der einen und der öffnenden Klammer der anderen
+Wiederholung stehen, weil sonst nicht die erwartete Anzahl von Endungen
+produziert wird.}
 
 @warning{Wenn man @code{@bs{}relative} innerhalb von @code{@bs{}repeat}
 notiert, ohne den @code{Voice}-Kontext explizit zu beginnen, erscheinen
