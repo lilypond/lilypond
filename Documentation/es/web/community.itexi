@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: ff092354107e43a7c29abad74226b302d9a93faa
+    Translation of GIT committish: b1eca8bedcef213d00b5ce85d0c4df8c338c2bb2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -379,14 +379,14 @@ notas o menos!}
 He aquí un ejemplo de un buen informe de fallo:
 
 @example
-%% la instrucción de octava no cambia
-%% el resultado en absoluto.
+% Accidentals should be printed for only
+% the first note in a tie, but this version
+% prints flats on both notes.
+\version "2.10.1"
 
-\version "2.10.0"
-\relative c''' @{
-  c1
-  #(set-octavation 1)
-  c1
+\relative c'' @{
+ bes1 ~
+ bes1
 @}
 @end example
 
@@ -425,6 +425,10 @@ Para evitarlo, escriba:
 
 @end itemize
 @divEnd
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Paso 4: Esperar respuesta
 
 Una vez que su fallo se ha enviado a la lista, nuestro Escuadrón de
 Fallos examinará el informe.  Déles un tiempo de unas 24 horas, pues
@@ -435,6 +439,17 @@ de seguimiento y le comuniquen qué número se ha asignado al problema.
 Puede marcar el bug de forma que reciba mensajes automáticamente
 cuando se produce cualquier actividad sobre él.  Ello requiere que
 usted disponga de una cuenta en Google.
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Ayuda opcional: mostrar el resultado deseado
+
+Una vez que el problema se ha añadido al sistema de seguimiento,
+puede ser de mucha ayuda que veamos la salida deseada.
+¡Con toda libertad añada código de entrada y/o imágenes
+(creadas posiblemente con otras herramientas)
+que muestren el aspecto que usted cree que debe tener!
+
 @divEnd
 
 
