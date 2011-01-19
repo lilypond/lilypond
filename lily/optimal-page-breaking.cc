@@ -52,6 +52,10 @@ Optimal_page_breaking::solve ()
   Line_division ideal_line_division = current_configuration (0);
   Line_division best_division = ideal_line_division;
   vsize min_sys_count = 1;
+
+  // Note that Page_breaking only counts non-title systems in
+  // system_count (whereas Page_spacing_result::system_count counts
+  // titles and non-titles).
   vsize ideal_sys_count = system_count ();
   
   if (!scm_is_integer (forced_page_count))
@@ -62,7 +66,6 @@ Optimal_page_breaking::solve ()
       best = space_systems_on_best_pages (0, first_page_num);
 
       page_count = best.systems_per_page_.size ();
-      ideal_sys_count = best.system_count ();
       min_sys_count = ideal_sys_count - best.systems_per_page_.back ();
   
       if (page_count > 1 && best.systems_per_page_[page_count - 2] > 1)
@@ -82,7 +85,7 @@ Optimal_page_breaking::solve ()
 	      || ideal_sys_count < min_system_count (0, end))
 	    {
 	      warning (_ ("could not satisfy systems-per-page and page-count at the same time, ignoring systems-per-page"));
-	      ideal_sys_count = best.system_count ();
+	      ideal_sys_count = system_count ();
 	      min_sys_count = page_count;
 	    }
 	  else
