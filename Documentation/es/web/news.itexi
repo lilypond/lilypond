@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4039f52de2f225ee2bd94840324d0192fbac37b3
+    Translation of GIT committish: 07692b34e176753036403c11d0c3c7bfcaaf4300
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,6 +32,126 @@ NOTE:
 
   * don't duplicate entries from news-front.itexi
 @end ignore
+
+
+@newsItem
+@subsubheading Tercera versión de pruebas Beta de 2.14: ¡Lanzado LilyPond 2.13.44! @emph{25 de diciembre de 2010}
+
+Ha salido LilyPond 2.13.44; ésta es la primera versión beta de la
+inminente versión estable 2.14.  Se invita a los usuarios a que hagan
+experimentos con esta versión.  Las funcionalidades nuevas desde
+2.12.3 están relacionadas en el manual de @qq{Cambios} dentro de la
+sección @ref{Desarrollo} de estas páginas.
+
+Aún queda un problema calificado como Crítico en esta versión: existe
+un caso en que el espaciado vertical está excesivamente comprimido.
+Si se decide a probar esta versión, no se sorprenda al descubrir
+problemas; tan sólo envíenos @ref{Informes de fallos} educados.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Segunda versión de pruebas Beta de 2.14: ¡Lanzado LilyPond 2.13.43! @emph{14 de diciembre de 2010}
+
+Ha salido LilyPond 2.13.43; ésta es la primera versión beta de la
+inminente versión estable 2.14.  Se invita a los usuarios a que hagan
+experimentos con esta versión.  Las funcionalidades nuevas desde
+2.12.3 están relacionadas en el manual de @qq{Cambios} dentro de la
+sección @ref{Desarrollo} de estas páginas.
+
+Aún queda un problema calificado como Crítico en esta versión: existe
+un caso en que el espaciado vertical está excesivamente comprimido.
+Si se decide a probar esta versión, no se sorprenda al descubrir
+problemas; tan sólo envíenos @ref{Informes de fallos} educados.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.42!  @emph{8 de diciembre de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.42.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.  Sin
+embargo, aún quedan algunos problemas críticos, por lo que esta
+versión está orientada solamente a los desarrolladores.
+
+Tenga en cuenta que ésta @strong{no} es la segunda versión de pruebas
+beta.  A causa de la aparición de algunos cambios en nuestro proceso
+de construcción del programa que no se han probado, no podemos estar
+completamente seguros de la calidad de esta versión.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.41!  @emph{4 de diciembre de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.41.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.  Sin
+embargo, aún quedan algunos problemas críticos, por lo que esta
+versión está orientada solamente a los desarrolladores.
+
+Tenga en cuenta que ésta @strong{no} es la segunda versión de pruebas
+beta.  A causa de la aparición de algunos cambios en nuestro proceso
+de construcción del programa que no se han probado, no podemos estar
+completamente seguros de la calidad de esta versión.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.40!  @emph{21 de noviembre de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.40.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.  Sin
+embargo, aún quedan algunos problemas críticos, por lo que esta
+versión está orientada solamente a los desarrolladores.
+
+Tenga en cuenta que ésta @strong{no} es la segunda versión de pruebas
+beta.  A causa de la aparición de algunos cambios en nuestro proceso
+de construcción del programa que no se han probado, no podemos estar
+completamente seguros de la calidad de esta versión.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Primera versión de pruebas Beta de 2.14: ¡Lanzado LilyPond 2.13.39! @emph{15 de noviembre de 2010}
+
+Ha salido LilyPond 2.13.39; ésta es la primera versión beta de la
+inminente versión estable 2.14.  Se invita a los usuarios a que hagan
+experimentos con esta versión.  Las funcionalidades nuevas desde
+2.12.3 están relacionadas en el manual de @qq{Cambios} dentro de la
+sección @ref{Desarrollo} de estas páginas.
+
+Aún permanecen algunos problemas calificados como Críticos
+en esta versión: el espaciado vertical sorprende en
+dos casos, y lilypond puede salir de manera abrupta frente
+a algunos códigos de entrada extraños.  Si se decide a probar
+2.13.39, no se sorprenda al descubrir problemas; tan sólo
+envíenos @ref{Informes de fallos} educados.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading El Informe LilyPond, número 22.  @emph{3 de noviembre de 2010}
+
+¡Vuelve el @emph{Informe LilyPond}, con algunas sorpresas y noticias
+interesantes para toda la comunidad de LilyPond!
+Podrá encontrarse en esta edición una lista completa y actualizada
+de todas las listas de distribución de correo y foros de LilyPond
+de todo el mundo.  También, por primera vez nuestro invitado especial
+es el co-fundador y desarrollador principal de LilyPond
+@strong{Jan Nieuwenhuizen}, que ha estado muy ocupado los últimos meses:
+¡dispóngase a leer en qué!
+
+Acérquese al @uref{http://news.lilynet.net/The-LilyPond-Report-22,
+Informe LilyPond 22} y léalo ahora mismo; ¡animamos calurosamente a
+todos a que hagan sus comentarios y contribuciones!
+
+@newsEnd
 
 
 @newsItem
