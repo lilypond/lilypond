@@ -104,7 +104,7 @@ Learning Manual:
 Notation Reference:
 @ref{Chord notation},
 @ref{Articulations and ornamentations},
-@ref{Relative octave entry}
+@ref{Relative octave entry},
 @ref{Multiple voices}.
 
 Snippets:
@@ -116,6 +116,7 @@ such as @samp{<e f! fis!>}, create overlapping noteheads.
 Depending on the situation, better representations might involve
 
 @itemize
+
 @item
 temporary use of @ref{Multiple voices},
 @samp{<< f! \\ <e fis!> >>},
