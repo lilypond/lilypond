@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
+    Translation of GIT committish: 9a40bd63b77375ac7ac1085d7eda9f5680bf06dd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -580,12 +580,13 @@ de acorde dados se pueden personalizar.
 @cindex acordes de jazz
 
 El esquema de nomenclatura de acordes predeterminado es un sistema
-para música de Jazz, propuesto por Klaus Ignatzek (véase @ressay{Lista
-bibliográfica}).  También funcionan otros dos esquemas de nomenclatura
+para música de Jazz, propuesto por Klaus Ignatzek (véase
+@ressay{Lista bibliográfica}).
+También funcionan otros dos esquemas de nomenclatura
 de acordes: una notación de acordes de Jazz alternativa y un esquema
 sistemático llamado Acordes de Banter.  La notación de Jazz
-alternativa también se puede ver en el cuadro @ref{Cuadro de nombres
-de acordes}.
+alternativa también se puede ver en el cuadro
+@ref{Cuadro de nombres de acordes}.
 
 @c TODO --  Change this so we don't have a non-verbatim example.
 @c  Make short example in docs, then move longer example to
@@ -716,11 +717,13 @@ acorde está alterado.
 {changing-chord-separator.ly}
 
 
-
 @seealso
 Referencia de la notación:
 @ref{Cuadro de nombres de acordes},
 @ref{Modificadores de acorde más usuales}.
+
+El ensayo sobre grabado musical automatizado:
+@ressay{Lista de referencias bibliográficas}.
 
 Archivos instalados:
 @file{scm/chords-ignatzek.scm},
@@ -731,7 +734,7 @@ Fragmentos de código:
 @rlsr{Chords}.
 
 @c Internals Reference:
-@c @rinternals{  }.
+@c @r internals{}.
 
 
 @knownissues

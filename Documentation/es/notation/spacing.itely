@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: efa7af705ab6beb1f9c4d71ef4897b103f69b23c
+    Translation of GIT committish: 55ac733b69643a6bc6a83b706c65cb56efd388ef
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1963,11 +1963,12 @@ forma individual, y la segunda redefine la propiedad completamente:
 
 @example
 \new Staff \with @{
-  \override VerticalAxisGroup #'staff-staff-spacing #'basic-distance = #10
+  \override VerticalAxisGroup #'default-staff-staff-spacing
+       #'basic-distance = #10
 @} @{ @dots{} @}
 
 \new Staff \with @{
-  \override VerticalAxisGroup #'staff-staff-spacing =
+  \override VerticalAxisGroup #'default-staff-staff-spacing =
     #'((basic-distance . 10)
        (minimum-distance . 9)
        (padding . 1)
@@ -1982,7 +1983,8 @@ póngalos dentro del bloque @code{\layout}:
 \layout @{
   \context @{
     \Staff
-    \override VerticalAxisGroup #'staff-staff-spacing #'basic-distance = #10
+    \override VerticalAxisGroup #'default-staff-staff-spacing
+         #'basic-distance = #10
   @}
 @}
 @end example
@@ -2770,6 +2772,9 @@ Referencia de funcionamiento interno:
 @rinternals{StaffSpacing},
 @rinternals{NonMusicalPaperColumn}.
 
+Ensayo sobre grabado musical automatizado:
+@ressay{Espaciado óptico}.
+
 
 @knownissues
 
@@ -3265,7 +3270,7 @@ A continuación examinamos los efectos del grabador
 @code{Separating_line_group_engraver} y veremos por qué las partituras
 proporcionales con frecuencia eliminan este grabador.  El ejemplo
 siguiente muestra que hay una pequeña cantidad de espacio
-@qq{preparatorio} justo antes de la primera nota de cada sistema.
+@qq{preliminar} justo antes de la primera nota de cada sistema.
 
 @lilypond[quote,verbatim,ragged-right]
 \paper {
@@ -3280,7 +3285,7 @@ siguiente muestra que hay una pequeña cantidad de espacio
 @end lilypond
 
 
-Esta cantidad de espacio preparatorio es la misma ya sea después de
+Esta cantidad de espacio preliminar es la misma ya sea después de
 una indicación de compás, una armadura o una clave.  El grabador
 @code{Separating_line_group_engraver} es responsable de este espacio.
 La eliminación de @code{Separating_line_group_engraver} reduce este

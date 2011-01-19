@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7044a6e78c052315e4fbc05cb9a05fbfb16de9f5
+    Translation of GIT committish: 9a40bd63b77375ac7ac1085d7eda9f5680bf06dd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1815,31 +1815,37 @@ ignoreMelismata} no funciona si va precedido de @code{\once}.  Es
 necesario utilizar @code{\set} y @code{\unset} para delimitar la letra
 en que se quieren ignorar los melismas.
 
-
 @subsubheading Aplicar sílabas a notas de adorno
+
+@cindex adorno, letra y notas de
+@cindex letra sobre notas de adorno
+
 
 De forma predeterminada, las notas de adorno (p.ej. insertadas por
 medio de @code{\grace}) no pueden recibirla asignación de sílabas si
 se utiliza @code{\lyricsto}, pero este comportamiento puede cambiarse:
 
 @lilypond[verbatim,ragged-right,quote]
-\relative c' {
-  f4 \appoggiatura a32 b4
-  \grace { f16[ a16] } b2
-  \afterGrace b2 { f16[ a16] }
-  \appoggiatura a32 b4
-  \acciaccatura a8 b4
-}
-\addlyrics {
-  normal
-  \set includeGraceNotes = ##t
-  case,
-  gra -- ce case,
-  after -- grace case,
-  \set ignoreMelismata = ##t
-  app. case,
-  acc. case.
-}
+<<
+  \new Voice = melody \relative c' {
+    f4 \appoggiatura a32 b4
+    \grace { f16[ a16] } b2
+    \afterGrace b2 { f16[ a16] }
+    \appoggiatura a32 b4
+    \acciaccatura a8 b4
+  }
+  \new Lyrics
+  \lyricsto melody {
+    normal
+    \set includeGraceNotes = ##t
+    case,
+    gra -- ce case,
+    after -- grace case,
+    \set ignoreMelismata = ##t
+    app. case,
+    acc. case.
+  }
+>>
 @end lilypond
 
 @knownissues

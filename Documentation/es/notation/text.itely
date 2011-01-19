@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 33903a90b916b4c42d767aa0feb800de1c3d8dbe
+    Translation of GIT committish: de924bddd22886a0a67decbde45acd5da441bf6d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -432,9 +432,10 @@ sintaxis ampliable que se denomina @qq{modo de marcado}.
 @cindex sintaxis del marcado
 
 La sintaxis del marcado es similar a la sintaxis usual de LilyPond:
-una expresión @code{\markup} se encierra entre llaves @code{@{ @dots{}
-@}}.  Una sola palabra se considera como una expresión mínima, y por
-tanto no necesita estar encerrada entre llaves.
+una expresión @code{\markup} se encierra entre llaves
+@code{@{ @dots{} @}}.  Una sola palabra se considera como una
+expresión mínima, y por tanto no necesita estar encerrada entre
+llaves.
 
 A diferencia de las indicaciones de @qq{texto entrecomillado} simples,
 los bloques @code{\markup} pueden contener expresiones anidadas o
@@ -1453,9 +1454,9 @@ se pueden obtener mediante rotación, véase @ref{Rotación de objetos}.
 
 Están disponibles tres familias de tipografías de texto: la tipografía
 @emph{romana} (con serifa), que de forma predeterminada es New Century
-Schoolbook, la fuente @emph{sans} y la fuente monoespaciada @emph{de
-máquina de escribir}.  Estas dos últimas familias vienen determinadas
-por la instalación de Pango.
+Schoolbook, la fuente @emph{sans} y la fuente monoespaciada
+@emph{de máquina de escribir}.  Estas dos últimas familias vienen
+determinadas por la instalación de Pango.
 
 Cada familia puede incluir distintas formas y series.  El ejemplo
 siguiente muestra la posibilidad de seleccionar familias, formas,

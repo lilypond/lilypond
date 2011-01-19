@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 17f11c2f5ab963bfb07b7652b4860dc4dda5540a
+    Translation of GIT committish: 3c00bd3295cf8542f610a4975b5e11d26cf6e009
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -163,14 +163,20 @@ Referencia de funcionamiento interno:
 La notación para instrumentos de cuerda pulsada se realiza con
 frecuencia utilizando un sistema de dedos y cifras, o tablatura.  A
 diferencia de la notación tradicional, las notas no se designan
-mediante figuras, sino mediante números que indican sobre qué cuerda y
-traste se debe tocar la nota.  Los números se imprimen verticalmente
-unos encima de otros si las notas son simultáneas.
+mediante figuras, sino mediante números (o símbolos semejantes a
+letras en la intavolatura histórica).  Las líneas de la tablatura
+indican sobre qué cuerda se debe tocar la nota, y el número sobre
+una línea indica el traste en que la cuerda correspondiente debe
+pisarse.  Las notas que se deben tocar simultáneamente se
+alinean en sentido vertical.
 
-De forma predeterminada, la cuerda 1 es la más aguda, y la afinación
-normal es la afinación estándar de guitarra (con 6 cuerdas).  Las
-notas se imprimen como tablatura, usando los contextos @code{TabStaff}
-y @code{TabVoice}.  Se añade automáticamente una clave caligráfica de tablatura.
+De forma predeterminada, la cuerda 1 es la más aguda y corresponde
+a la línea superior de la pauta @code{TabStaff}.  La afinación
+predeterminada de las cuerdas del @code{TabStaff} es la afinación
+estándar de guitarra (con 6 cuerdas).  Las notas se imprimen
+como tablatura, usando los contextos @code{TabStaff}
+y @code{TabVoice}.  Se añade automáticamente una clave caligráfica
+de tablatura.
 
 @lilypond[quote,ragged-right,verbatim]
 \new TabStaff \relative c' {
@@ -500,13 +506,14 @@ puede usar la función @code{\contextStringTuning} para definir una
 afinación de cuerdas y establecerla como el valor de
 @code{stringTunings} para el contexto actual.
 @code{\contextStringTuning} admite dos argumentos: el símbolo en que
-la afinación de cuerdas y una construcción de acorde que define la
-altura de las notas de cada cuerda al aire en dicha afinación.  La
-construcción de acorde debe estar en el modo de octava absoluto, véase
-@ref{Escritura de octava absoluta}.  La cuerda con el número más alto
-(generalmente la más grave) debe ir primero en el acorde.  Por
-ejemplo, podemos definir una afinación para un instrumento de cuatro
-cuerdas con las alturas @code{a''}, @code{d''}, @code{g'} y @code{c'}:
+se almacena la afinación de cuerdas y una construcción de acorde
+que define la altura de las notas de cada cuerda al aire en dicha
+afinación.  La construcción de acorde debe estar en el modo de
+octava absoluto, véase @ref{Escritura de octava absoluta}.
+La cuerda con el número más alto (generalmente la más grave)
+debe ir primero en el acorde.  Por ejemplo, podemos definir una
+afinación para un instrumento de cuatro cuerdas con las alturas
+@code{a''}, @code{d''}, @code{g'} y @code{c'}:
 
 @lilypond[quote,verbatim]
 
@@ -600,7 +607,7 @@ mynotes = {
 >>
 @end lilypond
 
-LilyPond calcula automáticamente el número de cuerdas dentro del
+LilyPond calcula automáticamente el número de líneas dentro del
 @code{TabStaff} y el número de cuerdas dentro de un @code{FretBoard}
 calculado automáticamente como el número de elementos de
 @code{stringTunings}.
@@ -887,9 +894,9 @@ escueta @code{fret-diagram-terse}
 >>
 @end lilypond
 
-Otras propiedades de los diagramas de trastes se deben ajustar usando
-@code{\override} al utilizar el marcado escueto con
-fret-diagram-terse.
+Otras propiedades de los diagramas de trastes se deben
+ajustar usando @code{\override} al utilizar el marcado
+escueto con fret-diagram-terse.
 
 @cindex fret-diagram-verbose, marcado con
 @cindex capo
@@ -1119,7 +1126,8 @@ myChords = \chordmode { a1 a:m a:aug }
 @end lilypond
 
 Las notas de los acordes se pueden introducir como música simultánea o
-bien usando el modo de acordes (véase @ref{Panorámica del modo de acordes}).
+bien usando el modo de acordes (véase
+@ref{Panorámica del modo de acordes}).
 
 @lilypond[verbatim, ragged-right,quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1193,8 +1201,9 @@ séptima mayor, menor séptima y novena domniante) para 17 tonalidades
 distintas.  La tabla de diagramas predefinidos para el ukelele
 contiene estos acordes y además otros tres (sexta mayor, segunda
 suspendida y cuarta suspendida).  Se puede ver una lista completa de
-los diagramas de traste predefinidos en @ref{Diagramas predefinidos de
-trastes}.  Si no hay una entrada en la tabla para un acorde, el
+los diagramas de traste predefinidos en
+@ref{Diagramas predefinidos de trastes}.
+Si no hay una entrada en la tabla para un acorde, el
 grabador FretBoards calcula un cadena de diagrama fret-diagram usando
 la funcionalidad de diagramas automáticos que se describe en
 @ref{Diagramas de traste automáticos}.
@@ -1224,10 +1233,9 @@ posiciones.  Para añadir un diagrama debemos especificar la
 tabla de correspondencias para el diagrama, el acorde del
 diagrama, la afinación utilizada y una definición del diagrama.
 Normalmente la tabla de correspondencias será
-@var{default-fret-table}.  La
-definición del diagrama puede ser una cadena de definición escueta
-fret-diagram-terse o una lista de marcados prolija
-fret-diagram-verbose.
+@var{default-fret-table}.  La definición del diagrama puede ser
+una cadena de definición escueta fret-diagram-terse o una lista
+de marcados prolija fret-diagram-verbose.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1450,7 +1458,8 @@ A veces el calculador de trastes es incapaz de encontrar un diagrama
 aceptable.  Esto se puede remediar generalmente mediante la asignación
 manual de una nota a una cuerda.  En muchos casos sólo hay que colocar
 manualmente una nota sobre una cuerda; el resto de las notas se
-situará en el lugar adecuado por parte del contexto @code{FretBoards}.
+situará en el lugar adecuado por parte del contexto
+@code{FretBoards}.
 
 @cindex trastes, añadir digitaciones a diagramas de
 @cindex digitaciones, añadir, a diagramas de trastes
@@ -1504,8 +1513,9 @@ contexto FretBoard se puede fijar con la propiedad @code{minimumFret}.
 
 Las cuerdas y los trastes para el contexto @code{FretBoards} dependen
 de la propiedad @code{stringTunings}, que tiene el mismo significado
-que en el contexto de tablatura TabStaff.  Consulte @ref{Tablaturas personalizadas} para ver más información sobre la propiedad
-@code{stringTunings}.
+que en el contexto de tablatura TabStaff.
+Consulte @ref{Tablaturas personalizadas} para ver más información
+sobre la propiedad @code{stringTunings}.
 
 El aspecto gráfico de un diagrama de trastes se puede personalizar de
 acuerdo a las preferencias del usuario a través de las propiedades del
@@ -1734,9 +1744,9 @@ Referencia de la notación:
 @cindex quinta vacía, acordes de
 @cindex vacía, acordes de quinta
 
-Los acordes de quinta vacía o acordes de potencia (@emph{power
-chords}) y sus símbolos se pueden tipografiar en el modo de acordes o
-como construcciones de acorde normales:
+Los acordes de quinta vacía o acordes de potencia
+(@emph{power chords}) y sus símbolos se pueden tipografiar
+en el modo de acordes o como construcciones de acorde normales:
 
 @lilypond[quote,ragged-right,verbatim]
 ChordsAndSymbols = {

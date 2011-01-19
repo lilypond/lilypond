@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 5fc97c0c616f84674763aeb2bb018c3e5938ca72
+    Translation of GIT committish: 9a40bd63b77375ac7ac1085d7eda9f5680bf06dd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2395,7 +2395,8 @@ se debe indicar manualmente usando @code{[} y @code{]}, el efecto de
 propiedad @code{grow-direction} del objeto @code{Beam}.
 
 Si queremos que la colocación de las notas y el sonido de la salida
-MIDI refleje el ritardando o accelerando indicado por la barra
+MIDI refleje el @emph{ritardando} o @emph{accelerando}
+indicado por la barra
 progresiva, las notas se deben agrupar como una expresión musical
 delimitada por llaves y precedida de una instrucción
 @code{featheredDurations} que especifica la razón entre las duraciones
