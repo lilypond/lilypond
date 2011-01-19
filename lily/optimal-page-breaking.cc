@@ -53,9 +53,7 @@ Optimal_page_breaking::solve ()
   Line_division best_division = ideal_line_division;
   vsize min_sys_count = 1;
 
-  // Note that Page_breaking only counts non-title systems in
-  // system_count (whereas Page_spacing_result::system_count counts
-  // titles and non-titles).
+  // Note that system_count () only counts non-title systems.
   vsize ideal_sys_count = system_count ();
   
   if (!scm_is_integer (forced_page_count))
