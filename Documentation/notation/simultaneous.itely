@@ -104,11 +104,30 @@ Learning Manual:
 Notation Reference:
 @ref{Chord notation},
 @ref{Articulations and ornamentations},
-@ref{Relative octave entry}.
+@ref{Relative octave entry}
+@ref{Multiple voices}.
 
 Snippets:
 @rlsr{Simultaneous notes}.
 
+@knownissues
+Chords containing more than two pitches within a staff space,
+such as @samp{<e f! fis!>}, create overlapping noteheads.
+Depending on the situation, better representations might involve
+
+@itemize
+@item
+temporary use of @ref{Multiple voices},
+@samp{<< f! \\ <e fis!> >>},
+
+@item
+enharmonic transcription of one or more pitches,
+@samp{<e f ges>}, or
+
+@item
+@ref{Clusters}.
+
+@end itemize
 
 @node Chord repetition
 @unnumberedsubsubsec Chord repetition
@@ -730,19 +749,12 @@ Internals Reference:
 @rinternals{RestCollision}.
 
 
-@knownissues
-
 @ignore
+@knownissues
 @c TODO investigate! Sometimes it works, sometimes not. --FV
 The requirements for successfully merging different note heads that
 are at the same time differently dotted are not clear.
 @end ignore
-
-There is no support for chords where the same note occurs with
-different accidentals in the same chord.  In this case, it is
-recommended to use enharmonic transcription, or to use special
-cluster notation (see @ref{Clusters}).
-
 
 @node Automatic part combining
 @unnumberedsubsubsec Automatic part combining
