@@ -2843,6 +2843,9 @@ Référence des propriétés internes :
 @rinternals{StaffSpacing},
 @rinternals{NonMusicalPaperColumn}.
 
+Essai sur la gravure musicale automatisée :
+@ressay{Espacement}.
+
 
 @knownissues
 
