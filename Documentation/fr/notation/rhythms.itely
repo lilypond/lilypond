@@ -597,7 +597,7 @@ Un changement de portée, lorsqu'une liaison de tenue est active, ne
 peut produire une liaison oblique.
 
 Un changement de clé ou d'octave pendant une liaison de tenue produit un
-résultat indéfini.  Dans ces cas-là, il est préférable d'utiliser un
+résultat indéfini.  Dans ces cas là, il est préférable d'utiliser un
 @emph{legato}.
 
 
@@ -1091,7 +1091,7 @@ Les métriques anciennes sont abordées au chapitre
 @funindex \overrideTimeSignatureSettings
 
 En plus de déterminer la métrique qui sera imprimée, la commande
-@code{\time} règlera aussi les valeurs par défaut des propriétés
+@code{\time} réglera aussi les valeurs par défaut des propriétés
 @code{baseMoment}, @code{beatStructure} et @code{beamExceptions}.
 Les valeurs prédéterminées par défaut de ces différentes propriétés sont
 inscrites dans le fichier @file{scm/time-signature-settings.scm}.  Vous
@@ -1121,7 +1121,7 @@ indiquée par un doublet Scheme.  La base de la pulsation est un doublet
 Scheme contenant le numérateur et le dénominateur correspondants à
 l'unité de temps pour cette métrique.  La structure de la pulsation,
 exprimée sous la forme d'une liste d'unités de base en Scheme, détermine
-coment les temps sont regroupés dans la mesure.  Les règles d'exception
+comment les temps sont regroupés dans la mesure.  Les règles d'exception
 en matière de ligature s'énoncent sous la forme d'une liste associative
 pour les cas où il faudrait dépasser la pulsation de base -- voir
 @ref{Définition des règles de ligature automatique} à ce propos.
@@ -1366,8 +1366,8 @@ pareil cas.
 @unnumberedsubsubsec Musique sans métrique
 @translationof Unmetered music
 
-@cindex barres de mesure, supression
-@cindex numérotation des mesures, supression
+@cindex barres de mesure, suppression
+@cindex numérotation des mesures, suppression
 @cindex cadence
 @cindex musique non mesurée
 
@@ -1411,7 +1411,7 @@ d4 e d c
 @cindex musique non mesurée et ligature
 
 L'instruction @code{\cadenzaOn} désative les ligatures
-automatique@tie{}; elles seront réactivées après un @code{\cadenzaOff}.
+automatiques@tie{}; elles seront réactivées après un @code{\cadenzaOff}.
 Toutes les ligatures devront donc être indiquées de manière explicite
 tout au long de la cadence -- voir @ref{Barres de ligature manuelles}).
 
@@ -1474,7 +1474,7 @@ pour indiquer où des sauts de ligne peuvent prendre place.
 
 Les règles de ligature automatique peuvent être fortement perturbées
 lorsqu'une cadence dure plus de deux temps.  Aussi nous vous
-recommandons de recourir aux ligatures manuelles à l'aide de
+recommandons de recourir alors aux ligatures manuelles à l'aide de
 @code{[} et @code{]}.
 
 Au risque d'obtenir des messages d'erreur inhabituels, il est fortement
@@ -1692,7 +1692,7 @@ Références des propriétés internes :
 Bien que toutes les durées -- particulièrement celles contenant des
 nolets -- ne puissent être exactement représentées avec des notes
 normales et des points, le graveur @code{Completion_heads_engraver}
-n'insèrera pas de nolet.
+n'insérera pas de nolet.
 
 @code{Completion_heads_engraver} affecte seulement les notes, il ne
 divise pas les silences.
@@ -1944,7 +1944,7 @@ c16^"(3+2)" c c c c |
 @end lilypond
 
 Les effets de règles de ligature peuvent être restreints à un contexte
-particulier.  En l'absence de régles particulières déterminées dans un
+particulier.  En l'absence de régle particulière déterminée dans un
 contexte de niveau inférieur, les règles définies au niveau directement
 supérieur s'appliqueront.
 
@@ -2014,7 +2014,7 @@ vous au chapitre @ref{Métrique}.
 
 Les règles de ligature et de subdivision spécifiques sont enregistrées
 dans la propriété @code{beamExceptions}.  Ses valeurs par défaut,
-rangées par métrique et type de règle,  sont répertoriées dans le
+rangées par métrique et type de règle, sont répertoriées dans le
 fichier @file{scm/time-signature-settings.scm}.
 
 Les règles spécifiques autres que celles concernant la terminaison des
@@ -2062,6 +2062,8 @@ ajouter, modifier ou suprimer @emph{a posteriori}.  Cela peut paraître
 fastidieux, mais toutes les règles de ligature devraient être appréciées
 avant de les spécifier.}
 
+@cindex ligature, mesure à 4/4
+
 Lorsqu'intervient un changement de métrique, les valeurs par défaut de
 @code{Timing.baseMoment}, @code{Timing.beatStructure} et
 @code{Timing.beamExceptions} sont réinitialisées.  Il suffit donc, pour
@@ -2082,7 +2084,7 @@ métrique.
 Les règles de ligature automatique par défaut sont répertoriées, par
 métrique, dans le fichier
 @file{scm/time-signature-settings.scm}.  Les manières de déroger
-à ce comportement sosnt abordées au chapitre @ref{Métrique}.
+à ce comportement sont abordées au chapitre @ref{Métrique}.
 
 @i{@strong{Principes de la ligature automatique}}
 
@@ -2109,7 +2111,7 @@ si une règle explicite de terminaison a été définie grâce à la propriété
 qui s'appliquera@tie{}; sinon
 
 @item
-utiliser les valeurs de @code{baseMoment} et @code{beatStructure}
+utilisation des valeurs de @code{baseMoment} et @code{beatStructure}
 pour regrouper les notes par des ligatures.
 
 @end itemize
@@ -2163,7 +2165,7 @@ inachevée, cette dernière ligature ne sera pas imprimée du tout.  C'est
 également valable dans le cas d'une musique polyphonique, saisie avec la
 syntaxe @w{@code{<< @dots{} \\ @dots{} >>}}, où une voix se terminerait
 sans que la dernière ligature ne soit achevée.  Le plus simple, en
-pareil cas, est de spécifier anuellement les dernières ligatures.
+pareil cas, est de spécifier manuellement les dernières ligatures.
 
 
 @node Barres de ligature manuelles
@@ -2285,7 +2287,7 @@ Référence des propriétés internes :
 Les ligatures en soufflet permettent d'indiquer qu'un petit groupe de
 notes se joue en accélérant ou en ralentissant sans pour autant
 modifier le tempo du morceau.  L'étendue du soufflet s'indique par
-@code{[} et @code{]}, et son orientation est déterminée par la proriété
+@code{[} et @code{]}, et son orientation est déterminée par la propriété
 @code{grow-direction} de l'objet @code{Beam}.
 
 Lorsque la sortie MIDI doit refléter les @emph{ritardando} ou
@@ -2469,7 +2471,8 @@ chapitre consacré au grégorien.
 @cindex segno
 
 L'insertion d'un @emph{segno} directement sur la portée s'obtient à
-l'aide de trois types de barre de mesure comme indiqué ci-dessous@tie{}:
+l'aide de trois types de barre de mesure, comme indiqué
+ci-dessous@tie{}:
 
 @lilypond[quote,relative=2,verbatim]
 c4 c c c
@@ -2610,7 +2613,7 @@ Référence des propriétés internes :
 
 Les numéros de mesure sont imprimés par défaut à chaque début de
 ligne, sauf la première.  Ce nombre est stocké par la propriété
-@code{currentBarNumber} qui sera mise à jour à chaque mesure. Vous
+@code{currentBarNumber} qui sera mise à jour à chaque mesure.  Vous
 pouvez aussi le définir de manière arbitraire@tie{}:
 
 @lilypond[verbatim,quote,fragment,relative=1]
@@ -2676,7 +2679,7 @@ c1 | c | c | c
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
 
-Référence des pripriétés internes :
+Référence des propriétés internes :
 @rinternals{BarNumber},
 @rinternals{Bar_number_engraver}.
 
@@ -2729,7 +2732,7 @@ s'agit de musique polyphonique.  Vérifier les tests de mesure qui ont
 corriger sa partition.
 
 Lorsque plusieurs tests successifs présentent un même décalage, seul le
-message d'avertissement concernant la première occurence est affiché.
+message d'avertissement concernant la première occurrence est affiché.
 
 
 @funindex |
@@ -2764,7 +2767,7 @@ l'on recopie.  Cela se fait avec @code{\barNumberCheck}.  Par exemple,
 
 @noindent
 affiche un avertissement lors du traitement si le numéro de mesure à ce
-point (variable @code{currentBarNumber}) n'est pas 123.
+point (variable @code{currentBarNumber}) n'est pas@tie{}123.
 
 
 @seealso
@@ -3150,7 +3153,7 @@ trop tard.
 Les fonctions @code{mmrest-of-length} ou @code{skip-of-length}
 permettent de résoudre ce problème.  Ces fonctions Scheme prennent en
 argument un fragment de musique, et génèrent un @code{\skip} ou un
-silence multi-mesures d'une durée correspondant à ce fragment.
+silence multimesures d'une durée correspondant à ce fragment.
 
 @lilypond[verbatim,quote]
 MyCadenza = \relative c' {
@@ -3193,12 +3196,11 @@ Morceaux choisis :
 @funindex measurePosition
 @funindex measureLength
 
-
 Le temps est administré par le @code{Timing_translator}, qui réside en
 principe dans le contexte @code{Score}.  Un alias, @code{Timing}, sera
 ajouté au contexte auquel le @code{Timing_translator} est rattaché.
 Déclarer explicitement un contexte @code{Voice} ou @code{Staff} assure
-l'existance de cet alias.
+l'existence de cet alias.
 
 @code{Timing} dispose des propriétés suivantes afin de garder trace du
 minutage de la partition.
