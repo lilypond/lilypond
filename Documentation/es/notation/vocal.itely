@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 9a40bd63b77375ac7ac1085d7eda9f5680bf06dd
+    Translation of GIT committish: 42d5df998cb69b0c66f967b3b5043e83bc504be6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -226,7 +226,8 @@ Referencia de la notación:
 @ref{Duración automática de las sílabas},
 @ref{Tipografías},
 @ref{Modos de entrada},
-@ref{Duración manual de las sílabas}.
+@ref{Duración manual de las sílabas},
+@ref{Codificación del texto}.
 
 Referencia de funcionamiento interno:
 @rinternals{LyricText}.
@@ -346,6 +347,14 @@ las sílabas}.
 @seealso
 Manual de aprendizaje:
 @rlearning{Alineación de la letra a una melodía}.
+
+Referencia de la notación:
+@ref{Explicación de los contextos},
+@ref{Duración automática de las sílabas}.
+@ref{Versos},
+@ref{Duración manual de las sílabas},
+@ref{Diálogos encima de la música},
+@ref{Duración manual de las sílabas}.
 
 Referencia de funcionamiento interno:
 @rinternals{Lyrics}.
@@ -514,7 +523,8 @@ He aquí un ejemplo que muestra su uso:
 @seealso
 Referencia de la notación:
 @ref{Líneas de extensión y guiones},
-@ref{Mantener vivos los contextos}.
+@ref{Mantener vivos los contextos},
+@ref{Posicionamiento vertical de la letra}.
 
 @node Duración manual de las sílabas
 @unnumberedsubsubsec Duración manual de las sílabas
@@ -1576,6 +1586,10 @@ manualmente.
 }
 @end lilypond
 
+@seealso
+Referencia de la notación:
+@ref{Mantener vivos los contextos},
+@ref{Repeticiones}.
 
 
 @node Letras en divisi
@@ -2008,10 +2022,11 @@ text = \lyricmode {
   It has two lines.
 }
 
-\score{ <<
+\score {
+  <<
     \new Voice = "one" { \melody }
     \new Lyrics \lyricsto "one" \text
-   >>
+  >>
   \layout { }
 }
 
@@ -2114,8 +2129,8 @@ Para escribir versos véase @ref{Versos}.
 @item
 Las canciones se imprimen frecuentemente con los acordes indicados
 mediante cifrado americano (los nombres de los acordes en letras
-mayúsculas) sobre las pautas.  Esto se describe en @ref{Imprimir los
-acordes}.
+mayúsculas) sobre las pautas.  Esto se describe en
+@ref{Imprimir los acordes}.
 
 @item
 Para imprimir diagramas de posiciones de los acordes para
