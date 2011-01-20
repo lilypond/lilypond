@@ -2337,15 +2337,11 @@ Internals Reference:
 
 @knownissues
 
-Simultaneous notes are considered to be entered in sequential
-mode.  This means that in a chord the accidentals are typeset as
-if the notes in the chord happen one at a time, in the order in
-which they appear in the input file.  This is a problem when
-accidentals in a chord depend on each other, which does not happen
-for the default accidental style.  The problem can be solved by
-manually inserting@tie{}@code{!} and@tie{}@code{?} for the
-problematic notes.
-
+Simultaneous notes are not considered in the automatic
+determination of accidentals; only previous notes and the key
+signature are considered.  Forcing accidentals with@tie{}@code{!}
+or@tie{}@code{?} may be required when the same note name occurs
+simultaneously with different alterations, as in @samp{<f! fis!>}.
 
 Cautionary cancellation of accidentals is done by looking at previous measure.
 However, in the @code{\alternative} block following a @code{\repeat volta N}

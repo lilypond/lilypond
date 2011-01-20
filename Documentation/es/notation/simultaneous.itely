@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 9a40bd63b77375ac7ac1085d7eda9f5680bf06dd
+    Translation of GIT committish: 77e3422414c81915ba0fccaa1be71d3c598e1b9c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -107,11 +107,31 @@ Manual de aprendizaje:
 Referencia de la notación:
 @ref{Notación de acordes},
 @ref{Articulaciones y ornamentos},
-@ref{Escritura de octava relativa}.
+@ref{Escritura de octava relativa},
+@ref{Varias voces}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
 
+@knownissues
+Los acordes que contienen más de dos alturas en el mismo espacio de pentagrama,
+como @samp{<e f! fis!>}, crean notas cuyas cabezas se superponen.
+Dependiendo de la situación, una mejor representación puede requerir:
+
+@itemize
+
+@item
+el uso temporal de varias voces, véase @ref{Varias voces},
+@samp{<< f! \\ <e fis!> >>},
+
+@item
+la transcripción enarmónica de una o más notas,
+@samp{<e f ges>}, or
+
+@item
+Culsters o racimos; véase @ref{Racimos (clusters)}.
+
+@end itemize
 
 @node Repetición de acordes
 @unnumberedsubsubsec Repetición de acordes
@@ -753,18 +773,12 @@ Referencia de funcionamiento interno:
 @rinternals{RestCollision}.
 
 
-@knownissues
-
 @ignore
+@knownissues
 @c TODO investigate! Sometimes it works, sometimes not. --FV
 Los requisitos para combinar con éxito cabezas de nota distintas que
 tienen también distinto puntillo, no están claros.
 @end ignore
-
-No están contemplados los acordes en que la misma nota se presenta con
-diferentes alteraciones accidentales dentro del mismo.  En este caso
-se recomienda usar la transcripción enarmónica, o usar la notación
-especial de racimos (véase @ref{Racimos (clusters)}).
 
 @node Combinación automática de las partes
 @unnumberedsubsubsec Combinación automática de las partes

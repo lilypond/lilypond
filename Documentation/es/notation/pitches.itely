@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 9a40bd63b77375ac7ac1085d7eda9f5680bf06dd
+    Translation of GIT committish: e69b5973fcee6e8f8523de45ccdbd7ec6111b66d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2346,14 +2346,13 @@ Referencia de funcionamiento interno:
 
 @knownissues
 
-Las notas simultáneas se consideran introducidas en modo secuencial.
-Esto significa que dentro de un acorde las alteraciones se tipografían
-como si las notas del acorde se sucedieran una a una en el tiempo, en
-el orden en que aparecen en el archivo de entrada.  Esto plantea un
-problema cuando las alteraciones de un acorde dependen unas de otras,
-lo que no se da en el estilo de alteraciones predeterminado.  El
-problema se puede resolver insertando manualmente@tie{}@code{!}
-y@tie{}@code{?} para las notas problemáticas.
+Las notas simultáneas no se tienen en cuenta para la
+determinación automática de las alteraciones accidentales;
+sólo se consideran las notas anteriores y la armadura de
+la tonalidad.  Puede ser necesario forzar las alteraciones
+accidentales con with@tie{}@code{!} o@tie{}@code{?} cuando
+la misma nota, con el mismo nombre, ocurre simultáneamente
+con distintas alteraciones, como en @samp{<f! fis!>}.
 
 
 La cancelación de precaución de alteraciones se hace mirando el
