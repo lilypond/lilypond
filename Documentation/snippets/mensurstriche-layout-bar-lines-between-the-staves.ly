@@ -6,7 +6,7 @@
 \header {
   lsrtags = "staff-notation, ancient-notation, contexts-and-engravers, tweaks-and-overrides"
 
-%% Translation of GIT committish: a874fda3641c9e02f61be5c41b215b8304b8ed00
+%% Translation of GIT committish: fa19277d20f8ab0397c560eb0e7b814bd804ecec
   texidoces = "
 La disposición «mensurstriche» en que las líneas divisorias no
 están dibujadas sobre los pentagramas, sino entre ellos, se puede
