@@ -6,7 +6,7 @@
 * Introduction to regression tests::
 * Precompiled regression tests::
 * Compiling regression tests::
-* Identifying code regressions::
+* Regtest comparison::
 * Finding the cause of a regression::
 * Memory and coverage tests::
 * MusicXML tests::
@@ -174,8 +174,8 @@ than building the source code, as described in
 @ref{Requirements for building documentation}.
 
 
-@node Identifying code regressions
-@section Identifying code regressions
+@node Regtest comparison
+@section Regtest comparison
 
 Before modified code is committed to master, a regression test
 comparison must be completed to ensure that the changes have
@@ -265,9 +265,6 @@ automatic regression comparison again.
 
 @node Finding the cause of a regression
 @section Finding the cause of a regression
-
-@warning{This is not a @qq{simple} task; it requires a fair amount
-of technical knowledge.}
 
 Git has special functionality to help tracking down the exact
 commit which causes a problem.  See the git manual page for
