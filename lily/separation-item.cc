@@ -80,7 +80,8 @@ Skyline
 Separation_item::conditional_skyline (Grob *me, Grob *left)
 {
   vector<Box> bs = boxes (me, left);
-  return Skyline (bs, 0.0, Y_AXIS, LEFT);
+  Real horizon_padding = robust_scm2double (me->get_property ("skyline-vertical-padding"), 0.0);
+  return Skyline (bs, horizon_padding, Y_AXIS, LEFT);
 }
 
 
@@ -90,8 +91,8 @@ Separation_item::calc_skylines (SCM smob)
 {
   Item *me = unsmob_item (smob);
   vector<Box> bs = boxes (me, 0);
-  /* todo: the horizon_padding is somewhat arbitrary */
-  return Skyline_pair (bs, 0.0, Y_AXIS).smobbed_copy ();
+  Real horizon_padding = robust_scm2double (me->get_property ("skyline-vertical-padding"), 0.0);
+  return Skyline_pair (bs, horizon_padding, Y_AXIS).smobbed_copy ();
 }
 
 /* if left is non-NULL, get the boxes corresponding to the
@@ -189,4 +190,5 @@ ADD_INTERFACE (Separation_item,
 	       "elements "
 	       "padding "
 	       "horizontal-skylines "
+	       "skyline-vertical-padding "
 	       );

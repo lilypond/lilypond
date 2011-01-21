@@ -721,6 +721,11 @@ vertical distance between two staves, it is possible to have a
 configuration which would result in a tight interleaving of grobs from
 the top staff and the bottom staff.  The larger this parameter is, the
 farther apart the staves are placed in such a configuration.")
+     (skyline-vertical-padding ,number? "The amount by which the left
+and right skylines of a column are padded vertically, beyond the
+@code{Y-extent}s and @code{extra-spacing-height}s of the constituent
+grobs in the column.  Increase this to prevent interleaving of grobs
+from adjacent columns.")
      (slash-negative-kern ,number? "The space to remove between
 slashes in percent repeat glyphs.  Larger values bring the two
 elements closer together.")
