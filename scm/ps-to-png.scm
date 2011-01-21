@@ -27,6 +27,8 @@
  (lily)
  )
 
+;; FIXME: use backend-library for duplicates and stubs; lilypond-ps2png.scm is no more
+
 (define-public _ gettext)
 
 (define PLATFORM

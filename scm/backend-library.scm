@@ -23,45 +23,18 @@
 	     (scm paper-system)
 	     (ice-9 optargs))
 
-(define-public (ly:system command . rest)
-  (let* ((status 0)
-	 (dev-null "/dev/null")
-	 (silenced (if (or (ly:get-option 'verbose)
-			   (not (access? dev-null W_OK)))
-		       command
-		       (format #f "~a > ~a 2>&1 " command dev-null))))
-    (if (ly:get-option 'verbose)
-	(begin
-	  (ly:message (_ "Invoking `~a'...") command))
-	  (ly:progress "\n"))
-
-    (set! status
-	  (if (pair? rest)
-	      (system-with-env silenced (car rest))
-	      (system silenced)))
-	
+(define-public (ly:system command)
+  (if (ly:get-option 'verbose)
+      (begin
+	(ly:message (_ "Invoking `~a'...") (string-join command)))
+      (ly:progress "\n"))
+  (let ((status (apply ly:spawn command)))
     (if (> status 0)
 	(begin
 	  (ly:message (_ "`~a' failed (~a)") command status)
 	  (ly:progress "\n")
 	  ;; hmmm.  what's the best failure option? 
 	  (throw 'ly-file-failed)))))
-
-(define-public (system-with-env cmd env)
-
-  "Execute CMD in fork, with ENV (a list of strings) as the environment"
-  (let*
-      ;; laziness: should use execle?
-      
-      ((pid (primitive-fork)))
-    (if (= 0 pid)
-	;; child
-	(begin
-	  (environ env)
-	  (system cmd))
-	
-	;; parent
-	(cdr (waitpid pid)))))
 
 (define-public (sanitize-command-option str)
   "Kill dubious shell quoting"
@@ -91,41 +64,32 @@
 		    (dir-basename name ".ps" ".eps")
 		    ".pdf"))
 	 (is-eps (string-match "\\.eps$" name))
-	 (paper-size-string (if is-eps
-				"-dEPSCrop"
-				(ly:format "-dDEVICEWIDTHPOINTS=~$\
- -dDEVICEHEIGHTPOINTS=~$"
-					paper-width paper-height)))
+	 (*unspecified* (if #f #f))
+	 (cmd
+	  (remove (lambda (x) (eq? x *unspecified*))
+	  (list
+	       (search-gs)
+	       (if (ly:get-option 'verbose) *unspecified* "-q")
+	       (if (or (ly:get-option 'gs-load-fonts)
+		       (ly:get-option 'gs-load-lily-fonts)
+		       (eq? PLATFORM 'windows))
+		   "-dNOSAFER"
+		   "-dSAFER")
 
-	 (cmd (ly:format
-		      "~a\
- ~a\
- ~a\
- ~a\
- -dCompatibilityLevel=1.4\
- -dNOPAUSE\
- -dBATCH\
- -r1200\
- -sDEVICE=pdfwrite\
- -sOutputFile=~S\
- -c .setpdfwrite\
- -f ~S\
-"
-		      (search-gs)
-		      (if (ly:get-option 'verbose) "" "-q")
-		      (if (or (ly:get-option 'gs-load-fonts)
-			      (ly:get-option 'gs-load-lily-fonts))
-			  "-dNOSAFER"
-			  "-dSAFER")
-		      paper-size-string
-		      pdf-name
-		      name)))
-    ;; The wrapper on windows cannot handle `=' signs,
-    ;; gs has a workaround with #.
-    (if (eq? PLATFORM 'windows)
-	(begin
-	  (set! cmd (string-regexp-substitute "=" "#" cmd))
-	  (set! cmd (string-regexp-substitute "-dSAFER " "" cmd))))
+	       (if is-eps
+		   "-dEPSCrop"
+		   (ly:format "-dDEVICEWIDTHPOINTS=~$" paper-width))
+	       (if is-eps
+		   *unspecified*
+		   (ly:format "-dDEVICEHEIGHTPOINTS=~$" paper-height))
+	       "-dCompatibilityLevel=1.4"
+	       "-dNOPAUSE"
+	       "-dBATCH"
+	       "-r1200"
+	       "-sDEVICE=pdfwrite"
+	       (string-append "-sOutputFile=" pdf-name)
+	       "-c.setpdfwrite"
+	       (string-append "-f" name)))))
 
     (ly:message (_ "Converting to `~a'...") pdf-name)
     (ly:progress "\n")

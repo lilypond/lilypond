@@ -267,10 +267,12 @@
     (let* ((dir-name (tmpnam))
 	   (files '())
 	   (status 0)
-	   (embed #f))
+	   (embed #f)
+	   (cwd (getcwd)))
       (mkdir dir-name #o700)
-      (set! status (ly:system
-		    (format "cd ~a && fondu -force '~a'" dir-name filename)))
+      (chdir dir-name)
+      (set! status (ly:system (list "fondu" "-force" file-name)))
+      (chdir cwd)
       (set! files (dir-listing dir-name))
       (for-each
        (lambda (f)
