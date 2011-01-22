@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: efd763abb78bf960a175b9a6aab571a3e02221b6
+    Translation of GIT committish: 4030db5696cb469682df98cad47f472266ecf3b6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2015,8 +2015,8 @@ labelContext =
 
 Hormis @code{staff-affinity} -- propriété attachée au @emph{grob}
 @code{VerticalAxisGroup} --, chacune de ces propriétés est enregistrée
-sous la forme d'une liste associative dont les composantes sont
-identiques à celle des variables du bloc @code{\paper} que nous avons
+sous la forme d'une liste associative dont la structure est
+identique à celle des variables du bloc @code{\paper} que nous avons
 examinées au chapitre
 @ref{Variables d'espacement vertical fluctuant}.  Les particularités en
 matière de modification d'une liste associative font l'objet d'un
@@ -2075,18 +2075,22 @@ d'un @code{\override} au niveau d'un contexte @code{Staff} (ou son
 Il s'agit de la distance entre la portée en cours et la portée qui suit
 au sein du même regroupement, qu'il y ait ou non une ligne de non-portée
 (@code{Lyrics} ou autre) entre les deux.  Cette propriété ne s'applique
-pas à la dernière portée d'un système.  
-Cette propriété écrase les réglages hérités du @emph{grob}
-@code{StaffGrouper} d'un éventuel regroupement.  
-Lorsque @code{staff-staff-spacing} n'est pas défini et qu'il n'y a pas
-de @code{StaffGrouper} dont on pourrait hériter des propriétés, c'est la
-propriété @code{default-staff-staff-spacing} qui s'applique.
+pas à la dernière portée d'un système.
+
+En tout état de cause, la fonction Scheme @code{staff-staff-spacing}
+d'un @code{VerticalAxisGroup} affectera les propriétés du
+@code{StaffGrouper} si la portée est incluse dans un regroupement@tie{};
+elle s'appliquera au @code{default-staff-staff-spacing} en l'absence de
+regroupement.  Les portées peuvent donc s'aligner différemment selon
+qu'elles sont ou non regroupées.  Pour obtenir le même espacement sans
+tenir compte dees éventuels regroupements, cette fonction peut faire
+place à une complète redéfinition des espacements fluctuants à l'aide de
+règles dérogatoires comme vu précédemment.
 
 @item default-staff-staff-spacing
-Il s'agit de la distance qui s'appliquera, dans le cas où
-@code{staff-staff-spacing} n'aura pas été défini, aussi bien pour les
-portées isolées que dans le cas où les portées d'un regroupement
-n'hériteraient pas des ajustements du @code{StaffGrouper} concerné.
+Il s'agit de la distance qui s'appliquera par défaut aux portées
+isolées, à loins que @code{staff-staff-spacing} n'ait été redéfini
+explicitement par un @code{\override}.
 
 @item staff-affinity
 Il s'agit de la direction -- @code{UP}, @code{DOWN} ou @code{CENTER} --
@@ -2144,10 +2148,9 @@ d'un @code{\override} au niveau d'un contexte @code{StaffGroup} (ou son
 @table @code
 @item staff-staff-spacing
 Il s'agit de la distance entre deux portées consécutives d'un même
-système.  Cependant, lorsque l'une des portées d'un regroupement s'est
-vue définir la propriété @code{staff-staff-spacing} de son
-@code{VerticalAxisGroup}, le @code{VerticalAxisGroup} aura préséance.
-Voir aussi la propriété @code{default-staff-staff-spacing}.
+système.  La propriété @code{staff-staff-spacing} de l'objet
+@code{VerticalAxisGroup} d'un portée en particulier peut se redéfinir à
+l'aide de règles dérogatoires.
 
 @item staffgroup-staff-spacing
 Il s'agit de la distance entre la dernière portée d'un regroupement et
@@ -2155,9 +2158,8 @@ la portée suivante, au sein d'un même système, y compris lorsqu'une ou
 plusieurs lignes de non-portée (tel @code{Lyrics}) s'insèrent entre les
 deux.  Cette propriété ne concerne pas la dernière portée d'un système.
 Dans le cas où la propriété @code{staff-staff-spacing} d'une portée du
-regroupement a été ajustée au niveau de son @code{VerticalAxisGroup},
-cette dernière aura préséance.  Voir aussi la propriété
-@code{default-staff-staff-spacing}.
+regroupement a été ajustée au niveau de son propre
+@code{VerticalAxisGroup}, cette dernière aura préséance.
 @end table
 
 
@@ -2186,6 +2188,7 @@ suivantes@tie{}:
 @itemize
 @item Propriétés du @code{VerticalAxisGroup} :
 @itemize
+@item @code{default-staff-staff-spacing}
 @item @code{staff-staff-spacing}
 @end itemize
 @end itemize
@@ -2198,35 +2201,38 @@ ces portées sont regroupées -- voir
 @ref{Espacement de portées regroupées}.
 
 L'exemple suivant illustre la manière de gérer l'espacement de portées
-isolées à l'aide de la propriété @code{staff-staff-spacing}@tie{}:
+isolées à l'aide de la propriété @code{default-staff-staff-spacing}.
+Les mêmes règles appliquées de manière dérogatoire au
+@code{staff-staff-spacing} produiront les mêmes effets, y comris au sein
+de regroupements.
 
 @lilypond[verbatim,quote,staffsize=16]
 \layout {
   \context {
     \Staff
-    \override VerticalAxisGroup #'staff-staff-spacing =
+    \override VerticalAxisGroup #'default-staff-staff-spacing =
       #'((basic-distance . 8)
          (minimum-distance . 7)
          (padding . 1))
   }
 }
 
-\new StaffGroup <<
-  % The very low note here needs more room than 'space can
-  % provide, so the distance between this staff and the next is
-  % determined by 'padding.
+<<
+  % The very low note here needs more room than 'basic-distance
+  % can provide, so the distance between this staff and the next
+  % is determined by 'padding.
   \new Staff { b,2 r | }
 
-  % Here, 'space provides enough room, and there is no need to
-  % compress the space (towards 'minimum-distance) to make room
-  % for anything else on the page, so the distance between this
-  % staff and the next is determined by 'space.
+  % Here, 'basic-distance provides enough room, and there is no
+  % need to compress the space (towards 'minimum-distance) to make
+  % room for anything else on the page, so the distance between
+  % this staff and the next is determined by 'basic-distance.
   \new Staff { \clef bass g2 r | }
 
   % By setting 'padding to a negative value, staves can be made to
-  % collide.  The lowest acceptable value for 'space is 0.
+  % collide.  The lowest acceptable value for 'basic-distance is 0.
   \new Staff \with {
-    \override VerticalAxisGroup #'staff-staff-spacing =
+    \override VerticalAxisGroup #'default-staff-staff-spacing =
       #'((basic-distance . 3.5)
          (padding . -10))
   } { \clef bass g2 r | }
@@ -2266,7 +2272,6 @@ propriétés suivantes@tie{}:
 @item Propriétés du @code{VerticalAxisGroup} :
 @itemize
 @item @code{staff-staff-spacing}
-@item @code{default-staff-staff-spacing}
 @end itemize
 @item Propriétés du @code{StaffGrouper} :
 @itemize
