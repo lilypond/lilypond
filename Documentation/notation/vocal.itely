@@ -12,7 +12,7 @@
 @node Vocal music
 @section Vocal music
 
-@c TODO: inspirational headword
+@lilypondfile[quote]{vocal-headword.ly}
 
 This section explains how to typeset vocal music, and make sure
 that the lyrics will be aligned with the notes of their melody.
