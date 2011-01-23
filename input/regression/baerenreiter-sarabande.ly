@@ -1,9 +1,9 @@
-\version "2.12.0"
+\version "2.13.46"
 
 forcedLastBreak =  { \break }
 
 %% We want this to perfectly match the Bärenreiter spacing.
-%% If we're not using 6 systems, there's definately a problem.
+%% If we're not using 6 systems, there's definitely a problem.
 #(define (assert-system-count smob n)
   (let ((systems (length (ly:spanner-broken-into
 			  (ly:grob-original
@@ -13,14 +13,14 @@ forcedLastBreak =  { \break }
 	;;(warn
 	(string-append "Got " (number->string systems)
 			     " systems (expecting " (number->string n))))))
-            
+
 
 #(define (assert-system-count-override count)
   (ly:export #{ \override NoteHead #'after-line-breaking
        = #(lambda (smob) (assert-system-count smob $count))
   #}))
 
-  
+
 \header {
   title = "Solo Cello Suite II"
   piece ="Sarabande"
@@ -53,17 +53,17 @@ half way in measure 13 has been forgotten.
 sarabandeA =  \context Voice  \relative c {
   \override Staff.NoteCollision  #'merge-differently-dotted = ##t
 
-  
+
   << { d8. e16 e4.\trill d16 e } \\
     { d4 a2 } >>
-  <d, a' f'>4.  e'8[ d c] | 
+  <d, a' f'>4.  e'8[ d c] |
   bes[ g'] f[
      e16(f] g[ a bes d,)] |
   cis4.\trill b8[ a g] |
 
-  %% check spacing without accs: 
+  %% check spacing without accs:
   %%	c4.\trill bes8[ a g] |
-  
+
   << { d'8. e16 e4.\trill d16 e |
       f4. d8[ e f] }
     \\
@@ -85,7 +85,7 @@ sarabandeA =  \context Voice  \relative c {
   %% 11
   e'8[ f] c,[ g'] f'[ e] |
   f4 f,2 |
-  << {  a'4 a4.\trill bes8 
+  << {  a'4 a4.\trill bes8
        c bes16 a } \\
     { f8[ es] es4. r8 d4 } >>
 
@@ -93,14 +93,14 @@ sarabandeA =  \context Voice  \relative c {
   bes[ g']
   a,[ fis']
   es'[ d] |
-  
+
   %%16
   < bes d, g, >4.\trill a8[ g f!] |
   e bes a f' g a |
   d, as g es' f g |
   cis,[ bes'] a[ g16 f] e!8[ f16 d] |
   cis8 e16 a a,8. g'16 f8(e) |
-  
+
   %%21
   << { d e16(f) f4. e16(d) |
       e8 f16(g) g4. a16(bes) |
@@ -162,7 +162,7 @@ smallerPaper = \layout {
     \Score
     \override SpacingSpanner #'spacing-increment = #0.96
   }
-  
+
   indent = 5.6 \mm
   line-width = 146.8 \mm
 }
@@ -171,8 +171,11 @@ smallerPaper = \layout {
   ragged-bottom = ##t
   indent = 7. \mm
   line-width =183.5 \mm
-  between-system-space = 25\mm 
-  between-system-padding = 0\mm
+  obsolete-between-system-space = 25\mm
+  system-system-spacing #'basic-distance = #(/ obsolete-between-system-space staff-space)
+  system-system-spacing #'padding = #0
+  score-system-spacing #'basic-distance = #(/ obsolete-between-system-space staff-space)
+  score-system-spacing #'padding = #0
   system-count = 6
 
 %%  annotatespacing = ##t
@@ -182,7 +185,7 @@ smallerPaper = \layout {
   \score{
     \sarabandeCelloStaff
     \layout { }
-    
+
   \midi {
     \context {
       \Score
@@ -192,7 +195,7 @@ smallerPaper = \layout {
 
 
     \header{
-      opus= "" 
+      opus= ""
       piece ="Sarabande" }
   }
 }

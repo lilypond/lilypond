@@ -67,6 +67,12 @@ which scares away people.
 @end ignore
 
 @item
+Lyrics above a staff must have their @code{staff-affinity} set to
+@code{DOWN} or must have their @code{alignAboveContext} property
+set in order to be properly aligned.  For more information, see
+@ruser{Placing lyrics vertically}.
+
+@item
 @code{stringTunings} property values have changed from a list of
 semitones above middle C to a list of LilyPond pitch values.
 convert-ly will handle the change automatically where the value

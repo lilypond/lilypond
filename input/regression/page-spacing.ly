@@ -13,7 +13,7 @@ By setting @code{annotate-spacing}, we can see the effect of each property.
 
 }
 
-\version "2.12.0"
+\version "2.13.46"
 
 #(set-global-staff-size 11)
 
@@ -40,9 +40,9 @@ By setting @code{annotate-spacing}, we can see the effect of each property.
 	    "Stretchable space runs between refpoints"
 	  }
 	}
-	
+
 	\break
-	
+
 	\overrideProperty
 	#"Score.NonMusicalPaperColumn"
 	#'line-break-system-details
@@ -57,7 +57,7 @@ By setting @code{annotate-spacing}, we can see the effect of each property.
 	c\break
 	\overrideProperty
 	#"Score.NonMusicalPaperColumn" #'line-break-system-details
-	#'((bottom-space . 25.0)) 
+	#'((bottom-space . 25.0))
 	c_"25 staff space to the bottom of the page. (property bottom-space)"\break
 
 
@@ -68,12 +68,14 @@ By setting @code{annotate-spacing}, we can see the effect of each property.
   \paper {
     ragged-last-bottom = ##f
     annotate-spacing = ##t
-    between-system-space = 1.0
+    obsolete-between-system-space = 1.0
+    system-system-spacing #'basic-distance = #(/ obsolete-between-system-space staff-space)
+    score-system-spacing #'basic-distance = #(/ obsolete-between-system-space staff-space)
     #(set! text-font-defaults
       (acons
        'font-size 6
        text-font-defaults)
-      
+
     )
   }
 }
