@@ -5,7 +5,7 @@
 # This file is part of LilyPond, the GNU music typesetter.
 #
 # Copyright (C) 1998--2011  Han-Wen Nienhuys <hanwen@xs4all.nl>
-#                 Jan Nieuwenhuizen <janneke@gnu.org>
+#                           Jan Nieuwenhuizen <janneke@gnu.org>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -87,7 +87,7 @@ def warranty ():
 
 %s
 %s
-''' % ( _ ('Copyright (c) %s by') % '2001--2011',
+''' % ( _ ('Copyright (c) %s by') % '1998--2011',
         '\n  '.join (authors),
         _ ('Distributed under terms of the GNU General Public License.'),
         _ ('It comes with NO WARRANTY.')))
@@ -97,7 +97,7 @@ def progress (s):
 
 def warning (s):
     progress (_ ("warning: ") + s)
-        
+
 def error (s):
     progress (_ ("error: ") + s)
     raise Exception (_ ("Exiting... "))
@@ -119,7 +119,7 @@ class Duration:
         if clocks <= 0:
             self.clocks = duration_quant_clocks
         (self.dur, self.num, self.den) = self.dur_num_den (clocks)
-        
+
     def dur_num_den (self, clocks):
         for i in range (len (allowed_tuplet_clocks)):
             if clocks == allowed_tuplet_clocks[i]:
@@ -143,7 +143,7 @@ class Duration:
                 s = '%d*%d' % (self.dur, self.num)
         else:
             s = '%d*%d/%d' % (self.dur, self.num, self.den)
-            
+
         global reference_note
         reference_note.duration = self
 
@@ -246,10 +246,10 @@ class Note:
             n = 6; a = 1; o = o - 1
 
         return (o, n, a)
-        
+
     def __repr__ (self):
         s = chr ((self.notename + 2)  % 7 + ord ('a'))
-        return 'Note(%s %s)' % (s, self.duration.dump())
+        return 'Note(%s %s)' % (s, self.duration.dump ())
 
     def dump (self, dump_dur = 1):
         global reference_note
@@ -260,25 +260,25 @@ class Note:
         else:
             delta = self.pitch - reference_note.pitch
             commas = sign (delta) * (abs (delta) / 12)
-            if ((sign (delta) \
-              * (self.notename - reference_note.notename) + 7) \
-              % 7 >= 4) \
-              or ((self.notename == reference_note.notename) \
-                and (abs (delta) > 4) and (abs (delta) < 12)):
+            if (((sign (delta)
+                  * (self.notename - reference_note.notename) + 7)
+                 % 7 >= 4)
+                or ((self.notename == reference_note.notename)
+                    and (abs (delta) > 4) and (abs (delta) < 12))):
                 commas = commas + sign (delta)
-            
+
         if commas > 0:
             s = s + "'" * commas
         elif commas < 0:
             s = s + "," * -commas
 
         ## FIXME: compile fix --jcn
-        if dump_dur and (global_options.explicit_durations \
-         or self.duration.compare (reference_note.duration)):
+        if (dump_dur and (global_options.explicit_durations
+                          or self.duration.compare (reference_note.duration))):
             s = s + self.duration.dump ()
 
         reference_note = self
-        
+
         # TODO: move space
         return s + ' '
 
@@ -294,7 +294,7 @@ class Time:
 
     def __repr__ (self):
         return 'Time(%d/%d)' % (self.num, self.den)
-    
+
     def dump (self):
         global time
         time = self
@@ -307,12 +307,12 @@ class Tempo:
 
     def __repr__ (self):
         return 'Tempo(%d)' % self.bpm ()
-    
+
     def bpm (self):
         return 4 * 60 / self.seconds_per_1
-    
+
     def dump (self):
-        return '\n  ' + '\\tempo 4 = %d ' % (self.bpm()) + '\n  '
+        return '\n  ' + '\\tempo 4 = %d ' % (self.bpm ()) + '\n  '
 
 class Clef:
     clefs = ('"bass_8"', 'bass', 'violin', '"violin^8"')
@@ -321,7 +321,7 @@ class Clef:
 
     def __repr__ (self):
         return 'Clef(%s)' % self.clefs[self.type]
-    
+
     def dump (self):
         return '\n  \\clef %s\n  ' % self.clefs[self.type]
 
@@ -346,7 +346,7 @@ class Key:
                 k = (ord ('cfbeadg'[self.flats % 7]) - ord ('a') - 2 -2 * self.minor + 7) % 7
             else:
                 k = (ord ('cgdaebf'[self.sharps % 7]) - ord ('a') - 2 -2 * self.minor + 7) % 7
- 
+
             if not self.minor:
                 name = chr ((k + 2) % 7 + ord ('a'))
             else:
@@ -386,7 +386,7 @@ class Text:
         'LYRIC',
         'MARKER',
         'CUE_POINT',)
-    
+
     def __init__ (self, type, text):
         self.clocks = 0
         self.type = type
@@ -397,8 +397,8 @@ class Text:
         if self.type == midi.LYRIC:
             s = '"%s"' % self.text
             d = Duration (self.clocks)
-            if global_options.explicit_durations \
-             or d.compare (reference_note.duration):
+            if (global_options.explicit_durations
+                or d.compare (reference_note.duration)):
                 s = s + Duration (self.clocks).dump ()
             s = s + ' '
         else:
@@ -412,9 +412,9 @@ class Text:
 
 def split_track (track):
     chs = {}
-    for i in range(16):
+    for i in range (16):
         chs[i] = []
-        
+
     for e in track:
         data = list (e[1])
         if data[0] > 0x7f and data[0] < 0xf0:
@@ -452,7 +452,7 @@ def end_note (pitches, notes, t, e):
         (lt, vel) = pitches[e]
         del pitches[e]
 
-        i = len (notes) - 1 
+        i = len (notes) - 1
         while i > 0:
             if notes[i][0] > lt:
                 i = i -1
@@ -484,20 +484,20 @@ def events_on_channel (channel):
             t = quantise_clocks (t, start_quant_clocks)
 
 
-        if e[1][0] == midi.NOTE_OFF \
-         or (e[1][0] == midi.NOTE_ON and e[1][2] == 0):
+        if (e[1][0] == midi.NOTE_OFF
+            or (e[1][0] == midi.NOTE_ON and e[1][2] == 0)):
             end_note (pitches, notes, t, e[1][1])
-            
+
         elif e[1][0] == midi.NOTE_ON:
             if not pitches.has_key (e[1][1]):
                 pitches[e[1][1]] = (t, e[1][2])
-                
+
         # all include ALL_NOTES_OFF
-        elif e[1][0] >= midi.ALL_SOUND_OFF \
-          and e[1][0] <= midi.POLY_MODE_ON:
+        elif (e[1][0] >= midi.ALL_SOUND_OFF
+          and e[1][0] <= midi.POLY_MODE_ON):
             for i in pitches:
                 end_note (pitches, notes, t, i)
-                
+
         elif e[1][0] == midi.META_EVENT:
             if e[1][1] == midi.END_OF_TRACK:
                 for i in pitches:
@@ -511,7 +511,7 @@ def events_on_channel (channel):
                 events.append ((t, Tempo (seconds_per_1)))
             elif e[1][1] == midi.TIME_SIGNATURE:
                 (num, dur, clocks4, count32) = map (ord, e[1][2])
-                den = 2 ** dur 
+                den = 2 ** dur
                 events.append ((t, Time (num, den)))
             elif e[1][1] == midi.KEY_SIGNATURE:
                 (alterations, minor) = map (ord, e[1][2])
@@ -530,16 +530,16 @@ def events_on_channel (channel):
                 # Better do Note.calc () at dump time?
                 global_options.key = k
 
-            elif e[1][1] == midi.LYRIC \
-              or (global_options.text_lyrics and e[1][1] == midi.TEXT_EVENT):
+            elif (e[1][1] == midi.LYRIC
+                  or (global_options.text_lyrics and e[1][1] == midi.TEXT_EVENT)):
                 if last_lyric:
                     last_lyric.clocks = t - last_time
                     events.append ((last_time, last_lyric))
                 last_time = t
                 last_lyric = Text (midi.LYRIC, e[1][2])
 
-            elif e[1][1] >= midi.SEQUENCE_NUMBER \
-              and e[1][1] <= midi.CUE_POINT:
+            elif (e[1][1] >= midi.SEQUENCE_NUMBER
+                  and e[1][1] <= midi.CUE_POINT):
                 events.append ((t, Text (e[1][1], e[1][2])))
             else:
                 if global_options.verbose:
@@ -556,7 +556,7 @@ def events_on_channel (channel):
         last_lyric.clocks = clocks_per_4
         events.append ((last_time, last_lyric))
         last_lyric = 0
-        
+
     i = 0
     while len (notes):
         if i < len (events) and notes[0][0] >= events[i][0]:
@@ -575,17 +575,17 @@ def unthread_notes (channel):
         todo = []
         for e in channel:
             t = e[0]
-            if e[1].__class__ == Note \
-             and ((t == start_busy_t \
-                and e[1].clocks + t == end_busy_t) \
-              or t >= end_busy_t):
+            if (e[1].__class__ == Note
+                and ((t == start_busy_t
+                      and e[1].clocks + t == end_busy_t)
+                     or t >= end_busy_t)):
                 thread.append (e)
                 start_busy_t = t
                 end_busy_t = t + e[1].clocks
-            elif e[1].__class__ == Time \
-              or e[1].__class__ == Key \
-              or e[1].__class__ == Text \
-              or e[1].__class__ == Tempo:
+            elif (e[1].__class__ == Time
+                  or e[1].__class__ == Key
+                  or e[1].__class__ == Text
+                  or e[1].__class__ == Tempo):
                 thread.append (e)
             else:
                 todo.append (e)
@@ -598,12 +598,12 @@ def gcd (a,b):
     if b == 0:
         return a
     c = a
-    while c: 
+    while c:
         c = a % b
         a = b
         b = c
     return a
-    
+
 def dump_skip (skip, clocks):
     return skip + Duration (clocks).dump () + ' '
 
@@ -629,7 +629,7 @@ def dump_chord (ch):
             s = s + i.dump (dump_dur = 0 )
         s = s + '>'
 
-        s = s + notes[0].duration.dump() + ' '
+        s = s + notes[0].duration.dump () + ' '
         reference_note = r
     return s
 
@@ -638,17 +638,17 @@ def dump_bar_line (last_bar_t, t, bar_count):
     bar_t = time.bar_clocks ()
     if t - last_bar_t >= bar_t:
         bar_count = bar_count + (t - last_bar_t) / bar_t
-        
+
         if t - last_bar_t == bar_t:
             s = '|\n  %% %d\n  ' % bar_count
             last_bar_t = t
         else:
             # urg, this will barf at meter changes
             last_bar_t = last_bar_t + (t - last_bar_t) / bar_t * bar_t
-            
+
     return (s, last_bar_t, bar_count)
 
-            
+
 def dump_channel (thread, skip):
     global reference_note, time
 
@@ -668,9 +668,9 @@ def dump_channel (thread, skip):
         else:
             if ch:
                 chs.append ((last_e[0], ch))
-                
+
             ch = [e[1]]
-            
+
         last_e = e
 
     if ch:
@@ -679,9 +679,9 @@ def dump_channel (thread, skip):
     last_t = 0
     last_bar_t = 0
     bar_count = 1
-    
+
     lines = ['']
-    for ch in chs: 
+    for ch in chs:
         t = ch[0]
 
         i = lines[-1].rfind ('\n') + 1
@@ -696,16 +696,16 @@ def dump_channel (thread, skip):
         (s, last_bar_t, bar_count) = dump_bar_line (last_bar_t,
                               t, bar_count)
         lines[-1] = lines[-1] + s
-        
+
         lines[-1] = lines[-1] + dump_chord (ch[1])
 
         clocks = 0
         for i in ch[1]:
             if i.clocks > clocks:
                 clocks = i.clocks
-                
+
         last_t = t + clocks
-        
+
         (s, last_bar_t, bar_count) = dump_bar_line (last_bar_t,
                               last_t, bar_count)
         lines[-1] = lines[-1] + s
@@ -771,10 +771,10 @@ def dump_track (channels, n):
 def thread_first_item (thread):
     for chord in thread:
         for event in chord:
-            if (event[1].__class__ == Note 
-              or (event[1].__class__ == Text 
+            if (event[1].__class__ == Note
+              or (event[1].__class__ == Text
                 and event[1].type == midi.LYRIC)):
-                
+
               return event[1]
     return None
 
@@ -802,20 +802,20 @@ def guess_clef (track):
         return Clef (3)
     else:
         return Clef (2)
-    
+
 
 def convert_midi (in_file, out_file):
     global clocks_per_1, clocks_per_4, key
     global start_quant_clocks
-    global  duration_quant_clocks
+    global duration_quant_clocks
     global allowed_tuplet_clocks
 
     str = open (in_file, 'rb').read ()
     midi_dump = midi.parse (str)
-    
+
     clocks_per_1 = midi_dump[0][1]
     clocks_per_4 = clocks_per_1 / 4
-    
+
     if global_options.start_quant:
         start_quant_clocks = clocks_per_1 / global_options.start_quant
 
@@ -833,19 +833,19 @@ def convert_midi (in_file, out_file):
 
     tag = '%% Lily was here -- automatically converted by %s from %s' % ( program_name, in_file)
 
-    
+
     s = ''
     s = tag + '\n\\version "2.7.38"\n\n'
     for i in range (len (tracks)):
         s = s + dump_track (tracks[i], i)
 
     s = s + '\n\\score {\n  <<\n'
-    
+
     i = 0
     for t in tracks:
         track = track_name (i)
         item = track_first_item (t)
-        
+
         if item and item.__class__ == Note:
             s = s + '    \\context Staff=%s \\%s\n' % (track, track)
         elif item and item.__class__ == Text:
@@ -872,44 +872,44 @@ def get_option_parser ():
 
     p.add_option ('-a', '--absolute-pitches',
            action='store_true',
-           help=_ ("print absolute pitches"))
+           help=_ ('print absolute pitches'))
     p.add_option ('-d', '--duration-quant',
-           metavar= _("DUR"),
-           help=_ ("quantise note durations on DUR"))
+           metavar=_ ('DUR'),
+           help=_ ('quantise note durations on DUR'))
     p.add_option ('-e', '--explicit-durations',
            action='store_true',
-           help=_ ("print explicit durations"))
-    p.add_option("-h", "--help",
-                 action="help",
-                 help=_ ("show this help and exit"))
-    p.add_option('-k', '--key', help=_ ("set key: ALT=+sharps|-flats; MINOR=1"),
-          metavar=_ ("ALT[:MINOR]"),
+           help=_ ('print explicit durations'))
+    p.add_option('-h', '--help',
+                 action='help',
+                 help=_ ('show this help and exit'))
+    p.add_option('-k', '--key', help=_ ('set key: ALT=+sharps|-flats; MINOR=1'),
+          metavar=_ ('ALT[:MINOR]'),
           default='0'),
-    p.add_option ('-o', '--output', help=_ ("write output to FILE"),
-           metavar=_("FILE"),
+    p.add_option ('-o', '--output', help=_ ('write output to FILE'),
+           metavar=_('FILE'),
            action='store')
-    p.add_option ('-s', '--start-quant',help= _ ("quantise note starts on DUR"),
-           metavar=_ ("DUR"))
+    p.add_option ('-s', '--start-quant',help= _ ('quantise note starts on DUR'),
+           metavar=_ ('DUR'))
     p.add_option ('-t', '--allow-tuplet',
-           metavar=_ ("DUR*NUM/DEN"),
-           action = "append",
-           dest="allowed_tuplets",
-           help=_ ("allow tuplet durations DUR*NUM/DEN"),
+           metavar=_ ('DUR*NUM/DEN'),
+           action = 'append',
+           dest='allowed_tuplets',
+           help=_ ('allow tuplet durations DUR*NUM/DEN'),
            default=[])
-    p.add_option ('-V', '--verbose', help=_ ("be verbose"),
+    p.add_option ('-V', '--verbose', help=_ ('be verbose'),
            action='store_true'
            ),
-    p.version = "midi2ly (LilyPond) @TOPLEVEL_VERSION@"
-    p.add_option("--version",
-                 action="version",
-                 help=_ ("show version number and exit"))
-    p.add_option ('-w', '--warranty', help=_ ("show warranty and copyright"),
+    p.version = 'midi2ly (LilyPond) @TOPLEVEL_VERSION@'
+    p.add_option ('--version',
+                 action='version',
+                 help=_ ('show version number and exit'))
+    p.add_option ('-w', '--warranty', help=_ ('show warranty and copyright'),
            action='store_true',
            ),
-    p.add_option ('-x', '--text-lyrics', help=_ ("treat every text as a lyric"),
+    p.add_option ('-x', '--text-lyrics', help=_ ('treat every text as a lyric'),
            action='store_true')
 
-    p.add_option_group (ly.display_encode (_ ("Examples")),
+    p.add_option_group (ly.display_encode (_ ('Examples')),
               description = r'''
   $ midi2ly --key=-2:1 --duration-quant=32 --allow-tuplet=4*2/3 --allow-tuplet=2*4/3 foo.midi
 ''')
@@ -923,13 +923,13 @@ def get_option_parser ():
 
 
 def do_options ():
-    opt_parser = get_option_parser()
+    opt_parser = get_option_parser ()
     (options, args) = opt_parser.parse_args ()
 
     if not args or args[0] == '-':
         opt_parser.print_help ()
-        ly.stderr_write ('\n%s: %s %s\n' % (program_name, _ ("error: "),
-                         _ ("no files specified on command line.")))
+        ly.stderr_write ('\n%s: %s %s\n' % (program_name, _ ('error: '),
+                         _ ('no files specified on command line.')))
         sys.exit (2)
 
     if options.duration_quant:
@@ -949,20 +949,20 @@ def do_options ():
 
         options.key = Key (sharps, flats, minor)
 
-        
+
     if options.start_quant:
         options.start_quant = int (options.start_quant)
-        
+
     options.allowed_tuplets = [map (int, a.replace ('/','*').split ('*'))
                 for a in options.allowed_tuplets]
-    
+
     global global_options
     global_options = options
 
     return args
 
-def main():
-    files = do_options()
+def main ():
+    files = do_options ()
 
     for f in files:
         g = f
@@ -990,5 +990,6 @@ def main():
                 pass
 
         convert_midi (f, o)
+
 if __name__ == '__main__':
-    main()
+    main ()
