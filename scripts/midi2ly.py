@@ -830,7 +830,10 @@ def convert_midi (in_file, out_file):
 
     allowed_tuplet_clocks = []
     for (dur, num, den) in global_options.allowed_tuplets:
-        allowed_tuplet_clocks.append (clocks_per_1 / den)
+        allowed_tuplet_clocks.append (clocks_per_1 / dur * num / den)
+
+    if global_options.verbose:
+        print 'allowed tuplet clocks:', allowed_tuplet_clocks
 
     tracks = []
     for t in midi_dump[1]:
@@ -966,6 +969,9 @@ def do_options ():
 
     options.allowed_tuplets = [map (int, a.replace ('/','*').split ('*'))
                 for a in options.allowed_tuplets]
+
+    if options.verbose:
+        sys.stderr.write ('Allowed tuplets: %s\n' % `options.allowed_tuplets`)
 
     global global_options
     global_options = options
