@@ -2489,6 +2489,7 @@
    ly:note-head::print
    ly:dots::print
    ly:clef::print
+   ly:key-signature-interface::print
    ly:percent-repeat-item-interface::beat-slash
    ly:text-interface::print
    ly:script-interface::print
