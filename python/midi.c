@@ -60,7 +60,8 @@ compat_itoa (int i)
 #if 0
 int x = 0;
 int *track = &x;
-#define debug_print(f, args...) fprintf (stderr, "%s:%d: track: %p :" f, __FUNCTION__, __LINE__, *track, ##args)
+#define urg_debug_print(f, args...) fprintf (stderr, "%s:%d: track: %p: " f, __FUNCTION__, __LINE__, *track, ##args)
+#define debug_print(f, args...) fprintf (stderr, f, ##args)
 #else
 #define debug_print(f, args...)
 #endif
@@ -161,7 +162,7 @@ get_number (unsigned char ** str, unsigned char * end_str, int length)
     sum = (sum << 8) + (unsigned char) (*str)[i];
 
   *str += length;
-  debug_print ("%d:\n", sum);
+  debug_print ("%ld:\n", sum);
   return sum;
 }
 
@@ -178,7 +179,7 @@ get_variable_length_number (unsigned char **str, unsigned char * end_str)
       if (!(x & 0x80))
 	break;
     }
-  debug_print ("%d:\n", sum);
+  debug_print ("%ld:\n", sum);
   return sum;
 }
 
@@ -312,8 +313,8 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
 
   track_len = get_number (track, *track + 4, 4);
 
-  debug_print ("track_len: %u\n", track_len);
-  debug_print ("track_size: %u\n", track_size);
+  debug_print ("track_len: %lu\n", track_len);
+  debug_print ("track_size: %lu\n", track_size);
   debug_print ("track begin: %p\n", track);
   debug_print ("track end: %p\n", track + track_len);
   
