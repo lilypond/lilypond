@@ -62,7 +62,7 @@ start_quant_clocks = 0
 
 duration_quant_clocks = 0
 allowed_tuplet_clocks = []
-
+bar_max = 0
 
 ################################################################
 
@@ -689,14 +689,20 @@ def dump_channel (thread, skip):
             lines.append ('')
 
         if t - last_t > 0:
-            lines[-1] = lines[-1] + dump_skip (skip, t-last_t)
+            d = t - last_t
+            if bar_max and t > time.bar_clocks () * bar_max:
+                d = time.bar_clocks () * bar_max - last_t
+            lines[-1] = lines[-1] + dump_skip (skip, d)
         elif t - last_t < 0:
             errorport.write ('BUG: time skew')
 
         (s, last_bar_t, bar_count) = dump_bar_line (last_bar_t,
                               t, bar_count)
-        lines[-1] = lines[-1] + s
 
+        if bar_max and bar_count > bar_max:
+            break
+
+        lines[-1] = lines[-1] + s
         lines[-1] = lines[-1] + dump_chord (ch[1])
 
         clocks = 0
@@ -707,7 +713,7 @@ def dump_channel (thread, skip):
         last_t = t + clocks
 
         (s, last_bar_t, bar_count) = dump_bar_line (last_bar_t,
-                              last_t, bar_count)
+                                                    last_t, bar_count)
         lines[-1] = lines[-1] + s
 
     return '\n  '.join (lines) + '\n'
@@ -886,8 +892,10 @@ def get_option_parser ():
           metavar=_ ('ALT[:MINOR]'),
           default='0'),
     p.add_option ('-o', '--output', help=_ ('write output to FILE'),
-           metavar=_('FILE'),
+           metavar=_ ('FILE'),
            action='store')
+    p.add_option ('-p', '--preview', help=_ ('preview of first 4 bars'),
+           action='store_true')
     p.add_option ('-s', '--start-quant',help= _ ('quantise note starts on DUR'),
            metavar=_ ('DUR'))
     p.add_option ('-t', '--allow-tuplet',
@@ -949,9 +957,12 @@ def do_options ():
 
         options.key = Key (sharps, flats, minor)
 
-
     if options.start_quant:
         options.start_quant = int (options.start_quant)
+
+    global bar_max
+    if options.preview:
+        bar_max = 4
 
     options.allowed_tuplets = [map (int, a.replace ('/','*').split ('*'))
                 for a in options.allowed_tuplets]
