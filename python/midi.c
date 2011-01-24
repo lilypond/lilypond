@@ -388,7 +388,7 @@ midi_parse (unsigned char **midi,unsigned  char *midi_end)
   format = get_number (midi, *midi + 2, 2);
   tracks = get_number (midi, *midi + 2, 2);
 
-  if (tracks > 32)
+  if (tracks > 256)
     return midi_error (__FUNCTION__,  ": too many tracks: ", compat_itoa (tracks));
   
   division = get_number (midi, *midi + 2, 2) * 4;
