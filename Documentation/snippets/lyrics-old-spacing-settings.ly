@@ -6,13 +6,17 @@
 
 \header {
   lsrtags = "vocal-music"
+
+  doctitle = "Obtaining 2.12 lyrics spacing in newer versions"
+
   texidoc = "
 The vertical spacing engine changed for version 2.14.  This can
 cause lyrics to be spaced differently.  It is possible to set
 properties for @code{Lyric} and @code{Staff} contexts to get the
 spacing engine to behave as it did in version 2.12.
 "
-}
+} % begin verbatim
+
 
 global = {
   \key d \major
