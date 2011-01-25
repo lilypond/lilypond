@@ -306,6 +306,7 @@ contained staves are connected vertically."
   \accepts "Staff"
   \accepts "FiguredBass"
   \accepts "Dynamics"
+  \accepts "ChordNames"
 }
 
 \context{
