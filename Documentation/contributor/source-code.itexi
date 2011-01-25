@@ -1017,6 +1017,11 @@ After prompting for your Google email address and password, the
 patch set will be posted to Rietveld, and you will be given a URL
 for your patch.
 
+@warning{Some installations of git-cl fail when uploading a patch
+set that includes a .scm file.  When this happens, it can
+generally be fixed by editing the file @file{/etc/mime.types}.
+Add a line to this file containing @code{text/x-script.scheme scm}.}
+
 @subsubheading Announcing your patch set
 
 You should then announce the patch by logging into the code review
