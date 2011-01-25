@@ -40,6 +40,10 @@
   \consists "Font_size_engraver"
   \consists "Instrument_name_engraver"
 
+  %% explicitly set instrument, so it is not inherited from the parent
+  instrumentName = #'()
+  shortInstrumentName = #'()
+
   predefinedDiagramTable = #default-fret-table
 }
 
@@ -84,7 +88,6 @@
   %% explicitly set instrument, so we don't get
   %% weird effects when doing instrument names for
   %% piano staves
-
   instrumentName = #'()
   shortInstrumentName = #'()
 
@@ -126,8 +129,12 @@
   \consists "Vertical_align_engraver"
   topLevelAlignment = ##f
 
+  \consists "Instrument_name_engraver"
   \consists "System_start_delimiter_engraver"
   systemStartDelimiter = #'SystemStartBracket
+  %% explicitly set instrument, so it is not inherited from the parent
+  instrumentName = #'()
+  shortInstrumentName = #'()
   vocalName = #'()
   shortVocalName = #'()
 
@@ -174,6 +181,10 @@ contained staves are not connected vertically."
   \consists "Instrument_name_engraver"
   \consists "Axis_group_engraver"
   \consists "Ledger_line_engraver"
+
+  %% explicitly set instrument, so it is not inherited from the parent
+  instrumentName = #'()
+  shortInstrumentName = #'()
 
   \accepts "Voice"
   \accepts "CueVoice"
@@ -296,11 +307,15 @@ multiple voices on the same staff."
 side, grouping the staves together.  The bar lines of the
 contained staves are connected vertically."
 
+  \consists "Instrument_name_engraver"
   \consists "Span_bar_engraver"
   \consists "Span_arpeggio_engraver"
   \consists "System_start_delimiter_engraver"
   systemStartDelimiter = #'SystemStartBrace
   topLevelAlignment = ##f
+  %% explicitly set instrument, so it is not inherited from the parent
+  instrumentName = #'()
+  shortInstrumentName = #'()
 
   \defaultchild "Staff"
   \accepts "Staff"
@@ -314,10 +329,9 @@ contained staves are connected vertically."
   \name "PianoStaff"
   \alias "GrandStaff"
 
-  \description "Just like @code{GrandStaff} but with support for
-instrument names at the start of each system."
+  \description "Just like @code{GrandStaff}, but the staves are only removed
+together, never separately."
 
-  \consists "Instrument_name_engraver"
   \consists "Vertical_align_engraver"
   \consists "Keep_alive_together_engraver"
   topLevelAlignment = ##f
@@ -333,10 +347,14 @@ instrument names at the start of each system."
   \consists "Vertical_align_engraver"
   topLevelAlignment = ##f
 
+  \consists "Instrument_name_engraver"
   \consists "Span_bar_engraver"
   \consists "Span_arpeggio_engraver"
   \consists "Output_property_engraver"
   systemStartDelimiter = #'SystemStartBracket
+  %% explicitly set instrument, so it is not inherited from the parent
+  instrumentName = #'()
+  shortInstrumentName = #'()
 
   \consists "System_start_delimiter_engraver"
 
@@ -404,6 +422,9 @@ printing of a single line of lyrics."
   \consists "Instrument_name_engraver"
   \consists "Font_size_engraver"
   \consists "Hara_kiri_engraver"
+  %% explicitly set instrument, so it is not inherited from the parent
+  instrumentName = #'()
+  shortInstrumentName = #'()
 
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'remove-empty = ##t
