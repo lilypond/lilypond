@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 2cc5ab63e7b66e1589cf76f89325f368764a9990
+    Translation of GIT committish: 20a4e530e15d5e9d3a679067aa6124a2740031de
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -614,13 +614,13 @@ Les tests d'octave rendent la correction d'erreurs d'octave plus facile
 dans le mode d'octave @code{relative} -- un@tie{}@code{,} ou
 un@tie{}@code{'} oublié, ça n'arrive pas qu'aux autres@tie{}!
 
-Une note peut être suivie de  @w{@code{=}@var{apostrophes/virgules}}
-pour indiquer à quelle octave absolue elle devrait être.  Dans l'exemple
-suivant, le @code{d} générera un avertissement, puisqu'on attend un
-@code{d''} mais qu'on obtient un @code{d'} -- il n'y a qu'une tierce
-entre @code{b'} et @code{d''}.  Sur la partition, l'octave sera corrigée
-pour donner un @code{d''} et la prochaine note sera calculée en fonction
-de @code{d''} et non de @code{d'}.
+Une note peut être suivie de @w{@code{=}@var{apostrophes/virgules}}
+pour indiquer à quelle @strong{octave absolue} elle devrait être.  Dans
+l'exemple suivant, le premier @code{d} générera un avertissement,
+puisqu'on attend un @code{d''} -- intervalle inférieur à la quarte --
+mais qu'on obtient un @code{d'}.  Sur la partition, l'octave sera
+corrigée pour donner un @code{d'} et la prochaine note sera calculée en
+fonction de ce @code{d'} et non de @code{d''}.
 
 @lilypond[verbatim,quote]
 \relative c'' {
