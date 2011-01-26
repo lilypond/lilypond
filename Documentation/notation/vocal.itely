@@ -1281,24 +1281,9 @@ simply enter all the words:
 }
 @end lilypond
 
-@cindex lyric skip
-@funindex \skip
-
 When the words to a repeated volta section are different, the words
-to each repeat must be entered in separate @code{Lyrics} contexts.
-Earlier unrepeated sections must be skipped in the second and
-subsequent repeats.  The easiest way to skip several notes is to
-use @code{\repeat unfold} around the @code{\skip} command.
-
-Note: do not use an underscore, @code{_}, to skip notes in this
-particular case.  As this syntax indicates a melisma, it will cause
-the preceding syllable to be left-aligned.
-
-@warning{The @code{@bs{}skip} command must be followed by a number,
-but this number is ignored in lyrics which derive their durations
-from the notes in an associated melody through @code{\addlyrics} or
-@code{\lyricsto}.  Each @code{@bs{}skip} skips a single note of any
-value, irrespective of the value of the following number.}
+to each repeat must be entered in separate @code{Lyrics} contexts,
+correctly nested in parallel sections:
 
 @lilypond[verbatim,quote]
 \score {
@@ -1311,69 +1296,55 @@ value, irrespective of the value of the following number.}
         }
       }
     }
-    \new Lyrics {
-      \lyricsto "melody" {
-        Not re -- peat -- ed.
-        The first time words.
-      }
-    }
-    \new Lyrics {
-      \lyricsto "melody" {
-        % skip 4 notes of any duration
-        \repeat unfold 4 { \skip 1 }
-        Sec -- ond time words.
-      }
+    \new Lyrics \lyricsto "melody" {
+      Not re -- peat -- ed.
+      <<
+	{ The first time words. }
+	\new Lyrics {
+	  \set associatedVoice = "melody"
+	  Sec -- ond time words.
+	}
+      >>
     }
   >>
 }
 @end lilypond
 
-@cindex lyrics, repeating with a temporary voice
+More verses may be added in a similar way:
 
-An alternative way, which avoids skips and having to count notes,
-is to use a temporary voice for the repeated section.  This may be
-preferable if the earlier sections are still subject to change.  A
-temporary voice can be inserted anywhere in the main music stream
-in parallel with it, as shown below, but it may be necessary to
-keep the main voice alive in complex scores when using this
-technique; see @ref{Keeping contexts alive}.
-
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \score {
   <<
     \new Staff {
       \new Voice = "singleVoice" {
-        \relative c'' { a4 a a a }
-        \new Voice = "repeatVoice" {
-          \relative c'' \repeat volta 3 { b4 b b b }
-        }
-        \relative c'' { c4 c c c }
+        \relative c'' {
+	  a4 a a a
+	  \repeat volta 3 { b4 b b b }
+          c4 c c c
+	}
       }
     }
-    \new Lyrics <<
-      \lyricsto "singleVoice" {
-        Not re -- peat -- ed.
-        The end sec -- tion.
-      }
-      \lyricsto "repeatVoice" {
-        The first time words.
-      }
-    >>
-    \new Lyrics {
-      \lyricsto "repeatVoice" {
-        Sec -- ond time words.
-      }
-    }
-    \new Lyrics {
-      \lyricsto "repeatVoice" {
-        The third time words.
-      }
+    \new Lyrics \lyricsto "singleVoice" {
+      Not re -- peat -- ed.
+      <<
+        { The first time words.	}
+	\new Lyrics {
+	  \set associatedVoice = "singleVoice"
+	  Sec -- ond time words.
+	}
+	\new Lyrics {
+	  \set associatedVoice = "singleVoice"
+	  The third time words.
+	}
+      >>
+      The end sec -- tion.
     }
   >>
 }
 @end lilypond
 
-@c TODO lowering a common line of lyrics
+
+@c TODO positioning a common line of lyrics
 
 @subheading Repeats with alternative endings
 
@@ -1410,8 +1381,8 @@ same structure can be used for both the lyrics and music.
 
 But when the repeated section has different words, a repeat
 construct cannot be used around the words and @code{\skip} commands
-have to be inserted manually as described in the previous section to
-skip over the notes in the alternative sections which do not apply.
+have to be inserted manually to skip over the notes in the
+alternative sections which do not apply.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
