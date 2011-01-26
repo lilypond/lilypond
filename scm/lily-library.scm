@@ -262,7 +262,7 @@ bookoutput function"
 	    (map-alist-vals func (cdr list)))))
 
 (define (map-alist-keys func list)
-  "map FUNC over the keys of an alist LIST, leaving the vals. "
+  "map FUNC over the keys of an alist LIST, leaving the vals."
   (if (null?  list)
       '()
       (cons (cons (func (caar list)) (cdar list))
@@ -383,7 +383,7 @@ bookoutput function"
   (helper lst 0))
 
 (define-public (count-list lst)
-  "Given lst (E1 E2 .. ) return ((E1 . 1) (E2 . 2) ... )  "
+  "Given lst (E1 E2 .. ), return ((E1 . 1) (E2 . 2) ... )."
 
   (define (helper l acc count)
     (if (pair? l)
@@ -420,7 +420,7 @@ bookoutput function"
   (lset-difference eq? a b))
 
 (define-public (uniq-list lst)
-  "Uniq LST, assuming that it is sorted. Uses equal? for comparisons."
+  "Uniq LST, assuming that it is sorted.  Uses equal? for comparisons."
 
   (reverse!
    (fold (lambda (x acc)
@@ -433,7 +433,7 @@ bookoutput function"
 
 (define (split-at-predicate pred lst)
   "Split LST into two lists at the first element that returns #f for
-  (PRED previous_element element). Return the two parts as a pair.
+  (PRED previous_element element).  Return the two parts as a pair.
   Example: (split-at-predicate < '(1 2 3 2 1)) ==> ((1 2 3) . (2 1))"
   (if (null? lst)
       (list lst)
@@ -446,7 +446,7 @@ bookoutput function"
 
 (define-public (split-list-by-separator lst pred)
   "Split LST at each element that satisfies PRED, and return the parts
-  (with the separators removed) as a list of lists. Example:
+  (with the separators removed) as a list of lists.  Example:
   (split-list-by-separator '(a 0 b c 1 d) number?) ==> ((a) (b c) (d))"
   (let loop ((result '()) (lst lst))
     (if (and lst (not (null? lst)))
@@ -772,8 +772,8 @@ applied to function @var{getter}.")
 
 (define-public (eval-carefully symbol module . default)
   "Check if all symbols in expr SYMBOL are reachable
-   in module MODULE. In that case evaluate, otherwise
-   print a warning and set an optional DEFAULT."
+in module MODULE.  In that case evaluate, otherwise
+print a warning and set an optional DEFAULT."
   (let* ((unavailable? (lambda (sym)
                          (not (module-defined? module sym))))
 	 (sym-unavailable (if (pair? symbol)

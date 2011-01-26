@@ -36,7 +36,7 @@
 
 ;; todo: naming is confusing: steps  (0 based) vs. steps (1 based).
 (define (pitch-step p)
-  "Musicological notation for an interval. Eg. C to D is 2."
+  "Musicological notation for an interval.  Eg. C to D is 2."
   (+ 1 (ly:pitch-steps p)))
 
 (define (get-step x ps)
@@ -102,7 +102,7 @@
 	   bass-pitch
 	   lowercase-root?)
 
-    "Format for the given (lists of) pitches. This is actually more
+    "Format for the given (lists of) pitches.  This is actually more
 work than classifying the pitches."
 
     (define (filter-main-name p)

@@ -27,7 +27,7 @@
                 layout scopes page-number is-last-bookpart is-bookpart-last-page)
 
   "Read variables WHAT-ODD, WHAT-EVEN from LAYOUT, and interpret them
-as markup. The PROPS argument will include variables set in SCOPES and
+as markup.  The PROPS argument will include variables set in SCOPES and
 page:is-bookpart-last-page, page:is-last-bookpart, page:page-number-string
 and page:page-number" 
 
@@ -73,7 +73,7 @@ and page:page-number"
        (get what-odd))))
 
 (define-public ((marked-up-title what) layout scopes)
-  "Read variables WHAT from SCOPES, and interpret it as markup. The
+  "Read variables WHAT from SCOPES, and interpret it as markup.  The
 PROPS argument will include variables set in SCOPES (prefixed with
 `header:'
 "

@@ -103,14 +103,14 @@
 
 (define (ly:alist<? a b)
   "Return #t if the first key of alist A is less than the first key of
-  alist B, using case-sensitive LilyPond sort order. Keys are assumed to
+  alist B, using case-sensitive LilyPond sort order.  Keys are assumed to
   be symbols."
   (ly:string<? (symbol->string (car a))
                (symbol->string (car b))))
 
 (define (ly:alist-ci<? a b)
   "Return #t if the first key of alist A is less than the first key of
-  alist B, using case-insensitive LilyPond sort order. Keys are assumed
+  alist B, using case-insensitive LilyPond sort order.  Keys are assumed
   to be symbols."
   (ly:string-ci<? (symbol->string (car a))
                   (symbol->string (car b))))

@@ -1944,7 +1944,7 @@ and shut.  To see all of the possibilities for all of the keys of a given
 instrument, invoke @code{(print-keys-verbose 'instrument)}.
 
 Lastly, substituting an empty list for the pressed-key alist will result in
-a diagram with all of the keys drawn but none filled. ie...
+a diagram with all of the keys drawn but none filled, for example:
 
 @example
 \\markup \\woodwind-diagram #'oboe #'()

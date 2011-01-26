@@ -41,7 +41,7 @@
 (define-macro (define-display-method music-type vars . body)
   "Define a display method for a music type and store it in the
 `display-methods' property of the music type entry found in the
-`music-name-to-property-table' hash table. Print methods previously
+`music-name-to-property-table' hash table.  Print methods previously
 defined for that music type are lost. 
 Syntax: (define-display-method MusicType (expression parser)
 	  ...body...))"
@@ -57,9 +57,9 @@ Syntax: (define-display-method MusicType (expression parser)
      method))
 
 (define-macro (define-extra-display-method music-type vars . body)
-  "Add a display method for a music type. A primary display method
+  "Add a display method for a music type.  A primary display method
 is supposed to have been previously defined with `define-display-method'.
-This new method should return a string or #f. If #f is returned, the next
+This new method should return a string or #f.  If #f is returned, the next
 display method will be called."
   `(let* ((type-props (hashq-ref music-name-to-property-table
 				 ',music-type '()))
@@ -230,7 +230,7 @@ Generate binding forms by looking for ?var symbol in pattern."
 			elements-list))))
 
 (define-macro (with-music-match music-expr+pattern . body)
-  "If `music-expr' matches `pattern', call `body'. `pattern' should look like:
+  "If `music-expr' matches `pattern', call `body'.  `pattern' should look like:
   '(music <MusicType>
      property value
      property ?var1
@@ -243,8 +243,8 @@ pattern (the name property being the <MusicType> symbol after the `music'
 keyword), then all music expression found in its properties (such as 'element
 or 'elements).
 When ?var is found instead of a property value, ?var is bound that property value,
-as read inside `music-expr'. ?var may also be used to refere to a whole music 
-expression inside an elements list for instance. These bindings are accessible 
+as read inside `music-expr'.  ?var may also be used to refere to a whole music 
+expression inside an elements list for instance.  These bindings are accessible 
 inside body."
   (let ((music-expr (first music-expr+pattern))
 	(pattern (second music-expr+pattern))

@@ -152,7 +152,7 @@
 
 Arguments:
  NODE the font tree to modify.
- NAME is the basename for the music font. NAME-DESIGNSIZE.otf should be the music font,
+ NAME is the basename for the music font.  NAME-DESIGNSIZE.otf should be the music font,
   NAME-brace.otf should have piano braces.
  DESIGN-SIZE-ALIST is a list of (ROUNDED . DESIGN-SIZE).  ROUNDED is
    a suffix for font filenames, while DESIGN-SIZE should be the actual

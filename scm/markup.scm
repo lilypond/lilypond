@@ -210,7 +210,7 @@ interpreted, returns a list of stencils instead of a single one"
 			      ,(symbol->string make-markup-name) sig args)))))))
 
 (define-public (make-markup markup-function make-name signature args)
-  " Construct a markup object from MARKUP-FUNCTION and ARGS. Typecheck
+  " Construct a markup object from MARKUP-FUNCTION and ARGS.  Typecheck
 against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
 "
   (let* ((arglen (length args))

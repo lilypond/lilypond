@@ -38,8 +38,8 @@
 
 (define-public (read-lily-expression chr port)
   "Read a #{ lily music expression #} from port and return
-the scheme music expression. The $ character may be used to introduce
-scheme forms, typically symbols. $$ may be used to simply write a `$'
+the scheme music expression.  The $ character may be used to introduce
+scheme forms, typically symbols.  $$ may be used to simply write a `$'
 character."
   (let ((bindings '()))
 

@@ -462,7 +462,7 @@ Only set if not set previously.
 	    (previous-voice-state vs)))
 
       (define (try-solo type start-idx current-idx)
-	"Find a maximum stretch that can be marked as solo. Only set
+	"Find a maximum stretch that can be marked as solo.  Only set
 the mark when there are no spanners active.
 
       return next idx to analyse.
@@ -497,7 +497,7 @@ the mark when there are no spanners active.
 	    start-idx))
 
       (define (analyse-moment result-idx)
-	"Analyse 'apart starting at RESULT-IDX. Return next index. "
+	"Analyse 'apart starting at RESULT-IDX.  Return next index."
 	(let* ((now-state (vector-ref result result-idx))
 	       (vs1 (current-voice-state now-state 1))
 	       (vs2 (current-voice-state now-state 2))

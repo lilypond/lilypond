@@ -227,9 +227,9 @@ Returns `obj'.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (shift-one-duration-log music shift dot)
-  "  add SHIFT to duration-log of 'duration in music and optionally
-  a dot to any note encountered. This scales the music up by a factor
-  2^shift * (2 - (1/2)^dot)"
+  "Add SHIFT to duration-log of 'duration in music and optionally
+a dot to any note encountered.  This scales the music up by a factor
+2^shift * (2 - (1/2)^dot)."
   (let ((d (ly:music-property music 'duration)))
     (if (ly:duration? d)
 	(let* ((cp (ly:duration-factor d))
@@ -360,8 +360,8 @@ through MUSIC."
 ;; property setting music objs.
 
 (define-public (make-grob-property-set grob gprop val)
-  "Make a Music expression that sets GPROP to VAL in GROB. Does a pop first,
-i.e.  this is not an override"
+  "Make a Music expression that sets GPROP to VAL in GROB.  Does a pop first,
+i.e., this is not an override."
   (make-music 'OverrideProperty
 	      'symbol grob
 	      'grob-property gprop
@@ -432,7 +432,7 @@ i.e.  this is not an override"
 
 
 (define-safe-public (context-spec-music m context #:optional id)
-  "Add \\context CONTEXT = ID to M. "
+  "Add \\context CONTEXT = ID to M."
   (let ((cm (make-music 'ContextSpeccedMusic
 			'element m
 			'context-type context)))
@@ -441,7 +441,7 @@ i.e.  this is not an override"
     cm))
 
 (define-public (descend-to-context m context)
-  "Like context-spec-music, but only descending. "
+  "Like context-spec-music, but only descending."
   (let ((cm (context-spec-music m context)))
     (ly:music-set-property! cm 'descend-only #t)
     cm))
@@ -574,10 +574,10 @@ inside of and outside of chord construct."
 (define (voicify-list lst number)
   "Make a list of Musics.
 
-   voicify-list :: [ [Music ] ] -> number -> [Music]
-   LST is a list music-lists.
+voicify-list :: [ [Music ] ] -> number -> [Music]
+LST is a list music-lists.
 
-   NUMBER is 0-base, i.e. Voice=1 (upstems) has number 0.
+NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
 "
   (if (null? lst)
       '()
@@ -655,7 +655,7 @@ inside of and outside of chord construct."
 (define-public (skip->rest mus)
 
   "Replace MUS by RestEvent of the same duration if it is a
-SkipEvent. Useful for extracting parts from crowded scores"
+SkipEvent.  Useful for extracting parts from crowded scores."
 
   (if  (memq (ly:music-property mus 'name) '(SkipEvent SkipMusic))
    (make-music 'RestEvent 'duration (ly:music-property mus 'duration))
@@ -701,20 +701,20 @@ SkipEvent. Useful for extracting parts from crowded scores"
     nv))
 
 (define (vector-map f v)
-  "Map	F over V. This function returns nothing."
+  "Map F over V.  This function returns nothing."
   (do ((n (vector-length v))
        (i 0 (+ i 1)))
       ((>= i n))
     (f (vector-ref v i))))
 
 (define (vector-reverse-map f v)
-  "Map	F over V, N to 0 order. This function returns nothing."
+  "Map F over V, N to 0 order.  This function returns nothing."
   (do ((i (- (vector-length v) 1) (- i 1)))
       ((< i 0))
     (f (vector-ref v i))))
 
 (define-public (add-grace-property context-name grob sym val)
-  "Set SYM=VAL for GROB in CONTEXT-NAME. "
+  "Set SYM=VAL for GROB in CONTEXT-NAME."
   (define (set-prop context)
     (let* ((where (ly:context-property-where-defined context 'graceSettings))
 	   (current (ly:context-property where 'graceSettings))
@@ -724,7 +724,7 @@ SkipEvent. Useful for extracting parts from crowded scores"
   (ly:export (context-spec-music (make-apply-context set-prop) 'Voice)))
 
 (define-public (remove-grace-property context-name grob sym)
-  "Remove all SYM for GROB in CONTEXT-NAME. "
+  "Remove all SYM for GROB in CONTEXT-NAME."
   (define (sym-grob-context? property sym grob context-name)
     (and (eq? (car property) context-name)
          (eq? (cadr property) grob)
@@ -1013,7 +1013,7 @@ then revert skipTypesetting."
 
 (define (check-pitch-against-signature context pitch barnum laziness octaveness)
   "Checks the need for an accidental and a @q{restore} accidental against
-@code{localKeySignature}. The @var{laziness} is the number of measures
+@code{localKeySignature}.  The @var{laziness} is the number of measures
 for which reminder accidentals are used (i.e., if @var{laziness} is zero,
 only cancel accidentals in the same measure; if @var{laziness} is three,
 we cancel accidentals up to three measures after they first appear.
@@ -1089,21 +1089,21 @@ specifies whether accidentals should be canceled in different octaves."
 
 (define-public ((make-accidental-rule octaveness laziness) context pitch barnum measurepos)
   "Creates an accidental rule that makes its decision based on the octave of the note
-  and a laziness value.
-  octaveness is either 'same-octave or 'any-octave and defines whether the rule should
-  respond to accidental changes in other octaves than the current. 'same-octave is the
-  normal way to typeset accidentals - an accidental is made if the alteration is different
-  from the last active pitch in the same octave. 'any-octave looks at the last active pitch
-  in any octave.
-  laziness states over how many bars an accidental should be remembered.
-  0 is default - accidental lasts over 0 bar lines, that is, to the end of current measure.
-  A positive integer means that the accidental lasts over that many bar lines.
-  -1 is 'forget immediately', that is, only look at key signature.
-  #t is forever."
+and a laziness value.
+octaveness is either 'same-octave or 'any-octave and defines whether the rule should
+respond to accidental changes in other octaves than the current.  'same-octave is the
+normal way to typeset accidentals - an accidental is made if the alteration is different
+from the last active pitch in the same octave.  'any-octave looks at the last active pitch
+in any octave.
+laziness states over how many bars an accidental should be remembered.
+0 is default - accidental lasts over 0 bar lines, that is, to the end of current measure.
+A positive integer means that the accidental lasts over that many bar lines.
+-1 is 'forget immediately', that is, only look at key signature.
+#t is forever."
   (check-pitch-against-signature context pitch barnum laziness octaveness))
 
 (define (key-entry-notename entry)
-  "Return the pitch of an entry in localKeySignature. The entry is either of the form
+  "Return the pitch of an entry in localKeySignature.  The entry is either of the form
   '(notename . alter) or '((octave . notename) . (alter barnum . measurepos))."
   (if (number? (car entry))
       (car entry)
@@ -1198,9 +1198,9 @@ specifies whether accidentals should be canceled in different octaves."
    context))
 
 (define-public (set-accidental-style style . rest)
-  "Set accidental style to STYLE. Optionally takes a context argument,
-e.g. 'Staff or 'Voice. The context defaults to Staff, except for piano styles, which
-use GrandStaff as a context. "
+  "Set accidental style to STYLE.  Optionally takes a context argument,
+e.g. 'Staff or 'Voice.  The context defaults to Staff, except for piano styles, which
+use GrandStaff as a context."
   (let ((context (if (pair? rest)
 		     (car rest) 'Staff))
 	(pcontext (if (pair? rest)

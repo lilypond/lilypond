@@ -51,7 +51,7 @@
 ;;
 (define-public (system-clipped-x-extent system-grob clip-region)
   "Return the X-extent of the SYSTEM-GROB when clipped with
-CLIP-REGION. Return #f if not appropriate."
+CLIP-REGION.  Return #f if not appropriate."
   
   (let*
       ((region-start (car clip-region))

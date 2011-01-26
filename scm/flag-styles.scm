@@ -35,7 +35,7 @@
   ends at (0, vertical-center-of-flag-end) - (flag-x-width/2, flag-x-width + flag-thickness).
   Here length is the whole length, while flag-x-width is just the
   x-extent and thus depends on the angle! Other combinations don't look as
-  good... For down-stems the y-coordinates are simply mirrored."
+  good...  For down-stems the y-coordinates are simply mirrored."
   (let* ((start (offset-add offset (cons 0  (* (/ length 2) dir))))
          (end (offset-add (cons 0 (cdr offset))
                           (cons (- (/ (car offset) 2)) (* (- (+ thickness (car offset))) dir))))
@@ -106,7 +106,7 @@
   ((straight-flag 0.55 1 -18 1.1 22 1.2) stem-grob))
 
 (define-public (old-straight-flag stem-grob)
-  "Old straight flag style (for composers like Bach). The angles of the flags
+  "Old straight flag style (for composers like Bach).  The angles of the flags
    are both 45 degrees."
   ((straight-flag 0.55 1 -45 1.2 45 1.4) stem-grob))
 
@@ -198,12 +198,12 @@
 
 
 (define-public (default-flag stem-grob)
-  "Create a flag stencil for the stem. Its style will be derived from the
-   @code{'flag-style} Stem property. By default, @code{lilypond} uses a
+  "Create a flag stencil for the stem.  Its style will be derived from the
+   @code{'flag-style} Stem property.  By default, @code{lilypond} uses a
    C++ Function (which is slightly faster) to do exactly the same as this
-   function. However, if one wants to modify the default flags, this function
+   function.  However, if one wants to modify the default flags, this function
    can be used to obtain the default flag stencil, which can then be modified
-   at will. The correct way to do this is:
+   at will.  The correct way to do this is:
 @example
 \\override Stem #'flag = #default-flag
 \\override Stem #'flag-style = #'mensural

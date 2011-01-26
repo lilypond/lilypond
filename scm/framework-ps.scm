@@ -462,7 +462,7 @@
 (define-public (dump-stencil-as-EPS-with-bbox paper dump-me filename
 					      load-fonts
 					      bbox)
-  "Create an EPS file from stencil DUMP-ME to FILENAME. BBOX has
+  "Create an EPS file from stencil DUMP-ME to FILENAME.  BBOX has
 format (left-x, lower-y, right x, up-y).  If LOAD-FONTS set, include
 fonts inline."
   (define (to-rounded-bp-box box)

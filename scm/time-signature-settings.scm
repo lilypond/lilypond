@@ -242,7 +242,7 @@ for @code{time-signature} from
 
 (define (override-property-setting context property setting value)
   "Like the C++ code that executes \\override, but without type
-checking. "
+checking."
   (begin
      (revert-property-setting context property setting)
      (ly:context-set-property!
@@ -252,7 +252,7 @@ checking. "
 
 (define (revert-property-setting context property setting)
   "Like the C++ code that executes \revert, but without type
-checking. "
+checking."
 
   (define (entry-count alist entry-key)
     "Count the number of entries in alist with a key of
@@ -283,7 +283,7 @@ a fresh copy of the list-head is made."
 
 (define-public (override-time-signature-setting time-signature setting)
   "Override the time signature settings for the context in @var{rest},
-with the new setting alist @var{setting}. "
+with the new setting alist @var{setting}."
     (context-spec-music
       (make-apply-context
         (lambda (c) (override-property-setting
