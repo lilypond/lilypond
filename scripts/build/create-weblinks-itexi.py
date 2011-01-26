@@ -121,20 +121,20 @@ translations = {
         'Changes': 'Változások',
 
         #TODO
-        'Extending': 0,
+        'Extending': 'Bővítés',
         'Internals': 'Belső működés',
-        'Contributor': 0,
+        'Contributor': 'Közreműködés',
 
-        ' (split HTML)': 0,
-        ' (big HTML)': 0,
+        ' (split HTML)': ' (HTML oldalak)',
+        ' (big HTML)': ' (egy nagy HTML oldal)',
 
-        'Regression tests for ': 0,
-        'PDF of regtests for ': 0,
-        'MusicXML Regression tests for ': 0,
-        'PDF of MusicXML regtests for ': 0,
+        'Regression tests for ': 'Regressziós tesztek a következőhöz: ',
+        'PDF of regtests for ': 'Regressziós tesztek PDF formátumban a következőhöz: ',
+        'MusicXML Regression tests for ': 'MusicXML regressziós tesztek a következőhöz: ',
+        'PDF of MusicXML regtests for ': 'MusicXML regressziós tesztek PDF formátumban a következőhöz: ',
 
-        'Doc tarball for ': 0,
-        ' (did not exist in 2.12)': 0,
+        'Doc tarball for ': 'Doc tarball a következőhöz: ',
+        ' (did not exist in 2.12)': ' (nem létezett a 2.12-es verzióban)',
         },
     'ja': {
         'Source': 'ソース',
