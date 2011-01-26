@@ -262,14 +262,14 @@
        instrument-names-alist))
 
 (define-public (percussion? instrument)
-  "returns whether the instrument should use midi channel 9"
+  "Return @code{#t} if the instrument should use MIDI channel 9."
 
   (let* ((inst  (symbol->string instrument))
          (entry (assoc-get inst instrument-names-alist)))
     (and entry (>= entry 32768))))
 
 (define-public (midi-program instrument)
-  "returns the program of the instrument"
+  "Return the program of the instrument."
 
   (let* ((inst  (symbol->string instrument))
          (entry (assoc-get inst instrument-names-alist)))
@@ -282,7 +282,7 @@
 (define-public dynamic-default-volume 0.71)
 
 (define-public (alterations-in-key pitch-list)
-  "Count number of sharps minus number of flats"
+  "Count number of sharps minus number of flats."
 
   (* (apply + (map cdr pitch-list)) 2))
 

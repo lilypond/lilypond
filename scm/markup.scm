@@ -210,9 +210,9 @@ interpreted, returns a list of stencils instead of a single one"
 			      ,(symbol->string make-markup-name) sig args)))))))
 
 (define-public (make-markup markup-function make-name signature args)
-  " Construct a markup object from MARKUP-FUNCTION and ARGS.  Typecheck
-against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
-"
+  "Construct a markup object from @var{markup-function} and @var{args}.
+Typecheck against @var{signature}, reporting @var{make-name} as the
+user-invoked function."
   (let* ((arglen (length args))
 	 (siglen (length signature))
 	 (error-msg (if (and (> siglen 0) (> arglen 0))
@@ -367,11 +367,12 @@ Use `markup*' in a \\notemode context."
 ;;;
 
 (define-public (markup-command-signature-ref markup-command)
-  "Return markup-command's signature (the 'markup-signature object property)"
+  "Return @var{markup-command}'s signature (the @code{'markup-signature}
+object property)."
   (object-property markup-command 'markup-signature))
 
 (define-public (markup-command-signature-set! markup-command signature)
-  "Set markup-command's signature (as object property)"
+  "Set @var{markup-command}'s signature (as object property)."
   (set-object-property! markup-command 'markup-signature signature)
   signature)
 
@@ -401,13 +402,16 @@ Use `markup*' in a \\notemode context."
 ;;;;;;;;;;;;;;;;;;;;;;
 ;;; used in parser.yy to map a list of markup commands on markup arguments
 (define-public (map-markup-command-list commands markups)
-  "`markups' being a list of markups, eg (markup1 markup2 markup3),
-and `commands' a list of commands with their scheme arguments, in reverse order,
-eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
- ((bold (raise 4 (italic markup1)))
-  (bold (raise 4 (italic markup2)))
-  (bold (raise 4 (italic markup3))))
-"
+  "@var{markups} being a list of markups, for example
+@code{(markup1 markup2 markup3)}, and @var{commands} a list of commands with
+their scheme arguments, in reverse order, for example
+@code{((italic) (raise 4) (bold))}, map the commands on each markup argument,
+for example
+@example
+((bold (raise 4 (italic markup1)))
+ (bold (raise 4 (italic markup2)))
+ (bold (raise 4 (italic markup3))))
+@end example"
   (map-in-order (lambda (arg)
                   (let ((result arg))
                     (for-each (lambda (cmd)
@@ -428,12 +432,12 @@ eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
        (object-property x 'markup-list-command)))
 
 (define-public (markup-command-list? x)
-  "Determine if `x' is a markup command list, ie. a list composed of
-a markup list function and its arguments."
+  "Determine whether @var{x} is a markup command list, i.e. a list
+composed of a markup list function and its arguments."
   (and (pair? x) (markup-list-function? (car x))))
 
 (define-public (markup-list? arg)
-  "Return a true value if `x' is a list of markups or markup command lists."
+  "Return @code{#t} if @var{x} is a list of markups or markup command lists."
   (define (markup-list-inner? lst)
     (or (null? lst)
 	(and (or (markup? (car lst)) (markup-command-list? (car lst)))

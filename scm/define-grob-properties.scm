@@ -25,9 +25,7 @@
   symbol)
 
 ;; put this in an alist?
-(define-public
-  all-user-grob-properties
-
+(define-public all-user-grob-properties
   (map
    (lambda (x)
      (apply define-grob-property x))

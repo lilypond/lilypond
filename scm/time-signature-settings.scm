@@ -195,8 +195,8 @@
     (cons 'beamExceptions beam-exceptions)))
 
 (define-public (base-fraction time-signature time-signature-settings)
-  "Get @code{baseMoment} fraction value for @code{time-signature} from
-@code{time-signature-settings}."
+  "Get @code{baseMoment} fraction value for @var{time-signature} from
+@var{time-signature-settings}."
    (let ((return-value (get-setting 'baseMoment
                                     time-signature
                                     time-signature-settings)))
@@ -205,9 +205,8 @@
          return-value)))
 
 (define-public (beat-structure base-fraction time-signature time-signature-settings)
-  "Get beatStructure value in @code{base-fraction} units
-for @code{time-signature} from
-@code{time-signature-settings}."
+  "Get @code{beatStructure} value in @var{base-fraction} units
+for @var{time-signature} from @var{time-signature-settings}."
   (define (fraction-divide numerator denominator)
     (/ (* (car numerator) (cdr denominator))
        (* (cdr numerator) (car denominator))))
@@ -232,8 +231,8 @@ for @code{time-signature} from
         return-value)))
 
 (define-public (beam-exceptions time-signature time-signature-settings)
-  "Get beamExceptions value for @code{time-signature} from
-@code{time-signature-settings}."
+  "Get @code{beamExceptions} value for @var{time-signature} from
+@var{time-signature-settings}."
    (get-setting 'beamExceptions time-signature time-signature-settings))
 
 
@@ -282,8 +281,8 @@ a fresh copy of the list-head is made."
           (revert-member current-value setting)))))
 
 (define-public (override-time-signature-setting time-signature setting)
-  "Override the time signature settings for the context in @var{rest},
-with the new setting alist @var{setting}."
+  "Override the time signature settings for the context in
+@var{time-signature}, with the new setting alist @var{setting}."
     (context-spec-music
       (make-apply-context
         (lambda (c) (override-property-setting

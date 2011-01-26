@@ -228,7 +228,7 @@ messages into errors.")
   format)
 
 (define-public (ergonomic-simple-format dest . rest)
-  "Like ice-9 format, but without the memory consumption."
+  "Like ice-9's @code{format}, but without the memory consumption."
   (if (string? dest)
       (apply simple-format (cons #f (cons dest rest)))
       (apply simple-format (cons dest rest))))

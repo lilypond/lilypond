@@ -37,7 +37,7 @@
 	  (throw 'ly-file-failed)))))
 
 (define-public (sanitize-command-option str)
-  "Kill dubious shell quoting"
+  "Kill dubious shell quoting."
   
   (string-append
    "\""
@@ -212,7 +212,8 @@
   (filter (lambda (x) (not (pred? x))) lst))
 
 (define-public (font-name-split font-name)
-  "Return (FONT-NAME . DESIGN-SIZE) from FONT-NAME string or #f."
+  "Return @code{(FONT-NAME . DESIGN-SIZE)} from @var{font-name} string
+or @code{#f}."
   (let ((match (regexp-exec (make-regexp "(.*)-([0-9]*)") font-name)))
     (if (regexp-match? match)
 	(cons (match:substring match 1) (match:substring match 2))
@@ -221,13 +222,13 @@
 ;; Example of a pango-physical-font
 ;; ("Emmentaler-11" "/home/janneke/vc/lilypond/out/share/lilypond/current/fonts/otf/emmentaler-11.otf" 0)
 (define-public (pango-pf-font-name pango-pf)
-  "Return the font-name of the pango physical font PANGO-PF."
+  "Return the font-name of the pango physical font @var{pango-pf}."
   (list-ref pango-pf 0))
 (define-public (pango-pf-file-name pango-pf)
-  "Return the file-name of the pango physical font PANGO-PF."
+  "Return the file-name of the pango physical font @var{pango-pf}."
   (list-ref pango-pf 1))
 (define-public (pango-pf-fontindex pango-pf)
-  "Return the fontindex of the pango physical font PANGO-PF."
+  "Return the fontindex of the pango physical font @var{pango-pf}."
   (list-ref pango-pf 2))
 
 (define (pango-font-name pango-font)
@@ -237,8 +238,9 @@
 	"")))
 
 (define-public (define-fonts paper define-font define-pango-pf)
-  "Return a string of all fonts used in PAPER, invoking the functions
-DEFINE-FONT DEFINE-PANGO-PF for producing the actual font definition."
+  "Return a string of all fonts used in @var{paper}, invoking the functions
+@var{define-font} and @var{define-pango-pf} for producing the actual font
+definition."
 
   (let* ((font-list (ly:paper-fonts paper))
 	 (pango-fonts (filter ly:pango-font? font-list))

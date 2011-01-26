@@ -105,7 +105,7 @@
     ("clefs.petrucci.g" . -4)))
 
 (define-public (make-clef-set clef-name)
-  "Generate the clef setting commands for a clef with name CLEF-NAME."
+  "Generate the clef setting commands for a clef with name @var{clef-name}."
   (define (make-prop-set props)
     (let ((m (make-music 'PropertySet)))
       (map (lambda (x) (set! (ly:music-property m (car x)) (cdr x))) props)
@@ -144,7 +144,8 @@
 	  (make-music 'Music)))))
 
 (define-public (make-cue-clef-set clef-name)
-  "Generate the clef setting commands for a cue clef with name CLEF-NAME."
+  "Generate the clef setting commands for a cue clef with name
+@var{clef-name}."
   (define (make-prop-set props)
     (let ((m (make-music 'PropertySet)))
       (map (lambda (x) (set! (ly:music-property m (car x)) (cdr x))) props)
@@ -204,7 +205,8 @@
 
 ;; a function to add new clefs at runtime
 (define-public (add-new-clef clef-name clef-glyph clef-position octavation c0-position)
-  "Append the entries for a clef symbol to supported clefs and c0-pitch-alist"
+  "Append the entries for a clef symbol to supported clefs and
+@code{c0-pitch-alist}."
   (set! supported-clefs
         (acons clef-name (list clef-glyph clef-position octavation) supported-clefs))
   (set! c0-pitch-alist

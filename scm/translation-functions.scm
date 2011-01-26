@@ -209,18 +209,18 @@
 (define-public
   (determine-frets context notes specified-info . rest)
   "Determine string numbers and frets for playing @var{notes}
-as a chord, given specified information  @var{specified-info}.
+as a chord, given specified information @var{specified-info}.
 @var{specified-info} is a list with two list elements,
-specified strings @var{defined-strings} and
-specified fingerings @var{defined-fingers}.  Only a fingering of
-0 will affect the fret selection, as it specifies an open string.
-If @var{defined-strings} is @code{'()}, the context property
+specified strings @code{defined-strings} and
+specified fingerings @code{defined-fingers}.  Only a fingering of@tie{}0
+will affect the fret selection, as it specifies an open string.
+If @code{defined-strings} is @code{'()}, the context property
 @code{defaultStrings} will be used as a list of defined strings.
 Will look for predefined fretboards if @code{predefinedFretboardTable}
 is not @code {#f}.  If @var{rest} is present, it contains the
-FretBoard grob, and a fretboard will be
-created.  Otherwise, a list of (string fret finger) lists will
-be returned)."
+@code{FretBoard} grob, and a fretboard will be
+created.  Otherwise, a list of @code{(string fret finger)} lists will
+be returned."
 
   ;;  helper functions
 

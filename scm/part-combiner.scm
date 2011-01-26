@@ -200,8 +200,9 @@ Voice-state objects
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-public (recording-group-emulate music odef)
-  "Interprets music according to odef, but stores all events in a chronological
-list, similar to the Recording_group_engraver in 2.8 and earlier"
+  "Interpret @var{music} according to @var{odef}, but store all events
+in a chronological list, similar to the @code{Recording_group_engraver} in
+LilyPond version 2.8 and earlier."
   (let*
      ((context-list '())
       (now-mom (ly:make-moment 0 0))
@@ -259,7 +260,7 @@ list, similar to the Recording_group_engraver in 2.8 and earlier"
     m))
 
 (define-public (determine-split-list evl1 evl2)
-  "EVL1 and EVL2 should be ascending"
+  "@var{evl1} and @var{evl2} should be ascending."
   (let* ((pc-debug #f)
 	 (chord-threshold 8)
 	 (voice-state-vec1 (make-voice-states evl1))

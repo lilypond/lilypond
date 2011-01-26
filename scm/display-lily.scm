@@ -82,7 +82,7 @@ display method will be called."
 	       (ly:music-property expr 'tags))))
 
 (define-public (music->lily-string expr parser)
-  "Print expr, a music expression, in LilyPond syntax"
+  "Print @var{expr}, a music expression, in LilyPond syntax."
   (if (ly:music? expr)
       (let* ((music-type (ly:music-property expr 'name))
 	     (procs (assoc-ref (hashq-ref music-name-to-property-table

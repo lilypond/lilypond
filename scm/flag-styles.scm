@@ -20,7 +20,7 @@
 
 
 (define-public (no-flag stem-grob)
-  "No flag: Simply return empty stencil"
+  "No flag: Simply return empty stencil."
   empty-stencil)
 
 
@@ -29,13 +29,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(define-public (add-stroke-straight stencil stem-grob dir log stroke-style offset length thickness stroke-thickness)
+(define-public (add-stroke-straight stencil stem-grob dir log stroke-style
+                                    offset length thickness stroke-thickness)
   "Add the stroke for acciaccatura to the given flag stencil.
-  The stroke starts for up-flags at upper-end-of-flag+(0,length/2) and
-  ends at (0, vertical-center-of-flag-end) - (flag-x-width/2, flag-x-width + flag-thickness).
-  Here length is the whole length, while flag-x-width is just the
-  x-extent and thus depends on the angle! Other combinations don't look as
-  good...  For down-stems the y-coordinates are simply mirrored."
+The stroke starts for up-flags at `upper-end-of-flag + (0,length/2)'
+and ends at `(0, vertical-center-of-flag-end) -
+(flag-x-width/2, flag-x-width + flag-thickness)'.  Here `length' is the
+whole length, while `flag-x-width' is just the x-extent and thus depends on
+the angle!  Other combinations don't look as good.
+
+For down-stems the y-coordinates are simply mirrored."
   (let* ((start (offset-add offset (cons 0  (* (/ length 2) dir))))
          (end (offset-add (cons 0 (cdr offset))
                           (cons (- (/ (car offset) 2)) (* (- (+ thickness (car offset))) dir))))
@@ -53,12 +56,15 @@
       flag-stencil))
 
 (define-public (straight-flag flag-thickness flag-spacing
-                       upflag-angle upflag-length
-                       downflag-angle downflag-length)
-    "Create a stencil for a straight flag.
-     flag-thickness, -spacing are given in staff spaces,
-     *flag-angle is given in degree, *flag-length is given in staff spaces.
-     All lengths will be scaled according to the font size of the note."
+                              upflag-angle upflag-length
+                              downflag-angle downflag-length)
+  "Create a stencil for a straight flag.  @var{flag-thickness} and
+@var{flag-spacing} are given in staff spaces, @var{upflag-angle} and
+@var{downflag-angle} are given in degrees, and @var{upflag-length} and
+@var{downflag-length} are given in staff spaces.
+
+All lengths are scaled according to the font size of the note."
+
   (lambda (stem-grob)
     (let* ((log (ly:grob-property stem-grob 'duration-log))
            (dir (ly:grob-property stem-grob 'direction))
@@ -101,13 +107,13 @@
 
 (define-public (modern-straight-flag stem-grob)
   "Modern straight flag style (for composers like Stockhausen, Boulez, etc.).
-   The angles are 18 and 22 degrees and thus smaller than for the ancient style
-   of Bach etc."
+The angles are 18 and 22 degrees and thus smaller than for the ancient style
+of Bach, etc."
   ((straight-flag 0.55 1 -18 1.1 22 1.2) stem-grob))
 
 (define-public (old-straight-flag stem-grob)
-  "Old straight flag style (for composers like Bach).  The angles of the flags
-   are both 45 degrees."
+  "Old straight flag style (for composers like Bach).  The angles of the
+flags are both 45 degrees."
   ((straight-flag 0.55 1 -45 1.2 45 1.4) stem-grob))
 
 
@@ -126,7 +132,7 @@
 
 (define-public (add-stroke-glyph stencil stem-grob dir stroke-style flag-style)
   "Load and add a stroke (represented by a glyph in the font) to the given
-   flag stencil"
+flag stencil."
   (if (not (string? stroke-style))
     stencil
     ; Otherwise: look up the stroke glyph and combine it with the flag
@@ -145,7 +151,7 @@
 
 
 (define-public (retrieve-glyph-flag flag-style dir dir-modifier stem-grob)
-  "Load the correct flag glyph from the font"
+  "Load the correct flag glyph from the font."
   (let* ((log (ly:grob-property stem-grob 'duration-log))
          (font (ly:grob-default-font stem-grob))
          (font-char (string-append "flags." flag-style dir dir-modifier (number->string log)))
@@ -156,7 +162,7 @@
 
 
 (define-public (create-glyph-flag flag-style dir-modifier stem-grob)
-  "Create a flag stencil by looking up the glyph from the font"
+  "Create a flag stencil by looking up the glyph from the font."
   (let* ((dir (if (eqv? (ly:grob-property stem-grob 'direction) UP) "u" "d"))
          (flag (retrieve-glyph-flag flag-style dir dir-modifier stem-grob))
          (stroke-style (ly:grob-property stem-grob 'stroke-style)))
@@ -168,12 +174,12 @@
 
 (define-public (mensural-flag stem-grob)
   "Mensural flags: Create the flag stencil by loading the glyph from the font.
-   Flags are always aligned with staff lines, so we need to check the end point
-   of the stem: For stems ending on staff lines, use different flags than for
-   notes between staff lines.  The idea is that flags are always vertically
-   aligned with the staff lines, regardless of whether the note head is on a
-   staff line or between two staff lines.  In other words, the inner end of
-   a flag always touches a staff line."
+Flags are always aligned with staff lines, so we need to check the end point
+of the stem: For stems ending on staff lines, use different flags than for
+notes between staff lines.  The idea is that flags are always vertically
+aligned with the staff lines, regardless of whether the note head is on a
+staff line or between two staff lines.  In other words, the inner end of
+a flag always touches a staff line."
 
   (let* ((adjust #t)
          (stem-end (inexact->exact (round (ly:grob-property stem-grob 'stem-end-position))))
@@ -185,25 +191,27 @@
 
 
 (define-public ((glyph-flag flag-style) stem-grob)
-  "Simulates the default way of generating flags: look up glyphs
-   flags.style[ud][1234] from the feta font and use it for the flag stencil."
+  "Simulatesthe default way of generating flags: Look up glyphs
+@code{flags.style[ud][1234]} from the feta font and use it for the flag
+stencil."
   (create-glyph-flag flag-style "" stem-grob))
 
 
 
 (define-public (normal-flag stem-grob)
-  "Create a default flag"
+  "Create a default flag."
   (create-glyph-flag "" "" stem-grob))
 
 
 
 (define-public (default-flag stem-grob)
   "Create a flag stencil for the stem.  Its style will be derived from the
-   @code{'flag-style} Stem property.  By default, @code{lilypond} uses a
-   C++ Function (which is slightly faster) to do exactly the same as this
-   function.  However, if one wants to modify the default flags, this function
-   can be used to obtain the default flag stencil, which can then be modified
-   at will.  The correct way to do this is:
+@code{'flag-style} Stem property.  By default, @code{lilypond} uses a
+C++ Function (which is slightly faster) to do exactly the same as this
+function.  However, if one wants to modify the default flags, this function
+can be used to obtain the default flag stencil, which can then be modified
+at will.  The correct way to do this is:
+
 @example
 \\override Stem #'flag = #default-flag
 \\override Stem #'flag-style = #'mensural

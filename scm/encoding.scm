@@ -59,7 +59,7 @@
 
 (define-public (decode-byte-string str)
   "Return vector of glyphname symbols that correspond to string,
-assuming that STR is byte-coded using ENCODING-NAME."
+assuming that @var{str} is byte-coded using latin-1 encoding."
 
   (let* ((len (string-length str))
 	 (output-vector (make-vector len '.notdef)))

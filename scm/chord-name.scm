@@ -60,7 +60,7 @@
 	))))
 
 (define-public (note-name->markup pitch lowercase?)
-  "Return pitch markup for PITCH."
+  "Return pitch markup for @var{pitch}."
   (make-line-markup
    (list
     (make-simple-markup
@@ -107,9 +107,10 @@
 	   (list-ref '("eses" "es" "" "is" "isis") (+ 2 (cdr n-a)))))))))
 
 (define-public ((chord-name->italian-markup re-with-eacute) pitch lowercase?)
-  "Return pitch markup for PITCH, using italian/french note names.
-   If re-with-eacute is set to #t, french 'ré' is returned for D instead of 're'
-"
+  "Return pitch markup for @var{pitch}, using italian/french note names.
+If @var{re-with-eacute} is set to @code{#t}, french `ré' is returned for
+pitch@tie{}D instead of `re'."
+
   (let* ((name (ly:pitch-notename pitch))
          (alt (ly:pitch-alteration pitch)))
     (make-line-markup

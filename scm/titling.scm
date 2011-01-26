@@ -25,11 +25,11 @@
 
 (define-public ((marked-up-headfoot what-odd what-even)
                 layout scopes page-number is-last-bookpart is-bookpart-last-page)
-
-  "Read variables WHAT-ODD, WHAT-EVEN from LAYOUT, and interpret them
-as markup.  The PROPS argument will include variables set in SCOPES and
-page:is-bookpart-last-page, page:is-last-bookpart, page:page-number-string
-and page:page-number" 
+  "Read variables @var{what-odd}, @var{what-even} from @var{layout},
+and interpret them as markup.  The @var{props} argument will include
+variables set in @var{scopes} and @code{page:is-bookpart-last-page},
+@code{page:is-last-bookpart}, @code{page:page-number-string}, and
+@code{page:page-number}." 
 
   (define (get sym)
     (ly:output-def-lookup layout sym))
@@ -73,10 +73,9 @@ and page:page-number"
        (get what-odd))))
 
 (define-public ((marked-up-title what) layout scopes)
-  "Read variables WHAT from SCOPES, and interpret it as markup.  The
-PROPS argument will include variables set in SCOPES (prefixed with
-`header:'
-"
+  "Read variables @var{what} from @var{scopes}, and interpret it as markup.
+The @var{props} argument will include variables set in @var{scopes} (prefixed
+with `header:'."
   
   (define (get sym)
     (let ((x (ly:modules-lookup scopes sym)))

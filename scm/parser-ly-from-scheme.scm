@@ -29,7 +29,7 @@
                                                  (string->list (number->string var-idx)))))))))
 
 (define-public (parse-string-result str parser)
-  "Parse `str', which is supposed to contain a music expression."
+  "Parse @var{str}, which is supposed to contain a music expression."
 
   (ly:parser-parse-string
    parser
@@ -37,10 +37,10 @@
   (ly:parser-lookup parser 'parseStringResult))
 
 (define-public (read-lily-expression chr port)
-  "Read a #{ lily music expression #} from port and return
-the scheme music expression.  The $ character may be used to introduce
-scheme forms, typically symbols.  $$ may be used to simply write a `$'
-character."
+  "Read a lilypond music expression enclosed within @code{#@}} and @code{#@}}
+from @var{port} and return the corresponding Scheme music expression.
+The @samp{$} character may be used to introduce Scheme forms, typically
+symbols.  @code{$$} may be used to simply write a @samp{$} character itself."
   (let ((bindings '()))
 
     (define (create-binding! val)

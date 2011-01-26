@@ -63,7 +63,7 @@
   (format "<~S~a>\n" entity (attributes attributes-alist)))
 
 (define-public (eoc entity . attributes-alist)
-  " oc = open/close"
+  "oc = open/close"
   (format "<~S~a/>\n" entity (attributes attributes-alist)))
 
 (define-public (ec entity)

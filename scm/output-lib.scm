@@ -27,15 +27,14 @@
   (pair? (ly:grob-basic-properties grob)))
 
 (define-public (make-stencil-boxer thickness padding callback)
-
   "Return function that adds a box around the grob passed as argument."
   (lambda (grob)
     (box-stencil (callback grob) thickness padding)))
 
 (define-public (make-stencil-circler thickness padding callback)
   "Return function that adds a circle around the grob passed as argument."
-
-  (lambda (grob) (circle-stencil (callback grob) thickness padding)))
+  (lambda (grob)
+    (circle-stencil (callback grob) thickness padding)))
 
 (define-public (print-circled-text-callback grob)
   (grob-interpret-markup grob (make-circle-markup

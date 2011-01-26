@@ -47,14 +47,13 @@
 
 (define-public (ugh-compat-double-plus-new-chord->markup
 		style pitches bass inversion context options)
-  "Entry point for New_chord_name_engraver.
+  "Entry point for @code{New_chord_name_engraver}.
 
 FIXME: func, options/context have changed
- See
-double-plus-new-chord-name.scm for the signature of STYLE.  PITCHES,
-BASS and INVERSION are lily pitches.  OPTIONS is an alist-alist (see
-input/test/dpncnt.ly).
- "
+
+See @file{double-plus-new-chord-name.scm} for the signature of @var{style}.
+@var{pitches}, @var{bass}, and @var{inversion} are lily pitches.
+@var{options} is an alist-alist (see @file{input/test/dpncnt.ly})."
 
   (define (step-nr pitch)
     (let* ((pitch-nr (+ (* 7 (ly:pitch-octave pitch))

@@ -16,13 +16,12 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-public (construct-chord-elements root duration modifications)
-  " Build a chord on root using modifiers in MODIFICATIONS.  NoteEvents
-have duration DURATION.
+  "Build a chord on root using modifiers in @var{modifications}.
+@code{NoteEvents} have duration @var{duration}.
 
-Notes: natural 11 is left from chord if not explicitly specified.
+Notes: Natural 11 is left from chord if not explicitly specified.
 
-Entry point for the parser.
-"
+Entry point for the parser."
   (let* ((flat-mods (flatten-list modifications))
 	 (base-chord (stack-thirds (ly:make-pitch 0 4 0) the-canonical-chord))
 	 (complete-chord '())

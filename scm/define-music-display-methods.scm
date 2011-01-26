@@ -37,7 +37,8 @@
 ;;;
 
 (define-public (markup->lily-string markup-expr)
-  "Return a string describing, in LilyPond syntax, the given markup expression."
+  "Return a string describing, in LilyPond syntax, the given markup
+expression."
   (define (proc->command proc)
     (let ((cmd-markup (symbol->string (procedure-name proc))))
       (substring cmd-markup 0 (- (string-length cmd-markup)
@@ -968,7 +969,7 @@ Otherwise, return #f."
 ;;; \clef
 (define clef-name-alist #f)
 (define-public (memoize-clef-names clefs)
-  "Initialize `clef-name-alist', if not already set."
+  "Initialize @code{clef-name-alist}, if not already set."
   (if (not clef-name-alist)
       (set! clef-name-alist
             (map (lambda (name+vals)
@@ -977,8 +978,8 @@ Otherwise, return #f."
                  clefs))))
 
 (define-extra-display-method ContextSpeccedMusic (expr parser)
-  "If `expr' is a clef change, return \"\\clef ...\"
-Otherwise, return #f."
+  "If @var{expr} is a clef change, return \"\\clef ...\".
+Otherwise, return @code{#f}."
   (with-music-match (expr (music 'ContextSpeccedMusic
 				 context-type 'Staff
 				 element (music 'SequentialMusic
