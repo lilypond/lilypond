@@ -747,8 +747,7 @@ to be added to the melisma.
 
 It is possible to have ties, slurs and manual beams in the melody
 without their indicating melismata.  To do this, set
-@code{melismaBusyProperties} and indicate the melismata with single
-underscores in the lyrics, one underscore for each extra note:
+@code{melismaBusyProperties}:
 
 @lilypond[relative=1,verbatim,quote]
 <<
@@ -756,19 +755,42 @@ underscores in the lyrics, one underscore for each extra note:
     \time 3/4
     \set melismaBusyProperties = #'()
     c4 d ( e )
-    g8 [ f ] f4( e)
-    d e ~ e
+    g8 [ f ] f4 ~ f
   }
   \new Lyrics \lyricsto "melody" {
-    Ky -- _ _ _ _ ri -- _ _ e __ _
+    Ky -- ri -- e e -- le -- i -- son
   }
 >>
 @end lilypond
 
 Other settings for @code{melismaBusyProperties} can be used to
-include or exclude ties, slurs, and beams from the automatic
-detection of melismata; see @code{melismaBusyProperties} in
-@rinternals{Tunable context properties}.
+selectively include or exclude ties, slurs, and beams from the
+automatic detection of melismata; see @code{melismaBusyProperties}
+in @rinternals{Tunable context properties}.
+
+Alternatively, if all melismata indications are to be ignored,
+@code{ignoreMelismata} may be set true;
+see @ref{Stanzas with different rhythms}.
+
+If a melisma is required during a passage in which
+@code{melismaBusyProperties} is active, it may be indicated by
+placing a single underscore in the lyrics for each note which
+should be included in the melisma:
+
+@lilypond[relative=1,verbatim,quote]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    \set melismaBusyProperties = #'()
+    c4 d ( e )
+    g8 [ f ] ~ f4 ~ f
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ky -- ri -- _ e __ _ _ _
+  }
+>>
+@end lilypond
+
 
 @predefined
 
@@ -787,7 +809,8 @@ Learning Manual:
 Notation Reference:
 @ref{Aligning lyrics to a melody},
 @ref{Automatic syllable durations},
-@ref{Setting automatic beam behavior}.
+@ref{Setting automatic beam behavior},
+@ref{Stanzas with different rhythms}.
 
 Internals Reference:
 @rinternals{Tunable context properties}.
