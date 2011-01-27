@@ -50,7 +50,7 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
       return buffer;
     }
   else
-    programming_error (_f ("Free type error: %s",
+    programming_error (_f ("FreeType error: %s",
 			   freetype_error_string (error_code).c_str ()
 			   ));
 
