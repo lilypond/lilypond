@@ -543,6 +543,37 @@ be downgraded from Priority-Critical by one of the programmers.
 
 Issues that only affect specific operating systems.
 
+@subheading Patch (optional)
+
+@itemize
+
+@item
+Patch-new: the patch has not been checked for @qq{obvious}
+mistakes.  When in doubt, use this tag.
+
+@item
+Patch-review: the patch has no @qq{obvious} mistakes (as checked
+by the Patch Meister), and is ready for review from main
+developers.
+
+Developers with git push ability can use this category, skipping
+over @code{patch-new}.
+
+@item
+Patch-needs_work: a developer has some concerns about the patch.
+This does not necessarily mean that the patch must be changed; in
+some cases, the developer's concerns can be resolved simply by
+discussion the situation or providing notation examples.
+
+If the patch is updated, the category should be changed to
+@code{patch-new} (for normal contributors) or @code{patch-new}
+(for developers who are very confident about their patch).
+
+@item
+Patch-abandoned: the author has not responded to review comments
+for a few months.
+
+@end itemize
 
 @subheading Other items (optional)
 
@@ -578,9 +609,6 @@ recategorised or marked invalid.
 
 In particular, anything that breaks a regression test is a
 regression.
-
-@item
-Patch: a patch to fix an issue is attached.
 
 @item
 Frog: the fix is believed to be suitable for a new contributor
@@ -720,24 +748,29 @@ was sent to multiple mailing lists (such as both @code{bugs} and
 email should contain a link to the issue you just added.
 
 
-
 @node Summary of project status
 @section Summary of project status
 
-The best overview of our current status is given by the grid view:
+@subsubheading Project overview
+
+Grid view provides the best overview:
 
 @example
 @uref{http://code.google.com/p/lilypond/issues/list?mode=grid&y=Priority&x=Type&cells=ids}
 @end example
 
-Also of interest might be the issues hindering future development:
+@subsubheading Hindering development
+
+These issues stop or slow development work:
 
 @example
 @uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:Maintainability&mode=grid&y=Priority&x=Type&cells=ids}
 @end example
 
-Finally, issues tagged with @code{Frog} indicates a task suitable
-for a relatively new contributor.  The time given is a quick
+@subsubheading Easy tasks
+
+Issues tagged with @code{Frog} indicates a task suitable for a
+relatively new contributor.  The time given is a quick
 (inaccurate) estimate of the time required for somebody who is
 familiar with material in this manual, but does not know anything
 else about LilyPond development.
@@ -745,5 +778,14 @@ else about LilyPond development.
 @example
 @uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:Frog&mode=grid&y=Priority&x=Type&cells=ids}
 @end example
+
+@subsubheading Patches to review
+
+Patches which have no @qq{obvious} problems:
+
+@example
+@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:patch-review}
+@end example
+
 
 
