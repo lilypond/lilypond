@@ -1133,13 +1133,15 @@ right neighbour, encoded as a bit mask.")
 
      (flexa-height ,ly:dimension? "The height of a flexa shape in a ligature
 grob (in @code{staff-space} units).")
+     (flexa-interval ,integer? "The interval spanned by the two notes of a
+flexa shape (1 is a second, 7 is an octave).")
      (flexa-width ,ly:dimension? "The width of a flexa shape in a
 ligature grob in (in @code{staff-space} units).")
+     (ligature-flexa ,boolean? "request joining note to the previous one
+in a flexa.")
 
      (inclinatum ,boolean? "Is this neume an inclinatum?")
 
-     (join-right-amount ,number? "A length used for calculating the
-Y-extent of mensural ligatures.")
 
      (linea ,boolean? "Attach vertical lines to this neume?")
 

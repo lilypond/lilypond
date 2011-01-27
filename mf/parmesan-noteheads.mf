@@ -60,7 +60,7 @@ define_pixels (noteheight);
 %
 %
 
-def draw_neomensural_brevis (expr brevwid) =
+def draw_neomensural_brevis (expr brevwid, open, full) =
 	save beamheight, head_width;
 	save holeheight, stem_width;
 	save serif_size, serif_protrude;
@@ -91,8 +91,8 @@ def draw_neomensural_brevis (expr brevwid) =
 	penpos4 (beamheight, 90);
 	penpos5 (stem_width, 180);
 
-	save pat_in, pat_out;
-	path pat_in, pat_out;
+	save pat_out;
+	path pat_out;
 
 	pat_out := z4l
 		   -- z3l{left}
@@ -108,18 +108,26 @@ def draw_neomensural_brevis (expr brevwid) =
 		   -- cycle;
 	fill pat_out;
 
-	pat_in := z4r
-		  -- z3r{left}
-		  .. z2r{up}
-		  -- z1r;
-	pat_in := pat_in
-		  -- reverse pat_in yscaled -1;
-	pat_in := pat_in
-		  -- reverse pat_in shifted (-x4r, 0)
-				    xscaled -1
-				    shifted (x4l, 0)
-		  -- cycle;
-	unfill pat_in;
+	if open:
+		save pat_in;
+		path pat_in;
+
+		pat_in := z4r
+			  -- z3r{left}
+			  .. z2r{up}
+			  -- z1r;
+		pat_in := pat_in
+			  -- reverse pat_in yscaled -1;
+		if full:
+			pat_in := pat_in
+				  -- reverse pat_in shifted (-x4r, 0)
+						    xscaled -1
+						    shifted (x4l, 0);
+		fi;
+		pat_in := pat_in
+			  -- cycle;
+		unfill pat_in;
+        fi;
 
 	penlabels (1, 2, 3, 4, 5);
 enddef;
@@ -127,7 +135,7 @@ enddef;
 
 %%% This head does not seem to be used anywhere.  Junk me?  -- jr
 def draw_neomensural_left_stemmed_head (expr wid) =
-	draw_neomensural_brevis (wid);
+	draw_neomensural_brevis (wid, true, true);
 
 	x6 = x7 = stem_width / 2;
 	y6 = y5;
@@ -161,7 +169,7 @@ fet_endchar;
 % the left, some say right.  Right wins democratically.
 %
 def draw_neomensural_longa (expr wid) =
-	draw_neomensural_brevis (wid);
+	draw_neomensural_brevis (wid, true, true);
 
 	save theta;
 
@@ -204,7 +212,7 @@ fet_endchar;
 
 
 fet_beginchar ("Neo-mensural brevis notehead", "sM1neomensural");
-	draw_neomensural_brevis (2 staff_space#);
+	draw_neomensural_brevis (2 staff_space#, true, true);
 fet_endchar;
 
 
@@ -314,15 +322,15 @@ fet_beginchar ("Neo-mensural semiminima head", "s2neomensural");
 fet_endchar;
 
 
-def draw_mensural_brevis (expr wid) =
+def draw_mensural_brevis (expr wid, open, full) =
 	% TODO.  For the moment, fall back to draw_neomensural_brevis.
-	draw_neomensural_brevis (wid);
+	draw_neomensural_brevis (wid, open, full);
 enddef;
 
 
 %%% This head does not seem to be used anywhere.  Junk me?  -- jr
-def draw_mensural_left_stemmed_head (expr wid) =
-	draw_mensural_brevis (wid);
+def draw_mensural_left_stemmed_head (expr wid, open, full) =
+	draw_mensural_brevis (wid, open, full);
 
 	x6 = x7 = stem_width / 2;
 	y6 = y5;
@@ -345,8 +353,8 @@ def draw_mensural_left_stemmed_head (expr wid) =
 enddef;
 
 
-def draw_mensural_longa (expr wid) =
-	draw_mensural_brevis (wid);
+def draw_mensural_longa (expr wid, open, full) =
+	draw_mensural_brevis (wid, open, full);
 
 	x6 = x7 = head_width - stem_width / 2;
 	y6 = y5;
@@ -371,22 +379,67 @@ enddef;
 
 %%% This head does not seem to be used anywhere.  Junk me?  -- jr
 fet_beginchar ("Mensural left stemmed notehead", "slmensural");
-	draw_mensural_left_stemmed_head (staff_space#);
+	draw_mensural_left_stemmed_head (staff_space#, true, true);
 fet_endchar;
 
 
 fet_beginchar ("Mensural maxima notehead", "sM3mensural");
-	draw_mensural_longa (2.0 staff_space#);
+	draw_mensural_longa (2.0 staff_space#, true, true);
+fet_endchar;
+
+
+fet_beginchar ("Mensural maxima notehead in ligaturae", "sM3ligmensural");
+	draw_mensural_brevis (2.0 staff_space#, true, true);
 fet_endchar;
 
 
 fet_beginchar ("Mensural longa notehead", "sM2mensural");
-	draw_mensural_longa (staff_space#);
+	draw_mensural_longa (staff_space#, true, true);
 fet_endchar;
 
 
 fet_beginchar ("Mensural brevis notehead", "sM1mensural");
-	draw_mensural_brevis (staff_space#);
+	draw_mensural_brevis (staff_space#, true, true);
+fet_endchar;
+
+
+fet_beginchar ("Black mensural maxima notehead", "sM3blackmensural");
+	draw_mensural_longa (2.0 staff_space#, false, false);
+fet_endchar;
+
+
+fet_beginchar ("Black mensural maxima notehead in ligaturae", "sM3blackligmensural");
+	draw_mensural_brevis (2.0 staff_space#, false, false);
+fet_endchar;
+
+
+fet_beginchar ("Black mensural longa notehead", "sM2blackmensural");
+	draw_mensural_longa (staff_space#, false, false);
+fet_endchar;
+
+
+fet_beginchar ("Black mensural brevis notehead", "sM1blackmensural");
+	draw_mensural_brevis (staff_space#, false, false);
+fet_endchar;
+
+
+fet_beginchar ("Semi-colored mensural maxima notehead", "sM3semimensural");
+	draw_mensural_longa (2.0 staff_space#, true, false);
+fet_endchar;
+
+
+fet_beginchar ("Semi-colored mensural maxima notehead in ligaturae", "sM3semiligmensural");
+	draw_mensural_brevis (2.0 staff_space#, true, false);
+fet_endchar;
+
+
+fet_beginchar ("Semi-colored mensural longa notehead", "sM2semimensural");
+	draw_mensural_longa (staff_space#, true, false);
+fet_endchar;
+
+
+fet_beginchar ("Semi-colored mensural brevis notehead", "sM1semimensural");
+	draw_mensural_brevis (staff_space#, true, false);
 fet_endchar;
 
 
@@ -466,6 +519,11 @@ fet_beginchar ("Mensural semiminima head", "s2mensural");
 fet_endchar;
 
 
+fet_beginchar ("Black mensural semibrevis head", "s0blackmensural");
+	draw_diamond_head (staff_space#, 0.15, 0.30, 30, false);
+fet_endchar;
+
+
 fet_beginchar ("Petrucci semibrevis head", "s0petrucci");
 %	draw_diamond_head (1.8 staff_space#, 0.15, 0.40, 30, true);
 	draw_neomensural_open_head (staff_space#, 1.8 staff_space#);
@@ -480,6 +538,24 @@ fet_endchar;
 
 fet_beginchar ("Petrucci semiminima head", "s2petrucci");
 %	draw_diamond_head (1.8 staff_space#, 0.15, 0.40, 30, false);
+	draw_neomensural_black_head (staff_space#, 1.8 staff_space#);
+fet_endchar;
+
+
+fet_beginchar ("Petrucci colored semibrevis head", "s0blackpetrucci");
+%	draw_diamond_head (1.8 staff_space#, 0.15, 0.40, 30, true);
+	draw_neomensural_black_head (staff_space#, 1.8 staff_space#);
+fet_endchar;
+
+
+fet_beginchar ("Petrucci colored minima head", "s1blackpetrucci");
+%	draw_diamond_head (1.8 staff_space#, 0.15, 0.40, 30, true);
+	draw_neomensural_black_head (staff_space#, 1.8 staff_space#);
+fet_endchar;
+
+
+fet_beginchar ("Petrucci colored semiminima head", "s2blackpetrucci");
+%	draw_diamond_head (1.8 staff_space#, 0.15, 0.40, 30, true);
 	draw_neomensural_black_head (staff_space#, 1.8 staff_space#);
 fet_endchar;
 
