@@ -43,7 +43,6 @@ This section discusses issues common to most types of vocal music.
 * Manual syllable durations::
 * Multiple syllables to one note::
 * Multiple notes to one syllable::
-* Skipping notes::
 * Extenders and hyphens::
 @end menu
 
@@ -820,25 +819,6 @@ Internals Reference:
 Extender lines under melismata are not created automatically; they
 must be inserted manually with a double underscore.
 
-@node Skipping notes
-@unnumberedsubsubsec Skipping notes
-
-Making a lyric line run slower than the melody can be achieved by
-inserting @code{\skip}s into the lyrics.  For every @code{\skip},
-the text will be delayed by another note.  The @code{\skip} command
-must be followed by a valid duration, but this is ignored when
-@code{\skip} is used in lyrics which derive their durations from the
-notes in an associated melody through @code{\addlyrics} or
-@code{\lyricsto}.
-
-@lilypond[verbatim,ragged-right,quote]
-\relative c' { c c g' }
-\addlyrics {
-  twin -- \skip 4
-  kle
-}
-@end lilypond
-
 
 @node Extenders and hyphens
 @unnumberedsubsubsec Extenders and hyphens
@@ -1379,10 +1359,24 @@ same structure can be used for both the lyrics and music.
 }
 @end lilypond
 
+@funindex \skip
+@cindex skipping notes in lyrics
+@cindex lyrics, skipping notes
+
 But when the repeated section has different words, a repeat
 construct cannot be used around the words and @code{\skip} commands
 have to be inserted manually to skip over the notes in the
 alternative sections which do not apply.
+
+Note: do not use an underscore, @code{_}, to skip notes -- an
+underscore indicates a melisma, causing the preceding syllable
+to be left-aligned.
+
+@warning{The @code{@bs{}skip} command must be followed by a number,
+but this number is ignored in lyrics which derive their durations
+from the notes in an associated melody through @code{\addlyrics} or
+@code{\lyricsto}.  Each @code{@bs{}skip} skips a single note of any
+value, irrespective of the value of the following number.}
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
