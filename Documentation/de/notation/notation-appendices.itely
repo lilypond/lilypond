@@ -19,7 +19,7 @@
 @menu
 * Liste der Akkordbezeichnungen::
 * Übliche Akkord-Variablen::
-* Vordefinierte Bund-Diagramme::
+* Die vordefinierten Bund-Diagramme::
 * MIDI-Instrumente::
 * Liste der Farben::
 * Die Feta-Schriftart::
@@ -422,8 +422,8 @@ Perfekte Quinte, Oktave
 @end multitable
 
 
-@node Vordefinierte Bund-Diagramme
-@appendixsec Vordefinierte Bund-Diagramme
+@node Die vordefinierten Bund-Diagramme
+@appendixsec Die vordefinierten Bund-Diagramme
 @translationof Predefined fretboard diagrams
 
 Die Tabelle zeigt alle vordefinierten Bunddiagramme für Gitarre.

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: a463d80d4be008ce05b12de86fc21f2b7c1c120f
+    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -157,13 +157,16 @@ Referenz der Interna:
 Musik für gezupfte Saiteninstrumente wird oft notiert, indem man eine
 Finger/Berührungsnotation bzw. Tabulatur benutzt.  Im Gegensatz zur
 traditionellen Notation werden hier Tonhöhen nicht mit Notenköpfen
-notiert, sondern mit Zahlen (oder Buchstabenartigen Symbolen in
-historischen Tabulaturen).  Die Zahlen zeigen an, welche Saite und
+notiert, sondern mit Zahlen (oder buchstabenartigen Symbolen in
+historischen Tabulaturen).  Die Notenlinien einer Tabulatur zeigen
+die Saite an, auf der eine Note gespielt werden soll, und eine Zahl
+auf einer Notenlinie zeigt an,
 welcher Bund für eine Note gespielt werden muss.  Die Zahlen werden
-übereinander geschrieben, wenn sie gleichzeitig gespielt werden sollen.
+vertikal übereinander geschrieben, wenn sie gleichzeitig gespielt werden sollen.
 
-Standardmäßig ist Saite 1 die höchste Saite und die voreingestellte
-Saitenstimmung ist die normale Gitarrenstimmung (mit 6 Saiten).  Die
+Standardmäßig ist Saite 1 die höchste Saite und entspricht der höchsten
+Notenlinie des @code{TabStaff} (der Tabulatur).  Die voreingestellte
+Saitenstimmung der Tabulatur ist die normale Gitarrenstimmung (mit 6 Saiten).  Die
 Noten werden als Tabulatur ausgegeben, wenn man den @code{TabStaff}-Kontext
 und darin den @code{TabVoice}-Kontext benutzt.  Ein kalligraphischer
 Tabulaturschlüssel wird automatisch hinzugefügt.
@@ -439,6 +442,10 @@ Slide.
 @cindex Tabulatur, Bassgitarre
 @cindex Tabulatur, Gitarre
 @cindex Tabulatur, Ukulele
+@cindex Tabulatur, Geige
+@cindex Tabulatur, Bratsche
+@cindex Tabulatur, Cello
+@cindex Tabulatur, Kontrabass
 @cindex Saitenstimmung für Bundinstrumente
 @cindex bundierte Saiteninstrumente, Saitenstimmung
 @cindex Bundinstrumente, Saitenstimmung
@@ -452,7 +459,8 @@ muss die Stimmung der Saiten angegeben werden.  Die Stimmung wird
 in der @code{StringTunings}-Eigenschaften bestimmt.
 
 LilyPond hat vordefinierte Stimmungen für Banjo, Mandoline, Gitarre,
-Bassgitarre und Ukulele.  Für diese Stimmungen wird automatisch die
+Bassgitarre, Ukulele, Geige, Bratsche, Cello und Kontrabass.
+Für diese Stimmungen wird automatisch die
 richtige Transposition eingesetzt.  Das nächste Beispiel ist für
 Bassgitarre, welche eine Oktave niedriger erklingt, als sie
 geschrieben ist:
@@ -479,28 +487,95 @@ Die Standardstimmung ist die Gitarrenstimmung (@code{guitar-tuning})
 in der EADGHE-Stimmung.  Andere vordefinierte Stimmung sind:
 @code{guitar-open-g-tuning}, @code{mandolin-tuning} und
 @code{banjo-open-g-tuning}.  Die vordefinierten Stimmungen finden
-sich in @file{scm/tablature.scm}.
+sich in @file{scm/string-tuning-init.scm}.
 
-Die Stimmung ist eine Scheme-Liste von Tonhöhen der Saiten,
+@funindex contextStringTunings
+@funindex \contextStringTunings
+@cindex Tabulatur, eigene Saitenstimmung
+@cindex Eigene Saitenstimmung, Tabulatur
+
+Jede beliebige Stimmung kann erstellt werden.  Die Funktion
+@code{\contextStringTuning} kann benutzt werden, um eine Saitenstimmung
+zu definieren und als den Wert von @code{stringTunings} für den aktuellen
+Kontext zu bestimmen.  @code{\contextStringTuning} braucht zwei Argumente:
+das Symbol, wo die Saitenstimmung gespeichert werden soll, und eine
+Akkordkonstruktion, die die Tonhöhen jeder Saite der Stimmung angibt.
+Die Akkordkonstruktion muss im absoluten Oktavenmodus angegeben werden,
+siehe @ref{Absolute Oktavenbezeichnung}.  Die Saite mit der höchsten
+Zahl (normalerweise die tiefste Seite) muss im Akkord zuerst geschrieben
+werden.  Eine Stimmung für ein viersaitiges Instrument mit den Tonhöhen
+@code{a''},  @code{d''},  @code{g'} und @code{c'} kann folgenderweise
+erstellt werden:
+
+@lilypond[quote,verbatim]
+
+mynotes = {
+  c'4 e' g' c'' |
+  e''4 g'' b'' c'''
+}
+
+<<
+  \new Staff {
+    \clef treble
+    \mynotes
+  }
+  \new TabStaff {
+    \contextStringTuning #'custom-tuning <c' g' d'' a''>
+    \mynotes
+  }
+>>
+@end lilypond
+
+Die @code{stringTunings}-Eigenschaft wird auch von @code{FretBoards}
+benutzt, um automatische Bunddiagramme zu errechnen.
+
+@funindex makeStringTuning
+@funindex \makeStringTuning
+
+Saitensitmmungen werden als Teil des Hash-Schlüsselwertes für
+vordefinierte Bunddiagramme eingesetzt (siehe auch
+@ref{Vordefinierte Bund-Diagramme}.  Die Funktion @code{\makeStringTuning}
+wird benutzt, um eine Stimmung im aktuellen Kontext zu erstellen, ohne die
+@code{stringTunings}-Eigenschaft einzusetzen  Die Argumente von
+@code{\makeStringTuning} sind das Symbol, das für die neue Stimmung
+benutzt werden soll und eine Akkordkonstruktion, die die Stimmung definiert.
+Das vorherige Beispiel könnte auch folgenderweise geschrieben werden:
+
+@lilypond[quote,verbatim]
+\makeStringTuning #'custom-tuning <c' g' d'' a''>
+
+mynotes = {
+  c'4 e' g' c'' |
+  e''4 g'' b'' c'''
+}
+
+<<
+  \new Staff {
+    \clef treble
+    \mynotes
+  }
+  \new TabStaff {
+    \set TabStaff.stringTunings = #custom-tuning
+    \mynotes
+  }
+>>
+@end lilypond
+
+Intern ist die Stimmung eine Scheme-Liste von Tonhöhen der Saiten,
 eine für jede Saite, geordnet von Saitennummer 1 bis n, wobei 1
 die höchste Saite der Tabulatur ist und n die unterste.  Normalerweise
 wird so die Stimmung vom höchsten bis zum tiefsten Ton angegeben,
 aber bei einige Instrumente (etwa Ukulele) werden die Saiten nicht
 aufgrund der Tonhöhe angeordnet.
 
-Eine Tonhöhe in der Liste der Saitenstimmungen ist der Unterschied
-der entsprechenden Tonhöhe zum eingestrichenen C gemessen in
-Halbtönen.  Die Tonhöhe muss eine Ganzzahl sein.  LilyPond
-errechnet die Tonhöhe einer Saite, indem die Tonhöhe der
-Saitenstimmung zu der Tonhöhe von c' hinzugerechnet wird.
+Die Tonhöhe einer Saite in einer Seitenstimmungsliste ist ein
+Tonhöhenobjekt für LilyPond.  Tonhöhenobjekte werden mit der
+Scheme-Funktion +@code{ly:make-pitch} erstellt
+(siehe @ref{Scheme-Funktionen}).
 
-LilyPond erschließt die Anzahl der Saiten einer Tabulatur
-anhand der Anzahl der Saitenstimmungszahlen in @code{stringTunings}.
-
-Jede beliebige Saitenstimmung kann erzeugt werden.  Als Beispiel
-etwa kann die Saitenstimmung für ein viersaitiges Instrument
-mit den Tonhöhen  @code{a''},  @code{d''},  @code{g'}und @code{c'}
-so definiert werden:
+Wenn gewünscht, kann eine Saitenstimmung auch in Scheme-Sprache erstellt
+werden.  Das Beispiel unten bildet das obige Beispiel nach, aber die
+Stimmung wird nicht als eigenes Objekt gespeichert:
 
 @lilypond[quote,verbatim]
 mynotes = {
@@ -523,6 +598,10 @@ mynotes = {
 >>
 @end lilypond
 
+LilyPond errechnet automatisch die Linienanzahl für die Tabulatur und
+die Zahl der Saiten in dem automatisch erstellten @code{FretBoard}
+(Bunddiagramm) aus der Anzahl der Elemente von @code{stringTunings}.
+
 @cindex Schlüssel, modern, Tabulatur
 @cindex Tabulatur, moderner Schlüssel
 @cindex moderner Tabulatur-Schlüssel
@@ -544,7 +623,13 @@ Auch ein moderner Tabulatur-Schlüssel kann verwendet werden:
 Der moderne Tabulatur-Schlüssel unterstützt Tabulaturen von 4 bis 7 Saiten.
 
 @seealso
+Notationsreferenz:
+@ref{Absolute Oktavenbezeichnung},
+@ref{Vordefinierte Bund-Diagramme},
+@ref{Scheme-Funktionen}.
+
 Installierte Dateien:
+@file{ly/string-tuning-init.ly}
 @file{scm/tablature.scm}.
 
 Schnipsel:
@@ -1103,7 +1188,7 @@ Tonarten.  Die Tabelle der vortdefinierten Bunddiagramme für
 Ukulele enthält neben diesen Akkorden noch zusätzlich drei
 weitere (große Sext, Sekundakkord und Quartakkort).  Eine
 vollständige Liste der vordefinierten Bunddiagramme findet sich
-in @ref{Vordefinierte Bund-Diagramme}.  Wenn in der Tabelle für
+in @ref{Die vordefinierten Bund-Diagramme}.  Wenn in der Tabelle für
 einen Akkord kein Wert steht, wird ein Bunddiagramm vom
 @code{FretBoards}-Engraver errechnet, wobei die automatische
 Bunddiagrammfunktion zu Anwendung kommt. Siehe hierzu
@@ -1266,7 +1351,7 @@ Notationsreferenz:
 @ref{Angepasste Tabulaturen},
 @ref{Automatische Bund-Diagramme},
 @ref{Überblick über den Akkord-Modus},
-@ref{Vordefinierte Bund-Diagramme}.
+@ref{Die vordefinierten Bund-Diagramme}.
 
 Installierte Dateien:
 @file{ly/predefined-guitar-fretboards.ly},

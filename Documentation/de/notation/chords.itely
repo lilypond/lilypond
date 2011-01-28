@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 0764a50d470cab82ca29da30298dacd333d3da12
+    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -737,6 +737,9 @@ Grundton erhöht oder erniedrigt ist.
 Notationsreferenz:
 @ref{Liste der Akkordbezeichnungen},
 @ref{Übliche Akkord-Variablen}.
+
+Aufsatz über den automatischen Musiksatz:
+@ressay{Literatur}.
 
 Installierte Dateien:
 @file{scm/chords-ignatzek.scm},
