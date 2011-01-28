@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 9a65042d49324f2e3dff18c4b0858def81232eea
+    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -13,20 +13,24 @@
 @unnumbered マニュアル
 @translationof Manuals
 
+@macro details{reference}
+@spanClass{detail}
+(@ref{\reference\, \reference\} の詳細)
+@spanEnd
+@end macro
+
 @divClass{heading-center}
 @ifclear web_version
   @heading LilyPond @version 用のドキュメント
 @end ifclear
 @ifset web_version
   @heading LilyPond @versionStable 用のドキュメント
-  @heading Manuals for LilyPond @versionStable
 @end ifset
 
 @divEnd
 
-@c TODO: do we want these links to be in larger text / bold ?   CSS.
+@divClass{link-headings}
 
-@c if you change this page, also change All.
 @divClass{column-center-top}
 @subheading 導入部
 
@@ -34,19 +38,22 @@
 
 @item @ref{テキスト入力}:
 LilyPond は @strong{テキスト ベース} の楽譜作成プログラムです。@c
-このコンセプトに馴染みが無いのであれば、今すぐこのドキュメントを読んでください！
+まず最初にこのドキュメントを読んでください！
 
-@item @ref{学習}:
+@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,学習}}
 @qq{必読} のやさしい LilyPond 入門書です。
+@details{学習}
 
-@item @ref{用語集}:
+@item @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,用語集}}
 @emph{(副読本)}
 音楽用語についての説明と、
 英語の音楽用語に馴染みの無いユーザのための訳語を提供します。
+@details{用語集}
 
-@item @ref{エッセー}:
+@item @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
 @emph{(副読本)}
-譜刻プロセスについての背景と、19 世紀の楽譜の審美性。
+コンピュータによる譜刻についての背景。
+@details{エッセー}
 
 @end itemize
 
@@ -57,16 +64,17 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 
 @itemize
 
-@item @ref{記譜法}:
-このドキュメントの主要部です:
-楽譜作成についての詳しい情報を提供します。
+@item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,記譜法}}
+構文リファレンス。
+@details{記譜法}
 
-@item @ref{使用方法}:
-プログラムの実際と、オペレーション システム特有の問題について@c
-議論します。
+@item @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,使用方法}}
+このプログラムの実行方法。
+@details{使用方法}
 
-@item @ref{コード断片集}:
-ちょっとしたトリック、秘訣、例。
+@item @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippets}}
+ちょっとしたトリック、秘訣。
+@details{コード断片集}
 
 @end itemize
 
@@ -79,16 +87,23 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 @itemize
 
 @item @ref{FAQ}:
-FAQ の回答へのリンク。
+頻繁に質問されること。
 
-@item @ref{変更点}:
-最新のメジャー バージョンから変更された点。
+@item @ref{Top, Web}:
+このドキュメント。
+@details{Web}
 
-@item @ref{拡張}:
-LilyPond での思いつきの調整をプログラミングします。
+@item @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Changes}}
+変更点。
+@details{変更点}
 
-@item @ref{内部リファレンス}:
-調整を行うために必要となる、LilyPond の内部構造についての情報。
+@item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extending}}
+変則的な調整。
+@details{拡張}
+
+@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
+調整のためのリファレンス。
+@details{内部リファレンス}
 
 @end itemize
 
@@ -104,7 +119,7 @@ LilyPond での思いつきの調整をプログラミングします。
 非英語圏の読者のための翻訳状況。
 
 @item @ref{すべて}:
-クイック リンク、ダウンロード可能なマニュアル、それに古いマニュアル。
+ダウンロード可能なバージョンと古いマニュアル。
 
 @item @ref{Development}:
 開発バージョンのためのマニュアル。
@@ -120,20 +135,20 @@ LilyPond での思いつきの調整をプログラミングします。
 
 @divClass{hide}
 @menu
-* 学習::           学習
-* 用語集::         用語集
-* エッセー::       エッセー
-* 記譜法::         リファレンス
-* 使用方法::       使用方法
-* コード断片集::   コード断片集
-* Web::            Web
-* FAQ::            FAQ
-* 変更点::         ニュース
+* 学習::            学習
+* 用語集::          用語集
+* エッセー::        エッセー
+* 記譜法::          リファレンス
+* 使用方法::        使用方法
+* コード断片集::    コード断片集
+* FAQ::             FAQ
+* Web::             Web
+* 変更点::          ニュース
 * 拡張::           プログラミング
 * 内部リファレンス::内部リファレンス
 * 翻訳済み::        翻訳
 * すべて::          すべてのマニュアル
-* FDL::            ライセンス
+* FDL::             ライセンス
 @end menu
 
 @divEnd
@@ -165,47 +180,12 @@ LilyPond での思いつきの調整をプログラミングします。
 
 @docLinks{学習, learning,
   @rlearningnamed{Top,学習},
-  @manualStableLearningSplit-ja,
-  @manualStableLearningBig-ja, 1.5 MB,
-  @manualStableLearningPdf-ja, 3 MB}
+  @manualStableLearningSplit,
+  @manualStableLearningBig, 1.5 MB,
+  @manualStableLearningPdf, 3 MB}
 
 @divEnd
 
-@ignore
-@subheading お読みください
-
-@itemize
-
-@item @rlearningnamed{Top,学習マニュアル}:
-マニュアルをこのページと同じフォーマットで読むことができます。
-
-@end itemize
-
-@subheading すべてのフォーマット
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../learning/index.html, 学習マニュアル (分割 HTML)}:
-このマニュアルはいくつもの HTML ページに分割されています。@c
-@emph{(ページごとの小さなダウンロード)}
-
-@item @uref{../learning-big-page.html, 学習マニュアル (大きな HTML)}:
-このマニュアルは 1 つの巨大な HTML ページです。@c
-@emph{(約 10? Mb の大きなダウンロード)}
-
-@c @item @uref{../learning.pdf, learning.pdf}:
-@item learning.pdf:
-日本語では PDF 形式での提供はありません。
-
-@c TODO: should make links to info?
-@c @item @uref{../TODO, learning.info}:
-@c GNU info format for documentation.  link broken.
-
-@end itemize
-@divEnd
-@divEnd
-@end ignore
 
 @node 用語集
 @unnumberedsec 用語集
@@ -225,48 +205,11 @@ LilyPond での思いつきの調整をプログラミングします。
 
 @docLinks{音楽用語集, music-glossary,
   @rglosnamed{Top,音楽用語集},
-  @manualStableGlossarySplit-ja,
-  @manualStableGlossaryBig-ja, 1 MB,
-  @manualStableGlossaryPdf-ja, 1.5 MB}
+  @manualStableGlossarySplit,
+  @manualStableGlossaryBig, 1 MB,
+  @manualStableGlossaryPdf, 1.5 MB}
 
 @divEnd
-
-
-@ignore
-@divClass{column-right-bottom}
-@subheading お読みください
-
-@itemize
-
-@item @rglosnamed{Top,音楽用語集}:
-マニュアルをこのページと同じフォーマットで読むことができます。
-
-@end itemize
-
-@subheading すべてのフォーマット
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../music-glossary/index.html, 音楽用語集 (分割 HTML)}:
-このマニュアルはいくつもの HTML ページに分割されています。@c
-@emph{(ページごとの小さなダウンロード)}
-
-@item @uref{../music-glossary-big-page.html, 音楽用語集 (大きな HTML)}:
-このマニュアルは 1 つの巨大な HTML ページです。@c
-@emph{(約 10? Mb の大きなダウンロード)}
-
-@c @item @uref{../music-glossary.pdf, glossary.pdf}:
-@item glossary.pdf:
-日本語では PDF 形式での提供はありません。
-
-@c @item @uref{../TODO, glossary.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
-@divEnd
-@end ignore
 
 
 @node エッセー
@@ -289,48 +232,11 @@ LilyPond の譜刻テクニックの例を挙げます。@c
 
 @docLinks{エッセー, essay,
   @ressaynamed{Top,エッセー},
-  @manualStableEssaySplit-ja,
-  @manualStableEssayBig-ja, 2 MB,
-  @manualStableEssayPdf-ja, 2.5 MB}
+  @manualStableEssaySplit,
+  @manualStableEssayBig, 2 MB,
+  @manualStableEssayPdf, 2.5 MB}
 
 @divEnd
-
-
-@ignore
-@divClass{column-right-bottom}
-@subheading お読みください
-
-@itemize
-
-@item @ressaynamed{Top,エッセー}:
-マニュアルをこのページと同じフォーマットで読むことができます。
-
-@end itemize
-
-@subheading すべてのフォーマット
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../essay/index.html, エッセー (分割 HTML)}:
-このマニュアルはいくつもの HTML ページに分割されています。@c
-@emph{(ページごとの小さなダウンロード)}
-
-@item @uref{../essay-big-page.html, エッセー (大きな HTML)}:
-このマニュアルは 1 つの巨大な HTML ページです。@c
-@emph{(約 ?? Mb の大きなダウンロード)}
-
-@c @item @uref{../essay.pdf, essay.pdf}:
-@item essay.pdf:
-日本語では PDF 形式での提供はありません。
-
-@c @item @uref{../TODO, essay.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
-@divEnd
-@end ignore
 
 
 @node 記譜法
@@ -354,48 +260,12 @@ LilyPond の譜刻テクニックの例を挙げます。@c
 
 @docLinks{記譜法, notation,
   @rusernamed{Top,記譜法},
-  @manualStableNotationSplit-ja,
-  @manualStableNotationBig-ja, 7 MB,
-  @manualStableNotationPdf-ja, 18 MB}
+  @manualStableNotationSplit,
+  @manualStableNotationBig, 7 MB,
+  @manualStableNotationPdf, 18 MB}
 
 @divEnd
 
-
-@ignore
-@divClass{column-right-bottom}
-@subheading お読みください
-
-@itemize
-
-@item @rusernamed{Top,記譜法リファレンス}:
-マニュアルをこのページと同じフォーマットで読むことができます。
-
-@end itemize
-
-@subheading すべてのフォーマット
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../notation/index.html, 記譜法リファレンス (分割 HTML)}:
-このマニュアルはいくつもの HTML ページに分割されています。@c
-@emph{(ページごとの小さなダウンロード)}
-
-@item @uref{../notation-big-page.html, 記譜法リファレンス (大きな HTML)}:
-このマニュアルは 1 つの巨大な HTML ページです。@c
-@emph{(約 10? Mb の大きなダウンロード)}
-
-@c @item @uref{../notation.pdf, notation.pdf}:
-@item notation.pdf:
-日本語では PDF 形式での提供はありません。
-
-@c @item @uref{../TODO, notation.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
-@divEnd
-@end ignore
 
 @node 使用方法
 @unnumberedsec 使用方法
@@ -414,47 +284,12 @@ LilyPond 記譜法を他のプログラムと統合する方法について説�
 
 @docLinks{使用方法, usage,
   @rprogramnamed{Top,使用方法},
-  @manualStableUsageSplit-ja,
-  @manualStableUsageBig-ja, 300 KB,
-  @manualStableUsagePdf-ja, 400 KB}
+  @manualStableUsageSplit,
+  @manualStableUsageBig, 300 KB,
+  @manualStableUsagePdf, 400 KB}
 
 @divEnd
 
-
-@ignore
-@subheading お読みください
-
-@itemize
-
-@item @rprogramnamed{Top,使用方法}:
-マニュアルをこのページと同じフォーマットで読むことができます。
-
-@end itemize
-
-@subheading すべてのフォーマット
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../usage/index.html, 使用方法 (分割 HTML)}:
-このマニュアルはいくつもの HTML ページに分割されています。@c
-@emph{(ページごとの小さなダウンロード)}
-
-@item @uref{../usage-big-page.html, 使用方法 (大きな HTML)}:
-このマニュアルは 1 つの巨大な HTML ページです。@c
-@emph{(約 10? Mb の大きなダウンロード)}
-
-@c @item @uref{../usage.pdf, usage.pdf}:
-@item usage.pdf:
-日本語では PDF 形式での提供はありません。
-
-@c @item @uref{../TODO, lilypond-usage.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
-@divEnd
-@end ignore
 
 @node コード断片集
 @unnumberedsec コード断片集
@@ -482,47 +317,55 @@ LSR は LilyPond の安定版で実行することを前提としているため
 
 @docLinks{コード断片集, snippets,
   @rlsrnamed{Top,コード断片集},
-  @manualStableSnippetsSplit-ja,
-  @manualStableSnippetsBig-ja, 2.5 MB,
-  @manualStableSnippetsPdf-ja, 8 MB}
+  @manualStableSnippetsSplit,
+  @manualStableSnippetsBig, 2.5 MB,
+  @manualStableSnippetsPdf, 8 MB}
 
 @divEnd
 
 
-@ignore
-@subheading お読みください
+@node FAQ
+@unnumberedsec FAQ
+@translationof FAQ
 
-@itemize
+@divClass{column-center-top}
+@subheading 使い始めの質問
 
-@item @rlsrnamed{Top,コード断片集}:
-マニュアルをこのページと同じフォーマットで読むことができます。
+@subsubheading グラフィカルなキャンバス、メニュー、それにツールバーはどこに@c
+あるのですか？
 
-@end itemize
+LilyPond は、ユーザが音楽をテキストで書くソフトウェアです。@c
+@ref{テキスト入力} を読んでください。
 
-@subheading すべてのフォーマット
 
-@divClass{keep-bullets}
-@itemize
+@subsubheading ドキュメントがたくさんあります！すべて読む必要があるのですか！？
 
-@item @uref{../snippets/index.html, コード断片集 (分割 HTML)}:
-このマニュアルはいくつもの HTML ページに分割されています。@c
-@emph{(ページごとの小さなダウンロード)}
+読む必要があるのは @ref{学習, 学習マニュアル} です。@c
+他のドキュメントで読む必要があるのは、@c
+作成したい記譜について議論しているセクションだけです。
 
-@item @uref{../snippets-big-page.html, 断片集 (大きな HTML)}:
-このマニュアルは 1 つの巨大な HTML ページです。@c
-@emph{(約 10? Mb の大きなダウンロード)}
 
-@c @item @uref{../snippets.pdf, snippets.pdf}:
-@item snippets.pdf:
-日本語では PDF 形式での提供はありません。
+@subsubheading それでもまだ、読むものがたくさんあります！そこまでする価値のあるソフトウェアなのですか？
 
-@c @item @uref{../TODO, snippets.info}:
-@c GNU info format for documentation.  TODO, link broken.
+あなた自身で決めてください。@c
+LilyPond を使う理由については、@ref{導入部} に書かれています。
 
-@end itemize
 @divEnd
+
+@divClass{column-center-bottom}
+@subheading 使い方についての質問
+@c Usage questions
+
+@subsubheading 何かがうまくいっていません！どうやって直せば良いのですか？
+
+修正方法については、@rprogram{トラブルシュート} で説明されています。
+
+
+@subsubheading 何故、構文が変更されるのですか？
+
+そのことについては、@rprogram{何故構文は変更されるのか？} で説明されています。
+
 @divEnd
-@end ignore
 
 
 @node Web
@@ -539,63 +382,23 @@ LSR は LilyPond の安定版で実行することを前提としているため
 @divEnd
 
 @divClass{column-right-bottom}
+@subheading お読みください
 
-@docLinks{Web, web,
-  @ref{Top,,,,Web},
-  @manualStableWebSplit-ja,
-  @manualStableWebBig-ja, 1 MB,
-  @manualStableWebPdf-ja, 2 MB}
+@subsubheading 最新のマニュアル
 
+@divClass{keep-bullets}
+@itemize
+@ref{Top,Web}
+@end itemize
 @divEnd
 
+@subsubheading @versionDevel の Web マニュアル
 
-@node FAQ
-@unnumberedsec FAQ
-@translationof FAQ
-
-@divClass{column-center-top}
-@subheading 使用前の質問
-
-@subsubheading グラフィカルなキャンバス、メニュー、それにツールバーはどこに@c
-あるのですか？
-@c Where are the graphical canvas, menus, and toolbars?
-
-LilyPond は、ユーザが音楽をテキストで書くソフトウェアです。@c
-@ref{テキスト入力} を読んでください。
-
-
-@subsubheading ドキュメントがたくさんあります！すべて読む必要があるのですか！？
-@c There's a lot of documentation!  Do I need to read it?
-
-読む必要があるのは @ref{学習, 学習マニュアル} です。@c
-他のドキュメントで読む必要があるのは、@c
-作成したい記譜について議論しているセクションだけです。
-
-
-@subsubheading それでもまだ、読むものがたくさんあります！そこまでする価値のあるソフトウェアなのですか？
-@c That's still a lot of reading!  Is it worth it?
-
-あなた自身で決めてください。@c
-LilyPond を使う理由については、@ref{導入部} に書かれています。
-
-@divEnd
-
-@divClass{column-center-bottom}
-@subheading 使い方についての質問
-@c Usage questions
-
-@subsubheading 何かがうまくいっていません！どうやって直せば良いのですか？
-@c Something isn't working!  How do I fix it?
-
-修正方法については、@rprogram{トラブルシューティング (すべてをバラバラにする)} で説明されています。
-@c @rprogram{Troubleshooting}.
-
-
-@subsubheading 何故、構文が変更されるのですか？
-@c Why do you change the syntax?
-
-そのことについては、@rprogram{何故構文は変更されるのか？} で説明されています。
-@c @rprogram{Why does the syntax change?}.
+@docLinksBare{Web, web,
+  @ref{Top,Web},
+  @manualDevelWebSplit,
+  @manualDevelWebBig, 1 MB,
+  @manualDevelWebPdf, 2 MB}
 
 @divEnd
 
@@ -606,7 +409,6 @@ LilyPond を使う理由については、@ref{導入部} に書かれていま�
 
 @divClass{column-left-top}
 @subheading 変更点
-@c Changes
 
 本書は、LilyPond の前の安定バージョンからの、@c
 重要な変更点と新しい機能についての要約です。
@@ -617,54 +419,18 @@ LilyPond を使う理由については、@ref{導入部} に書かれていま�
 
 @docLinks{変更点, changes,
   @rchangesnamed{Top,変更点},
-  @manualStableChangesSplit-ja,
-  @manualStableChangesBig-ja, 6 KB,
-  @manualStableChangesPdf-ja, 200 KB}
+  @manualStableChangesSplit,
+  @manualStableChangesBig, 6 KB,
+  @manualStableChangesPdf, 200 KB}
 
-
-@ignore
-@subheading お読みください
-
-@itemize
-
-@item @rchangesnamed{Top,変更点}:
-マニュアルをこのページと同じフォーマットで読むことができます。
-
-@end itemize
-
-@subheading すべてのフォーマット
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../changes/index.html, 変更点 (分割 HTML)}:
-このマニュアルはいくつもの HTML ページに分割されています。@c
-@emph{(ページごとの小さなダウンロード)}
-
-@item @uref{../changes-big-page.html, Changes (大きな HTML)}:
-このマニュアルは 1 つの巨大な HTML ページです。@c
-@emph{(約 10? Mb の大きなダウンロード)}
-
-@c @item @uref{../changes.pdf, changes.pdf}:
-@item changes.pdf:
-日本語では PDF 形式での提供はありません。
-
-@c @item @uref{../TODO, changes.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
 @divEnd
-@divEnd
-@end ignore
-
 
 @node 拡張
 @unnumberedsec 拡張
-@translationof Extend
+@translationof Extending
 
 @divClass{column-left-top}
 @subheading LilyPond の拡張
-@c Extend LilyPond
 
 本書は、LilyPond を拡張する方法について説明しています。
 
@@ -674,45 +440,11 @@ LilyPond を使う理由については、@ref{導入部} に書かれていま�
 
 @docLinks{拡張, extend,
   @rextendnamed{Top,拡張},
-  @manualStableExtendingSplit-ja,
-  @manualStableExtendingBig-ja, 200 KB,
-  @manualStableExtendingPdf-ja, 400 KB}
+  @manualStableExtendingSplit,
+  @manualStableExtendingBig, 200 KB,
+  @manualStableExtendingPdf, 400 KB}
 
-
-@ignore
-@subheading お読みください
-
-@itemize
-
-@item @rextendnamed{Top,拡張}: 
-マニュアルをこのページと同じフォーマットで読むことができます。
-
-@end itemize
-
-@subheading すべてのフォーマット
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../extending/index.html, 拡張 (分割 HTML)}:
-このマニュアルはいくつもの HTML ページに分割されています。@c
-@emph{(ページごとの小さなダウンロード)}
-
-@item @uref{../extending-big-page.html, 拡張 (大きな HTML)}:
-このマニュアルは 1 つの巨大な HTML ページです。@c
-@emph{(約 10? Mb の大きなダウンロード)}
-
-@c @item @uref{../extending.pdf, extending.pdf}:
-@item extending.pdf:
-日本語では PDF 形式での提供はありません。
-
-@c @item @uref{../TODO, extending.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
 @divEnd
-@divEnd
-@end ignore
 
 
 @node 内部リファレンス
@@ -721,7 +453,6 @@ LilyPond を使う理由については、@ref{導入部} に書かれていま�
 
 @divClass{column-left-top}
 @subheading 内部リファレンス
-@c Internals reference
 
 本書は、LilyPond のクラス、オブジェクト、それに関数を@c
 それぞれすべて詳細に、かつ具体的にドキュメント化した@c
@@ -744,45 +475,12 @@ HTML ドキュメントでは、それらサブセクションにはクリック
 
 @docLinks{内部リファレンス, internals,
   @rinternalsnamed{Top,内部リファレンス},
-  @manualStableInternalsSplit-ja,
-  @manualStableInternalsBig-ja, 2.5 MB,
-  @manualStableInternalsPdf-ja, 2.8 MB}
+  @manualStableInternalsSplit,
+  @manualStableInternalsBig, 2.5 MB,
+  @manualStableInternalsPdf, 2.8 MB}
 
 
-@ignore
-@subheading お読みください
-
-@itemize
-
-@item @rinternalsnamed{Top,内部リファレンス}: 
-マニュアルをこのページと同じフォーマットで読むことができます。
-
-@end itemize
-
-@subheading すべてのフォーマット
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../internals/index.html, 内部リファレンス (分割 HTML)}:
-このマニュアルはいくつもの HTML ページに分割されています。@c
-@emph{(ページごとの小さなダウンロード)}
-
-@item @uref{../internals-big-page.html, 内部リファレンス (大きな HTML)}:
-このマニュアルは 1 つの巨大な HTML ページです。@c
-@emph{(約 10? Mb の大きなダウンロード)}
-
-@c @item @uref{../internals.pdf, internals.pdf}:
-@item internals.pdf:
-日本語では PDF 形式での提供はありません。
-
-@c @item @uref{../TODO, internals.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
 @divEnd
-@divEnd
-@end ignore
 
 
 @node 翻訳済み
@@ -801,147 +499,28 @@ HTML ドキュメントでは、それらサブセクションにはクリック
 @unnumberedsec すべて
 @translationof All
 
-@divClass{heading-center}
-@heading ドキュメント クイック リンク
-@c Documentation quick links
-
-他の形式でのマニュアルへのリンクは、@ref{マニュアル} にあります。
-
-@divEnd
-
-@c this should match the (main) manual page.
-@divClass{column-center-top}
-@subheading 導入部
-@c Introduction
-
-@itemize
-
-@c no colon : needed in this section
-@item @ifWebLinks{@manualStableLearningSplit-ja,@rlearningnamed{Top,学習}}
-@qq{必読} のやさしい LilyPond 入門書です。
-
-@item @ifWebLinks{@manualStableGlossarySplit-ja,@rglosnamed{Top,音楽用語集}}
-@emph{(副読本)}
-これは音楽用語集について説明し、@c
-英語の音楽用語に馴染みの無いユーザに訳語を提供します。
-
-@item @ifWebLinks{@manualStableEssaySplit-ja,@ressaynamed{Top,エッセー}}
-@emph{(副読本)}
-楽譜譜刻プロセスと 19 世紀の楽譜譜刻の審美性についてのバックグラウンド情報です。
-
-
-@ignore
-@item @rlearningnamed{Top,学習}:
-@qq{必読} のやさしい LilyPond 入門書です。
-
-@item @rglosnamed{Top,用語集}:
-@emph{(副読本)}
-これは音楽用語集について説明し、@c
-英語の音楽用語に馴染みの無いユーザに訳語を提供します。
-
-@item @ressaynamed{Top,エッセー}:
-@emph{(副読本)}
-楽譜譜刻プロセスと 19 世紀の楽譜譜刻の審美性についてのバックグラウンド情報です。
-@end ignore
-
-@end itemize
-
-@divEnd
-
 @divClass{column-left-top}
-@subheading 常用するマニュアル
-@c Regular use
-
-@itemize
-
-@item @ifWebLinks{@manualStableNotationSplit-ja,@rusernamed{Top,記譜法}}
-このドキュメントの主要部です: 楽譜作成についての詳しい情報を提供します。
-
-@item @ifWebLinks{@manualStableUsageSplit-ja,@rprogramnamed{Top,使用方法}}
-プログラムの実際と、オペレーション システム特有の問題について議論します。
-
-@item @ifWebLinks{@manualStableSnippetsSplit-ja,@rlsrnamed{Top,コード断片集}}
-ちょっとしたトリック、秘訣、例。
-
-
-@ignore
-@item @rusernamed{Top,記譜法}:
-このドキュメントの主要部です: 楽譜作成についての詳しい情報を提供します。
-
-@item @rprogramnamed{Top,使用方法}:
-プログラムの実際と、オペレーション システム特有の問題について議論します。
-
-@item @rlsrnamed{Top,コード断片集}:
-ちょっとしたトリック、秘訣、例。
-@end ignore
-
-@end itemize
-
-@divEnd
-
-
-@divClass{column-right-top}
-@subheading 常用外のマニュアル
-@c Infrequent Use
-
-@itemize
-
-@item @ref{FAQ}:
-FAQ の回答へのリンク
-
-@item @ifWebLinks{@manualStableChangesSplit-ja,@rchangesnamed{Top,変更点}}
-最新のメジャー バージョンから変更された点。 
-
-@item @ifWebLinks{@manualStableExtendingSplit-ja,@rextendnamed{Top,拡張}}
-LilyPond での思いつきの調整をプログラミングします。
-
-@item @ifWebLinks{@manualStableInternalsSplit-ja,@rinternalsnamed{Top,内部リファレンス}}
-調整を行うために必要となる、LilyPond の内部構造についての情報。
-
-
-@ignore
-@item @rchangesnamed{Top,変更点}:
-最新のメジャー バージョンから変更された点。 
-
-@item @rextendnamed{Top,拡張}:
-LilyPond での思いつきの調整をプログラミングします。
-
-@item @rinternalsnamed{Top,内部リファレンス}:
-調整を行うために必要となる、LilyPond の内部構造についての情報。
-@end ignore
-
-@end itemize
-
-@divEnd
-
-
-@divClass{column-center-bottom}
 @subheading ダウンロード可能なバージョン
-@c Downloadable versions
 
-@help{compare tarball vs. zip size, ask about windows users
-dealing with tarballs (both gz and bz2), etc.}
-
-@help{on second thought, wait until the new doc build.  write an
-apology here for no tarballs}
+@ifclear web_version
+ダウンロード可能な .tar.gz ファイルは @uref{http://lilypond.org} でのみ入手可能です。
+@end ifclear
+@ifset web_version
 
 @divClass{keep-bullets}
 @itemize
 
-@item html-split zip
-
-@item html-big zip
-
-@item pdf zip
-
-@item info zip maybe?!?!
+@item @doctarballStable
 
 @end itemize
 
 @divEnd
+@end ifset
 
+@divEnd
+
+@divClass{column-right-bottom}
 @subheading 以前の安定バージョン
-@c Previous stable versions
 
 @divClass{keep-bullets}
 @itemize
@@ -955,7 +534,23 @@ LilyPond 2.10 ドキュメント}
 @item @uref{http://lilypond.org/doc/v2.8/Documentation/,
 LilyPond 2.8 ドキュメント}
 
-@help anybody want to write this stuff?
+@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+LilyPond 2.6 ドキュメント}
+
+@item @uref{http://lilypond.org/doc/v2.4/Documentation/,
+LilyPond 2.4 ドキュメント}
+
+@item @uref{http://lilypond.org/doc/v2.2/Documentation/,
+LilyPond 2.2 ドキュメント}
+
+@item @uref{http://lilypond.org/doc/v2.0/Documentation/,
+LilyPond 2.0 ドキュメント}
+
+@item @uref{http://lilypond.org/doc/v1.8/Documentation/,
+LilyPond 1.8 ドキュメント}
+
+@item @uref{http://lilypond.org/doc/v1.6/Documentation/,
+LilyPond 1.6 ドキュメント}
 
 @end itemize
 
@@ -969,7 +564,6 @@ LilyPond 2.8 ドキュメント}
 
 @divClass{column-center-top}
 @subheading ドキュメント ライセンス
-@c Documentation license
 
 GNU LilyPond のドキュメントは、@c
 GNU Free Documentation License に基づいて公開されています。@c
@@ -987,4 +581,3 @@ GNU Free Documentation License に基づいて公開されています。@c
 @include fdl.itexi
 
 @divEnd
-
