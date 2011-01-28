@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 0764a50d470cab82ca29da30298dacd333d3da12
+    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -259,11 +259,11 @@ in @ref{Das Papierformat einstellen}.
 
 Die vertikalen Dimensionen, die durch die automatische Skalierung verändert
 werden sind: @code{top-margin} und @code{bottom-margin} (siehe
-@ref{Vertikale \paper-Variablen mit festen Abständen}.  Die horizontalen
+@ref{Vertikale \paper-Variablen mit festen Abständen}).  Die horizontalen
 Dimensionen, die durch die automatische Skalierung verändert werden, sind
 @code{left-margin}, @code{right-margin}, @code{inner-margin}, @code{outer-margin},
 @code{binding-offset}, @code{indent} und @code{short-indent} (siehe
-@ref{\paper-Variablen für horizontale Abstände}.
+@ref{\paper-Variablen für horizontale Abstände}).
 
 Die Standardwerte für diese Dimensionen sind in
 @file{ly/paper-defaults-init.ly} definiert, wobei interne Variablen mit den
@@ -1953,11 +1953,12 @@ der zweite die Eigenschaft komplett neu definiert:
 
 @example
 \new Staff \with @{
-  \override VerticalAxisGroup #'staff-staff-spacing #'basic-distance = #10
+  \override VerticalAxisGroup #'default-staff-staff-spacing
+       #'basic-distance = #10
 @} @{ @dots{} @}
 
 \new Staff \with @{
-  \override VerticalAxisGroup #'staff-staff-spacing =
+  \override VerticalAxisGroup #'default-staff-staff-spacing =
     #'((basic-distance . 10)
        (minimum-distance . 9)
        (padding . 1)
@@ -1972,7 +1973,8 @@ Um Platzierungseinstellungen global vorzunehmen, müssen sie in der
 \layout @{
   \context @{
     \Staff
-    \override VerticalAxisGroup #'staff-staff-spacing #'basic-distance = #10
+    \override VerticalAxisGroup #'default-staff-staff-spacing
+         #'basic-distance = #10
   @}
 @}
 @end example
@@ -2785,6 +2787,9 @@ Referenz der Interna:
 @rinternals{StaffSpacing},
 @rinternals{NonMusicalPaperColumn}.
 
+Aufsatz über den automatischen Notensatz:
+@ressay{Optischer Ausgleich}.
+
 @knownissues
 
 Es gibt keine sinnvolle Möglichkeit, die horizontale Verteilung der
@@ -3282,7 +3287,8 @@ ausgeschaltet ist.  Man kann allerdings in einer Partitur unterschiedliche
 Abschnitte mit verschiedenem Platzierungsverhalten definieren.
 Hierzu ist der Befehl @code{\newSpacingSection} da.  Siehe auch @ref{Eine neuer Bereich mit anderen Abständen}.
 
-Im Folgenden soll gezeigt werden, wie sich der @code{Separating_line_group_engraver}
+Im Folgenden soll gezeigt werden, wie sich der
+@code{Separating_line_group_engraver}
 auswirkt und warum er normalerweise für proportionale Notation ausgeschaltet wird.
 In diesem Beispiel wird verdeutlicht, dass vor jeder ersten Note eines Notensystems
 immer etwas zusätzlicher Platz gesetzt wird:
@@ -3299,7 +3305,7 @@ immer etwas zusätzlicher Platz gesetzt wird:
 }
 @end lilypond
 
-Der gleiche horizontale Platz wird vor eine Noten gesetzt, wenn sie
+Der gleiche horizontale zusätzliche Platz wird vor eine Noten gesetzt, wenn sie
 einer Taktart, einem Schlüssel oder einer Tonartbezeichnung folgt.
 Dieser Platz wird durch @code{Separating_line_group_engraver}
 eingefügt; wenn wir ihn aus der Partitur entfernen, entfällt

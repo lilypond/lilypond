@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -22,73 +22,79 @@ zu notieren.
 
 
 @menu
-* Nichteuropäische Notenbezeichnungen und Versetzungszeichen::
+* Übliche Notation für nichteuropäische Musik::
 * Arabische Musik::
 * Türkische klassische Musik::
 @end menu
 
 
-@node Nichteuropäische Notenbezeichnungen und Versetzungszeichen
-@subsection Nichteuropäische Notenbezeichnungen und Versetzungszeichen
+@node Übliche Notation für nichteuropäische Musik
+@subsection Übliche Notation für nichteuropäische Musik
 @translationof Common notation for non-Western music
 
+Dieser Abschnitt zeigt, wie man Partituren erstellt, die nicht
+der europäischen klassischen Musiktradition angehören.
+
+@menu
+* Erweiterung von Notation und Stimmungssystemen::
+@end menu
+
+@node Erweiterung von Notation und Stimmungssystemen
+@unnumberedsubsubsec Erweiterung von Notation und Stimmungssystemen
+@translationof Extending notation and tuning systems
+
+Die klassische Standardnotation wird üblicherweise zur Notation
+verschiedenster Musikarten benutzt und ist nicht auf die @qq{klassische
+Musik} beschränkt.  Diese Notation wird behandelt in
+@ref{Tonhöhen setzen}, und die unterschiedlichen Notenbezeichnungen,
+die eingesetzt werden können, finden sich in
+@ref{Notenbezeichnungen in anderen Sprachen}.
+
 Viele nicht-europäische Musik (und auch manche europäische Volksmusik)
-benutzt alternative oder erweiterte Skalen (Tonleitern), die man
+benutzt jedoch alternative oder erweiterte Skalen (Tonleitern), die man
 nicht mit der normalen westlichen Notation notieren kann.
 
 In einigen Fällen wird die klassische Notation dennoch benutzt,
 wobei man die Tonhöhenunterschiede implizit mitliest.  Beispielsweise
 arabische Musik wird mit normalen Halb- und Vierteltonversetzungszeichen
 notiert und die exakte Tonhöhe (die etwas von der notierten abeweichen
-kann) dann aus dem Kontext erschlossen.  Andere Tonsysteme brauchen
-erweiterte odert vollständige andere Notation.
+kann) dann aus dem Kontext erschlossen.  Italienische Notenbezeichnungen
+werden normalerweise benutzt, und die Init-Datei @file{arabic.ly} stellt
+eine Anzahl an Makros zur Verfügung, die die Standardnoation erweitern.
+Siehe auch @ref{Arabische Musik}.
 
+Andere Musik brauchen erweiterte oder ganz einzigartige Notation.
 Die klassische Musik der Türkei, oder ottomanische Musik, benutzt
 melodische Formen, die als @notation{makamlar} bekannt sind und
 deren Intervalle auf 1/9-Bruchteilen des Ganztones beruhen.  Die
-moderne nationale Lösung ist es, die normale europäische Notation
-auf dem System mit normalen Noten zu benutzen und ihnen spezielle
-türkische Versetzungszeichen hinzuzufügen.  Diese Versetzungszeichen
-sind in der Datei @file{makam.ly} definiert.  (Wie Sie diese Datei
-finden können, wird erklärt in @rlearning{Mehr Information}.  Die
-folgende Tabelle zeigt ihre Bezeichnungen, die Versetzungszeichen-Endung,
-die an die Noten gefügt werden müssen und die Tonhöhenveränderung
-in einem Bruchteil eines Ganztones.
+normale europäische Notation wird trotzdem
+auf dem System mit normalen Noten benutzt mit speziellen
+türkischen Versetzungszeichen.  Diese Versetzungszeichen
+sind in der Datei @file{makam.ly} definiert. Zu weiterer Information
+über die klassische türkische Musik und Makamlar, siehe
+@ref{Türkische klassische Musik}.
 
-@c TODO: can we include the actual accidentals in this table?
-@quotation
-@multitable {@b{büyük mücenneb (sharp)}} {@b{suffix}} {@b{pitch alteration}}
-@headitem Bezeichnung
-  @tab Endung @tab Tonhöhenveränderung
-
-@item büyük mücenneb (sharp)
-  @tab -bm @tab +8/9
-@item kücük mücenneb (sharp)
-  @tab -k @tab +5/9
-@item bakiye (sharp)
-  @tab -b @tab +4/9
-@item koma (sharp)
-  @tab -c @tab +1/9
-
-@item koma (flat)
-  @tab -fc @tab -1/9
-@item bakiye (flat)
-  @tab -fb @tab -4/9
-@item kücük mücenneb (flat)
-  @tab -fk @tab -5/9
-@item büyük mücenneb (flat)
-  @tab -fbm @tab -8/9
-@end multitable
-@end quotation
-
-Zu mehr Information über die klassische türkische Musik und
-makamlar, siehe @ref{Türkische klassische Musik}.
-
+Um Dateien wie @file{arabic.ly} oder @file{makam.ly} zu finden, siehe
+@rlearning{Mehr Information}.
 
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {makam-example.ly}
+
+@seealso
+Glossar:
+@rglos{Common Practice Period},
+@rglos{makamlar}.
+
+Handbuch zum Lernen:
+@rlearning{Mehr Information}.
+
+Notationsreferenz:
+@ref{Tonhöhen setzen},
+@ref{Notenbezeichnungen in anderen Sprachen},
+@ref{Arabische Musik},
+@ref{Türkische klassische Musik}.
 
 
 @node Arabische Musik
@@ -140,7 +146,7 @@ an anderer Stelle behandelt:
 @itemize
 @item Notenbezeichnungen und Versetzungszeichen (inklusive Vierteltöne)
 können angepasst werden, wie behandelt in
-@ref{Notenbezeichnungen in anderen Sprachen}.
+@ref{Übliche Notation für nichteuropäische Musik}.
 
 @item Zusätzliche Taktarten können erstellt werden, siehe
 @ref{Tonartbezeichnung}.
@@ -158,7 +164,7 @@ können ohne Taktlinien notiert werden, siehe hierzu
 
 @seealso
 Notationsreferenz:
-@ref{Notenbezeichnungen in anderen Sprachen},
+@ref{Übliche Notation für nichteuropäische Musik},
 @ref{Tonartbezeichnung},
 @ref{Manuelle Balken}.
 
@@ -178,8 +184,11 @@ land sein und eignen sich daher nicht gut für die Notation von Musik.
 Sie werden nicht benutzt.  Englische Notenbezeichnungen hingegen sind
 in der arabischen Musikerziehung recht unbekannt, weshalb italienische
 Notenbezeichnungen (@code{do, re, mi, fa, sol, la, si}) eingesetzt
-werden.  Modifikatoren (Versetzungszeichen) können auch benutzt werden,
-wie gezeigt in @ref{Notenbezeichnungen in anderen Sprachen}.
+werden.  Modifikatoren (Versetzungszeichen) können auch benutzt werden.
+Italienische Notenbezeichnungen finden sich erklärt in
+@ref{Notenbezeichnungen in anderen Sprachen}, die Benutzung der normalen
+europäischen Notation für nichteuropäische Musik findet sich erklärt
+in @ref{Übliche Notation für nichteuropäische Musik}.
 
 Hier ein Beispiel der arabischen @notation{rast}-Tonleiter:
 
@@ -211,7 +220,8 @@ werden.
 
 @seealso
 Notationsreferenz:
-@ref{Notenbezeichnungen in anderen Sprachen}.
+@ref{Notenbezeichnungen in anderen Sprachen},
+@ref{Übliche Notation für nichteuropäische Musik}.
 
 Schnipsel:
 @rlsr{World music}.
@@ -323,6 +333,14 @@ häufigsten Maqams bestimmten Vorzeichen zugeordnet werden:
 {non-traditional-key-signatures.ly}
 
 @seealso
+Glossar:
+@rglos{maqam},
+@rglos{bayati},
+@rglos{rast},
+@rglos{sikah},
+@rglos{iraq},
+@rglos{kurd}.
+
 Notationsreferenz:
 @ref{Tonartbezeichnung}.
 
@@ -370,6 +388,10 @@ zu benutzen.
 
 
 @seealso
+Glossar:
+@rglos{semai},
+@rglos{taqasim}.
+
 Notationsreferenz:
 @ref{Manuelle Balken},
 @ref{Automatische Balken},
@@ -390,7 +412,7 @@ Schnipsel:
 @cindex arabische Musik, Beispiel
 @cindex Vorlage, arabische Musik
 
-Hier eine Vorlage, welche den Beginn eines türkischen Semai
+Hier eine Vorlage, welche den Beginn eines türkischen @notation{Semai}
 benutzt, der in der arabischen Musikerziehung oft herangezogen
 wird, um Besonderheiten der arabischen Musiknotation, wie
 etwa Zwischenintervalle und ungewöhnliche Modi, zu illustrieren.
@@ -504,7 +526,7 @@ Einige Probleme der Notation türkischer klassischer Musik sind woanders behande
 @itemize
 @item
 Notenbezeichnungen und Versetzungszeichen finden sich in
-@ref{Nichteuropäische Notenbezeichnungen und Versetzungszeichen}.
+@ref{Übliche Notation für nichteuropäische Musik}.
 
 @end itemize
 
@@ -529,6 +551,55 @@ Es bietet sich an, die normalen westlichen Noten auf dem Notensystem zu
 benutzen (also c, d, e @dots) angrereichert mit besonderen Versetzungszeichen,
 die die Noten um 1/9, 4/9, 5/9 und 8/9 eines Ganztons erhöhen oder
 erniedrigen.  Diese Versetzungszeichen sind definiert in der Datei
-@file{makam.ly}.  (Um die Datei auf Ihrem System zu finden, lesen Sie bitte
-@rlearning{Mehr Information}.)  Eine ausführlichere Erklärung findet sich in
-@ref{Nichteuropäische Notenbezeichnungen und Versetzungszeichen}.
+@file{makam.ly}.
+
+Die folgende Tabelle zeigt
+
+@itemize
+
+@item
+die Bezeichnung dieser besonderen Versetzungszeichen
+
+@item
+die Endung, die an die Note gehängt werden muss und
+
+@item
+die Tonhöhenveränderung als Bruch eines Ganztones.
+
+@end itemize
+
+@quotation
+@multitable {@b{büyük mücenneb (Kreuz)}} {@b{Endung}} {@b{Tonhöhenveränderung}}
+@headitem Versetzungszeichen
+  @tab Endung @tab Tonhöhenveränderung
+
+@item büyük mücenneb (Kreuz)
+  @tab -bm @tab +8/9
+@item kücük mücenneb (Kreuz)
+  @tab -k @tab +5/9
+@item bakiye (Kreuz)
+  @tab -b @tab +4/9
+@item koma (Kreuz)
+  @tab -c @tab +1/9
+
+@item koma (B)
+  @tab -fc @tab -1/9
+@item bakiye (B)
+  @tab -fb @tab -4/9
+@item kücük mücenneb (B)
+  @tab -fk @tab -5/9
+@item büyük mücenneb (B)
+  @tab -fbm @tab -8/9
+@end multitable
+@end quotation
+
+Eine weitergehende Erklärung der Notation nichteuropäischer Musik findet
+sich in @ref{Übliche Notation für nichteuropäische Musik}.
+
+@seealso
+Glossar:
+@rglos{makam},
+@rglos{makamlar}.
+
+Notationsreferenz:
+@ref{Übliche Notation für nichteuropäische Musik}.

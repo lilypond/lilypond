@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 0764a50d470cab82ca29da30298dacd333d3da12
+    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 @c Translators: Till Paala
 
-@c \version "2.13.36"
+@c \version "2.13.46"
 
 @node Notationsübersicht
 @appendix Notationsübersicht
@@ -19,6 +19,7 @@
 @menu
 * Liste der Akkordbezeichnungen::
 * Übliche Akkord-Variablen::
+* Vordefinierte Saitenstimmungen::
 * Die vordefinierten Bund-Diagramme::
 * MIDI-Instrumente::
 * Liste der Farben::
@@ -420,6 +421,14 @@ Perfekte Quinte, Oktave
 
 
 @end multitable
+
+@node Vordefinierte Saitenstimmungen
+@appendixsec Vordefinierte Saitenstimmungen
+@translationof Predefined string tunings
+
+Die folgende Tabelle zeigt die vordefinierten Saitenstimmungen:
+
+@lilypondfile{display-predefined-string-tunings.ly}
 
 
 @node Die vordefinierten Bund-Diagramme

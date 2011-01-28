@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -289,6 +289,10 @@ Referenz der Interna:
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
 
+@knownissues
+@code{PianoStaff} nimmt standardmäßig keine @code{ChordNames} (Akkordbezeichnungen)
+auf.
+
 
 @node Verschachtelte Notensysteme
 @unnumberedsubsubsec Verschachtelte Notensysteme
@@ -398,7 +402,7 @@ mit einer Option in der @code{\paper}-Umgebung angeschalten.
 
 @seealso
 Notationsreferenz:
-@ref{Seitenformatierung}.
+@ref{Seitenlayout}.
 
 Schnipsel:
 @rlsr{Staff notation}.
@@ -960,7 +964,7 @@ Wenn die Instrumentenbezeichnung zu lang ist, kann es vorkommen,
 dass die Bezeichnungen in einer Gruppe nicht zentriert werden.
 Um dennoch eine Zentrierung zu erhalten, müssen die Werte des
 Einzugs (@code{indent} und @code{short-indent}) vergrößert werden.
-Zu Einzelheiten siehe @ref{Horizontale Dimensionen}.
+Zu Einzelheiten siehe @ref{\paper-Variablen für Verschiebungen und Einrückungen}.
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
@@ -1058,7 +1062,7 @@ wird dann benutzt, um den Wechsel vorzunehmen:
 
 @seealso
 Notationsreferenz:
-@ref{Horizontale Dimensionen},
+@ref{\paper-Variablen für Verschiebungen und Einrückungen},
 @ref{Umgebungs-Plugins verändern}.
 
 Schnipsel:
@@ -1312,9 +1316,10 @@ oboe = \relative c'' {
 }
 @end lilypond
 
-Die Bezeichnung des Instruments, von dem die Stichnoten genommen
-werden, kann auch ausgegeben werden, wenn die Eigenschaft
-@code{instrumentCueName} im @code{CueVoice}-Kontext definiert wird.
+Beschriftung kann auch benutzt werden, um die Bezeichnung des zitierten
+Instruments anzuzeigen.  Wenn die Stichnoten einen Schlüsselwechsel
+erfordern, muss der originale Schlüssel am Ende der Stichnoten wieder
+hergestellt werden:
 
 @lilypond[verbatim,quote]
 flute = \relative c'' {
@@ -1340,22 +1345,15 @@ bassoon = \relative c {
 
 @funindex \killCues
 @funindex killCues
-@funindex \transposedCueDuring
-@funindex transposedCueDuring
-
-Zusätzlich zu der Instrumentenbezeichnung kann auch die
-Bezeichnung des Originalinstruments ausgegeben werden, und alle
-Änderungen, die für die Stichnoten gemacht wurden, müssen
-wieder rückgängig gemacht werden.  Das kann mit den Befehlen
-@code{\addInstrumentDefinition} und @code{\instrumentSwitch}
-vorgenommen werden.  Ein Beispiel und mehr Information findet
-sich in
-@ref{Instrumentenbezeichnungen}.
 
 Der @code{\killCues}-Befehl entfernt Stichnoten aus einem
-musikalischen Ausdruck.  Das kann nützlich sein, wenn die
-Stichnoten von einer Stimme entfernt werden sollen, aber in
-einer anderen Edition benötigt werden.
+musikalischen Ausdruck, sodass der selbe Ausdruck für eine Stimme mit den
+Stichnoten, aber auch für die Paritur eingesetzt werden kann.  Der Befehl
+@code{\killCues} entfernt nur die Noten und Ereignisse, die mit
+@code{\cueDuring} zitiert worden sind.  Andere mit der Beschriftungen verknüpfte
+Ereignisse wie Schlüsseländerungen und Bezeichnungen des Instruments können
+mit einem Marker versehen werden, um selektiv benutzt werden zu können.  Siehe
+@ref{Marken benutzen}.
 
 @lilypond[verbatim,quote]
 flute = \relative c'' {
@@ -1387,13 +1385,25 @@ bassoon = \relative c {
 >>
 @end lilypond
 
-Der @code{\transposedCueDuring}-Befehl bietet sich an, wenn man
-Stichnoten eines Instrumentes mit einem vollständig anderen
-Register hinzufügen will.  Die Syntax ähnelt der des
-@code{\cueDuring}-Befehls, aber ein zusätzliches Argument
-wird benötigt, das die Transposition der Stichnoten-Stimme
-bezeichnet.  Mehr Information zu Transposition siehe
-@ref{Transposition von Instrumenten}.
+Alternativ können Schlüsseländerungen und Instrumentbezeichnungen auch in
+eine Instrument-Definition zur wiederholten Verwendung gesammelt werden,
+wobei @code{\addInstrumentDefinition} eingesetzt wird, das sich in
+@ref{Instrumentenbezeichnungen} beschrieben findet.
+
+@funindex \transposedCueDuring
+@funindex transposedCueDuring
+
+Genauso wie @code{\quoteDuring} berücksichtigt auch @code{\cueDuring}
+Transpositionen.  Stichnoten werden auf den Tonhöhen erstellt, die für
+das Instrument geschrieben würden, in dessen Noten sie gesetzt werden,
+um die klingenden Töne des Quelleninstruments zu produzieren.
+
+Um Stichnoten anders zu transponieren, muss @code{\transposedCueDuring}
+benutzt werden.  Dieser Befehl braucht ein zusätzliches Argument, um
+(in absolutem Modus) die gedruckte Tonhöhe vorzugeben, mit der das
+das zweigestrichene C dargestellt werden soll.  Das ist nützlich, wenn
+man Stichnoten von einem Instrument mit einem vollständig anderen
+Register benutzt:
 
 @lilypond[verbatim,quote]
 piccolo = \relative c''' {
@@ -1417,12 +1427,6 @@ bassClarinet = \relative c' {
   \new Staff \bassClarinet
 >>
 @end lilypond
-
-Es ist möglich, Zitate mit eindeutigen Bezeichnungen zu versehen
-(unter Benutzung von @emph{tags}), um sie auf unterschiedliche
-Weise zu verarbeiten.  Einzelheiten zu diesem Vorgehen werden
-vorgestellt in
-@ref{Marken benutzen}.
 
 @cindex Noten, kleiner
 @cindex kleinere Noten
@@ -1451,7 +1455,8 @@ d2. d2.
 Notationsreferenz:
 @ref{Transposition von Instrumenten},
 @ref{Instrumentenbezeichnungen},
-@ref{Marken benutzen}.
+@ref{Marken benutzen},
+@ref{Musikalische Stichnoten}.
 
 Schnipsel:
 @rlsr{Staff notation}.
