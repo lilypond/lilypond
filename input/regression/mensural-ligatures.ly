@@ -1,4 +1,4 @@
-\version "2.12.0"
+\version "2.13.47"
 
 \header {
   texidoc = "Mensural ligatures show different shapes, depending on the
@@ -27,7 +27,7 @@
   #(set-accidental-style 'forget)
   \textLengthOn
 
-				% ligaturae binaria
+% ligaturae binaria
 
   \[
     b\breve^\markup { \column { { \bold "ligaturae binaria" } "BL" } }
@@ -81,7 +81,7 @@
 
   \bar "|" \break
 
-				% ligaturae ternariae, quaternariae, etc. (sicut in Apel[1])
+% ligaturae ternariae, quaternariae, etc. (sicut in Apel[1])
 
   \[
     b\breve^\markup {
@@ -136,7 +136,7 @@
 
   \bar "|" \break
 
-				% examples from "dtv-Atlas zur Musik" [2]
+% examples from "dtv-Atlas zur Musik" [2]
 
   \[
     d'\breve^\markup { \column { { \bold "dtv-Atlas" } "BBL" } }
@@ -184,7 +184,7 @@
 
   \bar "|" \break
 
-				% some ligatures from Ockeghem: Missa De plus en plus
+% some ligatures from Ockeghem: Missa De plus en plus
 
   \[
     c'\maxima^\markup {
@@ -212,12 +212,15 @@
     \]
 
   \[
-    b\longa^\markup { "LBBBBB" }
+    \override NoteHead #'style = #'blackpetrucci
+    b\longa^\markup { "LBBBBB." }
     c'\breve
     d'
     g
+    \once \override NoteHead #'ligature-flexa = ##t
     f
-    g
+    \revert NoteHead #'style
+    g\breve.
     \]
 
   \[
@@ -229,9 +232,11 @@
     \]
 
   \[
+    \override NoteHead #'style = #'blackpetrucci
     e'1^\markup { "SSB" }
     a
     g\breve
+    \revert NoteHead #'style
     \]
 
   \[
@@ -241,9 +246,35 @@
     e'
     \]
 
+  \[
+    \override NoteHead #'style = #'blackpetrucci
+    e'\longa^\markup { "LBB" }
+    f'\breve
+    \revert NoteHead #'style
+    e'
+    \]
+
+  \[
+    \override NoteHead #'style = #'blackpetrucci
+    b\breve^\markup { "BBBBBBL" }
+    g
+    \override NoteHead #'ligature-flexa = ##t
+    \override NoteHead #'flexa-width = #3
+    f
+    f'
+    \override NoteHead #'flexa-width = #5
+    b
+    c'
+    \revert NoteHead #'style
+    % though ligature-flexa is still ##t, this pair must be drawn as recta
+    b\longa
+    \revert NoteHead #'flexa-width
+    \revert NoteHead #'ligature-flexa
+    \]
+
   \bar "|" \break
 
-				% some from the Requiem
+% some from the Requiem
 
   \[
     a1^\markup { \column { { \bold "Ockeghem: Requiem" } "SSBBBBBBBL" } }
@@ -267,8 +298,18 @@
     \]
 
   \bar "|" \break
+}
 
-				% crazy ligatures
+\context Staff \with
+{
+  \override StaffSymbol #'line-count = #4
+}
+{
+  \clef "petrucci-c5"
+  \set Staff.printKeyCancellation = ##f
+  \cadenzaOn % turn off bar lines
+  #(set-accidental-style 'forget)
+  \textLengthOn
 
   \[
     c\breve^\markup { \column { { \bold "crazy ligatures" } "BBBBB" } }
@@ -298,16 +339,16 @@
   \[
     b^\markup { "B.B." }
     a
-    \] % TODO: dots within ligatures must be placed above heads
+    \] % TODO the first dot is too high to avoid a non-existent (ledger) line
 
   \bar "|" \break
 
-				% invalid ligatures (those commented out are rejected with explanation)
+% invalid ligatures (those commented out are rejected with explanation)
 
-				%  \[
-				%    a1^\markup { \column { { \bold "invalid ligatures" } "SS" } }
-				%    as
-				%  \]
+%  \[
+%    a1^\markup { \column { { \bold "invalid ligatures" } "SS" } }
+%    as
+%  \]
 
   \[
     a\breve^\markup { "BBB" }
@@ -315,23 +356,23 @@
     as
     \]
 
-				%  \[
-				%    f\longa^\markup { "LLB" }
-				%    g
-				%    f\breve
-				%  \]
+%  \[
+%    f\longa^\markup { "LLB" }
+%    g
+%    f\breve
+%  \]
 
-				%  \[
-				%    f\breve^\markup { "BSLB" }
-				%    a1
-				%    g\longa
-				%    a\breve
-				%  \]
+%  \[
+%    f\breve^\markup { "BSLB" }
+%    a1
+%    g\longa
+%    a\breve
+%  \]
 }
 
 
 % Litterae:
 %
 % [1] Willi Apel: The Notation of Polyphonic Music. 900-1600.
-% [2] Ulrich Michels: dtv-Altlas zur Musik, 1977.
+% [2] Ulrich Michels: dtv-Atlas zur Musik, 1977.
 %
