@@ -231,7 +231,7 @@ is then separated.
   (string-append "</" (symbol->string name) ">"))
 
 (define-public (music-to-xml music port)
-  "Dump XML-ish stuff to PORT."
+  "Dump XML-ish stuff to @var{port}."
 
   ;; dtd contains # -- This confuses tex during make doc.
   ;;
@@ -242,7 +242,7 @@ is then separated.
   (display (close-tag 'music) port))
 
 (define-public (music-to-musicxml music port)
-  "Dump MusicXML-ish stuff to PORT."
+  "Dump MusicXML-ish stuff to @var{port}."
 
   ;; dtd contains # -- This confuses tex during make doc.
   ;;

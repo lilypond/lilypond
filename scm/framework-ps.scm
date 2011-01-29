@@ -267,10 +267,12 @@
     (let* ((dir-name (tmpnam))
 	   (files '())
 	   (status 0)
-	   (embed #f))
+	   (embed #f)
+	   (cwd (getcwd)))
       (mkdir dir-name #o700)
-      (set! status (ly:system
-		    (format "cd ~a && fondu -force '~a'" dir-name filename)))
+      (chdir dir-name)
+      (set! status (ly:system (list "fondu" "-force" file-name)))
+      (chdir cwd)
       (set! files (dir-listing dir-name))
       (for-each
        (lambda (f)
@@ -460,9 +462,9 @@
 (define-public (dump-stencil-as-EPS-with-bbox paper dump-me filename
 					      load-fonts
 					      bbox)
-  "Create an EPS file from stencil DUMP-ME to FILENAME. BBOX has
-format (left-x, lower-y, right x, up-y).  If LOAD-FONTS set, include
-fonts inline."
+  "Create an EPS file from stencil @var{dump-me} to @var{filename}.
+@var{bbox} has format @code{(left-x, lower-y, right-x, upper-y)}.  If
+@var{load-fonts} set, include fonts inline."
   (define (to-rounded-bp-box box)
     "Convert box to 1/72 inch with rounding to enlarge the box."
     (let* ((scale (ly:output-def-lookup paper 'output-scale))

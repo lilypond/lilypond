@@ -29,16 +29,6 @@ Page_spacing_result::Page_spacing_result ()
 }
 
 vsize
-Page_spacing_result::system_count () const
-{
-  vsize total = 0;
-  for (vsize i = 0; i < systems_per_page_.size(); i++)
-    total += systems_per_page_[i];
-
-  return total;      
-}
-
-vsize
 Page_spacing_result::page_count () const
 {
   return systems_per_page_.size();

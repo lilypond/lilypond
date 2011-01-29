@@ -4,7 +4,7 @@
 first system can be forced to be uniform."
 
 }
-\version "2.12.0"
+\version "2.13.46"
 
 #(set-default-paper-size "a6")
 
@@ -22,7 +22,8 @@ first system can be forced to be uniform."
   }
 
   \paper {
-    page-top-space = 3 \cm
+    obsolete-page-top-space = 3 \cm
+    top-system-spacing #'basic-distance = #(/ obsolete-page-top-space staff-space)
   }
 }
 

@@ -6,7 +6,7 @@
 \header {
   lsrtags = "staff-notation, tweaks-and-overrides, paper-and-layout"
 
-%% Translation of GIT committish: a874fda3641c9e02f61be5c41b215b8304b8ed00
+%% Translation of GIT committish: fa19277d20f8ab0397c560eb0e7b814bd804ecec
   texidoces = "
 Se pueden insertar separadores sistema entre los sistemas de una
 página.  Se puede usar cualquier elemento de marcado, pero

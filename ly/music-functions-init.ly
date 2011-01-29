@@ -91,7 +91,6 @@ applyContext =
 #(define-music-function (parser location proc) (procedure?)
    (_i "Modify context properties with Scheme procedure @var{proc}.")
    (make-music 'ApplyContext
-	       'origin location
 	       'procedure proc))
 
 applyMusic =
@@ -103,7 +102,6 @@ applyOutput =
 #(define-music-function (parser location ctx proc) (symbol? procedure?)
    (_i "Apply function @code{proc} to every layout object in context @code{ctx}")
    (make-music 'ApplyOutputEvent
-	       'origin location
 	       'procedure proc
 	       'context-type ctx))
 
@@ -170,7 +168,6 @@ barNumberCheck =
 #(define-music-function (parser location n) (integer?)
    (_i "Print a warning if the current bar number is not @var{n}.")
    (make-music 'ApplyContext
-	       'origin location
 	       'procedure
 	       (lambda (c)
 		 (let ((cbn (ly:context-property c 'currentBarNumber)))
@@ -213,6 +210,34 @@ clef =
 #(define-music-function (parser location type) (string?)
    (_i "Set the current clef to @var{type}.")
    (make-clef-set type))
+
+
+compoundMeter =
+#(define-music-function (parser location args) (pair?)
+  (_i "Create compound time signatures. The argument is a Scheme list of 
+lists. Each list describes one fraction, with the last entry being the 
+denominator, while the first entries describe the summands in the 
+enumerator. If the time signature consists of just one fraction, 
+the list can be given directly, i.e. not as a list containing a single list.
+For example, a time signature of (3+1)/8 + 2/4 would be created as 
+@code{\\compoundMeter #'((3 1 8) (2 4))}, and a time signature of (3+2)/8 
+as @code{\\compoundMeter #'((3 2 8))} or shorter 
+@code{\\compoundMeter #'(3 2 8)}.")
+  (let* ((mlen (calculate-compound-measure-length args))
+         (beat (calculate-compound-base-beat args))
+         (beatGrouping (calculate-compound-beat-grouping args))
+         (timesig (cons (ly:moment-main-numerator mlen)
+                        (ly:moment-main-denominator mlen))))
+  #{
+    \once \override Staff.TimeSignature #'stencil = #(lambda (grob)
+		(grob-interpret-markup grob (format-compound-time $args)))
+    \set Timing.timeSignatureFraction = $timesig
+    \set Timing.baseMoment = $beat
+    \set Timing.beatStructure = $beatGrouping
+    \set Timing.beamExceptions = #'()
+    \set Timing.measureLength = $mlen
+  #} ))
+
 
 cueClef =
 #(define-music-function (parser location type) (string?)
@@ -472,7 +497,6 @@ octaveCheck =
 #(define-music-function (parser location pitch-note) (ly:music?)
    (_i "Octave check.")
    (make-music 'RelativeOctaveCheck
-	       'origin location
 	       'pitch (pitch-of-note pitch-note)))
 
 ottava =
@@ -514,7 +538,6 @@ or @code{\"GrobName\"}.")
 	   (set! context-name (string->symbol (list-ref name-components 0)))))
 
      (make-music 'ApplyOutputEvent
-		 'origin location
 		 'context-type context-name
 		 'procedure
 		 (lambda (grob orig-context context)
@@ -731,8 +754,7 @@ of the quoted voice, as specified in an @code{\\addQuote} command.
 usually contains spacers or multi-measure rests.")
    (make-music 'QuoteMusic
                'element main-music
-               'quoted-music-name what
-               'origin location))
+               'quoted-music-name what))
 
 removeWithTag =
 #(define-music-function (parser location tag music) (symbol? ly:music?)
@@ -851,8 +873,7 @@ as a first or second voice.")
 	       'quoted-context-id "cue"
 	       'quoted-music-name what
 	       'quoted-voice-direction dir
-	       'quoted-transposition (pitch-of-note pitch-note)
-	       'origin location))
+	       'quoted-transposition (pitch-of-note pitch-note)))
 
 transposition =
 #(define-music-function (parser location pitch-note) (ly:music?)

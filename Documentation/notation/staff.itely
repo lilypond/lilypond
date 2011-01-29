@@ -857,7 +857,8 @@ format cue notes are also described.
 @cindex instrument names, short
 
 Instrument names can be printed on the left side of staves in the
-@code{Staff} and @code{PianoStaff} contexts.  The value of
+@code{Staff}, @code{PianoStaff}, @code{StaffGroup}, @code{GrandStaff}
+and @code{ChoirStaff} contexts.  The value of
 @code{instrumentName} is used for the first staff, and the value
 of @code{shortInstrumentName} is used for all succeeding staves.
 
@@ -935,7 +936,7 @@ these settings, see @ref{\paper variables for shifts and indents}.
 @cindex instrument names, adding to other contexts
 
 To add instrument names to other contexts (such as
-@code{GrandStaff}, @code{ChoirStaff}, or @code{StaffGroup}),
+@code{ChordNames} or @code{FiguredBass}),
 @code{Instrument_name_engraver} must be added to that context.
 For details, see @ref{Modifying context plug-ins}.
 

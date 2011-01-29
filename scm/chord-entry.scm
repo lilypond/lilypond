@@ -16,13 +16,12 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-public (construct-chord-elements root duration modifications)
-  " Build a chord on root using modifiers in MODIFICATIONS. NoteEvents
-have duration DURATION.
+  "Build a chord on root using modifiers in @var{modifications}.
+@code{NoteEvents} have duration @var{duration}.
 
-Notes: natural 11 is left from chord if not explicitly specified.
+Notes: Natural 11 is left from chord if not explicitly specified.
 
-Entry point for the parser.
-"
+Entry point for the parser."
   (let* ((flat-mods (flatten-list modifications))
 	 (base-chord (stack-thirds (ly:make-pitch 0 4 0) the-canonical-chord))
 	 (complete-chord '())
@@ -33,7 +32,7 @@ Entry point for the parser.
 	 (start-additions #t))
 
     (define (interpret-inversion chord mods)
-      "Read /FOO part. Side effect: INVERSION is set."
+      "Read /FOO part.  Side effect: INVERSION is set."
       (if (and (> (length mods) 1) (eq? (car mods) 'chord-slash))
 	  (begin
 	    (set! inversion (cadr mods))
@@ -41,7 +40,7 @@ Entry point for the parser.
       (interpret-bass chord mods))
 
     (define (interpret-bass chord mods)
-      "Read /+FOO part. Side effect: BASS is set."
+      "Read /+FOO part.  Side effect: BASS is set."
       (if (and (> (length mods) 1) (eq? (car mods) 'chord-bass))
 	  (begin
 	    (set! bass (cadr mods))
@@ -61,7 +60,7 @@ Entry point for the parser.
 	  (interpret-inversion chord mods)))
 
     (define (interpret-additions chord mods)
-      "Interpret additions. TODO: should restrict modifier use?"
+      "Interpret additions.  TODO: should restrict modifier use?"
       (cond ((null? mods) chord)
 	    ((ly:pitch? (car mods))
 	     (if (= (pitch-step (car mods)) 11)
@@ -236,7 +235,7 @@ DURATION, and INVERSION."
        '(1 3 5 7 9 11 13)))
 
 (define (stack-thirds upper-step base)
-  "Stack thirds listed in BASE until we reach UPPER-STEP. Add
+  "Stack thirds listed in BASE until we reach UPPER-STEP.  Add
 UPPER-STEP separately."
   (cond ((null? base) '())
 	((> (ly:pitch-steps upper-step) (ly:pitch-steps (car base)))

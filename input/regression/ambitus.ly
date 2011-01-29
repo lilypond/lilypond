@@ -1,10 +1,12 @@
-\version "2.12.0"
+\version "2.13.47"
 
 \header {
   texidoc = "Ambitus indicate pitch ranges for voices.
 
 Accidentals only show up if they're not part of key
 signature.  @code{AmbitusNoteHead} grobs also have ledger lines.
+The noteheads are printed in overstrike, so there's only one
+visible; the accidentals are prevented from colliding. 
 "
 }
 
@@ -24,5 +26,9 @@ signature.  @code{AmbitusNoteHead} grobs also have ledger lines.
     \time  2/4
     \key d \major
     cis as'
+  }
+  \new Staff \relative c' {
+    \time 2/4
+    c4 cis
   }
 >>

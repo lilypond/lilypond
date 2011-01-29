@@ -14,7 +14,7 @@
 @section Música vocal
 @translationof Vocal music
 
-@c TODO: inspirational headword
+@lilypondfile[quote]{vocal-headword.ly}
 
 Esta sección explica cómo tipografiar música vocal, y cómo asegurarse
 de que la letra se alinea con las notas de su melodía correspondiente.

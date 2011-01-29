@@ -151,16 +151,28 @@
   "Set up music fonts.
 
 Arguments:
- NODE the font tree to modify.
- NAME is the basename for the music font. NAME-DESIGNSIZE.otf should be the music font,
-  NAME-brace.otf should have piano braces.
- DESIGN-SIZE-ALIST is a list of (ROUNDED . DESIGN-SIZE).  ROUNDED is
-   a suffix for font filenames, while DESIGN-SIZE should be the actual
-   design size.  The latter is used for text fonts loaded through
-   pango/fontconfig 
- FACTOR is a size factor relative to the default size that is being used.
-  This is used to select the proper design size for the text fonts.
-"
+@itemize
+@item
+@var{node} is the font tree to modify.
+
+@item
+@var{name} is the basename for the music font.
+@file{@var{name}-<designsize>.otf} should be the music font,
+@file{@var{name}-brace.otf} should have piano braces.
+
+@item
+@var{family} is the family name of the music font.
+
+@item
+@var{design-size-alist} is a list of @code{(rounded . designsize)}.
+@code{rounded} is a suffix for font filenames, while @code{designsize}
+should be the actual design size.  The latter is used for text fonts
+loaded through pango/fontconfig.
+
+@item
+@var{factor} is a size factor relative to the default size that is being
+used.  This is used to select the proper design size for the text fonts.
+@end itemize"
   (for-each
    (lambda (x)
      (add-font node

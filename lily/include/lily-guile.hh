@@ -66,7 +66,7 @@ Interval ly_scm2interval (SCM);
 Drul_array<Real> ly_scm2realdrul (SCM);
 Slice int_list_to_slice (SCM l);
 SCM ly_interval2scm (Drul_array<Real>);
-char *ly_scm2newstr (SCM str, size_t *lenp);
+char *ly_scm2str0 (SCM str);
 
 Real robust_scm2double (SCM, double);
 int robust_scm2int (SCM, int);

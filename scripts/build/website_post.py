@@ -32,7 +32,7 @@ translations = {
         'Other languages': 'Altre lingue',
         },
     'ja': {
-        'English': 'Japanese',
+        'English': '日本語',
         'Other languages': '他の言語',
         },
     'nl': {

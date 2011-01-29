@@ -86,13 +86,13 @@
     ))
 
 (define-public (layout-set-absolute-staff-size sz)
-  "Function to be called inside a \\layout{} block to set the staff
-size. SZ is in points"
+  "Set the absolute staff size inside of a @code{\\layout@{@}} block.
+@var{sz} is in points."
   (layout-set-absolute-staff-size-in-module (current-module) sz))
 
 (define-public (layout-set-staff-size sz)
-  "Function to be called inside a \\layout{} block to set the staff
-size. SZ is in points"
+  "Set the staff size inside of a @code{\\layout@{@}} block.
+@var{sz} is in points."
 
   (layout-set-absolute-staff-size (* (eval 'pt (current-module)) sz)))
 

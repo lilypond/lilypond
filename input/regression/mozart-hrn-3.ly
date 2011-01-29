@@ -14,7 +14,7 @@
   style = "classical"
   maintainer = "hanwen@xs4all.nl"
   maintainerEmail = "hanwen@xs4all.nl"
-  maintainerWeb = "http://www.xs4all.nl/~hanwen/"	
+  maintainerWeb = "http://www.xs4all.nl/~hanwen/"
   lastupdated = "2002/May/21"
   source = "Edition Breitkopf 2563"
   footer = "Mutopia-2002/05/21-25"
@@ -36,11 +36,11 @@
   texidoc="
 This is the Mozart 3 for horn.  It's from an Edition Breitkopf EB
 2563, edited by Henri Kling. Henri Kling (1842-1918) was a horn
-virtuoso that taught in Geneva. 
+virtuoso that taught in Geneva.
 "
 }
 
-\version "2.12.0"
+\version "2.13.46"
 
 \include "mozart-hrn3-defs.ily"
 \include "mozart-hrn3-allegro.ily"
@@ -48,7 +48,9 @@ virtuoso that taught in Geneva.
 \include "mozart-hrn3-rondo.ily"
 
 \paper {
-    between-system-space = 20 \mm
+    obsolete-between-system-space = 20 \mm
+    system-system-spacing #'basic-distance = #(/ obsolete-between-system-space staff-space)
+    score-system-spacing #'basic-distance = #(/ obsolete-between-system-space staff-space)
 }
 
 
@@ -56,8 +58,8 @@ virtuoso that taught in Geneva.
     \score {
 	{ \transpose c' bes \allegro }
 	\layout { }
-	\header { piece = "Allegro" opus = "" }	
-	
+	\header { piece = "Allegro" opus = "" }
+
   \midi {
     \context {
       \Score
@@ -70,8 +72,8 @@ virtuoso that taught in Geneva.
 
     \score {
 	{ \transpose c' bes \romanze }
-	\header { piece = "Romanze" opus = "" }	
-	
+	\header { piece = "Romanze" opus = "" }
+
   \midi {
     \context {
       \Score
@@ -87,7 +89,7 @@ virtuoso that taught in Geneva.
     {
 	{ \transpose c' bes \rondo }
 	\header { piece = "Rondo" opus = "" }
-	
+
   \midi {
     \context {
       \Score

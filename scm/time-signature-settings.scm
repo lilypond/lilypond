@@ -195,8 +195,8 @@
     (cons 'beamExceptions beam-exceptions)))
 
 (define-public (base-fraction time-signature time-signature-settings)
-  "Get @code{baseMoment} fraction value for @code{time-signature} from
-@code{time-signature-settings}."
+  "Get @code{baseMoment} fraction value for @var{time-signature} from
+@var{time-signature-settings}."
    (let ((return-value (get-setting 'baseMoment
                                     time-signature
                                     time-signature-settings)))
@@ -205,9 +205,8 @@
          return-value)))
 
 (define-public (beat-structure base-fraction time-signature time-signature-settings)
-  "Get beatStructure value in @code{base-fraction} units
-for @code{time-signature} from
-@code{time-signature-settings}."
+  "Get @code{beatStructure} value in @var{base-fraction} units
+for @var{time-signature} from @var{time-signature-settings}."
   (define (fraction-divide numerator denominator)
     (/ (* (car numerator) (cdr denominator))
        (* (cdr numerator) (car denominator))))
@@ -232,8 +231,8 @@ for @code{time-signature} from
         return-value)))
 
 (define-public (beam-exceptions time-signature time-signature-settings)
-  "Get beamExceptions value for @code{time-signature} from
-@code{time-signature-settings}."
+  "Get @code{beamExceptions} value for @var{time-signature} from
+@var{time-signature-settings}."
    (get-setting 'beamExceptions time-signature time-signature-settings))
 
 
@@ -242,7 +241,7 @@ for @code{time-signature} from
 
 (define (override-property-setting context property setting value)
   "Like the C++ code that executes \\override, but without type
-checking. "
+checking."
   (begin
      (revert-property-setting context property setting)
      (ly:context-set-property!
@@ -252,7 +251,7 @@ checking. "
 
 (define (revert-property-setting context property setting)
   "Like the C++ code that executes \revert, but without type
-checking. "
+checking."
 
   (define (entry-count alist entry-key)
     "Count the number of entries in alist with a key of
@@ -282,8 +281,8 @@ a fresh copy of the list-head is made."
           (revert-member current-value setting)))))
 
 (define-public (override-time-signature-setting time-signature setting)
-  "Override the time signature settings for the context in @var{rest},
-with the new setting alist @var{setting}. "
+  "Override the time signature settings for the context in
+@var{time-signature}, with the new setting alist @var{setting}."
     (context-spec-music
       (make-apply-context
         (lambda (c) (override-property-setting
@@ -302,3 +301,102 @@ with the new setting alist @var{setting}. "
           'timeSignatureSettings
           time-signature)))
     'Timing))
+
+
+
+
+;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;;; Formatting of complex/compound time signatures
+
+(define (insert-markups l m)
+  (let ((ll (reverse l)))
+    (let join-markups ((markups (list (car ll)))
+                       (remaining (cdr ll)))
+      (if (pair? remaining)
+          (join-markups (cons (car remaining) (cons m markups)) (cdr remaining))
+          markups))))
+
+;;; Use a centered-column inside a left-column, because the centered column
+;;; moves its reference point to the center, which the left-column undoes.
+(define (format-time-fraction time-sig-fraction)
+  (let* ((revargs (reverse (map number->string time-sig-fraction)))
+         (den (car revargs))
+         (nums (reverse (cdr revargs))))
+    (make-override-markup '(baseline-skip . 0)
+      (make-number-markup
+        (make-left-column-markup (list
+          (make-center-column-markup (list
+            (make-line-markup (insert-markups nums "+"))
+            den))))))))
+
+(define (format-complex-compound-time time-sig)
+  (make-override-markup '(baseline-skip . 0)
+    (make-number-markup
+      (make-line-markup
+        (insert-markups (map format-time-fraction time-sig)
+                        (make-vcenter-markup "+"))))))
+
+(define-public (format-compound-time time-sig)
+  (cond
+    ((not (pair? time-sig)) (null-markup))
+    ((pair? (car time-sig)) (format-complex-compound-time time-sig))
+    (else (format-time-fraction time-sig))))
+
+
+;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;;; Measure length calculation of (possibly complex) compound time signatures
+
+(define (calculate-time-fraction time-sig-fraction)
+  (let* ((revargs (reverse time-sig-fraction))
+         (den (car revargs))
+         (num (apply + (cdr revargs))))
+    (ly:make-moment num den)))
+
+(define (calculate-complex-compound-time time-sig)
+  (let add-moment ((moment ZERO-MOMENT)
+                   (remaining (map calculate-time-fraction time-sig)))
+    (if (pair? remaining)
+        (add-moment (ly:moment-add moment (car remaining)) (cdr remaining))
+        moment)))
+
+(define-public (calculate-compound-measure-length time-sig)
+  (cond
+    ((not (pair? time-sig)) (ly:make-moment 4 4))
+    ((pair? (car time-sig)) (calculate-complex-compound-time time-sig))
+    (else (calculate-time-fraction time-sig))))
+
+
+;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;;; Base beat length: Use the smallest denominator from all fraction
+
+(define (calculate-compound-base-beat-full time-sig)
+  (apply max (map last time-sig)))
+
+(define-public (calculate-compound-base-beat time-sig)
+  (ly:make-moment 1
+    (cond
+      ((not (pair? time-sig)) 4)
+      ((pair? (car time-sig)) (calculate-compound-base-beat-full time-sig))
+      (else (calculate-compound-base-beat-full (list time-sig))))))
+
+
+;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;;; Beat Grouping
+
+(define (normalize-fraction frac beat)
+  (let* ((thisbeat (car (reverse frac)))
+         (factor (/ beat thisbeat)))
+    (map (lambda (f) (* factor f)) frac)))
+
+(define (beat-grouping-internal time-sig)
+  ;; Normalize to given beat, extract the beats and join them to one list
+  (let* ((beat (calculate-compound-base-beat-full time-sig))
+         (normalized (map (lambda (f) (normalize-fraction f beat)) time-sig))
+         (beats (map (lambda (f) (reverse (cdr (reverse f)))) normalized)))
+    (apply append beats)))
+
+(define-public (calculate-compound-beat-grouping time-sig)
+  (cond
+    ((not (pair? time-sig)) '(2 . 2))
+    ((pair? (car time-sig)) (beat-grouping-internal time-sig))
+    (else (beat-grouping-internal (list time-sig)))))

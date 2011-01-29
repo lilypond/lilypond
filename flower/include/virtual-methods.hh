@@ -23,10 +23,6 @@
 #include <typeinfo>
 using namespace std;
 
-#define classname(class_ptr) demangle_classname (typeid (* (class_ptr)))
-
-char const *
-demangle_classname (type_info const &);
 
 /*
 

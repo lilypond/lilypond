@@ -55,8 +55,8 @@
 (define-public (music-map function music)
   "Apply @var{function} to @var{music} and all of the music it contains.
 
-First it recurses over the children, then the function is applied to MUSIC.
-"
+First it recurses over the children, then the function is applied to
+@var{music}."
   (let ((es (ly:music-property music 'elements))
 	(e (ly:music-property music 'element)))
     (set! (ly:music-property music 'elements)
@@ -67,7 +67,7 @@ First it recurses over the children, then the function is applied to MUSIC.
     (function music)))
 
 (define-public (music-filter pred? music)
-  "Filter out music expressions that do not satisfy PRED."
+  "Filter out music expressions that do not satisfy @var{pred?}."
 
   (define (inner-music-filter pred? music)
     "Recursive function."
@@ -96,7 +96,8 @@ First it recurses over the children, then the function is applied to MUSIC.
       (make-music 'Music)))	  ;must return music.
 
 (define-public (display-music music)
-  "Display music, not done with music-map for clarity of presentation."
+  "Display music, not done with @code{music-map} for clarity of
+presentation."
 
   (display music)
   (display ": { ")
@@ -147,8 +148,9 @@ For instance,
       `(markup ,@(inner-markup->make-markup markup-expression))))
 
 (define-public (music->make-music obj)
-  "Generate a expression that, once evaluated, may return an object equivalent to `obj',
-that is, for a music expression, a (make-music ...) form."
+  "Generate an expression that, once evaluated, may return an object
+equivalent to @var{obj}, that is, for a music expression, a
+@code{(make-music ...)} form."
   (cond (;; markup expression
 	 (markup? obj)
 	 (markup-expression->make-markup obj))
@@ -227,9 +229,9 @@ Returns `obj'.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (shift-one-duration-log music shift dot)
-  "  add SHIFT to duration-log of 'duration in music and optionally
-  a dot to any note encountered. This scales the music up by a factor
-  2^shift * (2 - (1/2)^dot)"
+  "Add @var{shift} to @code{duration-log} of @code{'duration} in
+@var{music} and optionally @var{dot} to any note encountered.  This
+scales the music up by a factor `2^@var{shift} * (2 - (1/2)^@var{dot})'."
   (let ((d (ly:music-property music 'duration)))
     (if (ly:duration? d)
 	(let* ((cp (ly:duration-factor d))
@@ -245,7 +247,8 @@ Returns `obj'.
 	     music))
 
 (define-public (make-repeat name times main alts)
-  "create a repeat music expression, with all properties initialized properly"
+  "Create a repeat music expression, with all properties initialized
+properly."
   (define (first-note-duration music)
     "Finds the duration of the first NoteEvent by searching depth-first
 through MUSIC."
@@ -302,7 +305,7 @@ through MUSIC."
 ;; clusters.
 
 (define-public (note-to-cluster music)
-  "Replace NoteEvents by ClusterNoteEvents."
+  "Replace @code{NoteEvents} by @code{ClusterNoteEvents}."
   (if (eq? (ly:music-property music 'name) 'NoteEvent)
       (make-music 'ClusterNoteEvent
 		  'pitch (ly:music-property music 'pitch)
@@ -316,7 +319,7 @@ through MUSIC."
 ;; repeats.
 
 (define-public (unfold-repeats music)
-  "This function replaces all repeats with unfolded repeats."
+  "Replace all repeats with unfolded repeats."
 
   (let ((es (ly:music-property music 'elements))
 	(e (ly:music-property music 'element)))
@@ -360,8 +363,8 @@ through MUSIC."
 ;; property setting music objs.
 
 (define-public (make-grob-property-set grob gprop val)
-  "Make a Music expression that sets GPROP to VAL in GROB. Does a pop first,
-i.e.  this is not an override"
+  "Make a @code{Music} expression that sets @var{gprop} to @var{val} in
+@var{grob}.  Does a pop first, i.e., this is not an override."
   (make-music 'OverrideProperty
 	      'symbol grob
 	      'grob-property gprop
@@ -369,14 +372,15 @@ i.e.  this is not an override"
 	      'pop-first #t))
 
 (define-public (make-grob-property-override grob gprop val)
-  "Make a Music expression that overrides GPROP to VAL in GROB."
+  "Make a @code{Music} expression that overrides @var{gprop} to @var{val}
+in @var{grob}."
   (make-music 'OverrideProperty
 	      'symbol grob
 	      'grob-property gprop
 	      'grob-value val))
 
 (define-public (make-grob-property-revert grob gprop)
-  "Revert the grob property GPROP for GROB."
+  "Revert the grob property @var{gprop} for @var{grob}."
   (make-music 'RevertProperty
 	      'symbol grob
 	      'grob-property gprop))
@@ -432,7 +436,7 @@ i.e.  this is not an override"
 
 
 (define-safe-public (context-spec-music m context #:optional id)
-  "Add \\context CONTEXT = ID to M. "
+  "Add \\context CONTEXT = ID to M."
   (let ((cm (make-music 'ContextSpeccedMusic
 			'element m
 			'context-type context)))
@@ -441,7 +445,7 @@ i.e.  this is not an override"
     cm))
 
 (define-public (descend-to-context m context)
-  "Like context-spec-music, but only descending. "
+  "Like @code{context-spec-music}, but only descending."
   (let ((cm (context-spec-music m context)))
     (ly:music-set-property! cm 'descend-only #t)
     cm))
@@ -493,7 +497,7 @@ i.e.  this is not an override"
 
 ;;; Need to keep this definition for \time calls from parser
 (define-public (make-time-signature-set num den)
-  "Set properties for time signature NUM/DEN."
+  "Set properties for time signature @var{num}/@var{den}."
   (make-music 'TimeSignatureMusic
               'numerator num
               'denominator den
@@ -501,9 +505,8 @@ i.e.  this is not an override"
 
 ;;; Used for calls that include beat-grouping setting
 (define-public (set-time-signature num den . rest)
-  "Set properties for time signature @var{num/den}.
-If @var{rest} is present, it is used to set
-@code{beatStructure}."
+  "Set properties for time signature @var{num}/@var{den}.
+If @var{rest} is present, it is used to set @code{beatStructure}."
   (ly:export
    (make-music 'TimeSignatureMusic
 	       'numerator num
@@ -559,14 +562,14 @@ inside of and outside of chord construct."
           (revert-head-style heads)))))
 
  (define-public (set-mus-properties! m alist)
-  "Set all of ALIST as properties of M."
+  "Set all of @var{alist} as properties of @var{m}."
   (if (pair? alist)
       (begin
 	(set! (ly:music-property m (caar alist)) (cdar alist))
 	(set-mus-properties! m (cdr alist)))))
 
 (define-public (music-separator? m)
-  "Is M a separator?"
+  "Is @var{m} a separator?"
   (let ((ts (ly:music-property m 'types)))
     (memq 'separator ts)))
 
@@ -574,10 +577,10 @@ inside of and outside of chord construct."
 (define (voicify-list lst number)
   "Make a list of Musics.
 
-   voicify-list :: [ [Music ] ] -> number -> [Music]
-   LST is a list music-lists.
+voicify-list :: [ [Music ] ] -> number -> [Music]
+LST is a list music-lists.
 
-   NUMBER is 0-base, i.e. Voice=1 (upstems) has number 0.
+NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
 "
   (if (null? lst)
       '()
@@ -596,7 +599,7 @@ inside of and outside of chord construct."
     ch))
 
 (define-public (voicify-music m)
-  "Recursively split chords that are separated with \\ "
+  "Recursively split chords that are separated with @code{\\\\}."
   (if (not (ly:music? m))
       (ly:error (_ "music expected: ~S") m))
   (let ((es (ly:music-property m 'elements))
@@ -625,11 +628,8 @@ inside of and outside of chord construct."
 
 
 (define-public ((set-output-property grob-name symbol val)  grob grob-c context)
-  "Usage:
-
-\\applyoutput #(set-output-property 'Clef 'extra-offset '(0 . 1))
-
-"
+  "Usage example:
+@code{\\applyoutput #(set-output-property 'Clef 'extra-offset '(0 . 1))}"
   (let ((meta (ly:grob-property grob 'meta)))
     (if (equal? (assoc-get 'name meta) grob-name)
 	(set! (ly:grob-property grob symbol) val))))
@@ -637,8 +637,7 @@ inside of and outside of chord construct."
 
 ;;
 (define-public (smart-bar-check n)
-  "Make	 a bar check that checks for a specific bar number.
-"
+  "Make a bar check that checks for a specific bar number."
   (let ((m (make-music 'ApplyContext)))
     (define (checker tr)
       (let* ((bn (ly:context-property tr 'currentBarNumber)))
@@ -653,9 +652,8 @@ inside of and outside of chord construct."
 
 
 (define-public (skip->rest mus)
-
-  "Replace MUS by RestEvent of the same duration if it is a
-SkipEvent. Useful for extracting parts from crowded scores"
+  "Replace @var{mus} by @code{RestEvent} of the same duration if it is a
+@code{SkipEvent}.  Useful for extracting parts from crowded scores."
 
   (if  (memq (ly:music-property mus 'name) '(SkipEvent SkipMusic))
    (make-music 'RestEvent 'duration (ly:music-property mus 'duration))
@@ -701,20 +699,20 @@ SkipEvent. Useful for extracting parts from crowded scores"
     nv))
 
 (define (vector-map f v)
-  "Map	F over V. This function returns nothing."
+  "Map F over V.  This function returns nothing."
   (do ((n (vector-length v))
        (i 0 (+ i 1)))
       ((>= i n))
     (f (vector-ref v i))))
 
 (define (vector-reverse-map f v)
-  "Map	F over V, N to 0 order. This function returns nothing."
+  "Map F over V, N to 0 order.  This function returns nothing."
   (do ((i (- (vector-length v) 1) (- i 1)))
       ((< i 0))
     (f (vector-ref v i))))
 
 (define-public (add-grace-property context-name grob sym val)
-  "Set SYM=VAL for GROB in CONTEXT-NAME. "
+  "Set @var{sym}=@var{val} for @var{grob} in @var{context-name}."
   (define (set-prop context)
     (let* ((where (ly:context-property-where-defined context 'graceSettings))
 	   (current (ly:context-property where 'graceSettings))
@@ -724,7 +722,7 @@ SkipEvent. Useful for extracting parts from crowded scores"
   (ly:export (context-spec-music (make-apply-context set-prop) 'Voice)))
 
 (define-public (remove-grace-property context-name grob sym)
-  "Remove all SYM for GROB in CONTEXT-NAME. "
+  "Remove all @var{sym} for @var{grob} in @var{context-name}."
   (define (sym-grob-context? property sym grob context-name)
     (and (eq? (car property) context-name)
          (eq? (cadr property) grob)
@@ -778,7 +776,7 @@ Syntax:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (cue-substitute quote-music)
-  "Must happen after quote-substitute."
+  "Must happen after @code{quote-substitute}."
 
   (if (vector? (ly:music-property quote-music 'quoted-events))
       (let* ((dir (ly:music-property quote-music 'quoted-voice-direction))
@@ -865,7 +863,7 @@ Syntax:
   music)
 
 (define-public (make-duration-of-length moment)
- "Make duration of the given MOMENT length."
+ "Make duration of the given @code{moment} length."
  (ly:make-duration 0 0
   (ly:moment-main-numerator moment)
   (ly:moment-main-denominator moment)))
@@ -1013,7 +1011,7 @@ then revert skipTypesetting."
 
 (define (check-pitch-against-signature context pitch barnum laziness octaveness)
   "Checks the need for an accidental and a @q{restore} accidental against
-@code{localKeySignature}. The @var{laziness} is the number of measures
+@code{localKeySignature}.  The @var{laziness} is the number of measures
 for which reminder accidentals are used (i.e., if @var{laziness} is zero,
 only cancel accidentals in the same measure; if @var{laziness} is three,
 we cancel accidentals up to three measures after they first appear.
@@ -1088,22 +1086,26 @@ specifies whether accidentals should be canceled in different octaves."
     (cons need-restore need-accidental)))
 
 (define-public ((make-accidental-rule octaveness laziness) context pitch barnum measurepos)
-  "Creates an accidental rule that makes its decision based on the octave of the note
-  and a laziness value.
-  octaveness is either 'same-octave or 'any-octave and defines whether the rule should
-  respond to accidental changes in other octaves than the current. 'same-octave is the
-  normal way to typeset accidentals - an accidental is made if the alteration is different
-  from the last active pitch in the same octave. 'any-octave looks at the last active pitch
-  in any octave.
-  laziness states over how many bars an accidental should be remembered.
-  0 is default - accidental lasts over 0 bar lines, that is, to the end of current measure.
-  A positive integer means that the accidental lasts over that many bar lines.
-  -1 is 'forget immediately', that is, only look at key signature.
-  #t is forever."
+  "Create an accidental rule that makes its decision based on the octave of
+the note and a laziness value.
+
+@var{octaveness} is either @code{'same-octave} or @code{'any-octave} and
+defines whether the rule should respond to accidental changes in other
+octaves than the current.  @code{'same-octave} is the normal way to typeset
+accidentals -- an accidental is made if the alteration is different from the
+last active pitch in the same octave.  @code{'any-octave} looks at the last
+active pitch in any octave.
+
+@var{laziness} states over how many bars an accidental should be remembered.
+@code{0}@tie{}is the default -- accidental lasts over 0@tie{}bar lines, that
+is, to the end of current measure.  A positive integer means that the
+accidental lasts over that many bar lines.  @code{-1} is `forget
+immediately', that is, only look at key signature.  @code{#t} is `forever'."
+
   (check-pitch-against-signature context pitch barnum laziness octaveness))
 
 (define (key-entry-notename entry)
-  "Return the pitch of an entry in localKeySignature. The entry is either of the form
+  "Return the pitch of an entry in localKeySignature.  The entry is either of the form
   '(notename . alter) or '((octave . notename) . (alter barnum . measurepos))."
   (if (number? (car entry))
       (car entry)
@@ -1131,10 +1133,10 @@ specifies whether accidentals should be canceled in different octaves."
       (cadr entry)))
 
 (define-public (find-pitch-entry keysig pitch accept-global accept-local)
-  "Return the first entry in keysig that matches the pitch.
-  accept-global states whether key signature entries should be included.
-  accept-local states whether local accidentals should be included.
-  if no matching entry is found, #f is returned."
+  "Return the first entry in @var{keysig} that matches @var{pitch}.
+@var{accept-global} states whether key signature entries should be included.
+@var{accept-local} states whether local accidentals should be included.
+If no matching entry is found, @var{#f} is returned."
   (if (pair? keysig)
       (let* ((entry (car keysig))
 	     (entryoct (key-entry-octave entry))
@@ -1149,10 +1151,10 @@ specifies whether accidentals should be canceled in different octaves."
       #f))
 
 (define-public (neo-modern-accidental-rule context pitch barnum measurepos)
-  "an accidental rule that typesets an accidental if it differs from the key signature
-   AND does not directly follow a note on the same staff-line.
-   This rule should not be used alone because it does neither look at bar lines
-   nor different accidentals at the same notename"
+  "An accidental rule that typesets an accidental if it differs from the
+key signature @emph{and} does not directly follow a note on the same
+staff line.  This rule should not be used alone because it does neither
+look at bar lines nor different accidentals at the same note name."
   (let* ((keysig (ly:context-property context 'localKeySignature))
 	 (entry (find-pitch-entry keysig pitch #t #t)))
     (if (equal? #f entry)
@@ -1168,9 +1170,9 @@ specifies whether accidentals should be canceled in different octaves."
 			    (and (equal? entrybn barnum) (equal? entrymp measurepos)))))))))
 
 (define-public (teaching-accidental-rule context pitch barnum measurepos)
-  "an accidental rule that typesets a cautionary accidental
-  if it is included in the key signature AND does not directly follow
-  a note on the same staff-line."
+  "An accidental rule that typesets a cautionary accidental if it is
+included in the key signature @emph{and} does not directly follow a note
+on the same staff line."
   (let* ((keysig (ly:context-property context 'localKeySignature))
 	 (entry (find-pitch-entry keysig pitch #t #t)))
     (if (equal? #f entry)
@@ -1198,9 +1200,10 @@ specifies whether accidentals should be canceled in different octaves."
    context))
 
 (define-public (set-accidental-style style . rest)
-  "Set accidental style to STYLE. Optionally takes a context argument,
-e.g. 'Staff or 'Voice. The context defaults to Staff, except for piano styles, which
-use GrandStaff as a context. "
+  "Set accidental style to @var{style}.  Optionally take a context
+argument, e.g. @code{'Staff} or @code{'Voice}.  The context defaults
+to @code{Staff}, except for piano styles, which use @code{GrandStaff}
+as a context."
   (let ((context (if (pair? rest)
 		     (car rest) 'Staff))
 	(pcontext (if (pair? rest)
@@ -1364,7 +1367,7 @@ use GrandStaff as a context. "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (skip-of-length mus)
-  "Create a skip of exactly the same length as MUS."
+  "Create a skip of exactly the same length as @var{mus}."
   (let* ((skip
 	  (make-music
 	   'SkipEvent
@@ -1373,7 +1376,7 @@ use GrandStaff as a context. "
     (make-event-chord (list (ly:music-compress skip (ly:music-length mus))))))
 
 (define-public (mmrest-of-length mus)
-  "Create a mmrest of exactly the same length as MUS."
+  "Create a multi-measure rest of exactly the same length as @var{mus}."
 
   (let* ((skip
 	  (make-multi-measure-rest
@@ -1394,8 +1397,7 @@ use GrandStaff as a context. "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (extract-named-music music music-name)
-"Return a flat list of all music named @code{music-name}
-from @code{music}."
+  "Return a flat list of all music named @var{music-name} from @var{music}."
    (let ((extracted-list
           (if (ly:music? music)
               (if (eq? (ly:music-property music 'name) music-name)
@@ -1413,12 +1415,12 @@ from @code{music}."
      (flatten-list extracted-list)))
 
 (define-public (event-chord-notes event-chord)
-"Return a list of all notes from @{event-chord}."
+  "Return a list of all notes from @var{event-chord}."
   (filter
     (lambda (m) (eq? 'NoteEvent (ly:music-property m 'name)))
     (ly:music-property event-chord 'elements)))
 
 (define-public (event-chord-pitches event-chord)
-"Return a list of all pitches from @{event-chord}."
+  "Return a list of all pitches from @var{event-chord}."
   (map (lambda (x) (ly:music-property x 'pitch))
        (event-chord-notes event-chord)))

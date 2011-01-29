@@ -23,23 +23,12 @@
 	     (scm paper-system)
 	     (ice-9 optargs))
 
-(define-public (ly:system command . rest)
-  (let* ((status 0)
-	 (dev-null "/dev/null")
-	 (silenced (if (or (ly:get-option 'verbose)
-			   (not (access? dev-null W_OK)))
-		       command
-		       (format #f "~a > ~a 2>&1 " command dev-null))))
-    (if (ly:get-option 'verbose)
-	(begin
-	  (ly:message (_ "Invoking `~a'...") command))
-	  (ly:progress "\n"))
-
-    (set! status
-	  (if (pair? rest)
-	      (system-with-env silenced (car rest))
-	      (system silenced)))
-	
+(define-public (ly:system command)
+  (if (ly:get-option 'verbose)
+      (begin
+	(ly:message (_ "Invoking `~a'...") (string-join command)))
+      (ly:progress "\n"))
+  (let ((status (apply ly:spawn command)))
     (if (> status 0)
 	(begin
 	  (ly:message (_ "`~a' failed (~a)") command status)
@@ -47,24 +36,8 @@
 	  ;; hmmm.  what's the best failure option? 
 	  (throw 'ly-file-failed)))))
 
-(define-public (system-with-env cmd env)
-
-  "Execute CMD in fork, with ENV (a list of strings) as the environment"
-  (let*
-      ;; laziness: should use execle?
-      
-      ((pid (primitive-fork)))
-    (if (= 0 pid)
-	;; child
-	(begin
-	  (environ env)
-	  (system cmd))
-	
-	;; parent
-	(cdr (waitpid pid)))))
-
 (define-public (sanitize-command-option str)
-  "Kill dubious shell quoting"
+  "Kill dubious shell quoting."
   
   (string-append
    "\""
@@ -91,41 +64,32 @@
 		    (dir-basename name ".ps" ".eps")
 		    ".pdf"))
 	 (is-eps (string-match "\\.eps$" name))
-	 (paper-size-string (if is-eps
-				"-dEPSCrop"
-				(ly:format "-dDEVICEWIDTHPOINTS=~$\
- -dDEVICEHEIGHTPOINTS=~$"
-					paper-width paper-height)))
+	 (*unspecified* (if #f #f))
+	 (cmd
+	  (remove (lambda (x) (eq? x *unspecified*))
+	  (list
+	       (search-gs)
+	       (if (ly:get-option 'verbose) *unspecified* "-q")
+	       (if (or (ly:get-option 'gs-load-fonts)
+		       (ly:get-option 'gs-load-lily-fonts)
+		       (eq? PLATFORM 'windows))
+		   "-dNOSAFER"
+		   "-dSAFER")
 
-	 (cmd (ly:format
-		      "~a\
- ~a\
- ~a\
- ~a\
- -dCompatibilityLevel=1.4\
- -dNOPAUSE\
- -dBATCH\
- -r1200\
- -sDEVICE=pdfwrite\
- -sOutputFile=~S\
- -c .setpdfwrite\
- -f ~S\
-"
-		      (search-gs)
-		      (if (ly:get-option 'verbose) "" "-q")
-		      (if (or (ly:get-option 'gs-load-fonts)
-			      (ly:get-option 'gs-load-lily-fonts))
-			  "-dNOSAFER"
-			  "-dSAFER")
-		      paper-size-string
-		      pdf-name
-		      name)))
-    ;; The wrapper on windows cannot handle `=' signs,
-    ;; gs has a workaround with #.
-    (if (eq? PLATFORM 'windows)
-	(begin
-	  (set! cmd (string-regexp-substitute "=" "#" cmd))
-	  (set! cmd (string-regexp-substitute "-dSAFER " "" cmd))))
+	       (if is-eps
+		   "-dEPSCrop"
+		   (ly:format "-dDEVICEWIDTHPOINTS=~$" paper-width))
+	       (if is-eps
+		   *unspecified*
+		   (ly:format "-dDEVICEHEIGHTPOINTS=~$" paper-height))
+	       "-dCompatibilityLevel=1.4"
+	       "-dNOPAUSE"
+	       "-dBATCH"
+	       "-r1200"
+	       "-sDEVICE=pdfwrite"
+	       (string-append "-sOutputFile=" pdf-name)
+	       "-c.setpdfwrite"
+	       (string-append "-f" name)))))
 
     (ly:message (_ "Converting to `~a'...") pdf-name)
     (ly:progress "\n")
@@ -248,7 +212,8 @@
   (filter (lambda (x) (not (pred? x))) lst))
 
 (define-public (font-name-split font-name)
-  "Return (FONT-NAME . DESIGN-SIZE) from FONT-NAME string or #f."
+  "Return @code{(FONT-NAME . DESIGN-SIZE)} from @var{font-name} string
+or @code{#f}."
   (let ((match (regexp-exec (make-regexp "(.*)-([0-9]*)") font-name)))
     (if (regexp-match? match)
 	(cons (match:substring match 1) (match:substring match 2))
@@ -257,13 +222,13 @@
 ;; Example of a pango-physical-font
 ;; ("Emmentaler-11" "/home/janneke/vc/lilypond/out/share/lilypond/current/fonts/otf/emmentaler-11.otf" 0)
 (define-public (pango-pf-font-name pango-pf)
-  "Return the font-name of the pango physical font PANGO-PF."
+  "Return the font-name of the pango physical font @var{pango-pf}."
   (list-ref pango-pf 0))
 (define-public (pango-pf-file-name pango-pf)
-  "Return the file-name of the pango physical font PANGO-PF."
+  "Return the file-name of the pango physical font @var{pango-pf}."
   (list-ref pango-pf 1))
 (define-public (pango-pf-fontindex pango-pf)
-  "Return the fontindex of the pango physical font PANGO-PF."
+  "Return the fontindex of the pango physical font @var{pango-pf}."
   (list-ref pango-pf 2))
 
 (define (pango-font-name pango-font)
@@ -273,8 +238,9 @@
 	"")))
 
 (define-public (define-fonts paper define-font define-pango-pf)
-  "Return a string of all fonts used in PAPER, invoking the functions
-DEFINE-FONT DEFINE-PANGO-PF for producing the actual font definition."
+  "Return a string of all fonts used in @var{paper}, invoking the functions
+@var{define-font} and @var{define-pango-pf} for producing the actual font
+definition."
 
   (let* ((font-list (ly:paper-fonts paper))
 	 (pango-fonts (filter ly:pango-font? font-list))

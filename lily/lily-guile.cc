@@ -138,12 +138,10 @@ ly_string2scm (string const &str)
 				  str.length ());
 }
 
-
 char *
-ly_scm2newstr (SCM str, size_t *lenp)
+ly_scm2str0 (SCM str)
 {
-  char* p = scm_to_locale_stringn(str, lenp);
-  return p;
+  return scm_to_locale_string (str);
 }
 
 /*
