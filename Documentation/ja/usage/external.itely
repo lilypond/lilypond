@@ -1,0 +1,643 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+
+@ignore
+    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.13.36"
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+
+@node 外部プログラム
+@chapter 外部プログラム
+@translationof External programs
+
+LilyPond は様々な方法で他のプログラムと連携することができます。
+
+@menu
+* ポイント＆クリック::
+* テキスト エディタ サポート::
+* 他のフォーマットから変換する::
+* LilyPond 出力を他のプログラムで使用する::
+* 独立した include::
+@end menu
+
+
+@node ポイント＆クリック
+@section ポイント＆クリック
+@translationof Point and click
+
+@cindex point and click (ポイント＆クリック)
+
+ポイント＆クリックは PDF ビューアの中で表記をクリックすることで@c
+入力の中の表記を見つけ出すことを可能にします。@c
+これは楽譜の中でエラーを引き起こす入力を見つけ出すことより容易にします。
+
+この機能がアクティブな場合、@c
+LilyPond は PDF ファイルにハイパーリンクを付け加えます。@c
+これらのハイパーリンクは Web ブラウザに送られ、@c
+Web ブラウザはカーソルを持つテキスト エディタを適切な位置に開きます。
+
+この一連の動作を有効にするには、@c
+PDF ビューアが LilyPond で提供される @file{lilypond-invoke-editor}
+スクリプトを使ってハイパーリンクを追うように設定変更する必要があります。
+
+UNIX の Xpdf では、@c
+@file{xpdfrc}@footnote{UNIXでは、このファイルは @file{/etc/xpdfrc} か@c
+ホーム ディレクトリの中の @file{.xpdfrc} としてのどちらかです。}
+の中に以下の記述が必要です:
+
+@example
+urlCommand     "lilypond-invoke-editor %s"
+@end example
+
+プログラム @file{lilypond-invoke-editor} は小さな支援プログラムです。@c
+これは特別な @code{textedit} URI に対してエディタを呼び出し、@c
+それ以外に対しては Web ブラウザを呼び出します。@c
+このプログラムは環境変数 @code{EDITOR} を調べて、@c
+以下のパターンに動作します:
+
+@table @code
+@item emacs
+  このプログラムは以下を呼び出します
+@example
+emacsclient --no-wait +@var{line}:@var{column} @var{file}
+@end example
+@item gvim
+  このプログラムは以下を呼び出します
+@example
+gvim --remote +:@var{line}:norm@var{column} @var{file}
+@end example
+@item nedit
+  このプログラムは以下を呼び出します
+@example
+  nc -noask +@var{line} @var{file}'
+@end example
+@end table
+
+環境変数 @code{LYEDITOR} はこの動作をオーバライドするために使用されます。@c
+これにはエディタを起動するためのコマンド ラインを保持し、@c
+@code{%(column)s}, @code{%(line)s} は@c
+それぞれファイル、列、行に置き換えられます。
+以下の @code{LYEDITOR} 設定は標準の emacsclient 呼び出しと等価です。
+
+@example
+emacsclient --no-wait +%(line)s:%(column)s %(file)s
+@end example
+
+
+@cindex file size, output (出力のファイル サイズ)
+
+ポイント＆クリックのリンクは出力ファイルを肥大化させます。@c
+PDF ファイルと PS ファイルのサイズを小さくするには、@c
+@file{.ly} ファイルの中に以下を記述してポイント＆クリックを OFF にします:
+
+@example
+\pointAndClickOff
+@end example
+
+@noindent
+以下を用いて、ポイント＆クリックを明示的に ON にすることができます:
+
+@example
+\pointAndClickOn
+@end example
+
+@file{.ly} ファイルの中でポイント＆クリックを OFF にする代わりに@c
+コマンド ライン オプションで OFF にすることができます:
+
+@example
+lilypond -dno-point-and-click file.ly
+@end example
+
+@warning{配布する LilyPond ファイルでは常にポイント＆クリックを OFF にして、@c
+.pdf ファイルにあなたのコンピュータの Path 情報が含まれないようにすべきです。@c
+配布する .pdf ファイルに Path 情報が含まれていると@c
+セキュリティ リスクとなります。}
+
+
+@node テキスト エディタ サポート
+@section テキスト エディタ サポート
+@translationof Text editor support
+
+@cindex editors (エディタ)
+@cindex vim
+@cindex emacs
+@cindex modes, editor (エディタのモード)
+@cindex syntax coloring (カラーリング構文)
+@cindex coloring, syntax (カラーリング構文)
+
+いくつかのテキスト エディタの LilyPond サポート機能があります。
+
+@menu
+* Emacs モード::
+* Vim モード::
+* その他のエディタ::
+@end menu
+
+@node Emacs モード
+@unnumberedsubsec Emacs モード
+@translationof Emacs mode
+
+Emacs は @file{lilypond-mode} を持ちます。@c
+これはキーワード自動補完、インデント挿入、LilyPond 特有の括弧一致、@c
+構文カラーリング、コンパイルへのショートカット、@c
+それに Info を用いての LilyPond マニュアル参照といった機能を持ちます。@c
+@file{lilypond-mode} があなたのプラットフォームにインストールされて@c
+いないのであれば、以下を参照してください。
+
+楽譜を記述して、LilyPond を実行するための Emacs モードは
+@file{elisp} ディレクトリの中にあるソース アーカイブに保持されています。@c
+@command{make install} を実行して、@c
+これを @var{elispdir} にインストールします。@c
+ファイル @file{lilypond-init.el} を @var{load-path}@file{/sites-start.d/} に@c
+配置するか、@file{~/.emacs} または @file{~/.emacs.el} に追記する必要があります。
+
+@file{~/.emacs} に以下の行を追記 (あるいは修正) して、@c
+ソース パス (例えば @file{~/site-lisp/) を @var{load-path} に@c
+追加した方が良いかもしれません。
+
+@c any reason we do not advise:  (push "~/site-lisp" load-path)
+@example
+(setq load-path (append (list (expand-file-name "~/site-lisp")) load-path))
+@end example
+
+
+@node Vim モード
+@unnumberedsubsec Vim モード
+@translationof Vim mode
+
+@uref{http://@/www@/.vim@/.org,Vim} のために
+LilyPond 用のファイルタイプ プラグイン、インデント モード、@c
+それに構文ハイライト モードが用意されています。@c
+これらの機能をすべて有効にするには、@c
+@file{$HOME/.vimrc} が以下の 3 行を順序に従って保持するよう追記
+(あるいは修正) します:
+
+@example
+filetype off
+set runtimepath+=/usr/local/share/lilypond/current/vim/
+filetype on
+@end example
+
+@noindent
+LilyPond が @file{/usr/local} にインストールされていない場合は@c
+パスを適切に変更してください。@c
+このトピックは @rlearning{その他の情報源} で議論されています。
+
+
+@node その他のエディタ
+@unnumberedsubsec その他のエディタ
+@translationof Other editors
+
+他にも LilyPond をサポートするエディタ
+(テキスト ベースとグラフィカル ベースの両方) がありますが、@c
+それらの特殊な設定ファイルは LilyPond では配布されません。@c
+更なる情報はそれらのエディタのドキュメントを参照してください。@c
+LilyPond をサポートするエディタは
+@rweb{より簡単な編集手段} でリストアップされています。
+
+
+@node 他のフォーマットから変換する
+@section 他のフォーマットから変換する
+@translationof Converting from other formats
+
+楽譜の記述を他のフォーマットからインポートするもできます。@c
+この章では、配布プログラムに含まれるインポート ツールについて説明します。
+LilyPond 入力を作り出すツールは他にもあります。@c
+例えば GUI シーケンスと XML コンバータです。@c
+詳細は @uref{http://@/lilypond@/.org,website} を参照してください。
+
+上で述べたツールは @command{lilypond} とは別のプログラムであり、@c
+コマンド ラインで実行します。@c
+詳細は @ref{コマンド ラインの使用方法} を参照してください。@c
+あなたが MacOS 10.3 や 10.4 を使っていて、@c
+これらのスクリプト (例えば @code{convert-ly}) を実行する際に問題が@c
+発生した場合は、@rweb{MacOS X} を参照してください。
+
+
+@knownissues
+残念なことに我々にはこれらのプログラムを維持していくだけの余力はありません。@c
+@qq{これからの課題} になっていると考えてください。@c
+パッチは適用されていますが、バグ レポートはほとんど解決されていません。
+
+@menu
+* midi2ly を呼び出す::            MIDI をインポートする
+* musicxml2ly を呼び出す::        MusicXML をインポートする
+* abc2ly を呼び出す::             ABC をインポートする
+* etf2ly を呼び出す::             Finale をインポートする
+* その他のフォーマット::
+@end menu
+
+
+@node midi2ly を呼び出す
+@subsection @command{midi2ly} を呼び出す
+@translationof Invoking @command{midi2ly}
+
+@cindex MIDI
+
+@command{midi2ly} は Type@tie{}1 MIDI ファイルを
+LilyPond ソース ファイルに変換します。
+
+MIDI (Music Instrument Digital Interface) は電子楽器の標準です:
+これはケーブル、シリアル プロトコル、それにファイル フォーマットを指定します。@c
+MIDI ファイル フォーマットは音楽を他のプログラムにエクスポートするための@c
+デファクトスタンダードなフォーマットです。@c
+そのため、MIDI ファイルを扱う機能を持つことは、@c
+独自フォーマットを MIDI に変換できるプログラムのファイルを@c
+インポートする際に有用です。
+
+@command{midi2ly} はトラックを @rinternals{Staff} コンテキストに変換し、@c
+チャネルを @rinternals{Voice} コンテキストに変換します。@c
+ピッチには相対モードが使用され、演奏時間は必要がある場合にだけ記述されます。
+
+デジタル キーボードを使って MIDI ファイルを録音し、@c
+それを @file{.ly} ファイルに変換することが可能です。@c
+しかしながら、人間の演奏者のリズムは LilyPond コンバータにかけられる
+MIDI を作り出せるほど正確ではありません。@c
+量子化オプション (@code{-s} と @code{-d} オプション) を指定して
+@command{midi2ly} を呼び出すと、リズムの誤りを訂正しようとしますが、@c
+十分機能するとは言えません。@c
+このため、人間の演奏で生成された MIDI ファイルを @command{midi2ly} で@c
+変換することはお勧めできません。
+
+
+@command{midi2ly} は以下のようにコマンド ラインから呼び出します:
+@example
+midi2ly [@var{option}]@dots{} @var{midi-file}
+@end example
+
+@q{コマンド ライン} とは、OS のコマンド ラインを意味しているということに@c
+注意してください。@c
+このことについての更なる情報は @ref{他のフォーマットから変換する}
+を参照してください。
+
+@command{midi2ly} には以下のオプションがあります。
+
+@table @code
+@item -a, --absolute-pitches
+絶対ピッチで出力します。
+
+@item -d, --duration-quant=@var{DUR}
+音符の演奏時間を @var{DUR} で量子化します。
+
+@item -e, --explicit-durations
+すべての音符の演奏時間を出力します。
+
+@item -h,--help
+使用方法の要約を表示します。
+
+@item -k, --key=@var{acc}[:@var{minor}]
+デフォルトの調をセットします。@c
+@math{@var{acc} > 0} はシャープの数をセットし、@c
+@math{@var{acc} < 0} はフラットの数をセットします。@c
+短調は @code{:1} で指定します。
+
+@item -o, --output=@var{file}
+@var{file} に出力します。
+
+@item -s, --start-quant=@var{DUR}
+音符の始まりを @var{DUR} で量子化します。
+
+@item -t, --allow-tuplet=@var{DUR}*@var{NUM}/@var{DEN}
+連符の演奏時間 @var{DUR}*@var{NUM}/@var{DEN} を許可します。
+
+@item -v, --verbose
+Verbose モード (ログ等が詳細) で実行します。
+
+@item -V, --version
+バージョン番号を表示します。
+
+@item -w, --warranty
+保証と著作権を表示します。
+
+@item -x, --text-lyrics
+すべてのテキストを歌詞として扱います。
+@end table
+
+
+@knownissues
+
+アルペジオでの音符のオーバラップは正しく変換されません。@c
+最初の音符は読み込まれますが、他の音符は無視されます。@c
+すべての音符を同時に開始させ、同じ演奏にして、@c
+フレーズ記号かペダル指示記号を追加してください。
+
+
+@node musicxml2ly を呼び出す
+@subsection @code{musicxml2ly} を呼び出す
+@translationof Invoking @code{musicxml2ly}
+
+@cindex MusicXML
+
+@uref{http://@/www.@/musicxml@/.org/,MusicXML} は音楽記譜を表すための
+XML の派生語です。
+
+@command{musicxml2ly} は Part-wise (時間軸優先ではなくパート優先の) MusicXML
+から、音符、アーティキュレーション、楽譜構造、歌詞等を抽出し、@c
+それらを @file{.ly} ファイルに記述します。@c
+
+このプログラムはコマンド ラインから以下のように呼び出します:
+@example
+musicxml2ly [@var{option}]@dots{} @var{xml-file}
+@end example
+
+@q{コマンド ライン} とは、OS のコマンド ラインを意味しているということに@c
+注意してください。@c
+このことについての更なる情報は @ref{他のフォーマットから変換する}
+を参照してください。
+
+ファイル名に @file{-} を指定すると、@c
+@command{musicxml2ly} はコマンド ラインから入力を受け付けます。
+
+@command{musicxml2ly} には以下のオプションがあります。
+
+@table @code
+@item -a, --absolute
+絶対ピッチで出力します。
+
+@item -h,--help
+使用方法の要約を表示します。
+
+@item -l, --language=LANG
+ピッチ名に LANG を使用します。@c
+例えば、ピッチ名にドイツ語を使用するには 'deutsch' を指定します。
+
+@item --lxml
+XML 解析に lxml.etree Python パッケージを使用します。@c
+これはより少ないメモリと CPU 時間で実行されます。
+
+@item --nd --no-articulation-directions
+アーティキュレーションや強弱等の指示 (@code{^}, @code{_} あるいは @code{-})
+を変換しません。
+
+@item --no-beaming
+連桁情報を変換せず、LilyPond の自動連桁機能を使用します。
+
+@item -o,--output=@var{file}
+出力ファイル名を @var{file} とします。@c
+@var{file} に @file{-} を指定すると、出力は stdout に表示されます。@c
+指定が無い場合、出力は @var{xml-file}@file{.ly} となります。
+
+@item -r,--relative
+ピッチを相対モードに変換します。(デフォルト)
+
+@item -v,--verbose
+Verbose モード (ログ等が詳細) で実行します。
+
+@item --version
+バージョン情報を表示します。
+
+@item -z,--compressed
+入力ファイルが ZIP で圧縮された MusicXML ファイルであることを示します。
+@end table
+
+
+@node abc2ly を呼び出す
+@subsection @code{abc2ly} を呼び出す
+@translationof Invoking @code{abc2ly}
+
+@warning{このプログラムはサポートされていません。@c
+LilyPond 将来のバージョンからは削除される可能性があります。}
+
+@cindex ABC
+
+ABC は ASCII ベースの非常にシンプルなフォーマットです。@c
+このファイル形式について ABC のサイトで説明されています:
+
+@quotation
+@uref{http://@/www@/.walshaw@/.plus@/.com/@/abc/@/learn@/.html}.
+@end quotation
+
+@command{abc2ly} は ABC から LilyPond に変換を行います。@c
+以下のように呼び出します:
+
+@example
+abc2ly [@var{option}]@dots{} @var{abc-file}
+@end example
+
+@command{abc2ly} には以下のオプションがあります。
+
+@table @code
+@item -b,--beams=None
+ABC の連桁情報を保持します。
+
+@item -h,--help
+このオプション一覧を表示します。
+
+@item -o,--output=@var{file}
+出力ファイル名を @var{file} とします。
+
+@item -s,--strict
+@c 未訳
+be strict about success
+
+@item --version
+バージョン情報を表示します。
+@end table
+
+LilyPond コードを ABC ソース ファイルに付け加えるための簡単な機能があります。@c
+以下のように記述した場合:
+
+@example
+%%LY voices \set autoBeaming = ##f
+@end example
+
+キーワード @q{voices} の後に続くテキストが
+LilyPond 出力ファイルのカレントのボイスに挿入されます。
+
+同様に、
+
+@example
+%%LY slyrics more words
+@end example
+
+これは、キーワード @q{slyrics} の後に続くテキストを@c
+歌詞のカレント行に挿入します。
+
+
+@knownissues
+
+ABC の標準はあくまでも @q{標準} でしかありません。@c
+機能拡張 (例えば、多声音楽) のために、異なる書式があります。
+
+1 つのファイルに複数の旋律を持つものは変換できません。
+
+ABC は行の先頭で単語と音符との同期をとりますが、@c
+@command{abc2ly} は同期をとりません。
+
+@command{abc2ly} は ABC の連桁を無視します。
+
+
+@node etf2ly を呼び出す
+@subsection @command{etf2ly} を呼び出す
+@translationof Invoking @command{etf2ly}
+
+@warning{このプログラムはサポートされていません。@c
+LilyPond 将来のバージョンからは削除される可能性があります。}
+
+@c not yet
+@cindex ETF
+@cindex enigma
+@cindex Finale
+@cindex Coda Technology
+
+ETF (Enigma Transport Format) is a format used by Coda Music
+Technology's Finale product.  @command{etf2ly} will convert part of an ETF
+file to a ready-to-use LilyPond file.
+
+It is invoked from the command-line as follows.
+
+@example
+etf2ly [@var{option}]@dots{} @var{etf-file}
+@end example
+
+Note that by @q{command-line}, we mean the command line of the
+operating system.  See @ref{Converting from other formats}, for
+more information about this.
+
+The following options are supported by @command{etf2ly}:
+
+@table @code
+@item -h,--help
+this help
+@item -o,--output=@var{FILE}
+set output filename to @var{FILE}
+@item --version
+version information
+@end table
+
+
+@knownissues
+
+The list of articulation scripts is incomplete.  Empty measures
+confuse @command{etf2ly}.  Sequences of grace notes are ended improperly.
+
+
+@node その他のフォーマット
+@subsection その他のフォーマット
+@translationof Other formats
+
+@cindex External programs, generating LilyPond files (LilyPond ファイルを生成する外部プログラム)
+
+LilyPond 自体は他のフォーマットを一切サポートしませんが、@c
+外部ツールで LilyPond ファイルを生成することができます。@c
+それらのツールは @rweb{より簡単な編集手段} でリストアップされています。
+
+
+@node LilyPond 出力を他のプログラムで使用する
+@section LilyPond 出力を他のプログラムで使用する
+@translationof LilyPond output in other programs
+
+このセクションでは、@command{lilypond-book} を用いた自動手法ではない、@c
+テキストと楽譜を統合する手法を示します。
+
+@menu
+* 大きな楽譜から多くの引用を行う::
+* LilyPond 出力を OpenOffice.org に挿入する::
+* LilyPond 出力を他のプログラムに挿入する::
+@end menu
+
+@node 大きな楽譜から多くの引用を行う
+@unnumberedsubsec 大きな楽譜から多くの引用を行う
+@translationof Many quotes from a large score
+
+大きな楽譜から多くの断片を引用する必要がある場合、@c
+システムをクリップする機能を使うことができます。@c
+@c @ruser{音楽の断片を抽出する}
+@ruser{Extracting fragments of music} を参照してください。
+
+@node LilyPond 出力を OpenOffice.org に挿入する
+@unnumberedsubsec LilyPond 出力を OpenOffice.org に挿入する
+@translationof Inserting LilyPond output into OpenOffice.org
+
+@cindex OpenOffice.org
+
+@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond} を用いて
+LilyPond 記譜を OpenOffice.org に付け加えることができます。
+
+
+@node LilyPond 出力を他のプログラムに挿入する
+@unnumberedsubsec LilyPond 出力を他のプログラムに挿入する
+@translationof Inserting LilyPond output into other programs
+
+LilyPond 出力を他のプログラムに挿入するには、@c
+@code{lilypond-book} ではなく、@code{lilypond} を使用します。@c
+それぞれの例を個々に作成してドキュメントに付け加えます。@c
+大抵のプログラムに @file{PNG}, @file{EPS}, あるいは @file{PDF} フォーマットの
+LilyPond 出力を挿入することができます。
+
+LilyPond 楽譜の周りの空白を減らすには、以下のオプションを使用します:
+the following options
+
+@example
+\paper@{
+  indent=0\mm
+  line-width=120\mm
+  oddFooterMarkup=##f
+  oddHeaderMarkup=##f
+  bookTitleMarkup = ##f
+  scoreTitleMarkup = ##f
+@}
+
+@{ c1 @}
+@end example
+
+
+@file{EPS} を作り出すには、以下のようにします:
+
+@example
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts   myfile.ly
+
+@file{PNG}:
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
+@end example
+
+
+@node 独立した include
+@section 独立した @code{include}
+@translationof Independent @code{include}s
+
+共有可能な大きな (そして有用な！) コードを記述している人がいます。@c
+これらのコードは独自のやり方で LilyPond を include してい場合があります。@c
+include が行われない場合、include されるファイルをダウンロードして@c
+手動でそれらを include する必要があります。
+
+
+@menu
+* MIDI アーティキュレーション::
+@end menu
+
+
+@node MIDI アーティキュレーション
+@subsection MIDI アーティキュレーション
+@translationof MIDI articulation
+
+LilyPond は @qq{校閲} のために MIDI 出力を作り出すことができます。@c
+しかしながら MIDI に出力されるのは、強弱記号、明示的なテンポ記号、@c
+音符と演奏時間だけです。
+
+@emph{アーティキュレーション} プロジェクトは、@c
+楽譜の情報をより多く MIDI に組み込もうとしている試みの 1 つです。@c
+音符に @q{アーティキュレーション} を加えるため、@c
+スラーの付いていない音符を縮めます。@c
+縮める長さは音符に付いているアーティキュレーション記号に基づいてが決まります:
+例えば、スタッカートは音価を半分にし、@c
+テヌートは音符を演奏時間いっぱい鳴らします。@c
+さらに、このスクリプトはトリルとターンを理解し、@c
+モルデントなど他の装飾を理解するよう拡張することができます。
+
+@example
+@uref{http://@/www@/.nicta@/.com@/.au/@/people/@/chubbp/@/articulate}
+@end example
+
+@knownissues
+
+この機能は理解できるものにしか効果を持ちません:
+(音符のプロパティの代わりの) テキスト マークアップは無視されます。
