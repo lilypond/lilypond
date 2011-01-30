@@ -119,21 +119,20 @@ translations = {
         'Snippets': 'Kódrészletek',
         'Web': 'Web',
         'Changes': 'Változások',
-
-        #TODO
         'Extending': 'Bővítés',
         'Internals': 'Belső működés',
         'Contributor': 'Közreműködés',
 
+# keep the spaces!
         ' (split HTML)': ' (HTML oldalak)',
         ' (big HTML)': ' (egy nagy HTML oldal)',
 
-        'Regression tests for ': 'Regressziós tesztek a következőhöz: ',
-        'PDF of regtests for ': 'Regressziós tesztek PDF formátumban a következőhöz: ',
-        'MusicXML Regression tests for ': 'MusicXML regressziós tesztek a következőhöz: ',
-        'PDF of MusicXML regtests for ': 'MusicXML regressziós tesztek PDF formátumban a következőhöz: ',
+        'Regression tests for ': 'Regressziós tesztek - verzió: ',
+        'PDF of regtests for ': 'PDF formátumban - verzió: ',
+        'MusicXML Regression tests for ': 'MusicXML regressziós tesztek - verzió: ',
+        'PDF of MusicXML regtests for ': 'PDF formátumban - verzió: ',
 
-        'Doc tarball for ': 'Doc tarball a következőhöz: ',
+        'Doc tarball for ': 'Tömörített csomag - verzió: ',
         ' (did not exist in 2.12)': ' (nem létezett a 2.12-es verzióban)',
         },
     'ja': {
