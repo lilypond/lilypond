@@ -11,6 +11,10 @@ import re
 
 ###### Translation data, move out, see create-weblinks-itexi.py
 translations = {
+    'cs': {
+        'English': 'Česky',
+        'Other languages': 'Other languages',
+        },
     'de': {
         'English': 'Deutsch',
         'Other languages': 'Andere Sprachen',
@@ -32,12 +36,16 @@ translations = {
         'Other languages': 'Altre lingue',
         },
     'ja': {
-        'English': 'Japanese',
+        'English': '日本語',
         'Other languages': '他の言語',
         },
     'nl': {
         'English': 'Nederlands',
         'Other languages': 'Andere talen',
+        },
+    'zh': {
+        'English': '中文',
+        'Other languages': 'Other languages',
         },
     }
 

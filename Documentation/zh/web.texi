@@ -1,0 +1,309 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: 2bf520787e5668f22dcf0d5ab3faf74693376d6a
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@setfilename web.info
+@settitle LilyPond -- 每一个人的五线谱
+@documentencoding UTF-8
+@documentlanguage zh
+@afourpaper
+
+@c `Web' was imported 2009-08-05 with git commit b938d71...
+@c @macro copyrightDeclare
+@c Copyright @copyright{} 2009--2011 by the authors.
+@c @end macro
+
+@set FDL
+@set web
+@include macros.itexi
+@include weblinks.itexi
+
+@afourpaper
+
+@c don't remove this comment.
+@ignore
+@omfcreator Graham Percival and Patrick McCarty
+@omfdescription General info about the LilyPond music engraving system
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage English
+@end ignore
+
+@copying
+Copyright @copyright{} 2009--2011 by the authors.
+
+@c next line is necessary for broken pre-4.13 texinfo's
+@c install-info, so leave it there until we officially
+@c bump the required version.  -gp
+LilyPond 网站由本文件归档。
+
+@quotation
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled ``GNU Free Documentation
+License''.
+@end quotation
+@end copying
+
+
+@c Info files are no longer installed in a subdirectory, images are
+@c expected to be found in lilypond/ subdirectory.
+@dircategory GNU LilyPond --- the music typesetter
+@direntry
+* LilyPond 学习手册: (lilypond-learning).  从这开始。
+* Music 术语表: (music-glossary).               为非英语用户。
+* LilyPond: (lilypond-notation).                           LilyPond 音符参考。
+* LilyPond 片断: (lilypond-snippets).         短的特征，窍门和例子。
+* LilyPond 内部参考: (lilypond-internals).  定义各调节项。
+* LilyPond 应用程序的用法: (lilypond-usage). 安装和运行应用程序。
+* LilyPond 网站: (lilypond-web).    新网站预览。
+* lilypond: (lilypond-usage)运行 lilypond.       借助 LilyPond 程序。
+* abc2ly: (lilypond-usage)借助 abc2ly.      导入 ABC.
+* convert-ly: (lilypond-usage)用convert-ly更新文件。 旧的 LilyPond 版本。
+* etf2ly: (lilypond-usage)借用 etf2ly.      导入 Finale.
+* lilypond-book: (lilypond-usage)lilypond-book. 文本和音乐合并。
+* midi2ly: (lilypond-usage)借用 midi2ly.    导入 MIDI.
+* musicxml2ly: (lilypond-usage)借用 musicxml2ly.  导入 MusicXML.
+@end direntry
+
+
+@c TITLE PAGE
+@ifnottex
+@node Top
+@top LilyPond... 每一个人的五线谱
+@end ifnottex
+
+
+@c hack for texi2html, bleh -gp
+@ifnothtml
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle 音乐出版系统
+@titlefont{通用信息}
+@author LilyPond 开发团队
+
+@vskip 0pt plus 1filll
+@c @vskip 20pt
+
+@insertcopying
+
+LilyPond 版本号 @version{}
+@end titlepage
+@end ifnothtml
+@c end hack for texi2html
+
+
+@c ************************ WEBSITE START ***************
+
+
+@divId{pageHeader}
+@heading LilyPond
+
+... 每一个人的五线谱
+@divEnd
+
+@c @imageId{cmws,web-clef-g-eight-alpha.png,Catchy Musical Web Snippet}
+@imageId{lilylogo,double-lily-modified3,png,LilyPond logo}
+@c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
+
+@divId{quickSummary}
+@subheading 什么是 LilyPond?
+
+LilyPond 是一个音乐雕版印刷程序，专用来生产高质量五线谱音乐。它把传统音乐雕版印刷的美学带到计算机打印输出系统。Lilypond是自由软件也是 @uref{http://gnu.org,GNU Project} 的一部分.
+
+
+@divClass{align-right}
+更多内容见 @ref{简介}!
+
+@divEnd
+@divEnd
+
+@divClass{separator}
+@divEnd
+
+
+@divId{news}
+
+@c TODO: generate this automatically, including RSS feed.
+@include web/news-front.itexi
+
+@divClass{float-right}
+(@ref{旧闻})
+@divEnd
+
+@divEnd
+
+@ifclear web_version
+  @c do nothing
+@end ifclear
+@ifset web_version
+  @c make the box:
+@divId{latestVersion}
+@subheading 快捷链接
+
+@c TODO: javascript to detect OS and suggest download?
+
+@subsubheading 稳定版
+
+@ref{Download, Download @versionStable}
+
+@ref{Manuals, Manuals @versionStable}
+
+@subsubheading 不稳定版
+
+@ref{Development, Download @versionDevel}
+
+@ref{Development, Manuals @versionDevel}
+
+@divEnd
+@end ifset
+
+
+@ifnottex
+
+@divClass{hide}
+@menu
+* 简介::        从这开始创建五线谱音乐。
+* 下载::        获得 Lilypond。
+* 手册::        阅读完整的手册（RTFM）。
+* 社区::        和其它用户联络。
+@end menu
+@divEnd
+
+@end ifnottex
+
+@contents
+
+@allowcodebreaks false
+
+@c ****************** GENERAL STUFF FOR INFO ************
+@ignore
+Distributions will want to install lilypond.info in postinstall, doing:
+
+    install-info --info-dir=/usr/share/info out[-www]/lilypond-web.info
+
+  * Prepend GNU for dir, must be unique.
+
+  * Do not list the `lilypond' node at toplevel, so that `info lilypond'
+    goes to Top.
+
+  * List all commands in direntry.
+
+@end ignore
+
+@c FIXME: this still doesn't solve the broken links in pdf and big
+@c        html; we'll need a bunch of @iftext and stuff in here. -gp
+@c ****************** SPECIAL MACROS FOR WEB MANUAL ************
+@macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+@subheading Read it
+
+@docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\bigsize\,\pdf\,\pdfsize\}
+
+@end macro
+
+
+@macro docLinkSplit{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\/index.html, \name\ (分开的 HTML)}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
+
+@macro docLinkBig{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\-big-page.html, \name\ (大的 HTML)}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
+
+@macro docLinkPdf{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\.pdf, \base\.pdf}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
+
+
+@macro docLinksBare{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+
+@divClass{keep-bullets}
+@itemize
+
+@item @docLinkSplit{\name\,\base\,\split\} @minus{}
+  本手册分解了许多 HTML 页面。
+  @*@ @ @emph{(每个页面有一小的下载)}
+
+@item @docLinkBig{\name\,\base\,\big\} @minus{}
+  以单一大HTML页面的方式阅读本手册。
+  @*@ @ @emph{(大的单一下载, \bigsize\)}
+
+@item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
+  以PDF文件的方式下载。
+  @*@ @ @emph{(大的单一下载, \pdfsize\)}
+
+@end itemize
+
+@divEnd
+
+@end macro
+
+
+@c don't add any extra spaces in this macro -gp
+@macro ifWebLinks{webLink,normalLink}
+@ifclear web_version
+  \normalLink\:
+@end ifclear
+@ifset web_version
+  \webLink\:
+@end ifset
+@end macro
+
+
+@ifhtml
+@macro contactUsAbout{topic}
+
+@divClass{heading-center}
+@divClass{contactBox}
+如果你觉得有其它 \topic\ 需要列在这里，请按照下面的简介让我们知道
+@ref{缺陷报告}.
+
+@divEnd
+@divEnd
+
+@end macro
+@end ifhtml
+
+@ifnothtml
+@macro contactUsAbout{topic}
+@cartouche
+如果你觉得有其它 \topic\ 需要列在这里，请按照下面的简介让我们知道
+@ref{缺陷报告}.
+
+@end cartouche
+
+@end macro
+@end ifnothtml
+
+@include web/introduction.itexi
+@include web/download.itexi
+@include web/manuals.itexi
+@include web/community.itexi
+
+
+@bye

@@ -1,5 +1,5 @@
 <?php
-  $languages = array ("en"=>"en", "de"=>"de", "nl"=>"nl", "jp"=>"jp", "hu"=>"hu", "fr"=>"fr", ""=>"en");
+  $languages = array ("en"=>"en", "de"=>"de", "nl"=>"nl", "ja"=>"ja", "hu"=>"hu", "fr"=>"fr", "zh"=>"zh", ""=>"en");
   $manuals = array ("essay"=>"essay", "extending"=>"extending", "learning"=>"learning", "notation"=>"notation", "usage"=>"usage");
 
   $lang = $languages[$_REQUEST['lang']];

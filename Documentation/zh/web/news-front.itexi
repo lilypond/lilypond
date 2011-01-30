@@ -1,0 +1,15 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: zh -*-
+@c This file is part of web.texi
+@ignore
+    Translation of GIT committish: 676dd9eed5f81540f71c3e3e55666c60f7af36ac
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@subsubheading 第一个预发行版收回  @emph{Jan 13, 2011}
+@subsubheading 2.14 的第一个预发行版 - LilyPond 2.13.46 发布了！  @emph{Jan 12, 2011}
+@subsubheading LilyPond 2.13.45 发布了！  @emph{Jan 3, 2011}
+
+@c -- SKELETON FILE --

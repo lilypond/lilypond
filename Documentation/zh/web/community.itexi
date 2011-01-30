@@ -1,0 +1,121 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: zh -*-
+@c This file is part of web.texi
+@ignore
+    Translation of GIT committish: 676dd9eed5f81540f71c3e3e55666c60f7af36ac
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@include included/authors.itexi
+@include included/helpus.itexi
+@node 社区
+@unnumbered 社区
+@translationof Community
+
+
+@subheading 与社区互动
+@subheading 使 LilyPond 更好
+@subheading 其它
+@menu
+* 联系::
+* 小例子::
+* 缺陷报告::
+* 帮助我们::
+* 开发::
+* 作者::
+* 出版物::
+* 旧闻::
+@end menu
+
+@node 联系
+@unnumberedsec 联系
+@translationof Contact
+
+
+@subheading 用户讨论和帮助
+@subsubheading 用户邮件列表: @code{lilypond-user@@gnu.org}
+@subsubheading LilyPond 片断仓库
+@subsubheading IRC
+@subsubheading 其它语言
+@subheading 保持沟通
+@subsubheading LilyPond 报告
+@subsubheading 发行版邮件列表: @code{info-lilypond@@gnu.org}
+@subheading 开发者讨论
+@subsubheading 开发者邮件列表: @code{lilypond-devel@@gnu.org}
+@subsubheading 缺陷邮件列表: @code{bug-lilypond@@gnu.org}
+@node 小例子
+@unnumberedsec 小例子
+@translationof Tiny examples
+
+
+@subheading 什么是 @qq{小例子}?
+@subheading 为什么创造出来？
+@subheading 我如何创造出来?
+@node 缺陷报告
+@unnumberedsec 缺陷报告
+@translationof Bug reports
+
+
+@subheading 第1步：了解缺陷
+@subheading 第2步：创建缺陷报告
+@subheading 第3步：发送缺陷报告
+@subheading 第4步：等待回应
+@subheading 其它可能的帮助：表现出渴望的举动
+@node 帮助我们
+@unnumberedsec 帮助我们
+@translationof Help us
+
+
+@node 开发
+@unnumberedsec 开发
+@translationof Development
+
+
+@subheading 发行号
+@subheading 下载
+@subheading 贡献者指南
+@subheading 回归测试
+@subsubheading 发行版
+@subsubheading 稳定版
+@subsubheading 所有版本
+@subheading 手册
+@node 作者
+@unnumberedsec 作者
+@translationof Authors
+
+
+@subheading 目前的开发小组
+@subheading 以前的开发小组
+@subheading 目前的贡献者
+@subsubheading 编程
+@subsubheading 字体
+@subsubheading 文档
+@subsubheading 缺陷组
+@subsubheading 支持
+@subsubheading 翻译
+@subheading 以前的开发小组
+@subsubheading 编程
+@subsubheading 字体
+@subsubheading 文档
+@subsubheading 支持
+@subsubheading 翻译
+@node 出版物
+@unnumberedsec 出版物
+@translationof Publications
+
+
+@subheading 我们写的有关 LilyPond 的文章
+@include we-wrote.itexi
+@subheading 别人怎么用 LilyPond 的
+@include others-did.itexi
+@node 旧闻
+@unnumberedsec 旧闻
+@translationof Old news
+
+
+@include web/news-front.itexi
+@include web/news.itexi
+
+@c -- SKELETON FILE --

@@ -1,0 +1,94 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: zh -*-
+@c This file is part of web.texi
+@ignore
+    Translation of GIT committish: 676dd9eed5f81540f71c3e3e55666c60f7af36ac
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@include included/generating-output.itexi
+@node 下载
+@unnumbered 下载
+@translationof Download
+
+@subheading 使用者
+@subheading 开发人员
+@subheading 软件协议
+@subheading 捐赠人
+@subheading 法律条文
+@menu
+* Unix::
+* MacOS X::
+* Windows::
+* 源代码::
+* 旧的下载::
+* GPL::
+@end menu
+
+@node Unix
+@unnumberedsec Unix
+@translationof Unix
+
+
+@subheading Generic Packages or Distribution-Specific Packages?
+@subheading Generic Packages
+@subsubheading 下载
+@subsubheading 安装
+@subsubheading 卸载
+@subheading Compiling a file
+@subheading Distribution-specific Packages
+@subheading Legalese
+@node MacOS X
+@unnumberedsec MacOS X
+@translationof MacOS X
+
+
+@subheading 包
+@subsubheading 下载
+@subsubheading 安装
+@subsubheading 卸载
+@subheading 编译文件
+@subheading 行动命令行
+@subsubheading MacOS X 里的命令行
+@subsubheading 调用单独的脚本
+@subheading 法律条文
+@node Windows
+@unnumberedsec Windows
+@translationof Windows
+
+
+@subheading 包
+@subsubheading 下载
+@subsubheading 安装
+@subsubheading 卸载
+@subheading 编译文件
+@subheading 行动命令行
+@subsubheading Windows 里的命令行
+@subsubheading 调用单独的脚本
+@subheading 法律条文
+
+@node 源代码
+@unnumberedsec 源代码
+@translationof Source
+
+
+@subheading 源代码包Source tarball
+@subheading 编译指导
+@node 旧的下载
+@unnumberedsec 旧的下载
+@translationof Old downloads
+
+
+@subheading 所有版本
+@node GPL
+@unnumberedsec GPL
+@translationof GPL
+
+
+@subheading 软件协议
+@subheading GNU General Public License
+@include gpl.itexi
+
+@c -- SKELETON FILE --

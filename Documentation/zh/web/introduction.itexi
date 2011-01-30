@@ -1,0 +1,139 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: zh -*-
+@c This file is part of web.texi
+@ignore
+    Translation of GIT committish: 676dd9eed5f81540f71c3e3e55666c60f7af36ac
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node 简介
+@unnumbered 简介
+@translationof Introduction
+
+
+@subheading 我们的目标
+@subheading LilyPond 作什么
+@subheading 使用 LilyPond 
+@subheading LilyPond 如何工作
+@menu
+* 特色::
+* 例子::
+* 自由::
+* 背景::
+* 生产::
+* 测评::
+* 文本输入::
+* 编辑更简单::
+@end menu
+
+@node 特色
+@unnumberedsec 特色
+@translationof Features
+
+
+@subheading 优雅
+@subsubheading 杰出的古典雕版风格
+@subsubheading 有效的版面选择
+@subheading 易于使用
+@subsubheading 基于文本的输入
+@subsubheading 音乐和文本混合
+@subsubheading 易用性
+@subsubheading 可扩展的设计
+@subheading 环境
+@subsubheading 自由软件
+@subsubheading 出色的支持
+@subsubheading 高级编辑器
+@subheading 现在哪？
+@node 例子
+@unnumberedsec 例子
+@translationof Examples
+
+
+@subsubheading 古典音乐
+@subsubheading 复杂的乐谱
+@subsubheading 早期音乐
+@subsubheading 现代音乐
+@subsubheading 有效，灵活地创造表演材料
+@subsubheading 谱号
+@subsubheading 申克分析图
+@subsubheading 声乐
+@subsubheading 教育方面的应用
+@subsubheading 流行音乐
+@subsubheading 大型项目
+@subheading 现在哪？
+@node 自由
+@unnumberedsec 自由
+@translationof Freedom
+
+
+@subheading 自由软件
+@subheading 使用者的好处在哪？
+@subheading 为什么 LilyPond 的开发者会无偿 @qq{赠送} 他们的工作？
+@subheading 现在哪？
+@node 背景
+@unnumberedsec 背景
+@translationof Background
+
+
+@subheading 背景文章
+@subheading 现在哪？
+@node 生产
+@unnumberedsec 生产
+@translationof Productions
+
+
+@subheading 音乐厅
+@subheading 出版的五线谱音乐
+@subheading 现在哪？
+@node 测评
+@unnumberedsec 测评
+@translationof Reviews
+
+
+@subheading 出版的文章
+@subheading 用户推荐
+@subsubheading @uref{http://nyphil.org/meet/orchestra/index.cfm?page=profile&personNum=7, Carter Brey}, Principal Cellist, New York Philharmonic
+@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, professor of Composition, Musikhochschule Freiburg
+@subsubheading Darius Blasband, composer (Brussels, Belgium)
+@subsubheading Kieren MacMillan, composer (Toronto, Canada)
+@subsubheading Chris Cannam, lead programmer of the @uref{http://www.rosegardenmusic.com/, RoseGarden} project
+@subsubheading Chris Snyder, @uref{http://www.adoromusicpub.com/, Adoro Music Publishing}
+@subsubheading David Bobroff, Bass Trombone, Iceland Symphony Orchestra
+@subsubheading Vaylor Trucks, Electric guitar player (Yes, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, related to})
+@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{http://www.mutopiaproject.org/, Mutopia} contributor
+@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, Conductor at the Theatre in Koblenz, Germany and distinguished GNU Hacker
+@subsubheading Paul Davis, developer of @uref{http://jackaudio.org/, JACK} and @uref{http://www.ardour.org/, Ardour}
+@subsubheading @uref{http://webusers.siba.fi/~mkuuskan/, Dr. Mika Kuuskankare}, researcher at the @uref{http://siba.fi, Sibelius Academy Finland}, composer and author of Expressive Notation Package (ENP)
+@subsubheading @uref{http://camerondh.blogspot.com, David Cameron}, Musician, professional typesetter and long time SCORE user
+@subheading 现在哪？
+@node 文本输入
+@unnumberedsec 文本输入
+@translationof Text input
+
+
+@subheading @qq{编译} 音乐
+@subsubheading 就像 A B C 一样简单
+@subsubheading 流行音乐
+@subsubheading 配器部分
+@subsubheading 初学者的文档
+@subsubheading 更简单的编辑环境
+@subheading 现在哪？
+@node 编辑更简单
+@unnumberedsec 编辑更简单
+@translationof Easier editing
+
+
+@subheading LilyPondTool
+@subheading Frescobaldi
+@subheading Denemo
+@subheading 文本编辑器
+@subheading 可以导出 LilyPond 代码的程序
+@subsubheading 音符，谱号和 MIDI 编辑器：
+@subsubheading 算法代码生成器
+@subheading 其它开发不活跃的程序
+@subheading 现在哪？
+@subheading 法律术语
+
+@c -- SKELETON FILE --

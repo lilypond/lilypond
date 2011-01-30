@@ -1,0 +1,163 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: zh -*-
+@c This file is part of web.texi
+@ignore
+    Translation of GIT committish: 676dd9eed5f81540f71c3e3e55666c60f7af36ac
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node 手册
+@unnumbered 手册
+@translationof Manuals
+
+
+@subheading Introduction
+@subheading Regular use
+@subheading Infrequent Use
+@subheading Other material
+@menu
+* Learning::
+* Glossary::
+* Essay::
+* Notation::
+* Usage::
+* Snippets::
+* FAQ::
+* Web::
+* Changes::
+* Extending::
+* Internals::
+* Translated::
+* All::
+* FDL::
+@end menu
+
+@node Learning
+@unnumberedsec Learning
+@translationof Learning
+
+@untranslated
+
+
+@subheading Learning manual
+@node Glossary
+@unnumberedsec Glossary
+@translationof Glossary
+
+@untranslated
+
+
+@subheading Glossary
+@node Essay
+@unnumberedsec Essay
+@translationof Essay
+
+@untranslated
+
+
+@subheading Essay
+@node Notation
+@unnumberedsec Notation
+@translationof Notation
+
+@untranslated
+
+
+@subheading Notation reference
+@node Usage
+@unnumberedsec Usage
+@translationof Usage
+
+@untranslated
+
+
+@subheading Usage manual
+@node Snippets
+@unnumberedsec Snippets
+@translationof Snippets
+
+@untranslated
+
+
+@subheading Snippets
+@node FAQ
+@unnumberedsec FAQ
+@translationof FAQ
+
+@untranslated
+
+
+@subheading Introductory questions
+@subsubheading Where are the graphical canvas, menus, and toolbars?
+@subsubheading There's a lot of documentation!  Do I need to read it?
+@subsubheading That's still a lot of reading!  Is it worth it?
+@subheading Usage questions
+@subsubheading Something isn't working!  How do I fix it?
+@subsubheading Why do you change the syntax?
+@node Web
+@unnumberedsec Web
+@translationof Web
+
+@untranslated
+
+
+@subheading Web
+@subheading Read it
+@subsubheading Latest manual
+@subsubheading Web manual in @versionDevel
+@node Changes
+@unnumberedsec Changes
+@translationof Changes
+
+@untranslated
+
+
+@subheading Changes
+@node Extending
+@unnumberedsec Extending
+@translationof Extending
+
+@untranslated
+
+
+@subheading Extending LilyPond
+@node Internals
+@unnumberedsec Internals
+@translationof Internals
+
+@untranslated
+
+
+@subheading Internals reference
+@node Translated
+@unnumberedsec Translated
+@translationof Translated
+
+@untranslated
+
+
+@subheading Translations status
+@include translations.itexi
+@node All
+@unnumberedsec All
+@translationof All
+
+@untranslated
+
+
+@subheading Downloadable versions
+@subheading Previous stable versions
+@node FDL
+@unnumberedsec FDL
+@translationof FDL
+
+@untranslated
+
+
+@subheading Documentation license
+@subheading GNU Free Documentation License 1.1
+@include fdl.itexi
+
+@c -- SKELETON FILE --
