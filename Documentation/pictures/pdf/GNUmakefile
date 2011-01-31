@@ -1,4 +1,4 @@
-depth = ../../../
+depth = ../../..
 
 PDF_FILES = $(call src-wildcard,*.pdf)
 

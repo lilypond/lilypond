@@ -70,8 +70,8 @@ local-clean-ChangeLog:
 
 dist-toplevel-txt-files: top-doc
 	-mkdir -p $(distdir)
-	ln $(TOPDOC_TXT_FILES) $(distdir)/
-	ln $(top-src-dir)/stepmake/aclocal.m4 $(distdir)/
+	ln $(TOPDOC_TXT_FILES) $(distdir)
+	ln $(top-src-dir)/stepmake/aclocal.m4 $(distdir)
 
 info:
 	$(foreach d, $(INFO_DIRECTORIES),$(MAKE) -C $(d) out=www info && ) true
@@ -101,7 +101,7 @@ ifeq ($(out),www)
 # installed in non-recursing target from TOP-SRC-DIR
 install-WWW:
 	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
-	rsync -rl --exclude='*.signature' $(outdir)/offline-root/ $(DESTDIR)$(webdir)
+	rsync -rl --exclude='*.signature' $(outdir)/offline-root $(DESTDIR)$(webdir)
 	$(MAKE) -C Documentation omf-local-install
 
 install-info-WWW:
@@ -210,7 +210,7 @@ $(tree-share-prefix)/mf-link-tree link-mf-tree: $(tree-share-prefix)/lilypond-fo
 	rm -f $(tree-share-prefix)/fonts/type1/* &&  \
 		cd $(tree-share-prefix)/fonts/otf && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.otf .
-	-cd $(tree-share-prefix)/fonts/ && \
+	-cd $(tree-share-prefix)/fonts && \
 		ln -s ../../../../../mf/$(outconfbase)/fonts.conf .
 	-cd $(tree-share-prefix)/fonts/svg && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.svg .
@@ -253,7 +253,7 @@ test:
 	@echo
 	@echo '        grep sourcefilename `grep -L systems.texi out/lybook-testdb/*/*log|sed s/log/ly/g`'
 	@echo
-	$(MAKE) -C input/regression/ out=test local-test
+	$(MAKE) -C input/regression out=test local-test
 	$(MAKE) -C input/regression/musicxml out=test local-test
 	$(MAKE) -C input/regression/abc2ly out=test local-test
 	$(MAKE) -C input/regression/lilypond-book out=test local-test
@@ -264,7 +264,7 @@ test-baseline:
 	fi
 	$(MAKE)
 	$(MAKE) test
-	$(MAKE) out=test -C input/regression/ local-test-baseline
+	$(MAKE) out=test -C input/regression local-test-baseline
 	$(MAKE) out=test -C input/regression/musicxml local-test-baseline
 	$(MAKE) out=test -C input/regression/abc2ly local-test-baseline
 	$(MAKE) out=test -C input/regression/lilypond-book local-test-baseline
@@ -274,7 +274,7 @@ test-baseline:
 local-check: test
 	rm -rf $(RESULT_DIR)
 	mkdir -p $(RESULT_DIR)
-	$(buildscript-dir)/output-distance --create-images --output-dir $(RESULT_DIR) input/regression/out-test-baseline input/regression/out-test/
+	$(buildscript-dir)/output-distance --create-images --output-dir $(RESULT_DIR) input/regression/out-test-baseline input/regression/out-test
 	@find input ly -name '*.ly' -print |grep -v 'out.*/' | xargs grep '\\version' -L | grep -v "standard input" |sed 's/^/**** Missing version: /g'
 
 
@@ -286,7 +286,7 @@ test-redo:
 	$(MAKE) check
 
 test-clean: test-snippets-clean
-	$(MAKE) -C input/regression/ out=test clean
+	$(MAKE) -C input/regression out=test clean
 
 snippets-clean:
 	rm -rf out/lybook-db

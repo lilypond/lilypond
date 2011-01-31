@@ -18,7 +18,7 @@ else
   find -name '*.gcda' -exec rm  '{}' ';'
 fi
 
-mkdir -p scripts/out-cov/
+mkdir -p scripts/out-cov
 touch scripts/out-cov/midi2ly scripts/out-cov/midi2ly.1
 make conf=cov -j2 &&  \
   make conf=cov test-clean OUT_TEST=testcov LILYPOND_JOBS= && \
@@ -42,11 +42,11 @@ mv $depth/input/regression/out-testcov/*.scm.cov .
 ln $depth/ly/*.ly .
 ln $depth/lily/out-cov/*[ch] .
 mkdir include
-ln $depth/lily/include/* include/
-ln $depth/flower/include/* include/
+ln $depth/lily/include/* include
+ln $depth/flower/include/* include
 for a in *[cl] *.yy
 do
-   gcov -o $depth/lily/out-cov/  -p $a > $a.gcov-summary
+   gcov -o $depth/lily/out-cov  -p $a > $a.gcov-summary
 done 
 
 $depth/scripts/auxiliar/coverage.py --uncovered *.cc > uncovered.txt

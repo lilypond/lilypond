@@ -84,7 +84,7 @@ INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
 
 ifeq ($(out),www)
 INFO_IMAGES_DIR = lilypond
-DEST_INFO_IMAGES_SUBDIR = Documentation/
+DEST_INFO_IMAGES_SUBDIR = Documentation
 endif
 
 include $(depth)/make/stepmake.make

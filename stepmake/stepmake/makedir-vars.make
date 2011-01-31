@@ -12,7 +12,7 @@ EXTRA_DIST_FILES += $(MAKE_FILES)
 # these two outdir FILES are distributed, since they make sense to have
 # without running configure and make.
 
-at-dir = $(doc-dir)/
+at-dir = $(doc-dir)
 at-ext = .in
 
 
