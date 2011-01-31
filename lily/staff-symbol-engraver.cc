@@ -50,7 +50,11 @@ protected:
 
 Staff_symbol_engraver::~Staff_symbol_engraver ()
 {
-  assert (!span_);
+  if (span_)
+    {
+      // Somehow finalize() was not called?
+      programming_error ("Have a pending spanner in destructor.");
+    }
 }
 
 Staff_symbol_engraver::Staff_symbol_engraver ()
