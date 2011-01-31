@@ -448,7 +448,8 @@
     ;; don't do BeginDefaults PageMedia: A4
     ;; not necessary and wrong
     (write-preamble paper #t port)
-    (handle-metadata header port)
+    (if (module? header)
+	(handle-metadata header port))
     (for-each
      (lambda (page)
        (set! page-number (1+ page-number))
