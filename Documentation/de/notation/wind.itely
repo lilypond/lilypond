@@ -384,6 +384,7 @@ c1^\markup {
 Eine Vielzahl von Trillern ist möglich:
 
 @c KEEP LY
+@lilypond[verbatim,quote,relative=2]
 \textLengthOn
 c1^\markup {
   \center-column {
