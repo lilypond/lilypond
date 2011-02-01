@@ -40,16 +40,16 @@ the following pedal should be circled (indicating a change)
 @end table
 
 The function also checks if the string has the typical form of three
-pedals, then the divider and then the remaining four pedals. If not it
-prints out a warning. However, in any case, it will also print each symbol
-in the order as given. This means you can place the divider (even multiple
+pedals, then the divider and then the remaining four pedals.  If not it
+prints out a warning.  However, in any case, it will also print each symbol
+in the order as given.  This means you can place the divider (even multiple
 dividers) anywhere you want, but you'll have to live with the warnings.
 
 The appearance of the diagram can be tweaked inter alia using the size property
 of the TextScript grob (@code{\\override Voice.TextScript #'size = #0.3}) for
 the overall, the thickness property
 (@code{\\override Voice.TextScript #'thickness = #3}) for the line thickness of
-the horizontal line and the divider. The remaining configuration (box sizes,
+the horizontal line and the divider.  The remaining configuration (box sizes,
 offsets and spaces) is done by the harp-pedal-details  list of properties
 (@code{\\override Voice.TextScript #'harp-pedal-details #'box-width = #1}).
 It contains the following settings: @code{box-offset} (vertical shift of the
@@ -164,4 +164,4 @@ divider) and @code{space-after-divider} (box spacing after the divider).
     (if (null? (cdr info))
       (ly:warning "Harp pedal diagram does not contain a divider (usually after third pedal).")
       (if (not (equal? (cdr info) '(3)))
-        (ly:warning "Harp pedal diagram contains dividers at positions ~a. Normally, there is only one divider after the third pedal." (cdr info))))))
+        (ly:warning "Harp pedal diagram contains dividers at positions ~a.  Normally, there is only one divider after the third pedal." (cdr info))))))

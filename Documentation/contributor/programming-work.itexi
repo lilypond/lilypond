@@ -1310,7 +1310,7 @@ get help from a Linux or OSX developer to do the make tests.
 In order to avoid breaking LilyPond, it is important to verify that
 the regression tests succeed, and that no unwanted changes are
 introduced into the output.  This process is described in
-@ref{Identifying code regressions}.
+@ref{Regtest comparison}.
 
 @subheading Typical developer's edit/compile/test cycle
 

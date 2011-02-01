@@ -34,10 +34,12 @@
 #define MLP_BREVIS 0x04 // mensural brevis head
 #define MLP_LONGA 0x08 // mensural brevis head with right cauda
 #define MLP_MAXIMA 0x10 // mensural maxima head without stem
-#define MLP_FLEXA 0x20 // mensural flexa-like shape
+#define MLP_FLEXA_BEGIN 0x20 // start of obliqua
+#define MLP_FLEXA_END 0x40 // end of obliqua
 
 #define MLP_STEM (MLP_UP | MLP_DOWN)
 #define MLP_SINGLE_HEAD (MLP_BREVIS | MLP_LONGA | MLP_MAXIMA)
+#define MLP_FLEXA (MLP_FLEXA_BEGIN | MLP_FLEXA_END)
 #define MLP_ANY (MLP_FLEXA | MLP_SINGLE_HEAD)
 
 struct Mensural_ligature

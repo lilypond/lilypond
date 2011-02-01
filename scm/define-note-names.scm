@@ -969,4 +969,4 @@
 	      (ly:message (_ "Using `~a' note names...") str))
 	  (set! pitchnames alist)
 	  (ly:parser-set-note-names parser alist))
-	(ly:warning (_ "Could not find language `~a'. Ignoring.") str))))
+	(ly:warning (_ "Could not find language `~a'.  Ignoring.") str))))

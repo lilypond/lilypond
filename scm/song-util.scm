@@ -129,33 +129,35 @@
 
 
 (define-public (music-property-value? music property value)
-  "Return true iff MUSIC's PROPERTY is equal to VALUE."
+  "Return @code{#t} iff @var{music}'s @var{property} is equal to
+@var{value}."
   (equal? (ly:music-property music property) value))
 
 (define-public (music-name? music name)
-  "Return true iff MUSIC's name is NAME."
+  "Return @code{#t} iff @var{music}'s name is @var{name}."
   (if (list? name)
       (member (ly:music-property music 'name) name)
       (music-property-value? music 'name name)))
 
 (define-public (music-property? music property)
-  "Return true iff MUSIC is a property setter and sets or unsets PROPERTY."
+  "Return @code{#t} iff @var{music} is a property setter and sets
+or unsets @var{property}."
   (and (music-name? music '(PropertySet PropertyUnset))
        (music-property-value? music 'symbol property)))
 
 (define-public (music-has-property? music property)
-  "Return true iff MUSIC contains PROPERTY."
+  "Return @code{#t} iff @var{music} contains @var{property}."
   (not (eq? (ly:music-property music property) '())))
 
 (define-public (property-value music)
-  "Return value of a property setter MUSIC.
-If it unsets the property, return #f."
+  "Return value of a property setter @var{music}.
+If it unsets the property, return @code{#f}."
   (if (music-name? music 'PropertyUnset)
       #f
       (ly:music-property music 'value)))
 
 (define-public (music-elements music)
-  "Return list of all MUSIC's top-level children."
+  "Return list of all @var{music}'s top-level children."
   (let ((elt (ly:music-property music 'element))
         (elts (ly:music-property music 'elements)))
     (if (not (null? elt))
@@ -163,7 +165,7 @@ If it unsets the property, return #f."
         elts)))
 
 (define-public (find-child music predicate)
-  "Find the first node in MUSIC that satisfies PREDICATE."
+  "Find the first node in @var{music} that satisfies @var{predicate}."
   (define (find-child queue)
     (if (null? queue)
         #f
@@ -174,13 +176,13 @@ If it unsets the property, return #f."
   (find-child (list music)))
 
 (define-public (find-child-named music name)
-  "Return the first child in MUSIC that is named NAME."
+  "Return the first child in @var{music} that is named @var{name}."
   (find-child music (lambda (elt) (music-name? elt name))))
 
 (define-public (process-music music function)
-  "Process all nodes of MUSIC (including MUSIC) in the DFS order.
-Apply FUNCTION on each of the nodes.
-If FUNCTION applied on a node returns true, don't process the node's subtree."
+  "Process all nodes of @var{music} (including @var{music}) in the DFS order.
+Apply @var{function} on each of the nodes.  If @var{function} applied on a
+node returns @code{#t}, don't process the node's subtree."
   (define (process-music queue)
     (if (not (null? queue))
         (let* ((elt (car queue))

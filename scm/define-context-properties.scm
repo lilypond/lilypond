@@ -66,7 +66,7 @@ Each entry in the list is either a symbol or a procedure.
 
 @item symbol
 The symbol is the name of the context in which the following rules are to be
-applied. For example, if @var{context} is @rinternals{Score} then all
+applied.  For example, if @var{context} is @rinternals{Score} then all
 staves share accidentals, and if @var{context} is @rinternals{Staff} then
 all voices in the same staff share accidentals, but staves do not.
 
@@ -92,9 +92,9 @@ The current measure position.
 
 @end table
 
-The procedure returns a pair of booleans. The first states whether an extra
-natural should be added. The second states whether an accidental should be
-printed. @code{(#t . #f)} does not make sense.
+The procedure returns a pair of booleans.  The first states whether an extra
+natural should be added.  The second states whether an accidental should be
+printed.  @code{(#t . #f)} does not make sense.
 
 @end table")
      (autoBeamCheck ,procedure? "A procedure taking three

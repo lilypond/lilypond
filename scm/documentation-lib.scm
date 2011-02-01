@@ -159,7 +159,7 @@ string-to-use).  If QUOTE? is #t, embed table in a @quotation environment."
   name)
 
 (define (ref-ify x)
-  "Return @ref{X}. If mapping ref-ify to a list that needs to be sorted,
+  "Return @ref{X}.  If mapping ref-ify to a list that needs to be sorted,
    sort the list first."
   (string-append "@ref{" x "}"))
 

@@ -290,6 +290,7 @@ If we give names, Bison complains.
 %token <scm> MARKUP_FUNCTION
 %token <scm> MARKUP_LIST_FUNCTION
 %token <scm> MARKUP_IDENTIFIER
+%token <scm> MARKUPLINES_IDENTIFIER
 %token <scm> MUSIC_FUNCTION
 %token <scm> MUSIC_IDENTIFIER
 %token <scm> NOTENAME_PITCH
@@ -613,6 +614,9 @@ identifier_init:
 		$$ = $1;
 	}
 	| full_markup {
+		$$ = $1;
+	}
+	| full_markup_list {
 		$$ = $1;
 	}
 	| DIGIT {
@@ -2401,7 +2405,10 @@ lyric_markup:
 	;
 
 full_markup_list:
-	MARKUPLINES
+	MARKUPLINES_IDENTIFIER {
+		$$ = $1;
+	}
+	| MARKUPLINES
 		{ PARSER->lexer_->push_markup_state (); }
 	markup_list {
 		$$ = $3;
@@ -2434,7 +2441,10 @@ markup_top:
 	;
 
 markup_list:
-	markup_composed_list {
+	MARKUPLINES_IDENTIFIER {
+		$$ = $1;
+	}
+	| markup_composed_list {
 		$$ = $1;
 	}
 	| markup_braced_list {
@@ -2627,6 +2637,9 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		if (is_lyric_state ())
 			return LYRIC_MARKUP_IDENTIFIER;
 		return MARKUP_IDENTIFIER;
+	} else if (Text_interface::is_markup_list (sid)) {
+		*destination = sid;
+		return MARKUPLINES_IDENTIFIER;
 	}
 
 	return -1;

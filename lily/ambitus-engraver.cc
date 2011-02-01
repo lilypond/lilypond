@@ -178,7 +178,11 @@ Ambitus_engraver::finalize ()
 	    ? robust_scm2rational (scm_cdr (handle), Rational (0))
 	    : Rational (0);
 
-	  if (sig_alter == p.get_alteration ())
+	  const Pitch other = pitch_interval_[-d];
+
+	  if (sig_alter == p.get_alteration ()
+	      && !((p.steps () == other.steps ())
+		   && (p.get_alteration () != other.get_alteration ())))
 	    {
 	      accidentals_[d]->suicide ();
 	      heads_[d]->set_object ("accidental-grob", SCM_EOL);

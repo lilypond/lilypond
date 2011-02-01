@@ -60,7 +60,8 @@ compat_itoa (int i)
 #if 0
 int x = 0;
 int *track = &x;
-#define debug_print(f, args...) fprintf (stderr, "%s:%d: track: %p :" f, __FUNCTION__, __LINE__, *track, ##args)
+#define urg_debug_print(f, args...) fprintf (stderr, "%s:%d: track: %p: " f, __FUNCTION__, __LINE__, *track, ##args)
+#define debug_print(f, args...) fprintf (stderr, f, ##args)
 #else
 #define debug_print(f, args...)
 #endif
@@ -161,7 +162,7 @@ get_number (unsigned char ** str, unsigned char * end_str, int length)
     sum = (sum << 8) + (unsigned char) (*str)[i];
 
   *str += length;
-  debug_print ("%d:\n", sum);
+  debug_print ("%ld:\n", sum);
   return sum;
 }
 
@@ -178,7 +179,7 @@ get_variable_length_number (unsigned char **str, unsigned char * end_str)
       if (!(x & 0x80))
 	break;
     }
-  debug_print ("%d:\n", sum);
+  debug_print ("%ld:\n", sum);
   return sum;
 }
 
@@ -291,7 +292,7 @@ read_event (unsigned char **track, unsigned char *end, PyObject *time,
 }
 
 static PyObject *
-midi_parse_track (unsigned char **track, unsigned char *track_end)
+midi_parse_track (unsigned char **track, unsigned char *track_end, int clocks_max)
 {
   unsigned int time = 0;
   unsigned long track_len, track_size;
@@ -312,8 +313,8 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
 
   track_len = get_number (track, *track + 4, 4);
 
-  debug_print ("track_len: %u\n", track_len);
-  debug_print ("track_size: %u\n", track_size);
+  debug_print ("track_len: %lu\n", track_len);
+  debug_print ("track_size: %lu\n", track_size);
   debug_print ("track begin: %p\n", track);
   debug_print ("track end: %p\n", track + track_len);
   
@@ -337,7 +338,8 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
 	time += dt;
 	if (dt)
 	  pytime = PyInt_FromLong (time);
-
+	if (clocks_max && time > clocks_max)
+	  break;
 	pyev = read_event (track, track_end, pytime,
 			   &running_status);
 	if (pyev)
@@ -355,21 +357,23 @@ pymidi_parse_track (PyObject *self, PyObject *args)
 {
   unsigned char *track, *track_end;
   unsigned long track_size;
+  int clocks_max;
 
   debug_print ("%s", "\n");
-  if (!PyArg_ParseTuple (args, "s#", &track, &track_size))
+  if (!PyArg_ParseTuple (args, "s#|i", &track, &track_size, &clocks_max))
     return 0;
+  debug_print ("clocks_max: %d\n", clocks_max);
 
   if (track_size < 0)
     return midi_error (__FUNCTION__,   ": negative track size: ", compat_itoa (track_size));
 
   track_end = track + track_size;
   
-  return midi_parse_track (&track, track_end);
+  return midi_parse_track (&track, track_end, clocks_max);
 }
 
 static PyObject *
-midi_parse (unsigned char **midi,unsigned  char *midi_end)
+midi_parse (unsigned char **midi,unsigned  char *midi_end, int clocks_max)
 {
   PyObject *pymidi = 0;
   unsigned long header_len;
@@ -388,7 +392,7 @@ midi_parse (unsigned char **midi,unsigned  char *midi_end)
   format = get_number (midi, *midi + 2, 2);
   tracks = get_number (midi, *midi + 2, 2);
 
-  if (tracks > 32)
+  if (tracks > 256)
     return midi_error (__FUNCTION__,  ": too many tracks: ", compat_itoa (tracks));
   
   division = get_number (midi, *midi + 2, 2) * 4;
@@ -403,7 +407,7 @@ midi_parse (unsigned char **midi,unsigned  char *midi_end)
 
   /* Tracks */
   for (i = 0; i < tracks; i++)
-    PyList_Append (pymidi, midi_parse_track (midi, midi_end));
+    PyList_Append (pymidi, midi_parse_track (midi, midi_end, clocks_max));
 
   pymidi = Py_BuildValue ("(OO)", Py_BuildValue ("(ii)", format, division),
 			  pymidi);
@@ -415,10 +419,12 @@ pymidi_parse (PyObject *self, PyObject *args)
 {
   unsigned char *midi, *midi_end;
   unsigned long midi_size;
+  int clocks_max;
   
   debug_print ("%s", "\n");
-  if (!PyArg_ParseTuple (args, "s#", &midi, &midi_size))
+  if (!PyArg_ParseTuple (args, "s#|i", &midi, &midi_size, &clocks_max))
     return 0;
+  debug_print ("clocks_max: %d\n", clocks_max);
 
   if (memcmp (midi, "MThd", 4))
     {
@@ -430,14 +436,13 @@ pymidi_parse (PyObject *self, PyObject *args)
 
   midi_end = midi + midi_size;
 
-  return midi_parse (&midi, midi_end);
+  return midi_parse (&midi, midi_end, clocks_max);
 }
-
 
 static PyMethodDef MidiMethods[] = 
 {
-  {"parse",  pymidi_parse, 1},
-  {"parse_track",  pymidi_parse_track, 1},
+  {"parse",  pymidi_parse, METH_VARARGS},
+  {"parse_track",  pymidi_parse_track, METH_VARARGS},
   {0, 0}        /* Sentinel */
 };
 

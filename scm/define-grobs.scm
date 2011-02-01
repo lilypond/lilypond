@@ -1195,7 +1195,6 @@
 
     (MensuralLigature
      . (
-	(flexa-width . 2.0)
 	(stencil . ,ly:mensural-ligature::print)
 	(thickness . 1.4)
 	(meta . ((class . Spanner)
@@ -1351,9 +1350,11 @@
 
     (NoteHead
      . (
+	(flexa-width . 2.0)
 	(duration-log . ,note-head::calc-duration-log)
 	(extra-spacing-height . ,ly:note-head::include-ledger-line-height)
 	(glyph-name . ,note-head::calc-glyph-name)
+        (ligature-flexa . #f)
 	(stem-attachment . ,ly:note-head::calc-stem-attachment)
 	(stencil . ,ly:note-head::print)
 	(X-offset . ,ly:note-head::stem-x-shift)

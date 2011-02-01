@@ -59,19 +59,19 @@ Download the Ubuntu LilyPond Developer Remix disk image:
 (approximately 1 GB)
 
 @example
-@uref{http://files.lilynet.net/ubuntu-lilydev-remix-1.0.iso}
+@uref{http://files.lilynet.net/ubuntu-lilydev-remix-1.1.iso}
 @end example
 
 @advanced{Some users might want these files, but if you don't
 recognize what they are, then you don't want them:
 @*
-@uref{http://files.lilynet.net/ubuntu-lilydev-remix-1.0.iso.md5}
-@*
-@uref{http://files.lilynet.net/ubuntu-lilydev-remix-1.0.iso.torrent}
+@uref{http://files.lilynet.net/ubuntu-lilydev-remix-1.1.iso.md5}
+@c @*
+@c @uref{http://files.lilynet.net/ubuntu-lilydev-remix-1.0.iso.torrent}
 }
 
 @item
-Create a new @qq{virtual machine} inside your virtualization
+Create a music new @qq{virtual machine} inside your virtualization
 software.
 
 If possible, use at least 700 MB of RAM (1GB would be better) for
@@ -86,7 +86,7 @@ on your virtualized system.
 @enumerate
 
 @item
-When @file{lilydev2.iso} boots, it shows an ISOLINUX
+When @file{lilydev.iso} boots, it shows an ISOLINUX
 @code{boot:} prompt.  Type:
 
 @example

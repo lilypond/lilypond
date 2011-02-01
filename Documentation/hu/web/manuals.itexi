@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 8ae92df5b752659c05ddb78806b7abb0ac60ee4d
+    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,34 +11,51 @@
 @unnumbered Dokumentáció
 @translationof Manuals
 
+@macro details{reference}
+@spanClass{detail}
+(@ref{\reference\, \reference\ részletei})
+@spanEnd
+@end macro
+
 @divClass{heading-center}
-@heading A LilyPond @version dokumentációja
+@ifclear web_version
+  @heading A LilyPond @version dokumentációja
+@end ifclear
+@ifset web_version
+  @heading A LilyPond @versionStable dokumentációja
+@end ifset
 
 @divEnd
 
-@c TODO: do we want these links to be in larger text / bold ?   CSS.
+@divClass{link-headings}
 
-@c if you change this page, also change All.
 @divClass{column-center-top}
 @subheading Bevezetés
 
 @itemize
 
-@item @ref{Szöveges bevitel}:
+@item
+@ref{Szöveges bevitel}:
 A LilyPond egy @strong{szöveges alapú} kottaszedő program. Ha nem vagy
 tisztában ennek a fogalmával, akkor előbb ezt olvasd el!
 
-@item @ref{Tankönyv}:
+@item
+@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Tankönyv}}
 Bevezetés a LilyPond használatába lépésről lépésre.
+@details{Tankönyv}
 
-@item @ref{Fogalomtár}:
+@item
+@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Fogalomtár}}
 @emph{(opcionális)}
 Zenei fogalmak gyűjteménye több nyelven.
+@details{Fogalomtár}
 
-@item @ref{Esszé}:
+@item
+@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Esszé}}
 @emph{(opcionális)}
 Háttérinformáció a kottaszedés folyamatáról és a 19. századi kottaszedés
 esztétikai elveiről.
+@details{Esszé}
 
 @end itemize
 
@@ -49,16 +66,22 @@ esztétikai elveiről.
 
 @itemize
 
-@item @ref{Kottaírás}:
+@item
+@ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Kottaírás}}
 A dokumentáció törzsanyaga; részletesen bemutatja a különböző kottaelemek
 beviteli módját.
+@details{Notation}
 
-@item @ref{Használat}:
+@item
+@ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Használat}}
 Bemutatja a alkalmazás parancssori használatát, ügyelve a különböző operációs
 rendszerek közötti különbségekre.
+@details{Usage}
 
-@item @ref{Kódrészletek}:
+@item
+@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Kódrészletek}}
 Hasznos példák, tippek, trükkök.
+@details{Snippets}
 
 @end itemize
 
@@ -70,21 +93,29 @@ Hasznos példák, tippek, trükkök.
 
 @itemize
 
-@item @ref{Web}:
+@item
+@ref{GYIK}:
+Gyakran Ismételt Kérdések.
+
+@item
+@ref{Top, Web}:
 A weboldal.
 
-@item @ref{GYIK}:
-Válaszok a Gyakran Ismételt Kérdésekre.
-
-@item @ref{Változások}:
+@item
+@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Változások}}
 A legutóbbi verzióváltás óta történt változások.
+@details{Változások}
 
-@item @ref{Bővítés}:
+@item
+@ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Bővítés}}
 A LilyPond képességeinek kiterjesztése.
+@details{Bővítés}
 
-@item @ref{Belső működés}:
+@item
+@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Belső működés}}
 A LilyPond belső szerkezetének referenciája. A kimenet finomhangolásához
 szükséges.
+@details{Belső működés}
 
 @end itemize
 
@@ -96,20 +127,26 @@ szükséges.
 
 @itemize
 
-@item @ref{Honosítás}:
+@item
+@ref{Honosítás}:
 A honosítás állapota.
 
-@item @ref{Teljes dokumentáció}:
+@item
+@ref{Teljes dokumentáció}:
 Gyorslinkek a dokumentáció különböző részeihez, letölthető változataihoz és
 régi verzióihoz.
 
-@item @ref{Fejlesztés}:
+@item
+@ref{Fejlesztés}:
 Dokumentáció fejlesztőknek.
 
-@item @ref{FDL}:
+@item
+@ref{FDL}:
 A dokumentáció licence, a GNU Free Documentation License.
 
 @end itemize
+
+@divEnd
 
 @divEnd
 
@@ -122,20 +159,20 @@ A dokumentáció licence, a GNU Free Documentation License.
 * Kottaírás:: A kottaírás kézikönyve.
 * Használat:: Az alkalmazás használata.
 * Kódrészletek:: Hasznos kódrészletek.
-* Web:: A weboldal.
 * GYIK:: Gyakran Ismételt Kérdések.
+* Web:: A weboldal.
 * Változások:: A program fejlődése.
 * Bővítés:: A funkcionalitás kiterjesztése.
 * Belső működés:: A belső működés referenciája.
 * Honosítás:: A honosítás állapota.
 * Teljes dokumentáció:: Az összes kézikönyv egyben.
-* FDL:: Licensz.
+* FDL:: Licenc.
 @end menu
 
 @divEnd
 
 
-@c TRANSLATORS: most of the text in this file came from
+@c TRANSLATORS, most of the text in this file came from
 @c LM 1.1 About the documentation  (before this section was
 @c removed in July 2009).
 
@@ -156,34 +193,13 @@ olvasásra nem praktikus követni, csak az egész tankönyv elolvasása után, a
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Olvasd el
 
-@itemize
+@docLinks{Tankönyv, learning,
+  @rlearningnamed{Top,Tankönyv},
+  @manualStableLearningSplit-hu,
+  @manualStableLearningBig-hu, 1.5 MB,
+  @manualStableLearningPdf-hu, 3 MB}
 
-@item @rlearningnamed{Top,Learning}
-
-@end itemize
-
-@subheading Minden formátum
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../learning/index.html, Tankönyv (HTML oldalak)}
-
-
-@item @uref{../learning-big-page.html, Tankönyv (egy nagy HTML oldal)}
-
-
-@item @uref{../learning.pdf, Tankönyv (PDF)}
-
-
-@c TODO: should make links to info?
-@c @item @uref{../TODO, learning.info}:
-@c GNU info format for documentation.  link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -200,32 +216,13 @@ megfelelőjére vagy kíváncsi, érdemes megnézni a fogalomtárban.
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Olvasd el
 
-@itemize
+@docLinks{Fogalomtár, music-glossary,
+  @rglosnamed{Top,Fogalomtár},
+  @manualStableGlossarySplit-hu,
+  @manualStableGlossaryBig-hu, 1 MB,
+  @manualStableGlossaryPdf-hu, 1.5 MB}
 
-@item @rglosnamed{Top,Music glossary}
-
-@end itemize
-
-@subheading Minden formátum
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../music-glossary/index.html, Fogalomtár (HTML oldalak)}
-
-
-@item @uref{../music-glossary-big-page.html, Fogalomtár (egy nagy HTML oldal)}
-
-@item @uref{../music-glossary.pdf, Fogalomtár (PDF)}
-
-
-@c @item @uref{../TODO, glossary.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -242,37 +239,16 @@ majd felületesen bemutatja a LilyPond szedési technikáit,
 
 @warning{A kottapéldák nagy felbontásuk miatt a PDF változatban
 élvezhetőek leginkább.}
-
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Olvasd el
 
-@itemize
+@docLinks{Esszé, essay,
+  @ressaynamed{Top,Esszé},
+  @manualStableEssaySplit-hu,
+  @manualStableEssayBig-hu, 2 MB,
+  @manualStableEssayPdf-hu, 2.5 MB}
 
-@item @ressaynamed{Top,Essay}
-
-@end itemize
-
-@subheading Minden formátum
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../essay/index.html, Esszé (HTML oldalak)}
-
-
-@item @uref{../essay-big-page.html, Esszé (egy nagy HTML oldal)}
-
-
-@item @uref{../essay.pdf, Esszé (PDF)}
-
-
-@c @item @uref{../TODO, essay.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -289,37 +265,16 @@ ismerteti.
 @warning{A kottaírás kézikönyve feltételezi, hogy az olvasó birtokában van
 a @ref{Tankönyv}ben leírt alapismereteknek, és ismeri a zenei kifejezések angol
 megfelelőjét, melyek a @ref{Fogalomtár}ban vannak leírva.}
-
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Olvasd el
 
-@itemize
+@docLinks{Kottaírás, notation,
+  @rusernamed{Top,Kottaírás},
+  @manualStableNotationSplit-hu,
+  @manualStableNotationBig-hu, 7 MB,
+  @manualStableNotationPdf-hu, 18 MB}
 
-@item @rusernamed{Top,Notation}
-
-@end itemize
-
-@subheading Minden formátum
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../notation/index.html, Kottaírás (HTML oldalak)}
-
-
-@item @uref{../notation-big-page.html, Kottaírás (egy nagy HTML oldal)}
-
-
-@item @uref{../notation.pdf, Kottaírás (PDF)}
-
-
-@c @item @uref{../TODO, notation.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -338,33 +293,13 @@ Ajánlott elolvasni, mielőtt nagy művek bevitelébe kezd az ember.
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Olvasd el
 
-@itemize
+@docLinks{Használat, usage,
+  @rprogramnamed{Top,Használat},
+  @manualStableUsageSplit-hu,
+  @manualStableUsageBig-hu, 300 KB,
+  @manualStableUsagePdf-hu, 400 KB}
 
-@item @rprogramnamed{Top,Usage}
-
-@end itemize
-
-@subheading Minden formátum
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../usage/index.html, Használat (HTML oldalak)}
-
-
-@item @uref{../usage-big-page.html, Használat (egy nagy HTML oldal)}
-
-
-@item @uref{../usage.pdf, Használat (PDF)}
-
-
-@c @item @uref{../TODO, lilypond-usage.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -384,71 +319,14 @@ A kottaírás kézikönyvének megfelelő szakaszaiban is találhatóak ilyenek 
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Olvasd el
 
-@itemize
+@docLinks{Kódrészletek, snippets,
+  @rlsrnamed{Top,Kódrészletek},
+  @manualStableSnippetsSplit-hu,
+  @manualStableSnippetsBig-hu, 2.5 MB,
+  @manualStableSnippetsPdf-hu, 8 MB}
 
-@item @rlsrnamed{Top,Snippets}
-
-@end itemize
-
-@subheading Minden formátum
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../snippets/index.html, Kódrészletek (HTML oldalak)}
-
-
-@item @uref{../snippets-big-page.html, Kódrészletek (egy nagy HTML oldal)}
-
-
-@item @uref{../snippets.pdf, Kódrészletek (PDF)}
-
-
-@c @item @uref{../TODO, snippets.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
 @divEnd
-@divEnd
-
-
-@node Web
-@unnumberedsec Web
-@translationof Web
-
-@divClass{column-left-top}
-@subheading Web
-
-A LilyPond weboldala, mely általános információkat tartalmaz a LilyPondról
-a felhasználók széles rétege számára, az újdonsült felhasználóktól a
-fejlesztőkig.
-@divEnd
-
-@divClass{column-right-bottom}
-
-@subheading Minden formátum
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../web/index.html, Web (HTML oldalak)}
-
-
-@item @uref{../web-big-page.html, Web (egy nagy HTML oldal)}
-
-
-@item @uref{../web.pdf, Web (PDF)}
-
-
-@c @item @uref{../TODO, web.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
-@divEnd
-
 
 
 @node GYIK
@@ -490,6 +368,30 @@ Lásd: @rprogram{Miért változik a szintaxis?}
 @divEnd
 
 
+@node Web
+@unnumberedsec Web
+@translationof Web
+
+@divClass{column-left-top}
+@subheading Web
+
+A LilyPond weboldala, mely általános információkat tartalmaz a LilyPondról
+a felhasználók széles rétege számára, az újdonsült felhasználóktól a
+fejlesztőkig.
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Olvasd el
+
+@docLinksBare{Web, web,
+  @ref{Top,Web},
+  @manualDevelWebSplit-hu,
+  @manualDevelWebBig-hu, 1 MB,
+  @manualDevelWebPdf-hu, 2 MB}
+
+@divEnd
+
+
 @node Változások
 @unnumberedsec Változások
 @translationof Changes
@@ -499,36 +401,16 @@ Lásd: @rprogram{Miért változik a szintaxis?}
 
 Összefoglaló az új funkciókról és a LilyPond nyelvének változásairól
 az előző stabil verzió óta.
-
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Olvasd el
 
-@itemize
+@docLinks{Változások, changes,
+  @rchangesnamed{Top,Változások},
+  @manualStableChangesSplit-hu,
+  @manualStableChangesBig-hu, 6 KB,
+  @manualStableChangesPdf-hu, 200 KB}
 
-@item @rchangesnamed{Top,Changes}
-
-@end itemize
-
-@subheading Minden formátum
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../changes/index.html, Változások (HTML oldalak)}
-
-
-@item @uref{../changes-big-page.html, Változások (egy nagy HTML oldal)}
-
-
-@item @uref{../changes.pdf, Változások (PDF)}
-
-@c @item @uref{../TODO, changes.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -541,37 +423,16 @@ az előző stabil verzió óta.
 
 Ez a kézikönyv azt írja le, hogyan lehet a LilyPond képességeit kiterjeszteni
 Scheme nyelven írt bővítményekkel.
-
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Olvasd el
 
-@itemize
+@docLinks{Bővítés, extending,
+  @rextendnamed{Top,Bővítés},
+  @manualStableExtendingSplit-hu,
+  @manualStableExtendingBig-hu, 200 KB,
+  @manualStableExtendingPdf-hu, 400 KB}
 
-@item @rextendnamed{Top,Extend}
-
-@end itemize
-
-@subheading Minden formátum
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../extending/index.html, Bővítés (HTML oldalak)}
-
-
-@item @uref{../extending-big-page.html, Bővítés (egy nagy HTML oldal)}
-
-
-@item @uref{../extending.pdf, Bővítés (PDF)}
-
-
-@c @item @uref{../TODO, extending.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -586,39 +447,17 @@ Ez a referencia a LilyPond által használt osztályok, függvények és
 tulajdonságok összes adatát tartalmazza. A felhasználó ezek mindegyikét
 finomhangolhatja. Ha egy kottaelemet az alapbeállítástól eltérően szeretnél
 formázni, ebben a listában érdemes megkeresni az adott tulajdonság nevét.
-
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Olvasd el
 
-@itemize
+@docLinks{Belső működés, internals,
+  @rinternalsnamed{Top,Belső működés},
+  @manualStableInternalsSplit-hu,
+  @manualStableInternalsBig-hu, 2.5 MB,
+  @manualStableInternalsPdf-hu, 2.8 MB}
 
- @rinternalsnamed{Top,Internals}
-
-@end itemize
-
-@subheading Minden formátum
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../internals/index.html, Belső működés (HTML oldalak)}
-
-
-@item @uref{../internals-big-page.html, Belső működés (egy nagy HTML oldal)}
-
-
-@item @uref{../internals.pdf, Belső működés (PDF)}
-
-
-@c @item @uref{../TODO, internals.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
 @divEnd
-@divEnd
-
 
 
 @node Honosítás
@@ -637,112 +476,61 @@ formázni, ebben a listában érdemes megkeresni az adott tulajdonság nevét.
 @unnumberedsec Teljes dokumentáció
 @translationof All
 
-@divClass{heading-center}
-@heading Gyorslinkek a dokumentációkhoz
-
-A dokumentáció más formátumokban is olvasható a @ref{Dokumentáció} főoldaláról
-elérhető linkeket követve.
-
-@divEnd
-
-@c this should match the (main) manual page.
-@divClass{column-center-top}
-@subheading Bevezetés
-
-@itemize
-
-@item @rlearningnamed{Top,Learning}:
-Bevezetés a LilyPond használatába lépésről lépésre.
-
-@item @rglosnamed{Top,Glossary}:
-@emph{(opcionális)}
-Zenei fogalmak gyűjteménye több nyelven.
-
-@item @ressaynamed{Top,Essay}:
-@emph{(opcionális)}
-Háttérinformáció a kottaszedés folyamatáról és a 19. századi kottaszedés
-esztétikai elveiről.
-
-@end itemize
-
-@divEnd
-
 @divClass{column-left-top}
-@subheading Mindennapi használat
-
-@itemize
-
-@item @rusernamed{Top,Notation}:
-A dokumentáció törzsanyaga; részletesen bemutatja a különböző kottaelemek
-beviteli módját.
-
-@item @rprogramnamed{Top,Usage}:
-Bemutatja a alkalmazás parancssori használatát, ügyelve a különböző operációs
-rendszerek közötti különbségekre.
-
-@item @rlsrnamed{Top,Snippets}:
-Hasznos példák, tippek, trükkök.
-
-@end itemize
-
-@divEnd
-
-
-@divClass{column-right-top}
-@subheading Speciális használat
-
-@itemize
-
-@item @ref{GYIK}:
-Válaszok a Gyakran Ismételt Kérdésekre.
-
-@item @rchangesnamed{Top,Changes}:
-A legutóbbi verzióváltás óta történt változások.
-
-@item @rextendnamed{Top,Extend}:
-A LilyPond képességeinek kiterjesztése.
-
-@item @rinternalsnamed{Top,Internals}:
-A LilyPond belső szerkezetének referenciája. A kimenet finomhangolásához
-szükséges.
-
-@end itemize
-
-@divEnd
-
-@ignore
-@divClass{column-center-bottom}
 @subheading Letölthető változatok
+
+@ifclear web_version
+A csomagok letölthetőek a @uref{http://lilypond.org} weboldalról.
+@end ifclear
+@ifset web_version
 
 @divClass{keep-bullets}
 @itemize
 
-@item html-split zip
-
-@item html-big zip
-
-@item pdf zip
-
-@item info zip maybe?!?!
+@item @doctarballStable
 
 @end itemize
 
 @divEnd
-@end ignore
+@end ifset
 
-@subheading Régebbi dokumentációk
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Előző stabil verziók
 
 @divClass{keep-bullets}
 @itemize
 
 @item @uref{http://lilypond.org/doc/v2.12/Documentation/,
-A LilyPond 2.12 dokumentációja}
+2.12}
+
+@item @uref{http://lilypond.org/doc/v2.11/Documentation/,
+2.11}
 
 @item @uref{http://lilypond.org/doc/v2.10/Documentation/,
-A LilyPond 2.10 dokumentációja}
+2.10}
 
 @item @uref{http://lilypond.org/doc/v2.8/Documentation/,
-A LilyPond 2.8 dokumentációja}
+2.8}
+
+@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+2.6}
+
+@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
+2.4}
+
+@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
+2.2}
+
+@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
+2.0}
+
+@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
+1.8}
+
+@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
+1.6}
 
 @end itemize
 
@@ -759,7 +547,6 @@ A LilyPond 2.8 dokumentációja}
 
 A GNU LilyPond dokumentációjának licence a GNU Free Documentation License.
 A licenc választásának főbb előnyeit a @ref{Szabadság} c. szakasz ismerteti.
-
 @divEnd
 
 @divClass{column-center-bottom}

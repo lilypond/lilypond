@@ -1864,9 +1864,8 @@ labelContext =
 @end lilypond
 
 Each of the vertical spacing grob properties (except
-@code{staff-affinity}) is stored as an alist (association list),
-and each uses the same alist structure as the @code{\paper}
-spacing variables discussed in
+@code{staff-affinity}) uses the same alist structure
+as the @code{\paper} spacing variables discussed in
 @ref{Flexible vertical spacing \paper variables}.  Specific methods
 for modifying alists are discussed in @ref{Modifying alists}.
 Grob properties should be adjusted with an @code{\override} inside
@@ -1919,19 +1918,25 @@ in @rinternals{Contexts}.
 
 @table @code
 @item staff-staff-spacing
-The distance between the current staff and the staff just below it
-in the same system, even if one or more non-staff lines (such as
-@code{Lyrics}) are placed between the two staves.  Does not apply
-to the bottom staff of a system.  This replaces any settings
-inherited from the @code{StaffGrouper} grob of the containing
-staff-group, if there is one.  If this is unset, and there are no
-@code{StaffGrouper} properties to inherit, the
-@code{default-staff-staff-spacing} property is used.
+
+Used to determine the distance between the current staff and the
+staff just below it in the same system, even if one or more
+non-staff lines (such as @code{Lyrics}) are placed between the two
+staves.  Does not apply to the bottom staff of a system.
+
+Initially, the @code{staff-staff-spacing} of a
+@code{VerticalAxisGroup} is a Scheme function that applies the
+properties of the @code{StaffGrouper} if the staff is part of a
+group, or the @code{default-staff-staff-spacing} of the staff
+otherwise.  This allows staves to be spaced differently when they
+are grouped.  For uniform spacing regardless of grouping, this
+function may be replaced by a flexible-spacing alist, using the
+complete-redefinition form of override shown above.
 
 @item default-staff-staff-spacing
-The settings to use for @code{staff-staff-spacing} when it is
-unset.  This applies to ungrouped staves and to grouped staves
-that do not inherit settings from the @code{StaffGrouper} grob.
+A flexible-spacing alist defining the @code{staff-staff-spacing} used for
+ungrouped staves, unless @code{staff-staff-spacing} has been explicitly
+set with an @code{\override}.
 
 @item staff-affinity
 The direction of the staff to use for spacing the current
@@ -1985,9 +1990,8 @@ example, to require a minimum amount of padding between a
 @item staff-staff-spacing
 The distance between consecutive staves within the current
 staff-group.  The @code{staff-staff-spacing} property of an
-individual staff's @code{VerticalAxisGroup} grob will be used
-instead for any staves in the staff-group that have it set.  Also
-see @code{default-staff-staff-spacing}.
+individual staff's @code{VerticalAxisGroup} grob can be
+overriden with different spacing settings for that staff.
 
 @item staffgroup-staff-spacing
 The distance between the last staff of the current staff-group and
@@ -1995,9 +1999,8 @@ the staff just below it in the same system, even if one or more
 non-staff lines (such as @code{Lyrics}) exist between the two
 staves.  Does not apply to the bottom staff of a system.  The
 @code{staff-staff-spacing} property of an individual staff's
-@code{VerticalAxisGroup} grob will be used instead for any staves
-in the staff-group that have it set.  Also see
-@code{default-staff-staff-spacing}.
+@code{VerticalAxisGroup} grob can be overriden with different
+spacing settings for that staff.
 @end table
 
 @seealso
@@ -2024,6 +2027,7 @@ staves:
 @itemize
 @item @code{VerticalAxisGroup} properties:
 @itemize
+@item @code{default-staff-staff-spacing}
 @item @code{staff-staff-spacing}
 @end itemize
 @end itemize
@@ -2034,21 +2038,24 @@ These grob properties are described individually above; see
 Additional properties are involved for staves that are part of a
 staff-group; see @ref{Spacing of grouped staves}.
 
-The following example shows how the @code{staff-staff-spacing}
-property can affect the spacing of ungrouped staves:
+The following example shows how the @code{default-staff-staff-spacing}
+property can affect the spacing of ungrouped staves.
+The same overrides applied to @code{staff-staff-spacing} would
+have the same effect, but would also apply in cases where the staves
+are combined in a group or groups.
 
 @lilypond[verbatim,quote,staffsize=16]
 \layout {
   \context {
     \Staff
-    \override VerticalAxisGroup #'staff-staff-spacing =
+    \override VerticalAxisGroup #'default-staff-staff-spacing =
       #'((basic-distance . 8)
          (minimum-distance . 7)
          (padding . 1))
   }
 }
 
-\new StaffGroup <<
+<<
   % The very low note here needs more room than 'basic-distance
   % can provide, so the distance between this staff and the next
   % is determined by 'padding.
@@ -2063,7 +2070,7 @@ property can affect the spacing of ungrouped staves:
   % By setting 'padding to a negative value, staves can be made to
   % collide.  The lowest acceptable value for 'basic-distance is 0.
   \new Staff \with {
-    \override VerticalAxisGroup #'staff-staff-spacing =
+    \override VerticalAxisGroup #'default-staff-staff-spacing =
       #'((basic-distance . 3.5)
          (padding . -10))
   } { \clef bass g2 r | }
@@ -2100,7 +2107,6 @@ staff-groups:
 @item @code{VerticalAxisGroup} properties:
 @itemize
 @item @code{staff-staff-spacing}
-@item @code{default-staff-staff-spacing}
 @end itemize
 @item @code{StaffGrouper} properties:
 @itemize

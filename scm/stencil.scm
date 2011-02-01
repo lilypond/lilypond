@@ -16,7 +16,8 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-public (stack-stencils axis dir padding stils)
-  "Stack stencils STILS in direction AXIS, DIR, using PADDING."
+  "Stack stencils @var{stils} in direction @var{axis}, @var{dir}, using
+@var{padding}."
   (cond
    ((null? stils) empty-stencil)
    ((null? (cdr stils)) (car stils))
@@ -25,7 +26,8 @@
 	  padding))))
 
 (define-public (stack-stencils-padding-list axis dir padding stils)
-  "Stack stencils STILS in direction AXIS, DIR, using a list of PADDING."
+  "Stack stencils @var{stils} in direction @var{axis}, @var{dir}, using
+a list of @var{padding}."
   (cond
    ((null? stils) empty-stencil)
    ((null? (cdr stils)) (car stils))
@@ -36,11 +38,11 @@
 	  (car padding)))))
 
 (define-public (centered-stencil stencil)
-  "Center stencil @var{stencil} in both the X and Y directions"
+  "Center stencil @var{stencil} in both the X and Y directions."
   (ly:stencil-aligned-to (ly:stencil-aligned-to stencil X CENTER) Y CENTER))
 
 (define-public (stack-lines dir padding baseline stils)
-  "Stack vertically with a baseline-skip."
+  "Stack vertically with a baseline skip."
   (define result empty-stencil)
   (define last-y #f)
   (do
@@ -70,7 +72,7 @@
 
 
 (define-public (bracketify-stencil stil axis thick protrusion padding)
-  "Add brackets around STIL, producing a new stencil."
+  "Add brackets around @var{stil}, producing a new stencil."
 
   (let* ((ext (ly:stencil-extent stil axis))
 	 (lb (ly:bracket axis ext thick protrusion))
@@ -160,7 +162,7 @@ the more angular the shape of the parenthesis."
     stencil))
 
 (define-public (make-line-stencil width startx starty endx endy)
-  "Make a line stencil of given linewidth and set its extents accordingly"
+  "Make a line stencil of given linewidth and set its extents accordingly."
   (let ((xext (cons (min startx endx) (max startx endx)))
         (yext (cons (min starty endy) (max starty endy))))
     (ly:make-stencil
@@ -180,7 +182,7 @@ the more angular the shape of the parenthesis."
       xext yext))
 
 (define-public (make-circle-stencil radius thickness fill)
-  "Make a circle of radius @var{radius} and thickness @var{thickness}"
+  "Make a circle of radius @var{radius} and thickness @var{thickness}."
   (let*
       ((out-radius (+ radius (/ thickness 2.0))))
 
@@ -190,9 +192,9 @@ the more angular the shape of the parenthesis."
    (cons (- out-radius) out-radius))))
 
 (define-public (make-oval-stencil x-radius y-radius thickness fill)
-  "Make an oval from two Bezier curves, of x radius @var{x-radius},
-    y radius @code{y-radius},
-    and thickness @var{thickness} with fill defined by @code{fill}."
+  "Make an oval from two Bezier curves, of x@tie{}radius @var{x-radius},
+y@tie{}radius @code{y-radius}, and thickness @var{thickness} with fill
+defined by @code{fill}."
   (let*
       ((x-out-radius (+ x-radius (/ thickness 2.0)))
        (y-out-radius (+ y-radius (/ thickness 2.0))) )
@@ -411,8 +413,9 @@ respectively."
         `(,(/ thickness -2) . ,(/ thickness 2))))))
 
 (define-public (make-ellipse-stencil x-radius y-radius thickness fill)
-  "Make an ellipse of x radius @var{x-radius}, y radius @code{y-radius},
-    and thickness @var{thickness} with fill defined by @code{fill}."
+  "Make an ellipse of x@tie{}radius @var{x-radius}, y@tie{}radius
+@code{y-radius}, and thickness @var{thickness} with fill defined by
+@code{fill}."
   (let*
       ((x-out-radius (+ x-radius (/ thickness 2.0)))
        (y-out-radius (+ y-radius (/ thickness 2.0))) )
@@ -424,8 +427,7 @@ respectively."
 
 (define-public (box-grob-stencil grob)
   "Make a box of exactly the extents of the grob.  The box precisely
-encloses the contents.
-"
+encloses the contents."
   (let* ((xext (ly:grob-extent grob grob 0))
 	 (yext (ly:grob-extent grob grob 1))
 	 (thick 0.01))
@@ -438,7 +440,7 @@ encloses the contents.
 
 ;; TODO merge this and prev function.
 (define-public (box-stencil stencil thickness padding)
-  "Add a box around STENCIL, producing a new stencil."
+  "Add a box around @var{stencil}, producing a new stencil."
   (let* ((x-ext (interval-widen (ly:stencil-extent stencil 0) padding))
 	 (y-ext (interval-widen (ly:stencil-extent stencil 1) padding))
 	 (y-rule (make-filled-box-stencil (cons 0 thickness) y-ext))
@@ -451,7 +453,7 @@ encloses the contents.
     stencil))
 
 (define-public (circle-stencil stencil thickness padding)
-  "Add a circle around STENCIL, producing a new stencil."
+  "Add a circle around @var{stencil}, producing a new stencil."
   (let* ((x-ext (ly:stencil-extent stencil X))
 	 (y-ext (ly:stencil-extent stencil Y))
 	 (diameter (max (interval-length x-ext)
@@ -468,7 +470,7 @@ encloses the contents.
 
 (define-public (oval-stencil stencil thickness x-padding y-padding)
   "Add an oval around @code{stencil}, padded by the padding pair,
-   producing a new stencil."
+producing a new stencil."
   (let* ((x-ext (ly:stencil-extent stencil X))
 	 (y-ext (ly:stencil-extent stencil Y))
          (x-length (+ (interval-length x-ext) x-padding thickness))
@@ -485,8 +487,8 @@ encloses the contents.
 			    (interval-center y-ext))))))
 
 (define-public (ellipse-stencil stencil thickness x-padding y-padding)
-  "Add an ellipse around STENCIL, padded by the padding pair,
-   producing a new stencil."
+  "Add an ellipse around @var{stencil}, padded by the padding pair,
+producing a new stencil."
   (let* ((x-ext (ly:stencil-extent stencil X))
 	 (y-ext (ly:stencil-extent stencil Y))
          (x-length (+ (interval-length x-ext) x-padding thickness))
@@ -507,7 +509,7 @@ encloses the contents.
 			    (interval-center y-ext))))))
 
 (define-public (rounded-box-stencil stencil thickness padding blot)
-   "Add a rounded box around STENCIL, producing a new stencil."
+   "Add a rounded box around @var{stencil}, producing a new stencil."
 
   (let* ((xext (interval-widen (ly:stencil-extent stencil 0) padding))
 	 (yext (interval-widen (ly:stencil-extent stencil 1) padding))
@@ -544,9 +546,9 @@ encloses the contents.
     ))
 
 (define-public (arrow-stencil-maker start? end?)
-  "Returns a function drawing a line from current point to @var{destination},
-   with optional arrows of @var{max-size} on start and end controlled by
-   @var{start?} and @var{end?}."
+  "Return a function drawing a line from current point to @code{destination},
+with optional arrows of @code{max-size} on start and end controlled by
+@var{start?} and @var{end?}."
   (lambda (destination max-size)
   (let*
       ((e_x 1+0i)

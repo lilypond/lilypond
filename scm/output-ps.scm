@@ -45,7 +45,7 @@
 (define (str4 num)
   (if (or (nan? num) (inf? num))
       (begin
-	(ly:warning (_ "Found infinity or nan in output. Substituting 0.0"))
+	(ly:warning (_ "Found infinity or nan in output.  Substituting 0.0"))
 	(if (ly:get-option 'strict-infinity-checking)
 	    (exit 1))
 	"0.0")

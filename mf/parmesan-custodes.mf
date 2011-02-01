@@ -394,11 +394,11 @@ def custos_mensural (expr verbose_name, internal_name,
 		dalpha = direction * alpha;
 
 		if staffline_adjustment = between_staff_lines:
-			stem_ht# = 1.00 staff_space#;
+			stem_ht# = 2.00 staff_space#;
 		elseif staffline_adjustment = on_staff_line:
-			stem_ht# = 1.50 staff_space#;
+			stem_ht# = 2.50 staff_space#;
 		else: % staffline_adjustment = anywhere
-			stem_ht# = 1.25 staff_space#;
+			stem_ht# = 2.25 staff_space#;
 		fi;
 
 		define_pixels (ht, wd, stem_ht);

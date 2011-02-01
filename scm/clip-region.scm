@@ -50,8 +50,8 @@
 ;; but let's leave that for future extensions.
 ;;
 (define-public (system-clipped-x-extent system-grob clip-region)
-  "Return the X-extent of the SYSTEM-GROB when clipped with
-CLIP-REGION. Return #f if not appropriate."
+  "Return the X-extent of @var{system-grob} when clipped with
+@var{clip-region}.  Return @code{#f} if not appropriate."
   
   (let*
       ((region-start (car clip-region))

@@ -22,16 +22,17 @@
 ;; Utility functions
 
 (define-public (symbol-concatenate . names)
-  "Like string-concatenate, but for symbols"
+  "Like @code{string-concatenate}, but for symbols."
   (string->symbol (apply string-append (map symbol->string names))))
 
 (define-public (function-chain arg function-list)
-  "Applies a list of functions in function list to arg.
-   Each element of function list is structured (cons function '(arg2 arg3 ...))
-   If function takes arguments besides arg, they are provided in function list.
-   For example:
-   @code{guile> (function-chain 1 `((,+ 1) (,- 2) (,+ 3) (,/)))}
-   @code{1/3}"
+  "Applies a list of functions in @var{function-list} to @var{arg}.
+Each element of @var{function-list} is structured @code{(cons function
+'(arg2 arg3 ...))}.  If function takes arguments besides @var{arg}, they
+are provided in @var{function-list}.
+
+Example: Executing @samp{(function-chain 1 `((,+ 1) (,- 2) (,+ 3) (,/)))}
+returns @samp{1/3}."
   (if (null? function-list)
     arg
     (function-chain

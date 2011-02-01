@@ -84,7 +84,7 @@
 ;; parser <-> output hooks.
 
 (define-public (collect-bookpart-for-book parser book-part)
-  "Toplevel book-part handler"
+  "Toplevel book-part handler."
   (define (add-bookpart book-part)
     (ly:parser-define!
        parser 'toplevel-bookparts
@@ -131,21 +131,21 @@
 	 (score-handler (scorify-music music parser)))))
 
 (define-public (collect-music-for-book parser music)
-  "Top-level music handler"
+  "Top-level music handler."
   (collect-music-aux (lambda (score)
 		       (collect-scores-for-book parser score))
                      parser
 		     music))
 
 (define-public (collect-book-music-for-book parser book music)
-  "Book music handler"
+  "Book music handler."
   (collect-music-aux (lambda (score)
 		       (ly:book-add-score! book score))
                      parser
 		     music))
 
 (define-public (scorify-music music parser)
-  "Preprocess MUSIC."
+  "Preprocess @var{music}."
 
   (for-each (lambda (func)
 	      (set! music (func music parser)))
@@ -262,21 +262,22 @@ bookoutput function"
 	    (map-alist-vals func (cdr list)))))
 
 (define (map-alist-keys func list)
-  "map FUNC over the keys of an alist LIST, leaving the vals. "
+  "map FUNC over the keys of an alist LIST, leaving the vals."
   (if (null?  list)
       '()
       (cons (cons (func (caar list)) (cdar list))
 	    (map-alist-keys func (cdr list)))))
 
 (define-public (first-member members lst)
-  "Return first successful MEMBER of member from MEMBERS in LST."
+  "Return first successful member (of member) from @var{members} in
+@var{lst}."
   (if (null? members)
       #f
       (let ((m (member (car members) lst)))
 	(if m m (first-member (cdr members) lst)))))
 
 (define-public (first-assoc keys lst)
-  "Return first successful ASSOC of key from KEYS in LST."
+  "Return first successful assoc of key from @var{keys} in @var{lst}."
   (if (null? keys)
       #f
       (let ((k (assoc (car keys) lst)))
@@ -301,10 +302,14 @@ bookoutput function"
   (assoc-crawler key '() alist))
 
 (define-public (map-selected-alist-keys function keys alist)
-  "Returns alist with function applied to all of the values in list keys.
-   For example:
-   @code{guile> (map-selected-alist-keys - '(a b) '((a . 1) (b . -2) (c . 3) (d . 4)))}
-   @code{((a . -1) (b . 2) (c . 3) (d . 4))}"
+  "Return @var{alist} with @var{function} applied to all of the values
+in list @var{keys}.
+
+For example:
+@example
+@code{guile> (map-selected-alist-keys - '(a b) '((a . 1) (b . -2) (c . 3) (d . 4)))}
+@code{((a . -1) (b . 2) (c . 3) (d . 4)}
+@end example"
    (define (map-selected-alist-keys-helper function key alist)
      (map
      (lambda (pair)
@@ -383,7 +388,8 @@ bookoutput function"
   (helper lst 0))
 
 (define-public (count-list lst)
-  "Given lst (E1 E2 .. ) return ((E1 . 1) (E2 . 2) ... )  "
+  "Given @var{lst} as @code{(E1 E2 .. )}, return
+@code{((E1 . 1) (E2 . 2) ... )}."
 
   (define (helper l acc count)
     (if (pair? l)
@@ -394,7 +400,7 @@ bookoutput function"
   (reverse (helper lst '() 1)))
 
 (define-public (list-join lst intermediate)
-  "put INTERMEDIATE  between all elts of LST."
+  "Put @var{intermediate} between all elts of @var{lst}."
 
   (fold-right
    (lambda (elem prev)
@@ -420,7 +426,8 @@ bookoutput function"
   (lset-difference eq? a b))
 
 (define-public (uniq-list lst)
-  "Uniq LST, assuming that it is sorted. Uses equal? for comparisons."
+  "Uniq @var{lst}, assuming that it is sorted.  Uses @code{equal?}
+for comparisons."
 
   (reverse!
    (fold (lambda (x acc)
@@ -433,7 +440,7 @@ bookoutput function"
 
 (define (split-at-predicate pred lst)
   "Split LST into two lists at the first element that returns #f for
-  (PRED previous_element element). Return the two parts as a pair.
+  (PRED previous_element element).  Return the two parts as a pair.
   Example: (split-at-predicate < '(1 2 3 2 1)) ==> ((1 2 3) . (2 1))"
   (if (null? lst)
       (list lst)
@@ -445,9 +452,10 @@ bookoutput function"
             (list lst)))))
 
 (define-public (split-list-by-separator lst pred)
-  "Split LST at each element that satisfies PRED, and return the parts
-  (with the separators removed) as a list of lists. Example:
-  (split-list-by-separator '(a 0 b c 1 d) number?) ==> ((a) (b c) (d))"
+  "Split @var{lst} at each element that satisfies @var{pred}, and return
+the parts (with the separators removed) as a list of lists.  For example,
+executing @samp{(split-list-by-separator '(a 0 b c 1 d) number?)} returns
+@samp{((a) (b c) (d))}."
   (let loop ((result '()) (lst lst))
     (if (and lst (not (null? lst)))
         (loop
@@ -483,7 +491,7 @@ bookoutput function"
   (cons (- expr) expr))
 
 (define-public (interval-length x)
-  "Length of the number-pair X, when an interval"
+  "Length of the number-pair @var{x}, if an interval."
   (max 0 (- (cdr x) (car x))))
 
 (define-public (ordered-cons a b)
@@ -494,14 +502,15 @@ bookoutput function"
   ((if (= dir RIGHT) cdr car) interval))
 
 (define-public (interval-index interval dir)
-  "Interpolate INTERVAL between between left (DIR=-1) and right (DIR=+1)"
+  "Interpolate @var{interval} between between left (@var{dir}=-1) and
+right (@var{dir}=+1)."
 
   (* (+  (interval-start interval) (interval-end interval)
 	 (* dir (- (interval-end interval) (interval-start interval))))
      0.5))
 
 (define-public (interval-center x)
-  "Center the number-pair X, when an interval"
+  "Center the number-pair @var{x}, if an interval."
   (if (interval-empty? x)
       0.0
       (/ (+ (car x) (cdr x)) 2)))
@@ -599,7 +608,7 @@ bookoutput function"
 (define-public THREE-PI-OVER-TWO (* 3 PI-OVER-TWO))
 
 (define-public (cyclic-base-value value cycle)
-  "Takes a value and modulo-maps it between 0 and base."
+  "Take @var{value} and modulo-maps it between 0 and base @var{cycle}."
   (if (< value 0)
       (cyclic-base-value (+ value cycle) cycle)
       (if (>= value cycle)
@@ -607,17 +616,17 @@ bookoutput function"
           value)))
 
 (define-public (angle-0-2pi angle)
-  "Takes an angle in radians and maps it between 0 and 2pi."
+  "Take @var{angle} (in radians) and maps it between 0 and 2pi."
   (cyclic-base-value angle TWO-PI))
 
 (define-public (angle-0-360 angle)
-  "Takes an angle in radians and maps it between 0 and 2pi."
+  "Take @var{angle} (in degrees) and maps it between 0 and 360 degrees."
   (cyclic-base-value angle 360.0))
 
 (define-public PI-OVER-180  (/ PI 180))
 
 (define-public (degrees->radians angle-degrees)
-  "Convert the given angle from degrees to radians"
+  "Convert the given angle from degrees to radians."
   (* angle-degrees PI-OVER-180))
 
 (define-public (ellipse-radius x-radius y-radius angle)
@@ -630,8 +639,9 @@ bookoutput function"
            (* (sin angle) (sin angle)))))))
 
 (define-public (polar->rectangular radius angle-in-degrees)
-  "Convert polar coordinate @code{radius} and @code{angle-in-degrees}
-   to (x-length . y-length)"
+  "Return polar coordinates (@var{radius}, @var{angle-in-degrees})
+as rectangular coordinates @ode{(x-length . y-length)}."
+
   (let ((complex (make-polar
                     radius
                     (degrees->radians angle-in-degrees))))
@@ -676,14 +686,15 @@ bookoutput function"
 		 (ly:number->string (cdr c))))
 
 (define-public (dir-basename file . rest)
-  "Strip suffixes in REST, but leave directory component for FILE."
+  "Strip suffixes in @var{rest}, but leave directory component for
+@var{file}."
   (define (inverse-basename x y) (basename y x))
   (simple-format #f "~a/~a" (dirname file)
 		 (fold inverse-basename file rest)))
 
 (define-public (write-me message x)
-  "Return X.  Display MESSAGE and write X.  Handy for debugging,
-possibly turned off."
+  "Return @var{x}.  Display @var{message} and write @var{x}.
+Handy for debugging, possibly turned off."
   (display message) (write x) (newline) x)
 ;;  x)
 
@@ -705,7 +716,7 @@ possibly turned off."
   (cons (f (car x)) (f (cdr x))))
 
 (define-public (list-insert-separator lst between)
-  "Create new list, inserting BETWEEN between elements of LIST"
+  "Create new list, inserting @var{between} between elements of @var{lst}."
   (define (conc x y )
     (if (eq? y #f)
 	(list x)
@@ -745,7 +756,7 @@ possibly turned off."
 
 (define-public (binary-search start end getter target-val)
   (_i "Find the index between @var{start} and @var{end} (an integer)
-which will produce the closest match to @var{target-val} when
+which produces the closest match to @var{target-val} if
 applied to function @var{getter}.")
   (if (<= end start)
       start
@@ -771,9 +782,9 @@ applied to function @var{getter}.")
   (string<? (symbol->string (car lst)) (symbol->string (car r))))
 
 (define-public (eval-carefully symbol module . default)
-  "Check if all symbols in expr SYMBOL are reachable
-   in module MODULE. In that case evaluate, otherwise
-   print a warning and set an optional DEFAULT."
+  "Check whether all symbols in expr @var{symbol} are reachable
+in module @var{module}.  In that case evaluate, otherwise
+print a warning and set an optional @var{default}."
   (let* ((unavailable? (lambda (sym)
                          (not (module-defined? module sym))))
 	 (sym-unavailable (if (pair? symbol)

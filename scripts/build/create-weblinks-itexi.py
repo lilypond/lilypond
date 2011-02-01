@@ -119,21 +119,20 @@ translations = {
         'Snippets': 'Kódrészletek',
         'Web': 'Web',
         'Changes': 'Változások',
-
-        #TODO
         'Extending': 'Bővítés',
         'Internals': 'Belső működés',
         'Contributor': 'Közreműködés',
 
+# keep the spaces!
         ' (split HTML)': ' (HTML oldalak)',
         ' (big HTML)': ' (egy nagy HTML oldal)',
 
-        'Regression tests for ': 'Regressziós tesztek a következőhöz: ',
-        'PDF of regtests for ': 'Regressziós tesztek PDF formátumban a következőhöz: ',
-        'MusicXML Regression tests for ': 'MusicXML regressziós tesztek a következőhöz: ',
-        'PDF of MusicXML regtests for ': 'MusicXML regressziós tesztek PDF formátumban a következőhöz: ',
+        'Regression tests for ': 'Regressziós tesztek - verzió: ',
+        'PDF of regtests for ': 'PDF formátumban - verzió: ',
+        'MusicXML Regression tests for ': 'MusicXML regressziós tesztek - verzió: ',
+        'PDF of MusicXML regtests for ': 'PDF formátumban - verzió: ',
 
-        'Doc tarball for ': 'Doc tarball a következőhöz: ',
+        'Doc tarball for ': 'Tömörített csomag - verzió: ',
         ' (did not exist in 2.12)': ' (nem létezett a 2.12-es verzióban)',
         },
     'ja': {
@@ -148,20 +147,21 @@ translations = {
         'Changes': '変更点',
 
         #TODO
-        'Extending': 0,
+        'Extending': '拡張',
         'Internals': '内部リファレンス',
-        'Contributor': 0,
+        'Contributor': '貢献者向けガイド',
 
-        ' (split HTML)': 0,
-        ' (big HTML)': 0,
+# keep the spaces!
+        ' (split HTML)': ' (ページ毎に分割された HTML)',
+        ' (big HTML)': ' (1 つの大きな HTML)',
 
-        'Regression tests for ': 0,
-        'PDF of regtests for ': 0,
-        'MusicXML Regression tests for ': 0,
-        'PDF of MusicXML regtests for ': 0,
+        'Regression tests for ': '回帰テスト バージョン ',
+        'PDF of regtests for ': '回帰テスト (PDF 版) バージョン ',
+        'MusicXML Regression tests for ': 'MusicXML 回帰テスト バージョン ',
+        'PDF of MusicXML regtests for ': 'MusicXML 回帰テスト (PDF 版) バージョン ',
 
-        'Doc tarball for ': 0,
-        ' (did not exist in 2.12)': 0,
+        'Doc tarball for ': 'ドキュメント アーカイブ バージョン ',
+        ' (did not exist in 2.12)': ' (バージョン 2.12 には存在しません)',
 
         },
     'nl': {

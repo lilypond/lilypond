@@ -23,6 +23,7 @@
 #include <cstdio>
 #include <ctype.h>
 #include <cstring>  /* memset */
+#include <glib.h>
 using namespace std;
 
 #include "dimensions.hh"
@@ -662,4 +663,65 @@ LY_DEFINE (ly_format, "ly:format",
   *ptr = '\0';
 
   return scm_take_locale_stringn (result, len);
+}
+
+int
+ly_run_command (char *argv[], char **standard_output, char **standard_error)
+{
+  GError *error = 0;
+  int exit_status = 0;
+  int flags = G_SPAWN_SEARCH_PATH;
+  if (!standard_output)
+    flags |= G_SPAWN_STDOUT_TO_DEV_NULL;
+  if (!standard_error)
+    flags |= G_SPAWN_STDERR_TO_DEV_NULL;
+  if (!g_spawn_sync (0, argv, 0, GSpawnFlags (flags),
+		     0, 0, 
+		     standard_output, standard_error,
+		     &exit_status, &error))
+    {
+      fprintf (stderr, "failed (%d): %s: %s\n", exit_status, argv[0], error->message);
+      g_error_free (error);
+      if (!exit_status)
+	exit_status = -1;
+    }
+
+  return exit_status;
+}
+
+LY_DEFINE (ly_spawn, "ly:spawn",
+	   1, 0, 1, (SCM command, SCM rest),
+	   "Simple interface to g_spawn_sync"
+	   " @var{str}."
+	   "  The error is formatted with @code{format} and @var{rest}.")
+
+{
+  LY_ASSERT_TYPE (scm_is_string, command, 1);
+
+  int argc = scm_is_pair (rest) ? scm_ilength (rest) : 0;
+  char **argv = new char*[argc + 2];
+
+  int n = 0;
+  argv[n++] = ly_scm2str0 (command);
+  for (SCM s = rest; scm_is_pair (s); s = scm_cdr (s))
+    argv[n++] = ly_scm2str0 (scm_car (s));
+  argv[n] = 0;
+
+  char *standard_output = 0;
+  char *standard_error = 0;
+  int exit_status = be_verbose_global
+    ? ly_run_command (argv, &standard_output, &standard_error)
+    : ly_run_command (argv, 0, 0);
+
+  if (be_verbose_global)
+    {
+      fprintf (stderr, "\n%s", standard_output);
+      fprintf (stderr, "%s", standard_error);
+    }
+  
+  for (int i = 0; i < n; i++)
+    free (argv[i]);
+  delete[] argv;
+
+  return scm_from_int (exit_status);
 }

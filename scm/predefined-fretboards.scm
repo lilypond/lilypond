@@ -17,13 +17,13 @@
 
 
 (define-public (parse-terse-string terse-definition)
-"Parse a fret-diagram-terse definition string @code{terse-definition} and
-return a marking list, which can be used with a fretboard grob."
+  "Parse a @code{fret-diagram-terse} definition string @var{terse-definition}
+and return a marking list, which can be used with a fretboard grob."
    (cdr (fret-parse-terse-definition-string (list '()) terse-definition)))
 
 (define-public (get-chord-shape shape-code tuning base-chord-shapes)
-"Return the chord shape associated with @code{shape-code} and
-@code{tuning} in the hash-table @code{base-chord-shapes}."
+  "Return the chord shape associated with @var{shape-code} and
+@var{tuning} in the hash-table @var{base-chord-shapes}."
   (let ((hash-handle (hash-get-handle base-chord-shapes
                                        (cons shape-code tuning))))
      (if hash-handle
@@ -31,8 +31,9 @@ return a marking list, which can be used with a fretboard grob."
          '())))
 
 (define-public (offset-fret fret-offset diagram-definition)
-"Add @code{fret-offset} to each fret indication in @code{diagram-definition}
-and return the resulting verbose fret-diagram-definition."
+  "Add @var{fret-offset} to each fret indication in
+@var{diagram-definition} and return the resulting verbose
+@code{fret-diagram-definition}."
    (let ((verbose-definition 
            (if (string? diagram-definition)
                (parse-terse-string diagram-definition)

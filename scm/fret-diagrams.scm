@@ -100,7 +100,7 @@ to end-point."
 
 (define (merge-details key alist-list . default)
   "Return @code{alist-list} entries for @code{key}, in one combined alist.
-There can be two @code{alist-list} entries for a given key. The first
+There can be two @code{alist-list} entries for a given key.  The first
 comes from the override-markup function, the second comes
 from property settings during a regular override.
 This is necessary because some details can be set in one
@@ -363,7 +363,7 @@ baseline at fret coordinate @var{base}, a height of
       "Draw the string lines for a fret diagram with
 @var{string-count} strings and frets as indicated in @var{fret-range}.
 Line thickness is given by @var{th}, fret & string spacing by
-@var{size}.  Orientation is determined by @var{orientation}. "
+@var{size}.  Orientation is determined by @var{orientation}."
 
       (define (helper x)
         (if (null? (cdr x))
@@ -400,7 +400,7 @@ Line thickness is given by @var{th}, fret & string spacing by
       "Draw the fret lines for a fret diagram with
 @var{string-count} strings and frets as indicated in @var{fret-range}.
 Line thickness is given by @var{th}, fret & string spacing by
-@var{size}. Orientation is given by @var{orientation}."
+@var{size}.  Orientation is given by @var{orientation}."
       (define (helper x)
         (if (null? (cdr x))
           (fret-stencil (car x))

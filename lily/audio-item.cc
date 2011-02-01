@@ -124,12 +124,12 @@ Audio_span_dynamic::render ()
 
   if (dynamics_.size () <= 1)
     {
-      programming_error ("(de)crescendo on items with specified volume.");
+      programming_error ("Impossible or ambiguous (de)crescendo in MIDI.");
       return ;
     }
-  
+
   Real delta_v = grow_dir_ * 0.1;
-  
+
   Real start_v = dynamics_[0]->volume_;
   if (dynamics_.back ()->volume_ < 0)
     dynamics_.back ()->volume_ = max (min (start_v + grow_dir_ * 0.25, 1.0), 0.1);
@@ -139,17 +139,17 @@ Audio_span_dynamic::render ()
   Moment start = dynamics_[0]->get_column ()->when ();
 
   Real total_t = moment_to_real (dynamics_.back ()->get_column ()->when () - start);
-  
+
   for (vsize i = 1; i < dynamics_.size (); i ++)
     {
       Moment dt_moment = dynamics_[i]->get_column ()->when ()
 	- start;
 
       Real dt =  moment_to_real (dt_moment);
-      
+
       Real v = start_v + delta_v *  (dt / total_t);
 
-      dynamics_[i]->volume_ = v;	
+      dynamics_[i]->volume_ = v;
     }
 }
 
