@@ -23,11 +23,11 @@
 
 #include "interval.hh"
 #include "lily-proto.hh" 
+#include "lily-guile.hh" 
 #include "std-vector.hh" 
 #include "stem-info.hh" 
 #include "main.hh"  //  DEBUG_BEAM_SCORING
 
-// Unused for now.
 enum Scorers {
   // Should be ordered by increasing expensiveness.
   ORIGINAL_DISTANCE,
@@ -41,7 +41,6 @@ struct Beam_configuration
 {
   Interval y;
   Real demerits;
-
 #if DEBUG_BEAM_SCORING
   string score_card_;
 #endif
@@ -58,9 +57,11 @@ struct Beam_configuration
 // Comparator for a queue of Beam_configuration*.
 class Beam_configuration_less
 {
+public:
   bool operator() (Beam_configuration* const& l, Beam_configuration* const& r)
   {
-    return l->demerits < r->demerits;
+    // Invert
+    return l->demerits > r->demerits;
   }
 };
 
@@ -139,6 +140,10 @@ private:
   Real beam_translation;
 
   void init_stems ();
+
+  void one_scorer (Beam_configuration* config) const;
+  Beam_configuration *force_score (SCM inspect_quants,
+                                   const vector<Beam_configuration*> &configs) const;
 
   // Scoring functions:
   void score_forbidden_quants (Beam_configuration *config) const;

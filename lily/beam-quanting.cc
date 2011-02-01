@@ -20,12 +20,12 @@
 
 #include "beam-scoring-problem.hh"
 
+#include <queue>  
 #include <algorithm>
 using namespace std;
 
 #include "align-interface.hh"
 #include "beam.hh"
-#include "directional-element-interface.hh"
 #include "grob.hh"
 #include "international.hh"
 #include "main.hh"
@@ -159,7 +159,6 @@ void Beam_scoring_problem::init_stems ()
                      lvs ? lvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0);
 
   Drul_array<bool> dirs_found (0, 0);
-
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
@@ -186,6 +185,7 @@ void Beam_scoring_problem::init_stems ()
       edge_dirs = Drul_array<Direction> (stem_infos[0].dir_,
                                          stem_infos.back().dir_);
     }
+
   is_xstaff = Align_interface::has_interface (common[Y_AXIS]);
   is_knee = dirs_found[LEFT] && dirs_found[RIGHT];
   
@@ -245,8 +245,6 @@ Beam_scoring_problem::generate_quants (vector<Beam_configuration*> *scores) cons
         unshifted_quants.push_back (i + base_quants[j]);
       }
 
-
-  scores->clear ();
   for (vsize i = 0; i < unshifted_quants.size (); i++)
     for (vsize j = 0; j < unshifted_quants.size (); j++)
       scores->push_back (Beam_configuration::new_config (unquanted_y,
@@ -254,76 +252,114 @@ Beam_scoring_problem::generate_quants (vector<Beam_configuration*> *scores) cons
                                                                    unshifted_quants[j])));
 }
 
+
+void Beam_scoring_problem::one_scorer (Beam_configuration* config) const
+{
+  score_count ++;
+  switch (config->next_scorer_todo) {
+  case SLOPES:
+    score_slopes_dy (config);
+    break;
+  case FORBIDDEN:
+    score_forbidden_quants (config);
+    break;
+  case STEM_LENGTHS:
+    score_stem_lengths (config);
+    break;
+   
+  case NUM_SCORERS:
+  case ORIGINAL_DISTANCE:
+  default:
+    assert (false);
+  }
+  config->next_scorer_todo++;
+}                                  
+
+
+Beam_configuration *
+Beam_scoring_problem::force_score (SCM inspect_quants, const vector<Beam_configuration*> &configs) const
+{
+  Drul_array<Real> ins = ly_scm2interval (inspect_quants);
+  Real mindist = 1e6;
+  Beam_configuration *best = NULL; 
+  for (vsize i = 0; i < configs.size (); i++)
+    {
+      Real d = fabs (configs[i]->y[LEFT]- ins[LEFT]) + fabs (configs[i]->y[RIGHT] - ins[RIGHT]);
+      if (d < mindist)
+        {
+          best = configs[i];
+          mindist = d;
+        }
+    }
+  if (mindist > 1e5)
+    programming_error ("cannot find quant");
+
+  return best;
+}
+
 Drul_array<Real>
 Beam_scoring_problem::solve () const {
   vector<Beam_configuration*> configs;
-
   generate_quants (&configs);
-  for (vsize i = configs.size (); i--;)
-    {
-      score_count ++;
-      score_slopes_dy (configs[i]);
-    }
 
-  Real reasonable_score = (is_knee) ? 200000 : 100;
-  for (vsize i = configs.size (); i--;)
-    if (configs[i]->demerits < reasonable_score)
-      {
-        score_count ++;
-        score_forbidden_quants (configs[i]);
-      }
+  Beam_configuration *best = NULL;  
 
-  for (vsize i = configs.size (); i--;)
-    if (configs[i]->demerits < reasonable_score)
-      {
-        score_count ++;
-        score_stem_lengths (configs[i]);
-      }
-
-  int best_idx = best_quant_score_idx (configs);
-
-#if DEBUG_BEAM_SCORING
   SCM inspect_quants = beam->get_property ("inspect-quants");
   if (to_boolean (beam->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring")))
       && scm_is_pair (inspect_quants))
     {
-      Drul_array<Real> ins = ly_scm2interval (inspect_quants);
-
-      Real mindist = 1e6;
-      for (vsize i = 0; i < configs.size (); i++)
-	{
-	  Real d = fabs (configs[i]->y[LEFT]- ins[LEFT]) + fabs (configs[i]->y[RIGHT] - ins[RIGHT]);
-	  if (d < mindist)
-	    {
-	      best_idx = i;
-	      mindist = d;
-	    }
-	}
-      if (mindist > 1e5)
-	programming_error ("cannot find quant");
-    }
-#endif
-
-  Interval final_positions;
-  if (best_idx < 0)
-    {
-      warning (_ ("no feasible beam position"));
-      final_positions = Interval (0, 0);
+      best = force_score (inspect_quants, configs);
     }
   else
     {
-      final_positions = configs[best_idx]->y;
-    }
-  
-#if DEBUG_BEAM_SCORING
-  if (best_idx >= 0
-      && to_boolean (beam->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring"))))
-    {
-      configs[best_idx]->score_card_ += to_string ("i%d", best_idx);
+      std::priority_queue<Beam_configuration*, std::vector<Beam_configuration*>,
+                          Beam_configuration_less> queue;
+      for (vsize i = 0; i < configs.size(); i++)
+        queue.push(configs[i]);
 
+
+      /*
+        TODO
+
+        It would be neat if we generated new configurations on the
+        fly, depending on the best complete score so far, eg.
+
+        if (best->done()) {
+          if (best->demerits < sqrt(queue.size())
+            break;
+          while (best->demerits > sqrt(queue.size()) {
+            generate and insert new configuration
+          }
+        }
+
+        that would allow us to do away with region_size altogether.
+      */
+      while (true) {
+        best = queue.top ();
+        if (best->done ())
+          break;
+
+        queue.pop ();
+        one_scorer (best);
+        queue.push (best);
+      }
+    }
+
+  Interval final_positions = best->y;
+
+#if DEBUG_BEAM_SCORING
+  if (to_boolean (beam->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring"))))
+    {
       // debug quanting
-      beam->set_property ("quant-score",
-                          ly_string2scm (configs[best_idx]->score_card_));
+      int completed = 0;
+      for (vsize i = 0; i < configs.size (); i++)
+        {
+          if (configs[i]->done ())
+            completed++;
+        }
+
+      string card = best->score_card_ + to_string (" c%d/%d", completed, configs.size());
+      beam->set_property ("quant-score", ly_string2scm (card));
     }
 #endif
 
@@ -363,7 +399,6 @@ Beam_scoring_problem::score_stem_lengths (Beam_configuration* config) const
 	ideal_score = pow (ideal_score, 1.1);
 
       score[d] += length_pen * ideal_score;
-
       count[d]++;
     }
 
