@@ -26,31 +26,6 @@
 #include "lily-proto.hh"
 #include "stem-info.hh"
 
-/*
-  TODO: move quanting in separate file.
-*/
-struct Beam_quant_parameters
-{
-  Real SECONDARY_BEAM_DEMERIT;
-  Real STEM_LENGTH_DEMERIT_FACTOR;
-  Real REGION_SIZE;
-
-  /*
-    threshold to combat rounding errors.
-  */
-  Real BEAM_EPS;
-
-  // possibly ridiculous, but too short stems just won't do
-  Real STEM_LENGTH_LIMIT_PENALTY;
-  Real DAMPING_DIRECTION_PENALTY;
-  Real MUSICAL_DIRECTION_FACTOR;
-  Real HINT_DIRECTION_PENALTY;
-  Real IDEAL_SLOPE_FACTOR;
-  Real ROUND_TO_ZERO_SLOPE;
-
-  void fill (Grob *him);
-};
-
 struct Beam_segment
 {
   int vertical_count_;
@@ -70,7 +45,6 @@ struct Beam_stem_segment
   bool gapped_;
   Direction dir_;
   int max_connect_;
-  
 };
 
 
@@ -112,30 +86,19 @@ public:
   DECLARE_SCHEME_CALLBACK (slope_damping, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (quanting, (SCM, SCM));
   
-static Real score_slopes_dy (Real, Real, Real, Real, Real, bool, Beam_quant_parameters const *);
-
-  static Real score_stem_lengths (vector<Grob*> const &stems,
-				  vector<Stem_info> const &stem_infos,
-				  vector<Real> const &base_stem_ys,
-				  vector<Real> const &stem_xs,
-				  Real xl, Real xr,
-				  bool knee,
-				  Real yl, Real yr, Beam_quant_parameters const *);
-  static Real score_forbidden_quants (Real, Real,
-				      Real, Real, Real, Real,
-				      Drul_array<int>, Direction, Direction,
-				      Beam_quant_parameters const *);
-
   static int get_direction_beam_count (Grob *me, Direction d);
+
 private:
+  friend class Beam_scoring_problem;
+  
   static Direction get_default_dir (Grob *);
   static void set_stem_directions (Grob *, Direction);
   static void consider_auto_knees (Grob *);
   static void set_stem_shorten (Grob *);
+  static int forced_stem_count (Grob *);
   static Real calc_stem_y (Grob *, Grob *s, Grob **c,
 			   Real, Real, Direction,
 			   Drul_array<Real> pos, bool french);
-  static int forced_stem_count (Grob *);
 };
 
 
