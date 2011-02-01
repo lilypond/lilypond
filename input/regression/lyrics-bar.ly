@@ -1,4 +1,4 @@
-\version "2.12.0"
+\version "2.13.48"
 
 \header{
 texidoc="
@@ -22,7 +22,7 @@ lyrics do not collide with barlines.
     \context Lyrics \with {
 	\consists "Bar_engraver"
 	\consists "Separating_line_group_engraver"
- 	\override BarLine #'bar-size = #4 
+	\override BarLine #'bar-extent = #'(-2 . 2)
     } \lyricmode {
 	  looooooooooooooooooooooooooooooooooong1 syllable
       }

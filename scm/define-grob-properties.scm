@@ -75,7 +75,6 @@ grobs, this should contain only one number.")
 ;;
 ;; b
 ;;
-     (bar-size ,ly:dimension? "The size of a bar line.")
      (base-shortest-duration ,ly:moment? "Spacing is based on the
 shortest notes in a piece.  Normally, pieces are spaced as if notes at
 least as short as this are present.")

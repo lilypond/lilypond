@@ -190,7 +190,6 @@
      . (
 	(allow-span-bar . #t)
 	(bar-extent . ,ly:bar-line::calc-bar-extent)
-	(bar-size .  ,ly:bar-line::calc-bar-size)
 	(break-align-anchor . ,ly:bar-line::calc-anchor)
 	(break-align-symbol . staff-bar)
 	(break-visibility . ,bar-line::calc-break-visibility)
@@ -1721,7 +1720,6 @@
      . (
 	(allow-span-bar . #t)
 	(bar-extent . ,ly:axis-group-interface::height)
-	(bar-size . ,ly:span-bar::calc-bar-size)
 	(before-line-breaking . ,ly:span-bar::before-line-breaking)
 	(break-align-symbol . staff-bar)
 	(cross-staff . #t)

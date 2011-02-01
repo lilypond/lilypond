@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.48"
 
 @node Percussion
 @section Percussion
@@ -415,7 +415,7 @@ woodstaff = {
   \override Staff.StaffSymbol #'line-positions = #'(-2 3)
 
   % This is necessary; if not entered, the barline would be too short!
-  \override Staff.BarLine #'bar-size = #3
+  \override Staff.BarLine #'bar-extent = #'(-1.5 . 1.5)
 }
 
 \new DrumStaff {
@@ -433,7 +433,7 @@ woodstaff = {
 @end lilypond
 
 Note that in this special case the length of the barline must
-altered with @code{\override Staff.BarLine #'bar-size #number}.
+altered with @code{\override Staff.BarLine #'bar-extent #'(from . to)}.
 Otherwise it would be too short.  And you have also to define the
 positions of the two stafflines.  For more information about these
 delicate things have a look at @ref{Staff symbol}.
@@ -445,7 +445,7 @@ A tambourine, entered with @q{tamb}:
 
 tambustaff = {
   \override Staff.StaffSymbol #'line-positions = #'( 0 )
-  \override Staff.BarLine #'bar-size = #3
+  \override Staff.BarLine #'bar-extent = #'(-1.5 . 1.5)
   \set DrumStaff.instrumentName = #"Tambourine"
 }
 
@@ -471,7 +471,7 @@ Music for Tam-Tam (entered with @q{tt}):
 
 tamtamstaff = {
   \override Staff.StaffSymbol #'line-positions = #'( 0 )
-  \override Staff.BarLine #'bar-size = #3
+  \override Staff.BarLine #'bar-extent = #'(-1.5 . 1.5)
   \set DrumStaff.instrumentName = #"Tamtam"
 }
 
@@ -494,7 +494,7 @@ Two different bells, entered with @q{cb} (cowbell) and @q{rb} (ridebell)
 bellstaff = {
   \override DrumStaff.StaffSymbol #'line-positions = #'(-2 3)
   \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-  \override Staff.BarLine #'bar-size = #3
+  \override Staff.BarLine #'bar-extent = #'(-1.5 . 1.5)
   \set DrumStaff.instrumentName = #"Different Bells"
 }
 

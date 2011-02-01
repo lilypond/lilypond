@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.48"
 
 @node Percusión
 @section Percusión
@@ -432,7 +432,7 @@ woodstaff = {
   \override Staff.StaffSymbol #'line-positions = #'(-2 3)
 
   % This is necessary; if not entered, the barline would be too short!
-  \override Staff.BarLine #'bar-size = #3
+  \override Staff.BarLine #'bar-extent = #'(-1.5 . 1.5)
 }
 
 \new DrumStaff {
@@ -450,7 +450,7 @@ woodstaff = {
 @end lilypond
 
 Observe que en este caso especial se debe alterar la longitud de la
-línea divisoria con @code{\override Staff.BarLine #'bar-size #number}.
+línea divisoria con @code{\override Staff.BarLine #'bar-extent #'(de . a)}.
 En caso contrario resulta demasiado corta.  También debe definir las
 posiciones de las dos líneas del pentagrama.  Para más información
 sobre estos delicados asuntos, consulte @ref{El símbolo del pentagrama}.
@@ -462,7 +462,7 @@ Una pandereta, escrita mediante @q{tamb} (@emph{tambourine}):
 
 tambustaff = {
   \override Staff.StaffSymbol #'line-positions = #'( 0 )
-  \override Staff.BarLine #'bar-size = #3
+  \override Staff.BarLine #'bar-extent = #'(-1.5 . 1.5)
   \set DrumStaff.instrumentName = #"Tambourine"
 }
 
@@ -489,7 +489,7 @@ Música para gong, introducida con @q{tt} (tam-tam):
 
 tamtamstaff = {
   \override Staff.StaffSymbol #'line-positions = #'( 0 )
-  \override Staff.BarLine #'bar-size = #3
+  \override Staff.BarLine #'bar-extent = #'(-1.5 . 1.5)
   \set DrumStaff.instrumentName = #"Tamtam"
 }
 
@@ -513,7 +513,7 @@ Dos campanas, introducidas con @q{cb} (@emph{cowbell}, cencerro) y
 bellstaff = {
   \override DrumStaff.StaffSymbol #'line-positions = #'(-2 3)
   \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-  \override Staff.BarLine #'bar-size = #3
+  \override Staff.BarLine #'bar-extent = #'(-1.5 . 1.5)
   \set DrumStaff.instrumentName = #"Different Bells"
 }
 
