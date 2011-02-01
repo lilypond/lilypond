@@ -177,11 +177,9 @@ Slur_configuration::generate_curve (Slur_score_state const &state,
 
 Slur_configuration::Slur_configuration ()
 {
-  tags_ = 0x0;
   score_ = 0.0;
   index_ = -1;
 };
-
 
 void
 Slur_configuration::add_score (Real s, string desc)
@@ -413,6 +411,7 @@ Slur_configuration::score_edges (Slur_score_state const &state)
       Real demerit = factor * dy;
       if (state.extremes_[d].stem_
 	  && state.extremes_[d].stem_dir_ == state.dir_
+          // TODO - Stem::get_beaming() should be precomputed.
 	  && !Stem::get_beaming (state.extremes_[d].stem_, -d))
 	demerit /= 5;
 
@@ -467,11 +466,51 @@ Slur_configuration ::score_slopes (Slur_score_state const &state)
   add_score (demerit, "slope");
 }
 
+
+// This is a temporary hack to see how much we can gain by using a
+// priority queue on the beams to score.
+static int score_count = 0;
+LY_DEFINE (ly_slur_score_count, "ly:slur-score-count", 0, 0, 0,
+	   (),
+	   "count number of slur scores.") {
+  return scm_from_int (score_count);
+}
+
 void
-Slur_configuration::calculate_score (Slur_score_state const &state)
+Slur_configuration::run_next_scorer (Slur_score_state const &state)
 {
-  score_extra_encompass (state);
-  score_slopes (state);
-  score_edges (state);
-  score_encompass (state);
+  switch (next_scorer_todo) {
+  case EXTRA_ENCOMPASS:
+    score_extra_encompass (state);
+    break;
+  case SLOPE:
+    score_slopes (state);
+    break;
+  case EDGES:
+    score_edges (state);
+    break;
+  case ENCOMPASS:
+    score_encompass (state);
+    break;
+  default:
+    assert (false);
+  }
+  next_scorer_todo++;
+  score_count++;
+}
+
+bool
+Slur_configuration::done () const
+{
+  return next_scorer_todo >= NUM_SCORERS;
+}
+
+Slur_configuration *
+Slur_configuration::new_config (Drul_array<Offset> const &offs, int idx)
+{
+  Slur_configuration *conf = new Slur_configuration;
+  conf->attachment_ = offs;
+  conf->index_ = idx;
+  conf->next_scorer_todo = INITIAL_SCORE + 1;
+  return conf;
 }
