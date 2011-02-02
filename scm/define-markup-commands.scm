@@ -2379,6 +2379,32 @@ normal text font, no matter what font was used earlier.
 ;; symbols.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define-markup-command (musicglyph layout props glyph-name)
+  (string?)
+  #:category music
+  "@var{glyph-name} is converted to a musical symbol; for example,
+@code{\\musicglyph #\"accidentals.natural\"} selects the natural sign from
+the music font.  See @ruser{The Feta font} for a complete listing of
+the possible glyphs.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\musicglyph #\"f\"
+  \\musicglyph #\"rests.2\"
+  \\musicglyph #\"clefs.G_change\"
+}
+@end lilypond"
+  (let* ((font (ly:paper-get-font layout
+				  (cons '((font-encoding . fetaMusic)
+					  (font-name . #f))
+
+						 props)))
+	 (glyph (ly:font-get-glyph font glyph-name)))
+    (if (null? (ly:stencil-expr glyph))
+	(ly:warning (_ "Cannot find glyph ~a") glyph-name))
+
+    glyph))
+
 (define-markup-command (doublesharp layout props)
   ()
   #:category music
@@ -2545,33 +2571,6 @@ Use the filled head if @var{filled} is specified.
      (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))
 				     props))
      name)))
-
-(define-markup-command (musicglyph layout props glyph-name)
-  (string?)
-  #:category music
-  "@var{glyph-name} is converted to a musical symbol; for example,
-@code{\\musicglyph #\"accidentals.natural\"} selects the natural sign from
-the music font.  See @ruser{The Feta font} for a complete listing of
-the possible glyphs.
-
-@lilypond[verbatim,quote]
-\\markup {
-  \\musicglyph #\"f\"
-  \\musicglyph #\"rests.2\"
-  \\musicglyph #\"clefs.G_change\"
-}
-@end lilypond"
-  (let* ((font (ly:paper-get-font layout
-				  (cons '((font-encoding . fetaMusic)
-					  (font-name . #f))
-
-						 props)))
-	 (glyph (ly:font-get-glyph font glyph-name)))
-    (if (null? (ly:stencil-expr glyph))
-	(ly:warning (_ "Cannot find glyph ~a") glyph-name))
-
-    glyph))
-
 
 (define-markup-command (lookup layout props glyph-name)
   (string?)
