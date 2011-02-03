@@ -70,18 +70,18 @@ esztétikai elveiről.
 @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Kottaírás}}
 A dokumentáció törzsanyaga; részletesen bemutatja a különböző kottaelemek
 beviteli módját.
-@details{Notation}
+@details{Kottaírás}
 
 @item
 @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Használat}}
 Bemutatja a alkalmazás parancssori használatát, ügyelve a különböző operációs
 rendszerek közötti különbségekre.
-@details{Usage}
+@details{Használat}
 
 @item
 @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Kódrészletek}}
 Hasznos példák, tippek, trükkök.
-@details{Snippets}
+@details{Kódrészletek}
 
 @end itemize
 
@@ -383,6 +383,16 @@ fejlesztőkig.
 @divClass{column-right-bottom}
 @subheading Olvasd el
 
+@subsubheading Legutóbbi verzió
+
+@divClass{keep-bullets}
+@itemize
+@ref{Top,Web}
+@end itemize
+@divEnd
+
+@subsubheading @versionDevel
+
 @docLinksBare{Web, web,
   @ref{Top,Web},
   @manualDevelWebSplit-hu,
@@ -487,7 +497,7 @@ A csomagok letölthetőek a @uref{http://lilypond.org} weboldalról.
 @divClass{keep-bullets}
 @itemize
 
-@item @doctarballStable
+@item @doctarballStable-hu
 
 @end itemize
 
@@ -540,7 +550,6 @@ A csomagok letölthetőek a @uref{http://lilypond.org} weboldalról.
 
 @node FDL
 @unnumberedsec FDL
-@translationof FDL
 
 @divClass{column-center-top}
 @subheading Dokumentációs licenc
