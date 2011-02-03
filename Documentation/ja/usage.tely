@@ -1,19 +1,31 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 9a65042d49324f2e3dff18c4b0858def81232eea
+    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
+
 @setfilename lilypond-program.info
 @settitle GNU LilyPond -- アプリケーション使用方法
 @documentencoding UTF-8
 @documentlanguage ja
-
-@include macros.itexi
-
 @afourpaper
+
+@macro manualIntro
+このマニュアルは LilyPond バージョン @version{} で配布される@c
+プログラムの実効方法について説明します。@c
+さらに、効率的な使用方法について提案します。
+@end macro
+
+@c `Usage' was born 1999-10-10 with git commit c82c30c...
+@macro copyrightDeclare
+Copyright @copyright{} 1999--2010 by the authors.
+@end macro
+
+@set FDL
+@include macros.itexi
 
 
 @c don't remove this comment.
@@ -28,158 +40,40 @@
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
 
+
+@lilyTitlePage{使用方法}
+
+
+@c TOC -- non-tex
 @ifnottex
-@node トップ ページ
-@top GNU LilyPond --- アプリケーション使用方法
-@translationof Top
-@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
-@end ifnottex
-
-@ifhtml
-@ifclear bigpage
-このドキュメントは 
-@uref{source/Documentation/usage.pdf,PDF 形式} と 
-@uref{source/Documentation/usage-big-page.ja.html,大きな 1 ページ形式} 
-でも利用可能です。
-@end ifclear
-@ifset bigpage
-このドキュメントは 
-@uref{source/Documentation/usage.pdf,PDF 形式} と 
-@uref{source/Documentation/usage/index.ja.html,
-複数のページにインデックス化された形式} 
-でも利用可能です。
-@end ifset
-@end ifhtml
-
-
-@c  This produces the unified index
-@syncodeindex fn cp
-@syncodeindex vr cp
-
-
-@finalout
-
-@titlepage
-@title GNU LilyPond
-@subtitle 音楽譜刻システム
-@titlefont{アプリケーション使用方法}
-@author LilyPond開発チーム
-
-
-Copyright @copyright{} 1999--2011 著作者一同
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
-@emph{以下は英語を話さない人々のための著作権についての注意書きです。しかしなが@c
-ら、英語で書かれた注意書きだけが法的に有効です。}
-
-@quotation
-GNU フリー文書利用許諾契約書バージョン 1.1 またはフリー ソフトウェア財団によっ@c
-て発行されたその後のバージョンの約定に従う限り、このドキュメントを複製、変更す@c
-る許可を与えます。変更不可部分はありません。この利用許諾契約書のコピーは 「GNU 
-フリー文書利用許諾契約書」
-という章に含まれています。
-@end quotation
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-
-@vskip 20pt
-
-For LilyPond version @version{}
-@end titlepage
-
-
-@ifnottex
-このファイルは GNU LilyPond プログラムの使用方法についてのドキュメントです。
-@c This file documents GNU LilyPond program usage.
-
-Copyright @copyright{} 1999--2011 著作者一同
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
-@emph{以下は英語を話さない人々のための著作権についての注意書きです。しかしなが@c
-ら、英語で書かれた注意書きだけが法的に有効です。}
-
-
-@quotation
-GNU フリー文書利用許諾契約書バージョン 1.1 またはフリー ソフトウェア財団によっ@c
-て発行されたその後のバージョンの約定に従う限り、このドキュメントを複製、変更す@c
-る許可を与えます。変更不可部分はありません。この利用許諾契約書のコピーは 「GNU 
-フリー文書利用許諾契約書」
-という章に含まれています。
-@end quotation
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end ifnottex
-
-
-@ifnottex
-
-これは GNU LilyPond バージョン @version{} のための@c
-アプリケーション使用方法マニュアルです。@c
-このドキュメントと他のドキュメントとの関係についての更なる情報は、@c
-FIXME FIXME FIXME
-@c @rlearning{このドキュメントについて} 
-を参照してください。
-
-@cindex web site
-@cindex URL
-
-@uref{http://@/www@/.lilypond@/.org/} で更なる情報を見つけることができます。@c
-このウェブ サイトにはこのドキュメントと他のドキュメントの@c
-オンライン コピーがあります。
-
-@include dedication.itely
-
-@c * インストール::                        インストール方法とコンパイル方法
-@c * セットアップ::                          他のプログラムの助けを借りて LilyPond を使@c
-用する
 
 @c  maybe add a "Tasks" or "Specific tasks" or something like
 @c  that, after Suggestions  -gp
 @menu
-* lilypond を実行する::            操作方法
+* lilypond を実行する::               操作方法
 * convert-ly を使ってファイルを更新する:: 入力ファイルをアップデートする
-* lilypond-book::                  テキストと音楽を統合する
-* Converting from other formats::  lilypond ソース形式に変換する
-* LilyPond プロジェクトに取り組む:: 動かないファイルに取り組む
-* LilyPond 入力ファイルの記述に対する提案::  実践してください
+* lilypond-book::                     文章と楽譜を統合する
+* 外部プログラム::                    LilyPond と他のプログラムを混合する。
+* LilyPond 入力ファイルの記述に対する提案::  効率的な使用方法とバグ対処方法
 
 付録
 
 * GNU Free Documentation License:: このドキュメントの使用許諾書
 * LilyPond インデックス::
 @end menu
+
+@docMain
 @end ifnottex
+
 
 @contents
 
+@allowcodebreaks false
 
-@c @include usage/install.itely
-@c @include usage/setup.itely
 @include usage/running.itely
 @include usage/updating.itely
 @include usage/lilypond-book.itely
-@include usage/converters.itely
-@include usage/working.itely
+@include usage/external.itely
 @include usage/suggestions.itely
 
 @include fdl.itexi
