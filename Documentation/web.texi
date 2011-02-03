@@ -23,7 +23,6 @@
 @include macros.itexi
 @include weblinks.itexi
 
-@afourpaper
 
 @c don't remove this comment.
 @ignore
