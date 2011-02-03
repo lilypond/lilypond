@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 42d5df998cb69b0c66f967b3b5043e83bc504be6
+    Translation of GIT committish: a3de4dde92fb0aeca3dc859e0a15795bc73a40b3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -46,7 +46,6 @@ tipos de música vocal.
 * Duración manual de las sílabas::
 * Varias sílabas sobre una nota::
 * Varias notas sobre una sílaba::
-* Saltar notas::
 * Líneas de extensión y guiones::
 @end menu
 
@@ -782,9 +781,7 @@ que se quiere añadir al melisma.
 
 Es posible tener ligaduras de unión o de expresión y barras manuales
 en la melodía sin que indiquen melisma.  Para hacerlo, ajuste el valor
-de @code{melismaBusyProperties} e indique los melismas mediante barras
-bajas sueltas dentro de la letra, una barra baja por cada nota
-adicional:
+de @code{melismaBusyProperties}:
 
 @lilypond[relative=1,verbatim,quote]
 <<
@@ -792,20 +789,43 @@ adicional:
     \time 3/4
     \set melismaBusyProperties = #'()
     c4 d ( e )
-    g8 [ f ] f4( e)
-    d e ~ e
+    g8 [ f ] f4 ~ f
   }
   \new Lyrics \lyricsto "melody" {
-    Ky -- _ _ _ _ ri -- _ _ e __ _
+    Ky -- ri -- e e -- le -- i -- son
   }
 >>
 @end lilypond
 
 Se pueden usar otros valores para @code{melismaBusyProperties} si
-queremos incluir o excluir las ligaduras de unión, ligaduras de
-expresión o barras de la detección automática de los melismas; véase
-@code{melismaBusyProperties} en el apartado @rinternals{Tunable
-context properties}.
+queremos incluir o excluir selectivamente las ligaduras de unión,
+ligaduras de expresión o barras de la detección automática
+de los melismas; véase @code{melismaBusyProperties}
+en el apartado @rinternals{Tunable context properties}.
+
+Como alternativa, si todas las indicaciones de melismas se van a
+ignorar, se puede establecer @code{ignoreMelismata} al valor
+verdadero; véase @ref{Versos con ritmos distintos}.
+
+Si se requiere un melisma en el transcurso de un pasaje en el que
+@code{melismaBusyProperties} está activo, puede indicarse colocando
+una sola barra baja en la letra por cada nota que se debe incluir
+dentro del melisma:
+
+@lilypond[relative=1,verbatim,quote]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    \set melismaBusyProperties = #'()
+    c4 d ( e )
+    g8 [ f ] ~ f4 ~ f
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ky -- ri -- _ e __ _ _ _
+  }
+>>
+@end lilypond
+
 
 @predefined
 
@@ -824,7 +844,8 @@ Manual de aprendizaje:
 Referencia de la notación:
 @ref{Alineación de la letra a una melodía},
 @ref{Duración automática de las sílabas},
-@ref{Establecer el comportamiento de las barras automáticas}.
+@ref{Establecer el comportamiento de las barras automáticas},
+@ref{Versos con ritmos distintos}.
 
 Referencia de funcionamiento interno:
 @rinternals{Tunable context properties}.
@@ -833,26 +854,6 @@ Referencia de funcionamiento interno:
 
 No se crean automáticamente líneas extensoras bajo los melismas; se
 deben insertar manualmente con un doble guión bajo.
-
-@node Saltar notas
-@unnumberedsubsubsec Saltar notas
-@translationof Skipping notes
-
-Se puede conseguir que una línea de letra progrese más lentamente que
-la melodía, mediante la inserción de desplazamientos o @code{\skip}s
-en la letra.  Por cada @code{\skip}, el texto se retrasa en una nota.
-La instrucción @code{\skip} debe ir seguida de una duración válida,
-pero esta duración se ignora cuando se usa @code{\skip} en las letras
-cuya duración se toma de las notas de una melodía asociada por medio
-de @code{\addlyrics} o de @code{\lyricsto}.
-
-@lilypond[verbatim,ragged-right,quote]
-\relative c' { c c g' }
-\addlyrics {
-  twin -- \skip 4
-  kle
-}
-@end lilypond
 
 
 @node Líneas de extensión y guiones
@@ -1029,9 +1030,9 @@ contexto Staff:
 @end lilypond
 
 Se puede colocar la letra sobre el pentagrama usando uno de los dos
-métodos disponibles: el más sencillo es usar la misma sintaxis que se
-ha visto más arriba y especificar explícitamente la posición de la
-letra:
+métodos disponibles: el más sencillo (y preferible) es usar la misma
+sintaxis que se ha visto más arriba y especificar explícitamente la
+posición de la letra:
 
 @lilypond[quote,verbatim]
 \score {
@@ -1059,7 +1060,10 @@ referencia, usando @code{\context}, como se ve a continuación:
 @lilypond[quote,verbatim]
 \score {
   <<
-    \new Lyrics = "lyrics"
+    \new Lyrics = "lyrics" \with {
+      % lyrics above a staff should have this override
+      \override VerticalAxisGroup #'staff-affinity = #DOWN
+    }
     \new Staff {
       \new Voice = "melody" {
         \relative c'' { c4 c c c }
@@ -1087,7 +1091,10 @@ ejemplo del segundo método:
       }
     }
     \new Lyrics = "sopranos"
-    \new Lyrics = "contraltos"
+    \new Lyrics = "contraltos" \with {
+      % lyrics above a staff should have this override
+      \override VerticalAxisGroup #'staff-affinity = #DOWN
+    }
     \new Staff {
       \new Voice = "contraltos" {
         \relative c'' { a4 a a a }
@@ -1110,6 +1117,10 @@ ejemplo del segundo método:
 Es posible generar otras combinaciones de letra y pautas mediante la
 elaboración de los ejemplos anteriores, o examinando las plantillas de
 @rlearning{Conjuntos vocales} del manual de aprendizaje.
+
+@snippets
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{lyrics-old-spacing-settings.ly}
 
 @seealso
 Manual de aprendizaje:
@@ -1294,26 +1305,10 @@ escriba simplemente todo el texto:
 }
 @end lilypond
 
-@cindex letra, desplazamiento de
-@funindex \skip
-
 Cuando el texto de las secciones de primera o segunda vez es distinto,
 la letra de cada repetición se debe escribir dentro de contextos
-@code{Lyrics} diferentes.  Las secciones anteriores no repetidas se
-deben saltar en la segunda repetición y siguientes.  La manera más
-fácil de saltar varias notas es utilizar @code{\repeat unfold} con una
-instrucción @code{\skip} en su interior.
-
-Observación: no utilice un guión bajo, @code{_}, para saltar notas en
-este caso concreto, pues esto indica un melisma y hará que la sílaba
-precedente aparezca alineada por la izquierda.
-
-@warning{La instrucción @code{@bs{}skip} debe ir seguida de un número,
-pero este número se ignora en aquellas letras cuya duración
-deriva de las duraciones de las notas de una melodía asociada
-con ella a través de @code{\addlyrics} o de @code{\lyricsto}.
-Cada @code{@bs{}skip} salta una sola nota de cualquier duración, sin
-importar el valor del número que le sigue.}
+@code{Lyrics} diferentes,
+anidados correctamente en secciones paralelas:
 
 @lilypond[verbatim,quote]
 \score {
@@ -1326,70 +1321,55 @@ importar el valor del número que le sigue.}
         }
       }
     }
-    \new Lyrics {
-      \lyricsto "melody" {
-        Not re -- peat -- ed.
-        The first time words.
-      }
-    }
-    \new Lyrics {
-      \lyricsto "melody" {
-        % skip 4 notes of any duration
-        \repeat unfold 4 { \skip 1 }
-        Sec -- ond time words.
-      }
+    \new Lyrics \lyricsto "melody" {
+      Not re -- peat -- ed.
+      <<
+	{ The first time words. }
+	\new Lyrics {
+	  \set associatedVoice = "melody"
+	  Sec -- ond time words.
+	}
+      >>
     }
   >>
 }
 @end lilypond
 
-@cindex letra, repetición con una voz temporal
+Se pueden añadir más estrofas de una manera similar:
 
-Una forma alternativa, que evita la necesidad de usar desplazamientos
-y tener que contar notas, es utilizar una voz temporal para la sección
-repetida.  Esto puede ser preferible si las secciones anteriores aún
-están sujetas a cambios.  Se puede insertar una voz temporal en
-cualquier punto dentro de la corriente musical principal y en paralelo
-con ella, como se muestra más abajo, pero al usar esta técnica en
-partituras complejas puede ser necesario mantener viva la voz
-principal; véase @ref{Mantener vivos los contextos}.
-
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \score {
   <<
     \new Staff {
       \new Voice = "singleVoice" {
-        \relative c'' { a4 a a a }
-        \new Voice = "repeatVoice" {
-          \relative c'' \repeat volta 3 { b4 b b b }
-        }
-        \relative c'' { c4 c c c }
+        \relative c'' {
+	  a4 a a a
+	  \repeat volta 3 { b4 b b b }
+          c4 c c c
+	}
       }
     }
-    \new Lyrics <<
-      \lyricsto "singleVoice" {
-        Not re -- peat -- ed.
-        The end sec -- tion.
-      }
-      \lyricsto "repeatVoice" {
-        The first time words.
-      }
-    >>
-    \new Lyrics {
-      \lyricsto "repeatVoice" {
-        Sec -- ond time words.
-      }
-    }
-    \new Lyrics {
-      \lyricsto "repeatVoice" {
-        The third time words.
-      }
+    \new Lyrics \lyricsto "singleVoice" {
+      Not re -- peat -- ed.
+      <<
+        { The first time words.	}
+	\new Lyrics {
+	  \set associatedVoice = "singleVoice"
+	  Sec -- ond time words.
+	}
+	\new Lyrics {
+	  \set associatedVoice = "singleVoice"
+	  The third time words.
+	}
+      >>
+      The end sec -- tion.
     }
   >>
 }
 @end lilypond
 
-@c TODO lowering a common line of lyrics
+
+@c TODO positioning a common line of lyrics
 
 @subheading Repeticiones con finales alternativos (primera y segunda vez)
 
@@ -1428,11 +1408,26 @@ música.
 }
 @end lilypond
 
+@funindex \skip
+@cindex saltar notas en la letra
+@cindex letra, saltar notas
+
 Pero cuando la sección repetida tiene un texto distinto, no se puede
 usar una construcción de repetición para el texto y es necesario
-insertar manualmente instrucciones @code{\skip} como se describe en la
-sección anterior, para saltar sobre las notas en las secciones
+insertar manualmente instrucciones @code{\skip}
+para saltar sobre las notas en las secciones
 alternativas que no correspondan.
+
+Nota: no utilice un guión bajo, @code{_}, para saltar notas: el guión
+bajo indica un melisma, y hace que la sílaba anterior resulte alineada
+por la izquierda.
+
+@warning{La instrucción @code{@bs{}skip} debe ir seguida por un
+número, pero este número se ignora dentro de la letra, que deriva las
+duraciones de las notas de una melodía asociada a través de
+@code{\addlyrics} o @code{\lyricsto}.  Cada @code{@bs{}skip} salta una
+sola nota de cualquier valor, independientemente del valor del número
+que se escribe a continuación.}
 
 @lilypond[verbatim,quote,ragged-right]
 \score {

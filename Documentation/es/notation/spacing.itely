@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 55ac733b69643a6bc6a83b706c65cb56efd388ef
+    Translation of GIT committish: 5c2bad53eb6689ce2700d152d6b59382b16884c7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1947,8 +1947,8 @@ labelContext =
 @end lilypond
 
 Cada una de las propiedades de grob del espaciado vertical (excepto
-@code{staff-affinity}) se almacena como una lista-A (lista
-asociativa), y todas usan la misma estructura de lista-A que las
+@code{staff-affinity})
+usa la misma estructura de lista-A que las
 variables de espaciado del bloque @code{\paper} que se han estudiado
 en @ref{Flexible vertical spacing \paper variables}.
 En @ref{Modificación de las listas-A}
@@ -2005,19 +2005,27 @@ equivalente).
 
 @table @code
 @item staff-staff-spacing
-Distancia entre la pauta actual y la pauta que está justo por debajo
+Se utiliza para determinar la distancia entre la pauta actual
+y la pauta que está justo por debajo
 de ella dentro del mismo sistema, incluso si hay más líneas que no son
 pautas (tales como @code{Lyrics}) entre las dos pautas.  No se aplica
-a la pauta inferior de un sistema.  Esto sustituye a cualquier ajuste
-heredado del grob @code{StaffGrouper} del grupo de pautas contenedor,
-si existe.  Si no está fijado, y no hay ninguna propiedad de
-@code{StaffGrouper} que heredar, se usa la propiedad
-@code{default-staff-staff-spacing}.
+a la pauta inferior de un sistema.
+
+Inicialmente, el valor de espaciado @code{staff-staff-spacing} de un
+grupo @code{VerticalAxisGroup} es una función de Scheme que aplica las
+propiedades del @code{StaffGrouper} si la pauta forma parte de un
+grupo, o el @code{default-staff-staff-spacing} de la pauta en caso
+contrario.  Esto hace posible que las pautas estén espaciadas de forma
+diferente cuando están agrupadas.  Para conseguir un espaciado regular
+sin importar el agrupamiento, esta función se puede sustituir por una
+lista-A de espaciado flexible, utilizando la forma de
+sobreescritura de redefinición completa que se ha mostrado más arriba.
 
 @item default-staff-staff-spacing
-Ajustes que utilizar para @code{staff-staff-spacing} cuando está sin
-establecer.  Se aplica a las pautas no agrupadas y a las pautas
-agrupadas que no heredan los ajustes del grob @code{StaffGrouper}.
+Una lista-A de espaciado flexible que define el
+espacio @code{staff-staff-spacing} que se usará para las pautas sin
+agrupar, a no ser que se haya sobreescrito explícitamente
+@code{staff-staff-spacing} con una instrucción @code{\override}.
 
 @item staff-affinity
 Dirección de la pauta que utilizar para el espaciado de la línea
@@ -2073,9 +2081,9 @@ equivalente).
 @item staff-staff-spacing
 Distancia entre pautas consecutivas dentro del grupo de pautas actual.
 La propiedad @code{staff-staff-spacing} del grob
-@code{VerticalAxisGroup} de una pauta individual se usará en su lugar
-para cualquier pauta que esté dentro del grupo que tiene el valor
-fijado.  Véase también @code{default-staff-staff-spacing}.
+@code{VerticalAxisGroup} de una pauta individual se puede
+sobreescribir con distintos ajustes de espaciado para dicha
+pauta.
 
 @item staffgroup-staff-spacing
 Distancia entre la última pauta del grupo en curso y la pauta que está
@@ -2083,9 +2091,9 @@ justo por debajo de ella dentro del mismo sistema, incluso si existen
 una o más líneas que no son pautas (tales como @code{Lyrics}) entre
 las dos pautas.  No se aplica al pentagrama o pauta inferior de un
 sistema.  La propiedad @code{staff-staff-spacing} del grob
-@code{VerticalAxisGroup} de una pauta individual se usará en su lugar
-para cualquier pauta dentro del grupo que tenga el valor fijado.
-Véase también @code{default-staff-staff-spacing}.
+@code{VerticalAxisGroup} de una pauta individual se puede
+sobreescribir con distintos ajustes de espaciado para dicha
+pauta.
 @end table
 
 @seealso
@@ -2114,6 +2122,7 @@ agrupadas}:
 @itemize
 @item Propiedades de @code{VerticalAxisGroup}:
 @itemize
+@item @code{default-staff-staff-spacing}
 @item @code{staff-staff-spacing}
 @end itemize
 @end itemize
@@ -2125,21 +2134,24 @@ Están implicadas ciertas propiedades adicionales para las pautas que
 son parte de un grupo; véase @ref{Espaciado de pautas agrupadas}.
 
 El ejemplo siguiente muestra cómo la propiedad
-@code{staff-staff-spacing} puede afectar al espaciado de pautas no
-agrupadas:
+@code{default-staff-staff-spacing} puede afectar al espaciado de pautas no
+agrupadas.  Las mismas sobreescrituras aplicadas a
+@code{staff-staff-spacing}
+tendrían el mismo efecto, pero también se aplicaría en caso de que las
+pautas estuvieran combinadas en un grupo o grupos.
 
 @lilypond[verbatim,quote,staffsize=16]
 \layout {
   \context {
     \Staff
-    \override VerticalAxisGroup #'staff-staff-spacing =
+    \override VerticalAxisGroup #'default-staff-staff-spacing =
       #'((basic-distance . 8)
          (minimum-distance . 7)
          (padding . 1))
   }
 }
 
-\new StaffGroup <<
+<<
   % The very low note here needs more room than 'basic-distance
   % can provide, so the distance between this staff and the next
   % is determined by 'padding.
@@ -2154,7 +2166,7 @@ agrupadas:
   % By setting 'padding to a negative value, staves can be made to
   % collide.  The lowest acceptable value for 'basic-distance is 0.
   \new Staff \with {
-    \override VerticalAxisGroup #'staff-staff-spacing =
+    \override VerticalAxisGroup #'default-staff-staff-spacing =
       #'((basic-distance . 3.5)
          (padding . -10))
   } { \clef bass g2 r | }
@@ -2192,7 +2204,6 @@ de los grupos:
 @item Propiedades de @code{VerticalAxisGroup}:
 @itemize
 @item @code{staff-staff-spacing}
-@item @code{default-staff-staff-spacing}
 @end itemize
 @item Propiedades de @code{StaffGrouper}:
 @itemize
