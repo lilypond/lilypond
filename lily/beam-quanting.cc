@@ -201,6 +201,10 @@ void Beam_scoring_problem::init_stems ()
   d = LEFT;
   do
     {
+      quant_range[d].set_full ();
+      if (!edge_stems[d])
+        continue;
+      
       Real stem_offset = edge_stems[d]->relative_coordinate (common[Y_AXIS], Y_AXIS)
         - beam->relative_coordinate (common[Y_AXIS], Y_AXIS);
       Interval heads = Stem::head_positions(edge_stems[d]) * 0.5 * staff_space;
@@ -208,7 +212,6 @@ void Beam_scoring_problem::init_stems ()
       Direction ed = edge_dirs[d];
       heads.widen(0.5 * staff_space
                   + (edge_beam_counts[d] - 1) * beam_translation + beam_thickness * .5);
-      quant_range[d][ed] = ed * infinity_f;
       quant_range[d][-ed] = heads[ed] + stem_offset;
     }
   while (flip (&d) != LEFT);
