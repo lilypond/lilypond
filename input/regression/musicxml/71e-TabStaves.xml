@@ -4,8 +4,8 @@
 <score-partwise>
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Some tablature staves, with 
-          explicit fingering information and different string tunings given 
+      <miscellaneous-field name="description">Some tablature staves, with
+          explicit fingering information and different string tunings given
           in the MusicXML file.</miscellaneous-field>
     </miscellaneous>
   </identification>
@@ -664,7 +664,7 @@
       <note>
         <pitch>
           <step>D</step>
-          <octave>2</octave>
+          <octave>3</octave>
         </pitch>
         <duration>1</duration>
         <voice>1</voice>
@@ -673,7 +673,7 @@
         <notations>
           <technical>
             <string>5</string>
-            <fret>-7</fret>
+            <fret>5</fret>
           </technical>
         </notations>
       </note>
