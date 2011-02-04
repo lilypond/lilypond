@@ -137,6 +137,12 @@ private:
   Real staff_radius;
   Drul_array<int> edge_beam_counts;
   Drul_array<Direction> edge_dirs;
+
+  // Half-open intervals, representing allowed positions for the beam,
+  // starting from close to the notehead to the direction of the stem
+  // end.  This is used for quickly weeding out invalid
+  // Beam_configurations.
+  Drul_array<Interval> quant_range;
   Real beam_translation;
 
   void init_stems ();
