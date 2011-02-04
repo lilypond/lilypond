@@ -235,11 +235,11 @@ melyben az előző hanghoz a legközelebb áll, vagyis legfeljebb
 kvárt távolságra. Ennek szemléltetésére gépeljünk be egy zenei alapformulát,
 egy @notation{skálát}, melyben minden hang szekund távolságra van az
 előzőtől. (Figyelem: mivel angolul a h hang neve b, ezért a LilyPond forrásban
-is mindig b-t kell írni h helyett!)
+is alapesetben b-t kell írni h helyett!)
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-% megadjuk, hogy az első viszonyítási hang egyvonalas c legyen
+% megadjuk, hogy az első viszonyítási hang az egyvonalas c legyen
 \relative c' {
   c d e f
   g a b c
@@ -267,7 +267,7 @@ megegyezzen a tényleges első hanggal, ahogy az előző példában is láttuk, 
 az első hang -- a @code{d} -- az egyvonalas c-hez legközelebb eső hang,
 az egyvonalas d.
 
-A @code{@w{\relative c' @{}} parancsban megadott első viszonyítási hanghoz
+A @code{@w{\relative c'}} parancsban megadott első viszonyítási hanghoz
 @code{'} vagy @code{,} karaktereket hozzáadva vagy elvéve
 változtatható a kezdőoktáv:
 
@@ -490,7 +490,7 @@ helyes, @w{@code{@{ C D E @}}} hibás bemenet.
 @strong{Az üres helyek nem számítanak}:
 mindegy, hogy hova hány szóköz, tabulátor vagy újsor kerül.
 @w{@code{@{ c d e @}}} ugyanazt jelenti, mint
-@w{@code{@{ c @tie{}} @tie{} @tie{} d e @}} vagy:
+@w{@code{@{ c @tie{} @tie{} @tie{} d e @}}} vagy:
 
 @example
 @{ c                        d

@@ -67,7 +67,8 @@ Fogalomtár: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 @rglos{double flat}, @rglos{accidental}.
 
 @notation{Keresztes} hangot a hang neve után közvetlenül @code{is} utótagot
-írva kapunk, @notation{bés} hangot pedig @code{es}-t írva. Értelemszerűen
+írva kapunk, @notation{bés} hangot pedig @code{es}-t (asz és esz
+esetén akár egyszerűen @code{s}-t) írva. Értelemszerűen
 @notation{kettős kereszt} és @notation{kettős bé} rendre @code{isis} és
 @code{eses} hozzáadásával írható le. Ez a szabály az északi és a germán
 nyelvek elnevezési hagyományaiból ered. Más megnevezésű
@@ -75,7 +76,7 @@ nyelvek elnevezési hagyományaiból ered. Más megnevezésű
 c. fejezetben van leírva.
 
 @lilypond[verbatim,quote,relative=2]
-cis1 ees fisis, aeses
+cis1 es fisis, ases
 @end lilypond
 
 @subheading Előjegyzés
@@ -147,7 +148,7 @@ Ha leírunk egy @code{b}-t, azaz egy h hangot, az nem azt jelenti, hogy
 @qq{itt egy h hang szól}. Pl. Asz-dúrban a h hang elé kerül módosítójel:
 
 @lilypond[verbatim,quote,relative=2]
-\key aes \major
+\key as \major
 b
 @end lilypond
 
@@ -425,7 +426,7 @@ Referencia: @ruser{Automatic beams}, @ruser{Manual beams}.
 Fogalomtár: @rglos{anacrusis}.
 
 @notation{Felütés} a @code{\partial} kulcsszó segítségével kapható.
-A parancs után egy ritmusértéket kell írni: @code{\partial 4} egy
+A parancs után egy ritmusértéket kell írni: például @code{\partial 4} egy
 negyed értékű felütést, @code{\partial 8} egy nyolcad értékű felütést
 eredményez.
 
@@ -918,7 +919,7 @@ legegyszerűbb, ha a melizma hangjait kötőívvel összekötjük (ld. az
 @end lilypond
 
 Most már a dalszöveg jól illeszkedik a dallamra, de az automatikus gerendázás
-az angolszász konvenció értelmében nem megfelelő a @notation{shine as}
+nem felel meg az angolszász konvenciónak a @notation{shine as}
 szavakon. Írjuk felül ezt kézzel (ld. az @ref{Automatikus és kézi gerendázás}
 szakaszt):
 
@@ -1119,12 +1120,12 @@ akárcsak egy LilyPond parancs esetén).
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-hegedu = \new Staff {
+hegedű = \new Staff {
   \relative c'' {
     a4 b c b
   }
 }
-csello = \new Staff {
+cselló = \new Staff {
   \relative c {
     \clef bass
     e2 d
@@ -1132,15 +1133,15 @@ csello = \new Staff {
 }
 {
   <<
-    \hegedu
-    \csello
+    \hegedű
+    \cselló
   >>
 }
 @end lilypond
 
 @noindent
-A változók nevei csak az angol ábécé betűit tartalmazhatják. Nem
-tartalmazhatnak ékezetes karaktert, számot, aláhúzást, kötőjelet stb.
+A változók nevei csak betűket tartalmazhatnak. Nem
+tartalmazhatnak számot, aláhúzást, kötőjelet stb.
 
 A változókat azelőtt kell definiálni, mielőtt még hivatkoznánk rájuk,
 de később akármennyiszer felhasználhatjuk őket, így pl. könnyebben vihetünk
@@ -1151,19 +1152,19 @@ változóra.
 @c KEEP LY
 @lilypond[verbatim,quote]
 triolaA = \times 2/3 { c,8 e g }
-utemA = { \triolaA \triolaA \triolaA \triolaA }
+ütemA = { \triolaA \triolaA \triolaA \triolaA }
 
 \relative c'' {
- \utemA \utemA
+ \ütemA \ütemA
 }
 @end lilypond
 
 Sok más típusú értéket is hozzárendelhetünk egy változóhoz. Például:
 
 @example
-szelesseg = 4.5\cm
-nev = "Wendy"
-AOtosLap = \paper @{ paperheight = 21.0 \cm @}
+szélesség = 4.5\cm
+név = "Wendy"
+AÖtösLap = \paper @{ paperheight = 21.0 \cm @}
 @end example
 
 Tartalmától függően egy változó különböző helyeken használható fel.
@@ -1171,11 +1172,11 @@ Az alábbi példa a fenti változókat hasznosítja újra:
 
 @example
 \paper @{
-  \AOtosLap
-  line-width = \szelesseg
+  \AÖtösLap
+  line-width = \szélesség
 @}
 @{
-  c4^\name
+  c4^\név
 @}
 @end example
 
