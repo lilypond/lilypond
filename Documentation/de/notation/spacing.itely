@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+    Translation of GIT committish: 27b1197f3bae8512c14d946752cd3e40e7c76016
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1937,8 +1937,7 @@ labelContext =
 @end lilypond
 
 Jeder der vertikalen Platzierungs-Grobeigenschaften (außer
-@code{staff-affinity}) wird in einer Aliste (assoziativen Liste)
-gespeichert und jeder benutzt die gleiche Alistenstruktur
+@code{staff-affinity}) benutzt die gleiche Alistenstruktur
 wie die @code{\paper}-Variablen, behandelt in
 @ref{Vertikale \paper-Variablen mit flexiblen Abständen}.  Besondere
 Methoden um Alisten zu verändern finden sich in
@@ -1995,24 +1994,32 @@ entsprechend) vorgenommen.
 @table @code
 @item staff-staff-spacing
 System-System-Platzierung
-Der Abstand zwischen dem aktuellen Notensystem und dem Notensystem direkt darunter
-innerhalb derselben Systemgruppe, auch wenn eine oder mehrere
-Nicht-Notensystemzeilen (wie etwa @code{Lyrics}) dazwischen stehen.
-Bezieht sich nicht auf das unterste System einer Systemgruppe.  Das
-ersetzt alle Einstellungen, die vom @code{StaffGrouper}-Grob der aktuellen
-Systemgruppe geerbt wurden, wenn solche vorliegen sollten.  Wenn nicht
-gesetzt und keine anderen @code{StaffGrouper}-Eigenschaften geerbt
-werden können, wird die @code{default-staff-staff-spacing}-Eigenschaft benutzt.
+
+Wird benutzt, um den Abstand zwischen dem aktuellen Notensystem und dem
+Notensystem direkt darunter in der gleichen Notensystemgruppe zu bestimmen,
+auch wenn eine oder mehrere Nicht-Notensystemzeilen (wie etwa @code{Lyrics})
+dazwischen stehen.  Gilt nicht für das unterste System einer Systemgruppe.
+
+Die Eigenschaft @code{staff-staff-spacing} einer @code{VerticalAxisGroup}
+ist eine Scheme-Funktion, welche die Eigenschaften vom @code{StaffGrouper}-Grob
+den Notensystemen zuweist, wenn sie einer Systemgruppe angehören, bzw.
+die @code{default-staff-staff-spacing}-Eigenschaft bei einem einzelnen Notensystem.
+Dadurch können Systeme unterschiedlich in Abhängigkeit von ihrer Zugehörigkeit
+zu einer Gruppe (StaffGroup) platziert werden.  Wenn gleichmäßige Aufteilung
+ohne Berücksichtigung von Gruppierungen gewünscht ist, kann diese Funktion durch
+eine flexible Platzierungs-Aliste ersetzt werden, wobei man die vollständige
+Redefinition auf die oben gezeigte Weise vornehmen muss.
 
 @item default-staff-staff-spacing
 Normale-System-System-Platzierung
-Die Einstlelungen, die für @code{staff-staff-spacing} benutzt werden,
-wenn die Eigenschaft nicht gesetzt ist.  Das gilt für einzelne Systeme
-und Systemgruppen, die keine Einstellungen vom @code{StaffGrouper}-Grob
-geerbt haben.
+
+Eine flexible Platzierungs-Aliste, die den Wert von @code{staff-staff-spacing}
+für ungruppierte Notensysteme einstellt, es sei denn,
+@code{staff-staff-spacing} wirde explizit mit @code{\override} eingestellt.
 
 @item staff-affinity
 System-Anziehung
+
 Die Richtung des Systems, die benutzt wird, um die aktuelle
 Nicht-Notensystemzeile zu platzieren.  Mögliche Werte sind
 @code{UP} (nach oben), @code{DOWN} (nach unten) und
@@ -2033,6 +2040,7 @@ Notensystem behandelt.
 
 @item nonstaff-relatedstaff-spacing
 Nicht-Notensystem-verwandtesSystem-Platzierung
+
 Der Abstand zwischen der aktuellen Nicht-Notensystemzeile und
 dem nächsten Notensystem in der Richtung von @code{staff-affinity},
 wenn keine Nicht-Notensystemzeilen dazwischen auftreten und @code{staff-affinity}
@@ -2044,6 +2052,7 @@ auftreten.
 
 @item nonstaff-nonstaff-spacing
 Nicht-Notensystemzeile-Nicht-Notensystemzeile-Platzierung
+
 Der Abstand zwischen der aktuellen Nicht-Notensystemzeile und der
 Nicht-Notensystemzeile in der Richtung von @code{staff-affinity},
 wenn beide sich auf der gleichen Seite des verwandten Notensystems
@@ -2051,6 +2060,7 @@ befinden und @code{staff-affinity} entweder @code{UP} oder @code{DOWN} ist.
 
 @item nonstaff-unrelatedstaff-spacing
 Nicht-Notensystemzeile-Nicht-verwandtesSystem-Platzierung
+
 Der Abstand zwischen der aktuellen Nicht-Notensystemzeile und
 dem Notensystem in der gegenüberliegenden Richtung von @code{staff-affinity},
 wenn keine anderen Nicht-Notensystemzeilen dazwischen auftreten und
@@ -2069,23 +2079,24 @@ entsprechend) eingestellt.
 @table @code
 @item staff-staff-spacing
 Notensystem-Notensystem-Abstand
+
 Der Abstand zwischen zwei aufeinanderfolgenden Notensystemen in
 der aktuellen @code{StaffGroup}.  Die @code{staff-staff-spacing}-Eigenschaft
-eines des @code{VerticalAxisGroup}-Grob eines einzelnen Notensytems
-wird benutzt für alle Systeme in der Systemgruppe, die diese Eigenschaft
-gesetzt haben.  Siehe auch @code{default-staff-staff-spacing}.
+des @code{VerticalAxisGroup}-Grobs eines einzelnen Notensytems
+kann mit @code{\override} in andere Platzierungswerte für dieses Notensystem
+geändert werden.
 
 @item staffgroup-staff-spacing
 Systemgruppe-System-Abstand
+
 Der Abstand zwischen dem letzten Notensystem der aktuellen @code{StaffGroup}
 und dem Notensystem dirket darunter in der selben Notensystemgruppe,
 auch wenn eine oder mehrere Nicht-Notensystemzeilen (wie etwa
 Gesangstext) zwischen den zwei Notensystemen vorkommen.  Gilt nicht
 für das letzte Notensystem einer Systemgruppe.  Die
 @code{staff-staff-spacing}-Eigenschaft des @code{VerticalAxisGroup}-Grobs
-individueller Notensysteme wird anstelle dessen für alle Notensysteme
-in der @code{StaffGroup} benutzt, die sie gesetzt haben.  Siehe auch
-@code{default-staff-staff-spacing}.
+individueller Notensysteme kann mit @code{\override} in andere Platzierungswerte
+für dieses Notensystem geändert werden.
 @end table
 
 @seealso
@@ -2113,6 +2124,7 @@ Notensystemen:
 @itemize
 @item @code{VerticalAxisGroup}-Eigenschaften:
 @itemize
+@item @code{default-staff-staff-spacing}
 @item @code{staff-staff-spacing}
 @end itemize
 @end itemize
@@ -2124,21 +2136,24 @@ Zusätzliche Eigenschaften kommen hinzu für Notensysteme, die Teil
 einer Gruppieren (@code{StaffGroup}) werden, siehe
 @ref{Abstände von gruppierten Notensystemen}.
 
-Folgendes Beispiel zeigt, wie die @code{staff-staff-spacing}-Eigenschaft
-sich auf die Platzierung von nicht-gruppierten Notensystemen auswirken kann:
+Folgendes Beispiel zeigt, wie die @code{default-staff-staff-spacing}-Eigenschaft
+sich auf die Platzierung von nicht-gruppierten Notensystemen auswirken kann.
+Wenn man die gleichen @code{\override}-Befehle auf @code{staff-staff-spacing}
+anwendet, ergäbe das den selben Effekt, würde sich aber auch in Fällen auswirken,
+in denen die Systeme gruppiert sind.
 
 @lilypond[verbatim,quote,staffsize=16]
 \layout {
   \context {
     \Staff
-    \override VerticalAxisGroup #'staff-staff-spacing =
+    \override VerticalAxisGroup #'default-staff-staff-spacing =
       #'((basic-distance . 8)
          (minimum-distance . 7)
          (padding . 1))
   }
 }
 
-\new StaffGroup <<
+<<
   % The very low note here needs more room than 'basic-distance
   % can provide, so the distance between this staff and the next
   % is determined by 'padding.
@@ -2153,7 +2168,7 @@ sich auf die Platzierung von nicht-gruppierten Notensystemen auswirken kann:
   % By setting 'padding to a negative value, staves can be made to
   % collide.  The lowest acceptable value for 'basic-distance is 0.
   \new Staff \with {
-    \override VerticalAxisGroup #'staff-staff-spacing =
+    \override VerticalAxisGroup #'default-staff-staff-spacing =
       #'((basic-distance . 3.5)
          (padding . -10))
   } { \clef bass g2 r | }
@@ -2192,7 +2207,6 @@ innerhalb von Gruppen:
 @item @code{VerticalAxisGroup}-Eigenschaften:
 @itemize
 @item @code{staff-staff-spacing}
-@item @code{default-staff-staff-spacing}
 @end itemize
 @item @code{StaffGrouper}-Eigenschaften:
 @itemize

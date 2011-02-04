@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+    Translation of GIT committish: 27b1197f3bae8512c14d946752cd3e40e7c76016
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -909,7 +909,8 @@ formatieren.
 @cindex kurze Instrumentenbezeichnungen
 
 Instrumentbezeichnungen können an der linken Seite von Notensystemen
-im @code{Staff}- und @code{PianoStaff}-Kontext gesetzt
+im @code{Staff}-, @code{PianoStaff}-, @code{StaffGroup}, @code{GrandStaff}
+und @code{ChoirStaff}-Kontext gesetzt
 werden.  Der Wert von @code{instrumentName} wird für das erste
 System eingesetzt, der Wert von @code{shortInstrumentName} für
 alle weiteren Systeme.
@@ -991,7 +992,7 @@ Zu Einzelheiten siehe @ref{\paper-Variablen für Verschiebungen und Einrückunge
 @cindex Instrumentenbezeichnungen zu anderen Kontexten hinzufügen
 
 Um Instrumentenbezeichnungen zu anderen Kontexten (wie etwa
-@code{GrandStaff}, @code{ChoirStaff} oder @code{StaffGroup})
+@code{ChordNames} or @code{FiguredBass})
 hinzuzufügen, muss der @code{Instrument_name_engraver} dem
 entsprechenden Kontext hinzugefügt werden.  Zu Einzelheiten
 siehe @ref{Umgebungs-Plugins verändern}.
