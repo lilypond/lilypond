@@ -45,7 +45,7 @@ translations = {
         },
     'zh': {
         'English': '中文',
-        'Other languages': 'Other languages',
+        'Other languages': '其它语言',
         },
     }
 
