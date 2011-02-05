@@ -1,0 +1,857 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@ignore
+    Translation of GIT committish: 2613eed0a13ce118cb11f83057d9d79fc6973a4e
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c Translators: Yoshiki Sawada
+
+@include included/authors.itexi
+@include included/helpus.itexi
+
+@node コミュニティ
+@unnumbered コミュニティ
+@translationof Community
+
+@divClass{link-headings}
+
+@divClass{column-center-top}
+@subheading コミュニティと交流する
+
+@itemize
+
+@item
+@ref{コンタクト}: 援助を求める、議論する、そして交流する！
+
+@item
+@ref{最小化例}: LilyPond について議論する際に、@emph{強く} 推奨することがあります。
+
+@item
+@ref{バグ報告}: 何かうまくいかない。
+
+@end itemize
+@divEnd
+
+@divClass{column-left-bottom}
+@subheading LilyPond を改善する
+
+@itemize
+
+@item
+@ref{援助が必要です}: あなたの手助けが必要です。
+
+@item
+@ref{開発}: 貢献者とテスタ向けです。
+
+@item
+@ref{著者}: 現在の LilyPond を作った人々。
+
+@end itemize
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading その他
+
+@itemize
+
+@item
+@ref{出版物}: 我々が書いたもの、我々についてかかれたもの。
+
+@item
+@ref{古いニュース}: アーカイブ。
+
+@end itemize
+@divEnd
+
+@divEnd
+
+
+
+
+@divClass{hide}
+@menu
+* コンタクト::
+* 最小化例::
+* バグ報告::
+* 援助が必要です::
+* 開発::
+* 著者::
+* 出版物::
+* 古いニュース::
+@end menu
+@divEnd
+
+
+@node コンタクト
+@unnumberedsec コンタクト
+@translationof Contact
+
+
+@divClass{column-left-bottom}
+@subheading ユーザの議論とヘルプ
+
+@subsubheading ユーザ メーリング リスト: @code{lilypond-user@@gnu.org}
+
+このメーリング リストは、ユーザ同士で議論やヘルプを行う場所です。
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user,
+lilypond-user への登録と情報}
+
+@uref{http://lists.gnu.org/archive/html/lilypond-user/,
+アーカイブ 1}
+@uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
+アーカイブ 2}
+@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.general,
+アーカイブ 3}
+
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.general,
+gmane で lilypond-user にメールを送る}
+@end quotation
+
+@warning{質問がある場合、@ref{最小化例} を使ってください！}
+
+@subsubheading LilyPond コード断片リポジトリ
+
+LilyPond コード断片リポジトリ (LSR) はユーザが投稿した例の@c
+大きなコレクションであり、自由にコピーして使用することができます。@c
+他の人が書いた楽譜を見て、あなた自身も投稿してください！
+
+@example
+@uref{http://lsr.dsi.unimi.it}
+@end example
+
+LSR から、@c
+ためになる例を公式ドキュメントの @ref{コード断片集} に含めています。
+
+
+@subsubheading IRC
+
+我々の IRC チャネルでサポートが提供されています:
+
+@example
+@uref{irc://irc.freenode.net/lilypond, #lilypond@@irc.freenode.net}
+@end example
+
+このチャネルはアーカイブされません。@c
+そのため、他のユーザにも役に立ちそうな質問は、@c
+メーリング リストに投稿した方が良いでしょう。
+
+@html
+<form action="http://webchat.freenode.net"
+      method="get"
+      name="f_lily_irc"
+  <label>irc name:
+    <input name="nick" type="text" size="15" value="">
+  </label>
+  <input name="channels" type="hidden" value="lilypond">
+  <input type="submit" value="Join #lilypond IRC Chat">
+</form>
+
+<script language="JavaScript" type="text/javascript">
+  var username = "web";
+  var lang = window.navigator.userLanguage ? window.navigator.userLanguage
+  : window.navigator.language;
+  username += '-' + lang.substr(0, 2);
+  username += '-' + navigator.appName.substr(0, 2);
+  username += navigator.appCodeName.replace (" ", "").substr(0, 2);
+  username += navigator.platform.replace (" ", "").replace("nux", "").replace("n32", "");
+  document.forms["f_lily_irc"].nick.value = username;
+</script>
+@end html
+
+@subsubheading 他の言語
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
+スペイン語のメーリング リスト}
+
+@uref{http://www.lilypondforum.de/,
+ドイツ語のフォーラム}
+
+@uref{http://groups.google.com/group/lilypond-brasil,
+ポルトガル語のグループ}
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+フランス語のメーリング リスト}
+
+@uref{http://www.lilypondforum.nl/,
+オランダ語のフォーラム}
+@end quotation
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading 通知
+@c Stay Informed
+
+@subsubheading LilyPond レポート
+
+LilyPond のことを知る最も簡単な方法は、@c
+我々のコミュニティのニュース レター LilyPond レポートを読むことです。
+
+@example
+@uref{http://news.lilynet.net}
+@end example
+
+@subsubheading リリース メーリング リスト: @code{info-lilypond@@gnu.org}
+
+このメーリング リストは小さなボリュームの読むだけのメーリング リストで、@c
+新しいリリースが通知されます。
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
+info-lilypond への登録と情報}
+
+@uref{http://lists.gnu.org/archive/html/info-lilypond/,
+アーカイブ 1}
+@uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
+アーカイブ 2}
+@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.announce,
+アーカイブ 3}
+
+@c don't include gmane posting here.  -gp
+@end quotation
+
+
+@divEnd
+
+
+@divClass{column-right-bottom}
+@subheading 開発者の議論
+
+@subsubheading 開発者メーリング リスト: @code{lilypond-devel@@gnu.org}
+
+多くの開発者がこのメーリング リストに登録しています。@c
+パッチはここに送ってください。
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
+lilypond-devel への登録と情報}
+
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/,
+アーカイブ 1}
+@uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
+アーカイブ 2}
+@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.devel,
+アーカイブ 3}
+
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.devel,
+gmane で lilypond-devel にメールを送る}
+@end quotation
+
+
+@subsubheading バグ メーリング リスト: @code{bug-lilypond@@gnu.org}
+
+バグについての議論はここで行われます。
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
+bug-lilypond への登録と情報}
+
+@uref{http://lists.gnu.org/archive/html/bug-lilypond/,
+アーカイブ 1}
+@uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
+アーカイブ 2}
+@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.bugs,
+アーカイブ 3}
+
+@c don't include gmane posting here.  -gp
+@end quotation
+
+@warning{バグ リストにメールを送る前に @ref{バグ報告} の@c
+ガイドラインを呼んで下さい。}
+
+@divEnd
+
+
+@node 最小化例
+@unnumberedsec 最小化例
+@translationof Tiny examples
+
+@divClass{column-center-top}
+@subheading @qq{最小化例} とは？
+
+最小化例は、削除可能なものをすべて削除した例です。
+@divEnd
+
+@divClass{column-left-bottom}
+@subheading なぜそれを作る必要があるの?
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+例が簡単なほど、援助者は素早くそれを理解して手助けすることができます。
+
+@item
+簡単な例は、あなたが自分自身で問題を解決する努力した証明になります。@c
+入力ファイルの大部分を送った場合、援助を期待していないかのように@c
+見られてしまいます。
+
+@item
+最小化例を作ることで、あなたは何が起きているかを理解することになります。@c
+多くの問題報告は最小化例を作る努力をすることで回避できるものです。@c
+最小化例の中で @qq{バグ} を再現できないのであれば、それはバグではなく、@c
+LilyPond への理解不足である可能性が高いです！
+
+@end itemize
+@divEnd
+
+@divEnd
+
+
+@divClass{column-right-bottom}
+@subheading どうやって作るの？
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+\version 番号を含めてください。
+
+@item
+小さくしてください！@c
+スペースやページ レイアウトについての例は多くの小節を必要とするかも@c
+しれませんが、多くの問題は 1 つの小節に作り直すことができます。
+
+@item
+例を作ろうとする時、ファイルの部分々々をコメント アウト
+@w{(@code{%} や @code{%@{ @dots{} %@}})} してみてください。@c
+あなたの考えていることを残しながらコメント アウトできるものがあれば、@c
+それを削除してください！
+
+@item
+バグと関係がないのであれば、複雑な音符、調、拍子を使わないで下さい。
+
+@item
+バグと関係がないのであれば、@code{\override} や @code{\set} コマンド@c
+を使わないでください。
+
+@end itemize
+@divEnd
+
+@divEnd
+
+
+@node バグ報告
+@unnumberedsec バグ報告
+@translationof Bug reports
+
+@divClass{column-center-top}
+@subheading ステップ 1: 既知のバグ
+
+クラッシュやエラーを引き起こす入力が入力があるのなら、@c
+それはバグです。@c
+Google バグ トラッカーに現在知られているバグがリスト アップされています。
+
+@example
+@uref{http://code.google.com/p/lilypond/issues/list}
+@end example
+
+@warning{バグ トラッカーに直接バグ報告を @strong{送らないで下さい}。@c
+トラッカーに登録された問題については、自由に追加情報を書き込んでください。}
+
+@divEnd
+
+
+@divClass{column-left-bottom}
+@subheading ステップ 2: バグ報告を作成する
+
+リスト アップされていないバグを発見した場合、@c
+我々がバグを無くすることができるよう、バグ報告を作ってください。
+
+@warning{我々が受け付けられるバグ報告は、@c
+@ref{最小化例} になっているものだけです。@c
+我々がバグ報告を扱うために使える資源は非常に限られています。@c
+そのため、最小化されていない例は受け付けられません。@c
+ほとんどのバグは 4 つ以下の音符で表すことができます！}
+
+良くできたバグ報告の例を挙げます:
+
+@example
+% 臨時記号はタイの最初の音符にだけ付くはずですが、
+% このバージョンでは両方の音符にフラットが付けられます。
+\version "2.10.1"
+
+\relative c'' @{
+ bes1 ~
+ bes1
+@}
+@end example
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading ステップ 3: バグ報告を送る
+
+問題が既知ではないことを確認して、バグ報告を作ったのなら、@c
+それを我々に送ってください！
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+@uref{mailto:bug-lilypond@@gnu.org,
+bug-lilypond@@gnu.org} メーリング リストに登録済みであれば、@c
+普通に email を送ってください。
+
+@item
+登録していない場合でも、@c
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
+gmane lilypond.bugs web インタフェイス} でバグ報告を送ることができます。
+
+しかしながら、gmane インタフェイスには厳しい @qq{Top-posting}
+制限@footnote{オリジナル メッセージの引用の上に自分のメッセージを@c
+記述することで、ネチケット違反とされます。}
+があり、しばしば誤って LilyPond ファイルに反応してしまいます。@c
+これを避けるには、以下をバグ報告の先頭に付け加えてください:
+
+@example
+> I'm not top posting.
+@end example
+
+@noindent
+(@code{>} を付け忘れないでください。)
+
+@end itemize
+@divEnd
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading ステップ 4: 回答を待つ
+
+バグ報告がメーリング リストに送られると、@c
+バグ チームがその報告を検証します。@c
+この仕事に割り当てられるボランティアの数は限られているため、
+24 時間は待ってください。@c
+バグ チームは情報を求めてあなたに何か尋ねるかもしれませんし、@c
+バグ トラッカーに報告を追加してあなたにそのバグの問題番号を@c
+通知するかもしれません。
+
+バグにマークを付けて、@c
+そのバグに対して何かアクションがあったときに
+email を受け取るようにできます。@c
+こうするには Google アカウントが必要です。
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading オプションのステップ: 望ましい結果を提示してください
+
+問題がトラッカーに登録された場合、@c
+望ましい結果を提示してもらえるととても役に立ちます。@c
+このような結果になってほしいということを示す入力コードや画像
+(もしかすると他のツールで作ることになるかもしれません)
+を自由に追加してください！
+
+@divEnd
+
+
+@node 援助が必要です
+@unnumberedsec 援助が必要です
+@translationof Help us
+
+@divClass{column-center-top}
+@helpusNeed
+
+@divEnd
+
+@divClass{column-left-top}
+@divClass{keep-bullets}
+@helpusTasks
+
+@divEnd
+@divEnd
+
+@divClass{column-right-top}
+@helpusProjects
+
+@divEnd
+
+
+@node 開発
+@unnumberedsec 開発
+@translationof Development
+
+@divClass{heading-center}
+@ifclear web_version
+  @heading LilyPond @version の開発
+@end ifclear
+@ifset web_version
+  @heading LilyPond @versionDevel の開発
+@end ifset
+
+
+@c we normally don't allow named references, but in this case
+@c it's good to emphasize the "stable" part.  -gp
+@warning{@emph{不安定な開発} バージョンです。@c
+LilyPond の使い方やインストールの仕方に少しでも疑問を持つのであれば、@c
+@ref{Download, 安定版のダウンロード} を使い、@c
+@ref{Manuals, 安定版のマニュアル} を読むことをお勧めします。}
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading リリース番号
+
+LilyPond には 2 セットのリリースがあります:
+安定版リリースと不安定な開発リリースです。@c
+安定バージョンは偶数の @q{マイナー} バージョン番号
+(例えば 2.8, 2.10, 2.12) を持ち、@c
+開発バージョンは奇数の  @q{マイナー} バージョン番号
+(例えば 2.7, 2.9, 2.11) を持ちます。
+
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading ダウンロード
+
+git とコンパイルについての説明は貢献者向けガイドにあります。
+
+@quotation
+@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, lilypond git リポジトリ}
+@end quotation
+
+ドキュメント作成者とテスターはたいてい最新のバイナリをダウンロード@c
+しようとします:
+
+@quotation
+
+@downloadDevelLinuxNormal
+
+@downloadDevelLinuxBig
+
+@downloadDevelLinuxPPC
+
+@downloadDevelFreeBSDNormal
+
+@downloadDevelFreeBSDBig
+
+@downloadDevelDarwinNormal
+
+@downloadDevelDarwinPPC
+
+@downloadDevelWindows
+
+@downloadDevelSource
+
+@end quotation
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading 貢献者向けガイド
+
+LilyPond の開発手法はかなり複雑です。@c
+新しい貢献者を助けるために、そしてシステム全体の安定を保つために、@c
+開発作業のマニュアルを作成しました。
+
+@docLinksBare{Contributor's Guide, contributor,
+  @rcontribnamed{Top,Contributor's Guide},
+  @manualDevelContributorSplit,
+  @manualDevelContributorBig, 500 kB,
+  @manualDevelContributorPdf, 2.8 MB}
+
+@divEnd
+
+
+@divClass{column-center-top}
+@subheading 回帰テスト
+
+@divClass{keep-bullets}
+
+@ifclear web_version
+
+@itemize
+@item
+@uref{../../input/regression/collated-files.html, 回帰テスト}:
+このリリースの回帰テスト。
+(@uref{../../input/regression/collated-files.pdf, PDF バージョン})
+
+@item
+@uref{../../input/regression/musicxml/collated-files.html, MusicXML テスト}:
+このリリースの musicXML テスト。
+(@uref{../../input/regression/musicxml/collated-files.pdf, PDF バージョン})
+
+@item
+@uref{../../input/regression/abc2ly/collated-files.html, abc2ly テスト}:
+このリリースの abc2ly テスト。
+(@uref{../../input/regression/abc2ly/collated-files.pdf, PDF バージョン})
+
+@item
+@uref{../../input/regression/lilypond-book/collated-files.html, lilypond-book テスト}:
+このリリースのlilypond-book テスト。
+(@uref{../../input/regression/lilypond-book/collated-files.pdf, PDF バージョン})
+@end itemize
+
+@end ifclear
+
+@ifset web_version
+@subsubheading 開発バージョン
+
+@itemize
+@item @regtestDevel (@regtestDevelPdf{})
+
+@item @regtestDevelXml (@regtestDevelXmlPdf{})
+
+@item @regtestDevelAbc (@regtestDevelAbcPdf{})
+
+@item @regtestDevelLilypondBook (@regtestDevelLilypondBookPdf{})
+@end itemize
+
+@subsubheading 安定バージョン
+
+@itemize
+@item @regtestStable (@regtestStablePdf{})
+
+@item @regtestStableXml (@regtestStableXmlPdf{})
+
+@item @regtestStableAbc (@regtestStableAbcPdf{})
+
+@item @regtestStableLilypondBook (@regtestStableLilypondBookPdf{})
+@end itemize
+@end ifset
+
+
+@subsubheading すべてのバージョン
+
+@itemize
+@item @uref{http://lilypond.org/test, バージョン間での回帰テストの比較}
+
+@item @uref{http://lilypond.org/download/binaries/test-output/,
+すべての回帰テストのアーカイブ}
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+
+@divClass{column-center-bottom}
+@subheading マニュアル
+
+@ifclear web_version
+@warning{以下のマニュアルは LilyPond @version{} 用です。@c
+最新のマニュアルは @url{http://lilypond.org} で見つかります。}
+@end ifclear
+
+@divClass{normal-table}
+@multitable @columnfractions .3 .3 .3
+@headitem 導入部
+@item
+@docLinkSplit{学習,learning,@manualDevelLearningSplit}
+@tab
+@docLinkBig{学習,learning,@manualDevelLearningBig}
+@tab
+@docLinkPdf{学習,learning,@manualDevelLearningPdf}
+
+@item
+@docLinkSplit{用語集,music-glossary,@manualDevelGlossarySplit}
+@tab
+@docLinkBig{用語集,music-glossary,@manualDevelGlossaryBig}
+@tab
+@docLinkPdf{用語集,music-glossary,@manualDevelGlossaryPdf}
+
+@item
+@docLinkSplit{Essay,essay,@manualDevelEssaySplit}
+@tab
+@docLinkBig{Essay,essay,@manualDevelEssayBig}
+@tab
+@docLinkPdf{Essay,essay,@manualDevelEssayPdf}
+
+@headitem 常用マニュアル
+
+@item
+@docLinkSplit{Notation,notation,@manualDevelNotationSplit}
+@tab
+@docLinkBig{Notation,notation,@manualDevelNotationBig}
+@tab
+@docLinkPdf{Notation,notation,@manualDevelNotationPdf}
+
+@item
+@docLinkSplit{使用方法,usage,@manualDevelUsageSplit}
+@tab
+@docLinkBig{使用方法,usage,@manualDevelUsageBig}
+@tab
+@docLinkPdf{使用方法,usage,@manualDevelUsagePdf}
+
+@item
+@docLinkSplit{Snippets,snippets,@manualDevelSnippetsSplit}
+@tab
+@docLinkBig{Snippets,snippets,@manualDevelSnippetsBig}
+@tab
+@docLinkPdf{Snippets,snippets,@manualDevelSnippetsPdf}
+
+@headitem 時々使用するマニュアル
+
+@item
+@docLinkSplit{Web,web,@manualDevelWebSplit}
+@tab
+@docLinkBig{Web,web,@manualDevelWebBig}
+@tab
+@docLinkPdf{Web,web,@manualDevelWebPdf}
+
+@item
+@docLinkSplit{Changes,changes,@manualDevelChangesSplit}
+@tab
+@docLinkBig{Changes,changes,@manualDevelChangesBig}
+@tab
+@docLinkPdf{Changes,changes,@manualDevelChangesPdf}
+
+@item
+@docLinkSplit{Extending,extending,@manualDevelExtendingSplit}
+@tab
+@docLinkBig{Extending,extending,@manualDevelExtendingBig}
+@tab
+@docLinkPdf{Extending,extending,@manualDevelExtendingPdf}
+
+@item
+@docLinkSplit{Internals,internals,@manualDevelInternalsSplit}
+@tab
+@docLinkBig{Internals,internals,@manualDevelInternalsBig}
+@tab
+@docLinkPdf{Internals,internals,@manualDevelInternalsPdf}
+
+@ifset web_version
+@headitem Downloadable
+
+@item
+@doctarballDevel
+@end ifset
+
+@end multitable
+
+@divEnd
+@divEnd
+
+
+
+@node 著者
+@unnumberedsec 著者
+@translationof Authors
+
+@divClass{column-left-top}
+@subheading 現在の開発チーム
+
+@divClass{keep-bullets}
+@developersCurrent
+@divEnd
+@divEnd
+
+@divClass{column-right-top}
+@subheading 以前のの開発チーム
+
+@divClass{keep-bullets}
+@developersPrevious
+@divEnd
+@divEnd
+
+
+@divClass{column-center-top}
+@subheading 現在の貢献者
+
+@divClass{keep-bullets}
+@subsubheading プログラミング
+
+@coreCurrent
+
+@subsubheading フォント
+
+@fontCurrent
+
+@subsubheading ドキュメント
+
+@docCurrent
+
+@subsubheading バグ チーム
+
+@bugsquadCurrent
+
+@subsubheading サポート
+
+@supportCurrent
+
+@subsubheading 翻訳
+
+@translationsCurrent
+
+@divEnd
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading 以前の貢献者
+
+@divClass{keep-bullets}
+@subsubheading プログラミング
+
+@corePrevious
+
+@subsubheading フォント
+
+@fontPrevious
+
+@subsubheading ドキュメント
+
+@docPrevious
+
+@c    uncomment when we have any previous members -gp
+@c @subsubheading Bug squad
+
+@c @bugsquadCurrent
+
+@subsubheading サポート
+
+@supportPrevious
+
+@subsubheading 翻訳
+
+@translationsPrevious
+
+@divEnd
+@divEnd
+
+
+@node 出版物
+@unnumberedsec 出版物
+@translationof Publications
+
+@divClass{column-center-top}
+@subheading 我々が LilyPond について書いたもの
+
+@divClass{keep-bullets}
+
+@include we-wrote.itexi
+
+@divEnd
+@divEnd
+
+@divClass{column-center-bottom}
+
+@subheading LilyPond についての活動
+
+
+@divClass{keep-bullets}
+
+@include others-did.itexi
+
+@divEnd
+@divEnd
+
+@contactUsAbout{academic papers}
+
+
+@node 古いニュース
+@unnumberedsec 古いニュース
+@translationof Old news
+
+@include web/news-front.itexi
+
+@include web/news.itexi

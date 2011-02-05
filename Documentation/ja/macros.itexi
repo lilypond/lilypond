@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 9a65042d49324f2e3dff18c4b0858def81232eea
+    Translation of GIT committish: d2e5da205b22062ef806481b3bb6a27a1807569a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,6 +11,18 @@
 @include version.itexi
 @include common-macros.itexi
 
+@ignore
+****************************
+MACRO DEFINITIONS GUIDELINES
+****************************
+
+This file should contain macro definitions which are common to all
+languages, i.e. all macro definitions which do not contain text that
+should be translated (namely text visible in the output).
+
+Macro definitions which contain text that should be translated in
+translations should be in macros.itexi.
+@end ignore
 
 @c   ***** Displaying text *****
 
@@ -55,6 +67,35 @@
 
 @end ifnothtml
 
+@c do not translate the following macro -- it is used in
+@c an untranslated manual.
+
+@ifhtml
+
+@macro advanced{TEXT}
+@html
+<div class="advanced">
+@end html
+@strong{Advanced note:} \TEXT\
+@c keep the space for proper nesting of </p>
+
+@html
+</div>
+@end html
+@end macro
+
+@end ifhtml
+
+@ifnothtml
+
+@macro advanced{TEXT}
+@quotation
+@b{Advanced note:} \TEXT\
+@end quotation
+@end macro
+
+@end ifnothtml
+
 
 @macro docMain
 @cartouche
@@ -72,6 +113,8 @@
 @syncodeindex vr cp
 
 
+
+
 @c   ***** Copyright stuff *****
 @ifset FDL
 @copying
@@ -84,11 +127,16 @@ GNU フリー文書利用許諾契約書バージョン 1.1
 @end copying
 @end ifset
 
+
+
+
+
 @ifclear FDL
 @copying
 This document has been placed in the public domain.
 @end copying
 @end ifclear
+
 
 
 @c   ***** Title page *****
@@ -682,19 +730,19 @@ LilyPond バージョン @version{} 用
 @macro exampleImage{IMAGE-FILE}
 @html
 <div class="float-center">
-  <a class="clickable" href="examples/\IMAGE-FILE\.png">
-    <img src="examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
+  <a class="clickable" href="ly-examples/\IMAGE-FILE\.png">
+    <img src="ly-examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
   </a>
   <p style="text-align: center">
-    (click to enlarge)
+    (クリックすると拡大します)
   </p>
 </div>
 @end html
 @iftex
-@image{examples/\IMAGE-FILE\-small,,,\IMAGE-FILE\,png}
+@image{ly-examples/\IMAGE-FILE\-small,,,\IMAGE-FILE\,png}
 @end iftex
 @ifinfo
-@image{lilypond/examples/\IMAGE-FILE\,,,\IMAGE-FILE\,png}
+@image{lilypond/ly-examples/\IMAGE-FILE\,,,\IMAGE-FILE\,png}
 @end ifinfo
 @end macro
 
