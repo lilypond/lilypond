@@ -16,11 +16,11 @@ depth = "../"
 ### http://code.google.com/p/lilypond/issues/detail?id=1050
 
 #langs = ['', 'cs', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl', 'zh']
-langs = ['', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl', 'zh']
+langs = ['', 'cs', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl', 'zh']
 
 # Get/update node translations
 '''
-for i in de es fr hu it ja nl zh; do
+for i in cs de es fr hu it ja nl zh; do
     echo "'"$i"': {"
     (echo '--' ; grep -nH -B1 translationof Documentation/$i/web/* ) \
         | pytt '^--\n.*@(?:unnum|sub)[^ ]* (.*)\n.*@translationof (.*)\n' "'\2': '\1',\n" \
