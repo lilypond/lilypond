@@ -1,4 +1,4 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: cs -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: cs -*-
 @c This file is part of web.texi
 @ignore
     Translation of GIT committish: 5e2900b22db1d1ea433d4e8445cbcba3ffe399a4
