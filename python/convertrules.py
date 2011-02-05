@@ -3181,6 +3181,18 @@ def conv(str):
 
     return str
 
+@rule ((2, 13, 48),
+       _ ("Replace bar-size with bar-extent."))
+
+def conv(str):
+    def size_as_extent (matchobj):
+        half = "%g" % (float (matchobj.group (1)) / 2)
+        return "bar-extent = #'(-" + half + " . " + half + ")"
+
+    str = re.sub (r"bar-size\s*=\s*#([0-9\.]+)", size_as_extent, str)
+
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

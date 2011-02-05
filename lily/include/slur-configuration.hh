@@ -24,17 +24,6 @@
 #include "lily-proto.hh"
 #include "std-vector.hh"
 
-
-enum Configuration_tag
-  {
-    SLUR_STEM = 0x01,
-    SLUR_HEAD = 0x02,
-    SLUR_FREE = 0x04,
-    SLUR_FREE_HEAD = 0x08,
-    SLUR_FREE_STEM = 0x10,
-    SLUR_STEM_TIP = 0x10,
-  };
-
 class Slur_configuration
 {
   Real score_;
@@ -44,9 +33,20 @@ public:
   Drul_array<Offset> attachment_;
   Bezier curve_;
   Real height_;
-  unsigned tags_;
   int index_;
 
+  enum Slur_scorers
+  {
+    INITIAL_SCORE,
+    SLOPE,
+    EDGES,
+    EXTRA_ENCOMPASS,
+    ENCOMPASS,
+    NUM_SCORERS,
+  };
+
+  int next_scorer_todo;
+  
   Slur_configuration ();
 
   Real score () const { return score_; }
@@ -55,12 +55,28 @@ public:
   
   void generate_curve (Slur_score_state const &state, Real r0, Real h_inf,
 		       vector<Offset> const &);
-  void calculate_score (Slur_score_state const &);
+  void run_next_scorer (Slur_score_state const &);
+  bool done () const;
+  static Slur_configuration *new_config (Drul_array<Offset> const &offs, int idx);
+
 protected:
   void score_extra_encompass (Slur_score_state const &);
   void score_slopes (Slur_score_state const &);
   void score_edges (Slur_score_state const &);
   void score_encompass (Slur_score_state const &);
+
+  friend class Slur_configuration_less;
+};
+
+// Comparator for a queue of Beam_configuration*.
+class Slur_configuration_less
+{
+public:
+  bool operator () (Slur_configuration* const& l, Slur_configuration* const& r)
+  {
+    // Invert
+    return l->score_ > r->score_;
+  }
 };
 
 #endif /* SLUR_CONFIGURATION_HH */

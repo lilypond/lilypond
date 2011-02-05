@@ -5,7 +5,7 @@
 staves synchronized with the notes."
 
 }
-\version "2.12.0"
+\version "2.13.48"
 
 skips =
 {
@@ -41,7 +41,7 @@ skips =
     \consists "Grid_point_engraver"
     \override VerticalAxisGroup #'minimum-Y-extent = #'(-4 . 4) 
     gridInterval = #(ly:make-moment 1 8)
-    \override BarLine #'bar-size = #0.05
+    \override BarLine #'bar-extent = #'(-0.025 . 0.025)
   }
   \context {
     \StaffGroup

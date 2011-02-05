@@ -57,7 +57,7 @@ default:
 
 $(outdir)/libstdc++.a:
 	rm -f $@
-	ln -s `$(CXX) -print-file-name=libstdc++.a` $(outdir)/
+	ln -s `$(CXX) -print-file-name=libstdc++.a` $(outdir)
 
 ifeq ($(LINK_GXX_STATICALLY),yes)
 $(outdir)/lilypond: $(outdir)/libstdc++.a

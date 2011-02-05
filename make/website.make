@@ -16,18 +16,18 @@ ifeq ($(WEBSITE_ONLY_BUILD),1)
   top-htaccess=$(trusted-dir)/lilypond.org.htaccess
   dir-htaccess=$(trusted-dir)/website-dir.htaccess
   TEXI2HTML_PROGRAM=$(HOME)/usr/bin/texi2html
-  EXAMPLES=$(HOME)/lilypond/media/ly-examples/
+  EXAMPLES=$(HOME)/lilypond/media/ly-examples
   PICTURES=$(HOME)/lilypond/media/pictures
 else
   ### for normal git
-  script-dir=$(top-src-dir)/scripts/build/
+  script-dir=$(top-src-dir)/scripts/build
   texi2html-init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
   top-htaccess=$(top-src-dir)/Documentation/web/server/lilypond.org.htaccess
   dir-htaccess=$(top-src-dir)/Documentation/web/server/website-dir.htaccess
   include $(config_make)
   # I assume this is run from top-build-dir
-  EXAMPLES=Documentation/web/ly-examples/out-www/
-  PICTURES=Documentation/pictures/out-www/
+  EXAMPLES=Documentation/web/ly-examples/out-www
+  PICTURES=Documentation/pictures/out-www
 endif
 
 
@@ -48,7 +48,7 @@ MASS_LINK=python $(script-dir)/mass-link.py
 WEB_POST=python $(script-dir)/website_post.py
 WEB_BIBS=python $(script-dir)/bib2texi.py
 
-SERVER_FILES=$(top-src-dir)/Documentation/web/server/
+SERVER_FILES=$(top-src-dir)/Documentation/web/server
 
 # don't include web
 MANUALS=$(wildcard $(top-src-dir)/Documentation/*.tely)
@@ -65,7 +65,7 @@ website-version:
 website-xrefs: website-version
 	for l in '' $(WEB_LANGS); do \
 		$(EXTRACT_TEXI_FILENAMES) \
-			-I $(top-src-dir)/Documentation/ \
+			-I $(top-src-dir)/Documentation \
 			-I $(top-src-dir)/Documentation/"$$l" \
 			-I $(OUT) -o $(OUT) --split=node \
 			$(top-src-dir)/Documentation/"$$l"/web.texi ;\
@@ -75,20 +75,20 @@ website-xrefs: website-version
 			d=`basename "$$b" .tely`; \
 			if [ -e "$$n" ] ; then \
 				$(EXTRACT_TEXI_FILENAMES) \
-				-I $(top-src-dir)/Documentation/ \
+				-I $(top-src-dir)/Documentation \
 				-I $(top-src-dir)/Documentation/"$$l" \
-				-I $(top-src-dir)/Documentation/"$$l"/"$$d"/ \
+				-I $(top-src-dir)/Documentation/"$$l"/"$$d" \
 				-I $(OUT) -o $(OUT) "$$n" ; \
 			fi ; \
 		done; \
 	done;
 
 website-bibs: website-version
-	BSTINPUTS=$(top-src-dir)/Documentation/web/ \
+	BSTINPUTS=$(top-src-dir)/Documentation/web \
 		$(WEB_BIBS) -s web \
 		-o $(OUT)/others-did.itexi \
 		$(top-src-dir)/Documentation/web/others-did.bib
-	BSTINPUTS=$(top-src-dir)/Documentation/web/ \
+	BSTINPUTS=$(top-src-dir)/Documentation/web \
 		$(WEB_BIBS) -s web \
 		-o $(OUT)/we-wrote.itexi \
 		$(top-src-dir)/Documentation/web/we-wrote.bib
@@ -103,7 +103,7 @@ website-texinfo: website-version website-xrefs website-bibs
 		$(TEXI2HTML) --prefix=index \
 			--split=section \
 			--I=$(top-src-dir)/Documentation/"$$l" \
-			--I=$(top-src-dir)/Documentation/ \
+			--I=$(top-src-dir)/Documentation \
 			--I=$(OUT) \
 			$$langopt \
 			--init-file=$(texi2html-init-file) \
@@ -115,11 +115,11 @@ website-texinfo: website-version website-xrefs website-bibs
 
 
 website-css:
-	cp $(top-src-dir)/Documentation/css/*.css $(OUT)/website/
+	cp $(top-src-dir)/Documentation/css/*.css $(OUT)/website
 
 website-pictures:
-	mkdir -p $(OUT)/website/pictures/
-	cp $(PICTURES)/* $(OUT)/website/pictures/
+	mkdir -p $(OUT)/website/pictures
+	cp $(PICTURES)/* $(OUT)/website/pictures
 	ln -sf website/pictures $(OUT)/pictures
 
 website-examples:
@@ -127,11 +127,11 @@ website-examples:
 	cp $(EXAMPLES)/* $(OUT)/website/ly-examples
 
 web-post:
-	$(WEB_POST) $(OUT)/website/
+	$(WEB_POST) $(OUT)/website
 
 website: website-texinfo website-css website-pictures website-examples web-post
-	cp $(SERVER_FILES)/favicon.ico $(OUT)/website/
-	cp $(SERVER_FILES)/robots.txt $(OUT)/website/
+	cp $(SERVER_FILES)/favicon.ico $(OUT)/website
+	cp $(SERVER_FILES)/robots.txt $(OUT)/website
 	cp $(top-htaccess) $(OUT)/.htaccess
 	cp $(dir-htaccess) $(OUT)/website/.htaccess
 

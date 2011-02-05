@@ -43,7 +43,7 @@ install-info-images:
 # remove $(infodir)/$(INFO_IMAGES_DIR) in case it is a symlink
 	-rm -f $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
 	$(INSTALL) -d $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
-	rsync -r --include '[0-9a-f][0-9a-f]' --include '*.png' --exclude '*' $(outdir)/ $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)/
+	rsync -r --include '[0-9a-f][0-9a-f]' --include '*.png' --exclude '*' $(outdir)/ $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
 
 uninstall-info-images:
 	rm -f $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR) || rm -rf $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)

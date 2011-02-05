@@ -35,7 +35,6 @@ struct Extra_collision_info
   
   Extra_collision_info (Grob *g, Real idx, Interval x, Interval y, Real p);
   Extra_collision_info ();
-
 };
 
 struct Encompass_info
@@ -105,7 +104,8 @@ struct Slur_score_state
   Slur_score_state ();
   ~Slur_score_state ();
 
-  Bezier get_best_curve ();
+  Slur_configuration *get_forced_configuration (Interval ys) const;
+  Slur_configuration *get_best_curve () const;
   void fill (Grob *);
   Direction slur_direction () const;
   
@@ -118,7 +118,6 @@ struct Slur_score_state
   Encompass_info get_encompass_info (Grob *col) const;
   vector<Extra_collision_info> get_extra_encompass_infos () const;
   Real move_away_from_staffline (Real y, Grob *on_staff) const;
-  int get_closest_index (SCM inspect_quants) const;
 
   Grob *breakable_bound_item (Direction) const;  
 };

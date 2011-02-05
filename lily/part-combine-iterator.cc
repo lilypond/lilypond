@@ -135,6 +135,9 @@ Part_combine_iterator::Part_combine_iterator ()
   split_list_ = SCM_EOL;
   state_ = APART;
   playing_state_ = APART;
+
+  busy_ = false;
+  notice_busy_ = false;
 }
 
 void

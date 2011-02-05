@@ -31,16 +31,12 @@ MAKE_SCHEME_CALLBACK (Bar_line, calc_bar_extent, 1)
 SCM
 Bar_line::calc_bar_extent (SCM smob)
 {
+  Interval result;
   Grob *me = unsmob_grob (smob);
+  if (Grob *staff = Staff_symbol_referencer::get_staff_symbol (me))
+    result = staff->extent (staff, Y_AXIS);
 
-  SCM size = me->get_property ("bar-size");
-
-  if (!scm_is_number (size)
-      || !Staff_symbol_referencer::get_staff_symbol (me))
-    return ly_interval2scm (Interval ());
-
-  Real h = scm_to_double (size);
-  return ly_interval2scm (Interval (-h / 2, h / 2));
+  return ly_interval2scm (result);
 }
 
 Interval
@@ -65,22 +61,24 @@ Bar_line::print (SCM smob)
   Grob *me = unsmob_grob (smob);
 
   SCM s = me->get_property ("glyph-name");
-  SCM barsize = me->get_property ("bar-size");
+  SCM extent = me->get_property ("bar-extent");
 
-  if (scm_is_string (s) && scm_is_number (barsize))
+  if (scm_is_string (s) && is_number_pair (extent))
     {
       string str = ly_scm2string (s);
-      Real sz = robust_scm2double (barsize, 0);
-      if (sz <= 0)
-	return SCM_EOL;
+      Interval ex = ly_scm2interval (extent);
+      if (ex.length () > 0)
+	{
+	  Stencil result = compound_barline (me, str, ex, false);
 
-      return compound_barline (me, str, sz, false).smobbed_copy ();
+	  return result.smobbed_copy ();
+	}
     }
   return SCM_EOL;
 }
 
 Stencil
-Bar_line::compound_barline (Grob *me, string str, Real h,
+Bar_line::compound_barline (Grob *me, string str, Interval const &extent,
 			    bool rounded)
 {
   Real kern = robust_scm2double (me->get_property ("kern"), 1);
@@ -96,8 +94,8 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
   hair *= staffline;
   fatline *= staffline;
 
-  Stencil thin = simple_barline (me, hair, h, rounded);
-  Stencil thick = simple_barline (me, fatline, h, rounded);
+  Stencil thin = simple_barline (me, hair, extent, rounded);
+  Stencil thick = simple_barline (me, fatline, extent, rounded);
   Stencil dot = Font_interface::get_default_font (me)->find_by_name ("dots.dot");
 
   int lines = Staff_symbol_referencer::line_count (me);
@@ -110,14 +108,8 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
   colon.add_stencil (dot);
   colon.translate_axis (-dist / 2, Y_AXIS);
 
+  Real const h = extent.length ();
   Stencil m;
-  Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
-  Real center = 0;
-  if (staff)
-    {
-      Interval staff_extent = staff->extent (staff, Y_AXIS);
-      center = staff_extent.center ();
-    }
 
   if (str == "||:")
     str = "|:";
@@ -127,20 +119,13 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
 
   if (str == "")
     {
-      Stencil empty = Lookup::blank (Box (Interval (0, 0), Interval (-h / 2, h / 2)));
-      empty.translate_axis (center, Y_AXIS);
+      Stencil empty = Lookup::blank (Box (Interval (0, 0), extent));
       return empty;
     }
   else if (str == "|")
-    {
-      thin.translate_axis (center, Y_AXIS);
-      return thin;
-    }
+    return thin;
   else if (str == ".")
-    {
-      thick.translate_axis (center, Y_AXIS);
-      return thick;
-    }
+    return thick;
   else if (str == "|." || (h == 0 && str == ":|"))
     {
       m.add_at_edge (X_AXIS, LEFT, thick, 0);
@@ -254,30 +239,47 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
     }
   else if (str == ":")
     {
-      int c = (Staff_symbol_referencer::line_count (me));
-
-      for (int i = 0; i < c - 1; i++)
+      if (Grob *staff = Staff_symbol_referencer::get_staff_symbol (me))
 	{
-	  Real y = (- (c - 1.0) / 2 + 0.5 + i) * staff_space;
-	  Stencil d (dot);
+	  Interval staff_extent = staff->extent (staff, Y_AXIS);
 
-	  d.translate_axis (y, Y_AXIS);
-	  m.add_stencil (d);
+	  /*
+	    assume staff lines are disposed equally at unit space;
+	    put a dot into each space within extent (may extend staff_extent).
+
+	    staff_extent is an interval of two integers or two half-integers;
+	    in the former case dots are to be placed at half-integers,
+	    in the latter at integers.
+
+	    these integers are not exact due to staff line thickness.
+	  */
+	  int const pos = int (rint (staff_extent.at (UP) * 2));
+	  Real const correction = pos & 1 ? 0.0 : 0.5;
+
+	  for (int i = int (rint (extent.at (DOWN) + (0.5 - correction))),
+		 e = int (rint (extent.at (UP) + (0.5 - correction)));
+	       i < e;
+	       ++i)
+	    {
+	      Stencil d (dot);
+
+	      d.translate_axis (i + correction, Y_AXIS);
+	      m.add_stencil (d);
+	    }
 	}
     }
   else if (str == "dashed")
-    m = dashed_bar_line (me, h, hair);
+    m = dashed_bar_line (me, extent, hair);
   else if (str == "'")
-    m = tick_bar_line (me, h, rounded);
+    m = tick_bar_line (me, extent.at (UP), rounded);
 
-  m.translate_axis (center, Y_AXIS);
   return m;
 }
 
 Stencil
 Bar_line::simple_barline (Grob *me,
 			  Real w,
-			  Real h,
+			  Interval const &extent,
 			  bool rounded)
 {
   Real blot
@@ -285,8 +287,7 @@ Bar_line::simple_barline (Grob *me,
     ? me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"))
     : 0.0;
 
-  return Lookup::round_filled_box (Box (Interval (0, w),
-					Interval (-h / 2, h / 2)), blot);
+  return Lookup::round_filled_box (Box (Interval (0, w), extent), blot);
 }
 
 Stencil
@@ -301,24 +302,11 @@ Bar_line::tick_bar_line (Grob *me, Real h, bool rounded)
     : 0.0;
 
   return Lookup::round_filled_box (Box (Interval (0, line_thick),
-					Interval (h / 2 - th, h / 2 + th)), blot);
-}
-
-MAKE_SCHEME_CALLBACK (Bar_line, calc_bar_size, 1);
-SCM
-Bar_line::calc_bar_size (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  if (Grob *staff = Staff_symbol_referencer::get_staff_symbol (me))
-    {
-      Interval staff_y = staff->extent (staff, Y_AXIS);
-      return scm_from_double (staff_y.is_empty () ? 0.0 : staff_y.length ());
-    }
-  return scm_from_int (0);
+					Interval (h - th, h + th)), blot);
 }
 
 Stencil
-Bar_line::dashed_bar_line (Grob *me, Real h, Real thick)
+Bar_line::dashed_bar_line (Grob *me, Interval const &extent, Real thick)
 {
   Real dash_size
     = 1.0 - robust_scm2double (me->get_property ("gap"), 0.3);
@@ -328,23 +316,30 @@ Bar_line::dashed_bar_line (Grob *me, Real h, Real thick)
     connections.
   */
   Real ss = Staff_symbol_referencer::staff_space (me);
-  int count = Staff_symbol_referencer::line_count (me);
-  Real line_thick = Staff_symbol_referencer::line_thickness (me);
+  Real const h = extent.length ();
+  int dashes = int (rint (h / ss));
 
-  if (fabs (line_thick + (count -1) * ss - h) < 0.1) // ugh.
+  /*
+    there are two concerns:
+    1. one dash plus one space should be one staff space
+    2. the line should begin and end with half a dash
+
+    both can be satisfied, if the extent is (roughly) an integer
+    multiple of staff space.
+  */
+  if (fabs (h / ss - dashes) < 0.1)
     {
       Real blot
 	= me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
-      Real half_space = ss / 2;
+      Real const half_dash = dash_size / 2;
       Stencil bar;
 
-      for (int i = (count - 1); i >= -(count - 1); i -= 2)
+      for (int i = 0; i <= dashes; ++i)
 	{
-	  Real top_y = min ((i + dash_size) * half_space,
-			    (count - 1) * half_space + line_thick / 2);
-	  Real bot_y = max ((i - dash_size) * half_space,
-			    -(count - 1) * half_space - line_thick / 2);
+	  Real top_y = extent.at (DOWN)
+	    + (i == dashes ? h : (i + half_dash) * ss);
+	  Real bot_y = extent.at (DOWN) + (i ? (i - half_dash) * ss : 0.0);
 
 	  bar.add_stencil (Lookup::round_filled_box (Box (Interval (0, thick),
 							  Interval (bot_y, top_y)),
@@ -358,7 +353,6 @@ Bar_line::dashed_bar_line (Grob *me, Real h, Real thick)
 	We have to scale the dashing so it starts and ends with half a
 	dash exactly.
       */
-      int dashes = int (rint (h / ss));
       Real total_dash_size = h / dashes;
       Real factor = (dash_size - thick) / ss;
 
@@ -376,7 +370,7 @@ Bar_line::dashed_bar_line (Grob *me, Real h, Real thick)
       box.add_point (Offset (0, h));
 
       Stencil s (box, at);
-      s.translate (Offset (thick / 2, -h / 2));
+      s.translate (Offset (thick / 2, extent.at (DOWN)));
       return s;
     }
   return Stencil ();
@@ -462,6 +456,5 @@ ADD_INTERFACE (Bar_line,
 	       "thick-thickness "
 	       "glyph "
 	       "glyph-name "
-	       "bar-size "
 	       "bar-extent "
 	       );

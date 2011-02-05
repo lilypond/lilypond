@@ -499,12 +499,14 @@ petrucci style C clefs, for use on different staff lines
 @end lilypond
 
 @item
-petrucci style F clef
+petrucci style F clefs, for use on different staff lines
+(the example shows the 3rd staff line F clef)
 @tab
-@code{petrucci-f}
+@code{petrucci-f3}, @code{petrucci-f4},@*
+@code{petrucci-f5}
 @tab
 @lilypond[fragment,relative=1,notime]
-  \clef "petrucci-f"
+  \clef "petrucci-f3"
   \override NoteHead #'style = #'mensural
   c
 @end lilypond
@@ -631,9 +633,10 @@ Notation Reference:
 @ref{Time signature}.
 
 @knownissues
-Ratios of note durations do not change with the time signature.  For
+Ratios of note durations cannot change with the time signature,
+as those are not constant.  For
 example, the ratio of 1@tie{}breve = 3@tie{}semibreves
-(@emph{tempus perfectum}) must be made by hand, by setting
+(@emph{tempus perfectum}) can be made by hand, by setting
 
 @example
 breveTP = #(ly:make-duration -1 0 3 2)
@@ -658,12 +661,12 @@ For ancient notation, a note head style other than the
 @code{default} style may be chosen.  This is accomplished by setting
 the @code{style} property of the @code{NoteHead} object to
 @code{baroque}, @code{neomensural}, @code{mensural} or
-@code{petrucci}.
+@code{petrucci}, @code{blackpetrucci}, @code{semipetrucci}.
 
 The @code{baroque} style differs from the @code{default} style by:
 
 @itemize
-@item Providing a @code{maxima} notehead, and
+@item Providing a @code{maxima} note head, and
 @item Using a square shape for @code{\breve} note heads.
 @end itemize
 
@@ -676,6 +679,17 @@ and
 @item Centering the stems on the note heads.
 @end itemize
 
+The @code{blackpetrucci} style produces note heads usable in black
+mensural notation or coloratio sections in white mensural notation.
+Because note head style does not influence flag count, in
+this style a semiminima should be notated as @code{a8*2}, not
+@code{a4}, otherwise it will look like a minima.
+The multiplyer can be different if coloratio is used e.g. to notate
+triplets.
+
+Use @code{semipetrucci} style to draw half-colored
+note heads (breves, longas and maximas).
+
 
 The following example demonstrates the @code{petrucci} style:
 
@@ -687,7 +701,12 @@ The following example demonstrates the @code{petrucci} style:
 \autoBeamOff
 \override NoteHead #'style = #'petrucci
 a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
-
+\override NoteHead #'style = #'semipetrucci
+a'\breve*5/6
+\override NoteHead #'style = #'blackpetrucci
+a'8*4/3 a'
+\override NoteHead #'style = #'petrucci
+a'\longa
 @end lilypond
 
 
@@ -787,6 +806,13 @@ Notation Reference:
 
 Snippets:
 @rlsr{Ancient notation}.
+
+
+@knownissues
+The glyph for the maxima rest in mensural style is actually a perfect
+longa rest; use two (or three) longa rests to print a maxima rest.
+Longa rests are not grouped automatically, so have to be done manually by
+using pitched rests.
 
 
 @node Mensural accidentals and key signatures
@@ -910,6 +936,13 @@ that the full musical information of the ligature is known internally.
 This is not only required for correct MIDI output, but also allows for
 automatic transcription of the ligatures.
 
+At certain places two consecutive notes can be represented either as
+two squares or as an oblique parallelogram (flexa shape).  In such
+cases the default is the two squares, but a flexa can be required by
+setting the @code{ligature-flexa} property of the @emph{second} note
+head.  The length of a flexa can be set by the note head property
+@code{flexa-width}.
+
 For example,
 
 @c @example
@@ -928,11 +961,14 @@ For example,
   \transpose c c' {
     \set Score.timing = ##f
     \set Score.defaultBarType = "empty"
-    \override NoteHead #'style = #'neomensural
-    \override Staff.TimeSignature #'style = #'neomensural
+    \override NoteHead #'style = #'petrucci
+    \override Staff.TimeSignature #'style = #'mensural
     \clef "petrucci-g"
     \[ c'\maxima g \]
-    \[ d\longa c\breve f e d \]
+    \[ d\longa
+       \override NoteHead #'ligature-flexa = ##t
+       \once \override NoteHead #'flexa-width = #3.2
+       c\breve f e d \]
     \[ c'\maxima d'\longa \]
     \[ e'1 a g\breve \]
   }
@@ -954,11 +990,14 @@ to the following
 \transpose c c' {
   \set Score.timing = ##f
   \set Score.defaultBarType = "empty"
-  \override NoteHead #'style = #'neomensural
-  \override Staff.TimeSignature #'style = #'neomensural
+  \override NoteHead #'style = #'petrucci
+  \override Staff.TimeSignature #'style = #'mensural
   \clef "petrucci-g"
   \[ c'\maxima g \]
-  \[ d\longa c\breve f e d \]
+  \[ d\longa
+     \override NoteHead #'ligature-flexa = ##t
+     \once \override NoteHead #'flexa-width = #3.2
+     c\breve f e d \]
   \[ c'\maxima d'\longa \]
   \[ e'1 a g\breve \]
 }
@@ -974,7 +1013,7 @@ Notation Reference:
 
 @knownissues
 Horizontal spacing of ligatures is poor.
-
+Accidentals may collide with previous notes.
 
 @node Typesetting Gregorian chant
 @subsection Typesetting Gregorian chant
@@ -2636,7 +2675,7 @@ TBC
 @c Add example of white note heads:
 @c In the french baroque some composers used white note heads in slow pieces,
 @c mainly in 3/2-time.  A quarter looks there like a eighth with a white
-@c notehead.  (Franz-Rudolf Kuhnen)
+@c note head.  (Franz-Rudolf Kuhnen)
 
 @c TODO Add example of this:
 @c I was referring to e.g. notated a8. a16, which should, if I

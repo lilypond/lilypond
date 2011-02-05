@@ -28,6 +28,8 @@
 #include "bar-line.hh"
 #include "grob.hh"
 #include "pointer-group-interface.hh"
+#include "staff-symbol-referencer.hh"
+
 
 void
 Span_bar::add_bar (Grob *me, Grob *b)
@@ -74,6 +76,8 @@ Span_bar::print (SCM smobbed_me)
     {
       Grob *bar = elements[i];
       Interval ext = Bar_line::bar_y_extent (bar, refp);
+      if (Grob *staff = Staff_symbol_referencer::get_staff_symbol (bar))
+	ext.unite (staff->extent (refp, Y_AXIS));
       if (ext.is_empty ())
 	continue;
 
@@ -105,9 +109,8 @@ Span_bar::print (SCM smobbed_me)
 	    {
 	      Stencil interbar = Bar_line::compound_barline (model_bar,
 							     glyph_string,
-							     l.length (),
+							     l,
 							     false);
-	      interbar.translate_axis (l.center (), Y_AXIS);
 	      span_bar.add_stencil (interbar);
 	    }
 	}
@@ -134,7 +137,8 @@ Span_bar::width (SCM smob)
   /*
     urg.
   */
-  Stencil m = Bar_line::compound_barline (me, gl, 40 PT, false);
+  Stencil m =
+    Bar_line::compound_barline (me, gl, Interval (-20 PT, 20 PT), false);
 
   return ly_interval2scm (m.extent (X_AXIS));
 }
@@ -219,21 +223,6 @@ Interval
 Span_bar::get_spanned_interval (Grob *me)
 {
   return ly_scm2interval (Axis_group_interface::generic_group_extent (me, Y_AXIS));
-}
-
-MAKE_SCHEME_CALLBACK (Span_bar, calc_bar_size, 1);
-SCM
-Span_bar::calc_bar_size (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  Interval iv (get_spanned_interval (me));
-  if (iv.is_empty ())
-    {
-      /* This happens if the bars are hara-kiried from under us. */
-      me->suicide ();
-      return scm_from_double (-1);
-    }
-  return scm_from_double (iv.length ());
 }
 
 ADD_INTERFACE (Span_bar,

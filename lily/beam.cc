@@ -37,14 +37,16 @@
 
 #include "beam.hh"
 
+#include "beam-scoring-problem.hh"
 #include "beaming-pattern.hh"
 #include "directional-element-interface.hh"
-#include "main.hh"
+#include "grob-array.hh"
 #include "international.hh"
 #include "interval-set.hh"
 #include "item.hh"
 #include "least-squares.hh"
 #include "lookup.hh"
+#include "main.hh"
 #include "misc.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
@@ -52,7 +54,6 @@
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
 #include "warn.hh"
-#include "grob-array.hh"
 
 #if DEBUG_BEAM_SCORING
 #include "text-interface.hh" // debug output.
@@ -1144,7 +1145,6 @@ Beam::slope_damping (SCM smob, SCM posns)
   if (normal_stem_count (me) <= 1)
     return posns;
 
-
   SCM s = me->get_property ("damping");
   Real damping = scm_to_double (s);
   Real concaveness = robust_scm2double (me->get_property ("concaveness"), 0.0);
@@ -1185,6 +1185,21 @@ Beam::slope_damping (SCM smob, SCM posns)
 
   return ly_interval2scm (pos);
 }
+
+
+MAKE_SCHEME_CALLBACK (Beam, quanting, 2);
+SCM
+Beam::quanting (SCM smob, SCM posns)
+{
+  Grob *me = unsmob_grob (smob);
+  Drul_array<Real> ys(0, 0);
+  ys = robust_scm2drul (posns, ys);
+  Beam_scoring_problem problem (me, ys);
+
+  ys = problem.solve ();
+  return ly_interval2scm (ys);
+}
+
 
 /*
   Report slice containing the numbers that are both in (car BEAMING)

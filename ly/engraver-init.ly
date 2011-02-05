@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.13.42"
+\version "2.13.48"
 
 \context {
   \name "Global"
@@ -45,6 +45,7 @@
   shortInstrumentName = #'()
 
   predefinedDiagramTable = #default-fret-table
+  handleNegativeFrets = #'recalculate
 }
 
 \context {
@@ -163,7 +164,7 @@ contained staves are not connected vertically."
   \name RhythmicStaff
   \alias "Staff"
 
-  \override BarLine #'bar-size = #4
+  \override BarLine #'bar-extent = #'(-2 . 2)
   \override VoltaBracket #'staff-padding = #3
   \override StaffSymbol #'line-count = #1
 
@@ -446,7 +447,7 @@ printing of a single line of lyrics."
 
   %% make sure that barlines aren't collapsed, when
   %% Bar_engraver is there.
-  \override BarLine #'bar-size = #0.1
+  \override BarLine #'bar-extent = #'(-0.05 . 0.05)
 
 }
 
@@ -864,6 +865,8 @@ contexts and handles the line spacing, the tablature clef etc. properly."
   %% Special "TAB" clef
   clefGlyph = #"clefs.tab"
   clefPosition = #0
+  %% Change string if note results in negative fret number
+  handleNegativeFrets = #'recalculate
 }
 
 \context {

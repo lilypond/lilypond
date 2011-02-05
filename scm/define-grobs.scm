@@ -190,7 +190,6 @@
      . (
 	(allow-span-bar . #t)
 	(bar-extent . ,ly:bar-line::calc-bar-extent)
-	(bar-size .  ,ly:bar-line::calc-bar-size)
 	(break-align-anchor . ,ly:bar-line::calc-anchor)
 	(break-align-symbol . staff-bar)
 	(break-visibility . ,bar-line::calc-break-visibility)
@@ -493,6 +492,7 @@
 	(font-family . sans)
 	(font-size . 1.5)
 	(stencil . ,ly:text-interface::print)
+	(extra-spacing-height . (0.2 . -0.2))
 	(word-space . 0.0)
 	(meta . ((class . Item)
 		 (interfaces . (chord-name-interface
@@ -517,7 +517,6 @@
 			(next-note . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))))
 	(stencil . ,ly:clef::print)
-	(extra-spacing-height . (-0.5 . 0.5))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
@@ -584,7 +583,6 @@
 			(next-note . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))))
 	(stencil . ,ly:clef::print)
-	(extra-spacing-height . (-0.5 . 0.5))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
@@ -612,7 +610,6 @@
 			(next-note . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))))
 	(stencil . ,ly:clef::print)
-	(extra-spacing-height . (-0.5 . 0.5))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
@@ -856,6 +853,7 @@
 	(after-line-breaking . ,ly:chord-name::after-line-breaking)
 	(fret-diagram-details . ((finger-code . below-string)))
 	(stencil . ,fret-board::calc-stencil)
+	(extra-spacing-height . (0.2 . -0.2))
 	(meta . ((class . Item)
 		 (interfaces . (chord-name-interface
 				font-interface
@@ -1079,6 +1077,7 @@
 	(break-align-symbol . left-edge)
 	(break-visibility . ,center-invisible)
 	(non-musical . #t)
+	(extra-spacing-height . (+inf.0 . -inf.0))
 	(space-alist . (
 			(ambitus . (extra-space . 2.0))
 			(breathing-sign . (minimum-space . 0.0))
@@ -1158,6 +1157,9 @@
     (LyricText
      . (
 	(extra-spacing-width . (0.0 . 0.0))
+	;; Recede in height for purposes of note spacing,
+	;; so notes in melismata can be freely spaced above lyrics
+	(extra-spacing-height . (0.2 . -0.2))
 	(font-series . medium)
 	(font-size . 1.0)
 	(self-alignment-X . ,CENTER)
@@ -1303,6 +1305,7 @@
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
 	(full-measure-extra-space . 1.0)
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
+	(skyline-vertical-padding . 0.15)
 	;;		      (stencil . ,ly:paper-column::print)
 
 	(line-break-permission . allow)
@@ -1339,6 +1342,7 @@
      . (
 	(axes . (,X ,Y))
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
+	(skyline-vertical-padding . 0.15)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Item)
@@ -1354,7 +1358,7 @@
 	(duration-log . ,note-head::calc-duration-log)
 	(extra-spacing-height . ,ly:note-head::include-ledger-line-height)
 	(glyph-name . ,note-head::calc-glyph-name)
-        (ligature-flexa . #f)
+	(ligature-flexa . #f)
 	(stem-attachment . ,ly:note-head::calc-stem-attachment)
 	(stencil . ,ly:note-head::print)
 	(X-offset . ,ly:note-head::stem-x-shift)
@@ -1721,7 +1725,6 @@
      . (
 	(allow-span-bar . #t)
 	(bar-extent . ,ly:axis-group-interface::height)
-	(bar-size . ,ly:span-bar::calc-bar-size)
 	(before-line-breaking . ,ly:span-bar::before-line-breaking)
 	(break-align-symbol . staff-bar)
 	(cross-staff . #t)
@@ -2489,6 +2492,7 @@
    ly:note-head::print
    ly:dots::print
    ly:clef::print
+   ly:key-signature-interface::print
    ly:percent-repeat-item-interface::beat-slash
    ly:text-interface::print
    ly:script-interface::print

@@ -52,7 +52,7 @@ dist:
 	chmod -R a+r $(distdir)
 	chmod  a+x `find $(distdir) -type d -print`
 	(cd ./$(depth)/$(outdir); $(TAR) -cf -  --owner=0 --group=0 $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
-	rm -rf $(distdir)/
+	rm -rf $(distdir)
 
 local-help:
 	@echo "  config          rerun configure"

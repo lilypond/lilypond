@@ -124,7 +124,6 @@ translations = {
         'Internals': 'Belső működés',
         'Contributor': 'Közreműködés',
 
-# keep the spaces!
         ' (split HTML)': ' (HTML oldalak)',
         ' (big HTML)': ' (egy nagy HTML oldal)',
 

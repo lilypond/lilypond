@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.48"
 
 @c Translators: Till Paala
 
@@ -423,7 +423,7 @@ woodstaff = {
   \override Staff.StaffSymbol #'line-positions = #'(-2 3)
 
   % This is necessary; if not entered, the barline would be too short!
-  \override Staff.BarLine #'bar-size = #3
+  \override Staff.BarLine #'bar-extent = #'(-1.5 . 1.5)
 }
 
 \new DrumStaff {
@@ -441,7 +441,7 @@ woodstaff = {
 @end lilypond
 
 In diesem Spezialfalls muss die Länge der Taktlinie mit
-@code{\override Staff.BarLine #'bar-size #number} angepasst werden.
+@code{\override Staff.BarLine #'bar-extent #'(von . zu)} angepasst werden.
 Andernfalls wäre sie zu kurz.  Die Position der beiden Linien muss
 auch definiert werden.
 
@@ -452,7 +452,7 @@ Tamburin, notiert mit @code{tamb}:
 
 tambustaff = {
   \override Staff.StaffSymbol #'line-positions = #'( 0 )
-  \override Staff.BarLine #'bar-size = #3
+  \override Staff.BarLine #'bar-extent = #'(-1.5 . 1.5)
   \set DrumStaff.instrumentName = #"Tambourine"
 }
 
@@ -478,7 +478,7 @@ Noten für Tam-Tam (notiert mit @code{tt}):
 
 tamtamstaff = {
   \override Staff.StaffSymbol #'line-positions = #'( 0 )
-  \override Staff.BarLine #'bar-size = #3
+  \override Staff.BarLine #'bar-extent = #'(-1.5 . 1.5)
   \set DrumStaff.instrumentName = #"Tamtam"
 }
 
@@ -502,7 +502,7 @@ Zwei Glocken, notiert mit @code{cb} (Kuhglocke) und @code{rb}
 bellstaff = {
   \override DrumStaff.StaffSymbol #'line-positions = #'(-2 3)
   \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-  \override Staff.BarLine #'bar-size = #3
+  \override Staff.BarLine #'bar-extent = #'(-1.5 . 1.5)
   \set DrumStaff.instrumentName = #"Different Bells"
 }
 

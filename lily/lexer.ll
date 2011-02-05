@@ -198,13 +198,13 @@ BOM_UTF8	\357\273\277
   "%{"	{
 	yy_push_state (longcomment);
   }
-  %[^{\n\r].*[\n\r]	{
+  %[^{\n\r][^\n\r]*[\n\r]	{
   }
   %[^{\n\r]	{ // backup rule
   }
   %[\n\r]	{
   }
-  %[^{\n\r].*	{
+  %[^{\n\r][^\n\r]*	{
   }
   {WHITE}+ 	{
 

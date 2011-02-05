@@ -148,6 +148,15 @@ LY_DEFINE (ly_book_paper, "ly:book-paper",
   return b->paper_ ? b->paper_->self_scm () : SCM_BOOL_F;
 }
 
+LY_DEFINE (ly_book_header, "ly:book-header",
+	   1, 0, 0, (SCM book),
+	   "Return header in @var{book}.")
+{
+  LY_ASSERT_SMOB (Book, book, 1);
+  Book *b = unsmob_book (book);
+  return b->header_ ? b->header_ : SCM_BOOL_F;
+}
+
 LY_DEFINE (ly_book_scores, "ly:book-scores",
 	   1, 0, 0, (SCM book),
 	   "Return scores in @var{book}.")

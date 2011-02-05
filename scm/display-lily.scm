@@ -28,9 +28,7 @@
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-13)
   #:use-module (srfi srfi-39)
-  #:use-module (lily)
-  #:use-syntax (srfi srfi-39)
-  #:use-syntax (ice-9 optargs))
+  #:use-module (lily))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -289,11 +287,13 @@ inside body."
 ;;;
 
 (define (make-music-type-predicate . music-types)
-  (define ((make-music-type-predicate-aux mtypes) expr)
-    (if (null? mtypes)
-	#f
-	(or (eqv? (car mtypes) (ly:music-property expr 'name))
-	    ((make-music-type-predicate-aux (cdr mtypes)) expr))))
-  (make-music-type-predicate-aux music-types))
+  (define make-music-type-predicate-aux
+    (lambda (mtypes)
+      (lambda (expr)
+	(if (null? mtypes)
+	    #f
+	    (or (eqv? (car mtypes) (ly:music-property expr 'name))
+		((make-music-type-predicate-aux (cdr mtypes)) expr))))))
+      (make-music-type-predicate-aux music-types))
 
 (load "define-music-display-methods.scm")

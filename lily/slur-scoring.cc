@@ -21,6 +21,8 @@
 
 #include "slur-scoring.hh"
 
+#include <queue>
+
 #include "accidental-interface.hh"
 #include "beam.hh"
 #include "directional-element-interface.hh"
@@ -303,17 +305,31 @@ Slur::calc_control_points (SCM smob)
   state.generate_curves ();
 
   SCM end_ys = me->get_property ("positions");
-  Bezier best;
-
+  SCM inspect_quants = me->get_property ("inspect-quants");
+  if (is_number_pair (inspect_quants))
+    end_ys = inspect_quants;
+  
+  Slur_configuration *best = NULL;
   if (is_number_pair (end_ys))
-    best = state.configurations_[state.get_closest_index (end_ys)]->curve_;
+    best = state.get_forced_configuration (ly_scm2interval(end_ys));
   else
     best = state.get_best_curve ();
 
+#if DEBUG_SLUR_SCORING
+  bool debug_slurs = to_boolean (me->layout ()
+				 ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")));
+  if (debug_slurs)
+    {
+      string total = best->card ();
+      total += to_string (" TOTAL=%.2f idx=%d", best->score (), best->index_); 
+      me->set_property ("quant-score", ly_string2scm (total));
+    }
+#endif
+  
   SCM controls = SCM_EOL;
   for (int i = 4; i--;)
     {
-      Offset o = best.control_[i]
+      Offset o = best->curve_.control_[i]
 	- Offset (me->relative_coordinate (state.common_[X_AXIS], X_AXIS),
 		  me->relative_coordinate (state.common_[Y_AXIS], Y_AXIS));
       controls = scm_cons (ly_offset2scm (o), controls);
@@ -322,72 +338,52 @@ Slur::calc_control_points (SCM smob)
   return controls;
 }
 
-Bezier
-Slur_score_state::get_best_curve ()
+Slur_configuration*
+Slur_score_state::get_forced_configuration (Interval ys) const
 {
-  int opt_idx = -1;
-  Real opt = 1e6;
-
-#if DEBUG_SLUR_SCORING
-  bool debug_slurs = to_boolean (slur_->layout ()
-				 ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")));
-  SCM inspect_quants = slur_->get_property ("inspect-quants");
-  SCM inspect_index = slur_->get_property ("inspect-index");
-  if (debug_slurs
-      && scm_is_integer (inspect_index))
+  Slur_configuration *best = NULL;
+  Real mindist = 1e6;
+  for (vsize i = 0; i < configurations_.size (); i++)
     {
-      opt_idx = scm_to_int (inspect_index);
-      configurations_[opt_idx]->calculate_score (*this);
-      opt = configurations_[opt_idx]->score ();
-    }
-  else if (debug_slurs
-	   && scm_is_pair (inspect_quants))
-    {
-      opt_idx = get_closest_index (inspect_quants);
-      configurations_[opt_idx]->calculate_score (*this);
-      opt = configurations_[opt_idx]->score ();
-    }
-  else
-#endif
-    {
-      for (vsize i = 0; i < configurations_.size (); i++)
-	configurations_[i]->calculate_score (*this);
-      for (vsize i = 0; i < configurations_.size (); i++)
+      Real d = fabs (configurations_[i]->attachment_[LEFT][Y_AXIS] - ys[LEFT])
+	+ fabs (configurations_[i]->attachment_[RIGHT][Y_AXIS] - ys[RIGHT]);
+      if (d < mindist)
 	{
-	  if (configurations_[i]->score () < opt)
-	    {
-	      opt = configurations_[i]->score ();
-	      opt_idx = i;
-	    }
+	  best = configurations_[i];
+	  mindist = d;
 	}
     }
 
-#if DEBUG_SLUR_SCORING
-  if (debug_slurs)
-    {
-      string total;
-      if (opt_idx >= 0)
-	{
-	  total = configurations_[opt_idx]->card ();
-	  total += to_string (" TOTAL=%.2f idx=%d", configurations_[opt_idx]->score (), opt_idx); 
-	}
-      else
-	{
-	  total = "no sol?";
-	}
+  while (!best->done ())
+    best->run_next_scorer (*this);
   
-      slur_->set_property ("quant-score",
-			   ly_string2scm (total));
-    }
-#endif
+  if (mindist > 1e5)
+    programming_error ("cannot find quant");
 
-  if (opt_idx < 0)
-    {
-      opt_idx = 0;
-      programming_error ("No optimal slur found. Guessing 0.");
-    }
-  
-  return configurations_[opt_idx]->curve_;
+  return best;
+}
+
+
+Slur_configuration *
+Slur_score_state::get_best_curve () const
+{
+  std::priority_queue<Slur_configuration*, std::vector<Slur_configuration*>,
+                      Slur_configuration_less> queue;
+  for (vsize i = 0; i < configurations_.size (); i++)
+    queue.push (configurations_[i]);
+
+  Slur_configuration *best = NULL;
+  while (true) {
+    best = queue.top ();
+    if (best->done ())
+      break;
+    
+    queue.pop ();
+    best->run_next_scorer (*this);
+    queue.push (best);
+  }
+
+  return best;
 }
 
 Grob *
@@ -405,28 +401,6 @@ Slur_score_state::breakable_bound_item (Direction d) const
     }
 
   return 0;
-}
-
-int
-Slur_score_state::get_closest_index (SCM inspect_quants) const
-{
-  Drul_array<Real> ins = ly_scm2interval (inspect_quants);
-
-  int opt_idx = -1;
-  Real mindist = 1e6;
-  for (vsize i = 0; i < configurations_.size (); i++)
-    {
-      Real d = fabs (configurations_[i]->attachment_[LEFT][Y_AXIS] - ins[LEFT])
-	+ fabs (configurations_[i]->attachment_[RIGHT][Y_AXIS] - ins[RIGHT]);
-      if (d < mindist)
-	{
-	  opt_idx = i;
-	  mindist = d;
-	}
-    }
-  if (mindist > 1e5)
-    programming_error ("cannot find quant");
-  return opt_idx;
 }
 
 /*
@@ -668,7 +642,6 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
       os[RIGHT] = base_attachments_[RIGHT];
       for (int j = 0; dir_ * os[RIGHT][Y_AXIS] <= dir_ * end_ys[RIGHT]; j++)
 	{
-	  Slur_configuration s;
 	  Direction d = LEFT;
 	  Drul_array<bool> attach_to_stem (false, false);
 	  do
@@ -729,10 +702,7 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
 	    }
 	  while (flip (&d) != LEFT);
 
-	  s.attachment_ = os;
-	  s.index_ = scores.size ();
-
-	  scores.push_back (new Slur_configuration (s));
+	  scores.push_back (Slur_configuration::new_config (os, scores.size ()));
 
 	  os[RIGHT][Y_AXIS] += dir_ * staff_space_ / 2;
 	}

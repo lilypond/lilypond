@@ -68,6 +68,8 @@ struct Interval_t : public Drul_array<T>
     at (RIGHT) = max (at (RIGHT), p);
   }
   T length () const;
+
+  // Returns RIGHT - LEFT, even if the interval is empty.
   T delta () const;
   void set_empty ();
   void set_full ();

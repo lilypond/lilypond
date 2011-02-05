@@ -37,7 +37,6 @@ public:
   static void add_bar (Grob *, Grob *);
   static void evaluate_glyph (Grob *);
   DECLARE_SCHEME_CALLBACK (width, (SCM smob));
-  DECLARE_SCHEME_CALLBACK (calc_bar_size, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_glyph_name, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));

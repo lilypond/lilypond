@@ -15,7 +15,9 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-(define ((check-beam-quant posl posr) beam posns)
+(define check-beam-quant
+  (lambda (posl posr)
+    (lambda (beam posns)
   "Check whether BEAM has POSL and POSR quants.  POSL are (POSITION
 . QUANT) pairs, where QUANT is -1 (hang), 0 (center), 1 (sit) or -2/ 2 (inter) 
 
@@ -39,11 +41,11 @@
 		      want-l want-r posns)
 	  (set! (ly:grob-property beam 'annotation)
 		(format "(~S,~S)" want-l want-r))))
-    posns
-    ))
+    posns))))
 
-
-(define ((check-beam-slope-sign comparison) beam posns)
+(define check-beam-slope-sign
+  (lambda (comparison)
+    (lambda (beam posns)
   "Check whether the slope of BEAM is correct wrt. COMPARISON."
   (let* ((slope-sign (- (cdr posns) (car posns)))
 	 (correct (comparison slope-sign 0)))
@@ -54,7 +56,7 @@
 	  (set! (ly:grob-property beam 'annotation)
 		(format "~S 0" (procedure-name comparison))))
 	(set! (ly:grob-property beam 'annotation) ""))
-    posns))
+    posns))))
 
 
 (define-public (check-quant-callbacks l r)
