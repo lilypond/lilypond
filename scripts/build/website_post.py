@@ -13,7 +13,7 @@ import re
 translations = {
     'cs': {
         'English': 'Česky',
-        'Other languages': 'Other languages',
+        'Other languages': 'Jiné jazyky',
         },
     'de': {
         'English': 'Deutsch',
