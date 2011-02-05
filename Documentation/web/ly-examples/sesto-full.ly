@@ -4,7 +4,7 @@
 %%%
 %%% Nicolas Sceaux <nicolas.sceaux@free.fr>
 
-\version "2.12.2"
+\version "2.13.46"
 \include "sesto.ily"
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -45,9 +45,6 @@
       indent = 20\mm
       \context {
         \Score
-        \name Score
-%% FIXME: vertical engine changed!
-%%        \override VerticalAlignment #'max-stretch = #ly:align-interface::calc-max-stretch
         \accepts "StaffGroupNoBar"
         skipBars = ##t
       }
