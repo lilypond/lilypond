@@ -154,16 +154,6 @@ deníky a stránky wiki, tudíž je možná i společná práce
 přes internet.
 
 
-@subsubheading Spojení not a textu
-
-@imageFloat{lilypond-book,png,right}
-
-Do textu můžete vložit kousky s notami, aniž byste
-vyjmul obrázky a vložil je.  S LilyPondem se dají noty
-souvisle vložit do souborů @LaTeX{} nebo HTML,
-a pomocí OOoLilyPond se dají začlenit i do souborů OpenOffice.org.
-
-
 @subsubheading Svoboda při omezeních
 
 Textově založený vstup umožňuje psaní notového zápisu i
@@ -793,7 +783,7 @@ překvapit.}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Cannam, vedoucí programátor projektu @uref{http://www.rosegardenmusic.com/, RoseGarden}
+@subsubheading Chris Cannam, vedoucí programátor projektu @uref{http://www.rosegardenmusic.com/, Rosegarden}
 
 @qq{LilyPond je zřejmě supergorilou [notové sazby].}
 @divEnd
@@ -826,7 +816,7 @@ se mu nemůže byť jen přiblížit.}
 
 
 @divClass{testimonial-item}
-@subsubheading David Bobroff, basový pozounista, Iceland Symphonieorchester
+@subsubheading David Bobroff, basový pozounista, Islandský symfonický orchestr
 
 @qq{Jednoduše si myslím, že LilyPond je jednoduše úžasný [..]  Čím více se o něm naučím,
 tím více jej mám rád!}
@@ -834,7 +824,7 @@ tím více jej mám rád!}
 
 
 @divClass{testimonial-item}
-@subsubheading Vaylor Trucks, E-Gitarrenspieler (Ja, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, verwandt mit})
+@subsubheading Vaylor Trucks, hráč na elektrickou kytaru (Ano, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, má spojitost s})
 
 @qq{LilyPond na mě udělal opravdu velký dojem[..]}
 
@@ -845,7 +835,7 @@ tím více jej mám rád!}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{http://www.mutopiaproject.org/, Mutopia}- spolupracovník
+@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{http://www.mutopiaproject.org/, Mutopia} - spolupracovník
 
 @qq{Rozvíjel jsem k němu takovou nějakou nenávistnou lásku. Lásku, protože
   první list s notami, který jsem uviděl, vypadal tak dobře. Popis
@@ -866,7 +856,7 @@ tím více jej mám rád!}
 
 
 @divClass{testimonial-item}
-@subsubheading Paul Davis, vývojář @uref{http://jackaudio.org/, JACK} a @uref{http://www.ardour.org/, Ardour}
+@subsubheading Paul Davis, vývojář @uref{http://jackaudio.org/, JACKa} a @uref{http://www.ardour.org/, Ardouru}
 
 @qq{Myslím si, že [LilyPond]
   je mimořádný program, a že dosahuje překrásných

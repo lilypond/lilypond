@@ -12,7 +12,7 @@
 @include included/generating-output.itexi
 
 @macro warningTextBased
-@warning{LilyPond je @strong{textově založený} programm pro notový zápis,
+@warning{LilyPond je @strong{textově založený} program pro notový zápis,
 podobá se spíše programovacímu jazyku než nějakému grafickému
 programu pro sazbu not.  Předtím než si LilyPond stáhnete, přečtěte si,
 prosím, o našem @ref{Textový vstup,,textovém vstupu}.}
@@ -48,7 +48,7 @@ Odkazy na stálou verzi LilyPondu se nacházejí na
 @c TODO: duplicate to avoid underlined refs in HTML?  icky.
 @ref{Unix, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}}
-@ref{Unix, Unix (Linux und FreeBSD)}
+@ref{Unix, Unix (Linux a FreeBSD)}
 
 @item
 @ref{MacOS X, @sourceimage{logo-macosx,,,}}
@@ -285,7 +285,7 @@ Všechna loga a vyobrazení výrobků ctí autorské právo a obchodní značku.
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Pro procesory značky Intel (máte-li pochybnosti, používejte tut verzi).
+Pro procesory značky Intel (máte-li pochybnosti, používejte tuto verzi).
 
 @item
 @sourceimage{logo-macosx,,,}
@@ -296,7 +296,7 @@ Pro procesory G3 a G4 (staré počítače Apple).
 
 @subsubheading Instalace
 
-Dvakrát klepněte na stažený soubor, pak je táhněte
+Dvakrát klepněte na stažený soubor, pak jej táhněte
 tam, kde chcete program uložit.
 
 @subsubheading Odstranění
@@ -441,7 +441,7 @@ najděte stažený soubor a dvakrát poklepejte, abyste spustil
 instalační program.  Následujte pokyny, které vám instalátor
 dává; doporučujeme vám přijmout všechny instalační volby
 a souhlasit s výchozím instalačním adresářem.
-Když je instalátor hotov, klepněte na @qq{Fertigstellen}.
+Když je instalátor hotov, klepněte na @qq{Dokončit}.
 LilyPond je nyní nainstalován.
 
 @end enumerate
@@ -543,14 +543,14 @@ Všechna loga a vyobrazení výrobků ctí autorské právo a obchodní značku.
 @warningTextBased
 @divEnd
 
-@warning{Doporučujeme @strong{nicht}, abyste si sám vyzkoušel
+@warning{@strong{Nedoporučujeme}, abyste si sám vyzkoušel
 sestavení LilyPondu ze zdrojových souborů.  Téměř všichni
 uživatelé mají více výhod z používání předsestavených verzí.}
 
 @divClass{column-left-bottom}
 @subheading Zdrojová koule v táru
 
-@downloadStableSource-de{}
+@downloadStableSource-cs{}
 
 Na důkladný seznam se všemi verzemi (starými a novými) se podívejte na
 naše

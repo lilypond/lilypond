@@ -131,7 +131,7 @@ příklady!
 @end example
 
 Obzvláště poučné příklady z LSR jsou zahrnuty v naší
-dokumentaci, v @ref{Snippets}.
+dokumentaci, v @ref{Kousky}.
 
 @subsubheading IRC
 
@@ -822,7 +822,7 @@ příručky se nacházejí na @url{http://lilypond.org}.}
 @translationof Publications
 
 @divClass{column-center-top}
-@subheading Co jsme napsali o LilyPond
+@subheading Co jsme napsali o LilyPondu
 
 @divClass{keep-bullets}
 
