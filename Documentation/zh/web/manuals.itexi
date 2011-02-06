@@ -404,12 +404,12 @@ reporting, and development.
 
 @divEnd
 
-@node 改变
-@unnumberedsec 改变
+@node 变化
+@unnumberedsec 变化
 @translationof Changes
 
 @divClass{column-left-top}
-@subheading 改变
+@subheading 变化
 
 This is a summary of important changes and new features in
 LilyPond since the previous stable version.

@@ -18,7 +18,7 @@
 
 @imageFloat{flat-design,png,right}
 
-LilyPond vznikl, když dva hudebnící chtěli překročit mrtvé a bezduché vzezření počítačem řízeného tisku hudebnin.  Všichni hudebnící chtějí číst pěkné noty, proč by tedy programátoři nemohli napsat program, který by dovedl sázet nádherné orchestrální hlasy?
+LilyPond vznikl, když dva hudebníci chtěli překročit mrtvé a bezduché vzezření počítačem řízeného tisku hudebnin.  Všichni hudebníci chtějí číst pěkné noty, proč by tedy programátoři nemohli napsat program, který by dovedl sázet nádherné orchestrální hlasy?
 
 Výsledkem se stal systém, který hudebníky osvobozuje od podrobností
 uspořádání notové sazby, takže se mohou cele soustředit na tvorbu not.
@@ -113,7 +113,7 @@ pro sazbu not, který vydá krásnou notovou sazbu automaticky.
 Všechna stylistická nastavení, návrh písma a algoritmy
 LilyPondu byly podníceny nejlepšími ručně vyrytými
 příklady not.  Výstup z
-LilyPondu má shodný vzhled, vyvážený a vkusný vzhled
+LilyPondu má shodný vzhled, vyvážený a vkusný vzhled,
 jaký mají nejlepší ryté klasické notové zápisy.
 Více k tomu v našem @ref{Článek,,článku}.
 
@@ -139,7 +139,7 @@ správně ohnuty!
 @subsubheading Textově založený vstup
 
 LilyPond odebírá textový vstup ASCII, jejž můžete vytvořit s pomocí svého
-oblíbeného textového editor, rychle a pohodlně.  Vstup obsahuje všechny
+oblíbeného textového editoru, rychle a pohodlně.  Vstup obsahuje všechny
 informace, takže si člověk nemusí pamatovat žádné složité sledy příkazů.
 Vstup ukládejte jednoduše do textového souboru
 pro pozdější využití.
@@ -272,7 +272,7 @@ chorálu.
 @newsItem
 @subsubheading Současná hudba
 
-Dnešní hudební skladatelé werden zjistí, že LilyPond se
+Dnešní hudební skladatelé zjistí, že LilyPond se
 velmi dobře hodí k tomu, aby popsal neobvyklý notový zápis.
 Zde úryvek z @emph{Čáry} od Trevora Bači pro sólo basové flétny.
 
@@ -301,7 +301,7 @@ Nicolasem Sceauxem}, jako notový zápis, klavírní výtah a jako hlas houslí.
 
 LilyPond podporuje tabulaturový notový zápis, který může být uzpůsoben
 pro oblíbený nástroj, který tabulaturový notový zápis nasazuje.
-Tabulaturová osnova je vytvořena automatickyh na základě not,
+Tabulaturová osnova je vytvořena automaticky na základě not,
 které člověk zapsal pro pětilinkovou notovou osnovu.
 
 @exampleImage{tab-example}
@@ -336,7 +336,7 @@ vydané noty a ligaturových závorek nad určitými skupinami not.
 @newsItem
 @subsubheading Použití pro hudební výchovu
 
-LilyPond se dokonale hodí pro použití v hudební výchově
+LilyPond se dokonale hodí pro použití v hudební výchově.
 Zde příklad jednoduché úlohy z
 kontrapunktu.
 
@@ -466,7 +466,7 @@ jednotlivec.
 
 @item
 @qq{Dárková kultura}: Hnutí za svobodné programy (nebo @qq{otevřený zdrojový kód})
-Bewegung stvořil mnoho velkolepých programů, například
+stvořil mnoho velkolepých programů, například
 @uref{http://kernel.org/, GNU/Linux},
 @uref{http://www.getfirefox.com/, Mozilla Firefox} a
 @uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Jako poděkování
@@ -490,7 +490,7 @@ při získání pracovní nabídky nebo stipendia.
 @divClass{column-center-bottom}
 @subheading A co teď?
 
-NJeště nejste přesvědčen?  Přečtěte si náš důkladný
+Ještě nejste přesvědčen?  Přečtěte si náš důkladný
 článek o filozofii notové sazby v @ref{Pozadí,,pozadí}.
 Pokud už jste se rozhodl, že
 LilyPond vyzkoušíte, přečtěte si nejprve o našem
@@ -549,14 +549,14 @@ francouzským libretem od
 @item
 @uref{http://www.mercurybaroque.org/02/02109.aspx, Mercury Baroque}
 představení Lullyho @emph{Armide} 15--16 května 2009 v Houstonu,
-Texas (Notová sazba od @uref{http://nicolas.sceaux.free.fr/,
+Texas (notová sazba od @uref{http://nicolas.sceaux.free.fr/,
 Nicolase Sceauxe}).
 
 @item
 Ukázky nástrojů od Rameause @emph{Hippolyte et Aricie} v
 St. James Church na Manhattanu 8. května 2009  od Fredericka
 Renze a jeho souboru @uref{http://www.earlymusicny.org/,
-Early Music New York} (Notová sazba od Nicolase Sceauxe).
+Early Music New York} (notová sazba od Nicolase Sceauxe).
 
 @end itemize
 @divEnd
@@ -591,7 +591,7 @@ přímé stažení tak i k dostání na papíře.
 @item
 @uref{http://shadylane.fr/, The Shady Lane
 Publishing},
-ein @qq{Mikrovydavatelství not}, které si dalo za cíl
+@qq{Mikrovydavatelství not}, které si dalo za cíl
 podporu nové ekonomie hudby, které stojí hudebníkům a 
 milovníkům hudby blíže.
 
@@ -644,7 +644,7 @@ programů ke správě jejich knihoven.
 
 Na @uref{http://www.musicbyandrew.ca/finale-lilypond-1.html,
 Články na jeho stránkách} všeobecně srovnává Andrew Hawryluk Finale
-a LilyPond generell a podrobně vypočítává schopnosti obou
+a LilyPond a podrobně vypočítává schopnosti obou
 programů při sazbě not.  Druhý článek je informativním
 rozborem notové sazby
 Rachmaninova klavírního preludia 6, a porovnáním s
@@ -654,8 +654,8 @@ ručně rytým vydáním.
 Červen 2006
 
 @uref{http://distrowatch.com,DistroWatch} uděluje LilyPondu
-cenu a píše
-@uref{http://distrowatch.com/weekly.php?issue=20060605,writes}
+cenu a
+@uref{http://distrowatch.com/weekly.php?issue=20060605,píše}
 @qq{Ladies and Gentleman, we are pleased to announce that, based
 on readers' requests, the DistroWatch May 2006 donation has been
 awarded to LilyPond (@euro{} 190.00) and Lua (US$250.00).}
@@ -675,7 +675,7 @@ jeví jako druhá volba.«
 @item
 20. srpna 2005
 
-Belgické noviny De Standaard zkoumá, co pobízí autory
+Belgické noviny De Standaard zkoumají, co pobízí autory
 svobodných programů v článku
 @uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
 Delen van KENNIS zonder WINSTBEJAG} (Neziskové strany
@@ -812,14 +812,14 @@ sazeče not, velmi ulehčuje mou
 práci.}
 
 @qq{Používal jsem LilyPond ve svém začínajícím podniku pro tisk
-not výhradně.  Šlo to tak dobře, že bez výjimky byly všichni
+not výhradně.  Šlo to tak dobře, že bez výjimky byli všichni
 skladatelé nadchnuti jakostí notové sazby, když jsem jim ukázal
 korekturní obtah jejich not.  Sám si také zasloužím určitý díl z
 této chvály, neboť jsem strávil mnoho času změnou výstupu,
 především ligaturami akordů
 -- ale LilyPond dává skvělý bod, kde se dá začít,
 intuitivní rozhraní a možnost změnit
-úplně vše, jen kdy se tomu věnuje nějaký ten čas.
+úplně vše, jen když se tomu věnuje nějaký ten čas.
 Jsem přesvědčen, že žádný obchodovaný výrobek
 se mu nemůže byť jen přiblížit.}
 @divEnd
@@ -850,7 +850,7 @@ tím více jej mám rád!}
 @qq{Rozvíjel jsem k němu takovou nějakou nenávistnou lásku. Lásku, protože
   první list s notami, který jsem uviděl, vypadal tak dobře. Popis
   lže, když jde o krásu LilyPondu
-  -- je v tomto příliš skromný! [...] protože LilyPond se pořád zlepšuje
+  -- je v tomto příliš skromný! [...] protože LilyPond se pořád zlepšuje,
   a jak se důkladně zabývám tím, jak se věci ve 
   Scheme dělají, mám mnohem méně pocitů marnosti. Na každý pád
   bych chtěl říci: Děkuji vám za to, že LilyPond nabízíte, je
@@ -868,8 +868,8 @@ tím více jej mám rád!}
 @divClass{testimonial-item}
 @subsubheading Paul Davis, vývojář @uref{http://jackaudio.org/, JACK} a @uref{http://www.ardour.org/, Ardour}
 
-@qq{Myslím si, že [LilyPond je]
-  mimořádný program, a že dosahuje překrásných
+@qq{Myslím si, že [LilyPond]
+  je mimořádný program, a že dosahuje překrásných
   výsledků. Poté co jsem si o něm v posledním roce přečetl jeden rozhovor,
   řekl jsem různým přátelům o jeho možnostech.}
 @divEnd
@@ -1035,7 +1035,7 @@ Ještě stále nejste přesvědčeni?  Přečtěte si o @ref{Snadnější
 
 Vytvořen jako přídavný modul pro textový editor @uref{http://www.jedit.org,jEdit},
 je LilyPondTool jedním z textově založených nástrojů s nejvíce
-vlastnostmi pro sázení a úpravy notových zápisů LilyPond
+vlastnostmi pro sázení a úpravy notových zápisů LilyPond.
 K tomu patří průvodce dokumentem pro jednodušší vytvoření nového souboru
 s podporou pro písňový text a vložený prohlížeč souborů
 PDF s pokročilou podporou pro kroky
@@ -1124,7 +1124,7 @@ Další informace k nastavení Emacsu a Vimu se nacházejí pod
 @uref{http://www.uoregon.edu/~koch/texshop}
 
 Editor TexShop pro MacOS@tie{}X lze rozšířit, tudíž
-umí spouštět LilyPond, @command{lilypond-book} und @command{convert-ly}
+umí spouštět LilyPond, @command{lilypond-book} a @command{convert-ly}
 z editoru.  K tomu se používá rozšíření,
 které je dostupné zde:
 
@@ -1213,7 +1213,7 @@ LilyKDE3 pro KDE 3.5 a lilypond-KDE4 pro KDE 4.1.
 @uref{http://www.musicxml.com/xml.html,MusicXML}, se
 rozdělil a je dále vyvíjen jako
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
-und @uref{http://canorus.org,Canorus}.
+a @uref{http://canorus.org,Canorus}.
 
 
 @item
@@ -1237,7 +1237,7 @@ zapisují noty.  Zkušení uživatelé dokonce podali zprávu, že
 v LilyPondu dokáží napsat celý notový zápis rychleji než s
 klavírní klávesnicí nebo myší plus obrazným uživatelským rozhraním!  Snad se chcete ještě jednou podívat,
 které @ref{Vlastnosti,,vlastnosti}, @ref{Příklady,,příklady} nebo
-@ref{Svoboda,,svobodu} LilyPond dovoluje nebo si přečíst o @ref{Tvorba,,tvorbě}
+@ref{Svoboda,,svobodu} LilyPond dovoluje, nebo si přečíst o @ref{Tvorba,,tvorbě}
 a @ref{Posudky,,posudcích} našich uživatelů.  Dodatečně jsme vysvětlili náš
 přístup ke kráse klasického rytí vytvořené počítačem
 v našem @ref{Pozadí,,pozadí}.

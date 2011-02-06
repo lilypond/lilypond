@@ -102,7 +102,7 @@ si pomáhají.  Řečí seznamu je angličtina.  Na možnost pomoci v jazyce ně
 
 @quotation
 @uref{http://mail.gnu.org/mailman/listinfo/lilypond-user,
-lilypond-user Abonnement und Info}
+lilypond-user odběr a informace}
 
 @uref{http://mail.gnu.org/archive/html/lilypond-user/,
 user Archiv1}
@@ -131,7 +131,7 @@ příklady!
 @end example
 
 Obzvláště poučné příklady z LSR jsou zahrnuty v naší
-dokumentaci, in @ref{Snippets,,Kousky}.
+dokumentaci, v @ref{Kousky}.
 
 @subsubheading IRC
 
@@ -380,7 +380,7 @@ Pokud se vám podařilo odhalit chybu, která není v seznamu,
 pomozte nám, prosím, vytvořením hlášení o chybě.
 
 @warning{Hlášení o chybách přijímáme jen jako
-@ref{Malé příklady,,malé příklady}.  Máme velmi omezené zdroje,
+@ref{Malé příklady,,malé příklady}.  Máme velmi omezené zdroje
 na zpracování hlášení o chybách, a z toho důvodu každý příklad, který není malý,
 je odmítnut.  Skoro každou chybu lze předvést s pomocí čtyř
 anebo ještě méně not!}
@@ -404,7 +404,7 @@ Příklad dobrého hlášení o chybě:
 @divClass{column-right-bottom}
 @subheading 3. krok:  Poslání hlášení o chybě
 
-Když jste se ujistili, že chyba ještě není známá a
+Když jste se ujistili, že chyba ještě není známá, a
 vytvořili hlášení o chybě, pošlete nám je, prosím!
 
 @divClass{keep-bullets}
@@ -417,9 +417,9 @@ dopis elektronickou poštou.
 
 @item
 Pokud členy poštovního seznamu nejste, přesto můžete poslat
-hlášení o chybě přes 
+hlášení o chybě přes webové rozhraní
 @uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
-gmane lilypond.bugs web interface}.
+gmane lilypond.bugs}.
 
 Na seznamu je však přesné prověření, které brání tomu,
 aby člověk dostal svůj dopis nahoru.  Toto prověření je často
@@ -437,8 +437,8 @@ vyburcováno nesprávně soubory LilyPondu.  Proto přidejte
 
 Když bylo vaše hlášení o chybě zasláno na seznam, vyšetří naši
 odklízeči chyb (angl. bug squad) tuto zprávu.  Počkejte, prosím,
-24 hodin, neboť máme jen malý počet pomocníků.  Budete případně požádáni o více informací
-nebo bude zpráva přidána do sledovače a vy budete informováni,
+24 hodin, neboť máme jen malý počet pomocníků.  Budete případně požádáni o více informací,
+nebo bude zpráva přidána do sledovače, a vy budete informováni,
 jaké dostala číslo.
 
 Můžete chybu označit tak, že vždy obdržíte dopis, když se
@@ -484,8 +484,8 @@ pro tuto chybu přihodí nějaká činnost.  K tomu potřebujete mít
 
 @warning{Zde se jedná o nestálé vývojářské verze.
 Pokud nevíte přesně, jak se LilyPond instaluje a používá,
-důrazně doporučujeme používat verze @ref{Stažení, stálé Stažení}-Versionen
-a číst @ref{Příručky, stálé Příručky} zu lesen.}
+důrazně doporučujeme používat verze stálé @ref{Stažení,,Stažení}
+a číst @ref{Příručky,,Příručky}.}
 
 @divEnd
 
@@ -496,7 +496,7 @@ Jsou dvě zveřejňovací řady pro LilyPond: stálé verze
 a nestálé vývojářské verze.  Stálé verze mají sudé
 druhé číslo verze (čili zhruba 2.8, 2.10, 2.12).
 Vývojářské verze mají druhé číslo verze liché
-(also 2.7, 2.9, 2.11).
+(tedy 2.7, 2.9, 2.11).
 
 @divEnd
 
@@ -507,7 +507,7 @@ Vývojářské verze mají druhé číslo verze liché
 Návod pro git a sestavení se nachází v Contributor's Guide (jen v angličtině).
 
 @quotation
-@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, lilypond git-Repositorium}
+@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, lilypond git skladiště}
 @end quotation
 
 Spisovatelé dokumentace a zkoušeči by měli stahovat nejnovější
@@ -822,7 +822,7 @@ příručky se nacházejí na @url{http://lilypond.org}.}
 @translationof Publications
 
 @divClass{column-center-top}
-@subheading Was wir über LilyPond geschrieben haben
+@subheading Co jsme napsali o LilyPond
 
 @divClass{keep-bullets}
 
