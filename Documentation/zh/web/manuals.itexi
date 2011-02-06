@@ -565,3 +565,4 @@ GNU LilyPond 在 GNU 通用公共许可证下发布。
 @divClass{column-center-bottom}
 @subheading GNU 自由文档许可证 1.1
 @include fdl.itexi
+@divEnd
