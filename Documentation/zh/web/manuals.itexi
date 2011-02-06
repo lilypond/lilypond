@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; documentlanguage: zh -*-
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: zh -*-
 @c This file is part of web.texi
 @ignore
     Translation of GIT committish: 676dd9eed5f81540f71c3e3e55666c60f7af36ac
@@ -20,10 +20,10 @@
 
 @divClass{heading-center}
 @ifclear web_version
-  @heading Manuals for LilyPond @version
+  @heading LilyPond @version 手册
 @end ifclear
 @ifset web_version
-  @heading Manuals for LilyPond @versionStable
+  @heading LilyPond @versionStable 手册
 @end ifset
 
 @divEnd
@@ -39,21 +39,21 @@
 
 @item
 @ref{Text input}:
-LilyPond is a @strong{text-based} music engraver.  Read this first!
+LilyPond 是@strong{基于文本} 的音乐雕版印刷程序。首先读这里！
 
 @item
 @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Learning}}
-a @qq{must-read} gentle introduction to LilyPond.
+ @qq{must-read} LilyPond 的简单介绍。
 @details{Learning}
 
 @item
 @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossary}}
-@emph{(optional reading)} musical terms and translations.
+@emph{(optional reading)} 音乐术语和翻译。
 @details{Glossary}
 
 @item
 @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
-@emph{(optional reading)} background information about computer engraving.
+@emph{(optional reading)} 计算机雕版印刷程序的背景信息。
 @details{Essay}
 
 @end itemize
@@ -68,17 +68,17 @@ a @qq{must-read} gentle introduction to LilyPond.
 
 @item
 @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notation}}
-syntax reference.
+语法参考。
 @details{Notation}
 
 @item
 @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Usage}}
-running the programs.
+运行程序。
 @details{Usage}
 
 @item
 @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippets}}
-short tricks and tips.
+短的技巧和窍门。
 @details{Snippets}
 
 @end itemize
@@ -181,15 +181,12 @@ short tricks and tips.
 
 @divClass{column-left-top}
 @subheading 学习手册
-This book explains how to begin learning LilyPond, as well as
-explaining some key concepts in easy terms.  You should read these
-chapters in a linear fashion.
+本书解释了如何开始学习 LilyPond，同时也用简单的术语解释了一些关键的概念。
+你应该顺序地读这些章节。
 
-There is a paragraph @strong{See also} at the end of each section,
-which contains cross-references to other sections: you should not
-follow these cross-references at first reading.  When you have
-read all of the manual, you may want to read some sections again
-and follow those cross-references for more information.
+在每一大段的后面有@strong{参见}一段，它包含有对其它大段的交叉参考：
+在第一次阅读的时候你不应该去看这些交叉参考。当你读完所有手册，你可能希望
+再读某些段，并去看些交叉参考来得到更多的信息。
 @divEnd
 
 @divClass{column-right-bottom}
@@ -202,16 +199,13 @@ and follow those cross-references for more information.
 
 @divEnd
 
-@node 术语
-@unnumberedsec 术语
+@node 术语表
+@unnumberedsec 术语表
 @translationof Glossary
 
 @divClass{column-left-top}
-@subheading 术语
-This explains musical terms, and includes translations to various
-languages.  If you are not familiar with music notation or music
-terminology (especially if you are a non-native English speaker),
-it is highly advisable to consult the glossary.
+@subheading 术语表
+这解释了音乐术语也包括了不同语言的翻译。如果你对五线谱不熟悉，或者对音乐术语（尤其如果你不是以英语为母语的人）不熟悉，强烈建议你看术语表。
 
 @divEnd
 
@@ -233,12 +227,11 @@ it is highly advisable to consult the glossary.
 
 @divClass{column-left-top}
 @subheading 文章
-This book gives a brief history of music typography, followed by
-an examination of LilyPond's engraving techniques.  A comparison
-between LilyPond and other music engraving systems is given.
 
-@warning{the detailed typographical examples are easier to analyze
-in the PDF version due to its higher resolution.}
+本书给出了音乐出版的简要历史，随后检查了 LilyPond 的雕版印刷技术。
+也对比了 LilyPond 和其它雕版印刷系统的不同。
+
+@warning{更详细的印刷例子都是以PDF的形式进行分析，因为PDF版本有更高的分辨率。}
 
 @divEnd
 
@@ -258,12 +251,10 @@ in the PDF version due to its higher resolution.}
 
 @divClass{column-left-top}
 @subheading 五线谱参考
-This book explains all the LilyPond commands which produce
-notation.
+本书解释了 LilyPond 所有生成五线谱的命令。
 
-@warning{the Notation reference assumes that the reader knows
-basic material covered in the Learning manual and is familiar with
-the English musical terms presented in the glossary.}
+@warning{五线谱参考假设读者知道学习手册里的基本资料，也熟悉在术语表里
+英语音乐术语。}
 
 @divEnd
 
@@ -285,10 +276,8 @@ the English musical terms presented in the glossary.}
 @divClass{column-left-top}
 @subheading 使用手册
 
-This book explains how to execute the programs, how to integrate
-LilyPond notation with other programs, and suggests @qq{best
-practices} for efficient use.  It is recommended reading before
-attempting any large projects.
+这本书解释如何执行程序，如何让 LilyPond 五线谱和其它程序集成，也提出
+一些为了有效使用的 @qq{best practices} 。
 
 @divEnd
 
@@ -309,18 +298,15 @@ attempting any large projects.
 @divClass{column-left-top}
 @subheading 片断
 
-This shows a selected set of LilyPond snippets from the
+这里显示的 LilyPond 片断集是从
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
-(LSR).  All the snippets are in the public domain.
+(LSR)来的。所有的片断都是在公共域内。
 
-Please note that this document is not an exact subset of LSR.  LSR
-is running a stable LilyPond version, so any snippet which
-demonstrates new features of a development version must be added
-separately.  These are stored in @file{Documentation/snippets/new/} in the LilyPond
-source tree.
+注意：本文档不是 LSR 的精确子集。LSR 运行在 LilyPond 的稳定版上，所以任何
+发行版中有关新特性的示例必须单独添加。它们保存在 @file{Documentation/snippets/new/}  LilyPond 的源代码树里。
 
 The list of snippets for each subsection of the Notation are also
-linked from the @strong{See also} portion.
+linked from the @strong{参见} portion.
 @divEnd
 
 @divClass{column-right-bottom}
@@ -342,32 +328,29 @@ linked from the @strong{See also} portion.
 
 @subsubheading Where are the graphical canvas, menus, and toolbars?
 
-LilyPond requires you to write music as text.  Please read about
-our @ref{Text input}.
+LilyPond 要求你以文本的方式写音乐。请阅读有关我们的 @ref{Text input}.
 
-@subsubheading There's a lot of documentation!  Do I need to read it?
+@subsubheading 这里有很多文档！我都要读吗？
 
-You need to read the @ref{Learning, Learning manual}.  As for the
-rest of documentation, you only need to read the sections which
-discuss the notation that you wish to create.
+你需要读 @ref{Learning, Learning manual}。对于其它文档，你只需要读那些和
+你创作有关的段落。
 
-@subsubheading That's still a lot of reading!  Is it worth it?
+@subsubheading 那里仍然有许多读物！这值得吗？
 
-Please decide for yourself; the reasons why you might want to use
-LilyPond are given in the @ref{Introduction}.
+请你自己决定；那些你可能想要用 LilyPond 的原因在 @ref{Introduction}里。
 
 @divEnd
 
 @divClass{column-center-bottom}
 @subheading 使用的问题
 
-@subsubheading Something isn't working!  How do I fix it?
+@subsubheading 有些不工作！我如何修正？
 
 这在 @rprogram{Troubleshooting}里解释。
 
-@subsubheading Why do you change the syntax?
+@subsubheading 为什么你要改变语法？
 
-This is explained in @rprogram{Why does the syntax change?}.
+这在 @rprogram{Why does the syntax change?} 里解释。
 
 @divEnd
 @node Web
@@ -377,9 +360,8 @@ This is explained in @rprogram{Why does the syntax change?}.
 @divClass{column-left-top}
 @subheading Web
 
-This manual supplies general information about LilyPond.  It also
-contains information about various community forums, bug
-reporting, and development.
+本手册提供了有关 LilyPond 的通用信息。它也包含了有关不同社区论坛，缺陷
+报告和开发的信息。
 
 @divEnd
 
@@ -411,8 +393,7 @@ reporting, and development.
 @divClass{column-left-top}
 @subheading 变化
 
-This is a summary of important changes and new features in
-LilyPond since the previous stable version.
+这总结了从上一个稳定版的 LilyPond 之后的重要变化和新特性。
 
 @divEnd
 
@@ -433,7 +414,7 @@ LilyPond since the previous stable version.
 @divClass{column-left-top}
 @subheading 扩展 LilyPond
 
-This manual explains how to write extensions to LilyPond.
+本手册解释了如何为 Lilypond 写扩展程序。
 
 @divEnd
 
@@ -454,18 +435,13 @@ This manual explains how to write extensions to LilyPond.
 @divClass{column-left-top}
 @subheading 内部参考
 
-This is a set of heavily cross linked pages which document
-the nitty-gritty details of each and every LilyPond class, object,
-and function.  It is produced directly from the formatting
-definitions in the source code.
+这是一个交叉链接页面的集合，这些页面把每一个 LilyPond 的类，对象和函数
+的本质细节进行了归档。它是从格式化好的源码中直接生成的。
 
-Almost all formatting functionality that is used internally is
-available directly to the user.  For example, most variables that
-control thickness values, distances, etc., can be changed in input
-files.  There are a huge number of formatting options, and all of
-them are described in this document.  Each section of the Notation
-Reference has a @b{See also} subsection, which refers to the
-generated documentation.
+几乎所有格式化好的内部函数用户可以直接使用。例如，绝大部分控制粗细值，距
+离等的变量可以在输入文件中改变。LilyPond 有大量格式化选项，所有这些选项
+都在这份文档中进行了描述。每一个五线谱的段都有一个子段 @b{参见}，它指向
+生成的文档。
 
 @divEnd
 
@@ -495,7 +471,7 @@ generated documentation.
 @divClass{column-left-top}
 @subheading 可下载的版本
 @ifclear web_version
-Downloadable tarballs only available at @uref{http://lilypond.org}
+可下载的压缩包只在 @uref{http://lilypond.org} 可见。
 @end ifclear
 @ifset web_version
 
