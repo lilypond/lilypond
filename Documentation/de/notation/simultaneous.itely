@@ -910,7 +910,7 @@ Dauern haben, können sie nicht kombiniert werden und erhalten
 die Bezeichnung @code{one} und @code{two}  Darum werden
 Wechsel zu einem @code{Voice}-Kontext, der eine andere
 Bezeichnung hat, ignoriert.  Genausowenig ist die Stimmenkombination
-dazu ausgelegt, Gesangtext zu verarbeiten: wenn eine der
+dazu ausgelegt, Gesangstext zu verarbeiten: wenn eine der
 Stimmen eine explizite Bezeichnung erhält, damit Text damit
 verknüpft werden kann, hört die Stimmenkombination auf zu
 arbeiten.

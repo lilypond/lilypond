@@ -254,14 +254,14 @@ twinkle
 
 
 @item @code{\new Lyrics}
-@tab Gesangtext
+@tab Gesangstext
 @tab
 @lilypond[relative=1]
 \new Lyrics \lyricmode { twinkle }
 @end lilypond
 
 @item @code{twin -- kle}
-@tab Gesangtext-Trennstrich
+@tab Gesangstext-Trennstrich
 @tab
 @lilypond[relative=2]
 \set Staff.implicitTimeSignatureVisibility = #all-invisible

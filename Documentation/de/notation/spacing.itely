@@ -2564,7 +2564,7 @@ die vertikale Position von einzelnen Notensystemen.
 Einige Dinge sollten beachtet werden:
 
 @itemize
-@item Wenn @code{alignment-distances} benutzt wird, werden Gesangtextzeilen
+@item Wenn @code{alignment-distances} benutzt wird, werden Gesangstextzeilen
 nicht als ein System gezählt.
 
 @item Die Einheiten der Zahlen, die für @code{X-offset},
