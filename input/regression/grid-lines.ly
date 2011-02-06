@@ -39,7 +39,6 @@ skips =
   \context {
     \RhythmicStaff
     \consists "Grid_point_engraver"
-    \override VerticalAxisGroup #'minimum-Y-extent = #'(-4 . 4) 
     gridInterval = #(ly:make-moment 1 8)
     \override BarLine #'bar-extent = #'(-0.025 . 0.025)
   }

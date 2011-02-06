@@ -152,12 +152,13 @@ void Beam_scoring_problem::init_stems ()
   for (int a = 2; a--;)
     common[a] = common_refpoint_of_array (stems, beam, Axis (a));
 
-  Grob *fvs = Beam::first_normal_stem (beam);
-  Grob *lvs = Beam::last_normal_stem (beam);
-    
-  x_span = Interval (fvs ? fvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0,
-                     lvs ? lvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0);
-
+  Drul_array<Grob *> edge_stems(Beam::first_normal_stem (beam),
+                                Beam::last_normal_stem (beam));
+  Direction d = LEFT;
+  do
+    x_span[d] = edge_stems[d] ? edge_stems[d]->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
+  while (flip (&d) != LEFT);
+  
   Drul_array<bool> dirs_found (0, 0);
   for (vsize i = 0; i < stems.size (); i++)
     {
@@ -171,7 +172,7 @@ void Beam_scoring_problem::init_stems ()
       dirs_found[si.dir_] = true;
 
       bool f = to_boolean (s->get_property ("french-beaming"))
-        && s != lvs && s != fvs;
+        && s != edge_stems[LEFT] && s != edge_stems[RIGHT];
 
       Real y = Beam::calc_stem_y (beam, s, common, x_span[LEFT], x_span[RIGHT], CENTER, 
                                   Interval (0, 0), f);
@@ -193,8 +194,27 @@ void Beam_scoring_problem::init_stems ()
   edge_beam_counts =  Drul_array<int>
     (Stem::beam_multiplicity (stems[0]).length () + 1,
      Stem::beam_multiplicity (stems.back ()).length () + 1);
-    
+
+  // TODO - why are we dividing by staff_space?
   beam_translation = Beam::get_beam_translation (beam) / staff_space;
+
+  d = LEFT;
+  do
+    {
+      quant_range[d].set_full ();
+      if (!edge_stems[d])
+        continue;
+      
+      Real stem_offset = edge_stems[d]->relative_coordinate (common[Y_AXIS], Y_AXIS)
+        - beam->relative_coordinate (common[Y_AXIS], Y_AXIS);
+      Interval heads = Stem::head_positions(edge_stems[d]) * 0.5 * staff_space;
+
+      Direction ed = edge_dirs[d];
+      heads.widen(0.5 * staff_space
+                  + (edge_beam_counts[d] - 1) * beam_translation + beam_thickness * .5);
+      quant_range[d][-ed] = heads[ed] + stem_offset;
+    }
+  while (flip (&d) != LEFT);
 }
 
 Beam_scoring_problem::Beam_scoring_problem (Grob *me, Drul_array<Real> ys)
@@ -247,9 +267,27 @@ Beam_scoring_problem::generate_quants (vector<Beam_configuration*> *scores) cons
 
   for (vsize i = 0; i < unshifted_quants.size (); i++)
     for (vsize j = 0; j < unshifted_quants.size (); j++)
-      scores->push_back (Beam_configuration::new_config (unquanted_y,
-                                                         Interval (unshifted_quants[i],
-                                                                   unshifted_quants[j])));
+      {
+        Beam_configuration *c =
+          Beam_configuration::new_config (unquanted_y,
+                                          Interval (unshifted_quants[i],
+                                                    unshifted_quants[j]));
+        
+        Direction d = LEFT;
+        do
+          {
+            if (!quant_range[d].contains (c->y[d]))
+              {
+                delete c;
+                c = NULL;
+                break;
+              }
+          }
+        while (flip (&d) != LEFT);
+        if (c)   
+          scores->push_back (c);
+      }
+    
 }
 
 

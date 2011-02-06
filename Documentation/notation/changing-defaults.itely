@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.42"
+@c \version "2.13.46"
 
 @node Changing defaults
 @chapter Changing defaults

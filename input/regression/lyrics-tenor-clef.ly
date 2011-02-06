@@ -3,16 +3,9 @@
 }
 
 \version "2.12.0"
-\layout {
-    \context {
-	\Staff
-	\override VerticalAxisGroup #'minimum-Y-extent = ##f
-    }
-    \context {
-	\Lyrics
-	\override VerticalAxisGroup #'minimum-Y-extent = ##f
-    }
-    ragged-right = ##t
+
+\paper {
+  ragged-right = ##t
 }
 
 \relative c' { \clef "G_8" c c c c }
