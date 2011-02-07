@@ -971,6 +971,8 @@ bounds are spaced.")
      (columns ,ly:grob-array? "An array of grobs, typically containing
 @code{PaperColumn} or @code{NoteColumn} objects.")
      (conditional-elements ,ly:grob-array? "Internal use only.")
+     (covered-grobs ,ly:grob-array? "Grobs that could potentially collide
++with a beam.")
 
      (direction-source ,ly:grob? "In case @code{side-relative-direction} is
 set, which grob to get the direction from.")

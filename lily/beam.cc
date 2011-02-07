@@ -1625,6 +1625,7 @@ ADD_INTERFACE (Beam,
 	       "break-overshoot "
 	       "clip-edges "
 	       "concaveness "
+	       "covered-grobs "
 	       "damping "
 	       "details "
 	       "direction "

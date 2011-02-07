@@ -70,6 +70,7 @@
   \consists "Ledger_line_engraver"
   \consists "Staff_symbol_engraver"
   \consists "Collision_engraver"
+  \consists "Beam_collision_engraver"
   \consists "Grob_pq_engraver"
   \consists "Rest_collision_engraver"
   \consists "Accidental_engraver"
