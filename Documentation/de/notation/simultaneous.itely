@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 0764a50d470cab82ca29da30298dacd333d3da12
+    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -110,10 +110,31 @@ Handbuch zum Lernen:
 Notationsreferenz:
 @ref{Notation von Akkorden},
 @ref{Artikulationszeichen und Verzierungen},
-@ref{Relative Oktavenbezeichnung}.
+@ref{Relative Oktavenbezeichnung},
+@ref{Mehrere Stimmen}.
 
 Schnipsel:
 @rlsr{Simultaneous notes}.
+
+@knownissues
+Akkorde, die mehr als zwei Tonhöhen für einen Notenlinenzwischenraum enthalten
+(wie etwa @samp{<e f! fis!>}) produzieren überlappende Notenköpfe.  Abhängig von
+der Situation kann eines der folgenden Dinge helfen, die Darstellung zu verbessern:
+
+@itemize
+
+@item
+Kurzzeitig mehrere Stimmen benutzen, siehe @ref{Mehrere Stimmen}:
+@samp{<y f! \\ <e fis!> >>},
+
+@item
+enharmonische Transkription für einen oder mehrere Tonhöhen vornehmen:
+@samp{<e f ges>} oder
+
+@item
+Cluster, siehe @ref{Cluster}.
+
+@end itemize
 
 
 @node Akkord-Wiederholungen
@@ -755,17 +776,13 @@ Referenz der Interna:
 @rinternals{NoteCollision},
 @rinternals{RestCollision}.
 
-@knownissues
 @ignore
+@knownissues
+
 @c TODO investigate! Sometimes it works, sometimes not. --FV
 The requirements for successfully merging different note heads that
 are at the same time differently dotted are not clear.
 @end ignore
-
-Es gibt keine Unterstützung für Akkorde, in denen die gleiche
-Note mit unterschiedlichen Versetzungszeichen im selben Akkord
-auftaucht.  In diesem Fall wird empfohlen, enharmonische
-Töne zu verwenden, oder die besondere Cluster-Notation (siehe @ref{Cluster}).
 
 
 @node Automatische Kombination von Stimmen

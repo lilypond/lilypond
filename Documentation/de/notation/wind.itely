@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,7 +32,7 @@ bei der Notation von Blasinstrumenten auftreten.
 @subsection Übliche Notation für Bläser
 @translationof Common notation for wind instruments
 
-Dieser Abschnitt erklärt Eigenheiten, die für die meisten
+Dieser Abschnitt erklärt Notation, die für die meisten
 Blasinstrumente gültig sind.
 
 @menu
@@ -50,13 +50,19 @@ Viele Besonderheiten der Blasinstrumentenotation haben mit
 Atmung und Spielart zu tun:
 
 @itemize
+
 @item Atmung kann durch Pausen oder mit Atemzeichen angezeigt werden,,
 siehe @ref{Atemzeichen}.
+
 @item Legato kann durch Legatobögen angezeigt werden, siehe
 @ref{Legatobögen}.
+
 @item Unterschiedliche Artikulationen, Legato, Portato, Staccato,
 werden normalerweise mit Artikulationszeichen angemerkt, teilweise
-auch in Verbindung mit Legatobögen, siehe @ref{Artikulationszeichen und Verzierungen} und @ref{Liste der Artikulationszeichen}.
+auch in Verbindung mit Legatobögen, siehe
+@ref{Artikulationszeichen und Verzierungen} und
+@ref{Liste der Artikulationszeichen}.
+
 @item Flatterzunge wird angezeigt, indem ein Tremolozeichen und eine
 Anmerkung für die entsprechende Note gesetzt wird. Siehe @ref{Tremolo-Wiederholung}.
 @end itemize
@@ -67,30 +73,38 @@ relevant sein können:
 @itemize
 @item Viele Instrumente sind transponierend, siehe
 @ref{Transposition von Instrumenten}.
+
 @item Das Zug-Glissando ist charakteristisch für die Posaune, aber
 auch andere Instrumente können Glissandos ausführen. Siehe
 @ref{Glissando}.
+
 @item Obertonreihenglissandi, die auf allen Blechblasinstrumenten möglich,
 aber besonders üblich für das Waldhorn sind, werden üblicherweise mit
 Verzierungsnoten geschrieben. Siehe
 @ref{Verzierungen}.
+
 @item Tonhöhenschwankungen am Ende eines Tons werden gezeigt in
 @ref{Glissando zu unbestimmter Tonhöhe}.
+
 @item Ventil- oder Klappenschläge werden oft als Kreuznoten
 dargestellt, siehe
 @ref{Besondere Notenköpfe}.
+
 @item Holzbläser können tiefe Noten überblasen.  Derartige Noten
 werden als @code{flageolet}-Artikulation notiert. Siehe
 @ref{Liste der Artikulationszeichen}.
+
 @item Die Benutzung von Dämpfern für Blechblasinstrumente wird meistens
 durch Text gefordert, aber bei schnellem Wechsel bietet es sich an,
 die Artikulationszeichen @code{stopped} und @code{open} zu benutzen.
 Siehe
 @ref{Artikulationszeichen und Verzierungen} und
 @ref{Liste der Artikulationszeichen}.
+
 @item Gestopfte Hörner werden mit dem @code{stopped}-Artikulationszeichen
 notiert. Siehe
 @ref{Artikulationszeichen und Verzierungen}.
+
 @end itemize
 
 @snippets
@@ -121,7 +135,7 @@ Schnipsel:
 @translationof Fingerings
 
 Alle Blasinstrumente außer der Posaune benötigen mehrere Finger, um
-verschiedene Tonhöhen zu produzieren.  Einige Fingersatzhilfestellungen
+verschiedene Tonhöhen zu produzieren.  Einige Fingersatzbeispiele
 zeigen die Schnipsel unten.
 
 Diagramme für Holzbläser können erstellt werden nach den Anweisungen in
@@ -148,7 +162,7 @@ Snippets:
 @subsection Dudelsack
 @translationof Bagpipes
 
-Dieser Abschnitt beinhaltet Information zur Notation von Dudelsackmusik.
+Dieser Abschnitt beinhaltet die Notation von Dudelsackmusik.
 
 @menu
 * Dudelsack-Definitionen::
@@ -281,10 +295,7 @@ Dieser Abschnitt zeigt Notation, die spezifisch für Holzbläser ist.
 @translationof Woodwind diagrams
 
 Holzbläserdiagramme können benutzt werden, um die Griffe für eine bestimmte
-Note darzustellen.  Holzbläserdiagramme sind für die meisten Holzblasinstrumente
-erhältlich.
-
-Diagramme gibt es für folgende Instrumente:
+Note darzustellen.  Diagramme gibt es für folgende Instrumente:
 
 @itemize
 @item Piccolo
@@ -298,97 +309,126 @@ Diagramme gibt es für folgende Instrumente:
 @end itemize
 
 @noindent
-Die Diagramme und die Scheme-Instrumentenbezeichnungen werden im Schnipsel
-unten gezeigt.
-
 Holzbläserdiagramme werden als Beschriftung erstellt:
 
-@lilypond[verbatim, quote, relative=2]
-c1^ \markup \woodwind-diagram #'piccolo #'((lh . (gis))
-                                           (cc . (one three))
-                                           (rh . (ees)))
+@lilypond[verbatim,quote,relative=2]
+c1^\markup {
+  \woodwind-diagram #'piccolo #'((lh . (gis))
+                                 (cc . (one three))
+                                 (rh . (ees)))
+}
 @end lilypond
 
 Löcher können offen, halboffen, Ring oder geschlossen sein:
 
 @c KEEP LY
-@lilypond [verbatim, quote, relative=2]
+@lilypond[verbatim,quote,relative=2]
 \textLengthOn
-c1^ \markup \center-column {
-  "ein Viertel"
-  \woodwind-diagram #'flute #'((cc . (one1q))
-                                  (lh . ())
-                                  (rh . ()))
+c1^\markup {
+  \center-column {
+    "Ein Viertel"
+    \woodwind-diagram #'flute #'((cc . (one1q))
+                                 (lh . ())
+                                 (rh . ()))
+  }
 }
-c1^ \markup \center-column {
-  "halb"
-  \woodwind-diagram #'flute #'((cc . (one1h))
-                                  (lh . ())
-                                  (rh . ()))
+
+c1^\markup {
+  \center-column {
+    "Eineinhalb"
+    \woodwind-diagram #'flute #'((cc . (one1h))
+                                 (lh . ())
+                                 (rh . ()))
+  }
 }
-c1^ \markup \center-column {
-  "drei Viertel"
-  \woodwind-diagram #'flute #'((cc . (one3q))
-                                  (lh . ())
-                                  (rh . ()))
+
+c1^\markup {
+  \center-column {
+    "Drei Viertel"
+    \woodwind-diagram #'flute #'((cc . (one3q))
+                                 (lh . ())
+                                 (rh . ()))
+  }
 }
-c1^ \markup \center-column {
-  "Ring"
-  \woodwind-diagram #'flute #'((cc . (oneR))
-                                  (lh . ())
-                                  (rh . ()))
+
+c1^\markup {
+  \center-column {
+    "Ring"
+    \woodwind-diagram #'flute #'((cc . (oneR))
+                                 (lh . ())
+                                 (rh . ()))
+  }
 }
-c1^ \markup \center-column {
- "geschlossen"
-  \woodwind-diagram #'flute #'((cc . (oneF two))
-                                  (lh . ())
-                                  (rh . ()))
+
+c1^\markup {
+  \center-column {
+    "ganz"
+    \woodwind-diagram #'flute #'((cc . (oneF two))
+                                 (lh . ())
+                                 (rh . ()))
+  }
 }
 @end lilypond
 
 Triller werden als schattierte Löcher in den Diagrammen angezeigt:
 
-@lilypond [verbatim, quote, relative=2]
-c1^ \markup \woodwind-diagram #'bass-clarinet
-                              #'((cc . (threeT four))
-                                 (lh . ())
-                                 (rh . (b fis)))
+@lilypond[verbatim,quote,relative=2]
+c1^\markup {
+  \woodwind-diagram #'bass-clarinet
+                    #'((cc . (threeT four))
+                       (lh . ())
+                       (rh . (b fis)))
+}
 @end lilypond
 
 Eine Vielzahl von Trillern ist möglich:
 
 @c KEEP LY
-@lilypond [verbatim, quote, relative=2]
+@lilypond[verbatim,quote,relative=2]
 \textLengthOn
-c1^ \markup \center-column {
-  "ein Viertel nach Ring"
-  \woodwind-diagram #'flute #'((cc . (one1qTR))
-                                  (lh . ())
-                                  (rh . ()))
+c1^\markup {
+  \center-column {
+    "ein Viertel zu Ring"
+    \woodwind-diagram #'flute #'((cc . (one1qTR))
+                                 (lh . ())
+                                 (rh . ()))
+  }
 }
-c1^ \markup \center-column {
-  "Ring nach geschlossen"
-  \woodwind-diagram #'flute #'((cc . (oneTR))
-                                  (lh . ())
-                                  (rh . ()))
+
+c1^\markup {
+  \center-column {
+    "Ring zu geschlossen"
+    \woodwind-diagram #'flute #'((cc . (oneTR))
+                                 (lh . ())
+                                 (rh . ()))
+  }
 }
-c1^ \markup \center-column {
-  "Ring nach offen"
-  \woodwind-diagram #'flute #'((cc . (oneRT))
-                                  (lh . ())
-                                  (rh . ()))
+
+c1^\markup {
+  \center-column {
+    "Ring zu geöffnet"
+    \woodwind-diagram #'flute #'((cc . (oneRT))
+                                 (lh . ())
+                                 (rh . ()))
+  }
 }
-c1^ \markup \center-column {
-  "offen nach geschlossen"
-  \woodwind-diagram #'flute #'((cc . (oneT))
-                                  (lh . ())
-                                  (rh . ()))
+
+c1^\markup {
+  \center-column {
+    "geöffnet zu geschlossen"
+    \woodwind-diagram #'flute #'((cc . (oneT))
+                                 (lh . ())
+                                 (rh . ()))
+  }
 }
-c1^ \markup \center-column {
-  "ein Viertel nach drei Viertel"
-  \woodwind-diagram #'flute #'((cc . (one1qT3q))
-                                  (lh . ())
-                                  (rh . ()))
+
+c1^\markup {
+  \center-column {
+    "ein Viertel zu drei Viertel"
+    \woodwind-diagram #'flute #'((cc . (one1qT3q))
+                                 (lh . ())
+                                 (rh . ()))
+  }
 }
 @end lilypond
 
@@ -397,7 +437,7 @@ Instruments kann auf der Kommandozeile oder in einer Log-Datei
 angezeigt werden, auch wenn man sie nicht in der Notenausgabe anzeigen
 lassen kann:
 
-@lilypond[verbatim, quote]
+@lilypond[verbatim,quote]
 
 #(print-keys-verbose 'flute)
 
@@ -413,13 +453,13 @@ Scheme-Fähigkeit und ist nicht für alle Benutzer verständlich.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {woodwind-diagrams-listing.ly}
 
-@lilypondfile[verbatim, lilyquote, texidoc, doctitle]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {graphical-and-text-woodwind-diagrams.ly}
 
-@lilypondfile[verbatim, lilyquote, texidoc, doctitle]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-the-size-of-woodwind-diagrams.ly}
 
-@lilypondfile[verbatim, lilyquote, texidoc, doctitle]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {woodwind-diagrams-key-lists.ly}
 
 @seealso

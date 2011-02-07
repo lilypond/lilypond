@@ -341,9 +341,9 @@ sind auch verlinkt vom @strong{Siehe auch}-Absatz.
 
 @docLinks{Schnipsel, snippets,
   @rlsrnamed{Top,Schnipsel},
-  @manualStableSnippetsSplit-de,
-  @manualStableSnippetsBig-de, 2.5 MB,
-  @manualStableSnippetsPdf-de, 8 MB}
+  @manualStableSnippetsSplit,
+  @manualStableSnippetsBig, 2.5 MB,
+  @manualStableSnippetsPdf, 8 MB}
 
 @divEnd
 
@@ -424,7 +424,7 @@ Programm.
   @ref{Top,Web},
   @manualDevelWebSplit-de,
   @manualDevelWebBig-de, 1 MB,
-  @manualDevelWebPdf-de, 2 MB}
+  @manualDevelWebPdf, 2 MB}
 
 @divEnd
 

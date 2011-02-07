@@ -34,7 +34,7 @@ amelyek segítségével hasonlóan gyönyörű, de bonyolultabb kottákat kész�
 
 A LilyPond bemeneti formátuma meglehetősen rugalmas, így a tapasztalt
 felhasználóknak nagy szabadságot ad abban, hogyan strukturálják a
-forrásfájljaikat. De ez a rugalmasság az újdonsült felhasználók számára
+forrásfájljaikat. Azonban ez a rugalmasság az újdonsült felhasználók számára
 bonyolult lehet. Ez a szakasz elmagyarázza a struktúra nagy részét, az
 egyszerűség kedvéért bizonyos részleteket elnagyolva. A bemeneti formátum
 felépítésének teljes leírása a @ruser{File structure} c. szakaszban olvasható.
@@ -230,10 +230,10 @@ dallam = \relative c' @{
 Amikor a LilyPond feldolgozza ezt a fájlt, a @code{dallam} változó értékét
 (azaz mindent az egyenlőségjel utáni zenei kifejezésből) beszúrja mindenhova,
 ahol @code{\dallam} hivatkozást lát. A változók nevére nincs sok megkötés -- a
-következők mind helyes példák:  @code{dallam}, @code{jobbKez}, @code{fuvola},
+következők mind helyes példák:  @code{dallam}, @code{jobbkéz}, @code{fuvola},
 @code{BII} stb. A @ref{Kevesebb gépelés változókkal és függvényekkel} c.
 szakasz további információkat tartalmaz. Mindössze annyi a korlátozás, hogy a
-változónevek csak az angol abc betűit tartalmazhatják, és nem ütközhetnek a
+változónevek csak betűket tartalmazhatnak, és nem ütközhetnek a
 LilyPond parancsok neveivel. A pontos szabályok a @ruser{File structure} c.
 részben vannak leírva.
 
@@ -274,7 +274,7 @@ szükségünk van az énekes és a zongorista szólamára.
 @example
 \score @{
   <<
-    \new Staff = "enek" <<
+    \new Staff = "ének" <<
     >>
     \new PianoStaff = "zongora" <<
     >>
@@ -283,7 +283,7 @@ szükségünk van az énekes és a zongorista szólamára.
 @}
 @end example
 
-Elneveztük a két szólamot @qq{enek} és @qq{zongora} néven. Ez nem kötelező,
+Elneveztük a két szólamot @qq{ének} és @qq{zongora} néven. Ez nem kötelező,
 de jó szokás, hogy első pillantásra lássuk, melyik szólam mire szolgál.
 
 Emlékezzünk arra, hogy @code{<< ... >>} szolgál több szólam jelölésére. Ennek
@@ -296,13 +296,13 @@ feleleveníteni, az @ref{Egyszerű dalok kottázása} c. részben olvashatunk r�
 @lilypond[verbatim,quote,ragged-right]
 \score {
   <<
-    \new Staff = "enek" <<
+    \new Staff = "ének" <<
       \new Voice = "dallam" { c'1 }
       \addlyrics { Szólt }
     >>
     \new PianoStaff = "zongora" <<
-      \new Staff = "jobbkez" { c'1 }
-      \new Staff = "bal" { c'1 }
+      \new Staff = "jobbkéz" { c'1 }
+      \new Staff = "balkéz" { c'1 }
     >>
   >>
   \layout { }
@@ -334,21 +334,21 @@ basszuskulccsal láttuk el a balkezet, kész egy valódi mű kezdete:
 
 @lilypond[verbatim,quote,ragged-right]
 dallam = \relative c'' { r4 d8\noBeam g, c4 r }
-dalszoveg = \lyricmode { Szólt az Úr, }
-jobbkez = \relative c'' { <g d g,>2~ <g d g,> }
-balkez = \relative c { b2 e2 }
+dalszöveg = \lyricmode { Szólt az Úr, }
+jobbkéz = \relative c'' { <g d g,>2~ <g d g,> }
+balkéz = \relative c { b2 e2 }
 
 \score {
   <<
-    \new Staff = "enek" <<
+    \new Staff = "ének" <<
       \new Voice = "dallam" { \dallam }
-      \addlyrics { \dalszoveg }
+      \addlyrics { \dalszöveg }
     >>
     \new PianoStaff = "zongora" <<
-      \new Staff = "jobbkez" { \jobbkez }
-      \new Staff = "balkez" {
+      \new Staff = "jobbkéz" { \jobbkéz }
+      \new Staff = "balkéz" {
         \clef "bass"
-        \balkez
+        \balkéz
       }
     >>
   >>

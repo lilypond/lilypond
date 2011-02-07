@@ -143,7 +143,7 @@ LilyPond はフリーソフトウェアであり、@uref{http://gnu.org,GNU プ�
 @include web/news-front.itexi
 
 @divClass{float-right}
-(@ref{Old news})
+(@ref{古いニュース})
 @divEnd
 
 @divEnd
@@ -166,9 +166,9 @@ LilyPond はフリーソフトウェアであり、@uref{http://gnu.org,GNU プ�
 
 @subsubheading 開発版
 
-@ref{Development, Download @versionDevel}
+@ref{開発, ダウンロード @versionDevel}
 
-@ref{Development, Manuals @versionDevel}
+@ref{開発, マニュアル @versionDevel}
 
 @divEnd
 @end ifset
@@ -181,7 +181,7 @@ LilyPond はフリーソフトウェアであり、@uref{http://gnu.org,GNU プ�
 * 導入部::               ここから始めて、楽譜を作ってください。
 * ダウンロード::         LilyPond の入手方法。
 * マニュアル::           マニュアルを読んでください。
-* Community::            他のユーザとの交流。
+* コミュニティ::         他のユーザとの交流。
 @end menu
 @divEnd
 

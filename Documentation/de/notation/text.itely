@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -137,7 +137,6 @@ Referenz der Interna:
 @cindex Text, innerhalb des Randes behalten
 
 @knownissues
-
 Eine Überprüfung, ob sich auch alle Textbeschriftungen und Gesangstext
 innerhalb der Ränder der Noten befinden, braucht verhältnismäßig
 viel Rechenaufwand.  Diese Überprüfung ist standardmäßig ausgestellt,
@@ -218,19 +217,15 @@ Textstrecker sind Teil des @code{Dynamic}-Kontextes, siehe
 @seealso
 Notationsreferenz:
 @ref{Linienstile},
-@ref{Dynamik}.
+@ref{Dynamik},
+@ref{Text formatieren}.
 
 Schnipsel:
 @rlsr{Text},
 @rlsr{Expressive marks}.
 
 Referenz der Interna:
-@rinternals{TextSpanner},
-@rinternals{Dynamics}.
-
-@knownissues
-LilyPond kann nur einen Textstrecker pro Stimme verarbeiten.
-
+@rinternals{TextSpanner}
 
 
 @node Textartige Zeichen
@@ -544,7 +539,6 @@ Installierte Dateien:
 @file{scm/markup.scm}.
 
 @knownissues
-
 Syntaxfehler im Textbeschriftungsmodus können sehr verwirrend sein.
 
 
@@ -744,6 +738,13 @@ Referenz der Interna:
 
 Installierte Dateien:
 @file{scm/define-markup-commands.scm}.
+
+@knownissues
+Wenn die Befehle @code{\teeny}, @code{\tiny},
+@code{\small}, @code{\normalsize}, @code{\large} und
+@code{\huge} eingesetzt werden, erhält man schlechte Zeilenabstände
+verglichen mit @code{\fontsize}.
+ 
 
 
 @node Textausrichtung
@@ -1178,7 +1179,8 @@ Eine ausführliche Liste der Graphik-Befehle findet sich in
 @seealso
 Notationsreferenz:
 @ref{Graphic},
-@ref{Anmerkungen}.
+@ref{Anmerkungen},
+@ref{Align}.
 
 Schnipsel:
 @rlsr{Text}.
@@ -1531,6 +1533,7 @@ in folgenden Abschnitten: @ref{Schriftarten für einen Eintrag} und
 @seealso
 Notationsreferenz:
 @ref{Die Feta-Schriftart},
+@ref{Drehen von Objekten},
 @ref{Musikalische Notation innerhalb einer Textbeschriftung},
 @ref{Überblick über die wichtigsten Textbeschriftungsbefehle},
 @ref{Font}.

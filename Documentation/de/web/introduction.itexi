@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish:  42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1120,10 +1120,6 @@ Benutzer graphisch weiterarbeiten kann.
 Wenn man den Cursor im LilyPond-Text bewegt, wird er auch im Notenbild
 verschoben, und Syntaxfeher in LilyPond-Anpassungen werden in
 Textansicht markiert, wenn man von dort aus druckt.
-
-@warning{Denemo unterstützt offiziell die veraltete LilyPond-Version 2.8.7,
-welcher sehr viele seither hinzugefügte Funktionen fehlen.  Die Denemo-Entwickler
-arbeiten aktiv daran, die Version auf die aktuelle Nummer 2.12 zu bringen.}
 
 @divEnd
 

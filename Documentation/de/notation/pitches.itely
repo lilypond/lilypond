@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 0764a50d470cab82ca29da30298dacd333d3da12
+    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -601,7 +601,7 @@ auftauchen, sind noch keine eigenen Namen definiert.
 Die meisten Sprachen, die hier vorkommen, werden normalerweise mit der
 klassischen westlichen Musik assoziiert.  Alternative Tonhöhen und
 Stimmungen sind aber auch unterstützt: siehe
-@ref{Nichteuropäische Notenbezeichnungen und Versetzungszeichen}
+@ref{Übliche Notation für nichteuropäische Musik}
 
 
 @seealso
@@ -610,7 +610,7 @@ Glossar:
 @rglos{Common Practice Period}.
 
 Notationsreferenz:
-@ref{Nichteuropäische Notenbezeichnungen und Versetzungszeiche}.
+@ref{Übliche Notation für nichteuropäische Musik}.
 
 Installierte Dateien:
 @file{scm/define-note-names.scm}.
@@ -2392,14 +2392,11 @@ Referenz der Interna:
 
 @knownissues
 
-Gleichzeitig erklingende Noten müssen im sequenziellen Modus eingegeben
-werden.  Das bedeutet, dass die Versetzungszeichen von Noten in
-Akkorden so gesetzt werden, als ob die Noten nacheinander auftreten,
-in der Reihenfolge, in der sie im Quelltext erscheinen.  Das ist ein
-Problem, wenn Versetzungszeichen in einem Akkord voneinander abhängen,
-was im Standard-Stil nicht vorkommt.  Das Problem kann gelöst werden,
-indem man manuell@tie{}@code{!} oder@tie{}@code{?} für die problematischen
-Noten schreibt.
+Gleichzeitig erklingende Noten werden bei der automatischen Bestimmung
+der Versetzungszeichen nicht berücksichtigt: nur die vorige Note und
+die Vorzeichen werden einbezogen.  Man muss die Versetzungszeichen
+mit@tie{}@code{!} oder@tie{}@code{?} schreiben, wenn gleichzeitig
+unterschiedliche Alterationen vorkommen, wie etwa für @samp{<f! fis!>}.
 
 Die warndenden Auflösungzeichen werden gesetzt, indem die vorangegangenen
 Takte betrachtet werden.  In der zweiten oder einer weiteren

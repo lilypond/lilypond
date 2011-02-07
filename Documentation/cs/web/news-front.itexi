@@ -1,0 +1,16 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: cs -*-
+@c This file is part of web.texi
+@ignore
+    Translation of GIT committish: 5e2900b22db1d1ea433d4e8445cbcba3ffe399a4
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@subsubheading LilyPond 2.13.47 released!  @emph{Jan 28, 2011}
+@subsubheading Release candidate 1 withdrawn  @emph{Jan 13, 2011}
+@subsubheading Release candidate 1 of 2.14 - LilyPond 2.13.46 released!  @emph{Jan 12, 2011}
+@subsubheading LilyPond 2.13.45 released!  @emph{Jan 3, 2011}
+
+@c -- SKELETON FILE --

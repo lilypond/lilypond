@@ -1,6 +1,6 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: hu -*-
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 8ae92df5b752659c05ddb78806b7abb0ac60ee4d
+    Translation of GIT committish: 27b1197f3bae8512c14d946752cd3e40e7c76016
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,11 @@
 @documentencoding UTF-8
 @documentlanguage hu
 @afourpaper
+
+@c `Web' was imported 2009-08-05 with git commit b938d71...
+@c @macro copyrightDeclare
+@c Copyright @copyright{} 2009--2011 by the authors.
+@c @end macro
 
 @set FDL
 @set web
@@ -26,23 +31,47 @@
 @omfdescription General info about the LilyPond music engraving system
 @omftype program usage
 @omfcategory Applications|Publishing
-@omflanguage English
+@omflanguage Hungarian
 @end ignore
 
-@c Translators: Dénes Harmath
-
 @copying
-Copyright @copyright{} 2009--2011 a szerzők.
+Copyright @copyright{} 2009--2011 by the authors.
+
+@c next line is necessary for broken pre-4.13 texinfo's
+@c install-info, so leave it there until we officially
+@c bump the required version.  -gp
+This file documents the LilyPond website.
 
 @quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled ``GNU Free Documentation
+License''.
 @end quotation
 @end copying
+
+
+@c Info files are no longer installed in a subdirectory, images are
+@c expected to be found in lilypond/ subdirectory.
+@dircategory GNU LilyPond --- the music typesetter
+@direntry
+* Tankönyv: (lilypond-learning).  Itt kezdd az olvasást.
+* Fogalomtár: (music-glossary).               Többnyelvű szószedet.
+* Kottaírás: (lilypond-notation).                           A kottaírás kézikönyve.
+* Kódrészletek: (lilypond-snippets).         Tippek, trükkök, példák.
+* Belső működés: (lilypond-internals).  A belső működés referenciája.
+* Használat: (lilypond-usage). Az alkalmazás használata.
+* Web: (lilypond-web).    A weboldal.
+* lilypond: (lilypond-usage)A lilypond futtatása.      Kották szedése.
+* abc2ly: (lilypond-usage)Az abc2ly futtatása.      ABC fájlok importálása.
+* convert-ly: (lilypond-usage)A convert-ly futtatása. Konvertálás régebbi verziókról.
+* etf2ly: (lilypond-usage)Az etf2ly futtatása.      Finale fájlok importálása.
+* lilypond-book: (lilypond-usage)A lilypond-book futtatása. Szöveg és zene integrálása.
+* midi2ly: (lilypond-usage)A midi2ly futtatása.    MIDI fájlok importálása.
+* musicxml2ly: (lilypond-usage)A musicxml2ly futtatása.  MusicXML fájlok importálása.
+@end direntry
 
 
 @c TITLE PAGE
@@ -68,7 +97,7 @@ Free Documentation License''.
 
 @insertcopying
 
-For LilyPond version @version{}
+Verzió: @version{}
 @end titlepage
 @end ifnothtml
 @c end hack for texi2html
@@ -116,9 +145,13 @@ Ha többet akarsz róla megtudni, olvasd el a @ref{Bevezetés}t!
 
 @divEnd
 
-
+@ifclear web_version
+  @c do nothing
+@end ifclear
+@ifset web_version
+  @c make the box:
 @divId{latestVersion}
-@subheading Gyorslinkek
+@subheading Quick links
 
 @c TODO: javascript to detect OS and suggest download?
 
@@ -135,6 +168,7 @@ Ha többet akarsz róla megtudni, olvasd el a @ref{Bevezetés}t!
 @ref{Fejlesztés, Dokumentáció @versionDevel}
 
 @divEnd
+@end ifset
 
 
 @ifnottex
@@ -152,10 +186,128 @@ Ha többet akarsz róla megtudni, olvasd el a @ref{Bevezetés}t!
 
 @contents
 
+@allowcodebreaks false
+
+@c ****************** GENERAL STUFF FOR INFO ************
+@ignore
+Distributions will want to install lilypond.info in postinstall, doing:
+
+    install-info --info-dir=/usr/share/info out[-www]/lilypond-web.info
+
+  * Prepend GNU for dir, must be unique.
+
+  * Do not list the `lilypond' node at toplevel, so that `info lilypond'
+    goes to Top.
+
+  * List all commands in direntry.
+
+@end ignore
+
+@c FIXME: this still doesn't solve the broken links in pdf and big
+@c        html; we'll need a bunch of @iftext and stuff in here. -gp
+@c ****************** SPECIAL MACROS FOR WEB MANUAL ************
+@macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+@subheading Read it
+
+@docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\bigsize\,\pdf\,\pdfsize\}
+
+@end macro
+
+
+@macro docLinkSplit{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\/index.html, \name\ (HTML oldalak)}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
+
+@macro docLinkBig{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\-big-page.html, \name\ (egy nagy HTML oldal)}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
+
+@macro docLinkPdf{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\.pdf, \base\.pdf}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
+
+
+@macro docLinksBare{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+
+@divClass{keep-bullets}
+@itemize
+
+@item @docLinkSplit{\name\,\base\,\split\} @minus{}
+  megtekintés sok HTML oldalra elosztva.
+  @*@ @ @emph{(oldalanként egy-egy kis letöltés)}
+
+@item @docLinkBig{\name\,\base\,\big\} @minus{}
+  megtekintés egy nagy HTML oldalként.
+  @*@ @ @emph{(egyszeri, nagy letöltés, \bigsize\)}
+
+@item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
+  letöltés PDF formátumban.
+  @*@ @ @emph{(egyszeri, nagy letöltés, \pdfsize\)}
+
+@end itemize
+
+@divEnd
+
+@end macro
+
+
+@c don't add any extra spaces in this macro -gp
+@macro ifWebLinks{webLink,normalLink}
+@ifclear web_version
+  \normalLink\:
+@end ifclear
+@ifset web_version
+  \webLink\:
+@end ifset
+@end macro
+
+
+@ifhtml
+@macro contactUsAbout{topic}
+
+@divClass{heading-center}
+@divClass{contactBox}
+If you are aware of any other \topic\ which could be listed here,
+please let us know by following the instructions on
+@ref{Bug reports}.
+
+@divEnd
+@divEnd
+
+@end macro
+@end ifhtml
+
+@ifnothtml
+@macro contactUsAbout{topic}
+@cartouche
+If you are aware of any other \topic\ which could be listed here,
+please let us know by following the instructions on
+@ref{Bug reports}.
+
+@end cartouche
+
+@end macro
+@end ifnothtml
 
 @include web/introduction.itexi
 @include web/download.itexi
 @include web/manuals.itexi
 @include web/community.itexi
+
 
 @bye

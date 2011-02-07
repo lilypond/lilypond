@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 70aaf0159410169678942abd39eb13c876521437
+    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2075,7 +2075,7 @@ Einige vom Benutzer einstellbare Eigenschaften sind intern als
 Schlüsseln und Werten speichern.  Die Struktur einer Aliste ist:
 
 @example
-#((@var{Schlüssel1} . @var{Wert1})
+'((@var{Schlüssel1} . @var{Wert1})
   (@var{Schlüssel2} . @var{Wert2})
   (@var{Schlüssel3} . @var{Wert3})
   @dots{})
@@ -2089,20 +2089,21 @@ Um beispielsweise den Freiraum zwischen benachbarten Systemen
 in einer Systemgruppe zu verkleinern, kann man die
 @code{staff-staff-spacing}-Eigenschaft des
 +@code{StaffGrouper}-Grobs benutzen.  Die Eigenschaft ist eine
-Aliste mit vier Schlüsseln: @code{padding} (Verschiebung),
-@code{space} (Platz), @code{minimum-distance} (minimaler Abstand)
-und @code{stretchability} (Dehnbarkeit).  Drei der vier Schlüssel
-haben zu Beginn Standardwerte, die in der Datei @file{scm/define-grobs.scm}
-(neben allen anderen Grob-Eigenschaften) definiert sind.
+Aliste mit vier Schlüsseln: : @code{basic-distance} (Grund-Abstand),
+@code{minimum-distance} (minimaler Abstand), @code{padding} (Verschiebung)
+und @code{stretchability} (Dehnbarkeit).  Die Standardwerte dieser
+Eigenschaft finden sich im Abschnitt @qq{Backend} der Referenz der
+Interna (siehe @rinternals{StaffGrouper}):
 
 @example
-(staff-staff-spacing . ((padding . 1)
-                          (basic-distance . 9)
-                          (minimum-distance . 7)))
+'((basic-distance . 9)
+  (minimum-distance . 7)
+  (padding . 1)
+  (stretchability . 5))
 @end example
 
 Eine Möglichkeit, die Systemen dichter zueinander zu zwingen,
-ist es, der Wert des @code{space}-Schlüssels (@code{9}) zu
+ist es, der Wert des  @code{basic-distance}-Schlüssels (@code{9}) zu
 verändern, sodass der den gleichen Wert wie
 @code{minimum-distance} (@code{7}) hat.  Um einen einzelnen
 Schlüssel zu verändern, wird ein geschachtelter Aufruf benutzt:
@@ -2116,6 +2117,7 @@ Schlüssel zu verändern, wird ein geschachtelter Aufruf benutzt:
 
 % reduced space between staves
 \new PianoStaff \with {
+  % this is the nested declaration
   \override StaffGrouper #'staff-staff-spacing #'basic-distance = #7
 } <<
   \new Staff { \clef treble c''1 }
@@ -2124,21 +2126,21 @@ Schlüssel zu verändern, wird ein geschachtelter Aufruf benutzt:
 @end lilypond
 
 Wenn man diese Art des geschachtelten Aufrufs einsetzt, wird der
-spezifische Schlüssel (@code{space} im obigen Beispiel) verändert,
+spezifische Schlüssel (@code{basic-distance} im obigen Beispiel) verändert,
 ohne dass sich andere Wert für die gleiche Eigenschaft ändern würden.
 
 Nun sollen die Systeme so dicht wie möglich gesetzt werden, ohne das
 Überlappungen vorkommen.  Die einfachste Möglichkeit, das zu tun, wäre
-es, alle vier Wert auf 0 zu setzen.  In diesem Fall muss man nicht jeden
-Wert mit einem geschachtelten Aufruf definieren, sondern die Eigenschaft
+es, alle vier Wert auf 0 zu setzen.  Man muss jedoch nicht vier
+Werte definieren, sondern die Eigenschaft
 kann mit einem Aufruf als Aliste vollständig verändert werden:
 
 @lilypond[quote,verbatim]
 \new PianoStaff \with {
   \override StaffGrouper #'staff-staff-spacing =
-    #'((padding . 0)
-       (basic-distance . 0)
+    #'((basic-distance . 0)
        (minimum-distance . 0)
+       (padding . 0)
        (stretchability . 0))
 } <<
   \new Staff { \clef treble c''1 }
@@ -2159,14 +2161,14 @@ folgende Aufrufe äquivalent:
   #'((basic-distance . 7))
 
 \override StaffGrouper #'staff-staff-spacing =
-  #'((padding . 0)
-     (basic-distance . 7)
+  #'((basic-distance . 7)
      (minimum-distance . 0)
+     (padding . 0)
      (stretchability . 7))
 @end example
 
 Eine möglicherweise ungewollte Konsequenz hiervon ist, dass alle
-nicht initialisierten Standardwerte, die etwa in einer Initialisierungsdatei
+Standardwerte, die etwa in einer Initialisierungsdatei
 zu Beginn einer LilyPond-Partitur geladen werden, nach dem Aufruf
 rückgängig gemacht werden.  Im obigen Beispiel werden die
 initialisierten Standardwerte für @code{padding} und @code{minimum-distance}
@@ -2458,7 +2460,7 @@ eines Zolls).  Abstände des Seitenlayouts können auch in
 skalierbaren Einheiten (siehe folgenden Absatz) definiert
 werden, indem man den Befehl @code{\staff-space} an die
 Zahl hängt.  Das Seitenlayout ist genauer beschrieben in
-@ref{Seitenformatierung}.
+@ref{Seitenlayout}.
 
 Skalierbare Abstände werden immer in Einheiten von
 Notenlinienabständen angegeben, oder seltener in halben
@@ -2499,7 +2501,7 @@ Handbuch zum Lernen:
 @rlearning{Länge und Dicke von Objekten}.
 
 Notationsreferenz:
-@ref{Seitenformatierung},
+@ref{Seitenlayout},
 @ref{Die Notensystemgröße einstellen}.
 
 
@@ -3218,10 +3220,10 @@ auftreten.
 
 Das kleine Oktavierungssymbol von oktavierten Notenschlüsseln
 wird durch das @code{OctavateEight}-Layout-Objekt erstellt.
-Seine Sichtbarkeit wird unabhängig vom @code{Clef}-Objekt
-bestimmt, sodass notwendige Veränderungen von @code{break-visibility}
-sowohl für @code{Clef} als auch für @code{OctavateEight} vorgenommen
-werden müssen, damit derartige Schlüssel entfernt werden.
+Seine Sichtbarkeit wird automatisch vom @code{Clef}-Objekt
+geerbt, sodass Veränderungen von @code{break-visibility}
+des @code{OctavateEight}-Layout-Objekts nicht auch noch
+für unsichtbare Schlüssel zusätzlich vorgenommen werden müssen.
 
 Bei expliziten Schlüsseländerungn kontrolliert die
 @code{explicitClefVisibility}-Eigenschaft wohl das

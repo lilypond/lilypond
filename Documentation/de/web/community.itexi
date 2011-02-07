@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish:  42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -389,14 +389,14 @@ weniger Noten demonstriert werden!}
 Hier ein Beispiel eines guten bug reports:
 
 @example
-%% the octavation command doesn't
-%% change the output at all!
+% Accidentals should be printed for only
+% the first note in a tie, but this version
+% prints flats on both notes.
+\version "2.10.1"
 
-\version "2.10.0"
-\relative c''' @{
-  c1
-  #(set-octavation 1)
-  c1
+\relative c'' @{
+ bes1 ~
+ bes1
 @}
 @end example
 
@@ -437,6 +437,10 @@ Fehlerberichtes hinzu.
 
 @end itemize
 @divEnd
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading 4. Schritt: Auf Antwort warten
 
 Wenn Ihr Fehlerbericht an die Liste versandt wurde, untersucht
 unser Fehlerbeseitiger (engl. bug squad) den Bericht.  Warten Sie
@@ -447,6 +451,18 @@ welche Nummer er bekommen hat.
 Sie können den Fehler so markieren, dass Sie immer eine E-Mail
 erhalten, wenn Aktivität für diesen Fehler vorkommt.  Hierzu müssen
 Sie einen Google-Account haben.
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Optionale Hilfe: Das gewünschte Verhalten erklären
+
+Wenn ein Fehlerbericht einmal dem Tracker hinzugefügt wurde, kann es
+sehr hilfreich sein, wenn wir sehen können, wie die gewünschte Ausgabe
+aussieht.  Sie können beliebig Code, Text und Bilder (auch mit
+anderen Programmen erstellt) hinzufügen, die das gewünschte Bild
+demonstrieren.
+
 @divEnd
 
 

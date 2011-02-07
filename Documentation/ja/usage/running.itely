@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 9a65042d49324f2e3dff18c4b0858def81232eea
+    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -14,7 +14,7 @@
 @c Translation status: post-GDP
 
 @node lilypond を実行する
-@chapter lilypond を実行する
+@chapter @command{lilypond} を実行する
 @translationof Running lilypond
 
 この章では LilyPond を実行するための細かな規定について詳述します。
@@ -23,6 +23,7 @@
 * 通常の使用方法::
 * コマンド ラインの使用方法::
 * エラー メッセージ::
+* 一般的なエラー::
 @end menu
 
 
@@ -31,9 +32,9 @@
 @translationof Normal usage
 
 たいていのユーザは GUI から LilyPond を実行します。@c
-FIXME FIXME FIXME を@c
-@c @rlearning{最初のステップ} を@c
-まだ読んでいないのなら、それを読んでください。
+まだ実行したことがないのであれば @rlearning{Tutorial} を読んでください。
+lilypond ファイルを書くのに代替のエディタを使用するのであれば、@c
+そのエディタのドキュメントを読んでください。
 
 
 @node コマンド ラインの使用方法
@@ -49,10 +50,8 @@ FIXME FIXME FIXME を@c
 Windows ユーザは @q{DOS シェル} という言葉の方が馴染みがあるかもしれません。@c
 MaxOS@tie{}X ユーザは @q{ターミナル} や @q{コンソール} という言葉の方が@c
 馴染みがあるかもしれません。@c
-MaxOS@tie{}X ユーザは 
-FIXME
-@c @ref{MacOS X のためのセットアップ} 
-も読んでおくべきです。
+MaxOS@tie{}X ユーザは追加のセットアップが必要かもしれません。@c
+@rweb{MacOS X} を参照してください。
 
 OS のコマンド ラインの使用方法についての説明は@c
 このマニュアルが扱う範囲ではありません。@c
@@ -63,16 +62,13 @@ OS のコマンド ラインの使用方法についての説明は@c
 * lilypond を呼び出す::
 * lilypond のコマンド ライン オプション::
 * 環境変数::
+* LilyPond in chroot jail::
 @end menu
 
 @node lilypond を呼び出す
-@subsection @command{lilypond} を呼び出す
+@unnumberedsubsec @command{lilypond} を呼び出す
 @translationof Invoking lilypond
 
-@cindex Invoking @command{lilypond} (@command{lilypond} を呼び出す)
-@cindex command line options for @command{lilypond} (@command{lilypond} のためのコマンド ライン オプション)
-@cindex options, command line (コマンド ライン オプション)
-@cindex switches (切り換え)
 
 @command{lilypond} 実行可能形式ファイルは@c
 コマンド ラインから以下のように呼び出されます。
@@ -110,9 +106,37 @@ lilypond は出力として @file{filename.ps} と @file{filename.pdf} を作り
 @var{base}@file{-violin.pdf} と @var{base}@file{-cello-1.pdf} を出力します。
 
 
+@unnumberedsubsubsec 標準シェル コマンド
+
+シェル (例えばコマンド ウィンドウ) がリダイレクトをサポートしているのであれば、@c
+以下のコマンドでコンソール出力をファイルにリダイレクトすると役に立つかもしれません。
+
+@itemize
+
+@item
+@code{lilypond file.ly 1>stdout.log} 通常出力をリダイレクトします
+
+@item
+@code{lilypond file.ly 2>stderr.log} エラー メッセージをリダイレクトします。
+
+@item
+@code{lilypond file.ly &>all.log} すべての出力をリダイレクトします
+
+@end itemize
+
+あなたの使用しているシェルがこれらのオプションをサポートしているかどうか、@c
+あるいは構文が異なるかどうかは、そのシェルのドキュメントを調べてください。@c
+これらはシェル コマンドであり、lilypond とは無関係です。
+
+
 @node lilypond のコマンド ライン オプション
-@subsection @command{lilypond} のコマンド ライン オプション
+@unnumberedsubsec @command{lilypond} のコマンド ライン オプション
 @translationof Command line options for lilypond
+
+@cindex Invoking @command{lilypond} (@command{lilypond} を呼び出す)
+@cindex command line options for @command{lilypond} (@command{lilypond} のためのコマンド ライン オプション)
+@cindex options, command line (コマンド ライン オプション)
+@cindex switches (切り換え)
 
 以下のオプションがサポートされます:
 
@@ -123,7 +147,7 @@ lilypond は出力として @file{filename.ps} と @file{filename.pdf} を作り
 複数の @code{-e} オプションが与えられた場合、それらは順番に評価されます。
 
 表記は @code{guile-user} モジュールの中で評価されます。@c
-そのため、@var{expr} の中で definition を使いたいのならば、@c
+そのため、@var{expr} の中で定義を使いたいのならば、@c
 @code{.ly} ファイルに以下をインクルードして:
 
 @example
@@ -173,6 +197,8 @@ Scheme 値 @var{val} をセットします。@c
 @item help
 @code{lilypond -dhelp} を実行すると@c
 使用可能な @code{-d} オプションがすべて表示されます。
+
+@cindex paper-size, command line (コマンドラインで paper-size を指定する)
 
 @item paper-size
 このオプションはデフォルトの用紙サイズをセットします。
@@ -406,7 +432,7 @@ GNU LilyPond の保証責任を表示します。@c
 @end table
 
 @node 環境変数
-@subsection 環境変数
+@unnumberedsubsec 環境変数
 @translationof Environment variables
 
 @cindex LANG
@@ -421,7 +447,7 @@ GNU LilyPond の保証責任を表示します。@c
 サブディレクトリを保持しているべきです。
 
 @item LANG
-これはワーニング メッセージの言語を選択します。
+これは警告メッセージの言語を選択します。
 
 @item LILYPOND_GC_YIELD
 この変数を使ってメモリ使用量とパフォーマンスを調節することができます。@c
@@ -431,6 +457,11 @@ GNU LilyPond の保証責任を表示します。@c
 デフォルト値は @code{70} です。
 
 @end table
+
+@node LilyPond in chroot jail
+@unnumberedsubsec LilyPond in chroot jail
+
+@untranslated
 
 
 @node エラー メッセージ
@@ -444,7 +475,7 @@ GNU LilyPond の保証責任を表示します。@c
 @table @emph
 
 @item Warning
-@cindex warning (ワーニング)
+@cindex warning (警告)
 何か疑わしいことがあります。@c
 あなたが何か普通でないことをリクエストしている場合は、@c
 そのメッセージを理解して、それを無視することができます。@c
@@ -511,3 +542,185 @@ test.ly:2:19: error: not a duration: 5
 入力ファイルの示された行にエラーを見つけることができない場合は、@c
 示された位置の 1 行か 2 行上をチェックしてみてください。
 
+エラーについての更なる情報が @ref{一般的なエラー} で提供されています。
+
+
+@node 一般的なエラー
+@section 一般的なエラー
+@translationof Common errors
+
+以下で説明するエラーがしばしば発生しますが、@c
+その原因は明白でなかったり、見つけにくかったりします。@c
+目を通しておくと、それらのエラーに対処しやすくなります。
+
+
+@menu
+* 楽譜がページからはみ出る::
+* 余計な譜が表示される::
+* 見かけ上 ../ly/init.ly のエラーとなる::
+* エラー メッセージ Unbound variable %::
+* エラー メッセージ FT_Get_Glyph_Name::
+* 警告 -- Warning staff affinities should only decrease::
+@end menu
+
+@node 楽譜がページからはみ出る
+@unnumberedsubsec 楽譜がページからはみ出る
+@translationof Music runs off the page
+
+楽譜がページの右マージンを越えてはみ出る、あるいは過度に密集するのは、@c
+ほぼ間違いなく音符の演奏時間に誤りがあり、@c
+小節の最後の音符が小節線を越えてしまうためです。@c
+ある小節の最後の音符が自動的に挿入される小節線の所で終わらなくても@c
+無効ではありません。@c
+なぜなら、その音符は次の小節に持ち越されるためです。@c
+しかしながら、そのような持ち越しが発生する小節が長く続くと、@c
+楽譜は密集して表示されたり、ページからはみ出たりします。@c
+ページからはみ出るのは、@c
+自動改行を挿入できるのは正しく終了する小節
+(その小節のすべての音符が小節の中で終了しています)
+の後ろだけだからです。@c
+
+@warning{誤った演奏時間は改行を抑制し、結果として楽譜が過度に密集したり、c@
+ページからはみ出たりする可能性が生じます。}
+
+小節チェックを使用していれば、誤った演奏時間を簡単に見つけることができます。@c
+@c @ruser{小節と小節番号のチェック}
+@ruser{Bar and bar number checks} を参照してください。
+
+あなたがそのような音符が持ち越される小節を続けることを意図しているのであれば、@c
+改行させたい場所に不可視の小節線を挿入する必要があります。@c
+詳細は
+@c @ruser{小節線}
+@ruser{Bar lines} を参照してください。
+
+
+@node 余計な譜が表示される
+@unnumberedsubsec 余計な譜が表示される
+@translationof An extra staff appears
+
+コンテキストが @code{\new} や @code{\context} で明示的に作成されていない場合、@c
+既存のコンテキストには適用できないコマンドに遭遇した時点で@c
+暗黙的に作成されます。@c
+単純な楽譜では、コンテキストの自動作成は有用であり、@c
+LilyPond マニュアルのほとんどの例はこの手法を用いています。@c
+しかしながら、コンテキストの暗黙的な作成はしばしば予期しない譜や楽譜を@c
+発生させてしまいます。@c
+例えば、以下のコードは後に続く譜の中にあるすべての符頭を赤にすることを@c
+意図していますが、@c
+結果は 2 つの譜が表示され、下の譜の符頭の色はデフォルトの黒のままとなります。
+
+@lilypond[quote,verbatim,relative=2]
+\override Staff.NoteHead #'color = #red
+\new Staff { a }
+@end lilypond
+
+これは、(符頭色の) オーバライドが処理される時に
+@code{Staff} コンテキストが存在していないため、@c
+@code{Staff} コンテキストが暗黙的に作成され、@c
+そのコンテキストにオーバライドが適用されるからです。@c
+その後に @code{\new Staff} コマンドにより@c
+もう 1 つ別の @code{Staff} コンテキストが作成され、@c
+そこに音符が配置されます。@c
+すべての符頭を赤にする正しいコードは以下のようになります:
+
+@lilypond[quote,verbatim,relative=2]
+\new Staff {
+  \override Staff.NoteHead #'color = #red
+  a
+}
+@end lilypond
+
+次の例では、@code{\repeat} コマンドの中に @code{\relative} コマンドが@c
+置かれているため、譜が 2 つ生じています。@c
+@code{\repeat} コマンドが 2 つの @code{\relative} ブロックを生成し、@c
+それぞれが暗黙的に @code{Staff} ブロックと @code{Voice} を作成するため、@c
+2 番目の譜は右にずれています。
+
+@lilypond[quote,verbatim]
+\repeat unfold 2 {
+  \relative c' { c4 d e f }
+}
+@end lilypond
+
+明示的に @code{Voice} をインスタンス化することで、この問題は修正されます:
+
+@lilypond[quote,verbatim]
+\new Voice {
+  \repeat unfold 2 {
+    \relative c' { c4 d e f }
+  }
+}
+@end lilypond
+
+
+@node 見かけ上 ../ly/init.ly のエラーとなる
+@unnumberedsubsec 見かけ上 @code{../ly/init.ly} のエラーとなる
+@translationof Apparent error in @code{../ly/init.ly}
+
+入力ファイルが正しく構成されていないと、@c
+@file{../ly/init.ly} に構文エラーがあるという@c
+様々な原因のはっきりしないエラー メッセージが表示されます。@c
+例えば、括弧やクォート記号の数が一致していない場合に@c
+このようなエラーが発生します。
+
+最も一般的なエラーは @code{score} ブロックの終わりに括弧が見当たらない
+(missing brace, (@code{@}})) というエラーです。@c
+この場合の解決方法は明らかです:
+@code{score} ブロックが正しく閉じられているかチェックしてください。@c
+入力ファイルの正しい構造は @rlearning{LilyPond 入力ファイルの仕組み}
+で記述されています。@c
+括弧の一致を自動的にハイライトするエディタを使うと、@c
+そのようなエラーを防ぐのに役立ちます。
+
+次に一般的なエラーの原因は、歌詞ブロックの最後の音節と閉じ括弧 (@code{@}})
+の間に空白が無いために発生します。@c
+空白が無ければ、この閉じ括弧は音節の一部と見なされます。@c
+常に @emph{すべての} 括弧の前後に空白を入れることをお勧めします。@c
+歌詞を用いる場合にこのことが重要になります。@c
+@ruser{Entering lyrics} を参照してください。
+
+
+@node エラー メッセージ Unbound variable %
+@unnumberedsubsec エラー メッセージ Unbound variable %
+@translationof Error message Unbound variable %
+
+@emph{Scheme} 形式のコメントではなく @emph{LilyPond} 形式のコメント@c
+を持つ Scheme ルーチンが呼び出されると、@c
+コンソール出力やログ ファイルの最後にエラー メッセージ
+@qq{Unbound variable %} が @qq{GUILE signalled an error ...}
+と共に表示されます。@c
+
+LilyPond 形式のコメントはパーセント記号 (@code{%}) で始まり、@c
+Scheme ルーチンの中で使うことはできません。@c
+Scheme 形式のコメントはセミコロン (@code{;}) で始まります。
+
+
+@node エラー メッセージ FT_Get_Glyph_Name
+@unnumberedsubsec エラー メッセージ FT_Get_Glyph_Name
+@translationof Error message FT_Get_Glyph_Name
+
+入力ファイルが非 ASCII キャラクタを保持していて、@c
+UTF-8 エンコードで保存されていない場合、@c
+このエラー メッセージがコンソール出力やログ ファイルに表示されます。@c
+詳細は、
+@c @ruser{テキスト エンコーディング}
+@ruser{Text encoding} を参照してください。
+
+
+@node 警告 -- Warning staff affinities should only decrease
+@unnumberedsubsec 警告 -- Warning staff affinities should only decrease
+@translationof Warning staff affinities should only decrease
+
+この警告は、譜刻された出力の中に譜が無い場合に表示されます。@c
+例えば、リード譜に @code{ChordName} コンテキストと @code{Lyrics} コンテキスト@c
+しか無い場合です。@c
+この警告は、入力の始めに以下を挿入することで@c
+譜として振舞うコンテキストを作ることで回避できます:
+
+@example
+\override VerticalAxisGroup #'staff-affinity = ##f
+@end example
+
+@noindent
+詳細は @ruser{Flexible vertical spacing within systems} の中の
+@qq{Spacing of non-staff lines} を参照してください。

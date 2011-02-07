@@ -15,11 +15,12 @@ depth = "../"
 ### translation data -- shouldn't be here; see issue
 ### http://code.google.com/p/lilypond/issues/detail?id=1050
 
-langs = ['', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl']
+#langs = ['', 'cs', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl', 'zh']
+langs = ['', 'cs', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl', 'zh']
 
 # Get/update node translations
 '''
-for i in de es fr hu it ja nl; do
+for i in cs de es fr hu it ja nl zh; do
     echo "'"$i"': {"
     (echo '--' ; grep -nH -B1 translationof Documentation/$i/web/* ) \
         | pytt '^--\n.*@(?:unnum|sub)[^ ]* (.*)\n.*@translationof (.*)\n' "'\2': '\1',\n" \
@@ -119,8 +120,6 @@ translations = {
         'Snippets': 'Kódrészletek',
         'Web': 'Web',
         'Changes': 'Változások',
-
-        #TODO
         'Extending': 'Bővítés',
         'Internals': 'Belső működés',
         'Contributor': 'Közreműködés',
@@ -128,12 +127,12 @@ translations = {
         ' (split HTML)': ' (HTML oldalak)',
         ' (big HTML)': ' (egy nagy HTML oldal)',
 
-        'Regression tests for ': 'Regressziós tesztek a következőhöz: ',
-        'PDF of regtests for ': 'Regressziós tesztek PDF formátumban a következőhöz: ',
-        'MusicXML Regression tests for ': 'MusicXML regressziós tesztek a következőhöz: ',
-        'PDF of MusicXML regtests for ': 'MusicXML regressziós tesztek PDF formátumban a következőhöz: ',
+        'Regression tests for ': 'Regressziós tesztek - verzió: ',
+        'PDF of regtests for ': 'PDF formátumban - verzió: ',
+        'MusicXML Regression tests for ': 'MusicXML regressziós tesztek - verzió: ',
+        'PDF of MusicXML regtests for ': 'PDF formátumban - verzió: ',
 
-        'Doc tarball for ': 'Doc tarball a következőhöz: ',
+        'Doc tarball for ': 'Tömörített csomag - verzió: ',
         ' (did not exist in 2.12)': ' (nem létezett a 2.12-es verzióban)',
         },
     'ja': {
@@ -192,6 +191,32 @@ translations = {
         'Doc tarball for ': 'Tarball met documentation voor ',
         ' (did not exist in 2.12)': ' (bestond nog niet in 2.12)',
      },
+    'zh': {
+        'Source': 0,
+        'Learning': 0,
+        'Music glossary': 0,
+        'Essay': 0,
+        'Notation': 0,
+        'Usage': 0,
+        'Snippets': 0,
+        'Web': 0,
+        'Changes': 0,
+
+        'Extending': 0,
+        'Internals': 0,
+        'Contributor': 0,
+
+        ' (split HTML)': 0,
+        ' (big HTML)': 0,
+
+        'Regression tests for ': 0,
+        'PDF of regtests for ': 0,
+        'MusicXML Regression tests for ': 0,
+        'PDF of MusicXML regtests for ': 0,
+
+        'Doc tarball for ': 0,
+        ' (did not exist in 2.12)': 0,
+        },
     }
 
 

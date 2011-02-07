@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 36dd3392bcc0462f7d8af5f5a8bf24c544e43cda
+    Translation of GIT committish: 8656e359d629aed6990bb8d8d3da8eac2d2c311e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -874,8 +874,9 @@ otras voces y dar formato a las notas guía.
 @cindex instrumento, nombre abreviado
 
 Se pueden imprimir los nombres de los instrumentos en el lado
-izquierdo de los pentagramas dentro de los contextos @code{Staff} y
-@code{PianoStaff}.  El valor de @code{instrumentName} se usa para el
+izquierdo de los pentagramas dentro de los contextos
+@code{Staff}, @code{PianoStaff}, @code{StaffGroup}, @code{GrandStaff}
+y @code{ChoirStaff}.  El valor de @code{instrumentName} se usa para el
 primer pentagrama, y el valor de @code{shortInstrumentName} se usa
 para todos los pentagramas siguientes.
 
@@ -954,7 +955,7 @@ consulte @ref{Variables de \paper para desplazamientos y sangrados}.
 @cindex nombres de instrumento, añadir a otros contextos
 
 Para añadir nombres de instrumento a otros contextos (como
-@code{GrandStaff}, @code{ChoirStaff} o @code{StaffGroup}), debemos
+@code{ChordNames} o @code{FiguredBass}), debemos
 añadir el grabador @code{Instrument_name_engraver} a dicho
 contexto. Para ver más detalles, consulte @ref{Modificar los complementos (plug-ins) de contexto}.
 

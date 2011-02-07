@@ -1,0 +1,544 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: zh -*-
+@c This file is part of web.texi
+@ignore
+    Translation of GIT committish: 676dd9eed5f81540f71c3e3e55666c60f7af36ac
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node 手册
+@unnumbered 手册
+@translationof Manuals
+
+@macro details{reference}
+@spanClass{detail}
+(@ref{\reference\, details of \reference\})
+@spanEnd
+@end macro
+
+@divClass{heading-center}
+@ifclear web_version
+  @heading LilyPond @version 手册
+@end ifclear
+@ifset web_version
+  @heading LilyPond @versionStable 手册
+@end ifset
+
+@divEnd
+
+@divClass{link-headings}
+
+@divClass{column-center-top}
+
+
+@subheading 简介
+
+@itemize
+
+@item
+@ref{Text input}:
+LilyPond 是@strong{基于文本} 的音乐雕版印刷程序。首先读这里！
+
+@item
+@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Learning}}
+ @qq{must-read} LilyPond 的简单介绍。
+@details{Learning}
+
+@item
+@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossary}}
+@emph{(optional reading)} 音乐术语和翻译。
+@details{Glossary}
+
+@item
+@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
+@emph{(optional reading)} 计算机雕版印刷程序的背景信息。
+@details{Essay}
+
+@end itemize
+
+@divEnd
+
+@divClass{column-left-top}
+
+@subheading 正式用法
+
+@itemize
+
+@item
+@ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notation}}
+语法参考。
+@details{Notation}
+
+@item
+@ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Usage}}
+运行程序。
+@details{Usage}
+
+@item
+@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippets}}
+短的技巧和窍门。
+@details{Snippets}
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-right-top}
+
+@subheading 不常用的用法
+
+@itemize
+
+@item
+@ref{FAQ}:
+常见问题。
+
+@item
+@ref{Top, Web}:
+本文档。
+@details{Web}
+
+@item
+@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Changes}}
+有什么新东西？
+@details{Changes}
+
+@item
+@ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extending}}
+有想像力的调整。
+@details{Extending}
+
+@item
+@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
+调整参考。
+@details{Internals}
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+
+@subheading 其它资料
+@itemize
+
+@item
+@ref{Translated}:
+针对非英语读者的翻译情况。
+
+@item
+@ref{All}:
+可下载和旧的手册。
+
+@item
+@ref{Development}:
+不稳定版的手册
+
+@item
+@ref{FDL}:
+这些文档在 GNU 自由文档许可证下发行。
+
+@end itemize
+
+@divEnd
+
+@divEnd
+
+
+@divClass{hide}
+
+@menu
+* 学习::        学习。
+* 术语表::      术语表。
+* 文章::        文章。
+* 五线谱::      参考。
+* 使用::        使用。
+* 片断::        片断。
+* 常见问题::    常见问题。
+* Web::         Web.
+* 变化::        新闻。
+* 扩展::        编程。
+* 内部::        内部。
+* 翻译::        翻译。
+* 所有::        所有手册。
+* FDL::         许可证。
+@end menu
+
+@divEnd
+
+
+@c TRANSLATORS, most of the text in this file came from
+@c LM 1.1 About the documentation  (before this section was
+@c removed in July 2009).
+
+@node 学习
+@unnumberedsec 学习
+@translationof Learning
+
+@divClass{column-left-top}
+@subheading 学习手册
+本书解释了如何开始学习 LilyPond，同时也用简单的术语解释了一些关键的概念。
+你应该顺序地读这些章节。
+
+在每一大段的后面有@strong{参见}一段，它包含有对其它大段的交叉参考：
+在第一次阅读的时候你不应该去看这些交叉参考。当你读完所有手册，你可能希望
+再读某些段，并去看些交叉参考来得到更多的信息。
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Learning, learning,
+  @rlearningnamed{Top,Learning},
+  @manualStableLearningSplit,
+  @manualStableLearningBig, 1.5 MB,
+  @manualStableLearningPdf, 3 MB}
+
+@divEnd
+
+@node 术语表
+@unnumberedsec 术语表
+@translationof Glossary
+
+@divClass{column-left-top}
+@subheading 术语表
+这解释了音乐术语也包括了不同语言的翻译。如果你对五线谱不熟悉，或者对音乐术语（尤其如果你不是以英语为母语的人）不熟悉，强烈建议你看术语表。
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Music glossary, music-glossary,
+  @rglosnamed{Top,Music glossary},
+  @manualStableGlossarySplit,
+  @manualStableGlossaryBig, 1 MB,
+  @manualStableGlossaryPdf, 1.5 MB}
+
+@divEnd
+
+
+@node 文章
+@unnumberedsec 文章
+@translationof Essay
+
+
+@divClass{column-left-top}
+@subheading 文章
+
+本书给出了音乐出版的简要历史，随后检查了 LilyPond 的雕版印刷技术。
+也对比了 LilyPond 和其它雕版印刷系统的不同。
+
+@warning{更详细的印刷例子都是以PDF的形式进行分析，因为PDF版本有更高的分辨率。}
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Essay, essay,
+  @ressaynamed{Top,Essay},
+  @manualStableEssaySplit,
+  @manualStableEssayBig, 2 MB,
+  @manualStableEssayPdf, 2.5 MB}
+
+@divEnd
+
+@node 五线谱
+@unnumberedsec 五线谱
+@translationof Notation
+
+@divClass{column-left-top}
+@subheading 五线谱参考
+本书解释了 LilyPond 所有生成五线谱的命令。
+
+@warning{五线谱参考假设读者知道学习手册里的基本资料，也熟悉在术语表里
+英语音乐术语。}
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Notation, notation,
+  @rusernamed{Top,Notation},
+  @manualStableNotationSplit,
+  @manualStableNotationBig, 7 MB,
+  @manualStableNotationPdf, 18 MB}
+
+@divEnd
+
+
+@node 使用
+@unnumberedsec 使用
+@translationof Usage
+
+@divClass{column-left-top}
+@subheading 使用手册
+
+这本书解释如何执行程序，如何让 LilyPond 五线谱和其它程序集成，也提出
+一些为了有效使用的 @qq{best practices} 。
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Usage, usage,
+  @rprogramnamed{Top,Usage},
+  @manualStableUsageSplit,
+  @manualStableUsageBig, 300 KB,
+  @manualStableUsagePdf, 400 KB}
+
+@divEnd
+
+@node 片断
+@unnumberedsec 片断
+@translationof Snippets
+
+@divClass{column-left-top}
+@subheading 片断
+
+这里显示的 LilyPond 片断集是从
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
+(LSR)来的。所有的片断都是在公共域内。
+
+注意：本文档不是 LSR 的精确子集。LSR 运行在 LilyPond 的稳定版上，所以任何
+发行版中有关新特性的示例必须单独添加。它们保存在 @file{Documentation/snippets/new/}  LilyPond 的源代码树里。
+
+The list of snippets for each subsection of the Notation are also
+linked from the @strong{参见} portion.
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Snippets, snippets,
+  @rlsrnamed{Top,Snippets},
+  @manualStableSnippetsSplit,
+  @manualStableSnippetsBig, 2.5 MB,
+  @manualStableSnippetsPdf, 8 MB}
+
+@divEnd
+
+@node 常见问题
+@unnumberedsec 常见问题
+@translationof FAQ
+
+@divClass{column-center-top}
+@subheading 问题简介
+
+@subsubheading Where are the graphical canvas, menus, and toolbars?
+
+LilyPond 要求你以文本的方式写音乐。请阅读有关我们的 @ref{Text input}.
+
+@subsubheading 这里有很多文档！我都要读吗？
+
+你需要读 @ref{Learning, Learning manual}。对于其它文档，你只需要读那些和
+你创作有关的段落。
+
+@subsubheading 那里仍然有许多读物！这值得吗？
+
+请你自己决定；那些你可能想要用 LilyPond 的原因在 @ref{Introduction}里。
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading 使用的问题
+
+@subsubheading 有些不工作！我如何修正？
+
+这在 @rprogram{Troubleshooting}里解释。
+
+@subsubheading 为什么你要改变语法？
+
+这在 @rprogram{Why does the syntax change?} 里解释。
+
+@divEnd
+@node Web
+@unnumberedsec Web
+@translationof Web
+
+@divClass{column-left-top}
+@subheading Web
+
+本手册提供了有关 LilyPond 的通用信息。它也包含了有关不同社区论坛，缺陷
+报告和开发的信息。
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading 读它
+
+@subsubheading 最新手册
+
+@divClass{keep-bullets}
+@itemize
+@ref{Top,Web}
+@end itemize
+@divEnd
+
+@subsubheading 在 @versionDevel 里的 Web 手册
+
+@docLinksBare{Web, web,
+  @ref{Top,Web},
+  @manualDevelWebSplit,
+  @manualDevelWebBig, 1 MB,
+  @manualDevelWebPdf, 2 MB}
+
+@divEnd
+
+@node 变化
+@unnumberedsec 变化
+@translationof Changes
+
+@divClass{column-left-top}
+@subheading 变化
+
+这总结了从上一个稳定版的 LilyPond 之后的重要变化和新特性。
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Changes, changes,
+  @rchangesnamed{Top,Changes},
+  @manualStableChangesSplit,
+  @manualStableChangesBig, 6 KB,
+  @manualStableChangesPdf, 200 KB}
+
+@divEnd
+
+@node 扩展
+@unnumberedsec 扩展
+@translationof Extending
+
+@divClass{column-left-top}
+@subheading 扩展 LilyPond
+
+本手册解释了如何为 Lilypond 写扩展程序。
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Extending, extending,
+  @rextendnamed{Top,Extending},
+  @manualStableExtendingSplit,
+  @manualStableExtendingBig, 200 KB,
+  @manualStableExtendingPdf, 400 KB}
+
+@divEnd
+
+@node 内部
+@unnumberedsec 内部
+@translationof Internals
+
+@divClass{column-left-top}
+@subheading 内部参考
+
+这是一个交叉链接页面的集合，这些页面把每一个 LilyPond 的类，对象和函数
+的本质细节进行了归档。它是从格式化好的源码中直接生成的。
+
+几乎所有格式化好的内部函数用户可以直接使用。例如，绝大部分控制粗细值，距
+离等的变量可以在输入文件中改变。LilyPond 有大量格式化选项，所有这些选项
+都在这份文档中进行了描述。每一个五线谱的段都有一个子段 @b{参见}，它指向
+生成的文档。
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Internals, internals,
+  @rinternalsnamed{Top,Internals},
+  @manualStableInternalsSplit,
+  @manualStableInternalsBig, 2.5 MB,
+  @manualStableInternalsPdf, 2.8 MB}
+
+@divEnd
+
+@node 翻译
+@unnumberedsec 翻译
+@translationof Translated
+
+@divClass{column-center-bottom}
+@subheading 翻译状态
+@include translations.itexi
+@divEnd
+
+@node 所有
+@unnumberedsec 所有
+@translationof All
+
+@divClass{column-left-top}
+@subheading 可下载的版本
+@ifclear web_version
+可下载的压缩包只在 @uref{http://lilypond.org} 可见。
+@end ifclear
+@ifset web_version
+
+@divClass{keep-bullets}
+@itemize
+
+@item @doctarballStable
+
+@end itemize
+
+@divEnd
+@end ifset
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading 前一个稳定版
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{http://lilypond.org/doc/v2.12/Documentation/,
+LilyPond 2.12 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.11/Documentation/,
+LilyPond 2.11 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.10/Documentation/,
+LilyPond 2.10 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.8/Documentation/,
+LilyPond 2.8 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+LilyPond 2.6 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
+LilyPond 2.4 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
+LilyPond 2.2 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
+LilyPond 2.0 Documentation}
+
+@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
+LilyPond 1.8 Documentation}
+
+@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
+LilyPond 1.6 Documentation}
+
+@end itemize
+
+@divEnd
+@divEnd
+
+@node FDL
+@unnumberedsec FDL
+@translationof FDL
+
+@divClass{column-center-top}
+@subheading 文档许可证
+GNU LilyPond 在 GNU 通用公共许可证下发布。
+在 @ref{Freedom} 里我们介绍了这个许可证以及我们选择它的原因。
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading GNU 自由文档许可证 1.1
+@include fdl.itexi
+@divEnd

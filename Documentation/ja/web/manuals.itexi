@@ -21,10 +21,10 @@
 
 @divClass{heading-center}
 @ifclear web_version
-  @heading LilyPond @version 用のドキュメント
+  @heading LilyPond @version 用のマニュアル
 @end ifclear
 @ifset web_version
-  @heading LilyPond @versionStable 用のドキュメント
+  @heading LilyPond @versionStable 用のマニュアル
 @end ifset
 
 @divEnd
@@ -129,6 +129,8 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 発行されています。
 
 @end itemize
+
+@divEnd
 
 @divEnd
 
