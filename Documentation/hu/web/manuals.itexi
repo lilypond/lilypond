@@ -40,18 +40,18 @@ A LilyPond egy @strong{szöveges alapú} kottaszedő program. Ha nem vagy
 tisztában ennek a fogalmával, akkor előbb ezt olvasd el!
 
 @item
-@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Tankönyv}}
+@ifWebLinks{@manualStableLearningSplitNoName-hu,@rlearningnamed{Top,Tankönyv}}
 Bevezetés a LilyPond használatába lépésről lépésre.
 @details{Tankönyv}
 
 @item
-@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Fogalomtár}}
+@ifWebLinks{@manualStableGlossarySplitNoName-hu,@rglosnamed{Top,Fogalomtár}}
 @emph{(opcionális)}
 Zenei fogalmak gyűjteménye több nyelven.
 @details{Fogalomtár}
 
 @item
-@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Esszé}}
+@ifWebLinks{@manualStableEssaySplitNoName-hu,@ressaynamed{Top,Esszé}}
 @emph{(opcionális)}
 Háttérinformáció a kottaszedés folyamatáról és a 19. századi kottaszedés
 esztétikai elveiről.
@@ -67,19 +67,19 @@ esztétikai elveiről.
 @itemize
 
 @item
-@ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Kottaírás}}
+@ifWebLinks{@manualStableNotationSplitNoName-hu,@rusernamed{Top,Kottaírás}}
 A dokumentáció törzsanyaga; részletesen bemutatja a különböző kottaelemek
 beviteli módját.
 @details{Kottaírás}
 
 @item
-@ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Használat}}
+@ifWebLinks{@manualStableUsageSplitNoName-hu,@rprogramnamed{Top,Használat}}
 Bemutatja a alkalmazás parancssori használatát, ügyelve a különböző operációs
 rendszerek közötti különbségekre.
 @details{Használat}
 
 @item
-@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Kódrészletek}}
+@ifWebLinks{@manualStableSnippetsSplitNoName-hu,@rlsrnamed{Top,Kódrészletek}}
 Hasznos példák, tippek, trükkök.
 @details{Kódrészletek}
 
@@ -102,17 +102,17 @@ Gyakran Ismételt Kérdések.
 A weboldal.
 
 @item
-@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Változások}}
+@ifWebLinks{@manualStableChangesSplitNoName-hu,@rchangesnamed{Top,Változások}}
 A legutóbbi verzióváltás óta történt változások.
 @details{Változások}
 
 @item
-@ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Bővítés}}
+@ifWebLinks{@manualStableExtendingSplitNoName-hu,@rextendnamed{Top,Bővítés}}
 A LilyPond képességeinek kiterjesztése.
 @details{Bővítés}
 
 @item
-@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Belső működés}}
+@ifWebLinks{@manualStableInternalsSplitNoName-hu,@rinternalsnamed{Top,Belső működés}}
 A LilyPond belső szerkezetének referenciája. A kimenet finomhangolásához
 szükséges.
 @details{Belső működés}
