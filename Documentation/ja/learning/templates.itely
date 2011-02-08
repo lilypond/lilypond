@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 9a65042d49324f2e3dff18c4b0858def81232eea
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -19,21 +19,19 @@
 @appendix テンプレート
 @translationof Templates
 
-このセクションにはセットアップ済みの LilyPond 楽譜を持つテンプレートが@c
-あります。@c
+このセクションにはセットアップ済みの LilyPond 楽譜テンプレートがあります。@c
 音符を付け加えて、LilyPond を実行してください。@c
 あとは美しく譜刻された楽譜をお楽しみください！
 
-
+@c bad node name for ancient notation to avoid conflict
 @menu
 * 単一の譜表::
 * ピアノ テンプレート::
 * 弦楽四重奏::
 * 合唱::
-* Orchestral templates::
-* Ancient notation templates::
-* Jazz コンボ::
-* lilypond-book テンプレート::
+* オーケストラ テンプレート::
+* 古代の記譜法テンプレート::
+* その他のテンプレート::
 @end menu
 
 
@@ -76,12 +74,12 @@
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {piano-template-with-melody-and-lyrics.ly}
 
-@appendixsubsec 中央に歌詞を持つピアノ譜
+@appendixsubsec 歌詞が中央に配置されたピアノ譜
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
 
-@appendixsubsec 中央に強弱記号を持つピアノ譜s
+@appendixsubsec 強弱記号が中央に配置されたピアノ譜
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {piano-template-with-centered-dynamics.ly}
@@ -92,6 +90,7 @@
 @translationof String quartet
 
 @appendixsubsec 弦楽四重奏
+@translationof String quartet
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {string-quartet-template-simple.ly}
@@ -121,19 +120,41 @@
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
+@appendixsubsec 4 つの譜に配置された SATB
 
-@node Orchestral templates
-@appendixsec Orchestral templates
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{satb-choir-template---four-staves.ly}
+
+@appendixsubsec ソロと 2 パートのリフレイン
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{vocal-ensemble-template-with-verse-and-refrain.ly}
+
+@appendixsubsec Hymn tunes
+@c Hymn tunes
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{hymn-template.ly}
+
+@appendixsubsec 賛美歌
+@c Psalms
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{anglican-psalm-template.ly}
+
+
+@node オーケストラ テンプレート
+@appendixsec オーケストラ テンプレート
 @translationof Orchestral templates
 
-@appendixsubsec Orchestra, choir and piano
+@appendixsubsec オーケストラ、合唱それにピアノ
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {orchestra,-choir-and-piano-template.ly}
 
 
 @c bad node name to avoid node name conflict
-@node Ancient notation templates
-@appendixsec Ancient notation templates
+@node 古代の記譜法テンプレート
+@appendixsec 古代の記譜法テンプレート
 @translationof Ancient notation templates
 
 @appendixsubsec Transcription of mensural music
@@ -147,14 +168,14 @@
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
-@node Jazz コンボ
-@appendixsec Jazz コンボ
-@translationof Jazz combo
+@node その他のテンプレート
+@appendixsec その他のテンプレート
+@translationof Other templates
+
+@appendixsubsec Jazz コンボ
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {jazz-combo-template.ly}
-
-
 
 
 @ignore
@@ -176,7 +197,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 
 @ The `line-width' is for \header.
 @li lypond[quote,verbatim,ragged-right,line-width]
-\version "2.13.36"
+\version "2.12.0"
 \header {
   dedication = "dedication"
   title = "Title"
@@ -223,121 +244,3 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 }
 @end lilypond
 @end ignore
-
-
-@node lilypond-book テンプレート
-@appendixsec lilypond-book テンプレート
-@translationof lilypond-book templates
-
-以下のテンプレートは @code{lilypond-book} で使用するためのものです。@c
-このプログラムに馴染みがないのなら、@rprogram{LilyPond-book} を@c
-参照してください。
-
-@appendixsubsec LaTeX
-
-LilyPond 断片を LaTeX ドキュメントに含めることができます。
-
-@example
-\documentclass[]@{article@}
-
-\begin@{document@}
-
-通常の LaTeX テキスト。
-
-\begin@{lilypond@}
-\relative c'' @{
-a4 b c d
-@}
-\end@{lilypond@}
-
-さらに LaTeX テキスト。
-
-\begin@{lilypond@}
-\relative c'' @{
-d4 c b a
-@}
-\end@{lilypond@}
-\end@{document@}
-@end example
-
-@appendixsubsec Texinfo
-
-LilyPond 断片を Texinfo に含めることができます。@c
-実際、このマニュアル全体が Texinfo で書かれています。
-
-@example
-\input texinfo
-@@node Top
-
-Texinfo テキスト
-
-@@lilypond[verbatim,fragment,ragged-right]
-a4 b c d
-@@end lilypond
-
-さらに Texinfo テキスト
-
-@@lilypond[verbatim,fragment,ragged-right]
-d4 c b a
-@@end lilypond
-
-@@bye
-@end example
-
-
-@appendixsubsec xelatex
-
-@verbatim
-\documentclass{article}
-\usepackage{ifxetex}
-\ifxetex
-%xetex 特有の要素
-\usepackage{xunicode,fontspec,xltxtra}
-\setmainfont[Numbers=OldStyle]{Times New Roman}
-\setsansfont{Arial}
-\else
-%pdftex を使おうとしていないのなら、以下の内容は無意味かもしれません
-%This can be empty if you are not going to use pdftex
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{mathptmx}%Times
-\usepackage{helvet}%Helvetica
-\fi
-%ここで、pdftex も理解できるパッケージをすべて挿入することができます
-\usepackage[ngerman,finnish,english]{babel}
-\usepackage{graphicx}
-
-\begin{document}
-\title{A short document with LilyPond and xelatex}
-\maketitle
-
-\emph{text} の内部にある通常の \textbf{font} コマンドは機能します。
-なぜなら、それは \textsf{\LaTeX{} と XeteX でサポートされているから
-です。}もし \verb+\XeTeX+ のような特殊なコマンドを使用したければ、
-それらを再度 \verb+\ifxetex+ 環境の中に入れる必要があります。この方
-法で \ifxetex \XeTeX{} コマンド \else XeTeX コマンド \fi - これは通
-常の \LaTeX ではありません - を表示させることができます。
-
-通常のテキストの中では、以下のように簡単に LilyPond コマンドを使う
-ことができます:
-
-\begin{lilypond}
-{a2 b c'8 c' c' c'}
-\end{lilypond}
-
-\noindent
-などのようにです。
-
-LilyPond に設定されいる断片集のフォントは、断片の内部で設定されて
-いる必要があります。これを行うには、アプリケーション使用方法を読んで
-lilypond-book の使い方を学ぶ必要があります。
-
-\selectlanguage{ngerman}
-Auch Umlaute funktionieren ohne die \LaTeX -Befehle, wie auch alle
-anderen
-seltsamen Zeichen: __ ______, wenn sie von der Schriftart
-unterst__tzt werden.
-\end{document}
-@end verbatim
-
-
