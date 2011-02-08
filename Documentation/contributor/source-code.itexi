@@ -1029,6 +1029,9 @@ issue webpage and using @qq{Publish + Mail Comments} to add a
 (mostly bogus) comment to your issue.  The text of your comment
 will be sent to our developer mailing list.
 
+@warning{There is no automatic notification of a new patch; you
+must add a comment yourself.}
+
 @subsubheading Revisions
 
 As revisions are made in response to comments, successive patch sets
