@@ -312,6 +312,7 @@ contained staves are connected vertically."
   \consists "Span_bar_engraver"
   \consists "Span_arpeggio_engraver"
   \consists "System_start_delimiter_engraver"
+  \consists "Vertical_align_engraver"
   systemStartDelimiter = #'SystemStartBrace
   topLevelAlignment = ##f
   %% explicitly set instrument, so it is not inherited from the parent
