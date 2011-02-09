@@ -240,7 +240,8 @@ vorige noot -- of anders gezegd, de eerste @code{c} is de C
 het dichtst bij de centrale C.  Die wordt gevolgd door
 dichtstbijzijnde D ten opzichte van de vorige noot.  We
 kunnen melodieën maken die grotere intervallen hebben, nog
-steeds uitsluitend gebruikmakend van de {\relative} modus:
+steeds uitsluitend gebruikmakend van de @code{\relative}
+modus:
 
 @lilypond[verbatim,quote]
 \relative c' {
