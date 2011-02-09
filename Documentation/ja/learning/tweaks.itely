@@ -322,7 +322,7 @@ a b c
 オーバライド コマンドには @code{@bs{}overrideProperty} という@c
 もう 1 つのフォーマットがあり、時々必要となります。@c
 完璧を期すためにここでこれに言及しましたが、@c
-詳細は @ruser{Difficult tweaks} を参照してください。
+詳細は @rextend{Difficult tweaks} を参照してください。
 @c Maybe explain in a later iteration  -td
 
 @strong{@bs{}tweak コマンド}
@@ -872,7 +872,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 使用されます。@c
 任意のテキスト文字列との違い -- 任意のテキスト文字列は @code{"a text string"} 
 のような形で表記されます -- に注意してください。@c
-シンボルと文字列についてのより詳細な説明は、@ref{Scheme チュートリアル} を@c
+シンボルと文字列についてのより詳細な説明は、@rextend{Scheme tutorial} を@c
 参照してください。
 
 さて、それでは歌詞をイタリック体で譜刻するために必要となる 
@@ -939,7 +939,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 
 
 @seealso
-学習マニュアル: @ref{Scheme チュートリアル}
+学習マニュアル: @rextend{Scheme tutorial}
 
 
 @node プロパティのタイプ
@@ -1012,7 +1012,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 
 
 @seealso
-学習マニュアル: @ref{Scheme チュートリアル}
+学習マニュアル: @rextend{Scheme tutorial}
 
 
 @node オブジェクトの見た目
@@ -4085,7 +4085,7 @@ Scheme プログラミング言語は、LilyPond 内部処理へのプログラ�
 必要となるため、このマニュアルの範囲外です。@c
 Scheme 言語とこれらのファイルを理解するには、十分な知識や時間が@c
 必要であるということを知っておくべきです 
-(@ref{Scheme チュートリアル} を参照してください)。
+(@rextend{Scheme tutorial} を参照してください)。
 
 あなたがこの知識を持っているのなら、興味を持つかもしれない Scheme ファイルは@c
 以下のものです:
@@ -4147,7 +4147,7 @@ LilyPond 内部処理へのプログラム可能なインタフェイスを通�
 Scheme プログラミング言語で書かれたコードは LilyPond の内部処理に@c
 直接組み込むことができます。@c
 もちろん、それを行うには Scheme プログラミングについての基礎知識が必要であり、@c
-その手引きが @ref{Scheme チュートリアル} で提供されています。
+その手引きが @rextend{Scheme tutorial} で提供されています。
 
 多くの実現可能なことの 1 つの例としては、プロパティに定数をセットする代わりに 
 Scheme プロシージャをセットすることができます。@c
@@ -4191,7 +4191,7 @@ Scheme プロシージャをセットすることができます。@c
 }
 @end lilypond
 
-@ref{Tweaking with Scheme} に、これらのプログラム可能なインタフェイスの@c
+@rextend{Callback functions} に、これらのプログラム可能なインタフェイスの@c
 使い方を示している例がもっとあります。
 
 
