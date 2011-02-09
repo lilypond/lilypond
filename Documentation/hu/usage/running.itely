@@ -573,7 +573,7 @@ Különféle rejtélyes hibaüzenetek jelenhetnek meg, melyek a
 forrásfájl nem jól formált, például nem egyezik a nyitó és csukó kapcsos
 zárójelek vagy idézőjelek száma.
 
-A leggyakoribb hiba a hiányzó @code{@}} karakter egy blokk, pl. @code{\score}} blokk
+A leggyakoribb hiba a hiányzó @code{@}} karakter egy blokk, pl. @code{\score} blokk
 végén. A megoldás kézenfekvő: ellenőrizni kell, hogy minden kapcsos zárójelnek
 megvan-e a párja. A @rlearning{Hogyan működnek a LilyPond bemeneti fájlok?}
 lecke írja le a forrásfájlok helyes szerkezetét. Egy olyan szövegszerkesztő
