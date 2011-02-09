@@ -40,7 +40,7 @@ A LilyPond egy @strong{szöveges alapú} kottaszedő program. Ha nem vagy
 tisztában ennek a fogalmával, akkor előbb ezt olvasd el!
 
 @item
-@ifWebLinks{@manualStableLearningSplitNoName-hu,@rlearningnamed{Top,Tankönyv}}
+@ifWebLinks{@manualDevelLearningSplitNoName-hu,@rlearningnamed{Top,Tankönyv}}
 Bevezetés a LilyPond használatába lépésről lépésre.
 @details{Tankönyv}
 
@@ -73,7 +73,7 @@ beviteli módját.
 @details{Kottaírás}
 
 @item
-@ifWebLinks{@manualStableUsageSplitNoName-hu,@rprogramnamed{Top,Használat}}
+@ifWebLinks{@manualDevelUsageSplitNoName-hu,@rprogramnamed{Top,Használat}}
 Bemutatja a alkalmazás parancssori használatát, ügyelve a különböző operációs
 rendszerek közötti különbségekre.
 @details{Használat}
