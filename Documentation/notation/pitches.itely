@@ -1467,7 +1467,7 @@ each style, we use the following example:
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1550,7 +1550,7 @@ last@tie{}@code{c}:
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1623,7 +1623,7 @@ individual musicians.  If the staff is to be used by one musician
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1674,7 +1674,10 @@ musicB = {
 @funindex modern
 
 This rule corresponds to the common practice in the twentieth
-century.  It prints the same accidentals as @code{default}, with
+century.  It omits some extra natural signs, which were
+traditionally prefixed to accidentals that reduce or reverse
+the direction of a previous alteration.  The @code{modern} rule
+prints the same accidentals as @code{default}, with
 two exceptions that serve to avoid ambiguity: after temporary
 accidentals, cancellation marks are printed also in the following
 measure (for notes in the same octave) and, in the same measure,
@@ -1686,7 +1689,7 @@ the upper staff:
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1750,7 +1753,7 @@ defining the @code{cautionary-style} property of
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1817,7 +1820,7 @@ accidental in a different voice in the previous measure:
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1878,7 +1881,7 @@ typeset as cautionaries.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1943,7 +1946,7 @@ This accidental style applies to the current @code{GrandStaff} or
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2003,7 +2006,7 @@ typeset as cautionaries.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2062,7 +2065,7 @@ if the note is immediately repeated.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2119,7 +2122,7 @@ accidentals are printed as cautionary accidentals.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2179,7 +2182,7 @@ but they are canceled across voices in the same @code{Staff}.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2236,7 +2239,7 @@ accidentals are printed as cautionary accidentals.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2296,7 +2299,7 @@ including natural signs.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2357,7 +2360,7 @@ key signature, except if the note is immediately repeated.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2418,7 +2421,7 @@ This is the same as @code{default} but with accidentals lasting
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2471,14 +2474,13 @@ musicB = {
 This is the opposite of @code{no-reset}: Accidentals are not
 remembered at all -- and hence all accidentals are typeset
 relative to the key signature, regardless of what came before in
-the music.  Unlike @code{dodecaphonic}, this rule never prints
-any naturals.
+the music.
 
 @lilypond[quote]
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2521,12 +2523,6 @@ musicB = {
 }
 @end lilypond
 @end table
-
-@snippets
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
-
 
 @seealso
 Snippets:

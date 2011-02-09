@@ -2363,12 +2363,6 @@ musicB = {
 @end lilypond
 @end table
 
-@snippets
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
-
-
 @seealso
 Schnipsel:
 @rlsr{Pitches}.
