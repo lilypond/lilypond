@@ -339,7 +339,7 @@ manual beams are considered.  Possible values include
 @code{melismaBusy}, @code{slurMelismaBusy}, @code{tieMelismaBusy}, and
 @code{beamMelismaBusy}.")
      (metronomeMarkFormatter ,procedure? "How to produce a metronome
-markup.  Called with four arguments: text, duration, count and context.")
+markup.  Called with two arguments: a @code{TempoChangeEvent} and context.")
      (middleCClefPosition ,number? "The position of the middle C,
 as determined only by the clef.  This can be calculated by looking at
 @code{clefPosition} and @code{clefGlyph}.")
@@ -478,10 +478,7 @@ fret number.  It returns the text as a markup.")
      (tabStaffLineLayoutFunction ,procedure? "A function determining the
 staff position of a tablature note head.  Called with two arguments:
 the context and the string.")
-     (tempoHideNote ,boolean? "Hide the note=count in tempo marks.")
-     (tempoText ,markup? "Text for tempo marks.")
-     (tempoUnitCount ,number-or-pair? "Count for specifying tempo.")
-     (tempoUnitDuration ,ly:duration? "Unit for specifying tempo.")
+     (tempoHideNote ,boolean? "Hide the note = count in tempo marks.")
      (tempoWholesPerMinute ,ly:moment? "The tempo in whole notes per
 minute.")
      (tieWaitForNote ,boolean? "If true, tied notes do not have to

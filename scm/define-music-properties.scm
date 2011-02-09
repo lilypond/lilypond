@@ -105,7 +105,7 @@ This property can only be defined as initializer in
      (line-break-permission ,symbol? "When the music is at top-level,
 whether to allow, forbid or force a line break.")
 
-     (metronome-count ,number? "How many beats in a minute?")
+     (metronome-count ,number-or-pair? "How many beats in a minute?")
 
      (name ,symbol? "Name of this music object.")
      (no-continuation ,boolean? "If set, disallow continuation lines.")

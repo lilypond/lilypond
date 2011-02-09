@@ -20,8 +20,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; metronome marks
 
-(define-public (format-metronome-markup text dur count context)
-  (let* ((hide-note (eq? #t (ly:context-property context 'tempoHideNote))))
+(define-public (format-metronome-markup event context)
+  (let ((hide-note (ly:context-property context 'tempoHideNote #f))
+	(text (ly:event-property event 'text))
+	(dur (ly:event-property event 'tempo-unit))
+	(count (ly:event-property event 'metronome-count)))
+
     (metronome-markup text dur count hide-note)))
 
 (define-public (metronome-markup text dur count hide-note)

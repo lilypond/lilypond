@@ -283,7 +283,7 @@ expression."
 							 (music
 							  'SlurEvent
 							  span-direction START))))))
-			   #t)
+	   #t)
 	  (with-music-match (?stop (music
 				    'SequentialMusic
 				    elements ((music
@@ -325,7 +325,7 @@ expression."
 							grob-property-path '(stroke-style)
 							grob-value "grace"
 							symbol 'Stem)))))
-			   #t)
+	   #t)
 	 (with-music-match (?stop (music
 				   'SequentialMusic
 				   elements ((music
@@ -915,56 +915,30 @@ Otherwise, return #f."
     "\\melismaEnd"))
 
 ;;; \tempo
-;;; Check for all three different syntaxes of tempo:
-;;; \tempo string duration=note, \tempo duration=note and \tempo string
-(define-extra-display-method ContextSpeccedMusic (expr parser)
-  "If expr is a tempo, return \"\\tempo x = nnn\", otherwise return #f."
-  (or   (with-music-match (expr (music 'ContextSpeccedMusic
-		element (music 'SequentialMusic
-			      elements ((music 'PropertySet
-					  value ?unit-text
-					  symbol 'tempoText)
-					(music 'PropertySet
-					  symbol 'tempoWholesPerMinute)
-					(music 'PropertySet
-					  value ?unit-duration
-					  symbol 'tempoUnitDuration)
-					(music 'PropertySet
-					  value ?unit-count
-					  symbol 'tempoUnitCount)))))
-		(format #f "\\tempo ~a ~a = ~a"
-			(scheme-expr->lily-string ?unit-text)
-			(duration->lily-string ?unit-duration #:force-duration #t)
-			(if (number-pair? ?unit-count)
-			    (format #f "~a ~~ ~a"
-				    (car ?unit-count)
-				    (cdr ?unit-count))
-			    ?unit-count)))
-	(with-music-match (expr (music 'ContextSpeccedMusic
-		    element (music 'SequentialMusic
-			      elements ((music 'PropertyUnset
-					  symbol 'tempoText)
-					(music 'PropertySet
-					  symbol 'tempoWholesPerMinute)
-					(music 'PropertySet
-					  value ?unit-duration
-					  symbol 'tempoUnitDuration)
-					(music 'PropertySet
-					  value ?unit-count
-					  symbol 'tempoUnitCount)))))
-			(format #f "\\tempo ~a = ~a"
-				(duration->lily-string ?unit-duration #:force-duration #t)
-				(if (number-pair? ?unit-count)
-				    (format #f "~a ~~ ~a"
-					    (car ?unit-count)
-					    (cdr ?unit-count))
-				    ?unit-count)))
-	(with-music-match (expr (music 'ContextSpeccedMusic
-			    element (music 'SequentialMusic
-				      elements ((music 'PropertySet
-						  value ?tempo-text
-						 symbol 'tempoText)))))
-			(format #f "\\tempo ~a" (scheme-expr->lily-string ?tempo-text)))))
+(define-extra-display-method SequentialMusic (expr parser)
+  (with-music-match (expr (music 'SequentialMusic
+				 elements ((music 'TempoChangeEvent
+						  text ?text
+						  tempo-unit ?unit
+						  metronome-count ?count)
+					   (music 'ContextSpeccedMusic
+						  element (music 'PropertySet
+								 symbol 'tempoWholesPerMinute)))))
+    (format #f "\\tempo ~{~a~a~}~a = ~a~a"
+	    (if (markup? ?text)
+		(list (markup->lily-string ?text) " ")
+		'())
+	    (duration->lily-string ?unit #:force-duration #t)
+	    (if (pair? ?count)
+		(format #f "~a ~~ ~a" (car ?count) (cdr ?count))
+		?count)
+	    (new-line->lily-string))))
+
+(define-display-method TempoChangeEvent (expr parser)
+  (let ((text (ly:music-property expr 'text)))
+    (format #f "\\tempo ~a~a"
+	    (markup->lily-string text)
+	    (new-line->lily-string))))
 
 ;;; \clef
 (define clef-name-alist #f)
@@ -997,7 +971,7 @@ Otherwise, return @code{#f}."
 							  (music 'ApplyContext
 								 procedure ly:set-middle-C!)))))
     (let ((clef-name (assoc-get (list ?clef-glyph ?clef-position 0)
-				 clef-name-alist)))
+				clef-name-alist)))
       (if clef-name
 	  (format #f "\\clef \"~a~{~a~a~}\"~a"
 		  clef-name
@@ -1019,10 +993,9 @@ Otherwise, return #f."
 				 element (music 'PropertySet
 						value ?bar-type
 						symbol 'whichBar)))
-     (format #f "\\bar \"~a\"~a" ?bar-type (new-line->lily-string))))
+    (format #f "\\bar \"~a\"~a" ?bar-type (new-line->lily-string))))
 
 ;;; \partial
-
 (define-extra-display-method ContextSpeccedMusic (expr parser)
   "If `expr' is a partial measure, return \"\\partial ...\".
 Otherwise, return #f."
@@ -1035,9 +1008,9 @@ Otherwise, return #f."
 					     'PartialSet
 					     partial-duration ?duration))))
 
-		    (and ?duration
-			 (format #f "\\partial ~a"
-				 (duration->lily-string ?duration #:force-duration #t)))))
+    (and ?duration
+	 (format #f "\\partial ~a"
+		 (duration->lily-string ?duration #:force-duration #t)))))
 
 ;;;
 ;;;

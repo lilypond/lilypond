@@ -141,33 +141,28 @@
     (exact->inexact (* (expt 2 (- log)) (+ 1 (/ dots 2)) (/ (car factor) (cdr factor))))))
 
 (define (tempo->beats music)
-  (let* ((tempo-spec (or (find-child-named music 'MetronomeChangeEvent)
-                         (find-child-named music 'SequentialMusic)))
+  (let* ((tempo-spec (find-child-named music 'SequentialMusic))
          (tempo (cond
-                 ((not tempo-spec)
-                  #f)
-                 ((music-name? tempo-spec 'MetronomeChangeEvent)
-                  (* (ly:music-property tempo-spec 'metronome-count)
-                     (duration->number (ly:music-property tempo-spec 'tempo-unit))))
-                 ((music-name? tempo-spec 'SequentialMusic)
-                  (* (property-value
-                      (find-child tempo-spec (lambda (elt)
-					       (let ((tempo (music-property? elt 'tempoUnitCount)))
-						 (if (pair? tempo)
-						     (round (/ (+ (car tempo) (cdr tempo)) 2))
-						     tempo)))))
-                     (duration->number
-                      (property-value
-                       (find-child tempo-spec (lambda (elt) (music-property? elt 'tempoUnitDuration)))))))
-                 (else
-                  (format #t "Programming error (tempo->beats): ~a~%" tempo-spec)))))
+		 (tempo-spec
+		  (let ((tempo-event (find-child-named tempo-spec
+						       'TempoChangeEvent)))
+		    (and tempo-event
+			 (let ((count (ly:music-property tempo-event
+							 'metronome-count)))
+			   (* (if (pair? count)
+				  (round (/ (+ (car count) (cdr count)) 2))
+				  count)
+			      (duration->number
+			       (ly:music-property tempo-event 'tempo-unit)))))))
+		 (else
+                  (format #t "Programming error (tempo->beats): ~a~%"
+			  tempo-spec)))))
     (debug-enable 'backtrace)
-    (if (and tempo (music-name? tempo-spec 'SequentialMusic))
-        (set! *default-tempo* (property-value
-                               (find-child tempo-spec (lambda (elt) (music-property? elt 'tempoWholesPerMinute))))))
-    (if tempo
-        (round (* tempo (expt 2 (+ 2 *base-octave-shift*))))
-        #f)))
+    (and tempo
+	 (set! *default-tempo* (property-value
+				(find-child tempo-spec (lambda (elt)
+							 (music-property? elt 'tempoWholesPerMinute)))))
+	 (round (* tempo (expt 2 (+ 2 *base-octave-shift*)))))))
 
 (defstruct music-context
   music
