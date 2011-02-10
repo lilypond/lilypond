@@ -4,7 +4,20 @@
 \version "2.12.2"
 
 \header {
+%% Translation of GIT committish: c1d5bb448321d688185e0c6b798575d4c325ae80
+  texidocfr = "
+L'alignement horizontal des paroles peut se gérer à l'aide de la
+propriété @code{self-alignment-X} de l'objet @code{LyricText}.
+Les valeurs @code{#-1} ou @code{#LEFT} produiront un alignement par la
+gauche, les valeurs @code{#0} ou @code{#CENTER} un alignement centré, et
+les valeurs @code{#1} ou @code{#RIGHT} un alignement par la droite.
+
+"
+  doctitlefr = "Alignement des syllabes"
+
+
   lsrtags = "text, vocal-music"
+
 
 %% Translation of GIT committish: fa19277d20f8ab0397c560eb0e7b814bd804ecec
   texidoces = "

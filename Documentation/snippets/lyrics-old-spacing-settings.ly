@@ -5,6 +5,19 @@
 \version "2.13.47"
 
 \header {
+%% Translation of GIT committish: c1d5bb448321d688185e0c6b798575d4c325ae80
+  texidocfr = "
+La version 2.14 a donné naissance à un nouveau moteur pour l'espacement
+vertical des paroles.  Celles-ci peuvent donc se retrouver positionnées
+différemment.  Le moteur adoptera les usages de la version 2.12 une fois
+que vous aurez réglé certaines propriétés des contextes @code{Lyric} et
+@code{Staff}.
+
+"
+
+  doctitlefr = "Espacement des paroles selon les pratiques de la version 2.12"
+
+
   lsrtags = "vocal-music"
 
   doctitle = "Obtaining 2.12 lyrics spacing in newer versions"

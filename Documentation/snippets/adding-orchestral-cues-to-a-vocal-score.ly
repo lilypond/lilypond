@@ -4,7 +4,28 @@
 \version "2.12.2"
 
 \header {
+%% Translation of GIT committish: c1d5bb448321d688185e0c6b798575d4c325ae80
+
+  texidocfr = "
+Lorsque le nombre d'instruments cités dans la réduction pour piano se
+multiplie, vous pourriez avoir intérêt à créer votre propre fonction
+pour gérer ces repères.  La fonction musicale @code{\\cueWhile} prend
+quatre arguments@tie{}: la musique d'où provient la citation, telle que
+définie par @code{\\addQuote}, le nom qui sera mentionné en regard de
+cette citation, son positionnement -- @code{#UP} ou @code{#DOWN} selon
+qu'il sera attribué à @code{\\voiceOne} et placé au-dessus ou
+@code{\\voiceTwo} et placé en dessous -- et enfin la musique du piano
+qui interviendra en parallèle.  Le nom de l'instrument en question
+viendra s'aligner sur la gauche de la citation.  Bien que vous puissiez
+effectuer plusieurs citations, elle ne peuvent être simultanées.
+
+"
+ doctitlefr = "Indication de l'instrument cité dans l'accompagnement d'une
+partition pour chœur"
+
+
   lsrtags = "staff-notation, vocal-music"
+
 
 %% Translation of GIT committish: fa19277d20f8ab0397c560eb0e7b814bd804ecec
 

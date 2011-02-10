@@ -15,7 +15,6 @@ añadir los versos como texto independiente debajo de la música.
 "
 
   doctitlees = "Plantilla para himnos"
-
 %%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
   texidocde = "

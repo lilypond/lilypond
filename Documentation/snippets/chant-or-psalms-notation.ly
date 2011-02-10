@@ -4,7 +4,17 @@
 \version "2.12.2"
 
 \header {
+%% Translation of GIT committish: c1d5bb448321d688185e0c6b798575d4c325ae80
+  texidocfr = "
+Ce style de notation permet d'indiquer la mélodie d'une psalmodie
+lorsque les strophes sont de longueur inégale.
+
+"
+  doctitlefr = "Notation pour psalmodie"
+
+
   lsrtags = "rhythms, vocal-music, ancient-notation, contexts-and-engravers"
+
 
 %% Translation of GIT committish: fa19277d20f8ab0397c560eb0e7b814bd804ecec
   texidoces = "
