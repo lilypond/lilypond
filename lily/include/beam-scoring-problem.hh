@@ -21,19 +21,24 @@
 #ifndef BEAM_SCORING_PROBLEM_HH
 #define BEAM_SCORING_PROBLEM_HH
 
+#include "beam.hh"
 #include "interval.hh"
-#include "lily-proto.hh" 
 #include "lily-guile.hh" 
+#include "lily-proto.hh" 
+#include "main.hh"  //  DEBUG_BEAM_SCORING
 #include "std-vector.hh" 
 #include "stem-info.hh" 
-#include "main.hh"  //  DEBUG_BEAM_SCORING
 
 enum Scorers {
   // Should be ordered by increasing expensiveness.
   ORIGINAL_DISTANCE,
-  SLOPES,
+  SLOPE_IDEAL,
+  SLOPE_MUSICAL,
+  SLOPE_DIRECTION,
+  HORIZONTAL_INTER,
   FORBIDDEN,
   STEM_LENGTHS,
+  COLLISIONS,
   NUM_SCORERS,
 };
 
@@ -84,11 +89,23 @@ struct Beam_quant_parameters
   Real HINT_DIRECTION_PENALTY;
   Real IDEAL_SLOPE_FACTOR;
   Real ROUND_TO_ZERO_SLOPE;
-
+  Real COLLISION_PENALTY;
+  Real COLLISION_DISTANCE;
+  Real HORIZONTAL_INTER_QUANT_PENALTY;
+  Real STEM_COLLISION_FACTOR;
+  
   void fill (Grob *him);
 };
 
+struct Beam_collision {
+  Real x_;
+  Interval y_;
+  Real base_penalty_;
 
+  // Need to add beam_config->y to get actual offsets.
+  Interval beam_y_;
+};
+  
 
 /*
   Parameters for a single beam.  Precomputed to save time in
@@ -144,18 +161,27 @@ private:
   // Beam_configurations.
   Drul_array<Interval> quant_range;
   Real beam_translation;
-
+  vector<Beam_collision> collisions_;
+  vector<Beam_segment> segments_;
+  
   void init_stems ();
-
+  void init_collisions (vector<Grob*> grobs);
+  void add_collision (Real x, Interval y, Real factor);
+  
   void one_scorer (Beam_configuration* config) const;
   Beam_configuration *force_score (SCM inspect_quants,
                                    const vector<Beam_configuration*> &configs) const;
+  Real y_at (Real x, Beam_configuration const* c) const;
 
   // Scoring functions:
   void score_forbidden_quants (Beam_configuration *config) const;
-  void score_slopes_dy (Beam_configuration *config) const;
+  void score_horizontal_inter_quants (Beam_configuration *config) const;
+  void score_slope_ideal (Beam_configuration *config) const;
+  void score_slope_direction (Beam_configuration *config) const;
+  void score_slope_musical (Beam_configuration *config) const;
   void score_stem_lengths (Beam_configuration* config) const;
   void generate_quants(vector<Beam_configuration*>* scores) const;
+  void score_collisions (Beam_configuration *config) const;
 };
 
 #endif /* BEAM_SCORING_PROBLEM_HH */

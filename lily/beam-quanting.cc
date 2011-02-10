@@ -21,17 +21,21 @@
 #include "beam-scoring-problem.hh"
 
 #include <queue>  
+#include <set>
 #include <algorithm>
 using namespace std;
 
 #include "align-interface.hh"
 #include "beam.hh"
+#include "direction.hh"
+#include "directional-element-interface.hh"
 #include "grob.hh"
 #include "international.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
 #include "staff-symbol-referencer.hh"
+#include "stencil.hh"
 #include "stem.hh"
 #include "warn.hh"
 
@@ -50,18 +54,29 @@ Beam_quant_parameters::fill (Grob *him)
 {
   SCM details = him->get_property ("details");
 
+  // General
+  BEAM_EPS = get_detail (details, ly_symbol2scm ("beam-eps"), 1e-3);
+  REGION_SIZE = get_detail (details, ly_symbol2scm ("region-size"), 2);
+
+  // forbidden quants
   SECONDARY_BEAM_DEMERIT = get_detail (details, ly_symbol2scm ("secondary-beam-demerit"), 10.0);
   STEM_LENGTH_DEMERIT_FACTOR = get_detail (details, ly_symbol2scm ("stem-length-demerit-factor"), 5);
-  REGION_SIZE = get_detail (details, ly_symbol2scm ("region-size"), 2);
-  BEAM_EPS = get_detail (details, ly_symbol2scm ("beam-eps"), 1e-3);
+  HORIZONTAL_INTER_QUANT_PENALTY = get_detail (details, ly_symbol2scm ("horizontal-inter-quant"), 500);
+
   STEM_LENGTH_LIMIT_PENALTY = get_detail (details, ly_symbol2scm ("stem-length-limit-penalty"), 5000);
   DAMPING_DIRECTION_PENALTY = get_detail (details, ly_symbol2scm ("damping-direction-penalty"), 800);
   HINT_DIRECTION_PENALTY = get_detail (details, ly_symbol2scm ("hint-direction-penalty"), 20);
   MUSICAL_DIRECTION_FACTOR = get_detail (details, ly_symbol2scm ("musical-direction-factor"), 400);
   IDEAL_SLOPE_FACTOR = get_detail (details, ly_symbol2scm ("ideal-slope-factor"), 10);
   ROUND_TO_ZERO_SLOPE = get_detail (details, ly_symbol2scm ("round-to-zero-slope"), 0.02);
+
+  // Collisions
+  COLLISION_PENALTY = get_detail (details, ly_symbol2scm ("collision-penalty"), 500);
+  COLLISION_DISTANCE = get_detail (details, ly_symbol2scm ("collision-distance"), 0.5);
+  STEM_COLLISION_FACTOR = get_detail (details, ly_symbol2scm ("stem-collision-factor"), 0.1);
 }
 
+// Add x if x is positive, add |x|*fac if x is negative.
 static Real
 shrink_extra_weight (Real x, Real fac)
 {
@@ -108,6 +123,11 @@ Beam_configuration* Beam_configuration::new_config (Interval start,
   return qs;
 }
 
+Real
+Beam_scoring_problem::y_at (Real x, Beam_configuration const* p) const {
+  return p->y[LEFT] + (x - x_span[LEFT]) * p->y.delta() / x_span.delta();
+}
+
 /****************************************************************/
 
 /*
@@ -115,27 +135,9 @@ Beam_configuration* Beam_configuration::new_config (Interval start,
 
   - Make all demerits customisable
 
-  - One sensible check per demerit (what's this --hwn)
-
   - Add demerits for quants per se, as to forbid a specific quant
   entirely
 */
-int
-best_quant_score_idx (vector<Beam_configuration*> const &configs)
-{
-  Real best = 1e6;
-  int best_idx = -1;
-  for (vsize i = configs.size (); i--;)
-    {
-      if (configs[i]->demerits < best)
-	{
-	  best = configs [i]->demerits;
-	  best_idx = i;
-	}
-    }
-
-  return best_idx;
-}
 
 // This is a temporary hack to see how much we can gain by using a
 // priority queue on the beams to score.
@@ -146,12 +148,101 @@ LY_DEFINE (ly_beam_score_count, "ly:beam-score-count", 0, 0, 0,
   return scm_from_int (score_count);
 }
 
+void Beam_scoring_problem::add_collision (Real x, Interval y,
+                                          Real score_factor)
+{
+  if (edge_dirs[LEFT] == edge_dirs[RIGHT]) {
+    Direction d = edge_dirs[LEFT];
+
+    Real quant_range_y = quant_range[LEFT][-d] +
+      (x - x_span[LEFT]) * (quant_range[RIGHT][-d] - quant_range[LEFT][-d]) / x_span.delta();
+
+    if (d*(quant_range_y - minmax(d, y[UP], y[DOWN])) > 0) {
+      return;
+    }
+  }
+
+  Beam_collision c;
+  c.beam_y_.set_empty ();
+
+  for (vsize j = 0; j < segments_.size (); j++)
+    {
+      if (segments_[j].horizontal_.contains(x))
+        c.beam_y_.add_point (segments_[j].vertical_count_ * beam_translation);
+      if (segments_[j].horizontal_[LEFT] > x)
+        break;
+    }
+  c.beam_y_.widen (0.5 * beam_thickness);
+  
+  c.x_ = x;
+  c.y_ = y;
+  c.base_penalty_ = score_factor;
+  collisions_.push_back (c);
+}
+
+void Beam_scoring_problem::init_collisions (vector<Grob*> grobs)
+{
+  Grob* common_x = NULL;
+  segments_ = Beam::get_beam_segments (beam, &common_x);
+  vector_sort (segments_, beam_segment_less);
+  if (common[X_AXIS] != common_x)
+    {
+      programming_error ("Disagree on common x. Skipping collisions in beam scoring.");
+      return;
+    }
+
+  set<Grob*> stems;
+  for (vsize i = 0; i < grobs.size (); i++) {
+    Box b;
+
+    for (Axis a = X_AXIS; a < NO_AXES; incr (a))
+      b[a] = grobs[i]->extent(common[a], a);
+
+    Real width = b[X_AXIS].length();
+
+    Real width_factor = sqrt(width / staff_space);
+
+    Direction d = LEFT;
+    do
+      add_collision (b[X_AXIS][d], b[Y_AXIS], width_factor);
+    while (flip (&d) != LEFT);
+
+    Grob* stem = unsmob_grob (grobs[i]->get_object ("stem"));
+    if (stem && Stem::has_interface (stem))
+      {
+        stems.insert (stem);
+      }
+  }
+  
+  for (set<Grob*>::const_iterator it(stems.begin ()); it != stems.end (); it++)
+    {
+      Grob *s = *it;
+      Real x = s->extent (common[X_AXIS], X_AXIS).center();
+
+      Direction stem_dir = get_grob_direction (*it);
+      Interval y;
+      y.set_full ();
+      y[-stem_dir] = Stem::chord_start_y (*it) + (*it)->relative_coordinate (common[Y_AXIS], Y_AXIS)
+        - beam->relative_coordinate (common[Y_AXIS], Y_AXIS);
+
+      Real factor = parameters.STEM_COLLISION_FACTOR;
+      if (!unsmob_grob (s->get_object ("beam"))
+          && !Stem::flag (s).is_empty ())
+        factor = 1.0; 
+      add_collision (x, y, factor);
+    }
+}
+  
 void Beam_scoring_problem::init_stems ()
 {
+  extract_grob_set (beam, "covered-grobs", collisions);
   extract_grob_set (beam, "stems", stems);
   for (int a = 2; a--;)
-    common[a] = common_refpoint_of_array (stems, beam, Axis (a));
-
+    {
+      common[a] = common_refpoint_of_array (stems, beam, Axis (a));
+      common[a] = common_refpoint_of_array (collisions, common[a], Axis (a));
+    }
+  
   Drul_array<Grob *> edge_stems(Beam::first_normal_stem (beam),
                                 Beam::last_normal_stem (beam));
   Direction d = LEFT;
@@ -215,6 +306,8 @@ void Beam_scoring_problem::init_stems ()
       quant_range[d][-ed] = heads[ed] + stem_offset;
     }
   while (flip (&d) != LEFT);
+
+  init_collisions (collisions);
 }
 
 Beam_scoring_problem::Beam_scoring_problem (Grob *me, Drul_array<Real> ys)
@@ -242,10 +335,10 @@ Beam_scoring_problem::generate_quants (vector<Beam_configuration*> *scores) cons
 {
   int region_size = (int) parameters.REGION_SIZE;
 
-  /*
-    Knees are harder, lets try some more possibilities for knees.
-  */  
+  // Knees and collisions are harder, lets try some more possibilities
   if (is_knee)
+    region_size += 2;
+  if (collisions_.size ())
     region_size += 2;
   
   Real straddle = 0.0;
@@ -295,8 +388,14 @@ void Beam_scoring_problem::one_scorer (Beam_configuration* config) const
 {
   score_count ++;
   switch (config->next_scorer_todo) {
-  case SLOPES:
-    score_slopes_dy (config);
+  case SLOPE_IDEAL:
+    score_slope_ideal (config);
+    break;
+  case SLOPE_DIRECTION:
+    score_slope_direction (config);
+    break;
+  case SLOPE_MUSICAL:
+    score_slope_musical (config);
     break;
   case FORBIDDEN:
     score_forbidden_quants (config);
@@ -304,7 +403,13 @@ void Beam_scoring_problem::one_scorer (Beam_configuration* config) const
   case STEM_LENGTHS:
     score_stem_lengths (config);
     break;
-   
+  case COLLISIONS:
+    score_collisions (config);
+    break;
+  case HORIZONTAL_INTER:
+    score_horizontal_inter_quants (config);
+    break;
+    
   case NUM_SCORERS:
   case ORIGINAL_DISTANCE:
   default:
@@ -332,6 +437,9 @@ Beam_scoring_problem::force_score (SCM inspect_quants, const vector<Beam_configu
   if (mindist > 1e5)
     programming_error ("cannot find quant");
 
+  while (!best->done ())
+    one_scorer (best);
+      
   return best;
 }
 
@@ -450,12 +558,11 @@ Beam_scoring_problem::score_stem_lengths (Beam_configuration* config) const
 }
 
 void
-Beam_scoring_problem::score_slopes_dy (Beam_configuration *config) const
+Beam_scoring_problem::score_slope_direction (Beam_configuration *config) const
 {
   Real dy = config->y.delta ();
   Real damped_dy = unquanted_y.delta();
   Real dem = 0.0;
-  
   /*
     DAMPING_DIRECTION_PENALTY is a very harsh measure, while for
     complex beaming patterns, horizontal is often a good choice.
@@ -475,10 +582,28 @@ Beam_scoring_problem::score_slopes_dy (Beam_configuration *config) const
       else
 	dem += parameters.DAMPING_DIRECTION_PENALTY;
     }
-  
-  dem += parameters.MUSICAL_DIRECTION_FACTOR
-    * max (0.0, (fabs (dy) - fabs (musical_dy)));
 
+  config->add (dem, "Sd");
+}
+
+// Score for going against the direction of the musical pattern 
+void
+Beam_scoring_problem::score_slope_musical (Beam_configuration *config) const
+{
+  Real dy = config->y.delta ();
+  Real dem = parameters.MUSICAL_DIRECTION_FACTOR
+    * max (0.0, (fabs (dy) - fabs (musical_dy)));
+  config->add (dem, "Sm");
+}
+
+// Score deviation from calculated ideal slope.
+void
+Beam_scoring_problem::score_slope_ideal (Beam_configuration *config) const
+{
+  Real dy = config->y.delta ();
+  Real damped_dy = unquanted_y.delta();
+  Real dem = 0.0;
+  
   Real slope_penalty = parameters.IDEAL_SLOPE_FACTOR;
 
   /* Xstaff beams tend to use extreme slopes to get short stems. We
@@ -490,13 +615,27 @@ Beam_scoring_problem::score_slopes_dy (Beam_configuration *config) const
   dem += shrink_extra_weight (fabs (damped_dy) - fabs (dy), 1.5)
     * slope_penalty;
 
-  config->add (dem, "S");
+  config->add (dem, "Si");
 }
 
 static Real
 my_modf (Real x)
 {
   return x - floor (x);
+}
+
+// TODO - there is some overlap with forbidden quants, but for
+// horizontal beams, it is much more serious to have stafflines
+// appearing in the wrong place, so we have a separate scorer.
+void
+Beam_scoring_problem::score_horizontal_inter_quants (Beam_configuration *config) const
+{
+  if (config->y.delta() == 0.0 && abs (config->y[LEFT]) < staff_radius * staff_space)
+    {
+      Real yshift = config->y[LEFT] - 0.5 * staff_space;
+      if (abs (round(yshift) - yshift) < 0.01 * staff_space)
+        config->add (parameters.HORIZONTAL_INTER_QUANT_PENALTY, "H");
+    }
 }
 
 /*
@@ -515,7 +654,7 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
   Direction d = LEFT;
   Real dem = 0.0;
   Real eps = parameters.BEAM_EPS;
-
+  
   do
     {
       for (int j = 1; j <= edge_beam_counts[d]; j++)
@@ -596,3 +735,32 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
   config->add (dem, "F");
 }
 
+void
+Beam_scoring_problem::score_collisions (Beam_configuration *config) const
+{  
+  Real demerits = 0.0;
+  for (vsize i = 0; i < collisions_.size (); i++)
+    {
+      Interval collision_y = collisions_[i].y_;
+      Real x = collisions_[i].x_;
+
+      Real center_beam_y = y_at (x, config);
+      Interval beam_y = center_beam_y + collisions_[i].beam_y_;
+
+      Real dist = infinity_f;
+      if (!intersection (beam_y, collision_y).is_empty ())
+        dist = 0.0;
+      else
+        dist = min (beam_y.distance (collision_y[DOWN]),
+                    beam_y.distance (collision_y[UP]));
+
+      Real scale_free = 
+        max (parameters.COLLISION_DISTANCE - dist, 0.0)/
+        parameters.COLLISION_DISTANCE;
+      demerits +=
+        collisions_[i].base_penalty_ *
+        pow (scale_free, 3) * parameters.COLLISION_PENALTY;
+    }
+
+  config->add (demerits, "C");
+} 

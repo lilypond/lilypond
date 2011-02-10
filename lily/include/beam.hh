@@ -33,6 +33,8 @@ struct Beam_segment
   Beam_segment ();
 };
 
+bool beam_segment_less (Beam_segment const& a, Beam_segment const& b);
+
 struct Beam_stem_segment 
 {
   Beam_stem_segment ();

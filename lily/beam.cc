@@ -74,6 +74,12 @@ Beam_stem_segment::Beam_stem_segment ()
   dir_ = CENTER;
 }
 
+bool
+beam_segment_less (Beam_segment const& a, Beam_segment const& b)
+{
+  return a.horizontal_[LEFT] < b.horizontal_[LEFT];
+}
+
 Beam_segment::Beam_segment ()
 {
   vertical_count_ = 0;
@@ -330,6 +336,7 @@ operator <(Beam_stem_segment const &a,
 
 typedef map<int, vector<Beam_stem_segment> >  Position_stem_segments_map;
 
+// TODO - should store result in a property?
 vector<Beam_segment>
 Beam::get_beam_segments (Grob *me_grob, Grob **common)
 {
@@ -622,7 +629,7 @@ Beam::print (SCM grob)
       string str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
-      properties = scm_cons(scm_acons (ly_symbol2scm ("font-size"), scm_from_int (-3), SCM_EOL),
+      properties = scm_cons(scm_acons (ly_symbol2scm ("font-size"), scm_from_int (-5), SCM_EOL),
                             properties);
       
       Direction stem_dir = stems.size () ? to_dir (stems[0]->get_property ("direction")) : UP;
