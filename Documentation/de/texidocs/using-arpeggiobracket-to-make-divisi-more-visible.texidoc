@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 27b1197f3bae8512c14d946752cd3e40e7c76016
+
+  texidocde = "
+Das @code{arpeggioBracket}-Klammerobjekt kann benutzt werden, um geteilte
+Stimmen anzuzeigen, wenn keine Hälse diese Information bieten.  Das sieht
+man oft in Chormusik.
+
+"
+  doctitlede = "Arpeggio-Klammern benutzen, um geteilte Stimmen besser sichtbar zu machen"
+

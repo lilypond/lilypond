@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 27b1197f3bae8512c14d946752cd3e40e7c76016
+
+  texidocde = "
+Die horizontale Ausrichtung von Gesangstext kann eingestellt werden, indem
+man die @code{self-alignment-X}-Eigenschaft des @code{LyricText}-Objekts
+verändert.  @code{#-1} bedeutet links, @code{#0} bedeutet mittig und @code{#1}
+bedeutet rechts, man kann aber genauso gut auch @code{#LEFT}, @code{#CENTER}
+und @code{#RIGHT} benutzen.
+
+"
+  doctitlede = "Ausrichtung von Gesangstext"
+
