@@ -622,10 +622,13 @@ Beam::print (SCM grob)
       string str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
+      properties = scm_cons(scm_acons (ly_symbol2scm ("font-size"), scm_from_int (-3), SCM_EOL),
+                            properties);
+      
       Direction stem_dir = stems.size () ? to_dir (stems[0]->get_property ("direction")) : UP;
 
       Stencil score = *unsmob_stencil (Text_interface::interpret_markup
-				    (me->layout ()->self_scm (), properties, annotation));
+                                       (me->layout ()->self_scm (), properties, annotation));
 
       if (!score.is_empty ())
 	{
@@ -1622,6 +1625,7 @@ ADD_INTERFACE (Beam,
 	       "break-overshoot "
 	       "clip-edges "
 	       "concaveness "
+	       "covered-grobs "
 	       "damping "
 	       "details "
 	       "direction "

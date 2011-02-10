@@ -75,7 +75,13 @@ flip (Direction *i)
    if d > 0: the max operator
    if d < 0: the min operator
 */
-template<class T> T minmax (Direction d, T, T);
+template<class T> T minmax (Direction d, T a, T b)
+{
+  if (d == UP)
+    return max (a, b);
+  else
+    return min (a, b);
+}
 
 // String direction_string (Direction, Axis);
 

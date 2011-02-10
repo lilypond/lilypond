@@ -573,6 +573,11 @@ Syntax: @code{\\rightHandFinger @var{text}}")
 	(types . (general-music event pedal-event sustain-event))
 	))
 
+    (TempoChangeEvent
+     . ((description . "A metronome mark or tempo indication.")
+	(types . (general-music event tempo-change-event))
+	))
+
     (TextScriptEvent
      . ((description . "Print text.")
 	(types . (general-music script-event text-script-event event))

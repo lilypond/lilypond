@@ -34,26 +34,23 @@ using namespace std;
 
 class Metronome_mark_engraver : public Engraver
 {
+  Item *text_;
+  Grob *support_;
+  Grob *bar_;
+  Stream_event *tempo_ev_;
+
 public:
   TRANSLATOR_DECLARATIONS (Metronome_mark_engraver);
 
 protected:
-  Item *text_;
-  Grob *support_;
-  Grob *bar_;
-
-  SCM last_duration_;
-  SCM last_count_;
-  SCM last_text_;
+  void stop_translation_timestep ();
+  void process_music ();
 
   DECLARE_ACKNOWLEDGER (break_aligned);
   DECLARE_ACKNOWLEDGER (break_alignment);
   DECLARE_ACKNOWLEDGER (grob);
 
-protected:
-  virtual void derived_mark () const;
-  void stop_translation_timestep ();
-  void process_music ();
+  DECLARE_TRANSLATOR_LISTENER (tempo_change);
 };
 
 Metronome_mark_engraver::Metronome_mark_engraver ()
@@ -61,17 +58,14 @@ Metronome_mark_engraver::Metronome_mark_engraver ()
   text_ = 0;
   support_ = 0;
   bar_ = 0;
-  last_duration_ = SCM_EOL;
-  last_count_ = SCM_EOL;
-  last_text_ = SCM_EOL;
+  tempo_ev_ = 0;
 }
 
+IMPLEMENT_TRANSLATOR_LISTENER (Metronome_mark_engraver, tempo_change);
 void
-Metronome_mark_engraver::derived_mark () const
+Metronome_mark_engraver::listen_tempo_change (Stream_event *ev)
 {
-  scm_gc_mark (last_count_);
-  scm_gc_mark (last_duration_);
-  scm_gc_mark (last_text_);
+  ASSIGN_EVENT_ONCE (tempo_ev_, ev);
 }
 
 static bool
@@ -89,7 +83,7 @@ Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
   if (text_
       && g->get_property ("break-align-symbol")
       == ly_symbol2scm ("staff-bar"))
-      bar_ = g;
+    bar_ = g;
   else if (text_
 	   && !support_
 	   && safe_is_member (g->get_property ("break-align-symbol"),
@@ -153,40 +147,25 @@ Metronome_mark_engraver::stop_translation_timestep ()
       text_ = 0;
       support_ = 0;
       bar_ = 0;
+      tempo_ev_ = 0;
     }
 }
 
 void
 Metronome_mark_engraver::process_music ()
 {
-  SCM count = get_property ("tempoUnitCount");
-  SCM duration = get_property ("tempoUnitDuration");
-  SCM text = get_property ("tempoText");
-
-  if ( ( (unsmob_duration (duration) && scm_is_true (count))
-        || Text_interface::is_markup (text) )
-      && !(ly_is_equal (count, last_count_)
-	   && ly_is_equal (duration, last_duration_)
-	   && ly_is_equal (text, last_text_)))
+  if (tempo_ev_)
     {
-      text_ = make_item ("MetronomeMark", SCM_EOL);
+      text_ = make_item ("MetronomeMark", tempo_ev_->self_scm ());
 
       SCM proc = get_property ("metronomeMarkFormatter");
-      SCM result = scm_call_4 (proc,
-			       text,
-			       duration,
-			       count,
+      SCM result = scm_call_2 (proc,
+			       tempo_ev_->self_scm (),
 			       context ()->self_scm ());
 
       text_->set_property ("text", result);
     }
-
-  last_duration_ = duration;
-  last_count_ = count;
-  last_text_ = text;
 }
-
-
 
 ADD_ACKNOWLEDGER (Metronome_mark_engraver, break_aligned);
 ADD_ACKNOWLEDGER (Metronome_mark_engraver, break_alignment);
@@ -204,11 +183,10 @@ ADD_TRANSLATOR (Metronome_mark_engraver,
 		"MetronomeMark ",
 
 		/* read */
-		"stavesFound "
+		"currentCommandColumn "
+		"currentMusicalColumn "
 		"metronomeMarkFormatter "
-		"tempoUnitDuration "
-		"tempoUnitCount "
-		"tempoText "
+		"stavesFound "
 		"tempoHideNote ",
 
 		/* write */

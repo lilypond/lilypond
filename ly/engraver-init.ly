@@ -70,6 +70,7 @@
   \consists "Ledger_line_engraver"
   \consists "Staff_symbol_engraver"
   \consists "Collision_engraver"
+  \consists "Beam_collision_engraver"
   \consists "Grob_pq_engraver"
   \consists "Rest_collision_engraver"
   \consists "Accidental_engraver"
@@ -312,6 +313,7 @@ contained staves are connected vertically."
   \consists "Span_bar_engraver"
   \consists "Span_arpeggio_engraver"
   \consists "System_start_delimiter_engraver"
+  \consists "Vertical_align_engraver"
   systemStartDelimiter = #'SystemStartBrace
   topLevelAlignment = ##f
   %% explicitly set instrument, so it is not inherited from the parent

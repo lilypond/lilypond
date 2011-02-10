@@ -89,33 +89,34 @@
   (make-music 'TransposedMusic
   	      'element (ly:music-transpose music pitch)))
 
-(define-ly-syntax-simple (tempo text duration tempo)
-  (let* ((range-tempo? (pair? tempo))
-	 (tempo-count (if range-tempo?
-			  (round (/ (+ (car tempo) (cdr tempo)) 2))
-			  tempo))
-	 (props (list
-		 (make-property-set 'tempoWholesPerMinute
-				    (ly:moment-mul (ly:make-moment tempo-count 1)
-						   (ly:duration-length duration)))
-		 (make-property-set 'tempoUnitDuration duration)
-		 (make-property-set 'tempoUnitCount tempo))))
-    (set! props (cons
-		 (if text (make-property-set 'tempoText text)
-                     (make-property-unset 'tempoText))
-		 props))
-    (context-spec-music
-     (make-sequential-music props)
-     'Score)))
+(define-ly-syntax (tempo parser location text . rest)
+  (let* ((unit (and (pair? rest)
+		    (car rest)))
+	 (count (and unit
+		     (cadr rest)))
+	 (range-tempo? (pair? count))
+	 (tempo-change (make-music 'TempoChangeEvent
+				   'origin location
+				   'text text
+				   'tempo-unit unit
+				   'metronome-count count))
+	 (tempo-set
+	  (and unit
+	       (context-spec-music
+		(make-property-set 'tempoWholesPerMinute
+				   (ly:moment-mul
+				    (ly:make-moment
+				     (if range-tempo?
+					 (round (/ (+ (car count) (cdr count))
+						   2))
+					 count)
+				     1)
+				    (ly:duration-length unit)))
+		'Score))))
 
-(define-ly-syntax-simple (tempoText text)
-  (context-spec-music
-   (make-sequential-music
-    (list
-     (make-property-unset 'tempoUnitDuration)
-     (make-property-unset 'tempoUnitCount)
-     (make-property-set 'tempoText text)))
-   'Score))
+    (if tempo-set
+	(make-sequential-music (list tempo-change tempo-set))
+	tempo-change)))
 
 (define-ly-syntax-simple (skip-music dur)
   (make-music 'SkipMusic

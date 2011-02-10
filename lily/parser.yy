@@ -912,19 +912,13 @@ output_def_body:
 
 tempo_event:
 	TEMPO steno_duration '=' tempo_range	{
-		$$ = MAKE_SYNTAX ("tempo", @$, SCM_BOOL_F, $2, $4);
+		$$ = MAKE_SYNTAX ("tempo", @$, SCM_EOL, $2, $4);
 	}
-	| TEMPO string steno_duration '=' tempo_range	{
-		$$ = MAKE_SYNTAX ("tempo", @$, make_simple_markup($2), $3, $5);
-	}
-	| TEMPO full_markup steno_duration '=' tempo_range	{
+	| TEMPO scalar steno_duration '=' tempo_range	{
 		$$ = MAKE_SYNTAX ("tempo", @$, $2, $3, $5);
 	}
-	| TEMPO string {
-		$$ = MAKE_SYNTAX ("tempoText", @$, make_simple_markup($2) );
-	}
-	| TEMPO full_markup {
-		$$ = MAKE_SYNTAX ("tempoText", @$, $2 );
+	| TEMPO scalar {
+		$$ = MAKE_SYNTAX ("tempo", @$, $2);
 	}
 	;
 

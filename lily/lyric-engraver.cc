@@ -73,7 +73,8 @@ Lyric_engraver::process_music ()
       if (ly_is_equal (text, scm_from_locale_string (" ")))
 	{
 	  if (last_text_)
-	    last_text_->set_property ("self-alignment-X", scm_from_int (LEFT));
+	    last_text_->set_property ("self-alignment-X",
+				      get_property ("lyricMelismaAlignment"));
 	}
       else
 	text_ = make_item ("LyricText", event_->self_scm ());
