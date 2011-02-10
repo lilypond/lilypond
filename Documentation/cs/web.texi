@@ -120,10 +120,10 @@ Pro LilyPond ve verzi @version{}
 @divId{quickSummary}
 @subheading Co je to LilyPond?
 
-LilyPond je programem pro sazbu not s otevřeným zdrojovým kódem, který byl vytvořen s tím cílem, zajistit tisk hudebnin v té nejlepší možné jakosti.  Tento program s otevřeným zdrojovým kódem umožňuje dosáhnout krásy ručně rytých tradičních notových sazeb v počítačem vysázených notách.
+LilyPond je programem pro sazbu not s otevřeným zdrojovým kódem, který byl vytvořen s cílem zajistit tisk hudebnin v té nejlepší možné jakosti.  Tento program s otevřeným zdrojovým kódem umožňuje dosáhnout krásy ručně rytých tradičních notových sazeb v počítačem vysázených notách.
 
 @divClass{align-right}
-Více se dočtete v @ref{Úvod}!
+Více se dočtete v @ref{Úvod,,úvodu}!
 
 @divEnd
 @divEnd
