@@ -9,13 +9,13 @@
 
 @c Translators: Pavel Fric
 
-@node Příručkyr
+@node Příručky
 @unnumbered Příručky
 @translationof Manuals
 
 @macro details{reference}
 @spanClass{detail}
-(@ref{\reference\, Einzelheiten zu \reference\})
+(@ref{\reference\, Jednotlivosti k \reference\})
 @spanEnd
 @end macro
 
@@ -32,33 +32,32 @@
 @divClass{link-headings}
 
 @divClass{column-center-top}
-@subheading Einleitung
+@subheading Úvod
 
 @itemize
 
 @item
-@ref{Text-Eingabe}:
-LilyPond ist ein @strong{textbasiertes} Notensatzprogramm.  Wenn
-Sie mit diesem Konzept nicht vertraut sind, lesen Sie darüber bitte
-jetzt!
+@ref{Textový vstup}:
+LilyPond je @strong{textově založený} program na sazbu not.  Pokud
+tomuto pojetí nedůvěřujete, přečtěte si o něm, prosím, nyní!
 
 @item
 @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Začátek,Učení}}
-eine sanfte @qq{unbedingt lesen!} uvedení do LilyPondu.
+eine sanfte @qq{bezpodmínečně si přečíst!} uvedení do LilyPondu.
 @details{Učení}
 
 @item
 @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Začátek,Slovníček}}
-@emph{(optional)} hier werden musikalische Begriffe auf englisch erklärt und
-die passenden Übersetzungen in vielen anderen Sprachen gegeben.
+@emph{(optional)} zde jsou hudební pojmy vysvětleny v angličtině a
+a podány odpovídající překlady v mnoha dalších řečech.
 @details{Slovníček}
 
 
 
 @item
 @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Začátek,Článek}}
-@emph{(optional)} Hintergrundinformation über den Notensatzprozess und die
-Ästhetik des Notenstichs im 19. Jahrhundert.
+@emph{(optional)} Informace o pozadí procesu notové sazby a kráse
+rytí not v 19. století.
 @details{Článek}
 
 @end itemize
@@ -72,17 +71,17 @@ die passenden Übersetzungen in vielen anderen Sprachen gegeben.
 
 @item
 @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Začátek,Notový zápis}}
-eine Syntaxreferenz.
+doporučení týkající se skladby.
 @details{Notový zápis}
 
 @item
 @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Začátek,Používání}}
-wie die Programme aufgerufen werden.
+jak jsou programy vyvolávány.
 @details{Používání}
 
 @item
 @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Začátek,Úryvky}}
-kurze Tricks, Tipps und Beispiele.
+krátké lsti, rady a příklady.
 @details{Úryvky}
 
 @end itemize
@@ -97,25 +96,25 @@ kurze Tricks, Tipps und Beispiele.
 
 @item
 @ref{Často kladené dotazy}:
-Häufig gestellte Fragen.
+Často kladené dotazy.
 
 @item
 @ref{Začátek,Web}:
-Dieses Dokument.
+Tento dokument.
 
 @item
 @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Začátek,Změny}}
-Was ist neu?
+Co je nového?
 @details{Změny}
 
 @item
 @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Začátek,Rozšíření}}
-clevere Anpassungen.
+Chytrá přizpůsobení.
 @details{Rozšíření}
 
 @item
 @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Začátek,Vnitřní}}
-Referenz für Anpassungen.
+Doporučení pro přizpůsobení.
 @details{Vnitřní}
 
 @end itemize
@@ -124,25 +123,25 @@ Referenz für Anpassungen.
 
 
 @divClass{column-center-bottom}
-@subheading Anderes Material
+@subheading Jiný materiál
 
 @itemize
 
 @item
 @ref{Překlad}:
-der Übersetzungsstatus für nicht Nicht-Englischsprachige.
+Stav překladu pro lidi, kteří nehovoří anglicky.
 
 @item
 @ref{Vše}:
-Příručky zum Herunterladen und alte příručky.
+Příručky ke stažení a staré příručky.
 
 @item
-@ref{Entwicklung}:
-Příručky für die Entwicklerversion.
+@ref{Vývoj}:
+Příručky pro vývojářskou verzi.
 
 @item
 @ref{FDL}:
-Tyto příručky sind unter der GNU Free Documentation License herausgegeben.
+Tyto příručky jsou vydány pod GNU Free Documentation License.
 
 @end itemize
 
@@ -183,16 +182,16 @@ Tyto příručky sind unter der GNU Free Documentation License herausgegeben.
 @divClass{column-left-top}
 @subheading Handbuch zum Lernen
 
-Dieses Buch erklärt, wie man beginnen sollte, LilyPond zu erlernen.
-Hier werden auch einige Schlüsselkonzepte und einfache Begriffe
-erklärt.  Sie sollte diese Kapitel von vorne bis hinten lesen.
+V této knize se vysvětluje, jak by se mělo začít s poznáváním LilyPondu.
+Jsou zde vysvětlena i některá klíčová pojetí a jednoduché pojmy.
+Měli byste si tuto kapitolu přečíst od začátku do konce.
 
-Am Ende jeden Abschnitts gibt es einen Absatz @strong{Siehe auch},
-welcher Links in andere Abschnitte enthält.  Beim ersten Durchlesen
-sollten Sie diesen Verlinkungen nicht folgen.  Wenn Sie das gesamte
-Handbuch einmal gelesen haben, werden Sie wahrscheinlich einige
-Abschnitte noch einmal lesen und dann auch den Links folgen, um
-weitere Informationen zu erhalten.
+Na konci každé části je odstavec @strong{Podívejte se také na},
+který obsahuje odkazy na jiné části.  Při prvním čtení byste však tyto odkazy
+sledovat neměli.  Když už jste si celou příručku jednou přečetli,
+budete pravděpodobně některé části číst ještě jednou a
+pak budete sledovat i odkazy, abyste obdržel
+další informace.
 @divEnd
 
 @divClass{column-right-bottom}
@@ -213,11 +212,10 @@ weitere Informationen zu erhalten.
 @divClass{column-left-top}
 @subheading Slovníček
 
-Hier werden musikalische Fachbegriffe auf Englisch erklärt und
-Übersetzungen zu einer Reihe von Sprachen gegeben.  Wenn Sie sich
-mit der Terminologie der Musik und Musiknotation nicht auskennen
-(und vor allem, wenn Sie Englisch nicht fließend sprechen) lohnt
-es sich sehr, dieses slovníček zu Hilfe zu ziehen.
+Zde jsou v angličtině vysvětleny odborné pojmy a v řadě jazyků podány
+jejich překlady.  Pokud se nevyznáte v pojmosloví hudby a hudebního zápisu
+ not (a především tehdy, když nemluvíte plynně anglicky), vyplatí se vám velmi
+vzít si na pomoc tento slovníček.
 
 @divEnd
 
@@ -239,14 +237,14 @@ es sich sehr, dieses slovníček zu Hilfe zu ziehen.
 @divClass{column-left-top}
 @subheading Článek
 
-Dieses Buch enthält eine kurze Geschichte des Musiknotensatzes und
-anschließend eine Betrachtung der Notensatztechniken von LilyPond.
-Ein Vergleich von LilyPond mit anderen Notensatzprogrammen wird
-auch vorgenommen.
+Tato kniha obsahuje krátké vyprávění o sazbě not a v návaznosti na to
+úvahu nad technikou sazby not v LilyPondu.
+Uskuteční se tu i porovnání LilyPondu s jinými programy na sazbu
+not.
 
-@warning{Die detailierten typographischen Beispiele lassen sich
-in der PDF-Version einfacher analysieren, weil sie eine höhere
-Auflösung hat.}
+@warning{Podrobné typografické příklady se dají lépe rozebrat
+ve verzi PDF tohoto dokumentu, protože tento má vyšší
+rozlišení.}
 
 @divEnd
 
@@ -266,14 +264,14 @@ Auflösung hat.}
 @translationof Notation
 
 @divClass{column-left-top}
-@subheading Reference k notovému zápisu
+@subheading Doporučení k notovému zápisu
 
-Dieses Buch erklärt alle Befehle von LilyPond, die Notation erstellen.
+Tato kniha vysvětluje všechny příkazy LilyPondu, jimiž se vytváří notový zápis.
 
-@warning{Die Notationsreferenz geht davon aus, dass der Leser
-die Grundlagen von LilyPond bereits kennt, wie sie im Handbuch
-zum Lernen ausgeführt werden.  In einigen Fällen sollte die
-englische Musikterminologie (podívejte se do slovníčku) bekannt sein.}
+@warning{Doporučení k notovému zápisu vychází z toho, že čtenář již zná
+základy LilyPondu, jak byly předvedeny v příručce k učení
+se.  V některých případech by mělo být známo anglické hudební
+pojmosloví (podívejte se do slovníčku).}
 
 @divEnd
 
@@ -295,11 +293,10 @@ englische Musikterminologie (podívejte se do slovníčku) bekannt sein.}
 @divClass{column-left-top}
 @subheading Příručka k používání
 
-Dieses Buch erklärt, wie die Programme ausgeführt werden, wie man
-LilyPond-Notation in andere Programme integrieren kann und macht
-Vorschläge, wie man am besten seine Notationsdateien anlegt.  Es
-wird empfohlen, das Dokument zu lesen, bevor man größere Projekte
-in Angriff nimmt.
+Tato kniha vysvětluje, jak jsou programy ukázány, jak lze noty z
+LilyPondu začlenit do jiných programů, a dělá k tomu návrhy,
+jak své soubory s notami co nejlépe přiložíte.  Doporučuje se si
+tento dokument přečíst, dříve než si člověk začne myslet na větší projekty.
 
 @divEnd
 
@@ -321,20 +318,20 @@ in Angriff nimmt.
 @divClass{column-left-top}
 @subheading Úryvky
 
-Hier werden ausgewählte úryvky an LilyPond-Code mit der produzierten
-Notation gezeigt.  Úryvky stammen aus dem
+Zde jsou vybrané úryvky ukázány na kódu LilyPondu s vytvořeným notovým
+zápisem.  Úryvky pocházejí z
 @uref{http://lsr@/.dsi@/.unimi@/.it,Skladiště s úryvky LilyPondu}
-(LSR) und stehen alle unter der Public Domain.
+(LSR) a všechny se nacházejí pod Public Domain.
 
-Beachten Sie, dass dieses Dokument keine bestimmte Teilmenge von
-LSR darstellt.  LSR läuft unter der stabilen Version von LilyPond,
-sodass jedes úryvek, das eine neue Eigenschaft von der
-Entwicklungsversion zeigt, extra hinzugefügt werden muss.  Diese
-Schipsel sind in der Datei @file{Documentation/snippets/new/} im
-Quellverzeichnis von LilyPond gespeichert.
+Vezměte na vědomí, že tento dokument nepředstavuje žádnou určitou
+podmnožinu LSR.  LSR běží pod stálou verzí LilyPondu,
+takže každý úryvek, který vykazuje novou vlastnost z
+vývojářské verze, se musí přidat zvlášť.  Tyto úryvky
+jsou uloženy v souboru @file{Documentation/snippets/new/} ve
+zdrojovém adresáři LilyPondu.
 
-Die Schnipsel-Listen für jeden Abschnitt der Notationsreferenz
-sind auch verlinkt vom @strong{Siehe auch}-Absatz.
+Úryvky pro každou část Doporučení k notovému zápisu
+jsou také odkázány z odstavce @strong{Podívejte se také na}.
 @divEnd
 
 @divClass{column-right-bottom}
@@ -353,42 +350,42 @@ sind auch verlinkt vom @strong{Siehe auch}-Absatz.
 @translationof FAQ
 
 @divClass{column-center-top}
-@subheading Einleitende Fragen
+@subheading Uvádějící otázky
 
-@subsubheading Wo sind die graphischen Menüs, Werkzeugleisten und Notenblatt?
+@subsubheading Kde jsou kreslené nabídky, pruhy s nástroji a notový list?
 
-LilyPond erfordert es, dass Noten als Text eingegeben werden.
-Lesen Sie bitte über unsere @ref{Text-Eingabe}.
-
-
-@subsubheading Es gibt sehr viel Dokumentation! Muss ich das alles
-lesen?
-
-Sie müssen das @ref{Learning, Příručka k učení se} lesen.  Der
-Rest der Dokumentation ist zum Nachschlagen gedacht, wenn Sie
-eine bestimmte Art von Notationszeichen oder -typ brauchen.
+LilyPond potřebuje, aby se noty zadávaly jako text.
+Přečtěte si, prosím, o našem @ref{Textový vstup,,textovém vstupu}.
 
 
-@subsubheading Das ist trotzdem noch viel zu lesen!  Lohnt sich das
-denn?
+@subsubheading Je tu velmi mnoho dokumentace! Muím si to všechno
+přečíst?
 
-Das müssen Sie selber entscheiden; die Gründe, warum Sie LilyPond
-anderen Programmen vorziehen können, sind dargestellt in der
-@ref{Einleitung}.
+Musíte si přečíst @ref{Learning, Příručka k učení se,,příručku k učení se}.  Zbytek
+dokumentace je zamýšlen k vyhledávání, když potřebujete určitý
+druh nebo typ značky notového zápisu.
+
+
+@subsubheading Ale i tak je toho ke čtení ještě docela hodně!  Pak se
+to vyplatí?
+
+Tady se musíte rozhodnout sám; důvody, pro které můžete LilyPond
+upřednostnit před jinými programy, jsou představeny v
+@ref{Úvod,,úvodě}.
 
 @divEnd
 
 @divClass{column-center-bottom}
 @subheading Otázky k používání
 
-@subsubheading Etwas funktioniert nicht!  Wie kann ich es reparieren?
+@subsubheading Něco nepracuje!  Jak to můžu opravit?
 
-Das wird erklärt in @rprogram{Řešení potíží}.
+To je vysvětleno v @rprogram{Řešení potíží}.
 
 
-@subsubheading Warum ändern Sie die Syntax?
+@subsubheading Proč se mění skladba?
 
-Das wird erklärt in @rprogram{Warum verändert sich die Syntax?}.
+To je vysvětleno v @rprogram{Proč se mění skladba?}.
 
 @divEnd
 
@@ -400,17 +397,16 @@ Das wird erklärt in @rprogram{Warum verändert sich die Syntax?}.
 @divClass{column-left-top}
 @subheading Web
 
-Dieses Handbuch stellt allgemeine Information zu LilyPond zur
-Verfügung.  Es enthält auch Information über die verschiedenen
-Gemeinschaftsforen, das Melden von Fehlern und die Mitarbeit am
-Programm.
+Tato kniha podává všeobecné údaje k LilyPondu.  Obsahuje také
+informace o různých společenských fórech, hlášení o chybách a
+spolupráci na programu.
 
 @divEnd
 
 @divClass{column-right-bottom}
 @subheading Lesen Sie es
 
-@subsubheading Das neueste Handbuch
+@subsubheading Nejnovější příručka
 
 @divClass{keep-bullets}
 @itemize
@@ -418,7 +414,7 @@ Programm.
 @end itemize
 @divEnd
 
-@subsubheading Web-Handbuch von @versionDevel
+@subsubheading Web - příručka @versionDevel
 
 @docLinksBare{Web, web,
   @ref{Začátek,Web},
@@ -437,8 +433,8 @@ Programm.
 @divClass{column-left-top}
 @subheading Změny
 
-Hier eine Zusammenfassung von wichtigen Veränderungen und neuen
-Eigenschaften in LilyPond seit der vorigen stabilen Version.
+Zde je podán přehled důležitých změn a nových
+vlastností v LilyPondu od předchozí stálé verze.
 
 @divEnd
 
@@ -460,7 +456,7 @@ Eigenschaften in LilyPond seit der vorigen stabilen Version.
 @divClass{column-left-top}
 @subheading Erweitern Sie LilyPond
 
-Dieses Handbuch erklärt, wie man Erweiterungen für LilyPond schreibt.
+V této knize se vysvětluje, jak se pro LilyPond píší rozšíření.
 
 @divEnd
 
@@ -482,19 +478,19 @@ Dieses Handbuch erklärt, wie man Erweiterungen für LilyPond schreibt.
 @divClass{column-left-top}
 @subheading Příručka k vnitřnostem
 
-Hierbei handelt es sich um eine Anzahl sehr stark verlinkter
-Seiten, welche alle klitzekleinen Details von jeder einzigen
-LilyPond-Klasse, jedem Objekt und jeder Funktion dokumentieren.
-Das Dokument wird direkt aus den Formatanweisungen des
-Quellcodes erstellt und ist nur auf Englisch erhältlich.
+Zde se jedná o množství velice silně proodkazovaných stránek,
+jež všechny dokládají přesné podrobnosti ke každé jedné třídě
+LilyPond, ke každému předmětu a ke každé funkci.
+Dokument je vytvářen přímo z formátovacích příkazů
+zdrojového kódu a je k dostání jen v angličtině.
 
-Fast alle Formatierungsfunktionen, die intern benutzt werden,
-stehen auch direkt dem Benutzer zur Verfügung.  Beispielsweise
-die meisten Variablen, die Dickewerte, Entfernungen usw. kontrollieren,
-können in der Eingabedatei verändert werden.  Es gibt eine große
-Anzahl von Formatierungsoptionen und alle sind in diesem Dokument
-erklärt.  Jeder Abschnitt der Notationsreferenz hat einen
-@strong{Siehe auch}-Abschnitt, der auf diese Dokumentation verweist.
+Skoro všechny formátovací funkce, které se používají uvnitř,
+jsou uživateli přímo k dispozici.  Například je to většina proměnných,
+hodnoty k tloušťkám, ovládání zdáleností atd.,
+je možné měnit ve vstupním souboru.  Existuje velký počet
+formátovacích voleb a všechny jsou vysvětleny v tomto
+dokumentu.  Každá část doporučení k notovému zápisu má také část
+@strong{Podívejte se také na}, který odkazuje na tuto dokumentaci.
 
 @divEnd
 
@@ -514,7 +510,7 @@ erklärt.  Jeder Abschnitt der Notationsreferenz hat einen
 @translationof Translated
 
 @divClass{column-center-bottom}
-@subheading Status der Übersetzungen
+@subheading Stav překladů
 
 @include translations.itexi
 
@@ -526,18 +522,18 @@ erklärt.  Jeder Abschnitt der Notationsreferenz hat einen
 @translationof All
 
 @divClass{column-center-bottom}
-@subheading Versionen zum Herunterladen
+@subheading Verze ke stažení
 
 @ifclear web_version
-Tar-Archive zum Herunterladen sind nur über @uref{http://lilypond.org}
-erhältlich.
+Archivy v podobě formátu tar jsou dostupné ke stažení jen
+přes @uref{http://lilypond.org}.
 @end ifclear
 @ifset web_version
 
 @divClass{keep-bullets}
 @itemize
 
-@item @doctarballStable-de
+@item @doctarballStable-cs
 
 @end itemize
 
@@ -547,40 +543,40 @@ erhältlich.
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Alte stabile Versionen
+@subheading Staré stálé verze
 
 @divClass{keep-bullets}
 @itemize
 
 @item @uref{http://lilypond.org/doc/v2.12/Documentation/,
-LilyPond 2.12 Dokumentation} (auf deutsch)
+LilyPond 2.12 Dokumentation} (německy)
 
 @item @uref{http://lilypond.org/doc/v2.11/Documentation/,
-LilyPond 2.11 Dokumentation} (auf deutsch)
+LilyPond 2.11 Dokumentation} (německy)
 
 @item @uref{http://lilypond.org/doc/v2.10/Documentation/,
-LilyPond 2.10 Dokumentation} (auf englisch)
+LilyPond 2.10 Dokumentation} (německy)
 
 @item @uref{http://lilypond.org/doc/v2.8/Documentation/,
-LilyPond 2.8 Dokumentation} (auf englisch)
+LilyPond 2.8 Dokumentation} (německy)
 
 @item @uref{http://lilypond.org/doc/v2.6/Documentation/,
-LilyPond 2.6 Dokumentation} (auf englisch)
+LilyPond 2.6 Dokumentation} (anglicky)
 
 @item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
-LilyPond 2.4 Dokumentation} (auf englisch)
+LilyPond 2.4 Dokumentation} (anglicky)
 
 @item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
-LilyPond 2.2 Dokumentation} (auf englisch)
+LilyPond 2.2 Dokumentation} (anglicky)
 
 @item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
-LilyPond 2.0 Dokumentation} (auf englisch)
+LilyPond 2.0 Dokumentation} (anglicky)
 
 @item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
-LilyPond 1.8 Dokumentation} (auf englisch)
+LilyPond 1.8 Dokumentation} (anglicky)
 
 @item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
-LilyPond 1.6 Dokumentation} (auf englisch)
+LilyPond 1.6 Dokumentation} (anglicky)
 
 
 @end itemize
@@ -593,11 +589,11 @@ LilyPond 1.6 Dokumentation} (auf englisch)
 @unnumberedsec FDL
 
 @divClass{column-center-top}
-@subheading Lizenz der Dokumentation
+@subheading Povolení k dokumentaci
 
-Die Dokumentation für GNU LilyPond wird unter der GNU Free
-Documentation License publiziert.  Uvedení do diese
-Lizenz und Gründe für ihre Benutzung finden sich in @ref{Freiheit}.
+Dokumentace pro GNU LilyPond je zveřejněna pod GNU Free
+Documentation License.  Uvedení do tohoto
+povolení a důvody pro jeho používání najdete v části věnované @ref{Svoboda,,svobodě}.
 
 @divEnd
 
