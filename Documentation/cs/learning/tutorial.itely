@@ -22,9 +22,9 @@ Tato kapitola čtenáři představuje základní práci s LilyPondem.
 
 @menu
 * Přeložení zdrojového souboru::
-* Práce na vstupních souborech::
+* Jak se píší vstupní soubory::
 * Vypořádání se s chybami::
-* Jak se má příručka číst::
+* Jak se mají příručky číst::
 @end menu
 
 
@@ -92,7 +92,7 @@ vynechány také. Může se stát, že v této příručce
 závorky v některých příkladech chybí, ale je třeba vždy
 myslet na to, aby se ve vlastních souborech používaly!
 Více informací ke znázornění příkladů v této příručce
-podává úryvek @ref{Jak se má příručka číst}.}
+podává úryvek @ref{Jak se mají příručky číst}.}
 
 Dodatečně LilyPond rozlišuje @strong{Psaní velkých a malých písmen}.
 @w{@samp{ @{ c d e @}}} je přípustný kód,
@@ -177,7 +177,7 @@ LilyPond běží o mnoho rychleji.}
 
 
 @node Jak se píší vstupní soubory
-@section Wie werden Eingabe-Dateien geschrieben
+@section Jak se píší vstupní soubory
 @translationof How to write input files
 
 Tento úryvek vysvětluje základní skladbu LilyPondu a pomáhá
@@ -711,7 +711,7 @@ verze.
 @translationof Omitted material
 
 @cindex Příručka, čtení
-@cindex Jak se má příručka číst
+@cindex Jak se mají příručky číst
 @cindex Čtení příručky
 @cindex Příklady, klepnutelné
 @cindex Klepnutelné příklady
@@ -723,7 +723,7 @@ verze.
 
 LilyPond-Code musí být vždy obklopen znakem @code{@{ @}} nebo 
 @w{@code{@bs{}relative c'' @{ @dots{} @}}}, jak je to ukázáno
-v @ref{Práce na vstupních souborech}.
+v @ref{Práce na vstupních souborech,,práci na vstupních souborech}.
 Ve zbytku této příručky se toho ovšem většina příkladů vzdá.
 Abyste je napodobil, můžete zkopírovat odpovídající zdrojový 
 kód a vložit jej do textového souboru, ale přitom 
@@ -817,17 +817,17 @@ rozumět pozdějším částem.}
 @strong{Předtím než @emph{cokoli} vyzkoušíte}: Přečtěte si části
 @ref{Cvičení} a @ref{Běžný notový zápis}.  Když narazíte
 hudební odborné pojmy, které neznáte,
-podívejte se na ně v @rglosnamed{Top, Slovníček}.
+podívejte se na ně v @rglosnamed{Začátek, Slovníček}.
 
 @item
 @strong{Předtím než napíšete úplný kousek}:  Přečtěte si část
 @ref{Základní pojmy} v příručce k učení se.
 Potom se můžete na pro váš projekt důležité části podívat
-v @rusernamed{Top, Doporučení pro notový zápis}.
+v @rusernamed{Začátek, Doporučení pro notový zápis}.
 
 @item
 @strong{Předtím než se pokusíte měnit obvyklý notový zápis}:
-Přečtěte si @ref{Změna výstupu,,o změně výstupu} v příručce k učení se.
+Přečtěte si @ref{Ladění výstupu,,o ladění výstupu} v příručce k učení se.
 
 @item
 @strong{Předtím než se pustíte do většího projektu}: Přečtěte si část
