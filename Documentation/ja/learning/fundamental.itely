@@ -2074,6 +2074,11 @@ like this:
 譜表線は @code{Staff_symbol_engraver} によって作り出されるということを@c
 思い出してください。
 
+@c KEEP LY
+@lilypond[quote,verbatim,ragged-right]
+\new Staff \with {
+  \remove Staff_symbol_engraver
+}
 \relative c' {
   c4 d
   \set fontSize = #-4  % 符頭を小さくします
