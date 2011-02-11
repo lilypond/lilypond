@@ -15,10 +15,10 @@
 @chapter Základní pojmy
 @translationof Fundamental concepts
 
-Nachdem im Tutorial gezeigt wurde, wie aus einfachen Text-Dateien
-wunderschön formatierte Musiknoten erzeugt werden können, stellt
-dieses Kapitel die Konzepte und Techniken vor, wie auch komplexere
-Partituren erstellt werden können.
+Poté co ve cvičení bylo ukázáno, jak lze z jednoduchého textového souboru
+vytvořit překrásně formátované hudební noty, jsou v této kapitole
+představeny koncepty a techniky, jak se dají tvořit i složitější
+notové zápisy.
 
 @menu
 * Jak pracují vstupní soubory LilyPondu::
@@ -31,16 +31,16 @@ Partituren erstellt werden können.
 @section Jak pracují vstupní soubory LilyPondu
 @translationof How LilyPond input files work
 
-Das LilyPond Eingabeformat hat eine ziemlich freie Form, so dass
-für erfahrene Benutzer viel Freiheit besteht, die Struktur ihrer
-Quelldateien anzulegen.  Für Neulinge kann diese Flexibilität aber
-erst einmal verwirrend sein.  In diesem Kapitel soll darum ein Teil
-dieser Strukturen dargestellt werden, vieles aber zur Vereinfachung
-auch weggelassen werden.  Für eine komplette Beschreibung des Eingabeformats
-siehe @ruser{Die Dateistruktur}.
+Vstupní formát pro LilyPond měl poměrně volnou podobu, takže
+zkušení uživatele tu mají hodně volnosti v ovlivnění stavby jejich
+zdrojových souborů.  Pro nováčky ale tato ohebnost může být zprvu
+matoucí.  V této kapitole by proto z toho důvodu měla být představena
+část z těchto staveb. Mnohé ale bude pro zjednodušení
+vynecháno.  Na úplný popis vstupního formátu se podívejte
+na @ruser{stavbu souboru}.
 
-Die meisten Beispiele in diesem Handbuch sind kleine Schnipsel, wie
-etwa dieser:
+Většinu příkladů v této příručce představují malé úryvky, jako
+je tento:
 
 @example
 c4 a b c
