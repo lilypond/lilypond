@@ -9,6 +9,16 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
+@subsubheading New Chinese and Czech translations of the web page! @emph{Feb 11,2011}
+
+Two new languages are added to our web page: Chinese by Ben Luo, and
+Czech by Pavel Fric.  It is a work in progress but they are fully
+functional.  That makes ten languages to choose from!
+
+@newsEnd
+
+
+@newsItem
 @subsubheading Release candidate 2 of 2.14 - LilyPond 2.13.49 released!  @emph{Feb 9, 2011}
 
 LilyPond 2.13.49 is out; this is the second release candidate of
