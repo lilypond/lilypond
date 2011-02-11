@@ -567,9 +567,9 @@ geschrieben (nur auf Englisch).
 
 @docLinksBare{Handbuch für Entwicklungsarbeiten, contributor,
   @rcontribnamed{Top,Handbuch für Entwicklungsarbeiten},
-  @manualDevelContributorSplit-de,
-  @manualDevelContributorBig-de, 500 kB,
-  @manualDevelContributorPdf-de, 2.8 MB}
+  @manualDevelContributorSplit,
+  @manualDevelContributorBig, 500 kB,
+  @manualDevelContributorPdf, 2.8 MB}
 
 @divEnd
 
