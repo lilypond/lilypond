@@ -2085,12 +2085,13 @@ context to the default behavior.
 \repeat unfold 6 { a8 }
 @end lilypond
 
-These default automatic beaming settings for a time signature
-are determined in @file{scm/time-signature-settings.scm}.
-The automatic beaming settings for a time signature can be changed
-as described in @ref{Time signature}.
 
-Most automatic beaming settings for a time signature contain an
+The default automatic beaming settings for a time signature
+are determined in @file{scm/time-signature-settings.scm}.
+Changing the default automatic beaming settings
+for a time signature is described in @ref{Time signature}.
+
+Many automatic beaming settings for a time signature contain an
 entry for @code{beamExceptions}.  For example, 4/4 time tries to
 beam the measure in two if there are only eighth notes.  The
 @code{beamExceptions} rule can override the @code{beatStructure} setting
@@ -2201,6 +2202,51 @@ The same holds for polyphonic voices, entered with
 automatic beam is still accepting notes, it is not typeset.
 The workaround for these problems is to manually beam the last
 beam in the voice or score.
+
+By default, the @code{Timing} translator is aliased to the
+@code{Score} context.  This means that setting the time signature
+in one staff will affect the beaming of the other staves as well.
+Thus, a time signature setting in a later staff will reset custom
+beaming that was set in an earlier staff.
+One way to avoid this problem is to set the time signature
+in only one staff.
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff {
+    \time 3/4
+    \set Timing.baseMoment = #(ly:make-moment 1 8)
+    \set Timing.beatStructure = #'(1 5)
+    \repeat unfold 6 { a8 }
+  }
+  \new Staff {
+    \repeat unfold 6 { a8 }
+  }
+>>
+@end lilypond
+
+The default beam settings for the time signature can also be
+changed, so that set the desired beaming will always be used
+Changes in automatic beaming settings
+for a time signature are described in @ref{Time signature}.
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff {
+    \overrideTimeSignatureSettings
+      #'(3 . 4)         % timeSignatureFraction
+      #'(1 . 8)         % baseMomentFraction
+      #'(1 5)           % beatStructure
+      #'()		% beamExceptions
+    \time 3/4
+    \repeat unfold 6 { a8 }
+  }
+  \new Staff {
+    \time 3/4
+    \repeat unfold 6 { a8 }
+  }
+>>
+@end lilypond
 
 @node Manual beams
 @unnumberedsubsubsec Manual beams
