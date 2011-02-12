@@ -1187,7 +1187,6 @@ song.ly:12:46: warning: barcheck failed at: 3/8
 @c no ragged-right here because otherwise the hyphens get lost,
 @c but the example is long enough to avoid looking strange.
 @lilypond[verbatim,quote,noragged-right]
-@lilypond[verbatim,quote,noragged-right]
 <<
   \relative c' {
     \key g \major
