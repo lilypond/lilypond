@@ -46,10 +46,10 @@ je tento:
 c4 a b c
 @end example
 
-Wie hoffentlich bekannt ist, lässt sich solch ein Schnipsel nicht
-in dieser Form übersetzen.  Diese Beispiele sind also nur Kurzformen
-von wirklichen Beispielen.  Sie müssen wenigstens zusätzlich in
-geschweifte Klammern gesetzt werden.
+Jak je snad známo, nedá se takový úryvek v této podobě
+přeložit.  Tyto příklady jsou tedy jen zkrácenou formou
+skutečných příkladů.  Přinejmenším se musí dodatečně uzavřít ve
+složených závorkách.
 
 @example
 @{
@@ -57,10 +57,10 @@ geschweifte Klammern gesetzt werden.
 @}
 @end example
 
-Die meisten Beispiele benutzen auch den @code{\relative c'}-Befehl.
-Der ist nicht nötig, um die Dateien zu übersetzen, aber in den meisten
-Fällen sieht der Notensatz seltsam aus, wenn man den Befehl
-weglässt.
+Většina příkladů rovněž používá příkaz @code{\relative c'}.
+Ten pro překlad souborů není nezbytný, ale ve většině případů
+tak notová sazba vypadá zřídka, když se tento příkaz
+vynechá.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \relative c'' {
@@ -68,8 +68,8 @@ weglässt.
 }
 @end lilypond
 
-Eine komplette Definition des Eingabeformats findet sich
-im Kapitel @ruser{Die Dateistruktur}.
+Úplné vymezení vstupního formátu se nachází
+v kapitole @ruser{Stavba souboru}.
 
 @menu
 * Uvedení do stavby souboru v LilyPondu::
@@ -82,11 +82,11 @@ im Kapitel @ruser{Die Dateistruktur}.
 @subsection Uvedení do stavby souboru v LilyPondu
 @translationof Introduction to the LilyPond file structure
 
-@cindex Eingabeformat
-@cindex Dateistruktur
-@cindex Struktur, Datei
+@cindex Vstupní formát
+@cindex Stavba souboru
+@cindex Stavba, soubor
 
-Ein grundlegendes Beispiel einer Eingabedatei für LilyPond lautet:
+Základní příklad vstupního souboru pro LilyPond zní:
 
 @example
 \version @w{"@version{}"}
@@ -94,15 +94,15 @@ Ein grundlegendes Beispiel einer Eingabedatei für LilyPond lautet:
 \header @{ @}
 
 \score @{
-  @var{...zusammengesetzter Musik-Ausdruck...}  % Die gesamten Noten kommen hier hin!
+  @var{...složený hudební výraz...}  % Celé noty přijdou sem!
   \layout @{ @}
   \midi @{ @}
 @}
 @end example
 
 @noindent
-Aufgrund der Flexibilität von LilyPond gibt es viele Variationen dieses
-Schemas, aber dieses Beispiel dient als einfacher Ausgangspunkt.
+Na základě pružnosti LilyPond je mnoho obměn tohoto schématu,
+ale tento příklad slouží jako jednoduchý výchozí bod.
 
 @funindex \book
 @funindex \score
@@ -111,12 +111,12 @@ Schemas, aber dieses Beispiel dient als einfacher Ausgangspunkt.
 @cindex book
 @cindex score
 
-Bisher hat noch keines der Beispiele den @code{\score@{@}}-Befehl
-benutzt, da Lilypond derartige zusätzliche Befehle automatisch
-bei Bedarf einfügt, wenn die Eingabedatei eine einfache Struktur
-hat.
+Až dosud ještě žádný z příkladů příkaz @code{\score@{@}}
+nepoužil, neboť Lilypond takové dodatečné příkazy automaticky
+vkládá v případě potřeby, když má vstupní soubor jednoduchou
+stavbu.
 
-Sehen wir uns als ein solches einfaches Beispiel an:
+Podívejme se na jeden takový jednoduchý příklad:
 
 @example
 \relative c'' @{
@@ -125,10 +125,10 @@ Sehen wir uns als ein solches einfaches Beispiel an:
 @end example
 
 @noindent
-Im Hintergrund kommen hier noch einige Ebenen dazu: LilyPond-Code
-in der obigen Form ist in Wirklichkeit eine Abkürzung.  Auch wenn man so
-Dateien schreiben kann und sie auch korrekt gesetzt werden, heißt
-der vollständige Code, der hier gemeint ist, eigentlich:
+Na pozadí k tomu přichází ještě několik rovin: LilyPondovský kód
+v hořejší podobě je ve skutečnosti zestručněním.  I když by se
+takové soubory daly napsat a také správně zapsat, znamená
+úplný kód, který je zde míněn, vlastně:
 
 @example
 \book @{
@@ -146,53 +146,52 @@ der vollständige Code, der hier gemeint ist, eigentlich:
 @end example
 
 @noindent
-Mit anderen Worten:  Wenn die Eingabedatei einen einfachen Musik-Ausdruck
-enthält, wird LilyPond die Datei so interpretieren, als ob dieser
-Ausdruck in den oben gezeigten Befehlen eingegeben wurde.  Diese nötige
-Struktur wird automatisch im Speicher beim Aufruf von LilyPond erzeugt,
-ohne dass der Benutzer davon etwas bemerkt.
+Jinými slovy:  Když vstupní soubor obsahuje nějaký jednoduchý výraz,
+LilyPond bude soubor vykládat tak, jakoby byl onen výraz zadán uvnitř
+výše ukázaných příkazů.  Tato nutná stavba je vytvořena automaticky
+v paměti při vyvolání LilyPondu,
+aniž by si uživatel něčeho z toho všiml.
 
-@cindex Implizite Kontexte
-@cindex Kontexte, implizit
+@cindex Skrytá prostředí
+@cindex Prostředí, skrytá
 
-@strong{Ein Wort der Warnung ist jedoch angebracht!} Viele der Beispiele
-in der Dokumentation von LilyPond lassen die @code{\new Staff} und @code{\new Voice}
-Befehle zur Erzeugung einer Notenzeile und einer Stimme (beides ist in
-LilyPond ein sogenannter Kontext) bewusst aus,
-damit sie implizit von LilyPond im Speicher erzeugt werden.
-Für einfache Dokumente funktioniert das im Allgemeinen sehr gut, für
-komplexere Partituren können dadurch aber unerwartete Ergebnisse
-entstehen, teilweise sogar unerwartete leere Notenzeilen.  Um
-die entsprechenden Kontexte in diesem Fall explizit zu erzeugen,
-siehe @ref{Souvislosti a rytci,,souvislosti a rytce}.
+@strong{Slovo varování je však vysloveno!} Mnohé z příkladů
+v dokumentaci k LilyPondu vědomě vynechávají příklady @code{\new Staff}
+a @code{\new Voice} k vytvoření notové osnovy a hlasu (obojí je v
+LilyPondu tak zvané prostředí),
+aby byla LilyPondem v paměti vytvořena skrytě.
+Pro jednoduché dokumenty to obecně pracuje velmi dobře, u
+složitějších notových zápisů z toho ale mohou povstat neočekávané
+výsledky, částečně dokonce neočekávané prázdné notové osnovy.  Jak
+otevřeně vytvářet odpovídající prostředí v takovém případě,
+se podívejte na @ref{Souvislosti a rytci,,souvislosti a rytce}.
 
-@warning{Wenn mehr als ein paar Zeilen an Musik eingegeben werden,
-empfiehlt es sich, die Notenzeilen und die Stimmen immer explizit
-mit @code{\new Staff} und @code{\new Voice} zu erzeugen.}
+@warning{Když se zadává více jak dvojice notových řádků,
+doporučuje se vytvořit notové osnovy a hlasy vždy otevřeně
+pomocí @code{\new Staff} a @code{\new Voice}.}
 
-Im Moment wollen wir aber zu unserem ersten Beispiel zurückkehren und
-nur den @code{\score}-Befehl näher betrachten.
+V této chvíli se ale chceme vrátit k našemu prvnímu příkladu a
+blíže se podívat jen na příkaz @code{\score}.
 
-Eine Partitur (@code{\score}) muss immer mit einem musikalischen Ausdruck
-beginnen.  Das ist letztendlich alle Musik, angefangen bei einer
-einzelnen
-Note bis hin zu einer riesigen Partitur mit vielen Notensystemen
-(bezeichnet hier durch @code{GrandStaff}):
+Notový zápis (@code{\score}) musí vždy začínat nějakým hudebním
+výrazem.  To je koneckonců každá hudba, počínaje jednotlivou
+notou až po rostoucí notový zápis s mnoha notovými osnovami
+(zde označeno pomocí @code{GrandStaff}):
 
 @example
 @{
   \new GrandStaff <<
-    @var{...hier die gesamte Partitur...}
+    @var{...zde celý notový zápis...}
   >>
 @}
 @end example
 
 @noindent
-Da sich alles innerhalb der geschweiften Klammern @code{@{ ... @}}
-befindet, wird es wie ein einziger musikalischer Ausdruck behandelt.
+Protože se vše nachází uvnitř složených závorek @code{@{ ... @}},
+zachází se s tím jako s jediným hudebním výrazem.
 
 
-Ein @code{\score} auch andere Dinge enthalten, wie etwa
+Jak již bylo řečeno předtím, může blok @code{\score} obsahovat i jiné věci, jako například
 
 @example
 \score @{
@@ -212,54 +211,53 @@ Ein @code{\score} auch andere Dinge enthalten, wie etwa
 @cindex header
 @cindex midi
 @cindex Layout
-@cindex Kopfzeile
+@cindex Hlavička
 
 @noindent
-Wie man sieht, sind die drei Befehle @code{\header}, @code{\layout} und
-@code{\midi} von spezieller Natur: Im Gegensatz zu vielen Anderen Befehlen,
-die auch mit einem @code{\} beginnen, liefern sie @emph{keinen} Musikausdruck
-und sind auch nicht Teil eines musikalischen Ausdrucks.  Daher können sie
-sowohl innerhalb eines @code{\score}-Blocks als auch außerhalb plaziert
-werden.  Tatsächlich werden einige dieser Befehle meist außerhalb des
-@code{\score}-Blocksgesetzt, zum Beispiel findet sich der @code{\header}
-sehr oft oberhalb der @code{\score}-Umgebung.  Das
-funktioniert genauso gut.
+Jak je vidět, jsou ty tři příkazy @code{\header}, @code{\layout} a
+@code{\midi} zvláštní povahy: V protikladu k mnoha jiným příkazům,
+které také začínají zpětným lomítkem @code{\}, @emph{nejsou} hudebním výrazem
+a také nejsou částí nějakého hudebního výrazu.  Z toho důvodu mohou být umístěny
+jak dovnitř bloku @code{\score} tak mimo
+něj.  Ve skutečnosti jsou tyto příkazy většinou umisťovány mimo blok
+@code{\score}, například se příkaz @code{\header} nachází
+velice často nad prostředím @code{\score}, jak ukazuje příklad na
+začátku tohoto oddílu.  Pracuje to právě tak dobře.
 
-Zwei bisher noch nicht aufgetauchte Befehle sind
-@code{\layout @{ @}} und @code{\midi @{@}}.  Wenn sie in einer
-Datei vorkommen, führt dies dazu, dass Lilypond eine druckfähige PDF-Datei
-bzw. eine MIDI-Datei erzeugt.  Genauer beschrieben werden sie im
-Benutzerhandbuch -- @ruser{Partiturlayout} und
-@ruser{MIDI-Dateien erstellen}.
+Dvěma dosud neviděnými příkazy jsou
+@code{\layout @{ @}} a @code{\midi @{@}}.  Když se objeví v nějakém
+souboru, vede to k tomu, že Lilypond vytvoří tisknutelný soubor PDF
+popřípadě soubor MIDI.  Přesněji jsou popsány v uživatelské příručce -
+doporučení k notovému zápisu -- @ruser{Rozvržení notového zápisu} und
+@ruser{Vytváření souborů MIDI}.
 
-@cindex Partituren, mehrfache
-@cindex book-Abschnitte, implizit
-@cindex implizite book-Umgebung
+@cindex Notové zápisy, více
+@cindex Prostředí book, skryté
+@cindex Skryté prostředí book
 @funindex \book
 @funindex book
 
-Ihr LilyPond Code kann auch mehrere @code{\score}-Blöcke enthalten.
-Jeder davon wird als eigenständige Partitur interpretiert, die
-allerdings alle in dieselbe Ausgabedatei plaziert werden.
-Ein @code{\book}-Befehl ist nicht explizit notwendig -- er wird
-implizit erzeugt.  Wenn jedoch für jeden @code{\score}-Block in einer
-einzigen @file{.ly}-Datei eine eigene Ausgabe-Datei erzeugt werden soll,
-dann muss jeder dieser Blöcke in einen eigenen @code{\book}-Block
-gesetzt werden: Jeder @code{\book}-Block erzeugt dann eine
-eigene Ausgabedatei.
+Váš LilyPondovský kód může obsahovat více bloků @code{\score}.
+Každý z nich je vykládán jako samostatný notový zápis, ovšem
+všechny jsou umístěny v tomtéž výstupním souboru.
+Příkaz @code{\book} není otevřeně nezbytný -- je vytvořen
+skrytě.  Když však má být vytvořen pro každý blok @code{\score} v
+souboru @file{.ly} vlastní výstupní soubor,
+potom se musí každý z těchto bloků zapsat do vlastního bloku @code{\book}:
+ Každý blok @code{\book} pak vytváří vlastní výstupní soubor.
 
-Zusammenfassung:
+Shrnutí:
 
-Jeder @code{\book}-Block erzeugt eine eigene Ausgabedatei (z.B. eine
-PDF-Datei).  Wenn Sie keinen derartigen Block explizit angegeben haben,
-setzt LilyPond den gesamten Dateiinhalt innerhalb eines einzigen
-impliziten @code{\book}-Blocks.
+Každý blok @code{\book} vytváří vlastní výstupní soubor (např. soubor
+PDF).  Pokud jste otevřeně žádný takový blok nezadali,
+LilyPond celý obsah souboru zapíše dovnitř jednoho jediného
+skrytého bloku @code{\book}.
 
-Jeder @code{\score}-Block beschreibt ein eigenständiges Musikstück
-innerhalb des @code{\book}-Blocks.
+Každý blok @code{\score} popiseje jeden samostatný hudební kus
+uvnitř bloku @code{\book}.
 
-@cindex Layout-Umgebung, Platzierung
-@cindex Platzierung von layout-Umgebung
+@cindex Prostředí Layout, umístění
+@cindex Umístění prostředí layout
 
 Jeder @code{\layout}-Block wirkt sich auf den @code{\score}- oder
 @code{\book}-Block aus, in dem er auftritt.  So wirkt z.B. ein
