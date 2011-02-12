@@ -493,7 +493,7 @@ tamtamstaff = {
 @end lilypond
 
 Zwei Glocken, notiert mit @code{cb} (Kuhglocke) und @code{rb}
-(Reisterglocke)
+(Reiterglocke)
 
 @lilypond[quote,verbatim]
 #(define mydrums '((ridebell default #t  3)
