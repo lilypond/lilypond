@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 70aaf0159410169678942abd39eb13c876521437
+    Translation of GIT committish: 3c814eb917c15f6f0d64f64f58046dd7b119e359
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.46"
 
 @ignore
 Tutorial guidelines:

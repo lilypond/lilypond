@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 0764a50d470cab82ca29da30298dacd333d3da12
+    Translation of GIT committish: 3c814eb917c15f6f0d64f64f58046dd7b119e359
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -441,7 +441,7 @@ woodstaff = {
 @end lilypond
 
 In diesem Spezialfalls muss die Länge der Taktlinie mit
-@code{\override Staff.BarLine #'bar-extent #'(von . zu)} angepasst werden.
+@code{\override Staff.BarLine #'bar-extent #'(von . bis)} angepasst werden.
 Andernfalls wäre sie zu kurz.  Die Position der beiden Linien muss
 auch definiert werden.
 

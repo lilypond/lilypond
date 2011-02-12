@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+    Translation of GIT committish: 3c814eb917c15f6f0d64f64f58046dd7b119e359
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -523,12 +523,15 @@ Beispiel den Schlüssel auf der zweiten Linie)
 @end lilypond
 
 @item
-Mensuraler F-Schlüssel im Petrucci-Stil
+Mensuraler F-Schlüssel im Petrucci-Stil, kann auf verschiedenen
+Notenlinien benutzt werden (im Beispiel auf der dritten Linie)
 @tab
-@code{petrucci-f}
+@code{petrucci-c1}, @code{petrucci-c2},@*
+@code{petrucci-c3}, @code{petrucci-c4},@*
+@code{petrucci-c5}
 @tab
 @lilypond[fragment,relative=1,notime]
-  \clef "petrucci-f"
+  \clef "petrucci-c2"
   \override NoteHead #'style = #'mensural
   c
 @end lilypond
@@ -655,8 +658,8 @@ Notationsreferenz:
 @ref{Taktangabe}.
 
 @knownissues
-Die Verhältnisse der Notenwerte ändern sich nicht, wenn die Mensur
-gewechselt wird. Zum Beispiel muss das Verhältnis 1@tie{}brevis = 3@tie{}semibrevis
+Die Verhältnisse der Notenwerte können nicht bei Mensurwechsel geändert
+werden, weil sie nicht konstant sind.  Zum Beispiel kann das Verhältnis 1@tie{}brevis = 3@tie{}semibrevis
 (tempus perfectum) manuell erstellt werden, indem folgende Variable erstellt
 wird:
 
@@ -688,7 +691,7 @@ Für die Mensuralnotation kann ein Notenkopfstil ausgewählt werden, der sich
 vom Standard (@code{default}) unterscheidet. Dies wird erreicht, indem die
 @code{style}-Eigenschaft der Notenkopf-(@code{NoteHead})-Objekte auf
 einen der Werte @code{baroque}, @code{neomensural}, @code{mensural} oder
-@code{petrucci} gesetzt wird.
+@code{petrucci}, @code{blackpetrucci}, @code{semipetrucci} gesetzt wird.
 
 Der barocke (@code{baroque}) Stil unterscheidet sich vom Standard
 (@code{default}) folgendermaßen:
@@ -707,14 +710,34 @@ Notenköpfe eingesetzt und
 @item die Hälse werden über den Kopf zentriert.
 @end itemize
 
+Der @code{blackpetrucci}-Stil erstellt Notenköpfe zur Benutzung für die
+schwarze Mensuralnotation oder @emph{coloratio}-Abschnitten in der
+weißen Menusralnotation.  Weil der Notenkopfstil nicht die Anzahl der
+Fähnchen beeinflusst, muss eine Semiminia in diesem Stil als
+@code{a8*2} notiert werden, nicht als @code{a4}, weil sie sonst wie
+eine Minima aussehen würde.  Der Faktor, mit dem der Notenwert multipliziert
+wird, kann sich ändern, wenn @emph{coloratio} etwa zur Notation
+von Triolen eingesetzt wurde.
+
+Mit dem @code{semipetrucci}-Stil können halb-schwarze Notenköpfe
+notiert werden (Brevis, Longa und Maxima).
+
 Das folgende Beispiel zeigt den Petrucci-Stil:
+
+@c Renaissance music doesn't use bar lines ...  but they do help to
+@c separate the notes for easier identification.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \set Score.skipBars = ##t
 \autoBeamOff
 \override NoteHead #'style = #'petrucci
 a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
-
+\override NoteHead #'style = #'semipetrucci
+a'\breve*5/6
+\override NoteHead #'style = #'blackpetrucci
+a'8*4/3 a'
+\override NoteHead #'style = #'petrucci
+a'\longa
 @end lilypond
 
 @seealso
@@ -811,6 +834,13 @@ Notationsreferenz:
 
 Schnipsel:
 @rlsr{Ancient notation}.
+
+@knownissues
+Das Zeichen für die Maxima-Pause im mensuralen Stil ist eigentlich eine
+perfekte Longa-Pause: zwei (oder drei) Longa-Pausen müssen benutzt werden,
+um eine Maxima-Pause zu setzen.  Longa-Pausen werden nicht automatisch gruppiert,
+sodass man das manuell vornehmen muss, indem man Pausen mit Tonhöhe
+einsetzt.
 
 
 @c {{{2Mensural accidentals and key signatures
@@ -947,18 +977,39 @@ Vorteil, dass der musikalische Inhalt der Ligatur dem Programm bekannt ist.
 Das ist nicht nur notwendig für korrekte MIDI-Ausgabe, sondern erlaubt
 es auch, automatische Transkriptionen von Ligaturen anzufertigen.
 
+An bestimmten Stellen können zwei aufeinanderfolgende Noten entweder als
+zwei Quadrate oder eine Obliqua (Flexa) dargestellt werden.  In derartigen
+Fällen ist die Quadratform der Standard, aber die Obliqua kann verlangt
+werden, indem man die @code{ligature-flexa}-Eigenschaft des @emph{zweiten}
+Notenkopfes setzt.  Die Länge der Obliqua kann durch die Notenkopfeigenschaft
+@code{flexa-width} definiert werden.
+
 Eine Datei kann zum Beispiel so aussehen:
 
+@c @example
+@c \set Score.timing = ##f
+@c \set Score.defaultBarType = "empty"
+@c \override NoteHead #'style = #'neomensural
+@c \override Staff.TimeSignature #'style = #'neomensural
+@c \clef "petrucci-g"
+@c \[ c'\maxima g \]
+@c \[ d\longa c\breve f e d \]
+@c \[ c'\maxima d'\longa \]
+@c \[ e'1 a g\breve \]
+@c @end example
 @lilypond[quote,ragged-right,verbatim]
 \score {
   \transpose c c' {
     \set Score.timing = ##f
     \set Score.defaultBarType = "empty"
-    \override NoteHead #'style = #'neomensural
-    \override Staff.TimeSignature #'style = #'neomensural
+    \override NoteHead #'style = #'petrucci
+    \override Staff.TimeSignature #'style = #'mensural
     \clef "petrucci-g"
     \[ c'\maxima g \]
-    \[ d\longa c\breve f e d \]
+    \[ d\longa
+       \override NoteHead #'ligature-flexa = ##t
+       \once \override NoteHead #'flexa-width = #3.2
+       c\breve f e d \]
     \[ c'\maxima d'\longa \]
     \[ e'1 a g\breve \]
   }
@@ -1000,6 +1051,8 @@ Notationreferenz:
 
 @knownissues
 Die horizontale Positionierung ist sehr schlecht.
+
+Versetzungszeichen können mit vorhergehenden Noten kollidieren.
 
 
 
