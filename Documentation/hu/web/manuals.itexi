@@ -1,11 +1,13 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: hu -*-
 @ignore
-    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+    Translation of GIT committish: 46ec3bd9ded640faef62938929a0af97345cf955
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
+
+@c Translators: Harmath Dénes
 
 @node Dokumentáció
 @unnumbered Dokumentáció

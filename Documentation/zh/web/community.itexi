@@ -1,12 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: zh -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 676dd9eed5f81540f71c3e3e55666c60f7af36ac
+    Translation of GIT committish: 46ec3bd9ded640faef62938929a0af97345cf955
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c Translators: Ben Luo
 
 @include included/authors.itexi
 @include included/helpus.itexi

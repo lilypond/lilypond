@@ -1,6 +1,6 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: hu -*-
 @ignore
-    Translation of GIT committish: 8d20e61da8c6746283773eb891720927c68d1aa8
+    Translation of GIT committish: 46ec3bd9ded640faef62938929a0af97345cf955
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -8,6 +8,8 @@
 @end ignore
 
 @include included/authors.itexi
+
+@c Translators: Harmath Dénes
 
 @node Közösség
 @unnumbered Közösség
