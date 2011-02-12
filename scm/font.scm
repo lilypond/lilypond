@@ -239,7 +239,7 @@ used.  This is used to select the proper design size for the text fonts.
 
 (define-public (make-century-schoolbook-tree factor)
   (make-pango-font-tree
-    "Century Schoolbook L,serif"
+    "Century Schoolbook L"
     "sans-serif" "monospace" factor))
 
 (define-public all-text-font-encodings
