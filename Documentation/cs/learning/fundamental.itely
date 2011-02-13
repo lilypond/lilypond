@@ -529,83 +529,82 @@ osnovu:
 }
 @end lilypond
 
-Dieses Beispiel benutzt den @code{\with}-Befehl, der später noch
-genauer erklärt wird.  Damit kann das Standardverhalten einer
-einzelnen Notenzeile geändert werden: Hier wird einfach angegeben,
-dass die neue Notenzeile oberhalb der bereits existierenden Zeile
-mit Namen @qq{Hauptzeile} plaziert werden soll, anstatt
-standardmäßig unterhalb.
+Tento příklad používá příkaz @code{\with}, který bude později
+gvysvětlen ještě přesněji.  Jím lze měnit výchozí chování jedné
+notové osnovy: Zde se jednoduše říká, že nová notová osnova
+se má umístit nad již jsoucí osnovu s názvem
+@qq{main} namísto výchozího umístění, které je
+pod ní.
 
 
 @seealso
-Ossia werden oft ohne Notenschlüssel und Taktangabe gedruckt, meist
-auch etwas kleiner als die anderen Notenzeilen.  Dies ist natürlich
-auch in LilyPond möglich, benötigt aber Befehle, die bisher noch
-nicht vorgestellt wurden.  Siehe @ref{Größe von Objekten}
-und @ruser{Ossia-Systeme}.
+Ossia jsou často tisknuta bez notového klíče a bez taktového označení,
+většinou také o něco menší, než jiné osnovy.  Toto je přirozeně možné
+i v LilyPondu, vyžaduje to ale příkazy, jež dosud ještě nebyly
+představeny.  Podívejte se na @ref{Velikost předmětů,,velikosti předmětů}
+a @ruser{Osnovy ossia}.
 
 
 @node O ne-naskládatelnosti závorek a ligatur
 @subsection O ne-naskládatelnosti závorek a ligatur
 @translationof On the un-nestedness of brackets and ties
 
-@cindex Klammern, geschachtelt
-@cindex Schachtelung von Klammern
-@cindex Klammer-Typen
+@cindex Závorky, naskládání
+@cindex Naskládání závorek
+@cindex Typy závorek
 
-Sie haben bisher zahlreiche verschiedene Arten von Klammern
-und Klammer-artigen Konstruktionen beim Schreiben von Musik mit
-LilyPond kennengelernt.  Diese folgen verschiedenen Regeln, die zu
-Beginn vielleicht verwirrend wirken.  Bevor die genauen Regeln
-vorgestellt werden, wollen wir die diversen Klammerarten und Arten
-von Klammer-artigen Konstrukten kurz rekapitulieren:
+Již jste při psaní vstupního souboru pro LilyPond poznali
+četné různé druhy závorek a staveb na způsob závorek.  Tyto
+se řídí různými pravidly, která mohou zpočátku působit
+matoucím dojmem.  Předtím než budou představena přesná pravidla,
+pojďme si tyto různé druhy závorek a staveb na způsob závorek
+krátce projít znovu:
 
 @c attempt to force this onto a new page
 @need 50
 @multitable @columnfractions .3 .7
-@headitem Klammerart
-  @tab Funktion
+@headitem Druh závorek
+  @tab Funkce
 @item @code{@{ .. @}}
-  @tab Umschließt ein sequenzielles Musiksegment
+  @tab Uzavírá postupnou část hudby
 @item @code{< .. >}
-  @tab Umschließt die Noten eines Akkords
+  @tab Uzavírá noty jednoho akkordu
 @item @code{<< .. >>}
-  @tab Umschließt parallele Musikausdrücke
+  @tab Uzavírá souběžné hudební výrazy
 @item @code{( .. )}
-  @tab Markiert den Beginn und das Ende eines Haltebogens
+  @tab Označuje začátek a konec obloučku
 @item @code{\( .. \)}
-  @tab Markiert den Beginn und das Ende eines Phasierungsbogens
+  @tab Označuje začátek a konec frázovacího obloučku
 @item @code{[ .. ]}
-  @tab Markiert den Beginn und das Ende eines manuell erzeugten Balkens
+  @tab Označuje začátek a konec ručně vytvořeného trámce
 @end multitable
 
-Zusätzlich sollten vielleicht noch einige weiter Konstruktionen
-erwähnt werden, die Noten auf irgendeine Art und Weise verbinden:
-Haltebögen (durch eine Tilde @code{~} markiert),
-Triolen (als @code{\times x/y @{..@}} geschrieben) und
-Vorschlagnoten (als @code{\grace@{..@}} notiert).
+Dodatečně by snad měly být ještě dále zmíněny některé další
+konstrukce, které noty ať už jakkoli spojují:
+ligatury (označované vlnovkou @code{~}),
+trioly (psané jako @code{\times x/y @{..@}}) und
+ozdoby (poznamenávané jako @code{\grace@{..@}}).
 
-Außerhalb von LilyPond fordert die übliche Benutzung von
-Klammern, dass die entsprechenden Arten korrekt verschachtelt
-werden, wie z.B. in @code{<< [ @{ ( .. ) @} ] >>}.  Die
-schließenden Klammern kommen dabei in der umgekehrten Reihenfolge
-wie die öffnenden Klammern vor.  Dies ist auch in LilyPond
-ein @strong{Muss} für die drei Klammerarten, die in obiger
-Tabelle mit dem Wort @q{Umschließt} beschrieben werden -- sie
-müssen korrekt geschachtelt werden.
-Die restlichen Klammer-artigen Konstruktionen (durch @q{Markiert}
-in der Tabelle oben beschrieben), die Haltebögen und die Triolen
-brauchen jedoch mit
-den anderen Klammern oder Klammer-artigen Konstrukten @strong{nicht}
-unbedingt korrekt geschachtelt werden.  Tatsächlich sind sie auch
-keine Klammern in dem Sinn, dass sie etwas umschließen, sondern
-viel mehr Indikatoren, an welcher Stelle ein bestimmtes
-musikalisches Objekt beginnt oder endet.
+Mimo LilyPond vyžaduje běžné používání závorek,
+aby byly jejich odpovídající druhy správně seskládány,
+jako je tomu například tady @code{<< [ @{ ( .. ) @} ] >>}.  Uzavírající
+závorky přitom přicházejí v obráceném pořadí k
+otevírajícím závorkám.  Toto je také v LilyPondu
+@strong{nutnost} pro ony tři druhy závorek, jež byly v hořejší
+tabulce popsány slovem @q{uzavírá} -- musí být správně
+vkládány.
+Nicméně zbývající stavby na způsob závorek (v tabulce popsány
+slovem @q{označuje}), ligatury a trioly
+bezpodmínečně s jinými závorkami nebo stavbami na způsob závorek
+seskládány být čistě @strong{nemusí}.  Vlastně také ani nejsou nějakými
+závorkami v tom smyslu, že by něco svíraly, nýbrž mnohem více
+jsou ukazateli, na kterém místě určitý hudební předmět
+začíná nebo končí.
 
-So kann also z.B. einen Phrasierungsbogen vor einem manuellen
-Balken beginn, jedoch schon vor dem Ende des Balkens enden.
-Dies mag zwar musikalisch wenig Sinn ergeben, ist aber in LilyPond
-auch möglich:
+Tak tedy může například takový frázovací oblouček začínat před
+ručně vloženým trámcem, a přece končit již před jeho koncem.
+Toto sice může z hudebního pohledu dávat málo smyslu, ale v LilyPondu
+je možné i toto:
 
 @lilypond[quote,verbatim,ragged-right,relative=2]
 { g8\( a b[ c b\) a] g4 }
