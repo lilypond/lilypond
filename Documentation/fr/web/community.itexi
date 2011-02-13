@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @ignore
-    Translation of GIT committish: 17f11c2f5ab963bfb07b7652b4860dc4dda5540a
+    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -391,15 +391,15 @@ cas, seules quelques notes suffisent à démontrer le disfonctionnement.}
 Voici ce à quoi devrait ressembler tout signalement de bogue@tie{}:
 
 @example
-%% la commande d'octaviation
-%% ne fonctionne pas !
+% Dans une liaison de prolongation
+% seule la première note devrait porter
+% l'altération accidentelle.
+% Cette version l'ajoute partout.
+\version "2.10.1"
 
-\version "2.10.0"
-\paper@{ ragged-right=##t @}
-\relative c''' @{
-  c1
-  #(set-octavation 1)
-  c1
+\relative c'' @{
+ bes1 ~
+ bes1
 @}
 @end example
 

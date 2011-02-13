@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-   Translation of GIT committish: 6d618ddf527c69dc7c5309f071b115df50566121
+   Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -25,7 +25,7 @@ Tutorial guidelines:  (different from policy.txt!)
 
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.46"
 
 @c Translators: Nicolas Grandclaude, Ludovic Sardain, Gauvain Pocentek
 @c Translation checkers: Jean-Charles Malahieude, Valentin Villenave, John Mandereau
@@ -124,7 +124,7 @@ comme l'allemand ou le hollandais.
 
 @c DIV specific
 Cependant, si vous utilisez la commande
-@w{@code{@w{\include@tie{}"italiano.ly"}}} pour entrer les noms de note
+@w{@code{@w{\language@tie{}"italiano"}}} pour entrer les noms de note
 français au lieu des noms hollandais, il faudra ajouter un @code{d} pour
 obtenir un dièse, et un @code{b} pour un bémol.  Le double dièse et le
 double bémol s'obtiennent en ajoutant respectivement @code{dd} et

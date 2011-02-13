@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: bb041099df39aa419034ad8abd044ce887528609
+    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -220,8 +220,14 @@ Manuel de notation :
 @cindex Bartók pizzicato
 @cindex snap pizzicato
 
-@snippets
+Un @notation{snap pizzicato}, aussi appelé @qq{Bartok pizz} est un type
+de pizzicato pour lequel la corde est tirée vers le haut (plutôt que sur
+le côté) de telle sorte qu'elle vienne frapper le manche.
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{snap-pizzicato-bartok-pizzicato.ly}
+@lilypond[verbatim,quote,relative=1]
+c4\snappizzicato
+<c' e g>4\snappizzicato
+<c' e g>4^\snappizzicato
+<c, e g>4_\snappizzicato
+@end lilypond
 

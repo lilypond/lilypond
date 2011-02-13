@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c1d5bb448321d688185e0c6b798575d4c325ae80
+    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -614,8 +614,10 @@ mettre entre guillemets, soit utiliser le caractère souligné
 (@code{~}) pour obtenir une liaison entre les syllabes. Cette
 liaison adaptée aux paroles correspond au caractère Unicode
 @code{U+203F}, et n'apparaîtra dans la partition que si le système
-dispose d'une police installée qui contient ce symbole (par exemple
-DejaVuLGC).
+dispose d'une police installée qui contient ce symbole.  Un certain
+nombre de fontes librement disponibles en disposent, comme FreeSerif
+(un clone de Times), `DejaVuSans' (mais pas DejaVuSerif) ou
+TeXGyreSchola (un clone de Century Schoolbook).
 
 @lilypond[quote,ragged-right,verbatim]
 {

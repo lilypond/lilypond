@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 61762da8bedb70c6b4f0264604396288f70256f5
+    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -24,6 +24,7 @@ spécifique à certains intruments ou certaines époques.
 * Percussions::
 * Instruments à vent::
 * Notation des accords::
+* Notation contemporaine::
 * Notations anciennes::
 * Musiques du monde::
 @end menu
@@ -35,5 +36,6 @@ spécifique à certains intruments ou certaines époques.
 @include notation/percussion.itely
 @include notation/wind.itely
 @include notation/chords.itely
+@include notation/contemporary.itely
 @include notation/ancient.itely
 @include notation/world.itely

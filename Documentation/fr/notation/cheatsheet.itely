@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c31380f0566068abe43e41b9374fb4520057c060
+    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -68,10 +68,10 @@ s4_" "
 @end lilypond
 
 @item @code{\time 3/4 \time 4/4 }
-@tab chiffre de mesure
+@tab chiffre de mesure, métrique
 @tab
 @lilypond[relative=1]
-\override Staff.Clef #'transparent = ##t
+\override Staff.Clef #'stencil = #empty-stencil
 \time 3/4
 s4_" "
 \time 4/4
@@ -102,7 +102,8 @@ d ~ d
 @lilypond[notime,relative=1]
 \clef treble
 \key es \major
-s4
+\hideNotes
+c128
 @end lilypond
 
 @item @var{note}@code{'}
@@ -181,7 +182,7 @@ c-> c-.
 @end lilypond
 
 
-@item @code{c\mf c\sfz}
+@item @code{c2\mf c\sfz}
 @tab nuances
 @tab
 @lilypond[relative=2]
@@ -221,7 +222,7 @@ a\> a a\!
 
 
 @item @code{\partial 8}
-@tab levées
+@tab levées, anacrouses
 @tab
 @lilypond[relative=2]
 \partial 8

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: ee20a00bbe6704553bb1f761899a727fc150ab46
+    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -112,10 +112,32 @@ Manuel d'initiation :
 Manuel de notation :
 @ref{Notation des accords}.
 @ref{Articulations et ornements},
-@ref{Octaves relatives}.
+@ref{Octaves relatives},
+@ref{Plusieurs voix}.
 
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes,Notes simultanées}.
+
+@knownissues
+Un accord comportant plus de deux notes dans le même @qq{espace de
+portée} -- tel que @samp{<e f! fis!>} -- conduit immanquablement à des
+chevauchements.  En fonction de la situation, un meilleur rendu peut
+nécessiter de recourir à
+
+@itemize
+
+@item
+l'utilisation temporaire de @ref{Plusieurs voix},
+@samp{<< f! \\ <e fis!> >>},
+
+@item
+une transcription enharmonique d'une ou plusieurs hauteurs,
+@samp{<e f ges>}, ou
+
+@item
+des @ref{Clusters}.
+
+@end itemize
 
 
 @node Répétition d'accords
@@ -685,19 +707,12 @@ Référence des propriétés internes :
 @rinternals{RestCollision}.
 
 
-@knownissues
 
 @ignore
 @c TODO investigate! Sometimes it works, sometimes not. --FV
 The requirements for successfully merging different note heads that
 are at the same time differently dotted are not clear.
 @end ignore
-
-Il n'y a aucune prise en charge des agrégats dans lesquels une même note
-apparaît avec différentes altérations.  Il est conseillé d'avoir recours
-aux enharmoniques, ou d'utiliser la notation spécifique de cluster --
-voir @ref{Clusters}.
-
 
 
 @node Regroupement automatique de parties

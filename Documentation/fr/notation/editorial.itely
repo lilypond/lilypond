@@ -1,6 +1,6 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 4c48ef850dd6cc09e2240c83e21710758a8a595a
+    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -233,6 +233,8 @@ Référence des propriétés internes :
 @cindex masquées, notes
 @cindex invisibles, notes
 @cindex transparentes, notes
+@cindex note invisible
+@cindex note masquée
 
 @funindex \hideNotes
 @funindex hideNotes
@@ -321,11 +323,11 @@ e
 
 L'intégralité de la palette des couleurs définies pour X11 est
 accessible par la fonction Scheme @code{x11-color}.  Cette fonction
-prend en argument une expression symbolique de la forme @var{'TaraTata}
-ou bien une chaîne de caractères comme @var{"TaraTata"}.  La première
-formulation est à la fois plus rapide à écrire et aussi plus efficace.
-Néanmoins, la deuxième forme permet d'accéder aux noms composés des
-couleurs de X11.
+prend en argument une expression symbolique de la forme
+@code{@var{'TaraTata}} ou bien une chaîne de caractères comme
+@code{@var{"TaraTata"}}.  La première formulation est à la fois plus
+rapide à écrire et aussi plus efficace.  Néanmoins, la deuxième forme
+permet d'accéder aux noms composés des couleurs de X11.
 
 Lorsque la fonction @code{x11-color} ne trouve pas le paramètre fourni,
 elle revient à la couleur par défaut, le noir.  Le problème ressort de
@@ -359,7 +361,8 @@ b2 cis
 
 Un autre moyen consiste à fournir à la fonction Scheme @code{rgb-color}
 les composantes de la couleur exacte au format rouge-vert-bleu
-(@emph{RGB}).
+(@emph{RGB}) -- chacune étant exprimée en en fraction de 256 (le 0.5 de
+l'exemple suivant correspond à 128).
 
 @lilypond[verbatim,quote,relative=2]
 \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
@@ -379,7 +382,7 @@ gis4 a
 @seealso
 Manuel de notation :
 @ref{Liste des couleurs},
-@ref{La commande d'affinage (@emph{tweak})}.
+@ref{La commande d'affinage (tweak)}.
 
 Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
@@ -405,7 +408,7 @@ présentation multimedia, d'utiliser des couleurs de base @code{#blue},
 Vous ne pouvez pas coloriser des notes à l'intérieur d'un accord avec
 @code{\override}.  Si besoin est, utilisez @code{\tweak}.
 Pour plus de détails, consultez
-@ref{La commande d'affinage (@emph{tweak})}.
+@ref{La commande d'affinage (tweak)}.
 
 
 @node Parenthèses
@@ -482,7 +485,7 @@ Dès qu'une note est rencontrée, un objet @code{Stem} se crée
 automatiquement.  Pour les rondes et les silences, ils sont aussi
 créés, mais en mode invisible.
 
-La direction des hampes peut être définie manuellement -- voir
+L'orientation des hampes peut être définie manuellement -- voir
 @ref{Direction et positionnement} à ce sujet.
 
 
@@ -559,7 +562,6 @@ En voici un exemple :
   <c, g'-\balloonText #'(-2 . -2) \markup { "Je suis une tête de note" } c>2.
 }
 @end lilypond
-
 
 Vous disposez de deux fonctions musicales, @code{balloonGrobText} et
 @code{balloonText}.  @code{balloonGrobText} prend en argument

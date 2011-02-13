@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 0ab366a101ef8c3439dd8d6ff6c634f70fa5f63b
+    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -298,12 +298,14 @@ protégés par le droit d’auteur.
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Pour processeur Intel (dans le doute, prenez celui-ci).
+Pour MacOS X 10.4 ou supérieur tournant sur un processeur Intel (dans le
+doute, prenez celui-ci).
 
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
-Pour processeur G3 ou G4 (anciens ordinateurs Apple).
+Pour MacOS X 10.4 ou supérieur tournant sur un processeur G3 ou G4
+(anciens ordinateurs Apple).
 
 @end itemize
 
