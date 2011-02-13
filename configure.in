@@ -112,11 +112,14 @@ STEPMAKE_TEXMF(REQUIRED)
 STEPMAKE_TEXMF_DIRS
 STEPMAKE_GUILE_DEVEL(REQUIRED, 1.8.2)
 
-# check for 2 typedefs added in Guile 1.9
+# check for 3 typedefs added in Guile 1.9
 save_CXXFLAGS="$CXXFLAGS"
 CXXFLAGS="$GUILE_CFLAGS $CXXFLAGS"
 AC_CHECK_TYPES([scm_t_hash_fold_fn, scm_t_hash_handle_fn],
 	       [AC_DEFINE(HAVE_GUILE_HASH_FUNC)], [],
+	       [#include <libguile.h>])
+AC_CHECK_TYPES([scm_t_subr],
+	       [AC_DEFINE(HAVE_GUILE_SUBR_TYPE)], [],
 	       [#include <libguile.h>])
 CXXFLAGS="$save_CXXFLAGS"
 

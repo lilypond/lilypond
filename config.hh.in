@@ -91,3 +91,6 @@
 
 /* define if Guile has types scm_t_hash_fold_fn and scm_t_hash_handle_fn */
 #define HAVE_GUILE_HASH_FUNC 0
+
+/* define if Guile has type scm_t_subr */
+#define HAVE_GUILE_SUBR_TYPE 0
