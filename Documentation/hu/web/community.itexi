@@ -729,25 +729,25 @@ A lilypond-book tesztjei.
 @subsubheading Fejlesztői verzió
 
 @itemize
-@item @regtestDevel (@regtestDevelPdf{})
+@item @regtestDevel-hu (@regtestDevelPdf-hu{})
 
-@item @regtestDevelXml (@regtestDevelXmlPdf{})
+@item @regtestDevelXml-hu (@regtestDevelXmlPdf-hu{})
 
-@item @regtestDevelAbc (@regtestDevelAbcPdf{})
+@item @regtestDevelAbc-hu (@regtestDevelAbcPdf-hu{})
 
-@item @regtestDevelLilypondBook (@regtestDevelLilypondBookPdf{})
+@item @regtestDevelLilypondBook-hu (@regtestDevelLilypondBookPdf-hu{})
 @end itemize
 
 @subsubheading Stabil verzió
 
 @itemize
-@item @regtestStable (@regtestStablePdf{})
+@item @regtestStable-hu (@regtestStablePdf-hu{})
 
-@item @regtestStableXml (@regtestStableXmlPdf{})
+@item @regtestStableXml-hu (@regtestStableXmlPdf-hu{})
 
-@item @regtestStableAbc (@regtestStableAbcPdf{})
+@item @regtestStableAbc-hu (@regtestStableAbcPdf-hu{})
 
-@item @regtestStableLilypondBook (@regtestStableLilypondBookPdf{})
+@item @regtestStableLilypondBook-hu (@regtestStableLilypondBookPdf-hu{})
 @end itemize
 @end ifset
 
