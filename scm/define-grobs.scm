@@ -667,7 +667,6 @@
 	(slope . 1.0)
 	(stencil . ,ly:percent-repeat-item-interface::double-percent)
 	(thickness . 0.48)
-	(width . 2.0)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
 				font-interface
@@ -698,6 +697,20 @@
 				self-alignment-interface
 				side-position-interface
 				text-interface))))))
+
+    (DoubleRepeatSlash
+     . (
+	(dot-negative-kern . 0.75)
+	(font-encoding . fetaMusic)
+	(slash-negative-kern . 1.6)
+	(slope . 1.0)
+	(stencil . ,ly:percent-repeat-item-interface::beat-slash)
+	(thickness . 0.48)
+	(meta . ((class . Item)
+		 (interfaces . (font-interface
+				percent-repeat-interface
+				percent-repeat-item-interface
+				rhythmic-grob-interface))))))
 
     (DynamicLineSpanner
      . (
@@ -1570,6 +1583,7 @@
 
     (RepeatSlash
      . (
+	(slash-negative-kern . 0.85)
 	(slope . 1.7)
 	(stencil . ,ly:percent-repeat-item-interface::beat-slash)
 	(thickness . 0.48)

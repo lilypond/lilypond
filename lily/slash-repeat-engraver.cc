@@ -18,22 +18,15 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "bar-line.hh"
-#include "global-context.hh"
-#include "international.hh"
 #include "item.hh"
-#include "misc.hh"
-#include "repeated-music.hh"
-#include "score-engraver.hh"
-#include "spanner.hh"
+#include "engraver.hh"
 #include "stream-event.hh"
-#include "warn.hh"
 
 #include "translator.icc"
 
-/**
-   This acknowledges repeated music with "percent" style.  It typesets
-   a slash sign.
+/*
+  This acknowledges repeated music with "percent" style.  It typesets
+  a slash sign or double percent sign.
 */
 class Slash_repeat_engraver : public Engraver
 {
@@ -42,7 +35,7 @@ public:
 protected:
   Stream_event *slash_;
 protected:
-  DECLARE_TRANSLATOR_LISTENER (percent);
+  DECLARE_TRANSLATOR_LISTENER (repeat_slash);
   void process_music ();
 };
 
@@ -51,21 +44,11 @@ Slash_repeat_engraver::Slash_repeat_engraver ()
   slash_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Slash_repeat_engraver, percent);
+IMPLEMENT_TRANSLATOR_LISTENER (Slash_repeat_engraver, repeat_slash);
 void
-Slash_repeat_engraver::listen_percent (Stream_event *ev)
+Slash_repeat_engraver::listen_repeat_slash (Stream_event *ev)
 {
-  /*todo: separate events for percent and slash */
-  Moment meas_length
-    = robust_scm2moment (get_property ("measureLength"), Moment (0));
-  
-  if (get_event_length (ev) < meas_length)
     ASSIGN_EVENT_ONCE (slash_, ev);
-  
-  /*
-    don't warn if nothing happens: this can happen if there are whole
-    measure repeats.
-   */
 }
 
 void
@@ -73,7 +56,11 @@ Slash_repeat_engraver::process_music ()
 {
   if (slash_)
     {
-      make_item ("RepeatSlash", slash_->self_scm ());
+      SCM count = slash_->get_property ("slash-count");
+      if (scm_to_int (count) == 0)
+	make_item ("DoubleRepeatSlash", slash_->self_scm ());
+      else
+	make_item ("RepeatSlash", slash_->self_scm ());
       slash_ = 0;
     }
 }
@@ -83,10 +70,11 @@ ADD_TRANSLATOR (Slash_repeat_engraver,
 		"Make beat repeats.",
 
 		/* create */
+		"DoubleRepeatSlash "
 		"RepeatSlash ",
 
 		/* read */
-		"measureLength ",
+		"",
 
 		/* write */
 		""

@@ -63,6 +63,7 @@ Multi_measure_rest::percent (SCM smob)
   Spanner *sp = dynamic_cast<Spanner *> (me);
 
   Stencil r = Percent_repeat_item_interface::x_percent (me, 1);
+  r.translate_axis (-r.extent (X_AXIS).center (), X_AXIS);
 
   // ugh copy & paste.
 

@@ -175,6 +175,11 @@ An alternative syntax is @var{note}@code{\\decr} @dots{}
 		  event))
 	))
 
+    (DoublePercentEvent
+     . ((description . "Used internally to signal double percent repeats.")
+	(types . (general-music event double-percent-event rhythmic-event))
+	))
+
     (EpisemaEvent
      . ((description . "Begin or end an episema.")
 	(types . (general-music span-event event episema-event))
@@ -375,7 +380,7 @@ as separate voices.")
 	))
 
     (PercentRepeatedMusic
-     . ((description . "Repeats encoded by percents.")
+     . ((description . "Repeats encoded by percents and slashes.")
 	(iterator-ctor . ,ly:percent-repeat-iterator::constructor)
 	(start-callback .  ,ly:repeated-music::first-start)
 	(length-callback . ,ly:repeated-music::unfolded-music-length)
@@ -448,6 +453,11 @@ Syntax: @code{\\unset @var{context}.@var{prop}}")
     (RepeatedMusic
      . ((description . "Repeat music in different ways.")
 	(types . (general-music repeated-music))
+	))
+
+    (RepeatSlashEvent
+     . ((description . "Used internally to signal beat repeats.")
+	(types . (general-music event repeat-slash-event rhythmic-event))
 	))
 
     (RepeatTieEvent

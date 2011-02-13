@@ -301,6 +301,20 @@ through MUSIC."
 	  (shift-duration-log r shift dots))
 	r)))
 
+(define (calc-repeat-slash-count music)
+  "Given the child-list @var{music} in @code{PercentRepeatMusic},
+calculate the number of slashes based on the durations.  Returns @code{0}
+if durations in in @var{music} vary, allowing slash beats and double-percent
+beats to be distinguished."
+  (let* ((durs (map (lambda (elt)
+		      (duration-of-note elt))
+		    (extract-named-music music 'EventChord)))
+	 (first-dur (car durs)))
+
+    (if (every (lambda (d) (equal? d first-dur)) durs)
+	(max (- (ly:duration-log first-dur) 2) 1)
+	0)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; clusters.
 
@@ -1385,14 +1399,20 @@ as a context."
     skip))
 
 (define-public (pitch-of-note event-chord)
+  (let ((evs (filter (lambda (x)
+		       (music-has-type x 'note-event))
+		     (ly:music-property event-chord 'elements))))
 
-  (let*
-      ((evs (filter (lambda (x) (memq 'note-event (ly:music-property x 'types)))
-		    (ly:music-property event-chord 'elements))))
+    (and (pair? evs)
+	 (ly:music-property (car evs) 'pitch))))
 
-    (if (pair? evs)
-	(ly:music-property (car evs) 'pitch)
-	#f)))
+(define-public (duration-of-note event-chord)
+  (let ((evs (filter (lambda (x)
+		       (music-has-type x 'rhythmic-event))
+		     (ly:music-property event-chord 'elements))))
+
+    (and (pair? evs)
+	 (ly:music-property (car evs) 'duration))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
