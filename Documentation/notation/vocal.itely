@@ -596,8 +596,11 @@ spaces between the syllables, you can surround the phrase with
 quotes or use a @code{_} character.  Alternatively, you can use
 code the tilde symbol (@code{~}) to get a lyric tie.  The lyric
 tie is implemented with the Unicode character U+203F, so be
-sure to have a font (like DejaVuLGC) installed that includes this
-glyph.
+sure to use a font for this glyph which actually contains it.
+Freely available fonts with a lyric tie are, for example,
+`FreeSerif' (a Times clone), `DejaVuSans' (but not
+`DejaVuSerif'), or `TeXGyreSchola' (a Century Schoolbook
+clone).
 
 @lilypond[quote,ragged-right,verbatim]
 {
