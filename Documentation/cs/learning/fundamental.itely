@@ -259,21 +259,22 @@ uvnitř bloku @code{\book}.
 @cindex Prostředí Layout, umístění
 @cindex Umístění prostředí layout
 
-Jeder @code{\layout}-Block wirkt sich auf den @code{\score}- oder
-@code{\book}-Block aus, in dem er auftritt.  So wirkt z.B. ein
-@code{\layout}-Block innerhalb eines @code{\score}-Blocks nur auf
-diesen einen Block und seinen gesamten Inhalt, ein @code{\layout}-Block
-außerhalb eines @code{\score}-Blocks (und daher innerhalb des implizit
-erzeugten oder explizit angegebenen @code{\book}-Blocks) jedoch auf
-alle @code{\score}-Blocks innerhalb dieses @code{\book}-Blocks.
+Každý blok @code{\layout} ovlivňuje @code{\score} nebo
+@code{\book}, ve kterém se vyskytuje.  Tak působí například blok
+@code{\layout} uvnitř bloku @code{\score} jen na tento jeden
+blok a celý jeho obsah, blok @code{\layout} mimo
+blok @code{\score} (a proto uvnitř skrytě vytvořeného
+otevřeně zadaného bloku @code{\book}) však na
+všechny bloky @code{\score} uvnitř tohoto bloku @code{\book}.
 
-Nähere Details finden sich im Abschnitt @ruser{Mehrere Partituren in einem Buch}.
+Více podrobností se nachází v části @ruser{Více notových zápisů v knize}.
 
-@cindex Variablen
-@cindex Bezeichner
+@cindex Proměnné
+@cindex Identifikátor
 
-Eine gute Möglichkeit zur Vereinfachung sind selbst definierte Variablen, wie auch gezeigt in @ref{Stücke durch Bezeichner organisieren}.
-Alle Vorlagen verwenden diese Möglichkeit:
+Dobrou možností pro zjednodušení jsou vlastní vymezené proměnné,
+jak je to také ukázáno v @ref{Pořádání kousků pomocí proměnných}.
+Všechny předlohy používají tuto možnost:
 
 @example
 melodie = \relative c' @{
@@ -285,23 +286,23 @@ melodie = \relative c' @{
 @}
 @end example
 
-Wenn LilyPond diese Datei analysiert, nimmt es den Inhalt
-von @code{melodie} (alles nach dem Gleichheitszeichen) und
-fügt ihn immer dann ein, wenn ein @code{\melodie}
-vorkommt.  Die Namen sind frei wählbar, die Variable kann genauso
-gut  @code{melodie}, @code{GLOBAL}, @code{rechteHandKlavier},
-oder @code{foofoobarbaz} heißen.
-Als Variablenname kann fast jeder beliebige Name benutzt werden,
-allerdings dürfen nur Buchstaben vorkommen (also keine Zahlen, Unterstriche,
-Sonderzeichen, etc.) und er darf nicht wie ein LilyPond-Befehl
-lauten.  Für mehr Information siehe
-@ref{Úspora psaní na stroji pomocí proměnných a funkcí,,úsporu psaní na stroji pomocí proměnných a funkcí}.  Die genauen
-Einschränkungen sind beschrieben in @ruser{Die Dateistruktur}.
+Když LilyPond zpracovává tento soubor, bere obsah
+z @code{melodie} (vše po rovnítku) a vkládá to,
+kdykoli vidí @code{\melodie}. Názvy jsou
+volně volitelné, proměnná se právě tak dobře může
+jmenovat  @code{melodie}, @code{GLOBAL}, @code{praváRukaKlavír},
+nebo @code{cokoliDalšího}.
+Jako název proměnné se dá použít skoro jakýkoli oblíbený název,
+musí se v něm ovšem vyskytovat jen písmena (takže žádná čísla, podtržítka,
+zvláštní znaky, atd.) a nesmí znít jako příkaz pro LilyPond.  Pro více
+informací se podívejte na
+@ref{Úspora psaní na stroji pomocí proměnných a funkcí,,úsporu psaní na stroji pomocí proměnných a funkcí}.  Přesně jsou
+tato omezení popsána v části @ruser{Stavba souboru}.
 
 
 @seealso
-Eine vollständige Definition des Eingabeformats findet sich in
-@ruser{Die Dateistruktur}.
+Úplné vymezení vstupního souboru se nachází v
+@ruser{Stavba souboru}.
 
 
 @node Notový zápis je jedním (jediným) složeným hudebním výrazem
@@ -311,46 +312,46 @@ Eine vollständige Definition des Eingabeformats findet sich in
 @funindex \score
 @funindex score
 @cindex score
-@cindex Partitur
-@cindex Musikstück
-@cindex zusammengesetzter Musikausdruck
-@cindex Musikausdruck, zusammengesetzter
+@cindex Notový zápis
+@cindex Hudební kus
+@cindex Složený hudební výraz
+@cindex Hudební výraz, složený
 
 
-Im vorigen Kapitel, @ref{Uvedení do stavby souboru v LilyPondu},
-wurde die allgemeine Struktur einer LilyPond-Quelldatei
-beschrieben.  Aber anscheinend haben wir die wichtigste
-Frage ausgelassen, nämlich wie man herausfindet, was nach
-dem @code{\score} geschrieben werden soll.
+V předchozí kapitole, @ref{Uvedení do stavby souboru v LilyPondu},
+byla popsána obecná stavba jednoho LilyPondovského zdrojového
+souboru.  Ale zjevně jsme vypustili nejdůležitější
+otázku, totiž jak se zjistí, co se má napsat
+po @code{\score}.
 
-In Wirklichkeit ist das aber gar kein Geheimnis.  Diese
-Zeile ist die Antwort:
+Ve skutečnosti to ale není vůbec žádným tajemstvím.  Tento
+řádek je odpovědí:
 
 @quotation
-@emph{Eine Partitur fängt immer mit @code{\score} an, gefolgt
-von einem einzelnen musikalischen Ausdruck.}
+@emph{Notový zápis začíná vždy @code{\score}, který je následován
+jedním hudebním výrazem.}
 @end quotation
 
 @noindent
-Vielleicht wollen Sie noch einmal
-@ref{Musikalische Ausdrücke erklärt} überfliegen.  In diesem
-Kapitel wurde gezeigt, wie sich große musikalische Ausdrücke
-aus kleinen Teilen zusammensetzen.  Noten können zu Akkorden
-verbunden werden usw. Jetzt gehen wir aber in die andere Richtung
-und betrachten, wie sich ein großer musikalischer Ausdruck
-zerlegen lässt. Zur Einfachheit soll nur ein Sänger und Klavier
-in unserem Beispiel eingesetzt werden.  Wir brauchen
-keine Systemgruppe (StaffGroup), die einfach nur bewirkt,
-dass die Systeme mit einer Klammer zusammengefasst werden; sie
-wird also entfernt.  Wir @emph{brauchen} aber einen Sänger und ein Klavier.
+Možná byste si měl ještě jednou zběžně přečíst, abyste pochopil, co jsou to hudební výrazy,
+@ref{Vysvětlení hudebních výrazů,,vysvětlení hudebních výrazů}.  V této
+kapitole bylo ukázáno, jak se velké hudební výrazy
+skládají z malých částí.  Noty mohou být spojeny s akordy
+atd. Nyní ale jdeme v jiném směru a pozorujeme,
+jak se dá rozložit velký hudební výraz. Kvůli zjednodušení
+v našem příkladu použijeme jen jednoho zpěváka a
+klavír.  Nepotřebujeme žádnou skupinu
+osnov (@code{StaffGroup}), která jednoduše způsobeje jen to,
+že osnovy jsou spojeny závorkami, seskupuje je; ty tedy budou
+odstraněny.  @emph{Potřebujeme} ale osnovy pro zpěváka a klavír.
 
 @example
 \score @{
   @{
     <<
-      \new Staff = "Sänger" <<
+      \new Staff = "Zpěvák" <<
       >>
-      \new PianoStaff = "Klavier" <<
+      \new PianoStaff = "Klavír" <<
       >>
     >>
   @}
@@ -358,57 +359,56 @@ wird also entfernt.  Wir @emph{brauchen} aber einen Sänger und ein Klavier.
 @}
 @end example
 
-Hier wurden die Systeme (Staff) benannt: @qq{Sänger} und
-@qq{Klavier}.  Das ist nicht direkt notwendig in diesem Fall,
-aber es ist gut, sich diese Schreibweise anzugewöhnen, damit man
-immer sofort erkennt, um welches System es sich handelt.
+Zde byly osnovy pojmenovány: @qq{Zpěvák} a
+@qq{Klavír}.  To v tomto případě není přímo nutné,
+ale je dobré zvyknout si na tento způsob psaní, aby se hned
+poznalo, o kterou osnovu se jedná.
 
-Zur Erinnerung: mit @code{<<} und @code{>>} werden Noten gleichzeitig
-gesetzt.  Dadurch werden Vokalstimme und Klaviersysteme übereinander
-ausgegeben.  Die @code{<< ... >>}-Konstruktion ist für das
-Sänger-System nicht notwendig, wenn hier nur die Noten einer
-einzigen Stimme eingefügt werden sollen, aber @code{<< ... >>}
-anstelle von geschwungenen Klammern sind notwendig,
-sobald mehr als eine Stimme oder etwa eine Notenstimme und
-Gesangstext eingefügt werden sollen.  In unserem Fall soll eine
-Stimme mit Gesangstext notiert werden, sodass die spitzen Klammern
-benötigt werden.  Die Noten sollen erst später hinzugefügt werden,
-hier also erstmal nur ein paar Platzhalternoten und Text.  Wenn
-Sie sich nicht erinnern, wie man Gesangstext notiert, lesen
-Sie noch einmal @code{\addlyrics} in @ref{Setting simple songs}.
+K zapamatování: @code{<<} a @code{>>} jsou noty vysázeny
+zároveň.  To způsobuje, že se hlasová část a klavírní osnova objevují
+v notovém zápisu nad sebou.  Konstrukce @code{<< ... >>} pro zpěvákovu osnovu
+v příkladu výše není nutná, protože zde se mají vkládat noty jen
+jednoho hlasu, ale @code{<< ... >>}
+namísto závorek jsou nezbytné, hned jak se má vkládat
+více než jeden hlas, tedy dva a více současných výrazů, nebo jeden notový hlas a text
+písně.  V našem případě se má zapsat jeden hlas s textem písně,
+takže jsou potřeba špičaté závorky. Noty přidáme teprve později,
+pro teď tedy přidáme nějaké noty a text.  Pokud si nevzpomínáte,
+jak se text písně zapisuje, přečtěte si ještě
+jednou o @code{\addlyrics} v @ref{Zápis jednoduchých písní,,zápisu jednoduchých písní}.
 
 @c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
 \score {
   <<
-    \new Staff = "Sänger" <<
-      \new Voice = "Singstimme" { c'1 }
+    \new Staff = "Zpěvák" <<
+      \new Voice = "Zpěvní hlas" { c'1 }
       \addlyrics { And }
     >>
-    \new PianoStaff = "Klavier" <<
-      \new Staff = "oben" { }
-      \new Staff = "unten" { }
+    \new PianoStaff = "Klavír" <<
+      \new Staff = "nahoře" { }
+      \new Staff = "dole" { }
     >>
   >>
   \layout { }
 }
 @end lilypond
 
-Jetzt haben wir viel mehr Details.  Wir haben ein System (engl. staff)
-für einen Sänger, in dem sich wieder eine Stimme (engl. voice)
-befindet.  @code{Voice} bedeutet für LilyPond eine Stimme (sowohl
-gesungen als auch gespielt) und evtl. zusätzlich einen Text.  Zusätzlich
-werden zwei Notensysteme für das Klavier mit dem Befehl @code{\new
-PianoStaff} gesetzt.  @code{PianoStaff} bezeichnet die Piano-Umgebung (etwa
-durchgehende Taktstriche und die geschweifte Klammer am Anfang), in der
-dann wiederum zwei eigene Systeme ("oben" für die rechte Hand und
-"unten"
-für die linke) erstellt werden, auch wenn das untere System noch
-einen Bassschlüssel erhalten muss.
+Nyní máme mnohem více podrobností.  Máme osnovu (angl. staff)
+pro jednoho zpěváka, ve které se zase nachází jeden hlas
+(angl. voice).  @code{Voice} znamená pro LilyPond hlas (jak
+zazpívaný tak zahraný; prostě soubor not, nikoli nutně zpívaných zpěvákem
+ -- například housle hrají jeden hlas) a případně dodatečný text.  Dodatečně
+se zapíší dvě notové osnovy pro klavír příkazem @code{\new
+PianoStaff}.  @code{PianoStaff} označuje prostředí klavíru (procházející
+taktové čáry a složené závorky na začátku), v němž se potom opět
+zřizují dvě vlastní osnovy ("nahoře" pro pravou ruku a
+"dole" pro levou), i když spodní osnova musí ještě dostat
+basový klíč.
 
-Jetzt könnte man in diese Umgebung Noten einfügen.  Innerhalb der
-geschweiften Klammern neben @code{\new Voice = "Singstimme"}
-könnte man
+Nyní bychom do tohoto prostředí mohli začít vkládat noty.  Uvnitř
+složených závorek vedle @code{\new Voice = "Zpěvní hlas"}
+bychom mohli zapisovat
 
 @example
 \relative c'' @{
@@ -417,40 +417,40 @@ könnte man
 @end example
 
 @noindent
-schreiben.  Aber wenn man seine Datei so direkt schreibt, wird
-der @code{\score}-Abschnitt sehr lang und es wird ziemlich schwer zu
-verstehen, wie alles zusammenhängt.  Darum bietet es sich an, Bezeichner
-(oder Variablen) zu verwenden.  Sie wurden zu Beginn des vorigen
-Abschnitts erklärt, erinnern Sie sich?  Damit wir sicher gehen
-können, dass der Inhalt der @code{text}-Variable als Gesangstext
-interpretiert wird, wird ihm @code{\lyricmode} vorangesetzt.  Wie
-@code{\addlyrics} wird hiermit in den Eingabemodus für Gesangstext
-gewechselt. Ohne diesen Befehl würde LilyPond versuchen, den Inhalt
-der Variable als Noten zu interpretieren und dabei eine Menge
-Fehler produzieren. (Einige andere Eingabemodi sind außerdem noch
-verfügbar, siehe @ruser{Input modes}.)
+Ale když se soubor píše takto přímo, začne být
+část @code{\score} velmi dlouhá a je dosti obtížné porozumět tomu,
+jak vše souvisí.  Z toho důvodu se nabízí použití identifikátorů
+(nebo jinak také proměnných).  Byly vysvětleny na začátku předchozí
+části, jak si zajisté vzpomínáte?  Abychom zajistili,
+že obsah proměnné @code{text} je vykládán jako text písně,
+interpretiert wird, uvedeme jej @code{\lyricmode}.  Tak jako
+@code{\addlyrics}, je tímto vstupní režim přepnut na
+text písně. Bez tohoto příkazu by se LilyPond pokoušel vykládat obsah
+proměnné jako noty a přitom by docházelo k vytváření
+množství chyb. (Kromě toho je dostupných ještě několik dalších
+zadávacích režimů, podívejte se na @ruser{Vstupní režimy}.)
 
-Also haben wir, wenn wir ein paar Noten und einen Bassschlüssel
-für die linke Hand hinzufügen, folgendes Beispiel:
+Takže nyní máme, když přidáme několik not a basový klíč
+pro levou ruku, následující příklad:
 
 @c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
 melodie = \relative c'' { r4 d8\noBeam g, c4 r }
 text    = \lyricmode { And God said, }
-oben    = \relative c'' { <g d g,>2~ <g d g,> }
-unten   = \relative c { b2 e }
+nahoře    = \relative c'' { <g d g,>2~ <g d g,> }
+dole   = \relative c { b2 e }
 
 \score {
   <<
-    \new Staff = "Sänger" <<
-      \new Voice = "Singstimme" { \melodie }
+    \new Staff = "Zpěvák" <<
+      \new Voice = "Zpěvní hlas" { \melodie }
       \addlyrics { \text }
     >>
-    \new PianoStaff = "Klavier" <<
-      \new Staff = "oben" { \oben }
-      \new Staff = "unten" {
+    \new PianoStaff = "Klavír" <<
+      \new Staff = "nahoře" { \upper }
+      \new Staff = "dole" {
         \clef "bass"
-        \unten
+        \lower
       }
     >>
   >>
@@ -458,33 +458,32 @@ unten   = \relative c { b2 e }
 }
 @end lilypond
 
-Beim Schreiben (oder Lesen) einer @code{\score}-Umgebung
-sollte man langsam und sorgfältig vorgehen.  Am besten fängt
-man mit dem größten Gebilde an und definiert dann die darin
-enthaltenen kleineren der Reihe nach.  Es hilft auch, sehr
-genau mit den Einzügen zu sein, so dass jede Zeile, die
-der gleichen Ebene angehört, wirklich horizontal an der
-gleichen Stelle beginnt.
+Při zapisování (nebo při čtení) prostředí @code{\score}
+by se mělo postupovat pomalu a pečlivě.  Nejlepší je začít s největšími
+útvary, a pak vymezit v nich obsažené menší útvary.  Také pomáhá velice
+dbát na přesné odsazení, aby každý řádek, jenž přísluší k
+téže úrovni, skutečně vodorovně začínal na tom
+samém místě.
 
 
 @seealso
-Benutzerhandbuch: @ruser{Struktur einer Partitur}.
+Doporučení k notovému zápisu: @ruser{Stavba notového zápisu}.
 
 
 @node Naskládání hudebních výrazů do sebe
 @subsection Naskládání hudebních výrazů do sebe
 @translationof Nesting music expressions
 
-@cindex Notenzeilen, temporäre
+@cindex Notové osnovy, dočasné
 @cindex Ossia
-@cindex temporäre Notenzeilen
+@cindex Dočasné notové osnovy
 
-Notenzeilen (die @q{Staff}-Kontexte) müssen nicht unbedingt gleich
-zu Beginn erzeugt werden -- sie können auch zu einem späteren
-Zeitpunkt eingeführt weden.  Das ist vor allem nützlich, um
-@rglosnamed{ossia,Ossias} zu erzeugen.  Hier folgt ein kurzes Beispiel,
-wie eine zusätzliche temporäre Notenzeile für nur drei Noten erzeugt
-werden kann:
+Notové osnovy (prostředí @q{Staff}) není bezpodmínečně potřeba
+vytvořit hned na začátku -- mohou být uvedeny i kdykoli
+později.  To je obzvláště užitečné při vytváření oddílů
+@rglosnamed{ossia,Ossias}.  Zde následuje krátký příklad toho,
+jak je možné vytvořit dodatečnou dočasnou notovou osnovu
+jen pro dobu trvání tří not:
 
 @lilypond[verbatim,quote,ragged-right]
 \new Staff {
@@ -503,28 +502,27 @@ werden kann:
 @end lilypond
 
 @noindent
-Wie man sieht, ist die Größe des Notenschlüssels dieselbe, wie sie
-auch bei einer Schlüsseländerung auftritt -- etwas kleiner als
-der Schlüssel am Beginn einer Notenzeile.   Dies ist normal für
-Notenschlüssel, die innerhalb einer Notenzeile gesetzt werden.
+Jak je vidět, velikost notového klíče je tatáž, jaká se vyskytuje
+i při změně klíče -- o něco menší, než
+jakou má klíč na začátku notové osnovy.   Toto je obvyklé u
+notových klíčů, které jsou zapsány uvnitř notové osnovy.
 
-@cindex Notenzeile, Positionierung
-@cindex Positionierung einer Notenzeile
+@cindex Notová osnova, umístění
+@cindex Umístění notové osnovy
 
-Der Ossia-Abschnitt kann auch oberhalb der Hauptnotenzeile
-gesetzt werden:
+Oddíl ossia může být zapsán i mimo hlavní notovou
+osnovu:
 
-@c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
-\new Staff = "Hauptzeile" {
+\new Staff = "main" {
   \relative g' {
     r4 g8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"Hauptzeile"
-      }{ f8 f c }
+        alignAboveContext = #"main"
+      } { f8 f c }
     >>
     r4 |
   }
