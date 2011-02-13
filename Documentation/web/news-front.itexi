@@ -9,41 +9,24 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading Release candidate 2 of 2.14 - LilyPond 2.13.49 released!  @emph{Feb 9, 2011}
+@subsubheading LilyPond 2.13.50 released!  @emph{Feb 13, 2011}
 
-LilyPond 2.13.49 is out; this is the second release candidate of
-the upcoming 2.14 stable release.  All users are invited to
-experiment with this version.  New features since 2.12.3 are
-listed in the @qq{Changes} manual on the website section about
-@ref{Development}.
+We are happy to announce the release of LilyPond 2.13.50.  This
+release contains the usual number of bugfixes.
 
-There are no known Critical issues with this release.  If no
-Critical bugs are found, then the official 2.14.0 release will be
-on Feb 23, 2011.  If you discover any problems, please send us
-@ref{Bug reports}.
+Please note that this is @strong{not} the third release candidate.
+Due to a number of untested changes to our build process, we
+cannot be at all confident about the quality of this release.
 
 @newsEnd
 
 
 @newsItem
-@subsubheading LilyPond 2.13.48 released!  @emph{Feb 5, 2011}
+@subsubheading New Chinese and Czech translations of the web page! @emph{Feb 11,2011}
 
-We are happy to announce the release of LilyPond 2.13.48.  This
-release contains the usual number of bugfixes.  However, a number
-of critical issues still remain, so this release is intended for
-developers only.
-
-@newsEnd
-
-
-
-@newsItem
-@subsubheading LilyPond 2.13.47 released!  @emph{Jan 28, 2011}
-
-We are happy to announce the release of LilyPond 2.13.47.  This
-release contains the usual number of bugfixes.  However, a number
-of critical issues still remain, so this release is intended for
-developers only.
+Two new languages are added to our web page: Chinese by Ben Luo, and
+Czech by Pavel Fric.  It is a work in progress but they are fully
+functional.  That makes ten languages to choose from!
 
 @newsEnd
 

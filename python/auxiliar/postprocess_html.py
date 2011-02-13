@@ -151,9 +151,7 @@ doctype_re = re.compile ('(?i)<!DOCTYPE')
 doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'
 css_re = re.compile ('(?i)<link rel="stylesheet" type="text/css" ([^>]*)href="[^">]*?lilypond.*\.css"([^>]*)>')
 end_head_tag_re = re.compile ('(?i)</head>')
-css_link = """    <link rel="stylesheet" type="text/css" title="Patrick McCarty's design" href="%(rel)sDocumentation/lilypond-mccarty.css">
-    <link rel="alternate stylesheet" type="text/css" href="%(rel)sDocumentation/lilypond.css" title="Andrew Hawryluk's design">
-    <link rel="alternate stylesheet" type="text/css" href="%(rel)sDocumentation/lilypond-blue.css" title="Kurt Kroon's blue design">
+css_link = """    <link rel="stylesheet" type="text/css" title="Default design" href="%(rel)sDocumentation/lilypond-manuals.css">
     <!--[if lte IE 7]>
     <link href="%(rel)sDocumentation/lilypond-ie-fixes.css" rel="stylesheet" type="text/css">
     <![endif]-->

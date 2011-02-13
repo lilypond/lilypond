@@ -30,14 +30,15 @@
 \addChordShape #'f:m7 #guitar-tuning #"1-1-(;3-3;1-1;1-1;1-1;1-1-);"
 \addChordShape #'bes #guitar-tuning #"x;1-1-(;3-2;3-3;3-4;1-1-);"
 \addChordShape #'bes:m #guitar-tuning #"x;1-1-(;3-3;3-4;2-2;1-1-);"
+\addChordShape #'bes:dim #guitar-tuning #"x;1-1;2-2;3-4;2-3;x;"
 \addChordShape #'bes:m7 #guitar-tuning #"x;1-1-(;3-3;1-1;2-2;1-1-);"
 \addChordShape #'bes:7 #guitar-tuning #"x;1-1-(;3-2;1-1;3-3;1-1-);"
 \addChordShape #'bes:maj7 #guitar-tuning #"x;1-1;3-3;2-2;3-4;x;"
-\addChordShape #'c:dim #guitar-tuning #"x;x;1-1;2-3;1-2;2-4;"
+\addChordShape #'c:dim7 #guitar-tuning #"x;x;1-1;2-3;1-2;2-4;"
 \addChordShape #'c:aug #guitar-tuning #"x;x;2-2;1-1-(;1-1-);4-4;"
 \addChordShape #'cis #guitar-tuning #"x;x;3-3;1-1-(;2-2;1-1-);"
-\addChordShape #'ees:dim #guitar-tuning #"x;x;1-1;2-3;1-2;2-4;"
-\addChordShape #'a:dim #guitar-tuning #"x;x;1-1;2-3;1-2;2-4;"
+\addChordShape #'d:dim #guitar-tuning #"x;x;3-3;1-1-(;3-4;1-1-);"
+\addChordShape #'ees:dim7 #guitar-tuning #"x;x;1-1;2-3;1-2;2-4;"
 
 %%%  Add predefined chords
 
@@ -56,7 +57,10 @@
                         #(chord-shape 'c:aug guitar-tuning)
 \storePredefinedDiagram #default-fret-table \chordmode {c:dim}
                         #guitar-tuning
-                        #(chord-shape 'c:dim guitar-tuning)
+                        #(offset-fret 2 (chord-shape 'bes:dim guitar-tuning))
+\storePredefinedDiagram #default-fret-table \chordmode {c:dim7}
+                        #guitar-tuning
+                        #(chord-shape 'c:dim7 guitar-tuning)
 \storePredefinedDiagram #default-fret-table \chordmode {c:7}
                         #guitar-tuning
                         #"o;3-3;2-2;3-4;1-1;o;"
@@ -80,7 +84,10 @@
                         #"x;4-4;3-3;2-1;2-2;x;"
 \storePredefinedDiagram #default-fret-table \chordmode {cis:dim}
                         #guitar-tuning
-                        #(offset-fret 1 (chord-shape 'c:dim guitar-tuning))
+                        #"x;x;2-3;o;2-4;o;"
+\storePredefinedDiagram #default-fret-table \chordmode {cis:dim7}
+                        #guitar-tuning
+                        #(offset-fret 1 (chord-shape 'c:dim7 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {cis:7}
                         #guitar-tuning
                         #"x;x;3-2;4-3;2-1;4-4;"
@@ -104,7 +111,10 @@
                         #"x;4-4;3-3;2-1;2-2;x;"
 \storePredefinedDiagram #default-fret-table \chordmode {des:dim}
                         #guitar-tuning
-                        #(offset-fret 1 (chord-shape 'c:dim guitar-tuning))
+                        #"x;x;2-3;o;2-4;o;"
+\storePredefinedDiagram #default-fret-table \chordmode {des:dim7}
+                        #guitar-tuning
+                        #(offset-fret 1 (chord-shape 'c:dim7 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {des:7}
                         #guitar-tuning
                         #"x;x;3-2;4-3;2-1;4-4;"
@@ -128,6 +138,9 @@
                         #"x;x;o;3-2;3-3;2-1;"
 \storePredefinedDiagram #default-fret-table \chordmode {d:dim}
                         #guitar-tuning
+                        #"x;x;o;1-1-(;3-3;1-1-);"
+\storePredefinedDiagram #default-fret-table \chordmode {d:dim7}
+                        #guitar-tuning
                         #"x;x;o;1-1;o;1-2;"
 \storePredefinedDiagram #default-fret-table \chordmode {d:7}
                         #guitar-tuning
@@ -149,10 +162,13 @@
                         #"x;x;4-3;3-2;4-4;1-1;"
 \storePredefinedDiagram #default-fret-table \chordmode {dis:aug}
                         #guitar-tuning
-                        #"3-3;2-2;1-1;o;o;3-4"
+                        #"3-3;2-2;1-1;o;o;3-4;"
 \storePredefinedDiagram #default-fret-table \chordmode {dis:dim}
                         #guitar-tuning
-                        #(chord-shape 'ees:dim guitar-tuning)
+                        #(offset-fret 1 (chord-shape 'd:dim guitar-tuning))
+\storePredefinedDiagram #default-fret-table \chordmode {dis:dim7}
+                        #guitar-tuning
+                        #(chord-shape 'ees:dim7 guitar-tuning)
 \storePredefinedDiagram #default-fret-table \chordmode {dis:7}
                         #guitar-tuning
                         #"x;x;1-1;3-3;2-2;3-4;"
@@ -176,7 +192,10 @@
                         #"3-3;2-2;1-1;o;o;3-4"
 \storePredefinedDiagram #default-fret-table \chordmode {ees:dim}
                         #guitar-tuning
-                        #(chord-shape 'ees:dim guitar-tuning)
+                        #(offset-fret 1 (chord-shape 'd:dim guitar-tuning))
+\storePredefinedDiagram #default-fret-table \chordmode {ees:dim7}
+                        #guitar-tuning
+                        #(chord-shape 'ees:dim7 guitar-tuning)
 \storePredefinedDiagram #default-fret-table \chordmode {ees:7}
                         #guitar-tuning
                         #"x;x;1-1;3-3;2-2;3-4;"
@@ -200,7 +219,10 @@
                         #"o;3-3;2-2;1-1;x;x;"
 \storePredefinedDiagram #default-fret-table \chordmode {e:dim}
                         #guitar-tuning
-                        #(offset-fret 1 (chord-shape 'ees:dim guitar-tuning))
+                        #(offset-fret 2 (chord-shape 'd:dim guitar-tuning))
+\storePredefinedDiagram #default-fret-table \chordmode {e:dim7}
+                        #guitar-tuning
+                        #(offset-fret 1 (chord-shape 'ees:dim7 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {e:7}
                         #guitar-tuning
                         #"o;2-2;o;1-1;o;o;"
@@ -223,6 +245,9 @@
                         #guitar-tuning
                         #"x;x;1-1;4-3;4-4;3-2;"
 \storePredefinedDiagram #default-fret-table \chordmode {f:dim}
+                        #guitar-tuning
+                        #(offset-fret 3 (chord-shape 'd:dim guitar-tuning))
+\storePredefinedDiagram #default-fret-table \chordmode {f:dim7}
                         #guitar-tuning
                         #"x;x;o;1-1;o;1-2;"
 \storePredefinedDiagram #default-fret-table \chordmode {f:7}
@@ -248,7 +273,10 @@
                         #"2-2;1-1;o;3-4-(;3-4-);2-3;"
 \storePredefinedDiagram #default-fret-table \chordmode {fis:dim}
                         #guitar-tuning
-                        #"x;x;1-1;2-3;1-2;2-4;"
+                        #(offset-fret 4 (chord-shape 'd:dim guitar-tuning))
+\storePredefinedDiagram #default-fret-table \chordmode {fis:dim7}
+                        #guitar-tuning
+                        #(chord-shape 'ees:dim7 guitar-tuning)
 \storePredefinedDiagram #default-fret-table \chordmode {fis:7}
                         #guitar-tuning
                         #(offset-fret 1 (chord-shape 'f:7 guitar-tuning))
@@ -272,7 +300,10 @@
                         #"2-2;1-1;o;3-4-(;3-4-);2-3;"
 \storePredefinedDiagram #default-fret-table \chordmode {ges:dim}
                         #guitar-tuning
-                        #"x;x;1-1;2-3;1-2;2-4;"
+                        #(offset-fret 4 (chord-shape 'd:dim guitar-tuning))
+\storePredefinedDiagram #default-fret-table \chordmode {ges:dim7}
+                        #guitar-tuning
+                        #(chord-shape 'ees:dim7 guitar-tuning)
 \storePredefinedDiagram #default-fret-table \chordmode {ges:7}
                         #guitar-tuning
                         #(offset-fret 1 (chord-shape 'f:7 guitar-tuning))
@@ -296,7 +327,10 @@
                         #"x;x;5-1;8-3;8-4;7-2;"
 \storePredefinedDiagram #default-fret-table \chordmode {g:dim}
                         #guitar-tuning
-                        #"x;x;5-2;6-4;5-3;3-1;"
+                        #(offset-fret 5 (chord-shape 'd:dim guitar-tuning))
+\storePredefinedDiagram #default-fret-table \chordmode {g:dim7}
+                        #guitar-tuning
+                        #(offset-fret 1 (chord-shape 'ees:dim7 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {g:7}
                         #guitar-tuning
                         #"3-3;2-2;o;o;o;1-1;"
@@ -319,6 +353,9 @@
                         #guitar-tuning
                         #"o;3-4;2-3;1-1;1-2;o;"
 \storePredefinedDiagram #default-fret-table \chordmode {gis:dim}
+                        #guitar-tuning
+                        #(offset-fret 6 (chord-shape 'd:dim guitar-tuning))
+\storePredefinedDiagram #default-fret-table \chordmode {gis:dim7}
                         #guitar-tuning
                         #"x;x;o;1-1;o;1-2;"
 \storePredefinedDiagram #default-fret-table \chordmode {gis:7}
@@ -344,6 +381,9 @@
                         #"o;3-4;2-3;1-1;1-2;o;"
 \storePredefinedDiagram #default-fret-table \chordmode {aes:dim}
                         #guitar-tuning
+                        #(offset-fret 6 (chord-shape 'd:dim guitar-tuning))
+\storePredefinedDiagram #default-fret-table \chordmode {aes:dim7}
+                        #guitar-tuning
                         #"x;x;o;1-1;o;1-2;"
 \storePredefinedDiagram #default-fret-table \chordmode {aes:7}
                         #guitar-tuning
@@ -368,7 +408,10 @@
                         #"x;o;3-4;2-2;2-3;1-1;"
 \storePredefinedDiagram #default-fret-table \chordmode {a:dim}
                         #guitar-tuning
-                        #(chord-shape 'a:dim guitar-tuning)
+                        #"x;o;1-1;2-2;1-3;x;"
+\storePredefinedDiagram #default-fret-table \chordmode {a:dim7}
+                        #guitar-tuning
+                        #(chord-shape 'ees:dim7 guitar-tuning)
 \storePredefinedDiagram #default-fret-table \chordmode {a:7}
                         #guitar-tuning
                         #"x;o;2-1;o;2-3;o;"
@@ -392,7 +435,10 @@
                         #"2-2;1-1;o;3-4-(;3-4-);2-3;"
 \storePredefinedDiagram #default-fret-table \chordmode {ais:dim}
                         #guitar-tuning
-                        #(offset-fret 1 (chord-shape 'a:dim guitar-tuning))
+                        #(chord-shape 'bes:dim guitar-tuning)
+\storePredefinedDiagram #default-fret-table \chordmode {ais:dim7}
+                        #guitar-tuning
+                        #(offset-fret 1 (chord-shape 'ees:dim7 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {ais:7}
                         #guitar-tuning
                         #(chord-shape 'bes:7 guitar-tuning)
@@ -416,7 +462,10 @@
                         #"2-2;1-1;o;3-4-(;3-4-);2-3;"
 \storePredefinedDiagram #default-fret-table \chordmode {bes:dim}
                         #guitar-tuning
-                        #(offset-fret 1 (chord-shape 'a:dim guitar-tuning))
+                        #(chord-shape 'bes:dim guitar-tuning)
+\storePredefinedDiagram #default-fret-table \chordmode {bes:dim7}
+                        #guitar-tuning
+                        #(offset-fret 1 (chord-shape 'ees:dim7 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {bes:7}
                         #guitar-tuning
                         #(chord-shape 'bes:7 guitar-tuning)
@@ -439,6 +488,9 @@
                         #guitar-tuning
                         #"x;3-2;2-1;o;o;x;"
 \storePredefinedDiagram #default-fret-table \chordmode {b:dim}
+                        #guitar-tuning
+                        #(offset-fret 1 (chord-shape 'bes:dim guitar-tuning))
+\storePredefinedDiagram #default-fret-table \chordmode {b:dim7}
                         #guitar-tuning
                         #"x;x;o;1-1;o;1-2;"
 \storePredefinedDiagram #default-fret-table \chordmode {b:7}
