@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: ff5b756b319b1a577e0ebcbe90b77feeef3eb1da
+    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1099,10 +1099,15 @@ et fonctionne actuellement sur toutes les variantes d'Unix dont GNU/Linux.
 @uref{http://denemo.org}
 
 Denemo est un éditeur graphique qui génère du code source LilyPond et
-peut jouer un rendu sonore.  Ce projet, actuellement en phase de
-développement, génère du code pour une version ancienne de LilyPond
-(2.8.7).  Il permet à l'utilisateur de voir le code source LilyPond en
-même temps que la vue graphique.
+peut jouer un rendu sonore.  Il permet à l'utilisateur de voir le code
+source LilyPond en même temps que la vue graphique.  Certains éléments
+ajoutés aux notes ou accords et qui sont propres à LilyPond seront
+intégrés dans votre fichier Denemo, ce qui vous permettra de poursuivre
+leur édition en mode graphique.
+
+Un déplacement du curseur dans le fichier LilyPond sera répercuté dans
+la vue graphique et toute erreur de syntaxe dans votre code sera mise en
+évidence.
 
 
 @divEnd

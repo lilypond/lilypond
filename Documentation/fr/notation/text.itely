@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 52f98b4061e0eb74b7c1dbcc29e74538b374752f
+    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -115,7 +115,8 @@ Manuel d'initiation :
 
 Manuel de notation :
 @ref{Mise en forme du texte},
-@ref{Direction et positionnement}.
+@ref{Direction et positionnement},
+@ref{Articulations et ornements}.
 
 Morceaux choisis :
 @rlsrnamed{Text,Texte}.
@@ -150,8 +151,8 @@ pas.  Vous pouvez cependant l'y forcer en définissant
 @cindex prolongation de texte
 @cindex extenseur
 
-Certaines indications d'interprétation comme @i{rallentando},
-@i{accelerando} ou @i{trilles}, s'inscrivent textuellement et se
+Certaines indications d'interprétation comme @emph{rallentando},
+@emph{accelerando} ou @emph{trilles}, s'inscrivent textuellement et se
 prolongent sur plusieurs notes à l'aide d'une ligne pleine, pointillée
 ou ondulée.  Ces objets, que l'on appelle @qq{extenseurs}, se dessinent
 entre deux notes à l'aide de la syntaxe suivante@tie{}:
@@ -212,7 +213,8 @@ LilyPond ne peut traiter qu'un seul extenseur à la fois par voix.
 @seealso
 Manuel de notation :
 @ref{Styles de ligne},
-@ref{Nuances}.
+@ref{Nuances},
+@ref{Mise en forme du texte}.
 
 Morceaux choisis :
 @rlsrnamed{Text,Texte},
@@ -1173,7 +1175,8 @@ de graphisme.
 @seealso
 Manuel de notation :
 @ref{Graphic},
-@ref{Annotations éditoriales}.
+@ref{Annotations éditoriales},
+@ref{Align}.
 
 Morceaux choisis :
 @rlsrnamed{Text,Texte}.
@@ -1525,6 +1528,7 @@ et @ref{Choix des fontes par défaut}.
 Manuel de notation :
 @ref{La fonte Feta},
 @ref{Notation musicale dans du texte formaté},
+@ref{Rotation des objets},
 @ref{Sélection de la fonte et de la taille},
 @ref{Font}.
 

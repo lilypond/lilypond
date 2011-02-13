@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 39777dee952bdb79177b5429c54db2cb8490d997
+    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -53,13 +53,16 @@ principalement à la respiration et à l'attaque@tie{}:
 @itemize
 @item Les respirations s'indiquent par des silences ou des
 @ref{Signes de respiration}.
+
 @item Un jeu @emph{legato} s'indique par des
 @ref{Liaisons d'articulation}.
+
 @item Les différents types d'attaque -- @emph{legato}, détaché ou piqué
 -- s'indiquent en principe par des signes d'articulation, parfois
 agrémentés de liaisons.  Voir à ce sujet
 @ref{Articulations et ornements} et
 @ref{Liste des signes d'articulation}.
+
 @item Un @emph{Flatterzunge} (trémolo dental ou trémolo en roulant les
 r) s'indique par une marque de trémolo et une étiquette textuelle
 attachée à la note concernée.  Voir à ce sujet
@@ -72,24 +75,31 @@ vent@tie{}:
 @itemize
 @item De nombreux instruments à vent sont transpositeurs@tie{}; voir
 @ref{Instruments transpositeurs}.
+
 @item Les glissandos sont l'une des caractéristiques du trombone à
 coulisse, bien que d'autres instruments puisssent y parvenir en jouant
 sur les pistons ou des clés@tie{}; consulter @ref{Glissando}.
+
 @item Des glissandos harmoniques sont réalisables par les cuivres.  Ils
 sont traditionnellement indiqués par des @ref{Notes d'ornement}.
+
 @item Les inflections en fin de note sont abordées au chapitre
 @ref{Chutes et sauts}.
+
 @item Les @qq{bruitages} de clé ou de piston s'indiquent souvent par le
 style @code{cross} ou des @ref{Têtes de note spécifiques}.
+
 @item Les bois peuvent émettre des harmoniques dans le bas de leur
 registre.  On les indique avec un @code{flageolet} -- voir
 @ref{Liste des signes d'articulation}.
+
 @item En ce qui concerne les cuivres, la sourdine s'indique en pricipe
 par une étiquette textuelle.  Cependant, lorsque les changements sont
 nombreux et rapides, il est d'usage de recourrir aux articulations
 @code{stopped} et @code{open}. Pour de plus amples détails, voir
 @ref{Articulations et ornements} et
 @ref{Liste des signes d'articulation}.
+
 @item La sourdine du cor d'harmonie s'indique par un @code{stopped}.
 Voir le chapitre @ref{Articulations et ornements}.
 @end itemize
@@ -312,7 +322,7 @@ c1^\markup
 Les clés ou trous peuvent être partiellement enfoncés ou bouchés@tie{}:
 
 @c KEEP LY
-@lilypond [verbatim, quote, relative=2]
+@lilypond[verbatim, quote, relative=2]
 \textLengthOn
 c1^\markup {
   \center-column {
@@ -363,7 +373,7 @@ c1^\markup {
 L'indication du doigté permettant de triller s'obtient en grisant une
 position@tie{}:
 
-@lilypond [verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c1^\markup {
   \woodwind-diagram #'bass-clarinet
                     #'((cc . (threeT four))
@@ -376,7 +386,7 @@ Certaines combinaisons particulières en matière de trille sont
 possibles@tie{}:
 
 @c KEEP LY
-@lilypond [verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \textLengthOn
 c1^\markup {
   \center-column {
@@ -444,13 +454,13 @@ maîtrise du langage Scheme.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {woodwind-diagrams-listing.ly}
 
-@lilypondfile[verbatim, lilyquote, texidoc, doctitle]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {graphical-and-text-woodwind-diagrams.ly}
 
-@lilypondfile[verbatim, lilyquote, texidoc, doctitle]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-the-size-of-woodwind-diagrams.ly}
 
-@lilypondfile[verbatim, lilyquote, texidoc, doctitle]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {woodwind-diagrams-key-lists.ly}
 
 @seealso
