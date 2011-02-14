@@ -1113,6 +1113,7 @@ structure while leaving the notation untouched.
 @menu
 * Using variables::
 * Using tags::
+* Using global settings::
 @end menu
 
 @node Using variables
@@ -1330,6 +1331,33 @@ Multiple rests are not merged if you create a score with more
 than one tagged section at the same place.
 
 @end ignore
+
+@node Using global settings
+@unnumberedsubsubsec Using global settings
+
+@cindex include-settings
+
+Global settings can be incuded from a separate file:
+
+@example
+lilypond -dinclude-settings=MY_SETTINGS.ly MY_SCORE.ly
+@end example
+
+Groups of settings such as page size, font or type face can be stored
+in separate files. This allows different editions from the same score
+as well as standard settings to be applied to many scores, simply by
+specifying the proper settings file.
+
+This technique also works well with the use of style sheets, as
+discussed in @rlearning{Style sheets}.
+
+@seealso
+Learning Manual:
+@rlearning{Organizing pieces with variables},
+@rlearning{Style sheets}.
+
+Notation Reference:
+@ref{Including LilyPond files}.
 
 @node Text encoding
 @subsection Text encoding
