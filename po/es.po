@@ -1,21 +1,22 @@
-# translation of lilypond-2.13.42.po to Español
+# translation of lilypond-2.13.48.po to Español
 # Spanish translation of GNU Lilypond - http://lilypond.org
-# Copyright (C) 2002, 2007, 2008, 2009, 2010 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2007, 2008, 2009, 2010, 2011 Free Software Foundation, Inc.
 #
 # This file is distributed under the same license as the lilypond package.
 #
 # Quique <quique@sindominio.net>, 2002, 2004.
 # Daniel Tonda <daniel dot tonda (at) gmail dot com>, 2006.
-# Francisco Vila <francisco.vila@hispalinux.es>, 2007, 2008, 2009, 2010.
+# Francisco Vila <francisco.vila@hispalinux.es>, 2007, 2008, 2009, 2010, 2011.
 # This file is distributed under the same license as the lilypond package.
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond-2.13.42\n"
+"Project-Id-Version: lilypond-2.13.48\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2010-12-06 22:30+0100\n"
-"PO-Revision-Date: 2010-12-13 01:12+0100\n"
+"PO-Revision-Date: 2011-02-11 11:21+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Spanish <es@li.org>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -398,7 +399,7 @@ msgstr "Eliminar la propiedad de «callbacks», despreciar XY-extent-callback."
 
 #: convertrules.py:2358
 msgid "Use grob closures iso. XY-offset-callbacks."
-msgstr "Utilizar las cerraduras de grob iso. XY-offset-callbacks."
+msgstr "Utilizar cerraduras de grob en lugar de XY-offset-callbacks."
 
 #: convertrules.py:2420
 msgid "foobar -> foo-bar for \\paper, \\layout"
@@ -1181,7 +1182,7 @@ msgstr "ALT[:MENOR]"
 
 #: midi2ly.py:882
 msgid "quantise note starts on DUR"
-msgstr "cuantizar los comienzos de las notras sobre DUR"
+msgstr "cuantizar los comienzos de las notras sobre DURACIÓN"
 
 #: midi2ly.py:885
 msgid "DUR*NUM/DEN"
@@ -2728,7 +2729,7 @@ msgstr "no se encuentra el indicador «%s»"
 #: stem.cc:658
 #, c-format
 msgid "flag stroke `%s' not found"
-msgstr "no se encuentra el impacto «%s» de indicador"
+msgstr "no se encuentra la forma del glifo del corchete «%s»"
 
 #: system.cc:197
 #, c-format
