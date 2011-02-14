@@ -377,17 +377,16 @@ pro teď tedy přidáme nějaké noty a text.  Pokud si nevzpomínáte,
 jak se text písně zapisuje, přečtěte si ještě
 jednou o @code{\addlyrics} v @ref{Zápis jednoduchých písní,,zápisu jednoduchých písní}.
 
-@c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
 \score {
   <<
-    \new Staff = "Zpěvák" <<
-      \new Voice = "Zpěvní hlas" { c'1 }
+    \new Staff = "singer" <<
+      \new Voice = "vocal" { c'1 }
       \addlyrics { And }
     >>
-    \new PianoStaff = "Klavír" <<
-      \new Staff = "nahoře" { }
-      \new Staff = "dole" { }
+    \new PianoStaff = "piano" <<
+      \new Staff = "upper" { c'1 }
+      \new Staff = "lower" { c'1 }
     >>
   >>
   \layout { }
@@ -433,22 +432,21 @@ zadávacích režimů, podívejte se na @ruser{Vstupní režimy}.)
 Takže nyní máme, když přidáme několik not a basový klíč
 pro levou ruku, následující příklad:
 
-@c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
-melodie = \relative c'' { r4 d8\noBeam g, c4 r }
-text    = \lyricmode { And God said, }
-nahoře    = \relative c'' { <g d g,>2~ <g d g,> }
-dole   = \relative c { b2 e }
+melody = \relative c'' { r4 d8\noBeam g, c4 r }
+text   = \lyricmode { And God said, }
+upper  = \relative c'' { <g d g,>2~ <g d g,> }
+lower  = \relative c { b2 e }
 
 \score {
   <<
-    \new Staff = "Zpěvák" <<
-      \new Voice = "Zpěvní hlas" { \melodie }
+    \new Staff = "singer" <<
+      \new Voice = "vocal" { \melody }
       \addlyrics { \text }
     >>
-    \new PianoStaff = "Klavír" <<
-      \new Staff = "nahoře" { \upper }
-      \new Staff = "dole" {
+    \new PianoStaff = "piano" <<
+      \new Staff = "upper" { \upper }
+      \new Staff = "lower" {
         \clef "bass"
         \lower
       }
@@ -982,19 +980,18 @@ korrigieren, indem wir die dritte Stimme einfach auslassen und die
 Noten in die vierte Stimme verschieben.  Das wird einfach vorgenommen,
 indem noch ein Paar @code{\\}-Stimmen hinzugefügt wird.
 
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \relative c'' {
   \key aes \major
-  <<  % erste Stimme
+  <<  % Voice one
     { c2 aes4. bes8 }
-  \\  % zweite Stimme
+  \\  % Voice two
     { aes2 f4 fes }
-  \\  % Stimme drei auslassen
-  \\  % vierte Stimme
+  \\  % Omit Voice three
+  \\  % Voice four
     { <ees c>2 des }
-  >>
-  <c ees aes c>1
+  >> |
+  <c ees aes c>1 |
 }
 @end lilypond
 
