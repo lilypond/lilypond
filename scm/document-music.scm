@@ -28,7 +28,7 @@
 	   (texi (description-list->texi descs #f)))
       texi)))
 
-(define music-types->names (make-vector 61 '()))
+(define music-types->names (make-hash-table 61))
 (filter-map (lambda (entry)
 	      (let* ((class (ly:camel-case->lisp-identifier (car entry)))
 		     (classes (ly:make-event-class class)))
