@@ -37,7 +37,7 @@ zdrojových souborů.  Pro nováčky ale tato ohebnost může být zprvu
 matoucí.  V této kapitole by proto z toho důvodu měla být představena
 část z těchto staveb. Mnohé ale bude pro zjednodušení
 vynecháno.  Na úplný popis vstupního formátu se podívejte
-na @ruser{stavbu souboru}.
+na @ruser{Stavba souboru}.
 
 Většinu příkladů v této příručce představují malé úryvky, jako
 je tento:
@@ -228,7 +228,7 @@ Dvěma dosud neviděnými příkazy jsou
 @code{\layout @{ @}} a @code{\midi @{@}}.  Když se objeví v nějakém
 souboru, vede to k tomu, že Lilypond vytvoří tisknutelný soubor PDF
 popřípadě soubor MIDI.  Přesněji jsou popsány v uživatelské příručce -
-doporučení k notovému zápisu -- @ruser{Rozvržení notového zápisu} und
+doporučení k notovému zápisu -- @ruser{Rozvržení notového zápisu} a
 @ruser{Vytváření souborů MIDI}.
 
 @cindex Notové zápisy, více
@@ -608,14 +608,14 @@ je možné i toto:
 { g8\( a b[ c b\) a] g4 }
 @end lilypond
 
-Im Allgemeinen können die verschiedenen Klammerarten,
-Klammer-artigen Konstruktionen, Haltebögen,
-Triolen und Vorschlagnoten beliebig kombiniert werden.
-Das folgende Beispiel zeigt einen Balken, der in eine Triole reicht
-(Zeile 1), eine Bindebogen, der ebenfalls in eine Triole
-reicht (Zeile 2), einen Balken und einen Bindeboden in eine Triole,
-ein Haltebogen, der über zwei Triolen läuft, sowie einen
-Phrasierungsbogen, der in einer Triole beginnt (Zeilen 3 und 4).
+Ve všeobecnosti se dá říct, že mohou být různé druhy závorek,
+staveb na způsob závorek, legatových obloučků,
+triol a ozdob libovolně dávány dohromady.
+Následující příklad ukazuje trámec, který sahá až k triole
+(řádek 1), ligaturu, která rovněž dosahuje k triole
+(řádek 2), trámec a ligaturu sahající k triole,
+oblouček, který běží přes dvě trioly, jakož i frázovací
+oblouček, který začíná u trioly (řádky 3 a 4).
 
 @lilypond[quote,verbatim,ragged-right]
 {
@@ -631,10 +631,10 @@ g8[( a \times 2/3 { b8 d') e'~] } |
 @section Hlasy obsahují noty
 @translationof Voices contain music
 
-Sänger brauchen Stimmen zum Singen, und LilyPond braucht sie auch:
-in der Tat sind alle Noten für alle Instrumente in einer Partitur
-innerhalb von Stimmen gesetzt.  Die Stimme ist das grundlegendste Prinzip
-von LilyPond.
+Zpěváci potřebují ke zpívání hlasy, a LilyPond je potřebuje také:
+ve skutečnosti jsou všechny noty pro všechny nástroje zapsány v
+v notovém zápisu uvnitř hlasů.  Hlas je v LilyPondu
+tím nejzákladnějším pojmem.
 
 @menu
 * Slyším hlasy::
@@ -646,38 +646,37 @@ von LilyPond.
 @subsection Slyším hlasy
 @translationof I'm hearing Voices
 
-@cindex Polyphonie
-@cindex Ebenen
-@cindex mehrere Stimmen
-@cindex Stimmen, mehrere
+@cindex Vícehlasost
+@cindex Úrovně
+@cindex Vícehlasy
+@cindex Hlasy, více
 @cindex Voice context
 @cindex context, Voice
-@cindex Kontext, Stimme
-@cindex Stimmenkontext
-@cindex gleichzeitige Noten
-@cindex Stimmen versus Akkorde
-@cindex Akkorde versus Stimmen
-@cindex Noten gleichzeitig
+@cindex Prostředí hlasu
+@cindex Prostředí, hlas
+@cindex Současné noty
+@cindex Hlasy proti akordům
+@cindex Akordy proti hlasům
+@cindex Noty současně
 
-Die grundlegendsten und innersten Ebenen ein einer LilyPond-Partitur
-werden @qq{Voice context} (Stimmenkontext) oder auch nur @qq{Voice}
-(Stimme) genannt.  Stimmen werden in anderen Notationsprogrammen
-manchmal auch als @qq{layer} (Ebene) bezeichnet.
+Nejnižší, nejzákladnější a nejvnitřnější úrovně v LilyPondovském notovém
+zápisu jsou nazvány @qq{Voice context} (prostředí hlasu) nebo také jen @qq{Voice}
+(hlas).  Hlasy jsou v jiných notačních programech někdy označovány
+jako @qq{layer} (úroveň).
 
-Tatsächlich ist die Stimmenebene die einzige, die wirklich Noten
-enthalten kann.  Wenn kein Stimmenkontext explizit erstellt wird,
-wird er automatisch erstellt, wie am Anfang dieses Kapitels
-gezeigt.  Manche Instrumente wie etwa die Oboe können nur eine
-Note gleichzeitig spielen.  Noten für solche Instrumente sind
-monophon und brauchen nur eine einzige Stimme.  Instrumente, die
-mehrere Noten gleichzeitig spielen können, wie das Klavier, brauchen
-dagegen oft mehrere Stimmen, um die verschiedenen gleichzeitig
-erklingenden Noten mit oft unterschiedlichen Rhythmen darstellen
-zu können.
+Skutečně je úroveň hlasu tou jedinou, která opravdu může obsahovat
+noty.  Pokud není otevřeně vytvořeno žádné prostředí hlasu,
+je jedno vytvořeno automaticky, jak to bylo ukázáno na začátku
+této kapitoly.  Některé nástroje, jako je tomu například u hoboje, mohou
+zároveň zahrát jen jednu notu.  Noty pro takové nástroje jsou jednohlasé
+a potřebují jen jeden hlas.  Nástroje, které současně dokáží zahrát
+více not, jako klavír, naproti tomu často potřebují více
+hlasů, aby mohly popsat různé současně zaznívající noty
+s často rozdílnými rytmy.
 
-Eine einzelne Stimme kann natürlich auch vielen Noten in einem Akkord
-enthalten -- wann also braucht man dann mehrere Stimmen? Schauen wir
-uns zuerst dieses Beispiel mit vier Akkorden an:
+Jeden hlas přirozeně může v jednom akordu obsahovat více not
+-- takže kdy přesně je potřeba více hlasů? Podívejme se nejprve na
+tento příklad se čtyřmi akordy:
 
 @lilypond[quote,verbatim,ragged-right,relative=1]
 \key g \major
