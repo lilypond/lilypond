@@ -1,3 +1,6 @@
+% 15 Feb 2011:
+% Updates to prevent citation titles being written to the bibliography
+% and get rid of &nbsp; - the ampersand is later translated to &amp;
 % 18/aug/2010:
 %    - changed into texi-long.bst by Graham Percival for GNU LilyPond
 %    - only a minimum of changes were made; some html remains in
@@ -100,10 +103,12 @@ FUNCTION {output.check}
 
 % DFK changed to use cite$ for the label
 % DFK changed to texinfo, and use URL to make cite key a link
+% PEH changed to stop writing citation to output
 FUNCTION {output.bibitem}
 { newline$
   URL empty$
-    { "@item @code{[" cite$ * "]} " * write$ newline$
+%    { "@item @code{[" cite$ * "]} " * write$ newline$
+    { "@item " write$
     }
     { "" quote$ * cite$ * quote$ * " HREF=" * quote$ *
 	URL * quote$ * "> " * cite$ * ":</A></DT>" * write$
@@ -266,7 +271,7 @@ FUNCTION {format.names}
 		'skip$
 	      if$
 	      t "others" =
-		{ " et&nbsp;al." * }
+		{ " et al." * }
 		{ " and " * t * }
 	      if$
 	    }
@@ -354,9 +359,11 @@ FUNCTION {format.btitle}
 { title author.title.purify strong
 }
 
+%PEH changed "&nbsp;" to " " in 2nd line to avoid & being changed to &amp; later
+% looks daft but going for minimum changes
 FUNCTION {tie.or.space.connect}
 { duplicate$ text.length$ #3 <
-    { "&nbsp;" }
+    { " " }
     { " " }
   if$
   swap$ * *
@@ -544,11 +551,11 @@ FUNCTION {format.crossref.editor}
 { editor #1 "{vv~}{ll}" format.name$
   editor num.names$ duplicate$
   #2 >
-    { pop$ " et&nbsp;al." * }
+    { pop$ " et al." * }
     { #2 <
 	'skip$
 	{ editor #2 "{ff }{vv }{ll}{ jj}" format.name$ "others" =
-	    { " et&nbsp;al." * }
+	    { " et al." * }
 	    { " and " * editor #2 "{vv~}{ll}" format.name$ * }
 	  if$
 	}

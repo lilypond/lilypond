@@ -84,15 +84,15 @@ practices.
 @node Long literature list
 @section Long literature list
 
-@subheading Colorado
+@subheading University of Colorado Engraving music bibliography
 
 @include colorado.itexi
 
-@subheading Computer notation
+@subheading Computer notation bibliography
 
 @include computer-notation.itexi
 
-@subheading Engraving
+@subheading Engraving bibliography
 
 @include engravingbib.itexi
 
