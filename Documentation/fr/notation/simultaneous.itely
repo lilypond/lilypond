@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
+    Translation of GIT committish: ec35c10a93b45b1f0dd721c54197a79d4207a92c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -33,7 +33,7 @@ portée.
 @subsection Monophonie
 @translationof Single voice
 
-Nous allons voir ici comment gérer plusieurs notes simultanées dans un
+Nous allons voir ici comment gérer plusieurs notes simultanées dans une
 même voix.
 
 @menu
@@ -170,8 +170,8 @@ silences@tie{}:
 <a c e>1 c4 q2 r8 q8
 @end lilypond
 
-ILe symbole de répétition d'accord ne prend en charge que les hauteurs,
-en aucun cas les nuances, articulation ou ornementations, qu'elles
+Le symbole de répétition d'accord ne prend en charge que les hauteurs,
+en aucun cas les nuances, articulations ou ornementations, qu'elles
 aient été attachées aux notes le composant ou à l'ensemble.
 
 @lilypond[verbatim,quote,relative=2]
@@ -237,9 +237,9 @@ En pareil cas, des rythmes différents ne sont source d'aucun problème.
 @funindex makeClusters
 
 Un cluster indique un agrégat de sons.  On peut le représenter par une
-plage limitée par un ambitus (notes extrêmes).  On obtient une telle
-notation en appliquant la fonction @code{makeClusters} à une séquence
-d'accords, comme
+plage limitée par un @emph{ambitus} (notes extrêmes).  On obtient une
+telle notation en appliquant la fonction @code{makeClusters} à une
+séquence d'accords, comme
 
 @lilypond[quote,relative=2,verbatim]
 \makeClusters { <g b>2 <c g'> }
@@ -406,7 +406,7 @@ sont réglés de manière appropriée. En voici un exemple@tie{}:
 
 Cette syntaxe peut être utilisée dans la mesure où la création puis la
 disparition de voix temporaires sont sans conséquence.  Les réglages de
-ces voix créées implicitement sont les même que si elles avaient été
+ces voix créées implicitement sont les mêmes que si elles avaient été
 créées à l'aide des commandes @code{\voiceOne} à @code{\voiceFour}, dans
 leur ordre d'apparition.
 
@@ -490,7 +490,7 @@ Morceaux choisis :
 @funindex \voiceNeutralStyle
 
 Opter pour des couleurs et des têtes de notes spécifiques selon la voix
-permet de les identifier plus facliement@tie{}:
+permet de les identifier plus facilement@tie{}:
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -561,12 +561,12 @@ Morceaux choisis :
 
 Les notes de hauteur identique appartenant à des voix différentes, même
 si leur hampe sont opposées, verront leur tête automatiquement
-fusionnées.  Les notes dont la tête diffère ou bien qui ont la hampe
+fusionnér.  Les notes dont la tête diffère ou bien qui ont la hampe
 dans la même direction ne seront pas automatiquement fusionnées.  Les
 silences, lorsqu'ils sont dans une autre voix et à l'opposé des
 hampes seront décalés verticalement.  Vous constaterez, dans l'exemple
 suivant, que la fusion échoue aux premier et troisième temps de la
-première mesur, ainsi qu'au premier temps de la deuxième mesure.
+première mesure, ainsi qu'au premier temps de la deuxième mesure.
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -586,7 +586,7 @@ première mesur, ainsi qu'au premier temps de la deuxième mesure.
 
 Cependant, vous pouvez fusionner une tête de blanche avec une tête de
 croche -- jamais avec une noire.  Les têtes du premier temps de la
-première mesure sont bien fusionnées@tie{}:
+première mesure ont bien fusionné@tie{}:
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -626,7 +626,6 @@ non-pointées comme au troisième temps de la première mesure@tie{}:
 >>
 @end lilypond
 
-
 Lorsque trois notes ou plus s'agglutinent dans un même empilement,
 @code{\mergeDifferentlyHeadedOn} ne peut mener à bien la fusion des deux
 notes qui devraient l'être.  Pour obtenir une fusion optimale, appliquez
@@ -662,9 +661,9 @@ quatre -- sont affectées de @code{\shiftOn}.  @code{\shiftOnn} et
 @code{\shiftOnnn} sont des niveaux supplémentaires de décalage.
 
 
-Les têtes de notes ne seront fusionnées que dans la mesure où leur
-hampe sont opposées -- implicitement parce qu'appartenant aux voix une
-ou deux, ou bien explicitement.
+Les têtes de notes ne fusionneront que dans la mesure où leur hampe sont
+opposées -- implicitement parce qu'appartenant aux voix une ou deux, ou
+bien explicitement.
 
 
 @predefined
@@ -743,8 +742,8 @@ Voici la syntaxe qui permet de combiner des parties@tie{}:
 
 L'exemple suivant illustre les fonctionnalités élémentaires du
 combinateur de parties@tie{}: positionner les parties sur une portée,
-gérer la direction des hampes et de la polyphonie. Les identificateurs
-sont les mêmes pour la combinaison que pour les parties séparées.
+gérer la direction des hampes et de la polyphonie.  Les identificateurs
+sont les mêmes pour la combinaison et les parties séparées.
 
 @lilypond[quote,verbatim]
 instrumentOne = \relative c' {
@@ -770,7 +769,7 @@ instrumentTwo = \relative g' {
 >>
 @end lilypond
 
-Les notes de la troisième mesure n'apparaîssent qu'une seule fois,
+Les notes de la troisième mesure n'apparaissent qu'une seule fois,
 alors qu'elles ont été spécifiés deux fois (une fois dans chacune des
 parties).  La direction des hampes et des liaisons de tenue ou de phrasé
 est gérée automatiquement, selon qu'il s'agisse d'un solo ou d'un
