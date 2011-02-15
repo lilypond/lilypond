@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
+    Translation of GIT committish: ec35c10a93b45b1f0dd721c54197a79d4207a92c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -221,7 +221,7 @@ quoi LilyPond devait porter ses efforts.
 
 Les images ci-dessous mettent en évidence certaines différences entre
 l'art du graveur traditionnel et le résultat habituel sorti d'un
-ordinateur.  L'image de gauche est un @emph{fac simile} d'un bémol tiré
+ordinateur.  L'image de gauche est un fac-similé d'un bémol tiré
 d'une édition Bärenreiter traditionnelle@tie{}; celle de droite est
 issue de la même partition, éditée en 2000.  Bien que toutes deux soient
 imprimées avec le même encrage, la version @qq{ancienne} paraît plus
@@ -449,7 +449,7 @@ simple tracé.  Bien que ceci constitue un progrès en soi, il nous faut
 cependant nuancer@tie{}: les glyphes sont moins forts lorsqu'ils sont de
 taille réduite.
 
-Pour les besoins de lilyPond, nous avons créé des polices de graisse
+Pour les besoins de LilyPond, nous avons créé des polices de graisse
 différente selon la taille.  Voici ce que produit LilyPond dans une
 taille de portée de 26@tie{}points@tie{}:
 
@@ -566,7 +566,7 @@ plus ils peuvent se concentrer sur l'exécution.  En d'autres termes, une
 meilleure typographie se traduit par une meilleure interprétation.
 
 Ces considérations montrent bien que la typographie musicale est un art
-à la fois complexe et plein de subtilités, et qu'elle recquiert des
+à la fois complexe et plein de subtilités, et qu'elle requiert des
 compétences particulières que la majorité des musiciens ne possède pas.
 LilyPond s'efforce de transposer le degré d'excellence de la gravure
 traditionnelle à l'ère de l'ordinateur et donc de le mettre à
@@ -902,6 +902,7 @@ partIV = \relative c {
 @end lilypond
 
 Entre autres défauts du résultat brut de Finale, nous notons@tie{}:
+
 @itemize @bullet
 @item La majorité des ligatures est trop éloignée de la portée.
 Lorsqu'une ligature se retrouve vers le milieu de la portée, la hauteur
@@ -910,6 +911,7 @@ maître graveur les raccourcira dès lors que cette ligature est en dehors
 de la portée d'une section à plusieurs voix.  Les règles de ligatures de
 Finale peuvent être améliorées à l'aide du greffon @emph{Patterson
 Beams}, que nous avons décidé de laisser de côté pour cet exemple.
+
 @item Finale n'ajuste pas la position des notes qui s'entrecroisent.  Il
 en résulte une lecture peu évidente lorsque les voix supérieure et
 inférieure de croisent temporairement@tie{}:
@@ -933,7 +935,7 @@ collide = \once \override NoteColumn #'force-hshift = #0
 @end lilypond
 
 @item Finale positionne tous les silences d'une même voix à une hauteur
-fixe de la portée.  Si l'utilisatuer peut les déplacer à loisir, le
+fixe de la portée.  Si l'utilisateur peut les déplacer à loisir, le
 logiciel ne se soucie en rien de ce qui se passe dans les autres voix.
 Par chance, il n'y a aucune collision entre un silence et une note dans
 cet exemple@tie{}; cela tient plutôt à la position des notes qu'à celle
@@ -948,8 +950,8 @@ pourra obtenir quelque chose d'excellent, mais au prix d'une bonne dose
 tant de dextérité que de temps.  La différence fondamentale entre
 LilyPond et les générateurs de partition commerciaux réside dans le fait
 suivant@tie{}: LilyPond tend à réduire l'intervention de l'utilisateur à
-sa plus imple expression, alors que les autres programmes font tout pour
-avoir une interface attractive pour effectuer toutes les retouches.
+sa plus simple expression, alors que les autres programmes font tout
+pour avoir une interface attractive pour effectuer toutes les retouches.
 
 Par ailleurs, Finale commet une erreur particulièrement flagrante@tie{}:
 il manque un bémol à la mesure 33
@@ -968,7 +970,7 @@ Il faut un bémol pour annuler le bécarre qui se trouve dans la même
 mesure, mais Finale ne s'en rend pas compte parce qu'il se trouve dans
 une autre voix.  Ainsi, l'utilisateur doit non seulement recourir à un
 greffon pour gérer les ligatures, repositionner têtes de note et
-silences, il lui faut de surcroit vérifier qu'à chaque mesure les
+silences, il lui faut de surcroît vérifier qu'à chaque mesure les
 altérations sont en conformité indépendamment des voix s'il veut être à
 l'abri de toute interruption d'une répétition pour une erreur dans la
 partition.
@@ -1129,7 +1131,7 @@ nature par essence hiérarchique de la notation musicale@tie{}:
 @end lilypond
 
 Nous y voyons des hauteurs regroupées en accords appartenant à des
-mesures elles-même rattachées à des portées.  On pourrait représenter
+mesures elles-mêmes rattachées à des portées.  On pourrait représenter
 cela par un système de boîtes imbriquées@tie{}:
 
 @quotation
@@ -1197,7 +1199,7 @@ d'une portée à l'autre, et parfois même occupent deux portées.  Nombre
 de logiciels auront d'énormes difficultés à reproduire cet exemple, pour
 la bonne et simple raison qu'ils se basent sur le modèle hiérarchique de
 boîtes imbriquées.  LilyPond, quant à lui, tend à préserver la
-dichotomie entre le fromat de saisie et une structure aussi flexible que
+dichotomie entre le format de saisie et une structure aussi flexible que
 possible.
 
 
@@ -1213,9 +1215,9 @@ possible.
 
 Si le processus de formatage se charge de décider où positionner les
 symboles, encore faudrait-il savoir @emph{quels} symboles doivent
-apparaitre -- ou bien, quelle notation utiliser.
+apparaître -- ou bien, quelle notation utiliser.
 
-La notation musicale consitue une forme d'enregistrement de la musique
+La notation musicale constitue une forme d'enregistrement de la musique
 qui a d'ailleurs évolué sur un millier d'années.  La forme que nous
 utilisons de nos jours remonte au début de la Renaissance.  Bien que ses
 fondements n'aient pas changé -- des têtes de note réparties sur une
@@ -1232,7 +1234,7 @@ programmables)@tie{}: chaque type de symbole est géré par un module --
 ou greffon -- différent.  Tous ces modules sont entièrement
 configurables et indépendants, chacun pouvant être développé et amélioré
 séparément.  Nous appelons ces modules des graveurs (@emph{engravers} en
-anglais), par analogie avec ces professionels qui mettent en forme
+anglais), par analogie avec ces professionnels qui mettent en forme
 graphiquement les idées musicales.
 
 
@@ -1709,7 +1711,7 @@ Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
 
 @noindent
 Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
-1989), à partir d'une autre source.  En plus de  différences au niveau
+1989), à partir d'une autre source.  En plus de différences au niveau
 des éléments textuels, ce travail montre que, au sein d'une même maison
 d'édition, les appréciations peuvent être différentes selon le
 graveur@tie{}:
