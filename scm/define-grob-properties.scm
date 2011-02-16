@@ -337,6 +337,10 @@ Default @code{none} for markup fret diagrams, @code{below-string} for
 @item
 @code{fret-count} -- The number of frets.  Default@tie{}4.
 @item
+@code{fret-label-custom-format} -- The format string to be used label
+the lowest fret number, when @code{number-type} equals to
+@code{custom}.  Default@tie{}\"~a\".
+@item
 @code{fret-label-font-mag} -- The magnification of the font used to
 label the lowest fret number.  Default@tie{}0.5.
 @item
@@ -352,7 +356,9 @@ Default@tie{}0.
 string.  Default @code{\"x\"}.
 @item
 @code{number-type} -- Type of numbers to use in fret label.  Choices
-include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.
+include @code{roman-lower}, @code{roman-upper}, @code{arabic} and
+@code{custom}.  In the later case, the format string is supplied by
+the @code{fret-label-custom-format} property.
 Default @code{roman-lower}.
 @item
 @code{open-string} -- Character string to be used to indicate open
