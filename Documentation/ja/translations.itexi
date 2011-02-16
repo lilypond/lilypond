@@ -16,12 +16,12 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Fri Nov 19 08:27:26 UTC 2010
+@emph{最終更新日 Wed Feb 16 11:47:56 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
-GNU LilyPond -- 学習マニュアル
+GNU LilyPond 学習マニュアル
 @tab 翻訳者
 @tab 翻訳点検者
 @tab 翻訳済み
@@ -47,17 +47,17 @@ GNU LilyPond -- 学習マニュアル
 @ifhtml
 
 @html
-<span style="background-color: #ff625a">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @item
 LilyPond --- \TITLE\
 @*
-1107
+1139
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -74,11 +74,11 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #ff6b58">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -101,11 +101,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #ff625a">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @item
@@ -128,17 +128,17 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #ff6d58">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @item
 3 基礎となるコンセプト
 @*
-11109
+11139
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -155,11 +155,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #b2fe32">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @item
@@ -209,11 +209,11 @@ A テンプレート
 @ifhtml
 
 @html
-<span style="background-color: #cdfe36">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @end multitable
@@ -248,17 +248,17 @@ GNU LilyPond -- アプリケーション使用方法
 @ifhtml
 
 @html
-<span style="background-color: #ff625a">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @item
 LilyPond --- \TITLE\
 @*
-1107
+1139
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -275,15 +275,15 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #ff6b58">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab pre-GDP
 @item
-1 lilypond を実行する
+1 @command{lilypond} を実行する
 @*
 3629
 @tab Yoshiki Sawada
@@ -292,21 +292,21 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">一部 (65 %)</span>
+<span style="background-color: #dfef77">一部 (86 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-一部 (65 %)
+一部 (86 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ffe541">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @item
@@ -319,27 +319,27 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">一部 (50 %)</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-一部 (50 %)
+はい
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ff6959">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @item
 3 @command{lilypond-book}: Integrating text and music
 @*
-3747
+3764
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -356,7 +356,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">partially</span>
+<span style="background-color: #91ff2e">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -364,7 +364,34 @@ partially
 @end ifnothtml
 @tab post-GDP
 @item
-4 LilyPond 入力ファイルの記述に対する提案
+4 外部プログラム
+@*
+2170
+@tab Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab post-GDP
+@item
+5 LilyPond 入力ファイルの記述に対する提案
 @*
 2694
 @tab Yoshiki Sawada
@@ -373,21 +400,21 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">一部 (38 %)</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-一部 (38 %)
+はい
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ff6b58">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @end multitable
@@ -405,7 +432,7 @@ LilyPond -- みんなの楽譜作成
 @item
 セクション タイトル
 @*
-586
+585
 @tab Yoshiki Sawada
 @*
 Yoshinobu Ishizaki
@@ -434,7 +461,7 @@ partially
 @item
 LilyPond --- \TITLE\
 @*
-1107
+1139
 @tab Yoshiki Sawada
 @*
 Yoshinobu Ishizaki
@@ -453,17 +480,17 @@ Yoshinobu Ishizaki
 @ifhtml
 
 @html
-<span style="background-color: #ff6b58">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab pre-GDP
 @item
 導入部
 @*
-4539
+4506
 @tab Yoshiki Sawada
 @*
 Yoshinobu Ishizaki
@@ -482,11 +509,11 @@ Yoshinobu Ishizaki
 @ifhtml
 
 @html
-<span style="background-color: #ff6b58">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -494,8 +521,6 @@ partially
 @*
 1183
 @tab Yoshiki Sawada
-@*
-Yoshinobu Ishizaki
 @tab 
 @tab 
 @ifhtml
@@ -511,11 +536,11 @@ Yoshinobu Ishizaki
 @ifhtml
 
 @html
-<span style="background-color: #ff7456">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -538,11 +563,38 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #ff6f57">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
+@end ifnothtml
+@tab pre-GDP
+@item
+コミュニティ
+@*
+1755
+@tab Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
 @end ifnothtml
 @tab pre-GDP
 @end multitable

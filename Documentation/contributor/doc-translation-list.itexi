@@ -25,14 +25,14 @@ procedures}.
 
 @example
 -1- Web site
-586   web.texi
-4539  web/introduction.itexi
+585   web.texi
+4506  web/introduction.itexi
 1183  web/download.itexi
-1107  macros.itexi
-6447  po/lilypond-doc.pot (translate to po/@var{MY_LANGUAGE}.po)
+1139  macros.itexi
+9     po/lilypond-doc.pot (translate to po/@var{MY_LANGUAGE}.po)
 0     search-box.ihtml
 ---   lilypond-texi2html.init (section TRANSLATIONS)
-13862 total
+7422  total
 
 -2- Tutorial
 1200  web/manuals.itexi
@@ -42,12 +42,12 @@ procedures}.
 8043  total
 
 -3- Fundamental Concepts, starting of Usage and Community
-11109 learning/fundamental.itely -- Fundamental concepts
+11139 learning/fundamental.itely -- Fundamental concepts
 135   usage.tely
 3629  usage/running.itely
 1189  usage/updating.itely
-1683  web/community.itexi
-17745 total
+1755  web/community.itexi
+17847 total
 
 -4- Rest of Learning manual and Suggestions on writing LilyPond files
 15660 learning/tweaks.itely -- Tweaking output
@@ -58,36 +58,36 @@ procedures}.
 -5- Notation reference
 355   notation.tely
 91    notation/notation.itely -- Musical notation
-3762  notation/pitches.itely
-5658  notation/rhythms.itely
-1689  notation/expressive.itely
-893   notation/repeats.itely
-1948  notation/simultaneous.itely
-2049  notation/staff.itely
+3765  notation/pitches.itely
+5787  notation/rhythms.itely
+1726  notation/expressive.itely
+930   notation/repeats.itely
+2006  notation/simultaneous.itely
+2056  notation/staff.itely
 935   notation/editorial.itely
-2707  notation/text.itely
+2726  notation/text.itely
 81    notation/specialist.itely -- Specialist notation
-5677  notation/vocal.itely
+4901  notation/vocal.itely
 1855  notation/chords.itely
 702   notation/piano.itely
-807   notation/percussion.itely
+809   notation/percussion.itely
 826   notation/guitar.itely
 66    notation/strings.itely
 242   notation/bagpipes.itely
-4479  notation/ancient.itely
-6856  notation/input.itely -- Input syntax
+4753  notation/ancient.itely
+6954  notation/input.itely -- Input syntax
 2164  notation/non-music.itely -- Non-musical notation
-10045 notation/spacing.itely -- Spacing issues
-12274 notation/changing-defaults.itely -- Changing defaults
+10970 notation/spacing.itely -- Spacing issues
+12262 notation/changing-defaults.itely -- Changing defaults
 5187  notation/programming-interface.itely -- Interfaces for programmers
-1987  notation/notation-appendices.itely -- Notation manual tables
+1989  notation/notation-appendices.itely -- Notation manual tables
 252   notation/cheatsheet.itely -- Cheat sheet
-73587 total
+74390 total
 
 -6- Rest of Application Usage
-3747  usage/lilypond-book.itely -- LilyPond-book
+3764  usage/lilypond-book.itely -- LilyPond-book
 1122  usage/converters.itely -- Converting from other formats
-4869  total
+4886  total
 
 -7- Appendices whose translation is optional
 319   essay/literature.itely
