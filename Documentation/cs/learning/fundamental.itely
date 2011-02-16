@@ -683,36 +683,36 @@ tento příklad se čtyřmi akordy:
 <d g>4 <d fis> <d a'> <d g>
 @end lilypond
 
-Das kann ausgedrückt werden, indem man die einfachen spitzen Klammern
-@code{< ... >} benützt, um Akkorde anzuzeigen.  Hierfür braucht man
-nur eine Stimme.  Aber gesetzt der Fall das Fis sollte eigentlich
-eine Achtelnote sein, gefolgt von einer Achtelnote G (als Durchgangsnote
-hin zum A)? Hier haben wir also zwei Noten, die zur gleichen Zeit
-beginnen, aber unterschiedliche Dauern haben: die Viertelnote D und die
-Achtelnote Fis.  Wie können sie notiert werden? Als Akkord kann man sie
-nicht schreiben, weil alle Noten in einem Akkord die gleiche Länge besitzen
-müssen.  Sie können auch nicht als aufeinanderfolgende Noten geschrieben
-werden, denn sie beginnen ja zur selben Zeit.  In diesem Fall also brauchen
-wir zwei Stimmen.
+To lze vyjádřit tak, že se pro ukázání akordů použijí jednoduché špičaté
+závorky @code{< ... >}.  A pro to je potřeba jen jednoho
+hlasu.  Ale předpokládejme, že by Fis bylo vlastně osminovou
+notou, kterou následuje osminová nota G (jako průchodný tón
+k A)? Zde máme dvě noty, které začínají ve stejnou dobu,
+ale mají rozdílné doby trvání: čtvrťová nota D a osminová nota
+Fis.  Jak by je šlo zapsat? Jako akord je napsat nejde,
+protože v jednom akordu musejí mít všechny noty stejnou
+délku.  Ani nemohou být zapsány jako po sobě jdoucí noty,
+neboť začínají v ten samý čas.  V takovém případě tedy potřebujeme dva
+hlasy.
 
-Wie aber wird das in der LilyPond-Syntax ausgedrückt?
+Jak se to ale vyjádří v LilyPondovské skladbě?
 
 @funindex << \\ >>
 @funindex \\
 
-Die einfachste Art, Fragmente mit mehr als einer Stimme auf einem System
-zu notieren, ist, die Stimmen nacheinander (jeweils mit den Klammern
-@code{@{ ... @}}) zu schreiben und dann mit den spitzen Klammern
-(@code{<<...>>}) simultan zu kombinieren.  Die beiden Fragmente müssen
-zusätzlich noch mit zwei Backslash-Zeichen (@code{\\}) voneinander
-getrennt werden, damit sie als zwei unterschiedliche Stimmen erkannt
-werden.  Ohne diese Trenner würden sie als eine einzige Stimme notiert
-werden.  Diese Technik ist besonders dann angebracht, wenn es sich bei
-den Noten um hauptsächlich homophone Musik handelt, in der hier und da
-polyphone Stellen vorkommen.
+Nejjednodušším způsobem, jak provést zápis částí s více než jedním hlasem
+na osnovu, je hlasy zapsat za sebou (pokaždé se závorkami
+@code{@{ ... @}}), a pak je souběžně spojit špičatými závorkami
+(@code{<<...>>}).  Obě části ještě dodatečně musejí být jedna od druhé
+odděleny dvěma zpětnými lomítky (@code{\\}),
+aby byly rozpoznány jako dva různé hlasy.  Bez těchto oddělovačů by
+byly zapsány jako jeden hlas.  Tato technika je obzvláště vhodná, když
+se jedná o noty, které jsou jako hudba především jednohlasé,
+v nichž se ale příležitostně sem tam vyskytují místa, která jsou
+vícehlasá.
 
-So sieht es aus, wenn die Akkorde in zwei Stimmen aufgeteilt werden
-und zur Durchgangsnote noch ein Bogen hinzugefügt wird:
+Takto to vypadá, když jsou akordy rozděleny do dvou hlasů
+a k průchodnému tónu je ještě přidán legatový oblouček:
 
 @lilypond[quote,verbatim,ragged-right,relative=2]
 \key g \major
@@ -720,9 +720,9 @@ und zur Durchgangsnote noch ein Bogen hinzugefügt wird:
 << { g4 fis8( g) a4 g } \\ { d4 d d d }  >>
 @end lilypond
 
-Beachte, dass die Hälse der zweiten Stimme nun nach unten zeigen.
+Všimněte si, že nožičky druhého hlasu nyní ukazují dolů.
 
-Hier ein anderes Beispiel:
+Tady je jiný jednoduchý příklad:
 
 @lilypond[quote,verbatim,ragged-right,relative=2]
 \key d \minor
@@ -732,11 +732,11 @@ Hier ein anderes Beispiel:
 << { a2. r4 }         \\ { fis2. s4 }       >>
 @end lilypond
 
-Es ist nicht notwendig, für jeden Takt eine eigene
-@code{<< \\ >>}-Konstruktion zu benutzen.  Bei Musik mit nur wenigen
-Noten pro Takt kann es die Quelldatei besser lesbar machen, aber
-wenn in einem Takt viele Noten vorkommen, kann man die gesamten Stimmen
-separat schreiben, wie hier:
+Není nutné používat pro každý takt vlastní stavbu
+@code{<< \\ >>}.  U hudby s jen málo notami na takt to může
+zdrojový soubor udělat čitelnějším, ale když se v jednom taktu vyskytuje
+mnoho not, může být lepší napsat každý hlas odděleně,
+jako zde:
 
 @lilypond[quote,verbatim,ragged-right,relative=2]
 \key d \minor
@@ -753,13 +753,13 @@ separat schreiben, wie hier:
 } >>
 @end lilypond
 
-Dieses Beispiel hat nur zwei Stimmen, aber die gleiche Konstruktion kann
-angewendet werden, wenn man drei oder mehr Stimmen hat, indem man weitere
-Backslash-Trenner hinzufügt.
+Tento příklad má jen dva hlasy, ale stejné stavby lze použít,
+když máme tři nebo více hlasů, tak, že přidáme více oddělovačů,
+zpětných lomítek.
 
-Die Stimmenkontexte tragen die Namen @code{"1"}, @code{"2"} usw. In jedem
-dieser Kontexte wird die vertikale Ausrichtung von Hälsen, Bögen, Dynamik-Zeichen
-usw. entsprechend ausgerichtet.
+Hlasová prostředí nesou názvy @code{"1"}, @code{"2"} atd. V každém
+z těchto prostředí je nastaven svislý směr nožiček, legatových obloučků,
+ligatur, značek pro dynamiku atd. tak, jak se patří.
 
 @lilypond[quote,verbatim]
 \new Staff \relative c' {
