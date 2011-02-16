@@ -54,7 +54,7 @@ msgstr "段标题"
 #: translations-status.py:73
 #, python-format
 msgid "Last updated %s"
-msgstr "最近更新"
+msgstr "最近更新 %s"
 
 #: translations-status.py:74
 msgid "Translators"
