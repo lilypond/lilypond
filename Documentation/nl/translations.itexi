@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Fri Nov 19 08:27:26 UTC 2010
+@emph{Meest recente update Wed Feb 16 11:47:56 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -47,7 +47,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">gedeeltelijk</span>
+<span style="background-color: #40fe23">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -57,7 +57,7 @@ gedeeltelijk
 @item
 LilyPond -- \TITLE\
 @*
-1107
+1139
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -74,11 +74,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #25fe1f">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+gedeeltelijk
 @end ifnothtml
 @tab voor-GDP
 @item
@@ -138,7 +138,7 @@ gedeeltelijk
 @item
 3 Fundamentele concepten
 @*
-11109
+11139
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -155,7 +155,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">gedeeltelijk</span>
+<span style="background-color: #33ff21">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -177,7 +177,7 @@ LilyPond -- Muzieknotatie voor iedereen
 @item
 Paragraaftitels
 @*
-586
+585
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -194,7 +194,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #b9ff33">gedeeltelijk</span>
+<span style="background-color: #c0ff34">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -204,7 +204,7 @@ gedeeltelijk
 @item
 LilyPond -- \TITLE\
 @*
-1107
+1139
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -221,17 +221,17 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #25fe1f">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+gedeeltelijk
 @end ifnothtml
 @tab voor-GDP
 @item
 Inleiding
 @*
-4539
+4506
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -248,7 +248,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">gedeeltelijk</span>
+<span style="background-color: #54ff26">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml

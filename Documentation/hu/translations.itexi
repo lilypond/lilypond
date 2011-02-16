@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Fri Nov 19 08:27:26 UTC 2010
+@emph{Last updated Wed Feb 16 11:47:56 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -57,7 +57,7 @@ partially
 @item
 LilyPond --- \TITLE\
 @*
-1107
+1139
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -74,7 +74,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially</span>
+<span style="background-color: #39ff22">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -138,7 +138,7 @@ partially
 @item
 3 Alapfogalmak
 @*
-11109
+11139
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -155,7 +155,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">partially</span>
+<span style="background-color: #83fe2c">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -258,7 +258,7 @@ partially
 @item
 LilyPond --- \TITLE\
 @*
-1107
+1139
 @tab Team-hu
 @tab 
 @tab 
@@ -275,7 +275,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially</span>
+<span style="background-color: #39ff22">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -302,7 +302,7 @@ partially (96 %)
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">partially</span>
+<span style="background-color: #91ff2e">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -329,11 +329,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -351,8 +351,8 @@ LilyPond -- kottaszedés mindenkinek
 @item
 Section titles
 @*
-586
-@tab Dénes Harmath
+585
+@tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
@@ -368,18 +368,18 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #ffda43">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
 LilyPond --- \TITLE\
 @*
-1107
-@tab Dénes Harmath
+1139
+@tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
@@ -395,7 +395,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially</span>
+<span style="background-color: #39ff22">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -405,8 +405,8 @@ partially
 @item
 Bevezetés
 @*
-4539
-@tab Dénes Harmath
+4506
+@tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
@@ -422,18 +422,18 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
 Letöltés
 @*
 1183
-@tab Dénes Harmath
+@tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
@@ -449,18 +449,18 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #c0ff34">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
 Dokumentáció
 @*
 1200
-@tab Dénes Harmath
+@tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
@@ -476,18 +476,18 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #ffd244">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
 Közösség
 @*
-1683
-@tab Dénes Harmath
+1755
+@tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
@@ -503,11 +503,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #ffdd42">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @end multitable

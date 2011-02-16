@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualizado en Fri Nov 19 08:27:26 UTC 2010
+@emph{Actualizado en Wed Feb 16 11:47:56 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ Registro de cambios de LilyPond
 @item
 Títulos de sección
 @*
-1013
+1221
 @tab Francisco Vila
 @tab 
 @tab 
@@ -47,17 +47,17 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #2cff20">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 LilyPond --- \TITLE\
 @*
-1107
+1139
 @tab Francisco Vila
 @tab 
 @tab 
@@ -96,7 +96,7 @@ Ensayo sobre grabado musical automatizado
 @item
 Títulos de sección
 @*
-93
+92
 @tab Francisco Vila
 @tab 
 @tab 
@@ -123,7 +123,7 @@ sí
 @item
 LilyPond --- \TITLE\
 @*
-1107
+1139
 @tab Francisco Vila
 @tab 
 @tab 
@@ -243,7 +243,7 @@ sí
 @item
 LilyPond --- \TITLE\
 @*
-1107
+1139
 @tab Francisco Vila
 @tab 
 @tab 
@@ -363,7 +363,7 @@ sí
 @item
 LilyPond --- \TITLE\
 @*
-1107
+1139
 @tab Francisco Vila
 @tab 
 @tab 
@@ -444,7 +444,7 @@ sí
 @item
 3 Conceptos fundamentales
 @*
-11109
+11139
 @tab Francisco Vila
 @tab 
 @tab 
@@ -564,7 +564,7 @@ sí
 @item
 LilyPond --- \TITLE\
 @*
-1107
+1139
 @tab Francisco Vila
 @tab 
 @tab 
@@ -618,7 +618,7 @@ sí
 @item
 1.1 Alturas
 @*
-3762
+3765
 @tab Francisco Vila
 @tab 
 @tab 
@@ -645,7 +645,7 @@ sí
 @item
 1.2 Duraciones
 @*
-5658
+5787
 @tab Francisco Vila
 @tab 
 @tab 
@@ -672,7 +672,7 @@ sí
 @item
 1.3 Expresiones
 @*
-1689
+1726
 @tab Francisco Vila
 @tab 
 @tab 
@@ -699,7 +699,7 @@ sí
 @item
 1.4 Repeticiones
 @*
-893
+930
 @tab Francisco Vila
 @tab 
 @tab 
@@ -726,7 +726,7 @@ sí
 @item
 1.5 Notas simultáneas
 @*
-1948
+2006
 @tab Francisco Vila
 @tab 
 @tab 
@@ -753,7 +753,7 @@ sí
 @item
 1.6 Notación de los pentagramas
 @*
-2049
+2056
 @tab Francisco Vila
 @tab 
 @tab 
@@ -807,7 +807,7 @@ sí
 @item
 1.8 Texto
 @*
-2707
+2726
 @tab Francisco Vila
 @tab 
 @tab 
@@ -861,7 +861,7 @@ sí
 @item
 2.1 Música vocal
 @*
-5677
+4901
 @tab Francisco Vila
 @tab 
 @tab 
@@ -888,7 +888,7 @@ sí
 @item
 2.2 Teclados y otros instrumentos de varios pentagramas
 @*
-747
+838
 @tab Francisco Vila
 @tab 
 @tab 
@@ -942,7 +942,7 @@ sí
 @item
 2.4 Instrumentos de cuerda con trastes
 @*
-2324
+2559
 @tab Francisco Vila
 @tab 
 @tab 
@@ -969,7 +969,7 @@ sí
 @item
 2.5 Percusión
 @*
-807
+809
 @tab Francisco Vila
 @tab 
 @tab 
@@ -986,11 +986,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #25fe1f">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1050,7 +1050,7 @@ sí
 @item
 2.8 Música contemporánea
 @*
-473
+475
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1077,7 +1077,7 @@ sí
 @item
 2.9 Notación antigua
 @*
-4479
+4753
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1094,11 +1094,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #25fe1f">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1131,7 +1131,7 @@ sí
 @item
 3 Entrada y salida generales
 @*
-6856
+6954
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1158,7 +1158,7 @@ sí
 @item
 4 Problemas de espaciado
 @*
-10045
+10970
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1185,7 +1185,7 @@ sí
 @item
 5 Cambiar los valores por omisión
 @*
-12274
+12262
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1212,7 +1212,7 @@ sí
 @item
 A Tablas del manual sobre notación
 @*
-1987
+1989
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1305,7 +1305,7 @@ sí
 @item
 LilyPond --- \TITLE\
 @*
-1107
+1139
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1386,7 +1386,7 @@ sí
 @item
 3 Ejecución de @command{lilypond-book}
 @*
-3747
+3764
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1413,7 +1413,7 @@ sí
 @item
 4 Programas externos
 @*
-2176
+2170
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1479,7 +1479,7 @@ LilyPond: notación musical para todos
 @item
 Títulos de sección
 @*
-586
+585
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1506,7 +1506,7 @@ sí
 @item
 LilyPond --- \TITLE\
 @*
-1107
+1139
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1533,7 +1533,7 @@ sí
 @item
 Introducción
 @*
-4539
+4506
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1614,7 +1614,7 @@ sí
 @item
 Comunidad
 @*
-1683
+1755
 @tab Francisco Vila
 @tab 
 @tab 
