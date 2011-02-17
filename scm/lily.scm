@@ -28,7 +28,6 @@
 (defmacro-public _i (x) x)
 
 (read-enable 'positions)
-(debug-enable 'debug)
 
 (define-public PLATFORM
   (string->symbol
@@ -214,13 +213,23 @@ messages into errors.")
 	     (scm coverage))
 
 (define-public _ gettext)
-;;; TODO:
-;;  There are new modules defined in Guile V2.0 which we need to use, e.g.
-;;  the modules and scheme files loaded by lily.scm use currying.
-;;  In Guile V2 this needs (ice-9 curried-definitions) which is not
-;;  present in Guile V1.8
+;;; There are new modules defined in Guile V2.0 which we need to use.
 ;;
-;; TODO add in modules for V1.8,7 deprecated in V2.0 and integrated
+;;  Modules and scheme files loaded by lily.scm use currying
+;;  in Guile V2 this needs a module which is not present in Guile V1.8
+;;
+
+(cond
+  ((guile-v2)
+   (if (ly:get-option 'verbose)
+       (ly:message  (_ "Using (ice-9 curried-definitions) module\n")))
+   (use-modules (ice-9 curried-definitions)))
+  (else
+    (if (ly:get-option 'verbose)
+	(ly:message
+	   (_ "Guile 1.8\n")))))
+
+;; TODO add in modules for V1.8.7 deprecated in V2.0 and integrated
 ;; into Guile base code, like (ice-9 syncase).
 ;;
 
@@ -258,7 +267,6 @@ messages into errors.")
 	(ly:get-option 'trace-scheme-coverage))
     (begin
       (ly:set-option 'protected-scheme-parsing #f)
-      (debug-enable 'debug)
       (debug-enable 'backtrace)
       (read-enable 'positions)))
 
@@ -280,7 +288,7 @@ messages into errors.")
 	(ly:progress "[~A" file-name))
     (if (not file-name)
 	(ly:error (_ "cannot find: ~A") x))
-    (primitive-load file-name)
+    (primitive-load-path file-name)  ;; to support Guile V2 autocompile
     (if (ly:get-option 'verbose)
 	(ly:progress "]\n"))))
 
