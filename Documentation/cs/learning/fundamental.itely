@@ -771,20 +771,19 @@ ligatur, značek pro dynamiku atd. tak, jak se patří.
 }
 @end lilypond
 
-Diese Stimmen sind alle getrennt von der Hauptstimme, die die Noten
-außerhalb der @code{<< .. >>}-Konstruktion beinhaltet.  Lassen wir es
-uns die @emph{simultane Konstruktion} nennen.  Bindebögen und Legatobögen
-können nur Noten in der selben Stimmen miteinander verbinden und können
-also somit nicht aus der simultanen Konstruktion hinausreichen.  Umgekehrt
-gilt, dass parallele Stimmen aus eigenen simultanen Konstruktionen auf
-dem gleichen Notensystem die gleiche Stimme sind.  Auch andere, mit dem
-Stimmenkontext verknüpfte Eigenschaften erstrecken sich auf alle
-simultanen Konstrukte.  Hier das gleiche Beispiel, aber mit unterschiedlichen Farben für die Notenköpfe der unterschiedlichen Stimmen.
-Beachten Sie, dass Änderungen in einer Stimme sich nicht auf die anderen
-Stimmen erstrecken, aber sie sind weiterhin in der selben Stimme vorhanden,
-auch noch später im Stück.  Beachten Sie auch, dass übergebundene Noten
-über die gleiche Stimme in zwei Konstrukten verteilt werden können, wie
-hier an der blauen Dreieckstimme gezeigt.
+Tyto hlasy jsou všechny odděleny od hlavního hlasu, který obsahuje noty
+mimo stavbu @code{<< .. >>}.  Pojmenujme ji
+@emph{souběžná stavba}.  Ligatury a legatové obloučky
+mohou dohromady spojovat pouze noty uvnitř těchže hlasů a nemohou tedy
+přesahovat do souběžné stavby a ze souběžné stavby.  Obráceně platí,
+že současné hlasy z vlastní souběžné stavby ve stejné notové osnově
+jsou týmiž hlasy.  Na všechny souběžné stavby se vztahují i jiné
+s prostředím hlasu spojené vlastnosti.  Zde je stejný příklad,
+ale s různými barvami a hlavičkami not pro každý hlas.
+Všimněte si, že změny v jednom hlasu se nevztahují na jiné hlasy,
+ale nadále trvají v tomtéž hlase a jsou v něm přítomny ještě později.
+Všimněte si také, že spojené noty mohou být rozděleny přes stejný hlas
+do dvou staveb, jak je to ukázáno zde na modrém trojúhelníkovém hlase.
 
 @lilypond[quote,verbatim]
 \new Staff \relative c' {
@@ -822,41 +821,42 @@ hier an der blauen Dreieckstimme gezeigt.
 @funindex \voiceFourStyle
 @funindex \voiceNeutralStyle
 
-Die Befehle @code{\voiceXXXStyle} sind vor allem dazu da, um in
-pädagogischen Dokumenten wie diesem hier angewandt zu werden.
-Sie verändern die Farbe des Notenkopfes, des Halses und des Balkens, und
-zusätzlich die Form des Notenkopfes, damit die einzelnen Stimmen
-einfach auseinander gehalten werden können.  Die erste Stimme ist als
-rote Raute definiert, die zweite Stimme als blaue Dreiecke, die dritte
-Stimme als grüne Kreise mit Kreuz und die vierte Stimme (die hier nicht
-benutzt wird) hat dunkelrote Kreuze.  @code{\voiceNeutralStyle} (hier auch
-nicht benutzt) macht diese Änderungen rückgängig.  Später soll gezeigt
-werden, wie Befehle wie diese vom Benutzer selber erstellt werden
-können.  Siehe auch @ref{Sichtbarkeit und Farbe von Objekten} und
-@ref{Variablen für Optimierungen einsetzen}.
+Příkazy @code{\voiceXXXStyle} jsou tu především k tomu, aby se používaly
+v vzdělávacích dokumentech, jako je tento.
+Mění barvu notové hlavičky, nožičky a trámce, a dodatečně
+podobu notové hlavičky, takže se hlasy dají snadno od sebe
+rozlišit.  První hlas je nastaven jako červený kosočtverec,
+druhý hlas je nastaven jako modrý trojúhelník, třetí hlas je
+nastaven jako zelený kruh s křížkem a čtvrtý hlas (který tu použit
+není) má tmavěčervený kříž.  @code{\voiceNeutralStyle} (zde také
+není použit) změny vrací zpět na výchozí styl.  Později bude
+ukázáno, jak mohou být příkazy, jako je tento, vytvářeny samotným
+uživatelem.  Podívejte se také na @ref{Viditelnost a barva předmětů} a
+@ref{Použití proměnných pro ladění}.
 
-@cindex Polyphonie und relativer Notationsmodus
-@cindex relativer Notationsmodus und Polyphonie
+@cindex Vícehlasost a relativní notační režim
+@cindex Relativní notační režim a vícehlasost
 
-Polyphonie ändert nicht die Verhältnisse der Noten innerhalb eines
-@code{\relative}-Blocks.  Jede Note wird weiterhin relativ zu
-der vorherigen Note errechnet, oder relativ zur ersten Note des vorigen
-Akkords.  So ist etwa hier
+Vícehlasost nemění vztahy not uvnitř bloku
+@code{\relative}.  Každá nota je nadále počítána ve vztahu k
+předchozí notě, nebo poměrně k první notě předchozího
+akordu.  Tak například zde je spočítáno
 
 @example
 \relative c' @{ NoteA << < NoteB NoteC > \\ NoteD >> NoteE @}
 @end example
 
 @noindent
-@code{NoteB} bezüglich @code{NoteA}                      @*
-@code{NoteC} bezüglich @code{NoteB}, nicht @code{noteA};   @*
-@code{NoteD} bezüglich @code{NoteB}, nicht @code{NoteA} oder
+@code{NoteB} se zřetelem na @code{NoteA}                      @*
+@code{NoteC} se zřetelem na @code{NoteB}, ne @code{noteA};   @*
+@code{NoteD} se zřetelem na @code{NoteB}, ne @code{NoteA} oder
 @code{NoteC};                                                 @*
-@code{NoteE} bezüglich @code{NoteD}, nicht @code{NoteA} errechnet.
+@code{NoteE} se zřetelem na @code{NoteD}, ne @code{NoteA}.
 
-Eine andere Möglichkeit ist, den @code{\relative}-Befehl vor jede
-Stimme zu stellen.  Das bietet sich an, wenn die Stimmen weit voneinander
-entfernt sind.
+Jinou možností je umístit příkaz @code{\relative} na začátek
+před každý hlas.  To se nabízí, když jsou hlasy od sebe ve větší
+vzdálenosti. Může to být, když jsou noty v hlasech
+široce odděleny, přehlednější.
 
 @example
 \relative c' @{ NoteA ... @}
