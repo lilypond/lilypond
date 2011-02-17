@@ -62,6 +62,36 @@ which scares away people.
 @end ignore
 
 @item
+A minimal composer toolkit of modal transformations is provided.
+A motif may be @notation{transposed}, @notation{inverted} and/or
+converted to its @notation{retrograde} within any scale.
+
+@lilypond
+pentatonicScale = \relative a' { a c d f g }
+motif = \relative c'' { d8 c f,4 <a f'> <a f'> }
+
+\new Staff <<
+  {
+    \partial 4
+    \pentatonicScale
+    \motif
+    \modalTranspose c a, \pentatonicScale \motif
+    \modalInversion d'' a' \pentatonicScale \motif
+    \retrograde \motif
+  }
+  {
+    \partial 4
+    s4^"pentatonic scale"
+    s1
+    s1^"motif"
+    s1^"transposition"
+    s1^"inversion"
+    s1^"retrograde"
+  }
+>>
+@end lilypond
+
+@item
 Black mensural notation has minimal support.
 
 @item
