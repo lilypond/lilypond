@@ -119,12 +119,18 @@ website-css:
 
 website-pictures:
 	mkdir -p $(OUT)/website/pictures
-	cp $(PICTURES)/* $(OUT)/website/pictures
-	ln -sf website/pictures $(OUT)/pictures
+	if [ -d $(PICTURES) ]; \
+	then \
+		cp $(PICTURES)/* $(OUT)/website/pictures ; \
+		ln -sf website/pictures $(OUT)/pictures  ;\
+	fi
 
 website-examples:
 	mkdir -p $(OUT)/website/ly-examples
-	cp $(EXAMPLES)/* $(OUT)/website/ly-examples
+	if [ -d $(EXAMPLES) ]; \
+	then \
+		cp $(EXAMPLES)/* $(OUT)/website/ly-examples ; \
+	fi
 
 web-post:
 	$(WEB_POST) $(OUT)/website
