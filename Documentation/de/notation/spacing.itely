@@ -101,11 +101,11 @@ Die @code{set-paper-size}-Funktion wird im nächsten Abschnitt behandelt:
 @ref{Papierformat und automatische Skalierung}.  Die @code{\paper}-Variablen,
 die das Seitenlayout beeinflussen, werden in späteren Abschnitten behandelt.
 Die Beschriftungsdefinitionen für Kopf- und Fußzeilen sowie Titeln werden behandelt
-in @ref{Custom headers footers and titles}.
+in @ref{Eigene Kopf und Fußzeilen sowie Titel}.
 
 Die meisten @code{\paper}-Variablen funktionieren nur innerhalb der
 @code{\paper}-Umgebung.  Die wenigen, die auch in der @code{\layout}-Umgebung
-funktionieren, finden sich in @ref{The \layout block}.
+funktionieren, finden sich in @ref{Die \layout-Umgebung}.
 
 Außer wenn anders angegeben, werden alle @code{\paper}-Variablen, die
 Abständen auf der Seite antsprechen, in Millimetern gemessen, es sei denn,
@@ -144,8 +144,8 @@ der obigen Definition ist:
 @seealso
 Notationsreferenz
 @ref{Papierformat und automatische Skalierung},
-@ref{Custom headers footers and titles},
-@ref{The \layout block}.
+@ref{Eigene Kopf und Fußzeilen sowie Titel},
+@ref{Die \layout-Umgebung}.
 
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly}.
@@ -369,7 +369,7 @@ Systemgruppen behandelt.  Die Dehnung zwischen Notensystemen
 wird mit Grob-Eigenschaften kontrolliert, deren Einstellungen
 normalerweise innerhalb der @code{\score}-Umgebung vorgenommen
 werden, und nicht innerhalb der @code{\paper}-Umgebung.  Siehe auch
-@ref{Flexible vertical spacing within systems}.
+@ref{Flexible vertikale Abstände in Systemgruppen}.
 
 @menu
 * Struktur der Alisten für flexible vertikale Abstände::
@@ -539,16 +539,13 @@ einer Seite, wenn keine Systemgruppe dazwischen kommt.
 
 @seealso
 Notationsreferenz:
-@ref{Flexible vertical spacing within systems}.
+@ref{Flexible vertikale Abstände in Systemgruppen}.
 
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly}.
 
 Schnipsel:
 @rlsr{Spacing}.
-
-
-
 
 
 
