@@ -328,8 +328,8 @@ More information is available from in
 
 @item
 Issues to verify: try to reproduce the bug with the latest
-version; if you cannot reproduce the bug, mark the item
-@qq{Verified} (i.e. @qq{the fix has been verified to work}).
+official GUB version; if you cannot reproduce the bug, mark the
+item @qq{Verified} (i.e. @qq{the fix has been verified to work}).
 
 @example
 @uref{http://code.google.com/p/lilypond/issues/list?can=7}
