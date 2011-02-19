@@ -12,7 +12,7 @@
 
 @c \version "2.13.4"
 @c Translators: Pavel Fric
-@c Translation checkers: 
+@c Translation checkers:
 
 @node Cvičení
 @chapter Cvičení
@@ -37,10 +37,10 @@ procesu zpracování vstupních souborů LilyPondu (který popisuje),
 aby byl vytvořen výstupní soubor.
 
 @menu
-* Zadání not::              
-* MacOS X::                     
-* Windows::                     
-* Příkazový řádek::                
+* Zadání not::
+* MacOS X::
+* Windows::
+* Příkazový řádek::
 @end menu
 
 @node Zadání not
@@ -135,11 +135,11 @@ a které programy se používají.
 
 @end itemize
 
-Vezměte na vědomí, že lepší výsledky jsou u textových editorů s 
+Vezměte na vědomí, že lepší výsledky jsou u textových editorů s
 podporou pro LilyPond. Více k tomu v úryvku
 @rweb{Snadnější úpravy}.
 
-@warning{Poprvé, když použijete LilyPond, může trvat minutu 
+@warning{Poprvé, když použijete LilyPond, může trvat minutu
 nebo i déle, protože program nejprve vyhledává všechna písma,
 LilyPond běží o mnoho rychleji.}
 
@@ -181,11 +181,11 @@ LilyPond běží o mnoho rychleji.}
 @translationof How to write input files
 
 Tento úryvek vysvětluje základní skladbu LilyPondu a pomáhá
-na začátku se zápisem vstupního souboru pro LilyPond-Eingabedatei.
+na začátku se zápisem vstupního souboru pro LilyPond.
 
 @menu
-* Jednoduchý notový zápis::             
-* Práce na vstupních souborech::      
+* Jednoduchý notový zápis::
+* Práce na vstupních souborech::
 @end menu
 
 
@@ -197,9 +197,9 @@ na začátku se zápisem vstupního souboru pro LilyPond-Eingabedatei.
 @cindex jednoduchý notový zápis
 @cindex Notový zápis, jednoduchý
 
-LilyPond automaticky přidává některé součásti notového obrazu. V
+LilyPond přidává některé části notového zápisu automaticky. V
 následujícím příkladu jsou zadány jen čtyři výšky tónů, ale LilyPond přesto
-zapíše klíč, údaj o taktu a délky not.
+zapíše klíč, taktové označení a rytmus (délky not).
 
 @lilypond[verbatim,quote]
 {
@@ -214,11 +214,11 @@ jsou automatické hodnoty v zásadě použitelné.
 @subheading Výšky tónů
 
 @cindex Výšky tónů
-@cindex relativní režim
+@cindex Vztažný režim
 @cindex Odsuvník (apostrof)
 @cindex Čárka
-@cindex Předznamenání a relativní režim
-@cindex relativní režim a předznamenání
+@cindex Předznamenání a vztažný režim
+@cindex Vztažný režim a předznamenání
 
 @funindex \relative
 @funindex relative
@@ -235,8 +235,8 @@ Výšky tónů se zadávají malými písmeny, která odpovídají názvu noty.
 Je ale důležité znát, že LilyPond ve svém výchozím nastavení
 používá anglické názvy not. Až na výjimku tyto odpovídají
 českým, proto se přednastavení LilyPondu pro toto
-cvičení ponechává. Touto @emph{výjimkou} je nota h -- v 
-LilyPondu se musí na místo toho napsat písmeno b! České b je naproti
+cvičení ponechává. Touto @emph{výjimkou} je nota h -- v
+LilyPondu se musí na místo toho napsat písmeno b! České bé je naproti
 tomu zapsáno jako bes, his se proti tomu zapíše jako bis. Podívejte se také na
 @ruser{Předznamenání} a @ruser{Názvy not v jiných řečích}. Zde se popisuje,
 jak se používají české názvy not.
@@ -244,11 +244,11 @@ jak se používají české názvy not.
 
 Nejjednoduššeji lze noty zadávat v režimu @code{\relative}.
 V tomto režimu je oktáva noty vbrána automaticky s tím, že se
-předpokládá, že následující nota je zapsána vždy tak blízko, jak 
-je to jen možné, ve vztahu k předchozí notě, což znamená, že je 
-zapsána nanejvýš o tři notové řádky výše nebo níže než předchozí 
-nota. Začněme naším prvním příkladem notového zápisu,
-se @notation{Stupnice,,stupnicí}, kde stojí další nota
+předpokládá, že následující nota je zapsána vždy tak blízko, jak
+je to jen možné, ve vztahu k předchozí notě, což znamená, že je
+zapsána nanejvýš o tři notové řádky výše nebo níže než předchozí
+nota. Začneme naším prvním nejzákladnějším příkladem notového zápisu,
+což je @notation{stupnice}, kde stojí další nota
 vždy jen o jeden notový řádek nad předchozím.
 
 @c KEEP LY
@@ -261,7 +261,7 @@ vždy jen o jeden notový řádek nad předchozím.
 @end lilypond
 
 První notou je @notation{jednočárkované C}. Každá následující nota
-se nachází tak blízko, jak je to jen možné za předchozí -- první 
+se nachází tak blízko, jak je to jen možné za předchozí -- první
 @q{C} se takto počítá jako C od
 jednočárkovaného C. Nato následuje nejbližší možné
 D ve vztahu k předcházející notě. S těmito pravidly lze v
@@ -276,9 +276,9 @@ intervaly:
 @end lilypond
 
 @noindent
-Není nutné, aby první nota melodie začínala 
+Není nutné, aby první nota melodie začínala
 notou, která udává první notovou výšku.
-První nota (das @q{D}) z předchozího příkladu je následujícím D,
+První nota (@q{D}) z předchozího příkladu je následujícím D,
 počítáno od jednočárkovaného C.
 
 Tím, že člověk přidává odsuvníky (apostrofy) @code{'}
@@ -293,12 +293,12 @@ je odstraňuje, může být oktáva první výšky tónu změněna:
 }
 @end lilypond
 
-Relativní režim se může zpočátku jevit matoucí, ale je to ten 
-nejjednodušší způsob, jak zapsat většinu melodií. Podívejme se na to, 
-H (@code{b} ve skladbě LilyPondu), které se v houslovém klíči 
+Vztažný režim se může zpočátku jevit matoucí, ale je to ten
+nejjednodušší způsob, jak zapsat většinu melodií. Podívejme se na to,
+H (@code{b} ve skladbě LilyPondu), které se v houslovém klíči
 nachází na prostřední lince, můžeme směrem vzhůru napsat C, D a E,
-a A, G a F směrem dolů pod H. Když tedy notou, která následuje po 
-H, je C, D nebo E, napíše ji LilyPond nad 
+a A, G a F směrem dolů pod H. Když tedy notou, která následuje po
+H, je C, D nebo E, napíše ji LilyPond nad
 H, když je to A, G nebo F, je napsáno pod ním.
 
 @c KEEP LY
@@ -313,10 +313,10 @@ H, když je to A, G nebo F, je napsáno pod ním.
 }
 @end lilypond
 
-Stejný výpočet se provádí i tehdy, když je jedna z not zvýšena 
-nebo snížena. @notation{Předznamenání,,předznamenání} jsou 
-při výpočtu @strong{zcela přehlížena}. Přesně ten samý 
-výpočet se obdobně provádí od každé následující výšky tónu po 
+Stejný výpočet se provádí i tehdy, když je jedna z not zvýšena
+nebo snížena. @notation{Předznamenání} jsou
+při výpočtu @strong{zcela přehlížena}. Přesně ten samý
+výpočet se obdobně provádí od každé následující výšky tónu po
 další výšku tónu znovu.
 
 Aby se zapsaly intervaly, které jsou větší než tři notové řádky, lze oktávy změnit. Odsuvníkem (apostrofem) @code{'} (klávesa Shift+#)
@@ -352,9 +352,9 @@ Slovníček: @rglos{beam}, @rglos{duration},
 
 @notation{Délka} se označuje číslem, jež je zadáno
 přímo k názvu noty.
-@code{1} pro @notation{Celá nota,,celou notu}, @code{2} pro 
-@notation{Půlová nota,,půlovou notu}, @code{4} pro @notation{Čtvrťová nota,,čtvrťovou notu} 
-a tak dále. @notation{Notové nožičky} a @notation{Trámce,,trámce} jsou
+@code{1} pro @notation{Celá nota}, @code{2} pro
+@notation{Půlová nota}, @code{4} pro @notation{Čtvrťová nota}
+a tak dále. @notation{Notové nožičky} a @notation{Trámce} jsou
 přidávány automaticky.
 
 Není-li označena žádná délka, používá se délka předcházející noty.
@@ -368,9 +368,9 @@ Pro první notu je jako výchozí určena čtvrťová nota.
 }
 @end lilypond
 
-Kvůli vytvoření @notation{Tečkovaná nota,,tečkované noty} 
-je jednoduše za délkou noty napsána tečka @code{.}. Délka
-tečkované noty musí být udána výslovně, tudíž včetně 
+Aby se vytvořila @notation{Tečkovaná nota}
+napíše se tečka @code{.} za délkou noty. Délka
+tečkované noty musí být udána výslovně, tudíž včetně
 čísla.
 
 @lilypond[verbatim,quote]
@@ -398,7 +398,7 @@ označením je @code{r}@tie{}:
 @end lilypond
 
 
-@subheading Udání taktu
+@subheading Taktové označení
 
 @cindex Druh taktu
 
@@ -407,7 +407,7 @@ označením je @code{r}@tie{}:
 
 Slovníček: @rglos{time signature}.
 
-@notation{Druh taktu} lze určit příkazem 
+@notation{Druh taktu} lze určit příkazem
 @code{\time}:
 
 @lilypond[verbatim,quote]
@@ -463,7 +463,7 @@ zapsat příkazem @code{\tempo}:
 
 Slovníček: @rglos{clef}.
 
-@notation{Notový klíč} lze zapsat příkazem 
+@notation{Notový klíč} lze zapsat příkazem
 @code{\clef}:
 
 @lilypond[verbatim,quote]
@@ -525,9 +525,9 @@ Doporučení pro notový zápis: @ruser{Nastavení výšek tónů},
 Zdrojové soubory LilyPondu jsou si podobné se soubory ve většině
 programovacích jazyků: Obsahují označení verze,
 je třeba dávat pozor na psaní velkých a malých písmen
-a prázdné znaky jsou přehlíženy. Výrazy jsou uzavřeny 
-do kulatých závorek @w{@code{@{ @}}} a poznámky 
-jsou opatřeny poznámkou znaku procenta @code{%}
+a prázdné znaky jsou přehlíženy. Výrazy jsou uzavřeny
+do složených závorek @w{@code{@{ @}}} a poznámky
+jsou značeny znakem procenta @code{%}
 nebo obklopeny @w{@code{%@{ @dots{} %@}}}.
 
 Zdá-li se to nyní být nesrozumitelné, zde je vysvětlení:
@@ -549,7 +549,7 @@ nahoře.
 
 Označení verze je velice důležité ze dvou důvodů: 1. s jeho pomocí
 se lze pustit do automatické aktualizace vstupních souborů,
-když je třeba změnit skladbu LilyPond-. 2. je zde zapsána
+když je třeba změnit skladbu LilyPondu. 2. je zde zapsána
 ta verze LilyPondu, která je nutná pro sestavení
 souboru.
 
@@ -586,37 +586,37 @@ odsazovat bloky kódu dvěma prázdnými znaky:
 Prázdné znaky @emph{jsou} však nezbytné kvůli oddělení četných
 skladebných prvků od sebe.  Prázdné znaky tedy mohou být @emph{přidány}
 vždy, ale nesmějí být @emph{odstraněny}.  Jelikož chybějící
-prázdné znaky mohou způsobit velmi podivná chybová hlášení,
-naznačuje se, přidat jeden prázdný znak vždy před a po skladebném
-prvku, zhruba před a po kulatých závorkách.
+prázdné znaky mohou způsobit velmi podivná chybová hlášení.
+Je záhodno přidat jeden prázdný znak vždy před a po skladebném
+prvku, zhruba před a po složených závorkách.
 
 @item @strong{Výrazy:}
-I ten nejmenší úryvek kódu LilyPondu musí být uzavřen v
-@strong{@{@tie{}kulatých@tie{}závorkách@tie{}@}}. Tyto
+I ten nejmenší úryvek kódu LilyPondu musí být uzavřen ve
+@strong{@{@tie{}složených@tie{}závorkách@tie{}@}}. Tyto
 závorky LilyPondu ukazují, že se jedná o hudební výraz patřící
-k sobě, právě tak jako k sobě patří závorky @q{()} v matematice.
+k sobě, právě tak jako k sobě patří kulaté závorky @q{()} v matematice.
 Závorky by měly být pokaždé obklopeny prázdným znakem, abychom se vyhnuli
 dvojznačnostem. Má to pak ještě být tak, aby se nacházely
 na začátku nebo na konci řádku.
 
 Příkaz pro LilyPond následovaný jednoduchým výrazem
-v závorkách (jako například @q{@w{@code{@bs{}relative c' @{ @dots{} @}}}}) 
+v závorkách (jako například @q{@w{@code{@bs{}relative c' @{ @dots{} @}}}})
 je též hodnocen jako jednotlivý hudební výraz.
 
 @cindex Poznámky
 @cindex Řádkové poznámky
 @cindex Blokové poznámky
 
-@item 
+@item
 @strong{Poznámky:}
 Poznámka je připomínkou lidskému čtenáři zdrojového souboru.
 Při zpracování souboru je programem přehlížena, takže na tiskový
 výstup not nemá žádný účinek.
 Jsou dva rozdílné druhy poznámek. Znak procenta
-@q{%} předchází řádkové poznámce: Vše po tomto znaku
-je v tomto řádku přehlíženo. 
-Obvykle je ke kódu připsána poznámka @emph{über},
-ke které se tento vztahuje.
+@q{%} předchází řádkové poznámce: vše po tomto znaku
+je v tomto řádku přehlíženo.
+Obvykle je řádková poznámka připsána @emph{nad} kódem,
+ke kterému se vztahuje.
 
 @example
 a4 a a a
@@ -629,8 +629,8 @@ Bloková poznámka je celým úryvkem s poznámkou.
 Vše, co je obklopeno @code{%@{}
 a @code{%@}}, se přehlíží. Znamená to,
 že jedna bloková poznámka se nemůže nacházet v jiné
-blokové poznámce. Když byste to měli zkusit,
-ukončí již první @code{%@}} @emph{obě} 
+blokové poznámce. Když byste to zkusili,
+ukončí již první @code{%@}} @emph{obě}
 blokové poznámky. Následující příklad ukazuje jedno
 možné použití poznámek:
 
@@ -658,7 +658,7 @@ možné použití poznámek:
 
 Někdy LilyPond nevytvoří notový obraz takový, jaký jste očekávali.  Tento
 úryvek poskytuje několik odkazů, aby vám pomohl při řešení
-možných potíží.
+potíží, se kterými byste se mohli setkat.
 
 
 @menu
@@ -673,7 +673,7 @@ možných potíží.
 Řešení chyb při potížích s LilyPondem může pro člověka, který je
 zvyklý na obrazové uživatelské rozhraní, představovat velkou výzvu, protože
 neplatné vstupní soubory vytvořeny být mohou.  Když se tak stane, je
-logický postup pustit se do toho, potíže určit a řešit, nejlepší
+logický postup pustit se do toho, potíže určit a řešit, tou nejlepší
 cestou.  Některé směrnice, jak se tyto potíže můžete naučit řešit,
 se nacházejí v @rprogram{Řešení potíží}.
 
@@ -695,13 +695,13 @@ jen hlášení chyb v souboru s chybami.  Blíže budou osvětleny v
 @section Jak se mají příručky číst
 @translationof How to read the manuals
 
-Tato část ukazuje, jak lze dokumentaci číst účinně a
+Tato část ukazuje, jak lze dokumentaci číst účinně,
 a vysvětluje také některé užitečné vlastnosti internetové
 verze.
 
 @menu
 * Vypuštěný materiál::
-* Klepnutelné příklady::  
+* Klepnutelné příklady::
 * Přehled o příručkách::
 @end menu
 
@@ -721,18 +721,18 @@ verze.
 @cindex Sestavení souborů, odkazy
 @cindex Odkazy pro sestavení souborů
 
-LilyPond-Code musí být vždy obklopen znakem @code{@{ @}} nebo 
-@w{@code{@bs{}relative c'' @{ @dots{} @}}}, jak je to ukázáno
-v @ref{Práce na vstupních souborech,,práci na vstupních souborech}.
+LilyPondovský kód musí být vždy obklopen znaky složených závorek @code{@{ @}} nebo
+kódem @w{@code{@bs{}relative c'' @{ @dots{} @}}}, jak je to ukázáno
+v části @ref{Práce na vstupních souborech,,práci na vstupních souborech}.
 Ve zbytku této příručky se toho ovšem většina příkladů vzdá.
-Abyste je napodobil, můžete zkopírovat odpovídající zdrojový 
-kód a vložit jej do textového souboru, ale přitom 
+Abyste tyto příklady napodobil, můžete zkopírovat odpovídající zdrojový
+kód a vložit jej do textového souboru, ale přitom
 @strong{musíte} vložit
 @w{@code{@bs{}relative c'' @{ @dots{} @}}}, jak je to ukázáno zde:
 
 @example
 \relative c'' @{
-  @dots{}zde jeden příklad@dots{}
+  @dots{}zde přijde příklad@dots{}
 @}
 @end example
 
@@ -741,19 +741,19 @@ může být nakopírována do delšího hudebního díla, a potom přirozeně
 není smysluplné, když se k tomu nachomýtne
 @w{@code{@bs{}relative c'' @{ @dots{} @}}}; @code{\relative} nesmí
 být zapsán uvnitř jiného @code{\relative},
-proto je zde vynechán, aby příklady pracovaly i v jiné
-souvislosti.  Kdyby byla u každého příkladu zapsána 
+proto je zde vynechán, aby příklady pracovaly i v jiném
+prostředí.  Kdyby byla u každého příkladu zapsána
 @w{@code{@bs{}relative c'' @{ @dots{} @}}},
-nemohl byste malé příklady z dokumentace jednoduše přidat
-do svého vlastního notového textu. Většina uživatelů chce noty
+nemohly by se malé příklady z dokumentace jednoduše přidat
+do vašeho vlastního notového textu. Většina uživatelů chce noty
 přidat do již jsoucího souboru někde vprostřed, a z toho důvodu
-byl relativní režim v příkladech v příručce
+byl vztažný režim v příkladech v příručce
 vynechán.
 
 Myslete také na to, že každý soubor LilyPondu má mít označení verze
 příkazem @code{\version}.  Protože jsou příklady v příručkách úryvky
 a nikoli úplnými soubory, chybí zde označení verze. Vždy byste je ale
-do svých vlastních souborů měl vložit.
+do svých vlastních souborů měli vložit.
 
 
 @node Klepnutelné příklady
@@ -779,7 +779,7 @@ vyobrazením:
 Když zkopírujete jednoduše vše, co se nachází v úryvku
  @qq{ly snippet}, a vložíte to do textového souboru,
 máte již hotovou předlohu pro další pokusy.
-Experimente. Abyste sám dosáhl téhož vzhledu, jaký je v příkladu, 
+Experimente. Abyste sám dosáhl téhož vzhledu, jaký je v příkladu,
 musíte zkopírovat vše od řádku @qq{Start
 cut-&-pastable section} až do konce souboru.
 
@@ -808,7 +808,7 @@ tím, které části z ní mají číst, a tak se stává, že někdy nejsou
 čteny její důležité části.
 
 @warning{Nepřeskakujte, prosím, žádné důležité části
-dokumentace.  Jinak pro vás bude později o hodně těžší 
+dokumentace.  Jinak pro vás bude později o hodně těžší
 rozumět pozdějším částem.}
 
 @itemize
@@ -816,8 +816,8 @@ rozumět pozdějším částem.}
 @item
 @strong{Předtím než @emph{cokoli} vyzkoušíte}: Přečtěte si části
 @ref{Cvičení} a @ref{Běžný notový zápis}.  Když narazíte
-hudební odborné pojmy, které neznáte,
-podívejte se na ně v @rglosnamed{Začátek, Slovníček}.
+na hudební odborné pojmy, které neznáte,
+podívejte se na ně v části @rglosnamed{Začátek, Slovníček}.
 
 @item
 @strong{Předtím než napíšete úplný kousek}:  Přečtěte si část
