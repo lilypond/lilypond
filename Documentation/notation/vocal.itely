@@ -96,6 +96,8 @@ Snippets:
 
 @cindex lyrics, entering
 @cindex entering lyrics
+@cindex formatting in lyrics
+@cindex lyrics, formatting
 @cindex punctuation in lyrics
 @cindex lyrics punctuation
 @cindex spaces in lyrics
@@ -196,6 +198,16 @@ combination of a backslash followed by one of @code{`}, @code{'},
 
 @c " to balance double quotes for not-so-bright context-sensitive editors
 
+Great control over the appearance of lyrics comes from using
+@code{\markup} inside the lyrics themselves. For explanation of many
+options, see @ref{Formatting text}.
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{formatting-lyrics-syllables.ly}
+
+
 @seealso
 Learning Manual:
 @rlearning{Songs}.
@@ -203,6 +215,7 @@ Learning Manual:
 Notation Reference:
 @ref{Automatic syllable durations},
 @ref{Fonts},
+@ref{Formatting text},
 @ref{Input modes},
 @ref{Manual syllable durations},
 @ref{Text encoding}.
@@ -210,6 +223,8 @@ Notation Reference:
 Internals Reference:
 @rinternals{LyricText}.
 
+Snippets:
+@rlsr{Text}
 
 @node Aligning lyrics to a melody
 @unnumberedsubsubsec Aligning lyrics to a melody
