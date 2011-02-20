@@ -15,5 +15,5 @@ in two.
     \set Timing.baseMoment = #(ly:make-moment 1 8)
     \set Timing.beatStructure = #'(3 3)
     \set Timing.beamExceptions = #'()
-    c c c c c c
+    c8 c c c c c
 }
