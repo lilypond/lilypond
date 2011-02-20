@@ -107,8 +107,9 @@
 
         (if (= dir START)
             ;; Start rules
-            (or (not (equal? time-signature-fraction '(3 . 4))) ;; start anywher if not 3/4
-                (beat-end? pos beat-endings)  ;; are we at start of beat?
+            (or (not (equal? time-signature-fraction '(3 . 4))) ;; start anywhere if not 3/4
+                (= (ly:moment-main-numerator pos) 0) ;; start at beginning of measure
+		(beat-end? pos beat-endings)  ;; are we at start of beat?
                 (and (not (equal? test-beam base-moment)) ;; is beat split?
                      (not (beat-end? (ly:moment-add pos test-beam)
                                      beat-endings))))  ;; will this note end the beat
