@@ -1070,7 +1070,7 @@ song.ly:12:46: warning: barcheck failed at: 3/8
 
 Toto je dobrý příklad užití přezkoušení taktů.  Zde máme český překlad, ale když se na noty  s anglickým původním textem podíváme
 pečlivěji, je nám jasné, že nový textový řádek není srovnán s notami
-správně.  Slova @notation{měsíc} a @notation{svítí}@footnote{v angličtině jsou tu slovní obrat "moon doth" a slovo "shine")}}, by se měla
+správně.  Slova @notation{měsíc} a @notation{svítí} (v angličtině jsou tu slovní obrat "moon doth" a slovo "shine"), by se měla
 zpívat na dvě noty, ne na jednu.  Říká se tomu @notation{melisma}, jednoslabičný
 text pro více not, řada tónů zpívaná na jednu slabiku textu.  Je více
 možností, jak jednu slabiku prodloužit přes více not.  Tou nejjednodušší
