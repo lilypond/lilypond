@@ -218,11 +218,14 @@ Completion_heads_engraver::process_music ()
 	event = event->clone ();
 
       SCM pits = note_events_[i]->get_property ("pitch");
+      Duration appearance = note_dur;
+      if (factor_.denominator () == 1 && factor_ > Rational (1, 1))
+	appearance = Duration (note_dur.get_length (), false);
 
       event->set_property ("pitch", pits);
-      event->set_property ("duration", note_dur.smobbed_copy ());
-      event->set_property ("length", Moment (note_dur.get_length ()).smobbed_copy ());
-      event->set_property ("duration-log", scm_from_int (note_dur.duration_log ()));
+      event->set_property ("duration", appearance.smobbed_copy ());
+      event->set_property ("length", Moment (appearance.get_length ()).smobbed_copy ());
+      event->set_property ("duration-log", scm_from_int (appearance.duration_log ()));
 
       Item *note = make_note_head (event);
       if (need_clone)
