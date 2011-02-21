@@ -23,7 +23,7 @@ notové zápisy.
 @menu
 * Jak pracují vstupní soubory LilyPondu::
 * Hlasy obsahují noty::
-* Souvislosti a rytci::
+* Prostředí a rytci::
 * Rozšíření příkladů::
 @end menu
 
@@ -164,7 +164,7 @@ Pro jednoduché dokumenty to obecně pracuje velmi dobře, u
 složitějších notových zápisů z toho ale mohou povstat neočekávané
 výsledky, částečně dokonce neočekávané prázdné notové osnovy.  Jak
 otevřeně vytvářet odpovídající prostředí v takovém případě,
-se podívejte na @ref{Souvislosti a rytci,,souvislosti a rytce}.
+se podívejte na @ref{Prostředí a rytci,,prostředí a rytce}.
 
 @warning{Když se zadává více jak dvojice notových řádků,
 doporučuje se vytvořit notové osnovy a hlasy vždy otevřeně
@@ -273,7 +273,7 @@ Více podrobností se nachází v části @ruser{Více notových zápisů v kniz
 @cindex Identifikátor
 
 Dobrou možností pro zjednodušení jsou vlastní vymezené proměnné,
-jak je to také ukázáno v @ref{Pořádání kousků pomocí proměnných}.
+jak je to také ukázáno v @ref{Pořádání děl pomocí proměnných}.
 Všechny předlohy používají tuto možnost:
 
 @example
@@ -638,7 +638,7 @@ tím nejzákladnějším pojmem.
 
 @menu
 * Slyším hlasy::
-* Přímé začátky hlasů::
+* Přímo vyjádřené začátky hlasů::
 * Hlasy a zpěvy::
 @end menu
 
@@ -1007,15 +1007,15 @@ Stimme eindeutig standardmäßig schlecht positioniert.  LilyPond bietet
 verschiedene Möglichkeiten, die horizontale Position von Noten
 anzupassen.  Wir sind aber noch nicht so weit, dass wir diese Funktionen
 anwenden könnten.  Darum heben wir uns das Problem für einen späteren Abschnitt auf; siehe @code{force-hshift}-Eigenschaft in
-@ref{Überlappende Notation in Ordnung bringen}.
+@ref{Oprava překrývajících se not}.
 
 
 @seealso
 Notationsreferenz: @ruser{Mehrere Stimmen}.
 
 
-@node Přímé začátky hlasů
-@subsection Přímé začátky hlasů
+@node Přímo vyjádřené začátky hlasů
+@subsection Přímo vyjádřené začátky hlasů
 @translationof Explicitly instantiating voices
 
 @funindex \voiceOne
@@ -1257,7 +1257,7 @@ nach links verschoben.
 @code{\shiftOnn} und @code{\shiftOnnn} definieren weitere
 Verschiebungsebenen, die man kurzzeitig anwählen kann, um
 Zusammenstöße in komplexen Situationen aufzulösen, siehe auch
-@ref{Beispiele aus dem Leben}.
+@ref{Příklady ze života}.
 
 Eine Notenkolumne kann nur eine Note (oder einen Akkord) von
 einer Stimme mit Hälsen nach oben und eine Note (oder einen
@@ -1454,26 +1454,26 @@ VerseFour  =
 Notation Reference: @ruser{Notation von Gesang}.
 
 
-@node Souvislosti a rytci
-@section Souvislosti a rytci
+@node Prostředí a rytci
+@section Prostředí a rytci
 @translationof Contexts and engravers
 
-Souvislosti a rytci (@qq{Stempel}) sind in den vorherigen
+Prostředí a rytci (@qq{Stempel}) sind in den vorherigen
 Abschnitten schon aufgetaucht; hier wollen wir uns ihnen
 nun etwas ausführlicher widmen, denn sie sind sehr
 wichtig, um Feineinstellungen in der LilyPond-Notenausgabe
 vornehmen zu können.
 
 @menu
-* Vysvětlení souvislostí::
-* Vytvoření souvislostí::
+* Vysvětlení prostředí::
+* Vytvoření prostředí::
 * Vysvětlení rytců::
-* Změna souvisejících vlastností::
+* Změna vlastností prostředí::
 * Přidání a odstranění rytců::
 @end menu
 
-@node Vysvětlení souvislostí
-@subsection Vysvětlení souvislostí
+@node Vysvětlení prostředí
+@subsection Vysvětlení prostředí
 @translationof Contexts explained
 
 @cindex Kontexte erklärt
@@ -1558,11 +1558,11 @@ angeschlossen, etwa
 
 
 @seealso
-Notationreferenz: @ruser{Vysvětlení souvislostí}.
+Notationreferenz: @ruser{Vysvětlení prostředí}.
 
 
-@node Vytvoření souvislostí
-@subsection Vytvoření souvislostí
+@node Vytvoření prostředí
+@subsection Vytvoření prostředí
 @translationof Creating contexts
 
 @funindex \new
@@ -1603,7 +1603,7 @@ normalerweise automatisch erstellt wird, wenn der musikalische Ausdruck
 innerhalb der @code{\score}-Umgebung interpretiert wird.  Standard-Werte
 von Kontexteigenschaften, die für einen bestimmten @code{Score} gelten
 sollen, können innerhalb der @bs{}@code{layout}-Umgebung definiert werden.
-Siehe @ref{Změna souvisejících vlastností,,změnu souvisejících vlastností}.}
+Siehe @ref{Změna vlastností prostředí,,změnu vlastností prostředí}.}
 
 Wir haben schon viele explizite Beispiel gesehen, in denen
 neue @code{Staff}- und @code{Voice}-Kontexte erstellt wurden, aber
@@ -1689,7 +1689,7 @@ zu Gesangstexten angewandt, siehe @ref{Hlasy a zpěvy,,hlasy a zpěvy}.
 
 
 @seealso
-Notationsreferenz: @ruser{Vytvoření souvislostí}.
+Notationsreferenz: @ruser{Vytvoření prostředí}.
 
 
 @node Vysvětlení rytců
@@ -1787,8 +1787,8 @@ Engraver beeinflusst wird.
 Referenz der Interna: @rinternals{Engravers and Performers}.
 
 
-@node Změna souvisejících vlastností
-@subsection Změna souvisejících vlastností
+@node Změna vlastností prostředí
+@subsection Změna vlastností prostředí
 @translationof Modifying context properties
 
 @cindex Kontext-Eigenschaften, Verändern
@@ -2323,7 +2323,7 @@ wissen jetzt, wie Sie Notensatz produzieren, und Sie
 haben die grundlegenden Konzepte verstanden.  Aber wie
 erhalten Sie genau die Systeme, die Sie brauchen? Es
 gibt eine ganze Anzahl an fertigen Vorlagen
-(siehe @ref{Vorlagen}), mit denen Sie beginnen
+(siehe @ref{Předlohy}), mit denen Sie beginnen
 können.  Aber was, wenn Sie nicht genau das finden,
 was Sie brauchen? Lesen Sie weiter.
 
@@ -2536,8 +2536,8 @@ celloMusic = \relative c {
 
 @seealso
 Die Vorlagen, mit denen wir begonnen haben, können im
-Anhang @qq{Vorlagen} gefunden werden, siehe
-@ref{Ein einzelnes System}.
+Anhang @qq{Předlohy} gefunden werden, siehe
+@ref{Jedna notová osnova}.
 
 
 @node Čtyřhlasý notový zápis SATB
@@ -2653,7 +2653,7 @@ lower = \relative c, {
 
 Keine der Vorlage bietet diesen Aufbau direkt an.  Die Vorlage, die
 am nächsten daran liegt, ist @qq{SATB-Partitur und automatischer
-Klavierauszug}, siehe @ref{Vokalensemble}.  Wir müssen diese
+Klavierauszug}, siehe @ref{Vokální soubor}.  Wir müssen diese
 Vorlage aber so anpassen, dass die Noten für das Klavier nicht
 automatisch aus dem Chorsatz generiert werden.  Die Variablen
 für die Noten und den Text des Chores sind in Ordnung, wir
