@@ -752,19 +752,37 @@ def get_voice_name (i):
         return 'voice' + number2ascii (i)
     return ''
 
+def get_voice_layout (average_pitch):
+    d = {}
+    for i in range (len (average_pitch)):
+        d[average_pitch[i]] = i
+    s = list (reversed (sorted (average_pitch)))
+    non_empty = len (filter (lambda x: x, s))
+    names = ['One', 'Two']
+    if non_empty > 2:
+        names = ['One', 'Three', 'Four', 'Two']
+    layout = map (lambda x: '', range (len (average_pitch)))
+    for i, n in zip (s, names):
+        if i:
+            v = d[i]
+            layout[v] = n
+    return layout
+
 def dump_track (track, n):
     s = '\n'
     track_name = get_track_name (n)
-    clef = guess_clef (track)
+
+    average_pitch = track_average_pitch (track)
+    voices = len (filter (lambda x: x, average_pitch[1:]))
+    clef = get_best_clef (average_pitch[0])
 
     c = 0
+    v = 0
     for channel in track:
         channel_name = get_channel_name (c)
         c += 1
-        v = 0
         for voice in channel:
             voice_name = get_voice_name (v)
-            v += 1
             voice_id = track_name + channel_name + voice_name
             item = voice_first_item (voice)
 
@@ -780,8 +798,11 @@ def dump_track (track, n):
                 skip = '\\skip '
                 s += '%(voice_id)s = ' % locals ()
             s += '{\n'
+            if average_pitch[v+1] and voices > 1:
+                s += '  \\voice' + get_voice_layout (average_pitch[1:])[v] + '\n'
             s += '  ' + dump_voice (voice, skip)
             s += '}\n\n'
+            v += 1
 
     s += '%(track_name)s = <<\n' % locals ()
 
@@ -789,10 +810,10 @@ def dump_track (track, n):
         s += clef.dump () + '\n'
 
     c = 0
+    v = 0
     for channel in track:
         channel_name = get_channel_name (c)
         c += 1
-        v = 0
         for voice in channel:
             voice_name = get_voice_name (v)
             v += 1
@@ -827,24 +848,36 @@ def track_first_item (track):
             return first
     return None
 
-def guess_clef (track):
+def track_average_pitch (track):
     i = 0
-    p = 0
-    for voice in track:
-        for thread in voice:
-            for event in thread:
+    p = [0]
+    v = 1
+    for channel in track:
+        for voice in channel:
+            c = 0
+            p.append (0)
+            for event in voice:
                 if event[1].__class__ == Note:
-                    i = i + 1
-                    p = p + event[1].pitch
-    if i and p / i <= 3*12:
-        return Clef (0)
-    elif i and p / i <= 5*12:
-        return Clef (1)
-    elif i and p / i >= 7*12:
-        return Clef (3)
-    else:
-        return Clef (2)
+                    i += 1
+                    c += 1
+                    p[v] += event[1].pitch
+            if c:
+                p[0] += p[v]
+                p[v] = p[v] / c
+            v += 1
+    if i:
+        p[0] = p[0] / i
+    return p
 
+def get_best_clef (average_pitch):
+    if average_pitch:
+        if average_pitch <= 3*12:
+            return Clef (0)
+        elif average_pitch <= 5*12:
+            return Clef (1)
+        elif average_pitch >= 7*12:
+            return Clef (3)
+    return Clef (2)
 
 def convert_midi (in_file, out_file):
     global clocks_per_1, clocks_per_4, key
