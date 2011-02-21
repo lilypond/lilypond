@@ -18,7 +18,7 @@ Tutorial guidelines:
     @l ilypond[quote,verbatim,fragment,relative=2]
   (without spaces)
   Don't use any other relative=X commands.
-  
+
 - use "aes" and "ees" instead of "as" and "aes".  I know it's not
   correct Dutch naming, but let's not confuse people with this until
   we get to the Basic notation chapter.
@@ -104,7 +104,7 @@ Slovníček: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 @rglos{double flat}, @rglos{accidental}.
 
 Předznamenání @notation{křížku}@footnote{V německém hovorovém jazyku
-se předznamenání (das Versetzungszeichen) často říká předznamenání (Vorzeichen). Do češtiny se překládá stejně. V této příručce 
+se předznamenání (das Versetzungszeichen) často říká předznamenání (Vorzeichen). Do češtiny se překládá stejně. V této příručce
 se však rozlišuje mezi předznamenáním jako obecným udáním tóniny
 a předznamenáními (posuvkami), jež se objevují přímo v notovém textu. V angličtině jsou obojí značky odlišeny tím, že pro stanovení tóniny se používá slova key signature, což se překládá jako předznamenání, a pro předznamenání na různých místech přímo v notovém zápisu má angličtina výraz accidental, což se překládá jako posuvka.} se zadává tím, že se k názvu noty připojí
 @q{is}, předznamenání  @notation{bé}
@@ -112,7 +112,7 @@ se provede připojením @q{es}. Logicky se potom
  @notation{dvojitý křížek} nebo @notation{dvojité bé} zapíše připojením
 @q{isis} nebo @q{eses}. Tato skladba odpovídá zvyklosti prostředí
 českého jazyka, a tudíž není pro české uživatele žádným problémem.
-Je ovšem možné používat název pro 
+Je ovšem možné používat název pro
 @notation{předznamenání} v jiných jazycích.
 Podívejte se na @ruser{Označení not v jiných jazycích}.
 
@@ -141,8 +141,8 @@ cis4 ees fisis, aeses
 Slovníček: @rglos{key signature}, @rglos{major},
 @rglos{minor}.
 
-@notation{Tónina} díla se vytvoří příkazem 
-@code{\key}, který je následován označením noty a  
+@notation{Tónina} díla se vytvoří příkazem
+@code{\key}, který je následován označením noty a
 @code{\major} (pro Dur) nebo @code{\minor}
 (pro moll).
 
@@ -168,8 +168,8 @@ skutečné výšky tónů! Tato zvláštnost se na začátku jeví
 často jako matoucí, takže je zde sledována důkladněji.
 
 LilyPond přísně rozlišuje mezi hudebním obsahem a
-sazbou. Alterace (@notation{bé}, 
-@notation{křížek} nebo @notation{odrážka}) jedné noty kromě toho 
+sazbou. Alterace (@notation{bé},
+@notation{křížek} nebo @notation{odrážka}) jedné noty kromě toho
 náleží k výšce tónu, a je proto hudebním obsahem.
 Zda se předznamenání (posuvka: čili @emph{otisknutý} křížek, bé
 nebo odrážka) objeví před odpovídající notou,
@@ -205,7 +205,7 @@ aes4 c b c
 
 Zapsat všechna tato předznamenání výslovně, možná znamená o něco
 více písemné práce, má to ale tu velkou výhodu, že
-@notation{transpozice}, převod, se dělá mnohem snadněji, a že 
+@notation{transpozice}, převod, se dělá mnohem snadněji, a že
 tisk předznamenání (posuvek) se může uskutečnit podle rozdílných
 pravidel. Podívejte se na
 @ruser{Automatické předznamenání} na několik příkladů, jak mohou být
@@ -239,7 +239,7 @@ Doporučení pro notový zápis:
 
 Slovníček: @rglos{tie}.
 
-@notation{Ligatura} se zapíše tak, že se k první z not, které se mají  
+@notation{Ligatura} se zapíše tak, že se k první z not, které se mají
 spojit, připojí vlnovka @code{~}.
 
 @lilypond[verbatim,quote,relative=2]
@@ -280,7 +280,7 @@ g4\( g8( a) b( c) b4\)
 
 Slovníček: @rglos{articulation}, @rglos{slur}, @rglos{tie}.
 
-Legatový oblouček vypadá jako @rglos{tie}, má ale jiný význam. 
+Legatový oblouček vypadá jako @rglos{tie}, má ale jiný význam.
 Ligatura prodlužuje pouze předcházející notu a může se
 také používat jen u dvou not, jež mají stejnou výšku tónu.
 Legatové obloučky proti tomu ukazují artikulaci not a mohou být
@@ -380,10 +380,10 @@ připojují značky (s obráceným lomítkem):
 c4\ff c\mf c\p c\pp
 @end lilypond
 
-@notation{Crescendo} a @notation{decrescendo} začínají 
+@notation{Crescendo} a @notation{decrescendo} začínají
 příkazem @code{\<}
 případně @code{\>}.  Další absolutní značka určující hlasitost,
-například @code{\f}, (de)crescendo ukončuje. 
+například @code{\f}, (de)crescendo ukončuje.
 Může se přesně ukončit i příkazem @code{\!}.
 
 @lilypond[verbatim,quote,relative=2]
@@ -460,14 +460,14 @@ a8 ais d ees r d c16 b a8
 Když nejsou tyto automaticky zapisované trámce chtěné,
 mohou být změněny ručně. Když se musí tu a tam opravit
 jen jeden trámec, dostane nota, na níž trámec začíná
-@q{[} (AltGr+8), a ta, na níž má končit, dostane 
+@q{[} (AltGr+8), a ta, na níž má končit, dostane
 @q{]} (AltGr+9).
 
 @lilypond[verbatim,quote,relative=2]
 a8[ ais] d[ ees r d] c16 b a8
 @end lilypond
 
-Když chcete automatické trámce vypnout úplně nebo 
+Když chcete automatické trámce vypnout úplně nebo
 pro delší část, používáte
 příkaz @code{\autoBeamOff}, abyste trámce vypnul,
 a @code{\autoBeamOn}, abyste je opět zapnul.
@@ -517,11 +517,11 @@ c2 d |
 
 Slovníček: @rglos{note value}, @rglos{triplet}.
 
-@notation{Trioly} a @notation{n-toly} se vytváří příkazem 
+@notation{Trioly} a @notation{n-toly} se vytváří příkazem
 @code{\times}. Potřeba jsou k tomu dva argumenty:
 zlomek a noty, na něž se odvolává.
-Trvání not se zlomkem znásobuje. 
-V jedné triole trvají noty 2/3 jejich zapsané délky, 
+Trvání not se zlomkem znásobuje.
+V jedné triole trvají noty 2/3 jejich zapsané délky,
 takže triola má 2/3 jako svůj zlomek:
 
 @lilypond[verbatim,quote,relative=2]
@@ -580,11 +580,11 @@ Vícehlasost (polyfonie) ovšem pro LilyPond znamená
 výskyt více než jednoho hlasu ve stejné notové osnově.
 
 @menu
-* Vysvětlení hudebních výrazů::  
-* Více notových osnov::             
-* Seskupení notových osnov::                
-* Spojení not do akordů::  
-* Vícehlasost v jedné notové osnově::      
+* Vysvětlení hudebních výrazů::
+* Více notových osnov::
+* Seskupení notových osnov::
+* Spojení not do akordů::
+* Vícehlasost v jedné notové osnově::
 @end menu
 
 
@@ -606,7 +606,7 @@ a4
 
 Skupina not uvnitř závorek tvoří nový výraz.
 Tento je nyní @emph{složeným hudebním výrazem}.
-Zde byl jeden takový složený hudební výraz 
+Zde byl jeden takový složený hudební výraz
 se dvěmi notami vytvořen:
 
 @lilypond[verbatim,quote,relative=2]
@@ -676,7 +676,7 @@ hlasy ve stejné notové osnově. Pro označení toho, že se dva hlasy mají
 hrát ve stejnou dobu, jednoduše zadejte souběžné spojení hudebních výrazů
 Je jen třeba vložit znak pro spojení.
 Souběžně jsou hudební výrazy spojeny tak, že jsou uzavřeny uvnitř
-@code{<<} a @code{>>}. V následujícím příkladu jsou souběžně spojeny 
+@code{<<} a @code{>>}. V následujícím příkladu jsou souběžně spojeny
 tři výrazy (každý obsahuje dvě oddělené noty):
 
 @lilypond[verbatim,quote]
@@ -706,7 +706,7 @@ vliv.}
 Aby určil počet notových osnov, provádí LilyPond rozbor
 začátku prvního výrazu. Když se zde nachází jednotlivá nota,
 zapíše se pouze jedna notová osnova, když se jedná o souběžné seřazení
-výrazů, zapíše se více než jedna notová osnova. Následující 
+výrazů, zapíše se více než jedna notová osnova. Následující
 příklad začíná jednou notou:
 
 
@@ -740,13 +740,13 @@ příklad začíná jednou notou:
 Jak jsme viděli ve @ref{Vysvětlení hudebních výrazů,,vysvětlení hudebních výrazů}, jsou
 zdrojové soubory LilyPondu sestaveny z hudebních výrazů.
 Když zadání not začíná souběžným výrazem, vytváří se více notových
-osnov. Je ale jistější a jednodušší 
+osnov. Je ale jistější a jednodušší
 porozumět tomu, kdy jsou tyto notové osnovy vytvářeny otevřeně.
 
 Aby se napsala více než jedna notová osnova, je ke každému notovému výrazu,
 který má stát ve vlastní notové osnově, vpředu připojen příkaz
 @code{\new Staff}. Tyto součásti @code{Staff} (anglické slovo pro notovou
-osnovu) jsou potom uspořádány souběžně se znaky @code{<<} a 
+osnovu) jsou potom uspořádány souběžně se znaky @code{<<} a
 @code{>>}:
 
 @lilypond[verbatim,quote]
@@ -765,10 +765,10 @@ Pro jednoduché části jsou tato prostředí vytvářena automaticky.
 U složitější hudby je ale nejlepší tato prostředí vytvořit otevřeně.
 
 Jsou různé typy prostředí. @code{Score} (notový zápis),
-@code{Staff} (notová osnova) a @code{Voice} (hlas) 
-zpracovávají zadání not, zatímco prostředí @code{Lyrics} 
+@code{Staff} (notová osnova) a @code{Voice} (hlas)
+zpracovávají zadání not, zatímco prostředí @code{Lyrics}
 (text) se používá k zapisování textů písní a
-prostředí @code{ChordNames} (názvy akordů) se používá 
+prostředí @code{ChordNames} (názvy akordů) se používá
 k zapisování značek akordů.
 
 Tím, že se @code{\new} zapíše před nějakým hudebním výrazem,
@@ -779,8 +779,8 @@ Tak jako @math{(4+5)} je jeden výraz, který byl pomocí
 jsou také hudební výrazy rozšiřovány pomocí příkazu @code{\new}.
 
 Označení taktů, která jsou zadána v jedné notové osnově, se
-projevují u všech ostatních notových osnov. Předznamenání (údaj o 
-tónině) v jedné notové osnově oproti tomu @emph{neovlivňuje} tóninu 
+projevují u všech ostatních notových osnov. Předznamenání (údaj o
+tónině) v jedné notové osnově oproti tomu @emph{neovlivňuje} tóninu
 jiných notových osnov. Toto počínání je založeno na tom, že
 notové zápisy s převeditelnými nástroji jsou častější než
 notové zápisy s rozdílnými druhy taktů.
@@ -843,13 +843,13 @@ Zde je jeden malý příklad:
 }
 @end lilypond
 
-Jiné typické skupiny notových osnov je možné vytvořit příkazy 
-@code{\new StaffGroup} pro orchestrální sazby a 
-@code{\new ChoirStaff} pro sborové notové osnovy. 
+Jiné typické skupiny notových osnov je možné vytvořit příkazy
+@code{\new StaffGroup} pro orchestrální sazby a
+@code{\new ChoirStaff} pro sborové notové osnovy.
 Každá z těchto skupin notových osnov vytváří nové prostředí,
 které se stará o to, aby závorky byly vytvořeny na začátku
-notové osnovy, a který dodatečně rozhoduje i o tom, 
-zda jsou taktové čáry zapsány jen na notové osnově 
+notové osnovy, a který dodatečně rozhoduje i o tom,
+zda jsou taktové čáry zapsány jen na notové osnově
 nebo také mezi notovými osnovami.
 
 
@@ -878,7 +878,7 @@ současně zaznívající. Obvyklým způsobem notového zápisu
 akordů je ale jejich uzavření
 @emph{jednoduchými} špičatými závorkami (@q{<} a @q{>}).
 Dávejte pozor si na to, že všechny noty jednoho akordu
-musejí mít stejnou dobu trvání a že tato doba trvání 
+musejí mít stejnou dobu trvání a že tato doba trvání
 se zapisuje po uzavírajících závorkách.
 
 @lilypond[verbatim,quote,relative=2]
@@ -927,7 +927,7 @@ a podrobně je vysvětlují.
 Příručka k učení se:
 @ref{Hlas obsahuje noty}.
 
-Doporučení pro notový zápis: 
+Doporučení pro notový zápis:
 @ruser{Současně se objevující noty}.
 
 
@@ -944,9 +944,9 @@ V této kapitole je laskavý čtenář uveden do spojení not s textem
 a je ukázáno, jak se vytváří jednodušší listy s písničkami.
 
 @menu
-* Zápis jednoduchých písní::        
-* Vyrovnání textu s melodií::  
-* Text pro více osnov::   
+* Zápis jednoduchých písní::
+* Vyrovnání textu s melodií::
+* Text pro více osnov::
 @end menu
 
 
@@ -963,7 +963,7 @@ a je ukázáno, jak se vytváří jednodušší listy s písničkami.
 
 Slovníček: @rglos{lyrics}.
 
-Zde je začátek jednoduché dětské písně, 
+Zde je začátek jednoduché dětské písně,
 @notation{Dívky a chlapci jdou ven, aby si hráli}:
 
 @lilypond[verbatim,quote]
@@ -998,9 +998,9 @@ Pokud to tak uděláno není, je závorka vykládána jako část
 slabiky, což vede k zvláštní chybě.  Podívejte se také na
 @rprogram{Apparent error in ../ly/init.ly}.}
 
-Jak noty tak také text jsou pokaždé orámovány složenými 
-závorkami a celý výraz je umístěn mezi 
-@w{@code{<< ... >>}}. Tím se zaručuje, že 
+Jak noty tak také text jsou pokaždé orámovány složenými
+závorkami a celý výraz je umístěn mezi
+@w{@code{<< ... >>}}. Tím se zaručuje, že
 text a noty jsou zapsány současně.
 
 
@@ -1136,11 +1136,11 @@ podtržítko @code{_}:
 >>
 @end lilypond
 
-Když se poslední slabika slova rozprostírá přes více not nebo přes 
-jednu velmi dlouhou notu, zapisuje se obvykle vyplňovací čára, 
+Když se poslední slabika slova rozprostírá přes více not nebo přes
+jednu velmi dlouhou notu, zapisuje se obvykle vyplňovací čára,
 která se rozprostírá přes všechny noty, které ke slabice
 patří. Tato vyplňovací čára se zapíše pomocí dvou podtržítek @code{__}.
-Zde je příklad prvních tří taktů z 
+Zde je příklad prvních tří taktů z
 @notation{Didonina nářku},
 Purcellova díla @notation{Dido a Æneas}@footnote{Když jsem | položen,
 jsem | položen __ na | zemi.}:
@@ -1163,7 +1163,7 @@ jsem | položen __ na | zemi.}:
 Žádný z dosavadních příkladů doposud nepoužil slova, jež by byla
 delší než jedna slabika.
 Taková slova se obvykle rozdělují na více
-not, jedna slabika na notu, se spojovníky mezi slabikami. 
+not, jedna slabika na notu, se spojovníky mezi slabikami.
 Tyto slabiky se zapisují pomocí dvou znamének minus a
 jsou LilyPondem napsány jako vystředěný spojovník mezi dvěma slabikami.
 Zde je příklad, který ukazuje tento a všechny další triky,
@@ -1187,14 +1187,14 @@ jimiž lze vyrovnat text s notami:
 >>
 @end lilypond
 
-Některé texty, obzvláště v jazyce italském, potřebují opak: 
-více než jedna slabika se musí zapsat k jedné notě. 
+Některé texty, obzvláště v jazyce italském, potřebují opak:
+více než jedna slabika se musí zapsat k jedné notě.
 To je možné tak, že slabiky jsou spřáhnuty dohromady pomocí
 jednoho podtržení @code{_}. Mezi tím se nesmí nacházet žádné prázdné
-znaky, nebo tím, že se 
+znaky, nebo tím, že se
 rozhodující slabiky zapíší v uvozovkách @code{"}.
-Zde je příklad z opery @notation{Figaro} od Rossiniho, kde se slabika 
-@notation{al} musí zazpívat na té samé notě @notation{go} slova @notation{Largo} 
+Zde je příklad z opery @notation{Figaro} od Rossiniho, kde se slabika
+@notation{al} musí zazpívat na té samé notě @notation{go} slova @notation{Largo}
 ve Figarově árii @notation{Largo al factotum}.
 
 @c no ragged-right here because otherwise the hyphens get lost,
@@ -1226,7 +1226,7 @@ Doporučení pro notový zápis:
 @cindex Text písně ve více osnovách
 @cindex Více osnov a text písně
 
-Lze použít jednoduché řešení s @code{\addlyrics}, aby byl text 
+Lze použít jednoduché řešení s @code{\addlyrics}, aby byl text
 zapsán v jedné nebo ve více notových osnovách. Zde je příklad z
 Händelova díla @notation{Judas Maccabeus}:
 
@@ -1253,8 +1253,8 @@ Händelova díla @notation{Judas Maccabeus}:
 >>
 @end lilypond
 
-Ale notové zápisy, jež jsou složitější, než je tento příklad, 
-se lépe zapisují tak, že se stavba osnov oddělí od not 
+Ale notové zápisy, jež jsou složitější, než je tento příklad,
+se lépe zapisují tak, že se stavba osnov oddělí od not
 a textu zpěvu pomocí proměnných. Používání proměnných
 se vysvětluje v části @ref{Pořádání děl pomocí proměnných}.
 
@@ -1339,7 +1339,7 @@ V názvech proměnných mohou být použita jen písmena abecedy,
 Proměnné se musejí vymezit @emph{před} vlastním hudebním
 výrazem. Potom se ale mohou používat libovolně často, jakmile
 už jednou byly vymezeny. Mohou být dokonce ustaveny, aby později
-v souboru vytvořily novou proměnnou. Tím se dá písemná práce 
+v souboru vytvořily novou proměnnou. Tím se dá písemná práce
 ulehčit, když se skupiny not často opakují.
 
 @lilypond[verbatim,quote]
@@ -1370,8 +1370,8 @@ právě vymezené značky:
   line-width = \Šířka
 @}
 
-@{ 
-  c4^\Name 
+@{
+  c4^\Name
 @}
 @end example
 
@@ -1520,11 +1520,11 @@ V tomto cvičení, stejně tak jako v celé příručce k učení se,
 se na konci každé části nachází část @strong{Podívejte se také na},
 kde se nacházejí odkazy na jiné části.
 Tyto odkazy byste po prvním přečtení neměl následovat;
-teprve až si přečtete celou příručku k učení se, 
+teprve až si přečtete celou příručku k učení se,
 můžete v případě potřeby následovat těchto odkazů, abyste si
 prohloubili vědomosti k námětu.
 
-Nyní si, prosím, přečtěte 
+Nyní si, prosím, přečtěte
 @ref{Přehled o příručkách}, jestliže jste to až doteď neudělal.
 O LilyPondu je závratné množství informací, takže začátečníci se
 jich hned správně nedopátrají. Když strávíte byť jen několik minut čtením
