@@ -61,8 +61,8 @@ konstruiert werden, so dass Sie in der Lage sein werden, eigene
 Befehle auf dieser Grundlage zu entwickeln.
 
 Bevor Sie mit diesem Kapitel beginnen, könnte Sie ein Blick in den
-Abschnitt @ref{Kontexte und Engraver} interessieren, dann
-Kontexte und Engraver sowie die Eigenschaften, die mit ihnen
+Abschnitt @ref{Prostředí a rytci} interessieren, dann
+prostředí a rytci sowie die Eigenschaften, die mit ihnen
 verknüpft sind, sind die Voraussetzung, um die Funktionsweise
 von Optimierungen verstehen zu können.
 
@@ -152,7 +152,7 @@ kommen sollen.
 
 Es wurden schon früher einige Regeln zur Benennung von
 Objekten vorgestellt, siehe
-@ref{Kontexte und Engraver}. Hier eine Referenzliste der
+@ref{Prostředí a rytci}. Hier eine Referenzliste der
 häufigsten Objekt- und Eigenschaftsbezeichnungen mit
 den Regeln für ihre Bezeichnung und
 illustrierenden echten Bezeichnungen. Es wurde @qq{A}
@@ -207,7 +207,7 @@ und @code{\with} bekannt gemacht, mit welchen
 Eigenschaften von @strong{Kontexten} verändert
 und @strong{Engraver} entfernt oder hinzugefügt
 werden können. Siehe dazu
-@ref{Kontexteigenschaften verändern} und @ref{Engraver hinzufügen und entfernen}. Jetzt wollen wir uns weitere
+@ref{Změna vlastností prostředí} und @ref{Přidání a odstranění rytců}. Jetzt wollen wir uns weitere
 wichtige Befehle anschauen.
 
 Der Befehl, um die Eigenschaften von @strong{Layout-Objekten}
@@ -511,7 +511,7 @@ Notationsreferenz:
 
 @menu
 * Vlastnosti předmětů v rozvržení::
-* Vlastnosti, jež mohou mít rozhraní::
+* Vlastnosti nacházející se v rozhraních::
 * Typy vlastností::
 @end menu
 
@@ -852,8 +852,8 @@ zu geben, die relevante Information dort zu finden. Die Beispiele werden
 Schritt für Schritt immer weniger Erklärungen beinhalten.
 
 
-@node Vlastnosti, jež mohou mít rozhraní
-@subsection Vlastnosti, jež mohou mít rozhraní
+@node Vlastnosti nacházející se v rozhraních
+@subsection Vlastnosti nacházející se v rozhraních
 @translationof Properties found in interfaces
 
 @cindex Interface-Eigenschaften
@@ -1107,7 +1107,7 @@ eingefügt.  Wie verhindern wir, dass sie ausgegeben werden?
 Bevor wir uns hieran machen, sei daran erinnert, dass
 Objekteigenschaften in sogenannten @emph{Schnittstellen}
 -- engl. interface -- gruppiert sind, siehe auch
-@ref{Vlastnosti, jež mohou mít rozhraní,,vlastnosti, jež mohou mít rozhraní}.  Das dient ganz einfach
+@ref{Vlastnosti nacházející se v rozhraních,,vlastnosti nacházející se v rozhraních}.  Das dient ganz einfach
 dazu, die Eigenschaften zusammenzufassen, die üblicherweise
 zusammen benötigt werden -- wenn eine davon für ein Objekt
 gilt, dann auch die anderen.  Manche Objekte brauchen die
@@ -1467,7 +1467,7 @@ Engraver normalerweise befindet.
 @cindex Größen von Objekten verändern
 
 Als Startpunkt wollen wir wieder ein früheres Beispiel
-wählen, siehe @ref{Musikalische Ausdrücke ineinander verschachteln}. Hier wurde
+wählen, siehe @ref{Naskládání hudebních výrazů do sebe}. Hier wurde
 ein neues Notensystem erstellt, wie man es für ein @rglos{ossia}
 braucht.
 
@@ -2744,7 +2744,7 @@ macht es möglich, eine Notenkolumne zu verschieben, dabei gilt als
 Einheit die Breite einer Kolumne, also die Breite des Notenkopfes der
 ersten Stimme.  Diese Eigenschaft kann in Situationen benutzt werden,
 in denen die normalen @code{\shiftOn}-Befehle (siehe auch
-@ref{Stimmen explizit beginnen}) das Problem nicht beseitigen.
+@ref{Přímo vyjádřené začátky hlasů}) das Problem nicht beseitigen.
 Diese Eigenschaft ist besser in solchen Fällen zu verwenden als die
 @code{extra-offset}-Eigenschaft, weil man die richtige Entfernung nicht
 in Notenlinienabständen ausrechnen muss.  Wenn eine Note in eine
@@ -3149,7 +3149,7 @@ Auswirkung auf die Balken der zweiten Stimme hat.
 
 An diesem Punkt können wir den letzten Feinschliff an unserem
 Chopin-Beispiel vornehmen, das wir behandelt haben in
-@ref{Ich höre Stimmen}.  Wir hatten es in folgende Form
+@ref{Slyším hlasy}.  Wir hatten es in folgende Form
 gebracht:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -3301,8 +3301,8 @@ Fis, die auch mit einer Achtelnote verschmolzen ist.  Alles
 andere ist eine einzige Stimme, es ist also am einfachsten, die
 zusätzlichen drei Stimmen nur zeitweise zu erstellen, wenn sie
 auftreten.  Wenn Sie vergessen haben, wie man das anstellt,
-schauen Sie sich nochmal den Abschnitt @ref{Ich höre Stimmen}
-und @ref{Stimmen explizit beginnen} an.  Hier wollen wir explizit
+schauen Sie sich nochmal den Abschnitt @ref{Slyším hlasy}
+und @ref{Přímo vyjádřené začátky hlasů} an.  Hier wollen wir explizit
 begonnene Stimmen für die polyphone Stelle benutzen, weil LilyPond
 Kollisionen besser vermeidet, wenn alle Stimmen auf diese Weise
 explizit begonnen werden.
