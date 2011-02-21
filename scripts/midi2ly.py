@@ -760,6 +760,7 @@ def dump_track (track, n):
         v = 0
         for voice in channel:
             voice_name = get_voice_name (v)
+            v += 1
             voice_id = track_name + channel_name + voice_name
             item = voice_first_item (voice)
 
@@ -775,11 +776,8 @@ def dump_track (track, n):
                 skip = '\\skip '
                 s += '%(voice_id)s = ' % locals ()
             s += '{\n'
-            if len (channel) > 1 and v < 4:
-                s += '\\voice' + ['One', 'Two', 'Three', 'Four'][v]
             s += '  ' + dump_voice (voice, skip)
             s += '}\n\n'
-            v += 1
 
     s += '%(track_name)s = <<\n' % locals ()
 
