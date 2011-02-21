@@ -210,6 +210,18 @@ Spacing_spanner::prune_loose_columns (Grob *me,
 	  loose = false;
 	  c->set_property ("maybe-loose", SCM_BOOL_T);
 	}
+      /*
+	Unbreakable columns which only contain page-labels also
+	never get pruned, otherwise the labels are lost before they can
+	be collected by the System: so we mark these columns too.
+      */
+      if (!loose && !Paper_column::is_breakable (c)
+	  && scm_is_pair (c->get_property ("labels")))
+	{
+	  extract_grob_set (c, "elements", elts);
+	  if (elts.empty ())
+	    c->set_property ("maybe-loose", SCM_BOOL_T);
+	}
 
       if (loose)
 	{
