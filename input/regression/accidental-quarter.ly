@@ -7,7 +7,7 @@
 \layout { ragged-right = ##t }
 
 \relative c'' {
-  \time 12/4 
+  \time 10/4
   ceses4
   ceseh
   ces

@@ -30,7 +30,7 @@ Page labels are also collected into the top-level paper."
     }
     \tocItem \markup "Second part"
     \markup \justify { Second part, with different margins and page header. }
-    { c' }
+    { c'1 }
   }
 
   \tocItem \markup "Third part"
