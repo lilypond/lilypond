@@ -885,7 +885,17 @@ def convert_midi (in_file, out_file):
     for i in range (len (tracks)):
         s = s + dump_track (tracks[i], i)
 
-    s = s + '\n\\score {\n  <<\n'
+    s += r'''
+\layout {
+  \context {
+    \Voice
+    \remove "Note_heads_engraver"
+    \consists "Completion_heads_engraver"
+  }
+}
+'''
+
+    s += '\n\\score {\n  <<\n'
 
     i = 0
     for t in tracks:
