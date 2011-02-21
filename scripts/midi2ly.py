@@ -666,8 +666,12 @@ def dump_voice (thread, skip):
     # urg LilyPond doesn't start at c4, but
     # remembers from previous tracks!
     # reference_note = Note (clocks_per_4, 4*12, 0)
+    ref = Note (0, 4*12, 0)
     if not reference_note:
-        reference_note = Note (0, 4*12, 0)
+        reference_note = ref
+    else:
+        ref.duration = reference_note.duration
+        reference_note = ref
     last_e = None
     chs = []
     ch = []
