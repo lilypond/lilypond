@@ -30,7 +30,7 @@ public:
   DECLARE_SCHEME_CALLBACK (beat_slash, (SCM));
   DECLARE_SCHEME_CALLBACK (double_percent, (SCM));
   static Stencil x_percent (Grob *, int);
-  static Stencil brew_slash (Grob *);
+  static Stencil brew_slash (Grob *, int);
 };
 
 #endif /* PERCENT_REPEAT_ITEM_HH */

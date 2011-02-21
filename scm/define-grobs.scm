@@ -667,7 +667,6 @@
 	(slope . 1.0)
 	(stencil . ,ly:percent-repeat-item-interface::double-percent)
 	(thickness . 0.48)
-	(width . 2.0)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
 				font-interface
@@ -698,6 +697,20 @@
 				self-alignment-interface
 				side-position-interface
 				text-interface))))))
+
+    (DoubleRepeatSlash
+     . (
+	(dot-negative-kern . 0.75)
+	(font-encoding . fetaMusic)
+	(slash-negative-kern . 1.6)
+	(slope . 1.0)
+	(stencil . ,ly:percent-repeat-item-interface::beat-slash)
+	(thickness . 0.48)
+	(meta . ((class . Item)
+		 (interfaces . (font-interface
+				percent-repeat-interface
+				percent-repeat-item-interface
+				rhythmic-grob-interface))))))
 
     (DynamicLineSpanner
      . (
@@ -1006,6 +1019,7 @@
 			(right-edge . (extra-space . 0.5))
 			(first-note . (fixed-space . 2.5))))
 	(stencil . ,ly:key-signature-interface::print)
+	(extra-spacing-width . (0.0 . 0.5))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
@@ -1029,6 +1043,7 @@
 			(right-edge . (extra-space . 0.5))
 			(first-note . (fixed-space . 2.5))))
 	(stencil . ,ly:key-signature-interface::print)
+	(extra-spacing-width . (0.0 . 0.5))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
@@ -1305,7 +1320,8 @@
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
 	(full-measure-extra-space . 1.0)
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
-	(skyline-vertical-padding . 0.15)
+	;; sufficient padding to prevent ledger lines from moving over/under
+	(skyline-vertical-padding . 0.6)
 	;;		      (stencil . ,ly:paper-column::print)
 
 	(line-break-permission . allow)
@@ -1570,6 +1586,7 @@
 
     (RepeatSlash
      . (
+	(slash-negative-kern . 0.85)
 	(slope . 1.7)
 	(stencil . ,ly:percent-repeat-item-interface::beat-slash)
 	(thickness . 0.48)

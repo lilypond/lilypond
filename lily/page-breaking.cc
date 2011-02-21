@@ -71,6 +71,60 @@
   discarded after a call to set_current_breakpoints, since that Line_division
   refers to a subset of chunks which might be different from the current
   subset of chunks under consideration.
+
+  HOW TO WRITE A PAGE BREAKING ALGORITHM
+  All page breakers supported by this class work more-or-less in the same way.
+  First, they request a particular number of systems by saying
+    set_current_breakpoints (0, last_break_position (), system_count)
+  (never mind what the first two arguments do, I'll get to them later).
+  Alternatively, you can do
+    set_to_ideal_line_configuration (0, last_break_position ()),
+  and the number of systems will be automatically chosen according to what
+  the line breaker wants.
+
+  If there are multiple scores, there will be many different ways to achieve
+  a certain number of lines.  You can see how many alternatives are available
+  with current_configuration_count ().  For every i from 0 to
+  current_configuration_count ()-1, you can see the line division of the
+  corresponding configuration with current_configuration (i), or you can try
+  out various page configurations with one of the space_systems_xxx or
+  pack_systems_xxx functions.  The first argument to each of these functions
+  is the configuration index.
+
+  When you're done trying out configurations and you've picked the one
+  you want, do
+    break_into_pieces (0, last_break_position (), line_division_that_you_want);
+    return make_pages (systems_per_page, systems ());
+  where systems_per_page is a vector of numbers telling how many systems are
+  on each page.  You can get your systems_per_page vector by looking inside
+  the Page_spacing_results that are returned by space_systems_xxx or
+  pack_systems_xxx.
+
+  A note on performance: set_current_breakpoints is EXPONENTIALLY SLOW unless
+  you constrain it by giving it a lower or an upper bound on the configurations
+  it looks for.  Optimal_page_breaking, for example, works by trying
+  out a bunch of configurations, increasing the system count by one, trying
+  again and so on.  Each time we increase the system count, we assume that the
+  best new configurations are going to be elementwise larger than the
+  best configuration for the previous system count (in other words, we're going
+  to get a new configuration just by adding an extra line to sone score
+  and leaving the rest the same).  Therefore, we pass the best previous line
+  division as an lower bound to set_current_breakpoints.
+
+  Now you should be in a position to understand Optimal_page_breaking::solve.
+  Go ahead and read that before finding out, in the next paragraph,
+  what the first two arguments to set_current_breakpoints do.
+
+  "BREAKS"
+  Sometimes, it's useful to run this whole page-breaking machinery on a subset
+  of the book.  To do this, you can mark certain "breaks" in the book (a poor
+  choice of name, perhaps, since a "break" here is different from a page break)
+  and you can run page breaking between any two breaks.  You mark your breaks
+  by providing a Break_predicate (and, if you want, a Prob_break_predicate)
+  to Page_breaking's constructor.  You then choose a subset of your book
+  by passing the starting and ending breaks to set_current_breakpoints.  You
+  can see an example of this in Page_turn_page_breaking, where there is a break
+  everywhere that a page turn is allowed.
 */
 
 #include "page-breaking.hh"

@@ -772,3 +772,13 @@ melisma_busy (Context *tr)
 
   return busy;
 }
+
+bool
+check_repeat_count_visibility (Context const *context, SCM count)
+{
+  SCM proc = context->get_property ("repeatCountVisibility");
+  return (ly_is_procedure (proc)
+	  && to_boolean (scm_call_2 (proc,
+				     count,
+				     context->self_scm ())));
+}

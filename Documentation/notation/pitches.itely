@@ -594,6 +594,7 @@ This section discusses how to modify pitches.
 @menu
 * Octave checks::
 * Transpose::
+* Modal transformations::
 @end menu
 
 @node Octave checks
@@ -788,6 +789,7 @@ see @ref{Instrument transpositions}.
 @seealso
 Notation Reference:
 @ref{Relative octave entry},
+@ref{Modal transformations},
 @ref{Instrument transpositions}.
 
 Snippets:
@@ -810,6 +812,170 @@ The relative conversion will not affect @code{\transpose},
 @code{\chordmode} or @code{\relative} sections in its argument.
 To use relative mode within transposed music, an additional
 @code{\relative} must be placed inside @code{\transpose}.
+
+@node Modal transformations
+@unnumberedsubsubsec Modal transformations
+
+@cindex modal transformations
+@cindex transformations, modal
+@cindex operations, modal
+
+In a musical composition that is based on a scale, a motif is
+frequently transformed in various ways.  It may be
+@notation{transposed} to start at different places in the scale, it
+may be @notation{inverted} around a pivot point in the scale, and/or
+it may be converted to its @notation{retrograde} (written backwards).
+
+@warning{Any note that does not lie within the given scale will be
+left untransformed.}
+
+@subsubheading Modal transposition
+
+@cindex modal transposition
+@cindex transposition, modal
+@cindex operation, transposition
+@funindex \modalTranspose
+@funindex modalTranspose
+
+A motif can be transposed within a given scale with:
+
+@example
+\modalTranspose @var{from-pitch} @var{to-pitch} @var{scale} @var{motif}
+@end example
+
+The notes of @var{motif} are shifted within the @var{scale} by the
+number of scale degrees given by the interval between @var{to-pitch}
+and @var{from-pitch}:
+
+@lilypond[verbatim,quote]
+diatonicScale = \relative c' { c d e f g a b }
+motif = \relative c' { c8 d e f g a b c }
+
+\new Staff {
+  \motif
+  \modalTranspose c f \diatonicScale \motif
+  \modalTranspose c b, \diatonicScale \motif
+}
+@end lilypond
+
+An ascending scale of any length and with any intervals may be
+specified:
+
+@lilypond[verbatim,quote]
+pentatonicScale = \relative c' { ges aes bes des ees }
+motif = \relative c' { ees8 des ges,4 <ges' bes,> <ges bes,> }
+
+\new Staff {
+  \motif
+  \modalTranspose ges ees' \pentatonicScale \motif
+}
+@end lilypond
+
+When used with a chromatic scale @code{\modalTranspose} has a
+similar effect to @code{\transpose}, but with the ability to
+specify the names of the notes to be used:
+
+@lilypond[verbatim,quote]
+chromaticScale = \relative c' { c cis d dis e f fis g gis a ais b }
+motif = \relative c' { c8 d e f g a b c }
+
+\new Staff {
+  \motif
+  \transpose c f \motif
+  \modalTranspose c f \chromaticScale \motif
+}
+@end lilypond
+
+@subsubheading Modal inversion
+
+@cindex modal inversion
+@cindex inversion, modal
+@cindex operation, inversion
+@funindex \modalInversion
+@funindex modalInversion
+
+A motif can be inverted within a given scale around a given pivot
+note and transposed in a single operation with:
+
+@example
+\modalInversion @var{around-pitch} @var{to-pitch} @var{scale} @var{motif}
+@end example
+
+The notes of @var{motif} are placed the same number of scale degrees
+from the @var{around-pitch} note within the @var{scale}, but in the
+opposite direction, and the result is then shifted within the
+@var{scale} by the number of scale degrees given by the interval between
+@var{to-pitch} and @var{around-pitch}.
+
+So to simply invert around a note in the scale use the same value for
+@var{around-pitch} and @var{to-pitch}:
+
+@lilypond[verbatim,quote]
+octatonicScale = \relative c' { ees f fis gis a b c d }
+motif = \relative c' { c8. ees16 fis8. a16 b8. gis16 f8. d16 }
+
+\new Staff {
+  \motif
+  \modalInversion fis' fis' \octatonicScale \motif
+}
+@end lilypond
+
+To invert around a pivot between two notes in the scale, invert around
+one of the notes and then transpose by one scale degree.  The two notes
+specified can be interpreted as bracketing the pivot point:
+
+@lilypond[verbatim,quote]
+scale = \relative c' { c g' }
+motive = \relative c' { c c g' c, }
+
+\new Staff {
+  \motive
+  \modalInversion c' g' \scale \motive
+}
+@end lilypond
+
+
+@subsubheading Retrograde transformation
+
+@cindex retrograde transformation
+@cindex transformation, retrograde
+@cindex operation, retrograde
+@funindex \retrograde
+@funindex retrograde
+
+A motif can be reversed to produce its retrograde:
+
+@lilypond[verbatim,quote]
+motif = \relative c' { c8. ees16( fis8. a16 b8.) gis16 f8. d16 }
+
+\new Staff {
+  \motif
+  \retrograde \motif
+}
+@end lilypond
+
+The combined operation of inversion and retrograde produce the
+retrograde-inversion:
+
+@lilypond[verbatim,quote]
+octatonicScale = \relative c' { ees f fis gis a b c d }
+motif = \relative c' { c8. ees16 fis8. a16 b8. gis16 f8. d16 }
+
+\new Staff {
+  \motif
+  \retrograde \modalInversion c' c' \octatonicScale \motif
+}
+@end lilypond
+
+@seealso
+Notation Reference:
+@ref{Transpose}.
+
+@knownissues
+Manual ties inside @code{\retrograde} will be broken and
+generate warnings.  Some ties can be generated automatically
+by enabling @ref{Automatic note splitting}.
+
 
 @node Displaying pitches
 @subsection Displaying pitches
@@ -2791,5 +2957,3 @@ Internals Reference:
 @rinternals{Pitch_squash_engraver},
 @rinternals{Voice},
 @rinternals{RhythmicStaff}.
-
-

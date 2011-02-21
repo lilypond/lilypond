@@ -157,6 +157,8 @@ or down-stem?")
 
      (repeat-count ,integer? "Do a @code{\\repeat} how often?")
 
+     (slash-count ,integer? "The number of slashes in a single-beat repeat.
+If zero, signals a beat containing varying durations.")
      (span-direction ,ly:dir? "Does this start or stop a spanner?")
      (span-type ,symbol? "What kind of dynamic spanner should be created?
 Options are @code{'text} and @code{'hairpin}.")

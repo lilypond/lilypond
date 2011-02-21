@@ -11,6 +11,7 @@ miscellaneous development tasks.
 * Bug Squad checklists::
 * Issue classification::
 * Adding issues to the tracker::
+* Patch handling::
 * Summary of project status::
 @end menu
 
@@ -328,8 +329,8 @@ More information is available from in
 
 @item
 Issues to verify: try to reproduce the bug with the latest
-version; if you cannot reproduce the bug, mark the item
-@qq{Verified} (i.e. @qq{the fix has been verified to work}).
+official GUB version; if you cannot reproduce the bug, mark the
+item @qq{Verified} (i.e. @qq{the fix has been verified to work}).
 
 @example
 @uref{http://code.google.com/p/lilypond/issues/list?can=7}
@@ -340,33 +341,16 @@ build system or fundamental architecture changes; there is no way
 for you to verify these.  Leave those issues alone; somebody else
 will handle them.
 
-@end itemize
-
-
-@ignore
-@c try omitting from daily tasks for now. -gp
-
-Once every @strong{two weeks} or so:
-
-@itemize
-
 @item
 Check for any incorrectly-classified items in the tracker.  This
 generally just means looking at the grid to see any items without
 a Type or Priority.
 
-@item
-Check for any items with @code{label:patch}.  If it's been more
-than a week since the last action on the issue, send an email to
--devel to remind them about it.  If the patch was withdrawn for
-more work, then remove the @code{patch} label.
-
-@example
-@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:patch}
-@end example
-
 @end itemize
 
+
+@ignore
+@c try omitting from daily tasks for now. -gp
 
 @subheading Irregular maintenance
 
@@ -545,6 +529,9 @@ Issues that only affect specific operating systems.
 
 @subheading Patch (optional)
 
+Normal Bug Squad members should not add or modify Patch issues;
+leave them to the Patch Meister.
+
 @itemize
 
 @item
@@ -652,8 +639,6 @@ follow the guidelines for @rweb{Bug reports}.}
 In order to assign labels to issues, Bug Squad members should log
 in to their google account before adding an item.
 
-@subsubheading Normal issues
-
 @enumerate
 
 @item
@@ -720,18 +705,41 @@ email should contain a link to the issue you just added.
 @end enumerate
 
 
-@subsubheading Patch reminders
+
+@node Patch handling
+@section Patch handling
 
 @warning{This is not a Bug Squad responsibility; we have a
 separate person handling this task.}
 
-There is a special category of issues: reminders of an existing
-patch.  These should be added if a patch has been sent to a
-lilypond mailing list (generally @code{lilypond-devel}, but they
-sometimes appear on @code{bug-lilypond} as well) and has had no
-discussion for at least @strong{3 days}.  Do not add issues for
-patches under active discussion.
+There is a single Patch Meister, and a number of Patch Helpers
+(rename this?).  The list of known patches awaiting review is:
 
+@example
+@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:patch&sort=patch}
+@end example
+
+
+@subheading Helpers: adding patches
+
+The primary duty is to add patches to the google tracker; we have
+a bad track record of losing patches in email.  Patches generally
+come to the @code{lilypond-devel} mailing list, but are sometimes
+sent to @code{bug-lilypond}, @code{lilypond-users}, or
+@code{frogs} mailing list instead.
+
+@itemize
+@item
+Unless a patch is clearly in response to an existing issue, add a
+new issue with the @code{Patch-new} label and a link to the patch
+(either on the mailing list archives or the codereview url).
+
+Issue numbers are cheap; losing developers because they got fed up
+with us losing their hard work is expensive.
+
+@c if we enter patches immediately, I don't think this is relevant.
+@ignore
+@item
 Before adding a patch-reminder issue, do a quick check to see if
 it was pushed without sending any email.  This can be checked for
 searching for relevant terms (from the patch subject or commit
@@ -740,12 +748,85 @@ message) on the webgit page:
 @example
 @uref{http://git.savannah.gnu.org/gitweb/?p=lilypond.git}
 @end example
+@end ignore
 
+@item
+If the patch is clearly in response to an existing issue, then
+update that issue with the @code{Patch-new} label and a link to
+the patch (either on the mailing list archives or the codereview
+url).
+
+@item
 After adding the issue, please send a response email to the same
-group(s) that the initial patch was sent to.  If the initial email
-was sent to multiple mailing lists (such as both @code{bugs} and
-@code{devel}), then reply to all those mailing lists as well.  The
-email should contain a link to the issue you just added.
+group(s) that the initial patch was sent to.
+
+If the initial email was sent to multiple mailing lists (such as
+both @code{bugs} and @code{devel}), then reply to all those
+mailing lists as well.  The email should contain a link to the
+issue you just added.
+
+@end itemize
+
+@subheading Helpers: @code{Patch-review} label
+
+The secondary duty is to do make sure that every issue in the
+tracker with a @code{Patch-review} label has passed these
+@qq{obvious} tests:
+
+@itemize
+@item
+Applies automatically to git master.
+
+It's ok to have offsets, but not conflicts.
+
+@item
+Regtest comparison looks ok; no unexpected changes.
+
+@item
+Descriptive subject line.
+
+Avoid subjects like @qq{fixes 123}; instead write @qq{Doc: discuss
+stacking-dir for BassFigureAlignment (fix 123)}.
+
+@item
+Compiles docs from scratch.  Only check this if you have reason to
+suspect it might not work.
+
+@item
+(maybe)
+
+Check code indentation and style.  This should be easier post-GOP
+when we have a better-defined code style.
+
+@end itemize
+
+
+@subheading Patch Meister
+
+The Patch Meister will:
+
+@itemize
+
+@item
+send @qq{countdown} emails to
+@code{lilypond-devel} when patches appear to be ready.
+
+@item
+send general requests to review patches, or even nasty requests to
+review patches.
+
+@item
+downgrade patches from @code{Patch-review} to
+@code{Patch-needs_work} as appropriate.
+
+@item
+downgrade patches from @code{Patch-needs_work} to
+@code{Patch-abandoned} if no actions have been taken in four
+weeks.
+
+@end itemize
+
+
 
 
 @node Summary of project status

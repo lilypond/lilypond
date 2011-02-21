@@ -226,12 +226,14 @@ Spanner::Spanner (SCM s)
 {
   break_index_ = 0;
   spanned_drul_.set (0, 0);
+  pure_property_cache_ = SCM_UNDEFINED;
 }
 
 Spanner::Spanner (Spanner const &s)
   : Grob (s)
 {
   spanned_drul_.set (0, 0);
+  pure_property_cache_ = SCM_UNDEFINED;
 }
 
 Real
@@ -327,6 +329,8 @@ Spanner::get_broken_left_end_align () const
 void
 Spanner::derived_mark () const
 {
+  scm_gc_mark (pure_property_cache_);
+
   Direction d = LEFT;
   do
     if (spanned_drul_[d])
@@ -452,6 +456,29 @@ Spanner::kill_zero_spanned_time (SCM grob)
     me->suicide ();
 
   return SCM_UNSPECIFIED;
+}
+
+SCM
+Spanner::get_cached_pure_property (SCM sym, int start, int end)
+{
+  // The pure property cache is indexed by (name start . end), where name is
+  // a symbol, and start and end are numbers referring to the starting and
+  // ending column ranks of the current line.
+  if (scm_hash_table_p (pure_property_cache_) == SCM_BOOL_F)
+    return SCM_UNDEFINED;
+
+  SCM key = scm_cons (sym, scm_cons (scm_from_int (start), scm_from_int (end)));
+  return scm_hash_ref (pure_property_cache_, key, SCM_UNDEFINED);
+}
+
+void
+Spanner::cache_pure_property (SCM sym, int start, int end, SCM val)
+{
+  if (scm_hash_table_p (pure_property_cache_) == SCM_BOOL_F)
+    pure_property_cache_ = scm_c_make_hash_table (17);
+
+  SCM key = scm_cons (sym, scm_cons (scm_from_int (start), scm_from_int (end)));
+  scm_hash_set_x (pure_property_cache_, key, val);
 }
 
 ADD_INTERFACE (Spanner,

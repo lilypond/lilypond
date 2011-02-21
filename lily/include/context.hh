@@ -154,6 +154,9 @@ Moment measure_position (Context const *context);
 Moment measure_position (Context const *context, Duration const *dur);
 Rational measure_length (Context const *context);
 int measure_number (Context const *context);
+
+bool check_repeat_count_visibility (Context const *context, SCM count);
+
 void set_context_property_on_children (Context *trans, SCM sym, SCM val);
 
 /* Shorthand for creating and broadcasting stream events. */
@@ -168,4 +171,3 @@ SCM nested_property_revert_alist (SCM alist, SCM prop_path);
 SCM evict_from_alist (SCM, SCM, SCM);
 
 #endif /* CONTEXT_HH */
-

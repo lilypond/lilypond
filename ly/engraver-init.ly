@@ -243,6 +243,7 @@ multiple voices on the same staff."
   \consists "New_fingering_engraver"
 
   \consists "Chord_tremolo_engraver"
+  \consists "Double_percent_repeat_engraver"
   \consists "Percent_repeat_engraver"
   \consists "Slash_repeat_engraver"
   \consists "Part_combine_engraver"

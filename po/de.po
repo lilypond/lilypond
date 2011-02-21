@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the lilypond package.
 # Erwin Dieterich <bamse@gmx.de>, 1999
 # Roland Stigge <stigge@antcom.de>, 2003, 2004, 2005, 2006, 2007
-#
-# Till Paala <till.rettig@gmx.de>, 2007, 2008, 2009, 2010.
+# Till Paala <till.rettig@gmx.de>, 2007, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.13.42\n"
+"Project-Id-Version: lilypond 2.13.48\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2010-12-06 22:30+0100\n"
-"PO-Revision-Date: 2010-12-18 21:09+0200\n"
+"PO-Revision-Date: 2011-02-12 20:51+0200\n"
 "Last-Translator: Till Paala <till.rettig@gmx.de>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3161,6 +3161,9 @@ msgid ""
 "which will produce the closest match to @var{target-val} when\n"
 "applied to function @var{getter}."
 msgstr ""
+"Finde den Index zwischen @var{start} und @var{end} (eine ganze Zahl),\n"
+"die den nächstmöglichen Treffer für @var{target-val} findet,\n"
+"wenn auf die Funktion @var{getter} angewandt."
 
 #: lily-library.scm:821
 #, scheme-format

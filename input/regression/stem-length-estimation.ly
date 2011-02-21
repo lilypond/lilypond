@@ -1,4 +1,4 @@
-\version "2.13.36"
+\version "2.13.51"
 
 \header {
   texidoc = "Stems with overridden 'length should not confuse height estimation.
@@ -16,6 +16,7 @@ This example should fit snugly on one page.
 \paper {
   #(set-paper-size "a6")
   tagline = ##f
+  indent = #0
   system-system-spacing = #'((padding . 1.2))
   oddHeaderMarkup = \markup \on-the-fly #assert-single-page \null
 }

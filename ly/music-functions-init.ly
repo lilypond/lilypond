@@ -214,14 +214,14 @@ clef =
 
 compoundMeter =
 #(define-music-function (parser location args) (pair?)
-  (_i "Create compound time signatures. The argument is a Scheme list of 
-lists. Each list describes one fraction, with the last entry being the 
-denominator, while the first entries describe the summands in the 
-enumerator. If the time signature consists of just one fraction, 
+  (_i "Create compound time signatures. The argument is a Scheme list of
+lists. Each list describes one fraction, with the last entry being the
+denominator, while the first entries describe the summands in the
+enumerator. If the time signature consists of just one fraction,
 the list can be given directly, i.e. not as a list containing a single list.
-For example, a time signature of (3+1)/8 + 2/4 would be created as 
-@code{\\compoundMeter #'((3 1 8) (2 4))}, and a time signature of (3+2)/8 
-as @code{\\compoundMeter #'((3 2 8))} or shorter 
+For example, a time signature of (3+1)/8 + 2/4 would be created as
+@code{\\compoundMeter #'((3 1 8) (2 4))}, and a time signature of (3+2)/8
+as @code{\\compoundMeter #'((3 2 8))} or shorter
 @code{\\compoundMeter #'(3 2 8)}.")
   (let* ((mlen (calculate-compound-measure-length args))
          (beat (calculate-compound-base-beat args))
@@ -462,12 +462,28 @@ makeClusters =
    (_i "Display chords in @var{arg} as clusters.")
    (music-map note-to-cluster arg))
 
+modalInversion =
+#(define-music-function (parser location around to scale music)
+    (ly:music? ly:music? ly:music? ly:music?)
+    (_i "Invert @var{music} about @var{around} using @var{scale} and
+transpose from @var{around} to @var{to}.")
+    (let ((inverter (make-modal-inverter around to scale)))
+      (change-pitches music inverter)
+      music))
+
+modalTranspose =
+#(define-music-function (parser location from to scale music)
+    (ly:music? ly:music? ly:music? ly:music?)
+    (_i "Transpose @var{music} from pitch @var{from} to pitch @var{to}
+using @var{scale}.")
+    (let ((transposer (make-modal-transposer from to scale)))
+      (change-pitches music transposer)
+      music))
+
 musicMap =
 #(define-music-function (parser location proc mus) (procedure? ly:music?)
    (_i "Apply @var{proc} to @var{mus} and all of the music it contains.")
    (music-map proc mus))
-
-
 
 %% noPageBreak and noPageTurn are music functions (not music indentifiers),
 %% because music identifiers are not allowed at top-level.
@@ -779,6 +795,12 @@ resetRelativeOctave =
 	     pitch))
 
      reference-note))
+
+retrograde =
+#(define-music-function (parser location music)
+    (ly:music?)
+    (_i "Return @var{music} in reverse order.")
+    (retrograde-music music))
 
 revertTimeSignatureSettings =
 #(define-music-function

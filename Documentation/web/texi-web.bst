@@ -266,7 +266,7 @@ FUNCTION {format.names}
 		'skip$
 	      if$
 	      t "others" =
-		{ " et&nbsp;al." * }
+		{ " et al." * }
 		{ " and " * t * }
 	      if$
 	    }
@@ -354,9 +354,10 @@ FUNCTION {format.btitle}
 { title author.title.purify strong
 }
 
+% PEH - the 2 same lines below are because I replaced &nbsp; with a space
 FUNCTION {tie.or.space.connect}
 { duplicate$ text.length$ #3 <
-    { "&nbsp;" }
+    { " " }
     { " " }
   if$
   swap$ * *
@@ -543,11 +544,11 @@ FUNCTION {format.crossref.editor}
 { editor #1 "{vv~}{ll}" format.name$
   editor num.names$ duplicate$
   #2 >
-    { pop$ " et&nbsp;al." * }
+    { pop$ " et al." * }
     { #2 <
 	'skip$
 	{ editor #2 "{ff }{vv }{ll}{ jj}" format.name$ "others" =
-	    { " et&nbsp;al." * }
+	    { " et al." * }
 	    { " and " * editor #2 "{vv~}{ll}" format.name$ * }
 	  if$
 	}

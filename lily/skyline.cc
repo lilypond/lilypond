@@ -239,6 +239,10 @@ empty_skyline (list<Building> *const ret)
   ret->push_front (Building (-infinity_f, -infinity_f, -infinity_f, infinity_f));
 }
 
+/*
+  Given Building 'b' with starting wall location 'start', extend each side
+  with a sloped roofline of width 'horizon_padding'; put the skyline in 'ret'
+*/
 static void
 single_skyline (Building b, Real start, Real horizon_padding, list<Building> *const ret)
 {
@@ -330,7 +334,8 @@ Skyline::internal_build_skyline (list<Box> *boxes, Real horizon_padding, Axis ho
     {
       list<Building> result;
       single_skyline (Building (boxes->front (), horizon_padding, horizon_axis, sky),
-		      boxes->front ()[horizon_axis][LEFT], horizon_padding, &result);
+		      boxes->front ()[horizon_axis][LEFT] - horizon_padding,
+		      horizon_padding, &result);
       return result;
     }
 
@@ -443,7 +448,8 @@ Skyline::Skyline (Box const &b, Real horizon_padding, Axis horizon_axis, Directi
 {
   sky_ = sky;
   Building front (b, horizon_padding, horizon_axis, sky);
-  single_skyline (front, b[horizon_axis][LEFT], horizon_padding, &buildings_);
+  single_skyline (front, b[horizon_axis][LEFT] - horizon_padding,
+		  horizon_padding, &buildings_);
 }
 
 void
@@ -477,7 +483,8 @@ Skyline::insert (Box const &b, Real horizon_padding, Axis a)
     return;
 
   my_bld.splice (my_bld.begin (), buildings_);
-  single_skyline (Building (b, horizon_padding, a, sky_), b[a][LEFT], horizon_padding, &other_bld);
+  single_skyline (Building (b, horizon_padding, a, sky_), b[a][LEFT] - horizon_padding,
+		  horizon_padding, &other_bld);
   internal_merge_skyline (&other_bld, &my_bld, &buildings_);
 }
 

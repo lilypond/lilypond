@@ -105,11 +105,13 @@
              (exception-moments (ending-moments
                                   exception-grouping 0 grouping-moment)))
 
-        (if (= dir START)
+	(if (= dir START)
             ;; Start rules
-            (or (not (equal? time-signature-fraction '(3 . 4))) ;; start anywher if not 3/4
-                (beat-end? pos beat-endings)  ;; are we at start of beat?
-                (and (not (equal? test-beam base-moment)) ;; is beat split?
+            (or (not (equal? time-signature-fraction '(3 . 4))) ;; start anywhere if not 3/4
+                (= (ly:moment-main-numerator pos) 0) ;; start at beginning of measure
+		(not (null? exception-grouping)) ;; don't use special rules if exception
+		(beat-end? pos beat-endings)  ;; are we at start of beat?
+		(and (not (equal? test-beam base-moment)) ;; is beat split?
                      (not (beat-end? (ly:moment-add pos test-beam)
                                      beat-endings))))  ;; will this note end the beat
             ;; End rules

@@ -90,7 +90,7 @@ Axis_group_interface::relative_group_extent (vector<Grob*> const &elts,
 }
 
 Interval
-Axis_group_interface::cached_pure_height (Grob *me, int start, int end)
+Axis_group_interface::sum_partial_pure_heights (Grob *me, int start, int end)
 {
   Interval iv = begin_of_line_pure_height (me, start);
   iv.unite (rest_of_line_pure_height (me, start, end));
@@ -99,27 +99,47 @@ Axis_group_interface::cached_pure_height (Grob *me, int start, int end)
 }
 
 Interval
-Axis_group_interface::rest_of_line_pure_height (Grob *me, int start, int end)
+Axis_group_interface::part_of_line_pure_height (Grob *me, bool begin, int start, int end)
 {
+  Spanner *sp = dynamic_cast<Spanner*> (me);
+  SCM cache_symbol = begin
+    ? ly_symbol2scm ("begin-of-line-pure-height")
+    : ly_symbol2scm ("rest-of-line-pure-height");
+  SCM cached = sp->get_cached_pure_property (cache_symbol, start, end);
+  if (scm_is_pair (cached))
+    return robust_scm2interval (cached, Interval (0, 0));
+
   SCM adjacent_pure_heights = me->get_property ("adjacent-pure-heights");
+  Interval ret;
 
-  if (!scm_is_pair (adjacent_pure_heights)
-      || !scm_is_vector (scm_cdr (adjacent_pure_heights)))
-    return Interval (0, 0);
+  if (!scm_is_pair (adjacent_pure_heights))
+    ret = Interval (0, 0);
+  else
+    {
+      SCM these_pure_heights = begin
+	? scm_car (adjacent_pure_heights)
+	: scm_cdr (adjacent_pure_heights);
 
-  return combine_pure_heights (me, scm_cdr (adjacent_pure_heights), start, end);
+      if (scm_is_vector (these_pure_heights))
+	ret = combine_pure_heights (me, these_pure_heights, start, end);
+      else
+	ret = Interval (0, 0);
+    }
+
+  sp->cache_pure_property (cache_symbol, start, end, ly_interval2scm (ret));
+  return ret;
 }
 
 Interval
 Axis_group_interface::begin_of_line_pure_height (Grob *me, int start)
 {
-  SCM adjacent_pure_heights = me->get_property ("adjacent-pure-heights");
+  return part_of_line_pure_height (me, true, start, start + 1);
+}
 
-  if (!scm_is_pair (adjacent_pure_heights)
-      || !scm_is_vector (scm_car (adjacent_pure_heights)))
-    return Interval (0, 0);
-
-  return combine_pure_heights (me, scm_car (adjacent_pure_heights), start, start+1);
+Interval
+Axis_group_interface::rest_of_line_pure_height (Grob *me, int start, int end)
+{
+  return part_of_line_pure_height (me, false, start, end);
 }
 
 Interval
@@ -260,7 +280,7 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
      we can assume additivity and cache things nicely. */
   Grob *p = me->get_parent (Y_AXIS);
   if (p && Align_interface::has_interface (p))
-    return Axis_group_interface::cached_pure_height (me, start, end);
+    return Axis_group_interface::sum_partial_pure_heights (me, start, end);
 
   Grob *common = unsmob_grob (me->get_object ("pure-Y-common"));
   extract_grob_set (me, "pure-relevant-grobs", elts);
