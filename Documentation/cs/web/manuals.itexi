@@ -43,7 +43,7 @@ tomuto pojetí nedůvěřujete, přečtěte si o něm, prosím, nyní!
 
 @item
 @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Začátek,Učení}}
-eine sanfte @qq{bezpodmínečně si přečíst!} uvedení do LilyPondu.
+@qq{bezpodmínečně si přečíst!} jemné uvedení do LilyPondu.
 @details{Učení}
 
 @item
@@ -113,9 +113,9 @@ Chytrá přizpůsobení.
 @details{Rozšíření}
 
 @item
-@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Začátek,Vnitřní}}
+@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Začátek,Vnitřnosti}}
 Doporučení pro přizpůsobení.
-@details{Vnitřní}
+@details{Vnitřnosti}
 
 @end itemize
 
@@ -162,7 +162,7 @@ Tyto příručky jsou vydány pod GNU Free Documentation License.
 * Web::
 * Změny::
 * Rozšíření::
-* Vnitřní::
+* Vnitřnosti::
 * Překlad::
 * Vše::
 * FDL::
@@ -180,7 +180,7 @@ Tyto příručky jsou vydány pod GNU Free Documentation License.
 @translationof Learning
 
 @divClass{column-left-top}
-@subheading Handbuch zum Lernen
+@subheading Příručka k učení se
 
 V této knize se vysvětluje, jak by se mělo začít s poznáváním LilyPondu.
 Jsou zde vysvětlena i některá klíčová pojetí a jednoduché pojmy.
@@ -404,7 +404,7 @@ spolupráci na programu.
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Lesen Sie es
+@subheading Přečtěte si
 
 @subsubheading Nejnovější příručka
 
@@ -454,7 +454,7 @@ vlastností v LilyPondu od předchozí stálé verze.
 @translationof Extend
 
 @divClass{column-left-top}
-@subheading Erweitern Sie LilyPond
+@subheading Rozšiřte LilyPond
 
 V této knize se vysvětluje, jak se pro LilyPond píší rozšíření.
 
@@ -471,8 +471,8 @@ V této knize se vysvětluje, jak se pro LilyPond píší rozšíření.
 @divEnd
 
 
-@node Vnitřní
-@unnumberedsec Vnitřní
+@node Vnitřnosti
+@unnumberedsec Vnitřnosti
 @translationof Internals
 
 @divClass{column-left-top}
@@ -496,8 +496,8 @@ dokumentu.  Každá část doporučení k notovému zápisu má také část
 
 @divClass{column-right-bottom}
 
-@docLinks{Vnitřní, internals,
-  @rinternalsnamed{Začátek,Vnitřní},
+@docLinks{Vnitřnosti, internals,
+  @rinternalsnamed{Začátek,Vnitřnosti},
   @manualStableInternalsSplit-cs,
   @manualStableInternalsBig-cs, 2.5 MB,
   @manualStableInternalsPdf-cs, 2.8 MB}
