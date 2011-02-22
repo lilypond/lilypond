@@ -61,7 +61,7 @@ když se někdo chce bavit s druhými LilyPondu.
 @itemize
 
 @item
-@ref{Uveřejnění}: to, co jsme napsali a co bylo
+@ref{Spisy}: to, co jsme napsali a co bylo
 napsáno o nás.
 
 @item
@@ -81,7 +81,7 @@ napsáno o nás.
 * Pomozte nám::
 * Vývoj::
 * Autoři::
-* Uveřejnění::
+* Spisy::
 * Starší novinky::
 @end menu
 @divEnd
@@ -279,7 +279,7 @@ přečtěte si, prosím, naše směrnice pro @ref{Hlášení chyb}.}
 @translationof Tiny examples
 
 @divClass{column-center-top}
-@subheading Co jsou to @qq{Malé příklady,,malé příklady}?
+@subheading Co jsou to @qq{malé příklady}?
 
 Malý příklad je příkladem, z něhož už nejde nic víc
 odstranit.
@@ -817,8 +817,8 @@ příručky se nacházejí na @url{http://lilypond.org}.}
 
 
 
-@node Uveřejnění
-@unnumberedsec Uveřejnění
+@node Spisy
+@unnumberedsec Spisy
 @translationof Publications
 
 @divClass{column-center-top}
