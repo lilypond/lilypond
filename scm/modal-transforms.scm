@@ -220,3 +220,20 @@ Typically used to construct a scale for input to transposer-factory
     (map retrograde-music reversed)
 
     music))
+
+(define-public (pitch-invert around to music)
+  "If @var{music} is a single pitch, inverts it about @var{around}
+and transposes from @var{around} to @var{to}."
+  (let ((p (ly:music-property music 'pitch)))
+    (if (ly:pitch? p)
+	(ly:music-set-property!
+	 music 'pitch
+	 (ly:pitch-transpose to (ly:pitch-diff around p))))
+    music))
+
+(define-public (music-invert around-pitch to-pitch music)
+  "Applies pitch-invert to all pitches in @var{music}."
+  (let ((around (car (extract-pitch-sequence around-pitch)))
+	(to (car (extract-pitch-sequence to-pitch))))
+     (music-map (lambda (x) (pitch-invert around to x)) music)))
+

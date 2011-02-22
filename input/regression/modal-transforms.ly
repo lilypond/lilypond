@@ -22,12 +22,14 @@ motif = {
         \modalTranspose c' f' \cOctatonicScale \motif
         \retrograde \motif
         \modalInversion aes' b' \cOctatonicScale \motif
+	\inversion aes' b' \motif
       }
       {
         s1-"Octatonic motif" |
         s1-"motif transposed from c to f" |
         s1-"motif in retrograde" |
         s1-"motif inverted around aes to b" |
+	s1-"motif inverted exactly"
       }
     >>
   }

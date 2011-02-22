@@ -594,6 +594,7 @@ This section discusses how to modify pitches.
 @menu
 * Octave checks::
 * Transpose::
+* Inversion::
 * Modal transformations::
 @end menu
 
@@ -812,6 +813,22 @@ The relative conversion will not affect @code{\transpose},
 @code{\chordmode} or @code{\relative} sections in its argument.
 To use relative mode within transposed music, an additional
 @code{\relative} must be placed inside @code{\transpose}.
+
+@node Inversion
+@unnumberedsubsubsec Inversion
+
+@cindex inversion
+
+A music expression can be inverted with @code{\inversion}.
+
+@example
+\inversion @var{frompitch} @var{topitch} @var{musicexpr}
+@end example
+
+@noindent
+This means that @code{@var{musicexpr}} is inverted
+interval-by-interval, and transposition is chosen so that
+@code{@var{frompitch}} is mapped to @code{@var{topitch}}.
 
 @node Modal transformations
 @unnumberedsubsubsec Modal transformations
