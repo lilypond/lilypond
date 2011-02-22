@@ -818,17 +818,27 @@ To use relative mode within transposed music, an additional
 @unnumberedsubsubsec Inversion
 
 @cindex inversion
+@cindex operation, inversion
+@funindex \inversion
 
-A music expression can be inverted with @code{\inversion}.
+A music expression can be inverted with:
 
 @example
-\inversion @var{frompitch} @var{topitch} @var{musicexpr}
+\inversion @var{from-pitch} @var{to-pitch} @var{musicexpr}
 @end example
 
-@noindent
-This means that @code{@var{musicexpr}} is inverted
-interval-by-interval, and transposition is chosen so that
-@code{@var{frompitch}} is mapped to @code{@var{topitch}}.
+The @code{@var{musicexpr}} is inverted interval-by-interval,
+and then transposed so that @code{@var{from-pitch}} is mapped
+to @code{@var{to-pitch}}.
+
+@lilypond[verbatim,quote]
+music = \relative c' { c d e f }
+\new Staff {
+  \music
+  \inversion d' d' \music
+  \inversion d' ees' \music
+}
+@end lilypond
 
 @node Modal transformations
 @unnumberedsubsubsec Modal transformations
@@ -907,7 +917,7 @@ motif = \relative c' { c8 d e f g a b c }
 
 @cindex modal inversion
 @cindex inversion, modal
-@cindex operation, inversion
+@cindex operation, modal inversion
 @funindex \modalInversion
 @funindex modalInversion
 
