@@ -6,12 +6,16 @@ unbreakable columns which only contain labels and columns with empty bar lines (
 break-aligned grobs)."
 }
 
-\markuplines \table-of-contents
+#(set-default-paper-size "a6")
 
-\relative c' {
-  c2 \tocItem "Mid-line" c^"mid"
-  c1
-  \bar ""
-  \tocItem "Empty bar line"
-  c1^"empty"
+\book {
+  \markuplines \table-of-contents
+
+  \relative c' {
+    c2 \tocItem "Mid-line" c^"mid"
+    c1
+    \bar ""
+    \tocItem "Empty bar line"
+    c1^"empty"
+  }
 }
