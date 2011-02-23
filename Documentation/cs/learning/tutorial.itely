@@ -22,18 +22,17 @@ Tato kapitola čtenáři představuje základní práci s LilyPondem.
 
 @menu
 * Přeložení zdrojového souboru::
-* Práce na vstupních souborech::
+* Jak se píší vstupní soubory::
 * Vypořádání se s chybami::
 * Jak se mají příručky číst::
 @end menu
-
 
 @node Přeložení zdrojového souboru
 @subsection Přeložení zdrojového souboru
 @translationof Compiling a file
 
-Tento úryvek uvádí do @qq{Sestavení} -- do
-procesu zpracování vstupních souborů LilyPondu (který popisuje),
+Tento úryvek uvádí do @qq{sestavování} -- do procesu zpracování
+LilyPondovských vstupních souborů (napsaných vámi), který popisuje,
 aby byl vytvořen výstupní soubor.
 
 @menu
@@ -48,7 +47,7 @@ aby byl vytvořen výstupní soubor.
 @translationof Entering input
 
 @cindex Sestavení
-@cindex první příklad
+@cindex První příklad
 @cindex Příklad, první
 @cindex Přeložení zdrojového souboru
 @cindex Psaní velkých a malých písmen
@@ -98,6 +97,7 @@ Dodatečně LilyPond rozlišuje @strong{Psaní velkých a malých písmen}.
 @w{@samp{ @{ c d e @}}} je přípustný kód,
 @w{@samp{ @{ C D E @}}} naproti tomu vede k chybovému hlášení.
 
+
 @smallspace
 
 @subheading Pohled na výsledky
@@ -139,12 +139,9 @@ Vezměte na vědomí, že lepší výsledky jsou u textových editorů s
 podporou pro LilyPond. Více k tomu v úryvku
 @rweb{Snadnější úpravy}.
 
-@warning{Poprvé, když použijete LilyPond, může trvat minutu
+@warning{Poprvé, když použijete LilyPond, může spuštění trvat minutu
 nebo i déle, protože program nejprve vyhledává všechna písma,
 LilyPond běží o mnoho rychleji.}
-
-
-
 
 
 @node MacOS X
@@ -174,8 +171,6 @@ LilyPond běží o mnoho rychleji.}
 
 @lilypadCommandLine
 
-
-
 @node Jak se píší vstupní soubory
 @section Jak se píší vstupní soubory
 @translationof How to write input files
@@ -187,7 +182,6 @@ na začátku se zápisem vstupního souboru pro LilyPond.
 * Jednoduchý notový zápis::
 * Práce na vstupních souborech::
 @end menu
-
 
 
 @node Jednoduchý notový zápis
@@ -211,6 +205,7 @@ zapíše klíč, taktové označení a rytmus (délky not).
 Tato nastavení je možné změnit, ale ve většině případů
 jsou automatické hodnoty v zásadě použitelné.
 
+
 @subheading Výšky tónů
 
 @cindex Výšky tónů
@@ -224,7 +219,6 @@ jsou automatické hodnoty v zásadě použitelné.
 @funindex relative
 @funindex '
 @funindex ,
-
 
 Slovníček: @rglos{pitch}, @rglos{interval},
 @rglos{scale}, @rglos{middle C}, @rglos{octave},
