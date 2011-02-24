@@ -480,6 +480,13 @@ using @var{scale}.")
       (change-pitches music transposer)
       music))
 
+inversion =
+#(define-music-function
+   (parser location around to music) (ly:music? ly:music? ly:music?)
+   (_i "Invert @var{music} about @var{around} and
+transpose from @var{around} to @var{to}.")
+   (music-invert around to music))
+
 musicMap =
 #(define-music-function (parser location proc mus) (procedure? ly:music?)
    (_i "Apply @var{proc} to @var{mus} and all of the music it contains.")

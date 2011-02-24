@@ -250,15 +250,29 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
 	  c[j]->translate_axis (breaking[i].config_[j], X_AXIS);
 	  dynamic_cast<Paper_column *> (c[j])->set_system (system);
 	  /* collect the column labels */
-	  SCM col_labels = c[j]->get_property ("labels");
-	  if (scm_is_pair (col_labels))
-	    system_labels = scm_append (scm_list_2 (col_labels, system_labels));
+	  collect_labels (c[j], &system_labels);
 	}
+      /*
+	Collect labels from any loose columns too: theses will be set on
+	an empty bar line or a column which is otherwise unused mid-line
+      */
+      vector<Grob *> loose (breaking[i].loose_cols_);
+      for (vsize j = 0; j < loose.size (); j++)
+	collect_labels (loose[j], &system_labels);
+
       system->set_property ("labels", system_labels);
 
       set_loose_columns (system, &breaking[i]);
       broken_intos_.push_back (system);
     }
+}
+
+void
+System::collect_labels (Grob const *col, SCM *labels)
+{
+  SCM col_labels = col->get_property ("labels");
+  if (scm_is_pair (col_labels))
+    *labels = scm_append (scm_list_2 (col_labels, *labels));
 }
 
 void

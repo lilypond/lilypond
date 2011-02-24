@@ -74,6 +74,7 @@ public:
   Interval begin_of_line_pure_height (vsize start, vsize end);
   Interval rest_of_line_pure_height (vsize start, vsize end);
   Interval pure_refpoint_extent (vsize start, vsize end);
+  void collect_labels (Grob const *, SCM *);
 
 protected:
   virtual void derived_mark () const;

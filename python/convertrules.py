@@ -3193,6 +3193,15 @@ def conv(str):
 
     return str
 
+@rule ((2, 13, 51),
+    _ ("Woodwind diagrams: Changes to the clarinet diagram."))
+def conv(str):
+    if re.search(r'woodwind-diagram', str):
+        stderr_write("\n")
+        stderr_write(NOT_SMART % _("woodwind-diagrams.  Clarinet fingering changed to reflect actual anatomy of instrument.\n"))
+        stderr_write(UPDATE_MANUALLY)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

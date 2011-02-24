@@ -149,6 +149,10 @@ Paper_column::is_used (Grob *me)
 
   if (to_boolean (me->get_property ("used")))
     return true;
+
+  if (scm_is_pair (me->get_property ("labels")))
+    return true;
+
   return false;
 }
 

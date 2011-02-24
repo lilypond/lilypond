@@ -594,6 +594,8 @@ This section discusses how to modify pitches.
 @menu
 * Octave checks::
 * Transpose::
+* Inversion::
+* Retrograde::
 * Modal transformations::
 @end menu
 
@@ -788,9 +790,11 @@ see @ref{Instrument transpositions}.
 
 @seealso
 Notation Reference:
-@ref{Relative octave entry},
+@ref{Instrument transpositions},
+@ref{Inversion},
 @ref{Modal transformations},
-@ref{Instrument transpositions}.
+@ref{Relative octave entry},
+@ref{Retrograde}.
 
 Snippets:
 @rlsr{Pitches}.
@@ -813,6 +817,71 @@ The relative conversion will not affect @code{\transpose},
 To use relative mode within transposed music, an additional
 @code{\relative} must be placed inside @code{\transpose}.
 
+@node Inversion
+@unnumberedsubsubsec Inversion
+
+@cindex inversion
+@cindex operation, inversion
+@funindex \inversion
+
+A music expression can be inverted with:
+
+@example
+\inversion @var{from-pitch} @var{to-pitch} @var{musicexpr}
+@end example
+
+The @code{@var{musicexpr}} is inverted interval-by-interval,
+and then transposed so that @code{@var{from-pitch}} is mapped
+to @code{@var{to-pitch}}.
+
+@lilypond[verbatim,quote]
+music = \relative c' { c d e f }
+\new Staff {
+  \music
+  \inversion d' d' \music
+  \inversion d' ees' \music
+}
+@end lilypond
+
+@seealso
+Notation Reference:
+@ref{Modal transformations},
+@ref{Retrograde},
+@ref{Transpose}.
+
+
+@node Retrograde
+@unnumberedsubsubsec Retrograde
+
+@cindex retrograde transformation
+@cindex transformation, retrograde
+@cindex operation, retrograde
+@funindex \retrograde
+@funindex retrograde
+
+A music expression can be reversed to produce its retrograde:
+
+@lilypond[verbatim,quote]
+music = \relative c' { c8. ees16( fis8. a16 b8.) gis16 f8. d16 }
+
+\new Staff {
+  \music
+  \retrograde \music
+}
+@end lilypond
+
+@knownissues
+Manual ties inside @code{\retrograde} will be broken and
+generate warnings.  Some ties can be generated automatically
+by enabling @ref{Automatic note splitting}.
+
+@seealso
+Notation Reference:
+@ref{Inversion},
+@ref{Modal transformations},
+@ref{Transpose}.
+
+
 @node Modal transformations
 @unnumberedsubsubsec Modal transformations
 
@@ -822,9 +891,10 @@ To use relative mode within transposed music, an additional
 
 In a musical composition that is based on a scale, a motif is
 frequently transformed in various ways.  It may be
-@notation{transposed} to start at different places in the scale, it
-may be @notation{inverted} around a pivot point in the scale, and/or
-it may be converted to its @notation{retrograde} (written backwards).
+@notation{transposed} to start at different places in the scale or
+it may be @notation{inverted} around a pivot point in the scale.
+It may also be reversed to produce its @notation{retrograde}, see
+@ref{Retrograde}.
 
 @warning{Any note that does not lie within the given scale will be
 left untransformed.}
@@ -890,7 +960,7 @@ motif = \relative c' { c8 d e f g a b c }
 
 @cindex modal inversion
 @cindex inversion, modal
-@cindex operation, inversion
+@cindex operation, modal inversion
 @funindex \modalInversion
 @funindex modalInversion
 
@@ -934,26 +1004,6 @@ motive = \relative c' { c c g' c, }
 }
 @end lilypond
 
-
-@subsubheading Retrograde transformation
-
-@cindex retrograde transformation
-@cindex transformation, retrograde
-@cindex operation, retrograde
-@funindex \retrograde
-@funindex retrograde
-
-A motif can be reversed to produce its retrograde:
-
-@lilypond[verbatim,quote]
-motif = \relative c' { c8. ees16( fis8. a16 b8.) gis16 f8. d16 }
-
-\new Staff {
-  \motif
-  \retrograde \motif
-}
-@end lilypond
-
 The combined operation of inversion and retrograde produce the
 retrograde-inversion:
 
@@ -969,12 +1019,9 @@ motif = \relative c' { c8. ees16 fis8. a16 b8. gis16 f8. d16 }
 
 @seealso
 Notation Reference:
+@ref{Inversion},
+@ref{Retrograde},
 @ref{Transpose}.
-
-@knownissues
-Manual ties inside @code{\retrograde} will be broken and
-generate warnings.  Some ties can be generated automatically
-by enabling @ref{Automatic note splitting}.
 
 
 @node Displaying pitches

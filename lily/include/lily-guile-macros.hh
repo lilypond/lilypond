@@ -20,6 +20,8 @@
 #ifndef LILY_GUILE_MACROS_HH
 #define LILY_GUILE_MACROS_HH
 
+#include "config.hh"
+
 #ifndef SMOB_FREE_RETURN_VAL
 #define SMOB_FREE_RETURN_VAL(CL) 0
 #endif
@@ -30,6 +32,11 @@
 
 #ifndef SCM_UNPACK
 #define SCM_UNPACK(x) (x)
+#endif
+
+/* For backward compatability with Guile 1.8 */
+#if !HAVE_GUILE_SUBR_TYPE
+typedef SCM (*scm_t_subr) (GUILE_ELLIPSIS);
 #endif
 
 /* Unreliable with gcc-2.x
@@ -136,7 +143,7 @@ string predicate_to_typename (void *ptr);
     string id = mangle_cxx_identifier (cxx); \
     TYPE ::FUNC ## _proc = scm_c_define_gsubr (id.c_str(),			\
 					       (ARGCOUNT-OPTIONAL_COUNT), OPTIONAL_COUNT, 0,	\
-					       (Scheme_function_unknown) TYPE::FUNC); \
+					       (scm_t_subr) TYPE::FUNC); \
     ly_add_function_documentation (TYPE :: FUNC ## _proc, id.c_str(), "", \
 				   DOC);				\
     scm_c_export (id.c_str (), NULL);					\
@@ -174,7 +181,7 @@ void ly_check_name (string cxx, string fname);
   INITPREFIX ## init ()							\
   {									\
     FNAME ## _proc = scm_c_define_gsubr (PRIMNAME, REQ, OPT, VAR,	\
-					 (Scheme_function_unknown) FNAME); \
+					 (scm_t_subr) FNAME); \
     ly_check_name (#FNAME, PRIMNAME);\
     ly_add_function_documentation (FNAME ## _proc, PRIMNAME, #ARGLIST,	\
 				   DOCSTRING);				\

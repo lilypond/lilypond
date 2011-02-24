@@ -68,7 +68,7 @@
 	  (description-list->texi internal-propdocs #t))
 	 ""))))
 
-(define iface->grob-table (make-vector 61 '()))
+(define iface->grob-table (make-hash-table 61))
 ;; extract ifaces, and put grob into the hash table.
 (map
  (lambda (x)

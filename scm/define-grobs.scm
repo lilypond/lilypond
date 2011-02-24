@@ -360,6 +360,8 @@
            (hint-direction-penalty . 20)
            (musical-direction-factor . 400)
            (ideal-slope-factor . 10)
+	   (collision-penalty . 500)
+	   (collision-distance . 0.35)
            (round-to-zero-slope . 0.02)))
 	(direction . ,ly:beam::calc-direction)
 

@@ -102,6 +102,10 @@ def error (s):
     progress (_ ("error: ") + s)
     raise Exception (_ ("Exiting... "))
 
+def debug (s):
+    if 0:
+        progress ("debug: " + s)
+
 def system (cmd, ignore_error = 0):
     return ly.system (cmd, ignore_error=ignore_error)
 
@@ -251,7 +255,7 @@ class Note:
         s = chr ((self.notename + 2)  % 7 + ord ('a'))
         return 'Note(%s %s)' % (s, self.duration.dump ())
 
-    def dump (self, dump_dur = 1):
+    def dump (self, dump_dur=True):
         global reference_note
         s = chr ((self.notename + 2)  % 7 + ord ('a'))
         s = s + self.alteration_names[self.alteration + 2]
@@ -272,9 +276,9 @@ class Note:
         elif commas < 0:
             s = s + "," * -commas
 
-        ## FIXME: compile fix --jcn
-        if (dump_dur and (global_options.explicit_durations
-                          or self.duration.compare (reference_note.duration))):
+        if ((dump_dur
+             and self.duration.compare (reference_note.duration))
+            or global_options.explicit_durations):
             s = s + self.duration.dump ()
 
         reference_note = self
@@ -431,11 +435,10 @@ def split_track (track):
     threads = []
     for v in chs.values ():
         events = events_on_channel (v)
-        thread = unthread_notes (events)
-        if len (thread):
-            threads.append (thread)
+        t = unthread_notes (events)
+        if len (t):
+            threads.append (t)
     return threads
-
 
 def quantise_clocks (clocks, quant):
     q = int (clocks / quant) * quant
@@ -486,11 +489,17 @@ def events_on_channel (channel):
 
         if (e[1][0] == midi.NOTE_OFF
             or (e[1][0] == midi.NOTE_ON and e[1][2] == 0)):
+            debug ('%d: NOTE OFF: %s' % (t, e[1][1]))
+            if not e[1][2]:
+                debug ('   ...treated as OFF')
             end_note (pitches, notes, t, e[1][1])
 
         elif e[1][0] == midi.NOTE_ON:
             if not pitches.has_key (e[1][1]):
+                debug ('%d: NOTE ON: %s' % (t, e[1][1]))
                 pitches[e[1][1]] = (t, e[1][2])
+            else:
+                debug ('...ignored')
 
         # all include ALL_NOTES_OFF
         elif (e[1][0] >= midi.ALL_SOUND_OFF
@@ -623,10 +632,10 @@ def dump_chord (ch):
     elif len (notes) > 1:
         global reference_note
         s = s + '<'
-        s = s + notes[0].dump (dump_dur = 0)
+        s = s + notes[0].dump (dump_dur=False)
         r = reference_note
         for i in notes[1:]:
-            s = s + i.dump (dump_dur = 0 )
+            s = s + i.dump (dump_dur=False)
         s = s + '>'
 
         s = s + notes[0].duration.dump () + ' '
@@ -649,7 +658,7 @@ def dump_bar_line (last_bar_t, t, bar_count):
     return (s, last_bar_t, bar_count)
 
 
-def dump_channel (thread, skip):
+def dump_voice (thread, skip):
     global reference_note, time
 
     global_options.key = Key (0, 0, 0)
@@ -657,7 +666,12 @@ def dump_channel (thread, skip):
     # urg LilyPond doesn't start at c4, but
     # remembers from previous tracks!
     # reference_note = Note (clocks_per_4, 4*12, 0)
-    reference_note = Note (0, 4*12, 0)
+    ref = Note (0, 4*12, 0)
+    if not reference_note:
+        reference_note = ref
+    else:
+        ref.duration = reference_note.duration
+        reference_note = ref
     last_e = None
     chs = []
     ch = []
@@ -727,88 +741,143 @@ def number2ascii (i):
         i = (i - m)/26
     return s
 
-def track_name (i):
+def get_track_name (i):
     return 'track' + number2ascii (i)
 
-def channel_name (i):
+def get_channel_name (i):
     return 'channel' + number2ascii (i)
 
-def dump_track (channels, n):
+def get_voice_name (i):
+    if True: #i:
+        return 'voice' + number2ascii (i)
+    return ''
+
+def get_voice_layout (average_pitch):
+    d = {}
+    for i in range (len (average_pitch)):
+        d[average_pitch[i]] = i
+    s = list (reversed (sorted (average_pitch)))
+    non_empty = len (filter (lambda x: x, s))
+    names = ['One', 'Two']
+    if non_empty > 2:
+        names = ['One', 'Three', 'Four', 'Two']
+    layout = map (lambda x: '', range (len (average_pitch)))
+    for i, n in zip (s, names):
+        if i:
+            v = d[i]
+            layout[v] = n
+    return layout
+
+def dump_track (track, n):
     s = '\n'
-    track = track_name (n)
-    clef = guess_clef (channels)
+    track_name = get_track_name (n)
 
-    for i in range (len (channels)):
-        channel = channel_name (i)
-        item = thread_first_item (channels[i])
+    average_pitch = track_average_pitch (track)
+    voices = len (filter (lambda x: x, average_pitch[1:]))
+    clef = get_best_clef (average_pitch[0])
 
-        if item and item.__class__ == Note:
-            skip = 's'
-            s = s + '%s = ' % (track + channel)
-            if not global_options.absolute_pitches:
-                s = s + '\\relative c '
-        elif item and item.__class__ == Text:
-            skip = '" "'
-            s = s + '%s = \\lyricmode ' % (track + channel)
-        else:
-            skip = '\\skip '
-            s = s + '%s =  ' % (track + channel)
-        s = s + '{\n'
-        s = s + '  ' + dump_channel (channels[i][0], skip)
-        s = s + '}\n\n'
+    c = 0
+    v = 0
+    for channel in track:
+        channel_name = get_channel_name (c)
+        c += 1
+        for voice in channel:
+            voice_name = get_voice_name (v)
+            voice_id = track_name + channel_name + voice_name
+            item = voice_first_item (voice)
 
-    s = s + '%s = <<\n' % track
+            if item and item.__class__ == Note:
+                skip = 's'
+                s += '%(voice_id)s = ' % locals ()
+                if not global_options.absolute_pitches:
+                    s += '\\relative c '
+            elif item and item.__class__ == Text:
+                skip = '" "'
+                s += '%(voice_id)s = \\lyricmode ' % locals ()
+            else:
+                skip = '\\skip '
+                s += '%(voice_id)s = ' % locals ()
+            s += '{\n'
+            if average_pitch[v+1] and voices > 1:
+                s += '  \\voice' + get_voice_layout (average_pitch[1:])[v] + '\n'
+            s += '  ' + dump_voice (voice, skip)
+            s += '}\n\n'
+            v += 1
+
+    s += '%(track_name)s = <<\n' % locals ()
 
     if clef.type != 2:
-        s = s + clef.dump () + '\n'
+        s += clef.dump () + '\n'
 
-    for i in range (len (channels)):
-        channel = channel_name (i)
-        item = thread_first_item (channels[i])
-        if item and item.__class__ == Text:
-            s = s + '  \\context Lyrics = %s \\%s\n' % (channel,
-                                  track + channel)
-        else:
-            s = s + '  \\context Voice = %s \\%s\n' % (channel,
-                                 track + channel)
-    s = s + '>>\n\n'
+    c = 0
+    v = 0
+    for channel in track:
+        channel_name = get_channel_name (c)
+        c += 1
+        for voice in channel:
+            voice_name = get_voice_name (v)
+            v += 1
+            voice_id = track_name + channel_name + voice_name
+            item = voice_first_item (voice)
+            context = 'Voice'
+            if item and item.__class__ == Text:
+                context = 'Lyrics'
+            s += '  \\context %(context)s = %(voice_name)s \\%(voice_id)s\n' % locals ()
+    s += '>>\n\n'
     return s
 
-def thread_first_item (thread):
-    for chord in thread:
-        for event in chord:
-            if (event[1].__class__ == Note
-              or (event[1].__class__ == Text
+def voice_first_item (voice):
+    for event in voice:
+        if (event[1].__class__ == Note
+            or (event[1].__class__ == Text
                 and event[1].type == midi.LYRIC)):
-
-              return event[1]
+            return event[1]
     return None
 
-def track_first_item (track):
-    for thread in track:
-        first = thread_first_item (thread)
+def channel_first_item (channel):
+    for voice in channel:
+        first = voice_first_item (voice)
         if first:
             return first
     return None
 
-def guess_clef (track):
-    i = 0
-    p = 0
-    for thread in track:
-        for chord in thread:
-            for event in chord:
-                if event[1].__class__ == Note:
-                    i = i + 1
-                    p = p + event[1].pitch
-    if i and p / i <= 3*12:
-        return Clef (0)
-    elif i and p / i <= 5*12:
-        return Clef (1)
-    elif i and p / i >= 7*12:
-        return Clef (3)
-    else:
-        return Clef (2)
+def track_first_item (track):
+    for channel in track:
+        first = channel_first_item (channel)
+        if first:
+            return first
+    return None
 
+def track_average_pitch (track):
+    i = 0
+    p = [0]
+    v = 1
+    for channel in track:
+        for voice in channel:
+            c = 0
+            p.append (0)
+            for event in voice:
+                if event[1].__class__ == Note:
+                    i += 1
+                    c += 1
+                    p[v] += event[1].pitch
+            if c:
+                p[0] += p[v]
+                p[v] = p[v] / c
+            v += 1
+    if i:
+        p[0] = p[0] / i
+    return p
+
+def get_best_clef (average_pitch):
+    if average_pitch:
+        if average_pitch <= 3*12:
+            return Clef (0)
+        elif average_pitch <= 5*12:
+            return Clef (1)
+        elif average_pitch >= 7*12:
+            return Clef (3)
+    return Clef (2)
 
 def convert_midi (in_file, out_file):
     global clocks_per_1, clocks_per_4, key
@@ -849,17 +918,27 @@ def convert_midi (in_file, out_file):
     for i in range (len (tracks)):
         s = s + dump_track (tracks[i], i)
 
-    s = s + '\n\\score {\n  <<\n'
+    s += r'''
+\layout {
+  \context {
+    \Voice
+    \remove "Note_heads_engraver"
+    \consists "Completion_heads_engraver"
+  }
+}
+'''
+
+    s += '\n\\score {\n  <<\n'
 
     i = 0
     for t in tracks:
-        track = track_name (i)
+        track_name = get_track_name (i)
         item = track_first_item (t)
 
         if item and item.__class__ == Note:
-            s = s + '    \\context Staff=%s \\%s\n' % (track, track)
+            s += '    \\context Staff=%(track_name)s \\%(track_name)s\n' % locals ()
         elif item and item.__class__ == Text:
-            s = s + '    \\context Lyrics=%s \\%s\n' % (track, track)
+            s += '    \\context Lyrics=%(track_name)s \\%(track_name)s\n' % locals ()
 
         i += 1
     s = s + '  >>\n}\n'

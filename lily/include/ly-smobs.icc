@@ -20,6 +20,7 @@
 #ifndef LY_SMOBS_ICC
 #define LY_SMOBS_ICC
 
+#include "lily-guile-macros.hh"
 #include "smobs.hh"
 
 #define IMPLEMENT_TYPE_P(CL, FUNCNAME)					\
@@ -27,7 +28,7 @@
   void init_type_ ## CL ()						\
   {									\
     SCM subr = scm_c_define_gsubr (FUNCNAME, 1, 0, 0,			\
-				   (Scheme_function_unknown) CL::smob_p); \
+				   (scm_t_subr) CL::smob_p); \
     CL ## _type_p_proc = subr;						\
     ly_add_function_documentation (subr, FUNCNAME, "(SCM x)",		\
 				   "Is @var{x} a @code{" #CL "} object?"); \

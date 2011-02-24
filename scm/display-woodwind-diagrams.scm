@@ -668,15 +668,15 @@
   ((make-named-spreadsheet '(clarinet bass-clarinet low-bass-clarinet))
     `((bottom-group-key-names
        . (()
-          ((f
+          ((ees
             . ((offset . (0.0 . ,(* 0 (+ 0.75 CL-RH-HAIR))))
-               (stencil . ,bass-clarinet-rh-f-key-stencil)
-               (text? . ("F" . #f))
+               (stencil . ,bass-clarinet-rh-ees-key-stencil)
+               (text? . ("E" . 0))
                (complexity . trill))))
-          ((f
+          ((ees
             . ((offset . (0.0 . ,(* 0 (+ 0.75 CL-RH-HAIR))))
-               (stencil . ,low-bass-clarinet-rh-f-key-stencil)
-               (text? . ("F" . #f))
+               (stencil . ,low-bass-clarinet-rh-ees-key-stencil)
+               (text? . ("E" . 0))
                (complexity . trill)))
            (d
             . ((offset . (,(+ 1.5 CL-RH-HAIR) . ,(* -1 (+ 0.75 CL-RH-HAIR))))
@@ -743,11 +743,11 @@
                  ,(make-right-hand-key-addresses '(one two three four))
                  (-0.5 . -0.7)))))
       (bottom-right-group-key-addresses
-       . (,(make-right-hand-key-addresses '(fis e ees gis))
+       . (,(make-right-hand-key-addresses '(fis e f gis))
           ,(make-right-hand-key-addresses '(fis e ees gis f))
           ,(make-right-hand-key-addresses '(fis e ees gis f d))))
       (right-hand-key-addresses
-       . (,(make-right-hand-key-addresses '(fis e ees gis))
+       . (,(make-right-hand-key-addresses '(fis e f gis))
           ,(make-right-hand-key-addresses '(fis e ees gis f))
           ,(make-right-hand-key-addresses
               '(low-d low-cis low-c fis e ees gis f d)))))))
@@ -878,22 +878,22 @@
                              (stencil . ,clarinet-rh-fis-key-stencil)
                              (text? . ("F" . 1))
                              (complexity . trill)))
-                         (e
+                         (gis
                           . ((offset . (,(+ 1.5 CL-RH-HAIR)
                                         . ,(* 3 (+ 0.75 CL-RH-HAIR))))
+                             (stencil . ,clarinet-rh-gis-key-stencil)
+                             (text? . ("G" . 1))
+                             (complexity . trill)))
+                         (e
+                          . ((offset . (0.0 . ,(* 2 (+ 0.75 CL-RH-HAIR))))
                              (stencil . ,clarinet-rh-e-key-stencil)
                              (text? . ("E" . #f))
                              (complexity . trill)))
-                         (ees
-                          . ((offset . (0.0 . ,(* 2 (+ 0.75 CL-RH-HAIR))))
-                             (stencil . ,clarinet-rh-ees-key-stencil)
-                             (text? . ("E" . 0))
-                             (complexity . trill)))
-                         (gis
+                         (f
                           . ((offset . (,(+ 1.5 CL-RH-HAIR)
                                         . ,(* 1 (+ 0.75 CL-RH-HAIR))))
-                             (stencil . ,clarinet-rh-gis-key-stencil)
-                             (text? . ("G" . 1))
+                             (stencil . ,clarinet-rh-f-key-stencil)
+                             (text? . ("F" . #f))
                              (complexity . trill))))
                        (assoc-get 'bottom-group-key-names change-points)))))
        (graphical-commands

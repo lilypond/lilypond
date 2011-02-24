@@ -864,13 +864,13 @@ returns @samp{1/3}."
       CL-RH-H-STRETCH
       CL-RH-V-STRETCH))
 
-(define clarinet-rh-e-key-stencil
+(define clarinet-rh-gis-key-stencil
   (standard-path-stencil
     '((0.0 1.0 1.0 1.0 1.0 0.0) (1.0 -1.0 0.0 -1.0 0.0 0.0))
     CL-RH-H-STRETCH
     CL-RH-V-STRETCH))
 
-(define clarinet-rh-ees-key-stencil
+(define clarinet-rh-e-key-stencil
   (standard-path-stencil
     `(,(bezier-head-for-stencil
         '((0.0 .  0.0) (0.0 . -1.0) (1.0 . -1.0) (1.0 . 0.0))
@@ -887,9 +887,9 @@ returns @samp{1/3}."
     CL-RH-H-STRETCH
     CL-RH-V-STRETCH))
 
-(define clarinet-rh-gis-key-stencil clarinet-rh-e-key-stencil)
+(define clarinet-rh-f-key-stencil clarinet-rh-gis-key-stencil)
 
-(define bass-clarinet-rh-f-key-stencil
+(define bass-clarinet-rh-ees-key-stencil
   (standard-path-stencil
     `(,(bezier-head-for-stencil
         '((0.0 . 0.0) (0.0 . -1.0) (1.0 . -1.0) (1.0 . 0.0))
@@ -901,9 +901,9 @@ returns @samp{1/3}."
     CL-RH-H-STRETCH
     (- CL-RH-V-STRETCH)))
 
-(define low-bass-clarinet-rh-f-key-stencil clarinet-rh-ees-key-stencil)
+(define low-bass-clarinet-rh-ees-key-stencil clarinet-rh-e-key-stencil)
 
-(define clarinet-rh-d-key-stencil clarinet-rh-e-key-stencil)
+(define clarinet-rh-d-key-stencil clarinet-rh-gis-key-stencil)
 
 ;;; Saxophone family stencils
 

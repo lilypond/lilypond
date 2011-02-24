@@ -113,7 +113,7 @@
     #:text (engraver-doc-string grav #t)))
 
 ;; Second level, part of Context description
-(define name->engraver-table (make-vector 61 '()))
+(define name->engraver-table (make-hash-table 61))
 (map
  (lambda (x)
    (hash-set! name->engraver-table (ly:translator-name x) x))
