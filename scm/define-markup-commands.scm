@@ -3397,6 +3397,83 @@ Negative values may be used to produce mirror images.
     (ly:stencil-scale stil sx sy)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Repeating
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-markup-command (pattern layout props count axis space pattern)
+  (integer? integer? number? markup?)
+  #:category other
+  "
+Prints @var{count} times a @var{pattern} markup.
+Patterns are spaced apart by @var{space}.
+Patterns are distributed on @var{axis}.
+
+@lilypond[verbatim, quote]
+\\markup \\column {
+  \"Horizontally repeated :\"
+  \\pattern #7 #X #2 \\flat
+  \\null
+  \"Vertically repeated :\"
+  \\pattern #3 #Y #0.5 \\flat
+}
+@end lilypond"
+  (let ((pattern-width (interval-length
+                         (ly:stencil-extent (interpret-markup layout props pattern) X)))
+        (new-props (prepend-alist-chain 'word-space 0 (prepend-alist-chain 'baseline-skip 0 props))))
+    (let loop ((i (1- count)) (patterns (markup)))
+      (if (zero? i)
+          (interpret-markup
+            layout
+            new-props
+            (if (= axis X)
+                (markup patterns pattern)
+                (markup #:column (patterns pattern))))
+          (loop (1- i)
+            (if (= axis X)
+                (markup patterns pattern #:hspace space)
+                (markup #:column (patterns pattern #:vspace space))))))))
+
+(define-markup-command (fill-with-pattern layout props space dir pattern left right)
+  (number? ly:dir? markup? markup? markup?)
+  #:category align
+  #:properties ((word-space)
+                (line-width))
+  "
+Put @var{left} and @var{right} in a horizontal line of width @code{line-width}
+with a line of markups @var{pattern} in between.
+Patterns are spaced apart by @var{space}.
+Patterns are aligned to the @var{dir} markup.
+
+@lilypond[verbatim, quote]
+\\markup \\column {
+  \"right-aligned :\"
+  \\fill-with-pattern #1 #RIGHT . first right
+  \\fill-with-pattern #1 #RIGHT . second right
+  \\null
+  \"center-aligned :\"
+  \\fill-with-pattern #1.5 #CENTER - left right
+  \\null
+  \"left-aligned :\"
+  \\override #'(line-width . 50) \\fill-with-pattern #2 #LEFT : left first
+  \\override #'(line-width . 50) \\fill-with-pattern #2 #LEFT : left second
+}
+@end lilypond"
+  (let* ((pattern-x-extent (ly:stencil-extent (interpret-markup layout props pattern) X))
+         (pattern-width (interval-length pattern-x-extent))
+         (left-width (interval-length (ly:stencil-extent (interpret-markup layout props left) X)))
+         (right-width (interval-length (ly:stencil-extent (interpret-markup layout props right) X)))
+         (middle-width (- line-width (+ (+ left-width right-width) (* word-space 2))))
+         (period (+ space pattern-width))
+         (count (truncate (/ (- middle-width pattern-width) period)))
+         (x-offset (+ (* (- (- middle-width (* count period)) pattern-width) (/ (1+ dir) 2)) (abs (car pattern-x-extent)))))
+    (interpret-markup layout props
+                      (markup left
+                              #:with-dimensions (cons 0 middle-width) '(0 . 0)
+                              #:translate (cons x-offset 0)
+                              #:pattern (1+ count) X space pattern
+                              right))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Markup list commands
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
