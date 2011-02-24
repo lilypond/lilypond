@@ -208,7 +208,7 @@ void Beam_scoring_problem::init_collisions (vector<Grob*> grobs)
     while (flip (&d) != LEFT);
 
     Grob* stem = unsmob_grob (grobs[i]->get_object ("stem"));
-    if (stem && Stem::has_interface (stem))
+    if (stem && Stem::has_interface (stem) && Stem::is_normal_stem (stem))
       {
         stems.insert (stem);
       }
