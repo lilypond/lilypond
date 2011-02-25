@@ -37,7 +37,6 @@ protected:
   DECLARE_ACKNOWLEDGER (clef);
   DECLARE_ACKNOWLEDGER (key_signature);
   DECLARE_ACKNOWLEDGER (time_signature);
-  DECLARE_ACKNOWLEDGER (bar_line);
   DECLARE_ACKNOWLEDGER (beam);
   DECLARE_END_ACKNOWLEDGER (beam);
   void stop_translation_timestep ();
@@ -75,24 +74,34 @@ Beam_collision_engraver::stop_translation_timestep ()
           break;
         }
 
-  for (vsize i = 0; i < signaled_beams_.size (); i++)
+  for (vsize i=0; i < signaled_beams_.size (); i++)
     active_beams_.push_back (signaled_beams_[i]);
-
-  signaled_beams_.clear ();
 
   for (vsize i = 0; i < covered_grobs_.size (); i++)
     for (vsize j = 0; j < active_beams_.size (); j++)
       {
-        Grob *g = covered_grobs_[i];
-        if (Grob *stem = unsmob_grob (g->get_object ("stem")))
+        bool my_beam = false;
+        if (Grob *stem = unsmob_grob (covered_grobs_[i]->get_object ("stem")))
           if (Grob *beam = unsmob_grob (stem->get_object ("beam")))
-            if (beam == active_beams_[j])
-              continue;
+            if (beam == active_beams_.at (j))
+              my_beam = true;
+        if (!my_beam)
+          Pointer_group_interface::add_grob (active_beams_.at (j), ly_symbol2scm ("covered-grobs"), covered_grobs_[i]);
+      }
+
+  covered_grobs_.clear ();
+
+  for (vsize i = 0; i < signaled_beams_.size (); i++)
+    for (vsize j = 0; j < active_beams_.size (); j++)
+      {
+        Grob *g = signaled_beams_[i];
+        if (g == active_beams_[j])
+          continue;
 
         Pointer_group_interface::add_grob (active_beams_[j], ly_symbol2scm ("covered-grobs"), g);
       }
 
-  covered_grobs_.clear ();
+  signaled_beams_.clear ();
 
   for (vsize i = 0; i < end_beams_.size (); i++)
     for (vsize j = 0; j < active_beams_.size (); j++)
@@ -117,12 +126,6 @@ void
 Beam_collision_engraver::acknowledge_accidental (Grob_info i)
 {
   covered_grobs_.push_back (i.grob ());
-}
-
-void
-Beam_collision_engraver::acknowledge_bar_line (Grob_info i)
-{
-  covered_interior_grobs_.push_back (i.grob ());
 }
 
 void
@@ -163,7 +166,6 @@ ADD_ACKNOWLEDGER (Beam_collision_engraver, clef);
 ADD_ACKNOWLEDGER (Beam_collision_engraver, key_signature);
 ADD_ACKNOWLEDGER (Beam_collision_engraver, time_signature);
 ADD_ACKNOWLEDGER (Beam_collision_engraver, beam);
-ADD_ACKNOWLEDGER (Beam_collision_engraver, bar_line);
 ADD_END_ACKNOWLEDGER (Beam_collision_engraver, beam);
 
 ADD_TRANSLATOR (Beam_collision_engraver,
