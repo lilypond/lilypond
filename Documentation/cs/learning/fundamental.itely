@@ -868,14 +868,13 @@ vzdálenosti. Může to být, když jsou noty v hlasech
 \relative c' @{ NoteE ... @}
 @end example
 
-Zum Schluss wollen wir die Stimmen in einem etwas komplizierteren Stück
-analysieren.  Hier die Noten der ersten zwei Takte von Chopins
-@notation{Deux Nocturnes}, Op. 32.  Dieses Beispiel soll später in diesem
-und dem nächsten Kapitel benutzt werden, um verschiedene Techniken,
-Notation zu erstellen, zu demonstrieren.  Ignorieren Sie deshalb an diesem
-Punkt alles in folgendem Code, das Ihnen seltsam vorkommt, und konzentrieren
-Sie sich auf die Noten und die Stimmen.  Die komplizierten Dinge werden
-in späteren Abschnitten erklärt werden.
+Pojďme konečně rozebrat hlasy ve složitějším kuse hudby.
+Zde jsou noty prvních dvou taktů Chopinových
+@notation{Deux Nocturnes}, Op. 32.  Tento příklad bude později použit
+v této a další kapitole, aby na něm byly názorně ukázány různé techniky,
+jak vytvářet noty.  Proto si na tomto místě v kódu nevšímejte čehokoli,
+co by vám přišlo záhadné, a soustřeďte se jen na noty
+a hlasy.  Složitější věci budou vysvětleny v pozdějších částech.
 
 @c The following should appear as music without code
 @lilypond[quote,ragged-right]
