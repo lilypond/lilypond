@@ -12,7 +12,6 @@
 
 @c \version "2.13.4"
 @c Translators: Pavel Fric
-@c Translation checkers:
 
 @node Cvičení
 @chapter Cvičení
@@ -24,8 +23,9 @@ Tato kapitola čtenáři představuje základní práci s LilyPondem.
 * Přeložení zdrojového souboru::
 * Jak se píší vstupní soubory::
 * Vypořádání se s chybami::
-* Jak se mají příručky číst::
+* Jak číst příručky::
 @end menu
+
 
 @node Přeložení zdrojového souboru
 @subsection Přeložení zdrojového souboru
@@ -91,7 +91,7 @@ vynechány také. Může se stát, že v této příručce
 závorky v některých příkladech chybí, ale je třeba vždy
 myslet na to, aby se ve vlastních souborech používaly!
 Více informací ke znázornění příkladů v této příručce
-podává úryvek @ref{Jak se mají příručky číst}.}
+podává úryvek @ref{Jak číst příručky}.}
 
 Dodatečně LilyPond rozlišuje @strong{Psaní velkých a malých písmen}.
 @w{@samp{ @{ c d e @}}} je přípustný kód,
@@ -685,8 +685,8 @@ jen hlášení chyb v souboru s chybami.  Blíže budou osvětleny v
 
 
 
-@node Jak se mají příručky číst
-@section Jak se mají příručky číst
+@node Jak číst příručky
+@section Jak číst příručky
 @translationof How to read the manuals
 
 Tato část ukazuje, jak lze dokumentaci číst účinně,
@@ -705,7 +705,7 @@ verze.
 @translationof Omitted material
 
 @cindex Příručka, čtení
-@cindex Jak se mají příručky číst
+@cindex Jak číst příručky
 @cindex Čtení příručky
 @cindex Příklady, klepnutelné
 @cindex Klepnutelné příklady
