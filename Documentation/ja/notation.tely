@@ -1,0 +1,123 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@ignore
+    Translation of GIT committish: 2c3bd5e85d39155e3e6804f9818722bef483056d
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@setfilename lilypond-notation.info
+@settitle LilyPond 記譜法リファレンス
+@documentencoding UTF-8
+@documentlanguage ja
+@afourpaper
+
+@macro manualIntro
+このマニュアルは LilyPond バージョン @version{} で提供される@c
+すべての記譜法についての参照を提供します。@c
+このマニュアルは、読み手が @rlearningnamed{Top,学習マニュアル} で@c
+扱っている題材に慣れ親しんでいることを前提としています。
+@end macro
+
+@c `Notation Reference' was born 1999-10-11 with git commit 940dda0...
+@macro copyrightDeclare
+Copyright @copyright{} 1999--2009 by 著作者一同
+@end macro
+
+
+@set FDL
+@include macros.itexi
+
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
+@omfdescription Notation Reference of the LilyPond music engraving system
+@omftype user manual
+@omfcategory Applications|Publishing
+@omflanguage English
+@end ignore
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+@lilyTitlePage{記譜法リファレンス}
+
+
+@ifnottex
+
+@menu
+* Musical notation::              ほとんどすべての楽譜作成で使用される記譜法
+* Specialist notation::          特別な目的でのみ使用される記譜法
+* General input and output::              LilyPond 入力についての一般的な情報
+* Spacing issues::          出力の表示
+* Changing defaults::    出力の調整
+
+付録
+
+* Notation manual tables::      表と図
+* Cheat sheet::     LilyPond 構文についての要約
+* LilyPond 文法::          LilyPond 構文解析プログラムのための構文ダイアグラム
+* GNU Free Documentation License:: このドキュメントの使用許諾書
+* LilyPond コマンド インデックス::
+* LilyPond インデックス::
+@end menu
+
+@docMain
+@end ifnottex
+
+@contents
+
+@include notation/notation.itely
+@include notation/specialist.itely
+
+@include notation/input.itely
+@include notation/spacing.itely
+
+@include notation/changing-defaults.itely
+
+
+@include notation/notation-appendices.itely
+@include notation/cheatsheet.itely
+
+
+
+@node LilyPond 文法
+@appendix LilyPond 文法
+@translationof LilyPond grammar
+
+この付録は、構文解析プログラムからの出力である、LilyPond 文法についての記述です。
+
+@verbatiminclude ly-grammar.txt
+
+
+@include fdl.itexi
+
+
+@node LilyPond コマンド インデックス
+@appendix LilyPond コマンド インデックス
+@translationof LilyPond command index
+
+このインデックスは、すべての LilyPond コマンドとキーワードをリストアップしていて、@c
+それらの使い方について説明しているマニュアルのセクションへのリンクがあります。@c
+各リンクは 2 つのパートに分かれています。@c
+最初のパートは、マニュアルの中でコマンドあるいはキーワードが出現する場所@c
+へのリンクです。@c
+2 番目のパートは、マニュアルの中でコマンドあるいはキーワードが出現するセクションの@c
+先頭へのリンクです。
+
+@printindex ky
+
+@node LilyPond インデックス
+@appendix LilyPond インデックス
+@translationof LilyPond index
+
+すべての LilyPond コマンドとキーワードに加えて、@c
+このインデックスは、それらに関連する音楽用語や単語をリストアップしていて、@c
+そのトピックスについて説明しているマニュアルのセクションへのリンクがあります。@c
+各リンクは 2 つのパートに分かれています。@c
+最初のパートは、マニュアルの中でトピックスが出現する場所へのリンクです。@c
+2 番目のパートは、マニュアルの中でトピックスが出現するセクションの先頭へのリンクです。
+
+@printindex cp
+
+@bye
