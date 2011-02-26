@@ -450,10 +450,13 @@ Beam_scoring_problem::solve () const {
 
   Beam_configuration *best = NULL;  
 
+  bool debug =
+    to_boolean (beam->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring")));
   SCM inspect_quants = beam->get_property ("inspect-quants");
   if (to_boolean (beam->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring")))
       && scm_is_pair (inspect_quants))
     {
+      debug = true;
       best = force_score (inspect_quants, configs);
     }
   else
@@ -462,7 +465,6 @@ Beam_scoring_problem::solve () const {
                           Beam_configuration_less> queue;
       for (vsize i = 0; i < configs.size(); i++)
         queue.push(configs[i]);
-
 
       /*
         TODO
@@ -494,7 +496,7 @@ Beam_scoring_problem::solve () const {
   Interval final_positions = best->y;
 
 #if DEBUG_BEAM_SCORING
-  if (to_boolean (beam->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring"))))
+  if (debug)
     {
       // debug quanting
       int completed = 0;
@@ -505,7 +507,7 @@ Beam_scoring_problem::solve () const {
         }
 
       string card = best->score_card_ + to_string (" c%d/%d", completed, configs.size());
-      beam->set_property ("quant-score", ly_string2scm (card));
+      beam->set_property ("annotation", ly_string2scm (card));
     }
 #endif
 

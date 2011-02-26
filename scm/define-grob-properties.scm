@@ -1087,9 +1087,6 @@ did its job.  This ensures that a positioning is only done once.")
      (pure-Y-extent ,number-pair? "The estimated height of a system.")
      (pure-Y-offset-in-progress ,boolean? "A debugging aid for catching
 cyclic dependencies.")
-
-     (quant-score ,string? "The beam quanting score; stored for
-debugging.")
      (quantize-position ,boolean? "If set, a vertical alignment is aligned
 to be within staff spaces.")
      (quantized-positions ,number-pair? "The beam positions after

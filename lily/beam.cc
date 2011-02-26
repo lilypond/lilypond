@@ -610,13 +610,6 @@ Beam::print (SCM grob)
 
 #if (DEBUG_BEAM_SCORING)
   SCM annotation = me->get_property ("annotation");
-  if (!scm_is_string (annotation))
-    {
-      SCM debug = me->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring"));
-      if (to_boolean (debug))
-	annotation = me->get_property ("quant-score");
-    }
-
   if (scm_is_string (annotation))
     {
       extract_grob_set (me, "stems", stems);
@@ -1646,7 +1639,6 @@ ADD_INTERFACE (Beam,
 	       "neutral-direction "
 	       "normal-stems "
 	       "positions "
-	       "quant-score "
 	       "quantized-positions "
 	       "shorten "
 	       "stems "

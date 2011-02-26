@@ -306,8 +306,14 @@ Slur::calc_control_points (SCM smob)
 
   SCM end_ys = me->get_property ("positions");
   SCM inspect_quants = me->get_property ("inspect-quants");
+  bool debug_slurs = to_boolean (me->layout ()
+				 ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")));
+
   if (is_number_pair (inspect_quants))
-    end_ys = inspect_quants;
+    {
+      debug_slurs = true;
+      end_ys = inspect_quants;
+    }
   
   Slur_configuration *best = NULL;
   if (is_number_pair (end_ys))
@@ -316,13 +322,11 @@ Slur::calc_control_points (SCM smob)
     best = state.get_best_curve ();
 
 #if DEBUG_SLUR_SCORING
-  bool debug_slurs = to_boolean (me->layout ()
-				 ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")));
   if (debug_slurs)
     {
       string total = best->card ();
       total += to_string (" TOTAL=%.2f idx=%d", best->score (), best->index_); 
-      me->set_property ("quant-score", ly_string2scm (total));
+      me->set_property ("annotation", ly_string2scm (total));
     }
 #endif
   
