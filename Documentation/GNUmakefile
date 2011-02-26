@@ -113,16 +113,19 @@ $(outdir)/contributor.texi: $(outdir)/ROADMAP
 ### bad hack for badly-integrated bibliography
 $(outdir)/colorado.itexi:
 	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
+		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(outdir)/colorado.itexi \
 		$(src-dir)/essay/colorado.bib
 
 $(outdir)/computer-notation.itexi:
 	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
+		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(outdir)/computer-notation.itexi \
 		$(src-dir)/essay/computer-notation.bib
 
 $(outdir)/engravingbib.itexi:
 	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
+		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(outdir)/engravingbib.itexi \
 		$(src-dir)/essay/engravingbib.bib
 
@@ -133,13 +136,13 @@ $(outdir)/essay.texi: \
 
 $(outdir)/others-did.itexi:
 	BSTINPUTS=$(src-dir)/web/ $(buildscript-dir)/bib2texi \
-		-s web \
+		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(outdir)/others-did.itexi \
 		$(src-dir)/web/others-did.bib
 
 $(outdir)/we-wrote.itexi:
 	BSTINPUTS=$(src-dir)/web/ $(buildscript-dir)/bib2texi \
-		-s web \
+		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(outdir)/we-wrote.itexi \
 		$(src-dir)/web/we-wrote.bib
 
