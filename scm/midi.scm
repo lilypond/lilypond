@@ -284,8 +284,7 @@
 (define-public (alterations-in-key pitch-list)
   "Count number of sharps minus number of flats."
 
-  (* (apply + (map cdr pitch-list)) 2))
-
+  (apply + (map (lambda (p) (round (* (cdr p) 2))) pitch-list)) )
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

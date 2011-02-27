@@ -33,52 +33,72 @@ dwn = {
 %
 
 bayati = #`(
-    (0 . 0)
+    (0 . ,NATURAL)
     (1 . ,SEMI-FLAT)
     (2 . ,FLAT)
-    (3 . 0)
-    (4 . 0)
+    (3 . ,NATURAL)
+    (4 . ,NATURAL)
     (5 . ,FLAT)
     (6 . ,FLAT)
   )
 
 kurd = #`(
-    (0 . 0)
+    (0 . ,NATURAL)
     (1 . ,FLAT)
     (2 . ,FLAT)
-    (3 . 0)
-    (4 . 0)
+    (3 . ,NATURAL)
+    (4 . ,NATURAL)
     (5 . ,FLAT)
     (6 . ,FLAT)
     )
 
 rast = #`(
-    (0 . 0)
-    (1 . 0)
+    (0 . ,NATURAL)
+    (1 . ,NATURAL)
     (2 . ,SEMI-FLAT)
-    (3 . 0)
-    (4 . 0)
-    (5 . 0)
+    (3 . ,NATURAL)
+    (4 . ,NATURAL)
+    (5 . ,NATURAL)
     (6 . ,SEMI-FLAT)
   )
 
 sikah = #`(
-    (0 . 0)
+    (0 . ,NATURAL)
     (1 . ,SEMI-FLAT)
     (2 . ,SEMI-FLAT)
     (3 . ,SEMI-SHARP)
-    (4 . 0)
+    (4 . ,NATURAL)
     (5 . ,SEMI-FLAT)
     (6 . ,SEMI-FLAT)
   )
 
 iraq = #`(
-    (0 . 0)
+    (0 . ,NATURAL)
     (1 . ,SEMI-FLAT)
     (2 . ,SEMI-FLAT)
-    (3 . 0)
+    (3 . ,NATURAL)
     (4 . ,SEMI-FLAT)
     (5 . ,SEMI-FLAT)
     (6 . ,SEMI-FLAT)
   )
 
+\layout {
+  \context {
+    \Score
+      keyAlterationOrder =
+      #`(
+	 (6 . ,FLAT) (2 . ,FLAT) (5 . ,FLAT ) (1 . ,FLAT)
+	 (4 . ,FLAT) (0 . ,FLAT) (3 . ,FLAT)
+	 (6 . ,SEMI-FLAT) (2 . ,SEMI-FLAT) (5 . ,SEMI-FLAT ) (1 . ,SEMI-FLAT)
+	 (4 . ,SEMI-FLAT) (0 . ,SEMI-FLAT) (3 . ,SEMI-FLAT)
+	 (3 . ,SHARP) (0 . ,SHARP) (4 . ,SHARP) (1 . ,SHARP)
+	 (5 . ,SHARP) (2 . ,SHARP) (6 . ,SHARP)
+	 (3 . ,SEMI-SHARP) (0 . ,SEMI-SHARP) (4 . ,SEMI-SHARP) (1 . ,SEMI-SHARP)
+	 (5 . ,SEMI-SHARP) (2 . ,SEMI-SHARP) (6 . ,SEMI-SHARP)
+	 (6 . ,DOUBLE-FLAT) (2 . ,DOUBLE-FLAT) (5 . ,DOUBLE-FLAT ) (1 . ,DOUBLE-FLAT)
+	 (4 . ,DOUBLE-FLAT) (0 . ,DOUBLE-FLAT) (3 . ,DOUBLE-FLAT)
+	 (3 . ,DOUBLE-SHARP) (0 . ,DOUBLE-SHARP) (4 . ,DOUBLE-SHARP) (1 . ,DOUBLE-SHARP)
+	 (5 . ,DOUBLE-SHARP) (2 . ,DOUBLE-SHARP) (6 . ,DOUBLE-SHARP)
+	)
+  }
+}
