@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-26 17:04+0100\n"
-"PO-Revision-Date: 2011-02-26 18:08+0100\n"
+"PO-Revision-Date: 2011-02-27 03:19+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -4921,63 +4921,59 @@ msgstr "Variables de @code{\\\\paper} para anchos y márgenes"
 
 #. @node in Documentation/notation/spacing.itely
 msgid "\\\\paper variables for two-sided mode"
-msgstr ""
+msgstr "variables de \\\\paper para el modo de doble cara"
 
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
 msgid "@code{\\\\paper} variables for two-sided mode"
-msgstr ""
+msgstr "variables de @code{\\\\paper} para el modo de doble cara"
 
 #. @node in Documentation/notation/spacing.itely
 msgid "\\\\paper variables for shifts and indents"
-msgstr ""
+msgstr "variables de \\\\paper para desplazamientos y sangrados"
 
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
 msgid "@code{\\\\paper} variables for shifts and indents"
-msgstr ""
+msgstr "variables de @code{\\\\paper} para desplazamientos y sangrados"
 
 #. @node in Documentation/notation/spacing.itely
-#, fuzzy
 msgid "Other \\\\paper variables"
-msgstr "Otras variables de diseño de página"
+msgstr "Otras variables de \\\\paper"
 
 #. @subsection in Documentation/notation/spacing.itely
-#, fuzzy
 msgid "Other @code{\\\\paper} variables"
-msgstr "Variables útiles de @command{make}"
+msgstr "Otras variables de @code{\\\\paper}"
 
 #. @node in Documentation/notation/spacing.itely
 msgid "\\\\paper variables for line breaking"
-msgstr ""
+msgstr "variables de \\\\paper para saltos de línea"
 
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
 msgid "@code{\\\\paper} variables for line breaking"
-msgstr ""
+msgstr "variables de @code{\\\\paper} para saltos de línea"
 
 #. @node in Documentation/notation/spacing.itely
-#, fuzzy
 msgid "\\\\paper variables for page breaking"
-msgstr "Saltos de página óptimos"
+msgstr "variables de \\\\paper para saltos de página"
 
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
 msgid "@code{\\\\paper} variables for page breaking"
-msgstr ""
+msgstr "variables de @code{\\\\paper} para saltos de página"
 
 #. @node in Documentation/notation/spacing.itely
 msgid "\\\\paper variables for page numbering"
-msgstr ""
+msgstr "variables de \\\\paper para la numeración de páginas"
 
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
 msgid "@code{\\\\paper} variables for page numbering"
-msgstr ""
+msgstr "variables de @code{\\\\paper} para la numeración de páginas"
 
 #. @node in Documentation/notation/spacing.itely
 msgid "Miscellaneous \\\\paper variables"
-msgstr ""
+msgstr "Variables de \\\\paper diversas"
 
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
-#, fuzzy
 msgid "Miscellaneous @code{\\\\paper} variables"
-msgstr "Variables útiles de @command{make}"
+msgstr "Variables de @code{\\\\paper} diversas"
 
 #. @node in Documentation/notation/spacing.itely
 #. @section in Documentation/notation/spacing.itely
@@ -4985,14 +4981,12 @@ msgid "Score layout"
 msgstr "Disposición de la partitura"
 
 #. @node in Documentation/notation/spacing.itely
-#, fuzzy
 msgid "The \\\\layout block"
-msgstr "Otras variables de diseño de página"
+msgstr "El bloque \\\\layout"
 
 #. @subsection in Documentation/notation/spacing.itely
-#, fuzzy
 msgid "The @code{\\\\layout} block"
-msgstr "La instrucción @code{\\tweak}"
+msgstr "El bloque @code{\\\\layout}"
 
 #. @node in Documentation/notation/spacing.itely
 #. @subsection in Documentation/notation/spacing.itely
@@ -5046,41 +5040,36 @@ msgstr "Espaciado vertical"
 
 #. @node in Documentation/notation/spacing.itely
 #. @subsection in Documentation/notation/spacing.itely
-#, fuzzy
 msgid "Flexible vertical spacing within systems"
-msgstr "Espaciado vertical entre sistemas"
+msgstr "Espaciado vertical flexible entre sistemas"
 
 #. @node in Documentation/notation/spacing.itely
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
-#, fuzzy
 msgid "Within-system spacing properties"
-msgstr "Modificar las propiedades"
+msgstr "Propiedades de espaciado dentro de los sistemas"
 
 #. @subsubheading in Documentation/notation/spacing.itely
 msgid "Properties of the @code{VerticalAxisGroup} grob"
-msgstr ""
+msgstr "Propiedades del grob @code{VerticalAxisGroup}"
 
 #. @subsubheading in Documentation/notation/spacing.itely
 msgid "Properties of the @code{StaffGrouper} grob"
-msgstr ""
+msgstr "Propiedades del grob @code{StaffGrouper}"
 
 #. @node in Documentation/notation/spacing.itely
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
-#, fuzzy
 msgid "Spacing of ungrouped staves"
-msgstr "Espaciado de las sílabas"
+msgstr "Espaciado de pentagramas no agrupados"
 
 #. @node in Documentation/notation/spacing.itely
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
-#, fuzzy
 msgid "Spacing of grouped staves"
-msgstr "Espaciado vertical entre sistemas"
+msgstr "Espaciado de pentagramas agrupados"
 
 #. @node in Documentation/notation/spacing.itely
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
-#, fuzzy
 msgid "Spacing of non-staff lines"
-msgstr "Espaciado de las sílabas"
+msgstr "Espaciado de líneas que no son pautas"
 
 #. @node in Documentation/notation/spacing.itely
 #. @subsection in Documentation/notation/spacing.itely
@@ -5184,18 +5173,16 @@ msgid "skip a bar"
 msgstr "saltar un compás"
 
 #. Documentation/notation/changing-defaults.itely:2020 (comment)
-#, fuzzy
 msgid "default space between staves"
-msgstr "Espaciado vertical entre sistemas"
+msgstr "espacio predeterminado entre pentagramas"
 
 #. Documentation/notation/changing-defaults.itely:2026 (comment)
-#, fuzzy
 msgid "reduced space between staves"
-msgstr "Espaciado vertical entre sistemas"
+msgstr "espacio reducido entre pentagramas"
 
 #. Documentation/notation/changing-defaults.itely:2028 (comment)
 msgid "this is the nested declaration"
-msgstr ""
+msgstr "esta es la declaración anidada"
 
 #. Documentation/notation/changing-defaults.itely:2482 (comment)
 msgid "increase the length of the tie"
@@ -5245,46 +5232,38 @@ msgstr "dedo tercero"
 
 #. Documentation/notation/changing-defaults.itely:3444 (comment)
 #. Documentation/notation/changing-defaults.itely:3483 (comment)
-#, fuzzy
 msgid "The rehearsal mark will be centered above the Clef"
-msgstr "la RehearsalMark se centra sobre la clave"
+msgstr "La marca de ensayo se centrará sobre la clave"
 
 #. Documentation/notation/changing-defaults.itely:3450 (comment)
-#, fuzzy
 msgid "The rehearsal mark will be centered above the Time Signature"
-msgstr "la RehearsalMark se centra sobre el compás"
+msgstr "La marca de ensayo se centrará sobre la indicación de compás"
 
 #. Documentation/notation/changing-defaults.itely:3457 (comment)
-#, fuzzy
 msgid "The rehearsal mark will be centered above the Breath Mark"
-msgstr "la RehearsalMark se centra sobre la armadura"
+msgstr "La marca de ensayo se centrará sobre la respiración"
 
 #. Documentation/notation/changing-defaults.itely:3477 (comment)
-#, fuzzy
 msgid "The rehearsal mark will be centered above the Key Signature"
-msgstr "la RehearsalMark se centra sobre la armadura"
+msgstr "La marca de ensayo se centrará sobre la armadura de tonalidad"
 
 #. Documentation/notation/changing-defaults.itely:3490 (comment)
-#, fuzzy
 msgid "The rehearsal mark will be centered above the Bar Line"
-msgstr "la RehearsalMark se centra sobre la clave"
+msgstr "La marca de ensayo se centrará sobre la línea divisoria"
 
 #. Documentation/notation/changing-defaults.itely:3505 (comment)
-#, fuzzy
 msgid "The RehearsalMark will be centered above the Key Signature"
-msgstr "la RehearsalMark se centra sobre la armadura"
+msgstr "La marca de ensayo se centrará sobre la armadura de tonalidad"
 
 #. Documentation/notation/changing-defaults.itely:3512 (comment)
 #. Documentation/notation/changing-defaults.itely:3528 (comment)
 #. Documentation/notation/changing-defaults.itely:3535 (comment)
-#, fuzzy
 msgid "The RehearsalMark will be aligned with the left edge of the Key Signature"
-msgstr "la RehearsalMark se alinea por la izquierda con la armadura"
+msgstr "La marca de ensayo se alineará con el borde izquierdo de la armadura de tonalidad"
 
 #. Documentation/notation/changing-defaults.itely:3517 (comment)
-#, fuzzy
 msgid "The RehearsalMark will be aligned with the right edge of the Key Signature"
-msgstr "la RehearsalMark se alinea por la derecha con la armadura"
+msgstr "La marca de ensayo se alineará con el borde derecho de la armadura de tonalidad"
 
 #. Documentation/notation/changing-defaults.itely:3529 (comment)
 msgid "and then shifted right by 3.5 staff-spaces"
@@ -5398,42 +5377,37 @@ msgid "The set command"
 msgstr "La instrucción set"
 
 #. @subsection in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "The @code{@bs{}set} command"
-msgstr "La instrucción @code{\\set}"
+msgstr "La instrucción @code{@bs{}set}"
 
 #. @node in Documentation/notation/changing-defaults.itely
 msgid "The override command"
 msgstr "La instrucción override"
 
 #. @subsection in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "The @code{\\\\override} command"
-msgstr "La instrucción @code{\\override}"
+msgstr "La instrucción @code{\\\\override}"
 
 #. @node in Documentation/notation/changing-defaults.itely
 msgid "The tweak command"
 msgstr "La instrucción tweak"
 
 #. @subsection in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "The @code{\\\\tweak} command"
-msgstr "La instrucción @code{\\tweak}"
+msgstr "La instrucción @code{\\\\tweak}"
 
 #. @node in Documentation/notation/changing-defaults.itely
 msgid "set versus override"
 msgstr "set frente a override"
 
 #. @subsection in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "@code{\\\\set} vs. @code{\\\\override}"
-msgstr "@code{\\set} frente a @code{\\override}"
+msgstr "@code{\\\\set} frente a @code{\\\\override}"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @subsection in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "Modifying alists"
-msgstr "Modificación de los sellos"
+msgstr "Modificación de listas-A"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @section in Documentation/notation/changing-defaults.itely
@@ -5452,9 +5426,8 @@ msgstr "Dirección y posición"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @subsection in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "Context layout order"
-msgstr "Contextos para programadores"
+msgstr "Orden de disposición de los contextos"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @subsection in Documentation/notation/changing-defaults.itely
@@ -5541,27 +5514,24 @@ msgid "Aligning objects"
 msgstr "Alineación de objetos"
 
 #. @node in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "Setting X-offset and Y-offset directly"
-msgstr "Establecer directamente @code{X-offset} y @code{Y-offset}"
+msgstr "Establecer X-offset e Y-offset directamente"
 
 #. @unnumberedsubsubsec in Documentation/notation/changing-defaults.itely
 msgid "Setting @code{X-offset} and @code{Y-offset} directly"
 msgstr "Establecer directamente @code{X-offset} y @code{Y-offset}"
 
 #. @node in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "Using the side-position-interface"
-msgstr "Uso del @code{side-position-interface}"
+msgstr "Uso del side-position-interface"
 
 #. @unnumberedsubsubsec in Documentation/notation/changing-defaults.itely
 msgid "Using the @code{side-position-interface}"
 msgstr "Uso del @code{side-position-interface}"
 
 #. @node in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "Using the self-alignment-interface"
-msgstr "Uso del @code{self-alignment-interface}"
+msgstr "Uso del self-alignment-interface"
 
 #. @unnumberedsubsubsec in Documentation/notation/changing-defaults.itely
 msgid "Using the @code{self-alignment-interface}"
@@ -5576,9 +5546,8 @@ msgid "Using the @code{centered-on-parent} procedures"
 msgstr "Uso de los procedimientos @code{centered-on-parent}"
 
 #. @node in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "Using the break-alignable-interface"
-msgstr "Uso del @code{break-alignable-interface}"
+msgstr "Uso del break-alignable-interface"
 
 #. @unnumberedsubsubsec in Documentation/notation/changing-defaults.itely
 msgid "Using the @code{break-alignable-interface}"
@@ -5606,21 +5575,18 @@ msgstr "Modificación de ligaduras de unión y de expresión"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @section in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "Using music functions"
-msgstr "Funciones musicales"
+msgstr "Uso de funciones musicales"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @subsection in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "Substitution function syntax"
-msgstr "Funciones de sustitución sencillas"
+msgstr "Sintaxis de las funciones de sustitución"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @subsection in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "Substitution function examples"
-msgstr "Funciones de sustitución sencillas"
+msgstr "Ejemplos de funciones de sustitución"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendix in Documentation/notation/notation-appendices.itely
@@ -5639,9 +5605,8 @@ msgstr "Modificadores de acorde más usuales"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Predefined string tunings"
-msgstr "Diagramas predefinidos de trastes"
+msgstr "Afinaciones de cuerdas predeterminadas"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
@@ -5686,127 +5651,118 @@ msgstr "La tipografía Feta"
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Clef glyphs"
-msgstr ""
+msgstr "Glifos de clave"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Time Signature glyphs"
-msgstr "Indicación de compás"
+msgstr "Glifos de compases"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Number glyphs"
-msgstr ""
+msgstr "Glifos de números"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Accidental glyphs"
-msgstr "Alteraciones accidentales"
+msgstr "Glifos de alteraciones accidentales"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Default Notehead glyphs"
-msgstr ""
+msgstr "Glifos predeterminados para la cabeza de las notas"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Special Notehead glyphs"
-msgstr "Cabezas de nota especiales"
+msgstr "Glifos de cabezas de figura especiales"
 
 # Fuzzy.FVD
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Shape-note Notehead glyphs"
-msgstr "Cabezas de notas con formas diversas"
+msgstr "Glifos de cabezas de nota con formas"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Rest glyphs"
-msgstr "Silencios"
+msgstr "Glifos de silencios"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Flag glyphs"
-msgstr ""
+msgstr "Glifos de corchetes"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Dot glyphs"
-msgstr ""
+msgstr "Glifos de puntillo"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Dynamic glyphs"
-msgstr "Matices dinámicos"
+msgstr "Glifos de matices dinámicos"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Script glyphs"
-msgstr ""
+msgstr "Glifos de inscripciones"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Arrowhead glyphs"
-msgstr ""
+msgstr "Glifos de puntas de flecha"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Bracket-tip glyphs"
-msgstr ""
+msgstr "Glifos de extremos de corchetes"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Pedal glyphs"
-msgstr ""
+msgstr "Glifos de pedal"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Accordion glyphs"
-msgstr "Acordeón"
+msgstr "Glidos de acordeón"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Vaticana glyphs"
-msgstr ""
+msgstr "Glifos de notación estilo Vaticana"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Medicaea glyphs"
-msgstr ""
+msgstr "Glifos de notación estilo Medicaea"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Hufnagel glyphs"
-msgstr ""
+msgstr "Glifos de notación estilo Hufnagel"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Mensural glyphs"
-msgstr "Claves de la música mensural"
+msgstr "Glifos de notación estilo Mensural"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Neomensural glyphs"
-msgstr "Claves de la música mensural"
+msgstr "Glifos de notación estilo Neomensural"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Petrucci glyphs"
-msgstr ""
+msgstr "Glifos de notación estilo Petrucci"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Solesmes glyphs"
-msgstr ""
+msgstr "Glifos de notación estilo Solesmes"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
@@ -5815,15 +5771,13 @@ msgstr "Estilos de cabezas de nota"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Text markup commands"
-msgstr "La instrucción tweak"
+msgstr "Instrucciones de marcado de texto"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Text markup list commands"
-msgstr "Definición de nuevas instrucciones de lista de marcado"
+msgstr "Instrucciones de listas de marcado de texto"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
@@ -5832,39 +5786,33 @@ msgstr "Lista de articulaciones"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Articulation scripts"
-msgstr "Articulaciones"
+msgstr "Inscripciones de articulación"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Ornament scripts"
-msgstr "Guiones de texto"
+msgstr "Inscripciones de adornos"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Fermata scripts"
-msgstr "Guiones de texto"
+msgstr "Inscripciones de calderón"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Instrument-specific scripts"
-msgstr "Instrucciones específicas de formato"
+msgstr "Inscripciones específicas de instrumentos"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Repeat sign scripts"
-msgstr "Guiones de texto"
+msgstr "Inscripciones de signos de repetición"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Ancient scripts"
-msgstr "Silencios antiguos"
+msgstr "Inscripciones de música antigua"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
@@ -5874,93 +5822,82 @@ msgstr "Notas de percusión"
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
 msgid "Technical glossary"
-msgstr ""
+msgstr "Glosario técnico"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "alist"
-msgstr "inst"
+msgstr "lista-A"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "callback"
-msgstr ""
+msgstr "callback"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "closure"
-msgstr "color"
+msgstr "cerradura"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "glyph"
-msgstr "golpe"
+msgstr "glifo"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "grob"
-msgstr "global"
+msgstr "grob"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "immutable"
-msgstr ""
+msgstr "inmutable"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "interface"
-msgstr "intervalo"
+msgstr "interfaz"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "lexer"
-msgstr "inferior"
+msgstr "analizador léxico"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "mutable"
-msgstr "tab"
+msgstr "mutable"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "output-def"
-msgstr "Salida"
+msgstr "output-def"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "parser"
-msgstr "forteParen"
+msgstr "analizador sintáctico"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "parser variable"
-msgstr "Uso de las variables"
+msgstr "variable del analizador sintáctico"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "prob"
-msgstr ""
+msgstr "prob"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "simple closure"
-msgstr "acorde de Re sencillo"
+msgstr "cerradura simple"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "smob"
-msgstr ""
+msgstr "smob"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
@@ -5974,15 +5911,13 @@ msgstr "Propiedades de disposición"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Available music functions"
-msgstr "Pranorámica de las funciones musicales disponibles"
+msgstr "Funciones musicales disponibles"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Predefined type predicates"
-msgstr "Diagramas predefinidos de trastes"
+msgstr "Predicados de tipo predefinidos"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
@@ -5999,17 +5934,15 @@ msgstr "Hoja de referencia rápida"
 #. @node in Documentation/snippets.tely
 #. @unnumberedsec in Documentation/snippets.tely
 msgid "\\\\TEXT\\\\"
-msgstr ""
+msgstr "\\\\TEXT\\\\"
 
 #. @node in Documentation/usage/running.itely
-#, fuzzy
 msgid "Running lilypond"
-msgstr "Ejecutar LilyPond"
+msgstr "Ejecutar lilypond"
 
 #. @chapter in Documentation/usage/running.itely
-#, fuzzy
 msgid "Running @command{lilypond}"
-msgstr "Invocar @command{lilypond}"
+msgstr "Ejecutar @command{lilypond}"
 
 #. @node in Documentation/usage/running.itely
 #. @section in Documentation/usage/running.itely
@@ -6030,9 +5963,8 @@ msgid "Invoking @command{lilypond}"
 msgstr "Invocar @command{lilypond}"
 
 #. @unnumberedsubsubsec in Documentation/usage/running.itely
-#, fuzzy
 msgid "Standard shell commands"
-msgstr "Instrucciones de repetición manual"
+msgstr "Instrucciones de shell estándar"
 
 #. @node in Documentation/usage/running.itely
 msgid "Command line options for lilypond"
@@ -6049,13 +5981,12 @@ msgstr "Variables de entorno"
 
 #. @node in Documentation/usage/running.itely
 #. @unnumberedsubsec in Documentation/usage/running.itely
-#, fuzzy
 msgid "LilyPond in chroot jail"
-msgstr "Índice de instrucciones de LilyPond"
+msgstr "LilyPond dentro de una jaula chroot"
 
 #. @subheading in Documentation/usage/running.itely
 msgid "Example script for 32-bit Ubuntu 8.04"
-msgstr ""
+msgstr "Guión de ejemplo para Ubuntu 8.04 de 32 bits"
 
 #. @node in Documentation/usage/running.itely
 #. @section in Documentation/usage/running.itely
@@ -6075,7 +6006,7 @@ msgstr "La música se sale de la página"
 #. @node in Documentation/usage/running.itely
 #. @unnumberedsubsec in Documentation/usage/running.itely
 msgid "An extra staff appears"
-msgstr ""
+msgstr "Aparece un pentagrama de más"
 
 #. @node in Documentation/usage/running.itely
 msgid "Apparent error in ../ly/init.ly"
@@ -6093,12 +6024,12 @@ msgstr "Mensaje de error Unbound variable %"
 #. @node in Documentation/usage/running.itely
 #. @unnumberedsubsec in Documentation/usage/running.itely
 msgid "Error message FT_Get_Glyph_Name"
-msgstr ""
+msgstr "Mensaje de error FT_Get_Glyph_Name"
 
 #. @node in Documentation/usage/running.itely
 #. @unnumberedsubsec in Documentation/usage/running.itely
 msgid "Warning staff affinities should only decrease"
-msgstr ""
+msgstr "Advertencia las staff affinities deben solamente disminuir"
 
 #. @node in Documentation/usage/updating.itely
 msgid "Updating files with convert-ly"
@@ -6111,7 +6042,7 @@ msgstr "Actualizar ficheros con @command{convert-ly}"
 #. @node in Documentation/usage/updating.itely
 #. @section in Documentation/usage/updating.itely
 msgid "Why does the syntax change?"
-msgstr ""
+msgstr "¿Por qué cambia la sintaxis?"
 
 #. @node in Documentation/usage/updating.itely
 msgid "Invoking convert-ly"
@@ -6130,30 +6061,25 @@ msgid "Command line options for @command{convert-ly}"
 msgstr "Opciones de la línea de órdenes para @command{convert-ly}"
 
 #. @node in Documentation/usage/updating.itely
-#, fuzzy
 msgid "Problems running convert-ly"
-msgstr "Problemas con convert-ly"
+msgstr "Problemas al ejecutar convert-ly"
 
 #. @section in Documentation/usage/updating.itely
-#, fuzzy
 msgid "Problems running @code{convert-ly}"
-msgstr "Problemas con @code{convert-ly}"
+msgstr "Problemas al ejecutar @code{convert-ly}"
 
 #. @node in Documentation/usage/updating.itely
 #. @section in Documentation/usage/updating.itely
-#, fuzzy
 msgid "Manual conversions"
-msgstr "Convenciones de nombres"
+msgstr "Conversiones manuales"
 
 #. @node in Documentation/usage/lilypond-book.itely
-#, fuzzy
 msgid "lilypond-book"
-msgstr "LilyPond-book"
+msgstr "lilypond-book"
 
 #. @chapter in Documentation/usage/lilypond-book.itely
-#, fuzzy
 msgid "Running @command{lilypond-book}"
-msgstr "Invocar @command{lilypond-book}"
+msgstr "Ejecutar @command{lilypond-book}"
 
 #. @node in Documentation/usage/lilypond-book.itely
 #. @section in Documentation/usage/lilypond-book.itely
@@ -6252,9 +6178,8 @@ msgid "lilypond-book templates"
 msgstr "Plantillas de lilypond-book"
 
 #. @subsection in Documentation/usage/lilypond-book.itely
-#, fuzzy
 msgid "html"
-msgstr "duraciones"
+msgstr "html"
 
 #. @subsection in Documentation/usage/lilypond-book.itely
 msgid "xelatex"
@@ -6263,17 +6188,16 @@ msgstr "xelatex"
 # this is the same translation that babel LaTex package uses . FVD
 #. @node in Documentation/usage/lilypond-book.itely
 #. @section in Documentation/usage/lilypond-book.itely
-#, fuzzy
 msgid "Sharing the table of contents"
-msgstr "Índice general"
+msgstr "Compartir el índice general"
 
 #. @subsubheading in Documentation/usage/lilypond-book.itely
 msgid "Exporting the ToC from LilyPond"
-msgstr ""
+msgstr "Exportar el índice general desde LilyPond"
 
 #. @subsubheading in Documentation/usage/lilypond-book.itely
 msgid "Importing the ToC into LaTeX"
-msgstr ""
+msgstr "Importar el índice general dentro de LaTeX"
 
 #. @node in Documentation/usage/lilypond-book.itely
 msgid "Alternate methods of mixing text and music"
@@ -6285,9 +6209,8 @@ msgstr "Otros métodos para mezclar texto y música"
 
 #. @node in Documentation/usage/external.itely
 #. @chapter in Documentation/usage/external.itely
-#, fuzzy
 msgid "External programs"
-msgstr "Interfaces para programadores"
+msgstr "Programas externos"
 
 #. @node in Documentation/usage/external.itely
 #. @section in Documentation/usage/external.itely
@@ -6311,9 +6234,8 @@ msgstr "Modo de Vim"
 
 #. @node in Documentation/usage/external.itely
 #. @unnumberedsubsec in Documentation/usage/external.itely
-#, fuzzy
 msgid "Other editors"
-msgstr "Más inf."
+msgstr "Otros editores"
 
 #. @node in Documentation/usage/external.itely
 #. @section in Documentation/usage/external.itely
@@ -6354,15 +6276,13 @@ msgstr "Invocar @command{etf2ly}"
 
 #. @node in Documentation/usage/external.itely
 #. @subsection in Documentation/usage/external.itely
-#, fuzzy
 msgid "Other formats"
-msgstr "Otras repeticiones"
+msgstr "Otros formatos"
 
 #. @node in Documentation/usage/external.itely
 #. @section in Documentation/usage/external.itely
-#, fuzzy
 msgid "LilyPond output in other programs"
-msgstr "Insertar la salida de LilyPond dentro de otros programas"
+msgstr "Salida de LilyPond dentro de otros programas"
 
 #. @node in Documentation/usage/external.itely
 #. @unnumberedsubsec in Documentation/usage/external.itely
@@ -6381,23 +6301,21 @@ msgstr "Insertar la salida de LilyPond dentro de otros programas"
 
 #. @node in Documentation/usage/external.itely
 msgid "Independent includes"
-msgstr ""
+msgstr "Archivos de inclusión independientes"
 
 #. @section in Documentation/usage/external.itely
 msgid "Independent @code{include}s"
-msgstr ""
+msgstr "Archivos de @code{include} independientes"
 
 #. @node in Documentation/usage/external.itely
 #. @subsection in Documentation/usage/external.itely
-#, fuzzy
 msgid "MIDI articulation"
-msgstr "articulación"
+msgstr "Articulación MIDI"
 
 #. @node in Documentation/usage/suggestions.itely
 #. @chapter in Documentation/usage/suggestions.itely
-#, fuzzy
 msgid "Suggestions for writing files"
-msgstr "Sugerencias para escribir archivos de entrada de LilyPond"
+msgstr "Sugerencias para escribir archivos"
 
 #. @node in Documentation/usage/suggestions.itely
 #. @section in Documentation/usage/suggestions.itely
@@ -6417,7 +6335,7 @@ msgstr "Proyectos grandes"
 #. @node in Documentation/usage/suggestions.itely
 #. @section in Documentation/usage/suggestions.itely
 msgid "Troubleshooting"
-msgstr ""
+msgstr "Solución de problemas"
 
 #. @node in Documentation/usage/suggestions.itely
 #. @section in Documentation/usage/suggestions.itely
@@ -6626,9 +6544,8 @@ msgstr ""
 
 # de neuma? FVD
 #. @subheading in Documentation/cs/learning/common-notation.itely
-#, fuzzy
 msgid "Ligatury"
-msgstr "Ligaduras"
+msgstr ""
 
 #. @subheading in Documentation/cs/learning/common-notation.itely
 msgid "Legatové obloučky"
@@ -6656,9 +6573,8 @@ msgid "Prstoklad"
 msgstr ""
 
 #. @subheading in Documentation/cs/learning/common-notation.itely
-#, fuzzy
 msgid "Dynamika"
-msgstr "Matices dinámicos"
+msgstr ""
 
 #. @node in Documentation/cs/learning/common-notation.itely
 #. @subsection in Documentation/cs/learning/common-notation.itely
@@ -6766,9 +6682,8 @@ msgstr ""
 
 #. @node in Documentation/cs/learning/common-notation.itely
 #. @subsection in Documentation/cs/learning/common-notation.itely
-#, fuzzy
 msgid "Absolutní označení not"
-msgstr "Escritura de octava absoluta"
+msgstr ""
 
 #. @node in Documentation/cs/learning/common-notation.itely
 #. @subsection in Documentation/cs/learning/common-notation.itely
@@ -6777,7 +6692,7 @@ msgstr ""
 
 #. Documentation/cs/learning/fundamental.itely:3178 (comment)
 msgid "set time signature and key"
-msgstr "indicación de compás y armadura"
+msgstr ""
 
 #. @node in Documentation/cs/learning/fundamental.itely
 #. @chapter in Documentation/cs/learning/fundamental.itely
@@ -6825,9 +6740,8 @@ msgid "Přímo vyjádřené začátky hlasů"
 msgstr ""
 
 #. @subsubheading in Documentation/cs/learning/fundamental.itely
-#, fuzzy
 msgid "Notenkolumnen"
-msgstr "Columnas de notas"
+msgstr ""
 
 #. @node in Documentation/cs/learning/fundamental.itely
 #. @subsection in Documentation/cs/learning/fundamental.itely
@@ -6860,14 +6774,12 @@ msgid "Změna vlastností prostředí"
 msgstr ""
 
 #. @subsubheading in Documentation/cs/learning/fundamental.itely
-#, fuzzy
 msgid "Kontexteigenschaften mit @code{\\\\with} setzen"
-msgstr "Cambiar las propiedades de un contexto con @code{\\with}"
+msgstr ""
 
 #. @subsubheading in Documentation/cs/learning/fundamental.itely
-#, fuzzy
 msgid "Kontexteigenschaften mit @code{\\\\context} setzen"
-msgstr "Cambiar las propiedades de un contexto con @code{\\context}"
+msgstr ""
 
 #. @node in Documentation/cs/learning/fundamental.itely
 #. @subsection in Documentation/cs/learning/fundamental.itely
@@ -6889,9 +6801,8 @@ msgstr ""
 
 #. @node in Documentation/cs/learning/fundamental.itely
 #. @subsection in Documentation/cs/learning/fundamental.itely
-#, fuzzy
 msgid "Soprán a violoncello"
-msgstr "Soprano y violoncello"
+msgstr ""
 
 #. @node in Documentation/cs/learning/fundamental.itely
 #. @subsection in Documentation/cs/learning/fundamental.itely
@@ -6954,9 +6865,8 @@ msgid "Vlastnosti předmětů v rozvržení"
 msgstr ""
 
 #. @subheading in Documentation/cs/learning/tweaks.itely
-#, fuzzy
 msgid "Den Kontext finden"
-msgstr "Mantener vivos los contextos"
+msgstr ""
 
 #. @subheading in Documentation/cs/learning/tweaks.itely
 msgid "Nur einmal mit \\\\override verändern"
@@ -6995,18 +6905,16 @@ msgid "stencil (Matrize)"
 msgstr ""
 
 #. @subheading in Documentation/cs/learning/tweaks.itely
-#, fuzzy
 msgid "break-visibility (unsichtbar machen)"
-msgstr "break-visibility (visibilidad en el salto)"
+msgstr ""
 
 #. @subheading in Documentation/cs/learning/tweaks.itely
 msgid "transparent (durchsichtig)"
 msgstr ""
 
 #. @subheading in Documentation/cs/learning/tweaks.itely
-#, fuzzy
 msgid "color (Farbe)"
-msgstr "Nombres de los colores de X"
+msgstr ""
 
 #. @node in Documentation/cs/learning/tweaks.itely
 #. @subsection in Documentation/cs/learning/tweaks.itely
@@ -7025,9 +6933,8 @@ msgstr ""
 
 #. @node in Documentation/cs/learning/tweaks.itely
 #. @subsection in Documentation/cs/learning/tweaks.itely
-#, fuzzy
 msgid "Automatické chování"
-msgstr "Comportamiento automático"
+msgstr ""
 
 #. @node in Documentation/cs/learning/tweaks.itely
 #. @subsection in Documentation/cs/learning/tweaks.itely
@@ -7035,9 +6942,8 @@ msgid "Předměty uvnitř notové osnovy"
 msgstr ""
 
 #. @subheading in Documentation/cs/learning/tweaks.itely
-#, fuzzy
 msgid "Fingersatz"
-msgstr "Digitaciones"
+msgstr ""
 
 #. @node in Documentation/cs/learning/tweaks.itely
 #. @subsection in Documentation/cs/learning/tweaks.itely
@@ -7049,9 +6955,8 @@ msgid "\\\\textLengthOn (Textlänge berücksichtigen)"
 msgstr ""
 
 #. @subheading in Documentation/cs/learning/tweaks.itely
-#, fuzzy
 msgid "Dynamik"
-msgstr "Matices dinámicos"
+msgstr ""
 
 #. @subheading in Documentation/cs/learning/tweaks.itely
 msgid "Verändern der Größe von grobs"
@@ -7163,9 +7068,8 @@ msgid "Jednotlivá notová osnova"
 msgstr ""
 
 #. @appendixsubsec in Documentation/cs/learning/templates.itely
-#, fuzzy
 msgid "Pouze noty"
-msgstr "redonda"
+msgstr ""
 
 #. @appendixsubsec in Documentation/cs/learning/templates.itely
 msgid "Noty a text"
@@ -7237,9 +7141,8 @@ msgid "Orchestrální předloha"
 msgstr ""
 
 #. @appendixsubsec in Documentation/cs/learning/templates.itely
-#, fuzzy
 msgid "Orchestr, sbor a klavír"
-msgstr "Orquesta, coro y piano"
+msgstr ""
 
 #. @node in Documentation/cs/learning/templates.itely
 #. @appendixsec in Documentation/cs/learning/templates.itely
@@ -7381,35 +7284,31 @@ msgstr "tresCuatro"
 
 #. Documentation/snippets/adding-indicators-to-staves-which-get-split-after-a-break.ly:36 (variable)
 msgid "splitStaffBarLineMarkup"
-msgstr ""
+msgstr "marcadoDivisoriaPentagramaDividido"
 
 #. Documentation/snippets/adding-indicators-to-staves-which-get-split-after-a-break.ly:42 (variable)
-#, fuzzy
 msgid "splitStaffBarLine"
-msgstr "lineaTablatura"
+msgstr "divisoriaPentagramaDividido"
 
 #. Documentation/snippets/adding-orchestral-cues-to-a-vocal-score.ly:69 (variable)
 msgid "cueWhile"
-msgstr ""
+msgstr "cueWhile"
 
 #. Documentation/snippets/adding-orchestral-cues-to-a-vocal-score.ly:82 (variable)
-#, fuzzy
 msgid "flute"
-msgstr "musicaFlauta"
+msgstr "flauta"
 
 #. Documentation/snippets/adding-orchestral-cues-to-a-vocal-score.ly:88 (variable)
 msgid "clarinet"
 msgstr "clarinete"
 
 #. Documentation/snippets/adding-orchestral-cues-to-a-vocal-score.ly:97 (variable)
-#, fuzzy
 msgid "pianoRH"
-msgstr "PianoMD"
+msgstr "pianoMD"
 
 #. Documentation/snippets/adding-orchestral-cues-to-a-vocal-score.ly:102 (variable)
-#, fuzzy
 msgid "pianoLH"
-msgstr "PianoMI"
+msgstr "pianoMI"
 
 #. Documentation/snippets/adding-the-current-date-to-a-score.ly:33 (comment)
 msgid "first, define a variable to hold the formatted date:"
@@ -7436,9 +7335,8 @@ msgid "voiceFive"
 msgstr "vozCinco"
 
 #. Documentation/snippets/adjusting-grace-note-spacing.ly:26 (variable)
-#, fuzzy
 msgid "graceNotes"
-msgstr "notas de adorno"
+msgstr "notasDeAdorno"
 
 #. Documentation/snippets/adjusting-lyrics-vertical-spacing.ly:35 (comment)
 msgid "Default layout:"
@@ -7570,71 +7468,71 @@ msgstr "cantus"
 
 #. Documentation/snippets/ancient-headword.ly:36 (comment)
 msgid "Verse 1 — Salve, Regína"
-msgstr ""
+msgstr "Verso 1 — Salve, Regína"
 
 #. Documentation/snippets/ancient-headword.ly:47 (comment)
 msgid "Verse 2 — Vita, dulcédo"
-msgstr ""
+msgstr "Verso 2 — Vita, dulcédo"
 
 #. Documentation/snippets/ancient-headword.ly:48 (comment)
 msgid "a\\melisma \\[ a \\flexa g \\pes a\\melismaEnd \\] d"
-msgstr ""
+msgstr "a\\melisma \\[ a \\flexa g \\pes a\\melismaEnd \\] d"
 
 #. Documentation/snippets/ancient-headword.ly:49 (comment)
 msgid "\\divisioMinima"
-msgstr ""
+msgstr "\\divisioMinima"
 
 #. Documentation/snippets/ancient-headword.ly:50 (comment)
 msgid "\\[ a\\melisma \\flexa g\\melismaEnd \\]"
-msgstr ""
+msgstr "\\[ a\\melisma \\flexa g\\melismaEnd \\]"
 
 #. Documentation/snippets/ancient-headword.ly:51 (comment)
 msgid "\\[ f\\melisma \\flexa e f \\pes g \\flexa f\\melismaEnd \\]"
-msgstr ""
+msgstr "\\[ f\\melisma \\flexa e f \\pes g \\flexa f\\melismaEnd \\]"
 
 #. Documentation/snippets/ancient-headword.ly:52 (comment)
 msgid "\\[ e\\melisma \\flexa d\\melismaEnd \\]"
-msgstr ""
+msgstr "\\[ e\\melisma \\flexa d\\melismaEnd \\]"
 
 #. Documentation/snippets/ancient-headword.ly:53 (comment)
 msgid "\\divisioMaior"
-msgstr ""
+msgstr "\\divisioMaior"
 
 #. Documentation/snippets/ancient-headword.ly:54 (comment)
 msgid "c d \\[e\\melisma \\pes f\\melismaEnd \\] g"
-msgstr ""
+msgstr "c d \\[e\\melisma \\pes f\\melismaEnd \\] g"
 
 #. Documentation/snippets/ancient-headword.ly:55 (comment)
 msgid "\\[d\\melisma \\pes e \\flexa c\\melismaEnd \\] d"
-msgstr ""
+msgstr "\\[d\\melisma \\pes e \\flexa c\\melismaEnd \\] d"
 
 #. Documentation/snippets/ancient-headword.ly:56 (comment)
 msgid "\\finalis"
-msgstr ""
+msgstr "\\finalis"
 
 #. Documentation/snippets/ancient-headword.ly:57 (comment)
 msgid "Verse 3 — Ad te clamámus"
-msgstr ""
+msgstr "Verso 3 — Ad te clamámus"
 
 #. Documentation/snippets/ancient-headword.ly:66 (comment)
 msgid "Verse 4 — Ad te suspirámus"
-msgstr ""
+msgstr "Verso 4 — Ad te suspirámus"
 
 #. Documentation/snippets/ancient-headword.ly:79 (comment)
 msgid "Verse 5 — Eia ergo, Advocáta nostra"
-msgstr ""
+msgstr "Verso 5 — Eia ergo, Advocáta nostra"
 
 #. Documentation/snippets/ancient-headword.ly:95 (comment)
 msgid "Verse 6 — Et Jesum"
-msgstr ""
+msgstr "Verso 6 — Et Jesum"
 
 #. Documentation/snippets/ancient-headword.ly:109 (comment)
 msgid "Verse 7 ad finem — O clemens: O pia: O dulcis Virgo María"
-msgstr ""
+msgstr "Verso 7 ad finem — O clemens: O pia: O dulcis Virgo María"
 
 #. Documentation/snippets/ancient-headword.ly:127 (comment)
 msgid "Vi- ta, dul- cé- do, et spes no- stra, sal- ve."
-msgstr ""
+msgstr "Vi- ta, dul- cé- do, et spes no- stra, sal- ve."
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly:53 (variable)
 msgid "chant"
@@ -7886,29 +7784,25 @@ msgid "\\remove \\\"Forbid_line_break_engraver\\\""
 msgstr "\\remove \\\"Forbid_line_break_engraver\\\""
 
 #. Documentation/snippets/anglican-psalm-template.ly:70 (variable)
-#, fuzzy
 msgid "tick"
-msgstr "baqueta"
+msgstr "pulso"
 
 #. Documentation/snippets/anglican-psalm-template.ly:74 (comment)
 msgid "Use markup to center the chant on the page"
-msgstr ""
+msgstr "Usar marcado para centrar el canto sobre la página"
 
 #. Documentation/snippets/anglican-psalm-template.ly:77 (comment)
-#, fuzzy
 msgid "centered"
-msgstr "acento"
+msgstr "centrado"
 
 #. Documentation/snippets/anglican-psalm-template.ly:117 (comment)
 #. Documentation/snippets/hymn-template.ly:115 (comment)
-#, fuzzy
 msgid "End score"
-msgstr "partitura.ly"
+msgstr "Fin de la partitura"
 
 #. Documentation/snippets/anglican-psalm-template.ly:119 (comment)
-#, fuzzy
 msgid "End markup"
-msgstr "sMarkup"
+msgstr "Fin del marcado"
 
 #. Documentation/snippets/applying-note-head-styles-depending-on-the-step-of-the-scale.ly:98 (variable)
 #. Documentation/snippets/clusters.ly:25 (variable)
@@ -7916,9 +7810,8 @@ msgid "fragment"
 msgstr "fragmento"
 
 #. Documentation/snippets/asymmetric-slurs.ly:27 (variable)
-#, fuzzy
 msgid "slurNotes"
-msgstr "notasAlto"
+msgstr "notasLigadura"
 
 #. Documentation/snippets/avoiding-collisions-with-chord-fingerings.ly:40 (comment)
 msgid "Default behavior"
@@ -7929,63 +7822,61 @@ msgid "Corrected to avoid collisions"
 msgstr "Corregido para evitar colisiones"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:23 (comment)
-#, fuzzy
 msgid "%%%%%%%  Cut here ----- Start 'bbarred.ly'"
-msgstr "Cortar por aquí ----- Inicio 'flamenco.ly' "
+msgstr "%%%%%%%  Cortar por aquí ----- Inicio de 'bbarred.ly'"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:25 (comment)
 msgid "PostScript -------------------------------"
-msgstr ""
+msgstr "PostScript -------------------------------"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:26 (variable)
 msgid "pScript"
-msgstr ""
+msgstr "pScript"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:33 (comment)
 msgid "change with B if you prefer"
-msgstr ""
+msgstr "cambie por Si si lo prefiere"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:34 (comment)
 #, python-format
 msgid "(B)show %%change with C if you prefer"
-msgstr ""
+msgstr "(B)show %% cambie por Do si lo prefiere"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:40 (comment)
 msgid "Span -----------------------------------"
-msgstr ""
+msgstr "Extensión -----------------------------------"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:41 (comment)
 msgid "Syntax: \\bbarre #\\\"text\\\" { notes } - text = any number of box"
-msgstr ""
+msgstr "Sintaxis: \\bbarre #\\\"text\\\" { notas } - texto = cualquier número de caja"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:42 (variable)
-#, fuzzy
 msgid "bbarre"
-msgstr "compasA"
+msgstr "bbarre"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:77 (comment)
-#, fuzzy
 msgid "uncomment this line for make full barred"
-msgstr "quite el comentario de la línea del bloque \\layout de arriba"
+msgstr "quite el comentario de esta línea para hacer cejilla completa"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:78 (comment)
 msgid ""
 "\\once  \\override TextSpanner #'bound-details #'left #'text =  \\markup { \\"
 "\"B\\\" $str }"
 msgstr ""
+"\\once  \\override TextSpanner #'bound-details #'left #'text =  \\markup { \\"
+"\"B\\\" $str }"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:82 (comment)
-#, fuzzy
 msgid "%%%%%%%  Cut here ----- End 'bbarred.ly'"
-msgstr "Cortar por aquí ----- Final 'flamenco.ly' "
+msgstr "%%%%%%%  Cortar por aquí ----- Final de 'bbarred.ly'"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:83 (comment)
 msgid "Copy and change the last line for full barred. Rename in 'fbarred.ly'"
-msgstr ""
+msgstr "Copie y cambie la última línea para cejilla completa. Cambie el nombre a 'fbarred.ly'"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:86 (comment)
 msgid "Syntaxe: \\bbarre #\\\"text\\\" { notes } - text = any number of box"
-msgstr ""
+msgstr "Sintaxis: \\bbarre #\\\"text\\\" { notas } - texto = cualquier número de caja"
 
 #. Documentation/snippets/beam-endings-in-score-context.ly:51 (comment)
 msgid "Set default beaming for all staves"
@@ -8097,9 +7988,8 @@ msgid "smallFlageolet"
 msgstr "flageoletPequeño"
 
 #. Documentation/snippets/changing-the-ambitus-gap.ly:42 (comment)
-#, fuzzy
 msgid "Default setting"
-msgstr "Barrado predeterminado"
+msgstr "Ajuste predeterminado"
 
 #. Documentation/snippets/changing-the-chord-names-to-german-or-semi-german-notation.ly:36 (comment)
 msgid "The following is only here to print the names of the"
@@ -8114,9 +8004,8 @@ msgid "print them."
 msgstr "imprimir."
 
 #. Documentation/snippets/changing-the-default-text-font-family.ly:18 (comment)
-#, fuzzy
 msgid "change for other default global staff size."
-msgstr "cambiar a otro tamaño global predeterminado. "
+msgstr "cambiar para otro tamaño de pentagrama global predeterminado."
 
 #. Documentation/snippets/changing-the-default-text-font-family.ly:20 (comment)
 #. Documentation/snippets/engravers-one-by-one.ly:183 (comment)
@@ -8137,9 +8026,8 @@ msgid "}"
 msgstr "}"
 
 #. Documentation/snippets/changing-the-text-for-sustain-markings.ly:32 (variable)
-#, fuzzy
 msgid "sustainNotes"
-msgstr "notasBajo"
+msgstr "notasSostenuto"
 
 #. Documentation/snippets/chant-or-psalms-notation.ly:45 (variable)
 msgid "stemOn"
@@ -8184,24 +8072,20 @@ msgstr "losAcordes"
 
 #. Documentation/snippets/chords-headword.ly:31 (comment)
 #. Documentation/snippets/pitches-headword.ly:141 (comment)
-#, fuzzy
 msgid "\\break"
-msgstr "\\noBreak"
+msgstr "\\break"
 
 #. Documentation/snippets/chords-headword.ly:35 (variable)
-#, fuzzy
 msgid "verseOne"
-msgstr "EstrofaUno"
+msgstr "estrofaUno"
 
 #. Documentation/snippets/chords-headword.ly:42 (variable)
-#, fuzzy
 msgid "verseTwo"
-msgstr "EstrofaDos"
+msgstr "estrofaDos"
 
 #. Documentation/snippets/chords-headword.ly:81 (context id)
-#, fuzzy
 msgid "sop"
-msgstr "Arriba"
+msgstr "sop"
 
 #. Documentation/snippets/clip-systems.ly:65 (variable)
 msgid "origScore"
@@ -8244,19 +8128,16 @@ msgid "musicDown"
 msgstr "musicaAbajo"
 
 #. Documentation/snippets/controlling-spanner-visibility-after-a-line-break.ly:52 (comment)
-#, fuzzy
 msgid "show hairpin"
-msgstr "regulador"
+msgstr "mostrar regulador"
 
 #. Documentation/snippets/controlling-spanner-visibility-after-a-line-break.ly:54 (comment)
-#, fuzzy
 msgid "hide text span"
-msgstr "Dentro del pentagrama"
+msgstr "ocultar extensión de texto"
 
 #. Documentation/snippets/controlling-spanner-visibility-after-a-line-break.ly:58 (comment)
-#, fuzzy
 msgid "show glissando"
-msgstr "glissando"
+msgstr "mostrar glissando"
 
 #. Documentation/snippets/creating-real-parenthesized-dynamics.ly:45 (variable)
 msgid "parenF"
@@ -8268,7 +8149,7 @@ msgstr "el compás y barra ocultos"
 
 #. Documentation/snippets/creating-simultaneous-rehearsal-marks.ly:45 (comment)
 msgid "\\cadenzaOn turns off automatic calculation of bar numbers"
-msgstr ""
+msgstr "\\cadenzaOn desactiva el cálculo automático de números de compás"
 
 #. Documentation/snippets/cross-staff-tremolos.ly:44 (context id)
 #. Documentation/snippets/jazz-combo-template.ly:256 (variable)
@@ -8373,137 +8254,131 @@ msgstr "leyenda debajo de la cuerda"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:39 (comment)
 msgid "Grob utilities"
-msgstr ""
+msgstr "Utilidades de Grob"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:41 (comment)
 msgid "These are literal rewrites of some C++ methods used by the ambitus engraver."
-msgstr ""
+msgstr "Esto son reescrituras literales de algunos métodos en C++ utilizados por el grabador de tesitura."
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:76 (comment)
-#, fuzzy
 msgid "Ambitus data structure"
-msgstr "Estructura del código de entrada"
+msgstr "Estructura de datos de la tesitura"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:79 (comment)
 msgid "The <ambitus> class holds the various grobs that are created"
-msgstr ""
+msgstr "La clase <ambitus> guarda los distintos grobs que se crean"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:80 (comment)
 msgid "to print an ambitus:"
-msgstr ""
+msgstr "para imprimir una tesitura:"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:81 (comment)
 msgid "- ambitus-group: the grob that groups all the components of an ambitus"
-msgstr ""
+msgstr "- ambitus-group: el grob que agrupa todos los componentes de una tesitura"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:82 (comment)
-#, fuzzy
 msgid "(Ambitus grob);"
-msgstr "Tesitura"
+msgstr "(grob de la tesitura);"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:83 (comment)
 msgid "- ambitus-line: the vertical line between the upper and lower ambitus"
-msgstr ""
+msgstr "- ambitus-line: la línea vertical entre las notas alta y baja de la tesitura"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:84 (comment)
 msgid "notes (AmbitusLine grob);"
-msgstr ""
+msgstr "notas (grob AmbitusLine);"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:85 (comment)
 msgid "- ambitus-up-note and ambitus-down-note: the note head and accidental"
-msgstr ""
+msgstr "- ambitus-up-note y ambitus-down-note: la cabeza y su alteración"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:86 (comment)
 msgid "for the lower and upper note of the ambitus (see <ambitus-note> class"
-msgstr ""
+msgstr "para las notas inferior y superior de la tesitura (véase la clase <ambitus-note>"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:87 (comment)
 msgid "below)."
-msgstr ""
+msgstr "más abajo)."
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:88 (comment)
 msgid "The other slots define the key and clef context of the engraver:"
-msgstr ""
+msgstr "Las otras ranuras definen los contextos de tonalidad y clave del grabador:"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:89 (comment)
 msgid "- start-c0: position of middle c at the beginning of the piece.  It"
-msgstr ""
+msgstr "- start-c0: posición del Do central al principio de la pieza."
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:90 (comment)
 msgid "is used to place the ambitus notes according to their pitch;"
-msgstr ""
+msgstr "Se usa para colocar las notas de tesitura de acuerdo con su altura;"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:91 (comment)
 msgid "- start-key-sig: the key signature at the beginning of the piece.  It"
-msgstr ""
+msgstr "- start-key-sig: armadura al principio de la pieza."
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:92 (comment)
 msgid "is used to determine if accidentals shall be printed next to ambitus"
-msgstr ""
+msgstr "Se usa para determinar si se deben imprimir alteraciones junto a las "
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:93 (comment)
-#, fuzzy
 msgid "notes."
-msgstr "misNotas"
+msgstr "notas de tesitura."
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:107 (comment)
 msgid "Accessor for the lower and upper note data of an ambitus"
-msgstr ""
+msgstr "Accesor para los datos de notas inferior y superior de la tesitura"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:115 (comment)
 msgid "The <ambitus-note> class holds the grobs that are specific to ambitus"
-msgstr ""
+msgstr "La clase <ambitus-note> guarda los grobs que son específicos de las"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:116 (comment)
 msgid "(lower and upper) notes:"
-msgstr ""
+msgstr "notas (inferior y superior):"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:117 (comment)
 msgid "- head: an AmbitusNoteHead grob;"
-msgstr ""
+msgstr "- head: un grob AmbitusNoteHead;"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:118 (comment)
 msgid "- accidental: an AmbitusAccidental grob, to be possibly printed next"
-msgstr ""
+msgstr "- accidental: un grob AmbitusAccidental a imprimir posiblemente junto a"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:119 (comment)
 msgid "to the ambitus note head."
-msgstr ""
+msgstr "la cabeza de la nota de tesitura."
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:120 (comment)
 msgid "Moreover:"
-msgstr ""
+msgstr "Además:"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:121 (comment)
-#, fuzzy
 msgid "- pitch is the absolute pitch of the note"
-msgstr "aumentar la longitud de la ligadura"
+msgstr "- pitch es la altura absoluta de la nota"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:122 (comment)
 msgid "- cause is the note event that causes this ambitus note, i.e. the lower"
-msgstr ""
+msgstr "- cause es el evento de nota que produce esta nota de tesitura, es decir, la nota"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:123 (comment)
 msgid "or upper note of the considered music sequence."
-msgstr ""
+msgstr "inferior o superior de la secuencia musical considerada."
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:136 (comment)
-#, fuzzy
 msgid "Ambitus engraving logics"
-msgstr "Grabado automático"
+msgstr "Lógica del grabado de la tesitura"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:138 (comment)
 msgid "Rewrite of the code from @file{lily/ambitus-engraver.cc}."
-msgstr ""
+msgstr "Reescritura del código de @file{lily/ambitus-engraver.cc}."
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:307 (comment)
 msgid "Ambitus engraver definition"
-msgstr ""
+msgstr "Definición del grabador de tesitura"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme-ambitus-engraver.ly:332 (comment)
-#, fuzzy
 msgid "Example"
-msgstr "Ejemplo 1"
+msgstr "Ejemplo"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:143 (comment)
 msgid "add FretBoards for the Cuatro"
@@ -8558,13 +8433,12 @@ msgid "primeros"
 msgstr "primeros"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:207 (comment)
-#, fuzzy
 msgid "\\override FretBoard"
-msgstr "La instrucción override"
+msgstr "\\override FretBoard"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:208 (comment)
 msgid "#'(fret-diagram-details string-count) = #'4"
-msgstr ""
+msgstr "#'(fret-diagram-details string-count) = #'4"
 
 #. Documentation/snippets/demo-midiinstruments.ly:24 (variable)
 msgid "baseMelody"
@@ -8584,7 +8458,7 @@ msgstr "fixB"
 
 #. Documentation/snippets/displaying-grob-ancestry.ly:197 (comment)
 msgid "\\\" (make-string 36 #\\-))"
-msgstr ""
+msgstr "\\\" (make-string 36 #\\-))"
 
 #. Documentation/snippets/double-glissando.ly:21 (comment)
 msgid "new voice ( = \\voiceOne), hidden"
@@ -8604,67 +8478,61 @@ msgstr "el glissando se aplica al La y al Do"
 
 #. Documentation/snippets/drawing-circles-around-note-heads.ly:16 (variable)
 msgid "circle"
-msgstr ""
+msgstr "círculo"
 
 #. Documentation/snippets/dynamics-custom-text-spanner-postfix.ly:54 (comment)
 msgid "Two functions for (de)crescendo spanners where you can explicitly give the"
-msgstr ""
+msgstr "Dos funciones para extensores de (de)crescendo donde podemos dar el"
 
 #. Documentation/snippets/dynamics-custom-text-spanner-postfix.ly:55 (comment)
-#, fuzzy
 msgid "spanner text."
-msgstr "Texto separado"
+msgstr "texto de la extensión explícitamente."
 
 #. Documentation/snippets/dynamics-custom-text-spanner-postfix.ly:56 (variable)
-#, fuzzy
 msgid "mycresc"
-msgstr "misAcordes"
+msgstr "miCresc"
 
 #. Documentation/snippets/dynamics-custom-text-spanner-postfix.ly:62 (variable)
-#, fuzzy
 msgid "mydecresc"
-msgstr "decrescendo"
+msgstr "miDecresc"
 
 #. Documentation/snippets/dynamics-text-spanner-postfix.ly:59 (comment)
 msgid "Some sample text dynamic spanners, to be used as postfix operators"
-msgstr ""
+msgstr "Algunos extensores de texto de muestra, para usar como operadores posfijos"
 
 #. Documentation/snippets/dynamics-text-spanner-postfix.ly:60 (variable)
 msgid "crpoco"
-msgstr ""
+msgstr "crpoco"
 
 #. Documentation/snippets/editorial-headword.ly:30 (comment)
-#, fuzzy
 msgid "NR 1.7 Editorial annotations"
-msgstr "Anotaciones editoriales"
+msgstr "NR 1.7 Anotaciones editoriales"
 
 #. Documentation/snippets/editorial-headword.ly:32 (comment)
 msgid "Beethoven, Op. 31, No. 3"
-msgstr ""
+msgstr "Beethoven, Op. 31, No. 3"
 
 #. Documentation/snippets/editorial-headword.ly:33 (comment)
 msgid "Piano sonata 18, Movt II, Scherzo"
-msgstr ""
+msgstr "Sonata para piano núm. 18, Mov. II, Scherzo"
 
 #. Documentation/snippets/editorial-headword.ly:34 (comment)
 msgid "Measures 9 - 14"
-msgstr ""
+msgstr "Compases 9 a 14"
 
 #. Documentation/snippets/editorial-headword.ly:38 (comment)
 #. Documentation/snippets/expressive-headword.ly:37 (comment)
 #. Documentation/snippets/pitches-headword.ly:38 (comment)
 #. Documentation/snippets/rhythms-headword.ly:39 (comment)
-#, fuzzy
 msgid "RH Staff"
-msgstr "miPentagrama"
+msgstr "Pentagrama MD"
 
 #. Documentation/snippets/editorial-headword.ly:76 (comment)
 #. Documentation/snippets/expressive-headword.ly:169 (comment)
 #. Documentation/snippets/pitches-headword.ly:111 (comment)
 #. Documentation/snippets/rhythms-headword.ly:128 (comment)
-#, fuzzy
 msgid "LH Staff"
-msgstr "miPentagrama"
+msgstr "Pentagrama MI"
 
 #. Documentation/snippets/embedding-native-postscript-in-a--markup-block.ly:25 (comment)
 msgid "PostScript is a registered trademark of Adobe Systems Inc."
@@ -8703,13 +8571,12 @@ msgid "MyStaff"
 msgstr "miPentagrama"
 
 #. Documentation/snippets/engravers-one-by-one.ly:140 (comment)
-#, fuzzy
 msgid "explicitly set instrumentName, so we don't get"
-msgstr "especificar el instrumento para evitar efectos no deseados"
+msgstr "fijar instrumentName específicamente, para no obtener"
 
 #. Documentation/snippets/engravers-one-by-one.ly:141 (comment)
 msgid "weird effects when doing instrument names for"
-msgstr "si se hacen nombres de instrumentos para pentagramas de piano"
+msgstr "efectos extraños al hacer nombres de instrumento para"
 
 #. Documentation/snippets/engravers-one-by-one.ly:142 (comment)
 msgid "piano staves"
@@ -8732,88 +8599,80 @@ msgstr "\\consists \\\"Rest_engraver\\\""
 
 #. Documentation/snippets/expressive-headword.ly:23 (comment)
 msgid "L. v. Beethoven, Op. 49 no. 1"
-msgstr ""
+msgstr "L. v. Beethoven, Op. 49 no. 1"
 
 #. Documentation/snippets/expressive-headword.ly:24 (comment)
 msgid "Piano sonata 19 - \\\"Leichte Sonate\\\""
-msgstr ""
+msgstr "Sonata para piano núm. 19 - \\\"Leichte Sonate\\\""
 
 #. Documentation/snippets/expressive-headword.ly:25 (comment)
 msgid "measures 1 - 12"
-msgstr ""
+msgstr "Compases 1 a 12"
 
 #. Documentation/snippets/expressive-headword.ly:27 (comment)
 msgid "\\layout {"
-msgstr ""
+msgstr "\\layout {"
 
 #. Documentation/snippets/expressive-headword.ly:28 (comment)
 msgid "\\context {"
-msgstr ""
+msgstr "\\context {"
 
 #. Documentation/snippets/expressive-headword.ly:29 (comment)
-#, fuzzy
 msgid "\\Score"
-msgstr "partituraOriginal"
+msgstr "\\Score"
 
 #. Documentation/snippets/expressive-headword.ly:30 (comment)
 msgid "\\override SpacingSpanner #'base-shortest-duration ="
-msgstr ""
+msgstr "\\override SpacingSpanner #'base-shortest-duration ="
 
 #. Documentation/snippets/expressive-headword.ly:31 (comment)
 msgid "#(ly:make-moment 1 20)"
-msgstr ""
+msgstr "#(ly:make-moment 1 20)"
 
 #. Documentation/snippets/figured-bass-headword.ly:31 (comment)
 msgid "Arcangelo Corelli, 12 Sonate da Camera, Op. 2"
-msgstr ""
+msgstr "Arcangelo Corelli, 12 Sonate da Camera, Op. 2"
 
 #. Documentation/snippets/figured-bass-headword.ly:32 (comment)
 msgid "Sonata II, Allemanda"
-msgstr ""
+msgstr "Sonata II, Allemanda"
 
 #. Documentation/snippets/figured-bass-headword.ly:33 (comment)
 msgid "measures 1 - 88"
-msgstr ""
+msgstr "compases 1 a 88"
 
 #. Documentation/snippets/figured-bass-headword.ly:34 (comment)
 msgid "Coded by Neil Puttock; modified by Carl Sorensen"
-msgstr ""
+msgstr "Codificado por Neil Puttock; modificado por Carl Sorensen"
 
 #. Documentation/snippets/figured-bass-headword.ly:36 (variable)
-#, fuzzy
 msgid "extendOn"
-msgstr "línea extensora"
+msgstr "extendOn"
 
 #. Documentation/snippets/figured-bass-headword.ly:37 (variable)
-#, fuzzy
 msgid "extendOff"
-msgstr "plicaNo"
+msgstr "extendOff"
 
 #. Documentation/snippets/figured-bass-headword.ly:45 (context id)
-#, fuzzy
 msgid "violinoI"
-msgstr "violin"
+msgstr "violinI"
 
 #. Documentation/snippets/figured-bass-headword.ly:63 (context id)
-#, fuzzy
 msgid "violinoII"
-msgstr "violin"
+msgstr "violinII"
 
 #. Documentation/snippets/figured-bass-headword.ly:81 (context id)
-#, fuzzy
 msgid "violone"
-msgstr "violin"
+msgstr "violone"
 
 #. Documentation/snippets/fingering-symbols-for-wind-instruments.ly:34 (variable)
 #. Documentation/snippets/recorder-fingering-chart.ly:38 (variable)
-#, fuzzy
 msgid "centermarkup"
-msgstr "semppMarcado"
+msgstr "marcadoCentro"
 
 #. Documentation/snippets/flamenco-notation.ly:94 (comment)
-#, fuzzy
 msgid "Cut here ----- Start 'flamenco.ly'"
-msgstr "Cortar por aquí ----- Inicio 'flamenco.ly' "
+msgstr "Cortar por aquí ----- Inicio 'flamenco.ly'"
 
 #. Documentation/snippets/flamenco-notation.ly:96 (comment)
 msgid "Text indicators"
@@ -8928,9 +8787,8 @@ msgid "headsOn"
 msgstr "cabezasSi"
 
 #. Documentation/snippets/flamenco-notation.ly:181 (comment)
-#, fuzzy
 msgid "Cut here ----- End 'flamenco.ly'"
-msgstr "Cortar por aquí ----- Final 'flamenco.ly' "
+msgstr "Cortar por aquí ----- Final 'flamenco.ly'"
 
 #. Documentation/snippets/flat-flags-and-beam-nibs.ly:157 (comment)
 msgid "Example 1"
@@ -8953,9 +8811,8 @@ msgid "slap"
 msgstr "slap"
 
 #. Documentation/snippets/forcing-measure-width-to-adapt-to-metronomemarks-width.ly:20 (variable)
-#, fuzzy
 msgid "example"
-msgstr "Ejemplo 1"
+msgstr "ejemplo"
 
 #. Documentation/snippets/formatting-lyrics-syllables.ly:17 (variable)
 msgid "lyr"
@@ -9024,210 +8881,197 @@ msgstr "Estos acordes estarán en orientación horizontal opuesta"
 
 #. Documentation/snippets/fretboards-alternate-tables.ly:69 (comment)
 msgid "Make a blank new fretboard table"
-msgstr ""
+msgstr "Hacer una tabla de trastes en blanco"
 
 #. Documentation/snippets/fretboards-alternate-tables.ly:72 (comment)
 msgid "Make a new fretboard table as a copy of default-fret-table"
-msgstr ""
+msgstr "Hacer una tabla de trastes nueva como copia de default-fret-table"
 
 #. Documentation/snippets/fretboards-alternate-tables.ly:75 (comment)
 msgid "Add a chord to custom-fretboard-table-one"
-msgstr ""
+msgstr "Añadir un acorde a custom-fretboard-table-one"
 
 #. Documentation/snippets/fretboards-alternate-tables.ly:81 (comment)
 msgid "Add a chord to custom-fretboard-table-two"
-msgstr ""
+msgstr "Añadir un acorde a custom-fretboard-table-two"
 
 #. Documentation/snippets/fretted-headword.ly:35 (comment)
 msgid "shortcuts"
-msgstr ""
+msgstr "atajos"
 
 #. Documentation/snippets/fretted-headword.ly:36 (comment)
-#, fuzzy
 msgid "fingering orientations"
-msgstr "Indicaciones de digitación"
+msgstr "orientaciones de digitación"
 
 #. Documentation/snippets/fretted-headword.ly:37 (variable)
-#, fuzzy
 msgid "sfol"
-msgstr "solo"
+msgstr "sfoiz"
 
 #. Documentation/snippets/fretted-headword.ly:38 (variable)
 msgid "sfor"
-msgstr ""
+msgstr "sfor"
 
 #. Documentation/snippets/fretted-headword.ly:39 (variable)
 msgid "sfod"
-msgstr ""
+msgstr "sfoder"
 
 #. Documentation/snippets/fretted-headword.ly:40 (variable)
 msgid "sfou"
-msgstr ""
+msgstr "sfou"
 
 #. Documentation/snippets/fretted-headword.ly:42 (comment)
-#, fuzzy
 msgid "string number orientations"
-msgstr "Indicación de los números de cuerda"
+msgstr "orientaciones de los números de cuerda"
 
 #. Documentation/snippets/fretted-headword.ly:43 (variable)
-#, fuzzy
 msgid "ssnol"
-msgstr "solo"
+msgstr "ssnol"
 
 #. Documentation/snippets/fretted-headword.ly:43 (comment)
 msgid "(down right up)"
-msgstr ""
+msgstr "(abajo derecha arriba)"
 
 #. Documentation/snippets/fretted-headword.ly:44 (variable)
 msgid "ssnou"
-msgstr ""
+msgstr "ssnoarriba"
 
 #. Documentation/snippets/fretted-headword.ly:45 (variable)
 msgid "ssnod"
-msgstr ""
+msgstr "ssnoabajo"
 
 #. Documentation/snippets/fretted-headword.ly:46 (variable)
-#, fuzzy
 msgid "ssnor"
-msgstr "menor"
+msgstr "ssnor"
 
 #. Documentation/snippets/fretted-headword.ly:48 (comment)
 msgid "define fingering offset"
-msgstr ""
+msgstr "definir desplazamiento de la digitación"
 
 #. Documentation/snippets/fretted-headword.ly:49 (variable)
 msgid "FO"
-msgstr ""
+msgstr "FO"
 
 #. Documentation/snippets/fretted-headword.ly:54 (comment)
-#, fuzzy
 msgid "markups"
-msgstr "sMarkup"
+msgstr "marcados"
 
 #. Documentation/snippets/fretted-headword.ly:55 (variable)
-#, fuzzy
 msgid "rit"
-msgstr "tresillo"
+msgstr "rit"
 
 #. Documentation/snippets/fretted-headword.ly:56 (variable)
-#, fuzzy
 msgid "dimin"
-msgstr "duración"
+msgstr "dimin"
 
 #. Documentation/snippets/fretted-headword.ly:57 (variable)
-#, fuzzy
 msgid "andantino"
-msgstr "abanico"
+msgstr "andantino"
 
 #. Documentation/snippets/fretted-headword.ly:58 (variable)
 msgid "benmarcato"
-msgstr ""
+msgstr "benmarcato"
 
 #. Documentation/snippets/fretted-headword.ly:59 (variable)
-#, fuzzy
 msgid "pdolce"
-msgstr "mpdolce"
+msgstr "pdolce"
 
 #. Documentation/snippets/fretted-headword.ly:61 (comment)
 msgid "THE MUSIC %%%"
-msgstr ""
+msgstr "LA MÚSICA %%%"
 
 #. Documentation/snippets/fretted-headword.ly:73 (comment)
 #. Documentation/snippets/fretted-headword.ly:112 (comment)
 msgid "m. 1"
-msgstr ""
+msgstr "c. 1"
 
 #. Documentation/snippets/fretted-headword.ly:79 (comment)
 msgid "m. 2"
-msgstr ""
+msgstr "c. 2"
 
 #. Documentation/snippets/fretted-headword.ly:81 (comment)
 #. Documentation/snippets/fretted-headword.ly:117 (comment)
 msgid "m. 3"
-msgstr ""
+msgstr "c. 3"
 
 #. Documentation/snippets/fretted-headword.ly:82 (comment)
 #. Documentation/snippets/fretted-headword.ly:119 (comment)
 msgid "m. 4"
-msgstr ""
+msgstr "c. 4"
 
 #. Documentation/snippets/fretted-headword.ly:86 (comment)
 #. Documentation/snippets/fretted-headword.ly:124 (comment)
 msgid "m. 5"
-msgstr ""
+msgstr "c. 5"
 
 #. Documentation/snippets/fretted-headword.ly:89 (comment)
-#, fuzzy
 msgid "end of m. 6"
-msgstr "fin de las notas de la M.D."
+msgstr "fin del c. 6"
 
 #. Documentation/snippets/fretted-headword.ly:92 (comment)
 #. Documentation/snippets/fretted-headword.ly:129 (comment)
 msgid "m. 7"
-msgstr ""
+msgstr "c. 7"
 
 #. Documentation/snippets/fretted-headword.ly:95 (comment)
 msgid "beg of m. 8"
-msgstr ""
+msgstr "comienzo del c. 8"
 
 #. Documentation/snippets/fretted-headword.ly:96 (comment)
-#, fuzzy
 msgid "end of m. 8"
-msgstr "fin de las notas de la M.D."
+msgstr "fin del c. 8"
 
 #. Documentation/snippets/fretted-headword.ly:98 (comment)
-#, fuzzy
 msgid "end of m. 9"
-msgstr "fin de las notas de la M.D."
+msgstr "fin del c. 9"
 
 #. Documentation/snippets/fretted-headword.ly:100 (comment)
 #. Documentation/snippets/fretted-headword.ly:136 (comment)
 msgid "m. 10"
-msgstr ""
+msgstr "c. 10"
 
 #. Documentation/snippets/fretted-headword.ly:102 (comment)
 msgid "beg of m. 11"
-msgstr ""
+msgstr "comienzo del c. 11"
 
 #. Documentation/snippets/fretted-headword.ly:104 (comment)
 msgid "end of m. 11"
-msgstr ""
+msgstr "final del c. 11"
 
 #. Documentation/snippets/fretted-headword.ly:114 (comment)
 msgid "beg m. 2"
-msgstr ""
+msgstr "comienzo del c. 2"
 
 #. Documentation/snippets/fretted-headword.ly:115 (comment)
 msgid "end m. 2"
-msgstr ""
+msgstr "final del c. 2"
 
 #. Documentation/snippets/fretted-headword.ly:121 (comment)
 msgid "new section starts here in A minor"
-msgstr ""
+msgstr "la nueva sección comienza aquí en La menor"
 
 #. Documentation/snippets/fretted-headword.ly:126 (comment)
 msgid "beg m. 6"
-msgstr ""
+msgstr "comienzo del c. 6"
 
 #. Documentation/snippets/fretted-headword.ly:127 (comment)
 msgid "end m. 6"
-msgstr ""
+msgstr "final del c. 6"
 
 #. Documentation/snippets/fretted-headword.ly:131 (comment)
 msgid "m. 8"
-msgstr ""
+msgstr "c. 8"
 
 #. Documentation/snippets/fretted-headword.ly:133 (comment)
 msgid "beg m. 9"
-msgstr ""
+msgstr "comienzo del c. 9"
 
 #. Documentation/snippets/fretted-headword.ly:134 (comment)
 msgid "end m. 9"
-msgstr ""
+msgstr "final del c. 9"
 
 #. Documentation/snippets/fretted-headword.ly:138 (comment)
 msgid "m. 11"
-msgstr ""
+msgstr "c. 11"
 
 #. Documentation/snippets/fretted-headword.ly:142 (context id)
 #. Documentation/snippets/jazz-combo-template.ly:182 (variable)
@@ -9239,11 +9083,11 @@ msgstr "guitarra"
 
 #. Documentation/snippets/generating-custom-flags.ly:29 (comment)
 msgid "Create a flag stencil by looking up the glyph from the font"
-msgstr ""
+msgstr "Crear un sello de corchete buscando el glifo en la fuente tipográfica"
 
 #. Documentation/snippets/generating-custom-flags.ly:43 (variable)
 msgid "snippetexamplenotes"
-msgstr ""
+msgstr "notasdeejemplo"
 
 #. Documentation/snippets/grid-lines--changing-their-appearance.ly:53 (comment)
 msgid "this moves them up one staff space from the default position"
