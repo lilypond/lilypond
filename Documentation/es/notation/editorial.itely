@@ -71,7 +71,7 @@ de notación.  Esto no cambia el tamaño de los símbolos variables, como
 las barras de corchea o las ligaduras.
 
 @warning{Para los tamaños de tipografía del texto, consulte
-@ref{Instrucciones de marcado de texto más usuales}.}
+@ref{Seleccionar la tipografía y su tamaño}.}
 
 @lilypond[verbatim,quote,relative=2]
 \huge

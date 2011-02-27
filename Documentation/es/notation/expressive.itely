@@ -627,13 +627,13 @@ moltoF = #(make-dynamic-script
 @end lilypond
 
 Los ajustes para las fuentes tipográficas en el modo de marcado se
-describen en @ref{Instrucciones de marcado de texto más usuales}.
+describen en @ref{Seleccionar la tipografía y su tamaño}.
 
 
 @seealso
 Referencia de la notación:
 @ref{Formatear el texto},
-@ref{Instrucciones de marcado de texto más usuales},
+@ref{Seleccionar la tipografía y su tamaño},
 @ref{¿Qué sale por el MIDI?},
 @ref{Control de los matices en el MIDI}.
 
