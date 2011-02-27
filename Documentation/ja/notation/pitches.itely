@@ -1298,7 +1298,7 @@ LilyPond では、音符名は未加工の入力です。@c
 @noindent
 
 調号を @code{@var{pitch}}-メジャーや @code{@var{pitch}}-マイナーにするには、@c
-@code{@var{mode} をそれぞれ @code{\major} または @code{\minor} にします。@c
+@code{@var{mode}} をそれぞれ @code{\major} または @code{\minor} にします。@c
 さらに標準のモード名
  -- @notation{チャーチ モード} とも呼ばれます --
 を使うこともできます:
