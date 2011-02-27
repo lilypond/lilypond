@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-26 17:04+0100\n"
-"PO-Revision-Date: 2011-02-27 03:19+0100\n"
+"PO-Revision-Date: 2011-02-27 18:14+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
-"Language-Team: Español <gnome-es-list@gnome.org>\n"
+"Language-Team: Español"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -9133,15 +9133,15 @@ msgstr ""
 
 #. Documentation/snippets/guitar-slides.ly:33 (comment)
 msgid "Hide fret number: useful to draw slide into/from a casual point of"
-msgstr ""
+msgstr "Ocultar el número de traste: útil para trazar un slide dentro de"
 
 #. Documentation/snippets/guitar-slides.ly:34 (comment)
 msgid "the fretboard."
-msgstr ""
+msgstr "o a partir de un punto casual del mástil."
 
 #. Documentation/snippets/guitar-slides.ly:35 (variable)
 msgid "hideFretNumber"
-msgstr ""
+msgstr "ocultarTraste"
 
 #. Documentation/snippets/heavily-customized-polymetric-time-signatures.ly:48 (variable)
 msgid "drum"
@@ -9236,30 +9236,24 @@ msgid "semppG"
 msgstr "semppG"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:105 (comment)
-#, fuzzy
 msgid "Solution 6: Dynamic with explicit alignment. This has only effect"
-msgstr ""
-"Solución 6: indicación dinámica con alineación explícita. ¡Sólo tiene efecto "
-"si se fija X-offset!"
+msgstr "Solución 6: indicación dinámica con alineación explícita. ¡Sólo tiene efecto "
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:106 (comment)
 msgid "if one sets X-offset!"
-msgstr ""
+msgstr "si se fija X-offset!"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:107 (comment)
 msgid "Drawback: One needs to set DynamicText #'X-offset!"
 msgstr "Inconveniente: ¡Hay que fijar DynamicText #'X-offset!"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:108 (comment)
-#, fuzzy
 msgid "Drawback: Aligned at the right edge of the additional text,"
-msgstr ""
-"Inconveniente: alineado con el borde derecho del texto adicional, no con el "
-"centro del pp"
+msgstr "Inconveniente: alineado con el borde derecho del texto adicional,"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:109 (comment)
 msgid "not at the center of pp"
-msgstr ""
+msgstr "no con el centro del pp"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:110 (variable)
 msgid "semppMII"
@@ -9322,95 +9316,84 @@ msgid "HERE IS THE SECOND METHOD"
 msgstr "aquí el segundo método"
 
 #. Documentation/snippets/hymn-template.ly:50 (variable)
-#, fuzzy
 msgid "Timeline"
-msgstr "CompasTono"
+msgstr "LineaDeTiempo"
 
 #. Documentation/snippets/hymn-template.ly:82 (comment)
-#, fuzzy
 msgid "Start score"
-msgstr "Estructura de una partitura"
+msgstr "Inicio de la partitura"
 
 #. Documentation/snippets/hymn-template.ly:84 (comment)
-#, fuzzy
 msgid "Start pianostaff"
-msgstr "pautaGong"
+msgstr "Iniciar sistema de piano"
 
 #. Documentation/snippets/hymn-template.ly:85 (comment)
 msgid "Start Staff = RH"
-msgstr ""
+msgstr "inicio de pentagrama MD"
 
 #. Documentation/snippets/hymn-template.ly:88 (comment)
 msgid "Start Voice = \\\"Soprano\\\""
-msgstr ""
+msgstr "Inicio de voz = \\\"Soprano\\\""
 
 #. Documentation/snippets/hymn-template.ly:92 (comment)
 msgid "End Voice = \\\"Soprano\\\""
-msgstr ""
+msgstr "Final de voz = \\\"Soprano\\\""
 
 #. Documentation/snippets/hymn-template.ly:93 (comment)
-#, fuzzy
 msgid "Start Voice = \\\"Alto\\\""
-msgstr "Voz \\\"1\\\""
+msgstr "Inicio de voz = \\\"Alto\\\""
 
 #. Documentation/snippets/hymn-template.ly:97 (comment)
-#, fuzzy
 msgid "End Voice = \\\"Alto\\\""
-msgstr "Voz \\\"1\\\""
+msgstr "Final de voz = \\\"Alto\\\""
 
 #. Documentation/snippets/hymn-template.ly:98 (comment)
 msgid "End Staff = RH"
-msgstr ""
+msgstr "Final de pentagrama MD"
 
 #. Documentation/snippets/hymn-template.ly:99 (comment)
 msgid "Start Staff = LH"
-msgstr ""
+msgstr "Inicio de pentagrama MI"
 
 #. Documentation/snippets/hymn-template.ly:102 (comment)
 msgid "Start Voice = \\\"Tenor\\\""
-msgstr ""
+msgstr "Inicio de voz = \\\"Tenor\\\""
 
 #. Documentation/snippets/hymn-template.ly:106 (comment)
-#, fuzzy
 msgid "End Voice = \\\"Tenor\\\""
-msgstr "Voz \\\"1\\\""
+msgstr "Final de voz = \\\"Tenor\\\""
 
 #. Documentation/snippets/hymn-template.ly:107 (comment)
-#, fuzzy
 msgid "Start Voice = \\\"Bass\\\""
-msgstr "Voz \\\"1\\\""
+msgstr "Inicio de voz = \\\"Bass\\\""
 
 #. Documentation/snippets/hymn-template.ly:111 (comment)
-#, fuzzy
 msgid "End Voice = \\\"Bass\\\""
-msgstr "Voz \\\"1\\\""
+msgstr "Final de voz = \\\"Bass\\\""
 
 #. Documentation/snippets/hymn-template.ly:112 (comment)
 msgid "End Staff = LH"
-msgstr ""
+msgstr "Final de pentagrama MI"
 
 #. Documentation/snippets/hymn-template.ly:113 (comment)
-#, fuzzy
 msgid "End pianostaff"
-msgstr "sistema de piano"
+msgstr "Final del sistema de piano"
 
 #. Documentation/snippets/hymn-template.ly:134 (comment)
 msgid "Start paper block"
-msgstr ""
+msgstr "Inicio del bloque paper"
 
 #. Documentation/snippets/hymn-template.ly:135 (comment)
-#, fuzzy
 msgid "don't indent first system"
-msgstr "primera nota no única"
+msgstr "no sangrar el primer sistema"
 
 #. Documentation/snippets/hymn-template.ly:136 (comment)
-#, fuzzy
 msgid "shorten line length to suit music"
-msgstr "fijar la longitud y la posición de la línea:"
+msgstr "acortar la longitur de la línea para adecuarse a la música"
 
 #. Documentation/snippets/hymn-template.ly:137 (comment)
 msgid "End paper block"
-msgstr ""
+msgstr "Final del boque paper"
 
 #. Documentation/snippets/incipit.ly:85 (variable)
 #. Documentation/snippets/incipit.ly:86 (context id)
@@ -9463,7 +9446,7 @@ msgstr "afinacion"
 
 #. Documentation/snippets/isolated-percent-repeats.ly:42 (variable)
 msgid "makePercent"
-msgstr ""
+msgstr "hacerPorcentaje"
 
 #. Documentation/snippets/jazz-combo-template.ly:67 (comment)
 msgid "#(set-global-staff-size 16)"
@@ -9656,15 +9639,15 @@ msgstr "acordes"
 
 #. Documentation/snippets/keyboard-headword.ly:24 (comment)
 msgid "M. Ravel, Sonatine (1905)"
-msgstr ""
+msgstr "M. Ravel, Sonatine (1905)"
 
 #. Documentation/snippets/keyboard-headword.ly:25 (comment)
 msgid "First movement"
-msgstr ""
+msgstr "Primer movimiento"
 
 #. Documentation/snippets/keyboard-headword.ly:34 (variable)
 msgid "fermataLong"
-msgstr ""
+msgstr "calderonLargo"
 
 #. Documentation/snippets/lyrics-old-spacing-settings.ly:39 (variable)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:77 (variable)
@@ -9676,7 +9659,7 @@ msgstr "musicaSoprano"
 #. Documentation/snippets/lyrics-old-spacing-settings.ly:40 (comment)
 #. Documentation/snippets/lyrics-old-spacing-settings.ly:46 (comment)
 msgid "VERSE ONE"
-msgstr ""
+msgstr "ESTROFA UNO"
 
 #. Documentation/snippets/lyrics-old-spacing-settings.ly:68 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:112 (context id)
@@ -9745,13 +9728,12 @@ msgid "...or to cover just whitespace"
 msgstr "... o para cubrir sólo el espacio vacio"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:60 (comment)
-#, fuzzy
 msgid "space for instrumentName"
-msgstr "Referencias para instrumentos de viento"
+msgstr "espacio para instrumentName"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:61 (comment)
 msgid "space for shortInstrumentName"
-msgstr ""
+msgstr "espacio para shortInstrumentName"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:64 (variable)
 msgid "fluteMusic"
@@ -9759,11 +9741,11 @@ msgstr "musicaFlauta"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:65 (comment)
 msgid "Pitches as written on a manuscript for Clarinet in A"
-msgstr ""
+msgstr "Las notas tal como están escritas en un manuscrito para clarinete en La"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:66 (comment)
 msgid "are transposed to concert pitch."
-msgstr ""
+msgstr "se transcriben al tono de concierto."
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:67 (variable)
 msgid "clarinetMusic"
@@ -9775,12 +9757,11 @@ msgstr "musicaTrompeta"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:70 (comment)
 msgid "Key signature is often omitted for horns"
-msgstr ""
+msgstr "La armadura se suele omitir para las trompas"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:71 (variable)
-#, fuzzy
 msgid "hornMusic"
-msgstr "musicaTrompaI"
+msgstr "musicaTrompa"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:73 (variable)
 msgid "percussionMusic"
@@ -9824,43 +9805,43 @@ msgstr "musicaViola"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:95 (comment)
 msgid "shortInstrumentName, midiInstrument, etc."
-msgstr ""
+msgstr "shortInstrumentName, midiInstrument, etc."
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:96 (comment)
 msgid "may be set here as well"
-msgstr ""
+msgstr "se pueden fijar aquí también"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:102 (comment)
 msgid "Declare that written Middle C in the music"
-msgstr ""
+msgstr "Declarar que el Do central escrito en la música"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:103 (comment)
 msgid "to follow sounds a concert B flat, for"
-msgstr ""
+msgstr "que sigue suena un Si bemol de concierto, para"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:104 (comment)
 msgid "output using sounded pitches such as MIDI."
-msgstr ""
+msgstr "la salida que utiliza alturas sonoras como el MIDI."
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:106 (comment)
 msgid "Print music for a B-flat clarinet"
-msgstr ""
+msgstr "Imprimir la música para un clarinete en Si bemol"
 
 #. Documentation/snippets/partcombine-and-autobeamoff.ly:148 (comment)
 msgid "\\set Staff.autoBeaming = ##f % turns off all autobeaming"
-msgstr ""
+msgstr "\\set Staff.autoBeaming = ##f % desactiva todo el barrado automático"
 
 #. Documentation/snippets/partcombine-and-autobeamoff.ly:151 (comment)
 msgid "applies to split up stems"
-msgstr ""
+msgstr "se aplica a las plicas divididas hacia arriba"
 
 #. Documentation/snippets/partcombine-and-autobeamoff.ly:153 (comment)
 msgid "\\autoBeamOff % applies to combined up stems"
-msgstr ""
+msgstr "\\autoBeamOff % se aplica a las plicas hacia arriba combinadas"
 
 #. Documentation/snippets/partcombine-and-autobeamoff.ly:158 (comment)
 msgid "applies to down stems"
-msgstr ""
+msgstr "se aplica a las plicas hacia abajo"
 
 #. Documentation/snippets/percussion-beaters.ly:19 (variable)
 msgid "stick"
@@ -9884,49 +9865,43 @@ msgstr "pedal"
 
 #. Documentation/snippets/pitches-headword.ly:32 (comment)
 msgid "L. v. Beethoven"
-msgstr ""
+msgstr "L. van Beethoven"
 
 #. Documentation/snippets/pitches-headword.ly:33 (comment)
 msgid "Piano sonata 21 - Dem Grafen von Waldstein Gewidmet"
-msgstr ""
+msgstr "Sonata para piano núm. 21 - Dem Grafen von Waldstein Gewidmet"
 
 #. Documentation/snippets/pitches-headword.ly:34 (comment)
 msgid "chorale at measures 34 - 40+"
-msgstr ""
+msgstr "coral de los compases 34 a 40 y siguientes"
 
 #. Documentation/snippets/pitches-headword.ly:41 (comment)
-#, fuzzy
 msgid "RH Voice 1"
-msgstr "Voz \\\"1\\\""
+msgstr "Voz 1 de la MD"
 
 #. Documentation/snippets/pitches-headword.ly:69 (comment)
 msgid "("
-msgstr ""
+msgstr "("
 
 #. Documentation/snippets/pitches-headword.ly:74 (comment)
 msgid ")"
-msgstr ""
+msgstr ")"
 
 #. Documentation/snippets/pitches-headword.ly:78 (comment)
-#, fuzzy
 msgid "RH Voice 2"
-msgstr "Voz \\\"2\\\""
+msgstr "Voz 2 de la MD"
 
 #. Documentation/snippets/polyphony-in-tablature.ly:59 (context id)
 msgid "tab"
 msgstr "tab"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:60 (comment)
-#, fuzzy
 msgid "MMR - Multi-Measure Rest"
-msgstr "silencios multicompás"
+msgstr "MMR - Silencio multicompás"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:61 (comment)
-#, fuzzy
 msgid "MMRs by default are set under the fourth line"
-msgstr ""
-"Los silencios multicompás se sitúan de forma predeterminada bajo la segunda "
-"línea"
+msgstr "Los silencios multicompás se establecen por omisión debajo de la cuarta línea line"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:63 (comment)
 msgid "They can be moved with an override"
@@ -9941,12 +9916,10 @@ msgid "the following trick moves the rest to the center line"
 msgstr "el truco siguiente mueve el silencio a la línea central"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:70 (comment)
-#, fuzzy
 msgid "MMRs in odd-numbered voices are under the top line"
-msgstr "Los silencios multicompás de las voces impares están bajo la línea superior"
+msgstr "Los silencios multicompás de las voces de impares van bajo la línea superior"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:72 (comment)
-#, fuzzy
 msgid "MMRs in even-numbered voices are under the bottom line"
 msgstr "Los silencios multicompás de las voces pares están bajo la línea inferior"
 
@@ -9989,7 +9962,6 @@ msgid "\\noBreak"
 msgstr "\\noBreak"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:55 (comment)
-#, fuzzy
 msgid "Here begins the trickery!"
 msgstr "¡Aquí comienzan los trucos!"
 
@@ -10000,7 +9972,6 @@ msgid ""
 msgstr "\\cadenzaOn suprime la cuenta de compases y \\stopStaff quita el pentagrama"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:59 (comment)
-#, fuzzy
 msgid "Some examples of possible text-displays"
 msgstr "Algunos ejemplos de text-displays posibles"
 
@@ -10131,9 +10102,8 @@ msgid "Draw a circle round the following bar number(s)"
 msgstr "Rodear con un círculo el siguiente(s) número de compás"
 
 #. Documentation/snippets/printing-metronome-and-rehearsal-marks-below-the-staff.ly:55 (comment)
-#, fuzzy
 msgid "Metronome marks below the staff"
-msgstr "las marcas de metrónomo debajo del pentagrama"
+msgstr "Las marcas de metrónomo debajo del pentagrama"
 
 #. Documentation/snippets/printing-metronome-and-rehearsal-marks-below-the-staff.ly:60 (comment)
 msgid "Rehearsal marks below the staff"
@@ -10148,9 +10118,8 @@ msgid "Perkussion"
 msgstr "Percusion"
 
 #. Documentation/snippets/putting-lyrics-inside-the-staff.ly:21 (context id)
-#, fuzzy
 msgid "voc"
-msgstr "voz"
+msgstr "voc"
 
 #. Documentation/snippets/quoting-another-voice-with-transposition.ly:69 (variable)
 msgid "quoteTest"
@@ -10170,7 +10139,7 @@ msgstr "original"
 
 #. Documentation/snippets/recorder-fingering-chart.ly:36 (comment)
 msgid "range chart for paetzold contrabass recorder"
-msgstr ""
+msgstr "cuadro de rangos para la flauta dulce contabaja paetzold"
 
 #. Documentation/snippets/redefining-grace-note-global-defaults.ly:64 (variable)
 msgid "startAcciaccaturaMusic"
@@ -10224,61 +10193,53 @@ msgstr "comp"
 
 #. Documentation/snippets/rhythms-headword.ly:23 (comment)
 msgid "Beethoven, Op. 81a"
-msgstr ""
+msgstr "Beethoven, Op. 81a"
 
 #. Documentation/snippets/rhythms-headword.ly:24 (comment)
 msgid "Piano sonata 26 - Das Lebewohl"
-msgstr ""
+msgstr "Sonata para piano núm. 26 - Das Lebewohl"
 
 #. Documentation/snippets/rhythms-headword.ly:25 (comment)
 msgid "Movt II - Abwesenheit"
-msgstr ""
+msgstr "Mov. II - Abwesenheit"
 
 #. Documentation/snippets/rhythms-headword.ly:26 (comment)
 msgid "Measures 31 - 34"
-msgstr ""
+msgstr "Compases 31 a 34"
 
 #. Documentation/snippets/rhythms-headword.ly:33 (comment)
 msgid "\\override SpacingSpanner #'strict-grace-spacing = ##t"
-msgstr ""
+msgstr "\\override SpacingSpanner #'strict-grace-spacing = ##t"
 
 #. Documentation/snippets/satb-choir-template---four-staves.ly:40 (variable)
-#, fuzzy
 msgid "sopranonotes"
-msgstr "sopranos"
+msgstr "notasSoprano"
 
 #. Documentation/snippets/satb-choir-template---four-staves.ly:43 (variable)
-#, fuzzy
 msgid "sopranowords"
 msgstr "letraSoprano"
 
 #. Documentation/snippets/satb-choir-template---four-staves.ly:44 (variable)
-#, fuzzy
 msgid "altonotes"
 msgstr "notasAlto"
 
 #. Documentation/snippets/satb-choir-template---four-staves.ly:47 (variable)
-#, fuzzy
 msgid "altowords"
 msgstr "letraContralto"
 
 #. Documentation/snippets/satb-choir-template---four-staves.ly:48 (variable)
-#, fuzzy
 msgid "tenornotes"
 msgstr "notasTenor"
 
 #. Documentation/snippets/satb-choir-template---four-staves.ly:52 (variable)
-#, fuzzy
 msgid "tenorwords"
 msgstr "letraTenor"
 
 #. Documentation/snippets/satb-choir-template---four-staves.ly:53 (variable)
-#, fuzzy
 msgid "bassnotes"
 msgstr "notasBajo"
 
 #. Documentation/snippets/satb-choir-template---four-staves.ly:57 (variable)
-#, fuzzy
 msgid "basswords"
 msgstr "letraBajo"
 
@@ -10315,41 +10276,34 @@ msgstr ""
 "se simula con una línea de rejilla"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:84 (comment)
-#, fuzzy
 msgid "disable the following line to see the the noteheads while writing the song"
-msgstr ""
-"Deshabilite la línea siguiente para ver las cabezas mientras escribe la "
-"canción"
+msgstr "Deshabilite la línea siguiente para ver las cabezas mientras escribe la canción"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:88 (comment)
 msgid "The beam between 8th-notes is used to draw the push-line"
 msgstr "La barra entre las corcheas se usa para trazar la línea de cerrar"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:89 (comment)
-#, fuzzy
 msgid "How to fast write the push-lines:"
 msgstr "Cuán rápido escribir las líneas de cerrar:"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:90 (comment)
-#, fuzzy
 msgid "1. write repeatedly 'c c c c c c c c |' for the whole length of the song"
-msgstr "1. escribir repetidamente 'c c c c c c c c |' en toda la canción"
+msgstr "1. escriba repetidamente 'c c c c c c c c |' en toda la canción"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:91 (comment)
 msgid "2. uncomment the line \\NoNoteHead"
-msgstr "2. quitar el comentario de la línea \\NoNoteHead"
+msgstr "2. quite el comentario de la línea \\NoNoteHead"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:92 (comment)
 msgid "3. compile"
-msgstr "3. compilar"
+msgstr "3. compile"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:93 (comment)
-#, fuzzy
 msgid "4. Mark the positions on which push/pull changes."
-msgstr "4. Marcar las posiciones en las que cambia el abrir o cerrar"
+msgstr "4. Marque las posiciones en las que cambia el abrir o cerrar"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:94 (comment)
-#, fuzzy
 msgid "In the score-picture click on the position the push- or pull-part starts"
 msgstr ""
 "En la imagen de la partitura pulse sobre la posición en que inician las "
@@ -10372,22 +10326,18 @@ msgid "b) If a pull-part starts there, replace the 'c' by an 's'"
 msgstr "b) Si en ese lugar empieza una parte de abrir, cambie la 'c' por una 's'"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:99 (comment)
-#, fuzzy
 msgid "5. Switch into 'overwrite-mode' by pressing the 'ins' key."
 msgstr "5. Cambie al modo de sobreescritura de texto pulsando la tecla 'ins'."
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:100 (comment)
-#, fuzzy
 msgid "6. For the pull-parts overwrite the 'c' with 's'"
 msgstr "6. Para las partes de abrir sobreescriba la 'c' con 's' "
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:101 (comment)
-#, fuzzy
 msgid "7. For every push-part replace the last 'c' with 'e]'"
 msgstr "7. Para cada parte de cerrar cambie la última 'c' por una 'e]' "
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:102 (comment)
-#, fuzzy
 msgid "8. Switch into 'insert-mode' again"
 msgstr "8. Pase de nuevo al modo de inserción"
 
@@ -10404,9 +10354,8 @@ msgid "10. re-enable the line \\NoNoteHead"
 msgstr "10. rehabilite la línea \\NoNoteHead"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:114 (comment)
-#, fuzzy
 msgid "Accordion melody in tabulator score"
-msgstr "Melodía de acordeón en partitura de tablatura\t\t"
+msgstr "Melodía de acordeón en partitura de tablatura"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:115 (comment)
 msgid "1. Place a copy of the piano melody below"
@@ -10414,7 +10363,6 @@ msgstr "1. Ponga debajo una copia de la melodía de piano"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:116 (comment)
 #. Documentation/snippets/score-for-diatonic-accordion.ly:135 (comment)
-#, fuzzy
 msgid ""
 "2. Separate piano melody into pull- and push-parts according to the "
 "staffTabLine you've already made"
@@ -10432,7 +10380,6 @@ msgstr ""
 "papel de transformación"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:118 (comment)
-#, fuzzy
 msgid "or the macros 'conv2diaton push.bsh' and 'conv2diaton pull.bsh'"
 msgstr "o los macros 'conv2diaton push.bsh' y 'conv2diaton pull.bsh' "
 
@@ -10455,18 +10402,16 @@ msgid "pull 1"
 msgstr "abrir 1"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:124 (comment)
-#, fuzzy
 msgid "<f' bes'>8 <f' a'>8 <d' bes'>8 |"
-msgstr "<f' bes'>8 <f' a'>8 <d' bes'>8 | "
+msgstr "<f' bes'>8 <f' a'>8 <d' bes'>8 |"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:126 (comment)
 msgid "push 2"
 msgstr "cerrar 2"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:127 (comment)
-#, fuzzy
 msgid "<g' c''>4 <f' d''> <g' ees''> <f' a'> |"
-msgstr "<g' c''>4 <f' d''> <g' ees''> <f' a'> | "
+msgstr "<g' c''>4 <f' d''> <g' ees''> <f' a'> |"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:129 (comment)
 msgid "pull 3"
@@ -10477,16 +10422,14 @@ msgid "<f' bes'>2 r8 }"
 msgstr "<f' bes'>2 r8 }"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:133 (variable)
-#, fuzzy
 msgid "AccordionTab"
-msgstr "Acordeón"
+msgstr "TablaturaAcordeón"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:134 (comment)
 msgid "1. Place a copy of the piano melody above"
 msgstr "1. Haga una copia de la melodía de piano de arriba"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:136 (comment)
-#, fuzzy
 msgid ""
 "3. For each line: Double the line. Remark the 1st one (Keeps unchanged as "
 "reference) and then"
@@ -10499,21 +10442,16 @@ msgid "change the second line using the transformation paper"
 msgstr "cambie la segunda línea usando el papel de transformación"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:140 (comment)
-#, fuzzy
 msgid "-"
-msgstr "- "
+msgstr "-"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:149 (comment)
-#, fuzzy
 msgid "The vertical line (simulating a bar-line) in"
-msgstr ""
-"La línea vertical (que simula una divisoria) en el duracionesPentagramaBajo "
-"es una línea de rejilla"
+msgstr "La línea vertical (que simula una divisoria) en"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:150 (comment)
-#, fuzzy
 msgid "the staffBassRhytm is a gridline"
-msgstr "duracionesPentagramaBajo"
+msgstr "el duracionesPentagramaBajo es una línea de rejilla"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:156 (comment)
 msgid "4/4 - tact. How many beats per bar"
@@ -10528,7 +10466,6 @@ msgid "staffVoice"
 msgstr "vozPentagrama"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:166 (context id)
-#, fuzzy
 msgid "astaffvoice"
 msgstr "vozPentagrama"
 
@@ -10537,12 +10474,10 @@ msgid "staffAccordionMel"
 msgstr "pentagramaAcordMelodia"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:182 (comment)
-#, fuzzy
 msgid "Set the accidentals (Vorzeichen) for each note,"
 msgstr "Fijar las alteraciones (Vorzeichen) para cada nota,"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:183 (comment)
-#, fuzzy
 msgid "do not remember them for the rest of the measure."
 msgstr "no recordarlas para el resto del compás."
 
@@ -10559,9 +10494,8 @@ msgid "staffBassRhytm"
 msgstr "duracionesPentagramaBajo"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:207 (context id)
-#, fuzzy
 msgid "staffbass"
-msgstr "pantagrama"
+msgstr "bajoPentagrama"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:208 (comment)
 msgid "This is not a RhythmicStaff  because it must be possible to append lyrics."
@@ -10580,65 +10514,58 @@ msgstr ""
 "está simulada por una rejilla"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:213 (comment)
-#, fuzzy
 msgid "Search for 'grid' in this page to find all related functions"
 msgstr ""
 "Busque por el término 'grid' en esta página para hallar todas las funciones "
 "relacionadas"
 
 #. Documentation/snippets/setting-system-separators.ly:34 (variable)
-#, fuzzy
 msgid "notes"
-msgstr "misNotas"
+msgstr "notas"
 
 #. Documentation/snippets/showing-the-same-articulation-above-and-below-a-note-or-chord.ly:23 (comment)
 msgid "The same as \\flageolet, just a little smaller"
-msgstr ""
+msgstr "Igual que \\flageolet, pero más pequeño"
 
 #. Documentation/snippets/showing-the-same-articulation-above-and-below-a-note-or-chord.ly:33 (comment)
 msgid "The second fermata is ignored!"
-msgstr ""
+msgstr "¡El segundo calderón se ignora!"
 
 #. Documentation/snippets/simultaneous-headword.ly:30 (comment)
-#, fuzzy
 msgid "NR 1.5 Simultaneous notes"
-msgstr "Notas simultáneas"
+msgstr "NR 1.5 Notas simultáneas"
 
 #. Documentation/snippets/simultaneous-headword.ly:32 (comment)
 msgid "L. v. Beethoven, Op. 111"
-msgstr ""
+msgstr "L. v. Beethoven, Op. 111"
 
 #. Documentation/snippets/simultaneous-headword.ly:33 (comment)
 msgid "Piano sonata 32"
-msgstr ""
+msgstr "Sonata para piano núm. 32"
 
 #. Documentation/snippets/simultaneous-headword.ly:34 (comment)
 msgid "Movt II - Arietta - Adagio molto semplice e cantabile"
-msgstr ""
+msgstr "Movto. II - Arietta - Adagio molto semplice e cantabile"
 
 #. Documentation/snippets/simultaneous-headword.ly:35 (comment)
 msgid "measures 108 - 118"
-msgstr ""
+msgstr "compases 108 a 118"
 
 #. Documentation/snippets/simultaneous-headword.ly:47 (variable)
-#, fuzzy
 msgid "trillFlat"
-msgstr "trino"
+msgstr "trinoBemol"
 
 #. Documentation/snippets/simultaneous-headword.ly:67 (comment)
-#, fuzzy
 msgid "RH voice 1"
-msgstr "voz"
+msgstr "Voz MD 1"
 
 #. Documentation/snippets/simultaneous-headword.ly:144 (comment)
-#, fuzzy
 msgid "RH voice 2"
-msgstr "voz"
+msgstr "Voz MD 2"
 
 #. Documentation/snippets/simultaneous-headword.ly:219 (comment)
-#, fuzzy
 msgid "LH staff"
-msgstr "pantagrama"
+msgstr "pentragrama MI"
 
 #. Documentation/snippets/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:26 (variable)
 msgid "verseI"
@@ -10649,18 +10576,16 @@ msgid "verseII"
 msgstr "estrofaII"
 
 #. Documentation/snippets/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:37 (comment)
-#, fuzzy
 msgid "insert chords for chordnames and fretboards here"
-msgstr "inserte aquí los acordes para chordnames"
+msgstr "inserte aquí los acordes para chordnames y fretboards"
 
 #. Documentation/snippets/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:41 (variable)
 msgid "staffMelody"
 msgstr "melodiaPentagrama"
 
 #. Documentation/snippets/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:44 (comment)
-#, fuzzy
 msgid "Type notes for melody here"
-msgstr "Teclee aquí las notas y los marcados de diagramas de posiciones"
+msgstr "Teclee aquí las notas de la melodía"
 
 #. Documentation/snippets/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:54 (context id)
 msgid "voiceMelody"
@@ -10668,26 +10593,25 @@ msgstr "melodiaVoz"
 
 #. Documentation/snippets/staff-headword.ly:31 (comment)
 msgid "title = \\\"Le Lac des Cygnes\\\""
-msgstr ""
+msgstr "title = \\\"Le Lac des Cygnes\\\""
 
 #. Documentation/snippets/staff-headword.ly:32 (comment)
 msgid "subtitle = \\\"Danse Napolitaine\\\""
-msgstr ""
+msgstr "subtitle = \\\"Danse Napolitaine\\\""
 
 #. Documentation/snippets/staff-headword.ly:33 (comment)
 msgid "composer = \\\"Piotr Ilitch Tchaïkovski\\\""
-msgstr ""
+msgstr "composer = \\\"Piotr Ilitch Tchaïkovski\\\""
 
 #. Documentation/snippets/staff-headword.ly:34 (comment)
 msgid "arranger = \\\"arr. Laurence Sardain\\\""
-msgstr ""
+msgstr "arranger = \\\"arr. Laurence Sardain\\\""
 
 #. Documentation/snippets/staff-headword.ly:35 (comment)
 msgid "footer = \\\"Mutopia-2006/12/22-896\\\""
-msgstr ""
+msgstr "footer = \\\"Mutopia-2006/12/22-896\\\""
 
 #. Documentation/snippets/staff-headword.ly:38 (variable)
-#, fuzzy
 msgid "trompette"
 msgstr "trompeta"
 
@@ -10695,26 +10619,23 @@ msgstr "trompeta"
 #. Documentation/snippets/staff-headword.ly:98 (context id)
 #. Documentation/snippets/staff-headword.ly:116 (context id)
 msgid "tambourin"
-msgstr ""
+msgstr "pandereta"
 
 #. Documentation/snippets/staff-headword.ly:59 (variable)
 msgid "tambourinMidi"
-msgstr ""
+msgstr "panderetaMidi"
 
 #. Documentation/snippets/staff-headword.ly:102 (context id)
-#, fuzzy
 msgid "prima"
-msgstr "primeros"
+msgstr "prima"
 
 #. Documentation/snippets/staff-headword.ly:104 (context id)
-#, fuzzy
 msgid "uppera"
-msgstr "superior"
+msgstr "superiorA"
 
 #. Documentation/snippets/staff-headword.ly:105 (context id)
-#, fuzzy
 msgid "lowera"
-msgstr "inferior"
+msgstr "inferiorA"
 
 #. Documentation/snippets/stemlets.ly:36 (comment)
 msgid "N.B. use Score.Stem to set for the whole score."
@@ -10722,7 +10643,7 @@ msgstr "Nota: use Score.Stem para establecerlo para la partitura entera."
 
 #. Documentation/snippets/string-number-extender-lines.ly:17 (variable)
 msgid "stringNumberSpanner"
-msgstr ""
+msgstr "extensorNumeroCuerda"
 
 #. Documentation/snippets/string-quartet-template-simple.ly:55 (variable)
 msgid "violinOne"
@@ -10842,25 +10763,23 @@ msgstr "ignorar"
 
 #. Documentation/snippets/text-headword.ly:29 (comment)
 msgid "NR 1.8 Text"
-msgstr ""
+msgstr "NR 1.8 Texto"
 
 #. Documentation/snippets/text-headword.ly:31 (comment)
 msgid "L. v. Beethoven, Op. 110"
-msgstr ""
+msgstr "L. v. Beethoven, Op. 110"
 
 #. Documentation/snippets/text-headword.ly:32 (comment)
 msgid "Piano sonata 31"
-msgstr ""
+msgstr "Sonata para piano núm. 31"
 
 #. Documentation/snippets/text-headword.ly:33 (comment)
-#, fuzzy
 msgid "measures 1 - 7"
-msgstr "dos compases"
+msgstr "compases 1 a 7"
 
 #. Documentation/snippets/text-headword.ly:45 (comment)
-#, fuzzy
 msgid "RH staff"
-msgstr "pantagrama"
+msgstr "pentagrama MD"
 
 #. Documentation/snippets/three-sided-box.ly:17 (comment)
 msgid "New command to add a three sided box, with sides north, west and south"
@@ -10873,12 +10792,10 @@ msgid "Based on the box-stencil command defined in scm/stencil.scm"
 msgstr "Basado en la instrucción box-stencil definida en scm/stencil.scm"
 
 #. Documentation/snippets/three-sided-box.ly:19 (comment)
-#, fuzzy
 msgid "Note that \\\";;\\\" is used to comment a line in Scheme"
 msgstr "Observe que utilizamos \\\";\\\" para comentar una línea en Scheme"
 
 #. Documentation/snippets/three-sided-box.ly:33 (comment)
-#, fuzzy
 msgid "The corresponding markup command, based on the \\box command defined"
 msgstr ""
 "La instrucción de marcado correspondiente, basada en la instrucción \\box "
@@ -10894,16 +10811,15 @@ msgstr "Probarla:"
 
 #. Documentation/snippets/time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly:57 (comment)
 msgid "Change the style permanently"
-msgstr ""
+msgstr "Cambiar el estilo permanentemente"
 
 #. Documentation/snippets/time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly:63 (comment)
-#, fuzzy
 msgid "Revert to default style:"
-msgstr "Retornar al estilo predeterminado"
+msgstr "Retornar al estilo predeterminado:"
 
 #. Documentation/snippets/time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly:67 (comment)
 msgid "single-digit style only for the next time signature"
-msgstr ""
+msgstr "estilo de un solo dígito para el siguiente compás únicamente"
 
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:36 (comment)
 msgid "make the staff lines invisible on staves"
@@ -10942,7 +10858,6 @@ msgid "between the lyrics."
 msgstr "entre las sílabas del texto"
 
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:272 (comment)
-#, fuzzy
 msgid "the next three instructions keep the lyrics between the bar lines"
 msgstr ""
 "las tres instrucciones siguientes hacen que la letra no choque con las "
@@ -10985,211 +10900,184 @@ msgid "Return to the normal clef:"
 msgstr "Volver a la clave normal:"
 
 #. Documentation/snippets/unfretted-headword.ly:40 (comment)
-#, fuzzy
 msgid "Abreviations"
-msgstr "Articulaciones"
+msgstr "Abreviaturas"
 
 #. Documentation/snippets/unfretted-headword.ly:43 (variable)
 msgid "db"
-msgstr ""
+msgstr "db"
 
 #. Documentation/snippets/unfretted-headword.ly:44 (variable)
 msgid "dub"
-msgstr ""
+msgstr "dub"
 
 #. Documentation/snippets/unfretted-headword.ly:45 (variable)
 msgid "dubetc"
-msgstr ""
+msgstr "dubetc"
 
 #. Documentation/snippets/unfretted-headword.ly:47 (variable)
 msgid "ub"
-msgstr ""
+msgstr "ub"
 
 #. Documentation/snippets/unfretted-headword.ly:48 (variable)
 msgid "udb"
-msgstr ""
+msgstr "udb"
 
 #. Documentation/snippets/unfretted-headword.ly:49 (variable)
 msgid "udbetc"
-msgstr ""
+msgstr "udbetc"
 
 #. Documentation/snippets/unfretted-headword.ly:51 (variable)
 msgid "fermaTa"
-msgstr ""
+msgstr "fermaTa"
 
 #. Documentation/snippets/unfretted-headword.ly:53 (variable)
-#, fuzzy
 msgid "accel"
-msgstr "acento"
+msgstr "accel"
 
 #. Documentation/snippets/unfretted-headword.ly:54 (variable)
-#, fuzzy
 msgid "ritar"
-msgstr "Guitarra"
+msgstr "ritar"
 
 #. Documentation/snippets/unfretted-headword.ly:60 (comment)
-#, fuzzy
 msgid "Strings"
-msgstr "Canciones"
+msgstr "Cuerdas"
 
 #. Documentation/snippets/unfretted-headword.ly:63 (variable)
 msgid "svib"
-msgstr ""
+msgstr "svib"
 
 #. Documentation/snippets/unfretted-headword.ly:64 (variable)
 msgid "pvib"
-msgstr ""
+msgstr "pvib"
 
 #. Documentation/snippets/unfretted-headword.ly:65 (variable)
 msgid "mvib"
-msgstr ""
+msgstr "mvib"
 
 #. Documentation/snippets/unfretted-headword.ly:66 (variable)
-#, fuzzy
 msgid "sulp"
-msgstr "slap"
+msgstr "sulp"
 
 #. Documentation/snippets/unfretted-headword.ly:67 (variable)
-#, fuzzy
 msgid "norm"
-msgstr "normal"
+msgstr "norm"
 
 #. Documentation/snippets/unfretted-headword.ly:69 (variable)
-#, fuzzy
 msgid "quatre"
-msgstr "negra"
+msgstr "quatre"
 
 #. Documentation/snippets/unfretted-headword.ly:73 (comment)
-#, fuzzy
 msgid "Shifting Notes"
 msgstr "Saltar notas"
 
 #. Documentation/snippets/unfretted-headword.ly:76 (variable)
-#, fuzzy
 msgid "shift"
-msgstr "quinta"
+msgstr "shift"
 
 #. Documentation/snippets/unfretted-headword.ly:77 (variable)
 msgid "shifta"
-msgstr ""
+msgstr "shifta"
 
 #. Documentation/snippets/unfretted-headword.ly:78 (variable)
 msgid "shiftb"
-msgstr ""
+msgstr "shiftb"
 
 #. Documentation/snippets/unfretted-headword.ly:82 (comment)
-#, fuzzy
 msgid "Hairpin"
-msgstr "regulador"
+msgstr "Regulador"
 
 #. Documentation/snippets/unfretted-headword.ly:85 (comment)
 msgid "aniente        = \\\"a niente\\\""
-msgstr ""
+msgstr "aniente        = \\\"a niente\\\""
 
 #. Documentation/snippets/unfretted-headword.ly:86 (variable)
-#, fuzzy
 msgid "aniente"
-msgstr "al niente"
+msgstr "aniente"
 
 #. Documentation/snippets/unfretted-headword.ly:93 (variable)
-#, fuzzy
 msgid "tupletbp"
-msgstr "grupo especial"
+msgstr "tupletbp"
 
 #. Documentation/snippets/unfretted-headword.ly:97 (comment)
 msgid "Flag [Note Head - Stem]"
-msgstr ""
+msgstr "Corchete [Cabeza - Plica]"
 
 #. Documentation/snippets/unfretted-headword.ly:100 (variable)
-#, fuzzy
 msgid "noflag"
-msgstr "bemol"
+msgstr "sinCorchete"
 
 #. Documentation/snippets/unfretted-headword.ly:103 (comment)
-#, fuzzy
 msgid "Functions"
-msgstr "Funciones vacías"
+msgstr "Funciones"
 
 #. Documentation/snippets/unfretted-headword.ly:118 (comment)
-#, fuzzy
 msgid "Instruments"
-msgstr "Nombres de instrumentos"
+msgstr "Instrumentos"
 
 #. Documentation/snippets/unfretted-headword.ly:121 (variable)
-#, fuzzy
 msgid "ViolinSolo"
-msgstr "violinuno"
+msgstr "SoloViolin"
 
 #. Documentation/snippets/unfretted-headword.ly:131 (comment)
-#, fuzzy
 msgid "Measure 1"
-msgstr "Repeticiones de compás"
+msgstr "Compás 1"
 
 #. Documentation/snippets/unfretted-headword.ly:141 (comment)
-#, fuzzy
 msgid "Measure 2"
-msgstr "Repeticiones de compás"
+msgstr "Compás 2"
 
 #. Documentation/snippets/unfretted-headword.ly:151 (comment)
-#, fuzzy
 msgid "Measure 3"
-msgstr "Repeticiones de compás"
+msgstr "Compás 3"
 
 #. Documentation/snippets/unfretted-headword.ly:159 (comment)
-#, fuzzy
 msgid "Measure 4"
-msgstr "Repeticiones de compás"
+msgstr "Compás 4"
 
 #. Documentation/snippets/unfretted-headword.ly:168 (comment)
-#, fuzzy
 msgid "Measure 5"
-msgstr "Repeticiones de compás"
+msgstr "Compás 5"
 
 #. Documentation/snippets/unfretted-headword.ly:176 (comment)
-#, fuzzy
 msgid "Measure 6"
-msgstr "Repeticiones de compás"
+msgstr "Compás 6"
 
 #. Documentation/snippets/unfretted-headword.ly:178 (comment)
 msgid "\\featherDurations #(ly:make-moment 2 3)"
-msgstr ""
+msgstr "\\featherDurations #(ly:make-moment 2 3)"
 
 #. Documentation/snippets/unfretted-headword.ly:185 (comment)
-#, fuzzy
 msgid "Measure 7"
-msgstr "Repeticiones de compás"
+msgstr "Compás 7"
 
 #. Documentation/snippets/unfretted-headword.ly:194 (comment)
-#, fuzzy
 msgid "Measure 8"
-msgstr "Repeticiones de compás"
+msgstr "Compás 8"
 
 #. Documentation/snippets/unfretted-headword.ly:199 (comment)
-#, fuzzy
 msgid "Measure 9"
-msgstr "Repeticiones de compás"
+msgstr "Compás 9"
 
 #. Documentation/snippets/unfretted-headword.ly:210 (comment)
-#, fuzzy
 msgid "Score"
-msgstr "partituraOriginal"
+msgstr "Partitura"
 
 #. Documentation/snippets/using-alternative-flag-styles.ly:31 (variable)
-#, fuzzy
 msgid "testnotes"
-msgstr "notas_estrofa"
+msgstr "notasPrueba"
 
 #. Documentation/snippets/using-ly-grob-object-to-access-grobs-with--tweak.ly:113 (comment)
 msgid "display grobs for each note head:"
-msgstr ""
+msgstr "imprimir grobs para todas las cabezas:"
 
 #. Documentation/snippets/using-ly-grob-object-to-access-grobs-with--tweak.ly:114 (comment)
 msgid "\\override NoteHead #'before-line-breaking = #display-grobs"
-msgstr ""
+msgstr "\\override NoteHead #'before-line-breaking = #display-grobs"
 
 #. Documentation/snippets/using-ly-grob-object-to-access-grobs-with--tweak.ly:116 (comment)
 msgid "or just for one:"
-msgstr ""
+msgstr "o sólo para una:"
 
 #. Documentation/snippets/using-postscript-to-generate-special-note-head-shapes.ly:28 (variable)
 msgid "parallelogram"
@@ -11245,9 +11133,8 @@ msgid "portuguese"
 msgstr "portugues"
 
 #. Documentation/snippets/vertical-line-as-a-baroque-articulation-mark.ly:19 (variable)
-#, fuzzy
 msgid "upline"
-msgstr "línea"
+msgstr "lineaArriba"
 
 #. Documentation/snippets/vertically-centered-common-lyrics.ly:20 (variable)
 msgid "leftbrace"
@@ -11298,7 +11185,7 @@ msgstr "letraSoprano"
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:109 (comment)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:118 (comment)
 msgid "This is needed for lyrics above a staff"
-msgstr ""
+msgstr "Necesario para la letra por encima del pentagrama"
 
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:95 (comment)
 msgid "we could remove the line about this with the line below, since we want"
@@ -11313,131 +11200,117 @@ msgstr ""
 "formas."
 
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:97 (comment)
-#, fuzzy
 msgid "\\new Lyrics \\lyricsto \\\"altos\\\" \\altoWords"
-msgstr "\\new Lyrics \\lyricsto altos \\altoWords"
+msgstr "\\new Lyrics \\lyricsto \\\"altos\\\" \\altoWords"
 
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:106 (comment)
 msgid "again, we could replace the line above this with the line below."
 msgstr "de nuevo podríamos sustituir la línea anterior con la línea siguiente."
 
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:107 (comment)
-#, fuzzy
 msgid "\\new Lyrics \\lyricsto \\\"basses\\\" \\bassWords"
-msgstr "\\new Lyrics \\lyricsto basses \\bassWords"
+msgstr "\\new Lyrics \\lyricsto \\\"basses\\\" \\bassWords"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:64 (comment)
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:77 (comment)
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:92 (comment)
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:108 (comment)
-#, fuzzy
 msgid "refrain"
-msgstr "estribilloB"
+msgstr "estribillo"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:70 (variable)
-#, fuzzy
 msgid "SoloNotes"
-msgstr "notasTrompa"
+msgstr "notasSolista"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:81 (variable)
-#, fuzzy
 msgid "SoloLyrics"
-msgstr "LetraSopranoDos"
+msgstr "letraSolista"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:86 (variable)
-#, fuzzy
 msgid "SopranoNotes"
-msgstr "notasTrompa"
+msgstr "notasSoprano"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:97 (variable)
-#, fuzzy
 msgid "SopranoLyrics"
 msgstr "letraSoprano"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:102 (variable)
-#, fuzzy
 msgid "BassNotes"
 msgstr "notasBajo"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:113 (variable)
-#, fuzzy
 msgid "BassLyrics"
 msgstr "letraBajo"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:120 (context id)
-#, fuzzy
 msgid "SoloVoice"
-msgstr "vozSuperior"
+msgstr "vozSolista"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:124 (context id)
-#, fuzzy
 msgid "SopranoVoice"
-msgstr "musicaSoprano"
+msgstr "vozSoprano"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:127 (context id)
-#, fuzzy
 msgid "BassVoice"
-msgstr "MusicaBajo"
+msgstr "vozBajo"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:134 (comment)
 msgid "these lines prevent empty staves from being printed"
-msgstr ""
+msgstr "estas líneas evitan que se impriman los pentagramas vacíos"
 
 #. Documentation/snippets/vocal-ensemble-template.ly:107 (comment)
 #. Documentation/snippets/vocal-ensemble-template.ly:122 (comment)
 msgid "this is needed for lyrics above a staff"
-msgstr ""
+msgstr "es necesario para la letra por encima del pentagrama"
 
 #. Documentation/snippets/vocal-headword.ly:29 (comment)
 msgid "L. van Beethoven. Symphony No. 9 in D minor, op.125; Finale"
-msgstr ""
+msgstr "L. van Beethoven. Sinfonía Núm. 9 en Re menor, op.125; Finale"
 
 #. Documentation/snippets/vocal-headword.ly:30 (comment)
 msgid "mm. 216 -- 236"
-msgstr ""
+msgstr "cc. 216 a 236"
 
 #. Documentation/snippets/vocal-headword.ly:31 (comment)
 msgid "Text: F. von Schiller"
-msgstr ""
+msgstr "Texto: F. von Schiller"
 
 #. Documentation/snippets/vocal-headword.ly:36 (comment)
-#, fuzzy
 msgid "make first bar number be shown"
-msgstr "Habilitar la impresión del número del primer compás"
+msgstr "habilitar la impresión del número del primer compás"
 
 #. Documentation/snippets/vocal-headword.ly:38 (comment)
 msgid "\\tempo \\\"Presto\\\""
-msgstr ""
+msgstr "\\tempo \\\"Presto\\\""
 
 #. Documentation/snippets/vocal-headword.ly:39 (comment)
 msgid "\\compressFullBarRests  R2.*8"
-msgstr ""
+msgstr "\\compressFullBarRests  R2.*8"
 
 #. Documentation/snippets/vocal-headword.ly:61 (comment)
-#, fuzzy
 msgid "put fermata closer to staff"
-msgstr "esté más cerca del pentagrama"
+msgstr "poner calderón más cerca del pentagrama"
 
 #. Documentation/snippets/vocal-headword.ly:65 (comment)
 msgid "\\time 4/4 \\tempo \\\"Allegro assai\\\""
-msgstr ""
+msgstr "\\time 4/4 \\tempo \\\"Allegro assai\\\""
 
 #. Documentation/snippets/vocal-headword.ly:66 (comment)
 #. Documentation/snippets/vocal-headword.ly:68 (comment)
 msgid "R1"
-msgstr ""
+msgstr "R1"
 
 #. Documentation/snippets/vocal-headword.ly:67 (comment)
 msgid "e''4^\\f d r2"
-msgstr ""
+msgstr "e''4^\\f d r2"
 
 #. Documentation/snippets/vocal-headword.ly:69 (comment)
 msgid "e4( ^\\f d2) a8([ g)]"
-msgstr ""
+msgstr "e4( ^\\f d2) a8([ g)]"
 
 #. Documentation/snippets/vocal-headword.ly:75 (comment)
 msgid "Freu -- de, Freu -- de,__"
-msgstr ""
+msgstr "Freu -- de, Freu -- de,__"
 
 #. Documentation/snippets/volta-multi-staff.ly:17 (variable)
 msgid "voltaMusic"
@@ -11449,11 +11322,11 @@ msgstr "voltaAdLib"
 
 #. Documentation/snippets/wind-headword.ly:21 (comment)
 msgid "Tchaikovsky"
-msgstr ""
+msgstr "Tchaikovsky"
 
 #. Documentation/snippets/wind-headword.ly:22 (comment)
 msgid "Nutcracker Suite, VII Dance of the Merlitons"
-msgstr ""
+msgstr "Nutcracker Suite, VII Dance of the Merlitons"
 
 msgid "Up:"
 msgstr "Arriba:"
