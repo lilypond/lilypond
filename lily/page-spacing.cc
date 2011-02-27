@@ -19,6 +19,7 @@
 
 #include "page-spacing.hh"
 
+#include "international.hh"
 #include "matrix.hh"
 #include "page-breaking.hh"
 #include "warn.hh"
@@ -59,11 +60,31 @@ Page_spacing::append_system (const Line_details &line)
       first_line_ = line;
     }
 
+  rod_height_ += account_for_footnotes (line);
   inverse_spring_k_ += line.inverse_hooke_;
 
   last_line_ = line;
 
   calc_force ();
+}
+
+Real
+Page_spacing::account_for_footnotes (Line_details const &line)
+{
+  Real footnote_height = 0.0;
+  for (vsize i = 0; i < line.footnotes_.size (); i++)
+    {
+      footnote_height += (has_footnotes_
+                          ? 0.0
+                          : (breaker_->footnote_separator_stencil_height ()
+                             + breaker_->footnote_padding ()));
+
+      has_footnotes_ = true;
+      Interval extent = line.footnotes_[i]->extent (Y_AXIS);
+      footnote_height += extent[UP] - extent[DOWN];
+      footnote_height += breaker_->footnote_padding ();
+    }  
+  return footnote_height;
 }
 
 void
@@ -77,7 +98,7 @@ Page_spacing::prepend_system (const Line_details &line)
   rod_height_ -= first_line_.full_height ();
   rod_height_ += first_line_.tallness_;
   rod_height_ += line.full_height();
-
+  rod_height_ += account_for_footnotes (line);
   inverse_spring_k_ += line.inverse_hooke_;
 
   first_line_ = line;
@@ -90,6 +111,7 @@ Page_spacing::clear ()
 {
   force_ = rod_height_ = spring_len_ = 0;
   inverse_spring_k_ = 0;
+  has_footnotes_ = false;
 }
 
 

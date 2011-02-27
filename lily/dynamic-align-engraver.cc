@@ -37,6 +37,7 @@ class Dynamic_align_engraver : public Engraver
   DECLARE_TRANSLATOR_LISTENER (break_span);
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (dynamic);
+  DECLARE_ACKNOWLEDGER (footnote_spanner);
   DECLARE_END_ACKNOWLEDGER (dynamic);
 
 protected:
@@ -63,6 +64,7 @@ Dynamic_align_engraver::Dynamic_align_engraver ()
 
 ADD_ACKNOWLEDGER (Dynamic_align_engraver, dynamic);
 ADD_ACKNOWLEDGER (Dynamic_align_engraver, note_column);
+ADD_ACKNOWLEDGER (Dynamic_align_engraver, footnote_spanner);
 ADD_END_ACKNOWLEDGER (Dynamic_align_engraver, dynamic);
 
 void
@@ -78,6 +80,17 @@ Dynamic_align_engraver::acknowledge_end_dynamic (Grob_info info)
 {
   if (Spanner::has_interface (info.grob ()))
     ended_.push_back (info.spanner ());
+}
+
+void
+Dynamic_align_engraver::acknowledge_footnote_spanner (Grob_info info)
+{
+  Grob *parent = unsmob_grob (info.grob ()->get_property ("parent-spanner"));
+  if (line_ && parent
+      && parent->internal_has_interface (ly_symbol2scm ("dynamic-interface"))
+      && (scm_to_int (line_->get_property ("direction"))
+          * robust_scm2double (info.grob ()->get_property ("Y-offset"), 0.0) > 0.0)) {
+    Axis_group_interface::add_element (line_, info.grob ());message ("ADD"); }
 }
 
 void

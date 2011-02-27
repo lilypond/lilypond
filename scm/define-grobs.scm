@@ -177,6 +177,8 @@
 
     (BalloonTextItem
      . (
+        (annotation-balloon . #t)
+        (annotation-line . #t)
 	(stencil . ,ly:balloon-interface::print)
 	(text . ,(grob::calc-property-by-copy 'text))
 	(X-offset . ,(grob::calc-property-by-copy 'X-offset))
@@ -862,6 +864,35 @@
 				side-position-interface
 				text-interface
 				text-script-interface))))))
+
+    (Footnote
+     . (
+        (annotation-balloon . #f)
+        (annotation-line . #t)
+	(stencil . ,ly:balloon-interface::print)
+	(text . ,(grob::calc-property-by-copy 'text))
+	(X-offset . ,(grob::calc-property-by-copy 'X-offset))
+	(Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
+	(meta . ((class . Item)
+		 (interfaces . (balloon-interface
+				footnote-interface
+				font-interface
+				text-interface))))))
+
+    (FootnoteSpanner
+     . (
+        (annotation-balloon . #f)
+        (annotation-line . #t)
+        (footnote-text . #f)
+	(stencil . ,ly:balloon-interface::print-spanner)
+	(text . ,(grob::calc-property-by-copy 'text))
+        (X-offset . ,(grob::calc-property-by-copy 'X-offset))
+	(Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
+	(meta . ((class . Spanner)
+		 (interfaces . (balloon-interface
+				footnote-spanner-interface
+				font-interface
+				text-interface))))))
 
     (FretBoard
      . (

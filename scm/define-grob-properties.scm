@@ -48,6 +48,8 @@ be created below this bar line.")
      (alteration-alist ,list? "List of @code{(@var{pitch}
 . @var{accidental})} pairs for key signature.")
      (annotation ,string? "Annotate a grob for debug purposes.")
+     (annotation-balloon ,boolean? "Draw a balloon around an annotation.")
+     (annotation-line ,boolean? "Draw a line from an annotation.")
      (arpeggio-direction ,ly:dir? "If set, put an arrow on the
 arpeggio squiggly line.")
      (arrow-length ,number? "Arrow length.")
@@ -293,6 +295,7 @@ include @code{upright}, @code{italic}, @code{caps}.")
 @code{-1} is smaller, @code{+1} is bigger.  Each step of@tie{}1 is
 approximately 12% larger; 6@tie{}steps are exactly a factor@tie{}2
 larger.  Fractional values are allowed.")
+     (footnote-text ,markup? "A footnote for the grob.")
      (force-hshift ,number? "This specifies a manual shift for notes
 in collisions.  The unit is the note head width of the first voice
 note.  This is used by @rinternals{note-collision-interface}.")
@@ -731,6 +734,10 @@ slashes in percent repeat glyphs.  Larger values bring the two
 elements closer together.")
      (slope ,number? "The slope of this object.")
      (slur-padding ,number? "Extra distance between slur and script.")
+     (spanner-to-annotate ,integer? "The number of a spanner in a
+spanner's broken spanner list to annotate.  Values less than 0 or
+greater than the number of broken spanners will be wrapped modulo the
+number of spanners.")
      (space-alist ,list? "A table that specifies distances between
 prefatory items, like clef and time-signature.  The format is an alist
 of spacing tuples: @code{(@var{break-align-symbol} @var{type}

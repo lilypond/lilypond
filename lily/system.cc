@@ -35,6 +35,7 @@
 #include "pointer-group-interface.hh"
 #include "skyline-pair.hh"
 #include "staff-symbol-referencer.hh"
+#include "text-interface.hh"
 #include "warn.hh"
 
 System::System (System const &src)
@@ -162,7 +163,7 @@ System::do_break_substitution_and_fixup_refpoints ()
 	  Grob *g = all_elts[j];
 	  g->fixup_refpoint ();
 	}
-
+        
       count += all_elts.size ();
     }
 
@@ -227,6 +228,61 @@ System::get_paper_systems ()
 }
 
 void
+System::populate_footnote_grob_vector ()
+{
+  extract_grob_set (this, "all-elements", all_elts);
+  for (vsize i = 0; i < all_elts.size (); i++)
+    {
+      if ((all_elts[i]->name () == "Footnote") || (all_elts[i]->name () == "FootnoteSpanner"))
+        footnote_grobs_.push_back (all_elts[i]);
+    }
+  sort (footnote_grobs_.begin (), footnote_grobs_.end (), Grob::less);
+
+}
+
+vector<Stencil *>
+System::get_footnotes_in_range (vsize st, vsize end)
+{
+  vector<Stencil *> out;
+  if (footnote_grobs_.size () == 0)
+    populate_footnote_grob_vector ();
+
+  for (vsize j = 0; j < footnote_grobs_.size (); j++)
+    {
+      if (footnote_grobs_[j]->spanned_rank_interval ()[LEFT] < (int)st)
+        continue;
+      if (footnote_grobs_[j]->spanned_rank_interval ()[LEFT] >= (int)end)
+        break;
+      SCM footnote_markup = footnote_grobs_[j]->get_property ("footnote-text");
+
+      if (!Text_interface::is_markup (footnote_markup))
+        continue;
+
+      SCM props = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
+                              pscore_->layout ()->self_scm ());
+
+      SCM footnote_stl = Text_interface::interpret_markup (pscore_->layout ()->self_scm (),
+                                                           props, footnote_markup);
+
+      Stencil *footnote_stencil = unsmob_stencil (footnote_stl);
+      out.push_back (footnote_stencil);
+    }
+
+  return out;
+}
+
+Stencil
+System::make_footnote_stencil (Real padding)
+{
+  Stencil mol;
+
+  for (vsize i = 0; i < footnotes_.size (); i++)
+    mol.add_at_edge (Y_AXIS, DOWN, *footnotes_[i], padding);
+
+  return mol;
+}
+
+void
 System::break_into_pieces (vector<Column_x_positions> const &breaking)
 {
   for (vsize i = 0; i < breaking.size (); i++)
@@ -241,6 +297,8 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
       int end = Paper_column::get_rank (c.back ());
       Interval iv (pure_height (this, st, end));
       system->set_property ("pure-Y-extent", ly_interval2scm (iv));
+
+      system->footnotes_ = get_footnotes_in_range (st, end);
 
       system->set_bound (LEFT, c[0]);
       system->set_bound (RIGHT, c.back ());

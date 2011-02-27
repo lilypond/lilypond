@@ -34,6 +34,7 @@ defined in the output modules (@file{output-*.scm})."
     ellipse
     embedded-ps
     embedded-svg
+    footnote
     glyph-string
     grob-cause
     named-glyph

@@ -534,6 +534,7 @@ automatically when an output definition (a @code{\score} or
   \consists "Stanza_number_align_engraver"
   \consists "Bar_number_engraver"
   \consists "Parenthesis_engraver"
+  \consists "Footnote_engraver"
 
   \defaultchild "Staff"
 

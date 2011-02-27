@@ -532,6 +532,9 @@ Paper_book::get_system_specs ()
 	    		  list == texts? SCM_BOOL_T : SCM_BOOL_F);
 
 	      paper_system_set_stencil (ps, *unsmob_stencil (t));
+	      
+	      SCM footnotes = get_footnotes (unsmob_stencil (t)->expr ());
+	      ps->set_property ("footnotes", scm_reverse (footnotes));
 	      ps->set_property ("is-title", SCM_BOOL_T);
 	      if (list != texts)
 		/* For each markup other than the first, place it as closely as

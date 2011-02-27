@@ -27,6 +27,46 @@ make_paper_system (SCM immutable_init)
   return prob;
 }
 
+SCM
+get_footnotes (SCM expr)
+{
+  if (!scm_is_pair (expr))
+    return SCM_EOL;
+
+  SCM head = scm_car (expr);
+
+  if (head == ly_symbol2scm ("delay-stencil-evaluation"))
+    {
+      // we likely need to do something here...just don't know what...
+      return SCM_EOL;
+    }
+  
+  if (head == ly_symbol2scm ("combine-stencil"))
+    {
+      SCM out = SCM_EOL;
+      for (SCM x = scm_cdr (expr); scm_is_pair (x); x = scm_cdr (x))
+        {
+          SCM footnote = get_footnotes (scm_car (x));
+          if (scm_is_pair (footnote))
+            {
+              for (SCM y = scm_reverse (footnote); scm_is_pair (y); y = scm_cdr (y))
+                out = scm_cons (scm_car (y), out);
+            }
+          else if (SCM_EOL != footnote)
+            out = scm_cons (footnote, out);
+        }
+      return out;
+    }
+  if (head == ly_symbol2scm ("translate-stencil"))
+    return get_footnotes (scm_caddr (expr));
+
+  if (head == ly_symbol2scm ("footnote"))
+    return scm_cadr (expr);
+
+  return SCM_EOL;
+}
+
+
 void
 paper_system_set_stencil (Prob *prob, Stencil s)
 {
