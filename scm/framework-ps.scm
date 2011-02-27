@@ -263,7 +263,7 @@
 	    (dir-helper dir (cons e lst)))))
     (reverse (dir-helper (opendir dir-name) '())))
 
-  (define (handle-mac-font name filename)
+  (define (handle-mac-font name file-name)
     (let* ((dir-name (tmpnam))
 	   (files '())
 	   (status 0)
@@ -291,7 +291,7 @@
 	  (begin
 	    (set! embed "% failed\n")
 	    (ly:warning (_ "cannot extract file matching ~a from ~a")
-			name filename)))
+			name file-name)))
       embed))
 
   (define (font-file-as-ps-string name file-name font-index)
