@@ -74,6 +74,8 @@ Beam_collision_engraver::stop_translation_timestep ()
           break;
         }
 
+  vsize orig_size = active_beams_.size ();
+
   for (vsize i=0; i < signaled_beams_.size (); i++)
     active_beams_.push_back (signaled_beams_[i]);
 
@@ -92,14 +94,8 @@ Beam_collision_engraver::stop_translation_timestep ()
   covered_grobs_.clear ();
 
   for (vsize i = 0; i < signaled_beams_.size (); i++)
-    for (vsize j = 0; j < active_beams_.size (); j++)
-      {
-        Grob *g = signaled_beams_[i];
-        if (g == active_beams_[j])
-          continue;
-
-        Pointer_group_interface::add_grob (active_beams_[j], ly_symbol2scm ("covered-grobs"), g);
-      }
+    for (vsize j = 0; j < orig_size; j++)
+      Pointer_group_interface::add_grob (active_beams_[j], ly_symbol2scm ("covered-grobs"), signaled_beams_[i]);
 
   signaled_beams_.clear ();
 
