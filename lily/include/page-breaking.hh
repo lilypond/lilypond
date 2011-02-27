@@ -124,8 +124,6 @@ public:
   Real page_height (int page_number, bool last) const;
   Real paper_height () const;
   vsize system_count () const;
-  Real footnote_separator_stencil_height () const;
-  Real footnote_padding () const;
   Real line_count_penalty (int line_count) const;
   int line_count_status (int line_count) const;
   bool too_many_lines (int line_count) const;
@@ -147,7 +145,6 @@ protected:
 
   void break_into_pieces (vsize start, vsize end, Line_division const &div);
   SCM systems ();
-  SCM footnotes ();
 
   void set_current_breakpoints (vsize start,
 				vsize end,
@@ -187,8 +184,6 @@ private:
   int max_systems_per_page_;
   int min_systems_per_page_;
   vsize system_count_;
-  Real footnote_separator_stencil_height_;
-  Real footnote_padding_;
   int orphan_penalty_;
 
   vector<Line_division> current_configurations_;

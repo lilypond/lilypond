@@ -19,21 +19,17 @@
 
 #include "text-interface.hh"
 #include "grob.hh"
-#include "item.hh"
 #include "line-interface.hh"
 #include "lookup.hh"
 #include "font-interface.hh"
 #include "lily-guile.hh"
 #include "output-def.hh"
 #include "misc.hh"
-#include "spanner.hh"
-#include "international.hh"
 
 class Balloon_interface
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_SCHEME_CALLBACK (print_spanner, (SCM));
   DECLARE_GROB_INTERFACE ();
 };
 
@@ -55,9 +51,7 @@ Balloon_interface::print (SCM smob)
   b.widen (padding, padding);
 
   // FIXME
-  Stencil fr;
-  if (to_boolean (me->get_property ("annotation-balloon")))
-    fr = Lookup::frame (b, 0.1, 0.05);
+  Stencil fr = Lookup::frame (b, 0.1, 0.05);
 
   SCM bt = me->get_property ("text");
   SCM chain = Font_interface::text_font_alist_chain (me);
@@ -77,77 +71,7 @@ Balloon_interface::print (SCM smob)
 
   Offset z2 = z1 + off;
 
-  if (to_boolean (me->get_property ("annotation-line")))
-    fr.add_stencil (Line_interface::line (me, z1, z2));
-
-  text_stil->translate (z2);
-  fr.add_stencil (*text_stil);
-
-  fr.translate (-off);
-  return fr.smobbed_copy ();
-}
-
-// ugh...code dup...hopefully can be consolidated w/ above one day
-MAKE_SCHEME_CALLBACK (Balloon_interface, print_spanner, 1);
-SCM
-Balloon_interface::print_spanner (SCM smob)
-{
-  Spanner *me = unsmob_spanner (smob);
-  Spanner *parent = unsmob_spanner (me->get_property ("parent-spanner"));
-  Spanner *p;
-  message (_f ("foo %d", robust_scm2int (me->get_property ("spanner-to-annotate"), 0)));
-  message (_f ("bar %d", robust_scm2int (me->broken_intos_[0]->get_property ("spanner-to-annotate"), 0)));
-  if (parent->broken_intos_.size () == 0)
-    p = parent;
-  else
-    p = parent->broken_intos_[robust_scm2int (me->get_property ("spanner-to-annotate"), 0) % parent->broken_intos_.size ()];
-
-  
-  Drul_array<Item *> bounds;
-  Direction d = LEFT;
-  
-  do
-    {
-      bounds[d] = me->get_bound (d);
-    }
-  while (flip (&d) != LEFT);
-  
-  Grob *commonx = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
-
-  Offset off (me->relative_coordinate (commonx, X_AXIS),
-	      me->relative_coordinate (p, Y_AXIS));
-  
-  Box b (p->extent (p, X_AXIS),
-	 p->extent (p, Y_AXIS));
-
-  Real padding = robust_scm2double (me->get_property ("padding"), .1);
-  b.widen (padding, padding);
-
-  // FIXME
-  Stencil fr;
-  if (to_boolean (me->get_property ("annotation-balloon")))
-    fr = Lookup::frame (b, 0.1, 0.05);
-
-  SCM bt = me->get_property ("text");
-  SCM chain = Font_interface::text_font_alist_chain (me);
-
-  SCM stencil = Text_interface::interpret_markup (me->layout ()->self_scm (),
-						  chain, bt);
-
-  Stencil *text_stil = unsmob_stencil (stencil);
-
-  Offset z1;
-  for (int i = X_AXIS; i < NO_AXES; i++)
-    {
-      Axis a ((Axis)i);
-      z1[a] = b[a].linear_combination (sign (off[a]));
-      text_stil->align_to (a, -sign (off[a]));
-    }
-
-  Offset z2 = z1 + off;
-
-  if (to_boolean (me->get_property ("annotation-line")))
-    fr.add_stencil (Line_interface::line (me, z1, z2));
+  fr.add_stencil (Line_interface::line (me, z1, z2));
 
   text_stil->translate (z2);
   fr.add_stencil (*text_stil);
@@ -161,10 +85,7 @@ ADD_INTERFACE (Balloon_interface,
 	       " object.",
 
 	       /* properties */
-	       "annotation-balloon "
-	       "annotation-line "
 	       "padding "
-	       "spanner-to-annotate "
 	       "text "
 	       );
 

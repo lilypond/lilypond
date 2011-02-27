@@ -30,6 +30,5 @@
 */
 Prob *make_paper_system (SCM immutable_init);
 void paper_system_set_stencil (Prob *prob, Stencil s);
-SCM get_footnotes (SCM expr);
 
 #endif /* PAPER_SYSTEM_HH */

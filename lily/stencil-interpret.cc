@@ -37,8 +37,6 @@ interpret_stencil_expression (SCM expr,
 	  interpret_stencil_expression (scm_force (scm_cadr (expr)), func, func_arg, o);
 	  return;
 	}
-      if (head == ly_symbol2scm ("footnote"))
-        return;
       if (head == ly_symbol2scm ("translate-stencil"))
 	{
 	  o += ly_scm2offset (scm_cadr (expr));

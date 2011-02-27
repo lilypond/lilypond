@@ -209,11 +209,6 @@ An alternative syntax is @var{note}@code{\\decr} @dots{}
 	(types . (general-music fingering-event event))
 	))
 
-    (FootnoteEvent
-     . ((description . "Footnote a grob.")
-	(types . (general-music event footnote-event))
-	))
-
     (GlissandoEvent
      . ((description . "Start a glissando on this note.")
 	(types . (general-music glissando-event event))

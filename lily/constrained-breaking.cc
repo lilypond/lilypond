@@ -519,8 +519,6 @@ Constrained_breaking::fill_line_details (Line_details *const out, vsize start, v
   out->title_space_ = system_markup_space_;
   out->inverse_hooke_ = out->full_height () + system_system_space_;
 
-  out->footnotes_ = sys->get_footnotes_in_range (start_rank, end_rank);
-
   out->refpoint_extent_ = sys->pure_refpoint_extent (start_rank, end_rank);
   if (out->refpoint_extent_.is_empty ())
     out->refpoint_extent_ = Interval (0, 0);
@@ -551,11 +549,6 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   Page_layout_problem::read_spacing_spec (title_spec, &title_padding_, ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (spec, &min_distance_, ly_symbol2scm ("minimum-distance"));
   Page_layout_problem::read_spacing_spec (title_spec, &title_min_distance_, ly_symbol2scm ("minimum-distance"));
-
-  SCM footnotes = pb->get_property ("footnotes");
-  if (scm_is_pair (footnotes))
-    for (SCM s = footnotes; scm_is_pair (s); s = scm_cdr (s))
-      footnotes_.push_back (unsmob_stencil (scm_car (s)));
 
   last_column_ = 0;
   force_ = 0;

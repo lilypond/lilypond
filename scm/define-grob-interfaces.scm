@@ -82,16 +82,6 @@ note)."
  '())
 
 (ly:add-interface
- 'footnote-interface
- "Make a footnote."
- '(footnote-text))
-
-(ly:add-interface
- 'footnote-spanner-interface
- "Make a footnote spanner."
- '(footnote-text))
-
-(ly:add-interface
  'fret-diagram-interface
  "A fret diagram"
  '(align-dir fret-diagram-details size dot-placement-list

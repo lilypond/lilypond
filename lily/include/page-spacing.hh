@@ -102,7 +102,6 @@ struct Page_spacing
   Real rod_height_;
   Real spring_len_;
   Real inverse_spring_k_;
-  bool has_footnotes_;
 
   Line_details last_line_;
   Line_details first_line_;
@@ -112,13 +111,11 @@ struct Page_spacing
   {
     page_height_ = page_height;
     breaker_ = breaker;
-    has_footnotes_ = false;
     clear ();
   }
 
   void calc_force ();
   void resize (Real new_height);
-  Real account_for_footnotes (Line_details const &line);
   void append_system (const Line_details &line);
   void prepend_system (const Line_details &line);
   void clear ();
