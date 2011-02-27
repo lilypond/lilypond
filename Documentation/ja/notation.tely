@@ -46,7 +46,7 @@ Copyright @copyright{} 1999--2009 by 著作者一同
 @ifnottex
 
 @menu
-* Musical notation::              ほとんどすべての楽譜作成で使用される記譜法
+* 音楽記譜法::              ほとんどすべての楽譜作成で使用される記譜法
 * Specialist notation::          特別な目的でのみ使用される記譜法
 * General input and output::              LilyPond 入力についての一般的な情報
 * Spacing issues::          出力の表示
@@ -62,6 +62,24 @@ Copyright @copyright{} 1999--2009 by 著作者一同
 * LilyPond インデックス::
 @end menu
 
+@ignore
+@menu
+* 音楽記譜法::              ほとんどすべての楽譜作成で使用される記譜法
+* 専門的な記譜法::          特別な目的でのみ使用される記譜法
+* 入出力全般::              LilyPond 入力についての一般的な情報
+* スペースの問題::          出力の表示
+* デフォルトを変更する::    出力の調整
+
+付録
+
+* 記譜法マニュアル表::      表と図
+* カンニング ペーパー::     LilyPond 構文についての要約
+* LilyPond 文法::           LilyPond 構文解析プログラムのための構文ダイアグラム
+* GNU Free Documentation License:: このドキュメントの使用許諾書
+* LilyPond コマンド インデックス::
+* LilyPond インデックス::
+@end menu
+@end ignore
 @docMain
 @end ifnottex
 

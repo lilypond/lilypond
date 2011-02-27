@@ -1,0 +1,3102 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@ignore
+    Translation of GIT committish: 2c3bd5e85d39155e3e6804f9818722bef483056d
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.13.36"
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+
+@node ピッチ
+@section ピッチ
+@translationof Pitches
+
+@lilypondfile[quote]{pitches-headword.ly}
+
+このセクションでは音符のピッチを指定する方法について議論します。@c
+このプロセスには 3 つのステップがあります: 入力、変更、出力です。
+
+@menu
+* ピッチを記述する::
+* 複数のピッチを変更する::
+* ピッチを表示する::
+* 符頭::
+@end menu
+
+
+@node ピッチを記述する
+@subsection ピッチを記述する
+@translationof Writing pitches
+
+このセクションではピッチを入力する方法について議論します。@c
+音符をオクターブの中に置くには 2 つの方法があります:
+絶対モードと相対モードです。@c
+たいていの場合、相対モードの方が便利です。
+
+@menu
+* 絶対オクターブ入力::
+* 相対オクターブ入力::
+* 臨時記号::
+* 他の言語での音符名::
+@end menu
+
+
+@node 絶対オクターブ入力
+@unnumberedsubsubsec 絶対オクターブ入力
+@translationof Absolute octave entry
+
+@cindex pitch names (ピッチ名)
+@cindex pitches (ピッチ)
+@cindex absolute (絶対)
+@cindex absolute octave specification (絶対オクターブ指定)
+@cindex octave specification, absolute (絶対オクターブ指定)
+@cindex absolute octave entry (絶対オクターブ入力)
+@cindex octave entry, absolute (絶対オクターブ入力)
+
+ピッチ名は @code{a} から @code{g} までの小文字を使って指定されます。@c
+@code{c} から @code{b} までの音符名はミドル C の下のオクターブに譜刻されます。
+
+@c don't use c' here.
+@lilypond[verbatim,quote]
+{
+  \clef bass
+  c4 d e f
+  g4 a b c
+  d4 e f g
+}
+@end lilypond
+
+@cindex octave changing mark (オクターブ変更記号)
+
+@funindex '
+@funindex ,
+
+他のオクターブはシングル クォート@tie{}(@code{'}) または@c
+カンマ@tie{}(@code{,}) 文字で指定されます。@c
+各@tie{}@code{'} はピッチを 1 オクターブ上げます。@c
+一方、各@tie{}@code{,} はピッチを 1 オクターブ下げます。
+
+@lilypond[verbatim,quote]
+{
+  \clef treble
+  c'4 c'' e' g
+  d''4 d' d c
+  \clef bass
+  c,4 c,, e, g
+  d,,4 d, d c
+}
+@end lilypond
+
+
+@seealso
+音楽用語集:
+@rglos{Pitch names}
+
+コード断片集:
+@rlsrnamed{Pitches,ピッチ}
+
+
+@node 相対オクターブ入力
+@unnumberedsubsubsec 相対オクターブ入力
+@translationof Relative octave entry
+
+@cindex relative (相対)
+@cindex relative octave entry (相対オクターブ入力)
+@cindex octave entry, relative (相対オクターブ入力)
+@cindex relative octave specification (相対オクターブ指定)
+@cindex ocatve specification, relative (相対オクターブ指定)
+
+@funindex relative
+@funindex \relative
+
+オクターブが絶対モードで指定されている場合、@c
+ピッチを間違ったオクターブに置くことは容易に起こりえます。@c
+相対オクターブ モードはそのようなエラーを減らします。@c
+なぜなら、相対オクターブ モードでは、たいていの場合、@c
+オクターブを指定する必要が無いからです。@c
+さらに、絶対モードでは 1 つのミスを見つけることが@c
+困難であるかもしれないのに対し、@c
+相対モードでは 1 つのミスが楽曲の残りの部分を 1 オクターブずらします。
+
+@example
+\relative @var{startpitch} @var{musicexpr}
+@end example
+
+相対モードでは、各音符は可能な限り前の音符の近くに配置されます。@c
+このことは、@code{@var{musicexp}} の中にある各ピッチのオクターブが@c
+以下のように算出されるということを意味します:
+
+@itemize
+@item
+音符に対してオクターブ変更記号が使用されていない場合、@c
+その音符のオクターブは前の音符との音程が
+5 度よりも小さくなるよう算出されます。@c
+この音程は臨時記号を考慮せずに決定されます。
+
+@item
+オクターブ変更記号@tie{}@code{'} や @code{,} を付け加えることによって、@c
+オクターブ記号無しの場合のピッチから、@c
+ピッチを 1 オクターブ上げ下げすることができます。
+
+@item
+複数のオクターブ変更記号を使用することができます。@c
+例えば、@code{''}@tie{}と@tie{}@code{,,} はピッチを 2 オクターブ変えます。
+
+@item
+最初の音符のピッチは @code{@var{startpitch}} と相対関係で決定されます。@c
+@var{startpitch} は絶対オクターブ モードで指定され、@c
+@code{c} のオクターブにしておくことを推奨します。
+
+@end itemize
+
+ここで、実際に相対モードの例を挙げます:
+
+@lilypond[verbatim,quote]
+\relative c {
+  \clef bass
+  c d e f
+  g a b c
+  d e f g
+}
+@end lilypond
+
+オクターブ変更記号は 4 度よりも大きな音程に対して使用されます:
+
+@lilypond[verbatim,quote]
+\relative c {
+  \clef bass
+  c d e f
+  g a b c
+  d e f g
+}
+@end lilypond
+
+音符の連なりはオクターブ変更記号が無い場合であっても@c
+大きな音程に広がる可能性があります:
+
+@lilypond[verbatim,quote]
+\relative c {
+  c f b e
+  a d g c
+}
+@end lilypond
+
+@code{\relative} ブロックがネストされている場合、@c
+最も内側の @code{\relative} ブロックが適用されます。
+
+@lilypond[verbatim,quote]
+\relative c' {
+  c d e f
+  \relative c'' {
+    c d e f
+  }
+}
+@end lilypond
+
+@code{\relative} は @code{\chordmode} ブロックでは効果を持ちません。
+
+@lilypond[verbatim,quote]
+\new Staff {
+  \relative c''' {
+    \chordmode { c1 }
+  }
+  \chordmode { c1 }
+}
+@end lilypond
+
+@code{\relative} を @code{\chordmode} ブロックの中で使用することは@c
+認められません。
+
+@code{\transpose} ブロックの中では、@code{\relative} を記述しない限り、@c
+絶対モードになります。
+
+@lilypond[verbatim,quote]
+\relative c' {
+  d e
+  \transpose f g {
+    d e
+    \relative c' {
+      d e
+    }
+  }
+}
+@end lilypond
+
+@cindex chords and relative octave entry (和音と相対オクターブ入力)
+@cindex relative octave entry and chords (相対オクターブ入力と和音)
+
+前の要素が和音である場合、@c
+その和音の最初の音符が後に続く音符または和音の参照ポイントとして使用されます。@c
+和音の内部では、次の音符は常に 1 つ前の音符との相対関係になります。@c
+次の例を、@code{c} の音符に気を付けて、注意深く検証してください。
+
+@lilypond[verbatim,quote]
+\relative c' {
+  c
+  <c e g>
+  <c' e g'>
+  <c, e, g''>
+}
+@end lilypond
+
+上で説明したように、ピッチのオクターブは音符名のみを使って算出され、@c
+いかなる変更にも影響を受けません。@c
+そのため、B の後の E ダブル シャープは B よりも上に配置され、@c
+B の後の F ダブル フラットは B よりも下に配置されます。@c
+言い換えると、4 度の 2 重増音の音程は 5 度の 2 重減音の音程よりも小さい
+-- それぞれの音程に含まれる半音の数に関係無く -- と見なされます。
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2 fis
+  c2 ges
+  b2 eisis
+  b2 feses
+}
+@end lilypond
+
+
+@seealso
+音楽用語集:
+@rglos{fifth},
+@rglos{interval},
+@rglos{Pitch names}
+
+記譜法リファレンス:
+@ref{オクターブ チェック}
+
+コード断片集:
+@rlsrnamed{Pitches,ピッチ}
+
+内部リファレンス:
+@rinternals{RelativeOctaveMusic}
+
+
+@cindex relative octave entry and transposition (相対オクターブ入力と移調)
+@cindex transposition and relative octave entry (移調と相対オクターブ入力)
+
+@funindex \transpose
+@funindex transpose
+@funindex \chordmode
+@funindex chordmode
+@funindex \relative
+@funindex relative
+
+
+@c DEPRECATED
+@code{\relative} に対して @code{@var{startpitch}} が指定されていない場合、@c
+@code{c'} であると見なされます。@c
+しかしながら、これは使用を推奨されなくなったオプションであり、@c
+将来のバージョンでは無くなるかもしれないので、@c
+@code{@var{startpitch}} を指定しないことはお勧めできません。
+
+
+@node 臨時記号
+@unnumberedsubsubsec 臨時記号
+@translationof Accidentals
+
+@cindex accidental (臨時記号)
+@cindex key signature (調号)
+@cindex clef (音部記号)
+
+@c duplicated in Key signature and Accidentals
+@warning{LilyPond を始めたばかりのユーザは@c
+しばしば臨時記号と調号のことで混乱します。@c
+LilyPond では、音符名は未加工の入力です
+-- 調号と音部記号がこの未加工の入力をどのように表示するかを決定します。@c
+@code{c} のような変更を加えられていない音符は、調号や音部記号とは無関係に、@c
+@q{C ナチュラル} を意味します。@c
+更なる情報は、@rlearning{臨時記号と調号} を参照してください。}
+
+@cindex note names, Dutch (オランダ語での音符名)
+@cindex note names, default (デフォルトの音符名)
+@cindex default note names (デフォルトの音符名)
+@cindex sharp (シャープ)
+@cindex flat (フラット)
+@cindex double sharp (ダブル シャープ)
+@cindex sharp, double (ダブル シャープ)
+@cindex double flat (ダブル フラット)
+@cindex flat, double (ダブル フラット)
+@cindex natural sign (ナチュラル記号)
+@cindex natural pitch (ナチュラル ピッチ)
+
+@notation{シャープ}のピッチは音符名に @code{is} を付け加えることによって@c
+作られ、@notation{フラット}のピッチは @code{es} を付け加えることによって@c
+作られます。@c
+予想しているかもしれませんが、@notation{ダブル シャープ}や@c
+@notation{ダブル フラット}は @code{isis} または @code{eses} を@c
+付け加えることによって作られます。@c
+この構文はオランダ語の音符命名規約から派生しました。@c
+臨時記号に他の名前を使うには、@c
+@ref{他の言語での音符名} を参照してください。
+
+@lilypond[verbatim,quote,relative=2]
+ais1 aes aisis aeses
+@end lilypond
+
+ナチュラルは臨時記号や調号の効果をキャンセルします。@c
+しかしながら、ナチュラルは接尾辞として音符名構文にエンコードされてはいません。@c
+そのため、ナチュラルのピッチは単に音符名で入力されます:
+
+@lilypond[verbatim,quote,relative=2]
+a4 aes a2
+@end lilypond
+
+@cindex quarter tones (4 分音)
+@cindex semi-flats (半フラット)
+@cindex semi-sharps (半シャープ)
+
+4 分音が付け加えられるかもしれません。@c
+以下の一連の C は左から順にピッチが増えていっています:
+
+@lilypond[verbatim,quote,relative=2]
+ceseh1 ces ceh c cih cis cisih
+@end lilypond
+
+
+@cindex accidental, reminder (親切の臨時記号)
+@cindex accidental, cautionary (忠告の臨時記号)
+@cindex accidental, parenthesized (括弧に囲まれた臨時記号)
+@cindex reminder accidental (親切の臨時記号)
+@cindex cautionary accidental (忠告の臨時記号)
+@cindex parenthesized accidental (括弧に囲まれた臨時記号)
+
+@funindex ?
+@funindex !
+
+通常、臨時記号は自動的に譜刻されますが、@c
+手動で譜刻する場合もあるかもしれません。@c
+親切の臨時記号はピッチの後にエクスクラメーション記号@tie{}@code{!} を@c
+付け加えることによって譜刻することができます。@c
+忠告の臨時記号 (つまり、括弧で囲まれた臨時記号) は@c
+ピッチの後にクエスチョン記号@tie{}@code{?} を付け加えることによって@c
+譜刻することができます。@c
+これら追加の臨時記号を使ってナチュラル記号を作り出すこともできます。
+
+@lilypond[verbatim,quote,relative=2]
+cis cis cis! cis? c c c! c?
+@end lilypond
+
+@cindex accidental on tied note (タイで結ばれた音符への臨時記号)
+@cindex tied note, accidental (タイで結ばれた音符への臨時記号)
+
+タイで結ばれた音符に付ける臨時記号は@c
+新しいシステム (訳者: 譜 1 行分のこと) の開始点でのみ譜刻されます:
+
+@lilypond[verbatim,quote,relative=2]
+cis1 ~ cis ~
+\break
+cis
+@end lilypond
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle,ragged-right]
+{hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{preventing-extra-naturals-from-being-automatically-added.ly}
+
+@seealso
+音楽用語集:
+@rglos{sharp},
+@rglos{flat},
+@rglos{double sharp},
+@rglos{double flat},
+@rglos{Pitch names},
+@rglos{quarter tone}
+
+学習マニュアル:
+@rlearning{臨時記号と調号}
+
+記譜法リファレンス:
+@ref{自動臨時記号},
+@ref{Annotational accidentals (musica ficta)},
+@ref{他の言語での音符名}
+
+コード断片集:
+@rlsrnamed{Pitches,ピッチ}.
+
+内部リファレンス:
+@rinternals{Accidental_engraver},
+@rinternals{Accidental},
+@rinternals{AccidentalCautionary},
+@rinternals{accidental-interface}
+
+
+@cindex accidental, quarter-tone (4 分音臨時記号)
+@cindex quarter-tone accidental (4 分音臨時記号)
+
+@knownissues
+
+4 分音臨時記号の表記の仕方で広く認められた標準はないため、@c
+LilyPond の記号はいかなる標準にも準拠しません。
+
+
+@node 他の言語での音符名
+@unnumberedsubsubsec 他の言語での音符名
+@translationof Note names in other languages
+
+@cindex note names, other languages (他の言語での音符名)
+@cindex pitch names, other languages (他の言語でのピッチ名)
+@cindex language, note names in other (他の言語での音符名)
+@cindex language, pitch names in other (他の言語でのピッチ名)
+
+他のさまざまな言語での音符名と臨時記号名のセットが定義されています。@c
+通常、音符名の言語の選択はファイルの先頭で行います。
+以下の例はイタリア語の音符名を使用します:
+
+@lilypond[quote,verbatim]
+\language "italiano"
+
+\relative do' {
+  do re mi sib
+}
+@end lilypond
+
+利用可能な言語ファイルとそれらが定義している音符名を挙げます:
+
+@quotation
+@multitable {@code{nederlands}} {do re mi fa sol la sib si}
+@headitem 言語
+  @tab 音符名
+@item @code{nederlands}
+  @tab c d e f g a bes b
+@item @code{catalan}
+  @tab do re mi fa sol la sib si
+@item @code{deutsch}
+  @tab c d e f g a b h
+@item @code{english}
+  @tab c d e f g a bf b
+@item @code{espanol}
+  @tab do re mi fa sol la sib si
+@item @code{italiano}
+  @tab do re mi fa sol la sib si
+@item @code{norsk}
+  @tab c d e f g a b h
+@item @code{portugues}
+  @tab do re mi fa sol la sib si
+@item @code{suomi}
+  @tab c d e f g a b h
+@item @code{svenska}
+  @tab c d e f g a b h
+@item @code{vlaams}
+  @tab do re mi fa sol la sib si
+@end multitable
+@end quotation
+
+音符名に加えて、臨時記号の接尾辞も言語によって異なる場合があります:
+
+@quotation
+@multitable {@code{nederlands}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@headitem 言語
+  @tab シャープ @tab フラット @tab ダブル シャープ @tab ダブル フラット
+@item @code{nederlands}
+  @tab -is @tab -es @tab -isis @tab -eses
+@item @code{catalan}
+  @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
+@item @code{deutsch}
+  @tab -is @tab -es @tab -isis @tab -eses
+@item @code{english}
+  @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
+    @tab -ff/-flatflat
+@item @code{espanol}
+  @tab -s @tab -b @tab -ss/-x @tab -bb
+@item @code{italiano}
+  @tab -d @tab -b @tab -dd @tab -bb
+@item @code{norsk}
+  @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
+    @tab -essess/-eses
+@item @code{portugues}
+  @tab -s @tab -b @tab -ss @tab -bb
+@item @code{suomi}
+  @tab -is @tab -es @tab -isis @tab -eses
+@item @code{svenska}
+  @tab -iss @tab -ess @tab -ississ @tab -essess
+@item @code{vlaams}
+  @tab -k @tab -b @tab -kk @tab -bb
+@end multitable
+@end quotation
+
+オランダ語では、@code{aes} は縮めて @code{as} となりますが、@c
+LilyPond ではどちらの形式も認められます。@c
+同様に、@code{es} と @code{ees} の両方が認められます。@c
+これはさらに、@code{aeses}@tie{}/@tie{}@code{ases} と
+@code{eeses}@tie{}/@tie{}@code{eses} にも適用されます。@c
+他の言語ファイルでは短縮名だけが定義されている場合があります。
+
+@lilypond[verbatim,quote,relative=2]
+a2 as e es a ases e eses
+@end lilypond
+
+
+@cindex microtones (微分音)
+@cindex semi-sharp (半シャープ)
+@cindex semi-flat (半フラット)
+@cindex sesqui-sharp (1.5 シャープ)
+@cindex sesqui-flat (1.5 フラット)
+
+音楽の中には @q{通常の} シャープやフラットの音の変化をさらに細かく分けた@c
+微分音を使用するものがあります。@c
+さまざまな言語 (ファイル) での 4 分音
+(訳者: シャープやフラットの半分の音の変化。4 分音符ではありません)
+の音符名を以下の表で挙げます。@c
+接頭辞 @notation{半-} と @notation{1.5-} はそれぞれ
+@q{半分} と @q{1 つ半} を意味します。@c
+表に無い言語では、まだ微分音の名前は定義されていません。
+
+@quotation
+@multitable {@code{nederlands}} {@b{半-シャープ}} {@b{半-フラット}} {@b{1.5-シャープ}} {@b{1.5-フラット}}
+@headitem 元号
+  @tab 半-シャープ @tab 半-フラット @tab 1.5-シャープ @tab 1.5-フラット
+
+@item @code{nederlands}
+  @tab -ih @tab -eh @tab -isih @tab -eseh
+@item @code{deutsch}
+  @tab -ih @tab -eh @tab -isih @tab -eseh
+@item @code{english}
+  @tab -qs @tab -qf @tab -tqs @tab -tqf
+@item @code{espanol}
+  @tab -cs @tab -cb @tab -tcs @tab -tcb
+@item @code{italiano}
+  @tab -sd @tab -sb @tab -dsd @tab -bsb
+@item @code{portugues}
+  @tab -sqt @tab -bqt @tab -stqt @tab -btqt
+@end multitable
+@end quotation
+
+ここに示されている大半の言語は西洋クラシック音楽
+-- @notation{Common Practice Period}: 西暦1600年から1900年頃の@c
+バロック音楽、クラシック音楽、ロマン派音楽とも言えます --
+に関係があります。@c
+しかしながら、他のピッチやチューニング方法もサポートされています:
+@ref{Common notation for non-Western music} を参照してください。
+
+@seealso
+音楽用語集:
+@rglos{Pitch names},
+@rglos{Common Practice Period}.
+
+記譜法リファレンス:
+@ref{Common notation for non-Western music}
+
+あらかじめイストールされているファイル:
+@file{scm/define-note-names.scm}
+
+コード断片集:
+@rlsrnamed{Pitches,ピッチ}
+
+
+@node 複数のピッチを変更する
+@subsection 複数のピッチを変更する
+@translationof Changing multiple pitches
+
+このセクションではピッチを変更する方法について議論します。
+
+@menu
+* オクターブ チェック::
+* 移調::
+* 転回::
+* 逆行::
+* 様式的な移調::
+@end menu
+
+
+@node オクターブ チェック
+@unnumberedsubsubsec オクターブ チェック
+@translationof Octave checks
+
+@cindex octave correction (オクターブ修正)
+@cindex octave check (オクターブ チェック)
+@cindex control pitch (ピッチの制御)
+
+@funindex =
+@funindex \octaveCheck
+@funindex octaveCheck
+@funindex controlpitch
+
+相対モードでは、オクターブ変更記号を付け忘れることが容易に起こり得ます。@c
+オクターブ チェックは、予期しないオクターブの音符を見つけた場合に@c
+警告を表示してオクターブを修正することによって、@c
+そのようなエラーを見つけ出すことをより容易にします。
+
+音符のオクターブをチェックするには、@c
+@code{=}@tie{}の後に絶対オクターブを指定します。@c
+以下の例は、2 番目の音符の絶対オクターブがオクターブ チェックによって@c
+示される @code{d'} ではなく @code{d''} であるため、@c
+警告を発し (そしてピッチを変更し) ます。
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2 d='4 d
+  e2 f
+}
+@end lilypond
+
+音符のオクターブは
+@code{\octaveCheck@tie{}@var{controlpitch}} コマンドでも@c
+チェックすることができます。@c
+@code{@var{controlpitch}} は絶対モードで指定されます。@c
+これは前の音符と @code{@var{controlpitch}} との間の音程が
+4 度以内であるかどうかをチェックします
+(つまり、通常の相対モードでの算出方法と同じです)。@c
+このチェックが失敗した場合、警告が表示されますが、@c
+このチェックの前にある音符は変更されません。@c
+その後に続く音符は @code{@var{controlpitch}} から算出されます。
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2 d
+  \octaveCheck c'
+  e2 f
+}
+@end lilypond
+
+以下の 2 小節を見てください。@c
+1 番目と 3 番目の @code{\octaveCheck} は失敗していますが、@c
+2 番目のチェックは失敗していません。
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 f g f
+
+  c4
+  \octaveCheck c'
+  f
+  \octaveCheck c'
+  g
+  \octaveCheck c'
+  f
+}
+@end lilypond
+
+
+@seealso
+コード断片集:
+@rlsrnamed{Pitches,ピッチ}
+
+内部リファレンス:
+@rinternals{RelativeOctaveCheck}.
+
+
+@node 移調
+@unnumberedsubsubsec 移調
+@translationof Transpose
+
+@cindex transpose (移調)
+@cindex transposing (移調)
+@cindex transposition (移調)
+@cindex transposition of pitches (ピッチの移調)
+@cindex transposition of notes (音符の移調)
+@cindex pitches, transposition of (ピッチの移調)
+@cindex notes, transposition of (音符の移調)
+
+@funindex \transpose
+@funindex transpose
+
+音楽表記は @code{\transpose} で移調させることができます。@c
+構文は以下の通りです:
+
+@example
+\transpose @var{frompitch} @var{topitch} @var{musicexpr}
+@end example
+
+@noindent
+これは @code{@var{musicexpr}} が @code{@var{frompitch}} から
+@code{@var{topitch}} に移調されるということを意味します:
+@code{@var{frompitch}} のピッチの音符はすべて @code{@var{topitch}}
+に変更され、@c
+他の音符もすべて同じ音程で移調されます。@c
+@code{@var{frompitch}} と @code{@var{topitch}} のピッチはどちらも@c
+絶対モードで指定されます。
+
+@warning{@code{@bs{}transpose} ブロックの中にある音符は、@c
+そのブロックの中に @code{@bs{}relative} が無い限り、絶対モードになります。}
+
+D-メジャーの調で書かれた楽曲を思い浮かべてください。@c
+この楽曲を E-メジャーに移調することができます。@c
+調号も自動的に移調されることに注意してください。
+
+@lilypond[verbatim,quote]
+\transpose d e {
+  \relative c' {
+    \key d \major
+    d4 fis a d
+  }
+}
+@end lilypond
+
+@cindex transposing instruments (移調楽器)
+@cindex instruments, transposing (移調楽器)
+
+C (通常の @notation{コンサート ピッチ}) で書かれたパートを
+A のクラリネットで演奏する
+(そのため、A は C として表記され、演奏は表記されたものよりも 3 度低くなります)
+場合、そのパート譜は以下のように作り出されます:
+
+@lilypond[verbatim,quote]
+\transpose a c' {
+  \relative c' {
+    \key c \major
+    c4 d e g
+  }
+}
+@end lilypond
+
+@noindent
+@w{@code{\key c \major}} を明示的に指定しているということに@c
+注意してください。@c
+調号を指定しなかった場合、音符は移調されますが、調号は譜刻されません。
+
+@code{\transpose} は同音異名のピッチを区別します:
+@w{@code{\transpose c cis}} と @w{@code{\transpose c des}} は@c
+どちらも半音上に移調します。@c
+1 番目の移調はシャープを譜刻し、音符の五線譜上での位置は変わりません。@c
+2 番目の移調はフラットを譜刻し、音符の五線譜上での位置は上に上がります。
+
+@lilypond[verbatim,quote]
+music = \relative c' { c d e f }
+\new Staff {
+  \transpose c cis { \music }
+  \transpose c des { \music }
+}
+@end lilypond
+
+@code{\transpose} は上記とは異なる方法で用いることもでき、@c
+それによって移調楽器のために書かれた音符を入力することができます。@c
+前の例では C (またはコンサート ピッチ) でピッチを入力して、@c
+それらを移調楽器のために譜刻する方法を示しましたが、@c
+それとは正反対のことも可能です
+-- 例えば、移調楽器のパート譜から指揮譜を譜刻することです。@c
+例えば、E で始まる B-フラットのトランペットの音楽
+(コンサート ピッチでは D で始まる音楽) を入力している場合に、@c
+指揮譜を作り出すには以下のように記述します:
+
+@example
+musicInBflat = @{ e4 @dots{} @}
+\transpose c bes, \musicInBflat
+@end example
+
+@noindent
+この音楽を F で譜刻する (例えば、フレンチ ホルンの楽譜にアレンジし直すために)
+には、既存の音楽をもう 1 つの @code{\transpose} で包み込みます:
+
+@example
+musicInBflat = @{ e4 @dots{} @}
+\transpose f c' @{ \transpose c bes, \musicInBflat @}
+@end example
+
+@noindent
+移調楽器についての更なる情報は、@c
+@ref{楽器の移調} を参照してください。
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
+
+
+@seealso
+記譜法リファレンス:
+@ref{楽器の移調},
+@ref{転回},
+@ref{様式的な移調},
+@ref{相対オクターブ入力},
+@ref{逆行}
+
+コード断片集:
+@rlsrnamed{Pitches,ピッチ}
+
+内部リファレンス:
+@rinternals{TransposedMusic}
+
+
+@funindex \transpose
+@funindex transpose
+@funindex \chordmode
+@funindex chordmode
+@funindex \relative
+@funindex relative
+
+@knownissues
+
+相対変換は
+@code{\transpose}, @code{\chordmode}, @code{\transpose} の引数である@c
+音楽表記の中にある @code{\relative} セクションには影響を及ぼしません。@c
+移調された音楽の中で相対モードを使用するには、@c
+@code{\transpose} の中に @code{\relative} を置く必要があります。
+
+
+@node 転回
+@unnumberedsubsubsec 転回
+@translationof Inversion
+
+@cindex inversion (転回)
+@cindex operation, inversion (転回操作)
+@funindex \inversion
+
+以下で音楽表記を転回することができます:
+
+@example
+\inversion @var{from-pitch} @var{to-pitch} @var{musicexpr}
+@end example
+
+@code{@var{musicexpr}} の音程は倒置され、@c
+それから @code{@var{from-pitch}} が @code{@var{to-pitch}} になるよう@c
+移調されます。
+
+@lilypond[verbatim,quote]
+music = \relative c' { c d e f }
+\new Staff {
+  \music
+  \inversion d' d' \music
+  \inversion d' ees' \music
+}
+@end lilypond
+
+@seealso
+記譜法リファレンス:
+@ref{様式的な移調},
+@ref{逆行},
+@ref{移調}
+
+
+@node 逆行
+@unnumberedsubsubsec 逆行
+@translationof Retrograde
+
+@cindex retrograde transformation (逆行変換)
+@cindex transformation, retrograde (逆行変換)
+@cindex operation, retrograde (逆行操作)
+@funindex \retrograde
+@funindex retrograde
+
+音楽表記を後ろから前に演奏する逆行を作り出すことができます:
+
+@lilypond[verbatim,quote]
+music = \relative c' { c8. ees16( fis8. a16 b8.) gis16 f8. d16 }
+
+\new Staff {
+  \music
+  \retrograde \music
+}
+@end lilypond
+
+@knownissues
+@code{\retrograde} の中にある手動のタイは壊れて警告を発します。@c
+@ref{Automatic note splitting} を有効にすることによって@c
+自動的に生成させられるタイもあります。
+
+@seealso
+記譜法リファレンス:
+@ref{転回},
+@ref{様式的な移調},
+@ref{移調}
+
+
+@node 様式的な移調
+@unnumberedsubsubsec 様式的な移調
+@translationof Modal transformations
+
+@c untranslated
+@ignore
+
+@cindex modal transformations (様式的な移調)
+@cindex transformations, modal (様式的な移調)
+@cindex operations, modal (様式的な移調の操作)
+
+音階に基づく作曲では、モチーフはさまざまなやり方で頻繁に移調されます。@c
+これは、異なる音程に @notation{移調} する場合や、@c
+旋回点で @notation{転回} する場合があります。
+@notation{逆行} するために後戻りする場合もあります@c
+-- @ref{逆行} を参照してください。
+
+@warning{与えられた音階の中には無い音符は、移調されずに取り残されます。}
+
+@subsubheading 様式的な移調
+
+@cindex modal transposition (様式的な移調)
+@cindex transposition, modal (様式的な移調)
+@cindex operation, transposition (移調操作)
+@funindex \modalTranspose
+@funindex modalTranspose
+
+以下により、与えられた音階でモチーフを移調させることができます:
+
+@example
+\modalTranspose @var{from-pitch} @var{to-pitch} @var{scale} @var{motif}
+@end example
+
+@var{motif} の音符は、@var{scale} @var{to-pitch} と @var{from-pitch} 間の音程によって@c
+与えられる度数
+The notes of @var{motif} are shifted within the @var{scale} by the
+number of scale degrees given by the interval between @var{to-pitch}
+and @var{from-pitch}:
+@end ignore
+
+
+@cindex modal transformations
+@cindex transformations, modal
+@cindex operations, modal
+
+In a musical composition that is based on a scale, a motif is
+frequently transformed in various ways.  It may be
+@notation{transposed} to start at different places in the scale or
+it may be @notation{inverted} around a pivot point in the scale.
+It may also be reversed to produce its @notation{retrograde}, see
+@ref{Retrograde}.
+
+@warning{Any note that does not lie within the given scale will be
+left untransformed.}
+
+@subsubheading Modal transposition
+
+@cindex modal transposition
+@cindex transposition, modal
+@cindex operation, transposition
+@funindex \modalTranspose
+@funindex modalTranspose
+
+A motif can be transposed within a given scale with:
+
+@example
+\modalTranspose @var{from-pitch} @var{to-pitch} @var{scale} @var{motif}
+@end example
+
+The notes of @var{motif} are shifted within the @var{scale} by the
+number of scale degrees given by the interval between @var{to-pitch}
+and @var{from-pitch}:
+
+@lilypond[verbatim,quote]
+diatonicScale = \relative c' { c d e f g a b }
+motif = \relative c' { c8 d e f g a b c }
+
+\new Staff {
+  \motif
+  \modalTranspose c f \diatonicScale \motif
+  \modalTranspose c b, \diatonicScale \motif
+}
+@end lilypond
+
+An ascending scale of any length and with any intervals may be
+specified:
+
+@lilypond[verbatim,quote]
+pentatonicScale = \relative c' { ges aes bes des ees }
+motif = \relative c' { ees8 des ges,4 <ges' bes,> <ges bes,> }
+
+\new Staff {
+  \motif
+  \modalTranspose ges ees' \pentatonicScale \motif
+}
+@end lilypond
+
+When used with a chromatic scale @code{\modalTranspose} has a
+similar effect to @code{\transpose}, but with the ability to
+specify the names of the notes to be used:
+
+@lilypond[verbatim,quote]
+chromaticScale = \relative c' { c cis d dis e f fis g gis a ais b }
+motif = \relative c' { c8 d e f g a b c }
+
+\new Staff {
+  \motif
+  \transpose c f \motif
+  \modalTranspose c f \chromaticScale \motif
+}
+@end lilypond
+
+@subsubheading Modal inversion
+
+@cindex modal inversion
+@cindex inversion, modal
+@cindex operation, modal inversion
+@funindex \modalInversion
+@funindex modalInversion
+
+A motif can be inverted within a given scale around a given pivot
+note and transposed in a single operation with:
+
+@example
+\modalInversion @var{around-pitch} @var{to-pitch} @var{scale} @var{motif}
+@end example
+
+The notes of @var{motif} are placed the same number of scale degrees
+from the @var{around-pitch} note within the @var{scale}, but in the
+opposite direction, and the result is then shifted within the
+@var{scale} by the number of scale degrees given by the interval between
+@var{to-pitch} and @var{around-pitch}.
+
+So to simply invert around a note in the scale use the same value for
+@var{around-pitch} and @var{to-pitch}:
+
+@lilypond[verbatim,quote]
+octatonicScale = \relative c' { ees f fis gis a b c d }
+motif = \relative c' { c8. ees16 fis8. a16 b8. gis16 f8. d16 }
+
+\new Staff {
+  \motif
+  \modalInversion fis' fis' \octatonicScale \motif
+}
+@end lilypond
+
+To invert around a pivot between two notes in the scale, invert around
+one of the notes and then transpose by one scale degree.  The two notes
+specified can be interpreted as bracketing the pivot point:
+
+@lilypond[verbatim,quote]
+scale = \relative c' { c g' }
+motive = \relative c' { c c g' c, }
+
+\new Staff {
+  \motive
+  \modalInversion c' g' \scale \motive
+}
+@end lilypond
+
+The combined operation of inversion and retrograde produce the
+retrograde-inversion:
+
+@lilypond[verbatim,quote]
+octatonicScale = \relative c' { ees f fis gis a b c d }
+motif = \relative c' { c8. ees16 fis8. a16 b8. gis16 f8. d16 }
+
+\new Staff {
+  \motif
+  \retrograde \modalInversion c' c' \octatonicScale \motif
+}
+@end lilypond
+
+@seealso
+Notation Reference:
+@ref{Inversion},
+@ref{Retrograde},
+@ref{Transpose}.
+
+
+@node ピッチを表示する
+@subsection ピッチを表示する
+@translationof Displaying pitches
+
+このセクションではピッチの出力を変更する方法について議論します。
+
+@menu
+* 音部記号::
+* 調号::
+* オッターバ囲み::
+* 楽器の移調::
+* 自動臨時記号::
+* 音域::
+@end menu
+
+
+@node 音部記号
+@unnumberedsubsubsec 音部記号
+@translationof Clef
+
+@cindex G clef (G 音部記号)
+@cindex C clef (C 音部記号)
+@cindex F clef (F 音部記号)
+@cindex treble clef (ト音記号、高音部記号)
+@cindex violin clef (バイオリン音部記号)
+@cindex alto clef (アルト音部記号)
+@cindex tenor clef (テノール音部記号)
+@cindex bass clef (ヘ音記号、バス音部記号)
+@cindex french clef (フレンチ (バイオリン) 音部記号)
+@cindex soprano clef (ソプラノ音部記号)
+@cindex mezzosoprano clef (メゾソプラノ音部記号)
+@cindex baritone clef (バリトン音部記号)
+@cindex varbaritone clef (変形バリトン音部記号)
+@cindex subbass clef (低バス音部記号)
+@cindex clef (音部記号)
+@cindex ancient clef (古代音部記号)
+@cindex clef, ancient (古代音部記号)
+@cindex clef, G (G 音部記号)
+@cindex clef, C (C 音部記号)
+@cindex clef, F (F 音部記号)
+@cindex clef, treble (高音部記号)
+@cindex clef, violin (バイオリン音部記号)
+@cindex clef, alto (アルト音部記号)
+@cindex clef, tenor (テノール音部記号)
+@cindex clef, bass (ヘ音記号、バス音部記号)
+@cindex clef, french (フレンチ (バイオリン) 音部記号)
+@cindex clef, soprano (ソプラノ音部記号)
+@cindex clef, mezzosoprano (メゾソプラノ音部記号)
+@cindex clef, baritone (バリトン音部記号)
+@cindex clef, varbaritone (変形バリトン音部記号)
+@cindex clef, subbass (低バス音部記号)
+
+@funindex \clef
+@funindex clef
+
+音部記号を変えることができます。@c
+以下のそれぞれの例の中にある音符はすべてミドル C です。@c
+例の中にある音部名をダブル クォートで囲むことができます (必須ではありません)。
+
+@lilypond[verbatim,quote,relative=1]
+\clef treble
+c2 c
+\clef alto
+c2 c
+\clef tenor
+c2 c
+\clef bass
+c2 c
+@end lilypond
+
+他の音部記号もあります:
+
+@c KEEP LY
+@lilypond[verbatim,quote,relative=1]
+\clef french
+c2 c
+\clef soprano
+c2 c
+\clef mezzosoprano
+c2 c
+\clef baritone
+c2 c
+
+\break
+
+\clef varbaritone
+c2 c
+\clef subbass
+c2 c
+\clef percussion
+c2 c
+
+\break
+
+\clef G   % treble と同義です
+c2 c
+\clef F   % bass と同義です
+c2 c
+\clef C   % alto と同義です
+c2 c
+@end lilypond
+
+@cindex transposing clefs (音部を移調する)
+@cindex clef, transposing (音部を移調する)
+@cindex オクターブ移調 (octave transposition)
+@c 未訳
+@cindex choral tenor clef
+@cindex tenor clef, choral
+
+音部名に @code{_8} または @code{^8} を付け加えることによって、@c
+音部はそれぞれ 1 オクターブ下/上に移調され、@c
+@code{_15} または @code{^15} によって 2 オクターブ移調されます。@c
+音部名にアルファベット以外の文字が含まれる場合、@c
+音部名をダブル クォートで囲む必要があります。
+
+@lilypond[verbatim,quote,relative=1]
+\clef treble
+c2 c
+\clef "treble_8"
+c2 c
+\clef "bass^15"
+c2 c
+\clef "alto_2"
+c2 c
+\clef "G_8"
+c2 c
+\clef "F^5"
+c2 c
+@end lilypond
+
+特殊な音部記号については @ref{Mensural clefs},
+@ref{Gregorian clefs}, @ref{Default tablatures}, それに @ref{Custom
+tablatures} で説明します。
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{tweaking-clef-properties.ly}
+
+
+@seealso
+記譜法リファレンス:
+@ref{Mensural clefs},
+@ref{Gregorian clefs},
+@ref{Default tablatures},
+@ref{Custom tablatures}
+
+コード断片集:
+@rlsrnamed{Pitches,ピッチ}
+
+内部リファレンス:
+@rinternals{Clef_engraver},
+@rinternals{Clef},
+@rinternals{OctavateEight},
+@rinternals{clef-interface}
+
+
+@node 調号
+@unnumberedsubsubsec 調号
+@translationof Key signature
+
+@cindex key signature (調号)
+
+@funindex \key
+@funindex key
+
+@c duplicated in Key signature and Accidentals
+@warning{LilyPond を始めたばかりのユーザは@c
+しばしば臨時記号と調号のことで混乱します。@c
+LilyPond では、音符名は未加工の入力です。@c
+調号と音部記号がこの未加工の入力をどのように表示するかを決定します。@c
+@code{c} のような変更を加えられていない音符は、調号や音部記号とは無関係に、@c
+@q{C ナチュラル} を意味します。@c
+更なる情報は、@rlearning{臨時記号と調号} を参照してください。}
+
+調号は楽曲を演奏すべき調性を示します。@c
+調号は譜の先頭で変更記号 (フラットやシャープ) のセットによって示されます。@c
+調号は変更されることがあります:
+
+@example
+\key @var{pitch} @var{mode}
+@end example
+
+@funindex \major
+@funindex major
+@funindex \minor
+@funindex minor
+@funindex \ionian
+@funindex ionian
+@funindex \locrian
+@funindex locrian
+@funindex \aeolian
+@funindex aeolian
+@funindex \mixolydian
+@funindex mixolydian
+@funindex \lydian
+@funindex lydian
+@funindex \phrygian
+@funindex phrygian
+@funindex \dorian
+@funindex dorian
+
+@cindex church modes (チャーチ モード)
+@cindex modes (モード)
+@cindex major (メジャー)
+@cindex minor (マイナー)
+@cindex ionian (アイオニアン)
+@cindex locrian (ロクリアン)
+@cindex aeolian (エオリアン)
+@cindex mixolydian (ミクソリディアン)
+@cindex lydian (リディアン)
+@cindex phrygian (フリジアン)
+@cindex dorian (ドリアン)
+
+@noindent
+
+調号を @code{@var{pitch}}-メジャーや @code{@var{pitch}}-マイナーにするには、@c
+@code{@var{mode} をそれぞれ @code{\major} または @code{\minor} にします。@c
+さらに標準のモード名
+ -- @notation{チャーチ モード} とも呼ばれます --
+を使うこともできます:
+@code{\ionian}, @code{\dorian}, @code{\phrygian}, @code{\lydian},
+@code{\mixolydian}, @code{\aeolian} それに @code{\locrian} です。
+
+@lilypond[verbatim,quote,relative=2]
+\key g \major
+fis1
+f
+fis
+@end lilypond
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{non-traditional-key-signatures.ly}
+
+
+@seealso
+音楽用語集:
+@rglos{church mode},
+@rglos{scordatura}
+
+学習マニュアル:
+@rlearning{臨時記号と調号}
+
+コード断片集:
+@rlsrnamed{Pitches,ピッチ}
+
+内部リファレンス:
+@rinternals{KeyChangeEvent},
+@rinternals{Key_engraver},
+@rinternals{Key_performer},
+@rinternals{KeyCancellation},
+@rinternals{KeySignature},
+@rinternals{key-cancellation-interface},
+@rinternals{key-signature-interface}.
+
+
+@node オッターバ囲み
+@unnumberedsubsubsec オッターバ囲み
+@translationof Ottava brackets
+
+@cindex ottava (オッターバ)
+@cindex 15ma
+@cindex 8va
+@cindex 8ve
+@cindex octavation (オクタベーション)
+
+@funindex set-octavation
+@funindex \ottava
+@funindex ottava
+
+@notation{オッターバ囲み} は譜をオクターブ単位で移調します:
+
+@lilypond[verbatim,quote,relative=2]
+a2 b
+\ottava #-2
+a2 b
+\ottava #-1
+a2 b
+\ottava #0
+a2 b
+\ottava #1
+a2 b
+\ottava #2
+a2 b
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{ottava-text.ly}
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{ottava-text.ly}
+
+
+@seealso
+音楽用語集:
+@rglos{octavation}
+
+コード断片集:
+@rlsrnamed{Pitches,ピッチ}
+
+内部リファレンス:
+@rinternals{Ottava_spanner_engraver},
+@rinternals{OttavaBracket},
+@rinternals{ottava-bracket-interface}
+
+
+@node 楽器の移調
+@unnumberedsubsubsec 楽器の移調
+@translationof Instrument transpositions
+
+@cindex transposition, MIDI (MIDI の移調)
+@cindex transposition, instrument (楽器の移調)
+@cindex transposing instrument (移調楽器)
+@cindex MIDI
+@cindex MIDI transposition (MIDI の移調)
+
+@funindex \transposition
+@funindex transposition
+
+楽器の移調を含む楽器を譜刻するとき、いくつかのパートは@c
+@notation{コンサート ピッチ} とは異なるピッチで譜刻される可能性があります。@c
+このような場合、@notation{移調楽器} の調を指定すべきです。@c
+指定しなければ MIDI 出力や他のパートの出だしのピッチは誤ったものになります。@c
+引用についての更なる情報は @ref{Quoting other voices} を参照してください。
+
+@example
+\transposition @var{pitch}
+@end example
+
+@code{\transposition} で使用するピッチは、@c
+譜に書かれた @code{c'} をその移調楽器で演奏したときに聴こえる@c
+実際の音に対応したものであるべきです。@c
+このピッチは絶対モードで入力します。@c
+ですから、楽譜よりも 1 度高い音を出す楽器は
+@w{@code{\transposition d'}} を使うべきです。@c
+@code{\transposition} は、ピッチがコンサート ピッチでは @emph{ない} ピッチで@c
+入力されている場合に @emph{のみ} 使用すべきです。
+
+バイオリンと B-フラットのクラリネットのための音符をいくつか挙げます。@c
+それぞれのパートは、それぞれが指揮譜に刻譜されるときに使用される@c
+音符と調を使って入力されています。@c
+2 つの楽器は斉奏で演奏しています。
+
+@lilypond[verbatim,quote]
+\new GrandStaff <<
+  \new Staff = "violin" {
+    \relative c'' {
+      \set Staff.instrumentName = #"Vln"
+      \set Staff.midiInstrument = #"violin"
+      % not strictly necessary, but a good reminder
+      \transposition c'
+
+      \key c \major
+      g4( c8) r c r c4
+    }
+  }
+  \new Staff = "clarinet" {
+    \relative c'' {
+      \set Staff.instrumentName = \markup { Cl (B\flat) }
+      \set Staff.midiInstrument = #"clarinet"
+      \transposition bes
+
+      \key d \major
+      a4( d8) r d r d4
+    }
+  }
+>>
+@end lilypond
+
+@code{\transposition} は楽曲の途中で変更されることもあります。@c
+例えば、クラリネット奏者は A のクラリネットから B-フラットのクラリネットに@c
+持ち替えることがあります。
+
+@lilypond[verbatim,quote,relative=2]
+\set Staff.instrumentName = #"Cl (A)"
+\key a \major
+\transposition a
+c d e f
+\textLengthOn
+s1*0^\markup { Switch to B\flat clarinet }
+R1
+
+\key bes \major
+\transposition bes
+c2 g
+@end lilypond
+
+
+@seealso
+音楽用語集:
+@rglos{concert pitch},
+@rglos{transposing instrument}
+
+記譜法リファレンス:
+@ref{Quoting other voices}, @ref{移調}
+
+コード断片集:
+@rlsrnamed{Pitches,ピッチ}
+
+
+@node 自動臨時記号
+@unnumberedsubsubsec 自動臨時記号
+@translationof Automatic accidentals
+
+@cindex accidental style (臨時記号スタイル)
+@cindex accidental style, default (デフォルトの臨時記号スタイル)
+@cindex accidentals (臨時記号)
+@cindex accidentals, automatic (自動臨時記号)
+@cindex automatic accidentals (自動臨時記号)
+@cindex default accidental style (デフォルトの臨時記号スタイル)
+
+@funindex set-accidental-style
+@funindex voice
+@funindex default
+
+臨時記号の譜刻の仕方には多くの異なる規約があります。@c
+LilyPond はどの臨時記号スタイルを使用するのかを指定するための関数を@c
+提供します。@c
+この関数は以下のように呼び出されます:
+
+@example
+\new Staff <<
+  #(set-accidental-style 'voice)
+  @{ @dots{} @}
+>>
+@end example
+
+指定された臨時記号スタイルは、デフォルトでは、カレントの @code{Staff} に@c
+適用されます
+(スタイル @code{piano} と @code{piano-cautionary} は例外です。@c
+これらは以下で説明します)。@c
+オプションとして、この関数は 2 つ目の引数をとることができ、@c
+それによってスタイルを変更すべき範囲 (スコープ) を指定できます。@c
+例えば、カレントの @code{StaffGroup} のすべての譜で同じスタイルを使うには、@c
+以下のようにします:
+
+@example
+#(set-accidental-style 'voice 'StaffGroup)
+@end example
+
+サポートされる臨時記号スタイルを以下で示します。@c
+それぞれのスタイルを実際に示すために、以下の例を使用します:
+
+@lilypond[verbatim,quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'default)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'default)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+両方の譜で同じ臨時記号スタイルを使うのなら、@c
+この例の最後のブロックを以下で置き換えられます:
+
+@example
+\new PianoStaff @{
+  <<
+    \context Staff = "up" @{
+      %%% 次の行を変更したいスタイルに合わせて変更してください:
+      #(set-accidental-style 'default 'Score)
+      \musicA
+    @}
+    \context Staff = "down" @{
+      \musicB
+    @}
+  >>
+@}
+@end example
+
+
+@c don't use verbatim in this table.
+@table @code
+@item default
+
+@cindex default accidental style (default 臨時記号スタイル)
+@cindex accidental style, default (default 臨時記号スタイル)
+
+@funindex default
+
+これはデフォルトの譜刻の仕方です。@c
+これは 18 世紀の一般的な習慣と一致します:
+臨時記号が有効なのは、その臨時記号が発生した小節の終わりまでで、@c
+かつ、その臨時記号が発生したオクターブの中だけです。@c
+そのため以下の例の中では、第 2 小節の @code{b} や最後の @code{c} の前には@c
+ナチュラル記号は譜刻されていません:
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'default)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'default)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item voice
+
+@cindex accidental style, voice (voice 臨時記号スタイル)
+@cindex voice accidental style (voice 臨時記号スタイル)
+@cindex accidental style, modern (modern 臨時記号スタイル)
+@cindex modern accidental style (modern 臨時記号スタイル)
+@cindex accidental style, modern-cautionary (modern-cautionary 臨時記号スタイル)
+@cindex modern-cautionary accidental style (modern-cautionary 臨時記号スタイル)
+
+@funindex voice
+
+通常の臨時記号の付け方では、臨時記号は @code{Staff} レベルで保持されます。@c
+しかしながらこのスタイルでは、臨時記号はそれぞれのボイスで別々に譜刻されます。@c
+それを除けば、このスタイルの規則は @code{default} と同じです。
+
+結果として、あるボイスからの臨時記号は他のボイスでキャンセルされず、@c
+これはしばしば望まない結果となります:
+以下の例では、2 番目の @code{a} をナチュラルで演奏するか、@c
+シャープで演奏するかを決定するのは困難です。@c
+そのため、@code{voice} オプションは、それぞれのボイスが別々の演奏者によって@c
+個々に読まれる場合にのみ使用すべきです。@c
+譜が 1 人の演奏者によって使用される場合 (例えば、指揮者やピアノ譜の場合)、@c
+このスタイルの代わりに @code{modern} や @code{modern-cautionary} を@c
+使用すべきです。
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'voice)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'voice)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item modern
+
+@cindex accidentals, modern style (modern 臨時記号スタイル)
+@cindex modern style accidentals (modern 臨時記号スタイル)
+
+@funindex modern
+
+この規則は 20 世紀の一般的な臨時記号の付け方と一致します:
+この規則の臨時記号の付け方は、あいまいさを避けるための 2 つの例外
+ -- 一時的な臨時記号が使われると、@c
+その後の小節で (同じオクターブにある音符に対して) キャンセル記号が@c
+譜刻され、@c
+臨時記号が使われたのと同じ小節では他のオクターブにある音符にも@c
+キャンセル記号が譜刻されます --
+を除いて、@code{default} と同じです。@c
+そのため、上部譜の第 2 小節の中にある @code{b} と @code{c} の前には@c
+ナチュラルが付けられています:
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'modern)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'modern)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item modern-cautionary
+
+@cindex accidentals, modern cautionary style (modern-cautionary 臨時記号スタイル)
+@cindex modern accidental style (modern 臨時記号スタイル)
+@cindex modern cautionary accidental style (modern-cautionary 臨時記号スタイル)
+@cindex modern style accidentals (modern 臨時記号スタイル)
+@cindex modern style cautionary accidentals (modern-cautionary 臨時記号スタイル)
+
+@funindex modern-cautionary
+
+この規則は @code{modern} と似ていますが、@c
+忠告的臨時記号として @q{追加の} 臨時記号が譜刻されます
+(これは @code{default} では譜刻されません)。@c
+デフォルトでは、この臨時記号は括弧で囲まれて譜刻されますが、@c
+@code{AccidentalSuggestion} の @code{cautionary-style} プロパティを@c
+定義することによって小さなサイズで譜刻されることもあり得ます。
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'modern-cautionary)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'modern-cautionary)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item modern-voice
+
+@cindex accidental style, modern (modern 臨時記号スタイル)
+@cindex accidentals, modern (modern 臨時記号)
+@cindex accidentals, multivoice (マルチボイス臨時記号)
+@cindex modern accidental style (modern 臨時記号スタイル)
+@cindex modern accidentals (modern 臨時記号)
+@cindex multivoice accidentals (マルチボイス)
+
+@funindex modern-voice
+
+この規則はマルチボイス臨時記号として使用されます。@c
+演奏家が複数のボイスの中の 1 つのボイスを演奏する場合にも、@c
+すべてのボイスを演奏する場合にも使用されます。@c
+臨時記号はそれぞれのボイスに対して譜刻されますが、@c
+同じ @code{Staff} の中であってもボイスをまたいで@emph{キャンセルされます}。@c
+そのため、最後の小節で @code{a} がキャンセルされています
+ -- なぜなら、前のキャンセルは異なるボイスで行われたからです。@c
+さらに下部譜では @code{d} がキャンセルされています
+ -- その臨時記号は前の小節の異なるボイスで付けられたものだからです:
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'modern-voice)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'modern-voice)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@cindex accidental style, cautionary, modern voice (modern-voice-cautionary 臨時記号スタイル)
+@cindex accidental style, modern voice cautionary (modern-voice-cautionary 臨時記号スタイル)
+@cindex accidental style, voice, modern cautionary (modern-voice-cautionary 臨時記号スタイル)
+
+@funindex modern-voice-cautionary
+
+@item modern-voice-cautionary
+
+この規則は @code{modern-voice} と同じですが、追加の臨時記号
+(これは @code{voice} では譜刻されません)
+は忠告として譜刻されます。@c
+たとえ @code{default} で譜刻されるすべての臨時記号が@c
+この規則でも譜刻されたとしても、@c
+それらの臨時記号のいくつかは忠告として譜刻されます。
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'modern-voice-cautionary)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'modern-voice-cautionary)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item piano
+
+@cindex accidental style, piano (ピアノ臨時記号スタイル)
+@cindex accidentals, piano (ピアノ臨時記号)
+@cindex piano accidental style (ピアノ臨時記号スタイル)
+@cindex piano accidentals (ピアノ臨時記号)
+
+@funindex piano
+
+この規則は 20 世紀のピアノ譜の臨時記号のつけ方を反映しています。@c
+このスタイルは @code{modern} スタイルと非常によく似ています。@c
+しかしながらこのスタイルでは、@c
+同じ @code{GrandStaff} または @code{PianoStaff} の中にある譜をまたがって@c
+臨時記号はキャンセルされます。@c
+そのため、最後の和音ではすべての音符でキャンセルが行われています。
+
+この臨時記号スタイルは、@c
+デフォルトで、@code{GrandStaff} や @code{PianoStaff} に適用されます。
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'piano)
+      \musicA
+    }
+    \context Staff = "down" {
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item piano-cautionary
+
+@cindex accidentals, piano cautionary (piano-cautionary 臨時記号)
+@cindex cautionary accidentals, piano (piano-cautionary 臨時記号)
+@cindex piano cautionary accidentals (piano-cautionary 臨時記号)
+@cindex accidental style, piano cautionary (piano-cautionary 臨時記号スタイル)
+@cindex cautionary accidental style, piano (piano-cautionary 臨時記号スタイル)
+@cindex piano cautionary accidental style (piano-cautionary 臨時記号スタイル)
+
+@funindex piano-cautionary
+
+この規則は @code{piano} と同じですが、追加の臨時記号は忠告として譜刻されます。
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'piano-cautionary)
+      \musicA
+    }
+    \context Staff = "down" {
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item neo-modern
+
+@cindex neo-modern accidental style (neo-modern 臨時記号スタイル)
+@cindex accidental style, neo-modern (neo-modern 臨時記号スタイル)
+
+@funindex neo-modern
+
+この規則は現代音楽での一般的な臨時記号の付け方を再現します:
+臨時記号は @code{modern} と同じように譜刻されますが、@c
+同じ小節の中で臨時記号を付けられた音符と同じ音符が再び現れた場合、@c
+その音符にも臨時記号が譜刻されます
+ -- ただし、臨時記号を付けられた音符の直後に同じ音符が現れる場合は除きます
+(訳者: 第 1 小節の下部譜にある 2 つの @code{f} には@c
+両方とも臨時記号が譜刻されていますが、@c
+第 1 小節の上部譜にある 2 つのミドル C は連続しているため、@c
+後のミドル C には臨時記号が譜刻されません)。
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'neo-modern)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'neo-modern)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item neo-modern-cautionary
+
+@cindex neo-modern-cautionary accidental style (neo-modern-cautionary 臨時記号スタイル)
+@cindex accidental style, neo-modern-cautionary (neo-modern-cautionary 臨時記号スタイル)
+
+@funindex neo-modern-cautionary
+
+この規則は @code{neo-modern} と似ていますが、@c
+追加の臨時記号は忠告の臨時記号として譜刻されます。
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'neo-modern-cautionary)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'neo-modern-cautionary)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item neo-modern-voice
+
+@cindex neo-modern-voice accidental style (neo-modern-voice 臨時記号スタイル)
+@cindex accidental style, neo-modern-voice (neo-modern-voice 臨時記号スタイル)
+
+@funindex neo-modern-voice
+
+この規則は、1 つのボイスを演奏する音楽家とすべてのボイスを演奏する音楽家@c
+両方のための複数ボイスの臨時記号に使用されます。@c
+@code{neo-modern} と同様に、臨時記号は各ボイスに譜刻されますが、@c
+同じ @code{Staff} にあるボイスをまたがるとキャンセルされます。
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'neo-modern-voice)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'neo-modern-voice)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item neo-modern-voice-cautionary
+
+@cindex neo-modern-voice-cautionary accidental style (neo-modern-voice-cautionary 臨時記号スタイル)
+@cindex accidental style, neo-modern-voice-cautionary (neo-modern-voice-cautionary 臨時記号スタイル)
+
+@funindex neo-modern-voice-cautionary
+
+この規則は @code{neo-modern-voice} と似ていますが、@c
+追加の臨時記号が忠告の臨時記号として譜刻されます。
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'neo-modern-voice-cautionary)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'neo-modern-voice-cautionary)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item dodecaphonic
+
+@cindex dodecaphonic accidental style (dodecaphonic 臨時記号スタイル)
+@cindex dodecaphonic style, neo-modern (neo-modern 12 音スタイル)
+
+@funindex dodecaphonic
+
+この規則は 20 世紀初頭の作曲家たちによって導入された臨時記号の付け方を@c
+反映しています
+ -- ナチュラルの音符と非ナチュラルの音符
+(訳者: ピアノの白鍵に対応する音符と黒鍵に対応する音符)
+間にある上下関係を無効にしようとする試みです。@c
+このスタイルでは、@emph{すべて} の音符にナチュラル記号を含む臨時記号が@c
+付けられます。
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'dodecaphonic)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'dodecaphonic)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item teaching
+
+@cindex teaching accidental style (teaching 臨時記号スタイル)
+@cindex accidental style, teaching (teaching 臨時記号スタイル)
+
+@funindex teaching
+
+この規則は学生向けを意図したものであり、@c
+自動的に譜刻される忠告の臨時記号によって容易にスケール譜を作ることを@c
+容易にします。@c
+臨時記号は @code{modern} と同じように譜刻されます。@c
+しかしながら、調号によって指定されたすべてのシャープ音、@c
+フラット音に対して忠告の臨時記号が譜刻されます
+ -- ただし、前の音符の直後にある同じピッチの音符は例外です。
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \key fis \minor
+      #(set-accidental-style 'teaching)
+      \musicA
+    }
+    \context Staff = "down" {
+      \key fis \minor
+      #(set-accidental-style 'teaching)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+
+@item no-reset
+
+@cindex accidental style, no reset (no-reset 臨時記号スタイル)
+@cindex no reset accidental style (no-reset 臨時記号スタイル)
+
+@funindex no-reset
+
+この規則は @code{default} と同じですが、臨時記号の保持は小節内に限定されず、@c
+@q{最後まで} 保持されます:
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'no-reset)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'no-reset)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item forget
+
+@cindex forget accidental style (forget 臨時記号スタイル)
+@cindex accidental style, forget (forget 臨時記号スタイル)
+
+@funindex forget
+
+この規則は @code{no-reset} と正反対です:
+臨時記号はまったく保持されません
+-- そのため、調号に対応しながら、前にある音楽とは無関係に@c
+すべての臨時記号が譜刻されます。@c
+@code{dodecaphonic} とは異なり、@c
+この規則ではナチュラルが譜刻されることはありません。
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'forget)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'forget)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+@end table
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
+
+
+@seealso
+コード断片集:
+@rlsrnamed{Pitches,ピッチ}
+
+内部リファレンス:
+@rinternals{Accidental},
+@rinternals{Accidental_engraver},
+@rinternals{GrandStaff} and
+@rinternals{PianoStaff},
+@rinternals{Staff},
+@rinternals{AccidentalSuggestion},
+@rinternals{AccidentalPlacement},
+@rinternals{accidental-suggestion-interface}
+
+
+@cindex accidentals and simultaneous notes (臨時記号と同時発生する音符)
+@cindex simultaneous notes and accidentals (同時発生する音符と臨時記号)
+@cindex accidentals in chords (和音の中の臨時記号)
+@cindex chords, accidentals in (和音の中の臨時記号)
+
+@knownissues
+
+同時発生する音符はシーケンシャル モードで入力されたものと見なされます。@c
+このことが意味するのは、和音の各音符は入力ファイルの中で記述された順に
+1 つずつ発生するものとして、和音の臨時記号は譜刻されるということです。@c
+これは和音の中の臨時記号が互いに依存関係にある場合に問題となります
+-- この問題はデフォルトの臨時記号スタイルでは発生しません。@c
+この問題は、問題となる音符に @code{!} や @code{?} を@c
+手動で付け加えることによって解決できます。
+
+臨時記号の忠告的なキャンセルは 1 つ前の小節を見て行われます。@c
+しかしながら、@code{\repeat volta N} セクションの後にくる
+@code{\alternative} ブロックでは、@c
+キャンセルの算出はその前に @emph{譜刻された} 小節ではなく、@c
+その前に @emph{演奏された} 小節を見て行われると演奏者は予想します。@c
+以下の例では、2 番目の差し替え小節の中にあるナチュラル @code{c}
+にナチュラル記号は必要ありません。
+
+@lilypond[quote]
+{
+  #(set-accidental-style 'modern)
+  \time 2/4
+  \repeat volta 2 {
+    c'2
+  }
+  \alternative {
+     cis'
+     c'
+  }
+}
+@end lilypond
+
+以下の方法で解決できます:
+局部的に臨時記号スタイルを @code{forget} に変更する関数を定義します:
+
+@lilypond[verbatim,quote]
+forget = #(define-music-function (parser location music) (ly:music?) #{
+  #(set-accidental-style 'forget)
+  $music
+  #(set-accidental-style 'modern)
+#})
+{
+  #(set-accidental-style 'modern)
+  \time 2/4
+  \repeat volta 2 {
+    c'2
+  }
+  \alternative {
+     cis'
+     \forget c'
+  }
+}
+@end lilypond
+
+@node 音域
+@unnumberedsubsubsec 音域
+@translationof Ambitus
+
+@cindex ambitus (音域)
+@cindex range of pitches (ピッチの範囲)
+@cindex pitch range (ピッチ範囲)
+
+用語 @notation{音域} (ambitus) は、@c
+音楽のある部分の中にあるボイスがとるピッチの範囲を示します。@c
+さらに、ある楽器が演奏することができるピッチ範囲を@c
+示すこともあるかもしれません。@c
+音域をボーカル パートに譜刻することによって、@c
+歌い手はそのパートの音域が歌い手の能力と一致するかどうかを@c
+容易に見極めることができます。
+
+音域は、楽曲の開始点で、最初の音部記号の近くに記されます。@c
+範囲は最低ピッチと最高ピッチを表す 2 つの音符によって@c
+グラフィカルに示されます。@c
+臨時記号は、その臨時記号が調号の一部でない場合にのみ譜刻されます。
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Voice
+    \consists "Ambitus_engraver"
+  }
+}
+
+\relative c'' {
+  aes c e2
+  cis,1
+}
+@end lilypond
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{adding-ambitus-per-voice.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{ambitus-with-multiple-voices.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-the-ambitus-gap.ly}
+
+
+@seealso
+音楽用語集:
+@rglos{ambitus}
+
+コード断片集:
+@rlsrnamed{Pitches,ピッチ}
+
+内部リファレンス:
+@rinternals{Ambitus_engraver},
+@rinternals{Voice},
+@rinternals{Staff},
+@rinternals{Ambitus},
+@rinternals{AmbitusAccidental},
+@rinternals{AmbitusLine},
+@rinternals{AmbitusNoteHead},
+@rinternals{ambitus-interface}
+
+
+@knownissues
+
+複数のボイスがある場合にボイスごとに音域をとることによって生じる@c
+音域の衝突を処理するシステムはありません。
+
+
+@node 符頭
+@subsection 符頭
+@translationof Note heads
+
+このセクションでは符頭を変更する方法について説明します。
+
+@menu
+* 特殊な符頭::
+* 演奏を容易にする記譜法の符頭::
+* シェイプ符頭::
+* 即興::
+@end menu
+
+@node 特殊な符頭
+@unnumberedsubsubsec 特殊な符頭
+@translationof Special note heads
+
+@cindex note heads, special (特別な符頭)
+@cindex note heads, cross (×の符頭)
+@cindex note heads, diamond (ダイアモンド形の符頭)
+@cindex note heads, parlato (語りの符頭)
+@cindex note heads, harmonic (和音の符頭)
+@cindex note heads, guitar (ギターの符頭)
+@cindex special note heads (特別な符頭)
+@cindex cross note heads (×の符頭)
+@cindex diamond note heads (ダイアモンド形の符頭)
+@cindex parlato note heads (語りの符頭)
+@cindex harmonic note heads (和音の符頭)
+@cindex guitar note heads (ギターの符頭)
+@cindex note head styles (符頭のスタイル)
+@cindex styles, note heads (符頭のスタイル)
+
+@funindex cross
+
+符頭を変更することができます:
+
+@lilypond[verbatim,quote,relative=2]
+c4 b
+\override NoteHead #'style = #'cross
+c4 b
+\revert NoteHead #'style
+a b
+\override NoteHead #'style = #'harmonic
+a b
+\revert NoteHead #'style
+c4 d e f
+@end lilypond
+
+すべての符頭スタイルを調べるには、@ref{Note head styles} を参照してください。
+
+@code{cross} スタイルはさまざまな音楽的意図を表すために使用されます。@c
+以下の定義済みコマンドは符頭を譜コンテキストとタブ譜コンテキストで変更し、@c
+何らかの音楽的意味を表すために使用することができます:
+
+@lilypond[verbatim,quote,relative=2]
+c4 b
+\xNotesOn
+ a b c4 b
+\xNotesOff
+c4 d
+@end lilypond
+
+この定義済みコマンドの音楽関数は、譜コンテキストやタブ譜コンテキストの@c
+和音の内外で使用して、符頭を×の形にすることができます:
+
+@lilypond[verbatim,quote,relative=2]
+c4 b
+\xNote { e f }
+c b < g \xNote c f > b
+@end lilypond
+
+@code{\xNote}, @code{\xNotesOn} それに @code{\xNotesOff} の同義語として
+@code{\deadNote}, @code{\deadNotesOn} それに @code{\deadNotesOff} を@c
+使用することができます。@c
+@notation{dead note} という用語はギタリストが一般的に使用します。
+
+また、和音の中でのみ使用できるダイアモンド形のための短縮記法があります:
+
+@lilypond[verbatim,quote,relative=2]
+<c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic>
+@end lilypond
+
+@predefined
+@code{\harmonic},
+@code{\xNotesOn},
+@code{\xNotesOff},
+@code{\xNote}.
+@endpredefined
+
+@seealso
+コード断片集:
+@rlsrnamed{Pitches,ピッチ}
+
+記譜法リファレンス:
+@ref{Note head styles},
+@ref{Chorded notes},
+@ref{Indicating harmonics and dampened notes}
+
+内部リファレンス:
+@rinternals{note-event},
+@rinternals{Note_heads_engraver},
+@rinternals{Ledger_line_engraver},
+@rinternals{NoteHead},
+@rinternals{LedgerLineSpanner},
+@rinternals{note-head-interface},
+@rinternals{ledger-line-spanner-interface}
+
+
+@node 演奏を容易にする記譜法の符頭
+@unnumberedsubsubsec 演奏を容易にする記譜法の符頭
+@translationof Easy notation note heads
+
+@cindex note heads, practice (練習のための符頭)
+@cindex practice note heads (練習のための符頭)
+@cindex note heads, easy notation (演奏を容易にする記譜法の符頭)
+@cindex easy notation (演奏を容易にする記譜法)
+@cindex Hal Leonard
+@cindex beginners' music (初心者のための楽譜)
+@cindex music, beginners' (初心者のための楽譜)
+@cindex easy play note heads (演奏を容易にする符頭)
+@cindex note heads, easy play (演奏を容易にする符頭)
+
+@funindex \easyHeadsOn
+@funindex easyHeadsOn
+@funindex \easyHeadsOff
+@funindex easyHeadsOff
+
+@q{演奏を容易にする} 符頭は、符頭の中に音符名を含みます。@c
+これは、初心者のための楽譜で使用されます。@c
+文字を読みやすくするために、大きなフォント サイズで譜刻すべきです。@c
+大きなフォントで譜刻する方法は、@c
+@ref{Setting the staff size} を参照してください。
+
+@lilypond[verbatim,quote]
+#(set-global-staff-size 26)
+\relative c' {
+  \easyHeadsOn
+  c2 e4 f
+  g1
+  \easyHeadsOff
+  c,1
+}
+@end lilypond
+
+
+@predefined
+@code{\easyHeadsOn},
+@code{\easyHeadsOff}
+@endpredefined
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{numbers-as-easy-note-heads.ly}
+
+
+@seealso
+記譜法リファレンス:
+@ref{Setting the staff size}
+
+コード断片集:
+@rlsrnamed{Pitches,ピッチ}
+
+内部リファレンス:
+@rinternals{note-event},
+@rinternals{Note_heads_engraver},
+@rinternals{NoteHead},
+@rinternals{note-head-interface}
+
+
+@node シェイプ符頭
+@unnumberedsubsubsec シェイプ符頭
+@translationof Shape note heads
+
+@cindex note heads, shape (シェイプ符頭)
+@cindex note heads, Aiken (Aiken の符頭)
+@cindex note heads, sacred harp (セイクリッド ハープの符頭)
+@cindex shape notes (シェイプ ノート)
+@cindex Aiken shape note heads (Aiken のシェイプ符頭)
+@cindex sacred harp note heads (セイクリッド ハープの符頭)
+@cindex note heads, Southern Harmony
+@cindex Southern Harmony note heads
+@cindex Funk shape note heads
+@cindex note heads, Funk
+@cindex note heads, Harmonica Sacra
+@cindex Harmonica Sacra note heads
+@cindex Christian Harmony note heads
+@cindex note heads, Christian Harmony
+@cindex Walker shape note heads
+@cindex note heads, Walker
+
+@funindex \aikenHeads
+@funindex aikenHeads
+@funindex \sacredHarpHeads
+@funindex sacredHarpHeads
+@funindex \southernHarmonyHeads
+@funindex southernHarmonyHeads
+@funindex \funkHeads
+@funindex funkHeads
+@funindex \walkerHeads
+@funindex walkerHeads
+
+シェイプ ノート記譜法では、@c
+符頭の形状は音階の中での音符の位置付けに対応します。@c
+この表記は 19 世紀のアメリカの歌集で一般的なものです。@c
+シェイプ符頭はセイクリッド ハープ、Southern Harmony、@c
+Funk (Harmonica Sacra)、Walker、それに Aiken (Christian Harmony) スタイルで@c
+使用されます:
+
+@lilypond[verbatim,quote,relative=2]
+\aikenHeads
+c, d e f g2 a b1 c \break
+\sacredHarpHeads
+c,4 d e f g2 a b1 c \break
+\southernHarmonyHeads
+c,4 d e f g2 a b1 c \break
+\funkHeads
+c,4 d e f g2 a b1 c \break
+\walkerHeads
+c,4 d e f g2 a b1 c \break
+@end lilypond
+
+@funindex \key
+@funindex key
+@funindex \aikenHeadsMinor
+@funindex aikenHeadsMinor
+@funindex \sacredHarpHeadsMinor
+@funindex sacredHarpHeadsMinor
+@funindex \southernHarmonyHeadsMinor
+@funindex southernHarmonyHeadsMinor
+@funindex \funkHeadsMinor
+@funindex funkHeadsMinor
+@funindex \walkerHeadsMinor
+@funindex walkerHeadsMinor
+
+符頭の形状は音階の中での位置に対応し、@c
+音階のベースは @code{\key} コマンドによって決まります。@c
+マイナーで記述している場合、@c
+符頭の形状を決定する音階ステップはメジャーの場合との相対関係になります:
+
+@lilypond[verbatim,quote,relative=2]
+\key a \minor
+\aikenHeads
+a b c d e2 f g1 a \break
+\aikenHeadsMinor
+a,4 b c d e2 f g1 a \break
+\sacredHarpHeadsMinor
+a,2 b c d \break
+\southernHarmonyHeadsMinor
+a2 b c d \break
+\funkHeadsMinor
+a2 b c d \break
+\walkerHeadsMinor
+a2 b c d \break
+
+@end lilypond
+
+
+@predefined
+@code{\aikenHeads},
+@code{\aikenHeadsMinor},
+@code{\funkHeads},
+@code{\funkHeadsMinor},
+@code{\sacredHarpHeads},
+@code{\sacredHarpHeadsMinor},
+@code{\southernHarmonyHeads},
+@code{\southernHarmonyHeadsMinor},
+@code{\walkerHeads},
+@code{\walkerHeadsMinor}
+@endpredefined
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
+
+すべての符頭スタイルを調べるには、@ref{Note head styles} を参照してください。
+
+
+@seealso
+コード断片集:
+@rlsrnamed{Pitches,ピッチ}
+
+記譜法リファレンス:
+@ref{Note head styles}
+
+内部リファレンス:
+@rinternals{note-event},
+@rinternals{Note_heads_engraver},
+@rinternals{NoteHead},
+@rinternals{note-head-interface}
+
+
+@node 即興
+@unnumberedsubsubsec 即興
+@translationof Improvisation
+
+@cindex improvisation (即興)
+@cindex slashed note heads (スラッシュ形の符頭)
+@cindex note heads, improvisation (即興の符頭)
+@cindex note heads, slashed (スラッシュ形の符頭)
+
+@funindex \improvisationOn
+@funindex improvisationOn
+@funindex \improvisationOff
+@funindex improvisationOff
+
+即興はしばしばスラッシュ形の符頭で記されます。@c
+そのような表記では、演奏者は好みのピッチを選ぶことができますが、@c
+指定されたリズムに従って演奏する必要があります。@c
+このような符頭は以下のようにして作成することができます:
+
+@lilypond[verbatim,quote,relative=2]
+\new Voice \with {
+  \consists "Pitch_squash_engraver"
+} {
+  e8 e g a a16( bes) a8 g
+  \improvisationOn
+  e8 ~
+  e2 ~ e8 f4 f8 ~
+  f2
+  \improvisationOff
+  a16( bes) a8 g e
+}
+@end lilypond
+
+
+@predefined
+@code{\improvisationOn},
+@code{\improvisationOff}
+@endpredefined
+
+
+@seealso
+コード断片集:
+@rlsrnamed{Pitches,ピッチ}
+
+内部リファレンス:
+@rinternals{Pitch_squash_engraver},
+@rinternals{Voice},
+@rinternals{RhythmicStaff}
