@@ -4,6 +4,26 @@
 \version "2.12.2"
 
 \header {
+%% Translation of GIT committish: 27b1197f3bae8512c14d946752cd3e40e7c76016
+
+
+  texidocde = "
+Hier wird gezeigt, wie man das Hinzufügen von vielen Orchsterstichnoten
+zu einem Klavierauszug hinzufügen kann.  Die musikalische Funktion
+@code{\\cueWhile} braucht vier Argumente:  Die Noten, von denen die
+Stichnoten formatiert werden sollen, definiert durch @code{\\addQuote},
+die Bezeichnung, die mit den Noten angegeben werden soll, dann entweder
+@code{#UP} (hoch) oder @code{#DOWN} (runter) zur Angabe von entweder
+@code{\\voiceOne} mit der Bezeichnung über dem System oder @code{\\voiceTwo}
+mit der Bezeichnung unter dem System, und schließlich die Klaviermusik,
+die parallel zu den Stichnoten gespielt werden soll.  Die Bezeichnung des
+Stichnoteninstruments wird links der Stichnoten positioniert.  Viele
+Abschnitte können zitiert werden, aber sie dürfen sich nicht überlappen.
+
+"
+  doctitlede = "Orchesterstichnoten zu einem Klavierauszug hinzufügen"
+
+
 %% Translation of GIT committish: c1d5bb448321d688185e0c6b798575d4c325ae80
 
   texidocfr = "
@@ -25,6 +45,8 @@ partition pour chœur"
 
 
   lsrtags = "staff-notation, vocal-music"
+
+
 
 
 %% Translation of GIT committish: fa19277d20f8ab0397c560eb0e7b814bd804ecec

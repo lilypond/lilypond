@@ -4,6 +4,17 @@
 \version "2.12.2"
 
 \header {
+%% Translation of GIT committish: 27b1197f3bae8512c14d946752cd3e40e7c76016
+
+  texidocde = "
+Das @code{arpeggioBracket}-Klammerobjekt kann benutzt werden, um geteilte
+Stimmen anzuzeigen, wenn keine Hälse diese Information bieten.  Das sieht
+man oft in Chormusik.
+
+"
+  doctitlede = "Arpeggio-Klammern benutzen um geteilte Stimmen besser sichtbar zu machen"
+
+
 %% Translation of GIT committish: c1d5bb448321d688185e0c6b798575d4c325ae80
   texidocfr = "
 Les crochets d'arpegio (@code{arpeggioBracket}) permettent de mettre en
@@ -17,6 +28,8 @@ divisions plus évidentes"
 
 
   lsrtags = "expressive-marks, vocal-music"
+
+
 
 
 %% Translation of GIT committish: fa19277d20f8ab0397c560eb0e7b814bd804ecec

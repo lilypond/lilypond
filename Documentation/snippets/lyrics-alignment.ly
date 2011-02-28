@@ -4,6 +4,19 @@
 \version "2.12.2"
 
 \header {
+%% Translation of GIT committish: 27b1197f3bae8512c14d946752cd3e40e7c76016
+
+  texidocde = "
+Die horizontale Ausrichtung von Gesangstext kann eingestellt werden, indem
+man die @code{self-alignment-X}-Eigenschaft des @code{LyricText}-Objekts
+verändert.  @code{#-1} bedeutet links, @code{#0} bedeutet mittig und @code{#1}
+bedeutet rechts, man kann aber genauso gut auch @code{#LEFT}, @code{#CENTER}
+und @code{#RIGHT} benutzen.
+
+"
+  doctitlede = "Ausrichtung von Gesangstext"
+
+
 %% Translation of GIT committish: c1d5bb448321d688185e0c6b798575d4c325ae80
   texidocfr = "
 L'alignement horizontal des paroles peut se gérer à l'aide de la
@@ -17,6 +30,8 @@ les valeurs @code{#1} ou @code{#RIGHT} un alignement par la droite.
 
 
   lsrtags = "text, vocal-music"
+
+
 
 
 %% Translation of GIT committish: fa19277d20f8ab0397c560eb0e7b814bd804ecec

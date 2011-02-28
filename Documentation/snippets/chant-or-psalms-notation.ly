@@ -16,6 +16,8 @@ lorsque les strophes sont de longueur inégale.
   lsrtags = "rhythms, vocal-music, ancient-notation, contexts-and-engravers"
 
 
+
+
 %% Translation of GIT committish: fa19277d20f8ab0397c560eb0e7b814bd804ecec
   texidoces = "
 Este tipo de notación se utiliza para el canto de los Salmos, en
