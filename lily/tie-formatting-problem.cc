@@ -1241,7 +1241,7 @@ Tie_formatting_problem::set_debug_scoring (Ties_configuration const &base)
       for (vsize i = 0; i < base.size (); i++)
 	{
 	  string card = base.complete_tie_card (i);
-	  specifications_[i].tie_grob_->set_property ("quant-score",
+	  specifications_[i].tie_grob_->set_property ("annotation",
 						      ly_string2scm (card));
 	}
     }

@@ -30,8 +30,8 @@
 #
 #  Customize the file here
 #
-FROMDIR="$HOME/lilypond"
-DOCDIR="$HOME/lilypond/tempdocs"
+FROMDIR="$HOME/lilypond-git"
+DOCDIR="$HOME/lilypond-git/tempdocs"
 LILYPONDBOOK="lilypond-book"
 TEXI2HTML="texi2html"
 REFCHECK="$FROMDIR/scripts/auxiliar/ref_check.py"

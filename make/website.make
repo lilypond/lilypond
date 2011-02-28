@@ -86,10 +86,12 @@ website-xrefs: website-version
 website-bibs: website-version
 	BSTINPUTS=$(top-src-dir)/Documentation/web \
 		$(WEB_BIBS) -s web \
+		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(OUT)/others-did.itexi \
 		$(top-src-dir)/Documentation/web/others-did.bib
 	BSTINPUTS=$(top-src-dir)/Documentation/web \
 		$(WEB_BIBS) -s web \
+		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(OUT)/we-wrote.itexi \
 		$(top-src-dir)/Documentation/web/we-wrote.bib
 

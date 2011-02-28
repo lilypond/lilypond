@@ -331,6 +331,7 @@ Stem::calc_length (SCM smob)
   int durlog = duration_log (me);
 
   Real ss = Staff_symbol_referencer::staff_space (me);
+  Real staff_rad = Staff_symbol_referencer::staff_radius (me);
   Real length = 7;
   SCM s = ly_assoc_get (ly_symbol2scm ("lengths"), details, SCM_EOL);
   if (scm_is_pair (s))
@@ -346,11 +347,25 @@ Stem::calc_length (SCM smob)
       SCM sshorten = ly_assoc_get (ly_symbol2scm ("stem-shorten"), details, SCM_EOL);
       SCM scm_shorten = scm_is_pair (sshorten)
 	? robust_list_ref (max (duration_log (me) - 2, 0), sshorten) : SCM_EOL;
-      Real shorten = 2* robust_scm2double (scm_shorten, 0);
-
-      /* On boundary: shorten only half */
-      if (abs (head_positions (me)[dir]) <= 1)
-	shorten *= 0.5;
+      Real shorten_property = 2 * robust_scm2double (scm_shorten, 0);
+      /*  change in length between full-size and shortened stems is executed gradually.
+          "transition area" = stems between full-sized and fully-shortened.
+          */
+      Real quarter_stem_length = 2 * scm_to_double (robust_list_ref (0, s));
+      /*  shortening_step = difference in length between consecutive stem lengths
+          in transition area. The bigger the difference between full-sized
+          and shortened stems, the bigger shortening_step is.
+          (but not greater than 1/2 and not smaller than 1/4).
+          value 6 is heuristic; it determines the suggested transition slope steepnesas.
+          */
+      Real shortening_step = min (max (0.25, (shorten_property / 6)), 0.5);
+      /*  Shortening of unflagged stems should begin on the first stem that sticks
+          more than 1 staffspace (2 units) out of the staff.
+          Shortening of flagged stems begins in the same moment as unflagged ones,
+          but not earlier than on the middle line note.
+          */
+      Real which_step = (min (1.0, quarter_stem_length - (2 * staff_rad) - 2.0)) + abs(hp[dir]);
+      Real shorten = min (max (0.0, (shortening_step * which_step)), shorten_property);
 
       length -= shorten;
     }

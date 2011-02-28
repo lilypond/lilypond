@@ -1086,6 +1086,7 @@ several Git branches of LilyPond source code is presented.
 * Git log::
 * Applying remote patches::
 * Sending and receiving patches via email::
+* Cleaning up multiple patches::
 * Commit access::
 @end menu
 
@@ -1353,6 +1354,23 @@ provided on the Wine wiki at
 @uref{http://wiki.winehq.org/GitWine}.
 
 
+@node Cleaning up multiple patches
+@subsection Cleaning up multiple patches
+
+If you have been developing on your own branch for a while, you
+may have more commmits than is really sensible.  To revise your
+work and condense commits, use:
+
+@example
+git rebase origin/master
+git rebase -i origin/master
+@end example
+
+@warning{Be a bit cautious -- if you completely remove commits
+during the interactive session, you will... err... completely
+remove those commits.}
+
+
 @node Commit access
 @subsection Commit access
 
@@ -1377,6 +1395,9 @@ browser responds with an @qq{untrusted connection} message when
 you visit the link, follow the steps for including the CAcert root
 certificate in your browser, given at
 @uref{http://savannah.gnu.org/tls/tutorial/}.
+
+@warning{Savannah will silently put your username in lower-case --
+do not try to use capital letters.}
 
 
 @item

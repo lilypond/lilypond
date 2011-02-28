@@ -141,13 +141,6 @@ Slur::print (SCM smob)
 
 #if DEBUG_SLUR_SCORING
   SCM annotation = me->get_property ("annotation");
-  if (!scm_is_string (annotation))
-    {
-      SCM debug = me->layout ()->lookup_variable (ly_symbol2scm ("debug-slur-scoring"));
-      if (to_boolean (debug))
-	annotation = me->get_property ("quant-score");
-    }
-  
   if (scm_is_string (annotation))
     {
       string str;
@@ -504,7 +497,6 @@ ADD_INTERFACE (Slur,
 	       "line-thickness "
 	       "note-columns "
 	       "positions "
-	       "quant-score "
 	       "ratio "
 	       "thickness "
 	       );

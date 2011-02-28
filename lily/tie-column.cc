@@ -90,9 +90,7 @@ Tie_column::calc_positioning_done (SCM smob)
   if (!ties.size ())
     return SCM_BOOL_T;
 
-
   me->set_property ("positioning-done", SCM_BOOL_T);
-
   vector_sort (ties, Tie::less);
 
   Tie_formatting_problem problem;
@@ -101,9 +99,7 @@ Tie_column::calc_positioning_done (SCM smob)
   SCM manual_configs = me->get_property ("tie-configuration");
   problem.set_manual_tie_configuration (manual_configs);
 
-
   Ties_configuration base = problem.generate_optimal_configuration ();
-
   for (vsize i = 0; i < base.size (); i++)
     {
       SCM cp = Tie::get_control_points (ties[i], problem.common_x_refpoint (),

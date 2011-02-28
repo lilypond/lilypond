@@ -281,12 +281,6 @@ Tie::print (SCM smob)
 
 #if DEBUG_TIE_SCORING
   SCM annotation = me->get_property ("annotation");
-  if (!scm_is_string (annotation))
-    {
-      SCM debug = me->layout ()->lookup_variable (ly_symbol2scm ("debug-tie-scoring"));
-      if (to_boolean (debug))
-	annotation = me->get_property ("quant-score");
-    }
   if (scm_is_string (annotation))
     {
       string str;
@@ -323,7 +317,6 @@ ADD_INTERFACE (Tie,
 	       "head-direction "
 	       "line-thickness "
 	       "neutral-direction "
-	       "quant-score "
 	       "staff-position "
 	       "thickness "
 	       );

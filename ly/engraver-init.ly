@@ -394,6 +394,7 @@ a collection of staves, with a bracket in front and spanning bar lines."
   \consists "Text_engraver"
   \consists "Text_spanner_engraver"
   \consists "Axis_group_engraver"
+  \consists "Tweak_engraver"
 
   pedalSustainStrings = #'("Ped." "*Ped." "*")
   pedalUnaCordaStrings = #'("una corda" "" "tre corde")
@@ -1070,4 +1071,3 @@ RemoveEmptyTabStaffContext = \context {
   \TabStaff
   \RemoveEmptyStaves
 }
-

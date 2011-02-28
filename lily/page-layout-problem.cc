@@ -424,8 +424,7 @@ Page_layout_problem::find_system_offsets ()
 		      loose_line_min_distances.clear ();
 		    }
 		  last_spaceable_line = staff;
-		  // Negative is down but the translation is relative to the whole page.
-		  last_spaceable_line_translation = -system_position + translation;
+		  last_spaceable_line_translation = -solution_[spring_idx - 1];
 
 		  staff->translate_axis (translation, Y_AXIS);
 		  found_spaceable_staff = true;
@@ -436,6 +435,10 @@ Page_layout_problem::find_system_offsets ()
 		    loose_lines.push_back (last_spaceable_line);
 
 		  if (staff_idx)
+		    // NOTE: the way we do distances between loose lines (and other lines too, actually)
+		    // is not the most accurate way possible: we only insert rods between adjacent
+		    // lines.  To be more accurate, we could insert rods between non-adjacent lines
+		    // using a scheme similar to the one in set_column_rods.
 		    loose_line_min_distances.push_back (min_offsets[staff_idx-1] - min_offsets[staff_idx]);
 		  else
 		    {
