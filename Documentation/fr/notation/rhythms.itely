@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 45c3316d9910548d18aae39aa12f31f7a0bbdd0e
+    Translation of GIT committish: 1f655fba7d94feb67f846785f47ab6fb20dc2e59
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -19,8 +19,8 @@
 
 @lilypondfile[quote]{rhythms-headword.ly}
 
-Cette section traite du rythme@tie{}: durées, silences, barres de ligature
-et de mesure.
+Cette section traite du rythme@tie{}: durées, silences, barres de
+ligature et de mesure.
 
 @menu
 * Écriture du rythme::
@@ -66,7 +66,7 @@ note} en anglais -- s'écrit @code{4}, alors qu'une blanche --
 @emph{half-note}, 1/2 ronde -- s'écrit @code{2}.  Pour des notes plus
 longues qu'une ronde, vous devrez utiliser les commandes @code{\longa}
 pour une longue, et @code{\breve} pour une brève, aussi appelée carrée.
-Des durées plus courtes que la quintuple-croche -- 1/128 de ronde --
+Des durées plus courtes que la quintuple croche -- 1/128 de ronde --
 sont possibles, à condition de les ligaturer.
 
 @c Two 64th notes are needed to obtain beams
@@ -921,7 +921,7 @@ R1^"pas bon !"
 R1^"ça marche !"
 @end lilypond
 
-Un silence multimesure placé directement après une commande
+Un silence multimesures placé directement après une commande
 @code{\partial} risque fort de perturber le vérificateur de limites et
 numéros de mesure.
 
@@ -988,19 +988,19 @@ Référence des propriétés internes :
 
 @knownissues
 
-Vous ne pouvez pas utiliser de doigtés (p.ex. @code{R1*10-4}) pour
+Vous ne pouvez pas utiliser de doigtés (p. ex. @code{R1*10-4}) pour
 positionner des nombres au dessus d'un silence multimesure, le numéro
 de doigt (4) risquant de chevaucher le nombre de mesures à compter (10).
 
 @cindex condenser les silences
 @cindex silences, condenser les
 
-Condenser plusieurs silences en un unique silence multimesure ne peut
+Condenser plusieurs silences en un unique silence multimesures ne peut
 être automatisé.
 
 @cindex silences, collisions entre
 
-Les silences multimesure peuvent générer des collisions avec d'autres
+Les silences multimesures peuvent générer des collisions avec d'autres
 silences.
 
 
@@ -1082,8 +1082,8 @@ changé pour un style numérique@tie{}:
 @end lilypond
 
 
-Les métriques anciennes sont abordées au chapitre
-@ref{Métriques anciennes}.
+Les métriques anciennes font l'objet d'un
+@rusernamed{Métriques anciennes, chapitre particulier}.
 
 @cindex métrique par défaut
 @cindex ligature et métrique
@@ -1293,7 +1293,7 @@ e4. d8 c2
 @end lilypond
 
 Lorsque le réglage précis du métronome est laissé à l'appréciation de
-l'exécutant, vous pouvez cependant lui fournir un éventail@tie{}:
+l'exécutant, vous pouvez cependant lui fournir une plage@tie{}:
 
 @lilypond[verbatim,quote,relative=1]
 \tempo 4 = 40 ~ 46
@@ -1422,7 +1422,7 @@ Par exemple, @code{\partial 8*3} est traduit en@tie{}:
 
 La propriété @code{measurePosition} contient un nombre rationnel qui
 indique, à ce point précis, où l'on en est de la mesure.  Notez qu'il
-s'agit du résultat d'unes soustraction@tie{}; @code{\partial 4}
+s'agit du résultat d'une soustraction@tie{}; @code{\partial 4}
 signifie, pour le programme@tie{}: @qq{Dans cette mesure, il reste juste
 une noire}.
 
@@ -1464,7 +1464,7 @@ pareil cas.
 
 Les barres de mesure et les numéros de mesure sont calculés
 automatiquement, ce qui n'est pas souhaitable dans le cas d'une musique
-non mesurée -- les cadences, par exemple.  Les commandes
+non mesurée -- les cadences par exemple.  Les commandes
 @code{\cadenzaOn} et @code{\cadenzaOff} permettent de désactiver et de
 rétablir ce comportement automatique.
 
@@ -1981,7 +1981,7 @@ Références des propriétés internes :
 
 @knownissues
 
-Les ligatures peuvent générer des collisions avec des têtes de notes ou
+Les ligatures peuvent générer des collisions avec des têtes de note ou
 altérations appartenant à d'autres voix.
 
 
@@ -2024,7 +2024,7 @@ c16^"(3+2)" c c c c |
 @end lilypond
 
 Les effets de règles de ligature peuvent être restreints à un contexte
-particulier.  En l'absence de régle particulière déterminée dans un
+particulier.  En l'absence de règle particulière déterminée dans un
 contexte de niveau inférieur, les règles définies au niveau directement
 supérieur s'appliqueront.
 
@@ -2131,7 +2131,7 @@ de base et sa règle de regroupement.
 @end example
 
 @var{durée-type} est constitué d'une paire indiquant la durée de base --
-par exemple @code{(1@tie{}.@tie{}16)} pour une double-croche.
+par exemple @code{(1@tie{}.@tie{}16)} pour une double croche.
 
 @var{groupement} est constitué d'une liste Scheme qui indique le
 regroupement à effectuer, en unité de type de ligature.
@@ -2145,7 +2145,7 @@ avant de les spécifier.}
 Lorsqu'intervient un changement de métrique, les valeurs par défaut de
 @code{Timing.baseMoment}, @code{Timing.beatStructure} et
 @code{Timing.beamExceptions} sont réinitialisées.  Il suffit donc, pour
-revenir aux règles de ligature par défaut d'unn contexte @code{Timing},
+revenir aux règles de ligature par défaut d'un contexte @code{Timing},
 de spécifier à nouveau la métrique.
 
 @lilypond[quote,verbatim,relative=2]
@@ -2167,7 +2167,7 @@ manières de déroger à ce comportement sont abordées au chapitre
 @cindex ligature, mesure à 4/4
 @cindex mesure à 3/4 et ligature
 
-La plupart des règles de ligature automatique comportent une clé
+De nombreuses règles de ligature automatique comportent une clé
 @code{beamExceptions}.  Par exemple, s'il n'y a que des croches dans une
 mesure à 4/4, celles-ci seront réparties en deux groupes.  Le fait de ne
 pas réinitialiser @code{beamExceptions} lors d'un aménagement de la
@@ -2187,7 +2187,7 @@ de cette dérogation.
 
 De la même manière, les croches d'une mesure à 3/4 sont par défaut
 ligaturées sur la mesure entière.  Réinitialiser @code{beamExceptions}
-vousu permettra alors de ligaturer les croches sur la base du temps.
+vous permettra alors de ligaturer les croches sur la base du temps.
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
@@ -2274,10 +2274,56 @@ Référence des propriétés internes :
 @knownissues
 Si une partition se termine alors qu'une ligature automatique est restée
 inachevée, cette dernière ligature ne sera pas imprimée du tout.  C'est
-également valable dans le cas d'une musique polyphonique, saisie avec la
+également valable dans le cas d'une musique polyphonique saisie avec la
 syntaxe @w{@code{<< @dots{} \\ @dots{} >>}}, où une voix se terminerait
 sans que la dernière ligature ne soit achevée.  Le plus simple, en
 pareil cas, est de spécifier manuellement les dernières ligatures.
+
+Le traducteur @code{Timing} est par défaut affecté au contexte
+@code{Score}.  Définir la métrique dans une portée aura donc des effets
+sur les ligatures de toutes les autres.  Par voie de conséquence,
+la définition de la métrique apparaissant dans une autre portée annulera
+les aménagements précédemment apportés aux règles de ligature.  Il est
+donc préférable, pour éviter tout désagrément, de ne spécifier la
+métrique que dans une seule portée.
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff {
+    \time 3/4
+    \set Timing.baseMoment = #(ly:make-moment 1 8)
+    \set Timing.beatStructure = #'(1 5)
+    \set Timing.beamExceptions = #'()
+    \repeat unfold 6 { a8 }
+  }
+  \new Staff {
+    \repeat unfold 6 { a8 }
+  }
+>>
+@end lilypond
+
+Vous pouvez adapter les règles de ligature par défaut pour une métrique
+particulière de telle sorte que ces règles que vous aurez définies
+soient toujours prises en compte.  La modification des règles de
+ligature automatiques sont abordées au chapitre @ref{Métrique}.
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff {
+    \overrideTimeSignatureSettings
+      #'(3 . 4)         % timeSignatureFraction
+      #'(1 . 8)         % baseMomentFraction
+      #'(1 5)           % beatStructure
+      #'()		% beamExceptions
+    \time 3/4
+    \repeat unfold 6 { a8 }
+  }
+  \new Staff {
+    \time 3/4
+    \repeat unfold 6 { a8 }
+  }
+>>
+@end lilypond
 
 
 @node Barres de ligature manuelles
@@ -2414,10 +2460,10 @@ notes concernées par une modification de leur durée.  Il s'agit en
 général du même groupe de notes, mais les deux commandes sont
 indépendantes l'une de l'autre.
 
-Dans l'exemple ci-après, les huit doubles-croches occupent exactement le
+Dans l'exemple ci-après, les huit doubles croches occupent exactement le
 même espace qu'une blanche, mais la première est moitié moins longue que
 la dernière et celles qui les séparent s'allongent peu à peu.  Les
-quatre triples-croches qui suivent vont s'accélérant, alors que les
+quatre triples croches qui suivent vont s'accélérant, alors que les
 quatre dernières gardent un tempo régulier.
 
 @lilypond[relative=1,verbatim,quote]
@@ -2515,7 +2561,7 @@ de barre de mesure visible, en utilisant@tie{}:
 @noindent
 Ceci insérera une barre de mesure invisible, et permettra -- sans pour
 autant le forcer -- de sauter de ligne à cet endroit, sans incrémenter
-le numéro de mesure. Pour forcer le saut de ligne, référez-vous à
+le numéro de mesure. Pour forcer le saut de ligne, référez vous à
 @ref{Sauts de ligne}.
 
 @cindex manuelle, barre de mesure
@@ -3211,15 +3257,15 @@ Référence des propriétés internes :
 @cindex note d'ornement, synchronisation
 @cindex synchronisation des notes d'ornement
 
-Un groupe de notes ligaturées consituant une @i{acciaccatura} apparaîtra
-comme une @i{appoggiatura}, c'est-à-dire sans trait.
+Un groupe de notes ligaturées consituant une @emph{acciaccatura}
+apparaîtra comme une @emph{appoggiatura}, c'est-à-dire sans trait.
 
 @c TODO Add link to LSR snippet to add slash when available
 
 La synchronisation des petites notes se fait de façon parfois
 surprenante, car les autres objets de la portée -- barre de mesure,
 armure, etc. -- sont eux aussi synchrones.  Pensez-y lorsque vous
-mélez des portées comprenant des petites notes et d'autres sans@tie{}:
+mêlez des portées comprenant des petites notes et d'autres sans@tie{}:
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -3366,7 +3412,7 @@ Comme le montre cet exemple, @code{ly:make-moment n d} construit une
 durée de n/d fois une ronde.
 Par conséquent, @code{ly:make-moment@tie{}1@tie{}8} correspond à une
 croche, et @code{ly:make-moment@tie{}7@tie{}16} à la durée de sept
-doubles-croches.
+doubles croches.
 
 
 @seealso
