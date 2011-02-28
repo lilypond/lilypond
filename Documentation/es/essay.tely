@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 1c846b2c2348b4e0ca4a3c2e8fb267047ba2d203
+    Translation of GIT committish: 18e1018ce7446f2cb86990c31f112f6cf05ca371
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -28,7 +28,6 @@ Copyright @copyright{} 2002--2011 por los autores.
 @set FDL
 @include macros.itexi
 
-@afourpaper
 @c don't remove this comment.
 @ignore
 @omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen

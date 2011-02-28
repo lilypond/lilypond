@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
+    Translation of GIT committish: cfc6e57ef66601ecca367654f69ee8c27001c573
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -87,15 +87,15 @@ tradicional.
 @section Lista bibliográfica ampliada
 @translationof Long literature list
 
-@subheading Colorado
+@subheading Bibliografía sobre edición de música de la Universidad de Colorado
 
 @include colorado.itexi
 
-@subheading Notación por ordenador
+@subheading Bibliografía sobre notación por ordenador
 
 @include computer-notation.itexi
 
-@subheading Grabado musical
+@subheading Bibliografía sobre grabado musical
 
 @include engravingbib.itexi
 
