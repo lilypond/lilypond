@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: a2eb9d0a93abab905d4d88c33921ee1b8b8cb67c
+    Translation of GIT committish: fd7ad42f98d7e6117958a41e74cd736e396fb933
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -46,12 +46,6 @@ Véase el manual del usuario, \NAME\
 @node Top
 @top Funcionalidades nuevas de la versión 2.13 desde la 2.12
 
-@ifhtml
-Este documento está disponible también en formato
-@uref{changes.es.pdf,PDF}. Forma parte de la @uref{../,Documentación
-de LilyPond}.
-@end ifhtml
-
 @allowcodebreaks false
 
 @itemize @bullet
@@ -74,6 +68,69 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+Se ha añadido un conjunto de herramientas de transformación modal
+mínimo para el compositor.  Se puede @notation{transportar} un motivo,
+@notation{invertirlo} y/o convertirlo en su @notation{retrogradación}
+dentro de cualquier escala.
+
+@lilypond
+pentatonicScale = \relative a' { a c d f g }
+motif = \relative c'' { d8 c f,4 <a f'> <a f'> }
+
+\new Staff <<
+  {
+    \partial 4
+    \pentatonicScale
+    \motif
+    \modalTranspose c a, \pentatonicScale \motif
+    \modalInversion d'' a' \pentatonicScale \motif
+    \retrograde \motif
+  }
+  {
+    \partial 4
+    s4^"pentatonic scale"
+    s1
+    s1^"motif"
+    s1^"transposition"
+    s1^"inversion"
+    s1^"retrograde"
+  }
+>>
+@end lilypond
+
+
+@item
+Está mínimamente contemplada la notación mensural negra.
+
+
+@item
+Están contempladas más ampliamente las formas oblicuas dentro de las
+ligaduras mensurales blancas.
+@lilypond
+\context MensuralStaff
+{
+  \clef "petrucci-c3"
+  \[
+    \override NoteHead #'style = #'semipetrucci
+    c'\maxima
+    \override NoteHead #'style = #'blackpetrucci
+    a\breve
+    \revert NoteHead #'style
+    \override NoteHead #'ligature-flexa = ##t
+    \override NoteHead #'flexa-width = #3
+    g
+    g'
+    \override NoteHead #'flexa-width = #5
+    c'
+    d'
+    \revert NoteHead #'style
+    c'\longa
+  \]
+}
+@end lilypond
+
 
 @item
 Ahora están contemplados los compases compuestos a través
