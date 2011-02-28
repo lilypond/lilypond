@@ -340,7 +340,7 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real inde
 	  alter_spring_from_spacing_spec (spec, &spring);
 
 	  springs_.push_back (spring);
-	  Real min_distance = (found_spaceable_staff ? minimum_offsets[last_spaceable_staff] : 0) - minimum_offsets[i];
+	  Real min_distance = (found_spaceable_staff ? minimum_offsets_with_min_dist[last_spaceable_staff] : 0) - minimum_offsets_with_min_dist[i];
 	  springs_.back ().ensure_min_distance (min_distance);
 
 	  if (scm_is_pair (manual_dists))
@@ -526,8 +526,7 @@ Page_layout_problem::find_system_offsets ()
 		      loose_line_min_distances.clear ();
 		    }
 		  last_spaceable_line = staff;
-		  // Negative is down but the translation is relative to the whole page.
-		  last_spaceable_line_translation = -system_position + translation;
+		  last_spaceable_line_translation = -solution_[spring_idx - 1];
 
 		  staff->translate_axis (translation, Y_AXIS);
 		  found_spaceable_staff = true;
@@ -538,6 +537,10 @@ Page_layout_problem::find_system_offsets ()
 		    loose_lines.push_back (last_spaceable_line);
 
 		  if (staff_idx)
+		    // NOTE: the way we do distances between loose lines (and other lines too, actually)
+		    // is not the most accurate way possible: we only insert rods between adjacent
+		    // lines.  To be more accurate, we could insert rods between non-adjacent lines
+		    // using a scheme similar to the one in set_column_rods.
 		    loose_line_min_distances.push_back (min_offsets[staff_idx-1] - min_offsets[staff_idx]);
 		  else
 		    { // this is the first line in a system
