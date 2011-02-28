@@ -8,6 +8,7 @@ changing-the-interval-of-lines-on-the-stave.ly
 clefs-can-be-transposed-by-arbitrary-amounts.ly
 coloring-notes-depending-on-their-pitch.ly
 creating-a-sequence-of-notes-on-various-pitches.ly
+dodecaphonic-style-accidentals-for-each-note-including-naturals.ly
 forcing-a-clef-symbol-to-be-displayed.ly
 generating-random-notes.ly
 hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly
