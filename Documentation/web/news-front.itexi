@@ -9,6 +9,17 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
+@subsubheading LilyPond 2.13.52 released!  @emph{Feb 28, 2011}
+
+We are happy to announce the release of LilyPond 2.13.52.  This
+release contains the usual number of bugfixes.
+
+Please note that this is @strong{not} the third release candidate,
+due to a few remaining Critical bugs.
+
+@newsEnd
+
+@newsItem
 @subsubheading LilyPond 2.13.51 released!  @emph{Feb 22, 2011}
 
 We are happy to announce the release of LilyPond 2.13.51.  This
