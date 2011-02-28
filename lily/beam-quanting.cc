@@ -453,8 +453,7 @@ Beam_scoring_problem::solve () const {
   bool debug =
     to_boolean (beam->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring")));
   SCM inspect_quants = beam->get_property ("inspect-quants");
-  if (to_boolean (beam->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring")))
-      && scm_is_pair (inspect_quants))
+  if (scm_is_pair (inspect_quants)) 
     {
       debug = true;
       best = force_score (inspect_quants, configs);
