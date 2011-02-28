@@ -516,31 +516,34 @@ Paper_book::get_system_specs ()
 				  paper_->self_scm (),
 				  page_properties,
 				  scm_car (s));
-	  Prob *ps;
-	  SCM list;
-	  for (list = texts ; scm_is_pair (list) ; list = scm_cdr (list))
+	  Prob *first = 0;
+	  Prob *last = 0;
+	  for (SCM list = texts; scm_is_pair (list); list = scm_cdr (list))
 	    {
 	      SCM t = scm_car (list);
 	      // TODO: init props
-	      ps = make_paper_system (SCM_EOL);
+	      Prob *ps = make_paper_system (SCM_EOL);
 	      ps->set_property ("page-break-permission",
 				ly_symbol2scm ("allow"));
 	      ps->set_property ("page-turn-permission",
 				ly_symbol2scm ("allow"));
 	      ps->set_property ("last-markup-line",  SCM_BOOL_F);
-	      ps->set_property ("first-markup-line",
-	    		  list == texts? SCM_BOOL_T : SCM_BOOL_F);
+	      ps->set_property ("first-markup-line", SCM_BOOL_F);
 
 	      paper_system_set_stencil (ps, *unsmob_stencil (t));
 	      
 	      SCM footnotes = get_footnotes (unsmob_stencil (t)->expr ());
 	      ps->set_property ("footnotes", footnotes);
 	      ps->set_property ("is-title", SCM_BOOL_T);
-	      if (list != texts)
-		/* For each markup other than the first, place it as closely as
-		   possible to the previous markup and don't allow stretching. */
-		ps->set_property ("tight-spacing", SCM_BOOL_T);
-
+	      if (list == texts)
+		first = ps;
+	      else
+		{
+		  // last line so far, in a multi-line paragraph
+		  last = ps;
+		  //Place closely to previous line, no stretching.
+		  ps->set_property ("tight-spacing", SCM_BOOL_T);
+		}
 	      system_specs = scm_cons (ps->self_scm (), system_specs);
 	      ps->unprotect ();
 
@@ -552,17 +555,13 @@ Paper_book::get_system_specs ()
 	      // FIXME: figure out penalty.
 	      //set_system_penalty (ps, scores_[i].header_);
 	    }
-         // We may want to place a check here, for whether the line is too short
-         if (list == texts)
-           {
-             // if there is only one line in the paragraph,
-             // do not try to avoid orphans
-             ps->set_property ("last-markup-line", SCM_BOOL_F);
-             ps->set_property ("first-markup-line", SCM_BOOL_F);
-           }
-	  else
-           {
-             ps->set_property ("last-markup-line", SCM_BOOL_T);
+	  /* Set properties to avoid widowed/orphaned lines.
+	     Single-line markup_lists are excluded, but in future
+	     we may want to add the case of a very short, single line. */
+	  if (first && last)
+	    {
+	      last->set_property ("last-markup-line", SCM_BOOL_T);
+	      first->set_property ("first-markup-line", SCM_BOOL_T);
 	    }
 	}
       else
