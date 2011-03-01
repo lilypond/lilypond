@@ -20,9 +20,9 @@
 
 #include "beam-scoring-problem.hh"
 
+#include <algorithm>
 #include <queue>  
 #include <set>
-#include <algorithm>
 using namespace std;
 
 #include "align-interface.hh"
@@ -194,13 +194,11 @@ void Beam_scoring_problem::init_collisions (vector<Grob*> grobs)
   set<Grob*> stems;
   for (vsize i = 0; i < grobs.size (); i++) {
     Box b;
-
     for (Axis a = X_AXIS; a < NO_AXES; incr (a))
       b[a] = grobs[i]->extent(common[a], a);
 
-    Real width = b[X_AXIS].length();
-
-    Real width_factor = sqrt(width / staff_space);
+    Real width = b[X_AXIS].length ();
+    Real width_factor = sqrt (width / staff_space);
 
     Direction d = LEFT;
     do
