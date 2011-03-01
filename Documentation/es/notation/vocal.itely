@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: a3de4dde92fb0aeca3dc859e0a15795bc73a40b3
+    Translation of GIT committish: 278efb461e1e695adab5de3dc22b8eafb6653920
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -104,15 +104,15 @@ Fragmentos de código:
 @translationof Entering lyrics
 
 @cindex letra
-@cindex lyrics, entering
-@cindex entering lyrics
-@cindex punctuation in lyrics
-@cindex lyrics punctuation
-@cindex spaces in lyrics
-@cindex quotes in lyrics
+@cindex letra, introducir
+@cindex introducir la letra
+@cindex formateo de la letra
+@cindex letra, formateado
+@cindex puntuación en la letra
+@cindex letra, puntuación en la
+@cindex espacios en la letra
+@cindex comillas en la letra
 @cindex puntuación
-@cindex espacios, en la letra
-@cindex comillas, en la letra
 @funindex \lyricmode
 
 @c TODO should we explain hyphens here
@@ -217,6 +217,17 @@ barra invertida seguida por @code{`}, @code{'}, @code{"} ó @code{^}.
 
 @c " to balance double quotes for not-so-bright context-sensitive editors
 
+Un enorme control sobre la apariencia de la letra proviene del uso de
+elementos de marcado @code{\markup} dentro de la propia letra.  Para
+ver una explicación de muchas de las opciones, consulte
+@ref{Formatear el texto}.
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{formatting-lyrics-syllables.ly}
+
+
 @seealso
 Manual de aprendizaje:
 @rlearning{Canciones}.
@@ -224,6 +235,7 @@ Manual de aprendizaje:
 Referencia de la notación:
 @ref{Duración automática de las sílabas},
 @ref{Tipografías},
+@ref{Foramtear el texto},
 @ref{Modos de entrada},
 @ref{Duración manual de las sílabas},
 @ref{Codificación del texto}.
@@ -231,6 +243,8 @@ Referencia de la notación:
 Referencia de funcionamiento interno:
 @rinternals{LyricText}.
 
+Fragmentos de código:
+@rlsr{Text}
 
 @node Alineación de la letra a una melodía
 @unnumberedsubsubsec Alineación de la letra a una melodía
@@ -622,13 +636,16 @@ Referencia de funcionamiento interno:
 @cindex espacios en la letra
 @cindex comillas en la letra
 
-Para asignar más de una sílaba a una única nota con espacios entre
-las sílabas, podemos encerrar la frase entre comillas o utilizar un
+Para asignar más de una sílaba a una única nota con espacios entre las
+sílabas, podemos encerrar la frase entre comillas o utilizar un
 carácter de guión bajo @code{_}.  De forma alternativa, podemos usar
 el símbolo de tilde curva (@code{~}) para obtener una ligadura de
 texto.  La ligadura de texto está implementada con el carácter Unicode
-U+203F, por tanto debemos asegurarnos de que tenemos una fuente
-tipográfica (como DejaVuLGC) instalada, que incluya este glifo.
+U+203F, por tanto debemos asegurarnos de usar una fuente tipográfica
+para este glifo que realmente lo contenga.  Algunas de las fuentes
+tipográficas disponibles libremente con una ligadura de letra son, por
+ejemplo, `FreeSerif' (un clon de Times), `DejaVuSans' (pero no
+`DejaVuSerif') o `TeXGyreSchola' (un clon de Century Schoolbook).
 
 @lilypond[quote,ragged-right,verbatim]
 {

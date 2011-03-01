@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 9a40bd63b77375ac7ac1085d7eda9f5680bf06dd
+    Translation of GIT committish: 279e858502f36eb2653984fd5f51cecbb7eeb9dc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2151,13 +2151,13 @@ contexto @code{Timing} al comportamiento predeterminado.
 \repeat unfold 6 { a8 }
 @end lilypond
 
-Estos ajustes de barrado automático predeterminados para un tipo de
+Los ajustes de barrado automático predeterminados para un tipo de
 compás están determinados en el archivo
-@file{scm/time-signature-settings.scm}.  Los ajustes de
-barrado automático para un tipo de compás pueden cambiarse como se
-describe en @ref{Indicación de compás}.
+@file{scm/time-signature-settings.scm}.  La forma de cambiar los
+ajustes predeterminados de barrado automático para un tipo de
+compás se describe en @ref{Indicación de compás}.
 
-Casi todos los ajustes de barrado automáticos para un tipo de compás
+Muchos ajustes de barrado automáticos para un tipo de compás
 contienen una entrada para @code{beamExceptions}.  Por ejemplo, el
 compás de 4/4 trata de unir el compás en dos partes si solo hay
 corcheas.  La regla @code{beamExceptions} puede sobreescribir el
@@ -2270,6 +2270,53 @@ absoluto.  Lo mismo sirve para las voces polifónicas, introducidas con
 mientras una barra automática está aún aceptando notas, no se imprime.
 El rodeo para estos problemas es aplicar el barrado
 manual a la última barra de la voz o partitura.
+
+De forma predeterminada, el traductor @code{Timing} recibe el nombre
+del contexto @code{Score} como alias.  Esto significa que el
+establecimiento del compás en ua pauta afectará al barrado de las
+otras pautas también.  Así, un ajuste en el compás en un pentagrama
+tardío reiniciará el barrado personalizado que se había ajustado en un
+pentagrama más temprano.  Una forma de evitar este problema es ajustar
+la indicación de compás en un pentagrama solamente.
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff {
+    \time 3/4
+    \set Timing.baseMoment = #(ly:make-moment 1 8)
+    \set Timing.beatStructure = #'(1 5)
+    \repeat unfold 6 { a8 }
+  }
+  \new Staff {
+    \repeat unfold 6 { a8 }
+  }
+>>
+@end lilypond
+
+Los ajustes de barrado predeterminados para dicho compás también se
+pueden cambiar, de forma que siempre se utilice siempre el barrado
+deseado. La manera de efectuar cambios en los ajustes de barrado
+automático para una indicación de compás se describe en
+@ref{Indicación de compás}.
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff {
+    \overrideTimeSignatureSettings
+      #'(3 . 4)         % timeSignatureFraction
+      #'(1 . 8)         % baseMomentFraction
+      #'(1 5)           % beatStructure
+      #'()		% beamExceptions
+    \time 3/4
+    \repeat unfold 6 { a8 }
+  }
+  \new Staff {
+    \time 3/4
+    \repeat unfold 6 { a8 }
+  }
+>>
+@end lilypond
+
 
 @node Barras manuales
 @unnumberedsubsubsec Barras manuales
