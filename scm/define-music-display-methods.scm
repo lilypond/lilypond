@@ -457,11 +457,11 @@ Otherwise, return #f."
 	(music->lily-string (car elements) parser)
 	(if (and (not (null? simple-elements))
 		 (null? (cdr simple-elements))
-		 ;; special case: if this simple_element has a HarmonicEvent in its
-		 ;; 'articulations list, it should be interpreted instead as a
-		 ;; note_chord_element, since \harmonic only works inside chords,
-		 ;; even for single notes, e.g., < c\harmonic >
-		 (null? (filter (make-music-type-predicate 'HarmonicEvent)
+		 ;; special case: if this simple_element has any post_events in
+		 ;; its 'articulations list, it should be interpreted instead
+		 ;; as a note_chord_element to prevent spurious output, e.g.,
+		 ;; \displayLilyMusic < c-1\4 >8 -> c-1\48
+		 (null? (filter post-event?
 				(ly:music-property (car simple-elements) 'articulations))))
 	    ;; simple_element : note | figure | rest | mmrest | lyric_element | skip
 	    (let* ((simple-element (car simple-elements))
