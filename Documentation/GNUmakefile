@@ -32,7 +32,7 @@ README_TOP_FILES= DEDICATION THANKS
 IN_ITELY_FILES = $(call src-wildcard,snippets/*-intro.itely)
 SNIPPET_LY_FILES = $(call src-wildcard,snippets/*.ly)
 
-EXTRA_DIST_FILES = $(call src-wildcard,*.init)
+EXTRA_DIST_FILES = $(call src-wildcard,*.init) $(call src-wildcard,*.bst)
 
 ### Out files
 
