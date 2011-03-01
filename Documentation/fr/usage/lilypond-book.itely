@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
+    Translation of GIT committish: 8e1f0e01b3665bfd8e53ef646ad8fd627d09a41b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -59,6 +59,7 @@ et DocBook.
 * Utilisation de lilypond-book::
 * Extensions de nom de fichier::
 * Modèles pour lilypond-book::
+* Gestion de la table des matières::
 * Autres méthodes d'association texte-musique::
 @end menu
 
@@ -86,6 +87,7 @@ abstiendrons de le commenter.
 
 
 @subheading Fichier d'entrée
+@translationof Input
 
 @quotation
 @verbatim
@@ -124,6 +126,7 @@ le même répertoire que le présent fichier.)
 
 
 @subheading Traitement
+@translationof Processing
 
 Enregistrez ces lignes dans un fichier nommé @file{lilybook.lytex} puis,
 dans un terminal, lancez
@@ -157,6 +160,7 @@ la mise en forme diverge quelque peu.}
 @page
 
 @subheading Résultat
+@translationof Output
 
 Un document destiné à être traité par @command{lilypond-book} peut tout à
 fait mélanger de la musique et du texte.
@@ -533,6 +537,7 @@ respecterons plutôt les conventions des éléments standards de DocBook.
 
 
 @subheading Conventions communes
+@translationof Common conventions
 
 Quel que soit le type d'extrait à inclure, nous utiliserons les
 éléments @code{mediaobject} et @code{inlinemediaobject}, de telle sorte
@@ -546,6 +551,7 @@ Les fichiers DocBook destinés à un traitement par
 
 
 @subheading Inclusion d'un fichier LilyPond
+@translationof Including a LilyPond file
 
 Il s'agit en fait du cas le plus simple.  Le fichier à inclure doit
 avoir une extension @file{.ly} et sera inséré comme n'importe quel
@@ -564,6 +570,7 @@ Vous pouvez utiliser, en tant que balise externe, aussi bien
 
 
 @subheading Inclusion de code LilyPond
+@translationof Including LilyPond code
 
 L'inclusion de code LilyPond se réalise à l'aide d'un
 @code{programlisting} auquel on associe le langage @code{lilypond}.  En
@@ -588,6 +595,7 @@ Comme vous le remarquez, la balise externe -- qu'il s'agisse d'un
 
 
 @subheading Génération du document DocBook
+@translationof Processing the DocBook document
 
 @command{lilypond-book} génère, à partir d'un fichier @file{.lyxml}, un
 document DocBook tout à fait valide -- extension @file{.xml} -- que vous
@@ -842,9 +850,11 @@ nécessitent un traitement complémentaire.
 
 
 @subheading Instructions spécifiques à certains formats
+@translationof Format-specific instructions
 
 
 @subsubheading @LaTeX{}
+@translationof @LaTeX{}
 
 Un document @LaTeX{} destiné à l'impression ou à la publication peut se
 traiter de deux manières différentes@tie{}:  générer directement un PDF
@@ -891,6 +901,7 @@ d'ajouter @option{-t landscape} aux options de @command{dvips}.
 
 
 @subsubheading Texinfo
+@translationof Texinfo
 
 La génération d'un document Texinfo -- quel que soit le format final --
 s'obtient grâce aux commandes Texinfo habituelles, c'est à dire
@@ -906,6 +917,7 @@ Pour plus de détails, consultez la documentation de Texinfo.
 
 
 @subheading Options en ligne de commande
+@translationof Command line options
 
 @command{lilypond-book} accepte les options suivantes@tie{}:
 
@@ -1082,6 +1094,7 @@ pas de quoi il retourne, lisez le chapitre @ref{lilypond-book}.
 
 
 @subsection LaTeX
+@translationof LaTeX
 
 Vous pouvez inclure des partitions LilyPond dans un document LaTeX.
 
@@ -1108,6 +1121,7 @@ d4 c b a
 
 
 @subsection Texinfo
+@translationof Texinfo
 
 Un document Texinfo est tout à fait capable de comporter des fragments
 de partition LilyPond.  Si vous ne le savez pas encore, sachez que
@@ -1136,8 +1150,8 @@ d4 c b a
 @end example
 
 
-
 @subsection html
+@translationof html
 
 @example
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -1171,6 +1185,7 @@ a4 b c d
 
 
 @subsection xelatex
+@translationof xelatex
 
 @verbatim
 \documentclass{article}
@@ -1224,6 +1239,118 @@ werden.
 
 \end{document}
 @end verbatim
+
+
+@node Gestion de la table des matières
+@section Gestion de la table des matières
+@translationof Sharing the table of contents
+
+Les fonctions qui sint ici mentionnées sont incluses dans le paquetage
+OrchestralLily, disponible sur
+
+@example
+@url{http://repo.or.cz/w/orchestrallily.git}
+@end example
+
+Certains utilisateurs privilégient la flexibilité dans la gestion du
+texte@tie{}; ils génèrent la table des matières à partir de LilyPond et
+la récupèrent dans @LaTeX{}.
+
+
+@subsubheading Export de la table à partir de LilyPond
+@translationof Exporting the ToC from LilyPond
+
+Nous partons du principe que LilyPond a généré un seul fichier
+comportant tous les mouvement de la partition.
+
+@smallexample
+#(define (oly:create-toc-file layout pages)
+  (let* ((label-table (ly:output-def-lookup layout 'label-page-table)))
+    (if (not (null? label-table))
+      (let* ((format-line (lambda (toc-item)
+             (let* ((label (car toc-item))
+                    (text  (caddr toc-item))
+                    (label-page (and (list? label-table)
+                                     (assoc label label-table)))
+                    (page (and label-page (cdr label-page))))
+               (format #f "~a, section, 1, @{~a@}, ~a" page text label))))
+             (formatted-toc-items (map format-line (toc-items)))
+             (whole-string (string-join formatted-toc-items ",\n"))
+             (output-name (ly:parser-output-name parser))
+             (outfilename (format "~a.toc" output-name))
+             (outfile (open-output-file outfilename)))
+        (if (output-port? outfile)
+            (display whole-string outfile)
+            (ly:warning (_ "Impossible d'ouvrir le fichier ~a contenant les informations de TdM") outfilename))
+        (close-output-port outfile)))))
+
+\paper @{
+  #(define (page-post-process layout pages) (oly:create-toc-file layout pages))
+@}
+@end smallexample
+
+
+@subsubheading Import de la table dans LaTeX
+@translationof Importing the ToC into LaTeX
+
+L'entête de votre fichier @LaTeX{} doit comporter les lignes
+
+@c no, this doesn't require the smallexample, but since the other
+@c two blocks on this page use it, I figured I might as well
+@c user it here as well, for consistency. -gp
+@smallexample
+\usepackage@{pdfpages@}
+\includescore@{nomdelapartition@}
+@end smallexample
+
+@noindent
+où @code{\includescore} est défini ainsi@tie{}:
+
+@smallexample
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \includescore@{PossibleExtension@}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Read in the TOC entries for a PDF file from the corresponding .toc file.
+% This requires some heave latex tweaking, since reading in things from a file
+% and inserting it into the arguments of a macro is not (easily) possible
+
+% Solution by Patrick Fimml on #latex on April 18, 2009:
+% \readfile@{filename@}@{\variable@}
+% reads in the contents of the file into \variable (undefined if file
+% doesn't exist)
+\newread\readfile@@f
+\def\readfile@@line#1@{%
+@{\catcode`\^^M=10\global\read\readfile@@f to \readfile@@tmp@}%
+\edef\do@{\noexpand\g@@addto@@macro@{\noexpand#1@}@{\readfile@@tmp@}@}\do%
+\ifeof\readfile@@f\else%
+\readfile@@line@{#1@}%
+\fi%
+@}
+\def\readfile#1#2@{%
+\openin\readfile@@f=#1 %
+\ifeof\readfile@@f%
+\typeout@{No TOC file #1 available!@}%
+\else%
+\gdef#2@{@}%
+\readfile@@line@{#2@}%
+\fi
+\closein\readfile@@f%
+@}%
+
+
+\newcommand@{\includescore@}[1]@{
+\def\oly@@fname@{\oly@@basename\@@ifmtarg@{#1@}@{@}@{_#1@}@}
+\let\oly@@addtotoc\undefined
+\readfile@{\oly@@xxxxxxxxx@}@{\oly@@addtotoc@}
+\ifx\oly@@addtotoc\undefined
+\includepdf[pages=-]@{\oly@@fname@}
+\else
+\edef\includeit@{\noexpand\includepdf[pages=-,addtotoc=@{\oly@@addtotoc@}]
+@{\oly@@fname@}@}\includeit
+\fi
+@}
+@end smallexample
 
 
 @node Autres méthodes d'association texte-musique
