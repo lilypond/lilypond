@@ -660,8 +660,8 @@ Use @code{\markup @{\musicglyph #"timesig.mensural68alt" @}} instead.
 For ancient notation, a note head style other than the
 @code{default} style may be chosen.  This is accomplished by setting
 the @code{style} property of the @code{NoteHead} object to
-@code{baroque}, @code{neomensural}, @code{mensural} or
-@code{petrucci}, @code{blackpetrucci}, @code{semipetrucci}.
+@code{baroque}, @code{neomensural}, @code{mensural},
+@code{petrucci}, @code{blackpetrucci} or @code{semipetrucci}.
 
 The @code{baroque} style differs from the @code{default} style by:
 
