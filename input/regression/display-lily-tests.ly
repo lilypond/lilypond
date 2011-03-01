@@ -149,6 +149,7 @@ stderr of this run."
 \test "" ##[ { c \[ c \] } #]			% LigatureEvent
 \test "" ##[ \~ #]					% PesOrFlexaEvent
 \test "" ##[ { c-\bendAfter #3  } #] % BendAfterEvent
+\test "" ##[ < c-\rightHandFinger #1 > #] % StrokeFingerEvent
 
 \test "" ##[ \break #]
 \test "" ##[ \noBreak #]

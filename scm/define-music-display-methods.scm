@@ -157,6 +157,7 @@ expression."
     'SlurEvent
     'SostenutoEvent
     'StringNumberEvent
+    'StrokeFingerEvent
     'SustainEvent
     'TextScriptEvent
     'TextSpanEvent
@@ -235,6 +236,9 @@ expression."
 (define-post-event-display-method ArpeggioEvent (event parser) #t "\\arpeggio")
 (define-post-event-display-method AbsoluteDynamicEvent (event parser) #f
   (format #f "\\~a" (ly:music-property event 'text)))
+
+(define-post-event-display-method StrokeFingerEvent (event parser) #t
+  (format #f "\\rightHandFinger #~a" (ly:music-property event 'digit)))
 
 (define-span-event-display-method BeamEvent (event parser) #f "[" "]")
 (define-span-event-display-method SlurEvent (event parser) #f "(" ")")
