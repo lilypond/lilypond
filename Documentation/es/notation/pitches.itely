@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: e69b5973fcee6e8f8523de45ccdbd7ec6111b66d
+    Translation of GIT committish: 57e3ef0a15d9679cf31de90b2584e9803226d367
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -603,6 +603,9 @@ Esta sección trata de la manera de modificar las alturas.
 @menu
 * Comprobación de octava::
 * Transposición::
+* Inversion::
+* Retrograde::
+* Modal transformations::
 @end menu
 
 
@@ -798,9 +801,11 @@ Para ver más información sobre instrumentos transpositores, consulte
 
 @seealso
 Referencia de la notación:
+@ref{Transposición de los instrumentos},
+@ref{Inversión},
+@ref{Transformaciones modales},
 @ref{Escritura de octava relativa},
-@ref{Transposición de los instrumentos}.
-
+@ref{Retrogradación}.
 
 Fragmentos de código:
 @rlsr{Pitches}.
@@ -821,6 +826,224 @@ La conversión relativa no afecta a las secciones @code{\transpose},
 @code{\chordmode} ni @code{\relative} dentro de su argumento.  Para
 usar el modo relativo dentro de música transportada, se debe colocar
 otro @code{\relative} dentro de @code{\transpose}.
+
+@node Inversión
+@unnumberedsubsubsec Inversión
+@translationof Inversion
+
+@cindex inversión
+@cindex operación de inversión
+@funindex \inversion
+
+Una expresión musical se puede invertir con:
+
+@example
+\inversion @var{nota-origen} @var{nota-destino} @var{expresión_musical}
+@end example
+
+La @code{@var{expresión_musical}} se invierte intervalo a intervalo, y
+después se transporta de manera que @code{@var{nota-origen}} se asigna
+a @code{@var{nota-destino}}.
+
+@lilypond[verbatim,quote]
+music = \relative c' { c d e f }
+\new Staff {
+  \music
+  \inversion d' d' \music
+  \inversion d' ees' \music
+}
+@end lilypond
+
+@seealso
+Referencia de la notación:
+@ref{Transformaciones modales},
+@ref{Retrogradación},
+@ref{Transposición}.
+
+
+@node Retrogradación
+@unnumberedsubsubsec Retrogradación
+@translationof Retrograde
+
+@cindex retrogradación, transformación de
+@cindex transformación de retrogradación
+@cindex operación de retrogradación
+@funindex \retrograde
+@funindex retrograde
+
+Se puede revertir una expresión musical para producir su
+retrogradación:
+
+@lilypond[verbatim,quote]
+music = \relative c' { c8. ees16( fis8. a16 b8.) gis16 f8. d16 }
+
+\new Staff {
+  \music
+  \retrograde \music
+}
+@end lilypond
+
+@knownissues
+Las ligaduras de unión manuales dentro de @code{\retrograde} se
+reomperán y generarán advertencias.  Se pueden generar algunas
+ligaduras automáticamente activando
+@ref{División automática de las notas}.
+
+@seealso
+Referencia de la notación:
+@ref{Inversión},
+@ref{Transformaciones modales},
+@ref{Transposición}.
+
+
+@node Transformaciones modales
+@unnumberedsubsubsec Transformaciones modales
+@translationof Modal transformations
+
+@cindex transformaciones modales
+@cindex modales, transformaciones
+@cindex operaciones modales
+
+En una composición musical que está basada en una escala, con
+frecuencia se transforman los motivos de diversas formas.  Un motivo
+se puede @notation{transportar} para que comience en distintos lugares
+de la escala o puede @notation{invertirse} alrededor de una nota
+pivote de la escala.  También se puede revertir para producir una
+@notation{retrogradación}, véase @ref{Retrogradación}.
+
+@warning{Cualquier nota que no entre en la escada dada, se dejará sin
+transformar.}
+
+@subsubheading Transposición modal
+
+@cindex transporte
+@cindex transporte modal
+@cindex modal, transposición
+@cindex transposición modal
+@cindex operación de transposición
+@funindex \modalTranspose
+@funindex modalTranspose
+
+Se puede transportar un motivo dentro de una escala dada con:
+
+@example
+\modalTranspose @var{nota-origen} @var{nota-destino} @var{escala} @var{motivo}
+@end example
+
+Las notas del @var{motivo} se desplazan dentro de la @var{escala} el
+número de grados de la escala dados por el intervalo entre
+@var{nota-destino} y @var{nota-origen}:
+
+@lilypond[verbatim,quote]
+diatonicScale = \relative c' { c d e f g a b }
+motif = \relative c' { c8 d e f g a b c }
+
+\new Staff {
+  \motif
+  \modalTranspose c f \diatonicScale \motif
+  \modalTranspose c b, \diatonicScale \motif
+}
+@end lilypond
+
+Se pueden especificar escalas ascendentes de cualquier longitud y con
+cualesquiera intervalos:
+
+@lilypond[verbatim,quote]
+pentatonicScale = \relative c' { ges aes bes des ees }
+motif = \relative c' { ees8 des ges,4 <ges' bes,> <ges bes,> }
+
+\new Staff {
+  \motif
+  \modalTranspose ges ees' \pentatonicScale \motif
+}
+@end lilypond
+
+Cuando se utiliza con una escala cromática, @code{\modalTranspose}
+tiene un efecto similar a @code{\transpose}, pero con la posibilidad
+de especificar los nombres de las notas que se quieren usar:
+
+@lilypond[verbatim,quote]
+chromaticScale = \relative c' { c cis d dis e f fis g gis a ais b }
+motif = \relative c' { c8 d e f g a b c }
+
+\new Staff {
+  \motif
+  \transpose c f \motif
+  \modalTranspose c f \chromaticScale \motif
+}
+@end lilypond
+
+@subsubheading Inversión modal
+
+@cindex modal, inversion
+@cindex inversión modal
+@cindex operación de inversión modal
+@funindex \modalInversion
+@funindex modalInversion
+
+Se puede invertir un motivo dentro de una escala dada alrededor de una
+nota pivote dada y transportada al mismo tiempo en una única
+operación, con:
+
+@example
+\modalInversion @var{nota-pivote} @var{nota-destino} @var{escala} @var{motivo}
+@end example
+
+Las notas del @var{motivo} se colocan al mismo número de grados de
+distancia de la escala a partir de la @var{nota-pivote} dentro de la
+@var{escala}, pero en la dirección opuestoa, y el resultado se
+desplaza después dentro de la @var{escala} el número de grados de la
+escala dados por el intervalo entre la @var{nota-destino} y la
+@var{nota-pivote}.
+
+Así pues, para invertir sencillamente alrededor de una nota de la
+escala, utilice el mismo valor para @var{nota-pivote} y
+@var{nota-destino}:
+
+@lilypond[verbatim,quote]
+octatonicScale = \relative c' { ees f fis gis a b c d }
+motif = \relative c' { c8. ees16 fis8. a16 b8. gis16 f8. d16 }
+
+\new Staff {
+  \motif
+  \modalInversion fis' fis' \octatonicScale \motif
+}
+@end lilypond
+
+Para invertir alrededor de una nota pivote entre dos notas de la
+escala, invierta alrededor de una de las notas y después transporte en
+un grado de la escala.  Las dos notas especificadas se pueden
+interpretar como que horquillan entre ellas a la nota pivote:
+
+@lilypond[verbatim,quote]
+scale = \relative c' { c g' }
+motive = \relative c' { c c g' c, }
+
+\new Staff {
+  \motive
+  \modalInversion c' g' \scale \motive
+}
+@end lilypond
+
+La operación combinada de inversión y retrogradación produce la
+inversión retrógrada:
+
+@lilypond[verbatim,quote]
+octatonicScale = \relative c' { ees f fis gis a b c d }
+motif = \relative c' { c8. ees16 fis8. a16 b8. gis16 f8. d16 }
+
+\new Staff {
+  \motif
+  \retrograde \modalInversion c' c' \octatonicScale \motif
+}
+@end lilypond
+
+@seealso
+Referencia de la notación:
+@ref{Inversión},
+@ref{Retrogradación},
+@ref{Transposición}.
+
 
 @node Imprimir las alturas
 @subsection Imprimir las alturas
@@ -1271,7 +1494,7 @@ muestra de cada uno de los estilos, utilizamos el ejemplo siguiente:
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1352,7 +1575,7 @@ imprimen becuadros antes del Si natural en el segundo compás ni en el
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1426,7 +1649,7 @@ deben usar en su lugar los estilos @code{modern} o
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1476,19 +1699,22 @@ musicB = {
 
 @funindex modern
 
-Esta regla corresponde a la práctica común del s. XX.  Imprime las
-mismas alteraciones que el estilo @code{default}, con dos excepciones
-que sirven para evitar la ambigüedad: después de alteraciones
-temporales se imprimen indicaciones de cancelación también en el
-compás siguiente (para notas en la misma octava) y, en el mismo
-compás, para notas en octavas distintas.  De aquí los becuadros antes
-del Si natural y del Do en el segundo compás del pentagrama superior:
+Esta regla corresponde a la práctica común del s. XX.  Omite algunos
+becuadros adicionales, que tradicionalmente se imprimían precediendo a
+las alteraciones que reducen o invierten la dirección de una
+alteración anterior.  La regla @code{modern} imprime las mismas
+alteraciones que el estilo @code{default}, con dos excepciones que
+sirven para evitar la ambigüedad: después de alteraciones temporales
+se imprimen indicaciones de cancelación también en el compás siguiente
+(para notas en la misma octava) y, en el mismo compás, para notas en
+octavas distintas.  De aquí los becuadros antes del Si natural y del
+Do en el segundo compás del pentagrama superior:
 
 @lilypond[quote]
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1550,7 +1776,7 @@ tamaño reducido definiendo la propiedad @code{cautionary-style} de
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1615,7 +1841,7 @@ causa de la alteración en otra voz en el compás previo:
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1676,7 +1902,7 @@ regla, algunas de ellas se tipografían como de precaución.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1740,7 +1966,7 @@ Este estilo de alteración se aplica de manera predeterminada al grupo
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1800,7 +2026,7 @@ alteraciones añadidas compuestas como de precaución.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1859,7 +2085,7 @@ compás (excepto si la nota se repite inmediatamente).
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1916,7 +2142,7 @@ adicionales se imprimen como alteraciones de precaución.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1977,7 +2203,7 @@ voces que están en el mismo pentagrama @code{Staff}.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2034,7 +2260,7 @@ adicionales se imprimen como alteraciones de precaución.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2093,7 +2319,7 @@ alteración, incluso becuadros.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2154,7 +2380,7 @@ si la nota se repite inmediatamente.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2214,7 +2440,7 @@ siempre} y no sólo dentro del mismo compás:
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2267,14 +2493,13 @@ musicB = {
 Es lo opuesto a @code{no-reset}: Las alteraciones no se recuerdan en
 absoluto: de aquí que todas las alteraciones se compongan
 tipográficamente en relación a la armadura de la tonalidad, sin que
-estén afectadas por lo que viene antes.  A diferencia de
-@code{dodecaphonic}, esta regla nunca imprime becuadros:
+estén afectadas por lo que viene antes.
 
 @lilypond[quote]
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
