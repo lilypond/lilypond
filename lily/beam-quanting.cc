@@ -72,7 +72,7 @@ Beam_quant_parameters::fill (Grob *him)
 
   // Collisions
   COLLISION_PENALTY = get_detail (details, ly_symbol2scm ("collision-penalty"), 500);
-  COLLISION_DISTANCE = get_detail (details, ly_symbol2scm ("collision-distance"), 0.5);
+  COLLISION_PADDING = get_detail (details, ly_symbol2scm ("collision-padding"), 0.5);
   STEM_COLLISION_FACTOR = get_detail (details, ly_symbol2scm ("stem-collision-factor"), 0.1);
 }
 
@@ -756,8 +756,8 @@ Beam_scoring_problem::score_collisions (Beam_configuration *config) const
                     beam_y.distance (collision_y[UP]));
 
       Real scale_free = 
-        max (parameters.COLLISION_DISTANCE - dist, 0.0)/
-        parameters.COLLISION_DISTANCE;
+        max (parameters.COLLISION_PADDING - dist, 0.0)/
+        parameters.COLLISION_PADDING;
       demerits +=
         collisions_[i].base_penalty_ *
         pow (scale_free, 3) * parameters.COLLISION_PENALTY;
