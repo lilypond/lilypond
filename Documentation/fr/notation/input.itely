@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
+    Translation of GIT committish: c768a19db993a4688e44db2b6e689cdebbffa860
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1178,6 +1178,7 @@ musique qui le compose.
 @menu
 * Utilisation de variables::
 * Utilisation de balises::
+* Globalisation des réglages::
 @end menu
 
 @node Utilisation de variables
@@ -1338,7 +1339,7 @@ Il suffit de positionner
 @end example
 
 @noindent
-avant l'articulation ou le texte, comme ici :
+avant l'articulation ou le texte, comme ici@tie{}:
 
 @example
 c1-\tag #'doigt ^4
@@ -1407,6 +1408,37 @@ Lorsqu'elles comportent des silences, ceux-ci ne seront pas fusionnés
 si vous imprimez une partition avec les deux sections balisées.
 
 @end ignore
+
+
+@node Globalisation des réglages
+@unnumberedsubsubsec Globalisation des réglages
+@translationof Using global settings
+
+@cindex include-settings
+
+Vous pouvez regrouper dans un fichier indépendant vos réglages
+personnels que vous incluerez au besoin@tie{}:
+
+@example
+lilypond -dinclude-settings=MES_REGLAGES.ly MA_PARTITION.ly
+@end example
+
+Vous pouvez ainsi stocker dans un fichier séparé vos réglages en matière
+de format de papier, de fontes utilisées ou vos définitions
+particulières.  Selon le fichier de réglages que vous mentionnerez, vous
+obtiendrez facilement différentes éditions à partir d'une même source
+quelle qu'elle soit.
+
+Ceete technique peut s'utiliser en combinaison avec des feuilles de
+styles, comme indiqué au chapitre @rlearning{Feuilles de style}.
+
+@seealso
+Manuel d'initiation :
+@rlearning{Organisation du code source avec des variables},
+@rlearning{Feuilles de style}.
+
+Manuel de notation :
+@ref{Insertion de fichiers LilyPond}.
 
 
 @node Codage du texte
