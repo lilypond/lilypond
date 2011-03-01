@@ -1337,7 +1337,7 @@ than one tagged section at the same place.
 
 @cindex include-settings
 
-Global settings can be incuded from a separate file:
+Global settings can be included from a separate file:
 
 @example
 lilypond -dinclude-settings=MY_SETTINGS.ly MY_SCORE.ly
