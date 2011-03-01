@@ -1,71 +1,71 @@
-# Translation of LilyPOond.
-# Copyright (C) 1998--2011 Han-Wen Nienhuys, Jan Nieuwenhuizen
-# This file is distributed under the same license as the lilypond package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.13.48\n"
-"Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
-"POT-Creation-Date: 2011-02-05 20:21+0100\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-01 14:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: fontextract.py:25
+#: book_base.py:24
 #, python-format
-msgid "Scanning %s"
+msgid "file not found: %s"
 msgstr ""
 
-#: fontextract.py:70
-#, python-format
-msgid "Extracted %s"
+#: book_base.py:161
+msgid "Output function not implemented"
 msgstr ""
 
-#: fontextract.py:85
-#, python-format
-msgid "Writing fonts to %s"
-msgstr ""
-
-#: book_snippets.py:517
-#, python-format
-msgid "deprecated ly-option used: %s=%s"
+#: book_latex.py:156
+msgid "cannot find \\begin{document} in LaTeX document"
 msgstr ""
 
 #: book_snippets.py:519
 #, python-format
-msgid "compatibility mode translation: %s=%s"
+msgid "deprecated ly-option used: %s=%s"
 msgstr ""
 
-#: book_snippets.py:522
+#: book_snippets.py:521
 #, python-format
-msgid "deprecated ly-option used: %s"
+msgid "compatibility mode translation: %s=%s"
 msgstr ""
 
 #: book_snippets.py:524
 #, python-format
+msgid "deprecated ly-option used: %s"
+msgstr ""
+
+#: book_snippets.py:526
+#, python-format
 msgid "compatibility mode translation: %s"
 msgstr ""
 
-#: book_snippets.py:542
+#: book_snippets.py:544
 #, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr ""
 
-#: book_snippets.py:728
+#: book_snippets.py:736
 #, python-format
 msgid "Opening filter `%s'\n"
 msgstr ""
 
-#: book_snippets.py:748
+#: book_snippets.py:756
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr ""
 
-#: book_snippets.py:749
+#: book_snippets.py:757
 msgid "The error log is as follows:"
 msgstr ""
 
@@ -673,13 +673,29 @@ msgstr ""
 msgid "Replace bar-size with bar-extent."
 msgstr ""
 
-#: book_base.py:24
-#, python-format
-msgid "file not found: %s"
+#: convertrules.py:3197
+msgid "Woodwind diagrams: Changes to the clarinet diagram."
 msgstr ""
 
-#: book_base.py:161
-msgid "Output function not implemented"
+#: convertrules.py:3201
+msgid ""
+"woodwind-diagrams.  Clarinet fingering changed to reflect actual anatomy of "
+"instrument.\n"
+msgstr ""
+
+#: fontextract.py:25
+#, python-format
+msgid "Scanning %s"
+msgstr ""
+
+#: fontextract.py:70
+#, python-format
+msgid "Extracted %s"
+msgstr ""
+
+#: fontextract.py:85
+#, python-format
+msgid "Writing fonts to %s"
 msgstr ""
 
 #: lilylib.py:81 musicxml.py:13 convert-ly.py:67 warn.cc:72 input.cc:115
@@ -757,8 +773,408 @@ msgstr ""
 msgid "Unable to find instrument for ID=%s\n"
 msgstr ""
 
-#: book_latex.py:156
-msgid "cannot find \\begin{document} in LaTeX document"
+#: abc2ly.py:1373 convert-ly.py:87 lilypond-book.py:122 midi2ly.py:969
+#, python-format
+msgid "%s [OPTION]... FILE"
+msgstr ""
+
+#: abc2ly.py:1374
+#, python-format
+msgid ""
+"abc2ly converts ABC music files (see\n"
+"%s) to LilyPond input.\n"
+msgstr ""
+
+#: abc2ly.py:1382 convert-ly.py:94 etf2ly.py:1206 lilypond-book.py:212
+#: midi2ly.py:1011 musicxml2ly.py:2580 main.cc:168
+msgid "show version number and exit"
+msgstr ""
+
+#: abc2ly.py:1386 convert-ly.py:98 etf2ly.py:1202 lilypond-book.py:140
+#: midi2ly.py:984 musicxml2ly.py:2562 main.cc:157
+msgid "show this help and exit"
+msgstr ""
+
+#: abc2ly.py:1388 etf2ly.py:1207 midi2ly.py:992
+msgid "write output to FILE"
+msgstr ""
+
+#: abc2ly.py:1390
+msgid "be strict about success"
+msgstr ""
+
+#: abc2ly.py:1392
+msgid "preserve ABC's notion of beams"
+msgstr ""
+
+#. Translators, please translate this string as
+#. "Report bugs in English via %s",
+#. or if there is a LilyPond users list or forum in your language
+#. "Report bugs in English via %s or in YOUR_LANG via URI"
+#: abc2ly.py:1395 convert-ly.py:144 etf2ly.py:1216 lilypond-book.py:234
+#: midi2ly.py:1024 musicxml2ly.py:2648 main.cc:281
+#, c-format, python-format
+msgid "Report bugs via %s"
+msgstr ""
+
+#: convert-ly.py:44
+msgid ""
+"Update LilyPond input to newer version.  By default, update from the\n"
+"version taken from the \\version command, to the current LilyPond version."
+msgstr ""
+
+#: convert-ly.py:46 lilypond-book.py:82
+msgid "Examples:"
+msgstr ""
+
+#: convert-ly.py:81 etf2ly.py:1189 lilypond-book.py:116 midi2ly.py:90
+#, python-format
+msgid "Copyright (c) %s by"
+msgstr ""
+
+#: convert-ly.py:83 etf2ly.py:1191 lilypond-book.py:118 midi2ly.py:92
+msgid "Distributed under terms of the GNU General Public License."
+msgstr ""
+
+#: convert-ly.py:84 etf2ly.py:1192 lilypond-book.py:119 midi2ly.py:93
+msgid "It comes with NO WARRANTY."
+msgstr ""
+
+#: convert-ly.py:102 convert-ly.py:135
+msgid "VERSION"
+msgstr ""
+
+#: convert-ly.py:104
+msgid "start from VERSION [default: \\version found in file]"
+msgstr ""
+
+#: convert-ly.py:107
+msgid "edit in place"
+msgstr ""
+
+#: convert-ly.py:111
+msgid "do not add \\version command if missing"
+msgstr ""
+
+#: convert-ly.py:117
+#, python-format
+msgid "force updating \\version number to %s"
+msgstr ""
+
+#: convert-ly.py:123
+msgid "only update \\version number if file is modified"
+msgstr ""
+
+#: convert-ly.py:129
+#, python-format
+msgid "show rules [default: -f 0, -t %s]"
+msgstr ""
+
+#: convert-ly.py:134
+#, python-format
+msgid "convert to VERSION [default: %s]"
+msgstr ""
+
+#: convert-ly.py:139 etf2ly.py:1210 lilypond-book.py:215 midi2ly.py:1012
+#: main.cc:170
+msgid "show warranty and copyright"
+msgstr ""
+
+#: convert-ly.py:184
+msgid "Applying conversion: "
+msgstr ""
+
+#: convert-ly.py:197
+msgid "Error while converting"
+msgstr ""
+
+#: convert-ly.py:199
+msgid "Stopping at last successful rule"
+msgstr ""
+
+#: convert-ly.py:224
+#, python-format
+msgid "Processing `%s'... "
+msgstr ""
+
+#: convert-ly.py:332
+#, python-format
+msgid "%s: Unable to open file"
+msgstr ""
+
+#: convert-ly.py:339
+#, python-format
+msgid "%s: Unable to determine version.  Skipping"
+msgstr ""
+
+#: convert-ly.py:344
+#, python-format
+msgid ""
+"%s: Invalid version string `%s' \n"
+"Valid version strings consist of three numbers, separated by dots, e.g. "
+"`2.8.12'"
+msgstr ""
+
+#: etf2ly.py:1195
+#, python-format
+msgid "%s [OPTION]... ETF-FILE"
+msgstr ""
+
+#: etf2ly.py:1196
+msgid ""
+"Enigma Transport Format is a format used by Coda Music Technology's\n"
+"Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond "
+"file.\n"
+msgstr ""
+
+#: etf2ly.py:1208 midi2ly.py:988 midi2ly.py:993 musicxml2ly.py:2640
+#: main.cc:161 main.cc:166
+msgid "FILE"
+msgstr ""
+
+#: lilypond-book.py:80
+msgid ""
+"Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
+msgstr ""
+
+#: lilypond-book.py:87
+msgid "BOOK"
+msgstr ""
+
+#: lilypond-book.py:95
+#, python-format
+msgid "Exiting (%d)..."
+msgstr ""
+
+#: lilypond-book.py:127
+msgid "FILTER"
+msgstr ""
+
+#: lilypond-book.py:130
+msgid "pipe snippets through FILTER [default: `convert-ly -n -']"
+msgstr ""
+
+#: lilypond-book.py:134
+msgid ""
+"use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
+msgstr ""
+
+#: lilypond-book.py:135
+msgid "FORMAT"
+msgstr ""
+
+#: lilypond-book.py:142
+msgid "add DIR to include path"
+msgstr ""
+
+#: lilypond-book.py:143 lilypond-book.py:150 lilypond-book.py:163
+#: lilypond-book.py:173 lilypond-book.py:189 lilypond-book.py:195 main.cc:160
+msgid "DIR"
+msgstr ""
+
+#: lilypond-book.py:148
+msgid "format Texinfo output so that Info will look for images of music in DIR"
+msgstr ""
+
+#: lilypond-book.py:155
+msgid "PAD"
+msgstr ""
+
+#: lilypond-book.py:157
+msgid ""
+"pad left side of music to align music inspite of uneven bar numbers (in mm)"
+msgstr ""
+
+#: lilypond-book.py:162
+msgid "write lily-XXX files to DIR, link into --output dir"
+msgstr ""
+
+#: lilypond-book.py:167
+msgid ""
+"Load the additional python PACKAGE (containing e.g. a custom output format)"
+msgstr ""
+
+#: lilypond-book.py:168
+msgid "PACKAGE"
+msgstr ""
+
+#: lilypond-book.py:172
+msgid "write output to DIR"
+msgstr ""
+
+#: lilypond-book.py:177
+msgid "COMMAND"
+msgstr ""
+
+#: lilypond-book.py:178
+msgid "process ly_files using COMMAND FILE..."
+msgstr ""
+
+#: lilypond-book.py:182
+msgid "Compile snippets in safe mode"
+msgstr ""
+
+#: lilypond-book.py:188
+msgid "do not fail if no lilypond output is found"
+msgstr ""
+
+#: lilypond-book.py:194
+msgid "do not fail if no PNG images are found for EPS files"
+msgstr ""
+
+#: lilypond-book.py:200
+msgid "write snippet output files with the same base name as their source file"
+msgstr ""
+
+#: lilypond-book.py:204 midi2ly.py:1005 musicxml2ly.py:2585 main.cc:169
+msgid "be verbose"
+msgstr ""
+
+#: lilypond-book.py:220
+msgid ""
+"run executable PROG instead of latex, or in\n"
+"case --pdf option is set instead of pdflatex"
+msgstr ""
+
+#: lilypond-book.py:222
+msgid "PROG"
+msgstr ""
+
+#: lilypond-book.py:228
+msgid "create PDF files for use with PDFTeX"
+msgstr ""
+
+#: lilypond-book.py:419
+msgid "Writing snippets..."
+msgstr ""
+
+#: lilypond-book.py:425
+msgid "Processing..."
+msgstr ""
+
+#: lilypond-book.py:431
+msgid "All snippets are up to date..."
+msgstr ""
+
+#: lilypond-book.py:452
+#, python-format
+msgid "cannot determine format for: %s"
+msgstr ""
+
+#: lilypond-book.py:461
+#, python-format
+msgid "%s is up to date."
+msgstr ""
+
+#: lilypond-book.py:475
+#, python-format
+msgid "Writing `%s'..."
+msgstr ""
+
+#: lilypond-book.py:537
+msgid "Output would overwrite input file; use --output."
+msgstr ""
+
+#: lilypond-book.py:541
+#, python-format
+msgid "Reading %s..."
+msgstr ""
+
+#: lilypond-book.py:549
+msgid "Dissecting..."
+msgstr ""
+
+#: lilypond-book.py:561
+#, python-format
+msgid "Compiling %s..."
+msgstr ""
+
+#: lilypond-book.py:570
+#, python-format
+msgid "Processing include: %s"
+msgstr ""
+
+#: lilypond-book.py:582
+#, python-format
+msgid "Removing `%s'"
+msgstr ""
+
+#: midi2ly.py:99
+msgid "warning: "
+msgstr ""
+
+#: midi2ly.py:102 midi2ly.py:1037
+msgid "error: "
+msgstr ""
+
+#: midi2ly.py:103
+msgid "Exiting... "
+msgstr ""
+
+#: midi2ly.py:957
+#, python-format
+msgid "%s output to `%s'..."
+msgstr ""
+
+#: midi2ly.py:970
+#, python-format
+msgid "Convert %s to LilyPond input.\n"
+msgstr ""
+
+#: midi2ly.py:975
+msgid "print absolute pitches"
+msgstr ""
+
+#: midi2ly.py:977 midi2ly.py:998
+msgid "DUR"
+msgstr ""
+
+#: midi2ly.py:978
+msgid "quantise note durations on DUR"
+msgstr ""
+
+#: midi2ly.py:981
+msgid "print explicit durations"
+msgstr ""
+
+#: midi2ly.py:986
+msgid "prepend FILE to output"
+msgstr ""
+
+#: midi2ly.py:989
+msgid "set key: ALT=+sharps|-flats; MINOR=1"
+msgstr ""
+
+#: midi2ly.py:990
+msgid "ALT[:MINOR]"
+msgstr ""
+
+#: midi2ly.py:995
+msgid "preview of first 4 bars"
+msgstr ""
+
+#: midi2ly.py:997
+msgid "quantise note starts on DUR"
+msgstr ""
+
+#: midi2ly.py:1000
+msgid "DUR*NUM/DEN"
+msgstr ""
+
+#: midi2ly.py:1003
+msgid "allow tuplet durations DUR*NUM/DEN"
+msgstr ""
+
+#: midi2ly.py:1015
+msgid "treat every text as a lyric"
+msgstr ""
+
+#: midi2ly.py:1018
+msgid "Examples"
+msgstr ""
+
+#: midi2ly.py:1038
+msgid "no files specified on command line."
 msgstr ""
 
 #: musicxml2ly.py:223
@@ -884,26 +1300,12 @@ msgid ""
 "If the given filename is -, musicxml2ly reads from the command line.\n"
 msgstr ""
 
-#: musicxml2ly.py:2562 midi2ly.py:894 abc2ly.py:1386 lilypond-book.py:140
-#: convert-ly.py:98 etf2ly.py:1202 main.cc:157
-msgid "show this help and exit"
-msgstr ""
-
 #: musicxml2ly.py:2566
 msgid ""
 "Copyright (c) 2005--2011 by\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
-msgstr ""
-
-#: musicxml2ly.py:2580 midi2ly.py:917 abc2ly.py:1382 lilypond-book.py:212
-#: convert-ly.py:94 etf2ly.py:1206 main.cc:168
-msgid "show version number and exit"
-msgstr ""
-
-#: musicxml2ly.py:2585 midi2ly.py:911 lilypond-book.py:204 main.cc:169
-msgid "be verbose"
 msgstr ""
 
 #: musicxml2ly.py:2591
@@ -947,22 +1349,8 @@ msgid ""
 "do not convert beaming information, use lilypond's automatic beaming instead"
 msgstr ""
 
-#: musicxml2ly.py:2640 midi2ly.py:899 etf2ly.py:1208 main.cc:161 main.cc:166
-msgid "FILE"
-msgstr ""
-
 #: musicxml2ly.py:2645
 msgid "set output filename to FILE, stdout if -"
-msgstr ""
-
-#. Translators, please translate this string as
-#. "Report bugs in English via %s",
-#. or if there is a LilyPond users list or forum in your language
-#. "Report bugs in English via %s or in YOUR_LANG via URI"
-#: musicxml2ly.py:2648 midi2ly.py:930 abc2ly.py:1395 lilypond-book.py:234
-#: convert-ly.py:144 etf2ly.py:1216 main.cc:281
-#, c-format, python-format
-msgid "Report bugs via %s"
 msgstr ""
 
 #: musicxml2ly.py:2728
@@ -998,397 +1386,12 @@ msgstr ""
 msgid "Unable to find input file %s"
 msgstr ""
 
-#: midi2ly.py:90 lilypond-book.py:116 convert-ly.py:81 etf2ly.py:1189
-#, python-format
-msgid "Copyright (c) %s by"
-msgstr ""
-
-#: midi2ly.py:92 lilypond-book.py:118 convert-ly.py:83 etf2ly.py:1191
-msgid "Distributed under terms of the GNU General Public License."
-msgstr ""
-
-#: midi2ly.py:93 lilypond-book.py:119 convert-ly.py:84 etf2ly.py:1192
-msgid "It comes with NO WARRANTY."
-msgstr ""
-
-#: midi2ly.py:99
-msgid "warning: "
-msgstr ""
-
-#: midi2ly.py:102 midi2ly.py:943
-msgid "error: "
-msgstr ""
-
-#: midi2ly.py:103
-msgid "Exiting... "
-msgstr ""
-
-#: midi2ly.py:867
-#, python-format
-msgid "%s output to `%s'..."
-msgstr ""
-
-#: midi2ly.py:879 abc2ly.py:1373 lilypond-book.py:122 convert-ly.py:87
-#, python-format
-msgid "%s [OPTION]... FILE"
-msgstr ""
-
-#: midi2ly.py:880
-#, python-format
-msgid "Convert %s to LilyPond input.\n"
-msgstr ""
-
-#: midi2ly.py:885
-msgid "print absolute pitches"
-msgstr ""
-
-#: midi2ly.py:887 midi2ly.py:904
-msgid "DUR"
-msgstr ""
-
-#: midi2ly.py:888
-msgid "quantise note durations on DUR"
-msgstr ""
-
-#: midi2ly.py:891
-msgid "print explicit durations"
-msgstr ""
-
-#: midi2ly.py:895
-msgid "set key: ALT=+sharps|-flats; MINOR=1"
-msgstr ""
-
-#: midi2ly.py:896
-msgid "ALT[:MINOR]"
-msgstr ""
-
-#: midi2ly.py:898 abc2ly.py:1388 etf2ly.py:1207
-msgid "write output to FILE"
-msgstr ""
-
-#: midi2ly.py:901
-msgid "preview of first 4 bars"
-msgstr ""
-
-#: midi2ly.py:903
-msgid "quantise note starts on DUR"
-msgstr ""
-
-#: midi2ly.py:906
-msgid "DUR*NUM/DEN"
-msgstr ""
-
-#: midi2ly.py:909
-msgid "allow tuplet durations DUR*NUM/DEN"
-msgstr ""
-
-#: midi2ly.py:918 lilypond-book.py:215 convert-ly.py:139 etf2ly.py:1210
-#: main.cc:170
-msgid "show warranty and copyright"
-msgstr ""
-
-#: midi2ly.py:921
-msgid "treat every text as a lyric"
-msgstr ""
-
-#: midi2ly.py:924
-msgid "Examples"
-msgstr ""
-
-#: midi2ly.py:944
-msgid "no files specified on command line."
-msgstr ""
-
-#: abc2ly.py:1374
-#, python-format
-msgid ""
-"abc2ly converts ABC music files (see\n"
-"%s) to LilyPond input.\n"
-msgstr ""
-
-#: abc2ly.py:1390
-msgid "be strict about success"
-msgstr ""
-
-#: abc2ly.py:1392
-msgid "preserve ABC's notion of beams"
-msgstr ""
-
-#: lilypond-book.py:80
-msgid ""
-"Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
-msgstr ""
-
-#: lilypond-book.py:82 convert-ly.py:46
-msgid "Examples:"
-msgstr ""
-
-#: lilypond-book.py:87
-msgid "BOOK"
-msgstr ""
-
-#: lilypond-book.py:95
-#, python-format
-msgid "Exiting (%d)..."
-msgstr ""
-
-#: lilypond-book.py:127
-msgid "FILTER"
-msgstr ""
-
-#: lilypond-book.py:130
-msgid "pipe snippets through FILTER [default: `convert-ly -n -']"
-msgstr ""
-
-#: lilypond-book.py:134
-msgid ""
-"use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
-msgstr ""
-
-#: lilypond-book.py:135
-msgid "FORMAT"
-msgstr ""
-
-#: lilypond-book.py:142
-msgid "add DIR to include path"
-msgstr ""
-
-#: lilypond-book.py:143 lilypond-book.py:150 lilypond-book.py:163
-#: lilypond-book.py:173 lilypond-book.py:189 lilypond-book.py:195 main.cc:160
-msgid "DIR"
-msgstr ""
-
-#: lilypond-book.py:148
-msgid "format Texinfo output so that Info will look for images of music in DIR"
-msgstr ""
-
-#: lilypond-book.py:155
-msgid "PAD"
-msgstr ""
-
-#: lilypond-book.py:157
-msgid ""
-"pad left side of music to align music inspite of uneven bar numbers (in mm)"
-msgstr ""
-
-#: lilypond-book.py:162
-msgid "write lily-XXX files to DIR, link into --output dir"
-msgstr ""
-
-#: lilypond-book.py:167
-msgid ""
-"Load the additional python PACKAGE (containing e.g. a custom output format)"
-msgstr ""
-
-#: lilypond-book.py:168
-msgid "PACKAGE"
-msgstr ""
-
-#: lilypond-book.py:172
-msgid "write output to DIR"
-msgstr ""
-
-#: lilypond-book.py:177
-msgid "COMMAND"
-msgstr ""
-
-#: lilypond-book.py:178
-msgid "process ly_files using COMMAND FILE..."
-msgstr ""
-
-#: lilypond-book.py:182
-msgid "Compile snippets in safe mode"
-msgstr ""
-
-#: lilypond-book.py:188
-msgid "do not fail if no lilypond output is found"
-msgstr ""
-
-#: lilypond-book.py:194
-msgid "do not fail if no PNG images are found for EPS files"
-msgstr ""
-
-#: lilypond-book.py:200
-msgid "write snippet output files with the same base name as their source file"
-msgstr ""
-
-#: lilypond-book.py:220
-msgid ""
-"run executable PROG instead of latex, or in\n"
-"case --pdf option is set instead of pdflatex"
-msgstr ""
-
-#: lilypond-book.py:222
-msgid "PROG"
-msgstr ""
-
-#: lilypond-book.py:228
-msgid "create PDF files for use with PDFTeX"
-msgstr ""
-
-#: lilypond-book.py:419
-msgid "Writing snippets..."
-msgstr ""
-
-#: lilypond-book.py:425
-msgid "Processing..."
-msgstr ""
-
-#: lilypond-book.py:431
-msgid "All snippets are up to date..."
-msgstr ""
-
-#: lilypond-book.py:452
-#, python-format
-msgid "cannot determine format for: %s"
-msgstr ""
-
-#: lilypond-book.py:461
-#, python-format
-msgid "%s is up to date."
-msgstr ""
-
-#: lilypond-book.py:475
-#, python-format
-msgid "Writing `%s'..."
-msgstr ""
-
-#: lilypond-book.py:537
-msgid "Output would overwrite input file; use --output."
-msgstr ""
-
-#: lilypond-book.py:541
-#, python-format
-msgid "Reading %s..."
-msgstr ""
-
-#: lilypond-book.py:549
-msgid "Dissecting..."
-msgstr ""
-
-#: lilypond-book.py:561
-#, python-format
-msgid "Compiling %s..."
-msgstr ""
-
-#: lilypond-book.py:570
-#, python-format
-msgid "Processing include: %s"
-msgstr ""
-
-#: lilypond-book.py:582
-#, python-format
-msgid "Removing `%s'"
-msgstr ""
-
-#: convert-ly.py:44
-msgid ""
-"Update LilyPond input to newer version.  By default, update from the\n"
-"version taken from the \\version command, to the current LilyPond version."
-msgstr ""
-
-#: convert-ly.py:102 convert-ly.py:135
-msgid "VERSION"
-msgstr ""
-
-#: convert-ly.py:104
-msgid "start from VERSION [default: \\version found in file]"
-msgstr ""
-
-#: convert-ly.py:107
-msgid "edit in place"
-msgstr ""
-
-#: convert-ly.py:111
-msgid "do not add \\version command if missing"
-msgstr ""
-
-#: convert-ly.py:117
-#, python-format
-msgid "force updating \\version number to %s"
-msgstr ""
-
-#: convert-ly.py:123
-msgid "only update \\version number if file is modified"
-msgstr ""
-
-#: convert-ly.py:129
-#, python-format
-msgid "show rules [default: -f 0, -t %s]"
-msgstr ""
-
-#: convert-ly.py:134
-#, python-format
-msgid "convert to VERSION [default: %s]"
-msgstr ""
-
-#: convert-ly.py:184
-msgid "Applying conversion: "
-msgstr ""
-
-#: convert-ly.py:197
-msgid "Error while converting"
-msgstr ""
-
-#: convert-ly.py:199
-msgid "Stopping at last successful rule"
-msgstr ""
-
-#: convert-ly.py:224
-#, python-format
-msgid "Processing `%s'... "
-msgstr ""
-
-#: convert-ly.py:332
-#, python-format
-msgid "%s: Unable to open file"
-msgstr ""
-
-#: convert-ly.py:339
-#, python-format
-msgid "%s: Unable to determine version.  Skipping"
-msgstr ""
-
-#: convert-ly.py:344
-#, python-format
-msgid ""
-"%s: Invalid version string `%s' \n"
-"Valid version strings consist of three numbers, separated by dots, e.g. "
-"`2.8.12'"
-msgstr ""
-
-#: etf2ly.py:1195
-#, python-format
-msgid "%s [OPTION]... ETF-FILE"
-msgstr ""
-
-#: etf2ly.py:1196
-msgid ""
-"Enigma Transport Format is a format used by Coda Music Technology's\n"
-"Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond "
-"file.\n"
-msgstr ""
-
-#: website_post.py:115
+#: website_post.py:123
 msgid "English"
 msgstr ""
 
-#: website_post.py:118
+#: website_post.py:126
 msgid "Other languages"
-msgstr ""
-
-#: warn.cc:59
-#, c-format
-msgid "success: %s"
-msgstr ""
-
-#: warn.cc:86 grob.cc:617 input.cc:97
-#, c-format
-msgid "programming error: %s"
-msgstr ""
-
-#: warn.cc:87 input.cc:98
-msgid "continuing, cross fingers"
 msgstr ""
 
 #: getopt-long.cc:153
@@ -1411,89 +1414,72 @@ msgstr ""
 msgid "invalid argument `%s' to option `%s'"
 msgstr ""
 
-#: grob.cc:286
-msgid "Infinity or NaN encountered"
-msgstr ""
-
-#: vaticana-ligature.cc:95
-msgid "flexa-height undefined; assuming 0"
-msgstr ""
-
-#: vaticana-ligature.cc:100
-msgid "ascending vaticana style flexa"
-msgstr ""
-
-#: vaticana-ligature.cc:188
-msgid "Vaticana_ligature: zero join (delta_pitch == 0)"
-msgstr ""
-
-#: parse-scm.cc:101
-msgid "GUILE signaled an error for the expression beginning here"
-msgstr ""
-
-#: rest-collision-engraver.cc:70
-msgid "rhythmic head is not part of a rhythmic column"
-msgstr ""
-
-#. if we get to here, just put everything on one line
-#: constrained-breaking.cc:189 constrained-breaking.cc:207
-msgid "cannot find line breaking that satisfies constraints"
-msgstr ""
-
-#: horizontal-bracket-engraver.cc:78
-msgid "do not have that many brackets"
-msgstr ""
-
-#: horizontal-bracket-engraver.cc:87
-msgid "conflicting note group events"
-msgstr ""
-
-#: hyphen-engraver.cc:104
-msgid "removing unterminated hyphen"
-msgstr ""
-
-#: hyphen-engraver.cc:118
-msgid "unterminated hyphen; removing"
-msgstr ""
-
-#: pango-font.cc:187 open-type-font.cc:319
+#: warn.cc:59
 #, c-format
-msgid "FT_Get_Glyph_Name () error: %s"
+msgid "success: %s"
 msgstr ""
 
-#: pango-font.cc:204
+#: warn.cc:86 grob.cc:617 input.cc:97
 #, c-format
-msgid ""
-"Glyph has no name, but font supports glyph naming.\n"
-"Skipping glyph U+%0X, file %s"
+msgid "programming error: %s"
 msgstr ""
 
-#: pango-font.cc:241
+#: warn.cc:87 input.cc:98
+msgid "continuing, cross fingers"
+msgstr ""
+
+#: accidental-engraver.cc:180
 #, c-format
-msgid "no PostScript font name for font `%s'"
+msgid "accidental typesetting list must begin with context-name: %s"
 msgstr ""
 
-#: pango-font.cc:290
-msgid "FreeType face has no PostScript font name"
-msgstr ""
-
-#: midi-item.cc:92
+#: accidental-engraver.cc:210
 #, c-format
-msgid "no such MIDI instrument: `%s'"
+msgid "procedure or context-name expected for accidental rule, found %s"
 msgstr ""
 
-#: note-heads-engraver.cc:76
-msgid "NoteEvent without pitch"
-msgstr ""
-
-#: rest.cc:159
+#: accidental.cc:200
 #, c-format
-msgid "rest `%s' not found"
+msgid "Could not find glyph-name for alteration %s"
 msgstr ""
 
-#: spaceable-grob.cc:94
+#: accidental.cc:215
+msgid "natural alteration glyph not found"
+msgstr ""
+
+#: all-font-metrics.cc:156
 #, c-format
-msgid "No spring between column %d and next one"
+msgid "cannot find font: `%s'"
+msgstr ""
+
+#: apply-context-iterator.cc:42
+msgid "\\applycontext argument is not a procedure"
+msgstr ""
+
+#: auto-change-iterator.cc:74 change-iterator.cc:72
+#, c-format
+msgid "cannot change, already in translator: %s"
+msgstr ""
+
+#: axis-group-engraver.cc:94
+msgid "Axis_group_engraver: vertical group already has a parent"
+msgstr ""
+
+#: axis-group-engraver.cc:95
+msgid "are there two Axis_group_engravers?"
+msgstr ""
+
+#: axis-group-engraver.cc:96
+msgid "removing this vertical group"
+msgstr ""
+
+#: axis-group-interface.cc:631
+msgid "an outside-staff object should have a direction, defaulting to up"
+msgstr ""
+
+#: bar-check-iterator.cc:84
+#, c-format
+msgid "barcheck failed at: %s"
 msgstr ""
 
 #: beam-engraver.cc:147
@@ -1516,8 +1502,79 @@ msgstr ""
 msgid "beam was started here"
 msgstr ""
 
-#: music-iterator.cc:182
-msgid "Sending non-event to context"
+#: beam.cc:180
+msgid "removing beam with no stems"
+msgstr ""
+
+#. We are completely screwed.
+#: beam.cc:1274
+msgid "no viable initial configuration found: may not find good beam slope"
+msgstr ""
+
+#: break-alignment-interface.cc:206
+#, c-format
+msgid "No spacing entry from %s to `%s'"
+msgstr ""
+
+#: change-iterator.cc:34
+#, c-format
+msgid "cannot change `%s' to `%s'"
+msgstr ""
+
+#. FIXME: constant error message.
+#: change-iterator.cc:93
+msgid "cannot find context to switch to"
+msgstr ""
+
+#. We could change the current translator's id, but that would make
+#. errors hard to catch.
+#.
+#. last->translator_id_string () = get_change
+#. ()->change_to_id_string ();
+#: change-iterator.cc:102
+#, c-format
+msgid "not changing to same context type: %s"
+msgstr ""
+
+#. FIXME: uncomprehensable message
+#: change-iterator.cc:106
+msgid "none of these in my family"
+msgstr ""
+
+#: chord-tremolo-engraver.cc:88
+msgid "No tremolo to end"
+msgstr ""
+
+#: chord-tremolo-engraver.cc:109
+msgid "unterminated chord tremolo"
+msgstr ""
+
+#: clef.cc:65
+#, c-format
+msgid "clef `%s' not found"
+msgstr ""
+
+#: cluster.cc:120
+#, c-format
+msgid "unknown cluster style `%s'"
+msgstr ""
+
+#: cluster.cc:157
+msgid "junking empty cluster"
+msgstr ""
+
+#: coherent-ligature-engraver.cc:111
+#, c-format
+msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
+msgstr ""
+
+#. if we get to here, just put everything on one line
+#: constrained-breaking.cc:189 constrained-breaking.cc:207
+msgid "cannot find line breaking that satisfies constraints"
+msgstr ""
+
+#: context-property.cc:42
+msgid "need symbol arguments for \\override and \\revert"
 msgstr ""
 
 #: context.cc:149
@@ -1540,6 +1597,11 @@ msgstr ""
 msgid "cannot find or create: `%s'"
 msgstr ""
 
+#: custos.cc:88
+#, c-format
+msgid "custos `%s' not found"
+msgstr ""
+
 #: dispatcher.cc:82
 msgid "Event class should be a symbol"
 msgstr ""
@@ -1549,18 +1611,9 @@ msgstr ""
 msgid "Unknown event class %s"
 msgstr ""
 
-#: paper-column-engraver.cc:245
-msgid ""
-"forced break was overridden by some other event, should you be using bar "
-"checks?"
-msgstr ""
-
-#: tie-engraver.cc:116
-msgid "unterminated tie"
-msgstr ""
-
-#: tie-engraver.cc:312
-msgid "lonely tie"
+#: dots.cc:48
+#, c-format
+msgid "dot `%s' not found"
 msgstr ""
 
 #: dynamic-engraver.cc:197
@@ -1583,89 +1636,48 @@ msgstr ""
 msgid "unterminated (de)crescendo"
 msgstr ""
 
-#: paper-score.cc:122 minimal-page-breaking.cc:40
-msgid "Calculating line breaks..."
+#: episema-engraver.cc:75
+msgid "already have an episema"
 msgstr ""
 
-#: paper-score.cc:135
+#: episema-engraver.cc:88
+msgid "cannot find start of episema"
+msgstr ""
+
+#: episema-engraver.cc:137
+msgid "unterminated episema"
+msgstr ""
+
+#: extender-engraver.cc:170 extender-engraver.cc:179
+msgid "unterminated extender"
+msgstr ""
+
+#: font-config-scheme.cc:152 font-config.cc:55
 #, c-format
-msgid "Element count %d (spanners %d) "
+msgid "failed adding font directory: %s"
 msgstr ""
 
-#: paper-score.cc:139
-msgid "Preprocessing graphical objects..."
-msgstr ""
-
-#: paper-score.cc:163 optimal-page-breaking.cc:208
-#: page-turn-page-breaking.cc:248
-msgid "Drawing systems..."
-msgstr ""
-
-#: mensural-ligature-engraver.cc:96
-msgid "ligature with less than 2 heads -> skipping"
-msgstr ""
-
-#: mensural-ligature-engraver.cc:123
-msgid "cannot determine pitch of ligature primitive -> skipping"
-msgstr ""
-
-#: mensural-ligature-engraver.cc:137
-msgid "single note ligature - skipping"
-msgstr ""
-
-#: mensural-ligature-engraver.cc:148
-msgid "prime interval within ligature -> skipping"
-msgstr ""
-
-#: mensural-ligature-engraver.cc:159
-msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
-msgstr ""
-
-#: mensural-ligature-engraver.cc:202
-msgid "semibrevis must be followed by another one -> skipping"
-msgstr ""
-
-#: mensural-ligature-engraver.cc:212
-msgid ""
-"semibreves can only appear at the beginning of a ligature,\n"
-"and there may be only zero or two of them"
-msgstr ""
-
-#: mensural-ligature-engraver.cc:232
-msgid ""
-"invalid ligatura ending:\n"
-"when the last note is a descending brevis,\n"
-"the penultimate note must be another one,\n"
-"or the ligatura must be LB or SSB"
-msgstr ""
-
-#: mensural-ligature-engraver.cc:386
-msgid "unexpected case fall-through"
-msgstr ""
-
-#: piano-pedal-engraver.cc:298
+#: font-config-scheme.cc:154 font-config.cc:57
 #, c-format
-msgid "expect 3 strings for piano pedals, found: %ld"
+msgid "adding font directory: %s"
 msgstr ""
 
-#: piano-pedal-engraver.cc:313 piano-pedal-engraver.cc:324
-#: piano-pedal-performer.cc:104
+#: font-config-scheme.cc:168
 #, c-format
-msgid "cannot find start of piano pedal: `%s'"
+msgid "failed adding font file: %s"
 msgstr ""
 
-#: piano-pedal-engraver.cc:359
+#: font-config-scheme.cc:170
 #, c-format
-msgid "cannot find start of piano pedal bracket: `%s'"
+msgid "adding font file: %s"
 msgstr ""
 
-#: input.cc:131 source-file.cc:179 source-file.cc:194
-msgid "position unknown"
+#: font-config.cc:40
+msgid "Initializing FontConfig..."
 msgstr ""
 
-#: paper-outputter-scheme.cc:41
-#, c-format
-msgid "Layout output to `%s'..."
+#: font-config.cc:61
+msgid "Building font database..."
 msgstr ""
 
 #: general-scheme.cc:306
@@ -1680,51 +1692,120 @@ msgstr ""
 msgid "Found infinity or nan in output. Substituting 0.0"
 msgstr ""
 
-#: music.cc:151
+#: glissando-engraver.cc:105
+msgid "unterminated glissando"
+msgstr ""
+
+#: global-context-scheme.cc:96 global-context-scheme.cc:114
+msgid "no music found in score"
+msgstr ""
+
+#: global-context-scheme.cc:104
+msgid "Interpreting music... "
+msgstr ""
+
+#: global-context-scheme.cc:127
 #, c-format
-msgid "octave check failed; expected \"%s\", found: \"%s\""
+msgid "elapsed time: %.2f seconds"
 msgstr ""
 
-#: music.cc:219
-msgid "(normalized pitch)"
-msgstr ""
-
-#: music.cc:223
+#: gregorian-ligature-engraver.cc:70
 #, c-format
-msgid "Transposing %s by %s makes alteration larger than double"
+msgid "\\%s ignored"
 msgstr ""
 
-#: translator-ctors.cc:65
+#: gregorian-ligature-engraver.cc:75
 #, c-format
-msgid "unknown translator: `%s'"
+msgid "implied \\%s added"
 msgstr ""
 
-#: partial-iterator.cc:45
-msgid "trying to use \\partial after the start of a piece"
+#. ligature may not start with 2nd head of pes or flexa
+#: gregorian-ligature-engraver.cc:224
+msgid "cannot apply `\\~' on first head of ligature"
 msgstr ""
 
-#: new-fingering-engraver.cc:106
-msgid "cannot add text scripts to individual note heads"
+#. (pitch == prev_pitch)
+#: gregorian-ligature-engraver.cc:236
+msgid "cannot apply `\\~' on heads with identical pitch"
 msgstr ""
 
-#: new-fingering-engraver.cc:250
-msgid "no placement found for fingerings"
+#: grob-interface.cc:68
+#, c-format
+msgid "Unknown interface `%s'"
 msgstr ""
 
-#: new-fingering-engraver.cc:251
-msgid "placing below"
+#: grob-interface.cc:79
+#, c-format
+msgid "Grob `%s' has no interface for property `%s'"
 msgstr ""
 
-#: ligature-engraver.cc:104 ligature-bracket-engraver.cc:72
+#: grob-property.cc:34
+#, c-format
+msgid "%d: %s"
+msgstr ""
+
+#: grob-property.cc:173
+#, c-format
+msgid "cyclic dependency: calculation-in-progress encountered for #'%s (%s)"
+msgstr ""
+
+#: grob.cc:286
+msgid "Infinity or NaN encountered"
+msgstr ""
+
+#: hairpin.cc:186
+msgid "decrescendo too small"
+msgstr ""
+
+#: horizontal-bracket-engraver.cc:78
+msgid "do not have that many brackets"
+msgstr ""
+
+#: horizontal-bracket-engraver.cc:87
+msgid "conflicting note group events"
+msgstr ""
+
+#: hyphen-engraver.cc:104
+msgid "removing unterminated hyphen"
+msgstr ""
+
+#: hyphen-engraver.cc:118
+msgid "unterminated hyphen; removing"
+msgstr ""
+
+#: includable-lexer.cc:71 lily-guile.cc:87 lily-parser-scheme.cc:109
+#, c-format
+msgid "cannot find file: `%s'"
+msgstr ""
+
+#: includable-lexer.cc:73 lily-parser-scheme.cc:100
+#, c-format
+msgid "(search path: `%s')"
+msgstr ""
+
+#: input.cc:131 source-file.cc:179 source-file.cc:194
+msgid "position unknown"
+msgstr ""
+
+#: key-signature-interface.cc:78
+#, c-format
+msgid "No glyph found for alteration: %s"
+msgstr ""
+
+#: key-signature-interface.cc:88
+msgid "alteration not found"
+msgstr ""
+
+#: ligature-bracket-engraver.cc:72 ligature-engraver.cc:104
 msgid "cannot find start of ligature"
+msgstr ""
+
+#: ligature-bracket-engraver.cc:85 ligature-engraver.cc:131
+msgid "already have a ligature"
 msgstr ""
 
 #: ligature-engraver.cc:109
 msgid "no right bound"
-msgstr ""
-
-#: ligature-engraver.cc:131 ligature-bracket-engraver.cc:85
-msgid "already have a ligature"
 msgstr ""
 
 #: ligature-engraver.cc:140
@@ -1741,317 +1822,6 @@ msgstr ""
 
 #: ligature-engraver.cc:215
 msgid "ligature was started here"
-msgstr ""
-
-#: auto-change-iterator.cc:74 change-iterator.cc:72
-#, c-format
-msgid "cannot change, already in translator: %s"
-msgstr ""
-
-#: accidental-engraver.cc:180
-#, c-format
-msgid "accidental typesetting list must begin with context-name: %s"
-msgstr ""
-
-#: accidental-engraver.cc:210
-#, c-format
-msgid "procedure or context-name expected for accidental rule, found %s"
-msgstr ""
-
-#: ttf.cc:481 ttf.cc:530
-#, c-format
-msgid "font index %d too large for font `%s', using index 0"
-msgstr ""
-
-#: ttf.cc:513 ttf.cc:565
-msgid "font index must be non-negative, using index 0"
-msgstr ""
-
-#: break-alignment-interface.cc:206
-#, c-format
-msgid "No spacing entry from %s to `%s'"
-msgstr ""
-
-#: minimal-page-breaking.cc:44
-msgid "Calculating page breaks..."
-msgstr ""
-
-#: vaticana-ligature-engraver.cc:400
-#, c-format
-msgid ""
-"ignored prefix(es) `%s' of this head according to restrictions of the "
-"selected ligature style"
-msgstr ""
-
-#: vaticana-ligature-engraver.cc:736
-#, c-format
-msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
-msgstr ""
-
-#: paper-book.cc:214
-#, c-format
-msgid "program option -dprint-pages not supported by backend `%s'"
-msgstr ""
-
-#: paper-book.cc:233
-#, c-format
-msgid "program option -dpreview not supported by backend `%s'"
-msgstr ""
-
-#: output-def.cc:235
-msgid "margins do not fit with line-width, setting default values"
-msgstr ""
-
-#: output-def.cc:242
-msgid ""
-"systems run off the page due to improper paper settings, setting default "
-"values"
-msgstr ""
-
-#: note-collision.cc:497
-msgid "ignoring too many clashing note columns"
-msgstr ""
-
-#. fixme: be more verbose.
-#: volta-engraver.cc:111
-msgid "cannot end volta spanner"
-msgstr ""
-
-#: volta-engraver.cc:121
-msgid "already have a volta spanner, ending that one prematurely"
-msgstr ""
-
-#: volta-engraver.cc:125
-msgid "also already have an ended spanner"
-msgstr ""
-
-#: volta-engraver.cc:126
-msgid "giving up"
-msgstr ""
-
-#: page-layout-problem.cc:322
-msgid ""
-"couldn't fit music on page: ragged-spacing was requested, but page was "
-"compressed"
-msgstr ""
-
-#: page-layout-problem.cc:325
-#, c-format
-msgid "couldn't fit music on page: overflow is %f"
-msgstr ""
-
-#: page-layout-problem.cc:327
-msgid "compressing music to fit"
-msgstr ""
-
-#: page-layout-problem.cc:744
-msgid "staff-affinities should only decrease"
-msgstr ""
-
-#: score-engraver.cc:78
-#, c-format
-msgid "cannot find `%s'"
-msgstr ""
-
-#: score-engraver.cc:80
-msgid "Music font has not been installed properly."
-msgstr ""
-
-#: score-engraver.cc:82
-#, c-format
-msgid "Search path `%s'"
-msgstr ""
-
-#: score-engraver.cc:84
-msgid "Aborting"
-msgstr ""
-
-#: apply-context-iterator.cc:42
-msgid "\\applycontext argument is not a procedure"
-msgstr ""
-
-#. FIXME: constant error message.
-#: mark-engraver.cc:157
-msgid "rehearsalMark must have integer value"
-msgstr ""
-
-#: mark-engraver.cc:163
-msgid "mark label must be a markup object"
-msgstr ""
-
-#: new-dynamic-engraver.cc:142
-#, c-format
-msgid ""
-"unknown crescendo style: %s\n"
-"defaulting to hairpin."
-msgstr ""
-
-#: new-dynamic-engraver.cc:200
-#, c-format
-msgid "unterminated %s"
-msgstr ""
-
-#: stem-engraver.cc:103
-msgid "tremolo duration is too long"
-msgstr ""
-
-#. FIXME:
-#: stem-engraver.cc:140
-#, c-format
-msgid "adding note head to incompatible stem (type = %d)"
-msgstr ""
-
-#: stem-engraver.cc:142
-msgid "maybe input should specify polyphonic voices"
-msgstr ""
-
-#: lily-lexer.cc:264
-msgid "include files are not allowed in safe mode"
-msgstr ""
-
-#: lily-lexer.cc:291
-#, c-format
-msgid "identifier name is a keyword: `%s'"
-msgstr ""
-
-#: lily-lexer.cc:312
-#, c-format
-msgid "error at EOF: %s"
-msgstr ""
-
-#: lyric-combine-music-iterator.cc:337
-#, c-format
-msgid "cannot find Voice `%s'"
-msgstr ""
-
-#: includable-lexer.cc:71 lily-guile.cc:87 lily-parser-scheme.cc:109
-#, c-format
-msgid "cannot find file: `%s'"
-msgstr ""
-
-#: includable-lexer.cc:73 lily-parser-scheme.cc:100
-#, c-format
-msgid "(search path: `%s')"
-msgstr ""
-
-#: note-column.cc:135
-msgid "cannot have note heads and rests together on a stem"
-msgstr ""
-
-#: beam.cc:172
-msgid "removing beam with no stems"
-msgstr ""
-
-#: beam.cc:1117
-msgid "no viable initial configuration found: may not find good beam slope"
-msgstr ""
-
-#: slur-engraver.cc:93
-#, c-format
-msgid "direction of %s invalid: %d"
-msgstr ""
-
-#: slur-engraver.cc:162
-msgid "unterminated slur"
-msgstr ""
-
-#: slur-engraver.cc:174
-msgid "cannot end slur"
-msgstr ""
-
-#: font-config.cc:40
-msgid "Initializing FontConfig..."
-msgstr ""
-
-#: font-config.cc:55 font-config-scheme.cc:152
-#, c-format
-msgid "failed adding font directory: %s"
-msgstr ""
-
-#: font-config.cc:57 font-config-scheme.cc:154
-#, c-format
-msgid "adding font directory: %s"
-msgstr ""
-
-#: font-config.cc:61
-msgid "Building font database..."
-msgstr ""
-
-#. find out the ideal number of pages
-#: optimal-page-breaking.cc:62
-msgid "Finding the ideal number of pages..."
-msgstr ""
-
-#: optimal-page-breaking.cc:85
-msgid ""
-"could not satisfy systems-per-page and page-count at the same time, ignoring "
-"systems-per-page"
-msgstr ""
-
-#: optimal-page-breaking.cc:105
-msgid "Fitting music on 1 page..."
-msgstr ""
-
-#: optimal-page-breaking.cc:107
-#, c-format
-msgid "Fitting music on %d pages..."
-msgstr ""
-
-#: optimal-page-breaking.cc:109
-#, c-format
-msgid "Fitting music on %d or %d pages..."
-msgstr ""
-
-#: optimal-page-breaking.cc:119 optimal-page-breaking.cc:173
-#, c-format
-msgid "trying %d systems"
-msgstr ""
-
-#: optimal-page-breaking.cc:138 optimal-page-breaking.cc:201
-#, c-format
-msgid "best score for this sys-count: %f"
-msgstr ""
-
-#: accidental.cc:200
-#, c-format
-msgid "Could not find glyph-name for alteration %s"
-msgstr ""
-
-#: accidental.cc:215
-msgid "natural alteration glyph not found"
-msgstr ""
-
-#: system.cc:197
-#, c-format
-msgid "Element count %d"
-msgstr ""
-
-#: system.cc:289
-#, c-format
-msgid "Grob count %d"
-msgstr ""
-
-#: slur.cc:369
-#, c-format
-msgid "Ignoring grob for slur: %s. avoid-slur not set?"
-msgstr ""
-
-#: font-config-scheme.cc:168
-#, c-format
-msgid "failed adding font file: %s"
-msgstr ""
-
-#: font-config-scheme.cc:170
-#, c-format
-msgid "adding font file: %s"
-msgstr ""
-
-#: hairpin.cc:186
-msgid "decrescendo too small"
-msgstr ""
-
-#: extender-engraver.cc:170 extender-engraver.cc:179
-msgid "unterminated extender"
 msgstr ""
 
 #: lily-guile.cc:89
@@ -2075,6 +1845,58 @@ msgstr ""
 #: lily-guile.cc:459
 #, c-format
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
+msgstr ""
+
+#: lily-lexer.cc:264
+msgid "include files are not allowed in safe mode"
+msgstr ""
+
+#: lily-lexer.cc:291
+#, c-format
+msgid "identifier name is a keyword: `%s'"
+msgstr ""
+
+#: lily-lexer.cc:312
+#, c-format
+msgid "error at EOF: %s"
+msgstr ""
+
+#: lily-parser-scheme.cc:82
+#, c-format
+msgid "Changing working directory to: `%s'"
+msgstr ""
+
+#: lily-parser-scheme.cc:99
+#, c-format
+msgid "cannot find init file: `%s'"
+msgstr ""
+
+#: lily-parser-scheme.cc:118
+#, c-format
+msgid "Processing `%s'"
+msgstr ""
+
+#: lily-parser-scheme.cc:204
+msgid ""
+"ly:parser-parse-string is only valid with a new parser.  Use ly:parser-"
+"include-string instead."
+msgstr ""
+
+#: lily-parser.cc:106
+msgid "Parsing..."
+msgstr ""
+
+#: lily-parser.cc:134
+msgid "braces do not match"
+msgstr ""
+
+#: lyric-combine-music-iterator.cc:337
+#, c-format
+msgid "cannot find Voice `%s'"
+msgstr ""
+
+#: lyric-engraver.cc:176
+msgid "Lyric syllable does not have note. Use \\lyricsto or associatedVoice."
 msgstr ""
 
 #: main.cc:109
@@ -2260,85 +2082,401 @@ msgstr ""
 msgid "exception caught: %s"
 msgstr ""
 
-#: key-signature-interface.cc:78
-#, c-format
-msgid "No glyph found for alteration: %s"
+#. FIXME: constant error message.
+#: mark-engraver.cc:157
+msgid "rehearsalMark must have integer value"
 msgstr ""
 
-#: key-signature-interface.cc:88
-msgid "alteration not found"
+#: mark-engraver.cc:163
+msgid "mark label must be a markup object"
 msgstr ""
 
-#: dots.cc:48
-#, c-format
-msgid "dot `%s' not found"
+#: mensural-ligature-engraver.cc:96
+msgid "ligature with less than 2 heads -> skipping"
 msgstr ""
 
-#: translator.cc:359
-#, c-format
-msgid "Two simultaneous %s events, junking this one"
+#: mensural-ligature-engraver.cc:123
+msgid "cannot determine pitch of ligature primitive -> skipping"
 msgstr ""
 
-#: translator.cc:360
-#, c-format
-msgid "Previous %s event here"
+#: mensural-ligature-engraver.cc:137
+msgid "single note ligature - skipping"
 msgstr ""
 
-#: glissando-engraver.cc:105
-msgid "unterminated glissando"
+#: mensural-ligature-engraver.cc:148
+msgid "prime interval within ligature -> skipping"
 msgstr ""
 
-#: text-spanner-engraver.cc:73
-msgid "cannot find start of text spanner"
+#: mensural-ligature-engraver.cc:159
+msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
 msgstr ""
 
-#: text-spanner-engraver.cc:86
-msgid "already have a text spanner"
+#: mensural-ligature-engraver.cc:202
+msgid "semibrevis must be followed by another one -> skipping"
 msgstr ""
 
-#: text-spanner-engraver.cc:132
-msgid "unterminated text spanner"
-msgstr ""
-
-#: clef.cc:65
-#, c-format
-msgid "clef `%s' not found"
-msgstr ""
-
-#.
-#. Todo: should make typecheck?
-#.
-#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
-#.
-#: time-signature-engraver.cc:75
-#, c-format
-msgid "strange time signature found: %d/%d"
-msgstr ""
-
-#: lily-parser-scheme.cc:82
-#, c-format
-msgid "Changing working directory to: `%s'"
-msgstr ""
-
-#: lily-parser-scheme.cc:99
-#, c-format
-msgid "cannot find init file: `%s'"
-msgstr ""
-
-#: lily-parser-scheme.cc:118
-#, c-format
-msgid "Processing `%s'"
-msgstr ""
-
-#: lily-parser-scheme.cc:204
+#: mensural-ligature-engraver.cc:212
 msgid ""
-"ly:parser-parse-string is only valid with a new parser.  Use ly:parser-"
-"include-string instead."
+"semibreves can only appear at the beginning of a ligature,\n"
+"and there may be only zero or two of them"
 msgstr ""
 
-#: custos.cc:88
+#: mensural-ligature-engraver.cc:232
+msgid ""
+"invalid ligatura ending:\n"
+"when the last note is a descending brevis,\n"
+"the penultimate note must be another one,\n"
+"or the ligatura must be LB or SSB"
+msgstr ""
+
+#: mensural-ligature-engraver.cc:386
+msgid "unexpected case fall-through"
+msgstr ""
+
+#: mensural-ligature.cc:171
+msgid "Mensural_ligature: unexpected case fall-through"
+msgstr ""
+
+#: mensural-ligature.cc:233
+msgid "Mensural_ligature: (join_right == 0)"
+msgstr ""
+
+#: midi-item.cc:92
 #, c-format
-msgid "custos `%s' not found"
+msgid "no such MIDI instrument: `%s'"
+msgstr ""
+
+#: midi-stream.cc:39
+#, c-format
+msgid "cannot open for write: %s: %s"
+msgstr ""
+
+#: midi-stream.cc:55
+#, c-format
+msgid "cannot write to file: `%s'"
+msgstr ""
+
+#: minimal-page-breaking.cc:40 paper-score.cc:122
+msgid "Calculating line breaks..."
+msgstr ""
+
+#: minimal-page-breaking.cc:44
+msgid "Calculating page breaks..."
+msgstr ""
+
+#: music-iterator.cc:182
+msgid "Sending non-event to context"
+msgstr ""
+
+#: music.cc:151
+#, c-format
+msgid "octave check failed; expected \"%s\", found: \"%s\""
+msgstr ""
+
+#: music.cc:219
+msgid "(normalized pitch)"
+msgstr ""
+
+#: music.cc:223
+#, c-format
+msgid "Transposing %s by %s makes alteration larger than double"
+msgstr ""
+
+#: new-dynamic-engraver.cc:142
+#, c-format
+msgid ""
+"unknown crescendo style: %s\n"
+"defaulting to hairpin."
+msgstr ""
+
+#: new-dynamic-engraver.cc:200
+#, c-format
+msgid "unterminated %s"
+msgstr ""
+
+#: new-fingering-engraver.cc:106
+msgid "cannot add text scripts to individual note heads"
+msgstr ""
+
+#: new-fingering-engraver.cc:250
+msgid "no placement found for fingerings"
+msgstr ""
+
+#: new-fingering-engraver.cc:251
+msgid "placing below"
+msgstr ""
+
+#: note-collision.cc:497
+msgid "ignoring too many clashing note columns"
+msgstr ""
+
+#: note-column.cc:135
+msgid "cannot have note heads and rests together on a stem"
+msgstr ""
+
+#: note-head.cc:76
+#, c-format
+msgid "none of note heads `%s' or `%s' found"
+msgstr ""
+
+#: note-heads-engraver.cc:76
+msgid "NoteEvent without pitch"
+msgstr ""
+
+#: open-type-font.cc:44
+#, c-format
+msgid "cannot allocate %lu bytes"
+msgstr ""
+
+#: open-type-font.cc:48
+#, c-format
+msgid "cannot load font table: %s"
+msgstr ""
+
+#: open-type-font.cc:53
+#, c-format
+msgid "FreeType error: %s"
+msgstr ""
+
+#: open-type-font.cc:111
+#, c-format
+msgid "unsupported font format: %s"
+msgstr ""
+
+#: open-type-font.cc:113
+#, c-format
+msgid "error reading font file %s: %s"
+msgstr ""
+
+#: open-type-font.cc:188
+#, c-format
+msgid "FT_Get_Glyph_Name () Freetype error: %s"
+msgstr ""
+
+#: open-type-font.cc:250
+msgid "Invalid index for character"
+msgstr ""
+
+#: open-type-font.cc:319 pango-font.cc:187
+#, c-format
+msgid "FT_Get_Glyph_Name () error: %s"
+msgstr ""
+
+#. find out the ideal number of pages
+#: optimal-page-breaking.cc:62
+msgid "Finding the ideal number of pages..."
+msgstr ""
+
+#: optimal-page-breaking.cc:85
+msgid ""
+"could not satisfy systems-per-page and page-count at the same time, ignoring "
+"systems-per-page"
+msgstr ""
+
+#: optimal-page-breaking.cc:105
+msgid "Fitting music on 1 page..."
+msgstr ""
+
+#: optimal-page-breaking.cc:107
+#, c-format
+msgid "Fitting music on %d pages..."
+msgstr ""
+
+#: optimal-page-breaking.cc:109
+#, c-format
+msgid "Fitting music on %d or %d pages..."
+msgstr ""
+
+#: optimal-page-breaking.cc:119 optimal-page-breaking.cc:173
+#, c-format
+msgid "trying %d systems"
+msgstr ""
+
+#: optimal-page-breaking.cc:138 optimal-page-breaking.cc:201
+#, c-format
+msgid "best score for this sys-count: %f"
+msgstr ""
+
+#: optimal-page-breaking.cc:208 page-turn-page-breaking.cc:248
+#: paper-score.cc:163
+msgid "Drawing systems..."
+msgstr ""
+
+#: output-def.cc:235
+msgid "margins do not fit with line-width, setting default values"
+msgstr ""
+
+#: output-def.cc:242
+msgid ""
+"systems run off the page due to improper paper settings, setting default "
+"values"
+msgstr ""
+
+#: page-breaking.cc:248
+msgid ""
+"ignoring min-systems-per-page and max-systems-per-page because systems-per-"
+"page was set"
+msgstr ""
+
+#: page-breaking.cc:253
+msgid ""
+"min-systems-per-page is larger than max-systems-per-page, ignoring both "
+"values"
+msgstr ""
+
+#: page-layout-problem.cc:322
+msgid ""
+"couldn't fit music on page: ragged-spacing was requested, but page was "
+"compressed"
+msgstr ""
+
+#: page-layout-problem.cc:325
+#, c-format
+msgid "couldn't fit music on page: overflow is %f"
+msgstr ""
+
+#: page-layout-problem.cc:327
+msgid "compressing music to fit"
+msgstr ""
+
+#: page-layout-problem.cc:765
+msgid "staff-affinities should only decrease"
+msgstr ""
+
+#: page-turn-page-breaking.cc:168
+#, c-format
+msgid "page-turn-page-breaking: breaking from %d to %d"
+msgstr ""
+
+#: page-turn-page-breaking.cc:217
+msgid ""
+"cannot fit the first page turn onto a single page.  Consider setting first-"
+"page-number to an even number."
+msgstr ""
+
+#: page-turn-page-breaking.cc:230
+#, c-format
+msgid "Calculating page and line breaks (%d possible page breaks)..."
+msgstr ""
+
+#: page-turn-page-breaking.cc:300
+#, c-format
+msgid "break starting at page %d"
+msgstr ""
+
+#: page-turn-page-breaking.cc:301
+#, c-format
+msgid "\tdemerits: %f"
+msgstr ""
+
+#: page-turn-page-breaking.cc:302
+#, c-format
+msgid "\tsystem count: %d"
+msgstr ""
+
+#: page-turn-page-breaking.cc:303
+#, c-format
+msgid "\tpage count: %d"
+msgstr ""
+
+#: page-turn-page-breaking.cc:304
+#, c-format
+msgid "\tprevious break: %d"
+msgstr ""
+
+#: pango-font.cc:204
+#, c-format
+msgid ""
+"Glyph has no name, but font supports glyph naming.\n"
+"Skipping glyph U+%0X, file %s"
+msgstr ""
+
+#: pango-font.cc:241
+#, c-format
+msgid "no PostScript font name for font `%s'"
+msgstr ""
+
+#: pango-font.cc:290
+msgid "FreeType face has no PostScript font name"
+msgstr ""
+
+#: paper-book.cc:214
+#, c-format
+msgid "program option -dprint-pages not supported by backend `%s'"
+msgstr ""
+
+#: paper-book.cc:233
+#, c-format
+msgid "program option -dpreview not supported by backend `%s'"
+msgstr ""
+
+#: paper-column-engraver.cc:245
+msgid ""
+"forced break was overridden by some other event, should you be using bar "
+"checks?"
+msgstr ""
+
+#: paper-outputter-scheme.cc:41
+#, c-format
+msgid "Layout output to `%s'..."
+msgstr ""
+
+#: paper-score.cc:135
+#, c-format
+msgid "Element count %d (spanners %d) "
+msgstr ""
+
+#: paper-score.cc:139
+msgid "Preprocessing graphical objects..."
+msgstr ""
+
+#: parse-scm.cc:101
+msgid "GUILE signaled an error for the expression beginning here"
+msgstr ""
+
+#: partial-iterator.cc:45
+msgid "trying to use \\partial after the start of a piece"
+msgstr ""
+
+#: percent-repeat-engraver.cc:148
+msgid "unterminated percent repeat"
+msgstr ""
+
+#: performance.cc:54
+msgid "Track..."
+msgstr ""
+
+#: performance.cc:83
+msgid "MIDI channel wrapped around"
+msgstr ""
+
+#: performance.cc:84
+msgid "remapping modulo 16"
+msgstr ""
+
+#: performance.cc:111
+#, c-format
+msgid "MIDI output to `%s'..."
+msgstr ""
+
+#: phrasing-slur-engraver.cc:157
+msgid "unterminated phrasing slur"
+msgstr ""
+
+#: piano-pedal-engraver.cc:298
+#, c-format
+msgid "expect 3 strings for piano pedals, found: %ld"
+msgstr ""
+
+#: piano-pedal-engraver.cc:313 piano-pedal-engraver.cc:324
+#: piano-pedal-performer.cc:104
+#, c-format
+msgid "cannot find start of piano pedal: `%s'"
+msgstr ""
+
+#: piano-pedal-engraver.cc:359
+#, c-format
+msgid "cannot find start of piano pedal bracket: `%s'"
 msgstr ""
 
 #: program-option-scheme.cc:237
@@ -2346,34 +2484,13 @@ msgstr ""
 msgid "no such internal option: %s"
 msgstr ""
 
-#: rest-collision.cc:146
-msgid "cannot resolve rest collision: rest direction not set"
-msgstr ""
-
-#: rest-collision.cc:160 rest-collision.cc:205
-msgid "too many colliding rests"
-msgstr ""
-
-#: episema-engraver.cc:75
-msgid "already have an episema"
-msgstr ""
-
-#: episema-engraver.cc:88
-msgid "cannot find start of episema"
-msgstr ""
-
-#: episema-engraver.cc:137
-msgid "unterminated episema"
-msgstr ""
-
-#: grob-property.cc:34
+#: property-iterator.cc:85
 #, c-format
-msgid "%d: %s"
+msgid "not a grob name, `%s'"
 msgstr ""
 
-#: grob-property.cc:173
-#, c-format
-msgid "cyclic dependency: calculation-in-progress encountered for #'%s (%s)"
+#: relative-octave-check.cc:49
+msgid "Failed octave check, got: "
 msgstr ""
 
 #: relocate.cc:54
@@ -2447,243 +2564,39 @@ msgstr ""
 msgid "Unknown relocation command %s"
 msgstr ""
 
-#: translator-group.cc:188
+#: rest-collision-engraver.cc:70
+msgid "rhythmic head is not part of a rhythmic column"
+msgstr ""
+
+#: rest-collision.cc:146
+msgid "cannot resolve rest collision: rest direction not set"
+msgstr ""
+
+#: rest-collision.cc:160 rest-collision.cc:205
+msgid "too many colliding rests"
+msgstr ""
+
+#: rest.cc:159
 #, c-format
-msgid "cannot find: `%s'"
+msgid "rest `%s' not found"
 msgstr ""
 
-#: phrasing-slur-engraver.cc:157
-msgid "unterminated phrasing slur"
-msgstr ""
-
-#: lyric-engraver.cc:175
-msgid "Lyric syllable does not have note. Use \\lyricsto or associatedVoice."
-msgstr ""
-
-#: page-breaking.cc:194
-msgid ""
-"ignoring min-systems-per-page and max-systems-per-page because systems-per-"
-"page was set"
-msgstr ""
-
-#: page-breaking.cc:199
-msgid ""
-"min-systems-per-page is larger than max-systems-per-page, ignoring both "
-"values"
-msgstr ""
-
-#: performance.cc:54
-msgid "Track..."
-msgstr ""
-
-#: performance.cc:83
-msgid "MIDI channel wrapped around"
-msgstr ""
-
-#: performance.cc:84
-msgid "remapping modulo 16"
-msgstr ""
-
-#: performance.cc:111
+#: score-engraver.cc:78
 #, c-format
-msgid "MIDI output to `%s'..."
+msgid "cannot find `%s'"
 msgstr ""
 
-#: tuplet-engraver.cc:107
-msgid "No tuplet to end"
+#: score-engraver.cc:80
+msgid "Music font has not been installed properly."
 msgstr ""
 
-#: gregorian-ligature-engraver.cc:70
+#: score-engraver.cc:82
 #, c-format
-msgid "\\%s ignored"
+msgid "Search path `%s'"
 msgstr ""
 
-#: gregorian-ligature-engraver.cc:75
-#, c-format
-msgid "implied \\%s added"
-msgstr ""
-
-#. ligature may not start with 2nd head of pes or flexa
-#: gregorian-ligature-engraver.cc:224
-msgid "cannot apply `\\~' on first head of ligature"
-msgstr ""
-
-#. (pitch == prev_pitch)
-#: gregorian-ligature-engraver.cc:236
-msgid "cannot apply `\\~' on heads with identical pitch"
-msgstr ""
-
-#: chord-tremolo-engraver.cc:88
-msgid "No tremolo to end"
-msgstr ""
-
-#: chord-tremolo-engraver.cc:109
-msgid "unterminated chord tremolo"
-msgstr ""
-
-#: axis-group-engraver.cc:94
-msgid "Axis_group_engraver: vertical group already has a parent"
-msgstr ""
-
-#: axis-group-engraver.cc:95
-msgid "are there two Axis_group_engravers?"
-msgstr ""
-
-#: axis-group-engraver.cc:96
-msgid "removing this vertical group"
-msgstr ""
-
-#: cluster.cc:120
-#, c-format
-msgid "unknown cluster style `%s'"
-msgstr ""
-
-#: cluster.cc:157
-msgid "junking empty cluster"
-msgstr ""
-
-#: context-property.cc:42
-msgid "need symbol arguments for \\override and \\revert"
-msgstr ""
-
-#: source-file.cc:85
-#, c-format
-msgid "expected to read %d characters, got %d"
-msgstr ""
-
-#: axis-group-interface.cc:611
-msgid "an outside-staff object should have a direction, defaulting to up"
-msgstr ""
-
-#: coherent-ligature-engraver.cc:111
-#, c-format
-msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
-msgstr ""
-
-#: percent-repeat-engraver.cc:213
-msgid "unterminated percent repeat"
-msgstr ""
-
-#: note-head.cc:76
-#, c-format
-msgid "none of note heads `%s' or `%s' found"
-msgstr ""
-
-#: relative-octave-check.cc:49
-msgid "Failed octave check, got: "
-msgstr ""
-
-#. FIXME:
-#: script-engraver.cc:113
-msgid "do not know how to interpret articulation:"
-msgstr ""
-
-#: script-engraver.cc:114
-msgid " scheme encoding: "
-msgstr ""
-
-#: all-font-metrics.cc:156
-#, c-format
-msgid "cannot find font: `%s'"
-msgstr ""
-
-#: property-iterator.cc:85
-#, c-format
-msgid "not a grob name, `%s'"
-msgstr ""
-
-#: bar-check-iterator.cc:84
-#, c-format
-msgid "barcheck failed at: %s"
-msgstr ""
-
-#: stem.cc:116
-msgid "weird stem size, check for narrow beams"
-msgstr ""
-
-#: stem.cc:642
-#, c-format
-msgid "flag `%s' not found"
-msgstr ""
-
-#: stem.cc:658
-#, c-format
-msgid "flag stroke `%s' not found"
-msgstr ""
-
-#: global-context-scheme.cc:96 global-context-scheme.cc:114
-msgid "no music found in score"
-msgstr ""
-
-#: global-context-scheme.cc:104
-msgid "Interpreting music... "
-msgstr ""
-
-#: global-context-scheme.cc:127
-#, c-format
-msgid "elapsed time: %.2f seconds"
-msgstr ""
-
-#: translator-group-ctors.cc:40
-#, c-format
-msgid "fatal error. Couldn't find type: %s"
-msgstr ""
-
-#: mensural-ligature.cc:171
-msgid "Mensural_ligature: unexpected case fall-through"
-msgstr ""
-
-#: mensural-ligature.cc:233
-msgid "Mensural_ligature: (join_right == 0)"
-msgstr ""
-
-#: page-turn-page-breaking.cc:168
-#, c-format
-msgid "page-turn-page-breaking: breaking from %d to %d"
-msgstr ""
-
-#: page-turn-page-breaking.cc:217
-msgid ""
-"cannot fit the first page turn onto a single page.  Consider setting first-"
-"page-number to an even number."
-msgstr ""
-
-#: page-turn-page-breaking.cc:230
-#, c-format
-msgid "Calculating page and line breaks (%d possible page breaks)..."
-msgstr ""
-
-#: page-turn-page-breaking.cc:300
-#, c-format
-msgid "break starting at page %d"
-msgstr ""
-
-#: page-turn-page-breaking.cc:301
-#, c-format
-msgid "\tdemerits: %f"
-msgstr ""
-
-#: page-turn-page-breaking.cc:302
-#, c-format
-msgid "\tsystem count: %d"
-msgstr ""
-
-#: page-turn-page-breaking.cc:303
-#, c-format
-msgid "\tpage count: %d"
-msgstr ""
-
-#: page-turn-page-breaking.cc:304
-#, c-format
-msgid "\tprevious break: %d"
-msgstr ""
-
-#: lily-parser.cc:106
-msgid "Parsing..."
-msgstr ""
-
-#: lily-parser.cc:134
-msgid "braces do not match"
+#: score-engraver.cc:84
+msgid "Aborting"
 msgstr ""
 
 #: score.cc:178
@@ -2698,29 +2611,109 @@ msgstr ""
 msgid "errors found, ignoring music expression"
 msgstr ""
 
-#: change-iterator.cc:34
+#. FIXME:
+#: script-engraver.cc:113
+msgid "do not know how to interpret articulation:"
+msgstr ""
+
+#: script-engraver.cc:114
+msgid " scheme encoding: "
+msgstr ""
+
+#: slur-engraver.cc:93
 #, c-format
-msgid "cannot change `%s' to `%s'"
+msgid "direction of %s invalid: %d"
 msgstr ""
 
-#. FIXME: constant error message.
-#: change-iterator.cc:93
-msgid "cannot find context to switch to"
+#: slur-engraver.cc:162
+msgid "unterminated slur"
 msgstr ""
 
-#. We could change the current translator's id, but that would make
-#. errors hard to catch.
+#: slur-engraver.cc:174
+msgid "cannot end slur"
+msgstr ""
+
+#: slur.cc:362
+#, c-format
+msgid "Ignoring grob for slur: %s. avoid-slur not set?"
+msgstr ""
+
+#: source-file.cc:85
+#, c-format
+msgid "expected to read %d characters, got %d"
+msgstr ""
+
+#: spaceable-grob.cc:94
+#, c-format
+msgid "No spring between column %d and next one"
+msgstr ""
+
+#: stem-engraver.cc:103
+msgid "tremolo duration is too long"
+msgstr ""
+
+#. FIXME:
+#: stem-engraver.cc:140
+#, c-format
+msgid "adding note head to incompatible stem (type = %d)"
+msgstr ""
+
+#: stem-engraver.cc:142
+msgid "maybe input should specify polyphonic voices"
+msgstr ""
+
+#: stem.cc:116
+msgid "weird stem size, check for narrow beams"
+msgstr ""
+
+#: stem.cc:657
+#, c-format
+msgid "flag `%s' not found"
+msgstr ""
+
+#: stem.cc:673
+#, c-format
+msgid "flag stroke `%s' not found"
+msgstr ""
+
+#: system.cc:197
+#, c-format
+msgid "Element count %d"
+msgstr ""
+
+#: system.cc:303
+#, c-format
+msgid "Grob count %d"
+msgstr ""
+
+#: text-spanner-engraver.cc:73
+msgid "cannot find start of text spanner"
+msgstr ""
+
+#: text-spanner-engraver.cc:86
+msgid "already have a text spanner"
+msgstr ""
+
+#: text-spanner-engraver.cc:132
+msgid "unterminated text spanner"
+msgstr ""
+
+#: tie-engraver.cc:116
+msgid "unterminated tie"
+msgstr ""
+
+#: tie-engraver.cc:312
+msgid "lonely tie"
+msgstr ""
+
 #.
-#. last->translator_id_string () = get_change
-#. ()->change_to_id_string ();
-#: change-iterator.cc:102
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#: time-signature-engraver.cc:75
 #, c-format
-msgid "not changing to same context type: %s"
-msgstr ""
-
-#. FIXME: uncomprehensable message
-#: change-iterator.cc:106
-msgid "none of these in my family"
+msgid "strange time signature found: %d/%d"
 msgstr ""
 
 #. If there is no such symbol, we default to the numbered style.
@@ -2730,58 +2723,83 @@ msgstr ""
 msgid "time signature symbol `%s' not found; reverting to numbered style"
 msgstr ""
 
-#: grob-interface.cc:68
+#: translator-ctors.cc:65
 #, c-format
-msgid "Unknown interface `%s'"
+msgid "unknown translator: `%s'"
 msgstr ""
 
-#: grob-interface.cc:79
+#: translator-group-ctors.cc:40
 #, c-format
-msgid "Grob `%s' has no interface for property `%s'"
+msgid "fatal error. Couldn't find type: %s"
 msgstr ""
 
-#: open-type-font.cc:44
+#: translator-group.cc:188
 #, c-format
-msgid "cannot allocate %lu bytes"
+msgid "cannot find: `%s'"
 msgstr ""
 
-#: open-type-font.cc:48
+#: translator.cc:359
 #, c-format
-msgid "cannot load font table: %s"
+msgid "Two simultaneous %s events, junking this one"
 msgstr ""
 
-#: open-type-font.cc:53
+#: translator.cc:360
 #, c-format
-msgid "FreeType error: %s"
+msgid "Previous %s event here"
 msgstr ""
 
-#: open-type-font.cc:111
+#: ttf.cc:481 ttf.cc:530
 #, c-format
-msgid "unsupported font format: %s"
+msgid "font index %d too large for font `%s', using index 0"
 msgstr ""
 
-#: open-type-font.cc:113
-#, c-format
-msgid "error reading font file %s: %s"
+#: ttf.cc:513 ttf.cc:565
+msgid "font index must be non-negative, using index 0"
 msgstr ""
 
-#: open-type-font.cc:188
-#, c-format
-msgid "FT_Get_Glyph_Name () Freetype error: %s"
+#: tuplet-engraver.cc:107
+msgid "No tuplet to end"
 msgstr ""
 
-#: open-type-font.cc:250
-msgid "Invalid index for character"
+#: vaticana-ligature-engraver.cc:400
+#, c-format
+msgid ""
+"ignored prefix(es) `%s' of this head according to restrictions of the "
+"selected ligature style"
 msgstr ""
 
-#: midi-stream.cc:39
+#: vaticana-ligature-engraver.cc:736
 #, c-format
-msgid "cannot open for write: %s: %s"
+msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
 msgstr ""
 
-#: midi-stream.cc:55
-#, c-format
-msgid "cannot write to file: `%s'"
+#: vaticana-ligature.cc:95
+msgid "flexa-height undefined; assuming 0"
+msgstr ""
+
+#: vaticana-ligature.cc:100
+msgid "ascending vaticana style flexa"
+msgstr ""
+
+#: vaticana-ligature.cc:188
+msgid "Vaticana_ligature: zero join (delta_pitch == 0)"
+msgstr ""
+
+#. fixme: be more verbose.
+#: volta-engraver.cc:111
+msgid "cannot end volta spanner"
+msgstr ""
+
+#: volta-engraver.cc:121
+msgid "already have a volta spanner, ending that one prematurely"
+msgstr ""
+
+#: volta-engraver.cc:125
+msgid "also already have an ended spanner"
+msgstr ""
+
+#: volta-engraver.cc:126
+msgid "giving up"
 msgstr ""
 
 #: parser.yy:820
@@ -2792,36 +2810,36 @@ msgstr ""
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1369
+#: parser.yy:1363
 msgid "only \\consists takes non-string argument."
 msgstr ""
 
-#: parser.yy:1382
+#: parser.yy:1376
 msgid "Grob name should be alphanumeric"
 msgstr ""
 
-#: parser.yy:1691
+#: parser.yy:1685
 msgid "second argument must be pitch list"
 msgstr ""
 
-#: parser.yy:1722 parser.yy:1727 parser.yy:2200
+#: parser.yy:1716 parser.yy:1721 parser.yy:2194
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:1824
+#: parser.yy:1818
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:1979 parser.yy:2030
+#: parser.yy:1973 parser.yy:2024
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:2154
+#: parser.yy:2148
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:2215
+#: parser.yy:2209
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
@@ -2900,151 +2918,6 @@ msgstr ""
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
 
-#: ly-syntax-constructors.scm:51
-msgid "Music head function must return Music object"
-msgstr ""
-
-#: ly-syntax-constructors.scm:176
-#, scheme-format
-msgid "Invalid property operation ~a"
-msgstr ""
-
-#: documentation-lib.scm:59
-#, scheme-format
-msgid "Processing ~S..."
-msgstr ""
-
-#: documentation-lib.scm:176
-#, scheme-format
-msgid "Writing ~S..."
-msgstr ""
-
-#: documentation-lib.scm:198
-#, scheme-format
-msgid "cannot find description for property ~S (~S)"
-msgstr ""
-
-#: parser-clef.scm:141 parser-clef.scm:181
-#, scheme-format
-msgid "unknown clef type `~a'"
-msgstr ""
-
-#: parser-clef.scm:142 parser-clef.scm:182
-#, scheme-format
-msgid "supported clefs: ~a"
-msgstr ""
-
-#: document-backend.scm:132
-#, scheme-format
-msgid "pair expected in doc ~s"
-msgstr ""
-
-#: document-backend.scm:189
-#, scheme-format
-msgid "cannot find interface for property: ~S"
-msgstr ""
-
-#: document-backend.scm:199
-#, scheme-format
-msgid "unknown Grob interface: ~S"
-msgstr ""
-
-#: framework-eps.scm:108
-#, scheme-format
-msgid "Writing ~a..."
-msgstr ""
-
-#: define-music-properties.scm:21 define-grob-properties.scm:21
-#: define-context-properties.scm:31
-#, scheme-format
-msgid "symbol ~S redefined"
-msgstr ""
-
-#: paper.scm:115
-msgid "set-global-staff-size: not in toplevel scope"
-msgstr ""
-
-#: paper.scm:296
-#, scheme-format
-msgid "This is not a \\layout {} object, ~S"
-msgstr ""
-
-#: paper.scm:308
-#, scheme-format
-msgid "Unknown paper size: ~a"
-msgstr ""
-
-#. TODO: should raise (generic) exception with throw, and catch
-#. that in parse-scm.cc
-#: paper.scm:323
-msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
-msgstr ""
-
-#: lily.scm:282
-#, scheme-format
-msgid "cannot find: ~A"
-msgstr ""
-
-#: lily.scm:342
-#, scheme-format
-msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
-msgstr ""
-
-#: lily.scm:707
-msgid "Compilation successfully completed"
-msgstr ""
-
-#: lily.scm:708
-msgid "Compilation completed with warnings or errors"
-msgstr ""
-
-#: lily.scm:770
-#, scheme-format
-msgid "job ~a terminated with signal: ~a"
-msgstr ""
-
-#: lily.scm:773
-#, scheme-format
-msgid ""
-"logfile ~a (exit ~a):\n"
-"~a"
-msgstr ""
-
-#: lily.scm:795 lily.scm:873
-#, scheme-format
-msgid "failed files: ~S"
-msgstr ""
-
-#: lily.scm:864
-#, scheme-format
-msgid "Redirecting output to ~a..."
-msgstr ""
-
-#: lily.scm:883
-#, scheme-format
-msgid "Invoking `~a'...\n"
-msgstr ""
-
-#: graphviz.scm:64
-#, scheme-format
-msgid "Writing graph `~a'..."
-msgstr ""
-
-#: framework-svg.scm:84
-#, scheme-format
-msgid "Updating font into: ~a"
-msgstr ""
-
-#: layout-beam.scm:40
-#, scheme-format
-msgid "Error in beam quanting.  Expected (~S,~S) found ~S."
-msgstr ""
-
-#: layout-beam.scm:54
-#, scheme-format
-msgid "Error in beam quanting.  Expected ~S 0, found ~S."
-msgstr ""
-
 #: backend-library.scm:29 ps-to-png.scm:68
 #, scheme-format
 msgid "Invoking `~a'..."
@@ -3077,77 +2950,79 @@ msgstr ""
 msgid "missing stencil expression `~S'"
 msgstr ""
 
-#: to-xml.scm:191
-#, scheme-format
-msgid "assertion failed: ~S"
-msgstr ""
-
 #: chord-entry.scm:49
 #, scheme-format
 msgid "Spurious garbage following chord: ~A"
 msgstr ""
 
-#: lily-library.scm:758
+#: define-context-properties.scm:31 define-grob-properties.scm:21
+#: define-music-properties.scm:21
+#, scheme-format
+msgid "symbol ~S redefined"
+msgstr ""
+
+#: define-event-classes.scm:79
+msgid "All classes must be the last in their matrilineal line."
+msgstr ""
+
+#: define-event-classes.scm:83
 msgid ""
-"Find the index between @var{start} and @var{end} (an integer)\n"
-"which produces the closest match to @var{target-val} if\n"
-"applied to function @var{getter}."
+"All classes must have a well-defined pedigree in the existing class "
+"hierarchy."
 msgstr ""
 
-#: lily-library.scm:832
+#: define-event-classes.scm:149
 #, scheme-format
-msgid "unknown unit: ~S"
+msgid "event class ~A seems to be unused"
 msgstr ""
 
-#: lily-library.scm:858 lily-library.scm:867
-msgid "warning:"
-msgstr ""
-
-#: lily-library.scm:860
+#. should be programming-error
+#: define-event-classes.scm:155
 #, scheme-format
-msgid "no \\version statement found, please add~afor future compatibility"
+msgid "translator listens to nonexisting event class ~A"
 msgstr ""
 
-#: lily-library.scm:868
-msgid "old relative compatibility not used"
+#: define-markup-commands.scm:803
+msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: output-ps.scm:48
-msgid "Found infinity or nan in output.  Substituting 0.0"
-msgstr ""
-
-#: output-ps.scm:289 output-svg.scm:550
+#: define-markup-commands.scm:2404
 #, scheme-format
-msgid "unknown line-cap-style: ~S"
+msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: output-ps.scm:294 output-svg.scm:556
+#: define-markup-commands.scm:2830
 #, scheme-format
-msgid "unknown line-join-style: ~S"
+msgid "no brace found for point size ~S "
 msgstr ""
 
-#: output-svg.scm:47
+#: define-markup-commands.scm:2831
 #, scheme-format
-msgid "undefined: ~S"
+msgid "defaulting to ~S pt"
 msgstr ""
 
-#: output-svg.scm:151
+#: define-markup-commands.scm:2984
 #, scheme-format
-msgid "cannot decypher Pango description: ~a"
+msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: output-svg.scm:231
-msgid "Glyph must have a unicode value"
-msgstr ""
-
-#: output-svg.scm:283 output-svg.scm:293
+#: define-music-types.scm:740
 #, scheme-format
-msgid "cannot find SVG font ~S"
+msgid "symbol expected: ~S"
 msgstr ""
 
-#: flag-styles.scm:148
+#: define-music-types.scm:743
 #, scheme-format
-msgid "flag stroke `~a' or `~a' not found"
+msgid "cannot find music object: ~S"
+msgstr ""
+
+#: define-music-types.scm:762
+#, scheme-format
+msgid "unknown repeat type `~S'"
+msgstr ""
+
+#: define-music-types.scm:763
+msgid "See define-music-types.scm for supported repeats"
 msgstr ""
 
 #: define-note-names.scm:962
@@ -3164,54 +3039,44 @@ msgstr ""
 msgid "Could not find language `~a'.  Ignoring."
 msgstr ""
 
-#: define-music-types.scm:725
+#: document-backend.scm:132
 #, scheme-format
-msgid "symbol expected: ~S"
+msgid "pair expected in doc ~s"
 msgstr ""
 
-#: define-music-types.scm:728
+#: document-backend.scm:189
 #, scheme-format
-msgid "cannot find music object: ~S"
+msgid "cannot find interface for property: ~S"
 msgstr ""
 
-#: define-music-types.scm:747
+#: document-backend.scm:199
 #, scheme-format
-msgid "unknown repeat type `~S'"
+msgid "unknown Grob interface: ~S"
 msgstr ""
 
-#: define-music-types.scm:748
-msgid "See define-music-types.scm for supported repeats"
-msgstr ""
-
-#: translation-functions.scm:337
+#: documentation-lib.scm:59
 #, scheme-format
-msgid "Negative fret for pitch ~a on string ~a"
+msgid "Processing ~S..."
 msgstr ""
 
-#: translation-functions.scm:381
+#: documentation-lib.scm:176
 #, scheme-format
-msgid "No open string for pitch ~a"
+msgid "Writing ~S..."
 msgstr ""
 
-#: translation-functions.scm:396
+#: documentation-lib.scm:198
 #, scheme-format
-msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
+msgid "cannot find description for property ~S (~S)"
 msgstr ""
 
-#: translation-functions.scm:397
-msgid "Ignoring string request."
-msgstr ""
-
-#: translation-functions.scm:410
+#: flag-styles.scm:148
 #, scheme-format
-msgid "No string for pitch ~a (given frets ~a)"
+msgid "flag stroke `~a' or `~a' not found"
 msgstr ""
 
-#: translation-functions.scm:511
+#: framework-eps.scm:108
 #, scheme-format
-msgid ""
-"No label for fret ~a (on string ~a);\n"
-"only ~a fret labels provided"
+msgid "Writing ~a..."
 msgstr ""
 
 #: framework-ps.scm:250
@@ -3250,68 +3115,111 @@ msgid ""
 "  %% ****************************************************************\n"
 msgstr ""
 
-#: music-functions.scm:268
-msgid "More alternatives than repeats.  Junking excess alternatives"
-msgstr ""
-
-#: music-functions.scm:297
+#: framework-svg.scm:84
 #, scheme-format
-msgid "invalid tremolo repeat count: ~a"
+msgid "Updating font into: ~a"
 msgstr ""
 
-#: music-functions.scm:604
+#: graphviz.scm:64
 #, scheme-format
-msgid "music expected: ~S"
+msgid "Writing graph `~a'..."
 msgstr ""
 
-#. FIXME: uncomprehensable message
-#: music-functions.scm:648
+#: layout-beam.scm:40
 #, scheme-format
-msgid "Bar check failed.  Expect to be at ~a, instead at ~a"
+msgid "Error in beam quanting.  Expected (~S,~S) found ~S."
 msgstr ""
 
-#: music-functions.scm:832
+#: layout-beam.scm:54
 #, scheme-format
-msgid "cannot find quoted music: `~S'"
+msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr ""
 
-#: music-functions.scm:968
-msgid "Add @var{octave-shift} to the octave of @var{pitch}."
-msgstr ""
-
-#: music-functions.scm:1023
-#, scheme-format
-msgid "Unknown octaveness type: ~S "
-msgstr ""
-
-#: music-functions.scm:1024
-msgid "Defaulting to 'any-octave."
-msgstr ""
-
-#: music-functions.scm:1364
-#, scheme-format
-msgid "unknown accidental style: ~S"
-msgstr ""
-
-#: define-event-classes.scm:78
-msgid "All classes must be the last in their matrilineal line."
-msgstr ""
-
-#: define-event-classes.scm:82
+#: lily-library.scm:758
 msgid ""
-"All classes must have a well-defined pedigree in the existing class "
-"hierarchy."
+"Find the index between @var{start} and @var{end} (an integer)\n"
+"which produces the closest match to @var{target-val} if\n"
+"applied to function @var{getter}."
 msgstr ""
 
-#: define-event-classes.scm:148
+#: lily-library.scm:832
 #, scheme-format
-msgid "event class ~A seems to be unused"
+msgid "unknown unit: ~S"
 msgstr ""
 
-#. should be programming-error
-#: define-event-classes.scm:154
+#: lily-library.scm:858 lily-library.scm:867
+msgid "warning:"
+msgstr ""
+
+#: lily-library.scm:860
 #, scheme-format
-msgid "translator listens to nonexisting event class ~A"
+msgid "no \\version statement found, please add~afor future compatibility"
+msgstr ""
+
+#: lily-library.scm:868
+msgid "old relative compatibility not used"
+msgstr ""
+
+#: lily.scm:225
+msgid "Using (ice-9 curried-definitions) module\n"
+msgstr ""
+
+#: lily.scm:230
+msgid "Guile 1.8\n"
+msgstr ""
+
+#: lily.scm:290
+#, scheme-format
+msgid "cannot find: ~A"
+msgstr ""
+
+#: lily.scm:350
+#, scheme-format
+msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
+msgstr ""
+
+#: lily.scm:716
+msgid "Compilation successfully completed"
+msgstr ""
+
+#: lily.scm:717
+msgid "Compilation completed with warnings or errors"
+msgstr ""
+
+#: lily.scm:779
+#, scheme-format
+msgid "job ~a terminated with signal: ~a"
+msgstr ""
+
+#: lily.scm:782
+#, scheme-format
+msgid ""
+"logfile ~a (exit ~a):\n"
+"~a"
+msgstr ""
+
+#: lily.scm:804 lily.scm:882
+#, scheme-format
+msgid "failed files: ~S"
+msgstr ""
+
+#: lily.scm:873
+#, scheme-format
+msgid "Redirecting output to ~a..."
+msgstr ""
+
+#: lily.scm:892
+#, scheme-format
+msgid "Invoking `~a'...\n"
+msgstr ""
+
+#: ly-syntax-constructors.scm:51
+msgid "Music head function must return Music object"
+msgstr ""
+
+#: ly-syntax-constructors.scm:177
+#, scheme-format
+msgid "Invalid property operation ~a"
 msgstr ""
 
 #: markup.scm:223
@@ -3329,31 +3237,173 @@ msgstr ""
 msgid "Not a markup command: ~A"
 msgstr ""
 
+#: modal-transforms.scm:38
+msgid "'from' pitch not in scale; ignoring"
+msgstr ""
+
+#: modal-transforms.scm:42 modal-transforms.scm:75
+msgid "'to' pitch not in scale; ignoring"
+msgstr ""
+
+#: modal-transforms.scm:46
+msgid "pitch to be transposed not in scale; ignoring"
+msgstr ""
+
+#: modal-transforms.scm:71
+msgid "'around' pitch not in scale; ignoring"
+msgstr ""
+
+#: modal-transforms.scm:79
+msgid "pitch to be inverted not in scale; ignoring"
+msgstr ""
+
+#: modal-transforms.scm:95
+msgid "negative replication count; ignoring"
+msgstr ""
+
+#: music-functions.scm:268
+msgid "More alternatives than repeats.  Junking excess alternatives"
+msgstr ""
+
+#: music-functions.scm:297
+#, scheme-format
+msgid "invalid tremolo repeat count: ~a"
+msgstr ""
+
+#: music-functions.scm:618
+#, scheme-format
+msgid "music expected: ~S"
+msgstr ""
+
+#. FIXME: uncomprehensable message
+#: music-functions.scm:662
+#, scheme-format
+msgid "Bar check failed.  Expect to be at ~a, instead at ~a"
+msgstr ""
+
+#: music-functions.scm:846
+#, scheme-format
+msgid "cannot find quoted music: `~S'"
+msgstr ""
+
+#: music-functions.scm:982
+msgid "Add @var{octave-shift} to the octave of @var{pitch}."
+msgstr ""
+
+#: music-functions.scm:1037
+#, scheme-format
+msgid "Unknown octaveness type: ~S "
+msgstr ""
+
+#: music-functions.scm:1038
+msgid "Defaulting to 'any-octave."
+msgstr ""
+
+#: music-functions.scm:1378
+#, scheme-format
+msgid "unknown accidental style: ~S"
+msgstr ""
+
+#: output-ps.scm:48
+msgid "Found infinity or nan in output.  Substituting 0.0"
+msgstr ""
+
+#: output-ps.scm:289 output-svg.scm:550
+#, scheme-format
+msgid "unknown line-cap-style: ~S"
+msgstr ""
+
+#: output-ps.scm:294 output-svg.scm:556
+#, scheme-format
+msgid "unknown line-join-style: ~S"
+msgstr ""
+
+#: output-svg.scm:47
+#, scheme-format
+msgid "undefined: ~S"
+msgstr ""
+
+#: output-svg.scm:151
+#, scheme-format
+msgid "cannot decypher Pango description: ~a"
+msgstr ""
+
+#: output-svg.scm:231
+msgid "Glyph must have a unicode value"
+msgstr ""
+
+#: output-svg.scm:283 output-svg.scm:293
+#, scheme-format
+msgid "cannot find SVG font ~S"
+msgstr ""
+
+#: paper.scm:115
+msgid "set-global-staff-size: not in toplevel scope"
+msgstr ""
+
+#: paper.scm:296
+#, scheme-format
+msgid "This is not a \\layout {} object, ~S"
+msgstr ""
+
+#: paper.scm:308
+#, scheme-format
+msgid "Unknown paper size: ~a"
+msgstr ""
+
+#. TODO: should raise (generic) exception with throw, and catch
+#. that in parse-scm.cc
+#: paper.scm:323
+msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
+msgstr ""
+
+#: parser-clef.scm:141 parser-clef.scm:181
+#, scheme-format
+msgid "unknown clef type `~a'"
+msgstr ""
+
+#: parser-clef.scm:142 parser-clef.scm:182
+#, scheme-format
+msgid "supported clefs: ~a"
+msgstr ""
+
 #: ps-to-png.scm:74
 #, scheme-format
 msgid "~a exited with status: ~S"
 msgstr ""
 
-#: define-markup-commands.scm:803
-msgid "no systems found in \\score markup, does it have a \\layout block?"
+#: to-xml.scm:191
+#, scheme-format
+msgid "assertion failed: ~S"
 msgstr ""
 
-#: define-markup-commands.scm:2404
+#: translation-functions.scm:341
 #, scheme-format
-msgid "Cannot find glyph ~a"
+msgid "Negative fret for pitch ~a on string ~a"
 msgstr ""
 
-#: define-markup-commands.scm:2830
+#: translation-functions.scm:385
 #, scheme-format
-msgid "no brace found for point size ~S "
+msgid "No open string for pitch ~a"
 msgstr ""
 
-#: define-markup-commands.scm:2831
+#: translation-functions.scm:400
 #, scheme-format
-msgid "defaulting to ~S pt"
+msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
 msgstr ""
 
-#: define-markup-commands.scm:2984
+#: translation-functions.scm:401
+msgid "Ignoring string request."
+msgstr ""
+
+#: translation-functions.scm:414
 #, scheme-format
-msgid "not a valid duration string: ~a"
+msgid "No string for pitch ~a (given frets ~a)"
+msgstr ""
+
+#: translation-functions.scm:515
+#, scheme-format
+msgid ""
+"No label for fret ~a (on string ~a);\n"
+"only ~a fret labels provided"
 msgstr ""
