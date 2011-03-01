@@ -1,7 +1,7 @@
 u@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 1c846b2c2348b4e0ca4a3c2e8fb267047ba2d203
+    Translation of GIT committish: c30bc6ca8f37c48f8d2d0b38d0175fb458a47167
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1166,6 +1166,7 @@ la notación.
 @menu
 * Uso de las variables::
 * Uso de etiquetas::
+* Uso de ajustes globales::
 @end menu
 
 @node Uso de las variables
@@ -1391,6 +1392,35 @@ Multiple rests are not merged if you create a score with more
 than one tagged section at the same place.
 
 @end ignore
+
+@node Uso de ajustes globales
+@unnumberedsubsubsec Uso de ajustes globales
+@translationof Using global settings
+
+@cindex include-settings
+
+Se pueden incluir ajustes globales a partir de un archivo distinto:
+
+@example
+lilypond -dinclude-settings=MIS_AJUSTES.ly MI_PARTITURA.ly
+@end example
+
+En archivos diferentes se pueden almacenar  grupos de ajustes como
+el tamaño de la página o las fuentes tipográficas.  Ello permite
+hacer diferentes ediciones de la mism a partitura así como aplicar
+ajustes estándar a muchas partituras, simplemente por medio de la
+especificación del archivo de ajustes adecuado.
+
+Esta técnica también funciona bien con el uso de hojas de estilo,
+como se estudia en @rlearning{Hojas de estilo}.
+
+@seealso
+Manual de aprendizaje:
+@rlearning{Organizar las piezas mediante variables},
+@rlearning{Hojas de estilo}.
+
+Referencia de la notación:
+@ref{Inclusión de archivos de LilyPond}.
 
 @node Codificación del texto
 @subsection Codificación del texto
