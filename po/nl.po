@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: lilypond 2.13.10\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-03-01 14:40+0100\n"
-"PO-Revision-Date: 2009-11-20 09:33+0100\n"
+"PO-Revision-Date: 2011-03-01 22:52+0100\n"
 "Last-Translator: Jan Nieuwenhuizen <janneke@gnu.org>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "Language: nl\n"
@@ -65,9 +65,9 @@ msgid "ignoring unknown ly option: %s"
 msgstr "negeren van onbekende ly optie: %s"
 
 #: book_snippets.py:736
-#, fuzzy, python-format
+#, python-format
 msgid "Opening filter `%s'\n"
-msgstr "Open filter `%s'"
+msgstr "Open filter `%s'\n"
 
 #: book_snippets.py:756
 #, python-format
@@ -184,9 +184,9 @@ msgstr ""
 
 #: convertrules.py:963 convertrules.py:1682 convertrules.py:1942
 #: convertrules.py:2189
-#, fuzzy, python-format
+#, python-format
 msgid "remove %s"
-msgstr "Verwijderen van `%s'"
+msgstr "verwijder %s"
 
 #: convertrules.py:1001 convertrules.py:1005
 msgid "cluster syntax"
@@ -293,9 +293,9 @@ msgid "Scheme grob function renaming"
 msgstr ""
 
 #: convertrules.py:1780
-#, fuzzy, python-format
+#, python-format
 msgid "use %s"
-msgstr "Gebruik: %s"
+msgstr "gebruik %s"
 
 #: convertrules.py:1797
 msgid "More Scheme function renaming"
@@ -395,12 +395,15 @@ msgid "edge-text settings for TextSpanner."
 msgstr ""
 
 #: convertrules.py:2652
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Use\n"
 "\n"
 "%s"
-msgstr "Gebruik: %s"
+msgstr ""
+"Gebruik:\n"
+"\n"
+"%s"
 
 #: convertrules.py:2685
 msgid "Use the `alignment-offsets' sub-property of\n"
@@ -788,13 +791,13 @@ msgid "%s [OPTION]... FILE"
 msgstr "%s [OPTIE]... BESTAND"
 
 #: abc2ly.py:1374
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "abc2ly converts ABC music files (see\n"
 "%s) to LilyPond input.\n"
 msgstr ""
 "abc2ly converteert ABC muziekbestanden (zie\n"
-"%s) naar LilyPond invoer."
+"%s) naar LilyPond invoer.\n"
 
 #: abc2ly.py:1382 convert-ly.py:94 etf2ly.py:1206 lilypond-book.py:212
 #: midi2ly.py:1011 musicxml2ly.py:2580 main.cc:168
@@ -811,7 +814,6 @@ msgid "write output to FILE"
 msgstr "schrijf uitvoer naar BESTAND"
 
 #: abc2ly.py:1390
-#, fuzzy
 msgid "be strict about success"
 msgstr "wees strikt over succes"
 
@@ -882,14 +884,14 @@ msgid "only update \\version number if file is modified"
 msgstr ""
 
 #: convert-ly.py:129
-#, fuzzy, python-format
+#, python-format
 msgid "show rules [default: -f 0, -t %s]"
-msgstr "toon regels [standaard: --from=0, --to=@TOPLEVEL_VERSION@]"
+msgstr "toon regels [standaard: - 0, -t %s]"
 
 #: convert-ly.py:134
-#, fuzzy, python-format
+#, python-format
 msgid "convert to VERSION [default: %s]"
-msgstr "converteer naar VERSIE [standaard: @TOPLEVEL_VERSION@]"
+msgstr "converteer naar VERSIE [standaard: %s]"
 
 #: convert-ly.py:139 etf2ly.py:1210 lilypond-book.py:215 midi2ly.py:1012
 #: main.cc:170
@@ -905,7 +907,6 @@ msgid "Error while converting"
 msgstr "%s: fout tijdens converteren"
 
 #: convert-ly.py:199
-#, fuzzy
 msgid "Stopping at last successful rule"
 msgstr "Stop na de laatste succesvolle regel"
 
@@ -915,14 +916,14 @@ msgid "Processing `%s'... "
 msgstr "Verwerken van `%s'..."
 
 #: convert-ly.py:332
-#, fuzzy, python-format
+#, python-format
 msgid "%s: Unable to open file"
-msgstr "kan init bestand niet vinden: `%s'"
+msgstr "%s: Kan bestand niet openen"
 
 #: convert-ly.py:339
-#, fuzzy, python-format
+#, python-format
 msgid "%s: Unable to determine version.  Skipping"
-msgstr "kan versie niet bepalen voor `%s'.  Overslaan"
+msgstr "%s: Kan versie niet bepalen voor.  Overslaan"
 
 #: convert-ly.py:344
 #, python-format
@@ -938,15 +939,14 @@ msgid "%s [OPTION]... ETF-FILE"
 msgstr "%s [OPTIE]... ETF-BESTAND"
 
 #: etf2ly.py:1196
-#, fuzzy
 msgid ""
 "Enigma Transport Format is a format used by Coda Music Technology's\n"
 "Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond "
 "file.\n"
 msgstr ""
 "Enigma Transport Format is een format dat wordt gebruikt door Coda\n"
-"Music Technology's Finale produkt.  Dit programma converteert een\n"
-"subset van ETF naar een gebruiksklaar lilypondbestand."
+"Music Technology's Finale product.  Dit programma converteert een\n"
+"subset van ETF naar een gebruiksklaar LilyPond-bestand."
 
 #: etf2ly.py:1208 midi2ly.py:988 midi2ly.py:993 musicxml2ly.py:2640
 #: main.cc:161 main.cc:166
@@ -974,9 +974,8 @@ msgid "FILTER"
 msgstr "FILTER"
 
 #: lilypond-book.py:130
-#, fuzzy
 msgid "pipe snippets through FILTER [default: `convert-ly -n -']"
-msgstr "pijp snippers door FILTER [convert-ly -n -]"
+msgstr "pijp snippers door FILTER [default: `convert-ly -n -']"
 
 #: lilypond-book.py:134
 msgid ""
@@ -986,9 +985,8 @@ msgstr ""
 "docbook)"
 
 #: lilypond-book.py:135
-#, fuzzy
 msgid "FORMAT"
-msgstr "FORMAATen"
+msgstr "FORMAAT"
 
 #: lilypond-book.py:142
 msgid "add DIR to include path"
@@ -1038,9 +1036,8 @@ msgid "process ly_files using COMMAND FILE..."
 msgstr "verwerk ly_bestanden met OPDRACHT BESTAND..."
 
 #: lilypond-book.py:182
-#, fuzzy
 msgid "Compile snippets in safe mode"
-msgstr "draai in veilige modus"
+msgstr "Samenstellen van snippers in veilige modus"
 
 #: lilypond-book.py:188
 msgid "do not fail if no lilypond output is found"
@@ -1069,9 +1066,8 @@ msgid "PROG"
 msgstr ""
 
 #: lilypond-book.py:228
-#, fuzzy
 msgid "create PDF files for use with PDFTeX"
-msgstr "Maak PDF bestanden voor gebruik met PDFTeX"
+msgstr "maak PDF-bestanden voor gebruik met PDFTeX"
 
 #: lilypond-book.py:419
 msgid "Writing snippets..."
@@ -1137,9 +1133,8 @@ msgid "error: "
 msgstr "fout: "
 
 #: midi2ly.py:103
-#, fuzzy
 msgid "Exiting... "
-msgstr "Beëindigen ..."
+msgstr "Beëindigen..."
 
 #: midi2ly.py:957
 #, python-format
@@ -1147,9 +1142,9 @@ msgid "%s output to `%s'..."
 msgstr "%s uitvoer naar `%s'..."
 
 #: midi2ly.py:970
-#, fuzzy, python-format
+#, python-format
 msgid "Convert %s to LilyPond input.\n"
-msgstr "Converteer %s naar LilyPond invoer."
+msgstr "Converteer %s naar LilyPond-invoer.\n"
 
 #: midi2ly.py:975
 msgid "print absolute pitches"
@@ -1168,9 +1163,8 @@ msgid "print explicit durations"
 msgstr "schrijf expliciete nootlengtes"
 
 #: midi2ly.py:986
-#, fuzzy
 msgid "prepend FILE to output"
-msgstr "toon nog meer uitvoer"
+msgstr "plak BESTAND aan begin van uitvoer"
 
 #: midi2ly.py:989
 msgid "set key: ALT=+sharps|-flats; MINOR=1"
@@ -1247,14 +1241,14 @@ msgid "Encountered unprocessed marker %s\n"
 msgstr ""
 
 #: musicxml2ly.py:1020
-#, fuzzy, python-format
+#, python-format
 msgid "unknown span event %s"
-msgstr "Onbekende gebeurtenis klasse `%s'"
+msgstr "onbekende span gebeurtenis %s"
 
 #: musicxml2ly.py:1030
-#, fuzzy, python-format
+#, python-format
 msgid "unknown span type %s for %s"
-msgstr "onbekende ontsnapte string: `\\%s'"
+msgstr "onbekend span-type %s voor %s"
 
 #: musicxml2ly.py:1450
 msgid "Unknown metronome mark, ignoring"
@@ -1278,9 +1272,8 @@ msgid "drum %s type unknown, please add to instrument_drumtype_dict"
 msgstr ""
 
 #: musicxml2ly.py:1810
-#, fuzzy
 msgid "cannot find suitable event"
-msgstr "kan bestand niet vinden: `%s'"
+msgstr "kan geen passende gebeurtenis vinden"
 
 #: musicxml2ly.py:1958
 #, python-format
@@ -1319,14 +1312,12 @@ msgid "cannot simultaneously have more than one mode: %s"
 msgstr ""
 
 #: musicxml2ly.py:2543
-#, fuzzy
 msgid "Converting to LilyPond expressions..."
-msgstr "Converteer %s naar LilyPond invoer."
+msgstr "Converteren naar LilyPond-expressies..."
 
 #: musicxml2ly.py:2554
-#, fuzzy
 msgid "musicxml2ly [OPTION]... FILE.xml"
-msgstr "musicxml2ly BESTAND.xml"
+msgstr "musicxml2ly [OPTIE]... BESTAND.xml"
 
 #: musicxml2ly.py:2556
 msgid ""
@@ -1343,9 +1334,8 @@ msgid ""
 msgstr ""
 
 #: musicxml2ly.py:2591
-#, fuzzy
 msgid "use lxml.etree; uses less memory and cpu time"
-msgstr "Gebruik lxml.etree; gebruikt minder geheugen en processortijd."
+msgstr "gebruik lxml.etree; gebruikt minder geheugen en processortijd"
 
 #: musicxml2ly.py:2597
 msgid "input file is a zip-compressed MusicXML file"
@@ -1385,14 +1375,13 @@ msgid ""
 msgstr ""
 
 #: musicxml2ly.py:2645
-#, fuzzy
 msgid "set output filename to FILE, stdout if -"
-msgstr "zet uitvoerbestandnaam op BESTAND"
+msgstr "zet uitvoerbestandnaam op BESTAND, stdout indien -"
 
 #: musicxml2ly.py:2728
-#, fuzzy, python-format
+#, python-format
 msgid "unknown part in part-list: %s"
-msgstr "onbekende translator: `%s'"
+msgstr "onbekend deel in deel-lijst: %s"
 
 #: musicxml2ly.py:2790
 msgid "Input is compressed, extracting raw MusicXML data from stdin"
@@ -1408,28 +1397,27 @@ msgid "Reading MusicXML from Standard input ..."
 msgstr ""
 
 #: musicxml2ly.py:2825
-#, fuzzy, python-format
+#, python-format
 msgid "Reading MusicXML from %s ..."
-msgstr "Lezen %s..."
+msgstr "MusicXML lezen van %s ..."
 
 #: musicxml2ly.py:2858
-#, fuzzy, python-format
+#, python-format
 msgid "Output to `%s'"
-msgstr "%s uitvoer naar `%s'..."
+msgstr "Uitvoer naar `%s'"
 
 #: musicxml2ly.py:2925
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to find input file %s"
-msgstr "kan init bestand niet vinden: `%s'"
+msgstr "Kan invoer-bestand niet vinden %s"
 
 #: website_post.py:123
 msgid "English"
 msgstr "Engels"
 
 #: website_post.py:126
-#, fuzzy
 msgid "Other languages"
-msgstr "Andere talen: %s."
+msgstr "Andere talen"
 
 #: getopt-long.cc:153
 #, c-format
@@ -1452,9 +1440,9 @@ msgid "invalid argument `%s' to option `%s'"
 msgstr "onjuist argument: `%s' voor optie `%s'"
 
 #: warn.cc:59
-#, fuzzy, c-format
+#, c-format
 msgid "success: %s"
-msgstr "Gebruik: %s"
+msgstr "succes: %s"
 
 #: warn.cc:86 grob.cc:617 input.cc:97
 #, c-format
@@ -1678,19 +1666,16 @@ msgid "unterminated (de)crescendo"
 msgstr "onbeëindigd (de)crescendo"
 
 #: episema-engraver.cc:75
-#, fuzzy
 msgid "already have an episema"
-msgstr "heb al een waardestreep"
+msgstr "heb al een episema"
 
 #: episema-engraver.cc:88
-#, fuzzy
 msgid "cannot find start of episema"
-msgstr "kan begin van ligatuur niet vinden"
+msgstr "kan begin van episema niet vinden"
 
 #: episema-engraver.cc:137
-#, fuzzy
 msgid "unterminated episema"
-msgstr "onbeëindigde waardestreep"
+msgstr "onbeëindigde episema"
 
 #: extender-engraver.cc:170 extender-engraver.cc:179
 msgid "unterminated extender"
@@ -1721,9 +1706,8 @@ msgid "Initializing FontConfig..."
 msgstr "Initialiseren van FontConfig..."
 
 #: font-config.cc:61
-#, fuzzy
 msgid "Building font database..."
-msgstr "Schrijven van fonts naar %s"
+msgstr "Bouwen van font-database..."
 
 #: general-scheme.cc:306
 msgid "infinity or NaN encountered while converting Real number"
@@ -2259,9 +2243,9 @@ msgid "(normalized pitch)"
 msgstr ""
 
 #: music.cc:223
-#, fuzzy, c-format
+#, c-format
 msgid "Transposing %s by %s makes alteration larger than double"
-msgstr "transponering met %s maakt voorteken groter dan dubbel"
+msgstr "Transponeren van %s met %s maakt voorteken groter dan dubbel"
 
 #: new-dynamic-engraver.cc:142
 #, c-format
@@ -2317,7 +2301,7 @@ msgid "cannot load font table: %s"
 msgstr "kan fonttabel niet laden: %s"
 
 #: open-type-font.cc:53
-#, fuzzy, c-format
+#, c-format
 msgid "FreeType error: %s"
 msgstr "FreeType fout: %s"
 
@@ -2337,9 +2321,8 @@ msgid "FT_Get_Glyph_Name () Freetype error: %s"
 msgstr "FT_Get_Glyph_Name () Freetype fout: %s"
 
 #: open-type-font.cc:250
-#, fuzzy
 msgid "Invalid index for character"
-msgstr "ongeldig teken: `%c'"
+msgstr "Ongeldige index voor teken"
 
 #: open-type-font.cc:319 pango-font.cc:187
 #, c-format
@@ -2358,14 +2341,13 @@ msgid ""
 msgstr ""
 
 #: optimal-page-breaking.cc:105
-#, fuzzy
 msgid "Fitting music on 1 page..."
-msgstr "Muziek passend maken op %d of %d pagina's..."
+msgstr "Muziek passend maken op 1 pagina..."
 
 #: optimal-page-breaking.cc:107
-#, fuzzy, c-format
+#, c-format
 msgid "Fitting music on %d pages..."
-msgstr "Muziek passend maken op %d of %d pagina's..."
+msgstr "Muziek passend maken op %d pagina's..."
 
 #: optimal-page-breaking.cc:109
 #, c-format
@@ -2373,9 +2355,9 @@ msgid "Fitting music on %d or %d pages..."
 msgstr "Muziek passend maken op %d of %d pagina's..."
 
 #: optimal-page-breaking.cc:119 optimal-page-breaking.cc:173
-#, fuzzy, c-format
+#, c-format
 msgid "trying %d systems"
-msgstr "Tekenen van systemen..."
+msgstr "proberen van %d systemen"
 
 #: optimal-page-breaking.cc:138 optimal-page-breaking.cc:201
 #, c-format
@@ -2415,11 +2397,13 @@ msgid ""
 "couldn't fit music on page: ragged-spacing was requested, but page was "
 "compressed"
 msgstr ""
+"kan muziek niet op pagina passen: ragged-spatiëring was gevraagd,\n"
+"maar pagina was gecomprimeerd"
 
 #: page-layout-problem.cc:325
-#, fuzzy, c-format
+#, c-format
 msgid "couldn't fit music on page: overflow is %f"
-msgstr "Muziek passend maken op 1 pagina..."
+msgstr "kan muziek niet passend maken op 1 pagina: overflow is %f"
 
 #: page-layout-problem.cc:327
 msgid "compressing music to fit"
@@ -2707,12 +2691,10 @@ msgstr "fouten gevonden, negeer muziekexpressie"
 
 #. FIXME:
 #: script-engraver.cc:113
-#, fuzzy
 msgid "do not know how to interpret articulation:"
 msgstr "weet niet hoe articulatie te vertolken: "
 
 #: script-engraver.cc:114
-#, fuzzy
 msgid " scheme encoding: "
 msgstr "scheme codering: "
 
@@ -2773,9 +2755,9 @@ msgid "flag stroke `%s' not found"
 msgstr "vlag streep `%s' niet gevonden"
 
 #: system.cc:197
-#, fuzzy, c-format
+#, c-format
 msgid "Element count %d"
-msgstr "Aantal elementen: %d."
+msgstr "Aantal elementen %d"
 
 #: system.cc:303
 #, c-format
@@ -2795,9 +2777,8 @@ msgid "unterminated text spanner"
 msgstr "onbeëindigde tekst spanner"
 
 #: tie-engraver.cc:116
-#, fuzzy
 msgid "unterminated tie"
-msgstr "onbeëindigde waardestreep"
+msgstr "onbeëindigde overbinding"
 
 #: tie-engraver.cc:312
 msgid "lonely tie"
@@ -2859,13 +2840,12 @@ msgid "No tuplet to end"
 msgstr "Geen tuplet om te beëindigen"
 
 #: vaticana-ligature-engraver.cc:400
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "ignored prefix(es) `%s' of this head according to restrictions of the "
 "selected ligature style"
 msgstr ""
-"negeren van voorvoegsel (es) `%s' van dit bolletje volgens restricties van "
-"de\n"
+"negeren van voorvoegsel(s) `%s' van dit bolletje volgens restricties van de\n"
 "geselecteerde ligatuurstijl"
 
 #: vaticana-ligature-engraver.cc:736
@@ -2912,9 +2892,8 @@ msgid "need \\paper for paper block"
 msgstr "heb \\paper nodig voor paper blok"
 
 #: parser.yy:1363
-#, fuzzy
 msgid "only \\consists takes non-string argument."
-msgstr "\\apply neemt een functieargument"
+msgstr "alleen \\consists neem een niet-string functieargument."
 
 #: parser.yy:1376
 msgid "Grob name should be alphanumeric"
@@ -3091,14 +3070,14 @@ msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr "geen systemen gevonden in \\score markup, heeft het een \\layout blok?"
 
 #: define-markup-commands.scm:2404
-#, fuzzy, scheme-format
+#, scheme-format
 msgid "Cannot find glyph ~a"
-msgstr "kan ~a niet vinden in ~a"
+msgstr "Kan glyph ~a niet vinden"
 
 #: define-markup-commands.scm:2830
-#, fuzzy, scheme-format
+#, scheme-format
 msgid "no brace found for point size ~S "
-msgstr "geen plaatsing gevonden voor vingerzetting"
+msgstr "geen accolade gevonden voor puntgrootte ~S"
 
 #: define-markup-commands.scm:2831
 #, scheme-format
@@ -3126,9 +3105,8 @@ msgid "unknown repeat type `~S'"
 msgstr "onbekend herhaaltype `~S'"
 
 #: define-music-types.scm:763
-#, fuzzy
 msgid "See define-music-types.scm for supported repeats"
-msgstr "Zie music-types.scm voor ondersteunde herhalingen"
+msgstr "Zie define-music-types.scm voor ondersteunde herhalingen"
 
 #: define-note-names.scm:962
 msgid "Select note names language."
@@ -3175,9 +3153,9 @@ msgid "cannot find description for property ~S (~S)"
 msgstr "kan beschrijving voor eigenschap niet vinden ~S (~S)"
 
 #: flag-styles.scm:148
-#, fuzzy, scheme-format
+#, scheme-format
 msgid "flag stroke `~a' or `~a' not found"
-msgstr "vlag streep `%s' niet gevonden"
+msgstr "vlag streep `~a' of `~a' niet gevonden"
 
 #: framework-eps.scm:108
 #, scheme-format
@@ -3205,7 +3183,6 @@ msgid "do not know how to embed font ~s ~s ~s"
 msgstr "weet niet hoe font in te bedden: ~s ~s ~s"
 
 #: framework-ps.scm:669
-#, fuzzy
 msgid ""
 "\n"
 "The PostScript backend does not support the\n"
@@ -3224,10 +3201,10 @@ msgstr ""
 "Het PostScript backend ondersteund geen system-by-system uitvoer.\n"
 "Gebruik daarvoor het EPS backend\n"
 "\n"
-"  lilypond -b eps BESTAND\n"
+"  lilypond -dbackend=eps BESTAND\n"
 "\n"
-"Als LilyPond fragment van een webpagina is gekopiëerd, weet zeker\n"
-"dat alleen alles voorafgaand aan\n"
+"Als LilyPond fragment van een webpagina is gekopiëerd, ga na dat\n"
+"alleen alles voorafgaand aan\n"
 "\n"
 "  %% ****************************************************************\n"
 "  %% Start cut-&-pastable-section\n"
@@ -3236,9 +3213,9 @@ msgstr ""
 "is verwijderd\n"
 
 #: framework-svg.scm:84
-#, fuzzy, scheme-format
+#, scheme-format
 msgid "Updating font into: ~a"
-msgstr "toevoegen van font-map: %s"
+msgstr "actualiseren van font naar: ~a"
 
 #: graphviz.scm:64
 #, scheme-format
@@ -3268,7 +3245,6 @@ msgid "unknown unit: ~S"
 msgstr "onbekende eenheid: ~S"
 
 #: lily-library.scm:858 lily-library.scm:867
-#, fuzzy
 msgid "warning:"
 msgstr "waarschuwing: "
 
@@ -3302,9 +3278,8 @@ msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr "verkeerd type voor argument ~a.  Verwacht ~a, gevonden ~s"
 
 #: lily.scm:716
-#, fuzzy
 msgid "Compilation successfully completed"
-msgstr "Stop na de laatste succesvolle regel"
+msgstr "Samenstellen met succes voltooid"
 
 #: lily.scm:717
 msgid "Compilation completed with warnings or errors"
@@ -3336,9 +3311,9 @@ msgid "Redirecting output to ~a..."
 msgstr "Omleiden van uitvoer naar ~a..."
 
 #: lily.scm:892
-#, fuzzy, scheme-format
+#, scheme-format
 msgid "Invoking `~a'...\n"
-msgstr "Inroepen van `~a'..."
+msgstr "Inroepen van `~a'...\n"
 
 #: ly-syntax-constructors.scm:51
 msgid "Music head function must return Music object"
@@ -3395,9 +3370,9 @@ msgstr ""
 "alternatieven"
 
 #: music-functions.scm:297
-#, fuzzy, scheme-format
+#, scheme-format
 msgid "invalid tremolo repeat count: ~a"
-msgstr "Ongeldige eigenschap operatie ~a"
+msgstr "ongeldige tremolo herhaal teller: ~a"
 
 #: music-functions.scm:618
 #, scheme-format
@@ -3420,9 +3395,9 @@ msgid "Add @var{octave-shift} to the octave of @var{pitch}."
 msgstr ""
 
 #: music-functions.scm:1037
-#, fuzzy, scheme-format
+#, scheme-format
 msgid "Unknown octaveness type: ~S "
-msgstr "onbekend herhaaltype `~S'"
+msgstr "Onbekend octaviëertype: ~S"
 
 #: music-functions.scm:1038
 msgid "Defaulting to 'any-octave."
@@ -3434,19 +3409,18 @@ msgid "unknown accidental style: ~S"
 msgstr "onbekende toevallig teken stijl: ~S"
 
 #: output-ps.scm:48
-#, fuzzy
 msgid "Found infinity or nan in output.  Substituting 0.0"
 msgstr "Oneindig of nan gevonden in uitvoer.  Vervangen door 0.0"
 
 #: output-ps.scm:289 output-svg.scm:550
-#, fuzzy, scheme-format
+#, scheme-format
 msgid "unknown line-cap-style: ~S"
-msgstr "onbekende toevallig teken stijl: ~S"
+msgstr "onbekende line-cap-stijl: ~S"
 
 #: output-ps.scm:294 output-svg.scm:556
-#, fuzzy, scheme-format
+#, scheme-format
 msgid "unknown line-join-style: ~S"
-msgstr "onbekende toevallig teken stijl: ~S"
+msgstr "onbekende line-join-stijl: ~S"
 
 #: output-svg.scm:47
 #, scheme-format
@@ -3463,9 +3437,9 @@ msgid "Glyph must have a unicode value"
 msgstr ""
 
 #: output-svg.scm:283 output-svg.scm:293
-#, fuzzy, scheme-format
+#, scheme-format
 msgid "cannot find SVG font ~S"
-msgstr "kan font niet vinden: `%s'"
+msgstr "kan SVG-font niet vinden: ~S"
 
 #: paper.scm:115
 msgid "set-global-staff-size: not in toplevel scope"
@@ -3477,7 +3451,7 @@ msgid "This is not a \\layout {} object, ~S"
 msgstr "Dit is geen \\layout {} object, ~S"
 
 #: paper.scm:308
-#, fuzzy, scheme-format
+#, scheme-format
 msgid "Unknown paper size: ~a"
 msgstr "Onbekende papiergrootte: ~a"
 
