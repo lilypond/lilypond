@@ -405,6 +405,10 @@ class Text:
                 or d.compare (reference_note.duration)):
                 s = s + Duration (self.clocks).dump ()
             s = s + ' '
+        elif self.text and self.type == midi.SEQUENCE_TRACK_NAME:
+            text = self.text.replace ('(MIDI)', '').strip ()
+            if text:
+                s = '\n  \\set Staff.instrumentName = "%(text)s"\n  ' % locals ()
         else:
             s = '\n  % [' + self.text_types[self.type] + '] ' + self.text + '\n  '
         return s
