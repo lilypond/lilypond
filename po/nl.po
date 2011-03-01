@@ -946,7 +946,7 @@ msgid ""
 msgstr ""
 "Enigma Transport Format is een format dat wordt gebruikt door Coda\n"
 "Music Technology's Finale product.  Dit programma converteert een\n"
-"subset van ETF naar een gebruiksklaar LilyPond-bestand."
+"subset van ETF naar een gebruiksklaar LilyPond-bestand.\n"
 
 #: etf2ly.py:1208 midi2ly.py:988 midi2ly.py:993 musicxml2ly.py:2640
 #: main.cc:161 main.cc:166
