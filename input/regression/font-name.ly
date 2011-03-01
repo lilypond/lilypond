@@ -13,6 +13,7 @@ without size specification."
 
 
 {
+  \override Score.PaperColumn #'keep-inside-line = ##f
   \override Staff.TimeSignature  #'font-name = #"Times New Roman"
   \time 3/4
   \set Score.skipBars = ##t

@@ -7,15 +7,6 @@
   indent = 0\cm
 }
 
-\layout {
-  \context {
-    \Score
-    \override PaperColumn #'keep-inside-line = ##t
-    \override NonMusicalPaperColumn #'keep-inside-line = ##t
-  }
-}
-
-
 \header {
   lsrtags = "headwords"
   texidoc = ""

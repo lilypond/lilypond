@@ -7,6 +7,7 @@ using a skyline algorithm so that they don't collide with other objects."
 
 \version "2.12.0"
 \relative c''' {
+  \override Score.PaperColumn #'keep-inside-line = ##f
   \override TextScript #'outside-staff-priority = #2
   \override DynamicLineSpanner #'outside-staff-priority = #1
   c

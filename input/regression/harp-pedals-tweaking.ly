@@ -6,6 +6,7 @@ harp-pedal-details properties of TextScript."
 }
 
 \relative c'' {
+  \override Score.PaperColumn #'keep-inside-line = ##f
   \override Voice.TextScript #'(harp-pedal-details box-width) = #1
   \once \override Voice.TextScript #'size = #1.5
   \once \override Voice.TextScript #'thickness = #7

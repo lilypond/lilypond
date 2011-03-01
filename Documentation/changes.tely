@@ -62,6 +62,25 @@ which scares away people.
 @end ignore
 
 @item
+Dots can be added to the table of contents items using:
+@example
+\paper @{
+  tocItemMarkup = \tocItemWithDotsMarkup
+@}
+@end example
+
+@item
+New markup commands @code{\pattern} and @code{\fill-with-pattern} are available.
+@lilypond
+\markup \column {
+  \pattern #3 #Y #0.3 \flat
+  \null
+  \pattern #7 #X #2 \flat
+  \override #'(line-width . 40) \fill-with-pattern #1 #CENTER . left right
+}
+@end lilypond
+
+@item
 A minimal composer toolkit of modal transformations is provided.
 A motif may be @notation{transposed}, @notation{inverted} and/or
 converted to its @notation{retrograde} within any scale.

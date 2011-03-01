@@ -31,6 +31,9 @@
   }
 }
 
+tocItemWithDotsMarkup = \markup \fill-with-pattern #1 #RIGHT .
+  \fromproperty #'toc:text \fromproperty #'toc:page
+
 #(define-markup-list-command (table-of-contents layout props) ()
   ( _i "Outputs the table of contents, using the paper variable
 @code{tocTitleMarkup} for its title, then the list of lines

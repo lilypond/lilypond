@@ -15,10 +15,17 @@ the @code{define-markup-command} scheme macro."
   "Upcase the string characters. Syntax: \\upcase #\"string\""
   (interpret-markup paper props (make-simple-markup (string-upcase str))))
 
-
-{ 
-  c''-\markup \upcase #"hello world"
+\score{
+  {
+    c''-\markup \upcase #"hello world"
 				% produces a "HELLO WORLD" markup
+  }
+
+  \layout {
+    \context {
+      \Score
+      \override PaperColumn #'keep-inside-line = ##f
+    }
+  }
+
 }
-
-
