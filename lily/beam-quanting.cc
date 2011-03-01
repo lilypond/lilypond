@@ -632,7 +632,7 @@ Beam_scoring_problem::score_horizontal_inter_quants (Beam_configuration *config)
   if (config->y.delta() == 0.0 && abs (config->y[LEFT]) < staff_radius * staff_space)
     {
       Real yshift = config->y[LEFT] - 0.5 * staff_space;
-      if (abs (round(yshift) - yshift) < 0.01 * staff_space)
+      if (abs ((int)(yshift + 0.5) - yshift) < 0.01 * staff_space)
         config->add (parameters.HORIZONTAL_INTER_QUANT_PENALTY, "H");
     }
 }
