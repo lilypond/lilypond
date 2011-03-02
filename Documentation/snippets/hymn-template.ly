@@ -9,7 +9,7 @@
 \header {
   lsrtags = "vocal-music, template"
 
-%% Translation of GIT committish: fa19277d20f8ab0397c560eb0e7b814bd804ecec
+%% Translation of GIT committish: d0a39a10d625c28a43acd9641aefeb2c7218ab41
   texidoces = "
   Este fragmento de código muestra una forma de preparar un himno cuando
 cada línea comienza con un compás parcial.  También muestra cómo

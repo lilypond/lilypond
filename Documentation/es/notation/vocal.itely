@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 278efb461e1e695adab5de3dc22b8eafb6653920
+    Translation of GIT committish: 53db923e715126eb9463220526b4838fbfd3dad4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1199,12 +1199,12 @@ la propiedad dentro del bloque @code{\layout}.
 @c TODO: move to LSR -vv
 
 La comprobación necesaria para asegurar que las inscripciones de texto
-están dentro de los márgenes es una tarea relativamente costosa en
-términos computacionales.  Para acelerar el procesado, LilyPond no
-realiza estos cálculos de forma predeterminada; para activarlo, use
+están dentro de los márgenes, requiere cálculos adicionales.  Para
+acelerar ligeramente el procesado, se puede desactivar esta
+funcionalidad:
 
 @example
-\override Score.PaperColumn #'keep-inside-line = ##t
+\override Score.PaperColumn #'keep-inside-line = ##f
 @end example
 
 Para hacer que el texto evite también las líneas divisorias, use
