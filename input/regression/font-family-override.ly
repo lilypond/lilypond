@@ -34,19 +34,29 @@
      (/ myStaffSize 20)))
 }
 
-\relative c'' {
+\score {
+  \relative c'' {
 
-  c^\markup { roman: foo \bold bla \italic bar \italic \bold baz }
-  c'_\markup {
-    \override #'(font-family . sans)
-    {
-      sans: foo \bold bla \italic bar \italic \bold baz
+    c^\markup { roman: foo \bold bla \italic bar \italic \bold baz }
+    c'_\markup {
+      \override #'(font-family . sans)
+      {
+        sans: foo \bold bla \italic bar \italic \bold baz
+      }
+    }
+    c'^\markup {
+      \override #'(font-family . typewriter)
+      {
+        mono: foo \bold bla \italic bar \italic \bold baz
+      }
     }
   }
-  c'^\markup {
-    \override #'(font-family . typewriter)
-    {
-      mono: foo \bold bla \italic bar \italic \bold baz
+
+  \layout {
+    \context {
+      \Score
+      \override PaperColumn #'keep-inside-line = ##f
     }
   }
+
 }

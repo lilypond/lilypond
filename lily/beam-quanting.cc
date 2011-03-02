@@ -20,9 +20,9 @@
 
 #include "beam-scoring-problem.hh"
 
+#include <algorithm>
 #include <queue>  
 #include <set>
-#include <algorithm>
 using namespace std;
 
 #include "align-interface.hh"
@@ -31,6 +31,7 @@ using namespace std;
 #include "directional-element-interface.hh"
 #include "grob.hh"
 #include "international.hh"
+#include "libc-extension.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
@@ -72,7 +73,7 @@ Beam_quant_parameters::fill (Grob *him)
 
   // Collisions
   COLLISION_PENALTY = get_detail (details, ly_symbol2scm ("collision-penalty"), 500);
-  COLLISION_DISTANCE = get_detail (details, ly_symbol2scm ("collision-distance"), 0.5);
+  COLLISION_PADDING = get_detail (details, ly_symbol2scm ("collision-padding"), 0.5);
   STEM_COLLISION_FACTOR = get_detail (details, ly_symbol2scm ("stem-collision-factor"), 0.1);
 }
 
@@ -194,13 +195,11 @@ void Beam_scoring_problem::init_collisions (vector<Grob*> grobs)
   set<Grob*> stems;
   for (vsize i = 0; i < grobs.size (); i++) {
     Box b;
-
     for (Axis a = X_AXIS; a < NO_AXES; incr (a))
       b[a] = grobs[i]->extent(common[a], a);
 
-    Real width = b[X_AXIS].length();
-
-    Real width_factor = sqrt(width / staff_space);
+    Real width = b[X_AXIS].length ();
+    Real width_factor = sqrt (width / staff_space);
 
     Direction d = LEFT;
     do
@@ -631,10 +630,11 @@ my_modf (Real x)
 void
 Beam_scoring_problem::score_horizontal_inter_quants (Beam_configuration *config) const
 {
-  if (config->y.delta() == 0.0 && abs (config->y[LEFT]) < staff_radius * staff_space)
+  if (config->y.delta () == 0.0
+      && abs (config->y[LEFT]) < staff_radius * staff_space)
     {
       Real yshift = config->y[LEFT] - 0.5 * staff_space;
-      if (abs (round(yshift) - yshift) < 0.01 * staff_space)
+      if (fabs (my_round (yshift) - yshift) < 0.01 * staff_space)
         config->add (parameters.HORIZONTAL_INTER_QUANT_PENALTY, "H");
     }
 }
@@ -756,8 +756,8 @@ Beam_scoring_problem::score_collisions (Beam_configuration *config) const
                     beam_y.distance (collision_y[UP]));
 
       Real scale_free = 
-        max (parameters.COLLISION_DISTANCE - dist, 0.0)/
-        parameters.COLLISION_DISTANCE;
+        max (parameters.COLLISION_PADDING - dist, 0.0)/
+        parameters.COLLISION_PADDING;
       demerits +=
         collisions_[i].base_penalty_ *
         pow (scale_free, 3) * parameters.COLLISION_PENALTY;

@@ -247,7 +247,7 @@ Open_type_font::index_to_charcode (size_t i) const
     return (size_t) iter->second;
   else
     {
-      programming_error (_ ("Invalid index for character"));
+      programming_error ("Invalid index for character");
       return 0;
     }
 }

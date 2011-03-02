@@ -405,6 +405,10 @@ class Text:
                 or d.compare (reference_note.duration)):
                 s = s + Duration (self.clocks).dump ()
             s = s + ' '
+        elif self.text and self.type == midi.SEQUENCE_TRACK_NAME:
+            text = self.text.replace ('(MIDI)', '').strip ()
+            if text:
+                s = '\n  \\set Staff.instrumentName = "%(text)s"\n  ' % locals ()
         else:
             s = '\n  % [' + self.text_types[self.type] + '] ' + self.text + '\n  '
         return s
@@ -913,10 +917,10 @@ def convert_midi (in_file, out_file):
     tag = '%% Lily was here -- automatically converted by %s from %s' % ( program_name, in_file)
 
 
-    s = ''
-    s = tag + '\n\\version "2.7.38"\n\n'
-    for i in range (len (tracks)):
-        s = s + dump_track (tracks[i], i)
+    s = tag
+    s += r'''
+\version "2.7.38"
+'''
 
     s += r'''
 \layout {
@@ -927,6 +931,16 @@ def convert_midi (in_file, out_file):
   }
 }
 '''
+
+    for i in global_options.include_header:
+        s += '\n%% included from %(i)s\n' % locals ()
+        s += open (i).read ()
+        if s[-1] != '\n':
+            s += '\n'
+        s += '% end\n'
+
+    for i in range (len (tracks)):
+        s = s + dump_track (tracks[i], i)
 
     s += '\n\\score {\n  <<\n'
 
@@ -971,6 +985,11 @@ def get_option_parser ():
     p.add_option('-h', '--help',
                  action='help',
                  help=_ ('show this help and exit'))
+    p.add_option('-i', '--include-header',
+                 help=_ ('prepend FILE to output'),
+                 action='append',
+                 default=[],
+                 metavar=_ ('FILE'))
     p.add_option('-k', '--key', help=_ ('set key: ALT=+sharps|-flats; MINOR=1'),
           metavar=_ ('ALT[:MINOR]'),
           default='0'),

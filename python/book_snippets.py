@@ -53,6 +53,7 @@ NOTIME = 'notime'
 OUTPUT = 'output'
 OUTPUTIMAGE = 'outputimage'
 PAPER = 'paper'
+PAPERSIZE = 'papersize'
 PREAMBLE = 'preamble'
 PRINTFILENAME = 'printfilename'
 QUOTE = 'quote'
@@ -112,6 +113,7 @@ snippet_options = {
 
     ##
     PAPER: {
+        PAPERSIZE: r'''#(set-paper-size "%(papersize)s")''',
         INDENT: r'''indent = %(indent)s''',
         LINE_WIDTH: r'''line-width = %(line-width)s''',
         QUOTE: r'''line-width = %(line-width)s - 2.0 * %(exampleindent)s''',
@@ -552,6 +554,12 @@ left-margin-default right-margin-default)"
             relative_quotes += ',' * (- relative)
         elif relative > 0:
             relative_quotes += "'" * relative
+
+        # put paper-size first, if it exists
+        for i,elem in enumerate(compose_dict[PAPER]):
+            if elem.startswith("#(set-paper-size"):
+                compose_dict[PAPER].insert(0, compose_dict[PAPER].pop(i))
+                break
 
         paper_string = '\n  '.join (compose_dict[PAPER]) % override
         layout_string = '\n  '.join (compose_dict[LAYOUT]) % override

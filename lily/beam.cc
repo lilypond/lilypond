@@ -48,8 +48,10 @@
 #include "lookup.hh"
 #include "main.hh"
 #include "misc.hh"
+#include "note-head.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
+#include "rhythmic-head.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
@@ -1035,6 +1037,19 @@ Beam::calc_least_squares_positions (SCM smob, SCM /* posns */)
   return ly_interval2scm (pos);
 }
 
+
+// Assuming V is not empty, pick a 'reasonable' point inside V.
+static Real
+point_in_interval (Interval v, Real dist)
+{
+  if (isinf (v[DOWN]))
+    return v[UP] - dist;
+  else if (isinf (v[UP]))
+    return v[DOWN] + dist;
+  else
+    return v.center ();
+}
+
 /*
   We can't combine with previous function, since check concave and
   slope damping comes first.
@@ -1047,41 +1062,43 @@ SCM
 Beam::shift_region_to_valid (SCM grob, SCM posns)
 {
   Grob *me = unsmob_grob (grob);
+
   /*
     Code dup.
   */
   vector<Real> x_posns;
   extract_grob_set (me, "stems", stems);
-  Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
-  Grob *commony = common_refpoint_of_array (stems, me, Y_AXIS);
+  extract_grob_set (me, "covered-grobs", covered);
 
+  Grob *common[NO_AXES] = { me, me };
+  for (Axis a = X_AXIS; a < NO_AXES; incr (a)) {
+    common[a] = common_refpoint_of_array (stems, me, a);
+    common[a] = common_refpoint_of_array (covered, common[a], a);
+  }
   Grob *fvs = first_normal_stem (me);
 
   if (!fvs)
     return posns;
-
-  Real x0 = fvs->relative_coordinate (commonx, X_AXIS);
+  Interval x_span;
+  x_span[LEFT] = fvs->relative_coordinate (common[X_AXIS], X_AXIS);
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
 
-      Real x = s->relative_coordinate (commonx, X_AXIS) - x0;
+      Real x = s->relative_coordinate (common[X_AXIS], X_AXIS) - x_span[LEFT];
       x_posns.push_back (x);
     }
-
+  
   Grob *lvs = last_normal_stem (me);
-  if (!lvs)
-    return posns;
-
-  Real dx = lvs->relative_coordinate (commonx, X_AXIS) - x0;
+  x_span[RIGHT] = lvs->relative_coordinate (common[X_AXIS], X_AXIS);
 
   Drul_array<Real> pos = ly_scm2interval (posns);
 
   scale_drul (&pos, Staff_symbol_referencer::staff_space (me));
 
-  Real dy = pos[RIGHT] - pos[LEFT];
-  Real y = pos[LEFT];
-  Real slope = dx ? (dy / dx) : 0.0;
+  Real beam_dy = pos[RIGHT] - pos[LEFT];
+  Real beam_left_y = pos[LEFT];
+  Real slope = x_span.delta () ? (beam_dy / x_span.delta ()) : 0.0;
 
   /*
     Shift the positions so that we have a chance of finding good
@@ -1089,6 +1106,7 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
   */
   Interval feasible_left_point;
   feasible_left_point.set_full ();
+
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
@@ -1096,7 +1114,6 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
 	continue;
 
       Direction d = get_grob_direction (s);
-
       Real left_y
 	= Stem::get_stem_info (s).shortest_y_
 	- slope * x_posns [i];
@@ -1106,8 +1123,8 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
 	ourselves, so translate:
       */
       left_y
-	+= + s->relative_coordinate (commony, Y_AXIS)
-	- me->relative_coordinate (commony, Y_AXIS);
+	+= + s->relative_coordinate (common[Y_AXIS], Y_AXIS)
+	- me->relative_coordinate (common[Y_AXIS], Y_AXIS);
 
       Interval flp;
       flp.set_full ();
@@ -1116,20 +1133,148 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
       feasible_left_point.intersect (flp);
     }
 
-  if (feasible_left_point.is_empty ())
-    warning (_ ("no viable initial configuration found: may not find good beam slope"));
-  else if (!feasible_left_point.contains (y))
+  /*
+    We have two intervals here, one for the up variant (beams goes
+    over the collision) one for the down.
+  */
+  Drul_array<Interval> collision_free (feasible_left_point,
+                                       feasible_left_point);
+
+  vector<Grob*> filtered;
+  /*
+    We only update these for objects that are too large for quanting
+    to find a workaround.  Typically, these are notes with
+    stems, and timesig/keysig/clef, which take out the entire area
+    inside the staff as feasible.
+
+    The code below disregards the thickness and multiplicity of the
+    beam.  This should not be a problem, as the beam quanting will
+    take care of computing the impact those exactly.
+  */
+  Real min_y_size = 2.0;
+  for (vsize i = 0; i < covered.size(); i++)
     {
-      const int REGION_SIZE = 2; // UGH UGH
-      if (isinf (feasible_left_point[DOWN]))
-	y = feasible_left_point[UP] - REGION_SIZE;
-      else if (isinf (feasible_left_point[UP]))
-	y = feasible_left_point[DOWN]+ REGION_SIZE;
-      else
-	y = feasible_left_point.center ();
+      if (!covered[i]->is_live())
+        continue;
+      
+      Box b;
+      for (Axis a = X_AXIS; a < NO_AXES; incr (a))
+        b[a] = covered[i]->extent (common[a], a);
+
+      if (b[X_AXIS].is_empty () || b[Y_AXIS].is_empty ())
+        continue;
+
+      if (intersection (b[X_AXIS], x_span).is_empty ())
+        continue;
+
+      filtered.push_back (covered[i]);
+      Grob *head_stem = Rhythmic_head::get_stem (covered[i]);
+      if (head_stem && Stem::is_normal_stem (head_stem)
+          && Note_head::has_interface (covered[i]))
+        {
+          if (Stem::get_beam (head_stem))
+            {
+              /*
+                We must assume that stems are infinitely long in this
+                case, as asking for the length of the stem typically
+                leads to circular dependencies.
+
+                This strategy assumes that we don't want to handle the
+                collision of beams in opposite non-forced directions
+                with this code, where shortening the stems of both
+                would resolve the problem, eg.
+
+                 x    x
+                |    | 
+                =====
+
+                =====
+                |   |  
+                x   x
+                
+                Such beams would need a coordinating grob to resolve
+                the collision, since both will likely want to occupy
+                the centerline.
+              */
+              Direction stemdir = get_grob_direction (head_stem);
+              b[Y_AXIS][stemdir] = stemdir * infinity_f; 
+            }
+          else
+            {
+              // TODO - should we include the extent of the stem here?
+            }
+        }
+
+      if (b[Y_AXIS].length () < min_y_size)
+        continue;
+
+      Direction d = LEFT;
+      do
+        {
+          Real x = b[X_AXIS][d] - x_span[LEFT];
+          Real dy = slope * x;
+
+          Direction yd = DOWN;
+          do
+            {
+              Real left_y = b[Y_AXIS][yd];
+
+              if (left_y == yd * infinity_f)
+                {
+                  collision_free[yd].set_empty ();
+                  continue;
+                }
+
+              left_y -= dy;
+
+              // Translate back to beam as ref point.
+              left_y -= -me->relative_coordinate (common[Y_AXIS], Y_AXIS);
+            
+              Interval allowed;
+              allowed.set_full ();
+
+              allowed[-yd] = left_y;
+              collision_free[yd].intersect (allowed);
+            }
+          while (flip (&yd) != DOWN);
+        }
+      while (flip (&d) != LEFT);
     }
 
-  pos = Drul_array<Real> (y, (y + dy));
+  Grob_array *arr = 
+    Pointer_group_interface::get_grob_array (me,
+                                             ly_symbol2scm ("covered-grobs"));
+  arr->set_array (filtered);
+
+  if (collision_free[DOWN].contains (beam_left_y)
+      || collision_free[UP].contains (beam_left_y))
+    {
+      // We're good to go. Do nothing.
+    }
+  else if (!collision_free[DOWN].is_empty ()
+           || !collision_free[UP].is_empty ())
+    {
+      // We have space above or below collisions (or, no collisions at
+      // all).
+      Interval best =  
+        (collision_free[DOWN].length () > collision_free[UP].length ()) ?
+        collision_free[DOWN] : collision_free[UP];
+
+      beam_left_y = point_in_interval (best, 2.0);
+    }
+  else if (!feasible_left_point.is_empty ())
+    {
+      // We are somewhat screwed: we have a collision, but at least
+      // there is a way to satisfy stem length constraints.
+      beam_left_y = point_in_interval (feasible_left_point, 2.0);
+    }
+  else
+    {
+      // We are completely screwed.
+      warning (_ ("no viable initial configuration found: may not find good beam slope"));
+    }
+  
+  pos = Drul_array<Real> (beam_left_y, (beam_left_y + beam_dy));
   scale_drul (&pos, 1 / Staff_symbol_referencer::staff_space (me));
 
   return ly_interval2scm (pos);

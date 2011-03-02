@@ -319,10 +319,10 @@ Page_layout_problem::solve_rod_spring_problem (bool ragged)
       Real overflow = spacer.configuration_length (spacer.force ())
 		      - page_height_;
       if (ragged && overflow < 1e-6)
-	warning (_ ("couldn't fit music on page: ragged-spacing was requested, but page was compressed"));
+	warning (_ ("cannot fit music on page: ragged-spacing was requested, but page was compressed"));
       else
 	{
-	  warning (_f ("couldn't fit music on page: overflow is %f",
+	  warning (_f ("cannot fit music on page: overflow is %f",
 		       overflow));
 	  warning (_ ("compressing music to fit"));
 	  vsize space_count = solution_.size ();

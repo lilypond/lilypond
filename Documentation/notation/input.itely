@@ -957,6 +957,22 @@ tocAct =
 }
 @end lilypond
 
+Dots can be added to fill the line between an item and its page number:
+
+@lilypond[verbatim,quote]
+\header { tagline = ##f }
+\paper {
+  tocItemMarkup = \tocItemWithDotsMarkup
+}
+
+\book {
+  \markuplines \table-of-contents
+  \tocItem \markup { Allegro }
+  \tocItem \markup { Largo }
+  \markup \null
+}
+@end lilypond
+
 
 @seealso
 Init files: @file{../ly/toc-init.ly}.
