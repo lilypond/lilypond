@@ -1159,7 +1159,7 @@ To make this change for all lyrics in the score, set the property in the
 @c TODO: move to LSR -vv
 
 Checking to make sure that text scripts and lyrics are within the margins
-required additional calculations.  To speed up processing slighty, this
+requires additional calculations.  To speed up processing slightly, this
 feature can be disabled:
 
 @example
