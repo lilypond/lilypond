@@ -437,12 +437,13 @@ def split_track (track):
         else:
             chs[0].append (e)
 
-    for i in range (16):
-        if chs[i] == []:
-            del chs[i]
-
     threads = []
+    i = 0
     for v in chs.values ():
+        i += 1
+        if not v:
+            continue
+        debug ('channel: %d\n' % i)
         events = events_on_channel (v)
         t = unthread_notes (events)
         if len (t):
@@ -489,7 +490,6 @@ def events_on_channel (channel):
     events = []
     last_lyric = 0
     last_time = 0
-    debug ('\n\nchannel\n')
     for e in channel:
         t = e[0]
 
