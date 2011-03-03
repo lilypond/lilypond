@@ -773,11 +773,11 @@ Axis_group_interface::calc_maybe_pure_staff_staff_spacing (Grob *me, bool pure, 
 
   if (grouper)
     {
-      Grob *last_in_group = Staff_grouper_interface::get_maybe_pure_last_grob (grouper, pure, start, end);
-      if (me == last_in_group)
-	return grouper->get_maybe_pure_property ("staffgroup-staff-spacing", pure, start, end);
-      else
+      bool within_group = Staff_grouper_interface::maybe_pure_within_group (grouper, me, pure, start, end);
+      if (within_group)
 	return grouper->get_maybe_pure_property ("staff-staff-spacing", pure, start, end);
+      else
+	return grouper->get_maybe_pure_property ("staffgroup-staff-spacing", pure, start, end);
     }
   return me->get_maybe_pure_property ("default-staff-staff-spacing", pure, start, end);
 }
