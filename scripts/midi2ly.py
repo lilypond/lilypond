@@ -56,7 +56,7 @@ global_options = None
 clocks_per_1 = 1536
 clocks_per_4 = 0
 
-time = 0
+time = None
 reference_note = 0
 start_quant_clocks = 0
 
@@ -103,7 +103,7 @@ def error (s):
     raise Exception (_ ("Exiting... "))
 
 def debug (s):
-    if 0:
+    if global_options.debug:
         progress ("debug: " + s)
 
 def system (cmd, ignore_error = 0):
@@ -181,7 +181,11 @@ class Note:
         n = self.names[(self.pitch) % 12]
         a = self.alterations[(self.pitch) % 12]
 
-        if a and global_options.key.flats:
+        key = global_options.key
+        if not key:
+            key = Key (0, 0, 0)
+
+        if a and key.flats:
             a = - self.alterations[(self.pitch) % 12]
             n = (n - a) % 7
 
@@ -213,7 +217,6 @@ class Note:
 
         o = self.pitch / 12 - 4
 
-        key = global_options.key
         if key.minor:
             # as -> gis
             if (key.sharps == 0 and key.flats == 0
@@ -405,7 +408,9 @@ class Text:
                 or d.compare (reference_note.duration)):
                 s = s + Duration (self.clocks).dump ()
             s = s + ' '
-        elif self.text and self.type == midi.SEQUENCE_TRACK_NAME:
+        elif (self.text
+              and self.type == midi.SEQUENCE_TRACK_NAME
+              and not self.text == 'control track'):
             text = self.text.replace ('(MIDI)', '').strip ()
             if text:
                 s = '\n  \\set Staff.instrumentName = "%(text)s"\n  ' % locals ()
@@ -484,6 +489,7 @@ def events_on_channel (channel):
     events = []
     last_lyric = 0
     last_time = 0
+    debug ('\n\nchannel\n')
     for e in channel:
         t = e[0]
 
@@ -536,6 +542,9 @@ def events_on_channel (channel):
                     flats = 256 - alterations
 
                 k = Key (sharps, flats, minor)
+                if not t and global_options.key:
+                    # At t == 0, a set --key overrides us
+                    k = global_options.key
                 events.append ((t, k))
 
                 # ugh, must set key while parsing
@@ -665,8 +674,6 @@ def dump_bar_line (last_bar_t, t, bar_count):
 def dump_voice (thread, skip):
     global reference_note, time
 
-    global_options.key = Key (0, 0, 0)
-    time = Time (4, 4)
     # urg LilyPond doesn't start at c4, but
     # remembers from previous tracks!
     # reference_note = Note (clocks_per_4, 4*12, 0)
@@ -802,6 +809,8 @@ def dump_track (track, n):
                 skip = '\\skip '
                 s += '%(voice_id)s = ' % locals ()
             s += '{\n'
+            if not n and not v and global_options.key:
+                s += global_options.key.dump ()
             if average_pitch[v+1] and voices > 1:
                 s += '  \\voice' + get_voice_layout (average_pitch[1:])[v] + '\n'
             s += '  ' + dump_voice (voice, skip)
@@ -888,6 +897,7 @@ def convert_midi (in_file, out_file):
     global start_quant_clocks
     global duration_quant_clocks
     global allowed_tuplet_clocks
+    global time
 
     str = open (in_file, 'rb').read ()
     clocks_max = bar_max * clocks_per_1 * 2
@@ -895,6 +905,7 @@ def convert_midi (in_file, out_file):
 
     clocks_per_1 = midi_dump[0][1]
     clocks_per_4 = clocks_per_1 / 4
+    time = Time (4, 4)
 
     if global_options.start_quant:
         start_quant_clocks = clocks_per_1 / global_options.start_quant
@@ -911,7 +922,6 @@ def convert_midi (in_file, out_file):
 
     tracks = []
     for t in midi_dump[1]:
-        global_options.key = Key (0, 0, 0)
         tracks.append (split_track (t))
 
     tag = '%% Lily was here -- automatically converted by %s from %s' % ( program_name, in_file)
@@ -948,12 +958,18 @@ def convert_midi (in_file, out_file):
     for t in tracks:
         track_name = get_track_name (i)
         item = track_first_item (t)
-
-        if item and item.__class__ == Note:
-            s += '    \\context Staff=%(track_name)s \\%(track_name)s\n' % locals ()
+        staff_name = track_name
+        context = None
+        if not i and not item and len (tracks) > 1:
+            # control track
+            staff_name = get_track_name (1)
+            context = 'Staff'
+        elif (item and item.__class__ == Note):
+            context = 'Staff'
         elif item and item.__class__ == Text:
-            s += '    \\context Lyrics=%(track_name)s \\%(track_name)s\n' % locals ()
-
+            context = 'Lyrics'
+        if context:
+            s += '    \\context %(context)s=%(staff_name)s \\%(track_name)s\n' % locals ()
         i += 1
     s = s + '  >>\n}\n'
 
@@ -979,6 +995,9 @@ def get_option_parser ():
     p.add_option ('-d', '--duration-quant',
            metavar=_ ('DUR'),
            help=_ ('quantise note durations on DUR'))
+    p.add_option ('-D', '--debug',
+                  action='store_true',
+                  help=_ ('debug printing'))
     p.add_option ('-e', '--explicit-durations',
            action='store_true',
            help=_ ('print explicit durations'))
@@ -992,7 +1011,7 @@ def get_option_parser ():
                  metavar=_ ('FILE'))
     p.add_option('-k', '--key', help=_ ('set key: ALT=+sharps|-flats; MINOR=1'),
           metavar=_ ('ALT[:MINOR]'),
-          default='0'),
+          default=None),
     p.add_option ('-o', '--output', help=_ ('write output to FILE'),
            metavar=_ ('FILE'),
            action='store')
@@ -1048,7 +1067,7 @@ def do_options ():
     if options.warranty:
         warranty ()
         sys.exit (0)
-    if 1:
+    if options.key:
         (alterations, minor) = map (int, (options.key + ':0').split (':'))[0:2]
         sharps = 0
         flats = 0
@@ -1056,7 +1075,6 @@ def do_options ():
             sharps = alterations
         else:
             flats = - alterations
-
         options.key = Key (sharps, flats, minor)
 
     if options.start_quant:
