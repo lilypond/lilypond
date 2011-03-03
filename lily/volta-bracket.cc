@@ -57,14 +57,17 @@ Volta_bracket_interface::print (SCM smob)
   Item *bound = dynamic_cast<Spanner *> (me)->get_bound (LEFT);
 
   /*
-    not a start, but really broken in two
+    If the volta bracket appears after a line-break, make
+    it start after the prefatory matter.
   */
   Real left = 0.;
   if (bound->break_status_dir () == RIGHT)
     {
       Paper_column *pc = bound->get_column ();
-      left = pc->extent (pc, X_AXIS)[RIGHT]
-	- bound->relative_coordinate (pc, X_AXIS);
+      left = pc->break_align_width (pc, ly_symbol2scm ("break-alignment"))[RIGHT]
+	// For some reason, break_align_width is relative to
+	// the x-parent of the column.
+	- bound->relative_coordinate (pc->get_parent (X_AXIS), X_AXIS);
     }
   else
     {
