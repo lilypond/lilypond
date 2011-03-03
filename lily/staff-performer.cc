@@ -17,6 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <map>
+
 #include "warn.hh"
 #include "audio-column.hh"
 #include "audio-item.hh"
@@ -49,6 +51,7 @@ private:
   Audio_text *instrument_name_;
   Audio_text *name_;
   Audio_tempo *tempo_;
+  map<string, int> channel_map_;
 };
 
 #include "translator.icc"
@@ -115,17 +118,13 @@ void
 Staff_performer::stop_translation_timestep ()
 {
   SCM proc = ly_lily_module_constant ("percussion?");
-
   SCM drums = scm_call_1 (proc, ly_symbol2scm (instrument_string_.c_str ()));
-  audio_staff_->channel_ = (drums == SCM_BOOL_T ? 9 : -1);
+  audio_staff_->percussion_ = (drums == SCM_BOOL_T);
+
   if (name_)
-    {
       name_ = 0;
-    }
   if (tempo_)
-    {
       tempo_ = 0;
-    }
   instrument_name_ = 0;
   instrument_ = 0;
 }
@@ -155,6 +154,23 @@ void
 Staff_performer::acknowledge_audio_element (Audio_element_info inf)
 {
   if (Audio_item *ai = dynamic_cast<Audio_item *> (inf.elem_))
-    audio_staff_->add_audio_item (ai);
+    {
+      /* map each context (voice) to its own channel */
+      Context *c = inf.origin_contexts (this)[0];
+      string id = c->id_string ();
+      int channel = channel_map_.size ();
+      /* MIDI players tend to ignore instrument settings on channel
+	 10, the percussion channel.  */
+      if (channel % 16 == 9)
+	channel_map_[""] = channel++;
+
+      map<string, int>::const_iterator i = channel_map_.find (id);
+      if (i != channel_map_.end ())
+	channel = i->second;
+      else
+	channel_map_[id] = channel;
+
+      audio_staff_->add_audio_item (ai);
+    }
 }
 

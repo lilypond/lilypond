@@ -24,23 +24,23 @@
 #include "midi-walker.hh"
 
 void
-Audio_staff::add_audio_item (Audio_item *l)
+Audio_staff::add_audio_item (Audio_item *ai)
 {
-  audio_items_.push_back (l);
+  audio_items_.push_back (ai);
 }
 
 Audio_staff::Audio_staff ()
+  : percussion_ (false)
 {
-  channel_ = -1; 
 }
 
 void
-Audio_staff::output (Midi_stream &midi_stream, int channel)
+Audio_staff::output (Midi_stream &midi_stream, int track)
 {
   Midi_track midi_track;
-  midi_track.number_ = channel;
+  midi_track.number_ = track;
 
-  Midi_walker i (this, &midi_track, channel);
+  Midi_walker i (this, &midi_track);
   for (; i.ok (); i++)
     i.process ();
 

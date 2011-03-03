@@ -72,8 +72,9 @@ Midi_duration::to_string () const
 }
 
 Midi_instrument::Midi_instrument (Audio_instrument *a)
+  : Midi_channel_item (a)
+  , audio_ (a)
 {
-  audio_ = a;
   audio_->str_ = String_convert::to_lower (audio_->str_);
 }
 
@@ -100,9 +101,9 @@ Midi_item::Midi_item ()
 {
 }
 
-Midi_channel_item::Midi_channel_item ()
+Midi_channel_item::Midi_channel_item (Audio_item *ai)
+  : channel_ (ai->channel_)
 {
-  channel_ = 0;
 }
 
 Midi_item::~Midi_item ()
@@ -133,8 +134,8 @@ int2midi_varint_string (int i)
 }
 
 Midi_key::Midi_key (Audio_key *a)
+  : audio_ (a)
 {
-  audio_ = a;
 }
 
 string
@@ -150,9 +151,9 @@ Midi_key::to_string () const
 }
 
 Midi_time_signature::Midi_time_signature (Audio_time_signature *a)
+  : audio_ (a)
+  , clocks_per_1_ (18)
 {
-  audio_ = a;
-  clocks_per_1_ = 18;
 }
 
 string
@@ -178,11 +179,11 @@ Midi_time_signature::to_string () const
 }
 
 Midi_note::Midi_note (Audio_note *a)
+  : Midi_channel_item (a)
+  , audio_ (a)
+  , dynamic_byte_ (0x5a)
 {
-  audio_ = a;
-  dynamic_byte_ = 0x5a;
 }
-
 
 int
 Midi_note::get_fine_tuning () const
@@ -262,8 +263,9 @@ Midi_note_off::to_string () const
 }
 
 Midi_dynamic::Midi_dynamic (Audio_dynamic *a)
+  : Midi_channel_item (a)
+  , audio_ (a)
 {
-  audio_ = a;
 }
 
 string
@@ -291,8 +293,9 @@ Midi_dynamic::to_string () const
 }
 
 Midi_piano_pedal::Midi_piano_pedal (Audio_piano_pedal *a)
+  : Midi_channel_item (a)
+  , audio_ (a)
 {
-  audio_ = a;
 }
 
 string
@@ -314,8 +317,8 @@ Midi_piano_pedal::to_string () const
 }
 
 Midi_tempo::Midi_tempo (Audio_tempo *a)
+  : audio_ (a)
 {
-  audio_ = a;
 }
 
 string
@@ -328,8 +331,8 @@ Midi_tempo::to_string () const
 }
 
 Midi_text::Midi_text (Audio_text *a)
+  : audio_ (a)
 {
-  audio_ = a;
 }
 
 string
