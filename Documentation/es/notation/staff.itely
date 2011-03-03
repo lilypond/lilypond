@@ -1088,7 +1088,7 @@ flute = \relative c'' {
 
 Si la expresión musical que se usa para @code{\quoteDuring} contiene
 cualquier cosa que no sea un silencio de separación o un silencio
-multicompás, ase produce una situación de polifonía, lo que no suele
+multicompás, se produce una situación de polifonía, lo que no suele
 ser deseable:
 
 @lilypond[verbatim,quote]
