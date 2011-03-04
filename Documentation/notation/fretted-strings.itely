@@ -363,15 +363,64 @@ ties = \relative c' {
 @cindex tablature and harmonic indications
 @cindex slides in tablature notation
 @cindex tablature and slides
+@cindex chord glissandi
+@funindex \harmonic
+@funindex \harmonicByFret
+@funindex \harmonicByRatio
+@funindex \chordGlissando
 
-Harmonic indications and slides can be added to tablature
-notation.
+Harmonic indications can be added to tablature notation as sounding
+pitches:
 
-@lilypond[verbatim, quote, relative=1]
-\new TabStaff {
-  \new TabVoice {
-    <c g'\harmonic>4 d\2\glissando e\2
-  }
+@lilypond[verbatim,quote]
+firstHarmonic = {
+  <d'\4\harmonic>4
+  <g'\3\harmonic>4
+  <b'\2\harmonic>2
+}
+\score {
+  <<
+    \new Staff { \firstHarmonic }
+    \new TabStaff { \firstHarmonic }
+  >>
+}
+@end lilypond
+
+Note that the command @code{\harmonic} must always be defined
+inside a chord construct. It only makes sense for open-string harmonics
+in the 12th fret. All other harmonics should be calculated by LilyPond.
+This can be achieved by indicating the fret where a finger of the
+fretting hand should touch a string.
+
+@lilypond[verbatim,quote]
+fretHarmonics = {
+  \harmonicByFret #5 d16\4
+  \harmonicByFret #4 d16\4
+  \harmonicByFret #3 d8\4
+  \harmonicByFret #5 <g\3 b\2>2.
+}
+\score {
+  <<
+    \new Staff { \fretHarmonics }
+    \new TabStaff { \fretHarmonics }
+  >>
+}
+@end lilypond
+
+Alternatively, harmonics can be computed by defining the ratio of
+string lengths above and below the harmonic fingering.
+
+@lilypond[verbatim,quote]
+ratioHarmonics = {
+  \harmonicByRatio #1/2 <g\3 b\2 e'\1>4
+  \harmonicByRatio #1/3 <g\3 b\2 e'\1>4
+  \harmonicByRatio #1/4 { g8\3 b8\2 e'4\1 }
+}
+\score {
+  <<
+    \new Staff { \ratioHarmonics }
+    \new TabStaff { \ratioHarmonics }
+  >>
 }
 @end lilypond
 
@@ -384,10 +433,24 @@ notation.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {polyphony-in-tablature.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{tablature-open-string-harmonics.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{tablature-fretted-string-harmonics.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{tablature-slides.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{tablature-chord-glissando.ly}
+
 
 @seealso
 Notation Reference:
-@ref{Stems}.
+@ref{Stems},
+@ref{Harmonics},
+@ref{Glissando}.
 
 Snippets:
 @rlsr{Fretted strings}.
