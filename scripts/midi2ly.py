@@ -800,7 +800,9 @@ def dump_track (track, n):
             item = voice_first_item (voice)
 
             if item and item.__class__ == Note:
-                skip = 's'
+                skip = 'r'
+                if global_options.skip:
+                    skip = 's'
                 s += '%(voice_id)s = ' % locals ()
                 if not global_options.absolute_pitches:
                     s += '\\relative c '
@@ -944,6 +946,8 @@ def convert_midi (in_file, out_file):
     \Voice
     \remove "Note_heads_engraver"
     \consists "Completion_heads_engraver"
+    \remove "Rest_engraver"
+    \consists "Completion_rest_engraver"
   }
 }
 '''
@@ -1025,6 +1029,9 @@ def get_option_parser ():
            action='store_true')
     p.add_option ('-s', '--start-quant',help= _ ('quantise note starts on DUR'),
            metavar=_ ('DUR'))
+    p.add_option ('-S', '--skip',
+           action = "store_true",
+           help =_ ("use s instead of r for rests"))
     p.add_option ('-t', '--allow-tuplet',
            metavar=_ ('DUR*NUM/DEN'),
            action = 'append',
