@@ -1055,6 +1055,10 @@ def do_options ():
     opt_parser = get_option_parser ()
     (options, args) = opt_parser.parse_args ()
 
+    if options.warranty:
+        warranty ()
+        sys.exit (0)
+
     if not args or args[0] == '-':
         opt_parser.print_help ()
         ly.stderr_write ('\n%s: %s %s\n' % (program_name, _ ('error: '),
@@ -1064,9 +1068,6 @@ def do_options ():
     if options.duration_quant:
         options.duration_quant = int (options.duration_quant)
 
-    if options.warranty:
-        warranty ()
-        sys.exit (0)
     if options.key:
         (alterations, minor) = map (int, (options.key + ':0').split (':'))[0:2]
         sharps = 0
