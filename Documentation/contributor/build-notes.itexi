@@ -10,6 +10,7 @@ chapter.}
 
 @menu
 * Build system overview::
+* Tips for working on the build system::
 * Doc build::
 * Website build::
 @end menu
@@ -54,6 +55,32 @@ When I try to do anything in the build system, it helps to remind
 myself of this.  The "end result" is just a series of command-line
 commands.  All the black magick is just an attempt to construct
 those commands.
+
+@node Tips for working on the build system
+@section Tips for working on the build system
+
+@itemize
+@item
+Add:
+
+@example
+echo "aaa"
+
+echo "bbb"
+@end example
+
+to the build system files in various places.  This will let you
+track where the program is, in various points of the build.
+
+@item
+First task: understand how @code{make website} works,
+@emph{without} the translations.  Looking at the english-only
+website is the best introduction to the build system... it only
+covers about 5% of the whole thing, but even that will likely take
+10 hours or more.
+
+@end itemize
+
 
 
 @node Doc build
