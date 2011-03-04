@@ -238,7 +238,6 @@ ADD_TRANSLATOR (Completion_rest_engraver,
 		,
 		/* create */
 		"Rest "
-		"Dots "
 		,
 		/* read */
 		"middleCPosition "

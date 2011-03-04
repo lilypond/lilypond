@@ -317,7 +317,6 @@ ADD_TRANSLATOR (Completion_heads_engraver,
 		,
 		/* create */
 		"NoteHead "
-		"Dots "
 		"Tie "
 		,
 		/* read */
