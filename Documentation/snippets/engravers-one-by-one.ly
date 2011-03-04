@@ -8,7 +8,7 @@
 \version "2.13.52"
 
 \header {
-%% Translation of GIT committish: d0a39a10d625c28a43acd9641aefeb2c7218ab41
+%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
   texidoces = "
 Del problema central de la notación, esto es, crear un determinado
 símbolo, se encargan los «plugins» o complementos añadidos.  Cada

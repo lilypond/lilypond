@@ -8,7 +8,7 @@
 \version "2.13.36"
 
 \header {
-%% Translation of GIT committish: d0a39a10d625c28a43acd9641aefeb2c7218ab41
+%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
   doctitlees = "Alteraciones de estilo dodecafónico para todas las notas incluidas las naturales"
   texidoces = "
 En las obras de principios del s.XX, empezando por Schoenberg, Berg y

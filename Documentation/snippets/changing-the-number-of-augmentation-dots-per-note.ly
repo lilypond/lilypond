@@ -7,7 +7,7 @@
 %% Note: this file works from version 2.13.36
 \version "2.13.36"
 \header {
-%% Translation of GIT committish: fa19277d20f8ab0397c560eb0e7b814bd804ecec
+%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
 
   texidoces = "
 Este código muestra cómo cambiar la cantidad de puntillos de una nota.

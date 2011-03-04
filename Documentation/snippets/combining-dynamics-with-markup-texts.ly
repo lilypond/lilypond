@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks, text"
 
-%% Translation of GIT committish: fa19277d20f8ab0397c560eb0e7b814bd804ecec
+%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
   texidoces = "
 Ciertas indicaciones dinámicas pueden llevar textos (como @qq{più
 forte} o @qq{piano subito}). Se pueden producir usando un bloque

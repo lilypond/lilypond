@@ -9,7 +9,7 @@
 \header {
   lsrtags = "editorial-annotations, text"
 
-%% Translation of GIT committish: fa19277d20f8ab0397c560eb0e7b814bd804ecec
+%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
   texidoces = "
 La instrucción @code{\\whiteout} intercala un rectángulo blanco
 debajo de un elemento de marcado.  Este rectángulo blanco no tapa
