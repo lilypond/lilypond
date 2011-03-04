@@ -170,6 +170,7 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
       else
 	channel_map_[id] = channel;
 
+      ai->channel_ = channel;
       audio_staff_->add_audio_item (ai);
     }
 }
