@@ -434,16 +434,16 @@ ratioHarmonics = {
 {polyphony-in-tablature.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{tablature-open-string-harmonics.ly}
+{open-string-harmonics-in-tablature.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{tablature-fretted-string-harmonics.ly}
+{fretted-string-harmonics-in-tablature.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{tablature-slides.ly}
+{slides-in-tablature.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{tablature-chord-glissando.ly}
+{chord-glissando-in-tablature.ly}
 
 
 @seealso
