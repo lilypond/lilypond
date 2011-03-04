@@ -1099,30 +1099,33 @@ def do_options ():
 def main ():
     files = do_options ()
 
+    exts = ['.midi', '.mid', '.MID']
     for f in files:
         g = f
-        g = strip_extension (g, '.midi')
-        g = strip_extension (g, '.mid')
-        g = strip_extension (g, '.MID')
-        (outdir, outbase) = ('','')
+        for e in exts:
+            g = strip_extension (g, e)
+        if not os.path.exists (f):
+            for e in exts:
+                n = g + e
+                if os.path.exists (n):
+                    f = n
+                    break
 
         if not global_options.output:
             outdir = '.'
             outbase = os.path.basename (g)
-            o = os.path.join (outdir, outbase + '-midi.ly')
-        elif global_options.output[-1] == os.sep:
+            o = outbase + '-midi.ly'
+        elif (global_options.output[-1] == os.sep
+              or os.path.isdir (global_options.output)):
             outdir = global_options.output
             outbase = os.path.basename (g)
-            os.path.join (outdir, outbase + '-gen.ly')
+            o = os.path.join (outdir, outbase + '-midi.ly')
         else:
             o = global_options.output
             (outdir, outbase) = os.path.split (o)
 
-        if outdir != '.' and outdir != '':
-            try:
-                os.mkdir (outdir, 0777)
-            except OSError:
-                pass
+        if outdir and outdir != '.' and not os.path.exists (outdir):
+            os.mkdir (outdir, 0777)
 
         convert_midi (f, o)
 
