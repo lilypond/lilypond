@@ -1,0 +1,80 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+
+@node Build system notes
+@chapter Build system notes
+
+@warning{This chapter is in high flux, and is being run in a
+@qq{wiki-like} fashion.  Do not trust anything you read in this
+chapter.}
+
+@menu
+* Build system overview::
+* Doc build::
+* Website build::
+@end menu
+
+
+@node Build system overview
+@section Build system overview
+
+Build system is currently GNU make, with an extra "stepmake" layer
+on top.  Look at files in @file{make/} and @file{stepmake/} and
+all @file{GNUmakefile}s.
+
+There is wide-spread dissatisfaction with this system, and we are
+considering changing.  This would be a huge undertaking (estimated
+200+ hours).  This change will probably involve not using GNU make
+any more -- but a discussion about the precise build system will
+have to wait.  Before we reach that point, we need to figure out
+(at least approximately) what the current build system does.
+
+Fundamentally, a build system does two things:
+
+@enumerate
+@item
+Constructs command-line commands, for example:
+
+@example
+lilypond-book \
+  --tons --of --options \
+  pitches.itely
+texi2pdf \
+  --more --imperial --and --metric --tons --of --options \
+  pitches.texi
+@end example
+
+@item
+If there was a previous build, it decides which parts of the
+system need to be rebuilt.
+
+@end enumerate
+
+When I try to do anything in the build system, it helps to remind
+myself of this.  The "end result" is just a series of command-line
+commands.  All the black magick is just an attempt to construct
+those commands.
+
+
+@node Doc build
+@section Doc build
+
+@menu
+* Building a bibliography::
+@end menu
+
+@node Building a bibliography
+@subsection Building a bibliography
+
+
+
+@node Website build
+@section Website build
+
+Start here: @file{make/website.make}
+
+Website build includes @ref{Building a bibliography}.
+
+
+
+
