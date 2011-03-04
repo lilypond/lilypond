@@ -401,6 +401,7 @@ class Text:
 
     def dump (self):
         # urg, we should be sure that we're in a lyrics staff
+        s = ''
         if self.type == midi.LYRIC:
             s = '"%s"' % self.text
             d = Duration (self.clocks)
@@ -408,13 +409,13 @@ class Text:
                 or d.compare (reference_note.duration)):
                 s = s + Duration (self.clocks).dump ()
             s = s + ' '
-        elif (self.text
+        elif (self.text.strip ()
               and self.type == midi.SEQUENCE_TRACK_NAME
               and not self.text == 'control track'):
             text = self.text.replace ('(MIDI)', '').strip ()
             if text:
                 s = '\n  \\set Staff.instrumentName = "%(text)s"\n  ' % locals ()
-        else:
+        elif self.text.strip ():
             s = '\n  % [' + self.text_types[self.type] + '] ' + self.text + '\n  '
         return s
 
@@ -662,7 +663,7 @@ def dump_bar_line (last_bar_t, t, bar_count):
         bar_count = bar_count + (t - last_bar_t) / bar_t
 
         if t - last_bar_t == bar_t:
-            s = '|\n  %% %d\n  ' % bar_count
+            s = '\n  | %% %(bar_count)d\n  ' % locals ()
             last_bar_t = t
         else:
             # urg, this will barf at meter changes
@@ -758,8 +759,8 @@ def get_track_name (i):
 def get_channel_name (i):
     return 'channel' + number2ascii (i)
 
-def get_voice_name (i):
-    if True: #i:
+def get_voice_name (i, zero_too_p=False):
+    if i or zero_too_p:
         return 'voice' + number2ascii (i)
     return ''
 
@@ -788,8 +789,9 @@ def dump_track (track, n):
     clef = get_best_clef (average_pitch[0])
 
     c = 0
-    v = 0
+    vv = 0
     for channel in track:
+        v = 0
         channel_name = get_channel_name (c)
         c += 1
         for voice in channel:
@@ -809,13 +811,14 @@ def dump_track (track, n):
                 skip = '\\skip '
                 s += '%(voice_id)s = ' % locals ()
             s += '{\n'
-            if not n and not v and global_options.key:
+            if not n and not vv and global_options.key:
                 s += global_options.key.dump ()
-            if average_pitch[v+1] and voices > 1:
-                s += '  \\voice' + get_voice_layout (average_pitch[1:])[v] + '\n'
+            if average_pitch[vv+1] and voices > 1:
+                s += '  \\voice' + get_voice_layout (average_pitch[1:])[vv] + '\n'
             s += '  ' + dump_voice (voice, skip)
             s += '}\n\n'
             v += 1
+            vv += 1
 
     s += '%(track_name)s = <<\n' % locals ()
 
@@ -823,19 +826,22 @@ def dump_track (track, n):
         s += clef.dump () + '\n'
 
     c = 0
-    v = 0
+    vv = 0
     for channel in track:
+        v = 0
         channel_name = get_channel_name (c)
         c += 1
         for voice in channel:
+            voice_context_name = get_voice_name (vv, zero_too_p=True)
             voice_name = get_voice_name (v)
             v += 1
+            vv += 1
             voice_id = track_name + channel_name + voice_name
             item = voice_first_item (voice)
             context = 'Voice'
             if item and item.__class__ == Text:
                 context = 'Lyrics'
-            s += '  \\context %(context)s = %(voice_name)s \\%(voice_id)s\n' % locals ()
+            s += '  \\context %(context)s = %(voice_context_name)s \\%(voice_id)s\n' % locals ()
     s += '>>\n\n'
     return s
 
