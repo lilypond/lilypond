@@ -62,6 +62,42 @@ which scares away people.
 @end ignore
 
 @item
+MIDI-import through Midi2ly is improved
+@itemize @bullet
+@item Midi2ly now also works on Windows systems
+@item MIDI-files with more than 32 tracks are now handled
+@item notes on certain simultaneous voices no longer ignored
+@item notes overrunning a bar line are no longer truncated
+@item initial key signature and time signature are respected
+@item a problem with octaves in subsequent tracks/voices is fixed
+@item initial support for multiple voices notated on one staff
+@item the instrumentName is set from track data
+@item new --skip option, rests are displayed by default
+@item rests overrunning a bar line are not truncated
+@item new --include-header option for setting titles
+@item new --preview option for big MIDI-files
+@end itemize
+The first feature was sponsored by Valentin Villenave,
+the other features were sponsored by Image-Line Software for FL Studio.
+
+@item
+A new @code{Completion_rest_engraver} is available for automatically
+converting long rests which overrun bar lines, matching the
+@code{Completion_heads_engraver} for notes
+@example
+\layout {
+  \context {
+    \Voice
+    \remove "Note_heads_engraver"
+    \consists "Completion_heads_engraver"
+    \remove "Rest_engraver"
+    \consists "Completion_rest_engraver"
+  }
+}
+@end example
+This feature was sponsored by Image-Line Software for FL Studio.
+
+@item
 Dots can be added to the table of contents items using:
 @example
 \paper @{
