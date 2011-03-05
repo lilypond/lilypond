@@ -3212,9 +3212,37 @@ durations in the other staves.  For the above example
 >>
 @end lilypond
 
+The use of grace notes within voice contexts confuses the way the
+voice is typeset. This can be overcome by inserting a rest or note
+between the voice command and the grace note.
+
+@lilypond[quote,verbatim]
+accMusic = {
+  \acciaccatura { f8 } e8 r8 \acciaccatura { f8 } e8 r4
+}
+
+\new Staff {
+  <<
+    \new Voice {
+      \relative c'' {
+        r8 r8 \voiceOne \accMusic \oneVoice r8 |
+        r8 \voiceOne r8 \accMusic \oneVoice r8 |
+      }
+    }
+    \new Voice {
+      \relative c' {
+        s8 s8 \voiceTwo \accMusic \oneVoice s8 |
+        s8 \voiceTwo r8 \accMusic \oneVoice s8 |
+      }
+    }
+  >>
+}
+@end lilypond
+
 Grace sections should only be used within sequential music
 expressions.  Nesting or juxtaposing grace sections is not
 supported, and might produce crashes or other errors.
+
 
 @node Aligning to cadenzas
 @unnumberedsubsubsec Aligning to cadenzas
