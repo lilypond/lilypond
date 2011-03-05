@@ -151,13 +151,18 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
 	      if (arr[i] == before_grob)
 		{
 		  arr.insert (arr.begin () + i, added);
-		  added->set_property ("staff-affinity", scm_from_int (DOWN));
+
+		  /* Only set staff affinity if it already has one.  That way we won't
+		     set staff-affinity on things that don't want it (like staves). */
+		  if (scm_is_number (added->get_property ("staff-affinity")))
+		    added->set_property ("staff-affinity", scm_from_int (DOWN));
 		  break;
 		}
 	      else if (arr[i] == after_grob)
 		{
 		  arr.insert (arr.begin () + i + 1, added);
-		  added->set_property ("staff-affinity", scm_from_int (UP));
+		  if (scm_is_number (added->get_property ("staff-affinity")))
+		    added->set_property ("staff-affinity", scm_from_int (UP));
 		  break;
 		}
 	    }
