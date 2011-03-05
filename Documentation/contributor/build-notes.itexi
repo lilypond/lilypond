@@ -93,7 +93,99 @@ covers about 5% of the whole thing, but even that will likely take
 @node Building a bibliography
 @subsection Building a bibliography
 
+Bibliography files contain a list of citations, like this:
 
+@example
+@@Book@{vinci,
+  author = @{Vinci, Albert C.@},
+  title = @{Fundamentals of Traditional Music Notation@},
+  publisher = @{Kent State University Press@},
+  year = @{1989@}
+@}
+@end example
+
+There are a variety of types of citation (e.g. Book (as above),
+article, publication).  Each cited publication has a list of
+entries that can be used to identify the publication.
+Bibliograpies are normally stored as files with a .bib
+extension.  One part of the doc-build process is transforming the
+bibliography information into @code{texinfo} files.  The commands
+to do this are in the @file{GNUmakefile} in the
+@file{Documentation} directory.
+
+A typical line of the makefile to translate a single bibliography
+is:
+
+@example
+$(outdir)/colorado.itexi:
+	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
+		-s $(top-src-dir)/Documentation/lily-bib \
+		-o $(outdir)/colorado.itexi \
+		$(src-dir)/essay/colorado.bib
+@end example
+
+Line by line:
+
+@example
+$(outdir)/colorado.itexi:
+@end example
+
+We're making the file @file{colorado.itexi} and so this is the
+make instruction.
+
+@example
+	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
+@end example
+
+It's in the @file{essay} directory and we want to run the
+bib2texi.py script against it.
+
+@example
+		-s $(top-src-dir)/Documentation/lily-bib \
+@end example
+
+The style template is @file{lily-bib.bst} and is found in the
+@file{Documentation} directory.
+
+@example
+		-o $(outdir)/colorado.itexi \
+@end example
+
+The output file in @file{colorado.itexi}.
+
+@example
+		$(src-dir)/essay/colorado.bib
+@end example
+
+The input file is @file{colorado.bib} in the @file{essay}
+directory.
+
+The @code{bib2texi} Python script used to be used with a variety
+of options, but now is always called using the same options, as
+above.  Its job is to create the file containing the options for
+@code{bibtex} (the program that actually does the translation),
+run bibtex, and then clean up some temporary files.  Its main
+"value add" is the creation of the options file, using this code:
+
+@example
+open (tmpfile + '.aux', 'w').write (r'''
+\relax
+\citation@{*@}
+\bibstyle@{%(style)s@}
+\bibdata@{%(files)s@}''' % vars ())
+@end example
+
+The key items are the style file (now always lily-bib for us) and
+the input file.
+
+The style file is written in its own specialised language,
+described to some extent at
+
+@example
+@uref{http://amath.colorado.edu/documentation/LaTeX/reference/faq/bibtex.pdf}
+@end example
+
+The file @file{lily-bib.bst} also has fairly extensive commenting.
 
 @node Website build
 @section Website build
