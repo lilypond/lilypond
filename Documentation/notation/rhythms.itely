@@ -2225,10 +2225,10 @@ in only one staff.
 >>
 @end lilypond
 
-The default beam settings for the time signature can also be
-changed, so that set the desired beaming will always be used
-Changes in automatic beaming settings
-for a time signature are described in @ref{Time signature}.
+The default beam settings for the time signature can also be changed, so
+that the desired beaming will always be used.  Changes in automatic
+beaming settings for a time signature are described in
+@ref{Time signature}.
 
 @lilypond[quote,verbatim,relative=2]
 <<
