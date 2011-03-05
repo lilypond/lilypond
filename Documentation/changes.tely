@@ -85,15 +85,15 @@ A new @code{Completion_rest_engraver} is available for automatically
 converting long rests which overrun bar lines, matching the
 @code{Completion_heads_engraver} for notes
 @example
-\layout {
-  \context {
+\layout @{
+  \context @{
     \Voice
     \remove "Note_heads_engraver"
     \consists "Completion_heads_engraver"
     \remove "Rest_engraver"
     \consists "Completion_rest_engraver"
-  }
-}
+  @}
+@}
 @end example
 This feature was sponsored by Image-Line Software for FL Studio.
 
