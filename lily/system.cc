@@ -277,6 +277,8 @@ System::get_footnote_grobs_in_range (vector<Grob *> &out, vsize start, vsize end
         continue;
       if (pos > (int)end)
         break;
+      if (pos == (int)start && end_of_line_visible)
+        continue;
       if (pos == (int)end && !end_of_line_visible)
         continue;
       if (!footnote_grobs_[i]->is_live ())
