@@ -56,7 +56,6 @@
   ragged-bottom = ##f
   ragged-last-bottom = ##t  % best for shorter scores
 
-
   %%
   %% Flexible vertical spacing
   %%
@@ -105,12 +104,18 @@
 
 
   %%
+  %% Footnotes
+  %%
+  footnote-separator-markup = \markup { \draw-hline }
+  footnote-padding = 0.5\mm
+
+
+  %%
   %% Page numbering
   %%
   first-page-number = #1
   print-first-page-number = ##f
   print-page-number = ##t
-
 
   %%
   %% Headers, footers, and titles

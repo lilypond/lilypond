@@ -342,7 +342,28 @@ featherDurations=
 
      argument))
 
+footnoteGrob =
+#(define-music-function (parser location grob-name offset text footnote)
+   (symbol? number-pair? markup? markup?)
+   (_i "Attach @var{text} to @var{grob-name} at offset @var{offset},
+ with @var{text} referring to @var{footnote} (use like @code{\\once})")
+   (make-music 'FootnoteEvent
+	       'symbol grob-name
+	       'X-offset (car offset)
+	       'Y-offset (cdr offset)
+	       'text text
+	       'footnote-text footnote))
 
+footnote =
+#(define-music-function (parser location offset text footnote)
+   (number-pair? markup? markup?)
+   (_i "Attach @var{text} at @var{offset} with @var{text} referring
+ to @var{footnote} (use like @code{\\tweak})")
+   (make-music 'FootnoteEvent
+	       'X-offset (car offset)
+	       'Y-offset (cdr offset)
+	       'text text
+	       'footnote-text footnote))
 
 grace =
 #(def-grace-function startGraceMusic stopGraceMusic

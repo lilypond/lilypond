@@ -25,7 +25,7 @@
 		 (RemoveContext ChangeParent Override Revert UnsetProperty
 				SetProperty music-event OldMusicEvent CreateContext Prepare
 				OneTimeStep Finish))
-    (music-event . (annotate-output-event
+    (music-event . (annotate-output-event footnote-event
 		    arpeggio-event breathing-event extender-event span-event
       rhythmic-event dynamic-event break-event label-event percent-event
       key-change-event string-number-event stroke-finger-event tie-event

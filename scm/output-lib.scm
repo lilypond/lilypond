@@ -244,6 +244,9 @@ and duration-log @var{log}."
 (define-public (inherit-x-parent-visibility grob)
   (let ((parent (ly:grob-parent grob X)))
     (ly:grob-property parent 'break-visibility all-invisible)))
+(define-public (inherit-y-parent-visibility grob)
+  (let ((parent (ly:grob-parent grob X)))
+    (ly:grob-property parent 'break-visibility)))
 
 
 (define-public spanbar-begin-of-line-invisible #(#t #f #f))

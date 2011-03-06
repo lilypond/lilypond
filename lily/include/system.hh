@@ -36,7 +36,9 @@ class System : public Spanner
   void init_elements ();
   friend class Paper_score;	// ugh.
   Paper_score *pscore_;	// ugh.
-  
+  bool checked_footnotes_;
+  vector<Grob *> footnote_grobs_; // TODO: make this a grob array
+
 public:
   Paper_score *paper_score () const;
   Grob *get_vertical_alignment ();
@@ -44,11 +46,16 @@ public:
   Grob *get_pure_bound (Direction dir, int start, int end);
   Grob *get_maybe_pure_bound (Direction dir, bool pure, int start, int end);
   int get_rank () const;
+  vector<Stencil *> get_footnotes_in_range (vsize st, vsize end);
+  void get_footnote_grobs_in_range (vector<Grob *> &out, vsize st, vsize end);
+  Stencil make_footnote_stencil (Real padding);
   void do_break_substitution_and_fixup_refpoints ();
   void post_processing ();
+  void populate_footnote_grob_vector ();
   SCM get_paper_system ();
   SCM get_paper_systems ();
   SCM get_broken_system_grobs ();
+  SCM get_broken_footnote_stencils ();
 
   DECLARE_SCHEME_CALLBACK (calc_pure_relevant_grobs, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));

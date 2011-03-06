@@ -229,6 +229,7 @@ multiple voices on the same staff."
   \consists "Dots_engraver"
   \consists "Rest_engraver"
   \consists "Tweak_engraver"
+  \consists "Footnote_engraver"
 
   %% switch on to make stem directions interpolate for the
   %% center line.

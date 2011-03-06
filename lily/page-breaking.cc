@@ -131,12 +131,14 @@
 
 #include "international.hh"
 #include "item.hh"
+#include "line-interface.hh"
 #include "output-def.hh"
 #include "page-layout-problem.hh"
 #include "page-spacing.hh"
 #include "paper-book.hh"
 #include "paper-score.hh"
 #include "paper-system.hh"
+#include "text-interface.hh"
 #include "system.hh"
 #include "warn.hh"
 
@@ -178,7 +180,12 @@ compress_lines (const vector<Line_details> &orig)
 
 	  // compressed.title_ is true if and only if the first of its
 	  // compressed lines was a title.
-	  compressed.title_ = old.title_;
+          compressed.title_ = old.title_;
+
+          // adds footnotes of one line to the footnotes of another
+          compressed.footnotes_.insert (compressed.footnotes_.begin (),
+            old.footnotes_.begin (), old.footnotes_.end ());
+          
 	  ret.back () = compressed;
 	}
       else
@@ -243,6 +250,20 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_bre
   min_systems_per_page_ = max (0, robust_scm2int (pb->paper_->c_variable ("min-systems-per-page"), 0));
   orphan_penalty_ = robust_scm2int (pb->paper_->c_variable ("orphan-penalty"), 100000);
 
+  Stencil *footnote_separator = Page_layout_problem::get_footnote_separator_stencil (pb->paper_);
+
+  if (footnote_separator)
+    {
+      Interval separator_extent = footnote_separator->extent (Y_AXIS);
+      Real separator_span = separator_extent.length ();
+
+      footnote_separator_stencil_height_ = separator_span;
+    }
+  else
+    footnote_separator_stencil_height_ = 0.0;
+
+  footnote_padding_ = robust_scm2double (pb->paper_->c_variable ("footnote-padding"), 0.0);
+
   if (systems_per_page_ && (max_systems_per_page_ || min_systems_per_page_))
     {
       warning (_f ("ignoring min-systems-per-page and max-systems-per-page because systems-per-page was set"));
@@ -300,6 +321,18 @@ vsize
 Page_breaking::system_count () const
 {
   return system_count_;
+}
+
+Real
+Page_breaking::footnote_separator_stencil_height () const
+{
+  return footnote_separator_stencil_height_;
+}
+
+Real
+Page_breaking::footnote_padding () const
+{
+  return footnote_padding_;
 }
 
 bool
@@ -514,6 +547,12 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool las
   Prob *p = unsmob_prob (page);
   p->set_property ("lines", paper_systems);
   p->set_property ("configuration", configuration);
+
+  Stencil *foot = unsmob_stencil (p->get_property ("foot-stencil"));
+  SCM footnotes = Page_layout_problem::get_footnotes_from_lines (systems, footnote_padding ());
+  Page_layout_problem::add_footnotes_to_footer (footnotes, foot, unsmob_paper_book (p->get_property ("paper-book")));
+
+  p->set_property ("foot-stencil", foot->smobbed_copy ());
   scm_apply_1 (page_stencil, page, SCM_EOL);
 
   return page;
@@ -559,6 +598,7 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
     {
       SCM lines = scm_caar (s);
       SCM config = scm_cdar (s);
+      
       bool bookpart_last_page = (s == systems_and_configs);
       SCM page = draw_page (lines, config, page_num, bookpart_last_page);
 

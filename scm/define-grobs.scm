@@ -863,6 +863,37 @@
 				text-interface
 				text-script-interface))))))
 
+    (FootnoteItem
+     . (
+	(break-visibility . ,inherit-y-parent-visibility)
+	(footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
+	(stencil . #f)
+	(text . ,(grob::calc-property-by-copy 'text))
+	(Y-extent . 0.0)
+	(X-offset . ,(grob::calc-property-by-copy 'X-offset))
+	(Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
+	(meta . ((class . Item)
+		 (interfaces . (balloon-interface
+				footnote-interface
+				font-interface
+				text-interface))))))
+
+    (FootnoteSpanner
+     . (
+	(footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
+	(spanner-placement . -1.0)
+	(stencil . #f)
+	(text . ,(grob::calc-property-by-copy 'text))
+	(Y-extent . 0.0)
+	(X-offset . ,(grob::calc-property-by-copy 'X-offset))
+	(Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
+	(meta . ((class . Spanner)
+		 (interfaces . (balloon-interface
+                                footnote-interface
+				footnote-spanner-interface
+				font-interface
+				text-interface))))))
+
     (FretBoard
      . (
 	(after-line-breaking . ,ly:chord-name::after-line-breaking)

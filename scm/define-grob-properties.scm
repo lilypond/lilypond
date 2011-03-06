@@ -293,6 +293,7 @@ include @code{upright}, @code{italic}, @code{caps}.")
 @code{-1} is smaller, @code{+1} is bigger.  Each step of@tie{}1 is
 approximately 12% larger; 6@tie{}steps are exactly a factor@tie{}2
 larger.  Fractional values are allowed.")
+     (footnote-text ,markup? "A footnote for the grob.")
      (force-hshift ,number? "This specifies a manual shift for notes
 in collisions.  The unit is the note head width of the first voice
 note.  This is used by @rinternals{note-collision-interface}.")
@@ -1029,6 +1030,16 @@ grobs.")
      (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing
 objects.")
      (span-start ,boolean? "Is the note head at the start of a spanner?")
+     (spanner-placement ,number? "The place of an annotation on a spanner.
+Note that this number must be between -1 and 1, with -1 representing the
+beginning of the spanner and 1 representing the end.  The annotation will
+still be placed at the left or right extremity of the spanner, but this
+number ensures that when line breaking happens, the annotation is assigned
+to the correct broken piece and the footnote is put on the correct page.
+An important caveat is that this number applies to column ranks, not staff
+space.  For example, 0 will place the annotation at the middle column of
+its parent's span, which may be to the right or left of the physical middle
+of the spanner.")
      (staff-grouper ,ly:grob? "The staff grouper we belong to.")
      (staff-symbol ,ly:grob? "The staff symbol grob that we are in.")
      (stem ,ly:grob? "A pointer to a @code{Stem} object.")
