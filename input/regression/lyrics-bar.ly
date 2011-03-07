@@ -11,21 +11,21 @@ lyrics do not collide with barlines.
     ragged-right = ##t
 }
 
-<<
-    \new Staff {
-	b1 \bar "|:" b1 \bar ":|"
+\relative c'' <<
+    \new Voice = "a"{
+	b1 \bar "|:" b1 \bar ":|" b1 \bar "|."
     }
-    \context Lyrics \with {
+    \new Lyrics \with {
 	\consists "Bar_engraver"
 	\consists "Separating_line_group_engraver"
-    } \lyricmode {
-	  looooooooooooooooooooooooooooooooooong1 syllable
+    } \lyricsto "a" {
+	  bars lengthened if
       }
-    \lyrics {
-	no Bar_Engraver_Bar_Engraver_Bar_Engraver
+    \new Lyrics \lyricsto "a" {
+	required for noncollision
     }
     \new Staff {
-	b1 b1
+	b1 b1 b1
     }
 >>
 \layout {

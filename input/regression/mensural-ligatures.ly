@@ -17,6 +17,7 @@
   \context {
     \Score
     \override SpacingSpanner #'packed-spacing = ##t
+    \override PaperColumn #'keep-inside-line = ##f
   }
 }
 
