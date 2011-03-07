@@ -19,8 +19,6 @@ and @code{\\chordGlissando} draws lines between single notes.
 } % begin verbatim
 
 
-\include "chord-glissando-init.ly"
-
 myMusic = \relative c' {
   \chordGlissando
   <c\3 e\2 g\1>8 <f\3 a\2 c\1>
