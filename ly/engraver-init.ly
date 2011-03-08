@@ -208,7 +208,6 @@ subscripts, slurs, ties, and rests.
 You have to instantiate this explicitly if you want to have
 multiple voices on the same staff."
 
-  localKeySignature = #'()
   \consists "Font_size_engraver"
 
   \consists "Pitched_trill_engraver"
