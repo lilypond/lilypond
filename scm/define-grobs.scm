@@ -1864,7 +1864,7 @@
 	 . (
 	    ;; 3.5 (or 3 measured from note head) is standard length
 	    ;; 32nd, 64th, 128th flagged stems should be longer
-	    (lengths . (3.5 3.5 3.5 4.5 5.0 6.0))
+	    (lengths . (3.5 3.5 3.5 4.25 5.0 6.0))
 
 	    ;; FIXME.  3.5 yields too long beams (according to Ross and
 	    ;; looking at Baerenreiter examples) for a number of common
