@@ -106,7 +106,7 @@
   %%
   %% Footnotes
   %%
-  footnote-separator-markup = \markup { \draw-hline }
+  footnote-separator-markup = \markup { \fill-line \override #`(span-factor . 1/2) { \draw-hline } }
   footnote-padding = 0.5\mm
 
 
