@@ -22,4 +22,5 @@ notes with a duration factor still keep their requested appearance.
   c\breve |
   c1*2 |
   c2*4 |
+  c8*20
 }

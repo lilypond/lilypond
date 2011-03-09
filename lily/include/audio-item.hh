@@ -27,8 +27,10 @@
 class Audio_item : public Audio_element
 {
 public:
-  Audio_item ();
   Audio_column *audio_column_;
+  int channel_;
+
+  Audio_item ();
   Audio_column *get_column () const;
 
   virtual void render ();

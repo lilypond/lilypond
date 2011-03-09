@@ -167,13 +167,12 @@ Align_interface::get_minimum_translations_without_min_dist (Grob *me,
   return internal_get_minimum_translations (me, all_grobs, a, false, false, 0, 0);
 }
 
-// If include_fixed_spacing is false, the only constraints that will be measured
-// here are those that result from collisions (+ padding).  That is, all
-// minimum-distances, line-break-system-details, basic-distance+stretchable=0
-// constraints will be ignored.
-// - If you want to find the minimum height of a system, include_fixed_spacing should be true.
-// - If you're going to actually lay out the page, then it should be false (or
-//   else centered dynamics will break when there is a fixed alignment).
+// If include_fixed_spacing is true, the manually fixed spacings
+// induced by stretchable=0 or alignment-distances are included
+// in the minimum translations here.  If you want to find the minimum
+// height of a system, include_fixed_spacing should be true.  If you
+// want to actually lay out the page, then it should be false (or
+// else centered dynamics will break when there is a fixed alignment).
 vector<Real>
 Align_interface::internal_get_minimum_translations (Grob *me,
 						    vector<Grob*> const &all_grobs,
@@ -213,14 +212,12 @@ Align_interface::internal_get_minimum_translations (Grob *me,
 	  SCM spec = Page_layout_problem::get_spacing_spec (elems[j-1], elems[j], pure, start, end);
 	  Page_layout_problem::read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
 
-	  if (include_fixed_spacing)
-	    {
-	      Real min_distance = 0;
-	      if (Page_layout_problem::read_spacing_spec (spec, &min_distance, ly_symbol2scm ("minimum-distance")))
-		dy = max (dy, min_distance);
+	  Real min_distance = 0;
+	  if (Page_layout_problem::read_spacing_spec (spec, &min_distance, ly_symbol2scm ("minimum-distance")))
+	    dy = max (dy, min_distance);
 
-	      dy = max (dy, Page_layout_problem::get_fixed_spacing (elems[j-1], elems[j], spaceable_count, pure, start, end));
-	    }
+	  if (include_fixed_spacing)
+	    dy = max (dy, Page_layout_problem::get_fixed_spacing (elems[j-1], elems[j], spaceable_count, pure, start, end));
 
 	  if (Page_layout_problem::is_spaceable (elems[j]) && last_spaceable_element)
 	    {
@@ -234,17 +231,15 @@ Align_interface::internal_get_minimum_translations (Grob *me,
 						      ly_symbol2scm ("padding"));
 	      padding = max (padding, spaceable_padding);
 
-	      if (include_fixed_spacing)
-		{
-		  Real min_distance = 0;
-		  if (Page_layout_problem::read_spacing_spec (spec,
-							      &min_distance,
-							      ly_symbol2scm ("minimum-distance")))
-		    dy = max (dy, min_distance + stacking_dir*(last_spaceable_element_pos - where));
+	      Real min_distance = 0;
+	      if (Page_layout_problem::read_spacing_spec (spec,
+							  &min_distance,
+							  ly_symbol2scm ("minimum-distance")))
+		dy = max (dy, min_distance + stacking_dir*(last_spaceable_element_pos - where));
 
-		  dy = max (dy, Page_layout_problem::get_fixed_spacing (last_spaceable_element, elems[j], spaceable_count,
-									pure, start, end));
-		}
+	      if (include_fixed_spacing)
+		dy = max (dy, Page_layout_problem::get_fixed_spacing (last_spaceable_element, elems[j], spaceable_count,
+								      pure, start, end));
 	    }
 	}
 

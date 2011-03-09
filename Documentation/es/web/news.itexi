@@ -703,13 +703,13 @@ LilyPond número 17} (en inglés) ahora mismo!
 
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.13!  @emph{13 de febrero de 2010}
+@subsubheading ¡Lanzado LilyPond 2.13.14!  @emph{27 de febrero de 2010}
 
 Nos complace anunciar el lanzamiento de LilyPond 2.13.14.  Esta
 versión está orientada solamente a los desarrolladores, e incluye una
 amplia actualización de las traducciones, además de la ronda usual de
 correcciones de fallos.
-
+@newsEnd
 
 @newsItem
 @subsubheading ¡Lanzado LilyPond 2.13.13!  @emph{13 de febrero de 2010}

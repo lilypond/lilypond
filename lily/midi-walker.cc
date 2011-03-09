@@ -52,15 +52,14 @@ audio_item_less (Audio_item * const a,
   return a->get_column ()->when_ <  b->get_column ()->when_;
 }
 
-Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track,
-			  int channel)
+Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track)
 {
-  channel_ = channel;
   track_ = track;
   index_ = 0;
   items_ = audio_staff->audio_items_;
   vector_sort (items_, audio_item_less);
   last_tick_ = 0;
+  percussion_ = audio_staff->percussion_;
 }
 
 Midi_walker::~Midi_walker ()
@@ -171,9 +170,6 @@ Midi_walker::process ()
 
   if (Midi_item *midi = get_midi (audio))
     {
-      if (Midi_channel_item *mci = dynamic_cast<Midi_channel_item*> (midi))
-	mci->channel_ = channel_;
-      
       if (Midi_note *note = dynamic_cast<Midi_note *> (midi))
 	{
 	  if (note->audio_->length_mom_.to_bool ())
@@ -188,6 +184,11 @@ Midi_item*
 Midi_walker::get_midi (Audio_item *i)
 {
   Midi_item *mi = Midi_item::get_midi (i);
+
+  if (percussion_)
+    if (Midi_channel_item *mci = dynamic_cast<Midi_channel_item*> (mi))
+      mci->channel_ = 9;
+
   midi_events_.push_back (mi);
   return mi;
 }

@@ -44,6 +44,9 @@ struct Line_details {
   Grob *last_column_;
   Real force_;
   Line_shape shape_;
+  vector<Stencil *> footnotes_; /* The footnotes at the bottom of the
+                                   page, where each stencil represents
+                                   a different footnote. */
   Interval refpoint_extent_; /* The refpoints of the first and last
 				spaceable staff in this line.  min-distance
 				should be measured from the bottom

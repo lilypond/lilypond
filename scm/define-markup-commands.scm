@@ -139,6 +139,22 @@ A simple line.
         (y (cdr dest)))
     (make-line-stencil th 0 0 x y)))
 
+(define-markup-command (draw-hline layout props)
+  ()
+  #:category graphic
+  #:properties ((draw-line-markup)
+                (line-width))
+  "
+@cindex drawing a line across a page
+
+Draws a line across a page.
+@lilypond[verbatim,quote]
+\\markup {
+  \\draw-hline
+}
+@end lilypond"
+  (interpret-markup layout props (make-draw-line-markup (cons line-width 0))))
+
 (define-markup-command (draw-circle layout props radius thickness filled)
   (number? number? boolean?)
   #:category graphic
@@ -1811,6 +1827,20 @@ returns an empty markup.
 			  'markup-signature
 			  (list markup?))
     (interpret-markup layout props (list anonymous-with-signature arg))))
+
+(define-markup-command (footnote layout props mkup note)
+  (markup? markup?)
+  #:category other
+  "Have footnote @var{note} act as an annotation to the markup @var{mkup}."
+  (ly:stencil-combine-at-edge
+    (interpret-markup layout props mkup)
+    X
+    RIGHT
+    (ly:make-stencil
+      `(footnote ,(interpret-markup layout props note))
+      '(0 . 0)
+      '(0 . 0))
+    0.0))
 
 (define-markup-command (override layout props new-prop arg)
   (pair? markup?)

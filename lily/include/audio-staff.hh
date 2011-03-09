@@ -26,13 +26,13 @@
 
 struct Audio_staff : public Audio_element
 {
-  void add_audio_item (Audio_item *l);
+  void add_audio_item (Audio_item *ai);
   void output (Midi_stream &midi_stream_r, int track);
 
   Audio_staff ();
   
+  bool percussion_;
   vector<Audio_item*> audio_items_;
-  int channel_;
 };
 
 #endif // AUDIO_STAFF_HH

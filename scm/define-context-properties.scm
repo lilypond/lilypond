@@ -145,7 +145,7 @@ exceptions.  Contains @code{(@var{chord} . (@var{prefix-markup}
 @var{suffix-markup}))} entries.")
      (chordNameFunction ,procedure? "The function that converts lists
 of pitches to chord names.")
-	 (chordNameLowercaseMinor ,boolean? "Downcase roots of minor chords?")
+     (chordNameLowercaseMinor ,boolean? "Downcase roots of minor chords?")
      (chordNameSeparator ,markup? "The markup object used to
 separate parts of a chord name.")
      (chordNoteNamer ,procedure? "A function that converts from a pitch
@@ -413,6 +413,7 @@ of the form @code{(list 'volta @var{x})}, where @var{x} is a string or
 arguments an integer and context, returning whether the corresponding
 percent repeat number should be printed when @code{countPercentRepeats}
 is set.")
+     (restCompletionBusy ,boolean? "Signal whether a completion-rest is active.")
      (restNumberThreshold ,number? "If a multimeasure rest has more
 measures than this, a number is printed.")
 

@@ -39,8 +39,9 @@ Audio_item::get_column () const
 }
 
 Audio_item::Audio_item ()
+  : audio_column_ (0)
+  , channel_ (0)
 {
-  audio_column_ = 0;
 }
 
 Audio_note::Audio_note (Pitch p, Moment m, bool tie_event, Pitch transposing)

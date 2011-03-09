@@ -45,12 +45,13 @@ struct Pending_tie
 {
   Moment when_;
   Stream_event* tie_event_;
-  Pending_tie() { tie_event_ = 0; }
+  Pending_tie () : tie_event_ (0) {}
 };
 
-int compare(Pending_tie const &a, Pending_tie const &b)
+static int
+compare (Pending_tie const &a, Pending_tie const &b)
 {
-  return compare(a.when_, b.when_);
+  return compare (a.when_, b.when_);
 }
 
 
@@ -73,20 +74,17 @@ class Completion_heads_engraver : public Engraver
 {
   vector<Item*> notes_;
   vector<Item*> prev_notes_;
-
   // Must remember notes for explicit ties.
   vector<Item*> tie_note_candidates_;
   vector<Stream_event*> tie_note_candidate_events_;
   vector<Grob*> ties_;
   PQueue<Pending_tie> pending_ties_;
   vector<Stream_event*> note_events_;
-
   Stream_event *current_tie_event_;
   Moment note_end_mom_;
   bool is_first_;
   Rational left_to_do_;
   Rational do_nothing_until_;
-
   Rational factor_;
 
   Moment next_barline_moment ();
@@ -194,7 +192,10 @@ Completion_heads_engraver::process_music ()
 	note that note_dur may be strictly less than left_to_do_
 	(say, if left_to_do_ == 5/8)
       */
-      note_dur = Duration (left_to_do_ / factor_, false).compressed (factor_);
+      if (factor_.denominator () == 1 && factor_ > Rational (1, 1))
+	note_dur = Duration (left_to_do_, false);
+      else
+	note_dur = Duration (left_to_do_ / factor_, false).compressed (factor_);
     }
   else
     {
@@ -205,7 +206,12 @@ Completion_heads_engraver::process_music ()
     }
   Moment nb = next_barline_moment ();
   if (nb.main_part_ && nb < note_dur.get_length ())
-    note_dur = Duration (nb.main_part_ / factor_, false).compressed (factor_);
+    {
+      if (factor_.denominator () == 1 && factor_ > Rational (1, 1))
+	note_dur = Duration (nb.main_part_, false);
+      else
+	note_dur = Duration (nb.main_part_ / factor_, false).compressed (factor_);
+    }
 
   do_nothing_until_ = now.main_part_ + note_dur.get_length ();
 
@@ -218,14 +224,10 @@ Completion_heads_engraver::process_music ()
 	event = event->clone ();
 
       SCM pits = note_events_[i]->get_property ("pitch");
-      Duration appearance = note_dur;
-      if (factor_.denominator () == 1 && factor_ > Rational (1, 1))
-	appearance = Duration (note_dur.get_length (), false);
-
       event->set_property ("pitch", pits);
-      event->set_property ("duration", appearance.smobbed_copy ());
-      event->set_property ("length", Moment (appearance.get_length ()).smobbed_copy ());
-      event->set_property ("duration-log", scm_from_int (appearance.duration_log ()));
+      event->set_property ("duration", note_dur.smobbed_copy ());
+      event->set_property ("length", Moment (note_dur.get_length ()).smobbed_copy ());
+      event->set_property ("duration-log", scm_from_int (note_dur.duration_log ()));
 
       Item *note = make_note_head (event);
       if (need_clone)
@@ -311,18 +313,17 @@ ADD_TRANSLATOR (Completion_heads_engraver,
 		/* doc */
 		"This engraver replaces @code{Note_heads_engraver}.  It plays"
 		" some trickery to break long notes and automatically tie them"
-		" into the next measure.",
-
+		" into the next measure."
+		,
 		/* create */
 		"NoteHead "
-		"Dots "
-		"Tie ",
-
+		"Tie "
+		,
 		/* read */
 		"middleCPosition "
 		"measurePosition "
-		"measureLength ",
-
+		"measureLength "
+		,
 		/* write */
 		"completionBusy "
 		);

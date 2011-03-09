@@ -6,7 +6,10 @@
 
 \score {
  <<
-   \new StaffGroup <<
+   \new StaffGroup \with {
+     \override StaffGrouper #'staffgroup-staff-spacing #'basic-distance = #15
+   }
+   <<
      \new Staff {
        c'1
      }

@@ -22,6 +22,7 @@
 #include "align-interface.hh"
 #include "all-font-metrics.hh"
 #include "axis-group-interface.hh"
+#include "break-align-interface.hh"
 #include "grob-array.hh"
 #include "hara-kiri-group-spanner.hh"
 #include "international.hh"
@@ -35,6 +36,7 @@
 #include "pointer-group-interface.hh"
 #include "skyline-pair.hh"
 #include "staff-symbol-referencer.hh"
+#include "text-interface.hh"
 #include "warn.hh"
 
 System::System (System const &src)
@@ -43,6 +45,7 @@ System::System (System const &src)
   all_elements_ = 0;
   pscore_ = 0;
   rank_ = 0;
+  checked_footnotes_ = false;
   init_elements ();
 }
 
@@ -51,6 +54,7 @@ System::System (SCM s)
 {
   all_elements_ = 0;
   rank_ = 0;
+  checked_footnotes_ = false;
   init_elements ();
 }
 
@@ -162,7 +166,7 @@ System::do_break_substitution_and_fixup_refpoints ()
 	  Grob *g = all_elts[j];
 	  g->fixup_refpoint ();
 	}
-
+        
       count += all_elts.size ();
     }
 
@@ -227,6 +231,116 @@ System::get_paper_systems ()
 }
 
 void
+System::populate_footnote_grob_vector ()
+{
+  extract_grob_set (this, "all-elements", all_elts);
+  for (vsize i = 0; i < all_elts.size (); i++)
+    if (all_elts[i]->internal_has_interface (ly_symbol2scm ("footnote-interface")))
+      footnote_grobs_.push_back (all_elts[i]);
+
+  sort (footnote_grobs_.begin (), footnote_grobs_.end (), Grob::less);
+  checked_footnotes_ = true;
+}
+
+void
+System::get_footnote_grobs_in_range (vector<Grob *> &out, vsize start, vsize end)
+{
+  if (!checked_footnotes_)
+    populate_footnote_grob_vector ();
+
+  for (vsize i = 0; i < footnote_grobs_.size (); i++)
+    {
+      int pos = footnote_grobs_[i]->spanned_rank_interval ()[LEFT];
+      bool end_of_line_visible = true;
+      if (Spanner *s = dynamic_cast<Spanner *>(footnote_grobs_[i]))
+        {
+          Real spanner_placement = min (1.0,
+                                        max (robust_scm2double (s->get_property ("spanner-placement"), -1.0),
+                                             -1.0));
+
+          spanner_placement = (spanner_placement + 1.0) / 2.0;
+          int rpos = s->spanned_rank_interval ()[RIGHT];
+          pos = (int)((rpos - pos) * spanner_placement + pos + 0.5);
+        }
+      
+      if (Item *item = dynamic_cast<Item *>(footnote_grobs_[i]))
+        {
+          if (!Item::break_visible (item))
+            continue;
+          // safeguard to bring down the column rank so that end of line footnotes show up on the correct line
+          end_of_line_visible = (LEFT == item->break_status_dir ());
+        }
+
+      if (pos < (int)start)
+        continue;
+      if (pos > (int)end)
+        break;
+      if (pos == (int)start && end_of_line_visible)
+        continue;
+      if (pos == (int)end && !end_of_line_visible)
+        continue;
+      if (!footnote_grobs_[i]->is_live ())
+        continue;
+
+      out.push_back (footnote_grobs_[i]);
+    }
+}
+
+vector<Stencil *>
+System::get_footnotes_in_range (vsize start, vsize end)
+{
+  vector<Grob *> footnote_grobs;
+  get_footnote_grobs_in_range (footnote_grobs, start, end);
+  vector<Stencil *> out;
+
+  for (vsize i = 0; i < footnote_grobs.size (); i++)
+    {
+      SCM footnote_markup = footnote_grobs[i]->get_property ("footnote-text");
+
+      if (!Text_interface::is_markup (footnote_markup))
+        continue;
+
+      SCM props = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
+                              pscore_->layout ()->self_scm ());
+
+      SCM footnote_stl = Text_interface::interpret_markup (pscore_->layout ()->self_scm (),
+                                                           props, footnote_markup);
+
+      Stencil *footnote_stencil = unsmob_stencil (footnote_stl);
+      out.push_back (footnote_stencil);
+    }
+
+  return out;
+}
+
+Stencil
+System::make_footnote_stencil (Real padding)
+{
+  Stencil mol;
+
+  for (vsize i = 0; i < footnote_grobs_.size (); i++)
+    {
+      SCM footnote_markup = footnote_grobs_[i]->get_property ("footnote-text");
+      if (Spanner *orig = dynamic_cast<Spanner *>(footnote_grobs_[i]))
+        if (orig->is_broken ())
+          footnote_markup = orig->broken_intos_[0]->get_property ("footnote-text");
+
+      if (!Text_interface::is_markup (footnote_markup))
+        continue;
+
+      SCM props = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
+                              pscore_->layout ()->self_scm ());
+
+      SCM footnote_stl = Text_interface::interpret_markup (pscore_->layout ()->self_scm (),
+                                                           props, footnote_markup);
+
+      mol.add_at_edge (Y_AXIS, DOWN, *unsmob_stencil (footnote_stl), padding);
+    }
+
+  return mol;
+}
+
+void
 System::break_into_pieces (vector<Column_x_positions> const &breaking)
 {
   for (vsize i = 0; i < breaking.size (); i++)
@@ -241,6 +355,8 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
       int end = Paper_column::get_rank (c.back ());
       Interval iv (pure_height (this, st, end));
       system->set_property ("pure-Y-extent", ly_interval2scm (iv));
+
+      get_footnote_grobs_in_range (system->footnote_grobs_, st, end);
 
       system->set_bound (LEFT, c[0]);
       system->set_bound (RIGHT, c.back ());

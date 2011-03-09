@@ -208,7 +208,6 @@ subscripts, slurs, ties, and rests.
 You have to instantiate this explicitly if you want to have
 multiple voices on the same staff."
 
-  localKeySignature = #'()
   \consists "Font_size_engraver"
 
   \consists "Pitched_trill_engraver"
@@ -229,6 +228,7 @@ multiple voices on the same staff."
   \consists "Dots_engraver"
   \consists "Rest_engraver"
   \consists "Tweak_engraver"
+  \consists "Footnote_engraver"
 
   %% switch on to make stem directions interpolate for the
   %% center line.

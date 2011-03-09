@@ -9,7 +9,7 @@
 \header {
   lsrtags = "vocal-music, tweaks-and-overrides, spacing"
 
-%% Translation of GIT committish: fa19277d20f8ab0397c560eb0e7b814bd804ecec
+%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
   texidoces = "
 Este fragmento de código muestra el uso de las propiedades de
 contexto @code{alignBelowContext} y @code{alignAboveContext} para

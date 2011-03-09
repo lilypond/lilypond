@@ -32,6 +32,96 @@
 #include "prob.hh"
 #include "skyline-pair.hh"
 #include "system.hh"
+#include "text-interface.hh"
+
+/*
+   Returns a stencil for the footnote of each system.  This stencil may
+   itself be comprised of several footnotes.
+*/
+
+SCM
+Page_layout_problem::get_footnotes_from_lines (SCM lines, Real padding)
+{
+  SCM footnotes = SCM_EOL;
+  // ugh...code dup from the Page_layout_problem constructor
+  for (SCM s = lines; scm_is_pair (s); s = scm_cdr (s))
+    {
+      if (Grob *g = unsmob_grob (scm_car (s)))
+	{
+	  System *sys = dynamic_cast<System *> (g);
+	  if (!sys)
+            {
+              programming_error ("got a grob for footnotes that wasn't a System");
+              continue;
+            }
+          footnotes = scm_cons (sys->make_footnote_stencil (padding).smobbed_copy (), footnotes);
+        }
+      else if (Prob *p = unsmob_prob (scm_car (s)))
+        {
+          SCM stencils = p->get_property ("footnotes");
+          if (stencils == SCM_EOL)
+            continue;
+          Stencil footnote_stencil;
+
+          for (SCM st = stencils; scm_is_pair (st); st = scm_cdr (st))
+            footnote_stencil.add_at_edge (Y_AXIS, DOWN, *unsmob_stencil (scm_car (st)), padding);
+          footnotes = scm_cons (footnote_stencil.smobbed_copy (), footnotes);
+        }
+    }
+
+  if (!scm_is_pair (footnotes))
+    return SCM_EOL;
+    
+  return scm_reverse (footnotes);
+}
+
+Stencil*
+Page_layout_problem::get_footnote_separator_stencil (Output_def *paper)
+{
+  SCM props = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
+                          paper->self_scm ());
+
+  SCM markup = paper->c_variable ("footnote-separator-markup");
+
+  if (!Text_interface::is_markup (markup))
+    return NULL;
+
+  SCM footnote_stencil = Text_interface::interpret_markup (paper->self_scm (),
+                                                           props, markup);
+
+  Stencil *footnote_separator = unsmob_stencil (footnote_stencil);
+
+  return footnote_separator;
+}
+
+void
+Page_layout_problem::add_footnotes_to_footer (SCM footnotes, Stencil *foot, Paper_book *pb)
+{
+  bool footnotes_found = false;
+  Real footnote_padding = robust_scm2double (pb->paper_->c_variable ("footnote-padding"), 0.0);
+  
+  footnotes = scm_reverse (footnotes);
+  for (SCM s = footnotes; scm_is_pair (s); s = scm_cdr (s))
+    {
+      Stencil *stencil = unsmob_stencil (scm_car (s));
+
+      if (!stencil)
+        continue;
+
+      if (!stencil->is_empty ())
+        {
+          foot->add_at_edge (Y_AXIS, UP, *stencil, footnote_padding);
+          footnotes_found = true;
+        }
+    }
+  
+  if (footnotes_found)
+    {
+      Stencil *separator = get_footnote_separator_stencil (pb->paper_);
+      if (separator)
+        foot->add_at_edge (Y_AXIS, UP, *separator, footnote_padding);
+    }
+}
 
 Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM systems)
   : bottom_skyline_ (DOWN)
@@ -47,7 +137,13 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
     {
       Stencil *head = unsmob_stencil (page->get_property ("head-stencil"));
       Stencil *foot = unsmob_stencil (page->get_property ("foot-stencil"));
-
+      
+      Real footnote_padding = 0.0;
+      if (pb && pb->paper_)
+        footnote_padding = robust_scm2double (pb->paper_->c_variable ("footnote-padding"), 0.0);
+      SCM footnotes = get_footnotes_from_lines (systems, footnote_padding);
+      add_footnotes_to_footer (footnotes, foot, pb);
+      
       header_height_ = head ? head->extent (Y_AXIS).length () : 0;
       footer_height_ = foot ? foot->extent (Y_AXIS).length () : 0;
       page_height_ = robust_scm2double (page->get_property ("paper-height"), 100);
@@ -424,7 +520,8 @@ Page_layout_problem::find_system_offsets ()
 		      loose_line_min_distances.clear ();
 		    }
 		  last_spaceable_line = staff;
-		  last_spaceable_line_translation = -solution_[spring_idx - 1];
+		  // Negative is down but the translation is relative to the whole page.
+		  last_spaceable_line_translation = -system_position + translation;
 
 		  staff->translate_axis (translation, Y_AXIS);
 		  found_spaceable_staff = true;
@@ -435,10 +532,6 @@ Page_layout_problem::find_system_offsets ()
 		    loose_lines.push_back (last_spaceable_line);
 
 		  if (staff_idx)
-		    // NOTE: the way we do distances between loose lines (and other lines too, actually)
-		    // is not the most accurate way possible: we only insert rods between adjacent
-		    // lines.  To be more accurate, we could insert rods between non-adjacent lines
-		    // using a scheme similar to the one in set_column_rods.
 		    loose_line_min_distances.push_back (min_offsets[staff_idx-1] - min_offsets[staff_idx]);
 		  else
 		    {

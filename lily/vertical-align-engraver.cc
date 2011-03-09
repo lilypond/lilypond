@@ -151,21 +151,27 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
 	      if (arr[i] == before_grob)
 		{
 		  arr.insert (arr.begin () + i, added);
-		  added->set_property ("staff-affinity", scm_from_int (DOWN));
+
+		  /* Only set staff affinity if it already has one.  That way we won't
+		     set staff-affinity on things that don't want it (like staves). */
+		  if (scm_is_number (added->get_property ("staff-affinity")))
+		    added->set_property ("staff-affinity", scm_from_int (DOWN));
 		  break;
 		}
 	      else if (arr[i] == after_grob)
 		{
 		  arr.insert (arr.begin () + i + 1, added);
-		  added->set_property ("staff-affinity", scm_from_int (UP));
+		  if (scm_is_number (added->get_property ("staff-affinity")))
+		    added->set_property ("staff-affinity", scm_from_int (UP));
 		  break;
 		}
 	    }
 	}
     }
-  else if (qualifies (i) && !unsmob_grob (i.grob ()->get_object ("staff-grouper")))
+  else if (qualifies (i))
     {
       Pointer_group_interface::add_grob (valign_, ly_symbol2scm ("elements"), i.grob ());
-      i.grob ()->set_object ("staff-grouper", valign_->self_scm ());
+      if (!unsmob_grob (i.grob ()->get_object ("staff-grouper")))
+	i.grob ()->set_object ("staff-grouper", valign_->self_scm ());
     }
 }

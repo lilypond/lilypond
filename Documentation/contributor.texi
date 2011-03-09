@@ -60,6 +60,7 @@ Copyright @copyright{} 2007--2011 by the authors.
 * Regression tests::
 * Programming work::
 * Release work::
+* Build system notes::
 * Administrative policies::
 
 Appendices
@@ -85,6 +86,7 @@ Appendices
 @include contributor/regressions.itexi
 @include contributor/programming-work.itexi
 @include contributor/release-work.itexi
+@include contributor/build-notes.itexi
 @include contributor/administration.itexi
 
 @include fdl.itexi

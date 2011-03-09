@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: fa19277d20f8ab0397c560eb0e7b814bd804ecec
+%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
   texidoces = "
 Puede ser necesario trucar la propiedad
 @code{shortest-duration-space} para poder ajustar el tamaño de las

@@ -19,18 +19,23 @@
 
 #include "text-interface.hh"
 #include "grob.hh"
+#include "item.hh"
 #include "line-interface.hh"
 #include "lookup.hh"
 #include "font-interface.hh"
 #include "lily-guile.hh"
 #include "output-def.hh"
 #include "misc.hh"
+#include "spanner.hh"
 
 class Balloon_interface
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (print_spanner, (SCM));
   DECLARE_GROB_INTERFACE ();
+
+  static SCM internal_balloon_print (Grob *me, Grob *p, Offset off);
 };
 
 MAKE_SCHEME_CALLBACK (Balloon_interface, print, 1);
@@ -39,19 +44,67 @@ Balloon_interface::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
+  if (Item *item = dynamic_cast<Item *> (me))
+    if (!Item::break_visible (item))
+      return SCM_EOL;
+
   Grob *p = me->get_parent (X_AXIS);
-  
+
   Offset off (me->relative_coordinate (p, X_AXIS),
 	      me->relative_coordinate (p, Y_AXIS));
 
+  return internal_balloon_print (me, p, off);
+}
+
+// ugh...code dup...hopefully can be consolidated w/ above one day
+MAKE_SCHEME_CALLBACK (Balloon_interface, print_spanner, 1);
+SCM
+Balloon_interface::print_spanner (SCM smob)
+{
+  Spanner *me = unsmob_spanner (smob);
+  Grob *orig = me->original ();
+
+  if (orig)
+    {
+      // TODO : consolidate code dup from System::get_footnote_grobs_in_range
+      int pos = orig->spanned_rank_interval ()[LEFT];
+      Real spanner_placement = min (1.0,
+                                    max (robust_scm2double (me->get_property ("spanner-placement"), -1.0),
+                                         -1.0));
+
+      spanner_placement = (spanner_placement + 1.0) / 2.0;
+      int rpos = orig->spanned_rank_interval ()[RIGHT];
+      pos = (int)((rpos - pos) * spanner_placement + pos + 0.5);
+
+      if (pos < me->spanned_rank_interval () [LEFT])
+        return SCM_EOL;
+      if (pos >= me->spanned_rank_interval () [RIGHT] && (me->spanned_rank_interval () [RIGHT] != orig->spanned_rank_interval () [RIGHT]))
+        return SCM_EOL;
+    }
+
+
+  Spanner *p = dynamic_cast<Spanner *> (me->get_parent (Y_AXIS));
+
+  if (!p)
+    return SCM_EOL;
+
+  Offset off (me->relative_coordinate (me->get_bound (LEFT), X_AXIS),
+	      me->relative_coordinate (p, Y_AXIS));
+  return internal_balloon_print (me, p, off);
+}
+
+SCM
+Balloon_interface::internal_balloon_print (Grob *me, Grob *p, Offset off)
+{
   Box b (p->extent (p, X_AXIS),
 	 p->extent (p, Y_AXIS));
-
   Real padding = robust_scm2double (me->get_property ("padding"), .1);
   b.widen (padding, padding);
 
   // FIXME
-  Stencil fr = Lookup::frame (b, 0.1, 0.05);
+  Stencil fr;
+  if (to_boolean (me->get_property ("annotation-balloon")))
+    fr = Lookup::frame (b, 0.1, 0.05);
 
   SCM bt = me->get_property ("text");
   SCM chain = Font_interface::text_font_alist_chain (me);
@@ -71,7 +124,8 @@ Balloon_interface::print (SCM smob)
 
   Offset z2 = z1 + off;
 
-  fr.add_stencil (Line_interface::line (me, z1, z2));
+  if (to_boolean (me->get_property ("annotation-line")))
+    fr.add_stencil (Line_interface::line (me, z1, z2));
 
   text_stil->translate (z2);
   fr.add_stencil (*text_stil);
@@ -85,7 +139,10 @@ ADD_INTERFACE (Balloon_interface,
 	       " object.",
 
 	       /* properties */
+	       "annotation-balloon "
+	       "annotation-line "
 	       "padding "
+	       "spanner-placement "
 	       "text "
 	       );
 

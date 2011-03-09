@@ -1,0 +1,310 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+
+@node Build system notes
+@chapter Build system notes
+
+@warning{This chapter is in high flux, and is being run in a
+@qq{wiki-like} fashion.  Do not trust anything you read in this
+chapter.}
+
+@menu
+* Build system overview::
+* Tips for working on the build system::
+* Doc build::
+* Website build::
+@end menu
+
+
+@node Build system overview
+@section Build system overview
+
+Build system is currently GNU make, with an extra "stepmake" layer
+on top.  Look at files in @file{make/} and @file{stepmake/} and
+all @file{GNUmakefile}s.
+
+There is wide-spread dissatisfaction with this system, and we are
+considering changing.  This would be a huge undertaking (estimated
+200+ hours).  This change will probably involve not using GNU make
+any more -- but a discussion about the precise build system will
+have to wait.  Before we reach that point, we need to figure out
+(at least approximately) what the current build system does.
+
+Fundamentally, a build system does two things:
+
+@enumerate
+@item
+Constructs command-line commands, for example:
+
+@example
+lilypond-book \
+  --tons --of --options \
+  pitches.itely
+texi2pdf \
+  --more --imperial --and --metric --tons --of --options \
+  pitches.texi
+@end example
+
+@item
+If there was a previous build, it decides which parts of the
+system need to be rebuilt.
+
+@end enumerate
+
+When I try to do anything in the build system, it helps to remind
+myself of this.  The "end result" is just a series of command-line
+commands.  All the black magick is just an attempt to construct
+those commands.
+
+@node Tips for working on the build system
+@section Tips for working on the build system
+
+@itemize
+@item
+Add:
+
+@example
+echo "aaa"
+
+echo "bbb"
+@end example
+
+to the build system files in various places.  This will let you
+track where the program is, in various points of the build.
+
+@item
+First task: understand how @code{make website} works,
+@emph{without} the translations.  Looking at the english-only
+website is the best introduction to the build system... it only
+covers about 5% of the whole thing, but even that will likely take
+10 hours or more.
+
+@end itemize
+
+
+
+@node Doc build
+@section Doc build
+
+@menu
+* Building a bibliography::
+@end menu
+
+@node Building a bibliography
+@subsection Building a bibliography
+
+Bibliography files contain a list of citations, like this:
+
+@example
+@@Book@{vinci,
+  author = @{Vinci, Albert C.@},
+  title = @{Fundamentals of Traditional Music Notation@},
+  publisher = @{Kent State University Press@},
+  year = @{1989@}
+@}
+@end example
+
+There are a variety of types of citation (e.g. Book (as above),
+article, publication).  Each cited publication has a list of
+entries that can be used to identify the publication.
+Bibliograpies are normally stored as files with a .bib
+extension.  One part of the doc-build process is transforming the
+bibliography information into @code{texinfo} files.  The commands
+to do this are in the @file{GNUmakefile} in the
+@file{Documentation} directory.
+
+A typical line of the makefile to translate a single bibliography
+is:
+
+@example
+$(outdir)/colorado.itexi:
+	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
+		-s $(top-src-dir)/Documentation/lily-bib \
+		-o $(outdir)/colorado.itexi \
+		$(src-dir)/essay/colorado.bib
+@end example
+
+Line by line:
+
+@example
+$(outdir)/colorado.itexi:
+@end example
+
+We're making the file @file{colorado.itexi} and so this is the
+make instruction.
+
+@example
+	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
+@end example
+
+It's in the @file{essay} directory and we want to run the
+bib2texi.py script against it.
+
+@example
+		-s $(top-src-dir)/Documentation/lily-bib \
+@end example
+
+The style template is @file{lily-bib.bst} and is found in the
+@file{Documentation} directory.
+
+@example
+		-o $(outdir)/colorado.itexi \
+@end example
+
+The output file in @file{colorado.itexi}.
+
+@example
+		$(src-dir)/essay/colorado.bib
+@end example
+
+The input file is @file{colorado.bib} in the @file{essay}
+directory.
+
+The @code{bib2texi} Python script used to be used with a variety
+of options, but now is always called using the same options, as
+above.  Its job is to create the file containing the options for
+@code{bibtex} (the program that actually does the translation),
+run bibtex, and then clean up some temporary files.  Its main
+"value add" is the creation of the options file, using this code:
+
+@example
+open (tmpfile + '.aux', 'w').write (r'''
+\relax
+\citation@{*@}
+\bibstyle@{%(style)s@}
+\bibdata@{%(files)s@}''' % vars ())
+@end example
+
+The key items are the style file (now always lily-bib for us) and
+the input file.
+
+The style file is written in its own specialised language,
+described to some extent at
+
+@example
+@uref{http://amath.colorado.edu/documentation/LaTeX/reference/faq/bibtex.pdf}
+@end example
+
+The file @file{lily-bib.bst} also has fairly extensive commenting.
+
+@node Website build
+@section Website build
+
+Start here: @file{make/website.make}
+
+Typing make website runs the file @file{GNUmakefile} from the
+build directory.  This only contains 3 lines:
+
+@example
+depth = .
+include config$(if $(conf),-$(conf),).make
+include $(configure-srcdir)/GNUmakefile.in
+@end example
+
+The variable @code{depth} is used throughout the make system to
+track how far down the directory structure the make is.  The first
+include sets lots of variables but doesn't "do" anything.  The
+second runs the file @file{GNUmakefile.in} from the top level
+source directory.
+
+This sets another load of variables, and then includes (i.e.
+immediately runs) @file{stepmake.make} from the @file{make}
+subdirectory.  This sets a load of other variables, does some
+testing to see if SCONS (another build tool?) is being used, and
+then runs @file{make/config.make} - which doesn't seem to exist...
+
+Next, it runs @file{make/toplevel-version.make}, which sets the
+version variables for major, minor, patch, stable, development and
+mypatchlevel (which seems to be used for patch numbers for
+non-stable versions only?).
+
+Next - @file{make/local.make}, which doesn't exist.
+
+Then a few more variable and the interesting comment:
+
+@example
+# Don't try to outsmart us, you puny computer!
+# Well, UGH.  This only removes builtin rules from
+@end example
+
+and then tests to see whether BUILTINS_REMOVED is defined.  It
+appears to be when I run make, and so
+@file{stepmake/stepmake/no-builtin-rules.make} is run.  The
+comment at the head of this file says:
+
+@example
+# UGH.  GNU make comes with implicit rules.
+# We don't want any of them, and can't force users to run
+# --no-builtin-rules
+@end example
+
+I've not studied that file at length, but assume it removes all
+make's build-in rules (e.g. @file{*.c} files are run through the
+GNU C compiler) - there's a lot of them in here, and a lot of
+comments, and I'd guess most of it isn't needed.
+
+We return to @file{stepmake.make}, where we hit the make rule all:
+The first line of this is:
+
+@example
+-include $(addprefix $(depth)/make/,$(addsuffix -inclusions.make, $(LOCALSTEPMAKE_TEMPLATES)))
+@end example
+
+which, when the variables are substituted, gives:
+
+@example
+./make/generic-inclusions.make
+./make/lilypond-inclusions.make.
+@end example
+
+(Note - according to the make documentation, -include is only
+different from include in that it doesn't produce any kind of
+error message when the included file doesn't exist).
+
+And the first file doesn't exist.  Nor the second.  Next:
+
+@example
+-include $(addprefix $(stepdir)/,$(addsuffix -inclusions.make, $(STEPMAKE_TEMPLATES)))
+@end example
+
+which expands to the following files:
+
+@example
+/home/phil/lilypond-git/stepmake/stepmake/generic-inclusions.make
+/home/phil/lilypond-git/stepmake/stepmake/toplevel-inclusions.make
+/home/phil/lilypond-git/stepmake/stepmake/po-inclusions.make
+/home/phil/lilypond-git/stepmake/stepmake/install-inclusions.make.
+@end example
+
+One little feature to notice here - these are all absolute file
+locations - the line prior to this used relative locations.  And
+none of these files exist, either.  (Further note - I'm assuming
+all these lines of make I'm following are autogenerated, but
+that'll be something else to discover.)
+
+Next:
+
+@example
+include $(addprefix $(stepdir)/,$(addsuffix -vars.make, $(STEPMAKE_TEMPLATES)))
+@end example
+
+which expands to:
+
+@example
+/home/phil/lilypond-git/stepmake/stepmake/generic-vars.make
+/home/phil/lilypond-git/stepmake/stepmake/toplevel-vars.make
+/home/phil/lilypond-git/stepmake/stepmake/po-vars.make
+/home/phil/lilypond-git/stepmake/stepmake/install-vars.make.
+@end example
+
+Woo.  They all exist (they should - no - in front of the include).
+
+Next step will be to work out what these do.
+
+That's my 30 minutes for Monday.
+
+Website build includes @ref{Building a bibliography}.
+
+
+
+

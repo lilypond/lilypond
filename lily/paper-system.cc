@@ -27,6 +27,64 @@ make_paper_system (SCM immutable_init)
   return prob;
 }
 
+/*
+  TODO
+  it might be interesting to split off the footnotes as well, ie.
+  
+  get_footnotes(SCM expr, SCM* footnotes, SCM* cleaned) 
+    
+  by doing it this way and overwriting the old expr in the caller,
+  you can make sure nobody tries to handle footnotes differently
+  downstream.
+*/
+SCM
+get_footnotes (SCM expr)
+{
+  if (!scm_is_pair (expr))
+    return SCM_EOL;
+
+  SCM head = scm_car (expr);
+
+  if (head == ly_symbol2scm ("delay-stencil-evaluation"))
+    {
+      // we likely need to do something here...just don't know what...
+      return SCM_EOL;
+    }
+  
+  if (head == ly_symbol2scm ("combine-stencil"))
+    {
+      SCM out = SCM_EOL;
+      SCM *tail = &out;
+
+      for (SCM x = scm_cdr (expr); scm_is_pair (x); x = scm_cdr (x))
+        {
+          SCM footnote = get_footnotes (scm_car (x));
+          if (scm_is_pair (footnote))
+            {
+              for (SCM y = footnote; scm_is_pair (y); y = scm_cdr (y))
+                {
+                  *tail = scm_cons (scm_car (y), SCM_EOL);
+                  tail = SCM_CDRLOC (*tail);
+                }
+            }
+          else if (SCM_EOL != footnote)
+            {
+              *tail = scm_cons (footnote, SCM_EOL);
+              tail = SCM_CDRLOC (*tail);
+            }
+        }
+      return out;
+    }
+  if (head == ly_symbol2scm ("translate-stencil"))
+    return get_footnotes (scm_caddr (expr));
+
+  if (head == ly_symbol2scm ("footnote"))
+    return scm_cadr (expr);
+
+  return SCM_EOL;
+}
+
+
 void
 paper_system_set_stencil (Prob *prob, Stencil s)
 {

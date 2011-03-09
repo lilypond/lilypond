@@ -23,17 +23,29 @@
 #include "page-layout-problem.hh"
 #include "pointer-group-interface.hh"
 
-Grob*
-Staff_grouper_interface::get_maybe_pure_last_grob (Grob *me, bool pure, int start, int end)
+/* Checks whether the child grob is in the "interior" of this staff-grouper.
+   This is the case if the next spaceable, living child after the given one
+   belongs to the group.
+*/
+bool
+Staff_grouper_interface::maybe_pure_within_group (Grob *me, Grob *child, bool pure, int start, int end)
 {
   extract_grob_set (me, "elements", elts);
-  for (vsize i = elts.size (); i--;)
-    if (Page_layout_problem::is_spaceable (elts[i])
-	&& ((pure && !Hara_kiri_group_spanner::request_suicide (me, start, end))
-	    || (!pure && elts[i]->is_live ())))
-      return elts[i];
 
-  return 0;
+  vector<Grob*>::const_iterator i = find (elts, child);
+
+  if (i == elts.end ())
+    return false;
+
+  for (++i; i != elts.end (); ++i)
+    if (Page_layout_problem::is_spaceable (*i)
+	&& ((pure && !Hara_kiri_group_spanner::request_suicide (*i, start, end))
+	    || (!pure && (*i)->is_live ())))
+      return me == unsmob_grob ((*i)->get_object ("staff-grouper"));
+
+  // If there was no spaceable, living child after me, I don't
+  // count as within the group.
+  return false;
 }
 
 ADD_INTERFACE (Staff_grouper_interface,

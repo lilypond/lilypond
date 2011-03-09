@@ -603,10 +603,6 @@ Las pruebas de lilypond-book de esta versión.
 
 @item @regtestDevelXml-es (@regtestDevelXmlPdf-es{})
 
-@item @regtestStable-es (@regtestStablePdf-es{})
-
-@item @regtestStableXml-es (@regtestStableXmlPdf-es{})
-
 @item @regtestDevelAbc (@regtestDevelAbcPdf{})
 
 @item @regtestDevelLilypondBook (@regtestDevelLilypondBookPdf{})

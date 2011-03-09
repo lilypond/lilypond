@@ -39,22 +39,22 @@ int compare (Midi_note_event const &left, Midi_note_event const &right);
 class Midi_walker
 {
 public:
-  Midi_walker (Audio_staff *audio_staff, Midi_track *midi_track,
-	       int channel);
+  Midi_walker (Audio_staff *audio_staff, Midi_track *midi_track);
   ~Midi_walker ();
 
   void process ();
   void operator ++ (int);
   bool ok () const;
   void finalize ();
+
 private:
   void do_start_note (Midi_note *note);
   void do_stop_notes (int);
   void output_event (int, Midi_item *l);
   Midi_item *get_midi (Audio_item*); 
-  int channel_;
   Midi_track *track_;
   Audio_staff *staff_;
+  bool percussion_;
   vsize index_;
   vector<Audio_item*> items_;
   PQueue<Midi_note_event> stop_note_queue;

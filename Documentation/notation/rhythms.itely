@@ -1672,28 +1672,35 @@ time signatures.
 
 @cindex notes, splitting
 @cindex splitting notes
+@cindex rests, splitting
+@cindex splitting rests
 
 @funindex Note_heads_engraver
 @funindex Completion_heads_engraver
+@funindex Completion_rest_engraver
 
-Long notes which overrun bar lines can be converted automatically
-to tied notes.  This is done by replacing the
-@code{Note_heads_engraver} with the
-@code{Completion_heads_engraver}.  In the following
-example, notes crossing the bar lines are split and tied.
+Long notes which overrun bar lines can be converted automatically to
+tied notes.  This is done by replacing the @code{Note_heads_engraver}
+with the @code{Completion_heads_engraver}.  Similarly, long rests which
+overrun bar lines are split automatically by replacing the
+@code{Rest_engraver} with the @code{Completion_rest_engraver}.  In the
+following example, notes and rests crossing the bar lines are split,
+notes are also tied.
 
 @lilypond[quote,verbatim,relative=1]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
+  \remove "Rest_engraver"
+  \consists "Completion_rest_engraver"
 }
 
-{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 }
+{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2 }
 @end lilypond
 
-This engraver splits all running notes at the bar line, and
-inserts ties.  One of its uses is to debug complex scores: if the
-measures are not entirely filled, then the ties show exactly how
+Thes engravers split all running notes and rests at the bar line, and
+inserts ties for notes.  One of its uses is to debug complex scores: if
+the measures are not entirely filled, then the ties show exactly how
 much each measure is off.
 
 
@@ -1711,6 +1718,8 @@ Snippets:
 Internals Reference:
 @rinternals{Note_heads_engraver},
 @rinternals{Completion_heads_engraver},
+@rinternals{Rest_engraver},
+@rinternals{Completion_rest_engraver},
 @rinternals{Forbid_line_break_engraver}.
 
 
@@ -2225,10 +2234,10 @@ in only one staff.
 >>
 @end lilypond
 
-The default beam settings for the time signature can also be
-changed, so that set the desired beaming will always be used
-Changes in automatic beaming settings
-for a time signature are described in @ref{Time signature}.
+The default beam settings for the time signature can also be changed, so
+that the desired beaming will always be used.  Changes in automatic
+beaming settings for a time signature are described in
+@ref{Time signature}.
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -3212,9 +3221,37 @@ durations in the other staves.  For the above example
 >>
 @end lilypond
 
+The use of grace notes within voice contexts confuses the way the
+voice is typeset. This can be overcome by inserting a rest or note
+between the voice command and the grace note.
+
+@lilypond[quote,verbatim]
+accMusic = {
+  \acciaccatura { f8 } e8 r8 \acciaccatura { f8 } e8 r4
+}
+
+\new Staff {
+  <<
+    \new Voice {
+      \relative c'' {
+        r8 r8 \voiceOne \accMusic \oneVoice r8 |
+        r8 \voiceOne r8 \accMusic \oneVoice r8 |
+      }
+    }
+    \new Voice {
+      \relative c' {
+        s8 s8 \voiceTwo \accMusic \oneVoice s8 |
+        s8 \voiceTwo r8 \accMusic \oneVoice s8 |
+      }
+    }
+  >>
+}
+@end lilypond
+
 Grace sections should only be used within sequential music
 expressions.  Nesting or juxtaposing grace sections is not
 supported, and might produce crashes or other errors.
+
 
 @node Aligning to cadenzas
 @unnumberedsubsubsec Aligning to cadenzas
