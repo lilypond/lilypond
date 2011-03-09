@@ -379,7 +379,7 @@ fet_beginchar ("32nd (down)", "d5");
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 3;
-	total_depth# = 3.85 staff_space#;
+	total_depth# = 3.75 * staff_space# - blot_diameter# / 2;
 	flare = .84 staff_space;
 	flagspace# = .9 staff_space#;
 	hip_depth_ratio = .85;
