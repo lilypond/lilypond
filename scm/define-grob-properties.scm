@@ -48,6 +48,9 @@ be created below this bar line.")
      (alteration-alist ,list? "List of @code{(@var{pitch}
 . @var{accidental})} pairs for key signature.")
      (annotation ,string? "Annotate a grob for debug purposes.")
+     (annotation-balloon ,boolean? "Print the balloon around an annotation.")
+     (annotation-line ,boolean? "Print the line from an annotation to the
+grob that it annotates.")
      (arpeggio-direction ,ly:dir? "If set, put an arrow on the
 arpeggio squiggly line.")
      (arrow-length ,number? "Arrow length.")

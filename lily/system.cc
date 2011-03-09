@@ -254,11 +254,9 @@ System::get_footnote_grobs_in_range (vector<Grob *> &out, vsize start, vsize end
       bool end_of_line_visible = true;
       if (Spanner *s = dynamic_cast<Spanner *>(footnote_grobs_[i]))
         {
-          Real spanner_placement = robust_scm2double (s->get_property ("spanner-placement"), -1.0);
-          if (spanner_placement < -1.0)
-            spanner_placement = -1.0;
-          if (spanner_placement > 1.0)
-            spanner_placement = 1.0;
+          Real spanner_placement = min (1.0,
+                                        max (robust_scm2double (s->get_property ("spanner-placement"), -1.0),
+                                             -1.0));
 
           spanner_placement = (spanner_placement + 1.0) / 2.0;
           int rpos = s->spanned_rank_interval ()[RIGHT];

@@ -177,6 +177,8 @@
 
     (BalloonTextItem
      . (
+	(annotation-balloon . #t)
+	(annotation-line . #t)
 	(stencil . ,ly:balloon-interface::print)
 	(text . ,(grob::calc-property-by-copy 'text))
 	(X-offset . ,(grob::calc-property-by-copy 'X-offset))
@@ -865,11 +867,13 @@
 
     (FootnoteItem
      . (
+	(annotation-balloon . #f)
+	(annotation-line . #t)
 	(break-visibility . ,inherit-y-parent-visibility)
 	(footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
-	(stencil . #f)
+	(stencil . ,ly:balloon-interface::print)
 	(text . ,(grob::calc-property-by-copy 'text))
-	(Y-extent . 0.0)
+	(Y-extent . #f)
 	(X-offset . ,(grob::calc-property-by-copy 'X-offset))
 	(Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
 	(meta . ((class . Item)
@@ -880,11 +884,13 @@
 
     (FootnoteSpanner
      . (
+	(annotation-balloon . #f)
+	(annotation-line . #t)
 	(footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
 	(spanner-placement . -1.0)
-	(stencil . #f)
+	(stencil . ,ly:balloon-interface::print-spanner)
 	(text . ,(grob::calc-property-by-copy 'text))
-	(Y-extent . 0.0)
+	(Y-extent . #f)
 	(X-offset . ,(grob::calc-property-by-copy 'X-offset))
 	(Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
 	(meta . ((class . Spanner)
