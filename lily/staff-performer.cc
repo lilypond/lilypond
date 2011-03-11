@@ -44,6 +44,8 @@ protected:
   virtual void initialize ();
   void process_music ();
   void stop_translation_timestep ();
+  void set_instrument_name ();
+  void set_instrument (int channel);
 
 private:
   Audio_staff *audio_staff_;
@@ -100,18 +102,27 @@ Staff_performer::process_music ()
   string str = new_instrument_string ();
   if (str.length ())
     {
-      instrument_name_ = new Audio_text (Audio_text::INSTRUMENT_NAME, str);
-      announce_element (Audio_element_info (instrument_name_, 0));
-      instrument_ = new Audio_instrument (str);
-      announce_element (Audio_element_info (instrument_, 0));
-
-      audio_staff_->add_audio_item (instrument_);
-      audio_staff_->add_audio_item (instrument_name_);
-     
-      /*
-	Have to be here before notes arrive into the staff.
-      */
+      set_instrument (0);
+      set_instrument_name ();
     }
+}
+
+void
+Staff_performer::set_instrument (int channel)
+{
+  instrument_ = new Audio_instrument (instrument_string_);
+  instrument_->channel_ = channel;
+  announce_element (Audio_element_info (instrument_, 0));
+  audio_staff_->add_audio_item (instrument_);
+}
+
+void
+Staff_performer::set_instrument_name ()
+{
+  instrument_name_ = new Audio_text (Audio_text::INSTRUMENT_NAME,
+				     instrument_string_);
+  announce_element (Audio_element_info (instrument_name_, 0));
+  audio_staff_->add_audio_item (instrument_name_);
 }
 
 void
@@ -121,10 +132,8 @@ Staff_performer::stop_translation_timestep ()
   SCM drums = scm_call_1 (proc, ly_symbol2scm (instrument_string_.c_str ()));
   audio_staff_->percussion_ = (drums == SCM_BOOL_T);
 
-  if (name_)
-      name_ = 0;
-  if (tempo_)
-      tempo_ = 0;
+  name_ = 0;
+  tempo_ = 0;
   instrument_name_ = 0;
   instrument_ = 0;
 }
@@ -168,7 +177,11 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
       if (i != channel_map_.end ())
 	channel = i->second;
       else
-	channel_map_[id] = channel;
+	{
+	  channel_map_[id] = channel;
+	  if (channel)
+	    set_instrument (channel);
+	}
 
       ai->channel_ = channel;
       audio_staff_->add_audio_item (ai);

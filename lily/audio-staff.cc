@@ -37,8 +37,7 @@ Audio_staff::Audio_staff ()
 void
 Audio_staff::output (Midi_stream &midi_stream, int track)
 {
-  Midi_track midi_track;
-  midi_track.number_ = track;
+  Midi_track midi_track (track);
 
   Midi_walker i (this, &midi_track);
   for (; i.ok (); i++)
