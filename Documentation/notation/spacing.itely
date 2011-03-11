@@ -1746,6 +1746,19 @@ systems, scores, markups, and margins is controlled by
 @node Within-system spacing properties
 @unnumberedsubsubsec Within-system spacing properties
 
+@funindex staff-affinity
+@funindex staffgroup-staff-spacing
+@funindex staff-staff-spacing
+@funindex nonstaff-unrelatedstaff-spacing
+@funindex nonstaff-relatedstaff-spacing
+@funindex nonstaff-nonstaff-spacing
+@funindex default-staff-staff-spacing
+@funindex minimum-Y-extent
+@funindex extra-offset
+@funindex self-alignment-X
+@funindex X-offset
+@funindex VerticalAxisGroup
+
 The within-system vertical spacing mechanisms are controlled by
 two sets of grob properties.  The first set is associated with the
 @code{VerticalAxisGroup} grob, which is created by all staves and
@@ -1864,8 +1877,8 @@ labelContext =
 @end lilypond
 
 Each of the vertical spacing grob properties (except
-@code{staff-affinity}) uses the same alist structure
-as the @code{\paper} spacing variables discussed in
+@code{staff-affinity}) uses the same alist structure as the
+@code{\paper} spacing variables discussed in
 @ref{Flexible vertical spacing \paper variables}.  Specific methods
 for modifying alists are discussed in @ref{Modifying alists}.
 Grob properties should be adjusted with an @code{\override} inside
@@ -2004,14 +2017,18 @@ spacing settings for that staff.
 @end table
 
 @seealso
-Installed Files:
-@file{ly/engraver-init.ly},
-@file{scm/define-grobs.scm}.
+Notation Reference:
+@ref{Flexible vertical spacing \paper variables},
+@ref{Modifying alists}.
 
 Internals Reference:
 @rinternals{Contexts},
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
+
+Installed Files:
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
 
 
 @node Spacing of ungrouped staves
