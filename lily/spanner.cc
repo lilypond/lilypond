@@ -273,7 +273,7 @@ Spanner::broken_neighbor (Direction d) const
   if (!original_)
     return 0;
 
-  vsize k = broken_spanner_index (this);
+  vsize k = get_break_index ();
   Spanner *orig = dynamic_cast<Spanner*> (original_);
   int j = int (k) + d;
   if (j < 0 || vsize (j) >= orig->broken_intos_.size ())
@@ -396,17 +396,6 @@ Spanner::set_spacing_rods (SCM smob)
     }
   
   return SCM_UNSPECIFIED;
-}
-
-/*
-  Return I such that SP == SP->ORIGINAL ()->BROKEN_INTOS_[I].
-*/
-int
-broken_spanner_index (Spanner const *sp)
-{
-  Spanner *parent = dynamic_cast<Spanner *> (sp->original ());
-  /* ugh: casting */
-  return find (parent->broken_intos_, (Spanner*) sp) - parent->broken_intos_.begin ();
 }
 
 Spanner *

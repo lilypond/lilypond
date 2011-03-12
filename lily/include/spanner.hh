@@ -93,5 +93,4 @@ protected:
 void add_bound_item (Spanner *, Grob *);
 
 bool spanner_less (Spanner *s1, Spanner *s2);
-int broken_spanner_index (Spanner const *sp);
 #endif
