@@ -497,7 +497,6 @@ def events_on_channel (channel):
         if start_quant_clocks:
             t = quantise_clocks (t, start_quant_clocks)
 
-
         if (e[1][0] == midi.NOTE_OFF
             or (e[1][0] == midi.NOTE_ON and e[1][2] == 0)):
             debug ('%d: NOTE OFF: %s' % (t, e[1][1]))
@@ -764,10 +763,14 @@ def get_voice_name (i, zero_too_p=False):
         return 'voice' + number2ascii (i)
     return ''
 
+def lst_append (lst, x):
+    lst.append (x)
+    return lst
+
 def get_voice_layout (average_pitch):
     d = {}
     for i in range (len (average_pitch)):
-        d[average_pitch[i]] = i
+        d[average_pitch[i]] = lst_append (d.get (average_pitch[i], []), i)
     s = list (reversed (sorted (average_pitch)))
     non_empty = len (filter (lambda x: x, s))
     names = ['One', 'Two']
@@ -777,6 +780,9 @@ def get_voice_layout (average_pitch):
     for i, n in zip (s, names):
         if i:
             v = d[i]
+            if type (v) == list:
+                d[i] = v[1:]
+                v = v[0]
             layout[v] = n
     return layout
 
