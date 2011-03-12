@@ -184,8 +184,6 @@ Staff_performer::finalize ()
 {
   staff_map_.clear ();
   channel_map_.clear ();
-  channel_count_ = 0;
-  static_channel_map_.clear ();
 }
 
 string
@@ -223,7 +221,10 @@ Staff_performer::get_channel (string instrument)
   /* MIDI players tend to ignore instrument settings on channel
      10, the percussion channel.  */
   if (channel % 16 == 9)
-    channel_map["percussion"] = channel++;
+    {
+      channel_map["percussion"] = channel++;
+      channel_count_++;
+    }
 
   if (channel > 15)
     {
