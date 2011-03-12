@@ -89,6 +89,7 @@ public:
   Pitch pitch_;
   Moment length_mom_;
   Pitch transposing_;
+  Real volume_;
   
   Audio_note *tied_;
   bool tie_event_;

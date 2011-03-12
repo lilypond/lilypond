@@ -181,7 +181,7 @@ Midi_time_signature::to_string () const
 Midi_note::Midi_note (Audio_note *a)
   : Midi_channel_item (a)
   , audio_ (a)
-  , dynamic_byte_ (0x5a)
+  , dynamic_byte_ (a->volume_ > 0 ? Byte (a->volume_ * 0x7f) : Byte (0x5a))
 {
 }
 

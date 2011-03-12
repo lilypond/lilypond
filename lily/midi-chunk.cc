@@ -56,7 +56,6 @@ Midi_track::Midi_track (int number)
   data_string += String_convert::hex2bin (data_str0);
 
   string port = "00" "ff" "21" "01" + String_convert::int2hex (number_, 2, '0');
-
   data_string += String_convert::hex2bin (port);
 
   char const *footer_str0 = "00" "ff2f" "00";

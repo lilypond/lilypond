@@ -19,12 +19,13 @@
 
 #include <map>
 
-#include "warn.hh"
 #include "audio-column.hh"
 #include "audio-item.hh"
 #include "audio-staff.hh"
-#include "performer-group.hh"
 #include "context.hh"
+#include "international.hh"
+#include "performer-group.hh"
+#include "warn.hh"
 
 /* Perform a staff. Individual notes should have their instrument
   (staff-wide) set, so we override play_element ()
@@ -35,26 +36,37 @@ public:
   TRANSLATOR_DECLARATIONS (Staff_performer);
   ~Staff_performer ();
 
-  string new_instrument_string ();
-  string instrument_string_;
-
 protected:
   virtual void acknowledge_audio_element (Audio_element_info info);
   virtual void finalize ();
   virtual void initialize ();
   void process_music ();
   void stop_translation_timestep ();
-  void set_instrument_name ();
-  void set_instrument (int channel);
 
 private:
-  Audio_staff *audio_staff_;
+  string new_instrument_string ();
+  void set_instrument_name (string voice);
+  void set_instrument (int channel, string voice);
+  int get_channel (string instrument);
+  Audio_staff* get_audio_staff (string voice);
+  Audio_staff* new_audio_staff (string voice);
+  Real get_dynamic (string voice);
+
+  string instrument_string_;
+  int channel_;
   Audio_instrument *instrument_;
   Audio_text *instrument_name_;
   Audio_text *name_;
   Audio_tempo *tempo_;
+  map<string, Audio_staff*> staff_map_;
   map<string, int> channel_map_;
+  map<string, Real> dynamic_map_;
+  static map<string, int> static_channel_map_;
+  static int channel_count_;
 };
+
+map<string, int> Staff_performer::static_channel_map_;
+int Staff_performer::channel_count_ = 0;
 
 #include "translator.icc"
 
@@ -72,12 +84,12 @@ ADD_TRANSLATOR (Staff_performer,
 		"");
 
 Staff_performer::Staff_performer ()
+  : channel_ (0)
+  , instrument_ (0)
+  , instrument_name_ (0)
+  , name_ (0)
+  , tempo_ (0)
 {
-  audio_staff_ = 0;
-  instrument_ = 0;
-  instrument_name_ = 0;
-  name_ = 0;
-  tempo_ = 0;
 }
 
 Staff_performer::~Staff_performer ()
@@ -87,51 +99,75 @@ Staff_performer::~Staff_performer ()
 void
 Staff_performer::initialize ()
 {
-  audio_staff_ = new Audio_staff;
-  name_ = new Audio_text (Audio_text::TRACK_NAME, context ()->id_string ());
+}
 
-  audio_staff_->add_audio_item (name_);
-  
-  announce_element (Audio_element_info (audio_staff_, 0));
+Audio_staff*
+Staff_performer::new_audio_staff (string voice)
+{
+  Audio_staff* audio_staff = new Audio_staff;
+  name_ = new Audio_text (Audio_text::TRACK_NAME, context ()->id_string ()
+			  + ":" + voice);
+  audio_staff->add_audio_item (name_);
+  announce_element (Audio_element_info (audio_staff, 0));
   announce_element (Audio_element_info (name_, 0));
+  staff_map_[voice] = audio_staff;
+  return audio_staff;
+}
+
+Audio_staff*
+Staff_performer::get_audio_staff (string voice)
+{
+  map<string, Audio_staff*>::const_iterator i = staff_map_.find (voice);
+  if (i != staff_map_.end ())
+    return i->second;
+  map<string, Audio_staff*>::const_iterator e = staff_map_.find ("");
+  if (staff_map_.size () == 1 && e != staff_map_.end ())
+    {
+      staff_map_[voice] = e->second;
+      return e->second;
+    }
+  return new_audio_staff (voice);
+}
+
+Real
+Staff_performer::get_dynamic (string voice)
+{
+  map<string, Real>::const_iterator i = dynamic_map_.find (voice);
+  if (i != dynamic_map_.end ())
+    return i->second;
+  return 0;
 }
 
 void
 Staff_performer::process_music ()
 {
-  string str = new_instrument_string ();
-  if (str.length ())
-    {
-      set_instrument (0);
-      set_instrument_name ();
-    }
 }
 
 void
-Staff_performer::set_instrument (int channel)
+Staff_performer::set_instrument (int channel, string voice)
 {
   instrument_ = new Audio_instrument (instrument_string_);
   instrument_->channel_ = channel;
   announce_element (Audio_element_info (instrument_, 0));
-  audio_staff_->add_audio_item (instrument_);
+  Audio_staff* audio_staff = get_audio_staff (voice);
+  audio_staff->add_audio_item (instrument_);
+  SCM proc = ly_lily_module_constant ("percussion?");
+  SCM drums = scm_call_1 (proc, ly_symbol2scm (instrument_string_.c_str ()));
+  audio_staff->percussion_ = (drums == SCM_BOOL_T);
 }
 
 void
-Staff_performer::set_instrument_name ()
+Staff_performer::set_instrument_name (string voice)
 {
   instrument_name_ = new Audio_text (Audio_text::INSTRUMENT_NAME,
 				     instrument_string_);
   announce_element (Audio_element_info (instrument_name_, 0));
-  audio_staff_->add_audio_item (instrument_name_);
+  get_audio_staff (voice)->add_audio_item (instrument_name_);
 }
 
 void
 Staff_performer::stop_translation_timestep ()
 {
-  SCM proc = ly_lily_module_constant ("percussion?");
-  SCM drums = scm_call_1 (proc, ly_symbol2scm (instrument_string_.c_str ()));
-  audio_staff_->percussion_ = (drums == SCM_BOOL_T);
-
   name_ = 0;
   tempo_ = 0;
   instrument_name_ = 0;
@@ -141,7 +177,10 @@ Staff_performer::stop_translation_timestep ()
 void
 Staff_performer::finalize ()
 {
-  audio_staff_ = 0;
+  staff_map_.clear ();
+  channel_map_.clear ();
+  channel_count_ = 0;
+  static_channel_map_.clear ();
 }
 
 string
@@ -159,32 +198,63 @@ Staff_performer::new_instrument_string ()
   return instrument_string_;
 }
 
+int
+Staff_performer::get_channel (string instrument)
+{
+  SCM channel_per_staff = get_property ("midiChannelPerStaff");
+  map<string, int>& channel_map = (channel_per_staff == SCM_BOOL_T)
+    ? channel_map_
+    : static_channel_map_;
+
+  map<string, int>::const_iterator i = channel_map.find (instrument);
+  if (i != channel_map.end ())
+    return i->second;
+ 
+  int channel = (channel_per_staff == SCM_BOOL_T)
+    ? channel_count_++
+    :channel_map.size ();
+
+  /* MIDI players tend to ignore instrument settings on channel
+     10, the percussion channel.  */
+  if (channel % 16 == 9)
+    channel_map["percussion"] = channel++;
+
+  if (channel > 15)
+    {
+      warning (_ ("MIDI channel wrapped around"));
+      warning (_ ("remapping modulo 16"));
+      channel = channel % 16; 
+    }
+
+  channel_map[instrument] = channel;
+  return channel;
+}
+
 void
 Staff_performer::acknowledge_audio_element (Audio_element_info inf)
 {
   if (Audio_item *ai = dynamic_cast<Audio_item *> (inf.elem_))
     {
-      /* map each context (voice) to its own channel */
-      Context *c = inf.origin_contexts (this)[0];
-      string id = c->id_string ();
-      int channel = channel_map_.size ();
-      /* MIDI players tend to ignore instrument settings on channel
-	 10, the percussion channel.  */
-      if (channel % 16 == 9)
-	channel_map_[""] = channel++;
-
-      map<string, int>::const_iterator i = channel_map_.find (id);
-      if (i != channel_map_.end ())
-	channel = i->second;
-      else
+      /* map each context (voice) to its own track */
+      Context* c = inf.origin_contexts (this)[0];
+      string voice;
+      if (c->is_alias (ly_symbol2scm ("Voice")))
+	voice = c->id_string ();
+      string str = new_instrument_string ();
+      if (str.length ())
 	{
-	  channel_map_[id] = channel;
-	  if (channel)
-	    set_instrument (channel);
+	  channel_ = get_channel (str);
+	  set_instrument (channel_, voice);
+	  set_instrument_name (voice);
 	}
-
-      ai->channel_ = channel;
-      audio_staff_->add_audio_item (ai);
+      Audio_staff* audio_staff = get_audio_staff (voice);
+      ai->channel_ = channel_;
+      if (Audio_dynamic *d = dynamic_cast<Audio_dynamic *> (inf.elem_))
+	dynamic_map_[voice] = d->volume_;
+      if (Real d = get_dynamic (voice))
+	if (Audio_note *n = dynamic_cast<Audio_note *> (inf.elem_))
+	  n->volume_ = d;
+      audio_staff->add_audio_item (ai);
     }
 }
 

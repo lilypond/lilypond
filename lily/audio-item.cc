@@ -51,6 +51,7 @@ Audio_note::Audio_note (Pitch p, Moment m, bool tie_event, Pitch transposing)
   tied_ = 0;
   transposing_ = transposing;
   tie_event_ = tie_event;
+  volume_ = 0;
 }
 
 void
