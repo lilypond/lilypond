@@ -981,7 +981,11 @@ def convert_midi (in_file, out_file):
         if context:
             s += '    \\context %(context)s=%(staff_name)s \\%(track_name)s\n' % locals ()
         i += 1
-    s = s + '  >>\n}\n'
+    s = s + '''  >>
+  \layout {}
+  \midi {}
+}
+'''
 
     progress (_ ("%s output to `%s'...") % ('LY', out_file))
 

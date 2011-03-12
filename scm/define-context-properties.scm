@@ -357,8 +357,7 @@ half staff-spaces.  Usually determined by looking at
 @code{midiMinimumVolume}.")
      (midiMinimumVolume ,number? "Set the minimum loudness for MIDI.
 Ranges from 0 to@tie{}1.")
-     (midiChannelPerStaff ,boolean? "If set to @code{##t},
-each staff is assiged its own channel.")
+     (midiChannelMapping ,symbol? "How to map MIDI channels: per @code{instrument} (default), @code{staff} or @code{voice}.")
      (minimumFret ,number? "The tablature auto string-selecting
 mechanism selects the highest string with a fret at least
 @code{minimumFret}.")

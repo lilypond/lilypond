@@ -117,6 +117,11 @@ Staff_performer::new_audio_staff (string voice)
 Audio_staff*
 Staff_performer::get_audio_staff (string voice)
 {
+  SCM channel_mapping = get_property ("midiChannelMapping");
+  if (channel_mapping == ly_symbol2scm ("voice")
+      && staff_map_.size ())
+    return staff_map_.begin ()->second;
+
   map<string, Audio_staff*>::const_iterator i = staff_map_.find (voice);
   if (i != staff_map_.end ())
     return i->second;
@@ -201,8 +206,9 @@ Staff_performer::new_instrument_string ()
 int
 Staff_performer::get_channel (string instrument)
 {
-  SCM channel_per_staff = get_property ("midiChannelPerStaff");
-  map<string, int>& channel_map = (channel_per_staff == SCM_BOOL_T)
+  SCM channel_mapping = get_property ("midiChannelMapping");
+  map<string, int>& channel_map
+    = (channel_mapping != ly_symbol2scm ("instrument"))
     ? channel_map_
     : static_channel_map_;
 
@@ -210,9 +216,9 @@ Staff_performer::get_channel (string instrument)
   if (i != channel_map.end ())
     return i->second;
  
-  int channel = (channel_per_staff == SCM_BOOL_T)
+  int channel = (channel_mapping == ly_symbol2scm ("staff"))
     ? channel_count_++
-    :channel_map.size ();
+    : channel_map.size ();
 
   /* MIDI players tend to ignore instrument settings on channel
      10, the percussion channel.  */
@@ -240,10 +246,14 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
       string voice;
       if (c->is_alias (ly_symbol2scm ("Voice")))
 	voice = c->id_string ();
+      SCM channel_mapping = get_property ("midiChannelMapping");
+      if (channel_mapping == ly_symbol2scm ("voice"))
+	channel_ = get_channel (voice);
       string str = new_instrument_string ();
       if (str.length ())
 	{
-	  channel_ = get_channel (str);
+	  if (channel_mapping != ly_symbol2scm ("voice"))
+	    channel_ = get_channel (str);
 	  set_instrument (channel_, voice);
 	  set_instrument_name (voice);
 	}
