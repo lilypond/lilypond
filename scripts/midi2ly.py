@@ -945,13 +945,22 @@ def convert_midi (in_file, out_file):
         print 'allowed tuplet clocks:', allowed_tuplet_clocks
 
     tracks = [create_track (t) for t in midi_dump[1]]
+    # urg, parse all global track events, such as Key first
+    # this fixes key in different voice/staff problem
+    for t in tracks:
+        t.music = t.parse ()
     prev = None
     staves = []
     for t in tracks:
         voices = t.get_voices ()
         if ((t.name and prev and prev.name)
             and t.name.split (':')[0] == prev.name.split (':')[0]):
-            staves[-1].voices += voices
+            # staves[-1].voices += voices
+            # all global track events first
+            staves[-1].voices = ([staves[-1].voices[0]]
+                                 + [voices[0]]
+                                 + staves[-1].voices[1:]
+                                 + voices[1:])
         else:
             staves.append (Staff (t))
         prev = t
