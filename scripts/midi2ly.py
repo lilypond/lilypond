@@ -906,6 +906,12 @@ def get_best_clef (average_pitch):
             return Clef (3)
     return Clef (2)
 
+class Staff:
+    def __init__ (self, voices):
+        self.voices = voices
+    def dump (self, i):
+        return dump_track (self.voices, i)
+
 def convert_midi (in_file, out_file):
     global clocks_per_1, clocks_per_4, key
     global start_quant_clocks
@@ -934,9 +940,7 @@ def convert_midi (in_file, out_file):
     if global_options.verbose:
         print 'allowed tuplet clocks:', allowed_tuplet_clocks
 
-    tracks = []
-    for t in midi_dump[1]:
-        tracks.append (split_track (t))
+    staves = [Staff (split_track (t)) for t in midi_dump[1]]
 
     tag = '%% Lily was here -- automatically converted by %s from %s' % ( program_name, in_file)
 
@@ -965,18 +969,18 @@ def convert_midi (in_file, out_file):
             s += '\n'
         s += '% end\n'
 
-    for i in range (len (tracks)):
-        s = s + dump_track (tracks[i], i)
+    for i, t in enumerate (staves):
+        s += t.dump (i)
 
     s += '\n\\score {\n  <<\n'
 
     i = 0
-    for t in tracks:
+    for i, s in enumerate (staves):
         track_name = get_track_name (i)
-        item = track_first_item (t)
+        item = track_first_item (s.voices)
         staff_name = track_name
         context = None
-        if not i and not item and len (tracks) > 1:
+        if not i and not item and len (staves) > 1:
             # control track
             staff_name = get_track_name (1)
             context = 'Staff'
@@ -986,7 +990,7 @@ def convert_midi (in_file, out_file):
             context = 'Lyrics'
         if context:
             s += '    \\context %(context)s=%(staff_name)s \\%(track_name)s\n' % locals ()
-        i += 1
+
     s = s + '''  >>
   \layout {}
   \midi {}
