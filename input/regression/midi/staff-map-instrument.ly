@@ -1,7 +1,7 @@
 \version "2.13.53"
 
 \header {
-texidoc="Midi2ly remaps voices are corectly to staves.  TODO: pianostaff"
+texidoc="Midi2ly remaps voices correctly to staves in MIDI-files that use instrument<->channel mapping when combined with voice<->track mapping.  TODO: pianostaff"
 options=""
 }
 
@@ -9,7 +9,8 @@ options=""
 %% TODO:PIANOSTAFF  \context PianoStaff <<
   <<
     \context Staff = "treble" <<
-      \set Score.midiChannelMapping = #'voice
+      %% the default
+      %% \set Score.midiChannelMapping = #'instrument
       \context Voice="one" \relative c'' {
 	\time 4/4
 	\key c \minor

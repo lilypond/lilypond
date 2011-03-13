@@ -61,7 +61,6 @@ trackB = <<
 
 \score {
   <<
-    \set Score.midiChannelMapping = #'voice
     \context Staff=trackB \trackA
     \context Staff=trackB \trackB
   >>

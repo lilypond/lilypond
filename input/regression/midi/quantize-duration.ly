@@ -49,7 +49,6 @@ trackB = <<
 
 \score {
   <<
-    %\set Score.midiChannelMapping = #'voice
     \context Staff=trackB \trackB
   >>
   \layout {}
