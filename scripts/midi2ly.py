@@ -23,15 +23,6 @@
 
 '''
 TODO:
-    * test on weird and unquantised midi input (lily-devel)
-    * update doc and manpage
-
-    * simply insert clef changes whenever too many ledger lines
-        [to avoid tex capacity exceeded]
-    * do not ever quant skips
-    * better lyrics handling
-    * [see if it is feasible to] move ly-classes to library for use in
-        other converters, while leaving midi specific stuff here
 '''
 
 import os
@@ -149,7 +140,8 @@ class Duration:
             s = '%d*%d/%d' % (self.dur, self.num, self.den)
 
         global reference_note
-        reference_note.duration = self
+        if reference_note: # debugging
+            reference_note.duration = self
 
         return s
 
@@ -422,34 +414,55 @@ class Text:
     def __repr__ (self):
         return 'Text(%d=%s)' % (self.type, self.text)
 
+def get_voice (channel, events):
+    debug ('channel: ' + str (channel) + '\n')
+    music = parse_events (events)
+    return unthread_notes (music)
 
+class Channel:
+    def __init__ (self, number):
+        self.number = number
+        self.events = []
+    def add (self, event):
+        self.events.append (event)
+        return self
+    def get_voice (self):
+        return get_voice (self.number, self.events)
+    
+class Track:
+    def __init__ (self):
+        self.name = None
+        self.events = []
+        self.channels = {}
+    def _add (self, event):
+        if isinstance (event, Text) and event.type == midi.SEQUENCE_TRACK_NAME:
+            self.name = event.text
+        self.events.append (event)
+    def add (self, event, channel=None):
+        if channel == None:
+            self._add (event)
+        else:
+#            self.channels[channel] = self.channels.get (channel, Channel (channel)).add (event)
+            self.channels[channel] = self.channels.get (channel, Channel (channel))
+            self.channels[channel].add (event)
+    def get_voice (self):
+        return get_voice (None, self.events)
+    def get_voices (self):
+        return ([self.get_voice ()]
+                + [self.channels[k].get_voice ()
+                   for k in sorted (self.channels.keys ())])
 
-def split_track (track):
-    chs = {}
-    for i in range (16):
-        chs[i] = []
-
-    for e in track:
+def parse_track (events):
+    track = Track ()
+    for e in events:
         data = list (e[1])
         if data[0] > 0x7f and data[0] < 0xf0:
-            c = data[0] & 0x0f
+            channel = data[0] & 0x0f
             e = (e[0], tuple ([data[0] & 0xf0] + data[1:]))
-            chs[c].append (e)
+            track.add (e, channel)
         else:
-            chs[0].append (e)
-
-    threads = []
-    i = 0
-    for v in chs.values ():
-        i += 1
-        if not v:
-            continue
-        debug ('channel: %d\n' % i)
-        events = events_on_channel (v)
-        t = unthread_notes (events)
-        if len (t):
-            threads.append (t)
-    return threads
+            track.add (e)
+    return track
 
 def quantise_clocks (clocks, quant):
     q = int (clocks / quant) * quant
@@ -484,7 +497,7 @@ def end_note (pitches, notes, t, e):
     except KeyError:
         pass
 
-def events_on_channel (channel):
+def parse_events (channel):
     pitches = {}
 
     notes = []
@@ -673,10 +686,6 @@ def dump_bar_line (last_bar_t, t, bar_count):
 
 def dump_voice (thread, skip):
     global reference_note, time
-
-    # urg LilyPond doesn't start at c4, but
-    # remembers from previous tracks!
-    # reference_note = Note (clocks_per_4, 4*12, 0)
     ref = Note (0, 4*12, 0)
     if not reference_note:
         reference_note = ref
@@ -907,8 +916,8 @@ def get_best_clef (average_pitch):
     return Clef (2)
 
 class Staff:
-    def __init__ (self, voices):
-        self.voices = voices
+    def __init__ (self, track):
+        self.voices = track.get_voices ()
     def dump (self, i):
         return dump_track (self.voices, i)
 
@@ -940,7 +949,7 @@ def convert_midi (in_file, out_file):
     if global_options.verbose:
         print 'allowed tuplet clocks:', allowed_tuplet_clocks
 
-    staves = [Staff (split_track (t)) for t in midi_dump[1]]
+    staves = [Staff (parse_track (t)) for t in midi_dump[1]]
 
     tag = '%% Lily was here -- automatically converted by %s from %s' % ( program_name, in_file)
 
@@ -975,9 +984,9 @@ def convert_midi (in_file, out_file):
     s += '\n\\score {\n  <<\n'
 
     i = 0
-    for i, s in enumerate (staves):
+    for i, staff in enumerate (staves):
         track_name = get_track_name (i)
-        item = track_first_item (s.voices)
+        item = track_first_item (staff.voices)
         staff_name = track_name
         context = None
         if not i and not item and len (staves) > 1:
