@@ -13,7 +13,7 @@
 
 % included from ./out-www/voice-2.header
 \header {
-texidoc="midi2ly --start-quant quantizes start of notes"
+texidoc="midi2ly @code{--start-quant} quantizes start of notes"
 options="--start-quant=4"
 }
 % end

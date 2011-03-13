@@ -13,7 +13,7 @@
 
 % included from ./out-www/option-key.header
 \header {
-texidoc="--key works in midi2ly this is F major"
+texidoc="midi2ly @code{--key} works, this is F major"
 options="--key=-1"
 }
 % end

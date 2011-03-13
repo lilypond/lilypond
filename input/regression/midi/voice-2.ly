@@ -13,7 +13,7 @@
 
 % included from ./out-www/voice-2.header
 \header {
-texidoc="midi2ly maps two voices nicely on once staff as \voiceOne, \voiceTwo"
+texidoc="midi2ly maps two voices nicely on one staff as \voiceOne, \voiceTwo"
 options=""
 }
 % end

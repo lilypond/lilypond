@@ -13,7 +13,7 @@
 
 % included from ./out-www/voice-2.header
 \header {
-texidoc="midi2ly --duration-quant quantizes durations of notes"
+texidoc="midi2ly @code{--duration-quant} quantizes durations of notes"
 options="--duration-quant=4"
 }
 % end
