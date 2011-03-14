@@ -34,9 +34,10 @@ using namespace std;
 #include "string-convert.hh"
 #include "warn.hh"
 
-Performance::Performance ()
+Performance::Performance (bool ports)
+  : midi_ (0)
+  , ports_ (ports)
 {
-  midi_ = 0;
 }
 
 Performance::~Performance ()
@@ -58,7 +59,7 @@ Performance::output (Midi_stream &midi_stream) const
       Audio_staff *s = audio_staffs_[i];
       if (be_verbose_global)
 	progress_indication ("[" + to_string (i));
-      s->output (midi_stream, i);
+      s->output (midi_stream, i, ports_);
       if (be_verbose_global)
 	progress_indication ("]");
     }

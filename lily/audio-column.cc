@@ -20,7 +20,6 @@
 #include "audio-column.hh"
 
 #include "audio-item.hh"
-#include "performance.hh"
 
 Audio_column::Audio_column (Moment when)
 {

@@ -70,11 +70,12 @@ class Midi_track : public Midi_chunk
 {
 public:
   int number_;
+  int port_;
   DECLARE_CLASSNAME (Midi_track);
 
   vector<Midi_event*> events_;
 
-  Midi_track (int number);
+  Midi_track (int number, bool port);
   ~Midi_track ();
 
   void add (int, Midi_item *midi);

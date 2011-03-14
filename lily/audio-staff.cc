@@ -35,9 +35,9 @@ Audio_staff::Audio_staff ()
 }
 
 void
-Audio_staff::output (Midi_stream &midi_stream, int track)
+Audio_staff::output (Midi_stream &midi_stream, int track, bool port)
 {
-  Midi_track midi_track (track);
+  Midi_track midi_track (track, port);
 
   Midi_walker i (this, &midi_track);
   for (; i.ok (); i++)
