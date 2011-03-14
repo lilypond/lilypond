@@ -403,7 +403,8 @@ class Text:
             s = s + ' '
         elif (self.text.strip ()
               and self.type == midi.SEQUENCE_TRACK_NAME
-              and not self.text == 'control track'):
+              and not self.text == 'control track'
+              and not self.track.lyrics_p_):
             text = self.text.replace ('(MIDI)', '').strip ()
             if text:
                 s = '\n  \\set Staff.instrumentName = "%(text)s"\n  ' % locals ()
@@ -509,6 +510,7 @@ class Channel:
                 elif (e[1][1] >= midi.SEQUENCE_NUMBER
                       and e[1][1] <= midi.CUE_POINT):
                     text = Text (e[1][1], e[1][2])
+                    text.track = self
                     music.append ((t, text))
                     if (text.type == midi.SEQUENCE_TRACK_NAME):
                         self.name = text.text
