@@ -122,7 +122,7 @@ Audio_staff*
 Staff_performer::get_audio_staff (string voice)
 {
   SCM channel_mapping = get_property ("midiChannelMapping");
-  if (channel_mapping != ly_symbol2scm ("voice")
+  if (channel_mapping != ly_symbol2scm ("instrument")
       && staff_map_.size ())
     return staff_map_.begin ()->second;
 
