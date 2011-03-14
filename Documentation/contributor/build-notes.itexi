@@ -214,6 +214,17 @@ subdirectory.  This sets a load of other variables, does some
 testing to see if SCONS (another build tool?) is being used, and
 then runs @file{make/config.make} - which doesn't seem to exist...
 
+GP: scons is indeed a different build tool; I think that Jan
+experimented with it 5 years ago or something.  It seems like we
+still have bits and pieces of it floating around.
+
+GP: note that *none* of the variables that are loaded (from depth
+to version numbers to whatever) are used in website.make.
+Instead, website.make sets up its own variables at the top of the
+file.  If you're wondering if there's some smart reason for this,
+then the answer is "no".  It's because I didn't know/trust the
+original variables when I was writing that file.
+
 Next, it runs @file{make/toplevel-version.make}, which sets the
 version variables for major, minor, patch, stable, development and
 mypatchlevel (which seems to be used for patch numbers for
@@ -414,7 +425,85 @@ would be to redirect @code{make -n website} and @code{make website}
 to a text file and work through a) what it does and b) where the
 errors are occurring.
 
+GP: wow, all the above is much more complicated than I've ever
+looked at stuff -- I tend to do a "back first" approach (where I
+begin from the command-line that I want to modify, figure out
+where it's generated, and then figure out how to change the
+generated command-line), rather than a "front first" (where you
+begin from the "make" command).  In the long term, we should
+probably move it to a general "how stepmake works" section,
+because it's not particularly relevant to the website build.
+
 Website build includes @ref{Building a bibliography}.
+
+
+@subsubheading website.make variables
+
+The file begins by setting up some variables.  These
+may/might/probably mirror existing variables, but lacking any docs
+about those variables, I thought it would be simpler to keep
+everything in the same file.
+
+Note that for security reasons, we *don't* call scripts in the git
+dir when building on the web server.  See @ref{Uploading and
+security}.  So we definitely want to keep those definitions for
+the WEBSITE_ONLY_BUILD.
+
+After some split WEBSITE_ONLY_BUILD vs. normal build definitions,
+there's another bunch of lines setting up generic variables.
+
+@subsubheading website.make building parts
+
+The website-version rule creates files that define macros for
+commands like @@stableDocsNotationPdf@{@}, by calling python scripts.
+Those scripts are scripts/build/create-version-itexi.py and
+scripts/build/create-weblinks-itexi.py.
+
+website-xrefs: creates files used for complicated "out-of-build"
+references.  If you just write @@ref@{@}, then all's groovy.  But
+if you do @@rlearning@{@}, then our custom texi2html init file
+needs to know about our custom xref file format, which tells our
+custom texi2html init file how to create the link.
+
+We should have a separate @@node to discuss xrefs.  Also, take a
+quick look at a generated xref file -- it's basically just a list
+of @@node's [sic teenager pluralization rule] from the file.
+
+website-bib: generates the bibliography texinfo files from the
+.bib files.
+
+website-texinfo: this is the money shot; it calles texi2html to
+generate the actual html.  It also has a ton of options to
+texi2html to pass info to our custom init file.
+
+After texi2html, it does some black magick to deal with
+untranslated nodes in the translations.  Despite writing that
+part, I can't remember how it works.  But in theory, you could
+figure it out by copy&pasting each part of the command (by "part",
+I mean "stuff before each | pipe"), substituting the variables,
+then looking at the text that's output.  For example,
+  ls $(OUT)/$$l/*.html
+is going to print a list of all html files, in all languages, in
+the build directory.  Then more stuff happens to each of those
+files (that's what xargs does).
+
+website-css: just copies files to the build dir.
+
+website-pictures, website-examples: more file copies, with an if
+statement to handle if you don't have any generated
+pictures/examples.
+
+web-post: buggered if I know.  Apparently it runs the
+scripts/build/website_post.py  file, which despite writing, I
+can't remember what it does.
+
+ok, it adds the "this page is translated in klingon" to the bottom
+of html pages, and adds the google analytics javascript.  It also
+has hard-coded lilypond version numbers.
+
+website: this is the "master" rule.  It calls the bits and pieces
+in order, then copies some extra files around.
+
 
 @node Building an Ubuntu distro
 @section Building an Ubuntu distro
