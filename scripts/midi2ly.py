@@ -497,7 +497,9 @@ class Channel:
                     global_options.key = k
 
                 elif (e[1][1] == midi.LYRIC
-                      or (global_options.text_lyrics and e[1][1] == midi.TEXT_EVENT)):
+                      or (global_options.text_lyrics
+                          and e[1][1] == midi.TEXT_EVENT)):
+                    self.lyrics_p_ = True
                     if last_lyric:
                         last_lyric.clocks = t - last_time
                         music.append ((last_time, last_lyric))
@@ -538,6 +540,7 @@ class Track (Channel):
         Channel.__init__ (self, None)
         self.name = None
         self.channels = {}
+        self.lyrics_p_ = False
     def _add (self, event):
         self.events.append (event)
     def add (self, event, channel=None):

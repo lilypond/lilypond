@@ -105,9 +105,13 @@ Audio_staff*
 Staff_performer::new_audio_staff (string voice)
 {
   Audio_staff* audio_staff = new Audio_staff;
-  name_ = new Audio_text (Audio_text::TRACK_NAME, context ()->id_string ()
-			  + ":" + voice);
-  audio_staff->add_audio_item (name_);
+  string track_name = context ()->id_string () + ":" + voice;
+  if (track_name != ":")
+    {
+      name_ = new Audio_text (Audio_text::TRACK_NAME, context ()->id_string ()
+			      + ":" + voice);
+      audio_staff->add_audio_item (name_);
+    }
   announce_element (Audio_element_info (audio_staff, 0));
   announce_element (Audio_element_info (name_, 0));
   staff_map_[voice] = audio_staff;
@@ -118,7 +122,7 @@ Audio_staff*
 Staff_performer::get_audio_staff (string voice)
 {
   SCM channel_mapping = get_property ("midiChannelMapping");
-  if (channel_mapping == ly_symbol2scm ("voice")
+  if (channel_mapping != ly_symbol2scm ("voice")
       && staff_map_.size ())
     return staff_map_.begin ()->second;
 
