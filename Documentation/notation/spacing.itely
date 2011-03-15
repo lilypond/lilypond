@@ -895,6 +895,7 @@ Default values not listed here are defined in
 
 @table @code
 
+@cindex page numbers, auto-numbering
 @item auto-first-page-number
 @funindex auto-first-page-number
 
@@ -904,6 +905,7 @@ will decide whether to start with an odd or even number.  This
 will result in the first page number remaining as is or being
 increased by one.  Default: @code{#f}.
 
+@cindex page numbers, specify the first
 @item first-page-number
 @funindex first-page-number
 
@@ -914,6 +916,7 @@ The value of the page number on the first page.
 
 If set to true, a page number is printed on the first page.
 
+@cindex page numbers, suppress
 @item print-page-number
 @funindex print-page-number
 
