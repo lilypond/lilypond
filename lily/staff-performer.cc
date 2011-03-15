@@ -115,6 +115,8 @@ Staff_performer::new_audio_staff (string voice)
     }
   announce_element (Audio_element_info (audio_staff, 0));
   staff_map_[voice] = audio_staff;
+  if (!instrument_string_.empty ())
+    set_instrument (channel_, voice);
   return audio_staff;
 }
 
