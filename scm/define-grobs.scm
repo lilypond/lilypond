@@ -887,7 +887,7 @@
 	(annotation-balloon . #f)
 	(annotation-line . #t)
 	(footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
-	(spanner-placement . -1.0)
+	(spanner-placement . LEFT)
 	(stencil . ,ly:balloon-interface::print-spanner)
 	(text . ,(grob::calc-property-by-copy 'text))
 	(Y-extent . #f)

@@ -1039,16 +1039,11 @@ grobs.")
      (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing
 objects.")
      (span-start ,boolean? "Is the note head at the start of a spanner?")
-     (spanner-placement ,number? "The place of an annotation on a spanner.
-Note that this number must be between -1 and 1, with -1 representing the
-beginning of the spanner and 1 representing the end.  The annotation will
-still be placed at the left or right extremity of the spanner, but this
-number ensures that when line breaking happens, the annotation is assigned
-to the correct broken piece and the footnote is put on the correct page.
-An important caveat is that this number applies to column ranks, not staff
-space.  For example, 0 will place the annotation at the middle column of
-its parent's span, which may be to the right or left of the physical middle
-of the spanner.")
+     (spanner-placement ,ly:dir? "The place of an annotation on a spanner.
+LEFT is for the first spanner, and RIGHT is for the last.  CENTER will
+place it on the broken spanner that falls closest to the center of the length
+of the entire spanner, although this behavior is unpredictable in situations
+with lots of rhythmic diversity.  For predictable results, use LEFT and RIGHT.")
      (staff-grouper ,ly:grob? "The staff grouper we belong to.")
      (staff-symbol ,ly:grob? "The staff symbol grob that we are in.")
      (stem ,ly:grob? "A pointer to a @code{Stem} object.")
