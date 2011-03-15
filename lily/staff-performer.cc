@@ -111,9 +111,9 @@ Staff_performer::new_audio_staff (string voice)
       name_ = new Audio_text (Audio_text::TRACK_NAME, context ()->id_string ()
 			      + ":" + voice);
       audio_staff->add_audio_item (name_);
+      announce_element (Audio_element_info (name_, 0));
     }
   announce_element (Audio_element_info (audio_staff, 0));
-  announce_element (Audio_element_info (name_, 0));
   staff_map_[voice] = audio_staff;
   return audio_staff;
 }
