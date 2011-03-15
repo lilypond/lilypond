@@ -271,6 +271,9 @@ Midi_dynamic::Midi_dynamic (Audio_dynamic *a)
 string
 Midi_dynamic::to_string () const
 {
+  if (audio_->volume_ < 0)
+    return "";
+
   Byte status_byte = (char) (0xB0 + channel_);
   string str = ::to_string ((char)status_byte);
 

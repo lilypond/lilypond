@@ -264,8 +264,12 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
 	}
       Audio_staff* audio_staff = get_audio_staff (voice);
       ai->channel_ = channel_;
+      // Output volume as velocity and disable Midi_dynamic output
       if (Audio_dynamic *d = dynamic_cast<Audio_dynamic *> (inf.elem_))
-	dynamic_map_[voice] = d->volume_;
+	{
+	  dynamic_map_[voice] = d->volume_;
+	  d->volume_ = -1;
+	}
       if (Real d = get_dynamic (voice))
 	if (Audio_note *n = dynamic_cast<Audio_note *> (inf.elem_))
 	  n->volume_ = d;
