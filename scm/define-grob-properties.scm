@@ -616,6 +616,9 @@ the nearest staff in the opposite direction from
 between the two, and @code{staff-affinity} is either @code{UP} or
 @code{DOWN}.  See @code{staff-staff-spacing} for a description of
 the alist structure.")
+     (normalized-endpoints ,pair? "Represents left and right placement
+over the total spanner, where the width of the spanner is normalized
+between 0 and 1.")
      (note-names ,vector? "Vector of strings containing names for
 easy-notation note heads.")
 

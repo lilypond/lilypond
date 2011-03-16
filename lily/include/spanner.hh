@@ -48,6 +48,7 @@ class Spanner : public Grob
 
 public:
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_normalized_endpoints, (SCM));
   DECLARE_SCHEME_CALLBACK (bounds_width, (SCM));
   DECLARE_SCHEME_CALLBACK (kill_zero_spanned_time, (SCM));
 

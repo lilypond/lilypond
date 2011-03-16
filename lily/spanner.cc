@@ -398,6 +398,53 @@ Spanner::set_spacing_rods (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
+MAKE_SCHEME_CALLBACK (Spanner, calc_normalized_endpoints, 1);
+SCM
+Spanner::calc_normalized_endpoints (SCM smob)
+{
+  Spanner *me = unsmob_spanner (smob);
+  SCM result = SCM_EOL;
+
+  Spanner *orig = dynamic_cast<Spanner *> (me->original ());
+
+  orig = orig ? orig : me;
+
+  if (orig->is_broken ())
+    {
+      Real total_width = 0.0;
+      vector<Real> span_data;
+
+      if (!orig->is_broken ())
+        span_data.push_back (orig->spanner_length ());
+      else
+        for (vsize i = 0; i < orig->broken_intos_.size (); i++)
+          span_data.push_back (orig->broken_intos_[i]->spanner_length ());
+
+      vector<Interval> unnormalized_endpoints;
+
+      for (vsize i = 0; i < span_data.size (); i++)
+        {
+          unnormalized_endpoints.push_back (Interval (total_width, total_width + span_data[i]));
+          total_width += span_data[i];
+        }
+
+      for (vsize i = 0; i < unnormalized_endpoints.size (); i++)
+        {
+          SCM t = ly_interval2scm (1 / total_width * unnormalized_endpoints[i]);
+          orig->broken_intos_[i]->set_property ("normalized-endpoints", t);
+          if (me->get_break_index () == i)
+            result = t;
+        }
+    }
+  else
+    {
+      result = scm_cons (scm_from_double (0.0), scm_from_double (1.0));
+      orig->set_property ("normalized-endpoints", result);
+    }
+
+  return result;
+}
+
 Spanner *
 unsmob_spanner (SCM s)
 {
@@ -479,6 +526,7 @@ ADD_INTERFACE (Spanner,
 	       " point of the spanner.",
 
 	       /* properties */
+	       "normalized-endpoints "
 	       "minimum-length "
 	       "to-barline "
 	       );

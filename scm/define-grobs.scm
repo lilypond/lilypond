@@ -326,7 +326,6 @@
      . (
 	;; todo: clean this up a bit: the list is getting
 	;; rather long.
-
 	(auto-knee-gap . 5.5)
 	(beam-thickness . 0.48) ; in staff-space
 
@@ -367,6 +366,7 @@
            (round-to-zero-slope . 0.02)))
 	(direction . ,ly:beam::calc-direction)
 
+	(normalized-endpoints . ,ly:spanner::calc-normalized-endpoints)
 	;; only for debugging.
 	(font-family . roman)
 
