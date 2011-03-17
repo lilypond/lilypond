@@ -590,24 +590,72 @@ Beam::print (SCM grob)
 
   Direction feather_dir = to_dir (me->get_property ("grow-direction"));
 
+  Interval placements = robust_scm2interval (me->get_property ("normalized-endpoints"), Interval (0.0, 0.0));
+
   Stencil the_beam;
+
+  int extreme = (segments[0].vertical_count_ == 0
+                 ? segments[0].vertical_count_
+                 : segments.back ().vertical_count_);
+
   for (vsize i = 0; i < segments.size (); i ++)
     {
       Real local_slope = slope;
+      /*
+        Makes local slope proportional to the ratio of the length of this beam
+        to the total length.
+      */
       if (feather_dir)
-	{
-	  local_slope += feather_dir * segments[i].vertical_count_ * beam_dy / span.length ();
-	}
+        local_slope += (feather_dir * segments[i].vertical_count_
+                                    * beam_dy
+                                    * placements.length ()
+                        / span.length ());
 
       Stencil b = Lookup::beam (local_slope, segments[i].horizontal_.length (), beam_thickness, blot);
 
       b.translate_axis (segments[i].horizontal_[LEFT], X_AXIS);
+      Real multiplier = feather_dir ? placements[LEFT] : 1.0;
 
-      b.translate_axis (local_slope
-			* (segments[i].horizontal_[LEFT] - span.linear_combination (feather_dir))
-			+ pos.linear_combination (feather_dir)
-			+ beam_dy * segments[i].vertical_count_, Y_AXIS);
+      Interval weights (1 - multiplier, multiplier);
+
+      if (feather_dir != LEFT)
+        weights.swap ();
+
+      // we need two translations: the normal one and
+      // the one of the lowest segment
+      int idx[] = {i, extreme};
+      Real translations[2];
+
+      for (int j = 0; j < 2; j++)
+        translations[j] = slope
+                          * (segments[idx[j]].horizontal_[LEFT] - span.linear_combination (CENTER))
+                          + pos.linear_combination (CENTER)
+                          + beam_dy * segments[idx[j]].vertical_count_;
+
+      Real weighted_average = translations[0] * weights[LEFT] + translations[1] * weights[RIGHT];
+
+      /*
+        Tricky.  The manipulation of the variable `weighted_average' below ensures
+        that beams with a RIGHT grow direction will start from the position of the
+        lowest segment at 0, and this error will decrease and decrease over the
+        course of the beam.  Something with a LEFT grow direction, on the other
+        hand, will always start in the correct place but progressively accrue
+        error at broken places.  This code shifts beams up given where they are
+        in the total span length (controlled by the variable `multiplier').  To
+        better understand what it does, try commenting it out: you'll see that
+        all of the RIGHT growing beams immediately start too low and get better
+        over line breaks, whereas all of the LEFT growing beams start just right
+        and get worse over line breaks.
+      */
+      Real factor = Interval (multiplier, 1 - multiplier).linear_combination (feather_dir);
+
+      if (segments[0].vertical_count_ < 0 && feather_dir)
+        weighted_average += beam_dy * (segments.size () - 1) * factor;
+
+      b.translate_axis (weighted_average, Y_AXIS);
+
       the_beam.add_stencil (b);
+
     }
 
 #if (DEBUG_BEAM_SCORING)
@@ -626,7 +674,7 @@ Beam::print (SCM grob)
 
       properties = scm_cons(scm_acons (ly_symbol2scm ("font-size"), scm_from_int (-5), SCM_EOL),
                             properties);
-      
+
       Direction stem_dir = stems.size () ? to_dir (stems[0]->get_property ("direction")) : UP;
 
       Stencil score = *unsmob_stencil (Text_interface::interpret_markup
@@ -1088,7 +1136,7 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
       Real x = s->relative_coordinate (common[X_AXIS], X_AXIS) - x_span[LEFT];
       x_posns.push_back (x);
     }
-  
+
   Grob *lvs = last_normal_stem (me);
   x_span[RIGHT] = lvs->relative_coordinate (common[X_AXIS], X_AXIS);
 

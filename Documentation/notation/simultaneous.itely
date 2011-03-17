@@ -816,8 +816,8 @@ automatically, depending whether there is a solo or unison.  When
 needed in polyphony situations, the first part (with context called
 @code{one}) always gets up stems, while the second (called @code{two})
 always gets down stems.  In solo situations, the first and second
-parts get marked with @q{Solo} and @q{Solo II}, respectively.  The
-unisono (@notation{a due}) parts are marked by default with the text
+parts get marked with @qq{Solo} and @qq{Solo II}, respectively.  The
+unison (@notation{a due}) parts are marked by default with the text
 @qq{a2}.
 
 Both arguments to @code{\partcombine} will be interpreted as
@@ -835,6 +835,70 @@ i.e.,
 A @code{\relative} section that is outside of @code{\partcombine}
 has no effect on the pitches of @code{@var{musicexpr1}} and
 @code{@var{musicexpr2}}.
+
+In professional scores, voices are often kept apart for long periods,
+even if one or two notes actually coincide and could easily be printed
+as unison. Combining notes into a chord, or showing one voice as solo
+is therefore not ideal as the @code{\partcombine} function considers
+each note separately. For this reason, the @code{\partcombine} function
+can be overriden with the following commands:
+
+@itemize
+@item
+@code{\partcombineApart}, @code{\partcombineApartOnce}:
+Keep the notes as two separate voices, even if they can be combined to a
+chord or unison.
+
+@item
+@code{\partcombineChords}, @code{\partcombineChordsOnce}:
+Combine the notes to a chord.
+
+@item
+@code{\partcombineUnisono}, @code{\partcombineUnisonoOnce}:
+The two voices are unison.
+
+@item
+@code{\partcombineSoloI}, @code{\partcombineSoloIOnce}:
+Show only voice one and mark it as solo.
+
+@item
+@code{\partcombineSoloII}, @code{\partcombineSoloIIOnce}:
+Show only voice two and mark it as solo.
+
+@item
+@code{\partcombineAutomatic}, @code{\partcombineAutomaticOnce}:
+Ends the effect of the special commands above, and returns to the default
+part combining mechanism.
+
+@end itemize
+
+All commands ending in @code{...Once} apply only to the following note.
+
+@lilypond[quote,verbatim]
+instrumentOne = \relative c' {
+  \partcombineApart c2^"apart" e |
+  \partcombineAutomatic e^"auto" e |
+  \partcombineChords e'^"chord" e |
+  \partcombineAutomatic c^"auto" c |
+  \partcombineApart c^"apart" \partcombineChordsOnce e^"chord once" |
+  c c |
+}
+instrumentTwo = \relative c' {
+  c2 c |
+  e2 e |
+  a,2 c |
+  c2 c' |
+  c2 c |
+  c2 c |
+}
+
+<<
+  \new Staff { \instrumentOne }
+  \new Staff { \instrumentTwo }
+  \new Staff { \partcombine \instrumentOne \instrumentTwo }
+>>
+@end lilypond
+
 
 @snippets
 

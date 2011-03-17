@@ -48,6 +48,7 @@ class Spanner : public Grob
 
 public:
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_normalized_endpoints, (SCM));
   DECLARE_SCHEME_CALLBACK (bounds_width, (SCM));
   DECLARE_SCHEME_CALLBACK (kill_zero_spanned_time, (SCM));
 
@@ -93,5 +94,4 @@ protected:
 void add_bound_item (Spanner *, Grob *);
 
 bool spanner_less (Spanner *s1, Spanner *s2);
-int broken_spanner_index (Spanner const *sp);
 #endif

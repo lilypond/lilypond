@@ -62,6 +62,25 @@ which scares away people.
 @end ignore
 
 @item
+Lilypond typesets woodwind fingering charts.
+@lilypond
+\relative c' {
+  \textLengthOn
+  des1^\markup {
+    \woodwind-diagram #'bassoon #'((lh . (thumb-cis))
+                                   (cc . (one two three five six))
+                                   (rh . (f)))
+    } _"bassoon"
+  c1^\markup {
+    \woodwind-diagram #'oboe #'((rh . (c))
+                                (lh . ())
+                                (cc . (one two three four five six)))
+    } _"oboe"
+
+}
+@end lilypond
+
+@item
 MIDI-import through Midi2ly is improved
 @itemize @bullet
 @item Midi2ly now also works on Windows systems

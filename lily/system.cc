@@ -254,13 +254,11 @@ System::get_footnote_grobs_in_range (vector<Grob *> &out, vsize start, vsize end
       bool end_of_line_visible = true;
       if (Spanner *s = dynamic_cast<Spanner *>(footnote_grobs_[i]))
         {
-          Real spanner_placement = min (1.0,
-                                        max (robust_scm2double (s->get_property ("spanner-placement"), -1.0),
-                                             -1.0));
+          Direction spanner_placement =  robust_scm2dir (s->get_property ("spanner-placement"), LEFT);
+          if (spanner_placement == CENTER)
+            spanner_placement = LEFT;
 
-          spanner_placement = (spanner_placement + 1.0) / 2.0;
-          int rpos = s->spanned_rank_interval ()[RIGHT];
-          pos = (int)((rpos - pos) * spanner_placement + pos + 0.5);
+          pos = s->spanned_rank_interval ()[spanner_placement];
         }
       
       if (Item *item = dynamic_cast<Item *>(footnote_grobs_[i]))
@@ -271,13 +269,13 @@ System::get_footnote_grobs_in_range (vector<Grob *> &out, vsize start, vsize end
           end_of_line_visible = (LEFT == item->break_status_dir ());
         }
 
-      if (pos < (int)start)
+      if (pos < int (start))
         continue;
-      if (pos > (int)end)
+      if (pos > int (end))
         break;
-      if (pos == (int)start && end_of_line_visible)
+      if (pos == int (start) && end_of_line_visible)
         continue;
-      if (pos == (int)end && !end_of_line_visible)
+      if (pos == int (end) && !end_of_line_visible)
         continue;
       if (!footnote_grobs_[i]->is_live ())
         continue;

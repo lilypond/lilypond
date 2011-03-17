@@ -22,6 +22,7 @@ export PYTHONPATH:=$(top-build-dir)/python/$(outconfbase):$(PYTHONPATH)
 the-script-dir=$(wildcard $(script-dir))
 
 ABC2LY = $(script-dir)/abc2ly.py
+MIDI2LY = $(script-dir)/midi2ly.py
 MUSICXML2LY = $(script-dir)/musicxml2ly.py
 CONVERT_LY = $(script-dir)/convert-ly.py
 LILYPOND_BOOK = $(script-dir)/lilypond-book.py

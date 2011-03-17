@@ -326,7 +326,6 @@
      . (
 	;; todo: clean this up a bit: the list is getting
 	;; rather long.
-
 	(auto-knee-gap . 5.5)
 	(beam-thickness . 0.48) ; in staff-space
 
@@ -367,6 +366,7 @@
            (round-to-zero-slope . 0.02)))
 	(direction . ,ly:beam::calc-direction)
 
+	(normalized-endpoints . ,ly:spanner::calc-normalized-endpoints)
 	;; only for debugging.
 	(font-family . roman)
 
@@ -887,7 +887,7 @@
 	(annotation-balloon . #f)
 	(annotation-line . #t)
 	(footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
-	(spanner-placement . -1.0)
+	(spanner-placement . LEFT)
 	(stencil . ,ly:balloon-interface::print-spanner)
 	(text . ,(grob::calc-property-by-copy 'text))
 	(Y-extent . #f)
@@ -1864,7 +1864,7 @@
 	 . (
 	    ;; 3.5 (or 3 measured from note head) is standard length
 	    ;; 32nd, 64th, 128th flagged stems should be longer
-	    (lengths . (3.5 3.5 3.5 4.5 5.0 6.0))
+	    (lengths . (3.5 3.5 3.5 4.25 5.0 6.0))
 
 	    ;; FIXME.  3.5 yields too long beams (according to Ross and
 	    ;; looking at Baerenreiter examples) for a number of common

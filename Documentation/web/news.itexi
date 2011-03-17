@@ -28,6 +28,64 @@ NOTE:
 
 
 @newsItem
+@subsubheading LilyPond 2.13.53 released!  @emph{Mar 6, 2011}
+
+We are happy to announce the release of LilyPond 2.13.53.  This
+release contains the usual number of bugfixes.
+
+Please note that this is @strong{not} the third release candidate,
+due to a few remaining Critical bugs.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.13.52 released!  @emph{Mar 1, 2011}
+
+We are happy to announce the release of LilyPond 2.13.52.  This
+release contains the usual number of bugfixes.
+
+Please note that this is @strong{not} the third release candidate,
+due to a few remaining Critical bugs.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.13.51 released!  @emph{Feb 22, 2011}
+
+We are happy to announce the release of LilyPond 2.13.51.  This
+release contains the usual number of bugfixes.
+
+Please note that this is @strong{not} the third release candidate,
+due to a few remaining Critical bugs.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond 2.13.50 released!  @emph{Feb 13, 2011}
+
+We are happy to announce the release of LilyPond 2.13.50.  This
+release contains the usual number of bugfixes.
+
+Please note that this is @strong{not} the third release candidate.
+Due to a number of untested changes to our build process, we
+cannot be at all confident about the quality of this release.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading New Chinese and Czech translations of the web page! @emph{Feb 11,2011}
+
+Two new languages are added to our web page: Chinese by Ben Luo, and
+Czech by Pavel Fric.  It is a work in progress but they are fully
+functional.  That makes ten languages to choose from!
+
+@newsEnd
+
+
+
+@newsItem
 @subsubheading Release candidate 2 of 2.14 - LilyPond 2.13.49 released!  @emph{Feb 9, 2011}
 
 LilyPond 2.13.49 is out; this is the second release candidate of

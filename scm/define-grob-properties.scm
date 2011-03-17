@@ -337,6 +337,10 @@ Default @code{none} for markup fret diagrams, @code{below-string} for
 @item
 @code{fret-count} -- The number of frets.  Default@tie{}4.
 @item
+@code{fret-label-custom-format} -- The format string to be used label
+the lowest fret number, when @code{number-type} equals to
+@code{custom}.  Default@tie{}\"~a\".
+@item
 @code{fret-label-font-mag} -- The magnification of the font used to
 label the lowest fret number.  Default@tie{}0.5.
 @item
@@ -352,7 +356,9 @@ Default@tie{}0.
 string.  Default @code{\"x\"}.
 @item
 @code{number-type} -- Type of numbers to use in fret label.  Choices
-include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.
+include @code{roman-lower}, @code{roman-upper}, @code{arabic} and
+@code{custom}.  In the later case, the format string is supplied by
+the @code{fret-label-custom-format} property.
 Default @code{roman-lower}.
 @item
 @code{open-string} -- Character string to be used to indicate open
@@ -610,6 +616,9 @@ the nearest staff in the opposite direction from
 between the two, and @code{staff-affinity} is either @code{UP} or
 @code{DOWN}.  See @code{staff-staff-spacing} for a description of
 the alist structure.")
+     (normalized-endpoints ,pair? "Represents left and right placement
+over the total spanner, where the width of the spanner is normalized
+between 0 and 1.")
      (note-names ,vector? "Vector of strings containing names for
 easy-notation note heads.")
 
@@ -1033,16 +1042,11 @@ grobs.")
      (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing
 objects.")
      (span-start ,boolean? "Is the note head at the start of a spanner?")
-     (spanner-placement ,number? "The place of an annotation on a spanner.
-Note that this number must be between -1 and 1, with -1 representing the
-beginning of the spanner and 1 representing the end.  The annotation will
-still be placed at the left or right extremity of the spanner, but this
-number ensures that when line breaking happens, the annotation is assigned
-to the correct broken piece and the footnote is put on the correct page.
-An important caveat is that this number applies to column ranks, not staff
-space.  For example, 0 will place the annotation at the middle column of
-its parent's span, which may be to the right or left of the physical middle
-of the spanner.")
+     (spanner-placement ,ly:dir? "The place of an annotation on a spanner.
+LEFT is for the first spanner, and RIGHT is for the last.  CENTER will
+place it on the broken spanner that falls closest to the center of the length
+of the entire spanner, although this behavior is unpredictable in situations
+with lots of rhythmic diversity.  For predictable results, use LEFT and RIGHT.")
      (staff-grouper ,ly:grob? "The staff grouper we belong to.")
      (staff-symbol ,ly:grob? "The staff symbol grob that we are in.")
      (stem ,ly:grob? "A pointer to a @code{Stem} object.")

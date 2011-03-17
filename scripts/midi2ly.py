@@ -23,15 +23,6 @@
 
 '''
 TODO:
-    * test on weird and unquantised midi input (lily-devel)
-    * update doc and manpage
-
-    * simply insert clef changes whenever too many ledger lines
-        [to avoid tex capacity exceeded]
-    * do not ever quant skips
-    * better lyrics handling
-    * [see if it is feasible to] move ly-classes to library for use in
-        other converters, while leaving midi specific stuff here
 '''
 
 import os
@@ -149,7 +140,8 @@ class Duration:
             s = '%d*%d/%d' % (self.dur, self.num, self.den)
 
         global reference_note
-        reference_note.duration = self
+        if reference_note: # debugging
+            reference_note.duration = self
 
         return s
 
@@ -411,7 +403,8 @@ class Text:
             s = s + ' '
         elif (self.text.strip ()
               and self.type == midi.SEQUENCE_TRACK_NAME
-              and not self.text == 'control track'):
+              and not self.text == 'control track'
+              and not self.track.lyrics_p_):
             text = self.text.replace ('(MIDI)', '').strip ()
             if text:
                 s = '\n  \\set Staff.instrumentName = "%(text)s"\n  ' % locals ()
@@ -422,34 +415,158 @@ class Text:
     def __repr__ (self):
         return 'Text(%d=%s)' % (self.type, self.text)
 
+def get_voice (channel, music):
+    debug ('channel: ' + str (channel) + '\n')
+    return unthread_notes (music)
 
+class Channel:
+    def __init__ (self, number):
+        self.number = number
+        self.events = []
+        self.music = None
+    def add (self, event):
+        self.events.append (event)
+    def get_voice (self):
+        if not self.music:
+            self.music = self.parse ()
+        return get_voice (self.number, self.music)
+    def parse (self):
+        pitches = {}
+        notes = []
+        music = []
+        last_lyric = 0
+        last_time = 0
+        for e in self.events:
+            t = e[0]
 
-def split_track (track):
-    chs = {}
-    for i in range (16):
-        chs[i] = []
+            if start_quant_clocks:
+                t = quantise_clocks (t, start_quant_clocks)
 
-    for e in track:
+            if (e[1][0] == midi.NOTE_OFF
+                or (e[1][0] == midi.NOTE_ON and e[1][2] == 0)):
+                debug ('%d: NOTE OFF: %s' % (t, e[1][1]))
+                if not e[1][2]:
+                    debug ('   ...treated as OFF')
+                end_note (pitches, notes, t, e[1][1])
+
+            elif e[1][0] == midi.NOTE_ON:
+                if not pitches.has_key (e[1][1]):
+                    debug ('%d: NOTE ON: %s' % (t, e[1][1]))
+                    pitches[e[1][1]] = (t, e[1][2])
+                else:
+                    debug ('...ignored')
+
+            # all include ALL_NOTES_OFF
+            elif (e[1][0] >= midi.ALL_SOUND_OFF
+              and e[1][0] <= midi.POLY_MODE_ON):
+                for i in pitches:
+                    end_note (pitches, notes, t, i)
+
+            elif e[1][0] == midi.META_EVENT:
+                if e[1][1] == midi.END_OF_TRACK:
+                    for i in pitches:
+                        end_note (pitches, notes, t, i)
+                    break
+
+                elif e[1][1] == midi.SET_TEMPO:
+                    (u0, u1, u2) = map (ord, e[1][2])
+                    us_per_4 = u2 + 256 * (u1 + 256 * u0)
+                    seconds_per_1 = us_per_4 * 4 / 1e6
+                    music.append ((t, Tempo (seconds_per_1)))
+                elif e[1][1] == midi.TIME_SIGNATURE:
+                    (num, dur, clocks4, count32) = map (ord, e[1][2])
+                    den = 2 ** dur
+                    music.append ((t, Time (num, den)))
+                elif e[1][1] == midi.KEY_SIGNATURE:
+                    (alterations, minor) = map (ord, e[1][2])
+                    sharps = 0
+                    flats = 0
+                    if alterations < 127:
+                        sharps = alterations
+                    else:
+                        flats = 256 - alterations
+
+                    k = Key (sharps, flats, minor)
+                    if not t and global_options.key:
+                        # At t == 0, a set --key overrides us
+                        k = global_options.key
+                    music.append ((t, k))
+
+                    # ugh, must set key while parsing
+                    # because Note init uses key
+                    # Better do Note.calc () at dump time?
+                    global_options.key = k
+
+                elif (e[1][1] == midi.LYRIC
+                      or (global_options.text_lyrics
+                          and e[1][1] == midi.TEXT_EVENT)):
+                    self.lyrics_p_ = True
+                    if last_lyric:
+                        last_lyric.clocks = t - last_time
+                        music.append ((last_time, last_lyric))
+                    last_time = t
+                    last_lyric = Text (midi.LYRIC, e[1][2])
+
+                elif (e[1][1] >= midi.SEQUENCE_NUMBER
+                      and e[1][1] <= midi.CUE_POINT):
+                    text = Text (e[1][1], e[1][2])
+                    text.track = self
+                    music.append ((t, text))
+                    if (text.type == midi.SEQUENCE_TRACK_NAME):
+                        self.name = text.text
+                else:
+                    if global_options.verbose:
+                        sys.stderr.write ("SKIP: %s\n" % `e`)
+            else:
+                if global_options.verbose:
+                    sys.stderr.write ("SKIP: %s\n" % `e`)
+
+        if last_lyric:
+            # last_lyric.clocks = t - last_time
+            # hmm
+            last_lyric.clocks = clocks_per_4
+            music.append ((last_time, last_lyric))
+            last_lyric = 0
+
+        i = 0
+        while len (notes):
+            if i < len (music) and notes[0][0] >= music[i][0]:
+                i = i + 1
+            else:
+                music.insert (i, notes[0])
+                del notes[0]
+        return music
+    
+class Track (Channel):
+    def __init__ (self):
+        Channel.__init__ (self, None)
+        self.name = None
+        self.channels = {}
+        self.lyrics_p_ = False
+    def _add (self, event):
+        self.events.append (event)
+    def add (self, event, channel=None):
+        if channel == None:
+            self._add (event)
+        else:
+            self.channels[channel] = self.channels.get (channel, Channel (channel))
+            self.channels[channel].add (event)
+    def get_voices (self):
+        return ([self.get_voice ()]
+                + [self.channels[k].get_voice ()
+                   for k in sorted (self.channels.keys ())])
+
+def create_track (events):
+    track = Track ()
+    for e in events:
         data = list (e[1])
         if data[0] > 0x7f and data[0] < 0xf0:
-            c = data[0] & 0x0f
+            channel = data[0] & 0x0f
             e = (e[0], tuple ([data[0] & 0xf0] + data[1:]))
-            chs[c].append (e)
+            track.add (e, channel)
         else:
-            chs[0].append (e)
-
-    threads = []
-    i = 0
-    for v in chs.values ():
-        i += 1
-        if not v:
-            continue
-        debug ('channel: %d\n' % i)
-        events = events_on_channel (v)
-        t = unthread_notes (events)
-        if len (t):
-            threads.append (t)
-    return threads
+            track.add (e)
+    return track
 
 def quantise_clocks (clocks, quant):
     q = int (clocks / quant) * quant
@@ -483,111 +600,6 @@ def end_note (pitches, notes, t, e):
 
     except KeyError:
         pass
-
-def events_on_channel (channel):
-    pitches = {}
-
-    notes = []
-    events = []
-    last_lyric = 0
-    last_time = 0
-    for e in channel:
-        t = e[0]
-
-        if start_quant_clocks:
-            t = quantise_clocks (t, start_quant_clocks)
-
-
-        if (e[1][0] == midi.NOTE_OFF
-            or (e[1][0] == midi.NOTE_ON and e[1][2] == 0)):
-            debug ('%d: NOTE OFF: %s' % (t, e[1][1]))
-            if not e[1][2]:
-                debug ('   ...treated as OFF')
-            end_note (pitches, notes, t, e[1][1])
-
-        elif e[1][0] == midi.NOTE_ON:
-            if not pitches.has_key (e[1][1]):
-                debug ('%d: NOTE ON: %s' % (t, e[1][1]))
-                pitches[e[1][1]] = (t, e[1][2])
-            else:
-                debug ('...ignored')
-
-        # all include ALL_NOTES_OFF
-        elif (e[1][0] >= midi.ALL_SOUND_OFF
-          and e[1][0] <= midi.POLY_MODE_ON):
-            for i in pitches:
-                end_note (pitches, notes, t, i)
-
-        elif e[1][0] == midi.META_EVENT:
-            if e[1][1] == midi.END_OF_TRACK:
-                for i in pitches:
-                    end_note (pitches, notes, t, i)
-                break
-
-            elif e[1][1] == midi.SET_TEMPO:
-                (u0, u1, u2) = map (ord, e[1][2])
-                us_per_4 = u2 + 256 * (u1 + 256 * u0)
-                seconds_per_1 = us_per_4 * 4 / 1e6
-                events.append ((t, Tempo (seconds_per_1)))
-            elif e[1][1] == midi.TIME_SIGNATURE:
-                (num, dur, clocks4, count32) = map (ord, e[1][2])
-                den = 2 ** dur
-                events.append ((t, Time (num, den)))
-            elif e[1][1] == midi.KEY_SIGNATURE:
-                (alterations, minor) = map (ord, e[1][2])
-                sharps = 0
-                flats = 0
-                if alterations < 127:
-                    sharps = alterations
-                else:
-                    flats = 256 - alterations
-
-                k = Key (sharps, flats, minor)
-                if not t and global_options.key:
-                    # At t == 0, a set --key overrides us
-                    k = global_options.key
-                events.append ((t, k))
-
-                # ugh, must set key while parsing
-                # because Note init uses key
-                # Better do Note.calc () at dump time?
-                global_options.key = k
-
-            elif (e[1][1] == midi.LYRIC
-                  or (global_options.text_lyrics and e[1][1] == midi.TEXT_EVENT)):
-                if last_lyric:
-                    last_lyric.clocks = t - last_time
-                    events.append ((last_time, last_lyric))
-                last_time = t
-                last_lyric = Text (midi.LYRIC, e[1][2])
-
-            elif (e[1][1] >= midi.SEQUENCE_NUMBER
-                  and e[1][1] <= midi.CUE_POINT):
-                events.append ((t, Text (e[1][1], e[1][2])))
-            else:
-                if global_options.verbose:
-                    sys.stderr.write ("SKIP: %s\n" % `e`)
-                pass
-        else:
-            if global_options.verbose:
-                sys.stderr.write ("SKIP: %s\n" % `e`)
-            pass
-
-    if last_lyric:
-        # last_lyric.clocks = t - last_time
-        # hmm
-        last_lyric.clocks = clocks_per_4
-        events.append ((last_time, last_lyric))
-        last_lyric = 0
-
-    i = 0
-    while len (notes):
-        if i < len (events) and notes[0][0] >= events[i][0]:
-            i = i + 1
-        else:
-            events.insert (i, notes[0])
-            del notes[0]
-    return events
 
 def unthread_notes (channel):
     threads = []
@@ -674,10 +686,6 @@ def dump_bar_line (last_bar_t, t, bar_count):
 
 def dump_voice (thread, skip):
     global reference_note, time
-
-    # urg LilyPond doesn't start at c4, but
-    # remembers from previous tracks!
-    # reference_note = Note (clocks_per_4, 4*12, 0)
     ref = Note (0, 4*12, 0)
     if not reference_note:
         reference_note = ref
@@ -764,10 +772,14 @@ def get_voice_name (i, zero_too_p=False):
         return 'voice' + number2ascii (i)
     return ''
 
+def lst_append (lst, x):
+    lst.append (x)
+    return lst
+
 def get_voice_layout (average_pitch):
     d = {}
     for i in range (len (average_pitch)):
-        d[average_pitch[i]] = i
+        d[average_pitch[i]] = lst_append (d.get (average_pitch[i], []), i)
     s = list (reversed (sorted (average_pitch)))
     non_empty = len (filter (lambda x: x, s))
     names = ['One', 'Two']
@@ -777,6 +789,9 @@ def get_voice_layout (average_pitch):
     for i, n in zip (s, names):
         if i:
             v = d[i]
+            if type (v) == list:
+                d[i] = v[1:]
+                v = v[0]
             layout[v] = n
     return layout
 
@@ -900,6 +915,12 @@ def get_best_clef (average_pitch):
             return Clef (3)
     return Clef (2)
 
+class Staff:
+    def __init__ (self, track):
+        self.voices = track.get_voices ()
+    def dump (self, i):
+        return dump_track (self.voices, i)
+
 def convert_midi (in_file, out_file):
     global clocks_per_1, clocks_per_4, key
     global start_quant_clocks
@@ -928,16 +949,33 @@ def convert_midi (in_file, out_file):
     if global_options.verbose:
         print 'allowed tuplet clocks:', allowed_tuplet_clocks
 
-    tracks = []
-    for t in midi_dump[1]:
-        tracks.append (split_track (t))
+    tracks = [create_track (t) for t in midi_dump[1]]
+    # urg, parse all global track events, such as Key first
+    # this fixes key in different voice/staff problem
+    for t in tracks:
+        t.music = t.parse ()
+    prev = None
+    staves = []
+    for t in tracks:
+        voices = t.get_voices ()
+        if ((t.name and prev and prev.name)
+            and t.name.split (':')[0] == prev.name.split (':')[0]):
+            # staves[-1].voices += voices
+            # all global track events first
+            staves[-1].voices = ([staves[-1].voices[0]]
+                                 + [voices[0]]
+                                 + staves[-1].voices[1:]
+                                 + voices[1:])
+        else:
+            staves.append (Staff (t))
+        prev = t
 
     tag = '%% Lily was here -- automatically converted by %s from %s' % ( program_name, in_file)
 
 
     s = tag
     s += r'''
-\version "2.7.38"
+\version "2.13.53"
 '''
 
     s += r'''
@@ -959,18 +997,18 @@ def convert_midi (in_file, out_file):
             s += '\n'
         s += '% end\n'
 
-    for i in range (len (tracks)):
-        s = s + dump_track (tracks[i], i)
+    for i, t in enumerate (staves):
+        s += t.dump (i)
 
     s += '\n\\score {\n  <<\n'
 
     i = 0
-    for t in tracks:
+    for i, staff in enumerate (staves):
         track_name = get_track_name (i)
-        item = track_first_item (t)
+        item = track_first_item (staff.voices)
         staff_name = track_name
         context = None
-        if not i and not item and len (tracks) > 1:
+        if not i and not item and len (staves) > 1:
             # control track
             staff_name = get_track_name (1)
             context = 'Staff'
@@ -980,8 +1018,12 @@ def convert_midi (in_file, out_file):
             context = 'Lyrics'
         if context:
             s += '    \\context %(context)s=%(staff_name)s \\%(track_name)s\n' % locals ()
-        i += 1
-    s = s + '  >>\n}\n'
+
+    s = s + '''  >>
+  \layout {}
+  \midi {}
+}
+'''
 
     progress (_ ("%s output to `%s'...") % ('LY', out_file))
 
