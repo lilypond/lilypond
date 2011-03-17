@@ -47,13 +47,19 @@ underscore = _
 # Urg, Python 2.4 does not define stderr/stdout encoding
 # Maybe guess encoding from LANG/LC_ALL/LC_CTYPE?
 
+reload (sys)
+sys.setdefaultencoding ('utf-8')
+import codecs
+sys.stdout = codecs.getwriter ('utf8') (sys.stdout)
+sys.stderr = codecs.getwriter ('utf8') (sys.stderr)
+
 def encoded_write(f, s):
-    f.write (s.encode (f.encoding or 'utf_8'))
+    f.write (s.encode (f.encoding or 'utf-8', 'replace'))
 
 # ugh, Python 2.5 optparse requires Unicode strings in some argument
 # functions, and refuse them in some other places
 def display_encode (s):
-    return s.encode (sys.stderr.encoding or 'utf_8')
+    return s.encode (sys.stderr.encoding or 'utf-8', 'replace')
 
 # Lilylib globals.
 program_version = '@TOPLEVEL_VERSION@'
