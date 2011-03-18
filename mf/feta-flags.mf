@@ -312,12 +312,12 @@ fet_beginchar ("8th (down)", "d3");
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 1;
-	total_depth# = 2.85 staff_space#;
+	total_depth# = 2.75 staff_space#;
 	flare = staff_space;
 	flagspace# = .9 staff_space#;
-	hip_depth_ratio = .72;
+	hip_depth_ratio = .74;
 	hip_width# = downflag_width# - hip_thickness# / 2;
-	foot_width_ratio = .8;
+	foot_width_ratio = .85;
 
 	(flag_count - 1) * flagspace# + foot_depth# = total_depth#;
 
