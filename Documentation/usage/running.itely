@@ -446,10 +446,7 @@ subdirectories called @file{ly/}, @file{ps/}, @file{tex/}, etc.
 This selects the language for the warning messages.
 
 @item LILYPOND_GC_YIELD
-With this variable the memory footprint and performance can be
-adjusted.  It is a percentage tunes memory management behavior.  With
-higher values, the program uses more memory, with smaller values, it
-uses more CPU time.  The default value is @code{70}.
+A variable, as a percentage, that tunes memory management behavior.  A higher values means the program uses more memory, a smaller value means more CPU time is used.  The default value is @code{70}.
 
 @end table
 
