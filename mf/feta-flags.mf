@@ -416,12 +416,12 @@ fet_beginchar ("64th (down)", "d6");
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 4;
-	total_depth# = 4.35 staff_space#;
+	total_depth# = 4.5 staff_space# - blot_diameter# / 2;
 	flare = .8 staff_space;
 	flagspace# = .9 staff_space#;
-	hip_depth_ratio = .85;
+	hip_depth_ratio = .83;
 	hip_width# = downflag_width# - hip_thickness# / 2;
-	foot_width_ratio = .98;
+	foot_width_ratio = .975;
 
 	(flag_count - 1) * flagspace# + foot_depth# = total_depth#;
 
@@ -436,11 +436,11 @@ fet_beginchar ("64th (down)", "d6");
 		   hip_depth_ratio, foot_width_ratio,
 		   hip_thickness, foot_thickness, 0);
 
-	add_flag (flagspace, flare, .97, 1.20, 1.175,
+	add_flag (flagspace, flare, .98, 1.10, 1.19,
 		  hip_thickness, foot_thickness);
-	add_flag (flagspace, flare, .97, 1.10, 1.175,
+	add_flag (flagspace, flare, .98, 1.08, 1.19,
 		  hip_thickness, foot_thickness);
-	add_flag (.98 flagspace, flare, .91, 1.05, 1.2,
+	add_flag (.98 flagspace, flare, .94, 1.04, 1.21,
 		  hip_thickness, foot_thickness);
 
 	draw_square_block ((-0.5 stemthickness_rounded, 0),
@@ -455,9 +455,9 @@ fet_beginchar ("128th (down)", "d7");
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 5;
-	total_depth# = 5.25 staff_space#;
+	total_depth# = 5.5 staff_space# - blot_diameter# / 2;
 	flare = .8 staff_space;
-	flagspace# = .9 staff_space#;
+	flagspace# = .92 staff_space#;
 	hip_depth_ratio = .85;
 	hip_width# = downflag_width# - hip_thickness# / 2;
 	foot_width_ratio = .98;
@@ -475,13 +475,13 @@ fet_beginchar ("128th (down)", "d7");
 		   hip_depth_ratio, foot_width_ratio,
 		   hip_thickness, foot_thickness, 0);
 
-	add_flag (flagspace, flare, .97, 1.20, 1.175,
+	add_flag (flagspace, flare, .98, 1.10, 1.185,
 		  hip_thickness, foot_thickness);
-	add_flag (flagspace, flare, .97, 1.10, 1.175,
+	add_flag (flagspace, flare, .98, 1.08, 1.185,
 		  hip_thickness, foot_thickness);
-	add_flag (.98 flagspace, flare, .91, 1.05, 1.2,
+	add_flag (.98 flagspace, flare, .97, 1.06, 1.2,
 		  hip_thickness, foot_thickness);
-	add_flag (.98 flagspace, flare, .91, 1.05, 1.2,
+	add_flag (.98 flagspace, flare, .93, 1.04, 1.22,
 		  hip_thickness, foot_thickness);
 
 	draw_square_block ((-0.5 stemthickness_rounded, 0),
