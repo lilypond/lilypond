@@ -855,10 +855,12 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure, int
 	{
 	  Direction before_affinity = to_dir (before->get_maybe_pure_property ("staff-affinity", pure, start, end));
 	  Direction after_affinity = to_dir (after->get_maybe_pure_property ("staff-affinity", pure, start, end));
-	  if (after_affinity > before_affinity)
+	  static bool warned = false;
+	  if (after_affinity > before_affinity
+	      && !warned && !pure)
 	    {
 	      warning (_ ("staff-affinities should only decrease"));
-	      after_affinity = before_affinity;
+	      warned = true;
 	    }
 	  if (before_affinity != UP)
 	    return before->get_maybe_pure_property ("nonstaff-nonstaff-spacing", pure, start, end);
