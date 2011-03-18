@@ -201,7 +201,7 @@ fet_beginchar ("32nd Flag (up)", "u5");
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 3;
-	total_depth# = 4.25 staff_space#;
+	total_depth# = 4.25 staff_space# - blot_diameter# / 2;
 	flare = .85 staff_space;
 	flagspace# = .87 staff_space#;
 	hip_depth_ratio = .72;
@@ -236,7 +236,7 @@ fet_beginchar ("64th Flag (up)", "u6");
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 4;
-	total_depth# = 5.25 staff_space#;
+	total_depth# = 5.25 staff_space# - blot_diameter# / 2;
 	flare = .85 staff_space;
 	flagspace# = .9 staff_space#;
 	hip_depth_ratio = .72;
@@ -273,7 +273,7 @@ fet_beginchar ("128th Flag (up)", "u7");
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 5;
-	total_depth# = 6.25 staff_space#;
+	total_depth# = 6.25 staff_space# - blot_diameter# / 2;
 	flare = .85 staff_space;
 	flagspace# = .93 staff_space#;
 	hip_depth_ratio = .72;
