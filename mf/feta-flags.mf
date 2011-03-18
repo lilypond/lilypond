@@ -345,7 +345,7 @@ fet_beginchar ("16th (down)", "d4");
 
 	flag_count = 2;
 	total_depth# = 3.0 staff_space# - blot_diameter# / 2;
-	flare = .8 staff_space;
+	flare = .82 staff_space;
 	flagspace# = .9 staff_space#;
 	hip_depth_ratio = .85;
 	hip_width# = downflag_width# - hip_thickness# / 2;
@@ -380,11 +380,11 @@ fet_beginchar ("32nd (down)", "d5");
 
 	flag_count = 3;
 	total_depth# = 3.75 * staff_space# - blot_diameter# / 2;
-	flare = .84 staff_space;
-	flagspace# = .9 staff_space#;
-	hip_depth_ratio = .85;
+	flare = .82 staff_space;
+	flagspace# = .88 staff_space#;
+	hip_depth_ratio = .87;
 	hip_width# = downflag_width# - hip_thickness# / 2;
-	foot_width_ratio = .95;
+	foot_width_ratio = .965;
 
 	(flag_count - 1) * flagspace# + foot_depth# = total_depth#;
 
@@ -399,9 +399,9 @@ fet_beginchar ("32nd (down)", "d5");
 		   hip_depth_ratio, foot_width_ratio,
 		   hip_thickness, foot_thickness, 0);
 
-	add_flag (flagspace, flare, .97, 1.00, 1.25,
+	add_flag (flagspace, flare, .98, 1.00, 1.22,
 		  hip_thickness, foot_thickness);
-	add_flag (flagspace, flare, .95, 1.05, 1.25,
+	add_flag (flagspace, flare, .95, 1.02	, 1.22,
 		  hip_thickness, foot_thickness);
 
 	draw_square_block ((-0.5 stemthickness_rounded, 0),
