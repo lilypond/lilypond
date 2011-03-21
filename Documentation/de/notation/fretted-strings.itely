@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+    Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -369,15 +369,66 @@ ties = \relative c' {
 @cindex Gleiten in Tabulaturen
 @cindex Tabulaturen und Gleiten
 @cindex Slide in Tabulaturen
+@cindex Akkordglissando
+@cindex Glissando, Akkorde
 
-Flageolett und Gleiten (Slide) kann zur Tabulatur hinzugefügt
+@funindex \harmonic
+@funindex \harmonicByFret
+@funindex \harmonicByRatio
+@funindex \chordGlissando
+
+Flageolett (engl. @emph{harmonic}) kann zur Tabulaturnotation als klingende Tonhöhe hinzugefügt
 werden:
 
-@lilypond[verbatim, quote, relative=1]
-\new TabStaff {
-  \new TabVoice {
-    <c g'\harmonic>4 d\2\glissando e\2
-  }
+@lilypond[verbatim,quote]
+firstHarmonic = {
+  <d'\4\harmonic>4
+  <g'\3\harmonic>4
+  <b'\2\harmonic>2
+}
+\score {
+  <<
+    \new Staff { \firstHarmonic }
+    \new TabStaff { \firstHarmonic }
+  >>
+}
+@end lilypond
+
+Dabei ist zu beachten, dass der Befehl @code{\harmonic} immer innerhalb
+einer Akkordkonstruktion notiert werden muss.  Flageolett ist nur sinnvoll
+für offene Saiten im 12. Bund.  Alle anderen Flageolett-Töne sollten von
+LilyPond errechnet werden.  Das wird erreicht, indem man den Bund angibt,
+wo der Finger der Greifhand die Saite berühren soll.
+
+@lilypond[verbatim,quote]
+fretHarmonics = {
+  \harmonicByFret #5 d16\4
+  \harmonicByFret #4 d16\4
+  \harmonicByFret #3 d8\4
+  \harmonicByFret #5 <g\3 b\2>2.
+}
+\score {
+  <<
+    \new Staff { \fretHarmonics }
+    \new TabStaff { \fretHarmonics }
+  >>
+}
+@end lilypond
+
+Alternativ können Flageolett-Töne auch errechnet werden, indem man das
+Verhältnis der Saitenlängen über und unter dem Flageolett-Finger definiert:
+
+@lilypond[verbatim,quote]
+ratioHarmonics = {
+  \harmonicByRatio #1/2 <g\3 b\2 e'\1>4
+  \harmonicByRatio #1/3 <g\3 b\2 e'\1>4
+  \harmonicByRatio #1/4 { g8\3 b8\2 e'4\1 }
+}
+\score {
+  <<
+    \new Staff { \ratioHarmonics }
+    \new TabStaff { \ratioHarmonics }
+  >>
 }
 @end lilypond
 
@@ -390,10 +441,24 @@ werden:
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {polyphony-in-tablature.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{open-string-harmonics-in-tablature.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{fretted-string-harmonics-in-tablature.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{slides-in-tablature.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{chord-glissando-in-tablature.ly}
+
 
 @seealso
 Notationsreferenz:
-@ref{Hälse}.
+@ref{Hälse},
+@ref{Flageolett},
+@ref{Glissando}.
 
 Schnipsel:
 @rlsr{Fretted strings}.

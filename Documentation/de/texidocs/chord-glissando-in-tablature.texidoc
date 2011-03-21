@@ -1,0 +1,10 @@
+%% Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
+  texidocde = "
+Gleiten von Akkorden kann sowohl im normalen Notensystem als auch in einer
+Tabulatur notiert werden.  Saitennummern werden für Tabulaturen
+benötigt, weil die automatische Saitenberechnung unterschiedlich für
+Akkorde und einzelne Noten funktioniert und
+@code{\\chordGlissando} zieht Linien zwischen einzelnen Noten.
+"
+  doctitlede = "Akkordglissando in Tabulaturen"
+
