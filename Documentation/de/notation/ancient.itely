@@ -689,9 +689,9 @@ werden.
 
 Für die Mensuralnotation kann ein Notenkopfstil ausgewählt werden, der sich
 vom Standard (@code{default}) unterscheidet. Dies wird erreicht, indem die
-@code{style}-Eigenschaft der Notenkopf-(@code{NoteHead})-Objekte auf
-einen der Werte @code{baroque}, @code{neomensural}, @code{mensural} oder
-@code{petrucci}, @code{blackpetrucci}, @code{semipetrucci} gesetzt wird.
+@code{style}-Eigenschaft des Notenkopf-(@code{NoteHead})-Objekts auf
+einen der Werte @code{baroque}, @code{neomensural}, @code{mensural},
+@code{petrucci}, @code{blackpetrucci} oder @code{semipetrucci} gesetzt wird.
 
 Der barocke (@code{baroque}) Stil unterscheidet sich vom Standard
 (@code{default}) folgendermaßen:
