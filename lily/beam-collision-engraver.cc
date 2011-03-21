@@ -160,7 +160,8 @@ Beam_collision_engraver::acknowledge_note_head (Grob_info i)
 void
 Beam_collision_engraver::acknowledge_accidental (Grob_info i)
 {
-  covered_grobs_.push_back (i.grob ());
+  if (i.grob ()->internal_has_interface (ly_symbol2scm ("inline-accidental-interface")))
+    covered_grobs_.push_back (i.grob ());
 }
 
 void

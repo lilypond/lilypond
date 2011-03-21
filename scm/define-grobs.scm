@@ -36,6 +36,7 @@
 	(Y-extent . ,ly:accidental-interface::height)
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
+				inline-accidental-interface
 				font-interface))))))
 
     (AccidentalCautionary
@@ -48,6 +49,7 @@
 	(Y-extent . ,ly:accidental-interface::height)
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
+				inline-accidental-interface
 				font-interface))))))
 
     (AccidentalPlacement
