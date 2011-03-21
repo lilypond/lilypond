@@ -32,7 +32,7 @@
 @translationof Normal usage
 
 たいていのユーザは GUI から LilyPond を実行します。@c
-まだ実行したことがないのであれば @rlearning{Tutorial} を読んでください。
+まだ実行したことがないのであれば @rlearning{チュートリアル} を読んでください。
 lilypond ファイルを書くのに代替のエディタを使用するのであれば、@c
 そのエディタのドキュメントを読んでください。
 
@@ -458,10 +458,123 @@ GNU LilyPond の保証責任を表示します。@c
 
 @end table
 
+@c 未訳
 @node LilyPond in chroot jail
 @unnumberedsubsec LilyPond in chroot jail
 
-@untranslated
+Setting up the server to run LilyPond in a chroot jail is a complicated
+task.  The steps are listed below.  Examples in the steps are from
+Ubuntu Linux, and may require the use of @code{sudo} as appropriate.
+
+@itemize
+
+@item Install the necessary packages: LilyPond, GhostScript, and ImageMagick.
+
+@item Create a new user by the name of @code{lily}:
+
+@example
+adduser lily
+@end example
+
+@noindent
+This will create a new group for the @code{lily} user as well, and a home folder,
+@code{/home/lily}
+
+@item In the home folder of the @code{lily} user create a file to use as a
+separate filesystem:
+
+@example
+dd if=/dev/zero of=/home/lily/loopfile bs=1k count= 200000
+@end example
+
+@noindent
+This example creates a 200MB file for use as the jail filesystem.
+
+@item Create a loop device, make a file system and mount it, then create
+a folder that can be written by the @code{lily} user:
+
+@example
+mkdir /mnt/lilyloop
+losetup /dev/loop0 /home/lily/loopfile
+mkfs -t ext3 /dev/loop0 200000
+mount -t ext3 /dev/loop0 /mnt/lilyloop
+mkdir /mnt/lilyloop/lilyhome
+chown lily /mnt/lilyloop/lilyhome
+@end example
+
+@item In the configuration of the servers, the JAIL will be @code{/mnt/lilyloop}
+and the DIR will be @code{/lilyhome}.
+
+@item Create a big directory tree in the jail by copying the necessary files, as
+shown in the sample script below.
+
+You can use @code{sed} to create the necessary copy commands for a given
+executable:
+
+@example
+for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/;  \
+  do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\&  \
+    cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p  \
+      \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done
+@end example
+
+@end itemize
+
+@subheading Example script for 32-bit Ubuntu 8.04
+
+@example
+#!/bin/sh
+## defaults set here
+
+username=lily
+home=/home
+loopdevice=/dev/loop0
+jaildir=/mnt/lilyloop
+# the prefix (without the leading slash!)
+lilyprefix=usr/local
+# the directory where lilypond is installed on the system
+lilydir=/$lilyprefix/lilypond/
+
+userhome=$home/$username
+loopfile=$userhome/loopfile
+adduser $username
+dd if=/dev/zero of=$loopfile bs=1k count=200000
+mkdir $jaildir
+losetup $loopdevice $loopfile
+mkfs -t ext3 $loopdevice 200000
+mount -t ext3 $loopdevice $jaildir
+mkdir $jaildir/lilyhome
+chown $username $jaildir/lilyhome
+cd $jaildir
+
+mkdir -p bin usr/bin usr/share usr/lib usr/share/fonts $lilyprefix tmp
+chmod a+w tmp
+
+cp -r -L $lilydir $lilyprefix
+cp -L /bin/sh /bin/rm bin
+cp -L /usr/bin/convert /usr/bin/gs usr/bin
+cp -L /usr/share/fonts/truetype usr/share/fonts
+
+# Now the library copying magic
+for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
+  "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=>  \
+    \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed  \
+      's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/'  \
+        | sed '/.*=>.*/d'; done | sh -s
+
+# The shared files for ghostscript...
+      cp -L -r /usr/share/ghostscript usr/share
+# The shared files for ImageMagick
+      cp -L -r /usr/lib/ImageMagick* usr/lib
+
+### Now, assuming that you have test.ly in /mnt/lilyloop/lilyhome,
+### you should be able to run:
+### Note that /$lilyprefix/bin/lilypond is a script, which sets the
+### LD_LIBRARY_PATH - this is crucial
+      /$lilyprefix/bin/lilypond -jlily,lily,/mnt/lilyloop,/lilyhome test.ly
+@end example
+
+@c " keep quote signs balanced for context-sensitive editors
 
 
 @node エラー メッセージ

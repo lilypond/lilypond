@@ -1,0 +1,725 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@ignore
+    Translation of GIT committish: fe4f33aca60ea7c58bc9196eac43b4acca1d4437
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.13.36"
+
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+
+@node 繰り返し
+@section 繰り返し
+@translationof Repeats
+
+@lilypondfile[quote]{repeats-headword.ly}
+
+繰り返しは音楽の主要なコンセプトであり、@c
+繰り返しのために複数の記譜法が存在します。@c
+LilyPond は以下の種類の繰り返しをサポートします:
+
+
+@table @code
+@item volta
+繰り返される音楽は描き出されませんが、繰り返しの小節線で囲まれます。@c
+繰り返しが楽曲の先頭にある場合、繰り返しの小節線は繰り返しの終端にのみ@c
+譜刻されます。@c
+繰り返し時に入れ替えて演奏される部分 (volte) は囲みの右側に譜刻されます。@c
+これは入れ替えがある繰り返しの標準的な記譜法です。
+
+@item unfold
+繰り返される音楽は、@var{repeatcount} によって指定された回数だけ、@c
+描き出されます。@c
+これは反復の多い音楽を入力するときに有用です。
+
+@item percent
+これには拍の繰り返しや小節の繰り返しがあります。@c
+スラッシュまたはパーセント記号のような外見をしています。
+
+@item tremolo
+これはトレモロの連桁を描くために使用されます。
+@end table
+
+
+@menu
+* 長い繰り返し::
+* 短い繰り返し::
+@end menu
+
+@node 長い繰り返し
+@subsection 長い繰り返し
+@translationof Long repeats
+
+このセクションでは長い (通常は複数の小節) 繰り返しを入力する方法について@c
+議論します。@c
+繰り返しには 2 つの形式があります: 繰り返し記号によって囲まれる繰り返しと、@c
+描き出される繰り返し -- これは反復の多い音楽を入力するために使用されます
+-- です。@c
+繰り返し記号を手動で制御することもできます。
+
+@menu
+* 通常の繰り返し::
+* 手動の繰り返し記号::
+* 繰り返しを描き出す::
+@end menu
+
+@c 未訳
+@cindex volta
+@cindex prima volta
+@cindex seconda volta
+@cindex volta, prima
+@cindex volta, seconda
+@cindex repeat, normal
+@cindex normal repeat
+@cindex repeat with alternate endings
+@cindex alternate endings
+@funindex \repeat
+@funindex \alternative
+@funindex \partial
+
+@node 通常の繰り返し
+@unnumberedsubsubsec 通常の繰り返し
+@translationof Normal repeats
+
+通常の繰り返しの構文は以下の通りです。
+
+@example
+\repeat volta @var{repeatcount} @var{musicexpr}
+@end example
+
+@noindent
+ここで、@code{@var{musicexpr}} は音楽表記です。@c
+
+入れ替えを持たない 1 回の繰り返しは以下のようになります:
+
+@lilypond[verbatim,quote,relative=2]
+\repeat volta 2 { c4 d e f }
+c2 d
+\repeat volta 2 { d4 e f g }
+@end lilypond
+
+繰り返し時に入れ替えて演奏する部分は @code{\alternative} を@c
+用いて作り出すことができます。@c
+入れ替えの各グループを波括弧で囲んで、このブロックの中に配置します。
+
+@example
+\repeat volta @var{repeatcount} @var{musicexpr}
+\alternative @{
+  @{ @var{musicexpr} @}
+@}
+@end example
+
+@noindent
+ここで、@code{@var{musicexpr}} は音楽表記です。@c
+
+繰り返し回数が入れ替え部分の数よりも多い場合、始めの方の繰り返しには@c
+最初の入れ替え部分が使用されます。
+
+繰り返しが 1 回で、入れ替えも 1 つの場合は以下のようになります:
+
+@lilypond[verbatim,quote,relative=2]
+\repeat volta 2 { c4 d e f | }
+\alternative {
+  { c2 e | }
+  { f2 g | }
+}
+c1
+@end lilypond
+
+複数の入れ替え部分を 1 回ずつ演奏する繰り返しは以下のようになります:
+
+
+@lilypond[verbatim,quote,relative=2]
+\repeat volta 4 { c4 d e f | }
+\alternative {
+  { c2 e | }
+  { f2 g | }
+}
+c1
+@end lilypond
+
+繰り返し部分を複数回繰り返す場合は以下のようになります:
+
+@lilypond[verbatim,quote,relative=2]
+\repeat volta 3 { c4 d e f | }
+\alternative {
+  { c2 e | }
+  { f2 g | }
+  { a2 g | }
+}
+c1
+@end lilypond
+
+@warning{入れ替えが複数ある場合、入れ替えの閉じ波括弧と次の入れ替えの@c
+開始の波括弧の間に何かを置くべきではありません。@c
+さもないと、予期せぬ数の入れ替えが発生します。}
+
+@warning{@code{Voice} コンテキストを明示的にインスタンス化せずに@c
+@code{@bs{}relative} を @code{@bs{}repeat} の中に配置すると、@c
+余計な譜が表示されます。@c
+@rprogram{余計な譜が表示される} を参照してください。}
+
+@cindex repeat with upbeat (上拍を持つ繰り返し)
+@cindex upbeat in a repeat (繰り返しの中にある上拍)
+@cindex anacrucis in a repeat (繰り返しの中にある弱拍)
+@cindex repeat with anacrucis (弱拍を持つ繰り返し)
+@cindex repeat with pickup (ピックアップを持つ繰り返し)
+@cindex pickup in a repeat (繰り返しの中にあるピックアップ)
+@funindex \partial
+
+繰り返しが小節の途中から始まり、入れ替え部分が無い場合、@c
+風通は繰り返しの終わりも小節の途中になります。@c
+そのため、1 つ小節に 2 つの終わりが加えられます。@c
+そのような場合、繰り返し記号は本来の小節線とは異なります。@c
+繰り返し記号を譜刻する場所で @code{\partila} コマンドや小節チェックを@c
+使わないで下さい:
+
+@c KEEP LY
+@lilypond[verbatim,quote,relative=1]
+% ここで \partial を使わないで下さい
+c4 e g  % ここで小節チェックを行わないで下さい
+% ここで \partial を使わないで下さい
+\repeat volta 4 {
+  e4 |
+  c2 e |
+  % ここで \partial を使わないで下さい
+  g4 g g  % ここで小節チェックを行わないで下さい
+}
+% ここで \partial を使わないで下さい
+g4 |
+a2 a |
+g1 |
+@end lilypond
+
+同様に、繰り返しが楽譜の先頭の部分小節から始まり、入れ替え部分を持たない場合、@c
+楽譜の先頭で @code{\partial} コマンドを配置する必要があることを除いて、@c
+上の例と同じ条件が適用されます:
+
+@c KEEP LY
+@lilypond[verbatim,quote,relative=1]
+\partial 4  % \partial が必要です
+\repeat volta 4 {
+  e4 |
+  c2 e |
+  % ここで \partial を使わないで下さい
+  g4 g g  % ここで小節チェックを行わないで下さい
+}
+% ここで \partial を使わないで下さい
+g4 |
+a2 a |
+g1 |
+@end lilypond
+
+完全な長さを持たない小節で始まる小節に入れ替え部分を付け加える場合、@c
+以下の場所で @code{Timing.measureLength} コンテキスト プロパティを@c
+手動で設定する必要があります:
+
+@itemize
+@item
+@code{\alternative} ブロック内の不完全な小節の開始点。@c
+通常、これは (たいていの場合は) 最後の入れ替え部分を除く、@c
+各入れ替え部分の最後の小節になります。
+
+@item
+最初の入れ替え部分を除く、各入れ替え部分の開始点。
+@end itemize
+
+@lilypond[verbatim,quote,relative=1]
+\partial 4
+\repeat volta 2 { e4 | c2 e | }
+\alternative {
+  {
+    f2 d |
+    \set Timing.measureLength = #(ly:make-moment 3 4)
+    g4 g g  % optional bar check is allowed here
+  }
+  {
+    \set Timing.measureLength = #(ly:make-moment 4 4)
+    a2 a |
+  }
+}
+g1 |
+@end lilypond
+
+@code{measureLength} プロパティについての説明は @ref{時間管理} にあります。
+
+@cindex repeats with ties (タイを持つ繰り返し)
+@cindex alternative endings with ties (タイを持つ繰り返しの入れ替え部分)
+@cindex ties in repeats (繰り返しの中にあるタイ)
+@cindex ties in alternative endings (繰り返しの入れ替え部分の中にあるタイ)
+@funindex \repeatTie
+
+繰り返しの 2 回目の部分にタイを付け加えることもできます:
+
+@lilypond[verbatim,quote,relative=2]
+c1
+\repeat volta 2 { c4 d e f~ }
+\alternative {
+  { f2 d }
+  { f2\repeatTie f, }
+}
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{shortening-volta-brackets.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{adding-volta-brackets-to-additional-staves.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{setting-the-double-repeat-default-for-volte.ly}
+
+@seealso
+音楽用語集:
+@rglos{repeat},
+@rglos{volta}
+
+記譜法リファレンス:
+@ref{小節線},
+@ref{Modifying context plug-ins},
+@ref{時間管理}
+
+コード断片集:
+@rlsr{Repeats}
+
+内部リファレンス:
+@rinternals{VoltaBracket},
+@rinternals{RepeatedMusic},
+@rinternals{VoltaRepeatedMusic},
+@rinternals{UnfoldedRepeatedMusic}
+
+
+@knownissues
+
+@cindex repeat, ambiguous (あいまいな繰り返し)
+@cindex nested repeat (ネストされた繰り返し)
+@cindex repeat, nested (ネストされた繰り返し)
+@cindex repeat timing information (繰り返しタイミング情報)
+@cindex repeat and measure number (繰り返しと小節番号)
+@cindex timing information and repeats (タイミング情報と繰り返し)
+@cindex measure number and repeats (小節番号と繰り返し)
+@cindex repeat and slur (繰り返しとスラー)
+@cindex slur and repeat (スラーと繰り返し)
+
+@code{\repeat} ブロックから @code{\alternative} ブロックまで続くスラーは、@c
+最初の入れ替え部分に対してのみ機能します。@c
+さらに、スラーは入れ替え部分の終わりから繰り返しの先頭までをカバーすることは@c
+できません。
+
+不完全な小節で始まる繰り返しが @code{measureLength} プロパティの変更を行う@c
+@code{\alternative} ブロックを持つ場合、@c
+@code{\unfoldRepeats} を使用するとおかしな場所に小節線が引かれ、@c
+小節チェック警告が発生します。
+
+以下のようにネストされた繰り返し
+
+@example
+\repeat @dots{}
+\repeat @dots{}
+\alternative
+@end example
+
+@noindent
+はあいまいです。@c
+なぜなら、@code{\alternative} がどちらの @code{\repeat} に属するのか@c
+はっきりしないからです。@c
+このあいまいさは、常に @code{\alternative} を内側の @code{\repeat} に@c
+属させることによって解決されます。@c
+はっきりとさせるために、そのような状況では波括弧を使用すると賢明です。
+
+
+@node 手動の繰り返し記号
+@unnumberedsubsubsec 手動の繰り返し記号
+@translationof Manual repeat marks
+
+@cindex manual repeat mark (手動の繰り返し記号)
+@cindex repeat, manual (手動の繰り返し)
+@cindex start repeat (繰り返しの開始)
+@cindex repeat, start (繰り返しの開始)
+@cindex end repeat (繰り返しの終了)
+@cindex repeat, end (繰り返しの終了)
+@cindex repeat number, changing (繰り返しの回数を変更する)
+@cindex repeat volta, changing (繰り返し volta を変更する)
+@cindex volta bracket (volta 囲み)
+@cindex bracket, volta (volta 囲み)
+@funindex repeatCommands
+@funindex start-repeat
+
+@warning{以下の手法は特殊な繰り返し構造を表示するためだけに使用され、@c
+予期しない振る舞いをする可能性があります。@c
+たいていのケースでは、繰り返しは標準の @code{@bs{}repeat} コマンドを用いるか、@c
+適切な小節線を譜刻することによって作成すべきです。@c
+更なる情報は、@ref{小節線} を参照してください。}
+
+プロパティ @code{repeatCommands} を用いて繰り返しのレイアウトを@c
+制御することができます。@c
+このプロパティの値は繰り返しコマンドの Scheme リストです。
+
+@table @code
+@item start-repeat
+@code{|:} 小節線を譜刻します。
+
+@lilypond[verbatim,quote,relative=2]
+c1
+\set Score.repeatCommands = #'(start-repeat)
+d4 e f g
+c1
+@end lilypond
+
+標準の譜刻習慣に従い、楽曲の先頭では繰り返し記号は譜刻されません。
+
+@item end-repeat
+@code{:|} 小節線を譜刻します。
+
+@lilypond[verbatim,quote,relative=2]
+c1
+d4 e f g
+\set Score.repeatCommands = #'(end-repeat)
+c1
+@end lilypond
+
+@item (volta @var{number}) ... (volta #f)
+指定された番号を持つ新しい volta を作成します。@c
+Volta 囲みは明示的に終了させる必要があります。@c
+さもなければ、譜刻されません。
+
+@lilypond[verbatim,quote,relative=2]
+f4 g a b
+\set Score.repeatCommands = #'((volta "2"))
+g4 a g a
+\set Score.repeatCommands = #'((volta #f))
+c1
+@end lilypond
+
+@end table
+
+複数の繰り返しコマンドが同時に発生することもあります:
+
+@lilypond[verbatim,quote,relative=2]
+f4 g a b
+\set Score.repeatCommands = #'((volta "2, 5") end-repeat)
+g4 a g a
+c1
+\set Score.repeatCommands = #'((volta #f) (volta "95") end-repeat)
+b1
+\set Score.repeatCommands = #'((volta #f))
+@end lilypond
+
+@cindex volta bracket with text (テキストを持つ volta 囲み)
+@cindex text in volta bracket (volta 囲みの中にあるテキスト)
+
+テキストを volta 囲みに含めることができます。@c
+テキストに使用できるのは数字やマークアップ テキストです。@c
+@ref{Formatting text} を参照してください。@c
+マークアップ テキストを使用するための最も簡単な方法は、最初にマークアップを@c
+定義し、それからそのマークアップを Scheme リストに含める方法です。
+
+@lilypond[verbatim,quote]
+voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
+\relative c'' {
+  c1
+  \set Score.repeatCommands = #(list(list 'volta voltaAdLib) 'start-repeat)
+  c4 b d e
+  \set Score.repeatCommands = #'((volta #f) (volta "4.") end-repeat)
+  f1
+  \set Score.repeatCommands = #'((volta #f))
+}
+@end lilypond
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{printing-a-repeat-sign-at-the-beginning-of-a-piece.ly}
+
+
+@seealso
+記譜法リファレンス:
+@ref{小節線},
+@ref{Formatting text}
+
+コード断片集:
+@rlsr{Repeats}
+
+内部リファレンス:
+@rinternals{VoltaBracket},
+@rinternals{RepeatedMusic},
+@rinternals{VoltaRepeatedMusic}
+
+
+@node 繰り返しを描き出す
+@unnumberedsubsubsec 繰り返しを描き出す
+@translationof Written-out repeats
+
+@cindex written-out repeats (繰り返しを描き出す)
+@cindex repetitious music (反復の多い音楽)
+@cindex repeats, written-out (繰り返しを描き出す)
+@cindex repeat, unfold (繰り返しを展開する)
+@cindex unfold music (音楽を展開する)
+@cindex unfold repeat (繰り返しを展開する)
+@cindex unfold repeat with alternate endings (入れ替え部分のある繰り返しを展開する)
+@cindex unfold music with alternate endings (入れ替え部分のある音楽を展開する)
+@cindex alternate ending in written-out repeats (描き出される繰り返しの中にある入れ替え部分)
+@funindex unfold
+
+@code{unfold} コマンドを用いることにより、@c
+繰り返しを単に反復する音楽を描き出すために使用することができます。@c
+構文は以下の通りです:
+
+@example
+\repeat unfold @var{repeatcount} @var{musicexpr}
+@end example
+
+ここで、@code{@var{musicexpr}} は音楽表記であり、@code{@var{repeatcount}} は
+@code{@var{musicexpr}} を繰り返す回数です。
+
+@lilypond[verbatim,quote,relative=2]
+\repeat unfold 2 { c4 d e f }
+c1
+@end lilypond
+
+入れ替え部分がある繰り返しを展開することもできます。@c
+
+@lilypond[verbatim,quote,relative=2]
+\repeat unfold 2 { c4 d e f }
+\alternative {
+  { c2 g' }
+  { c,2 b }
+}
+c1
+@end lilypond
+
+繰り返し回数が入れ替え部分の数よりも多い場合、@c
+最初の入れ替え部分が複数回使用して、入れ替え数と繰り返し回数を合わせます。
+
+@lilypond[verbatim,quote,relative=2]
+\repeat unfold 4 { c4 d e f }
+\alternative {
+  { c2 g' }
+  { c,2 b }
+  { e2 d }
+ }
+c1
+@end lilypond
+入れ替え部分の数が繰り返し回数よりも多い場合、@c
+最初の入れ替え部分が使用され、残りの繰り返し部分は無視され、譜刻されません。
+
+@lilypond[verbatim,quote,relative=2]
+\repeat unfold 2 { c4 d e f }
+\alternative {
+  { c2 g' }
+  { c,2 b }
+  { e2 d }
+}
+c1
+@end lilypond
+
+複数の @code{unfold} 関数をネストすることも可能です。@c
+(@code{unfold} は入れ替え部分を持っていても、持っていなくても構いません。)
+
+@lilypond[verbatim,quote,relative=2]
+\repeat unfold 2 {
+  \repeat unfold 2 { c4 d e f }
+  \alternative {
+    { c2 g' }
+    { c,2 b }
+  }
+}
+c1
+@end lilypond
+
+@warning{@code{Voice} コンテキストを明示的にインスタンス化せずに@c
+@code{@bs{}relative} を @code{@bs{}repeat} の中に配置すると、@c
+余計な譜が表示されます。@c
+@rprogram{余計な譜が表示される} を参照してください。}
+
+
+@seealso
+コード断片集:
+@rlsr{Repeats}
+
+内部リファレンス:
+@rinternals{RepeatedMusic},
+@rinternals{UnfoldedRepeatedMusic}
+
+
+@node 短い繰り返し
+@subsection 短い繰り返し
+@translationof Short repeats
+
+このセクションでは、短い繰り返しを入力する方法について議論します。@c
+短い繰り返しには 2 つの形式があります:
+単一の音符、単一の小節あるいは 2 小節の繰り返しを表す@c
+スラッシュまたはパーセント記号と、トレモロです。
+
+@menu
+* パーセント繰り返し::
+* トレモロの繰り返し::
+@end menu
+
+@node パーセント繰り返し
+@unnumberedsubsubsec パーセント繰り返し
+@translationof Percent repeats
+
+@cindex percent repeats (パーセント繰り返し)
+@cindex measure repeats (小節の繰り返し)
+@cindex repeat, percent (パーセント繰り返し)
+@cindex repeat, measure (小節の繰り返し)
+@cindex repeat, short (短い繰り返し)
+@funindex \repeat percent
+@funindex percent
+
+繰り返される短いパターンは 1 回だけ譜刻され、@c
+繰り返しは特殊な記号で置き換えられます。
+
+構文は以下の通りです
+
+@example
+\repeat percent @var{number} @var{musicexpr}
+@end example
+
+@noindent
+ここで、@code{@var{musicexpr}} は音楽表記です。
+
+1 小節よりも短いパターンはスラッシュで置き換えられます。
+
+@lilypond[verbatim,quote,relative=2]
+\repeat percent 4 { c8 d }
+\repeat percent 4 { c4 }
+\repeat percent 2 { c2 }
+@end lilypond
+
+1 または 2 小節のパターンはパーセントのような記号で置き換えられます。
+
+@lilypond[verbatim,quote,relative=2]
+\repeat percent 3 { c4 d e f }
+\repeat percent 4 { c2 d }
+@end lilypond
+
+@lilypond[verbatim,quote,relative=2]
+\repeat percent 3 { c4 d e f | c2 g' }
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{percent-repeat-counter.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{percent-repeat-count-visibility.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{isolated-percent-repeats.ly}
+
+
+@seealso
+音楽用語集:
+@rglos{percent repeat},
+@rglos{simile}
+
+コード断片集:
+@rlsr{Repeats}
+
+内部リファレンス:
+@rinternals{RepeatSlash},
+@rinternals{PercentRepeat},
+@rinternals{DoublePercentRepeat},
+@rinternals{DoublePercentRepeatCounter},
+@rinternals{PercentRepeatCounter},
+@rinternals{PercentRepeatedMusic}
+
+
+@knownissues
+
+パーセント繰り返しは 3 種類だけサポートされます:
+単一の拍を表す単線のスラッシュ (繰り返される音符の演奏時間とは関係ありません)、@c
+1 小節を表す単線の付点スラッシュ、@c
+それに 2 小節を表す 2 重線の付点スラッシュ
+-- これは小節線の上に譜刻されます -- です。@c
+16 分音符やそれよりも短い音符から成る単一拍の繰り返しを表す多重線スラッシュや、@c
+さまざまな演奏時間の音符から成る単一拍の繰り返しを表す
+2 重線の付点スラッシュはサポートされません。
+
+
+@node トレモロの繰り返し
+@unnumberedsubsubsec トレモロの繰り返し
+@translationof Tremolo repeats
+
+@cindex tremolo beams (トレモロの連桁)
+@cindex tremolo (トレモロ)
+@cindex repeat, tremolo (トレモロの繰り返し)
+@funindex \repeat tremolo
+@funindex tremolo
+
+トレモロには 2 つの形式があります:
+2 つの和音あるいは 2 つの音符を交互に演奏するものと、@c
+単一の音符あるいは和音を素早く繰り返すものです。@c
+交互に演奏するトレモロは、@c
+音符あるいは和音の間に多重連桁を付け加えることによって示され、@c
+一方、単一の音符を素早く繰り返すトレモロは単一の音符に@c
+多重連桁あるいは多重スラッシュを付け加えることによって示されます。
+
+2 つの音符の間にトレモロ記号を配置するには、トレモロ スタイルの @code{\repeat}
+を使用します:
+
+@lilypond[quote,verbatim,relative=2]
+\repeat tremolo 8 { c16 d }
+\repeat tremolo 6 { c16 d }
+\repeat tremolo 2 { c16 d }
+@end lilypond
+
+@code{\repeat tremolo} の構文では、@c
+波括弧の中にある音符の数がちょうど 2 つであること、@c
+それに、繰り返しの回数が普通の音符あるいは付点音符として表すことができる@c
+音価に相当することが必須です。@c
+それゆえ、@code{\repeat tremolo 7} は有効であり、2 重付点音符を作り出します。@c
+しかしながら、@code{\repeat tremolo 9} は無効です。
+
+トレモロの演奏時間は、@c
+波括弧で囲まれた音楽表記の演奏時間に繰り返し回数を掛けたものに等しいです:
+@code{\repeat tremolo 8 @{ c16 d16 @}} は全音符のトレモロであり、@c
+トレモロの連桁でつながれた 2 つの全音符として譜刻されます。
+
+単一の音符上にトレモロ記号を配置する方法は 2 つあります。@c
+@code{\repeat tremolo} 構文をここでも使用します
+-- この場合、音符を波括弧で囲むべきではありません:
+
+@lilypond[quote,verbatim,ragged-right]
+\repeat tremolo 4 c'16
+@end lilypond
+
+@cindex tremolo marks (トレモロ記号)
+@funindex tremoloFlags
+@funindex :
+
+音符の後に @code{:@var{N}} を付け加えることによって@c
+同じ出力を得ることができます。@c
+@code{@var{N}} は細部の演奏時間を表し、8 以上である必要があります。@c
+@code{@var{N}} が 8 である場合、音符の符幹に 1 本の連桁が付け加えられます。@c
+@code{@var{N}} が省略された場合、
+最後の値 (@code{tremoloFlags} に保存されています) が使用されます:
+
+@lilypond[quote,verbatim,relative=2]
+c2:8 c:32
+c: c:
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{cross-staff-tremolos.ly}
+
+
+@seealso
+コード断片集:
+@rlsr{Repeats}
+
+@cindex tremolo, cross-staff (譜を跨ぐトレモロ)
+@cindex cross-staff tremolo (譜を跨ぐトレモロ)

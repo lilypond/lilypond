@@ -1,0 +1,1353 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@ignore
+    Translation of GIT committish: fe4f33aca60ea7c58bc9196eac43b4acca1d4437
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.13.36"
+
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+
+@node 表現記号
+@section 表現記号
+@translationof Expressive marks
+
+@lilypondfile[quote]{expressive-headword.ly}
+
+このセクションでは楽譜の中で作成可能なさまざまな表現記号をリストアップします。
+
+@menu
+* 音符に付けられる表現記号::
+* 曲線の表現記号::
+* 直線の表現記号::
+@end menu
+
+
+@node 音符に付けられる表現記号
+@subsection 音符に付けられる表現記号
+@translationof Expressive marks attached to notes
+
+このセクションでは、音符に添付される表現記号を作成する方法について説明します。@c
+音符に添付される表現記号には以下のものがあります:
+アーティキュレーション、装飾、強弱記号。@c
+新たに強弱記号を作成する方法についても議論します。
+
+
+@menu
+* アーティキュレーションと装飾::
+* 強弱記号::
+* 新たな強弱記号::
+@end menu
+
+
+@node アーティキュレーションと装飾
+@unnumberedsubsubsec アーティキュレーションと装飾
+@translationof Articulations and ornamentations
+
+@cindex articulations (アーティキュレーション)
+@cindex ornamentation (装飾)
+@cindex scripts (スクリプト)
+@cindex ornaments (装飾)
+@cindex espressivo (表現的な)
+@cindex fermata (フェルマータ)
+@cindex upbow (アップボー、上弓)
+@cindex downbow (ダウンボー、下弓)
+@cindex foot marks (フット マーク、足記号)
+@cindex organ pedal marks (オルガン ペダル記号)
+@cindex pedal marks, organ (オルガン ペダル記号)
+@cindex turn (ターン)
+@cindex open (オープン)
+@c 未訳
+@cindex stopped
+@c フラジョレット: 六孔の縦笛
+@cindex flageolet (フラジョレット)
+@cindex reverseturn (逆ターン)
+@cindex trill (トリル)
+@cindex prall (プラル)
+@cindex mordent (モルデント)
+@cindex prallprall (プラルプラル)
+@cindex prallmordent (プラルモルデント)
+@cindex prall, up (アップ プラル)
+@cindex prall, down (ダウン プラル)
+@cindex thumb marking
+@cindex segno (セーニョ)
+@cindex coda (コーダ)
+@c 未訳
+@cindex varcoda
+
+@funindex \accent
+@funindex \marcato
+@funindex \staccatissimo
+@funindex \espressivo
+@funindex \staccato
+@funindex \tenuto
+@funindex \portato
+@funindex \upbow
+@funindex \downbow
+@funindex \flageolet
+@funindex \thumb
+@funindex \lheel
+@funindex \rheel
+@funindex \ltoe
+@funindex \rtoe
+@funindex \open
+@funindex \halfopen
+@funindex \stopped
+@funindex \snappizzicato
+@funindex \turn
+@funindex \reverseturn
+@funindex \trill
+@funindex \prall
+@funindex \mordent
+@funindex \prallprall
+@funindex \prallmordent
+@funindex \upprall
+@funindex \downprall
+@funindex \upmordent
+@funindex \downmordent
+@funindex \pralldown
+@funindex \prallup
+@funindex \lineprall
+@funindex \signumcongruentiae
+@funindex \shortfermata
+@funindex \fermata
+@funindex \longfermata
+@funindex \verylongfermata
+@funindex \fermataMarkup
+@funindex \segno
+@funindex \coda
+@funindex \varcoda
+
+
+@funindex -
+
+
+アーティキュレーション、装飾音それに他の演奏指示を表すさまざまな記号は@c
+以下の構文を用いて音符に付けることができます:
+
+@example
+@var{note}\@var{name}
+@end example
+
+@code{@var{name}} に対してとり得る値は
+@ref{List of articulations} でリストアップしています。@c
+例えば:
+
+@lilypond[verbatim,quote,relative=2]
+c4\staccato c\mordent b2\turn
+c1\fermata
+@end lilypond
+
+@cindex marcato (マルカート)
+@cindex tenuto (テヌート)
+@cindex staccatissimo (スタッカーティシモ)
+@cindex accent (アクセント)
+@cindex staccato (スタッカート)
+@cindex portato (ポルタート)
+
+これらのアーティキュレーションのいくつかはより容易に入力できるよう@c
+短縮記法を持っています。@c
+短縮記法は音符名の後ろに付けられ、ダッシュ @code{-} と@c
+それに続くアーティキュレーションを表す記号から成ります。@c
+あらかじめ定義されている短縮記法は以下のアーティキュレーションです:
+@notation{marcato}, @notation{stopped}, @notation{tenuto},
+@notation{staccatissimo}, @notation{accent}, @notation{staccato}
+それに @notation{portato}。@c
+これらの出力は以下のように表示されます:
+
+@lilypond[verbatim,quote,relative=2]
+c4-^  c-+  c--  c-|
+c4->  c-.  c2-_
+@end lilypond
+
+アーティキュレーションのデフォルトの配置規則は@c
+ファイル @file{scm/@/script@/.scm} で定義されています。@c
+アーティキュレーションと装飾は手動で譜の上または下に配置されることもあります
+-- @ref{Direction and placement} を参照してください。
+
+アーティキュレーションは @code{Script} オブジェクトです。@c
+これらのプロパティについて @rinternals{Script} に説明があります。
+
+アーティキュレーションは音符と同様に休符に付けることもできますが、@c
+複数小節の休符に付けることはできません。@c
+特殊な定義済みコマンド @code{\fermataMarkup} は複数小節の休符に付ける@c
+ことができます (複数小節の休符にだけ付けることができます)。@c
+このコマンドは @code{MultiMeasureRestText} オブジェクトを作成します。
+
+@lilypond[verbatim,quote,relative=2]
+\override Script #'color = #red
+\override MultiMeasureRestText #'color = #blue
+a2\fermata r\fermata
+R1\fermataMarkup
+@end lilypond
+
+アーティキュレーションに加えて、テキストとマークアップを音符に付けることができます。@c
+@ref{Text scripts} を参照してください。
+
+音符につけられる Script と TextScript の配置順序についての更なる情報は、@c
+@rlearning{オブジェクトの配置} を参照してください。
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{modifying-default-values-for-articulation-shorthand-notation.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{controlling-the-vertical-ordering-of-scripts.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{creating-a-delayed-turn.ly}
+
+@seealso
+音楽用語集:
+@rglos{tenuto},
+@rglos{accent},
+@rglos{staccato},
+@rglos{portato}
+
+記譜法リファレンス:
+@ref{Direction and placement},
+@ref{List of articulations},
+@ref{トリル}
+
+インストールされているファイル:
+@file{scm/@/script@/.scm}
+
+コード断片集:
+@rlsrnamed{Expressive marks,表現記号}
+
+内部リファレンス:
+@rinternals{Script},
+@rinternals{TextScript}
+
+
+@node 強弱記号
+@unnumberedsubsubsec 強弱記号
+@translationof Dynamics
+
+@cindex absolute dynamics (絶対強弱記号)
+@cindex dynamics (強弱記号)
+@cindex dynamics, absolute (絶対強弱記号)
+
+@funindex \ppppp
+@funindex ppppp
+@funindex \pppp
+@funindex pppp
+@funindex \ppp
+@funindex ppp
+@funindex \pp
+@funindex pp
+@funindex \p
+@funindex p
+@funindex \mp
+@funindex mp
+@funindex \mf
+@funindex mf
+@funindex \f
+@funindex f
+@funindex \ff
+@funindex ff
+@funindex \fff
+@funindex fff
+@funindex \ffff
+@funindex ffff
+@funindex \fffff
+@funindex fffff
+@funindex \fp
+@funindex fp
+@funindex \sf
+@funindex sf
+@funindex \sff
+@funindex sff
+@funindex \sp
+@funindex sp
+@funindex \spp
+@funindex spp
+@funindex \sfz
+@funindex sfz
+@funindex \rfz
+@funindex rfz
+
+絶対強弱記号は音符の後にコマンドを用いて
+-- @code{c4\ff} などのように
+-- 指定します。
+利用可能な強弱記号は
+@code{\ppppp}, @code{\pppp}, @code{\ppp}, @code{\pp}, @code{\p},
+@code{\mp}, @code{\mf}, @code{\f}, @code{\ff}, @code{\fff},
+@code{\ffff}, @code{\fffff}, @code{\fp}, @code{\sf}, @code{\sff},
+@code{\sp}, @code{\spp}, @code{\sfz}, それに @code{\rfz} です。
+強弱記号を手動で譜の上または下に配置することもできます --
+@ref{Direction and placement} を参照してください。
+
+@lilypond[verbatim,quote,relative=2]
+c2\ppp c\mp
+c2\rfz c^\mf
+c2_\spp c^\ff
+@end lilypond
+
+@c 保留
+@cindex hairpin (ヘアピン)
+@cindex crescendo (クレッシェンド)
+@cindex decrescendo (デクレッシェンド)
+@cindex diminuendo (ディミヌエンド)
+
+@funindex \<
+@funindex \>
+@funindex \!
+@funindex \cr
+@funindex cr
+@funindex \decr
+@funindex decr
+
+@notation{クレッシェンド} 記号は @code{\<} で始まり、@code{\!}、@c
+絶対強弱記号あるいは追加のクレッシェンド記号またはデクレッシェンド記号で@c
+終わります。@c
+@notation{デクレッシェンド} 記号は @code{\>} で始まり、@code{\!}、@c
+絶対強弱記号あるいは次のクレッシェンド記号またはデクレッシェンド記号で@c
+終わります。@c
+@code{\cr} と @code{\decr} を @code{\<} と @code{\>} の代わりに@c
+用いる場合もあります。@c
+この記譜法を用いるとデフォルトでは @notation{ヘアピン} が譜刻されます。
+
+@lilypond[verbatim,quote,relative=2]
+c2\< c\!
+d2\< d\f
+e2\< e\>
+f2\> f\!
+e2\> e\mp
+d2\> d\>
+c1\!
+@end lilypond
+
+@code{\!} で終了するヘアピンは、@c
+@code{\!} が割り当てられた音符の右端で終了します。@c
+次の @notation{クレッシェンド} または @notation{デクレッシェンド} 記号の@c
+開始によってヘアピンが終了する場合、@c
+そのヘアピンは次の @code{\<} または @code{\>} が割り当てられた@c
+音符の中央で終了します。@c
+次のへアピンは、通常通りに音符の左端で始まる代わりに、右端から始まります。
+
+@lilypond[verbatim,quote,relative=2]
+c1\< | c4 a c\< a | c4 a c\! a\< | c4 a c a\!
+@end lilypond
+
+@code{\!} の代わりに絶対強弱記号で終了するヘアピも同じように譜刻されます。@c
+しかしながら、絶対強弱記号の幅によってヘアピンの終了点は変わります。
+
+@lilypond[verbatim,quote,relative=2]
+c1\< | c4 a c\mf a | c1\< | c4 a c\ffff a
+@end lilypond
+
+@cindex multiple dynamic marks on one note (1 つの音符に複数の強弱記号をつける)
+@cindex dynamic marks, multiple on one note (1 つの音符に複数の強弱記号をつける)
+1 つの音符に複数の記号を譜刻するには、空白休符を用いる必要があります。@c
+これは特に、同じ音符に @notation{クレッシェンド} と @notation{デクレッシェンド}
+を付ける場合に有用です。
+
+@lilypond[verbatim,quote,relative=2]
+c4\< c\! d\> e\!
+<< f1 { s4 s4\< s4\> s4\! } >>
+@end lilypond
+
+@cindex espressivo articulation (表現的なアーティキュレーション)
+
+@funindex \espressivo
+@funindex espressivo
+
+@code{\espressivo} コマンドを用いて、同じ音符にクレッシェンドとデクレッシェンドを@c
+付けることができます。@c
+しかしながら、これは強弱記号ではなくアーティキュレーションとして実装されている@c
+ということに注意してください。
+
+@lilypond[verbatim,quote,relative=2]
+c2 b4 a
+g1\espressivo
+@end lilypond
+
+
+@funindex \cresc
+@funindex cresc
+@funindex \decresc
+@funindex decresc
+@funindex \dim
+@funindex dim
+テキストのクレッシェンド記号は @code{\cresc} で開始します。@c
+テキストのデクレッシェンド記号は @code{\decresc} または
+@code{\dim} で開始します。@c
+必要に応じて延長線が譜刻されます。
+
+@lilypond[verbatim,quote,relative=2]
+g8\cresc a b c b c d e\mf |
+f8\decresc e d c e\> d c b |
+a1\dim ~ |
+a2. r4\! |
+@end lilypond
+
+@funindex \crescTextCresc
+@funindex crescTextCresc
+@funindex \dimTextDecresc
+@funindex dimTextDecresc
+@funindex \dimTextDecr
+@funindex dimTextDecr
+@funindex \dimTextDim
+@funindex dimTextDim
+@funindex \crescHairpin
+@funindex crescHairpin
+@funindex \dimHairpin
+@funindex dimHairpin
+
+強弱のテキスト符号の変更でヘアピンを置換することもできます:
+@lilypond[verbatim,quote,relative=2]
+\crescTextCresc
+c4\< d e f\! |
+\dimTextDecresc
+g4\> e d c\! |
+\dimTextDecr
+e4\> d c b\! |
+\dimTextDim
+d4\> c b a\! |
+\crescHairpin
+\dimHairpin
+c4\< d\! e\> d\! |
+@end lilypond
+
+新たに絶対強弱記号や強弱に対応させるテキストを作成するには、@c
+@ref{新たな強弱記号} を参照してください。
+
+@cindex dynamics, vertical positioning (強弱記号の垂直方向の位置)
+@cindex vertical positioning of dynamics (強弱記号の垂直方向の位置)
+
+@funindex DynamicLineSpanner
+
+
+強弱記号の垂直方向の位置は
+@rinternals{DynamicLineSpanner} によって処理されます。
+@funindex \dynamicUp
+@funindex dynamicUp
+@funindex \dynamicDown
+@funindex dynamicDown
+@funindex \dynamicNeutral
+@funindex dynamicNeutral
+
+@code{Dynamics} を用いて水平線上に強弱記号を譜刻することができます。@c
+タイミングを示すために空白休符を使用します。@c
+(@code{Dynamics} コンテキスト内の音符は音楽的時間を取りますが、@c
+譜刻されません。)@c
+@code{Dynamics} コンテキストはテキスト スクリプト、テキスト スパナ、@c
+ピアノ ペダル記号などを保持することができ、有用です。
+
+@lilypond[verbatim,quote]
+<<
+  \new Staff \relative c' {
+    c2 d4 e |
+    c4 e e,2 |
+    g'4 a g a |
+    c1 |
+  }
+  \new Dynamics {
+    s1\< |
+    s1\f |
+    s2\dim s2-"rit." |
+    s1\p |
+  }
+>>
+@end lilypond
+
+@predefined
+@code{\dynamicUp},
+@code{\dynamicDown},
+@code{\dynamicNeutral},
+@code{\crescTextCresc},
+@code{\dimTextDim},
+@code{\dimTextDecr},
+@code{\dimTextDecresc},
+@code{\crescHairpin},
+@code{\dimHairpin}
+@endpredefined
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{setting-hairpin-behavior-at-bar-lines.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{setting-the-minimum-length-of-hairpins.ly}
+
+@c 未訳
+@cindex al niente (アル ニエンテ)
+@cindex niente, al (アル ニエンテ)
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{printing-hairpins-using-al-niente-notation.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{vertically-aligned-dynamics-and-textscripts.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{hiding-the-extender-line-for-text-dynamics.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-text-and-spanner-styles-for-text-dynamics.ly}
+
+
+@seealso
+音楽用語集:
+@rglos{al niente},
+@rglos{crescendo},
+@rglos{decrescendo},
+@rglos{hairpin}
+
+学習マニュアル:
+@rlearning{アーティキュレーションと強弱記号}
+
+記譜法リファレンス:
+@ref{Direction and placement},
+@ref{新たな強弱記号},
+@ref{What goes into the MIDI output?},
+@ref{Controlling MIDI dynamics}
+
+コード断片集:
+@rlsrnamed{Expressive marks,表現記号}
+
+内部リファレンス:
+@rinternals{DynamicText},
+@rinternals{Hairpin},
+@rinternals{DynamicLineSpanner},
+@rinternals{Dynamics}
+
+
+@node 新たな強弱記号
+@unnumberedsubsubsec 新たな強弱記号
+@translationof New dynamic marks
+
+@cindex new dynamic marks (新たな強弱記号)
+@cindex dynamic marks, new (新たな強弱記号)
+
+強弱記号を作成する最も容易な方法は、@c
+@code{\markup} オブジェクトを使用することです。
+
+@lilypond[verbatim,quote]
+moltoF = \markup { molto \dynamic f }
+
+\relative c' {
+  <d e>16_\moltoF <d e>
+  <d e>2..
+}
+@end lilypond
+
+@cindex dynamics, editorial (注釈の強弱記号)
+@cindex dynamics, parenthesis (括弧の強弱記号)
+@cindex editorial dynamics (注釈の強弱記号)
+@funindex \bracket
+@funindex bracket
+@funindex \dynamic
+@funindex dynamic
+
+マークアップ モードでは、@c
+注釈の強弱記号 (括弧や角括弧で囲まれます) を作成することができます。@c
+マークアップ モードの構文は @ref{Formatting text} で記述されています。
+
+@lilypond[verbatim,quote]
+roundF = \markup {
+    \center-align \concat { \bold { \italic ( }
+           \dynamic f \bold { \italic ) } } }
+boxF = \markup { \bracket { \dynamic f } }
+\relative c' {
+  c1_\roundF
+  c1_\boxF
+}
+@end lilypond
+
+@cindex make-dynamic-script
+@funindex make-dynamic-script
+
+単純に中央揃えの強弱記号は @code{make-dynamic-script} 関数を用いて@c
+簡単に作成できます。@c
+
+@lilypond[verbatim,quote]
+sfzp = #(make-dynamic-script "sfzp")
+\relative c' {
+  c4 c c\sfzp c
+}
+@end lilypond
+
+一般に、@code{make-dynamic-script} は引数として@c
+何らかのマークアップ オブジェクトをとります。@c
+強弱記号のフォントに含まれる文字は @code{f,m,p,r,s} それに @code{z} だけです。@c
+このため、テキストや句読点を含む強弱記号を必要とする場合、@c
+フォント ファミリとフォント エンコーディングを通常のテキストに戻すための@c
+マークアップ コマンド
+-- 例えば @code{\normal-text} -- を用いる必要があります。@c
+通常のマークアップの代わりに @code{make-dynamic-script} を用いる利点は、@c
+同じ符頭に付けられるマークアップ オブジェクトとヘアピンが垂直方向に揃うことを@c
+保証されている点にあります。
+
+@lilypond[verbatim,quote]
+roundF = \markup { \center-align \concat {
+           \normal-text { \bold { \italic ( } }
+           \dynamic f
+           \normal-text { \bold { \italic ) } } } }
+boxF = \markup { \bracket { \dynamic f } }
+mfEspress = \markup { \center-align \line {
+              \hspace #3.7 mf \normal-text \italic espress. } }
+roundFdynamic = #(make-dynamic-script roundF)
+boxFdynamic = #(make-dynamic-script boxF)
+mfEspressDynamic = #(make-dynamic-script mfEspress)
+\relative c' {
+  c4_\roundFdynamic\< d e f
+  g,1~_\boxFdynamic\>
+  g1
+  g'1~\mfEspressDynamic
+  g1
+}
+@end lilypond
+
+Scheme 形式のマークアップ モードを用いることもできます。@c
+マークアップ Scheme の構文は @rextend{Markup construction in Scheme} で@c
+説明されています。
+
+@lilypond[verbatim,quote]
+moltoF = #(make-dynamic-script
+            (markup #:normal-text "molto"
+                    #:dynamic "f"))
+\relative c' {
+  <d e>16 <d e>
+  <d e>2..\moltoF
+}
+@end lilypond
+
+マークアップ モードでのフォント設定は
+@ref{Selecting font and font size} で記述されています。
+
+
+@seealso
+記譜法リファレンス:
+@ref{Formatting text},
+@ref{Selecting font and font size},
+@ref{What goes into the MIDI output?},
+@ref{Controlling MIDI dynamics}
+
+コード断片集:
+@rlsrnamed{Expressive marks,表現記号}
+
+
+@node 曲線の表現記号
+@subsection 曲線の表現記号
+@translationof Expressive marks as curves
+
+@c 未訳
+このセクションでは曲線を持つさまざまな表現記号
+-- 通常のスラー、フレージング スラー、ブレス記号、falls それに doits --
+を作成する方法について説明します。
+
+@menu
+* スラー::
+* フレージング スラー::
+* ブレス記号::
+* Falls and doits::
+@end menu
+
+@node スラー
+@unnumberedsubsubsec スラー
+@translationof Slurs
+
+@cindex slurs (スラー)
+
+@notation{スラー} は括弧を用いて入力します:
+
+@warning{多声音楽では、@c
+スラーが始まったボイスでそのスラーを終わらせる必要があります。}
+
+@lilypond[verbatim,quote,relative=2]
+f4( g a) a8 b(
+a4 g2 f4)
+<c e>2( <b d>2)
+@end lilypond
+
+@cindex slurs, manual placement (手動でスラーを配置する)
+@cindex slurs, below notes (音符の下にスラーを配置する)
+@cindex slurs, above notes (音符の上にスラーを配置する)
+@funindex \slurDown
+@funindex slurDown
+@funindex \slurNeutral
+@funindex slurNeutral
+
+スラーを手動で音符の上または下に配置することができます。@c
+@ref{Direction and placement} を参照してください。
+
+@cindex phrasing slur (フレージング スラー)
+@cindex multiple slurs (多重スラー)
+@cindex simultaneous slurs (同時進行のスラー)
+@cindex slur, phrasing (フレージング スラー)
+@cindex slurs, multiple (多重スラー)
+@cindex slurs, simultaneous (同時進行のスラー)
+
+同時進行または重なり合うスラーは許可されません。@c
+しかしながら、フレージング スラーはスラーと重なり合うことができます。@c
+これにより、2 つのスラーを同時に譜刻することができます。@c
+詳細は @ref{フレージング スラー} を参照してください。
+
+@cindex slur style (スラーのスタイル)
+@cindex solid slur (実線のスラー)
+@cindex dotted slur (点線のスラー)
+@cindex dashed slur (破線のスラー)
+@cindex sytle, slur (スラーのスタイル)
+@cindex slur, solid (実線のスラー)
+@cindex slur, dotted (点線のスラー)
+@cindex slur, dashed (破線のスラー)
+@cindex style, slur (スラーのスタイル)
+@funindex \slurDashed
+@funindex slurDashed
+@funindex \slurDotted
+@funindex slurDotted
+@funindex \slurSolid
+@funindex slurSolid
+
+スラーは実線、点線あるいは破線のどれかになります。@c
+実線がスラーのデフォルト スタイルです:
+
+@lilypond[verbatim,quote,relative=1]
+c4( e g2)
+\slurDashed
+g4( e c2)
+\slurDotted
+c4( e g2)
+\slurSolid
+g4( e c2)
+@end lilypond
+
+@funindex \slurHalfDashed
+@funindex slurHalfDashed
+@funindex \slurHalfSolid
+@funindex slurHalfSolid
+@cindex slur, half dashed and half solid (半分が破線で半分が実線のスラー)
+
+スラーの半分を破線 (前半を破線、後半を実線) にする、あるいは、@c
+半分を実線 (前半を実線、後半を破線) にすることもできます:
+
+@lilypond[verbatim,quote,relative=1]
+c4( e g2)
+\slurHalfDashed
+g4( e c2)
+\slurHalfSolid
+c4( e g2)
+\slurSolid
+g4( e c2)
+@end lilypond
+
+@funindex \slurDashPattern
+@funindex slurDashPattern
+@cindex slur, defining dash patterns (スラーの破線パターンを定義する)
+
+スラーの破線パターンを定義することができます:
+
+@lilypond[verbatim,quote,relative=1]
+c4( e g2)
+\slurDashPattern #0.7 #0.75
+g4( e c2)
+\slurDashPattern #0.5 #2.0
+c4( e g2)
+\slurSolid
+g4( e c2)
+@end lilypond
+
+
+
+@funindex \slurUp
+@funindex slurUp
+
+
+@predefined
+@code{\slurUp},
+@code{\slurDown},
+@code{\slurNeutral},
+@code{\slurDashed},
+@code{\slurDotted},
+@code{\slurHalfDashed},
+@code{\slurHalfSolid},
+@code{\slurDashPattern},
+@code{\slurSolid}
+@endpredefined
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{using-double-slurs-for-legato-chords.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{positioning-text-markups-inside-slurs.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{making-slurs-with-complex-dash-structure.ly}
+
+@seealso
+音楽用語集:
+@rglos{slur}
+
+学習マニュアル:
+@rlearning{ネストされない括弧とタイ}
+
+記譜法リファレンス:
+@ref{Direction and placement},
+@ref{フレージング スラー}
+
+コード断片集:
+@rlsrnamed{Expressive marks,表現記号}
+
+内部リファレンス:
+@rinternals{Slur}
+
+
+@node フレージング スラー
+@unnumberedsubsubsec フレージング スラー
+@translationof Phrasing slurs
+
+@cindex phrasing slurs (フレージング スラー)
+@cindex phrasing marks (フレーズ記号)
+@cindex slur, phrasing (フレージング スラー)
+@cindex mark, phrasing (フレーズ記号)
+@funindex \(
+@funindex \)
+
+音楽センテンスを示す @notation{フレージング スラー} (またはフレーズ記号) は@c
+コマンド @code{\(} と @code{\)} を用いて記述します:
+
+@lilypond[verbatim,quote,relative=2]
+c4\( d( e) f(
+e2) d\)
+@end lilypond
+
+@funindex \phrasingSlurUp
+@funindex phrasingSlurUp
+@funindex \phrasingSlurDown
+@funindex phrasingSlurDown
+@funindex \phrasingSlurNeutral
+@funindex phrasingSlurNeutral
+
+印刷の上では、フレージング スラーは通常のスラーとほとんど同じです。@c
+しかしながら、それぞれ異なるオブジェクトとして取り扱われます。@c
+@code{\slurUp} はフレージング スラーには影響を与えません。@c
+フレージング スラーを手動で音符の上または下に配置することができます。@c
+@ref{Direction and placement} を参照してください。
+
+@cindex simultaneous phrasing slurs (同時進行のフレージング スラー)
+@cindex multiple phrasing slurs (多重フレージング スラー)
+@cindex slurs, simultaneous phrasing (同時進行のフレージング スラー)
+@cindex slurs, multiple phrasing (多重フレージング スラー)
+@cindex phrasing slurs, simultaneous (同時進行のフレージング スラー)
+@cindex phrasing slurs, multiple (多重フレージング スラー)
+
+同時進行あるいは重なり合うフレージング スラーは許可されません。
+
+@funindex phrasingSlurDashed
+@funindex \phrasingSlurDashed
+@funindex \phrasingSlurDotted
+@funindex phrasingSlurDotted
+@funindex \phrasingSlurSolid
+@funindex phrasingSlurSolid
+@cindex phrasing slur, dashed (破線のフレージング スラー)
+@cindex dashed phrasing slur (破線のフレージング スラー)
+@cindex phrasing slur, dotted (点線のフレージング スラー)
+@cindex dotted phrasing slurs (点線のフレージング スラー)
+@cindex slur, dashed phrasing (破線のフレージング スラー)
+@cindex slur, dotted phrasing (点線のフレージング スラー)
+
+フレージング スラーを実線、点線あるいは破線にすることができます。@c
+実線がフレージング スラーのデフォルト スタイルです:
+
+@lilypond[verbatim,quote,relative=1]
+c4\( e g2\)
+\phrasingSlurDashed
+g4\( e c2\)
+\phrasingSlurDotted
+c4\( e g2\)
+\phrasingSlurSolid
+g4\( e c2\)
+@end lilypond
+
+@funindex phrasingSlurHalfDashed
+@funindex \phrasingSlurHalfDashed
+@funindex \phrasingSlurHalfSolid
+@funindex phrasingSlurHalfSolid
+@cindex phrasing slur, half solid and half dashed (半分が実線で半分が破線のフレージング スラー)
+@cindex slur, half solid and half dashed phrasing (半分が実線で半分が破線のフレージング スラー)
+
+フレージング スラーの半分を破線 (前半を破線、後半を実線) にする、あるいは、@c
+半分を実線 (前半を実線、後半を破線) にすることもできます:
+
+@lilypond[verbatim,quote,relative=1]
+c4\( e g2\)
+\phrasingSlurHalfDashed
+g4\( e c2\)
+\phrasingSlurHalfSolid
+c4\( e g2\)
+\phrasingSlurSolid
+g4\( e c2\)
+@end lilypond
+
+@funindex \phrasingSlurDashPattern
+@funindex phrasingSlurDashPattern
+@cindex phrasing slur, defining dash patterns
+@cindex slur, phrasing, defining dash patterns (フレージング スラーの破線パターンを定義する)
+@cindex slur, defining dash patterns for phrasing (フレージング スラーの破線パターンを定義する)
+
+フレージング スラーの破線パターンを定義することができます:
+
+@lilypond[verbatim,quote,relative=1]
+c4\( e g2\)
+\phrasingSlurDashPattern #0.7 #0.75
+g4\( e c2\)
+\phrasingSlurDashPattern #0.5 #2.0
+c4\( e g2\)
+\phrasingSlurSolid
+g4\( e c2\)
+@end lilypond
+
+フレージング スラーに対する破線パターンの定義は、@c
+スラーに対する破線パターンの定義と同じ構造をとります。@c
+複雑な破線パターンについての更なる情報は、@c
+@ref{スラー} のコード断片集を参照してください。
+
+@predefined
+@code{\phrasingSlurUp},
+@code{\phrasingSlurDown},
+@code{\phrasingSlurNeutral},
+@code{\phrasingSlurDashed},
+@code{\phrasingSlurDotted},
+@code{\phrasingSlurHalfDashed},
+@code{\phrasingSlurHalfSolid},
+@code{\phrasingSlurDashPattern},
+@code{\phrasingSlurSolid}
+@endpredefined
+
+
+@seealso
+学習マニュアル:
+@rlearning{ネストされない括弧とタイ}
+
+記譜法リファレンス:
+@ref{Direction and placement},
+@ref{スラー}
+
+コード断片集:
+@rlsrnamed{Expressive marks,表現記号}
+
+内部リファレンス:
+@rinternals{PhrasingSlur}
+
+
+@node ブレス記号
+@unnumberedsubsubsec ブレス記号
+@translationof Breath marks
+
+@cindex breath marks (ブレス記号)
+@cindex pause mark (休止記号)
+@funindex \breathe
+@funindex breathe
+
+ブレス記号は @code{\breathe} を用いて入力します:
+
+@lilypond[verbatim,quote,relative=2]
+c2. \breathe d4
+@end lilypond
+
+ブレス記号は自動連桁を終わらせます。@c
+この振る舞いをオーバライドする方法は、@ref{手動連桁} を参照してください。
+
+@lilypond[verbatim,quote,relative=2]
+c8 \breathe d e f g2
+@end lilypond
+
+@c 保留
+古代記譜法でのブレス記号の音楽指示子 --
+divisiones (ディビジョン: 区切り) がサポートされています。@c
+詳細は @ref{Divisiones} を参照してください。
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-the-breath-mark-symbol.ly}
+
+@c 未訳
+@cindex caesura
+@cindex railroad tracks
+
+@c 未訳
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{inserting-a-caesura.ly}
+
+
+@seealso
+音楽用語集:
+@rglos{caesura}
+
+記譜法リファレンス:
+@ref{Divisiones}
+
+コード断片集:
+@rlsrnamed{Expressive marks,表現記号}
+
+内部リファレンス:
+@rinternals{BreathingEvent},
+@rinternals{BreathingSign},
+@rinternals{Breathing_sign_engraver}
+
+
+@c 未訳
+@node Falls and doits
+@unnumberedsubsubsec Falls and doits
+
+@cindex falls
+@cindex doits
+@funindex \bendAfter
+@funindex bendAfter
+
+@notation{Falls} and @notation{doits} can be added to notes using
+the @code{\bendAfter} command.  The direction of the fall or doit
+is indicated with a plus or minus (up or down).  The number
+indicates the pitch interval that the fall or doit will extend
+@emph{beyond} the main note.
+
+@lilypond[verbatim,quote,relative=2]
+c2-\bendAfter #+4
+c2-\bendAfter #-4
+c2-\bendAfter #+8
+c2-\bendAfter #-8
+@end lilypond
+
+The dash @code{-} immediately preceding the @code{\bendAfter}
+command is @emph{required} when writing falls and doits.
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{adjusting-the-shape-of-falls-and-doits.ly}
+
+
+@seealso
+音楽用語集:
+@rglos{fall},
+@rglos{doit}
+
+コード断片集:
+@rlsrnamed{Expressive marks,表現記号}
+
+
+@node 直線の表現記号
+@subsection 直線の表現記号
+@translationof Expressive marks as lines
+
+このセクションでは直線的な軌道をとるさまざまな表現記号 --
+グリッサンド、アルペジオそれにトリル -- を作成する方法について説明します。
+
+@menu
+* グリッサンド::
+* アルペジオ::
+* トリル::
+@end menu
+
+@node グリッサンド
+@unnumberedsubsubsec グリッサンド
+@translationof Glissando
+
+@cindex glissando (グリッサンド)
+@funindex \glissando
+@funindex glissando
+
+@notation{グリッサンド} は音符に @code{\glissando} を付けることによって@c
+作成されます:
+
+@lilypond[verbatim,quote,relative=2]
+g2\glissando g'
+c2\glissando c,
+@end lilypond
+
+異なるスタイルのグリッサンドを作成することもできます。@c
+詳細は @ref{Line styles} を参照してください。
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{contemporary-glissando.ly}
+
+
+@seealso
+音楽用語集:
+@rglos{glissando}
+
+記譜法リファレンス:
+@ref{Line styles}
+
+コード断片集:
+@rlsrnamed{Expressive marks,表現記号}
+
+内部リファレンス:
+@rinternals{Glissando}
+
+
+@knownissues
+
+@c 未訳
+線の上にテキストを譜刻する (@notation{グリッサンド} など) ことは@c
+サポートされていません。
+
+
+@node アルペジオ
+@unnumberedsubsubsec アルペジオ
+@translationof Arpeggio
+
+@cindex arpeggio (アルペジオ)
+@cindex broken chord (変則和音)
+@cindex chord, broken (変則和音)
+
+@funindex \arpeggio
+@funindex arpeggio
+@funindex \arpeggioArrowUp
+@funindex arpeggioArrowUp
+@funindex \arpeggioArrowDown
+@funindex arpeggioArrowDown
+@funindex \arpeggioNormal
+@funindex arpeggioNormal
+
+和音の @notation{アルペジオ} (変則和音とも呼ばれます) は和音構造の後に
+@code{\arpeggio} を付けることによって記述されます:
+
+@lilypond[verbatim,quote,relative=1]
+<c e g c>1\arpeggio
+@end lilypond
+
+異なるタイプのアルペジオを描くこともできます。@c
+@code{\arpeggioNormal} は通常のアルペジオに戻します:
+
+@lilypond[verbatim,quote,relative=1]
+<c e g c>2\arpeggio
+
+\arpeggioArrowUp
+<c e g c>2\arpeggio
+
+\arpeggioArrowDown
+<c e g c>2\arpeggio
+
+\arpeggioNormal
+<c e g c>2\arpeggio
+@end lilypond
+
+@cindex arpeggio symbols, special (特殊なアルペジオ シンボル)
+@cindex special arpeggio symbols (特殊なアルペジオ シンボル)
+
+@funindex \arpeggioBracket
+@funindex arpeggioBracket
+@funindex \arpeggioParenthesis
+@funindex arpeggioParenthesis
+@funindex \arpeggioParenthesisDashed
+@funindex arpeggioParenthesisDashed
+
+特殊な @emph{括弧スタイル} のアルペジオ シンボルを作成することができます:
+
+@lilypond[verbatim,quote,relative=1]
+<c e g c>2
+
+\arpeggioBracket
+<c e g c>2\arpeggio
+
+\arpeggioParenthesis
+<c e g c>2\arpeggio
+
+\arpeggioParenthesisDashed
+<c e g c>2\arpeggio
+
+\arpeggioNormal
+<c e g c>2\arpeggio
+@end lilypond
+
+括弧スタイルのアルペジオの破線プロパティは @code{'dash-details} プロパティで@c
+制御します。@c
+@code{'dash-details} プロパティについては @ref{スラー} で説明しています。
+
+アルペジオをタイを用いて明示的に描き出すことができます。@c
+詳細は @ref{タイ} を参照してください。
+
+
+@predefined
+@code{\arpeggio},
+@code{\arpeggioArrowUp},
+@code{\arpeggioArrowDown},
+@code{\arpeggioNormal},
+@code{\arpeggioBracket},
+@code{\arpeggioParenthesis}
+@code{\arpeggioParenthesisDashed}
+@endpredefined
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{creating-cross-staff-arpeggios-in-a-piano-staff.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{creating-cross-staff-arpeggios-in-other-contexts.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{creating-arpeggios-across-notes-in-different-voices.ly}
+
+
+@seealso
+音楽用語集:
+@rglos{arpeggio}
+
+記譜法リファレンス:
+@ref{スラー},
+@ref{タイ}
+
+コード断片集:
+@rlsrnamed{Expressive marks,表現記号}
+
+内部リファレンス:
+@rinternals{Arpeggio},
+@rinternals{Slur},
+@rinternals{PianoStaff}
+
+
+@knownissues
+
+@cindex cross-staff parenthesis-style arpeggio (譜を跨ぐ括弧スタイルのアルペジオ)
+@cindex arpeggio, parenthesis-style, cross-staff (譜を跨ぐ括弧スタイルのアルペジオ)
+@cindex arpeggio, cross-staff parenthesis-style (譜を跨ぐ括弧スタイルのアルペジオ)
+
+ある @code{PianoStaff} の中の同時点で譜を跨ぐアルペジオと跨がないアルペジオを@c
+混在させることはできません。
+
+譜を跨ぐアルペジオに括弧スタイルのアルペジオを適用することはできません。
+
+
+@node トリル
+@unnumberedsubsubsec トリル
+@translationof Trills
+
+@cindex trills (トリル)
+
+@funindex \trill
+@funindex trill
+@funindex \startTrillSpan
+@funindex startTrillSpan
+@funindex \stopTrillSpan
+@funindex stopTrillSpan
+
+延長線を持たない短い @notation{トリル} は @code{\trill} で譜刻されます。@c
+@ref{アーティキュレーションと装飾} を参照してください。
+
+延長線を持つ長いトリルは @code{\startTrillSpan} と @code{\stopTrillSpan} で@c
+作成されます:
+
+@lilypond[verbatim,quote,relative=2]
+d1\startTrillSpan
+d1
+c2\stopTrillSpan
+r2
+@end lilypond
+
+改行を跨ぐトリルは、次行の最初の音符の上から再開されます。
+
+@lilypond[ragged-right,verbatim,quote,relative=2]
+d1\startTrillSpan
+\break
+d1
+c2\stopTrillSpan
+r2
+@end lilypond
+
+連続したトリルには、明示的な @code{\stopTrillSpan} コマンドは必要ありません。@c
+なぜなら、自動的に次のトリルが前のトリルの右端となるからです。
+
+@lilypond[verbatim,quote,relative=2]
+d1\startTrillSpan
+d1
+b1\startTrillSpan
+d2\stopTrillSpan
+r2
+@end lilypond
+
+トリルを装飾小音符と組み合わせることもできます。@c
+この組み合わせの構文と装飾小音符を正確に配置する方法については、@c
+@ref{装飾小音符} で説明しています。
+
+@lilypond[verbatim,quote,relative=2]
+d1~\afterGrace
+d1\startTrillSpan { c32[ d]\stopTrillSpan }
+c2 r2
+@end lilypond
+
+@cindex pitched trills (ピッチを持つトリル)
+@cindex trills, pitched (ピッチを持つトリル)
+@funindex \pitchedTrill
+@funindex pitchedTrill
+
+明示的なピッチを持つ予備の音符を必要とするトリルは
+@code{\pitchedTrill} コマンドを用いて譜刻することができます。@c
+最初の引数は主音符です。2 番目の引数は @emph{トリル} の音符であり、@c
+括弧で囲まれた符幹を持たない符頭として譜刻されます。
+
+@lilypond[verbatim,quote,relative=2]
+\pitchedTrill
+d2\startTrillSpan fis
+d2
+c2\stopTrillSpan
+r2
+@end lilypond
+
+@c 未訳
+@cindex pitched trill with forced accidental (ピッチを持つトリルに強制的に臨時記号を付ける)
+@cindex trill, pitched with forced accidental (ピッチを持つトリルに強制的に臨時記号を付ける)
+@cindex accidental, forced for pitched trill (ピッチを持つトリルに強制的に臨時記号を付ける)
+
+同じ小節内で、同一音符のためデフォルトでは譜刻されない臨時記号を譜刻するには@c
+手動で譜刻を指定する必要があります。@c
+最初の小節では、最初のピッチを持つトリルだけに臨時記号が譜刻されています。
+
+@lilypond[verbatim,quote,relative=2]
+\pitchedTrill
+eis4\startTrillSpan fis
+eis4\stopTrillSpan
+
+\pitchedTrill
+eis4\startTrillSpan fis
+eis4\stopTrillSpan
+
+\pitchedTrill
+eis4\startTrillSpan fis
+eis4\stopTrillSpan
+
+\pitchedTrill
+eis4\startTrillSpan fis!
+eis4\stopTrillSpan
+@end lilypond
+
+
+@predefined
+@code{\startTrillSpan},
+@code{\stopTrillSpan}
+@endpredefined
+
+
+@seealso
+音楽用語集:
+@rglos{trill}
+
+記譜法リファレンス:
+@ref{アーティキュレーションと装飾},
+@ref{装飾小音符}
+
+コード断片集:
+@rlsrnamed{Expressive marks,表現記号}
+
+内部リファレンス:
+@rinternals{TrillSpanner}
