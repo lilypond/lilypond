@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 70aaf0159410169678942abd39eb13c876521437
+    Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -88,15 +88,15 @@ beginnt aber mit einem Überblick über bereits existente Praktiken.
 @section Lange Literaturliste
 @translationof Long literatur list
 
-@subheading Colorado
+@subheading Notensatzliteraturliste der University of Colorado
 
 @include colorado.itexi
 
-@subheading Computernotation
+@subheading Computernotation-Bibliographie
 
 @include computer-notation.itexi
 
-@subheading Notensatz
+@subheading Notensatz-Bibliographie
 
 @include engravingbib.itexi
 

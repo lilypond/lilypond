@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: a463d80d4be008ce05b12de86fc21f2b7c1c120f
+    Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3751,7 +3751,6 @@ lhMusic = \relative c' {
 * Variablen für Optimierungen einsetzen::
 * Globale Formatierung::
 * Mehr Information::
-* Vermeiden von Optimierungen durch langsamere Übersetzung::
 * Fortgeschrittene Optimierungen mit Scheme::
 @end menu
 
@@ -4463,46 +4462,6 @@ interessante Dateien:
 @item @file{scm/script.scm}
   @tab Voreinstellungen für Artikulationszeichen
 @end multitable
-
-
-@node Vermeiden von Optimierungen durch langsamere Übersetzung
-@subsection Vermeiden von Optimierungen durch langsamere Übersetzung
-@translationof Avoiding tweaks with slower processing
-
-LilyPond kann einige zusätzliche Tests durchführen, während
-die Noten gesetzt werden.  Dadurch braucht das Programm länger,
-um den Notensatz zu produzieren, aber üblicherweise werden
-weniger nachträgliche Anpassungen nötig sein.  Wenn eine
-Textsilbe oder eine Beschriftung aus dem Rand der Partitur
-ragt, wird durch diese Tests die Zeile gerade so weit komprimiert,
-dass sie sich innerhalb der Ränder befindet.
-
-Damit diese Tests immer funktionieren, müssen sie aktiviert werden,
-indem die @bs{}@code{override}-Befehle in einer @code{context}-Umgebung
-innerhalb der @code{layout}-Umgebung notiert werden und nicht innerhalb
-der Noten:
-
-@example
-\score @{
-  @{ @dots{}Noten@dots{} @}
-  \layout @{
-    \context @{
-      \Score
- %  Um sicher zu gehen, dass Texte und Liedtext
- %  innerhalb der Papierränder bleiben
- \override PaperColumn #'keep-inside-line = ##t
- \override NonMusicalPaperColumn #'keep-inside-line = ##t
-    @}
-  @}
-@}
-@end example
-
-@code{keep-inside-line} braucht jedoch sehr viel Berechnungen,
-sodass es sich anbietet, diese Funktion zunächst nicht zu aktivieren
-und erst einzufügen, wenn man die endgültige Version erstellt.
-Auf diese Weise muss man nicht mit der Hand @code{\break}-Befehle
-hinzufügen, um zu vermeiden, dass Text über den rechten Rand der
-Seite hinausragt.
 
 
 @node Fortgeschrittene Optimierungen mit Scheme
