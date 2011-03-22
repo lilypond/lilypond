@@ -24,7 +24,8 @@
 #include "std-string.hh"
 #include "string-convert.hh"
 
-Midi_track::Midi_track ()
+Midi_track::Midi_track (int number, bool port)
+ : number_ (number)
 {
   //                4D 54 72 6B     MTrk
   //                00 00 00 3B     chunk length (59)
@@ -40,8 +41,6 @@ Midi_track::Midi_track ()
   //         mi = 0:  major key
   //         mi = 1:  minor key
 
-  number_ = 0;
-
   char const *data_str0 = ""
     //        "00" "ff58" "0404" "0218" "08"
     //	"00" "ff51" "0307" "a120"
@@ -55,6 +54,13 @@ Midi_track::Midi_track ()
   string data_string;
   // only for format 0 (currently using format 1)?
   data_string += String_convert::hex2bin (data_str0);
+
+  if (port)
+    {
+      string port = "00" "ff" "21" "01"
+	+ String_convert::int2hex (number_, 2, '0');
+      data_string += String_convert::hex2bin (port);
+    }
 
   char const *footer_str0 = "00" "ff2f" "00";
   string footer_string = String_convert::hex2bin (footer_str0);

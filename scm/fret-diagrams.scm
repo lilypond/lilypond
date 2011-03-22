@@ -72,10 +72,20 @@ to end-point."
   (if (null? dot-list)
       '()
       (let ((this-list (car dot-list)))
-        (cons* (list (car this-list) (- (second this-list) base-fret)
-                     (if (null? (cddr this-list))
-                         '()
-                         (third this-list)))
+        (cons* (list
+                ;; string
+                (car this-list)
+                ;; fret
+                (- (second this-list) base-fret)
+                ;; finger
+                (if (null? (cddr this-list))
+                    '()
+                    (third this-list))
+                ;; color modifier
+                (if (or (null? (cddr this-list))
+                        (null? (cdddr this-list)))
+                    '()
+                    (fourth this-list)))
                (subtract-base-fret base-fret (cdr dot-list))))))
 
 (define (drop-paren item-list)
@@ -275,8 +285,7 @@ with magnification @var{mag} of the string @var{text}."
          (thickness-factor (assoc-get 'string-thickness-factor details 0))
          (alignment
            (chain-assoc-get 'align-dir props -0.4)) ; needed only here
-         (xo-padding
-           (* size (assoc-get 'xo-padding details 0.2))) ; needed only here
+         (xo-padding (assoc-get 'xo-padding details 0.2)) ; needed only here
          (parameters (fret-parse-marking-list marking-list my-fret-count))
          (capo-fret (assoc-get 'capo-fret parameters 0))
          (dot-list (assoc-get 'dot-list parameters))
@@ -531,7 +540,7 @@ fret-diagram overall parameters."
 
        (let* ( (scale-dot-radius (* size dot-radius))
               (scale-dot-thick (* size th))
-              (dot-color (assoc-get 'dot-color details 'black))
+              (default-dot-color (assoc-get 'dot-color details 'black))
               (finger-label-padding 0.3)
               (dot-label-font-mag
                 (* scale-dot-radius
@@ -555,6 +564,11 @@ fret-diagram overall parameters."
               (extent (cons (- scale-dot-radius) scale-dot-radius))
               (finger (caddr mypair))
               (finger (if (number? finger) (number->string finger) finger))
+              (inverted-color (eq? 'inverted (cadddr mypair)))
+              (dot-color (if (or (and (eq? default-dot-color 'black) inverted-color)
+                                 (and (eq? default-dot-color 'white) (not inverted-color)))
+                             'white
+                             'black))
               (dot-stencil (if (eq? dot-color 'white)
                              (ly:stencil-add
                                (make-circle-stencil
@@ -641,12 +655,11 @@ fret-diagram overall parameters."
        "Put open and mute string indications on diagram, as contained in
 @var{xo-list}."
        (let* ((xo-font-mag
-                (* size (assoc-get
-                          'xo-font-magnification details
+               (assoc-get 'xo-font-magnification details
                           (cond ((or (eq? orientation 'landscape)
                                      (eq? orientation 'opposing-landscape))
                                  0.4)
-                                (else 0.4)))))
+                                (else 0.4))))
               (mypair (car xo-list))
               (restlist (cdr xo-list))
               (glyph-string (if (eq? (car mypair) 'mute)
@@ -709,6 +722,11 @@ at @var{fret}."
                       (fancy-format #f "~@r" base-fret))
                      ((equal? 'arabic number-type)
                       (fancy-format #f "~d" base-fret))
+                     ((equal? 'custom number-type)
+                      (fancy-format #f
+                                    (assoc-get 'fret-label-custom-format
+                                               details "~a")
+                                    base-fret))
                      (else (fancy-format #f "~(~@r~)" base-fret))))
                  (label-stencil
                    (centered-stencil
@@ -723,7 +741,7 @@ at @var{fret}."
             (ly:stencil-translate
               label-stencil
               (stencil-coordinates
-                (1+ (* size label-vertical-offset))
+                (* size (+ 1.0 label-vertical-offset))
                 (if (eq? label-dir LEFT)
                   (- label-outside-diagram)
                   (+ (* size (1- string-count)) label-outside-diagram))))))
@@ -966,12 +984,15 @@ Place a capo indicator (a large solid bar) across the entire fretboard
 at fret location @var{fret-number}.  Also, set fret @var{fret-number}
 to be the lowest fret on the fret diagram.
 
-@item (place-fret @var{string-number} @var{fret-number} @var{finger-value})
+@item (place-fret @var{string-number} @var{fret-number} [@var{finger-value} [@var{color-modifier}]])
 Place a fret playing indication on string @var{string-number} at fret
-@var{fret-number} with an optional fingering label @var{finger-value}.
+@var{fret-number} with an optional fingering label @var{finger-value},
+and an optional color modifier @var{color-modifier}.
 By default, the fret playing indicator is a solid dot.  This can be
-changed by setting the value of the variable @var{dot-color}.  If the
-@var{finger} part of the @code{place-fret} element is present,
+globally changed by setting the value of the variable @var{dot-color}.
+Setting @var{color-modifier} to @code{inverted} inverts the dot color
+for a specific fingering.
+If the @var{finger} part of the @code{place-fret} element is present,
 @var{finger-value} will be displayed according to the setting of the
 variable @var{finger-code}.  There is no limit to the number of fret
 indications per string.

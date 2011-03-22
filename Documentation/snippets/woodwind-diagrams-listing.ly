@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.13.36
-\version "2.13.36"
+%% Note: this file works from version 2.13.51
+\version "2.13.51"
 
 \header {
 %%%    Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345

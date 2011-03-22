@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 3c00bd3295cf8542f610a4975b5e11d26cf6e009
+    Translation of GIT committish: da34fdfe2057ebaae080e20b5875f35e96010f40
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -380,15 +380,67 @@ ties = \relative c' {
 @cindex tablatura y armónicos
 @cindex deslizamientos en notación de tablatura
 @cindex tablatura y deslizamientos
+@cindex glissandos de acordes
+@funindex \harmonic
+@funindex \harmonicByFret
+@funindex \harmonicByRatio
+@funindex \chordGlissando
 
-Se pueden añadir indicaciones de armónicos y @emph{slides} o
-deslizamientos a la notación de tablatura.
+Se pueden añadir indicaciones de armónicos a la notación de tablatura
+como sus alturas de sonido:
 
-@lilypond[verbatim, quote, relative=1]
-\new TabStaff {
-  \new TabVoice {
-    <c g'\harmonic>4 d\2\glissando e\2
-  }
+@lilypond[verbatim,quote]
+firstHarmonic = {
+  <d'\4\harmonic>4
+  <g'\3\harmonic>4
+  <b'\2\harmonic>2
+}
+\score {
+  <<
+    \new Staff { \firstHarmonic }
+    \new TabStaff { \firstHarmonic }
+  >>
+}
+@end lilypond
+
+Observe que la instrucción @code{\harmonic} se debe situar siempre
+dentro de una construcción de acorde. Sólo tiene sentido para
+armónicos sobre una cuerda abierta en el duodécimo traste.  Cualquier
+otro armónico debe estar calculado por parte de LilyPond.  Se puede
+conseguir esto indicando el traste en que debe rozar la cuerda el dedo
+de la mano que pisa.
+
+
+@lilypond[verbatim,quote]
+fretHarmonics = {
+  \harmonicByFret #5 d16\4
+  \harmonicByFret #4 d16\4
+  \harmonicByFret #3 d8\4
+  \harmonicByFret #5 <g\3 b\2>2.
+}
+\score {
+  <<
+    \new Staff { \fretHarmonics }
+    \new TabStaff { \fretHarmonics }
+  >>
+}
+@end lilypond
+
+De forma alternativa, se pueden calcular los armónicos definiendo la
+razón de las longitudes de cuerda por encima y por debajo de la
+digitación de armónico.
+
+@lilypond[verbatim,quote]
+ratioHarmonics = {
+  \harmonicByRatio #1/2 <g\3 b\2 e'\1>4
+  \harmonicByRatio #1/3 <g\3 b\2 e'\1>4
+  \harmonicByRatio #1/4 { g8\3 b8\2 e'4\1 }
+}
+\score {
+  <<
+    \new Staff { \ratioHarmonics }
+    \new TabStaff { \ratioHarmonics }
+  >>
 }
 @end lilypond
 
@@ -401,10 +453,24 @@ deslizamientos a la notación de tablatura.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {polyphony-in-tablature.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{open-string-harmonics-in-tablature.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{fretted-string-harmonics-in-tablature.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{slides-in-tablature.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{chord-glissando-in-tablature.ly}
+
 
 @seealso
 Referencia de la notación:
-@ref{Plicas}.
+@ref{Plicas},
+@ref{Armónicods},
+@ref{Glissando}.
 
 Fragmentos de código:
 @rlsr{Fretted strings}.
@@ -498,7 +564,7 @@ con Sol Mayor al aire).  Las afinaciones predefinidas están en
 
 @funindex contextStringTunings
 @funindex \contextStringTunings
-@cindex tablaturea, afinaciones personalizadas
+@cindex tablaturas, afinaciones personalizadas
 @cindex personalizadas, afinaciones de cuerdas
 
 Es posible crear cualquier afinación de cuerdas que se desee.  Se

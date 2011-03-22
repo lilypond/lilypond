@@ -143,17 +143,27 @@ A simple line.
   ()
   #:category graphic
   #:properties ((draw-line-markup)
-                (line-width))
+                (line-width)
+                (span-factor 1))
   "
 @cindex drawing a line across a page
 
-Draws a line across a page.
+Draws a line across a page, where the property @code{span-factor}
+controls what fraction of the page is taken up.
 @lilypond[verbatim,quote]
 \\markup {
-  \\draw-hline
+  \\column {
+    \\draw-hline
+    \\override #'(span-factor . 1/3)
+    \\draw-hline
+  }
 }
 @end lilypond"
-  (interpret-markup layout props (make-draw-line-markup (cons line-width 0))))
+  (interpret-markup layout
+                    props
+                    (markup #:draw-line (cons (* line-width
+                                                  span-factor)
+                                               0))))
 
 (define-markup-command (draw-circle layout props radius thickness filled)
   (number? number? boolean?)

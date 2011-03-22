@@ -56,29 +56,22 @@ Balloon_interface::print (SCM smob)
   return internal_balloon_print (me, p, off);
 }
 
-// ugh...code dup...hopefully can be consolidated w/ above one day
 MAKE_SCHEME_CALLBACK (Balloon_interface, print_spanner, 1);
 SCM
 Balloon_interface::print_spanner (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
-  Grob *orig = me->original ();
+  Spanner *orig = dynamic_cast<Spanner *> (me->original ());
 
   if (orig)
     {
-      // TODO : consolidate code dup from System::get_footnote_grobs_in_range
-      int pos = orig->spanned_rank_interval ()[LEFT];
-      Real spanner_placement = min (1.0,
-                                    max (robust_scm2double (me->get_property ("spanner-placement"), -1.0),
-                                         -1.0));
+      Direction spanner_placement =  robust_scm2dir (me->get_property ("spanner-placement"), LEFT);
 
-      spanner_placement = (spanner_placement + 1.0) / 2.0;
-      int rpos = orig->spanned_rank_interval ()[RIGHT];
-      pos = (int)((rpos - pos) * spanner_placement + pos + 0.5);
+      Spanner *wanted = (spanner_placement != RIGHT)
+                         ? orig->broken_intos_[0]
+                         : orig->broken_intos_.back ();
 
-      if (pos < me->spanned_rank_interval () [LEFT])
-        return SCM_EOL;
-      if (pos >= me->spanned_rank_interval () [RIGHT] && (me->spanned_rank_interval () [RIGHT] != orig->spanned_rank_interval () [RIGHT]))
+      if (me != wanted)
         return SCM_EOL;
     }
 

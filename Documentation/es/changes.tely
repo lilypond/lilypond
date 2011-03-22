@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 6255791221fd8197a23d3299fdad85a3a79336ab
+    Translation of GIT committish: aa493b320dcb35e7862c594497c63a32912aa243
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -68,6 +68,61 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+Lilypond produce diagramas de digitación para instrumentos de viento madera.
+@lilypond
+\relative c' {
+  \textLengthOn
+  des1^\markup {
+    \woodwind-diagram #'bassoon #'((lh . (thumb-cis))
+                                   (cc . (one two three five six))
+                                   (rh . (f)))
+    } _"bassoon"
+  c1^\markup {
+    \woodwind-diagram #'oboe #'((rh . (c))
+                                (lh . ())
+                                (cc . (one two three four five six)))
+    } _"oboe"
+
+}
+@end lilypond
+
+@item
+Se ha mejorado la importación de MIDI por medio de Midi2ly
+@itemize @bullet
+@item Midi2ly ahora funciona también en sistemas Windows
+@item ahora se manejan bien los archivos MIDI con más de 32 pistas
+@item ya no se ignoran las notas de ciertas voces simultáneas
+@item no se truncan las notas que sobrepasan una línea divisoria
+@item se respetan la armadura de la tonalidad y la indicación de compás iniciales
+@item se ha arreglado un problema con las octavas en pistas o voces subsiguientes
+@item se contemplan de forma incipiente varias voces sobre un pentagrama
+@item se fija el instrumentName a partir de los datos de la pista
+@item nueva opción --skip, por omisiión se muestran los silencios
+@item no se truncan los silencios que sobrepasan una línea divisoria
+@item nueva opción --include-header para establecer los títulos
+@item nueva opción --preview para archivos MIDI grandes
+@end itemize
+La primera funcionalidad estuvo patrocinada por Valentin Villenave,
+las otras funcionalidades han sido patrocinadas por Image-Line Software para FL Studio.
+
+@item
+Está disponible un nuevo grabador @code{Completion_rest_engraver} para convertir automáticamente
+silencios largos que sobrepasan a las líneas divisorias, de forma correspondiente al grabador
+@code{Completion_heads_engraver} para las notas
+@example
+\layout @{
+  \context @{
+    \Voice
+    \remove "Note_heads_engraver"
+    \consists "Completion_heads_engraver"
+    \remove "Rest_engraver"
+    \consists "Completion_rest_engraver"
+  @}
+@}
+@end example
+Esta funcionalidad ha sido patrocinada por Image-Line Software para FL Studio.
 
 @item
 Se pueden añadir puntos a los elementos del índice general utilizando:

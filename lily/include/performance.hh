@@ -27,7 +27,7 @@
 class Performance : public Music_output
 {
 public:
-  Performance ();
+  Performance (bool ports=false);
   ~Performance ();
   DECLARE_CLASSNAME(Performance);
 
@@ -43,6 +43,7 @@ public:
   vector<Audio_staff*> audio_staffs_;
   vector<Audio_element*> audio_elements_;
   Output_def *midi_;
+  bool ports_;
 };
 
 #endif /* PERFORMANCE_HH */

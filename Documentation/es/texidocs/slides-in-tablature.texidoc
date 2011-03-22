@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+  texidoces = "
+
+Los deslizamientos se pueden componer tipográficamente tanto en los
+contextos de @code{Staff} como en los de @code{TabStaff}:
+
+"
+
+  doctitlees = "Deslizamientos en tablatura"

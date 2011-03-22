@@ -181,7 +181,7 @@ Midi_time_signature::to_string () const
 Midi_note::Midi_note (Audio_note *a)
   : Midi_channel_item (a)
   , audio_ (a)
-  , dynamic_byte_ (0x5a)
+  , dynamic_byte_ (a->volume_ > 0 ? Byte (a->volume_ * 0x7f) : Byte (0x5a))
 {
 }
 
@@ -271,6 +271,9 @@ Midi_dynamic::Midi_dynamic (Audio_dynamic *a)
 string
 Midi_dynamic::to_string () const
 {
+  if (audio_->volume_ < 0)
+    return "";
+
   Byte status_byte = (char) (0xB0 + channel_);
   string str = ::to_string ((char)status_byte);
 
