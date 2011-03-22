@@ -8,6 +8,14 @@
 \version "2.13.49"
 
 \header {
+%% Translation of GIT committish: 69d7781c6ab26df02bc81ff1eb294d47fa673491
+  texidoces = "
+Armónicos sobre cuerdas pisadas (armónicos artificiales):
+"
+  doctitlees = "Armónicos sobre cuerdas pisadas en tablatura"
+
+
+
   lsrtags = "fretted-strings"
   texidoc = "
 Fretted-string harmonics:

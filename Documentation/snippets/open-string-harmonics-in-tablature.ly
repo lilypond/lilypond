@@ -8,6 +8,13 @@
 \version "2.13.49"
 
 \header {
+%% Translation of GIT committish: 69d7781c6ab26df02bc81ff1eb294d47fa673491
+  texidoces = "
+Referencia para armónicos sobre cuerdas al aire (armónicos naturales):
+
+"
+  doctitlees = "Referencia para armónicos sobre cuerdas al aire"
+
   lsrtags = "fretted-strings"
   texidoc = "
 Reference for open-string harmonics:

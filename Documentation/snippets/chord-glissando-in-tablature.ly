@@ -8,6 +8,18 @@
 \version "2.13.53"
 
 \header {
+%% Translation of GIT committish: 69d7781c6ab26df02bc81ff1eb294d47fa673491
+
+  texidoces = "
+Los deslizamientos para acordes se pueden indicar tanto en el contexto
+Staff como en TabStaff.  Los números de cuerda son necesarios para
+TabStaff porque los cálculos de cuerda automáticos son diferentes para
+los acordes y para notas sueltas, y @code{\\chordGlissando} traza
+líneas entre las notas individuales.
+
+"
+
+  doctitlees = "Glissando de acordes en tablatura"
   lsrtags = "fretted-strings"
   texidoc = "
 Slides for chords can be indicated in both Staff and TabStaff.

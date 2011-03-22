@@ -8,6 +8,16 @@
 \version "2.13.49"
 
 \header {
+%% Translation of GIT committish: 69d7781c6ab26df02bc81ff1eb294d47fa673491
+  texidoces = "
+
+Los deslizamientos se pueden componer tipográficamente tanto en los
+contextos de @code{Staff} como en los de @code{TabStaff}:
+
+"
+
+  doctitlees = "Deslizamientos en tablatura"
+
   lsrtags = "fretted-strings"
   texidoc = "
 Slides can be typeset in both @code{Staff} and @code{TabStaff} contexts:
