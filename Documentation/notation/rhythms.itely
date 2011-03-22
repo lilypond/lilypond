@@ -1439,10 +1439,10 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
-@cindex beaming in cadenzas
-@cindex beaming in unmetered music
-@cindex cadenza, beaming in
-@cindex unmetered music, beaming in
+@cindex beams, in cadenzas
+@cindex beams, in unmetered music
+@cindex cadenza, with beams
+@cindex unmetered music, with beams
 
 Automatic beaming is disabled by @code{\cadenzaOn} and enabled
 by @code{\cadenzaOff}.  Therefore, all beaming in cadenzas
@@ -1553,8 +1553,8 @@ signature; see @ref{Time signature}.  The scaling is done with
 @code{\times}, but does not create a tuplet bracket; see
 @ref{Scaling durations}.
 
-@cindex beaming in polymetric music
-@cindex beaming in polymetric meter
+@cindex beams, with polymetric meters
+@cindex polymetric meters, with beams
 
 In this example, music with the time signatures of 3/4, 9/8, and
 10/8 are used in parallel.  In the second staff, shown durations
@@ -1835,8 +1835,7 @@ By default, beams are inserted automatically:
 
 @cindex beams, manual
 @cindex manual beams
-@cindex beams, setting rules for
-@cindex beams, custom rules for
+@cindex beams, customizing rules
 
 @funindex \autoBeamOn
 @funindex autoBeamOn
@@ -1863,8 +1862,8 @@ c4 c8 c8. c16 c8.
 c16 c8
 @end lilypond
 
-@cindex melismata, beams
-@cindex beams and melismata
+@cindex melismata, with beams
+@cindex beams, with melismata
 
 @warning{If beams are used to indicate melismata in songs, then
 automatic beaming should be switched off with @code{\autoBeamOff}
@@ -1876,34 +1875,29 @@ produce unintended results.  See the snippet below for more information.}
 Beaming patterns that differ from the automatic defaults can be
 created; see @ref{Setting automatic beam behavior}.
 
-
 @predefined
 @code{\autoBeamOff},
 @code{\autoBeamOn}.
 @endpredefined
 
-
-@snippets
-
-
-@cindex line breaks and beams
-@cindex beams and line breaks
-
+@cindex beams, line breaks
+@cindex line breaks, beams
+@cindex beams, with knee gap
+@cindex knee gap, with beams
 @funindex breakable
 
+@snippets
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {beams-across-line-breaks.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@cindex \partcombine and \autoBeamOff
-@cindex \autoBeamOff and \partcombine
-
+@cindex beams, \partcombine with \autoBeamOff
+@cindex voices, \partcombine with \autoBeamOff
 
 @lilypondfile [verbatim, lilyquote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}
-
 
 @seealso
 Notation Reference:
@@ -1925,21 +1919,20 @@ Internals Reference:
 @rinternals{beam-interface},
 @rinternals{unbreakable-spanner-interface}.
 
-
 @knownissues
+Beams can collide with note heads and accidentals in other
+voices.  In this case use @ref{Manual beams}.
 
-Beams can collide with note heads and accidentals in other voices.
+@lilypond[quote,relative=1,verbatim]
+c8 des'! c, [ des'! ]
+@end lilypond
 
 
 @node Setting automatic beam behavior
 @unnumberedsubsubsec Setting automatic beam behavior
 
-
-@cindex automatic beams, tuning
-@cindex tuning automatic beaming
-@cindex automatic beam generation
-@cindex autobeam
-@cindex lyrics and beaming
+@cindex beams, with lyrics
+@cindex lyrics, with beams
 
 @funindex autoBeaming
 @funindex baseMoment
@@ -2094,7 +2087,6 @@ context to the default behavior.
 \repeat unfold 6 { a8 }
 @end lilypond
 
-
 The default automatic beaming settings for a time signature
 are determined in @file{scm/time-signature-settings.scm}.
 Changing the default automatic beaming settings
@@ -2161,10 +2153,10 @@ end beams at the end of beats.
 
 @end itemize
 
-In the rules above, the beam-type is the duration of the
+In the rules above, the @emph{beam-type} is the duration of the
 shortest note in the beamed group.
 
-For reference, the default beaming rules are found in
+The default beaming rules can be found in
 @file{scm/time-signature-settings.scm}.
 
 @snippets
@@ -2182,8 +2174,8 @@ For reference, the default beaming rules are found in
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {conducting-signs,-measure-grouping-signs.ly}
 
-@cindex beam, last in score
-@cindex beam, last in polyphonic voice
+@cindex beam, endings in a score
+@cindex beam, endings with multiple voices
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
