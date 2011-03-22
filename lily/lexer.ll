@@ -141,7 +141,6 @@ DASHED_KEY_WORD		\\{DASHED_WORD}
 
 
 ALPHAWORD	{A}+
-DIGIT		{N}
 UNSIGNED	{N}+
 E_UNSIGNED	\\{N}+
 FRACTION	{N}+\/{N}+
@@ -422,14 +421,6 @@ BOM_UTF8	\357\273\277
 	{FRACTION}	{
 		yylval.scm =  scan_fraction (YYText ());
 		return FRACTION;
-	}
-	{DIGIT}		{
-		yylval.i = String_convert::dec2int (string (YYText ()));
-		return DIGIT;
-	}
-	{UNSIGNED}/\/[^0-9] { // backup rule
-		yylval.i = String_convert::dec2int (string (YYText ()));
-		return UNSIGNED;
 	}
 	{UNSIGNED}/\/	| // backup rule
 	{UNSIGNED}		{

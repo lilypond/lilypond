@@ -261,7 +261,6 @@ If we give names, Bison complains.
 %token MULTI_MEASURE_REST
 
 
-%token <i> DIGIT
 %token <i> E_UNSIGNED
 %token <i> UNSIGNED
 
@@ -347,10 +346,12 @@ If we give names, Bison complains.
 %type <scm> direction_reqd_event
 %type <scm> embedded_lilypond
 %type <scm> event_chord
+%type <scm> fingering
 %type <scm> gen_text_def
 %type <scm> music_property_def
 %type <scm> note_chord_element
 %type <scm> post_event
+%type <scm> post_event_nofinger
 %type <scm> re_rhythmed_music
 %type <scm> relative_music
 %type <scm> simple_element
@@ -664,7 +665,7 @@ identifier_init:
 		else
 			$$ = MAKE_SYNTAX ("event-chord", @$, scm_list_1 ($1));
 	}
-	| post_event {
+	| post_event_nofinger {
 		$$ = $1;
 	}
 	| number_expression {
@@ -681,9 +682,6 @@ identifier_init:
 	}
 	| full_markup_list {
 		$$ = $1;
-	}
-	| DIGIT {
-		$$ = scm_from_int ($1);
 	}
         | context_modification {
                 $$ = $1;
@@ -1502,9 +1500,6 @@ closed_scalar: string {
 	| full_markup {
 		$$ = $1;
 	}
-	| DIGIT {
-		$$ = scm_from_int ($1);
-	}
 	;
 
 scalar: closed_scalar
@@ -1753,7 +1748,7 @@ post_events:
 	}
 	;
 
-post_event:
+post_event_nofinger:
 	direction_less_event {
 		$$ = $1;
 	}
@@ -1791,6 +1786,18 @@ post_event:
 		$$ = $2;
 	}
 	| string_number_event
+	;
+
+post_event:
+	post_event_nofinger
+	| script_dir fingering {
+		if ($1)
+		{
+			Music *m = unsmob_music ($2);
+			m->set_property ("direction", scm_from_int ($1));
+		}
+		$$ = $2;
+	}
 	;
 
 string_number_event:
@@ -1958,7 +1965,10 @@ gen_text_def:
 			make_simple_markup ($1));
 		$$ = t->unprotect ();
 	}
-	| DIGIT {
+	;
+
+fingering:
+	UNSIGNED {
 		Music *t = MY_MAKE_MUSIC ("FingeringEvent", @$);
 		t->set_property ("digit", scm_from_int ($1));
 		$$ = t->unprotect ();
@@ -2080,10 +2090,7 @@ tremolo_type:
 	;
 
 bass_number:
-	DIGIT   {
-		$$ = scm_from_int ($1);
-	}
-	| UNSIGNED {
+	UNSIGNED {
 		$$ = scm_from_int ($1);
 	}
 	| STRING { $$ = $1; }
@@ -2412,9 +2419,6 @@ bare_number:
 bare_unsigned:
 	UNSIGNED {
 			$$ = $1;
-	}
-	| DIGIT {
-		$$ = $1;
 	}
 	;
 
