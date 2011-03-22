@@ -1,27 +1,37 @@
-\version "2.13.38"
+\version "2.13.56"
 
 \header {
-  texidoc = "Various languages are supported for note names input.
-Selecting another language within a music expression is possible,
-and doesn't break point-and-click abilities.
-"
+
+  texidoc = "
+    NoteNames context should be close to the related notes,
+    and should not collide with the tempo markings.
+  "
 }
 
+\paper {
+  system-system-spacing
+    #'basic-distance = #10 % increase this value for more space
+}
 
-%% Old syntax.
-\include "english.ly"
+notes = \relative c {
+  c'4 c c c
+}
 
-\relative c'' {
-  g4 bf d c
+mylyrics = \lyricmode {
+  \tempo "Allegro"
+  ly -- ric ly -- ric
+}
 
-  %% Manual override of the pitchnames variable
-  %% and the parser note names:
-  #(begin
-    (set! pitchnames (ly:assoc-get 'nederlands language-pitch-names))
-    (ly:parser-set-note-names parser pitchnames))
-  bes4 a g fis
-
-  %% The \language command acts in the same way:
-  \language "italiano"
-  sol4 fa mib re
+\score {
+  <<
+    \new Voice = "voice" {
+      \repeat unfold 13 \notes
+    }
+    \context NoteNames  {
+      \repeat unfold 13 \notes
+    }
+    \new Lyrics \lyricsto "voice" {
+      \repeat unfold 13 \mylyrics
+    }
+  >>
 }

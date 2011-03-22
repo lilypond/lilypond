@@ -1967,9 +1967,9 @@ set to @code{UP} should not immediately follow one that is set to
 @code{DOWN}; those at the bottom should use @code{UP}.  Setting
 @code{staff-affinity} for a staff causes it to be treated as a
 non-staff line.  Setting @code{staff-affinity} to @code{#f} causes
-a non-staff line to be treated as a staff.
-
-@c TODO: verify last clause below ("even if other...")
+a non-staff line to be treated as a staff.  Setting
+@code{staff-affinity} to @code{UP}, @code{CENTER}, or @code{DOWN}
+causes a staff to be spaced as a non-staff line.
 
 @item nonstaff-relatedstaff-spacing
 The distance between the current non-staff line and the nearest
@@ -1979,7 +1979,12 @@ either @code{UP} or @code{DOWN}.  If @code{staff-affinity} is
 @code{CENTER}, then @code{nonstaff-relatedstaff-spacing} is used
 for the nearest staves on @emph{both} sides, even if other
 non-staff lines appear between the current one and either of the
-staves.
+staves.  This means that the placement of a non-staff line depends
+on both the surrounding staves and the surrounding non-staff lines.
+Setting the @code{stretchability} of one of these types of spacing to
+a small value will make that spacing dominate.  Setting the
+@code{stretchability} to a large value will make that spacing have
+little effect.
 
 @item nonstaff-nonstaff-spacing
 The distance between the current non-staff line and the next
