@@ -1957,6 +1957,9 @@ linked hairpins and dynamics.
 @headitem Layout Object
   @tab Priority
   @tab Controls position of:
+@item @code{VoltaBracketSpanner}
+  @tab @code{600}
+  @tab Volta brackets
 @item @code{MultiMeasureRestText}
   @tab @code{450}
   @tab Text over full-bar rests
@@ -1972,9 +1975,6 @@ linked hairpins and dynamics.
 @item @code{DynamicLineSpanner}
   @tab @code{250}
   @tab All dynamic markings
-@item @code{VoltaBracketSpanner}
-  @tab @code{100}
-  @tab Volta brackets
 @item @code{TrillSpanner}
   @tab @code{50}
   @tab Spanning trills
