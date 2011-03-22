@@ -1935,9 +1935,7 @@ The @code{outside-staff-priority} is defined in the
 By default it is set to @code{#f} for all within-staff objects,
 and to a numerical value appropriate to each outside-staff object
 when the object is created.  The following table shows the default
-numerical values for some of the commonest outside-staff objects
-which are, by default, placed in the @code{Staff} or @code{Voice}
-contexts.
+numerical values for some of the commonest outside-staff objects.
 
 @cindex spanners
 
@@ -1957,15 +1955,21 @@ linked hairpins and dynamics.
 @headitem Layout Object
   @tab Priority
   @tab Controls position of:
+@item @code{RehearsalMark}
+  @tab @code{1500}
+  @tab Rehearsal marks
+@item @code{MetronomeMark}
+  @tab @code{1000}
+  @tab Metronome marks
 @item @code{VoltaBracketSpanner}
   @tab @code{600}
   @tab Volta brackets
-@item @code{MultiMeasureRestText}
-  @tab @code{450}
-  @tab Text over full-bar rests
 @item @code{TextScript}
   @tab @code{450}
   @tab Markup text
+@item @code{MultiMeasureRestText}
+  @tab @code{450}
+  @tab Markup text over full-bar rests
 @item @code{OttavaBracket}
   @tab @code{400}
   @tab Ottava brackets
@@ -1975,6 +1979,9 @@ linked hairpins and dynamics.
 @item @code{DynamicLineSpanner}
   @tab @code{250}
   @tab All dynamic markings
+@item @code{BarNumber}
+  @tab @code{ 100}
+  @tab Bar numbers
 @item @code{TrillSpanner}
   @tab @code{50}
   @tab Spanning trills
@@ -2032,25 +2039,6 @@ It also shows how ottava brackets are created.
 @cindex tweaking rehearsal mark placement
 @cindex rehearsal marks, tweaking placement
 
-Note that bar numbers, metronome marks and rehearsal marks are not
-shown.  By default these are created in the @code{Score} context and
-their @code{outside-staff-priority} is ignored relative to the layout
-objects which are created in the @code{Staff} context.  If you wish to
-place bar numbers, metronome marks or rehearsal marks in accordance
-with the value of their @code{outside-staff-priority} the
-@code{Bar_number_engraver}, @code{Metronome_mark_engraver} or
-@code{Mark_engraver} respectively should be removed from the
-@code{Score} context and placed in the top @code{Staff} context.  If
-this is done, these marks will be given the following default
-@code{outside-staff-priority} values:
-
-@multitable @columnfractions .3 .3
-@headitem Layout Object           @tab Priority
-@item @code{RehearsalMark}        @tab @code{1500}
-@item @code{MetronomeMark}        @tab @code{1000}
-@item @code{BarNumber}            @tab @code{ 100}
-@end multitable
-
 If the default values of @code{outside-staff-priority} do not give you
 the placing you want, the priority of any of the objects may be
 overridden.  Suppose we would like the ottava bracket to be placed
@@ -2087,6 +2075,11 @@ c4\ff c \stopTextSpan |
 \ottava #0
 c,4 c c c |
 @end lilypond
+
+Note that some of these objects, in particular bar numbers,
+metronome marks and rehearsal marks, live by default in the
+@code{Score} context, so be sure to use the correct context
+when these are being overriden.
 
 @cindex slurs and outside-staff-priority
 @cindex slurs and articulations
