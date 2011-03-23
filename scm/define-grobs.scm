@@ -2244,6 +2244,7 @@
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
 				font-interface
+				inline-accidental-interface
 				side-position-interface
 				trill-pitch-accidental-interface))))))
 
