@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 77e3422414c81915ba0fccaa1be71d3c598e1b9c
+    Translation of GIT committish: d0c8e3162e9d2c0c7195ce8d58e3dd63bf57aca4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -844,7 +844,7 @@ solo o de un unísono.  Cuando se necesita en situaciones de polifonía,
 la primera parte (que recibe el nombre de contexto @code{one}) siempre
 recibe las plicas hacia arriba, mientras que la segunda (llamada
 @code{two}) siempre recibe las plicas hacia abajo.  En los fragmentos
-de solo, las partes se marcan con @q{Solo} y @q{Solo II},
+de solo, las partes se marcan con @qq{Solo} y @qq{Solo II},
 respectivamente.  Las partes en unísono (@notation{a due}) se marcan
 con el texto predeterminado @qq{a2}.
 
@@ -863,6 +863,73 @@ musicales, es decir:
 Una sección @code{\relative} que se encuentra fuera de
 @code{\partcombine} no tiene ningún efecto sobre las notas de
 @code{@var{expresión_musical_1}} y @code{@var{expresión_musical_2}}.
+
+En las partituras profesionales, las voces con frecuencia se mantienen
+separadas durante períodos prolongados, incluso si una o dos notas
+llegan a coincidir y podrían escribirse fácilmente como un
+unísono. Por ello, la combinación de las notas en un acorde, o mostrar
+una voz como solo, no son soluciones ideales porque la función
+@code{\partcombine} considera cada nota de forma separada.  Por este
+motivo, el resultado de la función @code{\partcombine} alterar o
+corregir con las instrucciones siguientes:
+
+@itemize
+@item
+@code{\partcombineApart}, @code{\partcombineApartOnce}:
+Mantener las notas como dos voces separadas incluso si se pueden
+combinar en un acorde o unísono.
+
+@item
+@code{\partcombineChords}, @code{\partcombineChordsOnce}:
+Combinar las notas en un acorde.
+
+@item
+@code{\partcombineUnisono}, @code{\partcombineUnisonoOnce}:
+Las dos voces forman unísono.
+
+@item
+@code{\partcombineSoloI}, @code{\partcombineSoloIOnce}:
+Mostrar solo la voz uno y marcarla como solo.
+
+@item
+@code{\partcombineSoloII}, @code{\partcombineSoloIIOnce}:
+Mostrar solo la voz dos y marcarla como solo.
+
+@item
+@code{\partcombineAutomatic}, @code{\partcombineAutomaticOnce}:
+Terminar el efecto de las instrucciones especiales anteriores y volver
+al mecanismo predeterminado de combinación de partes.
+
+@end itemize
+
+Todas las instrucciones que finalizan en @code{...Once} se aplican
+exclusivamente a la nota siguiente.
+
+@lilypond[quote,verbatim]
+instrumentOne = \relative c' {
+  \partcombineApart c2^"apart" e |
+  \partcombineAutomatic e^"auto" e |
+  \partcombineChords e'^"chord" e |
+  \partcombineAutomatic c^"auto" c |
+  \partcombineApart c^"apart" \partcombineChordsOnce e^"chord once" |
+  c c |
+}
+instrumentTwo = \relative c' {
+  c2 c |
+  e2 e |
+  a,2 c |
+  c2 c' |
+  c2 c |
+  c2 c |
+}
+
+<<
+  \new Staff { \instrumentOne }
+  \new Staff { \instrumentTwo }
+  \new Staff { \partcombine \instrumentOne \instrumentTwo }
+>>
+@end lilypond
+
 
 @snippets
 
