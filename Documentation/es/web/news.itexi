@@ -35,6 +35,67 @@ NOTE:
 
 
 @newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.53!  @emph{6 de marzo de 2011}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.53.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.
+
+Tenga en cuenta que esta @strong{no} es la tercera versión candidata
+al lanzamiento estable, debido a que aún permanecen unos cuantos
+fallos críticos.
+
+@newsEnd
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.52!  @emph{1 de marzo de 2011}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.52.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.
+
+Tenga en cuenta que esta @strong{no} es la tercera versión candidata
+al lanzamiento estable, debido a que aún permanecen unos cuantos
+fallos críticos.
+
+@newsEnd
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.51!  @emph{22 de febrero de 2011}
+
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.51.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.
+
+Tenga en cuenta que esta @strong{no} es la tercera versión candidata
+al lanzamiento estable, debido a que aún permanecen unos cuantos
+fallos críticos.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.50!  @emph{13 de febrero de 2011}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.50.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.
+
+Tenga en cuenta que esta @strong{no} es la tercera versión candidata
+al lanzamiento estable, debido a que aún permanecen unos cuantos
+fallos críticos.
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Nuevas traducciones de la página web al checo y al chino! @emph{11 de febrero de 2011}
+
+Se han añadido dos idiomas nuevos a nuestra página web: el chino, obra
+de Ben Luo, y el checo, por Pavel Fric.  Es un trabajo que está en
+desarrollo pero estas páginas son completamente funcionales.  ¡Con
+esto ya son diez idiomas para elegir!
+
+@newsEnd
+
+
+@newsItem
 @subsubheading Segunda versión candidata al lanzamiento de 2.14: ¡Lanzado LilyPond 2.13.49!  @emph{9 de febrero de 2011}
 
 
