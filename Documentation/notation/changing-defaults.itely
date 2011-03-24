@@ -1964,7 +1964,7 @@ generated ties in a chord.
 @node set versus override
 @subsection @code{\set} vs. @code{\override}
 
-TODO -- This section is probably unnecessary now.
+@c TODO -- This section is probably unnecessary now.
 
 @ignore
 We have seen two methods of changing properties: @code{\set} and
@@ -3859,6 +3859,4 @@ tempoPadded =
 }
 @end lilypond
 
-@seealso
-
-TODO: add missing @@ref's here.
+@c TODO: add appropriate @@ref's here.

@@ -111,8 +111,6 @@ class Duration:
     allowed_durs = (1, 2, 4, 8, 16, 32, 64, 128)
     def __init__ (self, clocks):
         self.clocks = clocks
-        if clocks <= 0:
-            self.clocks = duration_quant_clocks
         (self.dur, self.num, self.den) = self.dur_num_den (clocks)
 
     def dur_num_den (self, clocks):
@@ -140,8 +138,7 @@ class Duration:
             s = '%d*%d/%d' % (self.dur, self.num, self.den)
 
         global reference_note
-        if reference_note: # debugging
-            reference_note.duration = self
+        reference_note.duration = self
 
         return s
 
@@ -663,7 +660,6 @@ def dump_chord (ch):
         for i in notes[1:]:
             s = s + i.dump (dump_dur=False)
         s = s + '>'
-
         s = s + notes[0].duration.dump () + ' '
         reference_note = r
     return s

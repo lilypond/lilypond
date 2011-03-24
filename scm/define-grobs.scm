@@ -36,6 +36,7 @@
 	(Y-extent . ,ly:accidental-interface::height)
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
+				inline-accidental-interface
 				font-interface))))))
 
     (AccidentalCautionary
@@ -48,6 +49,7 @@
 	(Y-extent . ,ly:accidental-interface::height)
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
+				inline-accidental-interface
 				font-interface))))))
 
     (AccidentalPlacement
@@ -887,7 +889,7 @@
 	(annotation-balloon . #f)
 	(annotation-line . #t)
 	(footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
-	(spanner-placement . LEFT)
+	(spanner-placement . ,LEFT)
 	(stencil . ,ly:balloon-interface::print-spanner)
 	(text . ,(grob::calc-property-by-copy 'text))
 	(Y-extent . #f)
@@ -2242,6 +2244,7 @@
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
 				font-interface
+				inline-accidental-interface
 				side-position-interface
 				trill-pitch-accidental-interface))))))
 
