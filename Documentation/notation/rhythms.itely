@@ -1698,7 +1698,7 @@ notes are also tied.
 { c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2 }
 @end lilypond
 
-Thes engravers split all running notes and rests at the bar line, and
+These engravers split all running notes and rests at the bar line, and
 inserts ties for notes.  One of its uses is to debug complex scores: if
 the measures are not entirely filled, then the ties show exactly how
 much each measure is off.
