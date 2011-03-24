@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Wed Feb 16 11:47:56 UTC 2011
+@emph{Zuletzt aktualisiert am Thu Mar 24 14:52:33 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -111,7 +111,7 @@ ja
 @item
 2 Literatur
 @*
-319
+326
 @tab Till Paala
 @tab 
 @tab 
@@ -409,7 +409,7 @@ ja
 @item
 4 Die Ausgabe verändern
 @*
-15660
+15408
 @tab Till Paala
 @tab 
 @tab 
@@ -556,7 +556,7 @@ ja
 @item
 1.1 Tonhöhen
 @*
-3765
+4479
 @tab Till Paala
 @tab 
 @tab 
@@ -573,17 +573,17 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #40fe23">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
 1.2 Rhythmus
 @*
-5787
+6048
 @tab Till Paala
 @tab 
 @tab 
@@ -600,11 +600,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #33ff21">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -664,7 +664,7 @@ ja
 @item
 1.5 Gleichzeitig erscheinende Noten
 @*
-2006
+2163
 @tab Till Paala
 @tab 
 @tab 
@@ -681,11 +681,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #33ff21">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -718,7 +718,7 @@ ja
 @item
 1.7 Anmerkungen
 @*
-935
+931
 @tab Till Paala
 @tab 
 @tab 
@@ -735,17 +735,17 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #25fe1f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
 1.8 Text
 @*
-2726
+2716
 @tab Till Paala
 @tab 
 @tab 
@@ -799,7 +799,7 @@ ja
 @item
 2.1 Notation von Gesang
 @*
-4901
+4807
 @tab Till Paala
 @tab 
 @tab 
@@ -880,7 +880,7 @@ ja
 @item
 2.4 Saiteninstrumente mit Bünden
 @*
-2559
+2640
 @tab Till Paala
 @tab 
 @tab 
@@ -907,7 +907,7 @@ ja
 @item
 2.5 Schlagzeug
 @*
-809
+806
 @tab Till Paala
 @tab 
 @tab 
@@ -1015,7 +1015,7 @@ ja
 @item
 2.9 Notation von alter Musik
 @*
-4753
+4752
 @tab Till Paala
 @tab 
 @tab 
@@ -1069,7 +1069,7 @@ ja
 @item
 3 Allgemeine Eingabe und Ausgabe
 @*
-6954
+7069
 @tab Till Paala
 @tab 
 @tab 
@@ -1096,7 +1096,7 @@ ja
 @item
 4 Abstände
 @*
-10970
+11017
 @tab Till Paala
 @tab 
 @tab 
@@ -1123,7 +1123,7 @@ ja
 @item
 5 Standardeinstellungen verändern
 @*
-12262
+12248
 @tab Till Paala
 @tab 
 @tab 
@@ -1270,7 +1270,7 @@ ja
 @item
 1 @command{lilypond} starten
 @*
-3629
+3622
 @tab Reinhold Kainhofer
 @*
 Till Paala
