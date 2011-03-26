@@ -8,6 +8,22 @@
 
 @c used for news about the upcoming release; see CG 10.2
 
+@newsItem
+@subsubheading Release candidate 4 of 2.14 - LilyPond 2.13.56 released!  @emph{Mar 26, 2011}
+
+LilyPond 2.13.56 is out; this is the fourth release candidate of
+the upcoming 2.14 stable release.  All users are invited to
+experiment with this version.  New features since 2.12.3 are
+listed in the @qq{Changes} manual on the website section about
+@ref{Development}.
+
+There are no known Critical issues with this release.  If no
+Critical bugs are found, then the official 2.14.0 release will be
+on April 2, 2011.  If you discover any problems, please send us
+@ref{Bug reports}.
+
+@newsEnd
+
 
 @newsItem
 @subsubheading LilyPond 2.13.55 released!  @emph{Mar 22, 2011}
