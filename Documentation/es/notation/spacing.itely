@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 5c2bad53eb6689ce2700d152d6b59382b16884c7
+    Translation of GIT committish: 91c3f922fda83a57186df0bce8165ffaea62b3b0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -918,6 +918,7 @@ en el archivo @file{ly/paper-defaults-init.ly}
 
 @table @code
 
+@cindex números de página, automáticos
 @item auto-first-page-number
 @funindex auto-first-page-number
 
@@ -928,6 +929,7 @@ comenzar con un número par o impar.  Esto hace que el número de la
 primera página se quede como está, o que se aumente en una unidad.
 Predeterminado: @code{#f}.
 
+@cindex números de página, especificar el primero
 @item first-page-number
 @funindex first-page-number
 
@@ -939,6 +941,7 @@ Valor del número de pátina en la primera página.
 Si está fijado a verdadero, se imprime un número de página en la
 primera página.
 
+@cindex números de página, suprimir
 @item print-page-number
 @funindex print-page-number
 
@@ -1826,6 +1829,19 @@ controla mediante variables de @code{\paper} que se estudian en
 @unnumberedsubsubsec Propiedades de espaciado dentro de los sistemas
 @translationof Within-system spacing properties
 
+@funindex staff-affinity
+@funindex staffgroup-staff-spacing
+@funindex staff-staff-spacing
+@funindex nonstaff-unrelatedstaff-spacing
+@funindex nonstaff-relatedstaff-spacing
+@funindex nonstaff-nonstaff-spacing
+@funindex default-staff-staff-spacing
+@funindex minimum-Y-extent
+@funindex extra-offset
+@funindex self-alignment-X
+@funindex X-offset
+@funindex VerticalAxisGroup
+
 Los mecanismos de espaciado vertical dentro del sistema están
 controlados por dos conjuntos de propiedades de grob.  El primer
 conjunto está asociado con el grob @code{VerticalAxisGroup}, que se
@@ -2097,14 +2113,18 @@ pauta.
 @end table
 
 @seealso
-Archivos de inicio:
-@file{ly/engraver-init.ly},
-@file{scm/define-grobs.scm}.
+Referencia de la notación:
+@ref{Variables de espaciado de \paper verticales flexibles},
+@ref{Modificación de las listas-A}.
 
 Referencia de funcionamiento interno:
 @rinternals{Contexts},
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
+
+Archivos de inicio:
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
 
 
 @node Espaciado de pautas no agrupadas

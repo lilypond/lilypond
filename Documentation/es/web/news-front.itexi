@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: c9fbd7ca5d59299509fbc468e7a2f56b2673d217
+    Translation of GIT committish: b86a2a925eff12d04cccf7c0c19c56260adfb1e0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -18,52 +18,33 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.52!  @emph{1 de marzo de 2011}
+@subsubheading Retirada de la versión candidata al lanzamiento  @emph{15 de marzo de 2011}
 
-Nos complace anunciar el lanzamiento de LilyPond 2.13.52.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.
-
-Tenga en cuenta que esta @strong{no} es la tercera versión candidata
-al lanzamiento estable, debido a que aún permanecen unos cuantos
-fallos críticos.
-
-@newsEnd
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.51!  @emph{22 de febrero de 2011}
-
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.51.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.
-
-Tenga en cuenta que esta @strong{no} es la tercera versión candidata
-al lanzamiento estable, debido a que aún permanecen unos cuantos
-fallos críticos.
+Hemos decubierto una regresión desde la versión 2.12.3, de manera que
+lilypond 2.13.54 ya no es candidata para el lanzamiento de la versión
+2.14.0.  Sin embargo, continúen probándola: nos gustaría descubrir (y
+corregir) cualquier regresión adicional tan pronto como sea posible.
+Si descubre algún problema, le rogamos que nos envíe
+@ref{Informes de fallos}.
 
 @newsEnd
 
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.50!  @emph{13 de febrero de 2011}
+@subsubheading Tercera versión candidata al lanzamiento de 2.14: ¡Lanzado LilyPond 2.13.54!  @emph{13 de marzo de 2011}
 
-Nos complace anunciar el lanzamiento de LilyPond 2.13.50.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.
+Ha salido LilyPond 2.13.54; ésta es la tercera versión candidata al
+lanzamiento de la inminente versión estable 2.14.  Se invita a los
+usuarios a que hagan experimentos con esta versión.  Las
+funcionalidades nuevas desde 2.12.3 están relacionadas en el manual de
+@qq{Cambios} dentro de la sección @ref{Desarrollo} de estas páginas.
 
-Tenga en cuenta que esta @strong{no} es la tercera versión candidata
-al lanzamiento estable, debido a que aún permanecen unos cuantos
-fallos críticos.
-@newsEnd
-
-
-@newsItem
-@subsubheading ¡Nuevas traducciones de la página web al checo y al chino! @emph{11 de febrero de 2011}
-
-Se han añadido dos idiomas nuevos a nuestra página web: el chino, obra
-de Ben Luo, y el checo, por Pavel Fric.  Es un trabajo que está en
-desarrollo pero estas páginas son completamente funcionales.  ¡Con
-esto ya son diez idiomas para elegir!
+No existe ningún problema conocido calificado como crítico en esta
+versión.  Si no se encuentra ningún bug crítico, el lanzamiento de la
+versión oficial 2.14.0 se producirá el 27 de marzo de 2011.  Si
+descubre algún problema, le rogamos que nos envíe
+@ref{Informes de fallos}.
 
 @newsEnd
-
 
 

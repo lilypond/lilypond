@@ -1276,7 +1276,7 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
               left_y -= dy;
 
               // Translate back to beam as ref point.
-              left_y -= -me->relative_coordinate (common[Y_AXIS], Y_AXIS);
+              left_y -= me->relative_coordinate (common[Y_AXIS], Y_AXIS);
             
               Interval allowed;
               allowed.set_full ();

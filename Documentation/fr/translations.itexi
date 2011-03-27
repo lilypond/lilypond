@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Wed Feb 16 11:47:56 UTC 2011
+@emph{Dernière mise à jour Thu Mar 24 14:52:33 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -115,7 +115,7 @@ oui
 @item
 2 Références bibliographiques
 @*
-319
+326
 @tab Jean-Jacques Gerbaud
 @*
 Valentin Villenave
@@ -124,21 +124,21 @@ Valentin Villenave
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partiellement (94 %)</span>
+<span style="background-color: #dfef77">partiellement (92 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement (94 %)
+partiellement (92 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #39ff22">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @end multitable
@@ -313,7 +313,7 @@ oui
 @item
 4 Retouche de partition
 @*
-15660
+15408
 @tab Valentin Villenave
 @*
 Nicolas Klutchnikoff
@@ -336,11 +336,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #25fe1f">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab post-GDP
 @item
@@ -472,7 +472,7 @@ partiellement
 @item
 1.1 Hauteurs
 @*
-3765
+4479
 @tab Frédéric Chiasson
 @tab Valentin Villenave
 @*
@@ -491,17 +491,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #40fe23">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
 1.2 Rythme
 @*
-5787
+6048
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -524,11 +524,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #33ff21">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -596,7 +596,7 @@ oui
 @item
 1.5 Notes simultanées
 @*
-2006
+2163
 @tab Frédéric Chiasson
 @*
 Valentin Villenave
@@ -619,11 +619,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #33ff21">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -658,7 +658,7 @@ oui
 @item
 1.7 Annotations éditoriales
 @*
-935
+931
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -675,17 +675,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #25fe1f">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
 1.8 Texte
 @*
-2726
+2716
 @tab Jean-Charles Malahieude
 @tab Valentin Villenave
 @*
@@ -743,7 +743,7 @@ oui
 @item
 2.1 Musique vocale
 @*
-4901
+4807
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -836,7 +836,7 @@ oui
 @item
 2.4 Instruments à cordes frettées
 @*
-2559
+2640
 @tab Matthieu Jacquot
 @tab Jean-Charles Malahieude
 @tab 
@@ -853,7 +853,7 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #76fe2a">partiellement</span>
+<span style="background-color: #83fe2c">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -863,7 +863,7 @@ partiellement
 @item
 2.5 Percussions
 @*
-809
+806
 @tab Valentin Villenave
 @tab Jean-Charles Malahieude
 @*
@@ -872,11 +872,11 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partiellement (45 %)</span>
+<span style="background-color: #dfef77">partiellement (46 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement (45 %)
+partiellement (46 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -952,7 +952,7 @@ partiellement
 @item
 2.8 Notations anciennes
 @*
-4753
+4752
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1008,7 +1008,7 @@ partiellement
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-6954
+7069
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1037,7 +1037,7 @@ oui
 @item
 4 Gestion de l'espace
 @*
-10970
+11017
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -1066,7 +1066,7 @@ oui
 @item
 5 Modification des réglages prédéfinis
 @*
-12262
+12248
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1221,7 +1221,7 @@ oui
 @item
 1 Exécution de @command{lilypond}
 @*
-3629
+3622
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1292,11 +1292,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+N/A
 @end ifnothtml
 @tab pré-GDP
 @item

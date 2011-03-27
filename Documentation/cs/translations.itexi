@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Naposledy obnoveno Wed Feb 16 12:00:31 UTC 2011
+@emph{Naposledy obnoveno Thu Mar 24 14:52:33 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -165,7 +165,7 @@ ano
 @item
 4 Ladění výstupu
 @*
-15660
+15408
 @tab Pavel Fric
 @tab 
 @tab 
@@ -182,11 +182,11 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ano</span>
+<span style="background-color: #25fe1f">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
-ano
+částečně
 @end ifnothtml
 @tab před-GDP
 @item

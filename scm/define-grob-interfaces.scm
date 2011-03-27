@@ -108,6 +108,12 @@ note)."
  '(columns common-shortest-duration))
 
 (ly:add-interface
+ 'inline-accidental-interface
+ "An inlined accidental (i.e. normal accidentals, cautionary
+accidentals)."
+ '())
+
+(ly:add-interface
  'instrument-specific-markup-interface
  "Instrument-specific markup (like fret boards or harp pedal diagrams)."
  '(fret-diagram-details graphical harp-pedal-details size thickness))

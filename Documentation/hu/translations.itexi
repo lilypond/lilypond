@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Wed Feb 16 11:47:56 UTC 2011
+@emph{Last updated Thu Mar 24 14:52:33 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -165,7 +165,7 @@ partially
 @item
 4 A kimenet finomhangolása
 @*
-15660
+15408
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -182,7 +182,7 @@ no
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">partially</span>
+<span style="background-color: #68ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -285,7 +285,7 @@ partially
 @item
 1 A @command{lilypond} használata
 @*
-3629
+3622
 @tab Team-hu
 @tab 
 @tab 
@@ -302,7 +302,7 @@ partially (96 %)
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partially</span>
+<span style="background-color: #97ff2f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

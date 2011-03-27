@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 279e858502f36eb2653984fd5f51cecbb7eeb9dc
+    Translation of GIT committish: a61ab84e86b209fe11d63ec488e02525b7481b5b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1727,27 +1727,35 @@ compás.
 
 @cindex notas, división de
 @cindex división de notas
+@cindex silencios, división de
+@cindex división de silencios
 
 @funindex Note_heads_engraver
 @funindex Completion_heads_engraver
+@funindex Completion_rest_engraver
 
 Las notas largas se pueden convertir automáticamente en notas ligadas.
 Se hace mediante la sustitución del @code{Note_heads_engraver} por el
-@code{Completion_heads_engraver}.  En el ejemplo siguiente, las notas
-que atraviesan la barra de compás se dividen y se unen mediante una
-ligadura.
+@code{Completion_heads_engraver}.  De forma similar, los silencios largos que
+sobrepasan líneas de compás se dividen automáticamente sustituyendo el
+grabador @code{Rest_engraver} con el grabador @code{Completion_rest_engraver}.
+En el ejemplo siguiente, las notas y los silencios que atraviesan la barra
+de compás se dividen, y además las notas se unen mediante una ligadura.
 
 @lilypond[quote,verbatim,relative=1]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
+  \remove "Rest_engraver"
+  \consists "Completion_rest_engraver"
 }
 
-{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 }
+{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2 }
 @end lilypond
 
-Este grabador divide todas las notas largas en la barra de compás e
-inserta ligaduras.  Uno de sus usos es depurar partituras complejas:
+Estos grabadores dividen todas las notas y silencios largos en la
+barra de compás, e inserta ligaduras en las notas.
+Uno de sus usos es depurar partituras complejas:
 si los compases no están completos, las ligaduras mostrarán
 exactamente cuánto le falta a cada compás.
 
@@ -1766,6 +1774,8 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{Note_heads_engraver},
 @rinternals{Completion_heads_engraver},
+@rinternals{Rest_engraver},
+@rinternals{Completion_rest_engraver},
 @rinternals{Forbid_line_break_engraver}.
 
 
@@ -3314,6 +3324,34 @@ anterior
   \new Staff { e4 \bar "|:" \grace c16 d2. }
   \new Staff { c4 \bar "|:" \grace s16 d2. }
 >>
+@end lilypond
+
+El uso de notas de adorno dentro de los contextos de voz tiende
+a confundir la manera en que se tipografía la voz.
+Esto se puede soslayar mediante la inserción de un silencio o nota
+entre la instrucción de voz y la nota de adorno.
+
+@lilypond[quote,verbatim]
+accMusic = {
+  \acciaccatura { f8 } e8 r8 \acciaccatura { f8 } e8 r4
+}
+
+\new Staff {
+  <<
+    \new Voice {
+      \relative c'' {
+        r8 r8 \voiceOne \accMusic \oneVoice r8 |
+        r8 \voiceOne r8 \accMusic \oneVoice r8 |
+      }
+    }
+    \new Voice {
+      \relative c' {
+        s8 s8 \voiceTwo \accMusic \oneVoice s8 |
+        s8 \voiceTwo r8 \accMusic \oneVoice s8 |
+      }
+    }
+  >>
+}
 @end lilypond
 
 Las secciones de adorno sólo se deben usar dentro de expresiones de
