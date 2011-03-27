@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+    Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1729,31 +1729,39 @@ Fall wäre.
 @unnumberedsubsubsec Automatische Aufteilung von Noten
 @translationof Automatic note splitting
 
-@cindex Noten, aufteilen
+@cindex Noten, Aufteilen
 @cindex Aufteilen von Noten
 @cindex automatisches Aufteilen von Noten
+@cindex Pausen, Aufteilen
+@cindex Aufteilen von Pausen
 
 @funindex Note_heads_engraver
 @funindex Completion_heads_engraver
+@funindex Completion_rest_engraver
 
 Lange Noten, die über Taktlinien hinüberreichen, können
 automatisch in übergebundene Noten aufgeteilt werden.
-Dieses Verhalten erreicht man, indem der  @rinternals{Note_heads_engraver}
-mit dem @rinternals{Completion_heads_engraver} ausgetauscht wird.
-Im nächsten Beispiel werden Noten, die über die Taktlinie dauern, aufgeteilt
-und übergebunden.
+Dieses Verhalten erreicht man, indem der @rinternals{Note_heads_engraver}
+mit dem @rinternals{Completion_heads_engraver} ausgetauscht wird.  Auf
+gleiche Art können lange Pausen, die über Taktgrenzen reichen, automatisch
+aufgeteilt werden, indem man den @code{Rest_engraver}mit dem
+@code{Completion_rest_engraver} ersetzt.  Im nächsten Beispiel werden
+Noten und Pausen, die über die Taktlinie dauern, aufgeteilt; Noten
+werden auch übergebunden.
 
 @lilypond[quote,verbatim,relative=1]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
+  \remove "Rest_engraver"
+  \consists "Completion_rest_engraver"
 }
 
-{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 }
+{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2 }
 @end lilypond
 
-Dieser Engraver teilt alle Noten
-auf, die über eine Taktlinie dauern und fügt Bindebögen hinzu.
+Dieser Engraver teilt alle Noten und Pausen
+auf, die über eine Taktlinie dauern und fügt für Noten Bindebögen hinzu.
 Er kann unter Anderem dann nützlich sein, wenn man komplexe
 Partituren auf Fehler überprüfen möchte: Wenn die Takte nicht
 vollständig gefüllt sind, zeigt die Überbindung genau an, wie viele
@@ -1773,6 +1781,8 @@ Schnipsel:
 Referenz der Interna:
 @rinternals{Note_heads_engraver},
 @rinternals{Completion_heads_engraver},
+@rinternals{Rest_engraver},
+@rinternals{Completion_rest_engraver}.
 @rinternals{Forbid_line_break_engraver}.
 
 @knownissues
@@ -2161,10 +2171,10 @@ definiert wird, werden die automatischen Bebalkungsregeln für den
 \repeat unfold 6 { a8 }
 @end lilypond
 
-Diese automatischen Standardeinstellungen für die Bebalkung einer
+Die automatischen Standardeinstellungen für die Bebalkung einer
 Taktart werden in der Datei @file{scm/time-signature-settings.scm}
-bestimmt.  Die automatischen Bebalkungsregeln für eine Taktart
-können nach der Beschreibung in @ref{Taktangabe} geändert werden.
+bestimmt.  Änderungen der automatischen Bebalkungsregeln für eine Taktart
+werden in @ref{Taktangabe} beschrieben.
 
 Die meisten automatischen Bebalkungsregeln für eine Taktart enthalten einen
 Eintrag für @code{beamExceptions}.  Beispielsweise wird in einem 4/4-Takt
@@ -2284,6 +2294,51 @@ polyphone Stimme endet, während ein Balken noch weitere Noten
 erwartet, wird der Balken nicht gesetzt.  Eine Notlösung für
 dieses Probelm ist, den letzten Balken in der Stimme oder
 Partitur manuell zu setzen.
+
+Die Standardeinstellungen weisen den  dem
+@code{Score}-Kontext zu.  Das bedeutet, dass das Setzen der
+Taktart (time signature) in einem System sich auch auf die Bebalkung
+der anderen Systeme auswirkt.  Darum verändert eine neue Taktart in einem
+späteren System auch alle früher vorgenommenen eigenen Einstellungen
+der Bebalkung eines anderen Systems.  Eine Möglichkeit, dieses Problem zu
+vermeiden, ist es, die Taktart nur in einem System zu setzen.
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff {
+    \time 3/4
+    \set Timing.baseMoment = #(ly:make-moment 1 8)
+    \set Timing.beatStructure = #'(1 5)
+    \repeat unfold 6 { a8 }
+  }
+  \new Staff {
+    \repeat unfold 6 { a8 }
+  }
+>>
+@end lilypond
+
+Die Standardbebalkungsregeln für die Taktart können auch verändert
+werden, sodass die gewünschte Bebalkung immer benützt wird.  Veränderungen
+der automatischen Bebalkungsregeln für eine Taktart sind in
+@ref{Taktangabe} beschrieben.
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff {
+    \overrideTimeSignatureSettings
+      #'(3 . 4)         % timeSignatureFraction
+      #'(1 . 8)         % baseMomentFraction
+      #'(1 5)           % beatStructure
+      #'()		% beamExceptions
+    \time 3/4
+    \repeat unfold 6 { a8 }
+  }
+  \new Staff {
+    \time 3/4
+    \repeat unfold 6 { a8 }
+  }
+>>
+@end lilypond
 
 
 @node Manuelle Balken
@@ -3287,6 +3342,34 @@ also
 
 @noindent
 gesetzt werden.
+
+Der Einsatz von Verzierungsnoten innerhalb von Stimmen-Kontexten
+kann den Notensatz der Stimme verwirren.  Dieses Problem kann
+umgangen werden, indem man eine Note oder Pause zwischen dem
+@code{Voice}-Befehl und der Verzierungsnote setzt.
+
+@lilypond[quote,verbatim]
+accMusic = {
+  \acciaccatura { f8 } e8 r8 \acciaccatura { f8 } e8 r4
+}
+
+\new Staff {
+  <<
+    \new Voice {
+      \relative c'' {
+        r8 r8 \voiceOne \accMusic \oneVoice r8 |
+        r8 \voiceOne r8 \accMusic \oneVoice r8 |
+      }
+    }
+    \new Voice {
+      \relative c' {
+        s8 s8 \voiceTwo \accMusic \oneVoice s8 |
+        s8 \voiceTwo r8 \accMusic \oneVoice s8 |
+      }
+    }
+  >>
+}
+@end lilypond
 
 Verzierungsabschnitte sollten nur innerhalb von sequentiellen musikalischen
 Ausdrücken benützt werden. Wenn sie ineinandergeschachtelt werden, kann es

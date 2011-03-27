@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+    Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1044,6 +1044,23 @@ tocAct =
 }
 @end lilypond
 
+Die Zeile zwischen dem Inhalt und der Seitenzahl kann mit einer gepunkteten
+Linie gefüllt werden:
+
+@lilypond[verbatim,quote]
+\header { tagline = ##f }
+\paper {
+  tocItemMarkup = \tocItemWithDotsMarkup
+}
+
+\book {
+  \markuplines \table-of-contents
+  \tocItem \markup { Allegro }
+  \tocItem \markup { Largo }
+  \markup \null
+}
+@end lilypond
+
 
 @seealso
 Installierte Dateien:
@@ -1211,6 +1228,7 @@ ohne dass man Änderungen an den Noten vornehmen muss.
 @menu
 * Variablen benutzen::
 * Marken benutzen::
+* Globale Einstellungen benutzen::
 @end menu
 
 @node Variablen benutzen
@@ -1446,6 +1464,37 @@ Multiple rests are not merged if you create a score with more
 than one tagged section at the same place.
 
 @end ignore
+
+
+@node Globale Einstellungen benutzen
+@unnumberedsubsubsec Globale Einstellungen benutzen
+@translationof Using global settings
+
+@funindex include-settings
+
+Man kann globale Einstellungen aus einer externen Datei einfügen:
+
+@example
+lilypond -dinclude-settings=MY_SETTINGS.ly MY_SCORE.ly
+@end example
+
+
+Einstellungsgruppen, wie etwa Seitengröße, Schriftart oder Schriftschnitt, können
+in eigenen Dateien gespeichert werden.  Das ermöglicht es, aus der gleichen
+Partitur unterschiedliche Editionen zu erstellen bzw. Standardeinstellungen
+für eine ganze Anzahl von Partituren wiederzuverwenden, indem man einfach
+die entsprechende Einstellungsdatei angibt.
+
+Diese Technik funktioniert auch gut für globale Formatierungen, wie behandelt
+in @rlearning{Globale Formatierung}.
+
+@seealso
+Handbuch zum Lernen:
+@rlearning{Stücke durch Bezeichner organisieren},
+@rlearning{Globale Formatierung}.
+
+Notationsreferenz:
+@ref{LilyPond-Dateien einfügen}.
 
 
 @node Zeichenkodierung

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 27b1197f3bae8512c14d946752cd3e40e7c76016
+    Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -107,6 +107,8 @@ Snippets:
 @cindex Satzzeichen
 @cindex Leerzeichen, Gesangstext
 @cindex Anführungszeichen, Gesangstext
+@cindex Formatierung von Gesangstext
+@cindex Gesangstext, Formatierung
 
 Gesangstext muss in einem speziellen Modus notiert werden.
 Der Gesangstextmodus kann mit der Umgebung @code{\lyricmode}
@@ -203,19 +205,32 @@ einem Backslash, gefolgt von @code{`}, @code{'}, @code{"} oder @code{^}.
 
 @c " to balance double quotes for not-so-bright context-sensitive editors
 
+Man hat sehr gut Möglichkeiten, die Erscheinung des Gesangstextes zu
+beeinflussen, wenn man dafür Textbeschriftungsbefehle einsetzt.  Siehe
+hierzu @ref{Text formatieren}.
+
+@snippets
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{formatting-lyrics-syllables.ly}
+
+
 @seealso
 Handbuch zum Lernen:
 @rlearning{Lieder}.
 
-Notation Reference:
+Notationsreferenz:
 @ref{Automatische Silbendauern},
 @ref{Schriftarten},
 @ref{Eingabe-Modi},
 @ref{Manuelle Silbendauern},
+@ref{Text formatieren},
 @ref{Zeichenkodierung}.
 
-Internals Reference:
+Referenz der Interna:
 @rinternals{LyricText}.
+
+Schnipsel:
+@rlsr{Text}
 
 
 
@@ -611,7 +626,10 @@ mit geraden Anführungszeichen (@code{"}) umgeben werden oder ein
 Unterstrich (@code{_}) benutzt werden, um ein Leerzeichen zwischen
 Silben zu setzen.  Mit der Tilde (@code{~}) kann ein Bindebogen
 gesetzt werden.  Dies erfordert, dass eine Schriftart vorhanden ist,
-die das entsprechende Symbol (U+203F) beinhaltet, wie etwa DejaVuLGC.
+die das entsprechende Symbol (U+203F) beinhaltet.  Frei erhältliche
+Schriftarten, die den Bindebogen enthalten, sind @qq{FreeSerif} (ein
+Times-Klon), @qq{DejaVuSans} (aber nicht DejaVuSerif) oder
+TeXGyreSchole (ein Century Schoolbook-Klon).
 
 @lilypond[quote,ragged-right,verbatim]
 {
@@ -1163,16 +1181,14 @@ wirkt, muss sie im @code{layout}-Block vorgenommen werden.
 
 
 Eine Überprüfung, mit der sichergestellt wird, dass kein Text in die
-Seitenränder ragt, ist sehr rechenintensiv.  Damit die Bearbeitungszeit
-von Dateien nicht so lange dauert, wird diese Überprüfung nicht
-automatisch vorgenommen.  Man kann sie mit dem Befehl
+Seitenränder ragt, verlangt zusätzliche Computerzeit.  Um den
+Notensatz etwas zu beschleunigen, kann die Überprüfung abgestellt werden:
 
 @example
-\override Score.PaperColumn #'keep-inside-line = ##t
+\override Score.PaperColumn #'keep-inside-line = ##f
 @end example
 
-@noindent
-aktivieren.  Damit Gesangstext auch nicht mit Taktlinien
+Damit Gesangstext auch nicht mit Taktlinien
 zusammenstößt, kann folgende Einstellung gesetzt werden:
 
 @example

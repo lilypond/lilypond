@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+    Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -628,6 +628,9 @@ Dieser Abschnitt zeigt, wie man Tonhöhen beeinflusst.
 @menu
 * Oktavenüberprüfung::
 * Transposition::
+* Umkehrung::
+* Krebs::
+* Modale Transformierungen::
 @end menu
 
 @node Oktavenüberprüfung
@@ -827,6 +830,9 @@ siehe auch @ref{Transposition von Instrumenten}.
 Notationsreferenz:
 @ref{Relative Oktavenbezeichnung},
 @ref{Transposition von Instrumenten}.
+@ref{Umkehrung}
+@ref{Krebs}
+@ref{Modale Transformierungen}.
 
 Schnipsel:
 @rlsr{Pitches}.
@@ -848,6 +854,223 @@ Der relative Modus wirkt nicht in @code{\transpose},
 Um auch im relativen Modus transponieren
 zu können, muss ein @code{\relative} innerhalb des
 @code{\tranpose} zusätzlich gesetzt werden.
+
+
+@node Umkehrung
+@unnumberedsubsubsec Umkehrung
+@translationof Inversion
+
+@cindex Umkehrung
+@cindex Melodietransformation, Umkehrung
+
+@funindex \inversion
+@funindex inversion
+
+Ein musikalischer Ausdruck kann in seine Umkehrung transformiert werden:
+
+@example
+\inversion @var{vonTonhöhe} @var{nachTonhöhe} @var{mus. Ausdruck}
+@end example
+
+Der @code{@var{mus. Ausdruck}} wird Intervall für Intervall umgekehrt und dann
+von @code{v@var{vonTonhöhe}} nach @code{@var{nachTonhöhe}} transponiert.
+
+@lilypond[verbatim,quote]
+music = \relative c' { c d e f }
+\new Staff {
+  \music
+  \inversion d' d' \music
+  \inversion d' ees' \music
+}
+@end lilypond
+
+@seealso
+Notationsreferenz:
+@ref{Modale Transformationen},
+@ref{Krebs},
+@ref{Transposition}.
+
+
+@node Krebs
+@unnumberedsubsubsec Krebs
+@translationof Retrograde
+
+@cindex Krebs
+@cindex Melodietransformation, Krebs
+
+@funindex \retrograde
+@funindex retrograde
+
+Ein musikalischer Ausdruck kann umgekehrt werden, um im Krebsgang dargestellt
+zu werden:
+
+@lilypond[verbatim,quote]
+music = \relative c' { c8. ees16( fis8. a16 b8.) gis16 f8. d16 }
+
+\new Staff {
+  \music
+  \retrograde \music
+}
+@end lilypond
+
+@knownissues
+Manuell gesetzte Bindebögen innerhalb des Krebsgangs @code{\retrograde} werden
+aufgebrochen und erzeugen Warnungen.  Einige Bindebögen können automatisch
+ersetllt werden, indem man @ref{Automatic note splitting} aktiviert.
+
+@seealso
+Notationsreferenz:
+@ref{Modale Transformationen},
+@ref{Umgekehrung},
+@ref{Transposition}.
+
+
+
+@node Modale Transformierungen
+@unnumberedsubsubsec Modale Transformierungen
+@translationof Modal transformations
+
+@cindex modale Transformationen
+@cindex Transformationen, modal
+@cindex Melodietransformationen, modal
+
+In einer Komposition, die auf einer Skala basiert, wird ein Motiv oft in
+unterschiedlicher Weise transformiert.  Es kann transponiert werden, um
+von einer anderen Tonhöhe in der Skala zu beginnen, oder beginnend von einer
+bestimmten Tonhöhe der Skala umgekehrt werden.  Es kann auch im Krebsgang,
+also rückwärts erscheinen, siehe @ref{Krebs}.
+
+@warning{Alle Noten, die nicht zu der vorgegebenen Skala gehören, werden
+nicht transformiert.}
+
+@subsubheading Modale Transposition
+
+@cindex modale Transposition
+@cindex Transposition, modal
+@cindex Melodietransposition, modal
+
+@funindex \modalTranspose
+@funindex modalTranspose
+
+Ein Motiv kann innerhalb einer Skala transponiert werden:
+
+@example
+\modalTranspose @var{vonTonhöhe} @var{nachTonhöhe} @var{Skala} @var{mus. Ausdruck}
+@end example
+
+Die Noten von @code{@var{mus. Ausdruck}} werden innerhalb von @code{@var{Skala}}
+um die Anzahl von Skalenstufen transponiert, die dem Intervall zwischen
+@code{@var{vonTonhöhe}} und @code{@var{nachTonhöhe}} entspricht.
+
+@lilypond[verbatim,quote]
+diatonicScale = \relative c' { c d e f g a b }
+motif = \relative c' { c8 d e f g a b c }
+
+\new Staff {
+  \motif
+  \modalTranspose c f \diatonicScale \motif
+  \modalTranspose c b, \diatonicScale \motif
+}
+@end lilypond
+
+Eine absteigende Skala beliebiger Länge und mit beliebigen Intervallen kann
+definiert werden:
+
+@lilypond[verbatim,quote]
+pentatonicScale = \relative c' { ges aes bes des ees }
+motif = \relative c' { ees8 des ges,4 <ges' bes,> <ges bes,> }
+
+\new Staff {
+  \motif
+  \modalTranspose ges ees' \pentatonicScale \motif
+}
+@end lilypond
+
+Wenn @code{\modalTranspose} mit einer chromatischen Skala benutzt wird,
+entspricht es der Funktion von @code{\transpose} mit dem Unterschied,
+dass die Bezeichnungen der eingesetzten Noten definiert werden können:
+
+@lilypond[verbatim,quote]
+chromaticScale = \relative c' { c cis d dis e f fis g gis a ais b }
+motif = \relative c' { c8 d e f g a b c }
+
+\new Staff {
+  \motif
+  \transpose c f \motif
+  \modalTranspose c f \chromaticScale \motif
+}
+@end lilypond
+
+
+@subsubheading Modale Umkehrung
+
+@cindex modale Umkehrung
+@cindex Umkehrung, modal
+@cindex Melodieumkehrung, modal
+
+@funindex \modalInversion
+@funindex modalInversion
+
+Ein musikalischer Ausdruck kann innerhalb einer definierten Skala um
+eine Referenznote umgekehrt werden und transponiert werden:
+
+@example
+\modalInversion @var{Umkehrungstonhöhe} @var{nachTonhöhe} @var{Skala} @var{mus. Ausdruck}
+@end example
+
+Die Noten von @code{@var{mus. Ausdruck}} werden mit den gleichen Intervallabständen
+voneinander gesetzt, ausgehend von @code{@var{Umkehrungstonhöhe}}, allerdings
+in die entgegengesetzte Richtung.  Das Result wird dann innerhalb der
+@code{@var{Skala}} um das Intervall transponiert, das sich aus dem
+Unterschied von @code{@var{Umkehrungstonhöhe}} und @code{@var{nachTonhöhe}}
+ergibt.
+
+Um also einfach eeine Umkehrung ohne zusätzliche Transposition zu machen,
+sollten @code{@var{Umkehrungstonhöhe}} und @code{@var{nachTonhöhe}} gleich
+sein.
+
+@lilypond[verbatim,quote]
+octatonicScale = \relative c' { ees f fis gis a b c d }
+motif = \relative c' { c8. ees16 fis8. a16 b8. gis16 f8. d16 }
+
+\new Staff {
+  \motif
+  \modalInversion fis' fis' \octatonicScale \motif
+}
+@end lilypond
+
+Um den Drehpunkt der Umkehrung zwischen zwei Noten der Skala zu definieren,
+wird um eine der Noten die Umkehrung vorgenommen und dann eine Skalenstufe
+transponiert.  Die beiden Noten klammern sozusagen den Drehpunkt ein.
+
+@lilypond[verbatim,quote]
+scale = \relative c' { c g' }
+motive = \relative c' { c c g' c, }
+
+\new Staff {
+  \motive
+  \modalInversion c' g' \scale \motive
+}
+@end lilypond
+
+Die kombinierte Operation von Umkehrung und Krebs erzeugt die
+Krebsumkehrung:
+
+@lilypond[verbatim,quote]
+octatonicScale = \relative c' { ees f fis gis a b c d }
+motif = \relative c' { c8. ees16 fis8. a16 b8. gis16 f8. d16 }
+
+\new Staff {
+  \motif
+  \retrograde \modalInversion c' c' \octatonicScale \motif
+}
+@end lilypond
+
+@seealso
+Notationsreferenz:
+@ref{Umkehrung},
+@ref{Krebs},
+@ref{Transposition}.
 
 
 @node Tonhöhen anzeigen lassen
@@ -1304,7 +1527,7 @@ benützt:
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1386,7 +1609,7 @@ Takt oder dem letzen@tie{}@code{c} gesetzt:
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1463,7 +1686,7 @@ besser.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1514,7 +1737,11 @@ musicB = {
 @funindex modern
 
 Dieser Stil orientiert sich an den üblichen Regeln für
-das 20. Jahrhundert.  Die gleichen Versetzungszeichen
+das 20. Jahrhundert.  Hierbei werden einige zusätzliche
+Auflösungszeichen ausgelassen, die traditionell für
+Versetzungszeichen benutzt wurden, welche die Richtung
+des vorherigen Versetzungszeichens verringern oder
+umkehren.  Die gleichen Versetzungszeichen
 wie im Standardstil werden gesetzt, allerdings mit zwei
 Ausnahmen, die Uneindeutigkeiten verhindern sollen: nach
 vorübergehenden Versetzungszeichen werden Auflösungszeichen
@@ -1527,7 +1754,7 @@ vor dem H und dem C im zweiten Takt des oberen Systems:
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1589,7 +1816,7 @@ von @code{AccidentalSuggestion} definiert.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1656,7 +1883,7 @@ vorigen Takt:
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1717,7 +1944,7 @@ auch mit diesem Stil gesetzt werden, sind manche Warnungsversetzungszeichen.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1781,7 +2008,7 @@ Akkolade (@code{GrandStaff} oder @code{PianoStaff}) aus.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1839,7 +2066,7 @@ Versetzungszeichen werden als Warnungen ausgegeben:
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1898,7 +2125,7 @@ Takt auftritt -- außer die Note wird unmittelbar wiederholt.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1956,7 +2183,7 @@ Versetzungszeichen werden als Warnungen gesetzt.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2018,7 +2245,7 @@ Notensystems mit Auflösungszeichen versehen.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2076,7 +2303,7 @@ gesetzt.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2136,7 +2363,7 @@ auch Auflösungszeichen zählen.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2197,7 +2424,7 @@ gesetzt.  Eine Ausnahme sind direkt wiederholte Noten.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2258,7 +2485,7 @@ dauern für @qq{immer} an, nicht nur im aktuellen Takt:
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2312,14 +2539,13 @@ musicB = {
 Das ist das Gegenteil von @code{no-reset}: Versetzungszeichen
 werden überhaupt nicht erinnert und folgerichtig werden alle
 Versetzungszeichen entsprechend der Tonart gesetzt, unabhängig
-vom Kontext der Noten.  Anders als @code{dodecaphonic} werden nie
-Auflösungszeichen gesetzt:
+vom Kontext der Noten.
 
 @lilypond[quote]
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes'4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
