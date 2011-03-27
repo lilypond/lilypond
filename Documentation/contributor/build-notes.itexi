@@ -74,6 +74,18 @@ echo "bbb"
 to the build system files in various places.  This will let you
 track where the program is, in various points of the build.
 
+PH note.  There are lots of places where Make doesn't let you put
+echo commands.  My top tip for tracing how make runs is to put
+
+@example
+$(error Some Text to display)
+@end example
+
+This will stop make running and print the text @code{Some Text to
+display}.
+
+End PH note.
+
 @item
 First task: understand how @code{make website} works,
 @emph{without} the translations.  Looking at the english-only
@@ -268,6 +280,7 @@ include
 @end example
 
 @file{lilypond-rules.make} is @code{#empty}
+
 @file{generic-rules.make} does seem to have 2 rules in it.  They
 are:
 
@@ -286,9 +299,13 @@ sed "s/\`/,/g" >}.  Perhaps someone with more Unix/make knowledge
 can comment on exactly what the rules mean/do.
 
 @file{toplevel-rules.make} is @code{#empty}
+
 @file{po-rules.make} is @code{#empty}
+
 @file{install-rules.make} is @code{#empty}
+
 @file{generic-targets.make} contains 2 lines of comments.
+
 @file{lilypond-targets.make} contains only:
 
 @example
@@ -312,7 +329,32 @@ occasionally the same) rules to the gernric-targets.
 @file{stepmake/install-targets.make} has rules for local-install*.
 
 And that's the end of stepmake.make.  Back to
-@file{GNUmakefile.in}.  More some other time.
+@file{GNUmakefile.in}.
+
+A bit more info from 27 March.  I've put some error traces into
+@code{GNUmakefile} in the build directory, and it looks like the
+following lines actually cause the make to run (putting an error
+call above them - no make; below them - make):
+
+@example
+ifeq ($(out),www)
+# All web targets, except info image symlinks and info docs are
+# installed in non-recursing target from TOP-SRC-DIR
+install-WWW:
+	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
+	rsync -rl --exclude='*.signature' $(outdir)/offline-root $(DESTDIR)$(webdir)
+	$(MAKE) -C Documentation omf-local-install
+@end example
+
+I don't currently understand the @code{ifeq}, since @code{$(out)}
+is empty at this point, but the line starting @code{-$(INSTALL)}
+translates to:
+
+@example
+-/usr/bin/python /home/phil/lilypond-git/stepmake/bin/install.py -c -m 755 -d /usr/local/share/doc/lilypond/html
+@end example
+
+End of work for Sunday 27th.
 
 Another alterative approach to understanding the website build
 would be to redirect @code{make -n website} and @code{make website}
@@ -448,6 +490,434 @@ file.
 
 
 Website build includes @ref{Building a bibliography}.
+
+@subsubheading Output from @code{make -n website}
+
+Running @code{make -n website} gives the following output:
+
+@example
+make --no-builtin-rules config_make=./config.make \
+		top-src-dir=/home/phil/lilypond-git \
+		-f /home/phil/lilypond-git/make/website.make \
+		website
+make[1]: Entering directory `/home/phil/lilypond-git/build'
+mkdir -p out-website
+python /home/phil/lilypond-git/scripts/build/create-version-itexi.py /home/phil/lilypond-git > out-website/version.itexi
+python /home/phil/lilypond-git/scripts/build/create-weblinks-itexi.py /home/phil/lilypond-git > out-website/weblinks.itexi
+for l in '' cs de es fr hu it ja nl zh; do \
+		python /home/phil/lilypond-git/scripts/build/extract_texi_filenames.py \
+			-I /home/phil/lilypond-git/Documentation \
+			-I /home/phil/lilypond-git/Documentation/"$l" \
+			-I out-website -o out-website --split=node \
+			/home/phil/lilypond-git/Documentation/"$l"/web.texi ;\
+		for m in /home/phil/lilypond-git/Documentation/changes.tely /home/phil/lilypond-git/Documentation/essay.tely /home/phil/lilypond-git/Documentation/extending.tely /home/phil/lilypond-git/Documentation/learning.tely /home/phil/lilypond-git/Documentation/music-glossary.tely /home/phil/lilypond-git/Documentation/notation.tely /home/phil/lilypond-git/Documentation/snippets.tely /home/phil/lilypond-git/Documentation/usage.tely /home/phil/lilypond-git/Documentation/contributor.texi; do \
+			n=`echo "$m" | sed 's/Documentation/Documentation\/'$l'/'` ; \
+			b=`basename "$n" .texi`; \
+			d=`basename "$b" .tely`; \
+			if [ -e "$n" ] ; then \
+				python /home/phil/lilypond-git/scripts/build/extract_texi_filenames.py \
+				-I /home/phil/lilypond-git/Documentation \
+				-I /home/phil/lilypond-git/Documentation/"$l" \
+				-I /home/phil/lilypond-git/Documentation/"$l"/"$d" \
+				-I out-website -o out-website "$n" ; \
+			fi ; \
+		done; \
+	done;
+BSTINPUTS=/home/phil/lilypond-git/Documentation/web \
+		python /home/phil/lilypond-git/scripts/build/bib2texi.py -s web \
+		-s /home/phil/lilypond-git/Documentation/lily-bib \
+		-o out-website/others-did.itexi \
+		/home/phil/lilypond-git/Documentation/web/others-did.bib
+BSTINPUTS=/home/phil/lilypond-git/Documentation/web \
+		python /home/phil/lilypond-git/scripts/build/bib2texi.py -s web \
+		-s /home/phil/lilypond-git/Documentation/lily-bib \
+		-o out-website/we-wrote.itexi \
+		/home/phil/lilypond-git/Documentation/web/we-wrote.bib
+for l in '' cs de es fr hu it ja nl zh; do \
+	        if test -n "$l"; then \
+			langopt=--lang="$l"; \
+			langsuf=.$l; \
+		fi; \
+		ONLY_WEB=1 TOP_SRC_DIR=/home/phil/lilypond-git DEPTH= PERL_UNICODE=SD texi2html --prefix=index \
+			--split=section \
+			--I=/home/phil/lilypond-git/Documentation/"$l" \
+			--I=/home/phil/lilypond-git/Documentation \
+			--I=out-website \
+			$langopt \
+			--init-file=/home/phil/lilypond-git/Documentation/lilypond-texi2html.init \
+			-D web_version \
+			--output=out-website/"$l" \
+			/home/phil/lilypond-git/Documentation/"$l"/web.texi ; \
+		ls out-website/$l/*.html | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!out-website/'$l'/!!g' | xargs python /home/phil/lilypond-git/scripts/build/mass-link.py --prepend-suffix="$langsuf" hard out-website/$l/ out-website/website/ ; \
+	done
+cp /home/phil/lilypond-git/Documentation/css/*.css out-website/website
+mkdir -p out-website/website/pictures
+if [ -d Documentation/pictures/out-www ]; \
+	then \
+		cp Documentation/pictures/out-www/* out-website/website/pictures ; \
+		ln -sf website/pictures out-website/pictures  ;\
+	fi
+mkdir -p out-website/website/ly-examples
+if [ -d Documentation/web/ly-examples/out-www ]; \
+	then \
+		cp Documentation/web/ly-examples/out-www/* out-website/website/ly-examples ; \
+	fi
+python /home/phil/lilypond-git/scripts/build/website_post.py out-website/website
+cp /home/phil/lilypond-git/Documentation/web/server/favicon.ico out-website/website
+cp /home/phil/lilypond-git/Documentation/web/server/robots.txt out-website/website
+cp /home/phil/lilypond-git/Documentation/web/server/lilypond.org.htaccess out-website/.htaccess
+cp /home/phil/lilypond-git/Documentation/web/server/website-dir.htaccess out-website/website/.htaccess
+make[1]: Leaving directory `/home/phil/lilypond-git/build'
+@end example
+
+And, although there's rather a lot of text here, here's the output
+when @code{make website} is run:
+
+@example
+make --no-builtin-rules config_make=./config.make \
+		top-src-dir=/home/phil/lilypond-git \
+		-f /home/phil/lilypond-git/make/website.make \
+		website
+make[1]: Entering directory `/home/phil/lilypond-git/build'
+mkdir -p out-website
+python /home/phil/lilypond-git/scripts/build/create-version-itexi.py /home/phil/lilypond-git > out-website/version.itexi
+python /home/phil/lilypond-git/scripts/build/create-weblinks-itexi.py /home/phil/lilypond-git > out-website/weblinks.itexi
+for l in '' cs de es fr hu it ja nl zh; do \
+		python /home/phil/lilypond-git/scripts/build/extract_texi_filenames.py \
+			-I /home/phil/lilypond-git/Documentation \
+			-I /home/phil/lilypond-git/Documentation/"$l" \
+			-I out-website -o out-website --split=node \
+			/home/phil/lilypond-git/Documentation/"$l"/web.texi ;\
+		for m in /home/phil/lilypond-git/Documentation/changes.tely /home/phil/lilypond-git/Documentation/essay.tely /home/phil/lilypond-git/Documentation/extending.tely /home/phil/lilypond-git/Documentation/learning.tely /home/phil/lilypond-git/Documentation/music-glossary.tely /home/phil/lilypond-git/Documentation/notation.tely /home/phil/lilypond-git/Documentation/snippets.tely /home/phil/lilypond-git/Documentation/usage.tely /home/phil/lilypond-git/Documentation/contributor.texi; do \
+			n=`echo "$m" | sed 's/Documentation/Documentation\/'$l'/'` ; \
+			b=`basename "$n" .texi`; \
+			d=`basename "$b" .tely`; \
+			if [ -e "$n" ] ; then \
+				python /home/phil/lilypond-git/scripts/build/extract_texi_filenames.py \
+				-I /home/phil/lilypond-git/Documentation \
+				-I /home/phil/lilypond-git/Documentation/"$l" \
+				-I /home/phil/lilypond-git/Documentation/"$l"/"$d" \
+				-I out-website -o out-website "$n" ; \
+			fi ; \
+		done; \
+	done;
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation//web.texi
+writing: out-website/web.xref-map
+NOT A DIR from:  /home/phil/lilypond-git/build /home/phil/lilypond-git/Documentation//changes
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation//changes.tely
+writing: out-website/changes.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation//essay.tely
+No such file: colorado.itexi
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//essay:out-website
+No such file: computer-notation.itexi
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//essay:out-website
+No such file: engravingbib.itexi
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//essay:out-website
+writing: out-website/essay.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation//extending.tely
+writing: out-website/extending.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation//learning.tely
+writing: out-website/learning.xref-map
+NOT A DIR from:  /home/phil/lilypond-git/build /home/phil/lilypond-git/Documentation//music-glossary
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation//music-glossary.tely
+writing: out-website/music-glossary.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation//notation.tely
+No such file: markup-commands.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//notation:out-website
+No such file: markup-list-commands.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//notation:out-website
+No such file: context-properties.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//notation:out-website
+No such file: layout-properties.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//notation:out-website
+No such file: identifiers.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//notation:out-website
+No such file: type-predicates.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//notation:out-website
+No such file: scheme-functions.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//notation:out-website
+writing: out-website/notation.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation//snippets.tely
+No such file: pitches.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: rhythms.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: expressive-marks.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: repeats.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: simultaneous-notes.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: staff-notation.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: editorial-annotations.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: text.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: vocal-music.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: chords.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: keyboards.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: percussion.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: fretted-strings.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: unfretted-strings.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: winds.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: ancient-notation.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: world-music.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: contexts-and-engravers.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: tweaks-and-overrides.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: paper-and-layout.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: titles.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: spacing.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: midi.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+No such file: template.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/:/home/phil/lilypond-git/Documentation//snippets:out-website
+writing: out-website/snippets.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation//usage.tely
+writing: out-website/usage.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation//contributor.texi
+writing: out-website/contributor.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/cs/web.texi
+writing: out-website/web.cs.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/cs/learning.tely
+No such file: learning/working.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/cs:/home/phil/lilypond-git/Documentation/cs/learning:out-website
+No such file: learning/scheme-tutorial.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/cs:/home/phil/lilypond-git/Documentation/cs/learning:out-website
+writing: out-website/learning.cs.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/de/web.texi
+writing: out-website/web.de.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/de/essay.tely
+No such file: colorado.itexi
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/de:/home/phil/lilypond-git/Documentation/de/essay:out-website
+No such file: computer-notation.itexi
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/de:/home/phil/lilypond-git/Documentation/de/essay:out-website
+No such file: engravingbib.itexi
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/de:/home/phil/lilypond-git/Documentation/de/essay:out-website
+writing: out-website/essay.de.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/de/extending.tely
+writing: out-website/extending.de.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/de/learning.tely
+No such file: learning/working.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/de:/home/phil/lilypond-git/Documentation/de/learning:out-website
+No such file: learning/scheme-tutorial.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/de:/home/phil/lilypond-git/Documentation/de/learning:out-website
+writing: out-website/learning.de.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/de/notation.tely
+No such file: notation/programming-interface.itely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/de:/home/phil/lilypond-git/Documentation/de/notation:out-website
+No such file: markup-commands.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/de:/home/phil/lilypond-git/Documentation/de/notation:out-website
+No such file: markup-list-commands.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/de:/home/phil/lilypond-git/Documentation/de/notation:out-website
+No such file: context-properties.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/de:/home/phil/lilypond-git/Documentation/de/notation:out-website
+No such file: layout-properties.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/de:/home/phil/lilypond-git/Documentation/de/notation:out-website
+No such file: identifiers.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/de:/home/phil/lilypond-git/Documentation/de/notation:out-website
+No such file: type-predicates.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/de:/home/phil/lilypond-git/Documentation/de/notation:out-website
+No such file: scheme-functions.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/de:/home/phil/lilypond-git/Documentation/de/notation:out-website
+writing: out-website/notation.de.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/de/usage.tely
+writing: out-website/usage.de.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/es/web.texi
+writing: out-website/web.es.xref-map
+NOT A DIR from:  /home/phil/lilypond-git/build /home/phil/lilypond-git/Documentation/es/changes
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/es/changes.tely
+writing: out-website/changes.es.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/es/essay.tely
+No such file: colorado.itexi
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/es:/home/phil/lilypond-git/Documentation/es/essay:out-website
+No such file: computer-notation.itexi
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/es:/home/phil/lilypond-git/Documentation/es/essay:out-website
+No such file: engravingbib.itexi
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/es:/home/phil/lilypond-git/Documentation/es/essay:out-website
+writing: out-website/essay.es.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/es/extending.tely
+writing: out-website/extending.es.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/es/learning.tely
+writing: out-website/learning.es.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/es/notation.tely
+No such file: markup-commands.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/es:/home/phil/lilypond-git/Documentation/es/notation:out-website
+No such file: markup-list-commands.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/es:/home/phil/lilypond-git/Documentation/es/notation:out-website
+No such file: context-properties.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/es:/home/phil/lilypond-git/Documentation/es/notation:out-website
+No such file: layout-properties.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/es:/home/phil/lilypond-git/Documentation/es/notation:out-website
+No such file: identifiers.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/es:/home/phil/lilypond-git/Documentation/es/notation:out-website
+No such file: type-predicates.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/es:/home/phil/lilypond-git/Documentation/es/notation:out-website
+No such file: scheme-functions.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/es:/home/phil/lilypond-git/Documentation/es/notation:out-website
+writing: out-website/notation.es.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/es/usage.tely
+writing: out-website/usage.es.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/fr/web.texi
+writing: out-website/web.fr.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/fr/essay.tely
+No such file: colorado.itexi
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/fr:/home/phil/lilypond-git/Documentation/fr/essay:out-website
+No such file: computer-notation.itexi
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/fr:/home/phil/lilypond-git/Documentation/fr/essay:out-website
+No such file: engravingbib.itexi
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/fr:/home/phil/lilypond-git/Documentation/fr/essay:out-website
+writing: out-website/essay.fr.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/fr/learning.tely
+writing: out-website/learning.fr.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/fr/notation.tely
+No such file: markup-commands.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/fr:/home/phil/lilypond-git/Documentation/fr/notation:out-website
+No such file: markup-list-commands.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/fr:/home/phil/lilypond-git/Documentation/fr/notation:out-website
+No such file: context-properties.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/fr:/home/phil/lilypond-git/Documentation/fr/notation:out-website
+No such file: layout-properties.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/fr:/home/phil/lilypond-git/Documentation/fr/notation:out-website
+No such file: identifiers.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/fr:/home/phil/lilypond-git/Documentation/fr/notation:out-website
+No such file: type-predicates.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/fr:/home/phil/lilypond-git/Documentation/fr/notation:out-website
+No such file: scheme-functions.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/fr:/home/phil/lilypond-git/Documentation/fr/notation:out-website
+writing: out-website/notation.fr.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/fr/usage.tely
+writing: out-website/usage.fr.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/hu/web.texi
+writing: out-website/web.hu.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/hu/learning.tely
+writing: out-website/learning.hu.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/hu/usage.tely
+writing: out-website/usage.hu.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/it/web.texi
+writing: out-website/web.it.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/it/learning.tely
+writing: out-website/learning.it.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/ja/web.texi
+writing: out-website/web.ja.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/ja/learning.tely
+writing: out-website/learning.ja.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/ja/notation.tely
+No such file: markup-commands.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/ja:/home/phil/lilypond-git/Documentation/ja/notation:out-website
+No such file: markup-list-commands.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/ja:/home/phil/lilypond-git/Documentation/ja/notation:out-website
+No such file: context-properties.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/ja:/home/phil/lilypond-git/Documentation/ja/notation:out-website
+No such file: layout-properties.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/ja:/home/phil/lilypond-git/Documentation/ja/notation:out-website
+No such file: identifiers.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/ja:/home/phil/lilypond-git/Documentation/ja/notation:out-website
+No such file: type-predicates.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/ja:/home/phil/lilypond-git/Documentation/ja/notation:out-website
+No such file: scheme-functions.tely
+Search path: .:/home/phil/lilypond-git/Documentation:/home/phil/lilypond-git/Documentation/ja:/home/phil/lilypond-git/Documentation/ja/notation:out-website
+writing: out-website/notation.ja.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/ja/usage.tely
+writing: out-website/usage.ja.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/nl/web.texi
+writing: out-website/web.nl.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/nl/learning.tely
+writing: out-website/learning.nl.xref-map
+extract_texi_filenames.py: Processing /home/phil/lilypond-git/Documentation/zh/web.texi
+writing: out-website/web.zh.xref-map
+BSTINPUTS=/home/phil/lilypond-git/Documentation/web \
+		python /home/phil/lilypond-git/scripts/build/bib2texi.py -s web \
+		-s /home/phil/lilypond-git/Documentation/lily-bib \
+		-o out-website/others-did.itexi \
+		/home/phil/lilypond-git/Documentation/web/others-did.bib
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: /tmp/tmpvZPaJNbib2texi.aux
+The style file: /home/phil/lilypond-git/Documentation/lily-bib.bst
+Database file #1: /home/phil/lilypond-git/Documentation/web/others-did.bib
+Invoking `TEXMFOUTPUT=/tmp bibtex /tmp/tmpvZPaJNbib2texi'
+BSTINPUTS=/home/phil/lilypond-git/Documentation/web \
+		python /home/phil/lilypond-git/scripts/build/bib2texi.py -s web \
+		-s /home/phil/lilypond-git/Documentation/lily-bib \
+		-o out-website/we-wrote.itexi \
+		/home/phil/lilypond-git/Documentation/web/we-wrote.bib
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: /tmp/tmpgB8NhBbib2texi.aux
+The style file: /home/phil/lilypond-git/Documentation/lily-bib.bst
+Database file #1: /home/phil/lilypond-git/Documentation/web/we-wrote.bib
+Invoking `TEXMFOUTPUT=/tmp bibtex /tmp/tmpgB8NhBbib2texi'
+for l in '' cs de es fr hu it ja nl zh; do \
+	        if test -n "$l"; then \
+			langopt=--lang="$l"; \
+			langsuf=.$l; \
+		fi; \
+		ONLY_WEB=1 TOP_SRC_DIR=/home/phil/lilypond-git DEPTH= PERL_UNICODE=SD texi2html --prefix=index \
+			--split=section \
+			--I=/home/phil/lilypond-git/Documentation/"$l" \
+			--I=/home/phil/lilypond-git/Documentation \
+			--I=out-website \
+			$langopt \
+			--init-file=/home/phil/lilypond-git/Documentation/lilypond-texi2html.init \
+			-D web_version \
+			--output=out-website/"$l" \
+			/home/phil/lilypond-git/Documentation/"$l"/web.texi ; \
+		ls out-website/$l/*.html | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!out-website/'$l'/!!g' | xargs python /home/phil/lilypond-git/scripts/build/mass-link.py --prepend-suffix="$langsuf" hard out-website/$l/ out-website/website/ ; \
+	done
+Initializing settings for web site: []
+mass-link.py
+Initializing settings for web site: [cs]
+WARNING: Unable to find node 'Řešení potíží' in book usage.
+WARNING: Unable to find node 'Proč se mění skladba?' in book usage.
+mass-link.py
+Initializing settings for web site: [de]
+mass-link.py
+Initializing settings for web site: [es]
+mass-link.py
+Initializing settings for web site: [fr]
+mass-link.py
+Initializing settings for web site: [hu]
+mass-link.py
+Initializing settings for web site: [it]
+mass-link.py
+Initializing settings for web site: [ja]
+mass-link.py
+Initializing settings for web site: [nl]
+mass-link.py
+Initializing settings for web site: [zh]
+mass-link.py
+cp /home/phil/lilypond-git/Documentation/css/*.css out-website/website
+mkdir -p out-website/website/pictures
+if [ -d Documentation/pictures/out-www ]; \
+	then \
+		cp Documentation/pictures/out-www/* out-website/website/pictures ; \
+		ln -sf website/pictures out-website/pictures  ;\
+	fi
+mkdir -p out-website/website/ly-examples
+if [ -d Documentation/web/ly-examples/out-www ]; \
+	then \
+		cp Documentation/web/ly-examples/out-www/* out-website/website/ly-examples ; \
+	fi
+python /home/phil/lilypond-git/scripts/build/website_post.py out-website/website
+cp /home/phil/lilypond-git/Documentation/web/server/favicon.ico out-website/website
+cp /home/phil/lilypond-git/Documentation/web/server/robots.txt out-website/website
+cp /home/phil/lilypond-git/Documentation/web/server/lilypond.org.htaccess out-website/.htaccess
+cp /home/phil/lilypond-git/Documentation/web/server/website-dir.htaccess out-website/website/.htaccess
+make[1]: Leaving directory `/home/phil/lilypond-git/build'@end example
+
 
 
 @subsubheading website.make variables
