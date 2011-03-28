@@ -827,7 +827,11 @@ def dump_track (track, n):
             if not n and not vv and global_options.key:
                 s += global_options.key.dump ()
             if average_pitch[vv+1] and voices > 1:
-                s += '  \\voice' + get_voice_layout (average_pitch[1:])[vv] + '\n'
+                vl = get_voice_layout (average_pitch[1:])[vv]
+                if vl:
+                    s += '  \\voice' + vl + '\n'
+                else:
+                    warning (_ ('found more than 5 voices on a staff, expect bad output'))
             s += '  ' + dump_voice (voice, skip)
             s += '}\n\n'
             v += 1
