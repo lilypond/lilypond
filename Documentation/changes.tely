@@ -62,7 +62,20 @@ which scares away people.
 @end ignore
 
 @item
-Lilypond typesets woodwind fingering charts.
+Single beat repeats for sixteenth or shorter notes and beat repeats for
+measures containing notes of varying durations are now supported.
+
+@lilypond[fragment,relative=2]
+\repeat percent 2 { c16 d }
+\repeat percent 2 { c32 e }
+\repeat percent 2 { c64 f }
+\repeat percent 2 { c128 g' }
+@end lilypond
+
+
+@item
+Lilypond now engraves woodwind fingering charts.
+
 @lilypond
 \relative c' {
   \textLengthOn
@@ -174,10 +187,11 @@ motif = \relative c'' { d8 c f,4 <a f'> <a f'> }
 @end lilypond
 
 @item
-Black mensural notation has minimal support.
+Added minimal support for black mensural notation.
 
 @item
-Support for obliqua shapes within white mensural ligatures enhanced.
+Enhanced support for obliqua shapes within white mensural ligatures.
+
 @lilypond
 \context MensuralStaff
 {
@@ -204,6 +218,7 @@ Support for obliqua shapes within white mensural ligatures enhanced.
 @item
 Compound time signatures are now supported by the @code{\compoundMeter} command,
 which can be used instead of @code{\time}:
+
 @lilypond
 \relative c'' {
   \compoundMeter #'(3 1 8)
@@ -236,6 +251,7 @@ By using @code{\cueDuringWithClef}, cue notes can now also have their own
 clef, which is correctly reset at the end of the cue notes.  At the begin
 of each line, the standard clef is still displayed, but the cue clef is
 shown after the time/key signature in smaller size.
+
 @lilypond
 vI = \relative c'' { \clef "treble" \repeat unfold 40 g4 }
 \addQuote vIQuote { \vI }
@@ -280,6 +296,7 @@ based on user input.
 
 @item
 The part-combiner's decision to combine/not combine notes can now be customized
+
 @lilypond[quote,relative=2]
 \partcombine
 \relative c' { c2 \partcombineApart c | \partcombineChordsOnce e' e }
