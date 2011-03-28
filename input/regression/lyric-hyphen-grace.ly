@@ -4,6 +4,7 @@
 of a line if the grace's main note starts a new syllable."
 }
 
+\version "2.13.56"
 <<
   \new Staff {
     \appoggiatura f'8 g'2 g'( | \break
