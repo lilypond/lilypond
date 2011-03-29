@@ -283,6 +283,12 @@ Line_spanner::print (SCM smob)
       return SCM_EOL;
     }
 
+  Interval normalized_endpoints = robust_scm2interval (me->get_property ("normalized-endpoints"), Interval (0, 1));
+  Real y_length = span_points[RIGHT][Y_AXIS] - span_points[LEFT][Y_AXIS];
+
+  span_points[LEFT][Y_AXIS] += normalized_endpoints[LEFT] * y_length;
+  span_points[RIGHT][Y_AXIS] -= (1 - normalized_endpoints[RIGHT]) * y_length;
+
   Stencil line;
   do
     {

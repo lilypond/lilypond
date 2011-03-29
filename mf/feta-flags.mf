@@ -401,7 +401,7 @@ fet_beginchar ("32nd (down)", "d5");
 
 	add_flag (flagspace, flare, .98, 1.00, 1.22,
 		  hip_thickness, foot_thickness);
-	add_flag (flagspace, flare, .95, 1.02	, 1.22,
+	add_flag (flagspace, flare, .95, 1.02, 1.22,
 		  hip_thickness, foot_thickness);
 
 	draw_square_block ((-0.5 stemthickness_rounded, 0),
