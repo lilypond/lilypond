@@ -267,7 +267,7 @@ Line_spanner::print (SCM smob)
       common_y[d] = unsmob_grob (ly_assoc_get (ly_symbol2scm ("common-Y"),
 					       bounds[d], SCM_BOOL_F));
       if (!common_y[d])
-	common_y[d] = me; 
+	common_y[d] = me;
     }
   while (flip (&d) != LEFT);
 
@@ -276,18 +276,18 @@ Line_spanner::print (SCM smob)
     span_points[d][Y_AXIS] += common_y[d]->relative_coordinate (my_common_y, Y_AXIS);
   while (flip (&d) != LEFT);
 
+  Interval normalized_endpoints = robust_scm2interval (me->get_property ("normalized-endpoints"), Interval (0, 1));
+  Real y_length = span_points[RIGHT][Y_AXIS] - span_points[LEFT][Y_AXIS];
+
+  span_points[LEFT][Y_AXIS] += normalized_endpoints[LEFT] * y_length;
+  span_points[RIGHT][Y_AXIS] -= (1 - normalized_endpoints[RIGHT]) * y_length;
+
   Offset dz = (span_points[RIGHT] - span_points[LEFT]);
   Offset dz_dir = dz.direction ();
   if (gaps[LEFT] + gaps[RIGHT] > dz.length ())
     {
       return SCM_EOL;
     }
-
-  Interval normalized_endpoints = robust_scm2interval (me->get_property ("normalized-endpoints"), Interval (0, 1));
-  Real y_length = span_points[RIGHT][Y_AXIS] - span_points[LEFT][Y_AXIS];
-
-  span_points[LEFT][Y_AXIS] += normalized_endpoints[LEFT] * y_length;
-  span_points[RIGHT][Y_AXIS] -= (1 - normalized_endpoints[RIGHT]) * y_length;
 
   Stencil line;
   do
@@ -306,7 +306,7 @@ Line_spanner::print (SCM smob)
 	  SCM off = ly_assoc_get (ly_symbol2scm ("stencil-offset"),
 				  bounds[d], SCM_BOOL_F);
 
-	  if (scm_is_number (align)) 
+	  if (scm_is_number (align))
 	    s.align_to (Y_AXIS, scm_to_double (align));
 
 	  if (is_number_pair (off))
@@ -332,7 +332,7 @@ Line_spanner::print (SCM smob)
   if (line_right[X_AXIS] > line_left[X_AXIS])
     {
       line.add_stencil (Line_interface::line (me, line_left, line_right));
- 
+
       line.add_stencil (Line_interface::arrows (me,
 						span_points[LEFT],
 						span_points[RIGHT],
