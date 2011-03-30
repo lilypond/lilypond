@@ -19,7 +19,11 @@ listed in the @qq{Changes} manual on the website section about
 
 There are no known Critical issues with this release.  If no
 Critical bugs are found, then the official 2.14.0 release will be
+<<<<<<< HEAD
 on April 5, 2011.  If you discover any problems, please send us
+=======
+on April 2, 2011.  If you discover any problems, please send us
+>>>>>>> release/unstable
 @ref{Bug reports}.
 
 @newsEnd
