@@ -1002,6 +1002,7 @@ def convert_midi (in_file, out_file):
 
     s += '\n\\score {\n  <<\n'
 
+    control_track = False
     i = 0
     for i, staff in enumerate (staves):
         track_name = get_track_name (i)
@@ -1009,11 +1010,12 @@ def convert_midi (in_file, out_file):
         staff_name = track_name
         context = None
         if not i and not item and len (staves) > 1:
-            # control track
-            staff_name = get_track_name (1)
-            context = 'Staff'
+            control_track = track_name
+            continue
         elif (item and item.__class__ == Note):
             context = 'Staff'
+            if control_track:
+                s += '    \\context %(context)s=%(staff_name)s \\%(control_track)s\n' % locals ()
         elif item and item.__class__ == Text:
             context = 'Lyrics'
         if context:
