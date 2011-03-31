@@ -457,10 +457,10 @@ may/might/probably mirror existing variables, but lacking any docs
 about those variables, I thought it would be simpler to keep
 everything in the same file.
 
-Note that for security reasons, we *don't* call scripts in the git
-dir when building on the web server.  See @ref{Uploading and
-security}.  So we definitely want to keep those definitions for
-the WEBSITE_ONLY_BUILD.
+Note that for security reasons, we @strong{don't} call scripts in
+the git dir when building on the web server.  See @ref{Uploading
+and security}.  So we definitely want to keep those definitions
+for the WEBSITE_ONLY_BUILD.
 
 After some split WEBSITE_ONLY_BUILD vs. normal build definitions,
 there's another bunch of lines setting up generic variables.
@@ -468,26 +468,38 @@ there's another bunch of lines setting up generic variables.
 @subsubheading website.make building parts
 
 The website-version rule creates files that define macros for
-commands like @@stableDocsNotationPdf@{@}, by calling python scripts.
-Those scripts are scripts/build/create-version-itexi.py and
-scripts/build/create-weblinks-itexi.py.
+commands like @code{@@stableDocsNotationPdf@{@}}, by calling
+python scripts.  Those scripts are:
 
-website-xrefs: creates files used for complicated "out-of-build"
-references.  If you just write @@ref@{@}, then all's groovy.  But
-if you do @@rlearning@{@}, then our custom texi2html init file
-needs to know about our custom xref file format, which tells our
-custom texi2html init file how to create the link.
+@example
+scripts/build/create-version-itexi.py
+scripts/build/create-weblinks-itexi.py
+@end example
+
+The remaining parts are:
+
+@itemize
+@item
+@code{website-xrefs:}
+creates files used for complicated "out-of-build" references.  If
+you just write @@ref@{@}, then all's groovy.  But if you do
+@@rlearning@{@}, then our custom texi2html init file needs to know
+about our custom xref file format, which tells our custom
+texi2html init file how to create the link.
 
 We should have a separate @@node to discuss xrefs.  Also, take a
 quick look at a generated xref file -- it's basically just a list
 of @@node's [sic teenager pluralization rule] from the file.
 
-website-bib: generates the bibliography texinfo files from the
-.bib files.
+@item
+@code{website-bib:}
+generates the bibliography texinfo files from the .bib files.
 
-website-texinfo: this is the money shot; it calles texi2html to
-generate the actual html.  It also has a ton of options to
-texi2html to pass info to our custom init file.
+@item
+@code{website-texinfo:}
+this is the money shot; it calles texi2html to generate the actual
+html.  It also has a ton of options to texi2html to pass info to
+our custom init file.
 
 After texi2html, it does some black magick to deal with
 untranslated nodes in the translations.  Despite writing that
@@ -495,27 +507,43 @@ part, I can't remember how it works.  But in theory, you could
 figure it out by copy&pasting each part of the command (by "part",
 I mean "stuff before each | pipe"), substituting the variables,
 then looking at the text that's output.  For example,
+
+@example
   ls $(OUT)/$$l/*.html
+@end example
+
 is going to print a list of all html files, in all languages, in
 the build directory.  Then more stuff happens to each of those
 files (that's what xargs does).
 
-website-css: just copies files to the build dir.
+@item
+@code{website-css:}
+just copies files to the build dir.
 
-website-pictures, website-examples: more file copies, with an if
-statement to handle if you don't have any generated
-pictures/examples.
+@item
+@code{website-pictures, website-examples:}
+more file copies, with an if statement to handle if you don't have
+any generated pictures/examples.
 
-web-post: buggered if I know.  Apparently it runs the
-scripts/build/website_post.py  file, which despite writing, I
-can't remember what it does.
+@item
+@code{web-post:}
+runs:
 
-ok, it adds the "this page is translated in klingon" to the bottom
-of html pages, and adds the google analytics javascript.  It also
-has hard-coded lilypond version numbers.
+@example
+scripts/build/website_post.py
+@end example
 
-website: this is the "master" rule.  It calls the bits and pieces
-in order, then copies some extra files around.
+which, it adds the "this page is translated in klingon" to the
+bottom of html pages, and adds the google analytics javascript.
+It also has hard-coded lilypond version numbers, which is Bad
+(tm).
+
+@item
+@code{website:}
+this is the "master" rule.  It calls the bits and pieces in order,
+then copies some extra files around.
+
+@end itemize
 
 
 @node Building an Ubuntu distro
