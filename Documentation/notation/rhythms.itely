@@ -1919,15 +1919,6 @@ Internals Reference:
 @rinternals{beam-interface},
 @rinternals{unbreakable-spanner-interface}.
 
-@knownissues
-Beams can collide with note heads and accidentals in other
-voices.  In this case use @ref{Manual beams}.
-
-@lilypond[quote,relative=1,verbatim]
-c8 des'! c, [ des'! ]
-@end lilypond
-
-
 @node Setting automatic beam behavior
 @unnumberedsubsubsec Setting automatic beam behavior
 
