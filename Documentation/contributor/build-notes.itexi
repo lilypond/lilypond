@@ -11,6 +11,7 @@ chapter.}
 @menu
 * Build system overview::
 * Tips for working on the build system::
+* General build system notes::
 * Doc build::
 * Website build::
 * Building an Ubuntu distro::
@@ -83,115 +84,15 @@ covers about 5% of the whole thing, but even that will likely take
 @end itemize
 
 
-
-@node Doc build
-@section Doc build
+@node General build system notes
+@section General build system notes
 
 @menu
-* Building a bibliography::
+* How stepmake works::
 @end menu
 
-@node Building a bibliography
-@subsection Building a bibliography
-
-Bibliography files contain a list of citations, like this:
-
-@example
-@@Book@{vinci,
-  author = @{Vinci, Albert C.@},
-  title = @{Fundamentals of Traditional Music Notation@},
-  publisher = @{Kent State University Press@},
-  year = @{1989@}
-@}
-@end example
-
-There are a variety of types of citation (e.g. Book (as above),
-article, publication).  Each cited publication has a list of
-entries that can be used to identify the publication.
-Bibliograpies are normally stored as files with a .bib
-extension.  One part of the doc-build process is transforming the
-bibliography information into @code{texinfo} files.  The commands
-to do this are in the @file{GNUmakefile} in the
-@file{Documentation} directory.
-
-A typical line of the makefile to translate a single bibliography
-is:
-
-@example
-$(outdir)/colorado.itexi:
-	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
-		-s $(top-src-dir)/Documentation/lily-bib \
-		-o $(outdir)/colorado.itexi \
-		$(src-dir)/essay/colorado.bib
-@end example
-
-Line by line:
-
-@example
-$(outdir)/colorado.itexi:
-@end example
-
-We're making the file @file{colorado.itexi} and so this is the
-make instruction.
-
-@example
-	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
-@end example
-
-It's in the @file{essay} directory and we want to run the
-bib2texi.py script against it.
-
-@example
-		-s $(top-src-dir)/Documentation/lily-bib \
-@end example
-
-The style template is @file{lily-bib.bst} and is found in the
-@file{Documentation} directory.
-
-@example
-		-o $(outdir)/colorado.itexi \
-@end example
-
-The output file in @file{colorado.itexi}.
-
-@example
-		$(src-dir)/essay/colorado.bib
-@end example
-
-The input file is @file{colorado.bib} in the @file{essay}
-directory.
-
-The @code{bib2texi} Python script used to be used with a variety
-of options, but now is always called using the same options, as
-above.  Its job is to create the file containing the options for
-@code{bibtex} (the program that actually does the translation),
-run bibtex, and then clean up some temporary files.  Its main
-"value add" is the creation of the options file, using this code:
-
-@example
-open (tmpfile + '.aux', 'w').write (r'''
-\relax
-\citation@{*@}
-\bibstyle@{%(style)s@}
-\bibdata@{%(files)s@}''' % vars ())
-@end example
-
-The key items are the style file (now always lily-bib for us) and
-the input file.
-
-The style file is written in its own specialised language,
-described to some extent at
-
-@example
-@uref{http://amath.colorado.edu/documentation/LaTeX/reference/faq/bibtex.pdf}
-@end example
-
-The file @file{lily-bib.bst} also has fairly extensive commenting.
-
-@node Website build
-@section Website build
-
-Start here: @file{make/website.make}
+@node How stepmake works
+@subsection How stepmake works
 
 Typing make website runs the file @file{GNUmakefile} from the
 build directory.  This only contains 3 lines:
@@ -217,13 +118,6 @@ then runs @file{make/config.make} - which doesn't seem to exist...
 GP: scons is indeed a different build tool; I think that Jan
 experimented with it 5 years ago or something.  It seems like we
 still have bits and pieces of it floating around.
-
-GP: note that *none* of the variables that are loaded (from depth
-to version numbers to whatever) are used in website.make.
-Instead, website.make sets up its own variables at the top of the
-file.  If you're wondering if there's some smart reason for this,
-then the answer is "no".  It's because I didn't know/trust the
-original variables when I was writing that file.
 
 Next, it runs @file{make/toplevel-version.make}, which sets the
 version variables for major, minor, patch, stable, development and
@@ -430,9 +324,128 @@ looked at stuff -- I tend to do a "back first" approach (where I
 begin from the command-line that I want to modify, figure out
 where it's generated, and then figure out how to change the
 generated command-line), rather than a "front first" (where you
-begin from the "make" command).  In the long term, we should
-probably move it to a general "how stepmake works" section,
-because it's not particularly relevant to the website build.
+begin from the "make" command).
+
+
+@node Doc build
+@section Doc build
+
+@menu
+* Building a bibliography::
+@end menu
+
+@node Building a bibliography
+@subsection Building a bibliography
+
+Bibliography files contain a list of citations, like this:
+
+@example
+@@Book@{vinci,
+  author = @{Vinci, Albert C.@},
+  title = @{Fundamentals of Traditional Music Notation@},
+  publisher = @{Kent State University Press@},
+  year = @{1989@}
+@}
+@end example
+
+There are a variety of types of citation (e.g. Book (as above),
+article, publication).  Each cited publication has a list of
+entries that can be used to identify the publication.
+Bibliograpies are normally stored as files with a .bib
+extension.  One part of the doc-build process is transforming the
+bibliography information into @code{texinfo} files.  The commands
+to do this are in the @file{GNUmakefile} in the
+@file{Documentation} directory.
+
+A typical line of the makefile to translate a single bibliography
+is:
+
+@example
+$(outdir)/colorado.itexi:
+	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
+		-s $(top-src-dir)/Documentation/lily-bib \
+		-o $(outdir)/colorado.itexi \
+		$(src-dir)/essay/colorado.bib
+@end example
+
+Line by line:
+
+@example
+$(outdir)/colorado.itexi:
+@end example
+
+We're making the file @file{colorado.itexi} and so this is the
+make instruction.
+
+@example
+	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
+@end example
+
+It's in the @file{essay} directory and we want to run the
+bib2texi.py script against it.
+
+@example
+		-s $(top-src-dir)/Documentation/lily-bib \
+@end example
+
+The style template is @file{lily-bib.bst} and is found in the
+@file{Documentation} directory.
+
+@example
+		-o $(outdir)/colorado.itexi \
+@end example
+
+The output file in @file{colorado.itexi}.
+
+@example
+		$(src-dir)/essay/colorado.bib
+@end example
+
+The input file is @file{colorado.bib} in the @file{essay}
+directory.
+
+The @code{bib2texi} Python script used to be used with a variety
+of options, but now is always called using the same options, as
+above.  Its job is to create the file containing the options for
+@code{bibtex} (the program that actually does the translation),
+run bibtex, and then clean up some temporary files.  Its main
+"value add" is the creation of the options file, using this code:
+
+@example
+open (tmpfile + '.aux', 'w').write (r'''
+\relax
+\citation@{*@}
+\bibstyle@{%(style)s@}
+\bibdata@{%(files)s@}''' % vars ())
+@end example
+
+The key items are the style file (now always lily-bib for us) and
+the input file.
+
+The style file is written in its own specialised language,
+described to some extent at
+
+@example
+@uref{http://amath.colorado.edu/documentation/LaTeX/reference/faq/bibtex.pdf}
+@end example
+
+The file @file{lily-bib.bst} also has fairly extensive commenting.
+
+@node Website build
+@section Website build
+
+Start here: @file{make/website.make}
+
+The overall build system begins with @ref{How stepmake works}.
+
+However, we do believe that note that *none* of the variables that
+are loaded (from depth to version numbers to whatever) are used in
+@file{website.make}.  Instead, @file{website.make} sets up its own
+variables at the top of the file.  If you're wondering if there's
+some smart reason for this, then the answer is "no".  It's because
+I didn't know/trust the original variables when I was writing that
+file.
+
 
 Website build includes @ref{Building a bibliography}.
 
