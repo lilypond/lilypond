@@ -290,8 +290,8 @@ attempting any large projects.
 @docLinks{Usage, usage,
   @rprogramnamed{Top,Usage},
   @manualStableUsageSplit,
-  @manualStableUsageBig, 300 KB,
-  @manualStableUsagePdf, 400 KB}
+  @manualStableUsageBig, 400 KB,
+  @manualStableUsagePdf, 600 KB}
 
 @divEnd
 
