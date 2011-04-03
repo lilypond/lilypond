@@ -46,6 +46,7 @@ public:
   Audio_dynamic ();
 
   Real volume_;
+  bool silent_;
 };
 
 class Audio_span_dynamic : public Audio_element
@@ -89,7 +90,7 @@ public:
   Pitch pitch_;
   Moment length_mom_;
   Pitch transposing_;
-  Real volume_;
+  Audio_dynamic* dynamic_;
   
   Audio_note *tied_;
   bool tie_event_;

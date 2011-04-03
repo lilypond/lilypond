@@ -50,7 +50,7 @@ private:
   int get_channel (string instrument);
   Audio_staff* get_audio_staff (string voice);
   Audio_staff* new_audio_staff (string voice);
-  Real get_dynamic (string voice);
+  Audio_dynamic* get_dynamic (string voice);
 
   string instrument_string_;
   int channel_;
@@ -60,7 +60,7 @@ private:
   Audio_tempo *tempo_;
   map<string, Audio_staff*> staff_map_;
   map<string, int> channel_map_;
-  map<string, Real> dynamic_map_;
+  map<string, Audio_dynamic*> dynamic_map_;
   static map<string, int> static_channel_map_;
   static int channel_count_;
 };
@@ -140,10 +140,10 @@ Staff_performer::get_audio_staff (string voice)
   return new_audio_staff (voice);
 }
 
-Real
+Audio_dynamic*
 Staff_performer::get_dynamic (string voice)
 {
-  map<string, Real>::const_iterator i = dynamic_map_.find (voice);
+  map<string, Audio_dynamic*>::const_iterator i = dynamic_map_.find (voice);
   if (i != dynamic_map_.end ())
     return i->second;
   return 0;
@@ -266,15 +266,19 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
 	}
       Audio_staff* audio_staff = get_audio_staff (voice);
       ai->channel_ = channel_;
-      // Output volume as velocity and disable Midi_dynamic output
-      if (Audio_dynamic *d = dynamic_cast<Audio_dynamic *> (inf.elem_))
+      bool encode_dynamics_as_velocity_ = true;
+      if (encode_dynamics_as_velocity_)
 	{
-	  dynamic_map_[voice] = d->volume_;
-	  d->volume_ = -1;
+	  if (Audio_dynamic *d = dynamic_cast<Audio_dynamic *> (inf.elem_))
+	    {
+	      dynamic_map_[voice] = d;
+	      // Output volume as velocity: must disable Midi_dynamic output
+	      d->silent_ = true;
+	    }
+	  if (Audio_dynamic *d = get_dynamic (voice))
+	    if (Audio_note *n = dynamic_cast<Audio_note *> (inf.elem_))
+	      n->dynamic_ = d;
 	}
-      if (Real d = get_dynamic (voice))
-	if (Audio_note *n = dynamic_cast<Audio_note *> (inf.elem_))
-	  n->volume_ = d;
       audio_staff->add_audio_item (ai);
     }
 }
