@@ -96,7 +96,7 @@ $(outdir)/feta23.otf-table: $(outdir)/feta23.lisp \
 			    $(outdir)/parmesan23.lisp \
 			    $(outdir)/feta-alphabet23.lisp
 $(outdir)/feta20.otf-table: $(outdir)/feta20.lisp \
-			    $(outdir)/feta-noteheads23.lisp \
+			    $(outdir)/feta-noteheads20.lisp \
 			    $(outdir)/parmesan20.lisp \
 			    $(outdir)/feta-alphabet20.lisp
 $(outdir)/feta18.otf-table: $(outdir)/feta18.lisp \

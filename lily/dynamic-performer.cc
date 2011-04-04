@@ -144,7 +144,6 @@ Dynamic_performer::process_music ()
       announce_element (info);
     }
 
-
   if (span_dynamic_)
     span_dynamic_->add_absolute (absolute_);
 

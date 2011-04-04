@@ -8,10 +8,7 @@ example really contains three tab staves, but as it progresses, empty ones
 are removed: this example has three staves, but some of them
 disappear: note how the 2nd line only has the bar number 2. (That the
 bar number is printed might be considered a bug, however, the scenario
-of all staves disappearing does not happen in practice.)
-
-Any staff brackets and braces are removed, both in the single staff
-and no staff case."
+of all staves disappearing does not happen in practice.)"
 
 }
 
@@ -24,7 +21,7 @@ and no staff case."
 }
 
 
-\context PianoStaff <<
+\new GrandStaff <<
   \new TabStaff {
     c4 c c c \break
     s1 \break
@@ -44,6 +41,4 @@ and no staff case."
     s1
   }
 >>
-
-
 

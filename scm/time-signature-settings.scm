@@ -46,7 +46,7 @@
 ;;;     If an exception is specified for a given beam-type, it will apply to all
 ;;;     beams of shorter durations that don't have an individual exception, so
 ;;;     ((1 . 8) . (3 3 2))
-;;;     will cause all primary beams to be broken at 3/8, 5/8, and 8/8.
+;;;     will cause all primary beams to be broken at 3/8, 6/8, and 8/8.
 ;;;
 ;;;     ((1. 32) . (16 8 4 4))
 ;;;     will cause all 1/32, 1/64, and 1/128 beams to be broken at 1/2, 3/4,
@@ -60,9 +60,6 @@
 ;;;     signature numerator is greater than 3 and divisible by 3, and
 ;;;     a list of (1 1 1 ...), where the number of entries is the
 ;;;     number of base moments in a measure otherwise.
-;;;
-;;; If no value is given for beatCombinations, no beats will be combined without
-;;;   beamExceptions rules.
 ;;;
 ;;;       NOTE: numerator is kept in beam-type because of
 ;;;             tuplets, e.g. (2 . 24) = (2 . 3) * (1 . 8)

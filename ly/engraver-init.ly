@@ -323,6 +323,10 @@ contained staves are connected vertically."
 
   \defaultchild "Staff"
   \accepts "Staff"
+  \accepts "RhythmicStaff"
+  \accepts "DrumStaff"
+  \accepts "TabStaff"
+  \accepts "Lyrics"
   \accepts "FiguredBass"
   \accepts "Dynamics"
   \accepts "ChordNames"
@@ -461,8 +465,18 @@ printing of a single line of lyrics."
   \description "A context for printing the names of notes."
   \consists "Axis_group_engraver"
 
-  % FIXME: not sure what the default should be here.
-  \override VerticalAxisGroup #'staff-affinity = #DOWN
+  \override VerticalAxisGroup #'staff-affinity = #UP
+  \override VerticalAxisGroup #'nonstaff-nonstaff-spacing =
+    #'((basic-distance . 0)
+       (minimum-distance . 2.8)
+       (padding . 0.2)
+       (stretchability . 0))
+  \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing =
+    #'((basic-distance . 5.5)
+       (padding . 0.5)
+       (stretchability . 1))
+  \override VerticalAxisGroup
+    #'nonstaff-unrelatedstaff-spacing #'padding = 1.5
 
   \consists "Tie_engraver"
   \consists "Note_name_engraver"

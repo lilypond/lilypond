@@ -76,7 +76,7 @@ Free Documentation License''.
 
 @c TITLE PAGE
 @ifnottex
-@node Arriba
+@node Top
 @top LilyPond... notación musical para todos
 @translationof Top
 @end ifnottex

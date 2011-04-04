@@ -54,6 +54,8 @@ public:
   bool to_bool () const;
   I64 den () const;
   I64 num () const;
+  Rational main_part () const;
+  Rational grace_part () const;
   /*
     Deliver a copy of THIS as a smobified SCM
   */
@@ -81,4 +83,3 @@ ostream &operator << (ostream &, Moment const &);
 bool moment_less (SCM a, SCM b);
 
 #endif /* MOMENT_HH */
-

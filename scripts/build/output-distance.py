@@ -964,11 +964,11 @@ class ComparisonData:
     def print_results (self, threshold):
         self.write_text_result_page ('', threshold)
 
-def compare_trees (dir1, dir2, dest_dir, threshold):
+def compare_tree_pairs (tree_pairs, dest_dir, threshold):
     data = ComparisonData ()
-    data.compare_trees (dir1, dir2)
+    for dir1, dir2 in tree_pairs:
+        data.compare_trees (dir1, dir2)
     data.read_sources ()
-
 
     data.print_results (threshold)
 
@@ -1014,7 +1014,7 @@ def test_paired_files ():
                         os.environ["HOME"] + "/src/lilypond-stable/scripts/build/", '*.py')
 
 
-def test_compare_trees ():
+def test_compare_tree_pairs ():
     system ('rm -rf dir1 dir2')
     system ('mkdir dir1 dir2')
     system ('cp 20{-*.signature,.ly,.png,.eps,.log,.profile} dir1')
@@ -1059,7 +1059,7 @@ def test_compare_trees ():
     system ('cp 19multipage.log dir1/log-differ.log')
     system ('cp 19multipage.log dir2/log-differ.log &&  echo different >> dir2/log-differ.log &&  echo different >> dir2/log-differ.log')
 
-    compare_trees ('dir1', 'dir2', 'compare-dir1dir2', options.threshold)
+    compare_tree_pairs (['dir1', 'dir2'], 'compare-dir1dir2', options.threshold)
 
 
 def test_basic_compare ():
@@ -1184,14 +1184,14 @@ def run_tests ():
     if do_clean:
         test_basic_compare ()
 
-    test_compare_trees ()
+    test_compare_tree_pairs ()
 
 ################################################################
 #
 
 def main ():
     p = optparse.OptionParser ("output-distance - compare LilyPond formatting runs")
-    p.usage = 'output-distance.py [options] tree1 tree2'
+    p.usage = 'output-distance.py [options] tree1 tree2 [tree3 tree4]...'
 
     p.add_option ('', '--test-self',
                   dest="run_test",
@@ -1246,17 +1246,17 @@ def main ():
         run_tests ()
         sys.exit (0)
 
-    if len (args) != 2:
-        p.print_usage()
+    if len (args) % 2:
+        p.print_usage ()
         sys.exit (2)
 
-    name = options.output_dir
-    if not name:
-        name = args[0].replace ('/', '')
-        name = os.path.join (args[1], 'compare-' + shorten_string (name))
+    out = options.output_dir
+    if not out:
+        out = args[0].replace ('/', '')
+        out = os.path.join (args[1], 'compare-' + shorten_string (out))
 
-    compare_trees (args[0], args[1], name, options.threshold)
+    compare_tree_pairs (zip (args[0::2], args[1::2]), out, options.threshold)
 
 if __name__ == '__main__':
-    main()
+    main ()
 

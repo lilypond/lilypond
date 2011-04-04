@@ -13,7 +13,7 @@
 
 % included from ./out/initial-key.header
 \header {
-texidoc="keys work in MIDI, this is a-minor"
+texidoc="keys work in MIDI, this is d-minor"
 options=""
 }
 % end
@@ -21,7 +21,7 @@ options=""
 trackAchannelA = {
 
 
-  \key a \minor
+  \key d \minor
     
   % [SEQUENCE_TRACK_NAME] control track
   
@@ -43,9 +43,9 @@ trackA = <<
 trackBchannelA = \relative c {
   
   \set Staff.instrumentName = "trackB:voiceA"
-  a'4 b c d 
+  d'4 e f g 
   | % 2
-  e f gis a 
+  a bes cis d
   | % 3
   
 }
@@ -60,7 +60,7 @@ trackCchannelA = {
   \set Staff.instrumentName = "trackB:"
   
 
-  \key a \minor
+  \key d \minor
   
 }
 

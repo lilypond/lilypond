@@ -45,13 +45,13 @@ Audio_item::Audio_item ()
 }
 
 Audio_note::Audio_note (Pitch p, Moment m, bool tie_event, Pitch transposing)
+  : pitch_ (p)
+  , length_mom_ (m)
+  , transposing_ (transposing)
+  , dynamic_ (0)
+  , tied_ (0)
+  , tie_event_ (tie_event)
 {
-  pitch_ = p;
-  length_mom_ = m;
-  tied_ = 0;
-  transposing_ = transposing;
-  tie_event_ = tie_event;
-  volume_ = 0;
 }
 
 void
@@ -74,8 +74,9 @@ Audio_key::Audio_key (int acc, bool major)
 }
 
 Audio_dynamic::Audio_dynamic ()
+  : volume_ (-1)
+  , silent_ (false)
 {
-  volume_ = -1;
 }
 
 Audio_span_dynamic::Audio_span_dynamic ()

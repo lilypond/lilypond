@@ -53,7 +53,7 @@ struct Head_event_tuple
   // This is needed for tied chords, e.g. <c e g>~ g, because otherwise the c
   // and e will trigger a warning for an unterminated tie!
   bool tie_from_chord_created;
-  
+
   Head_event_tuple ()
   {
     head_ = 0;
@@ -145,7 +145,7 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
       */
       if (!right_ev || !left_ev)
 	continue;
-      
+
       if (ly_is_equal (right_ev->get_property ("pitch"),
 		       left_ev->get_property ("pitch")))
 	{
@@ -155,7 +155,7 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
 	  SCM cause = heads_to_tie_[i].tie_event_
 	    ? heads_to_tie_[i].tie_event_->self_scm ()
 	    : heads_to_tie_[i].tie_stream_event_->self_scm ();
-	  
+
 	  announce_grob (p, cause);
 	  Tie::set_head (p, LEFT, th);
 	  Tie::set_head (p, RIGHT, h);
@@ -164,9 +164,9 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
 	  if (is_direction (unsmob_stream_event (cause)->get_property ("direction")))
 	    {
 	      Direction d = to_dir (unsmob_stream_event (cause)->get_property ("direction"));
-	      p->set_property ("direction", scm_from_int (d)); 
+	      p->set_property ("direction", scm_from_int (d));
 	    }
-	  
+
 	  ties_.push_back (p);
 	  heads_to_tie_.erase (heads_to_tie_.begin () + i);
 
@@ -193,9 +193,6 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
 void
 Tie_engraver::start_translation_timestep ()
 {
-  context ()->set_property ("tieMelismaBusy",
-			    ly_bool2scm (heads_to_tie_.size ()));
-
   if (heads_to_tie_.size () && !to_boolean (get_property ("tieWaitForNote")))
     {
       Moment now = now_mom ();
@@ -208,6 +205,9 @@ Tie_engraver::start_translation_timestep ()
 	    }
 	}
     }
+
+  context ()->set_property ("tieMelismaBusy",
+			    ly_bool2scm (heads_to_tie_.size ()));
 }
 
 void
@@ -232,7 +232,7 @@ Tie_engraver::stop_translation_timestep ()
     }
 
   vector<Head_event_tuple> new_heads_to_tie;
-  
+
   for (vsize i = 0; i < now_heads_.size (); i++)
     {
       Grob *head = now_heads_[i];
@@ -244,8 +244,8 @@ Tie_engraver::stop_translation_timestep ()
 	  // may happen for ambitus
 	  continue;
 	}
-	    
-      
+
+
       SCM left_articulations = left_ev->get_property ("articulations");
 
       Stream_event *tie_event = 0;
@@ -257,11 +257,11 @@ Tie_engraver::stop_translation_timestep ()
 	  Stream_event *ev = unsmob_stream_event (scm_car (s));
 	  if (!ev)
 	    continue;
-	  
+
 	  if (ev->in_event_class ("tie-event"))
 	    tie_event = ev;
 	}
-	  
+
       if (left_ev && (tie_event || tie_stream_event))
 	{
 	  Head_event_tuple event_tup;
@@ -284,7 +284,7 @@ Tie_engraver::stop_translation_timestep ()
 	      end += get_event_length (left_ev);
 	    }
 	  event_tup.end_moment_ = end;
-	    
+
 	  new_heads_to_tie.push_back (event_tup);
 	}
     }
@@ -300,7 +300,7 @@ Tie_engraver::stop_translation_timestep ()
   // hmmm, how to do with copy () ?
   for (vsize i = 0; i < new_heads_to_tie.size (); i++)
     heads_to_tie_.push_back (new_heads_to_tie[i]);
-  
+
   event_ = 0;
   now_heads_.clear ();
 }

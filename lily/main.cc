@@ -113,8 +113,9 @@ static char const *NOTICE
 
 static char const *WARRANTY
 = _i ("    This program is free software; you can redistribute it and/or\n"
-      "modify it under the terms of the GNU General Public License version 2\n"
-      "as published by the Free Software Foundation.\n"
+      "modify it under the terms of the GNU General Public License as \n"
+      "published by the Free Software Foundation, either version 3 of\n"
+      "the License, or (at your option) any later version.\n"
       "\n"
       "    This program is distributed in the hope that it will be useful,\n"
       "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"

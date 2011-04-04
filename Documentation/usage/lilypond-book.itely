@@ -159,6 +159,20 @@ Larger examples can be put into a separate file, and introduced with
 
 @lilypondfile[quote,noindent]{screech-boink.ly}
 
+If a @code{tagline} is required, either default or custom, then the
+entire snippet must be enclosed in a @code{\book @{ @}} construct.
+
+@lilypond[papersize=a8,verbatim]
+\book{
+  \header{
+    title = "A scale in LilyPond"
+  }
+
+  \relative c' {
+    c d e f g a b c
+  }
+}
+@end lilypond
 
 @page
 
@@ -600,6 +614,14 @@ computed with a heuristic algorithm).
 If no @code{line-width} option is given, @command{lilypond-book} tries to
 guess a default for @code{lilypond} environments which don't use the
 @code{ragged-right} option.
+
+@item papersize=@var{string}
+Where @var{string} is a paper size defined in @file{scm/paper.scm} i.e.
+@code{a5}, @code{quarto}, @code{11x17} etc.
+
+Values not defined in @file{scm/paper.scm} will be ignored, a warning
+will be posted and the snippet will be printed using the default
+@code{a4} size.
 
 @item notime
 Do not print the time signature, and turns off the timing (time signature,

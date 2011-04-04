@@ -81,8 +81,10 @@ Lyric_engraver::process_music ()
     }
 
     Context *voice = get_voice_to_lyrics (context ());
-    if (last_text_ && voice &&
-        to_boolean (voice->get_property ("melismaBusy")))
+    if (last_text_
+        && voice
+        && to_boolean (voice->get_property ("melismaBusy"))
+        && !to_boolean (context ()->get_property ("ignoreMelismata")))
       last_text_->set_property ("self-alignment-X",
 	                        get_property ("lyricMelismaAlignment"));
 }
