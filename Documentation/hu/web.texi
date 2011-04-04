@@ -153,7 +153,7 @@ Ha többet akarsz róla megtudni, olvasd el a @ref{Bevezetés}t!
 @ifset web_version
   @c make the box:
 @divId{latestVersion}
-@subheading Quick links
+@subheading Gyorslinkek
 
 @c TODO: javascript to detect OS and suggest download?
 
