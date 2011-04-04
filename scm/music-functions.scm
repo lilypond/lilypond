@@ -1004,12 +1004,18 @@ then revert skipTypesetting."
       (equal? laziness #t)
       (<= bar-number (+ (cadr alteration-def) laziness))))
 
-(define (is-tied? alteration-def)
-  (let* ((def (if (pair? alteration-def)
-		 (car alteration-def)
-		 alteration-def)))
+(define (accidental-invalid? alteration-def)
+  "Checks an alteration entry for being invalid.
 
-    (if (equal? def 'tied) #t #f)))
+Non-key alterations are invalidated when tying into the next bar or
+when there is a clef change, since neither repetition nor cancellation
+can be omitted when the same note occurs again.
+
+Returns @code{#f} or the reason for the invalidation, a symbol."
+  (let* ((def (if (pair? alteration-def)
+		  (car alteration-def)
+		  alteration-def)))
+    (and (symbol? def) def)))
 
 (define (extract-alteration alteration-def)
   (cond ((number? alteration-def)
@@ -1077,7 +1083,7 @@ specifies whether accidentals should be canceled in different octaves."
      (from-key-sig
       (set! previous-alteration from-key-sig)))
 
-    (if (is-tied? previous-alteration)
+    (if (accidental-invalid? previous-alteration)
 	(set! need-accidental #t)
 
 	(let* ((prev-alt (extract-alteration previous-alteration))
@@ -1135,10 +1141,14 @@ immediately', that is, only look at key signature.  @code{#t} is `forever'."
   (and (pair? (car entry)) (cdddr entry)))
 
 (define (key-entry-alteration entry)
-  "Return the alteration of an entry in localKeySignature."
-  (if (number? (car entry))
-      (cdr entry)
-      (cadr entry)))
+  "Return the alteration of an entry in localKeySignature.
+
+For convenience, returns @code{0} if entry is @code{#f}."
+  (if entry
+      (if (number? (car entry))
+	  (cdr entry)
+	  (cadr entry))
+      0))
 
 (define-public (find-pitch-entry keysig pitch accept-global accept-local)
   "Return the first entry in @var{keysig} that matches @var{pitch}.
@@ -1167,9 +1177,7 @@ look at bar lines nor different accidentals at the same note name."
     (if (not entry)
 	(cons #f #f)
 	(let* ((global-entry (find-pitch-entry keysig pitch #t #f))
-	       (key-acc (if (equal? global-entry #f)
-			    0
-			    (key-entry-alteration global-entry)))
+	       (key-acc (key-entry-alteration global-entry))
 	       (acc (ly:pitch-alteration pitch))
 	       (entrymp (key-entry-measure-position entry))
 	       (entrybn (key-entry-bar-number entry)))
@@ -1185,9 +1193,7 @@ on the same staff line."
     (if (not entry)
 	(cons #f #f)
 	(let* ((global-entry (find-pitch-entry keysig pitch #f #f))
-	       (key-acc (if (equal? global-entry #f)
-			    0
-			    (key-entry-alteration global-entry)))
+	       (key-acc (key-entry-alteration global-entry))
 	       (acc (ly:pitch-alteration pitch))
 	       (entrymp (key-entry-measure-position entry))
 	       (entrybn (key-entry-bar-number entry)))
@@ -1371,6 +1377,36 @@ as a context."
        (ly:warning (_ "unknown accidental style: ~S") style)
        (make-sequential-music '()))))))
 
+(define-public (invalidate-alterations context)
+  "Invalidate alterations in @var{context}.
+
+Elements of @code{'localKeySignature} corresponding to local
+alterations of the key signature have the form
+@code{'((octave . notename) . (alter barnum . measurepos))}.
+Replace them with a version where @code{alter} is set to @code{'clef}
+to force a repetition of accidentals.
+
+Entries that conform with the current key signature are not invalidated."
+  (let* ((keysig (ly:context-property context 'keySignature)))
+    (set! (ly:context-property context 'localKeySignature)
+	  (map-in-order
+	   (lambda (entry)
+	     (let* ((localalt (key-entry-alteration entry))
+		    (localoct (key-entry-octave entry)))
+	       (if (or (accidental-invalid? localalt)
+		       (not localoct)
+		       (= localalt
+			  (key-entry-alteration
+			   (find-pitch-entry
+			    keysig
+			    (ly:make-pitch localoct
+					   (key-entry-notename entry)
+					   0)
+			    #t #t))))
+		   entry
+		   (cons (car entry) (cons 'clef (cddr entry))))))
+	   (ly:context-property context 'localKeySignature)))))
+  		    
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (skip-of-length mus)
