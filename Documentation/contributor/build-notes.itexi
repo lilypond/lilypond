@@ -495,7 +495,7 @@ Website build includes @ref{Building a bibliography}.
 
 Running @code{make -n website} gives the following output:
 
-@example
+@smallexample
 make --no-builtin-rules config_make=./config.make \
 		top-src-dir=/home/phil/lilypond-git \
 		-f /home/phil/lilypond-git/make/website.make \
@@ -568,12 +568,12 @@ cp /home/phil/lilypond-git/Documentation/web/server/robots.txt out-website/websi
 cp /home/phil/lilypond-git/Documentation/web/server/lilypond.org.htaccess out-website/.htaccess
 cp /home/phil/lilypond-git/Documentation/web/server/website-dir.htaccess out-website/website/.htaccess
 make[1]: Leaving directory `/home/phil/lilypond-git/build'
-@end example
+@end smallexample
 
 And, although there's rather a lot of text here, here's the output
 when @code{make website} is run:
 
-@example
+@smallexample
 make --no-builtin-rules config_make=./config.make \
 		top-src-dir=/home/phil/lilypond-git \
 		-f /home/phil/lilypond-git/make/website.make \
@@ -916,7 +916,8 @@ cp /home/phil/lilypond-git/Documentation/web/server/favicon.ico out-website/webs
 cp /home/phil/lilypond-git/Documentation/web/server/robots.txt out-website/website
 cp /home/phil/lilypond-git/Documentation/web/server/lilypond.org.htaccess out-website/.htaccess
 cp /home/phil/lilypond-git/Documentation/web/server/website-dir.htaccess out-website/website/.htaccess
-make[1]: Leaving directory `/home/phil/lilypond-git/build'@end example
+make[1]: Leaving directory `/home/phil/lilypond-git/build'
+@end smallexample
 
 
 
