@@ -447,6 +447,12 @@ Beam_scoring_problem::solve () const {
   vector<Beam_configuration*> configs;
   generate_quants (&configs);
 
+  if (configs.empty ())
+    {
+      programming_error ("No viable beam quanting found.  Using unquanted y value.");
+      return unquanted_y;
+    }
+
   Beam_configuration *best = NULL;  
 
   bool debug =
