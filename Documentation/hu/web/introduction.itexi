@@ -707,7 +707,7 @@ kell nevezni őket:
 
 
 Az így létrejött változóra később lehet hivatkozni (akár transzponálva és
-összevonva a több ütemes szüneteket, mint itt):
+összevonva a többütemes szüneteket, mint itt):
 
 @imageFloat{text-input-parts-single-annotate-hu,png,center}
 @imageFloat{text-input-parts-single-output,png,center}
