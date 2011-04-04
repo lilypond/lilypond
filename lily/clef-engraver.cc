@@ -138,6 +138,15 @@ Clef_engraver::process_music ()
   inspect_clef_properties ();
 }
 
+static void apply_on_children (Context *context, SCM fun)
+{
+  scm_call_1(fun, context->self_scm());
+  for (SCM s = context->children_contexts ();
+       scm_is_pair(s); s = scm_cdr (s))
+    apply_on_children(unsmob_context (scm_car(s)), fun);
+}
+  
+
 void
 Clef_engraver::inspect_clef_properties ()
 {
@@ -152,9 +161,8 @@ Clef_engraver::inspect_clef_properties ()
       || scm_equal_p (octavation, prev_octavation_) == SCM_BOOL_F
       || to_boolean (force_clef))
     {
-      set_context_property_on_children (context (),
-					ly_symbol2scm ("localKeySignature"),
-					get_property ("keySignature"));
+      apply_on_children(context (),
+			ly_lily_module_constant ("invalidate-alterations"));
       
       set_glyph ();
       if (prev_cpos_ != SCM_BOOL_F || to_boolean (get_property ("firstClef")))
