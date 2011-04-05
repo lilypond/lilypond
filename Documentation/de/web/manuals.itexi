@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  bf45bed3887f818f2d99756e6b92c77a8698be92
+    Translation of GIT committish:  ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -43,7 +43,7 @@ Sie mit diesem Konzept nicht vertraut sind, lesen Sie darüber bitte
 jetzt!
 
 @item
-@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Einführung}}
+@ifWebLinks{@manualStableLearningSplitNoName-de,@rlearningnamed{Top,Einführung}}
 eine sanfte @qq{unbedingt lesen!} Einführung in LilyPond.
 @details{Einführung}
 
@@ -56,7 +56,7 @@ die passenden Übersetzungen in vielen anderen Sprachen gegeben.
 
 
 @item
-@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Aufsatz}}
+@ifWebLinks{@manualStableEssaySplitNoName-de,@ressaynamed{Top,Aufsatz}}
 @emph{(optional)} Hintergrundinformation über den Notensatzprozess und die
 Ästhetik des Notenstichs im 19. Jahrhundert.
 @details{Aufsatz}
@@ -71,12 +71,12 @@ die passenden Übersetzungen in vielen anderen Sprachen gegeben.
 @itemize
 
 @item
-@ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notation}}
+@ifWebLinks{@manualStableNotationSplitNoName-de,@rusernamed{Top,Notation}}
 eine Syntaxreferenz.
 @details{Notation}
 
 @item
-@ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Benutzung}}
+@ifWebLinks{@manualStableUsageSplitNoName-de,@rprogramnamed{Top,Benutzung}}
 wie die Programme aufgerufen werden.
 @details{Benutzung}
 
@@ -109,7 +109,7 @@ Was ist neu?
 @details{Änderungen}
 
 @item
-@ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Erweitert}}
+@ifWebLinks{@manualStableExtendingSplitNoName-de,@rextendnamed{Top,Erweitert}}
 clevere Anpassungen.
 @details{Erweitert}
 
@@ -308,8 +308,8 @@ in Angriff nimmt.
 @docLinks{Benutzung, usage,
   @rprogramnamed{Top,Benutzung},
   @manualStableUsageSplit-de,
-  @manualStableUsageBig-de, 400 KB,
-  @manualStableUsagePdf-de, 600 KB}
+  @manualStableUsageBig-de, 300 KB,
+  @manualStableUsagePdf-de, 400 KB}
 
 @divEnd
 
