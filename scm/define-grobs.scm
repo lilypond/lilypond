@@ -349,6 +349,12 @@
 
 	(beaming . ,ly:beam::calc-beaming)
 	(clip-edges . #t)
+	(collision-interfaces . (beam-interface
+				 clef-interface
+				 inline-accidental-interface
+				 key-signature-interface
+				 note-head-interface
+				 time-signature-interface))
 	(concaveness . ,ly:beam::calc-concaveness)
 	(cross-staff . ,ly:beam::calc-cross-staff)
 	(damping . 1)
