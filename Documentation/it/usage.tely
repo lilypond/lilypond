@@ -1,0 +1,86 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+@ignore
+    Translation of GIT committish: 1c846b2c2348b4e0ca4a3c2e8fb267047ba2d203
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@setfilename lilypond-usage.info
+@settitle LilyPond: manuale d'uso del programma
+@documentencoding UTF-8
+@documentlanguage it
+@afourpaper
+
+@c Translators: Federico Bruni
+
+@macro manualIntro
+Questo manuale spiega come eseguire i programmi distribuiti con
+LilyPond versione @version{}.  Inoltre, suggerisce alcune delle
+@qq{migliori pratiche} per un uso efficiente.
+@end macro
+
+@c `Usage' was born 1999-10-10 with git commit c82c30c...
+@macro copyrightDeclare
+Copyright @copyright{} 1999--2011 degli autori.
+@end macro
+
+@set FDL
+@include macros.itexi
+
+
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
+@omfdescription Application Usage of the LilyPond music engraving system
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage English
+@end ignore
+
+
+@lilyTitlePage{Utilizzo}
+
+
+@c TOC -- non-tex
+@ifnottex
+
+@c  maybe add a "Tasks" or "Specific tasks" or something like
+@c  that, after Suggestions  -gp
+@menu
+* Eseguire lilypond::              Utilizzo.
+* Aggiornare i file con convert-ly:: Aggiornare i file di input.
+* lilypond-book::                  Integrare testo e musica.
+* Programmi esterni::              Combinare LilyPond con altri programmi.
+* Suggerimenti su come scrivere i file::  Migliori pratiche ed efficace soluzione degli errori.
+
+Appendici
+
+* GNU Free Documentation License:: Licenza di questo documento.
+* Indice di LilyPond::
+@end menu
+
+@docMain
+@end ifnottex
+
+
+@contents
+
+@allowcodebreaks false
+
+@include usage/running.itely
+@include usage/updating.itely
+@include usage/lilypond-book.itely
+@include usage/external.itely
+@include usage/suggestions.itely
+
+@include fdl.itexi
+
+@node Indice di LilyPond
+@appendix Indice di LilyPond
+@translationof LilyPond index
+
+@printindex cp
+
+@bye

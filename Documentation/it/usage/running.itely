@@ -1,0 +1,833 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+
+@ignore
+    Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.13.36"
+
+
+@node Eseguire lilypond
+@chapter Eseguire @command{lilypond}
+@translationof Running LilyPond
+
+Questo capitolo descrive dettagliatamente gli aspetti tecnici dell'esecuzione
+di LilyPond.
+
+@menu
+* Uso normale::
+* Uso da linea di comando::
+* Messaggi di errore::
+* Errori comuni::
+@end menu
+
+
+@node Uso normale
+@section Uso normale
+@translationof Normal usage
+
+La maggior parte degli utenti esegue LilyPond attraverso un'interfaccia grafica
+(GUI); se non lo hai già fatto, leggi il @rlearning{Tutorial}.  Se usi un editor
+diverso per scrivere i file lilypond, leggi la documentazione di quel programma.
+
+
+@node Uso da linea di comando
+@section Uso da linea di comando
+@translationof Command-line usage
+
+Questa sezione contiene informazioni aggiuntive sull'uso di LilyPond da linea
+di comando.  Questo può essere utile per passare al programma opzioni ulteriori.
+Inoltre, ci sono alcuni programmi complementari di @q{aiuto} (come
+@code{midi2ly}) che funzionano solo da linea di comando.
+
+Con @q{linea di comando} intendiamo la linea di comando del sistema operativo.
+Gli utenti Windows avranno più familiarità con i termini @q{shell DOS} o
+@q{shell dei comandi}.  Gli utenti MacOS@tie{}X avranno più familiarità con i termini
+@q{terminale} o @q{console}.  Una configurazione ulteriore è necessaria
+per gli utenti MacOS@tie{}X; si veda @rweb{MacOS X}.
+
+Descrivere come usare questa parte di un sistema operativo non rientra negli
+obiettivi di questo manuale; si prega di consultare altra documentazione su
+questo argomento se non si conosce la linea di comando.
+
+@menu
+* Invocare lilypond::
+* Opzioni della linea di comando per lilypond::
+* Variabili d'ambiente::
+* LilyPond in chroot jail::
+@end menu
+
+@node Invocare lilypond
+@unnumberedsubsec Invocare @command{lilypond}
+@translationof Invoking lilypond
+
+L'eseguibile @command{lilypond} può essere chiamato dalla linea di comando
+nel seguente modo.
+
+@example
+lilypond [@var{opzione}]@dots{} @var{file}@dots{}
+@end example
+
+
+Se invocato con un nome di file senza estensione, viene tentata per prima
+l'estensione @file{.ly}.  Per leggere l'input da stdin, usare un
+trattino (@code{-}) al posto di @var{file}.
+
+Quando @file{file.ly} viene elaborato, lilypond creerà @file{file.ps}
+e @file{file.pdf} come output.  Possono essere specificati molti file;
+ognuno di essi sarà elaborati in modo indipendente.  @footnote{Lo status di
+GUILE non viene resettato dopo l'elaborazione di un file @code{.ly}, quindi
+fare attenzione a non cambiare alcun valore predefinito dall'interno di Scheme.}
+
+Se @file{file.ly} contiene più di un blocco @code{\book}, allora tutte le altre
+partiture verranno salvate in file numerati, a partire da @file{file-1.pdf}.  Inoltre,
+il valore di @code{output-suffix} (suffisso di output) sarà inserito tra la base
+del nome del file e il numero.  Un file di input che contiene
+
+@example
+#(define output-suffix "violin")
+\score @{ @dots{} @}
+#(define output-suffix "cello")
+\score @{ @dots{} @}
+@end example
+
+@noindent
+produrrà come output @var{base}@file{-violin.pdf} e
+@var{base}@file{-cello-1.pdf}.
+
+
+@unnumberedsubsubsec Comandi standard da shell
+
+Se la shell (ovvero la finestra dei comandi) utilizzata supporta le normali
+redirezioni, potrebbe essere utile usare i seguenti comandi per dirigere
+l'output di una console in un file:
+
+@itemize
+
+@item
+@code{lilypond file.ly 1>stdout.log} per redirigere l'output normale
+
+@item
+@code{lilypond file.ly 2>stderr.log} per redirigere i messaggi di errore
+
+@item
+@code{lilypond file.ly &>all.log} per redirigere tutto l'output
+
+@end itemize
+
+Consulta la documentazione della tua shell per vedere se supporta queste
+opzioni o se la sintassi è diversa.  Nota che questi sono comandi shell
+e non hanno niente a che fare con lilypond.
+
+
+@node Opzioni della linea di comando per lilypond
+@unnumberedsubsec Opzioni della linea di comando per @command{lilypond}
+@translationof Command line options for lilypond
+
+@cindex Invocare @command{lilypond}
+@cindex opzioni della linea di comando per @command{lilypond}
+@cindex linea di comando, opzioni di
+@cindex switches
+
+Sono contemplate le seguenti opzioni:
+
+@table @code
+
+@item -e,--evaluate=@var{espressione}
+Valuta l'@var{espressione} di Scheme prima di analizzare qualsiasi file @file{.ly}.
+Si possono specificare varie opzioni @code{-e}; verranno valutate in modo
+sequenziale.
+
+L'espressione sarà valutata nel modulo @code{guile-user}, dunque se vuoi
+usare delle definizioni in @var{espressione}, usa
+
+@example
+lilypond -e '(define-public a 42)'
+@end example
+
+@noindent
+nella linea di comando, e includi
+
+@example
+#(use-modules (guile-user))
+@end example
+
+@noindent
+in cima al file @code{.ly}.
+
+@item -f,--format=@var{formato}
+Formati di output.  Come @code{formato} si può scegliere tra
+@code{ps}, @code{pdf}, e @code{png}.
+
+Esempio: @code{lilypond -fpng @var{file}.ly}
+
+
+
+@item -d,--define-default=@var{variabile}=@var{valore}
+Imposta l'opzione interna del programma, @var{variabile}, al valore di Scheme
+@var{valore}.  Se @var{valore} non viene specificato, allora viene usato
+@var{#t}.  Per disabilitare un'opzione, si può usare il prefisso @code{no-}
+prima della @var{variabile}, ad esempio
+
+@cindex punta e clicca, linea di comando
+
+@example
+-dno-point-and-click
+@end example
+
+@noindent
+è equivalente a
+@example
+-dpoint-and-click='#f'
+@end example
+
+Di seguito alcune opzioni interessanti.
+
+@cindex aiuto, linea di comando
+
+@table @samp
+@item help
+L'esecuzione di @code{lilypond -dhelp} mostrerà tutte le opzioni disponibili
+di @code{-d}.
+
+@cindex paper-size, linea di comando
+
+@item paper-size
+Questa opzione imposta la dimensione predefinita del foglio,
+@example
+-dpaper-size=\"letter\"
+@end example
+
+@noindent
+Si noti che la stringa deve essere compresa tra virgolette precedute dal
+segno di escape ( @code{\"} ).
+@c Match " in previous line to help context-sensitive editors
+
+@cindex safe, linea di comando
+
+@item safe
+Non si fida dell'input nel file @code{.ly}.
+
+Quando la formattazione di LilyPond viene messa a disposizione tramite un server
+web, si @b{DEVE} passare l'opzione @code{--safe} o l'opzione @code{--jail}.  L'opzione
+@code{--safe} impedirà che il codice Scheme presente nell'input possa fare uno
+scempio, ad esempio
+
+@quotation
+@verbatim
+#(system "rm -rf /")
+{
+  c4^#(ly:export (ly:gulp-file "/etc/passwd"))
+}
+@end verbatim
+@end quotation
+
+L'opzione @code{-dsafe} funziona valutando le espressioni Scheme presenti nell'input
+in uno speciale modulo di sicurezza.  Questo modulo di sicurezza è derivato dal
+modulo GUILE @file{safe-r5rs}, ma aggiunge alcune funzioni del
+LilyPond API.  Queste funzioni sono elencate in @file{scm/safe-lily.scm}.
+
+Inoltre, la modalità sicura non permette le direttive @code{\include} e
+disabilita l'uso del backslash nelle stringhe @TeX{}.
+
+In modalità sicura, non è possibile importare le variabili di LilyPond
+in Scheme.
+
+@code{-dsafe} @emph{non} rileva il sovrautilizzo di risorse.  È ancora possibile
+far sì che il programma rimanga in sospeso per un tempo indefinito, ad esempio
+alimentando il backend con strutture di dati cicliche.  Dunque se si vuole usare
+LilyPond su un server web pubblicamente accessibile, si deve limitare il processo
+nell'uso della CPU e della memoria.
+
+La modalità sicura bloccherà la compilazione di molti utili frammenti di codice
+LilyPond.  L'opzione @code{--jail} è un'alternativa più sicura, ma richiede
+più lavoro per configurarla.
+
+@cindex formato di output, impostare il
+@item backend
+il formato di output da usare per il back-end.  Per il @code{formato} si può
+scegliere tra
+@table @code
+@item ps
+@cindex PostScript, output
+ per PostScript.
+
+  I file Postscript includono i tipi di carattere TTF, Type1 e OTF.  Non vengono
+  inclusi i sottoinsiemi di questi tipi.  Se si usa un set di caratteri orientali,
+  si possono ottenere file di grosse dimensioni.
+
+@item eps
+
+@cindex Postscript, incapsulato
+@cindex EPS (Encapsulated PostScript)
+
+ per PostScript incapsulato.  Invia ogni pagina (sistema) in un file
+@file{EPS} separato, senza font, e in un unico file @file{EPS} con
+tutte le pagine (sistemi) inclusi i font.
+
+Questa è la modalità predefinita di @command{lilypond-book}.
+
+@item svg
+
+@cindex SVG (Scalable Vector Graphics)
+
+ per ottenere SVG (Scalable Vector Graphics).
+
+ Crea un singolo file SVG, senza font incorporati, per ogni pagina
+ dell'output.  Si raccomanda di installare i font Century
+ Schoolbook, inclusi nell'installazione di LilyPond, per una resa
+ ottimale.  In UNIX basta copiare questi font dalla directory di
+ LilyPond (solitamente
+ @file{/usr/share/lilypond/VERSION/fonts/otf/}) in
+ @file{~/.fonts/}.  L'output SVG dovrebbe essere compatibile con qualsiasi
+ editor SVG o user agent.
+
+@item scm
+
+@cindex Scheme, estrazione di
+
+ per estrarre i comandi di disegno grezzi e interni, basati su Scheme.
+
+@item null
+ non produce la stampa della partitura; ha lo stesso effetto di @code{-dno-print-pages}.
+@end table
+
+Esempio: @code{lilypond -dbackend=svg @var{filename}.ly}
+
+@item preview
+@cindex preview, linea di comando
+Genera un file di output che contiene i titoli e il primo sistema
+del brano musicale.  Se si usano i blocchi @code{\bookpart}, i titoli e il
+primo sistema di ogni @code{\bookpart} apparirà nell'output.
+I backend @code{ps}, @code{eps}, e @code{svg} supportano questa
+opzione.
+
+@item print-pages
+Genera tutte le pagine, come da impostazione predefinita.  @code{-dno-print-pages} è
+utile in combinazione con @code{-dpreview}.
+
+@end table
+
+
+
+@item -h,--help
+Mostra una sintesi dell'utilizzo.
+
+@item -H,--header=@var{CAMPO}
+Estrae un campo dell'intestazione nel file @file{NOME.@var{CAMPO}}.
+
+@cindex ricerca dei file
+@cindex percorso di ricerca
+@item --include, -I=@var{directory}
+Aggiunge @var{directory} al percorso di ricerca per i file di input.
+
+È possibile assegnare più di un'opzione -I.  La ricerca inizierà nella prima
+directory definita, e se il file da includere non viene trovato
+la ricerca continuerà nelle directory seguenti.
+
+@item -i,--init=@var{file}
+Imposta il file di inizializzazione su @var{file} (predefinito: @file{init.ly}).
+
+@cindex cartella, dirigere l'output in
+@cindex nome del file di output, impostare
+
+@item -o,--output=@var{FILE} or @var{CARTELLA}
+Imposta il file di output predefinito @var{FILE} oppure, se una cartella con
+quel nome esiste già, dirige l'output in @var{CARTELLA}, prendendo il nome
+del file dal file di input.  Il suffisso appropriato verrà
+aggiunto (ad esempio @code{.pdf} per il pdf) in entrambi i casi.
+
+
+@cindex PostScript
+
+@item --ps
+Genera PostScript.
+
+@cindex Portable Network Graphics (PNG)
+
+@item --png
+Genera immmagini di ogni pagina in formato PNG.  Questo implica
+@code{--ps}.  La risoluzione in DPI dell'immagine può essere impostata con
+@example
+-dresolution=110
+@end example
+
+@cindex Portable Document Format (PDF)
+
+@item --pdf
+Genera PDF.  Questo implica @code{--ps}.
+
+
+
+@item -j,--jail=@var{utente},@var{gruppo},@var{gabbia},@var{directory}
+Esegue @command{lilypond} in una gabbia chroot.
+
+L'opzione @code{--jail} fornisce un'alternativa più flessibile a
+@code{--safe} quando la formattazione di LilyPond è messa a disposizione attraverso
+un server web o quando LilyPond esegue sorgenti provenienti dall'esterno.
+
+L'opzione @code{--jail} modifica la radice di @command{lilypond} in
+@var{gabbia} appena prima di iniziare il vero processo di compilazione.  L'utente
+e il gruppo vengono poi modificati per corrispondere a quelli forniti, e la
+directory corrente viene spostata in @var{directory}.  Questa configurazione
+garantisce che non sia possibile (almeno in teoria) uscire dalla gabbia.  Si noti
+che perché @code{--jail} funzioni @command{lilypond} deve essere eseguito come root;
+di solito questo si fa in modo sicuro col comando @command{sudo}.
+
+Configurare una gabbia è una questione leggermente delicata, perché bisogna essere
+sicuri che LilyPond possa trovare tutto quello di cui ha bisogno per compilare il
+sorgente @emph{dentro la gabbia}.  Una configurazione tipica comprende i seguenti
+elementi:
+
+@table @asis
+@item Impostare un filesystem distinto
+Si dovrebbe creare un filesystem separato LilyPond, così che possa essere
+montato con opzioni di sicurezza come @code{noexec}, @code{nodev}, e
+@code{nosuid}.  In questo modo è impossibile lanciare degli eseguibili o
+scrivere su un dispositivo direttamente da LilyPond.  Se non si vuole creare
+una partizione separata, si può creare un file di dimensioni ragionevoli e usarlo
+per montare un dispositivo di loop.  Un filesystem separato garantisce anche che
+LilyPond non possa scrivere su uno spazio maggiore di quanto permesso.
+
+@item Impostare un altro utente
+Per eseguire LilyPond in una gabbia si dovrebbe usare un altro utente e gruppo
+(ad esempio, @code{lily}/@code{lily}) con pochi privilegi.  Ci dovrebbe essere
+una sola directory scrivibile da questo utente, che dovrebbe essere passata in
+@var{dir}.
+
+@item Preparare la gabbia
+LilyPond ha bisogno di leggere alcuni file quando viene lanciato.  Tutti questi
+file devono essere copiati nella gabbia, sotto lo stesso percorso in cui appaiono
+nel vero filesystem principale.  Si deve copiare l'intero contenuto dell'installazione
+LilyPond installation (ad esempio, @file{/usr/share/lilypond}).
+
+Se c'è un problema, il modo più semplice per individuarlo è lanciare
+LilyPond usando @command{strace}, che permetterà di scoprire quali
+file mancano.
+
+@item Eseguire LilyPond
+In una gabbia montata con @code{noexec} è impossibile eseguire qualsiasi
+programma esterno.  Dunque LilyPond deve essere eseguito con un backend che
+non richieda tale programma.  Come è già stato detto, deve essere eseguito
+con privilegi di superutente (che ovviamente perderà immediatamente),
+possibilmente con l'uso di @command{sudo}.  È una buona idea limitare il
+numero di secondi di tempo della CPU che LilyPond può usare (ad esempio con @command{ulimit
+-t}), e, se il tuo sistema operativo lo supporta, la quantità di memoria che
+può essere allocata.
+@end table
+
+
+@item -v,--version
+Mostra informazioni sulla versione.
+
+@item -V,--verbose
+Aumenta la prolissità: mostra i percorsi completi di tutti i file letti, e dà
+informazioni sui tempi.
+
+@item -w,--warranty
+Mostra la garanzia con cui viene distribuito GNU LilyPond.  (Viene distribuito
+con @strong{NESSUNA GARANZIA}!)
+@end table
+
+
+@node Variabili d'ambiente
+@unnumberedsubsec Variabili d'ambiente
+@translationof Environment variables
+
+@cindex LANG
+@cindex LILYPOND_DATADIR
+
+@command{lilypond} riconosce le seguenti variabili d'ambiente:
+@table @code
+@item LILYPOND_DATADIR
+Specifica la directory predefinita in cui saranno cercati i messaggi della
+localizzazione e i file di dati.  Questa directory deve contenere
+sottodirectory chiamate @file{ly/}, @file{ps/}, @file{tex/}, etc.
+
+@item LANG
+Determina la lingua per i messaggi di avvertimento.
+
+@item LILYPOND_GC_YIELD
+Con questa variabile si possono aggiustare il consumo di memoria e la
+performance.  È una percentuale che regola il comportamento di gestione della
+memoria.  Con valori più alti il programma usa più memoria, con valori
+più bassi usa più tempo della CPU.  Il valore predefinito è @code{70}.
+
+@end table
+
+
+@node LilyPond in una gabbia chroot
+@unnumberedsubsec LilyPond in una gabbia chroot
+@translationof LilyPond in chroot jail
+
+Configurare un server perché esegua LilyPond in una gabbia chroot è un lavoro
+complicato.  La procedura è spiegata sotto.  Gli esempi si riferiscono a
+Ubuntu Linux e potrebbero richiedere l'uso di @code{sudo} in alcune situazioni.
+
+@itemize
+
+@item Installa i pacchetti necessari: LilyPond, GhostScript e ImageMagick.
+
+@item Crea un nuovo utente dal nome @code{lily}:
+
+@example
+adduser lily
+@end example
+
+@noindent
+Questo comando creerà anche un nuovo gruppo per l'utente @code{lily}, e una
+cartella home,
+@code{/home/lily}
+
+@item Nella cartella home dell'utente @code{lily} crea un file da usare come
+filesystem separato:
+
+@example
+dd if=/dev/zero of=/home/lily/loopfile bs=1k count= 200000
+@end example
+
+@noindent
+In questo esempio è stato creato un file di 200MB da usare come filesystem della
+gabbia.
+
+@item Crea un dispositivo di loop, crea e monta un filesystem, quindi crea
+una cartella scrivibile dall'utente @code{lily}:
+
+@example
+mkdir /mnt/lilyloop
+losetup /dev/loop0 /home/lily/loopfile
+mkfs -t ext3 /dev/loop0 200000
+mount -t ext3 /dev/loop0 /mnt/lilyloop
+mkdir /mnt/lilyloop/lilyhome
+chown lily /mnt/lilyloop/lilyhome
+@end example
+
+@item Nella configurazione dei server, JAIL sarà @code{/mnt/lilyloop}
+e DIR sarà @code{/lilyhome}.
+
+@item Crea un grande albero delle directory nella gabbia copiando i file
+necessari, come mostrato nello script di esempio più in basso.
+
+Puoi usare @code{sed} per creare i comandi di copia necessari per un certo
+eseguibile:
+
+@example
+for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/;  \
+  do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\&  \
+    cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p  \
+      \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done
+@end example
+
+@end itemize
+
+@subheading Script di esempio per Ubuntu 8.04 a 32-bit
+
+@example
+#!/bin/sh
+## defaults set here
+
+username=lily
+home=/home
+loopdevice=/dev/loop0
+jaildir=/mnt/lilyloop
+# the prefix (without the leading slash!)
+lilyprefix=usr/local
+# the directory where lilypond is installed on the system
+lilydir=/$lilyprefix/lilypond/
+
+userhome=$home/$username
+loopfile=$userhome/loopfile
+adduser $username
+dd if=/dev/zero of=$loopfile bs=1k count=200000
+mkdir $jaildir
+losetup $loopdevice $loopfile
+mkfs -t ext3 $loopdevice 200000
+mount -t ext3 $loopdevice $jaildir
+mkdir $jaildir/lilyhome
+chown $username $jaildir/lilyhome
+cd $jaildir
+
+mkdir -p bin usr/bin usr/share usr/lib usr/share/fonts $lilyprefix tmp
+chmod a+w tmp
+
+cp -r -L $lilydir $lilyprefix
+cp -L /bin/sh /bin/rm bin
+cp -L /usr/bin/convert /usr/bin/gs usr/bin
+cp -L /usr/share/fonts/truetype usr/share/fonts
+
+# Now the library copying magic
+for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
+  "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=>  \
+    \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed  \
+      's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/'  \
+        | sed '/.*=>.*/d'; done | sh -s
+
+# The shared files for ghostscript...
+      cp -L -r /usr/share/ghostscript usr/share
+# The shared files for ImageMagick
+      cp -L -r /usr/lib/ImageMagick* usr/lib
+
+### Now, assuming that you have test.ly in /mnt/lilyloop/lilyhome,
+### you should be able to run:
+### Note that /$lilyprefix/bin/lilypond is a script, which sets the
+### LD_LIBRARY_PATH - this is crucial
+      /$lilyprefix/bin/lilypond -jlily,lily,/mnt/lilyloop,/lilyhome test.ly
+@end example
+
+@c " keep quote signs balanced for context-sensitive editors
+
+@node Messaggi di errore
+@section Messaggi di errore
+@translationof Error messages
+
+@cindex messaggi di errore
+Quando si compila un file possono apparire vari messaggi di errore:
+
+@table @emph
+
+@item Avvertimento
+@cindex avvertimento
+Qualcosa appare sospetto.  Se stai cercando di fare qualcosa di insolito
+allora comprenderai il messaggio e potrai ignorarlo.
+Tuttavia di solito i messaggi di avvertimento indicano che il file di input ha
+qualcosa che non va.
+
+@item Errore
+@cindex errore
+C'è qualcosa di assolutamente sbagliato.  Il passo attualmente in elaborazione
+(analisi, interpretazione o formattazione) verrà completato, ma il passo
+successivo verrà saltato.
+
+@item Errore fatale
+@cindex errore fatale
+C'è qualcosa di assolutamente sbagliato e LilyPond non può continuare.  Questo
+accade raramente.  La causa più tipica è un'errata installazione dei tipi di
+carattere.
+
+@item Errore Scheme
+@cindex traccia, Scheme
+@cindex traccia di chiamata
+@cindex errore Scheme
+Gli errori che capitano mentre si esegue del codice Scheme sono individuati
+dall'interprete Scheme.  Se si esegue con l'opzione di prolissità (@code{-V} o
+@code{--verbose}), viene stampata una traccia della chiamata di funzione
+responsabile dell'errore.
+
+@item Errore di programmazione
+@cindex Errore di programmazione
+C'è stata una qualche incongruenza interna.  Questi messaggi di errore
+servono ad aiutare programmatori e debugger.  Di solito si possono
+ignorare.  Talvolta sono talmente numerosi da nascondere il resto
+dell'output.
+
+@item Sospeso (core dumped)
+@cindex Sospeso (core dumped)
+Segnala un serio errore di programmazione che ha mandato in crash il
+programma.  Questi errori sono considerati critici.  Se ti imbatti in un
+errore simile, invia una segnalazione di errori.
+@end table
+
+@cindex errori, formato del messaggio
+Se gli avvertimenti e gli errori possono essere collegati
+a una parte specifica del file di input, i messaggi di errore
+hanno la seguente forma
+
+@example
+@var{file}:@var{riga}:@var{colonna}: @var{messaggio}
+@var{riga di input responsabile dell'errore}
+@end example
+
+Nella riga responsabile si inserisce un a capo per indicare la colonna
+in cui è stato trovato l'errore.  Ad esempio,
+
+@example
+test.ly:2:19: error: not a duration: 5
+  @{ c'4 e'
+           5 g' @}
+@end example
+
+Queste posizioni sono la migliore ipotesi di LilyPond a proposito del
+punto in cui l'avvertimento o l'errore sono comparsi, ma (per loro
+stessa natura) avvertimenti ed errori capitano quando succede qualcosa
+di imprevisto.  Se non riesci a vedere un errore nella riga indicata
+del file di input, prova a controllare una o due righe sopra la posizione
+indicata.
+
+Maggiori informazioni sugli errori si trovano in @ref{Errori comuni}.
+
+
+@node Errori comuni
+@section Errori comuni
+@translationof Common errors
+
+Le condizioni di errore descritte di seguito capitano spesso, ma la causa
+non è ovvia né facile da trovare.  Una volta che si sono viste e comprese,
+è facile gestirle.
+
+
+@menu
+* La musica esce dalla pagina::
+* Appare un rigo in più::
+* Errore apparente in ../ly/init.ly::
+* Messaggio di errore Unbound variable %::
+* Messaggio di errore FT_Get_Glyph_Name::
+* Avvertimento sul fatto che le affinità del rigo devono solo diminuire::
+@end menu
+
+@node La musica esce dalla pagina
+@unnumberedsubsec La musica esce dalla pagina
+@translationof Music runs off the page
+
+Se la musica esce dalla pagina al di là del margine destro o appare
+eccessivamente compressa, quasi sempre è dovuto all'inserimento di
+una durata sbagliata di una nota, che fa sì che l'ultima nota di una misura si
+estenda oltre la barra di divisione.  Non è sbagliato se la nota finale di
+una misura non termina entro la barra di divisione inserita automaticamente, perché
+semplicemente si assume che la nota continui nella misura successiva.  Ma se
+si presenta una lunga sequenza di misure simili, la musica può
+apparire compressa o può uscire dalla pagina perché gli a capo
+automatici possono essere inseriti soltanto alla fine di misure complete,
+ovvero quando tutte le note finiscono prima o alla fine della misura.
+
+@warning{Una durata sbagliata può inibire l'interruzione di
+linea, portando a una linea di musica estremamente compressa o
+a musica che esce dalla pagina.}
+
+La durata sbagliata può essere trovata facilmente se si usano i controlli di
+battuta, si veda @ruser{Bar and bar number checks}.
+
+Se si vuole davvero avere una serie di di tali misure sovrapposte
+bisogna inserire una barra di divisione invisibile nel punto in cui
+si vuole l'interruzione di linea.  Per i dettagli si veda @ruser{Bar lines}.
+
+
+@node Appare un rigo in più
+@unnumberedsubsec Appare un rigo in più
+@translationof An extra staff appears
+
+Se i contesti non sono creati esplicitamente con @code{\new} o
+@code{\context}, saranno creati senza avviso appena si incontra
+un comando che non può essere applicato a un contesto
+esistente.  Nelle partiture semplici la creazione automatica dei contesti
+è utile: infatti la maggior parte degli esempi nei manuali LilyPond sfruttano
+questa semplificazione.  Ma talvolta la creazione silenziosa
+di contesti può causare nuovi righi o partiture non desiderate.
+Ad esempio, si potrebbe pensare che il seguente codice
+colori di rosso tutte le teste delle note nel rigo, ma in realtà
+produce due righi, di cui il più basso conserva il colore nero
+predefinito per le teste delle note.
+
+@lilypond[quote,verbatim,relative=2]
+\override Staff.NoteHead #'color = #red
+\new Staff { a }
+@end lilypond
+
+Questo accade perché non esiste un contesto @code{Staff} quando viene
+elaborata l'istruzione di override, quindi ne viene implicitamente creato uno e
+l'override viene applicato ad esso.  Ma poi il comando @code{\new Staff} crea
+un altro rigo separato nel quale vengono inserite le note.  Il codice
+corretto per colorare le teste di tutte le note è
+
+@lilypond[quote,verbatim,relative=2]
+\new Staff {
+  \override Staff.NoteHead #'color = #red
+  a
+}
+@end lilypond
+
+Vediamo un secondo esempio.  Se un comando @code{\relative} viene posto
+dentro un comando @code{\repeat}, vengono generati due righi, il secondo
+spostato orizzontalmente rispetto al primo, perché il comando @code{\repeat}
+genera due blocchi @code{\relative}, ognuno dei quali crea implicitamente i
+blocchi @code{Staff} e @code{Voice}.
+
+@lilypond[quote,verbatim]
+\repeat unfold 2 {
+  \relative c' { c4 d e f }
+}
+@end lilypond
+
+Per correggere il problema basta istanziare esplicitamente il contesto
+@code{Voice}:
+
+@lilypond[quote,verbatim]
+\new Voice {
+  \repeat unfold 2 {
+    \relative c' { c4 d e f }
+  }
+}
+@end lilypond
+
+
+@node Errore apparente in ../ly/init.ly
+@unnumberedsubsec Errore apparente in @code{../ly/init.ly}
+@translationof Apparent error in ../ly/init.ly
+
+Vari oscuri messaggi di errore relativi a errori di sintassi in
+@file{../ly/init.ly} possono apparire se il file di input non ha
+una forma corretta, ad esempio se contiene delle parentesi o
+delle virgolette che non sono chiuse correttamente.
+
+L'errore più comune è la mancanza di una parentesi graffa, (@code{@}}), alla fine
+di un blocco @code{score}.  In questo caso la soluzione è ovvia: controlla
+che il blocco @code{score} sia chiuso correttamente.  La struttura corretta
+di un file di input è descritta in @rlearning{Come funzionano i file di input di LilyPond}.
+Per evitare questi errori conviene usare un editor che evidenzi automaticamente
+le parentesi e le graffe corrispondenti.
+
+Una seconda causa frequente di errore è la mancanza di uno spazio tra l'ultima
+sillaba di un blocco di testo (lyrics) e la parentesi graffa che chiude il
+blocco, (@code{@}}).  Senza questa separazione si considera che la graffa
+faccia parte della sillaba.  Si consiglia di assicurarsi sempre che ci sia
+uno spazio prima e dopo @emph{ogni} parentesi graffa.  Per comprendere l'importanza
+di questo quando si usa il testo, si veda @ruser{Entering lyrics}.
+
+Questo messaggio di errore può apparire anche nel caso in cui sia omessa la
+virgoletta che chiude, (@code{"}).  In questo caso il messaggio di errore
+@c keep "-matching straight in fancy editors
+dovrebbe dare un numero di riga vicino alla riga sbagliata.  La virgoletta
+non chiusa sarà solitamente una o due righe sopra.
+
+@node Messaggio di errore Unbound variable %
+@unnumberedsubsec Messaggio di errore Unbound variable %
+@translationof Error message Unbound variable %
+
+Questo messaggio di errore comparirà in fondo alla console di
+output o nel file di log insieme al messaggio @qq{GUILE signalled an error ...}
+ogni volta che viene chiamata una routine di Scheme che contenga (erroneamente)
+un commento @emph{LilyPond} invece di un commento @emph{Scheme}.
+
+I commenti LilyPond iniziano con un segno di percentuale, (@code{%}), e non
+devono essere usati all'interno delle routine di Scheme.  I commenti Scheme
+iniziano con un punto e virgola, (@code{;}).
+
+@node Messaggio di errore FT_Get_Glyph_Name
+@unnumberedsubsec Messaggio di errore FT_Get_Glyph_Name
+@translationof Error message FT_Get_Glyph_Name
+
+Questo messaggio di errore compare nella console di output o nel file di log file
+se un file di input contiene un carattere non-ASCII e non è stato salvato nella
+codifica UTF-8.  Per dettagli si veda @ruser{Text encoding}.
+
+
+@node Avvertimento sul fatto che le affinità del rigo devono solo diminuire
+@unnumberedsubsec Avvertimento sul fatto che le affinità del rigo devono solo diminuire
+@translationof Warning staff affinities should only decrease
+
+Questo avvertimento può apparire se non ci sono dei righi nell'output,
+ad esempio se ci sono solo un contesto @code{ChordName} e un
+contesto @code{Lyrics}, come in un lead sheet.  Si possono evitare questi
+messaggi di avvertimento facendo in modo che uno dei contesti si comporti
+come un rigo inserendo
+
+@example
+\override VerticalAxisGroup #'staff-affinity = ##f
+@end example
+
+@noindent
+all'inizio del contesto.  Per dettagli si veda @qq{Spacing of non-staff lines} in
+@ruser{Flexible vertical spacing within systems}.
