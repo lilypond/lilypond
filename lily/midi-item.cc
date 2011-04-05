@@ -272,9 +272,6 @@ Midi_dynamic::Midi_dynamic (Audio_dynamic *a)
 string
 Midi_dynamic::to_string () const
 {
-  if (audio_->volume_ < 0 || audio_->silent_)
-    return "";
-
   Byte status_byte = (char) (0xB0 + channel_);
   string str = ::to_string ((char)status_byte);
 
@@ -291,6 +288,10 @@ Midi_dynamic::to_string () const
   if (volume > full_scale)
     volume = (int)full_scale;
 
+  int const volume_default = 100;
+  if (audio_->volume_ < 0 || audio_->silent_)
+    volume = volume_default;
+  
   str += ::to_string ((char)0x07);
   str += ::to_string ((char)volume);
   return str;
