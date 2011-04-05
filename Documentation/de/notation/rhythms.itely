@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
+    Translation of GIT committish: bf45bed3887f818f2d99756e6b92c77a8698be92
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1904,6 +1904,7 @@ LilyPond setzt Balken (engl. beam) automatisch.
 @cindex Balken, eigene Regeln
 @cindex automatische Bebalkung
 @cindex Balken, automatisch
+@cindex eigene Balkenregeln
 
 @funindex \autoBeamOn
 @funindex autoBeamOn
@@ -1951,26 +1952,25 @@ können erstellt werden, siehe @ref{Einstellung von automatischen Balken}.
 @code{\autoBeamOn}.
 @endpredefined
 
-@snippets
+
 
 @funindex breakable
 
 @cindex Zeilenumbruch, Balken
-@cindex Balken und Zeilenumbrüche
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{beams-across-line-breaks.ly}
-
+@cindex Balken, Zeilenumbrüche
 @cindex Balken mit Knie
 @cindex weit außeinander liegende Balken
 @cindex auto-knee-gap
 
+@snippets
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{beams-across-line-breaks.ly}
+
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@cindex \partcombine and \autoBeamOff
-@cindex \autoBeamOff and \partcombine
-
+@cindex Balken, \partcombine und \autoBeamOff
+@cindex Stimmen, \autoBeamOff und \partcombine
 
 @lilypondfile [verbatim, lilyquote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}
@@ -1996,24 +1996,16 @@ Referenz der Interna:
 @rinternals{unbreakable-spanner-interface}.
 
 
-@knownissues
-
-Balken können mit Notenköpfen und Versetzungszeichen in anderen
-Stimmen zusammenstoßen.
-
-
-
 @node Einstellung von automatischen Balken
 @unnumberedsubsubsec Einstellung von automatischen Balken
 @translationof Setting automatic beam behavior
 
-@cindex Automatische Balken, einstellen
-@cindex Einstellungen der Bebalkung
 @cindex autobeam
 @cindex Verändern von automatischer Bebalkung
 @cindex Bebalkung, automatisch, Einstellungen
 @cindex Text und Balken
 @cindex Gesangstext und Balken
+@cindex Balken und Gesangstext
 
 @funindex autoBeaming
 @funindex beatStructure
@@ -2240,7 +2232,7 @@ am Ende jedes Taktes.
 In den oben genannten Regeln ist der Balkentyp die Dauer der
 kürzesten Note der bebalkten Gruppe.
 
-Zur Erinnerung: die Standardbebalkungsregeln finden sich in der Datei
+Die Standardbebalkungsregeln finden sich in der Datei
 @file{scm/time-signature-settings.scm}.
 
 

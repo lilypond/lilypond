@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish: bf45bed3887f818f2d99756e6b92c77a8698be92
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -183,8 +183,8 @@ Daumen (etwa auf dem Cello) gespielt werden sollen.
 @cindex Fingersatz: Akkorde
 @cindex Akkorde: Fingersatz
 
-Fingersätze für Akkorde können auch zu einzelnen Noten des
-Akkordes hinzugefügt werden, indem sie innerhalb der Akkord-Klammer
+Fingersätze für Akkorde können auch zu einzelnen Noten
+hinzugefügt werden, indem sie innerhalb der Akkord-Klammer
 direkt an die Noten angefügt werden.
 
 @lilypond[verbatim,quote,relative=2]
@@ -218,6 +218,10 @@ Referenz der Interna:
 @rinternals{Fingering_engraver},
 @rinternals{New_fingering_engraver},
 @rinternals{Fingering}.
+
+@knownissues
+Standardmäßig ist eine Zahl größer als 9 nicht unterstützt, wenn man die
+Schreibweise @code{@var{Note}-@var{Zahl}} einsetzt.
 
 
 @node Unsichtbare Noten

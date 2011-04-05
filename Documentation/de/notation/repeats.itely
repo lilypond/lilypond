@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: a463d80d4be008ce05b12de86fc21f2b7c1c120f
+    Translation of GIT committish: bf45bed3887f818f2d99756e6b92c77a8698be92
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -596,21 +596,34 @@ Muster, die kürzer als ein Takt sind, werden mit Schrägstrichen
 ersetzt:
 
 @lilypond[verbatim,quote,relative=2]
+\repeat percent 4 { c128 d e f }
+\repeat percent 4 { c64 d e f }
+\repeat percent 5 { c32 d e f }
+\repeat percent 4 { c16 d e f }
 \repeat percent 4 { c8 d }
 \repeat percent 4 { c4 }
 \repeat percent 2 { c2 }
 @end lilypond
 
 Muster von einem oder zwei Takten Dauer werden mit prozentartigen
-Zeichen ersetzt:
+Symbolen ersetzt:
 
 @lilypond[verbatim,quote,relative=2]
-\repeat percent 3 { c4 d e f }
-\repeat percent 4 { c2 d }
+\repeat percent 2 { c4 d e f }
+\repeat percent 2 { c2 d }
+\repeat percent 2 { c1 }
 @end lilypond
 
 @lilypond[verbatim,quote,relative=2]
 \repeat percent 3 { c4 d e f | c2 g' }
+@end lilypond
+
+Muster, die kürzer als ein Takt sind, aber unterschiedliche Dauern beinhalten,
+benützten ein doppeltes Prozent-Symbol.
+
+@lilypond[verbatim,quote,relative=2]
+\repeat percent 4 { c8. <d f>16 }
+\repeat percent 2 { \times 2/3 { r8 c d } e4 }
 @end lilypond
 
 @snippets
@@ -634,23 +647,17 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{RepeatSlash},
+@rinternals{RepeatSlashEvent},
+@rinternals{DoubleRepeatSlash},
 @rinternals{PercentRepeat},
+@rinternals{PercentRepeatCounter},
+@rinternals{PercentRepeatedMusic},
+@rinternals{Percent_repeat_engraver},
+@rinternals{DoublePercentEvent},
 @rinternals{DoublePercentRepeat},
 @rinternals{DoublePercentRepeatCounter},
-@rinternals{PercentRepeatCounter},
-@rinternals{PercentRepeatedMusic}.
-
-@knownissues
-
-Nur drei Arten von Prozent-Wiederholungen sind unterstützt: ein
-einfacher Schrägstrich, der einen Taktschlag darstellt (unabhängig
-von der wirklichen Dauer der wiederholten Noten), ein einfacher
-Schrägstrich mit Punkten, der einen ganzen wiederholten Takt
-darstellt und zwei Schrägstriche mit Punkten über eine Taktlinie
-gedruckt, der zwei ganze Takte darstellt.  Weder können mehrere
-Schrägstriche für Taktwiederholungen von Sechzehntelnoten dargestellt
-werden, noch zwei Striche mit Punkten für nur einen Takt, der aus
-unterschiedlichen Notenwerten besteht.
+@rinternals{Double_percent_repeat_engraver},
+@rinternals{Slash_repeat_engraver}.
 
 
 @node Tremolo-Wiederholung

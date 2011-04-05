@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish:  bf45bed3887f818f2d99756e6b92c77a8698be92
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -308,8 +308,8 @@ in Angriff nimmt.
 @docLinks{Benutzung, usage,
   @rprogramnamed{Top,Benutzung},
   @manualStableUsageSplit-de,
-  @manualStableUsageBig-de, 300 KB,
-  @manualStableUsagePdf-de, 400 KB}
+  @manualStableUsageBig-de, 400 KB,
+  @manualStableUsagePdf-de, 600 KB}
 
 @divEnd
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 0764a50d470cab82ca29da30298dacd333d3da12
+    Translation of GIT committish: bf45bed3887f818f2d99756e6b92c77a8698be92
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -171,6 +171,21 @@ und dann mit @code{\lilypondfile} eingebunden werden.
 
 @lilypondfile[quote,noindent]{screech-boink.ly}
 
+Wenn man eine @code{tagline} (die Zeile unten auf der Seite) braucht
+(in Standard oder angepasst), dann muss der ganze Schnipsel in eine
+@code{\book @{ @}}-Umgebung.
+
+@lilypond[papersize=a8,verbatim]
+\book{
+  \header{
+    title = "A scale in LilyPond"
+  }
+
+  \relative c' {
+    c d e f g a b c
+  }
+}
+@end lilypond
 
 @page
 
@@ -626,6 +641,14 @@ Wenn die @code{line-width}-Option nicht angegeben wird, versucht
 @command{lilypond-book} einen geeigneten Standardwert für alle
 @code{lilypond}-Umgebungen zu finden, die die @code{ragged-right}-Option
 nicht benutzen.
+
+@item papersize=@var{Zeichenkette}
+Wobei @var{Zeichenkette} eine Papiergröße wie definiert in @file{scm/paper.scm}
+ist, beispielsweise @code{a5}, @code{quarto}, @code{11x17} usw.
+
+Werte, die nicht in @file{scm/paper.scm} definiert sind, werden ignoriert,
+eine Warnung wird ausgegeben und das Schnipsel wird mit dem Standardwert
+@code{a4} ausgegeben.
 
 @item notime
 Verhindert die Ausgabe der Taktangabe am Anfang des Fragments und schaltet

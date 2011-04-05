@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+    Translation of GIT committish: bf45bed3887f818f2d99756e6b92c77a8698be92
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -865,6 +865,71 @@ benutzt werden, also:
 @noindent
 Ein @code{\relative}-Abschnitt, der sich außerhalb von@code{\partcombine} befindet, hat keinen Einfluss auf
 die Tonhöhen von @code{@var{musikAusdr1}} oder @code{@var{musikAusdr2}}.
+
+In professionellen Partituren werden Stimmen oft für lange Strecken auseinander
+gehalten, auch wenn eine oder mehrere Noten tatsälich aufeinander treffen und
+einfach als Unisono gesetzt werden könnten.  Noten zu Akkorden zusammenzufassen
+oder eine Stimme als Solo anzuzeigen ist darum nicht ideal, weil die
+@code{\partcombine}-Funktion jede Note separat betrachtet.  Aus diesem
+Grund kann die @code{\partcombine}-Funktion mit folgenden Befehlen verändert
+werden:
+
+@itemize
+@item
+@code{\partcombineApart}, @code{\partcombineApartOnce}:
+Behält die Noten als zwei unterschiedliche Stimmen, auch wenn sie als Akkord
+oder Unisono kombiniert werden könnten.
+
+@item
+@code{\partcombineChords}, @code{\partcombineChordsOnce}:
+Kombiniert die Noten als Akkord.
+
+@item
+@code{\partcombineUnisono}, @code{\partcombineUnisonoOnce}:
+Die zwei Stimmen sind Unisono.
+
+@item
+@code{\partcombineSoloI}, @code{\partcombineSoloIOnce}:
+Zeigt nur Stimme eins und markiert sie als Solo.
+
+@item
+@code{\partcombineSoloII}, @code{\partcombineSoloIIOnce}:
+Zeigt nur Stimme zwei und markiert sie als Solo.
+
+@item
+@code{\partcombineAutomatic}, @code{\partcombineAutomaticOnce}:
+Beendet die Wirkung der Sonderbefehle weiter oben und stellt das
+normale Verhalten des Kombinationsmechanismus wieder her.
+
+@end itemize
+
+Alle Befehle die auf @code{...Once} enden, gelten nur für die darauf
+folgende Note.
+
+@lilypond[quote,verbatim]
+instrumentOne = \relative c' {
+  \partcombineApart c2^"apart" e |
+  \partcombineAutomatic e^"auto" e |
+  \partcombineChords e'^"chord" e |
+  \partcombineAutomatic c^"auto" c |
+  \partcombineApart c^"apart" \partcombineChordsOnce e^"chord once" |
+  c c |
+}
+instrumentTwo = \relative c' {
+  c2 c |
+  e2 e |
+  a,2 c |
+  c2 c' |
+  c2 c |
+  c2 c |
+}
+
+<<
+  \new Staff { \instrumentOne }
+  \new Staff { \instrumentTwo }
+  \new Staff { \partcombine \instrumentOne \instrumentTwo }
+>>
+@end lilypond
 
 @snippets
 

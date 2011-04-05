@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
+    Translation of GIT committish: bf45bed3887f818f2d99756e6b92c77a8698be92
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2140,9 +2140,7 @@ von allen Layout-Objekten.  Standardmäßig ist sie für alle Objekte
 auf falsch (@code{#f}) gesetzt; dieser Wert wird in einen numerischen
 Wert dem Objekt entsprechend geändert, wenn das Objekt für die
 Notenausgabe erstellt wird.  Die Tabelle unten zeigt die
-Standardwerte für die meistbenutzten @code{outside-staff}-Objekte,
-die den Voreinstellungen nach im @code{Staff}- oder
-@code{Voice}-Kontext gesetzt werden.
+Standardwerte für die meistbenutzten @code{outside-staff}-Objekte.
 
 @cindex spanners
 @cindex Strecker
@@ -2165,12 +2163,21 @@ beinhaltet.
 @headitem Layout-Objekt
   @tab Priorität
   @tab Kontrolliert Position von:
-@item @code{MultiMeasureRestText}
-  @tab @code{450}
-  @tab Text über Ganztaktpausen
+@item @code{RehearsalMark}
+  @tab @code{1500}
+  @tab Übungszeichen
+@item @code{MetronomeMark}
+  @tab @code{1000}
+  @tab Metronomzeichen
+@item @code{VoltaBracketSpanner}
+  @tab @code{600}
+  @tab Volta-Wiederholungsklammern
 @item @code{TextScript}
   @tab @code{450}
   @tab Textbeschriftung
+@item @code{MultiMeasureRestText}
+  @tab @code{450}
+  @tab Text über Ganztaktpausen
 @item @code{OttavaBracket}
   @tab @code{400}
   @tab Ottava (Oktavierungsklammern)
@@ -2180,9 +2187,9 @@ beinhaltet.
 @item @code{DynamicLineSpanner}
   @tab @code{250}
   @tab Alle Dynamik-Bezeichnungen
-@item @code{VoltaBracketSpanner}
-  @tab @code{100}
-  @tab Volta-Klammern
+@item @code{BarNumber}
+  @tab @code{ 100}
+  @tab Taktzahlen
 @item @code{TrillSpanner}
   @tab @code{50}
   @tab Triller-Strecker
@@ -2244,28 +2251,6 @@ Im Beispiel wird auch gezeigt, wie Oktavierungsklammern
 @cindex Übungszeichenposition verändern
 @cindex Verändern der Übungszeichenposition
 
-Beachten Sie, dass Taktnummern, Metronombezeichnungen
-und Übungszeichen nicht gezeigt werden.  Sie werden
-standardmäßig im @code{Score}-(Partitur)-Kontext
-erstellt und ihre @code{outside-staff-priority} wird
-in Bezug auf die Layout-Objekte, die im @code{Staff}-Kontext
-erstellt werden, ignoriert.  Wenn Sie Taktnummern,
-Metronombezeichnungen oder Übungszeichen entsprechend
-ihrer Außersystem-Priorität setzen wollen, müssen Sie
-die entsprechenden Engraver (@code{Bar_number_engraver},
-@code{Metronome_mark_engraver} oder @code{Mark_engraver})
-vom @code{Score}-Kontext entfernen und dem
-@code{Staff}-Kontext hinzufügen.  Wenn die Engraver so
-geändert werden, erhalten sie folgenden Werte für
-@code{outside-staff-priority}:
-
-@multitable @columnfractions .3 .3
-@headitem Layout-Objekt           @tab Priorität
-@item @code{RehearsalMark}        @tab @code{1500}
-@item @code{MetronomeMark}        @tab @code{1000}
-@item @code{BarNumber}            @tab @code{ 100}
-@end multitable
-
 Wenn die Standardwerte der @code{outside-staff-priority} nicht
 die Positionierung hervorrufen, die Sie wünschen, kann die
 Priorität eines jeden Objektes geändert werden.  Als Beispiel
@@ -2305,6 +2290,11 @@ c4\ff c \stopTextSpan
 \ottava #0
 c,4 c c c
 @end lilypond
+
+Beachten Sie, dass einige dieser Objekte, insbesondere Taktzahlen,
+Metronomzeichen und Übungszeichen standardmäßig im @code{Score}-Kontext
+zu Hause sind; benutzen Sie also den richtigen Kontext, wenn sie
+deren Einstellungen verändern wollen.
 
 @cindex Legatobögen und outside-staff-priority
 @cindex Legatobögen und Artikulationszeichen

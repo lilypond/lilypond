@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 27b1197f3bae8512c14d946752cd3e40e7c76016
+    Translation of GIT committish: bf45bed3887f818f2d99756e6b92c77a8698be92
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -902,6 +902,7 @@ Standardwerte, die hier nicht aufgelistet sind, finden sich in
 
 @item auto-first-page-number
 @funindex auto-first-page-number
+@cindex Seitenzahlen, automatische Nummerierung
 
 Der Seitenumbruchsalgorithmus wird davon beeinflusst, ob die erste
 Seitenzahl gerade oder ungerade ist.  Wenn die Variable auf wahr
@@ -912,6 +913,7 @@ sie ist oder um eins erhöht wird.  Standard: @code{#f}.
 
 @item first-page-number
 @funindex first-page-number
+@cindex Sietenzahlen, erste definieren
 
 Der Wert der Seitenzahl auf der ersten Seite.
 
@@ -923,6 +925,7 @@ Standard: @code{#f}.
 
 @item print-page-number
 @funindex print-page-number
+@cindex Seitenzahlen, unterdrücken
 
 Wenn falsch, werden Seitenzahlen nicht ausgegeben.
 
@@ -1813,6 +1816,19 @@ usw. und den Rändern wird durch @code{\paper}-Variablen kontrolliert, die
 @unnumberedsubsubsec Eigenschaften für Abstände innerhalb von Systemgruppen
 @translationof Within-system spacing properties
 
+@funindex staff-affinity
+@funindex staffgroup-staff-spacing
+@funindex staff-staff-spacing
+@funindex nonstaff-unrelatedstaff-spacing
+@funindex nonstaff-relatedstaff-spacing
+@funindex nonstaff-nonstaff-spacing
+@funindex default-staff-staff-spacing
+@funindex minimum-Y-extent
+@funindex extra-offset
+@funindex self-alignment-X
+@funindex X-offset
+@funindex VerticalAxisGroup
+
 Der vertikalen Platzierungsmechanismen für Abstände innerhalb von Systemgruppen
 werden durch zwei Gruppen von Grob-Eigenschaften kontrolliert.  Die erste
 Gruppe ist mit dem @code{VerticalAxisGroup}-Grob verknüpft, der von allen
@@ -2031,9 +2047,10 @@ benutzen, unter einem Notensystem dagegen @code{UP}.  Wenn
 @code{staff-affinity} für eine Notensystem eingestellt wird, wird es wie
 eine Nicht-Notensystemzeile behandelt.  Wenn @code{staff-affinity}
 auf @code{#f} gesetzt wird, wird eine Nicht-Notensystemzeile wie ein
-Notensystem behandelt.
+Notensystem behandelt. Wird @code{staff-affinity} auf @code{UP},
+@code{CENTER} oder @code{DOWN} gesetzt, wird das Notensystem als
+Nicht-Notensystemzeile plaziert.
 
-@c TODO: verify last clause below ("even if other...")
 
 @item nonstaff-relatedstaff-spacing
 Nicht-Notensystem-verwandtesSystem-Platzierung
@@ -2045,7 +2062,12 @@ entweder @code{UP} oder @code{DOWN} ist.  Wenn @code{staff-affinity}
 @code{CENTER} ist, dann wird @code{nonstaff-relatedstaff-spacing} für die
 nächsten Notensysteme auf @emph{beiden} Seiten benutzt, auch wenn andere
 Nicht-Notensystemzeilen zwischen der aktuellen und einem der Notensystem
-auftreten.
+auftreten.  Das heißt, dass die Platzierung eine Nicht-Notensystemzeile
+sowohl von den umliegenden Notensystemen als auch den umliegenden
+Nicht-Notensystemzeilen abhängt.  Wenn @code{stretchability} einer dieser
+Platzierungstypen auf einen kleinen Wert gesetzt wird, dominiert diese
+Platzierung.  Wird es dagegen auf einen großen Wert gesetzt, hat die
+Platzierung dieses Objekts nur einen kleinen Einfluss.
 
 @item nonstaff-nonstaff-spacing
 Nicht-Notensystemzeile-Nicht-Notensystemzeile-Platzierung
@@ -2097,14 +2119,18 @@ für dieses Notensystem geändert werden.
 @end table
 
 @seealso
-Installierte Dateien:
-@file{ly/engraver-init.ly},
-@file{scm/define-grobs.scm}.
+Notationsreferenz:
+@ref{Vertikale \paper-Variablen mit flexiblen Abständen},
+@ref{Alisten verändern}.
 
 Referenz der Interna:
 @rinternals{Contexts},
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
+
+Installierte Dateien:
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
 
 
 @node Abstände von nicht gruppierten Notensystemen

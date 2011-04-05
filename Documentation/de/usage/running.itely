@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 0764a50d470cab82ca29da30298dacd333d3da12
+    Translation of GIT committish: bf45bed3887f818f2d99756e6b92c77a8698be92
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -487,10 +487,7 @@ Unterverzeichnisse @file{ly/}, @file{ps/}, @file{tex/}, etc. beinhalten.
 Gibt die Sprache an, in der Warnungen und Fehlermeldungen ausgegeben werden.
 
 @item LILYPOND_GC_YIELD
-Mit dieser Variable (mit Werten zwischen 0 und 100) kann die Feinabstimmung
-zwischen dem Bedarf an Hauptspeicher und Rechenleistung bei der Ausführung
-von LilyPond durchgeführt werden.  Bei höheren Werten benutzt LilyPond
-mehr Hauptspeicher, benötigt aber weniger Prozessor-Leistung.  Bei
+Eine Variable (von 1 bis 100), die die Speicherverwaltung regelt.  Bei
 niedrigeren Werten wird mehr Prozessor-Zeit, dafür weniger Hauptspeicher
 benötigt.  Voreinstellung ist ein Wert von @code{70}.
 
