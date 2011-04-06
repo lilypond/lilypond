@@ -655,8 +655,7 @@ NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
   (let ((m (make-music 'ApplyContext)))
     (define (checker tr)
       (let* ((bn (ly:context-property tr 'currentBarNumber)))
-	(if (= bn n)
-	    #t
+	(or (= bn n)
 	    (ly:error
 	     ;; FIXME: uncomprehensable message
 	     (_ "Bar check failed.  Expect to be at ~a, instead at ~a")
@@ -832,9 +831,8 @@ Syntax:
 
 (define-public ((quote-substitute quote-tab) music)
   (let* ((quoted-name (ly:music-property music 'quoted-music-name))
-	 (quoted-vector (if (string? quoted-name)
-			    (hash-ref quote-tab quoted-name #f)
-			    #f)))
+	 (quoted-vector (and (string? quoted-name)
+			     (hash-ref quote-tab quoted-name #f))))
 
 
     (if (string? quoted-name)
@@ -910,12 +908,10 @@ then revert skipTypesetting."
   (let*
       ((show-last (ly:parser-lookup parser 'showLastLength))
        (show-first (ly:parser-lookup parser 'showFirstLength))
-       (show-last-length (if (ly:music? show-last)
-                             (ly:music-length show-last)
-                             #f))
-       (show-first-length (if (ly:music? show-first)
-                              (ly:music-length show-first)
-                              #f))
+       (show-last-length (and (ly:music? show-last)
+			      (ly:music-length show-last)))
+       (show-first-length (and (ly:music? show-first)
+			       (ly:music-length show-first)))
        (orig-length (ly:music-length music)))
 
     ;;FIXME: if using either showFirst- or showLastLength,
@@ -1004,9 +1000,8 @@ then revert skipTypesetting."
 ;; accidentals
 
 (define (recent-enough? bar-number alteration-def laziness)
-  (if (or (number? alteration-def)
-	  (equal? laziness #t))
-      #t
+  (or (number? alteration-def)
+      (equal? laziness #t)
       (<= bar-number (+ (cadr alteration-def) laziness))))
 
 (define (accidental-voided? alteration-def)
@@ -1053,14 +1048,13 @@ specifies whether accidentals should be canceled in different octaves."
 	 (previous-alteration #f)
 	 (from-other-octaves #f)
 	 (from-same-octave (assoc-get pitch-handle local-key-sig))
-	 (from-key-sig (assoc-get notename local-key-sig)))
+	 (from-key-sig (or (assoc-get notename local-key-sig)
 
     ;; If no key signature match is found from localKeySignature, we may have a custom
     ;; type with octave-specific entries of the form ((octave . pitch) alteration)
     ;; instead of (pitch . alteration).  Since this type cannot coexist with entries in
     ;; localKeySignature, try extracting from keySignature instead.
-    (if (equal? from-key-sig #f)
-	(set! from-key-sig (assoc-get pitch-handle key-sig)))
+			   (assoc-get pitch-handle key-sig))))
 
     ;; loop through localKeySignature to search for a notename match from other octaves
     (let loop ((l local-key-sig))
@@ -1074,19 +1068,19 @@ specifies whether accidentals should be canceled in different octaves."
     ;; find previous alteration-def for comparison with pitch
     (cond
      ;; from same octave?
-     ((and (eq? ignore-octave #f)
-	   (not (equal? from-same-octave #f))
+     ((and (not ignore-octave)
+	   from-same-octave
 	   (recent-enough? barnum from-same-octave laziness))
       (set! previous-alteration from-same-octave))
 
      ;; from any octave?
-     ((and (eq? ignore-octave #t)
-	   (not (equal? from-other-octaves #f))
+     ((and ignore-octave
+	   from-other-octaves
 	   (recent-enough? barnum from-other-octaves laziness))
       (set! previous-alteration from-other-octaves))
 
      ;; not recent enough, extract from key signature/local key signature
-     ((not (equal? from-key-sig #f))
+     (from-key-sig
       (set! previous-alteration from-key-sig)))
 
     (if (accidental-voided? previous-alteration)
@@ -1161,18 +1155,17 @@ For convenience, returns @code{0} if entry is @code{#f}."
 @var{accept-global} states whether key signature entries should be included.
 @var{accept-local} states whether local accidentals should be included.
 If no matching entry is found, @var{#f} is returned."
-  (if (pair? keysig)
-      (let* ((entry (car keysig))
-	     (entryoct (key-entry-octave entry))
-	     (entrynn (key-entry-notename entry))
-	     (oct (ly:pitch-octave pitch))
-	     (nn (ly:pitch-notename pitch)))
-	(if (and (equal? nn entrynn)
-		 (or (and accept-global (equal? #f entryoct))
-		     (and accept-local (equal? oct entryoct))))
-	    entry
-	    (find-pitch-entry (cdr keysig) pitch accept-global accept-local)))
-      #f))
+  (and (pair? keysig)
+       (let* ((entry (car keysig))
+	      (entryoct (key-entry-octave entry))
+	      (entrynn (key-entry-notename entry))
+	      (oct (ly:pitch-octave pitch))
+	      (nn (ly:pitch-notename pitch)))
+	 (if (and (equal? nn entrynn)
+		  (or (and accept-global (not entryoct))
+		      (and accept-local (equal? oct entryoct))))
+	     entry
+	     (find-pitch-entry (cdr keysig) pitch accept-global accept-local)))))
 
 (define-public (neo-modern-accidental-rule context pitch barnum measurepos)
   "An accidental rule that typesets an accidental if it differs from the
@@ -1181,7 +1174,7 @@ staff line.  This rule should not be used alone because it does neither
 look at bar lines nor different accidentals at the same note name."
   (let* ((keysig (ly:context-property context 'localKeySignature))
 	 (entry (find-pitch-entry keysig pitch #t #t)))
-    (if (equal? #f entry)
+    (if (not entry)
 	(cons #f #f)
 	(let* ((global-entry (find-pitch-entry keysig pitch #t #f))
 	       (key-acc (key-entry-alteration global-entry))
@@ -1197,7 +1190,7 @@ included in the key signature @emph{and} does not directly follow a note
 on the same staff line."
   (let* ((keysig (ly:context-property context 'localKeySignature))
 	 (entry (find-pitch-entry keysig pitch #t #t)))
-    (if (equal? #f entry)
+    (if (not entry)
 	(cons #f #f)
 	(let* ((global-entry (find-pitch-entry keysig pitch #f #f))
 	       (key-acc (key-entry-alteration global-entry))
