@@ -170,6 +170,8 @@ hairpins (al/del niente).")
 edges of beams?")
      (collapse-height ,ly:dimension? "Minimum height of system start
 delimiter.  If equal or smaller, the bracket/brace/line is removed.")
+     (collision-interfaces ,list? "A list of interfaces for which
+automatic beam-collision resolution is run.")
      (color ,color? "The color of this grob.")
      (common-shortest-duration ,ly:moment? "The most common shortest
 note length.  This is used in spacing.  Enlarging this sets the score
@@ -183,7 +185,6 @@ this grob looks as a continued break.")
      (control-points ,list? "List of offsets (number pairs) that form
 control points for the tie, slur, or bracket shape.  For B@'eziers,
 this should list the control points of a third-order B@'ezier curve.")
-
 
 ;;
 ;; d

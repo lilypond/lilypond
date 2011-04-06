@@ -38,11 +38,28 @@ protected:
 
   virtual void finalize ();
 
+private:
+  bool covered_grob_has_interface (Grob *covered_grob, Grob *beam);
+
 public:
   TRANSLATOR_DECLARATIONS (Beam_collision_engraver);
 };
 
 Beam_collision_engraver::Beam_collision_engraver () {}
+
+bool
+Beam_collision_engraver::covered_grob_has_interface (Grob *covered_grob, Grob *beam)
+{
+  SCM interfaces = beam->get_property ("collision-interfaces");
+
+  for (SCM l = interfaces; scm_is_pair (l); l = scm_cdr (l))
+    {
+      if (covered_grob->internal_has_interface (scm_car (l)));
+        return true;
+    }
+
+  return false;
+}
 
 void
 Beam_collision_engraver::finalize ()
@@ -65,7 +82,8 @@ Beam_collision_engraver::finalize ()
       for (vsize j = start; j < covered_grobs_.size (); j++)
         {
           Interval_t<int> covered_grob_spanned_rank = covered_grobs_[j]->spanned_rank_interval ();
-          if (covered_grob_spanned_rank[LEFT] > beam_spanned_rank_[RIGHT])
+          if ((covered_grob_spanned_rank[LEFT] > beam_spanned_rank_[RIGHT]
+              || !covered_grob_has_interface (covered_grobs_[j], beams_[i])))
             break;
           /*
              Only consider grobs whose end falls at or after the beam's beginning.

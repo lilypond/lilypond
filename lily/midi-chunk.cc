@@ -110,8 +110,6 @@ Midi_event::to_string () const
 {
   string delta_string = int2midi_varint_string (delta_ticks_);
   string midi_string = midi_->to_string ();
-  if (midi_string.empty ())
-    return "";
   return delta_string + midi_string;
 }
 /****************************************************************
