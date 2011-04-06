@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lilypond 2.13.53\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2011-03-02 10:34+0100\n"
-"PO-Revision-Date: 2011-03-03 16:06+0100\n"
+"PO-Revision-Date: 2011-04-06 19:38+0200\n"
 "Last-Translator: Jean-Charles Malahieude <lilyfan@orange.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "Language: fr\n"
@@ -1530,7 +1530,7 @@ msgstr "Autres langues"
 #: warn.cc:59
 #, c-format
 msgid "success: %s"
-msgstr "%s mené(e) à terme avec succès"
+msgstr "Résultat : %s"
 
 #: warn.cc:86 grob.cc:617 input.cc:97
 #, c-format
