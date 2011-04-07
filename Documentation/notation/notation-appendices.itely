@@ -435,6 +435,10 @@ The chart below shows the predefined fretboard diagrams for ukulele.
 
 @lilypondfile{display-predefined-ukulele-fretboards.ly}
 
+The chart below shows the predefined fretboard diagrams for mandolin.
+
+@lilypondfile{display-predefined-mandolin-fretboards.ly}
+
 @node MIDI instruments
 @appendixsec MIDI instruments
 
