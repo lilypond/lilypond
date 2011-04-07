@@ -3207,9 +3207,9 @@ durations in the other staves.  For the above example
 >>
 @end lilypond
 
-The use of grace notes within voice contexts confuses the way the
-voice is typeset. This can be overcome by inserting a rest or note
-between the voice command and the grace note.
+The use of grace notes within voice contexts confuses the way the voice
+is typeset. This can be overcome by inserting a rest or note between the
+voice command and the grace note.
 
 @lilypond[quote,verbatim]
 accMusic = {
@@ -3234,9 +3234,33 @@ accMusic = {
 }
 @end lilypond
 
-Grace sections should only be used within sequential music
-expressions.  Nesting or juxtaposing grace sections is not
-supported, and might produce crashes or other errors.
+Grace sections should only be used within sequential music expressions.
+Nesting or juxtaposing grace sections is not supported, and might
+produce crashes or other errors.
+
+Each grace note in MIDI output has a length of 1/4 of its actual
+duration.  If the combined length of the grace notes is greater than the
+length of the preceding note a @qq{@code{Going back in MIDI time}}
+error will be generated.  Either make the grace notes shorter in
+duration, for example:
+
+@example
+\acciaccatura @{ c'8[ d' e' f' g'] @}
+@end example
+
+becomes:
+
+@example
+\acciaccatura @{ c'16[ d' e' f' g'] @}
+@end example
+
+Or explicitly change the musical duration:
+
+@example
+\acciaccatura @{ \scaleDurations #' (1 . 2) @{ c'8[ d' e' f' g'] @} @}
+@end example
+
+See @ref{Scaling durations}.
 
 
 @node Aligning to cadenzas
