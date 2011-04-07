@@ -1821,8 +1821,10 @@ labelContext =
   \context { \Dynamics    \alignToZero }
   \context { \FiguredBass \alignToZero }
   \context { \Lyrics      \alignToZero }
-  \context { \NoteNames   \alignToZero }
-  \context { \ChordNames  \alignToZero \lowerCaseChords }
+  \context { \NoteNames   \alignToZero \staffAffinityDown }
+  \context { \ChordNames  \alignToZero
+                          \staffAffinityDown
+			  \lowerCaseChords }
   \context { \FretBoards  \alignToZero \staffAffinityDown }
   \context { \Score
     \override BarLine #'stencil = ##f
@@ -1843,8 +1845,8 @@ labelContext =
   \new RhythmicStaff {
     \set RhythmicStaff.instrumentName = #"baseline "
     \textLengthOn
-    \labelContext "ChordNames" s1 |
-    \labelContext "NoteNames"  s1 |
+    \labelContext "ChordNames " s1 |
+    \labelContext "NoteNames "  s1 |
     \labelContext "Lyrics"     s1 |
   }
   \new Lyrics { \lyrics { \skip 1*2 | ghijk1 | } }
@@ -1856,7 +1858,7 @@ labelContext =
     \set RhythmicStaff.instrumentName = #"vertical center "
     \labelContext "Dynamics" s1*3
   }
-  \new Dynamics { s2\mp s\fp }
+  \new Dynamics { s1\mp s\fp }
 >>
 
 %% The reference point for FiguredBass is its highest point
