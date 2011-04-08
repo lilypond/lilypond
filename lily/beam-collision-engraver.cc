@@ -26,8 +26,8 @@
 class Beam_collision_engraver : public Engraver
 {
 protected:
-  vector<Grob *> beams_;
-  vector<Grob *> covered_grobs_;
+  vector<Grob_info> beams_;
+  vector<Grob_info> covered_grobs_;
 
   DECLARE_ACKNOWLEDGER (note_head);
   DECLARE_ACKNOWLEDGER (accidental);
@@ -67,41 +67,51 @@ Beam_collision_engraver::finalize ()
   if (!covered_grobs_.size ())
     return;
 
-  vector_sort (covered_grobs_, Grob::less);
-  vector_sort (beams_, Grob::less);
+  vector_sort (covered_grobs_, Grob_info::less);
+  vector_sort (beams_, Grob_info::less);
   vsize start = 0;
 
   for (vsize i = 0; i < beams_.size (); i++)
     {
-      Interval_t<int> beam_spanned_rank_ = beams_[i]->spanned_rank_interval ();
+      Grob *beam_grob = beams_[i].grob ();
+      Context *beam_context = beams_[i].context ();
+
+      Interval_t<int> beam_spanned_rank_ = beam_grob->spanned_rank_interval ();
       // Start considering grobs at the first grob whose end falls at or after the beam's beginning.
-      while (covered_grobs_[start]->spanned_rank_interval ()[RIGHT] < beam_spanned_rank_[LEFT])
+      while (covered_grobs_[start].grob ()->spanned_rank_interval ()[RIGHT] < beam_spanned_rank_[LEFT])
         start++;
 
       // Stop when the grob's beginning comes after the beam's end.
       for (vsize j = start; j < covered_grobs_.size (); j++)
         {
-          Interval_t<int> covered_grob_spanned_rank = covered_grobs_[j]->spanned_rank_interval ();
+          Grob *covered_grob = covered_grobs_[j].grob ();
+          Context *covered_grob_context = covered_grobs_[j].context ();
+
+          Interval_t<int> covered_grob_spanned_rank = covered_grob->spanned_rank_interval ();
           if ((covered_grob_spanned_rank[LEFT] > beam_spanned_rank_[RIGHT]
-              || !covered_grob_has_interface (covered_grobs_[j], beams_[i])))
+              || !covered_grob_has_interface (covered_grob, beam_grob)))
             break;
           /*
              Only consider grobs whose end falls at or after the beam's beginning.
-             If the grob is a beam, it cannot start before beams_[i]
+             If the grob is a beam, it cannot start before beams_[i].
+             Also, if the user wants to check for collisions only in the beam's voice,
+             then make sure the beam and the covered_grob are in the same voice.
           */
           if ((covered_grob_spanned_rank[RIGHT] >= beam_spanned_rank_[LEFT])
-              && !(Beam::has_interface (covered_grobs_[j])
+              && !(to_boolean (beam_grob->get_property ("collision-voice-only"))
+                   && (covered_grob_context != beam_context))
+              && !(Beam::has_interface (covered_grob)
                    && (covered_grob_spanned_rank[LEFT] <= beam_spanned_rank_[LEFT])))
             {
               // Do not consider note heads attached to the beam.
               bool my_beam = false;
-              if (Grob *stem = unsmob_grob (covered_grobs_[j]->get_object ("stem")))
+              if (Grob *stem = unsmob_grob (covered_grob->get_object ("stem")))
                 if (Grob *beam = unsmob_grob (stem->get_object ("beam")))
-                  if (beam == beams_[i])
+                  if (beam == beam_grob)
                     my_beam = true;
 
               if (!my_beam)
-                Pointer_group_interface::add_grob (beams_[i], ly_symbol2scm ("covered-grobs"), covered_grobs_[j]);
+                Pointer_group_interface::add_grob (beam_grob, ly_symbol2scm ("covered-grobs"), covered_grob);
             }
         }
     }
@@ -110,39 +120,39 @@ Beam_collision_engraver::finalize ()
 void
 Beam_collision_engraver::acknowledge_note_head (Grob_info i)
 {
-  covered_grobs_.push_back (i.grob ());
+  covered_grobs_.push_back (i);
 }
 
 void
 Beam_collision_engraver::acknowledge_accidental (Grob_info i)
 {
   if (i.grob ()->internal_has_interface (ly_symbol2scm ("inline-accidental-interface")))
-    covered_grobs_.push_back (i.grob ());
+    covered_grobs_.push_back (i);
 }
 
 void
 Beam_collision_engraver::acknowledge_clef (Grob_info i)
 {
-  covered_grobs_.push_back (i.grob ());
+  covered_grobs_.push_back (i);
 }
 
 void
 Beam_collision_engraver::acknowledge_key_signature (Grob_info i)
 {
-  covered_grobs_.push_back (i.grob ());
+  covered_grobs_.push_back (i);
 }
 
 void
 Beam_collision_engraver::acknowledge_time_signature (Grob_info i)
 {
-  covered_grobs_.push_back (i.grob ());
+  covered_grobs_.push_back (i);
 }
 
 void
 Beam_collision_engraver::acknowledge_beam (Grob_info i)
 {
-  beams_.push_back (i.grob ());
-  covered_grobs_.push_back (i.grob ());
+  beams_.push_back (i);
+  covered_grobs_.push_back (i);
 }
 
 #include "translator.icc"

@@ -172,6 +172,8 @@ edges of beams?")
 delimiter.  If equal or smaller, the bracket/brace/line is removed.")
      (collision-interfaces ,list? "A list of interfaces for which
 automatic beam-collision resolution is run.")
+     (collision-voice-only ,boolean? "Does automatic beam collsion apply
+only to the voice in which the beam was created?")
      (color ,color? "The color of this grob.")
      (common-shortest-duration ,ly:moment? "The most common shortest
 note length.  This is used in spacing.  Enlarging this sets the score

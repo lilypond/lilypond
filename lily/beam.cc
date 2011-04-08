@@ -1819,6 +1819,7 @@ ADD_INTERFACE (Beam,
 	       "clip-edges "
 	       "concaveness "
 	       "collision-interfaces "
+	       "collision-voice-only "
 	       "covered-grobs "
 	       "damping "
 	       "details "
