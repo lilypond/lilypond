@@ -54,7 +54,7 @@ Beam_collision_engraver::covered_grob_has_interface (Grob *covered_grob, Grob *b
 
   for (SCM l = interfaces; scm_is_pair (l); l = scm_cdr (l))
     {
-      if (covered_grob->internal_has_interface (scm_car (l)));
+      if (covered_grob->internal_has_interface (scm_car (l)))
         return true;
     }
 
