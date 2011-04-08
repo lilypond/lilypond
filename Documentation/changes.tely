@@ -62,6 +62,19 @@ which scares away people.
 @end ignore
 
 @item
+The Articulate script by Peter Chubb, which is GPLv3 licensed, is now
+a part of the distribution.  It allows easy generation of improved
+MIDI files that perform non-legato by default, legato slurs, staccato,
+tempo markings, trills, etc.
+
+@example
+\include "articulate.ly"
+\articulate <<
+      all the rest of the score...
+>>
+@end example
+
+@item
 Single beat repeats for sixteenth or shorter notes and beat repeats for
 measures containing notes of varying durations are now supported.
 
