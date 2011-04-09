@@ -22,6 +22,7 @@
 #include "item.hh"
 #include "note-head.hh"
 #include "pointer-group-interface.hh"
+#include "stem.hh"
 
 class Beam_collision_engraver : public Engraver
 {
@@ -30,6 +31,7 @@ protected:
   vector<Grob_info> covered_grobs_;
 
   DECLARE_ACKNOWLEDGER (note_head);
+  DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (accidental);
   DECLARE_ACKNOWLEDGER (clef);
   DECLARE_ACKNOWLEDGER (key_signature);
@@ -104,14 +106,16 @@ Beam_collision_engraver::finalize ()
                    && (covered_grob_spanned_rank[LEFT] <= beam_spanned_rank_[LEFT])))
             {
               // Do not consider note heads attached to the beam.
-              bool my_beam = false;
+              if (Stem::has_interface (covered_grob))
+                if (unsmob_grob (covered_grob->get_object ("beam")))
+                  continue;
+
               if (Grob *stem = unsmob_grob (covered_grob->get_object ("stem")))
                 if (Grob *beam = unsmob_grob (stem->get_object ("beam")))
                   if (beam == beam_grob)
-                    my_beam = true;
+                    continue;
 
-              if (!my_beam)
-                Pointer_group_interface::add_grob (beam_grob, ly_symbol2scm ("covered-grobs"), covered_grob);
+              Pointer_group_interface::add_grob (beam_grob, ly_symbol2scm ("covered-grobs"), covered_grob);
             }
         }
     }
@@ -119,6 +123,12 @@ Beam_collision_engraver::finalize ()
 
 void
 Beam_collision_engraver::acknowledge_note_head (Grob_info i)
+{
+  covered_grobs_.push_back (i);
+}
+
+void
+Beam_collision_engraver::acknowledge_stem (Grob_info i)
 {
   covered_grobs_.push_back (i);
 }
@@ -158,6 +168,7 @@ Beam_collision_engraver::acknowledge_beam (Grob_info i)
 #include "translator.icc"
 
 ADD_ACKNOWLEDGER (Beam_collision_engraver, note_head);
+ADD_ACKNOWLEDGER (Beam_collision_engraver, stem);
 ADD_ACKNOWLEDGER (Beam_collision_engraver, accidental);
 ADD_ACKNOWLEDGER (Beam_collision_engraver, clef);
 ADD_ACKNOWLEDGER (Beam_collision_engraver, key_signature);

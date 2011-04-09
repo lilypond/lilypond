@@ -354,6 +354,7 @@
 				 inline-accidental-interface
 				 key-signature-interface
 				 note-head-interface
+				 stem-interface
 				 time-signature-interface))
 	(concaveness . ,ly:beam::calc-concaveness)
 	(cross-staff . ,ly:beam::calc-cross-staff)
