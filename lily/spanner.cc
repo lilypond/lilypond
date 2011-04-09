@@ -80,7 +80,7 @@ Spanner::do_break_processing ()
 
       Slice parent_rank_slice;
       parent_rank_slice.set_full ();
-      
+
       /*
 	Check if our parent in X-direction spans equally wide
 	or wider than we do.
@@ -90,7 +90,7 @@ Spanner::do_break_processing ()
 	  if (Spanner *parent = dynamic_cast<Spanner *> (get_parent ((Axis)a)))
 	    parent_rank_slice.intersect (parent->spanned_rank_interval ());
 	}
-  
+
       for (vsize i = 1; i < break_points.size (); i++)
 	{
 	  Drul_array<Item *> bounds;
@@ -112,15 +112,15 @@ Spanner::do_break_processing ()
 
 	  bool ok = parent_rank_slice.contains (bounds[LEFT]->get_column ()->get_rank ());
 	  ok = ok && parent_rank_slice.contains (bounds[RIGHT]->get_column ()->get_rank ());
-	  
+
 	  if (!ok)
 	    {
 	      programming_error (to_string ("Spanner `%s' is not fully contained in parent spanner. Ignoring orphaned part",
 					    name ().c_str ()));
 	      continue;
 	    }
-	    
-	  
+
+
 	  Spanner *span = dynamic_cast<Spanner *> (clone ());
 	  span->set_bound (LEFT, bounds[LEFT]);
 	  span->set_bound (RIGHT, bounds[RIGHT]);
@@ -372,7 +372,7 @@ Spanner::set_spacing_rods (SCM smob)
 				sp->get_bound (RIGHT));
       if (!bounds[LEFT] || !bounds[RIGHT])
 	return SCM_UNSPECIFIED;
-      
+
       vector<Item*> cols (root->broken_col_range (bounds[LEFT]->get_column (),
 						  bounds[RIGHT]->get_column ()));
 
@@ -383,18 +383,18 @@ Spanner::set_spacing_rods (SCM smob)
 	  r.item_drul_[RIGHT] = cols[0]->find_prebroken_piece (LEFT);
 	  r.distance_ = robust_scm2double (num_length, 0);
 	  r.add_to_cols ();
-	  
+
 	  r.item_drul_[LEFT] = cols.back ()->find_prebroken_piece (RIGHT);
 	  r.item_drul_[RIGHT] = sp->get_bound (RIGHT);
 	  r.add_to_cols ();
 	}
-	   
+
       r.distance_ = robust_scm2double (num_length, 0);
       r.item_drul_[LEFT] = sp->get_bound (LEFT);
       r.item_drul_[RIGHT] = sp->get_bound (RIGHT);
       r.add_to_cols ();
     }
-  
+
   return SCM_UNSPECIFIED;
 }
 
@@ -461,7 +461,7 @@ Spanner::bounds_width (SCM grob)
 
   Interval w (me->get_bound (LEFT)->relative_coordinate (common, X_AXIS),
 	      me->get_bound (RIGHT)->relative_coordinate (common, X_AXIS));
-	      
+
   w -= me->relative_coordinate (common, X_AXIS);
 
   return ly_interval2scm (w);
@@ -488,6 +488,7 @@ Spanner::kill_zero_spanned_time (SCM grob)
     --hwn.
 
   */
+  moments [LEFT].grace_part_ = 0;
   if (moments.length () == Moment (0, 0))
     me->suicide ();
 
@@ -530,4 +531,3 @@ ADD_INTERFACE (Spanner,
 	       "minimum-length "
 	       "to-barline "
 	       );
-

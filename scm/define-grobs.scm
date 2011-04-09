@@ -1191,6 +1191,7 @@
 
     (LyricHyphen
      . (
+	(after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
 	(dash-period . 10.0)
 	(height . 0.42)
 	(length . 0.66)
