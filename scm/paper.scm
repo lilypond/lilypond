@@ -20,6 +20,8 @@
 		  '(blot-diameter
 		    bottom-margin
 		    cm
+		    footnote-footer-padding
+		    footnote-padding
 		    horizontal-shift
 		    in
 		    indent

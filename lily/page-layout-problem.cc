@@ -71,7 +71,7 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, Real padding)
 
   if (!scm_is_pair (footnotes))
     return SCM_EOL;
-    
+
   return scm_reverse (footnotes);
 }
 
@@ -99,8 +99,10 @@ Page_layout_problem::add_footnotes_to_footer (SCM footnotes, Stencil *foot, Pape
 {
   bool footnotes_found = false;
   Real footnote_padding = robust_scm2double (pb->paper_->c_variable ("footnote-padding"), 0.0);
+  Real footnote_footer_padding = robust_scm2double (pb->paper_->c_variable ("footnote-footer-padding"), 0.0);
   
   footnotes = scm_reverse (footnotes);
+
   for (SCM s = footnotes; scm_is_pair (s); s = scm_cdr (s))
     {
       Stencil *stencil = unsmob_stencil (scm_car (s));
@@ -110,7 +112,7 @@ Page_layout_problem::add_footnotes_to_footer (SCM footnotes, Stencil *foot, Pape
 
       if (!stencil->is_empty ())
         {
-          foot->add_at_edge (Y_AXIS, UP, *stencil, footnote_padding);
+          foot->add_at_edge (Y_AXIS, UP, *stencil, (!footnotes_found ? footnote_footer_padding : footnote_padding));
           footnotes_found = true;
         }
     }

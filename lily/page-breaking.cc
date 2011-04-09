@@ -263,6 +263,7 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_bre
     footnote_separator_stencil_height_ = 0.0;
 
   footnote_padding_ = robust_scm2double (pb->paper_->c_variable ("footnote-padding"), 0.0);
+  footnote_footer_padding_ = robust_scm2double (pb->paper_->c_variable ("footnote-footer-padding"), 0.0);
 
   if (systems_per_page_ && (max_systems_per_page_ || min_systems_per_page_))
     {
@@ -333,6 +334,12 @@ Real
 Page_breaking::footnote_padding () const
 {
   return footnote_padding_;
+}
+
+Real
+Page_breaking::footnote_footer_padding () const
+{
+  return footnote_footer_padding_;
 }
 
 bool
