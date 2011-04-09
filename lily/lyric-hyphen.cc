@@ -35,18 +35,9 @@ MAKE_SCHEME_CALLBACK (Lyric_hyphen, print, 1);
 SCM
 Lyric_hyphen::print (SCM smob)
 {
-
   Spanner *me = unsmob_spanner (smob);
   Drul_array<Item *> bounds (me->get_bound (LEFT),
 			     me->get_bound (RIGHT));
-
-  /* No hyphen should be printed under a grace note at the start
-     of a line if the grace's main note starts a new syllable.  */
-
-  if (Paper_column::when_mom (bounds[LEFT]->get_column ()).grace_part () != Rational (0)
-      && Paper_column::when_mom (bounds[LEFT]->get_column ()).main_part ()
-      == Paper_column::when_mom (bounds[RIGHT]->get_column ()).main_part ())
-    return SCM_EOL;
 
   if (bounds[LEFT]->break_status_dir ()
       && (Paper_column::when_mom (bounds[LEFT])
@@ -162,3 +153,4 @@ ADD_INTERFACE (Lyric_hyphen,
 	       "padding "
 	       "thickness "
 	       );
+
