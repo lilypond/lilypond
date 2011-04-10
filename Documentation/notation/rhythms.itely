@@ -143,6 +143,9 @@ the staff; see @ref{Direction and placement}.
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{alternative-breve-note.ly}
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
 
 
