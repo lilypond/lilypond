@@ -515,293 +515,495 @@ Almost all printed music includes a title and the composer's name;
 some pieces include a lot more information.
 
 @menu
-* Creating titles::
+* Creating titles headers and footers::
 * Custom headers footers and titles::
 * Reference to page numbers::
 * Table of contents::
 @end menu
 
 
-@node Creating titles
-@subsection Creating titles
+@node Creating titles headers and footers
+@subsection Creating titles, headers, and footers
 
-Titles are created for each @code{\score} block, as well as for the full
-input file (or @code{\book} block) and book parts (created by
-@code{\bookpart} blocks).
+@menu
+* Title blocks explained::
+* Default layout of book and score title blocks::
+* Default layout of headers and footers::
+@end menu
 
-The contents of the titles are taken from the @code{\header} blocks.
-The header block for a book supports the following
 
+@node Title blocks explained
+@unnumberedsubsubsec Title blocks explained
 
-@table @code
-@funindex dedication
-@item dedication
-The dedicatee of the music, centered at the top of the first page.
+@c TODO: figure out how \bookpart titles work
 
-@funindex title
-@item title
-The title of the music, centered just below the dedication.
+There are two types of title blocks: the main title block that appears
+above of the first @code{\score} of a book, and individual title
+blocks that appear within each @code{\score} block.  Text fields for
+both types are entered using a @code{\header} block.
 
-@funindex subtitle
-@item subtitle
-Subtitle, centered below the title.
+If the book only has a single score, the @code{\header} block may be
+placed inside or outside of the @code{\score} block.
 
-@funindex subsubtitle
-@item subsubtitle
-Subsubtitle, centered below the subtitle.
+@warning{Remember when adding a @bs{}@code{header} block inside a
+@bs{}@code{score} block, that the music expression must come before the
+@bs{}@code{header} block.}
 
-@funindex poet
-@item poet
-Name of the poet, flush-left below the subsubtitle.
-
-@funindex instrument
-@item instrument
-Name of the instrument, centered below the subsubtitle.  Also
-centered at the top of pages (other than the first page).
-
-@funindex composer
-@item composer
-Name of the composer, flush-right below the subsubtitle.
-
-@funindex meter
-@item meter
-Meter string, flush-left below the poet.
-
-@funindex arranger
-@item arranger
-Name of the arranger, flush-right below the composer.
-
-@funindex piece
-@item piece
-Name of the piece, flush-left below the meter.
-
-@funindex opus
-@item opus
-Name of the opus, flush-right below the arranger.
-
-@cindex page breaks, forcing
-@funindex breakbefore
-@item breakbefore
-This forces the title to start on a new page (set to ##t or ##f).
-
-@funindex copyright
-@item copyright
-Copyright notice, centered at the bottom of the first page.  To
-insert the copyright symbol, see @ref{Text encoding}.
-
-@funindex tagline
-@item tagline
-Centered at the bottom of the last page.
-
-@end table
-
-Here is a demonstration of the fields available.  Note that you
-may use any @ref{Formatting text}, commands in the header.
-
-@lilypond[quote,verbatim,line-width=11.0\cm]
-\paper {
-  line-width = 9.0\cm
-  paper-height = 10.0\cm
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\header {
+  title = "SUITE I."
+  composer = "J. S. Bach."
 }
 
+\score {
+  \new Staff \relative g, {
+    \clef bass
+    \key g \major
+    \repeat unfold 2 { g16( d' b') a b d, b' d, } |
+    \repeat unfold 2 { g,16( e' c') b c e, c' e, } |
+  }
+  \header {
+    piece = "Prélude."
+  }
+}
+
+\score {
+  \new Staff \relative b {
+    \clef bass
+    \key g \major
+    \partial 16 b16 |
+    <g, d' b'~>4 b'16 a( g fis) g( d e fis) g( a b c) |
+    d16( b g fis) g( e d c) b(c d e) fis( g a b) |
+  }
+  \header {
+    piece = "Allemande."
+  }
+}
+@end lilypond
+
+Text fields from the main title block of a book can be displayed in all
+@code{\score} blocks, or manually suppressed:
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    print-all-headers = ##t
+  }
+  \header {
+    title = "DAS WOHLTEMPERIRTE CLAVIER"
+    subtitle = "TEIL I"
+    % Do not display the tagline for this book
+    tagline = ##f
+  }
+  \markup { \vspace #1 }
+  \score {
+    \new PianoStaff <<
+      \new Staff { s1 }
+      \new Staff { \clef "bass" s1 }
+    >>
+    \header {
+      title = "PRAELUDIUM I"
+      opus = "BWV 846"
+      % Do not display the subtitle for this score
+      subtitle = ##f
+    }
+  }
+  \score {
+    \new PianoStaff <<
+      \new Staff { s1 }
+      \new Staff { \clef "bass" s1 }
+    >>
+    \header {
+      title = "FUGA I"
+      subsubtitle = "A 4 VOCI"
+      opus = "BWV 846"
+      % Do not display the subtitle for this score
+      subtitle = ##f
+    }
+  }
+}
+@end lilypond
+
+@seealso
+Notation Reference:
+@ref{File structure},
+@ref{Custom layout for title blocks}.
+
+
+@node Default layout of book and score title blocks
+@unnumberedsubsubsec Default layout of book and score title blocks
+
+The layout and formatting of title blocks are controlled by two
+@code{\paper} variables; @code{bookTitleMarkup} for the main
+@code{\header} title block and @code{scoreTitleMarkup} for individual
+@code{\header} blocks within a @code{\score}.
+
+@lilypond[papersize=a6,quote,verbatim,noragged-right]
+\header {
+  % The following fields are centered
+  dedication = "Dedication"
+  title = "Title"
+  subtitle = "Subtitle"
+  subsubtitle = "Subsubtitle"
+  instrument = "Instrument"
+
+  % The following fields are left-aligned on the left side
+  poet = "Poet"
+  meter = "Meter"
+
+  % The following fields are right-aligned on the right side
+  composer = "Composer"
+  arranger = "Arranger"
+}
+
+\score {
+  { s1 }
+  \header {
+    % The following fields are placed at opposite ends of the same line
+    piece = "Piece"
+    opus = "Opus"
+  }
+}
+@end lilypond
+
+@c Is the bit about \null markups true? -mp
+
+Text fields left unset in a @code{\header} block are replaced with
+@code{\null} markups so that the space is not wasted.
+
+The default settings for @code{scoreTitleMarkup} place the @code{piece}
+and @code{opus} text fields at opposite ends of the same line.
+
+@cindex breakbefore
+
+Use the @code{breakbefore} variable inside a @code{\header} block
+that is itself in a @code{\score} block, to make the top-level
+@code{\header} block titles appear on the first page on their own, with
+the music (defined in the @code{\score} block) starting on the next.
+
+@lilypond[papersize=a8landscape,verbatim,noragged-right]
 \book {
   \header {
-    dedication = "dedicated to me"
-    title = \markup \center-column { "Title first line" "Title second line,
-longer" }
-    subtitle = "the subtitle,"
-    subsubtitle = #(string-append "subsubtitle LilyPond version "
-(lilypond-version))
-    poet = "Poet"
-    composer =  \markup \center-column { "composer" \small "(1847-1973)" }
-    texttranslator = "Text Translator"
-    meter = \markup { \teeny "m" \tiny "e" \normalsize "t" \large "e" \huge
-"r" }
-    arranger = \markup { \fontsize #8.5 "a" \fontsize #2.5 "r" \fontsize
-#-2.5 "r" \fontsize #-5.3 "a" \fontsize #7.5 "nger" }
-    instrument = \markup \bold \italic "instrument"
-    piece = "Piece"
-  }
-
-  \score {
-    { c'1 }
-    \header {
-      piece = "piece1"
-      opus = "opus1"
-    }
-  }
-  \markup {
-      and now...
+    title = "This is my Title"
+    subtitle = "This is my Subtitle"
+    copyright = "This is the bottom of the first page"
   }
   \score {
-    { c'1 }
+    \repeat unfold 4 { e'' e'' e'' e'' }
     \header {
-      piece = "piece2"
-      opus = "opus2"
+      piece = "This is the Music"
+      breakbefore = ##t
     }
   }
 }
 @end lilypond
 
-As demonstrated before, you can use multiple @code{\header} blocks.
-When same fields appear in different blocks, the latter is used.
-Here is a short example.
+@seealso
+Learning Manual:
+@rlearning{How LilyPond input files work},
 
-@example
-\header @{
-  composer = "Composer"
-@}
-\header @{
-  piece = "Piece"
-@}
-\score @{
-  \new Staff @{ c'4 @}
-  \header @{
-    piece = "New piece"  % overwrite previous one
-  @}
-@}
-@end example
+Notation Reference:
+@ref{File structure}.
 
-If you define the @code{\header} inside the @code{\score} block, then
-normally only the @code{piece} and @code{opus} headers will be printed.
-Note that the music expression must come before the @code{\header}.
+Installed Files:
+@file{ly/titling-init.ly}.
 
-@lilypond[quote,verbatim,line-width=11.0\cm]
-\score {
-  { c'4 }
+@node Default layout of headers and footers
+@unnumberedsubsubsec Default layout of headers and footers
+
+@emph{Headers} and @emph{footers} are lines of text appearing at
+the top and bottom of pages, separate from the main text of a book.
+They are controlled by the following @code{\paper} variables:
+
+@itemize
+@item @code{oddHeaderMarkup}
+@item @code{evenHeaderMarkup}
+@item @code{oddFooterMarkup}
+@item @code{evenFooterMarkup}
+@end itemize
+
+These markup variables can only access text fields from top-level
+@code{\header} blocks (which apply to all scores in the book) and are
+defined in @file{ly/titling-init.ly}.  By default:
+
+@itemize
+
+@item
+page numbers are automatically placed on the top far left (if even) or
+top far right (if odd), starting from the second page.
+
+@item
+the @code{instrument} text field is placed in the center of every
+page, starting from the second page.
+
+@item
+the @code{copyright} text is centered on the bottom of the first page.
+
+@item
+the @code{tagline} is centered on the bottom of the last page, and below
+the @code{copyright} text if there is only a single page.
+
+@end itemize
+
+@lilypond[papersize=a8landscape]
+\book {
+  \score {
+    \relative c' {
+      c4 d e f
+    }
+  }
+}
+@end lilypond
+
+The default tagline can be changed by adding a @code{tagline} in the
+top-level @code{\header} block.
+
+@lilypond[papersize=a8landscape,verbatim]
+\book {
   \header {
-    title = "title"  % not printed
-    piece = "piece"
-    opus = "opus"
+    tagline = "... music notation for Everyone"
+  }
+  \score {
+    \relative c' {
+      c4 d e f
+    }
   }
 }
 @end lilypond
 
-@funindex print-all-headers
-@noindent
-You may change this behavior (and print all the headers when defining
-@code{\header} inside @code{\score}) by using
-
-@example
-\paper@{
-  print-all-headers = ##t
-@}
-@end example
-
-@cindex copyright
-@cindex tagline
-
-The default footer is empty, except for the first page, where the
-@code{copyright} field from @code{\header} is inserted, and the last
-page, where @code{tagline} from @code{\header} is added.  The default
-tagline is @qq{Music engraving by LilyPond (@var{version})}.@footnote{Nicely
-printed parts are good PR for us, so please leave the tagline if you
-can.}
-
-Headers may be completely removed by setting them to false.
-
-@example
-\header @{
-  tagline = ##f
-  composer = ##f
-@}
-@end example
+To remove the @code{tagline} set the value to @code{##f}.
 
 
 @node Custom headers footers and titles
 @subsection Custom headers, footers, and titles
 
-A more advanced option is to change the definitions of the following
-variables in the @code{\paper} block.  The init file
-@file{../ly/titling-init.ly} lists the default layout.
+@c TODO: somewhere put a link to header spacing info
+@c       (you'll have to explain it more in NR 4).
 
-@table @code
-@funindex bookTitleMarkup
-@item bookTitleMarkup
-  This is the title added at the top of the entire output document.
-Typically, it has the composer and the title of the piece
-
-@funindex scoreTitleMarkup
-@item scoreTitleMarkup
-  This is the title put over a @code{\score} block.  Typically, it has
-the name of the movement (@code{piece} field).
-
-@funindex oddHeaderMarkup
-@item oddHeaderMarkup
-  This is the page header for odd-numbered pages.
-
-@funindex evenHeaderMarkup
-@item evenHeaderMarkup
-  This is the page header for even-numbered pages.  If unspecified,
-  the odd header is used instead.
-
-  By default, headers are defined such that the page number is on the
-  outside edge, and the instrument is centered.
-
-@funindex oddFooterMarkup
-@item oddFooterMarkup
-  This is the page footer for odd-numbered pages.
-
-@funindex evenFooterMarkup
-@item evenFooterMarkup
-  This is the page footer for even-numbered pages.  If unspecified,
-  the odd header is used instead.
-
-  By default, the footer has the copyright notice on the first, and
-  the tagline on the last page.
-@end table
+@menu
+* Custom text formatting for title blocks::
+* Custom layout for title blocks::
+* Custom layout for headers and footers::
+@end menu
 
 
-@cindex \paper
-@cindex header
-@cindex footer
-@cindex page layout
-@cindex titles
+@node Custom text formatting for title blocks
+@unnumberedsubsubsec Custom text formatting for title blocks
 
-The following definition will put the title flush left, and the
-composer flush right on a single line.
+Standard @code{\markup} commands can be used to customize any header,
+footer and title text within the @code{\header} block.
+
+@lilypond[quote,verbatim,noragged-right]
+\score {
+  { s1 }
+  \header {
+    piece = \markup { \fontsize #4 \bold "PRAELUDIUM I" }
+    subtitle = \markup { \italic "(Excerpt)" }
+  }
+}
+@end lilypond
+
+@seealso
+Notation Reference:
+@ref{Formatting text}.
+
+
+@node Custom layout for title blocks
+@unnumberedsubsubsec Custom layout for title blocks
+
+@code{\markup} commands in the @code{\header} block are useful for
+simple text formatting, but they do not allow precise control over the
+placement of titles.  To customize the placement of the text fields,
+use either or both of the following @code{\paper} variables:
+
+@itemize
+@item @code{bookTitleMarkup}
+@item @code{scoreTitleMarkup}
+@end itemize
+
+These markup variables are discussed in
+@ref{Default layout of book and score title blocks}.
+
+The default settings for @code{scoreTitleMarkup} as defined in
+@file{ly/titling-init.ly} are:
 
 @example
-\paper @{
-  bookTitleMarkup = \markup @{
-   \fill-line @{
-     \fromproperty #'header:title
-     \fromproperty #'header:composer
-   @}
+scoreTitleMarkup = \markup @{ \column @{
+  \on-the-fly #print-all-headers @{ \bookTitleMarkup \hspace #1 @}
+  \fill-line @{
+    \fromproperty #'header:piece
+    \fromproperty #'header:opus
   @}
+@}
 @}
 @end example
 
-The header and footer are created by the functions
-@code{make-header} and @code{make-footer}, defined in
-@code{\paper}.  The default implementations are in
-@file{ly/paper-defaults-init.ly} and
-@file{ly/titling-init.ly}.
+This places the @code{piece} and @code{opus} text fields at opposite
+ends of the same line:
 
-This example centers page numbers at the bottom of every page.
+@lilypond[quote,verbatim,noragged-right]
+\score {
+  { s1 }
+  \header {
+    piece = "PRAELUDIUM I"
+    opus = "BWV 846"
+  }
+}
+@end lilypond
 
-@example
-\paper @{
-  print-page-number = ##t
-  print-first-page-number = ##t
-  oddHeaderMarkup = \markup \fill-line @{ " " @}
-  evenHeaderMarkup = \markup \fill-line @{ " " @}
-  oddFooterMarkup = \markup @{
-    \fill-line @{
-      \bold \fontsize #3
-      \on-the-fly #print-page-number-check-first
-      \fromproperty #'page:page-number-string
-    @}
-  @}
-  evenFooterMarkup = \markup @{
-    \fill-line @{
-      \bold \fontsize #3
-      \on-the-fly #print-page-number-check-first
-      \fromproperty #'page:page-number-string
-    @}
-  @}
-@}
-@end example
+This example redefines @code{scoreTitleMarkup} so that the @code{piece}
+text field is centered and in a large, bold font.
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    indent = 0\mm
+    scoreTitleMarkup = \markup {
+      \fill-line {
+        \null
+        \fontsize #4 \bold \fromproperty #'header:piece
+        \fromproperty #'header:opus
+      }
+    }
+  }
+  \header { tagline = ##f }
+  \score {
+    { s1 }
+    \header {
+      piece = "PRAELUDIUM I"
+      opus = "BWV 846"
+    }
+  }
+}
+@end lilypond
+
+Text fields normally reserved for the main title block can be included
+in individual score title blocks with the @code{print-all-headers}
+placed inside the @code{\paper} block.  A disadvantage of using this
+method is that the text fields that are intended specifically for the
+top-level @code{\header} block need to be manually suppressed in every
+@code{\score} block.  See @ref{Title blocks explained}.
+
+To avoid this, add the desired text field to the @code{scoreTitleMarkup}
+definition.  In the following example, the @code{composer} text field
+(normally associated with @code{bookTitleMarkup}) is added to
+@code{scoreTitleMarkup}, allowing each score to list a different
+composer:
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    indent = 0\mm
+    scoreTitleMarkup = \markup {
+      \fill-line {
+        \null
+        \fontsize #4 \bold \fromproperty #'header:piece
+        \fromproperty #'header:composer
+      }
+    }
+  }
+  \header { tagline = ##f }
+  \score {
+    { s1 }
+    \header {
+      piece = "MENUET"
+      composer = "Christian Petzold"
+    }
+  }
+  \score {
+    { s1 }
+    \header {
+      piece = "RONDEAU"
+      composer = "François Couperin"
+    }
+  }
+}
+@end lilypond
+
+It is also possible to create your own custom text fields, and refer to
+them in the markup definition.
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    indent = 0\mm
+    scoreTitleMarkup = \markup {
+      \fill-line {
+        \null
+        \override #`(direction . ,UP) {
+          \dir-column {
+            \center-align \fontsize #-1 \bold
+              \fromproperty #'header:mycustomtext %% User-defined field
+            \center-align \fontsize #4 \bold
+              \fromproperty #'header:piece
+          }
+        }
+        \fromproperty #'header:opus
+      }
+    }
+  }
+  \header { tagline = ##f }
+  \score {
+    { s1 }
+    \header {
+      piece = "FUGA I"
+      mycustomtext = "A 4 VOCI" %% User-defined field
+      opus = "BWV 846"
+    }
+  }
+}
+@end lilypond
+
+
+@node Custom layout for headers and footers
+@unnumberedsubsubsec Custom layout for headers and footers
+
+@c can make-header and make-footer be removed from
+@c paper-defaults-init.ly? -mp
+
+@code{\markup} commands in the @code{\header} block are useful for
+simple text formatting, but they do not allow precise control over the
+placement of headers and footers.  To customize the placement of
+the text fields, use either or both of the following @code{\paper}
+variables:
+
+@itemize
+@item @code{oddHeaderMarkup}
+@item @code{evenHeaderMarkup}
+@item @code{oddFooterMarkup}
+@item @code{evenFooterMarkup}
+@end itemize
+
+These markup variables are discussed in
+@ref{Default layout of book and score title blocks}.
+
+The following example centers page numbers at the bottom of every
+page.  First, the default settings for @code{oddHeaderMarkup} and
+@code{evenHeaderMarkup} are removed by defining each as a @emph{null}
+markup.  Then, @code{oddFooterMarkup} is redefined with the page
+number centered.  Finally, @code{evenFooterMarkup} is given the
+same layout by defining it as @code{\oddFooterMarkup}:
+
+@lilypond[papersize=a8,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    print-page-number = ##t
+    print-first-page-number = ##t
+    oddHeaderMarkup = \markup \null
+    evenHeaderMarkup = \markup \null
+    oddFooterMarkup = \markup {
+      \fill-line {
+        \on-the-fly #print-page-number-check-first
+        \fromproperty #'page:page-number-string
+      }
+    }
+    evenFooterMarkup = \oddFooterMarkup
+  }
+  \score {
+    \new Staff { s1 \break s1 \break s1 }
+  }
+}
+@end lilypond
 
 
 @node Reference to page numbers
@@ -812,7 +1014,7 @@ command, either at top-level or inside music.  This label can then be
 referred to in a markup, to get the number of the page where the marked
 point is placed, using the @code{\page-ref} markup command.
 
-@lilypond[verbatim,line-width=11.0\cm]
+@lilypond[verbatim]
 \header { tagline = ##f }
 \book {
   \label #'firstScore
@@ -823,7 +1025,6 @@ point is placed, using the @code{\page-ref} markup command.
       c'1
     }
   }
-
   \markup { The first score begins on page \page-ref #'firstScore "0" "?" }
   \markup { Mark A is on page \page-ref #'markA "0" "?" }
 }
