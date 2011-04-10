@@ -125,12 +125,10 @@
              ((beamExceptions . ((end .  (((1 . 16) . (4 4 4 4 4 4))))))))
 
     ;; in 6 8 time:
-    ;;   use defaults, but end beams with 32nd or finer each 1 8 beat
-    ((6 . 8) .
-             ((beamExceptions . ((end .  (((1 . 32) . (4 4 4 4 4 4))))))))
+    ;;   use defaults, so no entries necessary
 
     ;; in 6 16 time:
-    ;;   use defaults, so no entry necessary
+    ;;   use defaults, so no entries necessary
 
     ;; in 9 4 time:
     ;;   use defaults, but end beams with 32nd or finer each 1 4 beat
@@ -138,9 +136,7 @@
              ((beamExceptions . ((end . (((1 . 32) . (8 8 8 8 8 8 8 8))))))))
 
     ;; in 9 8 time
-    ;;   use defaults, but end beams with 32nd notes each 1 8 beat
-    ((9 . 8) .
-             ((beamExceptions . ((end . (((1 . 32) . (4 4 4 4 4 4 4 4 4))))))))
+    ;;   use defaults, so no entries necessary
 
     ;; in 9 16 time
     ;;   use defaults, so no entry necessary
@@ -151,9 +147,7 @@
               ((beamExceptions . ((end . (((1 . 32) . (8 8 8 8 8 8 8 8 8 8 8 8))))))))
 
     ;; in 12 8 time:
-    ;;   use defaults, but end beams with 32nd notes each 1 8 beat
-    ((12 . 8) .
-              ((beamExceptions . ((end . (((1 . 32) . (4 4 4 4 4 4 4 4 4 4 4 4))))))))
+    ;;   use defaults, so no entries necessary
 
     ;; in 12 16 time:
     ;;   use defaults; no entry needed
