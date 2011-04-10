@@ -87,6 +87,8 @@
 %  * Add Mordents (reported by Patrick Karl)
 %
 
+\version "2.13.58"
+
 #(use-modules (ice-9 debug))
 #(use-modules (scm display-lily))
 
