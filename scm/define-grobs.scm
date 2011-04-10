@@ -804,10 +804,12 @@
 
 	(left-bound-info . ,ly:line-spanner::calc-left-bound-info-and-text)
 
+	(minimum-length . 2.0)
 	;; make sure the spanner doesn't get too close to notes
 	(minimum-Y-extent . (-1 . 1))
 
 	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
+	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(stencil . ,ly:line-spanner::print)
 	(style . dashed-line)
 	(meta . ((class . Spanner)
