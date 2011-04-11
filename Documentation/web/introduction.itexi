@@ -583,6 +583,18 @@ If you've already decided to try LilyPond, first read about our
 @itemize
 
 @item
+April 2011
+
+@uref{http://www.linux-magazine.com,Linux Magazine} publishes an
+article titled
+@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+Projects on the Move}.  It is an introductory article on MuseScore,
+LilyPond and Chordii.  Author Carla Schroder states @qq{LilyPond is
+driven from the command line, but don’t let the lack of a GUI scare
+you away; LilyPond is user-friendly and easy to learn}, and provides
+a hands-on example.
+
+@item
 May 2010
 
 Peter Kirn, on the Create Digital Music website, publishes a

@@ -9,6 +9,19 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
+@subsubheading Linux Journal Magazine article - @emph{April 2011}
+
+@uref{http://www.linux-magazine.com,Linux Magazine} publishes an
+article in the May 2011 issue titled
+@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+Projects on the Move}.  It is an introduction to MuseScore,
+LilyPond and Chordii.  Author Carla Schroder states @qq{LilyPond is
+driven from the command line, but don’t let the lack of a GUI scare
+you away; LilyPond is user-friendly and easy to learn}, and provides
+a hands-on example.
+@newsEnd
+
+@newsItem
 @subsubheading LilyPond 2.13.59 released!  @emph{April 10, 2011}
 
 We are happy to announce the release of LilyPond 2.13.59.  This
