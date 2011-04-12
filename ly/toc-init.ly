@@ -48,9 +48,10 @@ Usage: @code{\\markuplines \\table-of-contents}" )
 				 (text (caddr toc-item)))
 			     (interpret-markup
 			       layout
-			       (cons (list (cons 'toc:page 
-					    (markup #:page-ref label "XXX" "?"))
-					   (cons 'toc:text text))
+			       (cons (list (cons 'toc:page
+					    (markup #:with-link label #:page-ref label "XXX" "?"))
+					   (cons 'toc:text (markup #:with-link label text))
+					   (cons 'toc:label label))
 				     props)
 			       (ly:output-def-lookup layout toc-markup))))
 			 (toc-items)))))

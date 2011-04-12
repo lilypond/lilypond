@@ -264,6 +264,60 @@ the PDF backend.
 
     (ly:stencil-add (ly:make-stencil url-expr xextent yextent) stil)))
 
+(define-markup-command (page-link layout props page-number arg)
+  (number? markup?)
+  #:category other
+  "
+@cindex referencing page numbers in text
+
+Add a link to the page @var{page-number} around @var{arg}. This only works in
+the PDF backend.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\page-link #2  { \\italic { This links to page 2... } }
+}
+@end lilypond"
+  (let* ((stil (interpret-markup layout props arg))
+	 (xextent (ly:stencil-extent stil X))
+	 (yextent (ly:stencil-extent stil Y))
+	 (old-expr (ly:stencil-expr stil))
+	 (link-expr (list 'page-link page-number `(quote ,xextent) `(quote ,yextent))))
+
+    (ly:stencil-add (ly:make-stencil link-expr xextent yextent) stil)))
+
+(define-markup-command (with-link layout props label arg)
+  (symbol? markup?)
+  #:category other
+  "
+@cindex referencing page labels in text
+
+Add a link to the page holding label @var{label} around @var{arg}. This
+only works in the PDF backend.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\with-link #\"label\" { \\italic { This links to the page containing the label... } }
+}
+@end lilypond"
+  (let* ((arg-stencil (interpret-markup layout props arg))
+         (x-ext (ly:stencil-extent arg-stencil X))
+         (y-ext (ly:stencil-extent arg-stencil Y)))
+    (ly:make-stencil
+     `(delay-stencil-evaluation
+       ,(delay (ly:stencil-expr
+                (let* ((table (ly:output-def-lookup layout 'label-page-table))
+                       (page-number (if (list? table)
+                                        (assoc-get label table)
+                                        #f))
+                       (link-expr (list 'page-link page-number
+                                        `(quote ,x-ext) `(quote ,y-ext))))
+                  (ly:stencil-add (ly:make-stencil link-expr x-ext y-ext)
+arg-stencil)))))
+     x-ext
+     y-ext)))
+
+
 (define-markup-command (beam layout props width slope thickness)
   (number? number? number?)
   #:category graphic

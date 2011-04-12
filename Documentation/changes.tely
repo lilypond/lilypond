@@ -229,6 +229,12 @@ Enhanced support for obliqua shapes within white mensural ligatures.
 @end lilypond
 
 @item
+New markup functions @code{\with-link} and @code{\page-link} that add
+hyperlinks to a given label or a given page number. This works in the PDF
+backend only. All entries to the table of contents now automatically add
+hyperlinks to the pages they are referring to.
+
+@item
 Compound time signatures are now supported by the @code{\compoundMeter} command,
 which can be used instead of @code{\time}:
 
