@@ -72,8 +72,12 @@ Key_engraver::create_key (bool is_default)
       item_ = make_item ("KeySignature",
 			 key_event_ ? key_event_->self_scm () : SCM_EOL);
 
+      /* Use middleCClefPosition rather than middleCPosition, because cue
+       * notes with a different clef will modify middleCPosition. The 
+       * Key signature, however, should still be printed at the original
+       * position. */
       item_->set_property ("c0-position",
-			   get_property ("middleCPosition"));
+			   get_property ("middleCClefPosition"));
 
       SCM last = get_property ("lastKeySignature");
       SCM key = get_property ("keySignature");
@@ -230,7 +234,8 @@ ADD_TRANSLATOR (Key_engraver,
 		"keyAlterationOrder "
 		"keySignature "
 		"lastKeySignature "
-		"printKeyCancellation ",
+		"printKeyCancellation "
+		"middleCClefPosition ",
 		
 		/* write */
 		"keySignature "
