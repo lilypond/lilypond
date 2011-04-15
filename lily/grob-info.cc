@@ -94,3 +94,9 @@ Grob_info::ultimate_event_cause () const
     }
   return unsmob_stream_event (cause);
 }
+
+bool
+Grob_info::less (Grob_info i, Grob_info j)
+{
+  return Grob::less (i.grob (), j.grob ());
+}

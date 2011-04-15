@@ -20,6 +20,8 @@
 		  '(blot-diameter
 		    bottom-margin
 		    cm
+		    footnote-footer-padding
+		    footnote-padding
 		    horizontal-shift
 		    in
 		    indent
@@ -222,6 +224,9 @@
     ("pa10" . (cons (* 26 mm) (* 35 mm)))
     ;; F4 used in southeast Asia and Australia
     ("f4" . (cons (* 210 mm) (* 330 mm)))
+    ;; Used for very small @lilypond examples in the Documentation
+    ;; based on c9 envelope size but landscape not portrait
+    ("c9landscape" . (cons (* 57 mm) (* 40 mm)))
     ))
 
 ;; todo: take dimension arguments.

@@ -159,18 +159,6 @@ Moment::to_bool () const
   return main_part_ || grace_part_;
 }
 
-Rational
-Moment::main_part () const
-{
-  return main_part_;
-}
-
-Rational
-Moment::grace_part () const
-{
-  return grace_part_;
-}
-
 void
 Moment::set_infinite (int k)
 {
@@ -219,3 +207,4 @@ moment_less (SCM a, SCM b)
 {
   return *unsmob_moment (a) < *unsmob_moment (b);
 }
+

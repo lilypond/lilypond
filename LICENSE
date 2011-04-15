@@ -19,6 +19,9 @@ The following exceptions apply:
     the directory tree Documentation/).  The documentation is
     covered in the file LICENSE.DOCUMENTATION.
 
+  * It does not apply to ly/articulate.ly, which is only licensed
+    under the GPL version 3 (not any later versions).
+
   * If you create a document which uses fonts included in LilyPond,
     and embed this font or unaltered portions of this font into the
     document, then this font does not by itself cause the resulting

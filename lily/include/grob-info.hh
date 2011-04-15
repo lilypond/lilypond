@@ -48,6 +48,7 @@ public:
 
   Item *item () const;
   Spanner *spanner () const;
+  static bool less (Grob_info i, Grob_info j);
 };
 
 #endif // STAFFELEMINFO_HH

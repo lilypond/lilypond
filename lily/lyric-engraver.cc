@@ -92,6 +92,8 @@ Lyric_engraver::process_music ()
 Context *
 get_voice_to_lyrics (Context *lyrics)
 {
+  bool searchForVoice = to_boolean (lyrics->get_property ("searchForVoice"));
+
   SCM avc = lyrics->get_property ("associatedVoiceContext");
   if (Context *c = unsmob_context (avc))
     return c;
@@ -101,7 +103,7 @@ get_voice_to_lyrics (Context *lyrics)
 
   if (scm_is_string (voice_name))
     nm = ly_scm2string (voice_name);
-  else if (nm == "")
+  else if (nm == "" || !searchForVoice)
     return 0;
   else
     {
@@ -202,7 +204,8 @@ ADD_TRANSLATOR (Lyric_engraver,
 		/* read */
 		"ignoreMelismata "
 		"includeGraceNotes "
-		"lyricMelismaAlignment ",
+		"lyricMelismaAlignment "
+		"searchForVoice",
 
 		/* write */
 		""

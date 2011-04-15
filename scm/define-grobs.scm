@@ -354,6 +354,7 @@
 				 inline-accidental-interface
 				 key-signature-interface
 				 note-head-interface
+				 stem-interface
 				 time-signature-interface))
 	(concaveness . ,ly:beam::calc-concaveness)
 	(cross-staff . ,ly:beam::calc-cross-staff)
@@ -803,10 +804,12 @@
 
 	(left-bound-info . ,ly:line-spanner::calc-left-bound-info-and-text)
 
+	(minimum-length . 2.0)
 	;; make sure the spanner doesn't get too close to notes
 	(minimum-Y-extent . (-1 . 1))
 
 	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
+	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(stencil . ,ly:line-spanner::print)
 	(style . dashed-line)
 	(meta . ((class . Spanner)
@@ -1190,6 +1193,7 @@
 
     (LyricHyphen
      . (
+	(after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
 	(dash-period . 10.0)
 	(height . 0.42)
 	(length . 0.66)

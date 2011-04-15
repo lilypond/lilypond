@@ -1,3 +1,4 @@
+\version "2.13.58"
 \header {
 texidoc="LilyPond respects rests, also when there are dynamics"
 options=""

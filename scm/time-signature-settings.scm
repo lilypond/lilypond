@@ -116,7 +116,7 @@
     ;;   combine beats 1 and 2, so beam in 2
     ((4 . 8) . ((beatStructure . (2 2))))
 
-    ;; in 4/8 and 4/16 time:
+    ;; in 4/16 time:
     ;;   use defaults, so no entries necessary
 
     ;; in 6 4 time:
@@ -125,12 +125,10 @@
              ((beamExceptions . ((end .  (((1 . 16) . (4 4 4 4 4 4))))))))
 
     ;; in 6 8 time:
-    ;;   use defaults, but end beams with 32nd or finer each 1 8 beat
-    ((6 . 8) .
-             ((beamExceptions . ((end .  (((1 . 32) . (4 4 4 4 4 4))))))))
+    ;;   use defaults, so no entries necessary
 
     ;; in 6 16 time:
-    ;;   use defaults, so no entry necessary
+    ;;   use defaults, so no entries necessary
 
     ;; in 9 4 time:
     ;;   use defaults, but end beams with 32nd or finer each 1 4 beat
@@ -138,12 +136,10 @@
              ((beamExceptions . ((end . (((1 . 32) . (8 8 8 8 8 8 8 8))))))))
 
     ;; in 9 8 time
-    ;;   use defaults, but end beams with 32nd notes each 1 8 beat
-    ((9 . 8) .
-             ((beamExceptions . ((end . (((1 . 32) . (4 4 4 4 4 4 4 4 4))))))))
+    ;;   use defaults, so no entries necessary
 
     ;; in 9 16 time
-    ;;   use defaults, so no entry necessary
+    ;;   use defaults, so no entries necessary
 
     ;; in 12 4 time:
     ;;   use defaults, but end beams with 32nd or finer notes each 1 4 beat
@@ -151,24 +147,20 @@
               ((beamExceptions . ((end . (((1 . 32) . (8 8 8 8 8 8 8 8 8 8 8 8))))))))
 
     ;; in 12 8 time:
-    ;;   use defaults, but end beams with 32nd notes each 1 8 beat
-    ((12 . 8) .
-              ((beamExceptions . ((end . (((1 . 32) . (4 4 4 4 4 4 4 4 4 4 4 4))))))))
+    ;;   use defaults, so no entries necessary
 
     ;; in 12 16 time:
-    ;;   use defaults; no entry needed
+    ;;   use defaults, so no entries necessary
 
     ;; in 5 8 time:
     ;;   default: group (3 2)
     ((5 . 8) .
-             ((baseMoment . (1 . 8))
-              (beatStructure . (3 2))))
+             ((beatStructure . (3 2))))
 
     ;; in 8 8 time:
     ;;   default: group (3 3 2)
     ((8 . 8) .
-             ((baseMoment . (1 . 8))
-              (beatStructure . (3 3 2))))
+             ((beatStructure . (3 3 2))))
 
     ))  ; end of alist definition
 

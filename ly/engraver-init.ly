@@ -421,9 +421,6 @@ centered between the staves surrounding this context."
 printing of a single line of lyrics."
 
   \name "Lyrics"
-  instrumentName = #'()
-  shortInstrumentName = #'()
-
   \consists "Lyric_engraver"
   \consists "Extender_engraver"
   \consists "Hyphen_engraver"
@@ -431,6 +428,7 @@ printing of a single line of lyrics."
   \consists "Instrument_name_engraver"
   \consists "Font_size_engraver"
   \consists "Hara_kiri_engraver"
+  searchForVoice = ##f
   %% explicitly set instrument, so it is not inherited from the parent
   instrumentName = #'()
   shortInstrumentName = #'()

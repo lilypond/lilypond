@@ -347,7 +347,7 @@ discussion.
 
 @warning{The estimated time required for "prep work", and the
 following discussion, has been added to each item.  At the moment,
-there is an estimated 30 hours of prep work and 135 hours of
+there is an estimated 30 hours of prep work and 140 hours of
 discussion.}
 
 @itemize
@@ -494,6 +494,18 @@ want to have stable releases, how permissive we want to be about
 patches, etc etc.
 
 (prep: 1 hour.  discuss: 5 hours)
+
+@item @strong{When do we add regtests?}:
+There is a discrepancy between our stated policy on adding
+regtests, and our actual practice in handling bugs and patches.
+Clarify.
+
+There is also a wider question how to organize the regtests, such
+as where to put interesting-console-output regtests, including
+stuff like lilypond-book and midi2ly in a sensible manner, and
+possibly including regtests for currently-broken functionality.
+
+(prep: 2 hours.  discuss: 5 hours)
 
 @end itemize
 

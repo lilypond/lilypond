@@ -83,8 +83,12 @@ Page_spacing::account_for_footnotes (Line_details const &line)
       Interval extent = line.footnotes_[i]->extent (Y_AXIS);
       footnote_height += extent[UP] - extent[DOWN];
       footnote_height += breaker_->footnote_padding ();
-    }  
-  return footnote_height;
+    }
+
+  return (footnote_height
+         - (has_footnotes_
+           ? breaker_->footnote_padding () + breaker_->footnote_footer_padding ()
+           : 0.0));
 }
 
 void

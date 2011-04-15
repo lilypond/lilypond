@@ -176,6 +176,8 @@ void Beam_scoring_problem::add_collision (Real x, Interval y,
   c.beam_y_.widen (0.5 * beam_thickness);
   
   c.x_ = x;
+
+  y *= 1/staff_space;
   c.y_ = y;
   c.base_penalty_ = score_factor;
   collisions_.push_back (c);

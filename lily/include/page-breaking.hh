@@ -126,6 +126,7 @@ public:
   vsize system_count () const;
   Real footnote_separator_stencil_height () const;
   Real footnote_padding () const;
+  Real footnote_footer_padding () const;
   Real line_count_penalty (int line_count) const;
   int line_count_status (int line_count) const;
   bool too_many_lines (int line_count) const;
@@ -189,6 +190,7 @@ private:
   vsize system_count_;
   Real footnote_separator_stencil_height_;
   Real footnote_padding_;
+  Real footnote_footer_padding_;
   int orphan_penalty_;
 
   vector<Line_division> current_configurations_;

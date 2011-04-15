@@ -108,7 +108,7 @@
   %%
   footnote-separator-markup = \markup { \fill-line \override #`(span-factor . 1/2) { \draw-hline } }
   footnote-padding = 0.5\mm
-
+  footnote-footer-padding = 0.5\mm
 
   %%
   %% Page numbering

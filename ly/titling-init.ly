@@ -14,7 +14,7 @@ tagline = \markup {
   \line {
 
     %% 2014 = em dash.
-    
+
     #(ly:export
       (format "Music engraving by LilyPond ~a~awww.lilypond.org"
        (lilypond-version)
@@ -116,7 +116,7 @@ book last one."
 
 %% unused
 #(define (not-single-page layout props arg)
-  (if (not (and (= (chain-assoc-get 'page:page-number props -1) 
+  (if (not (and (= (chain-assoc-get 'page:page-number props -1)
                    (ly:output-def-lookup layout 'first-page-number))
                (chain-assoc-get 'page:last? props -1)))
    (interpret-markup layout props arg)
@@ -142,6 +142,8 @@ oddHeaderMarkup = \markup
   \on-the-fly #print-page-number-check-first \fromproperty #'page:page-number-string
 }
 
+%% evenHeaderMarkup would inherit the value of
+%% oddHeaderMarkup if it were not defined here
 evenHeaderMarkup = \markup
 \fill-line {
   \on-the-fly #print-page-number-check-first \fromproperty #'page:page-number-string
@@ -162,3 +164,6 @@ oddFooterMarkup = \markup {
   }
 }
 
+%% As long as evenFooterMarkup is unset, it inherits the value of
+%% oddFooterMarkup, as if this were declared here:
+% evenFooterMarkup = \oddFooterMarkup

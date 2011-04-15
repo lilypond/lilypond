@@ -9,67 +9,34 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading Release candidate 5 of 2.14 - LilyPond 2.13.57 released!  @emph{April 3, 2011}
+@subsubheading Linux Journal Magazine article - @emph{April 2011}
 
-LilyPond 2.13.57 is out; this is the fourth release candidate of
-the upcoming 2.14 stable release.  All users are invited to
-experiment with this version.  New features since 2.12.3 are
-listed in the @qq{Changes} manual on the website section about
-@ref{Development}.
-
-There are no known Critical issues with this release.  If no
-Critical bugs are found, then the official 2.14.0 release will be
-on April 10, 2011.  If you discover any problems, please send us
-@ref{Bug reports}.
-
+@uref{http://www.linux-magazine.com,Linux Magazine} publishes an
+article in the May 2011 issue titled
+@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+Projects on the Move}.  It is an introduction to MuseScore,
+LilyPond and Chordii.  Author Carla Schroder states @qq{LilyPond is
+driven from the command line, but don’t let the lack of a GUI scare
+you away; LilyPond is user-friendly and easy to learn}, and provides
+a hands-on example.
 @newsEnd
 
-
 @newsItem
-@subsubheading Release candidate 4 of 2.14 - LilyPond 2.13.56 released!  @emph{Mar 29, 2011}
+@subsubheading LilyPond 2.13.59 released!  @emph{April 10, 2011}
 
-LilyPond 2.13.56 is out; this is the fourth release candidate of
-the upcoming 2.14 stable release.  All users are invited to
-experiment with this version.  New features since 2.12.3 are
-listed in the @qq{Changes} manual on the website section about
-@ref{Development}.
-
-There are no known Critical issues with this release.  If no
-Critical bugs are found, then the official 2.14.0 release will be
-on April 5, 2011.  If you discover any problems, please send us
-@ref{Bug reports}.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.13.55 released!  @emph{Mar 22, 2011}
-
-We are happy to announce the release of LilyPond 2.13.55.  This
+We are happy to announce the release of LilyPond 2.13.59.  This
 release contains the usual number of bugfixes.
 
-Please note that this is @strong{not} the fourth release candidate,
+Please note that this is @strong{not} the next release candidate,
 due to a few remaining Critical bugs.
 
 @newsEnd
 
 
 @newsItem
-@subsubheading Release candidate 3 withdrawn  @emph{Mar 15, 2011}
+@subsubheading Release candidate 6 of 2.14 - LilyPond 2.13.58 released!  @emph{April 7, 2011}
 
-We have discovered a regression since 2.12.3, so lilypond 2.13.54
-is no longer a candidate for the 2.14.0 release.  However, please
-continue testing it -- we would like to discover (and fix!) any
-more regressions as soon as possible.  If you discover any
-problems, please send us @ref{Bug reports}.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading Release candidate 3 of 2.14 - LilyPond 2.13.54 released!  @emph{Mar 13, 2011}
-
-LilyPond 2.13.54 is out; this is the third release candidate of
+LilyPond 2.13.58 is out; this is the sixth release candidate of
 the upcoming 2.14 stable release.  All users are invited to
 experiment with this version.  New features since 2.12.3 are
 listed in the @qq{Changes} manual on the website section about
@@ -77,9 +44,8 @@ listed in the @qq{Changes} manual on the website section about
 
 There are no known Critical issues with this release.  If no
 Critical bugs are found, then the official 2.14.0 release will be
-on March 27, 2011.  If you discover any problems, please send us
+on April 14, 2011.  If you discover any problems, please send us
 @ref{Bug reports}.
 
 @newsEnd
-
 
