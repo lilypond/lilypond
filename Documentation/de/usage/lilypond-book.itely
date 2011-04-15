@@ -1234,7 +1234,7 @@ Um den Text flexibler behandeln zu können, bevorzugen manche Benutzer es,
 das Inhaltsverzeichnis aus LilyPond zu exportieren und dann mit
 @LaTeX{} einzulesen.
 
-@subsubheading Das Ihaltsverzeichnis (ToC) aus LilyPond exportieren
+@subsubheading Das Inhaltsverzeichnis (ToC) aus LilyPond exportieren
 
 Hier wird angenommen, dass in Ihrer Partitur mehrere Sätze vorkommen, die
 sich alle in der selben LilyPond-Datei befinden.

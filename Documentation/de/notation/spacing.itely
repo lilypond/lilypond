@@ -466,8 +466,8 @@ vollständig neu definiert:
 @end example
 
 
-@node Liste der flexiblen vertikalen Abstandsvariblen in \paper
-@unnumberedsubsubsec Liste der flexiblen vertikalen Abstandsvariblen in @code{\paper}
+@node Liste der flexiblen vertikalen Abstandsvariablen in \paper
+@unnumberedsubsubsec Liste der flexiblen vertikalen Abstandsvariablen in @code{\paper}
 @translationof List of flexible vertical spacing \paper variables
 
 Die Bezeichnungen dieser Variablen entsprechen dem Format

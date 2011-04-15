@@ -140,7 +140,7 @@ reine Verwaltungsprogramme handelt, die nichts mit LilyPond zu tun
 haben.
 
 
-@node Optionen von lilypond auf der Kommandozeile
+@node Optionen auf der Kommandozeile für lilypond
 @subsection Optionen auf der Kommandozeile für @command{lilypond}
 @translationof Command line options for lilypond
 
