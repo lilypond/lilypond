@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+    Translation of GIT committish:  ac3dd3ad38528113d97f6a8a7b81751c328f1c36
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -618,6 +618,19 @@ haben, LilyPond auszuprobieren, lesen zuerst über unsere
 
 @divClass{keep-bullets}
 @itemize
+
+@item
+April 2011
+
+@uref{http://www.linux-magazine.com,Linux Magazine} publiziert einen
+Atikel mit dem Titel
+@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+Projects on the Move}. Es es eine Einleitung zu MuseScore,
+LilyPond and Chordii.  Die Authorin Carla Schroder schreibt @qq{LilyPond wird
+von der Kommandozeile aus gesteuert, aber lassen Sie sich nicht davon
+abschrecken, dass es keine graphische Oberfläche gibt: LilyPond ist
+benutzerfreundlich und leicht zu erlernen} und zeigt einige praktische
+Beispiele.
 
 @item
 Mai 2010

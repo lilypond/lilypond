@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
+    Translation of GIT committish: ac3dd3ad38528113d97f6a8a7b81751c328f1c36
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1831,6 +1831,10 @@ man sich anhören kann, was man notiert hat.  Das hilft oft sehr gut
 bei der Überprüfung: falsche Oktaven oder falsche Versetzungszeichen
 lassen sich meist sehr gut hören.
 
+Normale MIDI-Ausgabe ist etwas roh; optional kann eine verbesserte und
+realistischere MIDI-Ausgabe mit einem @ref{Artikuliere-Skript}
+erzeugt werden.
+
 Die MIDI-Ausgabe benötigt einen Kanal für jedes System und einen für
 globale Einstellungen.  Darum sollte die Quelldatei für eine MIDI-Datei
 nicht mehr als 15 Systeme (oder 14 wenn kein Schlagzeug benützt wird)
@@ -1844,6 +1848,7 @@ besitzen.  Jedes weitere System bleibt stumm.
 * Wiederholungen im MIDI::
 * MIDI-Lautstärke kontrollieren::
 * Schlagzeug in MIDI::
+* Artikuliere-Skript::
 @end menu
 
 
@@ -2043,6 +2048,13 @@ in eine Partiturumgebung eingefügt wird, die mit dem Befehl
 @cindex MIDI, Akkordsymbole
 @cindex Rhythmen in MIDI
 @cindex MIDI, Rhythmen
+@cindex Artikuliere-Skript
+@cindex MIDI, Artikuliere-Skript
+@cindex MIDI, Artikulationen
+@cindex Triller in MIDI
+@cindex Verzierungen in MIDI
+@cindex Rallantando in MIDI
+@cindex Accelerando in MIDI
 
 Die folgenden Notationselemente werden in die MIDI-Ausgabe aufgenommen:
 
@@ -2060,10 +2072,20 @@ Spieler benötigt, der Tonhöhen verändern kann.)
 @item Gesangstext
 @end itemize
 
+Durch Einsatz vom @ref{Artikuliere-Skript} können noch einige Elemente
+zu der Liste hinzugefügt werden:
+
+@itemize
+@item Artikulationen (Bögen, Staccato usw.)
+@item Triller usw.
+@item Rallentando und accelerando
+@end itemize
+
 
 @unnumberedsubsubsec In MIDI nicht unterstützt
 
-Folgende Notationselemente werden nicht in die MIDI-Ausgabe einbezogen:
+Folgende Notationselemente werden nicht in die MIDI-Ausgabe einbezogen,
+außer am setzt das @ref{Artikuliere-Skript} ein:
 
 @itemize
 @item Rhythmus, der als Anmerkung notiert wird, bspw. Swing
@@ -2392,3 +2414,46 @@ kommt.
 
 Weil der MIDI-Standard keine Peitschenschläge kennt, wird ein
 Schlagstock (sidestick) für diesen Zweck eingesetzt.
+
+
+@node Artikuliere-Skript
+@subsection Artikuliere-Skript
+@translationof The Articulate script
+
+Eine realistischere MIDI-Ausgabe ist möglich, wenn man das
+Artikuliere-Skript einsetzt.  Es versucht, Artikulationen
+(Bögen, Staccato) mit einzubeziehen, indem Noten mit
+sequentieller Musik von passender Verlängerung oder Verkürzung
+mit entprechenden Skips ersetzt werden.  Es versucht auch,
+Triller usw. klingen zu lassen und rallantando und
+accelerando wahrzunehmen.
+
+Um das Artikuliere-Skript einzusetzen, muss oben in der
+Eingabedatei
+
+@example
+\include "articulate.ly"
+@end example
+
+@noindent
+eingefügt werden.  Im @code{\score}-Abschnitt schreibt man
+
+@example
+\unfoldRepeats \articulate <<
+	der Rest der Partitur...
+>>
+@end example
+
+Wenn die Eingabedatei auf diese Art verändert wurd, wird die
+Notenausgabe stark verändert, aber die MIDI-Ausgabe produziert
+ein besseres Ergebnis.
+
+Wenn auch nicht unbedingt notwendig, damit das Artikuliere-Skript
+funktioniert, bietet es sich an, @code{\unfoldRepeats} wie im
+Beispiel oben zu verwenden, weil dadurch Abkürzungen wie etwa
+Triller ausgeführt werden.
+
+@knownissues
+
+Articulate verkürzt Akkorde und manche Musik (besonders Orgelmusik)
+kann schlechter klingen.

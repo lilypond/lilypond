@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: bf45bed3887f818f2d99756e6b92c77a8698be92
+    Translation of GIT committish: ac3dd3ad38528113d97f6a8a7b81751c328f1c36
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -152,6 +152,9 @@ siehe @ref{Richtung und Platzierung}.
 @endpredefined
 
 @snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{alternative-breve-note.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
@@ -3366,6 +3369,32 @@ accMusic = {
 Verzierungsabschnitte sollten nur innerhalb von sequentiellen musikalischen
 Ausdrücken benützt werden. Wenn sie ineinandergeschachtelt werden, kann es
 zu Fehlermeldungen oder Abstürzen kommen.
+
+Jede Verzierungsnote in der MIDI-Ausgabe hat ein Viertel der Dauer ihrer
+wirklichen Dauer.  Wenn die addierte Dauer der Verzierungsnoten länger als
+die Dauer der vorhergehenden Note dauert, wird der Fehler
+@qq{@code{Going back in MIDI time}} ausgegeben.  Man muss die Verzierungsnoten
+entweder kürzer machen, etwa:
+
+@example
+\acciaccatura @{ c'8[ d' e' f' g'] @}
+@end example
+
+@noindent
+wird zu:
+
+@example
+\acciaccatura @{ c'16[ d' e' f' g'] @}
+@end example
+
+@noindent
+oder die Dauern explizit ändern:
+
+@example
+\acciaccatura @{ \scaleDurations #' (1 . 2) @{ c'8[ d' e' f' g'] @} @}
+@end example
+
+Siehe @ref{Tondauern skalieren}.
 
 
 @node An Kadenzen ausrichten

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: bf45bed3887f818f2d99756e6b92c77a8698be92
+    Translation of GIT committish: ac3dd3ad38528113d97f6a8a7b81751c328f1c36
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1891,8 +1891,10 @@ labelContext =
   \context { \Dynamics    \alignToZero }
   \context { \FiguredBass \alignToZero }
   \context { \Lyrics      \alignToZero }
-  \context { \NoteNames   \alignToZero }
-  \context { \ChordNames  \alignToZero \lowerCaseChords }
+  \context { \NoteNames   \alignToZero \staffAffinityDown }
+  \context { \ChordNames  \alignToZero
+                          \staffAffinityDown
+			  \lowerCaseChords }
   \context { \FretBoards  \alignToZero \staffAffinityDown }
   \context { \Score
     \override BarLine #'stencil = ##f
@@ -1913,8 +1915,8 @@ labelContext =
   \new RhythmicStaff {
     \set RhythmicStaff.instrumentName = #"baseline "
     \textLengthOn
-    \labelContext "ChordNames" s1 |
-    \labelContext "NoteNames"  s1 |
+    \labelContext "ChordNames " s1 |
+    \labelContext "NoteNames "  s1 |
     \labelContext "Lyrics"     s1 |
   }
   \new Lyrics { \lyrics { \skip 1*2 | ghijk1 | } }
@@ -1926,7 +1928,7 @@ labelContext =
     \set RhythmicStaff.instrumentName = #"vertical center "
     \labelContext "Dynamics" s1*3
   }
-  \new Dynamics { s2\mp s\fp }
+  \new Dynamics { s1\mp s\fp }
 >>
 
 %% The reference point for FiguredBass is its highest point
