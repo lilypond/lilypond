@@ -84,11 +84,17 @@ Please write exact changes to the text.
 
 @item
 A formal patch to the source code is @emph{not} required; we can
-take care of the technical details.  Here is an example of a
-perfect documentation report:
+take care of the technical details.
+
+@item
+Send the suggestions to the @code{bug-lilypond} mailing list as
+discussed in @rweb{Contact}.
+
+@item
+Here is an example of a perfect documentation report:
 
 @verbatim
-To: lilypond-devel@gnu.org
+To: bug-lilypond@gnu.org
 From: helpful-user@example.net
 Subject: doc addition
 
