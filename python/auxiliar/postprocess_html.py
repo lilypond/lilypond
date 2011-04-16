@@ -54,11 +54,11 @@ web_footer = '''
 
 footer_name_version = _doc ('This page is for %(package_name)s-%(package_version)s (%(branch_str)s).')
 # ugh, must not have "_doc" in strings because it is naively replaced with "_" in hacked gettext process
-footer_report_links = _doc ('Your <a href="%(suggest_Docs_url)s">suggestions for the documentation</a> are welcome, please report errors to our <a href="%(mail_address_url)s">bug list</a>.')
+footer_report_links = _doc ('We welcome your aid; please <a href="%(help_us_url)s">help us</a> by reporting errors to our <a href="%(mail_address_url)s">bug list</a>.')
 
 
 mail_address = 'http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs'
-suggest_Docs_url = 'http://lilypond.org/web/devel/participating/documentation-adding'
+help_us_url = 'http://lilypond.org/help-us.html'
 
 header_tag = '<!-- header_tag -->'
 header_tag_re = re.compile (header_tag)
