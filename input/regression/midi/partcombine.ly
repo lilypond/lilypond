@@ -1,4 +1,3 @@
-% Lily was here -- automatically converted by ../../../scripts/midi2ly.py from out/initial-key.midi
 \version "2.13.53"
 
 \layout {
@@ -11,12 +10,10 @@
   }
 }
 
-% included from ./out/initial-key.header
 \header {
 texidoc="Partcombined music is preserved"
-options=""
+options="--skip"
 }
-% end
 
 instrumentOne = \relative c' {
   c4 d e f
