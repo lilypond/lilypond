@@ -553,7 +553,7 @@ some cases, the developer's concerns can be resolved simply by
 discussion the situation or providing notation examples.
 
 If the patch is updated, the category should be changed to
-@code{patch-new} (for normal contributors) or @code{patch-new}
+@code{patch-new} (for normal contributors) or @code{patch-review}
 (for developers who are very confident about their patch).
 
 @item

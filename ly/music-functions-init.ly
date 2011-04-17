@@ -244,6 +244,7 @@ chordGlissando =
          (make-grob-property-set 'DynamicText 'transparent #t)
          (make-grob-property-set 'DynamicLineSpanner 'transparent #t)
          (make-grob-property-set 'DynamicTextSpanner 'transparent #t)
+	 (make-grob-property-set 'TextScript 'stencil #f)
          (add-glissando (select-note mus1 index))
          (select-note mus2 index)))
        'Bottom (symbol->string (gensym)))

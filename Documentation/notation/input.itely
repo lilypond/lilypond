@@ -1991,6 +1991,10 @@ repeats to unfold repeats.
 \bar "|."
 @end lilypond
 
+In scores containing multiple voices, unfolding of repeats in MIDI
+output will only occur correctly if @emph{each} voice contains fully
+notated repeat indications.
+
 When creating a score file using @code{\unfoldRepeats} for MIDI,
 it is necessary to make two @code{\score} blocks: one for MIDI
 (with unfolded repeats) and one for notation (with volta, tremolo,

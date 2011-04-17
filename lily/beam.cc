@@ -1303,9 +1303,10 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
            || !collision_free[UP].is_empty ())
     {
       // We have space above or below collisions (or, no collisions at
-      // all).
+      // all).  Should we factor in the size of the collision_free
+      // interval as well?
       Interval best =  
-        (collision_free[DOWN].length () > collision_free[UP].length ()) ?
+        (collision_free[DOWN].distance(beam_left_y) < collision_free[UP].distance (beam_left_y)) ?
         collision_free[DOWN] : collision_free[UP];
 
       beam_left_y = point_in_interval (best, 2.0);

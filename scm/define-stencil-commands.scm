@@ -39,6 +39,7 @@ defined in the output modules (@file{output-*.scm})."
     named-glyph
     no-origin
     oval
+    page-link
     path
     partial-ellipse
     placebox

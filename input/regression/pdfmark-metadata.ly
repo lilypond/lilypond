@@ -13,6 +13,7 @@ those without the prefix for PDF creation (not for visual display on the page).
   arranger = \markup { The Arranger \circle f \draw-circle #3 #0.5  ##t }
   copyright = "The Copyright"
   keywords = "pdfmark, metadata, DOCINFO, lilypond"
+  modDate = "Test for special characters : \ ) ("
 }
 \layout { ragged-right= ##t }
 

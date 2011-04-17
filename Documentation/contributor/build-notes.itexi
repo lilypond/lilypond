@@ -628,56 +628,62 @@ then copies some extra files around.
 @node Building an Ubuntu distro
 @section Building an Ubuntu distro
 
+
+Here's the short instruction on how to create lilybuntu iso image
+(Jonathan Kulp did this on a spare drive,
+but he supposes it can be done in a VM too):
+
 @enumerate
+
 @item
-Install ubuntu, reboot
+Install ubuntu, reboot.
 @item
-Run all updates, reboot if asked
+Run all updates, reboot if asked.
 @item
-Enable src repos, refresh package lists
+Enable src repos, refresh package lists.
 @item
 Install LilyPond build deps:
 @example
-  sudo apt-get build-dep lilypond
+sudo apt-get build-dep lilypond
 @end example
 @item
 Install git and autoconf:
 @example
-  sudo apt-get install git-core gitk autoconf
+sudo apt-get install git-core gitk autoconf
 @end example
 
 @item
-TEST TO SEE WHETHER EVERYTHING WORKS NOW:
+Test to see whether everything works fine now:
 @enumerate
 @item
-Use lily-git.tcl to grab source files
+use @command{lily-git.tcl} to grab source files
 @item
-Go to source dir and do "./autogen.sh" ; make ; make doc
+go to source dir and do
+@example
+"./autogen.sh" ; make ; make doc
+@end example
 @item
-If all compiles, move on to iso creation...
-
+if all compiles, move on to iso creation...
 @end enumerate
 
 @item
 Download & install "remastersys":
+@uref{http://sourceforge.net/projects/remastersys/, http://sourceforge.net/projects/remastersys/}
+@item
+Copy @command{lily-git.tcl} script file into @file{/etc/skel/}.
+@item
+Modify @file{/etc/remastersys.conf} as desired (change @code{.iso} name,
+default live session username, etc).
+@item
+Remove non-essential desktop software as desired.
+@item
+Create iso:
 @example
-  http://sourceforge.net/projects/remastersys/
+sudo remastersys dist
 @end example
-@item
-Copy lily-git.tcl script file into /etc/skel/
-@item
-Modify /etc/remastersys.conf as desired (change .iso name, default
-live session username, etc)
-@item
-Remove non-essential desktop software as desired
-@item
-Create iso:  sudo remastersys dist
-@item
-New iso is in /home/remastersys/remastersys/
+New iso is in @file{/home/remastersys/remastersys/}.
 @item
 Test iso by installing in VM and repeating steps above for
-getting source files and building lp and docs
+getting source files and building lp and docs.
+
 @end enumerate
-
-
-

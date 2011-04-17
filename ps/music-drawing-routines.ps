@@ -35,6 +35,24 @@
 }
 bind def
 
+% llx lly urx ury page
+/mark_page_link
+{
+    /page exch def
+    /ury exch def
+    /urx exch def
+    /lly exch def
+    /llx exch def
+    [
+        /Rect [ llx lly urx ury ]
+        /Border [ 0 0 0 ]
+        /Page page
+        /Subtype /Link
+    /ANN
+    pdfmark
+}
+bind def
+
 % from adobe tech note 5002.
 /BeginEPSF { %def
     /b4_Inc_state save def % Save state for cleanup

@@ -399,15 +399,30 @@
   (display "%%EndProlog\n" port)
   (display "%%BeginSetup\ninit-lilypond-parameters\n%%EndSetup\n\n" port))
 
+(define (ps-quote str)
+        (fold
+          (lambda (replacement-list result)
+                  (string-join
+                    (string-split
+                      result
+                      (car replacement-list))
+                    (cadr replacement-list)))
+          str
+          '((#\\ "\\\\") (#\( "\\(") (#\) "\\)"))))
+
 ;;; Create DOCINFO pdfmark containing metadata
 ;;; header fields with pdf prefix override those without the prefix
 (define (handle-metadata header port)
+  (define (metadata-encode val)
+    ;; First, call ly:encode-string-for-pdf to encode the string (latin1 or
+    ;; utf-16be), then escape all parentheses and backslashes
+    (ps-quote (ly:encode-string-for-pdf val)))
   (define (metadata-lookup-output overridevar fallbackvar field)
     (let* ((overrideval (ly:modules-lookup (list header) overridevar))
 	   (fallbackval (ly:modules-lookup (list header) fallbackvar))
 	   (val (if overrideval overrideval fallbackval)))
       (if val
-	  (format port "/~a (~a)\n" field (markup->string val)))))
+	  (format port "/~a (~a)\n" field (metadata-encode (markup->string val))))))
   (display "[ " port)
   (metadata-lookup-output 'pdfcomposer 'composer "Author")
   (format port "/Creator (LilyPond ~a)\n" (lilypond-version))

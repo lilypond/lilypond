@@ -3,7 +3,8 @@
 \header {
   texidoc = "A table of contents is included using
 @code{\\markuplines \\table-of-contents}. The toc items are added with
-the @code{\\tocItem} command."
+the @code{\\tocItem} command. In the PDF backend, the toc items are linked
+to the corresponding pages."
 }
 
 #(set-default-paper-size "a6")

@@ -261,6 +261,16 @@
 	     (cdr y)
 	     url))
 
+(define (page-link page-no x y)
+  (if (number? page-no)
+    (ly:format "~a ~a currentpoint vector_add  ~a ~a currentpoint vector_add ~a mark_page_link"
+	       (car x)
+	       (car y)
+	       (cdr x)
+	       (cdr y)
+	       page-no)
+    ""))
+
 (define* (path thickness exps #:optional (cap 'round) (join 'round) (fill? #f))
   (define (convert-path-exps exps)
     (if (pair? exps)
