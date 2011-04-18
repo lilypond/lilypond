@@ -472,7 +472,6 @@ SCM
 Spanner::kill_zero_spanned_time (SCM grob)
 {
   Spanner *me = unsmob_spanner (grob);
-  Interval_t<Moment> moments = me->spanned_time ();
   /*
     Remove the line or hairpin at the start of the line.  For
     piano voice indicators, it makes no sense to have them at
@@ -488,9 +487,13 @@ Spanner::kill_zero_spanned_time (SCM grob)
     --hwn.
 
   */
-  moments [LEFT].grace_part_ = 0;
-  if (moments.length () == Moment (0, 0))
-    me->suicide ();
+  if (me->get_bound (LEFT)->break_status_dir ())
+    {
+      Interval_t<Moment> moments = me->spanned_time ();
+      moments [LEFT].grace_part_ = 0;
+      if (moments.length () == Moment (0, 0))
+        me->suicide ();
+    }
 
   return SCM_UNSPECIFIED;
 }
