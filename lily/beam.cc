@@ -1299,14 +1299,24 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
     {
       // We're good to go. Do nothing.
     }
-  else if (!collision_free[DOWN].is_empty ()
-           || !collision_free[UP].is_empty ())
+  else if (collision_free[DOWN].is_empty() != collision_free[UP].is_empty())
     {
-      // We have space above or below collisions (or, no collisions at
-      // all).  Should we factor in the size of the collision_free
-      // interval as well?
+      // Only one of them offers is feasible solution. Pick that one.
+      Interval v =
+        (!collision_free[DOWN].is_empty()) ?
+        collision_free[DOWN] : 
+        collision_free[UP];
+
+      beam_left_y = point_in_interval (v, 2.0);
+    }
+  else if (!collision_free[DOWN].is_empty ()
+           && !collision_free[UP].is_empty ())
+    {
+      // Above and below are candidates, take the one closest to the
+      // starting solution.
       Interval best =  
-        (collision_free[DOWN].distance(beam_left_y) < collision_free[UP].distance (beam_left_y)) ?
+        (collision_free[DOWN].distance (beam_left_y)
+         < collision_free[UP].distance (beam_left_y)) ?
         collision_free[DOWN] : collision_free[UP];
 
       beam_left_y = point_in_interval (best, 2.0);
