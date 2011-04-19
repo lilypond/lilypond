@@ -243,7 +243,7 @@ Completion_heads_engraver::process_music ()
 	  {
 	    Pitch *p =  unsmob_pitch (note_events_[j]->get_property ("pitch"));
 	    Pitch *p_last
-	      = unsmob_pitch (tie_note_candidate_events_[j]->get_property ("pitch"));
+	      = unsmob_pitch (tie_note_candidate_events_[i]->get_property ("pitch"));
 	    if (p && p_last && *p == *p_last)
 	      make_tie (tie_note_candidates_[i], notes_[j]);
 	  }
