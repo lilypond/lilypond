@@ -181,6 +181,7 @@ Se pueden añadir puntos a los elementos del índice general utilizando:
 @item
 Hay disponibles dos nuevas instrucciones de marcado para patrones y
 relleno con patrones: @code{\pattern} y @code{\fill-with-pattern}.
+
 @lilypond
 \markup \column {
   \pattern #3 #Y #0.3 \flat
@@ -221,14 +222,13 @@ motif = \relative c'' { d8 c f,4 <a f'> <a f'> }
 >>
 @end lilypond
 
-
 @item
 Está mínimamente contemplada la notación mensural negra.
-
 
 @item
 Están contempladas más ampliamente las formas oblicuas dentro de las
 ligaduras mensurales blancas.
+
 @lilypond
 \context MensuralStaff
 {
@@ -252,11 +252,18 @@ ligaduras mensurales blancas.
 }
 @end lilypond
 
+@item
+Hay dos funciones nuevas @code{\with-link} y @code{\page-link} que
+aportan hiperenlaces a una etiqueta o a un número de página dados.
+Esto funciona solamente en el motor de salida PDF.  Todos los
+elementos de la tabla de contenidos añaden ahora hiperenlaces a las
+páginas a que se refieren, automáticamente.
 
 @item
-Ahora están contemplados los compases compuestos a través
-de la instrucción @code{\compoundMeter},
-que se peuede usar en lugar de @code{\time}:
+Ahora están contemplados los compases compuestos a través de la
+instrucción @code{\compoundMeter}, que se puede usar en lugar de
+@code{\time}:
+
 @lilypond
 \relative c'' {
   \compoundMeter #'(3 1 8)
@@ -269,12 +276,11 @@ que se peuede usar en lugar de @code{\time}:
 @end lilypond
 
 @item
-Las líneas de letra por encima de una pauta deben tener la
-propiedad @code{staff-affinity} ajustada al valor
-@code{DOWN} o la propiedad @code{alignAboveContext} ajustada
-de manera que esté adecuadamente alineada.  Para ver más
-información, consulte
-@ruser{Posicionamiento vertical de la letra}.
+Las líneas de letra por encima de una pauta deben tener la propiedad
+@code{staff-affinity} ajustada al valor @code{DOWN} o la propiedad
+@code{alignAboveContext} ajustada de manera que esté adecuadamente
+alineada.  Para ver más información, consulte @ruser{Posicionamiento
+vertical de la letra}.
 
 @item
 Los valores de la propiedad @code{stringTunings} han cambiado de una
@@ -293,6 +299,7 @@ guía también pueden llevar su propia clave que se reinicia
 correctamente al final del pasaje de notas guía.  Al comienzo de cada
 línea aún se imprime la clave estándar, pero se muestra la clave de
 las notas guía después de la armadura y compás en un tamaño menor.
+
 @lilypond
 vI = \relative c'' { \clef "treble" \repeat unfold 40 g4 }
 \addQuote vIQuote { \vI }
@@ -336,7 +343,9 @@ utilización de varias tablas y el cambio de una a otra en función de
 los deseos del usuario.
 
 @item
-Ahora se puede personalizar la decisión del combinador de voces de combinar o no las notas.
+Ahora se puede personalizar la decisión del combinador de voces de
+combinar o no las notas.
+
 @lilypond[quote,relative=2]
 \partcombine
 \relative c' { c2 \partcombineApart c | \partcombineChordsOnce e' e }
