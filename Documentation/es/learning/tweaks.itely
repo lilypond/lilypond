@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 53db923e715126eb9463220526b4838fbfd3dad4
+    Translation of GIT committish: 7130696ee590df198a4dc039423dcc1d36512fd9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -192,7 +192,8 @@ propiedad.
 
 Ya hemos visto las instrucciones @code{\set} y @code{\with}, que se
 usan para cambiar las propiedades de los @strong{contextos} y para
-quitar y poner @strong{grabadores}, en @ref{Modificar las propiedades de los contextos} y @ref{Añadir y eliminar grabadores}.  Ahora debemos
+quitar y poner @strong{grabadores}, en @ref{Modificar las propiedades de los contextos}
+y @ref{Añadir y eliminar grabadores}.  Ahora debemos
 examinar algunas otras instrucciones importantes.
 
 La instrucción que cambia las propiedades de los @strong{objetos de
@@ -1044,18 +1045,18 @@ describe dicho grob, y esas propiedades se pueden ver mirando dichos
 interfaces.
 
 Hemos explicado cómo encontrar información sobre los grobs en
-@ref{Propiedades de los objetos de presentación}.  Usando el mismo enfoque, vamos al
-RFI para buscar el objeto de presentación que imprime las líneas
-divisorias.  A través del enlace @emph{Backend} y @emph{All layout
-objects} encontramos que hay un objeto de presentación llamado
-@code{BarLine}.  Entre sus propiedades se encuentran dos que controlan
-la visibilidad: @code{break-visibility} y @code{stencil}.  Las líneas
-divisorias también contemplan un número de interfaces, entre ellos el
-@code{grob-interface}, donde podemos encontrar las propiedades
-@code{transparent} y @code{color}.  Todas ellas pueden afectar la
-visibilidad de las barras de compás (y, por supuesto, por extensión,
-también la de muchos otros objetos de presentación).  Vamos a
-considerar cada uno de ellos por orden.
+@ref{Propiedades de los objetos de presentación}.  Usando el mismo
+enfoque, vamos al RFI para buscar el objeto de presentación que
+imprime las líneas divisorias.  A través del enlace @emph{Backend} y
+@emph{All layout objects} encontramos que hay un objeto de
+presentación llamado @code{BarLine}.  Entre sus propiedades se
+encuentran dos que controlan la visibilidad: @code{break-visibility} y
+@code{stencil}.  Las líneas divisorias también contemplan un número de
+interfaces, entre ellos el @code{grob-interface}, donde podemos
+encontrar las propiedades @code{transparent} y @code{color}.  Todas
+ellas pueden afectar la visibilidad de las barras de compás (y, por
+supuesto, por extensión, también la de muchos otros objetos de
+presentación).  Vamos a considerar cada uno de ellos por orden.
 
 @subheading stencil (sello)
 
@@ -1267,7 +1268,8 @@ una de las otras funciones de la lista.
 @funindex x11-color
 
 La segunda forma de cambiar el color es utilizar la lista de nombres
-de colores de X11 que aparecen en la segunda lista de @ruser{Lista de colores}.  Sin embargo, éstos deben ir precedidos de otra función, que
+de colores de X11 que aparecen en la segunda lista de @ruser{Lista de
+colores}.  Sin embargo, éstos deben ir precedidos de otra función, que
 convierte los nombres de colores de X11 en la lista de valores
 internos, @code{x11-color}, de la siguiente manera:
 
@@ -2021,8 +2023,7 @@ predeterminada se establece a @code{#f} para todos los objetos
 dentro-del-pentagrama, y a un valor numérico adecuado a cada objeto
 fuera-del-pentagrama cuando se crea el objeto.  La tabla siguiente
 presenta los valores numéricos predeterminados para algunos de los
-objetos fuera-del-pentagrama que están inicialmente dentro de los
-contextos @code{Staff} o @code{Voice}.
+objetos fuera-del-pentagrama más comunes.
 
 @cindex objetos de extensión
 
@@ -2035,7 +2036,7 @@ tiene ningún efecto.  Por ejemplo, cambiar la
 @code{outside-staff-priority} del objeto de regulador @code{Hairpin}
 no tiene efecto sobre la posición vertical de los reguladores: en
 lugar de eso, tenemos que cambar la @code{outside-staff-priority} del
-objeto asociado @code{DynamicLineSpanner}.  Esta sobreeascritura se
+objeto asociado @code{DynamicLineSpanner}.  Esta sobreescritura se
 debe escribir al comienzo del objeto de extensión, que podría incluir
 varios reguladores o matices dinámicos encadenados.
 
@@ -2043,12 +2044,21 @@ varios reguladores o matices dinámicos encadenados.
 @headitem Objeto de presentación
   @tab Prioridad
   @tab Controla la posición de:
+@item @code{RehearsalMark}
+  @tab @code{1500}
+  @tab Letras de ensayo
+@item @code{MetronomeMark}
+  @tab @code{1000}
+  @tab Indicaciones metronómicas
+@item @code{VoltaBracketSpanner}
+  @tab @code{600}
+  @tab Cajetines de primera y segunda vez
+@item @code{TextScript}
+  @tab @code{450}
+  @tab Texto en elementos de marcado
 @item @code{MultiMeasureRestText}
   @tab @code{450}
   @tab Texto sobre silencios de compás completo
-@item @code{TextScript}
-  @tab @code{450}
-  @tab Elementos de marcado de texto
 @item @code{OttavaBracket}
   @tab @code{400}
   @tab Corchetes de octava alta y baja
@@ -2060,7 +2070,7 @@ varios reguladores o matices dinámicos encadenados.
   @tab Todas las indicaciones dinámicas
 @item @code{VoltaBracketSpanner}
   @tab @code{100}
-  @tab Corchetes de primera y segunda vez
+  @tab Números de compás
 @item @code{TrillSpanner}
   @tab @code{50}
   @tab Trinos mantenidos
@@ -2118,27 +2128,6 @@ También muestra la manera de crear corchetes de octava alta y baja.
 @cindex trucar la situación de las letras de ensayo
 @cindex ensayo, letras, trucar la colocación
 
-Observe que los números de compás, las indicaciones metronómicas y las
-mercas de ensayo no se muestran. De forma predeterminada, se crean
-dentro del contexto @code{Score} y su prioridad
-@code{outside-staff-priority} se ignora con relación a los objetos de
-presentación que se crean dentro del contexto @code{Staff}.  Si quiere
-colocar los números de compás, indicaciones metronómicas o llamadas de
-ensayo en concordancia con el valor de su
-@code{outside-staff-priority}, los grabadores
-@code{Bar_number_engraver}, @code{Metronome_mark_engraver} o
-@code{Mark_engraver} respectivamente se deben eliminar del contexto
-@code{Score} y colocarlos en el contexto @code{Staff} del nivel
-superior.  Si se hace así, estas marcas obtendrán los siguientes
-valores predeterminados de @code{outside-staff-priority}:
-
-@multitable @columnfractions .3 .3
-@headitem Objeto de presentación           @tab Prioridad
-@item @code{RehearsalMark}        @tab @code{1500}
-@item @code{MetronomeMark}        @tab @code{1000}
-@item @code{BarNumber}            @tab @code{ 100}
-@end multitable
-
 Si los valores predeterminados de @code{outside-staff-priority} no le
 ofrecen las colocaciones deseadas se puede sobreescribir la prioridad
 de cualquiera de los objetos.  Suponga que quisiéramos que el corchete
@@ -2176,6 +2165,12 @@ c4\ff c \stopTextSpan |
 \ottava #0
 c,4 c c c |
 @end lilypond
+
+Observe que algunos de estos objetos, concretamente los números de
+compás, las indicaciones metronómicas y las letras de ensayo, se
+alojan de forma predeterminada dentro del contexto @code{Score}; así
+pues, debe asegurarse de que utiliza el contexto adecuado cuando se
+sobreescriben sus propiedades.
 
 @cindex ligaduras y outside-staff-priority
 @cindex ligaduras y articulaciones
@@ -2449,11 +2444,12 @@ orden:
 @item
 La @strong{dirección} de uno de los objetos que se superponen se puede
 cambiar usando las instrucciones predefinidas que están relacionadas
-arriba para los objetos dentro-del-pentagrama (véase @ref{Objetos interiores al pentagrama}).  Se pueden recolocar fácilmente las plicas, ligaduras de
-expresión y de unión, barras de corchea, indicaciones dinámicas, texto
-y grupos de valoración especial de esta forma.  La limitación es que
-sólo tiene la posibilidad de elegir entre dos posiciones, y podría ser
-que ninguna de ellas sea la adecuada.
+arriba para los objetos dentro-del-pentagrama (véase @ref{Objetos interiores al pentagrama}).
+Se pueden recolocar fácilmente las
+plicas, ligaduras de expresión y de unión, barras de corchea,
+indicaciones dinámicas, texto y grupos de valoración especial de esta
+forma.  La limitación es que sólo tiene la posibilidad de elegir entre
+dos posiciones, y podría ser que ninguna de ellas sea la adecuada.
 
 @item
 Las @strong{propiedades del objeto}, que LilyPond usa cuando está
@@ -3849,14 +3845,15 @@ inst =
 @end lilypond
 
 Existen varios problemas con la salida que se superpone; los
-arreglaremos utilizando las técnicas descritas en @ref{Mover objetos}.  Pero también haremos algo respecto a las definiciones
-@code{mpdolce} e @code{inst}.  Éstas producen la salida que deseamos,
-pero quizá las querríamos utilizar en otra pieza.  Podríamos
-simplemente copiarlas y pegarlas al principio de cada archivo, pero
-sería bastante molesto.  También hace que se queden las definiciones a
-la vista dentro de nuestros archivos de música, y yo personalmente
-encuentro todos los @code{#()} bastante poco estéticos.  Los vamos a
-esconder dentro de otro archivo:
+arreglaremos utilizando las técnicas descritas en @ref{Mover objetos}.
+Pero también haremos algo respecto a las definiciones @code{mpdolce} e
+@code{inst}.  Éstas producen la salida que deseamos, pero quizá las
+querríamos utilizar en otra pieza.  Podríamos simplemente copiarlas y
+pegarlas al principio de cada archivo, pero sería bastante molesto.
+También hace que se queden las definiciones a la vista dentro de
+nuestros archivos de música, y yo personalmente encuentro todos los
+@code{#()} bastante poco estéticos.  Los vamos a esconder dentro de
+otro archivo:
 
 @example
 %%% guardar esto en un archivo de nombre "definiciones.ily"
@@ -3927,11 +3924,12 @@ inst =
 }
 @end lilypond
 
-Eso tiene mejor aspecto, pero haremos algunos cambios más.  El glissando es difícil
-de ver, así que lo haremos más grueso y lo acercaremos a las cabezas de las notas.  Pondremos
-la indicación metronómica encima de la clave, en lugar de ir encima de la primera
-nota.  Y por último, mi profesor de composición odia las indicaciones de compás @q{C},
-así que la convertiremos en @q{4/4}.
+Eso tiene mejor aspecto, pero haremos algunos cambios más.  El
+glissando es difícil de ver, así que lo haremos más grueso y lo
+acercaremos a las cabezas de las notas.  Pondremos la indicación
+metronómica encima de la clave, en lugar de ir encima de la primera
+nota.  Y por último, mi profesor de composición odia las indicaciones
+de compás @q{C}, así que la convertiremos en @q{4/4}.
 
 Sin embargo, no debemos cambiar el archivo @file{musica.ly}.
 Sustituyamos nuestro archivo @file{definiciones.ily} con éste:
@@ -4016,13 +4014,13 @@ inst =
 }
 @end lilypond
 
-¡Eso tiene un aspecto mucho mejor!  Ahora suponga que quiere publicar esta
-pieza.  A mi profesor de composición no le gustan las indicaciones de compás @q{C},
-pero yo les tengo cierto cariño.  Copiaremos el archivo
-actual @file{definiciones.ily} a @file{publicar-web.ily} y modificaremos
-éste.  Como el propósito de esta música es producir un PDF que va a mostrarse
-en la pantalla, también vamos a aumentar el
-tamaño general de la salida.
+¡Eso tiene un aspecto mucho mejor!  Ahora suponga que quiere publicar
+esta pieza.  A mi profesor de composición no le gustan las
+indicaciones de compás @q{C}, pero yo les tengo cierto cariño.
+Copiaremos el archivo actual @file{definiciones.ily} a
+@file{publicar-web.ily} y modificaremos éste.  Como el propósito de
+esta música es producir un PDF que va a mostrarse en la pantalla,
+también vamos a aumentar el tamaño general de la salida.
 
 @example
 %%%  definiciones.ily

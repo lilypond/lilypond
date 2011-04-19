@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 463240fdfd30e9bd60238b246114e5d27319d6d5
+Translation of GIT committish: 274c916b48393e0f866cbab68c18a505f6fc7ea3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1955,7 +1955,7 @@ varias ligaduras generadas dentro de un acorde.
 @subsection @code{\set} frente a @code{\override}
 @translationof set versus override
 
-HACER: probablemente esta sección es innecesaria.
+@c HACER: probablemente esta sección es innecesaria.
 
 @ignore
 We have seen two methods of changing properties: @code{\set} and
@@ -3905,6 +3905,8 @@ padText =
 Además de números, podemos usar expresiones musicales, como notas,
 para los argumentos de las funciones musicales:
 
+@c TODO: use a better example (the music argument is redundant).
+
 @lilypond[quote,verbatim,ragged-right]
 custosNote =
 #(define-music-function
@@ -3942,6 +3944,4 @@ tempoPadded =
 }
 @end lilypond
 
-@c @seealso
-
-
+@c TODO: add appropriate @@ref's here.
