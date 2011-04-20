@@ -84,7 +84,7 @@ ADD_TRANSLATOR (Staff_performer,
 		"");
 
 Staff_performer::Staff_performer ()
-  : channel_ (0)
+  : channel_ (-1)
   , instrument_ (0)
   , instrument_name_ (0)
   , name_ (0)
@@ -216,6 +216,10 @@ Staff_performer::get_channel (string instrument)
     ? channel_map_
     : static_channel_map_;
 
+  if (channel_mapping == ly_symbol2scm ("staff")
+      && channel_ >= 0)
+    return channel_;
+
   map<string, int>::const_iterator i = channel_map.find (instrument);
   if (i != channel_map.end ())
     return i->second;
@@ -254,9 +258,11 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
       if (c->is_alias (ly_symbol2scm ("Voice")))
 	voice = c->id_string ();
       SCM channel_mapping = get_property ("midiChannelMapping");
-      if (channel_mapping == ly_symbol2scm ("voice"))
-	channel_ = get_channel (voice);
       string str = new_instrument_string ();
+      if (channel_mapping != ly_symbol2scm ("instrument"))
+	channel_ = get_channel (voice);
+      else if (str.empty ())
+	channel_ = get_channel (str);
       if (str.length ())
 	{
 	  if (channel_mapping != ly_symbol2scm ("voice"))
@@ -264,7 +270,6 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
 	  set_instrument (channel_, voice);
 	  set_instrument_name (voice);
 	}
-      Audio_staff* audio_staff = get_audio_staff (voice);
       ai->channel_ = channel_;
       bool encode_dynamics_as_velocity_ = true;
       if (encode_dynamics_as_velocity_)
@@ -279,6 +284,7 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
 	    if (Audio_note *n = dynamic_cast<Audio_note *> (inf.elem_))
 	      n->dynamic_ = d;
 	}
+      Audio_staff* audio_staff = get_audio_staff (voice);
       audio_staff->add_audio_item (ai);
     }
 }
