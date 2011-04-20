@@ -1,7 +1,7 @@
 u@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 6a4a699484ac521b9d0249623e1028e56f2c938a
+    Translation of GIT committish: 9f651e1f5143787aeda825a4061f82eede4943a3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1777,6 +1777,10 @@ para comprobar la corrección de la música; las octavas equivocadas o
 las alteraciones erróneas se ponen de relieve muy claramente al
 escuchar la salida MIDI.
 
+La salida estándar de MIDI es un poco primitiva; de forma opcional, se
+encuentra disponible una salida MIDI mejorada y mucho más realista,
+por medio de @ref{El script Articulate}.
+
 @c TODO Check this
 La salida MIDI reserva un canal por cada pentagrama, y otro para los
 ajustes globales.  Por ello, el archivo MIDI no debe tener más de 15
@@ -1790,6 +1794,7 @@ en silencio.
 * Repeticiones y MIDI::
 * Control de los matices en el MIDI::
 * Percusión en MIDI::
+* El script Articulate::
 @end menu
 
 @node Crear archivos MIDI
@@ -2007,6 +2012,13 @@ dentro de un bloque de partitura definido con una instrucción
 @cindex MIDI, nombres de
 @cindex duraciones en MIDI
 @cindex MIDI, duraciones
+@cindex Articlulate, scripts
+@cindex MIDI, articulaciones
+@cindex articulaciones en MIDI
+@cindex trinos en MIDI
+@cindex grupetos en MIDI
+@cindex rallentando en MIDI
+@cindex accelerando en MIDI
 @c TODO etc
 
 Los siguientes elementos de notación se reflejan en la salida MIDI:
@@ -2024,12 +2036,22 @@ Los siguientes elementos de notación se reflejan en la salida MIDI:
 @item Letra de las canciones
 @end itemize
 
+Utilizando @ref{El script Articulate}, a la lista anterior se añaden
+una serie de elementos:
+
+@itemize
+@item Articulaciones (ligaduras de expresión, picados, etc)
+@item Trinos, mordentes circulares
+@item Rallentando y accelerando
+@end itemize
+
+
 @unnumberedsubsubsec No contemplado en el MIDI
 
 @c TODO index as above
 
 Los siguientes elementos de notación no tienen ningún efecto sobre la
-salida MIDI:
+salida MIDI, a no ser que utilicemos @ref{El script Articulate}:
 
 @itemize
 @item Duraciones escritas como anotaciones, p.ej. el swing
@@ -2067,6 +2089,11 @@ función cambia todas las repeticiones a repeticiones desplegadas.
 }
 \bar "|."
 @end lilypond
+
+En partituras con varias voces, el desplegado de las repeticiones en
+la salida MIDI solo se produce correctamente si @emph{todas y cada
+una} de las voces incluye las repeticiones de manera completa y
+explícita.
 
 Al crear un archivo de partitura que use @code{\unfoldRepeats} para el
 MIDI, es necesario hacer dos bloques @code{\score}: uno para el MIDI
@@ -2384,3 +2411,44 @@ parecido del conjunto estándar.
 Debido a que el estándar General MIDI no contiene golpes de aro
 (@emph{rim shots}), para este propósito se utiliza en su lugar el
 golpe lateral de baqueta (@emph{sidestick}).
+
+@node El script Articulate
+@subsection El script Articulate
+@translationof The Articulate script
+
+Es posible obtener una salida MIDI más real si se utiliza el script
+Articulate.  Éste trata de tener en cuenta las articulaciones
+(ligaduras de expresión, picados, etc), mediante la sustitución de las
+notas con secuencias musicales de silencios y notas escaladas en el
+tiempo de forma apropiada.  También trata de desplegar los trinos,
+grupetos circulares, etc. y responder a las indicaciones de
+rallentando y accelerando.
+
+Para utilizar el script Articulate, tenemos que incluirlo al principio
+de nuestro archivo de entrada:
+
+@example
+\include "articulate.ly"
+@end example
+
+y en la sección @code{\score}, hacer lo siguiente:
+
+@example
+\unfoldRepeats \articulate <<
+	resto de la partitura...
+>>
+@end example
+
+Después de alterar el código de entrada de esta manera el resultado
+visual se altera profundamente, pero el bloque @code{\midi} estándar
+produce un archivo MIDI mejorado.
+
+Si bien no es esencial para que funcione el script Articulate, podemos
+insertar la instrucción @code{\unfoldRepeats} según aparece en el
+ejemplo anterior, dado que habilita la ejecución de abreviaturas tales
+como los @notation{trinos}.
+
+@knownissues
+
+Articulate acorta los acordes, y ciertos fragmentos de música
+(especialmente la música de órgano) es posible que suene peor.
