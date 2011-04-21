@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: a61ab84e86b209fe11d63ec488e02525b7481b5b
+    Translation of GIT committish: 53390e0570f4544c131e77323cdc4f4ea738bddd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -152,6 +152,9 @@ pauta; véase @ref{Dirección y posición}.
 
 
 @snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{alternative-breve-note.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
@@ -1488,10 +1491,10 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
-@cindex barrado en las cadencias
-@cindex barrado en música sin compasear
-@cindex cadencia, barrado en
-@cindex sin compasear, música, barrado en
+@cindex barras en las cadencias
+@cindex barras en música sin compasear
+@cindex cadencia con barras
+@cindex música sin compasear con barras
 
 El barrado automático se desactiva mediante @code{\cadenzaOn} y se
 activa con @code{\cadenzaOff}.  Por tanto, todo el barrado en las
@@ -1604,8 +1607,8 @@ compás}.  El escalado se hace con @code{\scaleDurations}, que se usa
 de una forma similar a @code{\times}, pero no crea un corchete de
 grupo especial, véase @ref{Escalar las duraciones}.
 
-@cindex barrado en música polimétrica
-@cindex barrado en metro polimétrico
+@cindex barras en música polimétrica
+@cindex polimétrico, metro, barras en 
 
 En este ejemplo, se usa en paralelo música con compases de 3/4, 9/8 y
 10/8.  En el segundo pentagrama, las duraciones mostradas se
@@ -1896,7 +1899,6 @@ automáticamente:
 
 @cindex barras manuales
 @cindex manuales, barras
-@cindex barras, establecer reglas
 @cindex barras, reglas personalizadas
 
 @funindex \autoBeamOn
@@ -1944,28 +1946,24 @@ automáticos predeterminados; véase @ref{Establecer el comportamiento de las ba
 @code{\autoBeamOn}.
 @endpredefined
 
+@cindex barras en saltos de línea
+@cindex línea, barras en saltos de
+@cindex barras en ángulo
+@cindex dobladas, barras
+@funindex breakable
 
 @snippets
-
-
-@cindex saltos de línea y barrado
-@cindex línea, saltos de, y barrado
-
-@funindex divisible
-
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {beams-across-line-breaks.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@cindex \partcombine y \autoBeamOff
-@cindex \autoBeamOff y \partcombine
-
+@cindex barras, \partcombine con \autoBeamOff
+@cindex voces, \partcombine con \autoBeamOff
 
 @lilypondfile [verbatim, lilyquote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}
-
 
 @seealso
 Referencia de la notación:
@@ -1987,22 +1985,12 @@ Referencia de funcionamiento interno:
 @rinternals{beam-interface},
 @rinternals{unbreakable-spanner-interface}.
 
-
-@knownissues
-
-Las barras pueden colisionar con las cabezas de las notas y las
-alteraciones accidentales de las otras voces.
-
 @node Establecer el comportamiento de las barras automáticas
 @unnumberedsubsubsec Establecer el comportamiento de las barras automáticas
 @translationof Setting automatic beam behavior
 
-
-@cindex barras automáticas, ajuste fino
-@cindex ajuste fino de las barras automáticas
-@cindex automáticas, generación de barras
-@cindex barras automáticas
-@cindex letra y barrado
+@cindex barras y letra
+@cindex letra y barras
 
 @funindex autoBeaming
 @funindex baseMoment
@@ -2230,10 +2218,10 @@ barras al final de los pulsos.
 
 @end itemize
 
-En las reglas anteriores, el tipo de barra beam-type es la duración de
-la nota más breve dentro del grupo unido por una barra.
+En las reglas anteriores, el tipo de barra @emph{beam-type} es
+la duración de la nota más breve dentro del grupo unido por una barra.
 
-Como referencia, pueden encontrarse las reglas de barrado predefinidas
+Las reglas de barrado predefinidas están
 en el archivo @file{scm/time-signature-settings.scm}.
 
 @snippets
@@ -2251,8 +2239,8 @@ en el archivo @file{scm/time-signature-settings.scm}.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {conducting-signs,-measure-grouping-signs.ly}
 
-@cindex barra, última en la partitura
-@cindex barra, última en una voz polifónica
+@cindex barra, finales en la partitura
+@cindex barra, finales con varias voces
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
@@ -3358,6 +3346,31 @@ Las secciones de adorno sólo se deben usar dentro de expresiones de
 música secuenciales.  No están contemplados el anidado ni la
 yuxtaposición de secciones de adorno, y podría producir caídas u otros
 errores.
+
+Cada nota de adorno en la salida MIDI tiene una longitud que es 1/4 de
+su duración real.  Si la duración combinada de las notas de adorno es
+mayor que la longitud de la nota precedente, se genera un error
+@qq{@code{Retrocediendo en el tiempo MIDI}}.  Tiene dos opciones: en
+primer lugar, puede hacer más corta la duración de las notas de
+adorno, por ejemplo:
+
+@example
+\acciaccatura @{ c'8[ d' e' f' g'] @}
+@end example
+
+se convierte en:
+
+@example
+\acciaccatura @{ c'16[ d' e' f' g'] @}
+@end example
+
+Otra opción es cambiar explícitamente la duración musical:
+
+@example
+\acciaccatura @{ \scaleDurations #' (1 . 2) @{ c'8[ d' e' f' g'] @} @}
+@end example
+
+Véase @ref{Escalar las duraciones}.
 
 
 @node Alinear con una cadenza
