@@ -1330,7 +1330,7 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
   else
     {
       // We are completely screwed.
-      warning (_ ("no viable initial configuration found: may not find good beam slope"));
+      me->warning (_ ("no viable initial configuration found: may not find good beam slope"));
     }
   
   pos = Drul_array<Real> (beam_left_y, (beam_left_y + beam_dy));
