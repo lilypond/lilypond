@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
+    Translation of GIT committish: f78131595ebafac25a416671e5a4b9c8b14e79b5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -169,6 +169,22 @@ introducirse con @code{\lilypondfile}.
 
 @lilypondfile[quote,noindent]{screech-boink.ly}
 
+Si se requiere un campo @code{tagline}, ya sea predeterminado o
+personalizado, entonces el fragmento completo se debe incluir dentro
+de una construcción @code{\book @{ @}}.
+
+@c KEEP LY
+@lilypond[papersize=a8,verbatim]
+\book{
+  \header{
+    title = "Una escala en LilyPond"
+  }
+
+  \relative c' {
+    c d e f g a b c
+  }
+}
+@end lilypond
 
 @page
 
@@ -632,6 +648,15 @@ valor predeterminado (calculado con un algoritmo heurístico).
 Si no se da ninguna opción @code{line-width}, @command{lilypond-book}
 trata de adivinar un valor predeterminado para los entornos
 @code{lilypond} que no usan la opción @code{ragged-right}.
+
+@item papersize=@var{cadena}
+Donde @var{cadena} es un tamaño del papel definido en el archivo
+@file{scm/paper.scm}, es decir, @code{a5}, @code{quarto},
+@code{11x17}, etc.
+
+Los valores no definidos en el archivo @file{scm/paper.scm} se
+ignoran, se emite una advertencia y el fragmento se imprime utilizando
+el tamaño predeterminado @code{a4}.
 
 @item notime
 No imprimir la indicación de compás, y desactivar las indicaciones

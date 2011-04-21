@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d282588015bad1ed86833848a5bcbdc43cfdc9e5
+    Translation of GIT committish: 346067ab7e42c9cbc359d48b23c79dc0780c8320
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -610,7 +610,19 @@ lugar infórmese sobre nuestra @ref{Entrada de texto}.
 @itemize
 
 @item
-May 2010
+Abril de 2011
+
+@uref{http://www.linux-magazine.com,Linux Magazine} publica un
+artículo titulado
+@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+Projects on the Move}.  Es un artículo introductorio sobre MuseScore,
+LilyPond y Chordii.  La autora Carla Schroder dice que @qq{LilyPond se
+maneja desde la línea de órdenes, pero no deje que la falta de una IGU
+le atemorize; LilyPond es amigable y fácil de aprender}, y aporta un
+ejemplo fácil de abordar.
+
+@item
+Mayo de 2010
 
 Peter Kirn, en el sitio web Create Digital Music website, publica una
 @uref{http://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/,revisión

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 91c3f922fda83a57186df0bce8165ffaea62b3b0
+    Translation of GIT committish: 5e9d7b07e1da12e32ae7be0253b22cb28cf2fe58
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1904,8 +1904,10 @@ labelContext =
   \context { \Dynamics    \alignToZero }
   \context { \FiguredBass \alignToZero }
   \context { \Lyrics      \alignToZero }
-  \context { \NoteNames   \alignToZero }
-  \context { \ChordNames  \alignToZero \lowerCaseChords }
+  \context { \NoteNames   \alignToZero \staffAffinityDown }
+  \context { \ChordNames  \alignToZero
+                          \staffAffinityDown
+			  \lowerCaseChords }
   \context { \FretBoards  \alignToZero \staffAffinityDown }
   \context { \Score
     \override BarLine #'stencil = ##f
@@ -1926,8 +1928,8 @@ labelContext =
   \new RhythmicStaff {
     \set RhythmicStaff.instrumentName = #"baseline "
     \textLengthOn
-    \labelContext "ChordNames" s1 |
-    \labelContext "NoteNames"  s1 |
+    \labelContext "ChordNames " s1 |
+    \labelContext "NoteNames "  s1 |
     \labelContext "Lyrics"     s1 |
   }
   \new Lyrics { \lyrics { \skip 1*2 | ghijk1 | } }
@@ -1939,7 +1941,7 @@ labelContext =
     \set RhythmicStaff.instrumentName = #"vertical center "
     \labelContext "Dynamics" s1*3
   }
-  \new Dynamics { s2\mp s\fp }
+  \new Dynamics { s1\mp s\fp }
 >>
 
 %% The reference point for FiguredBass is its highest point
@@ -2059,8 +2061,9 @@ inferior deben usar @code{UP}.  El ajuste de @code{staff-affinity}
 para una pauta hace que se le trate como una línea que no es una
 pauta.  El establecimiento de @code{staff-affinity} a @code{#f} para
 una línea que no es una pauta hace que se trate como una pauta.
-
-@c TODO: verify last clause below ("even if other...")
+Establecer @code{staff-affinity} a @code{UP}, @code{CENTER}, o
+@code{DOWN} hace que el pentagrama resulte espaciado como si fuera una
+línea que no es una pauta.
 
 @item nonstaff-relatedstaff-spacing
 Distancia entre la línea del tipo no-pauta actual y la pauta más
@@ -2070,6 +2073,13 @@ línea que no sea una pauta entre las dos, y @code{staff-affinity} es
 entonces se usa @code{nonstaff-relatedstaff-spacing} para las pautas
 más próximas @emph{a los dos lados}, incluso aunque aparezcan otras
 líneas del tipo no-pauta entre la pauta actual y una de las otras.
+Esto significa que la colocación de una línea que no es una pauta
+depende tanto de las pautas que la rodean como de las líneas que no
+son pautas y que la rodean.  Establecer la ampliabilidad
+@code{stretchability} de uno de estos tipos de espaciado a un valor
+más pequeño provoca que este espaciado domine.  El establecimiento de
+@code{stretchability} a un valor mayor hace que dicho espaciado tenga
+un menor efecto.
 
 @item nonstaff-nonstaff-spacing
 Distancia entre la línea actual del tipo no-pauta y la siguiente línea
