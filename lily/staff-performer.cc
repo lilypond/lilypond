@@ -261,7 +261,7 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
       string str = new_instrument_string ();
       if (channel_mapping != ly_symbol2scm ("instrument"))
 	channel_ = get_channel (voice);
-      else if (str.empty ())
+      else if (channel_ < 0 && str.empty ())
 	channel_ = get_channel (str);
       if (str.length ())
 	{
