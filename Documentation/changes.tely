@@ -62,6 +62,13 @@ which scares away people.
 @end ignore
 
 @item
+Lilypond now helps beams avoid collisions with other grobs!  This feature
+works completely with manual beams.  It also works for all automatic beams
+that do not end right before a change in staff.  For this special case, please
+use manual beams.  Note that beam collision avoidance does not kick in for
+cross-staff beams.
+
+@item
 The Articulate script by Peter Chubb, which is GPLv3 licensed, is now
 a part of the distribution.  It allows easy generation of improved
 MIDI files that perform non-legato by default, legato slurs, staccato,
