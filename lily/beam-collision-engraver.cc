@@ -90,8 +90,7 @@ Beam_collision_engraver::finalize ()
           Context *covered_grob_context = covered_grobs_[j].context ();
 
           Interval_t<int> covered_grob_spanned_rank = covered_grob->spanned_rank_interval ();
-          if ((covered_grob_spanned_rank[LEFT] > beam_spanned_rank_[RIGHT]
-              || !covered_grob_has_interface (covered_grob, beam_grob)))
+          if (covered_grob_spanned_rank[LEFT] > beam_spanned_rank_[RIGHT])
             break;
           /*
              Only consider grobs whose end falls at or after the beam's beginning.
@@ -103,7 +102,8 @@ Beam_collision_engraver::finalize ()
               && !(to_boolean (beam_grob->get_property ("collision-voice-only"))
                    && (covered_grob_context != beam_context))
               && !(Beam::has_interface (covered_grob)
-                   && (covered_grob_spanned_rank[LEFT] <= beam_spanned_rank_[LEFT])))
+                   && (covered_grob_spanned_rank[LEFT] <= beam_spanned_rank_[LEFT]))
+              && covered_grob_has_interface (covered_grob, beam_grob))
             {
               // Do not consider note heads attached to the beam.
               if (Stem::has_interface (covered_grob))
