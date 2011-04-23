@@ -1,0 +1,606 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@ignore
+    Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.13.36"
+
+@node Consigli su come scrivere i file
+@chapter Consigli su come scrivere i file
+@translationof Suggestions for writing files
+
+Ora puoi iniziare a scrivere file di input di LilyPond più grandi --
+non più i piccoli esempi del tutorial, ma brani completi.
+Ma qual è il modo migliore di farlo?
+
+Finché LilyPond comprende i file di input e produce l'output che
+desideri, non importa quale aspetto abbiano i file di input.  Tuttavia,
+ci sono altre questioni da tenere a mente quando si scrivono
+file di input di LilyPond.
+
+@itemize
+@item Se fai un errore?  La struttura di un file LilyPond può rendere
+l'individuazione di certi errori più facile (o più difficile).
+
+@item Se vuoi inviare i tuoi file di input a qualcuno?  E se vuoi modificare
+i tuoi file di input dopo qualche anno?  Alcuni file di input di LilyPond sono
+comprensibili a prima vista; altri ti possono lasciare perplesso per un'ora.
+
+@item Se vuoi aggiornare il tuo file per poterlo usare
+con una versione più recente di LilyPond?  La sintassi di input cambia di
+tanto in tanto mentre LilyPond si evolve.  Alcune modifiche possono essere
+fatte in automatico con @code{convert-ly}, ma altre potrebbero richiedere
+un intervento manuale.  I file di input di LilyPond possono essere strutturati
+per poter essere aggiornati in modo più semplice (o più difficile).
+
+@end itemize
+
+@menu
+* Consigli generali::
+* Scrivere musica esistente::
+* Grandi progetti::
+* Risoluzione dei problemi::
+* Make e Makefiles::
+@end menu
+
+
+@node Consigli generali
+@section Consigli generali
+@translationof General suggestions
+
+Ecco alcuni consigli che possono aiutarti ad evitare o risolvere
+i problemi:
+
+@itemize
+@item @strong{Includi il numero di @code{\version} in ogni file}.  Nota che tutti
+i modelli contengono l'informazione su @code{\version}.  Si consiglia vivamente
+di includere sempre @code{\version}, non importa quanto piccolo possa essere
+il file.  Per esperienza personale, è piuttosto frustrante cercare di ricordare
+quale versione di LilyPond si usava alcuni anni prima.  @command{convert-ly}
+richiede che si dichiari la versione di LilyPond utilizzata.
+
+@item @strong{Includi i controlli}: @ruser{Bar and bar number checks},
+@ruser{Octave checks}.  Se includi i controlli ogni tanto, allora se
+fai un errore lo puoi individuare più rapidamente.  Cosa si intende per
+@q{ogni tanto}?  Dipende dalla complessità della musica.
+Se la musica è molto semplice, magari solo una o due volte.  Se la musica
+è molto complessa, ad ogni battuta.
+
+@item @strong{Una battuta per ogni linea di testo}.  Se c'è qualcosa di
+complicato, nella musica stessa o nell'output che desideri, di solito è
+preferibile scrivere una sola battuta per linea.  Risparmiare spazio sullo
+schermo concentrando otto battute per ogni riga non conviene affatto
+se poi devi fare il @q{debug} dei file di input.
+
+@item @strong{Inserisci dei commenti nei file di input}.  Puoi usare i numeri
+di battuta (ogni tanto) o dei riferimenti ai temi musicali
+(@q{secondo tema nei violini,} @q{quarta variazione,} etc.).  Potresti non
+aver bisogno dei commenti mentre scrivi il brano la prima volta, ma se due
+o tre anni dopo vuoi cambiare qualcosa o se vuoi dare il sorgente a un amico,
+sarà molto più difficile capire le tue intenzioni e la struttura del file
+se non sono presenti dei commenti.
+
+@item @strong{Indenta le parentesi graffe}.  Molti problemi sono causati
+da uno squilibrio nel numero di @code{@{} e @code{@}}.
+
+@item @strong{Esplicita le durate} all'inizio delle sezioni e delle
+variabili.  Se specifichi @code{c4 d e} all'inizio di un fraseggio
+(innvece di @code{c d e} soltanto) puoi evitare alcuni problemi
+quando riarrangi la musica successivamente.
+
+@item @strong{Separa le modifiche manuali (tweak)} dalle definizioni
+musicali.  Vedi @rlearning{Ridurre l’input grazie a variabili e funzioni}, e
+@rlearning{Style sheets}.
+
+@end itemize
+
+
+@node Scrivere musica esistente
+@section Scrivere musica esistente
+@translationof Typesetting existing music
+
+Se stai scrivendo della musica da una partitura esistente (ovvero il brano
+di uno spartito già scritto),
+
+@itemize
+
+@item Inserisci in LilyPond le note del manoscritto (la copia fisica della
+musica) un sistema alla volta (ma sempre una battuta per linea di testo),
+e controlla ogni sistema quando ne completi uno.  Puoi usare le proprietà
+@code{showLastLength} o @code{showFirstLength} per velocizzare
+l'elaborazione -- vedi @ruser{Skipping corrected music}.
+
+@item Definisci @code{mBreak = @{ \break @}} e inserisci @code{\mBreak}
+nel file di input ogni volta che nel manoscritto c'è un a capo.  In questo
+modo è più semplice confrontare la musica generata da LilyPond con quella
+originale.  Quando hai finito la revisione della partitura, puoi
+definire @code{mBreak = @{ @}} per eliminare tutte queste interruzioni di
+riga.  Così LilyPond potrà inserire le interruzioni dove ritiene stiano
+meglio.
+
+@item Quando si inserisce una parte per uno strumento traspositore in una
+variabile, si consiglia di avvolgere le note tra parentesi
+
+@example
+\transpose c altezza-naturale @{...@}
+@end example
+
+@noindent
+(dove @code{altezza-naturale} è l'altezza dello strumento) in modo
+che la musica contenuta nella variabile sia effettivamente in Do. Puoi trasporla
+all'indietro quando la variabile viene usata, se richiesto, ma potresti non
+desiderarlo (ad esempio quando si stampa una partitura in intonazione reale,
+quando si converte una parte per trombone dalla chiave di Sol alla chiave di
+basso, etc.).  Errori nelle trasposizioni sono meno probabili se tutta la musica
+contenuta nelle variabili è ad un'altezza costante.
+
+Inoltre, trasponi sempre verso/dal Do.  Questo significa che le uniche altre
+tonalità che userai sono le altezze naturali degli strumenti - bes
+per una tromba in Si bemolle, aes per un clarinetto in La bemolle, etc.
+
+@end itemize
+
+
+@node Grandi progetti
+@section Grandi progetti
+@translationof Large projects
+
+Quando si lavora a un grande progetto, definire una struttura chiara nel
+file di input diventa vitale.
+
+@itemize
+
+@item @strong{Usa una variabile per ogni voce}, con un minimo di
+struttura nella definizione.  La struttura della sezione
+@code{\score} è la parte che più probabilmente cambierà;
+la definizione di @code{violin} è molto improbabile che cambi
+in una nuova versione di LilyPond.
+
+@example
+violin = \relative c'' @{
+g4 c'8. e16
+@}
+...
+\score @{
+  \new GrandStaff @{
+    \new Staff @{
+      \violin
+    @}
+  @}
+@}
+@end example
+
+@item @strong{Separa le modifiche manuali (tweak) dalle definizioni musicali}.  Questo
+punto è stato menzionato prima, ma nei grandi progetti diventa di vitale
+importanza.  Potrebbe essere necessario modificare la definizione
+di @code{fthenp}, ma si dovrebbe farlo una volta sola e senza toccare
+niente in @code{violin}.
+
+@example
+fthenp = _\markup@{
+  \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
+violin = \relative c'' @{
+g4\fthenp c'8. e16
+@}
+@end example
+
+@end itemize
+
+
+@node Risoluzione dei problemi
+@section Risoluzione dei problemi
+@translationof Troubleshooting
+
+Prima o poi ti capiterà di scrivere un file che LilyPond non
+riesce a compilare.  I messaggi inviati da LilyPond potrebbero aiutarti
+a trovare l'errore, ma in molti casi devi fare qualche ricerca
+per individuare l'origine del problema.
+
+Gli strumenti più potenti per questo scopo sono il commento della
+linea singola (indicato da @code{%}) e il commento di blocco
+(indicato da @code{%@{ ... %@}}).  Se non sai dove sta il problema,
+inizia col commentare ampie parti del file di input.  Dopo aver commentato
+una sezione, prova a compilare di nuovo il file.  Se funziona, allora il
+problema deve trovarsi nella parte che hai appena commentato.  Se non
+funziona, continua a commentare il materiale finché non hai qualcosa
+che funziona.
+
+Nel caso più estremo, potresti finire con soltanto
+
+@example
+\score @{
+  <<
+    % \melody
+    % \harmony
+    % \bass
+  >>
+  \layout@{@}
+@}
+@end example
+
+@noindent
+(in altre parole, un file senza musica)
+
+Se accade questo, non rinunciare.  Decommenta un pezzetto -- ad esempio,
+la parte di basso -- e vedi se funziona.  Se non funziona,
+allora commenta tutta la musica del basso (ma lascia
+@code{\bass} in @code{\score} non commentato).
+
+@example
+bass = \relative c' @{
+%@{
+  c4 c c c
+  d d d d
+%@}
+@}
+@end example
+
+Ora inizia piano piano a decommentare la parte di
+@code{bass} finché non trovi la linea che causa il problema.
+
+Un'altra tecnica di debug molto utile consiste nel creare
+@rweb{Esempi minimi}.
+
+
+@node Make e Makefiles
+@section Make e Makefiles
+@translationof Make and Makefiles
+
+@cindex makefiles
+@cindex make
+
+Tutte le piattaforme su cui Lilypond può essere installato supportano un
+software chiamato @code{make}.  Questo software legge un file speciale chiamato
+@code{Makefile} che definisce quali file dipendono da quali altri file e quali
+comandi bisogna dare al sistema operativo per produrre un file da un
+altro.  Ad esempio makefile può spiegare come generare
+@file{ballad.pdf} e @file{ballad.midi} da @file{ballad.ly} eseguendo
+Lilypond.
+
+Ci sono situazioni in cui è una buona idea creare un @code{Makefile}
+per il proprio progetto, per proprio comodo o come cortesia
+per altri che potrebbero avere accesso ai file sorgente.
+Questo vale per i progetti molto ampi con tanti file inclusi e
+diverse opzioni di output (ad esempio, partitura completa, parti, partitura
+del direttore, riduzione per pianoforte, etc.), o per progetti che
+richiedono comandi difficili per la compilazione (come i progetti che
+usano @code{lilypond-book}).  Makefiles variano molto in complessità
+e flessibilità, in base alle necessità e alle abilità degli autori.
+Il programma GNU Make è installato nelle distribuzioni GNU/Linux
+e su MacOS X ed è disponibile anche per Windows.
+
+Si veda il @strong{Manuale di GNU Make} per conoscere in dettaglio l'uso di
+@code{make}, dato che quel che segue dà solo un'idea quel che può fare.
+
+I comandi per definire delle regole in un makefile cambiano in base
+alla piattaforma; ad esempio le varie forme di Linux e
+MacOS usano @code{bash}, mentre Windows usa @code{cmd}.  Nota che su
+MacOS X bisogna configurare il sistema per usare l'interprete da linea
+di comando.  Di seguito alcuni makefile di esempio, con versioni sia per
+Linux/MacOS sia per Windows.
+
+Il primo esempio è per un'opera per orchestra in quattro
+movimenti e ha la seguente struttura di directory:
+
+@example
+Symphony/
+|-- MIDI/
+|-- Makefile
+|-- Notes/
+|   |-- cello.ily
+|   |-- figures.ily
+|   |-- horn.ily
+|   |-- oboe.ily
+|   |-- trioString.ily
+|   |-- viola.ily
+|   |-- violinOne.ily
+|   `-- violinTwo.ily
+|-- PDF/
+|-- Parts/
+|   |-- symphony-cello.ly
+|   |-- symphony-horn.ly
+|   |-- symphony-oboes.ly
+|   |-- symphony-viola.ly
+|   |-- symphony-violinOne.ly
+|   `-- symphony-violinTwo.ly
+|-- Scores/
+|   |-- symphony.ly
+|   |-- symphonyI.ly
+|   |-- symphonyII.ly
+|   |-- symphonyIII.ly
+|   `-- symphonyIV.ly
+`-- symphonyDefs.ily
+@end example
+
+I file @file{.ly} nelle directory @file{Scores} e
+@file{Parts} prendono le note dai file @file{.ily}
+nella directory @file{Notes}:
+
+@example
+%%% inizio del file "symphony-cello.ly"
+\include ../definitions.ily
+\include ../Notes/cello.ily
+@end example
+
+Il makefile avrà i target di @code{score} (l'intero brano in partitura
+completa), @code{movements} (movimenti individuali in partitura completa),
+e @code{parts} (parti individuali per i musicisti).  C'è anche un
+target @code{archive} che creerà un archivio compresso dei file sorgenti,
+utile per la condivisione via web o email.  Ecco un esempio di
+makefile per GNU/Linux e MacOS X.  Dovrebbe essere salvato col
+nome @code{Makefile} nella directory principale del progetto:
+
+@warning{Quando si definisce un target o una regola di pattern, le
+linee successive devono iniziare con i tabulatori, non con gli spazi.}
+
+@example
+# Il prefisso al nome dei file di output
+piece = symphony
+# Determinazione del numero dei processori
+CPU_CORES=`cat /proc/cpuinfo | grep -m1 "cpu cores" | sed s/".*: "//`
+# Il comando per eseguire lilypond
+LILY_CMD = lilypond -ddelete-intermediate-files \
+                    -dno-point-and-click -djob-count=$(CPU_CORES)
+
+# I suffissi usati in questo Makefile.
+.SUFFIXES: .ly .ily .pdf .midi
+
+# I file di input e di output vengono cercati nelle directory elencate
+# nella variabile VPATH.  Tutte queste sono sottodirectory della directory
+# corrente (assegnata dalla variabile `CURDIR' di GNU make).
+VPATH = \
+  $(CURDIR)/Scores \
+  $(CURDIR)/PDF \
+  $(CURDIR)/Parts \
+  $(CURDIR)/Notes
+
+# La regola di pattern per creare i file PDF e MIDI da un file di input LY.
+# I file di output .pdf vengono messi nella sottodirectory `PDF', mentre i file
+# .midi vanno nella sottodirectory `MIDI'.
+%.pdf %.midi: %.ly
+        $(LILY_CMD) $<; \           # questa linea inizia con una tabulazione
+        if test -f "$*.pdf"; then \
+            mv "$*.pdf" PDF/; \
+        fi; \
+        if test -f "$*.midi"; then \
+            mv "$*.midi" MIDI/; \
+        fi
+
+notes = \
+  cello.ily \
+  horn.ily \
+  oboe.ily \
+  viola.ily \
+  violinOne.ily \
+  violinTwo.ily
+
+# Le dipendenze dei movimenti.
+$(piece)I.pdf: $(piece)I.ly $(notes)
+$(piece)II.pdf: $(piece)II.ly $(notes)
+$(piece)III.pdf: $(piece)III.ly $(notes)
+$(piece)IV.pdf: $(piece)IV.ly $(notes)
+
+# Le dipendenze della partitura completa.
+$(piece).pdf: $(piece).ly $(notes)
+
+# Le dipendenze delle parti.
+$(piece)-cello.pdf: $(piece)-cello.ly cello.ily
+$(piece)-horn.pdf: $(piece)-horn.ly horn.ily
+$(piece)-oboes.pdf: $(piece)-oboes.ly oboe.ily
+$(piece)-viola.pdf: $(piece)-viola.ly viola.ily
+$(piece)-violinOne.pdf: $(piece)-violinOne.ly violinOne.ily
+$(piece)-violinTwo.pdf: $(piece)-violinTwo.ly violinTwo.ily
+
+# Lanciare `make score' per generare la partitura completa di tutti i quattro
+# movimenti in un unico file.
+.PHONY: score
+score: $(piece).pdf
+
+# Lanciare `make parts' per generare tutte le parti.
+# Lanciare `make foo.pdf' per generare la parte per lo strumento `foo'.
+# Esempio: `make symphony-cello.pdf'.
+.PHONY: parts
+parts: $(piece)-cello.pdf \
+       $(piece)-violinOne.pdf \
+       $(piece)-violinTwo.pdf \
+       $(piece)-viola.pdf \
+       $(piece)-oboes.pdf \
+       $(piece)-horn.pdf
+
+# Lanciare `make movements' per generare i file per i
+# quattro movimenti separatamente.
+.PHONY: movements
+movements: $(piece)I.pdf \
+           $(piece)II.pdf \
+           $(piece)III.pdf \
+           $(piece)IV.pdf
+
+all: score parts movements
+
+archive:
+        tar -cvvf stamitz.tar \       # questa linea inizia con una tabulazione
+        --exclude=*pdf --exclude=*~ \
+        --exclude=*midi --exclude=*.tar \
+        ../Stamitz/*
+@end example
+
+
+Ci sono complicazioni specifiche nella piattaforma Windows.  Dopo aver
+scaricato e installato GNU Make per Windows, bisogna impostare il percorso
+corretto nelle variabili d'ambiente di sistema perché la
+shell DOS possa trovare il programma Make.  Per farlo, clicca col tasto destro
+del mouse su "My Computer," poi scegli @code{Proprietà} e
+@code{Avanzate}.  Clicca su @code{Variabili di ambiente}, e poi nel
+pannello @code{Variabili di Sistema}, nella sezione @code{Percorso}, clicca su
+@code{modifica} e aggiungi il percorso al file eseguibile GNU Make, che
+avrà un aspetto simile:
+
+@example
+C:\Program Files\GnuWin32\bin
+@end example
+
+Lo stesso makefile deve essere modificato per gestire diversi comandi
+shell e gli spazi che sono presenti in alcune directory predefinite
+di sistema.  Il target @code{archive} target viene tolto perché Windows
+non ha il comando @code{tar}; inoltre Windows ha una diversa estensione
+predefinita per i file midi.
+
+
+@example
+## VERSIONE DI WINDOWS
+##
+piece = symphony
+LILY_CMD = lilypond -ddelete-intermediate-files \
+                    -dno-point-and-click \
+                    -djob-count=$(NUMBER_OF_PROCESSORS)
+
+#get the 8.3 name of CURDIR (workaround for spaces in PATH)
+workdir = $(shell for /f "tokens=*" %%b in ("$(CURDIR)") \
+          do @@echo %%~sb)
+
+.SUFFIXES: .ly .ily .pdf .mid
+
+VPATH = \
+  $(workdir)/Scores \
+  $(workdir)/PDF \
+  $(workdir)/Parts \
+  $(workdir)/Notes
+
+%.pdf %.mid: %.ly
+        $(LILY_CMD) $<      # questa linea inizia con una tabulazione
+        if exist "$*.pdf"  move /Y "$*.pdf"  PDF/
+        if exist "$*.mid" move /Y "$*.mid" MIDI/
+
+notes = \
+  cello.ily \
+  figures.ily \
+  horn.ily \
+  oboe.ily \
+  trioString.ily \
+  viola.ily \
+  violinOne.ily \
+  violinTwo.ily
+
+$(piece)I.pdf: $(piece)I.ly $(notes)
+$(piece)II.pdf: $(piece)II.ly $(notes)
+$(piece)III.pdf: $(piece)III.ly $(notes)
+$(piece)IV.pdf: $(piece)IV.ly $(notes)
+
+$(piece).pdf: $(piece).ly $(notes)
+
+$(piece)-cello.pdf: $(piece)-cello.ly cello.ily
+$(piece)-horn.pdf: $(piece)-horn.ly horn.ily
+$(piece)-oboes.pdf: $(piece)-oboes.ly oboe.ily
+$(piece)-viola.pdf: $(piece)-viola.ly viola.ily
+$(piece)-violinOne.pdf: $(piece)-violinOne.ly violinOne.ily
+$(piece)-violinTwo.pdf: $(piece)-violinTwo.ly violinTwo.ily
+
+.PHONY: score
+score: $(piece).pdf
+
+.PHONY: parts
+parts: $(piece)-cello.pdf \
+       $(piece)-violinOne.pdf \
+       $(piece)-violinTwo.pdf \
+       $(piece)-viola.pdf \
+       $(piece)-oboes.pdf \
+       $(piece)-horn.pdf
+
+.PHONY: movements
+movements: $(piece)I.pdf \
+           $(piece)II.pdf \
+           $(piece)III.pdf \
+           $(piece)IV.pdf
+
+all: score parts movements
+@end example
+
+
+Il Makefile seguente è per un documento @command{lilypond-book} fatto con
+LaTeX.  Questo progetto ha un indice, dunque il comando @command{latex} deve
+essere eseguito due volte per aggiornare i collegamenti.  I file di output
+sono tutti salvati nella directory @code{out} per i file .pdf e nella directory
+@code{htmlout} per i file html.
+
+@example
+SHELL=/bin/sh
+FILE=myproject
+OUTDIR=out
+WEBDIR=htmlout
+VIEWER=acroread
+BROWSER=firefox
+LILYBOOK_PDF=lilypond-book --output=$(OUTDIR) --pdf $(FILE).lytex
+LILYBOOK_HTML=lilypond-book --output=$(WEBDIR) $(FILE).lytex
+PDF=cd $(OUTDIR) && pdflatex $(FILE)
+HTML=cd $(WEBDIR) && latex2html $(FILE)
+INDEX=cd $(OUTDIR) && makeindex $(FILE)
+PREVIEW=$(VIEWER) $(OUTDIR)/$(FILE).pdf &
+
+all: pdf web keep
+
+pdf:
+        $(LILYBOOK_PDF)  # inizia con una tabulazione
+        $(PDF)           # inizia con una tabulazione
+        $(INDEX)         # inizia con una tabulazione
+        $(PDF)           # inizia con una tabulazione
+        $(PREVIEW)       # inizia con una tabulazione
+
+web:
+        $(LILYBOOK_HTML) # inizia con una tabulazione
+        $(HTML)          # inizia con una tabulazione
+        cp -R $(WEBDIR)/$(FILE)/ ./  # inizia con una tabulazione
+        $(BROWSER) $(FILE)/$(FILE).html &  # inizia con una tabulazione
+
+keep: pdf
+        cp $(OUTDIR)/$(FILE).pdf $(FILE).pdf  # inizia con una tabulazione
+
+clean:
+        rm -rf $(OUTDIR) # inizia con una tabulazione
+
+web-clean:
+        rm -rf $(WEBDIR) # inizia con una tabulazione
+
+archive:
+        tar -cvvf myproject.tar \ # inizia questa linea con una tabulazione
+        --exclude=out/* \
+        --exclude=htmlout/* \
+        --exclude=myproject/* \
+        --exclude=*midi \
+        --exclude=*pdf \
+        --exclude=*~ \
+        ../MyProject/*
+@end example
+
+@c TODO: make this thing work on Windows
+
+Il makefile precedente non funziona su Windows.  Un'alternativa per
+gli utenti Windows consiste nel creare un semplice file batch
+contenente i comandi per la compilazione.  Questo file non terrà
+traccia delle dipendenze come fa invece un makefile, ma almeno riduce
+il processo di compilazione a un solo comando.  Salva il codice
+seguente come @command{build.bat} o @command{build.cmd}.
+Il file batch può essere eseguito nel prompt DOS o semplicemente con
+un doppio clic sulla sua icona.
+
+@example
+lilypond-book --output=out --pdf myproject.lytex
+cd out
+pdflatex myproject
+makeindex myproject
+pdflatex myproject
+cd ..
+copy out\myproject.pdf MyProject.pdf
+@end example
+
+
+@seealso
+
+Questo manuale:
+@ref{Uso da linea di comando},
+@ref{lilypond-book}
+
