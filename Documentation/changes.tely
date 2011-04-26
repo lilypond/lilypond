@@ -65,8 +65,7 @@ which scares away people.
 Lilypond now helps beams avoid collisions with other grobs!  This feature
 works completely with manual beams.  It also works for all automatic beams
 that do not end right before a change in staff.  For this special case, please
-use manual beams.  Note that beam collision avoidance does not kick in for
-cross-staff beams.
+use manual beams.
 
 @item
 The Articulate script by Peter Chubb, which is GPLv3 licensed, is now
