@@ -76,8 +76,6 @@ Beam_collision_engraver::finalize ()
   for (vsize i = 0; i < beams_.size (); i++)
     {
       Grob *beam_grob = beams_[i].grob ();
-      if (Beam::is_cross_staff (beam_grob))
-        continue;
 
       Context *beam_context = beams_[i].context ();
 
