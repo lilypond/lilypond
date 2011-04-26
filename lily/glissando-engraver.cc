@@ -44,6 +44,7 @@ protected:
 
 private:
   vector<Spanner *> lines_;
+  vector<Spanner *> kill_me_;
   bool start_glissandi;
   bool stop_glissandi;
 
@@ -77,6 +78,31 @@ void
 Glissando_engraver::acknowledge_note_column (Grob_info info)
 {
   Grob *g = info.grob ();
+  if (stop_glissandi)
+    {
+      extract_grob_set (g, "note-heads", note_heads);
+      int glissando_index = 0;
+      for (vsize i=0; i < note_column_1.size (); i++)
+        {
+          if (note_column_2[i] >= note_heads.size ())
+            {
+              kill_me_.push_back (lines_[i]);
+              announce_end_grob (lines_[i], SCM_EOL);
+            }
+          else
+            {
+              lines_[i]->set_bound (RIGHT, note_heads[note_column_2[i]]);
+              lines_[i]->set_property ("glissando-index", scm_from_int (glissando_index));
+              glissando_index++;
+              announce_end_grob (lines_[i], note_heads[note_column_2[i]]->self_scm ());
+            }
+        }
+      lines_.clear ();
+      note_column_1.clear ();
+      note_column_2.clear ();
+      stop_glissandi = false;
+    }      
+
   if (start_glissandi)
     {
       extract_grob_set (g, "note-heads", note_heads);
@@ -106,28 +132,6 @@ Glissando_engraver::acknowledge_note_column (Grob_info info)
           lines_.back ()->set_bound (LEFT, note_heads[note_column_1[i]]);
         }
     }
-
-  if (stop_glissandi)
-    {
-      extract_grob_set (g, "note-heads", note_heads);
-      int glissando_index = 0;
-      for (vsize i=0; i < note_column_1.size (); i++)
-        {
-          if (note_column_2[i] >= note_heads.size ())
-            lines_[i]->suicide ();
-          else
-            {
-              lines_[i]->set_bound (RIGHT, note_heads[note_column_2[i]]);
-              lines_[i]->set_property ("glissando-index", scm_from_int (glissando_index));
-              glissando_index++;
-              announce_end_grob (lines_[i], note_heads[note_column_2[i]]->self_scm ());
-            }
-        }
-      lines_.clear ();
-      note_column_1.clear ();
-      note_column_2.clear ();
-      stop_glissandi = false;
-    }      
 }
 
 void
@@ -139,9 +143,8 @@ Glissando_engraver::stop_translation_timestep ()
       if (stop_glissandi)
 	programming_error ("overwriting glissando");
       stop_glissandi = true;
+      start_glissandi = false;
     }
-
-  start_glissandi = false;
   event_ = 0;
 }
 
@@ -160,6 +163,9 @@ Glissando_engraver::finalize ()
       for (vsize i=0; i < lines_.size (); i++)
         lines_[i]->suicide ();
     }
+
+  for (vsize i=0; i < kill_me_.size (); i++)
+    kill_me_[i]->suicide ();
 }
 
 ADD_ACKNOWLEDGER (Glissando_engraver, note_column);
