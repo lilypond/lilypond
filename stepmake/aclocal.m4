@@ -406,7 +406,7 @@ EOF
 	fi
 
 	for d in 2 3 4 ; do
-	    for mf in `cd $srcdir ; find -maxdepth $d -mindepth $d -name GNUmakefile`; do
+	    for mf in `cd $srcdir ; find . -maxdepth $d -mindepth $d -name GNUmakefile`; do
 		mkdir -p $(dirname $mf)
 	        cat <<EOF | $PYTHON -  > $mf
 print 'depth=' + ('../' * ( $d-1 ) )
@@ -415,7 +415,7 @@ print 'include \$(configure-srcdir)/$mf'
 print 'MODULE_INCLUDES += \$(src-dir)/\$(outbase)'
 EOF
 	    done
-	    for mf in `cd $srcdir ; find -maxdepth $d -mindepth $d -name '*.make' | grep -v config.make `; do
+	    for mf in `cd $srcdir ; find . -maxdepth $d -mindepth $d -name '*.make' | grep -v config.make `; do
 		mkdir -p $(dirname $mf)
 	        cat <<EOF | $PYTHON -  > $mf
 print 'include \$(depth)/config\$(if \$(conf),-\$(conf),).make'

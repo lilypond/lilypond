@@ -83,7 +83,7 @@ and movement, and it feels like a living, breathing piece of music,
 while the newer edition seems cold and mechanical.
 
 It is hard to immediately see what makes the difference with the newer
-edition.  Everything looks neat and tiny, possibly even @qq{better}
+edition.  Everything looks neat and tidy, possibly even @qq{better}
 because it looks more computerized and uniform.  This really puzzled us
 for quite a while.  We wanted to improve computer notation, but we first
 had to figure out what was wrong with it.
@@ -292,7 +292,7 @@ vertical strokes are heavier.
 In spacing, the distribution of space should reflect the durations
 between notes.  However, as we saw in the Bach Suite above, many modern
 scores adhere to the durations with mathematical precision, which leads
-to poor results.  In the next example a motive is printed twice: the
+to poor results.  In the next example a motif is printed twice: the
 first time using exact mathematical spacing, and the second with
 corrections.  Which do you prefer?
 
@@ -737,7 +737,7 @@ We can also measure LilyPond's ability to make music engraving decisions
 automatically by comparing LilyPond's output to the output of a
 commercial software product.  In this case we have chosen Finale 2008,
 which is one of the most popular commercial score writers, particularly
-in North America.  Sibelius is their major rival and they appear to be
+in North America.  Sibelius is its major rival and appears to be
 especially strong in the European market.
 
 For our comparison we selected Bach's Fugue in G minor from the
@@ -841,7 +841,7 @@ Some shortcomings in the unedited Finale output include:
 @item Most of the beams extend too far off the staff.  A beam that points
 towards the center of the staff should have a length of about one
 octave, but engravers shorten this when the beam points away from the
-staff in multi-voice music.  The Finale beaming can be easily improved
+staff in multi-voice music.  The Finale beaming can easily be improved
 with their Patterson Beams plug-in, but we elected to skip that step for
 this example.
 @item Finale doesn't adjust the positions of interlocking note heads,

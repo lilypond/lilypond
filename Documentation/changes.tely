@@ -62,6 +62,12 @@ which scares away people.
 @end ignore
 
 @item
+Lilypond now helps beams avoid collisions with other grobs!  This feature
+works completely with manual beams.  It also works for all automatic beams
+that do not end right before a change in staff.  For this special case, please
+use manual beams.
+
+@item
 The Articulate script by Peter Chubb, which is GPLv3 licensed, is now
 a part of the distribution.  It allows easy generation of improved
 MIDI files that perform non-legato by default, legato slurs, staccato,
@@ -109,9 +115,10 @@ Lilypond now engraves woodwind fingering charts.
 @item
 MIDI output has been improved
 @itemize @bullet
-@item voices are kept separated, which makes the MIDI much more useful for postprocessing
+@item voices are kept separated, which makes the MIDI file much more useful for postprocessing
 @item optimal channel distribution: identical instruments share the same channel.  This means that e.g. for a full orchestral score there are always 16 (15 plus percussion) diffently sounding instruments available, unrestricted by the number of staves or voices.
-@item dynamics are now rendered as note velocities, no longer as midi dynamics.  This improves the sound on [high end] midi renderers.
+@item @code{\set Score.midiChannelMapping = #'staff} assigns one MIDI channel per staff, previously the default behavior.  This setting is required if you want instrument changes to create MIDI program changes on a single MIDI channel.
+@item dynamics are now rendered as note velocities, no longer as midi volume.  This improves the sound on [high end] midi renderers.
 @end itemize
 
 @item

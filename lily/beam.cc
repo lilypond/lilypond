@@ -37,6 +37,7 @@
 
 #include "beam.hh"
 
+#include "align-interface.hh"
 #include "beam-scoring-problem.hh"
 #include "beaming-pattern.hh"
 #include "directional-element-interface.hh"
@@ -1204,7 +1205,15 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
     {
       if (!covered[i]->is_live())
         continue;
-      
+
+      // TODO - use this logic in is_cross_staff.
+      if (is_cross_staff (me)
+          && Align_interface::has_interface (common_refpoint_of_array (stems, me, Y_AXIS)))
+        continue;
+
+      if (Beam::has_interface (covered[i]) && is_cross_staff (covered[i]))
+        continue;
+
       Box b;
       for (Axis a = X_AXIS; a < NO_AXES; incr (a))
         b[a] = covered[i]->extent (common[a], a);
@@ -1299,14 +1308,24 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
     {
       // We're good to go. Do nothing.
     }
-  else if (!collision_free[DOWN].is_empty ()
-           || !collision_free[UP].is_empty ())
+  else if (collision_free[DOWN].is_empty() != collision_free[UP].is_empty())
     {
-      // We have space above or below collisions (or, no collisions at
-      // all).  Should we factor in the size of the collision_free
-      // interval as well?
+      // Only one of them offers is feasible solution. Pick that one.
+      Interval v =
+        (!collision_free[DOWN].is_empty()) ?
+        collision_free[DOWN] : 
+        collision_free[UP];
+
+      beam_left_y = point_in_interval (v, 2.0);
+    }
+  else if (!collision_free[DOWN].is_empty ()
+           && !collision_free[UP].is_empty ())
+    {
+      // Above and below are candidates, take the one closest to the
+      // starting solution.
       Interval best =  
-        (collision_free[DOWN].distance(beam_left_y) < collision_free[UP].distance (beam_left_y)) ?
+        (collision_free[DOWN].distance (beam_left_y)
+         < collision_free[UP].distance (beam_left_y)) ?
         collision_free[DOWN] : collision_free[UP];
 
       beam_left_y = point_in_interval (best, 2.0);
@@ -1320,7 +1339,7 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
   else
     {
       // We are completely screwed.
-      warning (_ ("no viable initial configuration found: may not find good beam slope"));
+      me->warning (_ ("no viable initial configuration found: may not find good beam slope"));
     }
   
   pos = Drul_array<Real> (beam_left_y, (beam_left_y + beam_dy));

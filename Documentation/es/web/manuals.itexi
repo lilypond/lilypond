@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 98d54187c3da37a2f2a7d21c2aeaa5f6dd148193
+    Translation of GIT committish: a9e295650dc1d588ac03cf0c43230b8b28229bdd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -301,8 +301,8 @@ su lectura antes de afrontar proyectos grandes.
 @docLinks{Utilización, usage,
   @rprogramnamed{Top,Utilización},
   @manualStableUsageSplit-es,
-  @manualStableUsageBig-es, 300 KB,
-  @manualStableUsagePdf-es, 400 KB}
+  @manualStableUsageBig-es, 400 KB,
+  @manualStableUsagePdf-es, 600 KB}
 
 @divEnd
 

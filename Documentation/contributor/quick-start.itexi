@@ -128,7 +128,12 @@ client.
 
 Not all hardware is supported in all virtualization tools.  In
 particular, some contributors have reported problems with USB
-devices.  If you would like to investigate further, then look for
+devices, for example USB network adapters.  If you have problems
+with network connection (for example internet connection in the 
+host system is lost when you launch virtual system), try installing
+and running Lilydev with your computer's built-in network adapter 
+used to connect to the network.
+If you would like to investigate further, then look for
 help for your virtualization tool using your normal OS as the
 @qq{host} and Ubuntu as the @qq{client}.
 

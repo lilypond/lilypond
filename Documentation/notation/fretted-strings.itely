@@ -1111,6 +1111,7 @@ Internals Reference:
 
 @cindex fret diagrams
 @cindex fret diagrams, ukulele
+@cindex fret diagrams, mandolin
 @cindex chord diagrams
 
 @funindex FretBoards
@@ -1153,6 +1154,24 @@ myChords = \chordmode { a1 a:m a:aug }
 
 \new FretBoards {
   \set stringTunings = #ukulele-tuning
+  \myChords
+}
+@end lilypond
+
+Fret diagrams for the mandolin are contained in the file
+@file{predefined-mandolin-fretboards.ly}.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-mandolin-fretboards.ly"
+
+myChords = \chordmode { c1 c:m7.5- c:aug }
+
+\new ChordNames {
+  \myChords
+}
+
+\new FretBoards {
+  \set stringTunings = #mandolin-tuning
   \myChords
 }
 @end lilypond
@@ -1394,7 +1413,8 @@ Notation Reference:
 Installed Files:
 @file{ly/predefined-guitar-fretboards.ly},
 @file{ly/predefined-guitar-ninth-fretboards.ly},
-@file{ly/predefined-ukulele-fretboards.ly}.
+@file{ly/predefined-ukulele-fretboards.ly},
+@file{ly/predefined-mandolin-fretboards.ly}.
 
 Snippets:
 @rlsr{Fretted strings}.
@@ -1882,4 +1902,4 @@ Snippets:
 @rlsr{Fretted strings}.
 
 Installed Files:
-@file{scm/output-lib.scm} contains predefined banjo tunings.
+@file{scm/string-tunings-init.scm} contains predefined banjo tunings.

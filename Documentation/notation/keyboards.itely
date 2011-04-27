@@ -229,6 +229,11 @@ affected by a cross-staff spanner.
 The resulting collisions must be resolved manually, where necessary,
 using the methods in @rlearning{Fixing overlapping notation}.
 
+@knownissues
+Beam collision avoidance does not work for automatic beams that end
+right before a change in staff. To make the latter work, use manual
+beaming.
+
 @seealso
 Learning Manual:
 @rlearning{Fixing overlapping notation}.
