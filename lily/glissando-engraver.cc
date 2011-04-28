@@ -48,7 +48,6 @@ private:
   bool stop_glissandi;
 
   Stream_event *event_;
-  SCM map;
   vector<vsize> note_column_1;
   vector<vsize> note_column_2;
 };
@@ -56,7 +55,6 @@ private:
 Glissando_engraver::Glissando_engraver ()
 {
   event_ = 0;
-  map = SCM_EOL;
   start_glissandi = false;
   stop_glissandi = false;
 }
@@ -82,7 +80,7 @@ Glissando_engraver::acknowledge_note_column (Grob_info info)
   if (start_glissandi)
     {
       extract_grob_set (g, "note-heads", note_heads);
-      map = get_property ("glissandoMap");
+      SCM map = get_property ("glissandoMap");
       if (map == SCM_EOL)
         for (vsize i = 0; i < note_heads.size (); i++)
           {

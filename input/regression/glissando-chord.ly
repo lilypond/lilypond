@@ -15,9 +15,4 @@
   c1 \glissando s1 <d f a>
   \set glissandoMap = #'((2 . 0) (1 . 0) (0 . 0))
   <d f a>1 \glissando s1 c
-  \unset glissandoMap
-  \once \override Voice . Glissando #'style =
-    #(lambda (grob)
-       (if (eq? 1 (ly:grob-property grob 'glissando-index)) 'zigzag 'default))
-  <d f a>1 \glissando s1 <f a c>
 }
