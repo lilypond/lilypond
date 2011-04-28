@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: aa493b320dcb35e7862c594497c63a32912aa243
+    Translation of GIT committish: 104566603d933821fbdbb7696ef0b5bbd3fa0797
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -70,7 +70,44 @@ which scares away people.
 @end ignore
 
 @item
-Lilypond produce diagramas de digitación para instrumentos de viento madera.
+¡Ahora Lilypond ayuda a las barras de corchea a evitar colisiones con
+otros objetos gráficos!  Esta funcionalidad funciona completamente con
+las barras manuales.  También funciona para todas las barras
+automáticas que no terminan justo antes de un cambio de pauta.  Para
+este caso particular, le rogamos que utilice barras manuales.
+
+@item
+Ahora forma parte de la distibución el script Articulate, obra de
+Peter Chubb, que se publica bajo la licencia GPLv3.  Permite la
+producción sencilla de archivos MIDI que realizan de forma
+predeterminada una articulación non-legato además de interpretar
+correctamente las ligaduras de expresión, los picados, las
+indicaciones de tempo, los trinos, etc.
+
+@example
+\include "articulate.ly"
+\articulate <<
+      resto de la partitura...
+>>
+@end example
+
+@item
+Ahora están contempladas las repeticiones de un pulso para
+semicorcheas y figuras de menor duración y las repeticiones de pulso
+para compases que contienen notas de duraciones diversas.
+
+@lilypond[fragment,relative=2]
+\repeat percent 2 { c16 d }
+\repeat percent 2 { c32 e }
+\repeat percent 2 { c64 f }
+\repeat percent 2 { c128 g' }
+@end lilypond
+
+
+@item
+Lilypond produce diagramas de digitación para instrumentos de viento
+madera.
+
 @lilypond
 \relative c' {
   \textLengthOn
@@ -87,6 +124,15 @@ Lilypond produce diagramas de digitación para instrumentos de viento madera.
 
 }
 @end lilypond
+
+@item
+Se ha mejorado la salida MIDI:
+@itemize @bullet
+@item las voces se mantienen separadas, lo que hace que el MIDI sea mucho más útil para el post-procesado
+@item distribución óptima de los canales: los instrumentos idénticos comparten el mismo canal.  Esto significa que p.ej. para una partitura orquestal siempre están disponibles 16 (15 más percusión) instrumentos de distinto sonido, sin limitarse al número de pautas o voces.
+@item @code{\set Score.midiChannelMapping = #'staff} asigna un canal MIDI por cada pauta, que era el comportamiento anterior.  Este ajuste es necesario si se quiere que los cambios de instrumento creen cambios de programa MIDI sobre un único canal MIDI.
+@item los matices dinámicos ahora se realizan mediante velocidades de nota, ya no como volumen de MIDI.  Esto mejora el sonido sobre los módulos MIDI de gama alta.
+@end itemize
 
 @item
 Se ha mejorado la importación de MIDI por medio de Midi2ly
