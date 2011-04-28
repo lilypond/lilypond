@@ -1,0 +1,1106 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@ignore
+    Translation of GIT committish: 673cef312bbefe407f87a1c2e041980bc61396c6
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.13.36"
+
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+
+@node 同時進行する音符
+@section 同時進行する音符
+@translationof Simultaneous notes
+
+@lilypondfile[quote]{simultaneous-headword.ly}
+
+楽譜の中で多声部は楽曲の 1 節の中にある複数のボイスを参照します。@c
+LilyPond の中で多声部は同じ譜にある複数のボイスを参照します。
+
+@menu
+* 単一のボイス::
+* 複数のボイス::
+@end menu
+
+
+@node 単一のボイス
+@subsection 単一のボイス
+@translationof Single voice
+
+このセクションでは同じボイスの中にある同時進行する音符について議論します。
+
+@menu
+* 和音の音符::
+* 和音の繰り返し::
+* 同時進行表記::
+* クラスタ::
+@end menu
+
+
+@node 和音の音符
+@unnumberedsubsubsec 和音の音符
+@translationof Chorded notes
+
+@cindex chords (和音)
+@cindex brackets, angle (山括弧)
+
+@funindex <
+@funindex >
+@funindex <...>
+
+和音は @code{<} と @code{>} で 1 組のピッチを囲むことによって形成されます。@c
+和音の後には -- 普通の音符と同様に -- 演奏時間が続くかもしれません:
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 <a c e>2 <f a c e>4 <a c>8. <g c e>16
+@end lilypond
+
+さらに、和音の後には -- 普通の音符と同様に -- アーティキュレーションが@c
+続くかもしれません:
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^| <g c e>16-.
+@end lilypond
+
+和音の中にある音符自体にもアーティキュレーションや装飾を付けることができます。
+
+@lilypond[verbatim,quote,relative=2]
+<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4 <a-+ c-->8. <g\fermata c e\turn>16
+@end lilypond
+
+しかしながら、いくつかの記譜要素
+-- 強弱記号、ヘアピン、それにスラーなど --
+は和音の中の音符ではなく、和音に付ける必要があります。@c
+そうしなければ、譜刻されません。
+
+@lilypond[verbatim,quote,relative=2]
+<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>) <a c e>\< <a c e> <a c e>\!
+@end lilypond
+
+@cindex relative pitch, chords (和音と相対ピッチ)
+@cindex chords, relative pitch (相対ピッチと和音)
+
+和音の中のピッチに対して相対モードを使うことができます。@c
+各和音の最初の音符は常に、前の和音の最初の音符との相対関係で決まります。@c
+前が和音でない場合は、その和音の前にある最後のピッチとの相対関係になります。@c
+和音の中にある残りの音符はすべて @emph{同じ和音の中にある}
+前の音符との相対関係になります。
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 <f a c> <a c e> <f' a c> <b, e b,>
+@end lilypond
+
+和音についての更なる情報は、@ref{Chord notation} を参照してください。
+
+
+@seealso
+音楽用語集:
+@rglos{chord}
+
+学習マニュアル:
+@rlearning{音符を組み合わせて和音にする}
+
+記譜法リファレンス:
+@ref{Chord notation},
+@ref{アーティキュレーションと装飾},
+@ref{相対オクターブ入力},
+@ref{複数のボイス}
+
+コード断片集:
+@rlsr{Simultaneous notes}
+
+@knownissues
+1 譜スペース内に 3 つ以上のピッチを保持している和音
+-- @samp{<e f! fis!>} など --
+では、符頭が重なります。@c
+状況に応じて、適切な表記を用います
+
+@itemize
+
+@item
+一時的に @ref{複数のボイス} を使用する -- @samp{<< f! \\ <e fis!> >>},
+
+@item
+いくつかのピッチを異名同音に書き換える -- @samp{<e f ges>},
+
+@item
+@ref{Clusters}
+
+@end itemize
+
+@node 和音の繰り返し
+@unnumberedsubsubsec 和音の繰り返し
+@translationof Chord repetition
+
+入力の手間を省くために、前の和音を繰り返すための短縮記法があります。@c
+和音を繰り返すためのシンボルは @code{q} です:
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 q <f a c>2 q
+@end lilypond
+
+前の和音のピッチが複製されているだけなので、
+通常の和音と同様に、和音の繰り返しのシンボルにも演奏時間、@c
+アーティキュレーション、マークアップ、スラー、連桁などを使うことができます。
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1\p^"text" q2\<( q8)[-| q8.]\! q16-1-2-3 q8\prall
+@end lilypond
+
+和音繰り返しのシンボルは常に最後の和音を覚えているため、@c
+最後の和音の後に和音ではない音符や休符があったとしても、@c
+和音を繰り返すことができます。
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 c4 q2 r8 q8
+@end lilypond
+
+しかしながら、和音繰り返しのシンボルは前の和音の強弱記号、@c
+アーティキュレーション、あるいは装飾を持ち越しません。
+
+@lilypond[verbatim,quote,relative=2]
+<a-. c\prall e>1\sfz c4 q2 r8 q8
+@end lilypond
+
+@seealso
+記譜法リファレンス:
+@ref{Chord notation},
+@ref{アーティキュレーションと装飾}
+
+インストールされているファイル:
+@file{ly/chord-repetition-init.ly}
+
+
+@node 同時進行表記
+@unnumberedsubsubsec 同時進行表記
+@translationof Simultaneous expressions
+
+2 重山括弧で囲まれた 1 つあるいは複数の音楽表記は同時進行します。@c
+最初の表記が単一の音符で始まる場合、@c
+あるいは同時進行する表記全体が明らかに単一のボイスの中にある場合、@c
+その表記全体は単一の譜の上に配置されます。@c
+そうでない場合、同時進行する表記の要素は別々の譜の上に配置されます。
+
+以下の例は 1 つの譜の上にある同時進行表記を示しています:
+
+@c KEEP LY
+@lilypond[quote,verbatim,relative=2]
+\new Voice {  % 明らかに単一のボイスです
+  << { a4 b g2 } { d4 g c,2 } >>
+}
+@end lilypond
+
+@lilypond[quote,verbatim,relative=2]
+% 単一の音符で始まります
+a << {a4 b g}  {d4 g c,} >>
+@end lilypond
+
+これは同時進行するセクションが同一のリズムを持つ場合に役に立ちます。@c
+しかしながら、異なる演奏時間を持つ音符を同じ符幹に取り付けようとすると@c
+エラーとなります。
+
+以下の例は、同時進行する表記が暗黙的に複数の譜を生成する様子を示しています:
+
+@c KEEP LY
+@lilypond[quote,verbatim,relative=2]
+% 単一の音符で始まりません
+<< {a4 b g2}  {d4 g2 c,4} >>
+@end lilypond
+
+ここでは、リズムが異なっていても問題ありません。
+
+
+@node クラスタ
+@unnumberedsubsubsec クラスタ
+@translationof Clusters
+
+@cindex cluster (クラスタ)
+@cindex note cluster (音符のクラスタ)
+
+@funindex \makeClusters
+@funindex makeClusters
+
+クラスタは演奏すべき連続したピッチの範囲を示します。@c
+クラスタは 1 組の音符の範囲 (envelope) として表されます。@c
+クラスタはひと続きの和音に関数 @code{\makeClusters}
+を適用することによって入力されます。@c
+例えば以下のように:
+
+@lilypond[quote,relative=2,verbatim]
+\makeClusters { <g b>2 <c g'> }
+@end lilypond
+
+通常の音符とクラスタを同じ譜に一緒にして配置することができます
+-- たとえ、それらが同時進行であってもです。@c
+そのようなケースでは、通常の音符とクラスタの衝突を@c
+自動的に回避しようとする試みは行われません。
+
+
+@seealso
+音楽用語集:
+@rglos{cluster}
+
+コード断片集:
+@rlsr{Simultaneous notes}
+
+内部リファレンス:
+@rinternals{ClusterSpanner},
+@rinternals{ClusterSpannerBeacon},
+@rinternals{Cluster_spanner_engraver}
+
+
+@knownissues
+
+クラスタは少なくとも 2 つの和音を持つ場合にのみうまく譜刻されます。@c
+さもなければ、あまりにも狭く譜刻されます。
+
+クラスタは符幹を持たず、それ自体で演奏時間を示すことはできません。@c
+しかしながら、譜刻されるクラスタの長さはクラスタを定義する和音の演奏時間に@c
+よって決定されます。クラスタを分割するには、クラスタとクラスタの間に@c
+分割するための休符が必要です。
+
+クラスタは MIDI 出力を作り出しません。
+
+@node 複数のボイス
+@subsection 複数のボイス
+@translationof Multiple voices
+
+このセクションでは複数のボイスあるいは複数の譜の中にある同時進行する音符に@c
+ついて議論します。
+
+@menu
+* 単一譜の多声::
+* ボイス スタイル::
+* 衝突の解決::
+* 自動パート結合::
+* 音楽を並列に記述する::
+@end menu
+
+
+@node 単一譜の多声
+@unnumberedsubsubsec 単一譜の多声
+@translationof Single-staff polyphony
+
+@cindex single-staff polyphony (単一譜の多声)
+@cindex polyphony, single-staff (単一譜の多声)
+@cindex voice (ボイス)
+@cindex lyrics assigned to one voice (1 つのボイスに代入される歌詞)
+
+@funindex \voiceOne
+@funindex voiceOne
+@funindex \voiceOne ... \voiceFour
+@funindex Voice
+@funindex \oneVoice
+@funindex oneVoice
+
+@strong{@i{明示的にボイスをインスタンス化する}}
+
+単一の譜の中に複数の独立したボイスを配置するのに必要とされる基本的な構造が@c
+以下の例で示されています:
+
+@lilypond[quote,relative=3,verbatim]
+\new Staff <<
+  \new Voice = "first"
+    { \voiceOne r8 r16 g e8. f16 g8[ c,] f e16 d }
+  \new Voice= "second"
+    { \voiceTwo d16 c d8~ d16 b c8~ c16 b c8~ c16 b8. }
+>>
+@end lilypond
+
+@noindent
+ここでは、ボイスは明示的にインスタンス化されていて、名前を与えられています。@c
+@code{\voiceOne} ... @code{\voiceFour} コマンドはボイスをセット アップし、@c
+それにより、1 番目と 3 番目のボイスは上向きの符幹を持ち、2 番目と 4 番目の@c
+ボイスは下向きの符幹を持ち、3 番目と 4 番目のボイスの符頭は水平方向にずれて、@c
+それぞれのボイスの中の休符は衝突を避けるために自動的に移動させられます。@c
+@code{\oneVoice} コマンドはすべてのボイス設定をニュートラルなデフォルトの@c
+向きに戻します。
+
+@c passage: 楽節
+@strong{@i{一時的に多声となる楽節 (passage)}}
+
+一時的に多声となる楽節は以下のような構成で作成することができます:
+
+@example
+<< @{ \voiceOne ... @}
+  \new Voice @{ \voiceTwo ... @}
+>> \oneVoice
+@end example
+
+@noindent
+ここで、一時多声楽節の中の最初の表記は直前に使われていた
+@code{Voice} コンテキストに配置され、@c
+その @code{Voice} コンテキストは一時セクションの後も続いていきます。@c
+山括弧の中の他の表記は別の一時ボイスに代入されます。@c
+これと同様に、歌詞は多声セクションの前、最中、後に続いているボイスに@c
+代入されます:
+
+@lilypond[quote, verbatim, relative=2]
+<<
+  \new Voice = "melody" {
+    a4
+    <<
+      {
+        \voiceOne
+        g f
+      }
+      \new Voice {
+        \voiceTwo
+        d2
+      }
+    >>
+    \oneVoice
+    e4
+  }
+  \new Lyrics \lyricsto "melody" {
+  This is my song.
+  }
+>>
+@end lilypond
+
+@noindent
+ここで、@code{\voiceOne} と @code{\voiceTwo} コマンドはそれぞれのボイスの@c
+設定を定義するために必要とされています。
+
+@strong{@i{2 重バックスラッシュ構造}}
+
+@code{<< @{...@} \\ @{...@} >>} 構造
+-- この中では 2 つ (あるいはそれ以上) の表記が
+2 重バックスラッシュで区切られています --
+は、同じような構造だが 2 重バックスラッシュを持たない構造とは@c
+まったく異なる振る舞いをします:
+この構造の中にある @emph{すべての} 表記は新たな @code{Voice} コンテキストに@c
+代入されます。@c
+それらの新しい @code{Voice} コンテキストは暗黙的に作成され、@c
+あらかじめ決められた名前 @code{"1"}, @code{"2"} などを与えられます。
+
+最初の例は以下のように書き換えることができます:
+
+@lilypond[quote,relative=3,verbatim]
+<<
+  { r8 r16 g e8. f16 g8[ c,] f e16 d }
+  \\
+  { d16 c d8~ d16 b c8~ c16 b c8~ c16 b8. }
+>>
+@end lilypond
+
+一時ボイスが作成され、それから消去されることが問題にならない場合に、@c
+この構文を使用することができます。@c
+暗黙的に作成されるボイスには、それらがコードの中で現れる順番に従って、@c
+@code{\voiceOne} ... @code{\voiceFour} コマンドと同じ設定が与えられます。
+
+以下の例では、真ん中のボイスは上向きの符幹を持ちます。@c
+そのため、それを 3 番目に置いて、望みどおりに上向きの符幹を持つボイス 3 に@c
+しています。@c
+休符が 2 重に譜刻されることを避けるために、空白休符を使用しています。
+
+@lilypond[quote,relative=3,verbatim]
+<<
+  { r8 g g  g g f16 ees f8 d }
+  \\
+  { ees,8 r ees r d r d r }
+  \\
+  { d'8 s c s bes s a s }
+>>
+@end lilypond
+
+簡単なことですが、@rlearning{コンテキストとエングラーバ} と
+@rlearning{ボイスを明示的にインスタンス化する} で説明されているように、@c
+明示的に @code{Voice} コンテキストを作成しておくと賢明です。
+
+@strong{@i{ボイスの順序}}
+
+入力ファイルの中にある複数のボイスを譜刻する時、以下の順序で譜刻されます:
+
+@example
+ボイス 1: 最上段
+ボイス 2: 最下段
+ボイス 3: 上から 2 番目
+ボイス 4: 下から 2 番目
+ボイス 5: 上から 3 番目
+ボイス 6: 下から 3 番目
+etc.
+@end example
+
+これは直感に反するように見えるかもしれませんが、@c
+自動レイアウト処理をシンプルにできます。@c
+奇数番号のボイスには上向きの符幹が与えられ、@c
+偶数番号のボイスには下向きの符幹が与えられるということに注意してください:
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+\new Staff <<
+  \time 2/4
+  { f''2 }  % 1: 最上段
+  \\
+  { c'2  }  % 2: 最下段
+  \\
+  { d''2 }  % 3: 上から 2 番
+  \\
+  { e'2  }  % 4: 下から 2 番
+  \\
+  { b'2  }  % 5: 上から 2 番
+  \\
+  { g'2  }  % 6: 下から 3 番
+>>
+@end lilypond
+
+@strong{@i{同一のリズム}}
+
+同じリズムを持ち、並行して進行する音楽を譜刻するという特殊なケースでは、@c
+並行する音楽を単一の @code{Voice} の中に組み込み、@c
+それにより和音を形成することができます。@c
+これを実現するには、並行する音楽を明示的にインスタンス化されたボイス内の@c
+同時進行音楽構造の中に置きます:
+
+@lilypond[quote,relative=2,verbatim]
+\new Voice <<
+  { e4 f8 d e16 f g8 d4 }
+  { c4 d8 b c16 d e8 b4 }
+>>
+@end lilypond
+
+この手法では、音楽が同じリズムを持たない場合に、@c
+おかしな連桁と警告を生じます。
+
+
+@predefined
+@code{\voiceOne},
+@code{\voiceTwo},
+@code{\voiceThree},
+@code{\voiceFour},
+@code{\oneVoice}
+@endpredefined
+
+
+@seealso
+学習マニュアル:
+@rlearning{音楽を保持するボイス},
+@rlearning{ボイスを明示的にインスタンス化する}
+
+記譜法リファレンス:
+@ref{Percussion staves},
+@ref{不可視の休符},
+@ref{Stems}
+
+コード断片集:
+@rlsr{Simultaneous notes}
+
+
+@node ボイス スタイル
+@unnumberedsubsubsec ボイス スタイル
+@translationof Voice styles
+
+@cindex voice styles (ボイス スタイル)
+@cindex styles, voice (ボイス スタイル)
+@cindex coloring voices (ボイスに色を付ける)
+@funindex \voiceOneStyle
+@funindex \voiceTwoStyle
+@funindex \voiceThreeStyle
+@funindex \voiceFourStyle
+@funindex \voiceNeutralStyle
+
+ボイス毎に異なる色と形を与えて、容易に見分けられるようにすることができます:
+
+@lilypond[quote,relative=2,verbatim]
+<<
+  { \voiceOneStyle d4 c2 b4 }
+  \\
+  { \voiceTwoStyle e,2 e }
+  \\
+  { \voiceThreeStyle b2. c4 }
+  \\
+  { \voiceFourStyle g'2 g }
+>>
+@end lilypond
+
+@code{\voiceNeutralstyle} コマンドは標準の体裁に戻すために使用されます。
+
+
+@predefined
+@code{\voiceOneStyle},
+@code{\voiceTwoStyle},
+@code{\voiceThreeStyle},
+@code{\voiceFourStyle},
+@code{\voiceNeutralStyle}
+@endpredefined
+
+
+@seealso
+学習マニュアル:
+@rlearning{私はボイスを聴いている},
+@rlearning{その他の情報源}
+
+コード断片集:
+@rlsr{Simultaneous notes}
+
+
+@node 衝突の解決
+@unnumberedsubsubsec 衝突の解決
+@translationof Collision resolution
+
+@cindex merging notes (音符に余白を設ける)
+@cindex note collisions (音符の衝突)
+@cindex collisions (衝突)
+@cindex shift note (音符のシフト)
+@cindex multiple voices
+@cindex voices, multiple (複数のボイス)
+@cindex polyphonic music (多声の音楽)
+@cindex shifting voices (ボイスをずらす)
+@cindex voices, multiple (複数のボイス)
+@cindex shift rest, automatic (自動的な休符のシフト)
+@funindex \shiftOn
+@funindex shiftOn
+@funindex \shiftOnn
+@funindex shiftOnn
+@funindex \shiftOnnn
+@funindex shiftOnnn
+@funindex \shiftOff
+@funindex shiftOff
+@funindex \mergeDifferentlyDottedOn
+@funindex mergeDifferentlyDottedOn
+@funindex \mergeDifferentlyDottedOff
+@funindex mergeDifferentlyDottedOff
+@funindex \mergeDifferentlyHeadedOn
+@funindex mergeDifferentlyHeadedOn
+@funindex \mergeDifferentlyHeadedOff
+@funindex mergeDifferentlyHeadedOff
+
+同じピッチ、同じ符頭を持ち、符幹の方向が逆で異なるボイスの中にある符頭は@c
+自動的に 1 つの符頭にまとめられます -- マージされます。@c
+しかしながら、音符の符頭が異なっていたり、符幹の方向が同じである場合は@c
+マージされません。@c
+異なるボイスの中にあり、符幹の方向が逆の休符は垂直方向にずらされます。@c
+以下の例は 3 つの異なる状態を示しています
+-- 第 1 小節の 1, 3 拍目、それに第 2 小節の 1 拍目で自動マージが失敗しています。
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  {
+    c8 d e d c d c4
+    g'2 fis
+  } \\ {
+    c2 c8. b16 c4
+    e,2 r
+  } \\ {
+    \oneVoice
+    s1
+    e8 a b c d2
+  }
+>>
+@end lilypond
+
+以下に示すように、異なる符頭を持つ音符をマージすることができます
+-- 例外として、半音符と 4 分音符のマージはできません。@c
+第 1 小節の 1 拍目の符頭がマージされました:
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  {
+    \mergeDifferentlyHeadedOn
+    c8 d e d c d c4
+    g'2 fis
+  } \\ {
+    c2 c8. b16 c4
+    e,2 r
+  } \\ {
+    \oneVoice
+    s1
+    e8 a b c d2
+  }
+>>
+@end lilypond
+
+第 1 小節の 3 拍目のように異なる付点を持つ符頭もマージすることができます:
+
+@lilypond[quote,relative=2,verbatim]
+<<
+  {
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    c8 d e d c d c4
+    g'2 fis
+  } \\ {
+    c2 c8. b16 c4
+    e,2 r
+  } \\ {
+    \oneVoice
+    s1
+    e8 a b c d2
+  }
+>>
+@end lilypond
+
+
+第 2 小節の最初の版音符と 8 分音符は正しくマージされていません。@c
+なぜなら 3 つ以上の音符が同じ列に並ぶ場合、@c
+自動マージは正しく機能できないからです。@c
+今回のケースでは、マージされた符頭が間違っています。@c
+マージが正しい符頭を選択できるようにするため、@c
+マージすべきでない符頭に @code{\shift} を適用する必要があります。@c
+ここでは、@code{\shiftOn} を適用することで、@c
+最上段にある @notation{g} を列から外し、@c
+@code{\mergeDifferentlyHeadedOn} を正しく機能させています。
+
+@lilypond[quote,relative=2,verbatim]
+<<
+  {
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    c8 d e d c d c4
+    \shiftOn
+    g'2 fis
+  } \\ {
+    c2 c8. b16 c4
+    e,2 r
+  } \\ {
+    \oneVoice
+    s1
+    e8 a b c d2
+  }
+>>
+@end lilypond
+
+@code{\shiftOn} コマンドは、ボイスの中にある音符がずれることを許可します
+(強制はしません)。@c
+@code{\shiftOn} がボイスに適用されると、そのボイスの中にある音符あるいは和音は、@c
+同じ向きの符幹を持つ他のボイスと符幹が衝突する場合にのみ、ずらされます。@c
+@code{\shiftOff} コマンドは、適用された時点から、@c
+このタイプの音符の移動を禁止します。
+
+デフォルトでは、@c
+外側のボイス (通常はボイス 1 と 2) には @code{\shiftOff} が指定されていて、@c
+内側のボイス (ボイス 3 以上) には @code{\shiftOn} が指定されています。@c
+音符をずらす場合、上向きの符幹を持つボイス (奇数番号のボイス) は右側にずらされ、@c
+下向きの符幹を持つボイス (偶数番号のボイス) は左側にずらされます。
+
+簡略化された多声表記が内部的にどのように展開されるかをお見せするための@c
+例を挙げます。
+
+@warning{3 つ以上のボイスがある場合、@c
+入力ファイルでのボイスの垂直方向の順序は、@c
+譜上でのボイスの垂直方向の順序と同じにすべきではありません！}
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+\new Staff \relative c'' {
+  %% 簡略化された入力
+  <<
+    { f2  }  % 1: 最上段
+    \\
+    { g,2 }  % 2: 最下段
+    \\
+    { d'2 }  % 3: 真ん中の上側
+    \\
+    { b2  }  % 4: 真ん中の下側
+  >>
+  %% 上記の内部的な展開
+  <<
+    \new Voice = "1" { \voiceOne   \shiftOff f'2 }
+    \new Voice = "2" { \voiceTwo   \shiftOff g,2 }
+    \new Voice = "3" { \voiceThree \shiftOn  d'2 } % shifts right
+    \new Voice = "4" { \voiceFour  \shiftOn  b2  } % shifts left
+  >>
+}
+@end lilypond
+
+さらに 2 つのコマンド -- @code{\shiftOnn} と @code{\shiftOnnn} -- は、@c
+複雑な状況で衝突を解決するために一時的に指定されるさらに大きなずれを提供します。@c
+@rlearning{実際の音楽からの例} を参照してください。
+
+音符は符幹の向きが反対である場合
+(例えば、デフォルトのボイス 1 と 2 である場合や、@c
+明示的に符幹の向きが反対になるよう指定されている場合)
+にのみマージされます。
+
+
+
+@predefined
+@code{\mergeDifferentlyDottedOn},
+@code{\mergeDifferentlyDottedOff},
+@code{\mergeDifferentlyHeadedOn},
+@code{\mergeDifferentlyHeadedOff}
+
+@code{\shiftOn},
+@code{\shiftOnn},
+@code{\shiftOnnn},
+@code{\shiftOff}
+@endpredefined
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{additional-voices-to-avoid-collisions.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{forcing-horizontal-shift-of-notes.ly}
+
+
+@seealso
+音楽用語集:
+@rglos{polyphony}
+
+学習マニュアル:
+@rlearning{同時に演奏する複数の音符},
+@rlearning{音楽を保持するボイス},
+@rlearning{オブジェクトの衝突}
+
+コード断片集:
+@rlsr{Simultaneous notes}
+
+内部リファレンス:
+@rinternals{NoteColumn},
+@rinternals{NoteCollision},
+@rinternals{RestCollision}
+
+
+@ignore
+@knownissues
+上向きの符幹を持つ 8 分音符やそれよりも短い音符と下向きの符幹を持つ@c
+半音符に対して @code{\mergeDifferentlyHeadedOn} を使用した場合、@c
+8 分音符の符幹のオフセットはわずかに正しくなりません。@c
+なぜなら、半音符の符頭シンボルと幅が異なるからです。
+
+@c TODO investigate! Sometimes it works, sometimes not. --FV
+The requirements for successfully merging different note heads that
+are at the same time differently dotted are not clear.
+
+同じ和音の中で同じ音符が異なる臨時記号を持つ場合、その和音の衝突回避は@c
+サポートされません。@c
+そのような場合、異名同音 (エンハーモニック) に書き換えるか、@c
+クラスタという特殊な記譜法 (@ref{クラスタ} を参照してください)
+を用いることを推奨します。
+@end ignore
+
+
+@node 自動パート結合
+@unnumberedsubsubsec 自動パート結合
+@translationof Automatic part combining
+
+@cindex automatic part combining (自動パート結合)
+@cindex part combiner (パート結合)
+@cindex combining parts (パート結合)
+@cindex a due part (二重奏パート)
+@cindex solo part (ソロ パート)
+@funindex \partcombine
+@funindex partcombine
+
+自動パート結合は 1 つの譜上にある 2 つのパートを 1 つに結合するために@c
+使用されます。@c
+これはオーケストラ譜を譜刻することを目的としています。@c
+ある範囲で 2 つのパートが同一である場合、1 つだけが譜刻されます。@c
+2 つのパートが異なる箇所では別々のボイスとして譜刻され、@c
+符幹の向きは自動的にセットされます。@c
+さらに、デフォルトで、ソロ パートと @notation{二重奏 (due)} パートが識別され、@c
+デフォルトでマークを付けられます。
+
+パート結合の構文は以下の通りです:
+
+@example
+\partcombine @var{musicexpr1} @var{musicexpr2}
+@end example
+
+以下の例はパート結合の基本的な機能を示しています:
+パートを 1 つの譜に配置し、符幹の向きと多声をセットします。@c
+個々のパートと結合譜で同じ変数が使用されています。
+
+@lilypond[quote,verbatim]
+instrumentOne = \relative c' {
+  c4 d e f
+  R1
+  d'4 c b a
+  b4 g2 f4
+  e1
+}
+
+instrumentTwo = \relative g' {
+  R1
+  g4 a b c
+  d c b a
+  g f( e) d
+  e1
+}
+
+<<
+  \new Staff \instrumentOne
+  \new Staff \instrumentTwo
+  \new Staff \partcombine \instrumentOne \instrumentTwo
+>>
+@end lilypond
+
+第 3 小節の音符は、両方のパートで指定されているにもかかわらず、@c
+1 パート分だけ譜刻されています。@c
+符幹、スラーそれにタイの向きは、ソロなのかあるいは斉奏なのかによって、@c
+自動的に設定されます。@c
+多声が必要になる場合、第 1 パート (@code{one} と呼ばれるコンテキストを持ちます)
+は常に上向きの符幹を持ち、@c
+一方、第 2 パート (@code{two} と呼ばれるコンテキストを持ちます) は@c
+常に下向きの符幹を持ちます。@c
+ソロの場合、第 1 パートと第 2 パートにはそれぞれ @q{Solo} と @q{Solo II}
+というマークが付けられます。@c
+斉奏 (@notation{二重奏}) パートには、デフォルトで、テキスト @qq{a2} という@c
+マークが付けられます。
+
+@code{\partcombine} の引数は 2 つとも @code{Voice} コンテキストとして@c
+解釈されます。@c
+相対オクターブを用いる場合、@code{\relative} を両方の音楽表記に@c
+対して指定すべきです。@c
+すなわち、
+
+@example
+\partcombine
+  \relative @dots{} @var{musicexpr1}
+  \relative @dots{} @var{musicexpr2}
+@end example
+
+@noindent
+@code{\partcombine} の外側にある @code{\relative} セクションは @var{musicexpr1}
+と @var{musicexpr2} のピッチには影響を与えません。
+
+プロの楽譜では、@c
+1, 2 の音符が同時進行していて容易にユニゾンとして譜刻できる場合であっても、
+長い間ボイスが分かれていることがしばしばあります。@c
+@c その場合、音符を結合させて和音にしたり、@c
+@c ボイスの 1 つをソロとして見せることは望ましくありません
+@c 未訳
+Combining notes into a chord, or showing one voice as solo
+is therefore not ideal as the @code{\partcombine} function considers
+each note separately.
+そのため、以下のコマンドで @code{\partcombine} 関数を@c
+オーバライドすることができます:
+
+@itemize
+@item
+@code{\partcombineApart}, @code{\partcombineApartOnce}:
+音符を結合させて和音やユニゾンにすることができる場合であっても、@c
+音符を 2 つの別個のボイスに分けて譜刻します。
+
+@item
+@code{\partcombineChords}, @code{\partcombineChordsOnce}:
+音符を結合させて、和音として譜刻します。
+
+@item
+@code{\partcombineUnisono}, @code{\partcombineUnisonoOnce}:
+2 つのボイスをユニゾンとして譜刻します。
+
+@item
+@code{\partcombineSoloI}, @code{\partcombineSoloIOnce}:
+ボイス 1 だけを譜刻して、ソロのマークを付けます。
+
+@item
+@code{\partcombineSoloII}, @code{\partcombineSoloIIOnce}:
+ボイス 2 だけを譜刻して、ソロのマークを付けます。
+
+@item
+@code{\partcombineAutomatic}, @code{\partcombineAutomaticOnce}:
+上記の特殊コマンドの効果を終わらせ、デフォルトのパート結合機能に戻します。
+
+@end itemize
+
+終わりが @code{...Once} のコマンドはすべて、その後の音符にのみ適用されます。
+
+@lilypond[quote,verbatim]
+instrumentOne = \relative c' {
+  \partcombineApart c2^"apart" e |
+  \partcombineAutomatic e^"auto" e |
+  \partcombineChords e'^"chord" e |
+  \partcombineAutomatic c^"auto" c |
+  \partcombineApart c^"apart" \partcombineChordsOnce e^"chord once" |
+  c c |
+}
+instrumentTwo = \relative c' {
+  c2 c |
+  e2 e |
+  a,2 c |
+  c2 c' |
+  c2 c |
+  c2 c |
+}
+
+<<
+  \new Staff { \instrumentOne }
+  \new Staff { \instrumentTwo }
+  \new Staff { \partcombine \instrumentOne \instrumentTwo }
+>>
+@end lilypond
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{combining-two-parts-on-the-same-staff.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-partcombine-texts.ly}
+
+
+@seealso
+音楽用語集:
+@rglos{a due},
+@rglos{part}
+
+記譜法リファレンス:
+@ref{Writing parts}
+
+コード断片集:
+@rlsr{Simultaneous notes}
+
+内部リファレンス:
+@rinternals{PartCombineMusic},
+@rinternals{Voice}
+
+
+@knownissues
+
+@code{\partcombine} が受け取れるボイスは 2 つだけです。
+
+When @code{printPartCombineTexts} is set, if the two voices play
+the same notes on and off, the part combiner may typeset @code{a2}
+more than once in a measure.
+
+@code{\partcombine} を @code{\times} の中に置くことはできません。
+
+@code{\partcombine} を @code{\relative} の中に置くことはできません。
+
+内部的には、@code{\partcombine} は 2 つの引数を @code{Voice} として解釈し、@c
+2 つのパートを結合することができるかどうかを決定します。@c
+2 つのパートが異なる演奏時間を持つ場合、@c
+それらを結合させることはできず、@c
+それぞれに @code{one}, @code{two} という名前が与えられます。@c
+@c 未訳
+Consequently, if the arguments switch to
+differently named @rinternals{Voice} contexts, the events in those will
+be ignored.
+同様に、パート結合は歌詞に対して機能するようには設計されていません。@c
+ボイスの 1 つが、歌詞を持つために明示的に名前を付けられた場合、@c
+パート結合は機能しなくなります。
+
+@code{\partcombine} は @code{\partcombine} の開始後の音符だけを観察します。@c
+その前に開始した音符が演奏中であるかどうかを検出することはできません。@c
+これはさまざまな問題を引き起こします。
+
+
+@c ここから L954
+@node 音楽を並列に記述する
+@unnumberedsubsubsec 音楽を並列に記述する
+@translationof Writing music in parallel
+
+@cindex writing music in parallel (音楽を並列に記述する)
+@cindex interleaved music (間奏)
+@cindex parallel music (並列な音楽)
+@funindex \parallelMusic
+@funindex parallelMusic
+
+複数のパートを持つ音楽を入力コードの途中に挿入することができます。@c
+関数 @code{\parallelMusic} は、@c
+作成する変数名をいくつか持つリストと音楽表記を受け付けます。@c
+各小節ごとの音楽表記は各変数の値となり、@c
+後で音楽を譜刻するために使用することができます。
+
+@warning{小節チェック @code{|} を使用する必要があり、@c
+各小節は同じ長さでなければなりません。}
+
+@lilypond[quote,verbatim]
+\parallelMusic #'(voiceA voiceB voiceC) {
+  % Bar 1
+  r8 g'16 c'' e'' g' c'' e'' r8 g'16 c'' e'' g' c'' e'' |
+  r16 e'8.~   e'4            r16 e'8.~   e'4            |
+  c'2                        c'2                        |
+
+  % Bar 2
+  r8 a'16 d'' f'' a' d'' f'' r8 a'16 d'' f'' a' d'' f'' |
+  r16 d'8.~   d'4            r16 d'8.~   d'4            |
+  c'2                        c'2                        |
+
+}
+\new StaffGroup <<
+  \new Staff << \voiceA \\ \voiceB >>
+  \new Staff { \clef bass \voiceC }
+>>
+@end lilypond
+
+相対モードを使用することができます。@c
+@code{\relative} コマンドを @code{\parallelMusic} 自体の中では@c
+使用しないということに注意してください。@c
+音符が前の音符と相対関係になるのはボイスの中であり、入力の中ではありません --
+言い換えると、@code{voiceA} の相対音符は @code{voiceB} の音符を無視します。
+
+@lilypond[quote,verbatim]
+\parallelMusic #'(voiceA voiceB voiceC) {
+  % Bar 1
+  r8 g16 c e g, c e r8 g,16 c e g, c e  |
+  r16 e8.~ e4       r16 e8.~  e4        |
+  c2                c                   |
+
+  % Bar 2
+  r8 a,16 d f a, d f r8 a,16 d f a, d f |
+  r16 d8.~  d4       r16 d8.~  d4       |
+  c2                 c                  |
+
+ }
+\new StaffGroup <<
+  \new Staff << \relative c'' \voiceA \\ \relative c' \voiceB >>
+  \new Staff \relative c' { \clef bass \voiceC }
+>>
+@end lilypond
+
+これはピアノ譜で非常に良く機能します。@c
+以下の例は、4 つの連続する小節を 4 つの変数に割り当てています:
+
+@lilypond[quote,verbatim]
+global = {
+  \key g \major
+  \time 2/4
+}
+
+\parallelMusic #'(voiceA voiceB voiceC voiceD) {
+  % Bar 1
+  a8    b     c   d     |
+  d4          e         |
+  c16 d e fis d e fis g |
+  a4          a         |
+
+  % Bar 2
+  e8      fis  g     a   |
+  fis4         g         |
+  e16 fis g  a fis g a b |
+  a4           a         |
+
+  % Bar 3 ...
+}
+
+\score {
+  \new PianoStaff <<
+     \new Staff {
+       \global
+       <<
+         \relative c'' \voiceA
+         \\
+         \relative c'  \voiceB
+       >>
+     }
+     \new Staff {
+       \global \clef bass
+       <<
+         \relative c \voiceC
+         \\
+         \relative c \voiceD
+       >>
+     }
+  >>
+}
+@end lilypond
+
+
+@seealso
+学習マニュアル:
+@rlearning{変数を用いて楽曲を編成する}
+
+コード断片集:
+@rlsr{Simultaneous notes}
