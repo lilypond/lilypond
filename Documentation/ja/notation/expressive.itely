@@ -13,27 +13,27 @@
 @c Translation status: post-GDP
 
 
-@node 表現記号
-@section 表現記号
+@node 発想記号
+@section 発想記号
 @translationof Expressive marks
 
 @lilypondfile[quote]{expressive-headword.ly}
 
-このセクションでは楽譜の中で作成可能なさまざまな表現記号をリストアップします。
+このセクションでは楽譜の中で作成可能なさまざまな発想記号をリストアップします。
 
 @menu
-* 音符に付けられる表現記号::
-* 曲線の表現記号::
-* 直線の表現記号::
+* 音符に付けられる発想記号::
+* 曲線の発想記号::
+* 直線の発想記号::
 @end menu
 
 
-@node 音符に付けられる表現記号
-@subsection 音符に付けられる表現記号
+@node 音符に付けられる発想記号
+@subsection 音符に付けられる発想記号
 @translationof Expressive marks attached to notes
 
-このセクションでは、音符に添付される表現記号を作成する方法について説明します。@c
-音符に添付される表現記号には以下のものがあります:
+このセクションでは、音符に添付される発想記号を作成する方法について説明します。@c
+音符に添付される発想記号には以下のものがあります:
 アーティキュレーション、装飾、強弱記号。@c
 新たに強弱記号を作成する方法についても議論します。
 
@@ -219,7 +219,7 @@ R1\fermataMarkup
 @file{scm/@/script@/.scm}
 
 コード断片集:
-@rlsrnamed{Expressive marks,表現記号}
+@rlsrnamed{Expressive marks,発想記号}
 
 内部リファレンス:
 @rinternals{Script},
@@ -513,7 +513,7 @@ c4\< d\! e\> d\! |
 @ref{Controlling MIDI dynamics}
 
 コード断片集:
-@rlsrnamed{Expressive marks,表現記号}
+@rlsrnamed{Expressive marks,発想記号}
 
 内部リファレンス:
 @rinternals{DynamicText},
@@ -634,15 +634,15 @@ moltoF = #(make-dynamic-script
 @ref{Controlling MIDI dynamics}
 
 コード断片集:
-@rlsrnamed{Expressive marks,表現記号}
+@rlsrnamed{Expressive marks,発想記号}
 
 
-@node 曲線の表現記号
-@subsection 曲線の表現記号
+@node 曲線の発想記号
+@subsection 曲線の発想記号
 @translationof Expressive marks as curves
 
 @c 未訳
-このセクションでは曲線を持つさまざまな表現記号
+このセクションでは曲線を持つさまざまな発想記号
 -- 通常のスラー、フレージング スラー、ブレス記号、falls それに doits --
 を作成する方法について説明します。
 
@@ -799,7 +799,7 @@ g4( e c2)
 @ref{フレージング スラー}
 
 コード断片集:
-@rlsrnamed{Expressive marks,表現記号}
+@rlsrnamed{Expressive marks,発想記号}
 
 内部リファレンス:
 @rinternals{Slur}
@@ -937,7 +937,7 @@ g4\( e c2\)
 @ref{スラー}
 
 コード断片集:
-@rlsrnamed{Expressive marks,表現記号}
+@rlsrnamed{Expressive marks,発想記号}
 
 内部リファレンス:
 @rinternals{PhrasingSlur}
@@ -993,7 +993,7 @@ divisiones (ディビジョン: 区切り) がサポートされています。@
 @ref{Divisiones}
 
 コード断片集:
-@rlsrnamed{Expressive marks,表現記号}
+@rlsrnamed{Expressive marks,発想記号}
 
 内部リファレンス:
 @rinternals{BreathingEvent},
@@ -1039,14 +1039,14 @@ command is @emph{required} when writing falls and doits.
 @rglos{doit}
 
 コード断片集:
-@rlsrnamed{Expressive marks,表現記号}
+@rlsrnamed{Expressive marks,発想記号}
 
 
-@node 直線の表現記号
-@subsection 直線の表現記号
+@node 直線の発想記号
+@subsection 直線の発想記号
 @translationof Expressive marks as lines
 
-このセクションでは直線的な軌道をとるさまざまな表現記号 --
+このセクションでは直線的な軌道をとるさまざまな発想記号 --
 グリッサンド、アルペジオそれにトリル -- を作成する方法について説明します。
 
 @menu
@@ -1088,7 +1088,7 @@ c2\glissando c,
 @ref{Line styles}
 
 コード断片集:
-@rlsrnamed{Expressive marks,表現記号}
+@rlsrnamed{Expressive marks,発想記号}
 
 内部リファレンス:
 @rinternals{Glissando}
@@ -1209,7 +1209,7 @@ c2\glissando c,
 @ref{タイ}
 
 コード断片集:
-@rlsrnamed{Expressive marks,表現記号}
+@rlsrnamed{Expressive marks,発想記号}
 
 内部リファレンス:
 @rinternals{Arpeggio},
@@ -1347,7 +1347,7 @@ eis4\stopTrillSpan
 @ref{装飾小音符}
 
 コード断片集:
-@rlsrnamed{Expressive marks,表現記号}
+@rlsrnamed{Expressive marks,発想記号}
 
 内部リファレンス:
 @rinternals{TrillSpanner}
