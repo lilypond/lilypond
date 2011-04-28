@@ -570,7 +570,7 @@ d\sustainOff\sustainOn g, c2
 Le placement des commandes de pédale correspond au mouvement de la
 pédale de tenue pendant le jeu.  Garder une pédale enclanchée jusqu'à la
 barre finale s'obtient tout simplement en omettant la commande de
-relacher.
+relâcher.
 
 Les indication de pédale peuvent s'inscrire dans un contexte
 @code{Dynamics}, ce qui aura pour effet de leur attribuer une ligne en
