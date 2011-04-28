@@ -100,7 +100,7 @@ note)."
 (ly:add-interface
   'glissando-interface
   "A glissando."
-  '())
+  '(glissando-index))
 
 (ly:add-interface
  'grace-spacing-interface

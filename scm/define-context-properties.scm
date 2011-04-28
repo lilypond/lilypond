@@ -257,6 +257,11 @@ containing, in the correct order, the labels to be used for lettered
 frets in tablature.")
 
 
+     (glissandoMap ,list? "A map in the form of '((source1 . target1)
+(source2 . target2) (sourcen . targetn)) showing the glissandi to
+be drawn for note columns.  The value '() will default to '((0 . 0)
+(1 . 1) (n . n)), where n is the minimal number of note-heads in
+the two note columns between which the glissandi occur.")
      (gridInterval ,ly:moment? "Interval for which to generate
 @code{GridPoint}s.")
 
