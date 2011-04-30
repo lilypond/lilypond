@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: f9d5da211c4752be143ead221037cd58654b2faa
+    Translation of GIT committish: 7ad21bc1c7d8407e8f21088415c1ad117e84fd9d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -89,7 +89,7 @@ edición más reciente parece fría y mecánica.
 
 Es difícil apreciar inmediatamente en qué consiste la
 diferencia entra las ediciones antigua y nueva.  En ésta todo parece
-pulcro y detallista, posiblemente incluso @qq{mejor} a causa de su
+pulcro y ordenado, posiblemente incluso @qq{mejor} a causa de su
 aspecto computerizado y uniforme.  De hecho, esto nos tuvo confundidos
 durante un cierto tiempo.  Queríamos mejorar la notación por
 ordenador, pero en primer lugar teníamos que averiguar qué era lo que
