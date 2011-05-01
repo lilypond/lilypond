@@ -34,7 +34,7 @@ LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   char *p = ly_scm2str0 (str);
   char *g = NULL;
-  char const *charset="ISO-8859-1"; // Input is ALWAYS UTF-8!
+  char const *charset="UTF-8"; // Input is ALWAYS UTF-8!
   gsize bytes_written = 0;
 
   /* First, try to convert to ISO-8859-1 (no encodings required). This will
