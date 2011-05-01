@@ -1,6 +1,4 @@
-% FIXME: this is a fake version number to allow git master
-% to compile.  See discussion on lilypond-devel.
-\version "2.13.61"
+\version "2.15.0"
 
 \header {
   texidoc = "LilyPond typesets glissandi between chords."

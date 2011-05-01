@@ -1,6 +1,4 @@
-\version "2.13.61"
-%%  Hack -- this should be 2.15.0, unless it is backported
-%%  Set to 2.13.61 in order to keep compile working
+\version "2.15.0"
 
 \header {
 
