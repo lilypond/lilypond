@@ -643,14 +643,14 @@ moltoF = #(make-dynamic-script
 
 @c 未訳
 このセクションでは曲線を持つさまざまな発想記号
--- 通常のスラー、フレージング スラー、ブレス記号、falls それに doits --
+-- 通常のスラー、フレージング スラー、ブレス記号、Fall それに Doit --
 を作成する方法について説明します。
 
 @menu
 * スラー::
 * フレージング スラー::
 * ブレス記号::
-* Falls and doits::
+* Fall と Doit::
 @end menu
 
 @node スラー
@@ -1001,20 +1001,19 @@ divisiones (ディビジョン: 区切り) がサポートされています。@
 @rinternals{Breathing_sign_engraver}
 
 
-@c 未訳
-@node Falls and doits
-@unnumberedsubsubsec Falls and doits
+@node Fall と Doit
+@unnumberedsubsubsec Fall と Doit
+@translationof Falls and doits
 
-@cindex falls
-@cindex doits
+@cindex falls (Fall)
+@cindex doits (Doit)
 @funindex \bendAfter
 @funindex bendAfter
 
-@notation{Falls} and @notation{doits} can be added to notes using
-the @code{\bendAfter} command.  The direction of the fall or doit
-is indicated with a plus or minus (up or down).  The number
-indicates the pitch interval that the fall or doit will extend
-@emph{beyond} the main note.
+@code{\bendAfter} コマンドを用いて、@c
+@notation{Fall} と @notation{Doit} 音符にを付け加えることができます。@c
+Fall あるいは Doit の向きはプラスあるいはマイナス (上あるいは下) で示します。@c
+指示の数は Fall あるいは Doit の主音符を展開させるピッチの幅を示します。
 
 @lilypond[verbatim,quote,relative=2]
 c2-\bendAfter #+4
@@ -1023,9 +1022,8 @@ c2-\bendAfter #+8
 c2-\bendAfter #-8
 @end lilypond
 
-The dash @code{-} immediately preceding the @code{\bendAfter}
-command is @emph{required} when writing falls and doits.
-
+Fall と Doit を記述する際、@c
+@code{\bendAfter} コマンドの直前にダッシュ @code{-} を置く必要があります。
 
 @snippets
 

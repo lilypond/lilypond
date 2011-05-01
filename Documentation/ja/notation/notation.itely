@@ -25,16 +25,9 @@
 * 繰り返し::           音楽の繰り返し
 * 同時進行する音符::   同時に複数の音符を演奏する
 * 譜の記譜法::         譜を表示する
-* Editorial annotations:: Special notation to increase legibility.
-* Text::               Adding text to scores.
-@end menu
-
-@ignore
-@menu
 * 編集者の注釈::       可読性を良くするための特別な表記
 * テキスト::           楽譜にテキストを追加する
 @end menu
-@end ignore
 
 @include notation/pitches.itely
 @include notation/rhythms.itely

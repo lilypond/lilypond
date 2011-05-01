@@ -495,12 +495,12 @@ A, G, F である場合は B の下に置かれます。
 
 
 @seealso
-記譜法リファレンス: @ruser{Writing pitches},
-@ruser{Writing rhythms}, @ruser{Writing rests},
-@ruser{Time signature}, @ruser{Clef}.
-@c 記譜法リファレンス: @ruser{ピッチを記述する},
-@c @ruser{リズムを記述する}, @ruser{休符を記述する},
-@c @ruser{表現記号}, @ruser{音部記号}
+記譜法リファレンス:
+@ruser{ピッチを記述する},
+@ruser{リズムを記述する},
+@ruser{休符を記述する},
+@ruser{拍子},
+@ruser{音部記号}
 
 
 @node 入力ファイルに取り組む

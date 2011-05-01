@@ -394,8 +394,8 @@ LilyPond を試してみる決心がついたのなら、@c
 
 @uref{http://www.gnu.org/, GNU} LilyPond は熱心な人々からなる@c
 コミュニティによって作成され、維持されています。@c
-LilyPond は、すべての人にプログラムの修正、変更、拡張を許可する 
-@ref{GPL, GNU General Public License} と 
+LilyPond は、すべての人にプログラムの修正、変更、拡張を許可する
+@ref{GPL, GNU General Public License} と
 @ref{FDL, GNU Free Documentation License} に基づいて公開されています。@c
 美しい楽譜を作るのに、何万円もするソフトウェアは必要ありません！
 @divEnd
@@ -800,8 +800,8 @@ Lilypondには楽譜の見栄えをより良くするための数多くの方法
 Lilypondで得られる結果に近い物は他ではありません
 -- この偉大なアプリケーションは、私の楽譜出版の必要性に対して、@c
 期待以上の結果を間違いなくもたらしてくれます。@c
-[..] 基本的に、いじっていない Lilypond の出力は [..] 
-私が比較した最近の @q{プロ} の出版物 
+[..] 基本的に、いじっていない Lilypond の出力は [..]
+私が比較した最近の @q{プロ} の出版物
 (Warner Bros. の楽譜、それから @q{老舗} の最近の楽譜の大多数)
 よりも良いです。[..]}
 
@@ -1280,7 +1280,7 @@ LilyPond が提供する @ref{特徴}, @ref{例}, あるいは @ref{自由} を@
 @c Legalese
 
 @divClass{legal}
-すべてのロゴと製品イメージには著作権があり、商標登録されています。 
+すべてのロゴと製品イメージには著作権があり、商標登録されています。
 
 @logoLegalLinux
 
