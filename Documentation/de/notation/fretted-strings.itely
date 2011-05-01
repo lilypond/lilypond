@@ -375,7 +375,6 @@ ties = \relative c' {
 @funindex \harmonic
 @funindex \harmonicByFret
 @funindex \harmonicByRatio
-@funindex \chordGlissando
 
 Flageolett (engl. @emph{harmonic}) kann zur Tabulaturnotation als klingende Tonhöhe hinzugefügt
 werden:

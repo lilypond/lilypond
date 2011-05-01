@@ -5,15 +5,13 @@
   texidoc = "
 Slides for chords can be indicated in both Staff and TabStaff.
 String numbers are necessary for TabStaff because automatic
-string calculations are different for chords and for single notes,
-and @code{\chordGlissando} draws lines between single notes.
+string calculations are different for chords and for single notes.
 "
   doctitle = "Chord glissando in tablature"
 }
 
 myMusic = \relative c' {
-  \chordGlissando
-  <c\3 e\2 g\1>8 <f\3 a\2 c\1>
+  <c\3 e\2 g\1>1 \glissando <f\3 a\2 c\1>
 }
 
 \score {

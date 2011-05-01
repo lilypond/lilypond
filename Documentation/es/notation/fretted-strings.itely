@@ -384,7 +384,6 @@ ties = \relative c' {
 @funindex \harmonic
 @funindex \harmonicByFret
 @funindex \harmonicByRatio
-@funindex \chordGlissando
 
 Se pueden añadir indicaciones de armónicos a la notación de tablatura
 como sus alturas de sonido:
