@@ -115,7 +115,7 @@ convert-ly myfile.ly > mynewfile.ly
 バージョン番号がリストアップされない場合、@c
 そのファイルは最新であるということになります。
 
-MacOS@tie{}X ユーザはこのコマンドをメニュー エントリ 
+MacOS@tie{}X ユーザはこのコマンドをメニュー エントリ
 (@code{Compile > Update syntax}) 下で実行することになるかもしれません。
 
 Windows ユーザはこれらのコマンドを @q{コマンド プロンプト} ウィンドウから@c
@@ -145,7 +145,7 @@ in-place.
 @item -f,--from=@var{from-patchlevel}
 変換元のバージョンをセットします。@c
 これがセットされていない場合、@c
-@command{convert-ly} は入力ファイルの中にある 
+@command{convert-ly} は入力ファイルの中にある
 @code{version} 文字列を基に推測します。@c
 例: @code{--from=2.10.25}
 
@@ -214,7 +214,7 @@ for %x in (*.ly) do convert-ly -e """%x"""
 
 言語の変更がすべて処理されるわけではありません。@c
 指定できる出力オプションは 1 つだけです。@c
-自動的に Scheme と更新することと 
+自動的に Scheme と更新することと
 LilyPond の Scheme インタフェイスを更新することはまったく異なります。@c
 Scheme コードの調整は手動で行う覚悟でいてください。
 

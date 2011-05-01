@@ -90,7 +90,7 @@ lilypond は出力として @file{filename.ps} と @file{filename.pdf} を作り
 そのため、Scheme 内部からいかなるシステム デフォルトも変更しないよう注意してください。}
 
 @file{filename.ly} が複数の @code{\score} を含んでいる場合、@c
-2 つ目以降の score は 
+2 つ目以降の score は
 @file{filename-1.pdf} から始まる番号付きのファイルに出力されます。@c
 さらに、@code{output-suffix} がベース名と番号の間に挿入されます。@c
 以下の内容を含んでいる入力ファイルは
@@ -172,7 +172,7 @@ lilypond -e '(define-public a 42)'
 
 
 @item -d,--define-default=@var{var}=@var{val}
-これは内部プログラム オプション @var{var} に 
+これは内部プログラム オプション @var{var} に
 Scheme 値 @var{val} をセットします。@c
 @var{val} が提供されていない場合、@var{#t} が使用されます。@c
 オプションを OFF にするには、@var{var} の接頭辞として @code{no-} を付けます。@c
@@ -263,7 +263,7 @@ LilyPond API 関数をいくつか追加しています。@c
  PostScript
 
  Postscript ファイルは TTF, Type1, OTF フォントを含んでいます。@c
-これらのフォントのサブセット化 
+これらのフォントのサブセット化
 (訳者: フォント セットを使用するフォントに限定すること) は行われません。@c
 東洋の文字セットを使用する場合、巨大なファイルになる可能性があります。
 
@@ -271,7 +271,7 @@ LilyPond API 関数をいくつか追加しています。@c
  縮約された PostScript (EPS)。@c
 これは各ページ (システム) を@c
 フォントを持たない個別の @file{EPS} ファイルとして吐き出し、@c
-フォントを含めたすべてのページ (システム) を持つ 
+フォントを含めたすべてのページ (システム) を持つ
 @file{EPS} ファイルを 1 つ吐き出します。
 
 このモードは @command{lilypond-book} でデフォルトで使用されます。
@@ -286,8 +286,8 @@ LilyPond API 関数をいくつか追加しています。@c
 UNIX では、@c
 @uref{http://www.inkscape.org,Inkscape} (バージョン 0.42 以降) を@c
 使うことになるかもしれません。@c
-使用前に、OTF フォントを LilyPond ディレクトリ 
-(一般には @file{/usr/share/lilypond/VERSION/fonts/otf/}) から 
+使用前に、OTF フォントを LilyPond ディレクトリ
+(一般には @file{/usr/share/lilypond/VERSION/fonts/otf/}) から
 @file{~/.fonts/} にコピーしてください。
 @item scm
 @cindex Scheme dump (Scheme ダンプ)
@@ -305,7 +305,7 @@ UNIX では、@c
 @item print-pages
 
 すべてのページを生成します。@c
-デフォルトです。@code{-dno-print-pages} は 
+デフォルトです。@code{-dno-print-pages} は
 @code{-dpreview} と組み合わせて使うと有用です。
 
 @end table
@@ -353,22 +353,22 @@ PDF を生成します。@c
 カレント プロセスに対してルート ディレクトリの位置を変更すること。)
 
 @code{--jail} オプションは、@c
-Web サーバを通じて LilyPond 譜刻を実行するときや 
+Web サーバを通じて LilyPond 譜刻を実行するときや
 LilyPond が外部から提供されたソースを実行するときに、@c
 @code{--safe} よりも自由度の高い代替手段を提供します。
 
-@code{--jail} オプションはコンパイル プロセスの開始直前に 
+@code{--jail} オプションはコンパイル プロセスの開始直前に
 @command{lilypond} の ルートを @var{jail} に変更します。@c
 それからユーザとグループを提供された環境にマッチするように変更し、@c
 カレント ディレクトリは @var{dir} に変更されます。@c
-このセットアップは jail (牢獄) から抜け出せないということを 
+このセットアップは jail (牢獄) から抜け出せないということを
 (少なくとも理論的には) 保証します。@c
 @code{--jail} を指定した @command{lilypond} の実行は@c
 root (ユーザ名) として行われる必要があります。@c
 通常、これは @command{sudo} を用いた安全な方法で行われます。
 
 jail のセットアップは少々デリケートな問題です。@c
-LilyPond がソースをコンパイルするのに必要とされるものすべてを 
+LilyPond がソースをコンパイルするのに必要とされるものすべてを
 @emph{jail の内部} で見つけられるということを保証しなければならないからです。@c
 一般的なセットアップには以下の項目が含まれます:
 
@@ -399,20 +399,20 @@ LilyPond は実行中にいくつかのファイルを読み込む必要があ�
 LilyPond インストールの内容すべて (例えば、@file{/usr/share/lilypond}) を@c
 コピーすべきです。
 
-問題が発生した場合、その原因を突き止める最も簡単な方法は 
+問題が発生した場合、その原因を突き止める最も簡単な方法は
 @command{strace} を使って LilyPond を実行することです。@c
 これによりどのファイルが見当たらないのかがわかります。
 
 @item LilyPond を実行する
 @code{noexec} でマウントされた jail の中では、@c
 外部プログラムを実行することは一切できません。@c
-そのため、外部プログラムを必要としないバックエンドで 
+そのため、外部プログラムを必要としないバックエンドで
 LilyPond を実行しなければなりません。@c
 すでに述べたように、@c
-jail モードでの LilyPond の実行はスーパーユーザ権限で行われならず 
+jail モードでの LilyPond の実行はスーパーユーザ権限で行われならず
 (もちろん、その権限はすぐに外されます)、@c
 たぶん @command{sudo} を使います。@c
-LilyPond が使用可能な CPU 時間を数秒に制限する 
+LilyPond が使用可能な CPU 時間を数秒に制限する
 (例えば、@command{ulimit -t} を使って) というのは良いアイディアです。@c
 さらに、OS がサポートしているのなら、@c
 割り当て可能なメモリ容量を制限するというのも良いアイディアです。
@@ -423,7 +423,7 @@ LilyPond が使用可能な CPU 時間を数秒に制限する
 バージョン情報を表示します。
 
 @item -V,--verbose
-冗長表示モードにします: 
+冗長表示モードにします:
 読み込むすべてのファイルのフル パスを表示して、時間情報を表示します。
 
 @item -w,--warranty
@@ -611,7 +611,7 @@ Warning は通常、入力ファイルに何か問題があることを示して
 @cindex trace, Scheme (Scheme トレース)
 @cindex call trace (トレースを呼び出す)
 @cindex Scheme error (Scheme エラー)
-Scheme コードの実行中に発生するこのエラーは 
+Scheme コードの実行中に発生するこのエラーは
 Scheme インタプリタによって引き起こされます。@c
 冗長オプション (@code{-V} または @code{--verbose}) 付きで実行している場合、@c
 問題となっている関数呼び出しの呼び出し追跡が表示されます。
@@ -697,14 +697,12 @@ test.ly:2:19: error: not a duration: 5
 ページからはみ出たりする可能性が生じます。}
 
 小節チェックを使用していれば、誤った演奏時間を簡単に見つけることができます。@c
-@c @ruser{小節と小節番号のチェック}
-@ruser{Bar and bar number checks} を参照してください。
+@ruser{小節と小節番号のチェック} を参照してください。
 
 あなたがそのような音符が持ち越される小節を続けることを意図しているのであれば、@c
 改行させたい場所に不可視の小節線を挿入する必要があります。@c
 詳細は
-@c @ruser{小節線}
-@ruser{Bar lines} を参照してください。
+@ruser{小節線} を参照してください。
 
 
 @node 余計な譜が表示される
