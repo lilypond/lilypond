@@ -225,8 +225,8 @@
     ;; F4 used in southeast Asia and Australia
     ("f4" . (cons (* 210 mm) (* 330 mm)))
     ;; Used for very small @lilypond examples in the Documentation
-    ;; based on c9 envelope size but landscape not portrait
-    ("c9landscape" . (cons (* 57 mm) (* 40 mm)))
+    ;; based on a8 size but landscape not portrait
+    ("a8landscape" . (cons (* 74 mm) (* 52 mm)))
     ))
 
 ;; todo: take dimension arguments.
