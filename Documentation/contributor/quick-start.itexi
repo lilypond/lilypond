@@ -80,14 +80,14 @@ for the virtual hard drive.  A complete compile of everything
 (code, docs, regression tests) can reach 10 GB.
 
 @item
-Install @file{lilydev2.iso} as the @qq{guest} operating system
-on your virtualized system.
+Install @file{ubuntu-lilydev-remix-1.1.iso} as the @qq{guest}
+operating system on your virtualized system.
 
 @enumerate
 
 @item
-When @file{lilydev.iso} boots, it shows an ISOLINUX
-@code{boot:} prompt.  Type:
+When @file{ubuntu-lilydev-remix-1.1.iso} boots, it shows an
+ISOLINUX @code{boot:} prompt.  Type:
 
 @example
 install
@@ -101,7 +101,7 @@ At the @qq{Prepare disk space} stage, do not be afraid to select
 @item
 When prompted to remove the installation CD, go to
 @clicksequence{Devices @click{} CD/DVD Devices} and de-select
-@file{lilydev2.iso}.
+@file{ubuntu-lilydev-remix-1.1.iso}.
 
 @end enumerate
 
@@ -261,6 +261,11 @@ your home directory, and will download the source code into that
 directory (around 55Mb).  When the process is finished, the
 @qq{Command output} window will display @qq{Done}, and the button
 label will change to say @qq{Update source}.
+
+@warning{Some contributors have reported that nothing happens at
+this step.  If this occurs, then try again in a few minutes -- we
+suspect that this is an intermittant network problem.  If the
+problem persists, please ask for help.}
 
 @item
 Navigate to the @file{lilypond-git/} directory to view the source
