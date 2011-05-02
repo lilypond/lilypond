@@ -9,7 +9,7 @@
 \header {
   lsrtags = "rhythms, vocal-music, ancient-notation, contexts-and-engravers"
 
-%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
+%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
   texidoces = "
 Este tipo de notación se utiliza para el canto de los Salmos, en
 que las estrofas no siempre tienen la misma longitud.

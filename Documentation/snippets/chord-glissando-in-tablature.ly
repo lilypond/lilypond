@@ -8,32 +8,39 @@
 \version "2.13.53"
 
 \header {
-%% Translation of GIT committish: 69d7781c6ab26df02bc81ff1eb294d47fa673491
+%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
 
   texidoces = "
 Los deslizamientos para acordes se pueden indicar tanto en el contexto
 Staff como en TabStaff.  Los números de cuerda son necesarios para
 TabStaff porque los cálculos de cuerda automáticos son diferentes para
-los acordes y para notas sueltas, y @code{\\chordGlissando} traza
-líneas entre las notas individuales.
+los acordes y para notas sueltas.
 
 "
 
   doctitlees = "Glissando de acordes en tablatura"
+%% Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
+  texidocde = "
+Gleiten von Akkorden kann sowohl im normalen Notensystem als auch in einer
+Tabulatur notiert werden.  Saitennummern werden für Tabulaturen
+benötigt, weil die automatische Saitenberechnung unterschiedlich für
+Akkorde und einzelne Noten funktioniert.
+"
+  doctitlede = "Akkordglissando in Tabulaturen"
+
+
   lsrtags = "fretted-strings"
   texidoc = "
 Slides for chords can be indicated in both Staff and TabStaff.
 String numbers are necessary for TabStaff because automatic
-string calculations are different for chords and for single notes,
-and @code{\\chordGlissando} draws lines between single notes.
+string calculations are different for chords and for single notes.
 "
   doctitle = "Chord glissando in tablature"
 } % begin verbatim
 
 
 myMusic = \relative c' {
-  \chordGlissando
-  <c\3 e\2 g\1>8 <f\3 a\2 c\1>
+  <c\3 e\2 g\1>1 \glissando <f\3 a\2 c\1>
 }
 
 \score {

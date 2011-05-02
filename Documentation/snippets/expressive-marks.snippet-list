@@ -1,6 +1,7 @@
 adding-beams,-slurs,-ties-etc.-when-using-tuplet-and-non-tuplet-rhythms.ly
 adding-parentheses-around-an-expressive-mark-or-chordal-note.ly
 adjusting-the-shape-of-falls-and-doits.ly
+alternative-breve-note.ly
 asymmetric-slurs.ly
 breathing-signs.ly
 broken-crescendo-hairpin.ly
@@ -19,6 +20,7 @@ creating-a-delayed-turn.ly
 creating-arpeggios-across-notes-in-different-voices.ly
 creating-cross-staff-arpeggios-in-a-piano-staff.ly
 creating-cross-staff-arpeggios-in-other-contexts.ly
+creating-double-digit-fingerings.ly
 creating-real-parenthesized-dynamics.ly
 creating-simultaneous-rehearsal-marks.ly
 creating-slurs-across-voices.ly
