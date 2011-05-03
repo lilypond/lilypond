@@ -322,16 +322,18 @@ The preferred @code{papersize}s are @code{a5}, @code{a6} or
 @code{a8landscape} works best for a single measure with a single title
 and/or single @code{tagline}:
 
-@lilypond[papersize=a8landscape,verbatim]
-\book {
-  \header {
+@example
+@@lilypond[papersize=a8landscape,verbatim]
+\book @{
+  \header @{
     title = "A scale in LilyPond"
-  }
-  \relative {
+  @}
+  \relative @{
     c d e f
-  }
-}
-@end lilypond
+  @}
+@}
+@@end lilypond
+@end example
 
 and can also be used to easily show features that require page breaks
 (i.e. page numbers) without taking large amounts of space within the
