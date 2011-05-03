@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 17f11c2f5ab963bfb07b7652b4860dc4dda5540a
+    Translation of GIT committish: 5becf12f5ada67346f70ad8cfe68589466619305
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -441,6 +441,11 @@ El cuadro siguiente presenta los diagramas de traste predefinidos para ukelele.
 
 @lilypondfile{display-predefined-ukulele-fretboards.ly}
 
+El siguiente cuadro presenta los diagramas de posiciones predefinidas
+para la mandolina.
+
+@lilypondfile{display-predefined-mandolin-fretboards.ly}
+
 @node Instrumentos MIDI
 @appendixsec Instrumentos MIDI
 @translationof MIDI instruments
@@ -450,7 +455,6 @@ para la propiedad @code{midiInstrument} (instrumento MIDI).  El orden
 de los instrumentos que aparece aquí, de arriba a abajo empezando por
 la columna de la izquierda, corresponde a los 128 números de programa
 del estándar General MIDI.
-
 
 @example
 acoustic grand            contrabass           lead 7 (fifths)
