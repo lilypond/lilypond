@@ -11,11 +11,12 @@
 
 %% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
   texidoces = "
-Al producir una salida MIDI, el comportamiento predeterminado es
-que cada pentagrama representa un canal MIDI, con todas las voces
-de dicho pentagrama mezcladas.  Esto reduce al mínimo el riesgo de
-que se agote el número de canales MIDI disponibles, pues existe un
-máximo de 16 canales por pista.
+Al producir una salida MIDI, el comportamiento predeterminado es que
+cada pentagrama representa un canal MIDI, con todas las voces de dicho
+pentagrama mezcladas.  Esto reduce al mínimo el riesgo de que se agote
+el número de canales MIDI disponibles, pues existe un máximo de 16
+canales por cada puerto MIDI, y la mayoría de los dispositivos sólo
+tiene un puerto.
 
 Sin embargo, cuando se traslada el interpretador
 @code{Staff_performer} al contexto @code{Voice}, cada voz de un
