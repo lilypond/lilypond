@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 21837018316140dc1d282259c130d5124c845eb8
+    Translation of GIT committish: c32e3fdb278522c2772cbbe01f532ed24cb9d838
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,6 +32,86 @@ NOTE:
 
   * don't duplicate entries from news-front.itexi
 @end ignore
+
+
+@newsItem
+@subsubheading Quinta versión candidata al lanzamiento de 2.14: ¡Lanzado LilyPond 2.13.57!  @emph{3 de abril de 2011}
+
+Ha salido LilyPond 2.13.57; ésta es la cuarta versión candidata al
+lanzamiento de la inminente versión estable 2.14.  Se invita a los
+usuarios a que hagan experimentos con esta versión.  Las
+funcionalidades nuevas desde 2.12.3 están relacionadas en el manual de
+@qq{Cambios} dentro de la sección @ref{Desarrollo} de estas páginas.
+
+No existe ningún problema conocido calificado como crítico en esta
+versión.  Si no se encuentra ningún bug crítico, el lanzamiento de la
+versión oficial 2.14.0 se producirá el 10 de abril de 2011.  Si
+descubre algún problema, le rogamos que nos envíe
+@ref{Informes de fallos}.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Cuarta versión candidata al lanzamiento de 2.14: ¡Lanzado LilyPond 2.13.56!  @emph{29 de marzo de 2011}
+
+Ha salido LilyPond 2.13.56; ésta es la cuarta versión candidata al
+lanzamiento de la inminente versión estable 2.14.  Se invita a los
+usuarios a que hagan experimentos con esta versión.  Las
+funcionalidades nuevas desde 2.12.3 están relacionadas en el manual de
+@qq{Cambios} dentro de la sección @ref{Desarrollo} de estas páginas.
+
+No existe ningún problema conocido calificado como crítico en esta
+versión.  Si no se encuentra ningún bug crítico, el lanzamiento de la
+versión oficial 2.14.0 se producirá el 5 de abril de 2011.  Si
+descubre algún problema, le rogamos que nos envíe
+@ref{Informes de fallos}.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.55!  @emph{22 de marzo de 2011}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.55.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.
+
+Tenga en cuenta que esta @strong{no} es la tercera versión candidata
+al lanzamiento estable, debido a que aún permanecen unos cuantos
+fallos críticos.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Retirada de la tercera versión candidata al lanzamiento  @emph{15 de marzo de 2011}
+
+Hemos decubierto una regresión desde la versión 2.12.3, de manera que
+lilypond 2.13.54 ya no es candidata para el lanzamiento de la versión
+2.14.0.  Sin embargo, continúen probándola: nos gustaría descubrir (y
+corregir) cualquier regresión adicional tan pronto como sea posible.
+Si descubre algún problema, le rogamos que nos envíe
+@ref{Informes de fallos}.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Tercera versión candidata al lanzamiento de 2.14: ¡Lanzado LilyPond 2.13.54!  @emph{13 de marzo de 2011}
+
+Ha salido LilyPond 2.13.54; ésta es la tercera versión candidata al
+lanzamiento de la inminente versión estable 2.14.  Se invita a los
+usuarios a que hagan experimentos con esta versión.  Las
+funcionalidades nuevas desde 2.12.3 están relacionadas en el manual de
+@qq{Cambios} dentro de la sección @ref{Desarrollo} de estas páginas.
+
+No existe ningún problema conocido calificado como crítico en esta
+versión.  Si no se encuentra ningún bug crítico, el lanzamiento de la
+versión oficial 2.14.0 se producirá el 27 de marzo de 2011.  Si
+descubre algún problema, le rogamos que nos envíe
+@ref{Informes de fallos}.
+
+@newsEnd
 
 
 @newsItem
