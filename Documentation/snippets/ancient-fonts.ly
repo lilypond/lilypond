@@ -9,7 +9,7 @@
 \header {
   lsrtags = "ancient-notation"
 
-%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
+%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
   texidoces = "
 Aquí se muestran muchos de (¿o quizá todos?) los símbolos que
 están contemplados por la capacidad de LilyPond para la música

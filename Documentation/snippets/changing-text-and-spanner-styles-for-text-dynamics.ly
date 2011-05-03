@@ -7,9 +7,9 @@
 \version "2.12.2"
 
 \header {
-  lsrtags = "expressive-marks"
+  lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
+%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
   texidoces = "
 Se puede modificar el texto empleado para los crescendos y
 decrescendos modificando las propiedades de contexto
@@ -53,10 +53,12 @@ comme @code{'line}, @code{'dashed-line} et @code{'dotted-line}.
   texidoc = "
 The text used for crescendos and decrescendos can be changed by
 modifying the context properties @code{crescendoText} and
-@code{decrescendoText}. The style of the spanner line can be changed by
-modifying the @code{'style} property of @code{DynamicTextSpanner}.  The
-default value is @code{'hairpin}, and other possible values include
-@code{'line}, @code{'dashed-line} and @code{'dotted-line}.
+@code{decrescendoText}.
+
+The style of the spanner line can be changed by modifying the
+@code{'style} property of @code{DynamicTextSpanner}.  The default value
+is @code{'dashed-line}, and other possible values include @code{'line},
+@code{'dotted-line} and @code{'none}.
 
 "
   doctitle = "Changing text and spanner styles for text dynamics"

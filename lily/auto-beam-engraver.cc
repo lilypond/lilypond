@@ -137,8 +137,10 @@ Auto_beam_engraver::process_music ()
 
   if (forbid_)
     {
-      consider_end (measure_position (context ()), shortest_mom_);
-      junk_beam ();
+      if (stems_)
+	end_beam ();
+      else
+	junk_beam ();
     }
 }
 

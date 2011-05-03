@@ -20,6 +20,7 @@
 #include "engraver.hh"
 
 #include "international.hh"
+#include "pointer-group-interface.hh"
 #include "rhythmic-head.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
@@ -35,21 +36,28 @@ public:
 
 protected:
   DECLARE_TRANSLATOR_LISTENER (glissando);
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
+  DECLARE_ACKNOWLEDGER (note_column);
   virtual void finalize ();
 
   void stop_translation_timestep ();
   void process_music ();
+
 private:
-  Spanner *line_;
-  Spanner *last_line_;
+  vector<Spanner *> lines_;
+  vector<Spanner *> kill_me_;
+  bool start_glissandi;
+  bool stop_glissandi;
+
   Stream_event *event_;
+  vector<vsize> note_column_1;
+  vector<vsize> note_column_2;
 };
 
 Glissando_engraver::Glissando_engraver ()
 {
-  last_line_ = line_ = 0;
   event_ = 0;
+  start_glissandi = false;
+  stop_glissandi = false;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Glissando_engraver, glissando);
@@ -63,44 +71,87 @@ void
 Glissando_engraver::process_music ()
 {
   if (event_)
-    line_ = make_spanner ("Glissando", event_->self_scm ());
+    start_glissandi = true;
 }
 
 void
-Glissando_engraver::acknowledge_rhythmic_head (Grob_info info)
+Glissando_engraver::acknowledge_note_column (Grob_info info)
 {
   Grob *g = info.grob ();
-  if (line_)
-    line_->set_bound (LEFT, g);
-
-  if (last_line_)
+  if (stop_glissandi)
     {
-      last_line_->set_bound (RIGHT, g);
-      announce_end_grob (last_line_, g->self_scm ());
+      extract_grob_set (g, "note-heads", note_heads);
+      int glissando_index = 0;
+      for (vsize i=0; i < note_column_1.size (); i++)
+        {
+          if (note_column_2[i] >= note_heads.size ())
+            {
+              kill_me_.push_back (lines_[i]);
+              announce_end_grob (lines_[i], SCM_EOL);
+            }
+          else
+            {
+              lines_[i]->set_bound (RIGHT, note_heads[note_column_2[i]]);
+              lines_[i]->set_property ("glissando-index", scm_from_int (glissando_index));
+              glissando_index++;
+              announce_end_grob (lines_[i], note_heads[note_column_2[i]]->self_scm ());
+            }
+        }
+      lines_.clear ();
+      note_column_1.clear ();
+      note_column_2.clear ();
+      stop_glissandi = false;
     }      
+
+  if (start_glissandi)
+    {
+      extract_grob_set (g, "note-heads", note_heads);
+      SCM map = get_property ("glissandoMap");
+      if (map == SCM_EOL)
+        for (vsize i = 0; i < note_heads.size (); i++)
+          {
+            note_column_1.push_back (i);
+            note_column_2.push_back (i);
+          }
+      else
+        for (SCM m = map; scm_is_pair (m); m = scm_cdr (m))
+          {
+            SCM candidate = scm_car (m);
+            if (!scm_is_pair (candidate))
+              continue;
+            int n1 = robust_scm2int (scm_car (candidate), -1);
+            int n2 = robust_scm2int (scm_cdr (candidate), -1);
+            if (n1 < 0 || n2 < 0 || n1 >= note_heads.size ())
+              continue;
+            note_column_1.push_back (vsize (n1));
+            note_column_2.push_back (vsize (n2));
+          }
+      for (vsize i=0; i < note_column_1.size (); i++)
+        {
+          lines_.push_back (make_spanner ("Glissando", event_->self_scm ()));
+          lines_.back ()->set_bound (LEFT, note_heads[note_column_1[i]]);
+        }
+    }
 }
 
 void
 Glissando_engraver::stop_translation_timestep ()
 {
-  if (last_line_ && last_line_->get_bound (RIGHT))
+
+  if (start_glissandi)
     {
-      last_line_ = 0;
-    }
-  if (line_)
-    {
-      if (last_line_)
+      if (stop_glissandi)
 	programming_error ("overwriting glissando");
-      last_line_ = line_;
+      stop_glissandi = true;
+      start_glissandi = false;
     }
-  line_ = 0;
   event_ = 0;
 }
 
 void
 Glissando_engraver::finalize ()
 {
-  if (line_)
+  if (!lines_.empty ())
     {
       string msg = _ ("unterminated glissando");
 
@@ -109,12 +160,15 @@ Glissando_engraver::finalize ()
       else
 	warning (msg);
 
-      line_->suicide ();
-      line_ = 0;
+      for (vsize i=0; i < lines_.size (); i++)
+        lines_[i]->suicide ();
     }
+
+  for (vsize i=0; i < kill_me_.size (); i++)
+    kill_me_[i]->suicide ();
 }
 
-ADD_ACKNOWLEDGER (Glissando_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER (Glissando_engraver, note_column);
 ADD_TRANSLATOR (Glissando_engraver,
 		/* doc */
 		"Engrave glissandi.",
@@ -123,7 +177,7 @@ ADD_TRANSLATOR (Glissando_engraver,
 		"Glissando ",
 
 		/* read */
-		"",
+		"glissandoMap ",
 
 		/* write */
 		""

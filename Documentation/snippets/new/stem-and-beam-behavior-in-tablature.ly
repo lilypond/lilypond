@@ -15,7 +15,7 @@ example.
     \tabFullNotation
     g16 b d g b d g b
     \stemDown
-    \override Beam #'damping = #+inf.0
+    \override Beam #'concaveness = #10000
     g,,16 b d g b d g b
   }
 }

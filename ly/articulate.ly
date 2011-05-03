@@ -375,22 +375,8 @@
 
       ((BeamEvent) ; throw away beam events, or they'll be duplicated by turn or trill
        (loop factor newelements tail actions))
-      ((LineBreakEvent) ; pass through linebreak events.
-       (loop (cons 1 1) (cons e newelements) tail actions))
-      ((FingeringEvent) ; and fingering events too.
-       (loop factor newelements tail actions))
 
-      ((BreathingEvent) ; throw away BreathingEvent ---
-       ; should really shorten previous note a little.
-       (loop (cons 1 1) (cons e newelements) tail actions))
-
-      ((TieEvent)
-       (loop (cons 1 1) (cons e newelements) tail actions))
-
-      ((SkipEvent)
-       (loop (cons 1 1) (cons e newelements) tail actions))
-
-      ((RestEvent)
+      ((LineBreakEvent FingeringEvent MarkEvent BreathingEvent TieEvent SkipEvent RestEvent) ; pass through some events.
        (loop (cons 1 1) (cons e newelements) tail actions))
 
       ((ArticulationEvent)

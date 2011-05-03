@@ -3,8 +3,7 @@
 Gleiten von Akkorden kann sowohl im normalen Notensystem als auch in einer
 Tabulatur notiert werden.  Saitennummern werden für Tabulaturen
 benötigt, weil die automatische Saitenberechnung unterschiedlich für
-Akkorde und einzelne Noten funktioniert und
-@code{\\chordGlissando} zieht Linien zwischen einzelnen Noten.
+Akkorde und einzelne Noten funktioniert.
 "
   doctitlede = "Akkordglissando in Tabulaturen"
 

@@ -416,6 +416,8 @@
   (define (metadata-encode val)
     ;; First, call ly:encode-string-for-pdf to encode the string (latin1 or
     ;; utf-16be), then escape all parentheses and backslashes
+    ;; FIXME guile-2.0: use (string->utf16 str 'big) instead
+
     (ps-quote (ly:encode-string-for-pdf val)))
   (define (metadata-lookup-output overridevar fallbackvar field)
     (let* ((overrideval (ly:modules-lookup (list header) overridevar))

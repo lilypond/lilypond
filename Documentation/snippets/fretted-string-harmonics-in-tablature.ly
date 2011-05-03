@@ -8,13 +8,19 @@
 \version "2.13.49"
 
 \header {
-%% Translation of GIT committish: 69d7781c6ab26df02bc81ff1eb294d47fa673491
+%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
   texidoces = "
 Armónicos sobre cuerdas pisadas (armónicos artificiales):
 "
   doctitlees = "Armónicos sobre cuerdas pisadas en tablatura"
 
 
+
+%% Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
+  texidocde = "
+Flageolett für Bundinstrumente:
+"
+  doctitlede = "Flageolett von Bundinstrumenten in einer Tabulatur"
 
   lsrtags = "fretted-strings"
   texidoc = "

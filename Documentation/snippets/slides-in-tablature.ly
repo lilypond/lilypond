@@ -8,7 +8,7 @@
 \version "2.13.49"
 
 \header {
-%% Translation of GIT committish: 69d7781c6ab26df02bc81ff1eb294d47fa673491
+%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
   texidoces = "
 
 Los deslizamientos se pueden componer tipográficamente tanto en los
@@ -17,6 +17,12 @@ contextos de @code{Staff} como en los de @code{TabStaff}:
 "
 
   doctitlees = "Deslizamientos en tablatura"
+
+%% Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
+  texidocde = "
+Gleiten kann sowohl in normalem Notensystem als auch in Tabulaturen notiert werden:
+"
+  doctitlede = "Gleiten (Glissando) in Tabulatur"
 
   lsrtags = "fretted-strings"
   texidoc = "

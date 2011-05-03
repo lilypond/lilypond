@@ -9,7 +9,7 @@
 \header {
   lsrtags = "vocal-music, keyboards, template"
 
-%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
+%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
   texidoces = "
 He aquí el típico formato dde una canción: un pentagrama con la
 melodía y la letra, y el acompañamiento de piano por debajo.

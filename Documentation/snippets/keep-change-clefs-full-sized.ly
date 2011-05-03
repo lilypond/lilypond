@@ -9,7 +9,7 @@
 \header {
   lsrtags = "pitches, tweaks-and-overrides"
 
-%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
+%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
   texidoces = "
 Cuando se produce un cambio de clave, el símbolo de clave se imprime a
 un tamaño menor que la clave inicial.  Esto se puede ajustar con

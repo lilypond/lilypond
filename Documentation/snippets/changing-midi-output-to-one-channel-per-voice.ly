@@ -9,7 +9,7 @@
 \header {
   lsrtags = "contexts-and-engravers, midi"
 
-%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
+%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
   texidoces = "
 Al producir una salida MIDI, el comportamiento predeterminado es
 que cada pentagrama representa un canal MIDI, con todas las voces
@@ -47,7 +47,8 @@ deux canaux MIDI différents, chacun étant affecté de son propre
 When outputting MIDI, the default behavior is for each staff to
 represent one MIDI channel, with all the voices on a staff amalgamated.
 This minimizes the risk of running out of MIDI channels, since there
-are only 16 available per track.
+are only 16 available per MIDI port, and most devices support only one
+port.
 
 However, by moving the @code{Staff_performer} to the @code{Voice}
 context, each voice on a staff can have its own MIDI channel, as is

@@ -8,6 +8,7 @@ centering-markup-on-note-heads-automatically.ly
 changing-a-single-notes-size-in-a-chord.ly
 changing-form-of-multi-measure-rests.ly
 changing-properties-for-individual-grobs.ly
+changing-text-and-spanner-styles-for-text-dynamics.ly
 changing-the-default-text-font-family.ly
 changing-the-staff-size.ly
 changing-the-tempo-without-a-metronome-mark.ly
@@ -16,6 +17,7 @@ controlling-spanner-visibility-after-a-line-break.ly
 controlling-the-vertical-ordering-of-scripts.ly
 controlling-tuplet-bracket-visibility.ly
 creating-a-delayed-turn.ly
+creating-double-digit-fingerings.ly
 creating-simultaneous-rehearsal-marks.ly
 creating-text-spanners.ly
 custodes.ly

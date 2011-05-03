@@ -22,7 +22,7 @@ hyphens.  The offset needed is established with trial and error.
 <<
   \new Staff <<
     \new Voice = "voc" \relative c' { \stemDown a bes c8 b c4 }
->>
+  >>
   \new Lyrics \with {
     \override LyricText #'extra-offset = #'(0 . 8.6)
     \override LyricExtender #'extra-offset = #'(0 . 8.6)

@@ -1003,6 +1003,8 @@ in addition to notes and stems.")
 
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
 
+     (glissando-index ,integer? "The index of a glissando in its note
+column.")
      (grace-spacing ,ly:grob? "A run of grace notes.")
 
      (heads ,ly:grob-array? "An array of note heads.")

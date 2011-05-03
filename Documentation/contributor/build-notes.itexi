@@ -576,6 +576,20 @@ this is the main part; it calles texi2html to generate the actual
 html.  It also has a ton of options to texi2html to pass info to
 our custom init file.
 
+The file actually built is called @file{web.texi}, and is either
+in the @file{Documentation} directory, or a sub-directory specific
+to the language.
+
+The options file is @file{/Documentation/lilypond-texi2html.init}.
+This contains *lots* of option and configuration stuff, and also
+includes the line:
+
+@example
+print STDERR "Initializing settings for web site: [$Texi2HTML::THISDOC@{current_lang@}]\n";
+@end example
+
+This is where one of the console messages is generated.
+
 We have somewhere between 2-4 different ways "to pass info to our
 custom init file".  This is highly Not Good (tm), but that's how
 things work at the moment.

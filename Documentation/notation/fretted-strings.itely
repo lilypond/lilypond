@@ -367,7 +367,6 @@ ties = \relative c' {
 @funindex \harmonic
 @funindex \harmonicByFret
 @funindex \harmonicByRatio
-@funindex \chordGlissando
 
 Harmonic indications can be added to tablature notation as sounding
 pitches:

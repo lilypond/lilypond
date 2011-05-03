@@ -8,12 +8,18 @@
 \version "2.13.49"
 
 \header {
-%% Translation of GIT committish: 69d7781c6ab26df02bc81ff1eb294d47fa673491
+%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
   texidoces = "
 Referencia para armónicos sobre cuerdas al aire (armónicos naturales):
 
 "
   doctitlees = "Referencia para armónicos sobre cuerdas al aire"
+
+%% Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
+  texidocde = "
+Referenz für Flageolett von offenen Saiten:
+"
+  doctitlede = "Referenz für Flageolett von offenen Saiten"
 
   lsrtags = "fretted-strings"
   texidoc = "
