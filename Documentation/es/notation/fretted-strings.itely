@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: da34fdfe2057ebaae080e20b5875f35e96010f40
+    Translation of GIT committish: 42f47af78202968f412a940f7ce9b3b1136fd236
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -374,7 +374,6 @@ ties = \relative c' {
   }
 }
 @end lilypond
-
 
 @cindex armónicos en tablatura
 @cindex tablatura y armónicos
