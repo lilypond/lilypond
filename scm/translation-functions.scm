@@ -416,7 +416,7 @@ dot placement entries."
 			specified-frets))))
       (sort unassigned-notes note-pitch>?))
 
-    string-fret-fingering-tuples) ;; end of determine-frets-and-strings
+    (reverse string-fret-fingering-tuples)) ;; end of determine-frets-and-strings
 
   (define (get-predefined-fretboard predefined-fret-table tuning pitches)
     "Search through @var{predefined-fret-table} looking for a predefined
