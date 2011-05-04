@@ -1182,13 +1182,6 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
       feasible_left_point.intersect (flp);
     }
 
-  /*
-    We have two intervals here, one for the up variant (beams goes
-    over the collision) one for the down.
-  */
-  Drul_array<Interval> collision_free (feasible_left_point,
-                                       feasible_left_point);
-
   vector<Grob*> filtered;
   /*
     We only update these for objects that are too large for quanting
@@ -1201,6 +1194,10 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
     take care of computing the impact those exactly.
   */
   Real min_y_size = 2.0;
+
+  // A list of intervals into which beams may not fall
+  vector<Interval> forbidden_intervals;
+
   for (vsize i = 0; i < covered.size(); i++)
     {
       if (!covered[i]->is_live())
@@ -1254,7 +1251,7 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
                 the centerline.
               */
               Direction stemdir = get_grob_direction (head_stem);
-              b[Y_AXIS][stemdir] = stemdir * infinity_f; 
+              b[Y_AXIS][stemdir] = stemdir * infinity_f;
             }
           else
             {
@@ -1272,76 +1269,97 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
           Real dy = slope * x;
 
           Direction yd = DOWN;
+          Interval disallowed;
           do
             {
               Real left_y = b[Y_AXIS][yd];
-
-              if (left_y == yd * infinity_f)
-                {
-                  collision_free[yd].set_empty ();
-                  continue;
-                }
 
               left_y -= dy;
 
               // Translate back to beam as ref point.
               left_y -= me->relative_coordinate (common[Y_AXIS], Y_AXIS);
-            
-              Interval allowed;
-              allowed.set_full ();
 
-              allowed[-yd] = left_y;
-              collision_free[yd].intersect (allowed);
+              disallowed[yd] = left_y;
             }
           while (flip (&yd) != DOWN);
+
+          forbidden_intervals.push_back (disallowed);
         }
       while (flip (&d) != LEFT);
     }
 
-  Grob_array *arr = 
+  Grob_array *arr =
     Pointer_group_interface::get_grob_array (me,
                                              ly_symbol2scm ("covered-grobs"));
   arr->set_array (filtered);
 
-  if (collision_free[DOWN].contains (beam_left_y)
-      || collision_free[UP].contains (beam_left_y))
-    {
-      // We're good to go. Do nothing.
-    }
-  else if (collision_free[DOWN].is_empty() != collision_free[UP].is_empty())
-    {
-      // Only one of them offers is feasible solution. Pick that one.
-      Interval v =
-        (!collision_free[DOWN].is_empty()) ?
-        collision_free[DOWN] : 
-        collision_free[UP];
+  vector_sort (forbidden_intervals, Interval::left_less);
+  Real epsilon = 1.0e-10;
+  Interval feasible_beam_placements (beam_left_y, beam_left_y);
 
-      beam_left_y = point_in_interval (v, 2.0);
-    }
-  else if (!collision_free[DOWN].is_empty ()
-           && !collision_free[UP].is_empty ())
-    {
-      // Above and below are candidates, take the one closest to the
-      // starting solution.
-      Interval best =  
-        (collision_free[DOWN].distance (beam_left_y)
-         < collision_free[UP].distance (beam_left_y)) ?
-        collision_free[DOWN] : collision_free[UP];
+  /*
+    forbidden_intervals contains a vector of intervals in which
+    the beam cannot start.  it iterates through these intervals,
+    pushing feasible_beam_placements epsilon over or epsilon under a
+    collision.  when this type of change happens, the loop is marked
+    as "dirty" and re-iterated.
 
-      beam_left_y = point_in_interval (best, 2.0);
+    TODO: figure out a faster ways that this loop can happen via
+    a better search algorithm and/or OOP.
+  */
+
+  bool dirty = false;
+  do
+    {
+      dirty = false;
+      for (vsize i = 0; i < forbidden_intervals.size (); i++)
+        {
+          Direction d = DOWN;
+          do
+            {
+              if (forbidden_intervals[i][d] == d * infinity_f)
+                feasible_beam_placements[d] = d * infinity_f;
+              else if (forbidden_intervals[i].contains (feasible_beam_placements[d]))
+                {
+                  feasible_beam_placements[d] = d * epsilon + forbidden_intervals[i][d];
+                  dirty = true;
+                }
+            }
+          while (flip (&d) != DOWN);
+        }
     }
-  else if (!feasible_left_point.is_empty ())
+  while (dirty);
+
+  // if the beam placement falls out of the feasible region, we push it
+  // to infinity so that it can never be a feasible candidate below
+  Direction d = DOWN;
+  do
+    {
+      if (!feasible_left_point.contains (feasible_beam_placements[d]))
+        feasible_beam_placements[d] = d*infinity_f;
+    }
+  while (flip (&d) != DOWN);
+
+  if ((feasible_beam_placements[UP] == infinity_f && feasible_beam_placements[DOWN] == -infinity_f) && !feasible_left_point.is_empty ())
     {
       // We are somewhat screwed: we have a collision, but at least
       // there is a way to satisfy stem length constraints.
       beam_left_y = point_in_interval (feasible_left_point, 2.0);
+    }
+  else if (!feasible_left_point.is_empty ())
+    {
+      // Only one of them offers is feasible solution. Pick that one.
+      if (abs (beam_left_y - feasible_beam_placements[DOWN]) > abs (beam_left_y - feasible_beam_placements[UP]))
+        beam_left_y = feasible_beam_placements[UP];
+      else
+        beam_left_y = feasible_beam_placements[DOWN];
     }
   else
     {
       // We are completely screwed.
       me->warning (_ ("no viable initial configuration found: may not find good beam slope"));
     }
-  
+
   pos = Drul_array<Real> (beam_left_y, (beam_left_y + beam_dy));
   scale_drul (&pos, 1 / Staff_symbol_referencer::staff_space (me));
 
