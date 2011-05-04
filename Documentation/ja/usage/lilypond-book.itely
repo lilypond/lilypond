@@ -223,7 +223,7 @@ or
 Additionally, @code{\lilypondversion} displays the current version
 of lilypond.
 Running @command{lilypond-book} yields a file that can be further
-processed with @LaTeX{}. 
+processed with @LaTeX{}.
 
 We show some examples here.  The @code{lilypond} environment
 

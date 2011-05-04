@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
+    Translation of GIT committish: cff226053d927e433473697fe743bdfd721d2607
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -40,11 +40,11 @@ diverso per scrivere i file lilypond, leggi la documentazione di quel programma.
 @translationof Command-line usage
 
 Questa sezione contiene informazioni aggiuntive sull'uso di LilyPond da linea
-di comando.  Questo può essere utile per passare al programma opzioni ulteriori.
+di comando.  Questo può essere utile per assegnare opzioni aggiuntive al programma.
 Inoltre, ci sono alcuni programmi complementari di @q{aiuto} (come
 @code{midi2ly}) che funzionano solo da linea di comando.
 
-Con @q{linea di comando} intendiamo la linea di comando del sistema operativo.
+Con @q{linea di comando} si intende la linea di comando del sistema operativo.
 Gli utenti Windows avranno più familiarità con i termini @q{shell DOS} o
 @q{shell dei comandi}.  Gli utenti MacOS@tie{}X avranno più familiarità con i termini
 @q{terminale} o @q{console}.  Una configurazione ulteriore è necessaria
@@ -58,14 +58,14 @@ questo argomento se non si conosce la linea di comando.
 * Invocare lilypond::
 * Opzioni della linea di comando per lilypond::
 * Variabili d'ambiente::
-* LilyPond in chroot jail::
+* LilyPond in una gabbia chroot::
 @end menu
 
 @node Invocare lilypond
 @unnumberedsubsec Invocare @command{lilypond}
 @translationof Invoking lilypond
 
-L'eseguibile @command{lilypond} può essere chiamato dalla linea di comando
+L'eseguibile @command{lilypond} può essere lanciato dalla linea di comando
 nel seguente modo.
 
 @example
@@ -79,9 +79,9 @@ trattino (@code{-}) al posto di @var{file}.
 
 Quando @file{file.ly} viene elaborato, lilypond creerà @file{file.ps}
 e @file{file.pdf} come output.  Possono essere specificati molti file;
-ognuno di essi sarà elaborati in modo indipendente.  @footnote{Lo status di
-GUILE non viene resettato dopo l'elaborazione di un file @code{.ly}, quindi
-fare attenzione a non cambiare alcun valore predefinito dall'interno di Scheme.}
+ognuno di essi sarà elaborato in modo indipendente.  @footnote{Lo status di
+GUILE non viene resettato dopo l'elaborazione di un file @code{.ly}:
+attenzione a non cambiare alcun valore predefinito dall'interno di Scheme.}
 
 Se @file{file.ly} contiene più di un blocco @code{\book}, allora tutte le altre
 partiture verranno salvate in file numerati, a partire da @file{file-1.pdf}.  Inoltre,
@@ -139,10 +139,10 @@ Sono contemplate le seguenti opzioni:
 
 @item -e,--evaluate=@var{espressione}
 Valuta l'@var{espressione} di Scheme prima di analizzare qualsiasi file @file{.ly}.
-Si possono specificare varie opzioni @code{-e}; verranno valutate in modo
+Si possono specificare varie opzioni @code{-e}; saranno analizzate in modo
 sequenziale.
 
-L'espressione sarà valutata nel modulo @code{guile-user}, dunque se vuoi
+L'espressione sarà analizzata nel modulo @code{guile-user}, dunque se vuoi
 usare delle definizioni in @var{espressione}, usa
 
 @example
@@ -203,7 +203,7 @@ Questa opzione imposta la dimensione predefinita del foglio,
 @end example
 
 @noindent
-Si noti che la stringa deve essere compresa tra virgolette precedute dal
+Nota che la stringa deve essere compresa tra virgolette precedute dal
 segno di escape ( @code{\"} ).
 @c Match " in previous line to help context-sensitive editors
 
@@ -226,7 +226,7 @@ scempio, ad esempio
 @end verbatim
 @end quotation
 
-L'opzione @code{-dsafe} funziona valutando le espressioni Scheme presenti nell'input
+L'opzione @code{-dsafe} serve a valutare le espressioni Scheme presenti nell'input
 in uno speciale modulo di sicurezza.  Questo modulo di sicurezza è derivato dal
 modulo GUILE @file{safe-r5rs}, ma aggiunge alcune funzioni del
 LilyPond API.  Queste funzioni sono elencate in @file{scm/safe-lily.scm}.
@@ -325,7 +325,7 @@ Estrae un campo dell'intestazione nel file @file{NOME.@var{CAMPO}}.
 @item --include, -I=@var{directory}
 Aggiunge @var{directory} al percorso di ricerca per i file di input.
 
-È possibile assegnare più di un'opzione -I.  La ricerca inizierà nella prima
+È possibile assegnare più opzioni -I.  La ricerca inizierà nella prima
 directory definita, e se il file da includere non viene trovato
 la ricerca continuerà nelle directory seguenti.
 
@@ -338,8 +338,8 @@ Imposta il file di inizializzazione su @var{file} (predefinito: @file{init.ly}).
 @item -o,--output=@var{FILE} or @var{CARTELLA}
 Imposta il file di output predefinito @var{FILE} oppure, se una cartella con
 quel nome esiste già, dirige l'output in @var{CARTELLA}, prendendo il nome
-del file dal file di input.  Il suffisso appropriato verrà
-aggiunto (ad esempio @code{.pdf} per il pdf) in entrambi i casi.
+del file dal file di input.  In entrambi i casi verrà aggiunto il suffisso
+appropriato (ad esempio @code{.pdf} per il pdf).
 
 
 @cindex PostScript
@@ -378,7 +378,7 @@ garantisce che non sia possibile (almeno in teoria) uscire dalla gabbia.  Si not
 che perché @code{--jail} funzioni @command{lilypond} deve essere eseguito come root;
 di solito questo si fa in modo sicuro col comando @command{sudo}.
 
-Configurare una gabbia è una questione leggermente delicata, perché bisogna essere
+Configurare una gabbia è una questione un po' delicata, perché bisogna essere
 sicuri che LilyPond possa trovare tutto quello di cui ha bisogno per compilare il
 sorgente @emph{dentro la gabbia}.  Una configurazione tipica comprende i seguenti
 elementi:
@@ -390,8 +390,8 @@ montato con opzioni di sicurezza come @code{noexec}, @code{nodev}, e
 @code{nosuid}.  In questo modo è impossibile lanciare degli eseguibili o
 scrivere su un dispositivo direttamente da LilyPond.  Se non si vuole creare
 una partizione separata, si può creare un file di dimensioni ragionevoli e usarlo
-per montare un dispositivo di loop.  Un filesystem separato garantisce anche che
-LilyPond non possa scrivere su uno spazio maggiore di quanto permesso.
+per montare un dispositivo di loop.  Un filesystem separato garantisce inoltre
+che LilyPond non possa scrivere su uno spazio maggiore di quanto permesso.
 
 @item Impostare un altro utente
 Per eseguire LilyPond in una gabbia si dovrebbe usare un altro utente e gruppo
@@ -416,7 +416,7 @@ non richieda tale programma.  Come è già stato detto, deve essere eseguito
 con privilegi di superutente (che ovviamente perderà immediatamente),
 possibilmente con l'uso di @command{sudo}.  È una buona idea limitare il
 numero di secondi di tempo della CPU che LilyPond può usare (ad esempio con @command{ulimit
--t}), e, se il tuo sistema operativo lo supporta, la quantità di memoria che
+-t}), e, se il sistema operativo lo permette, la quantità di memoria che
 può essere allocata.
 @end table
 
@@ -429,7 +429,7 @@ Aumenta la prolissità: mostra i percorsi completi di tutti i file letti, e dà
 informazioni sui tempi.
 
 @item -w,--warranty
-Mostra la garanzia con cui viene distribuito GNU LilyPond.  (Viene distribuito
+Mostra la garanzia con cui viene distribuito GNU LilyPond.  (Distribuito
 con @strong{NESSUNA GARANZIA}!)
 @end table
 
@@ -449,12 +449,11 @@ localizzazione e i file di dati.  Questa directory deve contenere
 sottodirectory chiamate @file{ly/}, @file{ps/}, @file{tex/}, etc.
 
 @item LANG
-Determina la lingua per i messaggi di avvertimento.
+Determina la lingua per i messaggi di avviso.
 
 @item LILYPOND_GC_YIELD
-Con questa variabile si possono aggiustare il consumo di memoria e la
-performance.  È una percentuale che regola il comportamento di gestione della
-memoria.  Con valori più alti il programma usa più memoria, con valori
+Una variabile, in forma di percentuale, che regola il modo in cui viene gestita
+la memoria.  Con valori più alti il programma usa più memoria, con valori
 più bassi usa più tempo della CPU.  Il valore predefinito è @code{70}.
 
 @end table
@@ -465,7 +464,7 @@ più bassi usa più tempo della CPU.  Il valore predefinito è @code{70}.
 @translationof LilyPond in chroot jail
 
 Configurare un server perché esegua LilyPond in una gabbia chroot è un lavoro
-complicato.  La procedura è spiegata sotto.  Gli esempi si riferiscono a
+complesso.  La procedura è spiegata sotto.  Gli esempi si riferiscono a
 Ubuntu Linux e potrebbero richiedere l'uso di @code{sudo} in alcune situazioni.
 
 @itemize
@@ -605,7 +604,7 @@ successivo verrà saltato.
 @item Errore fatale
 @cindex errore fatale
 C'è qualcosa di assolutamente sbagliato e LilyPond non può continuare.  Questo
-accade raramente.  La causa più tipica è un'errata installazione dei tipi di
+accade raramente.  La causa più comune è un'errata installazione dei tipi di
 carattere.
 
 @item Errore Scheme
@@ -619,7 +618,7 @@ responsabile dell'errore.
 
 @item Errore di programmazione
 @cindex Errore di programmazione
-C'è stata una qualche incongruenza interna.  Questi messaggi di errore
+Si è verificata una qualche incongruenza interna.  Questi messaggi di errore
 servono ad aiutare programmatori e debugger.  Di solito si possono
 ignorare.  Talvolta sono talmente numerosi da nascondere il resto
 dell'output.
@@ -628,7 +627,7 @@ dell'output.
 @cindex Sospeso (core dumped)
 Segnala un serio errore di programmazione che ha mandato in crash il
 programma.  Questi errori sono considerati critici.  Se ti imbatti in un
-errore simile, invia una segnalazione di errori.
+errore simile, invia una segnalazione di errore.
 @end table
 
 @cindex errori, formato del messaggio
@@ -650,7 +649,7 @@ test.ly:2:19: error: not a duration: 5
            5 g' @}
 @end example
 
-Queste posizioni sono la migliore ipotesi di LilyPond a proposito del
+Queste posizioni indicano la migliore ipotesi di LilyPond a proposito del
 punto in cui l'avvertimento o l'errore sono comparsi, ma (per loro
 stessa natura) avvertimenti ed errori capitano quando succede qualcosa
 di imprevisto.  Se non riesci a vedere un errore nella riga indicata
@@ -665,8 +664,8 @@ Maggiori informazioni sugli errori si trovano in @ref{Errori comuni}.
 @translationof Common errors
 
 Le condizioni di errore descritte di seguito capitano spesso, ma la causa
-non è ovvia né facile da trovare.  Una volta che si sono viste e comprese,
-è facile gestirle.
+non è ovvia né facile da trovare.  Una volta che sono state individuate e
+comprese, è facile gestirle.
 
 
 @menu
@@ -684,7 +683,7 @@ non è ovvia né facile da trovare.  Una volta che si sono viste e comprese,
 
 Se la musica esce dalla pagina al di là del margine destro o appare
 eccessivamente compressa, quasi sempre è dovuto all'inserimento di
-una durata sbagliata di una nota, che fa sì che l'ultima nota di una misura si
+una durata errata di una nota, che fa sì che l'ultima nota di una misura si
 estenda oltre la barra di divisione.  Non è sbagliato se la nota finale di
 una misura non termina entro la barra di divisione inserita automaticamente, perché
 semplicemente si assume che la nota continui nella misura successiva.  Ma se
@@ -697,12 +696,12 @@ ovvero quando tutte le note finiscono prima o alla fine della misura.
 linea, portando a una linea di musica estremamente compressa o
 a musica che esce dalla pagina.}
 
-La durata sbagliata può essere trovata facilmente se si usano i controlli di
+La durata errata può essere trovata facilmente se si usano i controlli di
 battuta, si veda @ruser{Bar and bar number checks}.
 
-Se si vuole davvero avere una serie di di tali misure sovrapposte
+Se si vuole davvero ottenere una serie di tali misure sovrapposte
 bisogna inserire una barra di divisione invisibile nel punto in cui
-si vuole l'interruzione di linea.  Per i dettagli si veda @ruser{Bar lines}.
+si desidera l'interruzione di linea.  Per i dettagli si veda @ruser{Bar lines}.
 
 
 @node Appare un rigo in più
@@ -713,13 +712,12 @@ Se i contesti non sono creati esplicitamente con @code{\new} o
 @code{\context}, saranno creati senza avviso appena si incontra
 un comando che non può essere applicato a un contesto
 esistente.  Nelle partiture semplici la creazione automatica dei contesti
-è utile: infatti la maggior parte degli esempi nei manuali LilyPond sfruttano
-questa semplificazione.  Ma talvolta la creazione silenziosa
-di contesti può causare nuovi righi o partiture non desiderate.
-Ad esempio, si potrebbe pensare che il seguente codice
-colori di rosso tutte le teste delle note nel rigo, ma in realtà
-produce due righi, di cui il più basso conserva il colore nero
-predefinito per le teste delle note.
+è utile: infatti la maggior parte degli esempi nei manuali LilyPond sfrutta
+questa semplificazione.  Talvolta, però, la creazione silenziosa di contesti
+può causare la comparsa di nuovi righi o partiture non desiderate.  Ad esempio,
+si potrebbe pensare che il seguente codice colori di rosso tutte le teste
+delle note nel rigo, ma in realtà produce due righi, di cui il più basso
+conserva il colore nero predefinito per le teste delle note.
 
 @lilypond[quote,verbatim,relative=2]
 \override Staff.NoteHead #'color = #red
@@ -767,10 +765,10 @@ Per correggere il problema basta istanziare esplicitamente il contesto
 @unnumberedsubsec Errore apparente in @code{../ly/init.ly}
 @translationof Apparent error in ../ly/init.ly
 
-Vari oscuri messaggi di errore relativi a errori di sintassi in
-@file{../ly/init.ly} possono apparire se il file di input non ha
-una forma corretta, ad esempio se contiene delle parentesi o
-delle virgolette che non sono chiuse correttamente.
+Possono apparire diversi strani messaggi di errore relativi a errori di
+sintassi in @file{../ly/init.ly} se il file di input non ha una forma corretta,
+ad esempio se contiene delle parentesi o delle virgolette non chiuse
+correttamente.
 
 L'errore più comune è la mancanza di una parentesi graffa, (@code{@}}), alla fine
 di un blocco @code{score}.  In questo caso la soluzione è ovvia: controlla
@@ -779,15 +777,15 @@ di un file di input è descritta in @rlearning{Come funzionano i file di input d
 Per evitare questi errori conviene usare un editor che evidenzi automaticamente
 le parentesi e le graffe corrispondenti.
 
-Una seconda causa frequente di errore è la mancanza di uno spazio tra l'ultima
+Un'altra causa frequente di errore è la mancanza di uno spazio tra l'ultima
 sillaba di un blocco di testo (lyrics) e la parentesi graffa che chiude il
-blocco, (@code{@}}).  Senza questa separazione si considera che la graffa
-faccia parte della sillaba.  Si consiglia di assicurarsi sempre che ci sia
+blocco, (@code{@}}).  Senza questa separazione, la graffa viene considerata
+come parte della sillaba.  Si consiglia di assicurarsi sempre che ci sia
 uno spazio prima e dopo @emph{ogni} parentesi graffa.  Per comprendere l'importanza
 di questo quando si usa il testo, si veda @ruser{Entering lyrics}.
 
 Questo messaggio di errore può apparire anche nel caso in cui sia omessa la
-virgoletta che chiude, (@code{"}).  In questo caso il messaggio di errore
+virgoletta di chiusura, (@code{"}).  In questo caso il messaggio di errore
 @c keep "-matching straight in fancy editors
 dovrebbe dare un numero di riga vicino alla riga sbagliata.  La virgoletta
 non chiusa sarà solitamente una o due righe sopra.

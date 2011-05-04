@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: da34fdfe2057ebaae080e20b5875f35e96010f40
+    Translation of GIT committish: 42f47af78202968f412a940f7ce9b3b1136fd236
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -374,7 +374,6 @@ ties = \relative c' {
   }
 }
 @end lilypond
-
 
 @cindex armónicos en tablatura
 @cindex tablatura y armónicos
@@ -1143,6 +1142,7 @@ Referencia de funcionamiento interno:
 
 @cindex diagramas de posiciones
 @cindex diagramas de posiciones de ukelele
+@cindex diagramas de posiciones de mandolina
 @cindex diagramas de acordes
 
 @funindex FretBoards
@@ -1186,6 +1186,25 @@ myChords = \chordmode { a1 a:m a:aug }
 
 \new FretBoards {
   \set stringTunings = #ukulele-tuning
+  \myChords
+}
+@end lilypond
+
+Los diagramas de posiciones para la mandolina
+están contenidos en el archivo
+@file{predefined-mandolin-fretboards.ly}.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-mandolin-fretboards.ly"
+
+myChords = \chordmode { c1 c:m7.5- c:aug }
+
+\new ChordNames {
+  \myChords
+}
+
+\new FretBoards {
+  \set stringTunings = #mandolin-tuning
   \myChords
 }
 @end lilypond
@@ -1435,7 +1454,8 @@ Referencia de la notación:
 Archivos de inicio:
 @file{ly/predefined-guitar-fretboards.ly},
 @file{ly/predefined-guitar-ninth-fretboards.ly},
-@file{ly/predefined-ukulele-fretboards.ly}.
+@file{ly/predefined-ukulele-fretboards.ly},
+@file{ly/predefined-mandolin-fretboards.ly}.
 
 Fragmentos de código:
 @rlsr{Fretted strings}.
@@ -1946,5 +1966,5 @@ Fragmentos de código:
 @rlsr{Fretted strings}.
 
 Archivos de inicio:
-@file{scm/output-lib.scm} contiene las afinaciones
+@file{scm/string-tunings-init.scm} contiene las afinaciones
 predefinidas para el banjo.

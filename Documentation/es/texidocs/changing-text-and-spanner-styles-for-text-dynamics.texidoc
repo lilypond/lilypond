@@ -1,14 +1,14 @@
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Se puede modificar el texto empleado para los crescendos y
 decrescendos modificando las propiedades de contexto
-@code{crescendoText} y @code{decrescendoText}.  El estilo de la
-línea de extensión se puede cambiar modificando la propiedad
-@code{'style} de @code{DynamicTextSpanner}.  El valor
-predeterminado es @code{'hairpin} (regulador), y entre otros
-valores posibles se encuentran @code{'line} (línea),
-@code{'dashed-line} (línea discontinua) y @code{'dotted-line}
-(línea de puntos):
+@code{crescendoText} y @code{decrescendoText}.
+
+El estilo de la línea de extensión se puede cambiar modificando la
+propiedad @code{'style} de @code{DynamicTextSpanner}.  El valor
+predeterminado es @code{'dashed-line} (línea discontinua), y entre
+otros valores posibles se encuentran @code{'line} (línea),
+@code{'dotted-line} (línea de puntos) y @code{'none} (nada):
 
 "
   doctitlees = "Cambiar el texto y los estilos de objeto de extensión para las indicaciones dinámicas textuales"

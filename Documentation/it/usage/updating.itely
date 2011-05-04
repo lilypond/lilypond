@@ -43,8 +43,8 @@ gran parte dei cambiamenti di sintassi tra le versioni di LilyPond.
 La sintassi di input di LilyPond talvolta cambia.  Via via che LilyPond
 migliora, la sintassi (il linguaggio dell'input) viene modificata di
 conseguenza.  Queste modifiche vengono fatte a volte per far sì che l'input
-sia più facile da leggere e da scrivere e a volte per fornire nuove
-funzionalità di LilyPond.
+sia più facile da leggere e da scrivere e a volte per aggiungere a LilyPond
+nuove funzionalità.
 
 Ad esempio, tutti i nomi delle proprietà di @code{\paper} e @code{\layout}
 dovrebbero essere scritte nella forma @code{primo-secondo-terzo}.
@@ -85,7 +85,7 @@ nella directory che contiene il file.  Questo comando aggiornerà
 @file{miofile.ly~}.
 
 @warning{@command{convert-ly} converte sempre fino all'ultimo cambiamento di
-sintassi da lui gestito.  Questo significa che il numero di @code{\version}
+sintassi gestito.  Questo significa che il numero di @code{\version}
 che appare nel file convertito è di solito inferiore al numero di versione di
 @command{convert-ly}.}
 
@@ -96,14 +96,13 @@ convert-ly -e *.ly
 @end example
 
 Altrimenti, se si desidera specificare un nome diverso per il file
-aggiornato, lasciando non modificati il file originale e il suo nome,
-si usa
+aggiornato, senza modificare il file originale e il suo nome, si usa
 
 @example
 convert-ly miofile.ly > mionuovofile.ly
 @end example
 
-Il programma elencherà i numeri di versione per i quali sono state fatte
+Il programma elencherà i numeri di versione per i quali sono state eseguite
 le conversioni.  Se non vengono elencati dei numeri di versione il file è
 già aggiornato.
 
@@ -130,12 +129,12 @@ Esistono le seguenti opzioni:
 
 @table @code
 @item -e,--edit
-Applica le conversioni direttamente nel file di input, sostituendo
+Applica le conversioni direttamente nel file di input, modificando
 l'originale.
 
 @item -f,--from=@var{from-patchlevel}
 Imposta la versione da cui convertire.  Se non viene impostata, @command{convert-ly}
-la indovinerà in base alla stringa @code{\version} presente nel file.
+la ricaverà dalla stringa @code{\version} presente nel file.
 Esempio: @code{--from=2.10.25}
 
 @item -n,--no-version
@@ -146,11 +145,11 @@ nell'output.  Questa opzione lo impedisce.
 Mostra tutte le conversioni conosciute ed esce.
 
 @item --to=@var{to-patchlevel}
-Imposta l'obiettivo di versione della conversione.  L'impostazione predefinita
+Imposta la versione obiettivo della conversione.  L'impostazione predefinita
 è l'ultima versione disponibile.  Esempio: @code{--to=2.12.2}
 
 @item -h, --help
-Stampa l'aiuto per l'utilizzo.
+Mostra la schermata di aiuto.
 @end table
 
 Per aggiornare i frammenti LilyPond presenti nei file texinfo, si usa
@@ -172,8 +171,8 @@ convert-ly --from=... --to=... -s
 
 Quando si esegue convert-ly in una finestra del Prompt dei comandi in Windows
 su un file il cui nome o percorso contengano degli spazi,
-è necessario circondare interamente il nome del file di input con tre
-(!) doppie virgolette:
+è necessario includere tutto il nome del file di input con tre
+(!) virgolette doppie:
 
 @example
 convert-ly """D:/Mie Partiture/Ode.ly""" > "D:/Mie Partiture/new Ode.ly"
@@ -194,9 +193,9 @@ Nella finestra del Prompt dei comandi di Windows il comando corrispondente è
 for %x in (*.ly) do convert-ly -e """%x"""
 @end example
 
-Non vengono gestite tutti i cambiamenti del linguaggio.  Si può specificare solo
+Non vengono gestiti tutti i cambiamenti del linguaggio.  Si può specificare solo
 un'opzione di output.  È piuttosto improbabile che si aggiornino automaticamente
-il codice scheme e le interfacce di scheme di LilyPond; tienti pronto a
+il codice scheme e le interfacce di scheme di LilyPond; tieniti pronto a
 correggere a mano il codice scheme.
 
 
@@ -205,16 +204,16 @@ correggere a mano il codice scheme.
 @translationof Manual conversions
 
 In teoria, un programma come @command{convert-ly} potrebbe gestire qualsiasi
-cambiamento di sintassi.  Dopo tutto, un programma per computer interpreta la
+cambiamento di sintassi.  Dopo tutto, un programma per computer interpreta
 la vecchia versione e la nuova versione, quindi un altro programma
 può tradurre un file in un altro@footnote{O almeno questo è possibile
 in qualsiasi file LilyPond che non contenga codice scheme.  Se c'è del
 codice scheme nel file, allora il file LilyPond contiene un linguaggio
-Turing-completo, ed è possibile imbattersi in problemi col famoso
+Turing-completo, ed è possibile imbattersi in problemi col famigerato
 @qq{Problema dell'arresto} in informatica.}.
 
 Tuttavia il progetto LilyPond ha risorse limitate: non tutte le
-conversioni sono compiute automaticamente.  Qui sotto si trova una lista
+conversioni sono compiute automaticamente.  Di seguito è riportato l'elenco
 dei problemi noti.
 
 

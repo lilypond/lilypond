@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
+    Translation of GIT committish: cff226053d927e433473697fe743bdfd721d2607
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -464,8 +464,7 @@ etc.
 Selecciona el idioma de los mensajes de advertencia.
 
 @item LILYPOND_GC_YIELD
-Con esta variable se puede ajustar la huella y el desempeño de
-memoria.  Es un porcentaje que ajusta el comportamiento de la
+Una variable, como porcentaje, que ajusta el comportamiento de la
 administración de memoria.  Con valores más altos, el programa usa más
 memoria; con valores más bajos, usa más tiempo de CPU.  El valor
 predeterminado es @code{70}.

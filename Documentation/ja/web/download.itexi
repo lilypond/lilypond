@@ -355,9 +355,9 @@ exec @var{DIR}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
 
 
 @item
-@command{bin/lilypond} を @command{bin/convert-ly} 
+@command{bin/lilypond} を @command{bin/convert-ly}
 (あるいは他のプログラム名) に置き換えて、@c
-@command{lilypond-book}, @command{convert-ly}, 
+@command{lilypond-book}, @command{convert-ly},
 それに他の使いたいスクリプトのファイルを同じように作成します。
 
 
@@ -386,7 +386,7 @@ export PATH=$PATH:~/bin
 @subsubheading 個々のスクリプトを呼び出す
 
 スクリプト
--- @command{lilypond-book}, @command{convert-ly}, @command{abc2ly}, 
+-- @command{lilypond-book}, @command{convert-ly}, @command{abc2ly},
 それに @command{lilypond} 自体も
 -- は、MacOS@tie{}X 用の @code{.app} ファイルの中に含まれています。
 

@@ -14,6 +14,7 @@
 @afourpaper
 
 @c Translators: Federico Bruni
+@c Translation checkers: Luca Rossetto Casel
 
 @macro manualIntro
 Questo manuale spiega come eseguire i programmi distribuiti con
@@ -53,7 +54,7 @@ Copyright @copyright{} 1999--2011 degli autori.
 * Aggiornare i file con convert-ly:: Aggiornare i file di input.
 * lilypond-book::                  Integrare testo e musica.
 * Programmi esterni::              Combinare LilyPond con altri programmi.
-* Suggerimenti su come scrivere i file::  Migliori pratiche ed efficace soluzione degli errori.
+* Consigli su come scrivere i file::  Migliori pratiche ed efficace soluzione degli errori.
 
 Appendici
 
