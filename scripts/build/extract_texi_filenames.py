@@ -37,7 +37,8 @@ import getopt
 options_list, files = getopt.getopt (sys.argv[1:],'o:s:hI:m:',
                                      ['output=', 'split=',
                                       'help', 'include=',
-                                      'master-map-file='])
+                                      'master-map-file=',
+                                      'known-missing-files='])
 
 help_text = r"""Usage: %(program_name)s [OPTIONS]... TEXIFILE...
 Extract files names for texinfo (sub)sections from the texinfo files.
@@ -49,6 +50,8 @@ Options:
  -o, --output=DIRECTORY         write .xref-map files to DIRECTORY
  -s, --split=MODE               split manual according to MODE. Possible values
                                 are section and custom (default)
+     --known-missing-files      a filename which has a list of files known
+                                to be missing for this make
 """
 
 def help (text):
@@ -59,6 +62,8 @@ outdir = '.'
 split = "custom"
 include_path = ['.',]
 master_map_file = ''
+known_missing_files = []
+known_missing_files_file = ''
 initial_map = {}
 for opt in options_list:
     o = opt[0]
@@ -77,9 +82,18 @@ for opt in options_list:
     elif o == '-m' or o == '--master-map-file':
         if os.path.isfile (a):
             master_map_file = a
+    elif o == '--known-missing-files':
+        if os.path.isfile (a):
+            known_missing_files_file = a
+        else:
+            print 'Missing files list file not found: ', a
     else:
         raise Exception ('unknown option: ' + o)
 
+if known_missing_files_file:
+    missing_files = open (known_missing_files_file, 'r')
+    known_missing_files = missing_files.read().splitlines()
+    missing_files.close()
 
 if not os.path.isdir (outdir):
     if os.path.exists (outdir):
@@ -104,8 +118,10 @@ def expand_includes (m, filename):
             filepath = os.path.join (directory, include_name)
             if os.path.exists (filepath):
                 return extract_sections (filepath)[1]
-        print 'No such file: ' + include_name
-        print 'Search path: ' + ':'.join (include_path)
+        if not (include_name in known_missing_files):
+            # Not found
+            print 'No such file: ' + include_name
+            print 'Search path: ' + ':'.join (include_path)
         return ''
 
 lang_re = re.compile (r'^@documentlanguage (.+)', re.M)

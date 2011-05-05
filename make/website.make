@@ -68,6 +68,7 @@ website-xrefs: website-version
 			-I $(top-src-dir)/Documentation \
 			-I $(top-src-dir)/Documentation/"$$l" \
 			-I $(OUT) -o $(OUT) --split=node \
+			--known-missing-files=$(top-src-dir)/scripts/build/website-known-missing-files.txt \
 			$(top-src-dir)/Documentation/"$$l"/web.texi ;\
 		for m in $(MANUALS); do \
 			n=`echo "$$m" | sed 's/Documentation/Documentation\/'$$l'/'` ; \
@@ -78,6 +79,7 @@ website-xrefs: website-version
 				-I $(top-src-dir)/Documentation \
 				-I $(top-src-dir)/Documentation/"$$l" \
 				-I $(top-src-dir)/Documentation/"$$l"/"$$d" \
+				--known-missing-files=$(top-src-dir)/scripts/build/website-known-missing-files.txt \
 				-I $(OUT) -o $(OUT) "$$n" ; \
 			fi ; \
 		done; \
