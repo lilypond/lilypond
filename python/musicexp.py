@@ -749,7 +749,7 @@ class Paper:
         self.print_length_field (printer, "paper-width", self.page_width)
         self.print_length_field (printer, "paper-height", self.page_height)
         self.print_length_field (printer, "top-margin", self.top_margin)
-        self.print_length_field (printer, "botton-margin", self.bottom_margin)
+        self.print_length_field (printer, "bottom-margin", self.bottom_margin)
         self.print_length_field (printer, "left-margin", self.left_margin)
         # TODO: maybe set line-width instead of right-margin?
         self.print_length_field (printer, "right-margin", self.right_margin)
