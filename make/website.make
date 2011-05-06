@@ -4,6 +4,7 @@
 ################################################################
 #####  SECURITY -- check these values for lilypond.org #########
 ################################################################
+
 ifeq ($(WEBSITE_ONLY_BUILD),1)
   ### for lilypond.org
   TOP_SRC_DIR=$(HOME)/lilypond/lilypond-git
@@ -29,6 +30,25 @@ else
   EXAMPLES=Documentation/web/ly-examples/out-www
   PICTURES=Documentation/pictures/out-www
 endif
+
+################################################################
+#The 4 lines below present an option to force make website to run
+# quietly only when it is run as make -s website.  However, we've
+# decided not to use this switch, and run the scripts quietly all
+# the time
+################################################################
+#quiet-run = $(findstring s, $(MAKEFLAGS))
+#ifeq ($(quiet-run),s)
+#  quiet-flag=-q
+#endif
+
+#Nothing clever here - just allows the use of a boolean to control
+#  quiet running
+quiet-run = true
+ifeq ($(quiet-run),true)
+  quiet-flag=-q
+endif
+
 
 
 ################################################################
@@ -69,6 +89,7 @@ website-xrefs: website-version
 			-I $(top-src-dir)/Documentation/"$$l" \
 			-I $(OUT) -o $(OUT) --split=node \
 			--known-missing-files=$(top-src-dir)/scripts/build/website-known-missing-files.txt \
+			$(quiet-flag) \
 			$(top-src-dir)/Documentation/"$$l"/web.texi ;\
 		for m in $(MANUALS); do \
 			n=`echo "$$m" | sed 's/Documentation/Documentation\/'$$l'/'` ; \
@@ -80,6 +101,7 @@ website-xrefs: website-version
 				-I $(top-src-dir)/Documentation/"$$l" \
 				-I $(top-src-dir)/Documentation/"$$l"/"$$d" \
 				--known-missing-files=$(top-src-dir)/scripts/build/website-known-missing-files.txt \
+			  $(quiet-flag) \
 				-I $(OUT) -o $(OUT) "$$n" ; \
 			fi ; \
 		done; \
@@ -90,11 +112,13 @@ website-bibs: website-version
 		$(WEB_BIBS) -s web \
 		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(OUT)/others-did.itexi \
+		$(quiet-flag) \
 		$(top-src-dir)/Documentation/web/others-did.bib
 	BSTINPUTS=$(top-src-dir)/Documentation/web \
 		$(WEB_BIBS) -s web \
 		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(OUT)/we-wrote.itexi \
+		$(quiet-flag) \
 		$(top-src-dir)/Documentation/web/we-wrote.bib
 
 

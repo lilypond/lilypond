@@ -13,8 +13,6 @@ import os
 import glob
 import getopt
 
-print "mass-link.py"
-
 optlist, args = getopt.getopt (sys.argv[1:], '', ['prepend-suffix='])
 link_type, source_dir, dest_dir = args[0:3]
 files = args[3:]
