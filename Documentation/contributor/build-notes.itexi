@@ -479,15 +479,42 @@ The file @file{lily-bib.bst} also has fairly extensive commenting.
 Start here: @file{make/website.make}
 
 The overall build system begins with @ref{How stepmake works}.
+Summary: when you type @code{make website} this ends up running
+@file{GNUmakefile.in} in the @file{git} directory.  Right at the
+bottom, this has the lines:
 
-However, we do believe that note that *none* of the variables that
+@example
+# we want this separate for security; see CG 4.2.  -gp
+website:
+	$(MAKE) config_make=$(config_make) \
+		top-src-dir=$(top-src-dir) \
+		-f $(top-src-dir)/make/website.make \
+		website
+@end example
+
+On my system this expands to:
+
+@example
+make --no-builtin-rules config_make=./config.make \
+		top-src-dir=/home/phil/lilypond-git \
+		-f /home/phil/lilypond-git/make/website.make \
+		website
+@end example
+
+We see that the @code{$(MAKE)} expands to
+@code{make --no-builtin-rules} which is how @code{MAKE} is
+defined higher up the makefile.  The -f switch defines the
+makefile to be used - in this case
+@file{git/make/website.make}.  That's where all the action
+happens.
+
+We believe that note that *none* of the variables that
 are loaded (from depth to version numbers to whatever) are used in
 @file{website.make}.  Instead, @file{website.make} sets up its own
 variables at the top of the file.  If you're wondering if there's
 some smart reason for this, then the answer is "no".  It's because
-I didn't know/trust the original variables when I was writing that
-file.
-
+I (GP) didn't know/trust the original variables when I was writing
+that file.
 
 Website build includes @ref{Building a bibliography}.
 
@@ -500,6 +527,7 @@ build system.  Please run:
 make -n website &> my-file.txt
 @end example
 
+to see the full output from the make.
 
 @subsubheading website.make variables
 
@@ -523,8 +551,14 @@ Parts of @file{website.make}:
 @itemize
 
 @item
+@code{website:}
+this is the "master" rule.  It calls the other rules in order,
+then copies some extra files around - see below for further
+of the process it produces.
+
+@item
 @code{website-version}:
-this calls python scripts to define teinxfo macros.
+this calls the python scripts below:
 
 @itemize
 @item
@@ -568,7 +602,9 @@ of @@node's [sic teenager pluralization rule] from the file.
 
 @item
 @code{website-bib:}
-generates the bibliography texinfo files from the .bib files.
+generates the bibliography texinfo files from the .bib files - in
+the case of the website build these are @file{others-did.bib} and
+@file{we-wrote.bib}.
 
 @item
 @code{website-texinfo:}
@@ -617,13 +653,30 @@ bottom of html pages, and adds the google analytics javascript.
 It also has hard-coded lilypond version numbers, which is Bad
 (tm).
 
-@item
-@code{website:}
-this is the "master" rule.  It calls the bits and pieces in order,
-then copies some extra files around.
-
 @end itemize
 
+Here's a summary of what gets called, in what order, when we run
+@code{make website}
+
+@example
+website:
+  website-texinfo:
+    website-version:
+      creates version.itexi and weblinks.itexi
+    website-xrefs:
+      runs extract_texi_filenames.py
+    website-bibs:
+      creates bibliography files, described above
+  website-css:
+    copies css files
+  website-pictures:
+    copies pictures
+  website-examples:
+    copies examples
+  web-post:
+    runs website_post.py
+  Then some file copying
+@end example
 
 @node Building an Ubuntu distro
 @section Building an Ubuntu distro
