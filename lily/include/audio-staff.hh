@@ -32,6 +32,7 @@ struct Audio_staff : public Audio_element
   Audio_staff ();
   
   bool percussion_;
+  bool merge_unisons_;
   vector<Audio_item*> audio_items_;
 };
 

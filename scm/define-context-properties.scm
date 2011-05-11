@@ -358,6 +358,8 @@ is used for ottava brackets.")
 half staff-spaces.  Usually determined by looking at
 @code{middleCClefPosition} and @code{middleCOffset}.")
      (midiInstrument ,string? "Name of the MIDI instrument to use.")
+     (midiMergeUnisons ,boolean? "If true, output only one MIDI note-on
+event when notes with the same pitch, in the same MIDI-file track, overlap.")
      (midiMaximumVolume ,number? "Analogous to
 @code{midiMinimumVolume}.")
      (midiMinimumVolume ,number? "Set the minimum loudness for MIDI.

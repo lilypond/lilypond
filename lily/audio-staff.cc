@@ -30,7 +30,7 @@ Audio_staff::add_audio_item (Audio_item *ai)
 }
 
 Audio_staff::Audio_staff ()
-  : percussion_ (false)
+  : percussion_ (false), merge_unisons_ (false)
 {
 }
 
