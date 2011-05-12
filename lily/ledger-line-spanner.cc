@@ -320,7 +320,7 @@ Ledger_line_spanner::print (SCM smob)
       Item *h = dynamic_cast<Item *> (heads[i]);
 
       int pos = Staff_symbol_referencer::get_rounded_position (h);
-      if (!staff_extent.contains (pos - sign (pos)))
+      if (!staff_extent.contains (pos - sign (pos)) && !staff_extent.is_empty ())
 	{
 	  Interval head_size = h->extent (common[X_AXIS], X_AXIS);
 	  Interval ledger_size = head_size;
