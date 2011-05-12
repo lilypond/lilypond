@@ -62,7 +62,7 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
 
   Grob *common = common_refpoint_of_array (support, me->get_parent (a), a);
   Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
-  bool include_staff = 
+  bool include_staff =
     staff_symbol
     && a == Y_AXIS
     && scm_is_number (me->get_property ("staff-padding"))
@@ -92,7 +92,7 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
 	  && Stem::has_interface (e)
 	  && dir == - get_grob_direction (e))
 	continue;
-      
+
       if (e)
 	{
 	  if (use_extents)
@@ -136,8 +136,8 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
   if (current_offset)
     total_off = dir * max (dir * total_off,
 			   dir * (*current_offset));
-  
-  
+
+
   /* FIXME: 1000 should relate to paper size.  */
   if (fabs (total_off) > 1000)
     {
@@ -149,6 +149,7 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
       if (strict_infinity_checking)
 	scm_misc_error (__FUNCTION__, "Improbable offset.", SCM_EOL);
     }
+
   return scm_from_double (total_off);
 }
 
@@ -157,15 +158,15 @@ MAKE_SCHEME_CALLBACK (Side_position_interface, y_aligned_on_support_refpoints, 1
 SCM
 Side_position_interface::y_aligned_on_support_refpoints (SCM smob)
 {
-  return general_side_position (unsmob_grob (smob), Y_AXIS, false, false, false, 0, 0, 0); 
+  return general_side_position (unsmob_grob (smob), Y_AXIS, false, false, false, 0, 0, 0);
 }
 
 MAKE_SCHEME_CALLBACK (Side_position_interface, pure_y_aligned_on_support_refpoints, 3);
 SCM
 Side_position_interface::pure_y_aligned_on_support_refpoints (SCM smob, SCM start, SCM end)
 {
-  return general_side_position (unsmob_grob (smob), Y_AXIS, false, false, 
-				true, scm_to_int (start), scm_to_int (end), 0); 
+  return general_side_position (unsmob_grob (smob), Y_AXIS, false, false,
+				true, scm_to_int (start), scm_to_int (end), 0);
 }
 
 
@@ -180,9 +181,9 @@ axis_aligned_side_helper (SCM smob, Axis a, bool pure, int start, int end, SCM c
   if (scm_is_number (current_off_scm))
     {
       r = scm_to_double (current_off_scm);
-      current_off_ptr = &r; 
+      current_off_ptr = &r;
     }
-  
+
   return Side_position_interface::aligned_side (unsmob_grob (smob), a, pure, start, end, current_off_ptr);
 }
 
@@ -255,7 +256,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
 	  if (fabs (position) <= 2 * Staff_symbol_referencer::staff_radius (me) + 1
 	      /* In case of a ledger lines, quantize even if we're outside the staff. */
 	      || (Note_head::has_interface (head)
-		  
+
 		  && abs (Staff_symbol_referencer::get_position (head)) > abs (position)))
 	    {
 	      o += (rounded - position) * 0.5 * ss;
@@ -266,16 +267,20 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       else if (scm_is_number (me->get_property ("staff-padding")) && dir)
 	{
 	  Interval iv = me->maybe_pure_extent (me, a, pure, start, end);
-	  
- 	  Real padding
+
+ 	  Real staff_padding
 	    = Staff_symbol_referencer::staff_space (me)
 	    * scm_to_double (me->get_property ("staff-padding"));
 
-	  Grob *common = me->common_refpoint (staff, Y_AXIS);
-
-	  Interval staff_size = staff->maybe_pure_extent (common, Y_AXIS, pure, start, end);
-	  Real diff = dir*staff_size[dir] + padding - dir * (o + iv[-dir]);
-	  o += dir * max (diff, 0.0);
+          Grob *parent = me->get_parent (Y_AXIS);
+          Grob *common = me->common_refpoint (staff, Y_AXIS);
+          Real parent_position = parent->maybe_pure_coordinate (common, Y_AXIS, pure, start, end);
+          Real staff_position = staff->maybe_pure_coordinate (common, Y_AXIS, pure, start, end);
+          Interval staff_extent = staff->maybe_pure_extent (staff, a, pure, start, end);
+          Real diff = (dir * staff_extent[dir] + staff_padding
+                       - dir * (o + iv[-dir])
+                       + dir * (staff_position - parent_position));
+          o += dir * max (diff, 0.0);
 	}
     }
   return scm_from_double (o);
@@ -300,7 +305,7 @@ Side_position_interface::get_axis (Grob *me)
 {
   if (scm_is_number (me->get_property ("side-axis")))
     return Axis (scm_to_int (me->get_property ("side-axis")));
-  
+
   string msg = String_convert::form_string ("side-axis not set for grob %s.",
 					    me->name ().c_str ());
   me->programming_error (msg);
