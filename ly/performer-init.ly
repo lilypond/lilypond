@@ -137,7 +137,7 @@
 
   melismaBusyProperties = #default-melisma-properties
   instrumentName = #"bright acoustic"
-  midiChannelMapping = #'instrument
+  midiChannelMapping = #'staff
 
   %% quarter = 60
   tempoWholesPerMinute = #(ly:make-moment 15 1)
