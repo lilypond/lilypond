@@ -3556,7 +3556,7 @@ Patterns are aligned to the @var{dir} markup.
          (pattern-width (interval-length pattern-x-extent))
          (left-width (interval-length (ly:stencil-extent (interpret-markup layout props left) X)))
          (right-width (interval-length (ly:stencil-extent (interpret-markup layout props right) X)))
-         (middle-width (- line-width (+ (+ left-width right-width) (* word-space 2))))
+         (middle-width (max 0 (- line-width (+ (+ left-width right-width) (* word-space 2)))))
          (period (+ space pattern-width))
          (count (truncate (/ (- middle-width pattern-width) period)))
          (x-offset (+ (* (- (- middle-width (* count period)) pattern-width) (/ (1+ dir) 2)) (abs (car pattern-x-extent)))))
