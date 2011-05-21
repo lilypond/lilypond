@@ -589,7 +589,7 @@ and duration-log @var{log}."
      (ly:stencil-translate-axis rp (+ (cdr x-ext) padding) X))))
 
 
-(define (parentheses-item::print me)
+(define-public (parentheses-item::print me)
   (let* ((elts (ly:grob-object me 'elements))
 	 (y-ref (ly:grob-common-refpoint-of-array me elts Y))
 	 (x-ref (ly:grob-common-refpoint-of-array me elts X))
