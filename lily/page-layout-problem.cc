@@ -312,7 +312,7 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real inde
   springs_.push_back (spring_copy);
 
   bottom_skyline_ = down_skyline;
-  elements_.push_back (Element (elts, minimum_offsets));
+  elements_.push_back (Element (elts, minimum_offsets, padding));
 
   // Add the springs for the VerticalAxisGroups in this system.
 
@@ -398,7 +398,7 @@ Page_layout_problem::append_prob (Prob *prob, Spring const& spring, Real padding
     spring_copy.ensure_min_distance (minimum_distance + padding);
 
   springs_.push_back (spring_copy);
-  elements_.push_back (Element (prob));
+  elements_.push_back (Element (prob, padding));
 }
 
 void
@@ -462,7 +462,8 @@ Page_layout_problem::find_system_offsets ()
 	  if (loose_lines.size ())
 	    {
 	      Interval loose_extent = loose_lines.back ()->extent (loose_lines.back (), Y_AXIS);
-	      Real min_distance = -loose_extent[DOWN] + prob_extent[UP]; // TODO: include padding/minimum-distance
+	      Real min_distance = (-loose_extent[DOWN] + prob_extent[UP]
+				   + elements_[i].padding);
 
 	      loose_line_min_distances.push_back (min_distance);
 	      loose_lines.push_back (0);
@@ -513,7 +514,10 @@ Page_layout_problem::find_system_offsets ()
 		  // the last one.
 		  if (loose_lines.size ())
 		    {
-		      loose_line_min_distances.push_back (min_offsets[staff_idx-1] - min_offsets[staff_idx]);
+		      if (staff_idx)
+			loose_line_min_distances.push_back (min_offsets[staff_idx-1] - min_offsets[staff_idx]);
+		      else
+			loose_line_min_distances.push_back (elements_[i].padding - min_offsets[staff_idx]);
 		      loose_lines.push_back (staff);
 
 		      distribute_loose_lines (loose_lines, loose_line_min_distances,
@@ -536,18 +540,20 @@ Page_layout_problem::find_system_offsets ()
 		  if (staff_idx)
 		    loose_line_min_distances.push_back (min_offsets[staff_idx-1] - min_offsets[staff_idx]);
 		  else
-		    {
+		    { // this is the first line in a system
 		      Real min_dist = 0;
 		      if (loose_lines.back ())
-			min_dist = Axis_group_interface::minimum_distance (loose_lines.back (),
-									   staff,
-									   Y_AXIS);
+			// distance to the final line in the preceding system,
+			// including 'system-system-spacing 'padding
+			min_dist = (Axis_group_interface::minimum_distance (loose_lines.back (),
+									    staff,
+									    Y_AXIS)
+				    + elements_[i].padding);
 		      else if (!last_title_extent.is_empty ())
-			{ // distance to the preceding title
-			  // TODO: add options for controlling the space between a loose line
-			  // and a title/markup preceding it.
-			  min_dist = staff->extent (staff, Y_AXIS)[UP] - last_title_extent[DOWN];
-			}
+			// distance to the preceding title,
+			//  including 'markup-system-spacing 'padding
+			min_dist = (staff->extent (staff, Y_AXIS)[UP] - last_title_extent[DOWN]
+				    + elements_[i].padding);
 		      else // distance to the top margin
 			min_dist = header_padding_ + header_height_ + staff->extent (staff, Y_AXIS)[UP];
 
