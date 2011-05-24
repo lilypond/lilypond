@@ -15,8 +15,9 @@ next system."
   \score {
     <<
       \chords { s1 \break d1 }
-      \relative c { c1 c1 }
+      \new Staff = "s" { c1 c1 }
       \addlyrics { word }
+      \addlyrics { \set alignAboveContext = "s" _ up }
     >>
   }
 }
