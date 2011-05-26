@@ -413,12 +413,22 @@ the current tuning?"
                                  (_ "Requested string for pitch requires negative fret: string ~a pitch ~a")
                                  string
                                  pitch)
-			       (ly:warning (_ "Ignoring string request."))
+			       (ly:warning (_ "Ignoring string requesti and recalculating."))
                                (list-set! string-fret-fingers
                                           (cdr pitch-entry)
                                           (if (null? finger)
                                               (list '() #f)
-                                              (list '() #f finger)))))))))))
+                                              (list '() #f finger)))))
+		            ((eq? handle-negative 'ignore)
+			     (begin
+                               (ly:warning
+                                 (_ "Requested string for pitch requires negative fret: string ~a pitch ~a")
+                                 string
+                                 pitch)
+			       (ly:warning (_ "Ignoring note in tablature."))
+                               (list-set! string-fret-fingers
+                                          (cdr pitch-entry)
+                                          (list #f #t))))))))))
         pitch-alist string-fret-fingers)
     ;; handle notes without strings assigned -- sorted by pitch, so
     ;; we need to use the alist to have the note number available
