@@ -413,7 +413,7 @@ the current tuning?"
                                  (_ "Requested string for pitch requires negative fret: string ~a pitch ~a")
                                  string
                                  pitch)
-			       (ly:warning (_ "Ignoring string requesti and recalculating."))
+			       (ly:warning (_ "Ignoring string request and recalculating."))
                                (list-set! string-fret-fingers
                                           (cdr pitch-entry)
                                           (if (null? finger)
