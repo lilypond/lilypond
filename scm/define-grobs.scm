@@ -856,7 +856,7 @@
 	;; sync with TextScript (?)
 
 	(avoid-slur . around)
-	(cross-staff . ,ly:side-position-interface::calc-cross-staff)
+	(cross-staff . ,script-or-side-position-cross-staff)
 	(direction . ,ly:script-interface::calc-direction)
 	(font-encoding . fetaText)
 	(font-size . -5) 		; don't overlap when next to heads.
@@ -1955,6 +1955,7 @@
     (StringNumber
      . (
 	(avoid-slur . around)
+	(cross-staff . ,script-or-side-position-cross-staff)
 	(font-encoding . fetaText)
 	(font-size . -5) 		; don't overlap when next to heads.
 	(padding . 0.5)
@@ -2139,7 +2140,7 @@
     (TextScript
      . (
 	(avoid-slur . around)
-	(cross-staff . ,ly:script-interface::calc-cross-staff)
+	(cross-staff . ,script-or-side-position-cross-staff)
 	(direction . ,DOWN)
 	(extra-spacing-width . (+inf.0 . -inf.0))
 	(outside-staff-priority . 450)

@@ -57,6 +57,15 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; cross-staff stuff
+
+(define-public (script-or-side-position-cross-staff g)
+  (or
+   (ly:script-interface::calc-cross-staff g)
+   (ly:side-position-interface::calc-cross-staff g)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; note heads
 
 (define-public (stem::calc-duration-log grob)
