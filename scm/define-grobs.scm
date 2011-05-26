@@ -1309,6 +1309,8 @@
 	(staff-position . 0)
 	(stencil . ,ly:multi-measure-rest::print)
 	(thick-thickness . 6.6)
+	;; See Wanske pp. 125
+	(usable-duration-logs . (0 -1 -2 -3))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface

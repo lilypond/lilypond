@@ -22,6 +22,7 @@
 #include "font-interface.hh"
 #include "lookup.hh"
 #include "misc.hh"
+#include "moment.hh"
 #include "output-def.hh"
 #include "paper-column.hh" // urg
 #include "percent-repeat-item.hh"
@@ -118,6 +119,34 @@ Multi_measure_rest::print (SCM smob)
   return mol.smobbed_copy ();
 }
 
+int
+measure_duration_log (Grob *me)
+{
+  SCM sml = dynamic_cast<Spanner *> (me)->get_bound (LEFT)
+                                        ->get_property ("measure-length");
+  bool round = to_boolean (me->get_property ("round-to-longer-rest"));
+  Rational ml = (unsmob_moment (sml)) ? unsmob_moment (sml)->main_part_ : Rational (1);
+
+  double duration_log = -log2 (ml.Rational::to_double ());
+  int measure_duration_log = int (ceil (duration_log));
+  if (round && duration_log - measure_duration_log < 0)
+    measure_duration_log--;
+
+  SCM duration_logs_list = me->get_property ("usable-duration-logs");
+  int closest_list_elt = -15; // -15 is out of range.
+
+  for (int i = 0; i < scm_to_int (scm_length (duration_logs_list)); i++)
+  {
+    int list_elt = scm_to_int (scm_list_ref (duration_logs_list, scm_from_int (i)));
+    int shortest_distance = abs (measure_duration_log - closest_list_elt);
+    int distance = abs (measure_duration_log - list_elt);
+    if (distance < shortest_distance)
+      closest_list_elt = list_elt;
+  }
+
+  return closest_list_elt;
+}
+
 Stencil
 Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 {
@@ -140,32 +169,16 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   Font_metric *musfont = Font_interface::get_default_font (me);
+  int mdl = measure_duration_log (me);
 
-  SCM sml = me->get_property ("use-breve-rest");
   if (measures == 1)
     {
-      if (to_boolean (sml))
-	{
-	  Stencil s = musfont->find_by_name (Rest::glyph_name (me, -1, "", false));
+      Stencil s = musfont->find_by_name (Rest::glyph_name (me, mdl, "", true));
+      if (mdl == 0 && Staff_symbol_referencer::get_position (me) == 0.0)
+        s.translate_axis (staff_space, Y_AXIS);
 
-	  s.translate_axis ((space - s.extent (X_AXIS).length ()) / 2, X_AXIS);
-
-	  return s;
-	}
-      else
-	{
-	  Stencil s = musfont->find_by_name (Rest::glyph_name (me, 0, "", true));
-
-	  /*
-	    ugh.
-	  */
-	  if (Staff_symbol_referencer::get_position (me) == 0.0)
-	    s.translate_axis (staff_space, Y_AXIS);
-
-	  s.translate_axis ((space - s.extent (X_AXIS).length ()) / 2, X_AXIS);
-
-	  return s;
-	}
+      s.translate_axis ((space - s.extent (X_AXIS).length ()) / 2, X_AXIS);
+      return s;
     }
   else
     return church_rest (me, musfont, measures, space);
@@ -208,63 +221,46 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measures,
 {
   SCM mols = SCM_EOL;
 
-  /* See Wanske pp. 125  */
   int l = measures;
   int count = 0;
   Real symbols_width = 0.0;
-
-  bool use_breve = to_boolean (me->get_property ("use-breve-rest"));
+  SCM duration_logs_list = me->get_property ("usable-duration-logs");
+  int longest_church_rest = 10; // 10 is out of range.
+  for (int i = 0; i < scm_to_int (scm_length (duration_logs_list)); i++)
+  {
+    longest_church_rest = min (longest_church_rest,
+                               scm_to_int (scm_list_ref (duration_logs_list,
+                                                         scm_from_int (i))));
+  }
 
   while (l)
+  {
+    int k;
+    int i = longest_church_rest - 1;
+    int length;
+    int mdl = measure_duration_log (me);
+
+    do
     {
-      if (use_breve)
-	{
-	  int k;
-	  if (l >= 2)
-	    {
-	      l -= 2;
-	      k = -2;
-	    }
-	  else
-	    {
-	      l -= 1;
-	      k = -1;
-	    }
-
-	  Stencil r (musfont->find_by_name ("rests." + to_string (k)));
-	  symbols_width += r.extent (X_AXIS).length ();
-	  mols = scm_cons (r.smobbed_copy (), mols);
-	}
-      else
-	{
-	  int k;
-	  if (l >= 4)
-	    {
-	      l -= 4;
-	      k = -2;
-	    }
-	  else if (l >= 2)
-	    {
-	      l -= 2;
-	      k = -1;
-	    }
-	  else
-	    {
-	      k = 0;
-	      l--;
-	    }
-
-	  Stencil r (musfont->find_by_name ("rests." + to_string (k)));
-	  if (k == 0)
-	    {
-	      Real staff_space = Staff_symbol_referencer::staff_space (me);
-	      r.translate_axis (staff_space, Y_AXIS);
-	    }
-	  symbols_width += r.extent (X_AXIS).length ();
-	  mols = scm_cons (r.smobbed_copy (), mols);
-	}
-      count++;
+      i++;
+      length = int (pow (2, -i));
     }
+    while (i <= 0 &&
+           !(l >= length && mdl >= longest_church_rest - i));
+
+    l -= length;
+    k = mdl + i;
+
+    Stencil r (musfont->find_by_name ("rests." + to_string (k)));
+    if (k == 0)
+    {
+      Real staff_space = Staff_symbol_referencer::staff_space (me);
+      r.translate_axis (staff_space, Y_AXIS);
+    }
+    symbols_width += r.extent (X_AXIS).length ();
+    mols = scm_cons (r.smobbed_copy (), mols);
+    count++;
+  }
 
   /* Make outer padding this much bigger.  */
   Real outer_padding_factor = 1.5;
@@ -367,7 +363,8 @@ ADD_INTERFACE (Multi_measure_rest,
 	       "hair-thickness "
 	       "measure-count "
 	       "minimum-length "
+	       "round-to-longer-rest "
 	       "spacing-pair "
 	       "thick-thickness "
-	       "use-breve-rest "
+               "usable-duration-logs "
 	       );
