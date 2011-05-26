@@ -33,7 +33,8 @@ public:
   static Real get_line_thickness (Grob *);
   static Real get_ledger_line_thickness (Grob *);
 
-  static int get_steps (Grob *);
+  static vector<Real> line_positions (Grob *);
+  static vector<Real> ledger_positions (Grob *me, int pos);
   static int line_count (Grob *);
   static bool on_line (Grob *me, int pos);
   static Interval line_span (Grob *);

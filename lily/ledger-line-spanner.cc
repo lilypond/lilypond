@@ -32,60 +32,8 @@ struct Ledger_line_spanner
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
-  static Stencil brew_ledger_lines (Grob *me,
-                                    int pos,
-                                    Interval,
-                                    Real, Real,
-                                    Interval x_extent,
-                                    Real left_shorten);
-
   DECLARE_GROB_INTERFACE ();
 };
-
-Stencil
-Ledger_line_spanner::brew_ledger_lines (Grob *staff,
-                                        int pos,
-                                        Interval staff_extent,
-                                        Real halfspace,
-                                        Real ledgerlinethickness,
-                                        Interval x_extent,
-                                        Real left_shorten)
-{
-  int line_count = (staff_extent.contains (pos)
-                    ? 0
-                    : sign (pos) * int (rint (pos - staff_extent[Direction (sign (pos))])) / 2);
-  Stencil stencil;
-  if (line_count)
-    {
-      Real blotdiameter = ledgerlinethickness;
-      Interval y_extent
-        = Interval (-0.5 * (ledgerlinethickness),
-                    +0.5 * (ledgerlinethickness));
-      Stencil proto_ledger_line
-        = Lookup::round_filled_box (Box (x_extent, y_extent), blotdiameter);
-
-      x_extent[LEFT] += left_shorten;
-      Stencil proto_first_line
-        = Lookup::round_filled_box (Box (x_extent, y_extent), blotdiameter);
-
-      Direction dir = (Direction)sign (pos);
-      Real offs = (Staff_symbol_referencer::on_line (staff, pos))
-                  ? 0.0
-                  : -dir * halfspace;
-
-      offs += pos * halfspace;
-      for (int i = 0; i < line_count; i++)
-        {
-          Stencil ledger_line ((i == 0)
-                               ? proto_first_line
-                               : proto_ledger_line);
-          ledger_line.translate_axis (-dir * halfspace * i * 2 + offs, Y_AXIS);
-          stencil.add_stencil (ledger_line);
-        }
-    }
-
-  return stencil;
-}
 
 static void
 set_rods (Drul_array<Interval> const &current_extents,
@@ -236,7 +184,6 @@ Ledger_line_spanner::print (SCM smob)
     = robust_scm2double (me->get_property ("length-fraction"), 0.25);
 
   Stencil ledgers;
-  Stencil default_ledger;
 
   Grob *common[NO_AXES];
 
@@ -320,38 +267,56 @@ Ledger_line_spanner::print (SCM smob)
       Item *h = dynamic_cast<Item *> (heads[i]);
 
       int pos = Staff_symbol_referencer::get_rounded_position (h);
-      if (!staff_extent.contains (pos - sign (pos)) && !staff_extent.is_empty ())
+      vector<Real> ledger_positions = Staff_symbol::ledger_positions (staff, pos);
+      if (!ledger_positions.empty ())
         {
+          int ledger_count = ledger_positions.size ();
           Interval head_size = h->extent (common[X_AXIS], X_AXIS);
           Interval ledger_size = head_size;
           ledger_size.widen (ledger_size.length () * length_fraction);
 
-          Interval max_size = reqs[h->get_column ()->get_rank ()]
-                              [Direction (sign (pos))].ledger_extent_;
-
-          ledger_size.intersect (max_size);
-          Real left_shorten = 0.0;
-          if (Grob *g = unsmob_grob (h->get_object ("accidental-grob")))
+          if (pos && !staff_extent.contains (pos))
             {
-              Interval accidental_size = g->extent (common[X_AXIS], X_AXIS);
-              Real d
-                = linear_combination (Drul_array<Real> (accidental_size[RIGHT],
-                                                        head_size[LEFT]),
-                                      0.0);
+              Interval max_size = reqs[h->get_column ()->get_rank ()]
+                                  [Direction (sign (pos))].ledger_extent_;
 
-              left_shorten = max (-ledger_size[LEFT] + d, 0.0);
-
-              /*
-                TODO: shorten 2 ledger lines for the case natural +
-                downstem.
-              */
+              if (!max_size.is_empty ())
+                ledger_size.intersect (max_size);
             }
 
-          ledgers.add_stencil (brew_ledger_lines (staff, pos, staff_extent,
-                                                  halfspace,
-                                                  ledgerlinethickness,
-                                                  ledger_size,
-                                                  left_shorten));
+          for (int i = 0; i < ledger_count; i++)
+            {
+              Real lpos = ledger_positions[i];
+              Interval x_extent = ledger_size;
+
+              if (i == 0)
+                if (Grob *g = unsmob_grob (h->get_object ("accidental-grob")))
+                  {
+                    Interval accidental_size = g->extent (common[X_AXIS], X_AXIS);
+                    Real d
+                      = linear_combination (Drul_array<Real> (accidental_size[RIGHT],
+                                                            head_size[LEFT]),
+                                          0.0);
+
+                    Real left_shorten = max (-ledger_size[LEFT] + d, 0.0);
+
+                    x_extent[LEFT] += left_shorten;
+                    /*
+                      TODO: shorten 2 ledger lines for the case natural +
+                      downstem.
+                    */
+                  }
+
+              Real blotdiameter = ledgerlinethickness;
+              Interval y_extent
+                = Interval (-0.5 * (ledgerlinethickness),
+                            +0.5 * (ledgerlinethickness));
+              Stencil ledger_line
+                = Lookup::round_filled_box (Box (x_extent, y_extent), blotdiameter);
+
+              ledger_line.translate_axis ( lpos * halfspace, Y_AXIS);
+              ledgers.add_stencil (ledger_line);
+            }
         }
     }
 

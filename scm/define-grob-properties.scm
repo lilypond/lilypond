@@ -498,10 +498,14 @@ objects.  Objects with the lowest value of layer are drawn first, then
 objects with progressively higher values are drawn, so objects with
 higher values overwrite objects with lower values.  By default most
 objects are assigned a layer value of 1.")
+     (ledger-extra ,ly:dimension? "Extra distance from staff line to draw ledger
+lines for.")
      (ledger-line-thickness ,number-pair? "The thickness of ledger
 lines.  It is the sum of 2@tie{}numbers: The first is the factor for
 line thickness, and the second for staff space.  Both contributions
 are added.")
+     (ledger-positions ,list? "Repeating pattern for the vertical positions
+of ledger lines.  Bracketed groups are always shown together.")
      (left-bound-info ,list? "An alist of properties for determining
 attachments of spanners to edges.")
      (left-padding ,ly:dimension? "The amount of space that is put

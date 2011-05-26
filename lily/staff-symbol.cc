@@ -78,52 +78,172 @@ Staff_symbol::print (SCM smob)
 
   Stencil m;
 
-  SCM line_positions = me->get_property ("line-positions");
+  vector<Real> line_positions = Staff_symbol::line_positions (me);
+  int line_count = line_positions.size ();
+
   Stencil line
     = Lookup::horizontal_line (span_points
                                - me->relative_coordinate (common, X_AXIS),
                                t);
 
   Real space = staff_space (me);
-  if (scm_is_pair (line_positions))
+  for (int i = 0; i < line_count; i++)
     {
-      for (SCM s = line_positions; scm_is_pair (s);
-           s = scm_cdr (s))
-        {
-          Stencil b (line);
-          b.translate_axis (scm_to_double (scm_car (s))
-                            * 0.5 * space, Y_AXIS);
-          m.add_stencil (b);
-        }
-    }
-  else
-    {
-      int l = Staff_symbol::line_count (me);
-      Real height = (l - 1) * staff_space (me) / 2;
-      for (int i = 0; i < l; i++)
-        {
-          Stencil b (line);
-          b.translate_axis (height - i * space, Y_AXIS);
-          m.add_stencil (b);
-        }
+      Stencil b (line);
+      b.translate_axis (line_positions[i] * 0.5 * space, Y_AXIS);
+      m.add_stencil (b);
     }
   return m.smobbed_copy ();
 }
 
-int
-Staff_symbol::get_steps (Grob *me)
+vector<Real>
+Staff_symbol::line_positions (Grob *me)
 {
-  return line_count (me) * 2;
+  SCM line_positions = me->get_property ("line-positions");
+  if (scm_is_pair (line_positions))
+    {
+      int line_count = scm_ilength (line_positions);
+      vector<Real> values (line_count);
+      int i = 0;
+      for (SCM s = line_positions; scm_is_pair (s);
+           s = scm_cdr (s))
+        {
+          values[i++] = scm_to_double (scm_car (s));
+        }
+      return values;
+    }
+  else
+    {
+      int line_count = Staff_symbol::line_count (me);
+      Real height = line_count - 1;
+      vector<Real> values (line_count);
+      for (int i = 0; i < line_count; i++)
+        {
+          values[i] = height - i * 2;
+        }
+      return values;
+    }
+}
+
+vector<Real>
+Staff_symbol::ledger_positions (Grob *me, int pos)
+{
+  SCM ledger_positions = me->get_property ("ledger-positions");
+  Real ledger_extra = robust_scm2double (me->get_property ("ledger-extra"), 0);
+  vector<Real> line_positions = Staff_symbol::line_positions (me);
+  vector<Real> values;
+
+  if (line_positions.empty ())
+    return values;
+
+  int line_count = line_positions.size ();
+
+  // find the staff line nearest to note position
+  Real nearest_line = line_positions[0];
+  Real line_dist = abs (line_positions[0] - pos);
+  for (int i = 1; i < line_count; i++)
+    {
+      if (abs (line_positions[i] - pos) < line_dist)
+        {
+          nearest_line = line_positions[i];
+          line_dist = abs (line_positions[i] - pos);
+        }
+    }
+
+  if (line_dist < .5)
+    return values;
+
+  Direction dir = (Direction)sign (pos - nearest_line);
+
+  if (scm_is_pair (ledger_positions))
+    {
+      Real min_pos = HUGE_VAL;
+      Real max_pos = -HUGE_VAL;
+      SCM s2;
+
+      // find the extent of the ledger pattern
+      for (SCM s = ledger_positions; scm_is_pair (s); s = scm_cdr (s))
+        {
+          s2 = scm_car (s);
+          if (!scm_is_number (s2))
+            s2 = scm_car (s2);
+          Real current_ledger = scm_to_double (s2);
+          if (current_ledger > max_pos)
+            max_pos = current_ledger;
+          if (current_ledger < min_pos)
+            min_pos = current_ledger;
+        }
+
+      Real cycle = max_pos - min_pos;
+
+      Interval ledger_fill;
+      ledger_fill.add_point (nearest_line + 0.5 * dir);
+      ledger_fill.add_point (pos + 0.5 * dir + ledger_extra * dir);
+
+      // fill the Interval ledger_fill with ledger lines
+      int n = floor ((ledger_fill[DOWN] - min_pos) / cycle);
+      Real current;
+      SCM s = scm_cdr (ledger_positions);
+      do
+        {
+          s2 = scm_car (s);
+          if (scm_is_number (s2))
+            {
+              current = scm_to_double (s2) + n * cycle;
+              if (ledger_fill.contains (current))
+                values.push_back (current);
+            }
+          else
+            // grouped ledger lines, either add all or none
+            {
+              do
+                {
+                  current = scm_to_double (scm_car (s2)) + n * cycle;
+                  if (ledger_fill.contains (current))
+                    {
+                      s2 = scm_car (s);
+                      do
+                        {
+                          current = scm_to_double (scm_car (s2)) + n * cycle;
+                          values.push_back (current);
+                          s2 = scm_cdr (s2);
+                        }
+                      while (scm_is_pair (s2));
+                    }
+                  else
+                    s2 = scm_cdr (s2);
+                }
+              while (scm_is_pair (s2));
+            }
+          s = scm_cdr (s);
+          if (!scm_is_pair (s))
+            {
+              s = scm_cdr (ledger_positions);
+              n++;
+            }
+        }
+      while (current <= ledger_fill[UP]);
+    }
+  else
+    {
+      int ledger_count = floor ((abs (nearest_line - pos) + ledger_extra) / 2);
+      values.resize (ledger_count);
+      for (int i = 0; i < ledger_count; i++)
+        {
+          values[i] = nearest_line + dir * (ledger_count - i) * 2;
+        }
+    }
+  return values;
 }
 
 int
 Staff_symbol::line_count (Grob *me)
 {
-  SCM c = me->get_property ("line-count");
-  if (scm_is_number (c))
-    return scm_to_int (c);
+  SCM line_positions = me->get_property ("line-positions");
+  if (scm_is_pair (line_positions))
+    return scm_ilength (line_positions);
   else
-    return 0;
+    return robust_scm2int (me->get_property ("line-count"), 0);
 }
 
 Real
@@ -234,7 +354,9 @@ ADD_INTERFACE (Staff_symbol,
                " @code{width} property.",
 
                /* properties */
+               "ledger-extra "
                "ledger-line-thickness "
+               "ledger-positions "
                "line-count "
                "line-positions "
                "staff-space "
