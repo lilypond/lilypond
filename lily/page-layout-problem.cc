@@ -496,7 +496,6 @@ Page_layout_problem::find_system_offsets ()
 	  Real system_position = first_staff_position + first_staff_min_translation;
 
 	  // Position the staves within this system.
-	  Real translation = 0;
 	  vector<Real> const& min_offsets = elements_[i].min_offsets;
 	  bool found_spaceable_staff = false;
 	  for (vsize staff_idx = 0; staff_idx < elements_[i].staves.size (); ++staff_idx)
@@ -507,8 +506,7 @@ Page_layout_problem::find_system_offsets ()
 	      if (is_spaceable (staff))
 		{
 		  // this is relative to the system: negative numbers are down.
-		  translation = system_position - solution_[spring_idx];
-		  spring_idx++;
+		  staff->translate_axis (system_position - solution_[spring_idx], Y_AXIS);
 
 		  // Lay out any non-spaceable lines between this line and
 		  // the last one.
@@ -521,15 +519,14 @@ Page_layout_problem::find_system_offsets ()
 		      loose_lines.push_back (staff);
 
 		      distribute_loose_lines (loose_lines, loose_line_min_distances,
-					      last_spaceable_line_translation, translation - system_position);
+					      last_spaceable_line_translation, -solution_[spring_idx]);
 		      loose_lines.clear ();
 		      loose_line_min_distances.clear ();
 		    }
 		  last_spaceable_line = staff;
-		  last_spaceable_line_translation = -solution_[spring_idx - 1];
-
-		  staff->translate_axis (translation, Y_AXIS);
+		  last_spaceable_line_translation = -solution_[spring_idx];
 		  found_spaceable_staff = true;
+		  spring_idx++;
 		}
 	      else
 		{

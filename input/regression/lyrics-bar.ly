@@ -31,7 +31,7 @@ lyrics do not collide with barlines.
 \layout {
   \context {
     \Lyrics
-      \override VerticalAxisGroup #'nonstaff-nonstaff-spacing #'minimum-distance = #4
+      \override VerticalAxisGroup #'nonstaff-nonstaff-spacing #'minimum-distance = #4.2
       \override LyricText #'Y-offset = #-0.7
       \override BarLine #'bar-extent = #'(-2 . 2)
   }
