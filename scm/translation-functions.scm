@@ -355,6 +355,9 @@ the current tuning?"
                    (cdr pitch-entry)
                    (list string this-fret finger))))
 
+    (define (kill-note! string-fret-fingers note-index)
+      (list-set! string-fret-fingers note-index (list #f #t)))
+
     (define string-fret-fingers
              (map (lambda (string finger)
                     (if (null? finger)
@@ -426,9 +429,8 @@ the current tuning?"
                                  string
                                  pitch)
 			       (ly:warning (_ "Ignoring note in tablature."))
-                               (list-set! string-fret-fingers
-                                          (cdr pitch-entry)
-                                          (list #f #t))))))))))
+                               (kill-note! string-fret-fingers
+                                           (cdr pitch-entry))))))))))
         pitch-alist string-fret-fingers)
     ;; handle notes without strings assigned -- sorted by pitch, so
     ;; we need to use the alist to have the note number available
@@ -448,9 +450,12 @@ the current tuning?"
           (if (not (list-ref string-fret-finger 1))
 	      (if fit-string
                   (set-fret! pitch-entry fit-string finger)
-	          (ly:warning (_ "No string for pitch ~a (given frets ~a)")
-		              pitch
-                              specified-frets)))))
+	          (begin
+                    (ly:warning (_ "No string for pitch ~a (given frets ~a)")
+		                pitch
+                                specified-frets)
+                    (kill-note! string-fret-fingers
+                                (cdr pitch-entry)))))))
       (sort pitch-alist (lambda (pitch-entry-a pitch-entry-b)
                           (ly:pitch<? (car pitch-entry-b)
                                       (car pitch-entry-a)))))
@@ -524,7 +529,10 @@ chords.  Returns a placement-list."
                 string-frets
                 (create-fretboard
                  context grob (string-frets->placement-list
-                                string-frets string-count))))
+                                (filter (lambda (entry)
+                                          (car entry))
+                                        string-frets)
+                                string-count))))
          (if (null? grob)
              (placement-list->string-frets predefined-fretboard)
              (create-fretboard context grob predefined-fretboard)))))
