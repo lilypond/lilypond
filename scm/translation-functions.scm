@@ -348,7 +348,7 @@ the current tuning?"
 				  tuning)))
 	(if (< this-fret 0)
 	  (ly:warning (_ "Negative fret for pitch ~a on string ~a")
-		      (note-pitch note) string))
+		      (car pitch-entry) string))
 	(delete-free-string string)
         (set! specified-frets (cons this-fret specified-frets))
         (list-set! string-fret-fingers
