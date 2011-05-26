@@ -183,6 +183,13 @@ Align_interface::internal_get_minimum_translations (Grob *me,
 {
   if (!pure && a == Y_AXIS && dynamic_cast<Spanner*> (me) && !me->get_system ())
     me->programming_error ("vertical alignment called before line-breaking");
+
+  // If include_fixed_spacing is true, we look at things like system-system-spacing
+  // and alignment-distances, which only make sense for the toplevel VerticalAlignment.
+  // If we aren't toplevel, we're working on something like BassFigureAlignment
+  // and so we definitely don't want to include alignment-distances!
+  if (!dynamic_cast<System*> (me->get_parent (Y_AXIS)))
+    include_fixed_spacing = false;
   
   Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
 					   DOWN);
