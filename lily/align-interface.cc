@@ -168,9 +168,11 @@ Align_interface::get_minimum_translations_without_min_dist (Grob *me,
 }
 
 // If include_fixed_spacing is false, the only constraints that will be measured
-// here are those that result from collisions (+ padding).  That is, all
-// minimum-distances, line-break-system-details, basic-distance+stretchable=0
-// constraints will be ignored.
+// here are those that result from collisions (+ padding) and minimum-distance
+// between adjacent staves.
+// If include_fixed_spacing is true, constraints from line-break-system-details,
+// basic-distance+stretchable=0, and staff-staff-spacing of spaceable staves
+// with loose lines in between, are included as well.
 // - If you want to find the minimum height of a system, include_fixed_spacing should be true.
 // - If you're going to actually lay out the page, then it should be false (or
 //   else centered dynamics will break when there is a fixed alignment).
@@ -204,6 +206,7 @@ Align_interface::internal_get_minimum_translations (Grob *me,
   Skyline down_skyline (stacking_dir);
   Real last_spaceable_element_pos = 0;
   Grob *last_spaceable_element = 0;
+  Skyline last_spaceable_skyline (stacking_dir);
   int spaceable_count = 0;
   for (vsize j = 0; j < elems.size (); j++)
     {
@@ -211,25 +214,22 @@ Align_interface::internal_get_minimum_translations (Grob *me,
       Real padding = default_padding;
 
       if (j == 0)
-	dy = skylines[j][-stacking_dir].max_height ();
+	dy = skylines[j][-stacking_dir].max_height () + padding;
       else
 	{
-	  down_skyline.merge (skylines[j-1][stacking_dir]);
-	  dy = down_skyline.distance (skylines[j][-stacking_dir]);
-
 	  SCM spec = Page_layout_problem::get_spacing_spec (elems[j-1], elems[j], pure, start, end);
 	  Page_layout_problem::read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
 
+	  dy = down_skyline.distance (skylines[j][-stacking_dir]) + padding;
+
+	  Real min_distance = 0;
+	  if (Page_layout_problem::read_spacing_spec (spec, &min_distance, ly_symbol2scm ("minimum-distance")))
+	    dy = max (dy, min_distance);
+
 	  if (include_fixed_spacing)
-	    {
-	      Real min_distance = 0;
-	      if (Page_layout_problem::read_spacing_spec (spec, &min_distance, ly_symbol2scm ("minimum-distance")))
-		dy = max (dy, min_distance);
+	    dy = max (dy, Page_layout_problem::get_fixed_spacing (elems[j-1], elems[j], spaceable_count, pure, start, end));
 
-	      dy = max (dy, Page_layout_problem::get_fixed_spacing (elems[j-1], elems[j], spaceable_count, pure, start, end));
-	    }
-
-	  if (Page_layout_problem::is_spaceable (elems[j]) && last_spaceable_element)
+	  if (include_fixed_spacing && Page_layout_problem::is_spaceable (elems[j]) && last_spaceable_element)
 	    {
 	      // Spaceable staves may have
 	      // constraints coming from the previous spaceable staff
@@ -239,27 +239,26 @@ Align_interface::internal_get_minimum_translations (Grob *me,
 	      Page_layout_problem::read_spacing_spec (spec,
 						      &spaceable_padding,
 						      ly_symbol2scm ("padding"));
-	      padding = max (padding, spaceable_padding);
+	      dy = max(dy, (last_spaceable_skyline.distance (skylines[j][-stacking_dir])
+			    + stacking_dir*(last_spaceable_element_pos - where) + spaceable_padding));
 
-	      if (include_fixed_spacing)
-		{
-		  Real min_distance = 0;
-		  if (Page_layout_problem::read_spacing_spec (spec,
-							      &min_distance,
-							      ly_symbol2scm ("minimum-distance")))
-		    dy = max (dy, min_distance + stacking_dir*(last_spaceable_element_pos - where));
+	      Real spaceable_min_distance = 0;
+	      if (Page_layout_problem::read_spacing_spec (spec,
+							  &spaceable_min_distance,
+							  ly_symbol2scm ("minimum-distance")))
+		dy = max (dy, spaceable_min_distance + stacking_dir*(last_spaceable_element_pos - where));
 
-		  dy = max (dy, Page_layout_problem::get_fixed_spacing (last_spaceable_element, elems[j], spaceable_count,
-									pure, start, end));
-		}
+	      dy = max (dy, Page_layout_problem::get_fixed_spacing (last_spaceable_element, elems[j], spaceable_count,
+								    pure, start, end));
 	    }
 	}
 
       if (isinf (dy)) /* if the skyline is empty, maybe max_height is infinity_f */
 	dy = 0.0;
 
-      dy = max (0.0, dy + padding);
+      dy = max (0.0, dy);
       down_skyline.raise (-stacking_dir * dy);
+      down_skyline.merge (skylines[j][stacking_dir]);
       where += stacking_dir * dy;
       translates.push_back (where);
 
@@ -268,6 +267,7 @@ Align_interface::internal_get_minimum_translations (Grob *me,
 	  spaceable_count++;
 	  last_spaceable_element = elems[j];
 	  last_spaceable_element_pos = where;
+	  last_spaceable_skyline = down_skyline;
 	}
     }
 
