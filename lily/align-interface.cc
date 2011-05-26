@@ -61,85 +61,73 @@ Align_interface::align_to_ideal_distances (SCM smob)
   return SCM_BOOL_T;
 }
 
-/* for each grob, find its upper and lower skylines. If the grob has
-   an empty extent, delete it from the list instead. If the extent is
-   non-empty but there is no skyline available (or pure is true), just
+/* Return upper and lower skylines for VerticalAxisGroup g. If the extent
+   is non-empty but there is no skyline available (or pure is true), just
    create a flat skyline from the bounding box */
 // TODO(jneem): the pure and non-pure parts seem to share very little
 // code. Split them into 2 functions, perhaps?
-static void
-get_skylines (Grob *me,
-              vector<Grob *> *const elements,
+static Skyline_pair
+get_skylines (Grob *g,
               Axis a,
-              bool pure, int start, int end,
-              vector<Skyline_pair> *const ret)
+              Grob *other_common,
+              bool pure, int start, int end)
 {
-  Grob *other_common = common_refpoint_of_array (*elements, me, other_axis (a));
+  Skyline_pair skylines;
 
-  for (vsize i = elements->size (); i--;)
+  if (!pure)
     {
-      Grob *g = (*elements)[i];
-      Skyline_pair skylines;
+      Skyline_pair *skys = Skyline_pair::unsmob (g->get_property (a == Y_AXIS
+                                                                  ? "vertical-skylines"
+                                                                  : "horizontal-skylines"));
+      if (skys)
+        skylines = *skys;
 
-      if (!pure)
+      /* This skyline was calculated relative to the grob g. In order to compare it to
+         skylines belonging to other grobs, we need to shift it so that it is relative
+         to the common reference. */
+      Real offset = g->relative_coordinate (other_common, other_axis (a));
+      skylines.shift (offset);
+    }
+  else if (Hara_kiri_group_spanner::request_suicide (g, start, end))
+    return skylines;
+  else
+    {
+      assert (a == Y_AXIS);
+      Interval extent = g->pure_height (g, start, end);
+
+      // This is a hack to get better accuracy on the pure-height of VerticalAlignment.
+      // It's quite common for a treble clef to be the highest element of one system
+      // and for a low note (or lyrics) to be the lowest note on another. The two will
+      // never collide, but the pure-height stuff only works with bounding boxes, so it
+      // doesn't know that. The result is a significant over-estimation of the pure-height,
+      // especially on systems with many staves. To correct for this, we build a skyline
+      // in two parts: the part we did above contains most of the grobs (note-heads, etc.)
+      // while the bit we're about to do only contains the breakable grobs at the beginning
+      // of the system. This way, the tall treble clefs are only compared with the treble
+      // clefs of the other staff and they will be ignored if the staff above is, for example,
+      // lyrics.
+      if (Axis_group_interface::has_interface (g))
         {
-          Skyline_pair *skys = Skyline_pair::unsmob (g->get_property (a == Y_AXIS
-                                                                      ? "vertical-skylines"
-                                                                      : "horizontal-skylines"));
-          if (skys)
-            skylines = *skys;
-
-          /* This skyline was calculated relative to the grob g. In order to compare it to
-             skylines belonging to other grobs, we need to shift it so that it is relative
-             to the common reference. */
-          Real offset = g->relative_coordinate (other_common, other_axis (a));
-          skylines.shift (offset);
-        }
-      else
-        {
-          assert (a == Y_AXIS);
-          Interval extent = g->pure_height (g, start, end);
-
-          // This is a hack to get better accuracy on the pure-height of VerticalAlignment.
-          // It's quite common for a treble clef to be the highest element of one system
-          // and for a low note (or lyrics) to be the lowest note on another. The two will
-          // never collide, but the pure-height stuff only works with bounding boxes, so it
-          // doesn't know that. The result is a significant over-estimation of the pure-height,
-          // especially on systems with many staves. To correct for this, we build a skyline
-          // in two parts: the part we did above contains most of the grobs (note-heads, etc.)
-          // while the bit we're about to do only contains the breakable grobs at the beginning
-          // of the system. This way, the tall treble clefs are only compared with the treble
-          // clefs of the other staff and they will be ignored if the staff above is, for example,
-          // lyrics.
-          if (Axis_group_interface::has_interface (g)
-              && !Hara_kiri_group_spanner::request_suicide (g, start, end))
-            {
-              extent = Axis_group_interface::rest_of_line_pure_height (g, start, end);
-              Interval begin_of_line_extent = Axis_group_interface::begin_of_line_pure_height (g, start);
-              if (!begin_of_line_extent.is_empty ())
-                {
-                  Box b;
-                  b[a] = begin_of_line_extent;
-                  b[other_axis (a)] = Interval (-infinity_f, -1);
-                  skylines.insert (b, other_axis (a));
-                }
-            }
-
-          if (!extent.is_empty ())
+          extent = Axis_group_interface::rest_of_line_pure_height (g, start, end);
+          Interval begin_of_line_extent = Axis_group_interface::begin_of_line_pure_height (g, start);
+          if (!begin_of_line_extent.is_empty ())
             {
               Box b;
-              b[a] = extent;
-              b[other_axis (a)] = Interval (0, infinity_f);
+              b[a] = begin_of_line_extent;
+              b[other_axis (a)] = Interval (-infinity_f, -1);
               skylines.insert (b, other_axis (a));
             }
         }
 
-      if (skylines.is_empty ())
-        elements->erase (elements->begin () + i);
-      else
-        ret->push_back (skylines);
+      if (!extent.is_empty ())
+        {
+          Box b;
+          b[a] = extent;
+          b[other_axis (a)] = Interval (0, infinity_f);
+          skylines.insert (b, other_axis (a));
+        }
     }
-  reverse (*ret);
+  return skylines;
 }
 
 vector<Real>
@@ -177,7 +165,7 @@ Align_interface::get_minimum_translations_without_min_dist (Grob *me,
 //   else centered dynamics will break when there is a fixed alignment).
 vector<Real>
 Align_interface::internal_get_minimum_translations (Grob *me,
-                                                    vector<Grob *> const &all_grobs,
+                                                    vector<Grob *> const &elems,
                                                     Axis a,
                                                     bool include_fixed_spacing,
                                                     bool pure, int start, int end)
@@ -204,15 +192,14 @@ Align_interface::internal_get_minimum_translations (Grob *me,
 
   Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
                                            DOWN);
-  vector<Grob *> elems (all_grobs); // writable copy
-  vector<Skyline_pair> skylines;
 
-  get_skylines (me, &elems, a, pure, start, end, &skylines);
+  Grob *other_common = common_refpoint_of_array (elems, me, other_axis (a));
 
   Real where = 0;
   Real default_padding = robust_scm2double (me->get_property ("padding"), 0.0);
   vector<Real> translates;
   Skyline down_skyline (stacking_dir);
+  Grob *last_nonempty_element = 0;
   Real last_spaceable_element_pos = 0;
   Grob *last_spaceable_element = 0;
   Skyline last_spaceable_skyline (stacking_dir);
@@ -222,14 +209,18 @@ Align_interface::internal_get_minimum_translations (Grob *me,
       Real dy = 0;
       Real padding = default_padding;
 
-      if (j == 0)
-        dy = skylines[j][-stacking_dir].max_height () + padding;
+      Skyline_pair skyline = get_skylines (elems[j], a, other_common, pure, start, end);
+
+      if (skyline.is_empty ())
+        dy = 0.0;
+      else if (!last_nonempty_element)
+        dy = skyline[-stacking_dir].max_height () + padding;
       else
         {
-          SCM spec = Page_layout_problem::get_spacing_spec (elems[j - 1], elems[j], pure, start, end);
+          SCM spec = Page_layout_problem::get_spacing_spec (last_nonempty_element, elems[j], pure, start, end);
           Page_layout_problem::read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
 
-          dy = down_skyline.distance (skylines[j][-stacking_dir]) + padding;
+          dy = down_skyline.distance (skyline[-stacking_dir]) + padding;
 
           Real spec_distance = 0;
           if (Page_layout_problem::read_spacing_spec (spec, &spec_distance, ly_symbol2scm ("minimum-distance")))
@@ -249,7 +240,7 @@ Align_interface::internal_get_minimum_translations (Grob *me,
               Page_layout_problem::read_spacing_spec (spec,
                                                       &spaceable_padding,
                                                       ly_symbol2scm ("padding"));
-              dy = max (dy, (last_spaceable_skyline.distance (skylines[j][-stacking_dir])
+              dy = max (dy, (last_spaceable_skyline.distance (skyline[-stacking_dir])
                              + stacking_dir * (last_spaceable_element_pos - where) + spaceable_padding));
 
               Real spaceable_min_distance = 0;
@@ -263,12 +254,9 @@ Align_interface::internal_get_minimum_translations (Grob *me,
             }
         }
 
-      if (isinf (dy)) /* if the skyline is empty, maybe max_height is infinity_f */
-        dy = 0.0;
-
       dy = max (0.0, dy);
       down_skyline.raise (-stacking_dir * dy);
-      down_skyline.merge (skylines[j][stacking_dir]);
+      down_skyline.merge (skyline[stacking_dir]);
       where += stacking_dir * dy;
       translates.push_back (where);
 
@@ -279,32 +267,19 @@ Align_interface::internal_get_minimum_translations (Grob *me,
           last_spaceable_element_pos = where;
           last_spaceable_skyline = down_skyline;
         }
-    }
-
-  // So far, we've computed the translates for all the non-empty elements.
-  // Here, we set the translates for the empty elements: an empty element
-  // gets the same translation as the last non-empty element before it.
-  vector<Real> all_translates;
-  if (!translates.empty ())
-    {
-      Real w = translates[0];
-      for (vsize i = 0, j = 0; j < all_grobs.size (); j++)
-        {
-          if (i < elems.size () && all_grobs[j] == elems[i])
-            w = translates[i++];
-          all_translates.push_back (w);
-        }
+      if (!skyline.is_empty ())
+        last_nonempty_element = elems[j];
     }
 
   if (pure)
     {
       SCM mta = me->get_property ("minimum-translations-alist");
       mta = scm_cons (scm_cons (scm_cons (scm_from_int (start), scm_from_int (end)),
-                                ly_floatvector2scm (all_translates)),
+                                ly_floatvector2scm (translates)),
                       mta);
       me->set_property ("minimum-translations-alist", mta);
     }
-  return all_translates;
+  return translates;
 }
 
 void
