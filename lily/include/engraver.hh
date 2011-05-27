@@ -52,6 +52,8 @@ public:
   void announce_grob (Grob *, SCM cause);
   void announce_end_grob (Grob *, SCM cause);
 
+  Grob_info make_grob_info (Grob *, SCM cause);
+
   Item *internal_make_item (SCM sym, SCM cause, char const *name,
 			    char const *f, int l, char const *fun);
   Spanner *internal_make_spanner (SCM sym, SCM cause, char const *name,

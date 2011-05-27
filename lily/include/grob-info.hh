@@ -32,6 +32,7 @@ class Grob_info
   Translator *origin_trans_;
   Grob *grob_;
   Direction start_end_;
+
   
   friend class Engraver;
 public:
@@ -49,6 +50,14 @@ public:
   Item *item () const;
   Spanner *spanner () const;
   static bool less (Grob_info i, Grob_info j);
+
+  /*
+    For contexts that change staves, it may be desirable to emit a
+    grob into a staff other than the current one.  If this is non-null,
+    this grob should be announced in this context instead of the
+    daddy_context_.
+  */
+  Context *rerouting_daddy_context_;
 };
 
 #endif // STAFFELEMINFO_HH

@@ -30,6 +30,7 @@ Grob_info::Grob_info (Translator *t, Grob *g)
   origin_trans_ = t;
   grob_ = g;
   start_end_ = START;
+  rerouting_daddy_context_ = 0;
 
   /*
     assert here, because this is easier to debug.
@@ -42,6 +43,7 @@ Grob_info::Grob_info ()
   grob_ = 0;
   start_end_ = START;
   origin_trans_ = 0;
+  rerouting_daddy_context_ = 0;
 }
 
 Stream_event *
