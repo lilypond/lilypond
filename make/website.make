@@ -84,6 +84,11 @@ website-version:
 
 website-xrefs: website-version
 	for l in '' $(WEB_LANGS); do \
+		len="$${#l}" ; \
+		r="$$l"; \
+		if [ "$$len" -gt "0" ] ; then \
+			r="$$r"/; \
+		fi ; \
 		$(EXTRACT_TEXI_FILENAMES) \
 			-I $(top-src-dir)/Documentation \
 			-I $(top-src-dir)/Documentation/"$$l" \
@@ -99,7 +104,7 @@ website-xrefs: website-version
 				$(EXTRACT_TEXI_FILENAMES) \
 				-I $(top-src-dir)/Documentation \
 				-I $(top-src-dir)/Documentation/"$$l" \
-				-I $(top-src-dir)/Documentation/"$$l"/"$$d" \
+				-I $(top-src-dir)/Documentation/"$$r""$$d" \
 				--known-missing-files=$(top-src-dir)/scripts/build/website-known-missing-files.txt \
 			  $(quiet-flag) \
 				-I $(OUT) -o $(OUT) "$$n" ; \
