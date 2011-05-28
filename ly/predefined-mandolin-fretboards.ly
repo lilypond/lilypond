@@ -15,7 +15,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.15.0"
+\version "2.13.61"
 
 %%%% sources:
 %%%%   mandolincafe website (http://www.mandolincafe.com/),

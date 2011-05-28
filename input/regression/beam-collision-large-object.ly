@@ -2,7 +2,7 @@
   texidoc = "Behave sensibly in the presence of large collisions."
 }
 
-\version "2.15.0"
+\version "2.13.62"
 \new Staff {
   <<
     { \voiceOne s2 }
