@@ -1203,11 +1203,6 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
       if (!covered[i]->is_live())
         continue;
 
-      // TODO - use this logic in is_cross_staff.
-      if (is_cross_staff (me)
-          && Align_interface::has_interface (common_refpoint_of_array (stems, me, Y_AXIS)))
-        continue;
-
       if (Beam::has_interface (covered[i]) && is_cross_staff (covered[i]))
         continue;
 
