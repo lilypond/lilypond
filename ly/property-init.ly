@@ -217,7 +217,7 @@ glissando = #(make-music 'GlissandoEvent)
 harmonicsOn =
 #(define-music-function (parser location) ()
    (_i "Set the default note head style to a diamond-shaped style.")
-   (override-head-style 'NoteHead 'harmonic))
+   (override-head-style '(NoteHead TabNoteHead) 'harmonic))
 harmonicsOff = \defaultNoteHeads
 harmonicNote =
 #(define-music-function (parser location note) (ly:music?)
