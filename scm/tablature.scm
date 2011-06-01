@@ -220,9 +220,10 @@
 (define-public (tab-note-head::print grob)
   (define (is-harmonic? grob)
     (let ((arts (ly:event-property (event-cause grob) 'articulations)))
-      (not (null? (filter (lambda (a)
-			    (ly:in-event-class? a 'harmonic-event))
-			  arts)))))
+      (or (pair? (filter (lambda (a)
+			   (ly:in-event-class? a 'harmonic-event))
+			  arts))
+	  (eq? (ly:grob-property grob 'style) 'harmonic))))
 
   (let* ((cautionary (ly:grob-property grob 'display-cautionary #f))
 	 (details (ly:grob-property grob 'details '()))
