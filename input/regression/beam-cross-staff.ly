@@ -13,12 +13,12 @@ behave well, wherever the switching point is.
     \stemUp  c8[ c \change Staff=two \stemUp c c]
     c[ c c c]
     \change Staff=one
-    \stemDown  c8[ c \change Staff=two \stemUp c c]
+    \stemDown  f8[ f \change Staff=two \stemUp c c]
     r2
     \stemDown  c8[ c \change Staff=one \stemDown c c]
     r2
     \change Staff=two
-    \stemUp  c8[ c \change Staff=one \stemDown c c]
+    \stemUp  c8[ c \change Staff=one \stemDown f f]
     r2
   }
   \new Staff = "two" \relative c'{
