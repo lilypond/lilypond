@@ -11,7 +11,7 @@
 This is a sample of a small papersize, which is useful when you
 want to add a @code{\book@{@}} around some input.
 
-@lilypond[verbatim,papersize=c9landscape]
+@lilypond[verbatim,papersize=a8landscape]
 \book {
   \header {
     title = "A scale in LilyPond"
