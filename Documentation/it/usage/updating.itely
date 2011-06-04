@@ -26,7 +26,7 @@ gran parte dei cambiamenti di sintassi tra le versioni di LilyPond.
 
 @menu
 * Perché la sintassi cambia?::
-* Invocare convert-ly::
+* Utilizzo di convert-ly::
 * Opzioni da linea di comando per convert-ly::
 * Problemi nell'eseguire convert-ly::
 * Conversioni manuali::
@@ -67,8 +67,8 @@ tutti i caratteri speciali di LaTeX con i rispettivi caratteri UTF-8; è necessa
 aggiornare a mano i vecchi file di input di LilyPond.
 
 
-@node Invocare convert-ly
-@section Invocare @command{convert-ly}
+@node Utilizzo di convert-ly
+@section Utilizzo di @command{convert-ly}
 @translationof Invoking convert-ly
 
 @command{convert-ly} usa la dichiarazione @code{\version} nel file di input
