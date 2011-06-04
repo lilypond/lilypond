@@ -1,5 +1,5 @@
 %%% -*- Mode: Scheme -*-
-\version "2.13.17"
+\version "2.14.0"
 %{
 
 The following functions define the chord repetition behavior, and may

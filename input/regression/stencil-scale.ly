@@ -1,4 +1,4 @@
-\version "2.13.38"
+\version "2.14.0"
 
 \header {
   texidoc = "Stencils can be scaled using @code{ly:stencil-scale}.

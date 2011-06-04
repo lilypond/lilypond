@@ -1,4 +1,4 @@
-\version "2.13.1"
+\version "2.14.0"
 
 \header {
 texidoc = "The visibility of left-broken line spanners and hairpins

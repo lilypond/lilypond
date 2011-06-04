@@ -1,4 +1,4 @@
-\version "2.13.47"
+\version "2.14.0"
 \header {
   texidoc = "Beams only check for collisions with in-line accidentals."
 }

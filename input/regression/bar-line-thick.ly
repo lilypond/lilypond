@@ -1,7 +1,7 @@
 
 \header { texidoc = "A thick bar line is created by \bar \".\", which is consistent with e.g. \bar \"|.\"" }
 
-\version "2.13.4"
+\version "2.14.0"
 
 \paper {  ragged-right = ##t }
 

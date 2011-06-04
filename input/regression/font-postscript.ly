@@ -4,7 +4,7 @@ fonts.  The file @file{font.scm} shows how to define the scheme-function
 @code{make-century-schoolbook-tree}."
 }
 
-\version "2.12.0"
+\version "2.14.0"
 
 \paper {
   #(define text-font-defaults

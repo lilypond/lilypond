@@ -1,4 +1,4 @@
-\version "2.12.2"
+\version "2.14.0"
 
 \header { texidoc =
 "Vertical rest positions in a multi-voice staff should obey the duration of

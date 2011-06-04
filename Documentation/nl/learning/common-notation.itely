@@ -12,7 +12,7 @@
 @c Translation checker:
 @c Translation checker committish:
 
-@c \version "2.13.36"
+@c \version "2.14.0"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)

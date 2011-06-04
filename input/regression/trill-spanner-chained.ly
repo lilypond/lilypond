@@ -1,4 +1,4 @@
-\version "2.13.1"
+\version "2.14.0"
 \header {
   texidoc = "Chained trills end at the next trill or barline.
 Collisions can be prevented by overriding @code{bound-details}.

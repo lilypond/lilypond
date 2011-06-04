@@ -1,4 +1,4 @@
-\version "2.13.54"
+\version "2.14.0"
 
 \header {
 texidoc="Midi2ly remaps voices correctly to staves in MIDI-files that use instrument<->channel mapping when combined with voice<->track mapping.  TODO: pianostaff"

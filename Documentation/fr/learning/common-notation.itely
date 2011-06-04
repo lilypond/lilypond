@@ -25,7 +25,7 @@ Tutorial guidelines:  (different from policy.txt!)
 
 @end ignore
 
-@c \version "2.13.46"
+@c \version "2.14.0"
 
 @c Translators: Nicolas Grandclaude, Ludovic Sardain, Gauvain Pocentek
 @c Translation checkers: Jean-Charles Malahieude, Valentin Villenave, John Mandereau

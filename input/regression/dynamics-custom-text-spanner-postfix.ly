@@ -1,4 +1,4 @@
-\version "2.13.4"
+\version "2.14.0"
 
 \header {
 texidoc = "Postfix functions for custom crescendo text spanners.  The spanners

@@ -3,7 +3,7 @@
   texidoc = "Scripts avoid stem tremolos even if there is no visible stem."
 
 }
-\version "2.12.0"
+\version "2.14.0"
 
 \layout {ragged-right =##t}
 {

@@ -1,4 +1,4 @@
-\version "2.13.24"
+\version "2.14.0"
 
 \header {
   texidoc = "If the line for a @code{DynamicTextSpanner} is hidden, the

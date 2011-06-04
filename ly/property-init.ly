@@ -1,6 +1,6 @@
 % property-init.ly
 
-\version "2.12.0"
+\version "2.14.0"
 
 %% for dashed slurs, phrasing slurs, and ties
 #(define (make-simple-dash-definition dash-fraction dash-period)
