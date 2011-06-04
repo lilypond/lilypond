@@ -510,6 +510,21 @@ Skyline::shift (Real s)
 Real
 Skyline::distance (Skyline const &other, Real horizon_padding) const
 {
+  Real dummy;
+  return internal_distance (other, horizon_padding, &dummy);
+}
+
+Real
+Skyline::touching_point (Skyline const &other, Real horizon_padding) const
+{
+  Real touch;
+  internal_distance (other, horizon_padding, &touch);
+  return touch;
+}
+
+Real
+Skyline::internal_distance (Skyline const &other, Real horizon_padding, Real *touch_point) const
+{
   assert (sky_ == -other.sky_);
 
   Skyline const *padded_this = this;
@@ -534,12 +549,19 @@ Skyline::distance (Skyline const &other, Real horizon_padding) const
 
   Real dist = -infinity_f;
   Real start = -infinity_f;
+  Real touch = -infinity_f;
   while (i != padded_this->buildings_.end () && j != padded_other->buildings_.end ())
     {
       Real end = min (i->end_, j->end_);
       Real start_dist = i->height (start) + j->height (start);
       Real end_dist = i->height (end) + j->height (end);
       dist = max (dist, max (start_dist, end_dist));
+
+      if (end_dist == dist)
+	touch = end;
+      else if (start_dist == dist)
+	touch = start;
+
       if (i->end_ <= j->end_)
         i++;
       else
@@ -553,6 +575,7 @@ Skyline::distance (Skyline const &other, Real horizon_padding) const
       delete padded_other;
     }
 
+  *touch_point = touch;
   return dist;
 }
 
@@ -578,6 +601,14 @@ Skyline::max_height () const
   Skyline s (-sky_);
   s.set_minimum_height (0);
   return sky_ * distance (s);
+}
+
+Real
+Skyline::max_height_position () const
+{
+  Skyline s (-sky_);
+  s.set_minimum_height (0);
+  return touching_point (s);
 }
 
 void
@@ -645,4 +676,62 @@ Skyline::print_smob (SCM s, SCM port, scm_print_state *)
   scm_puts ("#<Skyline>", port);
 
   return 1;
+}
+
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Skyline, get_touching_point, 3, 1, "")
+SCM
+Skyline::get_touching_point (SCM skyline_scm, SCM other_skyline_scm, SCM horizon_padding_scm)
+{
+  LY_ASSERT_SMOB (Skyline, other_skyline_scm, 1);
+
+  Real horizon_padding = 0;
+  if (horizon_padding_scm != SCM_UNDEFINED)
+    {
+      LY_ASSERT_TYPE (scm_is_number, horizon_padding_scm, 3);
+      horizon_padding = scm_to_double (horizon_padding_scm);
+    }
+
+  Skyline *skyline = Skyline::unsmob (skyline_scm);
+  Skyline *other_skyline = Skyline::unsmob (other_skyline_scm);
+  return scm_from_double (skyline->touching_point (*other_skyline, horizon_padding));
+}
+
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Skyline, get_distance, 3, 1, "")
+SCM
+Skyline::get_distance (SCM skyline_scm, SCM other_skyline_scm, SCM horizon_padding_scm)
+{
+  LY_ASSERT_SMOB (Skyline, other_skyline_scm, 1);
+
+  Real horizon_padding = 0;
+  if (horizon_padding_scm != SCM_UNDEFINED)
+    {
+      LY_ASSERT_TYPE (scm_is_number, horizon_padding_scm, 3);
+      horizon_padding = scm_to_double (horizon_padding_scm);
+    }
+
+  Skyline *skyline = Skyline::unsmob (skyline_scm);
+  Skyline *other_skyline = Skyline::unsmob (other_skyline_scm);
+  return scm_from_double (skyline->distance (*other_skyline, horizon_padding));
+}
+
+MAKE_SCHEME_CALLBACK (Skyline, get_max_height, 1)
+SCM
+Skyline::get_max_height (SCM skyline_scm)
+{
+  return scm_from_double (Skyline::unsmob (skyline_scm)->max_height ());
+}
+
+MAKE_SCHEME_CALLBACK (Skyline, get_max_height_position, 1)
+SCM
+Skyline::get_max_height_position (SCM skyline_scm)
+{
+  return scm_from_double (Skyline::unsmob (skyline_scm)->max_height_position ());
+}
+
+MAKE_SCHEME_CALLBACK (Skyline, get_height, 2)
+SCM
+Skyline::get_height (SCM skyline_scm, SCM x_scm)
+{
+  Real x = robust_scm2double (x_scm, 0.0);
+  return scm_from_double (Skyline::unsmob (skyline_scm)->height (x));
 }

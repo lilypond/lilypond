@@ -61,6 +61,9 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_pure_relevant_grobs, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_height, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (get_staves, (SCM));
+  DECLARE_SCHEME_CALLBACK (get_spaceable_staves, (SCM));
+  DECLARE_SCHEME_CALLBACK (get_nonspaceable_staves, (SCM));
 
   System (SCM);
   System (System const &);

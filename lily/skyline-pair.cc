@@ -20,6 +20,7 @@
 
 #include "skyline-pair.hh"
 
+#include "international.hh"
 #include "ly-smobs.icc"
 
 Skyline_pair::Skyline_pair ()
@@ -116,4 +117,20 @@ Skyline_pair::print_smob (SCM s, SCM port, scm_print_state *)
 
   scm_puts ("#<Skyline-pair>", port);
   return 1;
+}
+
+MAKE_SCHEME_CALLBACK (Skyline_pair, skyline, 2);
+SCM
+Skyline_pair::skyline (SCM smob, SCM dir_scm)
+{
+  Skyline_pair *sp = Skyline_pair::unsmob (smob);
+  Direction dir = robust_scm2dir (dir_scm, UP);
+
+  if (dir == CENTER)
+    {
+      warning (_f ("direction must not be CENTER in ly:skyline-pair::skyline"));
+      dir = UP;
+    }
+
+  return (*sp)[dir].smobbed_copy ();
 }
