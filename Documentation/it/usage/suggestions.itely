@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
     Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
@@ -15,28 +15,29 @@
 @translationof Suggestions for writing files
 
 Ora puoi iniziare a scrivere file di input di LilyPond più grandi --
-non più i piccoli esempi del tutorial, ma brani completi.
+non più i piccoli esempi del tutorial, ma pezzi completi.
 Ma qual è il modo migliore di farlo?
 
 Finché LilyPond comprende i file di input e produce l'output che
 desideri, non importa quale aspetto abbiano i file di input.  Tuttavia,
-ci sono altre questioni da tenere a mente quando si scrivono
+ci sono altri aspetti da tenere a mente quando si scrivono
 file di input di LilyPond.
 
 @itemize
-@item Se fai un errore?  La struttura di un file LilyPond può rendere
-l'individuazione di certi errori più facile (o più difficile).
+@item Che fare in caso di errore?  La struttura data a un file LilyPond può
+rendere l'individuazione di certi tipi di errore più facile (o più difficile).
 
-@item Se vuoi inviare i tuoi file di input a qualcuno?  E se vuoi modificare
-i tuoi file di input dopo qualche anno?  Alcuni file di input di LilyPond sono
-comprensibili a prima vista; altri ti possono lasciare perplesso per un'ora.
+@item Che fare se vuoi inviare i tuoi file di input a qualcuno?  E se decidi di
+modificare i tuoi file di input dopo qualche anno?  Alcuni file di input di
+LilyPond sono comprensibili a prima vista; altri ti possono lasciare a grattarti
+la testa per un'ora.
 
-@item Se vuoi aggiornare il tuo file per poterlo usare
-con una versione più recente di LilyPond?  La sintassi di input cambia di
-tanto in tanto mentre LilyPond si evolve.  Alcune modifiche possono essere
-fatte in automatico con @code{convert-ly}, ma altre potrebbero richiedere
+@item Che fare se vuoi aggiornare il tuo file per poterlo usare con una
+versione più recente di LilyPond?  Con l'evolversi di LilyPond, la sintassi di
+input si trova soggetta a occasionali cambiamenti.  Alcune modifiche possono
+essere fatte in automatico con @code{convert-ly}, ma altre potrebbero richiedere
 un intervento manuale.  I file di input di LilyPond possono essere strutturati
-per poter essere aggiornati in modo più semplice (o più difficile).
+in moda da essere poi aggiornati in modo più semplice (o più difficile).
 
 @end itemize
 
@@ -45,7 +46,7 @@ per poter essere aggiornati in modo più semplice (o più difficile).
 * Scrivere musica esistente::
 * Grandi progetti::
 * Risoluzione dei problemi::
-* Make e Makefiles::
+* Make e Makefile::
 @end menu
 
 
@@ -53,28 +54,28 @@ per poter essere aggiornati in modo più semplice (o più difficile).
 @section Consigli generali
 @translationof General suggestions
 
-Ecco alcuni consigli che possono aiutarti ad evitare o risolvere
+Ecco alcuni consigli che possono aiutarti a evitare o risolvere
 i problemi:
 
 @itemize
 @item @strong{Includi il numero di @code{\version} in ogni file}.  Nota che tutti
 i modelli contengono l'informazione su @code{\version}.  Si consiglia vivamente
 di includere sempre @code{\version}, non importa quanto piccolo possa essere
-il file.  Per esperienza personale, è piuttosto frustrante cercare di ricordare
-quale versione di LilyPond si usava alcuni anni prima.  @command{convert-ly}
+il file.  L'esperienza personale insegna come sia frustrante cercare di ricordare
+quale versione di LilyPond si usava alcuni anni prima!  @command{convert-ly}
 richiede che si dichiari la versione di LilyPond utilizzata.
 
 @item @strong{Includi i controlli}: @ruser{Bar and bar number checks},
-@ruser{Octave checks}.  Se includi i controlli ogni tanto, allora se
-fai un errore lo puoi individuare più rapidamente.  Cosa si intende per
-@q{ogni tanto}?  Dipende dalla complessità della musica.
-Se la musica è molto semplice, magari solo una o due volte.  Se la musica
-è molto complessa, ad ogni battuta.
+@ruser{Octave checks}.  Includendo i controlli ogni tanto, se fai
+un errore lo puoi individuare più rapidamente.  Cosa si intende per
+@q{ogni tanto}?  Dipende dalla complessità della musica.  Se la musica
+è molto semplice, anche solo una volta o due.  Se la musica è molto
+complessa, a ogni battuta.
 
 @item @strong{Una battuta per ogni linea di testo}.  Se c'è qualcosa di
 complicato, nella musica stessa o nell'output che desideri, di solito è
 preferibile scrivere una sola battuta per linea.  Risparmiare spazio sullo
-schermo concentrando otto battute per ogni riga non conviene affatto
+schermo concentrando otto battute per ogni riga non è affatto conveniente
 se poi devi fare il @q{debug} dei file di input.
 
 @item @strong{Inserisci dei commenti nei file di input}.  Puoi usare i numeri
@@ -83,15 +84,15 @@ di battuta (ogni tanto) o dei riferimenti ai temi musicali
 aver bisogno dei commenti mentre scrivi il brano la prima volta, ma se due
 o tre anni dopo vuoi cambiare qualcosa o se vuoi dare il sorgente a un amico,
 sarà molto più difficile capire le tue intenzioni e la struttura del file
-se non sono presenti dei commenti.
+se mancano i commenti.
 
 @item @strong{Indenta le parentesi graffe}.  Molti problemi sono causati
-da uno squilibrio nel numero di @code{@{} e @code{@}}.
+da mancata corrispondenza tra le quantità di @code{@{} e di @code{@}}.
 
 @item @strong{Esplicita le durate} all'inizio delle sezioni e delle
-variabili.  Se specifichi @code{c4 d e} all'inizio di un fraseggio
-(innvece di @code{c d e} soltanto) puoi evitare alcuni problemi
-quando riarrangi la musica successivamente.
+variabili.  Se specifichi @code{c4 d e} all'inizio di una frase
+(invece di @code{c d e} soltanto) puoi evitare l'insorgere di problemi
+al momento di rimetter mano alla musica.
 
 @item @strong{Separa le modifiche manuali (tweak)} dalle definizioni
 musicali.  Vedi @rlearning{Ridurre l’input grazie a variabili e funzioni}, e
@@ -104,14 +105,14 @@ musicali.  Vedi @rlearning{Ridurre l’input grazie a variabili e funzioni}, e
 @section Scrivere musica esistente
 @translationof Typesetting existing music
 
-Se stai scrivendo della musica da una partitura esistente (ovvero il brano
-di uno spartito già scritto),
+Se stai riportando della musica da una partitura esistente (ovvero il brano
+contenuto in uno spartito già scritto),
 
 @itemize
 
 @item Inserisci in LilyPond le note del manoscritto (la copia fisica della
 musica) un sistema alla volta (ma sempre una battuta per linea di testo),
-e controlla ogni sistema quando ne completi uno.  Puoi usare le proprietà
+e controlla ogni sistema completato.  Puoi usare le proprietà
 @code{showLastLength} o @code{showFirstLength} per velocizzare
 l'elaborazione -- vedi @ruser{Skipping corrected music}.
 
@@ -123,24 +124,25 @@ definire @code{mBreak = @{ @}} per eliminare tutte queste interruzioni di
 riga.  Così LilyPond potrà inserire le interruzioni dove ritiene stiano
 meglio.
 
-@item Quando si inserisce una parte per uno strumento traspositore in una
-variabile, si consiglia di avvolgere le note tra parentesi
+@item Quando si inserisce una parte per strumento traspositore all'interno
+di una variabile, è consigliabile racchiudere le note tra parentesi graffe
 
 @example
 \transpose c altezza-naturale @{...@}
 @end example
 
 @noindent
-(dove @code{altezza-naturale} è l'altezza dello strumento) in modo
-che la musica contenuta nella variabile sia effettivamente in Do. Puoi trasporla
-all'indietro quando la variabile viene usata, se richiesto, ma potresti non
-desiderarlo (ad esempio quando si stampa una partitura in intonazione reale,
-quando si converte una parte per trombone dalla chiave di Sol alla chiave di
-basso, etc.).  Errori nelle trasposizioni sono meno probabili se tutta la musica
-contenuta nelle variabili è ad un'altezza costante.
+(dove @code{altezza-naturale} corrisponde all'intonazione di base dello
+strumento) così che la musica contenuta nella variabile sia effettivamente
+scritta in Do. La puoi presentare trasposta quando la variabile viene usata,
+se necessario, ma potresti non desiderarlo (ad esempio quando si stampa una
+partitura in intonazione reale, quando si traspone una parte per trombone
+dalla chiave di Sol alla chiave di basso, etc.).  Errori nelle trasposizioni
+sono meno probabili se tutta la musica contenuta nelle variabili è ad
+un'altezza costante.
 
-Inoltre, trasponi sempre verso/dal Do.  Questo significa che le uniche altre
-tonalità che userai sono le altezze naturali degli strumenti - bes
+Inoltre, trasponi sempre in relazione al Do.  Questo significa che le uniche
+altre tonalità che userai saranno le altezze naturali degli strumenti - bes
 per una tromba in Si bemolle, aes per un clarinetto in La bemolle, etc.
 
 @end itemize
@@ -157,8 +159,8 @@ file di input diventa vitale.
 
 @item @strong{Usa una variabile per ogni voce}, con un minimo di
 struttura nella definizione.  La struttura della sezione
-@code{\score} è la parte che più probabilmente cambierà;
-la definizione di @code{violin} è molto improbabile che cambi
+@code{\score} è la parte più probabilmente soggetta a cambiamenti;
+è invece molto improbabile che la definizione di @code{violin} cambi
 in una nuova versione di LilyPond.
 
 @example
@@ -176,7 +178,7 @@ g4 c'8. e16
 @end example
 
 @item @strong{Separa le modifiche manuali (tweak) dalle definizioni musicali}.  Questo
-punto è stato menzionato prima, ma nei grandi progetti diventa di vitale
+punto è stato menzionato prima; nei grandi progetti diventa di vitale
 importanza.  Potrebbe essere necessario modificare la definizione
 di @code{fthenp}, ma si dovrebbe farlo una volta sola e senza toccare
 niente in @code{violin}.
@@ -198,19 +200,19 @@ g4\fthenp c'8. e16
 
 Prima o poi ti capiterà di scrivere un file che LilyPond non
 riesce a compilare.  I messaggi inviati da LilyPond potrebbero aiutarti
-a trovare l'errore, ma in molti casi devi fare qualche ricerca
+a trovare l'errore, ma in molti casi sarà necessario fare qualche ricerca
 per individuare l'origine del problema.
 
-Gli strumenti più potenti per questo scopo sono il commento della
+Gli strumenti più potenti a questo riguardo sono il commento della
 linea singola (indicato da @code{%}) e il commento di blocco
-(indicato da @code{%@{ ... %@}}).  Se non sai dove sta il problema,
+(indicato da @code{%@{ ... %@}}).  Se non sai dove sia il problema,
 inizia col commentare ampie parti del file di input.  Dopo aver commentato
 una sezione, prova a compilare di nuovo il file.  Se funziona, allora il
 problema deve trovarsi nella parte che hai appena commentato.  Se non
-funziona, continua a commentare il materiale finché non hai qualcosa
-che funziona.
+funziona, continua a commentare il materiale finché non ottieni un codice
+funzionante.
 
-Nel caso più estremo, potresti finire con soltanto
+Nel caso estremo, potresti finire con soltanto
 
 @example
 \score @{
@@ -226,7 +228,7 @@ Nel caso più estremo, potresti finire con soltanto
 @noindent
 (in altre parole, un file senza musica)
 
-Se accade questo, non rinunciare.  Decommenta un pezzetto -- ad esempio,
+Se dovesse succedere, non rinunciare.  Decommenta un pezzetto -- ad esempio,
 la parte di basso -- e vedi se funziona.  Se non funziona,
 allora commenta tutta la musica del basso (ma lascia
 @code{\bass} in @code{\score} non commentato).
@@ -240,52 +242,52 @@ bass = \relative c' @{
 @}
 @end example
 
-Ora inizia piano piano a decommentare la parte di
+Ora inizia a decommentare mano a mano la parte di
 @code{bass} finché non trovi la linea che causa il problema.
 
 Un'altra tecnica di debug molto utile consiste nel creare
 @rweb{Esempi minimi}.
 
 
-@node Make e Makefiles
-@section Make e Makefiles
+@node Make e Makefile
+@section Make e Makefile
 @translationof Make and Makefiles
 
-@cindex makefiles
+@cindex makefile
 @cindex make
 
 Tutte le piattaforme su cui Lilypond può essere installato supportano un
 software chiamato @code{make}.  Questo software legge un file speciale chiamato
-@code{Makefile} che definisce quali file dipendono da quali altri file e quali
-comandi bisogna dare al sistema operativo per produrre un file da un
-altro.  Ad esempio makefile può spiegare come generare
+@code{Makefile} che definisce quali file dipendono da quali altri e quali
+comandi occorra dare al sistema operativo per produrre un file da un
+altro.  Ad esempio Makefile può spiegare come generare
 @file{ballad.pdf} e @file{ballad.midi} da @file{ballad.ly} eseguendo
 Lilypond.
 
-Ci sono situazioni in cui è una buona idea creare un @code{Makefile}
+In alcune situazioni, è una buona idea creare un @code{Makefile}
 per il proprio progetto, per proprio comodo o come cortesia
-per altri che potrebbero avere accesso ai file sorgente.
+per quanti altri possano avere accesso ai file sorgente.
 Questo vale per i progetti molto ampi con tanti file inclusi e
 diverse opzioni di output (ad esempio, partitura completa, parti, partitura
-del direttore, riduzione per pianoforte, etc.), o per progetti che
+del direttore, riduzione per pianoforte, etc.) o per progetti che
 richiedono comandi difficili per la compilazione (come i progetti che
-usano @code{lilypond-book}).  Makefiles variano molto in complessità
+usano @code{lilypond-book}).  I Makefile variano molto in complessità
 e flessibilità, in base alle necessità e alle abilità degli autori.
 Il programma GNU Make è installato nelle distribuzioni GNU/Linux
 e su MacOS X ed è disponibile anche per Windows.
 
 Si veda il @strong{Manuale di GNU Make} per conoscere in dettaglio l'uso di
-@code{make}, dato che quel che segue dà solo un'idea quel che può fare.
+@code{make}, dato che quel che segue dà solo un'idea delle sue potenzialità.
 
-I comandi per definire delle regole in un makefile cambiano in base
-alla piattaforma; ad esempio le varie forme di Linux e
+I comandi per definire delle regole in un Makefile cambiano in base
+alla piattaforma; ad esempio le varie distribuzioni di Linux e
 MacOS usano @code{bash}, mentre Windows usa @code{cmd}.  Nota che su
-MacOS X bisogna configurare il sistema per usare l'interprete da linea
-di comando.  Di seguito alcuni makefile di esempio, con versioni sia per
+MacOS X è necessario configurare il sistema per usare l'interprete da linea
+di comando.  Di seguito alcuni Makefile di esempio, con versioni sia per
 Linux/MacOS sia per Windows.
 
-Il primo esempio è per un'opera per orchestra in quattro
-movimenti e ha la seguente struttura di directory:
+Il primo esempio è per una composizione per orchestra in quattro
+movimenti e presenta una directory strutturata come segue:
 
 @example
 Symphony/
@@ -327,12 +329,12 @@ nella directory @file{Notes}:
 \include ../Notes/cello.ily
 @end example
 
-Il makefile avrà i target di @code{score} (l'intero brano in partitura
-completa), @code{movements} (movimenti individuali in partitura completa),
-e @code{parts} (parti individuali per i musicisti).  C'è anche un
+Il Makefile avrà i target di @code{score} (l'intero brano in partitura
+completa), @code{movements} (singoli movimenti in partitura completa),
+e @code{parts} (singole parti per i musicisti).  C'è anche un
 target @code{archive} che creerà un archivio compresso dei file sorgenti,
 utile per la condivisione via web o email.  Ecco un esempio di
-makefile per GNU/Linux e MacOS X.  Dovrebbe essere salvato col
+Makefile per GNU/Linux e MacOS X.  Dovrebbe essere salvato col
 nome @code{Makefile} nella directory principale del progetto:
 
 @warning{Quando si definisce un target o una regola di pattern, le
@@ -430,7 +432,7 @@ archive:
 @end example
 
 
-Ci sono complicazioni specifiche nella piattaforma Windows.  Dopo aver
+Ci sono alcune complicazioni specifiche della piattaforma Windows.  Dopo aver
 scaricato e installato GNU Make per Windows, bisogna impostare il percorso
 corretto nelle variabili d'ambiente di sistema perché la
 shell DOS possa trovare il programma Make.  Per farlo, clicca col tasto destro
@@ -444,7 +446,7 @@ avrà un aspetto simile:
 C:\Program Files\GnuWin32\bin
 @end example
 
-Lo stesso makefile deve essere modificato per gestire diversi comandi
+Lo stesso Makefile deve essere modificato per gestire diversi comandi
 shell e gli spazi che sono presenti in alcune directory predefinite
 di sistema.  Il target @code{archive} target viene tolto perché Windows
 non ha il comando @code{tar}; inoltre Windows ha una diversa estensione
@@ -578,10 +580,10 @@ archive:
 
 @c TODO: make this thing work on Windows
 
-Il makefile precedente non funziona su Windows.  Un'alternativa per
+Il Makefile precedente non funziona su Windows.  Un'alternativa per
 gli utenti Windows consiste nel creare un semplice file batch
 contenente i comandi per la compilazione.  Questo file non terrà
-traccia delle dipendenze come fa invece un makefile, ma almeno riduce
+traccia delle dipendenze come fa invece un Makefile, ma almeno riduce
 il processo di compilazione a un solo comando.  Salva il codice
 seguente come @command{build.bat} o @command{build.cmd}.
 Il file batch può essere eseguito nel prompt DOS o semplicemente con
