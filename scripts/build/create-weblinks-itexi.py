@@ -346,8 +346,6 @@ def translateNameToUrl(manual, version):
     ver_minor = ver_split[0] + '.' + ver_split[1]
     url = depth + "doc/v" + ver_minor + "/Documentation/"
 
-    if (ver_minor == '2.13'):
-        return url+manual
     if (ver_minor == '2.12'):
         if (manual=='learning'):
             return url+'user/lilypond-learning'
@@ -369,6 +367,8 @@ def translateNameToUrl(manual, version):
             return url+'user/lilypond/Interfaces-for-programmers.html'
         else:
             return ''
+    else:
+        return url+manual
 
 def addLang(url, lang):
     if lang:
