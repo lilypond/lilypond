@@ -954,6 +954,10 @@ them in the markup definition.
 }
 @end lilypond
 
+@seealso
+Notation Reference:
+@ref{Title blocks explained}.
+
 
 @node Custom layout for headers and footers
 @unnumberedsubsubsec Custom layout for headers and footers
@@ -973,9 +977,6 @@ variables:
 @item @code{oddFooterMarkup}
 @item @code{evenFooterMarkup}
 @end itemize
-
-These markup variables are discussed in
-@ref{Default layout of book and score title blocks}.
 
 The following example centers page numbers at the bottom of every
 page.  First, the default settings for @code{oddHeaderMarkup} and
@@ -1004,6 +1005,11 @@ same layout by defining it as @code{\oddFooterMarkup}:
   }
 }
 @end lilypond
+
+@seealso
+Notation Reference:
+@ref{Title blocks explained},
+@ref{Default layout of book and score title blocks}.
 
 
 @node Reference to page numbers
