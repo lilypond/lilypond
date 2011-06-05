@@ -27,6 +27,35 @@ NOTE:
 @end ignore
 
 @newsItem
+@subsubheading Release candidate 7 of 2.14 - LilyPond 2.13.63 released!  @emph{May 30, 2011}
+
+LilyPond 2.13.63 is out; this is the seventh release candidate of
+the upcoming 2.14 stable release.  All users are invited to
+experiment with this version.  New features since 2.12.3 are
+listed in the @qq{Changes} manual on the website section about
+@ref{Development}.
+
+There are no known Critical issues with this release.  If no
+Critical bugs are found, then the official 2.14.0 release will be
+on June 6, 2011.  If you discover any problems, please send us
+@ref{Bug reports}.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond 2.13.62 released!  @emph{May 24, 2011}
+
+We are happy to announce the release of LilyPond 2.13.62.  This
+release contains the usual number of bugfixes.
+
+Please note that this is @strong{not} the next release candidate,
+due to a few remaining Critical bugs.
+
+@newsEnd
+
+
+@newsItem
 @subsubheading LilyPond 2.13.61 released!  @emph{May 1, 2011}
 
 We are happy to announce the release of LilyPond 2.13.61.  This
