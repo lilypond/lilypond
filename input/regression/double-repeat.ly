@@ -1,4 +1,4 @@
-\version "2.12.0"
+\version "2.14.0"
 
 \header {
   texidoc = "Three types of double repeat bar line are supported."

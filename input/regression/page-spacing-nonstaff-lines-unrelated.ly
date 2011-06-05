@@ -1,4 +1,4 @@
-\version "2.13.39"
+\version "2.14.0"
 
 \header {
   texidoc = "Non-staff lines (such as @code{Lyrics}) can specify

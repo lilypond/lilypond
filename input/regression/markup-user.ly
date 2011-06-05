@@ -9,7 +9,7 @@ the @code{define-markup-command} scheme macro."
   
 
 
-\version "2.12.0"
+\version "2.14.0"
 
 #(define-markup-command (upcase paper props str) (string?)
   "Upcase the string characters. Syntax: \\upcase #\"string\""

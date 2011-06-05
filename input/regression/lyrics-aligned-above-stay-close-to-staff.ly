@@ -1,4 +1,4 @@
-\version "2.13.47"
+\version "2.14.0"
 
 \header {
   title = "Aligned-above lyrics should stay close to their staff"

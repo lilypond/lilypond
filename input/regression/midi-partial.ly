@@ -1,7 +1,7 @@
 \header {
   texidoc = "MIDI and partial measures work together."
 }
-\version "2.12.0"
+\version "2.14.0"
   
 \score {
   { \partial 4

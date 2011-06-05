@@ -1,4 +1,4 @@
-\version "2.13.54"
+\version "2.14.0"
 \header {
   texidoc = "With grobs that have break visibility, footnotes will
 automatically print to the first line of the break.  This behavior

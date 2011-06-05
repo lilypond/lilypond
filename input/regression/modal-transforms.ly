@@ -1,4 +1,4 @@
-\version "2.13.52"
+\version "2.14.0"
 \header {
     texidoc = "\modalTranspose, \retrograde, \inversion and
 \modalInversion work for an octatonic motif."

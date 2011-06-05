@@ -2,7 +2,7 @@
 
   texidoc = "Collision resolution may be forced manually with @code{force-hshift}. "
 }
-\version "2.12.0"
+\version "2.14.0"
 
 \paper  {
   ragged-right = ##t

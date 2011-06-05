@@ -1,4 +1,4 @@
-\version "2.13.15"
+\version "2.14.0"
 
 \header {
   texidoc = "An episema can be typeset over a single neume or a

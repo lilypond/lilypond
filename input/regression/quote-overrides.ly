@@ -1,4 +1,4 @@
-\version "2.13.5"
+\version "2.14.0"
 
 \header {
   texidoc = "The @code{\\quoteDuring} command shall also quote correctly all

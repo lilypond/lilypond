@@ -1,4 +1,4 @@
-\version "2.12.0"
+\version "2.14.0"
 
 \header {
 texidoc = "Flags can be drawn straight in the style used by

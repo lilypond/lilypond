@@ -8,7 +8,7 @@ Note: lilypond must be compiled with --disable-optimising for this file to work.
 
 #(ly:set-option 'profile-property-accesses #t)
 
-\version "2.12.0"
+\version "2.14.0"
 
 \include "typography-demo.ly"
 %\book { \score { {c4 } } }

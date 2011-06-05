@@ -1,4 +1,4 @@
-\version "2.13.2"
+\version "2.14.0"
 
 \header {
   texidoc = "Collision resolution involving dotted harmonic heads

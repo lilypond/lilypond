@@ -3,7 +3,7 @@
   texidoc = "Notes can be set in the Sacred Harp style."
 
 }
-\version "2.12.0"
+\version "2.14.0"
 
 \relative c' {
   \key c \major

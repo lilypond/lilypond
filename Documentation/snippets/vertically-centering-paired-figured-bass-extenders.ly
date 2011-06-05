@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.12.2"
+\version "2.14.0"
 
 \header {
   lsrtags = "chords, tweaks-and-overrides"

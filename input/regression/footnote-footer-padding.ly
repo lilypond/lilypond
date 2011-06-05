@@ -1,4 +1,4 @@
-\version "2.13.59"
+\version "2.14.0"
 \header {
   texidoc = "The padding between a footnote and the footer can be tweaked."
 }

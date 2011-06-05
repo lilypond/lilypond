@@ -1,4 +1,4 @@
-\version "2.13.29"
+\version "2.14.0"
 
 \header {
   texidoc = "Text dynamics are positioned correctly on rests, i.e.,

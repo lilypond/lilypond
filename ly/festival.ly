@@ -17,7 +17,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.12.0"
+\version "2.14.0"
 
 #(use-modules (scm song))
 

@@ -1,4 +1,4 @@
-\version "2.13.38"
+\version "2.14.0"
 
 \header {
 	texidoc = "addlyrics do not need braces around their arguments,

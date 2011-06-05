@@ -1,4 +1,4 @@
-\version "2.13.4"
+\version "2.14.0"
 
 \header {
   texidoc = "The space taken up by rehearsal marks is correctly

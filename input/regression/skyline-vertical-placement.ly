@@ -5,7 +5,7 @@ using a skyline algorithm so that they don't collide with other objects."
 
 \layout {ragged-right = ##t}
 
-\version "2.12.0"
+\version "2.14.0"
 \relative c''' {
   \override Score.PaperColumn #'keep-inside-line = ##f
   \override TextScript #'outside-staff-priority = #2

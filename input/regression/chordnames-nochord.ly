@@ -1,4 +1,4 @@
-\version "2.13.1"
+\version "2.14.0"
 
 \header {
   texidoc = "Rests in music passed to ChordNames context display noChordSymbol.
