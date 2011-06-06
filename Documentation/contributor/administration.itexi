@@ -507,6 +507,31 @@ possibly including regtests for currently-broken functionality.
 
 (prep: 2 hours.  discuss: 5 hours)
 
+@item @strong{code readability}:
+"Our aim when producing source code for Lilypond in whatever
+language is that it should be totally comprehensible to a
+relatively inexperienced developer at the second reading."
+
+Rationale:
+- aids maintainability of code base
+- "second reading" so newer developers can look up unfamiliar
+  stuff
+- will help to keep things simple, even if the code is doing
+  complex stuff discourages "secret squirrel" coding, e.g.  "how
+  much functionality can I squeeze into as few characters as
+  possible" "comments are for wimps"
+- will aid not *discouraging* new developers to join the project
+
+(prep: 2 hours.  discuss: 10 hours)
+
+@item @strong{C++ vs. scheme}:
+what should be in scheme, what should be in C++, what can/should
+be ported from one to the other, etc.  Questions of
+maintainability, speed (especially considering guile 2.0), and the
+amount of current material in either form, are important.
+
+(prep: 5 hours.  discuss: 15 hours)
+
 @end itemize
 
 
