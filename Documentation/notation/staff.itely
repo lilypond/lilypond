@@ -1198,46 +1198,111 @@ written entirely in lower-case letters: @code{\addquote}.
 @node Formatting cue notes
 @unnumberedsubsubsec Formatting cue notes
 
-@cindex cues
 @cindex cue notes
-@cindex cue notes, formatting
 @cindex fragments
-@cindex quoting other voices
-@cindex cues, formatting
+@cindex cue notes, formatting
+@cindex formatting, cue notes
+@cindex voices, quoting
+
 
 @funindex \cueDuring
 @funindex cueDuring
+@funindex \cueClef
+@funindex cueClef
+@funindex \cueDuringWithClef
+@funindex cueDuringWithClef
 @funindex \quoteDuring
 @funindex quoteDuring
 
-The previous section explains how to create quotations.  The
-@code{\cueDuring} command is a more specialized form of
-@code{\quoteDuring}, being particularly useful for inserting cue
-notes into a part.  The syntax is as follows:
+@cindex notes, smaller
+@cindex smaller notes
+@cindex CueVoice
+
+The simplest way to format cue notes is to explicitly create a
+@code{CueVoice} context within the part.
+
+@lilypond[verbatim,relative=1]
+R1
+<<
+  { e2\rest r4. e8 }
+  \new CueVoice {
+    \stemUp d'8^"flute" c d e fis2
+  }
+>>
+d,4 r a r
+@end lilypond
+
+The @code{\cueClef} command can also be used with an explict
+@code{CueVoice} context if a change of clef is required and will print
+an appropriately sized clef for the cue notes. The @code{\cueClefUnset}
+command can then be used to switch back to the original clef, again with
+an appropriately sized clef.
+
+@lilypond[verbatim,noragged-right,relative=1]
+\clef "bass"
+R1
+<<
+  { e2\rest r4. \cueClefUnset e,8 }
+  \new CueVoice {
+    \cueClef "treble" \stemUp d''8^"flute" c d e fis2
+  }
+>>
+d,,4 r a r
+@end lilypond
+
+The @code{\cueClef} and @code{\cueClefUnset} command can also be used
+without a @code{CueVoice} if required.
+
+@lilypond[verbatim,noragged-right,relative=1]
+\clef "bass"
+R1
+\cueClef "treble"
+d'8^"flute" c d e fis2
+\cueClefUnset
+d,,4 r a r
+@end lilypond
+
+For more complex cue note placement, e.g including transposition, or
+inserting cue notes from multiple music sources the @code{\cueDuring} or
+@code{\cueDuringWithClef} commands can be used. These are more
+specialized form of @code{\quoteDuring}, see @ref{Quoting other voices}
+in the previous section.
+
+The syntax is:
 
 @example
-\cueDuring #@var{partname} #@var{voice} @var{music}
+\cueDuring #@var{quotename} #@var{direction} #@var{music}
 @end example
 
-This command copies only the notes and rests from the
-corresponding measures from @code{@var{partname}} into a
-@code{CueVoice} context.  The @code{CueVoice} is created
-implicitly, and occurs simultaneously with @code{@var{music}},
-which creates a polyphonic situation.  The @code{@var{voice}}
-argument determines whether the cue notes should be notated as a
-first or second voice; @code{UP} corresponds to the first voice,
-and @code{DOWN} corresponds to the second.
+and
+
+@example
+\cueDuringWithClef #@var{quotename} #@var{direction} #@var{clef} #@var{music}
+@end example
+
+The music from the corresponding measures of the @code{@var{quote name}}
+is added as @code{CueVoice} context and occurs simultaneously with the
+@code{@var{music}}, which creates a polyphonic situation.  The
+@code{@var{direction}} takes the argument @code{UP} or @code{DOWN}, and
+corresponds to first and second voices respectively determining how
+the cue notes are printed in relation to the other voice.
 
 @lilypond[verbatim,quote]
-oboe = \relative c'' {
-  r2 r8 d16(\f f e g f a)
-  g8 g16 g g2.
+fluteNotes = \relative c'' {
+  r2. c4 | d8 c d e fis2 | g2 d |
 }
-\addQuote "oboe" { \oboe }
 
-\new Voice \relative c'' {
-  \cueDuring #"oboe" #UP { R1 }
+oboeNotes = \relative c'' {
+  R1
+  s1*0^\markup { \tiny "flute" }
+  \cueDuring #"flute" #UP { R1 }
   g2 c,
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\new Staff {
+  \oboeNotes
 }
 @end lilypond
 
@@ -1277,7 +1342,8 @@ be restored at the end of the cue notes.
 flute = \relative c'' {
   r2. c4 d8 c d e fis2 g2 d2
 }
-bassoon = \relative c {
+
+bassoonNotes = \relative c {
   \clef bass
   R1
   \clef treble
@@ -1286,7 +1352,9 @@ bassoon = \relative c {
   \clef bass
   g4. b8 d2
 }
-\addQuote "flute" { \flute }
+
+\addQuote "flute" { \fluteNotes }
+
 \new Staff {
   \bassoon
 }
@@ -1311,7 +1379,8 @@ tagged for selective inclusion in the score; see @ref{Using tags}.
 flute = \relative c'' {
   r2. c4 d8 c d e fis2 g2 d2
 }
-bassoon = \relative c {
+
+bassoonNotes = \relative c {
   \clef bass
   R1
   \tag #'part {
@@ -1322,7 +1391,8 @@ bassoon = \relative c {
   \tag #'part \clef bass
   g4. b8 d2
 }
-\addQuote "flute" { \flute }
+
+\addQuote "flute" { \fluteNotes }
 
 \new Staff {
   \bassoon
@@ -1363,7 +1433,8 @@ piccolo = \relative c''' {
   c8 c c e g2
   c4 g g2
 }
-bassClarinet = \relative c' {
+
+bassClarinetNotes = \relative c' {
   \key d \major
   \transposition bes,
   d4 r a r
@@ -1379,30 +1450,63 @@ bassClarinet = \relative c' {
 >>
 @end lilypond
 
-@cindex notes, smaller
-@cindex smaller notes
+@cindex removing cue notes
+@cindex cue notes, removing
 
-A @code{CueVoice} context may be created explicitly if notes of a
-smaller size are required, for example to set an alternative
-sequence of notes more suitable for a higher or lower voice.
+@funindex \killCues
+@funindex killCues
+@funindex \addInstrumentDefinition
+@funindex addInstrumentDefinition
 
-@lilypond[verbatim,relative=2]
-\time 12/8
-\key ees \major
-g4 ees8 f4 g8
-\stemDown
-<<
-  { d4. bes4 c8 }
-  \new CueVoice
-  { g'4. f4 ees8 }
+The @code{\killCues} command removes cue notes from a music
+expression, so the same music expression can be used to produce
+the instrument part with cues and the score.  The @code{\killCues}
+command removes only the notes and events that were quoted by
+@code{\cueDuring}.  Other markup associated with cues, such as clef
+changes and a label identifying the source instrument, can be
+tagged for selective inclusion in the score; see @ref{Using tags}.
+
+@lilypond[verbatim,quote]
+fluteNotes = \relative c'' {
+  r2. c4 d8 c d e fis2 g2 d2
+}
+
+bassoonNotes = \relative c {
+  \clef bass
+  R1
+  \tag #'part {
+    \clef treble
+    s1*0^\markup { \tiny "flute" }
+  }
+  \cueDuring #"flute" #UP { R1 }
+  \tag #'part \clef bass
+  g4. b8 d2
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\new Staff {
+  \bassoonNotes
+}
+
+\new StaffGroup <<
+  \new Staff {
+    \fluteNotes
+  }
+  \new Staff {
+    \removeWithTag #'part { \killCues { \bassoonNotes } }
+  }
 >>
-\stemUp
-d2. d2.
 @end lilypond
+
+Alternatively, Clef changes and instrument labels can be
+collected into an instrument definition for repeated use, using
+@code{\addInstrumentDefinition} described in @ref{Instrument names}.
 
 
 @seealso
 Notation Reference:
+@ref{Quoting other voices},
 @ref{Instrument transpositions},
 @ref{Instrument names},
 @ref{Musical cues},
