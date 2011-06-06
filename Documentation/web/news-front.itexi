@@ -10,6 +10,19 @@
 
 
 @newsItem
+@subsubheading LilyPond 2.15.0 released!  @emph{June 7, 2011}
+
+We are happy to announce the release of LilyPond 2.15.0.  This is
+the beginning of a new unstable development effort, and adds the
+usual number of bugs.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.
+
+@newsEnd
+
+
+@newsItem
 @subsubheading LilyPond 2.14.0 released! @emph{June 6, 2011}
 
 We are proud to announce the release of GNU LilyPond 2.14.
