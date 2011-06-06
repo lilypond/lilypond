@@ -524,6 +524,14 @@ Rationale:
 
 (prep: 2 hours.  discuss: 10 hours)
 
+@item @strong{C++ vs. scheme}:
+what should be in scheme, what should be in C++, what can/should
+be ported from one to the other, etc.  Questions of
+maintainability, speed (especially considering guile 2.0), and the
+amount of current material in either form, are important.
+
+(prep: 5 hours.  discuss: 15 hours)
+
 @end itemize
 
 
