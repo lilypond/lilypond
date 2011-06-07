@@ -19,71 +19,78 @@
 
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.61!  @emph{1 de mayo de 2011}
+@subsubheading ¡Lanzado LilyPond 2.14.0! @emph{6 de junio de 2011}
 
-Nos complace anunciar el lanzamiento de LilyPond 2.13.61.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.
+Nos llena de orgullo anunciar el lanzamiento de GNU LilyPond 2.14.
+LilyPond es un programa de grabado musical (edición de partituras)
+dedicado a la producción de música impresa de la más alta calidad
+posible.  Lleva a la impresión por ordenador la estética de las
+partituras tipografiadas al estilo tradicional.
 
-Tenga en cuenta que esta @strong{no} es la tercera versión candidata
-al lanzamiento estable, debido a que aún permanecen unos cuantos
-fallos críticos.
+Durante los últimos dos años y medio son muchas las mejoras que se han
+producido a partir de la anterior versión principal estable.  Algunas
+de las más importantes son:
+
+@itemize
+@item
+LilyPond se licencia ahora bajo la GNU GPL v3 o posterior.
+
+@item
+Se ha modificado drásticamente el motor de espaciado vertical,
+haciéndolo mucho más flexible y fácil de controlar.
+
+@item
+Ahora la aplicación automática de barras de corchea es más flexible y
+se evitan las colisiones de barras.
+
+@end itemize
+
+Se da una lista completa de las funcionalidades nuevas en:
+
+@example
+@uref{http://lilypond.org/doc/v2.14/Documentation/changes/index.html}
+@end example
+
+¡Feliz edición de partituras!  LilyPond 2.14 llega a usted de la mano de...
+
+El equipo principal de desarrollo:
+
+Trevor Daniels, Reinhold Kainhofer, David Kastrup, Jonathan Kulp,
+Werner Lemberg, John Mandereau, Patrick McCarty, Joe Neeman,
+Han-Wen Nienhuys, Jan Nieuwenhuizen, Graham Percival, Mark
+Polesky, Neil Puttock, Mike Solomon, Carl Sorensen, Francisco
+Vila, Valentin Villenave.
+
+Colaboradores de programación:
+
+Sven Axelsson, Pál Benkő, Bertrand Bordage, Frédéric Bron, Hajo
+Dezelski, Richard Gay, Keith OHara, Andrew Hawryluk, Christian Hitz,
+Marc Hohl, Henning Hraban Ramm, Ian Hulin, Michael Käppler, Marek
+Klein, Kieren MacMillan, Thomas Morgan, Benjamin Peterson, Nathan
+Reed, Julien Rioux, Boris Shingarov, Patrick Schmidt, Owen Tuz, Andrew
+Wilson, Rodolfo Zitellini.
+
+Colaboradores de fuenteas tipográficas:
+
+Keith OHara, Marc Hohl, Alexander Kobel, Carsten Steger.
+
+Colaboradores de documentación:
+
+Colin Campbell, Andrew Hawryluk, James Lowe, Mike Moral, Ralph
+Palmer, David Pounder, Patrick Schmidt.
+
+Escuadrón de caza de bugs:
+
+James E. Bailey, Colin Campbell, Phil Holmes, Urs Liska, Ralph
+Palmer, Kieren MacMillan, Dmytro O. Redchuk.
+
+Colaboradores de los archivos binarios:
+
+Christian Hitz.
+
+Colaboradores de traducción:
+
+Federico Bruni, Dénes Harmath, Jean-Charles Malahieude, Tineke de
+Munnik, Till Paala, Ralf Wildenhues, Yoshiki Sawada.
 
 @newsEnd
-
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.60!  @emph{16 de abril de 2011}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.60.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.
-
-Tenga en cuenta que esta @strong{no} es la tercera versión candidata
-al lanzamiento estable, debido a que aún permanecen unos cuantos
-fallos críticos.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading Artículo en la Linux Journal Magazine: @emph{abril de 2011}
-
-@uref{http://www.linux-magazine.com,Linux Magazine} publica un
-artículo en su edición de mayo de 2011 bajo el título
-@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf, Projects on the Move}.
-Es una introducción a MuseScore, LilyPond y Chordii.  La autora Carla
-Schroder dice que @qq{LilyPond se maneja desde la línea de órdenes,
-pero que la falta de una interfaz de usuario no le asuste: LilyPond es
-amigable para el usuario y fácil de aprender}, y aporta un ejemplo de
-aplicación real.
-@newsEnd
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.59!  @emph{10 de abril de 2011}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.59.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.
-
-Tenga en cuenta que esta @strong{no} es la tercera versión candidata
-al lanzamiento estable, debido a que aún permanecen unos cuantos
-fallos críticos.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading Sexta versión candidata al lanzamiento de 2.14: ¡Lanzado LilyPond 2.13.58!  @emph{7 de abril de 2011}
-
-Ha salido LilyPond 2.13.58; ésta es la sexta versión candidata al
-lanzamiento de la inminente versión estable 2.14.  Se invita a los
-usuarios a que hagan experimentos con esta versión.  Las
-funcionalidades nuevas desde 2.12.3 están relacionadas en el manual de
-@qq{Cambios} dentro de la sección @ref{Desarrollo} de estas páginas.
-
-No existe ningún problema conocido calificado como crítico en esta
-versión.  Si no se encuentra ningún bug crítico, el lanzamiento de la
-versión oficial 2.14.0 se producirá el 14 de abril de 2011.  Si
-descubre algún problema, le rogamos que nos envíe
-@ref{Informes de fallos}.
-
-@newsEnd
-
