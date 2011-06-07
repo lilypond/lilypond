@@ -1,4 +1,4 @@
-\version "2.13.2"
+\version "2.14.0"
 
 \header {
   texidoc = "If @code{ignoreMelismata} is set, lyrics should remain

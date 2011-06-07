@@ -1,4 +1,4 @@
-\version "2.13.23"
+\version "2.14.0"
 
 \header {
   texidoc = "Hairpins, DynamicTextSpanners and dynamics can be

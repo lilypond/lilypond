@@ -1,4 +1,4 @@
-\version "2.13.17"
+\version "2.14.0"
 
 \header { texidoc = "Segno bar lines can be used to mark
                      the begin and the end of a segno part."

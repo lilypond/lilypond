@@ -1,6 +1,6 @@
 % property-init.ly
 
-\version "2.12.0"
+\version "2.14.0"
 
 %% for dashed slurs, phrasing slurs, and ties
 #(define (make-simple-dash-definition dash-fraction dash-period)
@@ -217,7 +217,7 @@ glissando = #(make-music 'GlissandoEvent)
 harmonicsOn =
 #(define-music-function (parser location) ()
    (_i "Set the default note head style to a diamond-shaped style.")
-   (override-head-style 'NoteHead 'harmonic))
+   (override-head-style '(NoteHead TabNoteHead) 'harmonic))
 harmonicsOff = \defaultNoteHeads
 harmonicNote =
 #(define-music-function (parser location note) (ly:music?)

@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 42f47af78202968f412a940f7ce9b3b1136fd236
+    Translation of GIT committish: 5becf12f5ada67346f70ad8cfe68589466619305
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.46"
+@c \version "2.14.0"
 
 @node Instrumentos de cuerda con trastes
 @section Instrumentos de cuerda con trastes

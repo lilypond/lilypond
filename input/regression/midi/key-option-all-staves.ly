@@ -1,4 +1,4 @@
-\version "2.13.53"
+\version "2.14.0"
 
 \header {
 texidoc="Midi2ly --key works on all staves, this is G major (--key=1)"

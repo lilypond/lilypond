@@ -115,9 +115,9 @@ Lilypond now engraves woodwind fingering charts.
 @item
 MIDI output has been improved
 @itemize @bullet
-@item voices are kept separated, which makes the MIDI file much more useful for postprocessing
-@item optimal channel distribution: identical instruments share the same channel.  This means that e.g. for a full orchestral score there are always 16 (15 plus percussion) diffently sounding instruments available, unrestricted by the number of staves or voices.
-@item @code{\set Score.midiChannelMapping = #'staff} assigns one MIDI channel per staff, previously the default behavior.  This setting is required if you want instrument changes to create MIDI program changes on a single MIDI channel.
+@item the option @code{\set Score.midiChannelMapping = #'voice} puts each voice on its own midi MIDI channel
+@item the option @code{\set Score.midiChannelMapping = #'instrument} puts identical instruments on the same MIDI channel.  This means that e.g. for a full orchestral score there are always 16 (15 plus percussion) differently sounding instruments available, unrestricted by the number of staves or voices.  (Some MIDI players will cut off notes, however, if two voices play the same pitch simultaneously on the same channel.) This option also stores each voice in a separate track in the MIDI file.
+@item the default, @code{\set Score.midiChannelMapping = #'staff}, assigns one MIDI channel per staff.  This setting allows instrument changes (implemented as MIDI program changes) to re-use single MIDI channel.
 @item dynamics are now rendered as note velocities, no longer as midi volume.  This improves the sound on [high end] midi renderers.
 @end itemize
 

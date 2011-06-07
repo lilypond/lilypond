@@ -12,7 +12,7 @@ is supressed if the rest has a pitch."
 \new Staff <<
   \relative c''' { g8 g g r r2 } \\
   \relative c' { a4\rest c r2 } \\
-  \relative c'' { c4 c r2 } \\
+  \relative c'' { c4 c f2\rest } \\
   \relative c'' { r2 g }
 >>
 

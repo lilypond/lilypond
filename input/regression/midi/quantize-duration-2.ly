@@ -1,5 +1,5 @@
 % Lily was here -- automatically converted by out/bin/midi2ly from /home/janneke/testmidi.mid
-\version "2.13.53"
+\version "2.14.0"
 
 \layout {
   \context {
@@ -8,6 +8,12 @@
     \consists "Completion_heads_engraver"
     \remove "Rest_engraver"
     \consists "Completion_rest_engraver"
+  }
+}
+\midi {
+  \context {
+    \Score
+    midiChannelMapping = #'instrument
   }
 }
 

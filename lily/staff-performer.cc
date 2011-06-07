@@ -105,6 +105,8 @@ Audio_staff*
 Staff_performer::new_audio_staff (string voice)
 {
   Audio_staff* audio_staff = new Audio_staff;
+  audio_staff->merge_unisons_
+    = to_boolean (get_property ("midiMergeUnisons"));
   string track_name = context ()->id_string () + ":" + voice;
   if (track_name != ":")
     {

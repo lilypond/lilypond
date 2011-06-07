@@ -1,4 +1,4 @@
-\version "2.13.55"
+\version "2.14.0"
 \header {
   texidoc = "A syllable aligned with a melisma delimited with
 @code{\melisma} and @code{\melismaEnd} should be left-aligned.

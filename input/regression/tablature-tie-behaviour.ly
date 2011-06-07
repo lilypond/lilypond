@@ -1,4 +1,4 @@
-\version "2.13.4"
+\version "2.14.0"
 
 \header{ texidoc = "In tablature, notes that are tied to are invisible
                      except after a line break or within a second volta;

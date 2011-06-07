@@ -10,67 +10,80 @@
 
 
 @newsItem
-@subsubheading LilyPond 2.13.61 released!  @emph{May 1, 2011}
+@subsubheading LilyPond 2.14.0 released! @emph{June 6, 2011}
 
-We are happy to announce the release of LilyPond 2.13.61.  This
-release contains the usual number of bugfixes.
+We are proud to announce the release of GNU LilyPond 2.14.
+LilyPond is a music engraving program, devoted to producing the
+highest-quality sheet music possible.  It brings the aesthetics of
+traditionally engraved music to computer printouts.
 
-Please note that this is @strong{not} the next release candidate,
-due to a few remaining Critical bugs.
+Many improvements have been made in the past two and a half years
+since the previous main stable version.  A few major improvements
+are:
+
+@itemize
+@item
+LilyPond is now licensed under the GNU GPL v3 or higher.
+
+@item
+The vertical spacing engine has been drastically changed, making
+it much more flexible and easier to control.
+
+@item
+Automatic beaming is now more flexible, and beam collisions are
+avoided.
+
+@end itemize
+
+A full list of new features is given in:
+
+@example
+@uref{http://lilypond.org/doc/v2.13/Documentation/changes/index.html}
+@end example
+
+Happy music typesetting!  LilyPond 2.14 was brought to you by...
+
+Main development team:
+
+Trevor Daniels, Reinhold Kainhofer, David Kastrup, Jonathan Kulp,
+Werner Lemberg, John Mandereau, Patrick McCarty, Joe Neeman,
+Han-Wen Nienhuys, Jan Nieuwenhuizen, Graham Percival, Mark
+Polesky, Neil Puttock, Mike Solomon, Carl Sorensen, Francisco
+Vila, Valentin Villenave.
+
+Programming contributors:
+
+Sven Axelsson, Pál Benkő, Bertrand Bordage, Frédéric Bron, Hajo Dezelski, Richard
+Gay, Keith OHara, Andrew Hawryluk, Christian Hitz, Marc Hohl,
+Henning Hraban Ramm, Ian Hulin, Michael Käppler, Marek Klein,
+Kieren MacMillan, Thomas Morgan, Benjamin Peterson, Nathan Reed,
+Julien Rioux, Boris Shingarov, Patrick Schmidt, Owen Tuz, Andrew
+Wilson, Rodolfo Zitellini.
+
+Font contributors:
+
+Keith OHara, Marc Hohl, Alexander Kobel, Carsten Steger.
+
+Documentation contributors:
+
+Colin Campbell, Andrew Hawryluk, James Lowe, Mike Moral, Ralph
+Palmer, David Pounder, Patrick Schmidt.
+
+Bug squad:
+
+James E. Bailey, Colin Campbell, Phil Holmes, Urs Liska, Ralph
+Palmer, Kieren MacMillan, Dmytro O. Redchuk.
+
+Binaries support contributors:
+
+Christian Hitz.
+
+Translation contributors:
+
+Federico Bruni, Dénes Harmath, Jean-Charles Malahieude, Tineke de
+Munnik, Till Paala, Ralf Wildenhues, Yoshiki Sawada.
 
 @newsEnd
 
 
-@newsItem
-@subsubheading LilyPond 2.13.60 released!  @emph{April 16, 2011}
-
-We are happy to announce the release of LilyPond 2.13.60.  This
-release contains the usual number of bugfixes.
-
-Please note that this is @strong{not} the next release candidate,
-due to a few remaining Critical bugs.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading Linux Journal Magazine article - @emph{April 2011}
-
-@uref{http://www.linux-magazine.com,Linux Magazine} publishes an
-article in the May 2011 issue titled
-@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
-Projects on the Move}.  It is an introduction to MuseScore,
-LilyPond and Chordii.  Author Carla Schroder states @qq{LilyPond is
-driven from the command line, but don’t let the lack of a GUI scare
-you away; LilyPond is user-friendly and easy to learn}, and provides
-a hands-on example.
-@newsEnd
-
-@newsItem
-@subsubheading LilyPond 2.13.59 released!  @emph{April 10, 2011}
-
-We are happy to announce the release of LilyPond 2.13.59.  This
-release contains the usual number of bugfixes.
-
-Please note that this is @strong{not} the next release candidate,
-due to a few remaining Critical bugs.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading Release candidate 6 of 2.14 - LilyPond 2.13.58 released!  @emph{April 7, 2011}
-
-LilyPond 2.13.58 is out; this is the sixth release candidate of
-the upcoming 2.14 stable release.  All users are invited to
-experiment with this version.  New features since 2.12.3 are
-listed in the @qq{Changes} manual on the website section about
-@ref{Development}.
-
-There are no known Critical issues with this release.  If no
-Critical bugs are found, then the official 2.14.0 release will be
-on April 14, 2011.  If you discover any problems, please send us
-@ref{Bug reports}.
-
-@newsEnd
 

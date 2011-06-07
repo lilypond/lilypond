@@ -70,9 +70,16 @@ Engraver_group::announce_grob (Grob_info info)
 {
   announce_infos_.push_back (info);
 
+  Context *dad_con = context_->get_parent_context ();
+  if (info.rerouting_daddy_context_)
+    {
+      dad_con = info.rerouting_daddy_context_;
+      info.rerouting_daddy_context_ = 0;
+    }
+
   Engraver_group *dad_eng
-    = context_->get_parent_context ()
-    ? dynamic_cast<Engraver_group *> (context_->get_parent_context ()->implementation ())
+    = dad_con
+    ? dynamic_cast<Engraver_group *> (dad_con->implementation ())
     : 0;
 
   if (dad_eng)

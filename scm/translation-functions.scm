@@ -232,20 +232,21 @@ be returned."
     "Convert @var{string-frets} to @code{fret-diagram-verbose}
 dot placement entries."
     (let* ((placements (list->vector
-                        (map (lambda (x) (list 'mute  (1+ x)))
-		             (iota string-count)))))
+                        (map (lambda (x) (list 'mute  x))
+		             (iota string-count 1)))))
 
       (for-each (lambda (sf)
 		  (let* ((string (car sf))
 			 (fret (cadr sf))
 			 (finger (caddr sf)))
 		    (vector-set!
-                     placements (1- string)
-		     (if (= 0 fret)
-                         (list 'open string)
-			 (if finger
-			     (list 'place-fret string fret finger)
-			     (list 'place-fret string fret))))))
+                      placements
+		      (1- string)
+		      (if (= 0 fret)
+                          (list 'open string)
+			  (if finger
+			      (list 'place-fret string fret finger)
+			      (list 'place-fret string fret))))))
 		string-frets)
       (vector->list placements)))
 
@@ -259,6 +260,7 @@ dot placement entries."
                  placement-list)))
 
   (define (entry-count art-list)
+    "Count the number of entries in a list of articulations."
     (length (filter (lambda (x) (not (null? x)))
                     art-list)))
 
@@ -269,21 +271,28 @@ dot placement entries."
 	    minimum-fret
 	    maximum-stretch
 	    tuning)
+    "Determine the frets and strings used to play the notes in
+@var{notes}, given @var{defined-strings} and @var{defined-fingers}
+along with @var{minimum-fret}, @var{maximum-stretch}, and
+@var{tuning}.  Returns a list of @code{(string fret finger) lists."
+
+    (define specified-frets '())
+    (define free-strings (iota (length tuning) 1))
 
     (define (calc-fret pitch string tuning)
+      "Calculate the fret to play @var{pitch} on @var{string} with
+@var{tuning}."
       (- (ly:pitch-semitones pitch) (ly:pitch-semitones (list-ref tuning (1- string)))))
 
-    (define (note-pitch a)
-      (ly:event-property a 'pitch))
-
-    (define (note-pitch>? a b)
-      (ly:pitch<? (note-pitch b)
-		  (note-pitch a)))
+    (define (note-pitch note)
+      "Get the pitch (in semitones) from @var{note}."
+      (ly:event-property note 'pitch))
 
     (define (note-finger ev)
+      "Get the fingering from @var{ev}.  Return @var{#f}
+if no fingering is present."
       (let* ((articulations (ly:event-property ev 'articulations))
 	     (finger-found #f))
-
 	(map (lambda (art)
 	       (let* ((num (ly:event-property art 'digit)))
 
@@ -292,10 +301,11 @@ dot placement entries."
 			  (> num 0))
 		   (set! finger-found num))))
 	     articulations)
-
 	finger-found))
 
     (define (string-number event)
+      "Get the string-number from @var{event}.  Return @var{#f}
+if no string-number is present."
       (let ((num (ly:event-property event 'string-number)))
 	(if (number? num)
 	  num
@@ -306,11 +316,8 @@ dot placement entries."
 	(set! free-strings
 	  (delete string free-strings))))
 
-    (define free-strings '())
-    (define unassigned-notes '())
-    (define specified-frets '())
-
     (define (close-enough fret)
+      "Decide if @var{fret} is acceptable, given the already used frets."
       (if (null? specified-frets)
 	#t
 	(reduce
@@ -323,100 +330,136 @@ dot placement entries."
 	       specified-frets))))
 
     (define (string-qualifies string pitch)
+      "Can @var{pitch} be played on @var{string}, given already placed
+notes?"
       (let* ((fret (calc-fret pitch string tuning)))
 	(and (>= fret minimum-fret)
 	     (close-enough fret))))
 
     (define (open-string string pitch)
+      "Is @var{pitch} and open-string note on @var{string}, given
+the current tuning?"
       (let* ((fret (calc-fret pitch string tuning)))
 	(eq? fret 0)))
 
-    (define string-fret-fingering-tuples '())
-
-    (define (set-fret note string)
-      (let ((this-fret (calc-fret (ly:event-property note 'pitch)
+    (define (set-fret! pitch-entry string finger)
+      (let ((this-fret (calc-fret (car pitch-entry)
 				  string
 				  tuning)))
 	(if (< this-fret 0)
 	  (ly:warning (_ "Negative fret for pitch ~a on string ~a")
-		      (note-pitch note) string))
-	(set! string-fret-fingering-tuples
-	  (cons (list string
-		      this-fret
-		      (note-finger note))
-		string-fret-fingering-tuples))
+		      (car pitch-entry) string))
 	(delete-free-string string)
-	(set! specified-frets (cons this-fret specified-frets))))
+        (set! specified-frets (cons this-fret specified-frets))
+        (list-set! string-fret-fingers
+                   (cdr pitch-entry)
+                   (list string this-fret finger))))
 
-    (define (pad-list target template)
-      (while (< (length target) (length template))
-	     (set! target (if (null? target)
-			    '(())
-			    (append target '(()))))))
+    (define (kill-note! string-fret-fingers note-index)
+      (list-set! string-fret-fingers note-index (list #f #t)))
+
+    (define string-fret-fingers
+             (map (lambda (string finger)
+                    (if (null? finger)
+                        (list string #f)
+                        (list string #f finger)))
+                  defined-strings defined-fingers))
 
     ;;; body of determine-frets-and-strings
-    (set! free-strings (map 1+ (iota (length tuning))))
+    (let* ((pitch-alist (apply (lambda (mylist)
+                                 (let ((index -1))
+                                   (map (lambda (note)
+                                          (begin
+                                            (set! index (1+ index))
+                                            (cons (note-pitch note)
+                                                  index)))
+                                        mylist)))
+                               notes '()))
+           (pitches (map note-pitch notes)))
 
-    ;; get defined-strings same length as notes
-    (pad-list defined-strings notes)
-
-    ;; get defined-fingers same length as notes
-    (pad-list defined-fingers notes)
-
-    ;; handle notes with strings assigned and fingering of 0
+      ;; handle notes with strings assigned and fingering of 0
+      (for-each
+        (lambda (pitch-entry string-fret-finger)
+	  (let* ((string (list-ref string-fret-finger 0))
+                 (finger (if (eq? (length string-fret-finger) 3)
+                             (list-ref string-fret-finger 2)
+                             '()))
+                 (pitch (car pitch-entry))
+                 (digit (if (null? finger)
+	          	    #f
+		            finger)))
+	    (if (or (not (null? string))
+		    (eq? digit 0))
+	        (if (eq? digit 0)
+                    ;; here we handle fingers of 0 -- open strings
+	            (let ((fit-string
+		            (find (lambda (string)
+			            (open-string string pitch))
+			          free-strings)))
+		      (if fit-string
+                          (set-fret! pitch-entry fit-string #f)
+		          (ly:warning (_ "No open string for pitch ~a")
+				      pitch)))
+                    ;; here we handle assigned strings
+	            (let ((this-fret
+                            (calc-fret pitch string tuning))
+		          (handle-negative
+		            (ly:context-property context
+					         'handleNegativeFrets
+					         'recalculate)))
+		      (cond ((or (>= this-fret 0)
+			         (eq? handle-negative 'include))
+                             (set-fret! pitch-entry string finger))
+		            ((eq? handle-negative 'recalculate)
+			     (begin
+                               (ly:warning
+                                 (_ "Requested string for pitch requires negative fret: string ~a pitch ~a")
+                                 string
+                                 pitch)
+			       (ly:warning (_ "Ignoring string request and recalculating."))
+                               (list-set! string-fret-fingers
+                                          (cdr pitch-entry)
+                                          (if (null? finger)
+                                              (list '() #f)
+                                              (list '() #f finger)))))
+		            ((eq? handle-negative 'ignore)
+			     (begin
+                               (ly:warning
+                                 (_ "Requested string for pitch requires negative fret: string ~a pitch ~a")
+                                 string
+                                 pitch)
+			       (ly:warning (_ "Ignoring note in tablature."))
+                               (kill-note! string-fret-fingers
+                                           (cdr pitch-entry))))))))))
+        pitch-alist string-fret-fingers)
+    ;; handle notes without strings assigned -- sorted by pitch, so
+    ;; we need to use the alist to have the note number available
     (for-each
-      (lambda (note string finger)
-	(let ((digit (if (null? finger)
-		       #f
-		       finger)))
-	  (if (and (null? string)
-		   (not (eq? digit 0)))
-	    (set! unassigned-notes (cons note unassigned-notes))
-	    (if (eq? digit 0)
-	      (let ((fit-string
-		      (find (lambda (string)
-			      (open-string string (note-pitch note)))
-			    free-strings)))
-		(if fit-string
-		  (begin
-		    (delete-free-string fit-string)
-		    (set-fret note fit-string))
-		  (begin
-		    (ly:warning (_ "No open string for pitch ~a")
-				(note-pitch note))
-		    (set! unassigned-notes (cons note unassigned-notes)))))
-	      (let ((this-fret (calc-fret (note-pitch note) string tuning))
-		    (handle-negative
-		      (ly:context-property context
-					   'handleNegativeFrets
-					   'recalculate)))
-		(cond ((or (>= this-fret 0)
-			   (eq? handle-negative 'include))
-		       (begin
-			 (delete-free-string string)
-			 (set-fret note string)))
-		      ((eq? handle-negative 'recalculate)
-		       (begin
-			 (ly:warning (_ "Requested string for pitch requires negative fret: string ~a pitch ~a") string (note-pitch note))
-			 (ly:warning (_ "Ignoring string request."))
-		         (set! unassigned-notes (cons note unassigned-notes))))))))))
-      notes defined-strings defined-fingers)
-
-    ;; handle notes without strings assigned
-    (for-each
-      (lambda (note)
-	(let ((fit-string
-		(find (lambda (string)
-			(string-qualifies string (note-pitch note)))
-		      free-strings)))
-	  (if fit-string
-	    (set-fret note fit-string)
-	    (ly:warning (_ "No string for pitch ~a (given frets ~a)")
-			(note-pitch note)
-			specified-frets))))
-      (sort unassigned-notes note-pitch>?))
-
-    string-fret-fingering-tuples) ;; end of determine-frets-and-strings
+      (lambda (pitch-entry)
+	(let* ((string-fret-finger (list-ref string-fret-fingers
+                                             (cdr pitch-entry)))
+               (string (list-ref string-fret-finger 0))
+               (finger (if (eq? (length string-fret-finger) 3)
+                           (list-ref string-fret-finger 2)
+                           '()))
+               (pitch (car pitch-entry))
+               (fit-string
+	         (find (lambda (string)
+	        	 (string-qualifies string pitch))
+		       free-strings)))
+          (if (not (list-ref string-fret-finger 1))
+	      (if fit-string
+                  (set-fret! pitch-entry fit-string finger)
+	          (begin
+                    (ly:warning (_ "No string for pitch ~a (given frets ~a)")
+		                pitch
+                                specified-frets)
+                    (kill-note! string-fret-fingers
+                                (cdr pitch-entry)))))))
+      (sort pitch-alist (lambda (pitch-entry-a pitch-entry-b)
+                          (ly:pitch<? (car pitch-entry-b)
+                                      (car pitch-entry-a)))))
+    string-fret-fingers)) ;; end of determine-frets-and-strings
 
   (define (get-predefined-fretboard predefined-fret-table tuning pitches)
     "Search through @var{predefined-fret-table} looking for a predefined
@@ -430,8 +473,6 @@ chords.  Returns a placement-list."
 	(if hash-handle
 	    (cdr hash-handle)  ; return table entry
 	    '())))
-
-
 
     ;; body of get-predefined-fretboard
     (let ((test-fretboard (get-fretboard (cons tuning pitches))))
@@ -488,7 +529,10 @@ chords.  Returns a placement-list."
                 string-frets
                 (create-fretboard
                  context grob (string-frets->placement-list
-                                string-frets string-count))))
+                                (filter (lambda (entry)
+                                          (car entry))
+                                        string-frets)
+                                string-count))))
          (if (null? grob)
              (placement-list->string-frets predefined-fretboard)
              (create-fretboard context grob predefined-fretboard)))))

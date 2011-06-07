@@ -12,7 +12,7 @@
 
 }
 
-\version "2.12.0"
+\version "2.14.0"
 \layout {
     ragged-right = ##t
 %    #(define debug-slur-scoring #t)

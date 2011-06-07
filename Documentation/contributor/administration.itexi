@@ -814,6 +814,28 @@ http://code.google.com/p/lilypond/issues/detail?id=1322
 should engravers be pluralized (note_heads_engraver) or not
 (note_head_engraver) ?
 
+@item
+should we allow numbers in identifier names?  Issue:
+http://code.google.com/p/lilypond/issues/detail?id=1670
+
+@item
+should we officially allow accented characters?  in general, how
+do we feel about utf-8 stuff?
+
+@item
+for the sake of completeness/simplicity, what about *disallowing*
+the "one-note" form of a music expression?  i.e. only allowing
+stuff like
+@verbatim
+  \transpose c d { e1 }
+  \transpose c d << e1 >>
+@end verbatim
+
+and never allowing
+@verbatim
+  \transpose c d e1
+@end verbatim
+
 @end itemize
 
 

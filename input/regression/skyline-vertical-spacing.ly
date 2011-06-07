@@ -7,7 +7,7 @@ systems more uniform."
 \paper {ragged-right = ##t}
 #(set-default-paper-size "a6")
 
-\version "2.12.0"
+\version "2.14.0"
 \book {
   \score {
     {

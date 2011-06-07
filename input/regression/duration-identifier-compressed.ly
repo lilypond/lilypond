@@ -1,4 +1,4 @@
-\version "2.13.18"
+\version "2.14.0"
 
 \header {
   texidoc = "The compression factor of a duration identifier is

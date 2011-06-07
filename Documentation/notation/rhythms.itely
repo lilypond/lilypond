@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.44"
+@c \version "2.14.0"
 
 @node Rhythms
 @section Rhythms
@@ -1577,7 +1577,7 @@ duration scaling affects the autobeaming rules.
     \time 3/4
     \set Staff.timeSignatureFraction = #'(9 . 8)
     \scaleDurations #'(2 . 3)
-    \repeat unfold 6 { c8[ c c] }
+      \repeat unfold 6 { c8[ c c] }
   }
   \new Staff {
     \time 3/4

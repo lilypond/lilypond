@@ -1,4 +1,4 @@
-\version "2.13.49"
+\version "2.14.0"
 
 \header {
   texidoc = "@code{lyricMelismaAlignment} sets the default alignment for melismata.

@@ -1,4 +1,4 @@
-\version "2.13.1"
+\version "2.14.0"
 \header { texidoc = "
 The appearance of phrasing slurs may be changed from solid to dotted or dashed.
 "

@@ -1,4 +1,4 @@
-\version "2.13.51"
+\version "2.14.0"
 
 \header {
   texidoc = "Beat repeats for patterns containing identical durations

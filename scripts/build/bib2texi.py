@@ -6,12 +6,14 @@ import tempfile
 
 # usage:
 def usage ():
-    print 'usage: %s [-s style] [-o <outfile>] BIBFILES...'
+    print 'usage: %s [-s style] [-o <outfile>] [-q] BIBFILES...'
+    print '-q suppresses most output'
 
-(options, files) = getopt.getopt (sys.argv[1:], 's:o:', [])
+(options, files) = getopt.getopt (sys.argv[1:], 's:o:hq', [])
 
 output = 'bib.itexi'
 style = 'long'
+show_output = True
 
 for (o,a) in options:
     if o == '-h' or o == '--help':
@@ -21,6 +23,8 @@ for (o,a) in options:
         style = a
     elif o == '-o' or o == '--output':
         output = a
+    elif o == '-q':
+        show_output = False
     else:
         raise Exception ('unknown option: %s' % o)
 
@@ -55,10 +59,16 @@ open (tmpfile + '.aux', 'w').write (r'''
 
 tmpdir = tempfile.gettempdir ()
 
-#The command line to invoke bibtex
-cmd = "TEXMFOUTPUT=%s bibtex %s" % (tmpdir, tmpfile)
+if (show_output):
+    quiet_flag = ''
+else:
+    quiet_flag = ' -terse '
 
-sys.stdout.write ("Invoking `%s'\n" % cmd)
+#The command line to invoke bibtex
+cmd = "TEXMFOUTPUT=%s bibtex %s %s" % (tmpdir, quiet_flag, tmpfile)
+
+if (show_output):
+    sys.stdout.write ("Running bibtex on %s\n" % files)
 #And invoke it
 stat = os.system (cmd)
 if stat <> 0:

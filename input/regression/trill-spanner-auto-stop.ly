@@ -1,4 +1,4 @@
-\version "2.13.1"
+\version "2.14.0"
 \header {
   texidoc = "Consecutive trill spans work without explicit
 @code{\\stopTrillSpan} commands, since successive trill spanners

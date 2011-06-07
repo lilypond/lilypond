@@ -453,7 +453,7 @@ print_trailer (void *out,
 
       if (glyph_name[0])
 	{
-	  lily_cookie_fprintf (out, "/%s %d def ", glyph_name, i);
+	  lily_cookie_fprintf (out, "(%s) cvn %d def ", glyph_name, i);
 	  output_count ++;
 	}
       else

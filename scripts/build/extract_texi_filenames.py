@@ -34,10 +34,12 @@ import re
 import os
 import getopt
 
-options_list, files = getopt.getopt (sys.argv[1:],'o:s:hI:m:',
+options_list, files = getopt.getopt (sys.argv[1:],'o:s:hI:m:k:q',
                                      ['output=', 'split=',
                                       'help', 'include=',
-                                      'master-map-file='])
+                                      'master-map-file=',
+                                      'known-missing-files=',
+                                      'quiet'])
 
 help_text = r"""Usage: %(program_name)s [OPTIONS]... TEXIFILE...
 Extract files names for texinfo (sub)sections from the texinfo files.
@@ -49,6 +51,9 @@ Options:
  -o, --output=DIRECTORY         write .xref-map files to DIRECTORY
  -s, --split=MODE               split manual according to MODE. Possible values
                                 are section and custom (default)
+ -k, --known-missing-files      a filename which has a list of files known
+                                to be missing for this make
+ -q, --quiet                    suppress most messages
 """
 
 def help (text):
@@ -59,6 +64,10 @@ outdir = '.'
 split = "custom"
 include_path = ['.',]
 master_map_file = ''
+known_missing_files = []
+known_missing_files_file = ''
+docs_without_directories = ['changes', 'music-glossary']
+suppress_output = False
 initial_map = {}
 for opt in options_list:
     o = opt[0]
@@ -69,7 +78,12 @@ for opt in options_list:
         if os.path.isdir (a):
             include_path.append (a)
         else:
-            print 'NOT A DIR from: ', os.getcwd (), a
+            path_list = a.split('/')
+            file_name = path_list[len(path_list)-1]
+            if not (file_name in docs_without_directories):
+                print a, 'is not a directory.'
+                print 'Please consider adding it to the list of '
+                print 'known missing files in extract_texi_filename.py.'
     elif o == '-o' or o == '--output':
         outdir = a
     elif o == '-s' or o == '--split':
@@ -77,9 +91,20 @@ for opt in options_list:
     elif o == '-m' or o == '--master-map-file':
         if os.path.isfile (a):
             master_map_file = a
+    elif o == '--known-missing-files':
+        if os.path.isfile (a):
+            known_missing_files_file = a
+        else:
+            print 'Missing files list file not found: ', a
+    elif o == '-q' or o == '--quiet':
+        suppress_output = True
     else:
         raise Exception ('unknown option: ' + o)
 
+if known_missing_files_file:
+    missing_files = open (known_missing_files_file, 'r')
+    known_missing_files = missing_files.read().splitlines()
+    missing_files.close()
 
 if not os.path.isdir (outdir):
     if os.path.exists (outdir):
@@ -104,8 +129,10 @@ def expand_includes (m, filename):
             filepath = os.path.join (directory, include_name)
             if os.path.exists (filepath):
                 return extract_sections (filepath)[1]
-        print 'No such file: ' + include_name
-        print 'Search path: ' + ':'.join (include_path)
+        if not (include_name in known_missing_files):
+            # Not found
+            print 'No such file: ' + include_name
+            print 'Search path: ' + ':'.join (include_path)
         return ''
 
 lang_re = re.compile (r'^@documentlanguage (.+)', re.M)
@@ -194,7 +221,8 @@ def process_sections (filename, lang_suffix, page):
     sections = section_translation_re.findall (page)
     basename = os.path.splitext (os.path.basename (filename))[0]
     p = os.path.join (outdir, basename) + lang_suffix + '.xref-map'
-    print 'writing:', p
+    if not suppress_output:
+        print 'writing:', p
     f = open (p, 'w')
 
     this_title = ''
@@ -271,6 +299,7 @@ if master_map_file:
             initial_map[m.group (1)] = (m.group (1), m.group (2), m.group (3))
 
 for filename in files:
-    print "extract_texi_filenames.py: Processing %s" % filename
+    if not suppress_output:
+        print "extract_texi_filenames.py: Processing %s" % filename
     (lang_suffix, sections) = extract_sections (filename)
     process_sections (filename, lang_suffix, sections)

@@ -57,17 +57,22 @@ protected:
     Prob *prob;
     vector<Grob*> staves;
     vector<Real> min_offsets;
+    // Store the appropriate '*-*-spacing 'padding,
+    //  for spacing any adjacent loose line
+    Real padding;
 
-    Element (vector<Grob*> const& a, vector<Real> const& o)
+    Element (vector<Grob*> const& a, vector<Real> const& o, Real p)
     {
       staves = a;
       min_offsets = o;
+      padding = p;
       prob = 0;
     }
 
-    Element (Prob *p)
+    Element (Prob *p, Real pad)
     {
       prob = p;
+      padding = pad;
     }
   } Element;
 
