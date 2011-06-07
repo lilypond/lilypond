@@ -490,7 +490,7 @@ print "@c ************************ Download source ************"
 # FIXME: icky hard-coding!  -gp
 for lang in langs:
     print "@c *********", lang, "***"
-    make_download_source("downloadStableSource","v2.12",VERSION_STABLE,lang)
+    make_download_source("downloadStableSource","v2.14",VERSION_STABLE,lang)
     make_download_source("downloadDevelSource","v2.13",VERSION_DEVEL,lang)
 
 print "@c ************************ Manual links ************"
