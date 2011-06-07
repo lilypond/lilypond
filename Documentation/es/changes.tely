@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 104566603d933821fbdbb7696ef0b5bbd3fa0797
+    Translation of GIT committish: caec41ae928a0b3352ecb2ca73ae45d8e3709026
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -44,7 +44,7 @@ Véase el manual del usuario, \NAME\
 @finalout
 
 @node Top
-@top Funcionalidades nuevas de la versión 2.13 desde la 2.12
+@top Funcionalidades nuevas de la versión 2.14 desde la 2.12
 
 @allowcodebreaks false
 
