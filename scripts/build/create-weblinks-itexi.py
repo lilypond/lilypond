@@ -491,7 +491,7 @@ print "@c ************************ Download source ************"
 for lang in langs:
     print "@c *********", lang, "***"
     make_download_source("downloadStableSource","v2.14",VERSION_STABLE,lang)
-    make_download_source("downloadDevelSource","v2.13",VERSION_DEVEL,lang)
+    make_download_source("downloadDevelSource","v2.15",VERSION_DEVEL,lang)
 
 print "@c ************************ Manual links ************"
 for lang in langs:
