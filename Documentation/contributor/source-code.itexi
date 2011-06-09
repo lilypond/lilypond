@@ -1194,8 +1194,8 @@ any changes you have made!
 
 Sometimes git will become hopelessly confused, and you just want
 to get back to a known, stable state.  This command destroys any
-local changes you have made, but at least you get back to the
-current online version:
+local changes you have made in the currently checked-out branch,
+but at least you get back to the current online version:
 
 @example
 git reset --hard origin/master
