@@ -182,7 +182,7 @@ Create a text file called @file{test.ly} and enter:
 
 @c double \\ required because this is inside a macro!
 @example
-\\version "@w{@version{}}"
+\\version "@w{@versionStable{}}"
 @{
   c' e' g' e'
 @}
@@ -201,7 +201,7 @@ lilypond test.ly
 You will see something resembling:
 
 @example
-GNU LilyPond @w{@version{}}
+GNU LilyPond @w{@versionStable{}}
 Processing `test.ly'
 Parsing...
 Interpreting music...
