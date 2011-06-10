@@ -119,7 +119,9 @@ optionally outputs to the console as well."
    (print-line engraver
                "rest"
                (ly:duration->string
-                (ly:event-property event 'duration))))
+                (ly:event-property event 'duration))
+               (format-moment (ly:duration-length
+                               (ly:event-property event 'duration)))))
 
 #(define (format-note engraver event)
    (let* ((origin (ly:input-file-line-char-column
@@ -129,6 +131,8 @@ optionally outputs to the console as well."
                  ;; get a MIDI pitch value.
                  (+ 60 (ly:pitch-semitones
                         (ly:event-property event 'pitch)))
+                 (ly:duration->string
+                  (ly:event-property event 'duration))
                  (format-moment (ly:duration-length
                                  (ly:event-property event 'duration)))
                  ;; point and click info
