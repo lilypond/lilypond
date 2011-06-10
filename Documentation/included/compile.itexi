@@ -139,7 +139,9 @@ python@var{version}-dev
 @item @uref{http://flex.sourceforge.net/, Flex}
 
 @item @uref{http://fontforge.sf.net/, FontForge} (20060125 or
-newer)
+newer; 20100501 or newer is recommended; must be compiled
+with --enable-double.  Failure to do so can lead to poor intersection
+calculations and poorly-rendered glyphs.)
 
 @item @uref{http://www.gnu.org/software/bison/, GNU Bison}
 
