@@ -224,11 +224,7 @@ proc update_lilypond {rebase} {
         git config core.bare false
         git remote add -t $originHead \
             origin git://git.sv.gnu.org/lilypond.git
-        if {$translator == 1} {
-            git fetch
-        } else {
-            git fetch --depth 1
-        }
+        git fetch
         git reset --hard origin/$originHead
         git config branch.$originHead.remote origin
         git config branch.$originHead.merge refs/heads/$originHead
