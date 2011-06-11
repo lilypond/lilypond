@@ -95,6 +95,27 @@ git push origin
 If you do not have the previous release test-output tarball, download
 it and put it in @code{regtests/}
 
+@item Prepare GUB environment by running:
+
+@example
+### my-gub.sh
+# special terminal, and default PATH environment.
+# import these special environment vars:
+#   HOME, HTTP_PROXY, TERM
+env -i \
+  HOME=$HOME \
+  HTTP_PROXY=$HTTP_PROXY \
+  bash --rcfile my-bashrc
+@end example
+
+@example
+### my-bashrc
+export PS1="\[\e[1;33mGUB-ENV \w\]$ \[\e[0m\]"
+export PATH=$PATH
+export TERM=xterm
+@end example
+
+
 @item Build release on GUB by running:
 
 @example
