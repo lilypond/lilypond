@@ -141,9 +141,7 @@ python@var{version}-dev
 @item @uref{http://fontforge.sf.net/, FontForge} (20060125 or
 newer; 20100501 or newer is recommended; must be compiled
 with @option{--enable-double}.  Failure to do so can lead to
-poor intersection calculations and poorly-rendered glyphs.
-20110222 currently renders the feta font correctly
-without @option{--enable-double}.)
+poor intersection calculations and poorly-rendered glyphs.)
 
 @item @uref{http://www.gnu.org/software/bison/, GNU Bison}
 
