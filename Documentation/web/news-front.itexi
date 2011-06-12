@@ -10,6 +10,15 @@
 
 
 @newsItem
+@subsubheading LilyPond 2.14.1 released!  @emph{June 12, 2011}
+
+We are happy to announce the release of LilyPond 2.14.1.  This
+fixes a few minor bugs in the stable version, and should cause no
+problems.  We recommend that everybody upgrade to this version.
+
+@newsEnd
+
+@newsItem
 @subsubheading LilyPond 2.15.1 released!  @emph{June 11, 2011}
 
 We are happy to announce the release of LilyPond 2.15.1.  This is
