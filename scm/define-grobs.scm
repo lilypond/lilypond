@@ -141,7 +141,9 @@
 
     (AmbitusLine
      . (
-        (gap . 0.35)
+        (gap . ,ambitus-line::calc-gap)
+        (length-fraction . 0.7)
+        (maximum-gap . 0.45)
         (stencil . ,ambitus::print)
         (thickness . 2)
         (X-offset . ,ly:self-alignment-interface::centered-on-x-parent)

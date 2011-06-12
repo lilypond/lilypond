@@ -35,6 +35,8 @@ note)."
  'ambitus-interface
  "The line between note heads for a pitch range."
  '(gap
+   length-fraction
+   maximum-gap
    note-heads
    thickness))
 

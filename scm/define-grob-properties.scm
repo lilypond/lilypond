@@ -578,6 +578,8 @@ to beams from this stem.  Further beams are typeset as beamlets.")
      (max-stretch ,number? "The maximum amount that this
 @code{VerticalAxisGroup} can be vertically stretched (for example, in
 order to better fill a page).")
+     (maximum-gap ,number? "Maximum value allowed for @code{gap}
+property.")
      (measure-count ,integer? "The number of measures for a
 multi-measure rest.")
      (measure-length ,ly:moment? "Length of a measure.  Used in some
