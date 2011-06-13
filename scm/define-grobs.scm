@@ -2341,6 +2341,7 @@
      . (
 	(avoid-slur . inside)
 	(cross-staff . ,ly:tuplet-number::calc-cross-staff)
+	(direction . ,tuplet-number::calc-direction)
 	(font-shape . italic)
 	(font-size . -2)
 	(stencil . ,ly:tuplet-number::print)
