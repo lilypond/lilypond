@@ -90,11 +90,11 @@ def draw_brace (expr height_sharp, width_sharp, slt_sharp, brace_number) =
 		y0 = y1;
 		x0 = x1 - 2/6 thin;
 
-		pendir = unitvector (x3 - x1, y3l / 6 - y1);
+		pendir = unitvector (x3 - x1, y3l / 8 - y1);
 		penangle = angle pendir - 90;
 		penpos3 (thin, penangle);
 		penpos2 (thick, angle (z3 - z1) - 90);
-		penpos1 (2/3 thin, penangle);
+		penpos1 (-2 * (x0 - x1), penangle);
 
 		penlabels (1, 2, 3);
 		labels (0);
@@ -116,11 +116,21 @@ def draw_brace (expr height_sharp, width_sharp, slt_sharp, brace_number) =
 enddef;
 
 
-save stafflinethickness;
+save linethickness;
 save increment;
+save last_brace_number;
+save min_width;
+save max_width;
+save min_thin;
+save max_thin;
 
 linethickness := 0.5 pt#;
 increment := 0.5 pt#;
+last_brace_number := braces_per_font * 9 - 1;
+min_width := 2 pt#;
+max_width := 20 pt#;
+min_thin := 0.2 pt#;
+max_thin := 1.25 pt#;
 y := 10 pt#;
 
 for i := 0 step 1 until font_count:
@@ -139,13 +149,10 @@ for i := 0 step 1 until font_count:
 			errmessage "please report to <bug-lilypond@gnu.org>";
 		fi;
 
-		% x should be about one staff space, taking brace to have
-		% default height of 3 staffs, this yields height / 3 / 4 = 12
-		% but 15 looks better
-		x := y / 15;
+		x := (y / last_brace_number) [min_width, max_width];
 
 		increment := x / 10;
-		linethickness :=  min (0.5 pt#, y / 150);
+		linethickness := (y / last_brace_number) [min_thin, max_thin];
 		if i = font_count:
 			draw_brace (y, x, linethickness, number);
 		fi;
