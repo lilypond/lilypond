@@ -60,9 +60,9 @@ $(outdir)/%.info: %.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outd
 
 $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf $(outdir)/weblinks.itexi
 ifeq ($(WEB_VERSION),yes)
-	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -D web_version -I $(abs-src-dir) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
+	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -D web_version -I $(abs-src-dir) --quiet $(TEXINFO_PAPERSIZE_OPTION) $(<F)
 else
-	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -I $(abs-src-dir) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
+	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -I $(abs-src-dir) --quiet $(TEXINFO_PAPERSIZE_OPTION) $(<F)
 endif
 
 $(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi
