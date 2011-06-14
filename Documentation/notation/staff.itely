@@ -1113,6 +1113,16 @@ oboeNotes = \relative c'' {
 }
 @end lilypond
 
+@cindex note-event
+@cindex articulation-event
+@cindex dynamic-event
+@cindex rest-event
+@cindex slur-event
+@cindex crescendo-event
+
+@funindex quotedEventTypes
+@funindex quotedCueEventTypes
+
 By default quoted music will include all articulations, dynamics,
 markups, etc., in the quoted expression.  It is possible to choose which
 of these objects from the quoted music are displayed by using the
@@ -1143,23 +1153,6 @@ oboeNotes = \relative c'' {
 @end lilypond
 
 Quotes can also be tagged, see @ref{Using tags}.
-
-@snippets
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{quoting-another-voice-with-transposition.ly}
-
-@cindex note-event
-@cindex articulation-event
-@cindex dynamic-event
-@cindex rest-event
-
-@funindex quotedEventTypes
-@funindex quotedCueEventTypes
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{quoting-another-voice.ly}
-
 
 @seealso
 Notation Reference:
