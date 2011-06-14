@@ -123,9 +123,11 @@ An introduction to Guile/Scheme as used in LilyPond can be found in the
 
 @subsection MetaFont
 
-MetaFont is used to create the music fonts used by LilyPond.  A MetaFont
-tutorial is available at @uref{http://metafont.tutorial.free.fr/, the
-METAFONT tutorial page}.
+MetaFont is used to create LilyPond's musical fonts.  An unofficial
+@uref{http://metafont.tutorial.free.fr/, METAFONT tutorial} is available.  The
+@uref{http://www.ctex.org/documents/shredder/src/mfbook.pdf, METAFONTbook}
+by Donald Knuth (TeX and MetaFont creator) is the most complete documentation
+available for MetaFont.
 
 @subsection PostScript
 
