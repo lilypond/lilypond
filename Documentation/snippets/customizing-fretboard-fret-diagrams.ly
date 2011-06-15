@@ -9,7 +9,7 @@
 \header {
   lsrtags = "fretted-strings, tweaks-and-overrides"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Se pueden establecer las propiedades de los diagramas de
 posiciones de acordes por medio de @code{'fret-diagram-details}.
