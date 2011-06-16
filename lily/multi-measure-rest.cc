@@ -243,7 +243,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measures,
     do
     {
       i++;
-      length = int (pow (2, -i));
+      length = int (pow (2.0, -i));
     }
     while (i <= 0 &&
            !(l >= length && mdl >= longest_church_rest - i));
