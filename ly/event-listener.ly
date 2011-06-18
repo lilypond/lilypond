@@ -151,6 +151,10 @@ optionally outputs to the console as well."
    (print-line engraver
                "breathe"))
 
+#(define (format-tie engraver event)
+   (print-line engraver
+               "tie"))
+
 #(define (format-articulation engraver event)
    (print-line engraver
                "script"
@@ -215,6 +219,7 @@ optionally outputs to the console as well."
                      (cons 'crescendo-event format-cresc)
                      (cons 'decrescendo-event format-decresc)
                      (cons 'text-span-event format-textspan)
+                     (cons 'tie-event format-tie)
                      )))
   }
 }
