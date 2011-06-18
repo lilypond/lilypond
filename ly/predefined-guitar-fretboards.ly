@@ -189,7 +189,7 @@
                         #"x;x;4-3;3-2;4-4;1-1;"
 \storePredefinedDiagram #default-fret-table \chordmode {ees:aug}
                         #guitar-tuning
-                        #"3-3;2-2;1-1;o;o;3-4"
+                        #"3-3;2-2;1-1;o;o;3-4;"
 \storePredefinedDiagram #default-fret-table \chordmode {ees:dim}
                         #guitar-tuning
                         #(offset-fret 1 (chord-shape 'd:dim guitar-tuning))
