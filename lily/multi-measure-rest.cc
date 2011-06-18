@@ -127,7 +127,7 @@ measure_duration_log (Grob *me)
   bool round = to_boolean (me->get_property ("round-to-longer-rest"));
   Rational ml = (unsmob_moment (sml)) ? unsmob_moment (sml)->main_part_ : Rational (1);
 
-  double duration_log = -log2 (ml.Rational::to_double ());
+  double duration_log = -log_2 (ml.Rational::to_double ());
   int measure_duration_log = int (ceil (duration_log));
   if (round && duration_log - measure_duration_log < 0)
     measure_duration_log--;
