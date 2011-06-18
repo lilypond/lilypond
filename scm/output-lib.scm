@@ -324,6 +324,9 @@ and duration-log @var{log}."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tuplets
 
+(define-public (tuplet-number::calc-direction grob)
+  (ly:tuplet-bracket::calc-direction (ly:grob-object grob 'bracket)))
+
 (define-public (tuplet-number::calc-denominator-text grob)
   (number->string (ly:event-property (event-cause grob) 'denominator)))
 

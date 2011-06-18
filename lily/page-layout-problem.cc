@@ -775,12 +775,7 @@ Page_layout_problem::get_fixed_spacing (Grob *before, Grob *after, int spaceable
 	return robust_scm2double (cached, 0.0);
     }
 
-  SCM spec = Page_layout_problem::get_spacing_spec (before, after, pure, start, end);
   Real ret = -infinity_f;
-  Real stretchability = 0;
-  if (Page_layout_problem::read_spacing_spec (spec, &stretchability, ly_symbol2scm ("stretchability"))
-      && stretchability == 0)
-    Page_layout_problem::read_spacing_spec (spec, &ret, ly_symbol2scm ("basic-distance"));
 
   // If we're pure, then paper-columns have not had their systems set,
   // and so elts[i]->get_system () is unreliable.
@@ -894,10 +889,7 @@ Page_layout_problem::alter_spring_from_spacing_spec (SCM spec, Spring* spring)
   spring->set_default_strength ();
 
   if (read_spacing_spec (spec, &stretch, ly_symbol2scm ("stretchability")))
-    {
-      spring->set_inverse_stretch_strength (stretch);
-      spring->set_inverse_compress_strength (stretch);
-    }
+    spring->set_inverse_stretch_strength (stretch);
 }
 
 vector<Grob*>

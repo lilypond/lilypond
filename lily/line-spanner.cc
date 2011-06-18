@@ -246,7 +246,6 @@ Line_spanner::print (SCM smob)
 
   Drul_array<Real> gaps (0, 0);
   Drul_array<bool> arrows (0, 0);
-  Drul_array<Real> anchor_align (0, 0);
   Drul_array<Stencil *> stencils (0,0);
   Drul_array<Grob *> common_y (0, 0);
 
@@ -260,8 +259,6 @@ Line_spanner::print (SCM smob)
 						 bounds[d], SCM_BOOL_F), 0.0);
       arrows[d] = to_boolean (ly_assoc_get (ly_symbol2scm ("arrow"),
 					    bounds[d], SCM_BOOL_F));
-      anchor_align[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("anchor-alignment"),
-							 bounds[d], SCM_BOOL_F), LEFT);
       stencils[d] = unsmob_stencil (ly_assoc_get (ly_symbol2scm ("stencil"),
 						  bounds[d], SCM_BOOL_F));
       common_y[d] = unsmob_grob (ly_assoc_get (ly_symbol2scm ("common-Y"),
@@ -296,10 +293,6 @@ Line_spanner::print (SCM smob)
 
       if (stencils[d])
 	{
-	  Interval ext = stencils[d]->extent (X_AXIS);
-	  Real anchor = ext.linear_combination (anchor_align[d]) - ext[LEFT];
-	  span_points[d][X_AXIS] -= anchor;
-
 	  Stencil s = stencils[d]->translated (span_points[d]);
 	  SCM align = ly_assoc_get (ly_symbol2scm ("stencil-align-dir-y"),
 				    bounds[d], SCM_BOOL_F);

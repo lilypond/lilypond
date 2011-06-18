@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 A veces se denota una «cesura» mediante una doble marca de respiración
 parecida a las vías del tren, con un calderón encima. Este fragmento

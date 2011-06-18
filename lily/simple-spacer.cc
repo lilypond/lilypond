@@ -196,7 +196,6 @@ Simple_spacer::expand_line ()
 Real
 Simple_spacer::compress_line ()
 {
-  double inv_hooke = 0;
   double cur_len = configuration_length (force_);
   double cur_force = force_;
   bool compressed = false;
@@ -213,22 +212,23 @@ Simple_spacer::compress_line ()
     }
 
   fits_ = true;
-  for (vsize i=0; i < springs_.size (); i++)
-    inv_hooke += compressed
-      ? springs_[i].inverse_compress_strength ()
-      : springs_[i].inverse_stretch_strength ();
 
   assert (line_len_ <= cur_len);
 
   vector<Spring> sorted_springs = springs_;
   sort (sorted_springs.begin (), sorted_springs.end (), greater<Spring> ());
 
-  for (vsize i = 0; i < sorted_springs.size (); i++)
+  /* inv_hooke is the total flexibility of currently-active springs */
+  double inv_hooke = 0;
+  vsize i = sorted_springs.size ();
+  for ( ; i && sorted_springs[i - 1].blocking_force () < cur_force; i--)
+    inv_hooke += compressed
+      ? sorted_springs[i - 1].inverse_compress_strength ()
+      : sorted_springs[i - 1].inverse_stretch_strength ();
+  /* i now indexes the first active spring, so */
+  for ( ; i < sorted_springs.size (); i++)
     {
       Spring sp = sorted_springs[i];
-
-      if (sp.blocking_force () > cur_force)
-	continue;
 
       if (isinf (sp.blocking_force ()))
 	break;

@@ -41,6 +41,8 @@ this @code{\\lyricsto} section.")
 (with @code{+} sign).")
      (augmented-slash ,boolean? "This figure is for an augmented figured bass
 (back-slashed number).")
+     (autosplit-end ,boolean? "Duration of event was truncated by automatic
+splitting in @code{Completion_heads_engraver}.")
 
      (bass ,boolean? "Set if this note is a bass note in a chord.")
      (beat-structure ,list? "A beatStructure to be used in autobeaming.")

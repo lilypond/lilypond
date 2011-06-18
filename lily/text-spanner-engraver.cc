@@ -52,8 +52,7 @@ Text_spanner_engraver::Text_spanner_engraver ()
   finished_ = 0;
   current_event_ = 0;
   span_ = 0;
-  event_drul_[START] = 0;
-  event_drul_[STOP] = 0;
+  event_drul_.set (0, 0);
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Text_spanner_engraver, text_span);
@@ -119,8 +118,7 @@ Text_spanner_engraver::stop_translation_timestep ()
     }
 
   typeset_all ();
-  event_drul_[START] = 0;
-  event_drul_[STOP] = 0;
+  event_drul_.set (0, 0);
 }
 
 void
@@ -135,20 +133,25 @@ Text_spanner_engraver::finalize ()
     }
 }
 
-
 void
 Text_spanner_engraver::acknowledge_note_column (Grob_info info)
 {
-  if (span_) {
-    Pointer_group_interface::add_grob (span_,
-				       ly_symbol2scm ("note-columns"),
-				       info.grob());
-    add_bound_item (span_, info.grob ());
-  } else if (finished_) {
-    Pointer_group_interface::add_grob (finished_, ly_symbol2scm ("note-columns"),
-				       info.grob());
-    add_bound_item (finished_, info.grob ());
-  }
+  if (span_)
+    {
+      Pointer_group_interface::add_grob (span_,
+					 ly_symbol2scm ("note-columns"),
+					 info.grob ());
+      if (!span_->get_bound (LEFT))
+	add_bound_item (span_, info.grob ());
+    }
+  else if (finished_)
+    {
+      Pointer_group_interface::add_grob (finished_,
+					 ly_symbol2scm ("note-columns"),
+					 info.grob ());
+      if (!finished_->get_bound (RIGHT))
+	add_bound_item (finished_, info.grob ());
+    }
 }
 
 ADD_ACKNOWLEDGER (Text_spanner_engraver, note_column);
@@ -161,7 +164,7 @@ ADD_TRANSLATOR (Text_spanner_engraver,
 		"TextSpanner ",
 
 		/* read */
-		"",
+		"currentMusicalColumn ",
 
 		/* write */
 		""

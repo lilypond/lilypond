@@ -4,11 +4,11 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.13.36
+%% Note: this file works from version 2.14.0
 \version "2.14.0"
 
 \header {
-%%%    Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%%%    Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
 
   texidoces = "
 En muchos casos, las llaves que no están en la columna central se

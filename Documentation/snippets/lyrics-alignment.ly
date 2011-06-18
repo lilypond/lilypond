@@ -9,7 +9,7 @@
 \header {
   lsrtags = "text, vocal-music"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 La alineación horizontal de la letra se puede ajustar sobreescribiendo
 la propiedad @code{self-alignment-X} del objeto @code{LyricText}.

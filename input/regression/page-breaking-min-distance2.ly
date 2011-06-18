@@ -8,8 +8,7 @@
   \context {
     \Score
     \override VerticalAxisGroup #'staff-staff-spacing =
-      #'((basic-distance . 20)
-         (stretchability . 0))
+      #'((minimum-distance . 20))
   }
 }
 
