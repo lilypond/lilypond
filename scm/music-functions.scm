@@ -1093,8 +1093,8 @@ specifies whether accidentals should be canceled in different octaves."
 	      (begin
 		(set! need-accidental #t)
 		(if (and (not (= this-alt 0))
-			 (or (< (abs this-alt) (abs prev-alt))
-			     (< (* prev-alt this-alt) 0)))
+			 (and (< (abs this-alt) (abs prev-alt))
+			     (> (* prev-alt this-alt) 0)))
 		    (set! need-restore #t))))))
 
     (cons need-restore need-accidental)))
