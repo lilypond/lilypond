@@ -1,9 +1,9 @@
-\version "2.14.0"
+\version "2.15.2"
 
-\header { texidoc = "Stanza numbers are put left of their lyric.  They
-are aligned in a column."  }
-
-\layout { ragged-right = ##t }
+\header {
+  texidoc = "Stanza numbers are put left of their lyric.  They
+are aligned in a column."
+}
 
 \relative c'' { r4 r4 c4 c4 }
 \addlyrics {
@@ -13,9 +13,6 @@ are aligned in a column."  }
 }
 \addlyrics {
   \skip 2
-  \set stanza = "2."
+  \set stanza = \markup { 2. }
   FFFooooo8
 }
-
-
-
