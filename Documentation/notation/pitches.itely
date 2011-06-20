@@ -1152,9 +1152,9 @@ c2 c
 
 Some special purpose clefs are described in @ref{Mensural clefs},
 @ref{Gregorian clefs}, @ref{Default tablatures}, and @ref{Custom
-tablatures}.  For mixing different clefs when cue notes within a score,
-see the @code{\cueClef} and @code{\cueDuringWithClef} functions in
-@ref{Formatting cue notes}.
+tablatures}.  For mixing different clefs when using cue notes within a
+score, see the @code{\cueClef} and @code{\cueDuringWithClef} functions
+in @ref{Formatting cue notes}.
 
 @snippets
 
