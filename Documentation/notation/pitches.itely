@@ -1152,20 +1152,22 @@ c2 c
 
 Some special purpose clefs are described in @ref{Mensural clefs},
 @ref{Gregorian clefs}, @ref{Default tablatures}, and @ref{Custom
-tablatures}.
+tablatures}.  For mixing different clefs when cue notes within a score,
+see the @code{\cueClef} and @code{\cueDuringWithClef} functions in
+@ref{Formatting cue notes}.
 
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
-
 @seealso
 Notation Reference:
 @ref{Mensural clefs},
 @ref{Gregorian clefs},
 @ref{Default tablatures},
-@ref{Custom tablatures}.
+@ref{Custom tablatures},
+@ref{Formatting cue notes}.
 
 Snippets:
 @rlsr{Pitches}.

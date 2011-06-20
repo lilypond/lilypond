@@ -1227,7 +1227,7 @@ d,4 r a r
 
 The @code{\cueClef} command can also be used with an explict
 @code{CueVoice} context if a change of clef is required and will print
-an appropriately sized clef for the cue notes. The @code{\cueClefUnset}
+an appropriately sized clef for the cue notes.  The @code{\cueClefUnset}
 command can then be used to switch back to the original clef, again with
 an appropriately sized clef.
 
@@ -1257,7 +1257,7 @@ d,,4 r a r
 
 For more complex cue note placement, e.g including transposition, or
 inserting cue notes from multiple music sources the @code{\cueDuring} or
-@code{\cueDuringWithClef} commands can be used. These are more
+@code{\cueDuringWithClef} commands can be used.  These are more
 specialized form of @code{\quoteDuring}, see @ref{Quoting other voices}
 in the previous section.
 
@@ -1476,6 +1476,7 @@ Notation Reference:
 @ref{Quoting other voices},
 @ref{Instrument transpositions},
 @ref{Instrument names},
+@ref{Clef},
 @ref{Musical cues},
 @ref{Using tags}.
 
