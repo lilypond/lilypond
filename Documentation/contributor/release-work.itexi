@@ -294,7 +294,20 @@ various websites, so be brief.
 Run convert-ly on all files, bump parser minimum version.
 
 @item
-Make FTP directories on lilypond.org
+Make directories on lilypond.org:
+
+@example
+~/web/download/sources/v2.14
+~/web/download/sources/v2.15
+@end example
+
+@item
+Shortly after the release, move all current contributors to
+previous contributors in:
+
+@example
+Documentation/included/authors.itexi
+@end example
 
 @item
 Website:
