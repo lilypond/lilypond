@@ -9,7 +9,7 @@
 \header {
   lsrtags = "text"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Aunque normalmente las marcas de texto sólo se imprimen sobre el
 pentagrama superior, también se pueden imprimir en otro pentagrama

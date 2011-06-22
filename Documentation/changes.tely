@@ -36,7 +36,7 @@ See user manual, \NAME\
 @finalout
 
 @node Top
-@top New features in 2.13 since 2.12
+@top New features in 2.14 since 2.12
 
 @allowcodebreaks false
 
@@ -370,7 +370,7 @@ balance.  The old and new versions can be compared by looking at the
 documentation:
 @uref{http://lilypond.org/doc/v2.12/Documentation/user/lilypond/The-Feta-font.html#Clef-glyphs,
 old version},
-@uref{http://lilypond.org/doc/v2.13/Documentation/notation/the-feta-font.html#Clef-glyphs,
+@uref{http://lilypond.org/doc/v2.14/Documentation/notation/the-feta-font.html#Clef-glyphs,
 new version}.
 
 

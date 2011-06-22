@@ -303,14 +303,15 @@ Technical requirements: development environment (such as
 @subsection Policy decisions
 
 There are a number of policy decisions -- some of them fairly
-important -- which we have been postponing for a few years.  When
-GOP begins, we will start discussing them.
+important -- which we have been postponing for a few years.  We
+are now discussing them slowly and thoroughly; agenda and exact
+proposals are online:
 
-@warning{The fact that we are not arguing about them right now is
-not, I repeat @strong{not}, an indication that we do not feel that
-these issues are not important.  It is simply that if we began
-talking about them now, it would postpone the 2.14 release for a
-few months.}
+@example
+@uref{http://lilypond.org/~graham/gop/index.html}
+@end example
+
+Below is a list of policies which are not @qq{on the agenda} yet.
 
 Note that the presence of an item on this list does @emph{not}
 mean that everybody thinks that something needs to be done.
@@ -319,12 +320,10 @@ should discuss it.  We are not going to filter this list; if any
 developer thinks we should discuss something, just add it to the
 bottom of the list.  (the list is unsorted)
 
-Once GOP starts, the list will be sorted into a rough agenda.  We
-will probably introduce one topic each week -- yes, it will
-therefore take months to get through everything, but we must
-balance productive work vs. policy administration.  If we find
-that we settle questions faster (or slower) than predicted, we
-will of course change the speed of new topic introductions.
+As GOP progresses, items from this list will be put on the agenda
+and removed from this list.  I generally try to have one month's
+discussion planned in advance, but I may shuffle things around to
+respond to any immediate problems in the developer community.
 
 There are some item(s) not displayed here; these are questions
 that were posed to me privately, and I do not feel justified in
@@ -360,10 +359,9 @@ away.  This is not good.
 
 (prep: 2 hours.  discuss: 10 hours)
 
-@item @strong{Lessons from the 2.14 release; future release policy}:
-What went well; what went badly? (how) should we change any
-policies pertaining to releases? Should an undocumented new
-feature count as release-blocking?
+@item @strong{Future release policy}:
+(how) should we change any policies pertaining to releases? Should
+an undocumented new feature count as release-blocking?
 
 (prep: 1 hour.  discuss: 15 hours)
 
@@ -375,22 +373,6 @@ so, who should be on it?
 
 @item @strong{Hackers B}:
 
-
-@item @strong{Code style}:
-New contributors sometimes struggle to follow our indentation and
-code style -- this is especially difficult when parts of our
-existing source code doesn't have a consistent style. This is
-problematic... we want new contributors to be struggling with the
-lilypond architecture, not playing games in their text editors!
-(ok, we don't actually want them to be struggling with lilypond
-internals... but given the current state of the CG, it's
-understandable, and at any rate it's still better than struggling
-with code style)
-Speaking academically, C++ code style is a "solved problem". Let's
-pick one of the existing solutions (probably either astyle,
-uncrustify, or emacs), and let a computer deal with this.
-
-(prep: 5 hours.  discuss: 15 hours)
 
 @item @strong{Git repository(s)}:
 We currently have a web/ branch in our main repo; this seems
@@ -485,16 +467,6 @@ required merging and stuff.
 
 (prep: 2 hours.  discuss: 10 hours)
 
-@item @strong{Precise definition of Critical issues}:
-at the moment, a stable release is entirely dependent on the
-number of Critical issues, but there's some questions about
-precisely what a "Critical issue" should be.  We should clarify
-this, in conjunction with a general discussion about how often we
-want to have stable releases, how permissive we want to be about
-patches, etc etc.
-
-(prep: 1 hour.  discuss: 5 hours)
-
 @item @strong{When do we add regtests?}:
 There is a discrepancy between our stated policy on adding
 regtests, and our actual practice in handling bugs and patches.
@@ -506,6 +478,31 @@ stuff like lilypond-book and midi2ly in a sensible manner, and
 possibly including regtests for currently-broken functionality.
 
 (prep: 2 hours.  discuss: 5 hours)
+
+@item @strong{code readability}:
+"Our aim when producing source code for Lilypond in whatever
+language is that it should be totally comprehensible to a
+relatively inexperienced developer at the second reading."
+
+Rationale:
+- aids maintainability of code base
+- "second reading" so newer developers can look up unfamiliar
+  stuff
+- will help to keep things simple, even if the code is doing
+  complex stuff discourages "secret squirrel" coding, e.g.  "how
+  much functionality can I squeeze into as few characters as
+  possible" "comments are for wimps"
+- will aid not *discouraging* new developers to join the project
+
+(prep: 2 hours.  discuss: 10 hours)
+
+@item @strong{C++ vs. scheme}:
+what should be in scheme, what should be in C++, what can/should
+be ported from one to the other, etc.  Questions of
+maintainability, speed (especially considering guile 2.0), and the
+amount of current material in either form, are important.
+
+(prep: 5 hours.  discuss: 15 hours)
 
 @end itemize
 

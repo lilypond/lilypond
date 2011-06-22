@@ -32,7 +32,7 @@
 
 
 
-\version "2.13.57"
+\version "2.15.0"
 
 %%%% Helper functions
 
@@ -60,27 +60,24 @@ name, it uses "unnamed-staff" for that part of the filename."
     (/ (ly:moment-main-numerator moment)
        (ly:moment-main-denominator moment))))
 
-#(define (adjust-for-grace moment)
-   "Adjusts any moment with a grace note by subtracting half of
-the grace note duration.  For example, an eighth note grace note
-which would otherwise occur at score time 0.5 will now occur at
-score time 0.375."
+#(define (moment-grace->string moment)
+   "Prints a moment without grace note(s) as a float such as
+0.25000.  Grace notes are written with the grace duration as a
+separate \"dashed\" number, i.e. 0.25000-0.12500.  This allows any
+program using the output of this function to interpret grace notes
+however they want (half duration, quarter duration?  before beat,
+after beat?  etc.)."
    (if
        (eq? 0 (ly:moment-grace-numerator moment))
-       moment
-       ;; get moment including grace note
-       ;; grace notes have a negative numerator, so add
-       (ly:moment-add moment
-                      ;; make the "grace duration" half as long
-                      (ly:moment-mul
-                       (ly:make-moment 1 2)
+       (ly:format "~a" (format-moment moment))
+       ;; grace notes have a negative numerator, so no "-" necessary
+       (ly:format
+         "~a~a"
+         (format-moment moment)
+         (format-moment
                        (ly:make-moment
                         (ly:moment-grace-numerator moment)
                         (ly:moment-grace-denominator moment))))))
-
-#(define (get-moment moment)
-   (format-moment (adjust-for-grace
-                   moment)))
 
 #(define (make-output-string-line engraver values)
    "Constructs a tab-separated string beginning with the
@@ -90,12 +87,12 @@ values.  The string ends with a newline."
           (moment (ly:context-current-moment context)))
     (string-append
      (string-join
-      (map
-       (lambda (x) (ly:format "~a" x))
-        (append
-         (list (get-moment moment))
-          values))
-        "\t")
+       (append
+         (list (moment-grace->string moment))
+         (map
+             (lambda (x) (ly:format "~a" x))
+             values))
+       "\t")
      "\n")))
 
 
@@ -119,7 +116,9 @@ optionally outputs to the console as well."
    (print-line engraver
                "rest"
                (ly:duration->string
-                (ly:event-property event 'duration))))
+                (ly:event-property event 'duration))
+               (format-moment (ly:duration-length
+                               (ly:event-property event 'duration)))))
 
 #(define (format-note engraver event)
    (let* ((origin (ly:input-file-line-char-column
@@ -129,6 +128,8 @@ optionally outputs to the console as well."
                  ;; get a MIDI pitch value.
                  (+ 60 (ly:pitch-semitones
                         (ly:event-property event 'pitch)))
+                 (ly:duration->string
+                  (ly:event-property event 'duration))
                  (format-moment (ly:duration-length
                                  (ly:event-property event 'duration)))
                  ;; point and click info
@@ -149,6 +150,10 @@ optionally outputs to the console as well."
 #(define (format-breathe engraver event)
    (print-line engraver
                "breathe"))
+
+#(define (format-tie engraver event)
+   (print-line engraver
+               "tie"))
 
 #(define (format-articulation engraver event)
    (print-line engraver
@@ -214,6 +219,7 @@ optionally outputs to the console as well."
                      (cons 'crescendo-event format-cresc)
                      (cons 'decrescendo-event format-decresc)
                      (cons 'text-span-event format-textspan)
+                     (cons 'tie-event format-tie)
                      )))
   }
 }

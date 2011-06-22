@@ -45,20 +45,23 @@ Spring::Spring (Real dist, Real min_dist)
 void
 Spring::update_blocking_force ()
 {
+  // blocking_force_ is the value of force
+  //   below which length(force) is constant, and
+  //   above which length(force) varies according to inverse_*_strength.
+  // Simple_spacer::compress_line() depends on the condition above.
+  // We assume inverse_*_strength are non-negative.
   if (min_distance_ > distance_)
-    blocking_force_ = (min_distance_ - distance_) / inverse_stretch_strength_;
+    if (inverse_stretch_strength_ > 0.0)
+      blocking_force_ = (min_distance_ - distance_) / inverse_stretch_strength_;
+    else
+      // Conceptually, this should be +inf, but 0.0 meets the requirements
+      //  of Simple_spacer and creates fewer cases of 0.0*inf to handle.
+      blocking_force_ = 0.0;
   else
-    blocking_force_ = (min_distance_ - distance_) / inverse_compress_strength_;
-
-  // If the spring is fixed, it's not clear what the natural value
-  // of blocking_force_ would be (because it always blocks).
-  // -infinity_f works fine for now.
-  // If inverse_stretch_strength > 0, the spring is not fixed (because it can stretch).
-  if (isnan (blocking_force_) || blocking_force_ == infinity_f)
-    blocking_force_ = (inverse_stretch_strength_ > 0) ? 0.0 : -infinity_f;
-
-  if (blocking_force_ >= 0)
-    inverse_compress_strength_ = 0;
+    if (inverse_compress_strength_ > 0.0)
+      blocking_force_ = (min_distance_ - distance_) / inverse_compress_strength_;
+    else
+      blocking_force_ = 0.0;
 }
 
 /* scale a spring, but in a way that doesn't violate min_distance */
@@ -200,7 +203,7 @@ Spring::length (Real f) const
   Real force = max (f, blocking_force_);
   Real inv_k = force < 0.0 ? inverse_compress_strength_ : inverse_stretch_strength_;
 
-  if (force == infinity_f)
+  if (isinf(force))
     {
       programming_error ("cruelty to springs");
       force = 0.0;

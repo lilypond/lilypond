@@ -1447,7 +1447,7 @@ simple_string: STRING {
 scalar: string {
 		$$ = $1;
 	}
-	| LYRICS_STRING {
+	| lyric_element {
 		$$ = $1;
 	}
 	| bare_number {

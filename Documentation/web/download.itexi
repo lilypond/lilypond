@@ -230,22 +230,22 @@ upgrade to these versions.
 @item
 @sourceimage{logo-fedora,,,}
 @uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
-Fedora: LilyPond 2.12.3}
+Fedora: LilyPond 2.14.1}
 
 @item
 @sourceimage{logo-ubuntu,,,}
 @uref{http://packages.ubuntu.com/search?keywords=lilypond,
-Ubuntu: LilyPond 2.12.2}
+Ubuntu: LilyPond 2.12.3}
 
 @item
 @sourceimage{logo-slackware,,,}
 @uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.12.3}
+Slackware: LilyPond 2.14.1}
 
 @item
 @sourceimage{logo-debian,,,}
 @uref{http://packages.debian.org/search?keywords=lilypond,
-Debian: LilyPond 2.12.2}
+Debian: LilyPond 2.12.3}
 
 @item
 @sourceimage{logo-suse,,,}
@@ -514,7 +514,7 @@ which contains LilyPond executable files like this:
 [@var{pre-set paths}];@var{DIR}\LilyPond\usr\bin
 @end example
 
-@warning{@var{DIR} will generally be @code{C:\Program Files}.}
+@warning{@var{DIR} will generally be @code{C:@bs{}Program Files}.}
 
 @noindent
 and click @qq{OK} button to close the window.

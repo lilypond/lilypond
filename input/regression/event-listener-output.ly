@@ -43,16 +43,16 @@ vlnone = \new Staff {
     b8-_\startTextSpan a-_\stopTextSpan
     b4\p\<( d8 cis) d4(-. fis8-.^"II" e-.^"II")
   fis16(\mf\downbow g a b c\> b a g) fis(\upbow e d c) b(\downbow a g fis)
-  e8-.\mp\upbow r e'-.\upbow^"tip" r e,4->^"mb" r4
+  e16\mp\upbow ~ e-.\mp r e'-.\upbow^"tip" r e,4->^"mb" r4
 
   \key d \minor
   \time 3/4
   \tempo 4 = 120
-  d4.\f^"pizz." e8 f4
+  d4.\mf^"pizz." e8 f4
   f'4. e8 d4
-  d,4.\p c8 bes4
+  d,4.\mp c8 bes4
   \tempo 4 = 88
-  a16\mp e' a e' a,,32\f e' a e' r8 r4
+  a16\p e' a e' a,,32\f e' a e' r8 r4
   d4^"arco"^"lh"\> \acciaccatura { c8 } bes4 \acciaccatura { a8 } g4
   \st "III"
   fis16\p\startTextSpan a_"II" g a_"II" a a_"II" bes a_"II"

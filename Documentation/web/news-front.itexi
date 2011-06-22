@@ -10,6 +10,52 @@
 
 
 @newsItem
+@subsubheading LilyPond 2.15.2 released!  @emph{June 18, 2011}
+
+We are happy to announce the release of LilyPond 2.15.2.  This
+release contains the usual number of bugfixes.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond 2.14.1 released!  @emph{June 12, 2011}
+
+We are happy to announce the release of LilyPond 2.14.1.  This
+fixes a few minor bugs in the stable version, and should cause no
+problems.  We recommend that everybody upgrade to this version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.15.1 released!  @emph{June 11, 2011}
+
+We are happy to announce the release of LilyPond 2.15.1.  This is
+the beginning of a new unstable development effort, and adds the
+usual number of bugs.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.15.0 released!  @emph{June 7, 2011}
+
+We are happy to announce the release of LilyPond 2.15.0.  This is
+the beginning of a new unstable development effort, and adds the
+usual number of bugs.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.
+
+@newsEnd
+
+
+@newsItem
 @subsubheading LilyPond 2.14.0 released! @emph{June 6, 2011}
 
 We are proud to announce the release of GNU LilyPond 2.14.
@@ -53,11 +99,11 @@ Vila, Valentin Villenave.
 
 Programming contributors:
 
-Sven Axelsson, Pál Benkő, Bertrand Bordage, Frédéric Bron, Hajo Dezelski, Richard
+Sven Axelsson, Pál Benkő, Bertrand Bordage, Frédéric Bron, Peter Chubb, Hajo Dezelski, Richard
 Gay, Keith OHara, Andrew Hawryluk, Christian Hitz, Marc Hohl,
 Henning Hraban Ramm, Ian Hulin, Michael Käppler, Marek Klein,
 Kieren MacMillan, Thomas Morgan, Benjamin Peterson, Nathan Reed,
-Julien Rioux, Boris Shingarov, Patrick Schmidt, Owen Tuz, Andrew
+Julien Rioux, Boris Shingarov, Patrick Schmidt, Owen Tuz, Jan Warchoł, Andrew
 Wilson, Rodolfo Zitellini.
 
 Font contributors:

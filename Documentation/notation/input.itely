@@ -22,6 +22,7 @@ rather than specific notation.
 * Working with input files::
 * Controlling output::
 * MIDI output::
+* Extracting musical information::
 @end menu
 
 
@@ -1200,7 +1201,6 @@ Init files: @file{../ly/toc-init.ly}.
 * Including LilyPond files::
 * Different editions from one source::
 * Text encoding::
-* Displaying LilyPond notation::
 @end menu
 
 
@@ -1698,35 +1698,6 @@ To enter the copyright sign in the copyright notice use:
 \header @{
   copyright = \markup @{ \char ##x00A9 "2008" @}
 @}
-@end example
-
-@node Displaying LilyPond notation
-@subsection Displaying LilyPond notation
-
-@funindex \displayLilyMusic
-Displaying a music expression in LilyPond notation can be
-done with the music function @code{\displayLilyMusic} but only when
-using the command line.  For example,
-
-@example
-@{
-  \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
-@}
-@end example
-
-will display
-
-@example
-@{ a,4 cis e fis g @}
-@end example
-
-By default, LilyPond will print these messages to the console
-along with all the other LilyPond compilation messages.  To split
-up these messages and save the results of @code{\display@{STUFF@}},
-redirect the output to a file.
-
-@example
-lilypond file.ly >display.txt
 @end example
 
 
@@ -2544,3 +2515,98 @@ example shown above as it enables performing abbreviatures such as
 
 Articulate shortens chords and some music (esp. organ music) could
 sound worse.
+
+
+@node Extracting musical information
+@section Extracting musical information
+
+In addition to creating graphical output and MIDI, LilyPond can
+display musical information as text.
+
+@menu
+* Displaying LilyPond notation::
+* Displaying scheme music expressions::
+* Saving music events to a file::
+@end menu
+
+@node Displaying LilyPond notation
+@subsection Displaying LilyPond notation
+
+@funindex \displayLilyMusic
+Displaying a music expression in LilyPond notation can be
+done with the music function @code{\displayLilyMusic} but only when
+using the command line.  For example,
+
+@example
+@{
+  \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
+@}
+@end example
+
+will display
+
+@example
+@{ a,4 cis e fis g @}
+@end example
+
+By default, LilyPond will print these messages to the console
+along with all the other LilyPond compilation messages.  To split
+up these messages and save the results of @code{\display@{STUFF@}},
+redirect the output to a file.
+
+@example
+lilypond file.ly >display.txt
+@end example
+
+
+@node Displaying scheme music expressions
+@subsection Displaying scheme music expressions
+
+See @rextend{Displaying music expressions}.
+
+
+@node Saving music events to a file
+@subsection Saving music events to a file
+
+Music events can be saved to a file on a per-staff basis by
+including a file in your main score.
+
+@example
+\include "event-listener.ly"
+@end example
+
+This will create file(s) called @file{FILENAME-STAFFNAME.notes} or
+@file{FILENAME-unnamed-staff.notes} for each staff.  Note that if
+you have multiple unnamed staves, the events for all staves will
+be mixed together in the same file.  The output looks like this:
+
+@example
+0.000   note     57       4   p-c 2 12
+0.000   dynamic  f
+0.250   note     62       4   p-c 7 12
+0.500   note     66       8   p-c 9 12
+0.625   note     69       8   p-c 14 12
+0.750   rest     4
+0.750   breathe
+@end example
+
+The syntax is a tab-delimited line, with two fixed fields on each
+line followed by optional parameters.
+
+@example
+@var{time}  @var{type}  @var{...params...}
+@end example
+
+This information can easily be read into other programs such as
+python scripts, and can be very useful for researchers wishing to
+perform musical analysis or playback experiments with LilyPond.
+
+
+@knownissues
+
+Not all lilypond music events are supported by
+@file{event-listener.ly}.  It is intended to be a well-crafted
+@qq{proof of concept}.  If some events that you want to see are
+not included, copy @file{event-listener.ly} into your lilypond
+directory and modify the file so that it outputs the information
+you want.
