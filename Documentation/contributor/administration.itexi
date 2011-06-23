@@ -163,6 +163,7 @@ difficult tasks.
 * Motivation::
 * Ongoing jobs::
 * Policy decisions::
+* Policy decisions (finished)::
 @end menu
 
 @node Motivation
@@ -505,6 +506,34 @@ amount of current material in either form, are important.
 (prep: 5 hours.  discuss: 15 hours)
 
 @end itemize
+
+@node Policy decisions (finished)
+@subsection Policy decisions (finished)
+
+@subheading GOP-PROP 1: python formatting
+
+We will follow the indentation described in PEP-8.
+@uref{http://www.python.org/dev/peps/pep-0008/}
+
+@itemize
+@item
+use 4 spaces per indentation level
+
+@item
+never mix tabs and spaces (for indentation)
+
+@item
+Code indented with a mixture of tabs and spaces should be
+converted to using spaces exclusively
+
+Once this is done, we should add @code{python -tt} to the build
+system to avoid such errors in the future.
+
+@end itemize
+
+There should be absolutely no tab characters for indentation in
+any @code{.py} file in lilypond git.  All such files should be
+converted to use spaces only.
 
 
 
