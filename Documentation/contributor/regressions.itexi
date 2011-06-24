@@ -430,7 +430,9 @@ code has been exercised by the tests.
 
 For tracking memory usage as part of this test, you will need
 GUILE CVS; especially the following patch:
+@smallexample
 @uref{http://www.lilypond.org/vc/old/gub.darcs/patches/guile-1.9-gcstats.patch}.
+@end smallexample
 
 @subheading Code coverage
 

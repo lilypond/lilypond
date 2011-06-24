@@ -372,15 +372,14 @@ back on a line by themselves.
 
 Command-line script to format stuff with emacs:
 
-@example
+@smallexample
 #!/bin/sh
 emacs $1 -batch --eval '(indent-region (point-min) (point-max) nil)' -f save-buffer
-@end example
+@end smallexample
 
 (that's all on one line)
 
 Save it as a shell script, then run on the file(s) you modified.
-
 
 @subheading Indenting with vim
 

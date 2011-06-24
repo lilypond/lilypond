@@ -164,9 +164,9 @@ comments, and I'd guess most of it isn't needed.
 We return to @file{stepmake.make}, where we hit the make rule all:
 The first line of this is:
 
-@example
+@smallexample
 -include $(addprefix $(depth)/make/,$(addsuffix -inclusions.make, $(LOCALSTEPMAKE_TEMPLATES)))
-@end example
+@end smallexample
 
 which, when the variables are substituted, gives:
 
@@ -181,9 +181,9 @@ error message when the included file doesn't exist).
 
 And the first file doesn't exist.  Nor the second.  Next:
 
-@example
+@smallexample
 -include $(addprefix $(stepdir)/,$(addsuffix -inclusions.make, $(STEPMAKE_TEMPLATES)))
-@end example
+@end smallexample
 
 which expands to the following files:
 
@@ -202,9 +202,9 @@ that'll be something else to discover.)
 
 Next in @file{stepmake.make}:
 
-@example
+@smallexample
 include $(addprefix $(stepdir)/,$(addsuffix -vars.make, $(STEPMAKE_TEMPLATES)))
-@end example
+@end smallexample
 
 which expands to:
 
@@ -239,10 +239,10 @@ So now we're back to @file{stepmake.make}.
 
 The next lines are
 :
-@example
+@smallexample
 # ugh. need to do this because of PATH :=$(top-src-dir)/..:$(PATH)
 include $(addprefix $(depth)/make/,$(addsuffix -vars.make, $(LOCALSTEPMAKE_TEMPLATES)))
-@end example
+@end smallexample
 
 and the include expands to:
 
@@ -255,12 +255,12 @@ child @code{make} processes to use them.
 
 The final 4 lines of @file{stepmake.make} are:
 
-@example
+@smallexample
 include $(addprefix $(depth)/make/,$(addsuffix -rules.make, $(LOCALSTEPMAKE_TEMPLATES)))
 include $(addprefix $(stepdir)/,$(addsuffix -rules.make, $(STEPMAKE_TEMPLATES)))
 include $(addprefix $(depth)/make/,$(addsuffix -targets.make, $(LOCALSTEPMAKE_TEMPLATES)))
 include $(addprefix $(stepdir)/,$(addsuffix -targets.make, $(STEPMAKE_TEMPLATES)))
-@end example
+@end smallexample
 
 which expand as follows:
 
@@ -336,7 +336,7 @@ A bit more info from 27 March.  I've put some error traces into
 following lines actually cause the make to run (putting an error
 call above them - no make; below them - make):
 
-@example
+@smallexample
 ifeq ($(out),www)
 # All web targets, except info image symlinks and info docs are
 # installed in non-recursing target from TOP-SRC-DIR
@@ -344,14 +344,15 @@ install-WWW:
 	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
 	rsync -rl --exclude='*.signature' $(outdir)/offline-root $(DESTDIR)$(webdir)
 	$(MAKE) -C Documentation omf-local-install
-@end example
+@end smallexample
 
 I don't currently understand the @code{ifeq}, since @code{$(out)}
 is empty at this point, but the line starting @code{-$(INSTALL)}
 translates to:
 
 @example
--/usr/bin/python /home/phil/lilypond-git/stepmake/bin/install.py -c -m 755 -d /usr/local/share/doc/lilypond/html
+-/usr/bin/python /home/phil/lilypond-git/stepmake/bin/install.py \
+  -c -m 755 -d /usr/local/share/doc/lilypond/html
 @end example
 
 End of work for Sunday 27th.
@@ -440,9 +441,9 @@ From git grep:
 
 stepmake/stepmake/generic-vars.make has this:
 
-@example
+@smallexample
 LOOP=+$(foreach i, $(SUBDIRS), $(MAKE) PACKAGE=$(PACKAGE) package=$(package) -C $(i) $@ &&) true
-@end example
+@end smallexample
 
 $@ is the name of the target - WWW-1 in this case.
 
@@ -566,26 +567,26 @@ So my assumption seems correct)
 There appear to be about 74 of them.  After all the makefile
 checking, we get this:
 
-@example
+@smallexample
 Updating goal targets....
 Considering target file `WWW-1'.
- File `WWW-1' does not exist.
-  Considering target file `local-WWW-1'.
-   File `local-WWW-1' does not exist.
-    Considering target file `out-www/collated-files.texi'.
-     File `out-www/collated-files.texi' does not exist.
-     Looking for an implicit rule for `out-www/collated-files.texi'.
-     Trying pattern rule with stem `collated-files.texi'.
-     Trying implicit prerequisite `collated-files.texi.in'.
-     Trying pattern rule with stem `collated-files.texi'.
-     Trying implicit prerequisite `collated-files.texi.in'.
-     Trying pattern rule with stem `collated-files'.
-     Trying implicit prerequisite `collated-files.tely'.
-     Trying pattern rule with stem `collated-files'.
-     Trying implicit prerequisite `out-www/collated-files.tely'.
-     Trying rule prerequisite `out-www/version.itexi'.
-     Found prerequisite `out-www/version.itexi' as VPATH `/home/phil/lilypond-git/input/regression/out-www/version.itexi'
-@end example
+File `WWW-1' does not exist.
+Considering target file `local-WWW-1'.
+File `local-WWW-1' does not exist.
+Considering target file `out-www/collated-files.texi'.
+File `out-www/collated-files.texi' does not exist.
+Looking for an implicit rule for `out-www/collated-files.texi'.
+Trying pattern rule with stem `collated-files.texi'.
+Trying implicit prerequisite `collated-files.texi.in'.
+Trying pattern rule with stem `collated-files.texi'.
+Trying implicit prerequisite `collated-files.texi.in'.
+Trying pattern rule with stem `collated-files'.
+Trying implicit prerequisite `collated-files.tely'.
+Trying pattern rule with stem `collated-files'.
+Trying implicit prerequisite `out-www/collated-files.tely'.
+Trying rule prerequisite `out-www/version.itexi'.
+Found prerequisite `out-www/version.itexi' as VPATH `/home/phil/lilypond-git/input/regression/out-www/version.itexi'
+@end smallexample
 
 grep finds this if searching for local-WWW-1:
 
@@ -607,18 +608,18 @@ In ly-rules.make we have:
 
 which I'll work out at some point, and also this rule:
 
-@example
+@smallexample
 $(outdir)/%.texi: $(outdir)/%.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET) $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
-        LILYPOND_VERSION=$(TOPLEVEL_VERSION) $(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BOOK_PROCESS) $(LILYPOND_BOOK_INCLUDES) $(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) $(LILYPOND_BOOK_FLAGS) $<
-@end example
+  LILYPOND_VERSION=$(TOPLEVEL_VERSION) $(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BOOK_PROCESS) $(LILYPOND_BOOK_INCLUDES) $(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) $(LILYPOND_BOOK_FLAGS) $<
+@end smallexample
 
 Note that the recipe is a very long line - it could probably
 benefit from splitting.  The same makefile also has:
 
-@example
+@smallexample
 $(outdir)/%.texi: $(outdir)/%.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET) $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
-        LILYPOND_VERSION=$(TOPLEVEL_VERSION) $(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BOOK_PROCESS) $(LILYPOND_BOOK_INCLUDES) $(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) $(LILYPOND_BOOK_FLAGS) $<
-@end example
+  LILYPOND_VERSION=$(TOPLEVEL_VERSION) $(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BOOK_PROCESS) $(LILYPOND_BOOK_INCLUDES) $(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) $(LILYPOND_BOOK_FLAGS) $<
+@end smallexample
 
 @noindent
 which seems to be an almost exact duplicate.  Whatever, the first
@@ -627,7 +628,9 @@ one is executed first.  Have not checked if the second executes.
 The first recipe translates as this:
 
 @example
-LILYPOND_VERSION=2.15.0 /usr/bin/python   --process=' ' --output=./out-www --format= --lily-output-dir /home/phil/lilypond-git/build/out/lybook-db
+LILYPOND_VERSION=2.15.0 /usr/bin/python   --process=' ' \
+  --output=./out-www --format= --lily-output-dir \
+    /home/phil/lilypond-git/build/out/lybook-db
 @end example
 
 @noindent
@@ -638,13 +641,15 @@ of other files.
 
 @example
 DOCUMENTATION_LOCALE_TARGET is blank
-INIT_LY_SOURCES = /home/phil/lilypond-git/scm/auto-beam.scm /home/phil/lilypond-git/scm/autochange.scm
+INIT_LY_SOURCES = /home/phil/lilypond-git/scm/auto-beam.scm \
+  /home/phil/lilypond-git/scm/autochange.scm
 @end example
 
 plus 10s (100s?) of other .scm files.
 
 @example
-SCHEME_SOURCES = /home/phil/lilypond-git/ly/Welcome-to-LilyPond-MacOS.ly /home/phil/lilypond-git/ly/Welcome_to_LilyPond.ly
+SCHEME_SOURCES = /home/phil/lilypond-git/ly/Welcome-to-LilyPond-MacOS.ly \
+  /home/phil/lilypond-git/ly/Welcome_to_LilyPond.ly
 @end example
 
 ditto .ly files.  This does seem a teency bit wrong - it looks like
@@ -669,10 +674,10 @@ Must remake target `out-www/collated-files.tely'
 
 @file{lysdoc-rules.make} has this:
 
-@example
+@smallexample
 $(outdir)/collated-files.tely: $(COLLATED_FILES)
-        $(LYS_TO_TELY) --name=$(outdir)/collated-files.tely --title="$(TITLE)" --author="$(AUTHOR)" $^
-@end example
+	$(LYS_TO_TELY) --name=$(outdir)/collated-files.tely --title="$(TITLE)" --author="$(AUTHOR)" $^
+@end smallexample
 
 @file{lysdoc-vars.make} has:
 
@@ -703,10 +708,10 @@ So the next rule in make is for @file{version.itexi}, and make duly
 checks this.  There's a rule in @file{doc-i18n-root-rules.make} that this
 depends on @file{git/VERSION}:
 
-@example
+@smallexample
 $(outdir)/version.%: $(top-src-dir)/VERSION
-        $(PYTHON) $(top-src-dir)/scripts/build/create-version-itexi.py > $@
-@end example
+	$(PYTHON) $(top-src-dir)/scripts/build/create-version-itexi.py > $@
+@end smallexample
 
 This causes create-version-itexi.py to run and create
 version.itexi.
@@ -1099,9 +1104,9 @@ The options file is @file{/Documentation/lilypond-texi2html.init}.
 This contains *lots* of option and configuration stuff, and also
 includes the line:
 
-@example
+@smallexample
 print STDERR "Initializing settings for web site: [$Texi2HTML::THISDOC@{current_lang@}]\n";
-@end example
+@end smallexample
 
 This is where one of the console messages is generated.
 

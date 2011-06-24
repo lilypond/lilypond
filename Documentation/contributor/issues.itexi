@@ -834,17 +834,17 @@ weeks.
 
 Grid view provides the best overview:
 
-@example
+@smallexample
 @uref{http://code.google.com/p/lilypond/issues/list?mode=grid&y=Priority&x=Type&cells=ids}
-@end example
+@end smallexample
 
 @subsubheading Hindering development
 
 These issues stop or slow development work:
 
-@example
-@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:Maintainability&mode=grid&y=Priority&x=Type&cells=ids}
-@end example
+@smallexample
+@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:Maintainability}
+@end smallexample
 
 @subsubheading Easy tasks
 
@@ -854,9 +854,9 @@ relatively new contributor.  The time given is a quick
 familiar with material in this manual, but does not know anything
 else about LilyPond development.
 
-@example
-@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:Frog&mode=grid&y=Priority&x=Type&cells=ids}
-@end example
+@smallexample
+@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:Frog}
+@end smallexample
 
 @subsubheading Patches to review
 

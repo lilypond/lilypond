@@ -770,7 +770,9 @@ Capitalization of identifiers: \VoiceOne ?
 @end verbatim
 
 ?  patch here:
+@smallexample
 @uref{http://lists.gnu.org/archive/html/lilypond-devel/2010-04/msg00467.html}
+@end smallexample
 
 @item
 Personally, I find it easier to understand when there's a repeated
@@ -828,13 +830,13 @@ sequential-statement to the score."
 
 @item
 Discussion on
-http://code.google.com/p/lilypond/issues/detail?id=1322
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1322}
 about \new vs. \context.
 
 
 @item
 Let users add their own items to the parser?  comment 11 on:
-http://code.google.com/p/lilypond/issues/detail?id=1322
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1322}
 
 @item
 should engravers be pluralized (note_heads_engraver) or not
@@ -842,7 +844,7 @@ should engravers be pluralized (note_heads_engraver) or not
 
 @item
 should we allow numbers in identifier names?  Issue:
-http://code.google.com/p/lilypond/issues/detail?id=1670
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1670}
 
 @item
 should we officially allow accented characters?  in general, how

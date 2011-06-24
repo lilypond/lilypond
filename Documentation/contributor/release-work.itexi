@@ -482,7 +482,8 @@ build the specific package(s) you want, i.e.
 @example
 bin/gub mingw::lilypond-installer
 make LILYPOND_BRANCH=stable/2.12 -f lilypond.make doc
-bin/gub --platform=darwin-x86 'git://git.sv.gnu.org/lilypond-doc.git?branch=stable/2.12'
+bin/gub --platform=darwin-x86 \
+  'git://git.sv.gnu.org/lilypond-doc.git?branch=stable/2.12'
 @end example
 
 or

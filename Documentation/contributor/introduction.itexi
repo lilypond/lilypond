@@ -29,8 +29,8 @@ help LilyPond.
 @section Overview of work flow
 
 @cartouche
-@strong{Ultra-short summary for Unix developers}: source code is at
-@code{git://git.sv.gnu.org/lilypond.git}.  Documentation is built
+@strong{Short summary for Unix developers}: source code is at
+@uref{git://git.sv.gnu.org/lilypond.git}.  Documentation is built
 with Texinfo, after pre-processing with @code{lilypond-book}.
 Send well-formed patches to @email{lilypond-devel@@gnu.org}.
 @end cartouche
@@ -52,7 +52,7 @@ The @q{official} LilyPond Git repository is hosted by the GNU
 Savannah software forge at @uref{http://git.sv.gnu.org}.
 Although, since Git uses a @emph{distributed} model, technically
 there is no central repository.  Instead, each contributor keeps a
-complete copy of the entire repository (about 116M).
+complete copy of the entire repository (about 116MB).
 
 Changes made within one contributor's copy of the repository can
 be shared with other contributors using @emph{patches}.  A patch
