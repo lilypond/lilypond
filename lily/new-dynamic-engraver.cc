@@ -36,6 +36,7 @@ class New_dynamic_engraver : public Engraver
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_TRANSLATOR_LISTENER (absolute_dynamic);
   DECLARE_TRANSLATOR_LISTENER (span_dynamic);
+  DECLARE_TRANSLATOR_LISTENER (break_span);
 
 protected:
   virtual void process_music ();
@@ -54,6 +55,7 @@ private:
   Item *script_;
   Stream_event *script_event_;
   Stream_event *current_span_event_;
+  bool end_new_spanner_;
 };
 
 New_dynamic_engraver::New_dynamic_engraver ()
@@ -64,6 +66,7 @@ New_dynamic_engraver::New_dynamic_engraver ()
   finished_spanner_ = 0;
   current_spanner_ = 0;
   accepted_spanevents_drul_.set (0, 0);
+  end_new_spanner_ = false;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (New_dynamic_engraver, absolute_dynamic);
@@ -80,6 +83,22 @@ New_dynamic_engraver::listen_span_dynamic (Stream_event *ev)
   Direction d = to_dir (ev->get_property ("span-direction"));
 
   ASSIGN_EVENT_ONCE (accepted_spanevents_drul_[d], ev);
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (New_dynamic_engraver, break_span);
+void
+New_dynamic_engraver::listen_break_span (Stream_event *event)
+{
+  if (event->in_event_class ("break-dynamic-span-event"))
+    {
+      // Case 1: Already have a start dynamic event -> break applies to new
+      //         spanner (created later) -> set a flag
+      // Case 2: no new spanner, but spanner already active -> break it now
+      if (accepted_spanevents_drul_[START])
+        end_new_spanner_ = true;
+      else if (current_spanner_)
+        current_spanner_->set_property ("spanner-broken", SCM_BOOL_T);
+    }
 }
 
 SCM
@@ -132,6 +151,13 @@ New_dynamic_engraver::process_music ()
 					   (start_type + "Text").c_str ());
 	  if (Text_interface::is_markup (text))
 	    current_spanner_->set_property ("text", text);
+	  /*
+	    If the line of a text spanner is hidden, end the alignment spanner
+	    early: this allows dynamics to be spaced individually instead of
+	    being linked together.
+	  */
+	  if (current_spanner_->get_property ("style") == ly_symbol2scm ("none"))
+	    current_spanner_->set_property ("spanner-broken", SCM_BOOL_T);
 	}
       else
 	{
@@ -144,6 +170,12 @@ New_dynamic_engraver::process_music ()
 	  current_spanner_ = make_spanner ("Hairpin",
 					   current_span_event_->self_scm ());
 	}
+      // if we have a break-dynamic-span event right after the start dynamic, break the new spanner immediately
+      if (end_new_spanner_)
+        {
+          current_spanner_->set_property ("spanner-broken", SCM_BOOL_T);
+          end_new_spanner_ = false;
+        }
       if (finished_spanner_)
 	{
 	  if (Hairpin::has_interface (finished_spanner_))
@@ -186,6 +218,7 @@ New_dynamic_engraver::stop_translation_timestep ()
   script_event_ = 0;
   accepted_spanevents_drul_.set (0, 0);
   finished_spanner_ = 0;
+  end_new_spanner_ = false;
 }
 
 void

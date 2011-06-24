@@ -547,6 +547,7 @@ ADD_INTERFACE (Spanner,
 	       /* properties */
 	       "normalized-endpoints "
 	       "minimum-length "
+               "spanner-broken "
                "spanner-id "
 	       "to-barline "
 	       );

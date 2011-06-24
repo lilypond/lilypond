@@ -34,7 +34,6 @@
 class Dynamic_align_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Dynamic_align_engraver);
-  DECLARE_TRANSLATOR_LISTENER (break_span);
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (dynamic);
   DECLARE_ACKNOWLEDGER (footnote_spanner);
@@ -45,21 +44,23 @@ protected:
 
 private:
   void create_line_spanner (Stream_event *cause);
+  void set_spanner_bounds (Spanner *line, bool end);
   Spanner *line_;
+  Spanner *ended_line_; // Spanner manually broken, don't use it for new grobs
+  Spanner *current_dynamic_spanner_;
   vector<Spanner *> ended_;
   vector<Spanner *> started_;
   vector<Grob *> scripts_;
   vector<Grob *> support_;
 
   set<Spanner *> running_;
-
-  bool early_end_;
 };
 
 Dynamic_align_engraver::Dynamic_align_engraver ()
 {
   line_ = 0;
-  early_end_ = false;
+  ended_line_ = 0;
+  current_dynamic_spanner_ = 0;
 }
 
 ADD_ACKNOWLEDGER (Dynamic_align_engraver, dynamic);
@@ -80,6 +81,20 @@ Dynamic_align_engraver::acknowledge_end_dynamic (Grob_info info)
 {
   if (Spanner::has_interface (info.grob ()))
     ended_.push_back (info.spanner ());
+
+  /* If the break flag is set, store the current spanner and let new dynamics
+   * create a new spanner 
+   */
+  bool spanner_broken = current_dynamic_spanner_ == info.spanner () &&
+                        to_boolean (current_dynamic_spanner_->get_property ("spanner-broken"));
+  if (spanner_broken && line_)
+    {
+      if (ended_line_)
+        programming_error ("already have a force-ended DynamicLineSpanner.");
+      ended_line_ = line_;
+      line_ = 0;
+      current_dynamic_spanner_ = 0;
+    }
 }
 
 void
@@ -97,14 +112,6 @@ Dynamic_align_engraver::acknowledge_note_column (Grob_info info)
   support_.push_back (info.grob ());
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_align_engraver, break_span);
-void
-Dynamic_align_engraver::listen_break_span (Stream_event *event)
-{
-  if (event->in_event_class ("break-dynamic-span-event"))
-    early_end_ = true;
-}
-
 void
 Dynamic_align_engraver::acknowledge_dynamic (Grob_info info)
 {
@@ -113,14 +120,7 @@ Dynamic_align_engraver::acknowledge_dynamic (Grob_info info)
   if (Spanner::has_interface (info.grob ()))
     {
       started_.push_back (info.spanner ());
-      /*
-	If we are using text spans instead of hairpins and the line
-	is hidden, end the alignment spanner early: this allows dynamics
-	to be spaced individually instead of being linked together.
-      */
-      if (info.grob ()->internal_has_interface (ly_symbol2scm ("dynamic-text-spanner-interface"))
-	  && (info.grob ()->get_property ("style") == ly_symbol2scm ("none")))
-	early_end_ = true;
+      current_dynamic_spanner_ = info.spanner ();
     }
   else if (info.item ())
     scripts_.push_back (info.item ());
@@ -131,9 +131,43 @@ Dynamic_align_engraver::acknowledge_dynamic (Grob_info info)
 
   if (cause)
     {
+      // TODO: Compare the direction of the existing spanner with
+      //       the new one and if they differ, create a new line
+      //       spanner.
       if (Direction d = to_dir (cause->get_property ("direction")))
 	set_grob_direction (line_, d);
     }
+}
+
+void
+Dynamic_align_engraver::set_spanner_bounds (Spanner *line, bool end)
+{
+  if (!line)
+    return;
+  Direction d = LEFT;
+  do
+    {
+      if ((d == LEFT && !line->get_bound (LEFT)) ||
+	  (end && d == RIGHT && !line->get_bound (RIGHT)))
+	{
+	  vector<Spanner *> const &spanners
+	    = (d == LEFT) ? started_ : ended_;
+
+	  Grob *bound = 0;
+	  if (scripts_.size ())
+	    bound = scripts_[0];
+	  else if (spanners.size ())
+	    bound = spanners[0]->get_bound (d);
+	  else
+	    {
+	      bound = unsmob_grob (get_property ("currentMusicalColumn"));
+	      programming_error ("started DynamicLineSpanner but have no left bound");
+	    }
+
+	  line->set_bound (d, bound);
+	}
+    }
+  while (flip (&d) != LEFT);
 }
 
 void
@@ -152,44 +186,26 @@ Dynamic_align_engraver::stop_translation_timestep ()
 	started_[i]->programming_error ("lost track of this dynamic spanner");
     }
 
-  bool end = line_ && (running_.empty ()
-		       || early_end_);
-  Direction d = LEFT;
-  do
-    {
-      if (line_
-	  && ((d == LEFT && !line_->get_bound (LEFT))
-	      || (end && d == RIGHT && !line_->get_bound (RIGHT))))
-	{
-	  vector<Spanner *> const &spanners
-	    = (d == LEFT) ? started_ : ended_;
+  bool end = line_ && running_.empty ();
 
-	  Grob *bound = 0;
-	  if (scripts_.size ())
-	    bound = scripts_[0];
-	  else if (spanners.size ())
-	    bound = spanners[0]->get_bound (d);
-	  else
-	    {
-	      bound = unsmob_grob (get_property ("currentMusicalColumn"));
-	      if (!early_end_)
-		programming_error ("started DynamicLineSpanner but have no left bound");
-	    }
-
-	  line_->set_bound (d, bound);
-	}
-    }
-  while (flip (&d) != LEFT);
-
-  for (vsize i = 0; line_ && i < support_.size (); i++)
+  // Set the proper bounds for the current spanner and for a spanner that
+  // is ended now
+  set_spanner_bounds (ended_line_, true);
+  set_spanner_bounds (line_, end);
+  // If the flag is set to break the spanner after the current child, don't 
+  // add any more support points (needed e.g. for style=none, where the
+  // invisible spanner should NOT be shifted since we don't have a line).
+  bool spanner_broken = current_dynamic_spanner_ &&
+                        to_boolean (current_dynamic_spanner_->get_property ("spanner-broken"));
+  for (vsize i = 0; line_ && !spanner_broken && i < support_.size (); i++)
     Side_position_interface::add_support (line_, support_[i]);
 
   if (end)
     {
       line_ = 0;
-      early_end_ = false;
     }
 
+  ended_line_ = 0;
   ended_.clear ();
   started_.clear ();
   scripts_.clear ();

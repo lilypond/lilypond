@@ -1058,6 +1058,8 @@ grobs.")
      (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing
 objects.")
      (span-start ,boolean? "Is the note head at the start of a spanner?")
+     (spanner-broken ,boolean? "Indicates whether spanner
+alignment should be broken after the current spanner.")
      (spanner-placement ,ly:dir? "The place of an annotation on a spanner.
 LEFT is for the first spanner, and RIGHT is for the last.  CENTER will
 place it on the broken spanner that falls closest to the center of the length
