@@ -1782,11 +1782,11 @@ def musicxml_note_to_lily_main_event (n):
             # TODO: Handle the level-display setting for displaying brackets/parentheses
 
     elif n.get_maybe_exist_typed_child (musicxml.Unpitched):
-	# Unpitched elements have display-step and can also have
-	# display-octave.
-	unpitched = n.get_maybe_exist_typed_child (musicxml.Unpitched)
-	event = musicexp.NoteEvent ()
-	event.pitch = musicxml_unpitched_to_lily (unpitched)
+        # Unpitched elements have display-step and can also have
+        # display-octave.
+        unpitched = n.get_maybe_exist_typed_child (musicxml.Unpitched)
+        event = musicexp.NoteEvent ()
+        event.pitch = musicxml_unpitched_to_lily (unpitched)
 
     elif n.get_maybe_exist_typed_child (musicxml.Rest):
         # rests can have display-octave and display-step, which are
@@ -2489,11 +2489,11 @@ def musicxml_unpitched_to_lily (mxl_unpitched):
     p = None
     step = mxl_unpitched.get_step ()
     if step:
-	p = musicexp.Pitch ()
-	p.step = musicxml_step_to_lily (step)
+        p = musicexp.Pitch ()
+        p.step = musicxml_step_to_lily (step)
     octave = mxl_unpitched.get_octave ()
     if octave and p:
-	p.octave = octave - 4
+        p.octave = octave - 4
     return p
 
 def musicxml_restdisplay_to_lily (mxl_rest):
