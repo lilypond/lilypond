@@ -51,10 +51,10 @@ class Rational(object):
            self._d = -self._d
 
     def numerator(self):
-	return self._n
+        return self._n
 
     def denominator(self):
-	return self._d
+        return self._d
 
     def __repr__(self):
         if self._d == 1:

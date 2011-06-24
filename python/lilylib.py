@@ -42,7 +42,7 @@ try:
     _ = t.ugettext
 except:
     def _ (s):
-	return s
+        return s
 underscore = _
 
 # Urg, Python 2.4 does not define stderr/stdout encoding
@@ -148,10 +148,10 @@ def subprocess_system (cmd,
         stderr_setting = open(stderr_filename, 'w')
 
     proc = subprocess.Popen (cmd,
-			     shell=True,
-			     universal_newlines=True,
-			     stdout=stdout_setting,
-			     stderr=stdout_setting)
+                             shell=True,
+                             universal_newlines=True,
+                             stdout=stdout_setting,
+                             stderr=stdout_setting)
 
     log = ''
 
@@ -170,19 +170,19 @@ def subprocess_system (cmd,
 
 
     if retval:
-	print >>sys.stderr, 'command failed:', cmd
-	if retval < 0:
-	    print >>sys.stderr, "Child was terminated by signal", -retval
-	elif retval > 0:
-	    print >>sys.stderr, "Child returned", retval
+        print >>sys.stderr, 'command failed:', cmd
+        if retval < 0:
+            print >>sys.stderr, "Child was terminated by signal", -retval
+        elif retval > 0:
+            print >>sys.stderr, "Child returned", retval
 
-	if ignore_error:
-	    print >>sys.stderr, "Error ignored"
-	else:
-	    if not show_progress:
-		print log[0]
-		print log[1]
-	    sys.exit (1)
+        if ignore_error:
+            print >>sys.stderr, "Error ignored"
+        else:
+            if not show_progress:
+                print log[0]
+                print log[1]
+            sys.exit (1)
 
     return abs (retval)
 
@@ -195,23 +195,23 @@ def ossystem_system (cmd,
 
     name = command_name (cmd)
     if be_verbose:
-	show_progress = 1
-	progress (_ ("Invoking `%s\'") % cmd)
+        show_progress = 1
+        progress (_ ("Invoking `%s\'") % cmd)
     else:
-	progress ( _("Running %s...") % name)
+        progress ( _("Running %s...") % name)
 
     retval = os.system (cmd)
     if retval:
-	print >>sys.stderr, 'command failed:', cmd
-	if retval < 0:
-	    print >>sys.stderr, "Child was terminated by signal", -retval
-	elif retval > 0:
-	    print >>sys.stderr, "Child returned", retval
+        print >>sys.stderr, 'command failed:', cmd
+        if retval < 0:
+            print >>sys.stderr, "Child was terminated by signal", -retval
+        elif retval > 0:
+            print >>sys.stderr, "Child returned", retval
 
-	if ignore_error:
-	    print >>sys.stderr, "Error ignored"
-	else:
-	    sys.exit (1)
+        if ignore_error:
+            print >>sys.stderr, "Error ignored"
+        else:
+            sys.exit (1)
 
     return abs (retval)
 
@@ -225,7 +225,7 @@ if sys.platform == 'mingw32':
 def strip_extension (f, ext):
     (p, e) = os.path.splitext (f)
     if e == ext:
-	e = ''
+        e = ''
     return p + e
 
 
@@ -233,34 +233,34 @@ def search_exe_path (name):
     p = os.environ['PATH']
     exe_paths = p.split (':')
     for e in exe_paths:
-	full = os.path.join (e, name)
-	if os.path.exists (full):
-	    return full
+        full = os.path.join (e, name)
+        if os.path.exists (full):
+            return full
     return None
 
 
 def print_environment ():
     for (k,v) in os.environ.items ():
-	sys.stderr.write ("%s=\"%s\"\n" % (k, v))
+        sys.stderr.write ("%s=\"%s\"\n" % (k, v))
 
 class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
     def format_heading(self, heading):
-	if heading:
-	    return heading[0].upper() + heading[1:] + ':\n'
-	return ''
+        if heading:
+            return heading[0].upper() + heading[1:] + ':\n'
+        return ''
     def format_option_strings(self, option):
-	sep = ' '
-	if option._short_opts and option._long_opts:
-	    sep = ','
+        sep = ' '
+        if option._short_opts and option._long_opts:
+            sep = ','
 
-	metavar = ''
-	if option.takes_value():
-	    metavar = '=%s' % option.metavar or option.dest.upper()
+        metavar = ''
+        if option.takes_value():
+            metavar = '=%s' % option.metavar or option.dest.upper()
 
-	return "%3s%s %s%s" % (" ".join (option._short_opts),
-			       sep,
-			       " ".join (option._long_opts),
-			       metavar)
+        return "%3s%s %s%s" % (" ".join (option._short_opts),
+                               sep,
+                               " ".join (option._long_opts),
+                               metavar)
 
     # Only use one level of indentation (even for groups and nested groups),
     # since we don't indent the headeings, either
@@ -277,7 +277,7 @@ class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
         return _("Usage: %s") % usage + '\n'
 
     def format_description(self, description):
-	return description
+        return description
 
 def get_option_parser (*args, **kwargs):
     p = optparse.OptionParser (*args, **kwargs)
