@@ -555,6 +555,8 @@ Beam::print (SCM grob)
   Spanner *me = unsmob_spanner (grob);
   Grob *commonx = 0;
   vector<Beam_segment> segments = get_beam_segments (me, &commonx);
+  if (!segments.size ())
+    return SCM_EOL;
 
   Interval span;
   if (normal_stem_count (me))
@@ -974,7 +976,11 @@ Beam::no_visible_stem_positions (Grob *me, Interval default_value)
     }
 
   Direction dir = get_grob_direction (me);
-  Real y = head_positions[dir]
+
+  if (!dir)
+    programming_error ("The beam should have a direction by now.");
+
+  Real y = head_positions.linear_combination (dir)
     * 0.5 * Staff_symbol_referencer::staff_space (me)
     + dir * get_beam_translation (me) * (multiplicity.length () + 1);
 
