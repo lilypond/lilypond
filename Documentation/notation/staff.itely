@@ -1339,7 +1339,7 @@ if the cue notes require a change in clef, the original clef should
 be restored at the end of the cue notes.
 
 @lilypond[verbatim,quote]
-flute = \relative c'' {
+fluteNotes = \relative c'' {
   r2. c4 d8 c d e fis2 g2 d2
 }
 
@@ -1356,7 +1356,7 @@ bassoonNotes = \relative c {
 \addQuote "flute" { \fluteNotes }
 
 \new Staff {
-  \bassoon
+  \bassoonNotes
 }
 @end lilypond
 
@@ -1395,14 +1395,14 @@ bassoonNotes = \relative c {
 \addQuote "flute" { \fluteNotes }
 
 \new Staff {
-  \bassoon
+  \bassoonNotes
 }
 \new StaffGroup <<
   \new Staff {
     \flute
   }
   \new Staff {
-    \removeWithTag #'part { \killCues { \bassoon } }
+    \removeWithTag #'part { \killCues { \bassoonNotes } }
   }
 >>
 @end lilypond
