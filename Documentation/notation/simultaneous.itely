@@ -768,39 +768,40 @@ are at the same time differently dotted are not clear.
 @funindex \partcombine
 @funindex partcombine
 
-Automatic part combining is used to merge two parts of music onto
-a staff.  It is aimed at typesetting orchestral scores.  When the
-two parts are identical for a period of time, only one is shown.
-In places where the two parts differ, they are typeset as separate
-voices, and stem directions are set automatically.  Also, solo and
-@notation{a due} parts are identified and marked by default.
+Automatic part combining is used to merge two separate parts of music
+onto a single staff. This can be especially helpful when typesetting
+orchestral scores.  A single @code{Voice} is printed while the two parts
+of music are the same, but in places where they differ, a second
+@code{Voice} is printed.  Stem directions are set up & down accordingly
+while Solo and @notation{a due} parts are also identified and marked
+appropriately.
 
-The syntax for part combining is:
+The syntax for automatic part combining is:
 
 @example
 \partcombine @var{musicexpr1} @var{musicexpr2}
 @end example
 
-The following example demonstrates the basic functionality of the
-part combiner: putting parts on one staff and setting stem
-directions and polyphony.  The same variables are used for the
-independent parts and the combined staff.
+The following example demonstrates the basic functionality, putting
+parts on a single staff as polyphony and setting stem directions
+accordingly.  The same variables are used for the independent parts and
+the combined staff.
 
 @lilypond[quote,verbatim]
 instrumentOne = \relative c' {
-  c4 d e f
-  R1
-  d'4 c b a
-  b4 g2 f4
-  e1
+  c4 d e f |
+  R1 |
+  d'4 c b a |
+  b4 g2 f4 |
+  e1 |
 }
 
 instrumentTwo = \relative g' {
-  R1
-  g4 a b c
-  d c b a
-  g f( e) d
-  e1
+  R1 |
+  g4 a b c |
+  d4 c b a |
+  g4 f( e) d |
+  e1 |
 }
 
 <<
@@ -810,19 +811,19 @@ instrumentTwo = \relative g' {
 >>
 @end lilypond
 
-The notes in the third measure appear only once, although they were
-specified in both parts.  Stem, slur, and tie directions are set
-automatically, depending whether there is a solo or unison.  When
-needed in polyphony situations, the first part (with context called
-@code{one}) always gets up stems, while the second (called @code{two})
-always gets down stems.  In solo situations, the first and second
-parts get marked with @qq{Solo} and @qq{Solo II}, respectively.  The
-unison (@notation{a due}) parts are marked by default with the text
-@qq{a2}.
+Both parts have identical notes in the third measure, so only one
+instance of the notes is printed.  Stem, slur, and tie directions are
+set automatically, depending on whether the parts are playing solo or in
+unison.  When needed in polyphony situations, the first part (with
+context called @code{one}) gets @qq{up} stems, while the second (called
+@code{two}) always gets @qq{down} stems.  In solo situations, the first
+and second parts get marked with @qq{Solo} and @qq{Solo II},
+respectively.  The unison (@notation{a due}) parts are marked with the
+text @qq{a2}.
 
-Both arguments to @code{\partcombine} will be interpreted as
-@code{Voice} contexts.  If using relative octaves,
-@code{\relative} should be specified for both music expressions,
+Both arguments to @code{\partcombine} will be interpreted as separate
+@code{Voice} contexts, so if the music is being specified in relative
+mode then @emph{both} parts must contain a @code{\relative} function,
 i.e.,
 
 @example
@@ -832,56 +833,70 @@ i.e.,
 @end example
 
 @noindent
-A @code{\relative} section that is outside of @code{\partcombine}
-has no effect on the pitches of @code{@var{musicexpr1}} and
+A @code{\relative} section that encloses a @code{\partcombine} has no
+effect on the pitches of @code{@var{musicexpr1}} or
 @code{@var{musicexpr2}}.
 
-In professional scores, voices are often kept apart for long periods,
-even if one or two notes actually coincide and could easily be printed
-as unison. Combining notes into a chord, or showing one voice as solo
-is therefore not ideal as the @code{\partcombine} function considers
-each note separately. For this reason, the @code{\partcombine} function
-can be overriden with the following commands:
+@funindex \partcombineChords
+@funindex partcombineChords
+@funindex \partcombineApart
+@funindex partcombineApart
+@funindex \partcombineUnisono
+@funindex partcombineUnisono
+@funindex \partcombineSoloI
+@funindex partcombineSoloI
+@funindex \partcombineSoloII
+@funindex partcombineSoloII
+@funindex \partcombineAutomatic
+@funindex partcombineAutomatic
+
+In professional scores, voices are often kept apart from each other for
+long passages of music even if some of the notes are the same in both
+voices, and could just as easily be printed as unison. Combining notes
+into a chord, or showing one voice as solo is, therefore, not ideal as
+the @code{\partcombine} function considers each note separately. In this
+case the @code{\partcombine} function can be overriden with the
+following commands:
+
+Commands ending in @code{...Once} apply only to the next note in the
+music expression.
 
 @itemize
 @item
-@code{\partcombineApart}, @code{\partcombineApartOnce}:
-Keep the notes as two separate voices, even if they can be combined to a
-chord or unison.
+@code{\partcombineApart} and @code{\partcombineApartOnce} keep the
+notes as two separate voices, even if they can be combined into a chord
+or unison.
 
 @item
-@code{\partcombineChords}, @code{\partcombineChordsOnce}:
-Combine the notes to a chord.
+@code{\partcombineChords} and @code{\partcombineChordsOnce} combine the
+notes into a chord.
 
 @item
-@code{\partcombineUnisono}, @code{\partcombineUnisonoOnce}:
-The two voices are unison.
+@code{\partcombineUnisono} and @code{\partcombineUnisonoOnce} combine
+both voices as @qq{unison}.
 
 @item
-@code{\partcombineSoloI}, @code{\partcombineSoloIOnce}:
-Show only voice one and mark it as solo.
+@code{\partcombineSoloI} and @code{\partcombineSoloIOnce} print only
+voice one, and mark it as a @qq{Solo}.
 
 @item
-@code{\partcombineSoloII}, @code{\partcombineSoloIIOnce}:
-Show only voice two and mark it as solo.
+@code{\partcombineSoloII} or @code{\partcombineSoloIIOnce} print only
+voice two and mark it as a @qq{Solo}.
 
 @item
-@code{\partcombineAutomatic}, @code{\partcombineAutomaticOnce}:
-Ends the effect of the special commands above, and returns to the default
-part combining mechanism.
-
+@code{\partcombineAutomatic} and @code{\partcombineAutomaticOnce} end
+the functions of the commands above, and revert back to the standard
+@code{\partcombine} functionality.
 @end itemize
-
-All commands ending in @code{...Once} apply only to the following note.
 
 @lilypond[quote,verbatim]
 instrumentOne = \relative c' {
   \partcombineApart c2^"apart" e |
-  \partcombineAutomatic e^"auto" e |
-  \partcombineChords e'^"chord" e |
-  \partcombineAutomatic c^"auto" c |
-  \partcombineApart c^"apart" \partcombineChordsOnce e^"chord once" |
-  c c |
+  \partcombineAutomatic e2^"auto" e |
+  \partcombineChords e'2^"chord" e |
+  \partcombineAutomatic c2^"auto" c |
+  \partcombineApart c2^"apart" \partcombineChordsOnce e^"chord once" |
+  c2 c |
 }
 instrumentTwo = \relative c' {
   c2 c |
@@ -924,31 +939,40 @@ Internals Reference:
 @rinternals{PartCombineMusic},
 @rinternals{Voice}.
 
-
 @knownissues
 
-@code{\partcombine} can only accept two voices.
+All @code{\partcombine...} functions can only accept two voices and are
+not designed to work with lyrics; such that when one of the voices is
+explicitly named in order to attach lyrics to it, the partcombiner will
+stop working.
 
-When @code{printPartCombineTexts} is set, if the two voices play
-the same notes on and off, the part combiner may typeset @code{a2}
-more than once in a measure.
+@code{\partcombine...} functions cannot be placed inside a @code{\times}
+or @code{\relative} block.
 
-@code{\partcombine} cannot be inside @code{\times}.
+If @code{printPartCombineTexts} is set and the two voices play the same
+notes @qq{on and off}, in the same measure, the part combiner may
+typeset @code{a2} more than once in that measure.
 
-@code{\partcombine} cannot be inside @code{\relative}.
+@code{\partcombine} only knows when a note starts in a @code{Voice}; it
+cannot, for example, remember if a note in one @code{Voice} has already
+started when combining notes that have just started in the other
+@code{Voice}.  This can lead to a number of unexpected issues including
+@qq{Solo} or @qq{Unison} marks being printed incorrectly.
 
-Internally, the @code{\partcombine} interprets both arguments as
-@code{Voice}s and decides when the parts can be combined.  When they have
-different durations they cannot be combined and are given the names
-@code{one} and @code{two}.  Consequently, if the arguments switch to
-differently named @rinternals{Voice} contexts, the events in those will
-be ignored.  Likewise, partcombining isn't designed to work with lyrics;
-when one of the voices is explicitly named in order to attach lyrics to
-it, the partcombining stops working.
+@code{\partcombine} keeps all spanners (slurs, ties, hairpins etc.) in
+the same @code{Voice} so that if any such spanners start or end in a
+different @code{Voice}, they may not be printed properly or at all.
 
-@code{\partcombine} only observes onset times of notes.  It cannot
-determine whether a previously started note is playing or not, leading
-to various problems.
+If the @code{\partcombine} function cannot combine both music
+expressions (i.e. when both voices have different durations), it will
+give the voices, internally, its own custom names: @code{one} and
+@code{two} respectively.  This means if there is any @qq{switch} to a
+differently named @code{Voice} context, the events in that differently
+named @code{Voice} will be ignored.
+
+Refer also to @emph{Known issues and warnings} when using
+@code{\partcombine} with tablature in @ref{Default tablatures} and the
+@emph{Note} in @ref{Automatic beams} when using automatic beaming.
 
 
 @node Writing music in parallel
