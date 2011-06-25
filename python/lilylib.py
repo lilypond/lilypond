@@ -23,7 +23,6 @@ import re
 import shutil
 import sys
 import optparse
-import time
 
 ################################################################
 # Users of python modules should include this snippet
@@ -119,7 +118,6 @@ def subprocess_system (cmd,
                        ignore_error=False,
                        progress_p=True,
                        be_verbose=False,
-                       redirect_output=False,
                        log_file=None):
     import subprocess
 
@@ -127,25 +125,16 @@ def subprocess_system (cmd,
     name = command_name (cmd)
     error_log_file = ''
 
-    if redirect_output:
-        progress (_ ("Processing %s.ly") % log_file)
+    if be_verbose:
+	show_progress = 1
+	progress (_ ("Invoking `%s\'") % cmd)
     else:
-        if be_verbose:
-            show_progress = 1
-            progress (_ ("Invoking `%s\'") % cmd)
-        else:
-            progress ( _("Running %s...") % name)
+	progress ( _("Running %s...") % name)
+
 
     stdout_setting = None
-    stderr_setting = None
     if not show_progress:
-        stdout_setting = subprocess.PIPE
-
-    if redirect_output:
-        stdout_filename = ''.join([log_file, '.log'])
-        stderr_filename = ''.join([log_file, '.err.log'])
-        stdout_setting = open(stdout_filename, 'w')
-        stderr_setting = open(stderr_filename, 'w')
+	stdout_setting = subprocess.PIPE
 
     proc = subprocess.Popen (cmd,
                              shell=True,
@@ -155,18 +144,11 @@ def subprocess_system (cmd,
 
     log = ''
 
-    if redirect_output:
-        while proc.poll()==None:
-            time.sleep(1)
-        retval = proc.returncode
-        stdout_setting.close()
-        stderr_setting.close()
+    if show_progress:
+	retval = proc.wait()
     else:
-        if show_progress:
-            retval = proc.wait()
-        else:
-            log = proc.communicate ()
-            retval = proc.returncode
+	log = proc.communicate ()
+	retval = proc.returncode
 
 
     if retval:
