@@ -1,4 +1,4 @@
-\version "2.15.2"
+\version "2.14.2"
 
 \header {
   texidoc = "Text spanners ending on full-measure rests do
