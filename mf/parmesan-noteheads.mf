@@ -46,6 +46,8 @@ fet_begingroup ("noteheads");
 %
 % TODO: should depth/height include appendages/stems?
 
+save overdone_heads, noteheight;
+
 overdone_heads = 0;
 noteheight# := staff_space# + (1 + overdone_heads) * stafflinethickness#;
 define_pixels (noteheight);
