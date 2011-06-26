@@ -137,7 +137,7 @@ should go into a separate @code{bug-current} folder.
 @section Bug Squad checklists
 
 When you do Bug Squad work, start at the top of this page and work
-your way down.  Stop when you've done 15 minutes.
+your way down.  Stop when you've done 20 minutes.
 
 Please use the email sorting described in @ref{Bug Squad setup}.
 This means that (as Bug Squad members) you will only ever respond
@@ -147,7 +147,7 @@ to emails sent or CC'd to the @code{bug-lilypond} mailing list.
 @subsubheading Emails to you personally
 
 You are not expected to work on Bug Squad matters outside of your
-15 minutes, but sometimes a confused user will send a bug report
+20 minutes, but sometimes a confused user will send a bug report
 (or an update to a report) to you personally.  If that happens,
 please forward such emails to the @code{bug-lilypond} list so that
 the currently-active Bug Squad member(s) can handle the message.
@@ -155,16 +155,14 @@ the currently-active Bug Squad member(s) can handle the message.
 
 @subsubheading Daily schedule
 
-The Bug Meister is omitted from the daily schedule.
-
 @example
-Sunday: Colin
-Monday: Dmytro
-Tuesday: James Bailey
-Wednesday: Ralph
-Thursday: Patrick
-Friday: Urs
-Saturday: Kieren
+Monday:    Dmytro
+Tuesday:   Colin
+Wednesday: Derek
+Thursday:  Dmytro
+Friday:    Colin
+Saturday:  Dmytro
+Sunday:    Phil
 @end example
 
 

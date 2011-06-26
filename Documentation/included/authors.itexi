@@ -181,12 +181,9 @@ James Lowe
 
 @macro bugsquadCurrent
 
-James E. Bailey,
 Colin Campbell,
 Phil Holmes,
-Urs Liska,
-Ralph Palmer,
-Kieren MacMillan,
+Derek Klinge,
 Dmytro O. Redchuk
 
 @c no comma for last entry
@@ -355,7 +352,11 @@ Rune Zedeler
 
 @macro bugsquadPrevious
 
-@c nobody here yet
+@c use commas not colons
+James E. Bailey,
+Urs Liska,
+Kieren MacMillan,
+Ralph Palmer
 
 @c no comma for last entry
 @end macro
