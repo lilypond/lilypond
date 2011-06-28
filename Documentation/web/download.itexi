@@ -207,6 +207,14 @@ In the shell, type:
 uninstall-lilypond
 @end example
 
+@subsubheading Help
+
+In the shell, type:
+
+@example
+sh lilypond-@versionStable{}-OS-TYPE.sh --help
+@end example
+
 @divEnd
 
 
