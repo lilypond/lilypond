@@ -1,0 +1,52 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@node Modifying the feta font
+@chapter Modifying the feta font
+
+@menu
+* Overview of the feta font::
+* Font creation tools::
+* Building the changed font::
+@end menu
+
+@node Overview of the feta font
+@section Overview of the feta font
+
+The feta font is a font that was created specifically for use in
+LilyPond.  The sources for the font are found in mf/*.mf.
+
+The feta font is merged from a number of subfonts.  Each subfont
+can contain at most 223 glyphs.
+
+In LilyPond, glyphs are accessed by glyph name, rather than by code point.
+Therefore, the naming of glyphs is significant.
+
+Information about correctly creating glyphs is found in @file{mf/README}.
+Please make sure you read and understand this file.
+
+TODO -- we should get mf/README automatically generated from texinfo source
+and include it here.
+
+
+@node Font creation tools
+@section Font creation tools
+
+The sources for the feta font are written in metafont.  The definitive
+reference for metafont is "The METAFONT book".  Source for the book is
+available at CTAN.
+
+mf2pt1 is used to create type 1 fonts from the metafont sources.
+
+FontForge is used to display the resulting glyph shapes.
+
+@node Building the changed font
+@section Building the changed font
+
+In order to rebuild the font after making the changes, the existing
+font files must be deleted.  The simplest and quickest way to do this
+is to do:
+
+@example
+rm mf/out/*
+make
+@end example
+
