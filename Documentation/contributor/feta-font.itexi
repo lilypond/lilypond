@@ -5,6 +5,8 @@
 @menu
 * Overview of the feta font::
 * Font creation tools::
+* Adding a new font section::
+* Adding a new glyph::
 * Building the changed font::
 @end menu
 
@@ -37,6 +39,59 @@ available at CTAN.
 mf2pt1 is used to create type 1 fonts from the metafont sources.
 
 FontForge is used to display the resulting glyph shapes.
+
+@node Adding a new font section
+@section Adding a new font section
+
+The font is divided into sections, each of which contains less
+than 223 glyphs.  If more than 223 glyphs are included in a section,
+an error will be generated.
+
+Each of the sections is contained in a separate @code{.mf} file.  The
+files are named according to the type of glyphs in that section.
+
+When adding a new section, it will be necessary to add the following:
+
+@itemize
+@item
+The code for the glyphs, in a file @code{<section-name>.mf}
+@item
+Driver files used to create the font in different sizes
+@item
+An entry in the generic file used to create the font, or a new
+generic file
+@item
+If necessary, new entries in the GNUmakefile
+@end itemize
+
+See the examples in @code{mf/} for more information.
+
+@node Adding a new glyph
+@section Adding a new glyph
+
+Adding a new glyph is done by modifying the .mf file to which the
+glyph will be added.
+
+Necessary functions to draw the glyph can be added anywhere in the file,
+but it is standard to put them immediately before the glyph definition.
+
+The glyph definition begins with:
+
+@example
+fet_beginchar ("glyph description", "glyphname");
+@end example
+
+@noindent
+with @code{glyph description} replaced with a short description of the
+glyph, and @code{glyphname} replaced with the glyphname, which is chosen
+to comply with the naming rules in @file{mf/README}.
+
+The metafont code used to draw the glyph follows the @code{fet_beginchar}
+entry.  The glyph is finished with:
+
+@example
+fet_endchar;
+@end example
 
 @node Building the changed font
 @section Building the changed font
