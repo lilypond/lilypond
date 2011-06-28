@@ -1446,7 +1446,7 @@ bassClarinetNotes = \relative c' {
 
 <<
   \new Staff \piccolo
-  \new Staff \bassClarinet
+  \new Staff \bassClarinetNotes
 >>
 @end lilypond
 
