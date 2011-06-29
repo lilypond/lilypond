@@ -426,7 +426,7 @@ Slur_configuration::score_edges (Slur_score_state const &state)
 }
 
 void
-Slur_configuration ::score_slopes (Slur_score_state const &state)
+Slur_configuration::score_slopes (Slur_score_state const &state)
 {
   Real dy = state.musical_dy_;
   Offset slur_dz = attachment_[RIGHT] - attachment_[LEFT];
