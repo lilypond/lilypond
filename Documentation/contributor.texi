@@ -61,6 +61,7 @@ Copyright @copyright{} 2007--2011 by the authors.
 * Programming work::
 * Release work::
 * Build system notes::
+* Modifying the feta font::
 * Administrative policies::
 
 Appendices
@@ -87,6 +88,7 @@ Appendices
 @include contributor/programming-work.itexi
 @include contributor/release-work.itexi
 @include contributor/build-notes.itexi
+@include contributor/feta-font.itexi
 @include contributor/administration.itexi
 
 @include fdl.itexi
