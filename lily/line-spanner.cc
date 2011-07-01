@@ -269,9 +269,14 @@ Line_spanner::print (SCM smob)
   while (flip (&d) != LEFT);
 
   Grob *my_common_y = common_y[LEFT]->common_refpoint (common_y[RIGHT], Y_AXIS);
-  do
-    span_points[d][Y_AXIS] += common_y[d]->relative_coordinate (my_common_y, Y_AXIS);
-  while (flip (&d) != LEFT);
+  bool simple_y = to_boolean (me->get_property ("simple-Y")) && !to_boolean (me->get_property ("cross-staff"));
+
+  if (!simple_y)
+    {
+      do
+        span_points[d][Y_AXIS] += common_y[d]->relative_coordinate (my_common_y, Y_AXIS);
+      while (flip (&d) != LEFT);
+    }
 
   Interval normalized_endpoints = robust_scm2interval (me->get_property ("normalized-endpoints"), Interval (0, 1));
   Real y_length = span_points[RIGHT][Y_AXIS] - span_points[LEFT][Y_AXIS];
@@ -334,7 +339,7 @@ Line_spanner::print (SCM smob)
     }
 
   line.translate (Offset (-me->relative_coordinate (commonx, X_AXIS),
-			  -me->relative_coordinate (my_common_y, Y_AXIS)));
+			  simple_y ? 0.0 : -me->relative_coordinate (my_common_y, Y_AXIS)));
 
 
   return line.smobbed_copy ();
@@ -351,6 +356,7 @@ ADD_INTERFACE (Line_spanner,
 	       "left-bound-info "
 	       "note-columns "
 	       "right-bound-info "
+	       "simple-Y "
 	       "thickness "
 	       "to-barline "
 	       );

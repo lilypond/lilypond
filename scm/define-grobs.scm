@@ -927,6 +927,7 @@
     (Glissando
      . (
 	(after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
+	(before-line-breaking . ,glissando::before-line-breaking)
 	(bound-details . ((right . ((attach-dir .  ,CENTER)
 				    (padding . 1.5)
 				      ))
@@ -938,6 +939,7 @@
 	(left-bound-info . ,ly:line-spanner::calc-left-bound-info)
 	(normalized-endpoints . ,ly:spanner::calc-normalized-endpoints)
 	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
+	(simple-Y . #t)
 	(stencil . ,ly:line-spanner::print)
 	(style . line)
 	(X-extent . #f)
