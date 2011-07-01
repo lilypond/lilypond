@@ -3196,15 +3196,23 @@ def conv(str):
 @rule ((2, 13, 51),
     _ ("Woodwind diagrams: Changes to the clarinet diagram."))
 def conv(str):
-    if re.search(r'\\woodwind-diagram\s*#[^#]*clarinet\s', str):
-        stderr_write("\n")
-        stderr_write(NOT_SMART % _("woodwind-diagrams.  Clarinet fingering changed to reflect actual anatomy of instrument.\n"))
-        stderr_write(UPDATE_MANUALLY)
+    if re.search (r'\\woodwind-diagram\s*#[^#]*clarinet\s', str):
+        stderr_write ("\n")
+        stderr_write (NOT_SMART % _("woodwind-diagrams.  Clarinet fingering changed to reflect actual anatomy of instrument.\n"))
+        stderr_write (UPDATE_MANUALLY)
     return str
 
 @rule ((2, 14, 0),
        _ ("bump version for release"))
 def conv (str):
+    return str
+
+@rule ((2, 15, 2),
+       _ ("Change in internal property for MultiMeasureRest"))
+def conv (str):
+    if re.search (r'use-breve-rest',str):
+        stderr_write (NOT_SMART % _("use-breve-rest.  This internal property has been replaced by round-to-longer-rest and usable-duration-logs.\n"))
+        stderr_write (UPDATE_MANUALLY)
     return str
 
 
