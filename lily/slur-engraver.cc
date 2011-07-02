@@ -48,8 +48,8 @@
 */
 class Slur_engraver : public Engraver
 {
-  Drul_array<Stream_event *> events_;
-  Stream_event *running_slur_start_;
+  vector<Stream_event *> start_events_;
+  vector<Stream_event *> stop_events_;
   vector<Grob*> slurs_;
   vector<Grob*> end_slurs_;
 
@@ -78,7 +78,6 @@ public:
 
 Slur_engraver::Slur_engraver ()
 {
-  events_[START] = events_[STOP] = 0;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Slur_engraver, slur);
@@ -87,9 +86,9 @@ Slur_engraver::listen_slur (Stream_event *ev)
 {
   Direction d = to_dir (ev->get_property ("span-direction"));
   if (d == START)
-    ASSIGN_EVENT_ONCE (events_[START], ev);
+    start_events_.push_back(ev);
   else if (d == STOP)
-    ASSIGN_EVENT_ONCE (events_[STOP], ev);
+    stop_events_.push_back(ev);
   else ev->origin ()->warning (_f ("direction of %s invalid: %d",
 				   "slur-event", int (d)));
 }
@@ -134,7 +133,6 @@ Slur_engraver::acknowledge_tuplet_number (Grob_info info)
   acknowledge_extra_object (info);
 }
 
-
 void
 Slur_engraver::acknowledge_script (Grob_info info)
 {
@@ -157,47 +155,71 @@ Slur_engraver::acknowledge_tie (Grob_info info)
 void
 Slur_engraver::finalize ()
 {
-  if (slurs_.size ())
+  for (vsize i = 0; i < slurs_.size (); i++)
     {
-      slurs_[0]->warning (_ ("unterminated slur"));
-      for (vsize i = 0; i < slurs_.size (); i++)
-	slurs_[i]->suicide ();
+      slurs_[i]->warning (_ ("unterminated slur"));
+      slurs_[i]->suicide ();
     }
 }
 
 void
 Slur_engraver::process_music ()
 {
-  if (events_[STOP])
+  for (vsize i = 0; i < stop_events_.size (); i++)
     {
-      if (slurs_.size () == 0)
-	events_[STOP]->origin ()->warning (_ ("cannot end slur"));
+      Stream_event *ev = stop_events_[i];
+      string id = robust_scm2string (ev->get_property ("spanner-id"), "");
 
-      
-      end_slurs_ = slurs_;
-      slurs_.clear ();
+      // Find the slur that is ended with this event (by checking the spanner-id)
+      bool ended = false;
+      for (vsize j = slurs_.size (); j--;)
+        {
+          if (id == robust_scm2string (slurs_[j]->get_property ("spanner-id"), ""))
+            {
+              ended = true;
+              end_slurs_.push_back (slurs_[j]);
+              slurs_.erase (slurs_.begin () + j);
+            }
+        }
+      if (!ended)
+        ev->origin ()->warning (_ ("cannot end slur"));
     }
 
-  if (events_[START] && slurs_.empty ())
+  for (vsize i = start_events_.size (); i--;)
     {
-      Stream_event *ev = events_[START];
+      Stream_event *ev = start_events_[i];
+      string id = robust_scm2string (ev->get_property ("spanner-id"), "");
+      bool have_slur = false;
+      // Check if we already have a slur with the same spanner-id.
+      // In that case, don't create a new slur, but print a warning
+      for (vsize j = 0; j < slurs_.size (); j++)
+          have_slur = have_slur || (id == robust_scm2string (slurs_[j]->get_property ("spanner-id"), ""));
+      
+      if (have_slur)
+        {
+          // We already have a slur, so give a warning and completely ignore
+          // the new slur.
+          ev->origin ()->warning(_ ("already have slur"));
+          start_events_.erase (start_events_.begin () + i);
+        }
+      else 
+        {
+          Grob *slur = make_spanner ("Slur", ev->self_scm ());
+          Direction updown = to_dir (ev->get_property ("direction"));
+          slur->set_property ("spanner-id", ly_string2scm (id));
+          if (updown)
+            set_grob_direction (slur, updown);
+          slurs_.push_back (slur);
 
-      bool double_slurs = to_boolean (get_property ("doubleSlurs"));
-
-      Grob *slur = make_spanner ("Slur", events_[START]->self_scm ());
-      Direction updown = to_dir (ev->get_property ("direction"));
-      if (updown && !double_slurs)
-	set_grob_direction (slur, updown);
-
-      slurs_.push_back (slur);
-
-      if (double_slurs)
-	{
-	  set_grob_direction (slur, DOWN);
-	  slur = make_spanner ("Slur", events_[START]->self_scm ());
-	  set_grob_direction (slur, UP);
-	  slurs_.push_back (slur);
-	}
+          if (to_boolean (get_property ("doubleSlurs")))
+            {
+              set_grob_direction (slur, DOWN);
+              slur = make_spanner ("Slur", ev->self_scm ());
+              slur->set_property ("spanner-id", ly_string2scm (id));
+              set_grob_direction (slur, UP);
+              slurs_.push_back (slur);
+            }
+        }
     }
   set_melisma (slurs_.size ());
 }
@@ -210,7 +232,7 @@ Slur_engraver::stop_translation_timestep ()
       for (vsize i = 0; i < end_slurs_.size (); i++)
 	Slur::add_extra_encompass (end_slurs_[i], g);
 
-      if (!events_[START])
+      if (!start_events_.size ())
 	for (vsize i = 0; i < slurs_.size (); i++)
 	  Slur::add_extra_encompass (slurs_[i], g);
     }
@@ -224,7 +246,8 @@ Slur_engraver::stop_translation_timestep ()
       announce_end_grob (s, SCM_EOL);
     }
   end_slurs_.clear ();
-  events_[START] = events_[STOP] = 0;
+  start_events_.clear ();
+  stop_events_.clear ();
 }
 
 ADD_ACKNOWLEDGER (Slur_engraver, accidental);
