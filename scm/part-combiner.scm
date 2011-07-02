@@ -571,10 +571,18 @@ the mark when there are no spanners active.
 
 (define-public (add-quotable parser name mus)
   (let* ((tab (eval 'musicQuotes (current-module)))
-	 (context-list (recording-group-emulate (context-spec-music mus 'Voice)
-						(ly:parser-lookup parser 'partCombineListener))))
-    (if (pair? context-list)
-	(hash-set! tab name
-		   ;; cdr : skip name string
-		   (list->vector (reverse! (cdar context-list)
-					   '()))))))
+         ;; If a Voice is passed, use its contents:
+         (contents (if (equal? (ly:music-property mus 'name) 'ContextSpeccedMusic)
+                       (ly:music-property mus 'element)
+                       mus))
+         (voicename (get-next-unique-voice-name))
+         ;; recording-group-emulate returns an assoc list, so hand it a
+         ;; proper unique context name and extract that key:
+         (context-list (recording-group-emulate (context-spec-music contents 'Voice voicename)
+                                                (ly:parser-lookup parser 'partCombineListener)))
+         (quote-contents (if (assoc voicename context-list)
+                             (assoc-get voicename context-list)
+                             '())))
+
+    (if quote-contents
+        (hash-set! tab name (list->vector (reverse! quote-contents '()))))))
