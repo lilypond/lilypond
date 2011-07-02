@@ -795,26 +795,35 @@ between the two text elements."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; glissando
 
-(define-public (glissando::before-line-breaking grob)
-  "Establishes the Y terminus points of the glissando based on the pre-broken
-positions of its left and right bounds."
-  (let ((bound-details (ly:grob-property grob 'bound-details))
+(define-public (glissando::make-simple-y grob)
+ "Establishes the Y terminus points of the glissando based on the
+pre-broken positions of its left and right bounds."
+ (let* ((siblings (ly:spanner-broken-into (ly:grob-original grob)))
+        (bound-details (ly:grob-property grob 'bound-details))
         (extra-dy (ly:grob-property grob 'extra-dy 0.0)))
 
-    (for-each (lambda (dir-sym)
-                (let* ((details (assoc-get dir-sym bound-details))
-                       (dir (if (eq? dir-sym 'left) LEFT RIGHT))
-                       (bound (ly:spanner-bound grob dir))
-                       (common-y (ly:grob-common-refpoint grob bound Y))
-                       (y (+ (interval-center (ly:grob-extent bound common-y Y))
-                             (/ (* dir extra-dy)
-                                2))))
-                  (if (not (assoc-get 'Y details))
-                      (set! bound-details (assoc-set! bound-details dir-sym
-                                                      (acons 'Y y details))))))
-              '(left right))
+   (and (pair? siblings)
+        (for-each (lambda (dir-sym)
+                    (let* ((details (assoc-get dir-sym bound-details))
+                           (dir (if (eq? dir-sym 'left) LEFT RIGHT))
+                           (good-grob (if (eq? dir-sym 'left)
+                                          (first siblings)
+                                          (last siblings)))
+                           (bound (ly:spanner-bound good-grob dir))
+                           (common-y (ly:grob-common-refpoint good-grob
+                                                              bound
+                                                              Y))
+                           (y (+ (interval-center (ly:grob-extent bound
+                                                                 common-y
+                                                                 Y))
+                                 (/ (* dir extra-dy)
+                                    2))))
+                      (if (not (assoc-get 'Y details))
+                          (set! bound-details (assoc-set! bound-details dir-sym
+                                                          (acons 'Y y details))))))
+                  '(left right))
 
-    (set! (ly:grob-property grob 'bound-details) bound-details)))
+        (set! (ly:grob-property grob 'bound-details) bound-details))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

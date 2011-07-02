@@ -224,6 +224,9 @@ Line_spanner::print (SCM smob)
 {
   Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
 
+  // Triggers simple-Y calculations
+  bool simple_y = to_boolean (me->get_property ("simple-Y")) && !to_boolean (me->get_property ("cross-staff"));
+
   Drul_array<SCM> bounds (me->get_property ("left-bound-info"),
 			  me->get_property ("right-bound-info"));
 
@@ -269,7 +272,6 @@ Line_spanner::print (SCM smob)
   while (flip (&d) != LEFT);
 
   Grob *my_common_y = common_y[LEFT]->common_refpoint (common_y[RIGHT], Y_AXIS);
-  bool simple_y = to_boolean (me->get_property ("simple-Y")) && !to_boolean (me->get_property ("cross-staff"));
 
   if (!simple_y)
     {
