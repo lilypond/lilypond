@@ -225,13 +225,9 @@ Lyric_combine_music_iterator::check_new_context (SCM sev)
   if (!ok ())
     return ;
   
-  // TODO: Check first if type=Voice and if id matches
-  Stream_event * ev = unsmob_stream_event (sev);
-  if (ev->get_property ("type") != ly_symbol2scm ("Voice"))
-    return ;
-  
+  // Search for a possible candidate voice to attach the lyrics to. If none
+  // is found, we'll try next time again.
   Context *voice = find_voice ();
-
   if (voice)
     {
       set_music_context (voice);
