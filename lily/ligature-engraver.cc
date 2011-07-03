@@ -143,7 +143,7 @@ Ligature_engraver::process_music ()
 
       ligature_start_mom_ = now_mom ();
 
-      // TODO: dump cause into make_item/spanner. 
+      // TODO: dump cause into make_item/spanner.
       // announce_grob (ligature_, events_drul_[START]->self_scm ());
     }
 }
@@ -194,15 +194,13 @@ Ligature_engraver::current_ligature ()
 }
 
 void
-Ligature_engraver::acknowledge_note_head (Grob_info info)
+Ligature_engraver::acknowledge_ligature_head (Grob_info info)
 {
   if (ligature_)
     {
       primitives_.push_back (info);
       if (info.grob () && brew_ligature_primitive_proc != SCM_EOL)
-	{
-	  info.grob ()->set_property ("stencil", brew_ligature_primitive_proc);
-	}
+        info.grob ()->set_property ("stencil", brew_ligature_primitive_proc);
     }
 }
 
