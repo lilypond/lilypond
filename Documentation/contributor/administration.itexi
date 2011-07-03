@@ -513,6 +513,16 @@ suggested in a different proposal), this proposal may become moot.
 
 (prep: 1 hour.  discuss: 5 hours)
 
+@item @strong{initalizer lists}:
+shoudl we use initalizer lists for C++?  AFAIK they make no
+difference for built-in types, but there's some weird case where
+it's more efficient for objects, or something.
+
+Probably not worth making this a weekly thing on its own, but we
+can probably wrap it up with some other code-related questions.
+
+(prep: 15 minutes.  discuss: 3 hours)
+
 @end itemize
 
 @node Policy decisions (finished)
