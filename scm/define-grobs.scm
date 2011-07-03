@@ -1436,6 +1436,7 @@
 		 (interfaces . (font-interface
 				gregorian-ligature-interface
 				ledgered-interface
+                                ligature-head-interface
 				mensural-ligature-interface
 				note-head-interface
 				rhythmic-grob-interface

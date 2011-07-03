@@ -124,6 +124,11 @@ accidentals)."
  '())
 
 (ly:add-interface
+ 'ligature-head-interface
+ "A note head that can become part of a ligature."
+ '())
+
+(ly:add-interface
  'ligature-bracket-interface
  "A bracket indicating a ligature in the original edition."
  '(width thickness height))

@@ -31,7 +31,7 @@ protected:
   virtual void finalize ();
 
   DECLARE_ACKNOWLEDGER (rest);
-  DECLARE_ACKNOWLEDGER (note_head);
+  DECLARE_ACKNOWLEDGER (ligature_head);
   virtual void listen_ligature (Stream_event *ev);
   void process_music ();
   virtual Spanner *create_ligature_spanner () = 0;
