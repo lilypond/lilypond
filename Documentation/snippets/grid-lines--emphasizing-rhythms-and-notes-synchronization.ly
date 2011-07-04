@@ -9,7 +9,7 @@
 \header {
   lsrtags = "editorial-annotations"
 
-%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
+%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Se pueden trazar líneas verticales normales entre pentagramas para
 mostrar la relación entre notas; sin embargo, en caso de música

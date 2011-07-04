@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks, text"
 
-%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
+%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Aunque la manera más fácil de añadir paréntesis a una indicación
 de dinámica es utilizar un bloque @code{\\markup}, este método

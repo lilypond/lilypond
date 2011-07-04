@@ -4,11 +4,11 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.13.53
+%% Note: this file works from version 2.14.0
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 69d7781c6ab26df02bc81ff1eb294d47fa673491
+%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
 
   texidoces = "
 Los deslizamientos para acordes se pueden indicar tanto en el contexto
@@ -20,6 +20,17 @@ líneas entre las notas individuales.
 "
 
   doctitlees = "Glissando de acordes en tablatura"
+%% Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
+  texidocde = "
+Gleiten von Akkorden kann sowohl im normalen Notensystem als auch in einer
+Tabulatur notiert werden.  Saitennummern werden für Tabulaturen
+benötigt, weil die automatische Saitenberechnung unterschiedlich für
+Akkorde und einzelne Noten funktioniert und
+@code{\\chordGlissando} zieht Linien zwischen einzelnen Noten.
+"
+  doctitlede = "Akkordglissando in Tabulaturen"
+
+
   lsrtags = "fretted-strings"
   texidoc = "
 Slides for chords can be indicated in both Staff and TabStaff.

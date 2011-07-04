@@ -4,17 +4,23 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.13.49
+%% Note: this file works from version 2.14.0
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 69d7781c6ab26df02bc81ff1eb294d47fa673491
+%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Armónicos sobre cuerdas pisadas (armónicos artificiales):
 "
   doctitlees = "Armónicos sobre cuerdas pisadas en tablatura"
 
 
+
+%% Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
+  texidocde = "
+Flageolett für Bundinstrumente:
+"
+  doctitlede = "Flageolett von Bundinstrumenten in einer Tabulatur"
 
   lsrtags = "fretted-strings"
   texidoc = "

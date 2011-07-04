@@ -4,11 +4,11 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.13.36
+%% Note: this file works from version 2.14.0
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
+%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Los patrones de barrado se pueden alterar con la propiedad
 @code{beatGrouping}:

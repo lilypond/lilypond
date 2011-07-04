@@ -9,7 +9,7 @@
 \header {
   lsrtags = "simultaneous-notes"
 
-%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
+%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Al utilizar la posibilidad de combinación automática de partes, se
 puede modificar el texto que se imprime para las secciones de solo

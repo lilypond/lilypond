@@ -9,7 +9,7 @@
 \header {
   lsrtags = "repeats"
 
-%% Translation of GIT committish: 91eeed36c877fe625d957437d22081721c8c6345
+%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 De forma predeterminada, los corchetes de primera y segunda vez se
 trazan encima de los finales alternativos completos, pero es posible
