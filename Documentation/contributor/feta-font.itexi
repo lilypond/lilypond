@@ -17,7 +17,10 @@ The feta font is a font that was created specifically for use in
 LilyPond.  The sources for the font are found in mf/*.mf.
 
 The feta font is merged from a number of subfonts.  Each subfont
-can contain at most 223 glyphs.
+can contain at most 224 glyphs.  This is because each subfont is
+limited to a one-byte address space (256 glyphs maximum) and we
+avoid the first 32 points in that address space, since they are
+non-printing control characters in ASCII.
 
 In LilyPond, glyphs are accessed by glyph name, rather than by code point.
 Therefore, the naming of glyphs is significant.
@@ -38,13 +41,15 @@ available at CTAN.
 
 mf2pt1 is used to create type 1 fonts from the metafont sources.
 
-FontForge is used to display the resulting glyph shapes.
+FontForge is used to postprocess the output of mf2pt1 and clean up
+details of the font.  It can also be used by a developer to
+display the resulting glyph shapes.
 
 @node Adding a new font section
 @section Adding a new font section
 
 The font is divided into sections, each of which contains less
-than 223 glyphs.  If more than 223 glyphs are included in a section,
+than 224 glyphs.  If more than 224 glyphs are included in a section,
 an error will be generated.
 
 Each of the sections is contained in a separate @code{.mf} file.  The
@@ -62,6 +67,8 @@ An entry in the generic file used to create the font, or a new
 generic file
 @item
 If necessary, new entries in the GNUmakefile
+@item
+An entry in @file{scripts/build/gen-emmentaler-scripts.py}
 @end itemize
 
 See the examples in @code{mf/} for more information.
@@ -104,4 +111,3 @@ is to do:
 rm mf/out/*
 make
 @end example
-

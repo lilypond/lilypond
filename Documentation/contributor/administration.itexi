@@ -505,6 +505,24 @@ amount of current material in either form, are important.
 
 (prep: 5 hours.  discuss: 15 hours)
 
+@item @strong{always make an issue number for patches}:
+there is a proposal that we should always have a google code issue
+number for every patch.  This proposal is closely tied to our
+choice of patch review tool; if we switch to a different tool (as
+suggested in a different proposal), this proposal may become moot.
+
+(prep: 1 hour.  discuss: 5 hours)
+
+@item @strong{initalizer lists}:
+shoudl we use initalizer lists for C++?  AFAIK they make no
+difference for built-in types, but there's some weird case where
+it's more efficient for objects, or something.
+
+Probably not worth making this a weekly thing on its own, but we
+can probably wrap it up with some other code-related questions.
+
+(prep: 15 minutes.  discuss: 3 hours)
+
 @end itemize
 
 @node Policy decisions (finished)
