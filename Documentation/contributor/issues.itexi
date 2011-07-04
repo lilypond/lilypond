@@ -78,8 +78,8 @@ Sign in to google code by clicking in the top-right corner of:
 @uref{http://code.google.com/p/lilypond/issues/list}
 @end example
 
-You cannot log if you have Google Sharing
-@uref{http://www.googlesharing.net/} enabled.
+You cannot log on if you have Google Sharing enabled
+@uref{http://www.googlesharing.net/}.
 
 @item
 Go to your @qq{Profile}, and select @qq{Settings}.
@@ -679,6 +679,15 @@ If the issue requires one or two pages of output, then generate a
 
 @example
 lilypond --png bug.ly
+@end example
+
+@item
+Images created as @file{bug.png} may be trimmed to a minimum size
+by using the @code{trimtagline.sh} script, which can be found at
+@uref{https://raw.github.com/gperciva/lilypond-extra/master/bug-squad/trimtagline.sh}
+
+@example
+trimtagline.sh bug.ly
 @end example
 
 @item
