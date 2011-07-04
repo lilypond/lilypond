@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 8656e359d629aed6990bb8d8d3da8eac2d2c311e
+    Translation of GIT committish: 502106f74b602ee5c9aeb9787338350df1c863f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1037,9 +1037,9 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Citar otras voces
 @translationof Quoting other voices
 
-@cindex guías
+@cindex guía, voces
 @cindex citar otras voces
-@cindex fragmentos
+@cindex fragmentos, citar
 @cindex notas guía
 
 @funindex \addQuote
@@ -1049,40 +1049,37 @@ Referencia de funcionamiento interno:
 @funindex \transposition
 @funindex transposition
 
-Es muy frecuente que una voz duplique música de otra voz.  Por
-ejemplo, los violines primero y segundo pueden tocar las mismas notas
-durante un pasaje musical.  En LilyPond esto se hace dejando que una
-voz @emph{cite} a la otra, sin tener que volverla a introducir.
+Es muy frecuente que una voz use las mismas notas que otra voz.  Por
+ejemplo, los violines primero y segundo tocando la misma frase durante
+un determinado pasaje musical.  Esto se hace dejando que una voz
+@emph{cite} a la otra, sin tener que volver a introducir la música
+para la segunda voz.
 
-Antes de que una voz pueda citarse, se debe usar la instrucción
-@code{\addQuote} para iniciar el fragmento citado.  Esta instrucción
-se debe usar en el ámbito del nivel más alto.  El primer argumento es
-una cadena identificativa, y el segundo es una expresión musical:
-
-@example
-flute = \relative c'' @{
-  a4 gis g gis
-@}
-\addQuote "flute" @{ \flute @}
-@end example
+La instrucción @code{\addQuote}, utilizada en el ámbito del nivel
+sintáctico superior, define un flujo de música desde el que es posible
+citar fragmentos.
 
 La instrucción @code{\quoteDuring} se usa para indicar el punto en que
-comienza la cita.  va seguido por dos argumentos: el nombre de la voz
+comienza la cita.  Va seguida por dos argumentos: el nombre de la voz
 citada, tal y como se definió con @code{\addQuote}, y una expresión
-musical que indica la duración de la cita, normalmente silencios de
-separación o silencios multicompás.  La música correspondiente
-(incluidas todas las articulaciones,
-matices, elementos de marcado, etc.) de la
-voz citada se inserta dentro de la expresión musical:
+musical que indica la duración de la cita.
 
 @lilypond[verbatim,quote]
-flute = \relative c'' {
-  a4 gis g->\f gis^\markup{quoted}
+fluteNotes = \relative c'' {
+  a4 gis g gis | b4^"quoted" r8 ais\p a4( f)
 }
-\addQuote "flute" { \flute }
 
-\relative c' {
-  c4 cis \quoteDuring #"flute" { s2 }
+oboeNotes = \relative c'' {
+  c4 cis c b \quoteDuring #"flute" { s1 }
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\score {
+  <<
+    \new Staff \with { instrumentName = "Flute" } \fluteNotes
+    \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
 }
 @end lilypond
 
@@ -1092,56 +1089,82 @@ multicompás, se produce una situación de polifonía, lo que no suele
 ser deseable:
 
 @lilypond[verbatim,quote]
-flute = \relative c'' {
-  a4 gis g gis
+fluteNotes = \relative c'' {
+  a4 gis g gis | b4^"quoted" r8 ais\p a4( f)
 }
-\addQuote "flute" { \flute }
 
-\relative c' {
-  c4 cis \quoteDuring #"flute" { c4 b }
+oboeNotes = \relative c'' {
+  c4 cis c b \quoteDuring #"flute" { e4 r8 ais b4 a }
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\score {
+  <<
+    \new Staff \with { instrumentName = "Flute" } \fluteNotes
+    \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
 }
 @end lilypond
 
-Las citas reconocen los ajustes de transposición de los instrumentos
-tanto para la fuente como para los instrumentos de destino si se
-utiliza la instrucción @code{\transposition}.  Para ver más detalles
-sobre @code{\transposition}, consulte @ref{Transposición de los instrumentos}.
+La instrucción @code{\quoteDuring} usa los ajustes de
+@code{\transposition} tanto de la parte citada como de la que cita,
+para producir notas que tienen la misma altura de sonido en la parte
+que cita y en las de la parte citada.
 
 @lilypond[verbatim,quote]
-clarinet = \relative c'' {
+clarinetNotes = \relative c'' {
   \transposition bes
-  a4 gis g gis
+  \key d \major
+  b4 ais a ais | cis4^"quoted" r8 bis\p b4( f)
 }
-\addQuote "clarinet" { \clarinet }
 
-\relative c' {
-  c4 cis \quoteDuring #"clarinet" { s2 }
+oboeNotes = \relative c'' {
+  c4 cis c b \quoteDuring #"clarinet" { s1 }
+}
+
+\addQuote "clarinet" { \clarinetNotes }
+
+
+\score {
+  <<
+    \new Staff \with { instrumentName = "Clarinet" } \clarinetNotes
+    \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
 }
 @end lilypond
 
-Es posible etiquetar las citas con nombres exclusivos para poder
-procesarlas de diferentes maneras.  Para ver más detalles sobre este
-procedimiento, consulte @ref{Uso de etiquetas}.
-
-También es posible ajustar qué objetos de la voz original se citan
-mediante la modificación de la propiedad @code{quotedEventTypes}.  De
-forma predeterminada, su valor es @code{#'(StreamEvent)}, lo que
-significa que todo se cita.  Su establecimiento a,
-p.ej. @code{#'(note-event rest-event tie-event)} provoca que LilyPond
-cite solamente las notas, silencios y ligaduras de unión, pero no las
-articulaciones, los elementos de marcado ni los matices dinámicos.
+De forma predeterminada, la música citada incluye todas las
+articulaciones, matices dinámicos, elementos de marcado, etc. de la
+expresión citada.  Es posible elegir cuáles de estos objetos de la
+música que se cita se imprimen, mediante la propiedad de contexto
+@code{quotedEventTypes}.
 
 @lilypond[verbatim,quote]
-clarinet = \relative c'' {
-  a4 gis g->\f gis^\markup{quoted}
-}
-\addQuote "clarinet" { \clarinet }
+fluteNotes = \relative c'' {
+  a2 g2 |
+  b4\<^"quoted" r8 ais a4\f( c->)
+ }
 
-\relative c' {
-  \set Score.quotedEventTypes = #'(note-event rest-event tie-event)
-  c4 cis \quoteDuring #"clarinet" { s2 }
+oboeNotes = \relative c'' {
+  c2. b4 |
+  \quoteDuring #"flute" { s1 }
 }
+
+\addQuote "flute" { \fluteNotes }
+
+\score {
+  <<
+    \set Score.quotedEventTypes = #'(note-event articulation-event
+                                     crescendo-event rest-event
+                                     slur-event dynamic-event)
+    \new Staff \with { instrumentName = "Flute" } \fluteNotes
+    \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
+ }
 @end lilypond
+
+Las citas también se pueden etiquetar, véase @ref{Uso de etiquetas}.
 
 @snippets
 
@@ -1169,8 +1192,12 @@ Fragmentos de código:
 @rlsr{Staff notation}.
 
 Referencia de funcionamiento interno:
+@rinternals{Music classes},
 @rinternals{QuoteMusic},
 @rinternals{Voice}.
+
+Archivos de inicio:
+@file{scm/define-event-classes.scm}.
 
 
 @knownissues
