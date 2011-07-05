@@ -273,8 +273,8 @@ unless git master changed. In other words, if you work with several branches
 and want to do regtests comparison for all of them, you can
 @code{make test-baseline} with git master, checkout some branch,
 @code{make} and @code{make check} it, then switch to another branch,
-@code{make} and @code{make check} it without doing @code{make test-baseline}
-again.}
+@code{make test-clean}, @code{make} and @code{make check} it without doing
+@code{make test-baseline} again.}
 
 
 @node Finding the cause of a regression
