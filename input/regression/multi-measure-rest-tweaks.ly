@@ -2,7 +2,7 @@
   texidoc = "Multi-measure rests standard values can be tweaked."
 }
 
-\version "2.15.0"
+\version "2.15.2"
 \new Staff {
   \override MultiMeasureRest #'usable-duration-logs = #'(2 1)
   \time 1/4 R4-"Use non-standard multi-measure rests."

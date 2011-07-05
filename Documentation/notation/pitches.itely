@@ -1677,10 +1677,10 @@ musicB = {
 
 This rule corresponds to the common practice in the twentieth
 century.  It omits some extra natural signs, which were
-traditionally prefixed to accidentals that reduce or reverse
-the direction of a previous alteration.  The @code{modern} rule
+traditionally prefixed to a sharp following a double sharp,
+or a flat following a double flat.  The @code{modern} rule
 prints the same accidentals as @code{default}, with
-two exceptions that serve to avoid ambiguity: after temporary
+two additions that serve to avoid ambiguity: after temporary
 accidentals, cancellation marks are printed also in the following
 measure (for notes in the same octave) and, in the same measure,
 for notes in other octaves.  Hence the naturals before

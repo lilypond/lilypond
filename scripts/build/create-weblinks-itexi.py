@@ -409,9 +409,9 @@ def make_manual_links(name, version, lang):
                 "http://lilypond.org",
                 mshort+getTrans(" (did not exist in 2.12)",lang))
             continue
-	# this is stupid and I shouldn't have bothered trying
-	# to support the 2.12 docs and it will be deleted once
-	# 2.14 is out and the website won't be visible to users
+        # this is stupid and I shouldn't have bothered trying
+        # to support the 2.12 docs and it will be deleted once
+        # 2.14 is out and the website won't be visible to users
         # until 2.14 is out.  -gp
         if (url.endswith('.html')):
             make_ver_link(macroLang("manual"+name+mshort+'Pdf',lang),

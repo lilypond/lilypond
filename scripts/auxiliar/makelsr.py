@@ -138,7 +138,7 @@ def escape_backslashes_in_header(snippet):
     # one backreference to group 1 (that's two 2\ ).
     new_header = re.sub("@code\{\\\\([a-zA-Z])", "@code{\\\\\\\\\\1", header)
     escaped_snippet = (snippet[:header_char_number_start] +
-	new_header + snippet[header_char_number_end:])
+        new_header + snippet[header_char_number_end:])
     return escaped_snippet
 
 def copy_ly (srcdir, name, tags):

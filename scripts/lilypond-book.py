@@ -179,11 +179,6 @@ def get_option_parser ():
                   action='store',
                   dest='process_cmd', default='')
 
-    p.add_option ('--redirect-lilypond-output',
-                  help = _ ("Redirect the lilypond output"),
-                  action='store_true',
-                  dest='redirect_output', default=False)
-
     p.add_option ('-s', '--safe', help=_ ("Compile snippets in safe mode"),
                   action="store_true",
                   default=False,
@@ -352,7 +347,7 @@ def find_toplevel_snippets (input_string, formatter):
 
     return snippets
 
-def system_in_directory (cmd, directory, logfile):
+def system_in_directory (cmd, directory):
     """Execute a command in a different directory.
 
     Because of win32 compatibility, we can't simply use subprocess.
@@ -360,10 +355,7 @@ def system_in_directory (cmd, directory, logfile):
 
     current = os.getcwd()
     os.chdir (directory)
-    ly.system(cmd,
-              be_verbose=global_options.verbose,
-              redirect_output=global_options.redirect_output,
-              log_file=logfile,
+    ly.system(cmd, be_verbose=global_options.verbose,
               progress_p=1)
     os.chdir (current)
 
@@ -382,12 +374,10 @@ def process_snippets (cmd, snippets,
                           + list (set ([snip.basename() + '.ly' for snip in snippets])))
     name = os.path.join (lily_output_dir,
                          'snippet-names-%d.ly' % checksum)
-    logfile = name.replace('.ly', '')
     file (name, 'wb').write (contents)
 
     system_in_directory (' '.join ([cmd, ly.mkarg (name)]),
-                         lily_output_dir,
-                         logfile)
+                         lily_output_dir)
 
 
 def snippet_list_checksum (snippets):

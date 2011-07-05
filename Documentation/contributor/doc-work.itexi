@@ -2163,7 +2163,9 @@ useful) and paste with @key{C-y} or @key{C-v}.
 
 @item Update sections finished in the English documentation; check
 sections status at
+@smallexample
 @uref{http://lilypondwiki.tuxfamily.org/index.php?title=Documentation_coordination}.
+@end smallexample
 
 @item Update documentation PO.  It is recommended not to update
 strings which come from documentation that is currently deeply revised

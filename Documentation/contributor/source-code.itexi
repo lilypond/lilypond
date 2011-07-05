@@ -65,9 +65,9 @@ Download the @command{lily-git.tcl} script from:
 @c don't change the cgit link below to gitweb; gitweb uses
 @c long filenames like "scripts_auxiliar_lily-git.tcl"
 
-@example
+@smallexample
 @uref{http://git.sv.gnu.org/cgit/lilypond.git/plain/scripts/auxiliar/lily-git.tcl}
-@end example
+@end smallexample
 
 @item
 To run the program from the command line, navigate to the

@@ -1,0 +1,113 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@node Modifying the feta font
+@chapter Modifying the feta font
+
+@menu
+* Overview of the feta font::
+* Font creation tools::
+* Adding a new font section::
+* Adding a new glyph::
+* Building the changed font::
+@end menu
+
+@node Overview of the feta font
+@section Overview of the feta font
+
+The feta font is a font that was created specifically for use in
+LilyPond.  The sources for the font are found in mf/*.mf.
+
+The feta font is merged from a number of subfonts.  Each subfont
+can contain at most 224 glyphs.  This is because each subfont is
+limited to a one-byte address space (256 glyphs maximum) and we
+avoid the first 32 points in that address space, since they are
+non-printing control characters in ASCII.
+
+In LilyPond, glyphs are accessed by glyph name, rather than by code point.
+Therefore, the naming of glyphs is significant.
+
+Information about correctly creating glyphs is found in @file{mf/README}.
+Please make sure you read and understand this file.
+
+TODO -- we should get mf/README automatically generated from texinfo source
+and include it here.
+
+
+@node Font creation tools
+@section Font creation tools
+
+The sources for the feta font are written in metafont.  The definitive
+reference for metafont is "The METAFONT book".  Source for the book is
+available at CTAN.
+
+mf2pt1 is used to create type 1 fonts from the metafont sources.
+
+FontForge is used to postprocess the output of mf2pt1 and clean up
+details of the font.  It can also be used by a developer to
+display the resulting glyph shapes.
+
+@node Adding a new font section
+@section Adding a new font section
+
+The font is divided into sections, each of which contains less
+than 224 glyphs.  If more than 224 glyphs are included in a section,
+an error will be generated.
+
+Each of the sections is contained in a separate @code{.mf} file.  The
+files are named according to the type of glyphs in that section.
+
+When adding a new section, it will be necessary to add the following:
+
+@itemize
+@item
+The code for the glyphs, in a file @code{<section-name>.mf}
+@item
+Driver files used to create the font in different sizes
+@item
+An entry in the generic file used to create the font, or a new
+generic file
+@item
+If necessary, new entries in the GNUmakefile
+@item
+An entry in @file{scripts/build/gen-emmentaler-scripts.py}
+@end itemize
+
+See the examples in @code{mf/} for more information.
+
+@node Adding a new glyph
+@section Adding a new glyph
+
+Adding a new glyph is done by modifying the .mf file to which the
+glyph will be added.
+
+Necessary functions to draw the glyph can be added anywhere in the file,
+but it is standard to put them immediately before the glyph definition.
+
+The glyph definition begins with:
+
+@example
+fet_beginchar ("glyph description", "glyphname");
+@end example
+
+@noindent
+with @code{glyph description} replaced with a short description of the
+glyph, and @code{glyphname} replaced with the glyphname, which is chosen
+to comply with the naming rules in @file{mf/README}.
+
+The metafont code used to draw the glyph follows the @code{fet_beginchar}
+entry.  The glyph is finished with:
+
+@example
+fet_endchar;
+@end example
+
+@node Building the changed font
+@section Building the changed font
+
+In order to rebuild the font after making the changes, the existing
+font files must be deleted.  The simplest and quickest way to do this
+is to do:
+
+@example
+rm mf/out/*
+make
+@end example

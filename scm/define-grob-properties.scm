@@ -735,6 +735,8 @@ placed vertically.")
      (side-relative-direction ,ly:dir? "Multiply direction of
 @code{direction-source} with this to get the direction of this
 object.")
+     (simple-Y ,boolean? "Should the Y placement of a spanner
+disregard changes in system heights?")
      (size ,number? "Size of object, relative to standard size.")
      (skyline-horizontal-padding ,number? "For determining the
 vertical distance between two staves, it is possible to have a

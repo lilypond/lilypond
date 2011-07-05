@@ -124,7 +124,7 @@ git merge origin/master
 @end verbatim
 
 Check for any updates to trusted scripts / files:
-
+@smallexample
 @verbatim
 ### check-git.sh
 #!/bin/sh
@@ -160,6 +160,7 @@ cp $GIT/scripts/build/bib2texi.py $DEST/bib2texi.py
 cp $GIT/Documentation/web/server/lilypond.org.htaccess $DEST/lilypond.org.htaccess
 cp $GIT/Documentation/web/server/website-dir.htaccess $DEST/website-dir.htaccess
 @end verbatim
+@end smallexample
 
 Build the website:
 

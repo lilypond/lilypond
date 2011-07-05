@@ -15,10 +15,14 @@ $(outdir)/%.tfm $(outdir)/%.log: %.mf
 
 # ugh . mf2pt1 is extremely broken, it pollutes CWD iso. creating a
 # temp dir.
+#
+# the soft link for mf2pt1.mp is for recent mpost versions
+# which no longer dump a .mem file
 $(outdir)/%.pfb: %.mf $(outdir)/mf2pt1.mem
 	TMP=`mktemp -d $(outdir)/pfbtemp.XXXXXXXXX` \
 	&& ( cd $$TMP \
 		&& ln -s ../mf2pt1.mem . \
+		&& ln -s ../../mf2pt1.mp . \
 		&& MFINPUTS=$(abs-src-dir):..:: $(buildscript-dir)/mf2pt1 $(MF2PT1_OPTIONS) $< $(METAFONT_QUIET)) \
 	&& mv $$TMP/*pfb $(outdir); \
 	rm -rf $$TMP
