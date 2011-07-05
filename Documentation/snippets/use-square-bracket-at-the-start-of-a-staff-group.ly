@@ -41,7 +41,7 @@ mentionnerez explicitement au sein d'un contexte @code{StaffGroup} ou
 
   texidoc = "
 The system start delimiter @code{SystemStartSquare} can be used by
-setting it explicitly in a @code{StaffGroup} or @code{ChoirStaffGroup}
+setting it explicitly in a @code{StaffGroup} or @code{ChoirStaff}
 context.
 
 "
