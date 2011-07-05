@@ -116,7 +116,7 @@
   evenFooterMarkup = \markup {}
   }
 
-\version "2.12.0"
+\version "2.14.0"
 
 #(define-markup-command (doc-char layout props name) (string?)
   (interpret-markup layout props

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.14.0"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -2793,42 +2793,55 @@ r4
 \acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
-Here's a further example taken from the opening of the left-hand
-staff of Chopin's Prelude Op 28 No. 2.  We see that the beam
-collides with the upper notes:
+Here's a further example.  We see that the beams
+collide with the ties:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
-  \clef "bass"
-  << { b,8 ais, b, g, } \\ { e,8 g e, g } >>
-  << { b,8 ais, b, g, } \\ { e,8 g e, g } >>
+  \time 4/2
+  <<
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
+  <<
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
 }
 @end lilypond
 
 @noindent
 This can be resolved by manually moving both ends of the beam
-up from their position at 2 staff-spaces above the center line to,
-say, 3:
+up from their position at 1.81 staff-spaces below the center line to,
+say, 1:
 
 @cindex Beam, example of overriding
 @cindex positions property, example
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
-  \clef "bass"
+  \time 4/2
   <<
-    \override Beam #'positions = #'(3 . 3)
-    { b,8 ais, b, g, }
-  \\
-    { e,8 g e, g }
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    {
+      \override Beam #'positions = #'(-1 . -1)
+      e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g''
+    }
   >>
-  << { b,8 ais, b, g, } \\ { e,8 g e, g } >>
+  <<
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
 }
 @end lilypond
 
 @noindent
 Note that the override continues to apply in the first voice of
-the second block of quavers, but not to any of the beams in the
+the second measure of eighth notes, but not to any of the beams in the
 second voice.
 
 @subheading force-hshift property

@@ -1,4 +1,4 @@
-\version "2.13.54"
+\version "2.14.0"
 \header {
   texidoc = "Footnotes are annotated at the correct place, and the
 annotation goes to the correct page."

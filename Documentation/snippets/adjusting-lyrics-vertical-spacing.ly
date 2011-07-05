@@ -4,11 +4,11 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.13.42
-\version "2.13.42"
+%% Note: this file works from version 2.14.0
+\version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Este fragmento de código muestra cómo situar la línea de base de la
 letra más cerca del pentagrama.

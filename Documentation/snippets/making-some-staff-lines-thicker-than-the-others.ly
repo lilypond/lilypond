@@ -4,12 +4,12 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.12.2"
+\version "2.14.0"
 
 \header {
   lsrtags = "staff-notation, editorial-annotations"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Se puede engrosar una línea del pentagrama con fines pedagógicos
 (p.ej. la tercera línea o la de la clave de Sol).  Esto se puede

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.13.51"
+\version "2.14.0"
 
 \header {
   lsrtags = "staff-notation, vocal-music"

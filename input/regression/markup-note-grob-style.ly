@@ -1,4 +1,4 @@
-\version "2.13.10"
+\version "2.14.0"
 
 \header {
   texidoc = "The @code{'style} property from grobs such as

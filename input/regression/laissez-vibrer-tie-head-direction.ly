@@ -1,4 +1,4 @@
-\version "2.13.27"
+\version "2.14.0"
 \header {
 
   texidoc = "The 'head-direction of a LaissezVibrerTieColumn should

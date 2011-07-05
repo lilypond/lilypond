@@ -346,8 +346,6 @@ def translateNameToUrl(manual, version):
     ver_minor = ver_split[0] + '.' + ver_split[1]
     url = depth + "doc/v" + ver_minor + "/Documentation/"
 
-    if (ver_minor == '2.13'):
-        return url+manual
     if (ver_minor == '2.12'):
         if (manual=='learning'):
             return url+'user/lilypond-learning'
@@ -369,6 +367,8 @@ def translateNameToUrl(manual, version):
             return url+'user/lilypond/Interfaces-for-programmers.html'
         else:
             return ''
+    else:
+        return url+manual
 
 def addLang(url, lang):
     if lang:
@@ -490,8 +490,8 @@ print "@c ************************ Download source ************"
 # FIXME: icky hard-coding!  -gp
 for lang in langs:
     print "@c *********", lang, "***"
-    make_download_source("downloadStableSource","v2.12",VERSION_STABLE,lang)
-    make_download_source("downloadDevelSource","v2.13",VERSION_DEVEL,lang)
+    make_download_source("downloadStableSource","v2.14",VERSION_STABLE,lang)
+    make_download_source("downloadDevelSource","v2.15",VERSION_DEVEL,lang)
 
 print "@c ************************ Manual links ************"
 for lang in langs:

@@ -60,6 +60,7 @@ Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track)
   vector_sort (items_, audio_item_less);
   last_tick_ = 0;
   percussion_ = audio_staff->percussion_;
+  merge_unisons_ = audio_staff->merge_unisons_;
 }
 
 Midi_walker::~Midi_walker ()
@@ -81,31 +82,43 @@ Midi_walker::do_start_note (Midi_note *note)
 {
   Audio_item *ptr = items_[index_];
   assert (note->audio_ == ptr);
-  int stop_ticks = int (moment_to_real (note->audio_->length_mom_) * Real (384 * 4))
-    + ptr->audio_column_->ticks ();
-
-  bool play_start = true;
+  int now_ticks = ptr->audio_column_->ticks ();
+  int stop_ticks = int (moment_to_real (note->audio_->length_mom_) *
+                        Real (384 * 4)) + now_ticks;
   for (vsize i = 0; i < stop_note_queue.size (); i++)
     {
-      /* if this pith already in queue */
+      /* if this pitch already in queue */
       if (stop_note_queue[i].val->get_semitone_pitch ()
 	  == note->get_semitone_pitch ())
 	{
-	  if (stop_note_queue[i].key < stop_ticks)
+	  int queued_ticks
+	    = stop_note_queue[i].val->audio_->audio_column_->ticks ();
+	  // If the two notes started at the same time, or option is set,
+	  if (now_ticks == queued_ticks || merge_unisons_)
 	    {
-	      /* let stopnote in queue be ignored,
-		 new stop note wins */
-	      stop_note_queue[i].ignore_ = true;
-
-	      /* don't replay start note, */
-	      play_start = false;
+	      // merge them.
+	      if (stop_note_queue[i].key < stop_ticks)
+		{
+		  Midi_note_event e;
+		  e.val = stop_note_queue[i].val;
+		  e.key = stop_ticks;
+		  stop_note_queue[i].ignore_ = true;
+		  stop_note_queue.insert (e);
+		}
+	      note = 0;
 	      break;
 	    }
 	  else
 	    {
-	      /* skip this stopnote,
-		 don't play the start note */
-	      note = 0;
+	      // A note was played that interruped a played note.
+	      // Stop the old note, and continue to the greatest moment
+	      // between the two.
+	      if (stop_note_queue[i].key > stop_ticks)
+		{
+		  stop_ticks = stop_note_queue[i].key;
+		}
+	      output_event (now_ticks, stop_note_queue[i].val);
+	      stop_note_queue[i].ignore_ = true;
 	      break;
 	    }
 	}
@@ -117,11 +130,10 @@ Midi_walker::do_start_note (Midi_note *note)
       e.val = new Midi_note_off (note);
 
       midi_events_.push_back (e.val);
-      e.key = int (stop_ticks);
+      e.key = stop_ticks;
       stop_note_queue.insert (e);
 
-      if (play_start)
-	output_event (ptr->audio_column_->ticks (), note);
+      output_event (now_ticks, note);
     }
 }
 

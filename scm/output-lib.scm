@@ -324,6 +324,9 @@ and duration-log @var{log}."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tuplets
 
+(define-public (tuplet-number::calc-direction grob)
+  (ly:tuplet-bracket::calc-direction (ly:grob-object grob 'bracket)))
+
 (define-public (tuplet-number::calc-denominator-text grob)
   (number->string (ly:event-property (event-cause grob) 'denominator)))
 
@@ -589,7 +592,7 @@ and duration-log @var{log}."
      (ly:stencil-translate-axis rp (+ (cdr x-ext) padding) X))))
 
 
-(define (parentheses-item::print me)
+(define-public (parentheses-item::print me)
   (let* ((elts (ly:grob-object me 'elements))
 	 (y-ref (ly:grob-common-refpoint-of-array me elts Y))
 	 (x-ref (ly:grob-common-refpoint-of-array me elts X))

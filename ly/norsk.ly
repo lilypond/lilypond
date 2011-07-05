@@ -18,6 +18,6 @@
 
 %%%% Legacy file. (see scm/define-note-names.scm)
 
-\version "2.13.37"
+\version "2.14.0"
 
 \language "norsk"

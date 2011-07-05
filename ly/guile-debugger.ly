@@ -24,7 +24,7 @@
 %%  For more information, see the Contributor's Guide.
 
 
-\version "2.13.10"
+\version "2.14.0"
 
 % define lilypond-module as a variable in the guile-user module and set
 % to the current Scheme module (which will be the lilypond top-level

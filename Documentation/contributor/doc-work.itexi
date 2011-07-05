@@ -290,6 +290,90 @@ construct.  These are easily constructed with automatic tools; see
 @itemize
 
 @item
+Most LilyPond examples throughout the documentation can be produced
+with:
+
+@example
+@@lilypond[verbatim,quote,relative=1]
+@end example
+
+or
+
+@example
+@@lilypond[verbatim,quote,relative=2]
+@end example
+
+If using any combination of @code{\header@{@}}, @code{\score@{@}} or
+@code{\layout@{@}} in your example, then you must omit the
+@code{relative} variable and either use absolute entry mode or an
+explicit @code{\relative@{@}} construction.
+
+If using @code{\book@{@}} in your example then you must also omit the
+@code{relative} variable and either use absolute entry mode or an
+explicit @code{\relative@{@}} construction.  However, you must also
+include the @code{papersize=X} variable, where @code{X} is a defined
+paper size from within @file{scm/paper.scm}.  This is to avoid the
+default @code{a4} paper size being used and leaving too much unnecessary
+whitespace and potentially awkward page breaks in the PDFs.
+
+The preferred @code{papersize}s are @code{a5}, @code{a6} or
+@code{a8landscape}.
+
+@code{a8landscape} works best for a single measure with a single title
+and/or single @code{tagline}:
+
+@example
+@@lilypond[papersize=a8landscape,verbatim]
+\book @{
+  \header @{
+    title = "A scale in LilyPond"
+  @}
+  \relative @{
+    c d e f
+  @}
+@}
+@@end lilypond
+@end example
+
+and can also be used to easily show features that require page breaks
+(i.e. page numbers) without taking large amounts of space within the
+documentation.  Do not use the @code{quote} option with this paper size.
+
+@code{a5} or @code{a6} paper sizes are best used for examples that have
+more than two measures of music or require multiple staves (i.e. to
+illustrate cross-staff features, RH and LH parts etc.) and where
+@code{\book@{@}} constructions are required or where @code{a8landscape}
+produces an example that is too cramped.  Depending on the example the
+@code{quote} option may need to be omitted.
+
+In rare cases, other options may be used (or omitted), but ask first.
+
+@item
+Please avoid using extra spacing either after or within the
+@code{@@lilypond} parameters.
+
+@example
+not:          @@lilypond [verbatim, quote, relative=1]
+but instead:  @@lilypond[verbatim,quote,relative=1]
+@end example
+
+@item
+Inspirational headwords are produced with:
+
+@example
+@@lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
+@{pitches-headword.ly@}
+@end example
+
+@item
+LSR snippets are linked with:
+
+@example
+@@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@{filename.ly@}
+@end example
+
+@item
 Use two spaces for indentation in lilypond examples (no tabs).
 
 @item
@@ -330,52 +414,6 @@ Tweaks should, if possible, also occur on their own line.
 not:          \override TextScript #'padding = #3 c1^"hi"
 but instead:  \override TextScript #'padding = #3
               c1^"hi"
-@end example
-
-@item
-Most LilyPond input should be produced with:
-
-@example
-@@lilypond[verbatim,quote,relative=2]
-@end example
-
-@noindent
-or
-
-@example
-@@lilypond[verbatim,quote,relative=1]
-@end example
-
-Please avoid using extra spacing either after or within the
-@code{@@lilypond} parameters.
-
-@example
-not:          @@lilypond [verbatim, quote, relative=1]
-but instead:  @@lilypond[verbatim,quote,relative=1]
-@end example
-
-If you want to use @code{\layout@{@}} or define variables, use
-
-@example
-@@lilypond[verbatim,quote]
-@end example
-
-In rare cases, other options may be used (or omitted), but ask first.
-
-@item
-Inspirational headwords are produced with
-
-@example
-@@lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
-@{pitches-headword.ly@}
-@end example
-
-@item
-LSR snippets are linked with
-
-@example
-@@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-@{filename.ly@}
 @end example
 
 @noindent

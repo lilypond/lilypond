@@ -1,4 +1,4 @@
-\version "2.13.7"
+\version "2.14.0"
 
 \header {
   texidoc = "The vertical spacing engine is not confused by a
@@ -15,8 +15,9 @@ next system."
   \score {
     <<
       \chords { s1 \break d1 }
-      \relative c { c1 c1 }
+      \new Staff = "s" { c1 c1 }
       \addlyrics { word }
+      \addlyrics { \set alignAboveContext = "s" _ up }
     >>
   }
 }

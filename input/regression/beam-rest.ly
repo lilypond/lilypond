@@ -3,7 +3,7 @@
   texidoc = "The number of beams does not change on a rest."
 }
 
-\version "2.12.0"
+\version "2.14.0"
 
 \layout { ragged-right = ##t }
 

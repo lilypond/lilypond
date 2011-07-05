@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.13.47
-\version "2.13.47"
+%% Note: this file works from version 2.14.0
+\version "2.14.0"
 
 #(set-global-staff-size 15)
 \paper {

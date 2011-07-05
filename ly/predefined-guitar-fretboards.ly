@@ -22,7 +22,7 @@
 
 %%%  Add basic chordshapes
 
-\version "2.13.36"
+\version "2.14.0"
 
 \addChordShape #'f #guitar-tuning #"1-1-(;3-3;3-4;2-2;1-1;1-1-);"
 \addChordShape #'f:m #guitar-tuning #"1-1-(;3-3;3-4;1-1;1-1;1-1-);"
@@ -189,7 +189,7 @@
                         #"x;x;4-3;3-2;4-4;1-1;"
 \storePredefinedDiagram #default-fret-table \chordmode {ees:aug}
                         #guitar-tuning
-                        #"3-3;2-2;1-1;o;o;3-4"
+                        #"3-3;2-2;1-1;o;o;3-4;"
 \storePredefinedDiagram #default-fret-table \chordmode {ees:dim}
                         #guitar-tuning
                         #(offset-fret 1 (chord-shape 'd:dim guitar-tuning))

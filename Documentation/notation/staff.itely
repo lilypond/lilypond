@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.14.0"
 
 @node Staff notation
 @section Staff notation
@@ -1019,9 +1019,9 @@ Internals Reference:
 @node Quoting other voices
 @unnumberedsubsubsec Quoting other voices
 
-@cindex cues
-@cindex quoting other voices
-@cindex fragments
+@cindex quote, voices
+@cindex voices, quoting
+@cindex fragments, quoting
 @cindex cue notes
 
 @funindex \addQuote
@@ -1031,113 +1031,128 @@ Internals Reference:
 @funindex \transposition
 @funindex transposition
 
-It is very common for one voice to double some of the music from
-another voice.  For example, the first and second violins may play the
-same notes during a passage of music.  In LilyPond this is accomplished
-by letting one voice @emph{quote} the other voice without having to
-re-enter it.
+It is very common for one voice to use the same notes as those from
+another voice.  For example, first and second violins playing the same
+phrase during a particular passage of the music.  This is done by
+letting one voice @emph{quote} the other, without having to re-enter the
+music all over again for the second voice.
 
-Before a part can be quoted, the @code{\addQuote} command must be used
-to initialize the quoted fragment.  This command must be used in the
-toplevel scope.  The first argument is an identifying string, and the
-second is a music expression:
-
-@example
-flute = \relative c'' @{
-  a4 gis g gis
-@}
-\addQuote "flute" @{ \flute @}
-@end example
+The @code{\addQuote} command, used in the top level scope, defines a
+stream of music from which fragments can be quoted.
 
 The @code{\quoteDuring} command is used to indicate the point where the
 quotation begins.  It is followed by two arguments: the name of the
 quoted voice, as defined with @code{\addQuote}, and a music expression
-that indicates the duration of the quote, usually spacer rests or
-multi-measure rests.  The corresponding music (including all articulations,
-dynamics, markup, etc.) from the quoted voice is inserted into the music
-expression:
+for the duration of the quote.
 
 @lilypond[verbatim,quote]
-flute = \relative c'' {
-  a4 gis g->\f gis^\markup{quoted}
+fluteNotes = \relative c'' {
+  a4 gis g gis | b4^"quoted" r8 ais\p a4( f)
 }
-\addQuote "flute" { \flute }
 
-\relative c' {
-  c4 cis \quoteDuring #"flute" { s2 }
+oboeNotes = \relative c'' {
+  c4 cis c b \quoteDuring #"flute" { s1 }
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\score {
+  <<
+    \new Staff \with { instrumentName = "Flute" } \fluteNotes
+    \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
 }
 @end lilypond
 
-If the music expression used for @code{\quoteDuring} contains
-anything but a spacer rest or multi-measure rest, a polyphonic
-situation is created, which is often not desirable:
+If the music expression used in @code{\quoteDuring} contains notes
+instead of spacer or multimeasure rests then the quote will appear as
+polyphony and may produce unexpected results.
 
 @lilypond[verbatim,quote]
-flute = \relative c'' {
-  a4 gis g gis
+fluteNotes = \relative c'' {
+  a4 gis g gis | b4^"quoted" r8 ais\p a4( f)
 }
-\addQuote "flute" { \flute }
 
-\relative c' {
-  c4 cis \quoteDuring #"flute" { c4 b }
+oboeNotes = \relative c'' {
+  c4 cis c b \quoteDuring #"flute" { e4 r8 ais b4 a }
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\score {
+  <<
+    \new Staff \with { instrumentName = "Flute" } \fluteNotes
+    \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
 }
 @end lilypond
 
-Quotations recognize instrument transposition settings for both
-the source and target instruments if the @code{\transposition}
-command is used.  For details about @code{\transposition}, see
-@ref{Instrument transpositions}.
+The @code{\quoteDuring} command uses the @code{\transposition} settings
+of both quoted and quoting parts to produce notes for the quoting part
+that have the same sounding pitch as those in the quoted part.
 
 @lilypond[verbatim,quote]
-clarinet = \relative c'' {
+clarinetNotes = \relative c'' {
   \transposition bes
-  a4 gis g gis
+  \key d \major
+  b4 ais a ais | cis4^"quoted" r8 bis\p b4( f)
 }
-\addQuote "clarinet" { \clarinet }
 
-\relative c' {
-  c4 cis \quoteDuring #"clarinet" { s2 }
+oboeNotes = \relative c'' {
+  c4 cis c b \quoteDuring #"clarinet" { s1 }
 }
-@end lilypond
 
-It is possible to tag quotations with unique names in order to
-process them in different ways.  For details about this procedure,
-see @ref{Using tags}.
+\addQuote "clarinet" { \clarinetNotes }
 
-It is also possible to adjust which objects from the original voice are quoted
-by changing the @code{quotedEventTypes} property.  By default, its value is
-@code{#'(StreamEvent)}, which means that everything is quoted.  Setting it
-to e.g. @code{#'(note-event rest-event tie-event)} causes lilypond to quote
-only notes, rests and ties, but no articulations, markup or dynamics.
 
-@lilypond[verbatim,quote]
-clarinet = \relative c'' {
-  a4 gis g->\f gis^\markup{quoted}
-}
-\addQuote "clarinet" { \clarinet }
-
-\relative c' {
-  \set Score.quotedEventTypes = #'(note-event rest-event tie-event)
-  c4 cis \quoteDuring #"clarinet" { s2 }
+\score {
+  <<
+    \new Staff \with { instrumentName = "Clarinet" } \clarinetNotes
+    \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
 }
 @end lilypond
-
-@snippets
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{quoting-another-voice-with-transposition.ly}
 
 @cindex note-event
 @cindex articulation-event
 @cindex dynamic-event
 @cindex rest-event
+@cindex slur-event
+@cindex crescendo-event
 
 @funindex quotedEventTypes
 @funindex quotedCueEventTypes
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{quoting-another-voice.ly}
+By default quoted music will include all articulations, dynamics,
+markups, etc., in the quoted expression.  It is possible to choose which
+of these objects from the quoted music are displayed by using the
+@code{quotedEventTypes} context property.
 
+@lilypond[verbatim,quote]
+fluteNotes = \relative c'' {
+  a2 g2 |
+  b4\<^"quoted" r8 ais a4\f( c->)
+ }
+
+oboeNotes = \relative c'' {
+  c2. b4 |
+  \quoteDuring #"flute" { s1 }
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\score {
+  <<
+    \set Score.quotedEventTypes = #'(note-event articulation-event
+                                     crescendo-event rest-event
+                                     slur-event dynamic-event)
+    \new Staff \with { instrumentName = "Flute" } \fluteNotes
+    \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
+ }
+@end lilypond
+
+Quotes can also be tagged, see @ref{Using tags}.
 
 @seealso
 Notation Reference:
@@ -1148,8 +1163,12 @@ Snippets:
 @rlsr{Staff notation}.
 
 Internals Reference:
+@rinternals{Music classes},
 @rinternals{QuoteMusic},
 @rinternals{Voice}.
+
+Installed Files:
+@file{scm/define-event-classes.scm}.
 
 
 @knownissues
@@ -1172,46 +1191,111 @@ written entirely in lower-case letters: @code{\addquote}.
 @node Formatting cue notes
 @unnumberedsubsubsec Formatting cue notes
 
-@cindex cues
 @cindex cue notes
-@cindex cue notes, formatting
 @cindex fragments
-@cindex quoting other voices
-@cindex cues, formatting
+@cindex cue notes, formatting
+@cindex formatting, cue notes
+@cindex voices, quoting
+
 
 @funindex \cueDuring
 @funindex cueDuring
+@funindex \cueClef
+@funindex cueClef
+@funindex \cueDuringWithClef
+@funindex cueDuringWithClef
 @funindex \quoteDuring
 @funindex quoteDuring
 
-The previous section explains how to create quotations.  The
-@code{\cueDuring} command is a more specialized form of
-@code{\quoteDuring}, being particularly useful for inserting cue
-notes into a part.  The syntax is as follows:
+@cindex notes, smaller
+@cindex smaller notes
+@cindex CueVoice
+
+The simplest way to format cue notes is to explicitly create a
+@code{CueVoice} context within the part.
+
+@lilypond[verbatim,relative=1]
+R1
+<<
+  { e2\rest r4. e8 }
+  \new CueVoice {
+    \stemUp d'8^"flute" c d e fis2
+  }
+>>
+d,4 r a r
+@end lilypond
+
+The @code{\cueClef} command can also be used with an explict
+@code{CueVoice} context if a change of clef is required and will print
+an appropriately sized clef for the cue notes.  The @code{\cueClefUnset}
+command can then be used to switch back to the original clef, again with
+an appropriately sized clef.
+
+@lilypond[verbatim,noragged-right,relative=1]
+\clef "bass"
+R1
+<<
+  { e2\rest r4. \cueClefUnset e,8 }
+  \new CueVoice {
+    \cueClef "treble" \stemUp d''8^"flute" c d e fis2
+  }
+>>
+d,,4 r a r
+@end lilypond
+
+The @code{\cueClef} and @code{\cueClefUnset} command can also be used
+without a @code{CueVoice} if required.
+
+@lilypond[verbatim,noragged-right,relative=1]
+\clef "bass"
+R1
+\cueClef "treble"
+d'8^"flute" c d e fis2
+\cueClefUnset
+d,,4 r a r
+@end lilypond
+
+For more complex cue note placement, e.g including transposition, or
+inserting cue notes from multiple music sources the @code{\cueDuring} or
+@code{\cueDuringWithClef} commands can be used.  These are more
+specialized form of @code{\quoteDuring}, see @ref{Quoting other voices}
+in the previous section.
+
+The syntax is:
 
 @example
-\cueDuring #@var{partname} #@var{voice} @var{music}
+\cueDuring #@var{quotename} #@var{direction} #@var{music}
 @end example
 
-This command copies only the notes and rests from the
-corresponding measures from @code{@var{partname}} into a
-@code{CueVoice} context.  The @code{CueVoice} is created
-implicitly, and occurs simultaneously with @code{@var{music}},
-which creates a polyphonic situation.  The @code{@var{voice}}
-argument determines whether the cue notes should be notated as a
-first or second voice; @code{UP} corresponds to the first voice,
-and @code{DOWN} corresponds to the second.
+and
+
+@example
+\cueDuringWithClef #@var{quotename} #@var{direction} #@var{clef} #@var{music}
+@end example
+
+The music from the corresponding measures of the @code{@var{quote name}}
+is added as @code{CueVoice} context and occurs simultaneously with the
+@code{@var{music}}, which creates a polyphonic situation.  The
+@code{@var{direction}} takes the argument @code{UP} or @code{DOWN}, and
+corresponds to first and second voices respectively determining how
+the cue notes are printed in relation to the other voice.
 
 @lilypond[verbatim,quote]
-oboe = \relative c'' {
-  r2 r8 d16(\f f e g f a)
-  g8 g16 g g2.
+fluteNotes = \relative c'' {
+  r2. c4 | d8 c d e fis2 | g2 d |
 }
-\addQuote "oboe" { \oboe }
 
-\new Voice \relative c'' {
-  \cueDuring #"oboe" #UP { R1 }
+oboeNotes = \relative c'' {
+  R1
+  s1*0^\markup { \tiny "flute" }
+  \cueDuring #"flute" #UP { R1 }
   g2 c,
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\new Staff {
+  \oboeNotes
 }
 @end lilypond
 
@@ -1228,11 +1312,11 @@ notes, rests, ties, beams and tuplets are quoted, but not
 articulations, dynamic marks, markup etc.
 
 @lilypond[verbatim,quote]
-oboe = \relative c'' {
+oboeNotes = \relative c'' {
   r2 r8 d16(\f f e g f a)
   g8 g16 g g2.
 }
-\addQuote "oboe" { \oboe }
+\addQuote "oboe" { \oboeNotes }
 
 \new Voice \relative c'' {
   \set Score.quotedCueEventTypes = #'(note-event rest-event tie-event
@@ -1244,14 +1328,16 @@ oboe = \relative c'' {
 @end lilypond
 
 Markup can be used to show the name of the quoted instrument.  Also,
-if the cue notes require a change in clef, the original clef should
-be restored at the end of the cue notes.
+if the cue notes require a change in clef, this can be done manually but
+the original clef should also be restored manually at the end of the cue
+notes.
 
 @lilypond[verbatim,quote]
-flute = \relative c'' {
+fluteNotes = \relative c'' {
   r2. c4 d8 c d e fis2 g2 d2
 }
-bassoon = \relative c {
+
+bassoonNotes = \relative c {
   \clef bass
   R1
   \clef treble
@@ -1260,61 +1346,38 @@ bassoon = \relative c {
   \clef bass
   g4. b8 d2
 }
-\addQuote "flute" { \flute }
+
+\addQuote "flute" { \fluteNotes }
+
 \new Staff {
-  \bassoon
+  \bassoonNotes
 }
 @end lilypond
 
-@cindex removing cues
-@cindex removing cue notes
-@cindex cue notes, removing
-
-@funindex \killCues
-@funindex killCues
-
-The @code{\killCues} command removes cue notes from a music
-expression, so the same music expression can be used to produce
-the instrument part with cues and the score.  The @code{\killCues}
-command removes only the notes and events that were quoted by
-@code{\cueDuring}.  Other markup associated with cues, such as clef
-changes and a label identifying the source instrument, can be
-tagged for selective inclusion in the score; see @ref{Using tags}.
+Alternatively, the @code{\cueDuringWithClef} function can be used
+instead.  This command takes an extra argument to specify the change of
+clef that needs to be printed for the cue notes but will automatically
+print the original clef once the cue notes have finished.
 
 @lilypond[verbatim,quote]
-flute = \relative c'' {
+fluteNotes = \relative c'' {
   r2. c4 d8 c d e fis2 g2 d2
 }
-bassoon = \relative c {
+
+bassoonNotes = \relative c {
   \clef bass
   R1
-  \tag #'part {
-    \clef treble
-    s1*0^\markup { \tiny "flute" }
-  }
-  \cueDuring #"flute" #UP { R1 }
-  \tag #'part \clef bass
+  s1*0^\markup { \tiny "flute" }
+  \cueDuringWithClef #"flute" #UP #"treble" { R1 }
   g4. b8 d2
 }
-\addQuote "flute" { \flute }
+
+\addQuote "flute" { \fluteNotes }
 
 \new Staff {
-  \bassoon
+  \bassoonNotes
 }
-\new StaffGroup <<
-  \new Staff {
-    \flute
-  }
-  \new Staff {
-    \removeWithTag #'part { \killCues { \bassoon } }
-  }
->>
 @end lilypond
-
-Alternatively, Clef changes and instrument labels can be
-collected into an instrument definition for repeated use, using
-@code{\addInstrumentDefinition} described in
-@ref{Instrument names}.
 
 @funindex \transposedCueDuring
 @funindex transposedCueDuring
@@ -1331,13 +1394,14 @@ represent the sound of a concert middle C.  This is useful for
 taking cues from an instrument in a completely different register.
 
 @lilypond[verbatim,quote]
-piccolo = \relative c''' {
+piccoloNotes = \relative c''' {
   \clef "treble^8"
   R1
   c8 c c e g2
   c4 g g2
 }
-bassClarinet = \relative c' {
+
+bassClarinetNotes = \relative c' {
   \key d \major
   \transposition bes,
   d4 r a r
@@ -1345,40 +1409,74 @@ bassClarinet = \relative c' {
   d4 r a r
 }
 
-\addQuote "piccolo" { \piccolo }
+\addQuote "piccolo" { \piccoloNotes }
 
 <<
-  \new Staff \piccolo
-  \new Staff \bassClarinet
+  \new Staff \piccoloNotes
+  \new Staff \bassClarinetNotes
 >>
 @end lilypond
 
-@cindex notes, smaller
-@cindex smaller notes
+@cindex removing cue notes
+@cindex cue notes, removing
 
-A @code{CueVoice} context may be created explicitly if notes of a
-smaller size are required, for example to set an alternative
-sequence of notes more suitable for a higher or lower voice.
+@funindex \killCues
+@funindex killCues
+@funindex \addInstrumentDefinition
+@funindex addInstrumentDefinition
 
-@lilypond[verbatim,relative=2]
-\time 12/8
-\key ees \major
-g4 ees8 f4 g8
-\stemDown
-<<
-  { d4. bes4 c8 }
-  \new CueVoice
-  { g'4. f4 ees8 }
+The @code{\killCues} command removes cue notes from a music
+expression, so the same music expression can be used to produce
+the instrument part with cues and the score.  The @code{\killCues}
+command removes only the notes and events that were quoted by
+@code{\cueDuring}.  Other markup associated with cues, such as clef
+changes and a label identifying the source instrument, can be
+tagged for selective inclusion in the score; see @ref{Using tags}.
+
+@lilypond[verbatim,quote]
+fluteNotes = \relative c'' {
+  r2. c4 d8 c d e fis2 g2 d2
+}
+
+bassoonNotes = \relative c {
+  \clef bass
+  R1
+  \tag #'part {
+    \clef treble
+    s1*0^\markup { \tiny "flute" }
+  }
+  \cueDuring #"flute" #UP { R1 }
+  \tag #'part \clef bass
+  g4. b8 d2
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\new Staff {
+  \bassoonNotes
+}
+
+\new StaffGroup <<
+  \new Staff {
+    \fluteNotes
+  }
+  \new Staff {
+    \removeWithTag #'part { \killCues { \bassoonNotes } }
+  }
 >>
-\stemUp
-d2. d2.
 @end lilypond
+
+Alternatively, Clef changes and instrument labels can be
+collected into an instrument definition for repeated use, using
+@code{\addInstrumentDefinition} described in @ref{Instrument names}.
 
 
 @seealso
 Notation Reference:
+@ref{Quoting other voices},
 @ref{Instrument transpositions},
 @ref{Instrument names},
+@ref{Clef},
 @ref{Musical cues},
 @ref{Using tags}.
 
@@ -1393,5 +1491,8 @@ Internals Reference:
 @knownissues
 
 Collisions can occur with rests, when using @code{\cueDuring},
-between @code{Voice} and @code{CueVoice} contexts.
+between @code{Voice} and @code{CueVoice} contexts.  When using
+@code{\cueDuringWithClef} or @code{\transposedCueDuring} the extra
+argument required for each case must come after the quote and the
+direction.
 

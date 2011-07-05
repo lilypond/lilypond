@@ -4,12 +4,12 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.12.2"
+\version "2.14.0"
 
 \header {
   lsrtags = "expressive-marks, text"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Ciertas indicaciones dinámicas pueden llevar textos (como @qq{più
 forte} o @qq{piano subito}). Se pueden producir usando un bloque

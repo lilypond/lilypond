@@ -1,4 +1,4 @@
-\version "2.13.1"
+\version "2.14.0"
 
 \header {
   texidoc = "Scripts right of a chord avoid dots."

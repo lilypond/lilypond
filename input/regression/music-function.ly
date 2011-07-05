@@ -7,7 +7,7 @@ demonstrate a @code{\\myBar} function, which works similar to
 @code{\\bar}, but is implemented completely in Scheme."
 
 }
-\version "2.12.0"
+\version "2.14.0"
 
 myBar = #(define-music-function (parser location bar-type) (string?)
           (context-spec-music

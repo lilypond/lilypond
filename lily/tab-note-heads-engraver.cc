@@ -116,18 +116,21 @@ Tab_note_heads_engraver::process_music ()
       {
 	note_entry = scm_list_ref (string_fret_finger, scm_from_int (i));
 	string_number = scm_car (note_entry);
-	fret = scm_cadr (note_entry);
-	fret_label = scm_call_3 (fret_procedure,
-				 context ()->self_scm (),
-				 string_number,
-				 fret);
-	index = length_changed ? 0 : i;
-	Item *note = make_item ("TabNoteHead", note_events_[index]->self_scm ());
-	note->set_property ("text", fret_label);
-	staff_position = scm_call_2 (staff_line_procedure,
-				     context ()->self_scm (),
-				     string_number);
-	note->set_property ("staff-position", staff_position);
+        if (string_number != SCM_BOOL_F)
+          {
+	    fret = scm_cadr (note_entry);
+	    fret_label = scm_call_3 (fret_procedure,
+    			             context ()->self_scm (),
+				     string_number,
+				     fret);
+	    index = length_changed ? 0 : i;
+	    Item *note = make_item ("TabNoteHead", note_events_[index]->self_scm ());
+	    note->set_property ("text", fret_label);
+	    staff_position = scm_call_2 (staff_line_procedure,
+				         context ()->self_scm (),
+				         string_number);
+	    note->set_property ("staff-position", staff_position);
+          }
       }
 }
 

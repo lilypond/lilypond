@@ -1,4 +1,4 @@
-\version "2.13.4"
+\version "2.14.0"
 
 \header{ texidoc = "The sans serif style tab clef is automatically adjusted to
                     different string spacings."

@@ -1309,6 +1309,8 @@
 	(staff-position . 0)
 	(stencil . ,ly:multi-measure-rest::print)
 	(thick-thickness . 6.6)
+	;; See Wanske pp. 125
+	(usable-duration-logs . (0 -1 -2 -3))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
@@ -2341,6 +2343,7 @@
      . (
 	(avoid-slur . inside)
 	(cross-staff . ,ly:tuplet-number::calc-cross-staff)
+	(direction . ,tuplet-number::calc-direction)
 	(font-shape . italic)
 	(font-size . -2)
 	(stencil . ,ly:tuplet-number::print)

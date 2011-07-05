@@ -696,6 +696,10 @@ of an object (e.g., between note and its accidentals).")
      (rotation ,list? "Number of degrees to rotate this object, and
 what point to rotate around.  For example, @code{#'(45 0 0)} rotates
 by 45 degrees around the center of this object.")
+     (round-to-longer-rest ,boolean? "Displays the longer multi-measure
+rest when the length of a measure is between two values of
+@code{usable-duration-logs}.  For example, displays a breve instead of a whole
+in a 3/2 measure.")
 
 
 ;;
@@ -897,6 +901,8 @@ proportionally to their durations.  This looks better in complex
 polyphonic patterns.")
      (used ,boolean? "If set, this spacing column is kept in the
 spacing problem.")
+     (usable-duration-logs ,list? "List of @code{duration-log}s that
+can be used in typesetting the grob.")
 
 
 ;;
@@ -1123,8 +1129,6 @@ Internally used to distribute beam shortening over stems.")
      (system-Y-offset ,number? "The Y-offset (relative to the bottom of the
 top-margin of the page) of the system to which this staff belongs.")
 
-     (use-breve-rest ,boolean? "Use breve rests for measures longer
-than a whole rest.")
 
      ;;;;;;;;;;;;;;;;
      ;; ancient notation

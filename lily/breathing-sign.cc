@@ -20,20 +20,16 @@
 
 #include "breathing-sign.hh"
 
-#include "staff-symbol-referencer.hh"
-#include "directional-element-interface.hh"
-#include "output-def.hh"
-#include "lookup.hh"
 #include "dimensions.hh"
 #include "direction.hh"
-#include "text-interface.hh"
+#include "directional-element-interface.hh"
 #include "font-interface.hh"
 #include "grob.hh"
-
-/*
-  TODO: thickness should be a grob property (unit: linethickness)
-  rather than hardwired to (staff_space / 6).
-*/
+#include "lookup.hh"
+#include "output-def.hh"
+#include "staff-symbol.hh"
+#include "staff-symbol-referencer.hh"
+#include "text-interface.hh"
 
 /*
   UGH : this is full of C&P code. Consolidate!  --hwn
@@ -177,14 +173,20 @@ Breathing_sign::offset_callback (SCM smob)
       set_grob_direction (me, d);
     }
 
-  Real inter = Staff_symbol_referencer::staff_space (me) / 2;
-  int sz = Staff_symbol_referencer::line_count (me) - 1;
-  return scm_from_double (inter * sz * d);
+  Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
+  if (staff)
+    {
+      Interval iv = Staff_symbol::line_span (staff);
+      Real inter = Staff_symbol::staff_space (me) / 2;
+      return scm_from_double (inter * iv[d]);
+    }
+
+  return scm_from_double (0.0);
 }
 
 ADD_INTERFACE (Breathing_sign,
 	       "A breathing sign.",
-	       
+
 	       /* properties */
 	       "direction "
 	       );

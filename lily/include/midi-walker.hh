@@ -53,8 +53,8 @@ private:
   void output_event (int, Midi_item *l);
   Midi_item *get_midi (Audio_item*); 
   Midi_track *track_;
-  Audio_staff *staff_;
   bool percussion_;
+  bool merge_unisons_;
   vsize index_;
   vector<Audio_item*> items_;
   PQueue<Midi_note_event> stop_note_queue;

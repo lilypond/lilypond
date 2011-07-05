@@ -228,11 +228,6 @@ Multi_measure_rest_engraver::start_translation_timestep ()
       */
       last_rest_->set_property ("measure-count", scm_from_int (num));
 
-      SCM sml = get_property ("measureLength");
-      Rational ml = (unsmob_moment (sml)) ? unsmob_moment (sml)->main_part_ : Rational (1);
-      if (ml >= Rational (2))
-	last_rest_->set_property ("use-breve-rest", SCM_BOOL_T);
-
       mmrest_ = 0;
       numbers_.clear ();
 
@@ -268,9 +263,7 @@ ADD_TRANSLATOR (Multi_measure_rest_engraver,
 		"Engrave multi-measure rests that are produced with"
 		" @samp{R}.  It reads @code{measurePosition} and"
 		" @code{internalBarNumber} to determine what number to print"
-		" over the @ref{MultiMeasureRest}.  Reads @code{measureLength}"
-		" to determine whether it should use a whole rest or a breve"
-		" rest to represent one measure.",
+		" over the @ref{MultiMeasureRest}.",
 		
 		/* create */
 		"MultiMeasureRest "
@@ -281,8 +274,7 @@ ADD_TRANSLATOR (Multi_measure_rest_engraver,
 		"internalBarNumber "
 		"restNumberThreshold "
 		"currentCommandColumn "
-		"measurePosition "
-		"measureLength ",
+		"measurePosition ",
 		
 		/* write */
 		""

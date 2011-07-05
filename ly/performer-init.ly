@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.13.46"
+\version "2.14.0"
 
 %%
 %% setup for Request->Element conversion.
@@ -137,7 +137,7 @@
 
   melismaBusyProperties = #default-melisma-properties
   instrumentName = #"bright acoustic"
-  midiChannelMapping = #'instrument
+  midiChannelMapping = #'staff
 
   %% quarter = 60
   tempoWholesPerMinute = #(ly:make-moment 15 1)

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.14.0"
 
 @node Keyboard and other multi-staff instruments
 @section Keyboard and other multi-staff instruments
@@ -229,11 +229,6 @@ affected by a cross-staff spanner.
 The resulting collisions must be resolved manually, where necessary,
 using the methods in @rlearning{Fixing overlapping notation}.
 
-@knownissues
-Beam collision avoidance does not work for automatic beams that end
-right before a change in staff. To make the latter work, use manual
-beaming.
-
 @seealso
 Learning Manual:
 @rlearning{Fixing overlapping notation}.
@@ -249,6 +244,11 @@ Snippets:
 Internals Reference:
 @rinternals{Beam},
 @rinternals{ContextChange}.
+
+@knownissues
+Beam collision avoidance does not work for automatic beams that end
+right before a change in staff. To make the latter work, use manual
+beaming.
 
 
 @node Changing staff automatically

@@ -27,33 +27,16 @@ using namespace std;
 #include "item.hh"
 #include "output-def.hh"
 #include "pitch.hh"
-#include "pqueue.hh"
 #include "rhythmic-head.hh"
 #include "score-engraver.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
 #include "tie.hh"
+#include "tie-column.hh"
 #include "warn.hh"
 
 #include "translator.icc"
-
-/*
-  TODO: make matching rest engraver.
-*/
-struct Pending_tie
-{
-  Moment when_;
-  Stream_event* tie_event_;
-  Pending_tie () : tie_event_ (0) {}
-};
-
-static int
-compare (Pending_tie const &a, Pending_tie const &b)
-{
-  return compare (a.when_, b.when_);
-}
-
 
 /*
   How does this work?
@@ -72,15 +55,14 @@ compare (Pending_tie const &a, Pending_tie const &b)
 
 class Completion_heads_engraver : public Engraver
 {
-  vector<Item*> notes_;
-  vector<Item*> prev_notes_;
+  vector<Item *> notes_;
+  vector<Item *> prev_notes_;
   // Must remember notes for explicit ties.
-  vector<Item*> tie_note_candidates_;
-  vector<Stream_event*> tie_note_candidate_events_;
-  vector<Grob*> ties_;
-  PQueue<Pending_tie> pending_ties_;
-  vector<Stream_event*> note_events_;
-  Stream_event *current_tie_event_;
+  vector<Item *> tie_note_candidates_;
+  vector<Stream_event *> tie_note_candidate_events_;
+  vector<Grob *> ties_;
+  vector<Stream_event *> note_events_;
+  Spanner *tie_column_;
   Moment note_end_mom_;
   bool is_first_;
   Rational left_to_do_;
@@ -88,7 +70,7 @@ class Completion_heads_engraver : public Engraver
   Rational factor_;
 
   Moment next_barline_moment ();
-  Item *make_note_head (Stream_event*);
+  Item *make_note_head (Stream_event *);
 
 public:
   TRANSLATOR_DECLARATIONS (Completion_heads_engraver);
@@ -100,14 +82,12 @@ protected:
   void process_music ();
   void stop_translation_timestep ();
   DECLARE_TRANSLATOR_LISTENER (note);
-  DECLARE_TRANSLATOR_LISTENER (tie);
 };
 
 void
 Completion_heads_engraver::initialize ()
 {
   is_first_ = false;
-  current_tie_event_ = 0;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Completion_heads_engraver, note);
@@ -115,7 +95,7 @@ void
 Completion_heads_engraver::listen_note (Stream_event *ev)
 {
   note_events_.push_back (ev);
-  
+
   is_first_ = true;
   Moment now = now_mom ();
   Moment musiclen = get_event_length (ev, now);
@@ -124,16 +104,8 @@ Completion_heads_engraver::listen_note (Stream_event *ev)
   do_nothing_until_ = Rational (0, 0);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Completion_heads_engraver, tie);
-void
-Completion_heads_engraver::listen_tie (Stream_event *ev)
-{
-  is_first_ = true;
-  current_tie_event_ = ev;
-}
-
 /*
-  The duration _until_ the next barline.
+  The duration _until_ the next bar line.
 */
 Moment
 Completion_heads_engraver::next_barline_moment ()
@@ -148,7 +120,7 @@ Completion_heads_engraver::next_barline_moment ()
   return (*l - *e);
 }
 
-Item*
+Item *
 Completion_heads_engraver::make_note_head (Stream_event *ev)
 {
   Item *note = make_item ("NoteHead", ev->self_scm ());
@@ -170,14 +142,6 @@ Completion_heads_engraver::process_music ()
   if (!is_first_ && !left_to_do_)
     return;
 
-  if (current_tie_event_)
-    {
-      Pending_tie pending;
-      pending.when_ = note_end_mom_;
-      pending.tie_event_ = current_tie_event_;
-      pending_ties_.insert (pending);
-    }
-  
   is_first_ = false;
 
   Moment now = now_mom ();
@@ -229,35 +193,37 @@ Completion_heads_engraver::process_music ()
       event->set_property ("length", Moment (note_dur.get_length ()).smobbed_copy ());
       event->set_property ("duration-log", scm_from_int (note_dur.duration_log ()));
 
+      /*
+	The Completion_heads_engraver splits an event into a group of consecutive events.
+	For each event in the group, the property "autosplit-end" denotes whether the current event
+	was truncated during splitting. Based on "autosplit-end", the Tie_engraver decides whether a
+	tie event should be processed.
+      */
+      event->set_property ("autosplit-end",
+			   ly_bool2scm (left_to_do_ - note_dur.get_length () > Rational (0)));
+
       Item *note = make_note_head (event);
       if (need_clone)
 	event->unprotect ();
       notes_.push_back (note);
     }
-  
-  if (pending_ties_.size ()
-      && pending_ties_.front().when_ == now_mom())
-    {
-      for (vsize i = 0; i < tie_note_candidate_events_.size(); i++)
-	for (vsize j = 0; j < note_events_.size(); j++)
-	  {
-	    Pitch *p =  unsmob_pitch (note_events_[j]->get_property ("pitch"));
-	    Pitch *p_last
-	      = unsmob_pitch (tie_note_candidate_events_[i]->get_property ("pitch"));
-	    if (p && p_last && *p == *p_last)
-	      make_tie (tie_note_candidates_[i], notes_[j]);
-	  }
-    }
-      
+
   if (prev_notes_.size () == notes_.size ())
     {
       for (vsize i = 0; i < notes_.size (); i++)
 	make_tie (prev_notes_[i], notes_[i]);
     }
 
+  if (ties_.size () && !tie_column_)
+    tie_column_ = make_spanner ("TieColumn", ties_[0]->self_scm ());
+
+  if (tie_column_)
+    for (vsize i = ties_.size (); i--;)
+      Tie_column::add_tie (tie_column_, ties_[i]);
+
   left_to_do_ -= note_dur.get_length ();
   if (left_to_do_)
-    get_global_context ()->add_moment_to_process (now.main_part_ + note_dur.get_length());
+    get_global_context ()->add_moment_to_process (now.main_part_ + note_dur.get_length ());
   /*
     don't do complicated arithmetic with grace notes.
   */
@@ -273,11 +239,12 @@ Completion_heads_engraver::make_tie (Grob *left, Grob *right)
   Tie::set_head (p, RIGHT, right);
   ties_.push_back (p);
 }
-				     
+
 void
 Completion_heads_engraver::stop_translation_timestep ()
 {
   ties_.clear ();
+  tie_column_ = 0;
 
   if (notes_.size ())
     prev_notes_ = notes_;
@@ -288,11 +255,6 @@ void
 Completion_heads_engraver::start_translation_timestep ()
 {
   Moment now = now_mom ();
-  while (pending_ties_.size() && pending_ties_.front().when_ < now)
-    {
-      pending_ties_.delmin();
-    }
-  current_tie_event_ = 0;
   if (note_end_mom_.main_part_ <= now.main_part_)
     {
       tie_note_candidate_events_ = note_events_;
@@ -307,23 +269,26 @@ Completion_heads_engraver::start_translation_timestep ()
 
 Completion_heads_engraver::Completion_heads_engraver ()
 {
+  tie_column_ = 0;
 }
 
 ADD_TRANSLATOR (Completion_heads_engraver,
 		/* doc */
 		"This engraver replaces @code{Note_heads_engraver}.  It plays"
 		" some trickery to break long notes and automatically tie them"
-		" into the next measure."
-		,
+		" into the next measure.",
+
 		/* create */
 		"NoteHead "
 		"Tie "
-		,
+		"TieColumn ",
+
 		/* read */
-		"middleCPosition "
-		"measurePosition "
 		"measureLength "
-		,
+		"measurePosition "
+		"middleCPosition "
+		"timing ",
+
 		/* write */
 		"completionBusy "
 		);

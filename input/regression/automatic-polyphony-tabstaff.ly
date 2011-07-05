@@ -1,4 +1,4 @@
-\version "2.13.4"
+\version "2.14.0"
 
 \header{ texidoc = "In a TabStaff, automatic polyphony can be used without
                     explicitly initializing separate voices."

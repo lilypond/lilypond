@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.14.0"
 
 @c Translators: Till Paala, Reinhold Kainhofer
 
@@ -223,7 +223,7 @@ Selbstverständlich sind Patches von Ihnen sehr willkommen!
 
 @menu
 * midi2ly aufrufen::          Import von MIDI.
-* muscxml2ly aufrufen::       Import von MusicXML.
+* musicxml2ly aufrufen::       Import von MusicXML.
 * abc2ly aufrufen::           Import von ABC.
 * etf2ly aufrufen::           Import von (alten) Finale-Dateien.
 * Andere Formate::
@@ -324,8 +324,8 @@ Tonlänge setzen und Phrasierungszeichen oder Pedalindikatoren
 hinzufügen.
 
 
-@node muscxml2ly aufrufen
-@subsection @command{muscxml2ly} aufrufen
+@node musicxml2ly aufrufen
+@subsection @command{musicxml2ly} aufrufen
 @translationof Invoking musicxml2ly
 
 @cindex MusicXML

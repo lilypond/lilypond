@@ -43,37 +43,12 @@ Engraver::announce_grob (Grob_info inf)
 void
 Engraver::announce_end_grob (Grob_info inf)
 {
+  inf.start_end_ = STOP;
   get_daddy_engraver ()->announce_grob (inf);
 }
 
-/*
-  CAUSE is the object (typically a Stream_event object)  that
-  was the reason for making E.
-*/
-void
-Engraver::announce_grob (Grob *e, SCM cause)
-{
-  /* TODO: Remove Music code when it's no longer needed */
-  if (Music *m = unsmob_music (cause))
-    {
-      cause = m->to_event ()->unprotect ();
-    }
-  if (unsmob_stream_event (cause) || unsmob_grob (cause))
-    e->set_property ("cause", cause);
-
-  Grob_info i (this, e);
-
-  Engraver_group *g = get_daddy_engraver ();
-  if (g)
-    g->announce_grob (i);
-}
-
-
-/*
-  CAUSE is the object (typically a grob or stream-event object) that
-  was the reason for ending E.  */
-void
-Engraver::announce_end_grob (Grob *e, SCM cause)
+Grob_info
+Engraver::make_grob_info(Grob *e, SCM cause)
 {
   /* TODO: Remove Music code when it's no longer needed */
   if (Music *m = unsmob_music (cause))
@@ -84,12 +59,27 @@ Engraver::announce_end_grob (Grob *e, SCM cause)
       && (unsmob_stream_event (cause) || unsmob_grob (cause)))
     e->set_property ("cause", cause);
 
-  Grob_info i (this, e);
+  return Grob_info (this, e);
+}
 
-  i.start_end_ = STOP;
-  Engraver_group *g = get_daddy_engraver ();
-  if (g)
-    g->announce_grob (i);
+/*
+  CAUSE is the object (typically a Stream_event object)  that
+  was the reason for making E.
+*/
+void
+Engraver::announce_grob (Grob *e, SCM cause)
+{
+  announce_grob (make_grob_info (e, cause));
+}
+
+
+/*
+  CAUSE is the object (typically a grob or stream-event object) that
+  was the reason for ending E.  */
+void
+Engraver::announce_end_grob (Grob *e, SCM cause)
+{
+  announce_end_grob (make_grob_info (e, cause));
 }
 
 
