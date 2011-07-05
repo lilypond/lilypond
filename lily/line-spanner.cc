@@ -125,48 +125,59 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
       Grob *common_y = me->common_refpoint (me->get_bound (dir), Y_AXIS);
       if (me->get_bound (dir)->break_status_dir ())
 	{
-	  Spanner *next_sp = me->broken_neighbor (dir);
-	  Item *next_bound = next_sp->get_bound (dir);
-
-	  if (next_bound->break_status_dir ())
+	  if (to_boolean (me->get_property ("simple-Y")))
 	    {
-	      programming_error ("no note heads for the line spanner on neighbor line?"
-				 " Confused.");
-	      me->suicide ();
-	      return SCM_EOL;
+	      Spanner *orig = dynamic_cast<Spanner *>(me->original ());
+	      Spanner *extreme = dir == LEFT ? orig->broken_intos_.front () : orig->broken_intos_.back ();
+	      Grob *e_bound = extreme->get_bound (dir);
+              Grob *e_common_y = extreme->common_refpoint (e_bound, Y_AXIS);
+              y = e_bound->extent (e_common_y, Y_AXIS).center ();
 	    }
+          else
+            {
+	      Spanner *next_sp = me->broken_neighbor (dir);
+	      Item *next_bound = next_sp->get_bound (dir);
 
-	  Spanner *next_bound_parent = parent_spanner (next_bound);
-	  Interval next_ext = next_bound->extent (next_bound_parent, Y_AXIS);
+	      if (next_bound->break_status_dir ())
+	        {
+	          programming_error ("no note heads for the line spanner on neighbor line?"
+	                             " Confused.");
+	          me->suicide ();
+	          return SCM_EOL;
+	        }
 
-	  /*
-	    We want to know what would be the y-position of the next
-	    bound (relative to my y-parent) if it belonged to the
-	    same system as this bound.  We rely on the fact that the
-	    y-parent of the next bound is a spanner (probably the
-	    VerticalAxisGroup of a staff) that extends over the break.
-	  */
-	  Spanner *next_bound_parent_on_this_line =
-	    next_bound_parent->broken_neighbor (other_dir (dir));
+	      Spanner *next_bound_parent = parent_spanner (next_bound);
+	      Interval next_ext = next_bound->extent (next_bound_parent, Y_AXIS);
 
-	  if (next_bound_parent_on_this_line)
-	    {
-	      Grob *common = me->common_refpoint (next_bound_parent_on_this_line, Y_AXIS);
-	      Real bound_offset = next_bound_parent_on_this_line->relative_coordinate (common, Y_AXIS);
-	      y = next_ext.center () + bound_offset - me->relative_coordinate (common, Y_AXIS);
-	    }
-	  else
-	    {
 	      /*
-		We fall back to assuming that the distance between
-		staves doesn't change over line breaks.
+	        We want to know what would be the y-position of the next
+	        bound (relative to my y-parent) if it belonged to the
+	        same system as this bound.  We rely on the fact that the
+	        y-parent of the next bound is a spanner (probably the
+	        VerticalAxisGroup of a staff) that extends over the break.
 	      */
-	      programming_error ("next-bound's parent doesn't extend to this line");
-	      Grob *next_system = next_bound->get_system ();
-	      Grob *this_system = me->get_system ();
-	      y = next_ext.center () + next_bound_parent->relative_coordinate (next_system, Y_AXIS)
-		- me->relative_coordinate (this_system, Y_AXIS);
-	    }
+	      Spanner *next_bound_parent_on_this_line =
+	        next_bound_parent->broken_neighbor (other_dir (dir));
+
+	      if (next_bound_parent_on_this_line)
+	        {
+	          Grob *common = me->common_refpoint (next_bound_parent_on_this_line, Y_AXIS);
+	          Real bound_offset = next_bound_parent_on_this_line->relative_coordinate (common, Y_AXIS);
+	          y = next_ext.center () + bound_offset - me->relative_coordinate (common, Y_AXIS);
+	        }
+	      else
+	        {
+	          /*
+	            We fall back to assuming that the distance between
+	            staves doesn't change over line breaks.
+	          */
+	          programming_error ("next-bound's parent doesn't extend to this line");
+	          Grob *next_system = next_bound->get_system ();
+	          Grob *this_system = me->get_system ();
+	          y = next_ext.center () + next_bound_parent->relative_coordinate (next_system, Y_AXIS)
+	              - me->relative_coordinate (this_system, Y_AXIS);
+	        }
+            }
 	}
       else
 	{
