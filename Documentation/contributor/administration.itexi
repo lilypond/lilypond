@@ -895,6 +895,11 @@ and never allowing
   \transpose c d e1
 @end verbatim
 
+@item
+What should be the officially encouraged way of writing music for
+transposing instruments? Maybe it should be simplified?
+See http://lists.gnu.org/archive/html/lilypond-user/2011-07/msg00130.html
+
 @end itemize
 
 
