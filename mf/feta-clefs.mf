@@ -317,6 +317,11 @@ def draw_gclef (expr reduction) =
 	reduced_ss# = staff_space# * reduction;
 	define_pixels (reduced_ss);
 
+	% G clef has now a smaller upper loop than it used to have.
+	% Too small loop in reduced clef (G_change) interacts badly
+	% with stafflines, so we make reduced clef's loop a bit bigger.
+	reduced_loop_correction := min (max (0.94, (0.6 + 0.46 * reduction)), 1);
+
 	thinness = 0.095 staff_space + 0.75 linethickness;
 	downstroke_dir = unitvector (14, -75);
 	downstroke_angle = angle downstroke_dir;
@@ -328,12 +333,12 @@ def draw_gclef (expr reduction) =
 	breapth_factor = 21/14;
 	inner_thick_end = 45;
 	inner_start_angle = downstroke_angle - 43;
-	thickness = .32 reduced_ss + 1.1 linethickness;
+	thickness = .33 reduced_ss + 1.1 linethickness;
 
 	thinnib = thinness;
 
 	set_char_box (0, 1.71 * breapth_factor * reduced_ss#,
-		      2.6 * reduced_ss#, 5 * reduced_ss#);
+		      2.55 * reduced_ss#, 4.8 * reduced_ss# / reduced_loop_correction);
 
 	center := (breapth_factor * reduced_ss, 0);
 
@@ -356,32 +361,32 @@ def draw_gclef (expr reduction) =
 	y5r = .37 reduced_ss + ypart center;
 	penpos5 (thickness, upward_swoosh_angle);
 
-	z6 = center + whatever * downstroke_dir;
-	y6 = ypart center + 2 reduced_ss;
+	z6 = center + whatever * downstroke_dir + (-0.02, 0) * reduced_ss;
+	y6 = ypart center + 1.95 reduced_ss / reduced_loop_correction;
 	% penpos6 is computed later
 
-	z7l - z6 = whatever * (z5 - z6) ;
-	y7l = 3.5 reduced_ss;
+	z7l - z6 = whatever * (z5 - z6);
+	y7l = 3.38 reduced_ss / reduced_loop_correction;
 	penpos7 (thickness, upward_swoosh_angle);
 
-	x9 = .7 [x10, x7r];
-	top y9l = 5 reduced_ss;
+	x9 = .75 [x10, x7r];
+	top y9l = 4.78 reduced_ss / reduced_loop_correction;
 	penpos9 (1.45 thickness, -70);
 
-	x11 - x13r = 1.5 reduced_ss + 0.5 thinnib;
-	y11 = ypart center - 47/28 reduced_ss;
-	y12 = ypart center - 71/28 reduced_ss;
+	x11 - x13r = 1.44 * reduced_ss + 0.5 thinnib;
+	y11 = ypart center - 45/28 reduced_ss;
+	y12 = ypart center - 69/28 reduced_ss;
 	y13 = .48 [y12, y4r];
 	x12r = xpart (.45 [z13r, z11] + .75 reduced_ss * downstroke_dir);
 
 %	z10 = center + whatever * dir (downstroke_angle - 1.5);
-	x10 = x6 - 2 thinnib;
-	y10 = ypart center + 3.5 reduced_ss;
+	x10 = x6 - 1.85 thinnib * reduction / reduced_loop_correction;
+	y10 = ypart center + 3.32 reduced_ss / reduced_loop_correction;
 	y10l - y10r = 1.0 thickness;
 	z10r - z10l = .7 thinnib * dir (downstroke_angle + 90)
 		      + whatever * downstroke_dir;
 	z10 = .5 [z10l, z10r];
-	z11 = center + whatever * downstroke_dir + (-0.05 reduced_ss, 0);
+	z11 = center + whatever * downstroke_dir + (0.03 reduced_ss, 0);
 
 	penpos11 (thinnib, start_angle + 90);
 	penpos12 (thinnib, bot_angle + 90);
@@ -403,7 +408,7 @@ def draw_gclef (expr reduction) =
 	z10' = point 0.3 of pat;
 	penpos10' (1.3 thinnib, angle (direction 0.3 of pat) + 50);
 
-	z11' = point 1.5 of pat;
+	z11' = point 1.5 of pat + (0.033, -0.5) * reduced_ss;
 	penpos11' (thinnib, angle (direction 1.5 of pat) + 90);
 
 	z21l = z20l;
