@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7130696ee590df198a4dc039423dcc1d36512fd9
+    Translation of GIT committish: cf4e2cb33bbcc867d74cd40b2efe28c961ca4a60
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2927,42 +2927,55 @@ r4
 \acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
-Presentamos un ejemplo más extraído del comienzo del pentagrama de la
-mano izquierda del preludio de Chopin Op 28 No. 2.  vemos que la barra
-choca con las notas superiores:
+Presentamos otro ejemplo.  Vemos que la barra
+choca con las ligaduras:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
-  \clef "bass"
-  << { b,8 ais, b, g, } \\ { e,8 g e, g } >>
-  << { b,8 ais, b, g, } \\ { e,8 g e, g } >>
+  \time 4/2
+  <<
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
+  <<
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
 }
 @end lilypond
 
 @noindent
 Esto se puede resolver manualmente elevando los dos extremos de la
-barra desde su posición a dos espacios de pentagrama sobre la línea
-central hasta, digamos, 3 espacios:
+barra desde su posición a 1.81 espacios de pentagrama bajo la línea
+central hasta, digamos, 1 espacio:
 
 @cindex Beam, ejemplo de sobreescritura
 @cindex positions, propiedad, ejemplo
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
-  \clef "bass"
+  \time 4/2
   <<
-    \override Beam #'positions = #'(3 . 3)
-    { b,8 ais, b, g, }
-  \\
-    { e,8 g e, g }
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    {
+      \override Beam #'positions = #'(-1 . -1)
+      e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g''
+    }
   >>
-  << { b,8 ais, b, g, } \\ { e,8 g e, g } >>
+  <<
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
 }
 @end lilypond
 
 @noindent
 Observe que la sobreescritura sigue aplicándose en la primera voz del
-segundo bloque de corcheas, pero no a ninguna de las barras de la
+segundo compás de corcheas, pero no a ninguna de las barras de la
 segunda voz.
 
 @subheading la propiedad force-hshift (forzar desplazamiento horizontal)
