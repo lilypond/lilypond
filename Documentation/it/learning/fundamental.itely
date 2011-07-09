@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 92d7753b7a1e9887afcc6ad6864a78940e7878fb
+    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -14,8 +14,8 @@
 @chapter Concetti fondamentali
 @translationof Fundamental concepts
 
-Nel Tutorial abbiamo visto come produrre della bella musica a stampa
-da un semplice file di testo.  Questa sezione presenta i concetti e le
+Nel Tutorial abbiamo visto come produrre dei belli spartiti da un
+semplice file di testo.  Questa sezione presenta i concetti e le
 tecniche richiesti per produrre partiture ugualmente belle, ma
 più complesse.
 
@@ -60,7 +60,7 @@ Un esempio basilare di un file di input di LilyPond è
 \header @{ @}
 
 \score @{
-  @var{...compound music expression...}  % all the music goes here!
+  @var{...espressione musicale composta...}  % tutta la musica va qui!
   \layout @{ @}
   \midi @{ @}
 @}
@@ -138,7 +138,7 @@ singola nota a una grande espressione composta come
 @example
 @{
   \new StaffGroup <<
-    @var{...insert the whole score of a Wagner opera in here...}
+    @var{...inserisci qui l'intera opera di Wagner...}
   >>
 @}
 @end example
@@ -287,23 +287,6 @@ nel nostro esempio useremo soltanto un canto e un pianoforte.  Per questa formaz
 non abbiamo bisogno di @code{StaffGroup}, che non fa altro che raggruppare un insieme
 di righi con una parentesi graffa a sinistra, ma abbiamo comunque bisogno dei
 righi per il canto e per il pianoforte.
-
-@example
-\score @{
-  @{ % questa parentesi inizia la principale espressione musicale composta
-    \new StaffGroup <<
-      @var{...inserisci qui la partitura completa di un'opera di Wagner...}
-    >>
-  @} % questa parentesi chiude la principale espressione musicale composta
-  \layout @{ @}
-@}
-@end example
-
-Un'intera opera di Wagner sarebbe probabilmente il doppio di questo
-manuale, quindi aggiungeremo solo un pianoforte e un cantante.  Per questo
-ensemble non abbiamo bisongo di @code{StaffGroup}, che non fa altro che
-raggruppare un certo numero di righi con una parentesi a sinistra, dunque lo
-toglieremo.  Tuttavia @emph{abbiamo} bisogno di un pianoforte e di una voce.
 
 @example
 \score @{
@@ -515,7 +498,7 @@ diversi tipi di parentesi e di costrutti in parentesi.
 @item @code{\( .. \)}
   @tab Contrassegna l'inizio e la fine di una legatura di frase
 @item @code{[ .. ]}
-  @tab Contrassegna l'inizio e la fine di una cediglia impostata manualmente
+  @tab Contrassegna l'inizio e la fine di una travatura impostata manualmente
 @end multitable
 
 A questi dovremmo aggiungere altri costrutti che generano linee tra
@@ -535,30 +518,28 @@ correttamente con alcuna delle parentesi o dei costrutti in parentesi.  Infatti
 queste non sono parentesi nel senso che racchiudono qualcosa -- sono semplicemente
 dei contrassegni che indicano dove qualcosa inizia e finisce.
 
-Quindi, ad esempio, una legatura di frase può iniziare prima di una cediglia
-inserita manualmente e finire prima della fine della cediglia -- non
+Quindi, ad esempio, una legatura di frase può iniziare prima di una travatura
+inserita manualmente e finire prima della fine della travatura -- non
 molto musicale, forse, ma possibile:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
- { g8\( a b[ c b\) a] g4 }
+@lilypond[quote,verbatim,ragged-right,relative=2]
+g8\( a b[ c b\) a] g4
 @end lilypond
 
 In generale, tipi diversi di parentesi, costrutti in parentesi e segni che
 riguardano gruppi irregolari, legature e abbellimenti possono essere combinati
-liberamente. L'esempio seguente mostra una cediglia che si estende su un
+liberamente. L'esempio seguente mostra una travatura che si estende su un
 gruppo irregolare (linea 1), una legatura di portamento che si estende su
-una terzina (linea 2), una cediglia e una legatura di portamento che si
+una terzina (linea 2), una travatura e una legatura di portamento che si
 estendono su una terzina, una legatura di valore che attraversa due gruppi
 irregolari, e una legatura di frase che si estende fuori da un gruppo
 irregolare (linee 3 e 4).
 
-@lilypond[quote,verbatim,fragment,ragged-right]
-{
-  r16[ g \times 2/3 { r16 e'8] }
-  g16( a \times 2/3 { b16 d) e' }
-  g8[( a \times 2/3 { b8 d') e'~] } |
-  \times 4/5 { e'32\( a b d' e' } a'4.\)
-}
+@lilypond[quote,verbatim,ragged-right,relative=1]
+r16[ g \times 2/3 { r16 e'8] }
+g,16( a \times 2/3 { b16 d) e }
+g,8[( a \times 2/3 { b8 d) e~] } |
+\times 4/5 { e32\( a, b d e } a4.\)
 @end lilypond
 
 
@@ -645,7 +626,7 @@ con brevi e occasionali sezioni polifoniche.
 Ecco come suddividere gli accordi precedenti in due voci e aggiungere sia
 la nota di passaggio che la legatura di portamento:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+@lilypond[quote,verbatim,ragged-right,relative=2]
 \key g \major
 %    Voice "1"               Voice "2"
 << { g4 fis8( g) a4 g } \\ { d4 d d d }  >>
@@ -655,7 +636,7 @@ Si noti come i gambi della seconda voce adesso siano rivolti in basso.
 
 Ecco un altro semplice esempio:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+@lilypond[quote,verbatim,ragged-right,relative=2]
 \key d \minor
 %    Voice "1"             Voice "2"
 << { r4 g g4. a8 }    \\ { d,2 d4 g }       >> |
@@ -668,7 +649,7 @@ battuta.  Per musiche che hanno poche note in ogni battuta questo layout
 può aiutare la leggibilità del codice, ma se ci sono molte note in
 ogni battuta è preferibile dividere ogni voce, così:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+@lilypond[quote,verbatim,ragged-right,relative=2]
 \key d \minor
 << {
   % Voice "1"
@@ -695,7 +676,7 @@ I contesti della voce hanno i nomi @code{"1"}, @code{"2"}, etc.
 In ogni contesto, la direzione verticale di legature di portamento,
 gambi, legature di valore, dinamica, etc., è impostata correttamente.
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 \new Staff \relative c' {
   % Main voice
   c16 d e f
@@ -757,7 +738,7 @@ voce con i triangoli blu.
 
 I comandi @code{\voiceXXXStyle} sono pensati soprattutto
 per documenti didattici come questo.  Modificano il colore
-della testa, del gambo e delle cediglie, e lo stile della
+della testa, del gambo e delle travature, e lo stile della
 testa, così da rendere le voci facilmente distinguibili.
 La voce uno è impostata su rombi rossi, la voce due su triangoli blu,
 la voce tre su cerchi barrati verdi, e la voce quattro (non impiegata
@@ -883,7 +864,7 @@ vedremo, questo pone alcune difficoltà.  Come abbiamo imparato,
 iniziamo usando il costrutto @code{<< \\  >>} per inserire la musica
 della prima battuta in tre voci:
 
-@lilypond[quote,verbatim,fragment,ragged-right]
+@lilypond[quote,verbatim,ragged-right]
 \new Staff \relative c'' {
   \key aes \major
   <<
@@ -905,7 +886,7 @@ giù.  Possiamo correggere semplicemente omettendo la voce tre e ponendo la
 musica nella voce quattro.  Si può fare aggiungendo semplicemente un altro
 paio di @code {\\}:
 
-@lilypond[quote,verbatim,fragment,ragged-right]
+@lilypond[quote,verbatim,ragged-right]
 \new Staff \relative c'' {
   \key aes \major
   << % Voice one
@@ -1206,7 +1187,7 @@ un contesto @code{Lyrics} usando @code{\new Lyrics} e collegando
 esplicitamente il testo alle note con @code{\lyricsto@{@}}, tramite
 il nome assegnato alla voce.
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 <<
   \new Voice = "one" {
     \relative c'' {
@@ -1380,7 +1361,7 @@ compaiono esplicitamente nel file di input devono essere aggiunti
 nell'output.  Ad esempio, si confrontino l'input e l'output del
 seguente esempio:
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 cis4 cis2. | a4 a2. |
 @end lilypond
 
@@ -1579,7 +1560,7 @@ Guida alla notazione: @ruser{Creating contexts}.
 Ogni segno presente nell'output di una partitura realizzata con LilyPond
 è prodotto da un @code{Engraver} (incisore).  Dunque c'è un incisore per
 creare i righi, uno per le teste delle note, uno per i gambi, uno per le
-cediglie, etc, etc.  In totale ci sono più di 120 incisori!
+travature, etc, etc.  In totale ci sono più di 120 incisori!
 Fortunatamente, per gran parte delle partiture è necessario conoscerne
 pochi soltanto, e per partiture semplici non occorre conoscerne
 alcuno.
@@ -1620,7 +1601,7 @@ partire dal nome, o viceversa.
 @item Accidental_engraver
   @tab Crea le alterazioni, le alterazioni di precauzione e di cortesia
 @item Beam_engraver
-  @tab Incide le cediglie
+  @tab Incide le travature
 @item Clef_engraver
   @tab Incide le chiavi
 @item Completion_heads_engraver
@@ -1832,7 +1813,7 @@ Proviamo a cambiare varie volte la dimensione del font, che influisce (tra
 le altre cose) sulla dimensione delle teste delle note.  La modifica è relativa
 al valore predefinito, non all'ultimo valore impostato.
 
-@lilypond[quote,verbatim,ragged-right,relative=1,fragment]
+@lilypond[quote,verbatim,ragged-right,relative=1]
 c4 d
 % make note heads smaller
 \set fontSize = #-4
@@ -2106,10 +2087,15 @@ I valori delle proprietà di un contesto possono essere impostati anche
 per tutti i contesti di un particolare tipo includendo il comando
 @code{\set} in un blocco @code{\context} nello stesso modo.
 
-
 @seealso
 Guida alla notazione: @ruser{Modifying context plug-ins},
 @ruser{Changing context default settings}.
+
+@knownissues
+Gli incisori @code{Stem_engraver} e @code{Beam_engraver} fissano i propri
+oggetti alle teste delle note.  Se si elimina @code{Note_heads_engraver}
+le teste delle note non vengono prodotte e di conseguenza non vengono creati
+nemmeno i gambi né le travature.
 
 
 @node Estendere i modelli
@@ -2126,7 +2112,7 @@ Ma se ti serve qualcosa che non è presente lì?  Continua a leggere.
 * Soprano e violoncello::
 * Partitura vocale a quattro parti SATB::
 * Scrivere una partitura da zero::
-* Ridurre le dimensioni del file grazie a variabili e funzioni::
+* Ridurre l'input grazie a variabili e funzioni::
 * Partiture e parti::
 @end menu
 
@@ -2846,10 +2832,10 @@ verrà fornita una spiegazione approfondita.  I curiosi possono dare
 un'occhiata a @ruser{Overview of modifying properties}.
 In questo caso, vogliamo modificare soltanto la sottoproprietà
 @code{allungabilità}.  Di nuovo, chi è curioso può trovare i valori predefiniti
-per la proprietà staff-staff-spacing nel file @file{scm/@/define-grobs@/.scm}
+per la proprietà staff-staff-spacing nel file @file{scm/define-grobs.scm}
 guardando la definizione del grob @code{VerticalAxisGroup}.  Il valore dell'
 @code{allungabilità} viene preso dalla definizione del contesto @code{PianoStaff}
-(nel file @file{ly/@/engraver-init@/.ly}) così che i valori siano identici.
+(nel file @file{ly/engraver-init.ly}) così che i valori siano identici.
 
 @example
 \score @{
@@ -2956,7 +2942,7 @@ PedalOrganMusic = \relative c {
 
 @seealso
 Glossario musicale:
-@rglos{system}.
+@rglosnamed{system,sistema}.
 
 @node Ridurre l'input grazie a variabili e funzioni
 @subsection Ridurre l'input grazie a variabili e funzioni
@@ -3074,11 +3060,11 @@ padText =
 
 L'uso di variabili è anche un buon modo per ridurre il lavoro quando
 la sintassi di input di LilyPond cambia (vedi
-@rprogram{Updating files with convert-ly}).  Se si ha un'unica
+@rprogram{Aggiornare i file con convert-ly}).  Se si ha un'unica
 definizione (come @code{\dolce}) per tutti i file di input
 (vedi @ref{Style sheets}), allora se la sintassi cambia bisogna
 aggiornare soltanto la singola definizione @code{\dolce},
-invece di dover modificare tutti i file @code{.ly}.
+invece di dover modificare tutti i file @file{.ly}.
 
 
 @node Partiture e parti

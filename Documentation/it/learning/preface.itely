@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
+    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -19,10 +19,10 @@ Deve essere stato durante una prova della EJE (Orchestra Giovanile di
 Eindhoven), da qualche parte nel 1995 che Jan, uno degli strampalati
 violisti, ha parlato ad Han-Wen, uno degli alterati cornisti, del
 nuovo grande progetto a cui stava lavorando. Era un sistema automatico
-per stampare musica (per la precisione, si trattava di MPP, un
-preprocessore per MusiXTeX). Accadde che per caso Han-Wen desiderava
-stampare alcune parti di una partitura, così iniziò a sperimentare il
-software, e ne rimase presto affascinato. Si decise che MPP era
+per creare spartiti (per la precisione, si trattava di MPP, un
+preprocessore per MusiXTeX). Accadde che per caso Han-Wen desiderasse
+scrivere delle parti di una partitura, così iniziò a sperimentare il
+software e ne rimase presto affascinato. Si decise che MPP era
 un vicolo cieco. Dopo molte discussioni e animati scambi di email,
 Han-Wen diede inizio a LilyPond nel 1996. Questa volta è stato Jan ad
 essere coinvolto nel progetto di Han-Wen.
@@ -51,7 +51,7 @@ suggerimenti e segnalazioni di bug, quindi vorremmo ringraziare tutti
 gli utenti che ci hanno segnalato bug, dato consigli o contribuito
 in qualunque altro modo a LilyPond.
 
-Suonare e stampare la musica sono più di una bella analogia.
+Suonare e creare spartiti sono più di una bella analogia.
 Programmare insieme è molto divertente, e aiutare le persone è
 profondamente appagante, ma alla fine lavorare a LilyPond è un modo
 per esprimere il nostro grande amore per la musica. Che possa aiutarvi

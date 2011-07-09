@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
+    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -98,19 +98,19 @@ programmi che usi.
 
 @item
 @ref{MacOS X, @sourceimage{logo-macosx,,,}}
-@ref{MacOS X, MacOS X} (graphical)
+@ref{MacOS X, MacOS X} (grafico)
 
 @item
 @ref{Windows, @sourceimage{logo-windows,,,}}
-@ref{Windows, Microsoft Windows} (graphical)
+@ref{Windows, Microsoft Windows} (grafico)
 
 @item
-@ref{Command-line, @sourceimage{logo-linux,,,}
+@ref{Linea di comando, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 }
-@ref{Command-line, All operating systems} (command-line)
+@ref{Linea di comando, Tutti i sistemi operativi} (linea di comando)
 
 @end itemize
 
@@ -198,9 +198,9 @@ casi questi valori sono utili.
 @funindex '
 @funindex ,
 
-Glossario musicale: @rglos{pitch}, @rglos{interval},
-@rglos{scale}, @rglos{middle C}, @rglos{octave},
-@rglos{accidental}.
+Glossario musicale: @rglosnamed{pitch,altezza}, @rglosnamed{interval,intervallo},
+@rglosnamed{scale,scala}, @rglosnamed{middle C,Do centrale}, @rglosnamed{octave,ottava},
+@rglosnamed{accidental,alterazione}.
 
 Il modo più semplice per inserire le note è usare il modo @code{\relative}
 (relativo). In questo modo, l'ottava viene scelta automaticamente in
@@ -303,9 +303,9 @@ apici semplici @code{''} e non quelle a doppi apici @code{"}@tie{}!
 @cindex nota puntata
 @cindex notazione delle durate
 
-Glossario musicale: @rglos{beam}, @rglos{duration},
-@rglos{whole note}, @rglos{half note}, @rglos{quarter note},
-@rglos{dotted note}.
+Glossario musicale: @rglosnamed{beam,coda}, @rglosnamed{duration,durata},
+@rglosnamed{whole note,semibreve}, @rglosnamed{half note,minima}, @rglosnamed{quarter note,semiminima},
+@rglosnamed{dotted note,nota puntata}.
 
 La @notation{durata} di una nota viene indicata da un numero che segue
 il nome della nota:  @code{1} per una @notation{semibreve}, @code{2} per
@@ -341,7 +341,7 @@ esplicitamente (cioè con un numero).
 @cindex pausa
 @cindex notazione delle pause
 
-Glossario musicale: @rglos{rest}.
+Glossario musicale: @rglosnamed{rest,pausa}.
 
 Una @notation{pausa} viene inserita proprio come una nota ma col nome
 @code{r}@tie{}:
@@ -361,7 +361,7 @@ Una @notation{pausa} viene inserita proprio come una nota ma col nome
 @funindex \time
 @funindex time
 
-Glossario musicale: @rglos{time signature}.
+Glossario musicale: @rglosnamed{time signature,indicazione di tempo}.
 
 Il @notation{tempo} si imposta con il comando @code{\time}:
 
@@ -376,15 +376,16 @@ Il @notation{tempo} si imposta con il comando @code{\time}:
 }
 @end lilypond
 
-@subheading Tempo marks
+@subheading Indicazioni di tempo
 
-@cindex tempo marks
-@cindex metronome marks
+@cindex indicazioni di tempo
+@cindex indicazioni metronomiche
 
 @funindex \tempo
 @funindex tempo
 
-Glossario musicale: @rglos{tempo indication}, @rglos{metronome}.
+Glossario musicale: @rglosnamed{tempo indication,indicazione di tempo},
+@rglosnamed{metronome,metronomo}.
 
 L' @notation{indicazione di tempo} e l' @notation{indicazione metronomica} si
 impostano col comando @code{\tempo}:
@@ -415,7 +416,7 @@ impostano col comando @code{\tempo}:
 @funindex \clef
 @funindex clef
 
-Glossario musicale: @rglos{clef}.
+Glossario musicale: @rglosnamed{clef,chiave}.
 
 La @notation{chiave} si imposta con il comando @code{\clef}:
 
@@ -492,7 +493,7 @@ cosa significano tutti questi termini:
 
 @item
 @strong{Dichiarazione di versione}:
-Ogni file LilyPond dovrebbe contenere una dichiarazione di versione.  Una
+Ogni file LilyPond deve contenere una dichiarazione di versione.  Una
 dichiarazione di versione è una linea che indica la versione di LilyPond per la
 quale il file è stato scritto, come nel seguente esempio:
 
@@ -508,7 +509,7 @@ permette l'aggiornamento automatico del file di input file via via che la
 sintassi di LilyPond cambia.  Secondo, indica la versione di LilyPond richiesta
 per compilare il file.
 
-Se la dichiarazione di versione è omessa dal file di input, LilyPond stampa
+Se la dichiarazione di versione è omessa dal file di input, LilyPond mostra
 un avvertimento durante la compilazione del file.
 
 @item
@@ -572,7 +573,7 @@ posto @emph{sopra} il codice a cui si riferisce.
 
 @example
 a4 a a a
-% this comment refers to the Bs
+% questo commento si riferisce ai Si
 b2 b
 @end example
 
@@ -584,12 +585,12 @@ ci provi, il primo @code{%@}} interromperà @emph{entrambi} i commenti di
 blocco.  Il seguente frammento mostra gli usi possibili per i commenti:
 
 @example
-% notes for twinkle twinkle follow
+% ecco le note di "Ah! Vous dirai-je, Maman"
   c4 c g' g a a g2
 
 %@{
-  This line, and the notes below are ignored,
-  since they are in a block comment.
+  Questa linea e le note sotto vengono ignorate,
+  perché si trovano in un commento di blocco.
 
   f4 f e e d d c2
 %@}
@@ -602,9 +603,9 @@ blocco.  Il seguente frammento mostra gli usi possibili per i commenti:
 @section Gestire gli errori
 @translationof Dealing with errors
 
-@cindex troubleshooting
+@cindex risoluzione dei problemi
 
-Talvolta LilyPond non genera l'output che vorresti.  Questa
+Talvolta LilyPond non genera l'output che desideri.  Questa
 sezione fornisce alcuni link che possono aiutarti a risolvere i
 problemi che potrai incontrare.
 
@@ -622,7 +623,7 @@ La risoluzione dei problemi in LilyPond può essere un compito impegnativo
 per le persone che sono abituate a un'interfaccia grafica, perché è possibile
 creare dei file di input non validi.  Quando questo accade, un approccio logico
 è il modo migliore per identificare e risolvere il problema.  Alcune linee guida
-che ti aiutano a imparare questo sono indicate in @rprogram{Troubleshooting}.
+che ti aiutano a imparare questo sono indicate in @rprogram{Risoluzione dei problemi}.
 
 
 @node Alcuni errori comuni
@@ -633,15 +634,15 @@ che ti aiutano a imparare questo sono indicate in @rprogram{Troubleshooting}.
 
 Ci sono alcuni errori comuni che sono difficili da risolvere basandosi
 soltanto sui messaggi di errore che compaiono.  Questi sono
-descritti in @rprogram{Common errors}.
+descritti in @rprogram{Errori comuni}.
 
 
 @node Come leggere i manuali
 @section Come leggere i manuali
 @translationof How to read the manuals
 
-Questa sezione spiega come leggere la documentazione in modo efficiente, e
-introduce anche alcune utili funzionalità interattive che sono disponibili
+Questa sezione spiega come leggere la documentazione in modo efficiente e
+introduce alcune utili funzionalità interattive che sono disponibili
 nella versione online della documentazione.
 
 @menu
@@ -667,14 +668,14 @@ nella versione online della documentazione.
 
 L'input di LilyPond deve essere compreso dai segni @code{@{ @}} o da
 @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}, come abbiamo visto in @ref{Lavorare
-sui file di input}.  Nella parte restante di questo manuale, gran parte
-degli esempi ometterà questi segni.  Per replicare gli esempi, puoi copiare
+sui file di input}.  Nel resto di questo manuale gran parte degli esempi
+ometterà questi segni.  Per replicare gli esempi, puoi copiare
 e incollare l'input mostrato, ma @strong{devi} aggiungere
 @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}} in questo modo:
 
 @example
 \relative c'' @{
-  @dots{}example goes here@dots{}
+  @dots{}inserire qui l'esempio@dots{}
 @}
 @end example
 
@@ -688,7 +689,7 @@ documentazione e incollarlo dentro a un tuo brano più
 esteso.  La maggior parte delle persone vuole aggiungere del materiale a
 un brano esistente, per questo abbiamo strutturato il manuale in questo modo.
 
-Ricorda che i file LilyPond dovrebbero avere una dichiarazione di
+Ricorda che i file LilyPond devono avere una dichiarazione di
 versione (@code{\version}).  Nei manuali la dichiarazione è omessa
 perché gli esempi sono frammenti di codice e non file completi.
 Ma dovresti prendere l'abitudine di includerla nei tuoi file.
@@ -708,7 +709,7 @@ questa immagine:
 @c no verbatim here
 @lilypond[quote]
 \relative c'' {
-  c4-\markup { \bold \huge { Click here.  } }
+  c4-\markup { \bold \huge { Clicca qui.  } }
 }
 @end lilypond
 
@@ -740,8 +741,8 @@ sono confusi su quali parti dovrebbero leggere, e ogni tanto
 saltano la lettura di parti fondamentali.
 
 @warning{Non saltare le parti importanti della
-documentazione.  Altrimenti ti risulterà molto più difficile comprendere
-le sezioni successive.}
+documentazione.  Altrimenti ti risulterà molto più difficile
+comprendere le sezioni successive.}
 
 @itemize
 
@@ -761,7 +762,7 @@ un'occhiata alle sezioni rilevanti della @rusernamed{Top, Notation reference}.
 
 @item
 @strong{Prima di iniziare un grande progetto}: leggi il documento
-@rprogram{Suggestions for writing files} del manuale di Uso del programma.
+@rprogram{Consigli su come scrivere i file} del manuale di Uso del programma.
 
 @end itemize
 
