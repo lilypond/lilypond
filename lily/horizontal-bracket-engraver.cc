@@ -19,12 +19,12 @@
 
 #include "engraver.hh"
 #include "international.hh"
+#include "item.hh"
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
-#include "stream-event.hh"
 #include "spanner.hh"
-#include "item.hh"
+#include "stream-event.hh"
 
 #include "translator.icc"
 
@@ -32,8 +32,8 @@ class Horizontal_bracket_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Horizontal_bracket_engraver);
-  vector<Spanner*> bracket_stack_;
-  vector<Stream_event*> events_;
+  vector<Spanner *> bracket_stack_;
+  vector<Stream_event *> events_;
   vsize pop_count_;
   vsize push_count_;
 
@@ -42,22 +42,6 @@ public:
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_TRANSLATOR_LISTENER (note_grouping);
 };
-
-ADD_ACKNOWLEDGER (Horizontal_bracket_engraver, note_column);
-ADD_TRANSLATOR (Horizontal_bracket_engraver,
-		/* doc */
-		"Create horizontal brackets over notes for musical analysis"
-		" purposes.",
-
-		/* create */
-		"HorizontalBracket ",
-
-		/* read */
-		"",
-
-		/* write */
-		""
-		);
 
 Horizontal_bracket_engraver::Horizontal_bracket_engraver ()
 {
@@ -117,10 +101,26 @@ Horizontal_bracket_engraver::process_music ()
 void
 Horizontal_bracket_engraver::stop_translation_timestep ()
 {
-  for (int i = pop_count_; i--;)
+  for (vsize i = pop_count_; i--;)
     if (bracket_stack_.size ())
       bracket_stack_.pop_back ();
   pop_count_ = 0;
   push_count_ = 0;
+  events_.clear ();
 }
 
+ADD_ACKNOWLEDGER (Horizontal_bracket_engraver, note_column);
+ADD_TRANSLATOR (Horizontal_bracket_engraver,
+		/* doc */
+		"Create horizontal brackets over notes for musical analysis"
+		" purposes.",
+
+		/* create */
+		"HorizontalBracket ",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);
