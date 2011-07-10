@@ -21,6 +21,16 @@ todas las partes) a lo largo de toda la partitura.
 
   doctitlees = "Estrofa para solista y estribillo a dos voces"
 
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidocit = "
+Questo modello crea una partitura che inizia con una strofa solista e
+prosegue in un ritornello per due voci.  Dimostra anche l'uso delle
+pause spaziatrici all'interno della variabile @code{\\global} per definire
+i cambi di tempo (e altri elementi comuni a tutte le parti) nel corso di
+tutta la partitura.
+"
+  doctitleit = "Modello per gruppo vocale con strofa e ritornello"
+
 %% Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
 
   texidocde = "

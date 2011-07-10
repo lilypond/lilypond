@@ -7,7 +7,17 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidocit = "
+Il codice seguente mostra un modo di impostare un inno quando ogni linea
+inizia e finisce con una misura parziale.  Mostra anche come aggiungere delle
+strofe come testo separato sotto la musica.
+
+"
+  doctitleit = "Modello per inno"
+
   lsrtags = "vocal-music, template"
+
 
 %% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
