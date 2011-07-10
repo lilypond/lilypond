@@ -1,0 +1,87 @@
+% Copyright 1999, 2007, 2008 Free Software Foundation, Inc.
+% 
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 3 of the license, or (at
+% your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+\txisetlanguage{hungarian}{2}{2}
+
+\plainfrenchspacing
+
+% Don't use checking because if it is our turn they have
+% been defined.
+\gdef\putwordAppendix{függelék}
+\gdef\putwordChapter{fejezet}
+\gdef\putwordfile{fájl}
+\gdef\putwordin{in}
+\gdef\putwordInfo{Info}
+\gdef\putwordMethodon{Metódus itt:}
+\gdef\putwordon{ezen:}
+\gdef\putwordof{ebben:}
+\gdef\putwordpage{oldal}
+\gdef\putwordsection{rész}
+\gdef\putwordSection{rész}
+\gdef\putwordsee{lásd}
+\gdef\putwordSee{Lásd}
+\gdef\putwordShortTOC{Áttekintés}
+\gdef\putwordTOC{Tartalomjegyzék}
+%%
+\gdef\putwordNoTitle{Nincs cím}
+%%
+%% New defintion for the output of months.
+\gdef\putwordMJan{Január}
+\gdef\putwordMFeb{Február}
+\gdef\putwordMMar{Március}
+\gdef\putwordMApr{Április}
+\gdef\putwordMMai{Május}
+\gdef\putwordMJun{Június}
+\gdef\putwordMJul{Július}
+\gdef\putwordMAug{Augusztus}
+\gdef\putwordMSep{Szeptember}
+\gdef\putwordMOct{Október}
+\gdef\putwordMNov{November}
+\gdef\putwordMDec{December}
+\gdef\putwordIndexNonexistent{(Nemlétező index)}
+\gdef\putwordIndexIsEmpty{(Üres index)}
+%%
+%% \defmac
+\gdef\putwordDefmac{Makró}
+%% \defspec
+\gdef\putwordDefspec{Speciális forma}
+%% \defivar
+\gdef\putwordDefivar{Példaváltozó}
+%% \defvar leave unchanged because no difference in
+%%         writing but in phonectics.
+\gdef\putwordDefvar{Változó}
+%% \defopt
+\gdef\putwordDefopt{Felhasználói opció}
+%% \deffun
+\gdef\putwordDeffunc{Függvény}
+
+%%%
+%%% Date stamp
+%%% Produces  y-m-d style of output.
+%%%  4-05-07 == 2007. m\'ajus 4.
+%%%
+\gdef\Today{\number\year. \ifcase\month\or   % Mai d†tum
+  janu\'ar\or febru\'ar\or m\'arcius\or
+  \'aprilis\or m\'ajus\or j\'unius\or
+  j\'ulius\or augusztus\or szeptember\or
+  okt\'ober\or november\or december\fi
+    \space\ifcase\day\or
+    1.\or  2.\or  3.\or  4.\or  5.\or
+    6.\or  7.\or  8.\or  9.\or 10.\or
+   11.\or 12.\or 13.\or 14.\or 15.\or
+   16.\or 17.\or 18.\or 19.\or 20.\or
+   21.\or 22.\or 23.\or 24.\or 25.\or
+   26.\or 27.\or 28.\or 29.\or 30.\or
+   31.\fi}
