@@ -28,3 +28,11 @@ stopAcciaccaturaMusic =  {
     \revert Stem #'stroke-style
     s1*0\stopGraceSlur
 }
+
+startSlashedGraceMusic =  {
+  \override Stem  #'stroke-style = #"grace"
+}
+
+stopSlashedGraceMusic =  {
+  \revert Stem #'stroke-style
+}

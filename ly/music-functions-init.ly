@@ -868,6 +868,11 @@ shiftDurations =
     (lambda (x)
       (shift-one-duration-log x dur dots)) arg))
 
+slashedGrace =
+#(def-grace-function startSlashedGraceMusic stopSlashedGraceMusic
+   (_i "Create slashed graces (slashes through stems, but no slur) from
+the following music expression"))
+
 spacingTweaks =
 #(define-music-function (parser location parameters) (list?)
    (_i "Set the system stretch, by reading the 'system-stretch property of
