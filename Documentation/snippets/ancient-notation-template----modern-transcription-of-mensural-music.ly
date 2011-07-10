@@ -7,7 +7,21 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidocit = "
+Quando si trascrive musica mensurale, è utile inserire un incipit all'inizio del
+pezzo per indicare la tonalità e il tempo originali. Le stanghette della battuta,
+a cui i musicisti di oggi sono abituati e che aiutano a riconoscere più velocemente
+gli schemi ritmici, non erano ancora state inventate durante il periodo della
+musica mensurale; infatti il tempo cambiava spesso dopo poche note. Come
+compromesso, le stanghette vengono spesso inserite tra i righi invece che
+dentro i righi.
+
+"
+  doctitleit = "Modello per notazione antica -- trascrizione moderna di musica mensurale"
+
   lsrtags = "ancient-notation, template"
+
 
 %% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "

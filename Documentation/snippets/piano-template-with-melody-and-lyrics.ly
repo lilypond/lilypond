@@ -7,7 +7,16 @@
 \version "2.15.2"
 
 \header {
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidocit = "
+Ecco un tipico formato per canzoni: un rigo con la melodia e il testo,
+e l'accompagnamento per pianoforte sotto.
+
+"
+  doctitleit = "Modello per pianoforte con melodia e testo"
+
   lsrtags = "vocal-music, keyboards, template"
+
 
 %% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "

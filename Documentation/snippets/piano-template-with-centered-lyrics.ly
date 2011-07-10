@@ -7,7 +7,16 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidocit = "
+Invece di avere un intero rigo per la melodia e il testo, il testo può
+essere centrato tra i righi di un pentagramma per pianoforte.
+
+"
+  doctitleit = "Modello per pianoforte con testo al centro"
+
   lsrtags = "text, keyboards, template"
+
 
 %% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "

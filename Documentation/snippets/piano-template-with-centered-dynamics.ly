@@ -26,6 +26,15 @@ automática.
 う必要はありません。
 "
 
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidocit = "
+Molti righi per pianoforte hanno le dinamiche poste al centro tra i due righi.
+Il contesto @code{Dynamics}, se posto tra i righi, posiziona automaticamente
+le dinamiche in modo corretto.
+
+"
+  doctitleit = "Modello per pianoforte con dinamiche al centro"
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 In der meisten Klaviernotation werden die Dynamikzeichen zwischen

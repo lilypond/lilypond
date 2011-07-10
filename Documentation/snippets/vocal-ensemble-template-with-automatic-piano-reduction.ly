@@ -30,6 +30,17 @@ entonces los cambios se aplicarán también a la reducción de piano.
 の音符) に変更が加えられた場合、その変更はピアノ譜にも適用されます。
 "
 
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidocit = "
+Questo modello aggiunge un'automatica riduzione per pianoforte alla tipica
+partitura vocale SATB illustrata in @qq{Modello per gruppo vocale}. Si
+dimostra così uno dei punti di forza di LilyPond – è possibile usare una
+definizione musicale più di una volta. Qualsiasi modifica venga fatta alle note
+delle voci (ad esempio, @code{tenorMusic}) verrà applicata anche alla riduzione
+per pianoforte.
+"
+  doctitleit = "Modello per gruppo vocale con automatica riduzione per pianoforte"
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 In diesem Beispiel wird ein automatischer Klavierauszug zu der

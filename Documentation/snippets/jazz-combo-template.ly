@@ -7,7 +7,18 @@
 \version "2.15.2"
 
 \header {
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidocit = "
+Ecco un modello piuttosto complesso, per un gruppo jazz. Si noti che tutti
+gli strumenti sono in @code{\\key c \\major}. Si tratta della tonalità
+in intonazione reale; la tonalità sarà automaticamente trasposta se la
+musica si trova all'interno di una sezione @code{\\transpose}.
+
+"
+  doctitleit = "Modello per combo jazz"
+
   lsrtags = "keyboards, percussion, fretted-strings, template"
+
 
 %% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "

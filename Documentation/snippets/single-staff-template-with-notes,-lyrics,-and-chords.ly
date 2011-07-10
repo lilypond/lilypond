@@ -7,7 +7,16 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidocit = "
+Ecco il modello di un semplice lead sheet che include melodia, testo, accordi e
+diagrammi dei tasti.
+
+"
+  doctitleit = "Modello di rigo singolo con note testo accordi e tasti"
+
   lsrtags = "vocal-music, chords, template"
+
 
 %% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
