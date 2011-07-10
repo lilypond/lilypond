@@ -1,4 +1,4 @@
-\version "2.15.5"
+\version "2.14.2"
 
 \header {
   texidoc = "Horizontal brackets are created with the correct event-cause, ensuring
