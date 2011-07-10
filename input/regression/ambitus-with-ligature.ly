@@ -7,11 +7,9 @@ and a @code{Mensural_ligature_engraver} without segfaulting.
   "
 }
 
-{
-  \new Voice \with  {
-    \consists Ambitus_engraver
-    \consists Mensural_ligature_engraver
-    } {
-      \[ c'\longa c''\longa \]
-    }
+\new Voice \with  {
+  \consists Ambitus_engraver
+  \consists Mensural_ligature_engraver
+} {
+  \[ c'\longa c''\longa \]
 }
