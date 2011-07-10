@@ -278,7 +278,7 @@ through MUSIC."
 	;; This works for single-note and multi-note tremolos!
 	(let* ((children (if (music-is-of-type? main 'sequential-music)
 			     ;; \repeat tremolo n { ... }
-			     (length (ly:music-property main 'elements))
+			     (length (extract-named-music main 'EventChord))
 			     ;; \repeat tremolo n c4
 			     1))
 	       ;; # of dots is equal to the 1 in bitwise representation (minus 1)!
@@ -304,7 +304,7 @@ through MUSIC."
 (define (calc-repeat-slash-count music)
   "Given the child-list @var{music} in @code{PercentRepeatMusic},
 calculate the number of slashes based on the durations.  Returns @code{0}
-if durations in in @var{music} vary, allowing slash beats and double-percent
+if durations in @var{music} vary, allowing slash beats and double-percent
 beats to be distinguished."
   (let* ((durs (map (lambda (elt)
 		      (duration-of-note elt))
