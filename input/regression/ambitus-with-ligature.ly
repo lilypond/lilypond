@@ -7,17 +7,11 @@ and a @code{Mensural_ligature_engraver} without segfaulting.
   "
 }
 
-\score{
-  {
-    \context Staff="default" {
+{
+  \new Voice \with  {
+    \consists Ambitus_engraver
+    \consists Mensural_ligature_engraver
+    } {
       \[ c'\longa c''\longa \]
     }
-  }
-  \layout {
-    \context{
-      \Voice
-      \consists Ambitus_engraver
-      \consists Mensural_ligature_engraver
-    }
-  }
 }
