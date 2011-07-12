@@ -20,6 +20,7 @@ mantengano la musica per gli strumenti traspositori nell'intonazione reale.
   lsrtags = "pitches, staff-notation, vocal-music, template"
 
 
+
 %% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Esta plantilla muestra el uso de contextos @code{StaffGroup} y

@@ -20,6 +20,7 @@ le varie possibilità.
   lsrtags = "vocal-music, template"
 
 
+
 %% Translation of GIT committish: 144cd434d02e6d90b2fb738eeee99119a7c5e1d2
 
   texidocde = "

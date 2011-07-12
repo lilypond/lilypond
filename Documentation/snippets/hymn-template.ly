@@ -19,6 +19,7 @@ strofe come testo separato sotto la musica.
   lsrtags = "vocal-music, template"
 
 
+
 %% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
   Este fragmento de código muestra una forma de preparar un himno cuando

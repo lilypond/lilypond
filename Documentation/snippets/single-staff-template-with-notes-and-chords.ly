@@ -17,6 +17,7 @@ Vuoi preparare un lead sheet con una melodia e gli accordi? La tua ricerca è fi
   lsrtags = "chords, template"
 
 
+
 %% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 ¿Quiere preparar una hoja guía de acordes (o «lead sheet») con

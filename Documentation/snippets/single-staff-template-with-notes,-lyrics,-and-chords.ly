@@ -18,6 +18,7 @@ diagrammi dei tasti.
   lsrtags = "vocal-music, chords, template"
 
 
+
 %% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Esta plantilla facilita la preparación de una canción con melodía,

@@ -18,6 +18,7 @@ sezione @code{\\global} per definire il tempo e l'armatura di chiave
   lsrtags = "unfretted-strings, template"
 
 
+
 %% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Esta plantilla muestra un cuarteto de cuerda normal. También utiliza

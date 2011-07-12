@@ -20,6 +20,7 @@ di diversa lunghezza.
   lsrtags = "vocal-music, ancient-notation, template"
 
 
+
 %% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Este ejemplo muestra cómo hacer una transcripción moderna de canto

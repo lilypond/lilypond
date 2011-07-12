@@ -20,6 +20,7 @@ musica si trova all'interno di una sezione @code{\\transpose}.
   lsrtags = "keyboards, percussion, fretted-strings, template"
 
 
+
 %% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Ésta es una plantilla bastante avanzada, para un conjunto de

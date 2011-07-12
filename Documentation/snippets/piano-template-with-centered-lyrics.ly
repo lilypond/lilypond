@@ -18,6 +18,7 @@ essere centrato tra i righi di un pentagramma per pianoforte.
   lsrtags = "text, keyboards, template"
 
 
+
 %% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 En lugar de tener un pentagrama dedicado a la melodía y la letra, ésta

@@ -17,6 +17,7 @@ Ecco un semplice pentagramma per pianoforte con un po' di note.
   lsrtags = "keyboards, template"
 
 
+
 %% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Presentamos a continuación una plantilla de piano sencilla con algunas

@@ -21,6 +21,7 @@ commenta la linea in questione.
   lsrtags = "vocal-music, template"
 
 
+
 %% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
   texidoces = "
 Esta pequeña plantilla muestra una melodía sencilla con letra. Córtela
