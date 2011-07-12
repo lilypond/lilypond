@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 57e3ef0a15d9679cf31de90b2584e9803226d367
+    Translation of GIT committish: 4a3cd8465d7b90b023477e31246d04c730ca9e38
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1173,20 +1173,23 @@ c2 c
 
 Ciertas claves para usos especiales se describen en @ref{Claves de la
 música mensural}, @ref{Claves de canto gregoriano}, @ref{Tablaturas
-predeterminadas} y @ref{Tablaturas personalizadas}.
+predeterminadas} y @ref{Tablaturas personalizadas}.  Para mezclar
+distintas claves al usar notas guía dentro de una partitura,
+consulte las funciones @code{\cueClef} y @code{\cueDuringWithClef}
+en la sección @ref{Formateo de las notas guía}.
 
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
-
 @seealso
 Referencia de la notación:
 @ref{Claves de la música mensural},
 @ref{Claves de canto gregoriano},
 @ref{Tablaturas predeterminadas}
-@ref{Tablaturas personalizadas}.
+@ref{Tablaturas personalizadas},
+@ref{Formateo de las notas guía}.
 
 Fragmentos de código:
 @rlsr{Pitches}.
@@ -1701,9 +1704,9 @@ musicB = {
 
 Esta regla corresponde a la práctica común del s. XX.  Omite algunos
 becuadros adicionales, que tradicionalmente se imprimían precediendo a
-las alteraciones que reducen o invierten la dirección de una
-alteración anterior.  La regla @code{modern} imprime las mismas
-alteraciones que el estilo @code{default}, con dos excepciones que
+un sostenido que sigue a un doble sostenido, o a un bemol que sigue
+a un doble bemol.  La regla @code{modern} imprime las mismas
+alteraciones que el estilo @code{default}, con dos adiciones que
 sirven para evitar la ambigüedad: después de alteraciones temporales
 se imprimen indicaciones de cancelación también en el compás siguiente
 (para notas en la misma octava) y, en el mismo compás, para notas en
