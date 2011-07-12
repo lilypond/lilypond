@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; fill-column: 60 -*-
 @ignore
-    Translation of GIT committish: 66dd932f6519b7913400a838c5efbc5407e06cd8
+    Translation of GIT committish: 6908517be0826a3386264cd6d26d742b18e3a227
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -389,8 +389,7 @@ naam @code{r}@tie{}:
 
 Terminologie: @rglos{time signature}.
 
-De @notation{maatsoort} kun je aangeven met het @code{\time}
-commando:
+De @notation{maatsoort} kun je aangeven met het @code{\time}-commando:
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -399,6 +398,33 @@ commando:
   \time 6/8
   a4. a
   \time 4/4
+  a4 a a a
+}
+@end lilypond
+
+@subheading Tempo-aanduidingen
+
+@cindex tempo marks
+@cindex metronome marks
+
+@funindex \tempo
+@funindex tempo
+
+Terminologie: @rglos{tempo indication}, @rglos{metronome}.
+
+De @notation{tempo indication} en @notation{metronome mark} worden
+gezet met het @code{\tempo}-commando:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \time 3/4
+  \tempo "Andante"
+  a4 a a
+  \time 6/8
+  \tempo 4. = 96
+  a4. a
+  \time 4/4
+  \tempo  "Presto" 4 = 120
   a4 a a a
 }
 @end lilypond
@@ -444,6 +470,7 @@ toont:
 \relative c, {
   \clef "bass"
   \time 3/4
+  \tempo "Andante" 4 = 120
   \clef "bass"
   c2 e8 c'
   g'2.

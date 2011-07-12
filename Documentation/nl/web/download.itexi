@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; fill-column: 60 -*-
 @ignore
-    Translation of GIT committish: 303c4023fce97de0cfb2d27a7e689d1ad7c4752b
+    Translation of GIT committish: 6908517be0826a3386264cd6d26d742b18e3a227
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -26,7 +26,7 @@ eerst de informatie over onze @ref{Tekstinvoer}.}
 
 @divClass{heading-center}
 @ifclear web_version
-  @c yes, we want verisonDevel here, since the online links
+  @c yes, we want versionDevel here, since the online links
   @c for @version won't be up yet!
   @heading Downloads voor LilyPond @versionDevel
 
@@ -41,13 +41,15 @@ eerst de informatie over onze @ref{Tekstinvoer}.}
 
 @divEnd
 
+@divClass{link-headings}
+
 @divClass{column-left-top}
 @subheading Voor gebruikers
 
 @itemize
 
 @item
-@c TODO: duplicate to avoid underlined refs in HTML?  icky.
+@c ref is duplicated to avoid underlining ref as image.
 @ref{Unix, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}}
 @ref{Unix, Unix (Linux en FreeBSD)}
@@ -84,6 +86,7 @@ meest recente ontwikkelversie
 @end itemize
 @divEnd
 
+@divEnd
 
 @divClass{column-center-bottom}
 
@@ -98,7 +101,7 @@ License} (GNU Algemene Publieke Licentie).
 
 @subheading Sponsors
 
-Hartelijk dank aan @uref{http://www.vt.edu/, Virgina Tech} en
+Hartelijk dank aan @uref{http://www.vt.edu/, Virginia Tech} en
 @uref{http://www.linuxaudio.org/, linuxaudio.org} voor het
 sponsoren van onze bandbreedte.
 
@@ -213,9 +216,15 @@ Op de commandoregel, typ:
 uninstall-lilypond
 @end example
 
+@subsubheading Hulp
+
+Op de commandoregel, typ:
+
+@example
+sh lilypond-@versionStable{}-OS-TYPE.sh --help
+@end example
+
 @divEnd
-
-
 
 @divClass{column-right-top}
 @subheading Een bestand compileren
@@ -236,22 +245,22 @@ distributie voor het upgraden naar deze versies.
 @item
 @sourceimage{logo-fedora,,,}
 @uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
-Fedora: LilyPond 2.12.3}
+Fedora: LilyPond 2.14.1}
 
 @item
 @sourceimage{logo-ubuntu,,,}
 @uref{http://packages.ubuntu.com/search?keywords=lilypond,
-Ubuntu: LilyPond 2.12.2}
+Ubuntu: LilyPond 2.12.3}
 
 @item
 @sourceimage{logo-slackware,,,}
 @uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.12.3}
+Slackware: LilyPond 2.14.1}
 
 @item
 @sourceimage{logo-debian,,,}
 @uref{http://packages.debian.org/search?keywords=lilypond,
-Debian: LilyPond 2.12.2}
+Debian: LilyPond 2.12.3}
 
 @item
 @sourceimage{logo-suse,,,}
@@ -295,12 +304,14 @@ acknowledged.
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Voor Intel processors (als je twijfelt, gebruik deze).
+Voor MacOS 10.4 of nieuwer, met Intel-processors (als je
+twijfelt, gebruik deze).
 
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
-Voor G3 and G4 CPUs (oudere Apple computers).
+Voor MacOS 10.4 of nieuwer, met G3- en G4-processors (oudere
+Apple computers).
 
 @end itemize
 
@@ -348,11 +359,11 @@ cd ~/bin
 @item
 Maak een bestand genaamd @command{lilypond} met als inhoud
 
-@help obvious css issue to be dealt with.  :(
-@c we need a small font here to fit.  -gp
-@smallexample
+@divClass{h-scroll-auto}
+@example
 exec @var{MAP}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
-@end smallexample
+@end example
+@divEnd
 
 @warning{@var{MAP} is normaal gesproken @code{/Applications/}}
 
@@ -397,9 +408,11 @@ De scripts --- zoals @command{lilypond-book},
 Scripts kunnen ook worden uitgevoerd op de commandoregel
 door ze direct aan te roepen:
 
+@divClass{h-scroll-auto}
 @example
 @var{pad/naar}/LilyPond.app/Contents/Resources/bin/lilypond
 @end example
+@divEnd
 
 Dat geldt ook voor alle andere scripts in die map, zoals
 @command{lilypond-book} en @command{convert-ly}.
@@ -438,7 +451,7 @@ acknowledged.
 @item
 @sourceimage{logo-windows,,,}
 @downloadStableWindows
-Voor Windows ME, NT, 2000, XP, Vista, en Windows 7.
+Voor Windows 2000, XP, Vista, en Windows 7.
 
 @end itemize
 
@@ -626,6 +639,3 @@ gegeven in @ref{Vrijheid}.
 @include gpl.itexi
 
 @divEnd
-
-
-

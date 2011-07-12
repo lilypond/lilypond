@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 77c34ddc0877c0625a48e1b41049b6dbaae215e0
+    Translation of GIT committish: 6908517be0826a3386264cd6d26d742b18e3a227
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -16,7 +16,7 @@
 MACRO DEFINITIONS GUIDELINES
 ****************************
 
-This file should contain macro defintions which are common to all
+This file should contain macro definitions which are common to all
 languages, i.e. all macro definitions which do not contain text that
 should be translated (namely text visible in the output).
 
@@ -62,6 +62,36 @@ translations should be in macros.itexi.
 @b{Note :} \TEXT\
 @end cartouche
 @end quotation
+@end quotation
+@end macro
+
+@end ifnothtml
+
+
+@c do not translate the following macro -- it is used in
+@c an untranslated manual.
+
+@ifhtml
+
+@macro advanced{TEXT}
+@html
+<div class="advanced">
+@end html
+@strong{Advanced note:} \TEXT\
+@c keep the space for proper nesting of </p>
+
+@html
+</div>
+@end html
+@end macro
+
+@end ifhtml
+
+@ifnothtml
+
+@macro advanced{TEXT}
+@quotation
+@b{Advanced note:} \TEXT\
 @end quotation
 @end macro
 
