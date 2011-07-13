@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Thu Mar 24 14:52:33 UTC 2011
+@emph{最終更新日 Wed Jul 13 10:59:12 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -165,7 +165,7 @@ LilyPond --- \TITLE\
 @item
 4 出力を調整する
 @*
-15408
+15393
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -302,17 +302,17 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab post-GDP
 @item
 1.1 ピッチ
 @*
-4479
+4502
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -329,7 +329,7 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -364,7 +364,7 @@ partially
 @end ifnothtml
 @tab post-GDP
 @item
-1.3 表現記号
+1.3 発想記号
 @*
 1726
 @tab Yoshiki Sawada
@@ -393,7 +393,115 @@ partially
 @item
 1.4 繰り返し
 @*
-930
+945
+@tab Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #39ff22">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab post-GDP
+@item
+1.5 同時進行する音符
+@*
+2216
+@tab Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #83fe2c">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab post-GDP
+@item
+1.6 譜の記譜法
+@*
+2345
+@tab Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #9eff30">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab post-GDP
+@item
+1.7 編集者の注釈
+@*
+931
+@tab Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab post-GDP
+@item
+1.8 テキスト
+@*
+2716
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -540,7 +648,7 @@ LilyPond --- \TITLE\
 @item
 3 @command{lilypond-book}: Integrating text and music
 @*
-3764
+3952
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -557,7 +665,7 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partially</span>
+<span style="background-color: #97ff2f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -691,7 +799,7 @@ Yoshinobu Ishizaki
 @item
 導入部
 @*
-4506
+4564
 @tab Yoshiki Sawada
 @*
 Yoshinobu Ishizaki
@@ -720,7 +828,7 @@ Yoshinobu Ishizaki
 @item
 ダウンロード
 @*
-1183
+1195
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -737,17 +845,17 @@ Yoshinobu Ishizaki
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
 マニュアル
 @*
-1200
+1203
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -764,11 +872,11 @@ Yoshinobu Ishizaki
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
