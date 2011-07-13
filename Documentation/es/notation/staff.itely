@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 1a0b8d90d648b03f9bc6d93bcb3d0699f93482d0
+    Translation of GIT committish: 40b0e2041fc67f6dca2b2d70717ac424919e89f7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1194,20 +1194,14 @@ Archivos de inicio:
 
 
 @knownissues
-
 Sólo el contenido de la primera voz de una instrucción
-@code{\addQuote} se tiene en cuenta para la cita, de manera que la
-música no puede contener enunciados @code{\new} ni @code{\context
-Voice} que cambiarían a una voz distinta.
-
-La cita de notas de adorno no es funcional e incluso puede hacer que
-LilyPond termine de forma abrupta.
-
-La cita de unos tresillos dentro de otros puede dar como resultado una
+@code{\addQuote} se tiene en cuenta para la cita, de manera que
+la expresión musical no puede contener enunciados @code{\new}
+ni @code{\contextVoice} que cambiarían a una voz distinta.
+La cita de notas de adorno no está contemplada y puede hacer que
+LilyPond termine de forma abrupta; la cita de unos tresillos
+dentro de otros puede dar como resultado una
 notación de pobre calidad.
-
-En anteriores versiones LilyPond (antes de la 2.11), @code{addQuote}
-se escribía completamente en minúsculas: @code{\addquote}.
 
 
 @node Formateo de las notas guía

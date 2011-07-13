@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4a3cd8465d7b90b023477e31246d04c730ca9e38
+    Translation of GIT committish: 70a015a514dd4af9e9aa7d643f8bbcb1e58c0a70
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -826,6 +826,10 @@ La conversión relativa no afecta a las secciones @code{\transpose},
 @code{\chordmode} ni @code{\relative} dentro de su argumento.  Para
 usar el modo relativo dentro de música transportada, se debe colocar
 otro @code{\relative} dentro de @code{\transpose}.
+
+No se imprimen alteraciones accidentales triples cuando se usa
+@code{\transpose}.  En lugar de ello, se usará una nota @q{equivalente
+enarmónicamente} (p.ej., Re bemol en lugar de Mi triple bemol).
 
 @node Inversión
 @unnumberedsubsubsec Inversión
