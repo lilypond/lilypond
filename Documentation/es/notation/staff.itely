@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 502106f74b602ee5c9aeb9787338350df1c863f0
+    Translation of GIT committish: 1a0b8d90d648b03f9bc6d93bcb3d0699f93482d0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1134,6 +1134,16 @@ oboeNotes = \relative c'' {
 }
 @end lilypond
 
+@cindex note-event
+@cindex articulation-event
+@cindex dynamic-event
+@cindex rest-event
+@cindex slur-event
+@cindex crescendo-event
+
+@funindex quotedEventTypes
+@funindex quotedCueEventTypes
+
 De forma predeterminada, la música citada incluye todas las
 articulaciones, matices dinámicos, elementos de marcado, etc. de la
 expresión citada.  Es posible elegir cuáles de estos objetos de la
@@ -1165,23 +1175,6 @@ oboeNotes = \relative c'' {
 @end lilypond
 
 Las citas también se pueden etiquetar, véase @ref{Uso de etiquetas}.
-
-@snippets
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{quoting-another-voice-with-transposition.ly}
-
-@cindex note-event
-@cindex articulation-event
-@cindex dynamic-event
-@cindex rest-event
-
-@funindex quotedEventTypes
-@funindex quotedCueEventTypes
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{quoting-another-voice.ly}
-
 
 @seealso
 Referencia de la notación:
@@ -1227,41 +1220,110 @@ se escribía completamente en minúsculas: @code{\addquote}.
 @cindex guía, notas, formato de
 @cindex fragmentos
 @cindex citar otras voces
+@cindex voces, citar
+
 
 @funindex \cueDuring
 @funindex cueDuring
+@funindex \cueClef
+@funindex cueClef
+@funindex \cueDuringWithClef
+@funindex cueDuringWithClef
 @funindex \quoteDuring
 @funindex quoteDuring
 
-La sección anterior explica la forma de crear citas.  La instrucción
-@code{\cueDuring} es una forma más especializada de
-@code{\quoteDuring}, que es especialmente útil para insertar notas
-guía en una particella.  La sintaxis es como sigue:
+@cindex notas pequeñas
+@cindex pequeñas, notas
+@cindex CueVoice
+
+La manera más sencilla de dar formato a las notas guía es crear
+explícitamente un contexto @code{CueVoice} dentro de la parte.
+
+@lilypond[verbatim,relative=1]
+R1
+<<
+  { e2\rest r4. e8 }
+  \new CueVoice {
+    \stemUp d'8^"flute" c d e fis2
+  }
+>>
+d,4 r a r
+@end lilypond
+
+La instrucción @code{\cueClef} puede usarse también con un contexto
+@code{CueVoice} explícito si se requiere un cambio de clave, e
+imprimirá una clave del tamaño adecuado para las notas guía.  Después
+puede utilizarse la instrucción @code{\cueClefUnset} para volver a la
+clave original, de nuevo con un signo de clave del tamaño adecuado.
+
+@lilypond[verbatim,noragged-right,relative=1]
+\clef "bass"
+R1
+<<
+  { e2\rest r4. \cueClefUnset e,8 }
+  \new CueVoice {
+    \cueClef "treble" \stemUp d''8^"flute" c d e fis2
+  }
+>>
+d,,4 r a r
+@end lilypond
+
+Las instrucciones @code{\cueClef} y @code{\cueClefUnset} se pueden
+usar también sin un @code{CueVoice} si es necesario.
+
+@lilypond[verbatim,noragged-right,relative=1]
+\clef "bass"
+R1
+\cueClef "treble"
+d'8^"flute" c d e fis2
+\cueClefUnset
+d,,4 r a r
+@end lilypond
+
+En casos de colocación de mayor complejidad de notas guía, por ejemplo
+con transposición o insertando notas guía procedentes de más de una
+fuente, pueden usarse las instrucciones @code{\cueDuring} o
+@code{\cueDuringWithClef}.  Son una forma más especializada de
+@code{\quoteDuring}, véase @ref{Citar otras voces} en la sección
+anterior.
+
+La sintaxis es:
 
 @example
-\cueDuring #@var{nombre_de_la_parte} #@var{voz} @var{música}
+\cueDuring #@var{nombre_de_la_cita} #@var{dirección} #@var{música}
 @end example
 
-Esta instrucción copia sólo las notas y los silencios de los compases
-correspondientes a partir de @code{@var{nombre_de_la_parte}} dentro de
-un contexto @code{CueVoice} de voz guía.  La voz guía @code{CueVoice}
-se crea implícitamente, y se produce simultáneamente con
-@code{@var{música}}, lo que crea una situación polifónica.  El
-argumento @code{@var{voz}} determina si la notación de las notas guía
-debe ser como primera o como segunda voz; @code{UP} (arriba)
-corresponde a la primera voz, y @code{DOWN} (abajo) corresponde a la
-segunda.
+y
+
+@example
+\cueDuringWithClef #@var{nombre_de_la_cita} #@var{dirección} #@var{clave} #@var{música}
+@end example
+
+La música procedente de los compases correspondientes del elemento
+@code{@var{nombre_de_la_cita}} se añade como un contexto
+@code{CueVoice} y ocurre simultáneamente con la @code{@var{música}},
+lo que produce una situación polifónica.  La @code{@var{dirección}}
+toma un argumento @code{UP} (arriba) o @code{DOWN} (abajo), y
+corresponde a las voces primera y segunda, respectivamente,
+determinando cómo se imprimen las notas guía en relación a la otra
+voz.
 
 @lilypond[verbatim,quote]
-oboe = \relative c'' {
-  r2 r8 d16(\f f e g f a)
-  g8 g16 g g2.
+fluteNotes = \relative c'' {
+  r2. c4 | d8 c d e fis2 | g2 d |
 }
-\addQuote "oboe" { \oboe }
 
-\new Voice \relative c'' {
-  \cueDuring #"oboe" #UP { R1 }
+oboeNotes = \relative c'' {
+  R1
+  s1*0^\markup { \tiny "flute" }
+  \cueDuring #"flute" #UP { R1 }
   g2 c,
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\new Staff {
+  \oboeNotes
 }
 @end lilypond
 
@@ -1280,11 +1342,11 @@ pero no las articulaciones, marcas dinámicas, elementos de marcado,
 etc.
 
 @lilypond[verbatim,quote]
-oboe = \relative c'' {
+oboeNotes = \relative c'' {
   r2 r8 d16(\f f e g f a)
   g8 g16 g g2.
 }
-\addQuote "oboe" { \oboe }
+\addQuote "oboe" { \oboeNotes }
 
 \new Voice \relative c'' {
   \set Score.quotedCueEventTypes = #'(note-event rest-event tie-event
@@ -1297,13 +1359,15 @@ oboe = \relative c'' {
 
 Se pueden usar elementos de marcado para imprimir el nombre del
 instrumento citado.  También, si las notas guía requieren un cambio de
-clave, la clave original se debe restaurar al final de las notas guía.
+clave, puede hacerse manualmente pero la clave original se debe
+restaurar al final de las notas guía.
 
 @lilypond[verbatim,quote]
-flute = \relative c'' {
+fluteNotes = \relative c'' {
   r2. c4 d8 c d e fis2 g2 d2
 }
-bassoon = \relative c {
+
+bassoonNotes = \relative c {
   \clef bass
   R1
   \clef treble
@@ -1312,63 +1376,40 @@ bassoon = \relative c {
   \clef bass
   g4. b8 d2
 }
-\addQuote "flute" { \flute }
+
+\addQuote "flute" { \fluteNotes }
+
 \new Staff {
-  \bassoon
+  \bassoonNotes
 }
 @end lilypond
 
-@cindex quitar notas guía
-@cindex notas guía, quitar
-
-@funindex \killCues
-@funindex killCues
-
-La instrucción @code{\killCues} quita las notas guía de una expresión
-musical, de manera que la misma expresión musical se puede usar para
-producir la particella instrumental con notas guía y la partitura.  La
-instrucción @code{\killCues} elimina solo las notas y eventos que
-fueron citados por parte de @code{\cueDuring}.  Otros elementos de
-marcado asociados con las citas, como los cambios de clave y una
-etiqueta que identifique el instrumento fuente, se pueden etiquetar
-para su inclusión selectiva dentro de la partitura; véase
-@ref{Uso de etiquetas}.
+De forma alternativa, puede usarse la función
+@code{\cueDuringWithClef} en su lugar.  Esta instrucción admite un
+argumento adicional para especificar el cambio de clabe que se
+necesita imprimir para las notas guía, pero después imprime
+automáticamente la clave original una vez que ha finalizado la serie
+de notas guía.
 
 @lilypond[verbatim,quote]
-flute = \relative c'' {
+fluteNotes = \relative c'' {
   r2. c4 d8 c d e fis2 g2 d2
 }
-bassoon = \relative c {
+
+bassoonNotes = \relative c {
   \clef bass
   R1
-  \tag #'part {
-    \clef treble
-    s1*0^\markup { \tiny "flute" }
-  }
-  \cueDuring #"flute" #UP { R1 }
-  \tag #'part \clef bass
+  s1*0^\markup { \tiny "flute" }
+  \cueDuringWithClef #"flute" #UP #"treble" { R1 }
   g4. b8 d2
 }
-\addQuote "flute" { \flute }
+
+\addQuote "flute" { \fluteNotes }
 
 \new Staff {
-  \bassoon
+  \bassoonNotes
 }
-\new StaffGroup <<
-  \new Staff {
-    \flute
-  }
-  \new Staff {
-    \removeWithTag #'part { \killCues { \bassoon } }
-  }
->>
 @end lilypond
-
-De forma alternativa, los cambios de clave y las etiquetas de
-instrumentos se pueden recoger dentro de una definición de instrumento
-para su uso repetido, utilizando la instrucción
-@code{\addInstrumentDefinition} descrita en
-@ref{Nombres de instrumentos}.
 
 @funindex \transposedCueDuring
 @funindex transposedCueDuring
@@ -1386,13 +1427,14 @@ Esto es útil para toma citas de un instrumento que está en un registro
 completamente diferente.
 
 @lilypond[verbatim,quote]
-piccolo = \relative c''' {
+piccoloNotes = \relative c''' {
   \clef "treble^8"
   R1
   c8 c c e g2
   c4 g g2
 }
-bassClarinet = \relative c' {
+
+bassClarinetNotes = \relative c' {
   \key d \major
   \transposition bes,
   d4 r a r
@@ -1408,33 +1450,69 @@ bassClarinet = \relative c' {
 >>
 @end lilypond
 
-@cindex notas más pequeñas
-@cindex pequeñas, notas más
+@cindex removing cue notes
+@cindex cue notes, removing
 
-Se puede crear un contexto de @code{CueVoice} explícitamente si se
-necesitan notas de un tamaño menor, por ejemplo para establecer una
-secuencia alternativa de notas más apropiada para una voz más aguda o
-más grave.
+@funindex \killCues
+@funindex killCues
+@funindex \addInstrumentDefinition
+@funindex addInstrumentDefinition
 
-@lilypond[verbatim,relative=2]
-\time 12/8
-\key ees \major
-g4 ees8 f4 g8
-\stemDown
-<<
-  { d4. bes4 c8 }
-  \new CueVoice
-  { g'4. f4 ees8 }
+La instrucción @code{\killCues} elimina las notas guía de una
+expresión musical, de forma que la misma expresión musical pueda
+utilizarse para producir la particella instrumental (con notas guía) y
+la partitura de conjunto.  La instrucción @code{\killCues} elimina
+solamente las notas y eventos que se han citado mediante
+@code{\cueDuring}.  Otros elementos de marcado asociados con las
+guías, como los cambios de clave o una etiqueta identificativa del
+instrumento fuente, pueden marcarse para su inclusión selectiva dentro
+de la partitura; véase @ref{Uso de etiquetas}.
+
+@lilypond[verbatim,quote]
+fluteNotes = \relative c'' {
+  r2. c4 d8 c d e fis2 g2 d2
+}
+
+bassoonNotes = \relative c {
+  \clef bass
+  R1
+  \tag #'part {
+    \clef treble
+    s1*0^\markup { \tiny "flute" }
+  }
+  \cueDuring #"flute" #UP { R1 }
+  \tag #'part \clef bass
+  g4. b8 d2
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\new Staff {
+  \bassoonNotes
+}
+
+\new StaffGroup <<
+  \new Staff {
+    \fluteNotes
+  }
+  \new Staff {
+    \removeWithTag #'part { \killCues { \bassoonNotes } }
+  }
 >>
-\stemUp
-d2. d2.
 @end lilypond
+
+Como alternativa, los cambios de clave y los letreros de instrumento
+se pueden recolectar dentro de una definición de instrumento para su
+uso repetido, utilizando @code{\addInstrumentDefinition} que se
+descibe en @ref{Nombres de instrumentos}.
 
 
 @seealso
 Referencia de la notación:
+@ref{Citar otras voces},
 @ref{Transposición de los instrumentos},
 @ref{Nombres de instrumentos},
+@ref{Clave},
 @ref{Guías musicales},
 @ref{Uso de etiquetas}.
 
@@ -1450,4 +1528,6 @@ Referencia de funcionamiento interno:
 
 Pueden ocurrir colisiones con los silencios si se usa
 @code{\cueDuring}, entre los contextos de @code{Voice} y de
-@code{CueVoice}.
+@code{CueVoice}.  Al usar @code{\cueDuringWithClef} o
+@code{\transposedCueDuring} el argumento adicional requerido para cada
+caso debe ir después de la cita y de la dirección.
