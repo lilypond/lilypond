@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d0c8e3162e9d2c0c7195ce8d58e3dd63bf57aca4
+    Translation of GIT committish: 8dec1b16ae6daff5b9a0f9fb806db66cf87bc5bd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -793,41 +793,41 @@ tienen también distinto puntillo, no están claros.
 @funindex partcombine
 
 La combinación automática de particellas se usa para mezclar dos
-partes musicales sobre un pentagrama.  Tiene como objetivo el
-tipografiado de partituras orquestales.  Cuando las dos partes son
-idénticas durante un período de tiempo, sólo se presenta una de ellas.
-En los lugares en que las dos partes son diferentes, se tipografían
-como voces separadas, y las direcciones de las plicas se establecen de
-forma automática.  También las partes de solo y @notation{a due}
-quedan identificadas y es posible marcarlas.
+partes musicales distintas sobre un pentagrama.  Esto puede ser de
+gran ayuda especialmente al tipografiar partituras orquestales.
+Se imprime una sola voz cuando la música de las dos voces es la misma,
+pero en aquellos lugares en que difieren, se imprime una segunda
+voz.  Las direcciones de las plicas se establecen hacia arriba o hacia
+abajo según proceda, al tiempo que se identifican y quedan marcadas
+las partes de solista y de dúo.
 
-La sintaxis para la combinación de las partes es:
+La sintaxis para la combinación automática de las partes es:
 
 @example
 \partcombine @var{expresión_musical_1} @var{expresión_musical_2}
 @end example
 
-El ejemplo siguiente ejemplifica la funcionalidad básica del
-combinador de partes: poner las partes en un solo pentagrama, y
-establecer las direcciones de las plicas y la polifonía. Se utilizan
-las mismas variables para las partes independientes y el pentagrama
-combinado.
+El ejemplo siguiente ejemplifica la funcionalidad básica,
+poniendo las partes en un solo pentagrama en forma polifónica, y
+estableciendo las direcciones de las plicas de forma adecuada.
+Se utilizan las mismas variables para las partes
+independientes y el pentagrama combinado.
 
 @lilypond[quote,verbatim]
 instrumentOne = \relative c' {
-  c4 d e f
-  R1
-  d'4 c b a
-  b4 g2 f4
-  e1
+  c4 d e f |
+  R1 |
+  d'4 c b a |
+  b4 g2 f4 |
+  e1 |
 }
 
 instrumentTwo = \relative g' {
-  R1
-  g4 a b c
-  d c b a
-  g f( e) d
-  e1
+  R1 |
+  g4 a b c |
+  d4 c b a |
+  g4 f( e) d |
+  e1 |
 }
 
 <<
@@ -837,21 +837,21 @@ instrumentTwo = \relative g' {
 >>
 @end lilypond
 
-Las notas del tercer compás aparecen solamente una vez a pesar de que
-se han especificado en las dos partes.  Las direcciones de las plicas
+Las dos partes tienen notas idénticas en el tercer compás,
+por lo que aparecen solamente una vez.  Las direcciones de las plicas
 y ligaduras se establecen de forma automática, según se trate de un
 solo o de un unísono.  Cuando se necesita en situaciones de polifonía,
-la primera parte (que recibe el nombre de contexto @code{one}) siempre
+la primera parte (que recibe el nombre de contexto @code{one})
 recibe las plicas hacia arriba, mientras que la segunda (llamada
 @code{two}) siempre recibe las plicas hacia abajo.  En los fragmentos
 de solo, las partes se marcan con @qq{Solo} y @qq{Solo II},
 respectivamente.  Las partes en unísono (@notation{a due}) se marcan
-con el texto predeterminado @qq{a2}.
+con el texto @qq{a2}.
 
 Los dos argumentos de @code{\partcombine} se interpretan como
-contextos de @rinternals{Voice}.  Si se están usando octavas
-relativas, se debe especificar @code{\relative} para ambas expresiones
-musicales, es decir:
+contextos de @rinternals{Voice} separados, por lo que si la música
+está escrita en modo relativo, entonces @emph{las dos} partes han
+de incluir la función @code{\relative}, es decir:
 
 @example
 \partcombine
@@ -864,55 +864,69 @@ Una sección @code{\relative} que se encuentra fuera de
 @code{\partcombine} no tiene ningún efecto sobre las notas de
 @code{@var{expresión_musical_1}} y @code{@var{expresión_musical_2}}.
 
+@funindex \partcombineChords
+@funindex partcombineChords
+@funindex \partcombineApart
+@funindex partcombineApart
+@funindex \partcombineUnisono
+@funindex partcombineUnisono
+@funindex \partcombineSoloI
+@funindex partcombineSoloI
+@funindex \partcombineSoloII
+@funindex partcombineSoloII
+@funindex \partcombineAutomatic
+@funindex partcombineAutomatic
+
 En las partituras profesionales, las voces con frecuencia se mantienen
-separadas durante períodos prolongados, incluso si una o dos notas
-llegan a coincidir y podrían escribirse fácilmente como un
+separadas entre sí durante pasajes prolongados incluso si algunas
+notas coninciden entre ambas, y podrían escribirse fácilmente como un
 unísono. Por ello, la combinación de las notas en un acorde, o mostrar
 una voz como solo, no son soluciones ideales porque la función
-@code{\partcombine} considera cada nota de forma separada.  Por este
-motivo, el resultado de la función @code{\partcombine} alterar o
-corregir con las instrucciones siguientes:
+@code{\partcombine} considera cada nota de forma individual.  En este
+caso, el resultado de la función @code{\partcombine} se puede
+alterar o corregir con las instrucciones siguientes:
+
+Las instrucciones que finalizan en @code{...Once} se aplican
+exclusivamente a la nota siguiente dentro de la expresión musical.
 
 @itemize
 @item
-@code{\partcombineApart}, @code{\partcombineApartOnce}:
-Mantener las notas como dos voces separadas incluso si se pueden
+@code{\partcombineApart} y @code{\partcombineApartOnce}
+mantienen las notas como dos voces separadas incluso si se pueden
 combinar en un acorde o unísono.
 
 @item
-@code{\partcombineChords}, @code{\partcombineChordsOnce}:
-Combinar las notas en un acorde.
+@code{\partcombineChords} y @code{\partcombineChordsOnce}
+combinan las notas en un acorde.
 
 @item
-@code{\partcombineUnisono}, @code{\partcombineUnisonoOnce}:
-Las dos voces forman unísono.
+@code{\partcombineUnisono} y @code{\partcombineUnisonoOnce}
+combinan las dos voces como unísono y marcan el resultado
+como @qq{unison}.
 
 @item
-@code{\partcombineSoloI}, @code{\partcombineSoloIOnce}:
-Mostrar solo la voz uno y marcarla como solo.
+@code{\partcombineSoloI} y @code{\partcombineSoloIOnce}
+muestran solo la voz uno y la marcan como @qq{Solo}.
 
 @item
-@code{\partcombineSoloII}, @code{\partcombineSoloIIOnce}:
-Mostrar solo la voz dos y marcarla como solo.
+@code{\partcombineSoloII} o @code{\partcombineSoloIIOnce}
+imprimen solo la voz dos y la marcan como @qq{Solo}.
 
 @item
-@code{\partcombineAutomatic}, @code{\partcombineAutomaticOnce}:
-Terminar el efecto de las instrucciones especiales anteriores y volver
-al mecanismo predeterminado de combinación de partes.
+@code{\partcombineAutomatic} y @code{\partcombineAutomaticOnce}
+terminan el efecto de las instrucciones anteriores y retornan a la
+funcionalidad estándar de @code{\partcombine}.
 
 @end itemize
-
-Todas las instrucciones que finalizan en @code{...Once} se aplican
-exclusivamente a la nota siguiente.
 
 @lilypond[quote,verbatim]
 instrumentOne = \relative c' {
   \partcombineApart c2^"apart" e |
-  \partcombineAutomatic e^"auto" e |
-  \partcombineChords e'^"chord" e |
-  \partcombineAutomatic c^"auto" c |
-  \partcombineApart c^"apart" \partcombineChordsOnce e^"chord once" |
-  c c |
+  \partcombineAutomatic e2^"auto" e |
+  \partcombineChords e'2^"chord" e |
+  \partcombineAutomatic c2^"auto" c |
+  \partcombineApart c2^"apart" \partcombineChordsOnce e^"chord once" |
+  c2 c |
 }
 instrumentTwo = \relative c' {
   c2 c |
@@ -958,30 +972,47 @@ Referencia de funcionamiento interno:
 
 @knownissues
 
-@code{\partcombine} sólo admite dos voces.
+Toas las funciones @code{\partcombine} admiten exclusivamente dos voces
+y no están diseñadas para funcionar con la letra de las canciones;
+de manera que cuando una de las voces recibe explícitamente un
+nombre para aplicarle una letra, el combinador de partes
+deja de funcionar.
 
-Si @code{printPartCombineTexts} está establecido, cuando las dos voces
-tocan y terminan las mismas notas, el combinador de partes puede
-tipografiar @code{a2} más de una vez en el mismo compás.
+Las funciones @code{\partcombine...} no se pueden escribir dentro
+de los bloques @code{\times} ni @code{\relative}.
 
-@code{\partcombine} no puede estar dentro de @code{\times}.
+Si @code{printPartCombineTexts} está establecido y las dos voces
+tocan y terminan las mismas notas en el mismo compás,
+el combinador de partes puede tipografiar @code{a2} más de una vez
+en ese compás.
 
-@code{\partcombine} no puede estar dentro de @code{\relative}.
+@code{\partcombine} solo tiene en cuenta el momento de inicio de las
+notas dentro de una voz @code{Voice}; por ejemplo, no puede recordar
+si una nota dentro de una voz ya ha comenzado cuando las notas que se
+combinan se han iniciado justo ahora en la otra voz.  Esto puede
+conducir a cierto número de problemas inesperados entre los que se
+incluye la impresión incorrecta de marcas de @qq{Solo} o de
+@qq{Unison}.
 
-Internamente, el @code{\partcombine} interpreta los dos argumentos
-como @code{Voice}s y decide cuándo se pueden combinar las dos partes.
-Cuando tienen distintas duraciones, no se combinan y reciben los
-nombres @code{one} y @code{two}.  Como consecuencia, si los argumentos
-cambian a contextos de @rinternals{Voice} con nombres diferentes, los
-eventos que contienen se ignorarán.  De forma similar, la combinación
-de partes no está pensada para que funcione con la letra de las
-canciones; cuando una de las voces recibe un nombre explícito con el
-objeto de adjuntarle una letra, la combinación de partes deja de
-funcionar.
+@code{\partcombine} conserva todos los elementos extensos (ligaduras,
+reguladores, etc.) dentro del mismo contexto @code{Voice} de forma que
+si uno cualquiera de estos elementos extensos inicia o termina en un
+contexto @code{Voice} diferente, puede no imprimirse o hacerlo
+incorrectamente.
 
-@code{\partcombine} observa solamente los tiempos de ataque de las
-notas.  No puede determinar si una nota iniciada previamente está
-sonando o no, lo que origina diversos problemas.
+Si la función @code{\partcombine} no puede combinar las dos
+expresiones musicales (es decir, cuando las dos voces tienen
+duraciones distintas), otorgará internamente sus propios nombres a las
+voces: @code{one} y @code{two} respectivamente.  Esto significa que si
+se produce un cambio a un contexto @code{Voice} que tenga un nombre
+distinto, se ignorarán los eventos dentro del contexto @code{Voice}
+que tiene el nombre distinto.
+
+Consulte también el apartado @emph{Advertencias y problemas conocidos}
+en la sección @ref{Tablaturas predeterminadas} al utilizar
+@code{\partcombine} con tablaturas, y la @emph{Nota} de
+@ref{Barras automáticas} al utilizar barrado automático.
+
 
 @node Escribir música en paralelo
 @unnumberedsubsubsec Escribir música en paralelo
