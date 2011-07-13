@@ -554,6 +554,19 @@ any @code{.py} file in lilypond git.  All such files should be
 converted to use spaces only.
 
 
+@subheading GOP-PROP 2: mentors and frogs
+
+Nothing much was decided.  The list of responsibilities was
+slightly altered; see the new one in @ref{Mentors}.  We should
+encourage more use of the Frogs mailing list.  There's a list of
+contributor-mentor pairs in:
+
+@smallexample
+@uref{https://github.com/gperciva/lilypond-extra/blob/master/people/mentors.txt}
+@end smallexample
+
+That's pretty much it.
+
 
 @node Grand LilyPond Input Syntax Standardization (GLISS)
 @section Grand LilyPond Input Syntax Standardization (GLISS)

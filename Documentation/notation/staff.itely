@@ -1172,20 +1172,12 @@ Installed Files:
 
 
 @knownissues
-
 Only the contents of the first @code{Voice} occurring in an
-@code{\addQuote} command will be considered for quotation, so
-@code{@var{music}} cannot contain @code{\new} and
-@code{\context Voice} statements that would switch to a different
-Voice.
-
-Quoting grace notes is broken and can even cause LilyPond to
-crash.
-
-Quoting nested triplets may result in poor notation.
-
-In earlier versions of LilyPond (pre 2.11), @code{addQuote} was
-written entirely in lower-case letters: @code{\addquote}.
+@code{\addQuote} command will be considered for quotation, so the music
+expression must not contain @code{\new} and @code{\context Voice}
+statements which would switch to a different Voice.  Quoting grace notes
+is unsupported and may cause LilyPond to crash whereas quoting nested
+triplets may result in poor notation.
 
 
 @node Formatting cue notes
@@ -1274,10 +1266,10 @@ and
 @end example
 
 The music from the corresponding measures of the @code{@var{quote name}}
-is added as @code{CueVoice} context and occurs simultaneously with the
-@code{@var{music}}, which creates a polyphonic situation.  The
+is added as a @code{CueVoice} context and occurs simultaneously with the
+@code{@var{music}}, which then creates a polyphonic situation.  The
 @code{@var{direction}} takes the argument @code{UP} or @code{DOWN}, and
-corresponds to first and second voices respectively determining how
+corresponds to the first and second voices respectively, determining how
 the cue notes are printed in relation to the other voice.
 
 @lilypond[verbatim,quote]

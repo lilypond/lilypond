@@ -167,6 +167,7 @@ If zero, signals a beat containing varying durations.")
 Options are @code{'text} and @code{'hairpin}.")
      (span-text ,markup? "The displayed text for dynamic text spanners
 (e.g., cresc.)")
+     (spanner-id ,string? "Identifier to distinguish concurrent spanners.")
      (split-list ,list? "Splitting moments for part combiner.")
      (start-callback ,procedure? "Function to compute the negative length
 of starting grace notes.  This property can only be defined as initializer

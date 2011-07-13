@@ -1,7 +1,0 @@
-%
-% test stuff.
-% in a separate file to avoid tainting non-test font files for testing.
-%
-
-input feta-noteheads;
-%input feta-flags;

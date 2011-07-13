@@ -16,7 +16,8 @@
 ;;;
 (define (scheme-expr->lily-string scm-arg)
   (cond ((or (number? scm-arg)
-	     (string? scm-arg))
+             (string? scm-arg)
+             (boolean? scm-arg))
 	 (format #f "~s" scm-arg))
 	((or (symbol? scm-arg)
 	     (list? scm-arg))
@@ -466,7 +467,9 @@ Otherwise, return #f."
 		 ;; as a note_chord_element to prevent spurious output, e.g.,
 		 ;; \displayLilyMusic < c-1\4 >8 -> c-1\48
 		 (null? (filter post-event?
-				(ly:music-property (car simple-elements) 'articulations))))
+				(ly:music-property (car simple-elements) 'articulations)))
+		 ;; same for simple_element with \tweak
+		 (null? (ly:music-property (car simple-elements) 'tweaks)))
 	    ;; simple_element : note | figure | rest | mmrest | lyric_element | skip
 	    (let* ((simple-element (car simple-elements))
 		   (duration (ly:music-property simple-element 'duration))

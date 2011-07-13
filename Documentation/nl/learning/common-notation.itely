@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; fill-column: 60 -*-
 
 @ignore
-    Translation of GIT committish: 66dd932f6519b7913400a838c5efbc5407e06cd8
+    Translation of GIT committish: 6908517be0826a3386264cd6d26d742b18e3a227
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -170,7 +170,7 @@ a1 |
 
 Terminologie: @rglos{accidental}, @rglos{key signature},
 @rglos{pitch}, @rglos{flat}, @rglos{natural}, @rglos{sharp},
-@rglos{transposition}.
+@rglos{transposition}, @rglos{Pitch names}.
 
 Om uit te maken of er wel of geen @notation{toevallig teken}
 geprint moet worden, onderzoekt LilyPond de toonhoogten en
@@ -238,9 +238,6 @@ Notatiehandleiding:
 @ruser{Accidentals},
 @ruser{Automatic accidentals},
 @ruser{Key signature}.
-
-Terminologie:
-@rglos{Pitch names}.
 
 
 @node Overbindingen en legatobogen
@@ -852,7 +849,10 @@ partituren.
 @funindex GrandStaff
 @funindex ChoirStaff
 
-Terminologie: @rglos{brace}.
+Terminologie:
+@rglos{brace},
+@rglos{staff},
+@rglos{system}.
 
 Pianomuziek wordt meestal genoteerd op twee notenbalken die
 verbonden zijn door een @notation{accolade}.  Het afdrukken
@@ -897,14 +897,14 @@ Notatiehandleiding:
 @translationof Combining notes into chords
 @subsection Het combineren van noten tot accoorden
 
+Terminologie: @rglos{chord}.
+
 @cindex accoorden
 @cindex nootlengten in accoorden
 
 @funindex <
 @funindex >
 @funindex < ... >
-
-Terminologie: @rglos{chord}.
 
 We zagen eerder hoe noten kunnen worden gecombineerd tot
 @notation{accoorden} door aan te geven dat ze tegelijk
@@ -927,9 +927,14 @@ waardestrepen en overbindingen gebruiken met accoorden.  Ze
 worden geplaatst buiten de hoekige haken.
 
 @lilypond[verbatim,quote,relative=2]
-r4 <c e g>8[ <c f a>]~ <c f a>2 |
-r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!) |
+r4 <c e g>~ <c f a>2 |
+<c e g>8[ <c f a> <c e g> <c f a>] <c e g>\>[ <c f a> <c f a> <c e g>]\! |
+r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
 @end lilypond
+
+@seealso
+Notatiehandleiding:
+@ruser{Chorded notes}.
 
 
 @node Polyfonie binnen een notenbalk
@@ -1017,15 +1022,14 @@ een spatie.
 >>
 @end lilypond
 
-Merk de accolades op die zowel de muziek als de liedtekst
-afbakenen.  Het is van essentiëel belang dat de laatste
+@warning{Het is van essentiëel belang dat de laatste
 lettergreep van de afsluitende accolade gescheiden wordt
 door een spatie of nieuwe regel, anders wordt aangenomen dat
 de accolade nog deel uitmaakt van die lettergreep, wat een
 obscure foutmelding oplevert, zie @rprogram{Apparent error
-in ../ly/init.ly}.
+in ../ly/init.ly}.}
 
-Merk tevens de hoekige haken @w{@code{<< ... >>}} op die om
+Merk de hoekige haken @w{@code{<< ... >>}} op die om
 het hele stuk heen staan en aangeven dat de muziek en de
 woorden tegelijk klinken.
 

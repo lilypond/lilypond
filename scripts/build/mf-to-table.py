@@ -244,6 +244,8 @@ for filenm in files:
         enc_name = 'ParmesanEncoding'
     elif re.search ('feta-noteheads', filenm):
         enc_name = 'FetaNoteheadsEncoding'
+    elif re.search ('feta-flags', filenm):
+        enc_name = 'FetaFlagsEncoding'
     elif re.search ('feta-brace', filenm):
         enc_name = 'FetaBraceEncoding'
     elif re.search ('feta-alphabet', filenm):

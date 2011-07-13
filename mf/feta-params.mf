@@ -222,3 +222,89 @@ else:
 fi;
 
 feta_fillpen := savepen;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Notehead width and height are defined here.
+%
+%
+% Slope of slash.  From scm/grob-description.scm.  How to auto-copy?
+slash_slope := 1.7;
+
+% Thickness of slash lines.  Quarter notes get 1.5slt width.
+slash_thick# := 2/3 * 0.48 staff_space#;
+
+%
+% Hand-engraved music often has balls extending above and below
+% the lines.  If you like that, modify overdone heads (unit:
+% stafflinethickness).
+%
+overdone_heads = 0.0;
+noteheight# := staff_space# + (1 + overdone_heads) * stafflinethickness#;
+
+define_pixels (slash_thick);
+define_whole_vertical_pixels (noteheight);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is used to draw all elliptical notes; it also sets
+% black_notehead_width, so it should be called in any file that
+% needs the value of black_notehead_width.
+%
+% SLANT moves both extrema on the long axis (by SLANT * ELLIPTICITY,
+% so SLANT = -1, puts the extreme on the long axis next to the short
+% axis one).
+%
+
+def draw_outside_ellipse (expr ellipticity, tilt, superness, slant) =
+        save attachment_y;
+        save pat;
+        path pat;
+
+        pat := superellipse ((ellipticity, 0), (-slant * ellipticity, 1.0),
+                             (-ellipticity, 0), (slant * ellipticity, -1.0),
+                             superness);
+        pat := pat rotated tilt;
+
+        save top_point, right_point;
+        pair top_point, right_point;
+
+        top_point := directionpoint left of pat;
+        right_point := directionpoint up of pat;
+
+        save scaling, width;
+
+        scaling# := noteheight# / (2 ypart (top_point));
+        width# := 2 xpart (right_point) * scaling#;
+        define_pixels (scaling, width);
+       set_char_box (0, width#, noteheight# / 2, noteheight# / 2);
+
+        d := d - feta_space_shift;
+
+        % attachment Y
+        charwy := ypart (right_point) * scaling#;
+        charwx := width#;
+
+        pat := pat scaled scaling shifted (w / 2, .5 (h - d));
+
+        width := hround width;
+
+        if test_outlines = 1:
+                draw pat;
+        else:
+                fill pat;
+        fi;
+enddef;
+
+
+def draw_quarter_path =
+        draw_outside_ellipse (1.49 - puff_up_factor / 3.0, 31, 0.707, 0);
+enddef;
+
+test_outlines := 0;
+draw_quarter_path;
+black_notehead_width# := charwd;
+
+define_pixels (slash_thick);
+define_whole_vertical_pixels (noteheight);
+
+

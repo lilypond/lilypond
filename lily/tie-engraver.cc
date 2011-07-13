@@ -270,6 +270,9 @@ Tie_engraver::stop_translation_timestep ()
 	  continue;
 	}
 
+      // We only want real notes to cause ties, not e.g. pitched trills
+      if (!left_ev->in_event_class ("note-event"))
+          continue;
 
       SCM left_articulations = left_ev->get_property ("articulations");
 

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; fill-column: 60 -*-
 @ignore
-    Translation of GIT committish: 303c4023fce97de0cfb2d27a7e689d1ad7c4752b
+    Translation of GIT committish: 6908517be0826a3386264cd6d26d742b18e3a227
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -21,7 +21,6 @@
 @spanEnd
 @end macro
 
-
 @divClass{heading-center}
 @ifclear web_version
   @heading Handleidingen voor LilyPond @version
@@ -32,31 +31,34 @@
 
 @divEnd
 
-@c TODO: do we want these links to be in larger text / bold ?   CSS.
+@divClass{link-headings}
 
 @divClass{column-center-top}
 @subheading Inleiding
 
 @itemize
 
-@item @ref{Tekstinvoer}:
-LilyPond is een @strong{tekstgebaseerd} muzieknotatieprogramma.  Lees
-dit eerst!
+@item
+@ref{Tekstinvoer}:
+LilyPond is een @strong{tekstgebaseerd}
+muzieknotatieprogramma.  Lees dit eerst!
 
-@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Beginnen}}
+@item
+@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Beginnen}}
 een @qq{onmisbare} gebruiksvriendelijke inleiding in LilyPond.
 @details{Beginnen}
 
-@item @ifWebLinks{@manualStableGlossarySplitNoName-nl,@rglosnamed{Top,Terminologie}}
+@item
+@ifWebLinks{@manualStableGlossarySplitNoName-nl,@rglosnamed{Top,Terminologie}}
 @emph{(optioneel te lezen)}
 muziektermen en vertalingen.
 @details{Terminologie}
 
-@item @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
+@item
+@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
 @emph{(optioneel te lezen)}
 achtergrondinformatie over muzieknotatie dmv de computer.
 @details{Essay}
-
 
 @end itemize
 
@@ -67,15 +69,18 @@ achtergrondinformatie over muzieknotatie dmv de computer.
 
 @itemize
 
-@item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notatie}}
+@item
+@ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notatie}}
 syntax handleiding.
 @details{Notatie}
 
-@item @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Gebruik}}
+@item
+@ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Gebruik}}
 het draaien van alle programma's.
 @details{Gebruik}
 
-@item @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippers}}
+@item
+@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippers}}
 handige trucs en tips.
 @details{Snippers}
 
@@ -89,22 +94,27 @@ handige trucs en tips.
 
 @itemize
 
-@item @ref{FAQ}:
+@item
+@ref{FAQ}:
 Veel gestelde vragen.
 
-@item @ref{Top, Web}:
+@item
+@ref{Top, Web}:
 dit document.
 @details{Web}
 
-@item @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Veranderingen}}
+@item
+@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Veranderingen}}
 wat is nieuw?
 @details{Veranderingen}
 
-@item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Uitbreidingen}}
+@item
+@ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Uitbreidingen}}
 specialistische verfraaiingen (tweaks).
 @details{Uitbreidingen}
 
-@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
+@item
+@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
 tweaks-handleiding.
 @details{Internals}
 
@@ -118,20 +128,26 @@ tweaks-handleiding.
 
 @itemize
 
-@item @ref{Vertaald}:
+@item
+@ref{Vertaald}:
 status van de vertaling voor niet-Engelstaligen.
 
-@item @ref{Alles}:
-te downloaden handleidingen en oude handleidingen.
+@item
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippers Repository}:
+voorbeelden door gebruikers, hints en tips.
 
-@item @ref{Development}:
+@item
+@ref{Development}:
 handleidingen voor de ontwikkelversie.
 
-@item @ref{FDL}:
+@item
+@ref{FDL}:
 deze handleidingen zijn uitgegeven onder de GNU Free Documentation
 License (GNU Vrije Documentatie Licentie).
 
 @end itemize
+
+@divEnd
 
 @divEnd
 
@@ -295,8 +311,8 @@ lectuur indien je een groot project wilt beginnen.
 @docLinks{Gebruik, usage,
   @rprogramnamed{Top,Usage},
   @manualStableUsageSplit,
-  @manualStableUsageBig, 300 KB,
-  @manualStableUsagePdf, 400 KB}
+  @manualStableUsageBig, 400 KB,
+  @manualStableUsagePdf, 600 KB}
 
 @divEnd
 
@@ -591,5 +607,3 @@ en onze redenen om hiervoor te kiezen, wordt gegeven in
 @include fdl.itexi
 
 @divEnd
-
-

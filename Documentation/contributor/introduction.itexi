@@ -182,9 +182,33 @@ for docs and translations; code patches should almost always go to
 -devel before being pushed).
 
 @item
-Keep track of patches from your contributor.  If you've sent a
-patch to -devel, it's your responsibility to pester people to get
-comments for it, or at very least add it to the google tracker.
+Keep track of patches from your contributor.  Either upload them
+to Rietveld yourself, or help+encourage them to upload the patches
+themselves.  When a patch is on Rietveld, it's your responbility
+to get comments for it, and to add a link to the patch to the
+google tracker.  (tag it @qq{patch-new}, or @qq{patch-review} if
+you feel very confident in it)
+
+@item
+Encourage your contributor to review patches, particularly your
+own!  It doesn't matter if they're not familiar with C++ / scheme
+/ build system / doc stuff -- simply going through the process is
+valuable.  Besides, anybody can find a typo!
+
+@item
+Contact your contributor at least once a week.  The goal is just
+to get a conversation started -- there's nothing wrong with simply
+copy&pasting this into an email:
+
+@example
+Hey there,
+
+How are things going?  If you sent a patch and got a review, do
+you know what you need to fix?  If you sent a patch but have no
+reviews yet, do you know when you will get reviews?  If you are
+working on a patch, what step(s) are you working on?
+@end example
+
 
 @end enumerate
 

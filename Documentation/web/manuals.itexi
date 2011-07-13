@@ -125,8 +125,8 @@ tweaks reference.
 translation status for non-English readers.
 
 @item
-@ref{All}:
-downloadable and old manuals.
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}:
+user-created examples, hints and tips.
 
 @item
 @ref{Development}:

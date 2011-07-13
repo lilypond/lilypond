@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.5"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -240,6 +240,12 @@ stderr of this run."
 
 %% \ottava
 \test "" ##[ \ottava #1 #] % OttavaMusic
+
+%% \tweak
+\test "" ##[ < \tweak #'duration-log #2 c > #]
+\test "" ##[ < c \tweak #'transparent ##t e > #]
+\test "" ##[ < \tweak #'color #'(1.0 0.0 0.0) \tweak #'duration-log #2 c > #]
+\test "" ##[ c-\tweak #'font-size #3 -> #]
 
 %% end test.
 

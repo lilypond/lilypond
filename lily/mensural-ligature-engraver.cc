@@ -59,7 +59,7 @@ protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void build_ligature (Spanner *ligature, vector<Grob_info> primitives);
   DECLARE_TRANSLATOR_LISTENER (ligature);
-  
+
 public:
   TRANSLATOR_DECLARATIONS (Mensural_ligature_engraver);
 
@@ -78,7 +78,7 @@ Mensural_ligature_engraver::listen_ligature (Stream_event *ev)
 
 Mensural_ligature_engraver::Mensural_ligature_engraver ()
 {
-  brew_ligature_primitive_proc = 
+  brew_ligature_primitive_proc =
     Mensural_ligature::brew_ligature_primitive_proc;
 }
 
@@ -473,7 +473,7 @@ Mensural_ligature_engraver::build_ligature (Spanner *ligature,
 }
 
 ADD_ACKNOWLEDGER (Mensural_ligature_engraver, rest);
-ADD_ACKNOWLEDGER (Mensural_ligature_engraver, note_head);
+ADD_ACKNOWLEDGER (Mensural_ligature_engraver, ligature_head);
 
 ADD_TRANSLATOR (Mensural_ligature_engraver,
 		/* doc */

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl; fill-column: 60 -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 303c4023fce97de0cfb2d27a7e689d1ad7c4752b
+    Translation of GIT committish: 6908517be0826a3386264cd6d26d742b18e3a227
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -33,6 +33,8 @@ mogelijkheid om partijen te maken van publicatiekwalteit,
 volgens de beste tratities van klassieke muziekgravure.
 
 @divEnd
+
+@divClass{link-headings}
 
 @divClass{column-left-top}
 @subheading Wat LilyPond doet
@@ -82,6 +84,11 @@ volgens de beste tratities van klassieke muziekgravure.
 @end itemize
 @divEnd
 
+@divEnd
+
+@c TRANSLATORS, translations are not yet compiled in Info format, so
+@c it's not worth translating the right column of the following
+@c menu. -JM
 @divClass{hide}
 @menu
 * Functies::                    What can LilyPond do?
@@ -308,7 +315,7 @@ De standaard uitvoer kan ingrijpend worden veranderd.  Dit
 is een indrukwekkende Schenker-analyse, gemaakt door Kris
 Schaffer, voor een artikel in in
 @uref{http://www.linuxjournal.com/article/8364 , Linux
-Journal.}.  Voor de duidelijkheid zijn hier kleuren
+Journal}.  Voor de duidelijkheid zijn hier kleuren
 toegevoegd.
 
 @exampleImage{bach-schenker}
@@ -586,11 +593,10 @@ Publishing}, partituren van hoge kwaliteit van religieuze
 muziek, beschikbaar voor directe download of ouderwets op papier.
 
 @item
-@uref{http://theshadylanepublishing.com/, The Shady Lane
-Publishing}, een @qq{micro muziekuitgeverij} met als
-doelstelling het promoten van een nieuwe vorm van muzikale
-economie, die dichter bij de muzikanten en muziekliefhebbers
-staat.
+@uref{http://shadylane.fr, The Shady Lane Publishing},
+een @qq{micro muziekuitgeverij} met als doelstelling het
+promoten van een nieuwe vorm van muzikale economie, die
+dichter bij de muzikanten en muziekliefhebbers staat.
 
 @end itemize
 
@@ -598,6 +604,7 @@ staat.
 
 @divEnd
 
+@contactUsAbout{concerten of bladmuziek}
 
 @divClass{column-center-bottom}
 @subheading En nu?
@@ -621,13 +628,54 @@ nu te lezen, ga dan verder naar @ref{Essay}.
 @itemize
 
 @item
+april 2011
+
+@uref{http://www.linux-magazine.com,Linux Magazine} publiceert een
+artikel getiteld
+@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+Projects on the Move}.  Het is een inleiding in MuseScore,
+
+LilyPond en Chordii.  Auteur Carla Schroder schrijft
+@qq{LilyPond wordt aangestuurd vanaf de commandoregel, maar
+je niet afschrikken door het ontbreken van een GUI; LilyPond
+is gebruiksvriendelijk en gemakkelijk te leren}, en ze geeft
+een direct te gebruiken voorbeeld.
+
++@item
+mei 2010
+
+Peter Kirn, op de Create Digital Music website, publiceert een
+@uref{http://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/,LilyPond
+recentie}.  Hij neemt een
+evenwichtig standpunt in over gebruik, prijst LilyPonds
+hoge kwaliteit van notatie en stelt voor het zelf uit te proberen.
+
+@item
 september 2009
 
 Het Duitse blad LinuxUser schrijft een
 @uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
 artikel over LilyPond}.
 
+@item
+augustus 2009
 
+Ann Drinan, op de
+@uref{http://www.polyphonic.org/article.php?id=188, Polyphonic.org}
+website, presenteert opmerkingen van twee orkestbibliothekarissen
+die praten over het gebruik van software om hun bibliotheken te
+onderhouden.
+
+@item
+juni 2009
+
+In een @uref{http://news.lilynet.net/Free-Music-Now, artikel}
+gepubliceerd in het Franse @emph{National Conservatory Parent
+Association}'s jaarblad, legt de Franse componist en LilyPond-bijdrager
+Valentin Villenave uit waarom Vrije licenties, en in het bijzonder
+LilyPond-gegraveerde partituren, van instrumenteel belang zijn in
+het voor iedereen toegankelijk maken van genoteerde muziek.
+ 
 @item
 februari 2008
 
@@ -865,7 +913,30 @@ aan een paar vrienden van mij te laten zien hoeveel potentie
 het wel niet heeft.}
 @divEnd
 
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://webusers.siba.fi/~mkuuskan/, Dr. Mika Kuuskankare}, onderzoeker aan de @uref{http://siba.fi, Sibelius Academy Finland}, componist en auteur van Expressive Notation Package (ENP)
+
+@qq{Ik heb het diepste respect voor LilyPond en haar
+scheppers en beheerders omdat ik uit persoonlijke ervaring
+weet hoe moeilijk dit soort software kan zijn.}
 @divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://camerondh.blogspot.com, David Cameron}, Muzikant, professioneel typesetter en sinds lang SCORE-gebruiker
+
+@qq{Mijn hartelijke dank aan iedereen die bijdraagt​aan dit
+project.  Ik was een power SCORE-gebruiker voor grote
+zetwerk huizen lang geleden in de jaren '90, maar voor mijn
+gevoel maakt LilyPond het mogelijk om precies datgene op
+papier te krijgen wat ik wil, in het bijzonder als het niet
+"standaard" praktijk is.}
+@divEnd
+
+@divEnd
+
+@contactUsAbout{nieuwsberichten of gebruikerservaringen}
 
 @divClass{column-center-bottom}
 @subheading En nu?
@@ -1074,14 +1145,10 @@ verplaatst ook de cursor in het grafische beeld, en
 syntaxfouten in LilyPond-verfijningen (tweaks) worden
 gehighlight in het tekstvenster.
 
-@warning{Denemo ondersteunt officieel de gedateerde Lilypond
-versie 2.8.7, die veel functies mist die sindsdien zijn
-toegevoegd.  De Denemo-ontwikkelaars werken aktief aan
-ondersteunin van onze huidige stabiele 2.12-versie.}
 @divEnd
 
 @divClass{column-center-top}
-@subheading Tekst omgeving: Emacs en Vim
+@subheading Tekst omgeving
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
@@ -1096,9 +1163,9 @@ uitbreidbare editor en kan gebruikt worden als een
 Geïntegreerde Ontwikkel Omgeving (IDE).  Er is een
 @q{lilypond mode} die de taaldefinities voor het werken met
 LilyPond-broncodebestanden levert.  Verder heeft een van
-onze ontwikkelaars @uref{http://nicolas.sceaux.free.fr/
-lilypond/lyqi.html,lyqi} geschreven, een Emacs major mode.
-
+onze ontwikkelaars
+@uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi}
+geschreven, een Emacs major mode.
 
 @uref{http://www.vim.org}
 
@@ -1114,18 +1181,7 @@ LilyPond-invoerbestanden.
 Meer informatie over instellingen voor Emacs en Vim is te
 vinden in @rprogram{Text editor support}.
 
-@divEnd
-
-@ignore these may not need to be here at all, as they are purely
-MacOS scripts.
-
-@divClass{column-center-top}
-@subheading Andere programma's
-
-@subsubheading Tekstomgeving: TexShop
-
 @sourceimage{logo-macosx,,,}
-
 @uref{http://www.uoregon.edu/~koch/texshop}
 
 De TexShop-editor voor MacOS@tie{}X kan uitgebreid worden
@@ -1137,13 +1193,22 @@ van de uitbreidingen die beschikbaar zijn op:
 @uref{http://users.dimi.uniud.it/~nicola.vitacolonna/home/content/lilypond-scripts}
 @end example
 
-@subsubheading TextMate
+@sourceimage{logo-macosx,,,}
+Er is een LilyPond bundel voor TextMate, een commerciële editor for MacOS.
+Die kan je installeren met:
+
+@example
+mkdir -p /Library/Application\ Support/TextMate/Bundles
+cd /Library/Application\ Support/TextMate/Bundles
+git clone http://github.com/textmate/lilypond.tmbundle.git
+
+@end example
 
 @divEnd
-@end ignore
+
 
 @divClass{column-center-top}
-@subheading Andere programma's die LilyPond-code kunnen exporteren
+@subheading Programma's die LilyPond-code kunnen exporteren
 
 @subsubheading Score, tab en MIDI-editors:
 
@@ -1155,8 +1220,8 @@ van enkelvoudige notenbalken heeft.
 
 @item
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
-is gebaseerd op de @uref{http://cairographics.org, Cairo}
-bibliotheek en heeft experimentele LilyPond export
+een partituur editor gebaseerd op de @uref{http://cairographics.org, Cairo}
+bibliotheek en heeft experimentele LilyPond export.
 
 @item
 @uref{http://www.tuxguitar.com.ar/,TuxGuitar}, een
@@ -1164,16 +1229,24 @@ multi-track tablatuur-editor en -speler, heeft een
 partituur-beeld en tab-beeld en kan exporteren naar LilyPond.
 
 @item
-@uref{http://musescore.org,MuseScore} heeft onvolledige
-LilyPond-export maar wordt actief ontwikkeld.
+@uref{http://musescore.org,MuseScore}, een partituur-editor,
+heeft onvolledige LilyPond-export maar wordt actief
+ontwikkeld.
 
 @item
-@uref{http://canorus.org,Canorus} kan ook exporteren naar
-LilyPond, maar is nog beta-software.  Testers zijn welkom.
+@uref{http://canorus.org,Canorus}, een partituur-editor, kan
+ook exporteren naar LilyPond, maar is nog beta-software.
+Testers zijn welkom.
 
 @item
 @uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor},
 een realtime monofonische MIDI naar LilyPond-vertaler.
+
+@item
+@uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
+NW2LY} een a C#-programma dat een
+@uref{http://www.noteworthysoftware.com/, NoteWorthy}-lied naar
+LilyPond converteert.
 
 @end itemize
 
@@ -1182,13 +1255,23 @@ een realtime monofonische MIDI naar LilyPond-vertaler.
 @itemize
 
 @item
-@uref{http://strasheela.sourceforge.net, Strasheela} is
-@qq{een hoog-expressief constraint-gebaseerd muziek
-componeer systeem}.
+@uref{http://www.projectabjad.org/,Abjad}, een
+@uref{http://www.python.org/,Python} API voor Formalized
+Score Control, ontworpen om componisten ingewikkelde stukken
+LilyPond-notatie op te laten bouwen op een iteratieve en
+incrementele manier.
 
 @item
-@uref{http://common-lisp.net/project/fomus/,FOMUS}, een LISP-bibliotheek
-voor het genereren van muzieknotatie.
+@uref{http://common-lisp.net/project/fomus/,FOMUS}, een
+LISP-bibliotheek voor het genereren van muzieknotatie vanuit
+computermuziek softwareomgevingen.
+
+@item
+@uref{http://strasheela.sourceforge.net,Strasheela}, een
+omgeving gebouwd bovenop de
+@uref{http://www.mozart-oz.org/, Mozart/Oz}
+constraint-gebaseerde programmeertaal.
+
 
 @end itemize
 @divEnd

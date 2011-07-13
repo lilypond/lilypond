@@ -1439,6 +1439,7 @@
 		 (interfaces . (font-interface
 				gregorian-ligature-interface
 				ledgered-interface
+                                ligature-head-interface
 				mensural-ligature-interface
 				note-head-interface
 				rhythmic-grob-interface
@@ -1588,6 +1589,7 @@
 	(height-limit . 2.0)
 	(minimum-length . 1.5)
 	(ratio . 0.333)
+	(spanner-id . "")
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(stencil . ,ly:slur::print)
 	(thickness . 1.1)
@@ -1742,6 +1744,7 @@
 	(line-thickness . 0.8)
 	(minimum-length . 1.5)
 	(ratio . 0.25)
+	(spanner-id . "")
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(stencil . ,ly:slur::print)
 	(thickness . 1.2)

@@ -813,9 +813,14 @@ Internals Reference:
 @knownissues
 
 The relative conversion will not affect @code{\transpose},
-@code{\chordmode} or @code{\relative} sections in its argument.
-To use relative mode within transposed music, an additional
-@code{\relative} must be placed inside @code{\transpose}.
+@code{\chordmode} or @code{\relative} sections in its argument.  To use
+relative mode within transposed music, an additional @code{\relative}
+must be placed inside @code{\transpose}.
+
+Triple accidentals will not be printed if using @code{\transpose}. An
+@q{enharmonically equivalent} pitch will be used instead (e.g. d-flat
+rather than e-triple-flat).
+
 
 @node Inversion
 @unnumberedsubsubsec Inversion
