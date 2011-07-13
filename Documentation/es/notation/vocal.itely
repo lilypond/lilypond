@@ -235,7 +235,7 @@ Manual de aprendizaje:
 Referencia de la notación:
 @ref{Duración automática de las sílabas},
 @ref{Tipografías},
-@ref{Foramtear el texto},
+@ref{Formatear el texto},
 @ref{Modos de entrada},
 @ref{Duración manual de las sílabas},
 @ref{Codificación del texto}.
@@ -2181,7 +2181,7 @@ el @q{modo de acordes}; esta sintaxis se explica en
 
 @seealso
 Referencia de la notación:
-@ref{Chord notation}.
+@ref{Notación de acordes}.
 
 
 @node Música coral

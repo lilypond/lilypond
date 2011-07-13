@@ -98,7 +98,7 @@ La función @code{set-paper-size} se estudia en la sección siguiente,
 @code{\paper} variables que se ocupan de la disposición de la página
 se estudian en secciones posteriores.  Las definiciones de elementos
 de marcado que se encargan de los encabezamientos, pies y títulos se
-estudian en @ref{Encabezamientos pies y títulos personalizados}.
+estudian en @ref{Cabeceras pies y títulos personalizados}.
 
 Casi todas las variables de @code{\paper} funcionan solamente dentro
 de un bloque @code{\paper}.  Las pocas que funcionan también en un
@@ -144,7 +144,7 @@ El equivalente de Scheme del ejemplo anterior es:
 @seealso
 Referencia de la notación:
 @ref{Tamaño del papel y escalado automático},
-@ref{Encabezamientos pies y títulos personalizados},
+@ref{Cabeceras pies y títulos personalizados},
 @ref{El bloque \layout}.
 
 Archivos instalados:
@@ -958,6 +958,7 @@ Los números de página impares siempre están a la derecha.
 Si quiere que la música comience en la página 1 debe haber
 una página en blanco en el reverso de la página de cubierta
 de manera que la página 1 esté en el lado derecho.
+
 
 @node Variables de \paper diversas
 @unnumberedsubsubsec Variables de @code{\paper} diversas
@@ -2284,7 +2285,9 @@ Referencia de funcionamiento interno:
 @rinternals{StaffGrouper}.
 
 
+@node Espaciado de las líneas que no son pautas
 @unnumberedsubsubsec Espaciado de las líneas que no son pautas
+@translationof Spacing of non-staff lines
 
 Las @emph{Líneas que no son pautas} (tales como @code{Lyrics},
 @code{ChordNames}, etc.) son contextos cuyos objetos de presentación
