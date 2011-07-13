@@ -1436,11 +1436,11 @@ bassClarinetNotes = \relative c' {
   d4 r a r
 }
 
-\addQuote "piccolo" { \piccolo }
+\addQuote "piccolo" { \piccoloNotes }
 
 <<
-  \new Staff \piccolo
-  \new Staff \bassClarinet
+  \new Staff \piccoloNotes
+  \new Staff \bassClarinetNotes
 >>
 @end lilypond
 
