@@ -47,6 +47,10 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
 			PangoFontDescription const *description,
 			Real output_scale)
 {
+  // This line looks stupid, but if we don't initialize physical_font_tab_ before
+  // we allocate memory in scm_c_make_hash_table, then that could trigger a garbage
+  // collection.
+  physical_font_tab_ = SCM_EOL;
   physical_font_tab_ = scm_c_make_hash_table (11);
   PangoDirection pango_dir = PANGO_DIRECTION_LTR;
   context_ = pango_context_new ();
