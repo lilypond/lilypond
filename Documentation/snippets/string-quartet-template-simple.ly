@@ -19,7 +19,8 @@ sezione @code{\\global} per definire il tempo e l'armatura di chiave
 
 
 
-%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
+
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 Esta plantilla muestra un cuarteto de cuerda normal. También utiliza
 una sección @code{\\global} para el compás y la armadura
