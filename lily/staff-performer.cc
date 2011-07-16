@@ -61,12 +61,18 @@ private:
   map<string, Audio_staff*> staff_map_;
   map<string, int> channel_map_;
   map<string, Audio_dynamic*> dynamic_map_;
+  // Would prefer to have the following two items be
+  // members of the containing class Performance,
+  // so they can be reset for each new midi file output.
   static map<string, int> static_channel_map_;
   static int channel_count_;
+  // For now, ask the last Staff_performer clean up during its finalize method
+  static int staff_performer_count_;
 };
 
 map<string, int> Staff_performer::static_channel_map_;
 int Staff_performer::channel_count_ = 0;
+int Staff_performer::staff_performer_count_ = 0;
 
 #include "translator.icc"
 
@@ -99,6 +105,7 @@ Staff_performer::~Staff_performer ()
 void
 Staff_performer::initialize ()
 {
+   ++staff_performer_count_;
 }
 
 Audio_staff*
@@ -192,6 +199,13 @@ Staff_performer::finalize ()
 {
   staff_map_.clear ();
   channel_map_.clear ();
+  if (staff_performer_count_)
+    --staff_performer_count_;
+  if (0 == staff_performer_count_)
+    {
+      static_channel_map_.clear ();
+      channel_count_ = 0;
+    }
 }
 
 string
