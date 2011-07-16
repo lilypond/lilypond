@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# fixcc -- nitpick lily's c++ code
+# fixcc -- indent and space lily's c++ code
 
 # This file is part of LilyPond, the GNU music typesetter.
 #
@@ -17,16 +17,12 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+#  Performs string substitution on files, then applies astyle
+#  (http://astyle.sourceforge.net)
 # TODO
-#  * maintainable rules: regexp's using whitespace (?x) and match names
-#    <identifier>)
-#  * trailing `*' vs. function definition
-#  * do not break/change indentation of fixcc-clean files
-#  * check lexer, parser
-#  * rewrite in elisp, add to cc-mode
-#  * using regexes is broken by design
-#  * ?
-#  * profit
+#  Remove prefiltering as the equivalent formatting becomes available in
+#  astyle, or as the prefiltering is deemed un-necessary.
+#  Soon, this script might be replaced by a simple invocation of astyle
 
 import __main__
 import getopt
@@ -41,133 +37,60 @@ STRING = 'STRING'
 GLOBAL_CXX = 'GC++'
 CXX = 'C++'
 verbose_p = 0
-indent_p = 0
+indent_p = 1
 
 rules = {
     GLOBAL_CXX:
     [
-    # delete gratuitous block -- disabled because it breaks .h files
-#    ('''\n(    |\t)\s*{\n\s*(.*?)(?![{}]|\b(do|for|else|if|switch|while)\b);\n\s*}''',
-#    '\n\\2;'),
+    # delete trailing whitespace
+    ('[ \t]*\n', '\n'),
     ],
     CXX:
     [
     # space before parenthesis open
-    ('([^\( \]])[ \t]*\(', '\\1 ('),
-    # space after comma
-    ("\([^'],\)[ \t]*", '\1 '),
-    # delete gratuitous block -- disabled because it breaks .h files
-#    ('''\n(    |\t)\s*{\n\s*(.*?)(?![{}]|\b(do|for|else|if|switch|while)\b);\n\s*}''',
-#    '\n\\2;'),
-    # delete inline tabs
-    ('(\w)\t+', '\\1 '),
+    ('([\w\)\]])\(', '\\1 ('),
     # delete inline double spaces
-    ('   *', ' '),
-    # delete space after parenthesis open
-    ('\([ \t]*', '('),
+    ('(\S)  +', '\\1 '),
     # delete space before parenthesis close
-    ('[ \t]*\)', ')'),
+    (' *\)', ')'),
     # delete spaces after prefix
-    ('(--|\+\+)[ \t]*([\w\)])', '\\1\\2'),
+    ('(--|\+\+) *([\w\(])', '\\1\\2'),
     # delete spaces before postfix
-    ('([\w\)\]])[ \t]*(--|\+\+)', '\\1\\2'),
-    # delete space after parenthesis close
-    #('\)[ \t]*([^\w])', ')\\1'),
+    ('([\w\)\]]) *(--|\+\+)', '\\1\\2'),
+
     # delete space around operator
-    # ('([\w\(\)\]])([ \t]*)(::|\.)([ \t]*)([\w\(\)])', '\\1\\3\\5'),
-    ('([\w\(\)\]])([ \t]*)(\.|->)([ \t]*)([\w\(\)])', '\\1\\3\\5'),
+    ('([\w\(\)\]]) *(\.|->) *([\w\(\)])', '\\1\\2\\3'),
     # delete space after operator
-    ('(::)([ \t]*)([\w\(\)])', '\\1\\3'),
+    ('(::) *([\w\(\)])', '\\1\\2'),
+
     # delete superflous space around operator
-    ('([\w\(\)\]])([ \t]+)(&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|\+|-|=|/|:|&|\||\*)([ \t]+)([\w\(\)])', '\\1 \\3 \\5'),
-    # space around operator1
-    ('([\w\)\]]) *(&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|=|/|:|&|\||\*) *([\w\(])', '\\1 \\2 \\3'),
-    # space around operator2
-    ('([\w\)\]]) *(&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|=|/|:|&|\||\*) ([^\w\s])', '\\1 \\2 \\3'),
-    # space around operator3
-    ('([^\w\s]) (&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|[^-]>|=|/|:|&|\||\*) *([\w\(])', '\\1 \\2 \\3'),
-    # space around operator4
-    ('([\w\(\)\]]) (\*|/|\+|-) *([-:])', '\\1 \\2 \\3'),
-    # space around +/-; exponent
-    ('([\w\)\]])(\+|-)([_A-Za-z\(])', '\\1 \\2 \\3'),
-    ('([_\dA-Za-df-z\)\]])(\+|-)([\w\(])', '\\1 \\2 \\3'),
-    # trailing operator, but don't un-trail #include
-    (' (::|&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|\+|-|=|/|:|&XXX|\||\*XXX)[ \t]*\n([ \t]*)(?!#include)', '\n\\2\\1 '),
-    # pointer
-    ##('(bool|char|const|delete|int|stream|unsigned|void|size_t|struct \w+|[A-Z]\w*|,|;|&&|<|[^-]>|\|\||-|\+)[ \t]*(\*|&)[ \t]*', '\\1 \\2'),
-    ('(bool|char|const|delete|int|stream|unsigned|void|vsize|size_t|struct \w+|[A-Z]\w*|,|;|:|=|\?\)|&&|<|[^-]>|\|\||-|\+)[ \t]*(\*|&)[ \t]*', '\\1 \\2'),
-    #to#('(bool|char|const|delete|int|stream|unsigned|void|([A-Z]\w*)|[,])[ \n\t]*(\*|&)[ \t]*', '\\1 \\3'),
-    # pointer with template
-    ('(( *((bool|char|const|delete|int|stream|unsigned|void|size_t|class[ \t]+\w*|[A-Z]\w*|\w+::\w+|[,])\s*[\*&],*)+)>) *(\*|&) *', '\\1 \\5'),
-    #to#('(( *((bool|char|delete|int|stream|unsigned|void|(class[ \t]+\w*)|([A-Z]\w*)|[,])[ \*&],*)+)>)[ \t\n]*(\*|&) *', '\\1 \\7'),
-    # unary pointer, minus, not
-    ('(return|=|&&|\|\|) (\*|&|-|!) ([\w\(])', '\\1 \\2\\3'),
+    ('([\w\(\)\]]) +(&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|\+|-|=|/|:|&|\||\*) +([\w\(\)])', '\\1 \\2 \\3'),
+
+    # trailing operator, but don't un-trail close angle-braces > nor pointer *, and not before a preprocessor line
+    (' (::|&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|\+|-|=|/|:|&XXX|\||\*XXX) *\n( *)([^\s#])', '\n\\2\\1 \\3'),
     # space after `operator'
     ('(\Woperator) *([^\w\s])', '\\1 \\2'),
-    # dangling brace close
-    ('\n[ \t]*(\n[ \t]*})', '\\1'),
-    # dangling newline
-    ('\n[ \t]*\n[ \t]*\n', '\n\n'),
-    # dangling parenthesis open
-    #('[ \t]*\n[ \t]*\([ \t]*\n', '('),
-    ('\([ \t]*\n', '('),
-    # dangling parenthesis close
-    ('\n[ \t]*\)', ')'),
+    # trailing parenthesis open
+    ('\( *\n *', '('),
+    # dangling parenthesis close: Disabled to leave ADD_TRANSLATOR format in place
+    #('\n *\)', ')'),
     # dangling comma
-    ('\n[ \t]*,', ','),
-    # dangling semicolon, but don't un-dangle it onto #include
-    ('(\n.*\n[ \t]*;)(?!\n#include)', '\\1'),
-    # brace open, but not changing a #define... line
-    ('(\w)[ \t]*([^\s]*){([ \t]*\n)(?!#define)', '\\1\\2\n{\n'),
-    # brace open backslash
-    ('(\w[^\n]*){[ \t]*\\\\\n', '\\1\\\n{\\\n'),
-    # brace close
-    ("}[ \t]*([^'\n]*\w[^\n\\\]*)\n", '}\n\\1\n'),
-    # brace close backslash
-    ("}[ \t]*([^'\n]*\w[^\n\\\]*)", '\n}\n\\1'),
-    # delete space after `operator'
-    #('(\Woperator) (\W)', '\\1\\2'),
+    ('\n( *),', ',\n\\1'),
     # delete space after case, label
-    ('(\W(case|label) ([\w]+)) :', '\\1:'),
+    ('(\W(case|label) [\w]+) :', '\\1:'),
     # delete space before comma
-    ('[ \t]*,', ','),
+    (' +,', ','),
     # delete space before semicolon
-    ('[ \t]*;', ';'),
-    # delete space before eol-backslash
-    ('[ \t]*\\\\\n', '\\\n'),
-    # delete trailing whitespace
-    ('[ \t]*\n', '\n'),
+    ('([^;]) +;', '\\1;'),
+    # dangling newline
+    ('\n\n+', '\n\n'),
 
-    ## Deuglify code that also gets ugly by rules above.
-    # delete newline after typedef struct
-    ('(typedef struct\s+([\w]*\s){([^}]|{[^}]*})*})\s*\n\s*(\w[\w\d]*;)', '\\1 \\4'),
-    # delete spaces around template brackets
-    #('(dynamic_cast|template|([A-Z]\w*))[ \t]*<[ \t]*(( *(bool|char|int|unsigned|void|(class[ \t]+\w*)|([A-Z]\w*)),?)+)[ \t]?(| [\*&])[ \t]*>', '\\1<\\3\\8>'),
-    ('(dynamic_cast|less|list|map|set|template|typedef|vector|\w+::\w+|[A-Z]\w*)[ \t]*<[ \t]*(( *(bool|char|const|string|int|unsigned|void|vsize|size_t|class[ \t]+\w*|[A-Z]\w*)( *[\*&]?,|[\*&])*)+)[ \t]?(| [\*&])[ \t]*>', '\\1<\\2\\6>'),
-    ('(\w+::\w+|[A-Z]\w*) < ((\w+::\w+|[A-Z]\w*)<[A-Z]\w*>) >', '\\1<\\2 >'),
-    ('((if|while)\s+\(([^\)]|\([^\)]*\))*\))\s*;', '\\1\n;'),
-    ('(for\s+\(([^;]*;[^;]*;([^\)]|\([^\)]*\))*)\))\s*;', '\\1\n;'),
-    # do {..} while
-    ('(}\s*while\s*)(\(([^\)]|\([^\)]*\))*\))\s*;', '\\1\\2;'),
-
-    ## Fix code that gets broken by rules above.
-    ##('->\s+\*', '->*'),
-    # delete space before #define x()
-    ('#[ \t]*define (\w*)[ \t]*\(', '#define \\1('),
-    # add space in #define x ()
-    ('#[ \t]*define (\w*)(\(([^\(\)]|\([^\(\)]*\))*\)\\n)',
-    '#define \\1 \\2'),
-    # delete space in #include <>
-    ('#[ \t]*include[ \t]*<[ \t]*([^ \t>]*)[ \t]*(/?)[ \t]*([^ \t>]*)[ \t]*>',
-    '#include <\\1\\2\\3>'),
     # delete backslash before empty line (emacs' indent region is broken)
     ('\\\\\n\n', '\n\n'),
     ],
 
     COMMENT:
     [
-    # delete trailing whitespace
-    ('[ \t]*\n', '\n'),
     # delete empty first lines
     ('(/\*\n)\n*', '\\1'),
     # delete empty last lines
@@ -189,6 +112,12 @@ rules = {
 no_match = 'a\ba'
 snippet_res = {
     CXX: {
+    'define':
+    r'''(?x)
+    (?P<match>
+    (?P<code>
+    \#[ \t]*define[ \t]+([^\n]*\\\n)*[^\n]*))''',
+
     'multiline_comment':
     r'''(?sx)
     (?P<match>
@@ -197,16 +126,16 @@ snippet_res = {
     
     'singleline_comment':
     r'''(?mx)
-    ^.*
+    ^.*?    # leave leading spaces for the comment snippet
     (?P<match>
     (?P<code>
-    [ \t]*//([ \t][^\n]*|)\n))''',
+    [ \t]*//[^\n]*\n))''',
 
     'string':
     r'''(?x)
     (?P<match>
     (?P<code>
-    "([^\"\n](\")*)*"))''',
+    "([^"\n]|\\")*"))''',
     
     'char':
     r'''(?x)
@@ -214,13 +143,13 @@ snippet_res = {
     (?P<code>
     '([^']+|\')))''',
      
-     'include':
-     r'''(?x)
-     (?P<match>
-     (?P<code>
-     "#[ \t]*include[ \t]*<[^>]*>''',
-     },
-     }
+    'include':
+    r'''(?x)
+    (?P<match>
+    (?P<code>
+    \#[ \t]*include[ \t]*<[^>]*>))''',
+    },
+    }
 
 class Chunk:
     def replacement_text (self):
@@ -370,20 +299,23 @@ def find_toplevel_snippets (s, types):
 def nitpick_file (outdir, file):
     s = open (file).read ()
 
+    t = s.expandtabs(8)
     for i in rules[GLOBAL_CXX]:
-        s = re.sub (i[0], i[1], s)
+        t = re.sub (i[0], i[1], t)
 
     # FIXME: Containing blocks must be first, see
     #        find_toplevel_snippets.
     #        We leave simple strings be part of the code
     snippet_types = (
+        'define',
         'multiline_comment',
         'singleline_comment',
         'string',
 #                'char',
+        'include',
         )
 
-    chunks = find_toplevel_snippets (s, snippet_types)
+    chunks = find_toplevel_snippets (t, snippet_types)
     #code = filter (lambda x: is_derived_class (x.__class__, Substring),
     #               chunks)
 
@@ -402,37 +334,19 @@ def nitpick_file (outdir, file):
         indent_file (fixt)
 
 def indent_file (file):
-    emacs = '''emacs\
-    --no-window-system\
-    --batch\
-    --no-site-file\
-    --no-init-file\
-    %(file)s\
-    --eval '(let ((error nil)
-           (version-control nil))
-        (load-library "cc-mode")
-        (c++-mode)
-        (indent-region (point-min) (point-max))
-        (if (buffer-modified-p (current-buffer))
-         (save-buffer)))' ''' % vars ()
-    emacsclient = '''emacsclient\
-    --socket-name=%(socketdir)s/%(socketname)s\
-    --no-wait\
-    --eval '(let ((error nil)
-           (version-control nil))
-        (load-library "cc-mode")
-        (find-file "%(file)s")
-        (c++-mode)
-        (indent-region (point-min) (point-max))
-        (if (buffer-modified-p (current-buffer))
-         (save-buffer)))' ''' \
-         % { 'file': file,
-           'socketdir' : socketdir,
-           'socketname' : socketname, }
+    astyle = '''astyle\
+  --options=none --quiet -n \
+  --style=gnu --indent=spaces=2 \
+  --max-instatement-indent=60 \
+  --indent-cases \
+  --align-pointer=name --pad-oper \
+  --keep-one-line-blocks \
+  %(file)s
+  ''' % vars ()
     if verbose_p:
-        sys.stderr.write (emacs)
+        sys.stderr.write (astyle)
         sys.stderr.write ('\n')
-    os.system (emacs)
+    os.system (astyle)
 
 
 def usage ():
@@ -442,27 +356,27 @@ fixcc [OPTION]... FILE...
 
 Options:
  --help
- --indent   reindent, even if no changes
+ --lazy   skip astyle, if no changes
  --verbose
  --test
 
 Typical use with LilyPond:
 
- fixcc $(find flower kpath-guile lily -name '*cc' -o -name '*hh' | grep -v /out)
+ fixcc $(find flower lily -name '*cc' -o -name '*hh' | grep -v /out)
 
 ''')
 
 def do_options ():
     global indent_p, outdir, verbose_p
     (options, files) = getopt.getopt (sys.argv[1:], '',
-                     ['help', 'indent', 'outdir=',
+                     ['help', 'lazy', 'outdir=',
                      'test', 'verbose'])
     for (o, a) in options:
         if o == '--help':
             usage ()
             sys.exit (0)
-        elif o == '--indent':
-            indent_p = 1
+        elif o == '--lazy':
+            indent_p = 0
         elif o == '--outdir':
             outdir = a
         elif o == '--verbose':
@@ -483,33 +397,7 @@ format = CXX
 socketdir = '/tmp/fixcc'
 socketname = 'fixcc%d' % os.getpid ()
 
-def setup_client ():
-    #--no-window-system\
-    #--batch\
-    os.unlink (os.path.join (socketdir, socketname))
-    os.mkdir (socketdir, 0700)
-    emacs='''emacs\
-        --no-site-file\
-        --no-init-file\
-        --eval '(let ((error nil)
-               (version-control nil))
-            (load-library "server")
-            (setq server-socket-dir "%(socketdir)s")
-            (setq server-name "%(socketname)s")
-            (server-start)
-            (while t) (sleep 1000))' ''' \
-            % { 'socketdir' : socketdir,
-              'socketname' : socketname, }
-              
-    if not os.fork ():
-        os.system (emacs)
-        sys.exit (0)
-    while not os.path.exists (os.path.join (socketdir, socketname)):
-        time.sleep (1)
-
 def main ():
-    #emacsclient should be faster, but this does not work yet
-    #setup_client ()
     files = do_options ()
     if outdir and not os.path.isdir (outdir):
         os.makedirs (outdir)
