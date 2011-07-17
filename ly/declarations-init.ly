@@ -122,31 +122,29 @@ repeatTie = #(make-music 'RepeatTieEvent)
 \include "grace-init.ly"
 \include "midi-init.ly"
 \include "paper-defaults-init.ly"
+\include "context-mods-init.ly"
 
 \layout {
-    mm = #(ly:output-def-lookup $defaultpaper 'mm)
-    unit = #(ly:output-def-lookup $defaultpaper 'unit)
+  mm = #(ly:output-def-lookup $defaultpaper 'mm)
+  unit = #(ly:output-def-lookup $defaultpaper 'unit)
 
-    in = #(* 25.4 mm)
-    pt = #(/  in 72.27)
-    cm = #(* 10 mm)
+  in = #(* 25.4 mm)
+  pt = #(/ in 72.27)
+  cm = #(* 10 mm)
 
-    \include "engraver-init.ly"
+  \include "engraver-init.ly"
 
-    #(set-paper-dimension-variables (current-module))
+  #(set-paper-dimension-variables (current-module))
 }
 
 #(set-default-paper-size (ly:get-option 'paper-size))
 partCombineListener = \layout {
-    \context {
-	\Score
-	skipTypesetting = ##t
-	ignoreBarChecks = ##t
-	\alias "Timing"
-    }
+  \context {
+    \Score
+    skipTypesetting = ##t
+    ignoreBarChecks = ##t
+    \alias "Timing"
+  }
 }
 
 setDefaultDurationToQuarter = { c4 }
-
-
-
