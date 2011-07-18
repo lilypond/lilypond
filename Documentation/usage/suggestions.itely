@@ -326,7 +326,7 @@ files in the @file{Notes} directory:
 
 @example
 %%% top of file "symphony-cello.ly"
-\include ../definitions.ily
+\include ../symphonyDefs.ily
 \include ../Notes/cello.ily
 @end example
 
