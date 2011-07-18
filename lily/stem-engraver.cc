@@ -31,7 +31,7 @@
 #include "stem-tremolo.hh"
 #include "stem.hh"
 #include "stream-event.hh"
-#include "pointer-group-interface.hh"
+
 #include "translator.icc"
 
 class Stem_engraver : public Engraver
@@ -156,16 +156,8 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
 						 ds < 0 ? 1 << -ds : 1,
 						 ds > 0 ? 1 << ds : 1));
       gi.event_cause ()->origin ()->warning (_ ("maybe input should specify polyphonic voices"));
-      if (ds == 1 && dc > 2) {
-	Grob *old_stem = stem_;
-	stem_=0;	
-	make_stem(gi);
-	extract_grob_set (old_stem, "note-heads", heads);
-	for (int i=heads.size(); i--;)
-	  Stem::add_head(stem_, heads[i]);
-      }
     }
-  
+
   Stem::add_head (stem_, gi.grob ());
 }
 
