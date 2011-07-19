@@ -10,8 +10,8 @@
 %% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
   texidocit = "
 Questo modello molto semplice mette a disposizione un rigo con delle note ed è
-quindi adatto per uno strumento solista o per un frammento melodico. Copialo e
-incollalo in un file, aggiungi le note e hai già finito!
+quindi adatto per uno strumento non accompagnato o per un frammento 
+melodico. Copialo e incollalo in un file, aggiungi le note e hai finito!
 
 "
   doctitleit = "Modello di rigo singolo con solo note"
@@ -19,7 +19,9 @@ incollalo in un file, aggiungi le note e hai già finito!
   lsrtags = "template"
 
 
-%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
+
+
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 Esta plantilla simple prepara un pentagrama con notas, adecuado para
 un instrumento solista o un fragmento melódico. Córtelo y péguelo en

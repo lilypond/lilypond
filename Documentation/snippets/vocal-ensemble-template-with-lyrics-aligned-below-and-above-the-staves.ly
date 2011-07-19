@@ -9,8 +9,8 @@
 \header {
 %% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
   texidocit = "
-Questo modello è essenzialmente identico al semplice modello @qq{Gruppo vocale},
-con la differenza che qui tutte le linee del testo sono posizionate
+Questo modello è fondamentalmente analogo al semplice modello @qq{Complesso vocale},
+con l'unica differenza che qui tutti i versi del testo sono posizionati
 usando @code{alignAboveContext} e @code{alignBelowContext}.
 
 "
@@ -19,7 +19,9 @@ usando @code{alignAboveContext} e @code{alignBelowContext}.
   lsrtags = "text, vocal-music, contexts-and-engravers, template"
 
 
-%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
+
+
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 Esta plantilla es, básicamente, la misma que la sencilla plantilla
 @qq{Conjunto vocal}, excepto que aquí todas las líneas de letra se

@@ -9,7 +9,7 @@
 \header {
 %% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
   texidocit = "
-Questo modello mostra un modo di impostare un salmo anglicano. Fa vedere
+Questo modello presenta un modo di impostare un salmo anglicano.  Mostra
 anche come le strofe possono essere aggiunte come testo separato al di sotto
 della musica.  Le due strofe sono scritte con stili diversi per illustrare
 le varie possibilità.
@@ -20,6 +20,11 @@ le varie possibilità.
   lsrtags = "vocal-music, template"
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> c3b519f... Doc-it: fix translations in snippets. Run makelsr.
 %% Translation of GIT committish: 144cd434d02e6d90b2fb738eeee99119a7c5e1d2
 
   texidocde = "

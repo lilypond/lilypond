@@ -11,8 +11,8 @@
   texidocit = "
 Ecco un modello piuttosto complesso, per un gruppo jazz. Si noti che tutti
 gli strumenti sono in @code{\\key c \\major}. Si tratta della tonalità
-in intonazione reale; la tonalità sarà automaticamente trasposta se la
-musica si trova all'interno di una sezione @code{\\transpose}.
+reale; sarà trasposta automaticamente includendo la
+musica all'interno di una sezione @code{\\transpose}.
 
 "
   doctitleit = "Modello per combo jazz"
@@ -20,7 +20,9 @@ musica si trova all'interno di una sezione @code{\\transpose}.
   lsrtags = "keyboards, percussion, fretted-strings, template"
 
 
-%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
+
+
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 Ésta es una plantilla bastante avanzada, para un conjunto de
 jazz. Observe que la notación de todos los instrumentos está en
