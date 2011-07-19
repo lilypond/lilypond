@@ -9,7 +9,7 @@
 \header {
 %% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
   texidocit = "
-Questo modello mostra un modo di impostare un salmo anglicano. Fa vedere
+Questo modello presenta un modo di impostare un salmo anglicano.  Mostra
 anche come le strofe possono essere aggiunte come testo separato al di sotto
 della musica.  Le due strofe sono scritte con stili diversi per illustrare
 le varie possibilità.
@@ -18,6 +18,7 @@ le varie possibilità.
   doctitleit = "Modello per salmo anglicano"
 
   lsrtags = "vocal-music, template"
+
 
 
 
