@@ -1916,6 +1916,7 @@
 	(length . ,ly:stem::calc-length)
 	(neutral-direction . ,DOWN)
 	(positioning-done . ,ly:stem::calc-positioning-done)
+	(stem-begin-position . ,ly:stem::calc-stem-begin-position)
 	(stem-end-position . ,ly:stem::calc-stem-end-position)
 	(stem-info . ,ly:stem::calc-stem-info)
 	(stencil . ,ly:stem::print)

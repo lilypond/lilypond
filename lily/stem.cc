@@ -733,6 +733,32 @@ Stem::thickness (Grob *me)
     * Staff_symbol_referencer::line_thickness (me);
 }
 
+MAKE_SCHEME_CALLBACK (Stem, calc_stem_begin_position, 1);
+SCM
+Stem::calc_stem_begin_position (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Direction d = get_grob_direction (me);
+  Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
+  Grob *lh
+    = to_boolean (me->get_property ("avoid-note-head"))
+    ? last_head (me)
+    : first_head (me);
+
+  Real pos = Staff_symbol_referencer::get_position (lh);
+
+  if (Grob *head = support_head (me))
+    {
+      Interval head_height = head->extent (head, Y_AXIS);
+      Real y_attach = Note_head::stem_attachment_coordinate (head, Y_AXIS);
+
+      y_attach = head_height.linear_combination (y_attach);
+      pos += d * y_attach / half_space;
+    }
+
+  return scm_from_double (pos);
+}
+
 MAKE_SCHEME_CALLBACK (Stem, print, 1);
 SCM
 Stem::print (SCM smob)
@@ -771,7 +797,7 @@ Stem::print (SCM smob)
   Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
 
   if (lh)
-    y2 = Staff_symbol_referencer::get_position (lh);
+    y2 = robust_scm2double (me->get_property ("stem-begin-position"), 0.0);
   else if (stemlet)
     {
       Real beam_translation = Beam::get_beam_translation (beam);
@@ -785,18 +811,6 @@ Stem::print (SCM smob)
     }
 
   Interval stem_y (min (y1, y2), max (y2, y1));
-
-  if (Grob *head = support_head (me))
-    {
-      /*
-	must not take ledgers into account.
-      */
-      Interval head_height = head->extent (head, Y_AXIS);
-      Real y_attach = Note_head::stem_attachment_coordinate (head, Y_AXIS);
-
-      y_attach = head_height.linear_combination (y_attach);
-      stem_y[Direction (-d)] += d * y_attach / half_space;
-    }
 
   // URG
   Real stem_width = thickness (me);
@@ -1110,6 +1124,7 @@ ADD_INTERFACE (Stem,
 	       "note-heads "
 	       "positioning-done "
 	       "rests "
+	       "stem-begin-position "
 	       "stem-end-position "
 	       "stem-info "
 	       "stemlet-length "
