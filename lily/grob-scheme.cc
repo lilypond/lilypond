@@ -18,13 +18,14 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "warn.hh"		// error ()
+#include "font-interface.hh"
+#include "grob-array.hh"
 #include "item.hh"
 #include "output-def.hh"
-#include "system.hh"
-#include "font-interface.hh"
 #include "paper-score.hh"
-#include "grob-array.hh"
+#include "simple-closure.hh"
+#include "system.hh"
+#include "warn.hh"		// error ()
 
 LY_DEFINE (ly_grob_property_data, "ly:grob-property-data",
 	   2, 0, 0, (SCM grob, SCM sym),
@@ -49,6 +50,7 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   if (!ly_is_procedure (val)
+      && !is_simple_closure (val)
       && !type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
     error ("typecheck failed");
 
