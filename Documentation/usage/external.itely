@@ -558,11 +558,10 @@ PNG
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
 
 A transparent PNG
-@end example
 
-@smallexample
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pngalpha --png myfile.ly
-@end smallexample
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts \
+  -dpixmap-format=pngalpha --png myfile.ly
+@end example
 
 
 @node Independent includes
