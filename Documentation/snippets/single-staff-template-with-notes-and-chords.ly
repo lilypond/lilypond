@@ -7,9 +7,19 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidocit = "
+Vuoi preparare un lead sheet con una melodia e gli accordi? La tua ricerca è finita!
+
+"
+  doctitleit = "Modello di rigo singolo con note e accordi"
+
   lsrtags = "chords, template"
 
-%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
+
+
+
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 ¿Quiere preparar una hoja guía de acordes (o «lead sheet») con
 melodía y acordes?  ¡No busque más!

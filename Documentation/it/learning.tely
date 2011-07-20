@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 92190ad98deac78cf32837078741296205072119
+    Translation of GIT committish: 1c846b2c2348b4e0ca4a3c2e8fb267047ba2d203
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -51,11 +51,11 @@ Copyright @copyright{} 1999--2011 by the authors.
 * Concetti fondamentali::             Concetti di base necessari per leggere gli altri manuali.
 * Tweaking output::                Introduzione alla modifica dell'output.
 
-Appendices
+Appendici
 
-* Templates::                      Modelli già pronti.
+* Modelli::                      Modelli già pronti.
 * GNU Free Documentation License:: Licenza di questo documento.
-* LilyPond index::
+* Indice di LilyPond::
 @end menu
 
 @docMain
@@ -72,17 +72,9 @@ Appendices
 @include learning/tutorial.itely
 @include learning/common-notation.itely
 @include learning/fundamental.itely
+@include learning/tweaks.itely
 
-@node Tweaking output
-@chapter Tweaking output
-
-@untranslated
-
-@node Templates
-@appendix Templates
-
-@untranslated
-
+@include learning/templates.itely
 @include fdl.itexi
 
 @node Indice di LilyPond

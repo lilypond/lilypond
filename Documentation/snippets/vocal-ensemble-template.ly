@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 He aquí una partitura vocal estándar para cuatro voces SATB. Con
 grupos mayores, suele ser útil incluir una sección que aparezca en
@@ -26,6 +26,16 @@ voces se reagrupan en sólo dos pentagramas.
 もっと大きな合唱では、すべてのパートで使用されるセクションをインクルードすると@c
 便利です。例えば、拍子記号と調号はほとんど常にすべてのパートで同じです。\"賛美@c
 歌\" テンプレートのように、4 つのボイスは 2 つの譜にグループ分けされています。"
+
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidocit = "
+Ecco una tipica partitura vocale SATB per quattro parti. Se il gruppo è più grande,
+è spesso utile inserire una sezione che venga poi inclusa in tutte le parti.
+Ad esempio, l'indicazione di tempo e l'armatura di chiave sono quasi sempre
+le stesse per tutte le parti. Come nel modello dell'@qq{Inno}, le quattro voci
+sono raggruppate in due righi soltanto.
+"
+  doctitleit = "Modello per gruppo vocale"
 
 %% Translation of GIT committish: bfc88203ac2572737480e78ef2635ed35b458441
   texidocde = "

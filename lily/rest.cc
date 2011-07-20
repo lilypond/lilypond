@@ -80,7 +80,7 @@ string
 Rest::glyph_name (Grob *me, int balltype, string style, bool try_ledgers)
 {
   bool is_ledgered = false;
-  if (try_ledgers && (balltype == 0 || balltype == 1))
+  if (try_ledgers && (balltype == -1 || balltype == 0 || balltype == 1))
     {
       Real rad = Staff_symbol_referencer::staff_radius (me) * 2.0;
       Real pos = Staff_symbol_referencer::get_position (me);
@@ -90,6 +90,7 @@ Rest::glyph_name (Grob *me, int balltype, string style, bool try_ledgers)
 	could bemore generic, but hey, we understand this even after
 	dinner.
       */
+      is_ledgered |= (balltype == -1) && (pos <= -rad - 3 || pos >= +rad + 1);
       is_ledgered |= (balltype == 0) && (pos >= +rad + 2 || pos < -rad);
       is_ledgered |= (balltype == 1) && (pos <= -rad - 2 || pos > +rad);
     }

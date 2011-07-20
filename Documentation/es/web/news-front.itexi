@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: e816bb2cfe498d49732ac66616ca351738585028
+    Translation of GIT committish: 44e7718b042af70430c0adada42bc0f9d5e25a4a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -16,6 +16,76 @@
 @c keep two blank lines between news entries
 
 @c used for news about the upcoming release; see CG 10.2
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.15.4!  @emph{4 de julio de 2011}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.15.4.  Esta versión
+contiene el conjunto habitual de correcciones de fallos.
+
+Se recomienda enérgicamente los usuarios normales que @strong{no}
+utilicen esta versión, sino la 2.14 estable en su lugar.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.15.3!  @emph{27 de junio de 2011}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.15.3.  Esta versión
+contiene el conjunto habitual de correcciones de fallos.
+
+Se recomienda enérgicamente los usuarios normales que @strong{no}
+utilicen esta versión, sino la 2.14 estable en su lugar.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.15.2!  @emph{18 de junio de 2011}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.15.2.  Esta versión
+contiene el conjunto habitual de correcciones de fallos.
+
+Se recomienda enérgicamente los usuarios normales que @strong{no}
+utilicen esta versión, sino la 2.14 estable en su lugar.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.14.1!  @emph{12 de junio de 2011}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.14.1.  Esta versión
+corrige algunos fallos de poca importancia en la versión estable, y no
+debería causar problemas.  Recomendamos a todos que actualicen a esta
+versión.
+
+@newsEnd
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.15.1!  @emph{11 de junio de 2011}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.15.1.  Esta versión
+contiene el conjunto habitual de correcciones de fallos.
+
+Se recomienda enérgicamente los usuarios normales que @strong{no}
+utilicen esta versión, sino la 2.14 estable en su lugar.
+
+@newsEnd
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.15.0!  @emph{7 de junio de 2011}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.15.0.  Marca el
+comienzo de un nuevo esfuerzo de desarrollo no estable, y añade el
+número de errores acostumbrado.
+
+Se recomienda enérgicamente los usuarios normales que @strong{no}
+utilicen esta versión, sino la 2.14 estable en su lugar.
+
+@newsEnd
 
 
 @newsItem
@@ -48,7 +118,7 @@ se evitan las colisiones de barras.
 Se da una lista completa de las funcionalidades nuevas en:
 
 @example
-@uref{http://lilypond.org/doc/v2.14/Documentation/changes/index.html}
+@uref{http://lilypond.org/doc/v2.13/Documentation/changes/index.html}
 @end example
 
 ¡Feliz edición de partituras!  LilyPond 2.14 llega a usted de la mano de...
@@ -63,11 +133,11 @@ Vila, Valentin Villenave.
 
 Colaboradores de programación:
 
-Sven Axelsson, Pál Benkő, Bertrand Bordage, Frédéric Bron, Hajo
-Dezelski, Richard Gay, Keith OHara, Andrew Hawryluk, Christian Hitz,
-Marc Hohl, Henning Hraban Ramm, Ian Hulin, Michael Käppler, Marek
-Klein, Kieren MacMillan, Thomas Morgan, Benjamin Peterson, Nathan
-Reed, Julien Rioux, Boris Shingarov, Patrick Schmidt, Owen Tuz, Andrew
+Sven Axelsson, Pál Benkő, Bertrand Bordage, Frédéric Bron, Peter Chubb, Hajo Dezelski, Richard
+Gay, Keith OHara, Andrew Hawryluk, Christian Hitz, Marc Hohl,
+Henning Hraban Ramm, Ian Hulin, Michael Käppler, Marek Klein,
+Kieren MacMillan, Thomas Morgan, Benjamin Peterson, Nathan Reed,
+Julien Rioux, Boris Shingarov, Patrick Schmidt, Owen Tuz, Jan Warchoł, Andrew
 Wilson, Rodolfo Zitellini.
 
 Colaboradores de fuenteas tipográficas:

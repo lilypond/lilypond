@@ -7,9 +7,72 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidoc = "
+Il frammento di codice del @qq{Modello per quartetto d'archi} crea un bel
+quartetto, ma cosa fare se si ha bisogno di creare le singole parti? Questo
+nuovo modello mostra come usare la funzionalità @code{\\tag} per dividere
+facilmente un pezzo in parti individuali.
+
+Occorre dividere questo modello in file separati; i nomi dei file sono
+indicati nei commenti all'inizio di ogni file. @code{piece.ly}
+contiene tutte le definizioni musicali. Gli altri file – @code{score.ly},
+@code{vn1.ly}, @code{vn2.ly}, @code{vla.ly} e @code{vlc.ly} –
+creano ciascuna parte.
+
+
+Non dimenticare di togliere i commenti specificati quando usi i file separati!
+
+"
+  doctitle = "Modello per quartetto d'archi con parti separate"
+
+
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidoc = "
+Il frammento di codice del @qq{Modello per quartetto d'archi} crea un bel
+quartetto, ma cosa fare se si ha bisogno di creare le singole parti? Questo
+nuovo modello mostra come usare la funzionalità @code{\\tag} per dividere
+facilmente un pezzo in parti individuali.
+
+Occorre dividere questo modello in file separati; i nomi dei file sono
+indicati nei commenti all'inizio di ogni file. @code{piece.ly}
+contiene tutte le definizioni musicali. Gli altri file – @code{score.ly},
+@code{vn1.ly}, @code{vn2.ly}, @code{vla.ly} e @code{vlc.ly} –
+creano ciascuna parte.
+
+
+Non dimenticare di togliere i commenti specificati quando usi i file separati!
+
+"
+  doctitle = "Modello per quartetto d'archi con parti separate"
+
+
+
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidoc = "
+Il frammento di codice del @qq{Modello per quartetto d'archi} crea un bel
+quartetto, ma cosa fare se si ha bisogno di creare le singole parti? Questo
+nuovo modello mostra come usare la funzionalità @code{\\tag} per dividere
+facilmente un pezzo in parti individuali.
+
+Occorre dividere questo modello in file separati; i nomi dei file sono
+indicati nei commenti all'inizio di ogni file. @code{piece.ly}
+contiene tutte le definizioni musicali. Gli altri file – @code{score.ly},
+@code{vn1.ly}, @code{vn2.ly}, @code{vla.ly} e @code{vlc.ly} –
+creano ciascuna parte.
+
+
+Non dimenticare di togliere i commenti specificati quando usi i file separati!
+
+"
+  doctitle = "Modello per quartetto d'archi con parti separate"
+
   lsrtags = "unfretted-strings, template"
 
-%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
+
+
+
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 El fragmento de código @qq{Plantilla de cuarteto de cuerda} produce un
 resultado satisfactorio para el cuarteto, pero ¿y si tenemos que

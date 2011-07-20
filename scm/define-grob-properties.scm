@@ -841,6 +841,8 @@ the @code{staff-staff-spacing} property of the staff's
 structure.")
      (stem-attachment ,number-pair? "An @code{(@var{x} . @var{y})}
 pair where the stem attaches to the notehead.")
+     (stem-begin-position ,number? "Where does the stem begin (the
+position of the support-head)?")
      (stem-end-position ,number? "Where does the stem end (the end is
 opposite to the support-head)?")
      ;;[TODO: doco]

@@ -7,9 +7,23 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidocit = "
+Questo piccolo modello illustra una semplice melodia con del testo. Copialo
+e incollalo, aggiungi le note e le parole. Questo esempio disabilita la
+disposizione automatica delle travature, come è consuetudine per le parti
+vocali. Per usare la disposizione automatica delle travature, cambia o
+commenta la linea in questione.
+
+"
+  doctitleit = "Modello di rigo singolo con note e testo"
+
   lsrtags = "vocal-music, template"
 
-%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
+
+
+
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 Esta pequeña plantilla muestra una melodía sencilla con letra. Córtela
 y péguela, escriba las notas y luego la letra. Este ejemplo desactiva

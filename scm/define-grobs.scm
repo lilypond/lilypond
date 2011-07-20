@@ -1291,7 +1291,6 @@
 	(self-alignment-X . ,LEFT)
 	(break-align-symbols . (time-signature))
 	(non-break-align-symbols . (multi-measure-rest-interface))
-	(non-musical . #t)
 	(meta . ((class . Item)
 		 (interfaces . (break-alignable-interface
 				font-interface
@@ -1916,6 +1915,7 @@
 	(length . ,ly:stem::calc-length)
 	(neutral-direction . ,DOWN)
 	(positioning-done . ,ly:stem::calc-positioning-done)
+	(stem-begin-position . ,ly:stem::calc-stem-begin-position)
 	(stem-end-position . ,ly:stem::calc-stem-end-position)
 	(stem-info . ,ly:stem::calc-stem-info)
 	(stencil . ,ly:stem::print)

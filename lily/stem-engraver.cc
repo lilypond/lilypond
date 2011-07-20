@@ -135,8 +135,22 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
     make_stem (gi);
 
   int ds = Stem::duration_log (stem_);
+  int dc = d->duration_log ();
 
-  if (ds != d->duration_log ())
+  // half notes and quarter notes all have compatible stems.
+  // Longas are done differently (oops?), so we can't unify
+  // them with the other stemmed notes.
+  if (ds == 1)
+    ds = 2;
+  if (dc == 1)
+    dc = 2;
+  // whole notes and brevis both have no stems
+  if (ds == -1)
+    ds = 0;
+  if (dc == -1)
+    dc = 0;
+
+  if (ds != dc) 
     {
       gi.event_cause ()->origin ()->warning (_f ("adding note head to incompatible stem (type = %d/%d)",
 						 ds < 0 ? 1 << -ds : 1,

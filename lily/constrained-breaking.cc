@@ -126,7 +126,6 @@ Constrained_breaking::space_line (vsize i, vsize j)
 {
   bool ragged_right = to_boolean (pscore_->layout ()->c_variable ("ragged-right"));
   bool ragged_last = to_boolean (pscore_->layout ()->c_variable ("ragged-last"));
-  Column_x_positions col;
 
   vector<Grob*> line (all_.begin () + breaks_[i],
 		      all_.begin () + breaks_[j] + 1);

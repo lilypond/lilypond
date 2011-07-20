@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 9f651e1f5143787aeda825a4061f82eede4943a3
+    Translation of GIT committish: ba10db0a4ffe50a260d76179b77c396034434ce4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -23,6 +23,7 @@ generales de LilyPond, más que con la notación específica.
 * Trabajar sobre los archivos de entrada::
 * Controlar la salida::
 * Salida MIDI::
+* Extraer información musical::
 @end menu
 
 
@@ -998,6 +999,10 @@ y referirnos a ellos en la definición del elemento de marcado.
 }
 @end lilypond
 
+@seealso
+Referencia de la notación:
+@ref{Explicación de los bloques de títulos}.
+
 
 @node Disposición personalizada de cabeceras y pies de página
 @unnumberedsubsubsec Disposición personalizada de cabeceras y pies de página
@@ -1018,9 +1023,6 @@ texto, use una o más de las siguientes variables de @code{\paper}:
 @item @code{oddFooterMarkup} (marcado de pie de página impar)
 @item @code{evenFooterMarkup} (marcado de pie de página par)
 @end itemize
-
-Estas variables de marcado se estudian en
-@ref{Presentación predeterminada de los bloques de título del libro y la partitura}.
 
 El ejemplo siguiente centra los números de página en la parte baja de
 las páginas.  En primer lugar, los ajustes predeterminados para
@@ -1050,6 +1052,11 @@ definiéndola como @code{\oddFooterMarkup}:
   }
 }
 @end lilypond
+
+@seealso
+Notation Reference:
+@ref{Explicación de los bloques de títulos},
+@ref{Presentación predeterminada de los bloques de título del libro y la partitura}.
 
 
 @node Referencia a números de página
@@ -1250,7 +1257,6 @@ Archivos de inicio:
 * Inclusión de archivos de LilyPond::
 * Distintas ediciones a partir de una misma fuente::
 * Codificación del texto::
-* Presentar la notación de LilyPond::
 @end menu
 
 
@@ -1774,36 +1780,6 @@ Para escribir el símbolo de copyright en la nota de créditos, utilice:
 @end example
 
 
-@node Presentar la notación de LilyPond
-@subsection Presentar la notación de LilyPond
-@translationof Displaying LilyPond notation
-
-@funindex \displayLilyMusic
-La impresión textual de una expresión musical en notación de LilyPond
-puede hacerse con la función musical @code{\displayLilyMusic} pero solamente
-mediante la línea de órdenes.  Por ejemplo,
-
-@example
-@{
-  \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
-@}
-@end example
-
-imprimirá
-
-@example
-@{ a,4 cis e fis g @}
-@end example
-
-De forma predeterminada, LilyPond imprime estos mensajes en la consola
-junto al resto de los mensajes de la compilación de LilyPond.
-Para discernir entre estos mensajes y
-guardar el resultado de @code{\display@{MATERIAL@}}, redireccione la
-salida hacia un archivo.
-
-@example
-lilypond archivo.ly >resultado.txt
-@end example
 
 
 
@@ -2662,3 +2638,108 @@ como los @notation{trinos}.
 
 Articulate acorta los acordes, y ciertos fragmentos de música
 (especialmente la música de órgano) es posible que suene peor.
+
+
+@node Extraer información musical
+@section Extraer información musical
+@translationof Extracting musical information
+
+Además de crear un resultado visual y MIDI,
+LilyPond es capaz de presentar información
+musical en forma de texto.
+
+@menu
+* Impresión del código de notación de LilyPond::
+* Impresión de las expresiones musicales de Scheme::
+* Guardar los eventos musicales en un archivo::
+@end menu
+
+@node Impresión del código de notación de LilyPond
+@subsection Displaying LilyPond notation
+@translationof Displaying LilyPond notation
+
+@funindex \displayLilyMusic
+La impresión textual de una expresión musical en notación de LilyPond
+puede hacerse con la función musical @code{\displayLilyMusic} pero solamente
+mediante la línea de órdenes.  Por ejemplo,
+
+@example
+@{
+  \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
+@}
+@end example
+
+imprimirá
+
+@example
+@{ a,4 cis e fis g @}
+@end example
+
+De forma predeterminada, LilyPond imprime estos mensajes en la consola
+junto al resto de los mensajes de la compilación de LilyPond.
+Para discernir entre estos mensajes y
+guardar el resultado de @code{\display@{MATERIAL@}}, redireccione la
+salida hacia un archivo.
+
+@example
+lilypond archivo.ly >resultado.txt
+@end example
+
+
+@node Impresión de las expresiones musicales de Scheme
+@subsection Impresión de las expresiones musicales de Scheme
+@translationof Displaying scheme music expressions
+
+Véase @rextend{Presentación de las expresiones musicales}.
+
+
+@node Guardar los eventos musicales en un archivo
+@subsection Guardar los eventos musicales en un archivo
+@translationof Saving music events to a file
+
+Los eventos musicales se pueden guardar en un archivo pentagrama a
+pentagrama mediante la inclusión de un archivo en nuestra partitura
+principal.
+
+@example
+\include "event-listener.ly"
+@end example
+
+De esta forma se crean uno o más archivos llamados
+@file{FILENAME-STAFFNAME.notes} ó @file{FILENAME-unnamed-staff.notes}
+para cada pentagrama.  Observe que si tiene más de un pentagrama sin
+nombre, los eventos de todos los pentagramas se mezclarán entre sí
+dentro del mismo archivo.  El resultado tiene el aspecto siguiente:
+
+@example
+0.000   note     57       4   p-c 2 12
+0.000   dynamic  f
+0.250   note     62       4   p-c 7 12
+0.500   note     66       8   p-c 9 12
+0.625   note     69       8   p-c 14 12
+0.750   rest     4
+0.750   breathe
+@end example
+
+La sintaxis consiste en una línea delimitada por caracteres de
+tabulación, con dos campos fijos en cada línea seguidos de parámetros
+opcionales.
+
+@example
+@var{tiempo}  @var{tipo}  @var{...parámetros...}
+@end example
+
+Esta información se puede leer fácilmente por parte de otros programas
+como guiones de Python, y pueden ser muy útiles para aquellos
+investigadores que desean realizar un análisis musical o hacer
+experimientos de reproducción con LilyPond.
+
+
+@knownissues
+
+No todos los eventos musicales de lilypond están contemplados por
+@file{event-listener.ly}.  Se pretende que sea una @qq{prueba de
+concepto} bien realizada.  Si algunos eventos que quiere ver no
+aparecen incluidos, copie @file{event-listener.ly} en su carpeta de
+lilypond y modifique el archivo de forma que produzca la información
+que desea.

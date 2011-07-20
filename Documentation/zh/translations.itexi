@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最近更新 Thu Mar 24 14:52:33 UTC 2011
+@emph{最近更新 Wed Jul 13 10:59:12 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,7 +84,7 @@ LilyPond --- \TITLE\
 @item
 简介
 @*
-4506
+4564
 @tab 
 @tab 
 @tab 
@@ -102,7 +102,7 @@ LilyPond --- \TITLE\
 @item
 下载
 @*
-1183
+1195
 @tab Ben Luo
 @tab 
 @tab 
@@ -119,17 +119,17 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #25fe1f">部分地</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+部分地
 @end ifnothtml
 @tab pre-GDP
 @item
 手册
 @*
-1200
+1203
 @tab Ben Luo
 @tab 
 @tab 
@@ -146,11 +146,11 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #25fe1f">部分地</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+部分地
 @end ifnothtml
 @tab pre-GDP
 @item

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: f64b0d88f1c8355e87f37d2e6cacdcf47c959d5a
+    Translation of GIT committish: 12503a0c383617cd11fa0bba2836af6c0518ecf7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -209,6 +209,14 @@ En la línea de órdenes, escriba:
 uninstall-lilypond
 @end example
 
+@subsubheading Ayuda
+
+Teclee lo siguiente en el shell:
+
+@example
+sh lilypond-@versionStable{}-SIST-OPERATIVO.sh --help
+@end example
+
 @divEnd
 
 
@@ -232,22 +240,22 @@ actualizar a estas versiones.
 @item
 @sourceimage{logo-fedora,,,}
 @uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
-Fedora: LilyPond 2.12.3}
+Fedora: LilyPond 2.14.1}
 
 @item
 @sourceimage{logo-ubuntu,,,}
 @uref{http://packages.ubuntu.com/search?keywords=lilypond,
-Ubuntu: LilyPond 2.12.2}
+Ubuntu: LilyPond 2.12.3}
 
 @item
 @sourceimage{logo-slackware,,,}
 @uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.12.3}
+Slackware: LilyPond 2.14.1}
 
 @item
 @sourceimage{logo-debian,,,}
 @uref{http://packages.debian.org/search?keywords=lilypond,
-Debian: LilyPond 2.12.2}
+Debian: LilyPond 2.12.3}
 
 @item
 @sourceimage{logo-suse,,,}
@@ -512,7 +520,7 @@ ejecutables de LilyPond de la siguiente manera:
 [@var{ruta preestablecida}];@var{CARPETA}\LilyPond\usr\bin
 @end example
 
-@warning{@var{CARPETA} será por lo general @code{C:\Archivos de programa}.}
+@warning{@var{CARPETA} será por lo general @code{C:@bs{}Archivos de programa}.}
 
 @noindent
 y pulse el botón @qq{Aceptar} para cerrar la ventana.

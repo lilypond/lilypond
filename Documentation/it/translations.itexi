@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Thu Mar 24 14:52:33 UTC 2011
+@emph{Last updated Wed Jul 13 10:59:12 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -37,21 +37,21 @@ Section titles
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (93 %)</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (93 %)
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -74,11 +74,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -155,11 +155,239 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
+@end ifnothtml
+@tab pre-GDP
+@item
+A Modelli
+@*
+225
+@tab Federico Bruni
+@tab Luca Rossetto Casel
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab pre-GDP
+@end multitable
+
+
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
+
+@headitem
+LilyPond: manuale d'uso del programma
+@tab Translators
+@tab Translation checkers
+@tab Translated
+@tab Up to date
+@tab Other info
+@item
+Section titles
+@*
+135
+@tab Federico Bruni
+@tab Luca Rossetto Casel
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab pre-GDP
+@item
+LilyPond --- \TITLE\
+@*
+1139
+@tab Federico Bruni
+@tab Luca Rossetto Casel
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab pre-GDP
+@item
+1 Eseguire @command{lilypond}
+@*
+3622
+@tab Federico Bruni
+@tab Luca Rossetto Casel
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab pre-GDP
+@item
+2 Aggiornare i file con @command{convert-ly}
+@*
+1189
+@tab Federico Bruni
+@tab Luca Rossetto Casel
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab pre-GDP
+@item
+3 Eseguire @command{lilypond-book}
+@*
+3952
+@tab Federico Bruni
+@tab Luca Rossetto Casel
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab pre-GDP
+@item
+4 Programmi esterni
+@*
+2170
+@tab Federico Bruni
+@tab Luca Rossetto Casel
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab pre-GDP
+@item
+5 Consigli su come scrivere i file
+@*
+2694
+@tab Federico Bruni
+@tab Luca Rossetto Casel
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -221,6 +449,33 @@ yes
 @ifhtml
 
 @html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab pre-GDP
+@item
+Introduzione
+@*
+4564
+@tab Federico Bruni
+@tab Luca Rossetto Casel
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
 <span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
@@ -229,36 +484,9 @@ partially
 @end ifnothtml
 @tab pre-GDP
 @item
-Introduzione
-@*
-4506
-@tab Federico Bruni
-@tab Luca Rossetto Casel
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">yes</span>
-@end html
-@end ifhtml
-@ifnothtml
-yes
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">yes</span>
-@end html
-@end ifhtml
-@ifnothtml
-yes
-@end ifnothtml
-@tab pre-GDP
-@item
 Download
 @*
-1183
+1195
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -275,17 +503,17 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
 Manuali
 @*
-1200
+1203
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -302,11 +530,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @item

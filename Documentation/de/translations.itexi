@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Thu Mar 24 14:52:33 UTC 2011
+@emph{Zuletzt aktualisiert am Wed Jul 13 10:59:12 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,7 +84,7 @@ ja
 @item
 1 Notensatz
 @*
-5297
+5296
 @tab  Till Paala
 @tab 
 @tab 
@@ -409,7 +409,7 @@ ja
 @item
 4 Die Ausgabe verändern
 @*
-15408
+15393
 @tab Till Paala
 @tab 
 @tab 
@@ -546,17 +546,17 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #25fe1f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
 1.1 Tonhöhen
 @*
-4479
+4502
 @tab Till Paala
 @tab 
 @tab 
@@ -573,11 +573,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">teilweise</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+ja
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -600,11 +600,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">teilweise</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+ja
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -637,7 +637,7 @@ ja
 @item
 1.4 Wiederholungszeichen
 @*
-930
+945
 @tab Till Paala
 @tab 
 @tab 
@@ -664,7 +664,7 @@ ja
 @item
 1.5 Gleichzeitig erscheinende Noten
 @*
-2163
+2216
 @tab Till Paala
 @tab 
 @tab 
@@ -681,7 +681,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">teilweise</span>
+<span style="background-color: #83fe2c">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -691,7 +691,7 @@ teilweise
 @item
 1.6 Notation auf Systemen
 @*
-2056
+2345
 @tab Till Paala
 @tab 
 @tab 
@@ -708,11 +708,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #9eff30">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -735,11 +735,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">teilweise</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+ja
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -789,11 +789,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #25fe1f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -826,7 +826,7 @@ ja
 @item
 2.2 Tasteninstrumente und andere Instrumente mit mehreren Systemen
 @*
-838
+864
 @tab  Till Paala
 @tab 
 @tab 
@@ -880,7 +880,7 @@ ja
 @item
 2.4 Saiteninstrumente mit Bünden
 @*
-2640
+2649
 @tab Till Paala
 @tab 
 @tab 
@@ -1069,34 +1069,34 @@ ja
 @item
 3 Allgemeine Eingabe und Ausgabe
 @*
-7069
+7671
 @tab Till Paala
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #dfef77">teilweise (90 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise (90 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #83fe2c">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
 4 Abstände
 @*
-11017
+11087
 @tab Till Paala
 @tab 
 @tab 
@@ -1326,7 +1326,7 @@ ja
 @item
 3 @command{lilypond-book} aufrufen
 @*
-3764
+3952
 @tab Reinhold Kainhofer
 @tab Till Paala
 @tab 
@@ -1475,7 +1475,7 @@ ja
 @item
 Einleitung
 @*
-4506
+4564
 @tab Till Paala
 @tab 
 @tab 
@@ -1502,7 +1502,7 @@ ja
 @item
 Download
 @*
-1183
+1195
 @tab Till Paala
 @tab 
 @tab 
@@ -1519,17 +1519,17 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #25fe1f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
 Handbücher
 @*
-1200
+1203
 @tab Till Paala
 @tab 
 @tab 

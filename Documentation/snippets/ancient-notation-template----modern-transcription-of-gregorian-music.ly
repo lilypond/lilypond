@@ -7,9 +7,22 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidocit = "
+Questo esempio mostra come realizzare una trascrizione moderna di musica
+Gregoriana. La musica Gregoriana non ha misure né gambi; utilizza soltanto le
+teste della minima e della semiminima, e dei segni speciali che indicano pause
+di diversa lunghezza.
+
+"
+  doctitleit = "Modello per notazione antica -- trascrizione moderna di musica gregoriana"
+
   lsrtags = "vocal-music, ancient-notation, template"
 
-%% Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
+
+
+
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 Este ejemplo muestra cómo hacer una transcripción moderna de canto
 gregoriano. El canto gregoriano no tiene compás ni plicas; utiliza

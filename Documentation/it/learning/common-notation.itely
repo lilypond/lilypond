@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
+    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -33,9 +33,9 @@ Tutorial guidelines:  (different from policy.txt!)
 @chapter Notazione comunemente utilizzata
 @translationof Common notation
 
-Questo capitolo spiega come creare delle bella musica a stampa che
-faccia uso della notazione musicale comunemente utilizzata, seguendo
-il materiale esposto in @ref{Tutorial}.
+Questo capitolo spiega come creare dei belli spartiti che
+facciano uso della notazione musicale comunemente utilizzata, seguendo
+il materiale esposto nel @ref{Tutorial}.
 
 @menu
 * Notazione su un solo pentagramma::
@@ -106,8 +106,9 @@ una buona conoscenza della teoria musicale!}
 @funindex eses
 @funindex isis
 
-Glossario musicale: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
-@rglos{double flat}, @rglos{accidental}.
+Glossario musicale: @rglosnamed{sharp,diesis}, @rglosnamed{flat,bemolle},
+@rglosnamed{double sharp,doppio diesis},@rglosnamed{double flat,doppio bemolle},
+@rglosnamed{accidental,alterazione o accidente}.
 
 Un @notation{diesis} si ottiene aggiungendo il suffisso @code{is} al nome della nota,
 e un @notation{bemolle} aggiungendo @code{es}.  Come puoi
@@ -115,13 +116,13 @@ immaginare, un @notation{doppio diesis} o un @notation{doppio bemolle}
 si ottengono aggiungendo @code{isis} o @code{eses}.  Questa sintassi
 deriva dalle convenzioni per i nomi delle note presenti nelle lingue
 nordiche e germaniche, come il tedesco e l'olandese.  Per usare altri
-nomi per le @notation{alterazioni}, si veda @ruser{Nomi delle note in altre lingue}.
+nomi per le @notation{alterazioni}, si veda @ruser{Note names in other languages}.
 
 @lilypond[verbatim,quote,relative=2]
 cis4 ees fisis, aeses
 @end lilypond
 
-@cindex chiave, armatura di, impostare
+@cindex armatura di chiave, impostare
 @subheading Armature di chiave
 
 @cindex armatura di chiave
@@ -138,10 +139,10 @@ cis4 ees fisis, aeses
 @funindex \minor
 @funindex minor
 
-Glossario musicale: @rglos{key signature}, @rglos{major},
-@rglos{minor}.
+Glossario musicale: @rglosnamed{key signature,armatura di chiave},
+@rglosnamed{major,maggiore}, @rglosnamed{minor,minore}.
 
-L'@notation{armatura di chiave} viene impostata col comando @code{\key}
+L' @notation{armatura di chiave} viene impostata col comando @code{\key}
 seguito da un'altezza e da @code{\major} o @code{\minor}.
 
 @lilypond[verbatim,quote,relative=2]
@@ -155,23 +156,24 @@ a1 |
 
 @subheading Attenzione: armature di chiave e altezze
 
-Glossario musicale: @rglos{accidental}, @rglos{key signature},
-@rglos{pitch}, @rglos{flat}, @rglos{natural}, @rglos{sharp},
-@rglos{transposition}.
+Glossario musicale: @rglosnamed{accidental,alterazione},
+@rglosnamed{key signature,armatura di chiave}, @rglosnamed{pitch,altezza},
+@rglosnamed{flat,bemolle}, @rglosnamed{natural,bequadro}, @rglosnamed{sharp,diesis},
+@rglosnamed{transposition,trasposizione}.
 
-Per determinare se stampare o meno un'@notation{alterazione}, LilyPond
+Per determinare se mostrare o meno un'@notation{alterazione}, LilyPond
 esamina le altezze e l'@notation{armatura di chiave}.  L'armatura di
-chiave influisce soltanto sulle alterazioni che vengono @emph{stampate}, non
+chiave influisce soltanto sulle alterazioni che vengono @emph{mostrate}, non
 sull'@notation{altezza} della nota!  Questa è una caratteristica che spesso
 causa confusione ai nuovi utenti, quindi la spiegheremo più dettagliatamente.
 
-LilyPond fa una netta distinzione tra contenuto musicale e
-layout.  L'alterazione di (@notation{bemolle}, il segno di @notation{bequadro} o il
-@notation{diesis}) di una nota fanno parte dell'altezza, e sono quindi
+LilyPond fa una netta distinzione tra contenuto musicale e aspetto
+grafico.  L'alterazione (@notation{bemolle}, @notation{bequadro} o
+@notation{diesis}) di una nota fa parte dell'altezza ed è quindi
 contenuto musicale.  Se un'alterazione (un  segno @emph{stampato} di bemolle,
 bequadro o diesis) venga posta oppure no di fronte alla nota corrispondente
-è una questione di layout.  Il layout segue delle regole, dunque
-le alterazioni sono stampate automaticamente in base a queste
+è una questione di aspetto grafico.  La formattazione segue delle regole, dunque
+le alterazioni sono inserite automaticamente in base a queste
 regole.  Le altezze nella tua musica sono opere d'arte, quindi non
 verranno aggiunte in automatico: sei tu a dover inserire la nota che
 vuoi sentire.
@@ -207,7 +209,7 @@ di lavoro in fase di scrittura, ma il vantaggio è che la
 @notation{trasposizione} è più semplice, e le alterazioni possono essere
 prodotte usando diverse convenzioni.  Per alcuni esempi che mostrano come
 sia possibile produrre delle alterazioni in base a regole diverse, si veda
-@ruser{Alterazioni automatiche}.
+@ruser{Automatic accidentals}.
 
 
 @seealso
@@ -235,7 +237,7 @@ Guida alla notazione:
 @subheading Legature di valore
 
 
-Glossario musicale: @rglos{tie}.
+Glossario musicale: @rglosnamed{tie,legatura di valore}.
 
 Una @notation{legatura di valore} si ottiene apponendo una tilde @code{~} alla
 prima nota della legatura.
@@ -247,7 +249,7 @@ g4~ g c2~ | c4~ c8 a~ a2 |
 @subheading Legature di portamento
 
 
-Glossario musicale: @rglos{slur}.
+Glossario musicale: @rglosnamed{slur,legatura di portamento}.
 
 Una @notation{legatura di portamento} è una linea curva che collega più note.  La
 nota iniziale e quella finale sono indicate rispettivamente con
@@ -257,9 +259,10 @@ nota iniziale e quella finale sono indicate rispettivamente con
 d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
-@subheading Legature di fraseggio
+@subheading Legature di frase
 
-Glossario musicale: @rglos{slur}, @rglos{phrasing}.
+Glossario musicale: @rglosnamed{slur,legatura di portamento},
+@rglosnamed{phrasing,legatura di frase}.
 
 Le legature di portamento che indicano una @notation{frase} più lunga
 possono essere inserite con @code{\(} e @code{\)}.  E' possibile avere allo
@@ -276,7 +279,8 @@ a8(\( ais b c) cis2 b'2 a4 cis,\)
 @cindex legature di portamento vs. legature di valore
 @subheading Attenzione: legature di portamento vs. legature di valore
 
-Glossario musicale: @rglos{articulation}, @rglos{slur}, @rglos{tie}.
+Glossario musicale: @rglosnamed{articulation,articolazione},
+@rglosnamed{slur,legatura di portamento}, @rglosnamed{tie,legatura di valore}.
 
 Una @notation{legatura di portamento} ha lo stesso aspetto di una
 @notation{legatura di valore}, ma un significato diverso.  Una legatura
@@ -308,7 +312,7 @@ Guida alla notazione:
 @cindex accento
 @cindex staccato
 
-Glossario musicale: @rglos{articulation}.
+Glossario musicale: @rglosnamed{articulation,articolazione}.
 
 Le @notation{articolazioni} di uso comune possono essere aggiunte a una nota
 con una lineetta @code{-} e un singolo carattere:
@@ -325,7 +329,7 @@ c4-> c-. c2-_
 @funindex ^
 @funindex _
 
-Glossario musicale: @rglos{fingering}.
+Glossario musicale: @rglosnamed{fingering,diteggiatura}.
 
 Analogalmente, le indicazioni di @notation{diteggiatura} possono essere
 aggiunte a una nota con una lineetta (@code{-}) e il numero che si
@@ -364,7 +368,7 @@ c4_-^1 d^. f^4_2-> e^-_+
 @funindex \!
 @funindex !
 
-Glossario musicale: @rglos{dynamics}, @rglos{crescendo},
+Glossario musicale: @rglosnamed{dynamics,dinamica}, @rglos{crescendo},
 @rglos{decrescendo}.
 
 I segni di @notation{dinamica} si ottengono aggiungendo alla nota
@@ -443,7 +447,7 @@ Guida alla notazione:
 @funindex \autoBeamOn
 @funindex autoBeamOn
 
-Glossario musicale: @rglos{beam}.
+Glossario musicale: @rglosnamed{beam,travatura}.
 
 Tutte le @notation{travature} vengono disegnate automaticamente:
 
@@ -452,8 +456,8 @@ a8 ais d ees r d c16 b a8
 @end lilypond
 
 Se non ti piace il modo in cui vengono prodotte automaticamente le travature, è
-possibile sovrascriverle manualmente.  Per correggere soltanto una singola travatura, indica
-la prima nota da raggruppare con @code{[} e l'ultima con @code{]}.
+possibile sovrascriverle manualmente.  Per correggere soltanto una singola
+travatura, indica la prima nota da raggruppare con @code{[} e l'ultima con @code{]}.
 
 @lilypond[verbatim,quote,relative=2]
 a8[ ais] d[ ees r d] c16 b a8
@@ -492,7 +496,7 @@ Guida alla notazione:
 
 Glossario musicale: @rglos{anacrusis}.
 
-Un' @notation{anacrusi}) può essere inserita con la parola chiave
+Un' @notation{anacrusi} può essere inserita con la parola chiave
 @code{\partial}.  Questa è seguita da una durata: @code{\partial 4}
 è un'anacrusi di semiminima e @code{\partial 8} di croma.
 
@@ -509,7 +513,8 @@ c2 d |
 @funindex \times
 @funindex times
 
-Glossario musicale: @rglos{note value}, @rglos{triplet}.
+Glossario musicale: @rglosnamed{note value,durata},
+@rglosnamed{triplet,gruppo irregolare}.
 
 I @notation{gruppi irregolari} vengono preceduti dalla parola chiave
 @code{\times}.  Questa richiede due argomenti: una frazione e un frammento
@@ -537,7 +542,7 @@ una @notation{terzina} ha 2/3 come frazione:
 @funindex \appoggiatura
 @funindex acciaccatura
 
-Glossario musicale: @rglos{grace notes}, @rglos{acciaccatura},
+Glossario musicale: @rglosnamed{grace notes,abbellimenti}, @rglos{acciaccatura},
 @rglos{appoggiatura}.
 
 Gli @notation{abbellimenti} sono creati col comando @code{\grace},
@@ -572,7 +577,7 @@ più di una voce sullo stesso pentagramma.
 
 @menu
 * Espressioni musicali::
-* Pentagrammi multipli::
+* Righi multipli::
 * Gruppi di pentagrammi::
 * Combinare le note negli accordi::
 * Polifonia su un singolo rigo::
@@ -584,9 +589,7 @@ più di una voce sullo stesso pentagramma.
 @translationof Music expressions explained
 
 @cindex espressione musicale
-@cindex espressione, musicale
 @cindex espressione musicale composta
-@cindex espressione musicale, composta
 
 Nei file di input di LilyPond, la musica è rappresentata dalle
 @emph{espressioni musicali}.  Anche una singola nota è un'espressione
@@ -655,7 +658,7 @@ musica complessa come le partiture polifoniche.
 @funindex >>
 @funindex << ... >>
 
-Glossario musicale: @rglos{polyphony}.
+Glossario musicale: @rglosnamed{polyphony,polifonia}.
 
 Questa tecnica è utile per la musica @notation{polifonica}.  Per inserire
 della musica che abbia più voci o più linee di pentagramma, basta combinare
@@ -791,9 +794,9 @@ frequenti delle partiture poliritmiche.
 @funindex ChoirStaff
 
 Glossario musicale:
-@rglos{brace},
-@rglos{staff},
-@rglos{system}.
+@rglosnamed{brace,graffa},
+@rglosnamed{staff,pentagramma o rigo},
+@rglosnamed{system,sistema}.
 
 La musica per pianoforte viene stampata su due righi musicali collegati
 con una @notation{graffa}.
@@ -837,7 +840,7 @@ Guida alla notazione:
 @subsection Combinare le note negli accordi
 @translationof Combining notes into chords
 
-Glossario musicale: @rglos{chord}.
+Glossario musicale: @rglosnamed{chord,accordo}.
 
 @cindex accordi
 @cindex durate delle note negli accordi
@@ -925,7 +928,7 @@ Questa sezione presenta la musica vocale e gli spartiti di semplici canzoni.
 @funindex \addlyrics
 @funindex addlyrics
 
-Glossario musicale: @rglos{lyrics}.
+Glossario musicale: @rglosnamed{lyrics,testo}.
 
 Questo è l'inizio della melodia di una
 filastrocca, @notation{Girls and boys come out to play}:
@@ -955,8 +958,8 @@ separando ogni sillaba con uno spazio.
 >>
 @end lilypond
 
-@warning{È fondamentale che l'ultima sillaba sia dalla parentesi graffa che
-chiude con uno spazio o una nuova linea, altrimenti si presumerà
+@warning{È fondamentale che l'ultima sillaba sia separata dalla parentesi
+graffa di chiusura con uno spazio o una nuova linea, altrimenti si presumerà
 che sia parte della sillaba, e questo causerà un errore poco
 chiaro, vedi @rprogram{Apparent error in ../ly/init.ly}.}
 
@@ -977,7 +980,7 @@ in simultanea.
 @cindex testo, parole polisillabiche
 @cindex parole con sillabe multiple nel testo
 
-Glossario musicale: @rglos{melisma}, @rglos{extender line}.
+Glossario musicale: @rglos{melisma}, @rglosnamed{extender line,linea di estensione}.
 
 La prossima riga della filastrocca è @notation{The moon doth
 shine as bright as day}.  Aggiungiamola:

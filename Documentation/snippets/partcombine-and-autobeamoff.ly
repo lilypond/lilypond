@@ -9,7 +9,7 @@
 \header {
   lsrtags = "rhythms"
 
-%%   Translation of GIT committish: 615cbf212fdaf0b220b3330da417d0c3602494f2
+%%   Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
 
   texidoces = "
 
@@ -47,7 +47,6 @@ necesario hacer tres llamadas a @code{\\autoBeamOff}.
 
 "
   doctitlees = "Partcombine y autoBeamOff"
-
 %%   Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
   texidocde = "
@@ -78,7 +77,6 @@ wenn man es mit @code{\\partcombine} verwendet, muss @code{\\autoBeamOff}
 
 "
 doctitlede = "Partcombine und autoBeamOff"
-
 
 %% Translation of GIT committish: e1a149d0cc60b02e86209387958f4028567dd366
   texidocfr = "
