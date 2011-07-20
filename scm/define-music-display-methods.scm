@@ -856,10 +856,8 @@ Otherwise, return #f."
 
 (define-display-method OverrideProperty (expr parser)
   (let* ((symbol	  (ly:music-property expr 'symbol))
-	 (property-path   (ly:music-property expr 'grob-property-path))
-	 (properties      (if (pair? property-path)
-			      property-path
-			      (list (ly:music-property expr 'grob-property))))
+	 (properties   (ly:music-property expr 'grob-property-path
+                                             (list (ly:music-property expr 'grob-property))))
 	 (value	  (ly:music-property expr 'grob-value))
 	 (once	  (ly:music-property expr 'once)))
 
@@ -879,8 +877,9 @@ Otherwise, return #f."
 	    (new-line->lily-string))))
 
 (define-display-method RevertProperty (expr parser)
-  (let ((symbol (ly:music-property expr 'symbol))
-	(properties (ly:music-property expr 'grob-property-path)))
+  (let* ((symbol (ly:music-property expr 'symbol))
+         (properties (ly:music-property expr 'grob-property-path
+                                             (list (ly:music-property expr 'grob-property)))))
     (format #f "\\revert ~a~a #'~a~a"
 	    (if (eqv? (*current-context*) 'Bottom)
 		""
