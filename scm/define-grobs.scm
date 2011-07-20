@@ -1290,7 +1290,6 @@
 	(self-alignment-X . ,LEFT)
 	(break-align-symbols . (time-signature))
 	(non-break-align-symbols . (multi-measure-rest-interface))
-	(non-musical . #t)
 	(meta . ((class . Item)
 		 (interfaces . (break-alignable-interface
 				font-interface

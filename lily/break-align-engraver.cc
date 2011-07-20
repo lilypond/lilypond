@@ -69,6 +69,13 @@ Break_align_engraver::derived_mark () const
 void
 Break_align_engraver::acknowledge_break_alignable (Grob_info inf)
 {
+  /*
+    Special case for MetronomeMark: filter out items which will be aligned
+    on note heads rather than prefatory material
+  */
+  if (!Item::is_non_musical (inf.item ()))
+    return;
+
   if (!align_)
     create_alignment (inf);
 
@@ -95,7 +102,7 @@ Break_align_engraver::acknowledge_break_aligned (Grob_info inf)
       SCM align_name = item->get_property ("break-align-symbol");
       if (!scm_is_symbol (align_name))
 	return;
-	  
+
       if (!align_)
 	create_alignment (inf);
 

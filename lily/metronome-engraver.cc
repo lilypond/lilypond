@@ -93,6 +93,8 @@ Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
       support_ = g;
       text_->set_parent (g, X_AXIS);
     }
+  if (bar_ || support_)
+    text_->set_property ("non-musical", SCM_BOOL_T);
 }
 
 void
