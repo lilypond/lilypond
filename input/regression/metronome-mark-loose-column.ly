@@ -1,4 +1,4 @@
-\version "2.15.6"
+\version "2.14.2"
 
 \header {
   texidoc = "Metronome marks aligned on notes do not interfere with
