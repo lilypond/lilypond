@@ -29,7 +29,7 @@ class Property_iterator : public Simple_music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
-  DECLARE_SCHEME_CALLBACK (once_finalization, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (once_finalization, (SCM, SCM, SCM));
   DECLARE_CLASSNAME(Property_iterator);
 
 protected:
