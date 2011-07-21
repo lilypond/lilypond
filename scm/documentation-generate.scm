@@ -34,6 +34,7 @@
 	       "document-music.scm"
 	       "document-type-predicates.scm"
 	       "document-identifiers.scm"
+	       "document-context-mods.scm"
 	       "document-backend.scm"
 	       "document-markup.scm"))
 
@@ -72,6 +73,9 @@
  (identifiers-doc-string)
  (open-output-file "identifiers.tely"))
 
+(display
+ context-mods-doc-string
+ (open-output-file "context-mod-identifiers.tely"))
 
 (display
  (backend-properties-doc-string all-user-grob-properties)

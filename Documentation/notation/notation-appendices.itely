@@ -30,6 +30,7 @@
 * All context properties::
 * Layout properties::
 * Available music functions::
+* Context modification identifiers::
 * Predefined type predicates::
 * Scheme functions::
 @end menu
@@ -1375,6 +1376,13 @@ Internals Reference:
 
 @include identifiers.tely
 
+@node Context modification identifiers
+@appendixsec Context modification identifiers
+
+The following commands are defined for use as context modifications
+within a @code{\layout} or @code{\with} block.
+
+@include context-mod-identifiers.tely
 
 @node Predefined type predicates
 @appendixsec Predefined type predicates

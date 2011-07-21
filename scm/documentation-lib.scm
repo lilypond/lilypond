@@ -175,6 +175,10 @@ string-to-use).  If QUOTE? is #t, embed table in a @quotation environment."
 (define (writing-wip x)
   (ly:message (_ "Writing ~S...") x))
 
+(define (identifier<? a b)
+  (ly:string-ci<?
+   (symbol->string (car a))
+   (symbol->string (car b))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; property  stuff.
