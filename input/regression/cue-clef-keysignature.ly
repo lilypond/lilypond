@@ -1,4 +1,4 @@
-\version "2.15.3"
+\version "2.14.2"
 
 \header {
   texidoc = "Clefs for cue notes should not influence the printed key signature."

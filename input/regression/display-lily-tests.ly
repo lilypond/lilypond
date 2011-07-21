@@ -1,4 +1,4 @@
-\version "2.15.5"
+\version "2.14.2"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -42,7 +42,7 @@
           input output))
      (make-music 'SequentialMusic 'void #t)))))
 
-test = 
+test =
 #(define-music-function (parser location result-info strings) (string? pair?)
    (test-function parser location result-info strings))
 
@@ -51,7 +51,7 @@ test =
 %%%
 \header {
   texidoc = "This is a test of the display-lily-music unit. Problems are reported on the
-stderr of this run." 
+stderr of this run."
 }
 
 %% Sequential music
@@ -197,7 +197,7 @@ stderr of this run."
 \test "" ##[ \repeat unfold 2 { c d } #]		% UnfoldedRepeatedMusic
 \test "" ##[ \repeat percent 2 { c d } #]		% PercentRepeatedMusic
 \test "" ##[ \repeat tremolo 4 { c16 d } #]		% TremoloRepeatedMusic
-\test "" ##[ \repeat volta 2 { c4 d } \alternative { { c d } { e f } } #] % 
+\test "" ##[ \repeat volta 2 { c4 d } \alternative { { c d } { e f } } #] %
 
 %% Context creation
 \test "" ##[ \new Staff { c d } #]			% ContextSpeccedMusic

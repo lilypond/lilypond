@@ -3,7 +3,7 @@
   texidoc = "Beams over skips do not cause a segfault."
 }
 
-\version "2.15.3"
+\version "2.14.2"
 
 \layout { ragged-right = ##t }
 
