@@ -20,16 +20,19 @@
 \version "2.14.0"
 
 #(use-modules (scm song))
+#(use-modules (srfi srfi-39))
 
 % \festival #"filename" { \tempo N = X } { music }
 festival =
-#(define-music-function (parser location filename tempo music) (string? ly:music? ly:music?)
-  (output-file music tempo filename)
-  music)
+#(define-music-function (parser location filename tempo music)
+   (string? ly:music? ly:music?)
+   (output-file music tempo filename)
+   music)
 
 % \festivalsyl #"filename" { \tempo N = X } { music }
 festivalsyl =
-#(define-music-function (parser location filename tempo music) (string? ly:music? ly:music?)
-  (set! *syllabify* #t)
-  (output-file music tempo filename)
-  music)
+#(define-music-function (parser location filename tempo music)
+   (string? ly:music? ly:music?)
+   (parameterize ((*syllabify* #t))
+     (output-file music tempo filename))
+   music)
