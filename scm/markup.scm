@@ -538,7 +538,7 @@ Uncovered - cheap-markup? is used."
 	       (ly:stencil? (cadr stencils)))
           (let* ((tail (stack-stencil-line space (cdr stencils)))
                  (head (car stencils))
-                 (xoff (+ space (cdr (ly:stencil-extent head X)))))
+                 (xoff (+ space (interval-length (ly:stencil-extent head X)))))
             (ly:stencil-add head
                              (ly:stencil-translate-axis tail xoff X)))
           (car stencils))

@@ -1485,8 +1485,10 @@ setting of the @code{direction} layout property.
 (define (general-column align-dir baseline mols)
   "Stack @var{mols} vertically, aligned to  @var{align-dir} horizontally."
 
-  (let* ((aligned-mols (map (lambda (x) (ly:stencil-aligned-to x X align-dir)) mols)))
-    (stack-lines -1 0.0 baseline aligned-mols)))
+  (let* ((aligned-mols (map (lambda (x) (ly:stencil-aligned-to x X align-dir)) mols))
+         (stacked-stencil (stack-lines -1 0.0 baseline aligned-mols))
+         (stacked-extent (ly:stencil-extent stacked-stencil X)))
+    (ly:stencil-translate-axis stacked-stencil (- (car stacked-extent)) X )))
 
 (define-markup-command (center-column layout props args)
   (markup-list?)
