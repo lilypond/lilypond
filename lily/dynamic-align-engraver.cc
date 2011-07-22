@@ -116,6 +116,23 @@ void
 Dynamic_align_engraver::acknowledge_dynamic (Grob_info info)
 {
   Stream_event *cause = info.event_cause ();
+  // Check whether an existing line spanner has the same direction
+  if (line_ && cause)
+    {
+      Direction line_dir = get_grob_direction (line_);
+      Direction grob_dir = to_dir (cause->get_property ("direction"));
+
+      // If we have an explicit direction for the new dynamic grob
+      // that differs from the current line spanner, break the spanner
+      if (grob_dir && (line_dir != grob_dir))
+        {
+          if (!ended_line_)
+            ended_line_ = line_;
+          line_ = 0;
+          current_dynamic_spanner_ = 0;
+        }
+    }
+
   create_line_spanner (cause);
   if (Spanner::has_interface (info.grob ()))
     {
@@ -131,9 +148,6 @@ Dynamic_align_engraver::acknowledge_dynamic (Grob_info info)
 
   if (cause)
     {
-      // TODO: Compare the direction of the existing spanner with
-      //       the new one and if they differ, create a new line
-      //       spanner.
       if (Direction d = to_dir (cause->get_property ("direction")))
 	set_grob_direction (line_, d);
     }
