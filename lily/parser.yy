@@ -270,6 +270,8 @@ If we give names, Bison complains.
 /* Artificial tokens, for more generic function syntax */
 %token <i> EXPECT_MARKUP;
 %token <i> EXPECT_MUSIC;
+%token <i> EXPECT_PITCH;
+%token <i> EXPECT_DURATION;
 %token <i> EXPECT_SCM;
 %token <i> EXPECT_MARKUP_LIST
 /* After the last argument. */
@@ -1075,11 +1077,22 @@ function_arglist_music_last:
 	;
 
 function_arglist_nonmusic_last:
-	EXPECT_MARKUP function_arglist full_markup {
+	EXPECT_NO_MORE_ARGS {
+		/* This is for 0-ary functions, so they don't need to
+		   read a lookahead token */
+		$$ = SCM_EOL;
+	}
+	| EXPECT_MARKUP function_arglist full_markup {
 		$$ = scm_cons ($3, $2);
 	}
 	| EXPECT_MARKUP function_arglist simple_string {
 		$$ = scm_cons ($3, $2);
+	}
+	| EXPECT_PITCH function_arglist pitch {
+	  	$$ = scm_cons ($3, $2);
+	}
+	| EXPECT_DURATION function_arglist_nonmusic_last duration_length {
+	   	$$ = scm_cons ($3, $2);
 	}
 	| EXPECT_SCM function_arglist function_scm_argument {
 		$$ = scm_cons ($3, $2);
@@ -1095,17 +1108,19 @@ function_arglist_nonmusic: EXPECT_NO_MORE_ARGS {
 	| EXPECT_MARKUP function_arglist_nonmusic simple_string {
 		$$ = scm_cons ($3, $2);
 	}
+	| EXPECT_PITCH function_arglist_nonmusic pitch {
+	  	$$ = scm_cons ($3, $2);
+	}
+	| EXPECT_DURATION function_arglist_nonmusic duration_length {
+	   	$$ = scm_cons ($3, $2);
+	}
 	| EXPECT_SCM function_arglist_nonmusic function_scm_argument {
 		$$ = scm_cons ($3, $2);
 	}
 	;
 
-function_arglist: EXPECT_NO_MORE_ARGS {
-		/* This is for 0-ary functions, so they don't need to
-		   read a lookahead token */
-		$$ = SCM_EOL;
-	}
-	| function_arglist_music_last
+function_arglist:
+	function_arglist_music_last
 	| function_arglist_nonmusic_last
 	;
 

@@ -106,5 +106,6 @@ INSTANTIATE_COMPARE (Pitch, Pitch::compare);
 
 extern SCM pitch_less_proc;
 Pitch pitch_interval (Pitch const &from, Pitch const &to);
+extern SCM Pitch_type_p_proc;
 
 #endif /* PITCH_HH */
