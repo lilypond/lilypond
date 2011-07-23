@@ -1376,7 +1376,7 @@ changes and a label identifying the source instrument, can be
 tagged for selective inclusion in the score; see @ref{Using tags}.
 
 @lilypond[verbatim,quote]
-flute = \relative c'' {
+fluteNotes = \relative c'' {
   r2. c4 d8 c d e fis2 g2 d2
 }
 
@@ -1399,7 +1399,7 @@ bassoonNotes = \relative c {
 }
 \new StaffGroup <<
   \new Staff {
-    \flute
+    \fluteNotes
   }
   \new Staff {
     \removeWithTag #'part { \killCues { \bassoonNotes } }
