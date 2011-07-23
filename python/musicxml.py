@@ -837,7 +837,7 @@ class Part (Music_xml_node):
                 continue
 
             if isinstance (n, Attributes):
-                # assign these only to the voices they really belongs to!
+                # assign these only to the voices they really belong to!
                 for (s, vids) in staff_to_voice_dict.items ():
                     staff_attributes = part.extract_attributes_for_staff (n, s)
                     if staff_attributes:
