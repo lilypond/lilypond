@@ -121,6 +121,10 @@ tweaks reference.
 @itemize
 
 @item
+@ref{All}:
+previous stable versions and current as a compressed archive.
+
+@item
 @ref{Translated}:
 translation status for non-English readers.
 
