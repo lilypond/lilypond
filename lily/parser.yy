@@ -1126,7 +1126,7 @@ function_arglist:
 
 generic_prefix_music_scm:
 	MUSIC_FUNCTION function_arglist {
-		$$ = ly_append2 (scm_list_2 ($1, make_input (@$)), scm_reverse_x ($2, SCM_EOL));
+		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($2, SCM_EOL)));
 	}
 	;
 
@@ -1606,10 +1606,10 @@ music_function_chord_body:
 	   but it's more consistent with music_function_event if we
 	   prohibit it here too */
 	music_function_identifier_musicless_prefix EXPECT_MUSIC function_arglist_nonmusic chord_body_element {
-		$$ = ly_append2 (scm_list_2 ($1, make_input (@$)), scm_reverse_x ($3, scm_list_1 ($4)));
+		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($3, scm_list_1 ($4))));
 	}
 	| music_function_identifier_musicless_prefix function_arglist_nonmusic {
-		$$ = ly_append2 (scm_list_2 ($1, make_input (@$)), scm_reverse_x ($2, SCM_EOL));
+		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($2, SCM_EOL)));
 	}
 	;
 
@@ -1618,10 +1618,10 @@ music_function_event:
 	   restriction we get a shift/reduce conflict from e.g.
 	   c8-\partcombine c8 -. */
 	music_function_identifier_musicless_prefix EXPECT_MUSIC function_arglist_nonmusic post_event {
-		$$ = ly_append2 (scm_list_2 ($1, make_input (@$)), scm_reverse_x ($3, scm_list_1 ($4)));
+		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($3, scm_list_1 ($4))));
 	}
 	| music_function_identifier_musicless_prefix function_arglist_nonmusic {
-		$$ = ly_append2 (scm_list_2 ($1, make_input (@$)), scm_reverse_x ($2, SCM_EOL));
+		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($2, SCM_EOL)));
 	}
 	;
 
