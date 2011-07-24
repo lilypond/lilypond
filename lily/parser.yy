@@ -327,6 +327,7 @@ If we give names, Bison complains.
 /* Music */
 %type <scm> composite_music
 %type <scm> grouped_music_list
+%type <scm> closed_music
 %type <scm> music
 %type <scm> prefix_composite_music
 %type <scm> repeated_music
@@ -1056,6 +1057,12 @@ composite_music:
 	| grouped_music_list { $$ = $1; }
 	;
 
+/* Music that can't be followed by additional events or durations */
+closed_music:
+	MUSIC_IDENTIFIER
+	| grouped_music_list
+	;
+
 grouped_music_list:
 	simultaneous_music		{ $$ = $1; }
 	| sequential_music		{ $$ = $1; }
@@ -1268,38 +1275,23 @@ relative_music:
 new_lyrics:
 	ADDLYRICS { PARSER->lexer_->push_lyric_state (); }
 	/*cont */
-	grouped_music_list {
+	closed_music {
 	/* Can also use music at the expensive of two S/Rs similar to
            \repeat \alternative */
 		PARSER->lexer_->pop_state ();
 
 		$$ = scm_cons ($3, SCM_EOL);
 	}
-	| ADDLYRICS {
-		PARSER->lexer_->push_lyric_state (); }
-	MUSIC_IDENTIFIER {
-		PARSER->lexer_->pop_state ();
-		$$ = scm_cons ($3, SCM_EOL);
-	}
 	| new_lyrics ADDLYRICS {
 		PARSER->lexer_->push_lyric_state ();
-	} grouped_music_list {
-		PARSER->lexer_->pop_state ();
-		$$ = scm_cons ($4, $1);
-	}
-	| new_lyrics ADDLYRICS {
-		PARSER->lexer_->push_lyric_state ();
-	} MUSIC_IDENTIFIER {
+	} closed_music {
 		PARSER->lexer_->pop_state ();
 		$$ = scm_cons ($4, $1);
 	}
 	;
 
 re_rhythmed_music:
-	grouped_music_list new_lyrics {
-		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
-	}
-	| MUSIC_IDENTIFIER new_lyrics {
+	closed_music new_lyrics {
 		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
 	}
 	| LYRICSTO simple_string {
