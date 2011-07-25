@@ -200,7 +200,17 @@ See
 @emph{The Not So Short Introduction to @LaTeX{}}} for an overview on how
 to use @LaTeX{}.
 
-Music is entered using
+@code{lilypond-book} provides the following commands and environments to include
+music in @LaTeX{} files:
+
+@itemize @bullet
+@item the @code{\lilypond@{...@}} command, where you can directly enter short lilypond code
+@item the @code{\begin@{lilypond@}...\end@{lilypond@}} environment, where you can directly enter longer lilypond code
+@item the @code{\lilypondfile@{...@}} command to insert a lilypond file
+@item the @code{\musicxmlfile@{...@}} command to insert a MusicXML file, which will be processed by @code{musicxml2ly} and @code{lilypond}.
+@end itemize
+
+In the input file, music is specified with
 
 @example
 \begin@{lilypond@}[options,go,here]
@@ -212,15 +222,21 @@ Music is entered using
 or
 
 @example
-\lilypondfile[options,go,here]@{@var{filename}@}
+\lilypond[options,go,here]@{ YOUR LILYPOND CODE @}
 @end example
-
-@noindent
 or
 
 @example
-\lilypond[options,go,here]@{ YOUR LILYPOND CODE @}
+\lilypondfile[options,go,here]@{@var{filename}@}
 @end example
+or
+
+@example
+\musicxmlfile[options,go,here]@{@var{filename}@}
+@end example
+
+
+@noindent
 
 Additionally, @code{\lilypondversion} displays the current version
 of lilypond.
@@ -397,6 +413,16 @@ Texinfo is the standard format for documentation of the GNU project.  An
 example of a Texinfo document is this manual.  The HTML, PDF, and Info
 versions of the manual are made from the Texinfo document.
 
+@code{lilypond-book} provides the following commands and environments to include
+music into Texinfo files:
+
+@itemize @bullet
+@item the @code{@@lilypond@{...@}} command, where you can directly enter short lilypond code
+@item the @code{@@lilypond...@@end lilypond} environment, where you can directly enter longer lilypond code
+@item the @code{@@lilypondfile@{...@}} command to insert a lilypond file
+@item the @code{@@musicxmlfile@{...@}} command to insert a MusicXML file, which will be processed by @code{musicxml2ly} and @code{lilypond}.
+@end itemize
+
 In the input file, music is specified with
 
 @example
@@ -417,6 +443,11 @@ or
 
 @example
 @@lilypondfile[options,go,here]@{@var{filename}@}
+@end example
+or
+
+@example
+@@musicxmlfile[options,go,here]@{@var{filename}@}
 @end example
 
 Additionally, @code{@@lilypondversion} displays the current version
@@ -461,6 +492,16 @@ in-line image.  It always gets a paragraph of its own.
 @node HTML
 @subsection HTML
 
+@code{lilypond-book} provides the following commands and environments to include
+music in HTML files:
+
+@itemize @bullet
+@item the @code{<lilypond .... />} command, where you can directly enter short lilypond code
+@item the @code{<lilyond>...</lilypond>} environment, where you can directly enter longer lilypond code
+@item the @code{<lilypondfile>...</lilypondfile>} command to insert a lilypond file
+@item the @code{<musicxmlfile>...</musicxmlfile>} command to insert a MusicXML file, which will be processed by @code{musicxml2ly} and @code{lilypond}.
+@end itemize
+
 Music is entered using
 
 @example
@@ -489,6 +530,9 @@ To include separate files, say
 @example
 <lilypondfile @var{option1} @var{option2} ...>@var{filename}</lilypondfile>
 @end example
+
+@code{<musicxmlfile>} uses the same syntax as @code{<lilypondfile>}, but simply
+references a MusicXML file rather than a LilyPond file.
 
 For a list of options to use with the @code{lilypond} or
 @code{lilypondfile} tags, see @ref{Music fragment options}.
