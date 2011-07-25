@@ -346,9 +346,9 @@ our official indentation as produced with @code{fixcc.py}.
 
 @example
 (add-hook 'c++-mode-hook
-     '(lambda() (c-set-style "gnu"))
-      (setq indent-tabs-mode nil)
-       )
+     '(lambda ()
+        (c-set-style "gnu")
+        (setq indent-tabs-mode nil))
 @end example
 
 If you like using font-lock, you can also add this to your
