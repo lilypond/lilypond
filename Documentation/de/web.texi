@@ -163,9 +163,9 @@ Lesen Sie mehr in der @ref{Einleitung}!
 
 @subsubheading Entwicklerversion
 
-@ref{Gemeinschaft, @versionDevel herunterladen}
+@ref{Entwicklung, @versionDevel herunterladen}
 
-@ref{Gemeinschaft, @versionDevel Handbücher}
+@ref{Entwicklung, @versionDevel Handbücher}
 
 @divEnd
 @end ifset
