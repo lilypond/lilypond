@@ -1570,7 +1570,6 @@ chord_body_element:
 	}
 	| DRUM_PITCH post_events {
 		Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
-		n->set_property ("duration", $2);
 		n->set_property ("drum-type", $1);
 
 		if (scm_is_pair ($2)) {
