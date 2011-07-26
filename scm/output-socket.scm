@@ -70,9 +70,9 @@
 	      -1))
      (name (assoc-get 'name (ly:grob-property grob 'meta))))
 
-    (apply format
-	   (append (list "cause ~a \"~a\" ~a ~a ~a ~a\n" tag name)
-		   (grob-bbox grob offset)))))
+    (apply format #f
+	   "cause ~a \"~a\" ~a ~a ~a ~a\n" tag name
+	   (grob-bbox grob offset))))
 
 (define (named-glyph font glyph)
   (format #f "glyphshow ~a \"~a\" ~a \"~a\""
