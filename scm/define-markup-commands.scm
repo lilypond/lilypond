@@ -684,7 +684,7 @@ rings = \\markup {
   ;; FIXME
   (ly:make-stencil
    (list 'embedded-ps
-	 (format "
+	 (format #f "
 gsave currentpoint translate
 0.1 setlinewidth
  ~a
@@ -2655,7 +2655,7 @@ Use the filled head if @var{filled} is specified.
 }
 @end lilypond"
   (let*
-      ((name (format "arrowheads.~a.~a~a"
+      ((name (format #f "arrowheads.~a.~a~a"
 		     (if filled
 			 "close"
 			 "open")
@@ -2969,7 +2969,7 @@ Construct a note symbol, with stem.  By using fractional values for
 @end lilypond"
   (define (get-glyph-name-candidates dir log style)
     (map (lambda (dir-name)
-	   (format "noteheads.~a~a" dir-name
+	   (format #f "noteheads.~a~a" dir-name
 		   (if (and (symbol? style)
 			    (not (equal? 'default style)))
 		       (select-head-glyph style (min log 2))
@@ -3451,7 +3451,7 @@ when @var{label} is not found."
 		       (page-number (if (list? table)
 		                        (assoc-get label table)
 					#f))
-		       (page-markup (if page-number (format "~a" page-number) default))
+		       (page-markup (if page-number (format #f "~a" page-number) default))
 		       (page-stencil (interpret-markup layout props page-markup))
 		       (gap (- (interval-length x-ext)
 			       (interval-length (ly:stencil-extent page-stencil X)))))

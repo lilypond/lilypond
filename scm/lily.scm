@@ -585,7 +585,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 	  (assoc-get 'total-cells-allocated  stats 0))))
 
 (define (dump-profile base last this)
-  (let* ((outname (format "~a.profile" (dir-basename base ".ly")))
+  (let* ((outname (format #f "~a.profile" (dir-basename base ".ly")))
 	 (diff (map (lambda (y) (apply - y)) (zip this last))))
     (ly:progress "\nWriting timing to ~a..." outname)
     (format (open-file outname "w")
@@ -622,18 +622,15 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 			 ".scm"))
 	 (outfile (open-file out-file-name "w")))
     (set! gc-dumping #t)
-    (display (format "Dumping GC statistics ~a...\n" out-file-name))
-    (display (map (lambda (y)
-		    (let ((x (car y))
-			  (c (cdr y)))
-		      (display
-		       (format "~a (~a) = ~a\n" (object-address x) c x)
-		       outfile)))
-		  (filter
-		   (lambda (x)
-		     (not (symbol? (car x))))
-		   protects))
-	     outfile)
+    (format #t "Dumping GC statistics ~a...\n" out-file-name)
+    (for-each (lambda (y)
+		(let ((x (car y))
+		      (c (cdr y)))
+		  (format outfile "~a (~a) = ~a\n" (object-address x) c x)))
+	      (filter
+	       (lambda (x)
+		 (not (symbol? (car x))))
+	       protects))
     (format outfile "\nprotected symbols: ~a\n"
 	    (apply + (map (lambda (obj-count)
 			    (if (symbol? (car obj-count))
@@ -659,13 +656,10 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     (newline outfile)
     (let* ((stats (gc-stats)))
       (for-each (lambda (sym)
-		  (display
-		   (format "~a ~a ~a\n"
-			   gc-protect-stat-count
-			   sym
-			   (assoc-get sym stats "?"))
-
-		   outfile))
+		  (format outfile "~a ~a ~a\n"
+			  gc-protect-stat-count
+			  sym
+			  (assoc-get sym stats "?")))
 		'(protected-objects bytes-malloced cell-heap-size)))
     (set! gc-dumping #f)
     (close-port outfile)))
@@ -686,7 +680,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 				 (string-match "^VmData:[ \t]*([0-9]*) kB" l))
 			       lines)))
 	 (mem (string->number (match:substring (car interesting) 1))))
-    (display (format  "VMDATA: ~a\n" mem))
+    (format #t "VMDATA: ~a\n" mem)
     (display (gc-stats))
     (if (> mem 100000)
 	(begin (dump-gc-protects)
@@ -752,7 +746,7 @@ PIDs or the number of the process."
 	    (ly:set-option 'log-file "lilypond-multi-run"))
 	(if (number? joblist)
 	    (begin (ly:set-option
-		    'log-file (format "~a-~a"
+		    'log-file (format #f "~a-~a"
 				      (ly:get-option 'log-file) joblist))
 		   (set! files (vector-ref split-todo joblist)))
 	    (begin (ly:progress "\nForking into jobs:  ~a\n" joblist)
@@ -768,7 +762,7 @@ PIDs or the number of the process."
 		    (lambda (x)
 		      (let* ((job (car x))
 			     (state (cdr x))
-			     (logfile (format "~a-~a.log"
+			     (logfile (format #f "~a-~a.log"
 					      (ly:get-option 'log-file) job))
 			     (log (ly:gulp-file logfile))
 			     (len (string-length log))
@@ -776,7 +770,7 @@ PIDs or the number of the process."
 			(if (status:term-sig state)
 			    (ly:message
 			     "\n\n~a\n"
-			     (format (_ "job ~a terminated with signal: ~a")
+			     (format #f (_ "job ~a terminated with signal: ~a")
 				     job (status:term-sig state)))
 			    (ly:message
 			     (_ "logfile ~a (exit ~a):\n~a")
@@ -794,7 +788,7 @@ PIDs or the number of the process."
 		       (ly:exit 1 #f))))))
 
   (if (string-or-symbol? (ly:get-option 'log-file))
-      (ly:stderr-redirect (format "~a.log" (ly:get-option 'log-file)) "w"))
+      (ly:stderr-redirect (format #f "~a.log" (ly:get-option 'log-file)) "w"))
   (let ((failed (lilypond-all files)))
     (if (ly:get-option 'trace-scheme-coverage)
 	(begin
@@ -813,7 +807,7 @@ PIDs or the number of the process."
 	 (ping-log
 	  (if separate-logs
 	      (open-file (if (string-or-symbol? (ly:get-option 'log-file))
-			     (format "~a.log" (ly:get-option 'log-file))
+			     (format #f "~a.log" (ly:get-option 'log-file))
 			     "/dev/stderr") "a") #f))
 	 (do-measurements (ly:get-option 'dump-profile))
 	 (handler (lambda (key failed-file)
@@ -827,7 +821,7 @@ PIDs or the number of the process."
 	      (base (dir-basename x ".ly"))
 	      (all-settings (ly:all-options)))
 	 (if separate-logs
-	     (ly:stderr-redirect (format "~a.log" base) "w"))
+	     (ly:stderr-redirect (format #f "~a.log" base) "w"))
 	 (if ping-log
 	     (format ping-log "Processing ~a\n" base))
 	 (if (ly:get-option 'trace-memory-frequency)

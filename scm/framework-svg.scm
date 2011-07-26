@@ -132,7 +132,7 @@ src: url('~a');
 	(module-remove! (ly:outputter-module outputter) 'paper))
     (if (ly:get-option 'svg-woff)
 	(dump (woff-header paper (dirname filename))))
-    (dump (comment (format "Page: ~S/~S" page-number page-count)))
+    (dump (comment (format #f "Page: ~S/~S" page-number page-count)))
     (ly:outputter-output-scheme outputter
 				`(begin (set! lily-unit-length ,unit-length)
 					""))
@@ -178,11 +178,11 @@ src: url('~a');
 	 (page-count (length page-stencils))
 	 (filename "")
 	 (file-suffix (lambda (num)
-			(if (= page-count 1) "" (format "-page-~a" num)))))
+			(if (= page-count 1) "" (format #f "-page-~a" num)))))
     (for-each
       (lambda (page)
 	(set! page-number (1+ page-number))
-	(set! filename (format "~a~a.svg"
+	(set! filename (format #f "~a~a.svg"
 			       basename
 			       (file-suffix page-number)))
 	(dump-page paper filename page page-number page-count))
@@ -196,4 +196,4 @@ src: url('~a');
 		  (stack-stencils Y DOWN 0.0
 				  (map paper-system-stencil
 				       (reverse to-dump-systems)))
-		  (format "~a.preview.svg" basename))))
+		  (format #f "~a.preview.svg" basename))))

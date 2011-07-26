@@ -333,7 +333,7 @@ and duration-log @var{log}."
 (define-public (tuplet-number::calc-fraction-text grob)
   (let ((ev (event-cause grob)))
 
-    (format "~a:~a"
+    (format #f "~a:~a"
 	    (ly:event-property ev 'denominator)
 	    (ly:event-property ev 'numerator))))
 
@@ -363,7 +363,7 @@ and duration-log @var{log}."
          (den (if denominator denominator (ly:event-property ev 'denominator)))
          (num (if numerator numerator (ly:event-property ev 'numerator))))
 
-    (format "~a:~a" den num)))
+    (format #f "~a:~a" den num)))
 
 ;; Print a tuplet fraction with note durations appended to the numerator and the
 ;; denominator
@@ -385,10 +385,10 @@ and duration-log @var{log}."
          (num (if numerator numerator (ly:event-property ev 'numerator))))
 
     (make-concat-markup (list
-			 (make-simple-markup (format "~a" den))
+			 (make-simple-markup (format #f "~a" den))
 			 (markup #:fontsize -5 #:note denominatornote UP)
 			 (make-simple-markup " : ")
-			 (make-simple-markup (format "~a" num))
+			 (make-simple-markup (format #f "~a" num))
 			 (markup #:fontsize -5 #:note numeratornote UP)))))
 
 

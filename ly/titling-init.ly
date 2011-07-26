@@ -16,7 +16,7 @@ tagline = \markup {
     %% 2014 = em dash.
 
     #(ly:export
-      (format "Music engraving by LilyPond ~a~awww.lilypond.org"
+      (format #f "Music engraving by LilyPond ~a~awww.lilypond.org"
        (lilypond-version)
        (ly:wide-char->utf-8 #x2014)
        ))

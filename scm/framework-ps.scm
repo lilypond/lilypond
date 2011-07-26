@@ -90,7 +90,7 @@
   (ly:outputter-dump-string
    outputter
    (string-append
-    (format "%%Page: ~a ~a\n" page-number page-number)
+    (format #f "%%Page: ~a ~a\n" page-number page-number)
     "%%BeginPageSetup\n"
     (if landscape?
 	"page-width output-scale lily-output-units mul mul 0 translate 90 rotate\n"
@@ -112,7 +112,7 @@
 	 (names (apply append (map extract-names fonts))))
     (apply string-append
 	   (map (lambda (f)
-		  (format
+		  (format #f
 		   (if load-fonts?
 		       "%%DocumentSuppliedResources: font ~a\n"
 		       "%%DocumentNeededResources: font ~a\n")
@@ -163,7 +163,7 @@
 		 "%%EndComments\n"))
 
 (define (procset file-name)
-  (format
+  (format #f
    "%%BeginResource: procset (~a) 1 0
 ~a
 %%EndResource
@@ -171,7 +171,7 @@
    file-name (cached-file-contents file-name)))
 
 (define (embed-document file-name)
-  (format "%%BeginDocument: ~a
+  (format #f "%%BeginDocument: ~a
 ~a
 %%EndDocument
 "
@@ -190,10 +190,10 @@
 (define-public (ps-embed-cff body font-set-name version)
   (let* ((binary-data
 	  (string-append
-	   (format "/~a ~s StartData " font-set-name (string-length body))
+	   (format #f "/~a ~s StartData " font-set-name (string-length body))
 	   body))
 	 (header
-	  (format
+	  (format #f
 	   "%%BeginResource: font ~a
 %!PS-Adobe-3.0 Resource-FontSet
 %%DocumentNeededResources: ProcSet (FontSetInit)
@@ -227,11 +227,11 @@
 	      (begin
 		(set! file-name (ly:string-substitute (ly:get-option 'datadir)
 						      "" file-name))
-		(format
+		(format #f
 		 "lilypond-datadir (~a) concatstrings (r) file .loadfont\n"
 		 file-name))
-	      (format "(~a) (r) file .loadfont\n" file-name))
-	  (format "% cannot find font file: ~a\n" file-name)))
+	      (format #f "(~a) (r) file .loadfont\n" file-name))
+	  (format #f "% cannot find font file: ~a\n" file-name)))
 
     (let* ((font (car font-name-filename))
 	   (name (cadr font-name-filename))
@@ -243,7 +243,7 @@
 		(cond
 		 ((internal-font? file-name)
 		  (ps-load-file (ly:find-file
-				 (format "~a.otf" file-name))))
+				 (format #f "~a.otf" file-name))))
 		 ((string? bare-file-name)
 		  (ps-load-file file-name))
 		 (else
@@ -441,7 +441,7 @@
 
 
 (define-public (output-framework basename book scopes fields)
-  (let* ((filename (format "~a.ps" basename))
+  (let* ((filename (format #f "~a.ps" basename))
 	 (outputter (ly:make-paper-outputter
 		     ;; FIXME: better wrap open/open-file,
 		     ;; content-mangling is always bad.
@@ -531,7 +531,7 @@
 		     ;; FIXME: better wrap open/open-file,
 		     ;; content-mangling is always bad.
 		     ;; MINGW hack: need to have "b"inary for embedding CFFs
-		     (open-file (format "~a.eps" filename) "wb")
+		     (open-file (format #f "~a.eps" filename) "wb")
 		     'ps))
 	 (port (ly:outputter-port outputter))
 	 (rounded-bbox (to-rounded-bp-box bbox))
@@ -563,7 +563,7 @@
 	      (bbox (list (car xext) (car yext)
 			  (cdr xext) (cdr yext)))
 	      (filename (if (< 0 count)
-			    (format "~a-~a" basename count)
+			    (format #f "~a-~a" basename count)
 			    basename)))
 	 (set! count (1+ count))
 	 (dump-stencil-as-EPS-with-bbox paper
@@ -572,10 +572,10 @@
 					(ly:get-option 'include-eps-fonts)
 					bbox)
 	 (if do-pdf
-	     (postscript->pdf 0 0 (format "~a.eps" filename)))
+	     (postscript->pdf 0 0 (format #f "~a.eps" filename)))
 	 (if do-png
 	     (postscript->png (ly:get-option 'resolution) 0 0
-			      (format "~a.eps" filename)))))
+			      (format #f "~a.eps" filename)))))
      extents-system-pairs)))
 
 (define-public (clip-system-EPSes basename paper-book)
@@ -590,7 +590,7 @@
       (for-each
        (lambda (region)
 	 (clip-systems-to-region
-	  (format "~a-from-~a-to-~a-clip"
+	  (format #f "~a-from-~a-to-~a-clip"
 		  basename
 		  (rhythmic-location->file-string (car region))
 		  (rhythmic-location->file-string (cdr region)))
@@ -619,7 +619,7 @@
 		(if (pair? system-list)
 		    (clip-score-systems
 		     (if (> count 0)
-			 (format "~a-~a" basename count)
+			 (format #f "~a-~a" basename count)
 			 basename)
 		     system-list)))
 	      score-system-list)))
@@ -632,10 +632,10 @@
 			 (stack-stencils Y DOWN 0.0
 					 (map paper-system-stencil
 					      (reverse to-dump-systems)))
-			 (format "~a.preview" basename)
+			 (format #f "~a.preview" basename)
 			 #t)
     (postprocess-output book framework-ps-module
-			(format "~a.preview.eps" basename)
+			(format #f "~a.preview.eps" basename)
 			(cons "png" (ly:output-formats)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

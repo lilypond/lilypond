@@ -640,7 +640,7 @@ with optional arrows of @code{max-size} on start and end controlled by
                             (markup #:whiteout
                                     #:simple (cond
                                               ((interval-empty? extent)
-                                               (format "empty"))
+                                               "empty")
                                               (is-length
                                                (ly:format "~$" (interval-length extent)))
                                               (else

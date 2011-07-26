@@ -179,14 +179,14 @@ bookoutput function"
   ;; as the key to out internal a-list
   (let* ((base-name (get-current-filename parser))
 	 (output-suffix (get-current-suffix parser))
-	 (alist-key (format "~a~a" base-name output-suffix))
+	 (alist-key (format #f "~a~a" base-name output-suffix))
 	 (counter-alist (ly:parser-lookup parser 'counter-alist))
 	 (output-count (assoc-get alist-key counter-alist 0))
 	 (result base-name))
     ;; Allow all ASCII alphanumerics, including accents
     (if (string? output-suffix)
         (set! result
-              (format "~a-~a"
+              (format #f "~a-~a"
                       result
                       (string-regexp-substitute
                        "[^-[:alnum:]]"

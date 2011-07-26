@@ -68,7 +68,7 @@ additional_definitions = {
     (let* ((ev (event-cause grob))
            (den (if denominator denominator (ly:event-property ev 'denominator)))
            (num (if numerator numerator (ly:event-property ev 'numerator))))
-       (format "~a:~a" den num)))
+       (format #f "~a:~a" den num)))
 """,
 }
 

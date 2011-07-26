@@ -185,7 +185,7 @@ used.  This is used to select the proper design size for the text fonts.
 	       ,(list->vector
 		 (map (lambda (tup)
 			(cons (ly:pt (cdr tup))
-			      (format "~a-~a ~a"
+			      (format #f "~a-~a ~a"
 				      name
 				      (car tup)
 				      (ly:pt (cdr tup)))))
@@ -194,12 +194,12 @@ used.  This is used to select the proper design size for the text fonts.
 		,(list->vector
 		  (map (lambda (size-tup)
 			 (delay (ly:system-font-load
-				 (format "~a-~a" name (car size-tup)))))
+				 (format #f "~a-~a" name (car size-tup)))))
 		       design-size-alist
 		       )))
      (fetaBraces ,(ly:pt 20.0)
 		 #(,(delay (ly:system-font-load
-			    (format "~a-brace" name)))))
+			    (format #f "~a-brace" name)))))
      )))
 		 
 (define-public (add-pango-fonts node lily-family family factor)

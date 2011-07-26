@@ -565,7 +565,7 @@ only ~a fret labels provided")
 (define-public (fret-number-tablature-format
                 context string-number fret-number)
   (make-vcenter-markup
-    (format "~a" fret-number)))
+    (format #f "~a" fret-number)))
 
 ;; The 5-string banjo has got a extra string, the fifth (duh), which
 ;; starts at the fifth fret on the neck.  Frets on the fifth string

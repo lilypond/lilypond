@@ -36,7 +36,7 @@
 
 (define-public (output-framework channel book scopes fields)
   (let* ((ctor-arg (if (string? channel)
-		       (open-output-file (format "~a.socket" channel))
+		       (open-output-file (format #f "~a.socket" channel))
 		       channel))
 	 (outputter (ly:make-paper-outputter
 		     ctor-arg
@@ -48,27 +48,27 @@
 		(let* ((system-stencil (paper-system-stencil x))
 		       (x-extent (ly:stencil-extent system-stencil X))
 		       (y-extent (ly:stencil-extent system-stencil Y)))
-		  (format ctor-arg (ly:format "system ~4l ~4l ~4l ~4l\n"
-			  (car x-extent) (car y-extent) (cdr x-extent) (cdr y-extent)))
+		  (display (ly:format "system ~4l ~4l ~4l ~4l\n"
+			  (car x-extent) (car y-extent) (cdr x-extent) (cdr y-extent)) ctor-arg)
 		  (ly:outputter-dump-stencil outputter system-stencil)))
 	      systems)))
 
 (define-public (output-classic-framework channel book scopes fields)
   (let* ((ctor-arg (if (string? channel)
-		       (open-output-file (format "~a.socket" channel))
+		       (open-output-file (format #f "~a.socket" channel))
 		       channel))
 	 (outputter (ly:make-paper-outputter
 		     ctor-arg
 		     'socket))
 	 (systems (ly:paper-book-systems book))
 	 (paper (ly:paper-book-paper book)))
-    (format ctor-arg (ly:format "paper ~4l\n" (get-page-dimensions paper)))
+    (display (ly:format "paper ~4l\n" (get-page-dimensions paper)) ctor-arg)
     (for-each (lambda (x)
 		(let* ((system-stencil (paper-system-stencil x))
 		       (x-extent (ly:stencil-extent system-stencil X))
 		       (y-extent (ly:stencil-extent system-stencil Y)))
-		  (format ctor-arg (ly:format "system ~4l ~4l ~4l ~4l\n"
-			  (car x-extent) (car y-extent) (cdr x-extent) (cdr y-extent)))
+		  (display (ly:format "system ~4l ~4l ~4l ~4l\n"
+			  (car x-extent) (car y-extent) (cdr x-extent) (cdr y-extent)) ctor-arg)
 		  (ly:outputter-dump-stencil outputter system-stencil)))
 	      systems)))
 
