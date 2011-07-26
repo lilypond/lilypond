@@ -179,6 +179,13 @@ string-to-use).  If QUOTE? is #t, embed table in a @quotation environment."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; property  stuff.
 
+(define (verify-type-name where sym type)
+  (if (eq? type #f)
+      (ly:error (_ "cannot find description for property `~S' (~S)")
+                sym
+                where))
+  (type-name type))
+
 (define (property->texi where sym . rest)
   "Document SYM for WHERE (which can be translation, backend, music),
 with init values from ALIST (1st optional argument)
@@ -190,7 +197,7 @@ with init values from ALIST (1st optional argument)
 	 (doc-name (string->symbol
 		    (string-append (symbol->string where) "-doc")))
 	 (type (object-property sym type?-name))
-	 (typename (type-name type))
+	 (typename (verify-type-name where sym type))
 	 (desc (object-property sym doc-name))
 	 (init-value (assoc-get sym alist)))
 
