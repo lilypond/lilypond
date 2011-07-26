@@ -100,6 +100,7 @@ System_start_delimiter::print (SCM smob)
   Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
 
   Interval ext;
+  Real staffspace = 1.0;
   int non_empty_count = 0;
   for (vsize i = elts.size (); i--;)
     {
@@ -113,14 +114,17 @@ System_start_delimiter::print (SCM smob)
 	    {
 	      non_empty_count ++;
 	      ext.unite (dims);
+              staffspace = Staff_symbol_referencer::staff_space (sp);
 	    }
 	}
     }
 
   SCM glyph_sym = me->get_property ("style");
   Real len = ext.length ();
+
+  // Use collapse-height in multiples of the staff-space
   if (ext.is_empty ()
-      || (robust_scm2double (me->get_property ("collapse-height"), 0.0) >= ext.length ()))
+      || (robust_scm2double (me->get_property ("collapse-height"), 0.0) >= (len / staffspace)))
     {
       me->suicide ();
       return SCM_UNSPECIFIED;

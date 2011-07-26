@@ -219,6 +219,9 @@ stderr of this run."
 \test "" ##[ \once \override Beam #'beam-thickness = #0.6 #]
 \test "" ##[ \revert Staff . Stem #'thickness #]	% RevertProperty
 \test "" ##[ \revert Beam #'beam-thickness #]
+\test "NOT A BUG" ##[ \oneVoice #]	% resetting a bunch of properties
+\test "" ##[ \override StaffGrouper #'(staff-staff-spacing basic-distance) = #7 #] % nested properties
+\test "" ##[ \revert StaffGrouper #'(staff-staff-spacing basic-distance) #] % nested properties
 
 %% \applyOutput
 \test "" ##[ \applyOutput #'Foo #(lambda (arg) (list)) #]

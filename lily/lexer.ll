@@ -46,6 +46,7 @@
 using namespace std;
 
 #include "context-def.hh"
+#include "duration.hh"
 #include "identifier-smob.hh"
 #include "international.hh"
 #include "interval.hh"
@@ -58,6 +59,7 @@ using namespace std;
 #include "music-function.hh"
 #include "parse-scm.hh"
 #include "parser.hh"
+#include "pitch.hh"
 #include "source-file.hh"
 #include "std-string.hh"
 #include "string-convert.hh"
@@ -794,11 +796,17 @@ Lily_lexer::scan_escaped_word (string str)
 		push_extra_token (EXPECT_NO_MORE_ARGS);
 		for (; scm_is_pair (s); s = scm_cdr (s))
 		{
-			if (scm_car (s) == ly_music_p_proc)
+			SCM cs = scm_car (s);
+			
+			if (cs == ly_music_p_proc)
 				push_extra_token (EXPECT_MUSIC);
-			else if (scm_car (s) == ly_lily_module_constant ("markup?"))
+			else if	(cs == Pitch_type_p_proc)
+				push_extra_token (EXPECT_PITCH);
+			else if (cs == Duration_type_p_proc)
+				push_extra_token (EXPECT_DURATION);
+			else if (cs == ly_lily_module_constant ("markup?"))
 				push_extra_token (EXPECT_MARKUP);
-			else if (ly_is_procedure (scm_car (s)))
+			else if (ly_is_procedure (cs))
 				push_extra_token (EXPECT_SCM);
 			else programming_error ("Function parameter without type-checking predicate");
 		}

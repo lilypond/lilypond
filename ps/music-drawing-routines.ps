@@ -95,16 +95,25 @@ bind def
 
 /draw_round_box % width height x y blot
 {
-	setlinewidth % w h x y
-	0 setlinecap
-	1 setlinejoin
+        dup
+	0.0 gt {
+		setlinewidth % w h x y
+		0 setlinecap
+		1 setlinejoin
 
-	rmoveto % w h
-	currentpoint % w h x1 y1
-	4 2 roll % x1 y1 w h
-	4 copy
-	rectfill
-	rectstroke
+		rmoveto % w h
+		currentpoint % w h x1 y1
+		4 2 roll % x1 y1 w h
+		4 copy
+		rectfill
+		rectstroke
+	} {
+		pop % w h x y
+		rmoveto % w h
+		currentpoint % w h x1 y1
+		4 2 roll % x1 y1 w h
+		rectfill
+	} ifelse
 } bind def
 
 /draw_polygon % fill? x(n) y(n) x(n-1) y(n-1) ... x(0) y(0) n blot

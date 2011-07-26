@@ -7,6 +7,7 @@ import os
 import string
 import codecs
 import zipfile
+import tempfile
 import StringIO
 
 """
@@ -2788,7 +2789,17 @@ def read_musicxml (filename, compressed, use_lxml):
     if compressed:
         if filename == "-":
              progress (_ ("Input is compressed, extracting raw MusicXML data from stdin") )
-             z = zipfile.ZipFile (sys.stdin)
+             # unfortunately, zipfile.ZipFile can't read directly from
+             # stdin, so copy everything from stdin to a temp file and read
+             # that. TemporaryFile() will remove the file when it is closed.
+             tmp = tempfile.TemporaryFile()
+             sys.stdin = os.fdopen(sys.stdin.fileno(), 'rb', 0) # Make sys.stdin binary
+             bytes_read = sys.stdin.read (8192)
+             while bytes_read:
+                 for b in bytes_read:
+                     tmp.write(b)
+                 bytes_read = sys.stdin.read (8192)
+             z = zipfile.ZipFile (tmp, "r")
         else:
             progress (_ ("Input file %s is compressed, extracting raw MusicXML data") % filename)
             z = zipfile.ZipFile (filename, "r")

@@ -4,6 +4,9 @@
 all:	 default
 	$(LOOP)
 
+bin:
+	$(MAKE) PACKAGE=$(PACKAGE) package=$(package) -C lily
+
 man:
 	$(LOOP)
 
@@ -68,6 +71,7 @@ help: generic-help local-help
 	@echo
 	@echo "Other generic targets:"
 	@echo "  default      same as the empty target"
+	@echo "  bin          check the lily directory and rebuild lilypond.exe if needed"
 	@echo "  exe          update all executables"
 	@echo "  help         this help"
 	@echo "  lib          update all libraries"

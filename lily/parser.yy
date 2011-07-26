@@ -270,6 +270,8 @@ If we give names, Bison complains.
 /* Artificial tokens, for more generic function syntax */
 %token <i> EXPECT_MARKUP;
 %token <i> EXPECT_MUSIC;
+%token <i> EXPECT_PITCH;
+%token <i> EXPECT_DURATION;
 %token <i> EXPECT_SCM;
 %token <i> EXPECT_MARKUP_LIST
 /* After the last argument. */
@@ -325,6 +327,7 @@ If we give names, Bison complains.
 /* Music */
 %type <scm> composite_music
 %type <scm> grouped_music_list
+%type <scm> closed_music
 %type <scm> music
 %type <scm> prefix_composite_music
 %type <scm> repeated_music
@@ -1054,6 +1057,12 @@ composite_music:
 	| grouped_music_list { $$ = $1; }
 	;
 
+/* Music that can't be followed by additional events or durations */
+closed_music:
+	MUSIC_IDENTIFIER
+	| grouped_music_list
+	;
+
 grouped_music_list:
 	simultaneous_music		{ $$ = $1; }
 	| sequential_music		{ $$ = $1; }
@@ -1075,11 +1084,22 @@ function_arglist_music_last:
 	;
 
 function_arglist_nonmusic_last:
-	EXPECT_MARKUP function_arglist full_markup {
+	EXPECT_NO_MORE_ARGS {
+		/* This is for 0-ary functions, so they don't need to
+		   read a lookahead token */
+		$$ = SCM_EOL;
+	}
+	| EXPECT_MARKUP function_arglist full_markup {
 		$$ = scm_cons ($3, $2);
 	}
 	| EXPECT_MARKUP function_arglist simple_string {
 		$$ = scm_cons ($3, $2);
+	}
+	| EXPECT_PITCH function_arglist pitch {
+	  	$$ = scm_cons ($3, $2);
+	}
+	| EXPECT_DURATION function_arglist_nonmusic_last duration_length {
+	   	$$ = scm_cons ($3, $2);
 	}
 	| EXPECT_SCM function_arglist function_scm_argument {
 		$$ = scm_cons ($3, $2);
@@ -1095,23 +1115,25 @@ function_arglist_nonmusic: EXPECT_NO_MORE_ARGS {
 	| EXPECT_MARKUP function_arglist_nonmusic simple_string {
 		$$ = scm_cons ($3, $2);
 	}
+	| EXPECT_PITCH function_arglist_nonmusic pitch {
+	  	$$ = scm_cons ($3, $2);
+	}
+	| EXPECT_DURATION function_arglist_nonmusic duration_length {
+	   	$$ = scm_cons ($3, $2);
+	}
 	| EXPECT_SCM function_arglist_nonmusic function_scm_argument {
 		$$ = scm_cons ($3, $2);
 	}
 	;
 
-function_arglist: EXPECT_NO_MORE_ARGS {
-		/* This is for 0-ary functions, so they don't need to
-		   read a lookahead token */
-		$$ = SCM_EOL;
-	}
-	| function_arglist_music_last
+function_arglist:
+	function_arglist_music_last
 	| function_arglist_nonmusic_last
 	;
 
 generic_prefix_music_scm:
 	MUSIC_FUNCTION function_arglist {
-		$$ = ly_append2 (scm_list_2 ($1, make_input (@$)), scm_reverse_x ($2, SCM_EOL));
+		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($2, SCM_EOL)));
 	}
 	;
 
@@ -1253,38 +1275,23 @@ relative_music:
 new_lyrics:
 	ADDLYRICS { PARSER->lexer_->push_lyric_state (); }
 	/*cont */
-	grouped_music_list {
+	closed_music {
 	/* Can also use music at the expensive of two S/Rs similar to
            \repeat \alternative */
 		PARSER->lexer_->pop_state ();
 
 		$$ = scm_cons ($3, SCM_EOL);
 	}
-	| ADDLYRICS {
-		PARSER->lexer_->push_lyric_state (); }
-	MUSIC_IDENTIFIER {
-		PARSER->lexer_->pop_state ();
-		$$ = scm_cons ($3, SCM_EOL);
-	}
 	| new_lyrics ADDLYRICS {
 		PARSER->lexer_->push_lyric_state ();
-	} grouped_music_list {
-		PARSER->lexer_->pop_state ();
-		$$ = scm_cons ($4, $1);
-	}
-	| new_lyrics ADDLYRICS {
-		PARSER->lexer_->push_lyric_state ();
-	} MUSIC_IDENTIFIER {
+	} closed_music {
 		PARSER->lexer_->pop_state ();
 		$$ = scm_cons ($4, $1);
 	}
 	;
 
 re_rhythmed_music:
-	grouped_music_list new_lyrics {
-		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
-	}
-	| MUSIC_IDENTIFIER new_lyrics {
+	closed_music new_lyrics {
 		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
 	}
 	| LYRICSTO simple_string {
@@ -1563,7 +1570,6 @@ chord_body_element:
 	}
 	| DRUM_PITCH post_events {
 		Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
-		n->set_property ("duration", $2);
 		n->set_property ("drum-type", $1);
 
 		if (scm_is_pair ($2)) {
@@ -1591,10 +1597,10 @@ music_function_chord_body:
 	   but it's more consistent with music_function_event if we
 	   prohibit it here too */
 	music_function_identifier_musicless_prefix EXPECT_MUSIC function_arglist_nonmusic chord_body_element {
-		$$ = ly_append2 (scm_list_2 ($1, make_input (@$)), scm_reverse_x ($3, scm_list_1 ($4)));
+		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($3, scm_list_1 ($4))));
 	}
 	| music_function_identifier_musicless_prefix function_arglist_nonmusic {
-		$$ = ly_append2 (scm_list_2 ($1, make_input (@$)), scm_reverse_x ($2, SCM_EOL));
+		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($2, SCM_EOL)));
 	}
 	;
 
@@ -1603,10 +1609,10 @@ music_function_event:
 	   restriction we get a shift/reduce conflict from e.g.
 	   c8-\partcombine c8 -. */
 	music_function_identifier_musicless_prefix EXPECT_MUSIC function_arglist_nonmusic post_event {
-		$$ = ly_append2 (scm_list_2 ($1, make_input (@$)), scm_reverse_x ($3, scm_list_1 ($4)));
+		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($3, scm_list_1 ($4))));
 	}
 	| music_function_identifier_musicless_prefix function_arglist_nonmusic {
-		$$ = ly_append2 (scm_list_2 ($1, make_input (@$)), scm_reverse_x ($2, SCM_EOL));
+		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($2, SCM_EOL)));
 	}
 	;
 

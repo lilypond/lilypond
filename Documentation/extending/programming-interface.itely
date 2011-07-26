@@ -66,7 +66,18 @@ where
 
 @item @code{@var{typeN?}}
 @tab a scheme @emph{type predicate} for which @code{@var{argN}}
-must return @code{#t}.
+must return @code{#t}.  Some of these predicates are specially
+recognized by the parser, making the respective values be read in
+Lilypond syntax rather than in Scheme syntax.  Currently these are
+@code{ly:music?}, @code{markup?}, @code{ly:pitch?}, and
+@code{ly:duration?}.  Not all combinations are allowed: i.e., you can't
+look for a duration after music since music may end @emph{optionally}
+with a duration.
+
+If you really want to input some of those items as a Scheme rather than
+a Lilypond expression, you may wrap them in a call of @code{ly:export}.
+@c TODO: document what kind of argument lists are permitted in what
+@c syntactical context of a music function call.
 
 @item @code{@var{music}}
 @tab A music expression, optionally written in scheme, with any

@@ -318,76 +318,61 @@ The class Class_name is coded in @q{class-name.*}
 @node Indentation
 @subsection Indentation
 
-Standard GNU coding style is used.  In emacs:
+Standard GNU coding style is used.
 
-@verbatim
-             (add-hook 'c++-mode-hook
-                  '(lambda() (c-set-style "gnu")
-                     ))
-@end verbatim
+@subsubheading Indenting files with @code{fixcc.py} (recommended)
 
-If you like using font-lock, you can also add this to your
-@q{.emacs}:
-
-@verbatim
-             (setq font-lock-maximum-decoration t)
-             (setq c++-font-lock-keywords-3
-                   (append
-                    c++-font-lock-keywords-3
-                    '(("\\b\\(a-zA-Z_?+_\\)\\b" 1 font-lock-variable-name-face) ("\\b\\(A-Z?+a-z_?+\\)\\b" 1 font-lock-type-face))
-                    ))
-@end verbatim
-
-Some source files may not currently have proper indenting.  If this
-is the case, it is desirable to fix the improper indenting when the
-file is modified, with the hope of continually improving the code.
-
-
-@subheading Indenting files with fixcc.py
-
-LilyPond provides a python script that will correct the indentation
-on a c++ file:
+LilyPond provides a python script that will adjust the indentation
+and spacing on a @code{.cc} or @code{.hh} file to very near the
+GNU standard:
 
 @example
-scripts/auxiliar/fixcc.py lily/my-test-file.cc
+scripts/auxiliar/fixcc.py FILENAME
 @end example
 
-Be sure you replace @file{my-test-file.cc} with the name of the file
-that you edited.
-
-If you are editing a file that contains an ADD_TRANSLATOR or ADD_INTERFACE
-macro, the fixcc.py script will move the final parenthesis up one line
-from where it should be.  Please check the end of the file before
-you run fixcc.py, and then put the final parenthesis and semicolon
-back on a line by themselves.
-
-
-@subheading Indenting files with emacs in script mode
-
-@c email to wl@gnu.org when I get here.
-
-@warning{this is pending some confirmation on -devel.  July 2009 -gp}
-
-Command-line script to format stuff with emacs:
+This can be run on all files at once, but this is not recommended
+for normal contributors or developers.
 
 @smallexample
-#!/bin/sh
-emacs $1 -batch --eval '(indent-region (point-min) (point-max) nil)' -f save-buffer
+scripts/auxiliar/fixcc.py \
+  fixcc $(find flower lily -name '*cc' -o -name '*hh' | grep -v /out)
 @end smallexample
 
-(that's all on one line)
 
-Save it as a shell script, then run on the file(s) you modified.
+@subsubheading Indenting with emacs
+
+The following hooks will produce indentation which is similar to
+our official indentation as produced with @code{fixcc.py}.
+
+@example
+(add-hook 'c++-mode-hook
+     '(lambda ()
+        (c-set-style "gnu")
+        (setq indent-tabs-mode nil))
+@end example
+
+If you like using font-lock, you can also add this to your
+@file{.emacs}:
+
+@example
+(setq font-lock-maximum-decoration t)
+(setq c++-font-lock-keywords-3
+      (append
+       c++-font-lock-keywords-3
+       '(("\\b\\(a-zA-Z_?+_\\)\\b" 1 font-lock-variable-name-face) ("\\b\\(A-Z?+a-z_?+\\)\\b" 1 font-lock-type-face))
+       ))
+@end example 
+
 
 @subheading Indenting with vim
 
-Although emacs indentation is the LilyPond standard, acceptable
+Although emacs indentation is the GNU standard, acceptable
 indentation can usually be accomplished with vim.  Some hints for
 vim are as follows:
 
 A workable .vimrc:
 
-@verbatim
+@example
 set cindent
 set smartindent
 set autoindent
@@ -399,22 +384,22 @@ set incsearch
 set ignorecase smartcase
 set hlsearch
 set confirm
-set statusline=%F%m%r%h%w\ %{&ff}\ %Y\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ %04l,%04v\ %p%%\ [LEN=%L]
+set statusline=%F%m%r%h%w\ %@{&ff@}\ %Y\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ %04l,%04v\ %p%%\ [LEN=%L]
 set laststatus=2
 set number
 " Remove trailing whitespace on write
 autocmd BufWritePre * :%s/\s\+$//e
-@end verbatim
+@end example
 
-With this .vimrc, files can be reindented automatically by highlighting
-the lines to be indented in visual mode (use V to enter visual mode)
-and pressing =.
+With this @file{.vimrc}, files can be reindented automatically by
+highlighting the lines to be indented in visual mode (use V to
+enter visual mode) and pressing @code{=}.
 
-A scheme.vim file will help improve the indentation.  This one
-was suggested by Patrick McCarty.  It should be saved in
-~/.vim/after/syntax/scheme.vim.
+A @file{scheme.vim} file will help improve the indentation.  This
+one was suggested by Patrick McCarty.  It should be saved in
+@file{~/.vim/after/syntax/scheme.vim}.
 
-@verbatim
+@example
 " Additional Guile-specific 'forms'
 syn keyword schemeSyntax define-public define*-public
 syn keyword schemeSyntax define* lambda* let-keywords*
@@ -445,7 +430,7 @@ set lw-=set!
 
 " Try to highlight all ly: procedures
 syn match schemeFunc "ly:[^) ]\+"
-@end verbatim
+@end example
 
 
 @node Naming conventions

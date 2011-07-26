@@ -19,14 +19,13 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(define-module (scm song))
-
-(use-modules (srfi srfi-1))
-(use-modules (ice-9 optargs))
-(use-modules (ice-9 receive))
-
-(use-modules (lily))
-(use-modules (scm song-util))
+(define-module (scm song)
+  #:use-module (srfi srfi-1)
+  #:use-module (srfi srfi-39)
+  #:use-module (ice-9 optargs)
+  #:use-module (ice-9 receive)
+  #:use-module (lily)
+  #:use-module (scm song-util))
 
 
 ;;; Configuration
@@ -34,23 +33,23 @@
 
 ;; The word to be sung in places where notes are played without lyrics.
 ;; If it is #f, the places without lyrics are omitted on the output.
-(define-public *skip-word* "-skip-")
+(define-public *skip-word* (make-parameter "-skip-"))
 
 ;; If true, use syllables in the Festival XML file.
 ;; If false, use whole words instead; this is necessary in languages like
 ;; English, were the phonetic form cannot be deduced from syllables well enough.
-(define-public *syllabify* #f)
+(define-public *syllabify* (make-parameter #f))
 
 ;; Base Festival octave to which LilyPond notes are mapped.
-(define-public *base-octave* 5)
+(define-public *base-octave* (make-parameter 5))
 ;; The resulting base octave is sum of *base-octave* and
 ;; *base-octave-shift*.  This is done to work around a Festival bug
 ;; causing Festival to segfault or produce invalid pitch on higher pitches.
 ;(define *base-octave-shift* -2)
-(define *base-octave-shift* 0)
+(define *base-octave-shift* (make-parameter 0))
 
 ;; The coeficient by which the notes just before \breath are shortened.
-(define-public *breathe-shortage* 0.8)
+(define-public *breathe-shortage* (make-parameter 0.8))
 
 
 ;;; LilyPond interface
@@ -162,7 +161,7 @@
 	 (set! *default-tempo* (property-value
 				(find-child tempo-spec (lambda (elt)
 							 (music-property? elt 'tempoWholesPerMinute)))))
-	 (round (* tempo (expt 2 (+ 2 *base-octave-shift*)))))))
+	 (round (* tempo (expt 2 (+ 2 (*base-octave-shift*))))))))
 
 (defstruct music-context
   music
@@ -220,7 +219,7 @@
            (push! (make-lyrics
                         #:text (ly:music-property lyric-event 'text)
                         #:duration (* (duration->number (ly:music-property lyric-event 'duration)) 4)
-                        #:unfinished (and (not *syllabify*) (find-child-named music 'HyphenEvent))
+                        #:unfinished (and (not (*syllabify*)) (find-child-named music 'HyphenEvent))
                         #:ignore-melismata ignore-melismata
                         #:context current-voice)
                        lyrics-list))
@@ -393,9 +392,9 @@
         ((music-name? music 'BreathingEvent)
          (if last-note-spec
              (let* ((note-duration (note-duration last-note-spec))
-                    (rest-spec (make-rest #:duration (* note-duration (- 1 *breathe-shortage*))
+                    (rest-spec (make-rest #:duration (* note-duration (- 1 (*breathe-shortage*)))
                                                #:origin (ly:music-property music 'origin))))
-               (set-note-duration! last-note-spec (* note-duration *breathe-shortage*))
+               (set-note-duration! last-note-spec (* note-duration (*breathe-shortage*)))
                (add! (make-score-notes #:note/rest-list (list rest-spec)) result-list))
              (warning music "\\\\breathe without previous note known")))
         ;; anything else
@@ -603,7 +602,7 @@
                          last-verse
                          (append (verse-notelist/rests last-verse) (list notelist/rest))))))
                  ((pair? notelist/rest)
-                  (add! (make-verse #:text *skip-word* #:notelist/rests (list notelist/rest))
+                  (add! (make-verse #:text (*skip-word*) #:notelist/rests (list notelist/rest))
                              verse-list))
                  (else
                   (error "Unreachable branch reached")))
@@ -662,7 +661,7 @@
      ((< duration (- epsilon))
       (warning (if (null? note-list) (safe-last consumed) (safe-car note-list))
                     "Skip misalignment: ~a ~a ~a ~a" context skip duration consumed)))
-    (values (if *skip-word*
+    (values (if (*skip-word*)
                 consumed
                 '())
             note-list)))
@@ -784,7 +783,7 @@
          (octave (inexact->exact (floor (/ semitones 12))))
          (tone (modulo semitones 12)))
     (format #f "~a~a" (car (assoc-get tone festival-note-mapping))
-            (+ octave *base-octave* *base-octave-shift*))))
+            (+ octave (*base-octave*) (*base-octave-shift*)))))
 
 (define (write-header port tempo)
   (let ((beats (or (tempo->beats tempo) 100)))
