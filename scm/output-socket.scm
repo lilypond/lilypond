@@ -49,17 +49,17 @@
 ;;;
 
 (define (bezier-sandwich lst thick)
-  (format "bezier_sandwich ~a [~a]"
+  (format #f "bezier_sandwich ~a [~a]"
 	  thick
 	  (string-append
 	    (string-join (map
 			   (lambda (x)
-			     (format "(~a,~a)" (car x) (cdr x)))
+			     (format #f "(~a,~a)" (car x) (cdr x)))
 			   lst)
 			 ","))))
 
 (define (draw-line thick x1 y1 x2 y2)
-  (format "drawline ~a ~a ~a ~a ~a"
+  (format #f "drawline ~a ~a ~a ~a ~a"
 	  thick x1 y2 x2 y2))
 
 (define (grob-cause offset grob)
@@ -70,12 +70,12 @@
 	      -1))
      (name (assoc-get 'name (ly:grob-property grob 'meta))))
 
-    (apply format
-	   (append (list "cause ~a \"~a\" ~a ~a ~a ~a\n" tag name)
-		   (grob-bbox grob offset)))))
+    (apply format #f
+	   "cause ~a \"~a\" ~a ~a ~a ~a\n" tag name
+	   (grob-bbox grob offset))))
 
 (define (named-glyph font glyph)
-  (format "glyphshow ~a \"~a\" ~a \"~a\""
+  (format #f "glyphshow ~a \"~a\" ~a \"~a\""
 	  (ly:font-glyph-name-to-charcode font glyph)
 	  (ly:font-name font)
 	  (modified-font-metric-font-scaling font)
@@ -86,21 +86,21 @@
 
 (define (placebox x y s)
   (if (not (string-null? s))
-      (format "at ~a ~a ~a\n" x y s)
+      (format #f "at ~a ~a ~a\n" x y s)
       ""))
 
 (define (polygon xy-coords blot do-fill)
-  (format "polygon ~a ~a ~a"
+  (format #f "polygon ~a ~a ~a"
 	  blot
 	  (if do-fill "True" "False")
 	  (string-join (map number->string xy-coords))))
 
 (define (round-filled-box breapth width depth height blot-diameter)
-  (format "draw_round_box ~a ~a ~a ~a ~a"
+  (format #f "draw_round_box ~a ~a ~a ~a ~a"
 	  breapth width depth height blot-diameter))
 
 (define (utf-8-string descr string)
-  (format "utf-8 \"~a\" \"~a\""
+  (format #f "utf-8 \"~a\" \"~a\""
 	  (escape-string descr)
 	  ;; don't want unescaped spaces.
 	  (escape-string string)))

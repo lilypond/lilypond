@@ -34,7 +34,7 @@ Note: lilypond must be compiled with --disable-optimising for this file to work.
   (ly:progress "\n\n~A properties, top ~a rounded to ~a\n\n~a"
    what count rnd
    (string-join
-    (map (lambda (x) (format "~30a: ~6@a" (car x) (cdr x)))
+    (map (lambda (x) (format #f "~30a: ~6@a" (car x) (cdr x)))
      (ly:truncate-list! 
     (sort alist prop-stats>?) count))
     "\n"))))

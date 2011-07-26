@@ -74,7 +74,7 @@ alignment."
     "Return EPS filename."
     (let* ((stencil (car stencil-count-pair))
 	   (number (cdr stencil-count-pair))
-	   (name (format "~a-~a" basename number)))
+	   (name (format #f "~a-~a" basename number)))
       (dump-stencil-as-EPS paper stencil name
 			   (ly:get-option 'include-eps-fonts))
       (string-append name ".eps")))
@@ -84,7 +84,7 @@ alignment."
   ;; finally write some auxiliary files if desired
   (dump-infinite-stack-EPS stencils)
   (postprocess-output book framework-eps-module
-			(format "~a.eps" basename) (ly:output-formats))
+			(format #f "~a.eps" basename) (ly:output-formats))
 
   ;; individual staves (*-1.eps etc.); only print if more than one stencil
   ;; Otherwise the .eps and the -1.eps file will be identical and waste space
@@ -103,7 +103,7 @@ alignment."
   (if create-aux-files
     (let* ((write-file (lambda (str-port ext)
 			 (if create-aux-files
-		           (let* ((name (format "~a-systems.~a" basename ext))
+		           (let* ((name (format #f "~a-systems.~a" basename ext))
 			          (port (open-output-file name)))
 			     (ly:message (_ "Writing ~a...") name)
 			     (display (get-output-string str-port) port)
@@ -113,22 +113,21 @@ alignment."
 	   (count-system-port (open-output-string)))
       (for-each (lambda (c)
 		  (if (< 0 c)
-		      (display (format
+		      (format tex-system-port
 			        "\\ifx\\betweenLilyPondSystem \\undefined
   \\linebreak
 \\else
   \\expandafter\\betweenLilyPondSystem{~a}%
 \\fi
-" c)
-			       tex-system-port))
-		  (display (format "\\includegraphics{~a-~a}%\n"
-				   basename (1+ c)) tex-system-port)
-		  (display (format "@image{~a-~a}\n"
-				   basename (1+ c)) texi-system-port))
+" c))
+		  (format tex-system-port "\\includegraphics{~a-~a}%\n"
+				   basename (1+ c))
+		  (format texi-system-port "@image{~a-~a}\n"
+				   basename (1+ c)))
 	        (iota (length stencils)))
       (display "@c eof\n" texi-system-port)
       (display "% eof\n" tex-system-port)
-      (display (format "~a" (length stencils)) count-system-port)
+      (format count-system-port "~a" (length stencils))
       (write-file texi-system-port "texi")
       (write-file tex-system-port "tex")
       ;; do this as the last action so we know the rest is complete if

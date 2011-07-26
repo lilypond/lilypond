@@ -69,7 +69,7 @@
  (lambda (j)
    (module-define!
     page-module
-    (string->symbol (format "page-~a" j))
+    (string->symbol (format #f "page-~a" j))
     (lambda (pg)
       (page-property pg j))))
 

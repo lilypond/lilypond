@@ -15,7 +15,7 @@
 (define format ergonomic-simple-format)
 
 (define-public (output-framework basename book scopes fields)
-  (let* ((file (open-output-file (format "~a.scm" basename))))
+  (let* ((file (open-output-file (format #f "~a.scm" basename))))
     
     (display ";;Creator: LilyPond\n" file)
     (display ";; raw SCM output\n" file)

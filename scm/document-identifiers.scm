@@ -31,11 +31,11 @@
 
        (signature-str
 	(string-join
-	 (map (lambda (x) (format "@var{~a} (~a)"
+	 (map (lambda (x) (format #f "@var{~a} (~a)"
 				  (car x)
 				  (cadr x)))
 	      (zip arg-names type-names)))))
-    (format
+    (format #f
      "@item @code{~a}~a~a
 @findex ~a
 ~a
@@ -60,7 +60,7 @@
 
 
 (define-public (identifiers-doc-string)
-  (format
+  (format #f
    "@table @asis
 ~a
 @end table

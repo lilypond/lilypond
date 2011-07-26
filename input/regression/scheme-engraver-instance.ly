@@ -25,7 +25,7 @@
                     (set! private-note-counter (1+ private-note-counter))
                     (let ((text (ly:engraver-make-grob engraver 'TextScript event)))
                       (ly:grob-set-property! text 'text
-                                             (format "~a.~a" instance-id
+                                             (format #f "~a.~a" instance-id
                                                      private-note-counter))))))))))
   }
 }

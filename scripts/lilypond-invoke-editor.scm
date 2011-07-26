@@ -129,7 +129,7 @@ Options:
 (define (run-browser uri)
   (system
    (if (getenv "BROWSER")
-       (format "~a ~a" (getenv "BROWSER") uri)
+       (format #f "~a ~a" (getenv "BROWSER") uri)
        (format #f "firefox -remote 'OpenURL(~a,new-tab)'" uri))))
 
 

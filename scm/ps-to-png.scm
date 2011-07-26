@@ -111,7 +111,7 @@
     (pixmap-format 'png16m)
     (anti-alias-factor 1))
 
-   (let* ((format-str (format "~a" pixmap-format))
+   (let* ((format-str (format #f "~a" pixmap-format))
 	  (extension (cond
 		      ((string-contains format-str "png") "png")
 		      ((string-contains format-str "jpg") "jpeg")
@@ -119,8 +119,8 @@
 		      (else
 		       (ly:error "Unknown pixmap format ~a" pixmap-format))))
 	  (base (dir-basename ps-name ".ps" ".eps"))
-	  (png1 (format "~a.~a" base extension))
-	  (pngn (format  "~a-page%d.~a" base extension))
+	  (png1 (format #f "~a.~a" base extension))
+	  (pngn (format #f "~a-page%d.~a" base extension))
 	  (page-count (ps-page-count ps-name))
 	  (multi-page? (> page-count 1))
 	  (output-file (if multi-page? pngn png1))
@@ -163,9 +163,9 @@
 	   (if multi-page?
 	       (map
 		(lambda (n)
-		  (format "~a-page~a.png" base (1+ n)))
+		  (format #f "~a-page~a.png" base (1+ n)))
 		(iota page-count))
-	       (list (format "~a.png" base))))
+	       (list (format #f "~a.png" base))))
      
      (if (not (= 0 status))
 	 (begin

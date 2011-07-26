@@ -195,7 +195,6 @@
    ly:stem::height
    ly:stem::offset-callback
    ly:stem::print
-   ly:stem-tremolo::height
    ly:stem-tremolo::print
    ly:sustain-pedal::print
    ly:system-start-delimiter::print

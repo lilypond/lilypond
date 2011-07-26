@@ -117,7 +117,7 @@
 	 (base (dir-basename filename ".ps" ".eps"))
 	 (intermediate (remove (lambda (x) (member x formats)) completed)))
     (for-each (lambda (f)
-		((eval (string->symbol (format "convert-to-~a" f))
+		((eval (string->symbol (format #f "convert-to-~a" f))
 		       module) paper-book filename)) completed)
     (if (ly:get-option 'delete-intermediate-files)
 	(for-each (lambda (f)

@@ -55,20 +55,20 @@
 		      (value (cdr x)))
 		  (if (number? value)
 		      (set! value (ly:format "~4f" value)))
-		  (format " ~s=\"~a\"" attr value)))
+		  (format #f " ~s=\"~a\"" attr value)))
 	      attributes-alist)))
 
 (define-public (eo entity . attributes-alist)
   "o = open"
-  (format "<~S~a>\n" entity (attributes attributes-alist)))
+  (format #f "<~S~a>\n" entity (attributes attributes-alist)))
 
 (define-public (eoc entity . attributes-alist)
   "oc = open/close"
-  (format "<~S~a/>\n" entity (attributes attributes-alist)))
+  (format #f "<~S~a/>\n" entity (attributes attributes-alist)))
 
 (define-public (ec entity)
   "c = close"
-  (format "</~S>\n" entity))
+  (format #f "</~S>\n" entity))
 
 (define-public (comment s)
   (string-append "<!-- " s " -->\n"))
@@ -86,7 +86,7 @@
   (define (helper lst)
     (if (null? lst)
 	'()
-	(cons (format "~S ~S" (car lst) (- (cadr lst)))
+	(cons (format #f "~S ~S" (car lst) (- (cadr lst)))
 	      (helper (cddr lst)))))
 
   (string-join (helper lst) " "))
@@ -351,7 +351,7 @@
 
 (define (dashed-line thick on off dx dy phase)
   (draw-line thick 0 0 dx dy
-	     `(stroke-dasharray . ,(format "~a,~a" on off))))
+	     `(stroke-dasharray . ,(format #f "~a,~a" on off))))
 
 (define (draw-line thick x1 y1 x2 y2 . alist)
   (apply entity 'line ""
@@ -539,7 +539,7 @@
 				  (closepath . z))
 				"")))
 
-	  (cons (format "~a~a" svg-head (number-list->point args))
+	  (cons (format #f "~a~a" svg-head (number-list->point args))
 		(convert-path-exps (drop rest arity))))
 	'()))
 
@@ -637,7 +637,7 @@
     '(fill . "currentColor")))
 
 (define (setcolor r g b)
-  (format "<g color=\"rgb(~a%, ~a%, ~a%)\">\n"
+  (format #f "<g color=\"rgb(~a%, ~a%, ~a%)\">\n"
 	  (* 100 r) (* 100 g) (* 100 b)))
 
 ;; rotate around given point
