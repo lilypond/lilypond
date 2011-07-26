@@ -16,6 +16,8 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+\version "2.15.6"
+
 RemoveEmptyStaves = \with {
   \remove "Axis_group_engraver"
   % If RemoveEmptyStaves is called twice, two
