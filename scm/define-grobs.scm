@@ -1936,7 +1936,6 @@
 	(stencil . ,ly:stem-tremolo::print)
 	(style . ,ly:stem-tremolo::calc-style)
 	(X-extent . ,ly:stem-tremolo::width)
-	(Y-extent . ,ly:stem-tremolo::height)
 	(meta . ((class . Item)
 		 (interfaces . (stem-tremolo-interface))))))
 
@@ -2586,6 +2585,7 @@
     (,ly:arpeggio::brew-chord-bracket . ,ly:arpeggio::pure-height)
     (,ly:arpeggio::brew-chord-slur . ,ly:arpeggio::pure-height)
     (,ly:hairpin::print . ,ly:hairpin::pure-height)
+    (,ly:stem-tremolo::print . ,ly:stem-tremolo::pure-height)
     (,ly:volta-bracket-interface::print . ,volta-bracket-interface::pure-height)))
 
 ;; ly:grob::stencil-extent is safe if the print callback is safe too

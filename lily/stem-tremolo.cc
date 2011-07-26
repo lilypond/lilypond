@@ -146,16 +146,16 @@ Stem_tremolo::raw_stencil (Grob *me, Real slope, Direction stemdir)
 
 
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo, height, 1);
+MAKE_SCHEME_CALLBACK (Stem_tremolo, pure_height, 3);
 SCM
-Stem_tremolo::height (SCM smob)
+Stem_tremolo::pure_height (SCM smob, SCM, SCM)
 {
   Grob *me = unsmob_grob (smob);
 
   /*
     Cannot use the real slope, since it looks at the Beam.
    */
-  Stencil s1 (translated_stencil (me, 0.35));
+  Stencil s1 (untranslated_stencil (me, 0.35));
 
   return ly_interval2scm (s1.extent (Y_AXIS));
 }
