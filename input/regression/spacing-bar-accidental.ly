@@ -1,7 +1,7 @@
 
 \header {
   texidoc = "An accidental following a bar gets space so
- the left edge of the acc is at 0.3 - 0.6 staff space of the bar line"
+ the left edge of the acc is at 0.3 staff space from the bar line"
 }
 
 
