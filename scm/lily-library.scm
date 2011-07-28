@@ -746,6 +746,23 @@ Handy for debugging, possibly turned off."
 
    (reverse matches))
 
+(define-public (random-string pool n)
+  "Produces a random lowercase string of length n"
+  (define (helper alphabet out num)
+    (let ((rand (random (string-length pool))))
+      (if (< num 1)
+          out
+          (helper alphabet
+                  (string-concatenate `(,out
+                                        ,(substring alphabet
+                                                    rand
+                                                    (+ 1 rand))))
+                  (- num 1)))))
+  (helper pool "" n))
+
+(define-public (random-lowercase-string n)
+  (random-string "abcdefghijklmnopqrstuvwxyz" n))
+
 ;;;;;;;;;;;;;;;;
 ;; other
 

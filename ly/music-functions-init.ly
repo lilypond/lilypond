@@ -344,7 +344,7 @@ footnoteGrob =
 #(define-music-function (parser location grob-name offset text footnote)
    (symbol? number-pair? markup? markup?)
    (_i "Attach @var{text} to @var{grob-name} at offset @var{offset},
- with @var{text} referring to @var{footnote} (use like @code{\\once})")
+with @var{text} referring to @var{footnote} (use like @code{\\once})")
    (make-music 'FootnoteEvent
 	       'symbol grob-name
 	       'X-offset (car offset)
@@ -352,15 +352,44 @@ footnoteGrob =
 	       'text text
 	       'footnote-text footnote))
 
+autoFootnoteGrob =
+#(define-music-function (parser location grob-name offset footnote)
+   (symbol? number-pair? markup?)
+   (_i "Footnote @var{grob-name} with the text in @var{footnote}
+allowing for the footnote to be automatically numbered such that
+the number appears at @var{offset}.  Note that, for this to take effect,
+auto-numbering must be turned on in the paper block.  Otherwise, no
+number will appear.  Use like @code{\\once})")
+   #{
+     \footnoteGrob $grob-name $offset \markup { "" } $footnote
+   #})
+
 footnote =
 #(define-music-function (parser location offset text footnote)
    (number-pair? markup? markup?)
    (_i "Attach @var{text} at @var{offset} with @var{text} referring
- to @var{footnote} (use like @code{\\tweak})")
+to @var{footnote} (use like @code{\\tweak})")
    (make-music 'FootnoteEvent
 	       'X-offset (car offset)
 	       'Y-offset (cdr offset)
 	       'text text
+	       'footnote-text footnote))
+
+% this function can't be a simple copy and past of the above because
+% it needs to be encapsulated in a Sequential Music.
+% so, there's a code dup of above :-(
+autoFootnote =
+#(define-music-function (parser location offset footnote)
+   (number-pair? markup?)
+   (_i "Footnote the item after which this comes with the text in
+@var{footnote} allowing for the footnote to be automatically numbered
+such that the number appears at @var{offset}.  Note that, for this to
+take effect, auto-numbering must be turned on in the paper block.
+Otherwise, no number will appear.  Use like @code{\\tweak})")
+   (make-music 'FootnoteEvent
+	       'X-offset (car offset)
+	       'Y-offset (cdr offset)
+	       'text (markup "")
 	       'footnote-text footnote))
 
 grace =

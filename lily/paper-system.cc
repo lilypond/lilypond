@@ -18,6 +18,7 @@
 */
 
 #include "paper-system.hh"
+#include "international.hh"
 #include "item.hh"
 
 Prob *
@@ -59,27 +60,19 @@ get_footnotes (SCM expr)
       for (SCM x = scm_cdr (expr); scm_is_pair (x); x = scm_cdr (x))
         {
           SCM footnote = get_footnotes (scm_car (x));
-          if (scm_is_pair (footnote))
-            {
-              for (SCM y = footnote; scm_is_pair (y); y = scm_cdr (y))
-                {
-                  *tail = scm_cons (scm_car (y), SCM_EOL);
-                  tail = SCM_CDRLOC (*tail);
-                }
-            }
-          else if (SCM_EOL != footnote)
+          if (SCM_EOL != footnote)
             {
               *tail = scm_cons (footnote, SCM_EOL);
               tail = SCM_CDRLOC (*tail);
             }
         }
-      return out;
+      return scm_append (out);
     }
   if (head == ly_symbol2scm ("translate-stencil"))
     return get_footnotes (scm_caddr (expr));
 
   if (head == ly_symbol2scm ("footnote"))
-    return scm_cadr (expr);
+    return scm_list_1 (scm_cdr (expr));
 
   return SCM_EOL;
 }

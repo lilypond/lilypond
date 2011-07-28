@@ -48,7 +48,8 @@ public:
   int get_rank () const;
   vector<Stencil *> get_footnotes_in_range (vsize st, vsize end);
   void get_footnote_grobs_in_range (vector<Grob *> &out, vsize st, vsize end);
-  Stencil make_footnote_stencil (Real padding);
+  vector<Grob *> *footnote_grobs ();
+  vsize num_footnotes ();
   void do_break_substitution_and_fixup_refpoints ();
   void post_processing ();
   void populate_footnote_grob_vector ();

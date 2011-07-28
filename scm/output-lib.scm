@@ -468,6 +468,25 @@ and duration-log @var{log}."
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; annotations
+
+(define-public (numbered-footnotes int)
+  (markup #:tiny (number->string (+ 1 int))))
+
+(define-public (symbol-footnotes int)
+  (define (helper symbols out idx n)
+    (if (< n 1)
+        out
+        (helper symbols
+                (string-append out (list-ref symbols idx))
+                idx
+                (- n 1))))
+  (markup #:tiny (helper '("*" "†" "‡" "§" "¶")
+                          ""
+                          (remainder int 5)
+                          (+ 1 (quotient int 5)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; accidentals
 
 (define-public (accidental-interface::calc-alteration grob)

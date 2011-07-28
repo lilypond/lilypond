@@ -1897,16 +1897,77 @@ returns an empty markup.
 (define-markup-command (footnote layout props mkup note)
   (markup? markup?)
   #:category other
-  "Have footnote @var{note} act as an annotation to the markup @var{mkup}."
-  (ly:stencil-combine-at-edge
-    (interpret-markup layout props mkup)
-    X
-    RIGHT
+  #:properties ((raise 0.5)
+                (padding 0.0))
+  "Have footnote @var{note} act as an annotation to the markup @var{mkup}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\footnote a b
+  \\override #'(padding . 0.2)
+  \\footnote c d
+}
+@end lilypond"
+  (let* ((markup-stencil (interpret-markup layout props mkup))
+         (auto-numbering (ly:output-def-lookup layout
+                                               'footnote-auto-numbering))
+         (footnote-hash (gensym "footnote"))
+         (stencil-seed 0)
+         (gauge-stencil (if auto-numbering
+                            (interpret-markup
+                              layout
+                              props
+                              ((ly:output-def-lookup
+                                 layout
+                                 'footnote-numbering-function)
+                                stencil-seed))
+                            empty-stencil))
+         (x-ext (if auto-numbering
+                    (ly:stencil-extent gauge-stencil X)
+                    '(0 . 0)))
+	 (y-ext (if auto-numbering
+                    (ly:stencil-extent gauge-stencil Y)
+                    '(0 . 0)))
+         (footnote-number
+           (if auto-numbering
+             `(delay-stencil-evaluation
+                ,(delay
+                  (ly:stencil-expr
+                    (let* ((table
+                            (ly:output-def-lookup layout
+                                                  'number-footnote-table))
+                           (footnote-stencil (if (list? table)
+		                                 (assoc-get footnote-hash
+                                                            table)
+					         empty-stencil))
+                           (footnote-stencil (if (ly:stencil? footnote-stencil)
+                                                 footnote-stencil
+                                                 (begin
+                                                   (ly:programming-error
+"Cannot find correct footnote for a markup object.")
+                                                   empty-stencil)))
+                           (gap (- (interval-length x-ext)
+			           (interval-length
+                                     (ly:stencil-extent footnote-stencil X))))
+                           (y-trans (- (+ (cdr y-ext)
+                                          raise)
+                                       (cdr (ly:stencil-extent footnote-stencil
+                                                               Y)))))
+		      (ly:stencil-translate footnote-stencil
+                                            (cons gap y-trans))))))
+             '()))
+         (main-stencil (ly:stencil-combine-at-edge
+                         markup-stencil
+                         X
+                         RIGHT
+                         (ly:make-stencil footnote-number x-ext y-ext)
+                         padding)))
+  (ly:stencil-add
+    main-stencil
     (ly:make-stencil
-      `(footnote ,(interpret-markup layout props note))
+      `(footnote ,footnote-hash ,(interpret-markup layout props note))
       '(0 . 0)
-      '(0 . 0))
-    0.0))
+      '(0 . 0)))))
 
 (define-markup-command (override layout props new-prop arg)
   (pair? markup?)
@@ -3428,7 +3489,7 @@ a column containing several lines of text.
     (parenthesize-stencil
      markup half-thickness scaled-width angularity padding)))
 
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Delayed markup evaluation
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
