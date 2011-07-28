@@ -392,6 +392,7 @@ If we give names, Bison complains.
 %type <scm> full_markup_list
 %type <scm> function_scm_argument
 %type <scm> function_arglist
+%type <scm> function_arglist_nonmusic_last
 %type <scm> closed_function_arglist
 %type <scm> open_function_arglist
 %type <scm> identifier_init
@@ -414,7 +415,9 @@ If we give names, Bison complains.
 %type <scm> mode_changing_head_with_context
 %type <scm> multiplied_duration
 %type <scm> music_function_event
+%type <scm> music_function_event_arglist
 %type <scm> music_function_chord_body
+%type <scm> music_function_chord_body_arglist
 %type <scm> new_chord
 %type <scm> new_lyrics
 %type <scm> number_expression
@@ -1098,6 +1101,13 @@ open_function_arglist:
    expression that could still take a duration or event */
 
 closed_function_arglist:
+	function_arglist_nonmusic_last
+	| EXPECT_MUSIC function_arglist closed_music {
+		$$ = scm_cons ($3, $2);
+		}
+	;
+
+function_arglist_nonmusic_last:
 	EXPECT_NO_MORE_ARGS {
 		/* This is for 0-ary functions, so they don't need to
 		   read a lookahead token */
@@ -1118,9 +1128,6 @@ closed_function_arglist:
 	| EXPECT_SCM function_arglist function_scm_argument {
 		$$ = scm_cons ($3, $2);
 	}
-	| EXPECT_MUSIC function_arglist closed_music {
-		$$ = scm_cons ($3, $2);
-		}
 	;
 
 generic_prefix_music_scm:
@@ -1575,21 +1582,42 @@ chord_body_element:
 	}
 	;
 
+/* We can't accept a music argument, not even a closed one,
+ * immediately before chord_body_elements, otherwise a function \fun
+ * with a signature of two music arguments can't be sorted out
+ * properly in a construct like
+ * <\fun { c } \fun { c } c>
+ * The second call could be interpreted either as a chord constituent
+ * or a music expression.
+ */
+
+music_function_chord_body_arglist:
+	function_arglist_nonmusic_last
+	| EXPECT_MUSIC music_function_chord_body_arglist chord_body_element {
+		$$ = scm_cons ($3, $2);
+	}
+	;
 
 music_function_chord_body:
-	MUSIC_FUNCTION EXPECT_MUSIC function_arglist chord_body_element {
-		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($3, scm_list_1 ($4))));
-	}
-	| MUSIC_FUNCTION closed_function_arglist {
+	MUSIC_FUNCTION music_function_chord_body_arglist {
 		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($2, SCM_EOL)));
 	}
 	;
 
-music_function_event:
-	MUSIC_FUNCTION EXPECT_MUSIC closed_function_arglist post_event {
-		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($3, scm_list_1 ($4))));
+/* We could accept a closed music argument before the post events
+ * indicated by a trailing argument list.  For symmetry with chord
+ * bodies and in order to avoid too tricky and complex behavior, we
+ * refrain from doing so.
+ */
+music_function_event_arglist:
+	function_arglist_nonmusic_last
+	| EXPECT_MUSIC music_function_event_arglist post_event {
+		$$ = scm_cons ($3, $2);
 	}
-	| MUSIC_FUNCTION closed_function_arglist {
+	;
+
+music_function_event:
+	MUSIC_FUNCTION music_function_event_arglist {
 		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($2, SCM_EOL)));
 	}
 	;
