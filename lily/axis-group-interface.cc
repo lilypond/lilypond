@@ -666,6 +666,15 @@ add_grobs_of_one_priority (Skyline_pair *const skylines,
     }
 }
 
+bool
+Axis_group_interface::has_outside_staff_parent (Grob *me)
+{
+  return (me
+          ? (scm_is_number (me->get_property ("outside-staff-priority"))
+             || has_outside_staff_parent (me->get_parent (Y_AXIS)))
+          : false);
+}
+
 // TODO: it is tricky to correctly handle skyline placement of cross-staff grobs.
 // For example, cross-staff beams cannot be formatted until the distance between
 // staves is known and therefore any grobs that depend on the beam cannot be placed
@@ -699,7 +708,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
   Skyline_pair skylines;
   for (i = 0; i < elements.size ()
   	 && !scm_is_number (elements[i]->get_property ("outside-staff-priority")); i++)
-    if (!to_boolean (elements[i]->get_property ("cross-staff")))
+    if (!(to_boolean (elements[i]->get_property ("cross-staff")) || has_outside_staff_parent (elements[i])))
       add_boxes (elements[i], x_common, y_common, &boxes, &skylines);
 
   SCM padding_scm = me->get_property ("skyline-horizontal-padding");
