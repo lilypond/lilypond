@@ -3215,6 +3215,15 @@ def conv (str):
         stderr_write (UPDATE_MANUALLY)
     return str
 
+@rule ((2, 15, 8),
+    _ ("Handling of non-automatic footnotes."))
+def conv(str):
+    if re.search (r'\\footnote', str):
+        stderr_write ("\n")
+        stderr_write (NOT_SMART % _("If you are using non-automatic footnotes, make sure to set footnote-auto-numbering = ##f in the paper block.\n"))
+        stderr_write (UPDATE_MANUALLY)
+    return str
+
 
 # Guidelines to write rules (please keep this at the end of this file)
 #
