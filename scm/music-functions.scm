@@ -411,7 +411,8 @@ in @var{grob}."
     Slur
     Stem
     TextScript
-    Tie))
+    Tie
+    TupletBracket))
 
 (define-safe-public (make-voice-props-set n)
   (make-sequential-music
