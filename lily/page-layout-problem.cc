@@ -138,7 +138,7 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_boo
         }
 
       // find the maximum X_AXIS length
-      Real max_length;
+      Real max_length = -infinity_f;
       for (vsize i = 0; i < fn_count; i++)
         max_length = max (max_length, footnote_number_stencils[i]->extent (X_AXIS).length ());
 
