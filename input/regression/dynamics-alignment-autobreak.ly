@@ -1,4 +1,4 @@
-\version "2.15.6"
+\version "2.15.7"
 
 \header {
   texidoc = "If a dynamic has an explicit direction that differs from the 
