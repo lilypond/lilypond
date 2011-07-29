@@ -9,7 +9,7 @@
 \header {
 %% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
   texidocit = "
-Ecco un semplice pentagramma per pianoforte con un po' di note.
+Ecco un comune doppio pentagramma per pianoforte con un po' di note.
 
 "
   doctitleit = "Modello per pianoforte (semplice)"

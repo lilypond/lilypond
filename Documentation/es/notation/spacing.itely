@@ -1823,6 +1823,7 @@ controla mediante variables de @code{\paper} que se estudian en
 * Propiedades de espaciado dentro de los sistemas::
 * Espaciado de pautas no agrupadas::
 * Espaciado de pautas agrupadas::
+* Espaciado de las líneas que no son pautas::
 @end menu
 
 

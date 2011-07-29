@@ -9,8 +9,8 @@
 \header {
 %% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
   texidocit = "
-Questo modello è essenzialmente identico al semplice modello @qq{Gruppo vocale},
-con la differenza che qui tutte le linee del testo sono posizionate
+Questo modello è fondamentalmente analogo al semplice modello @qq{Complesso vocale},
+con l'unica differenza che qui tutti i versi del testo sono posizionati
 usando @code{alignAboveContext} e @code{alignBelowContext}.
 
 "

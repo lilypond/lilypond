@@ -9,8 +9,8 @@
 \header {
 %% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
   texidocit = "
-Ecco un tipico formato per canzoni: un rigo con la melodia e il testo,
-e l'accompagnamento per pianoforte sotto.
+Ecco un tipico formato per canzoni: un rigo con linea melodica e testo,
+e sotto l'accompagnamento per pianoforte.
 
 "
   doctitleit = "Modello per pianoforte con melodia e testo"

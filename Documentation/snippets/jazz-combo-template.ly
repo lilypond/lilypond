@@ -11,8 +11,8 @@
   texidocit = "
 Ecco un modello piuttosto complesso, per un gruppo jazz. Si noti che tutti
 gli strumenti sono in @code{\\key c \\major}. Si tratta della tonalità
-in intonazione reale; la tonalità sarà automaticamente trasposta se la
-musica si trova all'interno di una sezione @code{\\transpose}.
+reale; sarà trasposta automaticamente includendo la
+musica all'interno di una sezione @code{\\transpose}.
 
 "
   doctitleit = "Modello per combo jazz"

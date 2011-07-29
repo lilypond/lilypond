@@ -9,7 +9,7 @@
 \header {
 %% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
   texidocit = "
-Il codice seguente mostra un modo di impostare un inno quando ogni linea
+Il codice seguente presenta un modo di impostare un inno in cui ogni verso
 inizia e finisce con una misura parziale.  Mostra anche come aggiungere delle
 strofe come testo separato sotto la musica.
 

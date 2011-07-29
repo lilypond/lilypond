@@ -9,8 +9,9 @@
 \header {
 %% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
   texidocit = "
-Ecco il modello di un semplice lead sheet che include melodia, testo, accordi e
-diagrammi dei tasti.
+Ecco il modello di un comune spartito semplificato (lead sheet): include
+linea melodica, testo vocale, sigle degli accordi e relativi diagrammi
+per chitarra.
 
 "
   doctitleit = "Modello di rigo singolo con note testo accordi e tasti"

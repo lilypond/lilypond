@@ -29,13 +29,13 @@ voces se reagrupan en sólo dos pentagramas.
 
 %% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
   texidocit = "
-Ecco una tipica partitura vocale SATB per quattro parti. Se il gruppo è più grande,
-è spesso utile inserire una sezione che venga poi inclusa in tutte le parti.
-Ad esempio, l'indicazione di tempo e l'armatura di chiave sono quasi sempre
-le stesse per tutte le parti. Come nel modello dell'@qq{Inno}, le quattro voci
-sono raggruppate in due righi soltanto.
+Ecco una tipica partitura corale a quattro parti, SATB. Se il complesso è più
+ampio, è spesso comodo scrivere gli elementi comuni in un'unica sezione, che
+verrà poi inclusa in tutte le parti. Ad esempio, l'indicazione di tempo e
+l'armatura di chiave sono quasi sempre le stesse per tutte le parti. Come nel
+modello dell'@qq{Inno}, le quattro voci sono ripartite in due soli righi.
 "
-  doctitleit = "Modello per gruppo vocale"
+  doctitleit = "Modello per complesso vocale"
 
 %% Translation of GIT committish: bfc88203ac2572737480e78ef2635ed35b458441
   texidocde = "
