@@ -124,8 +124,8 @@ Chord_name_engraver::process_music ()
 
       pitches = scm_sort_list (pitches, Pitch::less_p_proc);
 
-      SCM name_proc = get_property ("chordNameFunction");
-      markup = scm_call_4 (name_proc, pitches, bass, inversion,
+      SCM capo_proc = ly_lily_module_constant ("capo-handler");
+      markup = scm_call_4 (capo_proc, pitches, bass, inversion,
                            context ()->self_scm ());
     }
   /*
