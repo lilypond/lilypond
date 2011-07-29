@@ -40,7 +40,7 @@ See user manual, \NAME\
 
 @allowcodebreaks false
 
-@itemize @bullet
+@itemize
 
 @ignore
 
@@ -66,11 +66,12 @@ which scares away people.
 @item
 Glissandi can now span multiple lines.
 
+@end itemize
 
 @ifhtml
 For older news, go to
+@uref{http://lilypond.org/doc/v2.14/Documentation/topdocs/NEWS.html},
 @uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS.html},
-@uref{http://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS.html},
 or @uref{../,go back} to the Documentation index.
 
 
