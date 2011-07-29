@@ -33,22 +33,32 @@
 #include "warn.hh"
 
 static void
-replace_whitespace (string *str)
+replace_special_characters (string *str, SCM props)
 {
   vsize i = 0;
-  vsize n = str->size ();
+  SCM replacement_alist = ly_chain_assoc_get (ly_symbol2scm ("replacement-alist"),
+                                              props,
+                                              SCM_EOL);
 
-  while (i < n)
+  int max_length = 0;
+  for (SCM s = replacement_alist; scm_is_pair (s); s = scm_cdr (s))
     {
-      char cur = (*str)[i];
+      max_length = max (max_length, scm_to_int
+                        (scm_string_length (scm_caar (s))));
+    }
 
-      // avoid the locale-dependent isspace
-      if (cur == '\n' || cur == '\t' || cur == '\v')
-        (*str)[i] = ' ';
-
-      vsize char_len = utf8_char_len (cur);
-
-      i += char_len;
+  while (i <= str->size ())
+    {
+      for (vsize j = max_length + 1; j--;)
+        {
+          string dummy = str->substr (i, j);
+          string ligature = robust_scm2string
+                            (ly_assoc_get (ly_string2scm (dummy),
+                                           replacement_alist, SCM_BOOL_F), "");
+          if (ligature != "")
+            str->replace (i, j, ligature);
+        }
+      i += utf8_char_len ((*str)[i]);
     }
 }
 
@@ -65,7 +75,7 @@ Text_interface::interpret_string (SCM layout_smob,
   Output_def *layout = unsmob_output_def (layout_smob);
   Font_metric *fm = select_encoded_font (layout, props);
 
-  replace_whitespace (&str);
+  replace_special_characters (&str, props);
 
   /*
     We want to filter strings with a music font that pass through
@@ -114,22 +124,22 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
             {
               string name = ly_symbol2string (scm_procedure_name (func));
               // TODO: Also print the arguments of the markup!
-              non_fatal_error (_f("Cyclic markup detected: %s", name));
-              return Stencil().smobbed_copy ();
+              non_fatal_error (_f ("Cyclic markup detected: %s", name));
+              return Stencil ().smobbed_copy ();
             }
         }
 
       /* Check for non-terminating markups, e.g. recursive calls with
        * changing arguments */
       SCM opt_depth = ly_get_option (ly_symbol2scm ("max-markup-depth"));
-      size_t max_depth = robust_scm2int(opt_depth, 1024);
+      size_t max_depth = robust_scm2int (opt_depth, 1024);
       if (depth > max_depth)
         {
           string name = ly_symbol2string (scm_procedure_name (func));
           // TODO: Also print the arguments of the markup!
-          non_fatal_error (_f("Markup depth exceeds maximal value of %d; "
-                              "Markup: %s", max_depth, name.c_str ()));
-          return Stencil().smobbed_copy ();
+          non_fatal_error (_f ("Markup depth exceeds maximal value of %d; "
+                               "Markup: %s", max_depth, name.c_str ()));
+          return Stencil ().smobbed_copy ();
         }
 
       encountered_markups.push_back (markup);
@@ -188,6 +198,7 @@ ADD_INTERFACE (Text_interface,
 
                /* properties */
                "baseline-skip "
+               "replacement-alist "
                "text "
                "word-space "
                "text-direction "

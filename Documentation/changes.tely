@@ -76,6 +76,15 @@ dyn=#(define-event-function (parser location arg) (markup?)
 @end lilypond
 
 @item
+A list of ASCII aliases for special characters can be included.
+@lilypond[quote,verbatim]
+\paper {
+  #(include-special-characters)
+}
+\markup "&bull; &dagger; &copyright; &OE; &ss; &para;"
+@end lilypond
+
+@item
 There is a new @code{define-scheme-function} command in analogy to
 @code{define-music-function} that can be used to define functions
 evaluating to Scheme expressions while accepting arguments in Lilypond

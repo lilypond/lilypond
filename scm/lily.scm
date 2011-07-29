@@ -452,6 +452,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     "define-grob-interfaces.scm"
     "define-stencil-commands.scm"
     "titling.scm"
+    "text.scm"
 
     "paper.scm"
     "backend-library.scm"

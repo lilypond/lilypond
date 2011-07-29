@@ -24,6 +24,7 @@
 * Note head styles::
 * Text markup commands::
 * Text markup list commands::
+* List of special characters::
 * List of articulations::
 * Percussion notes::
 * Technical glossary::
@@ -901,6 +902,24 @@ The following commands can all be used with @code{\markuplines}:
 @include markup-list-commands.tely
 
 
+@node List of special characters
+@appendixsec List of special characters
+
+The following special characters references can be used;
+for more details, see @ref{ASCII aliases}.
+
+The HTML syntax is used and most of these references are the same as HTML.
+The rest of them are inspired by @LaTeX{}.
+
+The characters are boxed so that you can see their size.
+A small padding has been added between the character and the box
+for more readability.
+
+@lilypond[quote]
+\include "special-characters.ly"
+@end lilypond
+
+
 @node List of articulations
 @appendixsec List of articulations
 
@@ -1125,7 +1144,7 @@ a set of fonts covering several styles and sizes comprise a typeface.
 @seealso
 Notation Reference:
 @ref{Fonts},
-@ref{Text encoding}.
+@ref{Special characters}.
 
 
 @node grob

@@ -1200,7 +1200,7 @@ Init files: @file{../ly/toc-init.ly}.
 @menu
 * Including LilyPond files::
 * Different editions from one source::
-* Text encoding::
+* Special characters::
 @end menu
 
 
@@ -1605,12 +1605,23 @@ Learning Manual:
 Notation Reference:
 @ref{Including LilyPond files}.
 
-@node Text encoding
-@subsection Text encoding
+@node Special characters
+@subsection Special characters
 
-@cindex Unicode
-@cindex UTF-8
+@cindex special characters
 @cindex non-ASCII characters
+
+@menu
+* Text encoding::
+* Unicode::
+* ASCII aliases::
+@end menu
+
+
+@node Text encoding
+@unnumberedsubsubsec Text encoding
+
+@cindex UTF-8
 
 LilyPond uses the character repertoire defined by the Unicode
 consortium and ISO/IEC 10646.  This defines a unique name and
@@ -1675,6 +1686,12 @@ portuguese = \lyricmode {
 \addlyrics { \portuguese }
 @end lilypond
 
+
+@node Unicode
+@unnumberedsubsubsec Unicode
+
+@cindex Unicode
+
 To enter a single character for which the Unicode code point is
 known but which is not available in the editor being used, use
 either @code{\char ##xhhhh} or @code{\char #dddd} within a
@@ -1722,6 +1739,58 @@ To enter the copyright sign in the copyright notice use:
   copyright = \markup @{ \char ##x00A9 "2008" @}
 @}
 @end example
+
+
+@node ASCII aliases
+@unnumberedsubsubsec ASCII aliases
+
+A list of ASCII aliases for special characters can be included:
+
+@lilypond[quote,verbatim]
+\paper {
+  #(include-special-characters)
+}
+
+\markup "&flqq; &ndash; &OE;uvre incomplète&hellip; &frqq;"
+
+\score {
+  \new Staff { \repeat unfold 9 a'4 }
+  \addlyrics {
+    This is al -- so wor -- kin'~in ly -- rics: &ndash;_&OE;&hellip;
+  }
+}
+
+\markup \column {
+  "The replacement can be disabled:"
+  "&ndash; &OE; &hellip;"
+  \override #'(replacement-alist . ()) "&ndash; &OE; &hellip;"
+}
+@end lilypond
+
+You can also make your own aliases, either globally:
+
+@lilypond[quote,verbatim]
+\paper {
+  #(add-text-replacements!
+    '(("100" . "hundred")
+      ("dpi" . "dots per inch")))
+}
+\markup "A 100 dpi."
+@end lilypond
+
+or locally:
+
+@lilypond[quote,verbatim]
+\markup \replace #'(("100" . "hundred")
+                    ("dpi" . "dots per inch")) "A 100 dpi."
+@end lilypond
+
+@seealso
+Notation Reference:
+@ref{List of special characters}.
+
+Installed Files:
+@file{ly/text-replacements.ly}.
 
 
 
