@@ -22,12 +22,45 @@
 
 #include "std-string.hh"
 
-void error (string s);
-void message (string s);
-void non_fatal_error (string);
-void programming_error (string s);
-void progress_indication (string s);
-void warning (string s);
-void successful (string s);
+/* Log-level bitmasks */
+#define LOG_NONE 0
+#define LOG_ERROR 1<<0
+#define LOG_WARN 1<<1
+#define LOG_BASIC 1<<2  // undocumented basic_progress, i.e. input file name and success
+#define LOG_PROGRESS 1<<3
+// Currently, there is no separation between progress and other info messages:
+#define LOG_INFO 1<<4
+#define LOG_DEBUG 1<<8
+
+/* Log-level definitions (or'ed bitmasks) */
+#define LOGLEVEL_NONE (LOG_NONE)
+#define LOGLEVEL_ERROR (LOG_ERROR)
+#define LOGLEVEL_WARN (LOGLEVEL_ERROR | LOG_WARN)
+#define LOGLEVEL_BASIC (LOGLEVEL_WARN | LOG_BASIC)
+#define LOGLEVEL_PROGRESS (LOGLEVEL_BASIC | LOG_PROGRESS)
+// Currently, there is no separation between progress and other info messages:
+#define LOGLEVEL_INFO (LOGLEVEL_PROGRESS | LOG_INFO)
+#define LOGLEVEL_DEBUG (LOGLEVEL_INFO | LOG_DEBUG)
+
+extern int loglevel;
+
+/* output messages, in decreasing order of importance */
+void error (string s, string location = ""); // Fatal error, exits lilypond!
+void programming_error (string s, string location = "");
+void non_fatal_error (string, string location = "");
+void warning (string s, string location = "");
+void successful (string s, string location = "");
+/* progress_indication does by default *NOT* start on a new line */
+void progress_indication (string s, bool newline = false, string location = "");
+void message (string s, bool newline = true, string location = "");
+void debug_output (string s, bool newline = true, string location = "");
+
+/* Helper functions that always print out the message. Callers should ensure
+   that the loglevel is obeyed */
+void print_message (int level, string location, string s, bool newline = true);
+
+bool is_loglevel (int level);
+void set_loglevel (int level);
+void set_loglevel (string level);
 
 #endif /* WARN_HH */

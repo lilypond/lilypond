@@ -179,8 +179,8 @@ second.  Dump results to `FILE.stacks' and
 `FILE.graph'.")
     (trace-scheme-coverage #f
 "Record coverage of Scheme files in `FILE.cov'.")
-    (verbose ,(ly:command-line-verbose?)
-"Value of the --verbose flag (read-only).")
+    (verbose ,(ly:verbose-output?)
+"Verbose output, i.e. loglevel at least DEBUG (read-only).")
     (warning-as-error #f
 "Change all warning and programming_error
 messages into errors.")
@@ -226,12 +226,10 @@ messages into errors.")
 
 (cond
   ((guile-v2)
-   (if (ly:get-option 'verbose)
-       (ly:message  (_ "Using (ice-9 curried-definitions) module\n")))
+   (ly:debug (_ "Using (ice-9 curried-definitions) module\n"))
    (use-modules (ice-9 curried-definitions)))
   (else
-    (if (ly:get-option 'verbose)
-        (ly:message (_ "Guile 1.8\n")))))
+    (ly:debug (_ "Guile 1.8\n"))))
 
 ;; TODO add in modules for V1.8.7 deprecated in V2.0 and integrated
 ;; into Guile base code, like (ice-9 syncase).
@@ -288,13 +286,14 @@ messages into errors.")
 
 (define-public (ly:load x)
   (let* ((file-name (%search-load-path x)))
-    (if (ly:get-option 'verbose)
-	(ly:progress "[~A" file-name))
+    (ly:debug "[~A" file-name)
     (if (not file-name)
-	(ly:error (_ "cannot find: ~A") x))
+        (ly:error (_ "cannot find: ~A") x))
     (primitive-load-path file-name)  ;; to support Guile V2 autocompile
+    ;; TODO: Any chance to use ly:debug here? Need to extend it to prevent
+    ;;       a newline in this case
     (if (ly:get-option 'verbose)
-	(ly:progress "]\n"))))
+        (ly:progress "]\n"))))
 
 (define-public DOS
   (let ((platform (string-tokenize

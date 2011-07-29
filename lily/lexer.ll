@@ -192,8 +192,7 @@ BOM_UTF8	\357\273\277
       LexerError (_ ("stray UTF-8 BOM encountered").c_str ());
       exit (1);
     }
-  if (be_verbose_global)
-     message (_ ("Skipping UTF-8 BOM"));
+  debug_output (_ ("Skipping UTF-8 BOM"));
 }
 
 <INITIAL,chords,figures,incl,lyrics,markup,notes>{

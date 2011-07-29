@@ -86,8 +86,7 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
   SCM val;
   if (!pango_dict_->try_retrieve (key, &val))
     {
-      if (be_verbose_global)
-        progress_indication ("\n[" + string (pango_fn));
+      debug_output ("[" + string (pango_fn), true); // start on a new line
 
       Pango_font *pf = new Pango_font (pango_ft2_fontmap_,
                                        description,
@@ -98,8 +97,7 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
       pango_dict_->set (key, val);
       pf->unprotect ();
 
-      if (be_verbose_global)
-        progress_indication ("]");
+      debug_output ("]", false);
 
       pf->description_ = scm_cons (SCM_BOOL_F,
                                    scm_from_double (1.0));
@@ -124,13 +122,11 @@ All_font_metrics::find_otf (string name)
       if (file_name.empty ())
         return 0;
 
-      if (be_verbose_global)
-        progress_indication ("\n[" + file_name);
+      debug_output ("[" + file_name, true); // start on a new line
 
       val = Open_type_font::make_otf (file_name);
 
-      if (be_verbose_global)
-        progress_indication ("]");
+      debug_output ("]", false);
 
       unsmob_metrics (val)->file_name_ = file_name;
       SCM name_string = ly_string2scm (name);

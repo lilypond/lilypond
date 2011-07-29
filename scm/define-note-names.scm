@@ -965,8 +965,7 @@
 			  '())))
     (if (pair? alist)
 	(begin
-	  (if (ly:get-option 'verbose)
-	      (ly:message (_ "Using `~a' note names...") str))
+	  (ly:debug (_ "Using `~a' note names...") str)
 	  (set! pitchnames alist)
 	  (ly:parser-set-note-names parser alist))
 	(ly:warning (_ "Could not find language `~a'.  Ignoring.") str))))

@@ -197,8 +197,7 @@ System::do_break_substitution_and_fixup_refpoints ()
         }
     }
 
-  if (be_verbose_global)
-    message (_f ("Element count %d", count + element_count ()) + "\n");
+  debug_output (_f ("Element count %d", count + element_count ()) + "\n");
 }
 
 SCM
@@ -216,16 +215,14 @@ System::get_paper_systems ()
   SCM lines = scm_c_make_vector (broken_intos_.size (), SCM_EOL);
   for (vsize i = 0; i < broken_intos_.size (); i++)
     {
-      if (be_verbose_global)
-        progress_indication ("[");
+      debug_output ("[", false);
 
       System *system = dynamic_cast<System *> (broken_intos_[i]);
 
       scm_vector_set_x (lines, scm_from_int (i),
                         system->get_paper_system ());
 
-      if (be_verbose_global)
-        progress_indication (to_string (i) + "]");
+      debug_output (to_string (i) + "]", false);
     }
   return lines;
 }
@@ -398,8 +395,7 @@ System::pre_processing ()
   for (vsize i = 0; i < all_elements_->size (); i++)
     all_elements_->grob (i)->discretionary_processing ();
 
-  if (be_verbose_global)
-    message (_f ("Grob count %d", element_count ()));
+  debug_output (_f ("Grob count %d", element_count ()));
 
   /*
     order is significant: broken grobs are added to the end of the

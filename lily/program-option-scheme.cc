@@ -247,10 +247,10 @@ LY_DEFINE (ly_command_line_code, "ly:command-line-code", 0, 0, 0, (),
   return ly_string2scm (init_scheme_code_global);
 }
 
-LY_DEFINE (ly_command_line_verbose_p, "ly:command-line-verbose?", 0, 0, 0, (),
-           "Was @code{be_verbose_global} set?")
+LY_DEFINE (ly_verbose_output_p, "ly:verbose-output?", 0, 0, 0, (),
+           "Was verbose output requested, i.e. loglevel at least @code{DEBUG}?")
 {
-  return scm_from_bool (be_verbose_global);
+  return scm_from_bool (is_loglevel (LOG_DEBUG));
 }
 
 LY_DEFINE (ly_all_options, "ly:all-options",
