@@ -1,0 +1,2834 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@ignore
+    Translation of GIT committish: b3e632849e6cc825c77eca4287c619d23e7f5057
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.14.0"
+
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+
+@node 入出力全般
+@chapter 入出力全般
+@translationof General input and output
+
+このセクションでは、特定の記譜法ではなく、@c
+LilyPond の一般的な入出力の問題について扱います。
+
+@menu
+* 入力の構造::
+* タイトルとヘッダ::
+* 入力ファイルに取り組む::
+* 出力を制御する::
+* MIDI 出力::
+* 音楽情報を抽出する::
+@end menu
+
+
+@node 入力の構造
+@section 入力の構造
+@translationof Input structure
+
+LilyPond の入力の主となるフォーマットはテキスト ファイルです。@c
+習慣として、それらのファイルの最後には @file{.ly} を付けます。
+
+@menu
+* score の構造::
+* book の中にある複数の score::
+* 1 つの入力ファイルから複数の出力ファイルを生成する::
+* 出力ファイル名::
+* ファイル構造::
+@end menu
+
+
+@node score の構造
+@subsection score の構造
+@translationof Structure of a score
+
+@funindex \score
+
+@code{\score} ブロックは、波括弧で囲まれた単一の音楽表記を@c
+含んでいなければなりません:
+
+@example
+\score @{
+...
+@}
+@end example
+
+@warning{@code{\score} ブロックの中には、@c
+最上位の音楽表記が @strong{1 つだけ} 存在していなければならず、@c
+その音楽表記は波括弧で囲まれていなければ@strong{なりません}。}
+
+この単一の音楽表記は任意のサイズになり得ます。@c
+そして、それは他の音楽表記を保持して任意の複雑さを持ち得ます。@c
+以下の例はすべて音楽表記です:
+
+@example
+@{ c'4 c' c' c' @}
+@end example
+
+@lilypond[verbatim,quote]
+{
+  { c'4 c' c' c' }
+  { d'4 d' d' d' }
+}
+@end lilypond
+
+@lilypond[verbatim,quote]
+<<
+  \new Staff { c'4 c' c' c' }
+  \new Staff { d'4 d' d' d' }
+>>
+@end lilypond
+
+@example
+@{
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff @{ \flute @}
+      \new Staff @{ \oboe @}
+    >>
+    \new StaffGroup <<
+      \new Staff @{ \violinI @}
+      \new Staff @{ \violinII @}
+    >>
+  >>
+@}
+@end example
+
+この一般規則の例外の 1 つにコメントがあります。@c
+(他の例外は、@ref{ファイル構造} を参照してください。)@c
+単一行コメントと複数行コメント (@code{%@{ .. %@}} で囲まれます) は@c
+どちらも入力ファイルの任意の場所に配置することができます。@c
+コメントは @code{\score} ブロックの内側あるいは外側に@c
+配置することができ、@code{\score} ブロックの中にある単一の音楽表記の@c
+内側あるいは外側に配置することができます。
+
+たとえ @code{\score} ブロックだけを保持しているファイルであっても、@c
+暗黙的に @code{\book} ブロックで囲まれるということを覚えておいてください。@c
+ソース ファイルの中にある @code{\book} は少なくとも 1 つの@c
+出力ファイルを作り出し、@c
+デフォルトでは出力ファイル名は入力ファイル名から派生します。@c
+@file{fandangoforelephants.ly} は @file{fandangoforelephants.pdf} を@c
+作り出します。
+
+(@code{\book} ブロックについての詳細は、@c
+@ref{book の中にある複数の score}、@c
+@ref{1 つの入力ファイルから複数の出力ファイルを生成する}、@c
+@ref{ファイル構造} を参照してください。)
+
+@seealso
+学習マニュアル:
+@rlearning{入力ファイルに取り組む},
+@rlearning{音楽表記についての説明},
+@rlearning{Score は (単一の) 複合的な音楽表記}
+
+
+@node book の中にある複数の score
+@subsection book の中にある複数の score
+@translationof Multiple scores in a book
+
+@funindex \book
+@cindex movements, multiple (複数の楽章)
+
+ドキュメントは複数の楽曲とテキストを含むことができます。@c
+そのようなドキュメントの例には練習曲集や、@c
+複数の楽章を持つオーケストラのパート譜があります。@c
+楽章はそれぞれ @code{\score} ブロックで入力され、
+
+@example
+\score @{
+  @var{..music..}
+@}
+@end example
+
+テキストは @code{\markup} ブロックで入力されます。
+
+@example
+\markup @{
+  @var{..text..}
+@}
+@end example
+
+@funindex \book
+
+同じ @file{.ly} ファイルの中にあるすべての楽章とテキストは、@c
+通常、単一の出力ファイルとして譜刻されます。
+
+@example
+\score @{
+  @var{..}
+@}
+\markup @{
+  @var{..}
+@}
+\score @{
+  @var{..}
+@}
+@end example
+
+重要な例外として lilypond-book ドキュメントがあります。@c
+lilypond-book ドキュメントでは、明示的に @code{\book} ブロックを追加する@c
+必要があります。@c
+さもなければ、最初の @code{\score} あるいは @code{\markup} だけが出力に@c
+表示されます。
+
+音楽の各節のヘッダはその節の @code{\score} ブロックの中に置くことができます。@c
+そのヘッダからの @code{piece} 名がそれぞれの楽章の前に譜刻されます。@c
+book 全体のタイトルは @code{\book} の中に置くことができます。@c
+しかしながら、@code{\book} が存在しない場合は、@code{\header} を@c
+入力ファイルの先頭に挿入します。
+
+@example
+\header @{
+  title = "Eight miniatures"
+  composer = "Igor Stravinsky"
+@}
+\score @{
+  @dots{}
+  \header @{ piece = "Romanze" @}
+@}
+\markup @{
+   ..text of second verse..
+@}
+\markup @{
+   ..text of third verse..
+@}
+\score @{
+  @dots{}
+  \header @{ piece = "Menuetto" @}
+@}
+@end example
+
+@funindex \bookpart
+
+@code{\bookpart} ブロックを用いて、
+複数の楽曲を book のパートとしてグループ化することができます。
+
+book パートは改ページで区切られ、book 自体と同様に
+@code{\header} ブロックによりタイトルを持つことができます。
+
+@example
+\bookpart @{
+  \header @{
+    title = "Book title"
+    subtitle = "First part"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+\bookpart @{
+  \header @{
+    subtitle = "Second part"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+@end example
+
+
+@node 1 つの入力ファイルから複数の出力ファイルを生成する
+@subsection 1 つの入力ファイルから複数の出力ファイルを生成する
+@translationof Multiple output files from one input file
+
+1 つの @file{.ly} ファイルから複数の出力ファイルを得たいのであれば、@c
+@file{.ly} ファイルに複数の @code{\book} ブロックを記述します。@c
+各 @code{\book} ブロックが個々に出力ファイルになります。@c
+入力ファイルで @code{\book} ブロックを記述しなければ、@c
+LilyPond は暗黙的にファイル全体を単一の @code{\book} として扱います。@c
+@ref{ファイル構造} を参照してください。
+
+単一のソース ファイルから複数のファイルを作り出す時、@c
+LilyPond は、@code{\book} ブロックが作り出す出力ファイルが@c
+同じ入力ファイル内にある他の @code{\book} ブロックが作り出した出力ファイルを@c
+上書きしないことを保証します。
+
+入力ファイルから派生するデフォルトの出力ファイル名に
+@code{\book} 毎の接尾辞を付け加えることによって上書きされないことを保証します。
+
+出力が上書きされないよう、@c
+デフォルトでは出力ファイル名にバージョン番号の接尾辞を付け加えます。@c
+ソース ファイル @file{eightminiatures.ly} 内の以下の記述
+
+@example
+\book @{
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+@end example
+
+は、下記の出力ファイルを作り出します。
+
+@itemize
+@item
+@file{eightminiatures.pdf},
+@item
+@file{eightminiatures-1.pdf} and
+@item
+@file{eightminiatures-2.pdf}.
+@end itemize
+
+
+@node 出力ファイル名
+@subsection 出力ファイル名
+@translationof Output file names
+
+@funindex \bookOutputSuffix
+@funindex \bookOutputName
+
+LilyPond は、@c
+出力ファイルを作り出す時に出力ファイル名を制御するための様々な機能を提供します。
+
+前のセクションでは、@c
+LilyPond がどのように単一のソース ファイルから作り出される複数の出力ファイルが@c
+上書きされることを防ぐかを見てきました。@c
+@code{\book} ブロック毎の出力ファイル名に付け加えられる接尾辞を@c
+指定することもできます。@c
+各 @code{\book} ブロックの内部に @code{\bookOutputSuffix} 宣言を@c
+記述することにより、例えば
+@file{eightminiatures-Romanze.pdf}, @file{eightminiatures-Menuetto.pdf}
+それに @file{eightminiatures-Nocturne.pdf} といった名前の出力ファイルを@c
+作り出すことができます。
+
+@example
+\book @{
+  \bookOutputSuffix "Romanze"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputSuffix "Menuetto"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputSuffix "Nocturne"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+@end example
+
+@code{\bookOutputName} 宣言を用いることにより、@c
+@code{\book} ブロックに入力ファイル名とは異なる出力ファイル名を@c
+指定することもできます。
+
+@example
+\book @{
+  \bookOutputName "Romanze"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputName "Menuetto"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputName "Nocturne"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+@end example
+
+上記のファイルは下記の出力ファイルを作り出します:
+
+@itemize
+@item
+@file{Romanze.pdf}
+@item
+@file{Menuetto.pdf}
+@item
+@file{Nocturne.pdf}
+@end itemize
+
+
+@node ファイル構造
+@subsection ファイル構造
+@translationof File structure
+
+@funindex \paper
+@funindex \midi
+@funindex \layout
+@funindex \header
+@funindex \score
+@funindex \book
+@funindex \bookpart
+
+@file{.ly} ファイルは最上位の表記を任意の数だけ保持することができます
+-- ここで、最上位の表記とは以下の中の 1 つです:
+
+@itemize @bullet
+@item
+@code{\paper}, @code{\midi}, @code{\layout} などの出力定義。@c
+最上位にある出力定義はブック全体のデフォルト設定を変更します。@c
+最上位に同じタイプの出力定義が複数ある場合、@c
+後ろの方にある出力定義が優先されます。
+
+@item
+@code{#(set-default-paper-size "a7" 'landscape)} や
+@code{#(ly:set-option 'point-and-click #f)} などの Scheme 表記。
+
+@item
+@code{\header} ブロック。これはグローバル ヘッダ ブロックになります。@c
+このブロックは、作曲者、曲名などのブック全体の設定定義を保持します。
+
+@item
+@code{\score} ブロック。@c
+この score は他の最上位の score とともに単一の @code{\book} にまとめられます。@c
+この振る舞いは、@c
+変数 @code{toplevel-score-handler} を最上位の階層で設定することによって、@c
+変更することができます。@c
+デフォルトのハンドラは@c
+初期化ファイル @file{../scm/lily.scm} で定義されています。
+
+@item
+@code{\book} ブロックは複数の楽章 (すなわち、複数の @code{\score} ブロック) を@c
+論理的に 1 つのドキュメントにまとめます。@c
+複数の @code{\score} が存在する場合、@c
+それぞれの @code{\book} ブロックに対して 1 つずつ出力ファイルが作成され、@c
+それぞれの出力ファイルの中では該当するすべての楽章が連結されます。@c
+@file{.ly} ファイルの中で明示的に @code{\book} ブロックを@c
+指定する必要があるケースはただ 1 つ、@c
+単一の入力ファイルから複数の出力ファイルを作成することを望む場合です。@c
+例外の 1 つに lilypond-book ドキュメントがあります
+-- そこでは、同じ例の中に複数の @code{\socre} あるいは @code{\markup} を@c
+配置したければ、明示的に @code{\book} ブロックを追加する必要があります。@c
+この振る舞いは、@c
+変数 @code{toplevel-score-handler} を最上位の階層で設定することによって、@c
+変更することができます。@c
+デフォルトのハンドラは@c
+初期化ファイル @file{../scm/lily.scm} で定義されています。
+
+@item
+@code{\bookpart} ブロック。@c
+改ページを簡単にするため、@c
+あるいは異なるパートで別々の @code{\paper} 設定を使用するために、@c
+book は
+-- @code{\bookpart} を用いて --
+いくつかのパートに分割される可能性があります。
+
+@item
+以下のような複合音楽表記:
+@example
+@{ c'4 d' e'2 @}
+@end example
+
+これは楽節を @code{\score} に付け加え、@c
+その楽節を他のすべての最上位 @code{\score} や音楽表記とともに@c
+単一のブックにフォーマットにします。@c
+言い換えると、上記の音楽表記だけを保持しているファイルは@c
+以下のように翻訳されます:
+
+@example
+\book @{
+  \score @{
+    \new Staff @{
+      \new Voice @{
+        @{ c'4 d' e'2 @}
+      @}
+    @}
+  @}
+	\layout @{ @}
+	\header @{ @}
+@}
+@end example
+
+この振る舞いは、@c
+変数 @code{toplevel-score-handler} を最上位の階層で設定することによって、@c
+変更することができます。@c
+デフォルトのハンドラは@c
+初期化ファイル @file{../scm/lily.scm} で定義されています。
+
+@item
+マークアップ テキスト。@c
+例として以下の歌詞を挙げます:
+@example
+\markup @{
+   2.  The first line verse two.
+@}
+@end example
+
+マークアップ テキストは、それが出現した場所で、@c
+score あるいは音楽表記の上、間、あるいは下に描かれます。
+
+@cindex variables (変数)
+
+@item
+以下のような変数:
+@example
+foo = @{ c4 d e d @}
+@end example
+
+これは後で使用することができます。@c
+使用するには、入力ファイルの中で @code{\foo} と入力します。@c
+変数の名前はアルファベットだけで構成すべきです。@c
+数字、アンダスコアあるいはダッシュを使うことができません。
+
+@end itemize
+
+以下の例は最上位の階層で入力される可能性がある 3 つのものを示しています:
+
+@example
+\layout @{
+  % Don't justify the output
+  ragged-right = ##t
+@}
+
+\header @{
+   title = "Do-re-mi"
+@}
+
+@{ c'4 d' e2 @}
+@end example
+
+
+ファイルの任意の場所で、以下の編集指示のいずれかが入力される可能性があります:
+
+@itemize
+@item @code{\version}
+@item @code{\include}
+@item @code{\sourcefilename}
+@item @code{\sourcefileline}
+@item
+@code{%} 記号で始まる単一行コメント。
+
+@item
+@code{%@{ .. %@}} で囲まれる複数行コメント。
+
+@end itemize
+
+@cindex whitespace
+
+通常、入力の要素間にある空白は無視され、@c
+可読性を良くするために自由に削除あるいは追加することができます。@c
+しかしながら、以下の状況ではエラーを避けるために空白を挿入する必要があります:
+
+@itemize
+@item 波括弧の前後。
+@item コマンドあるいは変数 -- すなわち、@code{\} 記号で始まる要素 -- の後。
+@item Scheme 表記として解釈される要素
+-- すなわち、@code{#} 記号で始まる要素 -- の後。
+@item Scheme 表記要素を区切る空白。
+@item @code{lyricmode} モードの @code{\override} と @code{\set} コマンドの@c
+中にある単語を区切る空白。@c
+特に、@code{\override Score . LyricText #'font-size = #5} のように、@c
+コマンドの中のドットとイコール記号の前後、コマンド全体の前後に@c
+空白を挿入することを忘れないで下さい。
+
+@end itemize
+
+@seealso
+学習マニュアル:
+@rlearning{LilyPond 入力ファイルの仕組み}
+
+
+@node タイトルとヘッダ
+@section タイトルとヘッダ
+@translationof Titles and headers
+
+ほとんどすべての楽譜にはタイトルと作曲者名が含まれます。@c
+楽譜の中にはさらに多くの情報を含むものもあります。
+
+@menu
+* タイトル、ヘッダそれにフッタを作成する::
+* カスタム ヘッダ、フッタそれにタイトル::
+* ページ番号の参照::
+* 目次::
+@end menu
+
+
+@node タイトル、ヘッダそれにフッタを作成する
+@subsection タイトル、ヘッダそれにフッタを作成する
+@translationof Creating titles, headers, and footers
+
+@menu
+* タイトル ブロックの説明::
+* book と score のタイトル ブロックのデフォルト レイアウト::
+* ヘッダとフッタのデフォルト レウアウト::
+@end menu
+
+@node タイトル ブロックの説明
+@unnumberedsubsubsec タイトル ブロックの説明
+@translationof Title blocks explained
+
+@c TODO: figure out how \bookpart titles work
+
+タイトル ブロックには 2 つのタイプがあります:
+book の最初の @code{\score} の上に表示されるメインのタイトル ブロックと、@c
+各 @code{\score} ブロック内に表示される個々のタイトル ブロックです。@c
+両タイプのテキスト フィールドは @code{\header} ブロックを用いて挿入します。
+
+book が単一の score しか持たない場合、@c
+@code{\header} ブロックを配置する場所は @code{\score} ブロックの内側でも@c
+外側でも構いません。
+
+@warning{@bs{}@code{score} ブロックの内側に @bs{}@code{header} ブロックを@c
+追加する場合、@c
+@bs{}@code{header} ブロックの前に音楽表記を配置する必要があります。}
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\header {
+  title = "SUITE I."
+  composer = "J. S. Bach."
+}
+
+\score {
+  \new Staff \relative g, {
+    \clef bass
+    \key g \major
+    \repeat unfold 2 { g16( d' b') a b d, b' d, } |
+    \repeat unfold 2 { g,16( e' c') b c e, c' e, } |
+  }
+  \header {
+    piece = "Prélude."
+  }
+}
+
+\score {
+  \new Staff \relative b {
+    \clef bass
+    \key g \major
+    \partial 16 b16 |
+    <g, d' b'~>4 b'16 a( g fis) g( d e fis) g( a b c) |
+    d16( b g fis) g( e d c) b(c d e) fis( g a b) |
+  }
+  \header {
+    piece = "Allemande."
+  }
+}
+@end lilypond
+
+book のメイン タイトル ブロックのテキスト フィールドはすべての @code{\score}
+ブロックに表示させることができ、手動で表示を抑制することもできます:
+
+@c KEEP LY
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    print-all-headers = ##t
+  }
+  \header {
+    title = "DAS WOHLTEMPERIRTE CLAVIER"
+    subtitle = "TEIL I"
+    % この book では tagline を表示しません
+    tagline = ##f
+  }
+  \markup { \vspace #1 }
+  \score {
+    \new PianoStaff <<
+      \new Staff { s1 }
+      \new Staff { \clef "bass" s1 }
+    >>
+    \header {
+      title = "PRAELUDIUM I"
+      opus = "BWV 846"
+      % この score では subtitle を表示しません
+      subtitle = ##f
+    }
+  }
+  \score {
+    \new PianoStaff <<
+      \new Staff { s1 }
+      \new Staff { \clef "bass" s1 }
+    >>
+    \header {
+      title = "FUGA I"
+      subsubtitle = "A 4 VOCI"
+      opus = "BWV 846"
+      % この score では subtitle を表示しません
+      subtitle = ##f
+    }
+  }
+}
+@end lilypond
+
+@seealso
+記譜法リファレンス:
+@ref{ファイル構造},
+@ref{タイトル ブロックのカスタム レイアウト}
+
+
+@node book と score のタイトル ブロックのデフォルト レイアウト
+@unnumberedsubsubsec book と score のタイトル ブロックのデフォルト レイアウト
+@translationof Default layout of book and score title blocks
+
+タイトル ブロックのレイアウトとフォーマットは 2 つの @code{\paper}
+変数によって制御されます。@c
+メインの @code{\header} タイトル ブロックのための @code{bookTitleMarkup} と、@c
+@code{\score} 内部の個々の @code{\header} ブロックのための
+@code{scoreTitleMarkup} です。
+
+@c KEEP LY
+@lilypond[papersize=a6,quote,verbatim,noragged-right]
+\header {
+  % 以下のフィールドは中央揃えされます。
+  dedication = "Dedication"
+  title = "Title"
+  subtitle = "Subtitle"
+  subsubtitle = "Subsubtitle"
+  instrument = "Instrument"
+
+  % 以下のフィールドは左端に左揃えされます。
+  poet = "Poet"
+  meter = "Meter"
+
+  % 以下のフィールドは右端に右揃えされます。
+  composer = "Composer"
+  arranger = "Arranger"
+}
+
+\score {
+  { s1 }
+  \header {
+    % 以下のフィールドは同一行の両端に配置されます。
+    piece = "Piece"
+    opus = "Opus"
+  }
+}
+@end lilypond
+
+@c Is the bit about \null markups true? -mp
+
+@code{\header} ブロックでセットされなかったテキスト フィールドには@c
+@code{\null} マークアップがセットされ、スペースを無駄にしません。
+
+デフォルト設定では、@code{scoreTitleMarkup} は
+@code{piece} テキスト フィールドと @code{opus} テキスト フィールドを@c
+同一行の両端に配置します。
+
+@cindex breakbefore
+
+最上位の @code{\header} ブロックのタイトルを最初のページに配置して、@c
+@code{\score} ブロックで定義される楽譜を次のページから始めるするには、@c
+@code{\score} ブロックの中にある @code{\header} ブロック内で@c
+@code{breakbefore} 変数を使用します。
+
+@lilypond[papersize=a8landscape,verbatim,noragged-right]
+\book {
+  \header {
+    title = "This is my Title"
+    subtitle = "This is my Subtitle"
+    copyright = "This is the bottom of the first page"
+  }
+  \score {
+    \repeat unfold 4 { e'' e'' e'' e'' }
+    \header {
+      piece = "This is the Music"
+      breakbefore = ##t
+    }
+  }
+}
+@end lilypond
+
+@seealso
+学習マニュアル:
+@rlearning{LilyPond 入力ファイルの仕組み}
+
+記譜法リファレンス:
+@ref{ファイル構造}
+
+インストールされているファイル:
+@file{ly/titling-init.ly}
+
+
+@node ヘッダとフッタのデフォルト レウアウト
+@unnumberedsubsubsec ヘッダとフッタのデフォルト レウアウト
+@translationof Default layout of headers and footers
+
+@emph{ヘッダ} と @emph{フッタ} は、book のテキストとは別の、@c
+ページの最初と最後に表示されるテキスト行です。@c
+ヘッダとフッタは以下の @code{\paper} 変数によって制御されます:
+
+@itemize
+@item @code{oddHeaderMarkup}
+@item @code{evenHeaderMarkup}
+@item @code{oddFooterMarkup}
+@item @code{evenFooterMarkup}
+@end itemize
+
+これらのマークアップ変数は、最上位の @code{\header} ブロック
+(これは book のすべての score に適用されます) から、@c
+テキスト フィールドのみにアクセスすることができ、@c
+@file{ly/titling-init.ly} で定義されています。@c
+デフォルトでは以下のようになっています:
+
+@itemize
+
+@item
+ページ番号は、2 ページ目から、ページ最上段の左端 (偶数ページの場合)
+または右端 (奇数ページの場合) に自動的に配置されます。
+
+@item
+@code{instrument} テキスト フィールドは、2 ページ目から、@c
+各ページの中央に配置されます。
+
+@item
+@code{copyright} テキストは最初のページの最下段中央に配置されます。
+
+@item
+@code{tagline} は最後のページの最下段中央に配置されます。@c
+1 ページしかない場合は @code{copyright} の下に配置されます。
+
+@end itemize
+
+@lilypond[papersize=a8landscape]
+\book {
+  \score {
+    \relative c' {
+      c4 d e f
+    }
+  }
+}
+@end lilypond
+
+最上位の @code{\header} ブロックの中に @code{tagline} を追加することで、@c
+デフォルトのタグラインを変更することができます。
+
+@lilypond[papersize=a8landscape,verbatim]
+\book {
+  \header {
+    tagline = "... music notation for Everyone"
+  }
+  \score {
+    \relative c' {
+      c4 d e f
+    }
+  }
+}
+@end lilypond
+
+タグラインを削除するには、@code{tagline}  に @code{##f} をセットします。
+
+
+@node カスタム ヘッダ、フッタそれにタイトル
+@subsection カスタム ヘッダ、フッタそれにタイトル
+@translationof Custom headers footers and titles
+
+@c TODO: somewhere put a link to header spacing info
+@c       (you'll have to explain it more in NR 4).
+
+@menu
+* タイトル ブロックのカスタム テキスト フォーマット::
+* タイトル ブロックのカスタム レイアウト::
+* ヘッダとフッタのカスタム レイアウト::
+@end menu
+
+@node タイトル ブロックのカスタム テキスト フォーマット
+@unnumberedsubsubsec タイトル ブロックのカスタム テキスト フォーマット
+@translationof Custom text formatting for title blocks
+
+標準の @code{\markup} コマンドを使って @code{\header} ブロックの中にある@c
+ヘッダ、フッタ、それにタイトル テキストをカスタマイズすることができます。
+
+@lilypond[quote,verbatim,noragged-right]
+\score {
+  { s1 }
+  \header {
+    piece = \markup { \fontsize #4 \bold "PRAELUDIUM I" }
+    subtitle = \markup { \italic "(Excerpt)" }
+  }
+}
+@end lilypond
+
+@seealso
+記譜法リファレンス:
+@ref{テキストをフォーマットする}
+
+
+@node タイトル ブロックのカスタム レイアウト
+@unnumberedsubsubsec タイトル ブロックのカスタム レイアウト
+@translationof Custom layout for title blocks
+
+@code{\header} ブロックの中に @code{\markup} コマンドを配置することにより、@c
+シンプルなテキストをフォーマットすることができます。@c
+しかしながら、タイトルの配置を精密に制御することはできません。@c
+テキスト フィールドの配置をカスタマイズするために、@c
+以下の @code{\paper} 変数のどちらか、あるいは両方を使用します:
+
+@itemize
+@item @code{bookTitleMarkup}
+@item @code{scoreTitleMarkup}
+@end itemize
+
+これらのマークアップ変数は
+@ref{book と score のタイトル ブロックのデフォルト レイアウト}
+で説明しています。
+
+@file{ly/titling-init.ly} で定義されている @code{scoreTitleMarkup}
+のデフォルト設定は以下のとおりです:
+
+@example
+scoreTitleMarkup = \markup @{ \column @{
+  \on-the-fly #print-all-headers @{ \bookTitleMarkup \hspace #1 @}
+  \fill-line @{
+    \fromproperty #'header:piece
+    \fromproperty #'header:opus
+  @}
+@}
+@}
+@end example
+
+これは、@code{piece} テキスト フィールドと @code{opus} テキスト フィールドを@c
+同一行の両端に配置します:
+
+@lilypond[quote,verbatim,noragged-right]
+\score {
+  { s1 }
+  \header {
+    piece = "PRAELUDIUM I"
+    opus = "BWV 846"
+  }
+}
+@end lilypond
+
+以下の例では、@code{scoreTitleMarkup} を再定義することにより、@c
+@code{piece} テキスト フィールドを中央に配置して、フォントを大きく、@c
+太字にしています。
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    indent = 0\mm
+    scoreTitleMarkup = \markup {
+      \fill-line {
+        \null
+        \fontsize #4 \bold \fromproperty #'header:piece
+        \fromproperty #'header:opus
+      }
+    }
+  }
+  \header { tagline = ##f }
+  \score {
+    { s1 }
+    \header {
+      piece = "PRAELUDIUM I"
+      opus = "BWV 846"
+    }
+  }
+}
+@end lilypond
+
+@code{print-all-headers} を @code{\paper} ブロックの中に配置することにより、@c
+メイン タイトル ブロックのテキスト フィールドを個々の score タイトル ブロック@c
+に表示させることができます。@c
+この方法の欠点は、個々の @code{\score} ブロックで、@c
+最上位の @code{\header} ブロックだけに表示させるテキスト フィールドを@c
+手動で抑制する必要があることです。@c
+@ref{タイトル ブロックの説明} を参照してください。
+
+この欠点を回避するには、個々の @code{\score} ブロックに表示させたい@c
+テキスト フィールドを @code{scoreTitleMarkup} 定義に追加します。@c
+以下の例では、@code{composer} テキスト フィールド
+(通常、これは @code{bookTitleMarkup} に関連付けされています)
+を @code{scoreTitleMarkup} に追加することにより、@c
+各 score は異なる作曲者を表示しています:
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    indent = 0\mm
+    scoreTitleMarkup = \markup {
+      \fill-line {
+        \null
+        \fontsize #4 \bold \fromproperty #'header:piece
+        \fromproperty #'header:composer
+      }
+    }
+  }
+  \header { tagline = ##f }
+  \score {
+    { s1 }
+    \header {
+      piece = "MENUET"
+      composer = "Christian Petzold"
+    }
+  }
+  \score {
+    { s1 }
+    \header {
+      piece = "RONDEAU"
+      composer = "FranÃ§ois Couperin"
+    }
+  }
+}
+@end lilypond
+
+あなた自身のカスタム テキスト フィールドを作成して、@c
+それをマークアップ定義で参照することもできます。
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    indent = 0\mm
+    scoreTitleMarkup = \markup {
+      \fill-line {
+        \null
+        \override #`(direction . ,UP) {
+          \dir-column {
+            \center-align \fontsize #-1 \bold
+              \fromproperty #'header:mycustomtext %% User-defined field
+            \center-align \fontsize #4 \bold
+              \fromproperty #'header:piece
+          }
+        }
+        \fromproperty #'header:opus
+      }
+    }
+  }
+  \header { tagline = ##f }
+  \score {
+    { s1 }
+    \header {
+      piece = "FUGA I"
+      mycustomtext = "A 4 VOCI" %% User-defined field
+      opus = "BWV 846"
+    }
+  }
+}
+@end lilypond
+
+@seealso
+記譜法リファレンス:
+@ref{タイトル ブロックの説明}
+
+
+@node ヘッダとフッタのカスタム レイアウト
+@unnumberedsubsubsec ヘッダとフッタのカスタム レイアウト
+@translationof Custom layout for headers and footers
+
+@c can make-header and make-footer be removed from
+@c paper-defaults-init.ly? -mp
+
+@code{\header} ブロックの中に @code{\markup} コマンドを配置することにより、@c
+シンプルなテキストをフォーマットすることができます。@c
+しかしながら、ヘッダとフッタの配置を精密に制御することはできません。@c
+テキスト フィールドの配置をカスタマイズするために、@c
+以下の @code{\paper} 変数のいずれか、あるいはいくつかを使用します:
+
+@itemize
+@item @code{oddHeaderMarkup}
+@item @code{evenHeaderMarkup}
+@item @code{oddFooterMarkup}
+@item @code{evenFooterMarkup}
+@end itemize
+
+以下の例では、ページ番号を各ページの最下段中央に配置しています。@c
+まず、@code{oddHeaderMarkup} と @code{evenHeaderMarkup} に
+@emph{null} を定義することにより、デフォルト設定を削除します。@c
+次に、@code{oddFooterMarkup} に中央に配置されたページ番号を再定義します。@c
+最後に、@code{evenFooterMarkup} に @code{oddFooterMarkup} を@c
+定義することにより、同じレイアウトにします:
+
+@lilypond[papersize=a8,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    print-page-number = ##t
+    print-first-page-number = ##t
+    oddHeaderMarkup = \markup \null
+    evenHeaderMarkup = \markup \null
+    oddFooterMarkup = \markup {
+      \fill-line {
+        \on-the-fly #print-page-number-check-first
+        \fromproperty #'page:page-number-string
+      }
+    }
+    evenFooterMarkup = \oddFooterMarkup
+  }
+  \score {
+    \new Staff { s1 \break s1 \break s1 }
+  }
+}
+@end lilypond
+
+@seealso
+記譜法リファレンス:
+@ref{タイトル ブロックの説明},
+@ref{book と score のタイトル ブロックのデフォルト レイアウト}
+
+
+@ignore
+@node カスタム タイトル
+@subsection カスタム タイトル
+@translationof Custom titles
+
+さらに高度なオプションとして、@c
+@code{\paper} ブロックの中にある以下の変数の定義を変更することができます。@c
+初期化ファイル @file{../ly/titling-init.ly} が@c
+デフォルトのレイアウトの設定リストです。
+
+@table @code
+@funindex bookTitleMarkup
+@item bookTitleMarkup
+  これは出力ドキュメントの先頭に付け加えられるタイトルです。@c
+通常、ここには作品の作曲者名とタイトルが含まれます。
+
+@funindex scoreTitleMarkup
+@item scoreTitleMarkup
+  これは @code{\score} ブロックの上に配置されるタイトルです。@c
+通常、ここには楽章の名前　(@code{piece} フィールド) が含まれます。
+
+@funindex oddHeaderMarkup
+@item oddHeaderMarkup
+  これは奇数番号ページのヘッダです。
+
+@funindex evenHeaderMarkup
+@item evenHeaderMarkup
+  これは偶数番号ページのヘッダです。@c
+これが指定されていない場合は、奇数番号ページのヘッダが代わりに使用されます。
+
+  デフォルトのヘッダ定義は、ページ番号は端に配置し、@c
+楽器名は中央に配置するようになっています。
+
+@funindex oddFooterMarkup
+@item oddFooterMarkup
+  これは奇数番号ページのフッタです。
+
+@funindex evenFooterMarkup
+@item evenFooterMarkup
+  これは偶数番号ページのフッタです。@c
+これが指定されていない場合は、偶数番号ページのフッタが代わりに使用されます。
+
+  デフォルトでは、最初のページのフッタには著作権についての注意書きが含まれ、@c
+最後のページのフッタにはタグ行が含まれます。
+@end table
+
+
+@cindex \paper
+@cindex header (ヘッダ)
+@cindex footer (フッタ)
+@cindex page layout (ページ レイアウト)
+@cindex titles (タイトル)
+
+以下の定義では、タイトルはページの左側に配置され、@c
+作曲者名は同じ行の右側に配置されます。
+
+@verbatim
+\paper {
+  bookTitleMarkup = \markup {
+   \fill-line {
+     \fromproperty #'header:title
+     \fromproperty #'header:composer
+   }
+  }
+}
+@end verbatim
+@end ignore
+
+@node ページ番号の参照
+@subsection ページ番号の参照
+@translationof Reference to page numbers
+
+@code{\label} コマンドを用いて、楽譜のある特定の場所
+-- 楽譜の最上位あるいは内部 --
+に印をつけることができます。@c
+このラベルをマークアップの中で参照することできます。@c
+ラベルを付けられた場所のページ番号を取得するには、@c
+@code{\page-ref} マークアップ コマンドを使います。
+
+@lilypond[verbatim]
+\header { tagline = ##f }
+\book {
+  \label #'firstScore
+  \score {
+    {
+      c'1
+      \pageBreak \mark A \label #'markA
+      c'1
+    }
+  }
+  \markup { The first score begins on page \page-ref #'firstScore "0" "?" }
+  \markup { Mark A is on page \page-ref #'markA "0" "?" }
+}
+@end lilypond
+
+@code{\page-ref} マークアップ コマンドは 3 つの引数をとります:
+@enumerate
+@item ラベル。@c
+これは Scheme シンボルです -- 例: @code{#'firstScore}。
+@item マークアップ。@c
+これはマークアップの大きさを推定するためのゲージです。
+@item マークアップ。@c
+これは、ラベルが不明な場合にページ番号として用いられます。
+@end enumerate
+
+ゲージが必要な理由は、@c
+マークアップが解釈されているときに改ページはまだ行われておらず、@c
+ページ番号はまだわからないからです。@c
+この問題を回避するために、@c
+実際のマークアップ解釈はもっと後に延期されます。@c
+しかしながら、マークアップの大きさは事前に判明している必要があるため、@c
+ゲージを使ってマークアップの大きさを決定します。@c
+book のページ数が 10 から 99 までの範囲であるのなら、ゲージを "00"
+-- つまり、2 桁の数 -- にします。
+
+
+@predefined
+@funindex \label
+@code{\label},
+@funindex \page-ref
+@code{\page-ref}
+@endpredefined
+
+
+@node 目次
+@subsection 目次
+@translationof Table of contents
+
+目次は @code{\markuplines \table-of-contents} コマンドを用いて挿入します。@c
+目次に表示すべき要素は @code{\tocItem} コマンドで挿入されます
+-- このコマンドは最上位あるいは音楽表記の内部で使用します。
+
+@verbatim
+\markuplines \table-of-contents
+\pageBreak
+
+\tocItem \markup "First score"
+\score {
+  {
+    c'4  % ...
+    \tocItem \markup "Some particular point in the first score"
+    d'4  % ...
+  }
+}
+
+\tocItem \markup "Second score"
+\score {
+  {
+    e'4 % ...
+  }
+}
+@end verbatim
+
+目次を構成するために使用するマークアップは
+@code{\paper} ブロックの中で定義します。@c
+デフォルトのマークアップは、@c
+目次のタイトルを構成する @code{tocTitleMarkup} と、@c
+目次の要素 -- 要素のタイトルとページ番号 -- を構成する
+@code{tocItemMarkup} です。@c
+これらの変数はユーザによって変更することができます:
+
+@c KEEP LY
+@verbatim
+\paper {
+  %% 目次タイトルをフランス語に翻訳します:
+  tocTitleMarkup = \markup \huge \column {
+    \fill-line { \null "Table des matières" \null }
+    \hspace #1
+  }
+  %% より大きなフォント サイズを使用します
+  tocItemMarkup = \markup \large \fill-line {
+    \fromproperty #'toc:text \fromproperty #'toc:page
+  }
+}
+@end verbatim
+
+@code{tocItemMarkup} 定義の中で目次要素のテキストとページ番号を@c
+参照する方法に注目してください。
+
+より手の込んだ目次を構築するために新しいコマンドとマークアップを@c
+定義することもできます:
+@itemize
+@item まず、@code{\paper} ブロックの中で新しいマークアップ変数を定義します
+@item それから、このマークアップ変数を用いて、@c
+目次要素を付け加えるための音楽関数を定義します。
+@end itemize
+
+以下の例では、@c
+オペラの目次の中で幕の名前を挿入するために新しい様式を定義しています:
+
+@verbatim
+\paper {
+  tocActMarkup = \markup \large \column {
+    \hspace #1
+    \fill-line { \null \italic \fromproperty #'toc:text \null }
+    \hspace #1
+  }
+}
+
+tocAct =
+#(define-music-function (parser location text) (markup?)
+   (add-toc-item! 'tocActMarkup text))
+@end verbatim
+
+@lilypond[line-width=11.0\cm]
+\header { tagline = ##f }
+\paper {
+  tocActMarkup = \markup \large \column {
+    \hspace #1
+    \fill-line { \null \italic \fromproperty #'toc:text \null }
+    \hspace #1
+  }
+}
+
+tocAct =
+#(define-music-function (parser location text) (markup?)
+   (add-toc-item! 'tocActMarkup text))
+
+\book {
+  \markuplines \table-of-contents
+  \tocAct \markup { Atto Primo }
+  \tocItem \markup { Coro. Viva il nostro Alcide }
+  \tocItem \markup { Cesare. Presti omai l'Egizzia terra }
+  \tocAct \markup { Atto Secondo }
+  \tocItem \markup { Sinfonia }
+  \tocItem \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
+  \markup \null
+}
+@end lilypond
+
+要素とページ番号の間をドットで埋めることができます:
+
+@lilypond[verbatim,quote]
+\header { tagline = ##f }
+\paper {
+  tocItemMarkup = \tocItemWithDotsMarkup
+}
+
+\book {
+  \markuplines \table-of-contents
+  \tocItem \markup { Allegro }
+  \tocItem \markup { Largo }
+  \markup \null
+}
+@end lilypond
+
+
+@seealso
+初期化ファイル: @file{../ly/toc-init.ly}
+
+
+@predefined
+@funindex \table-of-contents
+@code{\table-of-contents},
+@funindex \tocItem
+@code{\tocItem}.
+@endpredefined
+
+
+@node 入力ファイルに取り組む
+@section 入力ファイルに取り組む
+@translationof Working with input files
+
+@menu
+* LilyPond ファイルをインクルードする::
+* 1 つのソースから異なる版を生成する::
+* テキスト エンコーディング::
+@c * LilyPond 記譜法を表示する::
+@end menu
+
+
+@node LilyPond ファイルをインクルードする
+@subsection LilyPond ファイルをインクルードする
+@translationof Including LilyPond files
+
+@funindex \include
+@cindex including files (ファイルをインクルードする)
+
+大きなプロジェクトは別々のファイルに分割することができます。@c
+他のファイルを参照するには、以下のようにします:
+
+@example
+\include "otherfile.ly"
+@end example
+
+@code{\include "otherfile.ly"} という行は、@c
+@file{otherfile.ly} の内容をカレント ファイルの @code{\include}
+がある場所に貼り付けるのと等価です。@c
+例えば、大きなプロジェクトでは、個々の楽器パートを別々のファイルで記述し、@c
+個々の楽器ファイルをまとめる @qq{総譜} ファイルを作成することができます。@c
+通常、インクルードされるファイルはいくつかの変数を定義し、@c
+それらの変数は総譜ファイルの中で使用されます。@c
+インクルードされるファイルの中でタグ付きセクションにマークを付けて、@c
+それを楽譜の他の場所で使うことができます
+-- @ref{1 つのソースから異なる版を生成する} を参照してください。
+
+カレントのワーキング ディレクトリの中にあるファイルは
+@code{\include} コマンドに後にファイル名を指定するだけで@c
+参照することができます。@c
+他の場所にあるファイルはフル パス参照か相対パス参照
+(ディレクトリ区切りとして、UNIX ではスラッシュ / を使用しますが、@c
+DOS/Windows ではバックスラッシュ \ を使用します) によって@c
+参照することができます。@c
+例えば、@file{stuff.ly} がカレントのワーキング ディレクトリよりも
+1 つ上のディレクトリの中にある場合、以下のようにインクルードします:
+
+@example
+\include "../stuff.ly"
+@end example
+
+@noindent
+あるいは、インクルードされるオーケストラのすべてのパート ファイルが、@c
+カレント ディレクトリ内部の @file{parts} というサブディレクトリの中に@c
+配置されている場合、以下のようにインクルードします:
+
+@example
+\include "parts/VI.ly"
+\include "parts/VII.ly"
+... etc
+@end example
+
+インクルードされるファイルも @code{\include} 文を持つことができます。@c
+それら第 2 レベルの @code{\include} 文はそのファイルがメイン ファイルに@c
+組み込まれるまで解釈されません。@c
+そのため、第 2 レベルの @code{\include} 文で指定するファイル名は@c
+すべてメイン ファイルを保持しているディレクトリからの相対参照で@c
+指定しなければなりません
+-- インクルード ファイルを保持しているディレクトリからではありません。@c
+しかしながら、この振る舞いは、オプション @code{-drelative-includes} を@c
+コマンド ラインで渡すことによって
+(あるいは、メイン入力ファイルの先頭に
+@code{#(ly:set-option 'relative-includes #t)} を付け加えることによって)
+変更することができます。@c
+@code{relative-includes} をセットすることで、@c
+各 @code{\include} コマンドのパスは@c
+そのコマンドを保持しているファイルからの相対参照になります。@c
+この振る舞いを使用することが推奨されていて、@c
+lilypond の将来のバージョンではこの振る舞いがデフォルトになります。
+
+コマンド ラインから LilyPond を呼び出すときにオプションとして指定した@c
+サーチ パスに含まれるディレクトリから@c
+ファイルをインクルードすることもできます。@c
+サーチ パスを指定した場合、@c
+インクルードされるファイルはファイル名だけで指定されます。@c
+例えば、サーチ パスで指定する @file{parts} というサブディレクトリの中にある@c
+ファイルをインクルードする @file{main.ly} をコンパイルするには、@c
+@file{main.ly} を保持しているディレクトリに cd して、以下を入力します:
+
+@example
+lilypond --include=parts main.ly
+@end example
+
+@file{main.ly} の中には以下を記述しておきます:
+
+@example
+\include "VI.ly"
+\include "VII.ly"
+... etc
+@end example
+
+いくつもの楽譜でインクルードされるファイルは
+LilyPond ディレクトリ @file{../ly} の中に置くことになるかもしれません
+(このディレクトリが存在する場所はインストールの仕方に依存します
+-- @rlearning{その他の情報源} を参照してください)。@c
+このディレクトリの中にあるファイルは、@code{\include} 文で@c
+ファイル名を指定するだけでインクルードすることができます。@c
+この方法で @file{english.ly} のような言語依存のファイルを@c
+インクルードしています。
+
+LilyPond は、実行開始時に、デフォルトで@c
+いくつかのファイルをインクルードします。@c
+このインクルードはユーザには明らかにされませんが、@c
+コマンド ラインから @code{lilypond --verbose} を実行することによって@c
+インクルードされるファイルを明らかにすることができます。@c
+@code{--verbose} オプションは、他の多くの情報とともに、@c
+LilyPond が使用するパスとファイルのリストを表示します。@c
+また、デフォルトでインクルードされるファイルのうち、@c
+より重要なファイルについて @rlearning{その他の情報源} で議論されています。@c
+これらのファイルを編集することができますが、@c
+これらのファイルに加えられた変更は@c
+新しいバージョンの LilyPond をインストールすると失われます。
+
+@code{\include} を使用している簡単な例がいくつか
+@rlearning{楽譜とパート} で示されています。
+
+
+@seealso
+学習マニュアル:
+@rlearning{その他の情報源},
+@rlearning{楽譜とパート}
+
+
+@knownissues
+
+インクルードされるファイルに LilyPond のインストール ファイルと同じ名前が@c
+与えられている場合、LilyPond のインストール ファイルが優先されます。
+
+
+
+@node 1 つのソースから異なる版を生成する
+@subsection 1 つのソースから異なる版を生成する
+@translationof Different editions from one source
+
+同じ音楽ソースから異なるバージョンの楽譜を容易に生成できるようにするために、@c
+いくつかの方法が用意されています。@c
+長い音楽や注記のセクションをさまざまなやり方で組み合わせる場合には、@c
+おそらく変数が最も役に立つでしょう。@c
+一方、差し替え用の短い音楽セクションの中から 1 つを選択する場合には、@c
+タグが役に立ちます。@c
+どのような方法をとるにしても、楽譜構造から音楽表記を分離しておくと、@c
+音楽表記に手を触れずに楽譜構造を変更することが簡単に行えます。
+
+@menu
+* 変数を使用する::
+* タグを使用する::
+* グローバル設定を使用する::
+@end menu
+
+@node 変数を使用する
+@unnumberedsubsubsec 変数を使用する
+@translationof Using variables
+
+@cindex variables, use of (変数を使用する)
+
+音楽のセクションが変数の中で定義されている場合、@c
+そのセクションを楽譜の異なる部分で再利用することができます
+-- @rlearning{変数を用いて楽曲を編成する} を参照してください。@c
+例えば、@notation{アカペラ} のボーカル譜はリハーサル目的で@c
+すべてのパートをまとめたピアノ譜を持つことがよくあります。@c
+これは声楽全般で言えることです。@c
+その場合、音楽を入力する必要があるのは 1 回だけです。@c
+2 つの変数からの音楽を 1 つの譜に組み込むことができます
+-- @ref{自動パート結合} を参照してください。@c
+ここに例を挙げます:
+
+@lilypond[verbatim,quote]
+sopranoMusic = \relative c'' { a4 b c b8( a) }
+altoMusic = \relative g' { e4 e e f }
+tenorMusic = \relative c' { c4 b e d8( c) }
+bassMusic = \relative c' { a4 gis a d, }
+allLyrics = \lyricmode {King of glo -- ry }
+<<
+  \new Staff = "Soprano" \sopranoMusic
+  \new Lyrics \allLyrics
+  \new Staff = "Alto" \altoMusic
+  \new Lyrics \allLyrics
+  \new Staff = "Tenor" {
+    \clef "treble_8"
+    \tenorMusic
+  }
+  \new Lyrics \allLyrics
+  \new Staff = "Bass" {
+    \clef "bass"
+    \bassMusic
+  }
+  \new Lyrics \allLyrics
+  \new PianoStaff <<
+    \new Staff = "RH" {
+      \set Staff.printPartCombineTexts = ##f
+      \partcombine
+      \sopranoMusic
+      \altoMusic
+    }
+    \new Staff = "LH" {
+      \set Staff.printPartCombineTexts = ##f
+      \clef "bass"
+      \partcombine
+      \tenorMusic
+      \bassMusic
+    }
+  >>
+>>
+@end lilypond
+
+音楽表記には変更を加えずに、楽譜構造の文を変えるだけで、@c
+ボーカル パートだけあるいはピアノ パートだけの楽譜を作り出すことができます。
+
+長い楽譜では、変数定義をそれぞれ別々のファイルの中に置いて、@c
+それらのファイルをインクルードすることになるかもしれません
+-- @ref{LilyPond ファイルをインクルードする} を参照してください。
+
+@node タグを使用する
+@unnumberedsubsubsec タグを使用する
+@translationof Using tags
+
+@funindex \tag
+@funindex \keepWithTag
+@funindex \removeWithTag
+@cindex tag (タグ)
+@cindex keep tagged music (タグの付いた音楽を保持する)
+@cindex remove tagged music (タグの付いた音楽を排除する)
+
+@code{\tag #'@var{partA}} コマンドは音楽表記に
+@var{partA} という名前を付けます。@c
+この方法でタグを付けられた表記は、後で @code{\keepWithTag #'@var{name}} と
+@code{\removeWithTag #'@var{name}} のどちらかを用いて、@c
+名前によって選択あるいは排除することができます。@c
+タグの付いた音楽にそのようなフィルタを適用した結果は以下のようになります:
+
+@multitable @columnfractions .5 .5
+@headitem フィルタ
+  @tab 結果
+@item
+@code{\keepWithTag #'@var{name}} が前に付くタグ付きの音楽
+  @tab タグの付いていない音楽と @var{name} というタグの付いた音楽が@c
+インクルードされます。@c
+他のタグ名を持つタグ付き音楽は排除されます。
+@item
+@code{\removeWithTag #'@var{name}} が前に付くタグ付きの音楽
+  @tab タグの付いていない音楽と @var{name} 以外のタグを持つ音楽が@c
+インクルードされます。@c
+@var{name} というタグの付いた音楽は排除されます。
+@item
+@code{\keepWithTag} と @code{\removeWithTag} のどちらも@c
+前に付かないタグ付きの音楽
+  @tab タグの付いた音楽とタグの付いていない音楽すべてがインクルードされます。
+@end multitable
+
+@code{\tag}、@code{\keepWithTag} それに @code{\removeWithTag} コマンドの引数は@c
+シンボル (@code{#'score} や @code{#'part} など) とその後に続けて@c
+音楽表記であるべきです。
+
+以下の例では、楽曲を 2 つのバージョンで示しています。@c
+1 つはトリルを通常の記譜法で示していて、@c
+もう 1 つはトリルを明示的に展開しています:
+
+@lilypond[verbatim,quote]
+music = \relative g' {
+  g8. c32 d
+  \tag #'trills {d8.\trill }
+  \tag #'expand {\repeat unfold 3 {e32 d} }
+  c32 d
+ }
+
+\score {
+  \keepWithTag #'trills \music
+}
+\score {
+  \keepWithTag #'expand \music
+}
+@end lilypond
+
+@noindent
+@code{\keepWithTag} を使う代わりに、@c
+音楽セクションを排除する方が楽な場合もあります:
+
+@lilypond[verbatim,quote]
+music = \relative g' {
+  g8. c32 d
+  \tag #'trills {d8.\trill }
+  \tag #'expand {\repeat unfold 3 {e32 d} }
+  c32 d
+ }
+
+\score {
+  \removeWithTag #'expand
+  \music
+}
+\score {
+  \removeWithTag #'trills
+  \music
+}
+@end lilypond
+
+タグ フィルタリングはアーティキュレーション、テキストなどにも@c
+適用することができます。@c
+フィルタリングを行うにはアーティキュレーションの前に
+
+@example
+-\tag #'@var{your-tag}
+@end example
+
+を置きます。@c
+例えば、以下は条件付の運指指示を持つ音符と条件付注記を持つ音符を定義しています:
+
+@example
+c1-\tag #'finger ^4
+c1-\tag #'warn ^"Watch!"
+@end example
+
+複数の @code{\tag} エントリで、表記に複数のタグを付ける場合もあります:
+
+@lilypond[quote,verbatim]
+music = \relative c'' {
+  \tag #'a \tag #'both { a4 a a a }
+  \tag #'b \tag #'both { b4 b b b }
+}
+<<
+\keepWithTag #'a \music
+\keepWithTag #'b \music
+\keepWithTag #'both \music
+>>
+@end lilypond
+
+単一の音楽表記に複数の @code{\removeWithTag} フィルタを適用することによって、@c
+いくつかの異なる名前のタグが付いたセクションを排除することができます:
+
+@lilypond[verbatim,quote]
+music = \relative c'' {
+\tag #'A { a4 a a a }
+\tag #'B { b4 b b b }
+\tag #'C { c4 c c c }
+\tag #'D { d4 d d d }
+}
+{
+\removeWithTag #'B
+\removeWithTag #'C
+\music
+}
+@end lilypond
+
+単一の音楽表記に複数の @code{\keepWithTag} フィルタを適用すると、@c
+タグ付きセクションは @emph{すべて} 排除されます。@c
+なぜなら、最初のフィルタはあるタグ名以外を持つセクションを排除し、@c
+2 番目のフィルタがそのタグ名を持つセクションを排除するからです。
+
+
+@seealso
+学習マニュアル:
+@rlearning{変数を用いて楽曲を編成する}
+
+記譜法リファレンス:
+@ref{自動パート結合},
+@ref{LilyPond ファイルをインクルードする}
+
+@ignore
+@c This warning is more general than this placement implies.
+@c Rests are not merged whether or not they come from tagged sections.
+@c Should be deleted?  -td
+
+@knownissues
+
+Multiple rests are not merged if you create a score with more
+than one tagged section at the same place.
+
+複数のタグ付きセクションからを生成した場合、@c
+同じ場所にある複数の休符はマージされません。
+
+@end ignore
+
+
+@node グローバル設定を使用する
+@unnumberedsubsubsec グローバル設定を使用する
+@translationof Using global settings
+
+@cindex include-settings
+
+別のファイルからグローバル設定をインクルードすることができます:
+
+@example
+lilypond -dinclude-settings=MY_SETTINGS.ly MY_SCORE.ly
+@end example
+
+ページ サイズ、フォント、書体などのような設定のグループを別々のファイルに@c
+保存することができます。@c
+こうすることにより、適当な設定ファイルを指定するだけで、@c
+同じ楽譜から異なる版を作り出すことができます。
+
+このテクニックはスタイル シートでも使えます。@c
+@rlearning{スタイル シート} を参照してください。
+
+@seealso
+学習マニュアル:
+@rlearning{変数を用いて楽曲を編成する},
+@rlearning{スタイル シート}.
+
+記譜法リファレンス:
+@ref{LilyPond ファイルをインクルードする}
+
+
+@node テキスト エンコーディング
+@subsection テキスト エンコーディング
+@translationof Text encoding
+
+@cindex Unicode
+@cindex UTF-8
+@cindex non-ASCII characters (非 ASCII 文字)
+
+LilyPond は Unicode 協会と ISO/IEC 10646 によって定義された@c
+文字レパートリを使用します。@c
+この文字レパートリは、ほとんどすべての現代言語と他の多くの言語で@c
+使用される文字セットに対して、固有の名前とコード位置を定義しています。@c
+Unicode はいくつかの異なるエンコーディングを用いて実装することができます。@c
+LilyPond は UTF-8 エンコーディング
+(UTF は Unicode Transformation Format を意味します) を使用します
+-- UTF-8 はすべての共通ラテン文字を 1 バイトで表し、@c
+他の文字を可変バイト長形式 (最大 4 ビット) で表します。
+
+文字の実際の見た目は利用可能なある特定のフォントの中にあるグリフ (図柄)
+によって決定されます
+-- フォントはグリフを指す Unicode コードのサブセット (部分集合) の写像を@c
+定義しています。@c
+LilyPond は多言語テキストを、Pango ライブラリを用いて、@c
+レイアウトして描画します。
+
+Lilypond は入力のエンコーディング変換をまったく行いません。@c
+これは非 ASCII 文字を含むすべてのテキスト
+ -- タイトル、歌詞テキストあるいは演奏指示 --
+を UTF-8 でエンコードして入力する必要があるということを意味します。@c
+そのようなテキストを入力する最も容易な方法は Unicode を認識するエディタを@c
+用いて、ファイルを UTF-8 で保存することです。@c
+人気のある現代的なエディタのほとんどが UTF-8 をサポートします
+ -- 例えば、vim, Emacs, jEdit, GEdit です。@c
+NT より後の MS Windows システムはすべて@c
+ネイティブ キャラクタ エンコーディングとして Unicode を使用します。@c
+そのため、Notepad でさえ UTF-8 フォーマットのファイルを@c
+編集して保存することができます。@c
+Windows 用のもっと機能的なエディタに BabelPad があります。
+
+非 ASCII 文字を保持している LilyPond 入力ファイルが UTF-8 フォーマットで@c
+保存されていない場合、エラー メッセージ
+
+@example
+FT_Get_Glyph_Name () error: invalid argument
+@end example
+
+が表示されます。
+
+ここでキリル文字、ヘブライ文字、ポルトガル語のテキストを表示する例を挙げます:
+
+@c KEEP LY
+@lilypond[quote]
+%c No verbatim here as the code does not display correctly in PDF
+% キリル文字
+bulgarian = \lyricmode {
+  Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.
+}
+
+% ヘブライ文字
+hebrew = \lyricmode {
+  זה כיף סתם לשמוע איך תנצח קרפד עץ טוב בגן.
+}
+
+% ポルトガル語
+portuguese = \lyricmode {
+  à vo -- cê uma can -- ção legal
+}
+
+\relative  {
+  c2 d e f g f e
+}
+\addlyrics { \bulgarian }
+\addlyrics { \hebrew }
+\addlyrics { \portuguese }
+@end lilypond
+
+単一の文字 -- その文字に対する Unicode コード ポイントを知っているが、@c
+使用しているエディタではその文字を使用できない -- を入力するには、@c
+@code{\markup} ブロック内部で @code{\char ##xhhhh} あるいは
+@code{\char ##dddd} を使用します
+-- ここで @code{hhhh} はその文字に対する 16 進コードであり、@c
+@code{dddd} はそれに対応する 10 進数値です。@c
+先頭の 0 は省略可能ですが、16 進表記では 4 文字で指定する方法が一般的です。@c
+(@code{\char} の後に UTF-8 エンコーディングのコード ポイントを使うべきでは@c
+ありません。@c
+なぜなら、UTF-8 エンコーディングはバイト数を表すための余分なビットを@c
+保持しているからです。)
+任意の文字に対する 16 進のコード ポイントを調べるための、@c
+Unicode コード表と文字名インデックスは Unicode コンソーシアム Web サイト
+@uref{http://www.unicode.org/} にあります。
+
+
+例えば、@code{\char ##x03BE} と @code{\char #958} はどちらも
+Unicode U+03BE の文字を入力します
+-- この文字は Unicode 名 @qq{Greek Small Letter Xi}
+(ギリシャ小文字クシー) です。@c
+
+この方法で任意の Unicode コード ポイントを入力することができます。@c
+すべての特殊文字がこの方法で入力されている場合、@c
+入力ファイルを UTF-8 フォーマットで保存する必要はありません。@c
+もちろん、入力された文字を保持しているフォントがすべて@c
+インストールされていて、LilyPond で利用可能になっている必要があります。
+
+以下の例は UTF-8 コード化された文字を 4 箇所
+-- リハーサル記号の中、アーティキュレーション テキストとして、歌詞の中、@c
+楽譜の下にある独立したテキストの中 --
+で使用しています:
+
+@lilypond[quote,verbatim]
+\score {
+  \relative c'' {
+    c1 \mark \markup { \char ##x03EE }
+    c1_\markup { \tiny { \char ##x03B1 " to " \char ##x03C9 } }
+  }
+  \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
+}
+\markup { "Copyright 2008--2011" \char ##x00A9 }
+@end lilypond
+
+@cindex copyright sign (著作権記号)
+
+著作権についての注意書きの中で著作権記号を入力するには、以下のようにします:
+
+@example
+\header @{
+  copyright = \markup @{ \char ##x00A9 "2008" @}
+@}
+@end example
+
+
+@node 出力を制御する
+@section 出力を制御する
+@translationof Controlling output
+
+@menu
+* 音楽の断片を抽出する::
+* 校正済みの音楽をスキップする::
+* 他の出力フォーマット::
+* 記譜フォントを置換する::
+@end menu
+
+@node 音楽の断片を抽出する
+@subsection 音楽の断片を抽出する
+@translationof Extracting fragments of music
+
+大きな楽譜の中の小さな範囲を、出力から直接引用することができます。@c
+これは紙の楽譜の一部をはさみで切り抜くことに相当します。
+
+これは切り抜く小節を定義することによって実行されます。@c
+例えば、以下の定義は、
+
+
+@verbatim
+\layout {
+  clip-regions
+  = #(list
+      (cons
+       (make-rhythmic-location 5 1 2)
+       (make-rhythmic-location 7 3 4)))
+}
+@end verbatim
+
+@noindent
+第 5 小節の中間から第 7 小節までを抽出します。@c
+@code{5 1 2} は第 5 小節の先頭から 1/2 音符の位置を意味し、@c
+@code{7 3 4} は第 7 小節の先頭から 4 分音符 3 つ分の位置を意味します。
+
+リズムによる位置のペアをリストに追加することによって、@c
+更に多くの切り抜き範囲を定義することができます。
+
+この機能を使用するには、@c
+LilyPond を @code{-dclip-systems} を付けて呼び出す必要があります。@c
+切り抜きは EPS ファイルとして出力され、@c
+更にフォーマットが指定されている場合には PDF や PNG に変換されます。
+
+出力フォーマットについての更なる情報は、@c
+@rprogram{lilypond を呼び出す} を参照してください。
+
+@node 校正済みの音楽をスキップする
+@subsection 校正済みの音楽をスキップする
+@translationof Skipping corrected music
+
+@funindex skipTypesetting
+@funindex showFirstLength
+@funindex showLastLength
+
+音楽を入力あるいはコピーしているとき、@c
+閲覧、校正する必要があるのは、たいてい終わり近くの音楽
+(そこに音符を追加している場所) だけです。@c
+校正プロセスを速めるために、@c
+最後の数小節以外の譜刻をスキップすることができます。@c
+これはソース ファイルの中に以下を置くことによって実現できます:
+
+@verbatim
+showLastLength = R1*5
+\score { ... }
+@end verbatim
+
+@noindent
+これは入力ファイルの中にあるそれぞれの @code{\score} の最後の 5 小節だけを@c
+描画します (4/4 拍子と仮定して)。@c
+長い楽曲の場合、小さな部分だけを描画するのにかかる時間は@c
+楽曲をすべて描画するのにかかる時間よりも非常に短くなります。@c
+すでに譜刻済みの楽譜の開始部分に取り掛かる (例えば、新しいパートを追加する)
+ときには、@code{showFirstLength} プロパティも役に立つかもしれません。
+
+楽譜の中のいくつかのパートをスキップは、プロパティ @code{Score.skipTypesetting}
+を用いたより細かなやり方で制御することができます。@c
+このプロパティがセットされていると、譜刻はまったく行われません。
+
+このプロパティは MIDI ファイルへの出力を制御するためにも用いられます。@c
+このプロパティはすべてのイベント -- テンポの変更や楽器の変更を含む -- を@c
+スキップするということに注意してください。@c
+くれぐれも注意してください。
+
+@lilypond[quote,relative=2,ragged-right,verbatim]
+c8 d
+\set Score.skipTypesetting = ##t
+e8 e e e e e e e
+\set Score.skipTypesetting = ##f
+c8 d b bes a g c2
+@end lilypond
+
+多声の音楽では、@code{Score.skipTypesetting} はすべてのボイスと譜に@c
+影響を与えて、より多くの時間を節約します。
+
+
+@node 他の出力フォーマット
+@subsection 他の出力フォーマット
+@translationof Alternative output formats
+
+@cindex scalable vector graphics output (SVG 出力)
+@cindex SVG output (SVG 出力)
+@cindex encapsulated postscript output (EPS 出力)
+@cindex EPS output (EPS 出力)
+
+譜刻される楽譜のデフォルト出力フォーマットは、@c
+Portable Document Format (PDF) と PostScript (PS) です。@c
+コマンド ライン オプションを指定することにより、@c
+Scalable Vector Graphics (SVG), Encapsulated PostScript (EPS) それに
+Portable Network Graphics (PNG) 出力フォーマットが利用可能です。@c
+@rprogram{lilypond のコマンド ライン オプション} を参照してください。
+
+
+@node 記譜フォントを置換する
+@subsection 記譜フォントを置換する
+@translationof Replacing the notation font
+
+LilyPond で使用される Feta フォントの代わりに Gonville に使うことができます。@c
+Gonville は以下からダウンロードできます:
+@example
+@uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
+@end example
+
+Gonville のサンプル小節です:
+
+@c NOTE: these images are a bit big, but that's important
+@c       for the font comparison.  -gp
+@sourceimage{Gonville_after,,,}
+
+LilyPond の Feta フォントのサンプル小節です:
+
+@sourceimage{Gonville_before,,,}
+
+@subsubheading MacOS でのインストール手順
+
+ZIP ファイルをダウンロードして、伸張します。@c
+@code{lilyfonts} ディレクトリを @file{@var{SHARE_DIR}/lilypond/current} に@c
+コピーします
+-- 更なる情報は、@rlearning{その他の情報源} を参照してください。@c
+既存の @code{fonts} ディレクトリを @code{fonts_orig} に変更して、@c
+@code{lilyfonts} ディレクトリを @code{fonts} に変更します。@c
+Feta フォントに戻すには、@code{fonts_orig} を @code{fonts} に変更します。
+
+@seealso
+学習マニュアル: @rlearning{その他の情報源}
+
+@knownissues
+
+Gonville では @q{古代の音楽} を記譜することはできません。@c
+ライセンス条件等を含む Gonville の更なる情報は、@c
+製作者の Web サイトを参照してください。
+
+
+@node MIDI 出力
+@section MIDI 出力
+@translationof MIDI output
+
+@cindex Sound (サウンド)
+@cindex MIDI
+
+MIDI (Musical Instrument Digital Interface) はデジタル楽器接続 / 制御の@c
+標準インタフェイスです。@c
+MIDI ファイルはいくつかのトラックの中にある音符の連なりです。@c
+MIDI ファイルは実際はサウンド ファイルではありません。@c
+音符の連なりと実際のサウンドの翻訳を行うには専用のソフトウェアが必要になります。
+
+LilyPond で記述した音楽は MIDI ファイルに変換することができ、@c
+入力されたものを聴くことができます。@c
+これは音楽をチェックするのに便利です。オクターブの外れや臨時記号の付け間違いは
+MIDI 出力を聴いたときに際立ちます。
+
+標準 MIDI 出力には粗雑さがあります。@c
+オプションで @ref{奏法スクリプト} を用いることにより、@c
+強化されたリアルな MIDI 出力を得ることができます。
+
+@c TODO Check this
+MIDI 出力はそれぞれの譜とグローバル設定に対して 1 つずつチャンネルを@c
+割り当てます。@c
+そのため、MIDI ファイルに持たせる譜の数は 15 まで
+(ドラムを使用しない場合は 14 まで) にするべきです。@c
+それを越えた譜は演奏されません。
+
+@menu
+* MIDI ファイルを作り出す::
+* MIDI ブロック::
+* 何が MIDI に出力されるのか？::
+* MIDI での繰り返し::
+* MIDI での音の強弱を制御する::
+* MIDI での打楽器::
+* 奏法スクリプト::
+@end menu
+
+@node MIDI ファイルを作り出す
+@subsection MIDI ファイルを作り出す
+@translationof Creating MIDI files
+
+LilyPond 入力ファイルから MIDI ファイルを作り出すには、@c
+score に @code{\midi} ブロックを付け加えます。@c
+例えば、以下のように:
+
+@example
+\score @{
+  @var{...music...}
+  \midi @{ @}
+@}
+@end example
+
+@code{\layout} ブロックを持たない @code{\score} の中に
+@code{\midi} ブロックがある場合、MIDI 出力だけが生成されます。@c
+楽譜も必要な場合は、@code{\layout} ブロックも存在している必要があります。
+
+@example
+\score @{
+  @var{...music...}
+  \midi @{ @}
+  \layout @{ @}
+@}
+@end example
+
+ピッチ、リズム、タイ、強弱記号、テンポの変更は解釈されて@c
+正確に MIDI 出力に翻訳されます。@c
+強弱記号、クレッシェンド、デクレッシェンドは MIDI ボリューム レベルに@c
+翻訳されます。@c
+強弱記号は利用可能な MIDI ボリューム レンジ内のある固定値に翻訳されます。@c
+クレッシェンドとデクレッシェンドはそれらの開始点と終了点の間でボリュームを@c
+線形に変化させます。@c
+MIDI 出力における強弱記号の効果を完全に削除することができます
+ -- @ref{MIDI ブロック} を参照してください。
+
+初期のテンポと後のテンポ変化は、音楽記譜内部の @code{\tempo} コマンドで@c
+指定することができます。@c
+通常このコマンドはメトロノーム記号を表示させますが、@c
+表示を抑制することができます
+-- @ref{メトロノーム記号} を参照してください。@c
+初期 MIDI テンポあるいは MIDI 全体のテンポを指定するための代替手段が@c
+この後で記述されています -- @ref{MIDI ブロック} を参照してください。
+
+Windows の制限により、Windows での MIDI ファイルのデフォルトの拡張子は
+@code{.mid} です。@c
+他の OS では、拡張子は @code{.midi} となります。@c
+他の拡張子を使いたいのであれば、入力ファイルの最上位で、@c
+@code{\book} ブロック, @code{\bookpart} ブロック、それに @code{\score}
+ブロックの前に以下の行を挿入します:
+
+@example
+#(ly:set-option 'midi-extension "midi")
+@end example
+
+上記の行は、MIDI ファイルのデフォルトの拡張子を @code{.midi} にします。
+
+上記の方法の代わりとして、@c
+コマンド ラインで以下のオプションを与える方法があります:
+
+@example
+lilypond … -dmidi-extension=midi lilyFile.ly
+@end example
+
+
+@unnumberedsubsubsec 楽器名
+@c @unnumberedsubsubsec Instrument names
+
+@cindex instrument names (楽器名)
+@funindex Staff.midiInstrument
+
+@code{Staff.midiInstrument} プロパティに楽器名を設定することで、@c
+使用する MIDI 楽器が指定されます。@c
+楽器名は @ref{MIDI instruments} にあるリストから選択しなければなりません。
+
+@example
+\new Staff @{
+  \set Staff.midiInstrument = #"glockenspiel"
+  @var{...notes...}
+@}
+@end example
+
+@example
+\new Staff \with @{midiInstrument = #"cello"@} @{
+  @var{...notes...}
+@}
+@end example
+
+選択された楽器が MIDI 楽器のリストにある楽器に一致しない場合、@c
+グランド ピアノ (@code{"acoustic grand"}) 楽器が使用されます。
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{changing-midi-output-to-one-channel-per-voice.ly}
+
+@knownissues
+
+@c In 2.11 the following no longer seems to be a problem -td
+@ignore
+Unterminated (de)crescendos will not render properly in the midi file,
+resulting in silent passages of music.  The workaround is to explicitly
+terminate the (de)crescendo.  For example,
+
+終端の無い(デ)クレッシェンドは適切に MIDI ファイルを作り出しません。@c
+結果として無音の音楽パッセージとなります。@c
+回避方法として、明示的に(デ)クレッシェンドを終了させます。@c
+例えば、
+
+@example
+@{ a\< b c d\f @}
+@end example
+
+@noindent
+will not work properly but
+これは正しく機能しませんが、
+
+@example
+@{ a\< b c d\!\f @}
+@end example
+
+@noindent
+will.
+これは正しく機能します。
+@end ignore
+
+MIDI ボリュームの変化は音符の開始点でのみ起こります。@c
+そのため、クレッシェンドとデクレッシェンドは@c
+単一の音符のボリューム変化には効果を持ちません。
+
+すべての MIDI プレイヤが MIDI 出力の中にあるテンポ変化を@c
+正しく処理するわけではありません。@c
+正しく機能するプレイヤとして知られているものには MS Windows の Media Player や
+@uref{http://@/timidity@/.sourceforge@/.net/,timidity} があります。
+
+@node MIDI ブロック
+@subsection MIDI ブロック
+@translationof MIDI block
+
+@cindex MIDI block (MIDI ブロック)
+
+MIDI 出力が必要な場合、@c
+score 内部に @code{\midi} ブロックを置く必要があります。@c
+MIDI ブロックはレイアウト ブロックに似ていますが、それよりも単純です。@c
+しばしば、@code{\midi} ブロックは空のままですが、コンテキストの再編成
+-- 新しいコンテキスト定義やプロパティの値を設定するためのコード --
+を保持することもできます。@c
+例えば以下の例は、テンポ指示を譜刻することなしに、@c
+MIDI ファイルの初期テンポを設定します:
+
+@example
+\score @{
+  @var{...music...}
+  \midi @{
+    \context @{
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 72 4)
+    @}
+  @}
+@}
+@end example
+
+この例では、テンポは 1 分間あたり 72 個の 4 分音符にセットされています。@c
+この種のテンポ指定では引数として付点音符の長さをとることはできません。@c
+付点音符の長さを指定する必要がある場合、@c
+その付点音符をより小さな単位に分解します。@c
+例えば、1 分間に 90 個の付点 4 分音符のテンポは、@c
+1 分間に 270 個の 8 分音符として指定することができます:
+
+@example
+tempoWholesPerMinute = #(ly:make-moment 270 8)
+@end example
+
+@cindex MIDI context definitions (MIDI コンテキスト定義)
+
+@code{\midi} ブロック内部でのコンテキスト定義は、@c
+@code{\layout} ブロック内部でのコンテキスト定義の構文とまったく同じです。@c
+サウンドのモジュールへの翻訳は performer と呼ばれます。@c
+MIDI 出力のためのコンテキストは
+@file{../ly/performer-init.ly} で定義されています
+-- @rlearning{その他の情報源} を参照してください。@c
+例えば、MIDI 出力から強弱記号の効果を削除するには、@c
+@code{\midi@{ @}} ブロックの中に以下のコードを挿入します。
+
+@example
+\midi @{
+  ...
+  \context @{
+    \Voice
+    \remove "Dynamic_performer"
+  @}
+@}
+@end example
+
+MIDI 出力は、@code{\score} コマンドで定義された score ブロック内部に
+@code{\midi} ブロックが存在する場合にのみ生成されます。
+
+@ignore
+@code{\midi} ブロックが明示的にインスタンス化された score コンテキストの中
+(例えば、@code{\new Score} ブロックの中) に配置された場合、@c
+その LilyPond ファイルはエラーになります。@c
+これを解決するには、@code{\new Score} と @code{\midi} コマンドを
+@code{\score} ブロックの中に置きます。
+@end ignore
+
+@example
+\score @{
+  @{ @dots{}notes@dots{} @}
+  \midi @{ @}
+@}
+@end example
+
+
+@node 何が MIDI に出力されるのか？
+@subsection 何が MIDI に出力されるのか？
+@translationof What goes into the MIDI output?
+
+@c TODO Check grace notes - timing is suspect?
+
+@unnumberedsubsubsec MIDI でサポートされるもの
+@c @unnumberedsubsubsec Supported in MIDI
+
+@cindex Pitches in MIDI (MIDI でのピッチ)
+@cindex MIDI, Pitches (MIDI でのピッチ)
+@cindex Quarter tones in MIDI (MIDI での4 分音)
+@cindex MIDI, quarter tones (MIDI での4 分音)
+@cindex Microtones in MIDI (MIDI での微分音)
+@cindex MIDI, microtones (MIDI での微分音)
+@cindex Chord names in MIDI (MIDI でのコード ネーム)
+@cindex MIDI, chord names (MIDI でのコード ネーム)
+@cindex Rhythms in MIDI (MIDI でのリズム)
+@cindex MIDI, Rhythms (MIDI でのリズム)
+@cindex Articlulate scripts (奏法スクリプト)
+@cindex MIDI, articulations (MIDI での奏法)
+@cindex articulations in MIDI (MIDI での奏法)
+@cindex trills in MIDI (MIDI でのトリル)
+@cindex turns in MIDI (MIDI でのターン)
+@cindex rallentando in MIDI (MIDI でのラレンタンド)
+@cindex accelerando in MIDI (MIDI でのアッチェレランド)
+@c TODO etc
+
+以下の記譜要素が MIDI 出力に反映されます:
+
+@itemize
+@item ピッチ
+@item 微分音 (@ref{臨時記号} を参照してください。@c
+演奏にはピッチ ベンドをサポートするプレイヤが必要になります。)
+@item コード名で入力された和音
+@item 音符の演奏時間として入力されたリズム -- 連符を含みます
+@item @q{@code{:}[@var{number}]} を使わずに入力されたトレモロ
+@item タイ
+@item 強弱記号
+@item 複数の音符にかかるクレッシェンド、デクレッシェンド
+@item テンポ記号で入力されたテンポ変化
+@item 歌詞
+@end itemize
+
+@ref{奏法スクリプト} を用いることで、@c
+上記のリストにいくつかの要素が追加されます:
+
+@itemize
+@item アーティキュレーション (スラー、スタッカート等)
+@item トリル、ターン
+@item ラレンタンドとアッチェレランド
+@end itemize
+
+@unnumberedsubsubsec MIDI でサポートされないもの
+@c @unnumberedsubsubsec Unsupported in MIDI
+
+@c TODO index as above
+
+以下の記譜要素は MIDI 出力に影響を与えません:
+
+@itemize
+@item 注記 -- 例えば swing -- として入力されたリズム
+@item テンポ記号を使わずに注記として入力されたテンポ変化
+@item スタッカートと他のアーティキュレーションや装飾
+@item スラーとフレージング スラー
+@item 単一の音符に付けられたクレッシェンド、デクレッシェンド
+@item @q{@code{:}[@var{number}]} を使って入力されたトレモロ
+@item 通奏低音
+@item 微分音の和音
+@end itemize
+
+
+@node MIDI での繰り返し
+@subsection MIDI での繰り返し
+@translationof Repeats in MIDI
+
+@cindex repeats in MIDI (MIDI での繰り返し)
+@funindex \unfoldRepeats
+
+ちょっとした追加で、@c
+すべてのタイプの繰り返しを MIDI 出力に反映させることができます。@c
+これは @code{\unfoldRepeats} 音楽関数を適用することによって@c
+達成することができます。@c
+この関数はすべての繰り返しを展開します。
+
+@lilypond[quote,verbatim]
+\unfoldRepeats {
+  \repeat tremolo 8 { c'32 e' }
+  \repeat percent 2 { c''8 d'' }
+  \repeat volta 2 { c'4 d' e' f' }
+  \alternative {
+    { g' a' a' g' }
+    { f' e' d' c' }
+  }
+}
+\bar "|."
+@end lilypond
+
+複数のボイスを持つ score で、繰り返しを正しく MIDI 出力に展開するには、@c
+@emph{各ボイス} の繰り返し指示が完全に記譜されている必要があります。
+
+MIDI のために @code{\unfoldRepeats} を使用する楽譜ファイルを作成する場合、@c
+2 つの @code{\score} ブロックが必要になります:
+1 つは MIDI のため (繰り返しを展開します) で、@c
+もう 1 つは楽譜のため
+(差し替え、トレモロ、パーセント記号の繰り返しを使用します) です。@c
+例えば、以下のようにします:
+
+@example
+\score @{
+  @var{..music..}
+  \layout @{ .. @}
+@}
+\score @{
+  \unfoldRepeats @var{..music..}
+  \midi @{ .. @}
+@}
+@end example
+
+@node MIDI での音の強弱を制御する
+@subsection MIDI での音の強弱を制御する
+@translationof Controlling MIDI dynamics
+
+@c MIDI dynamics: MIDI での音の強弱？
+MIDI での音の強弱は @code{Dynamic_performer}
+-- これはデフォルトでは Voice コンテキストの中に存在します --
+によって実装されます。@c
+MIDI 全体のボリューム、強弱記号による相対ボリューム、@c
+楽器間の相対ボリュームを制御することができます。
+
+@unnumberedsubsubsec 強弱記号
+@c @unnumberedsubsubsec Dynamic marks
+
+強弱記号は利用可能な MIDI ボリューム レンジ内のある固定の分数に翻訳されます。@c
+デフォルトでの分数の範囲は、@notation{ppppp} に対する 0.25 から、@c
+@notation{fffff} に対する 0.95 までです。@c
+強弱記号とそれに対応する分数のセットを @file{../scm/midi.scm} で@c
+調べることができます
+-- @rlearning{その他の情報源} を参照してください。@c
+引数として強弱記号をとり、それに対する分数を返す関数を作成し、@c
+その関数を @code{Score.dynamicAbsoluteVolumeFunction} に@c
+セットすることによって、分数のセットを変更あるいは拡張することができます。
+
+例えば、@notation{リンフォルツァンド} 強弱記号 -- @code{\rfz} -- を@c
+使う必要がある場合、@c
+この強弱記号はデフォルト セットの中に含まれていないため、@c
+MIDI ボリュームに影響を与えません。@c
+同様に @code{make-dynamic-script} で新しい強弱記号を定義した場合、@c
+その強弱記号もデフォルト セットには含まれません。@c
+以下の例は、そのような強弱記号に対する MIDI ボリュームを追加する方法を@c
+示しています。@c
+以下の Scheme 関数は、rfz の強弱記号があった場合は分数に 0.9 をセットし、@c
+そうでない場合はデフォルトの関数を呼び出します。
+
+@lilypond[verbatim,quote]
+#(define (myDynamics dynamic)
+    (if (equal? dynamic "rfz")
+      0.9
+      (default-dynamic-absolute-volume dynamic)))
+
+\score {
+  \new Staff {
+    \set Staff.midiInstrument = #"cello"
+    \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
+    \new Voice {
+      \relative c'' {
+        a4\pp b c-\rfz
+      }
+    }
+  }
+  \layout {}
+  \midi {}
+}
+@end lilypond
+
+分数テーブル全体を再定義する必要がある場合、@c
+上記の方法の代わりに @file{../scm/midi.scm} の中にある
+@notation{default-dynamic-absolute-volume} プロシージャと@c
+そのモデルとなる関連テーブルを使用する方が良いでしょう。@c
+このセクションの最後の例で、その方法を示しています。
+
+@unnumberedsubsubsec MIDI 全体でのボリューム
+@c @unnumberedsubsubsec Overall MIDI volume
+
+強弱記号に対する MIDI 全体の最小ボリュームと最大ボリュームは
+@code{Score} レベルでプロパティ @code{midiMinimumVolume} と
+@code{midiMaximumVolume} を設定することで制御できます。@c
+これらのプロパティは強弱記号に対してのみ効果を発揮します。@c
+そのため、楽譜の開始からそれらのプロパティを適用するには、@c
+楽譜の開始点に強弱記号を置く必要があります。@c
+各強弱記号に対応する分数は以下の式で算出されます:
+
+@example
+midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
+@end example
+
+以下の例では、MIDI 全体のボリュームの範囲は 0.2 - 0.5 の範囲に制限されています。
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \key g \major
+      \time 2/2
+      \set Staff.midiInstrument = #"flute"
+      \new Voice \relative c''' {
+        r2 g\mp g fis~
+        fis4 g8 fis e2~
+        e4 d8 cis d2
+      }
+    }
+    \new Staff {
+      \key g \major
+      \set Staff.midiInstrument = #"clarinet"
+      \new Voice \relative c'' {
+        b1\p a2. b8 a
+        g2. fis8 e
+        fis2 r
+      }
+    }
+  >>
+  \layout {}
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 72 2)
+      midiMinimumVolume = #0.2
+      midiMaximumVolume = #0.5
+    }
+  }
+}
+@end lilypond
+
+
+@unnumberedsubsubsec 楽器の音の強さを均一化する (i)
+@c @unnumberedsubsubsec Equalizing different instruments (i)
+
+@code{Staff} コンテキストの中で最小 MIDI ボリューム プロパティと@c
+最大 MIDI ボリューム プロパティが設定されている場合、@c
+MIDI 楽器間の相対ボリュームを制御することができます。@c
+これは基本的な楽器イコライザであり、@c
+MIDI 出力の品質を著しく高めることができます。
+
+以下の例では、クラリネットのボリュームはフルートのボリュームよりも@c
+相対的に低く設定されています。@c
+これを正しく機能させるには、それぞれの楽器の最初の音符に@c
+強弱記号を置く必要があります。
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \key g \major
+      \time 2/2
+      \set Staff.midiInstrument = #"flute"
+      \set Staff.midiMinimumVolume = #0.7
+      \set Staff.midiMaximumVolume = #0.9
+      \new Voice \relative c''' {
+        r2 g\mp g fis~
+        fis4 g8 fis e2~
+        e4 d8 cis d2
+      }
+    }
+    \new Staff {
+      \key g \major
+      \set Staff.midiInstrument = #"clarinet"
+      \set Staff.midiMinimumVolume = #0.3
+      \set Staff.midiMaximumVolume = #0.6
+      \new Voice \relative c'' {
+        b1\p a2. b8 a
+        g2. fis8 e
+        fis2 r
+      }
+    }
+  >>
+  \layout {}
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 72 2)
+    }
+  }
+}
+@end lilypond
+
+@unnumberedsubsubsec 楽器の音の強さを均一化する (ii)
+@c @unnumberedsubsubsec Equalizing different instruments (ii)
+
+MIDI 最小/最大ボリューム プロパティが設定されていない場合、@c
+デフォルトでは、LilyPond はいくつかの楽器に軽度の均一化を適用します。@c
+適用を受ける楽器とその equalization は @file{../scm/midi.scm} の中にある@c
+テーブル @notation{instrument-equalizer-alist} に示されています。
+
+引数として MIDI 楽器名だけを受け入れて、その楽器に適用する@c
+最小/最大ボリュームの分数ペアを返す Scheme プロシージャを
+@code{Score} コンテキストの中にある
+@code{instrumentEqualizer} にセットすることで、@c
+この基本的なデフォルト イコライザを置き換えることができます。@c
+この置き換えは、このセクションの始めでの
+@code{dynamicAbsoluteVolumeFunction}  の再設定の方法とまったく同じです。@c
+@file{../scm/midi.scm} の中にあるデフォルト イコライザ
+@notation{default-instrument-equalizer} は@c
+そのようなプロシージャをどのように記述するのかを示しています。
+
+以下の例は、フルートとクラリネットの相対ボリュームを@c
+前の例と同じ値にセットしています。
+
+@lilypond[verbatim,quote]
+#(define my-instrument-equalizer-alist '())
+
+#(set! my-instrument-equalizer-alist
+  (append
+    '(
+      ("flute" . (0.7 . 0.9))
+      ("clarinet" . (0.3 . 0.6)))
+    my-instrument-equalizer-alist))
+
+#(define (my-instrument-equalizer s)
+  (let ((entry (assoc s my-instrument-equalizer-alist)))
+    (if entry
+      (cdr entry))))
+
+\score {
+  <<
+    \new Staff {
+      \key g \major
+      \time 2/2
+      \set Score.instrumentEqualizer = #my-instrument-equalizer
+      \set Staff.midiInstrument = #"flute"
+      \new Voice \relative c''' {
+        r2 g\mp g fis ~
+        fis4 g8 fis e2 ~
+        e4 d8 cis d2
+      }
+    }
+    \new Staff {
+      \key g \major
+      \set Staff.midiInstrument = #"clarinet"
+      \new Voice \relative c'' {
+        b1\p a2. b8 a
+        g2. fis8 e
+        fis2 r
+      }
+    }
+  >>
+  \layout { }
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 72 2)
+    }
+  }
+}
+@end lilypond
+
+@ignore
+@c Delete when satisfied this is adequately covered elsewhere -td
+
+@n ode Microtones in MIDI (MIDI での微分音)
+@s ubsection Microtones in MIDI (MIDI での微分音)
+
+@cindex microtones in MIDI (MIDI での微分音)
+
+半シャープと半フラットからなる微分音は MIDI ファイルにエクスポートされ、@c
+ピッチ ベンドをサポートする MIDI プレーヤで正しく演奏されます。@c
+@ref{他の言語での音符名} を参照してください。@c
+以下の例は 1 オクターブの中にあるすべての半シャープと半フラットの音を@c
+示しています。@c
+この例をコピーしてコンパイルすることで、@c
+あなたが持っている MIDI プレイやで微分音をテストすることができます。
+
+@lilypond[verbatim,quote]
+\score {
+  \relative c' {
+    c cih cis cisih
+    d dih ees eeh
+    e eih f fih
+    fis fisih g gih
+    gis gisih a aih
+    bes beh b bih
+  }
+  \layout {}
+  \midi {}
+}
+@end lilypond
+@end ignore
+
+
+@node MIDI での打楽器
+@subsection MIDI での打楽器
+@translationof Percussion in MIDI
+
+打楽器は一般的に @code{DrumStaff} コンテキストの中で記譜され、@c
+そのように記譜された場合、その打楽器は正しく MIDI チャンネル 10 に@c
+出力されます。@c
+しかしながら、いくつかのピッチを持つ打楽器
+-- ザイロフォン、マリンバ、ビブラフォン、ティンパニなど --
+は @qq{通常の} 楽器のように扱われ、正しい MIDI 出力を得るには、@c
+それらの楽器のための音楽を@c
+通常の @code{Staff} コンテキストに入力する必要があります
+ -- @code{DrumStaff} には入力しません。
+
+
+いくつかのピッチを持たない打楽器
+-- メロディック トム、太鼓、シンセドラムなど --
+のサウンドは一般の MIDI 標準に含まれ、MIDI チャネル@tie{}10 経由では@c
+使用できません。@c
+そのため、そのような楽器の記譜も適切なピッチを使って@c
+通常の @code{Staff} コンテキストに入力すべきです。
+
+多くの打楽器 -- カスタネットなど -- は一般の MIDI 標準には含まれません。@c
+そのような楽器のための記述を行っている場合に MIDI 出力を作り出すための@c
+最も容易な -- けれども不十分な -- 方法は、@c
+標準セットから最も近いサウンドを代わりに用いることです。
+
+@c TODO Expand with examples, and any other issues
+
+@knownissues
+
+一般の MIDI 標準はリム ショットを含まないため、@c
+代わりにサイドスティックを用います。
+
+@node 奏法スクリプト
+@subsection 奏法スクリプト
+@translationof The Articulate script
+
+奏法スクリプトを用いることにより、よりリアルな MIDI 出力を得ることができます。@c
+奏法スクリプトは、音符を適切な時間比率の音符とスキップで置き換えることにより、@c
+アーティキュレーション (スラー、スタッカート等) を考慮に入れようとします。@c
+さらに、トリルやターンを展開しようとし、@c
+さらにラレンタンドとアッチェレランドを考慮に入れようとします。
+
+奏法スクリプトを使うには、@c
+入力ファイルの先頭で以下をインクルードする必要があります。
+
+@example
+\include "articulate.ly"
+@end example
+
+さらに、@code{\score} セクションで以下のようにします。
+
+@example
+\unfoldRepeats \articulate <<
+	all the rest of the score...
+>>
+@end example
+
+この方法で入力ファイルを変更すると、@c
+出力される楽譜の見た目は著しく変わってしまいますが、@c
+標準の @code{\midi} ブロックはより良い MIDI ファイルを作り出します。
+
+奏法スクリプトを機能させるための必須事項ではありませんが、@c
+上記の例のように @code{\unfoldRepeats} コマンドを挿入することにより、@c
+@notation{トリル} などの短縮記譜の演奏が可能になります。
+
+@knownissues
+
+@c 未訳
+Articulate shortens chords といくつかの音楽 (特にオルガン音楽) の演奏は@c
+うまくいかないことがあります。
+
+
+@node 音楽情報を抽出する
+@section 音楽情報を抽出する
+@translationof Extracting musical information
+
+グラフィカルな出力と MIDI を作り出すことに加えて、@c
+LilyPond は音楽情報をテキストとして表示することができます。
+
+@menu
+* LilyPond 記譜法を表示する::
+* Scheme 音楽表記を表示する::
+* 音楽イベントをファイルに保存する::
+@end menu
+
+@node LilyPond 記譜法を表示する
+@subsection LilyPond 記譜法を表示する
+@translationof Displaying LilyPond notation
+
+@funindex \displayLilyMusic
+
+音楽関数 @code{\displayLilyMusic} でLilyPond 記譜法で書かれた音楽表記を@c
+表示することが可能ですが、@c
+コマンド ラインを使っている場合にのみ可能です。@c
+例えば、
+
+@example
+@{
+  \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
+@}
+@end example
+
+は、以下を表示します:
+
+@example
+@{ a,4 cis e fis g @}
+@end example
+
+デフォルトでは、LilyPond は上記のメッセージを@c
+他のすべてのメッセージと一緒にコンソールに表示します。@c
+上記のメッセージを分離して @code{\display@{STUFF@}} の結果を保存するには、@c
+出力をファイルにリダイレクトします。
+
+@example
+lilypond file.ly >display.txt
+@end example
+
+
+@node Scheme 音楽表記を表示する
+@subsection Scheme 音楽表記を表示する
+@translationof Displaying scheme music expressions
+
+@rextend{Displaying music expressions} を参照してください。
+
+
+@node 音楽イベントをファイルに保存する
+@subsection 音楽イベントをファイルに保存する
+@translationof Saving music events to a file
+
+以下のファイルをインクルードすることにより、@c
+音楽イベントをファイルに保存することができます。
+
+@example
+\include "event-listener.ly"
+@end example
+
+これは譜毎に @file{FILENAME-STAFFNAME.notes} あるいは
+@file{FILENAME-unnamed-staff.notes} というファイルを作成します。@c
+複数の名前の無い譜がある場合、
+すべての譜のイベントが同じファイルに出力されるということに注意してください。@c
+出力は以下のようになります:
+
+@example
+0.000   note     57       4   p-c 2 12
+0.000   dynamic  f
+0.250   note     62       4   p-c 7 12
+0.500   note     66       8   p-c 9 12
+0.625   note     69       8   p-c 14 12
+0.750   rest     4
+0.750   breathe
+@end example
+
+出力はタブ区切り行で、各行には 2 つの固定フィールドがあり、@c
+その後にオプション パラメータが続きます。
+
+@example
+@var{time}  @var{type}  @var{...params...}
+@end example
+
+この情報は、@c
+簡単に Python スクリプト等の他のプログラムに読み込ませることができ、@c
+LilyPond で音楽分析や録音再生実験を行おうとする研究者にとってとても有用です。
+
+
+@knownissues
+
+lilypond 音楽イベントすべてが @file{event-listener.ly} で@c
+サポートされるわけではありません。@c
+@file{event-listener.ly} は、良く作られた @qq{概念実証} を意図しています。
+
+読み取りたい音楽イベントがサポートされていないのであれば、@c
+あなたが作業している lilypond ディレクトリに @file{event-listener.ly} を@c
+コピーして、編集することで、望みの情報を出力させることができます。

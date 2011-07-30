@@ -389,10 +389,10 @@ turned on with a @code{\paper} option.
 @end lilypond
 
 @seealso
-Notation Reference:
-@ref{Page layout}.
+記譜法リファレンス:
+@ref{Page layout}
 
-Snippets:
+コード断片集:
 @rlsr{Staff notation}.
 
 
