@@ -21,7 +21,7 @@
 # version 2006/05/20 or later.                                         #
 ########################################################################
 
-our $VERSION = "2.4.4";   # mf2pt1 version number
+our $VERSION = "2.4.4-lilypond";   # mf2pt1 version number
 require 5.6.1;            # I haven't tested mf2pt1 with older Perl versions
 
 use File::Basename;
@@ -726,7 +726,7 @@ sub output_trailer ()
 {
     print OUTFILE <<"ENDTRAILER";
 /.notdef {
-        0 @{[$fontbbox[2]-$fontbbox[0]]} hsbw
+        0 @{[frac_string (frac_approx ($fontbbox[2] - $fontbbox[0]))]}hsbw
         endchar
         } ND
 end
