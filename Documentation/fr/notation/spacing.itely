@@ -1123,7 +1123,7 @@ affacteront la mise en forme de la partition.
 La fonction @code{layout-set-staff-size} fait l'objet de la rubrique
 suivante, @ref{Définition de la taille de portée}.  La modification des
 contextes est abordée dans d'autres chapitres -- voir
-@ref{Modification des propriétés d'un contexte} et
+@ref{Modification des greffons de contexte} et
 @ref{Modification des réglages par défaut d'un contexte}.  Les variables
 du bloc @code{\paper} que l'on peut retrouver dans un bloc
 @code{\layout} sont@tie{}:
