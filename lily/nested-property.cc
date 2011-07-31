@@ -61,8 +61,6 @@ nested_property_alist (SCM alist, SCM prop_path, SCM value)
 SCM
 nested_property_revert_alist (SCM alist, SCM prop_path)
 {
-  int copy_count = 0;
-  bool drop = false;
   assert(scm_is_pair (prop_path));
 
   SCM wanted_sym = scm_car (prop_path);
@@ -73,7 +71,6 @@ nested_property_revert_alist (SCM alist, SCM prop_path)
     {
       SCM sub_sym = scm_caar (s);
       SCM old_val = scm_cdar (s);
-      drop = false;
 
       if (sub_sym == wanted_sym)
 	{
@@ -87,45 +84,22 @@ nested_property_revert_alist (SCM alist, SCM prop_path)
 
 	      *tail = scm_acons (sub_sym, new_val, SCM_EOL);
 	      tail = SCM_CDRLOC(*tail);
-              *tail = scm_cdr (s);
-              return new_list;
 	    }
 	  else
 	    {
-              /* old value should be dropped only if we have another copy of it in the alist */
-              copy_count++;
-              /*
-                Only drop the first instance found.
-                the overridden value is always the first
-                if this was the only copy, we will return
-                the original list anyways so it is not relevant
-                if we drop this pair
-              */
-              if (copy_count == 1)
-                drop = true;
+	      /* old value is dropped. */
 	    }
-	  /* we now iterate over every item */
+
+	  *tail = scm_cdr (s);
+	  return new_list;
 	}
-      /*
-        Make a new list with every item
-        except for the eventual dropped one
-      */
-      if (!drop)
-        {
-          *tail = scm_acons (sub_sym, old_val, SCM_EOL);
-          tail = SCM_CDRLOC (*tail);
-        }
+
+      *tail = scm_acons (sub_sym, old_val, SCM_EOL);
+      tail = SCM_CDRLOC (*tail);
     }
 
-  /*
-    If we find more than one copy of the property
-    push the new list, else it means we are trying to
-    revert the original value
-  */
-  if (copy_count > 1)
-    return new_list;
-  else
-    return alist;
+  /* Wanted symbol not found: drop newly constructed list. */
+  return alist;
 }
 
 
@@ -138,4 +112,3 @@ set_nested_property (Grob *me, SCM big_to_small, SCM value)
 
   me->set_property (scm_car (big_to_small), alist);
 }
-
