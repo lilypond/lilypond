@@ -3162,7 +3162,7 @@ Manuel de notation :
 @ref{Notations anciennes},
 @ref{Barres de mesure},
 @ref{Modification des greffons de contexte},
-@ref{Typesetting Gregorian chant},
+@c r e f{Typesetting Gregorian chant}, ***A VENIR
 @ref{Musique sans métrique},
 @ref{Visibilité des objets}.
 
@@ -3334,11 +3334,11 @@ Manuel de notation :
 @unnumberedsubsubsec Mesure incomplète et musique liturgique
 @translationof Partial measures in hymn tunes
 
-Il arrive fréquemment que les chants liturgiques coportent des mesures
+Il arrive fréquemment que les chants liturgiques comportent des mesures
 incomplètes aussi bien en début qu'en fin de ligne, de telle sorte qu'à
 une portée corresponde une ligne de texte.  Ceci requiert donc
 l'utilisation de la commande @code{\partial} en début de partition et
-d'une commande @code{\bar@tie{}"|"} ou @code{\baràtie{}"||"} à la fin de
+d'une commande @code{\bar@tie{}"|"} ou @code{\bar@tie{}"||"} à la fin de
 chaque ligne.
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
