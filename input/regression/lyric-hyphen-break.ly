@@ -29,8 +29,8 @@ they go past the first note. "
   } \addlyrics {
     bla16 -- bla -- bla -- bla --
     bla -- bla -- bla -- bla8 --
-    bla16 -- bla -- bla 
+    bla16 -- bla -- bla
   }
 >>
 
-  
+
