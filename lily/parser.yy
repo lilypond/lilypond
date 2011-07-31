@@ -928,25 +928,14 @@ tempo_event:
 	;
 
 /*
-The representation of a  list is the
-
-  (LIST . LAST-CONS)
-
- to have efficient append.  */
+The representation of a  list is reversed to have efficient append.  */
 
 music_list:
 	/* empty */ {
-		$$ = scm_cons (SCM_EOL, SCM_EOL);
+		$$ = SCM_EOL;
 	}
 	| music_list music {
-		SCM s = $$;
- 		SCM c = scm_cons ($2, SCM_EOL);
-
-		if (scm_is_pair (scm_cdr (s)))
-			scm_set_cdr_x (scm_cdr (s), c); /* append */
-		else
-			scm_set_car_x (s, c); /* set first cons */
-		scm_set_cdr_x (s, c);  /* remember last cell */
+		$$ = scm_cons ($2, $1);
 	}
 	| music_list embedded_scm {
 
@@ -955,15 +944,8 @@ music_list:
 		Music *m = MY_MAKE_MUSIC("Music", @$);
 		// ugh. code dup
 		m->set_property ("error-found", SCM_BOOL_T);
-		SCM s = $$;
- 		SCM c = scm_cons (m->self_scm (), SCM_EOL);
+		$$ = scm_cons (m->self_scm (), $1);
 		m->unprotect (); /* UGH */
-
-		if (scm_is_pair (scm_cdr (s)))
-			scm_set_cdr_x (scm_cdr (s), c); /* append */
-		else
-			scm_set_car_x (s, c); /* set first cons */
-		scm_set_cdr_x (s, c);  /* remember last cell */
 	}
 	;
 
@@ -978,7 +960,7 @@ alternative_music:
 		$$ = SCM_EOL;
 	}
 	| ALTERNATIVE '{' music_list '}' {
-		$$ = scm_car ($3);
+		$$ = scm_reverse_x ($3, SCM_EOL);
 	}
 	;
 
@@ -992,19 +974,19 @@ repeated_music:
 
 sequential_music:
 	SEQUENTIAL '{' music_list '}'		{
-		$$ = MAKE_SYNTAX ("sequential-music", @$, scm_car ($3));
+		$$ = MAKE_SYNTAX ("sequential-music", @$, scm_reverse_x ($3, SCM_EOL));
 	}
 	| '{' music_list '}'		{
-		$$ = MAKE_SYNTAX ("sequential-music", @$, scm_car ($2));
+		$$ = MAKE_SYNTAX ("sequential-music", @$, scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
 simultaneous_music:
 	SIMULTANEOUS '{' music_list '}'{
-		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_car ($3));
+		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_reverse_x ($3, SCM_EOL));
 	}
 	| DOUBLE_ANGLE_OPEN music_list DOUBLE_ANGLE_CLOSE	{
-		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_car ($2));
+		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
