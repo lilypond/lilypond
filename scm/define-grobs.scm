@@ -1305,6 +1305,7 @@
      . (
 	(expand-limit . 10)
 	(hair-thickness . 2.0)
+	(round-up-exceptions . ())
 	(padding . 1)
 	(spacing-pair . (break-alignment . break-alignment))
 	(springs-and-rods . ,ly:multi-measure-rest::set-spacing-rods)
@@ -1312,7 +1313,7 @@
 	(stencil . ,ly:multi-measure-rest::print)
 	(thick-thickness . 6.6)
 	;; See Wanske pp. 125
-	(usable-duration-logs . (0 -1 -2 -3))
+	(usable-duration-logs . ,(iota 4 -3))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
