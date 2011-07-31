@@ -995,17 +995,17 @@ command."
 (defun LilyPond-menu-keywords ()
   "Make Insert Tag menu. 
 
-The Insert Tag -menu is splitted into parts if it is long enough."
+The Insert Tag -menu is split into parts if it is long enough."
 
   (let ((li (mapcar 'LilyPond-menu-keywords-item LilyPond-menu-keywords))
 	(w (round (sqrt (length LilyPond-menu-keywords))))
-	(splitted '())
+	(split '())
 	(imin 0) imax lw rw)
     (while (< imin (length LilyPond-menu-keywords))
       (setq imax (- (min (+ imin w) (length LilyPond-menu-keywords)) 1))
       (setq lw (nth imin LilyPond-menu-keywords)) 
       (setq rw (nth imax LilyPond-menu-keywords))
-      (add-to-list 'splitted
+      (add-to-list 'split
          (let ((l (list (concat (substring lw 0 (min 7 (length lw))) 
 				" ... " 
 				(substring rw 0 (min 7 (length rw)))))))
@@ -1013,7 +1013,7 @@ The Insert Tag -menu is splitted into parts if it is long enough."
 	     (add-to-list 'l (nth imin li))
 	     (setq imin (1+ imin)))
 	   (reverse l))))
-    (if (> (length LilyPond-menu-keywords) 12) (reverse splitted) li)))
+    (if (> (length LilyPond-menu-keywords) 12) (reverse split) li)))
 
 ;;; LilyPond-mode-menu should not be interactive, via "M-x LilyPond-<Tab>"
 (easy-menu-define LilyPond-mode-menu

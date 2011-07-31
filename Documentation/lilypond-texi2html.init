@@ -1445,9 +1445,9 @@ sub remove_unneeded_anchor($)
   for ($i = 0; $i < @hrefsplit; $i++) {
     $item = @hrefsplit[$i];
     if ($item =~ /#/) {
-      @splitted = split(".html#", $item);
-      if (@splitted[0] eq @splitted[1]) {
-        @hrefsplit[$i] = @splitted[0] . ".html";
+      @split = split(".html#", $item);
+      if (@split[0] eq @split[1]) {
+        @hrefsplit[$i] = @split[0] . ".html";
       }
     }
   }

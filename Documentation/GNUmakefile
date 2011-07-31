@@ -57,19 +57,19 @@ TEXI_FILES_FROM_TELY = $(outdir)/internals.texi
 PDF_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%.pdf)
 
 TOPDIR_HTML_MANUALS =
-UNSPLITTED_HTML_MANUALS =
-SPLITTED_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
- $(if $(findstring $(manual), $(UNSPLITTED_HTML_MANUALS)),,$(manual)))
-NOT_TOPDIR_HTML_MANUALS = $(foreach manual, $(SPLITTED_HTML_MANUALS),\
+UNSPLIT_HTML_MANUALS =
+SPLIT_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
+ $(if $(findstring $(manual), $(UNSPLIT_HTML_MANUALS)),,$(manual)))
+NOT_TOPDIR_HTML_MANUALS = $(foreach manual, $(SPLIT_HTML_MANUALS),\
  $(if $(findstring $(manual), $(TOPDIR_HTML_MANUALS)),,$(manual)))
 
-OUT_HTML_FILES = $(UNSPLITTED_HTML_MANUALS:%=$(outdir)/%.html)\
- $(SPLITTED_HTML_MANUALS:%=$(outdir)/%-big-page.html)
+OUT_HTML_FILES = $(UNSPLIT_HTML_MANUALS:%=$(outdir)/%.html)\
+ $(SPLIT_HTML_MANUALS:%=$(outdir)/%-big-page.html)
 DEEP_HTML_FILES = $(NOT_TOPDIR_HTML_MANUALS:%=$(outdir)/%/index.html)
 
 # Symlinks to refer to external source documents from split and non-split HTML
 source-links = $(outdir)/source\
- $(foreach manual, $(SPLITTED_HTML_MANUALS), $(outdir)/$(manual)/source)
+ $(foreach manual, $(SPLIT_HTML_MANUALS), $(outdir)/$(manual)/source)
 
 # Other out files
 
