@@ -9,7 +9,7 @@
 \header {
   lsrtags = "staff-notation, contexts-and-engravers"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 Se puede usar el delimitador de comienzo de un sistema
 @code{SystemStartSquare} estableciéndolo explícitamente dentro de
@@ -41,7 +41,7 @@ mentionnerez explicitement au sein d'un contexte @code{StaffGroup} ou
 
   texidoc = "
 The system start delimiter @code{SystemStartSquare} can be used by
-setting it explicitly in a @code{StaffGroup} or @code{ChoirStaffGroup}
+setting it explicitly in a @code{StaffGroup} or @code{ChoirStaff}
 context.
 
 "

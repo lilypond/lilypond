@@ -163,6 +163,7 @@ difficult tasks.
 * Motivation::
 * Ongoing jobs::
 * Policy decisions::
+* Policy decisions (finished)::
 @end menu
 
 @node Motivation
@@ -303,14 +304,15 @@ Technical requirements: development environment (such as
 @subsection Policy decisions
 
 There are a number of policy decisions -- some of them fairly
-important -- which we have been postponing for a few years.  When
-GOP begins, we will start discussing them.
+important -- which we have been postponing for a few years.  We
+are now discussing them slowly and thoroughly; agenda and exact
+proposals are online:
 
-@warning{The fact that we are not arguing about them right now is
-not, I repeat @strong{not}, an indication that we do not feel that
-these issues are not important.  It is simply that if we began
-talking about them now, it would postpone the 2.14 release for a
-few months.}
+@example
+@uref{http://lilypond.org/~graham/gop/index.html}
+@end example
+
+Below is a list of policies which are not @qq{on the agenda} yet.
 
 Note that the presence of an item on this list does @emph{not}
 mean that everybody thinks that something needs to be done.
@@ -319,12 +321,10 @@ should discuss it.  We are not going to filter this list; if any
 developer thinks we should discuss something, just add it to the
 bottom of the list.  (the list is unsorted)
 
-Once GOP starts, the list will be sorted into a rough agenda.  We
-will probably introduce one topic each week -- yes, it will
-therefore take months to get through everything, but we must
-balance productive work vs. policy administration.  If we find
-that we settle questions faster (or slower) than predicted, we
-will of course change the speed of new topic introductions.
+As GOP progresses, items from this list will be put on the agenda
+and removed from this list.  I generally try to have one month's
+discussion planned in advance, but I may shuffle things around to
+respond to any immediate problems in the developer community.
 
 There are some item(s) not displayed here; these are questions
 that were posed to me privately, and I do not feel justified in
@@ -360,10 +360,9 @@ away.  This is not good.
 
 (prep: 2 hours.  discuss: 10 hours)
 
-@item @strong{Lessons from the 2.14 release; future release policy}:
-What went well; what went badly? (how) should we change any
-policies pertaining to releases? Should an undocumented new
-feature count as release-blocking?
+@item @strong{Future release policy}:
+(how) should we change any policies pertaining to releases? Should
+an undocumented new feature count as release-blocking?
 
 (prep: 1 hour.  discuss: 15 hours)
 
@@ -375,22 +374,6 @@ so, who should be on it?
 
 @item @strong{Hackers B}:
 
-
-@item @strong{Code style}:
-New contributors sometimes struggle to follow our indentation and
-code style -- this is especially difficult when parts of our
-existing source code doesn't have a consistent style. This is
-problematic... we want new contributors to be struggling with the
-lilypond architecture, not playing games in their text editors!
-(ok, we don't actually want them to be struggling with lilypond
-internals... but given the current state of the CG, it's
-understandable, and at any rate it's still better than struggling
-with code style)
-Speaking academically, C++ code style is a "solved problem". Let's
-pick one of the existing solutions (probably either astyle,
-uncrustify, or emacs), and let a computer deal with this.
-
-(prep: 5 hours.  discuss: 15 hours)
 
 @item @strong{Git repository(s)}:
 We currently have a web/ branch in our main repo; this seems
@@ -485,16 +468,6 @@ required merging and stuff.
 
 (prep: 2 hours.  discuss: 10 hours)
 
-@item @strong{Precise definition of Critical issues}:
-at the moment, a stable release is entirely dependent on the
-number of Critical issues, but there's some questions about
-precisely what a "Critical issue" should be.  We should clarify
-this, in conjunction with a general discussion about how often we
-want to have stable releases, how permissive we want to be about
-patches, etc etc.
-
-(prep: 1 hour.  discuss: 5 hours)
-
 @item @strong{When do we add regtests?}:
 There is a discrepancy between our stated policy on adding
 regtests, and our actual practice in handling bugs and patches.
@@ -532,8 +505,67 @@ amount of current material in either form, are important.
 
 (prep: 5 hours.  discuss: 15 hours)
 
+@item @strong{always make an issue number for patches}:
+there is a proposal that we should always have a google code issue
+number for every patch.  This proposal is closely tied to our
+choice of patch review tool; if we switch to a different tool (as
+suggested in a different proposal), this proposal may become moot.
+
+(prep: 1 hour.  discuss: 5 hours)
+
+@item @strong{initalizer lists}:
+shoudl we use initalizer lists for C++?  AFAIK they make no
+difference for built-in types, but there's some weird case where
+it's more efficient for objects, or something.
+
+Probably not worth making this a weekly thing on its own, but we
+can probably wrap it up with some other code-related questions.
+
+(prep: 15 minutes.  discuss: 3 hours)
+
 @end itemize
 
+@node Policy decisions (finished)
+@subsection Policy decisions (finished)
+
+@subheading GOP-PROP 1: python formatting
+
+We will follow the indentation described in PEP-8.
+@uref{http://www.python.org/dev/peps/pep-0008/}
+
+@itemize
+@item
+use 4 spaces per indentation level
+
+@item
+never mix tabs and spaces (for indentation)
+
+@item
+Code indented with a mixture of tabs and spaces should be
+converted to using spaces exclusively
+
+Once this is done, we should add @code{python -tt} to the build
+system to avoid such errors in the future.
+
+@end itemize
+
+There should be absolutely no tab characters for indentation in
+any @code{.py} file in lilypond git.  All such files should be
+converted to use spaces only.
+
+
+@subheading GOP-PROP 2: mentors and frogs
+
+Nothing much was decided.  The list of responsibilities was
+slightly altered; see the new one in @ref{Mentors}.  We should
+encourage more use of the Frogs mailing list.  There's a list of
+contributor-mentor pairs in:
+
+@smallexample
+@uref{https://github.com/gperciva/lilypond-extra/blob/master/people/mentors.txt}
+@end smallexample
+
+That's pretty much it.
 
 
 @node Grand LilyPond Input Syntax Standardization (GLISS)
@@ -769,7 +801,9 @@ Capitalization of identifiers: \VoiceOne ?
 @end verbatim
 
 ?  patch here:
+@smallexample
 @uref{http://lists.gnu.org/archive/html/lilypond-devel/2010-04/msg00467.html}
+@end smallexample
 
 @item
 Personally, I find it easier to understand when there's a repeated
@@ -827,13 +861,13 @@ sequential-statement to the score."
 
 @item
 Discussion on
-http://code.google.com/p/lilypond/issues/detail?id=1322
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1322}
 about \new vs. \context.
 
 
 @item
 Let users add their own items to the parser?  comment 11 on:
-http://code.google.com/p/lilypond/issues/detail?id=1322
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1322}
 
 @item
 should engravers be pluralized (note_heads_engraver) or not
@@ -841,7 +875,7 @@ should engravers be pluralized (note_heads_engraver) or not
 
 @item
 should we allow numbers in identifier names?  Issue:
-http://code.google.com/p/lilypond/issues/detail?id=1670
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1670}
 
 @item
 should we officially allow accented characters?  in general, how
@@ -860,6 +894,11 @@ and never allowing
 @verbatim
   \transpose c d e1
 @end verbatim
+
+@item
+What should be the officially encouraged way of writing music for
+transposing instruments? Maybe it should be simplified?
+See http://lists.gnu.org/archive/html/lilypond-user/2011-07/msg00130.html
 
 @end itemize
 

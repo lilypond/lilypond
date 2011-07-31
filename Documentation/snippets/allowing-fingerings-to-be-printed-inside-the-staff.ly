@@ -9,7 +9,7 @@
 \header {
   lsrtags = "editorial-annotations, fretted-strings, spacing"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
 
   texidoces = "
 Las cifras de digitación orientadas verticalmente se colocan de forma

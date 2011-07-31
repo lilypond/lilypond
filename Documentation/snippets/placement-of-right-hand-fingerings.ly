@@ -9,7 +9,7 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 Es posible ejercer un mayor control sobre la colocación de las
 digitaciones de la mano derecha estableciendo el valor de una

@@ -1,0 +1,18 @@
+%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+  texidocit = "
+Il frammento di codice del @qq{Modello per quartetto d'archi} crea un bel
+quartetto, ma cosa fare se si ha bisogno di creare le singole parti? Questo
+nuovo modello mostra come usare la funzionalità @code{\\tag} per dividere
+facilmente un pezzo in parti staccate.
+
+Occorre dividere questo modello in file separati; i nomi dei file sono
+indicati nei commenti all'inizio di ogni file. @code{piece.ly}
+contiene tutte le definizioni musicali. Gli altri file – @code{score.ly},
+@code{vn1.ly}, @code{vn2.ly}, @code{vla.ly} e @code{vlc.ly} –
+creano ciascuna parte.
+
+
+Non dimenticare di togliere i commenti quando usi i file separati!
+
+"
+  doctitleit = "Modello per quartetto d'archi con parti separate"

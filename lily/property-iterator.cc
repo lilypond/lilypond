@@ -31,13 +31,26 @@ bool check_grob (Music *mus, SCM sym);
    translation unit, and set the property.
 */
 void
-Property_iterator::process (Moment m)
+Property_iterator::process (Moment mom)
 {
-  send_stream_event (get_outlet (), "SetProperty", get_music ()->origin (),
-		     ly_symbol2scm ("symbol"), get_music ()->get_property ("symbol"),
-		     ly_symbol2scm ("value"), get_music ()->get_property ("value"));
+  Context *o = get_outlet ();
+  Music *m = get_music ();
+  SCM previous_value = o->get_property (m->get_property ("symbol"));
+  send_stream_event (o, "SetProperty", m->origin (),
+		     ly_symbol2scm ("symbol"), m->get_property ("symbol"),
+		     ly_symbol2scm ("value"), m->get_property ("value"));
+
+  /* For \once \set install a finalization hook to reset the property to the
+   * previous value after the timestep */
+  if (to_boolean (m->get_property ("once")))
+    {
+      Global_context *tg = get_outlet ()->get_global_context ();
+      tg->add_finalization (scm_list_n (once_finalization_proc,
+					o->self_scm (), m->self_scm (),
+					ly_quote_scm (previous_value), SCM_UNDEFINED));
+    }
   
-  Simple_music_iterator::process (m);
+  Simple_music_iterator::process (mom);
 }
 
 void
@@ -50,30 +63,25 @@ Property_unset_iterator::process (Moment m)
   Simple_music_iterator::process (m);
 }
 
-MAKE_SCHEME_CALLBACK (Property_iterator, once_finalization, 2);
+MAKE_SCHEME_CALLBACK (Property_iterator, once_finalization, 3);
 SCM
-Property_iterator::once_finalization (SCM ctx, SCM music)
+Property_iterator::once_finalization (SCM ctx, SCM music, SCM previous_value)
 {
   Music *m = unsmob_music (music);
   Context *c = unsmob_context (ctx);
 
-  send_stream_event (c, "UnsetProperty", m->origin (),
-		     ly_symbol2scm ("symbol"), m->get_property ("symbol"));
+  // Do not use UnsetProperty, which sets the default, but rather
+  // cache the value before the \once \set command and restore it now
+  send_stream_event (c, "SetProperty", m->origin (),
+		     ly_symbol2scm ("symbol"), m->get_property ("symbol"),
+		     ly_symbol2scm ("value"), previous_value);
+
   return SCM_UNSPECIFIED;
 }
 
 void
 Property_iterator::do_quit ()
 {
-  if (to_boolean (get_music ()->get_property ("once")))
-    {
-      SCM trans = get_outlet ()->self_scm ();
-      SCM music = get_music ()->self_scm ();
-
-      Global_context *tg = get_outlet ()->get_global_context ();
-      tg->add_finalization (scm_list_n (once_finalization_proc,
-					trans, music, SCM_UNDEFINED));
-    }
 }
 
 bool

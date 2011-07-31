@@ -28,10 +28,8 @@
 #include "string-convert.hh"
 #include "warn.hh"
 
-#define PITCH_WHEEL_TOP 0x3FFF
 #define PITCH_WHEEL_CENTER 0x2000
-#define PITCH_WHEEL_BOTTOM 0x0000
-#define PITCH_WHEEL_RANGE (PITCH_WHEEL_TOP - PITCH_WHEEL_BOTTOM)
+#define PITCH_WHEEL_SEMITONE 0X1000
 
 Midi_item *
 Midi_item::get_midi (Audio_item *a)
@@ -193,15 +191,16 @@ Midi_note::get_fine_tuning () const
 		   + audio_->transposing_.tone_pitch ()) * Rational (2);
   tune -= Rational (get_semitone_pitch ());
 
-  tune *= 100;
+  tune *= PITCH_WHEEL_SEMITONE;
   return (int) double (tune);
 }
 
 int
 Midi_note::get_semitone_pitch () const
 {
-  return int (double ((audio_->pitch_.tone_pitch ()
-		       + audio_->transposing_.tone_pitch ()) * Rational (2)));
+  double tune = double ((audio_->pitch_.tone_pitch ()
+		         + audio_->transposing_.tone_pitch ()) * Rational (2));
+  return int (rint (tune));
 }
 
 string
@@ -214,10 +213,7 @@ Midi_note::to_string () const
   // print warning if fine tuning was needed, HJJ
   if (get_fine_tuning () != 0)
     {
-      finetune = PITCH_WHEEL_CENTER;
-      // Move pitch wheel to a shifted position.
-      // The pitch wheel range (of 4 semitones) is multiplied by the cents.
-      finetune += (PITCH_WHEEL_RANGE *get_fine_tuning ()) / (4 * 100);
+      finetune = PITCH_WHEEL_CENTER + get_fine_tuning ();
 
       str += ::to_string ((char) (0xE0 + channel_));
       str += ::to_string ((char) (finetune & 0x7F));

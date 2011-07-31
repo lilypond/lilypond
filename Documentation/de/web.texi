@@ -157,15 +157,15 @@ Lesen Sie mehr in der @ref{Einleitung}!
 
 @subsubheading Stabile Version
 
-@ref{Download, Download @versionStable}
+@ref{Download, @versionStable herunterladen}
 
-@ref{Manuals, Manuals @versionStable}
+@ref{Handbücher, @versionStable Handbücher}
 
 @subsubheading Entwicklerversion
 
-@ref{Development, Download @versionDevel}
+@ref{Entwicklung, @versionDevel herunterladen}
 
-@ref{Development, Manuals @versionDevel}
+@ref{Entwicklung, @versionDevel Handbücher}
 
 @divEnd
 @end ifset

@@ -77,7 +77,8 @@ Page_spacing::account_for_footnotes (Line_details const &line)
       footnote_height += (has_footnotes_
                           ? 0.0
                           : (breaker_->footnote_separator_stencil_height ()
-                             + breaker_->footnote_padding ()));
+                             + breaker_->footnote_padding ()
+                             + breaker_->footnote_number_raise ()));
 
       has_footnotes_ = true;
       Interval extent = line.footnotes_[i]->extent (Y_AXIS);

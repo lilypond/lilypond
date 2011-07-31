@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+  texidocit = "
+Ecco un modello piuttosto complesso, per un gruppo jazz. Si noti che tutti
+gli strumenti sono in @code{\\key c \\major}. Si tratta della tonalità
+reale; sarà trasposta automaticamente includendo la
+musica all'interno di una sezione @code{\\transpose}.
+
+"
+  doctitleit = "Modello per combo jazz"

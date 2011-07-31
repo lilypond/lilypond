@@ -9,7 +9,7 @@
 \header {
   lsrtags = "text, paper-and-layout, titles"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 La alineación horizontal de los nombres de instrumento se puede
 trucar modificando la propiedad @code{Staff.InstrumentName

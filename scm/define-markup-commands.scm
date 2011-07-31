@@ -684,7 +684,7 @@ rings = \\markup {
   ;; FIXME
   (ly:make-stencil
    (list 'embedded-ps
-	 (format "
+	 (format #f "
 gsave currentpoint translate
 0.1 setlinewidth
  ~a
@@ -1485,8 +1485,10 @@ setting of the @code{direction} layout property.
 (define (general-column align-dir baseline mols)
   "Stack @var{mols} vertically, aligned to  @var{align-dir} horizontally."
 
-  (let* ((aligned-mols (map (lambda (x) (ly:stencil-aligned-to x X align-dir)) mols)))
-    (stack-lines -1 0.0 baseline aligned-mols)))
+  (let* ((aligned-mols (map (lambda (x) (ly:stencil-aligned-to x X align-dir)) mols))
+         (stacked-stencil (stack-lines -1 0.0 baseline aligned-mols))
+         (stacked-extent (ly:stencil-extent stacked-stencil X)))
+    (ly:stencil-translate-axis stacked-stencil (- (car stacked-extent)) X )))
 
 (define-markup-command (center-column layout props args)
   (markup-list?)
@@ -1895,16 +1897,77 @@ returns an empty markup.
 (define-markup-command (footnote layout props mkup note)
   (markup? markup?)
   #:category other
-  "Have footnote @var{note} act as an annotation to the markup @var{mkup}."
-  (ly:stencil-combine-at-edge
-    (interpret-markup layout props mkup)
-    X
-    RIGHT
+  #:properties ((raise 0.5)
+                (padding 0.0))
+  "Have footnote @var{note} act as an annotation to the markup @var{mkup}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\footnote a b
+  \\override #'(padding . 0.2)
+  \\footnote c d
+}
+@end lilypond"
+  (let* ((markup-stencil (interpret-markup layout props mkup))
+         (auto-numbering (ly:output-def-lookup layout
+                                               'footnote-auto-numbering))
+         (footnote-hash (gensym "footnote"))
+         (stencil-seed 0)
+         (gauge-stencil (if auto-numbering
+                            (interpret-markup
+                              layout
+                              props
+                              ((ly:output-def-lookup
+                                 layout
+                                 'footnote-numbering-function)
+                                stencil-seed))
+                            empty-stencil))
+         (x-ext (if auto-numbering
+                    (ly:stencil-extent gauge-stencil X)
+                    '(0 . 0)))
+	 (y-ext (if auto-numbering
+                    (ly:stencil-extent gauge-stencil Y)
+                    '(0 . 0)))
+         (footnote-number
+           (if auto-numbering
+             `(delay-stencil-evaluation
+                ,(delay
+                  (ly:stencil-expr
+                    (let* ((table
+                            (ly:output-def-lookup layout
+                                                  'number-footnote-table))
+                           (footnote-stencil (if (list? table)
+		                                 (assoc-get footnote-hash
+                                                            table)
+					         empty-stencil))
+                           (footnote-stencil (if (ly:stencil? footnote-stencil)
+                                                 footnote-stencil
+                                                 (begin
+                                                   (ly:programming-error
+"Cannot find correct footnote for a markup object.")
+                                                   empty-stencil)))
+                           (gap (- (interval-length x-ext)
+			           (interval-length
+                                     (ly:stencil-extent footnote-stencil X))))
+                           (y-trans (- (+ (cdr y-ext)
+                                          raise)
+                                       (cdr (ly:stencil-extent footnote-stencil
+                                                               Y)))))
+		      (ly:stencil-translate footnote-stencil
+                                            (cons gap y-trans))))))
+             '()))
+         (main-stencil (ly:stencil-combine-at-edge
+                         markup-stencil
+                         X
+                         RIGHT
+                         (ly:make-stencil footnote-number x-ext y-ext)
+                         padding)))
+  (ly:stencil-add
+    main-stencil
     (ly:make-stencil
-      `(footnote ,(interpret-markup layout props note))
+      `(footnote ,footnote-hash ,(interpret-markup layout props note))
       '(0 . 0)
-      '(0 . 0))
-    0.0))
+      '(0 . 0)))))
 
 (define-markup-command (override layout props new-prop arg)
   (pair? markup?)
@@ -2655,7 +2718,7 @@ Use the filled head if @var{filled} is specified.
 }
 @end lilypond"
   (let*
-      ((name (format "arrowheads.~a.~a~a"
+      ((name (format #f "arrowheads.~a.~a~a"
 		     (if filled
 			 "close"
 			 "open")
@@ -2969,7 +3032,7 @@ Construct a note symbol, with stem.  By using fractional values for
 @end lilypond"
   (define (get-glyph-name-candidates dir log style)
     (map (lambda (dir-name)
-	   (format "noteheads.~a~a" dir-name
+	   (format #f "noteheads.~a~a" dir-name
 		   (if (and (symbol? style)
 			    (not (equal? 'default style)))
 		       (select-head-glyph style (min log 2))
@@ -3426,7 +3489,7 @@ a column containing several lines of text.
     (parenthesize-stencil
      markup half-thickness scaled-width angularity padding)))
 
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Delayed markup evaluation
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3451,7 +3514,7 @@ when @var{label} is not found."
 		       (page-number (if (list? table)
 		                        (assoc-get label table)
 					#f))
-		       (page-markup (if page-number (format "~a" page-number) default))
+		       (page-markup (if page-number (format #f "~a" page-number) default))
 		       (page-stencil (interpret-markup layout props page-markup))
 		       (gap (- (interval-length x-ext)
 			       (interval-length (ly:stencil-extent page-stencil X)))))

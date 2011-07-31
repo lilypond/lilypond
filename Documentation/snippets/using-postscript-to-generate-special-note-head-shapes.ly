@@ -41,7 +41,7 @@ parallelogram =
       fill
       grestore" )
     (cons 0 1.3125)
-    (cons 0 0))
+    (cons -.75 .75))
 
 myNoteHeads = \override NoteHead #'stencil = \parallelogram
 normalNoteHeads = \revert NoteHead #'stencil
@@ -52,5 +52,3 @@ normalNoteHeads = \revert NoteHead #'stencil
   \normalNoteHeads
   <f, \tweak #'stencil \parallelogram b e>4 d
 }
-
-

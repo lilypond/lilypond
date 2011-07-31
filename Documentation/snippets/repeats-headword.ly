@@ -4,7 +4,7 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.13.36
+%% Note: this file works from version 2.14.0
 \version "2.14.0"
 \include "english.ly"
 #(set-global-staff-size 15)

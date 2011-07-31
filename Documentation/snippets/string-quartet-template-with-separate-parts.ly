@@ -7,9 +7,30 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+  texidocit = "
+Il frammento di codice del @qq{Modello per quartetto d'archi} crea un bel
+quartetto, ma cosa fare se si ha bisogno di creare le singole parti? Questo
+nuovo modello mostra come usare la funzionalità @code{\\tag} per dividere
+facilmente un pezzo in parti staccate.
+
+Occorre dividere questo modello in file separati; i nomi dei file sono
+indicati nei commenti all'inizio di ogni file. @code{piece.ly}
+contiene tutte le definizioni musicali. Gli altri file – @code{score.ly},
+@code{vn1.ly}, @code{vn2.ly}, @code{vla.ly} e @code{vlc.ly} –
+creano ciascuna parte.
+
+
+Non dimenticare di togliere i commenti quando usi i file separati!
+
+"
+  doctitleit = "Modello per quartetto d'archi con parti separate"
+
+
   lsrtags = "unfretted-strings, template"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 El fragmento de código @qq{Plantilla de cuarteto de cuerda} produce un
 resultado satisfactorio para el cuarteto, pero ¿y si tenemos que

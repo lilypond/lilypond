@@ -26,7 +26,7 @@
 class Page_layout_problem
 {
 public:
-  Page_layout_problem (Paper_book*, SCM page, SCM systems);
+  Page_layout_problem (Paper_book*, SCM page, SCM systems, int footnote_count);
 
   SCM solution (bool ragged);
   void set_header_height (Real);
@@ -34,7 +34,8 @@ public:
   static bool read_spacing_spec (SCM spec, Real* dest, SCM sym);
   static bool is_spaceable (Grob *g);
   static SCM get_details (Grob *g);
-  static SCM get_footnotes_from_lines (SCM lines, Real padding);
+  static vsize get_footnote_count (SCM lines);
+  static SCM get_footnotes_from_lines (SCM lines, int counter, Paper_book *pb);
   static Stencil* get_footnote_separator_stencil (Output_def *paper);
   static SCM get_spacing_spec (Grob *before, Grob *after, bool pure, int start, int end);
   static Real get_fixed_spacing (Grob *before, Grob *after, int spaceable_index, bool pure, int start, int end);

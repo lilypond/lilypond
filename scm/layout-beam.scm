@@ -40,7 +40,7 @@
 	  (ly:warning (_ "Error in beam quanting.  Expected (~S,~S) found ~S.")
 		      want-l want-r posns)
 	  (set! (ly:grob-property beam 'annotation)
-		(format "(~S,~S)" want-l want-r))))
+		(format #f "(~S,~S)" want-l want-r))))
     posns))))
 
 (define check-beam-slope-sign
@@ -54,7 +54,7 @@
 	  (ly:warning (_ "Error in beam quanting.  Expected ~S 0, found ~S.")
 		      (procedure-name comparison) slope-sign)
 	  (set! (ly:grob-property beam 'annotation)
-		(format "~S 0" (procedure-name comparison))))
+		(format #f "~S 0" (procedure-name comparison))))
 	(set! (ly:grob-property beam 'annotation) ""))
     posns))))
 

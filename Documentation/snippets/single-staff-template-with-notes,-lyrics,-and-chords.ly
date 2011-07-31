@@ -7,9 +7,21 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidocit = "
+Ecco il modello di un comune spartito semplificato (lead sheet): include
+linea melodica, testo vocale, sigle degli accordi e relativi diagrammi
+per chitarra.
+
+"
+  doctitleit = "Modello di rigo singolo con note testo accordi e tasti"
+
   lsrtags = "vocal-music, chords, template"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+
+
+
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 Esta plantilla facilita la preparación de una canción con melodía,
 letra y acordes.

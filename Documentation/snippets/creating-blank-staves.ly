@@ -9,7 +9,7 @@
 \header {
   lsrtags = "staff-notation, editorial-annotations, contexts-and-engravers, paper-and-layout"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 Para crear pentagramas en blanco, genere compases vacíos y después
 elimine el grabador de números de compás @code{Bar_number_engraver}

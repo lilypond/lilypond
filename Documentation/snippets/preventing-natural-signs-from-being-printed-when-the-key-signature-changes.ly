@@ -9,7 +9,7 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
 doctitlees = "Evitar que se impriman becuadros cuando cambia la armadura"
 
 texidoces = "

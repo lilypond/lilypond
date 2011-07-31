@@ -498,20 +498,6 @@ printing of a single line of lyrics."
   \override VerticalAxisGroup #'nonstaff-nonstaff-spacing #'padding = #0.5
 }
 
-
-RemoveEmptyStaves = \with {
-  \remove "Axis_group_engraver"
-    % If RemoveEmptyStaves is called twice, two
-    % Hara_kiri_engravers would be added, which leads to a
-    % warning.
-    % This code makes sure that no previous Hara_kiri_engraver
-    % is left before adding a new one.
-  \remove "Hara_kiri_engraver"
-  \consists "Hara_kiri_engraver"
-  \override VerticalAxisGroup #'remove-empty = ##t
-}
-
-
 \context {
   \type "Score_engraver"
   \name "Score"
@@ -1051,7 +1037,6 @@ accommodated for typesetting a piece in mensural style."
   autoCautionaries = #'()
   printKeyCancellation = ##f
 }
-
 
 %% Keep the old definitions in here for compatibility (they erase previous
 %% settings to the corresponding context!).

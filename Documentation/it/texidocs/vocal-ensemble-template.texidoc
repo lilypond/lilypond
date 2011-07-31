@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+  texidocit = "
+Ecco una tipica partitura corale a quattro parti, SATB. Se il complesso è più
+ampio, è spesso comodo scrivere gli elementi comuni in un'unica sezione, che
+verrà poi inclusa in tutte le parti. Ad esempio, l'indicazione di tempo e
+l'armatura di chiave sono quasi sempre le stesse per tutte le parti. Come nel
+modello dell'@qq{Inno}, le quattro voci sono ripartite in due soli righi.
+"
+  doctitleit = "Modello per complesso vocale"

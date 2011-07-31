@@ -813,9 +813,14 @@ Internals Reference:
 @knownissues
 
 The relative conversion will not affect @code{\transpose},
-@code{\chordmode} or @code{\relative} sections in its argument.
-To use relative mode within transposed music, an additional
-@code{\relative} must be placed inside @code{\transpose}.
+@code{\chordmode} or @code{\relative} sections in its argument.  To use
+relative mode within transposed music, an additional @code{\relative}
+must be placed inside @code{\transpose}.
+
+Triple accidentals will not be printed if using @code{\transpose}. An
+@q{enharmonically equivalent} pitch will be used instead (e.g. d-flat
+rather than e-triple-flat).
+
 
 @node Inversion
 @unnumberedsubsubsec Inversion
@@ -1152,20 +1157,22 @@ c2 c
 
 Some special purpose clefs are described in @ref{Mensural clefs},
 @ref{Gregorian clefs}, @ref{Default tablatures}, and @ref{Custom
-tablatures}.
+tablatures}.  For mixing different clefs when using cue notes within a
+score, see the @code{\cueClef} and @code{\cueDuringWithClef} functions
+in @ref{Formatting cue notes}.
 
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
-
 @seealso
 Notation Reference:
 @ref{Mensural clefs},
 @ref{Gregorian clefs},
 @ref{Default tablatures},
-@ref{Custom tablatures}.
+@ref{Custom tablatures},
+@ref{Formatting cue notes}.
 
 Snippets:
 @rlsr{Pitches}.
@@ -1675,10 +1682,10 @@ musicB = {
 
 This rule corresponds to the common practice in the twentieth
 century.  It omits some extra natural signs, which were
-traditionally prefixed to accidentals that reduce or reverse
-the direction of a previous alteration.  The @code{modern} rule
+traditionally prefixed to a sharp following a double sharp,
+or a flat following a double flat.  The @code{modern} rule
 prints the same accidentals as @code{default}, with
-two exceptions that serve to avoid ambiguity: after temporary
+two additions that serve to avoid ambiguity: after temporary
 accidentals, cancellation marks are printed also in the following
 measure (for notes in the same octave) and, in the same measure,
 for notes in other octaves.  Hence the naturals before

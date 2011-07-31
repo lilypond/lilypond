@@ -894,6 +894,7 @@ div.color4 h3 {
 .example {
   position: relative;
   left: -2.5em;
+  text-align: left;
 }
 
 .h-scroll-auto {

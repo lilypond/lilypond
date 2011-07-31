@@ -7,6 +7,10 @@ can be overrided."
 
 #(set-default-paper-size "a6")
 
+\paper {
+  footnote-auto-numbering = ##f
+}
+
 \book {
 
 \new Staff \with { \consists "Footnote_engraver" }

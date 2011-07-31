@@ -340,7 +340,7 @@ komponensre szükség lesz. Kattints a Tovább gombra.
 Megkezdődik a telepítés, amely pár percet igénybe vehet. Ha a Részletek
 mutatása gombra kattintasz, megláthatod, milyen fájlok és hova kerültek
 telepítésre, de erre az információra nem lesz szükséged. Miután a telepítés
-befejeződött, kattints a Befejés gombra.
+befejeződött, kattints a Befejezés gombra.
 
 @item
 Sikeresen telepítetted a LilyPondot!
@@ -354,10 +354,10 @@ Az eltávolításnak két módja van:
 @enumerate
 
 @item
-Kattints a Start menü/LilyPond/Eltávolítás parancsikonra.
+Kattints a Start menü > LilyPond > Eltávolítás parancsikonra.
 
 @item
-A Vezérlőpult/Alkalmazások telepítése és eltávolítása ablakban jelöld ki a
+A Vezérlőpult > Alkalmazások telepítése és eltávolítása ablakban jelöld ki a
 LilyPondot, és kattints az Eltávolítás gombra.
 
 @end enumerate

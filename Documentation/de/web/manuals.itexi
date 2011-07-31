@@ -446,9 +446,9 @@ Eigenschaften in LilyPond seit der vorigen stabilen Version.
 
 @docLinks{Änderungen, changes,
   @rchangesnamed{Top,Änderungen},
-  @manualStableChangesSplit-de,
-  @manualStableChangesBig-de, 6 KB,
-  @manualStableChangesPdf-de, 200 KB}
+  @manualStableChangesSplit,
+  @manualStableChangesBig, 6 KB,
+  @manualStableChangesPdf, 200 KB}
 
 @divEnd
 

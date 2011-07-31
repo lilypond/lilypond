@@ -226,9 +226,6 @@ Align_interface::internal_get_minimum_translations (Grob *me,
 	  if (Page_layout_problem::read_spacing_spec (spec, &min_distance, ly_symbol2scm ("minimum-distance")))
 	    dy = max (dy, min_distance);
 
-	  if (include_fixed_spacing)
-	    dy = max (dy, Page_layout_problem::get_fixed_spacing (elems[j-1], elems[j], spaceable_count, pure, start, end));
-
 	  if (include_fixed_spacing && Page_layout_problem::is_spaceable (elems[j]) && last_spaceable_element)
 	    {
 	      // Spaceable staves may have
@@ -294,7 +291,7 @@ Align_interface::align_elements_to_ideal_distances (Grob *me)
   System *sys = me->get_system ();
   if (sys)
     {
-      Page_layout_problem layout (NULL, SCM_EOL, scm_list_1 (sys->self_scm ()));
+      Page_layout_problem layout (NULL, SCM_EOL, scm_list_1 (sys->self_scm ()), 0);
       layout.solution (true);
     }
   else

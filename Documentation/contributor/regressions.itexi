@@ -188,8 +188,11 @@ twice.
 @enumerate
 
 @item
-Before making changes, a baseline should be established by
-running:
+Run @code{make} with current git master without any of your changes.
+
+@item
+Before making changes to the code, establish a baseline for the comparison by
+going to the @file{lilypond-git/build/} directory and running:
 
 @example
 make test-baseline
@@ -209,7 +212,7 @@ make check
 @end example
 
 After this has finished, a regression test comparison will be
-available at:
+available (relative to the current @file{build/} directory) at:
 
 @example
 out/test-results/index.html
@@ -263,6 +266,15 @@ This cleans the results of the previous @samp{make@tie{}check}, then does the
 automatic regression comparison again.  
 
 @end enumerate
+
+@advanced{
+Once a test baseline has been established, there is no need to run it again
+unless git master changed. In other words, if you work with several branches
+and want to do regtests comparison for all of them, you can
+@code{make test-baseline} with git master, checkout some branch,
+@code{make} and @code{make check} it, then switch to another branch,
+@code{make test-clean}, @code{make} and @code{make check} it without doing
+@code{make test-baseline} again.}
 
 
 @node Finding the cause of a regression
@@ -418,7 +430,9 @@ code has been exercised by the tests.
 
 For tracking memory usage as part of this test, you will need
 GUILE CVS; especially the following patch:
+@smallexample
 @uref{http://www.lilypond.org/vc/old/gub.darcs/patches/guile-1.9-gcstats.patch}.
+@end smallexample
 
 @subheading Code coverage
 

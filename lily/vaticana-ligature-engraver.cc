@@ -102,7 +102,7 @@ Vaticana_ligature_engraver::listen_ligature (Stream_event *ev)
 
 Vaticana_ligature_engraver::Vaticana_ligature_engraver ()
 {
-  brew_ligature_primitive_proc = 
+  brew_ligature_primitive_proc =
     Vaticana_ligature::brew_ligature_primitive_proc;
   augmented_primitives_.clear ();
 }
@@ -742,7 +742,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 }
 
 ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, rest);
-ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, note_head);
+ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, ligature_head);
 ADD_TRANSLATOR (Vaticana_ligature_engraver,
 		/* doc */
 		"Handle ligatures by glueing special ligature heads"

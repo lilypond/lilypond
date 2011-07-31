@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 104566603d933821fbdbb7696ef0b5bbd3fa0797
+    Translation of GIT committish: c388d94847574943f7766c5fd5f9cdb5ab8128bb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -23,7 +23,6 @@ vibráfono.  A los efectos de nomenclatura, en esta sección se
 denominan abreviadamente @qq{teclados} a todo este grupo de
 instrumentos de varios pentagramas, aunque algunos de ellos no tienen
 teclado.
-
 
 @menu
 * Notación común para instrumentos de teclado::
@@ -240,11 +239,6 @@ pueden resolver manualmente donde sea necesario, utilizando los
 métodos descritos en la sección
 @rlearning{Arreglar notación con superposiciones}.
 
-@knownissues
-El mecanismo para evitar las colisiones de barras de corchea no
-funciona para las barras automáticas que terminan justo antes de un
-cambio de pauta.  Para hacer que ello funcione, utilice barrado
-manual.
 
 @seealso
 Manual de aprendizaje:
@@ -261,6 +255,12 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{Beam},
 @rinternals{ContextChange}.
+
+@knownissues
+El mecanismo para evitar las colisiones de barras de corchea no
+funciona para las barras automáticas que terminan justo antes de un
+cambio de pauta.  Para hacer que ello funcione, utilice barrado
+manual.
 
 
 @node Cambiar de pentagrama automáticamente

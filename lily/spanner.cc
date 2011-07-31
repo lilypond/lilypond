@@ -239,13 +239,28 @@ Spanner::Spanner (Spanner const &s)
 Real
 Spanner::spanner_length () const
 {
-  Real l = spanned_drul_[LEFT]->relative_coordinate (0, X_AXIS);
-  Real r = spanned_drul_[RIGHT]->relative_coordinate (0, X_AXIS);
+  Interval lr;
 
-  if (r < l)
+  Drul_array<SCM> bounds (get_property ("left-bound-info"),
+                          get_property ("right-bound-info"));
+
+  Direction d =  LEFT;
+  do
+    lr[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("X"),
+                                             bounds[d], SCM_BOOL_F), -d);
+  while (flip (&d) != LEFT);
+
+  if (lr.is_empty ())
+    {
+      do
+        lr[d] = spanned_drul_[d]->relative_coordinate (0, X_AXIS);
+      while (flip (&d) != LEFT);
+    }
+
+  if (lr.is_empty ())
     programming_error ("spanner with negative length");
 
-  return r - l;
+  return lr.length ();
 }
 
 System *
@@ -532,5 +547,7 @@ ADD_INTERFACE (Spanner,
 	       /* properties */
 	       "normalized-endpoints "
 	       "minimum-length "
+               "spanner-broken "
+               "spanner-id "
 	       "to-barline "
 	       );

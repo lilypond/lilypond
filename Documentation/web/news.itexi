@@ -26,6 +26,168 @@ NOTE:
   * don't duplicate entries from news-front.itexi
 @end ignore
 
+
+
+@newsItem
+@subsubheading LilyPond 2.15.5 released!  @emph{July 12, 2011}
+
+We are happy to announce the release of LilyPond 2.15.5.  This
+release contains the usual number of bugfixes.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond 2.15.4 released!  @emph{July 4, 2011}
+
+We are happy to announce the release of LilyPond 2.15.4.  This
+release contains the usual number of bugfixes.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond 2.15.3 released!  @emph{June 27, 2011}
+
+We are happy to announce the release of LilyPond 2.15.3.  This
+release contains the usual number of bugfixes.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond 2.15.2 released!  @emph{June 18, 2011}
+
+We are happy to announce the release of LilyPond 2.15.2.  This
+release contains the usual number of bugfixes.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond 2.14.1 released!  @emph{June 12, 2011}
+
+We are happy to announce the release of LilyPond 2.14.1.  This
+fixes a few minor bugs in the stable version, and should cause no
+problems.  We recommend that everybody upgrade to this version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.15.1 released!  @emph{June 11, 2011}
+
+We are happy to announce the release of LilyPond 2.15.1.  This is
+the beginning of a new unstable development effort, and adds the
+usual number of bugs.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.15.0 released!  @emph{June 7, 2011}
+
+We are happy to announce the release of LilyPond 2.15.0.  This is
+the beginning of a new unstable development effort, and adds the
+usual number of bugs.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond 2.14.0 released! @emph{June 6, 2011}
+
+We are proud to announce the release of GNU LilyPond 2.14.
+LilyPond is a music engraving program, devoted to producing the
+highest-quality sheet music possible.  It brings the aesthetics of
+traditionally engraved music to computer printouts.
+
+Many improvements have been made in the past two and a half years
+since the previous main stable version.  A few major improvements
+are:
+
+@itemize
+@item
+LilyPond is now licensed under the GNU GPL v3 or higher.
+
+@item
+The vertical spacing engine has been drastically changed, making
+it much more flexible and easier to control.
+
+@item
+Automatic beaming is now more flexible, and beam collisions are
+avoided.
+
+@end itemize
+
+A full list of new features is given in:
+
+@example
+@uref{http://lilypond.org/doc/v2.13/Documentation/changes/index.html}
+@end example
+
+Happy music typesetting!  LilyPond 2.14 was brought to you by...
+
+Main development team:
+
+Trevor Daniels, Reinhold Kainhofer, David Kastrup, Jonathan Kulp,
+Werner Lemberg, John Mandereau, Patrick McCarty, Joe Neeman,
+Han-Wen Nienhuys, Jan Nieuwenhuizen, Graham Percival, Mark
+Polesky, Neil Puttock, Mike Solomon, Carl Sorensen, Francisco
+Vila, Valentin Villenave.
+
+Programming contributors:
+
+Sven Axelsson, Pál Benkő, Bertrand Bordage, Frédéric Bron, Peter Chubb, Hajo Dezelski, Richard
+Gay, Keith OHara, Andrew Hawryluk, Christian Hitz, Marc Hohl,
+Henning Hraban Ramm, Ian Hulin, Michael Käppler, Marek Klein,
+Kieren MacMillan, Thomas Morgan, Benjamin Peterson, Nathan Reed,
+Julien Rioux, Boris Shingarov, Patrick Schmidt, Owen Tuz, Jan Warchoł, Andrew
+Wilson, Rodolfo Zitellini.
+
+Font contributors:
+
+Keith OHara, Marc Hohl, Alexander Kobel, Carsten Steger.
+
+Documentation contributors:
+
+Colin Campbell, Andrew Hawryluk, James Lowe, Mike Moral, Ralph
+Palmer, David Pounder, Patrick Schmidt.
+
+Bug squad:
+
+James E. Bailey, Colin Campbell, Phil Holmes, Urs Liska, Ralph
+Palmer, Kieren MacMillan, Dmytro O. Redchuk.
+
+Binaries support contributors:
+
+Christian Hitz.
+
+Translation contributors:
+
+Federico Bruni, Dénes Harmath, Jean-Charles Malahieude, Tineke de
+Munnik, Till Paala, Ralf Wildenhues, Yoshiki Sawada.
+
+@newsEnd
+
+
+
 @newsItem
 @subsubheading Release candidate 7 of 2.14 - LilyPond 2.13.63 released!  @emph{May 30, 2011}
 

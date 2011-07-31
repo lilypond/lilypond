@@ -4,11 +4,11 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.13.36
+%% Note: this file works from version 2.14.0
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 Muchas partituras de piano tienen las indicaciones dinámicas centradas
 entre los dos pentagramas.  El contexto @code{Dynamics}, si se sitúa
@@ -25,6 +25,15 @@ automática.
 とした調整が必要ですが、そのテンプレートがここにあるので、あなた自身が調整を行@c
 う必要はありません。
 "
+
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a428
+  texidocit = "
+Molti spartiti per pianoforte hanno le dinamiche poste al centro dei due righi.
+Il contesto @code{Dynamics}, se collocato tra i righi, posiziona automaticamente
+le dinamiche in modo corretto.
+
+"
+  doctitleit = "Modello per pianoforte con dinamiche al centro"
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "

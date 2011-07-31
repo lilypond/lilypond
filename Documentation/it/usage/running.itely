@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: cff226053d927e433473697fe743bdfd721d2607
+    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -55,14 +55,14 @@ obiettivi di questo manuale; si prega di consultare altra documentazione su
 questo argomento se non si conosce la linea di comando.
 
 @menu
-* Invocare lilypond::
+* Utilizzo di lilypond::
 * Opzioni della linea di comando per lilypond::
 * Variabili d'ambiente::
 * LilyPond in una gabbia chroot::
 @end menu
 
-@node Invocare lilypond
-@unnumberedsubsec Invocare @command{lilypond}
+@node Utilizzo di lilypond
+@unnumberedsubsec Utilizzo di @command{lilypond}
 @translationof Invoking lilypond
 
 L'eseguibile @command{lilypond} può essere lanciato dalla linea di comando
@@ -128,7 +128,7 @@ e non hanno niente a che fare con lilypond.
 @unnumberedsubsec Opzioni della linea di comando per @command{lilypond}
 @translationof Command line options for lilypond
 
-@cindex Invocare @command{lilypond}
+@cindex Utilizzo di @command{lilypond}
 @cindex opzioni della linea di comando per @command{lilypond}
 @cindex linea di comando, opzioni di
 @cindex switches

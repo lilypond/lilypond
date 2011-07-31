@@ -311,31 +311,16 @@ System::get_footnotes_in_range (vsize start, vsize end)
   return out;
 }
 
-Stencil
-System::make_footnote_stencil (Real padding)
+vsize
+System::num_footnotes ()
 {
-  Stencil mol;
+  return footnote_grobs_.size ();
+}
 
-  for (vsize i = 0; i < footnote_grobs_.size (); i++)
-    {
-      SCM footnote_markup = footnote_grobs_[i]->get_property ("footnote-text");
-      if (Spanner *orig = dynamic_cast<Spanner *>(footnote_grobs_[i]))
-        if (orig->is_broken ())
-          footnote_markup = orig->broken_intos_[0]->get_property ("footnote-text");
-
-      if (!Text_interface::is_markup (footnote_markup))
-        continue;
-
-      SCM props = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
-                              pscore_->layout ()->self_scm ());
-
-      SCM footnote_stl = Text_interface::interpret_markup (pscore_->layout ()->self_scm (),
-                                                           props, footnote_markup);
-
-      mol.add_at_edge (Y_AXIS, DOWN, *unsmob_stencil (footnote_stl), padding);
-    }
-
-  return mol;
+vector<Grob *>*
+System::footnote_grobs ()
+{
+  return &footnote_grobs_;
 }
 
 void

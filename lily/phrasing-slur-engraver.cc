@@ -30,30 +30,32 @@
 
 #include "translator.icc"
 
+
+/*
+  NOTE NOTE NOTE
+
+  This is largely similar to Slur_engraver. Check if fixes
+  apply there too.  
+
+  (on principle, engravers don't use inheritance for code sharing)
+  
+ */
+
 /*
   It is possible that a slur starts and ends on the same note.  At
   least, it is for phrasing slurs: a note can be both beginning and
   ending of a phrase.
 
 */
-
-/*
-  NOTE NOTE NOTE
-
-  This is largely similar to Slur_engraver. Check if fixes apply there too.  
-
-  (on principle, engravers don't use inheritance for code sharing)
-  
- */
 class Phrasing_slur_engraver : public Engraver
 {
-  Drul_array<Stream_event *> events_;
-  Stream_event *running_slur_start_;
+  vector<Stream_event *> start_events_;
+  vector<Stream_event *> stop_events_;
   vector<Grob*> slurs_;
   vector<Grob*> end_slurs_;
 
 protected:
-  void acknowledge_extra_object (Grob_info);
+  DECLARE_TRANSLATOR_LISTENER (phrasing_slur);
   DECLARE_ACKNOWLEDGER (accidental);
   DECLARE_ACKNOWLEDGER (fingering);
   DECLARE_ACKNOWLEDGER (note_column);
@@ -62,11 +64,13 @@ protected:
   DECLARE_ACKNOWLEDGER (text_script);
   DECLARE_ACKNOWLEDGER (tie);
   DECLARE_ACKNOWLEDGER (tuplet_number);
-  DECLARE_TRANSLATOR_LISTENER (phrasing_slur);
 
+  void acknowledge_extra_object (Grob_info);
   void stop_translation_timestep ();
-  virtual void finalize ();
   void process_music ();
+
+  virtual void finalize ();
+
 
 public:
   TRANSLATOR_DECLARATIONS (Phrasing_slur_engraver);
@@ -74,21 +78,19 @@ public:
 
 Phrasing_slur_engraver::Phrasing_slur_engraver ()
 {
-  events_[START] = events_[STOP] = 0;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Phrasing_slur_engraver, phrasing_slur);
 void
 Phrasing_slur_engraver::listen_phrasing_slur (Stream_event *ev)
 {
-  /*
-    Let's not start more than one slur per moment.
-  */
   Direction d = to_dir (ev->get_property ("span-direction"));
   if (d == START)
-    ASSIGN_EVENT_ONCE (events_[START], ev);
-  else if (d == STOP && !slurs_.empty ())
-    ASSIGN_EVENT_ONCE (events_[STOP], ev);
+    start_events_.push_back(ev);
+  else if (d == STOP)
+    stop_events_.push_back(ev);
+  else ev->origin ()->warning (_f ("direction of %s invalid: %d",
+				   "phrasing-slur-event", int (d)));
 }
 
 void
@@ -120,7 +122,7 @@ Phrasing_slur_engraver::acknowledge_fingering (Grob_info info)
 }
 
 void
-Phrasing_slur_engraver::acknowledge_text_script (Grob_info info)
+Phrasing_slur_engraver::acknowledge_tuplet_number (Grob_info info)
 {
   acknowledge_extra_object (info);
 }
@@ -133,13 +135,13 @@ Phrasing_slur_engraver::acknowledge_script (Grob_info info)
 }
 
 void
-Phrasing_slur_engraver::acknowledge_tie (Grob_info info)
+Phrasing_slur_engraver::acknowledge_text_script (Grob_info info)
 {
   acknowledge_extra_object (info);
 }
 
 void
-Phrasing_slur_engraver::acknowledge_tuplet_number (Grob_info info)
+Phrasing_slur_engraver::acknowledge_tie (Grob_info info)
 {
   acknowledge_extra_object (info);
 }
@@ -153,29 +155,57 @@ Phrasing_slur_engraver::acknowledge_slur (Grob_info info)
 void
 Phrasing_slur_engraver::finalize ()
 {
-  if (slurs_.size ())
-    slurs_[0]->warning (_ ("unterminated phrasing slur"));
+  for (vsize i = 0; i < slurs_.size (); i++)
+    {
+      slurs_[i]->warning (_ ("unterminated phrasing slur"));
+      slurs_[i]->suicide ();
+    }
 }
 
 void
 Phrasing_slur_engraver::process_music ()
 {
-  if (events_[STOP])
+  for (vsize i = 0; i < stop_events_.size (); i++)
     {
-      end_slurs_ = slurs_;
-      slurs_.clear ();
+      Stream_event *ev = stop_events_[i];
+      string id = robust_scm2string (ev->get_property ("spanner-id"), "");
+
+      // Find the slur that is ended with this event (by checking the spanner-id)
+      bool ended = false;
+      for (vsize j = slurs_.size (); j--;)
+        {
+          if (id == robust_scm2string (slurs_[j]->get_property ("spanner-id"), ""))
+            {
+              ended = true;
+              end_slurs_.push_back (slurs_[j]);
+              slurs_.erase (slurs_.begin () + j);
+            }
+        }
+      if (!ended)
+        ev->origin ()->warning (_ ("cannot end phrasing slur"));
     }
 
-  if (events_[START] && slurs_.empty ())
+  for (vsize i = 0; i < start_events_.size (); i++)
     {
-      Stream_event *ev = events_[START];
-
-      Grob *slur = make_spanner ("PhrasingSlur", events_[START]->self_scm ());
-      Direction updown = to_dir (ev->get_property ("direction"));
-      if (updown)
-	set_grob_direction (slur, updown);
-
-      slurs_.push_back (slur);
+      Stream_event *ev = start_events_[i];
+      string id = robust_scm2string (ev->get_property ("spanner-id"), "");
+      bool have_slur = false;
+      // Check if we already have a slur with the same spanner-id.
+      // In that case, don't create a new slur, but print a warning
+      for (vsize i = 0; i < slurs_.size (); i++)
+          have_slur = have_slur || (id == robust_scm2string (slurs_[i]->get_property ("spanner-id"), ""));
+      
+      if (have_slur)
+          ev->origin ()->warning(_ ("already have phrasing slur"));
+      else 
+        {
+          Grob *slur = make_spanner ("PhrasingSlur", ev->self_scm ());
+          Direction updown = to_dir (ev->get_property ("direction"));
+          slur->set_property ("spanner-id", ly_string2scm (id));
+          if (updown)
+            set_grob_direction (slur, updown);
+          slurs_.push_back (slur);
+        }
     }
 }
 
@@ -183,7 +213,8 @@ void
 Phrasing_slur_engraver::stop_translation_timestep ()
 {
   end_slurs_.clear ();
-  events_[START] = events_[STOP] = 0;
+  start_events_.clear ();
+  stop_events_.clear ();
 }
 
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, accidental);

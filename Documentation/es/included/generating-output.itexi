@@ -3,7 +3,7 @@
 @c learning/tutorial.itely
 
 @ignore
-    Translation of GIT committish: fe2cae0fa47ec4ec0184e6b3d15572fbcba881cf
+    Translation of GIT committish: 8f02aa6516b3cfe16b2c145142ea652cbc3b8970
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -201,7 +201,7 @@ Haga un archivo de texto con el nombre
 
 @c double \\ required because this is inside a macro!
 @example
-\\version "@w{@version{}}"
+\\version "@w{@versionStable{}}"
 @{
   c' e' g' e'
 @}
@@ -221,7 +221,7 @@ lilypond prueba.ly
 Verá algo parecido a:
 
 @example
-GNU LilyPond @version{}
+GNU LilyPond @w{@versionStable{}}
 Procesando `prueba.ly'
 Analizando...
 Interpretando la música...

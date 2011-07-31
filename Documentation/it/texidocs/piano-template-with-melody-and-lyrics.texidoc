@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+  texidocit = "
+Ecco un tipico formato per canzoni: un rigo con linea melodica e testo,
+e sotto l'accompagnamento per pianoforte.
+
+"
+  doctitleit = "Modello per pianoforte con melodia e testo"

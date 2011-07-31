@@ -126,7 +126,6 @@ Constrained_breaking::space_line (vsize i, vsize j)
 {
   bool ragged_right = to_boolean (pscore_->layout ()->c_variable ("ragged-right"));
   bool ragged_last = to_boolean (pscore_->layout ()->c_variable ("ragged-last"));
-  Column_x_positions col;
 
   vector<Grob*> line (all_.begin () + breaks_[i],
 		      all_.begin () + breaks_[j] + 1);
@@ -553,9 +552,10 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   Page_layout_problem::read_spacing_spec (title_spec, &title_min_distance_, ly_symbol2scm ("minimum-distance"));
 
   SCM footnotes = pb->get_property ("footnotes");
+
   if (scm_is_pair (footnotes))
     for (SCM s = footnotes; scm_is_pair (s); s = scm_cdr (s))
-      footnotes_.push_back (unsmob_stencil (scm_car (s)));
+      footnotes_.push_back (unsmob_stencil (scm_cadar (s)));
 
   last_column_ = 0;
   force_ = 0;

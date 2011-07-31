@@ -1,0 +1,13 @@
+% feta-flags18.mf
+% part of LilyPond's pretty-but-neat music font
+
+input feta-autometric;
+
+design_size := 17.82;
+test := 0;
+
+
+input feta-flags-generic;
+
+end.
+

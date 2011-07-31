@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+  texidocit = "
+Questo modello presenta un semplice quartetto d'archi. Impiega anche una
+sezione @code{\\global} per definire il tempo e l'armatura di chiave.
+
+"
+  doctitleit = "Modello per quartetto d'archi (semplice)"

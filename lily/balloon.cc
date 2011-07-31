@@ -101,13 +101,12 @@ Balloon_interface::internal_balloon_print (Grob *me, Grob *p, Offset off)
 
   SCM bt = me->get_property ("text");
   SCM chain = Font_interface::text_font_alist_chain (me);
-
   SCM stencil = Text_interface::interpret_markup (me->layout ()->self_scm (),
-						  chain, bt);
-
+                                                  chain, bt);
   Stencil *text_stil = unsmob_stencil (stencil);
-
+  
   Offset z1;
+
   for (int i = X_AXIS; i < NO_AXES; i++)
     {
       Axis a ((Axis)i);

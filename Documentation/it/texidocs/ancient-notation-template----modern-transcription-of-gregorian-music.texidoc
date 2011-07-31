@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+  texidocit = "
+Questo esempio mostra come realizzare una trascrizione moderna di musica
+gregoriana. La musica gregoriana non presenta suddivisione in misure né gambi;
+utilizza soltanto le teste della minima e della semiminima, e dei segni
+appositi che indicano pause di diversa lunghezza.
+
+"
+  doctitleit = "Modello per notazione antica -- trascrizione moderna di musica gregoriana"

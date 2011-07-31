@@ -148,32 +148,9 @@ Core developer, Schemer extraordinaire
 
 @c use commas not colons
 
-Sven Axelsson,
-Pál Benkő,
 Bertrand Bordage,
-Frédéric Bron,
-Peter Chubb,
-Hajo Dezelski,
-Richard Gay,
-Keith OHara,
-Andrew Hawryluk,
-Christian Hitz,
-Marc Hohl,
-Henning Hraban Ramm,
-Ian Hulin,
-Michael Käppler,
-Marek Klein,
-Kieren MacMillan,
-Thomas Morgan,
-Benjamin Peterson,
-Nathan Reed,
-Julien Rioux,
-Boris Shingarov,
-Patrick Schmidt,
-Owen Tuz,
-Jan Warchoł,
-Andrew Wilson,
-Rodolfo Zitellini
+Karin Hoethker,
+Jan Warchoł
 
 @c no comma for last entry
 
@@ -185,11 +162,6 @@ Rodolfo Zitellini
 
 @c use commas not colons
 
-Keith OHara,
-Marc Hohl,
-Alexander Kobel,
-Carsten Steger
-
 @c no comma for last entry
 
 @end macro
@@ -200,13 +172,7 @@ Carsten Steger
 
 @c use commas not colons
 
-Colin Campbell,
-Andrew Hawryluk,
-James Lowe,
-Mike Moral,
-Ralph Palmer,
-David Pounder,
-Patrick Schmidt
+James Lowe
 
 @c no comma for last entry
 
@@ -215,12 +181,9 @@ Patrick Schmidt
 
 @macro bugsquadCurrent
 
-James E. Bailey,
 Colin Campbell,
 Phil Holmes,
-Urs Liska,
-Ralph Palmer,
-Kieren MacMillan,
+Derek Klinge,
 Dmytro O. Redchuk
 
 @c no comma for last entry
@@ -232,7 +195,8 @@ Dmytro O. Redchuk
 
 @c use commas not colons
 
-Christian Hitz
+Colin Campbell,
+Phil Holmes
 
 @c no comma for last entry
 
@@ -244,14 +208,6 @@ Christian Hitz
 
 @c use commas not colons
 
-Federico Bruni,
-Dénes Harmath,
-Jean-Charles Malahieude,
-@c @email{lolyfan@@wanadoo.fr},
-Tineke de Munnik,
-Till Paala,
-Ralf Wildenhues,
-Yoshiki Sawada
 
 @c no comma for last entry
 
@@ -267,51 +223,67 @@ Yoshiki Sawada
 Erlend Aasland,
 Maximilian Albert,
 Guido Amoruso,
+Sven Axelsson,
 Kristof Bastiaensen,
 Pál Benkő,
-@c @email{benkop@@freestart.hu},
+Bertrand Bordage,
+Frédéric Bron,
 Juliusz Chroboczek,
-@c @email{jch@@pps.jussieu.fr},
+Peter Chubb,
 Angelo Contardi,
+Vicente Solsona Della,
+Hajo Dezelski,
+Michael Welsh Duggan,
 David Feuer,
-@c @email{david.feuer@@gmail.com},
 Bertalan Fodor,
+Richard Gay,
 Mathieu Giraud,
+Lisa Opus Goldstein,
 Yuval Harel,
+Andrew Hawryluk,
+Christian Hitz,
+Marc Hohl,
+Ian Hulin,
 Bernard Hurley,
-@c @email{bernard@@fong-hurley.org.uk},
 Yoshinobu Ishizaki,
 Chris Jackson,
-@c @email{chris@@fluffhouse.org.uk},
 David Jedlinsky,
 Heikki Junes,
-@c @email{heikki.junes@@hut.fi},
+Michael Käppler,
+Marek Klein,
 Michael Krause,
-@c @email{m.krause@@tu-harburg.de},
 Jean-Baptiste Lamy,
-@c @email{jiba@@tuxfamily.org},
 Jonatan Liljedahl,
 Peter Lutek,
+Kieren MacMillan,
 Hendrik Maryns,
+Thomas Morgan,
 Joe Neeman,
-@c @email{joeneeman@@gmail.com},
 Matthias Neeracher,
+Keith OHara,
 Tatsuya Ono,
-Lisa Opus Goldstein,
+Benjamin Peterson,
 Guy Gascoigne-Piggford,
+Henning Hraban Ramm,
+Nathan Reed,
+Julien Rioux,
 Stan Sanderson,
-Edward Sanford Sutton,
 Andreas Scherer,
 Johannes Schindelin,
+Patrick Schmidt,
+Boris Shingarov,
 Kim Shrier,
-Vicente Solsona Della,
+Edward Sanford Sutton,
 David Svoboda,
+Owen Tuz,
 Sebastiano Vigna,
+Jan Warchoł,
 Arno Waschk,
-Michael Welsh Duggan,
 John Williams,
+Andrew Wilson,
 Milan Zamazal,
-Rune Zedeler
+Rune Zedeler,
+Rodolfo Zitellini
 
 @c no comma for last entry
 
@@ -324,11 +296,12 @@ Rune Zedeler
 @c use commas not colons
 
 Tom Cato Amundsen,
-@c @email{tca@@gnu.org},
+Marc Hohl,
 Chris Jackson,
-@c @email{chris@@fluffhouse.org.uk},
+Alexander Kobel,
+Keith OHara,
+Carsten Steger
 Arno Waschk,
-@c @email{arno@@arnowaschk.de},
 Rune Zedeler
 
 @c no comma for last entry
@@ -342,31 +315,34 @@ Rune Zedeler
 @c use commas not colons
 
 Erlend Aasland,
-Trevor Bača,
+Trevor Bača
 Alard de Boer,
+Colin Campbell,
 Jay Hamilton,
-Andrew Hawryluk,
 Joseph Harfouch,
+Andrew Hawryluk,
+Andrew Hawryluk,
 Cameron Horsburgh,
 Geoff Horton,
 Ian Hulin,
 Heikki Junes,
-@c @email{heikki.junes@@hut.fi},
 Kurtis Kroon,
+James Lowe,
 Dave Luttinen,
 Kieren MacMillan,
 Christian Mondrup,
-@c @email{scancm@@biobase.dk},
+Mike Moral,
 Eyolf Østrem,
 Ralph Palmer,
+Ralph Palmer,
 François Pinard,
-@c @email{pinard@@iro.umontreal.ca},
-@c @uref{http://pinard.progiciels-bpi.ca/},
-Eduardo Vieira,
+David Pounder,
 Michael Rasmussen,
 Till Rettig,
+Patrick Schmidt,
 Carl D. Sorensen,
 Anh Hai Trinh,
+Eduardo Vieira,
 Rune Zedeler
 
 @c no comma for last entry
@@ -376,7 +352,11 @@ Rune Zedeler
 
 @macro bugsquadPrevious
 
-@c nobody here yet
+@c use commas not colons
+James E. Bailey,
+Urs Liska,
+Kieren MacMillan,
+Ralph Palmer
 
 @c no comma for last entry
 @end macro
@@ -386,13 +366,10 @@ Rune Zedeler
 @c use commas not colons
 
 Anthony Fok,
-@c @email{foka@@debian.org},
+Christian Hitz,
 Chris Jackson,
-@c @email{chris@@fluffhouse.org.uk},
 Heikki Junes,
-@c @email{heikki.junes@@hut.fi},
 David Svoboda
-@c @email{svoboda@@cmu.edu}
 
 @c no comma for last entry
 
@@ -404,44 +381,42 @@ David Svoboda
 
 @c use commas not colons
 
-Frédéric Chiasson,
-Abel Cheung,
 Alard de Boer,
+Federico Bruni,
+Abel Cheung,
+Frédéric Chiasson,
 Simon Dahlbacka,
 Orm Finnendahl,
 David González,
 Nicolas Grandclaude,
-@c @email{ngclaude@@123mail.org},
+Dénes Harmath,
 Damien Heurtebise,
-Matthieu Jacquot,
 Bjoern Jacke,
-@c @email{bjoern.jacke@@gmx.de},
+Matthieu Jacquot,
 Neil Jerram,
-@c @email{nj104@@cus.cam.ac.uk},
 Heikki Junes,
-@c @email{heikki.junes@@hut.fi},
 Nicolas Klutchnikoff,
 Jean-Charles Malahieude,
-@c @email{lolyfan@@wanadoo.fr},
+Jean-Charles Malahieude,
 Adrian Mariano,
 Christian Mondrup,
 Tineke de Munnik,
-@c @email{tdm@@dds.nl},
+Tineke de Munnik,
 Steven Michael Murphy,
+Till Paala,
 François Pinard,
 Gauvain Pocentek,
-@c @email{gauvainpocentek@@yahoo.fr},
 Till Rettig,
 Ludovic Sardain,
-@c @email{ludovicsardain@@gmail.com},
+Yoshiki Sawada
 Yoshiki Sawada,
 Thomas Scharkowski,
 Clytie Siddall,
 August S. Sigov,
-@c @email{august@@infran.ru},
 Roland Stigge,
 Risto Vääräniemi,
 Andrea Valle,
+Ralf Wildenhues,
 Olcay Yıldırım
 
 @c no comma for last entry

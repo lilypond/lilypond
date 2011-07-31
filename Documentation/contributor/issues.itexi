@@ -78,8 +78,8 @@ Sign in to google code by clicking in the top-right corner of:
 @uref{http://code.google.com/p/lilypond/issues/list}
 @end example
 
-You cannot log if you have Google Sharing
-@uref{http://www.googlesharing.net/} enabled.
+You cannot log on if you have Google Sharing enabled
+@uref{http://www.googlesharing.net/}.
 
 @item
 Go to your @qq{Profile}, and select @qq{Settings}.
@@ -137,7 +137,7 @@ should go into a separate @code{bug-current} folder.
 @section Bug Squad checklists
 
 When you do Bug Squad work, start at the top of this page and work
-your way down.  Stop when you've done 15 minutes.
+your way down.  Stop when you've done 20 minutes.
 
 Please use the email sorting described in @ref{Bug Squad setup}.
 This means that (as Bug Squad members) you will only ever respond
@@ -147,7 +147,7 @@ to emails sent or CC'd to the @code{bug-lilypond} mailing list.
 @subsubheading Emails to you personally
 
 You are not expected to work on Bug Squad matters outside of your
-15 minutes, but sometimes a confused user will send a bug report
+20 minutes, but sometimes a confused user will send a bug report
 (or an update to a report) to you personally.  If that happens,
 please forward such emails to the @code{bug-lilypond} list so that
 the currently-active Bug Squad member(s) can handle the message.
@@ -155,16 +155,16 @@ the currently-active Bug Squad member(s) can handle the message.
 
 @subsubheading Daily schedule
 
-The Bug Meister is omitted from the daily schedule.
+@c spacing is deliberate to help reinforce the "cyclic" nature
 
 @example
-Sunday: Colin
-Monday: Dmytro
-Tuesday: James Bailey
-Wednesday: Ralph
-Thursday: Patrick
-Friday: Urs
-Saturday: Kieren
+Monday:    Dmytro
+Tuesday:    Colin
+Wednesday:   Derek
+Thursday:  Dmytro
+Friday:     Colin
+Saturday:    Derek
+Sunday:       Phil
 @end example
 
 
@@ -682,6 +682,15 @@ lilypond --png bug.ly
 @end example
 
 @item
+Images created as @file{bug.png} may be trimmed to a minimum size
+by using the @code{trimtagline.sh} script, which can be found at
+@uref{https://raw.github.com/gperciva/lilypond-extra/master/bug-squad/trimtagline.sh}
+
+@example
+trimtagline.sh bug.ly
+@end example
+
+@item
 If the issue cannot be shown with less than three pages, then
 generate a @file{bug.pdf} file with:
 
@@ -836,17 +845,17 @@ weeks.
 
 Grid view provides the best overview:
 
-@example
+@smallexample
 @uref{http://code.google.com/p/lilypond/issues/list?mode=grid&y=Priority&x=Type&cells=ids}
-@end example
+@end smallexample
 
 @subsubheading Hindering development
 
 These issues stop or slow development work:
 
-@example
-@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:Maintainability&mode=grid&y=Priority&x=Type&cells=ids}
-@end example
+@smallexample
+@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:Maintainability}
+@end smallexample
 
 @subsubheading Easy tasks
 
@@ -856,9 +865,9 @@ relatively new contributor.  The time given is a quick
 familiar with material in this manual, but does not know anything
 else about LilyPond development.
 
-@example
-@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:Frog&mode=grid&y=Priority&x=Type&cells=ids}
-@end example
+@smallexample
+@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:Frog}
+@end smallexample
 
 @subsubheading Patches to review
 

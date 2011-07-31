@@ -42,6 +42,7 @@ SetFontNames("%(name)s-%(design_size)d", "%(name)s-%(design_size)d", "%(name)s-%
 
 MergeFonts("feta%(design_size)d.pfb");
 MergeFonts("feta-noteheads%(design_size)d.pfb");
+MergeFonts("feta-flags%(design_size)d.pfb");
 MergeFonts("parmesan%(design_size)d.pfb");
 
 # load nummer/din after setting PUA.

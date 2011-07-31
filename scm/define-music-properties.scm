@@ -41,6 +41,8 @@ this @code{\\lyricsto} section.")
 (with @code{+} sign).")
      (augmented-slash ,boolean? "This figure is for an augmented figured bass
 (back-slashed number).")
+     (autosplit-end ,boolean? "Duration of event was truncated by automatic
+splitting in @code{Completion_heads_engraver}.")
 
      (bass ,boolean? "Set if this note is a bass note in a chord.")
      (beat-structure ,list? "A beatStructure to be used in autobeaming.")
@@ -165,6 +167,7 @@ If zero, signals a beat containing varying durations.")
 Options are @code{'text} and @code{'hairpin}.")
      (span-text ,markup? "The displayed text for dynamic text spanners
 (e.g., cresc.)")
+     (spanner-id ,string? "Identifier to distinguish concurrent spanners.")
      (split-list ,list? "Splitting moments for part combiner.")
      (start-callback ,procedure? "Function to compute the negative length
 of starting grace notes.  This property can only be defined as initializer

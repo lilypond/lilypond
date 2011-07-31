@@ -4,7 +4,6 @@ SUBDIRS = essay learning notation texidocs usage web extending included
 STEPMAKE_TEMPLATES = documentation
 LOCALSTEPMAKE_TEMPLATES = lilypond ly doc-i18n-root
 
-UNSPLITTED_HTML_MANUALS = changes
 
 EXTRA_DIST_FILES = web.texi
 

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualizado en Thu Mar 24 14:52:33 UTC 2011
+@emph{Actualizado en Wed Jul 13 10:59:12 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ Registro de cambios de LilyPond
 @item
 Títulos de sección
 @*
-1464
+1779
 @tab Francisco Vila
 @tab 
 @tab 
@@ -150,7 +150,7 @@ sí
 @item
 1 Grabado musical
 @*
-5297
+5296
 @tab Francisco Vila
 @tab 
 @tab 
@@ -471,7 +471,7 @@ sí
 @item
 4 Trucar la salida
 @*
-15408
+15393
 @tab Francisco Vila
 @tab 
 @tab 
@@ -618,7 +618,7 @@ sí
 @item
 1.1 Alturas
 @*
-4479
+4502
 @tab Francisco Vila
 @tab 
 @tab 
@@ -662,11 +662,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -699,7 +699,7 @@ sí
 @item
 1.4 Repeticiones
 @*
-930
+945
 @tab Francisco Vila
 @tab 
 @tab 
@@ -726,7 +726,7 @@ sí
 @item
 1.5 Notas simultáneas
 @*
-2163
+2216
 @tab Francisco Vila
 @tab 
 @tab 
@@ -753,7 +753,7 @@ sí
 @item
 1.6 Notación de los pentagramas
 @*
-2056
+2345
 @tab Francisco Vila
 @tab 
 @tab 
@@ -888,7 +888,7 @@ sí
 @item
 2.2 Teclados y otros instrumentos de varios pentagramas
 @*
-838
+864
 @tab Francisco Vila
 @tab 
 @tab 
@@ -942,7 +942,7 @@ sí
 @item
 2.4 Instrumentos de cuerda con trastes
 @*
-2640
+2649
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1131,7 +1131,7 @@ sí
 @item
 3 Entrada y salida generales
 @*
-7069
+7671
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1158,7 +1158,7 @@ sí
 @item
 4 Problemas de espaciado
 @*
-11017
+11087
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1386,7 +1386,7 @@ sí
 @item
 3 Ejecución de @command{lilypond-book}
 @*
-3764
+3952
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1533,7 +1533,7 @@ sí
 @item
 Introducción
 @*
-4506
+4564
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1560,7 +1560,7 @@ sí
 @item
 Descarga
 @*
-1183
+1195
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1587,7 +1587,7 @@ sí
 @item
 Manuales
 @*
-1200
+1203
 @tab Francisco Vila
 @tab 
 @tab 

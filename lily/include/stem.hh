@@ -61,6 +61,7 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_beaming, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_length, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_stem_begin_position, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_stem_end_position, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_stem_info, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM));

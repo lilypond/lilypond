@@ -324,13 +324,16 @@ and duration-log @var{log}."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tuplets
 
+(define-public (tuplet-number::calc-direction grob)
+  (ly:tuplet-bracket::calc-direction (ly:grob-object grob 'bracket)))
+
 (define-public (tuplet-number::calc-denominator-text grob)
   (number->string (ly:event-property (event-cause grob) 'denominator)))
 
 (define-public (tuplet-number::calc-fraction-text grob)
   (let ((ev (event-cause grob)))
 
-    (format "~a:~a"
+    (format #f "~a:~a"
 	    (ly:event-property ev 'denominator)
 	    (ly:event-property ev 'numerator))))
 
@@ -360,7 +363,7 @@ and duration-log @var{log}."
          (den (if denominator denominator (ly:event-property ev 'denominator)))
          (num (if numerator numerator (ly:event-property ev 'numerator))))
 
-    (format "~a:~a" den num)))
+    (format #f "~a:~a" den num)))
 
 ;; Print a tuplet fraction with note durations appended to the numerator and the
 ;; denominator
@@ -382,10 +385,10 @@ and duration-log @var{log}."
          (num (if numerator numerator (ly:event-property ev 'numerator))))
 
     (make-concat-markup (list
-			 (make-simple-markup (format "~a" den))
+			 (make-simple-markup (format #f "~a" den))
 			 (markup #:fontsize -5 #:note denominatornote UP)
 			 (make-simple-markup " : ")
-			 (make-simple-markup (format "~a" num))
+			 (make-simple-markup (format #f "~a" num))
 			 (markup #:fontsize -5 #:note numeratornote UP)))))
 
 
@@ -463,6 +466,25 @@ and duration-log @var{log}."
 
 	(+ c0 p))))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; annotations
+
+(define-public (numbered-footnotes int)
+  (markup #:tiny (number->string (+ 1 int))))
+
+(define-public (symbol-footnotes int)
+  (define (helper symbols out idx n)
+    (if (< n 1)
+        out
+        (helper symbols
+                (string-append out (list-ref symbols idx))
+                idx
+                (- n 1))))
+  (markup #:tiny (helper '("*" "†" "‡" "§" "¶")
+                          ""
+                          (remainder int 5)
+                          (+ 1 (quotient int 5)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; accidentals

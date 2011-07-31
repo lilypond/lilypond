@@ -1,30 +1,41 @@
 \version "2.14.0"
 \header {
-texidoc = "Whole and half rests moving outside the staff should get
+texidoc = "Breve, whole and half rests moving outside the staff should get
 ledger lines."
 }
 
 
-\paper { ragged-right = ##t } 
+\paper { ragged-right = ##t }
+
+rPos =
+#(define-music-function (parser location y) (number?)
+  #{ \override Rest #'staff-position = #$y #})
 
 {
-   \override Rest  #'staff-position = #4
-  r1 \override Rest  #'staff-position = #5
-  r1 \override Rest  #'staff-position = #6
-  
-  r1 \override Rest  #'staff-position = #-6
-  r1 \override Rest  #'staff-position = #-7
-  r1 \override Rest  #'staff-position = #-8
-  r1
+  \set Score.timing = ##f
+  \rPos #2
+  r\breve \rPos #4
+  r \rPos #5
+  r \rPos #-4
+  r \rPos #-6
+  r \rPos #-7
+  r
 
-   \override Rest  #'staff-position = #6
-  r2 \override Rest  #'staff-position = #7
-  r2 \override Rest  #'staff-position = #8
-  
-  r2 \override Rest  #'staff-position = #-4
-  r2 \override Rest  #'staff-position = #-5
-  r2 \override Rest  #'staff-position = #-6
-  r2
+  \rPos #2
+  r1 \rPos #4
+  r \rPos #5
+  r \rPos #-6
+  r \rPos #-7
+  r \rPos #-8
+  r
+
+  \rPos #4
+  r2 \rPos #6
+  r \rPos #7
+  r \rPos #-4
+  r \rPos #-6
+  r \rPos #-7
+  r
 
 }
 

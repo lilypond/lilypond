@@ -79,6 +79,15 @@ display method will be called."
 		 (format #f "~a\\tag #'~a" (if post-event? "-" "") tag))
 	       (ly:music-property expr 'tags))))
 
+(define* (tweaks->lily-string expr #:optional (post-event? #f))
+  (format #f "~{~a ~}"
+          (map (lambda (tweak)
+                 (format #f "~a\\tweak #'~a #~a"
+                         (if post-event? "-" "")
+                         (car tweak)
+                         (scheme-expr->lily-string (cdr tweak))))
+               (ly:music-property expr 'tweaks))))
+
 (define-public (music->lily-string expr parser)
   "Print @var{expr}, a music expression, in LilyPond syntax."
   (if (ly:music? expr)
@@ -90,8 +99,9 @@ display method will be called."
 					      (proc expr parser))
 					    procs))))
 	(if result-string
-	    (format #f "~a~a" 
-		    (tag->lily-string expr (post-event? expr))
+	    (format #f "~a~a~a"
+                    (tag->lily-string expr (post-event? expr))
+                    (tweaks->lily-string expr (post-event? expr))
 		    result-string)
 	    (format #f "%{ Print method not implemented for music type ~a %}"
 		    music-type)))

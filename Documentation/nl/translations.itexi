@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Thu Mar 24 14:52:33 UTC 2011
+@emph{Meest recente update Wed Jul 13 10:59:12 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -74,11 +74,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">gedeeltelijk</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+ja
 @end ifnothtml
 @tab voor-GDP
 @item
@@ -101,11 +101,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">gedeeltelijk</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+ja
 @end ifnothtml
 @tab voor-GDP
 @item
@@ -128,11 +128,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">gedeeltelijk</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+ja
 @end ifnothtml
 @tab voor-GDP
 @item
@@ -194,11 +194,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #c0ff34">gedeeltelijk</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+ja
 @end ifnothtml
 @tab na-GDP
 @item
@@ -221,17 +221,17 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">gedeeltelijk</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+ja
 @end ifnothtml
 @tab voor-GDP
 @item
 Inleiding
 @*
-4506
+4564
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -248,17 +248,17 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">gedeeltelijk</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+ja
 @end ifnothtml
 @tab voor-GDP
 @item
 Download
 @*
-1183
+1195
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -275,17 +275,17 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">gedeeltelijk</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+ja
 @end ifnothtml
 @tab voor-GDP
 @item
 Handleidingen
 @*
-1200
+1203
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -302,11 +302,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">gedeeltelijk</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+ja
 @end ifnothtml
 @tab voor-GDP
 @end multitable

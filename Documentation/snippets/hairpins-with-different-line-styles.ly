@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 Los reguladores pueden imprimirse en uno cualquiera de los estilos de
 @code{line-interface}: discontinuo, punteado, línea, trino o zig-zag.

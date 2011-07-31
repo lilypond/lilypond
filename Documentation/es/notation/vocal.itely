@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: a3cb316f14549de435c809a3b5cd11e7746a7a01
+    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -235,7 +235,7 @@ Manual de aprendizaje:
 Referencia de la notación:
 @ref{Duración automática de las sílabas},
 @ref{Tipografías},
-@ref{Foramtear el texto},
+@ref{Formatear el texto},
 @ref{Modos de entrada},
 @ref{Duración manual de las sílabas},
 @ref{Codificación del texto}.
@@ -2181,7 +2181,7 @@ el @q{modo de acordes}; esta sintaxis se explica en
 
 @seealso
 Referencia de la notación:
-@ref{Chord notation}.
+@ref{Notación de acordes}.
 
 
 @node Música coral

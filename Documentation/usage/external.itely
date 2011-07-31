@@ -546,13 +546,21 @@ the following options
 @{ c1 @}
 @end example
 
-To produce a useful @file{EPS} file, use
+To produce useful image files:
 
 @example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts   myfile.ly
+EPS
 
-@file{PNG}:
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts myfile.ly
+
+PNG
+
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
+
+A transparent PNG
+
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts \
+  -dpixmap-format=pngalpha --png myfile.ly
 @end example
 
 

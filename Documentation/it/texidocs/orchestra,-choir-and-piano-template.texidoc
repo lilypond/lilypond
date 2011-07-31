@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+  texidocit = "
+Questo modello mostra come usare i contesti annidati @code{StaffGroup} e
+@code{GrandStaff} per creare sottogruppi degli strumenti dello stesso
+tipo.  Mostra anche come usare @code{\\transpose} in modo che le variabili
+mantengano la musica per gli strumenti traspositori nell'intonazione reale.
+
+"
+  doctitleit = "Modello per orchestra, coro e pianoforte"

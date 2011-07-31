@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 92190ad98deac78cf32837078741296205072119
+    Translation of GIT committish: 52f98b4061e0eb74b7c1dbcc29e74538b374752f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -67,12 +67,41 @@ translations should be in macros.itexi.
 
 @end ifnothtml
 
+@c do not translate the following macro -- it is used in
+@c an untranslated manual.
+
+@ifhtml
+
+@macro advanced{TEXT}
+@html
+<div class="advanced">
+@end html
+@strong{Advanced note:} \TEXT\
+@c keep the space for proper nesting of </p>
+
+@html
+</div>
+@end html
+@end macro
+
+@end ifhtml
+
+@ifnothtml
+
+@macro advanced{TEXT}
+@quotation
+@b{Advanced note:} \TEXT\
+@end quotation
+@end macro
+
+@end ifnothtml
+
 
 @macro docMain
 @cartouche
 Per maggiori informazioni su come questo manuale si integra col resto
 della documentazione, o per leggere questo manuale in altri formati, si veda
-@rweb{Manuals}.
+@rweb{Manuali}.
 
 Se ti manca qualche manuale, puoi trovare la completa documentazione
 all'indirizzo @w{@uref{http://@/www@/.lilypond@/.org/}}.

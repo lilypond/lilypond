@@ -53,6 +53,7 @@ struct Axis_group_interface
   static Interval rest_of_line_pure_height (Grob *me, int, int);
   static Interval part_of_line_pure_height (Grob *me, bool begin, int, int);
 
+  static bool has_outside_staff_parent (Grob *me);
   static Skyline_pair skyline_spacing (Grob *me, vector<Grob*> elements);
   static void add_element (Grob *me, Grob *);
   static void set_axes (Grob *, Axis, Axis);

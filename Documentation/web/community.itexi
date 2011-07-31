@@ -270,7 +270,7 @@ guidelines for @ref{Bug reports}.}
 @divClass{column-center-top}
 @subheading What are @qq{Tiny examples}?
 
-A tiny example is an example from which nothing can be removed.
+A tiny example is an example from which @strong{nothing} can be removed.
 @divEnd
 
 @divClass{column-left-bottom}
@@ -284,12 +284,12 @@ The simpler the example is, the quicker potential helpers can
 understand it and help you.
 
 @item
-A simple example demonstrates that you have put effort towards
+A tiny example demonstrates that you have put effort towards
 solving the problem yourself.  When people send huge portions of
-input, it looks like they don't care how if we help them or not.
+input, it looks like they don't care if we help them or not.
 
 @item
-Creating a tiny example forces you to understand what is
+Creating a tiny example helps you to understand what is
 happening.  Many false problem reports can be avoided by
 attempting to create a tiny example; if you cannot replicate a
 @qq{bug} in a tiny example, then the problem was probably an
@@ -302,39 +302,78 @@ insufficient understanding of LilyPond, not an actual bug!
 
 
 @divClass{column-right-bottom}
-@subheading How do I create them?
+@subheading How to create them?
 
 @divClass{keep-bullets}
 @itemize
 
 @item
-Include the \version number.
+Include the @code{\version} number.
 
 @item
 Make it small!  Examples about spacing or page layout might
 require many bars of music, but most issues can be reproduced
-using only a single measure.
+using less than a single measure.
 
 @item
 When trying to create an example, try commenting out @w{(@code{%}
-or @code{%@{ @dots{} %@}})} sections of your file.  If you can
-comment something while still demonstrating the main idea, then
-remove the commented-material!
+or @code{%@{ @dots{} %@}})} sections of your file.  If you
+can comment something while still demonstrating the main idea,
+then remove the commented-material.
 
 @item
-Avoid using complicated notes, keys, or time signatures, unless
+Avoid using complicated notes, keys or time signatures, unless
 the bug is about the behavior of those items.
 
 @item
 Do not use @code{\override} or @code{\set} commands unless the bug
-is about those particular commands.
+is about those specific commands.
+
+@item
+Optionally, attach an image showing the desired graphical output.
 
 @end itemize
 @divEnd
 
 @divEnd
 
+@divClass{column-center-bottom}
+@subheading How tiny should they be?
 
+Is the code below a minimal example?
+
+@example
+\version "2.14.1"
+\include "english.ly"
+
+\score @{
+  \new Staff @{
+    \key d \major
+    \numericTimeSignature
+    \time 2/4
+    <cs' d'' b''>16 <cs' d'' b''>8.
+    %% Here: the tie on the D's looks funny
+    %% Too tall? Left-hand endpoint is not aligned with the B tie?
+    ~
+    <cs' d'' b''>8 [ <b d'' a''> ]
+  @}
+@}
+@end example
+
+Well, it is not very big, but a truly minimal example is here:
+
+@example
+\version "2.14.1"
+@{
+  % middle tie looks funny here:
+  <c' d'' b''>8. ~ <c' d'' b''>8
+@}
+@end example
+
+Very few tiny examples exceed 10 lines of code -
+quite often 4 lines are enough to demonstrate the problem!
+
+@divEnd
 
 
 @node Bug reports

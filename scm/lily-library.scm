@@ -179,14 +179,14 @@ bookoutput function"
   ;; as the key to out internal a-list
   (let* ((base-name (get-current-filename parser))
 	 (output-suffix (get-current-suffix parser))
-	 (alist-key (format "~a~a" base-name output-suffix))
+	 (alist-key (format #f "~a~a" base-name output-suffix))
 	 (counter-alist (ly:parser-lookup parser 'counter-alist))
 	 (output-count (assoc-get alist-key counter-alist 0))
 	 (result base-name))
     ;; Allow all ASCII alphanumerics, including accents
     (if (string? output-suffix)
         (set! result
-              (format "~a-~a"
+              (format #f "~a-~a"
                       result
                       (string-regexp-substitute
                        "[^-[:alnum:]]"
@@ -745,6 +745,23 @@ Handy for debugging, possibly turned off."
        (cons (substring str end-of-prev-match (string-length str)) matches)))
 
    (reverse matches))
+
+(define-public (random-string pool n)
+  "Produces a random lowercase string of length n"
+  (define (helper alphabet out num)
+    (let ((rand (random (string-length pool))))
+      (if (< num 1)
+          out
+          (helper alphabet
+                  (string-concatenate `(,out
+                                        ,(substring alphabet
+                                                    rand
+                                                    (+ 1 rand))))
+                  (- num 1)))))
+  (helper pool "" n))
+
+(define-public (random-lowercase-string n)
+  (random-string "abcdefghijklmnopqrstuvwxyz" n))
 
 ;;;;;;;;;;;;;;;;
 ;; other

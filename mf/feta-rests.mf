@@ -125,6 +125,24 @@ fet_beginchar ("breve rest", "M1");
 	draw_staff (-2, 2, 0);
 fet_endchar;
 
+fet_beginchar ("breve rest (outside staff)", "M1o");
+	set_char_box (0, breve_rest_x#,
+		      ledgerlinethickness# / 2, breve_rest_y#);
+
+	draw_block ((0, 0), (breve_rest_x, breve_rest_y));
+
+	pickup pencircle scaled ledgerlinethickness;
+
+	y5 = y6 = breve_rest_y;
+	lft x5 = -b - breve_rest_y / 2;
+	rt x6 = w + breve_rest_y / 2;
+
+	draw_gridline (z5, z6, ledgerlinethickness_rounded);
+	draw_gridline ((x5, 0), (x6, 0), ledgerlinethickness_rounded);
+
+	draw_staff (-2, 2, 3);
+fet_endchar;
+
 
 fet_beginchar ("Quarter rest", "2");
 	save alpha, yshift, height;

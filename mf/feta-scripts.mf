@@ -1447,17 +1447,18 @@ enddef;
 
 
 fet_beginchar ("Arpeggio", "arpeggio");
+	begingroup;
 	save height, overshoot, width;
-	height# = staff_space#;
-	width# = 0.8 height#;
-	overshoot# = 0.25 staff_space#;
+	height# := staff_space#;
+	width# := 0.8 * height#;
+	overshoot# := 0.25 * staff_space#;
 	define_pixels (height, overshoot, width);
-
 	set_char_box (0, width#, 0, height#);
 	draw_arpeggio;
 	penlabels (range 1 thru 9);
 
 	draw_staff (-2, 2, 0.0);
+	endgroup;
 fet_endchar;
 
 
@@ -1468,7 +1469,8 @@ fet_endchar;
 %
 
 fet_beginchar ("Trill_element", "trill_element");
-	save height, overshoot;
+	begingroup;
+	save height, overshoot, width;
 	height# = staff_space#;
 	width# = 0.8 height#;
 	overshoot# = 0.25 staff_space#;
@@ -1480,6 +1482,7 @@ fet_beginchar ("Trill_element", "trill_element");
 	currentpicture := currentpicture shifted -(width / 2, height / 2);
 	currentpicture := currentpicture rotated 90;
 	currentpicture := currentpicture shifted (height / 2, width / 2);
+	endgroup;
 fet_endchar;
 
 

@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+  texidocit = "
+Questo modello è fondamentalmente analogo al semplice modello @qq{Complesso vocale},
+con l'unica differenza che qui tutti i versi del testo sono posizionati
+usando @code{alignAboveContext} e @code{alignBelowContext}.
+
+"
+  doctitleit = "Modello per gruppo vocale con testo allineato sotto e sopra i righi"

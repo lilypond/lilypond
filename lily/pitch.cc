@@ -32,7 +32,7 @@ Pitch::Pitch (int o, int n, Rational a)
   notename_ = n;
   alteration_ = a;
   octave_ = o;
-  scale_ = default_global_scale; 
+  scale_ = default_global_scale;
   normalize_octave ();
 }
 
@@ -40,8 +40,9 @@ Pitch::Pitch (int o, int n, Rational a)
 Pitch::Pitch ()
 {
   notename_ = 0;
-  scale_ = default_global_scale; 
+  scale_ = default_global_scale;
   octave_ = 0;
+  alteration_ = (Rational)0;
 }
 
 int
@@ -57,7 +58,7 @@ Pitch::compare (Pitch const &m1, Pitch const &m2)
     return n;
   if (a)
     return a > (Rational)0;
-  
+
   return 0;
 }
 

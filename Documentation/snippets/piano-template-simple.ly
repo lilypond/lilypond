@@ -7,9 +7,19 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidocit = "
+Ecco un comune doppio pentagramma per pianoforte con un po' di note.
+
+"
+  doctitleit = "Modello per pianoforte (semplice)"
+
   lsrtags = "keyboards, template"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+
+
+
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 Presentamos a continuación una plantilla de piano sencilla con algunas
 notas.

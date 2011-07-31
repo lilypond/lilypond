@@ -133,12 +133,14 @@ endgroup
 enddef;
 
 
-fet_beginchar ("8th Flag (up)", "u3");
+
+
+def upstemsingleflag (expr shortening) =
 	save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 1;
-	total_depth# = 3 staff_space# - blot_diameter# / 2;
+	total_depth# = (3 - shortening) * staff_space# - blot_diameter# / 2;
 	flare = staff_space;
 	flagspace# = staff_space#;
 	hip_depth_ratio = .72;
@@ -160,15 +162,15 @@ fet_beginchar ("8th Flag (up)", "u3");
 
 	draw_square_block ((-0.5 stemthickness_rounded, 0),
 			   (0, (-flag_count * staff_space_rounded)));
-fet_endchar;
+enddef;
 
 
-fet_beginchar ("16th Flag (up)", "u4");
+def upstemdoubleflag (expr shortening) =
 	save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 2;
-	total_depth# = 3.5 staff_space# - blot_diameter# / 2;
+	total_depth# = (3.5 - shortening) * staff_space# - blot_diameter# / 2;
 	flare = .85 staff_space;
 	flagspace# = .85 staff_space#;
 	hip_depth_ratio = .72;
@@ -193,15 +195,15 @@ fet_beginchar ("16th Flag (up)", "u4");
 
 	draw_square_block ((-0.5 stemthickness_rounded, 0),
 			   (0, (-flag_count * staff_space_rounded)));
-fet_endchar;
+enddef;
 
 
-fet_beginchar ("32nd Flag (up)", "u5");
+def upstemtripleflag (expr shortening) =
 	save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 3;
-	total_depth# = 4.25 staff_space# - blot_diameter# / 2;
+	total_depth# = (4.25 - shortening) * staff_space# - blot_diameter# / 2;
 	flare = .85 staff_space;
 	flagspace# = .87 staff_space#;
 	hip_depth_ratio = .72;
@@ -228,15 +230,15 @@ fet_beginchar ("32nd Flag (up)", "u5");
 
 	draw_square_block ((-0.5 stemthickness_rounded, 0),
 			   (0, (-flag_count * staff_space_rounded)));
-fet_endchar;
+enddef;
 
 
-fet_beginchar ("64th Flag (up)", "u6");
+def upstemquadrupleflag (expr shortening) =
 	save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 4;
-	total_depth# = 5.25 staff_space# - blot_diameter# / 2;
+	total_depth# = (5.25 - shortening) *  staff_space# - blot_diameter# / 2;
 	flare = .85 staff_space;
 	flagspace# = .9 staff_space#;
 	hip_depth_ratio = .72;
@@ -265,15 +267,15 @@ fet_beginchar ("64th Flag (up)", "u6");
 
 	draw_square_block ((-0.5 stemthickness_rounded, 0),
 			   (0, (-flag_count * staff_space_rounded)));
-fet_endchar;
+enddef;
 
 
-fet_beginchar ("128th Flag (up)", "u7");
+def upstemquintupleflag (expr shortening) =
 	save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 5;
-	total_depth# = 6.25 staff_space# - blot_diameter# / 2;
+	total_depth# = (6.25 - shortening) *  staff_space# - blot_diameter# / 2;
 	flare = .85 staff_space;
 	flagspace# = .93 staff_space#;
 	hip_depth_ratio = .72;
@@ -304,15 +306,17 @@ fet_beginchar ("128th Flag (up)", "u7");
 
 	draw_square_block ((-0.5 stemthickness_rounded, 0),
 			   (0, (-flag_count * staff_space_rounded)));
-fet_endchar;
+enddef;
 
 
-fet_beginchar ("8th (down)", "d3");
+
+
+def downstemsingleflag (expr shortening) =
 	save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 1;
-	total_depth# = 2.75 staff_space#;
+	total_depth# = (2.75 - shortening) * staff_space#;
 	flare = staff_space;
 	flagspace# = .9 staff_space#;
 	hip_depth_ratio = .74;
@@ -336,15 +340,15 @@ fet_beginchar ("8th (down)", "d3");
 			   (0, (-flag_count * staff_space_rounded)));
 
 	y_mirror_char;
-fet_endchar;
+enddef;
 
 
-fet_beginchar ("16th (down)", "d4");
+def downstemdoubleflag (expr shortening) =
 	save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 2;
-	total_depth# = 3.0 staff_space# - blot_diameter# / 2;
+	total_depth# = (3.0 - shortening) * staff_space# - blot_diameter# / 2;
 	flare = .82 staff_space;
 	flagspace# = .9 staff_space#;
 	hip_depth_ratio = .85;
@@ -371,15 +375,15 @@ fet_beginchar ("16th (down)", "d4");
 			   (0, (-flag_count * staff_space_rounded)));
 
 	y_mirror_char;
-fet_endchar;
+enddef;
 
 
-fet_beginchar ("32nd (down)", "d5");
+def downstemtripleflag (expr shortening) =
 	save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 3;
-	total_depth# = 3.75 * staff_space# - blot_diameter# / 2;
+	total_depth# = (3.75 - shortening) * staff_space# - blot_diameter# / 2;
 	flare = .82 staff_space;
 	flagspace# = .88 staff_space#;
 	hip_depth_ratio = .87;
@@ -408,15 +412,15 @@ fet_beginchar ("32nd (down)", "d5");
 			   (0, (-flag_count * staff_space_rounded)));
 
 	y_mirror_char;
-fet_endchar;
+enddef;
 
 
-fet_beginchar ("64th (down)", "d6");
+def downstemquadrupleflag (expr shortening) =
 	save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 4;
-	total_depth# = 4.5 staff_space# - blot_diameter# / 2;
+	total_depth# = (4.5 - shortening) * staff_space# - blot_diameter# / 2;
 	flare = .8 staff_space;
 	flagspace# = .9 staff_space#;
 	hip_depth_ratio = .83;
@@ -447,15 +451,15 @@ fet_beginchar ("64th (down)", "d6");
 			   (0, (-flag_count * staff_space_rounded)));
 
 	y_mirror_char;
-fet_endchar;
+enddef;
 
 
-fet_beginchar ("128th (down)", "d7");
+def downstemquintupleflag (expr shortening) =
 	save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 5;
-	total_depth# = 5.5 staff_space# - blot_diameter# / 2;
+	total_depth# = (5.5 - shortening) * staff_space# - blot_diameter# / 2;
 	flare = .8 staff_space;
 	flagspace# = .92 staff_space#;
 	hip_depth_ratio = .85;
@@ -488,7 +492,64 @@ fet_beginchar ("128th (down)", "d7");
 			   (0, (-flag_count * staff_space_rounded)));
 
 	y_mirror_char;
+enddef;
+
+
+
+
+fet_beginchar ("8th Flag (up)", "u3");
+	upstemsingleflag (0.0);
 fet_endchar;
+
+
+fet_beginchar ("16th Flag (up)", "u4");
+	upstemdoubleflag (0);
+fet_endchar;
+
+
+fet_beginchar ("32nd Flag (up)", "u5");
+	upstemtripleflag (0);
+fet_endchar;
+
+
+fet_beginchar ("64th Flag (up)", "u6");
+	upstemquadrupleflag (0);
+fet_endchar;
+
+
+fet_beginchar ("128th Flag (up)", "u7");
+	upstemquintupleflag (0);
+fet_endchar;
+
+
+
+
+
+fet_beginchar ("8th Flag (down)", "d3");
+	downstemsingleflag (0.0);
+fet_endchar;
+
+
+fet_beginchar ("16th Flag (down) 3", "d4");
+	downstemdoubleflag (0);
+fet_endchar;
+
+
+fet_beginchar ("32nd Flag (down)", "d5");
+	downstemtripleflag (0);
+fet_endchar;
+
+
+fet_beginchar ("64th Flag (down)", "d6");
+	downstemquadrupleflag (0);
+fet_endchar;
+
+
+fet_beginchar ("128th Flag (down)", "d7");
+	downstemquintupleflag (0);
+fet_endchar;
+
+
 
 
 %%%%%%%%

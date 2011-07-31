@@ -730,12 +730,37 @@ Tuplet_bracket::get_default_dir (Grob *me)
   for (vsize i = 0; i < columns.size (); i++)
     {
       Grob *nc = columns[i];
+      if (Note_column::has_rests (nc))
+        continue;
       Direction d = Note_column::dir (nc);
       if (d)
 	dirs[d]++;
     }
 
-  return dirs[UP] >= dirs[DOWN] ? UP : DOWN;
+  if (dirs[UP] == dirs[DOWN])
+    {
+      if (dirs[UP] == 0)
+        return UP;
+      Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
+      if (!staff)
+        return UP;
+      Interval staff_extent = staff->extent (staff, Y_AXIS);
+      Interval extremal_positions;
+      extremal_positions.set_empty ();
+      for (vsize i = 0; i < columns.size (); i++)
+        {
+          Direction d = Note_column::dir (columns[i]);
+          extremal_positions[d] = minmax (d, 1.0*Note_column::head_positions_interval (columns[i])[d], extremal_positions[d]);
+        }
+      Direction d = LEFT;
+      do
+        extremal_positions[d] = -d * (staff_extent[d] - extremal_positions[d]);
+      while (flip (&d) != LEFT);
+
+      return extremal_positions[UP] <= extremal_positions[DOWN] ? UP : DOWN;
+    }
+
+  return dirs[UP] > dirs[DOWN] ? UP : DOWN;
 }
 
 void

@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+  texidocit = "
+Questo modello crea una partitura che inizia con una sezione solistica e
+prosegue in un ritornello a due voci.  Illustra anche l'uso delle
+pause spaziatrici all'interno della variabile @code{\\global} per definire
+i cambi di tempo (e altri elementi comuni a tutte le parti) nel corso di
+tutta la partitura.
+"
+  doctitleit = "Modello per gruppo vocale con strofa e ritornello"

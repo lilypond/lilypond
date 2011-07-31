@@ -7,6 +7,7 @@ import os
 import string
 import codecs
 import zipfile
+import tempfile
 import StringIO
 
 """
@@ -67,7 +68,7 @@ additional_definitions = {
     (let* ((ev (event-cause grob))
            (den (if denominator denominator (ly:event-property ev 'denominator)))
            (num (if numerator numerator (ly:event-property ev 'numerator))))
-       (format "~a:~a" den num)))
+       (format #f "~a:~a" den num)))
 """,
 }
 
@@ -1782,11 +1783,11 @@ def musicxml_note_to_lily_main_event (n):
             # TODO: Handle the level-display setting for displaying brackets/parentheses
 
     elif n.get_maybe_exist_typed_child (musicxml.Unpitched):
-	# Unpitched elements have display-step and can also have
-	# display-octave.
-	unpitched = n.get_maybe_exist_typed_child (musicxml.Unpitched)
-	event = musicexp.NoteEvent ()
-	event.pitch = musicxml_unpitched_to_lily (unpitched)
+        # Unpitched elements have display-step and can also have
+        # display-octave.
+        unpitched = n.get_maybe_exist_typed_child (musicxml.Unpitched)
+        event = musicexp.NoteEvent ()
+        event.pitch = musicxml_unpitched_to_lily (unpitched)
 
     elif n.get_maybe_exist_typed_child (musicxml.Rest):
         # rests can have display-octave and display-step, which are
@@ -2489,11 +2490,11 @@ def musicxml_unpitched_to_lily (mxl_unpitched):
     p = None
     step = mxl_unpitched.get_step ()
     if step:
-	p = musicexp.Pitch ()
-	p.step = musicxml_step_to_lily (step)
+        p = musicexp.Pitch ()
+        p.step = musicxml_step_to_lily (step)
     octave = mxl_unpitched.get_octave ()
     if octave and p:
-	p.octave = octave - 4
+        p.octave = octave - 4
     return p
 
 def musicxml_restdisplay_to_lily (mxl_rest):
@@ -2788,7 +2789,17 @@ def read_musicxml (filename, compressed, use_lxml):
     if compressed:
         if filename == "-":
              progress (_ ("Input is compressed, extracting raw MusicXML data from stdin") )
-             z = zipfile.ZipFile (sys.stdin)
+             # unfortunately, zipfile.ZipFile can't read directly from
+             # stdin, so copy everything from stdin to a temp file and read
+             # that. TemporaryFile() will remove the file when it is closed.
+             tmp = tempfile.TemporaryFile()
+             sys.stdin = os.fdopen(sys.stdin.fileno(), 'rb', 0) # Make sys.stdin binary
+             bytes_read = sys.stdin.read (8192)
+             while bytes_read:
+                 for b in bytes_read:
+                     tmp.write(b)
+                 bytes_read = sys.stdin.read (8192)
+             z = zipfile.ZipFile (tmp, "r")
         else:
             progress (_ ("Input file %s is compressed, extracting raw MusicXML data") % filename)
             z = zipfile.ZipFile (filename, "r")

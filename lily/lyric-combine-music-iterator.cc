@@ -63,6 +63,7 @@ private:
   DECLARE_LISTENER (check_new_context);
 
   bool music_found_;
+  bool lyrics_found_;
   Context *lyrics_context_;
   Context *music_context_;
   SCM lyricsto_voice_name_;
@@ -76,6 +77,7 @@ private:
 Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
 {
   music_found_ = false;
+  lyrics_found_ = false;
   pending_grace_moment_.set_infinite (1);
   lyric_iter_ = 0;
   music_context_ = 0;
@@ -225,13 +227,9 @@ Lyric_combine_music_iterator::check_new_context (SCM sev)
   if (!ok ())
     return ;
   
-  // TODO: Check first if type=Voice and if id matches
-  Stream_event * ev = unsmob_stream_event (sev);
-  if (ev->get_property ("type") != ly_symbol2scm ("Voice"))
-    return ;
-  
+  // Search for a possible candidate voice to attach the lyrics to. If none
+  // is found, we'll try next time again.
   Context *voice = find_voice ();
-
   if (voice)
     {
       set_music_context (voice);
@@ -278,6 +276,7 @@ Lyric_combine_music_iterator::process (Moment /* when */)
   if (new_voice)
     set_music_context (new_voice);
 
+  lyrics_found_ = true;
   if (!music_context_)
     return;
 
@@ -332,10 +331,12 @@ Lyric_combine_music_iterator::do_quit ()
 
       string name;
       if (scm_is_string (voice_name))
-	name = ly_scm2string (voice_name);
-
-      get_music ()->origin ()->warning (_f ("cannot find Voice `%s'",
-					    name.c_str ()) + "\n");
+        name = ly_scm2string (voice_name);
+      /* Don't print a warning for empty lyrics (in which case we don't try
+         to find the proper voice, so it will not be found) */
+      if (lyrics_found_)
+        get_music ()->origin ()->warning (_f ("cannot find Voice `%s'",
+                                              name.c_str ()) + "\n");
     }
 
   if (lyric_iter_)

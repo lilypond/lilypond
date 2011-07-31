@@ -884,6 +884,7 @@
 	(footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
 	(stencil . ,ly:balloon-interface::print)
 	(text . ,(grob::calc-property-by-copy 'text))
+	(X-extent . #f)
 	(Y-extent . #f)
 	(X-offset . ,(grob::calc-property-by-copy 'X-offset))
 	(Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
@@ -901,6 +902,7 @@
 	(spanner-placement . ,LEFT)
 	(stencil . ,ly:balloon-interface::print-spanner)
 	(text . ,(grob::calc-property-by-copy 'text))
+	(X-extent . #f)
 	(Y-extent . #f)
 	(X-offset . ,(grob::calc-property-by-copy 'X-offset))
 	(Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
@@ -938,6 +940,7 @@
 	(left-bound-info . ,ly:line-spanner::calc-left-bound-info)
 	(normalized-endpoints . ,ly:spanner::calc-normalized-endpoints)
 	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
+	(simple-Y . #t)
 	(stencil . ,ly:line-spanner::print)
 	(style . line)
 	(X-extent . #f)
@@ -1290,7 +1293,6 @@
 	(self-alignment-X . ,LEFT)
 	(break-align-symbols . (time-signature))
 	(non-break-align-symbols . (multi-measure-rest-interface))
-	(non-musical . #t)
 	(meta . ((class . Item)
 		 (interfaces . (break-alignable-interface
 				font-interface
@@ -1309,6 +1311,8 @@
 	(staff-position . 0)
 	(stencil . ,ly:multi-measure-rest::print)
 	(thick-thickness . 6.6)
+	;; See Wanske pp. 125
+	(usable-duration-logs . (0 -1 -2 -3))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
@@ -1436,6 +1440,7 @@
 		 (interfaces . (font-interface
 				gregorian-ligature-interface
 				ledgered-interface
+                                ligature-head-interface
 				mensural-ligature-interface
 				note-head-interface
 				rhythmic-grob-interface
@@ -1585,6 +1590,7 @@
 	(height-limit . 2.0)
 	(minimum-length . 1.5)
 	(ratio . 0.333)
+	(spanner-id . "")
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(stencil . ,ly:slur::print)
 	(thickness . 1.1)
@@ -1739,6 +1745,7 @@
 	(line-thickness . 0.8)
 	(minimum-length . 1.5)
 	(ratio . 0.25)
+	(spanner-id . "")
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(stencil . ,ly:slur::print)
 	(thickness . 1.2)
@@ -1910,6 +1917,7 @@
 	(length . ,ly:stem::calc-length)
 	(neutral-direction . ,DOWN)
 	(positioning-done . ,ly:stem::calc-positioning-done)
+	(stem-begin-position . ,ly:stem::calc-stem-begin-position)
 	(stem-end-position . ,ly:stem::calc-stem-end-position)
 	(stem-info . ,ly:stem::calc-stem-info)
 	(stencil . ,ly:stem::print)
@@ -1930,7 +1938,6 @@
 	(stencil . ,ly:stem-tremolo::print)
 	(style . ,ly:stem-tremolo::calc-style)
 	(X-extent . ,ly:stem-tremolo::width)
-	(Y-extent . ,ly:stem-tremolo::height)
 	(meta . ((class . Item)
 		 (interfaces . (stem-tremolo-interface))))))
 
@@ -2341,6 +2348,7 @@
      . (
 	(avoid-slur . inside)
 	(cross-staff . ,ly:tuplet-number::calc-cross-staff)
+	(direction . ,tuplet-number::calc-direction)
 	(font-shape . italic)
 	(font-size . -2)
 	(stencil . ,ly:tuplet-number::print)
@@ -2579,6 +2587,7 @@
     (,ly:arpeggio::brew-chord-bracket . ,ly:arpeggio::pure-height)
     (,ly:arpeggio::brew-chord-slur . ,ly:arpeggio::pure-height)
     (,ly:hairpin::print . ,ly:hairpin::pure-height)
+    (,ly:stem-tremolo::print . ,ly:stem-tremolo::pure-height)
     (,ly:volta-bracket-interface::print . ,volta-bracket-interface::pure-height)))
 
 ;; ly:grob::stencil-extent is safe if the print callback is safe too

@@ -35,7 +35,8 @@ expressions automatically, and can be used to greatly simplify the
 input file.
 
 @menu
-* Music function syntax::
+* Music function definitions::
+* Music function usage::
 * Simple substitution functions::
 * Intermediate substitution functions::
 * Mathematics in functions::
@@ -44,10 +45,10 @@ input file.
 @end menu
 
 
-@node Music function syntax
-@subsection Music function syntax
+@node Music function definitions
+@subsection Music function definitions
 
-The general form for music functions is:
+The general form for defining music functions is:
 
 @example
 function =
@@ -66,7 +67,8 @@ where
 
 @item @code{@var{typeN?}}
 @tab a scheme @emph{type predicate} for which @code{@var{argN}}
-must return @code{#t}.
+must return @code{#t}.  Some of these predicates are specially
+recognized by the parser, see below.
 
 @item @code{@var{music}}
 @tab A music expression, optionally written in scheme, with any
@@ -79,10 +81,20 @@ function arguments (eg., @w{@samp{$(cons arg1 arg2)}}).
 @end multitable
 
 @noindent
-For a list of available type predicates, see
-@ruser{Predefined type predicates}.  User-defined type predicates
-are also allowed.
+Some type predicates are specially recognized by the parser and will
+make the parser look for the respective arguments in Lilypond syntax
+rather than in Scheme syntax.  Currently these are @code{ly:music?},
+@code{markup?}, @code{ly:pitch?}, and @code{ly:duration?}.
 
+If you really want to input one of those items as a Scheme rather than a
+Lilypond expression, you may write them as a Scheme expression that
+calls @code{ly:export} at its outermost level.
+
+Other type predicates, including user-defined ones, will make the
+respective argument only be accepted as a Scheme expression.
+
+For a list of available type predicates, see
+@ruser{Predefined type predicates}.
 
 @seealso
 
@@ -94,6 +106,48 @@ Installed Files:
 @file{scm/c++.scm},
 @file{scm/lily.scm}.
 
+
+@node Music function usage
+@subsection Music function usage
+Music functions may currently be used in three places.  Depending on
+where they are used, restrictions apply in order to be able to parse
+them unambiguously.  The result a music function returns must be
+compatible with the context in which it is called.
+
+@itemize
+@item
+At top level in a music expression.  There are no special restrictions
+on the argument list.  Using the @code{#@{}@dots{}@code{#@}} construct
+produces a sequential music expression and consequently can only applied
+in this context.
+
+@item
+As a post-event.  All trailing arguments of the music function with the
+predicate @code{ly:music?} will get parsed also as post-events.  Note
+that returning post-events will also be acceptable for music functions
+called at top level, leading to a result roughly equivalent to
+@example
+s 1*0-\fun
+@end example
+
+@item
+As a chord constituent.  All trailing arguments of the music function
+with the predicate @code{ly:music?} will get parsed also as chord
+constituents.
+@end itemize
+
+@noindent
+The special rules for trailing arguments make it possible to write
+polymorphic functions like @code{\tweak} that can be applied to
+different constructs.
+
+There is another somewhat special rule: if you have a predicate
+@code{ly:music?} directly before a @code{ly:duration?} predicate, then
+the corresponding music expression must be either a music identifier, or
+literal sequential or parallel music enclosed in
+@code{@{}@dots{}@code{@}} or @code{<<}@dots{}@code{>>} explicitly.
+Otherwise, Lilypond could get confused about where the music ends and
+the duration starts.
 
 @node Simple substitution functions
 @subsection Simple substitution functions

@@ -6,7 +6,10 @@ annotation goes to the correct page."
 
 #(set-default-paper-size "a6")
 
-\paper { ragged-last-bottom = ##f }
+\paper {
+  ragged-last-bottom = ##f
+  footnote-auto-numbering = ##f
+}
 
 \book {
 

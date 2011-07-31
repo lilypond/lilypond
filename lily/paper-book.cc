@@ -531,7 +531,7 @@ Paper_book::get_system_specs ()
 	      ps->set_property ("first-markup-line", SCM_BOOL_F);
 
 	      paper_system_set_stencil (ps, *unsmob_stencil (t));
-	      
+
 	      SCM footnotes = get_footnotes (unsmob_stencil (t)->expr ());
 	      ps->set_property ("footnotes", footnotes);
 	      ps->set_property ("is-title", SCM_BOOL_T);

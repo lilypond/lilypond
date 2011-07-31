@@ -508,7 +508,7 @@ hinzu, ewta so:
 [@var{voreingestellter PATH}];@var{VERZ}\LilyPond\usr\bin
 @end example
 
-@warning{@var{VERZ} ist üblicherweise @code{C:\Program Files}.}
+@warning{@var{VERZ} ist üblicherweise @code{C:@bs{}Program Files}.}
 
 @noindent
 und klicken Sie auf @qq{OK} um das Fenster zu schließen.

@@ -7,9 +7,20 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
+  texidocit = "
+Questo modello presenta un semplice quartetto d'archi. Impiega anche una
+sezione @code{\\global} per definire il tempo e l'armatura di chiave.
+
+"
+  doctitleit = "Modello per quartetto d'archi (semplice)"
+
   lsrtags = "unfretted-strings, template"
 
-%% Translation of GIT committish: 59caa3adce63114ca7972d18f95d4aadc528ec3d
+
+
+
+%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
 Esta plantilla muestra un cuarteto de cuerda normal. También utiliza
 una sección @code{\\global} para el compás y la armadura

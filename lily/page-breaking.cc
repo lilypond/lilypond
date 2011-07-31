@@ -265,6 +265,10 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_bre
   footnote_padding_ = robust_scm2double (pb->paper_->c_variable ("footnote-padding"), 0.0);
   footnote_footer_padding_ = robust_scm2double (pb->paper_->c_variable ("footnote-footer-padding"), 0.0);
 
+  footnote_number_raise_ = (to_boolean (pb->paper_->c_variable ("footnote-auto-numbering"))
+                            ? robust_scm2double (pb->paper_->c_variable ("footnote-number-raise"), 0.0)
+                            : 0.0);
+  
   if (systems_per_page_ && (max_systems_per_page_ || min_systems_per_page_))
     {
       warning (_f ("ignoring min-systems-per-page and max-systems-per-page because systems-per-page was set"));
@@ -340,6 +344,12 @@ Real
 Page_breaking::footnote_footer_padding () const
 {
   return footnote_footer_padding_;
+}
+
+Real
+Page_breaking::footnote_number_raise () const
+{
+  return footnote_number_raise_;
 }
 
 bool
@@ -521,15 +531,15 @@ Page_breaking::breakpoint_property (vsize breakpoint, char const *str)
 }
 
 SCM
-Page_breaking::get_page_configuration (SCM systems, int page_num, bool ragged, bool last)
+Page_breaking::get_page_configuration (SCM systems, int page_num, int footnote_count, bool ragged, bool last)
 {
   SCM dummy_page = make_page (page_num, last);
-  Page_layout_problem layout (book_, dummy_page, systems);
+  Page_layout_problem layout (book_, dummy_page, systems, footnote_count);
   return scm_is_pair (systems) ? layout.solution (ragged) : SCM_EOL;
 }
 
 SCM
-Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool last)
+Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, int footnote_num, bool last)
 {
   // Create a stencil for each system.
   SCM paper_systems = SCM_EOL;
@@ -556,8 +566,16 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool las
   p->set_property ("configuration", configuration);
 
   Stencil *foot = unsmob_stencil (p->get_property ("foot-stencil"));
-  SCM footnotes = Page_layout_problem::get_footnotes_from_lines (systems, footnote_padding ());
-  Page_layout_problem::add_footnotes_to_footer (footnotes, foot, unsmob_paper_book (p->get_property ("paper-book")));
+
+  footnote_num = (to_boolean (book_->paper_->c_variable ("reset-footnotes-on-new-page"))
+                  ? 0
+                  : footnote_num);
+
+  SCM footnotes = Page_layout_problem::get_footnotes_from_lines (systems,
+                                                                 footnote_num,
+                                                                 book_);
+
+  Page_layout_problem::add_footnotes_to_footer (footnotes, foot, book_);
 
   p->set_property ("foot-stencil", foot->smobbed_copy ());
   scm_apply_1 (page_stencil, page, SCM_EOL);
@@ -584,8 +602,9 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   // themselves. If this happens before the neighbouring staves have
   // been laid out, bad side-effects could happen (in particular,
   // Align_interface::align_to_ideal_distances might be called).
-  SCM systems_and_configs = SCM_EOL;
-
+  SCM systems_configs_fncounts = SCM_EOL;
+  vsize footnote_count = 0;
+    
   for (vsize i = 0; i < lines_per_page.size (); i++)
     {
       int page_num = i + first_page_number;
@@ -593,22 +612,24 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
       bool rag = ragged () || (bookpart_last_page && ragged_last ());
       SCM line_count = scm_from_int (lines_per_page[i]);
       SCM lines = scm_list_head (systems, line_count);
-      SCM config = get_page_configuration (lines, page_num, rag, bookpart_last_page);
-
-      systems_and_configs = scm_cons (scm_cons (lines, config), systems_and_configs);
+      int fn_lines = Page_layout_problem::get_footnote_count (lines);
+      SCM config = get_page_configuration (lines, page_num, footnote_count, rag, bookpart_last_page);
+      
+      systems_configs_fncounts = scm_cons (scm_list_3 (lines, config, scm_from_int ((int)footnote_count)), systems_configs_fncounts);
+      footnote_count += fn_lines;
       systems = scm_list_tail (systems, line_count);
     }
 
   // Now it's safe to make the pages.
   int page_num = first_page_number + lines_per_page.size () - 1;
-  for (SCM s = systems_and_configs; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = systems_configs_fncounts; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM lines = scm_caar (s);
-      SCM config = scm_cdar (s);
-      
-      bool bookpart_last_page = (s == systems_and_configs);
-      SCM page = draw_page (lines, config, page_num, bookpart_last_page);
+      SCM config = scm_cadar (s);
+      int footnote_num = scm_to_int (scm_caddar (s));
 
+      bool bookpart_last_page = (s == systems_configs_fncounts);
+      SCM page = draw_page (lines, config, page_num, footnote_num, bookpart_last_page);
       /* collect labels */
       SCM page_num_scm = scm_from_int (page_num);
       for (SCM l = lines ; scm_is_pair (l)  ; l = scm_cdr (l))

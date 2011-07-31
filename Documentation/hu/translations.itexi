@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Thu Mar 24 14:52:33 UTC 2011
+@emph{Last updated Wed Jul 13 10:59:12 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -165,7 +165,7 @@ partially
 @item
 4 A kimenet finomhangolása
 @*
-15408
+15393
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -336,6 +336,33 @@ yes
 partially
 @end ifnothtml
 @tab pre-GDP
+@item
+3 A @command{lilypond-book} használata
+@*
+3952
+@tab Team-hu
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab pre-GDP
 @end multitable
 
 
@@ -405,7 +432,7 @@ partially
 @item
 Bevezetés
 @*
-4506
+4564
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -432,7 +459,7 @@ yes
 @item
 Letöltés
 @*
-1183
+1195
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -449,17 +476,17 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
 Dokumentáció
 @*
-1200
+1203
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -476,11 +503,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @item

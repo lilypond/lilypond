@@ -94,7 +94,7 @@ This code demonstrates ...
 @}
 @end example
 
-\noindent
+@noindent
 and name the file @file{snippet-title.ly}.
 
 
@@ -148,11 +148,11 @@ master branch, or even better a fresh snapshot from Git master branch.
 @item
 From the top source directory, run:
 
-@example
+@smallexample
 wget http://lsr.dsi.unimi.it/download/lsr-snippets-docs-@var{YYYY-MM-DD}.tar.gz
 tar -xzf lsr-snippets-docs-@var{YYYY-MM-DD}.tar.gz
 scripts/auxiliar/makelsr.py lsr-snippets-docs-@var{YYYY-MM-DD}
-@end example
+@end smallexample
 
 @noindent
 where @var{YYYY-MM-DD} is the current date, e.g. 2009-02-28.
@@ -298,7 +298,7 @@ Here is a shell script to run all @file{.ly} files in a directory
 and redirect terminal output to text files, which are then
 searched for the word "failed" to see which snippets do not compile.
 
-@example
+@smallexample
 #!/bin/bash
 
 for LILYFILE in *.ly
@@ -309,4 +309,4 @@ do
 done
 
 grep failed *.txt
-@end example
+@end smallexample

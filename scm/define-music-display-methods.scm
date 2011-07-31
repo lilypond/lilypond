@@ -16,7 +16,8 @@
 ;;;
 (define (scheme-expr->lily-string scm-arg)
   (cond ((or (number? scm-arg)
-	     (string? scm-arg))
+             (string? scm-arg)
+             (boolean? scm-arg))
 	 (format #f "~s" scm-arg))
 	((or (symbol? scm-arg)
 	     (list? scm-arg))
@@ -466,7 +467,9 @@ Otherwise, return #f."
 		 ;; as a note_chord_element to prevent spurious output, e.g.,
 		 ;; \displayLilyMusic < c-1\4 >8 -> c-1\48
 		 (null? (filter post-event?
-				(ly:music-property (car simple-elements) 'articulations))))
+				(ly:music-property (car simple-elements) 'articulations)))
+		 ;; same for simple_element with \tweak
+		 (null? (ly:music-property (car simple-elements) 'tweaks)))
 	    ;; simple_element : note | figure | rest | mmrest | lyric_element | skip
 	    (let* ((simple-element (car simple-elements))
 		   (duration (ly:music-property simple-element 'duration))
@@ -853,10 +856,8 @@ Otherwise, return #f."
 
 (define-display-method OverrideProperty (expr parser)
   (let* ((symbol	  (ly:music-property expr 'symbol))
-	 (property-path   (ly:music-property expr 'grob-property-path))
-	 (properties      (if (pair? property-path)
-			      property-path
-			      (list (ly:music-property expr 'grob-property))))
+	 (properties   (ly:music-property expr 'grob-property-path
+                                             (list (ly:music-property expr 'grob-property))))
 	 (value	  (ly:music-property expr 'grob-value))
 	 (once	  (ly:music-property expr 'once)))
 
@@ -876,8 +877,9 @@ Otherwise, return #f."
 	    (new-line->lily-string))))
 
 (define-display-method RevertProperty (expr parser)
-  (let ((symbol (ly:music-property expr 'symbol))
-	(properties (ly:music-property expr 'grob-property-path)))
+  (let* ((symbol (ly:music-property expr 'symbol))
+         (properties (ly:music-property expr 'grob-property-path
+                                             (list (ly:music-property expr 'grob-property)))))
     (format #f "\\revert ~a~a #'~a~a"
 	    (if (eqv? (*current-context*) 'Bottom)
 		""
