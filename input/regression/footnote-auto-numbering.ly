@@ -1,6 +1,10 @@
 \version "2.15.7"
 \header {
-  texidoc = "Lilypond does footnotes."
+  texidoc = "This is an example of automatic footnote numbering
+where the number is not reset on each page.  It uses the default
+numbering function, which assigns numbers starting at 1 to successive
+footnotes.
+"
 }
 
 \paper {
