@@ -40,13 +40,13 @@ Grob_array::Grob_array ()
   ordered_ = true;
 }
 
-vector<Grob*> &
+vector<Grob *> &
 Grob_array::array_reference ()
 {
   return grobs_;
 }
 
-vector<Grob*> const &
+vector<Grob *> const &
 Grob_array::array () const
 {
   return grobs_;
@@ -66,7 +66,7 @@ Grob_array::mark_smob (SCM s)
 }
 
 int
-Grob_array::print_smob (SCM arr, SCM port, scm_print_state*)
+Grob_array::print_smob (SCM arr, SCM port, scm_print_state *)
 {
   scm_puts ("#<Grob_array", port);
 
@@ -97,8 +97,8 @@ void
 Grob_array::remove_duplicates ()
 {
   assert (!ordered_);
-  
-  vector_sort (grobs_, less<Grob*> ());
+
+  vector_sort (grobs_, less<Grob *> ());
   ::uniq (grobs_);
 }
 
@@ -109,7 +109,7 @@ Grob_array::empty () const
 }
 
 void
-Grob_array::set_array (vector<Grob*> const &src)
+Grob_array::set_array (vector<Grob *> const &src)
 {
   grobs_ = src;
 }

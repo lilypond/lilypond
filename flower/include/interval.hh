@@ -110,10 +110,10 @@ struct Interval_t : public Drul_array<T>
   {
     if (!is_empty ())
       {
-	at (LEFT) *= r;
-	at (RIGHT) *= r;
-	if (r < T (0))
-	  swap ();
+        at (LEFT) *= r;
+        at (RIGHT) *= r;
+        if (r < T (0))
+          swap ();
       }
     return *this;
   }
@@ -228,7 +228,7 @@ Interval_t<T>::center () const
 }
 
 typedef Interval_t<Real> Interval;
-typedef Interval_t<int> Slice;	// weird name
+typedef Interval_t<int> Slice;  // weird name
 
 
 #endif // INTERVAL_HH

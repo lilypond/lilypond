@@ -22,10 +22,10 @@
 #include "context-mod.hh"
 
 LY_DEFINE (ly_get_context_mods,
-	   "ly:get-context-mods",
-	   1, 0, 0, (SCM contextmod),
-	   "Returns the list of context modifications stored in"
-	   " @var{contextmod}.")
+           "ly:get-context-mods",
+           1, 0, 0, (SCM contextmod),
+           "Returns the list of context modifications stored in"
+           " @var{contextmod}.")
 {
   Context_mod *tr = unsmob_context_mod (contextmod);
   LY_ASSERT_SMOB (Context_mod, contextmod, 1);
@@ -33,10 +33,10 @@ LY_DEFINE (ly_get_context_mods,
 }
 
 LY_DEFINE (ly_add_context_mod,
-	   "ly:add-context-mod",
-	   2, 0, 0, (SCM contextmods, SCM modification),
-	   "Adds the given context @var{modification} to the list"
-	   " @var{contextmods} of context modifications.")
+           "ly:add-context-mod",
+           2, 0, 0, (SCM contextmods, SCM modification),
+           "Adds the given context @var{modification} to the list"
+           " @var{contextmods} of context modifications.")
 {
   Context_mod *ctxmod = unsmob_context_mod (contextmods);
   LY_ASSERT_SMOB (Context_mod, contextmods, 1);

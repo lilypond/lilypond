@@ -42,7 +42,7 @@ public:
   static Real chord_start_y (Grob *);
   static void set_stemend (Grob *, Real);
   static Slice beam_multiplicity (Grob *);
-  static Direction get_default_dir (Grob*);
+  static Direction get_default_dir (Grob *);
   static Real thickness (Grob *);
   static int head_count (Grob *);
   static bool is_invisible (Grob *);
@@ -51,10 +51,10 @@ public:
   static Interval head_positions (Grob *);
   static Real stem_end_position (Grob *);
   static Stencil flag (Grob *);
-  static Stencil get_translated_flag (Grob*);
-  DECLARE_GROB_INTERFACE();
+  static Stencil get_translated_flag (Grob *);
+  DECLARE_GROB_INTERFACE ();
   static void set_spacing_hints (Grob *);
-  
+
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_default_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (offset_callback, (SCM element));

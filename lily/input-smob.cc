@@ -59,9 +59,9 @@ equal_smob (SCM sa, SCM sb)
 {
   Input *a = (Input *) SCM_CELL_WORD_1 (sa);
   Input *b = (Input *) SCM_CELL_WORD_1 (sb);
-  if (a->get_source_file () == b->get_source_file () &&
-      a->start () == b->start () &&
-      a->end () == b->end ())
+  if (a->get_source_file () == b->get_source_file ()
+      && a->start () == b->start ()
+      && a->end () == b->end ())
     return SCM_BOOL_T;
   else
     return SCM_BOOL_F;

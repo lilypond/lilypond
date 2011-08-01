@@ -22,7 +22,6 @@
 
 #include "lily-proto.hh"
 
-
 class Context_handle
 {
 public:

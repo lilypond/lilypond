@@ -37,14 +37,14 @@ using namespace std;
 #endif
 
 #ifndef YY_START
-#define YY_START				\
+#define YY_START                                \
   ((yy_start - 1) / 2)
 #define YYSTATE YY_START
 #endif
 
 /* Flex >= 2.5.29 has include stack; but we don't use that yet.  */
 #if !HAVE_FLEXLEXER_YY_CURRENT_BUFFER
-#define yy_current_buffer						\
+#define yy_current_buffer                                               \
   (yy_buffer_stack != 0 ? yy_buffer_stack[yy_buffer_stack_top] : 0)
 #endif
 
@@ -71,7 +71,7 @@ Includable_lexer::new_input (string name, Sources *sources)
       string msg = _f ("cannot find file: `%s'", name);
       msg += "\n";
       msg += _f ("(search path: `%s')",
-		 (current_dir.length () ? (current_dir + PATHSEP) : "") + sources->path_->to_string ().c_str ());
+                 (current_dir.length () ? (current_dir + PATHSEP) : "") + sources->path_->to_string ().c_str ());
       LexerError (msg.c_str ());
       return;
     }
@@ -85,7 +85,7 @@ Includable_lexer::new_input (string name, Sources *sources)
     {
       string spaces = "";
       for (size_t i = 0; i < state_stack_.size (); i++)
-	spaces += " ";
+        spaces += " ";
       progress_indication (string ("\n") + spaces + string ("[") + file->name_string ());
     }
 
@@ -113,7 +113,7 @@ Includable_lexer::new_input (string name, string data, Sources *sources)
     {
       string spaces = "";
       for (size_t i = 0; i < state_stack_.size (); i++)
-	spaces += " ";
+        spaces += " ";
       progress_indication (string ("\n") + spaces + string ("[") + name);
     }
   include_stack_.push_back (file);

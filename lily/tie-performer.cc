@@ -39,7 +39,6 @@ struct Head_audio_event_tuple
   }
 };
 
-
 class Tie_performer : public Performer
 {
   Stream_event *event_;
@@ -90,31 +89,31 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
       else
         now_heads_.push_back (inf_mom);
 
-      // Find a previous note that ties to the current note. If it exists, 
+      // Find a previous note that ties to the current note. If it exists,
       // remove it from the heads_to_tie vector and create the tie
       list<Head_audio_event_tuple>::iterator it;
       bool found = false;
       Stream_event *right_mus = inf.event_;
-        for (it = heads_to_tie_.begin ();
-             !found && (it != heads_to_tie_.end());
-             it++)
-	{
-	  Audio_element_info et = (*it).head_;
-	  Audio_note *th = dynamic_cast<Audio_note *> (et.elem_);
-	  Stream_event *left_mus = et.event_;
+      for (it = heads_to_tie_.begin ();
+           !found && (it != heads_to_tie_.end ());
+           it++)
+        {
+          Audio_element_info et = (*it).head_;
+          Audio_note *th = dynamic_cast<Audio_note *> (et.elem_);
+          Stream_event *left_mus = et.event_;
 
-	  if (th && right_mus && left_mus
-	      && ly_is_equal (right_mus->get_property ("pitch"),
-			      left_mus->get_property ("pitch")))
-	    {
-	      found = true;
-	      // (*it).moment_ already stores the end of the tied note!
-	      Moment skip = now_mom() - (*it).end_moment_;
-	      an->tie_to (th, skip);
-	      // this invalidates the iterator, we are leaving the loop anyway
-	      heads_to_tie_.erase (it);
-	    }
-	}
+          if (th && right_mus && left_mus
+              && ly_is_equal (right_mus->get_property ("pitch"),
+                              left_mus->get_property ("pitch")))
+            {
+              found = true;
+              // (*it).moment_ already stores the end of the tied note!
+              Moment skip = now_mom () - (*it).end_moment_;
+              an->tie_to (th, skip);
+              // this invalidates the iterator, we are leaving the loop anyway
+              heads_to_tie_.erase (it);
+            }
+        }
     }
 }
 
@@ -122,7 +121,7 @@ void
 Tie_performer::start_translation_timestep ()
 {
   context ()->set_property ("tieMelismaBusy",
-			    ly_bool2scm (heads_to_tie_.size ()));
+                            ly_bool2scm (heads_to_tie_.size ()));
 }
 
 // a predicate implemented as a class, used to delete all tied notes with end
@@ -133,7 +132,8 @@ protected:
   Moment now;
 public:
   end_moment_passed (Moment mom) : now (mom) {}
-  bool operator() (const Head_audio_event_tuple &value) {
+  bool operator () (const Head_audio_event_tuple &value)
+  {
     return (value.end_moment_ <= now);
   }
 };
@@ -161,15 +161,15 @@ Tie_performer::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Tie_performer,
-		/* doc */
-		"Generate ties between note heads of equal pitch.",
+                /* doc */
+                "Generate ties between note heads of equal pitch.",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"tieWaitForNote",
+                /* read */
+                "tieWaitForNote",
 
-		/* write */
-		"tieMelismaBusy"
-		);
+                /* write */
+                "tieMelismaBusy"
+               );

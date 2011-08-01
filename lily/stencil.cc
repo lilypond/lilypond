@@ -68,8 +68,8 @@ bool
 Stencil::is_empty () const
 {
   return (expr_ == SCM_EOL
-	  || dim_[X_AXIS].is_empty ()
-	  || dim_[Y_AXIS].is_empty ());
+          || dim_[X_AXIS].is_empty ()
+          || dim_[Y_AXIS].is_empty ());
 }
 
 SCM
@@ -87,7 +87,7 @@ Stencil::extent_box () const
 void
 Stencil::rotate (Real a, Offset off)
 {
-  rotate_degrees (a * 180/M_PI, off); 
+  rotate_degrees (a * 180 / M_PI, off);
 }
 
 /*
@@ -112,9 +112,9 @@ Stencil::rotate_degrees_absolute (Real a, Offset absolute_off)
    */
 
   expr_ = scm_list_n (ly_symbol2scm ("rotate-stencil"),
-		      scm_list_2 (scm_from_double (a),
-		      scm_cons (scm_from_double (x), scm_from_double (y))),
-		      expr_, SCM_UNDEFINED);
+                      scm_list_2 (scm_from_double (a),
+                                  scm_cons (scm_from_double (x), scm_from_double (y))),
+                      expr_, SCM_UNDEFINED);
 
   /*
    * Calculate the new bounding box
@@ -123,10 +123,10 @@ Stencil::rotate_degrees_absolute (Real a, Offset absolute_off)
   shifted_box.translate (-absolute_off);
 
   vector<Offset> pts;
-  pts.push_back (Offset (shifted_box.x ().at(LEFT), shifted_box.y ().at(DOWN)));
-  pts.push_back (Offset (shifted_box.x ().at(RIGHT), shifted_box.y ().at(DOWN)));
-  pts.push_back (Offset (shifted_box.x ().at(RIGHT), shifted_box.y ().at(UP)));
-  pts.push_back (Offset (shifted_box.x ().at(LEFT), shifted_box.y ().at(UP)));
+  pts.push_back (Offset (shifted_box.x ().at (LEFT), shifted_box.y ().at (DOWN)));
+  pts.push_back (Offset (shifted_box.x ().at (RIGHT), shifted_box.y ().at (DOWN)));
+  pts.push_back (Offset (shifted_box.x ().at (RIGHT), shifted_box.y ().at (UP)));
+  pts.push_back (Offset (shifted_box.x ().at (LEFT), shifted_box.y ().at (UP)));
 
   const Offset rot = complex_exp (Offset (0, a * M_PI / 180.0));
   dim_.set_empty ();
@@ -158,24 +158,24 @@ Stencil::translate (Offset o)
   while (a < NO_AXES)
     {
       if (isinf (o[a])
-	  || isnan (o[a])
+          || isnan (o[a])
 
-	  // ugh, hardcoded. 
-	  || fabs (o[a]) > 1e6)
-	{
-	  programming_error (String_convert::form_string ("Improbable offset for stencil: %f staff space", o[a])
-			     + "\n"
-			     + "Setting to zero.");
-	  o[a] = 0.0;
-	  if (strict_infinity_checking)
-	    scm_misc_error (__FUNCTION__, "Improbable offset.", SCM_EOL);
-	}
+          // ugh, hardcoded.
+          || fabs (o[a]) > 1e6)
+        {
+          programming_error (String_convert::form_string ("Improbable offset for stencil: %f staff space", o[a])
+                             + "\n"
+                             + "Setting to zero.");
+          o[a] = 0.0;
+          if (strict_infinity_checking)
+            scm_misc_error (__FUNCTION__, "Improbable offset.", SCM_EOL);
+        }
       incr (a);
     }
 
   expr_ = scm_list_n (ly_symbol2scm ("translate-stencil"),
-		      ly_offset2scm (o),
-		      expr_, SCM_UNDEFINED);
+                      ly_offset2scm (o),
+                      expr_, SCM_UNDEFINED);
   if (!is_empty ())
     dim_.translate (o);
 }
@@ -192,9 +192,9 @@ void
 Stencil::scale (Real x, Real y)
 {
   expr_ = scm_list_3 (ly_symbol2scm ("scale-stencil"),
-		      scm_list_2 (scm_from_double (x),
-				  scm_from_double (y)),
-		      expr_);
+                      scm_list_2 (scm_from_double (x),
+                                  scm_from_double (y)),
+                      expr_);
   dim_[X_AXIS] *= x;
   dim_[Y_AXIS] *= y;
 }
@@ -247,7 +247,7 @@ Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding)
     his_extent = i[-d];
 
   Real offset = (my_extent.is_empty () ? 0.0 : my_extent[d] - his_extent)
-    + d * padding;
+                + d * padding;
 
   Stencil toadd (s);
   toadd.translate_axis (offset, a);
@@ -258,11 +258,11 @@ Stencil
 Stencil::in_color (Real r, Real g, Real b) const
 {
   Stencil new_stencil (extent_box (),
-		       scm_list_3 (ly_symbol2scm ("color"),
-				   scm_list_3 (scm_from_double (r),
-					       scm_from_double (g),
-					       scm_from_double (b)),
-				   expr ()));
+                       scm_list_3 (ly_symbol2scm ("color"),
+                                   scm_list_3 (scm_from_double (r),
+                                               scm_from_double (g),
+                                               scm_from_double (b)),
+                                   expr ()));
   return new_stencil;
 }
 

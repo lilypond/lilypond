@@ -1,8 +1,8 @@
-/* 
+/*
   scheme-engraver.hh -- declare Scheme_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   Copyright (c) 2009--2011 Han-Wen Nienhuys <hanwen@lilypond.org>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -16,8 +16,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.  
-  
+  along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #ifndef SCHEME_ENGRAVER_HH
@@ -25,16 +24,17 @@
 
 #include "engraver.hh"
 
-class Scheme_engraver : public Engraver {
+class Scheme_engraver : public Engraver
+{
 public:
   void init_from_scheme (SCM definition);
   TRANSLATOR_DECLARATIONS_NO_LISTENER (Scheme_engraver);
-  
+
   static Listener get_listener (void *generic_arg, SCM event);
-  
+
 protected:
   ~Scheme_engraver ();
-  
+
   void stop_translation_timestep ();
   void start_translation_timestep ();
   void process_music ();
@@ -54,7 +54,7 @@ private:
   DECLARE_END_ACKNOWLEDGER (grob);
 
   bool must_be_last_;
-  
+
   SCM acknowledge_grob_function_;
   SCM stop_translation_timestep_function_;
   SCM start_translation_timestep_function_;

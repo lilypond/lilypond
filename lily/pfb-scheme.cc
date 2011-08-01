@@ -7,9 +7,9 @@
 #include "warn.hh"
 
 LY_DEFINE (ly_pfb_2_pfa, "ly:pfb->pfa",
-	   1, 0, 0, (SCM pfb_file_name),
-	   "Convert the contents of a Type@tie{}1 font in PFB format"
-	   " to PFA format.")
+           1, 0, 0, (SCM pfb_file_name),
+           "Convert the contents of a Type@tie{}1 font in PFB format"
+           " to PFA format.")
 {
   LY_ASSERT_TYPE (scm_is_string, pfb_file_name, 1);
 
@@ -17,10 +17,10 @@ LY_DEFINE (ly_pfb_2_pfa, "ly:pfb->pfa",
 
   if (be_verbose_global)
     progress_indication ("\n[" + file_name);
-  
+
   vector<char> pfb_string = gulp_file (file_name, 0);
   char *pfa = pfb2pfa ((Byte *) &pfb_string[0], pfb_string.size ());
-  
+
   SCM pfa_scm = scm_from_locale_string (pfa);
   free (pfa);
 
@@ -31,9 +31,9 @@ LY_DEFINE (ly_pfb_2_pfa, "ly:pfb->pfa",
 }
 
 LY_DEFINE (ly_otf_2_cff, "ly:otf->cff",
-	   1, 0, 0, (SCM otf_file_name),
-	   "Convert the contents of an OTF file to a CFF file,"
-	   " returning it as a string.")
+           1, 0, 0, (SCM otf_file_name),
+           "Convert the contents of an OTF file to a CFF file,"
+           " returning it as a string.")
 {
   LY_ASSERT_TYPE (scm_is_string, otf_file_name, 1);
 
@@ -45,7 +45,7 @@ LY_DEFINE (ly_otf_2_cff, "ly:otf->cff",
   string table = get_otf_table (face, "CFF ");
 
   SCM asscm = scm_from_locale_stringn ((char *) table.data (),
-				       table.length ());
+                                       table.length ());
 
   if (be_verbose_global)
     progress_indication ("]");

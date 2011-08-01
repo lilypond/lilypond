@@ -117,8 +117,8 @@ Part_combine_engraver::acknowledge_note_head (Grob_info i)
       Grob *t = text_;
       Side_position_interface::add_support (t, i.grob ());
       if (Side_position_interface::get_axis (t) == X_AXIS
-	  && !t->get_parent (Y_AXIS))
-	t->set_parent (i.grob (), Y_AXIS);
+          && !t->get_parent (Y_AXIS))
+        t->set_parent (i.grob (), Y_AXIS);
     }
 }
 
@@ -140,20 +140,20 @@ Part_combine_engraver::stop_translation_timestep ()
 ADD_ACKNOWLEDGER (Part_combine_engraver, note_head);
 ADD_ACKNOWLEDGER (Part_combine_engraver, stem);
 ADD_TRANSLATOR (Part_combine_engraver,
-		/* doc */
-		"Part combine engraver for orchestral scores: Print markings"
-		" @q{a2}, @q{Solo}, @q{Solo II}, and @q{unisono}.",
+                /* doc */
+                "Part combine engraver for orchestral scores: Print markings"
+                " @q{a2}, @q{Solo}, @q{Solo II}, and @q{unisono}.",
 
-		/* create */
-		"CombineTextScript ",
+                /* create */
+                "CombineTextScript ",
 
-		/* read */
-		"printPartCombineTexts "
-		"partCombineTextsOnNote "
-		"soloText "
-		"soloIIText "
-		"aDueText ",
+                /* read */
+                "printPartCombineTexts "
+                "partCombineTextsOnNote "
+                "soloText "
+                "soloIIText "
+                "aDueText ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

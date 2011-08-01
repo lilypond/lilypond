@@ -34,7 +34,7 @@ public:
   Audio_column *get_column () const;
 
   virtual void render ();
-  
+
 private:
   Audio_item (Audio_item const &);
   Audio_item &operator = (Audio_item const &);
@@ -53,14 +53,12 @@ class Audio_span_dynamic : public Audio_element
 {
 public:
   Direction grow_dir_;
-  vector<Audio_dynamic*> dynamics_;
-
+  vector<Audio_dynamic *> dynamics_;
 
   virtual void render ();
-  void add_absolute (Audio_dynamic*);
+  void add_absolute (Audio_dynamic *);
   Audio_span_dynamic ();
 };
-
 
 class Audio_key : public Audio_item
 {
@@ -90,8 +88,8 @@ public:
   Pitch pitch_;
   Moment length_mom_;
   Pitch transposing_;
-  Audio_dynamic* dynamic_;
-  
+  Audio_dynamic *dynamic_;
+
   Audio_note *tied_;
   bool tie_event_;
 };
@@ -107,10 +105,10 @@ class Audio_text : public Audio_item
 {
 public:
   enum Type
-    {
-      TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC,
-      MARKER, CUE_POINT
-    };
+  {
+    TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC,
+    MARKER, CUE_POINT
+  };
 
   Audio_text (Audio_text::Type type, string text_string);
 

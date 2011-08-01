@@ -37,8 +37,8 @@ Percent_repeat_item_interface::brew_slash (Grob *me, int count)
   Stencil slash = Lookup::repeat_slash (wid, slope, thick);
   Stencil m = slash;
 
-  Real slash_neg_kern =
-    robust_scm2double (me->get_property ("slash-negative-kern"), 1.6);
+  Real slash_neg_kern
+    = robust_scm2double (me->get_property ("slash-negative-kern"), 1.6);
   for (int i = count - 1; i--;)
     m.add_at_edge (X_AXIS, RIGHT, slash, -slash_neg_kern);
 
@@ -51,8 +51,8 @@ Percent_repeat_item_interface::x_percent (Grob *me, int count)
 {
   Stencil m = brew_slash (me, count);
 
-  Real dot_neg_kern =
-    robust_scm2double (me->get_property ("dot-negative-kern"), 0.75);
+  Real dot_neg_kern
+    = robust_scm2double (me->get_property ("dot-negative-kern"), 0.75);
 
   Stencil d1 = Font_interface::get_default_font (me)->find_by_name ("dots.dot");
   Stencil d2 = d1;
@@ -93,11 +93,11 @@ Percent_repeat_item_interface::beat_slash (SCM grob)
 }
 
 ADD_INTERFACE (Percent_repeat_item_interface,
-	       "Repeats that look like percent signs.",
+               "Repeats that look like percent signs.",
 
-	       /* properties */
-	       "dot-negative-kern "
-	       "slash-negative-kern "
-	       "slope "
-	       "thickness "
-	       );
+               /* properties */
+               "dot-negative-kern "
+               "slash-negative-kern "
+               "slope "
+               "thickness "
+              );

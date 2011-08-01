@@ -46,17 +46,17 @@ Separation_item::add_conditional_item (Grob *me, Grob *e)
 Real
 Separation_item::set_distance (Item *l, Item *r, Real padding)
 {
-  Drul_array<Skyline_pair*> lines (Skyline_pair::unsmob (l->get_property ("horizontal-skylines")),
-				   Skyline_pair::unsmob (r->get_property ("horizontal-skylines")));
+  Drul_array<Skyline_pair *> lines (Skyline_pair::unsmob (l->get_property ("horizontal-skylines")),
+                                    Skyline_pair::unsmob (r->get_property ("horizontal-skylines")));
   Skyline right = conditional_skyline (r, l);
   right.merge ((*lines[RIGHT])[LEFT]);
-  
+
   Real dist = padding + (*lines[LEFT])[RIGHT].distance (right);
   if (dist > 0)
     {
       Rod rod;
 
-      rod.item_drul_ = Drul_array<Item*> (l, r);
+      rod.item_drul_ = Drul_array<Item *> (l, r);
 
       rod.distance_ = dist;
       rod.add_to_cols ();
@@ -84,8 +84,7 @@ Separation_item::conditional_skyline (Grob *me, Grob *left)
   return Skyline (bs, horizon_padding, Y_AXIS, LEFT);
 }
 
-
-MAKE_SCHEME_CALLBACK (Separation_item, calc_skylines,1);
+MAKE_SCHEME_CALLBACK (Separation_item, calc_skylines, 1);
 SCM
 Separation_item::calc_skylines (SCM smob)
 {
@@ -109,7 +108,7 @@ Separation_item::boxes (Grob *me, Grob *left)
   Paper_column *pc = item->get_column ();
   vector<Box> out;
   extract_grob_set (me, left ? "conditional-elements" : "elements", read_only_elts);
-  vector<Grob*> elts;
+  vector<Grob *> elts;
 
   if (left)
     elts = Accidental_placement::get_relevant_accidentals (read_only_elts, left);
@@ -118,39 +117,40 @@ Separation_item::boxes (Grob *me, Grob *left)
       elts = read_only_elts;
 
       /* This is a special-case for NoteColumn: we want to include arpeggio in its
-	 skyline (so spacing takes it into account) but we don't want to include it
-	 in the NoteColumn's extent because some spanners (eg. Hairpin) bound themselves
-	 on the NoteColumn and we don't want them to include arpeggios in their bounds.
+         skyline (so spacing takes it into account) but we don't want to include it
+         in the NoteColumn's extent because some spanners (eg. Hairpin) bound themselves
+         on the NoteColumn and we don't want them to include arpeggios in their bounds.
       */
-      if (Grob *a = Note_column::arpeggio (me)) {
-	elts.push_back (a);
-      }
+      if (Grob *a = Note_column::arpeggio (me))
+        {
+          elts.push_back (a);
+        }
     }
 
   Grob *ycommon = common_refpoint_of_array (elts, me, Y_AXIS);
-  
+
   for (vsize i = 0; i < elts.size (); i++)
     {
       Item *il = dynamic_cast<Item *> (elts[i]);
       if (pc != il->get_column ())
-	continue;
+        continue;
 
       /* ugh. We want to exclude groups of grobs (so that we insert each grob
-	 individually into the skyline instead of adding a single box that
-	 bounds all of them). However, we can't exclude an axis-group that
-	 adds to its childrens' stencil. Currently, this is just TrillPitchGroup;
-	 hence the check for note-head-interface. */
+         individually into the skyline instead of adding a single box that
+         bounds all of them). However, we can't exclude an axis-group that
+         adds to its childrens' stencil. Currently, this is just TrillPitchGroup;
+         hence the check for note-head-interface. */
       if (Axis_group_interface::has_interface (il)
-	  && !Note_head::has_interface (il))
-	continue;
+          && !Note_head::has_interface (il))
+        continue;
 
       Interval y (il->pure_height (ycommon, 0, very_large));
       Interval x (il->extent (pc, X_AXIS));
 
       Interval extra_width = robust_scm2interval (elts[i]->get_property ("extra-spacing-width"),
-						  Interval (-0.1, 0.1));
+                                                  Interval (-0.1, 0.1));
       Interval extra_height = robust_scm2interval (elts[i]->get_property ("extra-spacing-height"),
-						   Interval (0.0, 0.0));
+                                                   Interval (0.0, 0.0));
 
       x[LEFT] += extra_width[LEFT];
       x[RIGHT] += extra_width[RIGHT];
@@ -158,10 +158,10 @@ Separation_item::boxes (Grob *me, Grob *left)
       y[UP] += extra_height[UP];
 
       if (!x.is_empty () && !y.is_empty ())
-	out.push_back (Box (x, y));
+        out.push_back (Box (x, y));
     }
 
-  return out;      
+  return out;
 }
 
 MAKE_SCHEME_CALLBACK (Separation_item, print, 1)
@@ -182,13 +182,13 @@ Separation_item::print (SCM smob)
 }
 
 ADD_INTERFACE (Separation_item,
-	       "Item that computes widths to generate spacing rods.",
+               "Item that computes widths to generate spacing rods.",
 
-	       /* properties */
-	       "X-extent "
-	       "conditional-elements "
-	       "elements "
-	       "padding "
-	       "horizontal-skylines "
-	       "skyline-vertical-padding "
-	       );
+               /* properties */
+               "X-extent "
+               "conditional-elements "
+               "elements "
+               "padding "
+               "horizontal-skylines "
+               "skyline-vertical-padding "
+              );

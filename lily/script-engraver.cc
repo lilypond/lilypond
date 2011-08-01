@@ -76,8 +76,8 @@ Script_engraver::listen_articulation (Stream_event *ev)
   int script_count = scripts_.size ();
   for (int i = 0; i < script_count; i++)
     if (ly_is_equal (scripts_[i].event_
-		     ->get_property ("articulation-type"),
-		     ev->get_property ("articulation-type")))
+                     ->get_property ("articulation-type"),
+                     ev->get_property ("articulation-type")))
       return;
 
   Script_tuple t;
@@ -92,7 +92,7 @@ copy_property (Grob *g, SCM sym, SCM alist)
     {
       SCM entry = scm_assoc (sym, alist);
       if (scm_is_pair (entry))
-	g->set_property (sym, scm_cdr (entry));
+        g->set_property (sym, scm_cdr (entry));
     }
 }
 
@@ -101,8 +101,8 @@ copy_property (Grob *g, SCM sym, SCM alist)
    ScriptStaccato , ScriptMarcato, etc. ).
 */
 void
-make_script_from_event (Grob *p,  Context *tg,
-			SCM art_type, int index)
+make_script_from_event (Grob *p, Context *tg,
+                        SCM art_type, int index)
 {
   SCM alist = tg->get_property ("scriptDefinitions");
   SCM art = scm_assoc (art_type, alist);
@@ -126,31 +126,31 @@ make_script_from_event (Grob *p,  Context *tg,
       SCM sym = scm_caar (s);
       SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
       if (!ly_is_procedure (type))
-	continue;
+        continue;
 
       SCM val = scm_cdar (s);
 
       if (sym == ly_symbol2scm ("script-priority"))
-	{
-	  priority_found = true;
-	  /* Make sure they're in order of user input by adding index i.
-	     Don't use the direction in this priority. Smaller means closer
-	     to the head.  */
-	  int prio = scm_to_int (val) + index;
+        {
+          priority_found = true;
+          /* Make sure they're in order of user input by adding index i.
+             Don't use the direction in this priority. Smaller means closer
+             to the head.  */
+          int prio = scm_to_int (val) + index;
 
-	  val = scm_from_int (prio);
-	}
+          val = scm_from_int (prio);
+        }
 
       SCM preset = p->get_property_data (sym);
       if (val == SCM_EOL
-	  || scm_call_1 (type, preset) == SCM_BOOL_F)
-	p->set_property (sym, val);
+          || scm_call_1 (type, preset) == SCM_BOOL_F)
+        p->set_property (sym, val);
     }
 
   if (!priority_found)
     {
       p->set_property ("script-priority",
-		       scm_from_int (index));
+                       scm_from_int (index));
     }
 }
 
@@ -164,14 +164,14 @@ Script_engraver::process_music ()
       Grob *p = make_item ("Script", ev->self_scm ());
 
       make_script_from_event (p, context (),
-			      ev->get_property ("articulation-type"),
-			      i);
+                              ev->get_property ("articulation-type"),
+                              i);
 
       scripts_[i].script_ = p;
 
       SCM force_dir = ev->get_property ("direction");
       if (is_direction (force_dir) && to_dir (force_dir))
-	p->set_property ("direction", force_dir);
+        p->set_property ("direction", force_dir);
     }
 }
 
@@ -184,7 +184,7 @@ Script_engraver::acknowledge_stem (Grob_info info)
       Grob *e = scripts_[i].script_;
 
       if (to_dir (e->get_property ("side-relative-direction")))
-	e->set_object ("direction-source", info.grob ()->self_scm ());
+        e->set_object ("direction-source", info.grob ()->self_scm ());
 
       Side_position_interface::add_support (e, info.grob ());
     }
@@ -201,23 +201,22 @@ Script_engraver::acknowledge_stem_tremolo (Grob_info info)
     }
 }
 
-
 void
 Script_engraver::acknowledge_rhythmic_head (Grob_info info)
 {
   if (info.event_cause ())
     {
       for (vsize i = 0; i < scripts_.size (); i++)
- 	{
-	  Grob *e = scripts_[i].script_;
+        {
+          Grob *e = scripts_[i].script_;
 
-	  if (Side_position_interface::get_axis (e) == X_AXIS
-	      && !e->get_parent (Y_AXIS))
-	    {
-	      e->set_parent (info.grob (), Y_AXIS);
-	    }
-	  Side_position_interface::add_support (e, info.grob ());
-	}
+          if (Side_position_interface::get_axis (e) == X_AXIS
+              && !e->get_parent (Y_AXIS))
+            {
+              e->set_parent (info.grob (), Y_AXIS);
+            }
+          Side_position_interface::add_support (e, info.grob ());
+        }
     }
 }
 
@@ -235,8 +234,8 @@ Script_engraver::acknowledge_note_column (Grob_info info)
       Grob *e = scripts_[i].script_;
 
       if (!e->get_parent (X_AXIS)
-	  && Side_position_interface::get_axis (e) == Y_AXIS)
-	e->set_parent (info.grob (), X_AXIS);
+          && Side_position_interface::get_axis (e) == Y_AXIS)
+        e->set_parent (info.grob (), X_AXIS);
     }
 }
 
@@ -252,15 +251,15 @@ ADD_ACKNOWLEDGER (Script_engraver, note_column);
 ADD_ACKNOWLEDGER (Script_engraver, stem_tremolo);
 
 ADD_TRANSLATOR (Script_engraver,
-		/* doc */
-		"Handle note scripted articulations.",
+                /* doc */
+                "Handle note scripted articulations.",
 
-		/* create */
-		"Script ",
+                /* create */
+                "Script ",
 
-		/* read */
-		"scriptDefinitions ",
+                /* read */
+                "scriptDefinitions ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

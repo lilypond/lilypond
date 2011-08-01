@@ -44,17 +44,17 @@ Event_chord_iterator::process (Moment m)
   if (last_processed_mom_ < Moment (0))
     {
       for (SCM s = get_music ()->get_property ("elements");
-	   scm_is_pair (s); s = scm_cdr (s))
-	{
-	  Music *mus = unsmob_music (scm_car (s));
-	  report_event (mus);
-	}
+           scm_is_pair (s); s = scm_cdr (s))
+        {
+          Music *mus = unsmob_music (scm_car (s));
+          report_event (mus);
+        }
       for (SCM s = get_music ()->get_property ("events");
-	   scm_is_pair (s); s = scm_cdr (s))
-	{
-	  Stream_event *ev = unsmob_stream_event (scm_car (s));
-	  get_outlet ()->event_source ()->broadcast (ev);
-	}
+           scm_is_pair (s); s = scm_cdr (s))
+        {
+          Stream_event *ev = unsmob_stream_event (scm_car (s));
+          get_outlet ()->event_source ()->broadcast (ev);
+        }
     }
   Simple_music_iterator::process (m);
 }

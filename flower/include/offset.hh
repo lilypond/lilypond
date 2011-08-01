@@ -24,7 +24,6 @@
 #include "std-string.hh"
 #include "real.hh"
 
-
 /*
   This is a mixture a 2D vector. Sometimes it can
   also be convenient to think of 2D vectors as complex numbers
@@ -79,7 +78,7 @@ public:
 
   Offset &operator /= (Real a)
   {
-    (*this) *= 1/a;
+    (*this) *= 1 / a;
     return *this;
   }
 
@@ -111,7 +110,7 @@ public:
   }
   Offset direction () const;
   Offset swapped () const;
-  
+
   Real arg () const;
   Real angle_degrees () const;
   Real length () const;
@@ -123,8 +122,6 @@ public:
 IMPLEMENT_ARITHMETIC_OPERATOR (Offset, +);
 IMPLEMENT_ARITHMETIC_OPERATOR (Offset, -);
 IMPLEMENT_ARITHMETIC_OPERATOR (Offset, *);
-
-
 
 Offset complex_multiply (Offset, Offset);
 Offset complex_divide (Offset, Offset);

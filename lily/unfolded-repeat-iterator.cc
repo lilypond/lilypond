@@ -43,18 +43,18 @@ Unfolded_repeat_iterator::get_music_list () const
   for (int i = 0; i < rep_count; i++)
     {
       if (unsmob_music (body))
-	*tail = scm_cons (body, SCM_EOL);
+        *tail = scm_cons (body, SCM_EOL);
 
       tail = SCM_CDRLOC (*tail);
 
       if (alt_count)
-	{
-	  *tail = scm_cons (scm_car (alts), SCM_EOL);
-	  tail = SCM_CDRLOC (*tail);
-	  if (i >= rep_count - alt_count)
+        {
+          *tail = scm_cons (scm_car (alts), SCM_EOL);
+          tail = SCM_CDRLOC (*tail);
+          if (i >= rep_count - alt_count)
 
-	    alts = scm_cdr (alts);
-	}
+            alts = scm_cdr (alts);
+        }
     }
 
   return l;

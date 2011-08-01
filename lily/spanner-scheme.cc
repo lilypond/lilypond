@@ -2,7 +2,7 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2007--2011 Han-Wen Nienhuys <hanwen@lilypond.org>
-  
+
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -22,9 +22,9 @@
 #include "item.hh"
 
 LY_DEFINE (ly_spanner_bound, "ly:spanner-bound",
-	   2, 0, 0, (SCM spanner, SCM dir),
-	   "Get one of the bounds of @var{spanner}.  @var{dir} is @code{-1}"
-	   " for left, and @code{1} for right.")
+           2, 0, 0, (SCM spanner, SCM dir),
+           "Get one of the bounds of @var{spanner}.  @var{dir} is @code{-1}"
+           " for left, and @code{1} for right.")
 {
   LY_ASSERT_TYPE (unsmob_spanner, spanner, 1);
   LY_ASSERT_TYPE (is_direction, dir, 2);
@@ -33,9 +33,9 @@ LY_DEFINE (ly_spanner_bound, "ly:spanner-bound",
 }
 
 LY_DEFINE (ly_spanner_set_bound_x, "ly:spanner-set-bound!",
-	   3, 0, 0, (SCM spanner, SCM dir, SCM item),
-	   "Set grob @var{item} as bound in direction @var{dir} for"
-	   " @var{spanner}.")
+           3, 0, 0, (SCM spanner, SCM dir, SCM item),
+           "Set grob @var{item} as bound in direction @var{dir} for"
+           " @var{spanner}.")
 {
   LY_ASSERT_TYPE (unsmob_spanner, spanner, 1);
   LY_ASSERT_TYPE (is_direction, dir, 2);
@@ -48,8 +48,8 @@ LY_DEFINE (ly_spanner_set_bound_x, "ly:spanner-set-bound!",
 /* TODO: maybe we should return a vector -- random access is more
    logical for this list? */
 LY_DEFINE (ly_spanner_broken_into, "ly:spanner-broken-into",
-	   1, 0, 0, (SCM spanner),
-	   "Return broken-into list for @var{spanner}.")
+           1, 0, 0, (SCM spanner),
+           "Return broken-into list for @var{spanner}.")
 {
   LY_ASSERT_TYPE (unsmob_spanner, spanner, 1);
   Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (spanner));
@@ -61,8 +61,8 @@ LY_DEFINE (ly_spanner_broken_into, "ly:spanner-broken-into",
 }
 
 LY_DEFINE (ly_spanner_p, "ly:spanner?",
-	   1, 0, 0, (SCM g),
-	   "Is @var{g} a spanner object?")
+           1, 0, 0, (SCM g),
+           "Is @var{g} a spanner object?")
 {
   Grob *me = unsmob_grob (g);
   bool b = dynamic_cast<Spanner *> (me);

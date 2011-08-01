@@ -78,8 +78,8 @@ Skyline::print_points () const
   vector<Offset> ps (to_points (X_AXIS));
 
   for (vsize i = 0; i < ps.size (); i++)
-    printf ("(%f,%f)%s" , ps[i][X_AXIS], ps[i][Y_AXIS],
-	    (i%2)==1 ? "\n" : " ");
+    printf ("(%f,%f)%s", ps[i][X_AXIS], ps[i][Y_AXIS],
+            (i % 2) == 1 ? "\n" : " ");
 }
 
 Building::Building (Real start, Real start_height, Real end_height, Real end)
@@ -122,7 +122,7 @@ Building::precompute (Real start, Real start_height, Real end_height, Real end)
 Real
 Building::height (Real x) const
 {
-  return isinf (x) ? y_intercept_ : slope_*x + y_intercept_;
+  return isinf (x) ? y_intercept_ : slope_ * x + y_intercept_;
 }
 
 void
@@ -168,15 +168,15 @@ first_intersection (Building const &b, list<Building> *const s, Real start_x)
     {
       Building c = s->front ();
       if (c.conceals (b, start_x))
-	return start_x;
+        return start_x;
 
       Real i = b.intersection_x (c);
       if (i > start_x && i <= b.end_ && i <= c.end_)
-	return i;
+        return i;
 
       start_x = c.end_;
       if (b.end_ > c.end_)
-	s->pop_front ();
+        s->pop_front ();
     }
   return b.end_;
 }
@@ -190,12 +190,12 @@ Building::conceals (Building const &other, Real x) const
   /* their slopes were not equal, so there is an intersection point */
   Real i = intersection_x (other);
   return (i <= x && slope_ > other.slope_)
-    || (i > x && slope_ < other.slope_);
+         || (i > x && slope_ < other.slope_);
 }
 
 void
 Skyline::internal_merge_skyline (list<Building> *s1, list<Building> *s2,
-				 list<Building> *const result)
+                                 list<Building> *const result)
 {
   if (s1->empty () || s2->empty ())
     {
@@ -207,26 +207,26 @@ Skyline::internal_merge_skyline (list<Building> *s1, list<Building> *s2,
   while (!s1->empty ())
     {
       if (s2->front ().conceals (s1->front (), x))
-	swap (s1, s2);
+        swap (s1, s2);
 
       Building b = s1->front ();
       Real end = first_intersection (b, s2, x);
 
       if (s2->empty ())
-	{
-	  result->push_front (b);
-	  break;
-	}
+        {
+          result->push_front (b);
+          break;
+        }
 
       /* only include buildings wider than epsilon */
       if (end > x + EPS)
-	{
-	  b.leading_part (end);
-	  result->push_front (b);
-	}
+        {
+          b.leading_part (end);
+          result->push_front (b);
+        }
 
       if (end >= s1->front ().end_)
-	s1->pop_front ();
+        s1->pop_front ();
 
       x = end;
     }
@@ -249,7 +249,7 @@ single_skyline (Building b, Real start, Real horizon_padding, list<Building> *co
   bool sloped_neighbours = horizon_padding > 0 && !isinf (start) && !isinf (b.end_);
   if (!isinf (b.end_))
     ret->push_front (Building (b.end_ + horizon_padding, -infinity_f,
-			       -infinity_f, infinity_f));
+                               -infinity_f, infinity_f));
   if (sloped_neighbours)
     ret->push_front (b.sloped_neighbour (start, horizon_padding, RIGHT));
 
@@ -261,7 +261,7 @@ single_skyline (Building b, Real start, Real horizon_padding, list<Building> *co
 
   if (!isinf (start))
     ret->push_front (Building (-infinity_f, -infinity_f,
-			       -infinity_f, start - horizon_padding));
+                               -infinity_f, start - horizon_padding));
 }
 
 /* remove a non-overlapping set of boxes from BOXES and build a skyline
@@ -277,21 +277,21 @@ non_overlapping_skyline (list<Box> *const boxes, Real horizon_padding, Axis hori
       Interval iv = (*i)[horizon_axis];
 
       if (iv[LEFT] - horizon_padding < last_end)
-	{
-	  i++;
-	  continue;
-	}
+        {
+          i++;
+          continue;
+        }
 
       if (iv[LEFT] - horizon_padding > last_end + EPS)
-	result.push_front (Building (last_end, -infinity_f, -infinity_f, iv[LEFT] - 2*horizon_padding));
+        result.push_front (Building (last_end, -infinity_f, -infinity_f, iv[LEFT] - 2 * horizon_padding));
 
       Building b (*i, horizon_padding, horizon_axis, sky);
       bool sloped_neighbours = horizon_padding > 0 && !isinf (iv.length ());
       if (sloped_neighbours)
-	result.push_front (b.sloped_neighbour (iv[LEFT] - horizon_padding, horizon_padding, LEFT));
+        result.push_front (b.sloped_neighbour (iv[LEFT] - horizon_padding, horizon_padding, LEFT));
       result.push_front (b);
       if (sloped_neighbours)
-	result.push_front (b.sloped_neighbour (iv[LEFT] - horizon_padding, horizon_padding, RIGHT));
+        result.push_front (b.sloped_neighbour (iv[LEFT] - horizon_padding, horizon_padding, RIGHT));
 
       list<Box>::iterator j = i++;
       boxes->erase (j);
@@ -313,7 +313,7 @@ public:
     a_ = a;
   }
 
-  bool operator() (Box const &b1, Box const &b2)
+  bool operator () (Box const &b1, Box const &b2)
   {
     return b1[a_][LEFT] < b2[a_][LEFT];
   }
@@ -334,8 +334,8 @@ Skyline::internal_build_skyline (list<Box> *boxes, Real horizon_padding, Axis ho
     {
       list<Building> result;
       single_skyline (Building (boxes->front (), horizon_padding, horizon_axis, sky),
-		      boxes->front ()[horizon_axis][LEFT] - horizon_padding,
-		      horizon_padding, &result);
+                      boxes->front ()[horizon_axis][LEFT] - horizon_padding,
+                      horizon_padding, &result);
       return result;
     }
 
@@ -352,7 +352,7 @@ Skyline::internal_build_skyline (list<Box> *boxes, Real horizon_padding, Axis ho
       list<Building> one = partials.front ();
       partials.pop_front ();
       if (partials.empty ())
-	return one;
+        return one;
 
       list<Building> two = partials.front ();
       partials.pop_front ();
@@ -407,16 +407,15 @@ Skyline::Skyline (Skyline const &src, Real horizon_padding, Axis a)
 
   // establish a baseline box
   boxes.push_back (Box (Interval (-infinity_f, infinity_f),
-			Interval (0, 0)));
+                        Interval (0, 0)));
   list<Building>::const_iterator end = src.buildings_.end ();
-  for (list<Building>::const_iterator i = src.buildings_.begin (); i != end; start=i->end_, i++ )
+  for (list<Building>::const_iterator i = src.buildings_.begin (); i != end; start = i->end_, i++)
     if ((i->slope_ == 0) && !isinf (i->y_intercept_))
       boxes.push_back (Box (Interval (start, i->end_),
-			    Interval (-infinity_f , i->y_intercept_)));
+                            Interval (-infinity_f, i->y_intercept_)));
   buildings_ = internal_build_skyline (&boxes, horizon_padding, X_AXIS, UP);
   sky_ = src.sky_;
 }
-
 
 /*
   build skyline from a set of boxes. If horizon_padding > 0, expand all the boxes
@@ -438,7 +437,7 @@ Skyline::Skyline (vector<Box> const &boxes, Real horizon_padding, Axis horizon_a
       Interval iv = boxes[i][horizon_axis];
       iv.widen (horizon_padding);
       if (iv.length () > EPS && !boxes[i][vert_axis].is_empty ())
-	filtered_boxes.push_front (boxes[i]);
+        filtered_boxes.push_front (boxes[i]);
     }
 
   buildings_ = internal_build_skyline (&filtered_boxes, horizon_padding, horizon_axis, sky);
@@ -449,7 +448,7 @@ Skyline::Skyline (Box const &b, Real horizon_padding, Axis horizon_axis, Directi
   sky_ = sky;
   Building front (b, horizon_padding, horizon_axis, sky);
   single_skyline (front, b[horizon_axis][LEFT] - horizon_padding,
-		  horizon_padding, &buildings_);
+                  horizon_padding, &buildings_);
 }
 
 void
@@ -484,7 +483,7 @@ Skyline::insert (Box const &b, Real horizon_padding, Axis a)
 
   my_bld.splice (my_bld.begin (), buildings_);
   single_skyline (Building (b, horizon_padding, a, sky_), b[a][LEFT] - horizon_padding,
-		  horizon_padding, &other_bld);
+                  horizon_padding, &other_bld);
   internal_merge_skyline (&other_bld, &my_bld, &buildings_);
 }
 
@@ -539,9 +538,9 @@ Skyline::distance (Skyline const &other, Real horizon_padding) const
       Real end_dist = i->height (end) + j->height (end);
       dist = max (dist, max (start_dist, end_dist));
       if (i->end_ <= j->end_)
-	i++;
+        i++;
       else
-	j++;
+        j++;
       start = end;
     }
   return dist;
@@ -556,7 +555,7 @@ Skyline::height (Real airplane) const
   for (i = buildings_.begin (); i != buildings_.end (); i++)
     {
       if (i->end_ >= airplane)
-	return sky_ * i->height (airplane);
+        return sky_ * i->height (airplane);
     }
 
   assert (0);
@@ -578,7 +577,6 @@ Skyline::set_minimum_height (Real h)
   s.buildings_.front ().y_intercept_ = h * sky_;
   merge (s);
 }
-
 
 vector<Offset>
 Skyline::to_points (Axis horizon_axis) const
@@ -616,7 +614,6 @@ Skyline::clear ()
 }
 
 /****************************************************************/
-
 
 IMPLEMENT_SIMPLE_SMOBS (Skyline);
 IMPLEMENT_TYPE_P (Skyline, "ly:skyline?");

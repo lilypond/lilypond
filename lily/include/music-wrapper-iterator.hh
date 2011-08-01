@@ -32,7 +32,7 @@ class Music_wrapper_iterator : public Music_iterator
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   Music_wrapper_iterator ();
-  DECLARE_CLASSNAME(Music_wrapper_iterator);
+  DECLARE_CLASSNAME (Music_wrapper_iterator);
 
   virtual void derived_substitute (Context *f, Context *t);
   virtual void derived_mark () const;

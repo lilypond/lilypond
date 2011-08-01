@@ -50,7 +50,7 @@ Lyric_performer::process_music ()
       && ly_scm2string (events_[0]->get_property ("text")).length ())
     {
       audio_ = new Audio_text (Audio_text::LYRIC,
-			       ly_scm2string (events_[0]->get_property ("text")));
+                               ly_scm2string (events_[0]->get_property ("text")));
       Audio_element_info info (audio_, events_[0]);
       announce_element (info);
     }
@@ -75,15 +75,15 @@ Lyric_performer::listen_lyric (Stream_event *event)
 }
 
 ADD_TRANSLATOR (Lyric_performer,
-		/* doc */
-		"",
+                /* doc */
+                "",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

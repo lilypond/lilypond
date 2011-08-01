@@ -77,17 +77,17 @@ Trill_spanner_engraver::acknowledge_note_column (Grob_info info)
   if (span_)
     {
       Pointer_group_interface::add_grob (span_,
-					 ly_symbol2scm ("note-columns"),
-					 info.grob());
+                                         ly_symbol2scm ("note-columns"),
+                                         info.grob ());
       if (!span_->get_bound (LEFT))
-	add_bound_item (span_, info.grob ());
+        add_bound_item (span_, info.grob ());
     }
   else if (finished_)
     {
       Pointer_group_interface::add_grob (finished_, ly_symbol2scm ("note-columns"),
-					 info.grob());
+                                         info.grob ());
       if (!finished_->get_bound (RIGHT))
-	add_bound_item (finished_, info.grob ());
+        add_bound_item (finished_, info.grob ());
     }
 }
 
@@ -99,7 +99,7 @@ Trill_spanner_engraver::process_music ()
     {
       Stream_event *ender = event_drul_[STOP];
       if (!ender)
-	ender = event_drul_[START];
+        ender = event_drul_[START];
       finished_ = span_;
       announce_end_grob (finished_, ender->self_scm ());
       span_ = 0;
@@ -120,10 +120,10 @@ Trill_spanner_engraver::typeset_all ()
   if (finished_)
     {
       if (!finished_->get_bound (RIGHT))
-	{
-	  Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
-	  finished_->set_bound (RIGHT, e);
-	}
+        {
+          Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
+          finished_->set_bound (RIGHT, e);
+        }
       finished_ = 0;
     }
 }
@@ -155,16 +155,16 @@ Trill_spanner_engraver::finalize ()
 ADD_ACKNOWLEDGER (Trill_spanner_engraver, note_column);
 
 ADD_TRANSLATOR (Trill_spanner_engraver,
-		/* doc */
-		"Create trill spanner from an event.",
+                /* doc */
+                "Create trill spanner from an event.",
 
-		/* create */
-		"TrillSpanner ",
+                /* create */
+                "TrillSpanner ",
 
-		/* read */
-		"currentCommandColumn "
-		"currentMusicalColumn ",
+                /* read */
+                "currentCommandColumn "
+                "currentMusicalColumn ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

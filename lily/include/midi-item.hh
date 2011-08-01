@@ -24,7 +24,7 @@
 #include "std-vector.hh"
 
 string int2midi_varint_string (int i);
-  
+
 /**
    Any piece of midi information.
 
@@ -39,7 +39,6 @@ public:
   virtual char const *name () const;
 
   static Midi_item *get_midi (Audio_item *a);
-
 
   virtual string to_string () const = 0;
 };
@@ -60,7 +59,6 @@ public:
   virtual string to_string () const;
   Real seconds_;
 };
-
 
 /**
    Change instrument event
@@ -111,7 +109,6 @@ public:
 
   Audio_note *audio_;
 
-  
   static int const c0_pitch_ = 60;
   Byte dynamic_byte_;
 };
@@ -132,10 +129,10 @@ class Midi_text : public Midi_item
 {
 public:
   enum Type
-    {
-      TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC,
-      MARKER, CUE_POINT
-    };
+  {
+    TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC,
+    MARKER, CUE_POINT
+  };
   DECLARE_CLASSNAME (Midi_text);
 
   Midi_text (Audio_text *);

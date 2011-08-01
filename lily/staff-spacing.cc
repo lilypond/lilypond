@@ -55,24 +55,24 @@ Staff_spacing::optical_correction (Grob *me, Grob *g, Interval bar_height)
     {
       Direction d = get_grob_direction (stem);
       if (Stem::is_normal_stem (stem) && d == DOWN)
-	{
+        {
 
-	  /*
-	    can't look at stem-end-position, since that triggers
-	    beam slope computations.
-	  */
-	  Real stem_start = Stem::head_positions (stem) [d];
-	  Real stem_end = stem_start + 
-	    d * robust_scm2double (stem->get_property ("length"), 7);
-	  
-	  Interval stem_posns (min (stem_start, stem_end),
-			       max (stem_end, stem_start));
+          /*
+            can't look at stem-end-position, since that triggers
+            beam slope computations.
+          */
+          Real stem_start = Stem::head_positions (stem) [d];
+          Real stem_end = stem_start
+                          + d * robust_scm2double (stem->get_property ("length"), 7);
 
-	  stem_posns.intersect (bar_height);
+          Interval stem_posns (min (stem_start, stem_end),
+                               max (stem_end, stem_start));
 
-	  ret = min (abs (stem_posns.length () / 7.0), 1.0);
-	  ret *= robust_scm2double (me->get_property ("stem-spacing-correction"), 1);
-	}
+          stem_posns.intersect (bar_height);
+
+          ret = min (abs (stem_posns.length () / 7.0), 1.0);
+          ret *= robust_scm2double (me->get_property ("stem-spacing-correction"), 1);
+        }
     }
   return ret;
 }
@@ -92,23 +92,23 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
 
       string glyph_string = scm_is_string (glyph) ? ly_scm2string (glyph) : "";
       if (glyph_string.substr (0, 1) == "|"
-	  || glyph_string.substr (0, 1) == ".")
-	{
-	  Grob *common = bar_grob->common_refpoint (staff_sym, Y_AXIS);
-	  bar_size = bar_grob->extent (common, Y_AXIS);
-	  bar_size *= 1.0 / Staff_symbol_referencer::staff_space (bar_grob);
-	}
+          || glyph_string.substr (0, 1) == ".")
+        {
+          Grob *common = bar_grob->common_refpoint (staff_sym, Y_AXIS);
+          bar_size = bar_grob->extent (common, Y_AXIS);
+          bar_size *= 1.0 / Staff_symbol_referencer::staff_space (bar_grob);
+        }
     }
   return bar_size;
 }
 
 Real
 Staff_spacing::next_notes_correction (Grob *me,
-				      Grob *last_grob)
+                                      Grob *last_grob)
 {
   Interval bar_size = bar_y_positions (last_grob);
   Grob *orig = me->original () ? me->original () : me;
-  vector<Item*> note_columns = Spacing_interface::right_note_columns (orig);
+  vector<Item *> note_columns = Spacing_interface::right_note_columns (orig);
 
   Real max_optical = 0.0;
 
@@ -132,20 +132,20 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col)
   Interval last_ext;
   Direction break_dir = me_item->break_status_dir ();
   Grob *last_grob = Spacing_interface::extremal_break_aligned_grob (me, LEFT,
-								    break_dir,
-								    &last_ext);
+                    break_dir,
+                    &last_ext);
   if (!last_grob)
     {
       /*
-	TODO:
+        TODO:
 
-	Should  insert a adjustable space here? For excercises, you might want to
-	use a staff without a clef in the beginning.
+        Should  insert a adjustable space here? For excercises, you might want to
+        use a staff without a clef in the beginning.
       */
 
       /*
-	we used to have a warning here, but it generates a lot of
-	spurious error messages.
+        we used to have a warning here, but it generates a lot of
+        spurious error messages.
       */
       return Spring ();
     }
@@ -159,7 +159,7 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col)
     {
       SCM nndef = scm_sloppy_assq (ly_symbol2scm ("next-note"), alist);
       if (scm_is_pair (nndef))
-	space_def = nndef;
+        space_def = nndef;
     }
 
   if (!scm_is_pair (space_def))
@@ -195,7 +195,6 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col)
       ideal = fixed;
     }
 
-
   Real optical_correction = next_notes_correction (me, last_grob);
   Real min_dist = Paper_column::minimum_distance (left_col, right_col);
 
@@ -212,10 +211,10 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col)
 }
 
 ADD_INTERFACE (Staff_spacing,
-	       "This object calculates spacing details from a breakable"
-	       " symbol (left) to another object.  For example, it takes care"
-	       " of optical spacing from a bar line to a note.",
+               "This object calculates spacing details from a breakable"
+               " symbol (left) to another object.  For example, it takes care"
+               " of optical spacing from a bar line to a note.",
 
-	       /* properties */
-	       "stem-spacing-correction "
-	       );
+               /* properties */
+               "stem-spacing-correction "
+              );

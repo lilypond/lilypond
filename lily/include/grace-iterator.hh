@@ -27,7 +27,7 @@ class Grace_iterator : public Music_wrapper_iterator
 public:
   virtual void process (Moment);
   DECLARE_SCHEME_CALLBACK (constructor, ());
-  DECLARE_CLASSNAME(Grace_iterator);
+  DECLARE_CLASSNAME (Grace_iterator);
   Moment pending_moment () const;
 };
 

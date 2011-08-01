@@ -6,7 +6,7 @@
 #define TEST_PARAMETER(Suite, Case, Type, value) \
   namespace { \
     struct Case: public yaffut::Test<Suite, Case>{ \
-	Type parameter_one_; \
+        Type parameter_one_; \
         Case (); \
     }; \
   } \

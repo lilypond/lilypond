@@ -63,55 +63,54 @@ Key_engraver::Key_engraver ()
   cancellation_ = 0;
 }
 
-
 void
 Key_engraver::create_key (bool is_default)
 {
   if (!item_)
     {
       item_ = make_item ("KeySignature",
-			 key_event_ ? key_event_->self_scm () : SCM_EOL);
+                         key_event_ ? key_event_->self_scm () : SCM_EOL);
 
       /* Use middleCClefPosition rather than middleCPosition, because cue
-       * notes with a different clef will modify middleCPosition. The 
+       * notes with a different clef will modify middleCPosition. The
        * Key signature, however, should still be printed at the original
        * position. */
       item_->set_property ("c0-position",
-			   get_property ("middleCClefPosition"));
+                           get_property ("middleCClefPosition"));
 
       SCM last = get_property ("lastKeySignature");
       SCM key = get_property ("keySignature");
 
       if ((to_boolean (get_property ("printKeyCancellation"))
-	   || key == SCM_EOL)
-	  && !scm_is_eq (last, key))
-	{
-	  SCM restore = SCM_EOL;
-	  SCM *tail = &restore;
-	  for (SCM s = last; scm_is_pair (s); s = scm_cdr (s))
-	    {
-	      SCM new_alter_pair = scm_assoc (scm_caar (s), key);
-	      Rational old_alter = robust_scm2rational (scm_cdar (s), 0);
-	      if (new_alter_pair == SCM_BOOL_F
-		  || ((ly_scm2rational (scm_cdr (new_alter_pair)) - old_alter) * old_alter
-		      < Rational (0)))
-		{
-		  *tail = scm_cons (scm_car (s), *tail);
-		  tail = SCM_CDRLOC (*tail);
-		}
-	    }
+           || key == SCM_EOL)
+          && !scm_is_eq (last, key))
+        {
+          SCM restore = SCM_EOL;
+          SCM *tail = &restore;
+          for (SCM s = last; scm_is_pair (s); s = scm_cdr (s))
+            {
+              SCM new_alter_pair = scm_assoc (scm_caar (s), key);
+              Rational old_alter = robust_scm2rational (scm_cdar (s), 0);
+              if (new_alter_pair == SCM_BOOL_F
+                  || ((ly_scm2rational (scm_cdr (new_alter_pair)) - old_alter) * old_alter
+                      < Rational (0)))
+                {
+                  *tail = scm_cons (scm_car (s), *tail);
+                  tail = SCM_CDRLOC (*tail);
+                }
+            }
 
-	  if (scm_is_pair (restore))
-	    {
-	      cancellation_ = make_item ("KeyCancellation",
-					 key_event_
-					 ? key_event_->self_scm () : SCM_EOL);
-	      
-	      cancellation_->set_property ("alteration-alist", scm_reverse (restore));
-	      cancellation_->set_property ("c0-position",
-					   get_property ("middleCPosition"));
-	    }
-	}
+          if (scm_is_pair (restore))
+            {
+              cancellation_ = make_item ("KeyCancellation",
+                                         key_event_
+                                         ? key_event_->self_scm () : SCM_EOL);
+
+              cancellation_->set_property ("alteration-alist", scm_reverse (restore));
+              cancellation_->set_property ("c0-position",
+                                           get_property ("middleCPosition"));
+            }
+        }
 
       item_->set_property ("alteration-alist", scm_reverse (key));
     }
@@ -179,31 +178,31 @@ Key_engraver::read_event (Stream_event const *r)
        scm_is_pair (s) && scm_is_pair (alist); s = scm_cdr (s))
     {
       SCM head = scm_member (scm_car (s), alist);
-      
+
       if (scm_is_pair (head))
-	{
-	  accs = scm_cons (scm_car (head), accs);
-	  alist = scm_delete_x (scm_car (head), alist);
-	}
+        {
+          accs = scm_cons (scm_car (head), accs);
+          alist = scm_delete_x (scm_car (head), alist);
+        }
     }
 
   if (scm_is_pair (alist))
     {
       bool warn = false;
       for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
-	if (ly_scm2rational (scm_cdar (s)))
-	  {
-	    warn = true;
-	    accs = scm_cons (scm_car (s), accs);
-	  }
+        if (ly_scm2rational (scm_cdar (s)))
+          {
+            warn = true;
+            accs = scm_cons (scm_car (s), accs);
+          }
 
       if (warn)
-	r->origin ()->warning ("Incomplete keyAlterationOrder for key signature");
+        r->origin ()->warning ("Incomplete keyAlterationOrder for key signature");
     }
-  
+
   context ()->set_property ("keySignature", scm_reverse (accs));
   context ()->set_property ("tonic",
-			    r->get_property ("tonic"));
+                            r->get_property ("tonic"));
 }
 
 void
@@ -220,25 +219,25 @@ ADD_ACKNOWLEDGER (Key_engraver, clef);
 ADD_ACKNOWLEDGER (Key_engraver, bar_line);
 
 ADD_TRANSLATOR (Key_engraver,
-		/* doc */
-		"Engrave a key signature.",
+                /* doc */
+                "Engrave a key signature.",
 
-		/* create */
-		"KeyCancellation "
-		"KeySignature ",
-		
-		/* read */
-		"createKeyOnClefChange "
-		"explicitKeySignatureVisibility "
-		"extraNatural "
-		"keyAlterationOrder "
-		"keySignature "
-		"lastKeySignature "
-		"printKeyCancellation "
-		"middleCClefPosition ",
-		
-		/* write */
-		"keySignature "
-		"lastKeySignature "
-		"tonic "
-		);
+                /* create */
+                "KeyCancellation "
+                "KeySignature ",
+
+                /* read */
+                "createKeyOnClefChange "
+                "explicitKeySignatureVisibility "
+                "extraNatural "
+                "keyAlterationOrder "
+                "keySignature "
+                "lastKeySignature "
+                "printKeyCancellation "
+                "middleCClefPosition ",
+
+                /* write */
+                "keySignature "
+                "lastKeySignature "
+                "tonic "
+               );

@@ -53,8 +53,8 @@ Music_wrapper_iterator::construct_children ()
   Music *my_music = get_music ();
   Music *child = unsmob_music (my_music->get_property ("element"));
   child_iter_ = (child)
-    ? unsmob_iterator (get_iterator (child))
-    : 0;
+                ? unsmob_iterator (get_iterator (child))
+                : 0;
 }
 
 bool
@@ -84,5 +84,5 @@ IMPLEMENT_CTOR_CALLBACK (Music_wrapper_iterator);
 bool
 Music_wrapper_iterator::run_always () const
 {
-  return (child_iter_ &&  child_iter_->run_always ());
+  return (child_iter_ && child_iter_->run_always ());
 }

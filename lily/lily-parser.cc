@@ -72,7 +72,6 @@ Lily_parser::~Lily_parser ()
 {
 }
 
-
 SCM
 Lily_parser::mark_smob (SCM s)
 {
@@ -81,7 +80,7 @@ Lily_parser::mark_smob (SCM s)
 }
 
 int
-Lily_parser::print_smob (SCM s, SCM port, scm_print_state*)
+Lily_parser::print_smob (SCM s, SCM port, scm_print_state *)
 {
   scm_puts ("#<Lily_parser ", port);
   Lily_parser *parser = (Lily_parser *) SCM_CELL_WORD_1 (s);
@@ -124,7 +123,7 @@ Lily_parser::parse_file (string init, string name, string out_name)
     Don't mix cyclic pointers with weak tables.
   */
   lexer_->set_identifier (ly_symbol2scm ("parser"),
-			  SCM_EOL);
+                          SCM_EOL);
   ly_reexport_module (scm_current_module ());
 
   scm_set_current_module (mod);
@@ -144,7 +143,7 @@ Lily_parser::parse_string (string ly_code)
 {
   // TODO: use $parser
   lexer_->set_identifier (ly_symbol2scm ("parser"),
-			  self_scm ());
+                          self_scm ());
 
   lexer_->main_input_name_ = "<string>";
   lexer_->is_main_input_ = true;
@@ -157,8 +156,8 @@ Lily_parser::parse_string (string ly_code)
   if (!define_spots_.empty ())
     {
       if (define_spots_.empty ()
-	  && !error_level_)
-	programming_error ("define_spots_ don't match, but error_level_ not set.");
+          && !error_level_)
+        programming_error ("define_spots_ don't match, but error_level_ not set.");
     }
 
   error_level_ = error_level_ | lexer_->error_level_;
@@ -176,7 +175,7 @@ Lily_parser::clear ()
   if (lexer_)
     {
       while (lexer_->has_scope ())
-	lexer_->remove_scope ();
+        lexer_->remove_scope ();
     }
 
   lexer_ = 0;
@@ -202,12 +201,9 @@ Lily_parser::parser_error (Input const &i, string s)
   error_level_ = 1;
 }
 
-
-
 IMPLEMENT_SMOBS (Lily_parser);
 IMPLEMENT_TYPE_P (Lily_parser, "ly:lily-parser?");
 IMPLEMENT_DEFAULT_EQUAL_P (Lily_parser);
-
 
 /****************************************************************
   OUTPUT-DEF
@@ -240,8 +236,8 @@ Output_def *
 get_paper (Lily_parser *parser)
 {
   SCM papers = parser->lexer_->lookup_identifier ("$papers");
-  Output_def *layout = ((papers == SCM_UNDEFINED) || scm_is_null (papers)) ?
-    0 : unsmob_output_def (scm_car (papers));
+  Output_def *layout = ((papers == SCM_UNDEFINED) || scm_is_null (papers))
+                       ? 0 : unsmob_output_def (scm_car (papers));
   SCM default_paper = parser->lexer_->lookup_identifier ("$defaultpaper");
   layout = layout ? layout : unsmob_output_def (default_paper);
 

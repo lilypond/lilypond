@@ -77,22 +77,22 @@ Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
   if (style == "C")
     {
       if /* neither C2/2 nor C4/4 */
-	(((n != 2) || (d != 2))
-	 && ((n != 4) || (d != 4)))
-	return numbered_time_signature (me, n, d);
+      (((n != 2) || (d != 2))
+          && ((n != 4) || (d != 4)))
+        return numbered_time_signature (me, n, d);
     }
 
   string char_name = style + to_string (n) + to_string (d);
   me->set_property ("font-encoding", ly_symbol2scm ("fetaMusic"));
   Stencil out = Font_interface::get_default_font (me)
-    ->find_by_name ("timesig." + char_name);
+                ->find_by_name ("timesig." + char_name);
   if (!out.is_empty ())
     return out;
 
   /* If there is no such symbol, we default to the numbered style.
      (Here really with a warning!) */
   me->warning (_f ("time signature symbol `%s' not found; "
-		   "reverting to numbered style", char_name));
+                   "reverting to numbered style", char_name));
   return numbered_time_signature (me, n, d);
 }
 
@@ -101,13 +101,13 @@ Time_signature::numbered_time_signature (Grob *me, int num, int den)
 {
   SCM chain = me->get_property_alist_chain (Font_interface::text_font_alist_chain (me));
   chain = scm_cons (scm_list_1 (scm_cons (ly_symbol2scm ("font-encoding"),
-					  ly_symbol2scm ("fetaText"))),
-		    chain);
+                                          ly_symbol2scm ("fetaText"))),
+                    chain);
 
   SCM sn = Text_interface::interpret_markup (me->layout ()->self_scm (), chain,
-					     ly_string2scm (to_string (num)));
+                                             ly_string2scm (to_string (num)));
   SCM sd = Text_interface::interpret_markup (me->layout ()->self_scm (), chain,
-					     ly_string2scm (to_string (den)));
+                                             ly_string2scm (to_string (den)));
 
   Stencil n = *unsmob_stencil (sn);
   Stencil d = *unsmob_stencil (sd);
@@ -132,30 +132,30 @@ Time_signature::numbered_time_signature (Grob *me, int num, int den)
 }
 
 ADD_INTERFACE (Time_signature,
-	       "A time signature, in different styles.  The following values"
-	       " for @code{style} are are recognized:\n"
-	       "\n"
-	       "@table @code\n"
-	       "@item C\n"
-	       "4/4 and 2/2 are typeset as C and struck C, respectively."
-	       "  All other time signatures are written with two digits."
-	       "  The value @code{default} is equivalent to @code{C}.\n"
-	       "@item neomensural\n"
-	       "2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are"
-	       " typeset with neo-mensural style mensuration marks.  All"
-	       " other time signatures are written with two digits.\n"
-	       "@item mensural\n"
-	       "2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are"
-	       " typeset with mensural style mensuration marks.  All other"
-	       " time signatures are written with two digits.\n"
-	       "@item single-digit\n"
-	       "All time signatures are typeset with a single digit, e.g.,"
-	       " 3/2 is written as 3.\n"
-	       "@item numbered\n"
-	       "All time signatures are typeset with two digits.\n"
-	       "@end table",
+               "A time signature, in different styles.  The following values"
+               " for @code{style} are are recognized:\n"
+               "\n"
+               "@table @code\n"
+               "@item C\n"
+               "4/4 and 2/2 are typeset as C and struck C, respectively."
+               "  All other time signatures are written with two digits."
+               "  The value @code{default} is equivalent to @code{C}.\n"
+               "@item neomensural\n"
+               "2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are"
+               " typeset with neo-mensural style mensuration marks.  All"
+               " other time signatures are written with two digits.\n"
+               "@item mensural\n"
+               "2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are"
+               " typeset with mensural style mensuration marks.  All other"
+               " time signatures are written with two digits.\n"
+               "@item single-digit\n"
+               "All time signatures are typeset with a single digit, e.g.,"
+               " 3/2 is written as 3.\n"
+               "@item numbered\n"
+               "All time signatures are typeset with two digits.\n"
+               "@end table",
 
-	       /* properties */
-	       "fraction "
-	       "style "
-	       );
+               /* properties */
+               "fraction "
+               "style "
+              );

@@ -26,7 +26,7 @@ void check_prefix (string name, int mask, int prefix_set, string *str)
   if (prefix_set & mask)
     {
       if (!str->empty ())
-	*str += ", ";
+        *str += ", ";
       *str += name;
     }
 }
@@ -60,21 +60,21 @@ Gregorian_ligature::prefixes_to_str (Grob *primitive)
   read by the associated item class, such as VaticanaLigature.--jr
 */
 ADD_INTERFACE (Gregorian_ligature,
-	       "A gregorian ligature.",
+               "A gregorian ligature.",
 
-	       /* properties */
-	       "virga "
-	       "stropha "
-	       "inclinatum "
-	       "auctum "
-	       "descendens "
-	       "ascendens "
-	       "oriscus "
-	       "quilisma "
-	       "deminutum "
-	       "cavum "
-	       "linea "
-	       "pes-or-flexa "
-	       "context-info "
-	       "prefix-set "
-	       );
+               /* properties */
+               "virga "
+               "stropha "
+               "inclinatum "
+               "auctum "
+               "descendens "
+               "ascendens "
+               "oriscus "
+               "quilisma "
+               "deminutum "
+               "cavum "
+               "linea "
+               "pes-or-flexa "
+               "context-info "
+               "prefix-set "
+              );

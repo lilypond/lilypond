@@ -29,15 +29,15 @@ public:
 };
 
 MAKE_SCHEME_CALLBACK (Relative_octave_music, no_relative_callback, 2)
-  SCM
+SCM
 Relative_octave_music::no_relative_callback (SCM /* music */,
-					     SCM pitch)
+                                             SCM pitch)
 {
   return pitch;
 }
 
 MAKE_SCHEME_CALLBACK (Relative_octave_music, relative_callback, 2)
-  SCM
+SCM
 Relative_octave_music::relative_callback (SCM music, SCM pitch)
 {
   Music *me = unsmob_music (music);
@@ -45,11 +45,11 @@ Relative_octave_music::relative_callback (SCM music, SCM pitch)
     {
       lily_1_8_compatibility_used = true;
       /*  last-pitch should be junked some time, when
-	  we ditch 1.8 compat too.
+          we ditch 1.8 compat too.
 
-	  When you do, B should start where A left off.
+          When you do, B should start where A left off.
 
-	  \relative { A \relative { ...} B }  */
+          \relative { A \relative { ...} B }  */
       SCM last_pitch = me->get_property ("last-pitch");
       Pitch *ptr = unsmob_pitch (last_pitch);
       return (ptr) ? last_pitch : pitch;

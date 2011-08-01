@@ -30,7 +30,6 @@
 #include "pointer-group-interface.hh"
 #include "staff-symbol-referencer.hh"
 
-
 void
 Span_bar::add_bar (Grob *me, Grob *b)
 {
@@ -77,9 +76,9 @@ Span_bar::print (SCM smobbed_me)
       Grob *bar = elements[i];
       Interval ext = Bar_line::bar_y_extent (bar, refp);
       if (Grob *staff = Staff_symbol_referencer::get_staff_symbol (bar))
-	ext.unite (staff->extent (refp, Y_AXIS));
+        ext.unite (staff->extent (refp, Y_AXIS));
       if (ext.is_empty ())
-	continue;
+        continue;
 
       extents.push_back (ext);
       make_span_bar.push_back (to_boolean (bar->get_property ("allow-span-bar")));
@@ -97,28 +96,28 @@ Span_bar::print (SCM smobbed_me)
       Interval prev_extent = extents[i - 1];
       Interval ext = extents[i];
       if (!prev_extent.is_empty ())
-	{
-	  Interval l (prev_extent [UP],
-		      ext[DOWN]);
+        {
+          Interval l (prev_extent [UP],
+                      ext[DOWN]);
 
-	  if (l.is_empty () || !make_span_bar[i])
-	    {
-	      /* There is overlap between the bar lines.  Do nothing. */
-	    }
-	  else
-	    {
-	      Stencil interbar = Bar_line::compound_barline (model_bar,
-							     glyph_string,
-							     l,
-							     false);
-	      span_bar.add_stencil (interbar);
-	    }
-	}
+          if (l.is_empty () || !make_span_bar[i])
+            {
+              /* There is overlap between the bar lines.  Do nothing. */
+            }
+          else
+            {
+              Stencil interbar = Bar_line::compound_barline (model_bar,
+                                                             glyph_string,
+                                                             l,
+                                                             false);
+              span_bar.add_stencil (interbar);
+            }
+        }
       prev_extent = ext;
     }
 
   span_bar.translate_axis (- me->relative_coordinate (refp, Y_AXIS),
-			   Y_AXIS);
+                           Y_AXIS);
 
   return span_bar.smobbed_copy ();
 }
@@ -137,8 +136,8 @@ Span_bar::width (SCM smob)
   /*
     urg.
   */
-  Stencil m =
-    Bar_line::compound_barline (me, gl, Interval (-20 PT, 20 PT), false);
+  Stencil m
+    = Bar_line::compound_barline (me, gl, Interval (-20 PT, 20 PT), false);
 
   return ly_interval2scm (m.extent (X_AXIS));
 }
@@ -175,9 +174,7 @@ Span_bar::center_on_spanned_callback (SCM smob)
   return scm_from_double (i.center ());
 }
 
-
-
-MAKE_SCHEME_CALLBACK(Span_bar, calc_glyph_name, 1);
+MAKE_SCHEME_CALLBACK (Span_bar, calc_glyph_name, 1);
 SCM
 Span_bar::calc_glyph_name (SCM smob)
 {
@@ -211,7 +208,7 @@ Span_bar::calc_glyph_name (SCM smob)
     type = ".|";
   else if (type == ":|S" || type == ":|S.")
     type = "|.";
-    else if (type == ":|S|:" || type == ":|S.|:")
+  else if (type == ":|S|:" || type == ":|S.|:")
     type = "|._.|";
   else if (type == "'")
     type = "";
@@ -226,16 +223,16 @@ Span_bar::get_spanned_interval (Grob *me)
 }
 
 ADD_INTERFACE (Span_bar,
-	       "A bar line that is spanned between other barlines.  This"
-	       " interface is used for bar lines that connect different"
-	       " staves.",
+               "A bar line that is spanned between other barlines.  This"
+               " interface is used for bar lines that connect different"
+               " staves.",
 
-	       /* properties */
-	       "glyph-name "
-	       "elements "
-	       "pure-Y-common "
-	       "pure-relevant-grobs "
-	       "pure-relevant-items "
-	       "pure-relevant-spanners "
-	       );
+               /* properties */
+               "glyph-name "
+               "elements "
+               "pure-Y-common "
+               "pure-relevant-grobs "
+               "pure-relevant-items "
+               "pure-relevant-spanners "
+              );
 

@@ -41,7 +41,6 @@ using namespace std;
 #include "version.hh"
 #include "warn.hh"
 
-
 /*
   symbols/strings.
  */
@@ -49,9 +48,9 @@ string
 ly_scm_write_string (SCM s)
 {
   SCM port = scm_mkstrport (SCM_INUM0,
-			    scm_make_string (SCM_INUM0, SCM_UNDEFINED),
-			    SCM_OPN | SCM_WRTNG,
-			    "ly_write2string");
+                            scm_make_string (SCM_INUM0, SCM_UNDEFINED),
+                            SCM_OPN | SCM_WRTNG,
+                            "ly_write2string");
   //  SCM write = scm_eval_3 (ly_symbol2scm ("write"), s, SCM_EOL);
   SCM write = scm_primitive_eval (ly_symbol2scm ("write"));
 
@@ -83,13 +82,13 @@ gulp_file_to_string (string fn, bool must_exist, int size)
   if (s == "")
     {
       if (must_exist)
-	{
-	  string e = _f ("cannot find file: `%s'", fn);
-	  e += " ";
-	  e += _f ("(load path: `%s')", global_path.to_string ());
-	  error (e);
-	  /* unreachable */
-	}
+        {
+          string e = _f ("cannot find file: `%s'", fn);
+          e += " ";
+          e += _f ("(load path: `%s')", global_path.to_string ());
+          error (e);
+          /* unreachable */
+        }
       return s;
     }
 
@@ -124,10 +123,11 @@ ly_scm2string (SCM str)
   assert (scm_is_string (str));
   string result;
   size_t len = scm_c_string_length (str);
-  if (len) {
-    result.resize(len);
-    scm_to_locale_stringbuf(str, &result.at(0), len);
-  }
+  if (len)
+    {
+      result.resize (len);
+      scm_to_locale_stringbuf (str, &result.at (0), len);
+    }
   return result;
 }
 
@@ -135,7 +135,7 @@ SCM
 ly_string2scm (string const &str)
 {
   return scm_from_locale_stringn (str.c_str (),
-				  str.length ());
+                                  str.length ());
 }
 
 char *
@@ -147,7 +147,7 @@ ly_scm2str0 (SCM str)
 /*
   PAIRS
 */
-SCM 
+SCM
 index_get_cell (SCM s, Direction d)
 {
   assert (d);
@@ -168,9 +168,8 @@ bool
 is_number_pair (SCM p)
 {
   return scm_is_pair (p)
-    && scm_is_number (scm_car (p)) && scm_is_number (scm_cdr (p));
+         && scm_is_number (scm_car (p)) && scm_is_number (scm_cdr (p));
 }
-
 
 unsigned int
 ly_scm_hash (SCM s)
@@ -236,7 +235,7 @@ Drul_array<Real>
 ly_scm2realdrul (SCM p)
 {
   return Drul_array<Real> (scm_to_double (scm_car (p)),
-			   scm_to_double (scm_cdr (p)));
+                           scm_to_double (scm_cdr (p)));
 }
 
 SCM
@@ -244,7 +243,6 @@ ly_interval2scm (Drul_array<Real> i)
 {
   return scm_cons (scm_from_double (i[LEFT]), scm_from_double (i[RIGHT]));
 }
-
 
 Interval
 robust_scm2interval (SCM k, Drul_array<Real> v)
@@ -289,7 +287,7 @@ Offset
 ly_scm2offset (SCM s)
 {
   return Offset (scm_to_double (scm_car (s)),
-		 scm_to_double (scm_cdr (s)));
+                 scm_to_double (scm_cdr (s)));
 }
 
 Offset
@@ -321,9 +319,6 @@ ly_scm2offsets (SCM s)
   return os;
 }
 
-
-
-
 /*
   ALIST
 */
@@ -339,9 +334,9 @@ alist_equal_p (SCM a, SCM b)
       SCM l = scm_assoc (key, b);
 
       if (l == SCM_BOOL_F
-	  || !ly_is_equal (scm_cdr (l), val))
+          || !ly_is_equal (scm_cdr (l), val))
 
-	return false;
+        return false;
     }
   return true;
 }
@@ -371,7 +366,6 @@ robust_list_ref (int i, SCM l)
   return scm_car (l);
 }
 
-
 SCM
 ly_deep_copy (SCM src)
 {
@@ -381,11 +375,11 @@ ly_deep_copy (SCM src)
     {
       int len = scm_c_vector_length (src);
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
-      for (int i = 0;i < len; i++)
-	{
-	  SCM si = scm_from_int (i);
-	  scm_vector_set_x (nv, si, ly_deep_copy (scm_vector_ref (src, si)));
-	}
+      for (int i = 0; i < len; i++)
+        {
+          SCM si = scm_from_int (i);
+          scm_vector_set_x (nv, si, ly_deep_copy (scm_vector_ref (src, si)));
+        }
     }
   return src;
 }
@@ -396,8 +390,8 @@ print_scm_val (SCM val)
   string realval = ly_scm_write_string (val);
   if (realval.length () > 200)
     realval = realval.substr (0, 100)
-      + "\n :\n :\n"
-      + realval.substr (realval.length () - 100);
+              + "\n :\n :\n"
+              + realval.substr (realval.length () - 100);
   return realval;
 }
 
@@ -419,15 +413,15 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 #if 0
     return false;
 #else
-  /*
-    This is used for autoBeamSettings.
+    /*
+      This is used for autoBeamSettings.
 
-    TODO: deprecate the use of \override and \revert for
-    autoBeamSettings?
+      TODO: deprecate the use of \override and \revert for
+      autoBeamSettings?
 
-    or use a symbol autoBeamSettingS?
-  */
-  return true;
+      or use a symbol autoBeamSettingS?
+    */
+    return true;
 #endif
 
   SCM type = scm_object_property (sym, type_symbol);
@@ -435,33 +429,33 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
   if (type != SCM_EOL && !ly_is_procedure (type))
     {
       warning (_f ("cannot find property type-check for `%s' (%s).",
-		   ly_symbol2string (sym).c_str (),
-		   ly_symbol2string (type_symbol).c_str ())
-	       + "  " + _ ("perhaps a typing error?"));
+                   ly_symbol2string (sym).c_str (),
+                   ly_symbol2string (type_symbol).c_str ())
+               + "  " + _ ("perhaps a typing error?"));
 
       /* Be strict when being anal :) */
       if (do_internal_type_checking_global)
-	scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_3 (ly_symbol2scm ("typecheck"),
-								 sym, val));
+        scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_3 (ly_symbol2scm ("typecheck"),
+                                                                 sym, val));
 
       warning (_ ("doing assignment anyway"));
     }
   else
     {
       if (val != SCM_EOL
-	  && ly_is_procedure (type)
-	  && scm_call_1 (type, val) == SCM_BOOL_F)
-	{
-	  ok = false;
-	  SCM typefunc = ly_lily_module_constant ("type-name");
-	  SCM type_name = scm_call_1 (typefunc, type);
+          && ly_is_procedure (type)
+          && scm_call_1 (type, val) == SCM_BOOL_F)
+        {
+          ok = false;
+          SCM typefunc = ly_lily_module_constant ("type-name");
+          SCM type_name = scm_call_1 (typefunc, type);
 
-	  warning (_f ("type check for `%s' failed; value `%s' must be of type `%s'",
-		       ly_symbol2string (sym).c_str (),
-		       print_scm_val (val),
-		       ly_scm2string (type_name).c_str ()));
-	  progress_indication ("\n");
-	}
+          warning (_f ("type check for `%s' failed; value `%s' must be of type `%s'",
+                       ly_symbol2string (sym).c_str (),
+                       print_scm_val (val),
+                       ly_scm2string (type_name).c_str ()));
+          progress_indication ("\n");
+        }
     }
   return ok;
 }
@@ -479,12 +473,11 @@ ly_unique (SCM list)
   for (SCM i = list; scm_is_pair (i); i = scm_cdr (i))
     {
       if (!scm_is_pair (scm_cdr (i))
-	  || !ly_is_equal (scm_car (i), scm_cadr (i)))
-	unique = scm_cons (scm_car (i), unique);
+          || !ly_is_equal (scm_car (i), scm_cadr (i)))
+        unique = scm_cons (scm_car (i), unique);
     }
   return scm_reverse_x (unique, SCM_EOL);
 }
-
 
 /* Split list at member s, removing s.
    Return (BEFORE . AFTER)  */
@@ -498,7 +491,7 @@ ly_split_list (SCM s, SCM list)
       SCM i = scm_car (after);
       after = scm_cdr (after);
       if (ly_is_equal (i, s))
-	break;
+        break;
       before = scm_cons (i, before);
     }
   return scm_cons (scm_reverse_x (before, SCM_EOL), after);
@@ -549,7 +542,6 @@ robust_scm2double (SCM k, double x)
   return x;
 }
 
-
 string
 robust_scm2string (SCM k, string s)
 {
@@ -566,20 +558,18 @@ robust_scm2int (SCM k, int o)
   return o;
 }
 
-
 SCM
 ly_rational2scm (Rational r)
 {
   return scm_divide (scm_from_int64 (r.numerator ()),
-		     scm_from_int64 (r.denominator ()));
+                     scm_from_int64 (r.denominator ()));
 }
-
 
 Rational
 ly_scm2rational (SCM r)
 {
   return Rational (scm_to_int64 (scm_numerator (r)),
-		   scm_to_int64 (scm_denominator (r)));
+                   scm_to_int64 (scm_denominator (r)));
 }
 
 Rational
@@ -614,7 +604,6 @@ ly_hash2alist (SCM tab)
   return scm_call_1 (func, tab);
 }
 
-
 /*
   C++ interfacing.
  */
@@ -639,17 +628,14 @@ mangle_cxx_identifier (string cxx_id)
   replace_all (&cxx_id, "__", "::");
   replace_all (&cxx_id, '_', '-');
 
-
   return cxx_id;
 }
-
-
 
 SCM
 ly_string_array_to_scm (vector<string> a)
 {
   SCM s = SCM_EOL;
-  for (vsize i = a.size (); i ; i--)
+  for (vsize i = a.size (); i; i--)
     s = scm_cons (ly_symbol2scm (a[i - 1].c_str ()), s);
   return s;
 }

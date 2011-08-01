@@ -74,8 +74,8 @@ Paper_outputter::mark_smob (SCM x)
 
 int
 Paper_outputter::print_smob (SCM /* x */,
-			     SCM p,
-			     scm_print_state *)
+                             SCM p,
+                             scm_print_state *)
 {
   scm_puts ("#<Paper_outputter>", p);
   return 1;
@@ -122,7 +122,7 @@ void
 Paper_outputter::output_stencil (Stencil stil)
 {
   interpret_stencil_expression (stil.expr (), paper_outputter_dump,
-				(void *) this, Offset (0, 0));
+                                (void *) this, Offset (0, 0));
 }
 
 void
@@ -132,9 +132,9 @@ Paper_outputter::close ()
     {
       scm_close_port (file_);
       /*
-	Remove the "warning" definitions for missing stencil
-	expressions so that we start fresh with the next \book
-	block.  --pmccarty
+        Remove the "warning" definitions for missing stencil
+        expressions so that we start fresh with the next \book
+        block.  --pmccarty
       */
       SCM proc = ly_lily_module_constant ("remove-stencil-warnings");
       scm_call_1 (proc, output_module_);

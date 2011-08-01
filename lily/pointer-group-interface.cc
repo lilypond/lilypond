@@ -57,7 +57,7 @@ Pointer_group_interface::get_grob_array (Grob *me, SCM sym)
 }
 
 Grob *
-Pointer_group_interface::find_grob (Grob *me, SCM sym, bool (*pred) (Grob*))
+Pointer_group_interface::find_grob (Grob *me, SCM sym, bool (*pred) (Grob *))
 {
   Grob_array *arr = get_grob_array (me, sym);
 
@@ -83,28 +83,28 @@ Pointer_group_interface::add_unordered_grob (Grob *me, SCM sym, Grob *p)
   arr->set_ordered (false);
 }
 
-static vector<Grob*> empty_array;
+static vector<Grob *> empty_array;
 
-vector<Grob*> const &
+vector<Grob *> const &
 ly_scm2link_array (SCM x)
 {
   Grob_array *arr = unsmob_grob_array (x);
   return arr ? arr->array () : empty_array;
 }
 
-vector<Grob*> const &
+vector<Grob *> const &
 internal_extract_grob_array (Grob const *elt, SCM symbol)
 {
   return elt
-    ? ly_scm2link_array (elt->internal_get_object (symbol))
-    : empty_array;
+         ? ly_scm2link_array (elt->internal_get_object (symbol))
+         : empty_array;
 }
 
-vector<Item*>
+vector<Item *>
 internal_extract_item_array (Grob const *elt, SCM symbol)
 {
   Grob_array *arr = unsmob_grob_array (elt->internal_get_object (symbol));
-  vector<Item*> items;
+  vector<Item *> items;
   for (vsize i = 0; arr && i < arr->size (); i++)
     items.push_back (arr->item (i));
 

@@ -43,37 +43,36 @@ internal_ly_parse_scm (Parse_start *ps)
   scm_seek (port, scm_from_long (off), scm_from_long (SEEK_SET));
   SCM from = scm_ftell (port);
 
-  scm_set_port_line_x (port,  scm_from_int (ps->start_location_.line_number () -1));
-  scm_set_port_column_x (port,  scm_from_int (ps->start_location_.column_number () -1));
-  
+  scm_set_port_line_x (port, scm_from_int (ps->start_location_.line_number () - 1));
+  scm_set_port_column_x (port, scm_from_int (ps->start_location_.column_number () - 1));
+
   SCM answer = SCM_UNSPECIFIED;
   SCM form = scm_read (port);
 
   SCM to = scm_ftell (port);
   ps->nchars = scm_to_int (to) - scm_to_int (from);
-  
 
   /* Read expression from port.  */
   if (!SCM_EOF_OBJECT_P (form))
     {
       if (ps->safe_)
-	{
-	  static SCM module = SCM_BOOL_F;
-	  if (module == SCM_BOOL_F)
-	    {
-	      SCM function = ly_lily_module_constant ("make-safe-lilypond-module");
-	      module = scm_call_0 (function);
-	    }
-	  
-	  // We define the parser so trusted Scheme functions can
-	  // access the real namespace underlying the parser.
-	  if (ps->parser_)
-	    scm_module_define (module, ly_symbol2scm ("parser"),
-			       ps->parser_->self_scm());
-	  answer = scm_eval (form, module);
-	}
+        {
+          static SCM module = SCM_BOOL_F;
+          if (module == SCM_BOOL_F)
+            {
+              SCM function = ly_lily_module_constant ("make-safe-lilypond-module");
+              module = scm_call_0 (function);
+            }
+
+          // We define the parser so trusted Scheme functions can
+          // access the real namespace underlying the parser.
+          if (ps->parser_)
+            scm_module_define (module, ly_symbol2scm ("parser"),
+                               ps->parser_->self_scm ());
+          answer = scm_eval (form, module);
+        }
       else
-	answer = scm_primitive_eval (form);
+        answer = scm_primitive_eval (form);
     }
 
   /* Don't close the port here; if we re-enter this function via a
@@ -115,10 +114,10 @@ protected_ly_parse_scm (Parse_start *ps)
   /*
     Catch #t : catch all Scheme level errors.
    */
-  return scm_internal_catch (SCM_BOOL_T, 
-			     &catch_protected_parse_body,
-			     (void *) ps,
-			     &parse_handler, (void *) ps);
+  return scm_internal_catch (SCM_BOOL_T,
+                             &catch_protected_parse_body,
+                             (void *) ps,
+                             &parse_handler, (void *) ps);
 }
 
 bool parse_protect_global = true;
@@ -136,7 +135,7 @@ ly_parse_scm (char const *s, int *n, Input i, bool safe, Lily_parser *parser)
   ps.parser_ = parser;
 
   SCM ans = parse_protect_global ? protected_ly_parse_scm (&ps)
-    : internal_ly_parse_scm (&ps);
+            : internal_ly_parse_scm (&ps);
   *n = ps.nchars;
 
   return ans;

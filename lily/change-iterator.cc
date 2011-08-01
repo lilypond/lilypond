@@ -32,14 +32,14 @@ Change_iterator::error (string reason)
   string to_id = ly_scm2string (get_music ()->get_property ("change-to-id"));
 
   string warn1 = _f ("cannot change `%s' to `%s'", to_type, to_id)
-    + ": " + reason;
+                 + ": " + reason;
 
   /*
     GUHG!
   */
-  string warn2= "Change_iterator::process (): "
-    + get_outlet ()->context_name () + " = `"
-    + get_outlet ()->id_string () + "': ";
+  string warn2 = "Change_iterator::process (): "
+                 + get_outlet ()->context_name () + " = `"
+                 + get_outlet ()->id_string () + "': ";
   warning (warn2);
   get_music ()->origin ()->warning (warn1);
 }
@@ -75,31 +75,31 @@ Change_iterator::process (Moment m)
   if (current)
     if (last)
       {
-	Context *dest = 0;
-	Context *where = get_outlet ();
-	while (!dest && where)
-	  {
-	    dest = find_context_below (where, to_type, to_id);
-	    where = where->get_parent_context ();
-	  }
+        Context *dest = 0;
+        Context *where = get_outlet ();
+        while (!dest && where)
+          {
+            dest = find_context_below (where, to_type, to_id);
+            where = where->get_parent_context ();
+          }
 
-	if (dest)
-	  {
-	    send_stream_event (last, "ChangeParent", get_music ()->origin (),
-			       ly_symbol2scm ("context"), dest->self_scm ());
-	  }
-	else
-	  /* FIXME: constant error message.  */
-	  get_music ()->origin ()->warning (_ ("cannot find context to switch to"));
+        if (dest)
+          {
+            send_stream_event (last, "ChangeParent", get_music ()->origin (),
+                               ly_symbol2scm ("context"), dest->self_scm ());
+          }
+        else
+          /* FIXME: constant error message.  */
+          get_music ()->origin ()->warning (_ ("cannot find context to switch to"));
       }
     else
       {
-	/* We could change the current translator's id, but that would make
-	   errors hard to catch.
+        /* We could change the current translator's id, but that would make
+           errors hard to catch.
 
-	   last->translator_id_string () = get_change
-	   ()->change_to_id_string (); */
-	error (_f ("not changing to same context type: %s", ly_symbol2string (to_type).c_str ()));
+           last->translator_id_string () = get_change
+           ()->change_to_id_string (); */
+        error (_f ("not changing to same context type: %s", ly_symbol2string (to_type).c_str ()));
       }
   else
     /* FIXME: uncomprehensable message */

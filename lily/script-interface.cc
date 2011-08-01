@@ -40,9 +40,9 @@ Script_interface::get_stencil (Grob *me, Direction d)
     {
       SCM name_entry = scm_cdr (s);
       SCM str = ((scm_is_pair (name_entry)) ? index_get_cell (name_entry, d)
-		 : name_entry);
+                 : name_entry);
       return Font_interface::get_default_font (me)
-	->find_by_name ("scripts." + ly_scm2string (str));
+             ->find_by_name ("scripts." + ly_scm2string (str));
     }
   else
     assert (false);
@@ -59,7 +59,7 @@ Script_interface::calc_positioning_done (SCM smob)
     {
       Grob *stem = Note_column::get_stem (par);
       if (stem && Stem::first_head (stem))
-	me->set_parent (Stem::first_head (stem), X_AXIS);
+        me->set_parent (Stem::first_head (stem), X_AXIS);
     }
   return SCM_BOOL_T;
 }
@@ -111,7 +111,7 @@ Script_interface::calc_cross_staff (SCM smob)
   SCM avoid_slur = me->get_property ("avoid-slur");
   if (slur && to_boolean (slur->get_property ("cross-staff"))
       && (avoid_slur == ly_symbol2scm ("outside")
-	  || avoid_slur == ly_symbol2scm ("around")))
+          || avoid_slur == ly_symbol2scm ("around")))
     return SCM_BOOL_T;
 
   return SCM_BOOL_F;
@@ -135,31 +135,31 @@ struct Text_script
 };
 
 ADD_INTERFACE (Text_script,
-	       "An object that is put above or below a note.",
+               "An object that is put above or below a note.",
 
-	       /* properties */
-	       "add-stem-support "
-	       "avoid-slur "
-	       "script-priority "
-	       "slur "
-	       );
+               /* properties */
+               "add-stem-support "
+               "avoid-slur "
+               "script-priority "
+               "slur "
+              );
 
 /*
   Hmm. Where should we put add-stem-support ?
 */
 ADD_INTERFACE (Script_interface,
-	       "An object that is put above or below a note.",
+               "An object that is put above or below a note.",
 
-	       /* properties */
-	       "add-stem-support "
-	       "avoid-slur "
-	       "direction-source "
-	       "positioning-done "
-	       "script-priority "
-	       "script-stencil "
-	       "side-relative-direction "
-	       "slur "
-	       "slur-padding "
-	       "toward-stem-shift "
-	       );
+               /* properties */
+               "add-stem-support "
+               "avoid-slur "
+               "direction-source "
+               "positioning-done "
+               "script-priority "
+               "script-stencil "
+               "side-relative-direction "
+               "slur "
+               "slur-padding "
+               "toward-stem-shift "
+              );
 

@@ -34,15 +34,15 @@ class System : public Spanner
   int rank_;
   Grob_array *all_elements_;
   void init_elements ();
-  friend class Paper_score;	// ugh.
-  Paper_score *pscore_;	// ugh.
+  friend class Paper_score;     // ugh.
+  Paper_score *pscore_; // ugh.
   bool checked_footnotes_;
   vector<Grob *> footnote_grobs_; // TODO: make this a grob array
 
 public:
   Paper_score *paper_score () const;
   Grob *get_vertical_alignment ();
-  Grob *get_extremal_staff (Direction dir, Interval const&);
+  Grob *get_extremal_staff (Direction dir, Interval const &);
   Grob *get_pure_bound (Direction dir, int start, int end);
   Grob *get_maybe_pure_bound (Direction dir, bool pure, int start, int end);
   int get_rank () const;
@@ -69,10 +69,10 @@ public:
   int spanner_count () const;
 
   void break_into_pieces (vector<Column_x_positions> const &);
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 
-  vector<Item*> broken_col_range (Item const *, Item const *) const;
-  vector<Grob*> used_columns () const;
+  vector<Item *> broken_col_range (Item const *, Item const *) const;
+  vector<Grob *> used_columns () const;
   Paper_column *column (vsize i) const;
 
   void add_column (Paper_column *);

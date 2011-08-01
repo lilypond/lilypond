@@ -112,11 +112,11 @@ Cue_clef_engraver::create_octavate_eight (SCM oct)
       abs_oct = abs (abs_oct) + 1;
 
       SCM txt = scm_number_to_string (scm_from_int (abs_oct),
-				      scm_from_int (10));
+                                      scm_from_int (10));
 
       g->set_property ("text",
-		       scm_list_n (ly_lily_module_constant ("vcenter-markup"),
-				   txt, SCM_UNDEFINED));
+                       scm_list_n (ly_lily_module_constant ("vcenter-markup"),
+                                   txt, SCM_UNDEFINED));
       Side_position_interface::add_support (g, clef_);
 
       g->set_parent (clef_, Y_AXIS);
@@ -136,7 +136,7 @@ Cue_clef_engraver::create_clef ()
       clef_ = c;
       SCM cpos = get_property ("cueClefPosition");
       if (scm_is_number (cpos))
-	clef_->set_property ("staff-position", cpos);
+        clef_->set_property ("staff-position", cpos);
 
       create_octavate_eight (get_property ("cueClefOctavation"));
     }
@@ -150,7 +150,7 @@ Cue_clef_engraver::create_end_clef ()
       clef_ = make_item ("CueEndClef", SCM_EOL);
       SCM cpos = get_property ("clefPosition");
       if (scm_is_number (cpos))
-	clef_->set_property ("staff-position", cpos);
+        clef_->set_property ("staff-position", cpos);
 
       create_octavate_eight (get_property ("clefOctavation"));
     }
@@ -175,11 +175,11 @@ Cue_clef_engraver::inspect_clef_properties ()
     {
       set_glyph ();
       if (scm_is_string (glyph))
-	{
-	  create_clef ();
-	  if (clef_)
-	    clef_->set_property ("non-default", SCM_BOOL_T);
-	}
+        {
+          create_clef ();
+          if (clef_)
+            clef_->set_property ("non-default", SCM_BOOL_T);
+        }
       else
         create_end_clef ();
 
@@ -197,10 +197,10 @@ Cue_clef_engraver::stop_translation_timestep ()
     {
       SCM vis = 0;
       if (to_boolean (clef_->get_property ("non-default")))
-	vis = get_property ("explicitCueClefVisibility");
+        vis = get_property ("explicitCueClefVisibility");
 
       if (vis)
-	clef_->set_property ("break-visibility", vis);
+        clef_->set_property ("break-visibility", vis);
 
       clef_ = 0;
       octavate_ = 0;
@@ -209,22 +209,22 @@ Cue_clef_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Cue_clef_engraver, bar_line);
 ADD_TRANSLATOR (Cue_clef_engraver,
-		/* doc */
-		"Determine and set reference point for pitches in cued voices.",
+                /* doc */
+                "Determine and set reference point for pitches in cued voices.",
 
-		/* create */
-		"CueClef "
-		"CueEndClef "
-		"OctavateEight ",
+                /* create */
+                "CueClef "
+                "CueEndClef "
+                "OctavateEight ",
 
-		/* read */
-		"cueClefGlyph "
-		"cueClefOctavation "
-		"cueClefPosition "
-		"explicitCueClefVisibility "
-		"middleCCuePosition "
-		"clefOctavation ",
+                /* read */
+                "cueClefGlyph "
+                "cueClefOctavation "
+                "cueClefPosition "
+                "explicitCueClefVisibility "
+                "middleCCuePosition "
+                "clefOctavation ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

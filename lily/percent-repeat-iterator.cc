@@ -59,26 +59,26 @@ Percent_repeat_iterator::get_music_list () const
   else
     {
       slash_count
-	= scm_call_1 (ly_lily_module_constant ("calc-repeat-slash-count"),
-		      child->self_scm ());
+        = scm_call_1 (ly_lily_module_constant ("calc-repeat-slash-count"),
+                      child->self_scm ());
       event_type = "RepeatSlashEvent";
     }
 
   int repeats = scm_to_int (mus->get_property ("repeat-count"));
   for (int i = repeats; i > 1; i--)
-  {
-    Music *percent = make_music_by_name (ly_symbol2scm (event_type.c_str ()));
-    percent->set_spot (*mus->origin ());
-    percent->set_property ("length", length);
-    if (repeats > 1)
-      {
-	percent->set_property ("repeat-count", scm_from_int (i));
-	if (event_type == "RepeatSlashEvent")
-	  percent->set_property ("slash-count", slash_count);
-      }
+    {
+      Music *percent = make_music_by_name (ly_symbol2scm (event_type.c_str ()));
+      percent->set_spot (*mus->origin ());
+      percent->set_property ("length", length);
+      if (repeats > 1)
+        {
+          percent->set_property ("repeat-count", scm_from_int (i));
+          if (event_type == "RepeatSlashEvent")
+            percent->set_property ("slash-count", slash_count);
+        }
 
-    child_list = scm_cons (percent->unprotect (), child_list);
-  }
+      child_list = scm_cons (percent->unprotect (), child_list);
+    }
 
   child_list = scm_cons (child->self_scm (), child_list);
 

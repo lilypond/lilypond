@@ -27,7 +27,7 @@ class Skyline_pair
 private:
   Drul_array<Skyline> skylines_;
 
-  DECLARE_SIMPLE_SMOBS(Skyline_pair);
+  DECLARE_SIMPLE_SMOBS (Skyline_pair);
 public:
   Skyline_pair ();
   Skyline_pair (vector<Box> const &boxes, Real horizon_padding, Axis a);

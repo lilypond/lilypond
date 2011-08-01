@@ -54,15 +54,15 @@ Grace_engraver::consider_change_grace_settings ()
   if (last_moment_.grace_part_ && !now.grace_part_)
     {
       for (SCM s = grace_settings_; scm_is_pair (s); s = scm_cdr (s))
-	{
-	  SCM context = scm_caar (s);
-	  SCM entry = scm_cdar (s);
-	  SCM grob = scm_cadr (entry);
-	  SCM sym = scm_caddr (entry);
+        {
+          SCM context = scm_caar (s);
+          SCM entry = scm_cdar (s);
+          SCM grob = scm_cadr (entry);
+          SCM sym = scm_caddr (entry);
 
-	  execute_pushpop_property (unsmob_context (context),
-				    grob, sym, SCM_UNDEFINED);
-	}
+          execute_pushpop_property (unsmob_context (context),
+                                    grob, sym, SCM_UNDEFINED);
+        }
 
       grace_settings_ = SCM_EOL;
     }
@@ -72,28 +72,28 @@ Grace_engraver::consider_change_grace_settings ()
 
       grace_settings_ = SCM_EOL;
       for (SCM s = settings; scm_is_pair (s); s = scm_cdr (s))
-	{
-	  SCM entry = scm_car (s);
-	  SCM context_name = scm_car (entry);
-	  SCM grob = scm_cadr (entry);
-	  SCM sym = scm_caddr (entry);
-	  SCM val = scm_cadr (scm_cddr (entry));
+        {
+          SCM entry = scm_car (s);
+          SCM context_name = scm_car (entry);
+          SCM grob = scm_cadr (entry);
+          SCM sym = scm_caddr (entry);
+          SCM val = scm_cadr (scm_cddr (entry));
 
-	  Context *c = context ();
-	  while (c && !c->is_alias (context_name))
-	    c = c->get_parent_context ();
+          Context *c = context ();
+          while (c && !c->is_alias (context_name))
+            c = c->get_parent_context ();
 
-	  if (c)
-	    {
-	      execute_pushpop_property (c,
-					grob, sym, val);
-	      grace_settings_
-		= scm_cons (scm_cons (c->self_scm (), entry), grace_settings_);
-	    }
-	  else
-	      programming_error ("cannot find context from graceSettings: "
-				 + ly_symbol2string (context_name));
-	}
+          if (c)
+            {
+              execute_pushpop_property (c,
+                                        grob, sym, val);
+              grace_settings_
+                = scm_cons (scm_cons (c->self_scm (), entry), grace_settings_);
+            }
+          else
+            programming_error ("cannot find context from graceSettings: "
+                               + ly_symbol2string (context_name));
+        }
     }
 
   last_moment_ = now_mom ();
@@ -115,15 +115,15 @@ Grace_engraver::start_translation_timestep ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Grace_engraver,
-		/* doc */
-		"Set font size and other properties for grace notes.",
+                /* doc */
+                "Set font size and other properties for grace notes.",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"graceSettings ",
+                /* read */
+                "graceSettings ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

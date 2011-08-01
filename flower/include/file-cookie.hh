@@ -5,8 +5,7 @@ extern "C" {
 #include <unistd.h>
 
 #include <cstdio>
-using namespace std;
-
+  using namespace std;
 
 #if (! defined (__off64_t) && ! defined (__off64_t_defined)) || ! defined (__cplusplus)
 #define off64_t unsigned long long
@@ -21,11 +20,11 @@ using namespace std;
   } lily_cookie_io_functions_t;
 
   void *lily_fopencookie (void *cookie, char const *modes,
-			  lily_cookie_io_functions_t io_funcs);
+                          lily_cookie_io_functions_t io_funcs);
 
   int lily_cookie_fclose (void *);
   int lily_cookie_fprintf (void *file, char const *format, ...)
-    __attribute__ ((format (printf, 2, 3)));
+  __attribute__ ((format (printf, 2, 3)));
   int lily_cookie_putc (int c, void *file);
 
 #ifdef __cplusplus

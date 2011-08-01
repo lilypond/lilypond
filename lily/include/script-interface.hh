@@ -34,15 +34,15 @@ public:
   static Stencil get_stencil (Grob *, Direction d);
   static Direction get_direction (Grob *);
 
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
 };
 
-void make_script_from_event (Grob *p,  Context *tg,
-			     SCM type, int index);
+void make_script_from_event (Grob *p, Context *tg,
+                             SCM type, int index);
 
 #endif /* SCRIPT_INTERFACE_HH */
 

@@ -81,7 +81,7 @@ Staff_symbol_referencer::get_position (Grob *me)
   if (st && c)
     {
       Real y = me->relative_coordinate (c, Y_AXIS)
-	       - st->relative_coordinate (c, Y_AXIS);
+               - st->relative_coordinate (c, Y_AXIS);
       Real space = Staff_symbol::staff_space (st);
       p = (space == 0) ? 0 : 2.0 * y / space;
       return p;
@@ -90,7 +90,6 @@ Staff_symbol_referencer::get_position (Grob *me)
     return me->relative_coordinate (me->get_parent (Y_AXIS), Y_AXIS) * 2;
   return robust_scm2double (me->get_property ("staff-position"), p);
 }
-
 
 Interval
 Staff_symbol_referencer::extent_in_staff (Grob *me)
@@ -101,8 +100,8 @@ Staff_symbol_referencer::extent_in_staff (Grob *me)
   Interval retval;
   if (st && c)
     {
-      retval  = me->extent (c, Y_AXIS)
-	- st->relative_coordinate (c, Y_AXIS);
+      retval = me->extent (c, Y_AXIS)
+               - st->relative_coordinate (c, Y_AXIS);
     }
 
   return retval;
@@ -154,7 +153,7 @@ Staff_symbol_referencer::set_position (Grob *me, Real p)
     }
 
   Real ss = Staff_symbol_referencer::staff_space (me);
-  me->translate_axis ((p  - oldpos) * ss * 0.5, Y_AXIS);
+  me->translate_axis ((p - oldpos) * ss * 0.5, Y_AXIS);
 }
 
 /* Half of the height, in staff space, i.e. 2.0 for a normal staff. */
@@ -168,22 +167,22 @@ int
 compare_position (Grob *const &a, Grob *const &b)
 {
   return sign (Staff_symbol_referencer::get_position ((Grob *)a)
-	       - Staff_symbol_referencer::get_position ((Grob *) b));
+               - Staff_symbol_referencer::get_position ((Grob *) b));
 }
 
 bool
 position_less (Grob *const &a, Grob *const &b)
 {
   return Staff_symbol_referencer::get_position (a)
-    < Staff_symbol_referencer::get_position (b);
+         < Staff_symbol_referencer::get_position (b);
 }
 
 ADD_INTERFACE (Staff_symbol_referencer,
-	       "An object whose Y@tie{}position is meant relative to a staff"
-	       " symbol.  These usually"
-	       " have @code{Staff_symbol_referencer::callback} in their"
-	       " @code{Y-offset-callbacks}.",
+               "An object whose Y@tie{}position is meant relative to a staff"
+               " symbol.  These usually"
+               " have @code{Staff_symbol_referencer::callback} in their"
+               " @code{Y-offset-callbacks}.",
 
-	       /* properties */
-	       "staff-position "
-	       );
+               /* properties */
+               "staff-position "
+              );

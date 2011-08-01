@@ -85,12 +85,12 @@ void
 Mark_engraver::stop_translation_timestep ()
 {
   if (text_)
-  {
-    text_->set_object ("side-support-elements",
-		       grob_list_to_grob_array (get_property ("stavesFound")));
-    final_text_ = text_;
-    text_ = 0;
-  }
+    {
+      text_->set_object ("side-support-elements",
+                         grob_list_to_grob_array (get_property ("stavesFound")));
+      final_text_ = text_;
+      text_ = 0;
+    }
   mark_ev_ = 0;
 }
 
@@ -99,7 +99,7 @@ Mark_engraver::finalize ()
 {
   if (final_text_)
     final_text_->set_property ("break-visibility",
-			       scm_c_make_vector (3, SCM_BOOL_T));
+                               scm_c_make_vector (3, SCM_BOOL_T));
   final_text_ = 0;
 }
 
@@ -130,58 +130,58 @@ Mark_engraver::process_music ()
       create_items (mark_ev_);
 
       /*
-	automatic marks.
+        automatic marks.
       */
 
       SCM m = mark_ev_->get_property ("label");
       SCM proc = get_property ("markFormatter");
       if (!Text_interface::is_markup (m)
-	  && ly_is_procedure (proc))
-	{
-	  if (!scm_is_number (m))
-	    m = get_property ("rehearsalMark");
+          && ly_is_procedure (proc))
+        {
+          if (!scm_is_number (m))
+            m = get_property ("rehearsalMark");
 
-	  if (scm_integer_p (m) == SCM_BOOL_T
-	      && scm_exact_p (m) == SCM_BOOL_T)
-	    {
-	      int mark_count = scm_to_int (m);
-	      mark_count++;
-	      context ()->set_property ("rehearsalMark",
-					scm_from_int (mark_count));
-	    }
+          if (scm_integer_p (m) == SCM_BOOL_T
+              && scm_exact_p (m) == SCM_BOOL_T)
+            {
+              int mark_count = scm_to_int (m);
+              mark_count++;
+              context ()->set_property ("rehearsalMark",
+                                        scm_from_int (mark_count));
+            }
 
-	  if (scm_is_number (m))
-	    m = scm_call_2 (proc, m, context ()->self_scm ());
-	  else
-	    /* FIXME: constant error message.  */
-	    warning (_ ("rehearsalMark must have integer value"));
-	}
+          if (scm_is_number (m))
+            m = scm_call_2 (proc, m, context ()->self_scm ());
+          else
+            /* FIXME: constant error message.  */
+            warning (_ ("rehearsalMark must have integer value"));
+        }
 
       if (Text_interface::is_markup (m))
-	text_->set_property ("text", m);
+        text_->set_property ("text", m);
       else
-	warning (_ ("mark label must be a markup object"));
+        warning (_ ("mark label must be a markup object"));
     }
 }
 
 ADD_ACKNOWLEDGER (Mark_engraver, break_alignment);
 
 ADD_TRANSLATOR (Mark_engraver,
-		/* doc */
-		"Create @code{RehearsalMark} objects.  It puts them on top of"
-		" all staves (which is taken from the property"
-		" @code{stavesFound}).  If moving this engraver to a different"
-		" context, @ref{Staff_collecting_engraver} must move along,"
-		" otherwise all marks end up on the same Y@tie{}location.",
-		
-		/* create */
-		"RehearsalMark ",
+                /* doc */
+                "Create @code{RehearsalMark} objects.  It puts them on top of"
+                " all staves (which is taken from the property"
+                " @code{stavesFound}).  If moving this engraver to a different"
+                " context, @ref{Staff_collecting_engraver} must move along,"
+                " otherwise all marks end up on the same Y@tie{}location.",
 
-		/* read */
-		"markFormatter "
-		"rehearsalMark "
-		"stavesFound ",
-		
-		/* write */
-		""
-		);
+                /* create */
+                "RehearsalMark ",
+
+                /* read */
+                "markFormatter "
+                "rehearsalMark "
+                "stavesFound ",
+
+                /* write */
+                ""
+               );

@@ -26,7 +26,6 @@
 
 #include "ly-smobs.icc"
 
-
 Pitch::Pitch (int o, int n, Rational a)
 {
   notename_ = n;
@@ -138,9 +137,9 @@ pitch_interval (Pitch const &from, Pitch const &to)
 {
   Rational sound = to.tone_pitch () - from.tone_pitch ();
   Pitch pt (to.get_octave () - from.get_octave (),
-	    to.get_notename () - from.get_notename (),
+            to.get_notename () - from.get_notename (),
 
-	    to.get_alteration () - from.get_alteration ());
+            to.get_alteration () - from.get_alteration ());
 
   return pt.transposed (Pitch (0, 0, sound - pt.tone_pitch ()));
 }
@@ -148,14 +147,15 @@ pitch_interval (Pitch const &from, Pitch const &to)
 /* FIXME
    Merge with *pitch->text* funcs in chord-name.scm  */
 char const *accname[] = {"eses", "eseh", "es", "eh", "",
-			 "ih", "is", "isih", "isis"};
+                         "ih", "is", "isih", "isis"
+                        };
 
 string
 Pitch::to_string () const
 {
   int n = (notename_ + 2) % scale_->step_count ();
   string s = ::to_string (char (n + 'a'));
-  Rational qtones = alteration_ * Rational (4,1);
+  Rational qtones = alteration_ * Rational (4, 1);
   int qt = int (rint (Real (qtones)));
 
   s += string (accname[qt + 4]);
@@ -163,13 +163,13 @@ Pitch::to_string () const
     {
       int o = octave_ + 1;
       while (o--)
-	s += "'";
+        s += "'";
     }
   else if (octave_ < 0)
     {
       int o = (-octave_) - 1;
       while (o--)
-	s += ::to_string (',');
+        s += ::to_string (',');
     }
 
   return s;
@@ -222,7 +222,7 @@ IMPLEMENT_TYPE_P (Pitch, "ly:pitch?");
 SCM
 Pitch::mark_smob (SCM x)
 {
-  Pitch *p = (Pitch*) SCM_CELL_WORD_1 (x);
+  Pitch *p = (Pitch *) SCM_CELL_WORD_1 (x);
   return p->scale_->self_scm ();
 }
 
@@ -244,8 +244,8 @@ Pitch::equal_p (SCM a, SCM b)
   Pitch *q = (Pitch *) SCM_CELL_WORD_1 (b);
 
   bool eq = p->notename_ == q->notename_
-    && p->octave_ == q->octave_
-    && p->alteration_ == q->alteration_;
+            && p->octave_ == q->octave_
+            && p->alteration_ == q->alteration_;
 
   return eq ? SCM_BOOL_T : SCM_BOOL_F;
 }

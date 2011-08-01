@@ -32,15 +32,15 @@ Staff_grouper_interface::maybe_pure_within_group (Grob *me, Grob *child, bool pu
 {
   extract_grob_set (me, "elements", elts);
 
-  vector<Grob*>::const_iterator i = find (elts, child);
+  vector<Grob *>::const_iterator i = find (elts, child);
 
   if (i == elts.end ())
     return false;
 
   for (++i; i != elts.end (); ++i)
     if (Page_layout_problem::is_spaceable (*i)
-	&& ((pure && !Hara_kiri_group_spanner::request_suicide (*i, start, end))
-	    || (!pure && (*i)->is_live ())))
+        && ((pure && !Hara_kiri_group_spanner::request_suicide (*i, start, end))
+            || (!pure && (*i)->is_live ())))
       return me == unsmob_grob ((*i)->get_object ("staff-grouper"));
 
   // If there was no spaceable, living child after me, I don't
@@ -49,10 +49,10 @@ Staff_grouper_interface::maybe_pure_within_group (Grob *me, Grob *child, bool pu
 }
 
 ADD_INTERFACE (Staff_grouper_interface,
-	       "A grob that collects staves together.",
+               "A grob that collects staves together.",
 
-	       /* properties */
-	       "staff-staff-spacing "
-	       "staffgroup-staff-spacing "
-	       );
+               /* properties */
+               "staff-staff-spacing "
+               "staffgroup-staff-spacing "
+              );
 

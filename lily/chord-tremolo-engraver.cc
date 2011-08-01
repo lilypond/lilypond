@@ -2,7 +2,7 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2000--2011 Han-Wen Nienhuys <hanwen@xs4all.nl>
-  		 Erik Sandberg <mandolaerik@gmail.com>
+                 Erik Sandberg <mandolaerik@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -142,17 +142,16 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
       if (Stem::duration_log (s) != 1)
         beam_->set_property ("gap-count", scm_from_int (gap_count));
 
-
       if (info.ultimate_event_cause ()->in_event_class ("rhythmic-event"))
-	Beam::add_stem (beam_, s);
+        Beam::add_stem (beam_, s);
       else
-	{
-	  string s = _ ("stem must have Rhythmic structure");
-	  if (info.event_cause ())
-	    info.event_cause ()->origin ()->warning (s);
-	  else
-	    ::warning (s);
-	}
+        {
+          string s = _ ("stem must have Rhythmic structure");
+          if (info.event_cause ())
+            info.event_cause ()->origin ()->warning (s);
+          else
+            ::warning (s);
+        }
       // Store current grob, so we can possibly end the spanner here (and
       // reset the beam direction to RIGHT)
       previous_stem_ = s;
@@ -161,15 +160,15 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
 
 ADD_ACKNOWLEDGER (Chord_tremolo_engraver, stem);
 ADD_TRANSLATOR (Chord_tremolo_engraver,
-		/* doc */
-		"Generate beams for tremolo repeats.",
+                /* doc */
+                "Generate beams for tremolo repeats.",
 
-		/* create */
-		"Beam ",
+                /* create */
+                "Beam ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

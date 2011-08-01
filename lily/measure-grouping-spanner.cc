@@ -36,10 +36,10 @@ Measure_grouping::print (SCM grob)
 
   Real t = Staff_symbol_referencer::line_thickness (me) * robust_scm2double (me->get_property ("thickness"), 1);
   Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT),
-							X_AXIS);
+                                                        X_AXIS);
 
   Real right_point = robust_relative_extent (me->get_bound (RIGHT),
-					     common, X_AXIS).linear_combination (CENTER);
+                                             common, X_AXIS).linear_combination (CENTER);
   Real left_point = me->get_bound (LEFT)->relative_coordinate (common, X_AXIS);
 
   Interval iv (left_point, right_point);
@@ -59,12 +59,12 @@ Measure_grouping::print (SCM grob)
 }
 
 ADD_INTERFACE (Measure_grouping,
-	       "This object indicates groups of beats.  Valid choices for"
-	       " @code{style} are @code{bracket} and @code{triangle}.",
+               "This object indicates groups of beats.  Valid choices for"
+               " @code{style} are @code{bracket} and @code{triangle}.",
 
-	       /* properties */
-	       "thickness "
-	       "style "
-	       "height "
-	       );
+               /* properties */
+               "thickness "
+               "style "
+               "height "
+              );
 

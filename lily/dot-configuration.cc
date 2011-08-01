@@ -22,7 +22,6 @@
 #include "dot-formatting-problem.hh"
 #include "staff-symbol-referencer.hh"
 
-
 int
 Dot_configuration::badness () const
 {
@@ -35,15 +34,15 @@ Dot_configuration::badness () const
 
       int dot_move_dir = sign (p - i->second.pos_);
       if (i->second.extremal_head_)
-	{
-	  if (i->second.dir_
-	      && dot_move_dir != i->second.dir_)
-	    demerit += 3;
-	  else if (dot_move_dir != UP)
-	    demerit += 2;
-	}
+        {
+          if (i->second.dir_
+              && dot_move_dir != i->second.dir_)
+            demerit += 3;
+          else if (dot_move_dir != UP)
+            demerit += 2;
+        }
       else if (dot_move_dir != UP)
-	demerit += 1;
+        demerit += 1;
 
       t += demerit;
     }
@@ -77,55 +76,55 @@ Dot_configuration::shifted (int k, Direction d) const
   if (d > 0)
     {
       for (Dot_configuration::const_iterator i (begin ());
-	   i != end (); i++)
-	{
-	  int p = i->first;
-	  if (p == k)
-	    {
-	      if (Staff_symbol_referencer::on_line (i->second.dot_, p))
-		p += d;
-	      else
-		p += 2* d;
+           i != end (); i++)
+        {
+          int p = i->first;
+          if (p == k)
+            {
+              if (Staff_symbol_referencer::on_line (i->second.dot_, p))
+                p += d;
+              else
+                p += 2 * d;
 
-	      offset = 2*d;
+              offset = 2 * d;
 
-	      new_cfg[p] = i->second;
-	    }
-	  else
-	    {
-	      if (new_cfg.find (p) == new_cfg.end ())
-		offset = 0;
-	      new_cfg[p + offset] = i->second;
-	    }
-	}
+              new_cfg[p] = i->second;
+            }
+          else
+            {
+              if (new_cfg.find (p) == new_cfg.end ())
+                offset = 0;
+              new_cfg[p + offset] = i->second;
+            }
+        }
     }
   else
     {
       Dot_configuration::const_iterator i (end ());
       do
-	{
-	  i--;
+        {
+          i--;
 
-	  int p = i->first;
-	  if (p == k)
-	    {
-	      if (Staff_symbol_referencer::on_line (i->second.dot_, p))
-		p += d;
-	      else
-		p += 2* d;
+          int p = i->first;
+          if (p == k)
+            {
+              if (Staff_symbol_referencer::on_line (i->second.dot_, p))
+                p += d;
+              else
+                p += 2 * d;
 
-	      offset = 2*d;
+              offset = 2 * d;
 
-	      new_cfg[p] = i->second;
-	    }
-	  else
-	    {
-	      if (new_cfg.find (p) == new_cfg.end ())
-		offset = 0;
+              new_cfg[p] = i->second;
+            }
+          else
+            {
+              if (new_cfg.find (p) == new_cfg.end ())
+                offset = 0;
 
-	      new_cfg[p + offset] = i->second;
-	    }
-	}
+              new_cfg[p + offset] = i->second;
+            }
+        }
       while (i != begin ());
     }
 

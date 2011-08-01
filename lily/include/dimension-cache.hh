@@ -32,9 +32,9 @@ class Dimension_cache
   Grob *parent_;
   void init ();
   void clear ();
-  
+
   friend class Grob;
-  
+
   Dimension_cache (Dimension_cache const &);
   ~Dimension_cache ();
   Dimension_cache ();

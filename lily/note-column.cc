@@ -19,7 +19,7 @@
 
 #include "note-column.hh"
 
-#include <cmath>		// ceil
+#include <cmath>                // ceil
 using namespace std;
 
 #include "accidental-placement.hh"
@@ -92,7 +92,7 @@ Note_column::dir (Grob *me)
     {
       extract_grob_set (me, "note-heads", heads);
       if (heads.size ())
-	return (Direction)sign (head_positions_interval (me).center ());
+        return (Direction)sign (head_positions_interval (me).center ());
     }
 
   programming_error ("note column without heads and stem");
@@ -120,14 +120,14 @@ Note_column::add_head (Grob *me, Grob *h)
     {
       extract_grob_set (me, "note-heads", heads);
       if (heads.size ())
-	both = true;
+        both = true;
       else
-	me->set_object ("rest", h->self_scm ());
+        me->set_object ("rest", h->self_scm ());
     }
   else if (Note_head::has_interface (h))
     {
       if (unsmob_grob (me->get_object ("rest")))
-	both = true;
+        both = true;
       Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-heads"), h);
     }
 
@@ -157,7 +157,7 @@ Note_column::accidentals (Grob *me)
       Grob *h = heads[i];
       acc = h ? unsmob_grob (h->get_object ("accidental-grob")) : 0;
       if (acc)
-	break;
+        break;
     }
 
   if (!acc)
@@ -178,7 +178,7 @@ Note_column::dot_column (Grob *me)
     {
       Grob *dots = unsmob_grob (heads[i]->get_object ("dot"));
       if (dots)
-	return dots->get_parent (X_AXIS);
+        return dots->get_parent (X_AXIS);
     }
 
   return 0;
@@ -205,15 +205,15 @@ Note_column::cross_staff_extent (Grob *me, Grob *refp)
 }
 
 ADD_INTERFACE (Note_column,
-	       "Stem and noteheads combined.",
+               "Stem and noteheads combined.",
 
-	       /* properties */
-	       "arpeggio "
-	       "force-hshift "
-	       "horizontal-shift "
-	       "ignore-collision "
-	       "note-heads "
-	       "rest "
-	       "rest-collision "
-	       "stem "
-	       );
+               /* properties */
+               "arpeggio "
+               "force-hshift "
+               "horizontal-shift "
+               "ignore-collision "
+               "note-heads "
+               "rest "
+               "rest-collision "
+               "stem "
+              );

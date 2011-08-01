@@ -61,15 +61,15 @@ Font_interface::text_font_alist_chain (Grob *g)
 }
 
 ADD_INTERFACE (Font_interface,
-	       "Any symbol that is typeset through fixed sets of glyphs,"
-	       " (i.e., fonts).",
+               "Any symbol that is typeset through fixed sets of glyphs,"
+               " (i.e., fonts).",
 
-	       /* properties */
-	       "font "
-	       "font-encoding "
-	       "font-family "
-	       "font-name "
-	       "font-series "
-	       "font-shape "
-	       "font-size "
-	       );
+               /* properties */
+               "font "
+               "font-encoding "
+               "font-family "
+               "font-name "
+               "font-series "
+               "font-shape "
+               "font-size "
+              );

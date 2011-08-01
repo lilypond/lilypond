@@ -44,8 +44,8 @@ struct Axis_group_interface
   DECLARE_SCHEME_CALLBACK (calc_pure_relevant_items, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_relevant_spanners, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_y_common, (SCM));
-  static Interval relative_group_extent (vector<Grob*> const &list,
-					 Grob *common, Axis);
+  static Interval relative_group_extent (vector<Grob *> const &list,
+                                         Grob *common, Axis);
   static Interval relative_pure_height (Grob *me, int start, int end);
   static Interval combine_pure_heights (Grob *me, SCM, int, int);
   static Interval sum_partial_pure_heights (Grob *me, int, int);
@@ -54,16 +54,16 @@ struct Axis_group_interface
   static Interval part_of_line_pure_height (Grob *me, bool begin, int, int);
 
   static bool has_outside_staff_parent (Grob *me);
-  static Skyline_pair skyline_spacing (Grob *me, vector<Grob*> elements);
+  static Skyline_pair skyline_spacing (Grob *me, vector<Grob *> elements);
   static void add_element (Grob *me, Grob *);
   static void set_axes (Grob *, Axis, Axis);
   static bool has_axis (Grob *, Axis);
-  static void get_children (Grob *, vector<Grob*> *);
+  static void get_children (Grob *, vector<Grob *> *);
   static Interval staff_extent (Grob *me, Grob *ref, Axis, Grob *staff, Axis);
   static SCM calc_common (Grob *, Axis);
-  static Real minimum_distance (Grob*, Grob*, Axis);
-  static SCM calc_maybe_pure_staff_staff_spacing (Grob*, bool, int, int);
-  DECLARE_GROB_INTERFACE();
+  static Real minimum_distance (Grob *, Grob *, Axis);
+  static SCM calc_maybe_pure_staff_staff_spacing (Grob *, bool, int, int);
+  DECLARE_GROB_INTERFACE ();
 };
 
 #endif /* AXIS_GROUP_INTERFACE_HH */

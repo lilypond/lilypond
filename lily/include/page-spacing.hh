@@ -43,7 +43,6 @@
 const Real BAD_SPACING_PENALTY = 1e6;
 const Real TERRIBLE_SPACING_PENALTY = 1e8;
 
-
 /* for page_count > 2, we use a dynamic algorithm similar to
    constrained-breaking -- we have a class that stores the intermediate
    calculations so they can be reused for querying different page counts.
@@ -51,7 +50,7 @@ const Real TERRIBLE_SPACING_PENALTY = 1e8;
 class Page_spacer
 {
 public:
-  Page_spacer (vector<Line_details> const &lines, vsize first_page_num, Page_breaking const*);
+  Page_spacer (vector<Line_details> const &lines, vsize first_page_num, Page_breaking const *);
   Page_spacing_result solve (vsize page_count);
   Page_spacing_result solve ();
 

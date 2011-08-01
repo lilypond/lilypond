@@ -60,7 +60,7 @@ strnupr (char *start, int n)
 
 unsigned char *
 _memmem (unsigned char const *haystack, int haystack_len,
-	 unsigned char const *needle, int needle_len)
+         unsigned char const *needle, int needle_len)
 {
   unsigned char const *end_haystack = haystack + haystack_len - needle_len + 1;
   unsigned char const *end_needle = needle + needle_len;
@@ -72,12 +72,12 @@ _memmem (unsigned char const *haystack, int haystack_len,
       unsigned char const *subneedle = needle;
       unsigned char const *subhaystack = haystack;
       while (subneedle < end_needle)
-	if (*subneedle++ != *subhaystack++)
-	  goto next;
+        if (*subneedle++ != *subhaystack++)
+          goto next;
 
       /* Completed the needle.  Gotcha.  */
       return (unsigned char *) haystack;
-    next:
+next:
       haystack++;
     }
   return 0;
@@ -85,7 +85,7 @@ _memmem (unsigned char const *haystack, int haystack_len,
 
 void *
 memmem (void const *haystack, int haystack_len,
-	void const *needle, int needle_len)
+        void const *needle, int needle_len)
 {
   unsigned char const *haystack_byte_c = (unsigned char const *)haystack;
   unsigned char const *needle_byte_c = (unsigned char const *)needle;
@@ -101,7 +101,7 @@ memrchr (unsigned char const *p, int n, char c)
   while (q > p)
     {
       if (*--q == c)
-	return (unsigned char *)q;
+        return (unsigned char *)q;
     }
   return 0;
 }
@@ -133,17 +133,17 @@ memrev (unsigned char *byte, int length)
 double
 my_round (double x)
 {
-  return floor (x -0.5)+ 1.0;
+  return floor (x - 0.5) + 1.0;
 }
 
 /* namespace std { */
-  
+
 #ifndef isinf
 #if !HAVE_ISINF
 int
 isinf (double x)
 {
-  return x && (x == x/ 2);
+  return x && (x == x / 2);
 }
 #endif
 #endif

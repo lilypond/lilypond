@@ -28,14 +28,14 @@ void
 Page_spacing::calc_force ()
 {
   Real height = page_height_
-    - breaker_->min_whitespace_at_top_of_page (first_line_)
-    - breaker_->min_whitespace_at_bottom_of_page (last_line_);
+                - breaker_->min_whitespace_at_top_of_page (first_line_)
+                - breaker_->min_whitespace_at_bottom_of_page (last_line_);
 
   if (rod_height_ + last_line_.bottom_padding_ >= height)
     force_ = -infinity_f;
   else
     force_ = (height - rod_height_ - last_line_.bottom_padding_ - spring_len_)
-      / max (0.1, inverse_spring_k_);
+             / max (0.1, inverse_spring_k_);
 }
 
 void
@@ -87,9 +87,9 @@ Page_spacing::account_for_footnotes (Line_details const &line)
     }
 
   return (footnote_height
-         - (has_footnotes_
-           ? breaker_->footnote_padding () + breaker_->footnote_footer_padding ()
-           : 0.0));
+          - (has_footnotes_
+             ? breaker_->footnote_padding () + breaker_->footnote_footer_padding ()
+             : 0.0));
 }
 
 void
@@ -102,7 +102,7 @@ Page_spacing::prepend_system (const Line_details &line)
 
   rod_height_ -= first_line_.full_height ();
   rod_height_ += first_line_.tallness_;
-  rod_height_ += line.full_height();
+  rod_height_ += line.full_height ();
   rod_height_ += account_for_footnotes (line);
   inverse_spring_k_ += line.inverse_hooke_;
 
@@ -118,7 +118,6 @@ Page_spacing::clear ()
   inverse_spring_k_ = 0;
   has_footnotes_ = false;
 }
-
 
 Page_spacer::Page_spacer (vector<Line_details> const &lines, vsize first_page_num, Page_breaking const *breaker)
   : lines_ (lines)
@@ -137,18 +136,18 @@ Page_spacer::solve ()
     {
       simple_state_.resize (lines_.size ());
       for (vsize i = 0; i < lines_.size (); ++i)
-	calc_subproblem (VPOS, i);
+        calc_subproblem (VPOS, i);
     }
 
   Page_spacing_result ret;
   ret.penalty_ = simple_state_.back ().penalty_
-    + lines_.back ().page_penalty_ + lines_.back ().turn_penalty_;
+                 + lines_.back ().page_penalty_ + lines_.back ().turn_penalty_;
   ret.system_count_status_ = simple_state_.back ().system_count_status_;
 
   vsize system = lines_.size () - 1;
   while (system != VPOS)
     {
-      Page_spacing_node const& cur = simple_state_[system];
+      Page_spacing_node const &cur = simple_state_[system];
       vsize system_count = (cur.prev_ == VPOS) ? system + 1 : system - cur.prev_;
 
       ret.force_.push_back (cur.force_);
@@ -174,45 +173,45 @@ Page_spacer::solve (vsize page_count)
   vsize extra_systems = 0;
   vsize extra_pages = 0;
 
-  if (isinf (state_.at (system, page_count-1).demerits_))
+  if (isinf (state_.at (system, page_count - 1).demerits_))
     {
       programming_error ("tried to space systems on a bad number of pages");
       /* Usually, this means that we tried to cram too many systems into
-	 to few pages. To avoid crashing, we look for the largest number of
-	 systems that we can fit properly onto the right number of pages.
-	 All the systems that don't fit get tacked onto the last page.
+         to few pages. To avoid crashing, we look for the largest number of
+         systems that we can fit properly onto the right number of pages.
+         All the systems that don't fit get tacked onto the last page.
       */
       vsize i;
-      for (i = system; isinf (state_.at (i, page_count-1).demerits_) && i; i--)
-	;
+      for (i = system; isinf (state_.at (i, page_count - 1).demerits_) && i; i--)
+        ;
 
       if (i)
-	{
-	  extra_systems = system - i;
-	  system = i;
-	}
+        {
+          extra_systems = system - i;
+          system = i;
+        }
       else
-	{
-	  /* try chopping off pages from the end */
-	  vsize j;
-	  for (j = page_count; j && isinf (state_.at (system, j-1).demerits_); j--)
-	    ;
+        {
+          /* try chopping off pages from the end */
+          vsize j;
+          for (j = page_count; j && isinf (state_.at (system, j - 1).demerits_); j--)
+            ;
 
-	  if (j)
-	    {
-	      extra_pages = page_count - j;
-	      page_count = j;
-	    }
-	  else
-	    return Page_spacing_result (); /* couldn't salvage it -- probably going to crash */
-	}
+          if (j)
+            {
+              extra_pages = page_count - j;
+              page_count = j;
+            }
+          else
+            return Page_spacing_result (); /* couldn't salvage it -- probably going to crash */
+        }
     }
 
   ret.force_.resize (page_count);
   ret.systems_per_page_.resize (page_count);
-  ret.system_count_status_ = state_.at (system, page_count-1).system_count_status_;
-  ret.penalty_ = state_.at (system, page_count-1).penalty_
-    + lines_.back ().page_penalty_ + lines_.back ().turn_penalty_;
+  ret.system_count_status_ = state_.at (system, page_count - 1).system_count_status_;
+  ret.penalty_ = state_.at (system, page_count - 1).penalty_
+                 + lines_.back ().page_penalty_ + lines_.back ().turn_penalty_;
 
   ret.demerits_ = 0;
   for (vsize p = page_count; p--;)
@@ -223,9 +222,9 @@ Page_spacer::solve (vsize page_count)
       ret.force_[p] = ps.force_;
       ret.demerits_ += ps.force_ * ps.force_;
       if (p == 0)
-	ret.systems_per_page_[p] = system + 1;
+        ret.systems_per_page_[p] = system + 1;
       else
-	ret.systems_per_page_[p] = system - ps.prev_;
+        ret.systems_per_page_[p] = system - ps.prev_;
       system = ps.prev_;
     }
 
@@ -255,7 +254,7 @@ Page_spacer::resize (vsize page_count)
   for (vsize page = max_page_count_; page < page_count; page++)
     for (vsize line = page; line < lines_.size (); line++)
       if (!calc_subproblem (page, line))
-	break;
+        break;
 
   max_page_count_ = page_count;
 }
@@ -287,92 +286,92 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
   vsize page_num = page == VPOS ? 0 : page;
   Real paper_height = breaker_->paper_height ();
   Page_spacing space (breaker_->page_height (page_num + first_page_num_, last),
-		      breaker_);
+                      breaker_);
   Page_spacing_node &cur = page == VPOS ? simple_state_[line] : state_.at (line, page);
   bool ragged = ragged_ || (ragged_last_ && last);
   int line_count = 0;
 
-  for (vsize page_start = line+1; page_start > page_num && page_start--;)
+  for (vsize page_start = line + 1; page_start > page_num && page_start--;)
     {
       Page_spacing_node const *prev = 0;
 
       if (page == VPOS)
-	{
-	  if (page_start > 0)
-	    {
-	      prev = &simple_state_[page_start-1];
-	      space.resize (breaker_->page_height (prev->page_ + 1, last));
-	    }
-	  else
-	    space.resize (breaker_->page_height (first_page_num_, last));
-	}
+        {
+          if (page_start > 0)
+            {
+              prev = &simple_state_[page_start - 1];
+              space.resize (breaker_->page_height (prev->page_ + 1, last));
+            }
+          else
+            space.resize (breaker_->page_height (first_page_num_, last));
+        }
       else if (page > 0)
-	prev = &state_.at (page_start-1, page-1);
+        prev = &state_.at (page_start - 1, page - 1);
 
       space.prepend_system (lines_[page_start]);
 
       bool overfull = (space.rod_height_ > paper_height
-		       || (ragged
-			   && (space.rod_height_ + space.spring_len_ > paper_height)));
+                       || (ragged
+                           && (space.rod_height_ + space.spring_len_ > paper_height)));
       // This 'if' statement is a little hard to parse. It won't consider this configuration
       // if it is overfull unless the current configuration is the first one with this start
       // point. We also make an exception (and consider this configuration) if the previous
       // configuration we tried had fewer lines than min-systems-per-page.
       if (!breaker_->too_few_lines (line_count)
-	  && page_start < line
-	  && overfull)
-	break;
+          && page_start < line
+          && overfull)
+        break;
 
       line_count += lines_[page_start].compressed_nontitle_lines_count_;
       if (page > 0 || page_start == 0)
-	{
-	  // If the last page is ragged, set its force to zero. This way, we will leave
-	  // the last page half-empty rather than trying to balance things out
-	  // (which only makes sense in non-ragged situations).
-	  if (line == lines_.size () - 1 && ragged && last && space.force_ > 0)
-	    space.force_ = 0;
+        {
+          // If the last page is ragged, set its force to zero. This way, we will leave
+          // the last page half-empty rather than trying to balance things out
+          // (which only makes sense in non-ragged situations).
+          if (line == lines_.size () - 1 && ragged && last && space.force_ > 0)
+            space.force_ = 0;
 
-	  Real demerits = space.force_ * space.force_;
+          Real demerits = space.force_ * space.force_;
 
-	  // Clamp the demerits at BAD_SPACING_PENALTY, even if the page
-	  // is overfull.  This ensures that TERRIBLE_SPACING_PENALTY takes
-	  // precedence over overfull pages.
-	  demerits = min (demerits, BAD_SPACING_PENALTY);
-	  demerits += (prev ? prev->demerits_ : 0);
+          // Clamp the demerits at BAD_SPACING_PENALTY, even if the page
+          // is overfull.  This ensures that TERRIBLE_SPACING_PENALTY takes
+          // precedence over overfull pages.
+          demerits = min (demerits, BAD_SPACING_PENALTY);
+          demerits += (prev ? prev->demerits_ : 0);
 
-	  Real penalty = breaker_->line_count_penalty (line_count);
-	  if (page_start > 0)
-	    penalty += lines_[page_start-1].page_penalty_
-	      + (page % 2 == 0) ? lines_[page_start-1].turn_penalty_ : 0;
+          Real penalty = breaker_->line_count_penalty (line_count);
+          if (page_start > 0)
+            penalty += lines_[page_start - 1].page_penalty_
+                       + (page % 2 == 0) ? lines_[page_start - 1].turn_penalty_ : 0;
 
-	  /* Deal with widow/orphan lines */
-	  /* Last line of paragraph is first line on the new page */
-	  if ((page_start > 0) &&
-	      (page_start < lines_.size ()) &&
-	      (lines_[page_start].last_markup_line_))
-		  penalty += breaker_->orphan_penalty ();
-	  /* First line of paragraph is last line on the previous page */
-	  if ((page_start > 0) &&
-	      (page_start < lines_.size ()) &&
-	      (lines_[page_start-1].first_markup_line_))
-		  penalty += breaker_->orphan_penalty ();
+          /* Deal with widow/orphan lines */
+          /* Last line of paragraph is first line on the new page */
+          if ((page_start > 0)
+              && (page_start < lines_.size ())
+              && (lines_[page_start].last_markup_line_))
+            penalty += breaker_->orphan_penalty ();
+          /* First line of paragraph is last line on the previous page */
+          if ((page_start > 0)
+              && (page_start < lines_.size ())
+              && (lines_[page_start - 1].first_markup_line_))
+            penalty += breaker_->orphan_penalty ();
 
-	  demerits += penalty;
-	  if (demerits < cur.demerits_ || page_start == line)
-	    {
-	      cur.demerits_ = demerits;
-	      cur.force_ = space.force_;
-	      cur.penalty_ = penalty + (prev ? prev->penalty_ : 0);
-	      cur.system_count_status_ = breaker_->line_count_status (line_count)
-		| (prev ? prev->system_count_status_ : 0);
-	      cur.prev_ = page_start - 1;
-	      cur.page_ = prev ? prev->page_ + 1 : first_page_num_;
-	    }
-	}
+          demerits += penalty;
+          if (demerits < cur.demerits_ || page_start == line)
+            {
+              cur.demerits_ = demerits;
+              cur.force_ = space.force_;
+              cur.penalty_ = penalty + (prev ? prev->penalty_ : 0);
+              cur.system_count_status_ = breaker_->line_count_status (line_count)
+                                         | (prev ? prev->system_count_status_ : 0);
+              cur.prev_ = page_start - 1;
+              cur.page_ = prev ? prev->page_ + 1 : first_page_num_;
+            }
+        }
 
       if (page_start > 0
-	  && lines_[page_start-1].page_permission_ == ly_symbol2scm ("force"))
-	break;
+          && lines_[page_start - 1].page_permission_ == ly_symbol2scm ("force"))
+        break;
     }
   return !isinf (cur.demerits_);
 }

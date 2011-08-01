@@ -32,7 +32,7 @@ public:
   DECLARE_SCHEME_CALLBACK (pure_height, (SCM smob, SCM start, SCM end));
   DECLARE_SCHEME_CALLBACK (force_hara_kiri_in_y_parent_callback, (SCM));
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   static bool request_suicide (Grob *me, int start, int end);
   static bool request_suicide_alone (Grob *me, int start, int end);
   static void consider_suicide (Grob *me);

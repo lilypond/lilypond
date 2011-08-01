@@ -38,62 +38,58 @@ print_property_callback_stack ()
 static SCM modification_callback = SCM_EOL;
 static SCM cache_callback = SCM_EOL;
 
-
 /*
-
 FIXME: this should use ly:set-option interface instead.
-
 */
 
 LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback",
-	   1, 0, 0, (SCM cb),
-	   "Specify a procedure that will be called every time LilyPond"
-	   " modifies a grob property.  The callback will receive as"
-	   " arguments the grob that is being modified, the name of the"
-	   " C++ file in which the modification was requested, the line"
-	   " number in the C++ file in which the modification was requested,"
-	   " the name of the function in which the modification was"
-	   " requested, the property to be changed, and the new value for"
-	   " the property.")
+           1, 0, 0, (SCM cb),
+           "Specify a procedure that will be called every time LilyPond"
+           " modifies a grob property.  The callback will receive as"
+           " arguments the grob that is being modified, the name of the"
+           " C++ file in which the modification was requested, the line"
+           " number in the C++ file in which the modification was requested,"
+           " the name of the function in which the modification was"
+           " requested, the property to be changed, and the new value for"
+           " the property.")
 {
-  modification_callback =  (ly_is_procedure (cb)) ? cb : SCM_BOOL_F;
+  modification_callback = (ly_is_procedure (cb)) ? cb : SCM_BOOL_F;
   return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_set_property_cache_callback, "ly:set-property-cache-callback",
-	   1, 0, 0, (SCM cb),
-	   "Specify a procedure that will be called whenever lilypond"
-	   " calculates a callback function and caches the result.  The"
-	   " callback will receive as arguments the grob whose property it"
-	   " is, the name of the property, the name of the callback that"
-	   " calculated the property, and the new (cached) value of the"
-	   " property.")
+           1, 0, 0, (SCM cb),
+           "Specify a procedure that will be called whenever lilypond"
+           " calculates a callback function and caches the result.  The"
+           " callback will receive as arguments the grob whose property it"
+           " is, the name of the property, the name of the callback that"
+           " calculated the property, and the new (cached) value of the"
+           " property.")
 {
-  cache_callback =  (ly_is_procedure (cb)) ? cb : SCM_BOOL_F;
+  cache_callback = (ly_is_procedure (cb)) ? cb : SCM_BOOL_F;
   return SCM_UNSPECIFIED;
 }
 
-
 void
 Grob::instrumented_set_property (SCM sym, SCM v,
-				 char const *file,
-				 int line,
-				 char const *fun)
+                                 char const *file,
+                                 int line,
+                                 char const *fun)
 {
 #ifndef NDEBUG
   if (ly_is_procedure (modification_callback))
     scm_apply_0 (modification_callback,
-		 scm_list_n (self_scm (),
-			     scm_from_locale_string (file),
-			     scm_from_int (line),
-			     scm_from_locale_string (fun),
-			     sym, v, SCM_UNDEFINED));
+                 scm_list_n (self_scm (),
+                             scm_from_locale_string (file),
+                             scm_from_int (line),
+                             scm_from_locale_string (fun),
+                             sym, v, SCM_UNDEFINED));
 #else
   (void) file;
   (void) line;
   (void) fun;
 #endif
-  
+
   internal_set_property (sym, v);
 }
 
@@ -101,9 +97,9 @@ SCM
 Grob::get_property_alist_chain (SCM def) const
 {
   return scm_list_n (mutable_property_alist_,
-		     immutable_property_alist_,
-		     def,
-		     SCM_UNDEFINED);
+                     immutable_property_alist_,
+                     def,
+                     SCM_UNDEFINED);
 }
 
 extern void check_interfaces_for_property (Grob const *me, SCM sym);
@@ -112,7 +108,7 @@ void
 Grob::internal_set_property (SCM sym, SCM v)
 {
   internal_set_value_on_alist (&mutable_property_alist_,
-			       sym, v);
+                               sym, v);
 
 }
 
@@ -126,9 +122,9 @@ Grob::internal_set_value_on_alist (SCM *alist, SCM sym, SCM v)
   if (do_internal_type_checking_global)
     {
       if (!ly_is_procedure (v)
-	  && !is_simple_closure (v)
-	  && v != ly_symbol2scm ("calculation-in-progress"))
-	type_check_assignment (sym, v, ly_symbol2scm ("backend-type?"));
+          && !is_simple_closure (v)
+          && v != ly_symbol2scm ("calculation-in-progress"))
+        type_check_assignment (sym, v, ly_symbol2scm ("backend-type?"));
 
       check_interfaces_for_property (this, sym);
     }
@@ -143,7 +139,7 @@ Grob::internal_get_property_data (SCM sym) const
   if (profile_property_accesses)
     note_property_access (&grob_property_lookup_table, sym);
 #endif
-  
+
   SCM handle = scm_sloppy_assq (sym, mutable_property_alist_);
   if (handle != SCM_BOOL_F)
     return scm_cdr (handle);
@@ -154,11 +150,11 @@ Grob::internal_get_property_data (SCM sym) const
     {
       SCM val = scm_cdr (handle);
       if (!ly_is_procedure (val) && !is_simple_closure (val))
-	type_check_assignment (sym, val, ly_symbol2scm ("backend-type?"));
+        type_check_assignment (sym, val, ly_symbol2scm ("backend-type?"));
 
       check_interfaces_for_property (this, sym);
     }
-  
+
   return (handle == SCM_BOOL_F) ? SCM_EOL : scm_cdr (handle);
 }
 
@@ -171,23 +167,23 @@ Grob::internal_get_property (SCM sym) const
   if (val == ly_symbol2scm ("calculation-in-progress"))
     {
       programming_error (_f ("cyclic dependency: calculation-in-progress encountered for #'%s (%s)",
-			     ly_symbol2string (sym).c_str (),
-			     name ().c_str ()));
+                             ly_symbol2string (sym).c_str (),
+                             name ().c_str ()));
       if (debug_property_callbacks)
-	{
-	  message ("backtrace: ");
-	  print_property_callback_stack ();
-	}
+        {
+          message ("backtrace: ");
+          print_property_callback_stack ();
+        }
     }
 #endif
-  
+
   if (ly_is_procedure (val)
       || is_simple_closure (val))
     {
-      Grob *me = ((Grob*)this);
+      Grob *me = ((Grob *)this);
       val = me->try_callback_on_alist (&me->mutable_property_alist_, sym, val);
     }
-  
+
   return val;
 }
 
@@ -200,8 +196,8 @@ Grob::internal_get_pure_property (SCM sym, int start, int end) const
     return call_pure_function (val, scm_list_1 (self_scm ()), start, end);
   if (is_simple_closure (val))
     return evaluate_with_simple_closure (self_scm (),
-					 simple_closure_expression (val),
-					 true, start, end);
+                                         simple_closure_expression (val),
+                                         true, start, end);
   return val;
 }
 
@@ -213,7 +209,7 @@ Grob::internal_get_maybe_pure_property (SCM sym, bool pure, int start, int end) 
 
 SCM
 Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
-{      
+{
   SCM marker = ly_symbol2scm ("calculation-in-progress");
   /*
     need to put a value in SYM to ensure that we don't get a
@@ -232,15 +228,15 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
   else if (is_simple_closure (proc))
     {
       value = evaluate_with_simple_closure (self_scm (),
-					    simple_closure_expression (proc),
-					    false, 0, 0);
+                                            simple_closure_expression (proc),
+                                            false, 0, 0);
     }
-  
+
 #ifndef NDEBUG
   if (debug_property_callbacks)
     grob_property_callback_stack = scm_cdr (grob_property_callback_stack);
 #endif
-	  
+
   /*
     If the function returns SCM_UNSPECIFIED, we assume the
     property has been set with an explicit set_property ()
@@ -251,22 +247,22 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
       value = get_property_data (sym);
       assert (value == SCM_EOL || value == marker);
       if (value == marker)
-	*alist = scm_assq_remove_x (*alist, marker);
+        *alist = scm_assq_remove_x (*alist, marker);
     }
   else
     {
 #ifndef NDEBUG
       if (ly_is_procedure (cache_callback))
-	scm_apply_0 (cache_callback,
-		     scm_list_n (self_scm (),
-				 sym,
-				 proc,
-				 value,
-				 SCM_UNDEFINED));
+        scm_apply_0 (cache_callback,
+                     scm_list_n (self_scm (),
+                                 sym,
+                                 proc,
+                                 value,
+                                 SCM_UNDEFINED));
 #endif
       internal_set_value_on_alist (alist, sym, value);
     }
-  
+
   return value;
 }
 
@@ -293,17 +289,17 @@ Grob::internal_get_object (SCM sym) const
     note_property_access (&grob_property_lookup_table, sym);
 
   SCM s = scm_sloppy_assq (sym, object_alist_);
-  
+
   if (s != SCM_BOOL_F)
     {
       SCM val = scm_cdr (s);
       if (ly_is_procedure (val)
-	  || is_simple_closure (val))
-	{
-	  Grob *me = ((Grob*)this);
-	  val = me->try_callback_on_alist (&me->object_alist_, sym, val);
-	}
-      
+          || is_simple_closure (val))
+        {
+          Grob *me = ((Grob *)this);
+          val = me->try_callback_on_alist (&me->object_alist_, sym, val);
+        }
+
       return val;
     }
 
@@ -328,6 +324,6 @@ call_pure_function (SCM unpure, SCM args, int start, int end)
   SCM scm_call_pure_function = ly_lily_module_constant ("call-pure-function");
 
   return scm_apply_0 (scm_call_pure_function,
-		      scm_list_4 (unpure, args, scm_from_int (start), scm_from_int (end)));
+                      scm_list_4 (unpure, args, scm_from_int (start), scm_from_int (end)));
 }
 

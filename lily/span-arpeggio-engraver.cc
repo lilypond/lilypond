@@ -42,7 +42,7 @@ protected:
 
 private:
   Item *span_arpeggio_;
-  vector<Grob*> arpeggios_;
+  vector<Grob *> arpeggios_;
 };
 
 Span_arpeggio_engraver::Span_arpeggio_engraver ()
@@ -53,7 +53,7 @@ Span_arpeggio_engraver::Span_arpeggio_engraver ()
 void
 Span_arpeggio_engraver::acknowledge_arpeggio (Grob_info info)
 {
-  if (info.origin_contexts (this).size ()) // huh? what's this test for? 
+  if (info.origin_contexts (this).size ()) // huh? what's this test for?
     arpeggios_.push_back (info.grob ());
 }
 
@@ -81,28 +81,27 @@ Span_arpeggio_engraver::stop_translation_timestep ()
   if (span_arpeggio_)
     {
       /*
-	we do this very late, to make sure we also catch `extra'
-	side-pos support like accidentals.
+        we do this very late, to make sure we also catch `extra'
+        side-pos support like accidentals.
       */
       for (vsize j = 0; j < arpeggios_.size (); j++)
-	{
-	  extract_grob_set (arpeggios_[j], "stems", stems);
-	  for (vsize i = 0; i < stems.size (); i++)
-	    Pointer_group_interface::add_grob (span_arpeggio_, ly_symbol2scm ("stems"),
-					       stems[i]);
+        {
+          extract_grob_set (arpeggios_[j], "stems", stems);
+          for (vsize i = 0; i < stems.size (); i++)
+            Pointer_group_interface::add_grob (span_arpeggio_, ly_symbol2scm ("stems"),
+                                               stems[i]);
 
-	  extract_grob_set (arpeggios_[j], "side-support-elements", sses);
-	  for (vsize i = 0; i < sses.size (); i++)
-	    Pointer_group_interface::add_grob (span_arpeggio_, ly_symbol2scm ("side-support-elements"),
-					       sses[i]);
+          extract_grob_set (arpeggios_[j], "side-support-elements", sses);
+          for (vsize i = 0; i < sses.size (); i++)
+            Pointer_group_interface::add_grob (span_arpeggio_, ly_symbol2scm ("side-support-elements"),
+                                               sses[i]);
 
-	  /*
-	    we can't kill the children, since we don't want to the
-	    previous note to bump into the span arpeggio; so we make
-	    it transparent.  */
-	  arpeggios_[j]->set_property ("transparent", SCM_BOOL_T);
-	}
-
+          /*
+            we can't kill the children, since we don't want to the
+            previous note to bump into the span arpeggio; so we make
+            it transparent.  */
+          arpeggios_[j]->set_property ("transparent", SCM_BOOL_T);
+        }
 
       span_arpeggio_->set_parent (arpeggios_[0]->get_parent (Y_AXIS), Y_AXIS);
       span_arpeggio_ = 0;
@@ -114,15 +113,15 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Span_arpeggio_engraver, arpeggio);
 ADD_TRANSLATOR (Span_arpeggio_engraver,
-		/* doc */
-		"Make arpeggios that span multiple staves.",
+                /* doc */
+                "Make arpeggios that span multiple staves.",
 
-		/* create */
-		"Arpeggio ",
+                /* create */
+                "Arpeggio ",
 
-		/* read */
-		"connectArpeggios ",
+                /* read */
+                "connectArpeggios ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

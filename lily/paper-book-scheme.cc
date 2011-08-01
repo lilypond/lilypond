@@ -22,16 +22,16 @@
 #include "output-def.hh"
 
 LY_DEFINE (ly_paper_book_pages, "ly:paper-book-pages",
-	   1, 0, 0, (SCM pb),
-	   "Return pages in @code{Paper_book} object @var{pb}.")
+           1, 0, 0, (SCM pb),
+           "Return pages in @code{Paper_book} object @var{pb}.")
 {
   LY_ASSERT_SMOB (Paper_book, pb, 1);
   return unsmob_paper_book (pb)->pages ();
 }
 
 LY_DEFINE (ly_paper_book_scopes, "ly:paper-book-scopes",
-	   1, 0, 0, (SCM pb),
-	   "Return scopes in @code{Paper_book} object @var{pb}.")
+           1, 0, 0, (SCM pb),
+           "Return scopes in @code{Paper_book} object @var{pb}.")
 {
   LY_ASSERT_SMOB (Paper_book, pb, 1);
   Paper_book *book = unsmob_paper_book (pb);
@@ -48,25 +48,25 @@ LY_DEFINE (ly_paper_book_scopes, "ly:paper-book-scopes",
 }
 
 LY_DEFINE (ly_paper_book_performances, "ly:paper-book-performances",
-	   1, 0, 0, (SCM pb),
-	   "Return performances in @code{Paper_book} object @var{pb}.")
+           1, 0, 0, (SCM pb),
+           "Return performances in @code{Paper_book} object @var{pb}.")
 {
   LY_ASSERT_SMOB (Paper_book, pb, 1);
   return unsmob_paper_book (pb)->performances ();
 }
 
 LY_DEFINE (ly_paper_book_systems, "ly:paper-book-systems",
-	   1, 0, 0, (SCM pb),
-	   "Return systems in @code{Paper_book} object @var{pb}.")
+           1, 0, 0, (SCM pb),
+           "Return systems in @code{Paper_book} object @var{pb}.")
 {
   LY_ASSERT_SMOB (Paper_book, pb, 1);
   return unsmob_paper_book (pb)->systems ();
 }
 
 LY_DEFINE (ly_paper_book_paper, "ly:paper-book-paper",
-	   1, 0, 0, (SCM pb),
-	   "Return the paper output definition (@code{\\paper})"
-	   " in @code{Paper_book} object @var{pb}.")
+           1, 0, 0, (SCM pb),
+           "Return the paper output definition (@code{\\paper})"
+           " in @code{Paper_book} object @var{pb}.")
 {
   LY_ASSERT_SMOB (Paper_book, pb, 1);
   Paper_book *pbook = unsmob_paper_book (pb);
@@ -74,9 +74,9 @@ LY_DEFINE (ly_paper_book_paper, "ly:paper-book-paper",
 }
 
 LY_DEFINE (ly_paper_book_header, "ly:paper-book-header",
-	   1, 0, 0, (SCM pb),
-	   "Return the header definition (@code{\\header})"
-	   " in @code{Paper_book} object @var{pb}.")
+           1, 0, 0, (SCM pb),
+           "Return the header definition (@code{\\header})"
+           " in @code{Paper_book} object @var{pb}.")
 {
   LY_ASSERT_SMOB (Paper_book, pb, 1);
   Paper_book *pbook = unsmob_paper_book (pb);

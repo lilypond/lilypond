@@ -87,21 +87,20 @@ protected:
 public:
   SCM last_keysig_;
 
-  vector<Grob*> left_objects_;
-  vector<Grob*> right_objects_;
+  vector<Grob *> left_objects_;
+  vector<Grob *> right_objects_;
 
   Grob *accidental_placement_;
 
   vector<Accidental_entry> accidentals_;
-  vector<Spanner*> ties_;
-  vector<Grob*> note_columns_;
+  vector<Spanner *> ties_;
+  vector<Grob *> note_columns_;
 };
 
 /*
   localKeySignature is changed at runtime, which means that references
   in grobs should always store ly_deep_copy ()s of those.
 */
-
 
 Accidental_engraver::Accidental_engraver ()
 {
@@ -120,8 +119,8 @@ Accidental_engraver::update_local_key_signature (SCM new_sig)
 {
   last_keysig_ = new_sig;
   set_context_property_on_children (context (),
-				    ly_symbol2scm ("localKeySignature"),
-				    new_sig);
+                                    ly_symbol2scm ("localKeySignature"),
+                                    new_sig);
 
   Context *trans = context ()->get_parent_context ();
 
@@ -163,14 +162,14 @@ struct Accidental_result
   int score () const
   {
     return need_acc ? 1 : 0
-      + need_restore ? 1 : 0;
+           + need_restore ? 1 : 0;
   }
 };
 
 static
 Accidental_result
 check_pitch_against_rules (Pitch const &pitch, Context *origin,
-			   SCM rules, int bar_number, SCM measurepos)
+                           SCM rules, int bar_number, SCM measurepos)
 {
   Accidental_result result;
   SCM pitch_scm = pitch.smobbed_copy ();
@@ -178,37 +177,37 @@ check_pitch_against_rules (Pitch const &pitch, Context *origin,
 
   if (scm_is_pair (rules) && !scm_is_symbol (scm_car (rules)))
     warning (_f ("accidental typesetting list must begin with context-name: %s",
-		 ly_scm2string (scm_car (rules)).c_str ()));
+                 ly_scm2string (scm_car (rules)).c_str ()));
 
   for (; scm_is_pair (rules) && origin; rules = scm_cdr (rules))
     {
       SCM rule = scm_car (rules);
       if (ly_is_procedure (rule))
-	{
-	  SCM rule_result_scm = scm_call_4 (rule, origin->self_scm (),
-					    pitch_scm, barnum_scm, measurepos);
-	  Accidental_result rule_result (rule_result_scm);
+        {
+          SCM rule_result_scm = scm_call_4 (rule, origin->self_scm (),
+                                            pitch_scm, barnum_scm, measurepos);
+          Accidental_result rule_result (rule_result_scm);
 
-	  result.need_acc |= rule_result.need_acc;
-	  result.need_restore |= rule_result.need_restore;
-	}
+          result.need_acc |= rule_result.need_acc;
+          result.need_restore |= rule_result.need_restore;
+        }
 
       /*
-	If symbol then it is a context name.  Scan parent contexts to
-	find it.
+        If symbol then it is a context name.  Scan parent contexts to
+        find it.
       */
       else if (scm_is_symbol (rule))
-	{
-	  Context *dad = origin;
-	  while (dad && !dad->is_alias (rule))
-	    dad = dad->get_parent_context ();
+        {
+          Context *dad = origin;
+          while (dad && !dad->is_alias (rule))
+            dad = dad->get_parent_context ();
 
-	  if (dad)
-	    origin = dad;
-	}
+          if (dad)
+            origin = dad;
+        }
       else
-	warning (_f ("procedure or context-name expected for accidental rule, found %s",
-		     print_scm_val (rule).c_str ()));
+        warning (_f ("procedure or context-name expected for accidental rule, found %s",
+                     print_scm_val (rule).c_str ()));
     }
 
   return result;
@@ -222,59 +221,59 @@ Accidental_engraver::process_acknowledged ()
       SCM accidental_rules = get_property ("autoAccidentals");
       SCM cautionary_rules = get_property ("autoCautionaries");
       SCM measure_position = get_property ("measurePosition");
-      int barnum = measure_number (context());
+      int barnum = measure_number (context ());
 
       for (vsize i = 0; i < accidentals_.size (); i++)
-	{
-	  if (accidentals_[i].done_)
-	    continue;
-	  accidentals_[i].done_ = true;
+        {
+          if (accidentals_[i].done_)
+            continue;
+          accidentals_[i].done_ = true;
 
-	  Stream_event *note = accidentals_[i].melodic_;
-	  Context *origin = accidentals_[i].origin_;
+          Stream_event *note = accidentals_[i].melodic_;
+          Context *origin = accidentals_[i].origin_;
 
-	  Pitch *pitch = unsmob_pitch (note->get_property ("pitch"));
-	  if (!pitch)
-	    continue;
+          Pitch *pitch = unsmob_pitch (note->get_property ("pitch"));
+          if (!pitch)
+            continue;
 
-	  Accidental_result acc = check_pitch_against_rules (*pitch, origin, accidental_rules,
-							     barnum, measure_position);
-	  Accidental_result caut = check_pitch_against_rules (*pitch, origin, cautionary_rules,
-							      barnum, measure_position);
+          Accidental_result acc = check_pitch_against_rules (*pitch, origin, accidental_rules,
+                                                             barnum, measure_position);
+          Accidental_result caut = check_pitch_against_rules (*pitch, origin, cautionary_rules,
+                                                              barnum, measure_position);
 
-	  bool cautionary = to_boolean (note->get_property ("cautionary"));
-	  if (caut.score () > acc.score ())
-	    {
-	      acc.need_acc |= caut.need_acc;
-	      acc.need_restore |= caut.need_restore;
+          bool cautionary = to_boolean (note->get_property ("cautionary"));
+          if (caut.score () > acc.score ())
+            {
+              acc.need_acc |= caut.need_acc;
+              acc.need_restore |= caut.need_restore;
 
-	      cautionary = true;
-	    }
+              cautionary = true;
+            }
 
-	  bool forced = to_boolean (note->get_property ("force-accidental"));
-	  if (!acc.need_acc && forced)
-	    acc.need_acc = true;
+          bool forced = to_boolean (note->get_property ("force-accidental"));
+          if (!acc.need_acc && forced)
+            acc.need_acc = true;
 
-	  /*
-	    Cannot look for ties: it's not guaranteed that they reach
-	    us before the notes.
-	  */
-	  if (!note->in_event_class ("trill-span-event"))
-	    {
-	      if (acc.need_acc)
-		create_accidental (&accidentals_[i], acc.need_restore, cautionary);
+          /*
+            Cannot look for ties: it's not guaranteed that they reach
+            us before the notes.
+          */
+          if (!note->in_event_class ("trill-span-event"))
+            {
+              if (acc.need_acc)
+                create_accidental (&accidentals_[i], acc.need_restore, cautionary);
 
-	      if (forced || cautionary)
-		accidentals_[i].accidental_->set_property ("forced", SCM_BOOL_T);
-	    }
-	}
+              if (forced || cautionary)
+                accidentals_[i].accidental_->set_property ("forced", SCM_BOOL_T);
+            }
+        }
     }
 }
 
 void
 Accidental_engraver::create_accidental (Accidental_entry *entry,
-					bool restore_natural,
-					bool cautionary)
+                                        bool restore_natural,
+                                        bool cautionary)
 {
   Stream_event *note = entry->melodic_;
   Grob *support = entry->head_;
@@ -288,7 +287,7 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
   if (restore_natural)
     {
       if (to_boolean (get_property ("extraNatural")))
-	a->set_property ("restore-first", SCM_BOOL_T);
+        a->set_property ("restore-first", SCM_BOOL_T);
     }
 
   entry->accidental_ = a;
@@ -296,9 +295,9 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
 
 Grob *
 Accidental_engraver::make_standard_accidental (Stream_event * /* note */,
-					       Grob *note_head,
-					       Engraver *trans,
-					       bool cautionary)
+                                               Grob *note_head,
+                                               Engraver *trans,
+                                               bool cautionary)
 {
   /*
     We construct the accidentals at the originating Voice
@@ -318,7 +317,7 @@ Accidental_engraver::make_standard_accidental (Stream_event * /* note */,
   for (vsize i = 0; i < left_objects_.size (); i++)
     {
       if (left_objects_[i]->get_property ("side-axis") == scm_from_int (X_AXIS))
-	Side_position_interface::add_support (left_objects_[i], a);
+        Side_position_interface::add_support (left_objects_[i], a);
     }
 
   for (vsize i = 0; i < right_objects_.size (); i++)
@@ -328,7 +327,7 @@ Accidental_engraver::make_standard_accidental (Stream_event * /* note */,
 
   if (!accidental_placement_)
     accidental_placement_ = make_item ("AccidentalPlacement",
-				       a->self_scm ());
+                                       a->self_scm ());
   Accidental_placement::add_accidental (accidental_placement_, a);
 
   note_head->set_object ("accidental-grob", a->self_scm ());
@@ -338,8 +337,8 @@ Accidental_engraver::make_standard_accidental (Stream_event * /* note */,
 
 Grob *
 Accidental_engraver::make_suggested_accidental (Stream_event * /* note */,
-						Grob *note_head,
-						Engraver *trans)
+                                                Grob *note_head,
+                                                Engraver *trans)
 {
   Grob *a = trans->make_item ("AccidentalSuggestion", note_head->self_scm ());
 
@@ -364,16 +363,16 @@ Accidental_engraver::stop_translation_timestep ()
     {
       Grob *r = Tie::head (ties_[j], RIGHT);
       for (vsize i = accidentals_.size (); i--;)
-	if (accidentals_[i].head_ == r)
-	  {
-	    if (Grob *g = accidentals_[i].accidental_)
-	      {
-		g->set_object ("tie", ties_[j]->self_scm ());
-		accidentals_[i].tied_ = true;
-	      }
-	    ties_.erase (ties_.begin () + j);
-	    break;
-	  }
+        if (accidentals_[i].head_ == r)
+          {
+            if (Grob *g = accidentals_[i].accidental_)
+              {
+                g->set_object ("tie", ties_[j]->self_scm ());
+                accidentals_[i].tied_ = true;
+              }
+            ties_.erase (ties_.begin () + j);
+            break;
+          }
     }
 
   for (vsize i = accidentals_.size (); i--;)
@@ -385,7 +384,7 @@ Accidental_engraver::stop_translation_timestep ()
 
       Pitch *pitch = unsmob_pitch (note->get_property ("pitch"));
       if (!pitch)
-	continue;
+        continue;
 
       int n = pitch->get_notename ();
       int o = pitch->get_octave ();
@@ -393,42 +392,42 @@ Accidental_engraver::stop_translation_timestep ()
       SCM key = scm_cons (scm_from_int (o), scm_from_int (n));
 
       Moment end_mp = measure_position (context (),
-					unsmob_duration (note->get_property ("duration")));
+                                        unsmob_duration (note->get_property ("duration")));
       SCM position = scm_cons (scm_from_int (barnum), end_mp.smobbed_copy ());
 
       SCM localsig = SCM_EOL;
       while (origin
-	     && origin->where_defined (ly_symbol2scm ("localKeySignature"), &localsig))
-	{
-	  bool change = false;
-	  if (accidentals_[i].tied_
-	      && !(to_boolean (accidentals_[i].accidental_->get_property ("forced"))))
-	    {
-	      /*
-		Remember an alteration that is different both from
-		that of the tied note and of the key signature.
-	      */
-	      localsig = ly_assoc_prepend_x (localsig, key,scm_cons (ly_symbol2scm ("tied"),
-								     position));
-	      change = true;
-	    }
-	  else
-	    {
-	      /*
-		not really correct if there is more than one
-		note head with the same notename.
-	      */
-	      localsig = ly_assoc_prepend_x (localsig, key,
-					     scm_cons (ly_rational2scm (a),
-						       position));
-	      change = true;
-	    }
+             && origin->where_defined (ly_symbol2scm ("localKeySignature"), &localsig))
+        {
+          bool change = false;
+          if (accidentals_[i].tied_
+              && !(to_boolean (accidentals_[i].accidental_->get_property ("forced"))))
+            {
+              /*
+                Remember an alteration that is different both from
+                that of the tied note and of the key signature.
+              */
+              localsig = ly_assoc_prepend_x (localsig, key, scm_cons (ly_symbol2scm ("tied"),
+                                                                      position));
+              change = true;
+            }
+          else
+            {
+              /*
+                not really correct if there is more than one
+                note head with the same notename.
+              */
+              localsig = ly_assoc_prepend_x (localsig, key,
+                                             scm_cons (ly_rational2scm (a),
+                                                       position));
+              change = true;
+            }
 
-	  if (change)
-	    origin->set_property ("localKeySignature", localsig);
+          if (change)
+            origin->set_property ("localKeySignature", localsig);
 
-	  origin = origin->get_parent_context ();
-	}
+          origin = origin->get_parent_context ();
+        }
     }
 
   if (accidental_placement_)
@@ -448,22 +447,22 @@ Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
   Stream_event *note = info.event_cause ();
   if (note
       && (note->in_event_class ("note-event")
-	  || note->in_event_class ("trill-span-event")))
+          || note->in_event_class ("trill-span-event")))
     {
       /*
-	string harmonics usually don't have accidentals.
+        string harmonics usually don't have accidentals.
       */
       if (info.grob ()->get_property ("style") != ly_symbol2scm ("harmonic")
-	  || to_boolean (get_property ("harmonicAccidentals")))
-	{
-	  Accidental_entry entry;
-	  entry.head_ = info.grob ();
-	  entry.origin_engraver_ = dynamic_cast<Engraver *> (info.origin_translator ());
-	  entry.origin_ = entry.origin_engraver_->context ();
-	  entry.melodic_ = note;
+          || to_boolean (get_property ("harmonicAccidentals")))
+        {
+          Accidental_entry entry;
+          entry.head_ = info.grob ();
+          entry.origin_engraver_ = dynamic_cast<Engraver *> (info.origin_translator ());
+          entry.origin_ = entry.origin_engraver_->context ();
+          entry.melodic_ = note;
 
-	  accidentals_.push_back (entry);
-	}
+          accidentals_.push_back (entry);
+        }
     }
 }
 
@@ -506,28 +505,28 @@ ADD_ACKNOWLEDGER (Accidental_engraver, tie);
 ADD_ACKNOWLEDGER (Accidental_engraver, note_column);
 
 ADD_TRANSLATOR (Accidental_engraver,
-		/* doc */
-		"Make accidentals."
-		"  Catch note heads, ties and notices key-change events."
-		"  This engraver usually lives at Staff level, but"
-		" reads the settings for Accidental at @code{Voice} level,"
-		" so you can @code{\\override} them at @code{Voice}.",
+                /* doc */
+                "Make accidentals."
+                "  Catch note heads, ties and notices key-change events."
+                "  This engraver usually lives at Staff level, but"
+                " reads the settings for Accidental at @code{Voice} level,"
+                " so you can @code{\\override} them at @code{Voice}.",
 
-		/* create */
-		"Accidental "
-		"AccidentalCautionary "
-		"AccidentalPlacement "
-		"AccidentalSuggestion ",
+                /* create */
+                "Accidental "
+                "AccidentalCautionary "
+                "AccidentalPlacement "
+                "AccidentalSuggestion ",
 
-		/* read */
-		"autoAccidentals "
-		"autoCautionaries "
-		"internalBarNumber "
-		"extraNatural "
-		"harmonicAccidentals "
-		"keySignature "
-		"localKeySignature ",
+                /* read */
+                "autoAccidentals "
+                "autoCautionaries "
+                "internalBarNumber "
+                "extraNatural "
+                "harmonicAccidentals "
+                "keySignature "
+                "localKeySignature ",
 
-		/* write */
-		"localKeySignature "
-		);
+                /* write */
+                "localKeySignature "
+               );

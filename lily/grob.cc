@@ -45,9 +45,9 @@ Grob::clone () const
   return new Grob (*this);
 }
 
-Grob::Grob (SCM basicprops)	    
+Grob::Grob (SCM basicprops)
 {
-  
+
   /* FIXME: default should be no callback.  */
   self_scm_ = SCM_EOL;
   layout_ = 0;
@@ -56,7 +56,7 @@ Grob::Grob (SCM basicprops)
   immutable_property_alist_ = basicprops;
   mutable_property_alist_ = SCM_EOL;
   object_alist_ = SCM_EOL;
-  
+
   /* We do smobify_self () as the first step.  Since the object lives
      on the heap, none of its SCM variables are protected from
      GC. After smobify_self (), they are.  */
@@ -69,12 +69,12 @@ Grob::Grob (SCM basicprops)
 
       SCM object_cbs = scm_assq (ly_symbol2scm ("object-callbacks"), meta);
       if (scm_is_pair (object_cbs))
-	{
-	  for (SCM s = scm_cdr (object_cbs); scm_is_pair (s); s = scm_cdr (s))
-	    set_object (scm_caar (s), scm_cdar (s)); 
-	}
+        {
+          for (SCM s = scm_cdr (object_cbs); scm_is_pair (s); s = scm_cdr (s))
+            set_object (scm_caar (s), scm_cdar (s));
+        }
     }
-  
+
   if (get_property_data ("X-extent") == SCM_EOL)
     set_property ("X-extent", Grob::stencil_width_proc);
   if (get_property_data ("Y-extent") == SCM_EOL)
@@ -126,36 +126,36 @@ Grob::get_print_stencil () const
       bool transparent = to_boolean (get_property ("transparent"));
 
       if (transparent)
-	retval = Stencil (m->extent_box (), SCM_EOL);
+        retval = Stencil (m->extent_box (), SCM_EOL);
       else
-	{
-	  SCM expr = m->expr ();
-	  expr = scm_list_3 (ly_symbol2scm ("grob-cause"),
-			     self_scm (), expr);
+        {
+          SCM expr = m->expr ();
+          expr = scm_list_3 (ly_symbol2scm ("grob-cause"),
+                             self_scm (), expr);
 
-	  retval = Stencil (m->extent_box (), expr);
-	}
+          retval = Stencil (m->extent_box (), expr);
+        }
 
       SCM rot = get_property ("rotation");
       if (scm_is_pair (rot))
-	{
-	  Real angle = scm_to_double (scm_car (rot));
-	  Real x = scm_to_double (scm_cadr (rot));
-	  Real y = scm_to_double (scm_caddr (rot));
+        {
+          Real angle = scm_to_double (scm_car (rot));
+          Real x = scm_to_double (scm_cadr (rot));
+          Real y = scm_to_double (scm_caddr (rot));
 
-	  retval.rotate_degrees (angle, Offset (x, y));
-	}
+          retval.rotate_degrees (angle, Offset (x, y));
+        }
 
       /* color support... see interpret_stencil_expression () for more... */
       SCM color = get_property ("color");
       if (scm_is_pair (color))
-	{
-	  SCM expr = scm_list_3 (ly_symbol2scm ("color"),
-				 color,
-				 retval.expr ());
+        {
+          SCM expr = scm_list_3 (ly_symbol2scm ("color"),
+                                 color,
+                                 retval.expr ());
 
-	  retval = Stencil (retval.extent_box (), expr);
-	}
+          retval = Stencil (retval.extent_box (), expr);
+        }
 
       /* process whiteout */
       /* a grob has to be visible, otherwise the whiteout property has no effect */
@@ -165,7 +165,7 @@ Grob::get_print_stencil () const
           /* to add a round-filled-box stencil to the stencil list */
           retval
             = *unsmob_stencil (scm_call_1 (ly_lily_module_constant ("stencil-whiteout"),
-                                           retval.smobbed_copy()));
+                                           retval.smobbed_copy ()));
         }
     }
 
@@ -196,7 +196,7 @@ Grob::get_system () const
    one system in the whole score and we can find it just by following
    parent pointers. */
 System *
-Grob::get_system(Grob *me)
+Grob::get_system (Grob *me)
 {
   Grob *p = me->get_parent (X_AXIS);
   return p ? get_system (p) : dynamic_cast<System *>(me);
@@ -215,7 +215,7 @@ Grob::handle_broken_dependencies ()
        properties, and a special function fixes FOO  */
     {
       for (SCM s = object_alist_; scm_is_pair (s); s = scm_cdr (s))
-	sp->substitute_one_mutable_property (scm_caar (s), scm_cdar (s));
+        sp->substitute_one_mutable_property (scm_caar (s), scm_cdar (s));
     }
   System *system = get_system ();
 
@@ -264,7 +264,7 @@ Grob::handle_prebroken_dependencies ()
     {
       Item *it = dynamic_cast<Item *> (this);
       substitute_object_links (scm_from_int (it->break_status_dir ()),
-			       original ()->object_alist_);
+                               original ()->object_alist_);
     }
 }
 
@@ -284,13 +284,13 @@ Grob::translate_axis (Real y, Axis a)
   if (isinf (y) || isnan (y))
     {
       programming_error (_ ("Infinity or NaN encountered"));
-      return ;
+      return;
     }
-  
+
   if (!dim_cache_[a].offset_)
     dim_cache_[a].offset_ = new Real (y);
   else
-    *dim_cache_[a].offset_ += y;  
+    *dim_cache_[a].offset_ += y;
 }
 
 /* Find the offset relative to D.  If D equals THIS, then it is 0.
@@ -309,7 +309,7 @@ Grob::relative_coordinate (Grob const *refp, Axis a) const
   Real off = get_offset (a);
   if (refp == dim_cache_[a].parent_)
     return off;
-  
+
   off += dim_cache_[a].parent_->relative_coordinate (refp, a);
 
   return off;
@@ -326,7 +326,7 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
   if (dim_cache_[Y_AXIS].offset_)
     {
       if (to_boolean (get_property ("pure-Y-offset-in-progress")))
-	programming_error ("cyclic chain in pure-Y-offset callbacks");
+        programming_error ("cyclic chain in pure-Y-offset callbacks");
 
       off = *dim_cache_[Y_AXIS].offset_;
     }
@@ -337,9 +337,9 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
       dim_cache_[Y_AXIS].offset_ = new Real (0.0);
       set_property ("pure-Y-offset-in-progress", SCM_BOOL_T);
       off = robust_scm2double (call_pure_function (proc,
-						   scm_list_1 (self_scm ()),
-						   start, end),
-			       0.0);
+                                                   scm_list_1 (self_scm ()),
+                                                   start, end),
+                               0.0);
       del_property ("pure-Y-offset-in-progress");
       delete dim_cache_[Y_AXIS].offset_;
       dim_cache_[Y_AXIS].offset_ = 0;
@@ -354,7 +354,7 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
     {
       Real trans = 0;
       if (Align_interface::has_interface (p) && !dim_cache_[Y_AXIS].offset_)
-	trans = Align_interface::get_pure_child_y_translation (p, this, start, end);
+        trans = Align_interface::get_pure_child_y_translation (p, this, start, end);
 
       return off + trans + p->pure_relative_y_coordinate (refp, start, end);
     }
@@ -394,7 +394,7 @@ Grob::maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, int start, int
   if (pure && a != Y_AXIS)
     programming_error ("tried to get pure X-offset");
   return (pure && a == Y_AXIS) ? pure_relative_y_coordinate (refp, start, end)
-    : relative_coordinate (refp, a);
+         : relative_coordinate (refp, a);
 }
 
 /****************************************************************
@@ -407,17 +407,16 @@ Grob::flush_extent_cache (Axis axis)
   if (dim_cache_[axis].extent_)
     {
       /*
-	Ugh, this is not accurate; will flush property, causing
-	callback to be called if.
+        Ugh, this is not accurate; will flush property, causing
+        callback to be called if.
        */
       del_property ((axis == X_AXIS) ? ly_symbol2scm ("X-extent") : ly_symbol2scm ("Y-extent"));
       delete dim_cache_[axis].extent_;
       dim_cache_[axis].extent_ = 0;
       if (get_parent (axis))
-	get_parent (axis)->flush_extent_cache (axis);
+        get_parent (axis)->flush_extent_cache (axis);
     }
 }
-
 
 Interval
 Grob::extent (Grob *refp, Axis a) const
@@ -431,30 +430,30 @@ Grob::extent (Grob *refp, Axis a) const
   else
     {
       /*
-	Order is significant: ?-extent may trigger suicide.
+        Order is significant: ?-extent may trigger suicide.
        */
-      SCM ext_sym =
-	(a == X_AXIS)
-	? ly_symbol2scm ("X-extent")
-	: ly_symbol2scm ("Y-extent");
-	
+      SCM ext_sym
+        = (a == X_AXIS)
+          ? ly_symbol2scm ("X-extent")
+          : ly_symbol2scm ("Y-extent");
+
       SCM ext = internal_get_property (ext_sym);
       if (is_number_pair (ext))
-	real_ext.unite (ly_scm2interval (ext));
+        real_ext.unite (ly_scm2interval (ext));
 
-      SCM min_ext_sym =
-	(a == X_AXIS)
-	? ly_symbol2scm ("minimum-X-extent")
-	: ly_symbol2scm ("minimum-Y-extent");
+      SCM min_ext_sym
+        = (a == X_AXIS)
+          ? ly_symbol2scm ("minimum-X-extent")
+          : ly_symbol2scm ("minimum-Y-extent");
       SCM min_ext = internal_get_property (min_ext_sym);
       if (is_number_pair (min_ext))
-	real_ext.unite (ly_scm2interval (min_ext));
+        real_ext.unite (ly_scm2interval (min_ext));
 
-      ((Grob*)this)->dim_cache_[a].extent_ = new Interval (real_ext);  
+      ((Grob *)this)->dim_cache_[a].extent_ = new Interval (real_ext);
     }
-  
+
   real_ext.translate (offset);
-  
+
   return real_ext;
 }
 
@@ -519,7 +518,7 @@ Grob::common_refpoint (Grob const *s, Axis a) const
   for (Grob const *c = this; c; c = c->dim_cache_[a].parent_)
     for (Grob const *d = s; d; d = d->dim_cache_[a].parent_)
       if (d == c)
-	return (Grob *) d;
+        return (Grob *) d;
 
   return 0;
 }
@@ -536,7 +535,6 @@ Grob::get_parent (Axis a) const
   return dim_cache_[a].parent_;
 }
 
-
 void
 Grob::fixup_refpoint ()
 {
@@ -546,31 +544,30 @@ Grob::fixup_refpoint ()
       Grob *parent = get_parent (ax);
 
       if (!parent)
-	continue;
+        continue;
 
       if (parent->get_system () != get_system () && get_system ())
-	{
-	  Grob *newparent = parent->find_broken_piece (get_system ());
-	  set_parent (newparent, ax);
-	}
+        {
+          Grob *newparent = parent->find_broken_piece (get_system ());
+          set_parent (newparent, ax);
+        }
 
       if (Item *i = dynamic_cast<Item *> (this))
-	{
-	  Item *parenti = dynamic_cast<Item *> (parent);
+        {
+          Item *parenti = dynamic_cast<Item *> (parent);
 
-	  if (parenti && i)
-	    {
-	      Direction my_dir = i->break_status_dir ();
-	      if (my_dir != parenti->break_status_dir ())
-		{
-		  Item *newparent = parenti->find_prebroken_piece (my_dir);
-		  set_parent (newparent, ax);
-		}
-	    }
-	}
+          if (parenti && i)
+            {
+              Direction my_dir = i->break_status_dir ();
+              if (my_dir != parenti->break_status_dir ())
+                {
+                  Item *newparent = parenti->find_prebroken_piece (my_dir);
+                  set_parent (newparent, ax);
+                }
+            }
+        }
     }
 }
-
 
 /****************************************************************
   MESSAGES
@@ -593,7 +590,6 @@ Grob::warning (string s) const
   else
     ::warning (s);
 }
-
 
 string
 Grob::name () const
@@ -625,77 +621,76 @@ Grob::programming_error (string s) const
     ::message (s);
 }
 
-
 ADD_INTERFACE (Grob,
-	       "A grob represents a piece of music notation.\n"
-	       "\n"
-	       "All grobs have an X and Y@tie{}position on the page.  These"
-	       " X and Y@tie{}positions are stored in a relative format, thus"
-	       " they can easily be combined by stacking them, hanging one"
-	       " grob to the side of another, or coupling them into grouping"
-	       " objects.\n"
-	       "\n"
-	       "Each grob has a reference point (a.k.a.@: parent): The"
-	       " position of a grob is stored relative to that reference"
-	       " point.  For example, the X@tie{}reference point of a staccato"
-	       " dot usually is the note head that it applies to.  When the"
-	       " note head is moved, the staccato dot moves along"
-	       " automatically.\n"
-	       "\n"
-	       "A grob is often associated with a symbol, but some grobs do"
-	       " not print any symbols.  They take care of grouping objects."
-	       " For example, there is a separate grob that stacks staves"
-	       " vertically.  The @ref{NoteCollision} object is also an"
-	       " abstract grob: It only moves around chords, but doesn't print"
-	       " anything.\n"
-	       "\n"
-	       "Grobs have properties (Scheme variables) that can be read and"
-	       " set.  Two types of them exist: immutable and mutable."
-	       "  Immutable variables define the default style and behavior."
-	       "  They are shared between many objects.  They can be changed"
-	       " using @code{\\override} and @code{\\revert}.  Mutable"
-	       " properties are variables that are specific to one grob."
-	       "  Typically, lists of other objects, or results from"
-	       " computations are stored in mutable properties.  In"
-	       " particular, every call to @code{ly:grob-set-property!}"
-	       " (or its C++ equivalent) sets a mutable property.\n"
-	       "\n"
-	       "The properties @code{after-line-breaking} and"
-	       " @code{before-line-breaking} are dummies that are not"
-	       " user-serviceable.",
+               "A grob represents a piece of music notation.\n"
+               "\n"
+               "All grobs have an X and Y@tie{}position on the page.  These"
+               " X and Y@tie{}positions are stored in a relative format, thus"
+               " they can easily be combined by stacking them, hanging one"
+               " grob to the side of another, or coupling them into grouping"
+               " objects.\n"
+               "\n"
+               "Each grob has a reference point (a.k.a.@: parent): The"
+               " position of a grob is stored relative to that reference"
+               " point.  For example, the X@tie{}reference point of a staccato"
+               " dot usually is the note head that it applies to.  When the"
+               " note head is moved, the staccato dot moves along"
+               " automatically.\n"
+               "\n"
+               "A grob is often associated with a symbol, but some grobs do"
+               " not print any symbols.  They take care of grouping objects."
+               " For example, there is a separate grob that stacks staves"
+               " vertically.  The @ref{NoteCollision} object is also an"
+               " abstract grob: It only moves around chords, but doesn't print"
+               " anything.\n"
+               "\n"
+               "Grobs have properties (Scheme variables) that can be read and"
+               " set.  Two types of them exist: immutable and mutable."
+               "  Immutable variables define the default style and behavior."
+               "  They are shared between many objects.  They can be changed"
+               " using @code{\\override} and @code{\\revert}.  Mutable"
+               " properties are variables that are specific to one grob."
+               "  Typically, lists of other objects, or results from"
+               " computations are stored in mutable properties.  In"
+               " particular, every call to @code{ly:grob-set-property!}"
+               " (or its C++ equivalent) sets a mutable property.\n"
+               "\n"
+               "The properties @code{after-line-breaking} and"
+               " @code{before-line-breaking} are dummies that are not"
+               " user-serviceable.",
 
-	       /* properties */
-	       "X-extent "
-	       "X-offset "
-	       "Y-extent "
-	       "Y-offset "
-	       "after-line-breaking "
-	       "avoid-slur "
-	       "axis-group-parent-X "
-	       "axis-group-parent-Y "
-	       "before-line-breaking "
-	       "cause "
-	       "color "
-	       "cross-staff "
-	       "extra-X-extent "
-	       "extra-Y-extent "
-	       "extra-offset "
-	       "interfaces "
-	       "layer "
-	       "meta "
-	       "minimum-X-extent "
-	       "minimum-Y-extent "
-	       "outside-staff-horizontal-padding "
-	       "outside-staff-padding "
-	       "outside-staff-priority "
-	       "pure-Y-offset-in-progress "
-	       "rotation "
-	       "springs-and-rods "
-	       "staff-symbol "
-	       "stencil "
-	       "transparent "
-	       "whiteout "
-	       );
+               /* properties */
+               "X-extent "
+               "X-offset "
+               "Y-extent "
+               "Y-offset "
+               "after-line-breaking "
+               "avoid-slur "
+               "axis-group-parent-X "
+               "axis-group-parent-Y "
+               "before-line-breaking "
+               "cause "
+               "color "
+               "cross-staff "
+               "extra-X-extent "
+               "extra-Y-extent "
+               "extra-offset "
+               "interfaces "
+               "layer "
+               "meta "
+               "minimum-X-extent "
+               "minimum-Y-extent "
+               "outside-staff-horizontal-padding "
+               "outside-staff-padding "
+               "outside-staff-priority "
+               "pure-Y-offset-in-progress "
+               "rotation "
+               "springs-and-rods "
+               "staff-symbol "
+               "stencil "
+               "transparent "
+               "whiteout "
+              );
 
 /****************************************************************
   CALLBACKS
@@ -710,7 +705,6 @@ grob_stencil_extent (Grob *me, Axis a)
     e = m->extent (a);
   return ly_interval2scm (e);
 }
-
 
 MAKE_SCHEME_CALLBACK (Grob, stencil_height, 1);
 SCM
@@ -732,13 +726,12 @@ Grob::y_parent_positioning (SCM smob)
   return scm_from_double (0.0);
 }
 
-
 MAKE_SCHEME_CALLBACK (Grob, x_parent_positioning, 1);
 SCM
 Grob::x_parent_positioning (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  
+
   Grob *par = me->get_parent (X_AXIS);
   if (par)
     (void) par->get_property ("positioning-done");
@@ -754,24 +747,23 @@ Grob::stencil_width (SCM smob)
   return grob_stencil_extent (me, X_AXIS);
 }
 
-
 Grob *
 common_refpoint_of_list (SCM elist, Grob *common, Axis a)
 {
   for (; scm_is_pair (elist); elist = scm_cdr (elist))
     if (Grob *s = unsmob_grob (scm_car (elist)))
       {
-	if (common)
-	  common = common->common_refpoint (s, a);
-	else
-	  common = s;
+        if (common)
+          common = common->common_refpoint (s, a);
+        else
+          common = s;
       }
 
   return common;
 }
 
 Grob *
-common_refpoint_of_array (vector<Grob*> const &arr, Grob *common, Axis a)
+common_refpoint_of_array (vector<Grob *> const &arr, Grob *common, Axis a)
 {
   for (vsize i = 0; i < arr.size (); i++)
     if (common)

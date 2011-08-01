@@ -69,16 +69,16 @@ is_concave_single_notes (vector<int> const &positions, Direction beam_dir)
     {
       int inner_dy = positions[i] - positions[i - 1];
       if (sign (inner_dy) != sign (dy)
-	  && (beam_dir * positions[i] >= closest
-	      || beam_dir * positions[i - 1] >= closest))
-	concave = true;
+          && (beam_dir * positions[i] >= closest
+              || beam_dir * positions[i - 1] >= closest))
+        concave = true;
     }
 
   bool all_closer = true;
   for (vsize i = 1; all_closer && i + 1 < positions.size (); i++)
     {
       all_closer = all_closer
-	&& (beam_dir * positions[i] > closest);
+                   && (beam_dir * positions[i] > closest);
     }
 
   concave = concave || all_closer;
@@ -109,14 +109,13 @@ calc_positions_concaveness (vector<int> const &positions, Direction beam_dir)
   return concaveness;
 }
 
-
 MAKE_SCHEME_CALLBACK (Beam, calc_concaveness, 1);
 SCM
 Beam::calc_concaveness (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  vector<Grob*> stems
+  vector<Grob *> stems
     = extract_grob_array (me, "stems");
 
   if (is_knee (me))
@@ -126,12 +125,12 @@ Beam::calc_concaveness (SCM smob)
   for (vsize i = stems.size (); i--;)
     {
       if (Stem::is_normal_stem (stems[i]))
-	{
-	  if (Direction dir = get_grob_direction (stems[i]))
-	    beam_dir = dir;
-	}
+        {
+          if (Direction dir = get_grob_direction (stems[i]))
+            beam_dir = dir;
+        }
       else
-	stems.erase (stems.begin () + i);
+        stems.erase (stems.begin () + i);
     }
 
   if (stems.size () <= 2)
@@ -142,11 +141,11 @@ Beam::calc_concaveness (SCM smob)
   for (vsize i = 0; i < stems.size (); i++)
     {
       /*
-	For chords, we take the note head that is closest to the beam.
+        For chords, we take the note head that is closest to the beam.
 
-	Hmmm.. wait, for the beams in the last measure of morgenlied,
-	this doesn't look so good. Let's try the heads farthest from
-	the beam.
+        Hmmm.. wait, for the beams in the last measure of morgenlied,
+        this doesn't look so good. Let's try the heads farthest from
+        the beam.
       */
       Interval posns = Stem::head_positions (stems[i]);
 
@@ -163,11 +162,9 @@ Beam::calc_concaveness (SCM smob)
   else
     {
       concaveness = (calc_positions_concaveness (far_positions, beam_dir)
-		     + calc_positions_concaveness (close_positions, beam_dir)) / 2;
+                     + calc_positions_concaveness (close_positions, beam_dir)) / 2;
     }
 
   return scm_from_double (concaveness);
 }
-
-
 

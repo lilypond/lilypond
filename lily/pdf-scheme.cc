@@ -24,17 +24,16 @@ using namespace std;
 #include "warn.hh"
 #include "lily-guile.hh"
 
-
 LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
-	   1, 0, 0, (SCM str),
-	   "Encode the given string to either Latin1 (which is a subset of"
-	   " the PDFDocEncoding) or if that's not possible to full UTF-16BE"
-	   " with Byte-Order-Mark (BOM).")
+           1, 0, 0, (SCM str),
+           "Encode the given string to either Latin1 (which is a subset of"
+           " the PDFDocEncoding) or if that's not possible to full UTF-16BE"
+           " with Byte-Order-Mark (BOM).")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   char *p = ly_scm2str0 (str);
   char *g = NULL;
-  char const *charset="UTF-8"; // Input is ALWAYS UTF-8!
+  char const *charset = "UTF-8"; // Input is ALWAYS UTF-8!
   gsize bytes_written = 0;
 
   /* First, try to convert to ISO-8859-1 (no encodings required). This will
@@ -42,27 +41,27 @@ LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
    * for errors. */
   g = g_convert (p, -1, "ISO-8859-1", charset, 0, &bytes_written, 0);
   /* If that fails, we have to resolve to full UTF-16BE */
-  if (!g) 
+  if (!g)
     {
       GError *e = NULL;
-      char *g_without_BOM = g_convert (p, -1,  "UTF-16BE", charset, 0, &bytes_written, &e);
-      if (e != NULL) 
+      char *g_without_BOM = g_convert (p, -1, "UTF-16BE", charset, 0, &bytes_written, &e);
+      if (e != NULL)
         {
-          warning (_f("Conversion of string `%s' to UTF-16be failed: %s", p, e->message));
+          warning (_f ("Conversion of string `%s' to UTF-16be failed: %s", p, e->message));
           g_error_free (e);
         }
-      /* UTF-16BE allows/recommends a byte-order-mark (BOM) of two bytes 
-       * \xFE\xFF at the begin of the string. The pdfmark specification 
+      /* UTF-16BE allows/recommends a byte-order-mark (BOM) of two bytes
+       * \xFE\xFF at the begin of the string. The pdfmark specification
        * requires it and depends on it to distinguish PdfDocEncoding from
-       * UTF-16BE. As g_convert does not automatically prepend this BOM 
-       * for UTF-16BE (only for UTF-16, which uses lower endian by default, 
+       * UTF-16BE. As g_convert does not automatically prepend this BOM
+       * for UTF-16BE (only for UTF-16, which uses lower endian by default,
        * though), we have to prepend it manually. */
       if (g_without_BOM) // conversion to UTF-16be might have failed (shouldn't!)
-        { 
-          g = new char[bytes_written+3];
+        {
+          g = new char[bytes_written + 3];
           char const *BOM = "\xFE\xFF";
           strcpy (g, BOM);
-          memcpy (&g[2], g_without_BOM, bytes_written+1); // Copy string + \0
+          memcpy (&g[2], g_without_BOM, bytes_written + 1); // Copy string + \0
           free (g_without_BOM);
           bytes_written += 2;
         }
@@ -71,12 +70,12 @@ LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
 
   /* Convert back to SCM object and return it */
   /* FIXME guile-2.0: With guile 2.0 the internal representation of a string
-   *                  has changed (char vector rather than binary bytes in 
+   *                  has changed (char vector rather than binary bytes in
    *                  UTF-8). However, with guile 2.0, ly:encode-string-for-pdf
-   *                  is no longer needed and can be replaced by the new 
+   *                  is no longer needed and can be replaced by the new
    *                  (string->utf16 str 'big)
    */
-  if (g) 
+  if (g)
     return scm_take_str (g, bytes_written); // scm_take_str eventually frees g!
   else
     return str;

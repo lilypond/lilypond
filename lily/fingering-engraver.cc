@@ -30,8 +30,8 @@
 
 class Fingering_engraver : public Engraver
 {
-  vector<Stream_event*> events_;
-  vector<Item*> fingerings_;
+  vector<Stream_event *> events_;
+  vector<Item *> fingerings_;
 
 public:
   TRANSLATOR_DECLARATIONS (Fingering_engraver);
@@ -60,7 +60,7 @@ Fingering_engraver::listen_stroke_finger (Stream_event * /* ev */)
 {
   /*
     FIXME: should do something.
-    
+
     This function is mainly here to shut up a warning
    */
 }
@@ -80,7 +80,7 @@ Fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
       Grob *t = fingerings_[i];
       Side_position_interface::add_support (t, inf.grob ());
       if (!t->get_parent (X_AXIS))
-	t->set_parent (inf.grob (), X_AXIS);
+        t->set_parent (inf.grob (), X_AXIS);
     }
 }
 
@@ -130,9 +130,9 @@ Fingering_engraver::make_script (Direction d, Stream_event *r, int i)
   if (!is_direction (fingering->get_property_data ("direction")))
     {
       if (d)
-	fingering->set_property ("direction", scm_from_int (d));
+        fingering->set_property ("direction", scm_from_int (d));
       else
-	fingering->set_property ("direction", scm_from_int (RIGHT));
+        fingering->set_property ("direction", scm_from_int (RIGHT));
     }
 
   fingerings_.push_back (fingering);
@@ -153,15 +153,15 @@ ADD_ACKNOWLEDGER (Fingering_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (Fingering_engraver, stem);
 
 ADD_TRANSLATOR (Fingering_engraver,
-		/* doc */
-		"Create fingering scripts.",
+                /* doc */
+                "Create fingering scripts.",
 
-		/* create */
-		"Fingering ",
+                /* create */
+                "Fingering ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

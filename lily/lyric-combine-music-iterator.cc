@@ -70,7 +70,7 @@ private:
 
   Moment busy_moment_;
   Moment pending_grace_moment_;
-  
+
   Music_iterator *lyric_iter_;
 };
 
@@ -85,11 +85,10 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
   busy_moment_.set_infinite (-1);
 }
 
-
 /*
   It's dubious whether we can ever make this fully work.  Due to
-  associatedVoice switching, this routine may be triggered for 
-  the wrong music_context_ 
+  associatedVoice switching, this routine may be triggered for
+  the wrong music_context_
  */
 IMPLEMENT_LISTENER (Lyric_combine_music_iterator, set_busy)
 void
@@ -99,10 +98,10 @@ Lyric_combine_music_iterator::set_busy (SCM se)
 
   if ((e->in_event_class ("note-event") || e->in_event_class ("cluster-note-event"))
       && music_context_)
-    
+
     busy_moment_ = max (music_context_->now_mom (),
-			busy_moment_);
-  
+                        busy_moment_);
+
 }
 
 void
@@ -111,14 +110,14 @@ Lyric_combine_music_iterator::set_music_context (Context *to)
   if (music_context_)
     {
       music_context_->event_source ()->
-	remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
+      remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
     }
 
   music_context_ = to;
   if (to)
     {
       to->event_source ()->add_listener (GET_LISTENER (set_busy),
-					 ly_symbol2scm ("music-event"));
+                                         ly_symbol2scm ("music-event"));
     }
 }
 
@@ -135,7 +134,7 @@ Lyric_combine_music_iterator::start_new_syllable () const
     {
       bool m = melisma_busy (music_context_);
       if (m)
-	return false;
+        return false;
     }
 
   return true;
@@ -193,13 +192,13 @@ Lyric_combine_music_iterator::construct_children ()
   if (!lyric_iter_)
     return;
   lyrics_context_ = find_context_below (lyric_iter_->get_outlet (),
-					ly_symbol2scm ("Lyrics"), "");
+                                        ly_symbol2scm ("Lyrics"), "");
 
   if (!lyrics_context_)
     {
       m->origin ()->warning ("argument of \\lyricsto should contain Lyrics context");
     }
-  
+
   lyricsto_voice_name_ = get_music ()->get_property ("associated-context");
 
   Context *voice = find_voice ();
@@ -207,7 +206,7 @@ Lyric_combine_music_iterator::construct_children ()
     set_music_context (voice);
 
   /*
-    Wait for a Create_context event. If this isn't done, lyrics can be 
+    Wait for a Create_context event. If this isn't done, lyrics can be
     delayed when voices are created implicitly.
   */
   Global_context *g = get_outlet ()->get_global_context ();
@@ -225,8 +224,8 @@ void
 Lyric_combine_music_iterator::check_new_context (SCM sev)
 {
   if (!ok ())
-    return ;
-  
+    return;
+
   // Search for a possible candidate voice to attach the lyrics to. If none
   // is found, we'll try next time again.
   Context *voice = find_voice ();
@@ -248,8 +247,8 @@ Lyric_combine_music_iterator::find_voice ()
 {
   SCM voice_name = lyricsto_voice_name_;
   SCM running = lyrics_context_
-    ? lyrics_context_->get_property ("associatedVoice")
-    : SCM_EOL;
+                ? lyrics_context_->get_property ("associatedVoice")
+                : SCM_EOL;
 
   if (scm_is_string (running))
     voice_name = running;
@@ -259,7 +258,7 @@ Lyric_combine_music_iterator::find_voice ()
     {
       Context *t = get_outlet ();
       while (t && t->get_parent_context ())
-	t = t->get_parent_context ();
+        t = t->get_parent_context ();
 
       string name = ly_scm2string (voice_name);
       return find_context_below (t, ly_symbol2scm ("Voice"), name);
@@ -283,35 +282,35 @@ Lyric_combine_music_iterator::process (Moment /* when */)
   if (!music_context_->get_parent_context ())
     {
       /*
-	The melody has died.
-	We die too.
+        The melody has died.
+        We die too.
       */
       if (lyrics_context_)
-	lyrics_context_->unset_property (ly_symbol2scm ("associatedVoiceContext"));
+        lyrics_context_->unset_property (ly_symbol2scm ("associatedVoiceContext"));
       lyric_iter_ = 0;
       set_music_context (0);
     }
 
   if (music_context_
-      && (start_new_syllable () ||
-	  (busy_moment_ >= pending_grace_moment_))
+      && (start_new_syllable ()
+          || (busy_moment_ >= pending_grace_moment_))
       && lyric_iter_->ok ())
     {
       Moment now = music_context_->now_mom ();
       if (now.grace_part_ && !to_boolean (lyrics_context_->get_property ("includeGraceNotes")))
-	{
-	  pending_grace_moment_ = now;
-	  pending_grace_moment_.grace_part_ = Rational (0);
-	  return;
-	}
+        {
+          pending_grace_moment_ = now;
+          pending_grace_moment_.grace_part_ = Rational (0);
+          return;
+        }
       else
-	{
-	  pending_grace_moment_.set_infinite (1);
-	}
+        {
+          pending_grace_moment_.set_infinite (1);
+        }
 
       Moment m = lyric_iter_->pending_moment ();
       lyrics_context_->set_property (ly_symbol2scm ("associatedVoiceContext"),
-				     music_context_->self_scm ());
+                                     music_context_->self_scm ());
       lyric_iter_->process (m);
 
       music_found_ = true;

@@ -30,10 +30,10 @@
 
 class Note_spacing_engraver : public Engraver
 {
-  typedef map <Context*, Grob*> Last_spacing_map;
+  typedef map <Context *, Grob *> Last_spacing_map;
   Last_spacing_map last_spacings_;
   Grob *last_spacing_;
-  
+
   Grob *spacing_;
 
   void add_spacing_item (Grob *);
@@ -68,20 +68,19 @@ Note_spacing_engraver::add_spacing_item (Grob *g)
     {
       spacing_ = make_item ("NoteSpacing", g->self_scm ());
     }
-  
+
   if (spacing_)
     {
       Pointer_group_interface::add_grob (spacing_,
-					 ly_symbol2scm ("left-items"),
-					 g);
+                                         ly_symbol2scm ("left-items"),
+                                         g);
 
       if (last_spacing_)
-	Pointer_group_interface::add_grob (last_spacing_,
-					   ly_symbol2scm ("right-items"),
-					   g);
+        Pointer_group_interface::add_grob (last_spacing_,
+                                           ly_symbol2scm ("right-items"),
+                                           g);
     }
 }
-
 
 void
 Note_spacing_engraver::acknowledge_note_column (Grob_info gi)
@@ -104,11 +103,11 @@ Note_spacing_engraver::finalize ()
   if (last_spacing
       && !unsmob_grob_array (last_spacing->get_object ("right-items")))
     {
-      Grob *col  = unsmob_grob (get_property ("currentCommandColumn"));
-      
+      Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
+
       Pointer_group_interface::add_grob (last_spacing,
-					 ly_symbol2scm ("right-items"),
-					 col);
+                                         ly_symbol2scm ("right-items"),
+                                         col);
     }
 }
 
@@ -123,10 +122,10 @@ Note_spacing_engraver::stop_translation_timestep ()
     {
       Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
       Pointer_group_interface::add_grob (last_spacing,
-					 ly_symbol2scm ("right-items"),
-					 col);
+                                         ly_symbol2scm ("right-items"),
+                                         col);
     }
-  
+
   if (spacing_)
     {
       last_spacings_[parent] = spacing_;
@@ -140,16 +139,16 @@ ADD_ACKNOWLEDGER (Note_spacing_engraver, note_column);
 ADD_ACKNOWLEDGER (Note_spacing_engraver, rhythmic_grob);
 
 ADD_TRANSLATOR (Note_spacing_engraver,
-		/* doc */
-		"Generate @code{NoteSpacing}, an object linking horizontal"
-		" lines for use in spacing.",
+                /* doc */
+                "Generate @code{NoteSpacing}, an object linking horizontal"
+                " lines for use in spacing.",
 
-		/* create */
-		"NoteSpacing ",
+                /* create */
+                "NoteSpacing ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

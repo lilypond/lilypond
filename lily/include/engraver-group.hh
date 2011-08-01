@@ -50,4 +50,3 @@ void engraver_each (SCM list, Engraver_method method);
 
 #endif /* ENGRAVERGROUP_HH */
 
-

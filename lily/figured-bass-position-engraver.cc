@@ -33,8 +33,8 @@ class Figured_bass_position_engraver : public Engraver
 
   Spanner *bass_figure_alignment_;
   Spanner *positioner_;
-  vector<Grob*> support_;
-  vector<Grob*> span_support_;
+  vector<Grob *> support_;
+  vector<Grob *> span_support_;
 protected:
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (slur);
@@ -72,13 +72,13 @@ Figured_bass_position_engraver::stop_spanner ()
     {
       positioner_->set_bound (RIGHT, bass_figure_alignment_->get_bound (RIGHT));
     }
-  
+
   positioner_ = 0;
   bass_figure_alignment_ = 0;
 }
 
 void
-Figured_bass_position_engraver::finalize () 
+Figured_bass_position_engraver::finalize ()
 {
   stop_spanner ();
 }
@@ -92,8 +92,8 @@ Figured_bass_position_engraver::acknowledge_note_column (Grob_info info)
 void
 Figured_bass_position_engraver::acknowledge_end_slur (Grob_info info)
 {
-  vector<Grob*>::iterator i = find (span_support_.begin (), span_support_.end (),
-				    info.grob ());
+  vector<Grob *>::iterator i = find (span_support_.begin (), span_support_.end (),
+                                     info.grob ());
 
   if (i < span_support_.end ())
     span_support_.erase (i);
@@ -117,9 +117,9 @@ Figured_bass_position_engraver::stop_translation_timestep ()
   if (positioner_)
     {
       for (vsize i = 0; i < span_support_.size (); i++)
-	Side_position_interface::add_support (positioner_, span_support_[i]);
+        Side_position_interface::add_support (positioner_, span_support_[i]);
       for (vsize i = 0; i < support_.size (); i++)
-	Side_position_interface::add_support (positioner_, support_[i]);
+        Side_position_interface::add_support (positioner_, support_[i]);
     }
 
   support_.clear ();
@@ -134,10 +134,9 @@ Figured_bass_position_engraver::acknowledge_end_bass_figure_alignment (Grob_info
 void
 Figured_bass_position_engraver::acknowledge_bass_figure_alignment (Grob_info info)
 {
-  bass_figure_alignment_ = dynamic_cast<Spanner*> (info.grob ());
+  bass_figure_alignment_ = dynamic_cast<Spanner *> (info.grob ());
   start_spanner ();
 }
-
 
 ADD_ACKNOWLEDGER (Figured_bass_position_engraver, note_column);
 ADD_ACKNOWLEDGER (Figured_bass_position_engraver, slur);
@@ -148,15 +147,15 @@ ADD_ACKNOWLEDGER (Figured_bass_position_engraver, bass_figure_alignment);
 ADD_END_ACKNOWLEDGER (Figured_bass_position_engraver, bass_figure_alignment);
 
 ADD_TRANSLATOR (Figured_bass_position_engraver,
-		/* doc */
-		"Position figured bass alignments over notes.",
-		
-		/* create */
-		"BassFigureAlignmentPositioning ",
+                /* doc */
+                "Position figured bass alignments over notes.",
 
-		/* read */
-		"",
+                /* create */
+                "BassFigureAlignmentPositioning ",
 
-		/* write */
-		""
-		);
+                /* read */
+                "",
+
+                /* write */
+                ""
+               );

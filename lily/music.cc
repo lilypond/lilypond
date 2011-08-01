@@ -83,7 +83,7 @@ Music::Music (Music const &m)
   length_callback_ = m.length_callback_;
   start_callback_ = m.start_callback_;
 
-  /// why? 
+  /// why?
   set_spot (*m.origin ());
 }
 
@@ -130,7 +130,6 @@ print_alist (SCM a, SCM port)
     }
 }
 
-
 Pitch
 Music::generic_to_relative_octave (Pitch last)
 {
@@ -143,16 +142,16 @@ Music::generic_to_relative_octave (Pitch last)
 
       SCM check = get_property ("absolute-octave");
       if (scm_is_number (check)
-	  && new_pit.get_octave () != scm_to_int (check))
-	{
-	  Pitch expected_pit (scm_to_int (check),
-			      new_pit.get_notename (),
-			      new_pit.get_alteration ());
-	  origin ()->warning (_f ("octave check failed; expected \"%s\", found: \"%s\"",
-				  expected_pit.to_string (),
-				  new_pit.to_string ()));
-	  new_pit = expected_pit;
-	}
+          && new_pit.get_octave () != scm_to_int (check))
+        {
+          Pitch expected_pit (scm_to_int (check),
+                              new_pit.get_notename (),
+                              new_pit.get_alteration ());
+          origin ()->warning (_f ("octave check failed; expected \"%s\", found: \"%s\"",
+                                  expected_pit.to_string (),
+                                  new_pit.to_string ()));
+          new_pit = expected_pit;
+        }
 
       set_property ("pitch", new_pit.smobbed_copy ());
 
@@ -173,7 +172,7 @@ Music::to_relative_octave (Pitch last)
   if (ly_is_procedure (callback))
     {
       Pitch *p = unsmob_pitch (scm_call_2 (callback, self_scm (),
-					   last.smobbed_copy ()));
+                                           last.smobbed_copy ()));
       return *p;
     }
 
@@ -192,11 +191,11 @@ Music::compress (Moment factor)
   Duration *d = unsmob_duration (get_property ("duration"));
   if (d)
     set_property ("duration",
-		  d->compressed (factor.main_part_).smobbed_copy ());
+                  d->compressed (factor.main_part_).smobbed_copy ());
 }
 
 /*
-  This mutates alist.  Hence, make sure that it is not shared 
+  This mutates alist.  Hence, make sure that it is not shared
 */
 void
 transpose_mutable (SCM alist, Pitch delta)
@@ -209,38 +208,38 @@ transpose_mutable (SCM alist, Pitch delta)
       SCM new_val = val;
 
       if (Pitch *p = unsmob_pitch (val))
-	{
-	  Pitch transposed = p->transposed (delta);
-	  if (transposed.get_alteration ().abs () > Rational (1,1))
-	    {
-	      string delta_str;
-	      if (delta.get_alteration ().abs () > Rational (1, 1))
-		delta_str = (delta.normalized ().to_string ()
-			     + " " + _ ("(normalized pitch)"));
-	      else
-		delta_str = delta.to_string ();
+        {
+          Pitch transposed = p->transposed (delta);
+          if (transposed.get_alteration ().abs () > Rational (1, 1))
+            {
+              string delta_str;
+              if (delta.get_alteration ().abs () > Rational (1, 1))
+                delta_str = (delta.normalized ().to_string ()
+                             + " " + _ ("(normalized pitch)"));
+              else
+                delta_str = delta.to_string ();
 
-	      warning (_f ("Transposing %s by %s makes alteration larger than double",
-			   p->to_string (),
-			   delta_str));
-	      transposed = transposed.normalized ();
-	    }
+              warning (_f ("Transposing %s by %s makes alteration larger than double",
+                           p->to_string (),
+                           delta_str));
+              transposed = transposed.normalized ();
+            }
 
-	  new_val = transposed.smobbed_copy ();
-	}
+          new_val = transposed.smobbed_copy ();
+        }
       else if (prop == ly_symbol2scm ("element"))
-	{
-	  if (Music *m = unsmob_music (val))
-	    m->transpose (delta);
-	}
+        {
+          if (Music *m = unsmob_music (val))
+            m->transpose (delta);
+        }
       else if (prop == ly_symbol2scm ("elements"))
-	transpose_music_list (val, delta);
-      else if (prop == ly_symbol2scm ("pitch-alist") &&
-	       scm_is_pair (val))
-	new_val = ly_transpose_key_alist (val, delta.smobbed_copy ());
+        transpose_music_list (val, delta);
+      else if (prop == ly_symbol2scm ("pitch-alist")
+               && scm_is_pair (val))
+        new_val = ly_transpose_key_alist (val, delta.smobbed_copy ());
 
       if (val != new_val)
-	scm_set_cdr_x (entry , new_val);
+        scm_set_cdr_x (entry, new_val);
     }
 }
 
@@ -289,11 +288,11 @@ Music::to_event () const
     {
       SCM art_ev = SCM_EOL;
       for (; scm_is_pair (art_mus); art_mus = scm_cdr (art_mus))
-	{
-	  Music *m = unsmob_music (scm_car (art_mus));
-	  SCM ev = m ? m->to_event ()->unprotect () : scm_car (art_mus);
-	  art_ev = scm_cons (ev, art_ev);
-	}
+        {
+          Music *m = unsmob_music (scm_car (art_mus));
+          SCM ev = m ? m->to_event ()->unprotect () : scm_car (art_mus);
+          art_ev = scm_cons (ev, art_ev);
+        }
       e->set_property ("articulations", scm_reverse_x (art_ev, SCM_EOL));
     }
 

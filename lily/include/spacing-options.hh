@@ -38,8 +38,8 @@ struct Spacing_options
   Rational global_shortest_;
   Real increment_;
   Real shortest_duration_space_;
-  
-  Spacing_options();
+
+  Spacing_options ();
   void init_from_grob (Grob *me);
   Real get_duration_space (Rational d) const;
 };

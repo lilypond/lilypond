@@ -27,16 +27,16 @@
 #include "staff-symbol-referencer.hh"
 
 ADD_INTERFACE (Semi_tie,
-	      "A tie which is only on one side connected to a note head.",
+               "A tie which is only on one side connected to a note head.",
 
-	      /* properties */
-	      "control-points "
-	      "direction "
-	      "details "
-	      "head-direction "
-	      "note-head "
-	      "thickness "
-	      );
+               /* properties */
+               "control-points "
+               "direction "
+               "details "
+               "head-direction "
+               "note-head "
+               "thickness "
+              );
 
 MAKE_SCHEME_CALLBACK (Semi_tie, calc_control_points, 1)
 SCM
@@ -44,15 +44,15 @@ Semi_tie::calc_control_points (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   (void) me->get_property ("direction");
-  
+
   if (Semi_tie_column::has_interface (me->get_parent (Y_AXIS)))
     {
       me->get_parent (Y_AXIS)->get_property ("positioning-done");
     }
   else
     {
-      programming_error ("lv tie without Semi_tie_column. Killing lv tie."); 
-      me->suicide (); 
+      programming_error ("lv tie without Semi_tie_column. Killing lv tie.");
+      me->suicide ();
     }
 
   return me->get_property_data ("control-points");
@@ -67,8 +67,8 @@ Semi_tie::get_position (Grob *me)
 
 bool
 Semi_tie::less (Grob *const &s1,
-		Grob *const &s2)
+                Grob *const &s2)
 {
   return get_position (s1) < get_position (s2);
 }
-				 
+

@@ -55,11 +55,11 @@ Drum_note_performer::process_music ()
       SCM defn = SCM_EOL;
 
       if (scm_is_symbol (sym)
-	  && (scm_hash_table_p (tab) == SCM_BOOL_T))
-	defn = scm_hashq_ref (tab, sym, SCM_EOL);
+          && (scm_hash_table_p (tab) == SCM_BOOL_T))
+        defn = scm_hashq_ref (tab, sym, SCM_EOL);
 
       if (Pitch *pit = unsmob_pitch (defn))
-	{
+        {
           SCM articulations = n->get_property ("articulations");
           Stream_event *tie_event = 0;
           for (SCM s = articulations;
@@ -69,18 +69,18 @@ Drum_note_performer::process_music ()
               Stream_event *ev = unsmob_stream_event (scm_car (s));
               if (!ev)
                 continue;
-	  
+
               if (ev->in_event_class ("tie-event"))
                 tie_event = ev;
             }
 
-	  Moment len = get_event_length (n, now_mom ());
+          Moment len = get_event_length (n, now_mom ());
 
-	  Audio_note *p = new Audio_note (*pit, len,
+          Audio_note *p = new Audio_note (*pit, len,
                                           tie_event, Pitch (0, 0, 0));
-	  Audio_element_info info (p, n);
-	  announce_element (info);
-	}
+          Audio_element_info info (p, n);
+          announce_element (info);
+        }
     }
 
   note_evs_.clear ();
@@ -100,15 +100,15 @@ Drum_note_performer::listen_note (Stream_event *ev)
 }
 
 ADD_TRANSLATOR (Drum_note_performer,
-		/* doc */
-		"Play drum notes.",
+                /* doc */
+                "Play drum notes.",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

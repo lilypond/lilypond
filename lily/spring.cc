@@ -57,16 +57,15 @@ Spring::update_blocking_force ()
       // Conceptually, this should be +inf, but 0.0 meets the requirements
       //  of Simple_spacer and creates fewer cases of 0.0*inf to handle.
       blocking_force_ = 0.0;
+  else if (inverse_compress_strength_ > 0.0)
+    blocking_force_ = (min_distance_ - distance_) / inverse_compress_strength_;
   else
-    if (inverse_compress_strength_ > 0.0)
-      blocking_force_ = (min_distance_ - distance_) / inverse_compress_strength_;
-    else
-      blocking_force_ = 0.0;
+    blocking_force_ = 0.0;
 }
 
 /* scale a spring, but in a way that doesn't violate min_distance */
 void
-Spring::operator*= (Real r)
+Spring::operator *= (Real r)
 {
   distance_ = max (min_distance_, distance_ * r);
   inverse_compress_strength_ = max (0.0, distance_ - min_distance_);
@@ -75,7 +74,7 @@ Spring::operator*= (Real r)
 }
 
 bool
-Spring::operator> (Spring const &other) const
+Spring::operator > (Spring const &other) const
 {
   return blocking_force_ > other.blocking_force_;
 }
@@ -203,7 +202,7 @@ Spring::length (Real f) const
   Real force = max (f, blocking_force_);
   Real inv_k = force < 0.0 ? inverse_compress_strength_ : inverse_stretch_strength_;
 
-  if (isinf(force))
+  if (isinf (force))
     {
       programming_error ("cruelty to springs");
       force = 0.0;

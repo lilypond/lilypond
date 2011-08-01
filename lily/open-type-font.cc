@@ -41,18 +41,18 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
     {
       FT_Byte *buffer = (FT_Byte *) malloc (*length);
       if (buffer == NULL)
-	error (_f ("cannot allocate %lu bytes", *length));
+        error (_f ("cannot allocate %lu bytes", *length));
 
       error_code = FT_Load_Sfnt_Table (face, tag, 0, buffer, length);
       if (error_code)
-	error (_f ("cannot load font table: %s", tag_str));
+        error (_f ("cannot load font table: %s", tag_str));
 
       return buffer;
     }
   else
     programming_error (_f ("FreeType error: %s",
-			   freetype_error_string (error_code).c_str ()
-			   ));
+                           freetype_error_string (error_code).c_str ()
+                          ));
 
   return 0;
 }
@@ -72,7 +72,7 @@ load_scheme_table (char const *tag_str, FT_Face face)
   SCM tab = SCM_EOL;
   if (buffer)
     {
-      string contents ((char const*)buffer, length);
+      string contents ((char const *)buffer, length);
       contents = "(quote (" + contents + "))";
 
       tab = scm_c_eval_string (contents.c_str ());
@@ -80,7 +80,6 @@ load_scheme_table (char const *tag_str, FT_Face face)
     }
   return tab;
 }
-
 
 Open_type_font::~Open_type_font ()
 {
@@ -95,7 +94,7 @@ get_otf_table (FT_Face face, string tag)
 {
   FT_ULong len;
   FT_Byte *tab = load_table (tag.c_str (), face, &len);
-  string ret ((char const*) tab, len);
+  string ret ((char const *) tab, len);
   free (tab);
 
   return ret;
@@ -110,9 +109,9 @@ open_ft_face (string str, FT_Long idx)
   if (error_code == FT_Err_Unknown_File_Format)
     error (_f ("unsupported font format: %s", str.c_str ()));
   else if (error_code)
-    error (_f ("error reading font file %s: %s", 
-	       str.c_str (),
-	       freetype_error_string (error_code).c_str ()));
+    error (_f ("error reading font file %s: %s",
+               str.c_str (),
+               freetype_error_string (error_code).c_str ()));
   return face;
 }
 
@@ -172,10 +171,10 @@ Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
   if (SCM_HASHTABLE_P (lily_index_to_bbox_table_))
     {
       SCM box = scm_hashq_ref (lily_index_to_bbox_table_,
-			       scm_from_unsigned_integer (signed_idx), SCM_BOOL_F);
+                               scm_from_unsigned_integer (signed_idx), SCM_BOOL_F);
       Box *box_ptr = Box::unsmob (box);
       if (box_ptr)
-	return *box_ptr;
+        return *box_ptr;
     }
 
   if (SCM_HASHTABLE_P (lily_character_table_))
@@ -183,35 +182,35 @@ Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
       const size_t len = 256;
       char name[len];
       FT_Error code = FT_Get_Glyph_Name (face_, FT_UInt (signed_idx),
-					 name, FT_UInt (len));
+                                         name, FT_UInt (len));
       if (code)
-	warning (_f ("FT_Get_Glyph_Name () Freetype error: %s",
-		     freetype_error_string (code)));
+        warning (_f ("FT_Get_Glyph_Name () Freetype error: %s",
+                     freetype_error_string (code)));
 
       SCM sym = ly_symbol2scm (name);
       SCM alist = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
 
       if (alist != SCM_BOOL_F)
-	{
-	  SCM bbox = scm_cdr (scm_assq (ly_symbol2scm ("bbox"), alist));
+        {
+          SCM bbox = scm_cdr (scm_assq (ly_symbol2scm ("bbox"), alist));
 
-	  Box b;
-	  b[X_AXIS][LEFT] = scm_to_double (scm_car (bbox));
-	  bbox = scm_cdr (bbox);
-	  b[Y_AXIS][LEFT] = scm_to_double (scm_car (bbox));
-	  bbox = scm_cdr (bbox);
-	  b[X_AXIS][RIGHT] = scm_to_double (scm_car (bbox));
-	  bbox = scm_cdr (bbox);
-	  b[Y_AXIS][RIGHT] = scm_to_double (scm_car (bbox));
-	  bbox = scm_cdr (bbox);
+          Box b;
+          b[X_AXIS][LEFT] = scm_to_double (scm_car (bbox));
+          bbox = scm_cdr (bbox);
+          b[Y_AXIS][LEFT] = scm_to_double (scm_car (bbox));
+          bbox = scm_cdr (bbox);
+          b[X_AXIS][RIGHT] = scm_to_double (scm_car (bbox));
+          bbox = scm_cdr (bbox);
+          b[Y_AXIS][RIGHT] = scm_to_double (scm_car (bbox));
+          bbox = scm_cdr (bbox);
 
-	  b.scale (point_constant);
+          b.scale (point_constant);
 
-	  scm_hashq_set_x (lily_index_to_bbox_table_,
-			   scm_from_unsigned_integer (signed_idx),
-			   b.smobbed_copy ());
-	  return b;
-	}
+          scm_hashq_set_x (lily_index_to_bbox_table_,
+                           scm_from_unsigned_integer (signed_idx),
+                           b.smobbed_copy ());
+          return b;
+        }
     }
 
   FT_UInt idx = FT_UInt (signed_idx);
@@ -221,7 +220,7 @@ Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
   FT_Pos hb = m.horiBearingX;
   FT_Pos vb = m.horiBearingY;
   Box b (Interval (Real (-hb), Real (m.width - hb)),
-	 Interval (Real (-vb), Real (m.height - vb)));
+         Interval (Real (-vb), Real (m.height - vb)));
 
   b.scale (design_size () / Real (face_->units_per_EM));
   return b;
@@ -233,8 +232,8 @@ Open_type_font::name_to_index (string nm) const
   char *nm_str = (char *) nm.c_str ();
   if (FT_UInt idx = FT_Get_Name_Index (face_, nm_str))
     return (size_t) idx;
-  
-  return (size_t) -1;
+
+  return (size_t) - 1;
 }
 
 size_t
@@ -262,15 +261,15 @@ Real
 Open_type_font::design_size () const
 {
   SCM entry = scm_hashq_ref (lily_global_table_,
-			     ly_symbol2scm ("design_size"),
+                             ly_symbol2scm ("design_size"),
 
-			     /*
-			       Hmm. Design size is arbitrary for
-			       non-design-size fonts. I vote for 1 -
-			       which will trip errors more
-			       quickly. --hwn.
-			     */
-			     scm_from_unsigned_integer (1));
+                             /*
+                               Hmm. Design size is arbitrary for
+                               non-design-size fonts. I vote for 1 -
+                               which will trip errors more
+                               quickly. --hwn.
+                             */
+                             scm_from_unsigned_integer (1));
   return scm_to_double (entry) * Real (point_constant);
 }
 
@@ -309,19 +308,19 @@ Open_type_font::glyph_list () const
 {
   SCM retval = SCM_EOL;
   SCM *tail = &retval;
-  
+
   for (int i = 0; i < face_->num_glyphs; i++)
     {
       const size_t len = 256;
       char name[len];
       FT_Error code = FT_Get_Glyph_Name (face_, i, name, len);
       if (code)
-	warning (_f ("FT_Get_Glyph_Name () error: %s",
-		     freetype_error_string (code).c_str ()));
+        warning (_f ("FT_Get_Glyph_Name () error: %s",
+                     freetype_error_string (code).c_str ()));
 
       *tail = scm_cons (scm_from_locale_string (name), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
-  
+
   return retval;
 }

@@ -100,15 +100,15 @@ Ligature_engraver::process_music ()
   if (events_drul_[STOP])
     {
       if (!ligature_)
-	{
-	  events_drul_[STOP]->origin ()->warning (_ ("cannot find start of ligature"));
-	  return;
-	}
+        {
+          events_drul_[STOP]->origin ()->warning (_ ("cannot find start of ligature"));
+          return;
+        }
 
       if (!last_bound_)
-	events_drul_[STOP]->origin ()->warning (_ ("no right bound"));
+        events_drul_[STOP]->origin ()->warning (_ ("no right bound"));
       else
-	ligature_->set_bound (RIGHT, last_bound_);
+        ligature_->set_bound (RIGHT, last_bound_);
 
       prev_start_event_ = 0;
       finished_primitives_ = primitives_;
@@ -127,19 +127,19 @@ Ligature_engraver::process_music ()
   if (events_drul_[START])
     {
       if (ligature_)
-	{
-	  events_drul_[START]->origin ()->warning (_ ("already have a ligature"));
-	  return;
-	}
+        {
+          events_drul_[START]->origin ()->warning (_ ("already have a ligature"));
+          return;
+        }
 
       prev_start_event_ = events_drul_[START];
       ligature_ = create_ligature_spanner ();
 
       Grob *bound = unsmob_grob (get_property ("currentMusicalColumn"));
       if (!bound)
-	events_drul_[START]->origin ()->warning (_ ("no left bound"));
+        events_drul_[START]->origin ()->warning (_ ("no left bound"));
       else
-	ligature_->set_bound (LEFT, bound);
+        ligature_->set_bound (LEFT, bound);
 
       ligature_start_mom_ = now_mom ();
 
@@ -154,16 +154,15 @@ Ligature_engraver::stop_translation_timestep ()
   if (finished_ligature_)
     {
       if (!finished_primitives_.size ())
-	{
-	  finished_ligature_->programming_error (
-	    "Ligature_engraver::stop_translation_timestep ():"
-	    " junking empty ligature");
-	}
+        {
+          finished_ligature_->programming_error ("Ligature_engraver::stop_translation_timestep ():"
+                                                 " junking empty ligature");
+        }
       else
-	{
-	  typeset_ligature (finished_ligature_, finished_primitives_);
-	  finished_primitives_.clear ();
-	}
+        {
+          typeset_ligature (finished_ligature_, finished_primitives_);
+          finished_primitives_.clear ();
+        }
       finished_ligature_ = 0;
     }
 

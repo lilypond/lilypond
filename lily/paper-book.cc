@@ -98,7 +98,7 @@ dump_fields ()
   for (vsize i = dump_header_fieldnames_global.size (); i--;)
     fields
       = scm_cons (ly_symbol2scm (dump_header_fieldnames_global[i].c_str ()),
-		  fields);
+                  fields);
   return fields;
 }
 
@@ -122,42 +122,42 @@ Paper_book::add_performance (SCM s)
 
 int
 Paper_book::output_aux (SCM output_channel,
-			bool is_last,
-			int *first_page_number,
-			int *first_performance_number)
+                        bool is_last,
+                        int *first_page_number,
+                        int *first_performance_number)
 {
   int page_nb = 0;
   if (scm_is_pair (performances_))
     {
       SCM proc = ly_lily_module_constant ("write-performances-midis");
- 
+
       scm_call_3 (proc,
-		  performances (),
-		  output_channel,
-		  scm_from_long (*first_performance_number));
+                  performances (),
+                  output_channel,
+                  scm_from_long (*first_performance_number));
       *first_performance_number += scm_ilength (performances_);
     }
 
   if (scm_is_pair (bookparts_))
     {
       for (SCM p = bookparts_; scm_is_pair (p); p = scm_cdr (p))
-	if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
-	  {
-	    bool is_last_part = (is_last && !scm_is_pair (scm_cdr (p)));
-	    page_nb += pbookpart->output_aux (output_channel,
-					      is_last_part,
-					      first_page_number,
-					      first_performance_number);
-	  }
+        if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
+          {
+            bool is_last_part = (is_last && !scm_is_pair (scm_cdr (p)));
+            page_nb += pbookpart->output_aux (output_channel,
+                                              is_last_part,
+                                              first_page_number,
+                                              first_performance_number);
+          }
     }
   else
     {
       if (scores_ == SCM_EOL)
-	return 0;
+        return 0;
       paper_->set_variable (ly_symbol2scm ("first-page-number"),
-			    scm_from_long (*first_page_number));
+                            scm_from_long (*first_page_number));
       paper_->set_variable (ly_symbol2scm ("is-last-bookpart"),
-			    ly_bool2scm (is_last));
+                            ly_bool2scm (is_last));
       /* Generate all stencils to trigger font loads.  */
       page_nb = scm_ilength (pages ());
       *first_page_number += page_nb;
@@ -180,12 +180,12 @@ Paper_book::output (SCM output_channel)
 
   if (paper_->c_variable ("line-width") == SCM_UNDEFINED)
     paper_->set_variable (ly_symbol2scm ("line-width"),
-			  paper_->c_variable ("paper-width"));
- 
+                          paper_->c_variable ("paper-width"));
+
   if (!output_aux (output_channel,
-		   true,
-		   &first_page_number,
-		   &first_performance_number))
+                   true,
+                   &first_page_number,
+                   &first_performance_number))
     return;
 
   SCM scopes = SCM_EOL;
@@ -199,56 +199,56 @@ Paper_book::output (SCM output_channel)
   if (get_program_option ("print-pages"))
     {
       SCM framework = ly_module_lookup (mod,
-					ly_symbol2scm ("output-framework"));
+                                        ly_symbol2scm ("output-framework"));
 
       if (framework != SCM_BOOL_F)
-	{
-	  SCM func = scm_variable_ref (framework);
-	  scm_apply_0 (func, scm_list_n (output_channel,
-					 self_scm (),
-					 scopes,
-					 dump_fields (),
-					 SCM_UNDEFINED));
-	}
+        {
+          SCM func = scm_variable_ref (framework);
+          scm_apply_0 (func, scm_list_n (output_channel,
+                                         self_scm (),
+                                         scopes,
+                                         dump_fields (),
+                                         SCM_UNDEFINED));
+        }
       else
-	warning (_f ("program option -dprint-pages not supported by backend `%s'",
-		     get_output_backend_name ()));
+        warning (_f ("program option -dprint-pages not supported by backend `%s'",
+                     get_output_backend_name ()));
     }
 
   if (get_program_option ("preview"))
     {
       SCM framework
-	= ly_module_lookup (mod, ly_symbol2scm ("output-preview-framework"));
+        = ly_module_lookup (mod, ly_symbol2scm ("output-preview-framework"));
 
       if (framework != SCM_BOOL_F)
-	{
-	  SCM func = scm_variable_ref (framework);
-	  scm_apply_0 (func, scm_list_n (output_channel,
-					 self_scm (),
-					 scopes,
-					 dump_fields (),
-					 SCM_UNDEFINED));
-	}
+        {
+          SCM func = scm_variable_ref (framework);
+          scm_apply_0 (func, scm_list_n (output_channel,
+                                         self_scm (),
+                                         scopes,
+                                         dump_fields (),
+                                         SCM_UNDEFINED));
+        }
       else
-	warning (_f ("program option -dpreview not supported by backend `%s'",
-		     get_output_backend_name ()));
+        warning (_f ("program option -dpreview not supported by backend `%s'",
+                     get_output_backend_name ()));
     }
 }
 
 void
 Paper_book::classic_output_aux (SCM output,
-				int *first_performance_number)
+                                int *first_performance_number)
 {
   if (scm_is_pair (performances_))
     {
       SCM proc = ly_lily_module_constant ("write-performances-midis");
       scm_call_3 (proc,
-		  performances (),
-		  output,
-		  scm_from_long (*first_performance_number));
+                  performances (),
+                  output,
+                  scm_from_long (*first_performance_number));
       *first_performance_number += scm_ilength (performances_);
     }
-  
+
   /* Generate all stencils to trigger font loads.  */
   systems ();
 }
@@ -274,10 +274,10 @@ Paper_book::classic_output (SCM output)
 
   func = scm_variable_ref (func);
   scm_apply_0 (func, scm_list_n (output,
-				 self_scm (),
-				 scopes,
-				 dump_fields (),
-				 SCM_UNDEFINED));
+                                 self_scm (),
+                                 scopes,
+                                 dump_fields (),
+                                 SCM_UNDEFINED));
 
   progress_indication ("\n");
 }
@@ -296,8 +296,8 @@ Paper_book::book_title ()
   SCM tit = SCM_EOL;
   if (ly_is_procedure (title_func))
     tit = scm_call_2 (title_func,
-		      paper_->self_scm (),
-		      scopes);
+                      paper_->self_scm (),
+                      scopes);
 
   if (unsmob_stencil (tit))
     title = *unsmob_stencil (tit);
@@ -325,8 +325,8 @@ Paper_book::score_title (SCM header)
   SCM tit = SCM_EOL;
   if (ly_is_procedure (title_func))
     tit = scm_call_2 (title_func,
-		      paper_->self_scm (),
-		      scopes);
+                      paper_->self_scm (),
+                      scopes);
 
   if (unsmob_stencil (tit))
     title = *unsmob_stencil (tit);
@@ -344,11 +344,11 @@ set_page_permission (SCM sys, SCM symbol, SCM permission)
     {
       vector<Grob *> cols = ps->get_columns ();
       if (cols.size ())
-	{
-	  Paper_column *col = dynamic_cast<Paper_column *> (cols.back ());
-	  col->set_property (symbol, permission);
-	  col->find_prebroken_piece (LEFT)->set_property (symbol, permission);
-	}
+        {
+          Paper_column *col = dynamic_cast<Paper_column *> (cols.back ());
+          col->set_property (symbol, permission);
+          col->find_prebroken_piece (LEFT)->set_property (symbol, permission);
+        }
     }
   else if (Prob *pb = unsmob_prob (sys))
     pb->set_property (symbol, permission);
@@ -365,19 +365,19 @@ set_system_penalty (SCM sys, SCM header)
     {
       SCM force = ly_module_lookup (header, ly_symbol2scm ("breakbefore"));
       if (SCM_VARIABLEP (force)
-	  && scm_is_bool (SCM_VARIABLE_REF (force)))
-	{
-	  if (to_boolean (SCM_VARIABLE_REF (force)))
-	    {
-	      set_page_permission (sys, ly_symbol2scm ("page-break-permission"),
-				   ly_symbol2scm ("force"));
-	      set_page_permission (sys, ly_symbol2scm ("line-break-permission"),
-				   ly_symbol2scm ("force"));
-	    }
-	  else
-	    set_page_permission (sys, ly_symbol2scm ("page-break-permission"),
-				 SCM_EOL);
-	}
+          && scm_is_bool (SCM_VARIABLE_REF (force)))
+        {
+          if (to_boolean (SCM_VARIABLE_REF (force)))
+            {
+              set_page_permission (sys, ly_symbol2scm ("page-break-permission"),
+                                   ly_symbol2scm ("force"));
+              set_page_permission (sys, ly_symbol2scm ("line-break-permission"),
+                                   ly_symbol2scm ("force"));
+            }
+          else
+            set_page_permission (sys, ly_symbol2scm ("page-break-permission"),
+                                 SCM_EOL);
+        }
     }
 }
 
@@ -386,24 +386,24 @@ set_labels (SCM sys, SCM labels)
 {
   if (Paper_score *ps = dynamic_cast<Paper_score *> (unsmob_music_output (sys)))
     {
-      vector<Grob*> cols = ps->get_columns ();
+      vector<Grob *> cols = ps->get_columns ();
       if (cols.size ())
-	{
-	  Paper_column *col = dynamic_cast<Paper_column *> (cols[0]);
-	  col->set_property ("labels", 
-			     scm_append_x (scm_list_2 (col->get_property ("labels"),
-						       labels)));
-	  Paper_column *col_right
-	    = dynamic_cast<Paper_column *> (col->find_prebroken_piece (RIGHT));
-	  col_right->set_property ("labels", 
-				   scm_append_x (scm_list_2 (col_right->get_property ("labels"),
-							     labels)));
-	}
+        {
+          Paper_column *col = dynamic_cast<Paper_column *> (cols[0]);
+          col->set_property ("labels",
+                             scm_append_x (scm_list_2 (col->get_property ("labels"),
+                                                       labels)));
+          Paper_column *col_right
+            = dynamic_cast<Paper_column *> (col->find_prebroken_piece (RIGHT));
+          col_right->set_property ("labels",
+                                   scm_append_x (scm_list_2 (col_right->get_property ("labels"),
+                                                             labels)));
+        }
     }
   else if (Prob *pb = unsmob_prob (sys))
-    pb->set_property ("labels", 
-		      scm_append_x (scm_list_2 (pb->get_property ("labels"),
-						labels)));
+    pb->set_property ("labels",
+                      scm_append_x (scm_list_2 (pb->get_property ("labels"),
+                                                labels)));
 }
 
 SCM
@@ -415,11 +415,11 @@ Paper_book::get_score_title (SCM header)
   if (!title.is_empty ())
     {
       /*
-	TODO: this should come from the \layout {} block, which should
-	override settings from \paper {}
+        TODO: this should come from the \layout {} block, which should
+        override settings from \paper {}
       */
       SCM props
-	= paper_->lookup_variable (ly_symbol2scm ("score-title-properties"));
+        = paper_->lookup_variable (ly_symbol2scm ("score-title-properties"));
       Prob *ps = make_paper_system (props);
       paper_system_set_stencil (ps, title);
 
@@ -428,7 +428,6 @@ Paper_book::get_score_title (SCM header)
 
   return SCM_BOOL_F;
 }
-
 
 SCM
 Paper_book::get_system_specs ()
@@ -439,7 +438,7 @@ Paper_book::get_system_specs ()
   if (!title.is_empty ())
     {
       SCM props
-	= paper_->lookup_variable (ly_symbol2scm ("book-title-properties"));
+        = paper_->lookup_variable (ly_symbol2scm ("book-title-properties"));
       Prob *ps = make_paper_system (props);
       paper_system_set_stencil (ps, title);
 
@@ -449,7 +448,7 @@ Paper_book::get_system_specs ()
 
   SCM page_properties
     = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
-		  paper_->self_scm ());
+                  paper_->self_scm ());
 
   SCM interpret_markup_list = ly_lily_module_constant ("interpret-markup-list");
   SCM header = SCM_EOL;
@@ -457,115 +456,115 @@ Paper_book::get_system_specs ()
   for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
     {
       if (ly_is_module (scm_car (s)))
-	{
-	  header = scm_car (s);
-	  if (header_0_ == SCM_EOL)
-	    header_0_ = header;
-	}
+        {
+          header = scm_car (s);
+          if (header_0_ == SCM_EOL)
+            header_0_ = header;
+        }
       else if (Page_marker *page_marker = unsmob_page_marker (scm_car (s)))
-	{
-	  /* page markers are used to set page breaking/turning permission,
-	     or to place bookmarking labels */ 
-	  if (scm_is_symbol (page_marker->permission_symbol ()))
-	    {
-	      /* set previous element page break or turn permission */
-	      if (scm_is_pair (system_specs))
-		set_page_permission (scm_car (system_specs),
-				     page_marker->permission_symbol (),
-				     page_marker->permission_value ());
-	    }
-	  if (scm_is_symbol (page_marker->label ()))
-	    {
-	      /* The next element label is to be set */
-	      labels = scm_cons (page_marker->label (), labels);
-	    }
-	}
+        {
+          /* page markers are used to set page breaking/turning permission,
+             or to place bookmarking labels */
+          if (scm_is_symbol (page_marker->permission_symbol ()))
+            {
+              /* set previous element page break or turn permission */
+              if (scm_is_pair (system_specs))
+                set_page_permission (scm_car (system_specs),
+                                     page_marker->permission_symbol (),
+                                     page_marker->permission_value ());
+            }
+          if (scm_is_symbol (page_marker->label ()))
+            {
+              /* The next element label is to be set */
+              labels = scm_cons (page_marker->label (), labels);
+            }
+        }
       else if (Music_output *mop = unsmob_music_output (scm_car (s)))
-	{
-	  if (Paper_score *pscore = dynamic_cast<Paper_score *> (mop))
-	    {
-	      SCM title = get_score_title (header);
+        {
+          if (Paper_score *pscore = dynamic_cast<Paper_score *> (mop))
+            {
+              SCM title = get_score_title (header);
 
-	      if (scm_is_pair (system_specs))
-		set_system_penalty (scm_car (system_specs), header);
+              if (scm_is_pair (system_specs))
+                set_system_penalty (scm_car (system_specs), header);
 
-	      if (unsmob_prob (title))
-		{
-		  system_specs = scm_cons (title, system_specs);
-		  unsmob_prob (title)->unprotect ();
-		}
+              if (unsmob_prob (title))
+                {
+                  system_specs = scm_cons (title, system_specs);
+                  unsmob_prob (title)->unprotect ();
+                }
 
-	      header = SCM_EOL;
-	      system_specs = scm_cons (pscore->self_scm (), system_specs);
-	      if (scm_is_pair (labels))
-		{
-		  set_labels (scm_car (system_specs), labels);
-		  labels = SCM_EOL;
-		}
-	    }
-	  else
-	    {
-	      /*
-		Ignore MIDI
-	      */
-	    }
-	}
+              header = SCM_EOL;
+              system_specs = scm_cons (pscore->self_scm (), system_specs);
+              if (scm_is_pair (labels))
+                {
+                  set_labels (scm_car (system_specs), labels);
+                  labels = SCM_EOL;
+                }
+            }
+          else
+            {
+              /*
+                Ignore MIDI
+              */
+            }
+        }
       else if (Text_interface::is_markup_list (scm_car (s)))
-	{
-	  SCM texts = scm_call_3 (interpret_markup_list,
-				  paper_->self_scm (),
-				  page_properties,
-				  scm_car (s));
-	  Prob *first = 0;
-	  Prob *last = 0;
-	  for (SCM list = texts; scm_is_pair (list); list = scm_cdr (list))
-	    {
-	      SCM t = scm_car (list);
-	      // TODO: init props
-	      Prob *ps = make_paper_system (SCM_EOL);
-	      ps->set_property ("page-break-permission",
-				ly_symbol2scm ("allow"));
-	      ps->set_property ("page-turn-permission",
-				ly_symbol2scm ("allow"));
-	      ps->set_property ("last-markup-line",  SCM_BOOL_F);
-	      ps->set_property ("first-markup-line", SCM_BOOL_F);
+        {
+          SCM texts = scm_call_3 (interpret_markup_list,
+                                  paper_->self_scm (),
+                                  page_properties,
+                                  scm_car (s));
+          Prob *first = 0;
+          Prob *last = 0;
+          for (SCM list = texts; scm_is_pair (list); list = scm_cdr (list))
+            {
+              SCM t = scm_car (list);
+              // TODO: init props
+              Prob *ps = make_paper_system (SCM_EOL);
+              ps->set_property ("page-break-permission",
+                                ly_symbol2scm ("allow"));
+              ps->set_property ("page-turn-permission",
+                                ly_symbol2scm ("allow"));
+              ps->set_property ("last-markup-line", SCM_BOOL_F);
+              ps->set_property ("first-markup-line", SCM_BOOL_F);
 
-	      paper_system_set_stencil (ps, *unsmob_stencil (t));
+              paper_system_set_stencil (ps, *unsmob_stencil (t));
 
-	      SCM footnotes = get_footnotes (unsmob_stencil (t)->expr ());
-	      ps->set_property ("footnotes", footnotes);
-	      ps->set_property ("is-title", SCM_BOOL_T);
-	      if (list == texts)
-		first = ps;
-	      else
-		{
-		  // last line so far, in a multi-line paragraph
-		  last = ps;
-		  //Place closely to previous line, no stretching.
-		  ps->set_property ("tight-spacing", SCM_BOOL_T);
-		}
-	      system_specs = scm_cons (ps->self_scm (), system_specs);
-	      ps->unprotect ();
+              SCM footnotes = get_footnotes (unsmob_stencil (t)->expr ());
+              ps->set_property ("footnotes", footnotes);
+              ps->set_property ("is-title", SCM_BOOL_T);
+              if (list == texts)
+                first = ps;
+              else
+                {
+                  // last line so far, in a multi-line paragraph
+                  last = ps;
+                  //Place closely to previous line, no stretching.
+                  ps->set_property ("tight-spacing", SCM_BOOL_T);
+                }
+              system_specs = scm_cons (ps->self_scm (), system_specs);
+              ps->unprotect ();
 
-	      if (scm_is_pair (labels))
-		{
-		  set_labels (scm_car (system_specs), labels);
-		  labels = SCM_EOL;
-		}
-	      // FIXME: figure out penalty.
-	      //set_system_penalty (ps, scores_[i].header_);
-	    }
-	  /* Set properties to avoid widowed/orphaned lines.
-	     Single-line markup_lists are excluded, but in future
-	     we may want to add the case of a very short, single line. */
-	  if (first && last)
-	    {
-	      last->set_property ("last-markup-line", SCM_BOOL_T);
-	      first->set_property ("first-markup-line", SCM_BOOL_T);
-	    }
-	}
+              if (scm_is_pair (labels))
+                {
+                  set_labels (scm_car (system_specs), labels);
+                  labels = SCM_EOL;
+                }
+              // FIXME: figure out penalty.
+              //set_system_penalty (ps, scores_[i].header_);
+            }
+          /* Set properties to avoid widowed/orphaned lines.
+             Single-line markup_lists are excluded, but in future
+             we may want to add the case of a very short, single line. */
+          if (first && last)
+            {
+              last->set_property ("last-markup-line", SCM_BOOL_T);
+              first->set_property ("first-markup-line", SCM_BOOL_T);
+            }
+        }
       else
-	assert (0);
+        assert (0);
     }
 
   system_specs = scm_reverse_x (system_specs, SCM_EOL);
@@ -582,55 +581,55 @@ Paper_book::systems ()
   if (scm_is_pair (bookparts_))
     {
       for (SCM p = bookparts_; scm_is_pair (p); p = scm_cdr (p))
-	if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
-	  systems_ = scm_append_x (scm_list_2 (systems_,
-					       pbookpart->systems ()));
+        if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
+          systems_ = scm_append_x (scm_list_2 (systems_,
+                                               pbookpart->systems ()));
     }
   else
     {
       SCM specs = get_system_specs ();
       for (SCM s = specs; scm_is_pair (s); s = scm_cdr (s))
-	{
-	  if (Paper_score *pscore
-	      = dynamic_cast<Paper_score *> (unsmob_music_output (scm_car (s))))
-	    {
-	      SCM system_list
-		= scm_vector_to_list (pscore->get_paper_systems ());
+        {
+          if (Paper_score * pscore
+              = dynamic_cast<Paper_score *> (unsmob_music_output (scm_car (s))))
+            {
+              SCM system_list
+                = scm_vector_to_list (pscore->get_paper_systems ());
 
-	      system_list = scm_reverse (system_list);
-	      systems_ = scm_append (scm_list_2 (system_list, systems_));
-	    }
-	  else
-	    {
-	      systems_ = scm_cons (scm_car (s), systems_);
-	    }
-	}
+              system_list = scm_reverse (system_list);
+              systems_ = scm_append (scm_list_2 (system_list, systems_));
+            }
+          else
+            {
+              systems_ = scm_cons (scm_car (s), systems_);
+            }
+        }
       systems_ = scm_reverse (systems_);
 
       /* backwards compatibility for the old page breaker */
       int i = 0;
       Prob *last = 0;
       for (SCM s = systems_; scm_is_pair (s); s = scm_cdr (s))
-	{
-	  Prob *ps = unsmob_prob (scm_car (s));
-	  ps->set_property ("number", scm_from_int (++i));
+        {
+          Prob *ps = unsmob_prob (scm_car (s));
+          ps->set_property ("number", scm_from_int (++i));
 
-	  if (last
-	      && to_boolean (last->get_property ("is-title"))
-	      && !scm_is_number (ps->get_property ("penalty")))
-	    ps->set_property ("penalty", scm_from_int (10000));
-	  last = ps;
-	  
-	  if (scm_is_pair (scm_cdr (s)))
-	    {
-	      SCM perm = ps->get_property ("page-break-permission");
-	      Prob *next = unsmob_prob (scm_cadr (s));
-	      if (perm == SCM_EOL)
-		next->set_property ("penalty", scm_from_int (10001));
-	      else if (perm == ly_symbol2scm ("force"))
-		next->set_property ("penalty", scm_from_int (-10001));
-	    }
-	}
+          if (last
+              && to_boolean (last->get_property ("is-title"))
+              && !scm_is_number (ps->get_property ("penalty")))
+            ps->set_property ("penalty", scm_from_int (10000));
+          last = ps;
+
+          if (scm_is_pair (scm_cdr (s)))
+            {
+              SCM perm = ps->get_property ("page-break-permission");
+              Prob *next = unsmob_prob (scm_cadr (s));
+              if (perm == SCM_EOL)
+                next->set_property ("penalty", scm_from_int (10001));
+              else if (perm == ly_symbol2scm ("force"))
+                next->set_property ("penalty", scm_from_int (-10001));
+            }
+        }
     }
 
   return systems_;
@@ -646,8 +645,8 @@ Paper_book::pages ()
   if (scm_is_pair (bookparts_))
     {
       for (SCM p = bookparts_; scm_is_pair (p); p = scm_cdr (p))
-	if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
-	  pages_ = scm_append_x (scm_list_2 (pages_, pbookpart->pages ()));
+        if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
+          pages_ = scm_append_x (scm_list_2 (pages_, pbookpart->pages ()));
     }
   else if (scm_is_pair (scores_))
     {
@@ -655,19 +654,19 @@ Paper_book::pages ()
       pages_ = scm_apply_0 (page_breaking, scm_list_1 (self_scm ()));
       SCM post_process = paper_->c_variable ("page-post-process");
       if (ly_is_procedure (post_process))
-	scm_apply_2 (post_process, paper_->self_scm (), pages_, SCM_EOL);
+        scm_apply_2 (post_process, paper_->self_scm (), pages_, SCM_EOL);
 
       /* set systems_ from the pages */
       if (systems_ == SCM_BOOL_F)
-	{
-	  systems_ = SCM_EOL;
-	  for (SCM p = pages_; scm_is_pair (p); p = scm_cdr (p))
-	    {
-	      Prob *page = unsmob_prob (scm_car (p));
-	      SCM systems = page->get_property ("lines");
-	      systems_ = scm_append (scm_list_2 (systems_, systems));
-	    }
-	}
+        {
+          systems_ = SCM_EOL;
+          for (SCM p = pages_; scm_is_pair (p); p = scm_cdr (p))
+            {
+              Prob *page = unsmob_prob (scm_car (p));
+              SCM systems = page->get_property ("lines");
+              systems_ = scm_append (scm_list_2 (systems_, systems));
+            }
+        }
     }
   return pages_;
 }

@@ -110,10 +110,10 @@ System::derived_mark () const
       Grob **ptr = &all_elements_->array_reference ()[0];
       Grob **end = ptr + all_elements_->size ();
       while (ptr < end)
-	{
-	  scm_gc_mark ((*ptr)->self_scm ());
-	  ptr++;
-	}
+        {
+          scm_gc_mark ((*ptr)->self_scm ());
+          ptr++;
+        }
     }
 
   if (pscore_)
@@ -136,20 +136,20 @@ System::do_break_substitution_and_fixup_refpoints ()
     {
       Grob *g = all_elements_->grob (i);
       if (g->internal_has_interface (ly_symbol2scm ("only-prebreak-interface")))
-	{
-	  /*
-	    Kill no longer needed grobs.
-	  */
-	  Item *it = dynamic_cast<Item *> (g);
-	  if (it && Item::is_non_musical (it))
-	    {
-	      it->find_prebroken_piece (LEFT)->suicide ();
-	      it->find_prebroken_piece (RIGHT)->suicide ();
-	    }
-	  g->suicide ();
-	}
+        {
+          /*
+            Kill no longer needed grobs.
+          */
+          Item *it = dynamic_cast<Item *> (g);
+          if (it && Item::is_non_musical (it))
+            {
+              it->find_prebroken_piece (LEFT)->suicide ();
+              it->find_prebroken_piece (RIGHT)->suicide ();
+            }
+          g->suicide ();
+        }
       else if (g->is_live ())
-	g->do_break_processing ();
+        g->do_break_processing ();
     }
 
   /*
@@ -162,11 +162,11 @@ System::do_break_substitution_and_fixup_refpoints ()
 
       extract_grob_set (se, "all-elements", all_elts);
       for (vsize j = 0; j < all_elts.size (); j++)
-	{
-	  Grob *g = all_elts[j];
-	  g->fixup_refpoint ();
-	}
-        
+        {
+          Grob *g = all_elts[j];
+          g->fixup_refpoint ();
+        }
+
       count += all_elts.size ();
     }
 
@@ -190,11 +190,11 @@ System::do_break_substitution_and_fixup_refpoints ()
       System *child = dynamic_cast<System *> (broken_intos_[i]);
       child->all_elements_->remove_duplicates ();
       for (vsize j = 0; j < child->all_elements_->size (); j++)
-	{
-	  Grob *g = child->all_elements_->grob (j);
+        {
+          Grob *g = child->all_elements_->grob (j);
 
-	  (void) g->get_property ("after-line-breaking");
-	}
+          (void) g->get_property ("after-line-breaking");
+        }
     }
 
   if (be_verbose_global)
@@ -217,15 +217,15 @@ System::get_paper_systems ()
   for (vsize i = 0; i < broken_intos_.size (); i++)
     {
       if (be_verbose_global)
-	progress_indication ("[");
+        progress_indication ("[");
 
       System *system = dynamic_cast<System *> (broken_intos_[i]);
 
       scm_vector_set_x (lines, scm_from_int (i),
-			system->get_paper_system ());
+                        system->get_paper_system ());
 
       if (be_verbose_global)
-	progress_indication (to_string (i) + "]");
+        progress_indication (to_string (i) + "]");
     }
   return lines;
 }
@@ -254,13 +254,13 @@ System::get_footnote_grobs_in_range (vector<Grob *> &out, vsize start, vsize end
       bool end_of_line_visible = true;
       if (Spanner *s = dynamic_cast<Spanner *>(footnote_grobs_[i]))
         {
-          Direction spanner_placement =  robust_scm2dir (s->get_property ("spanner-placement"), LEFT);
+          Direction spanner_placement = robust_scm2dir (s->get_property ("spanner-placement"), LEFT);
           if (spanner_placement == CENTER)
             spanner_placement = LEFT;
 
           pos = s->spanned_rank_interval ()[spanner_placement];
         }
-      
+
       if (Item *item = dynamic_cast<Item *>(footnote_grobs_[i]))
         {
           if (!Item::break_visible (item))
@@ -345,19 +345,19 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
       system->set_bound (RIGHT, c.back ());
       SCM system_labels = SCM_EOL;
       for (vsize j = 0; j < c.size (); j++)
-	{
-	  c[j]->translate_axis (breaking[i].config_[j], X_AXIS);
-	  dynamic_cast<Paper_column *> (c[j])->set_system (system);
-	  /* collect the column labels */
-	  collect_labels (c[j], &system_labels);
-	}
+        {
+          c[j]->translate_axis (breaking[i].config_[j], X_AXIS);
+          dynamic_cast<Paper_column *> (c[j])->set_system (system);
+          /* collect the column labels */
+          collect_labels (c[j], &system_labels);
+        }
       /*
-	Collect labels from any loose columns too: theses will be set on
-	an empty bar line or a column which is otherwise unused mid-line
+        Collect labels from any loose columns too: theses will be set on
+        an empty bar line or a column which is otherwise unused mid-line
       */
       vector<Grob *> loose (breaking[i].loose_cols_);
       for (vsize j = 0; j < loose.size (); j++)
-	collect_labels (loose[j], &system_labels);
+        collect_labels (loose[j], &system_labels);
 
       system->set_property ("labels", system_labels);
 
@@ -455,8 +455,8 @@ struct Layer_entry
 };
 
 bool
-operator< (Layer_entry  const &a,
-	   Layer_entry  const &b)
+operator < (Layer_entry const &a,
+            Layer_entry const &b)
 {
   return a.layer_ < b.layer_;
 }
@@ -486,18 +486,18 @@ System::get_paper_system ()
       Stencil st = g->get_print_stencil ();
 
       if (st.expr () == SCM_EOL)
-	continue;
+        continue;
 
       Offset o;
       for (int a = X_AXIS; a < NO_AXES; a++)
-	o[Axis (a)] = g->relative_coordinate (this, Axis (a));
+        o[Axis (a)] = g->relative_coordinate (this, Axis (a));
 
       Offset extra = robust_scm2offset (g->get_property ("extra-offset"),
-					Offset (0, 0))
-	* Staff_symbol_referencer::staff_space (g);
+                                        Offset (0, 0))
+                     * Staff_symbol_referencer::staff_space (g);
 
       /* Must copy the stencil, for we cannot change the stencil
-	 cached in G.  */
+         cached in G.  */
 
       st.translate (o + extra);
 
@@ -511,20 +511,20 @@ System::get_paper_system ()
   Interval x (extent (this, X_AXIS));
   Interval y (extent (this, Y_AXIS));
   Stencil sys_stencil (Box (x, y),
-		       scm_cons (ly_symbol2scm ("combine-stencil"),
-				 exprs));
+                       scm_cons (ly_symbol2scm ("combine-stencil"),
+                                 exprs));
   if (debug_skylines)
     {
       Skyline_pair *skylines = Skyline_pair::unsmob (get_property ("vertical-skylines"));
       if (skylines)
-	{
-	  Stencil up
-	    = Lookup::points_to_line_stencil (0.1, (*skylines)[UP].to_points (X_AXIS));
-	  Stencil down
-	    = Lookup::points_to_line_stencil (0.1, (*skylines)[DOWN].to_points (X_AXIS));
-	  sys_stencil.add_stencil (up.in_color (255, 0, 0));
-	  sys_stencil.add_stencil (down.in_color (0, 255, 0));
-	}
+        {
+          Stencil up
+            = Lookup::points_to_line_stencil (0.1, (*skylines)[UP].to_points (X_AXIS));
+          Stencil down
+            = Lookup::points_to_line_stencil (0.1, (*skylines)[DOWN].to_points (X_AXIS));
+          sys_stencil.add_stencil (up.in_color (255, 0, 0));
+          sys_stencil.add_stencil (down.in_color (0, 255, 0));
+        }
     }
 
   Grob *left_bound = this->get_bound (LEFT);
@@ -545,10 +545,10 @@ System::get_paper_system ()
     {
       extract_grob_set (align, "elements", staves);
       for (vsize i = 0; i < staves.size (); i++)
-	if (staves[i]->is_live ()
-	    && Page_layout_problem::is_spaceable (staves[i]))
-	  staff_refpoints.add_point (staves[i]->relative_coordinate (this,
-								     Y_AXIS));
+        if (staves[i]->is_live ()
+            && Page_layout_problem::is_spaceable (staves[i]))
+          staff_refpoints.add_point (staves[i]->relative_coordinate (this,
+                                                                     Y_AXIS));
     }
 
   pl->set_property ("staff-refpoint-extent", ly_interval2scm (staff_refpoints));
@@ -573,11 +573,11 @@ System::broken_col_range (Item const *left, Item const *right) const
     i++;
 
   while (i < cols.size ()
-	 && Paper_column::get_rank (cols[i]) < end_rank)
+         && Paper_column::get_rank (cols[i]) < end_rank)
     {
       Paper_column *c = dynamic_cast<Paper_column *> (cols[i]);
       if (Paper_column::is_breakable (c) && !c->get_system ())
-	ret.push_back (c);
+        ret.push_back (c);
       i++;
     }
 
@@ -596,14 +596,14 @@ System::used_columns () const
   while (last_breakable--)
     {
       if (Paper_column::is_breakable (ro_columns [last_breakable]))
-	break;
+        break;
     }
 
   vector<Grob *> columns;
   for (int i = 0; i <= last_breakable; i++)
     {
       if (Paper_column::is_used (ro_columns[i]))
-	columns.push_back (ro_columns[i]);
+        columns.push_back (ro_columns[i]);
     }
 
   return columns;
@@ -650,9 +650,9 @@ System::get_vertical_alignment ()
   for (vsize i = 0; i < elts.size (); i++)
     if (Align_interface::has_interface (elts[i]))
       {
-	if (ret)
-	  programming_error ("found multiple vertical alignments in this system");
-	ret = elts[i];
+        if (ret)
+          programming_error ("found multiple vertical alignments in this system");
+        ret = elts[i];
       }
 
   if (!ret)
@@ -675,12 +675,12 @@ System::get_extremal_staff (Direction dir, Interval const &iv)
   for (vsize i = start; i != end; i += dir)
     {
       if (Hara_kiri_group_spanner::has_interface (elts[i]))
-	Hara_kiri_group_spanner::consider_suicide (elts[i]);
+        Hara_kiri_group_spanner::consider_suicide (elts[i]);
 
       Interval intersection = elts[i]->extent (this, X_AXIS);
       intersection.intersect (iv);
       if (elts[i]->is_live () && !intersection.is_empty ())
-	return elts[i];
+        return elts[i];
     }
   return 0;
 }
@@ -699,15 +699,15 @@ System::pure_refpoint_extent (vsize start, vsize end)
   for (vsize i = 0; i < offsets.size (); ++i)
     if (Page_layout_problem::is_spaceable (staves[i]))
       {
-	ret[UP] = offsets[i];
-	break;
+        ret[UP] = offsets[i];
+        break;
       }
 
   for (vsize i = offsets.size (); i--;)
     if (Page_layout_problem::is_spaceable (staves[i]))
       {
-	ret[DOWN] = offsets[i];
-	break;
+        ret[DOWN] = offsets[i];
+        break;
       }
 
   return ret;
@@ -727,16 +727,16 @@ System::part_of_line_pure_height (vsize start, vsize end, bool begin)
   for (vsize i = 0; i < staves.size (); ++i)
     {
       Interval iv = begin
-	? Axis_group_interface::begin_of_line_pure_height (staves[i], start)
-	: Axis_group_interface::rest_of_line_pure_height (staves[i], start, end);
+                    ? Axis_group_interface::begin_of_line_pure_height (staves[i], start)
+                    : Axis_group_interface::rest_of_line_pure_height (staves[i], start, end);
       if (i < offsets.size ())
-	iv.translate (offsets[i]);
+        iv.translate (offsets[i]);
       ret.unite (iv);
     }
 
   Interval other_elements = begin
-    ? Axis_group_interface::begin_of_line_pure_height (this, start)
-    : Axis_group_interface::rest_of_line_pure_height (this, start, end);
+                            ? Axis_group_interface::begin_of_line_pure_height (this, start)
+                            : Axis_group_interface::rest_of_line_pure_height (this, start, end);
 
   ret.unite (other_elements);
 
@@ -771,22 +771,22 @@ System::calc_pure_relevant_grobs (SCM smob)
   for (vsize i = 0; i < elts.size (); ++i)
     {
       if (!Axis_group_interface::has_interface (elts[i]))
-	{
-	  if (to_boolean (scm_apply_1 (pure_relevant_p, elts[i]->self_scm (), SCM_EOL)))
-	    relevant_grobs.push_back (elts[i]);
+        {
+          if (to_boolean (scm_apply_1 (pure_relevant_p, elts[i]->self_scm (), SCM_EOL)))
+            relevant_grobs.push_back (elts[i]);
 
-	  if (Item *it = dynamic_cast<Item*> (elts[i]))
-	    {
-	      Direction d = LEFT;
-	      do
-		{
-		  Item *piece = it->find_prebroken_piece (d);
-		  if (piece && to_boolean (scm_apply_1 (pure_relevant_p, piece->self_scm (), SCM_EOL)))
-		    relevant_grobs.push_back (piece);
-		}
-	      while (flip (&d) != LEFT);
-	    }
-	}
+          if (Item *it = dynamic_cast<Item *> (elts[i]))
+            {
+              Direction d = LEFT;
+              do
+                {
+                  Item *piece = it->find_prebroken_piece (d);
+                  if (piece && to_boolean (scm_apply_1 (pure_relevant_p, piece->self_scm (), SCM_EOL)))
+                    relevant_grobs.push_back (piece);
+                }
+              while (flip (&d) != LEFT);
+            }
+        }
     }
 
   SCM grobs_scm = Grob_array::make_array ();
@@ -817,16 +817,16 @@ System::calc_pure_height (SCM smob, SCM start_scm, SCM end_scm)
   return ly_interval2scm (begin);
 }
 
-Grob*
+Grob *
 System::get_pure_bound (Direction d, int start, int end)
 {
   vector<vsize> ranks = pscore_->get_break_ranks ();
   vector<vsize> indices = pscore_->get_break_indices ();
-  vector<Grob*> cols = pscore_->get_columns ();
+  vector<Grob *> cols = pscore_->get_columns ();
 
   vsize target_rank = (d == LEFT ? start : end);
-  vector<vsize>::const_iterator i =
-    lower_bound (ranks.begin (), ranks.end (), target_rank, std::less<vsize> ());
+  vector<vsize>::const_iterator i
+    = lower_bound (ranks.begin (), ranks.end (), target_rank, std::less<vsize> ());
 
   if (i != ranks.end () && (*i) == target_rank)
     return cols[indices[i - ranks.begin ()]];
@@ -834,21 +834,21 @@ System::get_pure_bound (Direction d, int start, int end)
     return 0;
 }
 
-Grob*
+Grob *
 System::get_maybe_pure_bound (Direction d, bool pure, int start, int end)
 {
   return pure ? get_pure_bound (d, start, end) : get_bound (d);
 }
 
 ADD_INTERFACE (System,
-	       "This is the top-level object: Each object in a score"
-	       " ultimately has a @code{System} object as its X and"
-	       " Y@tie{}parent.",
+               "This is the top-level object: Each object in a score"
+               " ultimately has a @code{System} object as its X and"
+               " Y@tie{}parent.",
 
-	       /* properties */
-	       "all-elements "
-	       "columns "
-	       "labels "
-	       "pure-Y-extent "
-	       "skyline-horizontal-padding "
-	       );
+               /* properties */
+               "all-elements "
+               "columns "
+               "labels "
+               "pure-Y-extent "
+               "skyline-horizontal-padding "
+              );

@@ -25,8 +25,8 @@
 
 struct Column_x_positions
 {
-  vector<Grob*> cols_;
-  vector<Grob*> loose_cols_;
+  vector<Grob *> cols_;
+  vector<Grob *> loose_cols_;
 
   vector<Real> config_;
   Real force_;

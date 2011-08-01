@@ -28,7 +28,7 @@ class Global_context : public virtual Context
   PQueue<Moment> extra_mom_pq_;
   Output_def *output_def_;
 
-  DECLARE_CLASSNAME(Global_context);
+  DECLARE_CLASSNAME (Global_context);
 
   friend class Output_def;
 public:

@@ -69,52 +69,51 @@ Stem_engraver::make_stem (Grob_info gi)
   if (tremolo_ev_)
     {
       /* Stem tremolo is never applied to a note by default,
-	 it must be requested.  But there is a default for the
-	 tremolo value:
+         it must be requested.  But there is a default for the
+         tremolo value:
 
-	 c4:8 c c:
+         c4:8 c c:
 
-	 the first and last (quarter) note both get one tremolo flag.  */
+         the first and last (quarter) note both get one tremolo flag.  */
       int requested_type
-	= robust_scm2int (tremolo_ev_->get_property ("tremolo-type"), 0);
+        = robust_scm2int (tremolo_ev_->get_property ("tremolo-type"), 0);
       SCM f = get_property ("tremoloFlags");
       if (!requested_type)
-	{
-	  if (scm_is_number (f))
-	    requested_type = scm_to_int (f);
-	  else
-	    requested_type = 8;
-	}
+        {
+          if (scm_is_number (f))
+            requested_type = scm_to_int (f);
+          else
+            requested_type = 8;
+        }
       else
-	context ()->set_property ("tremoloFlags", scm_from_int (requested_type));
-
+        context ()->set_property ("tremoloFlags", scm_from_int (requested_type));
 
       /*
-	we take the duration log from the Event, since the duration-log
-	for a note head is always <= 2.
+        we take the duration log from the Event, since the duration-log
+        for a note head is always <= 2.
       */
       Stream_event *ev = gi.event_cause ();
       Duration *dur = unsmob_duration (ev->get_property ("duration"));
-      
+
       int tremolo_flags = intlog2 (requested_type) - 2
-	- (dur->duration_log () > 2 ? dur->duration_log () - 2 : 0);
+                          - (dur->duration_log () > 2 ? dur->duration_log () - 2 : 0);
       if (tremolo_flags <= 0)
-	{
-	  tremolo_ev_->origin ()->warning (_ ("tremolo duration is too long"));
-	  tremolo_flags = 0;
-	}
+        {
+          tremolo_ev_->origin ()->warning (_ ("tremolo duration is too long"));
+          tremolo_flags = 0;
+        }
 
       if (tremolo_flags)
-	{
-	  tremolo_ = make_item ("StemTremolo", tremolo_ev_->self_scm ());
+        {
+          tremolo_ = make_item ("StemTremolo", tremolo_ev_->self_scm ());
 
-	  /* The number of tremolo flags is the number of flags of the
-	     tremolo-type minus the number of flags of the note itself.  */
-	  tremolo_->set_property ("flag-count", scm_from_int (tremolo_flags));
-	  tremolo_->set_parent (stem_, X_AXIS);
-	  stem_->set_object ("tremolo-flag", tremolo_->self_scm ());
-	  tremolo_->set_object ("stem", stem_->self_scm ());
-	}
+          /* The number of tremolo flags is the number of flags of the
+             tremolo-type minus the number of flags of the note itself.  */
+          tremolo_->set_property ("flag-count", scm_from_int (tremolo_flags));
+          tremolo_->set_parent (stem_, X_AXIS);
+          stem_->set_object ("tremolo-flag", tremolo_->self_scm ());
+          tremolo_->set_object ("stem", stem_->self_scm ());
+        }
     }
 }
 
@@ -150,11 +149,11 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
   if (dc == -1)
     dc = 0;
 
-  if (ds != dc) 
+  if (ds != dc)
     {
       gi.event_cause ()->origin ()->warning (_f ("adding note head to incompatible stem (type = %d/%d)",
-						 ds < 0 ? 1 << -ds : 1,
-						 ds > 0 ? 1 << ds : 1));
+                                                 ds < 0 ? 1 << -ds : 1,
+                                                 ds > 0 ? 1 << ds : 1));
       gi.event_cause ()->origin ()->warning (_ ("maybe input should specify polyphonic voices"));
     }
 
@@ -170,16 +169,16 @@ Stem_engraver::stop_translation_timestep ()
       /* FIXME: junk these properties.  */
       SCM prop = get_property ("stemLeftBeamCount");
       if (scm_is_number (prop))
-	{
-	  Stem::set_beaming (stem_, scm_to_int (prop), LEFT);
-	  context ()->unset_property (ly_symbol2scm ("stemLeftBeamCount"));
-	}
+        {
+          Stem::set_beaming (stem_, scm_to_int (prop), LEFT);
+          context ()->unset_property (ly_symbol2scm ("stemLeftBeamCount"));
+        }
       prop = get_property ("stemRightBeamCount");
       if (scm_is_number (prop))
-	{
-	  Stem::set_beaming (stem_, scm_to_int (prop), RIGHT);
-	  context ()->unset_property (ly_symbol2scm ("stemRightBeamCount"));
-	}
+        {
+          Stem::set_beaming (stem_, scm_to_int (prop), RIGHT);
+          context ()->unset_property (ly_symbol2scm ("stemRightBeamCount"));
+        }
       stem_ = 0;
     }
   tremolo_ev_ = 0;
@@ -195,19 +194,19 @@ Stem_engraver::listen_tremolo (Stream_event *ev)
 ADD_ACKNOWLEDGER (Stem_engraver, rhythmic_head);
 
 ADD_TRANSLATOR (Stem_engraver,
-		/* doc */
-		"Create stems and single-stem tremolos.  It also works"
-		" together with the beam engraver for overriding beaming.",
+                /* doc */
+                "Create stems and single-stem tremolos.  It also works"
+                " together with the beam engraver for overriding beaming.",
 
-		/* create */
-		"Stem "
-		"StemTremolo ",
+                /* create */
+                "Stem "
+                "StemTremolo ",
 
-		/* read */
-		"tremoloFlags "
-		"stemLeftBeamCount "
-		"stemRightBeamCount ",
+                /* read */
+                "tremoloFlags "
+                "stemLeftBeamCount "
+                "stemRightBeamCount ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

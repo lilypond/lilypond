@@ -21,14 +21,14 @@
 
 /* TODO: add optional factor argument. */
 LY_DEFINE (ly_make_moment, "ly:make-moment",
-	   2, 2, 0, (SCM n, SCM d, SCM gn, SCM gd),
-	   "Create the rational number with main timing @var{n}/@var{d},"
-	   " and optional grace timing @var{gn}/@var{gd}.\n"
-	   "\n"
-	   "A @dfn{moment} is a point in musical time.  It consists of"
-	   " a pair of rationals (@var{m},@tie{}@var{g}), where @var{m} is"
-	   " the timing for the main notes, and @var{g} the timing for"
-	   " grace notes.  In absence of grace notes, @var{g}@tie{}is zero.")
+           2, 2, 0, (SCM n, SCM d, SCM gn, SCM gd),
+           "Create the rational number with main timing @var{n}/@var{d},"
+           " and optional grace timing @var{gn}/@var{gd}.\n"
+           "\n"
+           "A @dfn{moment} is a point in musical time.  It consists of"
+           " a pair of rationals (@var{m},@tie{}@var{g}), where @var{m} is"
+           " the timing for the main notes, and @var{g} the timing for"
+           " grace notes.  In absence of grace notes, @var{g}@tie{}is zero.")
 {
   LY_ASSERT_TYPE (scm_is_integer, n, 1);
   LY_ASSERT_TYPE (scm_is_integer, d, 2);
@@ -48,16 +48,16 @@ LY_DEFINE (ly_make_moment, "ly:make-moment",
     }
 
   return Moment (Rational (scm_to_int (n), scm_to_int (d)),
-		 Rational (grace_num, grace_den)).smobbed_copy ();
+                 Rational (grace_num, grace_den)).smobbed_copy ();
 }
 
 LY_DEFINE (ly_moment_sub, "ly:moment-sub",
-	   2, 0, 0, (SCM a, SCM b),
-	   "Subtract two moments.")
+           2, 0, 0, (SCM a, SCM b),
+           "Subtract two moments.")
 {
-  LY_ASSERT_SMOB (Moment, a, 1); 
+  LY_ASSERT_SMOB (Moment, a, 1);
   LY_ASSERT_SMOB (Moment, b, 2);
-  
+
   Moment *ma = unsmob_moment (a);
   Moment *mb = unsmob_moment (b);
 
@@ -65,11 +65,11 @@ LY_DEFINE (ly_moment_sub, "ly:moment-sub",
 }
 
 LY_DEFINE (ly_moment_add, "ly:moment-add",
-	   2, 0, 0, (SCM a, SCM b),
-	   "Add two moments.")
+           2, 0, 0, (SCM a, SCM b),
+           "Add two moments.")
 {
-  LY_ASSERT_SMOB (Moment, a, 1); 
-  LY_ASSERT_SMOB (Moment, b, 2); 
+  LY_ASSERT_SMOB (Moment, a, 1);
+  LY_ASSERT_SMOB (Moment, b, 2);
 
   Moment *ma = unsmob_moment (a);
   Moment *mb = unsmob_moment (b);
@@ -78,11 +78,11 @@ LY_DEFINE (ly_moment_add, "ly:moment-add",
 }
 
 LY_DEFINE (ly_moment_mul, "ly:moment-mul",
-	   2, 0, 0, (SCM a, SCM b),
-	   "Multiply two moments.")
+           2, 0, 0, (SCM a, SCM b),
+           "Multiply two moments.")
 {
-  LY_ASSERT_SMOB (Moment, a, 1); 
-  LY_ASSERT_SMOB (Moment, b, 2); 
+  LY_ASSERT_SMOB (Moment, a, 1);
+  LY_ASSERT_SMOB (Moment, b, 2);
 
   Moment *ma = unsmob_moment (a);
   Moment *mb = unsmob_moment (b);
@@ -90,33 +90,33 @@ LY_DEFINE (ly_moment_mul, "ly:moment-mul",
 }
 
 LY_DEFINE (ly_moment_div, "ly:moment-div",
-	   2, 0, 0, (SCM a, SCM b),
-	   "Divide two moments.")
+           2, 0, 0, (SCM a, SCM b),
+           "Divide two moments.")
 {
-  LY_ASSERT_SMOB (Moment, a, 1); 
-  LY_ASSERT_SMOB (Moment, b, 2); 
+  LY_ASSERT_SMOB (Moment, a, 1);
+  LY_ASSERT_SMOB (Moment, b, 2);
 
   Moment *ma = unsmob_moment (a);
   Moment *mb = unsmob_moment (b);
-  
+
   return (*ma / * mb).smobbed_copy ();
 }
 
 LY_DEFINE (ly_moment_mod, "ly:moment-mod",
-	   2, 0, 0, (SCM a, SCM b),
-	   "Modulo of two moments.")
+           2, 0, 0, (SCM a, SCM b),
+           "Modulo of two moments.")
 {
-  LY_ASSERT_SMOB (Moment, a, 1); 
-  LY_ASSERT_SMOB (Moment, b, 2); 
-  
+  LY_ASSERT_SMOB (Moment, a, 1);
+  LY_ASSERT_SMOB (Moment, b, 2);
+
   Moment *ma = unsmob_moment (a);
   Moment *mb = unsmob_moment (b);
   return (*ma % * mb).smobbed_copy ();
 }
 
 LY_DEFINE (ly_moment_grace_numerator, "ly:moment-grace-numerator",
-	   1, 0, 0, (SCM mom),
-	   "Extract numerator from grace timing.")
+           1, 0, 0, (SCM mom),
+           "Extract numerator from grace timing.")
 {
   LY_ASSERT_SMOB (Moment, mom, 1);
 
@@ -126,8 +126,8 @@ LY_DEFINE (ly_moment_grace_numerator, "ly:moment-grace-numerator",
 }
 
 LY_DEFINE (ly_moment_grace_denominator, "ly:moment-grace-denominator",
-	   1, 0, 0, (SCM mom),
-	   "Extract denominator from grace timing.")
+           1, 0, 0, (SCM mom),
+           "Extract denominator from grace timing.")
 {
   LY_ASSERT_SMOB (Moment, mom, 1);
   Moment *ma = unsmob_moment (mom);
@@ -135,8 +135,8 @@ LY_DEFINE (ly_moment_grace_denominator, "ly:moment-grace-denominator",
   return scm_from_int64 (ma->grace_part_.denominator ());
 }
 LY_DEFINE (ly_moment_main_numerator, "ly:moment-main-numerator",
-	   1, 0, 0, (SCM mom),
-	   "Extract numerator from main timing.")
+           1, 0, 0, (SCM mom),
+           "Extract numerator from main timing.")
 {
   LY_ASSERT_SMOB (Moment, mom, 1);
   Moment *ma = unsmob_moment (mom);
@@ -145,8 +145,8 @@ LY_DEFINE (ly_moment_main_numerator, "ly:moment-main-numerator",
 }
 
 LY_DEFINE (ly_moment_main_denominator, "ly:moment-main-denominator",
-	   1, 0, 0, (SCM mom),
-	   "Extract denominator from main timing.")
+           1, 0, 0, (SCM mom),
+           "Extract denominator from main timing.")
 {
   LY_ASSERT_SMOB (Moment, mom, 1);
   Moment *ma = unsmob_moment (mom);
@@ -155,12 +155,12 @@ LY_DEFINE (ly_moment_main_denominator, "ly:moment-main-denominator",
 }
 
 LY_DEFINE (ly_moment_less_p, "ly:moment<?",
-	   2, 0, 0, (SCM a, SCM b),
-	   "Compare two moments.")
+           2, 0, 0, (SCM a, SCM b),
+           "Compare two moments.")
 {
-  LY_ASSERT_SMOB (Moment, a, 1); 
-  LY_ASSERT_SMOB (Moment, b, 2); 
-  
+  LY_ASSERT_SMOB (Moment, a, 1);
+  LY_ASSERT_SMOB (Moment, b, 2);
+
   Moment *ma = unsmob_moment (a);
   Moment *mb = unsmob_moment (b);
 

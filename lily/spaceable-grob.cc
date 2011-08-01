@@ -52,11 +52,11 @@ Spaceable_grob::add_rod (Grob *me, Grob *p, Real d)
     {
       SCM dist = scm_car (s);
       if (scm_car (dist) == p->self_scm ())
-	{
-	  scm_set_cdr_x (dist, scm_max (scm_cdr (dist),
-					newdist));
-	  return;
-	}
+        {
+          scm_set_cdr_x (dist, scm_max (scm_cdr (dist),
+                                        newdist));
+          return;
+        }
     }
 
   if (Paper_column::get_rank (p) < Paper_column::get_rank (me))
@@ -85,31 +85,29 @@ Spaceable_grob::get_spring (Grob *this_col, Grob *next_col)
        s = scm_cdr (s))
     {
       if (scm_is_pair (scm_car (s))
-	  && unsmob_grob (scm_cdar (s)) == next_col
-	  && unsmob_spring (scm_caar (s)))
-	spring = unsmob_spring (scm_caar (s));
+          && unsmob_grob (scm_cdar (s)) == next_col
+          && unsmob_spring (scm_caar (s)))
+        spring = unsmob_spring (scm_caar (s));
     }
 
   if (!spring)
     programming_error (_f ("No spring between column %d and next one",
-			   Paper_column::get_rank (this_col)));
+                           Paper_column::get_rank (this_col)));
 
   return spring ? *spring : Spring ();
 }
 
-
-
 ADD_INTERFACE (Spaceable_grob,
-	       "A layout object that takes part in the spacing problem.",
+               "A layout object that takes part in the spacing problem.",
 
-	       /* properties */
-	       "allow-loose-spacing "
-	       "ideal-distances "
-	       "keep-inside-line "
-	       "left-neighbor "
-	       "measure-length "
-	       "minimum-distances "
-	       "right-neighbor "
-	       "spacing-wishes "
-	       );
+               /* properties */
+               "allow-loose-spacing "
+               "ideal-distances "
+               "keep-inside-line "
+               "left-neighbor "
+               "measure-length "
+               "minimum-distances "
+               "right-neighbor "
+               "spacing-wishes "
+              );
 

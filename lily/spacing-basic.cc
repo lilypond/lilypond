@@ -47,17 +47,17 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, 
       Moment *dt = unsmob_moment (l->get_property ("measure-length"));
       Moment mlen (1);
       if (dt)
-	mlen = *dt;
+        mlen = *dt;
 
       Real incr = robust_scm2double (me->get_property ("spacing-increment"), 1);
       Real space = incr * double (mlen.main_part_ / options->global_shortest_) * 0.8;
       Spring spring = Spring (min_dist + space, min_dist);
 
       /*
-	By default, the spring will have an inverse_stretch_strength of space+min_dist.
-	However, we don't want stretchability to scale with min_dist or else an
-	empty first measure on a line (which has a large min_dist because of the clef)
-	will stretch much more than an empty measure later in the line.
+        By default, the spring will have an inverse_stretch_strength of space+min_dist.
+        However, we don't want stretchability to scale with min_dist or else an
+        empty first measure on a line (which has a large min_dist because of the clef)
+        will stretch much more than an empty measure later in the line.
       */
       spring.set_inverse_stretch_strength (space);
       return spring;
@@ -69,8 +69,8 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, 
   if (dt == Moment (0, 0))
     {
       /*
-	In this case, Staff_spacing should handle the job,
-	using dt when it is 0 is silly.
+        In this case, Staff_spacing should handle the job,
+        using dt when it is 0 is silly.
       */
       ideal = min_dist + 0.5;
     }
@@ -83,29 +83,29 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, 
 Moment *
 get_measure_length (Grob *column)
 {
-  Grob * sys = column->get_parent (X_AXIS);
+  Grob *sys = column->get_parent (X_AXIS);
 
   extract_grob_set (sys, "columns", cols);
 
   vsize col_idx = Paper_column::get_rank (column);
-  
+
   do
     {
       if (Moment *len = unsmob_moment (cols[col_idx]->get_property ("measure-length")))
-	{
-	  return len;
-	}
+        {
+          return len;
+        }
     }
   while (col_idx-- != 0);
-  
+
   return 0;
 }
 
 Real
 Spacing_spanner::note_spacing (Grob * /* me */,
-			       Grob *lc,
-			       Grob *rc,
-			       Spacing_options const *options)
+                               Grob *lc,
+                               Grob *rc,
+                               Spacing_options const *options)
 {
   Moment shortest_playing_len = 0;
   SCM s = lc->get_property ("shortest-playing-duration");
@@ -138,8 +138,8 @@ Spacing_spanner::note_spacing (Grob * /* me */,
       delta_t = min (delta_t, *measure_len);
 
       /*
-	The following is an extra safety measure, such that
-	the length of a mmrest event doesn't cause havoc.
+        The following is an extra safety measure, such that
+        the length of a mmrest event doesn't cause havoc.
       */
       shortest_playing_len = min (shortest_playing_len, *measure_len);
     }
@@ -153,19 +153,19 @@ Spacing_spanner::note_spacing (Grob * /* me */,
   else if (delta_t.grace_part_)
     {
       /*
-	Crude hack for spacing graces: we take the shortest space
-	available (namely the space for the global shortest note), and
-	multiply that by grace-space-factor
+        Crude hack for spacing graces: we take the shortest space
+        available (namely the space for the global shortest note), and
+        multiply that by grace-space-factor
       */
       dist = options->get_duration_space (options->global_shortest_) / 2.0;
       Grob *grace_spacing = unsmob_grob (lc->get_object ("grace-spacing"));
       if (grace_spacing)
-	{
-	  Spacing_options grace_opts;
-	  grace_opts.init_from_grob (grace_spacing);
-	  dist = grace_opts.get_duration_space (delta_t.grace_part_);
-	}
-      
+        {
+          Spacing_options grace_opts;
+          grace_opts.init_from_grob (grace_spacing);
+          dist = grace_opts.get_duration_space (delta_t.grace_part_);
+        }
+
     }
 
   return dist;

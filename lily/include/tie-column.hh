@@ -26,7 +26,7 @@
 class Tie_column
 {
 public:
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   static void add_tie (Grob *me, Grob *);
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));

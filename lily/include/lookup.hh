@@ -31,7 +31,7 @@ struct Lookup
   static Stencil rotated_box (Real slope, Real width, Real thick, Real blot);
   static Stencil round_filled_polygon (vector<Offset> const &points, Real blotdiameter);
   static Stencil frame (Box b, Real thick, Real blot);
-  static Stencil slur (Bezier controls, Real cthick, Real thick, 
+  static Stencil slur (Bezier controls, Real cthick, Real thick,
                        SCM dash_definition);
   static Stencil bezier_sandwich (Bezier top_curve, Bezier bottom_curve,
                                   Real thickness);

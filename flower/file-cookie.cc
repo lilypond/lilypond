@@ -16,8 +16,8 @@ extern "C" {
 
   void *
   lily_fopencookie (void *cookie,
-		    char const * /* modes */,
-		    lily_cookie_io_functions_t /* io_funcs */)
+                    char const * /* modes */,
+                    lily_cookie_io_functions_t /* io_funcs */)
   {
     assert (is_memory_stream (cookie));
     return (FILE *) cookie;

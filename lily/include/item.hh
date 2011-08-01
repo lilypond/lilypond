@@ -31,7 +31,7 @@ class Item : public Grob
 {
   Drul_array<Item *> broken_to_drul_;
 
-  DECLARE_CLASSNAME(Item);
+  DECLARE_CLASSNAME (Item);
 public:
   Item (SCM);
   Item (Item const &);
@@ -39,7 +39,7 @@ public:
   virtual Grob *clone () const;
 
   static bool is_non_musical (Grob *);
-  static bool break_visible(Grob *);
+  static bool break_visible (Grob *);
   bool is_broken () const;
   virtual bool pure_is_visible (int start, int end) const;
 
@@ -52,7 +52,7 @@ public:
   virtual void handle_prebroken_dependencies ();
   virtual Interval_t<int> spanned_rank_interval () const;
   virtual Interval pure_height (Grob *ref, int start, int end);
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 protected:
   virtual void discretionary_processing ();
   void copy_breakable_items ();

@@ -17,7 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "engraver.hh"
 #include "global-context.hh"
 #include "international.hh"
@@ -35,7 +34,7 @@ class Percent_repeat_engraver : public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Percent_repeat_engraver);
-  
+
 protected:
   Stream_event *percent_event_;
 
@@ -74,14 +73,14 @@ Percent_repeat_engraver::start_translation_timestep ()
   if (now_mom ().main_part_ != command_moment_.main_part_)
     {
       first_command_column_
-	= unsmob_grob (get_property ("currentCommandColumn"));
+        = unsmob_grob (get_property ("currentCommandColumn"));
       command_moment_ = now_mom ();
     }
 
   if (stop_mom_.main_part_ == now_mom ().main_part_)
     {
       if (percent_)
-      	typeset_perc ();
+        typeset_perc ();
       percent_event_ = 0;
     }
 }
@@ -101,8 +100,8 @@ Percent_repeat_engraver::listen_percent (Stream_event *ev)
   else
     {
       /*
-	print a warning: no assignment happens because
-	percent_event_ != 0
+        print a warning: no assignment happens because
+        percent_event_ != 0
       */
       ASSIGN_EVENT_ONCE (percent_event_, ev);
     }
@@ -115,7 +114,7 @@ Percent_repeat_engraver::process_music ()
       && now_mom ().main_part_ == start_mom_.main_part_)
     {
       if (percent_)
-	typeset_perc ();
+        typeset_perc ();
 
       percent_ = make_spanner ("PercentRepeat", percent_event_->self_scm ());
 
@@ -124,19 +123,19 @@ Percent_repeat_engraver::process_music ()
 
       SCM count = percent_event_->get_property ("repeat-count");
       if (count != SCM_EOL && to_boolean (get_property ("countPercentRepeats"))
-	  && check_repeat_count_visibility (context (), count))
-	{
-	  percent_counter_ = make_spanner ("PercentRepeatCounter",
-					   percent_event_->self_scm ());
+          && check_repeat_count_visibility (context (), count))
+        {
+          percent_counter_ = make_spanner ("PercentRepeatCounter",
+                                           percent_event_->self_scm ());
 
-	  SCM text = scm_number_to_string (count, scm_from_int (10));
-	  percent_counter_->set_property ("text", text);
-	  percent_counter_->set_bound (LEFT, col);
-	  Side_position_interface::add_support (percent_counter_, percent_);
-	  percent_counter_->set_parent (percent_, Y_AXIS);
-	}
+          SCM text = scm_number_to_string (count, scm_from_int (10));
+          percent_counter_->set_property ("text", text);
+          percent_counter_->set_bound (LEFT, col);
+          Side_position_interface::add_support (percent_counter_, percent_);
+          percent_counter_->set_parent (percent_, Y_AXIS);
+        }
       else
-	percent_counter_ = 0;
+        percent_counter_ = 0;
     }
 }
 
@@ -170,18 +169,18 @@ Percent_repeat_engraver::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Percent_repeat_engraver,
-		/* doc */
-		"Make whole measure repeats.",
-		
-		/* create */
-		"PercentRepeat "
-		"PercentRepeatCounter ",
+                /* doc */
+                "Make whole measure repeats.",
 
-		/* read */
-		"countPercentRepeats "
-		"currentCommandColumn "
-		"repeatCountVisibility ",
+                /* create */
+                "PercentRepeat "
+                "PercentRepeatCounter ",
 
-		/* write */
-		""
-		);
+                /* read */
+                "countPercentRepeats "
+                "currentCommandColumn "
+                "repeatCountVisibility ",
+
+                /* write */
+                ""
+               );

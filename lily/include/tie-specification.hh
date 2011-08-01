@@ -26,18 +26,18 @@
 struct Tie_specification
 {
   int position_;
-  Drul_array<Grob*> note_head_drul_;
+  Drul_array<Grob *> note_head_drul_;
   Drul_array<int> column_ranks_;
   Grob *tie_grob_;
-  
+
   bool has_manual_position_;
   bool has_manual_dir_;
   bool has_manual_delta_y_;
   bool has_accidental_;
-  
+
   Real manual_position_;
   Direction manual_dir_;
-  
+
   Tie_specification ();
   int column_span () const;
   void from_grob (Grob *);

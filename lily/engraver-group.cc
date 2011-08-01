@@ -30,11 +30,11 @@ void
 Engraver_group::override (SCM sev)
 {
   Stream_event *ev = unsmob_stream_event (sev);
-  
+
   sloppy_general_pushpop_property (context (),
-				   ev->get_property ("symbol"),
-				   ev->get_property ("property-path"),
-				   ev->get_property ("value"));
+                                   ev->get_property ("symbol"),
+                                   ev->get_property ("property-path"),
+                                   ev->get_property ("value"));
 }
 
 IMPLEMENT_LISTENER (Engraver_group, revert);
@@ -42,11 +42,11 @@ void
 Engraver_group::revert (SCM sev)
 {
   Stream_event *ev = unsmob_stream_event (sev);
-  
+
   sloppy_general_pushpop_property (context (),
-				   ev->get_property ("symbol"),
-				   ev->get_property ("property-path"),
-				   SCM_UNDEFINED);
+                                   ev->get_property ("symbol"),
+                                   ev->get_property ("property-path"),
+                                   SCM_UNDEFINED);
 }
 
 void
@@ -79,8 +79,8 @@ Engraver_group::announce_grob (Grob_info info)
 
   Engraver_group *dad_eng
     = dad_con
-    ? dynamic_cast<Engraver_group *> (dad_con->implementation ())
-    : 0;
+      ? dynamic_cast<Engraver_group *> (dad_con->implementation ())
+      : 0;
 
   if (dad_eng)
     dad_eng->announce_grob (info);
@@ -98,35 +98,35 @@ Engraver_group::acknowledge_grobs ()
   for (vsize j = 0; j < announce_infos_.size (); j++)
     {
       Grob_info info = announce_infos_[j];
-      
+
       SCM meta = info.grob ()->internal_get_property (meta_sym);
       SCM nm = scm_assoc (name_sym, meta);
       if (scm_is_pair (nm))
-	nm = scm_cdr (nm);
+        nm = scm_cdr (nm);
       else
-	continue;
+        continue;
 
       SCM acklist = scm_hashq_ref (acknowledge_hash_table_drul_[info.start_end ()],
-				   nm, SCM_BOOL_F);
-      
+                                   nm, SCM_BOOL_F);
+
       Engraver_dispatch_list *dispatch
-	= Engraver_dispatch_list::unsmob (acklist);
+        = Engraver_dispatch_list::unsmob (acklist);
 
       if (acklist == SCM_BOOL_F)
-	{
-	  SCM ifaces
-	    = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta));
-	  acklist = Engraver_dispatch_list::create (get_simple_trans_list (),
-						    ifaces, info.start_end ());
+        {
+          SCM ifaces
+            = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta));
+          acklist = Engraver_dispatch_list::create (get_simple_trans_list (),
+                                                    ifaces, info.start_end ());
 
-	  dispatch
-	    = Engraver_dispatch_list::unsmob (acklist);
+          dispatch
+            = Engraver_dispatch_list::unsmob (acklist);
 
-	  scm_hashq_set_x (acknowledge_hash_table_drul_[info.start_end ()], nm, acklist);
-	}
+          scm_hashq_set_x (acknowledge_hash_table_drul_[info.start_end ()], nm, acklist);
+        }
 
       if (dispatch)
-	dispatch->apply (info);
+        dispatch->apply (info);
     }
 }
 
@@ -143,10 +143,10 @@ Engraver_group::pending_grob_count () const
     {
       Context *c = unsmob_context (scm_car (s));
       Engraver_group *group
-	= dynamic_cast<Engraver_group *> (c->implementation ());
+        = dynamic_cast<Engraver_group *> (c->implementation ());
 
       if (group)
-	count += group->pending_grob_count ();
+        count += group->pending_grob_count ();
     }
   return count;
 }
@@ -157,38 +157,37 @@ Engraver_group::do_announces ()
   do
     {
       /*
-	DOCME: why is this inside the loop? 
+        DOCME: why is this inside the loop?
        */
       for (SCM s = context ()->children_contexts ();
-	   scm_is_pair (s); s = scm_cdr (s))
-	{
-	  Context *c = unsmob_context (scm_car (s));
-	  Engraver_group *group
-	    = dynamic_cast<Engraver_group *> (c->implementation ());
-	  if (group)
-	    group->do_announces ();
-	}
+           scm_is_pair (s); s = scm_cdr (s))
+        {
+          Context *c = unsmob_context (scm_car (s));
+          Engraver_group *group
+            = dynamic_cast<Engraver_group *> (c->implementation ());
+          if (group)
+            group->do_announces ();
+        }
 
-      
       while (1)
-	{
-	  precomputed_translator_foreach (PROCESS_ACKNOWLEDGED);
-	  if (announce_infos_.size () == 0)
-	    break;
+        {
+          precomputed_translator_foreach (PROCESS_ACKNOWLEDGED);
+          if (announce_infos_.size () == 0)
+            break;
 
-	  acknowledge_grobs ();
-	  announce_infos_.clear ();
-	}
+          acknowledge_grobs ();
+          announce_infos_.clear ();
+        }
     }
   while (pending_grob_count () > 0);
 }
 
 Engraver_group::Engraver_group ()
 {
-  acknowledge_hash_table_drul_[LEFT] 
-    = acknowledge_hash_table_drul_[RIGHT] 
-    = SCM_EOL;
-  
+  acknowledge_hash_table_drul_[LEFT]
+    = acknowledge_hash_table_drul_[RIGHT]
+      = SCM_EOL;
+
   acknowledge_hash_table_drul_[LEFT] = scm_c_make_hash_table (61);
   acknowledge_hash_table_drul_[RIGHT] = scm_c_make_hash_table (61);
 }
@@ -196,18 +195,18 @@ Engraver_group::Engraver_group ()
 #include "translator.icc"
 
 ADD_TRANSLATOR_GROUP (Engraver_group,
-		      /* doc */
-		      "A group of engravers taken together.",
+                      /* doc */
+                      "A group of engravers taken together.",
 
-		      /* create */
-		      "",
+                      /* create */
+                      "",
 
-		      /* read */
-		      "",
+                      /* read */
+                      "",
 
-		      /* write */
-		      ""
-		      );
+                      /* write */
+                      ""
+                     );
 
 void
 Engraver_group::derived_mark () const

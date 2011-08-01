@@ -54,12 +54,12 @@ Translator_group::connect_to_context (Context *c)
   if (context_)
     {
       programming_error ("translator group is already connected to context "
-			 + context_->context_name ());
+                         + context_->context_name ());
     }
-  
+
   context_ = c;
   c->event_source ()->add_listener (GET_LISTENER (create_child_translator),
-				    ly_symbol2scm ("AnnounceNewContext"));
+                                    ly_symbol2scm ("AnnounceNewContext"));
   for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list); tr_list = scm_cdr (tr_list))
     {
       Translator *tr = unsmob_translator (scm_car (tr_list));
@@ -76,7 +76,7 @@ Translator_group::disconnect_from_context ()
       tr->disconnect_from_context (context_);
     }
   context_->event_source ()->remove_listener (GET_LISTENER (create_child_translator),
-					      ly_symbol2scm ("AnnounceNewContext"));
+                                              ly_symbol2scm ("AnnounceNewContext"));
   context_ = 0;
   protected_events_ = SCM_EOL;
 }
@@ -102,9 +102,9 @@ filter_performers (SCM ell)
   for (SCM p = ell; scm_is_pair (p); p = scm_cdr (p))
     {
       if (unsmob_performer (scm_car (*tail)))
-	*tail = scm_cdr (*tail);
+        *tail = scm_cdr (*tail);
       else
-	tail = SCM_CDRLOC (*tail);
+        tail = SCM_CDRLOC (*tail);
     }
   return ell;
 }
@@ -116,14 +116,14 @@ filter_engravers (SCM ell)
   for (SCM p = ell; scm_is_pair (p); p = scm_cdr (p))
     {
       if (unsmob_engraver (scm_car (*tail)))
-	*tail = scm_cdr (*tail);
+        *tail = scm_cdr (*tail);
       else
-	tail = SCM_CDRLOC (*tail);
+        tail = SCM_CDRLOC (*tail);
     }
   return ell;
 }
 
-/* 
+/*
   Protects the parameter from being garbage collected. The object is
   protected until the next disconnect_from_context call.
 
@@ -131,7 +131,7 @@ filter_engravers (SCM ell)
   this list. This eliminates the need for derived_mark methods in most
   translators; all incoming events are instead protected by the
   translator group.
- 
+
   TODO: Should the list also be flushed at the beginning of each new
   moment?
  */
@@ -155,7 +155,7 @@ Translator_group::create_child_translator (SCM sev)
   Context *new_context = unsmob_context (cs);
   Context_def *def = unsmob_context_def (new_context->get_definition ());
   SCM ops = new_context->get_definition_mods ();
-  
+
   SCM trans_names = def->get_translator_names (ops);
 
   Translator_group *g = get_translator_group (def->get_translator_group_type ());
@@ -168,46 +168,46 @@ Translator_group::create_child_translator (SCM sev)
 
       Translator *type = 0;
       if (ly_is_symbol (definition))
-	type = get_translator (definition);
+        type = get_translator (definition);
       else if (ly_is_pair (definition))
-	{
-	  type = get_translator (ly_symbol2scm ("Scheme_engraver"));
-	  is_scheme = true;
-	}
+        {
+          type = get_translator (ly_symbol2scm ("Scheme_engraver"));
+          is_scheme = true;
+        }
       else if (ly_is_procedure (definition))
-	{
-	  // `definition' is a procedure, which takes the context as
-	  // an argument and evaluates to an a-list scheme engraver
-	  // definition.
-	  definition = scm_call_1 (definition, cs);
-	  type = get_translator (ly_symbol2scm ("Scheme_engraver"));
-	  is_scheme = true;
-	}
-	 
+        {
+          // `definition' is a procedure, which takes the context as
+          // an argument and evaluates to an a-list scheme engraver
+          // definition.
+          definition = scm_call_1 (definition, cs);
+          type = get_translator (ly_symbol2scm ("Scheme_engraver"));
+          is_scheme = true;
+        }
+
       if (!type)
-	warning (_f ("cannot find: `%s'", ly_symbol2string (scm_car (s)).c_str ()));
+        warning (_f ("cannot find: `%s'", ly_symbol2string (scm_car (s)).c_str ()));
       else
-	{
-	  Translator *instance = type->clone ();
-	  if (is_scheme)
-	    dynamic_cast<Scheme_engraver *> (instance)->init_from_scheme (definition);
+        {
+          Translator *instance = type->clone ();
+          if (is_scheme)
+            dynamic_cast<Scheme_engraver *> (instance)->init_from_scheme (definition);
 
-	  SCM str = instance->self_scm ();
+          SCM str = instance->self_scm ();
 
-	  if (instance->must_be_last ())
-	    {
-	      SCM cons = scm_cons (str, SCM_EOL);
-	      if (scm_is_pair (trans_list))
-		scm_set_cdr_x (scm_last_pair (trans_list), cons);
-	      else
-		trans_list = cons;
-	    }
-	  else
-	    trans_list = scm_cons (str, trans_list);
+          if (instance->must_be_last ())
+            {
+              SCM cons = scm_cons (str, SCM_EOL);
+              if (scm_is_pair (trans_list))
+                scm_set_cdr_x (scm_last_pair (trans_list), cons);
+              else
+                trans_list = cons;
+            }
+          else
+            trans_list = scm_cons (str, trans_list);
 
-	  instance->daddy_context_ = new_context;
-	  instance->unprotect ();
-	}
+          instance->daddy_context_ = new_context;
+          instance->unprotect ();
+        }
     }
 
   /* Filter unwanted translator types. Required to make
@@ -224,9 +224,9 @@ Translator_group::create_child_translator (SCM sev)
   g->unprotect ();
 
   recurse_over_translators (new_context,
-			    &Translator::initialize,
-			    &Translator_group::initialize,
-			    DOWN);
+                            &Translator::initialize,
+                            &Translator_group::initialize,
+                            DOWN);
 }
 
 SCM
@@ -260,7 +260,7 @@ precomputed_recurse_over_translators (Context *c, Translator_precompute_index id
 
 void
 recurse_over_translators (Context *c, Translator_method ptr,
-			  Translator_group_method tg_ptr, Direction dir)
+                          Translator_group_method tg_ptr, Direction dir)
 {
   Translator_group *tg
     = dynamic_cast<Translator_group *> (c->implementation ());
@@ -278,7 +278,7 @@ recurse_over_translators (Context *c, Translator_method ptr,
   if (tg && dir == UP)
     {
       translator_each (tg->get_simple_trans_list (),
-		       ptr);
+                       ptr);
 
       (tg->*tg_ptr) ();
     }
@@ -308,10 +308,10 @@ Translator_group::precompute_method_bindings ()
 
       assert (tr);
       for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
-	{
-	  if (ptrs[i])
-	    precomputed_method_bindings_[i].push_back (Translator_method_binding (tr, ptrs[i]));
-	}
+        {
+          if (ptrs[i])
+            precomputed_method_bindings_[i].push_back (Translator_method_binding (tr, ptrs[i]));
+        }
     }
 
   fetch_precomputable_methods (precomputed_self_method_bindings_);

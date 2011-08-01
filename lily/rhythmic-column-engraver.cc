@@ -53,7 +53,7 @@
 
 class Rhythmic_column_engraver : public Engraver
 {
-  vector<Grob*> rheads_;
+  vector<Grob *> rheads_;
   Grob *stem_;
   Grob *note_column_;
   Grob *dotcol_;
@@ -77,18 +77,17 @@ Rhythmic_column_engraver::Rhythmic_column_engraver ()
   arpeggio_ = 0;
 }
 
-
 void
 Rhythmic_column_engraver::process_acknowledged ()
 {
   if (rheads_.size ())
     {
       if (!note_column_)
-	note_column_ = make_item ("NoteColumn", rheads_[0]->self_scm ());
+        note_column_ = make_item ("NoteColumn", rheads_[0]->self_scm ());
 
       for (vsize i = 0; i < rheads_.size (); i++)
-	if (!rheads_[i]->get_parent (X_AXIS))
-	  Note_column::add_head (note_column_, rheads_[i]);
+        if (!rheads_[i]->get_parent (X_AXIS))
+          Note_column::add_head (note_column_, rheads_[i]);
 
       rheads_.resize (0);
     }
@@ -96,14 +95,14 @@ Rhythmic_column_engraver::process_acknowledged ()
   if (note_column_)
     {
       if (stem_
-	  && !stem_->get_parent (X_AXIS))
-	{
-	  Note_column::set_stem (note_column_, stem_);
-	  stem_ = 0;
-	}
+          && !stem_->get_parent (X_AXIS))
+        {
+          Note_column::set_stem (note_column_, stem_);
+          stem_ = 0;
+        }
 
       if (arpeggio_)
-	note_column_->set_object ("arpeggio", arpeggio_->self_scm ());
+        note_column_->set_object ("arpeggio", arpeggio_->self_scm ());
     }
 }
 
@@ -138,16 +137,16 @@ ADD_ACKNOWLEDGER (Rhythmic_column_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (Rhythmic_column_engraver, arpeggio);
 
 ADD_TRANSLATOR (Rhythmic_column_engraver,
-		/* doc */
-		"Generate @code{NoteColumn}, an object that groups stems,"
-		" note heads, and rests.",
+                /* doc */
+                "Generate @code{NoteColumn}, an object that groups stems,"
+                " note heads, and rests.",
 
-		/* create */
-		"NoteColumn ",
+                /* create */
+                "NoteColumn ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

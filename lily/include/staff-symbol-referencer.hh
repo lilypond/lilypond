@@ -30,7 +30,7 @@
 class Staff_symbol_referencer
 {
 public:
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   static bool ugly_hack (Grob *);
   static void set_position (Grob *, Real);
   DECLARE_SCHEME_CALLBACK (callback, (SCM element));
@@ -48,7 +48,7 @@ public:
   static Real get_position (Grob *);
   static Real staff_radius (Grob *);
   static int get_rounded_position (Grob *);
-  static Interval extent_in_staff (Grob *); 
+  static Interval extent_in_staff (Grob *);
 };
 
 int compare_position (Grob *const &, Grob *const &);

@@ -2,7 +2,7 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2007--2011 Han-Wen Nienhuys <hanwen@lilypond.org>
-  
+
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -20,21 +20,20 @@
 
 #include "freetype.hh"
 
-#undef __FTERRORS_H__                                           
-#define FT_ERRORDEF(e, v, s)  { e, s },                       
-#define FT_ERROR_START_LIST     {                               
-#define FT_ERROR_END_LIST       { 0, 0 } };                     
-                                                                         
+#undef __FTERRORS_H__
+#define FT_ERRORDEF(e, v, s)  { e, s },
+#define FT_ERROR_START_LIST     {
+#define FT_ERROR_END_LIST       { 0, 0 } };
+
 const struct Freetype_error_message
-{                                                               
-  FT_Error     err_code;                                        
-  const char*  err_msg;
-} ft_errors[] =                                                 
-                                                                         
+{
+  FT_Error err_code;
+  const char *err_msg;
+} ft_errors[] =
+
 #include <freetype/fterrors.h>
 
   ;
-
 
 #include <string>
 
@@ -42,12 +41,12 @@ string
 freetype_error_string (FT_Error code)
 {
   for (Freetype_error_message const *p = ft_errors;
-       p->err_msg; p ++)
+       p->err_msg; p++)
     {
       if (p->err_code == code)
-	return p->err_msg;
+        return p->err_msg;
     }
 
-  return "<unknown error>"; 
+  return "<unknown error>";
 }
-  
+

@@ -62,57 +62,57 @@ brew_cluster_piece (Grob *me, vector<Offset> bottom_points, vector<Offset> top_p
   if (shape == "leftsided-stairs")
     {
       for (int i = 0; i < size - 1; i++)
-	{
-	  Box box;
-	  box.add_point (bottom_points[i] - hvpadding);
-	  box.add_point (Offset (top_points[i + 1][X_AXIS],
-				 top_points[i][Y_AXIS]) + hvpadding);
-	  out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
-	}
+        {
+          Box box;
+          box.add_point (bottom_points[i] - hvpadding);
+          box.add_point (Offset (top_points[i + 1][X_AXIS],
+                                 top_points[i][Y_AXIS]) + hvpadding);
+          out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
+        }
     }
   else if (shape == "rightsided-stairs")
     {
       for (int i = 0; i < size - 1; i++)
-	{
-	  Box box;
-	  box.add_point (Offset (bottom_points[i][X_AXIS],
-				 bottom_points[i + 1][Y_AXIS]) - hvpadding);
-	  box.add_point (top_points[i + 1] + hvpadding);
-	  out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
-	}
+        {
+          Box box;
+          box.add_point (Offset (bottom_points[i][X_AXIS],
+                                 bottom_points[i + 1][Y_AXIS]) - hvpadding);
+          box.add_point (top_points[i + 1] + hvpadding);
+          out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
+        }
     }
   else if (shape == "centered-stairs")
     {
       Real left_xmid = bottom_points[0][X_AXIS];
       for (int i = 0; i < size - 1; i++)
-	{
-	  Real right_xmid
-	    = 0.5 * (bottom_points[i][X_AXIS] + bottom_points[i + 1][X_AXIS]);
-	  Box box;
-	  box.add_point (Offset (left_xmid, bottom_points[i][Y_AXIS])
-			 - hvpadding);
-	  box.add_point (Offset (right_xmid, top_points[i][Y_AXIS])
-			 + hvpadding);
-	  out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
-	  left_xmid = right_xmid;
-	}
+        {
+          Real right_xmid
+            = 0.5 * (bottom_points[i][X_AXIS] + bottom_points[i + 1][X_AXIS]);
+          Box box;
+          box.add_point (Offset (left_xmid, bottom_points[i][Y_AXIS])
+                         - hvpadding);
+          box.add_point (Offset (right_xmid, top_points[i][Y_AXIS])
+                         + hvpadding);
+          out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
+          left_xmid = right_xmid;
+        }
       Real right_xmid = bottom_points[size - 1][X_AXIS];
       Box box;
       box.add_point (Offset (left_xmid, bottom_points[size - 1][Y_AXIS])
-		     - hvpadding);
+                     - hvpadding);
       box.add_point (Offset (right_xmid, top_points[size - 1][Y_AXIS])
-		     + hvpadding);
+                     + hvpadding);
       out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
     }
   else if (shape == "ramp")
     {
       points.push_back (bottom_points[0] - vpadding + hpadding);
       for (int i = 1; i < size - 1; i++)
-	points.push_back (bottom_points[i] - vpadding);
+        points.push_back (bottom_points[i] - vpadding);
       points.push_back (bottom_points[size - 1] - vpadding - hpadding);
       points.push_back (top_points[size - 1] + vpadding - hpadding);
       for (int i = size - 2; i > 0; i--)
-	points.push_back (top_points[i] + vpadding);
+        points.push_back (top_points[i] + vpadding);
       points.push_back (top_points[0] + vpadding + hpadding);
       out.add_stencil (Lookup::round_filled_polygon (points, blotdiameter));
     }
@@ -151,7 +151,7 @@ Cluster::print (SCM smob)
 
   Grob *commonx = left_bound->common_refpoint (right_bound, X_AXIS);
 
-  vector<Grob*> const &cols = extract_grob_array (me, "columns");
+  vector<Grob *> const &cols = extract_grob_array (me, "columns");
   if (cols.empty ())
     {
       me->warning (_ ("junking empty cluster"));
@@ -190,16 +190,16 @@ Cluster::print (SCM smob)
     {
       extract_grob_set (next, "columns", next_cols);
       if (next_cols.size () > 0)
-	{
-	  Grob *next_commony = common_refpoint_of_array (next_cols, next, Y_AXIS);
-	  Grob *col = next_cols[0];
+        {
+          Grob *next_commony = common_refpoint_of_array (next_cols, next, Y_AXIS);
+          Grob *col = next_cols[0];
 
-	  Interval v = col->extent (next_commony, Y_AXIS);
-	  Real x = right_bound->relative_coordinate (commonx, X_AXIS) - left_coord;
+          Interval v = col->extent (next_commony, Y_AXIS);
+          Real x = right_bound->relative_coordinate (commonx, X_AXIS) - left_coord;
 
-	  bottom_points.push_back (Offset (x, v[DOWN]));
-	  top_points.push_back (Offset (x, v[UP]));
-	}
+          bottom_points.push_back (Offset (x, v[DOWN]));
+          top_points.push_back (Offset (x, v[UP]));
+        }
     }
 
   Stencil out = brew_cluster_piece (me, bottom_points, top_points);
@@ -208,21 +208,21 @@ Cluster::print (SCM smob)
 }
 
 ADD_INTERFACE (Cluster,
-	       "A graphically drawn musical cluster.\n"
-	       "\n"
-	       "@code{padding} adds to the vertical extent of the shape (top"
-	       " and bottom).\n"
-	       "\n"
-	       "The property @code{style} controls the shape of cluster"
-	       " segments.  Valid values include @code{leftsided-stairs},"
-	       " @code{rightsided-stairs}, @code{centered-stairs}, and"
-	       " @code{ramp}.\n",
+               "A graphically drawn musical cluster.\n"
+               "\n"
+               "@code{padding} adds to the vertical extent of the shape (top"
+               " and bottom).\n"
+               "\n"
+               "The property @code{style} controls the shape of cluster"
+               " segments.  Valid values include @code{leftsided-stairs},"
+               " @code{rightsided-stairs}, @code{centered-stairs}, and"
+               " @code{ramp}.\n",
 
-	       /* properties */
-	       "style "
-	       "padding "
-	       "columns "
-	       );
+               /* properties */
+               "style "
+               "padding "
+               "columns "
+              );
 
 struct Cluster_beacon
 {
@@ -237,15 +237,15 @@ Cluster_beacon::height (SCM g)
 {
   Grob *me = unsmob_grob (g);
   Interval v = robust_scm2interval (me->get_property ("positions"),
-				    Interval (0, 0));
+                                    Interval (0, 0));
   return ly_interval2scm (Staff_symbol_referencer::staff_space (me) * 0.5 * v);
 }
 
 ADD_INTERFACE (Cluster_beacon,
-	       "A place holder for the cluster spanner to determine the"
-	       " vertical extents of a cluster spanner at this"
-	       " X@tie{}position.",
+               "A place holder for the cluster spanner to determine the"
+               " vertical extents of a cluster spanner at this"
+               " X@tie{}position.",
 
-	       /* properties */
-	       "positions "
-	       );
+               /* properties */
+               "positions "
+              );

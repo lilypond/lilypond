@@ -83,22 +83,21 @@ Input::message (string s) const
 {
   if (source_file_)
     s = location_string () + ": " + s + "\n"
-      + source_file_->quote_input (start_) + "\n";
+        + source_file_->quote_input (start_) + "\n";
   ::message (s);
 }
-
 
 void
 Input::programming_error (string s) const
 {
   if (get_program_option ("warning-as-error"))
     ::error (s);
-  else {
-    message (_f ("programming error: %s", s.c_str ()));
-    message (_ ("continuing, cross fingers") + "\n");
-  }
+  else
+    {
+      message (_f ("programming error: %s", s.c_str ()));
+      message (_ ("continuing, cross fingers") + "\n");
+    }
 }
-
 
 void
 Input::warning (string s) const

@@ -72,28 +72,28 @@ Episema_engraver::process_music ()
   if (event_drul_[START])
     {
       if (current_event_)
-	event_drul_[START]->origin ()->warning (_ ("already have an episema"));
+        event_drul_[START]->origin ()->warning (_ ("already have an episema"));
       else
-	{
-	  current_event_ = event_drul_[START];
-	  span_ = make_spanner ("Episema", event_drul_[START]->self_scm ());
+        {
+          current_event_ = event_drul_[START];
+          span_ = make_spanner ("Episema", event_drul_[START]->self_scm ());
 
-	  event_drul_[START] = 0;
-	}
+          event_drul_[START] = 0;
+        }
     }
   if (event_drul_[STOP])
     {
       if (!span_)
-	event_drul_[STOP]
-	  ->origin ()->warning (_ ("cannot find start of episema"));
+        event_drul_[STOP]
+        ->origin ()->warning (_ ("cannot find start of episema"));
       else
-	{
-	  finished_ = span_;
-	  announce_end_grob (finished_, SCM_EOL);
-	  span_ = 0;
-	  current_event_ = 0;
-	  note_columns_.clear ();
-	}
+        {
+          finished_ = span_;
+          announce_end_grob (finished_, SCM_EOL);
+          span_ = 0;
+          current_event_ = 0;
+          note_columns_.clear ();
+        }
     }
 }
 
@@ -103,12 +103,12 @@ Episema_engraver::typeset_all ()
   if (finished_)
     {
       if (!finished_->get_bound (RIGHT))
-	{
-	  Grob *col = (note_columns_.size ()
-		       ? note_columns_.back ()
-		       : unsmob_grob (get_property ("currentMusicalColumn")));
-	  finished_->set_bound (RIGHT, col);
-	}
+        {
+          Grob *col = (note_columns_.size ()
+                       ? note_columns_.back ()
+                       : unsmob_grob (get_property ("currentMusicalColumn")));
+          finished_->set_bound (RIGHT, col);
+        }
       finished_ = 0;
     }
 }
@@ -119,8 +119,8 @@ Episema_engraver::stop_translation_timestep ()
   if (span_ && !span_->get_bound (LEFT))
     {
       Grob *col = (note_columns_.size ()
-		   ? note_columns_.front ()
-		   : unsmob_grob (get_property ("currentMusicalColumn")));
+                   ? note_columns_.front ()
+                   : unsmob_grob (get_property ("currentMusicalColumn")));
       span_->set_bound (LEFT, col);
     }
 
@@ -165,15 +165,15 @@ ADD_ACKNOWLEDGER (Episema_engraver, note_column);
 ADD_ACKNOWLEDGER (Episema_engraver, note_head);
 
 ADD_TRANSLATOR (Episema_engraver,
-		/* doc */
-		"Create an @emph{Editio Vaticana}-style episema line.",
+                /* doc */
+                "Create an @emph{Editio Vaticana}-style episema line.",
 
-		/* create */
-		"Episema ",
+                /* create */
+                "Episema ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

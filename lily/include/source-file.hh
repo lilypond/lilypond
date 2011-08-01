@@ -37,7 +37,7 @@ using namespace std;
 
 class Source_file
 {
-  vector<char const*> newline_locations_;
+  vector<char const *> newline_locations_;
   istream *istream_;
   vector<char> characters_;
   SCM str_port_;
@@ -45,7 +45,7 @@ class Source_file
   void load_stdin ();
   void init_port ();
   void init ();
-  
+
   DECLARE_SMOBS (Source_file);
 public:
   Source_file (string fn);
@@ -65,7 +65,7 @@ public:
   Slice line_slice (char const *pos_str0) const;
   string line_string (char const *pos_str0) const;
   void get_counts (char const *pos_str0, int *, int *, int *, int *) const;
-  
+
   SCM get_port () const;
   string name_;
 

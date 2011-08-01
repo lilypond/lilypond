@@ -2,7 +2,7 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2006--2011 Han-Wen Nienhuys <hanwen@lilypond.org>
-  
+
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -18,14 +18,13 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include  "lily-guile.hh"
-#include  "main.hh"
-#include  "warn.hh"
+#include "lily-guile.hh"
+#include "main.hh"
+#include "warn.hh"
 
 /*
   INIT
 */
-
 
 typedef void (*Void_fptr) ();
 vector<Void_fptr> *scm_init_funcs_;
@@ -48,7 +47,7 @@ ly_init_ly_module (void *)
     {
       progress_indication ("[");
       scm_display (scm_c_eval_string ("(%search-load-path \"lily.scm\")"),
-		   scm_current_error_port ());
+                   scm_current_error_port ());
       progress_indication ("]\n");
     }
 

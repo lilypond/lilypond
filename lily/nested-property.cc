@@ -1,7 +1,6 @@
 #include "context.hh"
 #include "grob.hh"
 
-
 /*
   Drop symbol from the list alist..alist_end.
  */
@@ -14,10 +13,10 @@ evict_from_alist (SCM symbol, SCM alist, SCM alist_end)
   while (alist != alist_end)
     {
       if (ly_is_equal (scm_caar (alist), symbol))
-	{
-	  alist = scm_cdr (alist);
-	  break;
-	}
+        {
+          alist = scm_cdr (alist);
+          break;
+        }
 
       *tail = scm_cons (scm_car (alist), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
@@ -61,7 +60,7 @@ nested_property_alist (SCM alist, SCM prop_path, SCM value)
 SCM
 nested_property_revert_alist (SCM alist, SCM prop_path)
 {
-  assert(scm_is_pair (prop_path));
+  assert (scm_is_pair (prop_path));
 
   SCM wanted_sym = scm_car (prop_path);
 
@@ -73,26 +72,26 @@ nested_property_revert_alist (SCM alist, SCM prop_path)
       SCM old_val = scm_cdar (s);
 
       if (sub_sym == wanted_sym)
-	{
-	  if (scm_is_pair (scm_cdr (prop_path)))
-	    {
-	      SCM new_val = nested_property_revert_alist (old_val, scm_cdr (prop_path));
+        {
+          if (scm_is_pair (scm_cdr (prop_path)))
+            {
+              SCM new_val = nested_property_revert_alist (old_val, scm_cdr (prop_path));
 
-	      /* nothing changed: drop newly constructed list. */
-	      if (old_val == new_val)
-		return alist;
+              /* nothing changed: drop newly constructed list. */
+              if (old_val == new_val)
+                return alist;
 
-	      *tail = scm_acons (sub_sym, new_val, SCM_EOL);
-	      tail = SCM_CDRLOC(*tail);
-	    }
-	  else
-	    {
-	      /* old value is dropped. */
-	    }
+              *tail = scm_acons (sub_sym, new_val, SCM_EOL);
+              tail = SCM_CDRLOC (*tail);
+            }
+          else
+            {
+              /* old value is dropped. */
+            }
 
-	  *tail = scm_cdr (s);
-	  return new_list;
-	}
+          *tail = scm_cdr (s);
+          return new_list;
+        }
 
       *tail = scm_acons (sub_sym, old_val, SCM_EOL);
       tail = SCM_CDRLOC (*tail);
@@ -101,7 +100,6 @@ nested_property_revert_alist (SCM alist, SCM prop_path)
   /* Wanted symbol not found: drop newly constructed list. */
   return alist;
 }
-
 
 void
 set_nested_property (Grob *me, SCM big_to_small, SCM value)

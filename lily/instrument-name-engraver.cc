@@ -39,7 +39,7 @@ protected:
   SCM short_text_;
 
   vector<Grob *> axis_groups_;
-  
+
   virtual void finalize ();
   DECLARE_ACKNOWLEDGER (axis_group);
   void process_music ();
@@ -78,7 +78,7 @@ Instrument_name_engraver::consider_start_spanner ()
   SCM short_text = get_property ("shortInstrumentName");
 
   if (!(Text_interface::is_markup (long_text)
-	|| Text_interface::is_markup (short_text)))
+        || Text_interface::is_markup (short_text)))
     {
       long_text = get_property ("vocalName");
       short_text = get_property ("shortVocalName");
@@ -87,11 +87,11 @@ Instrument_name_engraver::consider_start_spanner ()
   if ((Text_interface::is_markup (long_text)
        || Text_interface::is_markup (short_text))
       && (!text_spanner_
-	  || short_text_ != short_text
-	  || long_text_ != long_text))
+          || short_text_ != short_text
+          || long_text_ != long_text))
     {
       if (text_spanner_)
-	stop_spanner ();
+        stop_spanner ();
 
       short_text_ = short_text;
       long_text_ = long_text;
@@ -149,36 +149,35 @@ Instrument_name_engraver::stop_spanner ()
 {
   for (vsize i = 0; i < axis_groups_.size (); i++)
     Pointer_group_interface::add_grob (text_spanner_,
-				       ly_symbol2scm ("elements"),
-				       axis_groups_[i]);
-  
+                                       ly_symbol2scm ("elements"),
+                                       axis_groups_[i]);
+
   text_spanner_->set_bound (RIGHT,
-			    unsmob_grob (get_property ("currentCommandColumn")));
+                            unsmob_grob (get_property ("currentCommandColumn")));
 
   Pointer_group_interface::set_ordered (text_spanner_,
-					ly_symbol2scm ("elements"),
-					false);
+                                        ly_symbol2scm ("elements"),
+                                        false);
 
   text_spanner_ = 0;
 }
 
-
 ADD_ACKNOWLEDGER (Instrument_name_engraver, axis_group);
 
 ADD_TRANSLATOR (Instrument_name_engraver,
-		/* doc */
-		"Create a system start text for instrument or vocal names.",
-		
-		/* create */
-		"InstrumentName ",
-		
-		/* read */
-		"currentCommandColumn "
-		"instrumentName "
-		"shortInstrumentName "
-		"shortVocalName "
-		"vocalName ",
+                /* doc */
+                "Create a system start text for instrument or vocal names.",
 
-		/* write */
-		""
-		);
+                /* create */
+                "InstrumentName ",
+
+                /* read */
+                "currentCommandColumn "
+                "instrumentName "
+                "shortInstrumentName "
+                "shortVocalName "
+                "vocalName ",
+
+                /* write */
+                ""
+               );

@@ -70,7 +70,7 @@ bool find_in_range (SCM vector, int low, int hi, int min, int max)
   if (val >= min && val <= max)
     return true;
   else if (val < min)
-    return find_in_range (vector, mid+1, hi, min, max);
+    return find_in_range (vector, mid + 1, hi, min, max);
   return find_in_range (vector, low, mid, min, max);
 }
 
@@ -103,7 +103,7 @@ Hara_kiri_group_spanner::request_suicide_alone (Grob *me, int start, int end)
     {
       int len = scm_c_vector_length (important);
       if (find_in_range (important, 0, len, start, end))
-	return false;
+        return false;
     }
   else /* build the important-columns-cache */
     {
@@ -111,17 +111,17 @@ Hara_kiri_group_spanner::request_suicide_alone (Grob *me, int start, int end)
       vector<int> ranks;
 
       for (vsize i = 0; i < worth.size (); i++)
-	{
-	  Interval_t<int> iv = worth[i]->spanned_rank_interval ();
-	  for (int j = iv[LEFT]; j <= iv[RIGHT]; j++)
-	    ranks.push_back (j);
-	}
+        {
+          Interval_t<int> iv = worth[i]->spanned_rank_interval ();
+          for (int j = iv[LEFT]; j <= iv[RIGHT]; j++)
+            ranks.push_back (j);
+        }
       vector_sort (ranks, less<int> ());
       uniq (ranks);
 
       SCM scm_vec = scm_c_make_vector (ranks.size (), SCM_EOL);
       for (vsize i = 0; i < ranks.size (); i++)
-	scm_vector_set_x (scm_vec, scm_from_int (i), scm_from_int (ranks[i]));
+        scm_vector_set_x (scm_vec, scm_from_int (i), scm_from_int (ranks[i]));
       me->set_property ("important-column-ranks", scm_vec);
 
       return request_suicide (me, start, end);
@@ -133,13 +133,13 @@ Hara_kiri_group_spanner::request_suicide_alone (Grob *me, int start, int end)
 void
 Hara_kiri_group_spanner::consider_suicide (Grob *me)
 {
-  Spanner *sp = dynamic_cast<Spanner*> (me);
+  Spanner *sp = dynamic_cast<Spanner *> (me);
   int left = sp->get_bound (LEFT)->get_column ()->get_rank ();
   int right = sp->get_bound (RIGHT)->get_column ()->get_rank ();
   if (!request_suicide (me, left, right))
     return;
 
-  vector<Grob*> childs;
+  vector<Grob *> childs;
   Axis_group_interface::get_children (me, &childs);
   for (vsize i = 0; i < childs.size (); i++)
     childs[i]->suicide ();
@@ -179,16 +179,15 @@ Hara_kiri_group_spanner::add_interesting_item (Grob *me, Grob *n)
 }
 
 ADD_INTERFACE (Hara_kiri_group_spanner,
-	       "A group spanner that keeps track of interesting items.  If it"
-	       " doesn't contain any after line breaking, it removes itself"
-	       " and all its children.",
+               "A group spanner that keeps track of interesting items.  If it"
+               " doesn't contain any after line breaking, it removes itself"
+               " and all its children.",
 
-	       /* properties */
-	       "items-worth-living "
-	       "important-column-ranks "
-	       "keep-alive-with "
-	       "remove-empty "
-	       "remove-first "
-	       );
-
+               /* properties */
+               "items-worth-living "
+               "important-column-ranks "
+               "keep-alive-with "
+               "remove-empty "
+               "remove-first "
+              );
 

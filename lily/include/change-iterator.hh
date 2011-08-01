@@ -28,7 +28,7 @@ public:
   /* constructor is public */
   virtual void process (Moment);
   DECLARE_SCHEME_CALLBACK (constructor, ());
-  DECLARE_CLASSNAME(Change_iterator);
+  DECLARE_CLASSNAME (Change_iterator);
 
 private:
   void error (string);

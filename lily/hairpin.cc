@@ -37,10 +37,10 @@ Hairpin::pure_height (SCM smob, SCM, SCM)
 {
   Grob *me = unsmob_grob (smob);
   Real height = robust_scm2double (me->get_property ("height"), 0.0)
-    * Staff_symbol_referencer::staff_space (me);
+                * Staff_symbol_referencer::staff_space (me);
 
   Real thickness = robust_scm2double (me->get_property ("thickness"), 1)
-    * Staff_symbol_referencer::line_thickness (me);
+                   * Staff_symbol_referencer::line_thickness (me);
 
   height += thickness / 2;
   return ly_interval2scm (Interval (-height, height));
@@ -80,7 +80,7 @@ Hairpin::print (SCM smob)
       Spanner *next = me->broken_neighbor (RIGHT);
       Stencil *s = next->get_stencil ();
       if (!s || s->is_empty ())
-	broken[RIGHT] = false;
+        broken[RIGHT] = false;
     }
 
   Grob *common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
@@ -91,7 +91,7 @@ Hairpin::print (SCM smob)
   */
   bool circled_tip = ly_scm2bool (me->get_property ("circled-tip"));
   Real height = robust_scm2double (me->get_property ("height"), 0.2)
-    * Staff_symbol_referencer::staff_space (me);
+                * Staff_symbol_referencer::staff_space (me);
   /*
     FIXME: 0.525 is still just a guess...
   */
@@ -99,84 +99,84 @@ Hairpin::print (SCM smob)
   Real thick = 1.0;
   if (circled_tip)
     thick = robust_scm2double (me->get_property ("thickness"), 1.0)
-      * Staff_symbol_referencer::line_thickness (me);
+            * Staff_symbol_referencer::line_thickness (me);
 
   do
     {
       Item *b = bounds[d];
       x_points[d] = b->relative_coordinate (common, X_AXIS);
       if (broken [d])
-	{
-	  if (d == LEFT)
-	    x_points[d] = b->extent (common, X_AXIS)[RIGHT];
-	}
+        {
+          if (d == LEFT)
+            x_points[d] = b->extent (common, X_AXIS)[RIGHT];
+        }
       else
-	{
-	  if (Text_interface::has_interface (b))
-	    {
-	      Interval e = b->extent (common, X_AXIS);
-	      if (!e.is_empty ())
-		x_points[d] = e[-d] - d * padding;
-	    }
-	  else
-	    {
-	      bool neighbor_found = false;
-	      Spanner *adjacent;
-	      extract_grob_set (me, "adjacent-spanners", neighbors);
-	      for (vsize i = 0; i < neighbors.size (); i++)
-		{
-		  /*
-		    FIXME: this will fuck up in case of polyphonic
-		    notes in other voices. Need to look at note-columns
-		    in the current staff/voice.
-		  */
-		  adjacent = dynamic_cast<Spanner *> (neighbors[i]);
-		  if (adjacent
-		      && (adjacent->get_bound (-d)->get_column ()
-			  == b->get_column ()))
-		    {
-		      neighbor_found = true;
-		      break;
-		    }
-		}
+        {
+          if (Text_interface::has_interface (b))
+            {
+              Interval e = b->extent (common, X_AXIS);
+              if (!e.is_empty ())
+                x_points[d] = e[-d] - d * padding;
+            }
+          else
+            {
+              bool neighbor_found = false;
+              Spanner *adjacent;
+              extract_grob_set (me, "adjacent-spanners", neighbors);
+              for (vsize i = 0; i < neighbors.size (); i++)
+                {
+                  /*
+                    FIXME: this will fuck up in case of polyphonic
+                    notes in other voices. Need to look at note-columns
+                    in the current staff/voice.
+                  */
+                  adjacent = dynamic_cast<Spanner *> (neighbors[i]);
+                  if (adjacent
+                      && (adjacent->get_bound (-d)->get_column ()
+                          == b->get_column ()))
+                    {
+                      neighbor_found = true;
+                      break;
+                    }
+                }
 
-	      Interval e = robust_relative_extent (b, common, X_AXIS);
-	      if (neighbor_found)
-		{
-		  if (Hairpin::has_interface (adjacent))
-		    {
-		      /*
-			Handle back-to-back hairpins with a circle in the middle
-		      */
-		      if (circled_tip && (grow_dir != d))
-			x_points[d] = e.center () + d * (rad - thick / 2.0);
-		      /*
-			If we're hung on a paper column, that means we're not
-			adjacent to a text-dynamic, and we may move closer. We
-			make the padding a little smaller, here.
-		      */
-		      else
-			x_points[d] = e.center () - d * padding / 3;
-		    }
-		  // Our neighbor is a dynamic text spanner, so add the
-		  // same amount of padding as for text dynamics
-		  else
-		    x_points[d] = e[-d] - d * padding;
-		}
-	      else
-		{
-		  if (Note_column::has_interface (b)
-		      && Note_column::has_rests (b))
-		    x_points[d] = e[-d];
-		  else
-		    x_points[d] = e[d];
+              Interval e = robust_relative_extent (b, common, X_AXIS);
+              if (neighbor_found)
+                {
+                  if (Hairpin::has_interface (adjacent))
+                    {
+                      /*
+                        Handle back-to-back hairpins with a circle in the middle
+                      */
+                      if (circled_tip && (grow_dir != d))
+                        x_points[d] = e.center () + d * (rad - thick / 2.0);
+                      /*
+                        If we're hung on a paper column, that means we're not
+                        adjacent to a text-dynamic, and we may move closer. We
+                        make the padding a little smaller, here.
+                      */
+                      else
+                        x_points[d] = e.center () - d * padding / 3;
+                    }
+                  // Our neighbor is a dynamic text spanner, so add the
+                  // same amount of padding as for text dynamics
+                  else
+                    x_points[d] = e[-d] - d * padding;
+                }
+              else
+                {
+                  if (Note_column::has_interface (b)
+                      && Note_column::has_rests (b))
+                    x_points[d] = e[-d];
+                  else
+                    x_points[d] = e[d];
 
-		  Item *bound = me->get_bound (d);
-		  if (bound->is_non_musical (bound))
-		    x_points[d] -= d * padding;
-		}
-	    }
-	}
+                  Item *bound = me->get_bound (d);
+                  if (bound->is_non_musical (bound))
+                    x_points[d] -= d * padding;
+                }
+            }
+        }
     }
   while (flip (&d) != LEFT);
 
@@ -184,7 +184,7 @@ Hairpin::print (SCM smob)
   if (width < 0)
     {
       me->warning (_ ((grow_dir < 0) ? "decrescendo too small"
-		      : "crescendo too small"));
+                      : "crescendo too small"));
       width = 0;
     }
 
@@ -216,14 +216,14 @@ Hairpin::print (SCM smob)
   if (circled_tip && !broken[tip_dir])
     {
       if (grow_dir > 0)
-	x = rad * 2.0;
+        x = rad * 2.0;
       else if (grow_dir < 0)
-	width -= rad *2.0;
+        width -= rad * 2.0;
     }
   mol = Line_interface::line (me, Offset (x, starth), Offset (width, endh));
   mol.add_stencil (Line_interface::line (me,
-					 Offset (x, -starth),
-					 Offset (width, -endh)));
+                                         Offset (x, -starth),
+                                         Offset (width, -endh)));
 
   /*
     Support al/del niente notation by putting a circle at the
@@ -235,31 +235,31 @@ Hairpin::print (SCM smob)
 
       /* Hmmm, perhaps we should have a Lookup::circle () method? */
       Stencil circle (extent,
-		      scm_list_4 (ly_symbol2scm ("circle"),
-				  scm_from_double (rad),
-				  scm_from_double (thick),
-				  SCM_BOOL_F));
+                      scm_list_4 (ly_symbol2scm ("circle"),
+                                  scm_from_double (rad),
+                                  scm_from_double (thick),
+                                  SCM_BOOL_F));
 
       /*
-	don't add another circle if the hairpin is broken
+        don't add another circle if the hairpin is broken
       */
       if (!broken[tip_dir])
-	mol.add_at_edge (X_AXIS, tip_dir, Stencil (circle), 0);
+        mol.add_at_edge (X_AXIS, tip_dir, Stencil (circle), 0);
     }
 
   mol.translate_axis (x_points[LEFT]
-		      - bounds[LEFT]->relative_coordinate (common, X_AXIS),
-		      X_AXIS);
+                      - bounds[LEFT]->relative_coordinate (common, X_AXIS),
+                      X_AXIS);
   return mol.smobbed_copy ();
 }
 
 ADD_INTERFACE (Hairpin,
-	       "A hairpin crescendo or decrescendo.",
+               "A hairpin crescendo or decrescendo.",
 
-	       /* properties */
-	       "adjacent-spanners "
-	       "circled-tip "
-	       "bound-padding "
-	       "grow-direction "
-	       "height "
-	       );
+               /* properties */
+               "adjacent-spanners "
+               "circled-tip "
+               "bound-padding "
+               "grow-direction "
+               "height "
+              );

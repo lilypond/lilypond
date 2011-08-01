@@ -123,7 +123,7 @@ Beam_engraver::listen_beam (Stream_event *ev)
 
       Direction updown = to_dir (ev->get_property ("direction"));
       if (updown)
-	forced_direction_ = updown;
+        forced_direction_ = updown;
     }
   else if (d == STOP && valid_end_point ())
     ASSIGN_EVENT_ONCE (stop_ev_, ev);
@@ -143,17 +143,17 @@ Beam_engraver::process_music ()
   if (start_ev_)
     {
       if (beam_)
-	{
-	  start_ev_->origin ()->warning (_ ("already have a beam"));
-	  return;
-	}
+        {
+          start_ev_->origin ()->warning (_ ("already have a beam"));
+          return;
+        }
 
       set_melisma (true);
       prev_start_ev_ = start_ev_;
       beam_ = make_spanner ("Beam", start_ev_->self_scm ());
 
       Moment mp (robust_scm2moment (get_property ("measurePosition"),
-				    Moment (0)));
+                                    Moment (0)));
 
       beam_start_location_ = mp;
       beam_start_mom_ = now_mom ();
@@ -177,13 +177,13 @@ Beam_engraver::typeset_beam ()
   if (finished_beam_)
     {
       if (!finished_beam_->get_bound (RIGHT))
-	finished_beam_->set_bound (RIGHT, finished_beam_->get_bound (LEFT));
+        finished_beam_->set_bound (RIGHT, finished_beam_->get_bound (LEFT));
       if (forced_direction_)
-	{
-	  Grob *stem = finished_beam_->get_bound (RIGHT);
-	  set_grob_direction (stem, forced_direction_);
-	  forced_direction_ = CENTER;
-	}
+        {
+          Grob *stem = finished_beam_->get_bound (RIGHT);
+          set_grob_direction (stem, forced_direction_);
+          forced_direction_ = CENTER;
+        }
       finished_beam_info_->beamify (finished_beaming_options_);
 
       Beam::set_beaming (finished_beam_, finished_beam_info_);
@@ -230,8 +230,8 @@ Beam_engraver::finalize ()
       prev_start_ev_->origin ()->warning (_ ("unterminated beam"));
 
       /*
-	we don't typeset it, (we used to, but it was commented
-	out. Reason unknown) */
+        we don't typeset it, (we used to, but it was commented
+        out. Reason unknown) */
       beam_->suicide ();
       delete beam_info_;
     }
@@ -243,7 +243,7 @@ Beam_engraver::acknowledge_rest (Grob_info info)
   if (beam_
       && !scm_is_number (info.grob ()->get_property_data ("staff-position")))
     chain_offset_callback (info.grob (),
-			   Beam::rest_collision_callback_proc, Y_AXIS);
+                           Beam::rest_collision_callback_proc, Y_AXIS);
 }
 
 void
@@ -274,9 +274,9 @@ Beam_engraver::acknowledge_stem (Grob_info info)
       ev->origin ()->warning (_ ("stem does not fit in beam"));
       prev_start_ev_->origin ()->warning (_ ("beam was started here"));
       /*
-	don't return, since
+        don't return, since
 
-	[r4 c8] can just as well be modern notation.
+        [r4 c8] can just as well be modern notation.
       */
     }
 
@@ -286,8 +286,8 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   stem->set_property ("duration-log", scm_from_int (durlog));
   Moment stem_location = now - beam_start_mom_ + beam_start_location_;
   beam_info_->add_stem (stem_location,
-			max (durlog- 2, 0),
-			Stem::is_invisible (stem));
+                        max (durlog - 2, 0),
+                        Stem::is_invisible (stem));
   Beam::add_stem (beam_, stem);
 }
 
@@ -295,22 +295,22 @@ ADD_ACKNOWLEDGER (Beam_engraver, stem);
 ADD_ACKNOWLEDGER (Beam_engraver, rest);
 
 ADD_TRANSLATOR (Beam_engraver,
-		/* doc */
-		"Handle @code{Beam} events by engraving beams.  If omitted,"
-		" then notes are printed with flags instead of beams.",
+                /* doc */
+                "Handle @code{Beam} events by engraving beams.  If omitted,"
+                " then notes are printed with flags instead of beams.",
 
-		/* create */
-		"Beam ",
+                /* create */
+                "Beam ",
 
-		/* read */
+                /* read */
                 "baseMoment "
-		"beamMelismaBusy "
-		"beatStructure "
-		"subdivideBeams ",
+                "beamMelismaBusy "
+                "beatStructure "
+                "subdivideBeams ",
 
-		/* write */
-		"forbidBreak"
-		);
+                /* write */
+                "forbidBreak"
+               );
 
 class Grace_beam_engraver : public Beam_engraver
 {
@@ -357,26 +357,25 @@ Grace_beam_engraver::listen_beam (Stream_event *ev)
     stop_ev_ = ev;
 }
 
-
 ADD_ACKNOWLEDGER (Grace_beam_engraver, stem);
 ADD_ACKNOWLEDGER (Grace_beam_engraver, rest);
 
 ADD_TRANSLATOR (Grace_beam_engraver,
-		/* doc */
-		"Handle @code{Beam} events by engraving beams.  If omitted,"
-		" then notes are printed with flags instead of beams.  Only"
-		" engraves beams when we are at grace points in time.",
+                /* doc */
+                "Handle @code{Beam} events by engraving beams.  If omitted,"
+                " then notes are printed with flags instead of beams.  Only"
+                " engraves beams when we are at grace points in time.",
 
-		/* create */
-		"Beam ",
+                /* create */
+                "Beam ",
 
-		/* read */
+                /* read */
                 "baseMoment "
-		"beamMelismaBusy "
-		"beatStructure "
-		"subdivideBeams ",
+                "beamMelismaBusy "
+                "beatStructure "
+                "subdivideBeams ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );
 

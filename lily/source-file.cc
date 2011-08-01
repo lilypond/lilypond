@@ -52,7 +52,7 @@ Source_file::load_stdin ()
 }
 
 /*
-  return contents of FILENAME. *Not 0-terminated!* 
+  return contents of FILENAME. *Not 0-terminated!*
  */
 vector<char>
 gulp_file (string filename, int desired_size)
@@ -74,7 +74,7 @@ gulp_file (string filename, int desired_size)
 
   if (desired_size > 0)
     read_count = min (read_count, desired_size);
-  
+
   rewind (f);
 
   char *str = new char[read_count + 1];
@@ -83,7 +83,7 @@ gulp_file (string filename, int desired_size)
   int bytes_read = fread (str, sizeof (char), read_count, f);
   if (bytes_read != read_count)
     warning (_f ("expected to read %d characters, got %d", bytes_read,
-		 read_count));
+                 read_count));
   fclose (f);
   int filesize = bytes_read;
 
@@ -91,7 +91,7 @@ gulp_file (string filename, int desired_size)
   cxx_arr.resize (filesize);
 
   copy (str, str + filesize, cxx_arr.begin ());
-  
+
   delete[] str;
   return cxx_arr;
 }
@@ -109,14 +109,14 @@ Source_file::init ()
 Source_file::Source_file (string filename, string data)
 {
   init ();
-  
+
   name_ = filename;
 
   characters_.resize (data.length ());
   copy (data.begin (), data.end (), characters_.begin ());
 
   characters_.push_back (0);
-  
+
   init_port ();
 
   for (vsize i = 0; i < characters_.size (); i++)
@@ -127,7 +127,7 @@ Source_file::Source_file (string filename, string data)
 Source_file::Source_file (string filename_string)
 {
   init ();
-  
+
   name_ = filename_string;
 
   if (filename_string == "-")
@@ -154,20 +154,19 @@ Source_file::init_port ()
   scm_set_port_filename_x (str_port_, ly_string2scm (name_));
 }
 
-
 istream *
 Source_file::get_istream ()
 {
   if (!istream_)
     {
       if (length ()) // can-t this be done without such a hack?
-	istream_ = new istringstream (c_str ());
+        istream_ = new istringstream (c_str ());
       else
-	{
-	  istream_ = new istringstream ("");
-	  istream_->setstate (ios::eofbit);
-	  //	  istream_->set (ios::eofbit);
-	}
+        {
+          istream_ = new istringstream ("");
+          istream_->setstate (ios::eofbit);
+          //      istream_->set (ios::eofbit);
+        }
     }
   return istream_;
 }
@@ -183,7 +182,7 @@ Source_file::file_line_column_string (char const *context_str0) const
       get_counts (context_str0, &l, &ch, &col, &offset);
 
       return name_string () + ":" + to_string (l)
-	+ ":" + to_string (col);
+             + ":" + to_string (col);
     }
 }
 
@@ -197,9 +196,9 @@ Source_file::quote_input (char const *pos_str0) const
   get_counts (pos_str0, &l, &ch, &col, &offset);
   string line = line_string (pos_str0);
   string context = line.substr (0, offset)
-    + to_string ('\n')
-    + to_string (' ', col)
-    + line.substr (offset, line.length () - offset);
+                   + to_string ('\n')
+                   + to_string (' ', col)
+                   + line.substr (offset, line.length () - offset);
   return context;
 }
 
@@ -229,16 +228,16 @@ Source_file::line_slice (char const *pos_str0) const
   while (begin_str0 > data_str0)
     if (*--begin_str0 == '\n')
       {
-	begin_str0++;
-	break;
+        begin_str0++;
+        break;
       }
 
   char const *end_str0 = pos_str0;
   while (end_str0 < eof_C_)
     if (*end_str0++ == '\n')
       {
-	end_str0--;
-	break;
+        end_str0--;
+        break;
       }
 
   return Slice (begin_str0 - data_str0, end_str0 - data_str0);
@@ -257,13 +256,13 @@ Source_file::line_string (char const *pos_str0) const
 
 void
 Source_file::get_counts (char const *pos_str0,
-			 int *line_number,
-			 int *line_char,
-			 int *column,
-			 int *byte_offset) const
+                         int *line_number,
+                         int *line_char,
+                         int *column,
+                         int *byte_offset) const
 {
   *line_number = 0;
-    
+
   if (!contains (pos_str0))
     return;
 
@@ -286,16 +285,16 @@ Source_file::get_counts (char const *pos_str0,
       size_t thislen = utf8_char_len (*line_chars);
 
       if (thislen == 1 && line_chars[0] == '\t')
-	(*column) = (*column / 8 + 1) * 8;
+        (*column) = (*column / 8 + 1) * 8;
       else
-	(*column)++;
+        (*column)++;
 
       (*line_char)++;
 
       /*
-	To have decent output in UTF-8 aware terminals,
-	we must keep track of the number of bytes from
-	the left edge of the terminal.
+        To have decent output in UTF-8 aware terminals,
+        we must keep track of the number of bytes from
+        the left edge of the terminal.
       */
       *byte_offset += thislen;
 
@@ -322,8 +321,8 @@ Source_file::get_line (char const *pos_str0) const
 
   /* this will find the '\n' character at the end of our line */
   vsize lo = lower_bound (newline_locations_,
-			  pos_str0,
-			  less<char const*> ());
+                          pos_str0,
+                          less<char const *> ());
 
   /* the return value will be indexed from 1 */
   return lo + 1 + line_offset_;
@@ -371,7 +370,6 @@ Source_file::mark_smob (SCM smob)
 
   return sc->str_port_;
 }
-
 
 int
 Source_file::print_smob (SCM smob, SCM port, scm_print_state *)

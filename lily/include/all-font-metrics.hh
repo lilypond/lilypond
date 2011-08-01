@@ -29,7 +29,6 @@
 #include <pango/pangoft2.h>
 #endif
 
-
 /*
    Interface to all fonts (both system fonts and fonts loaded
    via Pango).
@@ -46,19 +45,19 @@ class All_font_metrics
 #endif
 
   map<string, Index_to_charcode_map > filename_charcode_maps_map_;
-  
+
   All_font_metrics (All_font_metrics const &);
 public:
 
   Index_to_charcode_map const *get_index_to_charcode_map (string filename,
-							  int face_index,
-							  FT_Face face);
+                                                          int face_index,
+                                                          FT_Face face);
 
   All_font_metrics (string search_path);
   ~All_font_metrics ();
 
   Pango_font *find_pango_font (PangoFontDescription const *description,
-			       Real scale);
+                               Real scale);
 
   Font_metric *find_font (string name);
   Open_type_font *find_otf (string name);

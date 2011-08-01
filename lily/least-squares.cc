@@ -23,21 +23,21 @@
 
 void
 minimise_least_squares (Real *coef, Real *offset,
-			vector<Offset> const &input)
+                        vector<Offset> const &input)
 {
   Real sx = 0.0;
   Real sy = 0.0;
   Real sqx = 0.0;
   Real sxy = 0.0;
 
-  for (vsize i = 0; i < input.size ();i++)
+  for (vsize i = 0; i < input.size (); i++)
     {
       Real x = input[i][X_AXIS];
       Real y = input[i][Y_AXIS];
       sx += x;
       sy += y;
       sqx += sqr (x);
-      sxy += x*y;
+      sxy += x * y;
     }
 
   int count = input.size ();
@@ -49,8 +49,8 @@ minimise_least_squares (Real *coef, Real *offset,
   if (!count || !den)
     {
       programming_error ("minimise_least_squares ():  Nothing to minimise\n"
-			 "This means that vertical spacing is triggered\n"
-			 "before line breaking\n");
+                         "This means that vertical spacing is triggered\n"
+                         "before line breaking\n");
       *coef = 0.0;
       *offset = count ? sy / count : 0.0;
     }

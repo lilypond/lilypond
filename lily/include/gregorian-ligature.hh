@@ -24,11 +24,10 @@ class Grob;
 #include "std-string.hh"
 #include "grob-interface.hh"
 
-
 class Gregorian_ligature
 {
 public:
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   static string prefixes_to_str (Grob *);
 };
 

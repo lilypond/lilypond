@@ -48,8 +48,8 @@ Font_metric::find_by_name (string s) const
   if (idx >= 0)
     {
       expr = scm_list_3 (ly_symbol2scm ("named-glyph"),
-			 self_scm (),
-			 ly_string2scm (s));
+                         self_scm (),
+                         ly_string2scm (s));
       b = get_indexed_char_dimensions (idx);
     }
 
@@ -87,7 +87,7 @@ Font_metric::get_indexed_char_dimensions (size_t) const
 size_t
 Font_metric::name_to_index (string) const
 {
-  return (size_t)-1;
+  return (size_t) - 1;
 }
 
 Offset
@@ -161,7 +161,7 @@ Font_metric::text_stencil (Output_def *state,
                            string, bool) const
 {
   (void) state;
-  
+
   programming_error ("Cannot get a text stencil from this font");
   return Stencil (Box (), SCM_EOL);
 }

@@ -36,10 +36,11 @@ Listener::Listener (const void *target, Listener_function_table *type)
 Listener::Listener (Listener const &other)
 {
   target_ = other.target_;
-  type_ = other.type_; 
+  type_ = other.type_;
 }
 
-void Listener::listen (SCM ev) const {
+void Listener::listen (SCM ev) const
+{
   (type_->listen_callback) (target_, ev);
 }
 
@@ -53,7 +54,7 @@ Listener::mark_smob (SCM sm)
 }
 
 int
-Listener::print_smob (SCM, SCM p, scm_print_state*)
+Listener::print_smob (SCM, SCM p, scm_print_state *)
 {
   scm_puts ("#<Listener>", p);
   return 1;

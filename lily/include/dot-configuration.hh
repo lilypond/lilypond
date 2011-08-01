@@ -34,7 +34,7 @@ struct Dot_position
   Box dot_extents_;
   bool extremal_head_;
   Interval x_extent_;
-  
+
   Dot_position ()
   {
     dot_ = 0;
@@ -47,7 +47,7 @@ struct Dot_position
 struct Dot_configuration : public map<int, Dot_position>
 {
   Dot_formatting_problem const *problem_;
-  
+
   Dot_configuration (Dot_formatting_problem const &);
   Real x_offset () const;
   int badness () const;

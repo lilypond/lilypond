@@ -17,7 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "dimensions.hh"
 #include "all-font-metrics.hh"
 #include "output-def.hh"
@@ -28,7 +27,7 @@
 
 Font_metric *
 get_font_by_design_size (Output_def *layout, Real requested,
-			 SCM font_vector)
+                         SCM font_vector)
 {
   int n = scm_c_vector_length (font_vector);
   Real size = 1e6;
@@ -42,23 +41,23 @@ get_font_by_design_size (Output_def *layout, Real requested,
       SCM entry = scm_c_vector_ref (font_vector, i);
 
       if (scm_promise_p (entry) == SCM_BOOL_T)
-	{
-	  Font_metric *fm = unsmob_metrics (scm_force (entry));
-	  size = fm->design_size ();
-	}
+        {
+          Font_metric *fm = unsmob_metrics (scm_force (entry));
+          size = fm->design_size ();
+        }
 #if HAVE_PANGO_FT2
       else if (scm_is_pair (entry)
-	       && scm_is_number (scm_car (entry))
-	       && scm_is_string (scm_cdr (entry)))
-	{
-	  size = scm_to_double (scm_car (entry));
-	  pango_description_string
-	    = scm_cdr (entry);
-	}
+               && scm_is_number (scm_car (entry))
+               && scm_is_string (scm_cdr (entry)))
+        {
+          size = scm_to_double (scm_car (entry));
+          pango_description_string
+            = scm_cdr (entry);
+        }
 #endif
 
       if (size > requested)
-	break;
+        break;
       last_size = size;
       last_pango_description_string = pango_description_string;
     }
@@ -68,11 +67,11 @@ get_font_by_design_size (Output_def *layout, Real requested,
   else if (i > 0)
     {
       if ((requested / last_size) < (size / requested))
-	{
-	  i--;
-	  size = last_size;
-	  pango_description_string = last_pango_description_string;
-	}
+        {
+          i--;
+          size = last_size;
+          pango_description_string = last_pango_description_string;
+        }
     }
 
   Font_metric *fm = 0;
@@ -80,8 +79,8 @@ get_font_by_design_size (Output_def *layout, Real requested,
     {
 #if HAVE_PANGO_FT2
       return find_pango_font (layout,
-			      pango_description_string,
-			      requested / size);
+                              pango_description_string,
+                              requested / size);
 #else
       error ("Trying to retrieve pango font without HAVE_PANGO_FT2.");
 #endif
@@ -94,18 +93,18 @@ get_font_by_design_size (Output_def *layout, Real requested,
 
 Font_metric *
 get_font_by_mag_step (Output_def *layout, Real requested_step,
-		      SCM font_vector, Real default_size)
+                      SCM font_vector, Real default_size)
 {
   return get_font_by_design_size (layout, default_size
-				  * pow (2.0, requested_step / 6.0),
-				  font_vector);
+                                  * pow (2.0, requested_step / 6.0),
+                                  font_vector);
 }
 
 SCM
 properties_to_font_size_family (SCM fonts, SCM alist_chain)
 {
   return scm_call_2 (ly_lily_module_constant ("lookup-font"), fonts,
-		     alist_chain);
+                     alist_chain);
 }
 
 Font_metric *
@@ -126,14 +125,14 @@ select_encoded_font (Output_def *layout, SCM chain)
 #endif
     if (scm_instance_p (name))
       {
-	SCM base_size = scm_slot_ref (name, ly_symbol2scm ("default-size"));
-	SCM vec = scm_slot_ref (name, ly_symbol2scm ("size-vector"));
+        SCM base_size = scm_slot_ref (name, ly_symbol2scm ("default-size"));
+        SCM vec = scm_slot_ref (name, ly_symbol2scm ("size-vector"));
 
-	Real req = robust_scm2double (ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F),
-				      0.0);
+        Real req = robust_scm2double (ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F),
+                                      0.0);
 
-	return get_font_by_mag_step (layout, req, vec,
-				     scm_to_double (base_size));
+        return get_font_by_mag_step (layout, req, vec,
+                                     scm_to_double (base_size));
       }
 
   assert (0);

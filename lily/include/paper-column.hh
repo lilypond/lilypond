@@ -39,10 +39,10 @@ public:
   virtual System *get_system () const;
   void set_system (System *);
 
-  static int compare (Grob * const &a,
-		      Grob * const &b);
+  static int compare (Grob *const &a,
+                      Grob *const &b);
   static bool less_than (Grob *const &a,
-			 Grob *const &b);
+                         Grob *const &b);
 
   int get_rank () const { return rank_; }
   void set_rank (int);
@@ -50,7 +50,7 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
 
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   static int get_rank (Grob const *);
   static bool is_musical (Grob *);
   static Moment when_mom (Grob *);

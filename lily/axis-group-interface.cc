@@ -50,12 +50,12 @@ Axis_group_interface::add_element (Grob *me, Grob *e)
       Axis a = (Axis) scm_to_int (scm_car (ax));
 
       if (!e->get_parent (a))
-	e->set_parent (me, a);
+        e->set_parent (me, a);
 
       e->set_object ((a == X_AXIS)
-		     ? ly_symbol2scm ("axis-group-parent-X")
-		     : ly_symbol2scm ("axis-group-parent-Y"),
-		     me->self_scm ());
+                     ? ly_symbol2scm ("axis-group-parent-X")
+                     : ly_symbol2scm ("axis-group-parent-Y"),
+                     me->self_scm ());
     }
 
   /* must be ordered, because Align_interface also uses
@@ -72,19 +72,19 @@ Axis_group_interface::has_axis (Grob *me, Axis a)
 }
 
 Interval
-Axis_group_interface::relative_group_extent (vector<Grob*> const &elts,
-					     Grob *common, Axis a)
+Axis_group_interface::relative_group_extent (vector<Grob *> const &elts,
+                                             Grob *common, Axis a)
 {
   Interval r;
   for (vsize i = 0; i < elts.size (); i++)
     {
       Grob *se = elts[i];
       if (!to_boolean (se->get_property ("cross-staff")))
-	{
-	  Interval dims = se->extent (common, a);
-	  if (!dims.is_empty ())
-	    r.unite (dims);
-	}
+        {
+          Interval dims = se->extent (common, a);
+          if (!dims.is_empty ())
+            r.unite (dims);
+        }
     }
   return r;
 }
@@ -101,10 +101,10 @@ Axis_group_interface::sum_partial_pure_heights (Grob *me, int start, int end)
 Interval
 Axis_group_interface::part_of_line_pure_height (Grob *me, bool begin, int start, int end)
 {
-  Spanner *sp = dynamic_cast<Spanner*> (me);
+  Spanner *sp = dynamic_cast<Spanner *> (me);
   SCM cache_symbol = begin
-    ? ly_symbol2scm ("begin-of-line-pure-height")
-    : ly_symbol2scm ("rest-of-line-pure-height");
+                     ? ly_symbol2scm ("begin-of-line-pure-height")
+                     : ly_symbol2scm ("rest-of-line-pure-height");
   SCM cached = sp->get_cached_pure_property (cache_symbol, start, end);
   if (scm_is_pair (cached))
     return robust_scm2interval (cached, Interval (0, 0));
@@ -117,13 +117,13 @@ Axis_group_interface::part_of_line_pure_height (Grob *me, bool begin, int start,
   else
     {
       SCM these_pure_heights = begin
-	? scm_car (adjacent_pure_heights)
-	: scm_cdr (adjacent_pure_heights);
+                               ? scm_car (adjacent_pure_heights)
+                               : scm_cdr (adjacent_pure_heights);
 
       if (scm_is_vector (these_pure_heights))
-	ret = combine_pure_heights (me, these_pure_heights, start, end);
+        ret = combine_pure_heights (me, these_pure_heights, start, end);
       else
-	ret = Interval (0, 0);
+        ret = Interval (0, 0);
     }
 
   sp->cache_pure_property (cache_symbol, start, end, ly_interval2scm (ret));
@@ -147,17 +147,17 @@ Axis_group_interface::combine_pure_heights (Grob *me, SCM measure_extents, int s
 {
   Paper_score *ps = get_root_system (me)->paper_score ();
   vector<vsize> breaks = ps->get_break_indices ();
-  vector<Grob*> cols = ps->get_columns ();
+  vector<Grob *> cols = ps->get_columns ();
 
   Interval ext;
   for (vsize i = 0; i + 1 < breaks.size (); i++)
     {
       int r = Paper_column::get_rank (cols[breaks[i]]);
       if (r >= end)
-	break;
+        break;
 
       if (r >= start)
-	ext.unite (ly_scm2interval (scm_c_vector_ref (measure_extents, i)));
+        ext.unite (ly_scm2interval (scm_c_vector_ref (measure_extents, i)));
     }
 
   return ext;
@@ -193,7 +193,7 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
       Grob *g = elts[i];
 
       if (to_boolean (g->get_property ("cross-staff")))
-	continue;
+        continue;
 
       bool outside_staff = scm_is_number (g->get_property ("outside-staff-priority"));
       Real padding = robust_scm2double (g->get_property ("outside-staff-padding"), 0.5);
@@ -205,10 +205,10 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
       // but only the fact that outside-staff grobs may need to be raised above
       // the staff.
       if (outside_staff && begin_line_staff_heights.empty ())
-	{
-	  begin_line_staff_heights = begin_line_heights;
-	  mid_line_staff_heights = mid_line_heights;
-	}
+        {
+          begin_line_staff_heights = begin_line_heights;
+          mid_line_staff_heights = mid_line_heights;
+        }
 
       // TODO: consider a pure version of get_grob_direction?
       Direction d = to_dir (g->get_property_data ("direction"));
@@ -217,42 +217,40 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
       Interval_t<int> rank_span = g->spanned_rank_interval ();
       vsize first_break = lower_bound (ranks, (vsize)rank_span[LEFT], less<vsize> ());
       if (first_break > 0 && ranks[first_break] >= (vsize)rank_span[LEFT])
-	first_break--;
+        first_break--;
 
-      for (vsize j = first_break; j+1 < ranks.size () && (int)ranks[j] <= rank_span[RIGHT]; ++j)
-	{
-	  int start = ranks[j];
-	  int end = ranks[j+1];
+      for (vsize j = first_break; j + 1 < ranks.size () && (int)ranks[j] <= rank_span[RIGHT]; ++j)
+        {
+          int start = ranks[j];
+          int end = ranks[j + 1];
 
-	  // Take grobs that are visible with respect to a slightly longer line.
-	  // Otherwise, we will never include grobs at breakpoints which aren't
-	  // end-of-line-visible.
-	  int visibility_end = j + 2 < ranks.size () ? ranks[j+2] : end;
+          // Take grobs that are visible with respect to a slightly longer line.
+          // Otherwise, we will never include grobs at breakpoints which aren't
+          // end-of-line-visible.
+          int visibility_end = j + 2 < ranks.size () ? ranks[j + 2] : end;
 
-	  if (g->pure_is_visible (start, visibility_end))
-	    {
-	      Interval dims = g->pure_height (common, start, end);
-	      if (!dims.is_empty ())
-		{
-		  if (rank_span[LEFT] <= start)
-		    {
-		      if (outside_staff)
-			begin_line_heights[j].unite (
-			    begin_line_staff_heights[j].union_disjoint (dims, padding, d));
-		      else
-			begin_line_heights[j].unite (dims);
-		    }
+          if (g->pure_is_visible (start, visibility_end))
+            {
+              Interval dims = g->pure_height (common, start, end);
+              if (!dims.is_empty ())
+                {
+                  if (rank_span[LEFT] <= start)
+                    {
+                      if (outside_staff)
+                        begin_line_heights[j].unite (begin_line_staff_heights[j].union_disjoint (dims, padding, d));
+                      else
+                        begin_line_heights[j].unite (dims);
+                    }
                   if (rank_span[RIGHT] > start)
-		    {
-		      if (outside_staff)
-			mid_line_heights[j].unite (
-                            mid_line_staff_heights[j].union_disjoint (dims, padding, d));
-		      else
-			mid_line_heights[j].unite (dims);
-		    }
-		}
-	    }
-	}
+                    {
+                      if (outside_staff)
+                        mid_line_heights[j].unite (mid_line_staff_heights[j].union_disjoint (dims, padding, d));
+                      else
+                        mid_line_heights[j].unite (dims);
+                    }
+                }
+            }
+        }
     }
 
   // Convert begin_line_heights and min_line_heights to SCM.
@@ -291,13 +289,13 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
       Grob *g = elts[i];
       Interval_t<int> rank_span = g->spanned_rank_interval ();
       if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start
-	  && g->pure_is_visible (start, end)
-	  && !to_boolean (g->get_property ("cross-staff")))
-	{
-	  Interval dims = g->pure_height (common, start, end);
-	  if (!dims.is_empty ())
-	    r.unite (dims);
-	}
+          && g->pure_is_visible (start, end)
+          && !to_boolean (g->get_property ("cross-staff")))
+        {
+          Interval dims = g->pure_height (common, start, end);
+          if (!dims.is_empty ())
+            r.unite (dims);
+        }
     }
   return r;
 }
@@ -328,13 +326,13 @@ Axis_group_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 
   /* Maybe we are in the second pass of a two-pass spacing run. In that
      case, the Y-extent of a system is already given to us */
-  System *system = dynamic_cast<System*> (me);
+  System *system = dynamic_cast<System *> (me);
   if (system)
     {
       SCM line_break_details = system->column (start)->get_property ("line-break-system-details");
       SCM system_y_extent = scm_assq (ly_symbol2scm ("system-Y-extent"), line_break_details);
       if (scm_is_pair (system_y_extent))
-	return scm_cdr (system_y_extent);
+        return scm_cdr (system_y_extent);
     }
 
   return ly_interval2scm (pure_group_height (me, start, end));
@@ -374,13 +372,13 @@ Axis_group_interface::combine_skylines (SCM smob)
     {
       SCM skyline_scm = elements[i]->get_property ("vertical-skylines");
       if (Skyline_pair::unsmob (skyline_scm))
-	{
-	  Real offset = elements[i]->relative_coordinate (y_common, Y_AXIS);
-	  Skyline_pair other = *Skyline_pair::unsmob (skyline_scm);
-	  other.raise (offset);
-	  other.shift (elements[i]->relative_coordinate (x_common, X_AXIS));
-	  ret.merge (other);
-	}
+        {
+          Real offset = elements[i]->relative_coordinate (y_common, Y_AXIS);
+          Skyline_pair other = *Skyline_pair::unsmob (skyline_scm);
+          other.raise (offset);
+          other.shift (elements[i]->relative_coordinate (x_common, X_AXIS));
+          ret.merge (other);
+        }
     }
   return ret.smobbed_copy ();
 }
@@ -408,7 +406,7 @@ Interval
 Axis_group_interface::staff_extent (Grob *me, Grob *refp, Axis ext_a, Grob *staff, Axis parent_a)
 {
   extract_grob_set (me, "elements", elts);
-  vector<Grob*> new_elts;
+  vector<Grob *> new_elts;
 
   for (vsize i = 0; i < elts.size (); i++)
     if (elts[i]->common_refpoint (staff, parent_a) == staff)
@@ -416,7 +414,6 @@ Axis_group_interface::staff_extent (Grob *me, Grob *refp, Axis ext_a, Grob *staf
 
   return relative_group_extent (new_elts, refp, ext_a);
 }
-
 
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_relevant_grobs, 1);
 SCM
@@ -426,25 +423,25 @@ Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
 
   extract_grob_set (me, "elements", elts);
 
-  vector<Grob*> relevant_grobs;
+  vector<Grob *> relevant_grobs;
   SCM pure_relevant_p = ly_lily_module_constant ("pure-relevant?");
 
   for (vsize i = 0; i < elts.size (); i++)
     {
       if (to_boolean (scm_apply_1 (pure_relevant_p, elts[i]->self_scm (), SCM_EOL)))
-	relevant_grobs.push_back (elts[i]);
+        relevant_grobs.push_back (elts[i]);
 
-      if (Item *it = dynamic_cast<Item*> (elts[i]))
-	{
-	  Direction d = LEFT;
-	  do
-	    {
-	      Item *piece = it->find_prebroken_piece (d);
-	      if (piece && to_boolean (scm_apply_1 (pure_relevant_p, piece->self_scm (), SCM_EOL)))
-		relevant_grobs.push_back (piece);
-	    }
-	  while (flip (&d) != LEFT);
-	}
+      if (Item *it = dynamic_cast<Item *> (elts[i]))
+        {
+          Direction d = LEFT;
+          do
+            {
+              Item *piece = it->find_prebroken_piece (d);
+              if (piece && to_boolean (scm_apply_1 (pure_relevant_p, piece->self_scm (), SCM_EOL)))
+                relevant_grobs.push_back (piece);
+            }
+          while (flip (&d) != LEFT);
+        }
     }
 
   vector_sort (relevant_grobs, pure_staff_priority_less);
@@ -485,7 +482,6 @@ Axis_group_interface::calc_common (Grob *me, Axis axis)
   return common->self_scm ();
 }
 
-
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_x_common, 1);
 SCM
 Axis_group_interface::calc_x_common (SCM grob)
@@ -517,7 +513,7 @@ Axis_group_interface::pure_group_height (Grob *me, int start, int end)
 }
 
 void
-Axis_group_interface::get_children (Grob *me, vector<Grob*> *found)
+Axis_group_interface::get_children (Grob *me, vector<Grob *> *found)
 {
   found->push_back (me);
 
@@ -533,7 +529,7 @@ Axis_group_interface::get_children (Grob *me, vector<Grob*> *found)
 }
 
 static bool
-staff_priority_less (Grob * const &g1, Grob * const &g2)
+staff_priority_less (Grob *const &g1, Grob *const &g2)
 {
   Real priority_1 = robust_scm2double (g1->get_property ("outside-staff-priority"), -infinity_f);
   Real priority_2 = robust_scm2double (g2->get_property ("outside-staff-priority"), -infinity_f);
@@ -557,7 +553,7 @@ staff_priority_less (Grob * const &g1, Grob * const &g2)
 }
 
 static bool
-pure_staff_priority_less (Grob * const &g1, Grob * const &g2)
+pure_staff_priority_less (Grob *const &g1, Grob *const &g2)
 {
   Real priority_1 = robust_scm2double (g1->get_property ("outside-staff-priority"), -infinity_f);
   Real priority_2 = robust_scm2double (g2->get_property ("outside-staff-priority"), -infinity_f);
@@ -579,13 +575,13 @@ add_boxes (Grob *me, Grob *x_common, Grob *y_common, vector<Box> *const boxes, S
   else if (Grob_array *elements = unsmob_grob_array (me->get_object ("elements")))
     {
       for (vsize i = 0; i < elements->size (); i++)
-	add_boxes (elements->grob (i), x_common, y_common, boxes, skylines);
+        add_boxes (elements->grob (i), x_common, y_common, boxes, skylines);
     }
   else if (!scm_is_number (me->get_property ("outside-staff-priority"))
-	   && !to_boolean (me->get_property ("cross-staff")))
+           && !to_boolean (me->get_property ("cross-staff")))
     {
       boxes->push_back (Box (me->extent (x_common, X_AXIS),
-			     me->extent (y_common, Y_AXIS)));
+                             me->extent (y_common, Y_AXIS)));
     }
 }
 
@@ -610,9 +606,9 @@ add_boxes (Grob *me, Grob *x_common, Grob *y_common, vector<Box> *const boxes, S
 */
 static void
 add_grobs_of_one_priority (Skyline_pair *const skylines,
-			   vector<Grob*> elements,
-			   Grob *x_common,
-			   Grob *y_common)
+                           vector<Grob *> elements,
+                           Grob *x_common,
+                           Grob *y_common)
 {
   vector<Box> boxes;
   Drul_array<Real> last_affected_position;
@@ -624,45 +620,45 @@ add_grobs_of_one_priority (Skyline_pair *const skylines,
       last_affected_position[DOWN] = -infinity_f;
       /* do one pass */
       for (vsize i = elements.size (); i--;)
-	{
-	  Direction dir = get_grob_direction (elements[i]);
-	  if (dir == CENTER)
-	    {
-	      warning (_ ("an outside-staff object should have a direction, defaulting to up"));
-	      dir = UP;
-	    }
+        {
+          Direction dir = get_grob_direction (elements[i]);
+          if (dir == CENTER)
+            {
+              warning (_ ("an outside-staff object should have a direction, defaulting to up"));
+              dir = UP;
+            }
 
-	  Box b (elements[i]->extent (x_common, X_AXIS),
-		 elements[i]->extent (y_common, Y_AXIS));
-	  SCM horizon_padding_scm = elements[i]->get_property ("outside-staff-horizontal-padding");
-	  Real horizon_padding = robust_scm2double (horizon_padding_scm, 0.0);
+          Box b (elements[i]->extent (x_common, X_AXIS),
+                 elements[i]->extent (y_common, Y_AXIS));
+          SCM horizon_padding_scm = elements[i]->get_property ("outside-staff-horizontal-padding");
+          Real horizon_padding = robust_scm2double (horizon_padding_scm, 0.0);
 
-	  if (b[X_AXIS][LEFT] - 2*horizon_padding < last_affected_position[dir])
-	    continue;
+          if (b[X_AXIS][LEFT] - 2 * horizon_padding < last_affected_position[dir])
+            continue;
 
-	  if (!b[X_AXIS].is_empty () && !b[Y_AXIS].is_empty ())
-	    {
-	      boxes.clear ();
-	      boxes.push_back (b);
-	      Skyline other = Skyline (boxes, horizon_padding, X_AXIS, -dir);
-	      Real padding = robust_scm2double (elements[i]->get_property ("outside-staff-padding"), 0.5);
-	      Real dist = (*skylines)[dir].distance (other) + padding;
+          if (!b[X_AXIS].is_empty () && !b[Y_AXIS].is_empty ())
+            {
+              boxes.clear ();
+              boxes.push_back (b);
+              Skyline other = Skyline (boxes, horizon_padding, X_AXIS, -dir);
+              Real padding = robust_scm2double (elements[i]->get_property ("outside-staff-padding"), 0.5);
+              Real dist = (*skylines)[dir].distance (other) + padding;
 
-	      if (dist > 0)
-		{
-		  b.translate (Offset (0, dir*dist));
-		  elements[i]->translate_axis (dir*dist, Y_AXIS);
-		}
-	      skylines->insert (b, 0, X_AXIS);
-	      elements[i]->set_property ("outside-staff-priority", SCM_BOOL_F);
-	      last_affected_position[dir] = b[X_AXIS][RIGHT];
-	    }
+              if (dist > 0)
+                {
+                  b.translate (Offset (0, dir * dist));
+                  elements[i]->translate_axis (dir * dist, Y_AXIS);
+                }
+              skylines->insert (b, 0, X_AXIS);
+              elements[i]->set_property ("outside-staff-priority", SCM_BOOL_F);
+              last_affected_position[dir] = b[X_AXIS][RIGHT];
+            }
 
-	  /*
-	    Ugh: quadratic. --hwn
-	   */
-	  elements.erase (elements.begin () + i);
-	}
+          /*
+            Ugh: quadratic. --hwn
+           */
+          elements.erase (elements.begin () + i);
+        }
     }
 }
 
@@ -685,7 +681,7 @@ Axis_group_interface::has_outside_staff_parent (Grob *me)
 // that there is no room for the cross-staff grob. It also means, of course, that
 // we don't get the benefits of skyline placement for cross-staff grobs.
 Skyline_pair
-Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
+Axis_group_interface::skyline_spacing (Grob *me, vector<Grob *> elements)
 {
   /* For grobs with an outside-staff-priority, the sorting function might
      call extent and cause suicide. This breaks the contract that is required
@@ -707,7 +703,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 
   Skyline_pair skylines;
   for (i = 0; i < elements.size ()
-  	 && !scm_is_number (elements[i]->get_property ("outside-staff-priority")); i++)
+       && !scm_is_number (elements[i]->get_property ("outside-staff-priority")); i++)
     if (!(to_boolean (elements[i]->get_property ("cross-staff")) || has_outside_staff_parent (elements[i])))
       add_boxes (elements[i], x_common, y_common, &boxes, &skylines);
 
@@ -717,18 +713,18 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
   for (; i < elements.size (); i++)
     {
       if (to_boolean (elements[i]->get_property ("cross-staff")))
-	continue;
+        continue;
 
       SCM priority = elements[i]->get_property ("outside-staff-priority");
-      vector<Grob*> current_elts;
+      vector<Grob *> current_elts;
       current_elts.push_back (elements[i]);
       while (i + 1 < elements.size ()
-	     && scm_eq_p (elements[i+1]->get_property ("outside-staff-priority"), priority))
-	{
-	  if (!to_boolean (elements[i+1]->get_property ("cross-staff")))
-	    current_elts.push_back (elements[i+1]);
-	  ++i;
-	}
+             && scm_eq_p (elements[i + 1]->get_property ("outside-staff-priority"), priority))
+        {
+          if (!to_boolean (elements[i + 1]->get_property ("cross-staff")))
+            current_elts.push_back (elements[i + 1]);
+          ++i;
+        }
 
       add_grobs_of_one_priority (&skylines, current_elts, x_common, y_common);
     }
@@ -748,9 +744,9 @@ Axis_group_interface::print (SCM smob)
   if (Skyline_pair *s = Skyline_pair::unsmob (me->get_property ("vertical-skylines")))
     {
       ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[UP].to_points (X_AXIS))
-		       .in_color (255, 0, 255));
+                       .in_color (255, 0, 255));
       ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[DOWN].to_points (X_AXIS))
-		       .in_color (0, 255, 255));
+                       .in_color (0, 255, 255));
     }
   return ret.smobbed_copy ();
 }
@@ -760,9 +756,9 @@ SCM
 Axis_group_interface::calc_pure_staff_staff_spacing (SCM smob, SCM start, SCM end)
 {
   return calc_maybe_pure_staff_staff_spacing (unsmob_grob (smob),
-					      true,
-					      scm_to_int (start),
-					      scm_to_int (end));
+                                              true,
+                                              scm_to_int (start),
+                                              scm_to_int (end));
 }
 
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_staff_staff_spacing, 1)
@@ -770,9 +766,9 @@ SCM
 Axis_group_interface::calc_staff_staff_spacing (SCM smob)
 {
   return calc_maybe_pure_staff_staff_spacing (unsmob_grob (smob),
-					      false,
-					      0,
-					      INT_MAX);
+                                              false,
+                                              0,
+                                              INT_MAX);
 }
 
 SCM
@@ -784,9 +780,9 @@ Axis_group_interface::calc_maybe_pure_staff_staff_spacing (Grob *me, bool pure, 
     {
       bool within_group = Staff_grouper_interface::maybe_pure_within_group (grouper, me, pure, start, end);
       if (within_group)
-	return grouper->get_maybe_pure_property ("staff-staff-spacing", pure, start, end);
+        return grouper->get_maybe_pure_property ("staff-staff-spacing", pure, start, end);
       else
-	return grouper->get_maybe_pure_property ("staffgroup-staff-spacing", pure, start, end);
+        return grouper->get_maybe_pure_property ("staffgroup-staff-spacing", pure, start, end);
     }
   return me->get_maybe_pure_property ("default-staff-staff-spacing", pure, start, end);
 }
@@ -804,30 +800,30 @@ Axis_group_interface::minimum_distance (Grob *g1, Grob *g2, Axis a)
 }
 
 ADD_INTERFACE (Axis_group_interface,
-	       "An object that groups other layout objects.",
+               "An object that groups other layout objects.",
 
-	       // TODO: some of these properties are specific to
-	       // VerticalAxisGroup. We should split off a
-	       // vertical-axis-group-interface.
-	       /* properties */
-	       "adjacent-pure-heights "
-	       "axes "
-	       "default-staff-staff-spacing "
-	       "elements "
-	       "max-stretch "
-	       "no-alignment "
-	       "nonstaff-nonstaff-spacing "
-	       "nonstaff-relatedstaff-spacing "
-	       "nonstaff-unrelatedstaff-spacing "
-	       "pure-relevant-grobs "
-	       "pure-relevant-items "
-	       "pure-relevant-spanners "
-	       "pure-Y-common "
-	       "staff-affinity "
-	       "staff-grouper "
-	       "staff-staff-spacing "
-	       "system-Y-offset "
-	       "vertical-skylines "
-	       "X-common "
-	       "Y-common "
-	       );
+               // TODO: some of these properties are specific to
+               // VerticalAxisGroup. We should split off a
+               // vertical-axis-group-interface.
+               /* properties */
+               "adjacent-pure-heights "
+               "axes "
+               "default-staff-staff-spacing "
+               "elements "
+               "max-stretch "
+               "no-alignment "
+               "nonstaff-nonstaff-spacing "
+               "nonstaff-relatedstaff-spacing "
+               "nonstaff-unrelatedstaff-spacing "
+               "pure-relevant-grobs "
+               "pure-relevant-items "
+               "pure-relevant-spanners "
+               "pure-Y-common "
+               "staff-affinity "
+               "staff-grouper "
+               "staff-staff-spacing "
+               "system-Y-offset "
+               "vertical-skylines "
+               "X-common "
+               "Y-common "
+              );

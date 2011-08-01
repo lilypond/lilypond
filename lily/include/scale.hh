@@ -27,8 +27,8 @@
 struct Scale
 {
 public:
-  Scale (vector<Rational> const&);
-  Scale (Scale const&);
+  Scale (vector<Rational> const &);
+  Scale (Scale const &);
 
   Rational tones_at_step (int step, int octave) const;
   Rational step_size (int step) const;
@@ -44,5 +44,4 @@ private:
 extern Scale *default_global_scale;
 
 #endif /* SCALE_HH */
-
 

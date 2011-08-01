@@ -47,7 +47,7 @@ private:
 
 void
 Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
-				 string to_id)
+                                 string to_id)
 {
   Context *current = it->get_outlet ();
   Context *last = 0;
@@ -77,22 +77,22 @@ Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
   if (current)
     {
       if (last)
-	{
-	  Context *dest
-	    = it->get_outlet ()->find_create_context (to_type_sym, to_id, SCM_EOL);
-	  
-	  send_stream_event (last, "ChangeParent", get_music ()->origin (),
-			       ly_symbol2scm ("context"), dest->self_scm ());
-	}
-      else
-	{
-	  /*
-	    We could change the current translator's id, but that would make
-	    errors hard to catch
+        {
+          Context *dest
+            = it->get_outlet ()->find_create_context (to_type_sym, to_id, SCM_EOL);
 
-	  */
-	  ;
-	}
+          send_stream_event (last, "ChangeParent", get_music ()->origin (),
+                             ly_symbol2scm ("context"), dest->self_scm ());
+        }
+      else
+        {
+          /*
+            We could change the current translator's id, but that would make
+            errors hard to catch
+
+          */
+          ;
+        }
     }
 }
 
@@ -110,19 +110,19 @@ Auto_change_iterator::process (Moment m)
     {
       splitm = unsmob_moment (scm_caar (split_list_));
       if ((*splitm + start_moment_) > now)
-	break;
+        break;
 
       SCM tag = scm_cdar (split_list_);
       Direction d = to_dir (tag);
 
       if (d && d != where_dir_)
-	{
-	  where_dir_ = d;
-	  string to_id = (d >= 0) ? "up" : "down";
-	  change_to (child_iter_,
-		     ly_symbol2scm ("Staff"),
-		     to_id);
-	}
+        {
+          where_dir_ = d;
+          string to_id = (d >= 0) ? "up" : "down";
+          change_to (child_iter_,
+                     ly_symbol2scm ("Staff"),
+                     to_id);
+        }
     }
 }
 
@@ -140,17 +140,17 @@ Auto_change_iterator::construct_children ()
 
   SCM props = get_outlet ()->get_property ("trebleStaffProperties");
   Context *up = get_outlet ()->find_create_context (ly_symbol2scm ("Staff"),
-						    "up", props);
+                                                    "up", props);
 
   props = get_outlet ()->get_property ("bassStaffProperties");
   Context *down = get_outlet ()->find_create_context (ly_symbol2scm ("Staff"),
-						      "down", props);
+                                                      "down", props);
 
   up_.set_context (up);
   down_.set_context (down);
 
   Context *voice = up->find_create_context (ly_symbol2scm ("Voice"),
-					    "", SCM_EOL);
+                                            "", SCM_EOL);
   set_context (voice);
   Music_wrapper_iterator::construct_children ();
 }

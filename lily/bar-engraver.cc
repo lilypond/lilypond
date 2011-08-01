@@ -46,7 +46,7 @@ private:
   void create_bar ();
 
   Item *bar_;
-  vector<Spanner*> spanners_;
+  vector<Spanner *> spanners_;
 };
 
 Bar_engraver::Bar_engraver ()
@@ -62,7 +62,7 @@ Bar_engraver::create_bar ()
       bar_ = make_item ("BarLine", SCM_EOL);
       SCM gl = get_property ("whichBar");
       if (scm_equal_p (gl, bar_->get_property ("glyph")) != SCM_BOOL_T)
-	bar_->set_property ("glyph", gl);
+        bar_->set_property ("glyph", gl);
     }
 }
 
@@ -107,23 +107,23 @@ Bar_engraver::acknowledge_end_spanner (Grob_info gi)
   Grob *g = gi.grob ();
 
   if (to_boolean (g->get_property ("to-barline")))
-    spanners_.push_back (dynamic_cast<Spanner*> (g));
+    spanners_.push_back (dynamic_cast<Spanner *> (g));
 }
 
 ADD_END_ACKNOWLEDGER (Bar_engraver, spanner);
 
 ADD_TRANSLATOR (Bar_engraver,
-		/* doc */
-		"Create barlines.  This engraver is controlled through the"
-		" @code{whichBar} property.  If it has no bar line to create,"
-		" it will forbid a linebreak at this point.",
+                /* doc */
+                "Create barlines.  This engraver is controlled through the"
+                " @code{whichBar} property.  If it has no bar line to create,"
+                " it will forbid a linebreak at this point.",
 
-		/* create */
-		"BarLine ",
+                /* create */
+                "BarLine ",
 
-		/* read */
-		"whichBar ",
+                /* read */
+                "whichBar ",
 
-		/* write */
-		"forbidBreak "
-		);
+                /* write */
+                "forbidBreak "
+               );

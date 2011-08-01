@@ -29,7 +29,7 @@ struct Grob_pq_entry
 };
 
 bool
-operator< (Grob_pq_entry const &a, Grob_pq_entry const &b)
+operator < (Grob_pq_entry const &a, Grob_pq_entry const &b)
 {
   return a.end_ < b.end_;
 }
@@ -44,7 +44,7 @@ protected:
   void start_translation_timestep ();
   void stop_translation_timestep ();
   void process_acknowledged ();
-  
+
   vector<Grob_pq_entry> started_now_;
 };
 
@@ -59,12 +59,12 @@ Grob_pq_engraver::initialize ()
 }
 
 LY_DEFINE (ly_grob_pq_less_p, "ly:grob-pq<?",
-	   2, 0, 0, (SCM a, SCM b),
-	   "Compare two grob priority queue entries."
-	   "  This is an internal function.")
+           2, 0, 0, (SCM a, SCM b),
+           "Compare two grob priority queue entries."
+           "  This is an internal function.")
 {
   if (Moment::compare (*unsmob_moment (scm_car (a)),
-		       *unsmob_moment (scm_car (b))) < 0)
+                       *unsmob_moment (scm_car (b))) < 0)
     return SCM_BOOL_T;
   else
     return SCM_BOOL_F;
@@ -82,7 +82,7 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
       Moment l = get_event_length (ev, n);
 
       if (!l.to_bool ())
-	return;
+        return;
 
       Moment end = n + l;
 
@@ -103,8 +103,8 @@ Grob_pq_engraver::process_acknowledged ()
   for (vsize i = 0; i < started_now_.size (); i++)
     {
       *tail = scm_acons (started_now_[i].end_.smobbed_copy (),
-			 started_now_[i].grob_->self_scm (),
-			 SCM_EOL);
+                         started_now_[i].grob_->self_scm (),
+                         SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
 
@@ -136,8 +136,8 @@ Grob_pq_engraver::start_translation_timestep ()
   while (scm_is_pair (busy) && *unsmob_moment (scm_caar (busy)) < now)
     {
       /*
-	The grob-pq-engraver is not water tight, and stuff like
-	tupletSpannerDuration confuses it.
+        The grob-pq-engraver is not water tight, and stuff like
+        tupletSpannerDuration confuses it.
       */
       busy = scm_cdr (busy);
     }
@@ -149,16 +149,16 @@ Grob_pq_engraver::start_translation_timestep ()
 #include "translator.icc"
 ADD_ACKNOWLEDGER (Grob_pq_engraver, grob);
 ADD_TRANSLATOR (Grob_pq_engraver,
-		/* doc */
-		"Administrate when certain grobs (e.g., note heads) stop"
-		" playing.",
+                /* doc */
+                "Administrate when certain grobs (e.g., note heads) stop"
+                " playing.",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"busyGrobs ",
+                /* read */
+                "busyGrobs ",
 
-		/* write */
-		"busyGrobs "
-		);
+                /* write */
+                "busyGrobs "
+               );

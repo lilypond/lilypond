@@ -27,7 +27,7 @@ class Chord_name
 {
 public:
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 };
 
 #endif // CHORD_NAME_HH

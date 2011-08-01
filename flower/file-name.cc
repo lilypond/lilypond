@@ -68,7 +68,7 @@ dos_to_posix (string file_name)
     much be exchanged.  */
 #if 0
 static /* avoid warning */
-#endif 
+#endif
 string
 slashify (string file_name)
 {
@@ -89,7 +89,7 @@ dir_name (string const file_name)
     s = s.substr (0, s.rfind ('/'));
   else
     s = "";
-  
+
   return s;
 }
 
@@ -118,7 +118,6 @@ File_name::dir_part () const
   return s;
 }
 
-
 string
 File_name::file_part () const
 {
@@ -136,7 +135,7 @@ File_name::to_string () const
   string f = file_part ();
 
   if (!f.empty ()
-      && !dir_.empty())
+      && !dir_.empty ())
     {
       d += ::to_string (DIRSEP);
     }
@@ -184,12 +183,10 @@ bool
 File_name::is_absolute () const
 {
   /*
-    Hmm. Is c:foo absolute?  
+    Hmm. Is c:foo absolute?
    */
   return (dir_.length () && dir_[0] == DIRSEP) || root_.length ();
 }
-
-
 
 File_name
 File_name::canonicalized () const
@@ -198,17 +195,17 @@ File_name::canonicalized () const
 
   replace_all (&c.dir_, string ("//"), string ("/"));
 
-  vector<string> components =  string_split (c.dir_, '/');
+  vector<string> components = string_split (c.dir_, '/');
   vector<string> new_components;
 
   for (vsize i = 0; i < components.size (); i++)
     {
       if (components[i] == "..")
-	new_components.pop_back ();
+        new_components.pop_back ();
       else
-	new_components.push_back (components[i]);
+        new_components.push_back (components[i]);
     }
 
-  c.dir_ = string_join (new_components,  "/");
-  return c;  
+  c.dir_ = string_join (new_components, "/");
+  return c;
 }

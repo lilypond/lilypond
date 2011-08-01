@@ -64,12 +64,12 @@ class Vaticana_ligature_engraver : public Gregorian_ligature_engraver
 private:
   static bool
   need_extra_horizontal_space (int prev_prefix_set, int prefix_set,
-			       int context_info, int delta_pitch);
+                               int context_info, int delta_pitch);
   bool is_stacked_head (int prefix_set,
-			int context_info);
+                        int context_info);
   Real align_heads (vector<Grob_info> primitives,
-		    Real flexa_width,
-		    Real thickness);
+                    Real flexa_width,
+                    Real thickness);
   void check_for_prefix_loss (Item *primitive);
   void check_for_ambiguous_dot_pitch (Grob_info primitive);
   void add_mora_column (Paper_column *column);
@@ -81,7 +81,7 @@ public:
 protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void transform_heads (Spanner *ligature,
-				vector<Grob_info> primitives);
+                                vector<Grob_info> primitives);
   DECLARE_TRANSLATOR_LISTENER (pes_or_flexa);
   DECLARE_TRANSLATOR_LISTENER (ligature);
 };
@@ -102,8 +102,8 @@ Vaticana_ligature_engraver::listen_ligature (Stream_event *ev)
 
 Vaticana_ligature_engraver::Vaticana_ligature_engraver ()
 {
-  brew_ligature_primitive_proc =
-    Vaticana_ligature::brew_ligature_primitive_proc;
+  brew_ligature_primitive_proc
+    = Vaticana_ligature::brew_ligature_primitive_proc;
   augmented_primitives_.clear ();
 }
 
@@ -115,7 +115,7 @@ Vaticana_ligature_engraver::create_ligature_spanner ()
 
 bool
 Vaticana_ligature_engraver::is_stacked_head (int prefix_set,
-					     int context_info)
+                                             int context_info)
 {
   bool is_stacked;
 
@@ -162,7 +162,7 @@ Vaticana_ligature_engraver::is_stacked_head (int prefix_set,
  */
 bool
 Vaticana_ligature_engraver::need_extra_horizontal_space (int prev_prefix_set, int prefix_set,
-							 int context_info, int delta_pitch)
+                                                         int context_info, int delta_pitch)
 {
   if (prev_prefix_set & VIRGA)
     /*
@@ -200,13 +200,13 @@ Vaticana_ligature_engraver::need_extra_horizontal_space (int prev_prefix_set, in
 
 Real
 Vaticana_ligature_engraver::align_heads (vector<Grob_info> primitives,
-					 Real flexa_width,
-					 Real thickness)
+                                         Real flexa_width,
+                                         Real thickness)
 {
   if (!primitives.size ())
     {
       programming_error ("Vaticana_ligature:"
-			 " empty ligature [ignored]");
+                         " empty ligature [ignored]");
       return 0.0;
     }
 
@@ -238,9 +238,9 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> primitives,
     {
       Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
       int prefix_set
-	= scm_to_int (primitive->get_property ("prefix-set"));
+        = scm_to_int (primitive->get_property ("prefix-set"));
       int context_info
-	= scm_to_int (primitive->get_property ("context-info"));
+        = scm_to_int (primitive->get_property ("context-info"));
 
       /*
        * Get glyph_name, delta_pitch and context_info for this head.
@@ -248,28 +248,28 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> primitives,
 
       SCM glyph_name_scm = primitive->get_property ("glyph-name");
       if (glyph_name_scm == SCM_EOL)
-	{
-	  primitive->programming_error ("Vaticana_ligature:"
-					" undefined glyph-name ->"
-					" ignoring grob");
-	  continue;
-	}
+        {
+          primitive->programming_error ("Vaticana_ligature:"
+                                        " undefined glyph-name ->"
+                                        " ignoring grob");
+          continue;
+        }
       string glyph_name = ly_scm2string (glyph_name_scm);
 
       int delta_pitch = 0;
       if (prev_primitive) /* urgh, need prev_primitive only here */
-	{
-	  SCM delta_pitch_scm = prev_primitive->get_property ("delta-position");
-	  if (delta_pitch_scm != SCM_EOL)
-	    delta_pitch = scm_to_int (delta_pitch_scm);
-	  else
-	    {
-	      primitive->programming_error ("Vaticana_ligature:"
-					    " delta-position undefined ->"
-					    " ignoring grob");
-	      continue;
-	    }
-	}
+        {
+          SCM delta_pitch_scm = prev_primitive->get_property ("delta-position");
+          if (delta_pitch_scm != SCM_EOL)
+            delta_pitch = scm_to_int (delta_pitch_scm);
+          else
+            {
+              primitive->programming_error ("Vaticana_ligature:"
+                                            " delta-position undefined ->"
+                                            " ignoring grob");
+              continue;
+            }
+        }
 
       /*
        * Now determine width and x-offset of head.
@@ -279,45 +279,45 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> primitives,
       Real x_offset;
 
       if (context_info & STACKED_HEAD)
-	{
-	  /*
-	   * This head is stacked upon the previous one; hence, it
-	   * does not contribute to the total width of the ligature,
-	   * and its width is assumed to be 0.0.  Moreover, it is
-	   * shifted to the left by its width such that the right side
-	   * of this and the other head are horizontally aligned.
-	   */
-	  head_width = 0.0;
-	  x_offset = join_thickness
-	    - Font_interface::get_default_font (primitive)->
-	    find_by_name ("noteheads.s" + glyph_name).extent (X_AXIS).length ();
-	}
+        {
+          /*
+           * This head is stacked upon the previous one; hence, it
+           * does not contribute to the total width of the ligature,
+           * and its width is assumed to be 0.0.  Moreover, it is
+           * shifted to the left by its width such that the right side
+           * of this and the other head are horizontally aligned.
+           */
+          head_width = 0.0;
+          x_offset = join_thickness
+                     - Font_interface::get_default_font (primitive)->
+                     find_by_name ("noteheads.s" + glyph_name).extent (X_AXIS).length ();
+        }
       else if (glyph_name == "flexa" || glyph_name == "")
-	{
-	  /*
-	   * This head represents either half of a flexa shape.
-	   * Hence, it is assigned half the width of this shape.
-	   */
-	  head_width = 0.5 * flexa_width;
-	  x_offset = 0.0;
-	}
+        {
+          /*
+           * This head represents either half of a flexa shape.
+           * Hence, it is assigned half the width of this shape.
+           */
+          head_width = 0.5 * flexa_width;
+          x_offset = 0.0;
+        }
       else
-	{
-	  /*
-	   * This is a regular head, placed right to the previous one.
-	   * Retrieve its width from corresponding font.
-	   */
-	  head_width
-	    = Font_interface::get_default_font (primitive)->
-	    find_by_name ("noteheads.s" + glyph_name).extent (X_AXIS).length ();
-	  x_offset = 0.0;
-	}
+        {
+          /*
+           * This is a regular head, placed right to the previous one.
+           * Retrieve its width from corresponding font.
+           */
+          head_width
+            = Font_interface::get_default_font (primitive)->
+              find_by_name ("noteheads.s" + glyph_name).extent (X_AXIS).length ();
+          x_offset = 0.0;
+        }
 
       /*
        * Save the head's final x-offset.
        */
       primitive->set_property ("x-offset",
-			       scm_from_double (x_offset));
+                               scm_from_double (x_offset));
 
       /*
        * If the head is the 2nd head of a pes or flexa (but not a
@@ -325,39 +325,39 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> primitives,
        * neighbour head (i.e. the previous head) by a vertical beam.
        */
       if ((context_info & PES_UPPER)
-	  || ((context_info & FLEXA_RIGHT)
-	      && ! (context_info & PES_LOWER)))
-	{
-	  if (!prev_primitive)
-	    {
-	      primitive->programming_error ("Vaticana ligature: add-join:"
-					    " missing previous primitive");
-	    }
-	  else
-	    {
-	      prev_primitive->set_property ("add-join",
-					    ly_bool2scm (true));
+          || ((context_info & FLEXA_RIGHT)
+              && ! (context_info & PES_LOWER)))
+        {
+          if (!prev_primitive)
+            {
+              primitive->programming_error ("Vaticana ligature: add-join:"
+                                            " missing previous primitive");
+            }
+          else
+            {
+              prev_primitive->set_property ("add-join",
+                                            ly_bool2scm (true));
 
-	      /*
-	       * Create a small overlap of adjacent heads so that the join
-	       * can be drawn perfectly between them.
-	       */
-	      ligature_width -= join_thickness;
-	    }
-	}
+              /*
+               * Create a small overlap of adjacent heads so that the join
+               * can be drawn perfectly between them.
+               */
+              ligature_width -= join_thickness;
+            }
+        }
       else if (glyph_name == "")
-	{
-	  /*
-	   * This is the 2nd (virtual) head of flexa shape.  Join it
-	   * tightly with 1st head, i.e. do *not* add additional
-	   * space, such that next head will not be off from the flexa
-	   * shape.
-	   */
-	}
+        {
+          /*
+           * This is the 2nd (virtual) head of flexa shape.  Join it
+           * tightly with 1st head, i.e. do *not* add additional
+           * space, such that next head will not be off from the flexa
+           * shape.
+           */
+        }
 
       if (need_extra_horizontal_space (prev_prefix_set, prefix_set,
-				       context_info, delta_pitch))
-	ligature_width += extra_space;
+                                       context_info, delta_pitch))
+        ligature_width += extra_space;
 
       /*
        * Horizontally line-up this head to form a ligature.
@@ -398,9 +398,9 @@ Vaticana_ligature_engraver::check_for_prefix_loss (Item *primitive)
     {
       string prefs = Gregorian_ligature::prefixes_to_str (primitive);
       primitive->warning (_f ("ignored prefix(es) `%s' of this head"
-			      " according to restrictions of the selected"
-			      " ligature style",
-			      prefs.c_str ()));
+                              " according to restrictions of the selected"
+                              " ligature style",
+                              prefs.c_str ()));
     }
 }
 
@@ -412,15 +412,15 @@ Vaticana_ligature_engraver::add_mora_column (Paper_column *column)
   if (!column) // empty ligature???
     {
       augmented_primitives_[0].grob ()->
-	programming_error ("no paper column to add dot");
+      programming_error ("no paper column to add dot");
       return;
     }
   Item *dotcol = make_item ("DotColumn", SCM_EOL);
   dotcol->set_parent (column, X_AXIS);
   for (vsize i = 0; i < augmented_primitives_.size (); i++)
     {
-      Item *primitive =
-	dynamic_cast<Item *> (augmented_primitives_[i].grob ());
+      Item *primitive
+        = dynamic_cast<Item *> (augmented_primitives_[i].grob ());
       Item *dot = make_item ("Dots", primitive->self_scm ());
       dot->set_property ("dot-count", scm_from_int (1));
       dot->set_parent (primitive, Y_AXIS);
@@ -461,19 +461,19 @@ Vaticana_ligature_engraver::check_for_ambiguous_dot_pitch (Grob_info primitive)
       Stream_event *cause = augmented_primitives_[i].event_cause ();
       int pitch = unsmob_pitch (cause->get_property ("pitch"))->steps ();
       if (pitch == new_pitch)
-	{
-	  primitive.grob ()->
-	    warning ("Ambiguous use of dots in ligature: there are"
-		     " multiple dotted notes with the same pitch."
-		     "  The ligature should be split.");
-	  return; // supress multiple identical warnings
-	}
+        {
+          primitive.grob ()->
+          warning ("Ambiguous use of dots in ligature: there are"
+                   " multiple dotted notes with the same pitch."
+                   "  The ligature should be split.");
+          return; // supress multiple identical warnings
+        }
     }
 }
 
 void
 Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
-					     vector<Grob_info> primitives)
+                                             vector<Grob_info> primitives)
 {
   Real flexa_width = robust_scm2double (ligature->get_property ("flexa-width"), 2);
 
@@ -492,47 +492,47 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
       int delta_pitch;
       SCM delta_pitch_scm = primitive->get_property ("delta-position");
       if (delta_pitch_scm != SCM_EOL)
-	delta_pitch = scm_to_int (delta_pitch_scm);
+        delta_pitch = scm_to_int (delta_pitch_scm);
       else
-	{
-	  primitive->programming_error ("Vaticana_ligature:"
-					" delta-position undefined ->"
-					" ignoring grob");
-	  continue;
-	}
+        {
+          primitive->programming_error ("Vaticana_ligature:"
+                                        " delta-position undefined ->"
+                                        " ignoring grob");
+          continue;
+        }
 
       /* retrieve & complete prefix_set and context_info */
       int prefix_set
-	= scm_to_int (primitive->get_property ("prefix-set"));
+        = scm_to_int (primitive->get_property ("prefix-set"));
       int context_info
-	= scm_to_int (primitive->get_property ("context-info"));
+        = scm_to_int (primitive->get_property ("context-info"));
 
       if (Rhythmic_head::dot_count (primitive) > 0)
-	// remove dots from primitive and add remember primitive for
-	// creating a dot column
-	{
-	  Rhythmic_head::get_dots (primitive)->set_property ("dot-count",
-							     scm_from_int (0));
-	  // TODO: Maybe completely remove grob "Dots" (dots->suicide
-	  // () ?) rather than setting property "dot-count" to 0.
+        // remove dots from primitive and add remember primitive for
+        // creating a dot column
+        {
+          Rhythmic_head::get_dots (primitive)->set_property ("dot-count",
+                                                             scm_from_int (0));
+          // TODO: Maybe completely remove grob "Dots" (dots->suicide
+          // () ?) rather than setting property "dot-count" to 0.
 
-	  check_for_ambiguous_dot_pitch (primitives[i]);
-	  augmented_primitives_.push_back (primitives[i]);
-	}
+          check_for_ambiguous_dot_pitch (primitives[i]);
+          augmented_primitives_.push_back (primitives[i]);
+        }
       else if (augmented_primitives_.size () > 0)
-	{
-	  primitive->warning ("This ligature has a dotted head followed by"
-			      " a non-dotted head.  The ligature should be"
-			      " split after the last dotted head before"
-			      " this head.");
-	}
+        {
+          primitive->warning ("This ligature has a dotted head followed by"
+                              " a non-dotted head.  The ligature should be"
+                              " split after the last dotted head before"
+                              " this head.");
+        }
 
       if (is_stacked_head (prefix_set, context_info))
-	{
-	  context_info |= STACKED_HEAD;
-	  primitive->set_property ("context-info",
-				   scm_from_int (context_info));
-	}
+        {
+          context_info |= STACKED_HEAD;
+          primitive->set_property ("context-info",
+                                   scm_from_int (context_info));
+        }
 
       /*
        * Now determine which head to typeset (this is context sensitive
@@ -542,118 +542,118 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
        */
       string glyph_name;
       if (prefix_set & VIRGA)
-	{
-	  glyph_name = "vaticana.punctum";
-	  primitive->set_property ("add-stem", ly_bool2scm (true));
-	}
+        {
+          glyph_name = "vaticana.punctum";
+          primitive->set_property ("add-stem", ly_bool2scm (true));
+        }
       else if (prefix_set & QUILISMA)
-	glyph_name = "vaticana.quilisma";
+        glyph_name = "vaticana.quilisma";
       else if (prefix_set & ORISCUS)
-	glyph_name = "solesmes.oriscus";
+        glyph_name = "solesmes.oriscus";
       else if (prefix_set & STROPHA)
-	if (prefix_set & AUCTUM)
-	  glyph_name = "solesmes.stropha.aucta";
-	else glyph_name = "solesmes.stropha";
+        if (prefix_set & AUCTUM)
+          glyph_name = "solesmes.stropha.aucta";
+        else glyph_name = "solesmes.stropha";
       else if (prefix_set & INCLINATUM)
-	if (prefix_set & AUCTUM)
-	  glyph_name = "solesmes.incl.auctum";
-	else if (prefix_set & DEMINUTUM)
-	  glyph_name = "solesmes.incl.parvum";
-	else
-	  glyph_name = "vaticana.inclinatum";
+        if (prefix_set & AUCTUM)
+          glyph_name = "solesmes.incl.auctum";
+        else if (prefix_set & DEMINUTUM)
+          glyph_name = "solesmes.incl.parvum";
+        else
+          glyph_name = "vaticana.inclinatum";
       else if (prefix_set & DEMINUTUM)
-	{
-	  if (i == 0)
-	    {
-	      // initio debilis
-	      glyph_name = "vaticana.reverse.plica";
-	    }
-	  else if (prev_delta_pitch > 0)
-	    {
-	      // epiphonus
-	      if (! (prev_context_info & FLEXA_RIGHT))
-		{
-		  /* correct head of previous primitive */
-		  if (prev_delta_pitch > 1)
-		    prev_glyph_name = "vaticana.epiphonus";
-		  else
-		    prev_glyph_name = "vaticana.vepiphonus";
-		}
-	      if (prev_delta_pitch > 1)
-		glyph_name = "vaticana.plica";
-	      else
-		glyph_name = "vaticana.vplica";
-	    }
-	  else if (prev_delta_pitch < 0)
-	    {
-	      // cephalicus
-	      if (! (prev_context_info & FLEXA_RIGHT))
-		/* correct head of previous primitive */
-		{
-		  if (i > 1)
-		    {
-		      /* cephalicus head with fixed size cauda */
-		      prev_glyph_name = "vaticana.inner.cephalicus";
-		    }
-		  else
-		    {
-		      /* cephalicus head without cauda */
-		      prev_glyph_name = "vaticana.cephalicus";
-		    }
+        {
+          if (i == 0)
+            {
+              // initio debilis
+              glyph_name = "vaticana.reverse.plica";
+            }
+          else if (prev_delta_pitch > 0)
+            {
+              // epiphonus
+              if (! (prev_context_info & FLEXA_RIGHT))
+                {
+                  /* correct head of previous primitive */
+                  if (prev_delta_pitch > 1)
+                    prev_glyph_name = "vaticana.epiphonus";
+                  else
+                    prev_glyph_name = "vaticana.vepiphonus";
+                }
+              if (prev_delta_pitch > 1)
+                glyph_name = "vaticana.plica";
+              else
+                glyph_name = "vaticana.vplica";
+            }
+          else if (prev_delta_pitch < 0)
+            {
+              // cephalicus
+              if (! (prev_context_info & FLEXA_RIGHT))
+                /* correct head of previous primitive */
+                {
+                  if (i > 1)
+                    {
+                      /* cephalicus head with fixed size cauda */
+                      prev_glyph_name = "vaticana.inner.cephalicus";
+                    }
+                  else
+                    {
+                      /* cephalicus head without cauda */
+                      prev_glyph_name = "vaticana.cephalicus";
+                    }
 
-		  /*
-		   * Flexa has no variable size cauda if its left head is
-		   * stacked on the right head.  This is true for
-		   * cephalicus.  Hence, remove the cauda.
-		   *
-		   * Urgh: for the current implementation, this rule only
-		   * applies for cephalicus; but it is a fundamental rule.
-		   * Therefore, the following line of code should be
-		   * placed somewhere else.
-		   */
-		  prev_primitive->set_property ("add-cauda",
-						ly_bool2scm (false));
-		}
-	      if (prev_delta_pitch < - 1)
-		glyph_name = "vaticana.reverse.plica";
-	      else
-		glyph_name = "vaticana.reverse.vplica";
-	    }
-	  else // (prev_delta_pitch == 0)
-	    {
-	      primitive->programming_error ("Vaticana_ligature:"
-					    " deminutum head must have different"
-					    " pitch -> ignoring grob");
-	    }
-	}
+                  /*
+                   * Flexa has no variable size cauda if its left head is
+                   * stacked on the right head.  This is true for
+                   * cephalicus.  Hence, remove the cauda.
+                   *
+                   * Urgh: for the current implementation, this rule only
+                   * applies for cephalicus; but it is a fundamental rule.
+                   * Therefore, the following line of code should be
+                   * placed somewhere else.
+                   */
+                  prev_primitive->set_property ("add-cauda",
+                                                ly_bool2scm (false));
+                }
+              if (prev_delta_pitch < - 1)
+                glyph_name = "vaticana.reverse.plica";
+              else
+                glyph_name = "vaticana.reverse.vplica";
+            }
+          else // (prev_delta_pitch == 0)
+            {
+              primitive->programming_error ("Vaticana_ligature:"
+                                            " deminutum head must have different"
+                                            " pitch -> ignoring grob");
+            }
+        }
       else if (prefix_set & (CAVUM | LINEA))
-	if ((prefix_set & CAVUM) && (prefix_set & LINEA))
-	  glyph_name = "vaticana.linea.punctum.cavum";
-	else if (prefix_set & CAVUM)
-	  glyph_name = "vaticana.punctum.cavum";
-	else
-	  glyph_name = "vaticana.linea.punctum";
+        if ((prefix_set & CAVUM) && (prefix_set & LINEA))
+          glyph_name = "vaticana.linea.punctum.cavum";
+        else if (prefix_set & CAVUM)
+          glyph_name = "vaticana.punctum.cavum";
+        else
+          glyph_name = "vaticana.linea.punctum";
       else if (prefix_set & AUCTUM)
-	if (prefix_set & ASCENDENS)
-	  glyph_name = "solesmes.auct.asc";
-	else
-	  glyph_name = "solesmes.auct.desc";
+        if (prefix_set & ASCENDENS)
+          glyph_name = "solesmes.auct.asc";
+        else
+          glyph_name = "solesmes.auct.desc";
       else if ((context_info & STACKED_HEAD)
-	       && (context_info & PES_UPPER))
-	if (prev_delta_pitch > 1)
-	  glyph_name = "vaticana.upes";
-	else
-	  glyph_name = "vaticana.vupes";
+               && (context_info & PES_UPPER))
+        if (prev_delta_pitch > 1)
+          glyph_name = "vaticana.upes";
+        else
+          glyph_name = "vaticana.vupes";
       else
-	glyph_name = "vaticana.punctum";
+        glyph_name = "vaticana.punctum";
 
       /*
        * This head needs a cauda, if it starts a flexa, is not the upper
        * head of a pes, and if it is a punctum.
        */
       if ((context_info & FLEXA_LEFT) && ! (context_info & PES_UPPER))
-	if (glyph_name == "vaticana.punctum")
-	  primitive->set_property ("add-cauda", ly_bool2scm (true));
+        if (glyph_name == "vaticana.punctum")
+          primitive->set_property ("add-cauda", ly_bool2scm (true));
 
       /*
        * Execptional rule for porrectus:
@@ -663,21 +663,21 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
        * the previous head into a single curved flexa shape.
        */
       if ((context_info & FLEXA_RIGHT) && (context_info & PES_LOWER))
-	{
-	  check_for_prefix_loss (prev_primitive);
-	  prev_glyph_name = "flexa";
-	  prev_primitive->set_property ("flexa-height",
-					scm_from_int (prev_delta_pitch));
-	  prev_primitive->set_property ("flexa-width",
-					scm_from_double (flexa_width));
-	  bool add_cauda = !(prev_prefix_set && PES_OR_FLEXA);
-	  prev_primitive->set_property ("add-cauda",
-					ly_bool2scm (add_cauda));
-	  check_for_prefix_loss (primitive);
-	  glyph_name = "";
-	  primitive->set_property ("flexa-width",
-				   scm_from_double (flexa_width));
-	}
+        {
+          check_for_prefix_loss (prev_primitive);
+          prev_glyph_name = "flexa";
+          prev_primitive->set_property ("flexa-height",
+                                        scm_from_int (prev_delta_pitch));
+          prev_primitive->set_property ("flexa-width",
+                                        scm_from_double (flexa_width));
+          bool add_cauda = !(prev_prefix_set && PES_OR_FLEXA);
+          prev_primitive->set_property ("add-cauda",
+                                        ly_bool2scm (add_cauda));
+          check_for_prefix_loss (primitive);
+          glyph_name = "";
+          primitive->set_property ("flexa-width",
+                                   scm_from_double (flexa_width));
+        }
 
       /*
        * Exceptional rule for pes:
@@ -688,22 +688,22 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
        * current head.
        */
       if (prefix_set & PES_OR_FLEXA)
-	{
-	  if ((context_info & PES_UPPER) && (context_info & STACKED_HEAD))
-	    {
-	      if (prev_glyph_name == "vaticana.punctum")
-		{
-		  if (prev_delta_pitch > 1)
-		    prev_glyph_name = "vaticana.lpes";
-		  else
-		    prev_glyph_name = "vaticana.vlpes";
-		}
-	    }
-	}
+        {
+          if ((context_info & PES_UPPER) && (context_info & STACKED_HEAD))
+            {
+              if (prev_glyph_name == "vaticana.punctum")
+                {
+                  if (prev_delta_pitch > 1)
+                    prev_glyph_name = "vaticana.lpes";
+                  else
+                    prev_glyph_name = "vaticana.vlpes";
+                }
+            }
+        }
 
       if (prev_primitive)
-	prev_primitive->set_property ("glyph-name",
-				      ly_string2scm (prev_glyph_name));
+        prev_primitive->set_property ("glyph-name",
+                                      ly_string2scm (prev_glyph_name));
 
       /*
        * In the backend, flexa shapes and joins need to know about line
@@ -721,7 +721,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
     }
 
   prev_primitive->set_property ("glyph-name",
-				ly_string2scm (prev_glyph_name));
+                                ly_string2scm (prev_glyph_name));
 
   align_heads (primitives, flexa_width, thickness);
 
@@ -734,27 +734,27 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
   Item *first_primitive = dynamic_cast<Item *> (primitives[0].grob ());
   Paper_column *paper_column = first_primitive->get_column ();
   paper_column->warning (_f ("Vaticana_ligature_engraver:"
-			     " setting `spacing-increment = %f': ptr =%ul",
-			     ligature_width, paper_column));
+                             " setting `spacing-increment = %f': ptr =%ul",
+                             ligature_width, paper_column));
   paper_column->
-    set_property ("forced-spacing", scm_from_double (ligature_width));
+  set_property ("forced-spacing", scm_from_double (ligature_width));
 #endif
 }
 
 ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, rest);
 ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, ligature_head);
 ADD_TRANSLATOR (Vaticana_ligature_engraver,
-		/* doc */
-		"Handle ligatures by glueing special ligature heads"
-		" together.",
+                /* doc */
+                "Handle ligatures by glueing special ligature heads"
+                " together.",
 
-		/* create */
-		"VaticanaLigature "
-		"DotColumn ",
+                /* create */
+                "VaticanaLigature "
+                "DotColumn ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

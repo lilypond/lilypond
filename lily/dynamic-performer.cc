@@ -37,8 +37,8 @@ protected:
   DECLARE_TRANSLATOR_LISTENER (absolute_dynamic);
 private:
   Stream_event *script_event_;
-  Drul_array<Stream_event*> span_events_; 
-  Drul_array<Direction> grow_dir_; 
+  Drul_array<Stream_event *> span_events_;
+  Drul_array<Direction> grow_dir_;
   Real last_volume_;
   Audio_dynamic *absolute_;
   Audio_span_dynamic *span_dynamic_;
@@ -50,8 +50,8 @@ Dynamic_performer::Dynamic_performer ()
   last_volume_ = 0.5;
   script_event_ = 0;
   absolute_ = 0;
-  span_events_[LEFT] = 
-    span_events_[RIGHT] = 0;
+  span_events_[LEFT]
+    = span_events_[RIGHT] = 0;
   span_dynamic_ = 0;
   finished_span_dynamic_ = 0;
 }
@@ -68,37 +68,36 @@ Dynamic_performer::equalize_volume (Real volume)
     {
       Interval iv (0, 1);
       if (scm_is_number (min))
-	iv[MIN] = scm_to_double (min);
+        iv[MIN] = scm_to_double (min);
       if (scm_is_number (max))
-	iv[MAX] = scm_to_double (max);
+        iv[MAX] = scm_to_double (max);
       volume = iv[MIN] + iv.length () * volume;
     }
   else
     {
       /*
-	urg, code duplication:: staff_performer
+        urg, code duplication:: staff_performer
       */
       SCM s = get_property ("midiInstrument");
 
       if (!scm_is_string (s))
-	s = get_property ("instrumentName");
+        s = get_property ("instrumentName");
 
       if (!scm_is_string (s))
-	s = scm_from_locale_string ("piano");
+        s = scm_from_locale_string ("piano");
 
       SCM eq = get_property ("instrumentEqualizer");
       if (ly_is_procedure (eq))
-	s = scm_call_1 (eq, s);
+        s = scm_call_1 (eq, s);
 
       if (is_number_pair (s))
-	{
-	  Interval iv = ly_scm2interval (s);
-	  volume = iv[MIN] + iv.length () * volume;
-	}
+        {
+          Interval iv = ly_scm2interval (s);
+          volume = iv[MIN] + iv.length () * volume;
+        }
     }
   return volume;
 }
-
 
 void
 Dynamic_performer::process_music ()
@@ -124,22 +123,22 @@ Dynamic_performer::process_music ()
       absolute_ = new Audio_dynamic ();
 
       if (script_event_)
-	{
-	  SCM proc = get_property ("dynamicAbsoluteVolumeFunction");
+        {
+          SCM proc = get_property ("dynamicAbsoluteVolumeFunction");
 
-	  SCM svolume = SCM_EOL;
-	  if (ly_is_procedure (proc))
-	    {
-	      // urg
-	      svolume = scm_call_1 (proc, script_event_->get_property ("text"));
-	    }
+          SCM svolume = SCM_EOL;
+          if (ly_is_procedure (proc))
+            {
+              // urg
+              svolume = scm_call_1 (proc, script_event_->get_property ("text"));
+            }
 
-	  Real volume = robust_scm2double (svolume, 0.5);
+          Real volume = robust_scm2double (svolume, 0.5);
 
-	  last_volume_
-	    = absolute_->volume_ = equalize_volume (volume);
-	}
-      
+          last_volume_
+            = absolute_->volume_ = equalize_volume (volume);
+        }
+
       Audio_element_info info (absolute_, script_event_);
       announce_element (info);
     }
@@ -159,7 +158,7 @@ Dynamic_performer::stop_translation_timestep ()
       finished_span_dynamic_->render ();
       finished_span_dynamic_ = 0;
     }
-  
+
   if (absolute_ && absolute_->volume_ < 0)
     {
       absolute_->volume_ = last_volume_;
@@ -168,11 +167,11 @@ Dynamic_performer::stop_translation_timestep ()
     {
       last_volume_ = absolute_->volume_;
     }
-  
+
   absolute_ = 0;
   script_event_ = 0;
-  span_events_[LEFT] = 
-    span_events_[RIGHT] = 0;
+  span_events_[LEFT]
+    = span_events_[RIGHT] = 0;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_performer, decrescendo);
@@ -202,19 +201,19 @@ Dynamic_performer::listen_absolute_dynamic (Stream_event *r)
 }
 
 ADD_TRANSLATOR (Dynamic_performer,
-		/* doc */
-		"",
+                /* doc */
+                "",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"dynamicAbsoluteVolumeFunction "
-		"instrumentEqualizer "
-		"midiMaximumVolume "
-		"midiMinimumVolume "
-		"midiInstrument ",
+                /* read */
+                "dynamicAbsoluteVolumeFunction "
+                "instrumentEqualizer "
+                "midiMaximumVolume "
+                "midiMinimumVolume "
+                "midiInstrument ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

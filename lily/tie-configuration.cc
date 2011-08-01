@@ -26,13 +26,12 @@
 
 int
 Tie_configuration::compare (Tie_configuration const &a,
-			    Tie_configuration const &b)
+                            Tie_configuration const &b)
 {
   if (a.position_ - b.position_)
     return sign (a.position_ - b.position_);
   return sign (a.dir_ - b.dir_);
 }
-			    
 
 Tie_configuration::Tie_configuration ()
 {
@@ -44,18 +43,16 @@ Tie_configuration::Tie_configuration ()
   column_ranks_ = Drul_array<int> (0, 0);
 }
 
-
 void
 Tie_configuration::center_tie_vertically (Tie_details const &details)
 {
   Bezier b = get_untransformed_bezier (details);
   Offset middle = b.curve_point (0.5);
   Offset edge = b.curve_point (0.0);
-  Real center = (edge[Y_AXIS] + middle[Y_AXIS])/2.0;
+  Real center = (edge[Y_AXIS] + middle[Y_AXIS]) / 2.0;
 
   delta_y_ = - dir_ * center;
 }
-
 
 Bezier
 Tie_configuration::get_transformed_bezier (Tie_details const &details) const
@@ -64,7 +61,7 @@ Tie_configuration::get_transformed_bezier (Tie_details const &details) const
 
   b.scale (1, dir_);
   b.translate (Offset (attachment_x_[LEFT],
-		       delta_y_ + details.staff_space_ * 0.5 * position_));
+                       delta_y_ + details.staff_space_ * 0.5 * position_));
 
   return b;
 }
@@ -82,8 +79,8 @@ Tie_configuration::get_untransformed_bezier (Tie_details const &details) const
       l = 1.0;
     }
   return slur_shape (l,
-		     details.height_limit_,
-		     details.ratio_);
+                     details.height_limit_,
+                     details.ratio_);
 }
 
 int
@@ -94,7 +91,7 @@ Tie_configuration::column_span_length () const
 
 Real
 Tie_configuration::distance (Tie_configuration const &a,
-			     Tie_configuration const &b)
+                             Tie_configuration const &b)
 {
 
   Real d = 3 * (a.position_ - b.position_);
@@ -103,7 +100,6 @@ Tie_configuration::distance (Tie_configuration const &a,
   else
     return d + (2 + (a.dir_ - b.dir_));
 }
-
 
 void
 Tie_configuration::add_score (Real s, string desc)
@@ -120,8 +116,8 @@ Tie_configuration::height (Tie_details const &details) const
   Real l = attachment_x_.length ();
 
   return slur_shape (l,
-		     details.height_limit_,
-		     details.ratio_).curve_point (0.5)[Y_AXIS]; 
+                     details.height_limit_,
+                     details.ratio_).curve_point (0.5)[Y_AXIS];
 }
 
 Ties_configuration::Ties_configuration ()
@@ -147,7 +143,7 @@ Ties_configuration::add_tie_score (Real s, int i, string desc)
   if (s)
     {
       while (tie_score_cards_.size () < size ())
-	tie_score_cards_.push_back ("");
+        tie_score_cards_.push_back ("");
 
       tie_score_cards_[i] += to_string ("%s=%.2f ", desc.c_str (), s);
     }
@@ -168,15 +164,14 @@ Ties_configuration::score () const
   return score_;
 }
 
-
 string
 Ties_configuration::complete_tie_card (vsize i) const
 {
   string s;
   s += to_string ("%d (%.2f) %c: ", (*this)[i].position_, (*this)[i].delta_y_,
-		  ((*this)[i].dir_ == UP ? 'u' : 'd'))
-    + (*this)[i].card () + (*this).tie_card (i);
-  
+                  ((*this)[i].dir_ == UP ? 'u' : 'd'))
+       + (*this)[i].card () + (*this).tie_card (i);
+
   /*
     this is a little awkward, but we must decide where to put
     aggregrates.
@@ -186,7 +181,7 @@ Ties_configuration::complete_tie_card (vsize i) const
 
   if (i + 1 == size ())
     s += to_string ("TOTAL=%.2f", score ());
-  
+
   return s;
 }
 
@@ -194,7 +189,7 @@ Ties_configuration::complete_tie_card (vsize i) const
 string
 Ties_configuration::complete_score_card () const
 {
-  string s; 
+  string s;
   for (vsize i = 0; i < size (); i++)
     {
       s += complete_tie_card (i);
@@ -202,8 +197,6 @@ Ties_configuration::complete_score_card () const
 
   return s;
 }
-
-
 
 string
 Ties_configuration::card () const

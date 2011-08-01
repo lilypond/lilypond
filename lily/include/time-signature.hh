@@ -32,7 +32,7 @@
 */
 struct Time_signature
 {
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   static Stencil special_time_signature (Grob *, SCM, int, int);
   static Stencil numbered_time_signature (Grob *, int, int);
   DECLARE_SCHEME_CALLBACK (print, (SCM));

@@ -62,7 +62,6 @@ public:
   Input ();
 };
 
-
 #include "smobs.hh"
 
 SCM make_input (Input spot);

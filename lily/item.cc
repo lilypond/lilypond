@@ -29,7 +29,6 @@
 
 #include "moment.hh"
 
-
 Grob *
 Item::clone () const
 {
@@ -124,7 +123,7 @@ Item::find_broken_piece (System *l) const
     {
       Grob *s = broken_to_drul_[d];
       if (s && s->get_system () == l)
-	return s;
+        return s;
     }
   while (flip (&d) != LEFT);
 
@@ -169,7 +168,7 @@ Item::handle_prebroken_dependencies ()
 bool
 Item::break_visible (Grob *g)
 {
-  Item *it = dynamic_cast<Item*> (g);
+  Item *it = dynamic_cast<Item *> (g);
   SCM vis = g->get_property ("break-visibility");
   if (scm_is_vector (vis))
     return to_boolean (scm_c_vector_ref (vis, it->break_status_dir () + 1));
@@ -185,9 +184,9 @@ Item::pure_is_visible (int start, int end) const
       int pos = 1;
       int pc_rank = Paper_column::get_rank (get_column ());
       if (pc_rank == start)
-	pos = 2;
+        pos = 2;
       else if (pc_rank == end)
-	pos = 0;
+        pos = 0;
       return to_boolean (scm_vector_ref (vis, scm_from_int (pos)));
     }
   return true;
@@ -201,31 +200,29 @@ Item::spanned_rank_interval () const
 }
 
 Interval_t<Moment>
-spanned_time_interval (Item *l, Item *r) 
+spanned_time_interval (Item *l, Item *r)
 {
-  Drul_array<Item*> bounds (l, r);
+  Drul_array<Item *> bounds (l, r);
   Interval_t<Moment> iv;
 
   Direction d = LEFT;
   do
     {
       if (bounds[d] && bounds[d]->get_column ())
-	iv[d] = robust_scm2moment (bounds[d]->get_column ()->get_property ("when"),
-				  iv[d]);
+        iv[d] = robust_scm2moment (bounds[d]->get_column ()->get_property ("when"),
+                                   iv[d]);
     }
   while (flip (&d) != LEFT);
 
   do
     {
       if (!bounds[d] || !bounds[d]->get_column ())
-	iv[d] = iv[-d];
+        iv[d] = iv[-d];
     }
   while (flip (&d) != LEFT);
-  
-  
+
   return iv;
 }
-
 
 void
 Item::derived_mark () const
@@ -254,46 +251,46 @@ Item::pure_height (Grob *g, int start, int end)
 }
 
 ADD_INTERFACE (Item,
-	       "Grobs can be distinguished in their role in the horizontal"
-	       " spacing.  Many grobs define constraints on the spacing by"
-	       " their sizes, for example, note heads, clefs, stems, and all"
-	       " other symbols with a fixed shape.  These grobs form a"
-	       " subtype called @code{Item}.\n"
-	       "\n"
-	       "Some items need special treatment for line breaking.  For"
-	       " example, a clef is normally only printed at the start of a"
-	       " line (i.e., after a line break).   To model this,"
-	       " @q{breakable} items (clef, key signature, bar lines, etc.)"
-	       " are copied twice.  Then we have three versions of each"
-	       " breakable item: one version if there is no line break, one"
-	       " version that is printed before the line break (at the end of"
-	       " a system), and one version that is printed after the line"
-	       " break.\n"
-	       "\n"
-	       "Whether these versions are visible and take up space is"
-	       " determined by the outcome of the @code{break-visibility}"
-	       " grob property, which is a function taking a direction"
-	       " (@code{-1}, @code{0} or@tie{}@code{1}) as an argument.  It"
-	       " returns a cons of booleans, signifying whether this grob"
-	       " should be transparent and have no extent.\n"
-	       "\n"
-	       "The following variables for @code{break-visibility} are"
-	       " predefined:\n"
-	       "@example\n"
-	       "           grob will show:   before  no     after\n"
-	       "                             break   break  break\n"
-	       "  all-invisible              no      no     no\n"
-	       "  begin-of-line-visible      no      no     yes\n"
-	       "  end-of-line-visible        yes     no     no\n"
-	       "  all-visible                yes     yes    yes\n"
-	       "  begin-of-line-invisible    yes     yes    no\n"
-	       "  end-of-line-invisible      no      yes    yes\n"
-	       "  center-invisible           yes      no    yes\n"
-	       "@end example",
+               "Grobs can be distinguished in their role in the horizontal"
+               " spacing.  Many grobs define constraints on the spacing by"
+               " their sizes, for example, note heads, clefs, stems, and all"
+               " other symbols with a fixed shape.  These grobs form a"
+               " subtype called @code{Item}.\n"
+               "\n"
+               "Some items need special treatment for line breaking.  For"
+               " example, a clef is normally only printed at the start of a"
+               " line (i.e., after a line break).   To model this,"
+               " @q{breakable} items (clef, key signature, bar lines, etc.)"
+               " are copied twice.  Then we have three versions of each"
+               " breakable item: one version if there is no line break, one"
+               " version that is printed before the line break (at the end of"
+               " a system), and one version that is printed after the line"
+               " break.\n"
+               "\n"
+               "Whether these versions are visible and take up space is"
+               " determined by the outcome of the @code{break-visibility}"
+               " grob property, which is a function taking a direction"
+               " (@code{-1}, @code{0} or@tie{}@code{1}) as an argument.  It"
+               " returns a cons of booleans, signifying whether this grob"
+               " should be transparent and have no extent.\n"
+               "\n"
+               "The following variables for @code{break-visibility} are"
+               " predefined:\n"
+               "@example\n"
+               "           grob will show:   before  no     after\n"
+               "                             break   break  break\n"
+               "  all-invisible              no      no     no\n"
+               "  begin-of-line-visible      no      no     yes\n"
+               "  end-of-line-visible        yes     no     no\n"
+               "  all-visible                yes     yes    yes\n"
+               "  begin-of-line-invisible    yes     yes    no\n"
+               "  end-of-line-invisible      no      yes    yes\n"
+               "  center-invisible           yes      no    yes\n"
+               "@end example",
 
-	       /* properties */
-	       "break-visibility "
-	       "extra-spacing-height "
-	       "extra-spacing-width "
-	       "non-musical "
-	       );
+               /* properties */
+               "break-visibility "
+               "extra-spacing-height "
+               "extra-spacing-width "
+               "non-musical "
+              );

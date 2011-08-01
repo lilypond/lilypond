@@ -37,9 +37,9 @@ public:
   void add_audio_item (Audio_item *i);
   Moment when () const;
 
-  vector<Audio_item*> audio_items_;
+  vector<Audio_item *> audio_items_;
   Moment when_;
-  int ticks () const ;
+  int ticks () const;
 protected:
   void offset_when (Moment m);
   friend class Score_performer;

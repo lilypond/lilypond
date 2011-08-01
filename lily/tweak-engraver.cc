@@ -42,25 +42,25 @@ Tweak_engraver::acknowledge_grob (Grob_info info)
   if (Stream_event *ev = info.event_cause ())
     {
       for (SCM s = ev->get_property ("tweaks");
-	   scm_is_pair (s); s = scm_cdr (s))
-	{
-	  info.grob ()->set_property (scm_caar (s), scm_cdar (s));
-	}
+           scm_is_pair (s); s = scm_cdr (s))
+        {
+          info.grob ()->set_property (scm_caar (s), scm_cdar (s));
+        }
     }
 }
 
 ADD_ACKNOWLEDGER (Tweak_engraver, grob);
 ADD_TRANSLATOR (Tweak_engraver,
-		/* doc */
-		"Read the @code{tweaks} property from the originating event,"
-		" and set properties.",
-		
-		/* create */
-		"",
+                /* doc */
+                "Read the @code{tweaks} property from the originating event,"
+                " and set properties.",
 
-		/* read */
-		"",
+                /* create */
+                "",
 
-		/* write */
-		""
-		);
+                /* read */
+                "",
+
+                /* write */
+                ""
+               );

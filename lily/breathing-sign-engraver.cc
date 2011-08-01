@@ -75,15 +75,15 @@ Breathing_sign_engraver::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Breathing_sign_engraver,
-		/* doc */
-		"Create a breathing sign.",
+                /* doc */
+                "Create a breathing sign.",
 
-		/* create */
-		"BreathingSign ",
+                /* create */
+                "BreathingSign ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

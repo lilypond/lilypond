@@ -40,7 +40,7 @@ protected:
   virtual void process_music ();
   virtual void finalize ();
 private:
-  vector<Stream_event*> cluster_notes_;
+  vector<Stream_event *> cluster_notes_;
   Item *beacon_;
 
   void typeset_grobs ();
@@ -70,12 +70,12 @@ Cluster_spanner_engraver::typeset_grobs ()
   if (finished_spanner_)
     {
       if (!finished_spanner_->get_bound (RIGHT))
-	{
-	  finished_spanner_->set_bound (RIGHT,
-					finished_spanner_->get_bound (LEFT));
-					
-	}
-      
+        {
+          finished_spanner_->set_bound (RIGHT,
+                                        finished_spanner_->get_bound (LEFT));
+
+        }
+
       finished_spanner_ = 0;
     }
   beacon_ = 0;
@@ -100,19 +100,19 @@ Cluster_spanner_engraver::process_music ()
       int pmin = INT_MAX;
 
       for (vsize i = 0; i < cluster_notes_.size (); i++)
-	{
-	  Pitch *pit = unsmob_pitch (cluster_notes_[i]->get_property ("pitch"));
+        {
+          Pitch *pit = unsmob_pitch (cluster_notes_[i]->get_property ("pitch"));
 
-	  int p = (pit ? pit->steps () : 0) + c0;
+          int p = (pit ? pit->steps () : 0) + c0;
 
-	  pmax = max (pmax, p);
-	  pmin = min (pmin, p);
-	}
+          pmax = max (pmax, p);
+          pmin = min (pmin, p);
+        }
 
       beacon_ = make_item ("ClusterSpannerBeacon", cluster_notes_[0]->self_scm ());
       beacon_->set_property ("positions",
-			     scm_cons (scm_from_int (pmin),
-				       scm_from_int (pmax)));
+                             scm_cons (scm_from_int (pmin),
+                                       scm_from_int (pmax)));
     }
 
   if (beacon_ && !spanner_)
@@ -144,17 +144,17 @@ Cluster_spanner_engraver::acknowledge_note_column (Grob_info info)
 
 ADD_ACKNOWLEDGER (Cluster_spanner_engraver, note_column);
 ADD_TRANSLATOR (Cluster_spanner_engraver,
-		/* doc */
-		"Engrave a cluster using @code{Spanner} notation.",
+                /* doc */
+                "Engrave a cluster using @code{Spanner} notation.",
 
-		/* create */
-		"ClusterSpanner "
-		"ClusterSpannerBeacon ",
+                /* create */
+                "ClusterSpanner "
+                "ClusterSpannerBeacon ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );
 

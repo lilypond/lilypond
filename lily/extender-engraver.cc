@@ -67,7 +67,6 @@ Extender_engraver::listen_extender (Stream_event *ev)
   ASSIGN_EVENT_ONCE (ev_, ev);
 }
 
-
 /*
   A CompletizeExtenderEvent is sent at the end of each lyrics block
   to ensure any pending extender can be correctly terminated if the lyrics
@@ -116,33 +115,33 @@ Extender_engraver::stop_translation_timestep ()
       Grob *h = voice ? get_current_note_head (voice, to_boolean (get_property ("includeGraceNotes"))) : 0;
 
       if (h)
-	{
-	  if (extender_)
-	    {
-	      Pointer_group_interface::add_grob (extender_,
-						 ly_symbol2scm ("heads"), h);
-	    }
+        {
+          if (extender_)
+            {
+              Pointer_group_interface::add_grob (extender_,
+                                                 ly_symbol2scm ("heads"), h);
+            }
 
-	  if (pending_extender_)
-	    {
-	      Pointer_group_interface::add_grob (pending_extender_,
-						 ly_symbol2scm ("heads"), h);
-	    }
-	}
+          if (pending_extender_)
+            {
+              Pointer_group_interface::add_grob (pending_extender_,
+                                                 ly_symbol2scm ("heads"), h);
+            }
+        }
       else
-	{
-	  if (pending_extender_
-	      && !get_property ("extendersOverRests"))
-	    {
-	      completize_extender (pending_extender_);
-	      pending_extender_ = 0;
-	    }
-	}
+        {
+          if (pending_extender_
+              && !get_property ("extendersOverRests"))
+            {
+              completize_extender (pending_extender_);
+              pending_extender_ = 0;
+            }
+        }
       if (extender_)
-	{
-	  pending_extender_ = extender_;
-	  extender_ = 0;
-	}
+        {
+          pending_extender_ = extender_;
+          extender_ = 0;
+        }
     }
 
   ev_ = 0;
@@ -155,7 +154,7 @@ completize_extender (Spanner *sp)
     {
       extract_item_set (sp, "heads", heads);
       if (heads.size ())
-	sp->set_bound (RIGHT, heads.back ());
+        sp->set_bound (RIGHT, heads.back ());
     }
 }
 
@@ -167,7 +166,7 @@ Extender_engraver::finalize ()
       completize_extender (extender_);
 
       if (!extender_->get_bound (RIGHT))
-	extender_->warning (_ ("unterminated extender"));
+        extender_->warning (_ ("unterminated extender"));
       extender_ = 0;
     }
 
@@ -176,23 +175,23 @@ Extender_engraver::finalize ()
       completize_extender (pending_extender_);
 
       if (!pending_extender_->get_bound (RIGHT))
-	pending_extender_->warning (_ ("unterminated extender"));
+        pending_extender_->warning (_ ("unterminated extender"));
       pending_extender_ = 0;
     }
 }
 
 ADD_ACKNOWLEDGER (Extender_engraver, lyric_syllable);
 ADD_TRANSLATOR (Extender_engraver,
-		/* doc */
-		"Create lyric extenders.",
+                /* doc */
+                "Create lyric extenders.",
 
-		/* create */
-		"LyricExtender ",
+                /* create */
+                "LyricExtender ",
 
-		/* read */
-		"extendersOverRests "
-		"includeGraceNotes ",
+                /* read */
+                "extendersOverRests "
+                "includeGraceNotes ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

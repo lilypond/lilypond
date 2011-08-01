@@ -16,7 +16,7 @@
   You should have received a copy of the GNU General Public License
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <cassert> 
+#include <cassert>
 
 #include "audio-element.hh"
 

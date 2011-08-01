@@ -49,12 +49,12 @@ protected:
   DECLARE_ACKNOWLEDGER (staff_spacing);
 
   System *system_;
-  vector<Stream_event*> break_events_;
-  vector<Stream_event*> label_events_;
-  int breaks_;			// used for stat printing
+  vector<Stream_event *> break_events_;
+  vector<Stream_event *> label_events_;
+  int breaks_;                  // used for stat printing
   Paper_column *command_column_;
   Paper_column *musical_column_;
-  vector<Item*> items_;
+  vector<Item *> items_;
   bool first_;
   bool made_columns_;
   Moment last_moment_;

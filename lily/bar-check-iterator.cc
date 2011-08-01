@@ -51,38 +51,38 @@ Bar_check_iterator::process (Moment m)
 
       SCM check = tr->get_property ("ignoreBarChecks");
       if (to_boolean (check))
-	return;
+        return;
 
       SCM mp = tr->get_property ("measurePosition");
       SCM sync = tr->get_property ("barCheckSynchronize");
 
       Moment *where = unsmob_moment (mp);
       if (!where)
-	return;
+        return;
 
       if (where->main_part_)
-	{
-	  bool warn = true;
-	  if (to_boolean (sync))
-	    {
-	      SCM mp;
-	      tr = tr->where_defined (ly_symbol2scm ("measurePosition"), &mp);
-	      Moment zero;
-	      tr->set_property ("measurePosition", zero.smobbed_copy ());
-	    }
-	  else
-	    {
-	      SCM lf = tr->get_property ("barCheckLastFail");
-	      if (unsmob_moment (lf)
-		  && *unsmob_moment (lf) == *where)
-		warn = false;
-	      else
-		tr->set_property ("barCheckLastFail", mp);
-	    }
+        {
+          bool warn = true;
+          if (to_boolean (sync))
+            {
+              SCM mp;
+              tr = tr->where_defined (ly_symbol2scm ("measurePosition"), &mp);
+              Moment zero;
+              tr->set_property ("measurePosition", zero.smobbed_copy ());
+            }
+          else
+            {
+              SCM lf = tr->get_property ("barCheckLastFail");
+              if (unsmob_moment (lf)
+                  && *unsmob_moment (lf) == *where)
+                warn = false;
+              else
+                tr->set_property ("barCheckLastFail", mp);
+            }
 
-	  if (warn)
-	    get_music ()->origin ()->warning (_f ("barcheck failed at: %s",
-						  where->to_string ()));
-	}
+          if (warn)
+            get_music ()->origin ()->warning (_f ("barcheck failed at: %s",
+                                                  where->to_string ()));
+        }
     }
 }

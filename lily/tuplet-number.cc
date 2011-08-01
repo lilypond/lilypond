@@ -31,14 +31,13 @@ struct Tuplet_number
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
   DECLARE_GROB_INTERFACE ();
 };
-  
 
 MAKE_SCHEME_CALLBACK (Tuplet_number, print, 1);
-SCM 
+SCM
 Tuplet_number::print (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
-  Spanner *tuplet = unsmob_spanner (me->get_object ("bracket")); 
+  Spanner *tuplet = unsmob_spanner (me->get_object ("bracket"));
 
   if (!tuplet || !tuplet->is_live ())
     {
@@ -52,7 +51,7 @@ Tuplet_number::print (SCM smob)
   stc->align_to (X_AXIS, CENTER);
   stc->align_to (Y_AXIS, CENTER);
 
-  SCM cpoints =  tuplet->get_property ("control-points");
+  SCM cpoints = tuplet->get_property ("control-points");
   Drul_array<Offset> points;
   if (scm_is_pair (cpoints))
     {
@@ -64,7 +63,7 @@ Tuplet_number::print (SCM smob)
       programming_error ("wrong type for control-points");
     }
   stc->translate ((points[RIGHT] + points[LEFT]) / 2);
-  
+
   return stc_scm;
 }
 
@@ -77,11 +76,11 @@ Tuplet_number::calc_cross_staff (SCM smob)
 }
 
 ADD_INTERFACE (Tuplet_number,
-	       "The number for a bracket.",
+               "The number for a bracket.",
 
-	       /* properties */
-	       "avoid-slur " 	// UGH.
-	       "bracket "
-	       "direction "
-	       );
+               /* properties */
+               "avoid-slur "    // UGH.
+               "bracket "
+               "direction "
+              );
 

@@ -35,8 +35,8 @@
 
 SCM
 articulation_list (vector<Stream_event *> note_events,
-		   vector<Stream_event *> articulation_events,
-		   char const *articulation_name)
+                   vector<Stream_event *> articulation_events,
+                   char const *articulation_name)
 {
   vector<Stream_event *> string_events;
   SCM articulations = SCM_EOL;
@@ -50,35 +50,35 @@ articulation_list (vector<Stream_event *> note_events,
       Stream_event *articulation_event = 0;
 
       /*
-	For notes inside a chord construct, string indications are
-	stored as articulations on the note, so we check through
-	the notes
+        For notes inside a chord construct, string indications are
+        stored as articulations on the note, so we check through
+        the notes
       */
       for (SCM s = event->get_property ("articulations");
-	   !articulation_event && scm_is_pair (s); s = scm_cdr (s))
-	{
-	  Stream_event *art = unsmob_stream_event (scm_car (s));
+           !articulation_event && scm_is_pair (s); s = scm_cdr (s))
+        {
+          Stream_event *art = unsmob_stream_event (scm_car (s));
 
-	  if (art->in_event_class (articulation_name))
-	    articulation_event = art;
-	}
+          if (art->in_event_class (articulation_name))
+            articulation_event = art;
+        }
 
       /*
-	For string indications listed outside a chord construct,
-	a string_number_event is generated, so if there was no string
-	in the articulations, we check for string events outside
-	the chord construct
+        For string indications listed outside a chord construct,
+        a string_number_event is generated, so if there was no string
+        in the articulations, we check for string events outside
+        the chord construct
       */
       if (!articulation_event && j < articulation_events.size ())
-	{
-	  articulation_event = articulation_events[j];
-	  if (j + 1 < articulation_events.size ())
-	    j++;
-	}
+        {
+          articulation_event = articulation_events[j];
+          if (j + 1 < articulation_events.size ())
+            j++;
+        }
       articulations = scm_cons ((articulation_event
-				 ? articulation_event->self_scm ()
-				 : SCM_EOL),
-				articulations);
+                                 ? articulation_event->self_scm ()
+                                 : SCM_EOL),
+                                articulations);
     }
 
   return (scm_reverse (articulations));

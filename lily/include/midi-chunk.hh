@@ -24,7 +24,6 @@
 #include "virtual-methods.hh"
 #include "std-vector.hh"
 
-
 /**
    timed MIDI event
 */
@@ -37,9 +36,6 @@ public:
   Midi_item *midi_;
   string to_string () const;
 };
-
-
-
 
 /**
    variable sized MIDI data
@@ -73,7 +69,7 @@ public:
   int port_;
   DECLARE_CLASSNAME (Midi_track);
 
-  vector<Midi_event*> events_;
+  vector<Midi_event *> events_;
 
   Midi_track (int number, bool port);
   ~Midi_track ();

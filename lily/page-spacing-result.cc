@@ -2,7 +2,7 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2007--2011 Han-Wen Nienhuys <hanwen@lilypond.org>
-  
+
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ Page_spacing_result::Page_spacing_result ()
 vsize
 Page_spacing_result::page_count () const
 {
-  return systems_per_page_.size();
+  return systems_per_page_.size ();
 }
 
 Real
@@ -48,8 +48,8 @@ Page_spacing_result::average_force () const
 void
 Page_spacing_result::print () const
 {
-  printf ("penalty %lf, demerits %lf\n" , penalty_, demerits_);
+  printf ("penalty %lf, demerits %lf\n", penalty_, demerits_);
   for (vsize i = 0; i < page_count (); i++)
     printf (" %d:  #sys=%d, force=%lf\n", int (i), int (systems_per_page_[i]),
-	    force_[i]);
+            force_[i]);
 }

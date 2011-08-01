@@ -23,9 +23,9 @@
 #include "grob-array.hh"
 
 LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
-	   3, 0, 0, (SCM elements, SCM common, SCM axis),
-	   "Determine the extent of @var{elements} relative to @var{common} in the"
-	   " @var{axis} direction.")
+           3, 0, 0, (SCM elements, SCM common, SCM axis),
+           "Determine the extent of @var{elements} relative to @var{common} in the"
+           " @var{axis} direction.")
 {
   Grob_array *ga = unsmob_grob_array (elements);
 
@@ -33,23 +33,23 @@ LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
   LY_ASSERT_SMOB (Grob, common, 2);
   LY_ASSERT_TYPE (is_axis, axis, 3);
 
-  vector<Grob*> elts;
+  vector<Grob *> elts;
   if (!ga)
     {
       for (SCM s = elements; scm_is_pair (s); s = scm_cdr (s))
-	elts.push_back (unsmob_grob (scm_car (s)));
+        elts.push_back (unsmob_grob (scm_car (s)));
     }
 
   Interval ext = Axis_group_interface::relative_group_extent (ga ? ga->array () : elts,
-							      unsmob_grob (common),
-							      (Axis) scm_to_int (axis));
+                                                              unsmob_grob (common),
+                                                              (Axis) scm_to_int (axis));
   return ly_interval2scm (ext);
 }
 
 LY_DEFINE (ly_axis_group_interface__add_element, "ly:axis-group-interface::add-element",
-	   2, 0, 0, (SCM grob, SCM grob_element),
-	   "Set @var{grob} the parent of @var{grob-element} on all axes of"
-	   " @var{grob}.")
+           2, 0, 0, (SCM grob, SCM grob_element),
+           "Set @var{grob} the parent of @var{grob-element} on all axes of"
+           " @var{grob}.")
 {
   LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_SMOB (Grob, grob_element, 2);

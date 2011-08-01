@@ -53,23 +53,23 @@ struct Break_position
 {
   /*
     index into system_specs_, if this is VPOS, the Break_position represents the
-    start of the book. 
+    start of the book.
    */
   vsize system_spec_index_;
 
   /* if system_spec_index_ indexes a score, then we start at the score_brk_'th
      possible page-break in the score */
-  vsize score_break_; 
+  vsize score_break_;
 
   /* if system_spec_index_ indexes a score, this points to the broken column */
-  Grob *col_;  
+  Grob *col_;
   bool score_ender_;
 
   /* if non-zero, this is the (fixed, uncompressed) number of lines between
      this Break_position and the previous. */
   int forced_line_count_;
 
-  Break_position (vsize s=VPOS, vsize brk=VPOS, Grob *g=NULL, bool end=false)
+  Break_position (vsize s = VPOS, vsize brk = VPOS, Grob *g = NULL, bool end = false)
   {
     system_spec_index_ = s;
     score_break_ = brk;
@@ -81,18 +81,18 @@ struct Break_position
   /*
     lexicographic in (system_spec_index_, score_break_)
    */
-  bool operator< (const Break_position &other)
+  bool operator < (const Break_position &other)
   {
     return (system_spec_index_ == VPOS && other.system_spec_index_ != VPOS)
-      || (system_spec_index_ < other.system_spec_index_)
-      || (system_spec_index_ == other.system_spec_index_ && score_break_ < other.score_break_);
+           || (system_spec_index_ < other.system_spec_index_)
+           || (system_spec_index_ == other.system_spec_index_ && score_break_ < other.score_break_);
   }
 
-  bool operator<= (const Break_position &other)
+  bool operator <= (const Break_position &other)
   {
     return (system_spec_index_ == VPOS)
-      || (system_spec_index_ < other.system_spec_index_ && other.system_spec_index_ != VPOS)
-      || (system_spec_index_ == other.system_spec_index_ && score_break_ <= other.score_break_);
+           || (system_spec_index_ < other.system_spec_index_ && other.system_spec_index_ != VPOS)
+           || (system_spec_index_ == other.system_spec_index_ && score_break_ <= other.score_break_);
   }
 };
 
@@ -102,7 +102,7 @@ public:
   typedef bool (*Break_predicate) (Grob *);
   typedef bool (*Prob_break_predicate) (Prob *);
   typedef vector<vsize> Line_division;
-  
+
   /*
     TODO: naming.
 
@@ -132,8 +132,8 @@ public:
   int line_count_status (int line_count) const;
   bool too_many_lines (int line_count) const;
   bool too_few_lines (int line_count) const;
-  Real min_whitespace_at_top_of_page (Line_details const&) const;
-  Real min_whitespace_at_bottom_of_page (Line_details const&) const;
+  Real min_whitespace_at_top_of_page (Line_details const &) const;
+  Real min_whitespace_at_bottom_of_page (Line_details const &) const;
   int orphan_penalty () const;
 
 protected:
@@ -146,31 +146,30 @@ protected:
   vsize min_system_count (vsize start, vsize end);
   vsize max_system_count (vsize start, vsize end);
 
-
   void break_into_pieces (vsize start, vsize end, Line_division const &div);
   SCM systems ();
   SCM footnotes ();
 
   void set_current_breakpoints (vsize start,
-				vsize end,
-				vsize system_count,
-				Line_division lower_bound = Line_division (),
-				Line_division upper_bound = Line_division ());
+                                vsize end,
+                                vsize system_count,
+                                Line_division lower_bound = Line_division (),
+                                Line_division upper_bound = Line_division ());
   void set_to_ideal_line_configuration (vsize start, vsize end);
 
   vsize current_configuration_count () const;
   Line_division current_configuration (vsize configuration_index) const;
   Page_spacing_result space_systems_on_n_pages (vsize configuration_index,
-						vsize n, vsize first_page_num);
+                                                vsize n, vsize first_page_num);
   Page_spacing_result space_systems_on_n_or_one_more_pages (vsize configuration_index, vsize n,
-							    vsize first_page_num,
-							    Real penalty_for_fewer_pages);
+                                                            vsize first_page_num,
+                                                            Real penalty_for_fewer_pages);
   Page_spacing_result space_systems_on_best_pages (vsize configuration_index,
-						   vsize first_page_num);
+                                                   vsize first_page_num);
   Page_spacing_result space_systems_with_fixed_number_per_page (vsize configuration_index,
-								vsize first_page_num);
+      vsize first_page_num);
   Page_spacing_result pack_systems_on_least_pages (vsize configuration_index,
-						   vsize first_page_num);
+                                                   vsize first_page_num);
   vsize min_page_count (vsize configuration_index, vsize first_page_num);
   bool all_lines_stretched (vsize configuration_index);
   Real blank_page_penalty () const;
@@ -214,15 +213,15 @@ private:
   vector<Break_position> chunk_list (vsize start, vsize end);
   Line_division system_count_bounds (vector<Break_position> const &chunks, bool min);
   void line_breaker_args (vsize i,
-			  Break_position const &start,
-			  Break_position const &end,
-			  vsize *line_breaker_start,
-			  vsize *line_breaker_end);
+                          Break_position const &start,
+                          Break_position const &end,
+                          vsize *line_breaker_start,
+                          vsize *line_breaker_end);
 
   void line_divisions_rec (vsize system_count,
-			   Line_division const &min,
-			   Line_division const &max,
-			   Line_division *cur);
+                           Line_division const &min,
+                           Line_division const &max,
+                           Line_division *cur);
 
   vector<Line_details> line_details (vsize start, vsize end, Line_division const &div);
   Page_spacing_result space_systems_on_1_page (vector<Line_details> const &lines, Real page_height, bool ragged);

@@ -31,18 +31,18 @@
 #include "stencil.hh"
 
 LY_DEFINE (ly_pango_font_p, "ly:pango-font?",
-	   1, 0, 0,
-	   (SCM f),
-	   "Is @var{f} a pango font?")
+           1, 0, 0,
+           (SCM f),
+           "Is @var{f} a pango font?")
 {
   return scm_from_bool (dynamic_cast<Pango_font *> (unsmob_metrics (f)));
 }
 
 LY_DEFINE (ly_pango_font_physical_fonts, "ly:pango-font-physical-fonts",
-	   1, 0, 0,
-	   (SCM f),
-	   "Return alist of @code{(ps-name file-name font-index)} lists"
-	   " for Pango font@tie{}@var{f}.")
+           1, 0, 0,
+           (SCM f),
+           "Return alist of @code{(ps-name file-name font-index)} lists"
+           " for Pango font@tie{}@var{f}.")
 {
   Pango_font *pf = dynamic_cast<Pango_font *> (unsmob_metrics (f));
 

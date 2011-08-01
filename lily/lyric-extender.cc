@@ -43,7 +43,7 @@ Lyric_extender::print (SCM smob)
 
   common = common->common_refpoint (me->get_bound (RIGHT), X_AXIS);
   common = common->common_refpoint (me->get_system (), X_AXIS);
-  
+
   Real sl = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
 
   extract_grob_set (me, "heads", heads);
@@ -71,13 +71,13 @@ Lyric_extender::print (SCM smob)
     = left_point + (robust_scm2double (minlen, 0));
 
   right_point = min (right_point, me->get_system ()->get_bound (RIGHT)->relative_coordinate (common, X_AXIS));
-    
+
   if (heads.size ())
     right_point = max (right_point, heads.back ()->extent (common, X_AXIS)[RIGHT]);
 
   Real h = sl * robust_scm2double (me->get_property ("thickness"), 0);
   Drul_array<Real> paddings (robust_scm2double (me->get_property ("left-padding"), h),
-			     robust_scm2double (me->get_property ("right-padding"), h));
+                             robust_scm2double (me->get_property ("right-padding"), h));
 
   if (right_text)
     right_point = min (right_point, (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - paddings[RIGHT]));
@@ -93,22 +93,22 @@ Lyric_extender::print (SCM smob)
     return SCM_EOL;
 
   Stencil mol (Lookup::round_filled_box (Box (Interval (0, w),
-					      Interval (0, h)),
-					 0.8 * h));
+                                              Interval (0, h)),
+                                         0.8 * h));
   mol.translate_axis (left_point - me->relative_coordinate (common, X_AXIS),
-		      X_AXIS);
+                      X_AXIS);
   return mol.smobbed_copy ();
 }
 
 ADD_INTERFACE (Lyric_extender,
-	       "The extender is a simple line at the baseline of the lyric"
-	       " that helps show the length of a melisma (a tied or slurred"
-	       " note).",
+               "The extender is a simple line at the baseline of the lyric"
+               " that helps show the length of a melisma (a tied or slurred"
+               " note).",
 
-	       /* properties */
-	       "heads "
-	       "left-padding "
-	       "next "
-	       "right-padding "
-	       "thickness "
-	       );
+               /* properties */
+               "heads "
+               "left-padding "
+               "next "
+               "right-padding "
+               "thickness "
+              );

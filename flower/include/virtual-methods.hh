@@ -23,9 +23,7 @@
 #include <typeinfo>
 using namespace std;
 
-
 /*
-
 Virtual copy constructor.  Make up for C++'s lack of a standard
 factory or clone () function.  Usage:
 
@@ -33,19 +31,18 @@ class Foo : Baseclass
 {
 VIRTUAL_COPY_CONSTRUCTOR (Baseclass, Foo);
 };
-
 */
 
 #define DECLARE_CLASSNAME(name) \
-  virtual const char *class_name () const {	\
+  virtual const char *class_name () const {     \
     return #name; \
 }
 
-#define VIRTUAL_COPY_CONSTRUCTOR(Base, name)	\
+#define VIRTUAL_COPY_CONSTRUCTOR(Base, name)    \
   DECLARE_CLASSNAME(name);\
-  virtual Base *clone () const			\
-  {						\
-    return new name (*this);			\
+  virtual Base *clone () const                  \
+  {                                             \
+    return new name (*this);                    \
   }
 
 #endif /* VIRTUAL_METHODS_HH */
