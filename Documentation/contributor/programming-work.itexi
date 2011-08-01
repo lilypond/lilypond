@@ -335,7 +335,7 @@ for normal contributors or developers.
 
 @smallexample
 scripts/auxiliar/fixcc.py \
-  fixcc $(find flower lily -name '*cc' -o -name '*hh' | grep -v /out)
+  $(find flower lily -name '*cc' -o -name '*hh' | grep -v /out)
 @end smallexample
 
 
