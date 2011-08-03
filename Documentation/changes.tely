@@ -61,6 +61,41 @@ which scares away people.
 
 @end ignore
 
+@item
+@code{\set \once} now correctly resets the property value to the previous value.
+@lilypond[fragment,quote,relative=2]
+  \set fingeringOrientations = #'(left)
+  <e-1>4
+  \once \set fingeringOrientations = #'(right)
+  <e-1>
+  <e-1>-"left"
+@end lilypond
+
+
+@item
+The alignment of dynamic spanners (hairpins, text crescendo, etc.) is now
+automatically broken if a different direction is explicitly given.
+@lilypond[fragment,quote,relative=2]
+c4_\< c c^\> c c1_\p
+@end lilypond
+
+
+@item
+Appoggiaturas and acciaccaturas now also work inside a slur, not only inside
+a phrasing slur. Also, a function @code{\slashedGrace} was added that does
+does not use a slur from the acciaccatura note.
+@lilypond[fragment,relative=2]
+c4( \appoggiatura e8 d4 \acciaccatura e8 d4 \slashedGrace e8 c4)
+@end lilypond
+
+
+@item
+To suppress the line on a crescendo text spanner (and other similar spanners),
+LilyPond now fully supports the @code{#'style = #'none} property.
+@lilypond[fragment,quote,relative=2]
+\override DynamicTextSpanner #'style = #'none
+c4\cresc c c g, c'\p
+@end lilypond
 
 
 @item
