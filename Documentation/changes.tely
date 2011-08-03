@@ -105,7 +105,7 @@ Glissandi can now span multiple lines.
 
 @ifhtml
 For older news, go to
-@uref{http://lilypond.org/doc/v2.14/Documentation/topdocs/NEWS.html},
+@uref{http://lilypond.org/doc/v2.14/Documentation/changes/},
 @uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS.html},
 or @uref{../,go back} to the Documentation index.
 
