@@ -7,6 +7,14 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: c3b519f0dd5ff0f8ccfc9a39ed1fe8df8b43741c
+
+  texidoces = "
+Plantilla de coro SATB (en cuatro pentagramas)
+
+"
+  doctitlees = "Plantilla de coro SATB a cuatro pentagramas"
+
 %% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
   texidocit = "
 Modello per coro SATB (quattro righi)
