@@ -499,6 +499,27 @@
 				font-interface
 				text-interface))))))
 
+    (Brace
+     . (
+	(direction . ,LEFT)
+	(font-encoding . fetaBraces)
+	(minimum-brace-height . 95)
+	(padding . 0.5)
+	(positions . ,ly:arpeggio::calc-positions)
+	(script-priority . 0)
+	(side-axis . ,X)
+	(staff-position . 0.0)
+	(stencil . ,ly:arpeggio::brew-chord-brace)
+	(X-extent . (-1 . 0))
+	(X-offset . ,ly:side-position-interface::x-aligned-side)
+	(Y-offset . ,ly:staff-symbol-referencer::callback)
+	(meta . ((class . Item)
+		 (interfaces . (arpeggio-interface
+				brace-interface
+				font-interface
+				side-position-interface
+				staff-symbol-referencer-interface))))))
+
     (ChordName
      . (
 	(after-line-breaking . ,ly:chord-name::after-line-breaking)
@@ -2587,6 +2608,7 @@
   `(
     (,ly:arpeggio::print . ,ly:arpeggio::pure-height)
     (,ly:arpeggio::brew-chord-bracket . ,ly:arpeggio::pure-height)
+    (,ly:arpeggio::brew-chord-brace . ,ly:arpeggio::pure-height)
     (,ly:arpeggio::brew-chord-slur . ,ly:arpeggio::pure-height)
     (,ly:hairpin::print . ,ly:hairpin::pure-height)
     (,ly:stem-tremolo::print . ,ly:stem-tremolo::pure-height)

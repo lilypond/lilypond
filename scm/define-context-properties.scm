@@ -163,6 +163,8 @@ staff.")
      (completionBusy ,boolean? "Whether a completion-note head is playing.")
      (connectArpeggios ,boolean? "If set, connect arpeggios across
 piano staff.")
+     (connectBraces ,boolean? "If set, connect braces across
+staves.")
      (countPercentRepeats ,boolean? "If set, produce counters for
 percent repeats.")
      (createKeyOnClefChange ,boolean? "Print a key signature whenever

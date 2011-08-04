@@ -213,6 +213,7 @@ multiple voices on the same staff."
   \consists "Pitched_trill_engraver"
   \consists "Output_property_engraver"
   \consists "Arpeggio_engraver"
+  \consists "Brace_engraver"
   \consists "Multi_measure_rest_engraver"
   \consists "Text_spanner_engraver"
   \consists "Trill_spanner_engraver"
@@ -287,6 +288,7 @@ multiple voices on the same staff."
 
   \description "A voice on a percussion staff."
   \remove "Arpeggio_engraver"
+  \remove "Brace_engraver"
   \consists "Grob_pq_engraver"
 
   \remove "Note_head_line_engraver"
@@ -313,6 +315,7 @@ contained staves are connected vertically."
   \consists "Instrument_name_engraver"
   \consists "Span_bar_engraver"
   \consists "Span_arpeggio_engraver"
+  \consists "Span_brace_engraver"
   \consists "System_start_delimiter_engraver"
   \consists "Vertical_align_engraver"
   systemStartDelimiter = #'SystemStartBrace
@@ -358,6 +361,7 @@ together, never separately."
   \consists "Instrument_name_engraver"
   \consists "Span_bar_engraver"
   \consists "Span_arpeggio_engraver"
+  \consists "Span_brace_engraver"
   \consists "Output_property_engraver"
   systemStartDelimiter = #'SystemStartBracket
   %% explicitly set instrument, so it is not inherited from the parent
@@ -861,6 +865,7 @@ contexts and handles the line spacing, the tablature clef etc. properly."
   \override TimeSignature #'stencil = ##f
   %% no arpeggios
   \override Arpeggio #'stencil = ##f
+  \override Brace #'stencil = ##f
   %% we ignore collision warnings that may occur due to
   %% stem overlapping, because we have no stems ;-)
   \override NoteColumn #'ignore-collision = ##t

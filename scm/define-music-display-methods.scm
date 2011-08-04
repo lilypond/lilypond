@@ -144,6 +144,7 @@ expression."
     'BeamEvent
     'BeamForbidEvent
     'BendAfterEvent
+    'BraceEvent
     'CrescendoEvent
     'DecrescendoEvent
     'EpisemaEvent
@@ -242,6 +243,7 @@ expression."
   (format #f "\\rightHandFinger #~a" (ly:music-property event 'digit)))
 
 (define-span-event-display-method BeamEvent (event parser) #f "[" "]")
+(define-post-event-display-method BraceEvent (event parser) #t "\\brace")
 (define-span-event-display-method SlurEvent (event parser) #f "(" ")")
 (define-span-event-display-method CrescendoEvent (event parser) #f "\\<" "\\!")
 (define-span-event-display-method DecrescendoEvent (event parser) #f "\\>" "\\!")

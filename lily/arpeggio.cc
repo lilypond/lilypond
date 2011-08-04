@@ -19,6 +19,7 @@
 
 #include "arpeggio.hh"
 
+#include "all-font-metrics.hh"
 #include "bezier.hh"
 #include "font-interface.hh"
 #include "grob.hh"
@@ -175,6 +176,45 @@ Arpeggio::brew_chord_bracket (SCM smob)
   return mol.smobbed_copy ();
 }
 
+MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_brace, 1);
+SCM
+Arpeggio::brew_chord_brace (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Interval heads = robust_scm2interval (me->get_property ("positions"),
+                                        Interval ())
+    * Staff_symbol_referencer::staff_space (me);
+  int minimum_brace_height = robust_scm2int (
+                             me->get_property ("minimum-brace-height"), 1);
+  Font_metric *fm = Font_interface::get_default_font (me);
+
+  int
+    lo = 0;
+  int hi = max ((int) fm->count () - 1, 2);
+
+  /* do a binary search for each Y, not very efficient, but passable?  */
+  Box b;
+  do
+    {
+      int cmp = (lo + hi) / 2;
+      b = fm->get_indexed_char_dimensions (cmp);
+      if (b[Y_AXIS].is_empty () || b[Y_AXIS].length () > heads.length ()+1)
+        hi = cmp;
+      else
+        lo = cmp;
+    }
+  while (hi - lo > 1);
+
+  if (lo < minimum_brace_height)
+    lo = minimum_brace_height;
+
+  Stencil mol (unsmob_metrics (me->get_property ("font"))
+                              ->find_by_name ("brace" + to_string (lo)));
+  mol.translate_axis ((heads[RIGHT] + heads[LEFT]) / 2, Y_AXIS);
+
+  return mol.smobbed_copy ();
+}
+
 MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_slur, 1);
 SCM
 Arpeggio::brew_chord_slur (SCM smob)
@@ -226,6 +266,7 @@ ADD_INTERFACE (Arpeggio,
 
                /* properties */
                "arpeggio-direction "
+               "minimum-brace-height "
                "positions "
                "script-priority " // TODO: make around-note-interface
                "stems "

@@ -155,6 +155,7 @@
    ly:accidental-interface::print
    ly:arpeggio::print
    ly:arpeggio::brew-chord-bracket
+   ly:arpeggio::brew-chord-brace
    ly:bar-line::print
    ly:breathing-sign::offset-callback
    ly:clef::print
