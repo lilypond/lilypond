@@ -739,7 +739,7 @@ printing diff against existing file." % filename)
         """Pass input through cmd, and return the result."""
 
         if self.global_options.verbose:
-            progress (_ ("Opening filter `%s'\n") % cmd)
+            progress (_ ("Running through filter `%s'\n") % cmd)
 
         # TODO: Use Popen once we resolve the problem with msvcrt in Windows:
         (stdin, stdout, stderr) = os.popen3 (cmd)
@@ -880,6 +880,7 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
             option_list.append ('--compressed')
             self.compressed = True
         opts = " ".join (option_list)
+        progress (_ ("Converting MusicXML file `%s'...\n") % self.filename)
 
         ly_code = self.filter_pipe (self.contents, 'musicxml2ly %s --out=- - ' % opts)
         return ly_code
