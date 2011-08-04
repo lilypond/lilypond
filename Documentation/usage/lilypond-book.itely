@@ -222,7 +222,7 @@ will be processed by @code{musicxml2ly} and @code{lilypond}.
 
 @end itemize
 
-In the input file, music is specified with any of the following commands
+In the input file, music is specified with any of the following commands:
 
 @example
 \begin@{lilypond@}[options,go,here]
@@ -513,7 +513,7 @@ will be processed by @code{musicxml2ly} and @code{lilypond}.
 
 @end itemize
 
-In the input file, music is specified with any of the following commands
+In the input file, music is specified with any of the following commands:
 
 \begin@{lilypond@}[options,go,here]
   YOUR LILYPOND CODE
