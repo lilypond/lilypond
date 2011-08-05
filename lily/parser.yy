@@ -1114,7 +1114,7 @@ function_arglist_nonmusic_last:
 
 generic_prefix_music_scm:
 	MUSIC_FUNCTION function_arglist {
-		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($2, SCM_EOL)));
+		$$ = scm_cons2 ($1, make_input (@$), scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
@@ -1582,7 +1582,7 @@ music_function_chord_body_arglist:
 
 music_function_chord_body:
 	MUSIC_FUNCTION music_function_chord_body_arglist {
-		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($2, SCM_EOL)));
+		$$ = scm_cons2 ($1, make_input (@$), scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
@@ -1600,7 +1600,7 @@ music_function_event_arglist:
 
 music_function_event:
 	MUSIC_FUNCTION music_function_event_arglist {
-		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($2, SCM_EOL)));
+		$$ = scm_cons2 ($1, make_input (@$), scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
