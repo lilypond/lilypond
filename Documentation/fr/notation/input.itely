@@ -1732,7 +1732,7 @@ commande avec l'option @i{ad hoc} -- voir
 @subsection Changement des fontes musicales
 @translationof Replacing the notation font
 
-Gonville est ube alternative à la fonte Feta que LilyPond utilise par
+Gonville est une alternative à la fonte Feta que LilyPond utilise par
 défaut.  Vous pouvez la télécharger à partir de
 @example
 @uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
