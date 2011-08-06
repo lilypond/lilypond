@@ -625,19 +625,15 @@ Um mehr als eine Silbe zu einer Note zuzuordnen, können die Silben
 mit geraden Anführungszeichen (@code{"}) umgeben werden oder ein
 Unterstrich (@code{_}) benutzt werden, um ein Leerzeichen zwischen
 Silben zu setzen.  Mit der Tilde (@code{~}) kann ein Bindebogen
-gesetzt werden.  Dies erfordert, dass eine Schriftart vorhanden ist,
-die das entsprechende Symbol (U+203F) beinhaltet.  Frei erhältliche
-Schriftarten, die den Bindebogen enthalten, sind @qq{FreeSerif} (ein
-Times-Klon), @qq{DejaVuSans} (aber nicht DejaVuSerif) oder
-TeXGyreSchole (ein Century Schoolbook-Klon).
+gesetzt werden.
 
 @lilypond[quote,ragged-right,verbatim]
 {
   \time 3/4
   \relative c' { c2 e4 g2 e4 }
-  \addlyrics { gran- de_a- mi- go }
-  \addlyrics { pu- "ro y ho-" nes- to }
-  \addlyrics { pu- ro~y~ho- nes- to }
+  \addlyrics { gran -- de_a -- mi -- go }
+  \addlyrics { pu -- "ro y ho" -- nes -- to }
+  \addlyrics { pu -- ro~y~ho -- nes -- to }
 }
 @end lilypond
 

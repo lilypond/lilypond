@@ -611,21 +611,15 @@ Référence des propriétés internes :
 Pour attribuer plus d'une syllabe à une même note, vous pouvez soit les
 mettre entre guillemets, soit utiliser le caractère souligné
 (@code{_}) pour obtenir une espace, ou bien encore utiliser un tilde
-(@code{~}) pour obtenir une liaison entre les syllabes. Cette
-liaison adaptée aux paroles correspond au caractère Unicode
-@code{U+203F}, et n'apparaîtra dans la partition que si le système
-dispose d'une police installée qui contient ce symbole.  Un certain
-nombre de fontes librement disponibles en disposent, comme FreeSerif
-(un clone de Times), `DejaVuSans' (mais pas DejaVuSerif) ou
-TeXGyreSchola (un clone de Century Schoolbook).
+(@code{~}) pour obtenir une liaison entre les syllabes.
 
 @lilypond[quote,ragged-right,verbatim]
 {
   \time 3/4
   \relative c' { c2 e4 g2 e4 }
-  \addlyrics { gran- de_a- mi- go }
-  \addlyrics { pu- "ro y ho-" nes- to }
-  \addlyrics { pu- ro~y~ho- nes- to }
+  \addlyrics { gran -- de_a -- mi -- go }
+  \addlyrics { pu -- "ro y ho" -- nes -- to }
+  \addlyrics { pu -- ro~y~ho -- nes -- to }
 }
 @end lilypond
 

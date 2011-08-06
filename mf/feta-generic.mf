@@ -45,6 +45,7 @@ if test = 0:
 	input feta-pedals;
 	input feta-brackettips;
 	input feta-accordion;
+	input feta-ties;
 else:
 	input feta-test-generic.mf;
 fi

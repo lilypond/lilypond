@@ -5390,6 +5390,11 @@ msgstr "Glyphes d'accordéon"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
+msgid "Tie glyphs"
+msgstr "Glyphes de liaison"
+
+#. @node in Documentation/notation/notation-appendices.itely
+#. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Vaticana glyphs"
 msgstr "Glyphes vaticana"
 

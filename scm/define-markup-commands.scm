@@ -926,6 +926,7 @@ the use of @code{\\simple} is unnecessary.
 (define-markup-command (tied-lyric layout props str)
   (string?)
   #:category music
+  #:properties ((word-space))
   "
 @cindex simple text strings with tie characters
 
@@ -938,19 +939,18 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols.
 @end lilypond"
   (if (string-contains str "~")
       (let*
-	  ((parts (string-split str #\~))
-	   (tie-str (ly:wide-char->utf-8 #x203f))
+	  ((half-space (/ word-space 2))
+	   (parts (string-split str #\~))
+	   (tie-str (markup #:hspace half-space
+	                    #:musicglyph "ties.lyric"
+	                    #:hspace half-space))
 	   (joined  (list-join parts tie-str))
 	   (join-stencil (interpret-markup layout props tie-str))
 	   )
 
 	(interpret-markup layout
-			  (prepend-alist-chain
-			   'word-space
-			   (/ (interval-length (ly:stencil-extent join-stencil X)) -3.5)
-			   props)
-			  (make-line-markup joined)))
-			   ;(map (lambda (s) (interpret-markup layout props s)) parts))
+			  props
+			  (make-concat-markup joined)))
       (interpret-markup layout props str)))
 
 (define-public empty-markup

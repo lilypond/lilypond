@@ -640,20 +640,15 @@ Para asignar más de una sílaba a una única nota con espacios entre las
 sílabas, podemos encerrar la frase entre comillas o utilizar un
 carácter de guión bajo @code{_}.  De forma alternativa, podemos usar
 el símbolo de tilde curva (@code{~}) para obtener una ligadura de
-texto.  La ligadura de texto está implementada con el carácter Unicode
-U+203F, por tanto debemos asegurarnos de usar una fuente tipográfica
-para este glifo que realmente lo contenga.  Algunas de las fuentes
-tipográficas disponibles libremente con una ligadura de letra son, por
-ejemplo, `FreeSerif' (un clon de Times), `DejaVuSans' (pero no
-`DejaVuSerif') o `TeXGyreSchola' (un clon de Century Schoolbook).
+texto.
 
 @lilypond[quote,ragged-right,verbatim]
 {
   \time 3/4
   \relative c' { c2 e4 g2 e4 }
-  \addlyrics { gran- de_a- mi- go }
-  \addlyrics { pu- "ro y ho-" nes- to }
-  \addlyrics { pu- ro~y~ho- nes- to }
+  \addlyrics { gran -- de_a -- mi -- go }
+  \addlyrics { pu -- "ro y ho" -- nes -- to }
+  \addlyrics { pu -- ro~y~ho -- nes -- to }
 }
 @end lilypond
 
