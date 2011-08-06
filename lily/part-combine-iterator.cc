@@ -116,7 +116,7 @@ Part_combine_iterator::do_quit ()
   // Add listeners to all contexts except Devnull.
   for (int i = 0; i < NUM_OUTLETS; i++)
     {
-      Context *c = handles_[i].get_outlet ();
+      Context *c = handles_[i].get_context ();
       if (c->is_alias (ly_symbol2scm ("Voice")))
         c->event_source ()->remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
       handles_[i].set_context (0);
@@ -200,7 +200,7 @@ Part_combine_iterator::substitute_both (Outlet_type to1,
     {
       for (int j = 0; j < NUM_OUTLETS; j++)
         if (j != tos[i])
-          mis[i]->substitute_outlet (handles_[j].get_outlet (), handles_[tos[i]].get_outlet ());
+          mis[i]->substitute_outlet (handles_[j].get_context (), handles_[tos[i]].get_context ());
     }
 
   for (int j = 0; j < NUM_OUTLETS; j++)
@@ -221,7 +221,7 @@ Part_combine_iterator::kill_mmrest (int in)
       mmrest_event_->unprotect ();
     }
 
-  handles_[in].get_outlet ()->event_source ()->broadcast (mmrest_event_);
+  handles_[in].get_context ()->event_source ()->broadcast (mmrest_event_);
 }
 
 void
@@ -363,10 +363,10 @@ Part_combine_iterator::construct_children ()
     }
 
   SCM lst = get_music ()->get_property ("elements");
-  Context *one = handles_[CONTEXT_ONE].get_outlet ();
+  Context *one = handles_[CONTEXT_ONE].get_context ();
   set_context (one);
   first_iter_ = unsmob_iterator (get_iterator (unsmob_music (scm_car (lst))));
-  Context *two = handles_[CONTEXT_TWO].get_outlet ();
+  Context *two = handles_[CONTEXT_TWO].get_context ();
   set_context (two);
   second_iter_ = unsmob_iterator (get_iterator (unsmob_music (scm_cadr (lst))));
 

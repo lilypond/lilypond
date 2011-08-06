@@ -35,7 +35,7 @@
 bool
 Context::is_removable () const
 {
-  return context_list_ == SCM_EOL && ! iterator_count_
+  return context_list_ == SCM_EOL && ! client_count_
          && !dynamic_cast<Global_context const *> (daddy_context_);
 }
 
@@ -82,7 +82,7 @@ Context::Context ()
 {
   daddy_context_ = 0;
   aliases_ = SCM_EOL;
-  iterator_count_ = 0;
+  client_count_ = 0;
   implementation_ = 0;
   properties_scm_ = SCM_EOL;
   accepts_list_ = SCM_EOL;

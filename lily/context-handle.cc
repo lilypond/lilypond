@@ -48,13 +48,13 @@ void
 Context_handle::up (Context *t)
 {
   outlet_ = t;
-  t->iterator_count_++;
+  t->client_count_++;
 }
 
 void
 Context_handle::down ()
 {
-  outlet_->iterator_count_--;
+  outlet_->client_count_--;
   outlet_ = 0;
 }
 
@@ -76,7 +76,7 @@ Context_handle::set_context (Context *trans)
 }
 
 Context *
-Context_handle::get_outlet () const
+Context_handle::get_context () const
 {
 
   return outlet_;
@@ -85,5 +85,5 @@ Context_handle::get_outlet () const
 int
 Context_handle::get_count () const
 {
-  return outlet_->iterator_count_;
+  return outlet_->client_count_;
 }
