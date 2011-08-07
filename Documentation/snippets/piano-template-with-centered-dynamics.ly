@@ -26,7 +26,7 @@ automática.
 う必要はありません。
 "
 
-%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a428
+%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
   texidocit = "
 Molti spartiti per pianoforte hanno le dinamiche poste al centro dei due righi.
 Il contesto @code{Dynamics}, se collocato tra i righi, posiziona automaticamente

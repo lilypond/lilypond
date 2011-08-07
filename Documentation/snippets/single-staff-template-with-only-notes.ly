@@ -7,19 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
-  texidocit = "
-Questo modello molto semplice mette a disposizione un rigo con delle note ed è
-quindi adatto per uno strumento non accompagnato o per un frammento 
-melodico. Copialo e incollalo in un file, aggiungi le note e hai finito!
-
-"
-  doctitleit = "Modello di rigo singolo con solo note"
-
   lsrtags = "template"
-
-
-
 
 %% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
@@ -37,6 +25,15 @@ un archivo, escriba las notas y ¡ya está!
 これをファイルにカット＆ペーストして、音符を付け加えれば完了です！
 "
 
+
+%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+  texidocit = "
+Questo modello molto semplice mette a disposizione un rigo con delle note ed è
+quindi adatto per uno strumento non accompagnato o per un frammento
+melodico. Copialo e incollalo in un file, aggiungi le note e hai finito!
+
+"
+  doctitleit = "Modello di rigo singolo con solo note"
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
