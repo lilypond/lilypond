@@ -221,7 +221,7 @@ Lyric_combine_music_iterator::construct_children ()
 
 IMPLEMENT_LISTENER (Lyric_combine_music_iterator, check_new_context)
 void
-Lyric_combine_music_iterator::check_new_context (SCM sev)
+Lyric_combine_music_iterator::check_new_context (SCM /*sev*/)
 {
   if (!ok ())
     return;

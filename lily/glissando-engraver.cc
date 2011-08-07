@@ -121,7 +121,7 @@ Glissando_engraver::acknowledge_note_column (Grob_info info)
               continue;
             int n1 = robust_scm2int (scm_car (candidate), -1);
             int n2 = robust_scm2int (scm_cdr (candidate), -1);
-            if (n1 < 0 || n2 < 0 || n1 >= note_heads.size ())
+            if ((n1 < 0) || (n2 < 0) || (size_t(n1) >= note_heads.size ()))
               continue;
             note_column_1.push_back (vsize (n1));
             note_column_2.push_back (vsize (n2));

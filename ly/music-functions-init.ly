@@ -891,7 +891,7 @@ scaleDurations =
 shiftDurations =
 #(define-music-function (parser location dur dots arg)
    (integer? integer? ly:music?)
-   (_i "Scale @var{arg} up by a factor of @var{2^dur*(2-(1/2)^dots)}.")
+   (_i "Scale @var{arg} up by a factor of 2^@var{dur}*(2-(1/2)^@var{dots}).")
 
    (music-map
     (lambda (x)

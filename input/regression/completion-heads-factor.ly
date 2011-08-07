@@ -9,8 +9,6 @@ notes with a duration factor still keep their requested appearance.
 "
 }
 
-#(set-paper-size "a6")
-
 \layout { ragged-right= ##t }
 
 

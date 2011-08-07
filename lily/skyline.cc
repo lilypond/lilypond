@@ -392,7 +392,7 @@ Skyline::Skyline (Direction sky)
   added to it.
 */
 
-Skyline::Skyline (Skyline const &src, Real horizon_padding, Axis a)
+Skyline::Skyline (Skyline const &src, Real horizon_padding, Axis /*a*/)
 {
   /*
      We extract boxes from the skyline, then build a new skyline from
@@ -406,6 +406,7 @@ Skyline::Skyline (Skyline const &src, Real horizon_padding, Axis a)
   list<Box> boxes;
 
   // establish a baseline box
+  // FIXME: This has hardcoded logic, assuming a == X_AXIS!
   boxes.push_back (Box (Interval (-infinity_f, infinity_f),
                         Interval (0, 0)));
   list<Building>::const_iterator end = src.buildings_.end ();
