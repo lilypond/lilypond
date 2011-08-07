@@ -35,14 +35,6 @@ conversion_settings = Conversion_Settings ()
 # this layout and add the corresponding settings
 layout_information = musicexp.Layout ()
 
-def progress (str):
-    ly.stderr_write (str + '\n')
-    sys.stderr.flush ()
-
-def error_message (str):
-    ly.stderr_write (str + '\n')
-    sys.stderr.flush ()
-
 needed_additional_definitions = []
 additional_definitions = {
 
@@ -221,7 +213,10 @@ def extract_score_information (tree):
             app_description = ignore_beaming_software.get (s, False);
             if app_description:
                 conversion_settings.ignore_beaming = True
-                progress (_ ("Encountered file created by %s, containing wrong beaming information. All beaming information in the MusicXML file will be ignored") % app_description)
+                ly.warning (_ ("Encountered file created by %s, containing "
+                               "wrong beaming information. All beaming "
+                               "information in the MusicXML file will be "
+                               "ignored") % app_description)
 
     # TODO: Check for other unsupported features
     return header
@@ -237,9 +232,9 @@ class PartGroupInfo:
     def add_end (self, g):
         self.end[getattr (g, 'number', "1")] = g
     def print_ly (self, printer):
-        error_message (_ ("Unprocessed PartGroupInfo %s encountered") % self)
+        ly.warning (_ ("Unprocessed PartGroupInfo %s encountered") % self)
     def ly_expression (self):
-        error_message (_ ("Unprocessed PartGroupInfo %s encountered") % self)
+        ly.warning (_ ("Unprocessed PartGroupInfo %s encountered") % self)
         return ''
 
 def musicxml_step_to_lily (step):
@@ -512,9 +507,9 @@ def rational_to_lily_duration (rational_len):
         d.duration_log = d_log
         d.factor = Rational (rational_len.numerator ())
     else:
-        error_message (_ ("Encountered rational duration with denominator %s, "
+        ly.warning (_ ("Encountered rational duration with denominator %s, "
                        "unable to convert to lilypond duration") %
-                       rational_len.denominator ())
+                    rational_len.denominator ())
         # TODO: Test the above error message
         return None
 
@@ -759,7 +754,7 @@ def musicxml_time_to_lily (attributes):
 def musicxml_key_to_lily (attributes):
     key_sig = attributes.get_key_signature ()
     if not key_sig or not (isinstance (key_sig, list) or isinstance (key_sig, tuple)):
-        error_message (_ ("Unable to extract key signature!"))
+        ly.warning (_ ("Unable to extract key signature!"))
         return None
 
     change = musicexp.KeySignatureChange()
@@ -786,7 +781,7 @@ def musicxml_key_to_lily (attributes):
             start_pitch.step = n
             start_pitch.alteration = a
         except  KeyError:
-            error_message (_ ("unknown mode %s, expecting 'major' or 'minor' "
+            ly.warning (_ ("unknown mode %s, expecting 'major' or 'minor' "
                 "or a church mode!") % mode)
 
         fifth = musicexp.Pitch()
@@ -924,7 +919,7 @@ class Marker (musicexp.Music):
         self.direction = 0
         self.event = None
     def print_ly (self, printer):
-        ly.stderr_write (_ ("Encountered unprocessed marker %s\n") % self)
+        ly.warning (_ ("Encountered unprocessed marker %s\n") % self)
         pass
     def ly_expression (self):
         return ""
@@ -1018,7 +1013,7 @@ def musicxml_spanner_to_lily_event (mxl_event):
     if func:
         ev = func()
     else:
-        error_message (_ ('unknown span event %s') % mxl_event)
+        ly.warning (_ ('unknown span event %s') % mxl_event)
 
 
     type = mxl_event.get_type ()
@@ -1028,7 +1023,7 @@ def musicxml_spanner_to_lily_event (mxl_event):
     if span_direction != None:
         ev.span_direction = span_direction
     else:
-        error_message (_ ('unknown span type %s for %s') % (type, name))
+        ly.warning (_ ('unknown span type %s for %s') % (type, name))
 
     ev.set_span_type (type)
     ev.line_type = getattr (mxl_event, 'line-type', 'solid')
@@ -1448,12 +1443,12 @@ def musicxml_metronome_to_ly (mxl_event):
             except ValueError:
                 pass
         else:
-            error_message (_ ("Unknown metronome mark, ignoring"))
+            ly.warning (_ ("Unknown metronome mark, ignoring"))
             return
         return ev
     else:
         #TODO: Implement the other (more complex) way for tempo marks!
-        error_message (_ ("Metronome marks with complex relations (<metronome-note> in MusicXML) are not yet implemented."))
+        ly.warning (_ ("Metronome marks with complex relations (<metronome-note> in MusicXML) are not yet implemented."))
         return
 
 # translate directions into Events, possible values:
@@ -1655,7 +1650,7 @@ def musicxml_chordkind_to_lily (kind):
     res = chordkind_dict.get (kind, None)
     # Check for None, since a major chord is converted to ''
     if res == None:
-        error_message (_ ("Unable to convert chord type %s to lilypond.") % kind)
+        ly.warning (_ ("Unable to convert chord type %s to lilypond.") % kind)
     return res
 
 def musicxml_harmony_to_lily_chordname (n):
@@ -1956,8 +1951,8 @@ class LilyPondVoiceBuilder:
         diff = moment - current_end
 
         if diff < Rational (0):
-            error_message (_ ('Negative skip %s (from position %s to %s)') %
-                             (diff, current_end, moment))
+            ly.warning (_ ('Negative skip %s (from position %s to %s)') %
+                           (diff, current_end, moment))
             diff = Rational (0)
 
         if diff > Rational (0) and not (self.ignore_skips and moment == 0):
@@ -2433,7 +2428,7 @@ def musicxml_voice_to_lily_voice (voice):
 
 
     if len (modes_found) > 1:
-       error_message (_ ('cannot simultaneously have more than one mode: %s') % modes_found.keys ())
+       ly.warning (_ ('cannot simultaneously have more than one mode: %s') % modes_found.keys ())
 
     if options.relative:
         v = musicexp.RelativeMusic ()
@@ -2541,7 +2536,7 @@ def get_all_voices (parts):
 
         part_ly_voices = {}
         for n, v in name_voice.items ():
-            progress (_ ("Converting to LilyPond expressions..."))
+            ly.progress (_ ("Converting to LilyPond expressions..."), True)
             # musicxml_voice_to_lily_voice returns (lily_voice, {nr->lyrics, nr->lyrics})
             part_ly_voices[n] = musicxml_voice_to_lily_voice (v)
 
@@ -2581,8 +2576,9 @@ information.""") % 'lilypond')
                  help=_ ("show version number and exit"))
 
     p.add_option ('-v', '--verbose',
-                  action = "store_true",
-                  dest = 'verbose',
+                  action="callback",
+                  callback=ly.handle_loglevel_option,
+                  callback_args=("DEBUG",),
                   help = _ ("be verbose"))
 
     p.add_option ('', '--lxml',
@@ -2612,6 +2608,14 @@ information.""") % 'lilypond')
                   metavar = _ ("LANG"),
                   action = "store",
                   help = _ ("use LANG for pitch names, e.g. 'deutsch' for note names in German"))
+
+    p.add_option ("--loglevel",
+                  help=_ ("Print log messages according to LOGLEVEL "
+                          "(NONE, ERROR, WARNING, PROGRESS (default), DEBUG)"),
+                  metavar=_ ("LOGLEVEL"),
+                  action='callback',
+                  callback=ly.handle_loglevel_option,
+                  type='string')
 
     p.add_option ('--nd', '--no-articulation-directions',
                   action = "store_false",
@@ -2726,7 +2730,7 @@ def update_score_setup (score_structure, part_list, voices):
         part_id = part_definition.id
         nv_dict = voices.get (part_id)
         if not nv_dict:
-            error_message (_ ('unknown part in part-list: %s') % part_id)
+            ly.warning (_ ('unknown part in part-list: %s') % part_id)
             continue
 
         staves = reduce (lambda x,y: x+ y,
@@ -2788,7 +2792,7 @@ def read_musicxml (filename, compressed, use_lxml):
     raw_string = None
     if compressed:
         if filename == "-":
-             progress (_ ("Input is compressed, extracting raw MusicXML data from stdin") )
+             ly.progress (_ ("Input is compressed, extracting raw MusicXML data from stdin"), True)
              # unfortunately, zipfile.ZipFile can't read directly from
              # stdin, so copy everything from stdin to a temp file and read
              # that. TemporaryFile() will remove the file when it is closed.
@@ -2801,7 +2805,7 @@ def read_musicxml (filename, compressed, use_lxml):
                  bytes_read = sys.stdin.read (8192)
              z = zipfile.ZipFile (tmp, "r")
         else:
-            progress (_ ("Input file %s is compressed, extracting raw MusicXML data") % filename)
+            ly.progress (_ ("Input file %s is compressed, extracting raw MusicXML data") % filename, True)
             z = zipfile.ZipFile (filename, "r")
         container_xml = z.read ("META-INF/container.xml")
         if not container_xml:
@@ -2831,9 +2835,9 @@ def read_musicxml (filename, compressed, use_lxml):
 
 def convert (filename, options):
     if filename == "-":
-        progress (_ ("Reading MusicXML from Standard input ...") )
+        ly.progress (_ ("Reading MusicXML from Standard input ..."), True)
     else:
-        progress (_ ("Reading MusicXML from %s ...") % filename)
+        ly.progress (_ ("Reading MusicXML from %s ...") % filename, True)
 
     tree = read_musicxml (filename, options.compressed, options.use_lxml)
     score_information = extract_score_information (tree)
@@ -2866,9 +2870,9 @@ def convert (filename, options):
     else:
       output_ly_name = options.output_name + '.ly'
 
-    progress (_ ("Output to `%s'") % output_ly_name)
+    ly.progress (_ ("Output to `%s'") % output_ly_name, True)
     printer = musicexp.Output_printer()
-    #progress (_ ("Output to `%s'") % defs_ly_name)
+    #ly.progress (_ ("Output to `%s'") % defs_ly_name, True)
     if (options.output_name == "-"):
       printer.set_file (codecs.getwriter ("utf-8")(sys.stdout))
     else:
@@ -2933,7 +2937,7 @@ def main ():
     if filename and (filename == "-" or os.path.exists (filename)):
         voices = convert (filename, options)
     else:
-        progress (_ ("Unable to find input file %s") % basefilename)
+        ly.error (_ ("Unable to find input file %s") % basefilename)
 
 if __name__ == '__main__':
     main()

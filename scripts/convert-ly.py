@@ -58,16 +58,8 @@ program_version = '@TOPLEVEL_VERSION@'
 authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
            'Han-Wen Nienhuys <hanwen@xs4all.nl>')
 
-error_file_write = ly.stderr_write
-
-def warning (s):
-    ly.stderr_write (program_name + ": " + _ ("warning: %s") % s + '\n')
-
-def error (s):
-    ly.stderr_write (program_name + ": " + _ ("error: %s") % s + '\n')
-
-def identify (port=sys.stderr):
-    ly.encoded_write (port, '%s (GNU LilyPond) %s\n' % (program_name, program_version))
+def identify ():
+    ly.progress ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
 
 def warranty ():
     identify ()
@@ -106,6 +98,14 @@ def get_option_parser ():
     
     p.add_option ('-e', '--edit', help=_ ("edit in place"),
               action='store_true')
+
+    p.add_option ("-l", "--loglevel",
+                  help=_ ("Print log messages according to LOGLEVEL "
+                          "(NONE, ERROR, WARNING, PROGRESS (default), DEBUG)"),
+                  metavar=_ ("LOGLEVEL"),
+                  action='callback',
+                  callback=ly.handle_loglevel_option,
+                  type='string')
 
     p.add_option ('-n', '--no-version',
               help=_ ("do not add \\version command if missing"),
@@ -181,25 +181,23 @@ tuple (LAST,STR), with the last successful conversion and the resulting
 string."""
     conv_list = get_conversions (from_version, to_version)
 
-    error_file_write (_ ("Applying conversion: "))
+    ly.progress (_ ("Applying conversion: "))
 
     last_conversion = ()
     try:
         if not conv_list:
             last_conversion = to_version
         for x in conv_list:
-            error_file_write (tup_to_str (x[0]))
+            ly.progress (tup_to_str (x[0]))
             if x != conv_list[-1]:
-                error_file_write (', ')
+                ly.progress (', ')
             str = x[1] (str)
             last_conversion = x[0]
 
     except convertrules.FatalConversionError:
-        error_file_write ('\n'
-                          + _ ("Error while converting")
-                          + '\n'
-                          + _ ("Stopping at last successful rule")
-                          + '\n')
+        ly.error (_ ("Error while converting")
+                  + '\n'
+                  + _ ("Stopping at last successful rule"))
 
     return (last_conversion, str)
 
@@ -223,8 +221,7 @@ class InvalidVersion (Exception):
       self.version = version
 
 def do_one_file (infile_name):
-    ly.stderr_write (_ ("Processing `%s\'... ") % infile_name)
-    sys.stderr.write ('\n')
+    ly.progress (_ ("Processing `%s\'... ") % infile_name, True)
 
     if infile_name:
         infile = open (infile_name, 'r')
@@ -276,8 +273,8 @@ def do_one_file (infile_name):
                      '\\' + newversion, result)
         elif not global_options.skip_version_add:
             result = newversion + '\n' + result
-            
-        error_file_write ('\n')
+
+        ly.progress ('\n')
     
         if global_options.edit:
             try:
@@ -325,28 +322,28 @@ def main ():
         show_rules (sys.stdout, global_options.from_version, global_options.to_version)
         sys.exit (0)
 
-    identify (sys.stderr)
+    identify ()
 
     for f in files:
         if f == '-':
             f = ''
         elif not os.path.isfile (f):
-            error (_ ("%s: Unable to open file") % f)
+            ly.error (_ ("%s: Unable to open file") % f)
             if len (files) == 1:
                 sys.exit (1)
             continue
         try:
             do_one_file (f)
         except UnknownVersion:
-            error (_ ("%s: Unable to determine version.  Skipping") % f)
+            ly.error (_ ("%s: Unable to determine version.  Skipping") % f)
         except InvalidVersion:
             # Compat code for 2.x and 3.0 syntax ("except .. as v" doesn't 
             # work in python 2.4!):
             t, v, b = sys.exc_info ()
-            error (_ ("%s: Invalid version string `%s' \n"
-                      "Valid version strings consist of three numbers, "
-                      "separated by dots, e.g. `2.8.12'") % (f, v.version) )
+            ly.error (_ ("%s: Invalid version string `%s' \n"
+                         "Valid version strings consist of three numbers, "
+                         "separated by dots, e.g. `2.8.12'") % (f, v.version) )
 
-    sys.stderr.write ('\n')
+    ly.progress ('\n')
 
 main ()

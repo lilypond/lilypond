@@ -13,9 +13,6 @@ from rational import Rational
 previous_pitch = None
 relative_pitches = False
 
-def warning (str):
-    ly.stderr_write ((_ ("warning: %s") % str) + "\n")
-
 
 def escape_instrument_string (input_string):
     retstring = string.replace (input_string, "\"", "\\\"")
@@ -213,12 +210,12 @@ def pitch_generic (pitch, notenames, accidentals):
     # Handle remaining fraction to pitch.alteration (for microtones)
     if (halftones != pitch.alteration):
         if None in accidentals[1:3]:
-            warning (_ ("Language does not support microtones contained in the piece"))
+            ly.warning (_ ("Language does not support microtones contained in the piece"))
         else:
             try:
                 str += {-0.5: accidentals[1], 0.5: accidentals[2]}[pitch.alteration-halftones]
             except KeyError:
-                warning (_ ("Language does not support microtones contained in the piece"))
+                ly.warning (_ ("Language does not support microtones contained in the piece"))
     return str
 
 def pitch_general (pitch):
@@ -480,7 +477,7 @@ class TimeScaledMusic (MusicWrapper):
             func ("\\once \\override TupletBracket #'stencil = ##f")
             func.newline ()
         elif self.display_bracket == "curved":
-            warning (_ ("Tuplet brackets of curved shape are not correctly implemented"))
+            ly.warning (_ ("Tuplet brackets of curved shape are not correctly implemented"))
             func ("\\once \\override TupletBracket #'stencil = #ly:slur::print")
             func.newline ()
 
@@ -666,7 +663,7 @@ class RepeatedMusic:
             self.music = SequentialMusic ()
             self.music.elements = music
         else:
-            warning (_ ("unable to set the music %(music)s for the repeat %(repeat)s") % \
+            ly.warning (_ ("unable to set the music %(music)s for the repeat %(repeat)s") % \
                             {'music':music, 'repeat':self})
     def add_ending (self, music):
         self.endings.append (music)
@@ -675,7 +672,7 @@ class RepeatedMusic:
         if self.music:
             self.music.print_ly (printer)
         else:
-            warning (_ ("encountered repeat without body"))
+            ly.warning (_ ("encountered repeat without body"))
             printer.dump ('{}')
         if self.endings:
             printer.dump ('\\alternative {')
@@ -845,7 +842,7 @@ class ChordEvent (NestedMusic):
             # don't print newlines after the { and } braces
             self.grace_elements.print_ly (printer, False)
         elif self.grace_elements: # no self.elements!
-            warning (_ ("Grace note with no following music: %s") % self.grace_elements)
+            ly.warning (_ ("Grace note with no following music: %s") % self.grace_elements)
             if self.grace_type:
                 printer ('\\%s' % self.grace_type)
             else:
@@ -1007,7 +1004,7 @@ class OctaveShiftEvent (SpanEvent):
         try:
             value = {8: 1, 15: 2}[self.size]
         except KeyError:
-            warning (_ ("Invalid octave shift size found: %s. Using no shift.") % self.size)
+            ly.warning (_ ("Invalid octave shift size found: %s. Using no shift.") % self.size)
             value = 0
         # negative values go up!
         value *= -1*self.span_type
@@ -1465,7 +1462,7 @@ class KeySignatureChange (Music):
         try:
             accidental = alter_dict[a[1]]
         except KeyError:
-            warning (_ ("Unable to convert alteration %s to a lilypond expression") % a[1])
+            ly.warning (_ ("Unable to convert alteration %s to a lilypond expression") % a[1])
             return ''
         if len (a) == 2:
             return "( %s . %s )" % (a[0], accidental)

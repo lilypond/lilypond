@@ -78,21 +78,70 @@ if at_re.match (program_version):
     else:
         program_version = "unknown"
 
+
+# Logging framework: We have the following output functions:
+#    error
+#    warning
+#    progress
+#    debug
+
+loglevels = {"NONE":0, "ERROR":1, "WARN":2, "BASIC":3, "PROGRESS":4, "INFO":5, "DEBUG":6}
+
+loglevel = loglevels["PROGRESS"]
+
+def set_loglevel (l):
+    global loglevel
+    newlevel = loglevels.get (l, -1)
+    if newlevel > 0:
+        debug_output (_ ("Setting loglevel to %s") % l)
+        loglevel = newlevel
+    else:
+        error (_ ("Unknown or invalid loglevel '%s'") % l)
+
+
+def handle_loglevel_option (option, opt_str, value, parser, *args):
+    if value:
+        set_loglevel (value);
+    elif args:
+        set_loglevel (args[0]);
+
+def is_loglevel (l):
+    global loglevel
+    return loglevel >= loglevels[l];
+
+def is_verbose ():
+    return is_loglevel ("DEBUG")
+
 def stderr_write (s):
     encoded_write (sys.stderr, s)
 
-def warning (s):
-    stderr_write (program_name + ": " + _ ("warning: %s") % s + '\n')
+def print_logmessage (level, s, fullmessage = True):
+    if (is_loglevel (level)):
+        if fullmessage:
+            stderr_write (program_name + ": " + s + '\n')
+        else:
+            stderr_write (s)
 
 def error (s):
-    stderr_write (program_name + ": " + _ ("error: %s") % s + '\n')
+    print_logmessage ("ERROR", _ ("error: %s") % s);
 
-progress = stderr_write
+def warning (s):
+    print_logmessage ("WARN", _ ("warning: %s") % s);
+
+def basic_progress (s):
+    print_logmessage ("BASIC", s);
+
+def progress (s, fullmessage = False):
+    print_logmessage ("PROGRESS", s, fullmessage);
+
+def debug_output (s, fullmessage = False):
+    print_logmessage ("DEBUG", s, fullmessage);
+
 
 
 def require_python_version ():
     if sys.hexversion < 0x02040000:
-        stderr_write ("Python 2.4 or newer is required to run this program.\n\
+        error ("Python 2.4 or newer is required to run this program.\n\
 Please upgrade Python from http://python.org/download/, and if you use MacOS X,\n\
 please read 'Setup for MacOS X' in Application Usage.")
         os.system ("open http://python.org/download/")

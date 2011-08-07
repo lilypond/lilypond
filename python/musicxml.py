@@ -9,9 +9,6 @@ import lilylib as ly
 
 _ = ly._
 
-def error (str):
-    ly.stderr_write ((_ ("error: %s") % str) + "\n")
-
 
 def escape_ly_output_string (input_string):
     return_string = input_string
@@ -76,23 +73,23 @@ class Xml_node:
         return ''.join ([c.get_text () for c in self._children])
 
     def message (self, msg):
-        ly.stderr_write (msg+'\n')
+        ly.warning (msg)
 
         p = self
         while p:
-            sys.stderr.write ('  In: <%s %s>\n' % (p._name, ' '.join (['%s=%s' % item for item in p._attribute_dict.items ()])))
+            ly.progress ('  In: <%s %s>\n' % (p._name, ' '.join (['%s=%s' % item for item in p._attribute_dict.items ()])))
             p = p.get_parent ()
         
     def dump (self, indent = ''):
-        sys.stderr.write ('%s<%s%s>' % (indent, self._name, ''.join ([' %s=%s' % item for item in self._attribute_dict.items ()])))
+        ly.debug_output ('%s<%s%s>' % (indent, self._name, ''.join ([' %s=%s' % item for item in self._attribute_dict.items ()])))
         non_text_children = [c for c in self._children if not isinstance (c, Hash_text)]
         if non_text_children:
-            sys.stderr.write ('\n')
+            ly.debug_output ('\n')
         for c in self._children:
             c.dump (indent + "    ")
         if non_text_children:
-            sys.stderr.write (indent)
-        sys.stderr.write ('</%s>\n' % self._name)
+            ly.debug_output (indent)
+        ly.debug_output ('</%s>\n' % self._name)
 
         
     def get_typed_children (self, klass):
@@ -128,7 +125,7 @@ class Xml_node:
     def get_unique_typed_child (self, klass):
         cn = self.get_typed_children(klass)
         if len (cn) <> 1:
-            sys.stderr.write (self.__dict__ + '\n')
+            ly.error (self.__dict__)
             raise 'Child is not unique for', (klass, 'found', cn)
 
         return cn[0]
@@ -246,7 +243,7 @@ class Hash_comment (Music_xml_node):
     pass
 class Hash_text (Music_xml_node):
     def dump (self, indent = ''):
-        sys.stderr.write ('%s' % string.strip (self._data))
+        ly.debug_output ('%s' % string.strip (self._data))
 
 class Pitch (Music_xml_node):
     def get_step (self):
@@ -355,7 +352,7 @@ class Attributes (Measure_element):
 
             if mxl.get_maybe_exist_named_child ('senza-misura'):
                 # TODO: Handle pieces without a time signature!
-                error (_ ("Senza-misura time signatures are not yet supported!"))
+                ly.warning (_ ("Senza-misura time signatures are not yet supported!"))
                 return (4, 4)
             else:
                 signature = []
@@ -517,7 +514,7 @@ class Part_list (Music_xml_node):
         if instrument_name:
             return instrument_name
         else:
-            ly.stderr_write (_ ("Unable to find instrument for ID=%s\n") % id)
+            ly.warning (_ ("Unable to find instrument for ID=%s\n") % id)
             return "Grand Piano"
 
 class Part_group (Music_xml_node):

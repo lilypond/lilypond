@@ -15,6 +15,7 @@ import copy
 progress = ly.progress
 warning = ly.warning
 error = ly.error
+debug = ly.debug_output
 
 
 
@@ -717,8 +718,7 @@ printing diff against existing file." % filename)
     def filter_pipe (self, input, cmd):
         """Pass input through cmd, and return the result."""
 
-        if self.global_options.verbose:
-            progress (_ ("Running through filter `%s'\n") % cmd)
+        debug (_ ("Running through filter `%s'") % cmd, True)
 
         # TODO: Use Popen once we resolve the problem with msvcrt in Windows:
         (stdin, stdout, stderr) = os.popen3 (cmd)
@@ -744,8 +744,7 @@ printing diff against existing file." % filename)
             ly.stderr_write (stderr.read ())
             exit (status)
 
-        if self.global_options.verbose:
-            progress ('\n')
+        debug ('\n')
 
         return output
 

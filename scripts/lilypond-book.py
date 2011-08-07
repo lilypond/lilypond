@@ -91,7 +91,7 @@ authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
 
 ################################################################
 def exit (i):
-    if global_options.verbose:
+    if ly.is_verbose ():
         raise Exception (_ ('Exiting (%d)...') % i)
     else:
         sys.exit (i)
@@ -117,6 +117,7 @@ def warranty ():
         '\n  '.join (authors),
         _ ("Distributed under terms of the GNU General Public License."),
         _ ("It comes with NO WARRANTY.")))
+
 
 def get_option_parser ():
     p = ly.get_option_parser (usage=_ ("%s [OPTION]... FILE") % 'lilypond-book',
@@ -158,6 +159,12 @@ def get_option_parser ():
                   type="float",
                   default=3.0)
 
+    p.add_option ('--lily-loglevel',
+                  help=_ ("Print lilypond log messages according to LOGLEVEL"),
+                  metavar=_ ("LOGLEVEL"),
+                  action='store', dest='lily_loglevel',
+                  default=os.environ.get ("LILYPOND_LOGLEVEL", None))
+
     p.add_option ('--lily-output-dir',
                   help=_ ("write lily-XXX files to DIR, link into --output dir"),
                   metavar=_ ("DIR"),
@@ -168,6 +175,14 @@ def get_option_parser ():
                   metavar=_ ("PACKAGE"),
                   action='append', dest='custom_packages',
                   default=[])
+
+    p.add_option ("-l", "--loglevel",
+                  help=_ ("Print log messages according to LOGLEVEL "
+                          "(NONE, ERROR, WARNING, PROGRESS (default), DEBUG)"),
+                  metavar=_ ("LOGLEVEL"),
+                  action='callback',
+                  callback=ly.handle_loglevel_option,
+                  type='string')
 
     p.add_option ("-o", '--output', help=_ ("write output to DIR"),
                   metavar=_ ("DIR"),
@@ -207,9 +222,9 @@ def get_option_parser ():
                   default=False)
 
     p.add_option ('-V', '--verbose', help=_ ("be verbose"),
-                  action="store_true",
-                  default=False,
-                  dest="verbose")
+                  action="callback",
+                  callback=ly.handle_loglevel_option,
+                  callback_args=("DEBUG",))
 
     p.version = "@TOPLEVEL_VERSION@"
     p.add_option("--version",
@@ -366,7 +381,7 @@ def system_in_directory (cmd, directory, logfile):
     current = os.getcwd()
     os.chdir (directory)
     ly.system(cmd,
-              be_verbose=global_options.verbose,
+              be_verbose=ly.is_verbose (),
               redirect_output=global_options.redirect_output,
               log_file=logfile,
               progress_p=1)
@@ -626,6 +641,8 @@ def do_options ():
 
 def main ():
     # FIXME: 85 lines of `main' macramee??
+    if (os.environ.has_key ("LILYPOND_BOOK_LOGLEVEL")):
+        ly.set_loglevel (os.environ["LILYPOND_BOOK_LOGLEVEL"])
     files = do_options ()
 
     basename = os.path.splitext (files[0])[0]
@@ -659,8 +676,16 @@ def main ():
 
     global_options.formatter.process_options (global_options)
 
-    if global_options.verbose:
-        global_options.process_cmd += " --verbose "
+    if global_options.lily_loglevel:
+        ly.debug_output (_ ("Setting LilyPond's loglevel to %s") % global_options.lily_loglevel, True)
+        global_options.process_cmd += " --loglevel=%s" % global_options.lily_loglevel
+    elif ly.is_verbose ():
+        if os.environ.get ("LILYPOND_LOGLEVEL", None):
+            ly.debug_output (_ ("Setting LilyPond's loglevel to %s (from environment variable LILYPOND_LOGLEVEL)") % os.environ.get ("LILYPOND_LOGLEVEL", None), True)
+            global_options.process_cmd += " --loglevel=%s" % os.environ.get ("LILYPOND_LOGLEVEL", None)
+        else:
+            ly.debug_output (_ ("Setting LilyPond's output to --verbose, implied by lilypond-book's setting"), True)
+            global_options.process_cmd += " --verbose"
 
     if global_options.padding_mm:
         global_options.process_cmd += " -deps-box-padding=%f " % global_options.padding_mm

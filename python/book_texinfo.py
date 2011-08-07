@@ -206,8 +206,7 @@ def get_texinfo_width_indent (source, global_options):
 
     # execute the command and pipe stdout to the parameter_string:
     cmd = 'LC_ALL=C %s -c -o %s %s' % (global_options.texinfo_program, outfile, tmpfile);
-    if (global_options.verbose):
-        progress ("Executing: %s\n" % cmd);
+    ly.debug_output ("Executing: %s\n" % cmd);
 
     proc = subprocess.Popen (cmd,
         universal_newlines=True, shell=True,
@@ -245,8 +244,7 @@ def get_texinfo_width_indent (source, global_options):
         exampleindent = "0.4\\in"
 
     retval = {LINE_WIDTH: textwidth, EXAMPLEINDENT: exampleindent}
-    if (global_options.verbose):
-        progress ("Auto-detected values are: %s\n" % retval);
+    ly.debug_output ("Auto-detected values are: %s\n" % retval);
     return retval;
 
 
