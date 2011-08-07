@@ -4,21 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.2"
+\version "2.15.7"
 
 \header {
-%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
-  texidocit = "
-Ecco un tipico formato per canzoni: un rigo con linea melodica e testo,
-e sotto l'accompagnamento per pianoforte.
-
-"
-  doctitleit = "Modello per pianoforte con melodia e testo"
-
   lsrtags = "vocal-music, keyboards, template"
-
-
-
 
 %% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
@@ -33,6 +22,14 @@ melodía y la letra, y el acompañamiento de piano por debajo.
   texidocja = "
 これは一般的な歌曲のフォーマットです: 旋律と歌詞を持つ譜表と、その下にピアノ伴奏譜があります。
 "
+
+%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+  texidocit = "
+Ecco un tipico formato per canzoni: un rigo con linea melodica e testo,
+e sotto l'accompagnamento per pianoforte.
+
+"
+  doctitleit = "Modello per pianoforte con melodia e testo"
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "

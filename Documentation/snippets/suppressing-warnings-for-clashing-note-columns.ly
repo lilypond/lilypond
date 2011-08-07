@@ -15,7 +15,10 @@ the same position, and both voices have no shift or the same shift
 specified, the error message @samp{warning: ignoring too many clashing
 note columns} will appear when compiling the LilyPond file.  This
 message can be suppressed by setting the @code{'ignore-collision}
-property of the @code{NoteColumn} object to @code{#t}.
+property of the @code{NoteColumn} object to @code{#t}. Please note that
+this does not just suppress warnings  but stops LilyPond trying to
+resolve collisions at all and so may have  unintended results unless
+used with care.
 
 "
   doctitle = "Suppressing warnings for clashing note columns"

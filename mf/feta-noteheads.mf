@@ -165,8 +165,12 @@ def draw_brevis (expr linecount, line_thickness_multiplier) =
 
 	% Breves of smaller design sizes should have their lines
 	% farther apart (the overlap should be smaller).
-	fudge = hround (blot_diameter *
-		min (max (-0.15, (0.8 - (20 / (design_size + 4)) + .1 linecount)), 0.3));
+	fudge = hround (blot_diameter
+			* min (max (-0.15,
+				    (0.8
+				     - (20 / (design_size + 4))
+				     + .1 linecount)),
+			       0.3));
 
 	draw_outside_ellipse (1.80, 0, 0.707, 0);
 	undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#);
