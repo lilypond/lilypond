@@ -523,3 +523,22 @@ get_line_configuration (vector<Grob *> const &columns,
   return ret;
 }
 
+
+#include "ly-smobs.icc"
+
+IMPLEMENT_SIMPLE_SMOBS (Simple_spacer);
+IMPLEMENT_DEFAULT_EQUAL_P (Simple_spacer);
+
+SCM
+Simple_spacer::mark_smob (SCM /* x */)
+{
+  return SCM_EOL;
+}
+
+int
+Simple_spacer::print_smob (SCM /* x */, SCM p, scm_print_state *)
+{
+  scm_puts ("#<Simple spacer>", p);
+  return 1;
+}
+
