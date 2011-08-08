@@ -24,7 +24,7 @@
       \fill-line { \footer "" }
       \fill-line {
         \line { "This music is part of the Mutopia project,"
-          \url { \typewriter { "http://mutopiaproject.org/" } }
+          \typewriter { "http://mutopiaproject.org/" }
         }
       }
       \fill-line {
