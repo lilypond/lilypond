@@ -19,19 +19,27 @@
   source = "Edition Breitkopf 2563"
   footer = "Mutopia-2002/05/21-25"
 
-  tagline = \markup { \smaller
-      \column {
-	   \fill-line { \footer "" }
-	   \fill-line { { "This music is part of the Mutopia project,"
-			  \typewriter { "http://mutopiaproject.org/" }
-			 } }
-	   \fill-line { #(ly:export (string-append "It has been typeset and placed in the public "
-			  "domain by "  maintainer  "."))  }
-	   \fill-line { #(ly:export (string-append "Unrestricted modification and redistribution"
-			  " is permitted and encouraged---copy this music"
-			  " and share it!")) }
-	   }
-       }
+  tagline = \markup {
+    \smaller \column {
+      \fill-line { \footer "" }
+      \fill-line {
+        \line { "This music is part of the Mutopia project,"
+          \url { \typewriter { "http://mutopiaproject.org/" } }
+        }
+      }
+      \fill-line {
+        #(ly:export (string-append  "It has been typeset and placed in the public "
+                                    "domain by " maintainer "."))
+      }
+      \fill-line {
+        \line {
+          "Unrestricted modification and redistribution"
+          "is permitted and encouraged - copy this music"
+          "and share it!"
+        }
+      }
+    }
+  }
 
   texidoc="
 This is the Mozart 3 for horn.  It's from an Edition Breitkopf EB
@@ -48,58 +56,61 @@ virtuoso that taught in Geneva.
 \include "mozart-hrn3-rondo.ily"
 
 \paper {
-    obsolete-between-system-space = 20 \mm
-    system-system-spacing #'basic-distance = #(/ obsolete-between-system-space staff-space)
-    score-system-spacing #'basic-distance = #(/ obsolete-between-system-space staff-space)
+  system-system-spacing #'basic-distance = 10
+  score-system-spacing #'basic-distance = 20
 }
 
-
 \book {
-    \score {
-	{ \transpose c' bes \allegro }
-	\layout { }
-	\header { piece = "Allegro" opus = "" }
+  \score {
+    { \transpose c' bes \allegro }
+    \layout { }
+    \header {
+      piece = "Allegro"
+      opus = ""
+    }
 
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 90 4)
+    \midi {
+      \context {
+        \Score
+        tempoWholesPerMinute = #(ly:make-moment 90 4)
+      }
+    }
+  }
+
+  \score {
+    { \transpose c' bes \romanze }
+    \header {
+      piece = "Romanze"
+      opus = ""
+    }
+
+    \midi {
+      \context {
+        \Score
+        tempoWholesPerMinute = #(ly:make-moment 70 4)
       }
     }
 
+    \layout { }
+  }
 
+  \score
+  {
+    { \transpose c' bes \rondo }
+    \header {
+      piece = "Rondo"
+      opus = ""
     }
 
-    \score {
-	{ \transpose c' bes \romanze }
-	\header { piece = "Romanze" opus = "" }
-
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 70 4)
+    \midi {
+      \context {
+        \Score
+        tempoWholesPerMinute = #(ly:make-moment 100 4)
       }
     }
 
-
-	\layout {}
-    }
-
-    \score
-    {
-	{ \transpose c' bes \rondo }
-	\header { piece = "Rondo" opus = "" }
-
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 100 4)
-      }
-    }
-
-
-	\layout { }
-    }
+    \layout { }
+  }
 }
 
 %% Local Variables:
