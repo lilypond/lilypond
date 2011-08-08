@@ -40,7 +40,8 @@ struct Line_shape
   Line_shape piggyback (Line_shape mount, Real padding) const;
 };
 
-struct Line_details {
+struct Line_details
+{
   Grob *last_column_;
   Real force_;
   Line_shape shape_;
@@ -48,14 +49,14 @@ struct Line_details {
                                    page, where each stencil represents
                                    a different footnote. */
   Interval refpoint_extent_; /* The refpoints of the first and last
-				spaceable staff in this line.  min-distance
-				should be measured from the bottom
-				refpoint_extent of one line to the
-				top refpoint_extent of the next. */
+                                spaceable staff in this line.  min-distance
+                                should be measured from the bottom
+                                refpoint_extent of one line to the
+                                top refpoint_extent of the next. */
   Real tallness_; /* Y-extent, adjusted according to begin/rest-of-line*/
 
   Real padding_;  /* compulsory space after this system (if we're not
-		     last on a page) */
+                     last on a page) */
   Real title_padding_;
   Real min_distance_;
   Real title_min_distance_;
@@ -187,7 +188,7 @@ private:
   vector<vsize> start_;         /* the columns at which we might be asked to start breaking */
   vector<vsize> starting_breakpoints_; /* the corresponding index in breaks_ */
 
-  vector<Grob*> all_;
+  vector<Grob *> all_;
   vector<vsize> breaks_;
 
   void initialize ();

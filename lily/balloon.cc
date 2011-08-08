@@ -51,7 +51,7 @@ Balloon_interface::print (SCM smob)
   Grob *p = me->get_parent (X_AXIS);
 
   Offset off (me->relative_coordinate (p, X_AXIS),
-	      me->relative_coordinate (p, Y_AXIS));
+              me->relative_coordinate (p, Y_AXIS));
 
   return internal_balloon_print (me, p, off);
 }
@@ -65,16 +65,15 @@ Balloon_interface::print_spanner (SCM smob)
 
   if (orig)
     {
-      Direction spanner_placement =  robust_scm2dir (me->get_property ("spanner-placement"), LEFT);
+      Direction spanner_placement = robust_scm2dir (me->get_property ("spanner-placement"), LEFT);
 
       Spanner *wanted = (spanner_placement != RIGHT)
-                         ? orig->broken_intos_[0]
-                         : orig->broken_intos_.back ();
+                        ? orig->broken_intos_[0]
+                        : orig->broken_intos_.back ();
 
       if (me != wanted)
         return SCM_EOL;
     }
-
 
   Spanner *p = dynamic_cast<Spanner *> (me->get_parent (Y_AXIS));
 
@@ -82,7 +81,7 @@ Balloon_interface::print_spanner (SCM smob)
     return SCM_EOL;
 
   Offset off (me->relative_coordinate (me->get_bound (LEFT), X_AXIS),
-	      me->relative_coordinate (p, Y_AXIS));
+              me->relative_coordinate (p, Y_AXIS));
   return internal_balloon_print (me, p, off);
 }
 
@@ -90,7 +89,7 @@ SCM
 Balloon_interface::internal_balloon_print (Grob *me, Grob *p, Offset off)
 {
   Box b (p->extent (p, X_AXIS),
-	 p->extent (p, Y_AXIS));
+         p->extent (p, Y_AXIS));
   Real padding = robust_scm2double (me->get_property ("padding"), .1);
   b.widen (padding, padding);
 
@@ -104,7 +103,7 @@ Balloon_interface::internal_balloon_print (Grob *me, Grob *p, Offset off)
   SCM stencil = Text_interface::interpret_markup (me->layout ()->self_scm (),
                                                   chain, bt);
   Stencil *text_stil = unsmob_stencil (stencil);
-  
+
   Offset z1;
 
   for (int i = X_AXIS; i < NO_AXES; i++)
@@ -127,14 +126,14 @@ Balloon_interface::internal_balloon_print (Grob *me, Grob *p, Offset off)
 }
 
 ADD_INTERFACE (Balloon_interface,
-	       "A collection of routines to put text balloons around an"
-	       " object.",
+               "A collection of routines to put text balloons around an"
+               " object.",
 
-	       /* properties */
-	       "annotation-balloon "
-	       "annotation-line "
-	       "padding "
-	       "spanner-placement "
-	       "text "
-	       );
+               /* properties */
+               "annotation-balloon "
+               "annotation-line "
+               "padding "
+               "spanner-placement "
+               "text "
+              );
 

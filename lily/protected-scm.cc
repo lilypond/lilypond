@@ -32,7 +32,7 @@ Protected_scm::Protected_scm (SCM s)
 Protected_scm::Protected_scm (Protected_scm const &s)
 {
   object_ = (SCM_NIMP (s.object_) ? scm_gc_protect_object (s.object_)
-	     : s.object_);
+             : s.object_);
 }
 
 Protected_scm::~Protected_scm ()

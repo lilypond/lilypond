@@ -44,10 +44,10 @@ public:
   void add_score (SCM);
   void add_bookpart (SCM);
   Paper_book *process (Output_def *def_paper,
-		       Output_def *def_layout);
+                       Output_def *def_layout);
   Paper_book *process (Output_def *default_paper,
-		       Output_def *default_layout,
-		       Paper_book *parent_part);
+                       Output_def *default_layout,
+                       Paper_book *parent_part);
   void set_keys ();
 
 protected:
@@ -55,11 +55,11 @@ protected:
   void add_scores_to_bookpart ();
   bool error_found ();
   void process_score (SCM score,
-		      Paper_book *output_paper_book,
-		      Output_def *layout);
+                      Paper_book *output_paper_book,
+                      Output_def *layout);
   void process_bookparts (Paper_book *output_paper_book,
-			  Output_def *paper,
-			  Output_def *layout);
+                          Output_def *paper,
+                          Output_def *layout);
 };
 
 DECLARE_UNSMOB (Book, book);

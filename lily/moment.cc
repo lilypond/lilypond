@@ -71,10 +71,10 @@ SCM
 Moment::as_scheme () const
 {
   return scm_list_5 (ly_symbol2scm ("ly:make-moment"),
-		     scm_from_int64 (main_part_.num ()),
-		     scm_from_int64 (main_part_.den ()),
-		     scm_from_int64 (grace_part_.num ()),
-		     scm_from_int64 (grace_part_.den ()));
+                     scm_from_int64 (main_part_.num ()),
+                     scm_from_int64 (main_part_.den ()),
+                     scm_from_int64 (grace_part_.num ()),
+                     scm_from_int64 (grace_part_.den ()));
 }
 
 SCM

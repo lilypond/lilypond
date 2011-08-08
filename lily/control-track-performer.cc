@@ -21,7 +21,6 @@ protected:
   virtual void acknowledge_audio_element (Audio_element_info info);
 };
 
-
 Control_track_performer::Control_track_performer ()
 {
   control_track_ = 0;
@@ -30,11 +29,11 @@ Control_track_performer::Control_track_performer ()
 void
 Control_track_performer::acknowledge_audio_element (Audio_element_info info)
 {
-  if (Audio_tempo *tempo = dynamic_cast<Audio_tempo*> (info.elem_))
+  if (Audio_tempo *tempo = dynamic_cast<Audio_tempo *> (info.elem_))
     {
       control_track_->add_audio_item (tempo);
     }
-  if (Audio_time_signature * sig = dynamic_cast<Audio_time_signature *> (info.elem_))
+  if (Audio_time_signature *sig = dynamic_cast<Audio_time_signature *> (info.elem_))
     {
       control_track_->add_audio_item (sig);
     }
@@ -47,7 +46,7 @@ Control_track_performer::add_text (Audio_text::Type text_type, string str)
   control_track_->add_audio_item (text);
 
   announce_element (Audio_element_info (text, 0));
-  
+
 }
 
 void
@@ -57,22 +56,22 @@ Control_track_performer::initialize ()
   announce_element (Audio_element_info (control_track_, 0));
 
   string id_string = String_convert::pad_to (gnu_lilypond_version_string (), 30);
-  
+
   add_text (Audio_text::TRACK_NAME, "control track");
   add_text (Audio_text::TEXT, "creator: ");
   add_text (Audio_text::TEXT, id_string);
 }
 
 ADD_TRANSLATOR (Control_track_performer,
-		/* doc */
-		"",
+                /* doc */
+                "",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

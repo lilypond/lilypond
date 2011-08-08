@@ -19,7 +19,7 @@
 
 #include "rest-collision.hh"
 
-#include <cmath>		// ceil.
+#include <cmath>                // ceil.
 using namespace std;
 
 #include "directional-element-interface.hh"
@@ -49,13 +49,13 @@ Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
    */
   if (scm_is_number (offset))
     rest_grob->translate_axis (scm_to_double (offset), Y_AXIS);
-  
+
   if (Note_column::has_interface (parent) && Note_column::has_rests (parent))
     {
       Grob *collision = unsmob_grob (parent->get_object ("rest-collision"));
 
       if (collision)
-	(void) collision->get_property ("positioning-done");
+        (void) collision->get_property ("positioning-done");
     }
 
   return scm_from_double (0.0);
@@ -72,7 +72,7 @@ Rest_collision::add_column (Grob *me, Grob *p)
   if (rest)
     {
       chain_offset_callback (rest,
-			     Rest_collision::force_shift_callback_rest_proc, Y_AXIS);
+                             Rest_collision::force_shift_callback_rest_proc, Y_AXIS);
     }
 }
 
@@ -98,16 +98,16 @@ Rest_collision::calc_positioning_done (SCM smob)
 
   extract_grob_set (me, "elements", elts);
 
-  vector<Grob*> rests;
-  vector<Grob*> notes;
+  vector<Grob *> rests;
+  vector<Grob *> notes;
 
   for (vsize i = 0; i < elts.size (); i++)
     {
       Grob *e = elts[i];
       if (unsmob_grob (e->get_object ("rest")))
-	rests.push_back (e);
+        rests.push_back (e);
       else
-	notes.push_back (e);
+        notes.push_back (e);
     }
 
   /*
@@ -131,160 +131,160 @@ Rest_collision::calc_positioning_done (SCM smob)
     {
 
       /*
-	This is incomplete: in case of an uneven number of rests, the
-	center one should be centered on the staff.
+        This is incomplete: in case of an uneven number of rests, the
+        center one should be centered on the staff.
       */
-      Drul_array<vector<Grob*> > ordered_rests;
+      Drul_array<vector<Grob *> > ordered_rests;
       for (vsize i = 0; i < rests.size (); i++)
-	{
-	  Grob *r = Note_column::get_rest (rests[i]);
+        {
+          Grob *r = Note_column::get_rest (rests[i]);
 
-	  Direction d = get_grob_direction (r);
-	  if (d)
-	    ordered_rests[d].push_back (r);
-	  else
-	    rests[d]->warning (_ ("cannot resolve rest collision: rest direction not set"));
-	}
+          Direction d = get_grob_direction (r);
+          if (d)
+            ordered_rests[d].push_back (r);
+          else
+            rests[d]->warning (_ ("cannot resolve rest collision: rest direction not set"));
+        }
 
       Direction d = LEFT;
       do
-	vector_sort (ordered_rests[d], rest_shift_less);
+        vector_sort (ordered_rests[d], rest_shift_less);
       while (flip (&d) != LEFT)
-	;
+        ;
 
       do
-	{
-	  if (ordered_rests[d].size () < 1)
-	    {
-	      if (ordered_rests[-d].size () > 1)
-		ordered_rests[-d][0]->warning (_ ("too many colliding rests"));
+        {
+          if (ordered_rests[d].size () < 1)
+            {
+              if (ordered_rests[-d].size () > 1)
+                ordered_rests[-d][0]->warning (_ ("too many colliding rests"));
 
-	      return SCM_BOOL_T;
-	    }
-	}
+              return SCM_BOOL_T;
+            }
+        }
       while (flip (&d) != LEFT);
 
       Grob *common = common_refpoint_of_array (ordered_rests[DOWN], me, Y_AXIS);
       common = common_refpoint_of_array (ordered_rests[UP], common, Y_AXIS);
 
       Real diff
-	= (ordered_rests[DOWN].back ()->extent (common, Y_AXIS)[UP]
-	   - ordered_rests[UP].back ()->extent (common, Y_AXIS)[DOWN]) / staff_space;
+        = (ordered_rests[DOWN].back ()->extent (common, Y_AXIS)[UP]
+           - ordered_rests[UP].back ()->extent (common, Y_AXIS)[DOWN]) / staff_space;
 
       if (diff > 0)
-	{
-	  int amount_down = (int) ceil (diff / 2);
-	  diff -= amount_down;
-	  Rest::translate (ordered_rests[DOWN].back (),
-			   -2 * amount_down);
-	  if (diff > 0)
-	    Rest::translate (ordered_rests[UP].back (),
-			     2 * int (ceil (diff)));
-	}
+        {
+          int amount_down = (int) ceil (diff / 2);
+          diff -= amount_down;
+          Rest::translate (ordered_rests[DOWN].back (),
+                           -2 * amount_down);
+          if (diff > 0)
+            Rest::translate (ordered_rests[UP].back (),
+                             2 * int (ceil (diff)));
+        }
 
       do
-	{
-	  for (vsize i = ordered_rests[d].size () - 1; i-- > 0;)
-	    {
-	      Real last_y = ordered_rests[d][i + 1]->extent (common, Y_AXIS)[d];
-	      Real y = ordered_rests[d][i]->extent (common, Y_AXIS)[-d];
+        {
+          for (vsize i = ordered_rests[d].size () - 1; i-- > 0;)
+            {
+              Real last_y = ordered_rests[d][i + 1]->extent (common, Y_AXIS)[d];
+              Real y = ordered_rests[d][i]->extent (common, Y_AXIS)[-d];
 
-	      Real diff = d * ((last_y - y) / staff_space);
-	      if (diff > 0)
-		Rest::translate (ordered_rests[d][i], d * (int) ceil (diff) * 2);
-	    }
-	}
+              Real diff = d * ((last_y - y) / staff_space);
+              if (diff > 0)
+                Rest::translate (ordered_rests[d][i], d * (int) ceil (diff) * 2);
+            }
+        }
       while (flip (&d) != LEFT);
     }
   else
     {
       /*
-	Rests and notes.
+        Rests and notes.
       */
       // Count how many rests we move
       Drul_array<int> rcount (0, 0);
 
       for (vsize i = 0; i < rests.size (); i++)
-	{
-	  Grob *rcol = rests[i];
-	  Direction dir = Note_column::dir (rcol);
-	  if (!dir)
-	    continue;
+        {
+          Grob *rcol = rests[i];
+          Direction dir = Note_column::dir (rcol);
+          if (!dir)
+            continue;
 
-	  Grob *rest = Note_column::get_rest (rcol);
-	  // Do not compute a translation for pre-positioned rests,
-	  //  nor count them for the "too many colliding rests" warning
-	  if (scm_is_number (rest->get_property ("staff-position")))
-	    continue;
+          Grob *rest = Note_column::get_rest (rcol);
+          // Do not compute a translation for pre-positioned rests,
+          //  nor count them for the "too many colliding rests" warning
+          if (scm_is_number (rest->get_property ("staff-position")))
+            continue;
 
-	  Grob *common = common_refpoint_of_array (notes, rcol, Y_AXIS);
-	  Interval restdim = rest->extent (common, Y_AXIS);
-	  if (restdim.is_empty ())
-	    continue;
+          Grob *common = common_refpoint_of_array (notes, rcol, Y_AXIS);
+          Interval restdim = rest->extent (common, Y_AXIS);
+          if (restdim.is_empty ())
+            continue;
 
-	  Real staff_space = Staff_symbol_referencer::staff_space (rcol);
-	  Real minimum_dist = robust_scm2double (me->get_property ("minimum-distance"), 1.0) * staff_space;
+          Real staff_space = Staff_symbol_referencer::staff_space (rcol);
+          Real minimum_dist = robust_scm2double (me->get_property ("minimum-distance"), 1.0) * staff_space;
 
-	  Interval notedim;
-	  for (vsize i = 0; i < notes.size (); i++)
-	    {
-	      if (Note_column::dir (notes[i]) == -dir
-		  // If the note has already happened (but it has a long
-		  // duration, so there is a collision), don't look at the stem.
-		  // If we do, the rest gets shifted down a lot and it looks bad.
-		  || dynamic_cast<Item*> (notes[i])->get_column () != dynamic_cast<Item*> (rest)->get_column ())
-		{
-		  /* try not to look at the stem, as looking at a beamed
-		     note may trigger beam positioning prematurely.
+          Interval notedim;
+          for (vsize i = 0; i < notes.size (); i++)
+            {
+              if (Note_column::dir (notes[i]) == -dir
+                  // If the note has already happened (but it has a long
+                  // duration, so there is a collision), don't look at the stem.
+                  // If we do, the rest gets shifted down a lot and it looks bad.
+                  || dynamic_cast<Item *> (notes[i])->get_column () != dynamic_cast<Item *> (rest)->get_column ())
+                {
+                  /* try not to look at the stem, as looking at a beamed
+                     note may trigger beam positioning prematurely.
 
-		     This happens with dotted rests, which need Y
-		     positioning to compute X-positioning.
-		  */
-		  Grob *head = Note_column::first_head (notes[i]);
-		  if (head)
-		    notedim.unite (head->extent (common, Y_AXIS));
-		  else
-		    programming_error ("Note_column without first_head()");
-		}
-	      else
-		notedim.unite (notes[i]->extent (common, Y_AXIS));
-	    }
+                     This happens with dotted rests, which need Y
+                     positioning to compute X-positioning.
+                  */
+                  Grob *head = Note_column::first_head (notes[i]);
+                  if (head)
+                    notedim.unite (head->extent (common, Y_AXIS));
+                  else
+                    programming_error ("Note_column without first_head()");
+                }
+              else
+                notedim.unite (notes[i]->extent (common, Y_AXIS));
+            }
 
-	  Real y = dir * max (0.0,
-			      -dir * restdim[-dir] + dir * notedim[dir]  + minimum_dist);
+          Real y = dir * max (0.0,
+                              -dir * restdim[-dir] + dir * notedim[dir] + minimum_dist);
 
-	  int stafflines = Staff_symbol_referencer::line_count (me);
-	  if (!stafflines)
-	    {
-	      programming_error ("no staff line count");
-	      stafflines = 5;
-	    }
+          int stafflines = Staff_symbol_referencer::line_count (me);
+          if (!stafflines)
+            {
+              programming_error ("no staff line count");
+              stafflines = 5;
+            }
 
-	  // move discretely by half spaces.
-	  int discrete_y = dir * int (ceil (y / (0.5 * dir * staff_space)));
+          // move discretely by half spaces.
+          int discrete_y = dir * int (ceil (y / (0.5 * dir * staff_space)));
 
-	  // move by whole spaces inside the staff.
-	  if (fabs (Staff_symbol_referencer::get_position (rest)
-		    + discrete_y) < stafflines + 1)
-	    {
-	      discrete_y = dir * int (ceil (dir * discrete_y / 2.0) * 2.0);
-	    }
+          // move by whole spaces inside the staff.
+          if (fabs (Staff_symbol_referencer::get_position (rest)
+                    + discrete_y) < stafflines + 1)
+            {
+              discrete_y = dir * int (ceil (dir * discrete_y / 2.0) * 2.0);
+            }
 
-	  Rest::translate (rest, discrete_y);
-	  if (rcount[dir]++)
-	    rest->warning (_ ("too many colliding rests"));
-	}
+          Rest::translate (rest, discrete_y);
+          if (rcount[dir]++)
+            rest->warning (_ ("too many colliding rests"));
+        }
     }
   return SCM_BOOL_T;
 }
 
 ADD_INTERFACE (Rest_collision,
-	       "Move ordinary rests (not multi-measure nor pitched rests)"
-	       " to avoid conflicts.",
+               "Move ordinary rests (not multi-measure nor pitched rests)"
+               " to avoid conflicts.",
 
-	       /* properties */
-	       "minimum-distance "
-	       "positioning-done "
-	       "elements "
-	       );
+               /* properties */
+               "minimum-distance "
+               "positioning-done "
+               "elements "
+              );
 

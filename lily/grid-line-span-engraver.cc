@@ -24,7 +24,7 @@
 class Grid_line_span_engraver : public Engraver
 {
   Item *spanline_;
-  vector<Item*> lines_;
+  vector<Item *> lines_;
 
 public:
   TRANSLATOR_DECLARATIONS (Grid_line_span_engraver);
@@ -48,10 +48,10 @@ Grid_line_span_engraver::acknowledge_grid_point (Grob_info i)
       lines_.push_back (it);
 
       if (lines_.size () >= 2 && !spanline_)
-	{
-	  spanline_ = make_item ("GridLine", SCM_EOL);
-	  spanline_->set_parent (lines_[0], X_AXIS);
-	}
+        {
+          spanline_ = make_item ("GridLine", SCM_EOL);
+          spanline_->set_parent (lines_[0], X_AXIS);
+        }
     }
 }
 
@@ -61,7 +61,7 @@ Grid_line_span_engraver::stop_translation_timestep ()
   if (spanline_)
     {
       for (vsize i = 0; i < lines_.size (); i++)
-	Grid_line_interface::add_grid_point (spanline_, lines_[i]);
+        Grid_line_interface::add_grid_point (spanline_, lines_[i]);
 
       spanline_ = 0;
     }
@@ -71,16 +71,16 @@ Grid_line_span_engraver::stop_translation_timestep ()
 #include "translator.icc"
 ADD_ACKNOWLEDGER (Grid_line_span_engraver, grid_point);
 ADD_TRANSLATOR (Grid_line_span_engraver,
-		/* doc */
-		"This engraver makes cross-staff lines: It catches all normal"
-		" lines and draws a single span line across them.",
+                /* doc */
+                "This engraver makes cross-staff lines: It catches all normal"
+                " lines and draws a single span line across them.",
 
-		/* create */
-		"GridLine ",
+                /* create */
+                "GridLine ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

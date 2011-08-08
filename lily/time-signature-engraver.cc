@@ -66,24 +66,24 @@ Time_signature_engraver::process_music ()
     {
       int den = scm_to_int (scm_cdr (fr));
       if (den != (1 << intlog2 (den)))
-	{
-	  /*
-	    Todo: should make typecheck?
+        {
+          /*
+            Todo: should make typecheck?
 
-	    OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
-	  */
-	  warning (_f ("strange time signature found: %d/%d",
-		       int (scm_to_int (scm_car (fr))),
-		       den));
-	}
+            OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+          */
+          warning (_f ("strange time signature found: %d/%d",
+                       int (scm_to_int (scm_car (fr))),
+                       den));
+        }
 
       time_signature_ = make_item ("TimeSignature", SCM_EOL);
       time_signature_->set_property ("fraction", fr);
 
       if (last_time_fraction_ == SCM_BOOL_F)
-	time_signature_->set_property ("break-visibility",
-				       get_property ("implicitTimeSignatureVisibility"));
-      
+        time_signature_->set_property ("break-visibility",
+                                       get_property ("implicitTimeSignatureVisibility"));
+
       last_time_fraction_ = fr;
     }
 }
@@ -97,17 +97,17 @@ Time_signature_engraver::stop_translation_timestep ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Time_signature_engraver,
-		/* doc */
-		"Create a @ref{TimeSignature} whenever"
-		" @code{timeSignatureFraction} changes.",
+                /* doc */
+                "Create a @ref{TimeSignature} whenever"
+                " @code{timeSignatureFraction} changes.",
 
-		/* create */
-		"TimeSignature ",
-		
-		/* read */
-		"implicitTimeSignatureVisibility "
-		"timeSignatureFraction ",
+                /* create */
+                "TimeSignature ",
 
-		/* write */
-		""
-		);
+                /* read */
+                "implicitTimeSignatureVisibility "
+                "timeSignatureFraction ",
+
+                /* write */
+                ""
+               );

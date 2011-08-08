@@ -328,6 +328,7 @@ If we give names, Bison complains.
 %type <scm> composite_music
 %type <scm> grouped_music_list
 %type <scm> closed_music
+%type <scm> open_music
 %type <scm> music
 %type <scm> prefix_composite_music
 %type <scm> repeated_music
@@ -391,9 +392,9 @@ If we give names, Bison complains.
 %type <scm> full_markup_list
 %type <scm> function_scm_argument
 %type <scm> function_arglist
-%type <scm> function_arglist_music_last
 %type <scm> function_arglist_nonmusic_last
-%type <scm> function_arglist_nonmusic
+%type <scm> closed_function_arglist
+%type <scm> open_function_arglist
 %type <scm> identifier_init
 %type <scm> lilypond_header
 %type <scm> lilypond_header_body
@@ -413,9 +414,10 @@ If we give names, Bison complains.
 %type <scm> mode_changing_head
 %type <scm> mode_changing_head_with_context
 %type <scm> multiplied_duration
-%type <scm> music_function_identifier_musicless_prefix
 %type <scm> music_function_event
+%type <scm> music_function_event_arglist
 %type <scm> music_function_chord_body
+%type <scm> music_function_chord_body_arglist
 %type <scm> new_chord
 %type <scm> new_lyrics
 %type <scm> number_expression
@@ -926,25 +928,14 @@ tempo_event:
 	;
 
 /*
-The representation of a  list is the
-
-  (LIST . LAST-CONS)
-
- to have efficient append.  */
+The representation of a  list is reversed to have efficient append.  */
 
 music_list:
 	/* empty */ {
-		$$ = scm_cons (SCM_EOL, SCM_EOL);
+		$$ = SCM_EOL;
 	}
 	| music_list music {
-		SCM s = $$;
- 		SCM c = scm_cons ($2, SCM_EOL);
-
-		if (scm_is_pair (scm_cdr (s)))
-			scm_set_cdr_x (scm_cdr (s), c); /* append */
-		else
-			scm_set_car_x (s, c); /* set first cons */
-		scm_set_cdr_x (s, c);  /* remember last cell */
+		$$ = scm_cons ($2, $1);
 	}
 	| music_list embedded_scm {
 
@@ -953,21 +944,15 @@ music_list:
 		Music *m = MY_MAKE_MUSIC("Music", @$);
 		// ugh. code dup
 		m->set_property ("error-found", SCM_BOOL_T);
-		SCM s = $$;
- 		SCM c = scm_cons (m->self_scm (), SCM_EOL);
+		$$ = scm_cons (m->self_scm (), $1);
 		m->unprotect (); /* UGH */
-
-		if (scm_is_pair (scm_cdr (s)))
-			scm_set_cdr_x (scm_cdr (s), c); /* append */
-		else
-			scm_set_car_x (s, c); /* set first cons */
-		scm_set_cdr_x (s, c);  /* remember last cell */
 	}
 	;
 
 music:
 	simple_music
 	| composite_music
+	| MUSIC_IDENTIFIER
 	;
 
 alternative_music:
@@ -975,7 +960,7 @@ alternative_music:
 		$$ = SCM_EOL;
 	}
 	| ALTERNATIVE '{' music_list '}' {
-		$$ = scm_car ($3);
+		$$ = scm_reverse_x ($3, SCM_EOL);
 	}
 	;
 
@@ -989,25 +974,24 @@ repeated_music:
 
 sequential_music:
 	SEQUENTIAL '{' music_list '}'		{
-		$$ = MAKE_SYNTAX ("sequential-music", @$, scm_car ($3));
+		$$ = MAKE_SYNTAX ("sequential-music", @$, scm_reverse_x ($3, SCM_EOL));
 	}
 	| '{' music_list '}'		{
-		$$ = MAKE_SYNTAX ("sequential-music", @$, scm_car ($2));
+		$$ = MAKE_SYNTAX ("sequential-music", @$, scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
 simultaneous_music:
 	SIMULTANEOUS '{' music_list '}'{
-		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_car ($3));
+		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_reverse_x ($3, SCM_EOL));
 	}
 	| DOUBLE_ANGLE_OPEN music_list DOUBLE_ANGLE_CLOSE	{
-		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_car ($2));
+		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
 simple_music:
 	event_chord
-	| MUSIC_IDENTIFIER
 	| music_property_def
 	| context_change
 	;
@@ -1063,6 +1047,12 @@ closed_music:
 	| grouped_music_list
 	;
 
+/* Music that potentially accepts additional events or durations */
+open_music:
+	simple_music
+	| prefix_composite_music
+	;
+ 
 grouped_music_list:
 	simultaneous_music		{ $$ = $1; }
 	| sequential_music		{ $$ = $1; }
@@ -1077,10 +1067,26 @@ function_scm_argument:
  MUSIC_FUNCTION EXPECT_MUSIC EXPECT_SCM EXPECT_SCM EXPECT_NO_MORE_ARGS
 and this rule returns the reversed list of arguments. */
 
-function_arglist_music_last:
-	EXPECT_MUSIC function_arglist music {
+
+function_arglist:
+	closed_function_arglist
+	| open_function_arglist
+	;
+
+open_function_arglist:
+	EXPECT_MUSIC function_arglist open_music {
 		$$ = scm_cons ($3, $2);
 	}
+	;
+
+/* a closed argument list is one that does not end in a music
+   expression that could still take a duration or event */
+
+closed_function_arglist:
+	function_arglist_nonmusic_last
+	| EXPECT_MUSIC function_arglist closed_music {
+		$$ = scm_cons ($3, $2);
+		}
 	;
 
 function_arglist_nonmusic_last:
@@ -1098,7 +1104,7 @@ function_arglist_nonmusic_last:
 	| EXPECT_PITCH function_arglist pitch {
 	  	$$ = scm_cons ($3, $2);
 	}
-	| EXPECT_DURATION function_arglist_nonmusic_last duration_length {
+	| EXPECT_DURATION closed_function_arglist duration_length {
 	   	$$ = scm_cons ($3, $2);
 	}
 	| EXPECT_SCM function_arglist function_scm_argument {
@@ -1106,34 +1112,9 @@ function_arglist_nonmusic_last:
 	}
 	;
 
-function_arglist_nonmusic: EXPECT_NO_MORE_ARGS {
-		$$ = SCM_EOL;
-	}
-	| EXPECT_MARKUP function_arglist_nonmusic full_markup {
-		$$ = scm_cons ($3, $2);
-	}
-	| EXPECT_MARKUP function_arglist_nonmusic simple_string {
-		$$ = scm_cons ($3, $2);
-	}
-	| EXPECT_PITCH function_arglist_nonmusic pitch {
-	  	$$ = scm_cons ($3, $2);
-	}
-	| EXPECT_DURATION function_arglist_nonmusic duration_length {
-	   	$$ = scm_cons ($3, $2);
-	}
-	| EXPECT_SCM function_arglist_nonmusic function_scm_argument {
-		$$ = scm_cons ($3, $2);
-	}
-	;
-
-function_arglist:
-	function_arglist_music_last
-	| function_arglist_nonmusic_last
-	;
-
 generic_prefix_music_scm:
 	MUSIC_FUNCTION function_arglist {
-		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($2, SCM_EOL)));
+		$$ = scm_cons2 ($1, make_input (@$), scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
@@ -1583,36 +1564,43 @@ chord_body_element:
 	}
 	;
 
-music_function_identifier_musicless_prefix: MUSIC_FUNCTION {
-		SCM sig = scm_object_property (yylval.scm, ly_symbol2scm ("music-function-signature"));
-		if (scm_is_pair (sig) && to_boolean (scm_memq (ly_music_p_proc, scm_cdr (scm_reverse (sig)))))
-		{
-			PARSER->parser_error (@$, "Music function applied to event may not have a Music argument, except as the last argument.");
-		}
+/* We can't accept a music argument, not even a closed one,
+ * immediately before chord_body_elements, otherwise a function \fun
+ * with a signature of two music arguments can't be sorted out
+ * properly in a construct like
+ * <\fun { c } \fun { c } c>
+ * The second call could be interpreted either as a chord constituent
+ * or a music expression.
+ */
+
+music_function_chord_body_arglist:
+	function_arglist_nonmusic_last
+	| EXPECT_MUSIC music_function_chord_body_arglist chord_body_element {
+		$$ = scm_cons ($3, $2);
 	}
 	;
 
 music_function_chord_body:
-	/* We could allow chord functions to have multiple music arguments,
-	   but it's more consistent with music_function_event if we
-	   prohibit it here too */
-	music_function_identifier_musicless_prefix EXPECT_MUSIC function_arglist_nonmusic chord_body_element {
-		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($3, scm_list_1 ($4))));
+	MUSIC_FUNCTION music_function_chord_body_arglist {
+		$$ = scm_cons2 ($1, make_input (@$), scm_reverse_x ($2, SCM_EOL));
 	}
-	| music_function_identifier_musicless_prefix function_arglist_nonmusic {
-		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($2, SCM_EOL)));
+	;
+
+/* We could accept a closed music argument before the post events
+ * indicated by a trailing argument list.  For symmetry with chord
+ * bodies and in order to avoid too tricky and complex behavior, we
+ * refrain from doing so.
+ */
+music_function_event_arglist:
+	function_arglist_nonmusic_last
+	| EXPECT_MUSIC music_function_event_arglist post_event {
+		$$ = scm_cons ($3, $2);
 	}
 	;
 
 music_function_event:
-	/* Post-events can only have the last argument as music, without this
-	   restriction we get a shift/reduce conflict from e.g.
-	   c8-\partcombine c8 -. */
-	music_function_identifier_musicless_prefix EXPECT_MUSIC function_arglist_nonmusic post_event {
-		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($3, scm_list_1 ($4))));
-	}
-	| music_function_identifier_musicless_prefix function_arglist_nonmusic {
-		$$ = scm_cons ($1, scm_cons (make_input (@$), scm_reverse_x ($2, SCM_EOL)));
+	MUSIC_FUNCTION music_function_event_arglist {
+		$$ = scm_cons2 ($1, make_input (@$), scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 

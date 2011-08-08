@@ -29,9 +29,9 @@ struct Horizontal_bracket
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   static Stencil make_bracket (Grob *, Real, Axis, Direction);
   static Stencil make_enclosing_bracket (Grob *me, Grob *refpoint,
-					 vector<Grob*> grobs,
-					 Axis a, Direction dir);
-  DECLARE_GROB_INTERFACE();
+                                         vector<Grob *> grobs,
+                                         Axis a, Direction dir);
+  DECLARE_GROB_INTERFACE ();
 };
 
 #endif /* HORIZONTAL_BRACKET_HH */

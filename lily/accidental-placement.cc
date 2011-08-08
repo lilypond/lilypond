@@ -76,20 +76,20 @@ Accidental_placement::add_accidental (Grob *me, Grob *a)
 */
 void
 Accidental_placement::split_accidentals (Grob *accs,
-					 vector<Grob *> *break_reminder,
-					 vector<Grob *> *real_acc)
+                                         vector<Grob *> *break_reminder,
+                                         vector<Grob *> *real_acc)
 {
   for (SCM acs = accs->get_object ("accidental-grobs"); scm_is_pair (acs);
        acs = scm_cdr (acs))
     for (SCM s = scm_cdar (acs); scm_is_pair (s); s = scm_cdr (s))
       {
-	Grob *a = unsmob_grob (scm_car (s));
+        Grob *a = unsmob_grob (scm_car (s));
 
-	if (unsmob_grob (a->get_object ("tie"))
-	    && !to_boolean (a->get_property ("forced")))
-	  break_reminder->push_back (a);
-	else
-	  real_acc->push_back (a);
+        if (unsmob_grob (a->get_object ("tie"))
+            && !to_boolean (a->get_property ("forced")))
+          break_reminder->push_back (a);
+        else
+          real_acc->push_back (a);
       }
 }
 
@@ -108,7 +108,7 @@ Accidental_placement::get_relevant_accidentals (vector<Grob *> const &elts, Grob
       ret.insert (ret.end (), ra.begin (), ra.end ());
 
       if (right)
-	ret.insert (ret.end (), br.begin (), br.end ());
+        ret.insert (ret.end (), br.begin (), br.end ());
     }
   return ret;
 }
@@ -128,7 +128,7 @@ Real ape_priority (Accidental_placement_entry const *a)
 }
 
 bool ape_less (Accidental_placement_entry *const &a,
-	       Accidental_placement_entry *const &b)
+               Accidental_placement_entry *const &b)
 {
   return ape_priority (a) < ape_priority (b);
 }
@@ -190,12 +190,12 @@ stagger_apes (vector<Accidental_placement_entry *> *apes)
     {
       Accidental_placement_entry *a = 0;
       if (parity)
-	{
-	  a = asc.back ();
-	  asc.pop_back ();
-	}
+        {
+          a = asc.back ();
+          asc.pop_back ();
+        }
       else
-	a = asc[i++];
+        a = asc[i++];
 
       apes->push_back (a);
       parity = !parity;
@@ -213,7 +213,7 @@ build_apes (SCM accs)
       Accidental_placement_entry *ape = new Accidental_placement_entry;
 
       for (SCM t = scm_cdar (s); scm_is_pair (t); t = scm_cdr (t))
-	ape->grobs_.push_back (unsmob_grob (scm_car (t)));
+        ape->grobs_.push_back (unsmob_grob (scm_car (t)));
 
       apes.push_back (ape);
     }
@@ -223,7 +223,7 @@ build_apes (SCM accs)
 
 static void
 set_ape_skylines (Accidental_placement_entry *ape,
-		  Grob **common, Real padding)
+                  Grob **common, Real padding)
 {
   vector<Grob *> accs (ape->grobs_);
   vector_sort (accs, &acc_less);
@@ -243,29 +243,29 @@ set_ape_skylines (Accidental_placement_entry *ape,
       Pitch *p = accidental_pitch (a);
 
       if (!p)
-	continue;
+        continue;
 
       if (i == accs.size () - 1 || p->get_octave () != last_octave)
-	{
-	  last_offset = 0;
-	  offset = a->extent (a, X_AXIS)[LEFT] - padding;
-	}
+        {
+          last_offset = 0;
+          offset = a->extent (a, X_AXIS)[LEFT] - padding;
+        }
       else if (p->get_alteration () == last_alteration)
-	a->translate_axis (last_offset, X_AXIS);
+        a->translate_axis (last_offset, X_AXIS);
       else /* Our alteration is different from the last one */
-	{
-	  Real this_offset = offset - a->extent (a, X_AXIS)[RIGHT];
-	  a->translate_axis (this_offset, X_AXIS);
+        {
+          Real this_offset = offset - a->extent (a, X_AXIS)[RIGHT];
+          a->translate_axis (this_offset, X_AXIS);
 
-	  last_offset = this_offset;
-	  offset -= a->extent (a, X_AXIS).length () + padding;
-	}
+          last_offset = this_offset;
+          offset -= a->extent (a, X_AXIS).length () + padding;
+        }
 
       vector<Box> boxes = Accidental_interface::accurate_boxes (a, common);
       ape->extents_.insert (ape->extents_.end (), boxes.begin (), boxes.end ());
 
       for (vsize j = boxes.size (); j--;)
-	ape->vertical_extent_.unite (boxes[j][Y_AXIS]);
+        ape->vertical_extent_.unite (boxes[j][Y_AXIS]);
 
       last_octave = p->get_octave ();
       last_alteration = p->get_alteration ();
@@ -284,16 +284,16 @@ extract_heads_and_stems (vector<Accidental_placement_entry *> const &apes)
     {
       Accidental_placement_entry *ape = apes[i];
       for (vsize j = ape->grobs_.size (); j--;)
-	{
-	  Grob *acc = ape->grobs_[j];
-	  Grob *head = acc->get_parent (Y_AXIS);
-	  Grob *col = head->get_parent (X_AXIS);
+        {
+          Grob *acc = ape->grobs_[j];
+          Grob *head = acc->get_parent (Y_AXIS);
+          Grob *col = head->get_parent (X_AXIS);
 
-	  if (Note_column::has_interface (col))
-	    note_cols.push_back (col);
-	  else
-	    ret.push_back (head);
-	}
+          if (Note_column::has_interface (col))
+            note_cols.push_back (col);
+          else
+            ret.push_back (head);
+        }
     }
 
   /*
@@ -304,10 +304,10 @@ extract_heads_and_stems (vector<Accidental_placement_entry *> const &apes)
     {
       Grob *c = note_cols[i]->get_parent (X_AXIS);
       if (Note_collision_interface::has_interface (c))
-	{
-	  extract_grob_set (c, "elements", columns);
-	  concat (note_cols, columns);
-	}
+        {
+          extract_grob_set (c, "elements", columns);
+          concat (note_cols, columns);
+        }
     }
 
   /* Now that we have all of the columns, grab all of the note-heads */
@@ -332,10 +332,10 @@ common_refpoint_of_accidentals (vector<Accidental_placement_entry *> const &apes
   for (vsize i = apes.size (); i--;)
     for (vsize j = apes[i]->grobs_.size (); j--;)
       {
-	if (!ret)
-	  ret = apes[i]->grobs_[j];
-	else
-	  ret = ret->common_refpoint (apes[i]->grobs_[j], a);
+        if (!ret)
+          ret = apes[i]->grobs_[j];
+        else
+          ret = ret->common_refpoint (apes[i]->grobs_[j], a);
       }
 
   return ret;
@@ -343,12 +343,12 @@ common_refpoint_of_accidentals (vector<Accidental_placement_entry *> const &apes
 
 static Skyline
 build_heads_skyline (vector<Grob *> const &heads_and_stems,
-		     Grob **common)
+                     Grob **common)
 {
   vector<Box> head_extents;
   for (vsize i = heads_and_stems.size (); i--;)
     head_extents.push_back (Box (heads_and_stems[i]->extent (common[X_AXIS], X_AXIS),
-				 heads_and_stems[i]->pure_height (common[Y_AXIS], 0, INT_MAX)));
+                                 heads_and_stems[i]->pure_height (common[Y_AXIS], 0, INT_MAX)));
 
   return Skyline (head_extents, 0, Y_AXIS, LEFT);
 }
@@ -359,8 +359,8 @@ build_heads_skyline (vector<Grob *> const &heads_and_stems,
 */
 static Interval
 position_apes (Grob *me,
-	       vector<Accidental_placement_entry *> const &apes,
-	       Skyline const &heads_skyline)
+               vector<Accidental_placement_entry *> const &apes,
+               Skyline const &heads_skyline)
 {
   Real padding = robust_scm2double (me->get_property ("padding"), 0.2);
   Skyline left_skyline = heads_skyline;
@@ -377,9 +377,9 @@ position_apes (Grob *me,
 
       Real offset = -ape->right_skyline_.distance (left_skyline);
       if (isinf (offset))
-	offset = last_offset;
+        offset = last_offset;
       else
-	offset -= padding;
+        offset -= padding;
 
       Skyline new_left_skyline = ape->left_skyline_;
       new_left_skyline.raise (offset);
@@ -388,10 +388,10 @@ position_apes (Grob *me,
 
       /* Shift all of the accidentals in this ape */
       for (vsize j = ape->grobs_.size (); j--;)
-	ape->grobs_[j]->translate_axis (offset, X_AXIS);
+        ape->grobs_[j]->translate_axis (offset, X_AXIS);
 
       for (vsize j = ape->extents_.size (); j--;)
-	width.unite (offset + ape->extents_[j][X_AXIS]);
+        width.unite (offset + ape->extents_[j][X_AXIS]);
 
       last_offset = offset;
     }
@@ -436,7 +436,6 @@ position_apes (Grob *me,
   *  |_|   |
   *    |   |
   *
-
 */
 
 MAKE_SCHEME_CALLBACK (Accidental_placement, calc_positioning_done, 1);
@@ -480,13 +479,13 @@ Accidental_placement::calc_positioning_done (SCM smob)
 }
 
 ADD_INTERFACE (Accidental_placement,
-	       "Resolve accidental collisions.",
+               "Resolve accidental collisions.",
 
-	       /* properties */
-	       "accidental-grobs "
-	       "direction "
-	       "padding "
-	       "positioning-done "
-	       "right-padding "
-	       "script-priority "
-	       );
+               /* properties */
+               "accidental-grobs "
+               "direction "
+               "padding "
+               "positioning-done "
+               "right-padding "
+               "script-priority "
+              );

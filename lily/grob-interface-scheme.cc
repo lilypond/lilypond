@@ -31,18 +31,18 @@ internal_add_interface (SCM a, SCM b, SCM c)
       all_ifaces = tab;
       scm_permanent_object (tab);
     }
-  
+
   SCM entry = scm_list_n (a, b, c, SCM_UNDEFINED);
 
   scm_hashq_set_x (all_ifaces, a, entry);
 }
 
 LY_DEFINE (ly_add_interface, "ly:add-interface",
-	   3, 0, 0, (SCM iface, SCM desc, SCM props),
-	   "Add a new grob interface.  @var{iface} is the"
-	   " interface name, @var{desc} is the interface"
-	   " description, and @var{props} is the list of"
-	   " user-settable properties for the interface.")
+           3, 0, 0, (SCM iface, SCM desc, SCM props),
+           "Add a new grob interface.  @var{iface} is the"
+           " interface name, @var{desc} is the interface"
+           " description, and @var{props} is the list of"
+           " user-settable properties for the interface.")
 {
   LY_ASSERT_TYPE (ly_is_symbol, iface, 1);
   LY_ASSERT_TYPE (scm_is_string, desc, 2);
@@ -54,8 +54,8 @@ LY_DEFINE (ly_add_interface, "ly:add-interface",
 }
 
 LY_DEFINE (ly_all_grob_interfaces, "ly:all-grob-interfaces",
-	   0, 0, 0, (),
-	   "Return the hash table with all grob interface descriptions.")
+           0, 0, 0, (),
+           "Return the hash table with all grob interface descriptions.")
 {
   return all_ifaces;
 }

@@ -60,8 +60,8 @@ void
 Score_engraver::finish (SCM)
 {
   recurse_over_translators (context (), &Translator::finalize,
-			    &Translator_group::finalize,
-			    UP);
+                            &Translator_group::finalize,
+                            UP);
 }
 
 #define MUSIC_FONT "emmentaler-20"
@@ -76,12 +76,12 @@ Score_engraver::initialize ()
   if (!fm)
     {
       error (_f ("cannot find `%s'", MUSIC_FONT ".otf")
-	     + "\n"
-	     + _ ("Music font has not been installed properly.")
-	     + "\n"
-	     + _f ("Search path `%s'", global_path.to_string ().c_str ())
-	     + "\n"
-	     + _ ("Aborting"));
+             + "\n"
+             + _ ("Music font has not been installed properly.")
+             + "\n"
+             + _f ("Search path `%s'", global_path.to_string ().c_str ())
+             + "\n"
+             + _ ("Aborting"));
     }
 
   pscore_ = new Paper_score (dynamic_cast<Output_def *> (context ()->get_output_def ()));
@@ -91,7 +91,7 @@ Score_engraver::initialize ()
   SCM props = updated_grob_properties (context (), ly_symbol2scm ("System"));
 
   pscore_->typeset_system (new System (props));
-  
+
   system_ = pscore_->root_system ();
   context ()->set_property ("rootSystem", system_->self_scm ());
 
@@ -102,7 +102,7 @@ void
 Score_engraver::connect_to_context (Context *c)
 {
   Engraver_group::connect_to_context (c);
-  
+
   Dispatcher *d = c->get_global_context ()->event_source ();
   d->add_listener (GET_LISTENER (one_time_step), ly_symbol2scm ("OneTimeStep"));
   d->add_listener (GET_LISTENER (prepare), ly_symbol2scm ("Prepare"));
@@ -111,16 +111,16 @@ Score_engraver::connect_to_context (Context *c)
 
 /*
   uncovered:
-  
-  check_removal always returns false for Score contexts, it has been that way 
-since I joined the project. There is a reason for this: The typeset score is 
-stored in the Score_engraver, which in turn is accessed through the 
-Global_context returned by ly:run-translator. So the score-translator must be 
+
+  check_removal always returns false for Score contexts, it has been that way
+since I joined the project. There is a reason for this: The typeset score is
+stored in the Score_engraver, which in turn is accessed through the
+Global_context returned by ly:run-translator. So the score-translator must be
 connected to the score-context after run-translator finishes.
 
-I plan to change this: we should junk run-translator, and instead keep track 
-of both context and translator in the SCM code, and access the typeset score 
-directly via the created global-translator. Then it would be possible to 
+I plan to change this: we should junk run-translator, and instead keep track
+of both context and translator in the SCM code, and access the typeset score
+directly via the created global-translator. Then it would be possible to
 disconnect score-translators at iteration time. -es
  */
 void
@@ -175,33 +175,33 @@ Score_engraver::typeset_all ()
       Grob *elem = elems_[i];
 
       if (!elem->get_parent (Y_AXIS))
-	Axis_group_interface::add_element (system_, elem);
+        Axis_group_interface::add_element (system_, elem);
     }
   elems_.clear ();
 }
 
 ADD_TRANSLATOR_GROUP (Score_engraver,
-		      /* doc */
-		      "The top-level engraver.  Takes care of generating"
-		      " columns and the complete system (i.e.,"
-		      " @code{System}).\n"
-		      "\n"
-		      "This engraver decides whether a column is breakable."
-		      "  The default is that a column is always breakable."
-		      "  However, every @code{Bar_engraver} that does not have"
-		      " a bar line at a certain point sets @code{forbidBreaks}"
-		      " to stop line breaks.  In practice, this means that you"
-		      " can make a break point by creating a bar line"
-		      " (assuming that there are no beams or notes that"
-		      " prevent a break point).",
+                      /* doc */
+                      "The top-level engraver.  Takes care of generating"
+                      " columns and the complete system (i.e.,"
+                      " @code{System}).\n"
+                      "\n"
+                      "This engraver decides whether a column is breakable."
+                      "  The default is that a column is always breakable."
+                      "  However, every @code{Bar_engraver} that does not have"
+                      " a bar line at a certain point sets @code{forbidBreaks}"
+                      " to stop line breaks.  In practice, this means that you"
+                      " can make a break point by creating a bar line"
+                      " (assuming that there are no beams or notes that"
+                      " prevent a break point).",
 
-		      /* create */
-		      "System ",
-		      
-		      /* read */
-		      "currentMusicalColumn "
-		      "currentCommandColumn ",
+                      /* create */
+                      "System ",
 
-		      /* write */
-		      ""
-		      );
+                      /* read */
+                      "currentMusicalColumn "
+                      "currentCommandColumn ",
+
+                      /* write */
+                      ""
+                     );

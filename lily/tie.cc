@@ -60,8 +60,8 @@ Tie::head (Grob *me, Direction d)
       Direction hd = to_dir (me->get_property ("head-direction"));
 
       return (hd == d)
-	? unsmob_grob (me->get_object ("note-head"))
-	: 0;
+             ? unsmob_grob (me->get_object ("note-head"))
+             : 0;
     }
 
   Item *it = dynamic_cast<Spanner *> (me)->get_bound (d);
@@ -97,7 +97,7 @@ Tie::get_position (Grob *me)
     {
       Grob *h = head (me, d);
       if (h)
-	return (int) rint (Staff_symbol_referencer::get_position (h));
+        return (int) rint (Staff_symbol_referencer::get_position (h));
     }
   while (flip (&d) != LEFT);
 
@@ -130,11 +130,11 @@ Tie::get_default_dir (Grob *me)
     {
       Grob *one_head = head (me, d);
       if (!one_head && dynamic_cast<Spanner *> (me))
-	one_head = Tie::head (dynamic_cast<Spanner *> (me)->broken_neighbor (d), d);
+        one_head = Tie::head (dynamic_cast<Spanner *> (me)->broken_neighbor (d), d);
 
       Grob *stem = one_head ? Rhythmic_head::get_stem (one_head) : 0;
       if (stem)
-	stem = Stem::is_invisible (stem) ? 0 : stem;
+        stem = Stem::is_invisible (stem) ? 0 : stem;
 
       stems[d] = stem;
     }
@@ -143,8 +143,8 @@ Tie::get_default_dir (Grob *me)
   if (stems[LEFT] && stems[RIGHT])
     {
       if (get_grob_direction (stems[LEFT]) == UP
-	  && get_grob_direction (stems[RIGHT]) == UP)
-	return DOWN;
+          && get_grob_direction (stems[RIGHT]) == UP)
+        return DOWN;
     }
   else if (stems[LEFT] || stems[RIGHT])
     {
@@ -167,7 +167,7 @@ Tie::calc_direction (SCM smob)
        || Semi_tie_column::has_interface (yparent))
       && unsmob_grob_array (yparent->get_object ("ties"))
       //      && unsmob_grob_array (yparent->get_object ("ties"))->size () > 1
-      )
+     )
     {
       /* trigger positioning. */
       (void) yparent->get_property ("positioning-done");
@@ -197,14 +197,14 @@ Tie::get_default_control_points (Grob *me_grob)
     = problem.generate_optimal_configuration ();
 
   return get_control_points (me, problem.common_x_refpoint (),
-			     conf[0], problem.details_);
+                             conf[0], problem.details_);
 }
 
 SCM
 Tie::get_control_points (Grob *me,
-			 Grob *common,
-			 Tie_configuration const &conf,
-			 Tie_details const &details)
+                         Grob *common,
+                         Tie_configuration const &conf,
+                         Tie_details const &details)
 {
   Bezier b = conf.get_transformed_bezier (details);
   b.translate (Offset (- me->relative_coordinate (common, X_AXIS), 0));
@@ -213,7 +213,7 @@ Tie::get_control_points (Grob *me,
   for (int i = 4; i--;)
     {
       if (!b.control_[i].is_sane ())
-	programming_error ("Insane offset");
+        programming_error ("Insane offset");
       controls = scm_cons (ly_offset2scm (b.control_[i]), controls);
     }
   return controls;
@@ -232,11 +232,11 @@ Tie::calc_control_points (SCM smob)
     {
       extract_grob_set (yparent, "ties", ties);
       if (me->original () && ties.size () == 1
-	  && !to_dir (me->get_property_data ("direction")))
-	{
-	  assert (ties[0] == me);
-	  set_grob_direction (me, Tie::get_default_dir (me));
-	}
+          && !to_dir (me->get_property_data ("direction")))
+        {
+          assert (ties[0] == me);
+          set_grob_direction (me, Tie::get_default_dir (me));
+        }
       /* trigger positioning. */
       (void) yparent->get_property ("positioning-done");
     }
@@ -275,9 +275,9 @@ Tie::print (SCM smob)
 
   SCM dash_definition = me->get_property ("dash-definition");
   a = Lookup::slur (b,
-		    get_grob_direction (me) * base_thick,
-		    line_thick,
-		    dash_definition);
+                    get_grob_direction (me) * base_thick,
+                    line_thick,
+                    dash_definition);
 
 #if DEBUG_TIE_SCORING
   SCM annotation = me->get_property ("annotation");
@@ -287,15 +287,15 @@ Tie::print (SCM smob)
       SCM properties = Font_interface::text_font_alist_chain (me);
 
       Stencil tm = *unsmob_stencil (Text_interface::interpret_markup
-				    (me->layout ()->self_scm (), properties,
-				     annotation));
+                                    (me->layout ()->self_scm (), properties,
+                                     annotation));
       tm.translate (Offset (b.control_[3][X_AXIS] + 0.5,
-			    b.control_[0][Y_AXIS] * 2));
+                            b.control_[0][Y_AXIS] * 2));
       tm = tm.in_color (1, 0, 0);
 
       /*
-	It would be nice if we could put this in a different layer,
-	but alas, this must be done with a Tie override.
+        It would be nice if we could put this in a different layer,
+        but alas, this must be done with a Tie override.
       */
       a.add_stencil (tm);
     }
@@ -305,18 +305,18 @@ Tie::print (SCM smob)
 }
 
 ADD_INTERFACE (Tie,
-	       "A horizontal curve connecting two noteheads.",
+               "A horizontal curve connecting two noteheads.",
 
-	       /* properties */
-	       "annotation "
-	       "avoid-slur " 	//  UGH.
-	       "control-points "
-	       "dash-definition "
-	       "details "
-	       "direction "
-	       "head-direction "
-	       "line-thickness "
-	       "neutral-direction "
-	       "staff-position "
-	       "thickness "
-	       );
+               /* properties */
+               "annotation "
+               "avoid-slur "    //  UGH.
+               "control-points "
+               "dash-definition "
+               "details "
+               "direction "
+               "head-direction "
+               "line-thickness "
+               "neutral-direction "
+               "staff-position "
+               "thickness "
+              );

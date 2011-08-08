@@ -88,7 +88,7 @@ completize_hyphen (Spanner *sp)
     {
       extract_item_set (sp, "heads", heads);
       if (heads.size ())
-	sp->set_bound (RIGHT, heads.back ());
+        sp->set_bound (RIGHT, heads.back ());
     }
 }
 
@@ -100,10 +100,10 @@ Hyphen_engraver::finalize ()
       completize_hyphen (hyphen_);
 
       if (!hyphen_->get_bound (RIGHT))
-	{
-	  hyphen_->warning (_ ("removing unterminated hyphen"));
-	  hyphen_->suicide ();
-	}
+        {
+          hyphen_->warning (_ ("removing unterminated hyphen"));
+          hyphen_->suicide ();
+        }
 
       hyphen_ = 0;
     }
@@ -113,11 +113,11 @@ Hyphen_engraver::finalize ()
       completize_hyphen (finished_hyphen_);
 
       if (!finished_hyphen_->get_bound (RIGHT))
-	{
-	  if (finished_ev_)
-	    finished_hyphen_->warning (_ ("unterminated hyphen; removing"));
-	  finished_hyphen_->suicide ();
-	}
+        {
+          if (finished_ev_)
+            finished_hyphen_->warning (_ ("unterminated hyphen; removing"));
+          finished_hyphen_->suicide ();
+        }
       finished_hyphen_ = 0;
     }
 }
@@ -158,16 +158,16 @@ Hyphen_engraver::stop_translation_timestep ()
 ADD_ACKNOWLEDGER (Hyphen_engraver, lyric_syllable);
 
 ADD_TRANSLATOR (Hyphen_engraver,
-		/* doc */
-		"Create lyric hyphens and distance constraints between words.",
+                /* doc */
+                "Create lyric hyphens and distance constraints between words.",
 
-		/* create */
-		"LyricHyphen "
-		"LyricSpace ",
+                /* create */
+                "LyricHyphen "
+                "LyricSpace ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

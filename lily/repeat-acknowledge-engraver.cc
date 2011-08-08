@@ -85,11 +85,11 @@ Repeat_acknowledge_engraver::process_music ()
     {
       SCM command = scm_car (cs);
       if (command == ly_symbol2scm ("start-repeat"))
-	start = true;
+        start = true;
       else if (command == ly_symbol2scm ("end-repeat"))
-	end = true;
+        end = true;
       else if (scm_is_pair (command) && scm_car (command) == ly_symbol2scm ("volta"))
-	volta_found = true;
+        volta_found = true;
       cs = scm_cdr (cs);
     }
 
@@ -113,24 +113,24 @@ Repeat_acknowledge_engraver::process_music ()
   if (!scm_is_string (wb) || ly_is_equal (db, wb))
     {
       if (s != "" || (volta_found && !scm_is_string (wb)))
-	context ()->set_property ("whichBar", ly_string2scm (s));
+        context ()->set_property ("whichBar", ly_string2scm (s));
     }
 }
 
 ADD_TRANSLATOR (Repeat_acknowledge_engraver,
-		/* doc */
-		"Acknowledge repeated music, and convert the contents of"
-		" @code{repeatCommands} into an appropriate setting for"
-		" @code{whichBar}.",
+                /* doc */
+                "Acknowledge repeated music, and convert the contents of"
+                " @code{repeatCommands} into an appropriate setting for"
+                " @code{whichBar}.",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"doubleRepeatType "
-		"repeatCommands "
-		"whichBar ",
+                /* read */
+                "doubleRepeatType "
+                "repeatCommands "
+                "whichBar ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

@@ -48,7 +48,7 @@ Engraver::announce_end_grob (Grob_info inf)
 }
 
 Grob_info
-Engraver::make_grob_info(Grob *e, SCM cause)
+Engraver::make_grob_info (Grob *e, SCM cause)
 {
   /* TODO: Remove Music code when it's no longer needed */
   if (Music *m = unsmob_music (cause))
@@ -72,7 +72,6 @@ Engraver::announce_grob (Grob *e, SCM cause)
   announce_grob (make_grob_info (e, cause));
 }
 
-
 /*
   CAUSE is the object (typically a grob or stream-event object) that
   was the reason for ending E.  */
@@ -82,7 +81,6 @@ Engraver::announce_end_grob (Grob *e, SCM cause)
   announce_end_grob (make_grob_info (e, cause));
 }
 
-
 Engraver::Engraver ()
 {
 }
@@ -90,12 +88,12 @@ Engraver::Engraver ()
 #ifndef NDEBUG
 static SCM creation_callback = SCM_EOL;
 LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
-	   1, 0, 0, (SCM cb),
-	   "Specify a procedure that will be called every time a new grob"
-	   " is created.  The callback will receive as arguments the grob"
-	   " that was created, the name of the C++ source file that caused"
-	   " the grob to be created, and the corresponding line number in"
-	   " the C++ source file.")
+           1, 0, 0, (SCM cb),
+           "Specify a procedure that will be called every time a new grob"
+           " is created.  The callback will receive as arguments the grob"
+           " that was created, the name of the C++ source file that caused"
+           " the grob to be created, and the corresponding line number in"
+           " the C++ source file.")
 {
   LY_ASSERT_TYPE (ly_is_procedure, cb, 1);
 
@@ -107,11 +105,11 @@ LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
 
 Grob *
 Engraver::internal_make_grob (SCM symbol,
-			      SCM cause,
-			      char const * /* name */,
-			      char const *file,
-			      int line,
-			      char const *fun)
+                              SCM cause,
+                              char const * /* name */,
+                              char const *file,
+                              int line,
+                              char const *fun)
 {
 #ifdef NDEBUG
   (void)file;
@@ -139,8 +137,8 @@ Engraver::internal_make_grob (SCM symbol,
 #ifndef NDEBUG
   if (ly_is_procedure (creation_callback))
     scm_apply_0 (creation_callback,
-		 scm_list_n (grob->self_scm (), scm_from_locale_string (file),
-			     scm_from_int (line), scm_from_locale_string (fun), SCM_UNDEFINED));
+                 scm_list_n (grob->self_scm (), scm_from_locale_string (file),
+                             scm_from_int (line), scm_from_locale_string (fun), SCM_UNDEFINED));
 #endif
 
   return grob;
@@ -148,8 +146,8 @@ Engraver::internal_make_grob (SCM symbol,
 
 Item *
 Engraver::internal_make_item (SCM x, SCM cause,
-			      char const *name,
-			      char const *file, int line, char const *fun)
+                              char const *name,
+                              char const *file, int line, char const *fun)
 {
   Item *it = dynamic_cast<Item *> (internal_make_grob (x, cause, name, file, line, fun));
   assert (it);
@@ -158,24 +156,24 @@ Engraver::internal_make_item (SCM x, SCM cause,
 
 Paper_column *
 Engraver::internal_make_column (SCM x, char const *name,
-				char const *file, int line, char const *fun)
+                                char const *file, int line, char const *fun)
 {
   return dynamic_cast<Paper_column *> (internal_make_grob (x, SCM_EOL, name, file, line, fun));
 }
 
 Spanner *
 Engraver::internal_make_spanner (SCM x, SCM cause, char const *name,
-				 char const *file, int line, char const *fun)
+                                 char const *file, int line, char const *fun)
 {
   Spanner *sp = dynamic_cast<Spanner *> (internal_make_grob (x, cause, name, file, line, fun));
   assert (sp);
   return sp;
 }
 
-Engraver*
+Engraver *
 unsmob_engraver (SCM eng)
 {
-  return dynamic_cast<Engraver*> (unsmob_translator (eng));
+  return dynamic_cast<Engraver *> (unsmob_translator (eng));
 }
 
 bool
@@ -187,17 +185,16 @@ ly_is_grob_cause (SCM obj)
 #include "translator.icc"
 
 ADD_TRANSLATOR (Engraver,
-		/* doc */
-		"Base class for engravers.  Does nothing, so it is not used.",
+                /* doc */
+                "Base class for engravers.  Does nothing, so it is not used.",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
-
+                /* write */
+                ""
+               );
 

@@ -19,7 +19,6 @@
 
 #include "lyric-hyphen.hh"
 
-
 #include "lookup.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
@@ -37,11 +36,11 @@ Lyric_hyphen::print (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
   Drul_array<Item *> bounds (me->get_bound (LEFT),
-			     me->get_bound (RIGHT));
+                             me->get_bound (RIGHT));
 
   if (bounds[LEFT]->break_status_dir ()
       && (Paper_column::when_mom (bounds[LEFT])
-	  == Paper_column::when_mom (bounds[RIGHT]->get_column ())))
+          == Paper_column::when_mom (bounds[RIGHT]->get_column ())))
     return SCM_EOL;
 
   Grob *common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
@@ -54,8 +53,8 @@ Lyric_hyphen::print (SCM smob)
       Interval iv = bounds[d]->extent (common, X_AXIS);
 
       span_points[d] = iv.is_empty ()
-	? bounds[d]->relative_coordinate (common, X_AXIS)
-	: iv[-d];
+                       ? bounds[d]->relative_coordinate (common, X_AXIS)
+                       : iv[-d];
     }
   while (flip (&d) != LEFT);
 
@@ -63,7 +62,7 @@ Lyric_hyphen::print (SCM smob)
   Real th = robust_scm2double (me->get_property ("thickness"), 1) * lt;
   Real font_size_step = robust_scm2double (me->get_property ("font-size"), 0.0);
   Real h = robust_scm2double (me->get_property ("height"), 0.5)
-    * pow (2.0, font_size_step / 6.0);
+           * pow (2.0, font_size_step / 6.0);
 
   // interval?
 
@@ -129,7 +128,7 @@ Lyric_hyphen::set_spacing_rods (SCM smob)
     {
       r.item_drul_[d] = sp->get_bound (d);
       if (r.item_drul_[d])
-	r.distance_ += -d * r.item_drul_[d]->extent (r.item_drul_[d], X_AXIS)[-d];
+        r.distance_ += -d * r.item_drul_[d]->extent (r.item_drul_[d], X_AXIS)[-d];
     }
   while (flip (&d) != LEFT);
 
@@ -141,16 +140,16 @@ Lyric_hyphen::set_spacing_rods (SCM smob)
 }
 
 ADD_INTERFACE (Lyric_hyphen,
-	       "A centered hyphen is simply a line between lyrics used to"
-	       " divide syllables.",
+               "A centered hyphen is simply a line between lyrics used to"
+               " divide syllables.",
 
-	       /* properties */
-	       "dash-period "
-	       "height "
-	       "length "
-	       "minimum-distance "
-	       "minimum-length "
-	       "padding "
-	       "thickness "
-	       );
+               /* properties */
+               "dash-period "
+               "height "
+               "length "
+               "minimum-distance "
+               "minimum-length "
+               "padding "
+               "thickness "
+              );
 

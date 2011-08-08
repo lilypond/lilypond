@@ -26,7 +26,7 @@
 class Collision_engraver : public Engraver
 {
   Item *col_;
-  vector<Grob*> note_columns_;
+  vector<Grob *> note_columns_;
 
 protected:
   DECLARE_ACKNOWLEDGER (note_column);
@@ -55,11 +55,11 @@ Collision_engraver::acknowledge_note_column (Grob_info i)
     {
       /*should check Y axis? */
       if (Note_column::has_rests (i.grob ()) || i.grob ()->get_parent (X_AXIS))
-	return;
+        return;
 
       if (to_boolean (i.grob ()->get_property ("ignore-collision")))
-	return;
-      
+        return;
+
       note_columns_.push_back (i.grob ());
     }
 }
@@ -81,16 +81,16 @@ Collision_engraver::Collision_engraver ()
 ADD_ACKNOWLEDGER (Collision_engraver, note_column);
 
 ADD_TRANSLATOR (Collision_engraver,
-		/* doc */
-		"Collect @code{NoteColumns}, and as soon as there are two or"
-		" more, put them in a @code{NoteCollision} object.",
+                /* doc */
+                "Collect @code{NoteColumns}, and as soon as there are two or"
+                " more, put them in a @code{NoteCollision} object.",
 
-		/* create */
-		"NoteCollision ",
+                /* create */
+                "NoteCollision ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

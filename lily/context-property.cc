@@ -32,22 +32,21 @@
 */
 void
 general_pushpop_property (Context *context,
-			  SCM context_property,
-			  SCM grob_property_path,
-			  SCM new_value)
+                          SCM context_property,
+                          SCM grob_property_path,
+                          SCM new_value)
 {
   if (!scm_is_symbol (context_property)
       || !scm_is_symbol (scm_car (grob_property_path)))
     {
       warning (_ ("need symbol arguments for \\override and \\revert"));
       if (do_internal_type_checking_global)
-	assert (false);
+        assert (false);
     }
 
   sloppy_general_pushpop_property (context, context_property,
-				   grob_property_path, new_value);
+                                   grob_property_path, new_value);
 }
-
 
 /*
   Grob descriptions (ie. alists with layout properties) are
@@ -58,18 +57,17 @@ general_pushpop_property (Context *context,
   Push or pop (depending on value of VAL) a single entry from a
   translator property list by name of PROP.  GROB_PROPERTY_PATH
   indicates nested alists, eg. '(beamed-stem-lengths details)
-
 */
 void
 execute_override_property (Context *context,
-			   SCM context_property,
-			   SCM grob_property_path,
-			   SCM new_value)
+                           SCM context_property,
+                           SCM grob_property_path,
+                           SCM new_value)
 {
   SCM current_context_val = SCM_EOL;
 
   Context *where = context->where_defined (context_property,
-					   &current_context_val);
+                                           &current_context_val);
 
   /*
     Don't mess with MIDI.
@@ -103,9 +101,9 @@ execute_override_property (Context *context,
   if (scm_is_pair (scm_cdr (grob_property_path)))
     {
       new_value = nested_property_alist (ly_assoc_get (symbol, target_alist,
-						       SCM_EOL),
-					 scm_cdr (grob_property_path),
-					 new_value);
+                                                       SCM_EOL),
+                                         scm_cdr (grob_property_path),
+                                         new_value);
     }
 
   /* it's tempting to replace the head of the list if it's the same
@@ -118,7 +116,7 @@ execute_override_property (Context *context,
   if (!ly_is_procedure (new_value)
       && !is_simple_closure (new_value))
     ok = type_check_assignment (symbol, new_value,
-				ly_symbol2scm ("backend-type?"));
+                                ly_symbol2scm ("backend-type?"));
 
   /*
     tack onto alist.  We can use set_car, since
@@ -136,17 +134,17 @@ execute_override_property (Context *context,
  */
 void
 sloppy_general_pushpop_property (Context *context,
-				 SCM context_property,
-				 SCM grob_property_path,
-				 SCM new_value)
+                                 SCM context_property,
+                                 SCM grob_property_path,
+                                 SCM new_value)
 {
   if (new_value == SCM_UNDEFINED)
     execute_revert_property (context, context_property,
-			     grob_property_path);
+                             grob_property_path);
   else
     execute_override_property (context, context_property,
-			       grob_property_path,
-			       new_value);
+                               grob_property_path,
+                               new_value);
 }
 
 /*
@@ -154,8 +152,8 @@ sloppy_general_pushpop_property (Context *context,
 */
 void
 execute_revert_property (Context *context,
-			 SCM context_property,
-			 SCM grob_property_path)
+                         SCM context_property,
+                         SCM grob_property_path)
 {
   SCM current_context_val = SCM_EOL;
   if (context->where_defined (context_property, &current_context_val)
@@ -165,38 +163,38 @@ execute_revert_property (Context *context,
       SCM daddy = scm_cdr (current_context_val);
 
       if (!scm_is_pair (grob_property_path)
-	  || !scm_is_symbol (scm_car (grob_property_path)))
-	{
-	  programming_error ("Grob property path should be list of symbols.");
-	  return;
-	}
+          || !scm_is_symbol (scm_car (grob_property_path)))
+        {
+          programming_error ("Grob property path should be list of symbols.");
+          return;
+        }
 
       SCM symbol = scm_car (grob_property_path);
       if (scm_is_pair (scm_cdr (grob_property_path)))
-	{
-	  SCM current_sub_alist = ly_assoc_get (symbol, current_alist, SCM_EOL);
-	  SCM new_val
-	    = nested_property_revert_alist (current_sub_alist,
-					    scm_cdr (grob_property_path));
+        {
+          SCM current_sub_alist = ly_assoc_get (symbol, current_alist, SCM_EOL);
+          SCM new_val
+            = nested_property_revert_alist (current_sub_alist,
+                                            scm_cdr (grob_property_path));
 
-	  if (scm_is_pair (current_alist)
-	      && scm_caar (current_alist) == symbol
-	      && current_alist != daddy)
-	    current_alist = scm_cdr (current_alist);
+          if (scm_is_pair (current_alist)
+              && scm_caar (current_alist) == symbol
+              && current_alist != daddy)
+            current_alist = scm_cdr (current_alist);
 
-	  current_alist = scm_acons (symbol, new_val, current_alist);
-	  scm_set_car_x (current_context_val, current_alist);
-	}
+          current_alist = scm_acons (symbol, new_val, current_alist);
+          scm_set_car_x (current_context_val, current_alist);
+        }
       else
-	{
-	  SCM new_alist = evict_from_alist (symbol, current_alist, daddy);
+        {
+          SCM new_alist = evict_from_alist (symbol, current_alist, daddy);
 
-	  if (new_alist == daddy)
-	    context->unset_property (context_property);
-	  else
-	    context->set_property (context_property,
-				   scm_cons (new_alist, daddy));
-	}
+          if (new_alist == daddy)
+            context->unset_property (context_property);
+          else
+            context->set_property (context_property,
+                                   scm_cons (new_alist, daddy));
+        }
     }
 }
 /*
@@ -205,13 +203,13 @@ execute_revert_property (Context *context,
 */
 void
 execute_pushpop_property (Context *context,
-			  SCM context_property,
-			  SCM grob_property,
-			  SCM new_value)
+                          SCM context_property,
+                          SCM grob_property,
+                          SCM new_value)
 {
   general_pushpop_property (context, context_property,
-			    scm_list_1 (grob_property),
-			    new_value);
+                            scm_list_1 (grob_property),
+                            new_value);
 }
 
 /*
@@ -228,21 +226,21 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
       entry = scm_cdr (entry);
 
       if (type == ly_symbol2scm ("push"))
-	{
-	  SCM context_prop = scm_car (entry);
-	  SCM val = scm_cadr (entry);
-	  SCM grob_prop_path = scm_cddr (entry);
-	  sloppy_general_pushpop_property (tg, context_prop, grob_prop_path, val);
-	}
+        {
+          SCM context_prop = scm_car (entry);
+          SCM val = scm_cadr (entry);
+          SCM grob_prop_path = scm_cddr (entry);
+          sloppy_general_pushpop_property (tg, context_prop, grob_prop_path, val);
+        }
       else if (type == ly_symbol2scm ("pop"))
-	{
-	  SCM context_prop = scm_car (entry);
-	  SCM val = SCM_UNDEFINED;
-	  SCM grob_prop_path = scm_cdr (entry);
-	  sloppy_general_pushpop_property (tg, context_prop, grob_prop_path, val);
-	}
+        {
+          SCM context_prop = scm_car (entry);
+          SCM val = SCM_UNDEFINED;
+          SCM grob_prop_path = scm_cdr (entry);
+          sloppy_general_pushpop_property (tg, context_prop, grob_prop_path, val);
+        }
       else if (type == ly_symbol2scm ("assign"))
-	tg->set_property (scm_car (entry), scm_cadr (entry));
+        tg->set_property (scm_car (entry), scm_cadr (entry));
     }
 }
 
@@ -262,8 +260,8 @@ updated_grob_properties (Context *tg, SCM sym)
 
   SCM daddy_props
     = (tg->get_parent_context ())
-    ? updated_grob_properties (tg->get_parent_context (), sym)
-    : SCM_EOL;
+      ? updated_grob_properties (tg->get_parent_context (), sym)
+      : SCM_EOL;
 
   if (!scm_is_pair (props))
     {
@@ -280,11 +278,11 @@ updated_grob_properties (Context *tg, SCM sym)
       SCM *tail = &copy;
       SCM p = scm_car (props);
       while (p != based_on)
-	{
-	  *tail = scm_cons (scm_car (p), daddy_props);
-	  tail = SCM_CDRLOC (*tail);
-	  p = scm_cdr (p);
-	}
+        {
+          *tail = scm_cons (scm_car (p), daddy_props);
+          tail = SCM_CDRLOC (*tail);
+          p = scm_cdr (p);
+        }
 
       scm_set_car_x (props, copy);
       scm_set_cdr_x (props, daddy_props);

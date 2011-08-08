@@ -53,11 +53,11 @@ Grob_info::event_cause () const
   return unsmob_stream_event (cause);
 }
 
-vector<Context*>
+vector<Context *>
 Grob_info::origin_contexts (Translator *end) const
 {
   Context *t = origin_trans_->context ();
-  vector<Context*> r;
+  vector<Context *> r;
   do
     {
       r.push_back (t);

@@ -52,18 +52,18 @@ Bar_number_engraver::process_music ()
     {
       Moment mp (robust_scm2moment (get_property ("measurePosition"), Moment (0)));
       if (mp.main_part_ == Rational (0))
-	{
-	  SCM bn = get_property ("currentBarNumber");
-	  SCM proc = get_property ("barNumberVisibility");
-	  if (scm_is_number (bn) && ly_is_procedure (proc)
-	      && to_boolean (scm_call_1 (proc, bn)))
-	    {
-	      create_items ();
-	      // guh.
-	      text_->set_property
-		("text", scm_number_to_string (bn, scm_from_int (10)));
-	    }
-	}
+        {
+          SCM bn = get_property ("currentBarNumber");
+          SCM proc = get_property ("barNumberVisibility");
+          if (scm_is_number (bn) && ly_is_procedure (proc)
+              && to_boolean (scm_call_1 (proc, bn)))
+            {
+              create_items ();
+              // guh.
+              text_->set_property
+              ("text", scm_number_to_string (bn, scm_from_int (10)));
+            }
+        }
     }
 }
 
@@ -89,7 +89,7 @@ Bar_number_engraver::stop_translation_timestep ()
   if (text_)
     {
       text_->set_object ("side-support-elements",
-			 grob_list_to_grob_array (get_property ("stavesFound")));
+                         grob_list_to_grob_array (get_property ("stavesFound")));
       text_ = 0;
     }
 }
@@ -103,27 +103,26 @@ Bar_number_engraver::create_items ()
   text_ = make_item ("BarNumber", SCM_EOL);
 }
 
-
 ADD_ACKNOWLEDGER (Bar_number_engraver, break_alignment);
 
 ADD_TRANSLATOR (Bar_number_engraver,
-		/* doc */
-		"A bar number is created whenever @code{measurePosition} is"
-		" zero and when there is a bar line (i.e., when"
-		" @code{whichBar} is set).  It is put on top of all staves,"
-		" and appears only at the left side of the staff.  The staves"
-		" are taken from @code{stavesFound}, which is maintained by"
-		" @ref{Staff_collecting_engraver}.",
+                /* doc */
+                "A bar number is created whenever @code{measurePosition} is"
+                " zero and when there is a bar line (i.e., when"
+                " @code{whichBar} is set).  It is put on top of all staves,"
+                " and appears only at the left side of the staff.  The staves"
+                " are taken from @code{stavesFound}, which is maintained by"
+                " @ref{Staff_collecting_engraver}.",
 
-		/* create */
-		"BarNumber ",
+                /* create */
+                "BarNumber ",
 
-		/* read */
-		"currentBarNumber "
-		"whichBar "
-		"stavesFound "
-		"barNumberVisibility ",
+                /* read */
+                "currentBarNumber "
+                "whichBar "
+                "stavesFound "
+                "barNumberVisibility ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

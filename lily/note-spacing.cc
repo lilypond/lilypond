@@ -41,7 +41,7 @@
 
 Spring
 Note_spacing::get_spacing (Grob *me, Item *right_col,
-			   Real base_space, Real increment)
+                           Real base_space, Real increment)
 {
   vector<Item *> note_columns = Spacing_interface::left_note_columns (me);
   Real left_head_end = 0;
@@ -53,19 +53,19 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
       Grob *col = note_columns[i]->get_column ();
 
       if (!g)
-	g = Note_column::first_head (note_columns[i]);
+        g = Note_column::first_head (note_columns[i]);
 
       /*
-	Ugh. If Stem is switched off, we don't know what the
-	first note head will be.
+        Ugh. If Stem is switched off, we don't know what the
+        first note head will be.
       */
       if (g)
-	{
-	  if (g->common_refpoint (col, X_AXIS) != col)
-	    programming_error ("Note_spacing::get_spacing (): Common refpoint incorrect");
-	  else
-	    left_head_end = g->extent (col, X_AXIS)[RIGHT];
-	}
+        {
+          if (g->common_refpoint (col, X_AXIS) != col)
+            programming_error ("Note_spacing::get_spacing (): Common refpoint incorrect");
+          else
+            left_head_end = g->extent (col, X_AXIS)[RIGHT];
+        }
     }
 
   /*
@@ -90,17 +90,17 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
       && to_boolean (me->get_property ("space-to-barline")))
     {
       Grob *bar = Pointer_group_interface::find_grob (right_col,
-						      ly_symbol2scm ("elements"),
-						      Bar_line::non_empty_barline);
+                                                      ly_symbol2scm ("elements"),
+                                                      Bar_line::non_empty_barline);
 
       if (bar)
-	{
-	  Real shift = bar->extent (right_col, X_AXIS)[LEFT];
-	  ideal -= shift;
-	  min_desired_space -= max (shift, 0.0);
-	}
+        {
+          Real shift = bar->extent (right_col, X_AXIS)[LEFT];
+          ideal -= shift;
+          min_desired_space -= max (shift, 0.0);
+        }
       else
-	ideal -= right_col->extent (right_col, X_AXIS)[RIGHT];
+        ideal -= right_col->extent (right_col, X_AXIS)[RIGHT];
     }
 
   ideal = max (ideal, min_desired_space);
@@ -127,19 +127,19 @@ knee_correction (Grob *note_spacing, Grob *right_stem, Real increment)
       head_extent = head->extent (rcolumn, X_AXIS);
 
       if (!head_extent.is_empty ())
-	note_head_width = head_extent[RIGHT];
+        note_head_width = head_extent[RIGHT];
 
       note_head_width -= Stem::thickness (right_stem);
     }
 
   return -note_head_width * get_grob_direction (right_stem)
-    * robust_scm2double (note_spacing->get_property ("knee-spacing-correction"), 0);
+         * robust_scm2double (note_spacing->get_property ("knee-spacing-correction"), 0);
 }
 
 static Real
 different_directions_correction (Grob *note_spacing,
-				 Drul_array<Interval> stem_posns,
-				 Direction left_stem_dir)
+                                 Drul_array<Interval> stem_posns,
+                                 Direction left_stem_dir)
 {
   Real ret = 0.0;
   Interval intersect = stem_posns[LEFT];
@@ -150,11 +150,11 @@ different_directions_correction (Grob *note_spacing,
       ret = abs (intersect.length ());
 
       /*
-	Ugh. 7 is hardcoded.
+        Ugh. 7 is hardcoded.
       */
       ret = min (ret / 7, 1.0)
-	* left_stem_dir
-	* robust_scm2double (note_spacing->get_property ("stem-spacing-correction"), 0);
+            * left_stem_dir
+            * robust_scm2double (note_spacing->get_property ("stem-spacing-correction"), 0);
     }
   return ret;
 }
@@ -204,14 +204,14 @@ same_direction_correction (Grob *note_spacing, Drul_array<Interval> head_posns)
 */
 void
 Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
-				   Real increment,
-				   Real *space, Real *fixed)
+                                   Real increment,
+                                   Real *space, Real *fixed)
 {
   Drul_array<Direction> stem_dirs (CENTER, CENTER);
   Drul_array<Interval> stem_posns;
   Drul_array<Interval> head_posns;
   Drul_array<SCM> props (me->get_object ("left-items"),
-			 me->get_object ("right-items"));
+                         me->get_object ("right-items"));
 
   Drul_array<Spanner *> beams_drul (0, 0);
   Drul_array<Grob *> stems_drul (0, 0);
@@ -226,8 +226,8 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
   bool acc_right = false;
 
   Grob *bar = Spacing_interface::extremal_break_aligned_grob (me, RIGHT,
-							      rcolumn->break_status_dir (),
-							      &bar_xextent);
+                                                              rcolumn->break_status_dir (),
+                                                              &bar_xextent);
   if (bar && dynamic_cast<Item *> (bar)->get_column () == rcolumn)
     bar_yextent = Staff_spacing::bar_y_positions (bar);
 
@@ -235,58 +235,58 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
     {
       vector<Grob *> const &items (ly_scm2link_array (props [d]));
       for (vsize i = 0; i < items.size (); i++)
-	{
-	  Item *it = dynamic_cast<Item *> (items[i]);
-	  if (!Note_column::has_interface (it))
-	    continue;
-	  if (d == RIGHT && it->get_column () != rcolumn)
-	    continue;
+        {
+          Item *it = dynamic_cast<Item *> (items[i]);
+          if (!Note_column::has_interface (it))
+            continue;
+          if (d == RIGHT && it->get_column () != rcolumn)
+            continue;
 
-	  /*
-	    Find accidentals which are sticking out of the right side.
-	  */
-	  if (d == RIGHT)
-	    acc_right = acc_right || Note_column::accidentals (it);
+          /*
+            Find accidentals which are sticking out of the right side.
+          */
+          if (d == RIGHT)
+            acc_right = acc_right || Note_column::accidentals (it);
 
-	  Grob *stem = Note_column::get_stem (it);
+          Grob *stem = Note_column::get_stem (it);
 
-	  if (!stem || !stem->is_live () || Stem::is_invisible (stem))
-	    return;
+          if (!stem || !stem->is_live () || Stem::is_invisible (stem))
+            return;
 
-	  stems_drul[d] = stem;
-	  beams_drul[d] = Stem::get_beam (stem);
+          stems_drul[d] = stem;
+          beams_drul[d] = Stem::get_beam (stem);
 
-	  Direction stem_dir = get_grob_direction (stem);
-	  if (stem_dirs[d] && stem_dirs[d] != stem_dir)
-	    return;
+          Direction stem_dir = get_grob_direction (stem);
+          if (stem_dirs[d] && stem_dirs[d] != stem_dir)
+            return;
 
-	  stem_dirs[d] = stem_dir;
+          stem_dirs[d] = stem_dir;
 
-	  /*
-	    Correction doesn't seem appropriate  when there is a large flag
-	    hanging from the note.
-	  */
-	  if (d == LEFT
-	      && Stem::duration_log (stem) > 2 && !Stem::get_beam (stem))
-	    return;
+          /*
+            Correction doesn't seem appropriate  when there is a large flag
+            hanging from the note.
+          */
+          if (d == LEFT
+              && Stem::duration_log (stem) > 2 && !Stem::get_beam (stem))
+            return;
 
-	  Interval hp = Stem::head_positions (stem);
-	  if (!hp.is_empty ())
-	    {
-	      Real chord_start = hp[stem_dir];
+          Interval hp = Stem::head_positions (stem);
+          if (!hp.is_empty ())
+            {
+              Real chord_start = hp[stem_dir];
 
-	      /*
-		can't look at stem-end-position, since that triggers
-		beam slope computations.
-	      */
-	      Real stem_end = hp[stem_dir]
-		+ stem_dir * robust_scm2double (stem->get_property ("length"), 7);
+              /*
+                can't look at stem-end-position, since that triggers
+                beam slope computations.
+              */
+              Real stem_end = hp[stem_dir]
+                              + stem_dir * robust_scm2double (stem->get_property ("length"), 7);
 
-	      stem_posns[d] = Interval (min (chord_start, stem_end),
-					max (chord_start, stem_end));
-	      head_posns[d].unite (hp);
-	    }
-	}
+              stem_posns[d] = Interval (min (chord_start, stem_end),
+                                        max (chord_start, stem_end));
+              head_posns[d].unite (hp);
+            }
+        }
     }
   while (flip (&d) != LEFT);
 
@@ -302,24 +302,24 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
   if (stem_dirs[LEFT] * stem_dirs[RIGHT] == -1)
     {
       if (beams_drul[LEFT] && beams_drul[LEFT] == beams_drul[RIGHT])
-	{
-	  correction = knee_correction (me, stems_drul[RIGHT], increment);
-	  *fixed += correction;
-	}
+        {
+          correction = knee_correction (me, stems_drul[RIGHT], increment);
+          *fixed += correction;
+        }
       else
-	{
-	  correction = different_directions_correction (me, stem_posns, stem_dirs[LEFT]);
+        {
+          correction = different_directions_correction (me, stem_posns, stem_dirs[LEFT]);
 
-	  if (!bar_yextent.is_empty ())
-	    correction *= 0.5;
-	}
+          if (!bar_yextent.is_empty ())
+            correction *= 0.5;
+        }
     }
   /*
     Only apply same direction correction if there are no
     accidentals sticking out of the right hand side.
   */
   else if (stem_dirs[LEFT] * stem_dirs[RIGHT] == 1
-	   && !acc_right)
+           && !acc_right)
     correction = same_direction_correction (me, head_posns);
 
   *space += correction;
@@ -330,14 +330,14 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 }
 
 ADD_INTERFACE (Note_spacing,
-	       "This object calculates spacing wishes for individual voices.",
+               "This object calculates spacing wishes for individual voices.",
 
-	       /* properties */
-	       "knee-spacing-correction "
-	       "left-items "
-	       "right-items "
-	       "same-direction-correction "
-	       "stem-spacing-correction "
-	       "space-to-barline "
-	       );
+               /* properties */
+               "knee-spacing-correction "
+               "left-items "
+               "right-items "
+               "same-direction-correction "
+               "stem-spacing-correction "
+               "space-to-barline "
+              );
 

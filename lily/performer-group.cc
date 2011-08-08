@@ -25,18 +25,18 @@
 #include "warn.hh"
 
 ADD_TRANSLATOR_GROUP (Performer_group,
-		      /* doc */
-		      "",
+                      /* doc */
+                      "",
 
-		      /* create */
-		      "",
+                      /* create */
+                      "",
 
-		      /* read */
-		      "",
+                      /* read */
+                      "",
 
-		      /* write */
-		      ""
-		      );
+                      /* write */
+                      ""
+                     );
 
 void
 Performer_group::announce_element (Audio_element_info info)
@@ -57,12 +57,12 @@ Performer_group::acknowledge_audio_elements ()
       Audio_element_info info = announce_infos_[j];
 
       for (SCM p = get_simple_trans_list (); scm_is_pair (p); p = scm_cdr (p))
-	{
-	  Translator *t = unsmob_translator (scm_car (p));
-	  Performer *eng = dynamic_cast<Performer *> (t);
-	  if (eng && eng != info.origin_trans_)
-	    eng->acknowledge_audio_element (info);
-	}
+        {
+          Translator *t = unsmob_translator (scm_car (p));
+          Performer *eng = dynamic_cast<Performer *> (t);
+          if (eng && eng != info.origin_trans_)
+            eng->acknowledge_audio_element (info);
+        }
     }
 }
 
@@ -73,7 +73,7 @@ performer_each (SCM list, Performer_method method)
     {
       Performer *e = dynamic_cast<Performer *> (unsmob_translator (scm_car (p)));
       if (e)
-	(e->*method) ();
+        (e->*method) ();
     }
 }
 
@@ -85,18 +85,18 @@ Performer_group::do_announces ()
     {
       Context *c = unsmob_context (scm_car (s));
       Performer_group *group
-	= dynamic_cast<Performer_group *> (c->implementation ());
+        = dynamic_cast<Performer_group *> (c->implementation ());
       if (group)
-	group->do_announces ();
+        group->do_announces ();
     }
 
   while (1)
     {
       performer_each (get_simple_trans_list (),
-		      &Performer::create_audio_elements);
+                      &Performer::create_audio_elements);
 
       if (!announce_infos_.size ())
-	break;
+        break;
 
       acknowledge_audio_elements ();
       announce_infos_.clear ();

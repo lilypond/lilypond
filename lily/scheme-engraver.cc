@@ -1,8 +1,8 @@
-/* 
+/*
   scheme-engraver.cc -- implement Scheme_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   Copyright (c) 2009--2011 Han-Wen Nienhuys <hanwen@lilypond.org>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.  
+  along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "scheme-engraver.hh"
@@ -71,12 +71,12 @@ void
 Scheme_engraver::init_from_scheme (SCM definition)
 {
   start_translation_timestep_function_ = callable (ly_symbol2scm ("start-translation-timestep"),
-						   definition);
+                                                   definition);
   stop_translation_timestep_function_ = callable (ly_symbol2scm ("stop-translation-timestep"),
-						  definition);
+                                                  definition);
   process_music_function_ = callable (ly_symbol2scm ("process-music"), definition);
   process_acknowledged_function_ = callable (ly_symbol2scm ("process-acknowledged"),
-					     definition);
+                                             definition);
   initialize_function_ = callable (ly_symbol2scm ("initialize"), definition);
   finalize_function_ = callable (ly_symbol2scm ("finalize"), definition);
 
@@ -85,9 +85,9 @@ Scheme_engraver::init_from_scheme (SCM definition)
   listeners_alist_ = SCM_EOL;
 
   must_be_last_ = to_boolean (ly_assoc_get (ly_symbol2scm ("must-be-last"),
-					    definition,
-					    SCM_BOOL_F));
-				
+                                            definition,
+                                            SCM_BOOL_F));
+
   translator_listener_record **tail = &per_instance_listeners_;
   for (SCM p = listeners; scm_is_pair (p); p = scm_cdr (p))
     {
@@ -95,10 +95,10 @@ Scheme_engraver::init_from_scheme (SCM definition)
       SCM proc = scm_cdar (p);
 
       if (!(ly_is_procedure (proc) && ly_is_symbol (event_class)))
-	continue;
+        continue;
 
       // We should check the arity of the function?
-      
+
       // Record for later lookup.
       listeners_alist_ = scm_acons (event_class, proc, listeners_alist_);
 
@@ -109,13 +109,13 @@ Scheme_engraver::init_from_scheme (SCM definition)
       tail = &rec->next_;
     }
 
-  init_acknowledgers (ly_assoc_get(ly_symbol2scm ("acknowledgers"),
-				   definition, SCM_EOL),
-		      &interface_acknowledger_hash_);
-  
-  init_acknowledgers (ly_assoc_get(ly_symbol2scm ("end-acknowledgers"),
-				   definition, SCM_EOL),
-		      &interface_end_acknowledger_hash_);
+  init_acknowledgers (ly_assoc_get (ly_symbol2scm ("acknowledgers"),
+                                    definition, SCM_EOL),
+                      &interface_acknowledger_hash_);
+
+  init_acknowledgers (ly_assoc_get (ly_symbol2scm ("end-acknowledgers"),
+                                    definition, SCM_EOL),
+                      &interface_end_acknowledger_hash_);
 
   // TODO: hook up description, props read/written, grobs created
   // etc. to provide automatic documentation.
@@ -123,16 +123,16 @@ Scheme_engraver::init_from_scheme (SCM definition)
 
 void
 Scheme_engraver::init_acknowledgers (SCM alist,
-				     SCM *hash)
-{  
-  *hash = scm_c_make_hash_table(7);
+                                     SCM *hash)
+{
+  *hash = scm_c_make_hash_table (7);
   for (SCM p = alist; scm_is_pair (p); p = scm_cdr (p))
     {
       SCM iface = scm_caar (p);
       SCM proc = scm_cdar (p);
 
       if (!(ly_is_procedure (proc) && ly_is_symbol (iface)))
-	continue;
+        continue;
 
       scm_hashq_set_x (*hash, iface, proc);
     }
@@ -141,7 +141,7 @@ Scheme_engraver::init_acknowledgers (SCM alist,
 // This is the easy way to do it, at the cost of too many invocations
 // of Scheme_engraver::acknowledge_grob.  The clever dispatching of
 // acknowledgers is hardwired to have 1 method per engraver per
-// grob-type, which doesn't work for this case. 
+// grob-type, which doesn't work for this case.
 void
 Scheme_engraver::acknowledge_grob (Grob_info info)
 {
@@ -156,18 +156,18 @@ Scheme_engraver::acknowledge_end_grob (Grob_info info)
 
 void
 Scheme_engraver::acknowledge_grob_by_hash (Grob_info info,
-					   SCM iface_function_hash)
+                                           SCM iface_function_hash)
 {
   SCM meta = info.grob ()->internal_get_property (ly_symbol2scm ("meta"));
   SCM ifaces = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta));
   for (SCM s = ifaces; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM func = scm_hashq_ref (iface_function_hash,
-				scm_car (s), SCM_BOOL_F);
+                                scm_car (s), SCM_BOOL_F);
 
       if (ly_is_procedure (func))
-	scm_call_3 (func, self_scm (), info.grob ()->self_scm (),
-		    info.origin_translator ()->self_scm ());
+        scm_call_3 (func, self_scm (), info.grob ()->self_scm (),
+                    info.origin_translator ()->self_scm ());
     }
 }
 
@@ -186,7 +186,8 @@ void mark_listen_closure (void *target)
   scm_gc_mark ((SCM)target);
 }
 
-Listener_function_table listen_closure = {
+Listener_function_table listen_closure =
+{
   call_listen_closure, mark_listen_closure
 };
 
@@ -194,34 +195,34 @@ Listener_function_table listen_closure = {
 Listener
 Scheme_engraver::get_listener (void *arg, SCM name)
 {
-  Scheme_engraver *me = (Scheme_engraver*) arg;
+  Scheme_engraver *me = (Scheme_engraver *) arg;
   SCM func = ly_assoc_get (name, me->listeners_alist_, SCM_BOOL_F);
   assert (ly_is_procedure (func));
 
-  SCM closure = scm_cons (func, me->self_scm());
-  return Listener((void*)closure, &listen_closure);
+  SCM closure = scm_cons (func, me->self_scm ());
+  return Listener ((void *)closure, &listen_closure);
 }
 
 translator_listener_record *
-Scheme_engraver::get_listener_list () const				
-{									
+Scheme_engraver::get_listener_list () const
+{
   return per_instance_listeners_;
 }
 
-#define DISPATCH(what)					\
-  void							\
-  Scheme_engraver::what ()				\
-  {							\
-    if (what ## _function_ != SCM_BOOL_F)		\
-      scm_call_1 (what ## _function_, self_scm ());	\
+#define DISPATCH(what)                                  \
+  void                                                  \
+  Scheme_engraver::what ()                              \
+  {                                                     \
+    if (what ## _function_ != SCM_BOOL_F)               \
+      scm_call_1 (what ## _function_, self_scm ());     \
   }
 
-DISPATCH(start_translation_timestep);
-DISPATCH(stop_translation_timestep);
-DISPATCH(initialize);
-DISPATCH(finalize);
-DISPATCH(process_music);
-DISPATCH(process_acknowledged);
+DISPATCH (start_translation_timestep);
+DISPATCH (stop_translation_timestep);
+DISPATCH (initialize);
+DISPATCH (finalize);
+DISPATCH (process_music);
+DISPATCH (process_acknowledged);
 
 void
 Scheme_engraver::derived_mark () const
@@ -232,25 +233,25 @@ Scheme_engraver::derived_mark () const
   scm_gc_mark (finalize_function_);
   scm_gc_mark (process_music_function_);
   scm_gc_mark (process_acknowledged_function_);
-  scm_gc_mark (listeners_alist_);    
-  scm_gc_mark (interface_acknowledger_hash_);    
-  scm_gc_mark (interface_end_acknowledger_hash_);    
-} 
+  scm_gc_mark (listeners_alist_);
+  scm_gc_mark (interface_acknowledger_hash_);
+  scm_gc_mark (interface_end_acknowledger_hash_);
+}
 
 ADD_ACKNOWLEDGER (Scheme_engraver, grob);
 ADD_END_ACKNOWLEDGER (Scheme_engraver, grob);
 
 ADD_TRANSLATOR (Scheme_engraver,
-		/* doc */
-		"Implement engravers in Scheme.  Interprets arguments to"
-		" @code{\\consists} as callbacks.",
+                /* doc */
+                "Implement engravers in Scheme.  Interprets arguments to"
+                " @code{\\consists} as callbacks.",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

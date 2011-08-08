@@ -49,7 +49,7 @@ Arpeggio::get_common_y (Grob *me)
     {
       Grob *stem = stems[i];
       common = common->common_refpoint (Staff_symbol_referencer::get_staff_symbol (stem),
-					Y_AXIS);
+                                        Y_AXIS);
     }
 
   return common;
@@ -94,27 +94,27 @@ Arpeggio::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Interval heads = robust_scm2interval (me->get_property ("positions"),
-					Interval ())
-    * Staff_symbol_referencer::staff_space (me);
+                                        Interval ())
+                   * Staff_symbol_referencer::staff_space (me);
 
   if (heads.is_empty () || heads.length () < 0.5)
     {
       if (to_boolean (me->get_property ("transparent")))
-	{
-	  /*
-	    This is part of a cross-staff/-voice span-arpeggio,
-	    so we need to ensure `heads' is large enough to encompass
-	    a single trill-element since the span-arpeggio depends on
-	    its children to prevent collisions.
-	  */
-	  heads.unite (get_squiggle (me).extent (Y_AXIS));
-	}
+        {
+          /*
+            This is part of a cross-staff/-voice span-arpeggio,
+            so we need to ensure `heads' is large enough to encompass
+            a single trill-element since the span-arpeggio depends on
+            its children to prevent collisions.
+          */
+          heads.unite (get_squiggle (me).extent (Y_AXIS));
+        }
       else
-	{
-	  me->warning ("no heads for arpeggio found?");
-	  me->suicide ();
-	  return SCM_EOL;
-	}
+        {
+          me->warning ("no heads for arpeggio found?");
+          me->suicide ();
+          return SCM_EOL;
+        }
     }
 
   SCM ad = me->get_property ("arpeggio-direction");
@@ -162,8 +162,8 @@ Arpeggio::brew_chord_bracket (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Interval heads = robust_scm2interval (me->get_property ("positions"),
-					Interval ())
-    * Staff_symbol_referencer::staff_space (me);
+                                        Interval ())
+                   * Staff_symbol_referencer::staff_space (me);
 
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
@@ -182,8 +182,8 @@ Arpeggio::brew_chord_slur (SCM smob)
   Grob *me = unsmob_grob (smob);
   SCM dash_definition = me->get_property ("dash-definition");
   Interval heads = robust_scm2interval (me->get_property ("positions"),
-					Interval ())
-    * Staff_symbol_referencer::staff_space (me);
+                                        Interval ())
+                   * Staff_symbol_referencer::staff_space (me);
 
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   Real dy = heads.length ();
@@ -222,13 +222,13 @@ Arpeggio::pure_height (SCM smob, SCM, SCM)
 }
 
 ADD_INTERFACE (Arpeggio,
-	       "Functions and settings for drawing an arpeggio symbol.",
+               "Functions and settings for drawing an arpeggio symbol.",
 
-	       /* properties */
-	       "arpeggio-direction "
-	       "positions "
-	       "script-priority " // TODO: make around-note-interface
-	       "stems "
-	       "dash-definition " // TODO: make apply to non-slur arpeggios
-	       );
+               /* properties */
+               "arpeggio-direction "
+               "positions "
+               "script-priority " // TODO: make around-note-interface
+               "stems "
+               "dash-definition " // TODO: make apply to non-slur arpeggios
+              );
 

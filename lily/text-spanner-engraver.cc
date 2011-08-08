@@ -69,28 +69,28 @@ Text_spanner_engraver::process_music ()
   if (event_drul_[STOP])
     {
       if (!span_)
-	event_drul_[STOP]->origin ()->warning (_ ("cannot find start of text spanner"));
+        event_drul_[STOP]->origin ()->warning (_ ("cannot find start of text spanner"));
       else
-	{
-	  finished_ = span_;
-	  announce_end_grob (finished_, SCM_EOL);
-	  span_ = 0;
-	  current_event_ = 0;
-	}
+        {
+          finished_ = span_;
+          announce_end_grob (finished_, SCM_EOL);
+          span_ = 0;
+          current_event_ = 0;
+        }
     }
 
   if (event_drul_[START])
     {
       if (current_event_)
-	event_drul_[START]->origin ()->warning (_ ("already have a text spanner"));
+        event_drul_[START]->origin ()->warning (_ ("already have a text spanner"));
       else
-	{
-	  current_event_ = event_drul_[START];
-	  span_ = make_spanner ("TextSpanner", event_drul_[START]->self_scm ());
+        {
+          current_event_ = event_drul_[START];
+          span_ = make_spanner ("TextSpanner", event_drul_[START]->self_scm ());
 
-	  Side_position_interface::set_axis (span_, Y_AXIS);
-	  event_drul_[START] = 0;
-	}
+          Side_position_interface::set_axis (span_, Y_AXIS);
+          event_drul_[START] = 0;
+        }
     }
 }
 
@@ -100,10 +100,10 @@ Text_spanner_engraver::typeset_all ()
   if (finished_)
     {
       if (!finished_->get_bound (RIGHT))
-	{
-	  Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
-	  finished_->set_bound (RIGHT, e);
-	}
+        {
+          Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
+          finished_->set_bound (RIGHT, e);
+        }
       finished_ = 0;
     }
 }
@@ -139,33 +139,33 @@ Text_spanner_engraver::acknowledge_note_column (Grob_info info)
   if (span_)
     {
       Pointer_group_interface::add_grob (span_,
-					 ly_symbol2scm ("note-columns"),
-					 info.grob ());
+                                         ly_symbol2scm ("note-columns"),
+                                         info.grob ());
       if (!span_->get_bound (LEFT))
-	add_bound_item (span_, info.grob ());
+        add_bound_item (span_, info.grob ());
     }
   else if (finished_)
     {
       Pointer_group_interface::add_grob (finished_,
-					 ly_symbol2scm ("note-columns"),
-					 info.grob ());
+                                         ly_symbol2scm ("note-columns"),
+                                         info.grob ());
       if (!finished_->get_bound (RIGHT))
-	add_bound_item (finished_, info.grob ());
+        add_bound_item (finished_, info.grob ());
     }
 }
 
 ADD_ACKNOWLEDGER (Text_spanner_engraver, note_column);
 
 ADD_TRANSLATOR (Text_spanner_engraver,
-		/* doc */
-		"Create text spanner from an event.",
+                /* doc */
+                "Create text spanner from an event.",
 
-		/* create */
-		"TextSpanner ",
+                /* create */
+                "TextSpanner ",
 
-		/* read */
-		"currentMusicalColumn ",
+                /* read */
+                "currentMusicalColumn ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

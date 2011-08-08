@@ -27,7 +27,7 @@ struct Tuple
   Tuple ()
   {
   }
-  
+
   Tuple (T const *src)
   {
     for (int i = 0; i < N; i++)
@@ -42,28 +42,27 @@ struct Tuple2 : public Tuple<K, 2>
   {
 
   }
-  
+
   Tuple2 (K a, K b)
   {
-    Tuple<K,2> *p(this);	//  ugr.
-    
+    Tuple<K, 2> *p (this);       //  ugr.
+
     p->t_array[0] = a;
     p->t_array[1] = b;
   }
 };
 
-  
 template<class T, int N>
 inline bool
-operator<(Tuple<T, N> const &t1,
-	  Tuple<T, N> const &t2)
+operator <(Tuple<T, N> const &t1,
+           Tuple<T, N> const &t2)
 {
-  for (int i = 0; i < N ; i++)
+  for (int i = 0; i < N; i++)
     {
       if (t1.t_array[i] > t2.t_array[i])
-	return false;
+        return false;
       if (t1.t_array[i] < t2.t_array[i])
-	return true;
+        return true;
     }
 
   return false;

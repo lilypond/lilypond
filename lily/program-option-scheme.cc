@@ -51,10 +51,9 @@ bool strict_infinity_checking = false;
 
 static SCM option_hash;
 
-
 void
 internal_set_option (SCM var,
-		     SCM val)
+                     SCM val)
 {
   if (0)
     ;
@@ -136,7 +135,6 @@ internal_set_option (SCM var,
   scm_hashq_set_x (option_hash, var, val);
 }
 
-
 ssize const HELP_INDENT = 30;
 ssize const INDENT = 2;
 ssize const SEPARATION = 5;
@@ -157,25 +155,25 @@ get_help_string ()
       SCM sym = scm_caar (s);
       SCM val = scm_cdar (s);
       string opt_spec = String_convert::char_string (' ', INDENT)
-			+ ly_symbol2string (sym)
-			+ " ("
-			+ ly_scm2string (scm_call_1 (converter, val))
-			+ ")";
+                        + ly_symbol2string (sym)
+                        + " ("
+                        + ly_scm2string (scm_call_1 (converter, val))
+                        + ")";
 
       if (opt_spec.length () + SEPARATION > HELP_INDENT)
-	opt_spec += "\n" + String_convert::char_string (' ', HELP_INDENT);
+        opt_spec += "\n" + String_convert::char_string (' ', HELP_INDENT);
       else
-	opt_spec += String_convert::char_string (' ', HELP_INDENT
-						      - opt_spec.length ());
+        opt_spec += String_convert::char_string (' ', HELP_INDENT
+                                                 - opt_spec.length ());
 
       SCM opt_help_scm
-	= scm_object_property (sym,
-			       ly_symbol2scm ("program-option-documentation"));
+        = scm_object_property (sym,
+                               ly_symbol2scm ("program-option-documentation"));
       string opt_help = ly_scm2string (opt_help_scm);
       replace_all (&opt_help,
-		   string ("\n"),
-		   string ("\n")
-		   + String_convert::char_string (' ', HELP_INDENT));
+                   string ("\n"),
+                   string ("\n")
+                   + String_convert::char_string (' ', HELP_INDENT));
 
       opts.push_back (opt_spec + opt_help + "\n");
     }
@@ -187,21 +185,19 @@ get_help_string ()
   return help;
 }
 
-
 LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (),
-	   "Print @code{ly:set-option} usage.")
+           "Print @code{ly:set-option} usage.")
 {
   string help = get_help_string ();
-  puts (help.c_str());
+  puts (help.c_str ());
 
   return SCM_UNSPECIFIED;
 }
 
-
 LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 0,
-	   (SCM sym, SCM val, SCM description),
-	   "Add a program option @var{sym}.  @var{val} is the default"
-	   " value and @var{description} is a string description.")
+           (SCM sym, SCM val, SCM description),
+           "Add a program option @var{sym}.  @var{val} is the default"
+           " value and @var{description} is a string description.")
 {
   if (!option_hash)
     option_hash = scm_permanent_object (scm_c_make_hash_table (11));
@@ -211,14 +207,13 @@ LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 0,
   internal_set_option (sym, val);
 
   scm_set_object_property_x (sym, ly_symbol2scm ("program-option-documentation"),
-			     description);
+                             description);
 
   return SCM_UNSPECIFIED;
 }
 
-
 LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
-	   "Set a program option.")
+           "Set a program option.")
 {
   LY_ASSERT_TYPE (ly_is_symbol, var, 1);
 
@@ -240,38 +235,33 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
   return SCM_UNSPECIFIED;
 }
 
-
 LY_DEFINE (ly_command_line_options, "ly:command-line-options", 0, 0, 0, (),
-	   "The Scheme options specified on command-line with @option{-d}.")
+           "The Scheme options specified on command-line with @option{-d}.")
 {
   return ly_string2scm (init_scheme_variables_global);
 }
 
-
 LY_DEFINE (ly_command_line_code, "ly:command-line-code", 0, 0, 0, (),
-	   "The Scheme code specified on command-line with @option{-e}.")
+           "The Scheme code specified on command-line with @option{-e}.")
 {
   return ly_string2scm (init_scheme_code_global);
 }
 
-
 LY_DEFINE (ly_command_line_verbose_p, "ly:command-line-verbose?", 0, 0, 0, (),
-	   "Was @code{be_verbose_global} set?")
+           "Was @code{be_verbose_global} set?")
 {
   return scm_from_bool (be_verbose_global);
 }
 
-
 LY_DEFINE (ly_all_options, "ly:all-options",
-	   0, 0, 0, (),
-	   "Get all option settings in an alist.")
+           0, 0, 0, (),
+           "Get all option settings in an alist.")
 {
   return ly_hash2alist (option_hash);
 }
 
-
 LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
-	   "Get a global option setting.")
+           "Get a global option setting.")
 {
   LY_ASSERT_TYPE (ly_is_symbol, var, 1);
   return scm_hashq_ref (option_hash, var, SCM_BOOL_F);

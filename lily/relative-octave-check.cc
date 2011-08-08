@@ -28,7 +28,7 @@ public:
 };
 
 MAKE_SCHEME_CALLBACK (Relative_octave_check, relative_callback, 2)
-  SCM
+SCM
 Relative_octave_check::relative_callback (SCM music, SCM last_pitch)
 {
   Pitch p = *unsmob_pitch (last_pitch);
@@ -39,23 +39,23 @@ Relative_octave_check::relative_callback (SCM music, SCM last_pitch)
   if (check_p)
     {
       Pitch no_octave (-1,
-		       check_p->get_notename (),
-		       check_p->get_alteration ());
+                       check_p->get_notename (),
+                       check_p->get_alteration ());
 
       Pitch result = no_octave.to_relative_octave (p);
 
       if (result != *check_p)
-	{
-	  string s = _ ("Failed octave check, got: ");
-	  s += result.to_string ();
+        {
+          string s = _ ("Failed octave check, got: ");
+          s += result.to_string ();
 
-	  m->origin ()->warning (s);
+          m->origin ()->warning (s);
 
-	  delta_oct = check_p->get_octave () - result.get_octave ();
-	}
+          delta_oct = check_p->get_octave () - result.get_octave ();
+        }
     }
 
   return Pitch (p.get_octave () + delta_oct,
-		p.get_notename (),
-		p.get_alteration ()).smobbed_copy ();
+                p.get_notename (),
+                p.get_alteration ()).smobbed_copy ();
 }

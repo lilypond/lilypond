@@ -25,9 +25,8 @@
 #include "warn.hh"
 #include "tie-details.hh"
 
-
 /*
-  this is a macro because we want ly_symbol2scm() 
+  this is a macro because we want ly_symbol2scm()
  */
 #define get_real_detail(src, defvalue) \
   robust_scm2double(ly_assoc_get (ly_symbol2scm (src), details, SCM_EOL), defvalue)
@@ -39,22 +38,21 @@ Tie_details::from_grob (Grob *me)
 {
   staff_symbol_referencer_ = me;
   staff_space_ = Staff_symbol_referencer::staff_space (me);
-  
+
   neutral_direction_ = to_dir (me->get_property ("neutral-direction"));
   if (!neutral_direction_)
     neutral_direction_ = DOWN;
-  
+
   SCM details = me->get_property ("details");
 
   height_limit_ = get_real_detail ("height-limit", 0.75);
-  ratio_ = get_real_detail ("ratio", .333);  
+  ratio_ = get_real_detail ("ratio", .333);
   between_length_limit_ = get_real_detail ("between-length-limit", 1.0);
-  
+
   wrong_direction_offset_penalty_ = get_real_detail ("wrong-direction-offset-penalty", 10);
-  
+
   min_length_ = get_real_detail ("min-length", 1.0);
   min_length_penalty_factor_ = get_real_detail ("min-length-penalty-factor", 1.0);
-
 
   // in half-space
   center_staff_line_clearance_ = get_real_detail ("center-staff-line-clearance", 0.4);
@@ -73,7 +71,7 @@ Tie_details::from_grob (Grob *me)
   intra_space_threshold_ = get_real_detail ("intra-space-threshold", 1.0);
   outer_tie_length_symmetry_penalty_factor_ = get_real_detail ("outer-tie-length-symmetry-penalty-factor", 3.0);
   outer_tie_vertical_distance_symmetry_penalty_factor_ = get_real_detail ("outer-tie-vertical-distance-symmetry-penalty-factor", 3.0);
-  
+
   outer_tie_vertical_gap_ = get_real_detail ("outer-tie-vertical-gap", 0.15);
 
   single_tie_region_size_ = get_int_detail ("single-tie-region-size", 3);
@@ -83,8 +81,8 @@ Tie_details::from_grob (Grob *me)
 
 Tie_details::Tie_details ()
 {
-  staff_space_ = 1.0; 
+  staff_space_ = 1.0;
   height_limit_ = 1.0;
-  ratio_ = .333;   
+  ratio_ = .333;
 }
 

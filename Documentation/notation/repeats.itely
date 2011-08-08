@@ -496,9 +496,9 @@ make up the total number of repeats.
 c1
 @end lilypond
 
-If there are more alternate endings than repeats then the first
-alternatives are applied, LilyPond will ignore the remaining
-alternatives which will not be printed.
+If there are more alternate endings than repeats then only the first
+alternatives are applied.  The remaining alternatives will be ignored
+and not printed.
 
 @lilypond[verbatim,quote,relative=2]
 \repeat unfold 2 { c4 d e f }

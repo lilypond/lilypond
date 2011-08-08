@@ -44,49 +44,49 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
   */
 
   Grob *orig = me->original () ? me->original () : me;
-  Drul_array<Direction> break_dirs (dynamic_cast<Item*> (me)->break_status_dir (),
-				    dynamic_cast<Item*> (right_col)->break_status_dir ());
+  Drul_array<Direction> break_dirs (dynamic_cast<Item *> (me)->break_status_dir (),
+                                    dynamic_cast<Item *> (right_col)->break_status_dir ());
   Drul_array<Skyline> skylines = Drul_array<Skyline> (Skyline (RIGHT), Skyline (LEFT));
-  Drul_array<vector<Grob*> > items (ly_scm2link_array (orig->get_object ("left-items")),
-				    ly_scm2link_array (orig->get_object ("right-items")));
+  Drul_array<vector<Grob *> > items (ly_scm2link_array (orig->get_object ("left-items")),
+                                     ly_scm2link_array (orig->get_object ("right-items")));
 
   Grob *system = me->get_system ();
-  Grob *left_col = dynamic_cast<Item*> (me)->get_column ();
+  Grob *left_col = dynamic_cast<Item *> (me)->get_column ();
 
-  Drul_array<Grob*> columns (left_col, right_col);
+  Drul_array<Grob *> columns (left_col, right_col);
 
   Direction d = LEFT;
   do
     {
       for (vsize i = 0; i < items[d].size (); i++)
-	{
-	  Item *g = dynamic_cast<Item*> (items[d][i]);
-	  if (g)
-	    if (Item *piece = g->find_prebroken_piece (break_dirs[d]))
-	      g = piece;
+        {
+          Item *g = dynamic_cast<Item *> (items[d][i]);
+          if (g)
+            if (Item *piece = g->find_prebroken_piece (break_dirs[d]))
+              g = piece;
 
-	  if (g && Separation_item::has_interface (g) && g->get_column () == columns[d])
-	    {
-	      SCM sky_scm = g->get_property ("horizontal-skylines");
-	      Skyline_pair *sky = Skyline_pair::unsmob (sky_scm);
+          if (g && Separation_item::has_interface (g) && g->get_column () == columns[d])
+            {
+              SCM sky_scm = g->get_property ("horizontal-skylines");
+              Skyline_pair *sky = Skyline_pair::unsmob (sky_scm);
 
-	      extract_grob_set (g, "elements", elts);
-	      Grob *ycommon = common_refpoint_of_array (elts, g, Y_AXIS);
-	      Real shift = ycommon->pure_relative_y_coordinate (system, 0, INT_MAX);
+              extract_grob_set (g, "elements", elts);
+              Grob *ycommon = common_refpoint_of_array (elts, g, Y_AXIS);
+              Real shift = ycommon->pure_relative_y_coordinate (system, 0, INT_MAX);
 
-	      skylines[d].shift (-shift);
+              skylines[d].shift (-shift);
 
-	      if (sky)
-		skylines[d].merge ((*sky)[-d]);
-	      else
-		programming_error ("separation item has no skyline");
+              if (sky)
+                skylines[d].merge ((*sky)[-d]);
+              else
+                programming_error ("separation item has no skyline");
 
-	      if (d == RIGHT && items[LEFT].size ())
-		skylines[d].merge (Separation_item::conditional_skyline (items[d][i], items[LEFT][0]));
+              if (d == RIGHT && items[LEFT].size ())
+                skylines[d].merge (Separation_item::conditional_skyline (items[d][i], items[LEFT][0]));
 
-	      skylines[d].shift (shift);
-	    }
-	}
+              skylines[d].shift (shift);
+            }
+        }
     }
   while (flip (&d) != LEFT);
 
@@ -121,10 +121,10 @@ Spacing_interface::right_column (Grob *me)
       int rank = Paper_column::get_rank (col);
 
       if (rank < min_rank)
-	{
-	  min_rank = rank;
-	  mincol = col;
-	}
+        {
+          min_rank = rank;
+          mincol = col;
+        }
     }
 
   return mincol;
@@ -139,35 +139,35 @@ Spacing_interface::left_column (Grob *me)
   return dynamic_cast<Item *> (me)->get_column ();
 }
 
-static vector<Item*>
-get_note_columns (vector<Grob*> const &elts)
+static vector<Item *>
+get_note_columns (vector<Grob *> const &elts)
 {
-  vector<Item*> ret;
+  vector<Item *> ret;
 
   for (vsize i = 0; i < elts.size (); i++)
     {
       if (Note_column::has_interface (elts[i]))
-	ret.push_back (dynamic_cast<Item*> (elts[i]));
+        ret.push_back (dynamic_cast<Item *> (elts[i]));
       else if (Separation_item::has_interface (elts[i]))
-	{
-	  extract_grob_set (elts[i], "elements", more_elts);
-	  vector<Item*> ncs = get_note_columns (more_elts);
+        {
+          extract_grob_set (elts[i], "elements", more_elts);
+          vector<Item *> ncs = get_note_columns (more_elts);
 
-	  ret.insert (ret.end (), ncs.begin (), ncs.end ());
-	}
+          ret.insert (ret.end (), ncs.begin (), ncs.end ());
+        }
     }
 
   return ret;
 }
 
-vector<Item*>
+vector<Item *>
 Spacing_interface::right_note_columns (Grob *me)
 {
   extract_grob_set (me, "right-items", elts);
   return get_note_columns (elts);
 }
 
-vector<Item*>
+vector<Item *>
 Spacing_interface::left_note_columns (Grob *me)
 {
   extract_grob_set (me, "left-items", elts);
@@ -180,9 +180,9 @@ Spacing_interface::left_note_columns (Grob *me)
 */
 Grob *
 Spacing_interface::extremal_break_aligned_grob (Grob *me,
-						Direction d,
-						Direction break_dir,
-						Interval *last_ext)
+                                                Direction d,
+                                                Direction break_dir,
+                                                Interval *last_ext)
 {
   Grob *col = 0;
   last_ext->set_empty ();
@@ -192,39 +192,38 @@ Spacing_interface::extremal_break_aligned_grob (Grob *me,
 
   for (vsize i = elts.size (); i--;)
     {
-      Item *break_item = dynamic_cast<Item*> (elts[i]);
+      Item *break_item = dynamic_cast<Item *> (elts[i]);
 
       if (break_item->break_status_dir () != break_dir)
-	break_item = break_item->find_prebroken_piece (break_dir);
+        break_item = break_item->find_prebroken_piece (break_dir);
 
       if (!break_item || !scm_is_pair (break_item->get_property ("space-alist")))
-	continue;
+        continue;
 
       if (!col)
-	col = dynamic_cast<Item*> (elts[0])->get_column ()->find_prebroken_piece (break_dir);
+        col = dynamic_cast<Item *> (elts[0])->get_column ()->find_prebroken_piece (break_dir);
 
       Interval ext = break_item->extent (col, X_AXIS);
 
       if (ext.is_empty ())
-	continue;
+        continue;
 
       if (!last_grob
-	  || (last_grob && d * (ext[-d]- (*last_ext)[-d]) < 0))
-	{
-	  *last_ext = ext;
-	  last_grob = break_item;
-	}
+          || (last_grob && d * (ext[-d] - (*last_ext)[-d]) < 0))
+        {
+          *last_ext = ext;
+          last_grob = break_item;
+        }
     }
 
   return last_grob;
 }
 
-
 ADD_INTERFACE (Spacing_interface,
-	       "This object calculates the desired and minimum distances"
-	       " between two columns.",
+               "This object calculates the desired and minimum distances"
+               " between two columns.",
 
-	       /* properties */
-	       "left-items "
-	       "right-items "
-	       );
+               /* properties */
+               "left-items "
+               "right-items "
+              );

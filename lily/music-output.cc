@@ -54,7 +54,7 @@ Music_output::mark_smob (SCM s)
 }
 
 int
-Music_output::print_smob (SCM s, SCM p, scm_print_state*)
+Music_output::print_smob (SCM s, SCM p, scm_print_state *)
 {
   Music_output *sc = (Music_output *) SCM_CELL_WORD_1 (s);
   scm_puts ("#<", p);

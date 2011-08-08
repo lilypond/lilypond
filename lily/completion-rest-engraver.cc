@@ -56,9 +56,9 @@ using namespace std;
 
 class Completion_rest_engraver : public Engraver
 {
-  vector<Item*> rests_;
-  vector<Item*> prev_rests_;
-  vector<Stream_event*> rest_events_;
+  vector<Item *> rests_;
+  vector<Item *> prev_rests_;
+  vector<Stream_event *> rest_events_;
   Moment rest_end_mom_;
   bool is_first_;
   Rational left_to_do_;
@@ -66,7 +66,7 @@ class Completion_rest_engraver : public Engraver
   Rational factor_;
 
   Moment next_barline_moment ();
-  Item *make_rest (Stream_event*);
+  Item *make_rest (Stream_event *);
 
 public:
   TRANSLATOR_DECLARATIONS (Completion_rest_engraver);
@@ -90,7 +90,7 @@ void
 Completion_rest_engraver::listen_rest (Stream_event *ev)
 {
   rest_events_.push_back (ev);
-  
+
   is_first_ = true;
   Moment now = now_mom ();
   Moment musiclen = get_event_length (ev, now);
@@ -115,7 +115,7 @@ Completion_rest_engraver::next_barline_moment ()
   return (*l - *e);
 }
 
-Item*
+Item *
 Completion_rest_engraver::make_rest (Stream_event *ev)
 {
   Item *rest = make_item ("Rest", ev->self_scm ());
@@ -124,7 +124,7 @@ Completion_rest_engraver::make_rest (Stream_event *ev)
       int pos = p->steps ();
       SCM c0 = get_property ("middleCPosition");
       if (scm_is_number (c0))
-	pos += scm_to_int (c0);
+        pos += scm_to_int (c0);
       rest->set_property ("staff-position", scm_from_int (pos));
     }
 
@@ -149,13 +149,13 @@ Completion_rest_engraver::process_music ()
   if (left_to_do_)
     {
       /*
-	rest that rest_dur may be strictly less than left_to_do_
-	(say, if left_to_do_ == 5/8)
+        rest that rest_dur may be strictly less than left_to_do_
+        (say, if left_to_do_ == 5/8)
       */
       if (factor_.denominator () == 1 && factor_ > Rational (1, 1))
-	rest_dur = Duration (left_to_do_, false);
+        rest_dur = Duration (left_to_do_, false);
       else
-	rest_dur = Duration (left_to_do_ / factor_, false).compressed (factor_);
+        rest_dur = Duration (left_to_do_ / factor_, false).compressed (factor_);
       appearance = Duration (left_to_do_, false);
     }
   else
@@ -169,9 +169,9 @@ Completion_rest_engraver::process_music ()
   if (nb.main_part_ && nb < rest_dur.get_length ())
     {
       if (factor_.denominator () == 1 && factor_ > Rational (1, 1))
-	rest_dur = Duration (nb.main_part_, false);
+        rest_dur = Duration (nb.main_part_, false);
       else
-	rest_dur = Duration (nb.main_part_ / factor_, false).compressed (factor_);
+        rest_dur = Duration (nb.main_part_ / factor_, false).compressed (factor_);
     }
 
   do_nothing_until_ = now.main_part_ + rest_dur.get_length ();
@@ -182,7 +182,7 @@ Completion_rest_engraver::process_music ()
       Stream_event *event = rest_events_[i];
 
       if (need_clone)
-	event = event->clone ();
+        event = event->clone ();
 
       SCM pits = rest_events_[i]->get_property ("pitch");
       event->set_property ("pitch", pits);
@@ -192,13 +192,13 @@ Completion_rest_engraver::process_music ()
 
       Item *rest = make_rest (event);
       if (need_clone)
-	event->unprotect ();
+        event->unprotect ();
       rests_.push_back (rest);
     }
-  
+
   left_to_do_ -= rest_dur.get_length ();
   if (left_to_do_)
-    get_global_context ()->add_moment_to_process (now.main_part_ + rest_dur.get_length());
+    get_global_context ()->add_moment_to_process (now.main_part_ + rest_dur.get_length ());
   /*
     don't do complicated arithmetic with grace rests.
   */
@@ -224,7 +224,7 @@ Completion_rest_engraver::start_translation_timestep ()
       prev_rests_.clear ();
     }
   context ()->set_property ("restCompletionBusy",
-			    ly_bool2scm (rest_events_.size ()));
+                            ly_bool2scm (rest_events_.size ()));
 }
 
 Completion_rest_engraver::Completion_rest_engraver ()
@@ -232,18 +232,18 @@ Completion_rest_engraver::Completion_rest_engraver ()
 }
 
 ADD_TRANSLATOR (Completion_rest_engraver,
-		/* doc */
-		"This engraver replaces @code{Rest_engraver}.  It plays"
-		" some trickery to break long rests into the next measure."
-		,
-		/* create */
-		"Rest "
-		,
-		/* read */
-		"middleCPosition "
-		"measurePosition "
-		"measureLength "
-		,
-		/* write */
-		"restCompletionBusy "
-		);
+                /* doc */
+                "This engraver replaces @code{Rest_engraver}.  It plays"
+                " some trickery to break long rests into the next measure.",
+
+                /* create */
+                "Rest ",
+
+                /* read */
+                "middleCPosition "
+                "measurePosition "
+                "measureLength ",
+
+                /* write */
+                "restCompletionBusy "
+               );

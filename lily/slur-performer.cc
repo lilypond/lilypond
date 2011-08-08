@@ -39,7 +39,7 @@ protected:
   void start_translation_timestep ();
   void process_music ();
   void set_melisma (bool);
-  
+
   DECLARE_TRANSLATOR_LISTENER (slur);
 private:
   Stream_event *start_ev_;
@@ -96,15 +96,15 @@ Slur_performer::listen_slur (Stream_event *ev)
 }
 
 ADD_TRANSLATOR (Slur_performer,
-		/* doc */
-		"",
+                /* doc */
+                "",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

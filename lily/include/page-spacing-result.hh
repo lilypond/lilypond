@@ -27,13 +27,15 @@
 // to represent the system count of several pages simultaneously,
 // it could be that one page has too many systems while another
 // has too few.
-typedef enum {
+typedef enum
+{
   SYSTEM_COUNT_OK = 0,
   SYSTEM_COUNT_TOO_MANY = 1,
   SYSTEM_COUNT_TOO_FEW = 2
 } System_count_status;
 
-struct Page_spacing_result {
+struct Page_spacing_result
+{
   vector<vsize> systems_per_page_;
   vector<Real> force_;
   Real penalty_;
@@ -42,7 +44,7 @@ struct Page_spacing_result {
 
   Real average_force () const;
   vsize page_count () const;
-  void print () const;  
+  void print () const;
   Page_spacing_result ();
 };
 

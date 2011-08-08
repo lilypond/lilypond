@@ -63,15 +63,15 @@ Ligature_bracket_engraver::Ligature_bracket_engraver ()
 }
 
 void
-Ligature_bracket_engraver::process_music()
+Ligature_bracket_engraver::process_music ()
 {
   if (events_drul_[STOP])
     {
       if (!ligature_)
-	{
-	  events_drul_[STOP]->origin ()->warning (_ ("cannot find start of ligature"));
-	  return;
-	}
+        {
+          events_drul_[STOP]->origin ()->warning (_ ("cannot find start of ligature"));
+          return;
+        }
 
       finished_ligature_ = ligature_;
       ligature_ = 0;
@@ -81,10 +81,10 @@ Ligature_bracket_engraver::process_music()
   if (events_drul_[START])
     {
       if (ligature_)
-	{
-	  events_drul_[START]->origin ()->warning (_ ("already have a ligature"));
-	  return;
-	}
+        {
+          events_drul_[START]->origin ()->warning (_ ("already have a ligature"));
+          return;
+        }
 
       previous_start_event_ = events_drul_[START];
       ligature_ = make_spanner ("LigatureBracket", events_drul_[START]->self_scm ());
@@ -97,23 +97,22 @@ Ligature_bracket_engraver::acknowledge_note_column (Grob_info info)
   if (ligature_)
     {
       Tuplet_bracket::add_column (ligature_,
-				  info.item ());
-      add_bound_item (ligature_, info.item());
+                                  info.item ());
+      add_bound_item (ligature_, info.item ());
     }
 }
 
 void
 Ligature_bracket_engraver::acknowledge_rest (Grob_info info)
 {
-  acknowledge_note_column(info);
+  acknowledge_note_column (info);
 }
-
 
 void
 Ligature_bracket_engraver::stop_translation_timestep ()
 {
-  events_drul_[LEFT] =  
-    events_drul_[RIGHT] = 0;
+  events_drul_[LEFT]
+    = events_drul_[RIGHT] = 0;
   finished_ligature_ = 0;
 }
 
@@ -121,16 +120,16 @@ ADD_ACKNOWLEDGER (Ligature_bracket_engraver, rest);
 ADD_ACKNOWLEDGER (Ligature_bracket_engraver, note_column);
 
 ADD_TRANSLATOR (Ligature_bracket_engraver,
-		/* doc */
-		"Handle @code{Ligature_events} by engraving @code{Ligature}"
-		" brackets.",
+                /* doc */
+                "Handle @code{Ligature_events} by engraving @code{Ligature}"
+                " brackets.",
 
-		/* create */
-		"LigatureBracket ",
+                /* create */
+                "LigatureBracket ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

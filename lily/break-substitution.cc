@@ -43,39 +43,39 @@ substitute_grob (Grob *sc)
       Item *i = dynamic_cast<Item *> (sc);
       Direction d = to_dir (break_criterion);
       if (i && i->break_status_dir () != d)
-	{
-	  Item *br = i->find_prebroken_piece (d);
-	  return br;
-	}
+        {
+          Item *br = i->find_prebroken_piece (d);
+          return br;
+        }
     }
   else
     {
       System *line
-	= dynamic_cast<System *> (unsmob_grob (break_criterion));
+        = dynamic_cast<System *> (unsmob_grob (break_criterion));
       if (sc->get_system () != line)
-	sc = sc->find_broken_piece (line);
+        sc = sc->find_broken_piece (line);
 
       /* now: !sc || (sc && sc->get_system () == line) */
       if (!sc)
-	return 0;
+        return 0;
 
       /* now: sc && sc->get_system () == line */
       if (!line)
-	return sc;
+        return sc;
 
       /*
-	We don't return SCM_UNDEFINED for
-	suicided grobs, for two reasons
+        We don't return SCM_UNDEFINED for
+        suicided grobs, for two reasons
 
-	- it doesn't work (strange disappearing objects)
+        - it doesn't work (strange disappearing objects)
 
-	- it forces us to mark the parents of a grob, leading to
-	a huge recursion in the GC routine.
+        - it forces us to mark the parents of a grob, leading to
+        a huge recursion in the GC routine.
       */
 
       if (sc->common_refpoint (line, X_AXIS)
-	  && sc->common_refpoint (line, Y_AXIS))
-	return sc;
+          && sc->common_refpoint (line, Y_AXIS))
+        return sc;
       return 0;
     }
 
@@ -99,7 +99,7 @@ substitute_grob (Grob *sc)
 SCM
 do_break_substitution (SCM src)
 {
- again:
+again:
 
   if (unsmob_grob (src))
     {
@@ -111,33 +111,33 @@ do_break_substitution (SCM src)
       int len = scm_c_vector_length (src);
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
       for (int i = 0; i < len; i++)
-	{
-	  SCM si = scm_from_int (i);
-	  scm_vector_set_x (nv, si,
-			    do_break_substitution (scm_vector_ref (src, si)));
-	}
+        {
+          SCM si = scm_from_int (i);
+          scm_vector_set_x (nv, si,
+                            do_break_substitution (scm_vector_ref (src, si)));
+        }
     }
   else if (scm_is_pair (src))
     {
       /*
-	UGH! breaks on circular lists.
+        UGH! breaks on circular lists.
       */
       SCM newcar = do_break_substitution (scm_car (src));
       SCM oldcdr = scm_cdr (src);
 
       if (newcar == SCM_UNDEFINED
-	  && (scm_is_pair (oldcdr) || oldcdr == SCM_EOL))
-	{
-	  /*
-	    This is tail-recursion, ie.
+          && (scm_is_pair (oldcdr) || oldcdr == SCM_EOL))
+        {
+          /*
+            This is tail-recursion, ie.
 
-	    return do_break_substution (cdr);
+            return do_break_substution (cdr);
 
-	    We don't want to rely on the compiler to do this.  Without
-	    tail-recursion, this easily crashes with a stack overflow.  */
-	  src = oldcdr;
-	  goto again;
-	}
+            We don't want to rely on the compiler to do this.  Without
+            tail-recursion, this easily crashes with a stack overflow.  */
+          src = oldcdr;
+          goto again;
+        }
 
       return scm_cons (newcar, do_break_substitution (oldcdr));
     }
@@ -150,14 +150,14 @@ do_break_substitution (SCM src)
 /*
   Perform substitution on GROB_LIST using a constant amount of stack.
 */
-vector<Grob*> temporary_substition_array;
+vector<Grob *> temporary_substition_array;
 void
 substitute_grob_array (Grob_array *grob_arr, Grob_array *new_arr)
 {
-  vector<Grob*> &old_grobs (grob_arr->array_reference ());
-  vector<Grob*> *new_grobs (new_arr == grob_arr
-			       ? & temporary_substition_array
-			       : &new_arr->array_reference ());
+  vector<Grob *> &old_grobs (grob_arr->array_reference ());
+  vector<Grob *> *new_grobs (new_arr == grob_arr
+                             ? & temporary_substition_array
+                             : &new_arr->array_reference ());
 
   new_grobs->resize (old_grobs.size ());
   Grob **array = (Grob **) new_grobs->data ();
@@ -167,7 +167,7 @@ substitute_grob_array (Grob_array *grob_arr, Grob_array *new_arr)
       Grob *orig = old_grobs[i];
       Grob *new_grob = substitute_grob (orig);
       if (new_grob)
-	*ptr++ = new_grob;
+        *ptr++ = new_grob;
     }
 
   new_grobs->resize (ptr - array);
@@ -235,8 +235,8 @@ spanner_system_range (Spanner *sp)
   else
     {
       if (sp->broken_intos_.size ())
-	rv = Slice (sp->broken_intos_[0]->get_system ()->get_rank (),
-		    sp->broken_intos_.back ()->get_system ()->get_rank ());
+        rv = Slice (sp->broken_intos_[0]->get_system ()->get_rank (),
+                    sp->broken_intos_.back ()->get_system ()->get_rank ());
     }
   return rv;
 }
@@ -253,7 +253,7 @@ item_system_range (Item *it)
     {
       Item *bi = it->find_prebroken_piece (d);
       if (bi && bi->get_system ())
-	sr.add_point (bi->get_system ()->get_rank ());
+        sr.add_point (bi->get_system ()->get_rank ());
     }
   while (flip (&d) != LEFT);
 
@@ -287,16 +287,16 @@ struct Substitution_entry
     */
     if (sr.is_empty ())
       {
-	/*
-	  overflow if we don't treat this specially.
-	*/
-	left_ = 1;
-	right_ = -1;
+        /*
+          overflow if we don't treat this specially.
+        */
+        left_ = 1;
+        right_ = -1;
       }
     else
       {
-	left_ = (short) sr[LEFT];
-	right_ = (short) sr[RIGHT];
+        left_ = (short) sr[LEFT];
+        right_ = (short) sr[RIGHT];
       }
   }
   Substitution_entry ()
@@ -310,20 +310,20 @@ struct Substitution_entry
   item_compare (void const *a, void const *b)
   {
     return ((Substitution_entry *)a)->left_
-      - ((Substitution_entry *)b)->left_;
+           - ((Substitution_entry *)b)->left_;
   }
 
   static int
   spanner_compare (void const *a, void const *b)
   {
     return ((Substitution_entry *)a)->length ()
-      - ((Substitution_entry *)b)->length ();
+           - ((Substitution_entry *)b)->length ();
   }
 };
 
 bool
 Spanner::fast_substitute_grob_array (SCM sym,
-				     Grob_array *grob_array)
+                                     Grob_array *grob_array)
 {
   int len = grob_array->size ();
 
@@ -361,15 +361,15 @@ Spanner::fast_substitute_grob_array (SCM sym,
 
       int idx = 0;
       if (dynamic_cast<Spanner *> (g))
-	idx = --spanner_index;
+        idx = --spanner_index;
       else if (dynamic_cast<Item *> (g))
-	idx = item_index++;
+        idx = item_index++;
 
       vec[idx].set (g, sr);
     }
 
   qsort (vec, item_index,
-	 sizeof (Substitution_entry), &Substitution_entry::item_compare);
+         sizeof (Substitution_entry), &Substitution_entry::item_compare);
 
   vector<Slice> item_indices;
   vector<Slice> spanner_indices;
@@ -380,14 +380,15 @@ Spanner::fast_substitute_grob_array (SCM sym,
     }
 
   vector<Slice> *arrs[]
-    = {
+  =
+  {
     &item_indices, &spanner_indices
   };
 
-  for (int i = 0; i < item_index;i++)
+  for (int i = 0; i < item_index; i++)
     {
       for (int j = vec[i].left_; j <= vec[i].right_; j++)
-	item_indices[j - system_range[LEFT]].add_point (i);
+        item_indices[j - system_range[LEFT]].add_point (i);
     }
 
   /*
@@ -401,7 +402,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
   assert (item_index <= spanner_index);
 
   assert ((broken_intos_.size () == (vsize)system_range.length () + 1)
-	  || (broken_intos_.empty () && system_range.length () == 0));
+          || (broken_intos_.empty () && system_range.length () == 0));
   for (vsize i = 0; i < broken_intos_.size (); i++)
     {
       Grob *sc = broken_intos_[i];
@@ -410,28 +411,28 @@ Spanner::fast_substitute_grob_array (SCM sym,
 
       SCM newval = sc->internal_get_object (sym);
       if (!unsmob_grob_array (newval))
-	{
-	  newval = Grob_array::make_array ();
-	  sc->set_object (sym, newval);
-	}
+        {
+          newval = Grob_array::make_array ();
+          sc->set_object (sym, newval);
+        }
 
       Grob_array *new_array = unsmob_grob_array (newval);
-      for (int k = 0; k < 2;k++)
-	for (int j = (*arrs[k])[i][LEFT]; j <= (*arrs[k])[i][RIGHT]; j++)
-	  {
-	    Grob *substituted = substitute_grob (vec[j].grob_);
-	    if (substituted)
-	      new_array->add (substituted);
-	  }
+      for (int k = 0; k < 2; k++)
+        for (int j = (*arrs[k])[i][LEFT]; j <= (*arrs[k])[i][RIGHT]; j++)
+          {
+            Grob *substituted = substitute_grob (vec[j].grob_);
+            if (substituted)
+              new_array->add (substituted);
+          }
 
 #ifdef PARANOIA
       printf ("%d (%d), sp %d (%d)\n",
-	      item_indices [i].length (), item_index,
-	      spanner_indices[i].length (), len -spanner_index);
+              item_indices [i].length (), item_index,
+              spanner_indices[i].length (), len - spanner_index);
 
       {
-	SCM l1 = substitute_grob_list (grob_list);
-	assert (scm_ilength (l1) == scm_ilength (newval));
+        SCM l1 = substitute_grob_list (grob_list);
+        assert (scm_ilength (l1) == scm_ilength (newval));
       }
 #endif
     }
@@ -463,37 +464,37 @@ substitute_object_alist (SCM alist, SCM dest)
       SCM val = scm_cdar (s);
 
       if (Grob_array *orig = unsmob_grob_array (val))
-	{
-	  SCM handle = scm_assq (sym, dest);
-	  SCM newval
-	    = (scm_is_pair (handle))
-	    ? scm_cdr (handle)
-	    : Grob_array::make_array ();
+        {
+          SCM handle = scm_assq (sym, dest);
+          SCM newval
+            = (scm_is_pair (handle))
+              ? scm_cdr (handle)
+              : Grob_array::make_array ();
 
-	  Grob_array *new_arr = unsmob_grob_array (newval);
+          Grob_array *new_arr = unsmob_grob_array (newval);
 
-	  substitute_grob_array (orig, new_arr);
-	  val = newval;
-	}
+          substitute_grob_array (orig, new_arr);
+          val = newval;
+        }
       else
-	val = do_break_substitution (val);
+        val = do_break_substitution (val);
 
       if (val != SCM_UNDEFINED)
-	{
-	  /*
-	    for ly:grob? properties, SCM_UNDEFINED could leak out
-	    through ly:grob-property
-	  */
-	  *tail = scm_cons (scm_cons (sym, val), SCM_EOL);
-	  tail = SCM_CDRLOC (*tail);
-	}
+        {
+          /*
+            for ly:grob? properties, SCM_UNDEFINED could leak out
+            through ly:grob-property
+          */
+          *tail = scm_cons (scm_cons (sym, val), SCM_EOL);
+          tail = SCM_CDRLOC (*tail);
+        }
     }
   return l;
 }
 
 void
 Spanner::substitute_one_mutable_property (SCM sym,
-					  SCM val)
+                                          SCM val)
 {
   Spanner *s = this;
 
@@ -505,25 +506,25 @@ Spanner::substitute_one_mutable_property (SCM sym,
   if (!fast_done)
     for (vsize i = 0; i < s->broken_intos_.size (); i++)
       {
-	Grob *sc = s->broken_intos_[i];
-	System *l = sc->get_system ();
-	set_break_subsititution (l ? l->self_scm () : SCM_UNDEFINED);
+        Grob *sc = s->broken_intos_[i];
+        System *l = sc->get_system ();
+        set_break_subsititution (l ? l->self_scm () : SCM_UNDEFINED);
 
-	if (grob_array)
-	  {
-	    SCM newval = sc->internal_get_object (sym);
-	    if (!unsmob_grob_array (newval))
-	      {
-		newval = Grob_array::make_array ();
-		sc->set_object (sym, newval);
-	      }
-	    substitute_grob_array (grob_array, unsmob_grob_array (newval));
-	  }
-	else
-	  {
-	    SCM newval = do_break_substitution (val);
-	    sc->set_object (sym, newval);
-	  }
+        if (grob_array)
+          {
+            SCM newval = sc->internal_get_object (sym);
+            if (!unsmob_grob_array (newval))
+              {
+                newval = Grob_array::make_array ();
+                sc->set_object (sym, newval);
+              }
+            substitute_grob_array (grob_array, unsmob_grob_array (newval));
+          }
+        else
+          {
+            SCM newval = do_break_substitution (val);
+            sc->set_object (sym, newval);
+          }
       }
 }
 

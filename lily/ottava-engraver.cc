@@ -25,7 +25,6 @@
 #include "spanner.hh"
 #include "text-interface.hh"
 
-
 class Ottava_spanner_engraver : public Engraver
 {
 public:
@@ -69,14 +68,14 @@ Ottava_spanner_engraver::process_music ()
       finished_ = span_;
       span_ = 0;
       if (Text_interface::is_markup (ott))
-	{
-	  span_ = make_spanner ("OttavaBracket", SCM_EOL);
-	  span_->set_property ("text", ott);
+        {
+          span_ = make_spanner ("OttavaBracket", SCM_EOL);
+          span_->set_property ("text", ott);
 
-	  SCM offset (get_property ("middleCOffset"));
-	  if (robust_scm2double (offset, 0) > 0)
-	    span_->set_property ("direction", scm_from_int (DOWN));
-	}
+          SCM offset (get_property ("middleCOffset"));
+          if (robust_scm2double (offset, 0) > 0)
+            span_->set_property ("direction", scm_from_int (DOWN));
+        }
     }
   last_ottavation_ = ott;
 }
@@ -90,7 +89,7 @@ Ottava_spanner_engraver::acknowledge_note_column (Grob_info info)
       Side_position_interface::add_support (span_, it);
 
       if (!span_->get_bound (LEFT))
-	span_->set_bound (LEFT, it);
+        span_->set_bound (LEFT, it);
       span_->set_bound (RIGHT, it);
     }
 }
@@ -102,13 +101,13 @@ Ottava_spanner_engraver::typeset_all ()
     {
       Direction d = LEFT;
       do
-	{
-	  if (!finished_->get_bound (RIGHT))
-	    {
-	      Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
-	      finished_->set_bound (d, e);
-	    }
-	}
+        {
+          if (!finished_->get_bound (RIGHT))
+            {
+              Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
+              finished_->set_bound (d, e);
+            }
+        }
       while (flip (&d) != LEFT);
 
       finished_ = 0;
@@ -142,17 +141,17 @@ Ottava_spanner_engraver::finalize ()
 ADD_ACKNOWLEDGER (Ottava_spanner_engraver, note_column);
 
 ADD_TRANSLATOR (Ottava_spanner_engraver,
-		/* doc */
-		"Create a text spanner when the ottavation property changes.",
+                /* doc */
+                "Create a text spanner when the ottavation property changes.",
 
-		/* create */
-		"OttavaBracket ",
+                /* create */
+                "OttavaBracket ",
 
-		/* read */
-		"middleCOffset "
-		"ottavation "
-		"currentMusicalColumn ",
-		
-		/* write */
-		""
-		);
+                /* read */
+                "middleCOffset "
+                "ottavation "
+                "currentMusicalColumn ",
+
+                /* write */
+                ""
+               );

@@ -24,26 +24,25 @@
 #include "tie-configuration.hh"
 
 void set_chord_outline (Skyline *skyline,
-			vector<Item*> bounds,
-			Grob *common,
-			Direction d);
+                        vector<Item *> bounds,
+                        Grob *common,
+                        Direction d);
 void set_tie_config_directions (Ties_configuration *tie_configs_ptr);
 void shift_small_ties (Ties_configuration *tie_configs,
-		       Grob *staff_referencer,
-		       Tie_details const &details);
+                       Grob *staff_referencer,
+                       Tie_details const &details);
 void final_shape_adjustment (Tie_configuration &conf,
-			     Tie_formatting_problem const&,
-			     Grob *staff_referencer);
+                             Tie_formatting_problem const &,
+                             Grob *staff_referencer);
 void
 set_chord_outlines (Drul_array<Skyline> *skyline_drul,
-		    vector<Grob*> ties,
-		    Grob *common);
+                    vector<Grob *> ties,
+                    Grob *common);
 
 void
 set_manual_tie_configuration (Ties_configuration *tie_configs,
-			      bool *manual_override,
-			      SCM manual_configs
-			      );
-
+                              bool *manual_override,
+                              SCM manual_configs
+                             );
 
 #endif /* TIE_COLUMN_FORMAT_HH */

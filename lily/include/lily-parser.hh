@@ -39,8 +39,8 @@ class Lily_parser
 
   char const *here_str0 () const;
   Simultaneous_music *get_chord (Pitch tonic,
-				 vector<Pitch> *adds, vector<Pitch> *subs,
-				 Pitch *inversion, Pitch *bass, Duration d);
+                                 vector<Pitch> *adds, vector<Pitch> *subs,
+                                 Pitch *inversion, Pitch *bass, Duration d);
   void set_chord_tremolo (int type);
   void set_last_duration (Duration const *);
   void set_last_pitch (Pitch const *);
@@ -70,7 +70,7 @@ public:
   void parser_error (Input const &, string);
   void set_yydebug (bool);
 
-  SCM make_scope () const; 
+  SCM make_scope () const;
 };
 
 DECLARE_UNSMOB (Lily_parser, lily_parser);

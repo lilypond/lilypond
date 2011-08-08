@@ -82,7 +82,7 @@ Glissando_engraver::acknowledge_note_column (Grob_info info)
     {
       extract_grob_set (g, "note-heads", note_heads);
       int glissando_index = 0;
-      for (vsize i=0; i < note_column_1.size (); i++)
+      for (vsize i = 0; i < note_column_1.size (); i++)
         {
           if (note_column_2[i] >= note_heads.size ())
             {
@@ -101,7 +101,7 @@ Glissando_engraver::acknowledge_note_column (Grob_info info)
       note_column_1.clear ();
       note_column_2.clear ();
       stop_glissandi = false;
-    }      
+    }
 
   if (start_glissandi)
     {
@@ -126,7 +126,7 @@ Glissando_engraver::acknowledge_note_column (Grob_info info)
             note_column_1.push_back (vsize (n1));
             note_column_2.push_back (vsize (n2));
           }
-      for (vsize i=0; i < note_column_1.size (); i++)
+      for (vsize i = 0; i < note_column_1.size (); i++)
         {
           lines_.push_back (make_spanner ("Glissando", event_->self_scm ()));
           lines_.back ()->set_bound (LEFT, note_heads[note_column_1[i]]);
@@ -141,7 +141,7 @@ Glissando_engraver::stop_translation_timestep ()
   if (start_glissandi)
     {
       if (stop_glissandi)
-	programming_error ("overwriting glissando");
+        programming_error ("overwriting glissando");
       stop_glissandi = true;
       start_glissandi = false;
     }
@@ -156,29 +156,29 @@ Glissando_engraver::finalize ()
       string msg = _ ("unterminated glissando");
 
       if (event_)
-	event_->origin ()->warning (msg);
+        event_->origin ()->warning (msg);
       else
-	warning (msg);
+        warning (msg);
 
-      for (vsize i=0; i < lines_.size (); i++)
+      for (vsize i = 0; i < lines_.size (); i++)
         lines_[i]->suicide ();
     }
 
-  for (vsize i=0; i < kill_me_.size (); i++)
+  for (vsize i = 0; i < kill_me_.size (); i++)
     kill_me_[i]->suicide ();
 }
 
 ADD_ACKNOWLEDGER (Glissando_engraver, note_column);
 ADD_TRANSLATOR (Glissando_engraver,
-		/* doc */
-		"Engrave glissandi.",
+                /* doc */
+                "Engrave glissandi.",
 
-		/* create */
-		"Glissando ",
+                /* create */
+                "Glissando ",
 
-		/* read */
-		"glissandoMap ",
+                /* read */
+                "glissandoMap ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

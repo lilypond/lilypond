@@ -21,7 +21,8 @@
 #include "warn.hh"
 #include "libc-extension.hh"
 
-Real binomial_coefficient_3[] = {
+Real binomial_coefficient_3[] =
+{
   1, 3, 3, 1
 };
 
@@ -62,7 +63,7 @@ translate (vector<Offset> *array, Offset o)
 Real
 Bezier::get_other_coordinate (Axis a, Real x) const
 {
-  Axis other = Axis ((a +1) % NO_AXES);
+  Axis other = Axis ((a + 1) % NO_AXES);
   vector<Real> ts = solve_point (a, x);
 
   if (ts.size () == 0)
@@ -93,7 +94,7 @@ Bezier::curve_coordinate (Real t, Axis a) const
   for (int j = 0; j < 4; j++)
     {
       r += control_[j][a] * binomial_coefficient_3[j]
-	* tj * one_min_tj[3 - j];
+           * tj * one_min_tj[3 - j];
 
       tj *= t;
     }
@@ -114,7 +115,7 @@ Bezier::curve_point (Real t) const
   for (int j = 0; j < 4; j++)
     {
       o += control_[j] * binomial_coefficient_3[j]
-	* tj * one_min_tj[3 - j];
+           * tj * one_min_tj[3 - j];
 
       tj *= t;
     }
@@ -130,15 +131,16 @@ Bezier::curve_point (Real t) const
 /*
   Cache binom (3, j) t^j (1-t)^{3-j}
 */
-struct Polynomial_cache {
+struct Polynomial_cache
+{
   Polynomial terms_[4];
   Polynomial_cache ()
   {
     for (int j = 0; j <= 3; j++)
       terms_[j]
-	= binomial_coefficient_3[j]
-	* Polynomial::power (j, Polynomial (0, 1))
-	* Polynomial::power (3 - j, Polynomial (1, -1));
+        = binomial_coefficient_3[j]
+          * Polynomial::power (j, Polynomial (0, 1))
+          * Polynomial::power (3 - j, Polynomial (1, -1));
   }
 };
 
@@ -206,7 +208,7 @@ Bezier::solve_point (Axis ax, Real coordinate) const
 Interval
 Bezier::extent (Axis a) const
 {
-  int o = (a + 1)%NO_AXES;
+  int o = (a + 1) % NO_AXES;
   Offset d;
   d[Axis (o)] = 1.0;
   Interval iv;
@@ -228,9 +230,8 @@ Bezier::control_point_extent (Axis a) const
   for (int i = CONTROL_COUNT; i--;)
     ext.add_point (control_[i][a]);
 
-  return ext;      
+  return ext;
 }
-
 
 /**
    Flip around axis A
@@ -265,7 +266,7 @@ Bezier::assert_sanity () const
 {
   for (int i = 0; i < CONTROL_COUNT; i++)
     assert (!isnan (control_[i].length ())
-	    && !isinf (control_[i].length ()));
+            && !isinf (control_[i].length ()));
 }
 
 void
@@ -277,7 +278,6 @@ Bezier::reverse ()
   *this = b2;
 }
 
-
 /*
   Subdivide a bezier at T into LEFT_PART and RIGHT_PART
   using deCasteljau's algorithm.
@@ -287,15 +287,15 @@ Bezier::subdivide (Real t, Bezier *left_part, Bezier *right_part) const
 {
   Offset p[CONTROL_COUNT][CONTROL_COUNT];
 
-  for (int i = 0; i < CONTROL_COUNT ; i++)
+  for (int i = 0; i < CONTROL_COUNT; i++)
     p[i][CONTROL_COUNT - 1 ] = control_[i];
-  for (int j = CONTROL_COUNT - 2; j >= 0 ; j--)
-  for (int i = 0; i < CONTROL_COUNT -1; i++)
-    p[i][j] = p[i][j+1] + t * (p[i+1][j+1] - p[i][j+1]);
+  for (int j = CONTROL_COUNT - 2; j >= 0; j--)
+    for (int i = 0; i < CONTROL_COUNT - 1; i++)
+      p[i][j] = p[i][j + 1] + t * (p[i + 1][j + 1] - p[i][j + 1]);
   for (int i = 0; i < CONTROL_COUNT; i++)
     {
-      left_part->control_[i]=p[0][CONTROL_COUNT - 1 - i];
-      right_part->control_[i]=p[i][i];
+      left_part->control_[i] = p[0][CONTROL_COUNT - 1 - i];
+      right_part->control_[i] = p[i][i];
     }
 }
 
@@ -308,20 +308,20 @@ Bezier::extract (Real t_min, Real t_max) const
 {
   if ((t_min < 0) || (t_max) > 1)
     programming_error
-      ("bezier extract arguments outside of limits: curve may have bad shape");
+    ("bezier extract arguments outside of limits: curve may have bad shape");
   if (t_min >= t_max)
-    programming_error 
-      ("lower bezier extract value not less than upper value: curve may have bad shape");
+    programming_error
+    ("lower bezier extract value not less than upper value: curve may have bad shape");
   Bezier bez1, bez2, bez3, bez4;
   if (t_min == 0.0)
     bez2 = *this;
   else
-      subdivide (t_min, &bez1, &bez2);
+    subdivide (t_min, &bez1, &bez2);
   if (t_max == 1.0)
-      return bez2;
+    return bez2;
   else
-   {
-     bez2.subdivide ((t_max-t_min)/(1-t_min), &bez3, &bez4);
-     return bez3;
-  }
+    {
+      bez2.subdivide ((t_max - t_min) / (1 - t_min), &bez3, &bez4);
+      return bez3;
+    }
 }

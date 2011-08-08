@@ -243,15 +243,14 @@ into a @code{MultiMeasureTextEvent}."
   (let* ((set (and (integer? label)
 		   (context-spec-music (make-property-set 'rehearsalMark label)
 				      'Score)))
-	 (ev (make-music 'MarkEvent))
-	 (ch (make-event-chord (list ev))))
+	 (ev (make-music 'MarkEvent
+			 'origin location)))
 
-    (set! (ly:music-property ev 'origin) location)
     (if set
-	(make-sequential-music (list set ch))
+	(make-sequential-music (list set ev))
 	(begin
 	  (set! (ly:music-property ev 'label) label)
-	  ch))))
+	  ev))))
 
 (define-ly-syntax (partial parser location dur)
   "Make a partial measure."

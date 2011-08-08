@@ -39,6 +39,5 @@ typedef SCM (*scm_t_hash_fold_fn) (GUILE_ELLIPSIS);
 typedef SCM (*scm_t_hash_handle_fn) (GUILE_ELLIPSIS);
 #endif
 
-
 #endif /* LY_MODULE_HH */
 

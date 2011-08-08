@@ -32,13 +32,13 @@ public:
   static Real staff_space (Grob *);
   static Real get_line_thickness (Grob *);
   static Real get_ledger_line_thickness (Grob *);
-  
+
   static int get_steps (Grob *);
   static int line_count (Grob *);
   static bool on_line (Grob *me, int pos);
   static Interval line_span (Grob *);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_SCHEME_CALLBACK (height, (SCM));  
-  DECLARE_GROB_INTERFACE();
+  DECLARE_SCHEME_CALLBACK (height, (SCM));
+  DECLARE_GROB_INTERFACE ();
 };
 #endif // STAFF_SYMBOL_HH

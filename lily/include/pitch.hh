@@ -24,7 +24,6 @@
 #include "smobs.hh"
 #include "rational.hh"
 
-
 /*
   A "tonal" pitch.  This is a pitch used in diatonal western music
   (24 quartertones in an octave), as opposed to a frequency in Hz or a
@@ -75,8 +74,8 @@ public:
   DECLARE_SIMPLE_SMOBS (Pitch);
 };
 
-
-enum {
+enum
+{
   DOUBLE_FLAT = -4,
   THREE_Q_FLAT,
   FLAT,

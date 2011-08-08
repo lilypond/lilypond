@@ -2,7 +2,7 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2006--2011 Han-Wen Nienhuys <hanwen@xs4all.nl>
-  	   Erik Sandberg <mandolaerik@gmail.com>
+           Erik Sandberg <mandolaerik@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 
 class Event_iterator : public Simple_music_iterator
 {
-  DECLARE_CLASSNAME(Event_iterator);
+  DECLARE_CLASSNAME (Event_iterator);
 
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());

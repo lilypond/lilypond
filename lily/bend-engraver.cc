@@ -38,7 +38,7 @@ protected:
   void stop_translation_timestep ();
   void start_translation_timestep ();
   void stop_fall ();
-  
+
 private:
   Moment stop_moment_;
   Stream_event *fall_event_;
@@ -60,11 +60,10 @@ void
 Bend_engraver::stop_fall ()
 {
   bool bar = scm_is_string (get_property ("whichBar"));
-  
-  
+
   fall_->set_bound (RIGHT, unsmob_grob (bar
-					? get_property ("currentCommandColumn")
-					: get_property ("currentMusicalColumn")));
+                                        ? get_property ("currentCommandColumn")
+                                        : get_property ("currentMusicalColumn")));
   last_fall_ = fall_;
   fall_ = 0;
   note_head_ = 0;
@@ -74,10 +73,10 @@ Bend_engraver::stop_fall ()
 void
 Bend_engraver::stop_translation_timestep ()
 {
-  if (fall_ && !fall_->get_bound (LEFT)) 
+  if (fall_ && !fall_->get_bound (LEFT))
     {
       fall_->set_bound (LEFT, note_head_);
-      fall_->set_parent (note_head_,  Y_AXIS);
+      fall_->set_parent (note_head_, Y_AXIS);
     }
 }
 
@@ -97,7 +96,7 @@ Bend_engraver::acknowledge_note_head (Grob_info info)
 {
   if (!fall_event_)
     return;
-  
+
   if (note_head_ && fall_)
     {
       stop_fall ();
@@ -105,7 +104,7 @@ Bend_engraver::acknowledge_note_head (Grob_info info)
 
   note_head_ = info.grob ();
   stop_moment_ = now_mom () + get_event_length (info.event_cause (),
-						now_mom ());
+                                                now_mom ());
 }
 
 Bend_engraver::Bend_engraver ()
@@ -130,22 +129,22 @@ Bend_engraver::process_music ()
     {
       fall_ = make_spanner ("BendAfter", fall_event_->self_scm ());
       fall_->set_property ("delta-position",
-			   scm_from_double (robust_scm2double (fall_event_->get_property ("delta-step"), 0)));
+                           scm_from_double (robust_scm2double (fall_event_->get_property ("delta-step"), 0)));
     }
 }
 
 ADD_ACKNOWLEDGER (Bend_engraver, note_head);
 
 ADD_TRANSLATOR (Bend_engraver,
-		/* doc */
-		"Create fall spanners.",
+                /* doc */
+                "Create fall spanners.",
 
-		/* create */
-		"BendAfter ",
+                /* create */
+                "BendAfter ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

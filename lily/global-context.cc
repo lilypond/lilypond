@@ -41,9 +41,9 @@ Global_context::Global_context (Output_def *o)
 
   /* We only need the most basic stuff to bootstrap the context tree */
   event_source ()->add_listener (GET_LISTENER (create_context_from_event),
-                                ly_symbol2scm ("CreateContext"));
+                                 ly_symbol2scm ("CreateContext"));
   event_source ()->add_listener (GET_LISTENER (prepare),
-                                ly_symbol2scm ("Prepare"));
+                                 ly_symbol2scm ("Prepare"));
   events_below ()->register_as_listener (event_source_);
 
   Context_def *globaldef = unsmob_context_def (definition_);
@@ -112,14 +112,14 @@ Context *
 Global_context::get_score_context () const
 {
   return (scm_is_pair (context_list_))
-    ? unsmob_context (scm_car (context_list_))
-    : 0;
+         ? unsmob_context (scm_car (context_list_))
+         : 0;
 }
 
 SCM
 Global_context::get_output ()
 {
-  Context * c = get_score_context ();
+  Context *c = get_score_context ();
   if (c)
     return c->get_property ("output");
   else
@@ -139,33 +139,32 @@ Global_context::run_iterator_on_me (Music_iterator *iter)
       Moment w;
       w.set_infinite (1);
       if (iter->ok ())
-	w = iter->pending_moment ();
+        w = iter->pending_moment ();
 
       w = sneaky_insert_extra_moment (w);
       if (w.main_part_.is_infinity () || w > final_mom)
-	break;
+        break;
 
       if (w == prev_mom_)
-	{
-	  programming_error ("Moment is not increasing. Aborting interpretation.");
-	  break ;
-	}
+        {
+          programming_error ("Moment is not increasing. Aborting interpretation.");
+          break;
+        }
 
-      
       if (first)
-	{
-	  /*
-	    Need this to get grace notes at start of a piece correct.
-	  */
-	  first = false;
-	  set_property ("measurePosition", w.smobbed_copy ());
-	}
+        {
+          /*
+            Need this to get grace notes at start of a piece correct.
+          */
+          first = false;
+          set_property ("measurePosition", w.smobbed_copy ());
+        }
 
       send_stream_event (this, "Prepare", 0,
-			 ly_symbol2scm ("moment"), w.smobbed_copy ());
+                         ly_symbol2scm ("moment"), w.smobbed_copy ());
 
       if (iter->ok ())
-	iter->process (w);
+        iter->process (w);
 
       send_stream_event (this, "OneTimeStep", 0, 0);
       apply_finalizations ();

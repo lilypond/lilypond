@@ -1,6 +1,11 @@
-\version "2.15.0"
+\version "2.15.7"
 \header {
-  texidoc = "Lilypond does footnotes."
+  texidoc = "This is an example of automatic footnote numbering
+where the number is reset on each page.  It uses the symbol-footnotes
+numbering function, which assigns the symbols *, †, ‡, § and ¶ to
+successive footnotes, doubling up on the symbol after five footnotes
+have been reached.
+"
 }
 
 \paper {

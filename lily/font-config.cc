@@ -30,7 +30,6 @@
 #include "main.hh"
 #include "warn.hh"
 
-
 FcConfig *font_config_global = 0;
 
 void
@@ -41,22 +40,22 @@ init_fontconfig ()
 
   /* TODO: Find a way for Fontconfig to update its cache, if needed. */
   font_config_global = FcInitLoadConfig ();
-			
+
   vector<string> dirs;
 
   /* Extra trailing slash suddenly breaks fontconfig (fc-cache 2.5.0)
      on windows.  */
   dirs.push_back (lilypond_datadir + "/fonts/otf");
-  
+
   for (vsize i = 0; i < dirs.size (); i++)
     {
       string dir = dirs[i];
       if (!FcConfigAppFontAddDir (font_config_global, (FcChar8 *)dir.c_str ()))
-	error (_f ("failed adding font directory: %s", dir.c_str ()));
+        error (_f ("failed adding font directory: %s", dir.c_str ()));
       else if (be_verbose_global)
-	message (_f ("adding font directory: %s", dir.c_str ()));
+        message (_f ("adding font directory: %s", dir.c_str ()));
     }
-  
+
   if (be_verbose_global)
     message (_ ("Building font database..."));
 

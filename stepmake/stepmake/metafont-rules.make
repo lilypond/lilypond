@@ -27,5 +27,10 @@ $(outdir)/%.pfb: %.mf $(outdir)/mf2pt1.mem
 	&& mv $$TMP/*pfb $(outdir); \
 	rm -rf $$TMP
 
+# since recent mpost versions no longer create a mem file, we create a dummy
+# file to satisfy the dependency (which gets overwritten in case an older
+# mpost creates a real mem file)
 $(outdir)/mf2pt1.mem: mf2pt1.mp
-	cd $(outdir) && mpost -progname=mpost -ini $(top-src-dir)/mf/mf2pt1.mp \\dump
+	cd $(outdir) \
+	   && touch mf2pt1.mem \
+	   && mpost -progname=mpost -ini $(top-src-dir)/mf/mf2pt1.mp \\dump

@@ -69,14 +69,14 @@ Rest_engraver::process_music ()
       Pitch *p = unsmob_pitch (rest_event_->get_property ("pitch"));
 
       if (p)
-	{
-	  int pos = p->steps ();
-	  SCM c0 = get_property ("middleCPosition");
-	  if (scm_is_number (c0))
-	    pos += scm_to_int (c0);
+        {
+          int pos = p->steps ();
+          SCM c0 = get_property ("middleCPosition");
+          if (scm_is_number (c0))
+            pos += scm_to_int (c0);
 
-	  rest_->set_property ("staff-position", scm_from_int (pos));
-	}
+          rest_->set_property ("staff-position", scm_from_int (pos));
+        }
     }
 }
 
@@ -88,15 +88,15 @@ Rest_engraver::listen_rest (Stream_event *ev)
 }
 
 ADD_TRANSLATOR (Rest_engraver,
-		/* doc */
-		"Engrave rests.",
+                /* doc */
+                "Engrave rests.",
 
-		/* create */
-		"Rest ",
+                /* create */
+                "Rest ",
 
-		/* read */
-		"middleCPosition ",
+                /* read */
+                "middleCPosition ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

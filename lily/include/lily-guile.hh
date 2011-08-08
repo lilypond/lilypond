@@ -31,7 +31,7 @@
   Hack for various MacOS incarnations.
  */
 #ifndef GUILE_ELLIPSIS
-#define GUILE_ELLIPSIS 
+#define GUILE_ELLIPSIS
 #endif
 
 #include "guile-compatibility.hh"
@@ -78,7 +78,6 @@ Offset robust_scm2offset (SCM, Offset);
 string robust_scm2string (SCM, string);
 Rational robust_scm2rational (SCM, Rational);
 
-  
 SCM ly_quote_scm (SCM s);
 bool type_check_assignment (SCM val, SCM sym, SCM type_symbol);
 string print_scm_val (SCM val);
@@ -93,8 +92,8 @@ SCM ly_hash2alist (SCM tab);
 SCM ly_hash_table_keys (SCM tab);
 
 SCM ly_assoc_prepend_x (SCM alist, SCM key, SCM val);
-inline bool ly_is_fraction (SCM x) { return SCM_FRACTIONP(x) || scm_is_integer (x); }
-    
+inline bool ly_is_fraction (SCM x) { return SCM_FRACTIONP (x) || scm_is_integer (x); }
+
 inline bool ly_is_list (SCM x) { return SCM_NFALSEP (scm_list_p (x)); }
 inline bool ly_cheap_is_list (SCM x) { return scm_is_pair (x) || x == SCM_EOL; }
 inline bool ly_is_procedure (SCM x) { return SCM_NFALSEP (scm_procedure_p (x)); }
@@ -166,7 +165,7 @@ SCM ly_output_formats ();
 /*
   snarfing.
 */
-void add_scm_init_func (void (*) ());
+void add_scm_init_func (void ( *) ());
 
 extern "C" {
   typedef SCM (*Scheme_function_unknown) (GUILE_ELLIPSIS);
@@ -184,7 +183,6 @@ typedef SCM (*Scheme_function_2) (GUILE_ELLIPSIS);
 typedef SCM (*Scheme_function_3) (GUILE_ELLIPSIS);
 #endif
 
-
 /*
   Inline these for performance reasons.
  */
@@ -199,21 +197,18 @@ inline SCM ly_car (SCM x) { return SCM_CAR (x); }
 inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }
 inline bool ly_is_pair (SCM x) { return SCM_I_CONSP (x); }
 
-
-
-#include  "std-vector.hh"
+#include "std-vector.hh"
 
 template<class T>
 SCM
-ly_cxx_vector_to_list  (vector<T> const &src)
+ly_cxx_vector_to_list (vector<T> const &src)
 {
   SCM l = SCM_EOL;
-  for (vsize i = src.size (); i --; )
+  for (vsize i = src.size (); i--;)
     l = scm_cons (src[i]->self_scm (), l);
 
   return l;
 }
-
 
 SCM ly_offsets2scm (vector<Offset> os);
 vector<Offset> ly_scm2offsets (SCM s);

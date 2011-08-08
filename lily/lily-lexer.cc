@@ -37,7 +37,8 @@ using namespace std;
 #include "lily-parser.hh"
 
 static Keyword_ent the_key_tab[]
-= {
+=
+{
   {"accepts", ACCEPTS},
   {"addlyrics", ADDLYRICS},
   {"alias", ALIAS},
@@ -209,8 +210,8 @@ Lily_lexer::keyword_list () const
   for (vsize i = 0; i < keytable_->table_.size (); i++)
     {
       *tail = scm_acons (scm_from_locale_string (keytable_->table_[i].name_),
-			 scm_from_int (keytable_->table_[i].tokcode_),
-			 SCM_EOL);
+                         scm_from_int (keytable_->table_[i].tokcode_),
+                         SCM_EOL);
 
       tail = SCM_CDRLOC (*tail);
     }
@@ -225,7 +226,7 @@ Lily_lexer::lookup_identifier_symbol (SCM sym)
     {
       SCM var = ly_module_lookup (scm_car (s), sym);
       if (var != SCM_BOOL_F)
-	return scm_variable_ref (var);
+        return scm_variable_ref (var);
     }
 
   return SCM_UNDEFINED;
@@ -246,8 +247,8 @@ Lily_lexer::start_main_input ()
   new_input (main_input_name_, sources_);
 
   scm_module_define (scm_car (scopes_),
-		     ly_symbol2scm ("input-file-name"),
-		     ly_string2scm (main_input_name_));
+                     ly_symbol2scm ("input-file-name"),
+                     ly_string2scm (main_input_name_));
 }
 
 void
@@ -286,19 +287,19 @@ Lily_lexer::set_identifier (SCM path, SCM val)
   if (scm_is_symbol (sym))
     {
       if (lookup_keyword (ly_symbol2string (sym)) >= 0)
-	{
-	  string symstr = ly_symbol2string (sym);
-	  warning (_f ("identifier name is a keyword: `%s'", symstr.c_str ()));
-	}
+        {
+          string symstr = ly_symbol2string (sym);
+          warning (_f ("identifier name is a keyword: `%s'", symstr.c_str ()));
+        }
 
       SCM mod = scm_car (scopes_);
 
       if (scm_is_pair (path))
-	{
-	  SCM prev = ly_module_lookup (mod, sym);
-	  if (prev != SCM_BOOL_F)
-	    val = nested_property_alist (scm_variable_ref (prev), path, val);
-	}
+        {
+          SCM prev = ly_module_lookup (mod, sym);
+          if (prev != SCM_BOOL_F)
+            val = nested_property_alist (scm_variable_ref (prev), path, val);
+        }
       scm_module_define (mod, sym, val);
     }
   else
@@ -356,7 +357,7 @@ Lily_lexer::add_lexed_char (int count)
 {
   char const *start = here_str0 ();
   lexloc_->set (get_source_file (),
-		start, start + count);
+                start, start + count);
   char_count_stack_.back () += count;
 }
 
@@ -382,7 +383,7 @@ Lily_lexer::mark_smob (SCM s)
 }
 
 int
-Lily_lexer::print_smob (SCM s, SCM port, scm_print_state*)
+Lily_lexer::print_smob (SCM s, SCM port, scm_print_state *)
 {
   Lily_lexer *lexer = Lily_lexer::unsmob (s);
 

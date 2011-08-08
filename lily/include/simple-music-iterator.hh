@@ -29,7 +29,7 @@
 class Simple_music_iterator : public Music_iterator
 {
 protected:
-  DECLARE_CLASSNAME(Simple_music_iterator);
+  DECLARE_CLASSNAME (Simple_music_iterator);
 
   Moment last_processed_mom_;
 public:

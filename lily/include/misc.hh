@@ -42,7 +42,7 @@ sign (int i)
 inline int
 shift_left (int value, int shiftamount)
 {
- if (shiftamount < 0) return (value >> -shiftamount); 
+  if (shiftamount < 0) return (value >> -shiftamount);
   else return (value << shiftamount);
 }
 
@@ -50,12 +50,12 @@ inline Real
 linear_interpolate (Real x, Real x1, Real x2, Real y1, Real y2)
 {
   return (x2 - x) / (x2 - x1) * y1
-    + (x - x1) / (x2 - x1) * y2;
+         + (x - x1) / (x2 - x1) * y2;
 }
 
 Real directed_round (Real f, Direction d);
 
-Real peak_around (Real epsilon,  Real threshold, Real x);
+Real peak_around (Real epsilon, Real threshold, Real x);
 Real convex_amplifier (Real standard_x, Real increase_factor, Real x);
 string camel_case_to_lisp_identifier (string in);
 vsize utf8_char_len (char);

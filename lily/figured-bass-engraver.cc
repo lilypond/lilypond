@@ -110,7 +110,7 @@ struct Figured_bass_engraver : public Engraver
   void add_brackets ();
   void create_grobs ();
 
-  void center_continuations (vector<Spanner*> const &consecutive_lines);
+  void center_continuations (vector<Spanner *> const &consecutive_lines);
   void center_repeated_continuations ();
 protected:
   vector<Figure_group> groups_;
@@ -154,7 +154,7 @@ Figured_bass_engraver::start_translation_timestep ()
 {
   if (now_mom ().main_part_ < stop_moment_.main_part_
       || now_mom ().grace_part_ < Rational (0))
-    return ;
+    return;
 
   have_rest_ = 0;
   new_events_.clear ();
@@ -170,11 +170,11 @@ Figured_bass_engraver::stop_translation_timestep ()
   if (groups_.empty ()
       || now_mom ().main_part_ < stop_moment_.main_part_
       || now_mom ().grace_part_ < Rational (0))
-    return ;
+    return;
 
   bool found = false;
   for (vsize i = 0; !found && i < groups_.size (); i++)
-    found  = found  || groups_[i].current_event_;
+    found = found || groups_[i].current_event_;
 
   if (!found)
     clear_spanners ();
@@ -192,7 +192,7 @@ void
 Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
 {
   new_event_found_ = true;
-  Moment stop  = now_mom () + get_event_length (ev, now_mom ());
+  Moment stop = now_mom () + get_event_length (ev, now_mom ());
   stop_moment_ = max (stop_moment_, stop);
 
   // Handle no-continuation here, don't even add it to the already existing
@@ -215,15 +215,15 @@ Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
 }
 
 void
-Figured_bass_engraver::center_continuations (vector<Spanner*> const &consecutive_lines)
+Figured_bass_engraver::center_continuations (vector<Spanner *> const &consecutive_lines)
 {
   if (consecutive_lines.size () == 2)
     {
-      vector<Grob*> left_figs;
+      vector<Grob *> left_figs;
       for (vsize j = consecutive_lines.size (); j--;)
         left_figs.push_back (consecutive_lines[j]->get_bound (LEFT));
 
-      SCM  ga = Grob_array::make_array ();
+      SCM ga = Grob_array::make_array ();
       unsmob_grob_array (ga)->set_array (left_figs);
 
       for (vsize j = consecutive_lines.size (); j--;)
@@ -235,7 +235,7 @@ Figured_bass_engraver::center_continuations (vector<Spanner*> const &consecutive
 void
 Figured_bass_engraver::center_repeated_continuations ()
 {
-  vector<Spanner*> consecutive_lines;
+  vector<Spanner *> consecutive_lines;
   for (vsize i = 0; i <= groups_.size (); i++)
     {
       if (i < groups_.size ()
@@ -270,13 +270,13 @@ Figured_bass_engraver::clear_spanners ()
     {
       if (groups_[i].group_)
         {
-          announce_end_grob (groups_[i].group_ , SCM_EOL);
+          announce_end_grob (groups_[i].group_, SCM_EOL);
           groups_[i].group_ = 0;
         }
 
       if (groups_[i].continuation_line_)
         {
-          announce_end_grob (groups_[i].continuation_line_ , SCM_EOL);
+          announce_end_grob (groups_[i].continuation_line_, SCM_EOL);
           groups_[i].continuation_line_ = 0;
         }
     }
@@ -293,8 +293,8 @@ Figured_bass_engraver::process_music ()
 
   // If we have a rest, or we have no new or continued events, clear all spanners
   bool ignore_rest = to_boolean (get_property ("ignoreFiguredBassRest"));
-  if ((ignore_rest && have_rest_) ||
-      (!continuation_ && new_events_.empty ()))
+  if ((ignore_rest && have_rest_)
+      || (!continuation_ && new_events_.empty ()))
     {
       clear_spanners ();
       groups_.clear ();
@@ -358,9 +358,9 @@ Figured_bass_engraver::process_music ()
             {
               if (!group.continuation_line_)
                 {
-                  Spanner * line
+                  Spanner *line
                     = make_spanner ("BassFigureContinuation", SCM_EOL);
-                  Item * item = group.figure_item_;
+                  Item *item = group.figure_item_;
                   group.continuation_line_ = line;
                   line->set_bound (LEFT, item);
 
@@ -381,13 +381,13 @@ Figured_bass_engraver::process_music ()
       /*
         Ugh, repeated code.
        */
-      vector<Spanner*> consecutive;
+      vector<Spanner *> consecutive;
       if (to_boolean (get_property ("figuredBassCenterContinuations")))
         {
           for (vsize i = 0; i <= junk_continuations.size (); i++)
             {
               if (i < junk_continuations.size ()
-                  && (i == 0 || junk_continuations[i-1] == junk_continuations[i] - 1))
+                  && (i == 0 || junk_continuations[i - 1] == junk_continuations[i] - 1))
                 consecutive.push_back (groups_[junk_continuations[i]].continuation_line_);
               else
                 {
@@ -410,7 +410,7 @@ void
 Figured_bass_engraver::create_grobs ()
 {
   Grob *muscol
-    = dynamic_cast<Item*> (unsmob_grob (get_property ("currentMusicalColumn")));
+    = dynamic_cast<Item *> (unsmob_grob (get_property ("currentMusicalColumn")));
   if (!alignment_)
     {
       alignment_ = make_spanner ("BassFigureAlignment", SCM_EOL);
@@ -478,9 +478,9 @@ Figured_bass_engraver::create_grobs ()
 void
 Figured_bass_engraver::add_brackets ()
 {
-  vector<Grob*> encompass;
+  vector<Grob *> encompass;
   bool inside = false;
-  for (vsize i = 0; i < groups_.size (); i ++)
+  for (vsize i = 0; i < groups_.size (); i++)
     {
       if (!groups_[i].current_event_)
         continue;
@@ -491,11 +491,11 @@ Figured_bass_engraver::add_brackets ()
       if (inside && groups_[i].figure_item_)
         encompass.push_back (groups_[i].figure_item_);
 
-       if (to_boolean (groups_[i].current_event_->get_property ("bracket-stop")))
+      if (to_boolean (groups_[i].current_event_->get_property ("bracket-stop")))
         {
           inside = false;
 
-          Item * brack = make_item ("BassFigureBracket", groups_[i].current_event_->self_scm ());
+          Item *brack = make_item ("BassFigureBracket", groups_[i].current_event_->self_scm ());
           for (vsize j = 0; j < encompass.size (); j++)
             {
               Pointer_group_interface::add_grob (brack,
@@ -528,4 +528,4 @@ ADD_TRANSLATOR (Figured_bass_engraver,
 
                 /* write */
                 ""
-                );
+               );

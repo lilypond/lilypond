@@ -27,7 +27,7 @@ struct Clef
 {
   DECLARE_SCHEME_CALLBACK (calc_glyph_name, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 };
 
 #endif /* CLEF_HH */

@@ -27,7 +27,7 @@
 
 class Keep_alive_together_engraver: public Engraver
 {
-  vector<Grob*> group_spanners_;
+  vector<Grob *> group_spanners_;
 
 public:
   TRANSLATOR_DECLARATIONS (Keep_alive_together_engraver);
@@ -65,21 +65,21 @@ Keep_alive_together_engraver::finalize ()
 ADD_ACKNOWLEDGER (Keep_alive_together_engraver, hara_kiri_group_spanner);
 
 ADD_TRANSLATOR (Keep_alive_together_engraver,
-		/* doc */
-		"This engraver collects all @code{Hara_kiri_group_spanner}s "
-		"that are created in contexts at or below its own.  "
-		"These spanners are then tied together so that one will "
-		"be removed only if all are removed.  For example, "
-		"if a @code{StaffGroup} uses this engraver, then the staves "
-		"in the group will all be visible as long as there is a note "
-		"in at least one of them.",
+                /* doc */
+                "This engraver collects all @code{Hara_kiri_group_spanner}s "
+                "that are created in contexts at or below its own.  "
+                "These spanners are then tied together so that one will "
+                "be removed only if all are removed.  For example, "
+                "if a @code{StaffGroup} uses this engraver, then the staves "
+                "in the group will all be visible as long as there is a note "
+                "in at least one of them.",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

@@ -25,8 +25,8 @@
 class Ledger_line_engraver : public Engraver
 {
   Spanner *span_;
-  vector<Grob*> ledgered_grobs_;
-  
+  vector<Grob *> ledgered_grobs_;
+
 public:
   TRANSLATOR_DECLARATIONS (Ledger_line_engraver);
 
@@ -62,12 +62,12 @@ Ledger_line_engraver::stop_translation_timestep ()
   if (span_)
     {
       for (vsize i = 0; i < ledgered_grobs_.size (); i++)
-	{
-	  if (!to_boolean (ledgered_grobs_[i]->get_property ("no-ledgers")))
-	    Pointer_group_interface::add_grob (span_,
-					       ly_symbol2scm ("note-heads"),
-					       ledgered_grobs_[i]);
-	}
+        {
+          if (!to_boolean (ledgered_grobs_[i]->get_property ("no-ledgers")))
+            Pointer_group_interface::add_grob (span_,
+                                               ly_symbol2scm ("note-heads"),
+                                               ledgered_grobs_[i]);
+        }
     }
 
   ledgered_grobs_.clear ();
@@ -77,7 +77,7 @@ void
 Ledger_line_engraver::process_music ()
 {
   /*
-    Need to do this, otherwise the first note might miss ledgers. 
+    Need to do this, otherwise the first note might miss ledgers.
   */
   if (!span_)
     start_spanner ();
@@ -124,16 +124,16 @@ Ledger_line_engraver::acknowledge_ledgered (Grob_info s)
 ADD_ACKNOWLEDGER (Ledger_line_engraver, ledgered);
 ADD_ACKNOWLEDGER (Ledger_line_engraver, staff_symbol);
 ADD_TRANSLATOR (Ledger_line_engraver,
-		/* doc */
-		"Create the spanner to draw ledger lines, and notices"
-		" objects that need ledger lines.",
+                /* doc */
+                "Create the spanner to draw ledger lines, and notices"
+                " objects that need ledger lines.",
 
-		/* create */
-		"LedgerLineSpanner ",
+                /* create */
+                "LedgerLineSpanner ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

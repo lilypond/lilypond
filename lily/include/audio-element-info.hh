@@ -33,7 +33,7 @@ public:
   Stream_event *event_;
   Translator *origin_trans_;
 
-  vector<Context*> origin_contexts (Translator *) const;
+  vector<Context *> origin_contexts (Translator *) const;
 
   Audio_element_info (Audio_element *, Stream_event *);
   Audio_element_info ();

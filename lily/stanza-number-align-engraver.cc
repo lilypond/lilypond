@@ -32,8 +32,8 @@ public:
   TRANSLATOR_DECLARATIONS (Stanza_number_align_engraver);
 
 protected:
-  vector<Grob*> lyrics_;
-  vector<Grob*> stanza_numbers_;
+  vector<Grob *> lyrics_;
+  vector<Grob *> stanza_numbers_;
 
   DECLARE_ACKNOWLEDGER (lyric_syllable);
   DECLARE_ACKNOWLEDGER (stanza_number);
@@ -73,16 +73,16 @@ ADD_ACKNOWLEDGER (Stanza_number_align_engraver, lyric_syllable);
 ADD_ACKNOWLEDGER (Stanza_number_align_engraver, stanza_number);
 
 ADD_TRANSLATOR (Stanza_number_align_engraver,
-		/* doc */
-		"This engraver ensures that stanza numbers are neatly"
-		" aligned.",
+                /* doc */
+                "This engraver ensures that stanza numbers are neatly"
+                " aligned.",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		"");
+                /* write */
+                "");
 

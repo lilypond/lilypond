@@ -25,8 +25,7 @@
 
 #include "translator.icc"
 
-
-class Dots_engraver : public Engraver 
+class Dots_engraver : public Engraver
 {
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   TRANSLATOR_DECLARATIONS (Dots_engraver);
@@ -46,7 +45,7 @@ Dots_engraver::acknowledge_rhythmic_head (Grob_info gi)
   Grob *note = gi.grob ();
   if (unsmob_grob (note->get_object ("dot")))
     return;
-  
+
   Duration *dur = unsmob_duration (cause->get_property ("duration"));
   if (dur && dur->dot_count ())
     {
@@ -57,19 +56,18 @@ Dots_engraver::acknowledge_rhythmic_head (Grob_info gi)
     }
 }
 
-
 ADD_ACKNOWLEDGER (Dots_engraver, rhythmic_head);
 
 ADD_TRANSLATOR (Dots_engraver,
-		"Create @ref{Dots} objects for"
-		" @ref{rhythmic-head-interface}s.",
+                "Create @ref{Dots} objects for"
+                " @ref{rhythmic-head-interface}s.",
 
-		/* create */
-		"Dots ",
+                /* create */
+                "Dots ",
 
-		/* read */
-		"",
-	       
-		/* write */
-		""
-		);
+                /* read */
+                "",
+
+                /* write */
+                ""
+               );

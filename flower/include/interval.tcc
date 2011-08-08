@@ -70,14 +70,14 @@ void
 Interval_t<T>::set_empty ()
 {
   at (LEFT) = (T) infinity ();
-  at (RIGHT) = (T) -infinity ();
+  at (RIGHT) = (T) - infinity ();
 }
 
 template<class T>
 void
 Interval_t<T>::set_full ()
 {
-  at (LEFT) = (T) -infinity ();
+  at (LEFT) = (T) - infinity ();
   at (RIGHT) = (T) infinity ();
 }
 
@@ -149,7 +149,7 @@ Interval_t<T>::to_string () const
   string s ("[");
 
   return (s + T_to_string (at (LEFT)) + string (",")
-	  + T_to_string (at (RIGHT)) + string ("]"));
+          + T_to_string (at (RIGHT)) + string ("]"));
 }
 
 template<class T>
@@ -159,7 +159,7 @@ Interval_t<T>::contains (T r) const
   return r >= at (LEFT) && r <= at (RIGHT);
 }
 
-#define INTERVAL__INSTANTIATE(T) struct Interval_t<T>;			\
+#define INTERVAL__INSTANTIATE(T) struct Interval_t<T>;                  \
   template int Interval__compare (const Interval_t<T> &, Interval_t<T> const &)
 
 #endif // INTERVAL_TCC

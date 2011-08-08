@@ -49,11 +49,11 @@ Note_name_engraver::process_music ()
   for (vsize i = 0; i < events_.size (); i++)
     {
       if (i)
-	s += " ";
+        s += " ";
       Pitch p = *unsmob_pitch (events_[i]->get_property ("pitch"));
 
       if (!to_boolean (get_property ("printOctaveNames")))
-	p = Pitch (-1, p.get_notename (), p.get_alteration ());
+        p = Pitch (-1, p.get_notename (), p.get_alteration ());
 
       s += p.to_string ();
     }
@@ -75,15 +75,15 @@ Note_name_engraver::Note_name_engraver ()
 }
 
 ADD_TRANSLATOR (Note_name_engraver,
-		/* doc */
-		"Print pitches as words.",
+                /* doc */
+                "Print pitches as words.",
 
-		/* create */
-		"NoteName ",
+                /* create */
+                "NoteName ",
 
-		/* read */
-		"printOctaveNames ",
+                /* read */
+                "printOctaveNames ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

@@ -335,7 +335,7 @@ for normal contributors or developers.
 
 @smallexample
 scripts/auxiliar/fixcc.py \
-  fixcc $(find flower lily -name '*cc' -o -name '*hh' | grep -v /out)
+  $(find flower lily -name '*cc' -o -name '*hh' | grep -v /out)
 @end smallexample
 
 
@@ -1679,6 +1679,16 @@ We create lots of extra grobs (eg. a BarNumber at every bar line) but
 most of them are not drawn.  See the break-visibility property in
 item-interface.
 
+Here is another e-mail exchange.  Janek Warchoł asked for a starting point
+to fixing 1301 (change clef colliding with notes).  Neil Puttock replied:
+
+The clef is on a loose column (it floats before the head), so the
+first place I'd look would be lily/spacing-loose-columns.cc (and
+possibly lily/spacing-determine-loose-columns.cc).
+I'd guess the problem is the way loose columns are spaced between
+other columns: in this snippet, the columns for the quaver and tuplet
+minim are so close together that the clef's column gets dumped on top
+of the quaver (since it's loose, it doesn't influence the spacing).
 
 @node Info from Han-Wen email
 @subsection Info from Han-Wen email

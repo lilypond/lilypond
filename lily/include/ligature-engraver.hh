@@ -36,7 +36,7 @@ protected:
   void process_music ();
   virtual Spanner *create_ligature_spanner () = 0;
   virtual void typeset_ligature (Spanner *ligature,
-				 vector<Grob_info> primitives) = 0;
+                                 vector<Grob_info> primitives) = 0;
   virtual Spanner *current_ligature ();
   SCM brew_ligature_primitive_proc;
 

@@ -28,21 +28,21 @@ class Partial_iterator : public Simple_music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
- protected:
+protected:
   virtual void process (Moment);
 };
 
 void
 Partial_iterator::process (Moment m)
 {
-  if (Duration *dur
+  if (Duration * dur
       = unsmob_duration (get_music ()->get_property ("partial-duration")))
     {
       Context *ctx = get_outlet ();
       Moment now = ctx->now_mom ();
       if (now.main_part_ > Rational (0))
-	get_music ()->origin ()->
-	  warning (_ ("trying to use \\partial after the start of a piece"));
+        get_music ()->origin ()->
+        warning (_ ("trying to use \\partial after the start of a piece"));
       Moment length = Moment (dur->get_length ());
       now = Moment (0, now.grace_part_);
       ctx->set_property ("measurePosition", (now - length).smobbed_copy ());

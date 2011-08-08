@@ -50,11 +50,11 @@ Grid_line_interface::print (SCM smobbed_me)
 
   Real staffline = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   Real thick = robust_scm2double (me->get_property ("thickness"), 1.0)
-    * staffline;
+               * staffline;
 
   iv += -me->relative_coordinate (refp, Y_AXIS);
   Stencil st = Lookup::filled_box (Box (Interval (0, thick),
-					iv));
+                                        iv));
 
   return st.smobbed_copy ();
 }
@@ -67,7 +67,7 @@ Grid_line_interface::width (SCM smob)
 
   Real staffline = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   Real thick = robust_scm2double (me->get_property ("thickness"), 1.0)
-    * staffline;
+               * staffline;
 
   return ly_interval2scm (Interval (0, thick));
 }
@@ -79,16 +79,16 @@ Grid_line_interface::add_grid_point (Grob *me, Grob *b)
 }
 
 ADD_INTERFACE (Grid_line_interface,
-	       "A line that is spanned between grid-points.",
+               "A line that is spanned between grid-points.",
 
-	       /* properties */
-	       "elements "
-	       "thickness "
-	       );
+               /* properties */
+               "elements "
+               "thickness "
+              );
 
 ADD_INTERFACE (Grid_point_interface,
-	       "A spanning point for grid lines.",
+               "A spanning point for grid lines.",
 
-	       /* properties */
-	       ""
-	       );
+               /* properties */
+               ""
+              );

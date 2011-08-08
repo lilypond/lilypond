@@ -3215,7 +3215,7 @@ def conv (str):
         stderr_write (UPDATE_MANUALLY)
     return str
 
-@rule ((2, 15, 8),
+@rule ((2, 15, 7),
     _ ("Handling of non-automatic footnotes."))
 def conv(str):
     if re.search (r'\\footnote', str):

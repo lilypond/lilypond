@@ -309,6 +309,15 @@ previous contributors in:
 Documentation/included/authors.itexi
 @end example
 
+Also, delete old material in:
+
+@example
+Documentation/changes.tely
+@end example
+
+but don't forget to check it still compiles!  also update the
+version numbers.
+
 @item
 Website:
 

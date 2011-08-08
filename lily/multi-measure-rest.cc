@@ -44,9 +44,9 @@ Multi_measure_rest::bar_width (Spanner *me)
     {
       Item *col = me->get_bound (d)->get_column ();
       SCM align_sym
-	= (scm_is_pair (spacing_pair)
-	   ? index_get_cell (spacing_pair, d)
-	   : ly_symbol2scm ("staff-bar"));
+        = (scm_is_pair (spacing_pair)
+           ? index_get_cell (spacing_pair, d)
+           : ly_symbol2scm ("staff-bar"));
       Interval coldim = Paper_column::break_align_width (col, align_sym);
 
       iv[d] = coldim[-d];
@@ -69,7 +69,7 @@ Multi_measure_rest::percent (SCM smob)
   // ugh copy & paste.
 
   Grob *common_x = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT),
-							  X_AXIS);
+                                                          X_AXIS);
   Interval sp_iv = bar_width (sp);
   Real x_off = 0.0;
 
@@ -123,7 +123,7 @@ int
 measure_duration_log (Grob *me)
 {
   SCM sml = dynamic_cast<Spanner *> (me)->get_bound (LEFT)
-                                        ->get_property ("measure-length");
+            ->get_property ("measure-length");
   bool round = to_boolean (me->get_property ("round-to-longer-rest"));
   Rational ml = (unsmob_moment (sml)) ? unsmob_moment (sml)->main_part_ : Rational (1);
 
@@ -136,13 +136,13 @@ measure_duration_log (Grob *me)
   int closest_list_elt = -15; // -15 is out of range.
 
   for (int i = 0; i < scm_to_int (scm_length (duration_logs_list)); i++)
-  {
-    int list_elt = scm_to_int (scm_list_ref (duration_logs_list, scm_from_int (i)));
-    int shortest_distance = abs (measure_duration_log - closest_list_elt);
-    int distance = abs (measure_duration_log - list_elt);
-    if (distance < shortest_distance)
-      closest_list_elt = list_elt;
-  }
+    {
+      int list_elt = scm_to_int (scm_list_ref (duration_logs_list, scm_from_int (i)));
+      int shortest_distance = abs (measure_duration_log - closest_list_elt);
+      int distance = abs (measure_duration_log - list_elt);
+      if (distance < shortest_distance)
+        closest_list_elt = list_elt;
+    }
 
   return closest_list_elt;
 }
@@ -217,7 +217,7 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
 */
 Stencil
 Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measures,
-				 Real space)
+                                 Real space)
 {
   SCM mols = SCM_EOL;
 
@@ -227,52 +227,52 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measures,
   SCM duration_logs_list = me->get_property ("usable-duration-logs");
   int longest_church_rest = 10; // 10 is out of range.
   for (int i = 0; i < scm_to_int (scm_length (duration_logs_list)); i++)
-  {
-    longest_church_rest = min (longest_church_rest,
-                               scm_to_int (scm_list_ref (duration_logs_list,
-                                                         scm_from_int (i))));
-  }
+    {
+      longest_church_rest = min (longest_church_rest,
+                                 scm_to_int (scm_list_ref (duration_logs_list,
+                                                           scm_from_int (i))));
+    }
 
   while (l)
-  {
-    int k;
-    int i = longest_church_rest - 1;
-    int length;
-    int mdl = measure_duration_log (me);
-
-    do
     {
-      i++;
-      length = int (pow (2.0, -i));
-    }
-    while (i <= 0 &&
-           !(l >= length && mdl >= longest_church_rest - i));
+      int k;
+      int i = longest_church_rest - 1;
+      int length;
+      int mdl = measure_duration_log (me);
 
-    l -= length;
-    k = mdl + i;
+      do
+        {
+          i++;
+          length = int (pow (2.0, -i));
+        }
+      while (i <= 0
+             && !(l >= length && mdl >= longest_church_rest - i));
 
-    Stencil r (musfont->find_by_name ("rests." + to_string (k)));
-    if (k == 0)
-    {
-      Real staff_space = Staff_symbol_referencer::staff_space (me);
-      r.translate_axis (staff_space, Y_AXIS);
+      l -= length;
+      k = mdl + i;
+
+      Stencil r (musfont->find_by_name ("rests." + to_string (k)));
+      if (k == 0)
+        {
+          Real staff_space = Staff_symbol_referencer::staff_space (me);
+          r.translate_axis (staff_space, Y_AXIS);
+        }
+      symbols_width += r.extent (X_AXIS).length ();
+      mols = scm_cons (r.smobbed_copy (), mols);
+      count++;
     }
-    symbols_width += r.extent (X_AXIS).length ();
-    mols = scm_cons (r.smobbed_copy (), mols);
-    count++;
-  }
 
   /* Make outer padding this much bigger.  */
   Real outer_padding_factor = 1.5;
   Real inner_padding = (space - symbols_width)
-    / (2 * outer_padding_factor + (count - 1));
+                       / (2 * outer_padding_factor + (count - 1));
   if (inner_padding < 0)
     inner_padding = 1.0;
 
   Stencil mol;
   for (SCM s = mols; scm_is_pair (s); s = scm_cdr (s))
     mol.add_at_edge (X_AXIS, LEFT, *unsmob_stencil (scm_car (s)),
-		     inner_padding);
+                     inner_padding);
   mol.align_to (X_AXIS, LEFT);
   mol.translate_axis (outer_padding_factor * inner_padding, X_AXIS);
 
@@ -301,9 +301,10 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
   Item *rb = ri->find_prebroken_piece (LEFT);
 
   Item *combinations[4][2] = {{li, ri},
-			      {lb, ri},
-			      {li, rb},
-			      {lb, rb}};
+    {lb, ri},
+    {li, rb},
+    {lb, rb}
+  };
 
   for (int i = 0; i < 4; i++)
     {
@@ -311,15 +312,15 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
       Item *ri = combinations[i][1];
 
       if (!li || !ri)
-	continue;
+        continue;
 
       Rod rod;
       rod.item_drul_[LEFT] = li;
       rod.item_drul_[RIGHT] = ri;
 
       rod.distance_ = Paper_column::minimum_distance (li, ri)
-	+ length
-	+ 2 * robust_scm2double (me->get_property ("bound-padding"), 1.0);
+                      + length
+                      + 2 * robust_scm2double (me->get_property ("bound-padding"), 1.0);
 
       Real minlen = robust_scm2double (me->get_property ("minimum-length"), 0);
       rod.distance_ = max (rod.distance_, minlen);
@@ -347,24 +348,24 @@ Multi_measure_rest::set_text_rods (SCM smob)
 
   /* FIXME uncached */
   Real len = (stil && !stil->extent (X_AXIS).is_empty ())
-    ? stil->extent (X_AXIS).length ()
-    : 0.0;
+             ? stil->extent (X_AXIS).length ()
+             : 0.0;
   calculate_spacing_rods (me, len);
 
   return SCM_UNSPECIFIED;
 }
 
 ADD_INTERFACE (Multi_measure_rest,
-	       "A rest that spans a whole number of measures.",
+               "A rest that spans a whole number of measures.",
 
-	       /* properties */
-	       "bound-padding "
-	       "expand-limit "
-	       "hair-thickness "
-	       "measure-count "
-	       "minimum-length "
-	       "round-to-longer-rest "
-	       "spacing-pair "
-	       "thick-thickness "
+               /* properties */
+               "bound-padding "
+               "expand-limit "
+               "hair-thickness "
+               "measure-count "
+               "minimum-length "
+               "round-to-longer-rest "
+               "spacing-pair "
+               "thick-thickness "
                "usable-duration-logs "
-	       );
+              );

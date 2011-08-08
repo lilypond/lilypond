@@ -20,18 +20,17 @@
 #ifndef SEMI_TIE_HH
 #define SEMI_TIE_HH
 
-
 #include "grob-interface.hh"
 #include "lily-proto.hh"
 
 struct Semi_tie
 {
-  DECLARE_GROB_INTERFACE();
-  
+  DECLARE_GROB_INTERFACE ();
+
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
   static bool less (Grob *const &s1,
-		    Grob *const &s2);
+                    Grob *const &s2);
   static int get_position (Grob *);
 };
 

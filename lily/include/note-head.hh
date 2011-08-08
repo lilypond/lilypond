@@ -23,7 +23,6 @@
 #include "stencil.hh"
 #include "grob-interface.hh"
 
-
 class Note_head
 {
 public:
@@ -32,7 +31,7 @@ public:
   DECLARE_SCHEME_CALLBACK (stem_x_shift, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_stem_attachment, (SCM));
   DECLARE_SCHEME_CALLBACK (include_ledger_line_height, (SCM));
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 
   static Real stem_attachment_coordinate (Grob *, Axis a);
   static int get_balltype (Grob *);

@@ -23,8 +23,6 @@
 #include "std-string.hh"
 #include "protected-scm.hh"
 
-
-
 SCM
 ly_make_module (bool safe)
 {
@@ -36,17 +34,17 @@ ly_make_module (bool safe)
       SCM maker = ly_lily_module_constant ("make-module");
       mod = scm_call_0 (maker);
       /*
-	Look up and call Guile module-export-all! or, when using
-	Guile V1.8, the compatible shim defined in lily.scm.
+        Look up and call Guile module-export-all! or, when using
+        Guile V1.8, the compatible shim defined in lily.scm.
       */
       SCM module_export_all_x = ly_lily_module_constant ("module-export-all!");
       scm_call_1 (module_export_all_x, mod);
 
       /*
-	Evaluate Guile module "the-root-module",
-	and ensure we inherit definitions from it and the "lily" module
-	N.B. this used to be "the-scm-module" and is deprecated in
-	Guile V1.9/2.0
+        Evaluate Guile module "the-root-module",
+        and ensure we inherit definitions from it and the "lily" module
+        N.B. this used to be "the-scm-module" and is deprecated in
+        Guile V1.9/2.0
       */
       SCM scm_module = ly_lily_module_constant ("the-root-module");
       ly_use_module (mod, scm_module);
@@ -87,7 +85,6 @@ ly_use_module (SCM mod, SCM used)
 
 #define FUNC_NAME __FUNCTION__
 
-
 SCM
 ly_module_symbols (SCM mod)
 {
@@ -99,9 +96,9 @@ ly_module_symbols (SCM mod)
 
 static SCM
 entry_to_alist (void * /* closure */,
-		SCM key,
-		SCM val,
-		SCM result)
+                SCM key,
+                SCM val,
+                SCM result)
 {
   if (scm_variable_bound_p (val) == SCM_BOOL_T)
     return scm_cons (scm_cons (key, scm_variable_ref (val)), result);
@@ -110,14 +107,14 @@ entry_to_alist (void * /* closure */,
 }
 
 LY_DEFINE (ly_module_2_alist, "ly:module->alist",
-	   1, 0, 0, (SCM mod),
-	   "Dump the contents of module @var{mod} as an alist.")
+           1, 0, 0, (SCM mod),
+           "Dump the contents of module @var{mod} as an alist.")
 {
   SCM_VALIDATE_MODULE (1, mod);
   SCM obarr = SCM_MODULE_OBARRAY (mod);
 
   return scm_internal_hash_fold ((scm_t_hash_fold_fn) &entry_to_alist,
-				 NULL, SCM_EOL, obarr);
+                                 NULL, SCM_EOL, obarr);
 }
 
 void

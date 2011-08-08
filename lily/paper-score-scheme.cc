@@ -20,10 +20,10 @@
 #include "paper-score.hh"
 
 LY_DEFINE (ly_paper_score_paper_systems, "ly:paper-score-paper-systems",
-	   1, 0, 0,
-	   (SCM paper_score),
-	   "Return vector of @code{paper_system} objects from"
-	   " @var{paper-score}.")
+           1, 0, 0,
+           (SCM paper_score),
+           "Return vector of @code{paper_system} objects from"
+           " @var{paper-score}.")
 {
   LY_ASSERT_TYPE (unsmob_paper_score, paper_score, 1);
 

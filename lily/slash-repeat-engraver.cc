@@ -48,7 +48,7 @@ IMPLEMENT_TRANSLATOR_LISTENER (Slash_repeat_engraver, repeat_slash);
 void
 Slash_repeat_engraver::listen_repeat_slash (Stream_event *ev)
 {
-    ASSIGN_EVENT_ONCE (slash_, ev);
+  ASSIGN_EVENT_ONCE (slash_, ev);
 }
 
 void
@@ -58,24 +58,24 @@ Slash_repeat_engraver::process_music ()
     {
       SCM count = slash_->get_property ("slash-count");
       if (scm_to_int (count) == 0)
-	make_item ("DoubleRepeatSlash", slash_->self_scm ());
+        make_item ("DoubleRepeatSlash", slash_->self_scm ());
       else
-	make_item ("RepeatSlash", slash_->self_scm ());
+        make_item ("RepeatSlash", slash_->self_scm ());
       slash_ = 0;
     }
 }
 
 ADD_TRANSLATOR (Slash_repeat_engraver,
-		/* doc */
-		"Make beat repeats.",
+                /* doc */
+                "Make beat repeats.",
 
-		/* create */
-		"DoubleRepeatSlash "
-		"RepeatSlash ",
+                /* create */
+                "DoubleRepeatSlash "
+                "RepeatSlash ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

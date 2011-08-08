@@ -79,7 +79,7 @@ is_dir (string file_name)
     canonicalize; in particular, trailing slashes should disappear.
    */
   file_name = File_name (file_name).to_string ();
-  
+
 #if !STAT_MACROS_BROKEN
   struct stat sbuf;
   if (stat (file_name.c_str (), &sbuf) != 0)
@@ -128,12 +128,12 @@ File_path::find (string name) const
       file_name.root_ = dir.root_;
       dir.root_ = "";
       if (file_name.dir_.empty ())
-	file_name.dir_ = dir.to_string ();
+        file_name.dir_ = dir.to_string ();
       else if (!dir.to_string ().empty ())
-	file_name.dir_ = dir.to_string ()
-	  + ::to_string (DIRSEP) + file_name.dir_;
+        file_name.dir_ = dir.to_string ()
+                         + ::to_string (DIRSEP) + file_name.dir_;
       if (is_file (file_name.to_string ()))
-	return file_name.to_string ();
+        return file_name.to_string ();
     }
   return "";
 }
@@ -150,20 +150,20 @@ File_path::find (string name, char const *extensions[])
 {
   if (name.empty () || name == "-")
     return name;
-  
+
   File_name file_name (name);
   string orig_ext = file_name.ext_;
   for (int i = 0; extensions[i]; i++)
     {
       file_name.ext_ = orig_ext;
       if (*extensions[i] && !file_name.ext_.empty ())
-	file_name.ext_ += ".";
+        file_name.ext_ += ".";
       file_name.ext_ += extensions[i];
       string found = find (file_name.to_string ());
       if (!found.empty ())
-	return found;
+        return found;
     }
-  
+
   return "";
 }
 
@@ -189,7 +189,7 @@ File_path::to_string () const
     {
       s = s + dirs_[i];
       if (i < dirs_.size () - 1)
-	s += ::to_string (PATHSEP);
+        s += ::to_string (PATHSEP);
     }
   return s;
 }

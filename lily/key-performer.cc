@@ -62,26 +62,26 @@ Key_performer::process_music ()
       SCM acc = scm_call_1 (proc, pitchlist);
 
       Pitch key_do (0,
-		    scm_to_int (scm_caar (pitchlist)),
-		    ly_scm2rational (scm_cdar (pitchlist)));
+                    scm_to_int (scm_caar (pitchlist)),
+                    ly_scm2rational (scm_cdar (pitchlist)));
 
       Pitch c_do (0, 0, 0);
 
       SCM c_pitchlist
-	= ly_transpose_key_alist (pitchlist,
-				  pitch_interval (key_do, c_do).smobbed_copy ());
+        = ly_transpose_key_alist (pitchlist,
+                                  pitch_interval (key_do, c_do).smobbed_copy ());
 
       /* MIDI keys are too limited for lilypond scales.
-	 We check for minor scale and assume major otherwise.  */
+         We check for minor scale and assume major otherwise.  */
 
       SCM third = scm_assoc (scm_from_int (2),
-			     c_pitchlist);
+                             c_pitchlist);
       bool minor = (scm_is_pair (third)
-		    && scm_is_number (scm_cdr (third))
-		    && ly_scm2rational (scm_cdr (third)) == FLAT_ALTERATION);
+                    && scm_is_number (scm_cdr (third))
+                    && ly_scm2rational (scm_cdr (third)) == FLAT_ALTERATION);
 
       audio_ = new Audio_key (scm_to_int (acc),
-			      !minor);
+                              !minor);
 
       Audio_element_info info (audio_, key_ev_);
       announce_element (info);
@@ -107,15 +107,15 @@ Key_performer::listen_key_change (Stream_event *ev)
 }
 
 ADD_TRANSLATOR (Key_performer,
-		/* doc */
-		"",
+                /* doc */
+                "",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

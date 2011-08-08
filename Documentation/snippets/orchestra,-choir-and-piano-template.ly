@@ -7,20 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
-  texidocit = "
-Questo modello mostra come usare i contesti annidati @code{StaffGroup} e
-@code{GrandStaff} per creare sottogruppi degli strumenti dello stesso
-tipo.  Mostra anche come usare @code{\\transpose} in modo che le variabili
-mantengano la musica per gli strumenti traspositori nell'intonazione reale.
-
-"
-  doctitleit = "Modello per orchestra coro e pianoforte"
-
   lsrtags = "pitches, staff-notation, vocal-music, template"
-
-
-
 
 %% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
@@ -32,6 +19,16 @@ afinación de concierto.
 
 "
   doctitlees = "Plantilla de orquesta con coro y piano"
+
+%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+  texidocit = "
+Questo modello mostra come usare i contesti annidati @code{StaffGroup} e
+@code{GrandStaff} per creare sottogruppi degli strumenti dello stesso
+tipo.  Mostra anche come usare @code{\\transpose} in modo che le variabili
+mantengano la musica per gli strumenti traspositori nell'intonazione reale.
+
+"
+  doctitleit = "Modello per orchestra coro e pianoforte"
 
 %% Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
 

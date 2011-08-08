@@ -22,7 +22,7 @@
 
 #include "std-vector.hh"
 
-template<class T, class A=std::allocator<T> >
+template<class T, class A = std::allocator<T> >
 class Matrix
 {
 public:
@@ -32,7 +32,7 @@ public:
   }
 
   Matrix<T, A> (vsize rows, vsize columns, T const &t)
-  : data_(rows * columns, t)
+    : data_ (rows *columns, t)
   {
     rank_ = rows;
   }
@@ -57,15 +57,15 @@ public:
       data_.resize (rows * columns, t);
     else
       {
-	vector<T,A> new_data;
-	new_data.resize (rows * columns, t);
-	vsize cur_cols = rank_ ? data_.size () / rank_: 0;
+        vector<T, A> new_data;
+        new_data.resize (rows * columns, t);
+        vsize cur_cols = rank_ ? data_.size () / rank_ : 0;
 
-	for (vsize i = 0; i < cur_cols; i++)
-	  for (vsize j = 0; j < rank_; j++)
-	    new_data[i*rows + j] = data_[i*rank_ + j];
-	rank_ = rows;
-	data_ = new_data;
+        for (vsize i = 0; i < cur_cols; i++)
+          for (vsize j = 0; j < rank_; j++)
+            new_data[i * rows + j] = data_[i * rank_ + j];
+        rank_ = rows;
+        data_ = new_data;
       }
   }
 

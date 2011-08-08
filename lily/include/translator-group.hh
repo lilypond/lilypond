@@ -95,7 +95,7 @@ protected:
 
 SCM names_to_translators (SCM namelist, Context *tg);
 void recurse_over_translators (Context *c, Translator_method ptr,
-			       Translator_group_method ptr2, Direction);
+                               Translator_group_method ptr2, Direction);
 void precomputed_recurse_over_translators (Context *c, Translator_precompute_index idx, Direction dir);
 Translator_group *get_translator_group (SCM sym);
 

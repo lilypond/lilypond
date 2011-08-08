@@ -30,7 +30,7 @@ class Staff_spacing
   static Real next_notes_correction (Grob *, Grob *);
 
 public:
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   static Spring get_spacing (Grob *, Grob *right_col);
   static Interval bar_y_positions (Grob *);
 };

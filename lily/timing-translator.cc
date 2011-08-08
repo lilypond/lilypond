@@ -35,11 +35,11 @@ Timing_translator::stop_translation_timestep ()
       Moment now = now_mom ();
 
       if (barleft > Moment (0))
-	{
-	  Moment nextmom = now + barleft;
-	  nextmom.grace_part_ = Rational (0);
-	  global->add_moment_to_process (nextmom);
-	}
+        {
+          Moment nextmom = now + barleft;
+          nextmom.grace_part_ = Rational (0);
+          global->add_moment_to_process (nextmom);
+        }
     }
 }
 
@@ -51,15 +51,15 @@ Timing_translator::initialize ()
   context ()->set_property ("internalBarNumber", scm_from_int (1));
 
   context ()->set_property ("timeSignatureFraction",
-			    scm_cons (scm_from_int (4), scm_from_int (4)));
+                            scm_cons (scm_from_int (4), scm_from_int (4)));
   /*
     Do not init measurePosition; this should be done from global
     context.
   */
   context ()->set_property ("measureLength",
-			    Moment (Rational (1)).smobbed_copy ());
+                            Moment (Rational (1)).smobbed_copy ());
   context ()->set_property ("baseMoment",
-			    Moment (Rational (1, 4)).smobbed_copy ());
+                            Moment (Rational (1, 4)).smobbed_copy ());
 }
 
 Rational
@@ -106,7 +106,7 @@ Timing_translator::start_translation_timestep ()
     {
       measposp = now;
       context ()->set_property ("measurePosition",
-				measposp.smobbed_copy ());
+                                measposp.smobbed_copy ());
     }
 
   measposp += dt;
@@ -121,8 +121,8 @@ Timing_translator::start_translation_timestep ()
   while (c && measposp.main_part_ >= len)
     {
       measposp.main_part_ -= len;
-      current_barnumber ++;
-      internal_barnumber ++;
+      current_barnumber++;
+      internal_barnumber++;
     }
 
   context ()->set_property ("currentBarNumber", scm_from_int (current_barnumber));
@@ -133,27 +133,27 @@ Timing_translator::start_translation_timestep ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Timing_translator,
-		/* doc */
-		"This engraver adds the alias @code{Timing} to its containing"
-		" context.  Responsible for synchronizing timing information"
-		" from staves.  Normally in @code{Score}.  In order to create"
-		" polyrhythmic music, this engraver should be removed from"
-		" @code{Score} and placed in @code{Staff}.",
+                /* doc */
+                "This engraver adds the alias @code{Timing} to its containing"
+                " context.  Responsible for synchronizing timing information"
+                " from staves.  Normally in @code{Score}.  In order to create"
+                " polyrhythmic music, this engraver should be removed from"
+                " @code{Score} and placed in @code{Staff}.",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"internalBarNumber "
-		"currentBarNumber "
-		"measureLength "
-		"measurePosition ",
+                /* read */
+                "internalBarNumber "
+                "currentBarNumber "
+                "measureLength "
+                "measurePosition ",
 
-		/* write */
-		"baseMoment "
-		"currentBarNumber "
-		"internalBarNumber "
-		"measureLength "
-		"measurePosition "
-		"timeSignatureFraction "
-		);
+                /* write */
+                "baseMoment "
+                "currentBarNumber "
+                "internalBarNumber "
+                "measureLength "
+                "measurePosition "
+                "timeSignatureFraction "
+               );

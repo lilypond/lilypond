@@ -48,20 +48,19 @@ SCM
 Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int start, int end)
 {
   SCM sym = (a == X_AXIS) ? ly_symbol2scm ("self-alignment-X")
-    : ly_symbol2scm ("self-alignment-Y");
+            : ly_symbol2scm ("self-alignment-Y");
 
   SCM align (me->internal_get_property (sym));
   if (scm_is_number (align))
     {
       Interval ext (me->maybe_pure_extent (me, a, pure, start, end));
       if (ext.is_empty ())
-	programming_error ("cannot align on self: empty element");
+        programming_error ("cannot align on self: empty element");
       else
-	return scm_from_double (- ext.linear_combination (scm_to_double (align)));
+        return scm_from_double (- ext.linear_combination (scm_to_double (align)));
     }
   return scm_from_double (0.0);
 }
-
 
 SCM
 Self_alignment_interface::centered_on_object (Grob *him, Axis a)
@@ -90,14 +89,14 @@ Self_alignment_interface::x_centered_on_y_parent (SCM smob)
   return centered_on_object (unsmob_grob (smob)->get_parent (Y_AXIS), X_AXIS);
 }
 
-MAKE_SCHEME_CALLBACK (Self_alignment_interface, aligned_on_x_parent,1);
+MAKE_SCHEME_CALLBACK (Self_alignment_interface, aligned_on_x_parent, 1);
 SCM
 Self_alignment_interface::aligned_on_x_parent (SCM smob)
 {
   return aligned_on_parent (unsmob_grob (smob), X_AXIS);
 }
 
-MAKE_SCHEME_CALLBACK (Self_alignment_interface, aligned_on_y_parent,1);
+MAKE_SCHEME_CALLBACK (Self_alignment_interface, aligned_on_y_parent, 1);
 SCM
 Self_alignment_interface::aligned_on_y_parent (SCM smob)
 {
@@ -114,7 +113,7 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
   Interval he = him->extent (him, a);
 
   SCM sym = (a == X_AXIS) ? ly_symbol2scm ("self-alignment-X")
-    : ly_symbol2scm ("self-alignment-Y");
+            : ly_symbol2scm ("self-alignment-Y");
   SCM align_prop (me->internal_get_property (sym));
 
   if (!scm_is_number (align_prop))
@@ -139,33 +138,33 @@ void
 Self_alignment_interface::set_center_parent (Grob *me, Axis a)
 {
   add_offset_callback (me,
-		       (a == X_AXIS) ? centered_on_x_parent_proc : centered_on_y_parent_proc,
-		       a);
+                       (a == X_AXIS) ? centered_on_x_parent_proc : centered_on_y_parent_proc,
+                       a);
 }
 
 void
 Self_alignment_interface::set_align_self (Grob *me, Axis a)
 {
   add_offset_callback (me,
-		       (a == X_AXIS) ? x_aligned_on_self_proc : y_aligned_on_self_proc,
-		       a);
+                       (a == X_AXIS) ? x_aligned_on_self_proc : y_aligned_on_self_proc,
+                       a);
 }
 
 ADD_INTERFACE (Self_alignment_interface,
-	       "Position this object on itself and/or on its parent.  To this"
-	       " end, the following functions are provided:\n"
-	       "\n"
-	       "@table @code\n"
-	       "@item Self_alignment_interface::[xy]_aligned_on_self\n"
-	       "Align self on reference point, using"
-	       " @code{self-alignment-X} and @code{self-alignment-Y}."
-	       "@item Self_alignment_interface::aligned_on_[xy]_parent\n"
-	       "@item Self_alignment_interface::centered_on_[xy]_parent\n"
-	       "Shift the object so its own reference point is centered on"
-	       " the extent of the parent\n"
-	       "@end table\n",
+               "Position this object on itself and/or on its parent.  To this"
+               " end, the following functions are provided:\n"
+               "\n"
+               "@table @code\n"
+               "@item Self_alignment_interface::[xy]_aligned_on_self\n"
+               "Align self on reference point, using"
+               " @code{self-alignment-X} and @code{self-alignment-Y}."
+               "@item Self_alignment_interface::aligned_on_[xy]_parent\n"
+               "@item Self_alignment_interface::centered_on_[xy]_parent\n"
+               "Shift the object so its own reference point is centered on"
+               " the extent of the parent\n"
+               "@end table\n",
 
-	       /* properties */
-	       "self-alignment-X "
-	       "self-alignment-Y "
-	       );
+               /* properties */
+               "self-alignment-X "
+               "self-alignment-Y "
+              );

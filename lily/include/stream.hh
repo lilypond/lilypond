@@ -28,7 +28,7 @@ using namespace std;
 
 #if __GNUC__ > 2
 ostream *open_file_stream (string file_name,
-				ios_base::openmode mode = ios::out);
+                           ios_base::openmode mode = ios::out);
 #else
 ostream *open_file_stream (string file_name, int mode = ios::out);
 #endif

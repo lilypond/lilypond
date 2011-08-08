@@ -23,7 +23,7 @@
 static Real
 F0_1 (Real x)
 {
-  return 2 / M_PI *atan (M_PI *x / 2);
+  return 2 / M_PI * atan (M_PI * x / 2);
 }
 
 Real
@@ -101,7 +101,7 @@ slur_height (Real width, Real h_inf, Real r_0)
 
 void
 get_slur_indent_height (Real *indent, Real *height,
-			Real width, Real h_inf, Real r_0)
+                        Real width, Real h_inf, Real r_0)
 {
   Real max_fraction = 1.0 / 3.1;
   *height = slur_height (width, h_inf, r_0);
@@ -117,7 +117,7 @@ slur_shape (Real width, Real h_inf, Real r_0)
   Real height;
 
   get_slur_indent_height (&indent, &height,
-			  width, h_inf, r_0);
+                          width, h_inf, r_0);
 
   Bezier curve;
   curve.control_[0] = Offset (0, 0);

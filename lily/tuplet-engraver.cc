@@ -41,7 +41,7 @@ struct Tuplet_description
   Moment stop_moment_;
   Moment start_moment_;
   Moment length_;
-  
+
   Tuplet_description ()
   {
     event_ = 0;
@@ -61,8 +61,8 @@ protected:
   vector<Tuplet_description> tuplets_;
   vector<Tuplet_description> new_tuplets_;
   vector<Tuplet_description> stopped_tuplets_;
-  vector<Spanner*> last_tuplets_;
-  
+  vector<Spanner *> last_tuplets_;
+
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_TRANSLATOR_LISTENER (tuplet_span);
   virtual void finalize ();
@@ -81,32 +81,32 @@ Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
       d.event_ = ev;
 
       d.length_ = robust_scm2moment (d.event_->get_property ("length"),
-				     Moment (0));
+                                     Moment (0));
       d.start_moment_ = now_mom ();
       d.stop_moment_ = now_mom () + d.length_;
 
-      for (vsize i=0; i < new_tuplets_.size (); i++)
-	{
-	  /*
-	    discard duplicates.
-	  */
-	  if (new_tuplets_[i].stop_moment_ == d.stop_moment_)
-	    return;
-	}
-      
+      for (vsize i = 0; i < new_tuplets_.size (); i++)
+        {
+          /*
+            discard duplicates.
+          */
+          if (new_tuplets_[i].stop_moment_ == d.stop_moment_)
+            return;
+        }
+
       new_tuplets_.push_back (d);
     }
   else if (dir == STOP)
     {
       if (tuplets_.size ())
-	{
-	  stopped_tuplets_.push_back (tuplets_.back ());
-	  tuplets_.pop_back ();
-	}
-      else if (!to_boolean (get_property ("skipTypesetting"))) 
-	ev->origin ()->warning (_ ("No tuplet to end"));
+        {
+          stopped_tuplets_.push_back (tuplets_.back ());
+          tuplets_.pop_back ();
+        }
+      else if (!to_boolean (get_property ("skipTypesetting")))
+        ev->origin ()->warning (_ ("No tuplet to end"));
     }
-  else 
+  else
     ev->origin ()->programming_error ("direction tuplet-span-event_ invalid.");
 }
 
@@ -117,48 +117,48 @@ Tuplet_engraver::process_music ()
     This may happen if the end of a tuplet is part of a quoted voice.
    */
   Moment now = now_mom ();
-  for (vsize i = tuplets_.size (); i --; )
+  for (vsize i = tuplets_.size (); i--;)
     {
       if (tuplets_[i].stop_moment_ == now)
-	{
-	  stopped_tuplets_.push_back (tuplets_[i]);
-	  tuplets_.erase (tuplets_.begin () + i);
-	}
+        {
+          stopped_tuplets_.push_back (tuplets_[i]);
+          tuplets_.erase (tuplets_.begin () + i);
+        }
     }
-  
+
   for (vsize i = 0; i < stopped_tuplets_.size (); i++)
     {
       Spanner *bracket = stopped_tuplets_[i].bracket_;
       Spanner *number = stopped_tuplets_[i].number_;
       if (bracket)
-	{
-	  if (stopped_tuplets_[i].full_length_)
-	    {
-	      Item *col =
-		unsmob_item (stopped_tuplets_[i].full_length_note_
-			     ? get_property ("currentMusicalColumn")
-			     : get_property ("currentCommandColumn"));
-	      
-	      bracket->set_bound (RIGHT, col);
-	      number->set_bound (RIGHT, col);
-	    }
-	  else if (!bracket->get_bound (RIGHT))
-	    {
-	      if (bracket->get_bound (LEFT))
-		{
-		  bracket->set_bound (RIGHT,
-				      bracket->get_bound (LEFT));
-		  number->set_bound (RIGHT,
-				     stopped_tuplets_[i].bracket_->get_bound (LEFT));
-		}
-	      else
-		programming_error ("stopped tuplet bracket has neither left nor right bound");
-	    }	  
-	  // todo: scrap last_tuplets_, use stopped_tuplets_ only.
-	  // clear stopped_tuplets_ at start_translation_timestep
-	  last_tuplets_.push_back (bracket);
-	  last_tuplets_.push_back (number);
-	}
+        {
+          if (stopped_tuplets_[i].full_length_)
+            {
+              Item *col
+                = unsmob_item (stopped_tuplets_[i].full_length_note_
+                               ? get_property ("currentMusicalColumn")
+                               : get_property ("currentCommandColumn"));
+
+              bracket->set_bound (RIGHT, col);
+              number->set_bound (RIGHT, col);
+            }
+          else if (!bracket->get_bound (RIGHT))
+            {
+              if (bracket->get_bound (LEFT))
+                {
+                  bracket->set_bound (RIGHT,
+                                      bracket->get_bound (LEFT));
+                  number->set_bound (RIGHT,
+                                     stopped_tuplets_[i].bracket_->get_bound (LEFT));
+                }
+              else
+                programming_error ("stopped tuplet bracket has neither left nor right bound");
+            }
+          // todo: scrap last_tuplets_, use stopped_tuplets_ only.
+          // clear stopped_tuplets_ at start_translation_timestep
+          last_tuplets_.push_back (bracket);
+          last_tuplets_.push_back (number);
+        }
     }
   stopped_tuplets_.clear ();
 
@@ -169,30 +169,28 @@ Tuplet_engraver::process_music ()
       /* i goes from size-1 downto 0, inclusively */
       vsize i = j - 1;
 
-            
       if (tuplets_[i].bracket_)
-	continue;
+        continue;
 
       tuplets_[i].full_length_ = to_boolean (get_property ("tupletFullLength"));
       tuplets_[i].full_length_note_
-	= to_boolean (get_property ("tupletFullLengthNote"));
-      
+        = to_boolean (get_property ("tupletFullLengthNote"));
+
       tuplets_[i].bracket_ = make_spanner ("TupletBracket",
-					   tuplets_[i].event_->self_scm ());
+                                           tuplets_[i].event_->self_scm ());
       tuplets_[i].number_ = make_spanner ("TupletNumber",
-					  tuplets_[i].event_->self_scm ());
+                                          tuplets_[i].event_->self_scm ());
       tuplets_[i].number_->set_object ("bracket", tuplets_[i].bracket_->self_scm ());
       tuplets_[i].number_->set_parent (tuplets_[i].bracket_, X_AXIS);
       tuplets_[i].number_->set_parent (tuplets_[i].bracket_, Y_AXIS);
       tuplets_[i].bracket_->set_object ("tuplet-number", tuplets_[i].number_->self_scm ());
       tuplets_[i].stop_moment_.grace_part_ = 0;
-      
-      
+
       if (i + 1 < tuplets_.size () && tuplets_[i + 1].bracket_)
-	Tuplet_bracket::add_tuplet_bracket (tuplets_[i].bracket_, tuplets_[i + 1].bracket_);
-      
+        Tuplet_bracket::add_tuplet_bracket (tuplets_[i].bracket_, tuplets_[i + 1].bracket_);
+
       if (i > 0 && tuplets_[i - 1].bracket_)
-	Tuplet_bracket::add_tuplet_bracket (tuplets_[i - 1].bracket_, tuplets_[i].bracket_);
+        Tuplet_bracket::add_tuplet_bracket (tuplets_[i - 1].bracket_, tuplets_[i].bracket_);
 
     }
 }
@@ -203,9 +201,9 @@ Tuplet_engraver::acknowledge_note_column (Grob_info inf)
   for (vsize j = 0; j < tuplets_.size (); j++)
     if (tuplets_[j].bracket_)
       {
-	Item *i = dynamic_cast<Item *> (inf.grob ());
-	Tuplet_bracket::add_column (tuplets_[j].bracket_, i);
-	add_bound_item (tuplets_[j].number_, i);
+        Item *i = dynamic_cast<Item *> (inf.grob ());
+        Tuplet_bracket::add_column (tuplets_[j].bracket_, i);
+        add_bound_item (tuplets_[j].number_, i);
       }
 }
 
@@ -216,7 +214,7 @@ Tuplet_engraver::start_translation_timestep ()
   /*
     May seem superfluous, but necessary for skipTypesetting.
    */
-  new_tuplets_.clear ();	
+  new_tuplets_.clear ();
 }
 
 void
@@ -225,8 +223,8 @@ Tuplet_engraver::finalize ()
   if (to_boolean (get_property ("tupletFullLength")))
     for (vsize i = 0; i < last_tuplets_.size (); i++)
       {
-	Item *col = unsmob_item (get_property ("currentCommandColumn"));
-	last_tuplets_[i]->set_bound (RIGHT, col);
+        Item *col = unsmob_item (get_property ("currentCommandColumn"));
+        last_tuplets_[i]->set_bound (RIGHT, col);
       }
 }
 
@@ -236,17 +234,17 @@ Tuplet_engraver::Tuplet_engraver ()
 
 ADD_ACKNOWLEDGER (Tuplet_engraver, note_column);
 ADD_TRANSLATOR (Tuplet_engraver,
-		/* doc */
-		"Catch tuplet events and generate appropriate bracket.",
-		
-		/* create */
-		"TupletBracket "
-		"TupletNumber ",
+                /* doc */
+                "Catch tuplet events and generate appropriate bracket.",
 
-		/* read */
-		"tupletFullLength "
-		"tupletFullLengthNote ",
+                /* create */
+                "TupletBracket "
+                "TupletNumber ",
 
-		/* write */
-		""
-		);
+                /* read */
+                "tupletFullLength "
+                "tupletFullLengthNote ",
+
+                /* write */
+                ""
+               );

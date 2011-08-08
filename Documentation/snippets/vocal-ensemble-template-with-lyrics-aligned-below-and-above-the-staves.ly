@@ -7,19 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
-  texidocit = "
-Questo modello è fondamentalmente analogo al semplice modello @qq{Complesso vocale},
-con l'unica differenza che qui tutti i versi del testo sono posizionati
-usando @code{alignAboveContext} e @code{alignBelowContext}.
-
-"
-  doctitleit = "Modello per gruppo vocale con testo allineato sotto e sopra i righi"
-
   lsrtags = "text, vocal-music, contexts-and-engravers, template"
-
-
-
 
 %% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
@@ -37,6 +25,15 @@ colocan utilizando @code{alignAboveContext} y
 このテンプレートは基本的に単純な \"合唱\" テンプレートと同じですが、歌詞が
 @code{alignAboveContext} と @code{alignBelowContext} を用いて配置されています。
 "
+
+%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+  texidocit = "
+Questo modello è fondamentalmente analogo al semplice modello @qq{Complesso vocale},
+con l'unica differenza che qui tutti i versi del testo sono posizionati
+usando @code{alignAboveContext} e @code{alignBelowContext}.
+
+"
+  doctitleit = "Modello per gruppo vocale con testo allineato sotto e sopra i righi"
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "

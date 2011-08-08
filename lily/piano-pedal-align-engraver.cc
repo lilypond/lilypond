@@ -2,7 +2,7 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2006--2011 Han-Wen Nienhuys <hanwen@lilypond.org>
-  
+
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -18,7 +18,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "engraver.hh"
 
 #include "spanner.hh"
@@ -28,17 +27,14 @@
 #include "warn.hh"
 #include "axis-group-interface.hh"
 
-
 /*
   TODO:
 
 
   * Detach from pedal specifics,
-  
-  * Also use this engraver for dynamics.
-  
-*/
 
+  * Also use this engraver for dynamics.
+*/
 
 struct Pedal_align_info
 {
@@ -77,7 +73,7 @@ public:
 
 protected:
   virtual void finalize ();
-  
+
   DECLARE_ACKNOWLEDGER (piano_pedal_script);
   DECLARE_ACKNOWLEDGER (piano_pedal_bracket);
   DECLARE_ACKNOWLEDGER (note_column);
@@ -86,9 +82,10 @@ protected:
 
   void stop_translation_timestep ();
   void start_translation_timestep ();
-  
+
 private:
-  enum Pedal_type {
+  enum Pedal_type
+  {
     SOSTENUTO,
     SUSTAIN,
     UNA_CORDA,
@@ -114,46 +111,45 @@ Piano_pedal_align_engraver::start_translation_timestep ()
 void
 Piano_pedal_align_engraver::stop_translation_timestep ()
 {
-  for (int i = 0; i < NUM_PEDAL_TYPES; i ++)
+  for (int i = 0; i < NUM_PEDAL_TYPES; i++)
     {
       if (pedal_info_[i].line_spanner_)
-	{
-	  
-	  if (pedal_info_[i].carrying_item_)
-	    {
-	      if (!pedal_info_[i].line_spanner_->get_bound (LEFT))
-		pedal_info_[i].line_spanner_->set_bound (LEFT,
-							 pedal_info_[i].carrying_item_);
+        {
 
-	      pedal_info_[i].line_spanner_->set_bound (RIGHT,
-						       pedal_info_[i].carrying_item_);
-	    }
-	  else if (pedal_info_[i].carrying_spanner_
-		   || pedal_info_[i].finished_carrying_spanner_
-		   )
-	    {
-	      if (!pedal_info_[i].line_spanner_->get_bound (LEFT)
-		  && pedal_info_[i].carrying_spanner_->get_bound (LEFT))
-		pedal_info_[i].line_spanner_->set_bound (LEFT,
-							 pedal_info_[i].carrying_spanner_->get_bound (LEFT));
-	      
+          if (pedal_info_[i].carrying_item_)
+            {
+              if (!pedal_info_[i].line_spanner_->get_bound (LEFT))
+                pedal_info_[i].line_spanner_->set_bound (LEFT,
+                                                         pedal_info_[i].carrying_item_);
 
-	      if (pedal_info_[i].finished_carrying_spanner_)
-		pedal_info_[i].line_spanner_->set_bound (RIGHT,
-							 pedal_info_[i].finished_carrying_spanner_->get_bound (RIGHT));
-	    }
-	  
-	  for (vsize j = 0; j < supports_.size (); j++)
-	    {
-	      Side_position_interface::add_support (pedal_info_[i].line_spanner_, supports_[j]);
-	    }
+              pedal_info_[i].line_spanner_->set_bound (RIGHT,
+                                                       pedal_info_[i].carrying_item_);
+            }
+          else if (pedal_info_[i].carrying_spanner_
+                   || pedal_info_[i].finished_carrying_spanner_
+                  )
+            {
+              if (!pedal_info_[i].line_spanner_->get_bound (LEFT)
+                  && pedal_info_[i].carrying_spanner_->get_bound (LEFT))
+                pedal_info_[i].line_spanner_->set_bound (LEFT,
+                                                         pedal_info_[i].carrying_spanner_->get_bound (LEFT));
 
-	  if (pedal_info_[i].is_finished ())
-	    {
-	      announce_end_grob (pedal_info_[i].line_spanner_, SCM_EOL);
-	      pedal_info_[i].clear ();
-	    }
-	}
+              if (pedal_info_[i].finished_carrying_spanner_)
+                pedal_info_[i].line_spanner_->set_bound (RIGHT,
+                                                         pedal_info_[i].finished_carrying_spanner_->get_bound (RIGHT));
+            }
+
+          for (vsize j = 0; j < supports_.size (); j++)
+            {
+              Side_position_interface::add_support (pedal_info_[i].line_spanner_, supports_[j]);
+            }
+
+          if (pedal_info_[i].is_finished ())
+            {
+              announce_end_grob (pedal_info_[i].line_spanner_, SCM_EOL);
+              pedal_info_[i].clear ();
+            }
+        }
 
       pedal_info_[i].carrying_item_ = 0;
     }
@@ -173,7 +169,6 @@ Piano_pedal_align_engraver::get_grob_pedal_type (Grob_info g)
   return SUSTAIN;
 }
 
-
 Spanner *
 Piano_pedal_align_engraver::make_line_spanner (Pedal_type t, SCM cause)
 {
@@ -181,24 +176,24 @@ Piano_pedal_align_engraver::make_line_spanner (Pedal_type t, SCM cause)
   if (!sp)
     {
       switch (t)
-	{
-	case (SOSTENUTO):
-	  sp = make_spanner ("SostenutoPedalLineSpanner", cause);
-	  break;
-	case (SUSTAIN):
-	  sp = make_spanner ("SustainPedalLineSpanner", cause);
-	  break;
-	case (UNA_CORDA):
-	  sp = make_spanner ("UnaCordaPedalLineSpanner", cause);
-	  break;
-	default:
-	  programming_error ("No pedal type fonud!") ;
-	  return sp;
-	}
-  
+        {
+        case (SOSTENUTO):
+          sp = make_spanner ("SostenutoPedalLineSpanner", cause);
+          break;
+        case (SUSTAIN):
+          sp = make_spanner ("SustainPedalLineSpanner", cause);
+          break;
+        case (UNA_CORDA):
+          sp = make_spanner ("UnaCordaPedalLineSpanner", cause);
+          break;
+        default:
+          programming_error ("No pedal type fonud!");
+          return sp;
+        }
+
       pedal_info_[t].line_spanner_ = sp;
     }
-  
+
   return sp;
 }
 
@@ -229,26 +224,25 @@ void
 Piano_pedal_align_engraver::acknowledge_piano_pedal_script (Grob_info gi)
 {
   Pedal_type type = get_grob_pedal_type (gi);
-  
+
   Grob *sp = make_line_spanner (type, gi.grob ()->self_scm ());
   Axis_group_interface::add_element (sp, gi.grob ());
   pedal_info_[type].carrying_item_ = gi.grob ();
 }
 
-
 void
 Piano_pedal_align_engraver::finalize ()
 {
- for (int i = 0; i < NUM_PEDAL_TYPES; i ++)
+  for (int i = 0; i < NUM_PEDAL_TYPES; i++)
     {
       if (pedal_info_[i].line_spanner_)
-	{
-	  SCM cc = get_property ("currentCommandColumn");
-	  Item *c = unsmob_item (cc);
-	  pedal_info_[i].line_spanner_->set_bound (RIGHT, c);
+        {
+          SCM cc = get_property ("currentCommandColumn");
+          Item *c = unsmob_item (cc);
+          pedal_info_[i].line_spanner_->set_bound (RIGHT, c);
 
-	  pedal_info_[i].clear ();
-	}
+          pedal_info_[i].clear ();
+        }
     }
 }
 
@@ -260,19 +254,18 @@ ADD_ACKNOWLEDGER (Piano_pedal_align_engraver, piano_pedal_script);
 
 ADD_END_ACKNOWLEDGER (Piano_pedal_align_engraver, piano_pedal_bracket);
 
-
 ADD_TRANSLATOR (Piano_pedal_align_engraver,
-		/* doc */
-		"Align piano pedal symbols and brackets.",
+                /* doc */
+                "Align piano pedal symbols and brackets.",
 
-		/* create */
-		"SostenutoPedalLineSpanner "
-		"SustainPedalLineSpanner "
-		"UnaCordaPedalLineSpanner ",
+                /* create */
+                "SostenutoPedalLineSpanner "
+                "SustainPedalLineSpanner "
+                "UnaCordaPedalLineSpanner ",
 
-		/* read */
-		"currentCommandColumn ",
+                /* read */
+                "currentCommandColumn ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

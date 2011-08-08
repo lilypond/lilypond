@@ -2091,7 +2091,7 @@ passage musical.  L'extension s'étend depuis la commande
 @code{\startTextSpan} jusqu'à la commande @code{\stopTextSpan} et le
 format de texte est défini par la commande @code{\override TextSpanner}.
 Pour de plus amples détails, voir
-@ruser{Indication textuelle avec ligne d’extension}.
+@ruser{Indication textuelle avec extension}.
 
 Il montre aussi comment créer des marques d'octaviation.
 

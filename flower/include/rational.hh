@@ -74,7 +74,8 @@ public:
   Rational (Rational const &r) { copy (r);}
   Rational &operator = (Rational const &r)
   {
-    copy (r); return *this;
+    copy (r);
+    return *this;
   }
 
   Rational &operator *= (Rational);
@@ -89,11 +90,11 @@ public:
 
 #include "arithmetic-operator.hh"
 
-IMPLEMENT_ARITHMETIC_OPERATOR (Rational, /);
+IMPLEMENT_ARITHMETIC_OPERATOR (Rational, / );
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, +);
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, *);
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, -);
-IMPLEMENT_ARITHMETIC_OPERATOR (Rational, %);
+IMPLEMENT_ARITHMETIC_OPERATOR (Rational, % );
 
 INSTANTIATE_COMPARE (Rational const &, Rational::compare);
 

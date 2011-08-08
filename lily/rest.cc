@@ -41,19 +41,19 @@ Rest::y_offset_callback (SCM smob)
 
   bool position_override = scm_is_number (me->get_property ("staff-position"));
   Real amount = robust_scm2double (me->get_property ("staff-position"), 0)
-    * 0.5 * ss;
-  
+                * 0.5 * ss;
+
   if (line_count % 2)
     {
       if (duration_log == 0 && line_count > 1)
-	amount += ss;
+        amount += ss;
     }
   else
     amount += ss / 2;
 
   if (!position_override)
-    amount += 2 * ss * get_grob_direction (me);; 
-  
+    amount += 2 * ss * get_grob_direction (me);;
+
   return scm_from_double (amount);
 }
 
@@ -86,9 +86,9 @@ Rest::glyph_name (Grob *me, int balltype, string style, bool try_ledgers)
       Real pos = Staff_symbol_referencer::get_position (me);
 
       /*
-	Figure out when the rest is far enough outside the staff. This
-	could bemore generic, but hey, we understand this even after
-	dinner.
+        Figure out when the rest is far enough outside the staff. This
+        could bemore generic, but hey, we understand this even after
+        dinner.
       */
       is_ledgered |= (balltype == -1) && (pos <= -rad - 3 || pos >= +rad + 1);
       is_ledgered |= (balltype == 0) && (pos >= +rad + 2 || pos < -rad);
@@ -101,26 +101,26 @@ Rest::glyph_name (Grob *me, int balltype, string style, bool try_ledgers)
     {
 
       /*
-	FIXME: Currently, ancient font does not provide ledgered rests;
-	hence the "o" suffix in the glyph name is bogus.  But do we need
-	ledgered rests at all now that we can draw ledger lines with
-	variable width, length and blotdiameter? -- jr
+        FIXME: Currently, ancient font does not provide ledgered rests;
+        hence the "o" suffix in the glyph name is bogus.  But do we need
+        ledgered rests at all now that we can draw ledger lines with
+        variable width, length and blotdiameter? -- jr
       */
       is_ledgered = 0;
 
       /*
-	There are no 32th/64th/128th mensural/neomensural rests.  In
-	these cases, revert back to default style.
+        There are no 32th/64th/128th mensural/neomensural rests.  In
+        these cases, revert back to default style.
       */
       if (balltype > 4)
-	actual_style = "";
+        actual_style = "";
     }
 
   if ((style == "classical") && (balltype != 2))
     {
       /*
-	classical style: revert back to default style for any rest other
-	than quarter rest
+        classical style: revert back to default style for any rest other
+        than quarter rest
       */
       actual_style = "";
     }
@@ -128,14 +128,14 @@ Rest::glyph_name (Grob *me, int balltype, string style, bool try_ledgers)
   if (style == "default")
     {
       /*
-	Some parts of lily still prefer style "default" over "".
-	Correct this here. -- jr
+        Some parts of lily still prefer style "default" over "".
+        Correct this here. -- jr
       */
       actual_style = "";
     }
 
   return ("rests." + to_string (balltype) + (is_ledgered ? "o" : "")
-	  + actual_style);
+          + actual_style);
 }
 
 MAKE_SCHEME_CALLBACK (Rest, print, 1);
@@ -221,8 +221,8 @@ Rest::generic_extent_callback (Grob *me, Axis a)
 MAKE_SCHEME_CALLBACK (Rest, pure_height, 3);
 SCM
 Rest::pure_height (SCM smob,
-		   SCM /* start */,
-		   SCM /* end */)
+                   SCM /* start */,
+                   SCM /* end */)
 {
   Grob *me = unsmob_grob (smob);
   SCM m = brew_internal_stencil (me, false);
@@ -230,13 +230,13 @@ Rest::pure_height (SCM smob,
 }
 
 ADD_INTERFACE (Rest,
-	       "A rest symbol.  The property @code{style} can be"
-	       " @code{default}, @code{mensural}, @code{neomensural} or"
-	       " @code{classical}.",
+               "A rest symbol.  The property @code{style} can be"
+               " @code{default}, @code{mensural}, @code{neomensural} or"
+               " @code{classical}.",
 
-	       /* properties */
-	       "direction "
-	       "minimum-distance "
-	       "style "
-	       );
+               /* properties */
+               "direction "
+               "minimum-distance "
+               "style "
+              );
 

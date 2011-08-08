@@ -99,52 +99,52 @@
   from file "ly-smobs.icc"
 */
 
-#define DECLARE_SIMPLE_SMOBS(CL)		\
-  public:					\
-  SCM smobbed_copy () const;			\
+#define DECLARE_SIMPLE_SMOBS(CL)                \
+  public:                                       \
+  SCM smobbed_copy () const;                    \
   DECLARE_BASE_SMOBS (CL)
 
-#define DECLARE_BASE_SMOBS(CL)					\
-  friend class Non_existent_class;				\
-  private:							\
+#define DECLARE_BASE_SMOBS(CL)                                  \
+  friend class Non_existent_class;                              \
+  private:                                                      \
   static const char* smob_name_; \
-  static scm_t_bits smob_tag_;					\
-  static SCM mark_smob (SCM);					\
-  static size_t free_smob (SCM s);				\
-  static int print_smob (SCM s, SCM p, scm_print_state*);	\
-  public:							\
-  static SCM equal_p (SCM a, SCM b);				\
-  static CL *unsmob (SCM s) __attribute__((pure))		\
-  {								\
-    if (SCM_NIMP (s) && SCM_CELL_TYPE (s) == smob_tag_)		\
-      return (CL *) SCM_CELL_WORD_1 (s);			\
-    else							\
-      return 0;							\
-  }								\
-  static SCM smob_p (SCM);					\
-  static void init_smobs ();					\
+  static scm_t_bits smob_tag_;                                  \
+  static SCM mark_smob (SCM);                                   \
+  static size_t free_smob (SCM s);                              \
+  static int print_smob (SCM s, SCM p, scm_print_state*);       \
+  public:                                                       \
+  static SCM equal_p (SCM a, SCM b);                            \
+  static CL *unsmob (SCM s) __attribute__((pure))               \
+  {                                                             \
+    if (SCM_NIMP (s) && SCM_CELL_TYPE (s) == smob_tag_)         \
+      return (CL *) SCM_CELL_WORD_1 (s);                        \
+    else                                                        \
+      return 0;                                                 \
+  }                                                             \
+  static SCM smob_p (SCM);                                      \
+  static void init_smobs ();                                    \
   private:
 
-#define DECLARE_SMOBS(CL)			\
-  DECLARE_BASE_SMOBS (CL)			\
-    protected:					\
-  virtual ~CL ();				\
-  SCM unprotected_smobify_self ();		\
-  private:					\
-  void smobify_self ();				\
-  SCM self_scm_;				\
-  SCM protection_cons_;				\
-  public:					\
-  SCM unprotect ();				\
-  void protect ();				\
-  SCM self_scm () const { return self_scm_; }	\
+#define DECLARE_SMOBS(CL)                       \
+  DECLARE_BASE_SMOBS (CL)                       \
+    protected:                                  \
+  virtual ~CL ();                               \
+  SCM unprotected_smobify_self ();              \
+  private:                                      \
+  void smobify_self ();                         \
+  SCM self_scm_;                                \
+  SCM protection_cons_;                         \
+  public:                                       \
+  SCM unprotect ();                             \
+  void protect ();                              \
+  SCM self_scm () const { return self_scm_; }   \
   private:
 
-#define DECLARE_UNSMOB(CL, name)		\
-  inline CL *					\
-  unsmob_ ## name (SCM s)			\
-  {						\
-    return CL::unsmob (s);			\
+#define DECLARE_UNSMOB(CL, name)                \
+  inline CL *                                   \
+  unsmob_ ## name (SCM s)                       \
+  {                                             \
+    return CL::unsmob (s);                      \
   }
 
 #define DECLARE_TYPE_P(CL) extern SCM CL ## _type_p_proc

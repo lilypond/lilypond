@@ -13,12 +13,11 @@ Tie_specification::Tie_specification ()
   position_ = 0;
   manual_position_ = 0;
   manual_dir_ = CENTER;
-  note_head_drul_[LEFT] =
-    note_head_drul_[RIGHT] = 0;
-  column_ranks_[RIGHT] =
-    column_ranks_[LEFT] = 0;
+  note_head_drul_[LEFT]
+    = note_head_drul_[RIGHT] = 0;
+  column_ranks_[RIGHT]
+    = column_ranks_[LEFT] = 0;
 }
-
 
 void
 Tie_specification::from_grob (Grob *tie)
@@ -29,7 +28,7 @@ Tie_specification::from_grob (Grob *tie)
       manual_dir_ = to_dir (tie->get_property ("direction"));
       has_manual_dir_ = true;
     }
-  
+
   position_ = Tie::get_position (tie);
   SCM pos_scm = tie->get_property ("staff-position");
   if (scm_is_number (pos_scm))

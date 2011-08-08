@@ -40,10 +40,10 @@
  */
 Stencil
 brew_flexa (Grob *me,
-	    bool solid,
-	    Real width,
-	    Real thickness,
-	    bool begin)
+            bool solid,
+            Real width,
+            Real thickness,
+            bool begin)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
@@ -60,8 +60,8 @@ brew_flexa (Grob *me,
 
   Real height = staff_space - horizontal_line_thickness;
   Stencil stencil;
-  Real const interval =
-    robust_scm2double (me->get_property ("flexa-interval"), 0.0);
+  Real const interval
+    = robust_scm2double (me->get_property ("flexa-interval"), 0.0);
   Real slope = (interval / 2.0 * staff_space) / width;
 
   // Compensate optical illusion regarding vertical position of left
@@ -78,22 +78,22 @@ brew_flexa (Grob *me,
     {
       stencil = Lookup::beam (corrected_slope, thickness, height, 0.0);
       if (!begin)
-	{
-	  stencil.translate_axis (width*0.5 - thickness, X_AXIS);
-	  stencil.translate_axis (corrected_slope * (width*0.5 - thickness),
+        {
+          stencil.translate_axis (width * 0.5 - thickness, X_AXIS);
+          stencil.translate_axis (corrected_slope * (width * 0.5 - thickness),
                                   Y_AXIS);
         }
 
-      Stencil bottom_edge =
-        Lookup::beam (corrected_slope, width * 0.5, horizontal_line_thickness,
-                      0.0);
-      bottom_edge.translate_axis (-0.5*height, Y_AXIS);
+      Stencil bottom_edge
+        = Lookup::beam (corrected_slope, width * 0.5, horizontal_line_thickness,
+                        0.0);
+      bottom_edge.translate_axis (-0.5 * height, Y_AXIS);
       stencil.add_stencil (bottom_edge);
 
-      Stencil top_edge =
-        Lookup::beam (corrected_slope, width * 0.5, horizontal_line_thickness,
-                      0.0);
-      top_edge.translate_axis (+0.5*height, Y_AXIS);
+      Stencil top_edge
+        = Lookup::beam (corrected_slope, width * 0.5, horizontal_line_thickness,
+                        0.0);
+      top_edge.translate_axis (+0.5 * height, Y_AXIS);
       stencil.add_stencil (top_edge);
     }
 
@@ -116,7 +116,7 @@ internal_brew_primitive (Grob *me)
   if (primitive_scm == SCM_EOL)
     {
       programming_error ("Mensural_ligature:"
-			 " undefined primitive -> ignoring grob");
+                         " undefined primitive -> ignoring grob");
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     }
   int primitive = scm_to_int (primitive_scm);
@@ -127,10 +127,10 @@ internal_brew_primitive (Grob *me)
   Real flexa_width = 0.0;
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  bool const color =
-    me->get_property ("style") == ly_symbol2scm ("blackpetrucci");
-  bool const semi =
-    me->get_property ("style") == ly_symbol2scm ("semipetrucci");
+  bool const color
+    = me->get_property ("style") == ly_symbol2scm ("blackpetrucci");
+  bool const semi
+    = me->get_property ("style") == ly_symbol2scm ("semipetrucci");
 
   if (primitive & MLP_ANY)
     {
@@ -139,7 +139,7 @@ internal_brew_primitive (Grob *me)
     }
   if (primitive & MLP_FLEXA)
     flexa_width = robust_scm2double (me->get_property ("flexa-width"), 2.0)
-      * staff_space;
+                  * staff_space;
 
   int const note_shape = primitive & MLP_ANY;
 
@@ -149,27 +149,27 @@ internal_brew_primitive (Grob *me)
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     case MLP_LONGA: // mensural brevis head with right cauda
       out = Font_interface::get_default_font (me)->find_by_name
-	(color ? "noteheads.sM2blackmensural" :
-         semi ? "noteheads.sM2semimensural" : "noteheads.sM2mensural");
+            (color ? "noteheads.sM2blackmensural"
+             : semi ? "noteheads.sM2semimensural" : "noteheads.sM2mensural");
       break;
     case MLP_BREVIS: // mensural brevis head
       out = Font_interface::get_default_font (me)->find_by_name
-	(color ? "noteheads.sM1blackmensural" :
-         semi ? "noteheads.sM1semimensural" : "noteheads.sM1mensural");
+            (color ? "noteheads.sM1blackmensural"
+             : semi ? "noteheads.sM1semimensural" : "noteheads.sM1mensural");
       break;
     case MLP_MAXIMA: // should be mensural maxima head without stem
       out = Font_interface::get_default_font (me)->find_by_name
-	(color ? "noteheads.sM3blackligmensural" :
-         semi ? "noteheads.sM3semiligmensural" : "noteheads.sM3ligmensural");
+            (color ? "noteheads.sM3blackligmensural"
+             : semi ? "noteheads.sM3semiligmensural" : "noteheads.sM3ligmensural");
       break;
     case MLP_FLEXA_BEGIN:
     case MLP_FLEXA_END:
       out = brew_flexa (me, color, flexa_width, thickness,
-			note_shape == MLP_FLEXA_BEGIN);
+                        note_shape == MLP_FLEXA_BEGIN);
       break;
     default:
       programming_error (_ ("Mensural_ligature:"
-			    " unexpected case fall-through"));
+                            " unexpected case fall-through"));
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     }
 
@@ -182,10 +182,10 @@ internal_brew_primitive (Grob *me)
       Real y_bottom = 0.0, y_top = 3.0 * staff_space;
 
       if (primitive & MLP_DOWN)
-	{
-	  y_bottom = -y_top;
-	  y_top = 0.0;
-	}
+        {
+          y_bottom = -y_top;
+          y_top = 0.0;
+        }
 
       Interval x_extent (0, thickness);
       Interval y_extent (y_bottom, y_top);
@@ -199,38 +199,38 @@ internal_brew_primitive (Grob *me)
     {
       int join_right = scm_to_int (me->get_property ("delta-position"));
       if (join_right)
-	{
-	  Real y_top = join_right * 0.5 * staff_space;
-	  Real y_bottom = 0.0;
+        {
+          Real y_top = join_right * 0.5 * staff_space;
+          Real y_bottom = 0.0;
 
-	  if (y_top < 0.0)
-	    {
-	      y_bottom = y_top;
-	      y_top = 0.0;
+          if (y_top < 0.0)
+            {
+              y_bottom = y_top;
+              y_top = 0.0;
 
-	      /*
-		if the previous note is longa-shaped,
-		the joining line may hide the stem, so made it longer
-		to serve as stem as well
-	      */
-	      if (primitive & MLP_LONGA)
-		/*
-		  instead of 3.0 the length of a longa stem should be used
-		  Font_interface::get_default_font (???)->find_by_name
-		  ("noteheads.s-2mensural").extent (Y_AXIS).length () * 0.5
-		*/
-		y_bottom -= 3.0 * staff_space;
-	    }
+              /*
+                if the previous note is longa-shaped,
+                the joining line may hide the stem, so made it longer
+                to serve as stem as well
+              */
+              if (primitive & MLP_LONGA)
+                /*
+                  instead of 3.0 the length of a longa stem should be used
+                  Font_interface::get_default_font (???)->find_by_name
+                  ("noteheads.s-2mensural").extent (Y_AXIS).length () * 0.5
+                */
+                y_bottom -= 3.0 * staff_space;
+            }
 
-	  Interval x_extent (width - thickness, width);
-	  Interval y_extent (y_bottom, y_top);
-	  Box join_box (x_extent, y_extent);
-	  Stencil join = Lookup::round_filled_box (join_box, blotdiameter);
+          Interval x_extent (width - thickness, width);
+          Interval y_extent (y_bottom, y_top);
+          Box join_box (x_extent, y_extent);
+          Stencil join = Lookup::round_filled_box (join_box, blotdiameter);
 
-	  out.add_stencil (join);
-	}
+          out.add_stencil (join);
+        }
       else
-	programming_error (_ ("Mensural_ligature: (join_right == 0)"));
+        programming_error (_ ("Mensural_ligature: (join_right == 0)"));
     }
 
 #if 0 /* what happend with the ledger lines? */
@@ -261,14 +261,14 @@ Mensural_ligature::print (SCM)
 }
 
 ADD_INTERFACE (Mensural_ligature,
-	       "A mensural ligature.",
+               "A mensural ligature.",
 
-	       /* properties */
-	       "delta-position "
-	       "ligature-flexa "
-	       "head-width "
-	       "add-join "
-	       "flexa-interval "
-	       "primitive "
-	       "thickness "
-	       );
+               /* properties */
+               "delta-position "
+               "ligature-flexa "
+               "head-width "
+               "add-join "
+               "flexa-interval "
+               "primitive "
+               "thickness "
+              );

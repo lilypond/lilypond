@@ -31,131 +31,131 @@
 /**
    A macro to automate administration of translators.
 */
-#define ADD_THIS_TRANSLATOR(T)						\
-  SCM T::static_description_ = SCM_EOL;					\
-  static void _ ## T ## _adder ()					\
-  {									\
-    T *t = new T;							\
-    T::static_description_ = t->static_translator_description ();	\
-    scm_permanent_object (T::static_description_);			\
-    add_translator (t);							\
-  }									\
-  SCM T::translator_description () const				\
-  {									\
-    return static_description_;						\
-  }									\
+#define ADD_THIS_TRANSLATOR(T)                                          \
+  SCM T::static_description_ = SCM_EOL;                                 \
+  static void _ ## T ## _adder ()                                       \
+  {                                                                     \
+    T *t = new T;                                                       \
+    T::static_description_ = t->static_translator_description ();       \
+    scm_permanent_object (T::static_description_);                      \
+    add_translator (t);                                                 \
+  }                                                                     \
+  SCM T::translator_description () const                                \
+  {                                                                     \
+    return static_description_;                                         \
+  }                                                                     \
   ADD_GLOBAL_CTOR (_ ## T ## _adder); \
   /* end define */
 
 #define DEFINE_TRANSLATOR_LISTENER_LIST(T) \
-  translator_listener_record *T::listener_list_;	\
+  translator_listener_record *T::listener_list_;        \
   /* end define */
 
 #define DEFINE_ACKNOWLEDGERS(classname) \
-  Drul_array< vector<Acknowledge_information> > classname::acknowledge_static_array_drul_;	\
-  Engraver_void_function_engraver_grob_info				\
-  classname::static_get_acknowledger (SCM sym)				\
-  {									\
-    return generic_get_acknowledger (sym, &acknowledge_static_array_drul_[START]);	\
-  }									\
-  Engraver_void_function_engraver_grob_info				\
-  classname::static_get_end_acknowledger (SCM sym)				\
-  {									\
-    return generic_get_acknowledger (sym, &acknowledge_static_array_drul_[STOP]);	\
-  }									\
+  Drul_array< vector<Acknowledge_information> > classname::acknowledge_static_array_drul_;      \
+  Engraver_void_function_engraver_grob_info                             \
+  classname::static_get_acknowledger (SCM sym)                          \
+  {                                                                     \
+    return generic_get_acknowledger (sym, &acknowledge_static_array_drul_[START]);      \
+  }                                                                     \
+  Engraver_void_function_engraver_grob_info                             \
+  classname::static_get_end_acknowledger (SCM sym)                              \
+  {                                                                     \
+    return generic_get_acknowledger (sym, &acknowledge_static_array_drul_[STOP]);       \
+  }                                                                     \
   /* end define */
 
-#define DEFINE_TRANSLATOR_DOC(classname, desc, grobs, read, write)		\
-  SCM									\
-  classname::static_translator_description () const			\
-  {									\
+#define DEFINE_TRANSLATOR_DOC(classname, desc, grobs, read, write)              \
+  SCM                                                                   \
+  classname::static_translator_description () const                     \
+  {                                                                     \
     return Translator::static_translator_description (grobs, desc, listener_list_, read, write); \
   }
 
-#define ADD_TRANSLATOR(classname, desc, grobs, read, write)		\
-  IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS (classname);			\
-  ADD_THIS_TRANSLATOR (classname);					\
-  DEFINE_TRANSLATOR_DOC(classname, desc, grobs, read, write)		\
+#define ADD_TRANSLATOR(classname, desc, grobs, read, write)             \
+  IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS (classname);                    \
+  ADD_THIS_TRANSLATOR (classname);                                      \
+  DEFINE_TRANSLATOR_DOC(classname, desc, grobs, read, write)            \
   DEFINE_ACKNOWLEDGERS(classname) \
   DEFINE_TRANSLATOR_LISTENER_LIST(classname) \
-  
-#define IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS(T)			\
-  void									\
-  T::fetch_precomputable_methods (Translator_void_method_ptr ptrs[])	\
-  {									\
-    ptrs[START_TRANSLATION_TIMESTEP] =					\
-      ((Translator_void_method_ptr) & T::start_translation_timestep ==	\
+ 
+#define IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS(T)                        \
+  void                                                                  \
+  T::fetch_precomputable_methods (Translator_void_method_ptr ptrs[])    \
+  {                                                                     \
+    ptrs[START_TRANSLATION_TIMESTEP] =                                  \
+      ((Translator_void_method_ptr) & T::start_translation_timestep ==  \
        (Translator_void_method_ptr) & Translator::start_translation_timestep) \
-      ? 0								\
-      : (Translator_void_method_ptr) & T::start_translation_timestep;	\
-									\
-    ptrs[STOP_TRANSLATION_TIMESTEP] =					\
+      ? 0                                                               \
+      : (Translator_void_method_ptr) & T::start_translation_timestep;   \
+                                                                        \
+    ptrs[STOP_TRANSLATION_TIMESTEP] =                                   \
       ((Translator_void_method_ptr) & T::stop_translation_timestep == (Translator_void_method_ptr) & Translator::stop_translation_timestep) \
-      ? 0								\
-      : (Translator_void_method_ptr) & T::stop_translation_timestep;	\
-									\
-    ptrs[PROCESS_MUSIC] =						\
+      ? 0                                                               \
+      : (Translator_void_method_ptr) & T::stop_translation_timestep;    \
+                                                                        \
+    ptrs[PROCESS_MUSIC] =                                               \
       ((Translator_void_method_ptr) & T::process_music == (Translator_void_method_ptr) & Translator::process_music) \
-      ? 0								\
-      : (Translator_void_method_ptr) & T::process_music;		\
-									\
-    ptrs[PROCESS_ACKNOWLEDGED] =					\
+      ? 0                                                               \
+      : (Translator_void_method_ptr) & T::process_music;                \
+                                                                        \
+    ptrs[PROCESS_ACKNOWLEDGED] =                                        \
       ((Translator_void_method_ptr) & T::process_acknowledged == (Translator_void_method_ptr) & Translator::process_acknowledged) \
-      ? 0								\
-      : (Translator_void_method_ptr) & T::process_acknowledged;		\
+      ? 0                                                               \
+      : (Translator_void_method_ptr) & T::process_acknowledged;         \
   }
 
 void add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
-		       char const *func_name,
-		       vector<Acknowledge_information> *ack_array);
+                       char const *func_name,
+                       vector<Acknowledge_information> *ack_array);
 
 Engraver_void_function_engraver_grob_info
 generic_get_acknowledger (SCM sym,
-			  vector<Acknowledge_information> const *ack_array);
+                          vector<Acknowledge_information> const *ack_array);
 
-#define ADD_ACKNOWLEDGER(CLASS, NAME)					\
-  void CLASS ## NAME ## _ack_adder ()					\
-  {									\
+#define ADD_ACKNOWLEDGER(CLASS, NAME)                                   \
+  void CLASS ## NAME ## _ack_adder ()                                   \
+  {                                                                     \
     add_acknowledger ((Engraver_void_function_engraver_grob_info) & CLASS::acknowledge_ ## NAME, #NAME, &CLASS::acknowledge_static_array_drul_[START]); \
-  }									\
+  }                                                                     \
   ADD_SCM_INIT_FUNC (CLASS ## NAME ## _ack_adder_initclass, CLASS ## NAME ## _ack_adder);
 
-#define ADD_END_ACKNOWLEDGER(CLASS, NAME)					\
-  void CLASS ## NAME ## _end_ack_adder ()					\
-  {									\
+#define ADD_END_ACKNOWLEDGER(CLASS, NAME)                                       \
+  void CLASS ## NAME ## _end_ack_adder ()                                       \
+  {                                                                     \
     add_acknowledger ((Engraver_void_function_engraver_grob_info) & CLASS::acknowledge_end_ ## NAME, #NAME, &CLASS::acknowledge_static_array_drul_[STOP]); \
-  }									\
+  }                                                                     \
   ADD_SCM_INIT_FUNC (CLASS ## NAME ## _end_ack_adder_initclass, CLASS ## NAME ## _end_ack_adder);
 
 /*
-  Implement the method cl::listen_##m, and make it listen to stream 
+  Implement the method cl::listen_##m, and make it listen to stream
   events of class m.
  */
-#define IMPLEMENT_TRANSLATOR_LISTENER(cl, m)		\
-void							\
-cl :: _internal_declare_ ## m ()			\
-{							\
-  static translator_listener_record r;			\
+#define IMPLEMENT_TRANSLATOR_LISTENER(cl, m)            \
+void                                                    \
+cl :: _internal_declare_ ## m ()                        \
+{                                                       \
+  static translator_listener_record r;                  \
   add_translator_listener (&listener_list_, &r, _get_ ## m ## _listener, #m); \
-}							\
-							\
-ADD_SCM_INIT_FUNC (cl ## _declare_event_ ## m, cl::_internal_declare_ ## m);	\
-							\
-Listener						\
+}                                                       \
+                                                        \
+ADD_SCM_INIT_FUNC (cl ## _declare_event_ ## m, cl::_internal_declare_ ## m);    \
+                                                        \
+Listener                                                \
  cl :: _get_ ## m ## _listener (void *me, SCM unused)   \
-{							\
-  cl *obj = (cl *) me;					\
+{                                                       \
+  cl *obj = (cl *) me;                                  \
   (void) unused; \
-  return obj->GET_LISTENER (_listen_scm_ ## m);		\
-}							\
-							\
-IMPLEMENT_LISTENER (cl, _listen_scm_ ## m)		\
-void							\
-cl::_listen_scm_ ## m (SCM sev)				\
-{							\
-  Stream_event *ev = unsmob_stream_event (sev);		\
-  protect_event (sev);					\
-  listen_ ## m (ev);					\
+  return obj->GET_LISTENER (_listen_scm_ ## m);         \
+}                                                       \
+                                                        \
+IMPLEMENT_LISTENER (cl, _listen_scm_ ## m)              \
+void                                                    \
+cl::_listen_scm_ ## m (SCM sev)                         \
+{                                                       \
+  Stream_event *ev = unsmob_stream_event (sev);         \
+  protect_event (sev);                                  \
+  listen_ ## m (ev);                                    \
 }
 
 #endif /* TRANSLATOR_ICC */

@@ -104,5 +104,5 @@ ADD_TRANSLATOR (Beam_performer,
 
                 /* write */
                 ""
-                );
+               );
 

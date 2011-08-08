@@ -28,4 +28,6 @@ RemoveEmptyStaves = \with {
   \remove "Hara_kiri_engraver"
   \consists "Hara_kiri_engraver"
   \override VerticalAxisGroup #'remove-empty = ##t
+  \description "Remove staves which are considered to be empty according
+to the list of interfaces set by @code{keepAliveInterfaces}."
 }

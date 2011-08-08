@@ -58,22 +58,21 @@ Prob::equal_p (SCM sa, SCM sb)
       SCM bprop = props[1][i];
 
       for (;
-	   scm_is_pair (aprop) && scm_is_pair (bprop);
-	   aprop = scm_cdr (aprop), bprop = scm_cdr (bprop))
-	{
-	  SCM aval = scm_cdar (aprop);
-	  SCM bval = scm_cdar (bprop);
-	  if (scm_caar (aprop) != scm_caar (bprop) ||
-	      (
-	       !(unsmob_input (aval) && unsmob_input (bval))
-	       &&
-	       !to_boolean (scm_equal_p (aval, bval))))
-	    return SCM_BOOL_F;
-	}
+           scm_is_pair (aprop) && scm_is_pair (bprop);
+           aprop = scm_cdr (aprop), bprop = scm_cdr (bprop))
+        {
+          SCM aval = scm_cdar (aprop);
+          SCM bval = scm_cdar (bprop);
+          if (scm_caar (aprop) != scm_caar (bprop)
+              || (!(unsmob_input (aval) && unsmob_input (bval))
+                  &&
+                  !to_boolean (scm_equal_p (aval, bval))))
+            return SCM_BOOL_F;
+        }
 
       /* is one list shorter? */
       if (aprop != SCM_EOL || bprop != SCM_EOL)
-	return SCM_BOOL_F;
+        return SCM_BOOL_F;
     }
 
   return SCM_BOOL_T;
@@ -87,7 +86,6 @@ Prob::Prob (SCM type, SCM immutable_init)
   type_ = type;
   smobify_self ();
 }
-
 
 Prob::~Prob ()
 {
@@ -106,7 +104,6 @@ Prob::Prob (Prob const &src)
   smobify_self ();
   mutable_property_alist_ = src.copy_mutable_properties ();
 }
-
 
 SCM
 Prob::copy_mutable_properties () const
@@ -132,7 +129,7 @@ Prob::mark_smob (SCM smob)
 }
 
 int
-Prob::print_smob (SCM smob, SCM port, scm_print_state*)
+Prob::print_smob (SCM smob, SCM port, scm_print_state *)
 {
   Prob *p = (Prob *) SCM_CELL_WORD_1 (smob);
   scm_puts ("#<", port);
@@ -146,8 +143,6 @@ Prob::print_smob (SCM smob, SCM port, scm_print_state*)
   scm_puts (" >\n", port);
   return 1;
 }
-
-
 
 SCM
 Prob::internal_get_property (SCM sym) const
@@ -170,7 +165,7 @@ Prob::internal_get_property (SCM sym) const
 
 /* We don't (yet) instrument probs */
 void
-Prob::instrumented_set_property (SCM sym, SCM val, const char*, int, const char*)
+Prob::instrumented_set_property (SCM sym, SCM val, const char *, int, const char *)
 {
   internal_set_property (sym, val);
 }

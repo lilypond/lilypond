@@ -70,7 +70,7 @@ FUNC (vector_slice)
   EQUAL (vector<int> (v.begin (), v.begin ()).size (), vsize (0));
   EQUAL (vector<int> (v.begin (), v.end ()).size (), v.size ());
   EQUAL (vector<int> (v.begin () + 1, v.begin () + 2).size (),
-		     vsize (1));
+         vsize (1));
 #endif
 }
 
@@ -99,13 +99,13 @@ FUNC (vector_insert)
   v.insert (1, 0);
 #else
   v.insert (v.begin (), 1);
-#endif  
+#endif
   EQUAL (v[0], 1);
 #if VECTOR_INSERT
   v.insert (2, v.size ());
 #else
   v.insert (v.end (), 2);
-#endif  
+#endif
   EQUAL (v.back (), 2);
   vector<int> u;
   u.insert (u.begin (), v.begin (), v.end ());
@@ -121,8 +121,8 @@ FUNC (parray_concat)
 #if !STD_VECTOR
   Link_array<int> u, v;
 #else
-  vector<int*> u, v;
-#endif  
+  vector<int *> u, v;
+#endif
   int a[5] = { 0, 1, 2, 3, 4 };
   u.push_back (&a[0]);
   u.push_back (&a[1]);

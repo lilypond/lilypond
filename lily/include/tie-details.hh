@@ -28,7 +28,7 @@ struct Tie_details
   Real ratio_;
   Real staff_space_;
   Real x_gap_;
-  Real stem_gap_; 
+  Real stem_gap_;
   Real between_length_limit_;
   Real wrong_direction_offset_penalty_;
   Real same_dir_as_stem_penalty_;
@@ -54,11 +54,10 @@ struct Tie_details
   int single_tie_region_size_;
   int multi_tie_region_size_;
   Direction neutral_direction_;
-  
+
   Tie_details ();
   void from_grob (Grob *);
 };
 
 #endif /* TIE_DETAILS_HH */
-
 

@@ -39,18 +39,18 @@ Audio_item::get_column () const
 }
 
 Audio_item::Audio_item ()
-  : audio_column_ (0)
-  , channel_ (0)
+  : audio_column_ (0),
+    channel_ (0)
 {
 }
 
 Audio_note::Audio_note (Pitch p, Moment m, bool tie_event, Pitch transposing)
-  : pitch_ (p)
-  , length_mom_ (m)
-  , transposing_ (transposing)
-  , dynamic_ (0)
-  , tied_ (0)
-  , tie_event_ (tie_event)
+  : pitch_ (p),
+    length_mom_ (m),
+    transposing_ (transposing),
+    dynamic_ (0),
+    tied_ (0),
+    tie_event_ (tie_event)
 {
 }
 
@@ -74,8 +74,8 @@ Audio_key::Audio_key (int acc, bool major)
 }
 
 Audio_dynamic::Audio_dynamic ()
-  : volume_ (-1)
-  , silent_ (false)
+  : volume_ (-1),
+    silent_ (false)
 {
 }
 
@@ -94,8 +94,8 @@ Audio_span_dynamic::add_absolute (Audio_dynamic *d)
 Moment
 remap_grace_duration (Moment m)
 {
-  return Moment (m.main_part_ + Rational (9,40) * m.grace_part_,
-		 Rational (0));
+  return Moment (m.main_part_ + Rational (9, 40) * m.grace_part_,
+                 Rational (0));
 }
 
 Real
@@ -114,13 +114,13 @@ void
 Audio_span_dynamic::render ()
 {
   if (dynamics_.size () <= 1)
-    return ;
+    return;
 
   assert (dynamics_[0]->volume_ >= 0);
 
-  while  (dynamics_.back ()->volume_ > 0
-	  && dynamics_.size () > 1
-	  && sign (dynamics_.back ()->volume_ - dynamics_[0]->volume_) != grow_dir_)
+  while (dynamics_.back ()->volume_ > 0
+         && dynamics_.size () > 1
+         && sign (dynamics_.back ()->volume_ - dynamics_[0]->volume_) != grow_dir_)
     {
       dynamics_.erase (dynamics_.end () - 1);
     }
@@ -128,7 +128,7 @@ Audio_span_dynamic::render ()
   if (dynamics_.size () <= 1)
     {
       programming_error ("Impossible or ambiguous (de)crescendo in MIDI.");
-      return ;
+      return;
     }
 
   Real delta_v = grow_dir_ * 0.1;
@@ -143,20 +143,18 @@ Audio_span_dynamic::render ()
 
   Real total_t = moment_to_real (dynamics_.back ()->get_column ()->when () - start);
 
-  for (vsize i = 1; i < dynamics_.size (); i ++)
+  for (vsize i = 1; i < dynamics_.size (); i++)
     {
       Moment dt_moment = dynamics_[i]->get_column ()->when ()
-	- start;
+                         - start;
 
-      Real dt =  moment_to_real (dt_moment);
+      Real dt = moment_to_real (dt_moment);
 
-      Real v = start_v + delta_v *  (dt / total_t);
+      Real v = start_v + delta_v * (dt / total_t);
 
       dynamics_[i]->volume_ = v;
     }
 }
-
-
 
 Audio_tempo::Audio_tempo (int per_minute_4)
 {

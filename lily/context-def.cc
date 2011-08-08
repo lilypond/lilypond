@@ -85,7 +85,7 @@ IMPLEMENT_SMOBS (Context_def);
 IMPLEMENT_DEFAULT_EQUAL_P (Context_def);
 
 int
-Context_def::print_smob (SCM smob, SCM port, scm_print_state*)
+Context_def::print_smob (SCM smob, SCM port, scm_print_state *)
 {
   Context_def *me = (Context_def *) SCM_CELL_WORD_1 (smob);
 
@@ -134,17 +134,17 @@ Context_def::add_context_mod (SCM mod)
   if (ly_symbol2scm ("default-child") == tag)
     default_child_ = sym;
   else if (ly_symbol2scm ("consists") == tag
-	   || ly_symbol2scm ("remove") == tag)
+           || ly_symbol2scm ("remove") == tag)
     {
       translator_mods_ = scm_cons (scm_list_2 (tag, sym), translator_mods_);
     }
   else if (ly_symbol2scm ("accepts") == tag
-	   || ly_symbol2scm ("denies") == tag)
+           || ly_symbol2scm ("denies") == tag)
     accept_mods_ = scm_cons (scm_list_2 (tag, sym), accept_mods_);
   else if (ly_symbol2scm ("pop") == tag
-	   || ly_symbol2scm ("push") == tag
-	   || ly_symbol2scm ("assign") == tag
-	   || ly_symbol2scm ("unset") == tag)
+           || ly_symbol2scm ("push") == tag
+           || ly_symbol2scm ("assign") == tag
+           || ly_symbol2scm ("unset") == tag)
     property_ops_ = scm_cons (mod, property_ops_);
   else if (ly_symbol2scm ("alias") == tag)
     context_aliases_ = scm_cons (sym, context_aliases_);
@@ -166,16 +166,16 @@ Context_def::get_accepted (SCM user_mod) const
       SCM tag = scm_caar (s);
       SCM sym = scm_cadar (s);
       if (tag == ly_symbol2scm ("accepts"))
-	acc = scm_cons (sym, acc);
+        acc = scm_cons (sym, acc);
       else if (tag == ly_symbol2scm ("denies"))
-	acc = scm_delete_x (sym, acc);
+        acc = scm_delete_x (sym, acc);
     }
 
   SCM def = get_default_child (user_mod);
   if (scm_is_symbol (def))
     {
       if (scm_memq (def, acc))
-	acc = scm_delete_x (def, acc);
+        acc = scm_delete_x (def, acc);
       acc = scm_cons (def, acc);
     }
 
@@ -190,10 +190,10 @@ Context_def::get_default_child (SCM user_mod) const
     {
       SCM entry = scm_car (s);
       if (scm_car (entry) == ly_symbol2scm ("default-child"))
-	{
-	  name = scm_cadr (entry);
-	  break;
-	}
+        {
+          name = scm_cadr (entry);
+          break;
+        }
     }
 
   return name;
@@ -213,8 +213,8 @@ Context_def::get_default_child (SCM user_mod) const
 */
 vector<Context_def *>
 Context_def::path_to_acceptable_context (SCM type_sym,
-					 Output_def *odef,
-					 SCM additional_accepts) const
+                                         Output_def *odef,
+                                         SCM additional_accepts) const
 {
   set<const Context_def *> seen;
   return internal_path_to_acceptable_context (type_sym, odef, additional_accepts, &seen);
@@ -224,32 +224,32 @@ Context_def::path_to_acceptable_context (SCM type_sym,
 The SEEN parameter is a set which keeps track of visited contexts, allowing
 contexts of the same type to be nested.
 */
-vector<Context_def*>
+vector<Context_def *>
 Context_def::internal_path_to_acceptable_context (SCM type_sym,
-						  Output_def *odef,
-						  SCM additional_accepts,
-						  set<const Context_def *> *seen) const
+                                                  Output_def *odef,
+                                                  SCM additional_accepts,
+                                                  set<const Context_def *> *seen) const
 {
   assert (scm_is_symbol (type_sym));
 
   SCM accepted = get_accepted (additional_accepts);
 
-  vector<Context_def*> accepteds;
+  vector<Context_def *> accepteds;
   for (SCM s = accepted; scm_is_pair (s); s = scm_cdr (s))
     if (Context_def *t = unsmob_context_def (find_context_def (odef,
-							       scm_car (s))))
+                                                               scm_car (s))))
       accepteds.push_back (t);
 
-  vector<Context_def*> best_result;
+  vector<Context_def *> best_result;
   for (vsize i = 0; i < accepteds.size (); i++)
     {
       /* do not check aliases, because \context Staff should not
-	 create RhythmicStaff. */
+         create RhythmicStaff. */
       if (ly_is_equal (accepteds[i]->get_context_name (), type_sym))
-	{
-	  best_result.push_back (accepteds[i]);
-	  return best_result;
-	}
+        {
+          best_result.push_back (accepteds[i]);
+          return best_result;
+        }
     }
 
   seen->insert (this);
@@ -259,16 +259,16 @@ Context_def::internal_path_to_acceptable_context (SCM type_sym,
       Context_def *g = accepteds[i];
 
       if (!seen->count (g))
-	{
-	  vector<Context_def*> result
-	    = g->internal_path_to_acceptable_context (type_sym, odef, SCM_EOL, seen);
-	  if (result.size () && result.size () < best_depth)
-	    {
-	      best_depth = result.size ();
-	      result.insert (result.begin (), g);
-	      best_result = result;
-	    }
-	}
+        {
+          vector<Context_def *> result
+            = g->internal_path_to_acceptable_context (type_sym, odef, SCM_EOL, seen);
+          if (result.size () && result.size () < best_depth)
+            {
+              best_depth = result.size ();
+              result.insert (result.begin (), g);
+              best_result = result;
+            }
+        }
     }
   seen->erase (this);
 
@@ -288,13 +288,13 @@ Context_def::get_translator_names (SCM user_mod) const
       SCM arg = scm_cadar (s);
 
       if (scm_is_string (arg))
-	arg = scm_string_to_symbol (arg);
+        arg = scm_string_to_symbol (arg);
 
       if (ly_symbol2scm ("consists") == tag)
-	l1 = scm_cons (arg, l1);
+        l1 = scm_cons (arg, l1);
       else if (ly_symbol2scm ("remove") == tag
-	       && get_translator (arg))
-	l1 = scm_delete_x (arg, l1);
+               && get_translator (arg))
+        l1 = scm_delete_x (arg, l1);
     }
 
   return l1;
@@ -332,19 +332,19 @@ Context_def::to_alist () const
   SCM ell = SCM_EOL;
 
   ell = scm_cons (scm_cons (ly_symbol2scm ("consists"),
-			    get_translator_names (SCM_EOL)), ell);
+                            get_translator_names (SCM_EOL)), ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("description"), description_), ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("aliases"), context_aliases_), ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("accepts"), get_accepted (SCM_EOL)),
-		  ell);
+                  ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("property-ops"), property_ops_),
-		  ell);
+                  ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("context-name"), context_name_),
-		  ell);
+                  ell);
 
   if (scm_is_symbol (translator_group_type_))
     ell = scm_cons (scm_cons (ly_symbol2scm ("group-type"),
-			      translator_group_type_), ell);
+                              translator_group_type_), ell);
   return ell;
 }
 

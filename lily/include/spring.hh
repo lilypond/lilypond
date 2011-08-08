@@ -45,7 +45,7 @@ public:
   Real inverse_stretch_strength () const {return inverse_stretch_strength_;}
   Real inverse_compress_strength () const {return inverse_compress_strength_;}
   Real blocking_force () const {return blocking_force_;}
-  
+
   Real length (Real f) const;
 
   void set_distance (Real);
@@ -58,8 +58,8 @@ public:
   void set_default_compress_strength ();
   void set_default_stretch_strength ();
 
-  void operator*= (Real);
-  bool operator> (Spring const&) const;
+  void operator *= (Real);
+  bool operator > (Spring const &) const;
 };
 DECLARE_UNSMOB (Spring, spring);
 

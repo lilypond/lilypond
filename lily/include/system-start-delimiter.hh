@@ -31,14 +31,14 @@ class System_start_delimiter
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   static void try_collapse (Grob *);
   static Stencil staff_bracket (Grob *, Real);
   static Stencil old_staff_bracket (Grob *, Real);
   static Stencil staff_brace (Grob *, Real);
   static Stencil simple_bar (Grob *, Real);
   static Stencil line_bracket (Grob *, Real);
-  
+
 };
 
 #endif /* SYSTEM_START_DELIMITER_HH */

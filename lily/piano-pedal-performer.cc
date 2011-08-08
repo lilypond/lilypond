@@ -52,7 +52,7 @@ protected:
   DECLARE_TRANSLATOR_LISTENER (una_corda);
   DECLARE_TRANSLATOR_LISTENER (sostenuto);
 private:
-  vector<Audio_piano_pedal*> audios_;
+  vector<Audio_piano_pedal *> audios_;
   Pedal_info info_alist_[NUM_PEDAL_TYPES];
 };
 
@@ -65,11 +65,11 @@ Piano_pedal_performer::pedal_type_str (int t)
 {
   switch (t)
     {
-    case SOSTENUTO: 
+    case SOSTENUTO:
       return "Sostenuto";
     case SUSTAIN:
       return "Sustain";
-    case UNA_CORDA: 
+    case UNA_CORDA:
       return "UnaCorda";
     default:
       programming_error ("Unknown pedal type");
@@ -99,31 +99,31 @@ Piano_pedal_performer::process_music ()
     {
       string pedal_type = pedal_type_str (i);
       if (p->event_drul_[STOP])
-	{
-	  if (!p->start_event_)
-	    p->event_drul_[STOP]->origin ()->warning (_f ("cannot find start of piano pedal: `%s'", pedal_type));
-	  else
-	    {
-	      Audio_piano_pedal *a = new Audio_piano_pedal;
-	      a->type_string_ = pedal_type;
-	      a->dir_ = STOP;
-	      audios_.push_back (a);
+        {
+          if (!p->start_event_)
+            p->event_drul_[STOP]->origin ()->warning (_f ("cannot find start of piano pedal: `%s'", pedal_type));
+          else
+            {
+              Audio_piano_pedal *a = new Audio_piano_pedal;
+              a->type_string_ = pedal_type;
+              a->dir_ = STOP;
+              audios_.push_back (a);
               Audio_element_info info (a, p->event_drul_[STOP]);
               announce_element (info);
-	    }
-	  p->start_event_ = 0;
-	}
+            }
+          p->start_event_ = 0;
+        }
 
       if (p->event_drul_[START])
-	{
-	  p->start_event_ = p->event_drul_[START];
-	  Audio_piano_pedal *a = new Audio_piano_pedal;
-	  a->type_string_ = pedal_type;
-	  a->dir_ = START;
-	  audios_.push_back (a);
+        {
+          p->start_event_ = p->event_drul_[START];
+          Audio_piano_pedal *a = new Audio_piano_pedal;
+          a->type_string_ = pedal_type;
+          a->dir_ = START;
+          audios_.push_back (a);
           Audio_element_info info (a, p->event_drul_[START]);
           announce_element (info);
-	}
+        }
       p->event_drul_[START] = 0;
       p->event_drul_[STOP] = 0;
     }
@@ -171,15 +171,15 @@ Piano_pedal_performer::listen_una_corda (Stream_event *r)
 }
 
 ADD_TRANSLATOR (Piano_pedal_performer,
-		/* doc */
-		"",
+                /* doc */
+                "",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

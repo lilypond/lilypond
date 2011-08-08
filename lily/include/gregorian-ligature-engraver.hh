@@ -35,7 +35,7 @@ protected:
   virtual void listen_pes_or_flexa (Stream_event *ev);
   virtual void build_ligature (Spanner *ligature, vector<Grob_info> primitives);
   virtual void transform_heads (Spanner *ligature,
-				vector<Grob_info> primitives) = 0;
+                                vector<Grob_info> primitives) = 0;
   void stop_translation_timestep ();
 };
 

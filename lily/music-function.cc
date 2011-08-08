@@ -64,7 +64,7 @@ SCM
 make_music_function (SCM signature, SCM func)
 {
   scm_set_object_property_x (func, ly_symbol2scm ("music-function-signature"),
-			     signature);
+                             signature);
 
   SCM_RETURN_NEWSMOB (music_function_tag, func);
 }

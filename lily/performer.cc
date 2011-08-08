@@ -23,7 +23,6 @@
 #include "performer-group.hh"
 #include "warn.hh"
 
-
 Performer_group *
 Performer::get_daddy_performer () const
 {

@@ -24,8 +24,8 @@
 #include "stream-event.hh"
 
 SCM articulation_list (vector<Stream_event *> notes,
-		       vector<Stream_event *> articulations,
-		       char const *articulation_name);
+                       vector<Stream_event *> articulations,
+                       char const *articulation_name);
 
 #endif /* ARTICULATIONS_HH */
 

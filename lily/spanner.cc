@@ -42,38 +42,37 @@ Spanner::do_break_processing ()
   if (!left || !right)
     return;
 
-
   if (get_system () || is_broken ())
     return;
 
   if (left == right)
     {
       /*
-	If we have a spanner spanning one column, we must break it
-	anyway because it might provide a parent for another item.  */
+        If we have a spanner spanning one column, we must break it
+        anyway because it might provide a parent for another item.  */
       Direction d = LEFT;
       do
-	{
-	  Item *bound = left->find_prebroken_piece (d);
-	  if (!bound)
-	    programming_error ("no broken bound");
-	  else if (bound->get_system ())
-	    {
-	      Spanner *span = dynamic_cast<Spanner *> (clone ());
-	      span->set_bound (LEFT, bound);
-	      span->set_bound (RIGHT, bound);
+        {
+          Item *bound = left->find_prebroken_piece (d);
+          if (!bound)
+            programming_error ("no broken bound");
+          else if (bound->get_system ())
+            {
+              Spanner *span = dynamic_cast<Spanner *> (clone ());
+              span->set_bound (LEFT, bound);
+              span->set_bound (RIGHT, bound);
 
-	      assert (span->get_system ());
-	      span->get_system ()->typeset_grob (span);
-	      broken_intos_.push_back (span);
-	    }
-	}
+              assert (span->get_system ());
+              span->get_system ()->typeset_grob (span);
+              broken_intos_.push_back (span);
+            }
+        }
       while ((flip (&d)) != LEFT);
     }
   else
     {
-      System *root  = get_root_system (this);
-      vector<Item*> break_points = root->broken_col_range (left, right);
+      System *root = get_root_system (this);
+      vector<Item *> break_points = root->broken_col_range (left, right);
 
       break_points.insert (break_points.begin () + 0, left);
       break_points.push_back (right);
@@ -82,62 +81,61 @@ Spanner::do_break_processing ()
       parent_rank_slice.set_full ();
 
       /*
-	Check if our parent in X-direction spans equally wide
-	or wider than we do.
+        Check if our parent in X-direction spans equally wide
+        or wider than we do.
       */
       for (int a = X_AXIS; a < NO_AXES; a++)
-	{
-	  if (Spanner *parent = dynamic_cast<Spanner *> (get_parent ((Axis)a)))
-	    parent_rank_slice.intersect (parent->spanned_rank_interval ());
-	}
+        {
+          if (Spanner *parent = dynamic_cast<Spanner *> (get_parent ((Axis)a)))
+            parent_rank_slice.intersect (parent->spanned_rank_interval ());
+        }
 
       for (vsize i = 1; i < break_points.size (); i++)
-	{
-	  Drul_array<Item *> bounds;
-	  bounds[LEFT] = break_points[i - 1];
-	  bounds[RIGHT] = break_points[i];
-	  Direction d = LEFT;
-	  do
-	    {
-	      if (!bounds[d]->get_system ())
-		bounds[d] = bounds[d]->find_prebroken_piece (- d);
-	    }
-	  while ((flip (&d)) != LEFT);
+        {
+          Drul_array<Item *> bounds;
+          bounds[LEFT] = break_points[i - 1];
+          bounds[RIGHT] = break_points[i];
+          Direction d = LEFT;
+          do
+            {
+              if (!bounds[d]->get_system ())
+                bounds[d] = bounds[d]->find_prebroken_piece (- d);
+            }
+          while ((flip (&d)) != LEFT);
 
-	  if (!bounds[LEFT] || ! bounds[RIGHT])
-	    {
-	      programming_error ("bounds of this piece aren't breakable. ");
-	      continue;
-	    }
+          if (!bounds[LEFT] || ! bounds[RIGHT])
+            {
+              programming_error ("bounds of this piece aren't breakable. ");
+              continue;
+            }
 
-	  bool ok = parent_rank_slice.contains (bounds[LEFT]->get_column ()->get_rank ());
-	  ok = ok && parent_rank_slice.contains (bounds[RIGHT]->get_column ()->get_rank ());
+          bool ok = parent_rank_slice.contains (bounds[LEFT]->get_column ()->get_rank ());
+          ok = ok && parent_rank_slice.contains (bounds[RIGHT]->get_column ()->get_rank ());
 
-	  if (!ok)
-	    {
-	      programming_error (to_string ("Spanner `%s' is not fully contained in parent spanner. Ignoring orphaned part",
-					    name ().c_str ()));
-	      continue;
-	    }
+          if (!ok)
+            {
+              programming_error (to_string ("Spanner `%s' is not fully contained in parent spanner. Ignoring orphaned part",
+                                            name ().c_str ()));
+              continue;
+            }
 
+          Spanner *span = dynamic_cast<Spanner *> (clone ());
+          span->set_bound (LEFT, bounds[LEFT]);
+          span->set_bound (RIGHT, bounds[RIGHT]);
 
-	  Spanner *span = dynamic_cast<Spanner *> (clone ());
-	  span->set_bound (LEFT, bounds[LEFT]);
-	  span->set_bound (RIGHT, bounds[RIGHT]);
-
-	  if (!bounds[LEFT]->get_system ()
-	      || !bounds[RIGHT]->get_system ()
-	      || bounds[LEFT]->get_system () != bounds[RIGHT]->get_system ())
-	    {
-	      programming_error ("bounds of spanner are invalid");
-	      span->suicide ();
-	    }
-	  else
-	    {
-	      bounds[LEFT]->get_system ()->typeset_grob (span);
-	      broken_intos_.push_back (span);
-	    }
-	}
+          if (!bounds[LEFT]->get_system ()
+              || !bounds[RIGHT]->get_system ()
+              || bounds[LEFT]->get_system () != bounds[RIGHT]->get_system ())
+            {
+              programming_error ("bounds of spanner are invalid");
+              span->suicide ();
+            }
+          else
+            {
+              bounds[LEFT]->get_system ()->typeset_grob (span);
+              broken_intos_.push_back (span);
+            }
+        }
     }
   vector_sort (broken_intos_, Spanner::less);
   for (vsize i = broken_intos_.size (); i--;)
@@ -157,7 +155,7 @@ Spanner::set_my_columns ()
   do
     {
       if (!spanned_drul_[i]->get_system ())
-	set_bound (i, spanned_drul_[i]->find_prebroken_piece ((Direction) -i));
+        set_bound (i, spanned_drul_[i]->find_prebroken_piece ((Direction) - i));
     }
   while (flip (&i) != LEFT);
 }
@@ -178,9 +176,8 @@ Interval_t<Moment>
 Spanner::spanned_time () const
 {
   return spanned_time_interval (spanned_drul_[LEFT],
-				spanned_drul_[RIGHT]);
+                                spanned_drul_[RIGHT]);
 }
-
 
 Item *
 Spanner::get_bound (Direction d) const
@@ -198,7 +195,7 @@ Spanner::set_bound (Direction d, Grob *s)
   Item *i = dynamic_cast<Item *> (s);
   if (!i)
     {
-      programming_error ("must have Item for spanner bound of " + name());
+      programming_error ("must have Item for spanner bound of " + name ());
       return;
     }
 
@@ -244,7 +241,7 @@ Spanner::spanner_length () const
   Drul_array<SCM> bounds (get_property ("left-bound-info"),
                           get_property ("right-bound-info"));
 
-  Direction d =  LEFT;
+  Direction d = LEFT;
   do
     lr[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("X"),
                                              bounds[d], SCM_BOOL_F), -d);
@@ -289,7 +286,7 @@ Spanner::broken_neighbor (Direction d) const
     return 0;
 
   vsize k = get_break_index ();
-  Spanner *orig = dynamic_cast<Spanner*> (original_);
+  Spanner *orig = dynamic_cast<Spanner *> (original_);
   int j = int (k) + d;
   if (j < 0 || vsize (j) >= orig->broken_intos_.size ())
     return 0;
@@ -331,9 +328,9 @@ Spanner::get_broken_left_end_align () const
       && sc->break_status_dir () == RIGHT)
     {
       /*
-	We used to do a full search for the Break_align_item.
-	But that doesn't make a difference, since the Paper_column
-	is likely to contain only a Break_align_item.
+        We used to do a full search for the Break_align_item.
+        But that doesn't make a difference, since the Paper_column
+        is likely to contain only a Break_align_item.
       */
       return sc->extent (sc, X_AXIS)[RIGHT];
     }
@@ -383,26 +380,26 @@ Spanner::set_spacing_rods (SCM smob)
       Rod r;
       Spanner *sp = dynamic_cast<Spanner *> (me);
       System *root = get_root_system (me);
-      Drul_array<Item*> bounds (sp->get_bound (LEFT),
-				sp->get_bound (RIGHT));
+      Drul_array<Item *> bounds (sp->get_bound (LEFT),
+                                 sp->get_bound (RIGHT));
       if (!bounds[LEFT] || !bounds[RIGHT])
-	return SCM_UNSPECIFIED;
+        return SCM_UNSPECIFIED;
 
-      vector<Item*> cols (root->broken_col_range (bounds[LEFT]->get_column (),
-						  bounds[RIGHT]->get_column ()));
+      vector<Item *> cols (root->broken_col_range (bounds[LEFT]->get_column (),
+                                                   bounds[RIGHT]->get_column ()));
 
       if (cols.size ())
-	{
-	  Rod r ;
-	  r.item_drul_[LEFT] = sp->get_bound (LEFT);
-	  r.item_drul_[RIGHT] = cols[0]->find_prebroken_piece (LEFT);
-	  r.distance_ = robust_scm2double (num_length, 0);
-	  r.add_to_cols ();
+        {
+          Rod r;
+          r.item_drul_[LEFT] = sp->get_bound (LEFT);
+          r.item_drul_[RIGHT] = cols[0]->find_prebroken_piece (LEFT);
+          r.distance_ = robust_scm2double (num_length, 0);
+          r.add_to_cols ();
 
-	  r.item_drul_[LEFT] = cols.back ()->find_prebroken_piece (RIGHT);
-	  r.item_drul_[RIGHT] = sp->get_bound (RIGHT);
-	  r.add_to_cols ();
-	}
+          r.item_drul_[LEFT] = cols.back ()->find_prebroken_piece (RIGHT);
+          r.item_drul_[RIGHT] = sp->get_bound (RIGHT);
+          r.add_to_cols ();
+        }
 
       r.distance_ = robust_scm2double (num_length, 0);
       r.item_drul_[LEFT] = sp->get_bound (LEFT);
@@ -475,7 +472,7 @@ Spanner::bounds_width (SCM grob)
   Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
 
   Interval w (me->get_bound (LEFT)->relative_coordinate (common, X_AXIS),
-	      me->get_bound (RIGHT)->relative_coordinate (common, X_AXIS));
+              me->get_bound (RIGHT)->relative_coordinate (common, X_AXIS));
 
   w -= me->relative_coordinate (common, X_AXIS);
 
@@ -537,17 +534,17 @@ Spanner::cache_pure_property (SCM sym, int start, int end, SCM val)
 }
 
 ADD_INTERFACE (Spanner,
-	       "Some objects are horizontally spanned between objects.  For"
-	       " example, slurs, beams, ties, etc.  These grobs form a subtype"
-	       " called @code{Spanner}.  All spanners have two span points"
-	       " (these must be @code{Item} objects), one on the left and one"
-	       " on the right.  The left bound is also the X@tie{}reference"
-	       " point of the spanner.",
+               "Some objects are horizontally spanned between objects.  For"
+               " example, slurs, beams, ties, etc.  These grobs form a subtype"
+               " called @code{Spanner}.  All spanners have two span points"
+               " (these must be @code{Item} objects), one on the left and one"
+               " on the right.  The left bound is also the X@tie{}reference"
+               " point of the spanner.",
 
-	       /* properties */
-	       "normalized-endpoints "
-	       "minimum-length "
+               /* properties */
+               "normalized-endpoints "
+               "minimum-length "
                "spanner-broken "
                "spanner-id "
-	       "to-barline "
-	       );
+               "to-barline "
+              );

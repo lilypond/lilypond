@@ -73,14 +73,14 @@ Book::Book (Book const &s)
       SCM entry = scm_car (p);
 
       if (Score *newscore = unsmob_score (entry))
-	*t = scm_cons (newscore->clone ()->unprotect (), SCM_EOL);
+        * t = scm_cons (newscore->clone ()->unprotect (), SCM_EOL);
       else if (Page_marker *marker = unsmob_page_marker (entry))
-	*t = scm_cons (marker->clone ()->unprotect (), SCM_EOL);
+        * t = scm_cons (marker->clone ()->unprotect (), SCM_EOL);
       else
-	{
-	  /* This entry is a markup list */
-	  *t = scm_cons (entry, SCM_EOL);
-	}
+        {
+          /* This entry is a markup list */
+          *t = scm_cons (entry, SCM_EOL);
+        }
       t = SCM_CDRLOC (*t);
     }
 
@@ -123,7 +123,7 @@ Book::mark_smob (SCM s)
 }
 
 int
-Book::print_smob (SCM, SCM p, scm_print_state*)
+Book::print_smob (SCM, SCM p, scm_print_state *)
 {
   scm_puts ("#<Book>", p);
   return 1;
@@ -190,19 +190,19 @@ Book::error_found ()
   for (SCM s = scores_; scm_is_pair (s); s = scm_cdr (s))
     if (Score *score = unsmob_score (scm_car (s)))
       if (score->error_found_)
-	return true;
+        return true;
 
   for (SCM part = bookparts_; scm_is_pair (part); part = scm_cdr (part))
     if (Book *bookpart = unsmob_book (scm_car (part)))
       if (bookpart->error_found ())
-	return true;
+        return true;
 
   return false;
 }
 
 Paper_book *
 Book::process (Output_def *default_paper,
-	       Output_def *default_layout)
+               Output_def *default_layout)
 {
   return process (default_paper, default_layout, 0);
 }
@@ -217,10 +217,10 @@ Book::process_bookparts (Paper_book *output_paper_book, Output_def *paper, Outpu
         {
           Paper_book *paper_book_part = book->process (paper, layout, output_paper_book);
           if (paper_book_part)
-	    {
-	      output_paper_book->add_bookpart (paper_book_part->self_scm ());
-	      paper_book_part->unprotect ();
-	    }
+            {
+              output_paper_book->add_bookpart (paper_book_part->self_scm ());
+              paper_book_part->unprotect ();
+            }
         }
     }
   /* In a Paper_book, bookparts are stored in straight order */
@@ -233,26 +233,26 @@ Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
   if (Score *score = unsmob_score (scm_car (s)))
     {
       SCM outputs = score
-	->book_rendering (output_paper_book->paper_, layout);
+                    ->book_rendering (output_paper_book->paper_, layout);
 
       while (scm_is_pair (outputs))
-	{
-	  Music_output *output = unsmob_music_output (scm_car (outputs));
+        {
+          Music_output *output = unsmob_music_output (scm_car (outputs));
 
-	  if (Performance *perf = dynamic_cast<Performance *> (output))
-	    output_paper_book->add_performance (perf->self_scm ());
-	  else if (Paper_score *pscore = dynamic_cast<Paper_score *> (output))
-	    {
-	      if (ly_is_module (score->get_header ()))
-		output_paper_book->add_score (score->get_header ());
-	      output_paper_book->add_score (pscore->self_scm ());
-	    }
+          if (Performance *perf = dynamic_cast<Performance *> (output))
+            output_paper_book->add_performance (perf->self_scm ());
+          else if (Paper_score *pscore = dynamic_cast<Paper_score *> (output))
+            {
+              if (ly_is_module (score->get_header ()))
+                output_paper_book->add_score (score->get_header ());
+              output_paper_book->add_score (pscore->self_scm ());
+            }
 
-	  outputs = scm_cdr (outputs);
-	}
+          outputs = scm_cdr (outputs);
+        }
     }
   else if (Text_interface::is_markup_list (scm_car (s))
-	   || unsmob_page_marker (scm_car (s)))
+           || unsmob_page_marker (scm_car (s)))
     output_paper_book->add_score (scm_car (s));
   else
     assert (0);
@@ -263,8 +263,8 @@ Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
  */
 Paper_book *
 Book::process (Output_def *default_paper,
-	       Output_def *default_layout,
-	       Paper_book *parent_part)
+               Output_def *default_layout,
+               Paper_book *parent_part)
 {
   Output_def *paper = paper_ ? paper_ : default_paper;
 

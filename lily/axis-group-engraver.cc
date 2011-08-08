@@ -87,19 +87,19 @@ Axis_group_engraver::process_acknowledged ()
   for (vsize i = 0; i < elts_.size (); i++)
     {
       if (!unsmob_grob (elts_[i]->get_object ("axis-group-parent-Y")))
-	{
-	  if (staffline_->get_parent (Y_AXIS)
-	      && staffline_->get_parent (Y_AXIS) == elts_[i])
-	    {
-	      staffline_->warning (_ ("Axis_group_engraver: vertical group already has a parent"));
-	      staffline_->warning (_ ("are there two Axis_group_engravers?"));
-	      staffline_->warning (_ ("removing this vertical group"));
-	      staffline_->suicide ();
-	      staffline_ = 0;
-	      break;
-	    }
-	  add_element (elts_[i]);
-	}
+        {
+          if (staffline_->get_parent (Y_AXIS)
+              && staffline_->get_parent (Y_AXIS) == elts_[i])
+            {
+              staffline_->warning (_ ("Axis_group_engraver: vertical group already has a parent"));
+              staffline_->warning (_ ("are there two Axis_group_engravers?"));
+              staffline_->warning (_ ("removing this vertical group"));
+              staffline_->suicide ();
+              staffline_ = 0;
+              break;
+            }
+          add_element (elts_[i]);
+        }
     }
   elts_.clear ();
 }
@@ -113,16 +113,16 @@ Axis_group_engraver::add_element (Grob *e)
 ADD_ACKNOWLEDGER (Axis_group_engraver, grob);
 
 ADD_TRANSLATOR (Axis_group_engraver,
-		/* doc */
-		"Group all objects created in this context in a"
-		" @code{VerticalAxisGroup} spanner.",
+                /* doc */
+                "Group all objects created in this context in a"
+                " @code{VerticalAxisGroup} spanner.",
 
-		/* create */
-		"VerticalAxisGroup ",
+                /* create */
+                "VerticalAxisGroup ",
 
-		/* read */
-		"currentCommandColumn ",
+                /* read */
+                "currentCommandColumn ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

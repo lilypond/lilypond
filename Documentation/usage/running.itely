@@ -299,6 +299,16 @@ first system of every @code{\bookpart} will appear in the output.
 The @code{ps}, @code{eps}, and @code{svg} backends support this
 option.
 
+@item gui
+Runs silently and redirect all output to a log file.
+
+Note to Windows users: By default @code{lilypond.exe} outputs all
+progress information to the command window, @code{lilypond-windows.exe}
+does not and returns a prompt, with no progress information, immediately
+at the command line.  The @code{-dgui} option can be used in this case
+to redirect output to a log file.
+
+
 @item print-pages
 Generate the full pages, the default.  @code{-dno-print-pages} is
 useful in combination with @code{-dpreview}.

@@ -27,7 +27,7 @@ using namespace std;
 template<class T>
 class Link_array : public vector<T *>
 {
-  
+
 };
 
 #endif // PARRAY_HH

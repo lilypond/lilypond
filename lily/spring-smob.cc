@@ -39,6 +39,6 @@ Spring::print_smob (SCM, SCM p, scm_print_state *)
 SCM
 Spring::equal_p (SCM a, SCM b)
 {
-  return a == b? SCM_BOOL_T : SCM_BOOL_F;
+  return a == b ? SCM_BOOL_T : SCM_BOOL_F;
 }
 

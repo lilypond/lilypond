@@ -30,7 +30,7 @@ Engraver_dispatch_list::apply (Grob_info gi)
     {
       Engraver_dispatch_entry const &e (dispatch_entries_[i]);
       if (e.engraver_ == origin)
-	continue;
+        continue;
 
       (*e.function_) (e.engraver_, gi);
     }
@@ -38,7 +38,7 @@ Engraver_dispatch_list::apply (Grob_info gi)
 
 SCM
 Engraver_dispatch_list::create (SCM trans_list,
-				SCM iface_list, Direction start_end)
+                                SCM iface_list, Direction start_end)
 {
   SCM retval = Engraver_dispatch_list ().smobbed_copy ();
   Engraver_dispatch_list *list = Engraver_dispatch_list::unsmob (retval);
@@ -48,26 +48,26 @@ Engraver_dispatch_list::create (SCM trans_list,
   for (SCM s = trans_list; scm_is_pair (s); s = scm_cdr (s))
     {
       Engraver *eng
-	= dynamic_cast<Engraver *> (unsmob_translator (scm_car (s)));
+        = dynamic_cast<Engraver *> (unsmob_translator (scm_car (s)));
 
       if (!eng)
-	continue;
+        continue;
 
       entry.engraver_ = eng;
       for (SCM i = iface_list; scm_is_pair (i); i = scm_cdr (i))
-	{
-	  Engraver_void_function_engraver_grob_info ptr
-	    = (start_end == START)
-	    ? eng->get_acknowledger (scm_car (i))
-	    : eng->get_end_acknowledger (scm_car (i));
-	  
-	  if (ptr)
-	    {
-	      entry.function_ = ptr;
-	      list->dispatch_entries_.push_back (entry);
-	      found = true;
-	    }
-	}
+        {
+          Engraver_void_function_engraver_grob_info ptr
+            = (start_end == START)
+              ? eng->get_acknowledger (scm_car (i))
+              : eng->get_end_acknowledger (scm_car (i));
+
+          if (ptr)
+            {
+              entry.function_ = ptr;
+              list->dispatch_entries_.push_back (entry);
+              found = true;
+            }
+        }
     }
 
   return found ? retval : SCM_EOL;
@@ -81,8 +81,8 @@ Engraver_dispatch_list::mark_smob (SCM)
 
 int
 Engraver_dispatch_list::print_smob (SCM /* x */,
-				    SCM p,
-				    scm_print_state *)
+                                    SCM p,
+                                    scm_print_state *)
 {
   scm_puts ("#<Engraver_dispatch_list>", p);
   return 1;

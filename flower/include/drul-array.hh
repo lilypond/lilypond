@@ -44,7 +44,7 @@ struct Drul_array
   {
     return at (d);
   }
-  T const& operator [] (Direction d) const
+  T const &operator [] (Direction d) const
   {
     return at (d);
   }
@@ -74,7 +74,7 @@ inline Real
 linear_combination (Drul_array<Real> const &d, Real x)
 {
   return ((1.0 - x) * Real (d.at (LEFT))
-	  + (x + 1.0) * Real (d.at (RIGHT))) * 0.5;
+          + (x + 1.0) * Real (d.at (RIGHT))) * 0.5;
 }
 
 #endif /* DRUL_ARRAY_HH */

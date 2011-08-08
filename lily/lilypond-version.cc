@@ -32,10 +32,10 @@ Lilypond_version::Lilypond_version (int major, int minor, int patch)
 
 Lilypond_version::Lilypond_version (string str)
 {
-  major_ = 0; 
+  major_ = 0;
   minor_ = 0;
   patch_ = 0;
-  
+
   vector<string> version;
   version = string_split (str, '.');
 
@@ -43,7 +43,7 @@ Lilypond_version::Lilypond_version (string str)
     major_ = String_convert::dec2int (version[0]);
   if (version.size () > 1 && isdigit (version[1][0]))
     minor_ = String_convert::dec2int (version[1]);
-  
+
   patch_ = 0;
   if (version.size () >= 3
       && isdigit (version[2][0]))
@@ -57,8 +57,8 @@ string
 Lilypond_version::to_string () const
 {
   return ::to_string (major_)
-    + "." + ::to_string (minor_)
-    + "." + ::to_string (patch_);
+         + "." + ::to_string (minor_)
+         + "." + ::to_string (patch_);
 }
 
 Lilypond_version::operator int () const

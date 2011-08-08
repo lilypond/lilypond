@@ -27,11 +27,11 @@
 class Note_spacing
 {
 public:
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 
   static Spring get_spacing (Grob *me, Item *, Real, Real);
   static void stem_dir_correction (Grob *me, Item *next_col, Real incr,
-				   Real *, Real *);
+                                   Real *, Real *);
 };
 
 #endif /* NOTE_SPACING_HH */

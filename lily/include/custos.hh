@@ -26,7 +26,7 @@
 struct Custos
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 
 private:
   static void add_streepjes (Grob *me, int pos, int interspaces, Stencil *custos_);

@@ -30,7 +30,7 @@ class Axis_group_engraver : public Engraver
 {
 protected:
   Spanner *staffline_;
-  vector<Grob*> elts_;
+  vector<Grob *> elts_;
   void process_music ();
   virtual void finalize ();
   DECLARE_ACKNOWLEDGER (grob);
@@ -38,7 +38,7 @@ protected:
   virtual Spanner *get_spanner ();
   virtual void add_element (Grob *);
   virtual bool must_be_last () const;
-  
+
 public:
   TRANSLATOR_DECLARATIONS (Axis_group_engraver);
 };

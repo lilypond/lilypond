@@ -42,11 +42,11 @@ class Pango_font : public Font_metric
 public:
   SCM physical_font_tab () const;
   Pango_font (PangoFT2FontMap *,
-	      PangoFontDescription const *,
-	      Real);
+              PangoFontDescription const *,
+              Real);
   ~Pango_font ();
 
-  string description_string () const; 
+  string description_string () const;
   SCM font_file_name () const;
   void register_font_file (string, string, int);
 
@@ -59,10 +59,10 @@ public:
 
 PangoFontDescription *
 symbols_to_pango_font_description (SCM family,
-				   SCM style,
-				   SCM variant,
-				   SCM weight,
-				   SCM stretch);
+                                   SCM style,
+                                   SCM variant,
+                                   SCM weight,
+                                   SCM stretch);
 
 Font_metric *
 select_pango_font (Output_def *layout, SCM chain);

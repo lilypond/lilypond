@@ -27,7 +27,6 @@
 #include "spanner.hh"
 #include "item.hh"
 
-
 /**
    Create line-spanner grobs for lines that connect note heads.
 
@@ -91,7 +90,7 @@ Note_head_line_engraver::process_acknowledged ()
       Should probably store follow_ in line_, and suicide at some
       later point */
       if (follow_)
-	line_ = make_spanner ("VoiceFollower", head_->self_scm ());
+        line_ = make_spanner ("VoiceFollower", head_->self_scm ());
 
       line_->set_bound (LEFT, last_head_);
       line_->set_bound (RIGHT, head_);
@@ -113,18 +112,18 @@ Note_head_line_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Note_head_line_engraver, rhythmic_head);
 ADD_TRANSLATOR (Note_head_line_engraver,
-		/* doc */
-		"Engrave a line between two note heads, for example a"
-		" glissando.  If @code{followVoice} is set, staff switches"
-		" also generate a line.",
+                /* doc */
+                "Engrave a line between two note heads, for example a"
+                " glissando.  If @code{followVoice} is set, staff switches"
+                " also generate a line.",
 
-		/* create */
-		"Glissando "
-		"VoiceFollower ",
+                /* create */
+                "Glissando "
+                "VoiceFollower ",
 
-		/* read */
-		"followVoice ",
+                /* read */
+                "followVoice ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

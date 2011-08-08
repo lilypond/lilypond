@@ -101,26 +101,26 @@ create_grace_fixup_list (SCM cursor)
       Moment l = mus->get_length () - s;
 
       if (s.grace_part_)
-	{
-	  if (last != Moment (-1))
-	    {
-	      Grace_fixup *p = new Grace_fixup;
-	      p->start_ = last;
-	      p->length_ = here - last;
-	      p->grace_start_ = s.grace_part_;
-	      p->next_ = 0;
-	      *tail = p;
-	      tail = &(*tail)->next_;
-	    }
+        {
+          if (last != Moment (-1))
+            {
+              Grace_fixup *p = new Grace_fixup;
+              p->start_ = last;
+              p->length_ = here - last;
+              p->grace_start_ = s.grace_part_;
+              p->next_ = 0;
+              *tail = p;
+              tail = &(*tail)->next_;
+            }
 
-	  here.grace_part_ = s.grace_part_;
-	}
+          here.grace_part_ = s.grace_part_;
+        }
 
       if (l.to_bool ())
-	{
-	  last = here;
-	  here += l;
-	}
+        {
+          last = here;
+          here += l;
+        }
     }
 
   return head;
@@ -181,10 +181,10 @@ Sequential_iterator::next_element (bool)
   else
     {
       /*
-	!len.grace_part_ || len.main_part_
+        !len.grace_part_ || len.main_part_
 
-	We skip over a big chunk (mainpart != 0). Any starting graces
-	in that chunk should be in len.grace_part_
+        We skip over a big chunk (mainpart != 0). Any starting graces
+        in that chunk should be in len.grace_part_
 
       */
       last_mom_ = here_mom_;
@@ -207,28 +207,28 @@ Sequential_iterator::process (Moment until)
     {
       Grace_fixup *gf = get_grace_fixup ();
       if (gf
-	  && gf->start_ + gf->length_
-	  + Moment (Rational (0), gf->grace_start_) == until)
-	{
-	  /*
-	    do the stuff/note/rest preceding a grace.
-	  */
-	  iter_->process (iter_->music_get_length ());
-	}
+          && gf->start_ + gf->length_
+          + Moment (Rational (0), gf->grace_start_) == until)
+        {
+          /*
+            do the stuff/note/rest preceding a grace.
+          */
+          iter_->process (iter_->music_get_length ());
+        }
       else
-	{
-	  Moment w = until - here_mom_ + iter_->music_start_mom ();
-	  iter_->process (w);
-	}
+        {
+          Moment w = until - here_mom_ + iter_->music_start_mom ();
+          iter_->process (w);
+        }
 
       /*
-	if the iter is still OK, there must be events left that have
+        if the iter is still OK, there must be events left that have
 
-	TIME > LEFT
+        TIME > LEFT
 
       */
       if (iter_->ok ())
-	return;
+        return;
 
       descend_to_child (iter_->get_outlet ());
       next_element (true);

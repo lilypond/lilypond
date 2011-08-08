@@ -44,7 +44,7 @@ Audio_staff::output (Midi_stream &midi_stream, int track, bool port)
     i.process ();
 
   i.finalize ();
-  
+
   midi_stream.write (midi_track);
 }
 

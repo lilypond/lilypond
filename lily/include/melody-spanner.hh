@@ -26,9 +26,9 @@
 class Melody_spanner
 {
 public:
-  DECLARE_GROB_INTERFACE();
-  static void add_stem (Grob*, Grob*);
-  DECLARE_SCHEME_CALLBACK(calc_neutral_stem_direction, (SCM));
+  DECLARE_GROB_INTERFACE ();
+  static void add_stem (Grob *, Grob *);
+  DECLARE_SCHEME_CALLBACK (calc_neutral_stem_direction, (SCM));
 };
 
 #endif /* MELODY_SPANNER_HH */

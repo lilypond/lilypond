@@ -98,15 +98,15 @@ Paper_column::Paper_column (Paper_column const &src)
 
 int
 Paper_column::compare (Grob *const &a,
-		       Grob *const &b)
+                       Grob *const &b)
 {
   return sign (dynamic_cast<Paper_column *> (a)->rank_
-	       - dynamic_cast<Paper_column *> (b)->rank_);
+               - dynamic_cast<Paper_column *> (b)->rank_);
 }
 
 bool
 Paper_column::less_than (Grob *const &a,
-			 Grob *const &b)
+                         Grob *const &b)
 {
   Paper_column *pa = dynamic_cast<Paper_column *> (a);
   Paper_column *pb = dynamic_cast<Paper_column *> (b);
@@ -173,7 +173,7 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
     {
       Skyline_pair *sp = Skyline_pair::unsmob (cols[d]->get_property ("horizontal-skylines"));
       if (sp)
-	skys[d] = (*sp)[-d];
+        skys[d] = (*sp)[-d];
     }
   while (flip (&d) != LEFT);
 
@@ -198,20 +198,20 @@ Paper_column::break_align_width (Grob *me, SCM align_sym)
       || align_sym == ly_symbol2scm ("break-alignment"))
     align
       = Pointer_group_interface::find_grob (me, ly_symbol2scm ("elements"),
-					    (align_sym == ly_symbol2scm ("staff-bar")
-					     ? Bar_line::non_empty_barline
-					     : Break_alignment_interface::has_interface));
+                                            (align_sym == ly_symbol2scm ("staff-bar")
+                                             ? Bar_line::non_empty_barline
+                                             : Break_alignment_interface::has_interface));
   else
     {
       extract_grob_set (me, "elements", elts);
       for (vsize i = 0; i < elts.size (); i++)
-	{
-	  if (elts[i]->get_property ("break-align-symbol") == align_sym)
-	    {
-	      align = elts[i];
-	      break;
-	    }
-	}
+        {
+          if (elts[i]->get_property ("break-align-symbol") == align_sym)
+            {
+              align = elts[i];
+              break;
+            }
+        }
     }
 
   if (!align)
@@ -238,22 +238,22 @@ Paper_column::print (SCM p)
   SCM properties = Font_interface::text_font_alist_chain (me);
 
   SCM scm_mol = Text_interface::interpret_markup (me->layout ()->self_scm (),
-						  properties,
-						  ly_string2scm (r));
+                                                  properties,
+                                                  ly_string2scm (r));
   SCM when_mol = Text_interface::interpret_markup (me->layout ()->self_scm (),
-						   properties,
-						   ly_string2scm (when));
+                                                   properties,
+                                                   ly_string2scm (when));
   Stencil t = *unsmob_stencil (scm_mol);
   t.add_at_edge (Y_AXIS, DOWN, *unsmob_stencil (when_mol), 0.1);
   t.align_to (X_AXIS, CENTER);
   t.align_to (Y_AXIS, DOWN);
 
   Stencil l = Lookup::filled_box (Box (Interval (-0.01, 0.01),
-				       Interval (-2, -1)));
+                                       Interval (-2, -1)));
 
   SCM small_letters = scm_cons (scm_acons (ly_symbol2scm ("font-size"),
-					   scm_from_int (-6), SCM_EOL),
-				properties);
+                                           scm_from_int (-6), SCM_EOL),
+                                properties);
 
   int j = 0;
   for (SCM s = me->get_object ("ideal-distances");
@@ -261,11 +261,11 @@ Paper_column::print (SCM p)
     {
       Spring *sp = unsmob_spring (scm_caar (s));
       if (!unsmob_grob (scm_cdar (s))
-	  || !unsmob_grob (scm_cdar (s))->get_system ())
-	continue;
+          || !unsmob_grob (scm_cdar (s))->get_system ())
+        continue;
 
       j++;
-      Real y = -j * 1 -3;
+      Real y = -j * 1 - 3;
       vector<Offset> pts;
       pts.push_back (Offset (0, y));
 
@@ -276,12 +276,12 @@ Paper_column::print (SCM p)
       Stencil head (musfont->find_by_name ("arrowheads.open.01"));
 
       SCM distance_stc = Text_interface::interpret_markup (me->layout ()->self_scm (),
-							   small_letters,
-							   ly_string2scm (String_convert::form_string ("%5.2lf", sp->distance ())));
+                                                           small_letters,
+                                                           ly_string2scm (String_convert::form_string ("%5.2lf", sp->distance ())));
 
       id_stencil.add_stencil (unsmob_stencil (distance_stc)->translated (Offset (sp->distance () / 3, y + 1)));
       id_stencil.add_stencil (head.translated (p2));
-      id_stencil = id_stencil.in_color (0,0,1);
+      id_stencil = id_stencil.in_color (0, 0, 1);
       l.add_stencil (id_stencil);
     }
 
@@ -291,11 +291,11 @@ Paper_column::print (SCM p)
       Real dist = scm_to_double (scm_cdar (s));
       Grob *other = unsmob_grob (scm_caar (s));
       if (!other || other->get_system () != me->get_system ())
-	continue;
+        continue;
 
       j++;
 
-      Real y = -j * 1.0 -3.5;
+      Real y = -j * 1.0 - 3.5;
       vector<Offset> pts;
       pts.push_back (Offset (0, y));
 
@@ -308,13 +308,13 @@ Paper_column::print (SCM p)
       id_stencil.add_stencil (head);
 
       SCM distance_stc = Text_interface::interpret_markup (me->layout ()->self_scm (),
-							   small_letters,
-							   ly_string2scm (String_convert::form_string ("%5.2lf",
-												       dist)));
+                                                           small_letters,
+                                                           ly_string2scm (String_convert::form_string ("%5.2lf",
+                                                               dist)));
 
       id_stencil.add_stencil (unsmob_stencil (distance_stc)->translated (Offset (dist / 3, y - 1)));
 
-      id_stencil = id_stencil.in_color (1,0,0);
+      id_stencil = id_stencil.in_color (1, 0, 0);
       l.add_stencil (id_stencil);
     }
   t.add_stencil (l);
@@ -347,8 +347,8 @@ Paper_column::before_line_breaking (SCM grob)
       Grob *g = array[i];
 
       if (!g || !g->is_live ())
-	/* UGH . potentially quadratic. */
-	array.erase (array.begin () + i);
+        /* UGH . potentially quadratic. */
+        array.erase (array.begin () + i);
     }
 
   return SCM_UNSPECIFIED;
@@ -372,47 +372,47 @@ Paper_column::is_extraneous_column_from_ligature (Grob *me)
   for (vsize i = 0; i < elts.size (); i++)
     {
       if (Rhythmic_head::has_interface (elts[i]))
-	{
-	  has_notehead = true;
-	  if (dynamic_cast<Item *> (elts[i])->get_column () == me)
-	    return false;
-	}
+        {
+          has_notehead = true;
+          if (dynamic_cast<Item *> (elts[i])->get_column () == me)
+            return false;
+        }
     }
   return has_notehead;
 }
 
 ADD_INTERFACE (Paper_column,
-	       "@code{Paper_column} objects form the top-most X@tie{}parents"
-	       " for items.  There are two types of columns: musical and"
-	       " non-musical, to which musical and non-musical objects are"
-	       " attached respectively.  The spacing engine determines the"
-	       " X@tie{}positions of these objects.\n"
-	       "\n"
-	       "They are numbered, the first (leftmost) is column@tie{}0."
-	       "  Numbering happens before line breaking, and columns are not"
-	       " renumbered after line breaking.  Since many columns go"
-	       " unused, you should only use the rank field to get ordering"
-	       " information.  Two adjacent columns may have non-adjacent"
-	       " numbers.",
+               "@code{Paper_column} objects form the top-most X@tie{}parents"
+               " for items.  There are two types of columns: musical and"
+               " non-musical, to which musical and non-musical objects are"
+               " attached respectively.  The spacing engine determines the"
+               " X@tie{}positions of these objects.\n"
+               "\n"
+               "They are numbered, the first (leftmost) is column@tie{}0."
+               "  Numbering happens before line breaking, and columns are not"
+               " renumbered after line breaking.  Since many columns go"
+               " unused, you should only use the rank field to get ordering"
+               " information.  Two adjacent columns may have non-adjacent"
+               " numbers.",
 
-	       /* properties */
-	       "between-cols "
-	       "bounded-by-me "
-	       "full-measure-extra-space "
-	       "grace-spacing "
-	       "labels "
-	       "line-break-system-details "
-	       "line-break-penalty "
-	       "line-break-permission "
-	       "maybe-loose "
-	       "page-break-penalty "
-	       "page-break-permission "
-	       "page-turn-penalty "
-	       "page-turn-permission "
-	       "rhythmic-location "
-	       "shortest-playing-duration "
-	       "shortest-starter-duration "
-	       "spacing "
-	       "used "
-	       "when ");
+               /* properties */
+               "between-cols "
+               "bounded-by-me "
+               "full-measure-extra-space "
+               "grace-spacing "
+               "labels "
+               "line-break-system-details "
+               "line-break-penalty "
+               "line-break-permission "
+               "maybe-loose "
+               "page-break-penalty "
+               "page-break-permission "
+               "page-turn-penalty "
+               "page-turn-permission "
+               "rhythmic-location "
+               "shortest-playing-duration "
+               "shortest-starter-duration "
+               "spacing "
+               "used "
+               "when ");
 

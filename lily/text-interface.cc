@@ -42,7 +42,7 @@ replace_whitespace (string *str)
 
       // avoid the locale-dependent isspace
       if (cur == '\n' || cur == '\t' || cur == '\v')
-	(*str)[i] = ' ';
+        (*str)[i] = ' ';
 
       vsize char_len = utf8_char_len (cur);
 
@@ -53,8 +53,8 @@ replace_whitespace (string *str)
 MAKE_SCHEME_CALLBACK (Text_interface, interpret_string, 3);
 SCM
 Text_interface::interpret_string (SCM layout_smob,
-				  SCM props,
-				  SCM markup)
+                                  SCM props,
+                                  SCM markup)
 {
   LY_ASSERT_SMOB (Output_def, layout_smob, 1);
   LY_ASSERT_TYPE (scm_is_string, markup, 3);
@@ -71,8 +71,8 @@ Text_interface::interpret_string (SCM layout_smob,
     if it matches one of the music font encodings.  --pmccarty
   */
   SCM encoding = ly_chain_assoc_get (ly_symbol2scm ("font-encoding"),
-				     props,
-				     SCM_BOOL_F);
+                                     props,
+                                     SCM_BOOL_F);
   SCM music_encodings = ly_lily_module_constant ("all-music-font-encodings");
 
   bool is_music = (scm_memq (encoding, music_encodings) != SCM_BOOL_F);
@@ -80,14 +80,14 @@ Text_interface::interpret_string (SCM layout_smob,
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Text_interface, interpret_markup, 3, 0,
-				   "Convert a text markup into a stencil."
-"  Takes three arguments, @var{layout}, @var{props}, and @var{markup}.\n"
-"\n"
-"@var{layout} is a @code{\\layout} block; it may be obtained from a grob with"
-" @code{ly:grob-layout}.  @var{props} is an alist chain, i.e. a list of"
-"  alists.  This is typically obtained with"
-" @code{(ly:grob-alist-chain grob (ly:output-def-lookup layout 'text-font-defaults))}."
-"  @var{markup} is the markup text to be processed.");
+                                   "Convert a text markup into a stencil."
+                                   "  Takes three arguments, @var{layout}, @var{props}, and @var{markup}.\n"
+                                   "\n"
+                                   "@var{layout} is a @code{\\layout} block; it may be obtained from a grob with"
+                                   " @code{ly:grob-layout}.  @var{props} is an alist chain, i.e. a list of"
+                                   "  alists.  This is typically obtained with"
+                                   " @code{(ly:grob-alist-chain grob (ly:output-def-lookup layout 'text-font-defaults))}."
+                                   "  @var{markup} is the markup text to be processed.");
 SCM
 Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
 {
@@ -98,7 +98,7 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
       SCM func = scm_car (markup);
       SCM args = scm_cdr (markup);
       if (!is_markup (markup))
-	programming_error ("markup head has no markup signature");
+        programming_error ("markup head has no markup signature");
 
       return scm_apply_2 (func, layout_smob, props, args);
     }
@@ -134,10 +134,10 @@ bool
 Text_interface::is_markup (SCM x)
 {
   return (scm_is_string (x)
-	  || (scm_is_pair (x)
-	      && SCM_BOOL_F
-	      != scm_object_property (scm_car (x),
-				      ly_symbol2scm ("markup-signature"))));
+          || (scm_is_pair (x)
+              && SCM_BOOL_F
+              != scm_object_property (scm_car (x),
+                                      ly_symbol2scm ("markup-signature"))));
 }
 
 bool
@@ -147,20 +147,19 @@ Text_interface::is_markup_list (SCM x)
   return scm_is_true (scm_call_1 (music_list_p, x));
 }
 
-
 ADD_INTERFACE (Text_interface,
-	       "A Scheme markup text, see @ruser{Formatting text} and"
-	       " @rextend{New markup command definition}.\n"
-	       "\n"
-	       "There are two important commands:"
-	       " @code{ly:text-interface::print}, which is a"
-	       " grob callback, and"
-	       " @code{ly:text-interface::interpret-markup}.",
+               "A Scheme markup text, see @ruser{Formatting text} and"
+               " @rextend{New markup command definition}.\n"
+               "\n"
+               "There are two important commands:"
+               " @code{ly:text-interface::print}, which is a"
+               " grob callback, and"
+               " @code{ly:text-interface::interpret-markup}.",
 
-	       /* properties */
-	       "baseline-skip "
-	       "text "
-	       "word-space "
-	       "text-direction "
-	       );
+               /* properties */
+               "baseline-skip "
+               "text "
+               "word-space "
+               "text-direction "
+              );
 

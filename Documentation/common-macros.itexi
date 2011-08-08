@@ -197,8 +197,8 @@ UNTRANSLATED NODE: IGNORE ME
 @macro imageClickable{IMAGE-FILE, EXT, MORE-TEXT, CLICK-FILE, CLICK-EXT, POSITION}
 @html
 <div class="float-\POSITION\">
-  <a class="clickable" href="../pictures/\CLICK-FILE\.\CLICK-EXT\">
-    <img src="../pictures/\IMAGE-FILE\.\EXT\" alt="\IMAGE-FILE\">
+  <a class="clickable" href="pictures/\CLICK-FILE\.\CLICK-EXT\">
+    <img src="pictures/\IMAGE-FILE\.\EXT\" alt="\IMAGE-FILE\">
   </a>
   <p style="text-align: center">
     \MORE-TEXT\
@@ -215,7 +215,7 @@ UNTRANSLATED NODE: IGNORE ME
 
 @macro imageFloat{IMAGE-FILE, EXT, POSITION}
 @html
-<img class="float-\POSITION\" src="../pictures/\IMAGE-FILE\.\EXT\" alt="\IMAGE-FILE\">
+<img class="float-\POSITION\" src="pictures/\IMAGE-FILE\.\EXT\" alt="\IMAGE-FILE\">
 @end html
 @iftex
 @image{pictures/\IMAGE-FILE\,,,\IMAGE-FILE\,\EXT\}
@@ -228,7 +228,7 @@ UNTRANSLATED NODE: IGNORE ME
 @macro imageId{ID, IMAGE-FILE, EXT, ALT}
 @html
 <div id="\ID\">
-  <img src="../pictures/\IMAGE-FILE\.\EXT\" alt="\ALT\">
+  <img src="pictures/\IMAGE-FILE\.\EXT\" alt="\ALT\">
 </div>
 @end html
 @iftex

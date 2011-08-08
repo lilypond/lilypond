@@ -65,7 +65,6 @@ vector<string> dump_header_fieldnames_global;
 /* Name of initialisation file. */
 string init_name_global;
 
-
 /* Output formats to generate.  */
 string output_format_global = "";
 
@@ -88,7 +87,6 @@ string init_scheme_variables_global;
 
 bool relocate_binary = true;
 
-
 /*
  * Miscellaneous global stuff.
  */
@@ -99,33 +97,33 @@ File_path global_path;
  */
 
 static char const *AUTHORS
-= "  Han-Wen Nienhuys <hanwen@xs4all.nl>\n"
-  "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
+  = "  Han-Wen Nienhuys <hanwen@xs4all.nl>\n"
+    "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
 
 static char const *PROGRAM_NAME = "lilypond";
 static char const *PROGRAM_URL = "http://lilypond.org";
 
 static char const *NOTICE
-= _i ("This program is free software.  It is covered by the GNU General Public\n"
-      "License and you are welcome to change it and/or distribute copies of it\n"
-      "under certain conditions.  Invoke as `%s --warranty' for more\n"
-      "information.\n");
+  = _i ("This program is free software.  It is covered by the GNU General Public\n"
+        "License and you are welcome to change it and/or distribute copies of it\n"
+        "under certain conditions.  Invoke as `%s --warranty' for more\n"
+        "information.\n");
 
 static char const *WARRANTY
-= _i ("    This program is free software; you can redistribute it and/or\n"
-      "modify it under the terms of the GNU General Public License as \n"
-      "published by the Free Software Foundation, either version 3 of\n"
-      "the License, or (at your option) any later version.\n"
-      "\n"
-      "    This program is distributed in the hope that it will be useful,\n"
-      "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-      "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
-      "General Public License for more details.\n"
-      "\n"
-      "    You should have received a copy of the\n"
-      "GNU General Public License along with this program; if not, write to\n"
-      "the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
-      "Boston, MA 02111-1307, USA.\n");
+  = _i ("    This program is free software; you can redistribute it and/or\n"
+        "modify it under the terms of the GNU General Public License as \n"
+        "published by the Free Software Foundation, either version 3 of\n"
+        "the License, or (at your option) any later version.\n"
+        "\n"
+        "    This program is distributed in the hope that it will be useful,\n"
+        "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+        "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+        "General Public License for more details.\n"
+        "\n"
+        "    You should have received a copy of the\n"
+        "GNU General Public License along with this program; if not, write to\n"
+        "the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
+        "Boston, MA 02111-1307, USA.\n");
 
 /* Where the init files live.  Typically:
    LILYPOND_DATADIR = /usr/share/lilypond
@@ -143,10 +141,13 @@ static Getopt_long *option_parser = 0;
  * call gettext () explicitly for actual "translation"  */
 
 static Long_option_init options_static[]
-= {
-  {_i ("SYM[=VAL]"), "define-default", 'd',
-   _i ("set Scheme option SYM to VAL (default: #t).\n"
-       "Use -dhelp for help.")},
+=
+{
+  {
+    _i ("SYM[=VAL]"), "define-default", 'd',
+    _i ("set Scheme option SYM to VAL (default: #t).\n"
+    "Use -dhelp for help.")
+  },
 
   {_i ("EXPR"), "evaluate", 'e', _i ("evaluate scheme code")},
   /* Bug in option parser: --output =foe is taken as an abbreviation
@@ -155,33 +156,36 @@ static Long_option_init options_static[]
   {0, "pdf", 0, _i ("generate PDF (default)")},
   {0, "png", 0, _i ("generate PNG")},
   {0, "ps", 0, _i ("generate PostScript")},
-  {0, "help", 'h',  _i ("show this help and exit")},
-  {_i ("FIELD"), "header", 'H',  _i ("dump header field FIELD to file\n"
-				     "named BASENAME.FIELD")},
-  {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
-  {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
+  {0, "help", 'h', _i ("show this help and exit")},
+  {
+    _i ("FIELD"), "header", 'H', _i ("dump header field FIELD to file\n"
+    "named BASENAME.FIELD")
+  },
+  {_i ("DIR"), "include", 'I', _i ("add DIR to search path")},
+  {_i ("FILE"), "init", 'i', _i ("use FILE as init file")},
 #if HAVE_CHROOT
-  {_i ("USER, GROUP, JAIL, DIR"), "jail", 'j', _i ("chroot to JAIL, become USER:GROUP\n"
-						"and cd into DIR")},
+  {
+    _i ("USER, GROUP, JAIL, DIR"), "jail", 'j', _i ("chroot to JAIL, become USER:GROUP\n"
+    "and cd into DIR")
+  },
 #endif
-  {_i ("FILE"), "output", 'o',  _i ("write output to FILE (suffix will be added)")},
+  {_i ("FILE"), "output", 'o', _i ("write output to FILE (suffix will be added)")},
   {0, "relocate", 0, _i ("relocate using directory of lilypond program")},
-  {0, "version", 'v',  _i ("show version number and exit")},
+  {0, "version", 'v', _i ("show version number and exit")},
   {0, "verbose", 'V', _i ("be verbose")},
-  {0, "warranty", 'w',  _i ("show warranty and copyright")},
+  {0, "warranty", 'w', _i ("show warranty and copyright")},
   {0, 0, 0, 0}
 };
 
 char const *LILYPOND_DATADIR = PACKAGE_DATADIR "/" TOPLEVEL_VERSION;
-
 
 /* x86 defaults to using 80-bit extended precision arithmetic. This can cause
    problems because the truncation from 80 bits to 64 bits can occur in
    unpredictable places. To get around this, we tell the x87 FPU to use only
    double precision. Note that this is not needed for x86_64 because that uses
    the SSE unit by default instead of the x87 FPU. */
-#if ((defined(__x86__) || defined(__i386__)) \
-  && defined(HAVE_FPU_CONTROL_H) && (HAVE_FPU_CONTROL_H == 1))
+#if ((defined (__x86__) || defined (__i386__)) \
+  && defined (HAVE_FPU_CONTROL_H) && (HAVE_FPU_CONTROL_H == 1))
 
 #include <fpu_control.h>
 static void
@@ -199,7 +203,6 @@ configure_fpu ()
 }
 
 #endif /* defined(__x86__) || defined(__i386__) */
-
 
 static void
 env_var_info (FILE *out, char const *key)
@@ -259,8 +262,8 @@ notice ()
 }
 
 LY_DEFINE (ly_usage, "ly:usage",
-	   0, 0, 0, (),
-	   "Print usage message.")
+           0, 0, 0, (),
+           "Print usage message.")
 {
   /* No version number or newline here.  It confuses help2man.  */
   printf ("%s", (_f ("Usage: %s [OPTION]... FILE...", PROGRAM_NAME).c_str ()));
@@ -280,8 +283,8 @@ LY_DEFINE (ly_usage, "ly:usage",
      or if there is a LilyPond users list or forum in your language
      "Report bugs in English via %s or in YOUR_LANG via URI"  */
   printf ("%s", (_f ("Report bugs via %s",
-		     "http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs"
-		     ).c_str ()));
+                     "http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs"
+                    ).c_str ()));
   printf ("\n");
   printf ("\n");
   return SCM_UNSPECIFIED;
@@ -318,15 +321,15 @@ do_chroot_jail ()
      actual actions.  */
 
   enum Jail
-    {
-      USER_NAME, GROUP_NAME, JAIL, DIR, JAIL_MAX
-    };
+  {
+    USER_NAME, GROUP_NAME, JAIL, DIR, JAIL_MAX
+  };
 
   vector<string> components = string_split (jail_spec, ',');
   if (components.size () != JAIL_MAX)
     {
       error (_f ("expected %d arguments with jail, found: %u", JAIL_MAX,
-		 (unsigned) components.size ()));
+                 (unsigned) components.size ()));
       exit (2);
     }
 
@@ -334,16 +337,16 @@ do_chroot_jail ()
   errno = 0;
 
   int uid;
-  if (passwd * passwd = getpwnam (components[USER_NAME].c_str ()))
+  if (passwd *passwd = getpwnam (components[USER_NAME].c_str ()))
     uid = passwd->pw_uid;
   else
     {
       if (errno == 0)
-	error (_f ("no such user: %s", components[USER_NAME]));
+        error (_f ("no such user: %s", components[USER_NAME]));
       else
-	error (_f ("cannot get user id from user name: %s: %s",
-		   components[USER_NAME],
-		   strerror (errno)));
+        error (_f ("cannot get user id from user name: %s: %s",
+                   components[USER_NAME],
+                   strerror (errno)));
       exit (3);
     }
 
@@ -351,23 +354,23 @@ do_chroot_jail ()
   errno = 0;
 
   int gid;
-  if (group * group = getgrnam (components[GROUP_NAME].c_str ()))
+  if (group *group = getgrnam (components[GROUP_NAME].c_str ()))
     gid = group->gr_gid;
   else
     {
       if (errno == 0)
-	error (_f ("no such group: %s", components[GROUP_NAME]));
+        error (_f ("no such group: %s", components[GROUP_NAME]));
       else
-	error (_f ("cannot get group id from group name: %s: %s",
-		   components[GROUP_NAME],
-		   strerror (errno)));
+        error (_f ("cannot get group id from group name: %s: %s",
+                   components[GROUP_NAME],
+                   strerror (errno)));
       exit (3);
     }
 
   if (chroot (components[JAIL].c_str ()))
     {
       error (_f ("cannot chroot to: %s: %s", components[JAIL],
-		 strerror (errno)));
+                 strerror (errno)));
       exit (3);
     }
 
@@ -386,7 +389,7 @@ do_chroot_jail ()
   if (chdir (components[DIR].c_str ()))
     {
       error (_f ("cannot change working directory to: %s: %s", components[DIR],
-		 strerror (errno)));
+                 strerror (errno)));
       exit (3);
     }
 }
@@ -477,90 +480,90 @@ parse_argv (int argc, char **argv)
   while (Long_option_init const *opt = (*option_parser) ())
     {
       switch (opt->shortname_char_)
-	{
-	case 0:
-	  if (string (opt->longname_str0_) == "pdf"
-	      || string (opt->longname_str0_) == "png"
-	      || string (opt->longname_str0_) == "ps")
-	    add_output_format (opt->longname_str0_);
-	  else if (string (opt->longname_str0_) == "relocate")
-	    relocate_binary = true;
-	  break;
+        {
+        case 0:
+          if (string (opt->longname_str0_) == "pdf"
+              || string (opt->longname_str0_) == "png"
+              || string (opt->longname_str0_) == "ps")
+            add_output_format (opt->longname_str0_);
+          else if (string (opt->longname_str0_) == "relocate")
+            relocate_binary = true;
+          break;
 
-	case 'd':
-	  {
-	    string arg (option_parser->optional_argument_str0_);
-	    ssize eq = arg.find ('=');
+        case 'd':
+          {
+            string arg (option_parser->optional_argument_str0_);
+            ssize eq = arg.find ('=');
 
-	    string key = arg;
-	    string val = "#t";
+            string key = arg;
+            string val = "#t";
 
-	    if (eq != NPOS)
-	      {
-		key = arg.substr (0, eq);
-		val = arg.substr (eq + 1, arg.length () - 1);
-	      }
+            if (eq != NPOS)
+              {
+                key = arg.substr (0, eq);
+                val = arg.substr (eq + 1, arg.length () - 1);
+              }
 
-	    init_scheme_variables_global
-	      += "(cons \'" + key + " '" + val + ")\n";
-	  }
-	  break;
+            init_scheme_variables_global
+            += "(cons \'" + key + " '" + val + ")\n";
+          }
+          break;
 
-	case 'v':
-	  notice ();
-	  exit (0);
-	  break;
-	case 'o':
-	  {
-	    string s = option_parser->optional_argument_str0_;
-	    File_name file_name (s);
-	    output_name_global = file_name.to_string ();
-	  }
-	  break;
-	case 'j':
-	  jail_spec = option_parser->optional_argument_str0_;
-	  break;
+        case 'v':
+          notice ();
+          exit (0);
+          break;
+        case 'o':
+          {
+            string s = option_parser->optional_argument_str0_;
+            File_name file_name (s);
+            output_name_global = file_name.to_string ();
+          }
+          break;
+        case 'j':
+          jail_spec = option_parser->optional_argument_str0_;
+          break;
 
-	case 'e':
-	  init_scheme_code_global
-            += option_parser->optional_argument_str0_ + string (" ");
-	  break;
-	case 'w':
-	  warranty ();
-	  exit (0);
-	  break;
+        case 'e':
+          init_scheme_code_global
+          += option_parser->optional_argument_str0_ + string (" ");
+          break;
+        case 'w':
+          warranty ();
+          exit (0);
+          break;
 
-	case 'f':
-	  {
-	    vector<string> components
-	      = string_split (option_parser->optional_argument_str0_, ',');
-	    for (vsize i = 0; i < components.size (); i++)
-	      add_output_format (components[i]);
-	  }
-	  break;
+        case 'f':
+          {
+            vector<string> components
+              = string_split (option_parser->optional_argument_str0_, ',');
+            for (vsize i = 0; i < components.size (); i++)
+              add_output_format (components[i]);
+          }
+          break;
 
-	case 'H':
-	  dump_header_fieldnames_global
-	    .push_back (option_parser->optional_argument_str0_);
-	  break;
-	case 'I':
-	  global_path.append (option_parser->optional_argument_str0_);
-	  break;
-	case 'i':
-	  init_name_global = option_parser->optional_argument_str0_;
-	  break;
-	case 'h':
-	  show_help = true;
-	  break;
-	case 'V':
-	  be_verbose_global = true;
-	  break;
-	default:
-	  programming_error (to_string ("unhandled short option: %c",
-					opt->shortname_char_));
-	  assert (false);
-	  break;
-	}
+        case 'H':
+          dump_header_fieldnames_global
+          .push_back (option_parser->optional_argument_str0_);
+          break;
+        case 'I':
+          global_path.append (option_parser->optional_argument_str0_);
+          break;
+        case 'i':
+          init_name_global = option_parser->optional_argument_str0_;
+          break;
+        case 'h':
+          show_help = true;
+          break;
+        case 'V':
+          be_verbose_global = true;
+          break;
+        default:
+          programming_error (to_string ("unhandled short option: %c",
+                                        opt->shortname_char_));
+          assert (false);
+          break;
+        }
     }
 
   if (output_format_global == "")
@@ -570,7 +573,7 @@ parse_argv (int argc, char **argv)
     {
       ly_usage ();
       if (be_verbose_global)
-	dir_info (stdout);
+        dir_info (stdout);
       exit (0);
     }
 }
@@ -590,11 +593,10 @@ setup_guile_env ()
   sane_putenv ("GUILE_MIN_YIELD_2", yield, overwrite);
   sane_putenv ("GUILE_MIN_YIELD_MALLOC", yield, overwrite);
 
-
   sane_putenv ("GUILE_INIT_SEGMENT_SIZE_1",
-	       "10485760", overwrite);
+               "10485760", overwrite);
   sane_putenv ("GUILE_MAX_SEGMENT_SIZE",
-	       "104857600", overwrite);
+               "104857600", overwrite);
 }
 
 vector<string> start_environment_global;
@@ -602,10 +604,10 @@ vector<string> start_environment_global;
 int
 main (int argc, char **argv, char **envp)
 {
-  configure_fpu();
+  configure_fpu ();
 
   for (char **p = envp; *p; p++)
-    start_environment_global.push_back(*p);
+    start_environment_global.push_back (*p);
 
   if (getenv ("LILYPOND_VERBOSE"))
     be_verbose_global = true;

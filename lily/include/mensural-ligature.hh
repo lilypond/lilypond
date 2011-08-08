@@ -24,7 +24,6 @@
 #include "lily-proto.hh"
 #include "grob-interface.hh"
 
-
 /*
  * These are all possible mensural ligature primitives.
  */
@@ -46,7 +45,7 @@ struct Mensural_ligature
 {
   DECLARE_SCHEME_CALLBACK (brew_ligature_primitive, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 };
 
 #endif /* MENSURAL_LIGATURE_HH */

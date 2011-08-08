@@ -25,9 +25,9 @@
 #include "ly-module.hh"
 
 LY_DEFINE (ly_make_book, "ly:make-book",
-	   2, 0, 1, (SCM paper, SCM header, SCM scores),
-	   "Make a @code{\\book} of @var{paper} and @var{header}"
-	   " (which may be @code{#f} as well) containing @code{\\scores}.")
+           2, 0, 1, (SCM paper, SCM header, SCM scores),
+           "Make a @code{\\book} of @var{paper} and @var{header}"
+           " (which may be @code{#f} as well) containing @code{\\scores}.")
 {
   Output_def *odef = unsmob_output_def (paper);
   LY_ASSERT_SMOB (Output_def, paper, 1);
@@ -46,8 +46,8 @@ LY_DEFINE (ly_make_book, "ly:make-book",
 }
 
 LY_DEFINE (ly_make_book_part, "ly:make-book-part",
-	   1, 0, 0, (SCM scores),
-	   "Make a @code{\\bookpart} containing @code{\\scores}.")
+           1, 0, 0, (SCM scores),
+           "Make a @code{\\bookpart} containing @code{\\scores}.")
 {
   Book *book = new Book;
   book->scores_ = scm_append (scm_list_2 (scores, book->scores_));
@@ -58,13 +58,13 @@ LY_DEFINE (ly_make_book_part, "ly:make-book-part",
 }
 
 LY_DEFINE (ly_book_process, "ly:book-process",
-	   4, 0, 0, (SCM book_smob,
-		     SCM default_paper,
-		     SCM default_layout,
-		     SCM output),
-	   "Print book.  @var{output} is passed to the backend unchanged."
-	   "  For example, it may be a string (for file based outputs)"
-	   " or a socket (for network based output).")
+           4, 0, 0, (SCM book_smob,
+                     SCM default_paper,
+                     SCM default_layout,
+                     SCM output),
+           "Print book.  @var{output} is passed to the backend unchanged."
+           "  For example, it may be a string (for file based outputs)"
+           " or a socket (for network based output).")
 {
   Book *book = unsmob_book (book_smob);
 
@@ -73,7 +73,7 @@ LY_DEFINE (ly_book_process, "ly:book-process",
   LY_ASSERT_SMOB (Output_def, default_layout, 3);
 
   Paper_book *pb = book->process (unsmob_output_def (default_paper),
-				  unsmob_output_def (default_layout));
+                                  unsmob_output_def (default_layout));
   if (pb)
     {
       pb->output (output);
@@ -83,24 +83,23 @@ LY_DEFINE (ly_book_process, "ly:book-process",
   return SCM_UNSPECIFIED;
 }
 
-
 LY_DEFINE (ly_book_process_to_systems, "ly:book-process-to-systems",
-	   4, 0, 0, (SCM book_smob,
-		     SCM default_paper,
-		     SCM default_layout,
-		     SCM output),
-	   "Print book.  @var{output} is passed to the backend unchanged."
-	   "  For example, it may be a string (for file based outputs)"
-	   " or a socket (for network based output).")
+           4, 0, 0, (SCM book_smob,
+                     SCM default_paper,
+                     SCM default_layout,
+                     SCM output),
+           "Print book.  @var{output} is passed to the backend unchanged."
+           "  For example, it may be a string (for file based outputs)"
+           " or a socket (for network based output).")
 {
   LY_ASSERT_SMOB (Book, book_smob, 1);
   LY_ASSERT_SMOB (Output_def, default_paper, 2);
   LY_ASSERT_SMOB (Output_def, default_layout, 3);
 
-  Book *book = unsmob_book (book_smob); 
+  Book *book = unsmob_book (book_smob);
 
   Paper_book *pb = book->process (unsmob_output_def (default_paper),
-				  unsmob_output_def (default_layout));
+                                  unsmob_output_def (default_layout));
   if (pb)
     {
       pb->classic_output (output);
@@ -111,28 +110,28 @@ LY_DEFINE (ly_book_process_to_systems, "ly:book-process-to-systems",
 }
 
 LY_DEFINE (ly_book_add_score_x, "ly:book-add-score!",
-	   2, 0, 0, (SCM book_smob, SCM score),
-	   "Add @var{score} to @var{book-smob} score list.")
+           2, 0, 0, (SCM book_smob, SCM score),
+           "Add @var{score} to @var{book-smob} score list.")
 {
   LY_ASSERT_SMOB (Book, book_smob, 1);
-  Book *book = unsmob_book (book_smob); 
+  Book *book = unsmob_book (book_smob);
   book->add_score (score);
   return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_book_add_bookpart_x, "ly:book-add-bookpart!",
-	   2, 0, 0, (SCM book_smob, SCM book_part),
-	   "Add @var{book-part} to @var{book-smob} book part list.")
+           2, 0, 0, (SCM book_smob, SCM book_part),
+           "Add @var{book-part} to @var{book-smob} book part list.")
 {
   LY_ASSERT_SMOB (Book, book_smob, 1);
-  Book *book = unsmob_book (book_smob); 
+  Book *book = unsmob_book (book_smob);
   book->add_bookpart (book_part);
   return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_book_book_parts, "ly:book-book-parts",
-	   1, 0, 0, (SCM book),
-	   "Return book parts in @var{book}.")
+           1, 0, 0, (SCM book),
+           "Return book parts in @var{book}.")
 {
   LY_ASSERT_SMOB (Book, book, 1);
   Book *b = unsmob_book (book);
@@ -140,8 +139,8 @@ LY_DEFINE (ly_book_book_parts, "ly:book-book-parts",
 }
 
 LY_DEFINE (ly_book_paper, "ly:book-paper",
-	   1, 0, 0, (SCM book),
-	   "Return paper in @var{book}.")
+           1, 0, 0, (SCM book),
+           "Return paper in @var{book}.")
 {
   LY_ASSERT_SMOB (Book, book, 1);
   Book *b = unsmob_book (book);
@@ -149,8 +148,8 @@ LY_DEFINE (ly_book_paper, "ly:book-paper",
 }
 
 LY_DEFINE (ly_book_header, "ly:book-header",
-	   1, 0, 0, (SCM book),
-	   "Return header in @var{book}.")
+           1, 0, 0, (SCM book),
+           "Return header in @var{book}.")
 {
   LY_ASSERT_SMOB (Book, book, 1);
   Book *b = unsmob_book (book);
@@ -158,8 +157,8 @@ LY_DEFINE (ly_book_header, "ly:book-header",
 }
 
 LY_DEFINE (ly_book_scores, "ly:book-scores",
-	   1, 0, 0, (SCM book),
-	   "Return scores in @var{book}.")
+           1, 0, 0, (SCM book),
+           "Return scores in @var{book}.")
 {
   LY_ASSERT_SMOB (Book, book, 1);
   Book *b = unsmob_book (book);

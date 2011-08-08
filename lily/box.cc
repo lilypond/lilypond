@@ -80,7 +80,7 @@ Offset
 Box::center () const
 {
   return Offset (interval_a_[X_AXIS].center (),
-		 interval_a_[Y_AXIS].center ());
+                 interval_a_[Y_AXIS].center ());
 }
 
 void
@@ -105,7 +105,7 @@ Box::mark_smob (SCM /* x */)
 }
 
 int
-Box::print_smob (SCM /* x */, SCM p, scm_print_state*)
+Box::print_smob (SCM /* x */, SCM p, scm_print_state *)
 {
   scm_puts ("#<Box>", p);
   return 1;

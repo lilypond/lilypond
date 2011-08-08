@@ -32,9 +32,10 @@ Context_mod::Context_mod (Context_mod const &s)
 #include "ly-smobs.icc"
 IMPLEMENT_SIMPLE_SMOBS (Context_mod);
 IMPLEMENT_DEFAULT_EQUAL_P (Context_mod);
+IMPLEMENT_TYPE_P (Context_mod, "ly:context-mod?");
 
 int
-Context_mod::print_smob (SCM smob, SCM port, scm_print_state*)
+Context_mod::print_smob (SCM smob, SCM port, scm_print_state *)
 {
   Context_mod *me = (Context_mod *) SCM_CELL_WORD_1 (smob);
 

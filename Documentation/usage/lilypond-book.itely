@@ -959,6 +959,10 @@ Process LilyPond snippets using @var{command}.  The default command is
 @item --pdf
 Create PDF files for use with PDF@LaTeX{}.
 
+@item --redirect-lilypond-output
+By default, output is displayed on the terminal.  This option redirects
+all output to log files in the same directory as the source files.
+
 @itemx --use-source-file-names
 Write snippet output files with the same base name as their source file.
 This option works only for snippets included with @code{lilypondfile}

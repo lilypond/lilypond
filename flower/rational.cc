@@ -42,7 +42,6 @@ Rational::to_double () const
   return 0.0;
 }
 
-
 #ifdef STREAM_SUPPORT
 ostream &
 operator << (ostream &o, Rational r)
@@ -61,7 +60,7 @@ Rational::abs () const
 Rational
 Rational::trunc_rat () const
 {
-  if (is_infinity())
+  if (is_infinity ())
     return *this;
   return Rational ((num_ - (num_ % den_)) * sign_, den_);
 }
@@ -101,7 +100,6 @@ Rational::Rational (int n)
   den_ = 1;
 }
 
-
 void
 Rational::set_infinite (int s)
 {
@@ -133,7 +131,6 @@ Rational::mod_rat (Rational div) const
   return r;
 }
 
-
 /*
   copy & paste from scm_gcd (GUILE).
  */
@@ -151,35 +148,34 @@ gcd (I64 u, I64 v)
       I64 t;
       /* Determine a common factor 2^k */
       while (!(1 & (u | v)))
-	{
-	  k <<= 1;
-	  u >>= 1;
-	  v >>= 1;
-	}
+        {
+          k <<= 1;
+          u >>= 1;
+          v >>= 1;
+        }
       /* Now, any factor 2^n can be eliminated */
       if (u & 1)
-	t = -v;
+        t = -v;
       else
-	{
-	  t = u;
-	b3:
-	  t = t >> 1;
-	}
+        {
+          t = u;
+b3:
+          t = t >> 1;
+        }
       if (!(1 & t))
-	goto b3;
+        goto b3;
       if (t > 0)
-	u = t;
+        u = t;
       else
-	v = -t;
+        v = -t;
       t = u - v;
       if (t != 0)
-	goto b3;
+        goto b3;
       result = u * k;
     }
 
   return result;
 }
-
 
 void
 Rational::normalize ()
@@ -276,20 +272,20 @@ Rational::Rational (double x)
       const int FACT = 1 << 20;
 
       /*
-	Thanks to Afie for this too simple  idea.
+        Thanks to Afie for this too simple  idea.
 
-	do not blindly substitute by libg++ code, since that uses
-	arbitrary-size integers.  The rationals would overflow too
-	easily.
+        do not blindly substitute by libg++ code, since that uses
+        arbitrary-size integers.  The rationals would overflow too
+        easily.
       */
 
       num_ = (U64) (mantissa * FACT);
       den_ = (U64) FACT;
       normalize ();
       if (expt < 0)
-	den_ <<= -expt;
+        den_ <<= -expt;
       else
-	num_ <<= expt;
+        num_ <<= expt;
       normalize ();
     }
   else
@@ -323,7 +319,7 @@ Rational::operator *= (Rational r)
   den_ *= r.den_;
 
   normalize ();
- exit_func:
+exit_func:
   return *this;
 }
 
@@ -365,7 +361,7 @@ Rational::to_string () const
 int
 Rational::to_int () const
 {
-  return (int)(num () / den ());
+  return (int) (num () / den ());
 }
 
 int

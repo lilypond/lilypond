@@ -29,10 +29,10 @@ class Rest
 public:
   DECLARE_SCHEME_CALLBACK (y_offset_callback, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   static string glyph_name (Grob *, int, string, bool);
-  static SCM brew_internal_stencil (Grob*, bool);
-  static SCM generic_extent_callback (Grob*, Axis);
+  static SCM brew_internal_stencil (Grob *, bool);
+  static SCM generic_extent_callback (Grob *, Axis);
   static void translate (Grob *me, int dy);
   DECLARE_SCHEME_CALLBACK (polyphonic_offset_callback, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));

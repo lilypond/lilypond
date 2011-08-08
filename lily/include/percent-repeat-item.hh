@@ -26,7 +26,7 @@
 class Percent_repeat_item_interface
 {
 public:
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   DECLARE_SCHEME_CALLBACK (beat_slash, (SCM));
   DECLARE_SCHEME_CALLBACK (double_percent, (SCM));
   static Stencil x_percent (Grob *, int);

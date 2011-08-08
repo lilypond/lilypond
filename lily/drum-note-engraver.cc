@@ -67,7 +67,7 @@ Drum_notes_engraver::process_music ()
   for (vsize i = 0; i < events_.size (); i++)
     {
       if (!tab)
-	tab = get_property ("drumStyleTable");
+        tab = get_property ("drumStyleTable");
 
       Stream_event *ev = events_[i];
       Item *note = make_item ("NoteHead", ev->self_scm ());
@@ -77,30 +77,30 @@ Drum_notes_engraver::process_music ()
       SCM defn = SCM_EOL;
 
       if (scm_hash_table_p (tab) == SCM_BOOL_T)
-	defn = scm_hashq_ref (tab, drum_type, SCM_EOL);
+        defn = scm_hashq_ref (tab, drum_type, SCM_EOL);
 
       if (scm_is_pair (defn))
-	{
-	  SCM pos = scm_caddr (defn);
-	  SCM style = scm_car (defn);
-	  SCM script = scm_cadr (defn);
+        {
+          SCM pos = scm_caddr (defn);
+          SCM style = scm_car (defn);
+          SCM script = scm_cadr (defn);
 
-	  if (scm_integer_p (pos) == SCM_BOOL_T)
-	    note->set_property ("staff-position", pos);
-	  if (scm_is_symbol (style))
-	    note->set_property ("style", style);
+          if (scm_integer_p (pos) == SCM_BOOL_T)
+            note->set_property ("staff-position", pos);
+          if (scm_is_symbol (style))
+            note->set_property ("style", style);
 
-	  if (scm_is_string (script))
-	    {
-	      Item *p = make_item ("Script", ev->self_scm ());
-	      make_script_from_event (p, context (), script,
-				      0);
+          if (scm_is_string (script))
+            {
+              Item *p = make_item ("Script", ev->self_scm ());
+              make_script_from_event (p, context (), script,
+                                      0);
 
-	      p->set_parent (note, Y_AXIS);
-	      Side_position_interface::add_support (p, note);
-	      scripts_.push_back (p);
-	    }
-	}
+              p->set_parent (note, Y_AXIS);
+              Side_position_interface::add_support (p, note);
+              scripts_.push_back (p);
+            }
+        }
     }
 }
 
@@ -112,7 +112,7 @@ Drum_notes_engraver::acknowledge_stem (Grob_info inf)
       Grob *e = scripts_[i];
 
       if (to_dir (e->get_property ("side-relative-direction")))
-	e->set_object ("direction-source", inf.grob ()->self_scm ());
+        e->set_object ("direction-source", inf.grob ()->self_scm ());
 
       Side_position_interface::add_support (e, inf.grob ());
     }
@@ -126,8 +126,8 @@ Drum_notes_engraver::acknowledge_note_column (Grob_info inf)
       Grob *e = scripts_[i];
 
       if (!e->get_parent (X_AXIS)
-	  && Side_position_interface::get_axis (e) == Y_AXIS)
-	e->set_parent (inf.grob (), X_AXIS);
+          && Side_position_interface::get_axis (e) == Y_AXIS)
+        e->set_parent (inf.grob (), X_AXIS);
     }
 }
 
@@ -142,16 +142,16 @@ ADD_ACKNOWLEDGER (Drum_notes_engraver, stem);
 ADD_ACKNOWLEDGER (Drum_notes_engraver, note_column);
 
 ADD_TRANSLATOR (Drum_notes_engraver,
-		/* doc */
-		"Generate drum note heads.",
+                /* doc */
+                "Generate drum note heads.",
 
-		/* create */
-		"NoteHead "
-		"Script ",
+                /* create */
+                "NoteHead "
+                "Script ",
 
-		/* read */
-		"drumStyleTable ",
+                /* read */
+                "drumStyleTable ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

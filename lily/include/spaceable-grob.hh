@@ -31,7 +31,7 @@ struct Spaceable_grob
   static void add_spring (Grob *me, Grob *to, Spring sp);
   static Spring get_spring (Grob *me, Grob *other);
 
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   static SCM get_minimum_distances (Grob *);
   static SCM get_ideal_distances (Grob *);
 };

@@ -27,8 +27,8 @@
 
 Stencil
 Line_interface::make_arrow (Offset begin, Offset end,
-			    Real thick,
-			    Real length, Real width)
+                            Real thick,
+                            Real length, Real width)
 {
   Real angle = (end - begin).arg ();
   vector<Offset> points;
@@ -45,8 +45,8 @@ Line_interface::make_arrow (Offset begin, Offset end,
 
 Stencil
 Line_interface::make_trill_line (Grob *me,
-				 Offset from,
-				 Offset to)
+                                 Offset from,
+                                 Offset to)
 {
   Offset dz = (to - from);
 
@@ -60,7 +60,7 @@ Line_interface::make_trill_line (Grob *me,
       programming_error ("can't find scripts.trill_element");
       return Stencil ();
     }
-      
+
   Stencil line;
   Real len = 0.0;
   do
@@ -73,19 +73,18 @@ Line_interface::make_trill_line (Grob *me,
   line.rotate (dz.arg (), Offset (LEFT, CENTER));
   line.translate (from);
 
-  return line; 
+  return line;
 }
-
 
 Stencil
 Line_interface::make_zigzag_line (Grob *me,
-				  Offset from,
-				  Offset to)
+                                  Offset from,
+                                  Offset to)
 {
   Offset dz = to - from;
 
   Real thick = Staff_symbol_referencer::line_thickness (me);
-  thick *= robust_scm2double (me->get_property ("thickness"), 1.0); // todo: staff sym referencer? 
+  thick *= robust_scm2double (me->get_property ("thickness"), 1.0); // todo: staff sym referencer?
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
@@ -119,23 +118,22 @@ Line_interface::make_zigzag_line (Grob *me,
   return total;
 }
 
-
 Stencil
 Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
-				  Real dash_period, Real dash_fraction)
+                                  Real dash_period, Real dash_fraction)
 {
   dash_fraction = min (max (dash_fraction, 0.0), 1.0);
   Real on = dash_fraction * dash_period + thick;
   Real off = max (0.0, dash_period - on);
 
   SCM at = scm_list_n (ly_symbol2scm ("dashed-line"),
-		       scm_from_double (thick),
-		       scm_from_double (on),
-		       scm_from_double (off),
-		       scm_from_double (to[X_AXIS] - from[X_AXIS]),
-		       scm_from_double (to[Y_AXIS] - from[Y_AXIS]),
-		       scm_from_double (0.0),
-		       SCM_UNDEFINED);
+                       scm_from_double (thick),
+                       scm_from_double (on),
+                       scm_from_double (off),
+                       scm_from_double (to[X_AXIS] - from[X_AXIS]),
+                       scm_from_double (to[Y_AXIS] - from[Y_AXIS]),
+                       scm_from_double (0.0),
+                       SCM_UNDEFINED);
 
   Box box;
   box.add_point (Offset (0, 0));
@@ -153,12 +151,12 @@ Stencil
 Line_interface::make_line (Real th, Offset from, Offset to)
 {
   SCM at = scm_list_n (ly_symbol2scm ("draw-line"),
-		       scm_from_double (th),
-		       scm_from_double (from[X_AXIS]),
-		       scm_from_double (from[Y_AXIS]),
-		       scm_from_double (to[X_AXIS]),
-		       scm_from_double (to[Y_AXIS]),
-		       SCM_UNDEFINED);
+                       scm_from_double (th),
+                       scm_from_double (from[X_AXIS]),
+                       scm_from_double (from[Y_AXIS]),
+                       scm_from_double (to[X_AXIS]),
+                       scm_from_double (to[Y_AXIS]),
+                       SCM_UNDEFINED);
 
   Box box;
   box.add_point (from);
@@ -172,24 +170,24 @@ Line_interface::make_line (Real th, Offset from, Offset to)
 
 Stencil
 Line_interface::arrows (Grob *me, Offset from, Offset to,
-			bool from_arrow,
-			bool to_arrow)
+                        bool from_arrow,
+                        bool to_arrow)
 {
   Stencil a;
   if (from_arrow || to_arrow)
     {
       Real thick = Staff_symbol_referencer::line_thickness (me)
-	* robust_scm2double (me->get_property ("thickness"), 1);
+                   * robust_scm2double (me->get_property ("thickness"), 1);
       Real ss = Staff_symbol_referencer::staff_space (me);
 
       Real len = robust_scm2double (me->get_property ("arrow-length"), 1.3 * ss);
       Real wid = robust_scm2double (me->get_property ("arrow-width"), 0.5 * ss);
 
       if (to_arrow)
-	a.add_stencil (make_arrow (from, to, thick, len, wid));
+        a.add_stencil (make_arrow (from, to, thick, len, wid));
 
       if (from_arrow)
-	a.add_stencil (make_arrow (to, from, thick, len, wid));
+        a.add_stencil (make_arrow (to, from, thick, len, wid));
     }
 
   return a;
@@ -199,7 +197,7 @@ Stencil
 Line_interface::line (Grob *me, Offset from, Offset to)
 {
   Real thick = Staff_symbol_referencer::line_thickness (me)
-    * robust_scm2double (me->get_property ("thickness"), 1);
+               * robust_scm2double (me->get_property ("thickness"), 1);
 
   SCM type = me->get_property ("style");
   if (type == ly_symbol2scm ("zigzag"))
@@ -208,36 +206,36 @@ Line_interface::line (Grob *me, Offset from, Offset to)
     return make_trill_line (me, from, to);
   else if (type == ly_symbol2scm ("none"))
     return Stencil ();
-  
+
   Stencil stencil;
 
   if (type == ly_symbol2scm ("dashed-line") || type == ly_symbol2scm ("dotted-line"))
     {
 
       Real fraction
-	= type == ly_symbol2scm ("dotted-line")
-	? 0.0
-	: robust_scm2double (me->get_property ("dash-fraction"), 0.4);
+        = type == ly_symbol2scm ("dotted-line")
+          ? 0.0
+          : robust_scm2double (me->get_property ("dash-fraction"), 0.4);
 
       fraction = min (max (fraction, 0.0), 1.0);
       Real period = Staff_symbol_referencer::staff_space (me)
-	* robust_scm2double (me->get_property ("dash-period"), 1.0);
+                    * robust_scm2double (me->get_property ("dash-period"), 1.0);
 
       if (period <= 0)
-	return Stencil ();
+        return Stencil ();
 
       Real len = (to - from).length ();
-      
+
       int n = (int) rint ((len - period * fraction) / period);
       n = max (0, n);
       if (n > 0)
-	{
-	  /*
-	    TODO: figure out something intelligent for really short
-	    sections.
-	   */
-	  period = ((to - from).length () - period * fraction) / n;
-	}
+        {
+          /*
+            TODO: figure out something intelligent for really short
+            sections.
+           */
+          period = ((to - from).length () - period * fraction) / n;
+        }
       stencil = make_dashed_line (thick, from, to, period, fraction);
     }
   else
@@ -247,22 +245,22 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 }
 
 ADD_INTERFACE (Line_interface,
-	       "Generic line objects.  Any object using lines supports this."
-	       "  The property @code{style} can be @code{line},"
-	       " @code{dashed-line}, @code{trill}, @code{dotted-line},"
-	       " @code{zigzag} or @code{none} (a transparent line).\n"
-	       "\n"
-	       "For @code{dashed-line}, the length of the dashes is tuned"
-	       " with @code{dash-fraction}.  If the latter is set to@tie{}0, a"
-	       " dotted line is produced.",
+               "Generic line objects.  Any object using lines supports this."
+               "  The property @code{style} can be @code{line},"
+               " @code{dashed-line}, @code{trill}, @code{dotted-line},"
+               " @code{zigzag} or @code{none} (a transparent line).\n"
+               "\n"
+               "For @code{dashed-line}, the length of the dashes is tuned"
+               " with @code{dash-fraction}.  If the latter is set to@tie{}0, a"
+               " dotted line is produced.",
 
-	       /* properties */
-	       "arrow-length "
-	       "arrow-width "
-	       "dash-fraction "
-	       "dash-period "
-	       "style "
-	       "thickness "
-	       "zigzag-length "
-	       "zigzag-width "
-	       );
+               /* properties */
+               "arrow-length "
+               "arrow-width "
+               "dash-fraction "
+               "dash-period "
+               "style "
+               "thickness "
+               "zigzag-length "
+               "zigzag-width "
+              );

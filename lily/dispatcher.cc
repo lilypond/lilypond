@@ -54,7 +54,7 @@ Dispatcher::mark_smob (SCM sm)
 }
 
 int
-Dispatcher::print_smob (SCM s, SCM p, scm_print_state*)
+Dispatcher::print_smob (SCM s, SCM p, scm_print_state *)
 {
   Dispatcher *me = (Dispatcher *) SCM_CELL_WORD_1 (s);
   scm_puts ("#<Dispatcher ", p);
@@ -109,23 +109,23 @@ Dispatcher::dispatch (SCM sev)
     The first step is to collect all listener lists and to initially
     insert them in the priority queue.
   */
-  struct { int prio; SCM list; } lists[num_classes+1];
+  struct { int prio; SCM list; } lists[num_classes + 1];
   int i = 0;
   for (SCM cl = class_list; scm_is_pair (cl); cl = scm_cdr (cl))
     {
       SCM list = scm_hashq_ref (listeners_, scm_car (cl), SCM_EOL);
       if (!scm_is_pair (list))
-	num_classes--;
+        num_classes--;
       else
-	{
+        {
           // bubblesort.
           int prio = scm_to_int (scm_caar (list));
-	  int j;
-	  for (j = i; j > 0 && lists[j-1].prio > prio; j--)
-	    lists[j] = lists[j-1];
-	  lists[j].prio = prio;
-	  lists[j].list = list;
-	  i++;
+          int j;
+          for (j = i; j > 0 && lists[j - 1].prio > prio; j--)
+            lists[j] = lists[j - 1];
+          lists[j].prio = prio;
+          lists[j].list = list;
+          i++;
         }
     }
   lists[num_classes].prio = INT_MAX;
@@ -155,16 +155,16 @@ Dispatcher::dispatch (SCM sev)
       if (!scm_is_pair (next))
         num_classes--;
       int prio = (scm_is_pair (next)) ? scm_to_int (scm_caar (next)) : INT_MAX;
-      for (i = 0; prio > lists[i+1].prio; i++)
-        lists[i] = lists[i+1];
+      for (i = 0; prio > lists[i + 1].prio; i++)
+        lists[i] = lists[i + 1];
       lists[i].prio = prio;
       lists[i].list = next;
     }
 
-/* TODO: Uncomment.
-  if (!sent)
-    warning (_f ("Junking event: %s", ly_symbol2string (class_symbol).c_str ()));
-*/
+  /* TODO: Uncomment.
+    if (!sent)
+      warning (_f ("Junking event: %s", ly_symbol2string (class_symbol).c_str ()));
+  */
 }
 
 void
@@ -188,11 +188,11 @@ Dispatcher::internal_add_listener (Listener l, SCM ev_class, int priority)
       /* Tell all dispatchers that we listen to, that we want to hear ev_class
          events */
       for (SCM disp = dispatchers_; scm_is_pair (disp); disp = scm_cdr (disp))
-	{
-	  int priority = scm_to_int (scm_cdar (disp));
-	  Dispatcher *d = unsmob_dispatcher (scm_caar (disp));
-	  d->internal_add_listener (GET_LISTENER (dispatch), ev_class, priority);
-	}
+        {
+          int priority = scm_to_int (scm_cdar (disp));
+          Dispatcher *d = unsmob_dispatcher (scm_caar (disp));
+          d->internal_add_listener (GET_LISTENER (dispatch), ev_class, priority);
+        }
       listen_classes_ = scm_cons (ev_class, listen_classes_);
     }
   SCM entry = scm_cons (scm_from_int (priority), l.smobbed_copy ());
@@ -219,9 +219,9 @@ Dispatcher::remove_listener (Listener l, SCM ev_class)
   while (scm_is_pair (scm_cdr (e)))
     if (*unsmob_listener (scm_cdadr (e)) == l && first)
       {
-	scm_set_cdr_x (e, scm_cddr (e));
-	first = false;
-	break;
+        scm_set_cdr_x (e, scm_cddr (e));
+        first = false;
+        break;
       }
     else
       e = scm_cdr (e);
@@ -234,10 +234,10 @@ Dispatcher::remove_listener (Listener l, SCM ev_class)
     {
       /* Unregister with all dispatchers. */
       for (SCM disp = dispatchers_; scm_is_pair (disp); disp = scm_cdr (disp))
-	{
-	  Dispatcher *d = unsmob_dispatcher (scm_caar (disp));
-	  d->remove_listener (GET_LISTENER (dispatch), ev_class);
-	}
+        {
+          Dispatcher *d = unsmob_dispatcher (scm_caar (disp));
+          d->remove_listener (GET_LISTENER (dispatch), ev_class);
+        }
       listen_classes_ = scm_delq_x (ev_class, listen_classes_);
     }
 }

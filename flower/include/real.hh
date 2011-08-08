@@ -29,7 +29,7 @@ typedef double Real;
 extern const Real infinity_f;
 
 /* namespace std { */
-  
+
 template<class T> inline T abs (T x)
 {
   return x > 0 ? x : -x;

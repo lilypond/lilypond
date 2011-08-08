@@ -46,15 +46,15 @@ public:
   };
 
   int next_scorer_todo;
-  
+
   Slur_configuration ();
 
   Real score () const { return score_; }
-  string card () const { return score_card_; } 
+  string card () const { return score_card_; }
   void add_score (Real, string);
-  
+
   void generate_curve (Slur_score_state const &state, Real r0, Real h_inf,
-		       vector<Offset> const &);
+                       vector<Offset> const &);
   void run_next_scorer (Slur_score_state const &);
   bool done () const;
   static Slur_configuration *new_config (Drul_array<Offset> const &offs, int idx);
@@ -72,7 +72,7 @@ protected:
 class Slur_configuration_less
 {
 public:
-  bool operator () (Slur_configuration* const& l, Slur_configuration* const& r)
+  bool operator () (Slur_configuration *const &l, Slur_configuration *const &r)
   {
     // Invert
     return l->score_ > r->score_;
