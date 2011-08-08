@@ -3695,12 +3695,12 @@ It is not possible to modify shapes of ties or slurs by changing
 the @code{control-points} property if there are multiple ties or slurs
 at the same musical moment -- the @code{\tweak} command will also not
 work in this case.  However, the @code{tie-configuration} property of
-@code{tie-column-interface} can be overridden to set start line and
-direction of ties as required.
+@code{TieColumn} can be overridden to set start line and direction as
+required.
 
 @seealso
 Internals Reference:
-@rinternals{tie-column-interface}.
+@rinternals{TieColumn}.
 
 
 @node Using music functions
