@@ -313,12 +313,15 @@ class SystemLink:
                 self.orphan_count (),
                 self.geometric_distance ())
 
+def scheme_float (s) :
+  return float(s) if 'nan' not in s else float(s.split('.')[0])
+
 def read_signature_file (name):
     print 'reading', name
 
     entries = open (name).read ().split ('\n')
     def string_to_tup (s):
-        return tuple (map (float, s.split (' ')))
+        return tuple (map (scheme_float, s.split (' ')))
 
     def string_to_entry (s):
         fields = s.split('@')
