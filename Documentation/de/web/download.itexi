@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish:  8cbb38db1591ab95a178643e7bf41db018aa22c0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -210,7 +210,18 @@ Auf der Kommandozeile schreiben Sie
 uninstall-lilypond
 @end example
 
+@subsubheading Hilfe
+
+Auf der Kommandozeile schreiben Sie
+
+@example
+sh lilypond-@versionStable{}-OS-TYPE.sh --help
+@end example
+
 @divEnd
+
+
+
 
 @divClass{column-right-top}
 @subheading Eine Datei kompilieren
@@ -231,22 +242,22 @@ Versionen zu installieren oder zu aktualisieren.
 @item
 @sourceimage{logo-fedora,,,}
 @uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
-Fedora: LilyPond 2.12.2}
+Fedora: LilyPond 2.14.1}
 
 @item
 @sourceimage{logo-ubuntu,,,}
 @uref{http://packages.ubuntu.com/search?keywords=lilypond,
-Ubuntu: LilyPond 2.12.2}
+Ubuntu: LilyPond 2.12.3}
 
 @item
 @sourceimage{logo-slackware,,,}
 @uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.12.2}
+Slackware: LilyPond 2.14.1}
 
 @item
 @sourceimage{logo-debian,,,}
 @uref{http://packages.debian.org/search?keywords=lilypond,
-Debian: LilyPond 2.12.2}
+Debian: LilyPond 2.12.3}
 
 @item
 @sourceimage{logo-suse,,,}

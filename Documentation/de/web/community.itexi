@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+    Translation of GIT committish:  8cbb38db1591ab95a178643e7bf41db018aa22c0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -281,7 +281,7 @@ lesen Sie bitte unsere Richtlinien für @ref{Fehlerberichte}.}
 @divClass{column-center-top}
 @subheading Was sind @qq{Minimalbeispiele}?
 
-Ein kleines Beispiel ist ein Beispiel, von dem nichts mehr entfernt
+Ein Minimalbeispiel ist ein Beispiel, von dem @strong{nichts} mehr entfernt
 werden kann.
 @divEnd
 
@@ -296,13 +296,13 @@ Je einfacher ein Beispiel ist, um so schneller können mögliche
 Hilfeleistende es verstehen und Ihnen helfen.
 
 @item
-Ein einfaches Beispiel zeigt, dass Sie sich zuerst Mühe gegeben
+Ein kleines Beispiel zeigt, dass Sie sich zuerst Mühe gegeben
 haben, das Problem selber zu lösen.  Wenn Leute große Abschnitte
 an Code einschicken, sieht es so aus, dass sie sich auch nicht
 interessieren, ob ihnen geholfen wird oder nicht.
 
 @item
-Ein Minimalbeispiel zu erstellen zwingt Sie dazu zu verstehen,
+Ein Minimalbeispiel zu erstellen hilft Ihnen zu verstehen,
 was vorgeht.  Viele falsche Problemberichte können vermieden werden,
 wenn man versucht, erst einmal ein Minimalbeispiel zu erstellen.
 Wenn Sie einen @qq{Bug} in Ihrem Minimalbeispiel nicht reproduzieren
@@ -316,18 +316,18 @@ LilyPond, nicht jedoch ein Fehler.
 
 
 @divClass{column-right-bottom}
-@subheading Wie soll ich sie erstellen?
+@subheading Wie werden sie erstellt?
 
 @divClass{keep-bullets}
 @itemize
 
 @item
-Immer die \version -Nummer einfügen.
+Immer die @code{\version}-Nummer einfügen.
 
 @item
 Machen Sie es klein!  Beispiele zur Platzverteilung oder dem
 Seitenlayout können viele Notentakte erfordern, aber die meisten
-Probleme können in einem einzigen Takt gezeigt werden.
+Probleme können in weniger als einem einzigen Takt gezeigt werden.
 
 @item
 Wenn Sie versuchen, ein Beispiel zu erstellen, versuchen Sie
@@ -343,11 +343,54 @@ Vermeiden Sie komplizierte Noten, Tonarten, Schlüssel oder Taktarten, es sei de
 Benutzen Sie nicht @code{\override} oder @code{\set}, es sei denn,
 der Fehler zeigt sich im Zusammenhang mit diesen Befehlen.
 
+@item
+Sie können auch zusätzlich ein Bild anhängen, welches die gewünschte graphische
+Darstellung zeigt.
+
 @end itemize
 @divEnd
 
 @divEnd
 
+@divClass{column-center-bottom}
+@subheading Wie klein sollten sie sein?
+@c How tiny should they be?
+
+Ist der Code unten ein Minimalbeispiel?
+
+@example
+\version "2.14.1"
+\include "english.ly"
+
+\score @{
+  \new Staff @{
+    \key d \major
+    \numericTimeSignature
+    \time 2/4
+    <cs' d'' b''>16 <cs' d'' b''>8.
+    %% Here: the tie on the D's looks funny
+    %% Too tall? Left-hand endpoint is not aligned with the B tie?
+    ~
+    <cs' d'' b''>8 [ <b d'' a''> ]
+  @}
+@}
+@end example
+
+Das ist zwar kein langer Code, aber ein wirkliches Minimalbeispiel ist
+folgendes:
+
+@example
+\version "2.14.1"
+@{
+  % middle tie looks funny here:
+  <c' d'' b''>8. ~ <c' d'' b''>8
+@}
+@end example
+
+Wenige Minimalbeispiele brauchen mehr als 10 Zeilen,
+meistens kann das Problem mit vier Zeilen gezeigt werden!
+
+@divEnd
 
 
 
