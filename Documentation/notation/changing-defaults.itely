@@ -3625,28 +3625,26 @@ Notation Reference:
 @cindex Bézier curves, control points
 @cindex control points, Bézier curves
 
-If the shape of the tie or slur which is calculated automatically is not
-optimum, the shape may be modified manually by explicitly specifying the
-control points required to define the curve needed.
+Ties, slurs and phrasing slurs are drawn as third-order Bézier
+curves.  If the shape of the tie or slur which is calculated
+automatically is not optimum, the shape may be modified manually by
+explicitly specifying the four control points required to define
+a third-order Bézier curve.
 
-Ties, slurs and phrasing slurs are drawn as @q{third-order} Bézier
-curves which are are defined by four control points.  The first and
-fourth control points are the start and end points of the curve
-respectively, and the two intermediate control points define the
-overall shape.
+Third-order or cubic Bézier curves are defined by four control
+points.  The first and fourth control points are precisely the
+starting and ending points of the curve.  The intermediate two
+control points define the shape.  Animations showing how the curve
+is drawn can be found on the web, but the following description
+may be helpful.  The curve starts from the first control point
+heading directly towards the second, gradually bending over to
+head towards the third and continuing to bend over to head towards
+the fourth, arriving there travelling directly from the third
+control point.  The curve is entirely contained in the
+quadrilateral defined by the four control points.
 
-Animations showing how the curve is drawn can be found on the web, but
-the following description may be helpful.  The curve starts from the
-first control point moving towards the second.  As the curve nears and
-passes through the second control point it begins to arc towards the
-third.  The curve continues on towards the the third control point,
-again starting to arc as it nears and passes through the third so as to
-finish the curve smoothly at the fourth and final control point.  The
-whole curve is contained in the quadrilateral defined by the four
-control points.
-
-Here is an example of a case where the tie is not optimum (and where the
-@code{\tieDown} command would not help).
+Here is an example of a case where the tie is not optimum, and
+where @code{\tieDown} would not help.
 
 @lilypond[verbatim,quote,relative=1]
 <<
