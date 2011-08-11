@@ -217,7 +217,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
   if (measure_count == 1)
     {
       Stencil s = musfont->find_by_name (Rest::glyph_name (me, mdl, "", true));
-      if (mdl == 0 && Staff_symbol_referencer::get_position (me) == 0.0)
+      if (mdl == 0 && me->get_property ("staff-position") == SCM_EOL)
         s.translate_axis (staff_space, Y_AXIS);
 
       s.translate_axis ((space - s.extent (X_AXIS).length ()) / 2, X_AXIS);
