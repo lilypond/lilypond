@@ -73,7 +73,7 @@ avoid_staff_line (Slur_score_state const &state,
 }
 
 Real
-fit_factor (Offset dz_unit, Offset dz_perp,
+fit_factor (Offset dz_unit, Offset dz_perp, Real close_to_edge_length,
             Bezier curve, Direction d, vector<Offset> const &avoid)
 {
   Real fit_factor = 0.0;
@@ -92,9 +92,19 @@ fit_factor (Offset dz_unit, Offset dz_perp,
       Offset p (dot_product (z, dz_unit),
                 d * dot_product (z, dz_perp));
 
+      bool close_to_edge = false;
+      Direction d = LEFT;
+      do
+        close_to_edge = close_to_edge || -d * (p[X_AXIS] - curve_xext[d]) < close_to_edge_length;
+      while (flip (&d) != LEFT);
+
+      if (close_to_edge)
+        continue;
+
       Real eps = 0.01;
       Interval pext = eps * Interval (-1, 1) + p[X_AXIS];
       pext.intersect (curve_xext);
+
       if (pext.is_empty () || pext.length () <= 1.999 * eps)
         continue;
 
@@ -159,7 +169,8 @@ Slur_configuration::generate_curve (Slur_score_state const &state,
                       + dz_unit * x2;
   curve.control_[3] = attachment_[RIGHT];
 
-  Real ff = fit_factor (dz_unit, dz_perp, curve, state.dir_, avoid);
+  Real ff = fit_factor (dz_unit, dz_perp, state.parameters_.close_to_edge_length_,
+                        curve, state.dir_, avoid);
 
   height = max (height, min (height * ff, max_h));
 
