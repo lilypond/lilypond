@@ -97,6 +97,8 @@ LilyPond now fully supports the @code{#'style = #'none} property.
 c4\cresc c c g, c'\p
 @end lilypond
 
+@item
+LilyPond.app now supports MacOS X 10.7, thanks Christian Hitz!
 
 @item
 Glissandi can now span multiple lines.
