@@ -62,6 +62,8 @@ which scares away people.
 @end ignore
 
 
+@item
+LilyPond.app now supports MacOS X 10.7, thanks Christian Hitz!
 
 @item
 Glissandi can now span multiple lines.
