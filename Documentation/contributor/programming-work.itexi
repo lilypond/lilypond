@@ -8,6 +8,7 @@
 * Programming without compiling::
 * Finding functions::
 * Code style::
+* Warnings Errors Progress and Debug Output::
 * Debugging LilyPond::
 * Tracing object relationships::
 * Adding or modifying features::
@@ -710,6 +711,139 @@ dutch).  I guess we would prefer something like (2) or (3).
 Do not run make po/po-update with GNU gettext < 0.10.35
 
 @end itemize
+
+
+@node Warnings Errors Progress and Debug Output
+@section Warnings, Errors, Progress and Debug Output
+
+@unnumberedsubsec Available log levels
+
+LilyPond has several loglevels, which specify how verbose the output on
+the console should be:
+@itemize
+@item NONE: No output at all, even on failure
+@item ERROR: Only error messages
+@item WARN: Only error messages and warnings
+@item BASIC_PROGRESS: Warnings, errors and basic progress (success, etc.)
+@item PROGRESS: Warnings, errors and full progress messages
+@item INFO: Warnings, errors, progress and more detailed information
+@item DEBUG: All messages, including vull debug messages (very verbose!)
+@end itemize
+
+The loglevel can either be set with the environment variable
+@code{LILYPOND_LOGLEVEL} or on the command line with the @code{--loglevel=...}
+option.
+
+@unnumberedsubsec Functions for debug and log output
+
+LilyPond has two different types of error and log functions:
+@itemize 
+
+@item
+If a warning or error is caused by an identified position in the input file,
+e.g. by a grob or by a music expression, the functions of the @code{Input}
+class provide logging functionality that prints the position of the message
+in addition to the message.
+
+@item
+If a message can not be associated with a particular position in an input file,
+e.g. the output file cannot be written, then the functions in the 
+@code{flower/include/warn.hh} file will provide logging functionality that 
+only prints out the message, but no location.
+
+@end itemize
+
+There are also Scheme functions to access all of these logging functions from
+scheme.
+
+The message and debug functions in @code{warn.hh} also have an optional 
+argument @code{newline}, which specifies whether the message should always
+start on a new line or continue a previous message. 
+By default, @code{progress_indication} does NOT start on a new line, but rather
+continue the previous output. All other functions by default start their 
+output on a new line.
+
+@unnumberedsubsec All logging functions at a glance
+
+Currently, there are no particular message functions for the INFO loglevel, 
+so it is basically identical to PROGRESS.
+
+
+@multitable @columnfractions 0.16 0.42 0.42
+@headitem
+@tab C++, no location
+@tab C++ from input location
+
+@item ERROR
+@tab @code{error ()}, @code{programming_error (msg)}, @code{non_fatal_error (msg)}
+@tab @code{Input::error (msg)}, @code{Input::programming_error (msg)}
+
+@item WARN
+@tab @code{warning (msg)} @c WARN
+@tab @code{Input::warning (msg)} @c WARN
+
+@item BASIC
+@tab @code{successful (msg)}
+@tab -
+
+@item PROGRESS
+@tab @code{progress_indication (msg)}, @code{message (msg)}
+@tab @code{Input::message (msg)}
+
+@item DEBUG
+@tab @code{debug_output (msg)}
+@tab @code{Input::debug_output (msg)}
+
+@item @tab @tab
+
+@headitem
+@tab Scheme, no location
+@tab Scheme, input location
+
+@item ERROR
+@tab -
+@tab @code{(ly:error msg args)}, @code{(ly:programming-error msg args)}
+
+@item WARN
+@tab @code{(ly:warning msg args)}
+@tab @code{(ly:input-warning input msg args)}
+
+@item BASIC
+@tab @code{(ly:success msg args)}
+@tab -
+
+@item PROGRESS
+@tab (ly:progress msg args), (ly:message msg args)
+@tab @code{(ly:input-message input msg args)}
+
+@item DEBUG
+@tab @code{(ly:debug msg args)}
+@tab -
+
+
+@item @tab @tab
+
+@headitem
+@tab Scheme, music expression
+@tab 
+
+@item ERROR
+@tab -
+
+@item WARN
+@tab @code{(ly:music-warning music msg)}
+
+@item BASIC
+@tab -
+
+@item PROGRESS
+@tab @code{(ly:music-message music msg)}
+
+@item DEBUG
+@tab -
+
+@end multitable
+
 
 
 
