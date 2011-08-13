@@ -1420,7 +1420,8 @@ aFivePaper = \paper @{ paperheight = 21.0 \cm @}
 @end example
 
 ファイルが処理されると、タイトルと作曲者は楽譜の上に譜刻されます。@c
-タイトルについての更なる情報は、@ruser{Creating titles} を参照してください。
+タイトルについての更なる情報は、@ruser{タイトル、ヘッダ、フッタを作成する}
+を参照してください。
 
 
 @node 絶対音符名
