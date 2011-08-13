@@ -277,6 +277,11 @@ Page_layout_problem::get_footnote_separator_stencil (Output_def *paper)
 void
 Page_layout_problem::add_footnotes_to_footer (SCM footnotes, Stencil *foot, Paper_book *pb)
 {
+  if (!foot && scm_is_pair (footnotes))
+    {
+      warning ("Must have a footer to add footnotes.");
+      return;
+    }
   bool footnotes_found = false;
   Real footnote_padding = robust_scm2double (pb->paper_->c_variable ("footnote-padding"), 0.0);
   Real footnote_footer_padding = robust_scm2double (pb->paper_->c_variable ("footnote-footer-padding"), 0.0);

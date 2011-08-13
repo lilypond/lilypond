@@ -104,8 +104,8 @@ Tuplet_iterator::process (Moment m)
       && m.main_part_ == next_split_mom_)
     {
       descend_to_bottom_context ();
-      if (tuplet_handler_.get_outlet ())
-        create_event (STOP)->send_to_context (tuplet_handler_.get_outlet ());
+      if (tuplet_handler_.get_context ())
+        create_event (STOP)->send_to_context (tuplet_handler_.get_context ());
 
       if (m.main_part_ < music_get_length ().main_part_)
         {

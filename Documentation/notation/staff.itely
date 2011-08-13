@@ -1173,9 +1173,9 @@ Installed Files:
 
 @knownissues
 Only the contents of the first @code{Voice} occurring in an
-@code{\addQuote} command will be considered for quotation, so the music
-expression must not contain @code{\new} and @code{\context Voice}
-statements which would switch to a different Voice.  Quoting grace notes
+@code{\addQuote} command will be considered for quotation, so if the music
+expression contains @code{\new} or @code{\context Voice}
+statements, their contents will not be quoted.  Quoting grace notes
 is unsupported and may cause LilyPond to crash whereas quoting nested
 triplets may result in poor notation.
 

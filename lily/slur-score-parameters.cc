@@ -76,4 +76,6 @@ Slur_score_parameters::fill (Grob *me)
     = get_detail (details, ly_symbol2scm ("free-slur-distance"));
   edge_slope_exponent_
     = get_detail (details, ly_symbol2scm ("edge-slope-exponent"));
+  close_to_edge_length_
+    = get_detail (details, ly_symbol2scm ("close-to-edge-length"));
 }

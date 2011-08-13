@@ -39,7 +39,8 @@ class Context
 
 private:
   friend class Context_handle;
-  int iterator_count_;
+  /* how many Context_handles point to this Context */
+  int client_count_;
 
   /* Used internally by create_context */
   Stream_event *infant_event_;

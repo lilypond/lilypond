@@ -524,7 +524,7 @@ some pieces include a lot more information.
 
 
 @node Creating titles headers and footers
-@subsection Creating titles, headers, and footers
+@subsection Creating titles headers and footers
 
 @menu
 * Title blocks explained::
@@ -776,7 +776,7 @@ To remove the @code{tagline} set the value to @code{##f}.
 
 
 @node Custom headers footers and titles
-@subsection Custom headers, footers, and titles
+@subsection Custom headers footers and titles
 
 @c TODO: somewhere put a link to header spacing info
 @c       (you'll have to explain it more in NR 4).

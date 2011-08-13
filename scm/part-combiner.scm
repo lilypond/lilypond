@@ -571,10 +571,27 @@ the mark when there are no spanners active.
 
 (define-public (add-quotable parser name mus)
   (let* ((tab (eval 'musicQuotes (current-module)))
-	 (context-list (recording-group-emulate (context-spec-music mus 'Voice)
-						(ly:parser-lookup parser 'partCombineListener))))
-    (if (pair? context-list)
-	(hash-set! tab name
-		   ;; cdr : skip name string
-		   (list->vector (reverse! (cdar context-list)
-					   '()))))))
+         (voicename (get-next-unique-voice-name))
+         ;; recording-group-emulate returns an assoc list (reversed!), so
+         ;; hand it a proper unique context name and extract that key:
+         (ctx-spec (context-spec-music mus 'Voice voicename))
+         (listener (ly:parser-lookup parser 'partCombineListener))
+         (context-list (reverse (recording-group-emulate ctx-spec listener)))
+         (raw-voice (assoc voicename context-list))
+         (quote-contents (if (pair? raw-voice) (cdr raw-voice) '())))
+
+    ;; If the context-specced quoted music does not contain anything, try to
+    ;; use the first child, i.e. the next in context-list after voicename
+    ;; That's the case e.g. for \addQuote "x" \relative c \new Voice {...}
+    (if (null? quote-contents)
+        (let find-non-empty ((current-tail (member raw-voice context-list)))
+          ;; if voice has contents, use them, otherwise check next ctx
+          (cond ((null? current-tail) #f)
+                ((and (pair? (car current-tail))
+                      (pair? (cdar current-tail)))
+                 (set! quote-contents (cdar current-tail)))
+                (else (find-non-empty (cdr current-tail))))))
+
+    (if (not (null? quote-contents))
+        (hash-set! tab name (list->vector (reverse! quote-contents '())))
+        (ly:music-message mus (ly:format (_ "quoted music `~a' is empty") name)))))

@@ -577,7 +577,8 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, int foot
 
   Page_layout_problem::add_footnotes_to_footer (footnotes, foot, book_);
 
-  p->set_property ("foot-stencil", foot->smobbed_copy ());
+  if (foot)
+    p->set_property ("foot-stencil", foot->smobbed_copy ());
   scm_apply_1 (page_stencil, page, SCM_EOL);
 
   return page;

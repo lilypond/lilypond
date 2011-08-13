@@ -100,33 +100,33 @@ check_meshing_chords (Grob *me,
     merge_possible = false;
 
   /*
-    this case (distant half collide),
-
-    |
-    x |
-    | x
-    |
-
-    the noteheads may be closer than this case (close half collide)
-
-    |
-    |
-    x
-    x
-    |
-    |
-
-  */
+   * this case (distant half collide),
+   *
+   *    |
+   *  x |
+   * | x
+   * |
+   *
+   * the noteheads may be closer than this case (close half collide)
+   *
+   *    |
+   *    |
+   *   x
+   *  x
+   * |
+   * |
+   *
+   */
 
   /* TODO: filter out the 'o's in this configuration, since they're no
-     part in the collision.
-
-     |
-     x|o
-     x|o
-     x
-
-  */
+   * part in the collision.
+   *
+   *  |
+   * x|o
+   * x|o
+   * x
+   *
+   */
 
   bool close_half_collide = false;
   bool distant_half_collide = false;
@@ -163,28 +163,44 @@ check_meshing_chords (Grob *me,
   full_collide = full_collide || (close_half_collide
                                   && distant_half_collide);
 
-  Real shift_amount = 1;
-
-  bool touch = (ups[0] >= dps.back ());
-  /* As a special case, if the topmost part of the downstem chord is a second,
-     the top note of which is the same pitch as the lowest upstem note, they
-     shouldn't count as touching.
+  /* If the only collision is in the extreme noteheads,
+     then their stems can line up and the chords just 'touch'.
+     A half collision with the next note along the chord prevents touching.
   */
-  if (dps.back () == ups[0] && dps.size () > 1 && dps[dps.size () - 2] == ups[0] - 1)
-    touch = false;
+  bool touch = false;
+  if (ups[0] >= dps.back ()
+      && (dps.size () < 2 || ups[0] >= dps[dps.size () - 2] + 2)
+      && (ups.size () < 2 || ups[1] >= dps.back () + 2))
+    touch = true;
 
-  if (touch)
-    shift_amount *= -1;
-
-  /* For full collisions, the right hand head may obscure dots, so
-     make sure the dotted heads go to the right. */
+  /* Determine which chord goes on the left, and which goes right.
+     Up-stem usually goes on the right, but if chords just 'touch' we can put
+     both stems on a common vertical line.  In the presense of collisions,
+     right hand heads may obscure dots, so dotted heads to go the right.
+  */
+  Real shift_amount = 1;
   bool stem_to_stem = false;
-  if (full_collide)
+  if ((full_collide
+       || ((close_half_collide || distant_half_collide)
+           && to_boolean (me->get_property ("prefer-dotted-right"))))
+      && Rhythmic_head::dot_count (head_up) < Rhythmic_head::dot_count (head_down))
     {
-      if (Rhythmic_head::dot_count (head_up) > Rhythmic_head::dot_count (head_down))
-        shift_amount = 1;
-      else if (Rhythmic_head::dot_count (head_up) < Rhythmic_head::dot_count (head_down))
+      shift_amount = -1;
+      if (!touch || full_collide)
+        // remember to leave clearance between stems
         stem_to_stem = true;
+    }
+  else if (touch)
+    {
+      // Up-stem note on a line has a raised dot, so no risk of collision
+      Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
+      if ((full_collide
+           || (!Staff_symbol_referencer::on_line (staff, ups[0])
+               && to_boolean (me->get_property ("prefer-dotted-right"))))
+          && Rhythmic_head::dot_count (head_up) > Rhythmic_head::dot_count (head_down))
+        touch = false;
+      else
+        shift_amount = -1;
     }
 
   /* The solfa is a triangle, which is inverted depending on stem
@@ -260,13 +276,15 @@ check_meshing_chords (Grob *me,
   /* TODO: these numbers are magic; should devise a set of grob props
      to tune this behavior. */
   else if (stem_to_stem)
-    shift_amount = -abs (shift_amount) * 0.65;
-  else if (close_half_collide && !touch)
-    shift_amount *= 0.52;
-  else if (distant_half_collide && !touch)
-    shift_amount *= 0.4;
-  else if (distant_half_collide || close_half_collide || full_collide)
+    shift_amount *= 0.65;
+  else if (touch)
     shift_amount *= 0.5;
+  else if (close_half_collide)
+    shift_amount *= 0.52;
+  else if (full_collide)
+    shift_amount *= 0.5;
+  else if (distant_half_collide)
+    shift_amount *= 0.4;
 
   /* we're meshing. */
   else if (Rhythmic_head::dot_count (head_up) || Rhythmic_head::dot_count (head_down))
@@ -289,62 +307,32 @@ check_meshing_chords (Grob *me,
         shift_amount *= 0.75;
     }
 
-  /*
-   * Fix issue #44:
-   *
-   * Dots from left note head collide with right note head. Only occurs
-   * with a close half collide, if the left note head is between
-   * lines and the right note head is on a line, and if right note head
-   * hasn't got any dots.
+  /* If the dotted notes ended up on the left, and there are collisions,
+     tell the Dot_Columnn to avoid the notes on the right.
    */
-  if (close_half_collide
-      && Rhythmic_head::dot_count (head_up)
-      && !Rhythmic_head::dot_count (head_down))
+  if (full_collide || close_half_collide || distant_half_collide)
     {
-      Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
-      if (!Staff_symbol_referencer::on_line (staff, ups[0]))
+      if (shift_amount < -1e-6
+          && Rhythmic_head::dot_count (head_up)
+          && !Rhythmic_head::dot_count (head_down))
         {
-          /*
-            TODO: consider junking the else body.
-          */
-          if (to_boolean (me->get_property ("prefer-dotted-right")))
-            shift_amount = 0.5;
-          else
-            {
-              Grob *d = unsmob_grob (head_up->get_object ("dot"));
-              Grob *parent = d->get_parent (X_AXIS);
-              if (Dot_column::has_interface (parent))
-                Side_position_interface::add_support (parent, head_down);
-            }
+          Grob *d = unsmob_grob (head_up->get_object ("dot"));
+          Grob *parent = d->get_parent (X_AXIS);
+          if (Dot_column::has_interface (parent))
+            Side_position_interface::add_support (parent, head_down);
         }
-    }
-
-  /* For full or close half collisions, the right hand head may
-     obscure dots.  Move dots to the right. */
-  if (abs (shift_amount) > 1e-6
-      && Rhythmic_head::dot_count (head_down) > Rhythmic_head::dot_count (head_up)
-      && (full_collide || close_half_collide))
-    {
-      Grob *d = unsmob_grob (head_down->get_object ("dot"));
-      Grob *parent = d->get_parent (X_AXIS);
-
-      /*
-        FIXME:
-
-        |
-        x . o
-        |
-
-
-        the . is put right of o which is erroneous o force-shifted
-        far to the right.
-      */
-      if (Dot_column::has_interface (parent))
+      else if (Rhythmic_head::dot_count (head_down)
+               && !Rhythmic_head::dot_count (head_up))
         {
-          Grob *stem = unsmob_grob (head_up->get_object ("stem"));
-          extract_grob_set (stem, "note-heads", heads);
-          for (vsize i = 0; i < heads.size (); i++)
-            Side_position_interface::add_support (parent, heads[i]);
+          Grob *d = unsmob_grob (head_down->get_object ("dot"));
+          Grob *parent = d->get_parent (X_AXIS);
+          if (Dot_column::has_interface (parent))
+            {
+              Grob *stem = unsmob_grob (head_up->get_object ("stem"));
+              extract_grob_set (stem, "note-heads", heads);
+              for (vsize i = 0; i < heads.size (); i++)
+                Side_position_interface::add_support (parent, heads[i]);
+            }
         }
     }
 
