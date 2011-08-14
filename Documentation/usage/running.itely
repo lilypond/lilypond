@@ -335,6 +335,32 @@ found the search will continue in subsequent directories.
 @item -i,--init=@var{file}
 Set init file to @var{file} (default: @file{init.ly}).
 
+@cindex loglevel
+@cindex output verbosity, setting
+
+@item -l,--loglevel=@var{LEVEL}
+Set the verbosity of the console output to @var{LEVEL}. Possible values are:
+@table @code
+@item NONE
+No output at all, not even error messages.
+
+@item ERROR
+Only error messages, no warnings or progress messages.
+
+@item WARN
+Warnings and error messages, no progress.
+
+@item BASIC_PROGRESS
+Basic progress messages (success), warnings and errors.
+
+@item PROGRESS (default)
+All progress messages, warnings and errors.
+
+@item DEBUG
+All possible messages, including verbose debug output.
+@end table
+
+
 @cindex folder, directing output to
 @cindex output filename, setting
 
@@ -454,6 +480,10 @@ subdirectories called @file{ly/}, @file{ps/}, @file{tex/}, etc.
 
 @item LANG
 This selects the language for the warning messages.
+
+@item LILYPOND_LOGLEVEL
+The default loglevel. If LilyPond is called without an explicit loglevel (i.e.
+no @code{--loglevel} command line option), this value is used.
 
 @item LILYPOND_GC_YIELD
 A variable, as a percentage, that tunes memory management
