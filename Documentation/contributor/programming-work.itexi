@@ -795,7 +795,7 @@ treated as if @code{Input::error} was called.
 @tab @code{Input::warning (msg)}
 
 @item BASIC
-@tab @code{successful (msg)}
+@tab @code{basic_progress (msg)}
 @tab -
 
 @item PROGRESS
@@ -855,7 +855,7 @@ treated as if @code{Input::error} was called.
 @tab @code{(ly:input-warning input msg args)}
 
 @item BASIC
-@tab @code{(ly:success msg args)}
+@tab @code{(ly:basic-progress msg args)}
 @tab -
 
 @item PROGRESS

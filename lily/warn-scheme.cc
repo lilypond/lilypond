@@ -85,14 +85,14 @@ LY_DEFINE (ly_progress, "ly:progress",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_success, "ly:success",
+LY_DEFINE (ly_basic_progress, "ly:basic-progress",
            1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to issue a success message @var{str}."
+           "A Scheme callable function to issue a basic progress message @var{str}."
            "  The message is formatted with @code{format} and @var{rest}.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-  successful (ly_scm2string (str));
+  basic_progress (ly_scm2string (str));
   return SCM_UNSPECIFIED;
 }
 
