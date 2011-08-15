@@ -131,8 +131,8 @@ def expand_includes (m, filename):
                 return extract_sections (filepath)[1]
         if not (include_name in known_missing_files):
             # Not found
-            print 'No such file: ' + include_name
-            print 'Search path: ' + ':'.join (include_path)
+            print 'Warning: No such file: ' + include_name + \
+                  ' (search path: ' + ':'.join (include_path)+')'
         return ''
 
 lang_re = re.compile (r'^@documentlanguage (.+)', re.M)

@@ -21,6 +21,7 @@
 #include "beaming-pattern.hh"
 #include "beam.hh"
 #include "context.hh"
+#include "context-handle.hh"
 #include "duration.hh"
 #include "engraver.hh"
 #include "item.hh"
@@ -80,7 +81,10 @@ private:
   Moment extend_mom_;
   Moment beam_start_moment_;
   Moment beam_start_location_;
-  Context *beam_start_context_;
+  /*
+    Handle on the starting staff keeps it alive until beam is comlete
+  */
+  Context_handle beam_start_context_;
 
   // We act as if beam were created, and start a grouping anyway.
   Beaming_pattern *grouping_;
@@ -219,7 +223,7 @@ Auto_beam_engraver::create_beam ()
     Beam::add_stem (beam, (*stems_)[i]);
 
   Grob_info i = make_grob_info (beam, (*stems_)[0]->self_scm ());
-  i.rerouting_daddy_context_ = beam_start_context_;
+  i.rerouting_daddy_context_ = beam_start_context_.get_context ();
   announce_grob (i);
 
   return beam;
@@ -239,7 +243,7 @@ Auto_beam_engraver::begin_beam ()
   beaming_options_.from_context (context ());
   beam_settings_ = updated_grob_properties (context (), ly_symbol2scm ("Beam"));
 
-  beam_start_context_ = context ()->get_parent_context ();
+  beam_start_context_.set_context (context ()->get_parent_context ());
   beam_start_moment_ = now_mom ();
   beam_start_location_
     = robust_scm2moment (get_property ("measurePosition"), Moment (0));
@@ -272,7 +276,7 @@ Auto_beam_engraver::end_beam ()
       if (finished_beam_)
         {
           Grob_info i = make_grob_info (finished_beam_, SCM_EOL);
-          i.rerouting_daddy_context_ = beam_start_context_;
+          i.rerouting_daddy_context_ = beam_start_context_.get_context ();
 
           announce_end_grob (i);
           finished_grouping_ = grouping_;
@@ -284,6 +288,7 @@ Auto_beam_engraver::end_beam ()
       beam_settings_ = SCM_EOL;
     }
 
+  beam_start_context_.set_context (NULL);
   shortest_mom_ = Moment (Rational (1, 4));
 }
 

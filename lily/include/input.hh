@@ -36,11 +36,12 @@ public:
   char const *end () const;
 
   void set (Source_file *, char const *, char const *);
-  void warning (string) const;
+  void error (string) const;
   void programming_error (string) const;
   void non_fatal_error (string) const;
-  void error (string) const;
+  void warning (string) const;
   void message (string) const;
+  void debug_output (string) const;
   void set_spot (Input const &);
   void step_forward ();
   void set_location (Input const &, Input const &);
@@ -60,6 +61,8 @@ public:
 
   Input (Input const &i);
   Input ();
+protected:
+  void print_message (int level, string s) const;
 };
 
 #include "smobs.hh"

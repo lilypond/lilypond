@@ -79,47 +79,61 @@ Input::set_location (Input const &i_start, Input const &i_end)
   [file:line:column:][warning:]message
 */
 void
-Input::message (string s) const
+Input::print_message (int level, string s) const
 {
+  string location;
   if (source_file_)
-    s = location_string () + ": " + s + "\n"
-        + source_file_->quote_input (start_) + "\n";
-  ::message (s);
+    ::print_message (level, location_string (),
+                     s + "\n" + source_file_->quote_input (start_) + "\n");
+  else
+    ::print_message (level, "", s);
+}
+
+void
+Input::error (string s) const
+{
+  print_message (LOG_ERROR, _f ("error: %s", s));
+  // UGH, fix naming or usage (use non_fatal_error in most places, instead)
+  // exit (1);
 }
 
 void
 Input::programming_error (string s) const
 {
   if (get_program_option ("warning-as-error"))
-    ::error (s);
+    error (s);
   else
     {
-      message (_f ("programming error: %s", s.c_str ()));
-      message (_ ("continuing, cross fingers") + "\n");
+      print_message (LOG_ERROR, _f ("programming error: %s", s));
+      print_message (LOG_ERROR, _ ("continuing, cross fingers") + "\n");
     }
+}
+
+void
+Input::non_fatal_error (string s) const
+{
+  print_message (LOG_ERROR, _f ("error: %s", s));
 }
 
 void
 Input::warning (string s) const
 {
   if (get_program_option ("warning-as-error"))
-    ::error (s);
+    error (s);
   else
-    message (_f ("warning: %s", s));
+    print_message (LOG_WARN, _f ("warning: %s", s));
 }
 
 void
-Input::error (string s) const
+Input::message (string s) const
 {
-  message (_f ("error: %s", s));
-  // UGH, fix naming or usage
-  // exit (1);
+  print_message (LOG_INFO, s);
 }
 
 void
-Input::non_fatal_error (string s) const
+Input::debug_output (string s) const
 {
-  message (_f ("error: %s", s));
+  print_message (LOG_DEBUG, s);
 }
 
 string

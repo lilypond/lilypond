@@ -77,9 +77,6 @@ bool be_safe_global = false;
 /* Provide URI links to the original file */
 bool point_and_click_global = true;
 
-/* Verbose progress indication? */
-bool be_verbose_global = false;
-
 /* Scheme code to execute before parsing, after .scm init.
    This is where -e arguments are appended to.  */
 string init_scheme_code_global;
@@ -169,10 +166,16 @@ static Long_option_init options_static[]
     "and cd into DIR")
   },
 #endif
+  {
+    _i ("LOGLEVEL"), "loglevel", 'l', _i ("print log messages according to"
+    " LOGLEVEL.  Possible values are:\n"
+    "NONE, ERROR, WARNING, BASIC, PROGRESS (default) and DEBUG.")
+  },
   {_i ("FILE"), "output", 'o', _i ("write output to FILE (suffix will be added)")},
   {0, "relocate", 0, _i ("relocate using directory of lilypond program")},
+  {0, "silent", 's', _i ("no progress, only error messages (equivalent to loglevel=ERROR)")},
   {0, "version", 'v', _i ("show version number and exit")},
-  {0, "verbose", 'V', _i ("be verbose")},
+  {0, "verbose", 'V', _i ("be verbose (equivalent to loglevel=DEBUG)")},
   {0, "warranty", 'w', _i ("show warranty and copyright")},
   {0, 0, 0, 0}
 };
@@ -404,7 +407,7 @@ main_with_guile (void *, int, char **)
   prepend_load_path (lilypond_datadir);
   prepend_load_path (lilypond_datadir + "/scm");
 
-  if (be_verbose_global)
+  if (is_loglevel (LOG_DEBUG))
     dir_info (stderr);
 
   init_scheme_variables_global = "(list " + init_scheme_variables_global + ")";
@@ -556,7 +559,13 @@ parse_argv (int argc, char **argv)
           show_help = true;
           break;
         case 'V':
-          be_verbose_global = true;
+          set_loglevel (LOGLEVEL_DEBUG);
+          break;
+        case 's':
+          set_loglevel (LOGLEVEL_ERROR);
+          break;
+        case 'l':
+          set_loglevel (option_parser->optional_argument_str0_);
           break;
         default:
           programming_error (to_string ("unhandled short option: %c",
@@ -572,7 +581,7 @@ parse_argv (int argc, char **argv)
   if (show_help)
     {
       ly_usage ();
-      if (be_verbose_global)
+      if (is_loglevel (LOG_DEBUG))
         dir_info (stdout);
       exit (0);
     }
@@ -610,11 +619,13 @@ main (int argc, char **argv, char **envp)
     start_environment_global.push_back (*p);
 
   if (getenv ("LILYPOND_VERBOSE"))
-    be_verbose_global = true;
+    set_loglevel (LOGLEVEL_DEBUG);
+  if (getenv ("LILYPOND_LOGLEVEL"))
+    set_loglevel (getenv ("LILYPOND_LOGLEVEL"));
 
   setup_localisation ();
   parse_argv (argc, argv);
-  if (isatty (STDIN_FILENO))
+  if (isatty (STDIN_FILENO) && (is_loglevel (LOG_BASIC)))
     identify (stderr);
 
   setup_paths (argv[0]);

@@ -50,7 +50,7 @@ Music_iterator::~Music_iterator ()
 Context *
 Music_iterator::get_outlet () const
 {
-  return handle_.get_outlet ();
+  return handle_.get_context ();
 }
 
 void

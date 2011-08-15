@@ -123,8 +123,7 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
 
   send_stream_event (g, "Finish", 0, 0);
 
-  if (be_verbose_global)
-    message (_f ("elapsed time: %.2f seconds", timer.read ()));
+  debug_output (_f ("elapsed time: %.2f seconds", timer.read ()));
 
   return ctx;
 }

@@ -515,8 +515,7 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
     }
 
   string file_name = ly_scm2string (ttf_file_name);
-  if (be_verbose_global)
-    progress_indication ("\n[" + file_name);
+  debug_output ("\n[" + file_name, false);
 
   FT_Face face;
 
@@ -538,8 +537,7 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
   SCM ps_name = scm_from_locale_string (ps_name_str0 ? ps_name_str0 : "");
   FT_Done_Face (face);
 
-  if (be_verbose_global)
-    progress_indication ("]");
+  debug_output ("]", false);
 
   return ps_name;
 }
@@ -567,8 +565,7 @@ LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa",
     }
 
   string file_name = ly_scm2string (ttf_file_name);
-  if (be_verbose_global)
-    progress_indication ("\n[" + file_name);
+  debug_output ("[" + file_name); // Debug message should start on a new line
 
   Memory_out_stream stream;
 
@@ -576,8 +573,7 @@ LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa",
   SCM asscm = scm_from_locale_stringn (stream.get_string (),
                                        stream.get_length ());
 
-  if (be_verbose_global)
-    progress_indication ("]");
+  debug_output ("]", false);
 
   return asscm;
 }

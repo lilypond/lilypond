@@ -650,21 +650,6 @@ NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
 	(set! (ly:grob-property grob symbol) val))))
 
 
-;;
-(define-public (smart-bar-check n)
-  "Make a bar check that checks for a specific bar number."
-  (let ((m (make-music 'ApplyContext)))
-    (define (checker tr)
-      (let* ((bn (ly:context-property tr 'currentBarNumber)))
-	(or (= bn n)
-	    (ly:error
-	     ;; FIXME: uncomprehensable message
-	     (_ "Bar check failed.  Expect to be at ~a, instead at ~a")
-	     n bn))))
-    (set! (ly:music-property m 'procedure) checker)
-    m))
-
-
 (define-public (skip->rest mus)
   "Replace @var{mus} by @code{RestEvent} of the same duration if it is a
 @code{SkipEvent}.  Useful for extracting parts from crowded scores."
@@ -692,12 +677,17 @@ NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; warn for bare chords at start.
 
-
 (define-public (ly:music-message music msg)
   (let ((ip (ly:music-property music 'origin)))
     (if (ly:input-location? ip)
-	(ly:input-message ip msg)
-	(ly:warning msg))))
+        (ly:input-message ip msg)
+        (ly:message msg))))
+
+(define-public (ly:music-warning music msg)
+  (let ((ip (ly:music-property music 'origin)))
+    (if (ly:input-location? ip)
+        (ly:input-warning ip msg)
+        (ly:warning msg))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -842,7 +832,7 @@ Syntax:
 	      (set! (ly:music-property music 'quoted-events) quoted-vector)
 	      (set! (ly:music-property music 'iterator-ctor)
 		    ly:quote-iterator::constructor))
-	    (ly:warning (_ "cannot find quoted music: `~S'") quoted-name)))
+	    (ly:music-warning music (ly:format (_ "cannot find quoted music: `~S'") quoted-name))))
     music))
 
 

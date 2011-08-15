@@ -545,15 +545,15 @@ foo = @{ c4 d e d @}
 楽譜の中にはさらに多くの情報を含むものもあります。
 
 @menu
-* タイトル、ヘッダそれにフッタを作成する::
-* カスタム ヘッダ、フッタそれにタイトル::
+* タイトル、ヘッダ、フッタを作成する::
+* カスタム ヘッダ、フッタ、タイトル::
 * ページ番号の参照::
 * 目次::
 @end menu
 
 
-@node タイトル、ヘッダそれにフッタを作成する
-@subsection タイトル、ヘッダそれにフッタを作成する
+@node タイトル、ヘッダ、フッタを作成する
+@subsection タイトル、ヘッダ、フッタを作成する
 @translationof Creating titles, headers, and footers
 
 @menu
@@ -815,8 +815,8 @@ book のメイン タイトル ブロックのテキスト フィールドはす
 タグラインを削除するには、@code{tagline}  に @code{##f} をセットします。
 
 
-@node カスタム ヘッダ、フッタそれにタイトル
-@subsection カスタム ヘッダ、フッタそれにタイトル
+@node カスタム ヘッダ、フッタ、タイトル
+@subsection カスタム ヘッダ、フッタ、タイトル
 @translationof Custom headers footers and titles
 
 @c TODO: somewhere put a link to header spacing info

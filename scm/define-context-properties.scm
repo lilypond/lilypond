@@ -322,7 +322,7 @@ containing @code{(@var{step} . @var{alter})} or @code{((@var{octave} .
 alterations, use symbols, e.g. @code{keySignature = #`((6 . ,FLAT))}.")
 
 
-     (lyricMelismaAlignment ,ly:dir? "Alignment to use for a melisma syllable.")
+     (lyricMelismaAlignment ,number? "Alignment to use for a melisma syllable.")
 
 
      (majorSevenSymbol ,markup? "How should the major 7th be formatted

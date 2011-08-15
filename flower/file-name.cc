@@ -97,9 +97,8 @@ string
 get_working_directory ()
 {
   char cwd[PATH_MAX];
-  getcwd (cwd, PATH_MAX);
-
-  return string (cwd);
+  // getcwd returns NULL upon a failure, contents of cwd would be undefined!
+  return string (getcwd (cwd, PATH_MAX));
 }
 
 /* Join components to full file_name. */

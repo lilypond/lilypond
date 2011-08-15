@@ -81,13 +81,8 @@ Includable_lexer::new_input (string name, Sources *sources)
   if (yy_current_buffer)
     state_stack_.push_back (yy_current_buffer);
 
-  if (be_verbose_global)
-    {
-      string spaces = "";
-      for (size_t i = 0; i < state_stack_.size (); i++)
-        spaces += " ";
-      progress_indication (string ("\n") + spaces + string ("[") + file->name_string ());
-    }
+  debug_output (string (state_stack_.size (), ' ') // indentation!
+                + string ("[") + file->name_string ());
 
   include_stack_.push_back (file);
 
@@ -109,13 +104,8 @@ Includable_lexer::new_input (string name, string data, Sources *sources)
   if (yy_current_buffer)
     state_stack_.push_back (yy_current_buffer);
 
-  if (be_verbose_global)
-    {
-      string spaces = "";
-      for (size_t i = 0; i < state_stack_.size (); i++)
-        spaces += " ";
-      progress_indication (string ("\n") + spaces + string ("[") + name);
-    }
+  debug_output (string (state_stack_.size (), ' ') // indentation!
+                + string ("[") + name);
   include_stack_.push_back (file);
 
   yy_switch_to_buffer (yy_create_buffer (file->get_istream (), YY_BUF_SIZE));
@@ -135,8 +125,7 @@ Includable_lexer::close_input ()
 {
   include_stack_.pop_back ();
   char_count_stack_.pop_back ();
-  if (be_verbose_global)
-    progress_indication ("]");
+  debug_output ("]", false);
   yy_delete_buffer (yy_current_buffer);
 #if HAVE_FLEXLEXER_YY_CURRENT_BUFFER
   yy_current_buffer = 0;

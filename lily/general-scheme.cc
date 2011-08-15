@@ -40,6 +40,9 @@ using namespace std;
 #include "version.hh"
 #include "warn.hh"
 
+/* Declaration of log function(s) */
+SCM ly_progress (SCM, SCM);
+
 LY_DEFINE (ly_start_environment, "ly:start-environment",
            0, 0, 0, (),
            "Return the environment (a list of strings) that was in"
@@ -96,82 +99,6 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
   return scm_from_locale_stringn (contents.c_str (), contents.length ());
 }
 
-LY_DEFINE (ly_error, "ly:error",
-           1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to issue the error @var{str}."
-           "  The error is formatted with @code{format} and @var{rest}.")
-{
-  LY_ASSERT_TYPE (scm_is_string, str, 1);
-  str = scm_simple_format (SCM_BOOL_F, str, rest);
-  error (ly_scm2string (str));
-  return SCM_UNSPECIFIED;
-}
-
-LY_DEFINE (ly_message, "ly:message",
-           1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to issue the message @var{str}."
-           "  The message is formatted with @code{format} and @var{rest}.")
-{
-  LY_ASSERT_TYPE (scm_is_string, str, 1);
-  str = scm_simple_format (SCM_BOOL_F, str, rest);
-  message (ly_scm2string (str));
-  return SCM_UNSPECIFIED;
-}
-
-LY_DEFINE (ly_progress, "ly:progress",
-           1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to print progress @var{str}."
-           "  The message is formatted with @code{format} and @var{rest}.")
-{
-  LY_ASSERT_TYPE (scm_is_string, str, 1);
-  str = scm_simple_format (SCM_BOOL_F, str, rest);
-  progress_indication (ly_scm2string (str));
-  return SCM_UNSPECIFIED;
-}
-
-LY_DEFINE (ly_programming_error, "ly:programming-error",
-           1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to issue the internal warning"
-           "  @var{str}.  The message is formatted with @code{format}"
-           " and @var{rest}.")
-{
-  LY_ASSERT_TYPE (scm_is_string, str, 1);
-  str = scm_simple_format (SCM_BOOL_F, str, rest);
-
-  if (get_program_option ("warning-as-error"))
-    error (ly_scm2string (str));
-  else
-    programming_error (ly_scm2string (str));
-
-  return SCM_UNSPECIFIED;
-}
-
-LY_DEFINE (ly_success, "ly:success",
-           1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to issue a success message @var{str}."
-           "  The message is formatted with @code{format} and @var{rest}.")
-{
-  LY_ASSERT_TYPE (scm_is_string, str, 1);
-  str = scm_simple_format (SCM_BOOL_F, str, rest);
-  successful (ly_scm2string (str));
-  return SCM_UNSPECIFIED;
-
-}
-LY_DEFINE (ly_warning, "ly:warning",
-           1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to issue the warning @var{str}."
-           "  The message is formatted with @code{format} and @var{rest}.")
-{
-  LY_ASSERT_TYPE (scm_is_string, str, 1);
-  str = scm_simple_format (SCM_BOOL_F, str, rest);
-
-  if (get_program_option ("warning-as-error"))
-    error (ly_scm2string (str));
-  else
-    warning (ly_scm2string (str));
-
-  return SCM_UNSPECIFIED;
-}
 
 LY_DEFINE (ly_dir_p, "ly:dir?",
            1, 0, 0, (SCM s),
@@ -452,13 +379,16 @@ LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
   LY_ASSERT_TYPE (scm_is_string, file_name, 1);
 
   string m = "w";
+  string f = ly_scm2string (file_name);
   FILE *stderrfile;
   if (mode != SCM_UNDEFINED && scm_string_p (mode))
     m = ly_scm2string (mode);
   /* dup2 and (fileno (current-error-port)) do not work with mingw'c
      gcc -mwindows.  */
   fflush (stderr);
-  stderrfile = freopen (ly_scm2string (file_name).c_str (), m.c_str (), stderr);
+  stderrfile = freopen (f.c_str (), m.c_str (), stderr);
+  if (!stderrfile)
+    error (_f ("failed redirecting stderr to `%s'", f.c_str ()));
   return SCM_UNSPECIFIED;
 }
 
@@ -714,15 +644,11 @@ LY_DEFINE (ly_spawn, "ly:spawn",
 
   char *standard_output = 0;
   char *standard_error = 0;
-  int exit_status = be_verbose_global
-                    ? ly_run_command (argv, &standard_output, &standard_error)
-                    : ly_run_command (argv, 0, 0);
+  // Always get the pointer to the stdout/stderr messages
+  int exit_status = ly_run_command (argv, &standard_output, &standard_error);
 
-  if (be_verbose_global)
-    {
-      fprintf (stderr, "\n%s", standard_output);
-      fprintf (stderr, "%s", standard_error);
-    }
+  // Print out stdout and stderr only in debug mode
+  debug_output (string ("\n") + standard_output + standard_error, true);
 
   for (int i = 0; i < n; i++)
     free (argv[i]);
