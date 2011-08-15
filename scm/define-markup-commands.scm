@@ -937,25 +937,59 @@ the use of @code{\\simple} is unnecessary.
 Like simple-markup, but use tie characters for @q{~} tilde symbols.
 
 @lilypond[verbatim,quote]
-\\markup {
-  \\tied-lyric #\"Lasciate~i monti\"
+\\markup \\column {
+  \\tied-lyric #\"Siam navi~all'onde~algenti Lasciate~in abbandono\"
+  \\tied-lyric #\"Impetuosi venti I nostri~affetti sono\"
+  \\tied-lyric #\"Ogni diletto~è scoglio Tutta la vita~è~un mar.\"
 }
 @end lilypond"
-  (if (string-contains str "~")
-      (let*
-	  ((half-space (/ word-space 2))
-	   (parts (string-split str #\~))
-	   (tie-str (markup #:hspace half-space
-	                    #:musicglyph "ties.lyric"
-	                    #:hspace half-space))
-	   (joined  (list-join parts tie-str))
-	   (join-stencil (interpret-markup layout props tie-str))
-	   )
+  (define (replace-ties tie str)
+    (if (string-contains str "~")
+        (let*
+          ((half-space (/ word-space 2))
+           (parts (string-split str #\~))
+           (tie-str (markup #:hspace half-space
+                            #:musicglyph tie
+                            #:hspace half-space))
+           (joined  (list-join parts tie-str)))
+          (make-concat-markup joined))
+        str))
 
-	(interpret-markup layout
-			  props
-			  (make-concat-markup joined)))
-      (interpret-markup layout props str)))
+  (define short-tie-regexp (make-regexp "~[^.]~"))
+  (define long-tie-regexp (make-regexp "\\w{3,}+~+\\w{3,}"))
+  (define (match-short str) (regexp-exec short-tie-regexp str))
+  (define (match-long str) (regexp-exec long-tie-regexp str))
+
+  (define (replace-short str mkp)
+    (let ((match (match-short str)))
+      (if (not match)
+          (make-concat-markup (list
+            mkp
+            (replace-ties "ties.lyric.medium" str)))
+          (let ((new-str (match:suffix match))
+                (new-mkp (make-concat-markup (list
+                          mkp
+                          (replace-ties "ties.lyric.medium"
+                                        (match:prefix match))
+                          (replace-ties "ties.lyric.short"
+                                        (match:substring match))))))
+              (replace-short new-str new-mkp)))))
+
+  (define (replace-long str mkp)
+    (let ((match (match-long str)))
+      (if (not match)
+          (replace-short str mkp)
+          (let ((new-str (match:suffix match))
+                (new-mkp (make-concat-markup (list
+                          (replace-short (match:prefix match)
+                                         mkp)
+                          (replace-ties "ties.lyric.long"
+                                        (match:substring match))))))
+              (replace-long new-str new-mkp)))))
+
+  (interpret-markup layout
+                    props
+                    (replace-long str (markup))))
 
 (define-public empty-markup
   (make-simple-markup ""))
