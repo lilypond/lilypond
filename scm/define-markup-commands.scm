@@ -937,25 +937,45 @@ the use of @code{\\simple} is unnecessary.
 Like simple-markup, but use tie characters for @q{~} tilde symbols.
 
 @lilypond[verbatim,quote]
-\\markup {
-  \\tied-lyric #\"Lasciate~i monti\"
+\\markup \\column {
+  \\tied-lyric #\"Siam navi~all'onde~algenti Lasciate~in abbandono\"
+  \\tied-lyric #\"Impetuosi venti I nostri~affetti sono\"
+  \\tied-lyric #\"Ogni diletto~e scoglio Tutta la vita~e~un mar.\"
 }
 @end lilypond"
-  (if (string-contains str "~")
-      (let*
-	  ((half-space (/ word-space 2))
-	   (parts (string-split str #\~))
-	   (tie-str (markup #:hspace half-space
-	                    #:musicglyph "ties.lyric"
-	                    #:hspace half-space))
-	   (joined  (list-join parts tie-str))
-	   (join-stencil (interpret-markup layout props tie-str))
-	   )
+  (define (replace-ties tie str)
+    (if (string-contains str "~")
+        (let*
+          ((half-space (/ word-space 2))
+           (parts (string-split str #\~))
+           (tie-str (markup #:hspace half-space
+                            #:musicglyph tie
+                            #:hspace half-space))
+           (joined  (list-join parts tie-str)))
+          (make-concat-markup joined))
+        str))
 
-	(interpret-markup layout
-			  props
-			  (make-concat-markup joined)))
-      (interpret-markup layout props str)))
+  (define short-tie-regexp (make-regexp "~[^.]~"))
+  (define (match-short str) (regexp-exec short-tie-regexp str))
+
+  (define (replace-short str mkp)
+    (let ((match (match-short str)))
+      (if (not match)
+          (make-concat-markup (list
+            mkp
+            (replace-ties "ties.lyric.default" str)))
+          (let ((new-str (match:suffix match))
+                (new-mkp (make-concat-markup (list
+                          mkp
+                          (replace-ties "ties.lyric.default"
+                                        (match:prefix match))
+                          (replace-ties "ties.lyric.short"
+                                        (match:substring match))))))
+              (replace-short new-str new-mkp)))))
+
+  (interpret-markup layout
+                    props
+                    (replace-short str (markup))))
 
 (define-public empty-markup
   (make-simple-markup ""))
