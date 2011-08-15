@@ -754,7 +754,8 @@ only prints out the message, but no location.
 @end itemize
 
 There are also Scheme functions to access all of these logging functions from
-scheme.
+scheme. In addition, the Grob class contains some convenience wrappers for
+even easier access to these functions.
 
 The message and debug functions in @code{warn.hh} also have an optional 
 argument @code{newline}, which specifies whether the message should always
@@ -797,6 +798,32 @@ so it is basically identical to PROGRESS.
 @item @tab @tab
 
 @headitem
+@tab C++ from a Grob
+@tab Scheme, music expression
+
+@item ERROR
+@tab @code{Grob::programming_error (msg)}
+@tab -
+
+@item WARN
+@tab @code{Grob::warning (msg)}
+@tab @code{(ly:music-warning music msg)}
+
+@item BASIC
+@tab -
+@tab -
+
+@item PROGRESS
+@tab -
+@tab @code{(ly:music-message music msg)}
+
+@item DEBUG
+@tab -
+@tab -
+
+@item @tab @tab
+
+@headitem
 @tab Scheme, no location
 @tab Scheme, input location
 
@@ -820,27 +847,6 @@ so it is basically identical to PROGRESS.
 @tab @code{(ly:debug msg args)}
 @tab -
 
-
-@item @tab @tab
-
-@headitem
-@tab Scheme, music expression
-@tab 
-
-@item ERROR
-@tab -
-
-@item WARN
-@tab @code{(ly:music-warning music msg)}
-
-@item BASIC
-@tab -
-
-@item PROGRESS
-@tab @code{(ly:music-message music msg)}
-
-@item DEBUG
-@tab -
 
 @end multitable
 
