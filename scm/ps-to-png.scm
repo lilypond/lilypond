@@ -84,7 +84,7 @@
       (my-system
        be-verbose #t
        (format #f
-	       "pngtopnm ~a | pnmscale -reduce ~a 2>/dev/null | pnmtopng -compression 9 2>/dev/null > ~a"
+	       "pngtopnm \"~a\" | pnmscale -reduce ~a 2>/dev/null | pnmtopng -compression 9 2>/dev/null > \"~a\""
 	       old factor file))
       (delete-file old)))
 
