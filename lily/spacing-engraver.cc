@@ -219,7 +219,6 @@ Spacing_engraver::stop_translation_timestep ()
       Stream_event *ev = playing_durations_[i].info_.event_cause ();
       if (ev)
         {
-          Moment now = now_mom ();
           Moment m = get_event_length (ev);
           shortest_playing = min (shortest_playing, m);
         }

@@ -379,13 +379,16 @@ LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
   LY_ASSERT_TYPE (scm_is_string, file_name, 1);
 
   string m = "w";
+  string f = ly_scm2string (file_name);
   FILE *stderrfile;
   if (mode != SCM_UNDEFINED && scm_string_p (mode))
     m = ly_scm2string (mode);
   /* dup2 and (fileno (current-error-port)) do not work with mingw'c
      gcc -mwindows.  */
   fflush (stderr);
-  stderrfile = freopen (ly_scm2string (file_name).c_str (), m.c_str (), stderr);
+  stderrfile = freopen (f.c_str (), m.c_str (), stderr);
+  if (!stderrfile)
+    error (_f ("failed redirecting stderr to `%s'", f.c_str ()));
   return SCM_UNSPECIFIED;
 }
 

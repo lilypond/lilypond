@@ -167,9 +167,6 @@ Dynamic_engraver::process_music ()
       Axis_group_interface::add_element (line_spanner_, script_);
     }
 
-  Stream_event *stop_ev = accepted_spanevents_drul_ [STOP]
-                          ? accepted_spanevents_drul_[STOP] : script_ev_;
-
   if (accepted_spanevents_drul_[STOP] || script_ev_)
     {
       /*
@@ -193,10 +190,7 @@ Dynamic_engraver::process_music ()
           current_cresc_ev_ = 0;
         }
       else if (accepted_spanevents_drul_[STOP])
-        {
-          accepted_spanevents_drul_[STOP]->origin ()->warning (_ ("cannot find start of (de)crescendo"));
-          stop_ev = 0;
-        }
+        accepted_spanevents_drul_[STOP]->origin ()->warning (_ ("cannot find start of (de)crescendo"));
     }
 
   if (accepted_spanevents_drul_[START])
