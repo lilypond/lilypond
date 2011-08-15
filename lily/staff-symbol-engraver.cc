@@ -84,7 +84,7 @@ Staff_symbol_engraver::process_music ()
       finished_span_ = span_;
       span_ = 0;
       if (first_start_)
-	first_start_ = false;
+        first_start_ = false;
     }
 
   if (span_events_[START]
@@ -99,7 +99,7 @@ Staff_symbol_engraver::start_spanner ()
     {
       span_ = make_spanner ("StaffSymbol", SCM_EOL);
       span_->set_bound (LEFT,
-			unsmob_grob (get_property ("currentCommandColumn")));
+                        unsmob_grob (get_property ("currentCommandColumn")));
     }
 }
 
@@ -113,9 +113,9 @@ Staff_symbol_engraver::stop_spanner ()
     finished_span_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
 
   announce_end_grob (finished_span_,
-		     span_events_[STOP]
-		     ? span_events_[STOP]->self_scm ()
-		     : SCM_EOL);
+                     span_events_[STOP]
+                     ? span_events_[STOP]->self_scm ()
+                     : SCM_EOL);
 
   finished_span_ = 0;
 }
@@ -155,15 +155,15 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 ADD_ACKNOWLEDGER (Staff_symbol_engraver, grob);
 
 ADD_TRANSLATOR (Staff_symbol_engraver,
-		/* doc */
-		"Create the constellation of five (default) staff lines.",
+                /* doc */
+                "Create the constellation of five (default) staff lines.",
 
-		/* create */
-		"StaffSymbol ",
+                /* create */
+                "StaffSymbol ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

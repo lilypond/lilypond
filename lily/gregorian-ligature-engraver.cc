@@ -54,8 +54,8 @@ Gregorian_ligature_engraver::listen_pes_or_flexa (Stream_event *ev)
 }
 
 void fix_prefix (char const *name, int mask,
-		 int *current_set, int min_set, int max_set,
-		 Grob *primitive)
+                 int *current_set, int min_set, int max_set,
+                 Grob *primitive)
 {
   bool current = *current_set & mask;
   bool min = min_set & mask;
@@ -102,99 +102,99 @@ void check_and_fix_all_prefixes (vector<Grob_info> primitives)
 
       /* compute head prefix set by inspecting primitive grob properties */
       int prefix_set
-	= (VIRGA *to_boolean (primitive->get_property ("virga")))
-	| (STROPHA *to_boolean (primitive->get_property ("stropha")))
-	| (INCLINATUM *to_boolean (primitive->get_property ("inclinatum")))
-	| (AUCTUM *to_boolean (primitive->get_property ("auctum")))
-	| (DESCENDENS *to_boolean (primitive->get_property ("descendens")))
-	| (ASCENDENS *to_boolean (primitive->get_property ("ascendens")))
-	| (ORISCUS *to_boolean (primitive->get_property ("oriscus")))
-	| (QUILISMA *to_boolean (primitive->get_property ("quilisma")))
-	| (DEMINUTUM *to_boolean (primitive->get_property ("deminutum")))
-	| (CAVUM *to_boolean (primitive->get_property ("cavum")))
-	| (LINEA *to_boolean (primitive->get_property ("linea")))
-	| (PES_OR_FLEXA *to_boolean (primitive->get_property ("pes-or-flexa")));
+        = (VIRGA * to_boolean (primitive->get_property ("virga")))
+          | (STROPHA * to_boolean (primitive->get_property ("stropha")))
+          | (INCLINATUM * to_boolean (primitive->get_property ("inclinatum")))
+          | (AUCTUM * to_boolean (primitive->get_property ("auctum")))
+          | (DESCENDENS * to_boolean (primitive->get_property ("descendens")))
+          | (ASCENDENS * to_boolean (primitive->get_property ("ascendens")))
+          | (ORISCUS * to_boolean (primitive->get_property ("oriscus")))
+          | (QUILISMA * to_boolean (primitive->get_property ("quilisma")))
+          | (DEMINUTUM * to_boolean (primitive->get_property ("deminutum")))
+          | (CAVUM * to_boolean (primitive->get_property ("cavum")))
+          | (LINEA * to_boolean (primitive->get_property ("linea")))
+          | (PES_OR_FLEXA * to_boolean (primitive->get_property ("pes-or-flexa")));
 
       /* check: ascendens and descendens exclude each other; same with
-	 auctum and deminutum */
+         auctum and deminutum */
       if (prefix_set & DESCENDENS)
-	{
-	  fix_prefix_set (&prefix_set,
-			  prefix_set & ~ASCENDENS,
-			  prefix_set & ~ASCENDENS,
-			  primitive);
-	}
+        {
+          fix_prefix_set (&prefix_set,
+                          prefix_set & ~ASCENDENS,
+                          prefix_set & ~ASCENDENS,
+                          primitive);
+        }
       if (prefix_set & AUCTUM)
-	{
-	  fix_prefix_set (&prefix_set,
-			  prefix_set & ~DEMINUTUM,
-			  prefix_set & ~DEMINUTUM,
-			  primitive);
-	}
+        {
+          fix_prefix_set (&prefix_set,
+                          prefix_set & ~DEMINUTUM,
+                          prefix_set & ~DEMINUTUM,
+                          primitive);
+        }
 
       /* check: virga, quilisma and oriscus cannot be combined with any
-	 other prefix, but may be part of a pes or flexa */
+         other prefix, but may be part of a pes or flexa */
       if (prefix_set & VIRGA)
-	{
-	  fix_prefix_set (&prefix_set,
-			  VIRGA,
-			  VIRGA | PES_OR_FLEXA,
-			  primitive);
-	}
+        {
+          fix_prefix_set (&prefix_set,
+                          VIRGA,
+                          VIRGA | PES_OR_FLEXA,
+                          primitive);
+        }
       if (prefix_set & QUILISMA)
-	{
-	  fix_prefix_set (&prefix_set,
-			  QUILISMA,
-			  QUILISMA | PES_OR_FLEXA,
-			  primitive);
-	}
+        {
+          fix_prefix_set (&prefix_set,
+                          QUILISMA,
+                          QUILISMA | PES_OR_FLEXA,
+                          primitive);
+        }
       if (prefix_set & ORISCUS)
-	{
-	  fix_prefix_set (&prefix_set,
-			  ORISCUS,
-			  ORISCUS | PES_OR_FLEXA,
-			  primitive);
-	}
+        {
+          fix_prefix_set (&prefix_set,
+                          ORISCUS,
+                          ORISCUS | PES_OR_FLEXA,
+                          primitive);
+        }
 
       /* check: auctum is the only valid optional prefix for stropha */
       if (prefix_set & STROPHA)
-	{
-	  fix_prefix_set (&prefix_set,
-			  STROPHA,
-			  STROPHA | AUCTUM,
-			  primitive);
-	}
+        {
+          fix_prefix_set (&prefix_set,
+                          STROPHA,
+                          STROPHA | AUCTUM,
+                          primitive);
+        }
 
       /* check: inclinatum may be prefixed with auctum or deminutum only */
       if (prefix_set & INCLINATUM)
-	{
-	  fix_prefix_set (&prefix_set,
-			  INCLINATUM,
-			  INCLINATUM | AUCTUM | DEMINUTUM,
-			  primitive);
-	}
+        {
+          fix_prefix_set (&prefix_set,
+                          INCLINATUM,
+                          INCLINATUM | AUCTUM | DEMINUTUM,
+                          primitive);
+        }
       /* check: semivocalis (deminutum but not inclinatum) must occur in
-	 combination with and only with pes or flexa */
+         combination with and only with pes or flexa */
       else if (prefix_set & DEMINUTUM)
-	{
-	  fix_prefix_set (&prefix_set,
-			  DEMINUTUM | PES_OR_FLEXA,
-			  DEMINUTUM | PES_OR_FLEXA,
-			  primitive);
-	}
+        {
+          fix_prefix_set (&prefix_set,
+                          DEMINUTUM | PES_OR_FLEXA,
+                          DEMINUTUM | PES_OR_FLEXA,
+                          primitive);
+        }
 
       /* check: cavum and linea (either or both) may be applied only
-	 upon core punctum */
+         upon core punctum */
       if (prefix_set & (CAVUM | LINEA))
-	{
-	  fix_prefix_set (&prefix_set,
-			  0,
-			  CAVUM | LINEA,
-			  primitive);
-	}
+        {
+          fix_prefix_set (&prefix_set,
+                          0,
+                          CAVUM | LINEA,
+                          primitive);
+        }
 
       /* all other combinations should be valid (unless I made a
-	 mistake) */
+         mistake) */
 
       primitive->set_property ("prefix-set", scm_from_int (prefix_set));
     }
@@ -219,28 +219,28 @@ provide_context_info (vector<Grob_info> primitives)
       int prefix_set = scm_to_int (primitive->get_property ("prefix-set"));
 
       if (prefix_set & PES_OR_FLEXA)
-	{
-	  if (!i) // ligature may not start with 2nd head of pes or flexa
-	    primitive->warning (_ ("cannot apply `\\~' on first head of ligature"));
-	  else if (pitch > prev_pitch) // pes
-	    {
-	      prev_context_info |= PES_LOWER;
-	      context_info |= PES_UPPER;
-	    }
-	  else if (pitch < prev_pitch) // flexa
-	    {
-	      prev_context_info |= FLEXA_LEFT;
-	      context_info |= FLEXA_RIGHT;
-	    }
-	  else // (pitch == prev_pitch)
-	    primitive->warning (_ ("cannot apply `\\~' on heads with identical pitch"));
-	}
+        {
+          if (!i) // ligature may not start with 2nd head of pes or flexa
+            primitive->warning (_ ("cannot apply `\\~' on first head of ligature"));
+          else if (pitch > prev_pitch) // pes
+            {
+              prev_context_info |= PES_LOWER;
+              context_info |= PES_UPPER;
+            }
+          else if (pitch < prev_pitch) // flexa
+            {
+              prev_context_info |= FLEXA_LEFT;
+              context_info |= FLEXA_RIGHT;
+            }
+          else // (pitch == prev_pitch)
+            primitive->warning (_ ("cannot apply `\\~' on heads with identical pitch"));
+        }
       if (prev_prefix_set & DEMINUTUM)
-	context_info |= AFTER_DEMINUTUM;
+        context_info |= AFTER_DEMINUTUM;
 
       if (prev_primitive)
-	prev_primitive->set_property ("context-info",
-				      scm_from_int (prev_context_info));
+        prev_primitive->set_property ("context-info",
+                                      scm_from_int (prev_context_info));
       prev_primitive = primitive;
       prev_prefix_set = prefix_set;
       prev_context_info = context_info;
@@ -248,12 +248,12 @@ provide_context_info (vector<Grob_info> primitives)
     }
   if (prev_primitive)
     prev_primitive->set_property ("context-info",
-				  scm_from_int (prev_context_info));
+                                  scm_from_int (prev_context_info));
 }
 
 void
 Gregorian_ligature_engraver::build_ligature (Spanner *ligature,
-					     vector<Grob_info> primitives)
+                                             vector<Grob_info> primitives)
 {
   // apply style-independent checking and transformation
   check_and_fix_all_prefixes (primitives);

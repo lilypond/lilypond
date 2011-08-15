@@ -29,9 +29,9 @@ using namespace std;
 char *strnlwr (char *start, int n);
 char *strnupr (char *start, int n);
 
-#if ! HAVE_MEMMEM		/* GNU extension. */
+#if ! HAVE_MEMMEM               /* GNU extension. */
 void *memmem (void const *haystack, int haystack_len,
-	      void const *needle, int needle_len);
+              void const *needle, int needle_len);
 #endif /* HAVE_MEMMEM */
 
 #if ! HAVE_MEMRCHR
@@ -45,18 +45,18 @@ unsigned char *memrev (unsigned char *byte, int length_i);
 double my_round (double);
 
 /* namespace std { */
-  
-#if ! HAVE_SNPRINTF		/* GNU extension. */
+
+#if ! HAVE_SNPRINTF             /* GNU extension. */
 int snprintf (char *str, size_t n, char const *format, ...);
- __attribute__ ((format (printf, 3, 4)));
+__attribute__ ((format (printf, 3, 4)));
 #endif
 
-#if ! HAVE_VSNPRINTF	 	/* GNU extension. */
+#if ! HAVE_VSNPRINTF            /* GNU extension. */
 int vsnprintf (char *str, size_t, char const *format, va_list args);
 #endif
 
 #ifndef isinf
-#if ! HAVE_ISINF		/* BSD extension. */
+#if ! HAVE_ISINF                /* BSD extension. */
 int isinf (double x);
 #endif
 #endif

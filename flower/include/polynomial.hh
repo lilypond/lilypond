@@ -28,13 +28,13 @@
 #include "arithmetic-operator.hh"
 #include "real.hh"
 
-/// structure for a polynomial in one var. 
+/// structure for a polynomial in one var.
 struct Polynomial
 {
   /// degree of polynomial
   int degree ()const;
 
-  /// coefficients 
+  /// coefficients
   vector<Real> coefs_;
 
   // leading coef
@@ -62,7 +62,7 @@ struct Polynomial
   void operator *= (Polynomial const &p2);
   void operator -= (Polynomial const &p2);
   Polynomial (Real a, Real b = 0.0);
-  Polynomial (){}
+  Polynomial () {}
   void set_negate (const Polynomial &src);
 
   /// take the derivative

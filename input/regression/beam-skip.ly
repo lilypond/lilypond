@@ -5,18 +5,4 @@
 
 \version "2.15.3"
 
-\layout { ragged-right = ##t }
-
-music = {
-  \clef bass r2 r4 r8 f,
-  r2 r4 g,8 r
-  r4 f, 8 r8 r2
-}
-
-beams = {
-  \repeat "unfold" 24 { s8[ s ] s[ s]}
-}
-
-\new Staff {
-  \context Voice << { \beams } { \music}>>
-}
+\new Voice << { c'4 c'8 c' } { s8[ s] s[ s] } >>

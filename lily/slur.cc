@@ -28,7 +28,7 @@
 #include "item.hh"
 #include "pointer-group-interface.hh"
 #include "lookup.hh"
-#include "main.hh"		// DEBUG_SLUR_SCORING
+#include "main.hh"              // DEBUG_SLUR_SCORING
 #include "note-column.hh"
 #include "output-def.hh"
 #include "spanner.hh"
@@ -40,8 +40,6 @@
 #include "slur-scoring.hh"
 #include "separation-item.hh"
 #include "international.hh"
-
-
 
 MAKE_SCHEME_CALLBACK (Slur, calc_direction, 1)
 SCM
@@ -60,10 +58,10 @@ Slur::calc_direction (SCM smob)
   for (vsize i = 0; i < encompasses.size (); i++)
     {
       if (Note_column::dir (encompasses[i]) < 0)
-	{
-	  d = UP;
-	  break;
-	}
+        {
+          d = UP;
+          break;
+        }
     }
   return scm_from_int (d);
 }
@@ -90,7 +88,7 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
     {
       Interval d = encompasses[i]->pure_height (parent, start, end);
       if (!d.is_empty ())
-	ret.unite (d);
+        ret.unite (d);
     }
 
   // The +0.5 comes from the fact that we try to place a slur
@@ -109,7 +107,7 @@ Slur::height (SCM smob)
   // FIXME uncached
   Stencil *m = me->get_stencil ();
   return m ? ly_interval2scm (m->extent (Y_AXIS))
-    : ly_interval2scm (Interval ());
+         : ly_interval2scm (Interval ());
 }
 
 MAKE_SCHEME_CALLBACK (Slur, print, 1);
@@ -126,9 +124,9 @@ Slur::print (SCM smob)
 
   Real staff_thick = Staff_symbol_referencer::line_thickness (me);
   Real base_thick = staff_thick
-    * robust_scm2double (me->get_property ("thickness"), 1);
+                    * robust_scm2double (me->get_property ("thickness"), 1);
   Real line_thick = staff_thick
-    * robust_scm2double (me->get_property ("line-thickness"), 1);
+                    * robust_scm2double (me->get_property ("line-thickness"), 1);
 
   Bezier one = get_curve (me);
   Stencil a;
@@ -136,7 +134,7 @@ Slur::print (SCM smob)
   SCM dash_definition = me->get_property ("dash-definition");
   a = Lookup::slur (one,
                     get_grob_direction (me) * base_thick,
-		    line_thick,
+                    line_thick,
                     dash_definition);
 
 #if DEBUG_SLUR_SCORING
@@ -147,19 +145,18 @@ Slur::print (SCM smob)
       SCM properties = Font_interface::text_font_alist_chain (me);
 
       if (!scm_is_number (me->get_property ("font-size")))
-	properties = scm_cons (scm_acons (ly_symbol2scm ("font-size"), scm_from_int (-6), SCM_EOL),
-			     properties);
-      
+        properties = scm_cons (scm_acons (ly_symbol2scm ("font-size"), scm_from_int (-6), SCM_EOL),
+                               properties);
+
       Stencil tm = *unsmob_stencil (Text_interface::interpret_markup
-				    (me->layout ()->self_scm (), properties,
-				     annotation));
+                                    (me->layout ()->self_scm (), properties,
+                                     annotation));
       a.add_at_edge (Y_AXIS, get_grob_direction (me), tm, 1.0);
     }
 #endif
 
   return a.smobbed_copy ();
 }
-
 
 /*
   it would be better to do this at engraver level, but that is
@@ -175,26 +172,26 @@ Slur::replace_breakable_encompass_objects (Grob *me)
   for (vsize i = 0; i < extra_objects.size (); i++)
     {
       Grob *g = extra_objects[i];
-      
+
       if (Separation_item::has_interface (g))
-	{
-	  extract_grob_set (g, "elements", breakables);
-	  for (vsize j = 0; j < breakables.size (); j++)
-	    /* if we encompass a separation-item that spans multiple staves,
-	       we filter out the grobs that don't belong to our staff */
-	    if (me->common_refpoint (breakables[j], Y_AXIS) == me->get_parent (Y_AXIS)
-		&& breakables[j]->get_property ("avoid-slur") == ly_symbol2scm ("inside"))
-	      new_encompasses.push_back (breakables[j]);
-	}
+        {
+          extract_grob_set (g, "elements", breakables);
+          for (vsize j = 0; j < breakables.size (); j++)
+            /* if we encompass a separation-item that spans multiple staves,
+               we filter out the grobs that don't belong to our staff */
+            if (me->common_refpoint (breakables[j], Y_AXIS) == me->get_parent (Y_AXIS)
+                && breakables[j]->get_property ("avoid-slur") == ly_symbol2scm ("inside"))
+              new_encompasses.push_back (breakables[j]);
+        }
       else
-	new_encompasses.push_back (g);
+        new_encompasses.push_back (g);
     }
 
   SCM encompass_scm = me->get_object ("encompass-objects");
   if (Grob_array::unsmob (encompass_scm))
     {
-      vector<Grob *> &arr =
-	unsmob_grob_array (encompass_scm)->array_reference ();
+      vector<Grob *> &arr
+        = unsmob_grob_array (encompass_scm)->array_reference ();
       arr = new_encompasses;
     }
 }
@@ -249,7 +246,7 @@ SCM
 Slur::outside_slur_callback (SCM grob, SCM offset_scm)
 {
   Grob *script = unsmob_grob (grob);
-  Grob *slur = unsmob_grob (script->get_object ("slur")); 
+  Grob *slur = unsmob_grob (script->get_object ("slur"));
 
   if (!slur)
     return offset_scm;
@@ -258,7 +255,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   if (avoid != ly_symbol2scm ("outside")
       && avoid != ly_symbol2scm ("around"))
     return offset_scm;
-  
+
   Direction dir = get_grob_direction (script);
   if (dir == CENTER)
     return offset_scm;
@@ -269,17 +266,17 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   Bezier curve = Slur::get_curve (slur);
 
   curve.translate (Offset (slur->relative_coordinate (cx, X_AXIS),
-			   slur->relative_coordinate (cy, Y_AXIS)));
+                           slur->relative_coordinate (cy, Y_AXIS)));
 
   Interval yext = robust_relative_extent (script, cy, Y_AXIS);
   Interval xext = robust_relative_extent (script, cx, X_AXIS);
 
   Real offset = robust_scm2double (offset_scm, 0);
   yext.translate (offset);
-  
+
   /* FIXME: slur property, script property?  */
   Real slur_padding = robust_scm2double (script->get_property ("slur-padding"),
-					 0.0);
+                                         0.0);
   yext.widen (slur_padding);
 
   const Real EPS = 1e-3;
@@ -287,36 +284,36 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   bool consider[] = {false, false, false};
   Real ys[] = {0, 0, 0};
   bool do_shift = false;
-  
+
   for (int d = LEFT, k = 0; d <= RIGHT; d++, k++)
     {
       Real x = xext.linear_combination ((Direction) d);
       consider[k] = bezext.contains (x);
 
       if (consider[k])
-	{
-	  ys[k]
-	    = (fabs (bezext[LEFT] - x) < EPS)
-	    ? curve.control_[0][Y_AXIS]
-	    : ((fabs (bezext[RIGHT] - x) < EPS)
-	       ? curve.control_[3][Y_AXIS]
-	       : curve.get_other_coordinate (X_AXIS, x));
+        {
+          ys[k]
+            = (fabs (bezext[LEFT] - x) < EPS)
+              ? curve.control_[0][Y_AXIS]
+              : ((fabs (bezext[RIGHT] - x) < EPS)
+                 ? curve.control_[3][Y_AXIS]
+                 : curve.get_other_coordinate (X_AXIS, x));
 
-	  /* Request shift if slur is contained script's Y, or if
-	     script is inside slur and avoid == outside.  */
-	  if (yext.contains (ys[k])
-	      || (dir * ys[k] > dir * yext[-dir] && avoid == ly_symbol2scm ("outside")))
-	    do_shift = true;
-	}
+          /* Request shift if slur is contained script's Y, or if
+             script is inside slur and avoid == outside.  */
+          if (yext.contains (ys[k])
+              || (dir * ys[k] > dir * yext[-dir] && avoid == ly_symbol2scm ("outside")))
+            do_shift = true;
+        }
     }
 
   Real avoidance_offset = 0.0;
   if (do_shift)
     {
       for (int d = LEFT, k = 0; d <= RIGHT; d++, k++)
-	if (consider[k])
-	  avoidance_offset = dir * (max (dir * avoidance_offset,
-					 dir * (ys[k] - yext[-dir] + dir * slur_padding)));
+        if (consider[k])
+          avoidance_offset = dir * (max (dir * avoidance_offset,
+                                         dir * (ys[k] - yext[-dir] + dir * slur_padding)));
     }
   return scm_from_double (offset + avoidance_offset);
 }
@@ -326,41 +323,41 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
  */
 void
 Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
-					  vector<Grob*> &slurs,
-					  vector<Grob*> &end_slurs)
+                                          vector<Grob *> &slurs,
+                                          vector<Grob *> &end_slurs)
 {
   if (slurs.empty () && end_slurs.empty ())
     return;
-  
+
   Grob *e = info.grob ();
   SCM avoid = e->get_property ("avoid-slur");
   if (Tie::has_interface (e)
       || avoid == ly_symbol2scm ("inside"))
     {
       for (vsize i = slurs.size (); i--;)
-	add_extra_encompass (slurs[i], e);
+        add_extra_encompass (slurs[i], e);
       for (vsize i = end_slurs.size (); i--;)
-	add_extra_encompass (end_slurs[i], e);
+        add_extra_encompass (end_slurs[i], e);
     }
   else if (avoid == ly_symbol2scm ("outside")
-	   || avoid == ly_symbol2scm ("around"))
+           || avoid == ly_symbol2scm ("around"))
     {
       Grob *slur;
       if (end_slurs.size () && !slurs.size ())
-	slur = end_slurs[0];
+        slur = end_slurs[0];
       else
-	slur = slurs[0];
+        slur = slurs[0];
 
       if (slur)
-	{
-	  chain_offset_callback (e, outside_slur_callback_proc, Y_AXIS);
-	  chain_callback (e, outside_slur_cross_staff_proc, ly_symbol2scm("cross-staff"));
-	  e->set_object ("slur", slur->self_scm ());
-	}
+        {
+          chain_offset_callback (e, outside_slur_callback_proc, Y_AXIS);
+          chain_callback (e, outside_slur_cross_staff_proc, ly_symbol2scm ("cross-staff"));
+          e->set_object ("slur", slur->self_scm ());
+        }
     }
   else if (avoid != ly_symbol2scm ("ignore"))
     e->warning (_f ("Ignoring grob for slur: %s. avoid-slur not set?",
-		    e->name().c_str ()));
+                    e->name ().c_str ()));
 }
 
 /*
@@ -396,13 +393,13 @@ Slur::calc_cross_staff (SCM smob)
   for (vsize i = 0; i < cols.size (); i++)
     {
       if (Grob *s = Note_column::get_stem (cols[i]))
-	if (to_boolean (s->get_property ("cross-staff")))
-	  return SCM_BOOL_T;
+        if (to_boolean (s->get_property ("cross-staff")))
+          return SCM_BOOL_T;
     }
 
   /* the separation items are dealt with in replace_breakable_encompass_objects
      so we can ignore them here */
-  vector<Grob*> non_sep_extras;
+  vector<Grob *> non_sep_extras;
   for (vsize i = 0; i < extras.size (); i++)
     if (!Separation_item::has_interface (extras[i]))
       non_sep_extras.push_back (extras[i]);
@@ -414,90 +411,90 @@ Slur::calc_cross_staff (SCM smob)
 }
 
 ADD_INTERFACE (Slur,
-	       "A slur."
-	       "\n"
-	       "The following properties may be set in the @code{details}"
-	       " list.\n"
-	       "\n"
-	       "@table @code\n"
-	       "@item region-size\n"
-	       "Size of region (in staff spaces) for determining"
-	       " potential endpoints in the Y direction.\n"
-	       "@item head-encompass-penalty\n"
-	       "Demerit to apply when note heads collide with a slur.\n"
-	       "@item stem-encompass-penalty\n"
-	       "Demerit to apply when stems collide with a slur.\n"
-	       "@item closeness-factor\n"
-	       "Additional demerit used when scoring encompasses.\n"
-	       "@item edge-attraction-factor\n"
-	       "Factor used to calculate the demerit for distances"
-	       " between slur endpoints and their corresponding base"
-	       " attachments.\n"
-	       "@item same-slope-penalty\n"
-	       "Demerit for slurs with attachment points that are"
-	       " horizontally aligned.\n"
-	       "@item steeper-slope-factor\n"
-	       "Factor used to calculate demerit only if this slur is"
-	       " not broken.\n"
-	       "@item non-horizontal-penalty\n"
-	       "Demerit for slurs with attachment points that are not"
-	       " horizontally aligned.\n"
-	       "@item max-slope\n"
-	       "The maximum slope allowed for this slur.\n"
-	       "@item max-slope-factor\n"
-	       "Factor that calculates demerit based on the max slope.\n"
-	       "@item free-head-distance\n"
-	       "The amount of vertical free space that must exist"
-	       " between a slur and note heads.\n"
-	       "@item absolute-closeness-measure\n"
-	       "Factor to calculate demerit for variance between a note"
-	       " head and slur.\n"
-	       "@item extra-object-collision-penalty\n"
-	       "Factor to calculate demerit for extra objects that the"
-	       " slur encompasses, including accidentals, fingerings, and"
-	       " tuplet numbers.\n"
-	       "@item accidental-collision\n"
-	       "Factor to calculate demerit for @code{Accidental} objects"
-	       " that the slur encompasses.  This property value replaces"
-	       " the value of @code{extra-object-collision-penalty}.\n"
-	       "@item extra-encompass-free-distance\n"
-	       "The amount of vertical free space that must exist"
-	       " between a slur and various objects it encompasses,"
-	       " including accidentals, fingerings, and tuplet numbers.\n"
-	       "@item extra-encompass-collision-distance\n"
-	       "This detail is currently unused.\n"
-	       "@item head-slur-distance-factor\n"
-	       "Factor to calculate demerit for variance between a note"
-	       " head and slur.\n"
-	       "@item head-slur-distance-max-ratio\n"
-	       "The maximum value for the ratio of distance between a"
-	       " note head and slur.\n"
-	       "@item free-slur-distance\n"
-	       "The amount of vertical free space that must exist"
-	       " between adjacent slurs.  This subproperty only works"
-	       " for @code{PhrasingSlur}.\n"
-	       "@item edge-slope-exponent\n"
-	       "Factor used to calculate the demerit for the slope of"
-	       " a slur near its endpoints; a larger value yields a"
-	       " larger demerit.\n"
-	       "@end table\n",
-	       
-	       /* properties */
-	       "annotation "
-	       "avoid-slur " 	/* UGH. */
-	       "control-points "
+               "A slur."
+               "\n"
+               "The following properties may be set in the @code{details}"
+               " list.\n"
+               "\n"
+               "@table @code\n"
+               "@item region-size\n"
+               "Size of region (in staff spaces) for determining"
+               " potential endpoints in the Y direction.\n"
+               "@item head-encompass-penalty\n"
+               "Demerit to apply when note heads collide with a slur.\n"
+               "@item stem-encompass-penalty\n"
+               "Demerit to apply when stems collide with a slur.\n"
+               "@item closeness-factor\n"
+               "Additional demerit used when scoring encompasses.\n"
+               "@item edge-attraction-factor\n"
+               "Factor used to calculate the demerit for distances"
+               " between slur endpoints and their corresponding base"
+               " attachments.\n"
+               "@item same-slope-penalty\n"
+               "Demerit for slurs with attachment points that are"
+               " horizontally aligned.\n"
+               "@item steeper-slope-factor\n"
+               "Factor used to calculate demerit only if this slur is"
+               " not broken.\n"
+               "@item non-horizontal-penalty\n"
+               "Demerit for slurs with attachment points that are not"
+               " horizontally aligned.\n"
+               "@item max-slope\n"
+               "The maximum slope allowed for this slur.\n"
+               "@item max-slope-factor\n"
+               "Factor that calculates demerit based on the max slope.\n"
+               "@item free-head-distance\n"
+               "The amount of vertical free space that must exist"
+               " between a slur and note heads.\n"
+               "@item absolute-closeness-measure\n"
+               "Factor to calculate demerit for variance between a note"
+               " head and slur.\n"
+               "@item extra-object-collision-penalty\n"
+               "Factor to calculate demerit for extra objects that the"
+               " slur encompasses, including accidentals, fingerings, and"
+               " tuplet numbers.\n"
+               "@item accidental-collision\n"
+               "Factor to calculate demerit for @code{Accidental} objects"
+               " that the slur encompasses.  This property value replaces"
+               " the value of @code{extra-object-collision-penalty}.\n"
+               "@item extra-encompass-free-distance\n"
+               "The amount of vertical free space that must exist"
+               " between a slur and various objects it encompasses,"
+               " including accidentals, fingerings, and tuplet numbers.\n"
+               "@item extra-encompass-collision-distance\n"
+               "This detail is currently unused.\n"
+               "@item head-slur-distance-factor\n"
+               "Factor to calculate demerit for variance between a note"
+               " head and slur.\n"
+               "@item head-slur-distance-max-ratio\n"
+               "The maximum value for the ratio of distance between a"
+               " note head and slur.\n"
+               "@item free-slur-distance\n"
+               "The amount of vertical free space that must exist"
+               " between adjacent slurs.  This subproperty only works"
+               " for @code{PhrasingSlur}.\n"
+               "@item edge-slope-exponent\n"
+               "Factor used to calculate the demerit for the slope of"
+               " a slur near its endpoints; a larger value yields a"
+               " larger demerit.\n"
+               "@end table\n",
+
+               /* properties */
+               "annotation "
+               "avoid-slur "    /* UGH. */
+               "control-points "
                "dash-definition "
-	       "details "
-	       "direction "
-	       "eccentricity "
-	       "encompass-objects "
-	       "height-limit "
-	       "inspect-quants "
-	       "inspect-index "
-	       "line-thickness "
-	       "note-columns "
-	       "positions "
-	       "ratio "
-	       "thickness "
-	       );
+               "details "
+               "direction "
+               "eccentricity "
+               "encompass-objects "
+               "height-limit "
+               "inspect-quants "
+               "inspect-index "
+               "line-thickness "
+               "note-columns "
+               "positions "
+               "ratio "
+               "thickness "
+              );
 

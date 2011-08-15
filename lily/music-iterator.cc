@@ -17,7 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include <cstdio>
 using namespace std;
 
@@ -51,7 +50,7 @@ Music_iterator::~Music_iterator ()
 Context *
 Music_iterator::get_outlet () const
 {
-  return handle_.get_outlet ();
+  return handle_.get_context ();
 }
 
 void
@@ -97,11 +96,11 @@ Music_iterator::get_static_get_iterator (Music *m)
   else
     {
       if (dynamic_cast<Music_wrapper *> (m))
-	p = new Music_wrapper_iterator;
+        p = new Music_wrapper_iterator;
       else if (m->is_mus_type ("event"))
         p = new Event_iterator;
       else
-	p = new Simple_music_iterator;
+        p = new Simple_music_iterator;
 
       iter = p->self_scm ();
       p->unprotect ();
@@ -170,13 +169,13 @@ Music_iterator::descend_to_bottom_context ()
     set_context (get_outlet ()->get_default_interpreter ());
 }
 
-void 
+void
 Music_iterator::report_event (Music *m)
 {
   descend_to_bottom_context ();
 
   /*
-    FIXME: then don't do it. 
+    FIXME: then don't do it.
   */
   if (!m->is_mus_type ("event"))
     m->origin ()->programming_error (_ ("Sending non-event to context"));
@@ -217,7 +216,7 @@ Music_iterator::mark_smob (SCM smob)
 }
 
 int
-Music_iterator::print_smob (SCM sm, SCM port, scm_print_state*)
+Music_iterator::print_smob (SCM sm, SCM port, scm_print_state *)
 {
   char s[1000];
 

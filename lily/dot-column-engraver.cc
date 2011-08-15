@@ -55,25 +55,24 @@ Dot_column_engraver::acknowledge_rhythmic_head (Grob_info info)
   if (d)
     {
       if (!dotcol_)
-	dotcol_ = make_item ("DotColumn", SCM_EOL);
+        dotcol_ = make_item ("DotColumn", SCM_EOL);
 
       Dot_column::add_head (dotcol_, info.grob ());
     }
 }
 
-
 ADD_ACKNOWLEDGER (Dot_column_engraver, rhythmic_head);
 ADD_TRANSLATOR (Dot_column_engraver,
-		/* doc */
-		"Engrave dots on dotted notes shifted to the right of the"
-		" note.  If omitted, then dots appear on top of the notes.",
+                /* doc */
+                "Engrave dots on dotted notes shifted to the right of the"
+                " note.  If omitted, then dots appear on top of the notes.",
 
-		/* create */
-		"DotColumn ",
+                /* create */
+                "DotColumn ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

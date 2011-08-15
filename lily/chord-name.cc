@@ -37,15 +37,15 @@ Chord_name::after_line_breaking (SCM smob)
   if (to_boolean (s))
     {
       if (me->get_column ()->get_rank ()
-	  - me->get_system ()->spanned_rank_interval ()[LEFT] > 1)
-	me->suicide ();
+          - me->get_system ()->spanned_rank_interval ()[LEFT] > 1)
+        me->suicide ();
     }
   return SCM_UNSPECIFIED;
 }
 
 ADD_INTERFACE (Chord_name,
-	       "A chord label (name or fretboard).",
+               "A chord label (name or fretboard).",
 
-	       /* properties */	       
-	       "begin-of-line-visible "
-	       );
+               /* properties */
+               "begin-of-line-visible "
+              );

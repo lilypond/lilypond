@@ -87,22 +87,22 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
   vsize start_col = starting_breakpoints_[start];
   Matrix<Constrained_break_node> &st = state_[start];
   vsize max_index = brk - start_col;
-  for (vsize j=max_index; j-- > sys;)
+  for (vsize j = max_index; j-- > sys;)
     {
       if (0 == sys && j > 0)
         continue; /* the first line cannot have its first break after the beginning */
 
       Line_details const &cur = lines_.at (brk, j + start_col);
       if (isinf (cur.force_))
-	break;
+        break;
 
       Real prev_f = 0;
       Real prev_dem = 0;
 
       if (sys > 0)
         {
-          prev_f = st.at (j, sys-1).details_.force_;
-          prev_dem = st.at (j, sys-1).demerits_;
+          prev_f = st.at (j, sys - 1).details_.force_;
+          prev_dem = st.at (j, sys - 1).demerits_;
         }
       if (isinf (prev_dem))
         continue;
@@ -120,15 +120,14 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
   return found_something;
 }
 
-
 Column_x_positions
 Constrained_breaking::space_line (vsize i, vsize j)
 {
   bool ragged_right = to_boolean (pscore_->layout ()->c_variable ("ragged-right"));
   bool ragged_last = to_boolean (pscore_->layout ()->c_variable ("ragged-last"));
 
-  vector<Grob*> line (all_.begin () + breaks_[i],
-		      all_.begin () + breaks_[j] + 1);
+  vector<Grob *> line (all_.begin () + breaks_[i],
+                       all_.begin () + breaks_[j] + 1);
   Interval line_dims = line_dimensions_int (pscore_->layout (), i);
   bool last = j == breaks_.size () - 1;
   bool ragged = ragged_right || (last && ragged_last);
@@ -175,7 +174,7 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
   vector<Column_x_positions> ret;
 
   /* find the first solution that satisfies constraints */
-  for (vsize sys = sys_count-1; sys != VPOS; sys--)
+  for (vsize sys = sys_count - 1; sys != VPOS; sys--)
     {
       for (vsize brk = end_brk; brk != VPOS; brk--)
         {
@@ -183,8 +182,8 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
             {
               if (brk != end_brk)
                 {
-		  brk = st.at (brk, sys).prev_;
-		  sys--;
+                  brk = st.at (brk, sys).prev_;
+                  sys--;
                   warning (_ ("cannot find line breaking that satisfies constraints"));
                   ret.push_back (space_line (brk, end_brk));
                 }
@@ -192,7 +191,7 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
               /* build up the good part of the solution */
               for (vsize cur_sys = sys; cur_sys != VPOS; cur_sys--)
                 {
-		  vsize prev_brk = st.at (brk, cur_sys).prev_;
+                  vsize prev_brk = st.at (brk, cur_sys).prev_;
                   assert (brk != VPOS);
                   ret.push_back (space_line (prev_brk + start_brk, brk + start_brk));
                   brk = prev_brk;
@@ -219,27 +218,27 @@ Constrained_breaking::best_solution (vsize start, vsize end)
   for (vsize i = min_systems; i <= max_systems; i++)
     {
       vsize brk = prepare_solution (start, end, i);
-      Real dem = state_[start].at (brk, i-1).demerits_;
+      Real dem = state_[start].at (brk, i - 1).demerits_;
 
       if (dem < best_demerits)
-	{
-	  best_demerits = dem;
-	  best_so_far = solve (start, end, i);
-	}
+        {
+          best_demerits = dem;
+          best_so_far = solve (start, end, i);
+        }
       else
-	{
-	  vector<Column_x_positions> cur = solve (start, end, i);
-	  bool too_many_lines = true;
-	  
-	  for (vsize j = 0; j < cur.size (); j++)
-	    if (cur[j].force_ < 0)
-	      {
-		too_many_lines = false;
-		break;
-	      }
-	  if (too_many_lines)
-	    return best_so_far;
-	}
+        {
+          vector<Column_x_positions> cur = solve (start, end, i);
+          bool too_many_lines = true;
+
+          for (vsize j = 0; j < cur.size (); j++)
+            if (cur[j].force_ < 0)
+              {
+                too_many_lines = false;
+                break;
+              }
+          if (too_many_lines)
+            return best_so_far;
+        }
     }
   if (best_so_far.size ())
     return best_so_far;
@@ -255,32 +254,32 @@ Constrained_breaking::line_details (vsize start, vsize end, vsize sys_count)
 
   /* This loop structure is C&Ped from solve(). */
   /* find the first solution that satisfies constraints */
-  for (vsize sys = sys_count-1; sys != VPOS; sys--)
+  for (vsize sys = sys_count - 1; sys != VPOS; sys--)
     {
       for (vsize brk = end_brk; brk != VPOS; brk--)
         {
           if (!isinf (st.at (brk, sys).details_.force_))
             {
               if (brk != end_brk)
-		{
-		  /*
-		    During initialize(), we only fill out a
-		    Line_details for lines that are valid (ie. not too
-		    long), otherwise line breaking becomes O(n^3).
-		    In case sys_count is such that no valid solution
-		    is found, we need to fill in the Line_details.
-		  */
-		  Line_details details;
-		  brk = st.at (brk, sys).prev_;
-		  sys--;
-		  fill_line_details (&details, brk, end_brk);
-		  ret.push_back (details);
-		}
+                {
+                  /*
+                    During initialize(), we only fill out a
+                    Line_details for lines that are valid (ie. not too
+                    long), otherwise line breaking becomes O(n^3).
+                    In case sys_count is such that no valid solution
+                    is found, we need to fill in the Line_details.
+                  */
+                  Line_details details;
+                  brk = st.at (brk, sys).prev_;
+                  sys--;
+                  fill_line_details (&details, brk, end_brk);
+                  ret.push_back (details);
+                }
 
               /* build up the good part of the solution */
               for (vsize cur_sys = sys; cur_sys != VPOS; cur_sys--)
                 {
-		  vsize prev_brk = st.at (brk, cur_sys).prev_;
+                  vsize prev_brk = st.at (brk, cur_sys).prev_;
                   assert (brk != VPOS);
                   ret.push_back (st.at (brk, cur_sys).details_);
                   brk = prev_brk;
@@ -365,7 +364,7 @@ min_permission (SCM perm1, SCM perm2)
   if (perm1 == ly_symbol2scm ("force"))
     return perm2;
   if (perm1 == ly_symbol2scm ("allow")
-     && perm2 != ly_symbol2scm ("force"))
+      && perm2 != ly_symbol2scm ("force"))
     return perm2;
   return SCM_EOL;
 }
@@ -396,40 +395,40 @@ Constrained_breaking::initialize ()
   SCM page_breaking_spacing_spec = l->c_variable ("page-breaking-system-system-spacing");
 
   Page_layout_problem::read_spacing_spec (spacing_spec,
-					  &system_system_space_,
-					  ly_symbol2scm ("basic-distance"));
+                                          &system_system_space_,
+                                          ly_symbol2scm ("basic-distance"));
   Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec,
-					  &system_system_space_,
-					  ly_symbol2scm ("basic-distance"));
+                                          &system_system_space_,
+                                          ly_symbol2scm ("basic-distance"));
   Page_layout_problem::read_spacing_spec (title_spec,
-					  &system_markup_space_,
-					  ly_symbol2scm ("basic-distance"));
+                                          &system_markup_space_,
+                                          ly_symbol2scm ("basic-distance"));
 
   Page_layout_problem::read_spacing_spec (spacing_spec,
-					  &system_system_padding_,
-					  ly_symbol2scm ("padding"));
+                                          &system_system_padding_,
+                                          ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (between_scores_spec,
-					  &score_system_padding_,
-					  ly_symbol2scm ("padding"));
+                                          &score_system_padding_,
+                                          ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec,
-					  &system_system_padding_,
-					  ly_symbol2scm ("padding"));
+                                          &system_system_padding_,
+                                          ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (title_spec,
-					  &score_markup_padding_,
-					  ly_symbol2scm ("padding"));
+                                          &score_markup_padding_,
+                                          ly_symbol2scm ("padding"));
 
   Page_layout_problem::read_spacing_spec (between_scores_spec,
-					  &score_system_min_distance_,
-					  ly_symbol2scm ("minimum-distance"));
+                                          &score_system_min_distance_,
+                                          ly_symbol2scm ("minimum-distance"));
   Page_layout_problem::read_spacing_spec (spacing_spec,
-					  &system_system_min_distance_,
-					  ly_symbol2scm ("minimum-distance"));
+                                          &system_system_min_distance_,
+                                          ly_symbol2scm ("minimum-distance"));
   Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec,
-					  &system_system_min_distance_,
-					  ly_symbol2scm ("minimum-distance"));
+                                          &system_system_min_distance_,
+                                          ly_symbol2scm ("minimum-distance"));
   Page_layout_problem::read_spacing_spec (title_spec,
-					  &score_markup_min_distance_,
-					  ly_symbol2scm ("minimum-distance"));
+                                          &score_markup_min_distance_,
+                                          ly_symbol2scm ("minimum-distance"));
 
   Interval first_line = line_dimensions_int (pscore_->layout (), 0);
   Interval other_lines = line_dimensions_int (pscore_->layout (), 1);
@@ -438,25 +437,25 @@ Constrained_breaking::initialize ()
   all_ = pscore_->root_system ()->used_columns ();
   lines_.resize (breaks_.size (), breaks_.size (), Line_details ());
   vector<Real> forces = get_line_forces (all_,
-					 other_lines.length (),
-					 other_lines.length () - first_line.length (),
-					 ragged_right_);
+                                         other_lines.length (),
+                                         other_lines.length () - first_line.length (),
+                                         ragged_right_);
   for (vsize i = 0; i + 1 < breaks_.size (); i++)
     {
       for (vsize j = i + 1; j < breaks_.size (); j++)
-	{
-	  bool last = j == breaks_.size () - 1;
-	  bool ragged = ragged_right_ || (last && ragged_last_);
-	  Line_details &line = lines_.at (j, i);
+        {
+          bool last = j == breaks_.size () - 1;
+          bool ragged = ragged_right_ || (last && ragged_last_);
+          Line_details &line = lines_.at (j, i);
 
-	  line.force_ = forces[i*breaks_.size () + j];
-	  if (ragged && last && !isinf (line.force_))
-	    line.force_ = (line.force_ < 0 && j > i + 1) ? infinity_f : 0;
-	  if (isinf (line.force_))
-	    break;
+          line.force_ = forces[i * breaks_.size () + j];
+          if (ragged && last && !isinf (line.force_))
+            line.force_ = (line.force_ < 0 && j > i + 1) ? infinity_f : 0;
+          if (isinf (line.force_))
+            break;
 
-	  fill_line_details (&line, i, j);
-	}
+          fill_line_details (&line, i, j);
+        }
     }
 
   /* work out all the starting indices */
@@ -464,7 +463,7 @@ Constrained_breaking::initialize ()
     {
       vsize j;
       for (j = 0; j + 1 < breaks_.size () && breaks_[j] < start_[i]; j++)
-	;
+        ;
       starting_breakpoints_.push_back (j);
       start_[i] = breaks_[j];
     }
@@ -497,18 +496,18 @@ Constrained_breaking::fill_line_details (Line_details *const out, vsize start, v
   /* turn permission should always be stricter than page permission
      and page permission should always be stricter than line permission */
   out->page_permission_ = min_permission (out->break_permission_,
-					  out->page_permission_);
+                                          out->page_permission_);
   out->turn_permission_ = min_permission (out->page_permission_,
-					  out->turn_permission_);
+                                          out->turn_permission_);
 
   begin_of_line_extent = (begin_of_line_extent.is_empty ()
-			  || isnan (begin_of_line_extent[LEFT])
-			  || isnan (begin_of_line_extent[RIGHT]))
-    ? Interval (0, 0) : begin_of_line_extent;
+                          || isnan (begin_of_line_extent[LEFT])
+                          || isnan (begin_of_line_extent[RIGHT]))
+                         ? Interval (0, 0) : begin_of_line_extent;
   rest_of_line_extent = (rest_of_line_extent.is_empty ()
-			 || isnan (rest_of_line_extent[LEFT])
-			 || isnan (rest_of_line_extent[RIGHT]))
-    ? Interval (0, 0) : rest_of_line_extent;
+                         || isnan (rest_of_line_extent[LEFT])
+                         || isnan (rest_of_line_extent[RIGHT]))
+                        ? Interval (0, 0) : rest_of_line_extent;
   out->shape_ = Line_shape (begin_of_line_extent, rest_of_line_extent);
   out->padding_ = last ? score_system_padding_ : system_system_padding_;
   out->title_padding_ = score_markup_padding_;
@@ -573,8 +572,8 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   title_ = to_boolean (pb->get_property ("is-title"));
   compressed_lines_count_ = 1;
   compressed_nontitle_lines_count_ = title_ ? 0 : 1;
-  SCM last_scm  = pb->get_property ("last-markup-line");
-  last_markup_line_  = to_boolean (last_scm);
+  SCM last_scm = pb->get_property ("last-markup-line");
+  last_markup_line_ = to_boolean (last_scm);
   SCM first_scm = pb->get_property ("first-markup-line");
   first_markup_line_ = to_boolean (first_scm);
   tight_spacing_ = to_boolean (pb->get_property ("tight-spacing"));
@@ -585,9 +584,9 @@ Real
 Line_details::full_height () const
 {
   Interval ret;
-  ret.unite(shape_.begin_);
-  ret.unite(shape_.rest_);
-  return ret.length();
+  ret.unite (shape_.begin_);
+  ret.unite (shape_.rest_);
+  return ret.length ();
 }
 
 Real
@@ -617,7 +616,7 @@ Line_shape::Line_shape (Interval begin, Interval rest)
 Line_shape
 Line_shape::piggyback (Line_shape mount, Real padding) const
 {
-  Real elevation = max (begin_[UP]-mount.begin_[DOWN], rest_[UP]-mount.rest_[DOWN]);
+  Real elevation = max (begin_[UP] - mount.begin_[DOWN], rest_[UP] - mount.rest_[DOWN]);
   Interval begin = Interval (begin_[DOWN], elevation + mount.begin_[UP] + padding);
   Interval rest = Interval (rest_[DOWN], elevation + mount.rest_[UP] + padding);
   return Line_shape (begin, rest);

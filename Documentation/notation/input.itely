@@ -524,7 +524,7 @@ some pieces include a lot more information.
 
 
 @node Creating titles headers and footers
-@subsection Creating titles, headers, and footers
+@subsection Creating titles headers and footers
 
 @menu
 * Title blocks explained::
@@ -776,7 +776,7 @@ To remove the @code{tagline} set the value to @code{##f}.
 
 
 @node Custom headers footers and titles
-@subsection Custom headers, footers, and titles
+@subsection Custom headers footers and titles
 
 @c TODO: somewhere put a link to header spacing info
 @c       (you'll have to explain it more in NR 4).
@@ -1832,19 +1832,20 @@ Here are a few sample bars of music set in LilyPond's Feta font:
 
 Download and extract the zip file.  Copy the @code{lilyfonts}
 directory to @file{@var{SHARE_DIR}/lilypond/current}; for more
-information, see @rlearning{Other sources of information}.
-Move the existing @code{fonts} directory to @code{fonts_orig} and
-move the @code{lilyfonts} directory to @code{fonts}.  Simply move
-@code{fonts_orig} back to @code{fonts} to revert back to Feta.
+information, see @rlearning{Other sources of information}.  Rename the
+existing @code{fonts} directory to @code{fonts_orig} and the
+@code{lilyfonts} directory to @code{fonts}.  To revert back to Feta,
+reverse the process.
 
 @seealso
 Learning Manual: @rlearning{Other sources of information}.
 
 @knownissues
-
-Gonville cannot be used to typeset @q{Ancient Music} notation.  Please
-refer to the author's website for more information on this and other
-specifics including licensing of Gonville.
+Gonville cannot be used to typeset @q{Ancient Music} notation and it is
+likely newer glyphs in later releases of LilyPond may not exist in the
+Gonville font family.  Please refer to the author's website for more
+information on these and other specifics, including licensing of
+Gonville.
 
 
 @node MIDI output

@@ -30,7 +30,6 @@
 
 #include "translator.icc"
 
-
 /*
   NOTE NOTE NOTE
 
@@ -38,7 +37,7 @@
   apply there too.
 
   (on principle, engravers don't use inheritance for code sharing)
-  
+
  */
 
 /*
@@ -50,8 +49,8 @@ class Slur_engraver : public Engraver
 {
   vector<Stream_event *> start_events_;
   vector<Stream_event *> stop_events_;
-  vector<Grob*> slurs_;
-  vector<Grob*> end_slurs_;
+  vector<Grob *> slurs_;
+  vector<Grob *> end_slurs_;
 
   void set_melisma (bool);
 
@@ -71,7 +70,6 @@ protected:
 
   virtual void finalize ();
 
-
 public:
   TRANSLATOR_DECLARATIONS (Slur_engraver);
 };
@@ -86,11 +84,11 @@ Slur_engraver::listen_slur (Stream_event *ev)
 {
   Direction d = to_dir (ev->get_property ("span-direction"));
   if (d == START)
-    start_events_.push_back(ev);
+    start_events_.push_back (ev);
   else if (d == STOP)
-    stop_events_.push_back(ev);
+    stop_events_.push_back (ev);
   else ev->origin ()->warning (_f ("direction of %s invalid: %d",
-				   "slur-event", int (d)));
+                                     "slur-event", int (d)));
 }
 
 void
@@ -193,16 +191,16 @@ Slur_engraver::process_music ()
       // Check if we already have a slur with the same spanner-id.
       // In that case, don't create a new slur, but print a warning
       for (vsize j = 0; j < slurs_.size (); j++)
-          have_slur = have_slur || (id == robust_scm2string (slurs_[j]->get_property ("spanner-id"), ""));
-      
+        have_slur = have_slur || (id == robust_scm2string (slurs_[j]->get_property ("spanner-id"), ""));
+
       if (have_slur)
         {
           // We already have a slur, so give a warning and completely ignore
           // the new slur.
-          ev->origin ()->warning(_ ("already have slur"));
+          ev->origin ()->warning (_ ("already have slur"));
           start_events_.erase (start_events_.begin () + i);
         }
-      else 
+      else
         {
           Grob *slur = make_spanner ("Slur", ev->self_scm ());
           Direction updown = to_dir (ev->get_property ("direction"));
@@ -230,19 +228,18 @@ Slur_engraver::stop_translation_timestep ()
   if (Grob *g = unsmob_grob (get_property ("currentCommandColumn")))
     {
       for (vsize i = 0; i < end_slurs_.size (); i++)
-	Slur::add_extra_encompass (end_slurs_[i], g);
+        Slur::add_extra_encompass (end_slurs_[i], g);
 
       if (!start_events_.size ())
-	for (vsize i = 0; i < slurs_.size (); i++)
-	  Slur::add_extra_encompass (slurs_[i], g);
+        for (vsize i = 0; i < slurs_.size (); i++)
+          Slur::add_extra_encompass (slurs_[i], g);
     }
-  
-  
+
   for (vsize i = 0; i < end_slurs_.size (); i++)
     {
-      Spanner * s = dynamic_cast<Spanner*> (end_slurs_[i]);
+      Spanner *s = dynamic_cast<Spanner *> (end_slurs_[i]);
       if (!s->get_bound (RIGHT))
-	s->set_bound (RIGHT, unsmob_grob (get_property ("currentMusicalColumn")));
+        s->set_bound (RIGHT, unsmob_grob (get_property ("currentMusicalColumn")));
       announce_end_grob (s, SCM_EOL);
     }
   end_slurs_.clear ();
@@ -258,16 +255,16 @@ ADD_ACKNOWLEDGER (Slur_engraver, text_script);
 ADD_ACKNOWLEDGER (Slur_engraver, tie);
 ADD_ACKNOWLEDGER (Slur_engraver, tuplet_number);
 ADD_TRANSLATOR (Slur_engraver,
-		/* doc */
-		"Build slur grobs from slur events.",
+                /* doc */
+                "Build slur grobs from slur events.",
 
-		/* create */
-		"Slur ",
+                /* create */
+                "Slur ",
 
-		/* read */
-		"slurMelismaBusy "
-		"doubleSlurs ",
+                /* read */
+                "slurMelismaBusy "
+                "doubleSlurs ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

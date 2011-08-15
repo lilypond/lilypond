@@ -1173,9 +1173,9 @@ Installed Files:
 
 @knownissues
 Only the contents of the first @code{Voice} occurring in an
-@code{\addQuote} command will be considered for quotation, so the music
-expression must not contain @code{\new} and @code{\context Voice}
-statements which would switch to a different Voice.  Quoting grace notes
+@code{\addQuote} command will be considered for quotation, so if the music
+expression contains @code{\new} or @code{\context Voice}
+statements, their contents will not be quoted.  Quoting grace notes
 is unsupported and may cause LilyPond to crash whereas quoting nested
 triplets may result in poor notation.
 
@@ -1292,9 +1292,7 @@ oboeNotes = \relative c'' {
 @end lilypond
 
 @noindent
-In the above example, the @code{Voice} context had to be
-explicitly declared, or else the entire music expression would
-belong to the @code{CueVoice} context.
+
 
 It is possible to adjust which aspects of the music are quoted with
 @code{\cueDuring} by setting the @code{quotedCueEventTypes}
@@ -1302,6 +1300,10 @@ property.  Its default value is @code{#'(note-event rest-event
 tie-event beam-event tuplet-span-event)}, which means that only
 notes, rests, ties, beams and tuplets are quoted, but not
 articulations, dynamic marks, markup etc.
+
+In this example, the @code{Voice} context must be
+explicitly declared, or else the entire music expression would
+belong to the @code{CueVoice} context.
 
 @lilypond[verbatim,quote]
 oboeNotes = \relative c'' {

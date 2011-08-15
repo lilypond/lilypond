@@ -2,7 +2,7 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2006--2011 Han-Wen Nienhuys <hanwen@lilypond.org>
-  
+
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -27,7 +27,6 @@
 
 #include "translator.icc"
 
-
 /**
    Find potentially colliding scripts, and put them in a
    Script_row
@@ -35,8 +34,8 @@
 class Script_row_engraver : public Engraver
 {
   Grob *script_row_;
-  vector<Grob*> scripts_;
-  
+  vector<Grob *> scripts_;
+
 public:
   TRANSLATOR_DECLARATIONS (Script_row_engraver);
 protected:
@@ -57,9 +56,9 @@ Script_row_engraver::stop_translation_timestep ()
   if (script_row_)
     {
       for (vsize i = 0; i < scripts_.size (); i++)
-	if (Accidental_placement::has_interface (scripts_[i])
-	    || Side_position_interface::get_axis (scripts_[i]) == X_AXIS)
-	  Script_column::add_side_positioned (script_row_, scripts_[i]);
+        if (Accidental_placement::has_interface (scripts_[i])
+            || Side_position_interface::get_axis (scripts_[i]) == X_AXIS)
+          Script_column::add_side_positioned (script_row_, scripts_[i]);
     }
 
   scripts_.clear ();
@@ -73,17 +72,15 @@ Script_row_engraver::acknowledge_side_position (Grob_info inf)
   if (thing)
     {
       if (!Item::is_non_musical (thing))
-	scripts_.push_back (thing);
+        scripts_.push_back (thing);
     }
 }
-
 
 void
 Script_row_engraver::acknowledge_accidental_placement (Grob_info inf)
 {
   scripts_.push_back (inf.grob ());
 }
-
 
 void
 Script_row_engraver::process_acknowledged ()
@@ -92,19 +89,18 @@ Script_row_engraver::process_acknowledged ()
     script_row_ = make_item ("ScriptRow", SCM_EOL);
 }
 
-
 ADD_ACKNOWLEDGER (Script_row_engraver, accidental_placement);
 ADD_ACKNOWLEDGER (Script_row_engraver, side_position);
 ADD_TRANSLATOR (Script_row_engraver,
-		/* doc */
-		"Determine order in horizontal side position elements.",
+                /* doc */
+                "Determine order in horizontal side position elements.",
 
-		/* create */
-		"ScriptRow ",
+                /* create */
+                "ScriptRow ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

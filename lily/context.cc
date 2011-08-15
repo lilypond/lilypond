@@ -35,8 +35,8 @@
 bool
 Context::is_removable () const
 {
-  return context_list_ == SCM_EOL && ! iterator_count_
-    && !dynamic_cast<Global_context const *> (daddy_context_);
+  return context_list_ == SCM_EOL && ! client_count_
+         && !dynamic_cast<Global_context const *> (daddy_context_);
 }
 
 void
@@ -48,12 +48,12 @@ Context::check_removal ()
 
       ctx->check_removal ();
       if (ctx->is_removable ())
-	{
-	  recurse_over_translators (ctx, &Translator::finalize,
-				    &Translator_group::finalize,
-				    UP);
-	  send_stream_event (ctx, "RemoveContext", 0, 0);
-	}
+        {
+          recurse_over_translators (ctx, &Translator::finalize,
+                                    &Translator_group::finalize,
+                                    UP);
+          send_stream_event (ctx, "RemoveContext", 0, 0);
+        }
     }
 }
 
@@ -72,18 +72,17 @@ void
 Context::add_context (Context *child)
 {
   context_list_ = ly_append2 (context_list_,
-			      scm_cons (child->self_scm (), SCM_EOL));
+                              scm_cons (child->self_scm (), SCM_EOL));
 
   child->daddy_context_ = this;
   this->events_below_->register_as_listener (child->events_below_);
 }
 
-
 Context::Context ()
 {
   daddy_context_ = 0;
   aliases_ = SCM_EOL;
-  iterator_count_ = 0;
+  client_count_ = 0;
   implementation_ = 0;
   properties_scm_ = SCM_EOL;
   accepts_list_ = SCM_EOL;
@@ -121,18 +120,18 @@ Context::create_unique_context (SCM name, string id, SCM operations)
 
       // Iterate through the path and create all of the implicit contexts.
       for (vsize i = 0; i < path.size (); i++)
-	{
-	  SCM ops = SCM_EOL;
-	  string id_str = "\\new";
-	  if (i == path.size () - 1)
-	    {
-	      ops = operations;
-	      id_str = id;
-	    }
-	  current = current->create_context (path[i],
-					     id_str,
-					     ops);
-	}
+        {
+          SCM ops = SCM_EOL;
+          string id_str = "\\new";
+          if (i == path.size () - 1)
+            {
+              ops = operations;
+              id_str = id;
+            }
+          current = current->create_context (path[i],
+                                             id_str,
+                                             ops);
+        }
 
       return current;
     }
@@ -147,7 +146,7 @@ Context::create_unique_context (SCM name, string id, SCM operations)
   else
     {
       warning (_f ("cannot find or create new `%s'",
-		   ly_symbol2string (name).c_str ()));
+                   ly_symbol2string (name).c_str ()));
       ret = 0;
     }
   return ret;
@@ -172,7 +171,7 @@ Context::find_create_context (SCM n, string id, SCM operations)
       return tg;
     }
 
-  vector<Context_def*> path = path_to_acceptable_context (n);
+  vector<Context_def *> path = path_to_acceptable_context (n);
 
   if (path.size ())
     {
@@ -180,17 +179,17 @@ Context::find_create_context (SCM n, string id, SCM operations)
 
       // start at 1.  The first one (index 0) will be us.
       for (vsize i = 0; i < path.size (); i++)
-	{
-	  SCM ops = (i == path.size () -1) ? operations : SCM_EOL;
+        {
+          SCM ops = (i == path.size () - 1) ? operations : SCM_EOL;
 
-	  string this_id = "";
-	  if (i == path.size () -1)
-	    this_id = id;
+          string this_id = "";
+          if (i == path.size () - 1)
+            this_id = id;
 
-	  current = current->create_context (path[i],
-					     this_id,
-					     ops);
-	}
+          current = current->create_context (path[i],
+                                             this_id,
+                                             ops);
+        }
 
       return current;
     }
@@ -205,7 +204,7 @@ Context::find_create_context (SCM n, string id, SCM operations)
   else
     {
       warning (_f ("cannot find or create `%s' called `%s'",
-		   ly_symbol2string (n).c_str (), id));
+                   ly_symbol2string (n).c_str (), id));
       ret = 0;
     }
   return ret;
@@ -223,16 +222,16 @@ void
 Context::set_property_from_event (SCM sev)
 {
   Stream_event *ev = unsmob_stream_event (sev);
-  
+
   SCM sym = ev->get_property ("symbol");
   if (scm_is_symbol (sym))
     {
       SCM val = ev->get_property ("value");
       bool ok = true;
       if (val != SCM_EOL)
-	ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
+        ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
       if (ok)
-	set_property (sym, val);
+        set_property (sym, val);
     }
 }
 
@@ -241,7 +240,7 @@ void
 Context::unset_property_from_event (SCM sev)
 {
   Stream_event *ev = unsmob_stream_event (sev);
-  
+
   SCM sym = ev->get_property ("symbol");
   type_check_assignment (sym, SCM_EOL, ly_symbol2scm ("translation-type?"));
   unset_property (sym);
@@ -256,13 +255,13 @@ void
 Context::create_context_from_event (SCM sev)
 {
   Stream_event *ev = unsmob_stream_event (sev);
-  
+
   string id = ly_scm2string (ev->get_property ("id"));
   SCM ops = ev->get_property ("ops");
   SCM type_scm = ev->get_property ("type");
   string type = ly_symbol2string (type_scm);
-  
-  vector<Context_def*> path = path_to_acceptable_context (type_scm);
+
+  vector<Context_def *> path = path_to_acceptable_context (type_scm);
 
   if (path.size () != 1)
     {
@@ -270,31 +269,31 @@ Context::create_context_from_event (SCM sev)
       return;
     }
   Context_def *cdef = path[0];
-  
+
   Context *new_context = cdef->instantiate (ops);
 
   new_context->id_string_ = id;
-  
+
   /* Register various listeners:
       - Make the new context hear events that universally affect contexts
       - connect events_below etc. properly */
   /* We want to be the first ones to hear our own events. Therefore, wait
      before registering events_below_ */
   new_context->event_source ()->
-    add_listener (GET_LISTENER (new_context->create_context_from_event),
-                  ly_symbol2scm ("CreateContext"));
+  add_listener (GET_LISTENER (new_context->create_context_from_event),
+                ly_symbol2scm ("CreateContext"));
   new_context->event_source ()->
-    add_listener (GET_LISTENER (new_context->remove_context),
-                  ly_symbol2scm ("RemoveContext"));
+  add_listener (GET_LISTENER (new_context->remove_context),
+                ly_symbol2scm ("RemoveContext"));
   new_context->event_source ()->
-    add_listener (GET_LISTENER (new_context->change_parent),
-                  ly_symbol2scm ("ChangeParent"));
+  add_listener (GET_LISTENER (new_context->change_parent),
+                ly_symbol2scm ("ChangeParent"));
   new_context->event_source ()->
-    add_listener (GET_LISTENER (new_context->set_property_from_event),
-                  ly_symbol2scm ("SetProperty"));
+  add_listener (GET_LISTENER (new_context->set_property_from_event),
+                ly_symbol2scm ("SetProperty"));
   new_context->event_source ()->
-    add_listener (GET_LISTENER (new_context->unset_property_from_event),
-                  ly_symbol2scm ("UnsetProperty"));
+  add_listener (GET_LISTENER (new_context->unset_property_from_event),
+                ly_symbol2scm ("UnsetProperty"));
 
   new_context->events_below_->register_as_listener (new_context->event_source_);
   this->add_context (new_context);
@@ -309,11 +308,11 @@ Context::create_context_from_event (SCM sev)
   apply_property_operations (new_context, ops);
 
   send_stream_event (this, "AnnounceNewContext", 0,
-  		     ly_symbol2scm ("context"), new_context->self_scm (),
-  		     ly_symbol2scm ("creator"), sev);
+                     ly_symbol2scm ("context"), new_context->self_scm (),
+                     ly_symbol2scm ("creator"), sev);
 }
 
-vector<Context_def*>
+vector<Context_def *>
 Context::path_to_acceptable_context (SCM name) const
 {
   // The 'accepts elements in definition_mods_ is a list of ('accepts string),
@@ -322,27 +321,27 @@ Context::path_to_acceptable_context (SCM name) const
   for (SCM s = scm_reverse (definition_mods_); scm_is_pair (s); s = scm_cdr (s))
     if (scm_caar (s) == ly_symbol2scm ("accepts"))
       {
-	SCM elt = scm_list_2 (scm_caar (s), scm_string_to_symbol (scm_cadar (s)));
-	accepts = scm_cons (elt, accepts);
+        SCM elt = scm_list_2 (scm_caar (s), scm_string_to_symbol (scm_cadar (s)));
+        accepts = scm_cons (elt, accepts);
       }
 
   return unsmob_context_def (definition_)->path_to_acceptable_context (name,
-								       get_output_def (),
-								       accepts);
-								       
+         get_output_def (),
+         accepts);
+
 }
 
 Context *
 Context::create_context (Context_def *cdef,
-			 string id,
-			 SCM ops)
+                         string id,
+                         SCM ops)
 {
   infant_event_ = 0;
   /* TODO: This is fairly misplaced. We can fix this when we have taken out all
      iterator specific stuff from the Context class */
   event_source_->
-    add_listener (GET_LISTENER (acknowledge_infant),
-                  ly_symbol2scm ("AnnounceNewContext"));
+  add_listener (GET_LISTENER (acknowledge_infant),
+                ly_symbol2scm ("AnnounceNewContext"));
   /* The CreateContext creates a new context, and sends an announcement of the
      new context through another event. That event will be stored in
      infant_event_ to create a return value. */
@@ -351,8 +350,8 @@ Context::create_context (Context_def *cdef,
                      ly_symbol2scm ("type"), cdef->get_context_name (),
                      ly_symbol2scm ("id"), ly_string2scm (id));
   event_source_->
-    remove_listener (GET_LISTENER (acknowledge_infant),
-                     ly_symbol2scm ("AnnounceNewContext"));
+  remove_listener (GET_LISTENER (acknowledge_infant),
+                   ly_symbol2scm ("AnnounceNewContext"));
 
   assert (infant_event_);
   SCM infant_scm = infant_event_->get_property ("context");
@@ -375,8 +374,8 @@ SCM
 Context::default_child_context_name () const
 {
   return scm_is_pair (accepts_list_)
-    ? scm_car (accepts_list_)
-    : SCM_EOL;
+         ? scm_car (accepts_list_)
+         : SCM_EOL;
 }
 
 bool
@@ -396,10 +395,10 @@ Context::get_default_interpreter (string context_id)
       string name = ly_symbol2string (nm);
       Context_def *t = unsmob_context_def (st);
       if (!t)
-	{
-	  warning (_f ("cannot find or create: `%s'", name.c_str ()));
-	  t = unsmob_context_def (this->definition_);
-	}
+        {
+          warning (_f ("cannot find or create: `%s'", name.c_str ()));
+          t = unsmob_context_def (this->definition_);
+        }
 
       Context *tg = create_context (t, context_id, SCM_EOL);
       return tg->get_default_interpreter (context_id);
@@ -456,7 +455,7 @@ Context::internal_send_stream_event (SCM type, Input *origin, SCM props[])
   Stream_event *e = new Stream_event (type, origin);
   for (int i = 0; props[i]; i += 2)
     {
-      e->set_property (props[i], props[i+1]);
+      e->set_property (props[i], props[i + 1]);
     }
   event_source_->broadcast (e);
   e->unprotect ();
@@ -482,7 +481,7 @@ Context::add_alias (SCM sym)
 
 /* we don't (yet) instrument context properties */
 void
-Context::instrumented_set_property (SCM sym, SCM val, const char*, int, const char*)
+Context::instrumented_set_property (SCM sym, SCM val, const char *, int, const char *)
 {
   internal_set_property (sym, val);
 }
@@ -490,10 +489,13 @@ Context::instrumented_set_property (SCM sym, SCM val, const char*, int, const ch
 void
 Context::internal_set_property (SCM sym, SCM val)
 {
-  if (do_internal_type_checking_global)
-    assert (type_check_assignment (sym, val, ly_symbol2scm ("translation-type?")));
+  bool type_check_ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
 
-  properties_dict ()->set (sym, val);
+  if (do_internal_type_checking_global)
+    assert (type_check_ok);
+
+  if (type_check_ok)
+    properties_dict ()->set (sym, val);
 }
 
 /*
@@ -543,12 +545,12 @@ Context::disconnect_from_parent ()
 */
 Context *
 find_context_below (Context *where,
-		    SCM type, string id)
+                    SCM type, string id)
 {
   if (where->is_alias (type))
     {
       if (id == "" || where->id_string () == id)
-	return where;
+        return where;
     }
 
   Context *found = 0;
@@ -709,11 +711,11 @@ measure_position (Context const *context)
       m = *unsmob_moment (sm);
 
       if (m.main_part_ < Rational (0))
-	{
-	  Rational length (measure_length (context));
-	  while (m.main_part_ < Rational (0))
-	    m.main_part_ += length;
-	}
+        {
+          Rational length (measure_length (context));
+          while (m.main_part_ < Rational (0))
+            m.main_part_ += length;
+        }
     }
 
   return m;
@@ -727,9 +729,9 @@ measure_position (Context const *context, Duration const *dur)
   Moment pos = measure_position (context);
   Rational dur_length = dur ? dur->get_length () : Rational (0);
 
-  Moment end_pos = pos.grace_part_ < Rational(0)
-    ? Moment(pos.main_part_, pos.grace_part_ + dur_length)
-    : Moment(pos.main_part_ + dur_length, 0);
+  Moment end_pos = pos.grace_part_ < Rational (0)
+                   ? Moment (pos.main_part_, pos.grace_part_ + dur_length)
+                   : Moment (pos.main_part_ + dur_length, 0);
 
   return end_pos;
 }
@@ -747,7 +749,6 @@ measure_number (Context const *context)
 
   return bn;
 }
-
 
 void
 set_context_property_on_children (Context *trans, SCM sym, SCM val)
@@ -778,7 +779,7 @@ check_repeat_count_visibility (Context const *context, SCM count)
 {
   SCM proc = context->get_property ("repeatCountVisibility");
   return (ly_is_procedure (proc)
-	  && to_boolean (scm_call_2 (proc,
-				     count,
-				     context->self_scm ())));
+          && to_boolean (scm_call_2 (proc,
+                                     count,
+                                     context->self_scm ())));
 }

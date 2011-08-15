@@ -25,7 +25,7 @@ Offset::to_string () const
 {
   string s;
   s = string (" (") + ::to_string (coordinate_a_[X_AXIS]) + ", "
-    + ::to_string (coordinate_a_[Y_AXIS]) + ")";
+      + ::to_string (coordinate_a_[Y_AXIS]) + ")";
   return s;
 }
 #endif
@@ -91,23 +91,23 @@ Real
 Offset::length () const
 {
   return sqrt (sqr (coordinate_a_[X_AXIS])
-		    + sqr (coordinate_a_[Y_AXIS]));
+               + sqr (coordinate_a_[Y_AXIS]));
 }
 
 bool
 Offset::is_sane () const
 {
   return !isnan (coordinate_a_[X_AXIS])
-    && !isnan (coordinate_a_ [Y_AXIS])
-    && !isinf (coordinate_a_[X_AXIS]) 
-    && !isinf (coordinate_a_[Y_AXIS]);
+         && !isnan (coordinate_a_ [Y_AXIS])
+         && !isinf (coordinate_a_[X_AXIS])
+         && !isinf (coordinate_a_[Y_AXIS]);
 }
 
 Offset
 Offset::direction () const
 {
   Offset d = *this;
-  d /= length (); 
+  d /= length ();
   return d;
 }
 

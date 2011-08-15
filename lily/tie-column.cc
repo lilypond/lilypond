@@ -39,19 +39,19 @@ void
 Tie_column::add_tie (Grob *tc, Grob *tie)
 {
   Spanner *me = dynamic_cast<Spanner *> (tc);
-  
+
   if (tie->get_parent (Y_AXIS)
       && Tie_column::has_interface (tie->get_parent (Y_AXIS)))
     return;
 
   if (!me->get_bound (LEFT)
       || (Paper_column::get_rank (me->get_bound (LEFT)->get_column ())
-	  > Paper_column::get_rank (dynamic_cast<Spanner*> (tie)->get_bound (LEFT)->get_column ())))
+          > Paper_column::get_rank (dynamic_cast<Spanner *> (tie)->get_bound (LEFT)->get_column ())))
     {
-	me->set_bound (LEFT, Tie::head (tie, LEFT));
-	me->set_bound (RIGHT, Tie::head (tie, RIGHT));
+      me->set_bound (LEFT, Tie::head (tie, LEFT));
+      me->set_bound (RIGHT, Tie::head (tie, RIGHT));
     }
-      
+
   tie->set_parent (me, Y_AXIS);
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("ties"), tie);
 }
@@ -69,14 +69,14 @@ Tie_column::before_line_breaking (SCM smob)
       Spanner *tie = dynamic_cast<Spanner *> (unsmob_grob (scm_car (s)));
       Direction dir = LEFT;
       do
-	{
-	  if (dir * tie->get_bound (dir)->get_column ()->get_rank ()
-	      > dir * me->get_bound (dir)->get_column ()->get_rank ())
-	    me->set_bound (dir, Tie::head (tie, dir));
-	}
+        {
+          if (dir * tie->get_bound (dir)->get_column ()->get_rank ()
+              > dir * me->get_bound (dir)->get_column ()->get_rank ())
+            me->set_bound (dir, Tie::head (tie, dir));
+        }
       while (flip (&dir) != LEFT);
     }
-  
+
   return SCM_UNSPECIFIED;
 }
 
@@ -86,7 +86,7 @@ Tie_column::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "ties", ro_ties);
-  vector<Grob*> ties (ro_ties);
+  vector<Grob *> ties (ro_ties);
   if (!ties.size ())
     return SCM_BOOL_T;
 
@@ -103,26 +103,24 @@ Tie_column::calc_positioning_done (SCM smob)
   for (vsize i = 0; i < base.size (); i++)
     {
       SCM cp = Tie::get_control_points (ties[i], problem.common_x_refpoint (),
-					base[i],
-					problem.details_);
+                                        base[i],
+                                        problem.details_);
 
       ties[i]->set_property ("control-points", cp);
       set_grob_direction (ties[i],
-			  base[i].dir_);
+                          base[i].dir_);
 
       problem.set_debug_scoring (base);
     }
   return SCM_BOOL_T;
 }
 
-
-
 ADD_INTERFACE (Tie_column,
-	       "Object that sets directions of multiple ties in a tied"
-	       " chord.",
+               "Object that sets directions of multiple ties in a tied"
+               " chord.",
 
-	       /* properties */
-	       "positioning-done "
-	       "tie-configuration "
-	       );
+               /* properties */
+               "positioning-done "
+               "tie-configuration "
+              );
 

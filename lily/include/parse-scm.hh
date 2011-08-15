@@ -34,12 +34,13 @@ struct Parse_start
   bool safe_;
   Lily_parser *parser_;
 
-  Parse_start() {
+  Parse_start ()
+  {
     str = 0;
     nchars = 0;
     safe_ = false;
     parser_ = 0;
-  }     
+  }
 };
 
 SCM catch_protected_parse_body (void *);

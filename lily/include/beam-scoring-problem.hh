@@ -23,13 +23,14 @@
 
 #include "beam.hh"
 #include "interval.hh"
-#include "lily-guile.hh" 
-#include "lily-proto.hh" 
+#include "lily-guile.hh"
+#include "lily-proto.hh"
 #include "main.hh"  //  DEBUG_BEAM_SCORING
-#include "std-vector.hh" 
-#include "stem-info.hh" 
+#include "std-vector.hh"
+#include "stem-info.hh"
 
-enum Scorers {
+enum Scorers
+{
   // Should be ordered by increasing expensiveness.
   ORIGINAL_DISTANCE,
   SLOPE_IDEAL,
@@ -55,21 +56,20 @@ struct Beam_configuration
   Beam_configuration ();
   bool done () const;
   void add (Real demerit, const string &reason);
-  static Beam_configuration* new_config(Interval start,
-                                        Interval offset);
+  static Beam_configuration *new_config (Interval start,
+                                         Interval offset);
 };
 
 // Comparator for a queue of Beam_configuration*.
 class Beam_configuration_less
 {
 public:
-  bool operator() (Beam_configuration* const& l, Beam_configuration* const& r)
+  bool operator () (Beam_configuration *const &l, Beam_configuration *const &r)
   {
     // Invert
     return l->demerits > r->demerits;
   }
 };
-
 
 struct Beam_quant_parameters
 {
@@ -93,11 +93,12 @@ struct Beam_quant_parameters
   Real COLLISION_PADDING;
   Real HORIZONTAL_INTER_QUANT_PENALTY;
   Real STEM_COLLISION_FACTOR;
-  
+
   void fill (Grob *him);
 };
 
-struct Beam_collision {
+struct Beam_collision
+{
   Real x_;
   Interval y_;
   Real base_penalty_;
@@ -105,33 +106,32 @@ struct Beam_collision {
   // Need to add beam_config->y to get actual offsets.
   Interval beam_y_;
 };
-  
 
 /*
   Parameters for a single beam.  Precomputed to save time in
   scoring individual configurations.
 
   TODO - use trailing _ on data members.
- 
+
   */
 class Beam_scoring_problem
 {
 public:
   Beam_scoring_problem (Grob *me, Drul_array<Real> ys);
-  Drul_array<Real> solve() const;
+  Drul_array<Real> solve () const;
 
 private:
   Grob *beam;
 
   Interval unquanted_y;
-  
+
   Real staff_space;
   Real beam_thickness;
   Real line_thickness;
   Real musical_dy;
 
   Interval x_span;
-  
+
   vector<Stem_info> stem_infos;
 
   /*
@@ -144,7 +144,7 @@ private:
   */
   vector<Real> base_lengths;
   vector<Real> stem_xpositions;
-  
+
   Grob *common[2];
   bool is_xstaff;
   bool is_knee;
@@ -163,15 +163,15 @@ private:
   Real beam_translation;
   vector<Beam_collision> collisions_;
   vector<Beam_segment> segments_;
-  
+
   void init_stems ();
-  void init_collisions (vector<Grob*> grobs);
+  void init_collisions (vector<Grob *> grobs);
   void add_collision (Real x, Interval y, Real factor);
-  
-  void one_scorer (Beam_configuration* config) const;
+
+  void one_scorer (Beam_configuration *config) const;
   Beam_configuration *force_score (SCM inspect_quants,
-                                   const vector<Beam_configuration*> &configs) const;
-  Real y_at (Real x, Beam_configuration const* c) const;
+                                   const vector<Beam_configuration *> &configs) const;
+  Real y_at (Real x, Beam_configuration const *c) const;
 
   // Scoring functions:
   void score_forbidden_quants (Beam_configuration *config) const;
@@ -179,8 +179,8 @@ private:
   void score_slope_ideal (Beam_configuration *config) const;
   void score_slope_direction (Beam_configuration *config) const;
   void score_slope_musical (Beam_configuration *config) const;
-  void score_stem_lengths (Beam_configuration* config) const;
-  void generate_quants(vector<Beam_configuration*>* scores) const;
+  void score_stem_lengths (Beam_configuration *config) const;
+  void generate_quants (vector<Beam_configuration *>* scores) const;
   void score_collisions (Beam_configuration *config) const;
 };
 

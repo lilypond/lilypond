@@ -70,7 +70,7 @@ Footnote_engraver::footnotify (Grob *g, Stream_event *event)
       b->set_parent (s, X_AXIS);
       Grob *bound = unsmob_grob (get_property ("currentMusicalColumn"));
       b->set_bound (LEFT, bound);
-      annotated_spanners_.push_back (Drul_array<Spanner *> (s,b));
+      annotated_spanners_.push_back (Drul_array<Spanner *> (s, b));
     }
   else
     {
@@ -90,13 +90,13 @@ Footnote_engraver::acknowledge_grob (Grob_info info)
     {
       Stream_event *e = unsmob_stream_event (scm_car (s));
       if (e->in_event_class ("footnote-event"))
-	  footnotify (info.grob (), e);
+        footnotify (info.grob (), e);
     }
 
   for (vsize i = 0; i < events_.size (); i++)
     {
       if (info.grob ()->name () == ly_symbol2string (events_[i]->get_property ("symbol")))
-	footnotify (info.grob (), events_[i]);
+        footnotify (info.grob (), events_[i]);
     }
 }
 
@@ -121,16 +121,16 @@ ADD_ACKNOWLEDGER (Footnote_engraver, grob);
 ADD_END_ACKNOWLEDGER (Footnote_engraver, grob);
 
 ADD_TRANSLATOR (Footnote_engraver,
-	       /* doc */
-	       "Create footnote texts.",
+                /* doc */
+                "Create footnote texts.",
 
-	       /* create */
-	       "FootnoteItem "
-	       "FootnoteSpanner ",
+                /* create */
+                "FootnoteItem "
+                "FootnoteSpanner ",
 
-	       /*read*/
-	       "currentMusicalColumn ",
+                /*read*/
+                "currentMusicalColumn ",
 
-	       /*write*/
-	       ""
-	       );
+                /*write*/
+                ""
+               );

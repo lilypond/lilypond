@@ -23,30 +23,30 @@
 #include "axis.hh"
 
 enum Direction
-  {
-    UP = 1,
-    DOWN=-1,
-    LEFT=-1,
-    RIGHT = 1,
-    MIN=-1,
-    MAX = 1,
-    CENTER = 0,
-    SMALLER=-1,
-    BIGGER = 1,
-    START = -1,
-    STOP = 1,
+{
+  UP = 1,
+  DOWN = -1,
+  LEFT = -1,
+  RIGHT = 1,
+  MIN = -1,
+  MAX = 1,
+  CENTER = 0,
+  SMALLER = -1,
+  BIGGER = 1,
+  START = -1,
+  STOP = 1,
 
-    /*
-      This is necessary to safely write loops,
-      since
+  /*
+    This is necessary to safely write loops,
+    since
 
-      dir <= RIGHT
+    dir <= RIGHT
 
-      is otherwise transformed into true unconditionally.
-    */
-    DIRECTION_LIMIT = 2,
-    DIRECTION_NEG_LIMIT = -2,
-  };
+    is otherwise transformed into true unconditionally.
+  */
+  DIRECTION_LIMIT = 2,
+  DIRECTION_NEG_LIMIT = -2,
+};
 
 inline Direction
 other_dir (Direction const d)

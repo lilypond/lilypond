@@ -24,7 +24,6 @@
 
 #include "translator.icc"
 
-
 class Instrument_switch_engraver : public Engraver
 {
 
@@ -77,15 +76,15 @@ Instrument_switch_engraver::stop_translation_time_step ()
 }
 
 ADD_TRANSLATOR (Instrument_switch_engraver,
-		/* doc */
-		"Create a cue text for taking instrument.",
-			
-		/* create */
-		"InstrumentSwitch ",
+                /* doc */
+                "Create a cue text for taking instrument.",
 
-		/* read */
-		"instrumentCueName ",
-			
-		/* write */
-		""
-		);
+                /* create */
+                "InstrumentSwitch ",
+
+                /* read */
+                "instrumentCueName ",
+
+                /* write */
+                ""
+               );

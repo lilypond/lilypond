@@ -30,29 +30,27 @@
 
 #include "translator.icc"
 
-
 /*
   NOTE NOTE NOTE
 
   This is largely similar to Slur_engraver. Check if fixes
-  apply there too.  
+  apply there too.
 
   (on principle, engravers don't use inheritance for code sharing)
-  
+
  */
 
 /*
   It is possible that a slur starts and ends on the same note.  At
   least, it is for phrasing slurs: a note can be both beginning and
   ending of a phrase.
-
 */
 class Phrasing_slur_engraver : public Engraver
 {
   vector<Stream_event *> start_events_;
   vector<Stream_event *> stop_events_;
-  vector<Grob*> slurs_;
-  vector<Grob*> end_slurs_;
+  vector<Grob *> slurs_;
+  vector<Grob *> end_slurs_;
 
 protected:
   DECLARE_TRANSLATOR_LISTENER (phrasing_slur);
@@ -71,7 +69,6 @@ protected:
 
   virtual void finalize ();
 
-
 public:
   TRANSLATOR_DECLARATIONS (Phrasing_slur_engraver);
 };
@@ -86,11 +83,11 @@ Phrasing_slur_engraver::listen_phrasing_slur (Stream_event *ev)
 {
   Direction d = to_dir (ev->get_property ("span-direction"));
   if (d == START)
-    start_events_.push_back(ev);
+    start_events_.push_back (ev);
   else if (d == STOP)
-    stop_events_.push_back(ev);
+    stop_events_.push_back (ev);
   else ev->origin ()->warning (_f ("direction of %s invalid: %d",
-				   "phrasing-slur-event", int (d)));
+                                     "phrasing-slur-event", int (d)));
 }
 
 void
@@ -193,11 +190,11 @@ Phrasing_slur_engraver::process_music ()
       // Check if we already have a slur with the same spanner-id.
       // In that case, don't create a new slur, but print a warning
       for (vsize i = 0; i < slurs_.size (); i++)
-          have_slur = have_slur || (id == robust_scm2string (slurs_[i]->get_property ("spanner-id"), ""));
-      
+        have_slur = have_slur || (id == robust_scm2string (slurs_[i]->get_property ("spanner-id"), ""));
+
       if (have_slur)
-          ev->origin ()->warning(_ ("already have phrasing slur"));
-      else 
+        ev->origin ()->warning (_ ("already have phrasing slur"));
+      else
         {
           Grob *slur = make_spanner ("PhrasingSlur", ev->self_scm ());
           Direction updown = to_dir (ev->get_property ("direction"));
@@ -227,15 +224,15 @@ ADD_ACKNOWLEDGER (Phrasing_slur_engraver, tie);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, tuplet_number);
 
 ADD_TRANSLATOR (Phrasing_slur_engraver,
-		/* doc */
-		"Print phrasing slurs.  Similar to @ref{Slur_engraver}.",
+                /* doc */
+                "Print phrasing slurs.  Similar to @ref{Slur_engraver}.",
 
-		/* create */
-		"PhrasingSlur ",
+                /* create */
+                "PhrasingSlur ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

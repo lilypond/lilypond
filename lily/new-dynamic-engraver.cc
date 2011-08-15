@@ -45,7 +45,7 @@ protected:
 
 private:
   SCM get_property_setting (Stream_event *evt, char const *evprop,
-			    char const *ctxprop);
+                            char const *ctxprop);
   string get_spanner_type (Stream_event *ev);
 
   Drul_array<Stream_event *> accepted_spanevents_drul_;
@@ -103,8 +103,8 @@ New_dynamic_engraver::listen_break_span (Stream_event *event)
 
 SCM
 New_dynamic_engraver::get_property_setting (Stream_event *evt,
-					    char const *evprop,
-					    char const *ctxprop)
+                                            char const *evprop,
+                                            char const *ctxprop)
 {
   SCM spanner_type = evt->get_property (evprop);
   if (spanner_type == SCM_EOL)
@@ -117,15 +117,15 @@ New_dynamic_engraver::process_music ()
 {
   if (current_spanner_
       && (accepted_spanevents_drul_[STOP]
-	  || script_event_
-	  || accepted_spanevents_drul_[START]))
+          || script_event_
+          || accepted_spanevents_drul_[START]))
     {
       Stream_event *ender = accepted_spanevents_drul_[STOP];
       if (!ender)
-	ender = script_event_;
+        ender = script_event_;
 
       if (!ender)
-	ender = accepted_spanevents_drul_[START];
+        ender = accepted_spanevents_drul_[START];
 
       finished_spanner_ = current_spanner_;
       announce_end_grob (finished_spanner_, ender->self_scm ());
@@ -139,37 +139,37 @@ New_dynamic_engraver::process_music ()
 
       string start_type = get_spanner_type (current_span_event_);
       SCM cresc_type = get_property_setting (current_span_event_, "span-type",
-					     (start_type + "Spanner").c_str ());
+                                             (start_type + "Spanner").c_str ());
 
       if (cresc_type == ly_symbol2scm ("text"))
-	{
-	  current_spanner_
-	    = make_spanner ("DynamicTextSpanner",
-			    accepted_spanevents_drul_[START]->self_scm ());
+        {
+          current_spanner_
+            = make_spanner ("DynamicTextSpanner",
+                            accepted_spanevents_drul_[START]->self_scm ());
 
-	  SCM text = get_property_setting (current_span_event_, "span-text",
-					   (start_type + "Text").c_str ());
-	  if (Text_interface::is_markup (text))
-	    current_spanner_->set_property ("text", text);
-	  /*
-	    If the line of a text spanner is hidden, end the alignment spanner
-	    early: this allows dynamics to be spaced individually instead of
-	    being linked together.
-	  */
-	  if (current_spanner_->get_property ("style") == ly_symbol2scm ("none"))
-	    current_spanner_->set_property ("spanner-broken", SCM_BOOL_T);
-	}
+          SCM text = get_property_setting (current_span_event_, "span-text",
+                                           (start_type + "Text").c_str ());
+          if (Text_interface::is_markup (text))
+            current_spanner_->set_property ("text", text);
+          /*
+            If the line of a text spanner is hidden, end the alignment spanner
+            early: this allows dynamics to be spaced individually instead of
+            being linked together.
+          */
+          if (current_spanner_->get_property ("style") == ly_symbol2scm ("none"))
+            current_spanner_->set_property ("spanner-broken", SCM_BOOL_T);
+        }
       else
-	{
-	  if (cresc_type != ly_symbol2scm ("hairpin"))
-	    {
-	      string as_string = ly_scm_write_string (cresc_type);
-	      current_span_event_
-		->origin()->warning (_f ("unknown crescendo style: %s\ndefaulting to hairpin.", as_string.c_str()));
-	    }
-	  current_spanner_ = make_spanner ("Hairpin",
-					   current_span_event_->self_scm ());
-	}
+        {
+          if (cresc_type != ly_symbol2scm ("hairpin"))
+            {
+              string as_string = ly_scm_write_string (cresc_type);
+              current_span_event_
+              ->origin ()->warning (_f ("unknown crescendo style: %s\ndefaulting to hairpin.", as_string.c_str ()));
+            }
+          current_spanner_ = make_spanner ("Hairpin",
+                                           current_span_event_->self_scm ());
+        }
       // if we have a break-dynamic-span event right after the start dynamic, break the new spanner immediately
       if (end_new_spanner_)
         {
@@ -177,28 +177,28 @@ New_dynamic_engraver::process_music ()
           end_new_spanner_ = false;
         }
       if (finished_spanner_)
-	{
-	  if (Hairpin::has_interface (finished_spanner_))
-	    Pointer_group_interface::add_grob (finished_spanner_,
-					       ly_symbol2scm ("adjacent-spanners"),
-					       current_spanner_);
-	  if (Hairpin::has_interface (current_spanner_))
-	    Pointer_group_interface::add_grob (current_spanner_,
-					       ly_symbol2scm ("adjacent-spanners"),
-					       finished_spanner_);
-	}
+        {
+          if (Hairpin::has_interface (finished_spanner_))
+            Pointer_group_interface::add_grob (finished_spanner_,
+                                               ly_symbol2scm ("adjacent-spanners"),
+                                               current_spanner_);
+          if (Hairpin::has_interface (current_spanner_))
+            Pointer_group_interface::add_grob (current_spanner_,
+                                               ly_symbol2scm ("adjacent-spanners"),
+                                               finished_spanner_);
+        }
     }
 
   if (script_event_)
     {
       script_ = make_item ("DynamicText", script_event_->self_scm ());
       script_->set_property ("text",
-			     script_event_->get_property ("text"));
+                             script_event_->get_property ("text"));
 
       if (finished_spanner_)
-	finished_spanner_->set_bound (RIGHT, script_);
+        finished_spanner_->set_bound (RIGHT, script_);
       if (current_spanner_)
-	current_spanner_->set_bound (LEFT, script_);
+        current_spanner_->set_bound (LEFT, script_);
     }
 }
 
@@ -207,13 +207,13 @@ New_dynamic_engraver::stop_translation_timestep ()
 {
   if (finished_spanner_ && !finished_spanner_->get_bound (RIGHT))
     finished_spanner_
-      ->set_bound (RIGHT,
-		   unsmob_grob (get_property ("currentMusicalColumn")));
+    ->set_bound (RIGHT,
+                 unsmob_grob (get_property ("currentMusicalColumn")));
 
   if (current_spanner_ && !current_spanner_->get_bound (LEFT))
     current_spanner_
-      ->set_bound (LEFT,
-		   unsmob_grob (get_property ("currentMusicalColumn")));
+    ->set_bound (LEFT,
+                 unsmob_grob (get_property ("currentMusicalColumn")));
   script_ = 0;
   script_event_ = 0;
   accepted_spanevents_drul_.set (0, 0);
@@ -230,9 +230,9 @@ New_dynamic_engraver::finalize ()
   if (current_spanner_)
     {
       current_span_event_
-	->origin ()->warning (_f ("unterminated %s",
-				  get_spanner_type (current_span_event_)
-				  .c_str ()));
+      ->origin ()->warning (_f ("unterminated %s",
+                                get_spanner_type (current_span_event_)
+                                .c_str ()));
       current_spanner_->suicide ();
       current_spanner_ = 0;
     }
@@ -261,17 +261,17 @@ New_dynamic_engraver::acknowledge_note_column (Grob_info info)
     {
       extract_grob_set (info.grob (), "note-heads", heads);
       /*
-	Spacing constraints may require dynamics to be aligned on rests,
-	so check for a rest if this note column has no note heads.
+        Spacing constraints may require dynamics to be aligned on rests,
+        so check for a rest if this note column has no note heads.
       */
       Grob *x_parent = (heads.size ()
-			? heads[0]
-			: unsmob_grob (info.grob ()->get_object ("rest")));
+                        ? heads[0]
+                        : unsmob_grob (info.grob ()->get_object ("rest")));
       if (x_parent)
-	{
-	  script_->set_parent (x_parent, X_AXIS);
-	  Self_alignment_interface::set_center_parent (script_, X_AXIS);
-	}
+        {
+          script_->set_parent (x_parent, X_AXIS);
+          Self_alignment_interface::set_center_parent (script_, X_AXIS);
+        }
     }
 
   if (current_spanner_ && !current_spanner_->get_bound (LEFT))
@@ -282,21 +282,21 @@ New_dynamic_engraver::acknowledge_note_column (Grob_info info)
 
 ADD_ACKNOWLEDGER (New_dynamic_engraver, note_column);
 ADD_TRANSLATOR (New_dynamic_engraver,
-		/* doc */
-		"Create hairpins, dynamic texts and dynamic text spanners.",
+                /* doc */
+                "Create hairpins, dynamic texts and dynamic text spanners.",
 
-		/* create */
-		"DynamicTextSpanner "
-		"DynamicText "
-		"Hairpin ",
+                /* create */
+                "DynamicTextSpanner "
+                "DynamicText "
+                "Hairpin ",
 
-		/* read */
-		"crescendoSpanner "
-		"crescendoText "
-		"currentMusicalColumn "
-		"decrescendoSpanner "
-		"decrescendoText ",
+                /* read */
+                "crescendoSpanner "
+                "crescendoText "
+                "currentMusicalColumn "
+                "decrescendoSpanner "
+                "decrescendoText ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

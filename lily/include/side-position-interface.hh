@@ -40,13 +40,13 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM element));
   DECLARE_SCHEME_CALLBACK (move_to_extremal_staff, (SCM));
 
-  static SCM aligned_side (Grob*me, Axis a, bool pure, int start, int end, Real *current_off_ptr);
+  static SCM aligned_side (Grob *me, Axis a, bool pure, int start, int end, Real *current_off_ptr);
 
   static SCM general_side_position (Grob *, Axis, bool, bool my_extents,
-				    bool pure, int start, int end, Real *current_off);
+                                    bool pure, int start, int end, Real *current_off);
   static Axis get_axis (Grob *);
   static void set_axis (Grob *, Axis);
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   static void add_support (Grob *, Grob *);
   static void add_staff_support (Grob *);
 };

@@ -30,7 +30,7 @@
 class Script_column_engraver : public Engraver
 {
   Grob *script_column_;
-  vector<Grob*> scripts_;
+  vector<Grob *> scripts_;
 
 public:
   TRANSLATOR_DECLARATIONS (Script_column_engraver);
@@ -51,8 +51,8 @@ Script_column_engraver::stop_translation_timestep ()
   if (script_column_)
     {
       for (vsize i = 0; i < scripts_.size (); i++)
-	if (Side_position_interface::get_axis (scripts_[i]) == Y_AXIS)
-	  Script_column::add_side_positioned (script_column_, scripts_[i]);
+        if (Side_position_interface::get_axis (scripts_[i]) == Y_AXIS)
+          Script_column::add_side_positioned (script_column_, scripts_[i]);
     }
 
   script_column_ = 0;
@@ -66,7 +66,7 @@ Script_column_engraver::acknowledge_side_position (Grob_info inf)
   if (thing)
     {
       if (!Item::is_non_musical (thing))
-	scripts_.push_back (thing);
+        scripts_.push_back (thing);
     }
 }
 
@@ -79,16 +79,16 @@ Script_column_engraver::process_acknowledged ()
 
 ADD_ACKNOWLEDGER (Script_column_engraver, side_position);
 ADD_TRANSLATOR (Script_column_engraver,
-		/* doc */
-		"Find potentially colliding scripts and put them into a"
-		" @code{ScriptColumn} object; that will fix the collisions.",
+                /* doc */
+                "Find potentially colliding scripts and put them into a"
+                " @code{ScriptColumn} object; that will fix the collisions.",
 
-		/* create */
-		"ScriptColumn ",
+                /* create */
+                "ScriptColumn ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

@@ -20,6 +20,7 @@
 #include "multi-measure-rest.hh"
 
 #include "font-interface.hh"
+#include "international.hh"
 #include "lookup.hh"
 #include "misc.hh"
 #include "moment.hh"
@@ -44,9 +45,9 @@ Multi_measure_rest::bar_width (Spanner *me)
     {
       Item *col = me->get_bound (d)->get_column ();
       SCM align_sym
-	= (scm_is_pair (spacing_pair)
-	   ? index_get_cell (spacing_pair, d)
-	   : ly_symbol2scm ("staff-bar"));
+        = (scm_is_pair (spacing_pair)
+           ? index_get_cell (spacing_pair, d)
+           : ly_symbol2scm ("staff-bar"));
       Interval coldim = Paper_column::break_align_width (col, align_sym);
 
       iv[d] = coldim[-d];
@@ -69,7 +70,7 @@ Multi_measure_rest::percent (SCM smob)
   // ugh copy & paste.
 
   Grob *common_x = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT),
-							  X_AXIS);
+                                                          X_AXIS);
   Interval sp_iv = bar_width (sp);
   Real x_off = 0.0;
 
@@ -110,55 +111,97 @@ Multi_measure_rest::print (SCM smob)
   Stencil mol;
   mol.add_stencil (symbol_stencil (me, space));
 
-  int measures = 0;
+  int measure_count = 0;
   SCM m (me->get_property ("measure-count"));
   if (scm_is_number (m))
-    measures = scm_to_int (m);
+    measure_count = scm_to_int (m);
 
   mol.translate_axis (x_off, X_AXIS);
   return mol.smobbed_copy ();
 }
 
 int
-measure_duration_log (Grob *me)
+calc_closest_duration_log (Grob *me, double duration, bool force_round_up)
 {
-  SCM sml = dynamic_cast<Spanner *> (me)->get_bound (LEFT)
-                                        ->get_property ("measure-length");
-  bool round = to_boolean (me->get_property ("round-to-longer-rest"));
-  Rational ml = (unsmob_moment (sml)) ? unsmob_moment (sml)->main_part_ : Rational (1);
+  bool round_up = force_round_up
+                  || to_boolean (me->get_property ("round-up-to-longer-rest"));
+  int closest_usable_duration_log;
 
-  double duration_log = -log_2 (ml.Rational::to_double ());
-  int measure_duration_log = int (ceil (duration_log));
-  if (round && duration_log - measure_duration_log < 0)
-    measure_duration_log--;
+  // Out of range initial values.
+  if (round_up)
+    closest_usable_duration_log = -15; // high value
+  else
+    closest_usable_duration_log = 15; // low value
+  int minimum_usable_duration_log = -15;
+  int maximum_usable_duration_log = 15;
 
   SCM duration_logs_list = me->get_property ("usable-duration-logs");
-  int closest_list_elt = -15; // -15 is out of range.
+  if (to_boolean (scm_null_p (duration_logs_list))
+                    || !to_boolean (scm_list_p (duration_logs_list)))
+    {
+      warning (_ ("usable-duration-logs must be a non-empty list.  Falling back to whole rests."));
+      closest_usable_duration_log = 0;
+    }
+  else
+    {
+      for (SCM s = duration_logs_list; scm_is_pair (s); s = scm_cdr (s))
+        {
+          int dur_log = scm_to_int (scm_car (s));
+          if (dur_log > minimum_usable_duration_log)
+            minimum_usable_duration_log = dur_log;
+          if (dur_log < maximum_usable_duration_log)
+            maximum_usable_duration_log = dur_log;
+          double dur = pow (2.0, -dur_log);
+          if (round_up)
+            {
+              if (duration <= dur && dur_log > closest_usable_duration_log)
+                closest_usable_duration_log = dur_log;
+            }
+          else
+            {
+              if (duration >= dur && dur_log < closest_usable_duration_log)
+                closest_usable_duration_log = dur_log;
+            }
+        }
+    }
 
-  for (int i = 0; i < scm_to_int (scm_length (duration_logs_list)); i++)
-  {
-    int list_elt = scm_to_int (scm_list_ref (duration_logs_list, scm_from_int (i)));
-    int shortest_distance = abs (measure_duration_log - closest_list_elt);
-    int distance = abs (measure_duration_log - list_elt);
-    if (distance < shortest_distance)
-      closest_list_elt = list_elt;
-  }
+  if (closest_usable_duration_log == 15)
+    closest_usable_duration_log = minimum_usable_duration_log;
+  if (closest_usable_duration_log == -15)
+    closest_usable_duration_log = maximum_usable_duration_log;
 
-  return closest_list_elt;
+  return closest_usable_duration_log;
+}
+
+int
+calc_measure_duration_log (Grob *me)
+{
+  SCM sml = dynamic_cast<Spanner *> (me)->get_bound (LEFT)
+                                          ->get_property ("measure-length");
+  Rational ml = (unsmob_moment (sml)) ? unsmob_moment (sml)->main_part_
+                                      : Rational (1);
+  double measure_duration = ml.Rational::to_double ();
+  bool force_round_up = to_boolean (
+                          scm_list_p (
+                            scm_member (
+                              scm_cons (scm_from_int64 (ml.numerator ()),
+                                        scm_from_int64 (ml.denominator ())),
+                              me->get_property ("round-up-exceptions"))));
+  return calc_closest_duration_log (me, measure_duration, force_round_up);
 }
 
 Stencil
 Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 {
-  int measures = 0;
+  int measure_count = 0;
   SCM m (me->get_property ("measure-count"));
   if (scm_is_number (m))
-    measures = scm_to_int (m);
-  if (measures <= 0)
+    measure_count = scm_to_int (m);
+  if (measure_count <= 0)
     return Stencil ();
 
   SCM limit = me->get_property ("expand-limit");
-  if (measures > scm_to_int (limit))
+  if (measure_count > scm_to_int (limit))
     {
       Real padding = 0.15;
       Stencil s = big_rest (me, (1.0 - 2 * padding) * space);
@@ -169,19 +212,19 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   Font_metric *musfont = Font_interface::get_default_font (me);
-  int mdl = measure_duration_log (me);
+  int mdl = calc_measure_duration_log (me);
 
-  if (measures == 1)
+  if (measure_count == 1)
     {
       Stencil s = musfont->find_by_name (Rest::glyph_name (me, mdl, "", true));
-      if (mdl == 0 && Staff_symbol_referencer::get_position (me) == 0.0)
+      if (mdl == 0 && me->get_property ("staff-position") == SCM_EOL)
         s.translate_axis (staff_space, Y_AXIS);
 
       s.translate_axis ((space - s.extent (X_AXIS).length ()) / 2, X_AXIS);
       return s;
     }
   else
-    return church_rest (me, musfont, measures, space);
+    return church_rest (me, musfont, measure_count, space);
 }
 
 /*
@@ -216,63 +259,43 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
   Kirchenpause (?)
 */
 Stencil
-Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measures,
-				 Real space)
+Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_count,
+                                 Real space)
 {
   SCM mols = SCM_EOL;
-
-  int l = measures;
-  int count = 0;
+  int symbol_count = 0;
   Real symbols_width = 0.0;
-  SCM duration_logs_list = me->get_property ("usable-duration-logs");
-  int longest_church_rest = 10; // 10 is out of range.
-  for (int i = 0; i < scm_to_int (scm_length (duration_logs_list)); i++)
-  {
-    longest_church_rest = min (longest_church_rest,
-                               scm_to_int (scm_list_ref (duration_logs_list,
-                                                         scm_from_int (i))));
-  }
+  double total_duration = measure_count * pow (2.0, -calc_measure_duration_log (me));
 
-  while (l)
-  {
-    int k;
-    int i = longest_church_rest - 1;
-    int length;
-    int mdl = measure_duration_log (me);
-
-    do
+  while (total_duration > 0)
     {
-      i++;
-      length = int (pow (2.0, -i));
-    }
-    while (i <= 0 &&
-           !(l >= length && mdl >= longest_church_rest - i));
+      int dl = calc_closest_duration_log (me, total_duration, false);
+      double duration = pow (2.0, -dl);
 
-    l -= length;
-    k = mdl + i;
+      total_duration -= duration;
 
-    Stencil r (musfont->find_by_name ("rests." + to_string (k)));
-    if (k == 0)
-    {
-      Real staff_space = Staff_symbol_referencer::staff_space (me);
-      r.translate_axis (staff_space, Y_AXIS);
+      Stencil r = musfont->find_by_name (Rest::glyph_name (me, dl, "", true));
+      if (dl == 0)
+        {
+          Real staff_space = Staff_symbol_referencer::staff_space (me);
+          r.translate_axis (staff_space, Y_AXIS);
+        }
+      symbols_width += r.extent (X_AXIS).length ();
+      mols = scm_cons (r.smobbed_copy (), mols);
+      symbol_count++;
     }
-    symbols_width += r.extent (X_AXIS).length ();
-    mols = scm_cons (r.smobbed_copy (), mols);
-    count++;
-  }
 
   /* Make outer padding this much bigger.  */
   Real outer_padding_factor = 1.5;
   Real inner_padding = (space - symbols_width)
-    / (2 * outer_padding_factor + (count - 1));
+                       / (2 * outer_padding_factor + (symbol_count - 1));
   if (inner_padding < 0)
     inner_padding = 1.0;
 
   Stencil mol;
   for (SCM s = mols; scm_is_pair (s); s = scm_cdr (s))
     mol.add_at_edge (X_AXIS, LEFT, *unsmob_stencil (scm_car (s)),
-		     inner_padding);
+                     inner_padding);
   mol.align_to (X_AXIS, LEFT);
   mol.translate_axis (outer_padding_factor * inner_padding, X_AXIS);
 
@@ -301,9 +324,10 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
   Item *rb = ri->find_prebroken_piece (LEFT);
 
   Item *combinations[4][2] = {{li, ri},
-			      {lb, ri},
-			      {li, rb},
-			      {lb, rb}};
+    {lb, ri},
+    {li, rb},
+    {lb, rb}
+  };
 
   for (int i = 0; i < 4; i++)
     {
@@ -311,15 +335,15 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
       Item *ri = combinations[i][1];
 
       if (!li || !ri)
-	continue;
+        continue;
 
       Rod rod;
       rod.item_drul_[LEFT] = li;
       rod.item_drul_[RIGHT] = ri;
 
       rod.distance_ = Paper_column::minimum_distance (li, ri)
-	+ length
-	+ 2 * robust_scm2double (me->get_property ("bound-padding"), 1.0);
+                      + length
+                      + 2 * robust_scm2double (me->get_property ("bound-padding"), 1.0);
 
       Real minlen = robust_scm2double (me->get_property ("minimum-length"), 0);
       rod.distance_ = max (rod.distance_, minlen);
@@ -347,24 +371,25 @@ Multi_measure_rest::set_text_rods (SCM smob)
 
   /* FIXME uncached */
   Real len = (stil && !stil->extent (X_AXIS).is_empty ())
-    ? stil->extent (X_AXIS).length ()
-    : 0.0;
+             ? stil->extent (X_AXIS).length ()
+             : 0.0;
   calculate_spacing_rods (me, len);
 
   return SCM_UNSPECIFIED;
 }
 
 ADD_INTERFACE (Multi_measure_rest,
-	       "A rest that spans a whole number of measures.",
+               "A rest that spans a whole number of measures.",
 
-	       /* properties */
-	       "bound-padding "
-	       "expand-limit "
-	       "hair-thickness "
-	       "measure-count "
-	       "minimum-length "
-	       "round-to-longer-rest "
-	       "spacing-pair "
-	       "thick-thickness "
+               /* properties */
+               "bound-padding "
+               "expand-limit "
+               "hair-thickness "
+               "measure-count "
+               "minimum-length "
+               "round-up-exceptions "
+               "round-up-to-longer-rest "
+               "spacing-pair "
+               "thick-thickness "
                "usable-duration-logs "
-	       );
+              );

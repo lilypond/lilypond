@@ -37,7 +37,7 @@ string
 String_convert::bin2hex (Byte bin_char)
 {
   string str;
-  str += to_string ((char) nibble2hex_byte ((Byte)(bin_char >> 4)));
+  str += to_string ((char) nibble2hex_byte ((Byte) (bin_char >> 4)));
   str += to_string ((char) nibble2hex_byte (bin_char++));
   return str;
 }
@@ -46,10 +46,10 @@ string
 String_convert::bin2hex (string bin_string)
 {
   string str;
-  Byte const *byte = (Byte const*)bin_string.data ();
+  Byte const *byte = (Byte const *)bin_string.data ();
   for (ssize i = 0; i < bin_string.length (); i++)
     {
-      str += to_string ((char)nibble2hex_byte ((Byte)(*byte >> 4)));
+      str += to_string ((char)nibble2hex_byte ((Byte) (*byte >> 4)));
       str += to_string ((char)nibble2hex_byte (*byte++));
     }
   return str;
@@ -86,7 +86,7 @@ String_convert::dec2int (string dec_string)
     assert (false);
 
   assert (form_string ("%ld", l) == dec_string);
-  
+
   return (int)l;
 }
 
@@ -95,7 +95,7 @@ String_convert::i64_string (I64 i64, char const *fmt)
 {
   char buffer[STRING_BUFFER_LEN];
   snprintf (buffer, STRING_BUFFER_LEN,
-	    (fmt ? fmt : "%Ld"), i64); // assume radix 10
+            (fmt ? fmt : "%Ld"), i64); // assume radix 10
   return string (buffer);
 }
 // breendet imp from string
@@ -104,11 +104,11 @@ String_convert::dec2double (string dec_string)
 {
   if (!dec_string.length ())
     return 0;
-  
+
   double d = 0.0;
   if (!sscanf (dec_string.c_str (), "%lf", &d))
     assert (false);
-  
+
   return d;
 }
 
@@ -119,14 +119,14 @@ String_convert::hex2bin (string hex_string, string &bin_string_r)
     hex_string = "0" + hex_string;
 
   bin_string_r = "";
-  Byte const *byte = (Byte const*) hex_string.data ();
+  Byte const *byte = (Byte const *) hex_string.data ();
   ssize i = 0;
   while (i < hex_string.length ())
     {
       int high_i = hex2nibble (*byte++);
       int low_i = hex2nibble (*byte++);
       if (high_i < 0 || low_i < 0)
-	return 1; // invalid char
+        return 1; // invalid char
       bin_string_r += to_string ((char) (high_i << 4 | low_i), 1);
       i += 2;
     }
@@ -140,7 +140,7 @@ String_convert::hex2bin (string hex_string)
 
   if (hex2bin (hex_string, str))
     assert (false);
-  
+
   return str;
 }
 
@@ -186,7 +186,7 @@ String_convert::unsigned2hex (unsigned u, ssize length, char fill_char)
       u /= 16;
     }
 #else
-  str += int_string (u, "%x");	// hmm. %lx vs. %x -> portability?
+  str += int_string (u, "%x");  // hmm. %lx vs. %x -> portability?
 #endif
 
   str = to_string (fill_char, length - str.length ()) + str;
@@ -206,9 +206,9 @@ Byte
 String_convert::nibble2hex_byte (Byte byte)
 {
   if ((byte & 0x0f) <= 9)
-    return (Byte)((byte & 0x0f) + '0');
+    return (Byte) ((byte & 0x0f) + '0');
   else
-    return (Byte)((byte & 0x0f) - 10 + 'a');
+    return (Byte) ((byte & 0x0f) - 10 + 'a');
 }
 /**
    Convert an integer to a string
@@ -221,7 +221,7 @@ String_convert::int_string (int i, char const *fmt)
 {
   char buffer[STRING_BUFFER_LEN];
   snprintf (buffer, STRING_BUFFER_LEN,
-	    (fmt ? fmt : "%d"), i); // assume radix 10
+            (fmt ? fmt : "%d"), i); // assume radix 10
   return string (buffer);
 }
 
@@ -271,7 +271,7 @@ String_convert::char_string (char c, int n)
   char *ch = new char[ n ];
   memset (ch, c, n);
   string s (ch, n);
-  
+
   delete[] ch;
   return s;
 }
@@ -327,7 +327,6 @@ String_convert::precision_string (double x, int n)
   return (sign (x) > 0 ? str : "-" + str);
 }
 
-
 string
 String_convert::long_string (long l)
 {
@@ -347,7 +346,7 @@ String_convert::unsigned_string (unsigned u)
 string
 String_convert::pad_to (string s, int n)
 {
-  return s + string (max (int(n - s.length ()), 0), ' ');
+  return s + string (max (int (n - s.length ()), 0), ' ');
 }
 
 string
@@ -365,5 +364,5 @@ String_convert::to_lower (string s)
 string
 String_convert::reverse (string s)
 {
-  return (char*) memrev ((unsigned char *)s.data (), s.length ());
+  return (char *) memrev ((unsigned char *)s.data (), s.length ());
 }

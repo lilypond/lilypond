@@ -25,7 +25,7 @@
 #include "translator.icc"
 
 /*
-  TODO: fold together with axis_group_engraver? 
+  TODO: fold together with axis_group_engraver?
  */
 
 class Hara_kiri_engraver : public Axis_group_engraver
@@ -40,7 +40,6 @@ protected:
 public:
   TRANSLATOR_DECLARATIONS (Hara_kiri_engraver);
 };
-
 
 Hara_kiri_engraver::Hara_kiri_engraver ()
 {
@@ -80,28 +79,27 @@ Hara_kiri_engraver::acknowledge_grob (Grob_info i)
   if (staffline_)
     {
       for (SCM s = interesting_; scm_is_pair (s); s = scm_cdr (s))
-	{
-	  if (i.grob ()->internal_has_interface (scm_car (s)))
-	    Hara_kiri_group_spanner::add_interesting_item (staffline_, i.grob ());
-	}
+        {
+          if (i.grob ()->internal_has_interface (scm_car (s)))
+            Hara_kiri_group_spanner::add_interesting_item (staffline_, i.grob ());
+        }
     }
 }
 
-
 ADD_ACKNOWLEDGER (Hara_kiri_engraver, grob);
 ADD_TRANSLATOR (Hara_kiri_engraver,
-		/* doc */
-		"Like @code{Axis_group_engraver}, but make a hara-kiri"
-		" spanner, and add interesting items (i.e., note heads, lyric"
-		" syllables, and normal rests).",
+                /* doc */
+                "Like @code{Axis_group_engraver}, but make a hara-kiri"
+                " spanner, and add interesting items (i.e., note heads, lyric"
+                " syllables, and normal rests).",
 
-		/* create */
-		"VerticalAxisGroup ",
+                /* create */
+                "VerticalAxisGroup ",
 
-		/* read */
-		"keepAliveInterfaces ",
+                /* read */
+                "keepAliveInterfaces ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );
 

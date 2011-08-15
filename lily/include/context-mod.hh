@@ -30,7 +30,6 @@
 #include "smobs.hh"
 #include "virtual-methods.hh"
 
-
 /*
   Modifications for an interpretation context as given in the
   input.

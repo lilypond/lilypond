@@ -29,8 +29,8 @@ class Grob
 {
 private:
   DECLARE_SMOBS (Grob);
-  DECLARE_CLASSNAME(Grob);
-  
+  DECLARE_CLASSNAME (Grob);
+
   void init ();
 
 protected:
@@ -43,13 +43,13 @@ protected:
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
   SCM object_alist_;
-  
+
   /*
     If this is a property, it accounts for 25% of the property
     lookups.
   */
   SCM interfaces_;
-  
+
   void substitute_object_links (SCM, SCM);
   Real get_offset (Axis a) const;
   SCM try_callback (SCM, SCM);
@@ -57,7 +57,7 @@ protected:
   void internal_set_value_on_alist (SCM *alist, SCM sym, SCM val);
 
 public:
-  
+
   /* friends */
   friend class Spanner;
   friend class System;
@@ -75,7 +75,7 @@ public:
   Grob *original () const { return original_; }
   SCM interfaces () const { return interfaces_; }
 
-  /* life & death */ 
+  /* life & death */
   Grob (SCM basic_props);
   Grob (Grob const &);
   virtual Grob *clone () const;
@@ -97,13 +97,12 @@ public:
   SCM internal_get_object (SCM symbol) const;
   void internal_set_object (SCM sym, SCM val);
   void internal_del_property (SCM symbol);
-  void instrumented_set_property (SCM, SCM, char const*, int, char const*);
+  void instrumented_set_property (SCM, SCM, char const *, int, char const *);
   void internal_set_property (SCM sym, SCM val);
 
-  /* messages */  
+  /* messages */
   void warning (string) const;
   void programming_error (string) const;
-
 
   /* class hierarchy */
   virtual System *get_system () const;
@@ -121,7 +120,7 @@ public:
 
   /* interfaces */
   bool internal_has_interface (SCM intf);
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 
   /* offsets */
   void translate_axis (Real, Axis);
@@ -154,10 +153,10 @@ Item *unsmob_item (SCM);
 
 /* refpoints */
 Grob *common_refpoint_of_list (SCM elt_list, Grob *, Axis a);
-Grob *common_refpoint_of_array (vector<Grob*> const &, Grob *, Axis a);
+Grob *common_refpoint_of_array (vector<Grob *> const &, Grob *, Axis a);
 System *get_root_system (Grob *me);
 
-/* extents */ 
+/* extents */
 Interval robust_relative_extent (Grob *, Grob *, Axis);
 
 /* offset/extent callbacks. */

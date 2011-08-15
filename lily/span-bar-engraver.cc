@@ -33,7 +33,7 @@ dependencies to the spanbars.
 class Span_bar_engraver : public Engraver
 {
   Item *spanbar_;
-  vector<Item*> bars_;
+  vector<Item *> bars_;
 
 public:
   TRANSLATOR_DECLARATIONS (Span_bar_engraver);
@@ -57,11 +57,11 @@ Span_bar_engraver::acknowledge_bar_line (Grob_info i)
       bars_.push_back (it);
 
       if (bars_.size () >= 2 && !spanbar_)
-	{
-	  spanbar_ = make_item ("SpanBar", SCM_EOL);
+        {
+          spanbar_ = make_item ("SpanBar", SCM_EOL);
 
-	  spanbar_->set_parent (bars_[0], X_AXIS);
-	}
+          spanbar_->set_parent (bars_[0], X_AXIS);
+        }
     }
 }
 
@@ -71,12 +71,12 @@ Span_bar_engraver::stop_translation_timestep ()
   if (spanbar_)
     {
       for (vsize i = 0; i < bars_.size (); i++)
-	Span_bar::add_bar (spanbar_, bars_[i]);
+        Span_bar::add_bar (spanbar_, bars_[i]);
 
       SCM vissym = ly_symbol2scm ("break-visibility");
       SCM vis = bars_[0]->internal_get_property (vissym);
       if (ly_is_equal (spanbar_->internal_get_property (vissym), vis))
-	spanbar_->set_property (vissym, vis);
+        spanbar_->set_property (vissym, vis);
 
       spanbar_ = 0;
     }
@@ -87,16 +87,16 @@ Span_bar_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Span_bar_engraver, bar_line);
 ADD_TRANSLATOR (Span_bar_engraver,
-		/* doc */
-		"Make cross-staff bar lines: It catches all normal bar lines"
-		" and draws a single span bar across them.",
+                /* doc */
+                "Make cross-staff bar lines: It catches all normal bar lines"
+                " and draws a single span bar across them.",
 
-		/* create */
-		"SpanBar ",
+                /* create */
+                "SpanBar ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

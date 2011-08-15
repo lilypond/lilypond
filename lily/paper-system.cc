@@ -31,9 +31,9 @@ make_paper_system (SCM immutable_init)
 /*
   TODO
   it might be interesting to split off the footnotes as well, ie.
-  
-  get_footnotes(SCM expr, SCM* footnotes, SCM* cleaned) 
-    
+
+  get_footnotes(SCM expr, SCM* footnotes, SCM* cleaned)
+
   by doing it this way and overwriting the old expr in the caller,
   you can make sure nobody tries to handle footnotes differently
   downstream.
@@ -51,7 +51,7 @@ get_footnotes (SCM expr)
       // we likely need to do something here...just don't know what...
       return SCM_EOL;
     }
-  
+
   if (head == ly_symbol2scm ("combine-stencil"))
     {
       SCM out = SCM_EOL;
@@ -76,7 +76,6 @@ get_footnotes (SCM expr)
 
   return SCM_EOL;
 }
-
 
 void
 paper_system_set_stencil (Prob *prob, Stencil s)

@@ -62,17 +62,17 @@ Ottava_bracket::print (SCM smob)
       broken[d] = (b->break_status_dir () != CENTER);
 
       if (Note_column::has_interface (b))
-	{
-	  extract_grob_set (b, "note-heads", heads);
-	  common = common_refpoint_of_array (heads, common, X_AXIS);
-	  for (vsize i = 0; i < heads.size (); i++)
-	    {
-	      Grob *h = heads[i];
-	      Grob *dots = Rhythmic_head::get_dots (h);
-	      if (dots)
-		common = dots->common_refpoint (common, X_AXIS);
-	    }
-	}
+        {
+          extract_grob_set (b, "note-heads", heads);
+          common = common_refpoint_of_array (heads, common, X_AXIS);
+          for (vsize i = 0; i < heads.size (); i++)
+            {
+              Grob *h = heads[i];
+              Grob *dots = Rhythmic_head::get_dots (h);
+              if (dots)
+                common = dots->common_refpoint (common, X_AXIS);
+            }
+        }
     }
   while (flip (&d) != LEFT);
 
@@ -81,10 +81,10 @@ Ottava_bracket::print (SCM smob)
   Stencil text;
   if (Text_interface::is_markup (markup))
     text = *unsmob_stencil (Text_interface::interpret_markup (layout->self_scm (),
-							      properties, markup));
+                                                              properties, markup));
 
   Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
-						  Interval (0, 0));
+                                                  Interval (0, 0));
 
   /*
     TODO: we should check if there are ledgers, and modify length of
@@ -96,30 +96,30 @@ Ottava_bracket::print (SCM smob)
 
       Interval ext;
       if (Note_column::has_interface (b))
-	{
-	  extract_grob_set (b, "note-heads", heads);
-	  for (vsize i = 0; i < heads.size (); i++)
-	    {
-	      Grob *h = heads[i];
-	      ext.unite (h->extent (common, X_AXIS));
-	      Grob *dots = Rhythmic_head::get_dots (h);
+        {
+          extract_grob_set (b, "note-heads", heads);
+          for (vsize i = 0; i < heads.size (); i++)
+            {
+              Grob *h = heads[i];
+              ext.unite (h->extent (common, X_AXIS));
+              Grob *dots = Rhythmic_head::get_dots (h);
 
-	      if (dots && d == RIGHT)
-		ext.unite (dots->extent (common, X_AXIS));
-	    }
-	}
+              if (dots && d == RIGHT)
+                ext.unite (dots->extent (common, X_AXIS));
+            }
+        }
 
       if (ext.is_empty ())
-	ext = robust_relative_extent (b, common, X_AXIS);
+        ext = robust_relative_extent (b, common, X_AXIS);
 
       if (broken[d])
-	{
-	  span_points[d] = b->extent (common, X_AXIS)[RIGHT];
-	  shorten[d] = 0.;
-	}
+        {
+          span_points[d] = b->extent (common, X_AXIS)[RIGHT];
+          shorten[d] = 0.;
+        }
 
       else
-	span_points[d] = ext[d];
+        span_points[d] = ext[d];
     }
   while (flip (&d) != LEFT);
 
@@ -127,38 +127,38 @@ Ottava_bracket::print (SCM smob)
     0.3 is ~ italic correction.
   */
   Real text_size = text.extent (X_AXIS).is_empty ()
-    ? 0.0 : text.extent (X_AXIS)[RIGHT] + 0.3;
+                   ? 0.0 : text.extent (X_AXIS)[RIGHT] + 0.3;
 
   span_points[LEFT]
     = min (span_points[LEFT],
-	   (span_points[RIGHT] - text_size
-	    - robust_scm2double (me->get_property ("minimum-length"), -1.0)));
+           (span_points[RIGHT] - text_size
+            - robust_scm2double (me->get_property ("minimum-length"), -1.0)));
 
   Interval bracket_span_points = span_points;
   bracket_span_points[LEFT] += text_size;
 
   Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
-						      Interval (1.0, 1.0));
+                                                      Interval (1.0, 1.0));
 
   Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
-						Interval (0, 0));
+                                                Interval (0, 0));
 
   do
     {
       edge_height[d] *= -get_grob_direction (me);
       if (broken[d])
-	edge_height[d] = 0.0;
+        edge_height[d] = 0.0;
     }
-  while (flip(&d) != LEFT);
+  while (flip (&d) != LEFT);
 
   Stencil b;
   Interval empty;
   if (!bracket_span_points.is_empty () && bracket_span_points.length () > 0.001)
     b = Tuplet_bracket::make_bracket (me,
-				      Y_AXIS, Offset (bracket_span_points.length (), 0),
-				      edge_height,
-				      empty,
-				      flare, shorten);
+                                      Y_AXIS, Offset (bracket_span_points.length (), 0),
+                                      edge_height,
+                                      empty,
+                                      flare, shorten);
 
   /*
     The vertical lines should not take space, for the following scenario:
@@ -176,8 +176,8 @@ Ottava_bracket::print (SCM smob)
   */
 
   b = Stencil (Box (b.extent (X_AXIS),
-		    Interval (0.1, 0.1)),
-	       b.expr ());
+                    Interval (0.1, 0.1)),
+               b.expr ());
 
   b.translate_axis (bracket_span_points[LEFT], X_AXIS);
   text.translate_axis (span_points[LEFT], X_AXIS);
@@ -190,12 +190,12 @@ Ottava_bracket::print (SCM smob)
 }
 
 ADD_INTERFACE (Ottava_bracket,
-	       "An ottava bracket.",
+               "An ottava bracket.",
 
-	       /* properties */
-	       "edge-height "
-	       "bracket-flare "
-	       "shorten-pair "
-	       "minimum-length "
-	       );
+               /* properties */
+               "edge-height "
+               "bracket-flare "
+               "shorten-pair "
+               "minimum-length "
+              );
 

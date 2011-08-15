@@ -41,7 +41,7 @@ Music_sequence::cumulative_length (SCM l)
     {
       Moment l = unsmob_music (scm_car (s))->get_length ();
       if (last_len.grace_part_ && l.main_part_)
-	last_len.grace_part_ = Rational (0);
+        last_len.grace_part_ = Rational (0);
       cumulative += last_len;
       last_len = l;
     }
@@ -60,12 +60,12 @@ Music_sequence::maximum_length (SCM l)
     {
       Music *m = unsmob_music (scm_car (s));
       if (!m)
-	programming_error ("Music sequence should have music elements");
+        programming_error ("Music sequence should have music elements");
       else
-	{
-	  Moment l = m->get_length ();
-	  dur = max (dur, l);
-	}
+        {
+          Moment l = m->get_length ();
+          dur = max (dur, l);
+        }
     }
 
   return dur;
@@ -113,11 +113,11 @@ music_list_to_relative (SCM l, Pitch p, bool ret_first)
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
     {
       if (Music *m = unsmob_music (scm_car (s)))
-	{
-	  last = m->to_relative_octave (last);
-	  if (!count++)
-	    first = last;
-	}
+        {
+          last = m->to_relative_octave (last);
+          if (!count++)
+            first = last;
+        }
     }
 
   return (ret_first) ? first : last;
@@ -151,7 +151,7 @@ Music_sequence::first_start (SCM l)
       Moment l = mus->get_length ();
       Moment s = mus->start_mom ();
       if (l.to_bool () || s.to_bool ())
-	return s;
+        return s;
     }
   return m;
 }
@@ -175,7 +175,7 @@ Music_sequence::simultaneous_relative_callback (SCM music, SCM pitch)
 
       Pitch retval_1_8 = music_list_to_relative (copied, p, true);
       if (retval_1_8 != retval)
-	lily_1_8_compatibility_used = true;
+        lily_1_8_compatibility_used = true;
 
       retval = retval_1_8;
     }
@@ -190,7 +190,7 @@ Music_sequence::event_chord_relative_callback (SCM music, SCM pitch)
   Music *me = unsmob_music (music);
   Pitch p = *unsmob_pitch (pitch);
   return music_list_to_relative (me->get_property ("elements"),
-				 p, true).smobbed_copy ();
+                                 p, true).smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Music_sequence, repeated_chord_relative_callback, 2);
@@ -212,14 +212,14 @@ Music_sequence::repeated_chord_relative_callback (SCM music, SCM pitch)
   if (original_chord)
     {
       for (SCM s = original_chord->get_property ("elements"); scm_is_pair (s); s = scm_cdr (s))
-	{
-	  if (Music *m = unsmob_music (scm_car (s)))
-	    {
-	      p = unsmob_pitch (m->get_property ("pitch"));
-	      if (p)
-		break;
-	    }
-	}
+        {
+          if (Music *m = unsmob_music (scm_car (s)))
+            {
+              p = unsmob_pitch (m->get_property ("pitch"));
+              if (p)
+                break;
+            }
+        }
     }
   /* Use the `pitch' argument if no pitch found in original chord. */
   if (! p)
@@ -231,17 +231,17 @@ Music_sequence::repeated_chord_relative_callback (SCM music, SCM pitch)
   for (SCM s = repeated_chord->get_property ("elements"); scm_is_pair (s); s = scm_cdr (s))
     {
       if (Music *m = unsmob_music (scm_car (s)))
-	{
-	  Pitch *first_pitch = unsmob_pitch (m->get_property ("pitch"));
-	  if (first_pitch)
-	    {
-	      Pitch new_pitch = Pitch (-1,
-				       first_pitch->get_notename (),
-				       first_pitch->get_alteration ());
-	      m->set_property ("pitch", new_pitch.smobbed_copy ());
-	      break;
-	    }
-	}
+        {
+          Pitch *first_pitch = unsmob_pitch (m->get_property ("pitch"));
+          if (first_pitch)
+            {
+              Pitch new_pitch = Pitch (-1,
+                                       first_pitch->get_notename (),
+                                       first_pitch->get_alteration ());
+              m->set_property ("pitch", new_pitch.smobbed_copy ());
+              break;
+            }
+        }
     }
   music_list_to_relative (repeated_chord->get_property ("elements"), *p, true).smobbed_copy ();
   /* Return `pitch' instead of the repeated chord first pitch,

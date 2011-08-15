@@ -27,9 +27,9 @@
 class Performance : public Music_output
 {
 public:
-  Performance (bool ports=false);
+  Performance (bool ports = false);
   ~Performance ();
-  DECLARE_CLASSNAME(Performance);
+  DECLARE_CLASSNAME (Performance);
 
   void add_element (Audio_element *p);
   virtual void process ();
@@ -40,8 +40,8 @@ public:
   void print () const;
   void write_output (string filename) const;
 
-  vector<Audio_staff*> audio_staffs_;
-  vector<Audio_element*> audio_elements_;
+  vector<Audio_staff *> audio_staffs_;
+  vector<Audio_element *> audio_elements_;
   Output_def *midi_;
   bool ports_;
 };

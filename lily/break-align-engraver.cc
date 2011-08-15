@@ -91,20 +91,20 @@ Break_align_engraver::acknowledge_break_aligned (Grob_info inf)
   if (Item *item = dynamic_cast<Item *> (inf.grob ()))
     {
       /*
-	Removed check for item->empty (X_AXIS). --hwn 20/1/04
+        Removed check for item->empty (X_AXIS). --hwn 20/1/04
       */
       if (item->get_parent (X_AXIS))
-	return;
+        return;
 
       if (!Item::is_non_musical (item))
-	return;
+        return;
 
       SCM align_name = item->get_property ("break-align-symbol");
       if (!scm_is_symbol (align_name))
-	return;
+        return;
 
       if (!align_)
-	create_alignment (inf);
+        create_alignment (inf);
 
       add_to_group (align_name, item);
     }
@@ -127,7 +127,7 @@ Break_align_engraver::create_alignment (Grob_info inf)
   */
   left_edge_ = random_source->make_item ("LeftEdge", SCM_EOL);
   add_to_group (left_edge_->get_property ("break-align-symbol"),
-		left_edge_);
+                left_edge_);
 }
 
 void
@@ -158,20 +158,20 @@ Break_align_engraver::add_to_group (SCM align_name, Item *item)
 ADD_ACKNOWLEDGER (Break_align_engraver, break_aligned);
 ADD_ACKNOWLEDGER (Break_align_engraver, break_alignable);
 ADD_TRANSLATOR (Break_align_engraver,
-		/* doc */
-		"Align grobs with corresponding @code{break-align-symbols}"
-		" into groups, and order the groups according to"
-		" @code{breakAlignOrder}.  The left edge of the alignment gets"
-		" a separate group, with a symbol @code{left-edge}.",
+                /* doc */
+                "Align grobs with corresponding @code{break-align-symbols}"
+                " into groups, and order the groups according to"
+                " @code{breakAlignOrder}.  The left edge of the alignment gets"
+                " a separate group, with a symbol @code{left-edge}.",
 
-		/* create */
-		"BreakAlignment "
-		"BreakAlignGroup "
-		"LeftEdge ",
+                /* create */
+                "BreakAlignment "
+                "BreakAlignGroup "
+                "LeftEdge ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

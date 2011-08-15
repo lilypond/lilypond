@@ -36,16 +36,16 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
   Font_metric *fm = Font_interface::get_default_font (me);
 
   Drul_array<Stencil> tips (fm->find_by_name ("brackettips.down"),
-			    fm->find_by_name ("brackettips.up"));
+                            fm->find_by_name ("brackettips.up"));
 
   Real thickness = robust_scm2double (me->get_property ("thickness"), 0.25);
 
   Real overlap = 0.1 * thickness;
 
   Box box (Interval (0, thickness),
-	   Interval (-1, 1)
-	   * (height / 2 + overlap));
-  
+           Interval (-1, 1)
+           * (height / 2 + overlap));
+
   Stencil bracket = Lookup::filled_box (box);
   Direction d = DOWN;
   do
@@ -54,7 +54,7 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
   bracket = Stencil (box, bracket.expr ());
 
   bracket.translate_axis (-0.8, X_AXIS);
-  
+
   return bracket;
 }
 
@@ -63,18 +63,18 @@ System_start_delimiter::line_bracket (Grob *me, Real height)
 {
   Real thick
     = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
-    * robust_scm2double (me->get_property ("thickness"), 1);
+      * robust_scm2double (me->get_property ("thickness"), 1);
   Real w = 0.8;
-  
+
   Stencil tip1 = Line_interface::make_line (thick,
-					   Offset (0, -height/2),
-					   Offset (w, -height/2));
+                                            Offset (0, -height / 2),
+                                            Offset (w, -height / 2));
   Stencil tip2 = Line_interface::make_line (thick,
-					    Offset (0, height/2),
-					    Offset (w, height/2));
+                                            Offset (0, height / 2),
+                                            Offset (w, height / 2));
   Stencil vline = Line_interface::make_line (thick,
-					     Offset (0, -height/2),
-					     Offset (0, height/2));
+                                             Offset (0, -height / 2),
+                                             Offset (0, height / 2));
 
   vline.add_stencil (tip1);
   vline.add_stencil (tip2);
@@ -88,7 +88,7 @@ System_start_delimiter::simple_bar (Grob *me, Real h)
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   Real w = lt * robust_scm2double (me->get_property ("thickness"), 1);
   return Lookup::round_filled_box (Box (Interval (0, w), Interval (-h / 2, h / 2)),
-				   lt);
+                                   lt);
 }
 
 MAKE_SCHEME_CALLBACK (System_start_delimiter, print, 1);
@@ -107,16 +107,16 @@ System_start_delimiter::print (SCM smob)
       Spanner *sp = dynamic_cast<Spanner *> (elts[i]);
 
       if (sp
-	  && sp->get_bound (LEFT) == me->get_bound (LEFT))
-	{
-	  Interval dims = sp->extent (common, Y_AXIS);
-	  if (!dims.is_empty ())
-	    {
-	      non_empty_count ++;
-	      ext.unite (dims);
+          && sp->get_bound (LEFT) == me->get_bound (LEFT))
+        {
+          Interval dims = sp->extent (common, Y_AXIS);
+          if (!dims.is_empty ())
+            {
+              non_empty_count++;
+              ext.unite (dims);
               staffspace = Staff_symbol_referencer::staff_space (sp);
-	    }
-	}
+            }
+        }
     }
 
   SCM glyph_sym = me->get_property ("style");
@@ -155,7 +155,7 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
   fm = Font_interface::get_default_font (me);
 
   int
-    lo = 0;
+  lo = 0;
   int hi = max ((int) fm->count () - 1, 2);
 
   /* do a binary search for each Y, not very efficient, but passable?  */
@@ -165,48 +165,48 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
       int cmp = (lo + hi) / 2;
       b = fm->get_indexed_char_dimensions (cmp);
       if (b[Y_AXIS].is_empty () || b[Y_AXIS].length () > y)
-	hi = cmp;
+        hi = cmp;
       else
-	lo = cmp;
+        lo = cmp;
     }
   while (hi - lo > 1);
 
   Stencil stil (fm->find_by_name ("brace" + to_string (lo)));
-  stil.translate_axis (-b[X_AXIS].length ()/2, X_AXIS);
+  stil.translate_axis (-b[X_AXIS].length () / 2, X_AXIS);
 
   stil.translate_axis (-0.2, X_AXIS);
-  
+
   return stil;
 }
 
 ADD_INTERFACE (System_start_delimiter,
-	       "The brace, bracket or bar in front of the system.  The"
-	       " following values for @code{style} are recognized:\n"
-	       "\n"
-	       "@table @code\n"
-	       "@item bracket\n"
-	       "A thick bracket, normally used to group similar"
-	       " instruments in a score.  Default for @code{StaffGroup}."
-	       "  @code{SystemStartBracket} uses this style.\n"
-	       "@item brace\n"
-	       "A @q{piano style} brace normally used for an instrument"
-	       " that uses two staves.  The default style for"
-	       " @code{GrandStaff}.  @code{SystemStartBrace} uses this"
-	       " style.\n"
-	       "@item bar-line\n"
-	       "A simple line between the staves in a score.  Default"
-	       " for staves enclosed in @code{<<} and @code{>>}."
-	       "  @code{SystemStartBar} uses this style.\n"
-	       "@item line-bracket\n"
-	       "A simple square, normally used for subgrouping"
-	       " instruments in a score.  @code{SystemStartSquare} uses"
-	       " this style.\n"
-	       "@end table\n"
-	       "\n"
-	       "See also @file{input/regression/system-start-nesting.ly}.",
+               "The brace, bracket or bar in front of the system.  The"
+               " following values for @code{style} are recognized:\n"
+               "\n"
+               "@table @code\n"
+               "@item bracket\n"
+               "A thick bracket, normally used to group similar"
+               " instruments in a score.  Default for @code{StaffGroup}."
+               "  @code{SystemStartBracket} uses this style.\n"
+               "@item brace\n"
+               "A @q{piano style} brace normally used for an instrument"
+               " that uses two staves.  The default style for"
+               " @code{GrandStaff}.  @code{SystemStartBrace} uses this"
+               " style.\n"
+               "@item bar-line\n"
+               "A simple line between the staves in a score.  Default"
+               " for staves enclosed in @code{<<} and @code{>>}."
+               "  @code{SystemStartBar} uses this style.\n"
+               "@item line-bracket\n"
+               "A simple square, normally used for subgrouping"
+               " instruments in a score.  @code{SystemStartSquare} uses"
+               " this style.\n"
+               "@end table\n"
+               "\n"
+               "See also @file{input/regression/system-start-nesting.ly}.",
 
-	       /* properties */
-	       "collapse-height "
-	       "style "
-	       "thickness "
-	       );
+               /* properties */
+               "collapse-height "
+               "style "
+               "thickness "
+              );

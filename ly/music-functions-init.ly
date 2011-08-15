@@ -361,7 +361,7 @@ the number appears at @var{offset}.  Note that, for this to take effect,
 auto-numbering must be turned on in the paper block.  Otherwise, no
 number will appear.  Use like @code{\\once})")
    #{
-     \footnoteGrob $grob-name $offset \markup { "" } $footnote
+     \footnoteGrob $grob-name $offset \markup { \null } $footnote
    #})
 
 footnote =
@@ -389,7 +389,7 @@ Otherwise, no number will appear.  Use like @code{\\tweak})")
    (make-music 'FootnoteEvent
 	       'X-offset (car offset)
 	       'Y-offset (cdr offset)
-	       'text (markup "")
+	       'text (make-null-markup)
 	       'footnote-text footnote))
 
 grace =

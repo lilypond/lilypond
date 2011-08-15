@@ -38,9 +38,8 @@ Spacing_options::init_from_grob (Grob *me)
     = to_boolean (me->get_property ("strict-grace-spacing"));
   shortest_duration_space_ = robust_scm2double (me->get_property ("shortest-duration-space"), 1);
 
-
   Moment shortest_dur = robust_scm2moment (me->get_property ("common-shortest-duration"),
-					   Moment (Rational (1,8), Rational (1,16)));
+                                           Moment (Rational (1, 8), Rational (1, 16)));
 
   if (shortest_dur.main_part_)
     global_shortest_ = shortest_dur.main_part_;
@@ -61,8 +60,6 @@ Spacing_options::Spacing_options ()
   global_shortest_ = Rational (1, 8);
 }
 
-
-
 /*
   Get the measure wide ant for arithmetic spacing.
 */
@@ -74,18 +71,18 @@ Spacing_options::get_duration_space (Rational d) const
   if (d < global_shortest_)
     {
       /*
-	We don't space really short notes using the log of the
-	duration, since it would disproportionally stretches the long
-	notes in a piece. In stead, we use geometric spacing with constant 0.5
-	(i.e. linear.)
+        We don't space really short notes using the log of the
+        duration, since it would disproportionally stretches the long
+        notes in a piece. In stead, we use geometric spacing with constant 0.5
+        (i.e. linear.)
 
-	This should probably be tunable, to use other base numbers.
+        This should probably be tunable, to use other base numbers.
 
-	In Mozart hrn3 by EB., we have 8th note = 3.9 mm (total), 16th note =
-	3.6 mm (total).  head-width = 2.4, so we 1.2mm for 16th, 1.5
-	mm for 8th. (white space), suggesting that we use
+        In Mozart hrn3 by EB., we have 8th note = 3.9 mm (total), 16th note =
+        3.6 mm (total).  head-width = 2.4, so we 1.2mm for 16th, 1.5
+        mm for 8th. (white space), suggesting that we use
 
-	(1.2 / 1.5)^{-log2(duration ratio)}
+        (1.2 / 1.5)^{-log2(duration ratio)}
 
 
       */
@@ -96,9 +93,9 @@ Spacing_options::get_duration_space (Rational d) const
   else
     {
       /*
-	John S. Gourlay. ``Spacing a Line of Music, '' Technical
-	Report OSU-CISRC-10/87-TR35, Department of Computer and
-	Information Science, The Ohio State University, 1987.
+        John S. Gourlay. ``Spacing a Line of Music, '' Technical
+        Report OSU-CISRC-10/87-TR35, Department of Computer and
+        Information Science, The Ohio State University, 1987.
       */
       Real log = log_2 (global_shortest_);
       k -= log;

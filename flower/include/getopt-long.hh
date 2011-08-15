@@ -54,7 +54,8 @@ public:
   /** errorcodes: no error, argument expected, no argument expected,
       unknown option, illegal argument (eg. int expected).  */
   enum Errorcod { E_NOERROR = 0, E_ARGEXPECT, E_NOARGEXPECT, E_UNKNOWNOPTION,
-		  E_ILLEGALARG };
+                  E_ILLEGALARG
+                };
 
   /// argument. Set to 0 if not present
   char const *optional_argument_str0_;

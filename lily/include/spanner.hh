@@ -44,7 +44,7 @@ class Spanner : public Grob
   Drul_array<Item *> spanned_drul_;
   vsize break_index_;
 
-  DECLARE_CLASSNAME(Spanner);
+  DECLARE_CLASSNAME (Spanner);
 
 public:
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
@@ -52,11 +52,11 @@ public:
   DECLARE_SCHEME_CALLBACK (bounds_width, (SCM));
   DECLARE_SCHEME_CALLBACK (kill_zero_spanned_time, (SCM));
 
-  vector<Spanner*> broken_intos_;
+  vector<Spanner *> broken_intos_;
 
   vsize get_break_index () const;
   Spanner *broken_neighbor (Direction d) const;
-  
+
   // todo: move to somewhere else.
   Real get_broken_left_end_align () const;
   void substitute_one_mutable_property (SCM sym, SCM val);
@@ -76,7 +76,7 @@ public:
   static bool less (Spanner *const &, Spanner *const &);
   virtual Grob *find_broken_piece (System *) const;
   virtual void derived_mark () const;
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   virtual System *get_system () const;
 
   SCM get_cached_pure_property (SCM sym, int start, int end);

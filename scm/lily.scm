@@ -27,7 +27,16 @@
 
 (defmacro-public _i (x) x)
 
+;;; Boolean thunk - are we integrating Guile V2.0 or higher with LilyPond?
+(define-public (guile-v2)
+  (string>? (version) "1.9.10"))
+
 (read-enable 'positions)
+(if (not (guile-v2))
+    (debug-enable 'debug)
+    (begin
+      (debug-enable 'backtrace)
+      (debug-enable 'show-file-name)))
 
 (define-public PLATFORM
   (string->symbol
@@ -195,10 +204,6 @@ messages into errors.")
 
 ;;(set-debug-cell-accesses! 1000)
 
-;;; Boolean thunk - are we integrating Guile V2.0 or higher with LilyPond?
-(define-public (guile-v2)
-  (string>? (version) "1.9.10"))
-
 (use-modules (ice-9 regex)
 	     (ice-9 safe)
 	     (ice-9 format)
@@ -226,8 +231,7 @@ messages into errors.")
    (use-modules (ice-9 curried-definitions)))
   (else
     (if (ly:get-option 'verbose)
-	(ly:message
-	   (_ "Guile 1.8\n")))))
+        (ly:message (_ "Guile 1.8\n")))))
 
 ;; TODO add in modules for V1.8.7 deprecated in V2.0 and integrated
 ;; into Guile base code, like (ice-9 syncase).

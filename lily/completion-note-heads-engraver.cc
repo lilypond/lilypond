@@ -153,13 +153,13 @@ Completion_heads_engraver::process_music ()
   if (left_to_do_)
     {
       /*
-	note that note_dur may be strictly less than left_to_do_
-	(say, if left_to_do_ == 5/8)
+        note that note_dur may be strictly less than left_to_do_
+        (say, if left_to_do_ == 5/8)
       */
       if (factor_.denominator () == 1 && factor_ > Rational (1, 1))
-	note_dur = Duration (left_to_do_, false);
+        note_dur = Duration (left_to_do_, false);
       else
-	note_dur = Duration (left_to_do_ / factor_, false).compressed (factor_);
+        note_dur = Duration (left_to_do_ / factor_, false).compressed (factor_);
     }
   else
     {
@@ -172,9 +172,9 @@ Completion_heads_engraver::process_music ()
   if (nb.main_part_ && nb < note_dur.get_length ())
     {
       if (factor_.denominator () == 1 && factor_ > Rational (1, 1))
-	note_dur = Duration (nb.main_part_, false);
+        note_dur = Duration (nb.main_part_, false);
       else
-	note_dur = Duration (nb.main_part_ / factor_, false).compressed (factor_);
+        note_dur = Duration (nb.main_part_ / factor_, false).compressed (factor_);
     }
 
   do_nothing_until_ = now.main_part_ + note_dur.get_length ();
@@ -185,7 +185,7 @@ Completion_heads_engraver::process_music ()
       Stream_event *event = note_events_[i];
 
       if (need_clone)
-	event = event->clone ();
+        event = event->clone ();
 
       SCM pits = note_events_[i]->get_property ("pitch");
       event->set_property ("pitch", pits);
@@ -194,24 +194,24 @@ Completion_heads_engraver::process_music ()
       event->set_property ("duration-log", scm_from_int (note_dur.duration_log ()));
 
       /*
-	The Completion_heads_engraver splits an event into a group of consecutive events.
-	For each event in the group, the property "autosplit-end" denotes whether the current event
-	was truncated during splitting. Based on "autosplit-end", the Tie_engraver decides whether a
-	tie event should be processed.
+        The Completion_heads_engraver splits an event into a group of consecutive events.
+        For each event in the group, the property "autosplit-end" denotes whether the current event
+        was truncated during splitting. Based on "autosplit-end", the Tie_engraver decides whether a
+        tie event should be processed.
       */
       event->set_property ("autosplit-end",
-			   ly_bool2scm (left_to_do_ - note_dur.get_length () > Rational (0)));
+                           ly_bool2scm (left_to_do_ - note_dur.get_length () > Rational (0)));
 
       Item *note = make_note_head (event);
       if (need_clone)
-	event->unprotect ();
+        event->unprotect ();
       notes_.push_back (note);
     }
 
   if (prev_notes_.size () == notes_.size ())
     {
       for (vsize i = 0; i < notes_.size (); i++)
-	make_tie (prev_notes_[i], notes_[i]);
+        make_tie (prev_notes_[i], notes_[i]);
     }
 
   if (ties_.size () && !tie_column_)
@@ -264,7 +264,7 @@ Completion_heads_engraver::start_translation_timestep ()
       prev_notes_.clear ();
     }
   context ()->set_property ("completionBusy",
-			    ly_bool2scm (note_events_.size ()));
+                            ly_bool2scm (note_events_.size ()));
 }
 
 Completion_heads_engraver::Completion_heads_engraver ()
@@ -273,22 +273,22 @@ Completion_heads_engraver::Completion_heads_engraver ()
 }
 
 ADD_TRANSLATOR (Completion_heads_engraver,
-		/* doc */
-		"This engraver replaces @code{Note_heads_engraver}.  It plays"
-		" some trickery to break long notes and automatically tie them"
-		" into the next measure.",
+                /* doc */
+                "This engraver replaces @code{Note_heads_engraver}.  It plays"
+                " some trickery to break long notes and automatically tie them"
+                " into the next measure.",
 
-		/* create */
-		"NoteHead "
-		"Tie "
-		"TieColumn ",
+                /* create */
+                "NoteHead "
+                "Tie "
+                "TieColumn ",
 
-		/* read */
-		"measureLength "
-		"measurePosition "
-		"middleCPosition "
-		"timing ",
+                /* read */
+                "measureLength "
+                "measurePosition "
+                "middleCPosition "
+                "timing ",
 
-		/* write */
-		"completionBusy "
-		);
+                /* write */
+                "completionBusy "
+               );

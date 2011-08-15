@@ -21,7 +21,7 @@
 #include "dot-configuration.hh"
 #include "skyline.hh"
 
-Dot_formatting_problem::~Dot_formatting_problem()
+Dot_formatting_problem::~Dot_formatting_problem ()
 {
   delete best_;
 }
@@ -44,7 +44,7 @@ Dot_formatting_problem::best () const
 }
 
 Dot_formatting_problem::Dot_formatting_problem (vector<Box> const &boxes,
-						Interval base_x)
+                                                Interval base_x)
   : head_skyline_ (boxes, 0.0, Y_AXIS, RIGHT)
 {
   best_ = 0;

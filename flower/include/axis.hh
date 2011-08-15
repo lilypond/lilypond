@@ -24,11 +24,11 @@
 using namespace std;
 
 enum Axis
-  {
-    X_AXIS = 0,
-    Y_AXIS = 1,
-    NO_AXES = 2,
-  };
+{
+  X_AXIS = 0,
+  Y_AXIS = 1,
+  NO_AXES = 2,
+};
 
 static inline
 Axis

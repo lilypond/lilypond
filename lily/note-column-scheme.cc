@@ -10,11 +10,11 @@
 
   LilyPond is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with LilyPond.	If not, see <http://www.gnu.org/licenses/>.
+  along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "note-column.hh"
@@ -22,9 +22,9 @@
 #include "grob.hh"
 
 LY_DEFINE (ly_note_column_accidentals, "ly:note-column-accidentals",
-	   1, 0, 0, (SCM note_column),
-	   "Return the @code{AccidentalPlacement} grob from @var{note-column}"
-	   " if any, or @code{SCM_EOL} otherwise.")
+           1, 0, 0, (SCM note_column),
+           "Return the @code{AccidentalPlacement} grob from @var{note-column}"
+           " if any, or @code{SCM_EOL} otherwise.")
 {
   Grob *grob = unsmob_grob (note_column);
   LY_ASSERT_SMOB (Grob, note_column, 1);
@@ -35,9 +35,9 @@ LY_DEFINE (ly_note_column_accidentals, "ly:note-column-accidentals",
 }
 
 LY_DEFINE (ly_note_column_dot_column, "ly:note-column-dot-column",
-	   1, 0, 0, (SCM note_column),
-	   "Return the @code{DotColumn} grob from @var{note-column}"
-	   " if any, or @code{SCM_EOL} otherwise.")
+           1, 0, 0, (SCM note_column),
+           "Return the @code{DotColumn} grob from @var{note-column}"
+           " if any, or @code{SCM_EOL} otherwise.")
 {
   Grob *grob = unsmob_grob (note_column);
   LY_ASSERT_SMOB (Grob, note_column, 1);

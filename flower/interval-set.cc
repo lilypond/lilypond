@@ -51,26 +51,26 @@ Interval_set::remove_interval (Interval rm)
       s.intersect (allowed_regions_[i]);
 
       if (!s.is_empty ())
-	{
-	  Interval before = allowed_regions_[i];
-	  Interval after = allowed_regions_[i];
+        {
+          Interval before = allowed_regions_[i];
+          Interval after = allowed_regions_[i];
 
-	  before[RIGHT] = s[LEFT];
-	  after[LEFT] = s[RIGHT];
+          before[RIGHT] = s[LEFT];
+          after[LEFT] = s[RIGHT];
 
-	  if (!before.is_empty () && before.length () > 0.0)
-	    {
-	      allowed_regions_.insert (allowed_regions_.begin () + i, before);
-	      i++;
-	    }
-	  allowed_regions_.erase (allowed_regions_.begin () + i);
-	  if (!after.is_empty () && after.length () > 0.0)
-	    {
-	      allowed_regions_.insert (allowed_regions_.begin () + i, after);
-	      i++;
-	    }
-	}
+          if (!before.is_empty () && before.length () > 0.0)
+            {
+              allowed_regions_.insert (allowed_regions_.begin () + i, before);
+              i++;
+            }
+          allowed_regions_.erase (allowed_regions_.begin () + i);
+          if (!after.is_empty () && after.length () > 0.0)
+            {
+              allowed_regions_.insert (allowed_regions_.begin () + i, after);
+              i++;
+            }
+        }
       else
-	i++;
+        i++;
     }
 }

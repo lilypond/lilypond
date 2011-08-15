@@ -26,14 +26,13 @@
 class Multi_measure_rest
 {
 public:
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (percent, (SCM));
   static void add_column (Grob *, Item *);
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
   DECLARE_SCHEME_CALLBACK (set_text_rods, (SCM));
   DECLARE_SCHEME_CALLBACK (centered_stencil, (SCM));
-
 
   static void calculate_spacing_rods (Grob *me, Real length);
   static Stencil big_rest (Grob *, Real);

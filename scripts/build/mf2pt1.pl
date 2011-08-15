@@ -7,7 +7,7 @@
 
 ########################################################################
 # mf2pt1                                                               #
-# Copyright (C) 2008 Scott Pakin                                       #
+# Copyright (C) 2011 Scott Pakin                                       #
 #                                                                      #
 # This program may be distributed and/or modified under the conditions #
 # of the LaTeX Project Public License, either version 1.3c of this     #
@@ -21,7 +21,7 @@
 # version 2006/05/20 or later.                                         #
 ########################################################################
 
-our $VERSION = "2.4.4";   # mf2pt1 version number
+our $VERSION = "2.4.5";   # mf2pt1 version number
 require 5.6.1;            # I haven't tested mf2pt1 with older Perl versions
 
 use File::Basename;
@@ -160,7 +160,7 @@ my $filedir;
 my $filenoext;
 my $versionmsg = "mf2pt1 version $VERSION
 
-Copyright (C) 2008 Scott Pakin
+Copyright (C) 2011 Scott Pakin
 
 This program may be distributed and/or modified under the conditions
 of the LaTeX Project Public License, either version 1.3c of this
@@ -726,7 +726,7 @@ sub output_trailer ()
 {
     print OUTFILE <<"ENDTRAILER";
 /.notdef {
-        0 @{[$fontbbox[2]-$fontbbox[0]]} hsbw
+        0 @{[frac_string (frac_approx ($fontbbox[2] - $fontbbox[0]))]} hsbw
         endchar
         } ND
 end

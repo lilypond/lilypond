@@ -56,8 +56,6 @@ Midi_item::get_midi (Audio_item *a)
   return 0;
 }
 
-
-
 Midi_duration::Midi_duration (Real seconds_f)
 {
   seconds_ = seconds_f;
@@ -70,8 +68,8 @@ Midi_duration::to_string () const
 }
 
 Midi_instrument::Midi_instrument (Audio_instrument *a)
-  : Midi_channel_item (a)
-  , audio_ (a)
+  : Midi_channel_item (a),
+    audio_ (a)
 {
   audio_->str_ = String_convert::to_lower (audio_->str_);
 }
@@ -124,9 +122,9 @@ int2midi_varint_string (int i)
     {
       str += ::to_string ((char)buffer);
       if (buffer & 0x80)
-	buffer >>= 8;
+        buffer >>= 8;
       else
-	break;
+        break;
     }
   return str;
 }
@@ -149,8 +147,8 @@ Midi_key::to_string () const
 }
 
 Midi_time_signature::Midi_time_signature (Audio_time_signature *a)
-  : audio_ (a)
-  , clocks_per_1_ (18)
+  : audio_ (a),
+    clocks_per_1_ (18)
 {
 }
 
@@ -166,8 +164,6 @@ Midi_time_signature::to_string () const
 
   int den = audio_->one_beat_;
 
-
-  
   string str = "ff5804";
   str += String_convert::int2hex (num, 2, '0');
   str += String_convert::int2hex (intlog2 (den), 2, '0');
@@ -177,10 +173,10 @@ Midi_time_signature::to_string () const
 }
 
 Midi_note::Midi_note (Audio_note *a)
-  : Midi_channel_item (a)
-  , audio_ (a)
-  , dynamic_byte_ (a->dynamic_ && a->dynamic_->volume_ >= 0
-		   ? Byte (a->dynamic_->volume_ * 0x7f) : Byte (0x5a))
+  : Midi_channel_item (a),
+    audio_ (a),
+    dynamic_byte_ (a->dynamic_ && a->dynamic_->volume_ >= 0
+                   ? Byte (a->dynamic_->volume_ * 0x7f) : Byte (0x5a))
 {
 }
 
@@ -188,7 +184,7 @@ int
 Midi_note::get_fine_tuning () const
 {
   Rational tune = (audio_->pitch_.tone_pitch ()
-		   + audio_->transposing_.tone_pitch ()) * Rational (2);
+                   + audio_->transposing_.tone_pitch ()) * Rational (2);
   tune -= Rational (get_semitone_pitch ());
 
   tune *= PITCH_WHEEL_SEMITONE;
@@ -199,7 +195,7 @@ int
 Midi_note::get_semitone_pitch () const
 {
   double tune = double ((audio_->pitch_.tone_pitch ()
-		         + audio_->transposing_.tone_pitch ()) * Rational (2));
+                         + audio_->transposing_.tone_pitch ()) * Rational (2));
   return int (rint (tune));
 }
 
@@ -252,7 +248,7 @@ Midi_note_off::to_string () const
       // Move pitch wheel back to the central position.
       str += ::to_string ((char) 0x00);
       str += ::to_string ((char) (0xE0 + channel_));
-      str += ::to_string ((char) (PITCH_WHEEL_CENTER &0x7F));
+      str += ::to_string ((char) (PITCH_WHEEL_CENTER & 0x7F));
       str += ::to_string ((char) (PITCH_WHEEL_CENTER >> 7));
     }
 
@@ -260,8 +256,8 @@ Midi_note_off::to_string () const
 }
 
 Midi_dynamic::Midi_dynamic (Audio_dynamic *a)
-  : Midi_channel_item (a)
-  , audio_ (a)
+  : Midi_channel_item (a),
+    audio_ (a)
 {
 }
 
@@ -287,15 +283,15 @@ Midi_dynamic::to_string () const
   int const volume_default = 100;
   if (audio_->volume_ < 0 || audio_->silent_)
     volume = volume_default;
-  
+
   str += ::to_string ((char)0x07);
   str += ::to_string ((char)volume);
   return str;
 }
 
 Midi_piano_pedal::Midi_piano_pedal (Audio_piano_pedal *a)
-  : Midi_channel_item (a)
-  , audio_ (a)
+  : Midi_channel_item (a),
+    audio_ (a)
 {
 }
 
@@ -349,5 +345,5 @@ Midi_text::to_string () const
 char const *
 Midi_item::name () const
 {
-   return this->class_name ();
+  return this->class_name ();
 }

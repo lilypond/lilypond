@@ -44,7 +44,6 @@ Score::origin () const
   return unsmob_input (input_location_);
 }
 
-
 Score::Score ()
 {
   header_ = SCM_EOL;
@@ -79,7 +78,7 @@ Score::mark_smob (SCM s)
 }
 
 int
-Score::print_smob (SCM, SCM p, scm_print_state*)
+Score::print_smob (SCM, SCM p, scm_print_state *)
 {
   scm_puts ("#<Score>", p);
 
@@ -116,7 +115,6 @@ Score::Score (Score const &s)
     ly_module_copy (header_, s.header_);
 }
 
-
 /*
   Format score, return list of Music_output objects.
 
@@ -124,7 +122,7 @@ Score::Score (Score const &s)
 */
 SCM
 Score::book_rendering (Output_def *layoutbook,
-		       Output_def *default_def)
+                       Output_def *default_def)
 {
   if (error_found_)
     return SCM_EOL;
@@ -146,22 +144,22 @@ Score::book_rendering (Output_def *layoutbook,
       SCM scaled = SCM_EOL;
 
       if (def->c_variable ("is-layout") == SCM_BOOL_T)
-	{
-	  def = scale_output_def (def, scale);
-	  def->parent_ = layoutbook;
+        {
+          def = scale_output_def (def, scale);
+          def->parent_ = layoutbook;
 
-	  scaled = def->unprotect ();
-	}
+          scaled = def->unprotect ();
+        }
 
       /* TODO: fix or junk --no-layout.  */
       SCM context = ly_run_translator (music_, def->self_scm ());
       if (dynamic_cast<Global_context *> (unsmob_context (context)))
-	{
-	  SCM s = ly_format_output (context);
+        {
+          SCM s = ly_format_output (context);
 
-	  *tail = scm_cons (s, SCM_EOL);
-	  tail = SCM_CDRLOC (*tail);
-	}
+          *tail = scm_cons (s, SCM_EOL);
+          tail = SCM_CDRLOC (*tail);
+        }
 
       scm_remember_upto_here_1 (scaled);
     }
@@ -184,7 +182,7 @@ Score::set_music (SCM music)
       m->origin ()->error (_ ("errors found, ignoring music expression"));
 
       this->error_found_ = this->error_found_
-	|| to_boolean (m->get_property ("error-found"));
+                           || to_boolean (m->get_property ("error-found"));
     }
 
   if (this->error_found_)

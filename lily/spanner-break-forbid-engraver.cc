@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
 #include "engraver.hh"
 #include "international.hh"
 #include "spanner.hh"
@@ -31,14 +29,13 @@
 class Spanner_break_forbid_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Spanner_break_forbid_engraver);
-  vector<Spanner*> running_spanners_;
+  vector<Spanner *> running_spanners_;
 protected:
   DECLARE_ACKNOWLEDGER (unbreakable_spanner);
   DECLARE_END_ACKNOWLEDGER (unbreakable_spanner);
 
   void process_music ();
 };
-
 
 void
 Spanner_break_forbid_engraver::process_music ()
@@ -52,8 +49,8 @@ Spanner_break_forbid_engraver::process_music ()
 void
 Spanner_break_forbid_engraver::acknowledge_end_unbreakable_spanner (Grob_info gi)
 {
-  vector<Spanner*>::iterator i = find (running_spanners_.begin (), running_spanners_.end (),
-				       gi.spanner ());
+  vector<Spanner *>::iterator i = find (running_spanners_.begin (), running_spanners_.end (),
+                                        gi.spanner ());
   if (i != running_spanners_.end ())
     running_spanners_.erase (i);
 }
@@ -69,19 +66,18 @@ Spanner_break_forbid_engraver::Spanner_break_forbid_engraver ()
 {
 }
 
-
 ADD_END_ACKNOWLEDGER (Spanner_break_forbid_engraver, unbreakable_spanner);
 ADD_ACKNOWLEDGER (Spanner_break_forbid_engraver, unbreakable_spanner);
 ADD_TRANSLATOR (Spanner_break_forbid_engraver,
-		/* doc */
-		"Forbid breaks in certain spanners.",
+                /* doc */
+                "Forbid breaks in certain spanners.",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

@@ -2,7 +2,7 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2007--2011 Han-Wen Nienhuys <hanwen@lilypond.org>
-  
+
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 #include "string-convert.hh"
 
 Midi_track::Midi_track (int number, bool port)
- : number_ (number)
+  : number_ (number)
 {
   //                4D 54 72 6B     MTrk
   //                00 00 00 3B     chunk length (59)
@@ -42,14 +42,14 @@ Midi_track::Midi_track (int number, bool port)
   //         mi = 1:  minor key
 
   char const *data_str0 = ""
-    //        "00" "ff58" "0404" "0218" "08"
-    //	"00" "ff51" "0307" "a120"
-    // why a key at all, in midi?
-    // key: C
-    //	"00" "ff59" "02" "00" "00"
-    // key: F (scsii-menuetto)
-    //				  "00" "ff59" "02" "ff" "00"
-    ;
+                          //        "00" "ff58" "0404" "0218" "08"
+                          //  "00" "ff51" "0307" "a120"
+                          // why a key at all, in midi?
+                          // key: C
+                          //  "00" "ff59" "02" "00" "00"
+                          // key: F (scsii-menuetto)
+                          //                            "00" "ff59" "02" "ff" "00"
+                          ;
 
   string data_string;
   // only for format 0 (currently using format 1)?
@@ -58,7 +58,7 @@ Midi_track::Midi_track (int number, bool port)
   if (port)
     {
       string port = "00" "ff" "21" "01"
-	+ String_convert::int2hex (number_, 2, '0');
+                    + String_convert::int2hex (number_, 2, '0');
       data_string += String_convert::hex2bin (port);
     }
 
@@ -82,18 +82,17 @@ Midi_track::data_string () const
 {
   string str = Midi_chunk::data_string ();
 
-  for (vector<Midi_event*>::const_iterator i (events_.begin ());
-       i != events_.end (); i ++)
+  for (vector<Midi_event *>::const_iterator i (events_.begin ());
+       i != events_.end (); i++)
     {
       str += (*i)->to_string ();
     }
   return str;
 }
 
-
 Midi_track::~Midi_track ()
 {
-  junk_pointers (events_); 
+  junk_pointers (events_);
 }
 
 /****************************************************************
@@ -114,7 +113,7 @@ Midi_event::to_string () const
 }
 /****************************************************************
  header
-*/ 
+*/
 
 Midi_header::Midi_header (int format, int tracks, int clocks_per_4)
 {
@@ -132,13 +131,12 @@ Midi_header::Midi_header (int format, int tracks, int clocks_per_4)
   set ("MThd", str, "");
 }
 
-
 /****************************************************************
    chunk
  */
 Midi_chunk::~Midi_chunk ()
 {
-  
+
 }
 
 void
@@ -161,7 +159,7 @@ Midi_chunk::to_string () const
   string str = header_string_;
   string dat = data_string ();
   string length_string = String_convert::int2hex (dat.length ()
-						  + footer_string_.length (), 8, '0');
+                                                  + footer_string_.length (), 8, '0');
   length_string = String_convert::hex2bin (length_string);
 
   str += length_string;

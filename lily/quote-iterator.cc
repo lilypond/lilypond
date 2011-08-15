@@ -40,7 +40,7 @@ public:
   SCM event_vector_;
   int event_idx_;
   int end_idx_;
-  
+
   SCM transposed_musics_;
 
   DECLARE_SCHEME_CALLBACK (constructor, ());
@@ -77,7 +77,7 @@ Quote_iterator::accept_music_type (Stream_event *ev, bool is_cue) const
   for (; scm_is_pair (accept); accept = scm_cdr (accept))
     {
       if (ev->internal_in_event_class (scm_car (accept)))
-	return true;
+        return true;
     }
   return false;
 }
@@ -111,9 +111,9 @@ binsearch_scm_vector (SCM vec, SCM key, bool (*is_less) (SCM a, SCM b))
       SCM when = scm_caar (scm_c_vector_ref (vec, cmp));
       bool result = (*is_less) (key, when);
       if (result)
-	hi = cmp;
+        hi = cmp;
       else
-	lo = cmp;
+        lo = cmp;
     }
   while (hi - lo > 1);
 
@@ -124,7 +124,7 @@ void
 Quote_iterator::construct_children ()
 {
   Music_wrapper_iterator::construct_children ();
-      
+
   SCM name = get_music ()->get_property ("quoted-context-type");
   SCM id = get_music ()->get_property ("quoted-context-id");
 
@@ -132,7 +132,7 @@ Quote_iterator::construct_children ()
       && scm_is_symbol (name))
     {
       Context *cue_context = get_outlet ()->find_create_context (name,
-								 ly_scm2string (id), SCM_EOL);
+                                                                 ly_scm2string (id), SCM_EOL);
       quote_outlet_.set_context (cue_context);
     }
   else
@@ -160,13 +160,13 @@ bool
 Quote_iterator::quote_ok () const
 {
   return (event_idx_ >= 0
-	  && scm_is_vector (event_vector_)
-	  && event_idx_ <= end_idx_
+          && scm_is_vector (event_vector_)
+          && event_idx_ <= end_idx_
 
-	  /*
-	    Don't quote the grace notes leading to an unquoted note.
-	  */
-	  && vector_moment (event_idx_).main_part_ < stop_moment_.main_part_);
+          /*
+            Don't quote the grace notes leading to an unquoted note.
+          */
+          && vector_moment (event_idx_).main_part_ < stop_moment_.main_part_);
 }
 
 Moment
@@ -208,14 +208,14 @@ Quote_iterator::process (Moment m)
   if (event_idx_ < 0)
     {
       event_idx_ = binsearch_scm_vector (event_vector_,
-					 get_outlet ()->now_mom ().smobbed_copy (),
-					 &moment_less);
+                                         get_outlet ()->now_mom ().smobbed_copy (),
+                                         &moment_less);
       start_moment_ = get_outlet ()->now_mom () - music_start_mom ();
       stop_moment_ = start_moment_ + get_music ()->get_length ();
 
       end_idx_ = binsearch_scm_vector (event_vector_,
-				       stop_moment_.smobbed_copy (),
-				       &moment_less);
+                                       stop_moment_.smobbed_copy (),
+                                       &moment_less);
     }
 
   m += start_moment_;
@@ -223,10 +223,10 @@ Quote_iterator::process (Moment m)
     {
       Moment em = vector_moment (event_idx_);
       if (em > m)
-	return;
+        return;
 
       if (em == m)
-	break;
+        break;
 
       event_idx_++;
     }
@@ -237,41 +237,41 @@ Quote_iterator::process (Moment m)
       Pitch *quote_pitch = unsmob_pitch (scm_cdar (entry));
 
       /*
-	The pitch that sounds like central C
+        The pitch that sounds like central C
       */
       Pitch *me_pitch = unsmob_pitch (get_music ()->get_property ("quoted-transposition"));
       if (!me_pitch)
-	me_pitch = unsmob_pitch (get_outlet ()->get_property ("instrumentTransposition"));
+        me_pitch = unsmob_pitch (get_outlet ()->get_property ("instrumentTransposition"));
       SCM cid = get_music ()->get_property ("quoted-context-id");
       bool is_cue = scm_is_string (cid) && (ly_scm2string (cid) == "cue");
 
       for (SCM s = scm_cdr (entry); scm_is_pair (s); s = scm_cdr (s))
-	{
-	  SCM ev_acc = scm_car (s);
+        {
+          SCM ev_acc = scm_car (s);
 
-	  Stream_event *ev = unsmob_stream_event (scm_car (ev_acc));
-	  if (!ev)
-	    programming_error ("no music found in quote");
-	  else if (accept_music_type (ev, is_cue))
-	    {
-	      /* create a transposed copy if necessary */
-	      if (quote_pitch || me_pitch)
-		{
-		  Pitch qp, mp;
-		  if (quote_pitch)
-		    qp = *quote_pitch;
-		  if (me_pitch)
-		    mp = *me_pitch;
+          Stream_event *ev = unsmob_stream_event (scm_car (ev_acc));
+          if (!ev)
+            programming_error ("no music found in quote");
+          else if (accept_music_type (ev, is_cue))
+            {
+              /* create a transposed copy if necessary */
+              if (quote_pitch || me_pitch)
+                {
+                  Pitch qp, mp;
+                  if (quote_pitch)
+                    qp = *quote_pitch;
+                  if (me_pitch)
+                    mp = *me_pitch;
 
-		  Pitch diff = pitch_interval (qp, mp);
-		  ev = ev->clone ();
-		  
-		  transpose_mutable (ev->get_property_alist (true), diff);
-		  transposed_musics_ = scm_cons (ev->unprotect (), transposed_musics_);
-		}
-	      quote_outlet_.get_outlet ()->event_source ()->broadcast (ev);
-	    }
-	}
+                  Pitch diff = pitch_interval (qp, mp);
+                  ev = ev->clone ();
+
+                  transpose_mutable (ev->get_property_alist (true), diff);
+                  transposed_musics_ = scm_cons (ev->unprotect (), transposed_musics_);
+                }
+              quote_outlet_.get_context ()->event_source ()->broadcast (ev);
+            }
+        }
 
       event_idx_++;
     }

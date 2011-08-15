@@ -31,7 +31,8 @@ const int Memory_out_stream::block_size_ = 1024;
 
 lily_cookie_io_functions_t
 Memory_out_stream::functions_
-= {
+=
+{
   Memory_out_stream::reader,
   Memory_out_stream::writer,
   Memory_out_stream::seeker,
@@ -87,8 +88,8 @@ Memory_out_stream::get_string () const
 
 ssize_t
 Memory_out_stream::writer (void *cookie,
-			   char const *buffer,
-			   size_t size)
+                           char const *buffer,
+                           size_t size)
 {
   Memory_out_stream *stream = (Memory_out_stream *) cookie;
 
@@ -104,7 +105,7 @@ Memory_out_stream::writer (void *cookie,
 
   if (change)
     stream->buffer_ = (char *) realloc (stream->buffer_,
-					stream->buffer_blocks_ * block_size_);
+                                        stream->buffer_blocks_ * block_size_);
 
   memcpy (stream->buffer_ + stream->size_, buffer, size);
   stream->size_ = newsize;
@@ -114,8 +115,8 @@ Memory_out_stream::writer (void *cookie,
 
 ssize_t
 Memory_out_stream::reader (void * /* cookie */,
-			   char * /* buffer */,
-			   size_t /* size */)
+                           char * /* buffer */,
+                           size_t /* size */)
 {
   assert (false);
   return 0;
@@ -123,8 +124,8 @@ Memory_out_stream::reader (void * /* cookie */,
 
 int
 Memory_out_stream::seeker (void *,
-			   off64_t *,
-			   int)
+                           off64_t *,
+                           int)
 {
   assert (false);
   return 0;

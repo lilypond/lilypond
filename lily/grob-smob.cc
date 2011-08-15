@@ -32,7 +32,7 @@ SCM
 Grob::mark_smob (SCM ses)
 {
   ASSERT_LIVE_IS_ALLOWED ();
-  
+
   Grob *s = (Grob *) SCM_CELL_WORD_1 (ses);
   scm_gc_mark (s->immutable_property_alist_);
 

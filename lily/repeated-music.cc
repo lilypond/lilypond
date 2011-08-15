@@ -45,16 +45,16 @@ Repeated_music::relative_callback (SCM music, SCM pitch)
     {
       Music *body = unsmob_music (me->get_property ("element"));
       if (body)
-	p = body->to_relative_octave (p);
+        p = body->to_relative_octave (p);
 
       Pitch last = p;
       SCM alternatives = me->get_property ("elements");
 
       for (SCM s = alternatives; scm_is_pair (s); s = scm_cdr (s))
-	{
-	  lily_1_8_compatibility_used = true;
-	  unsmob_music (scm_car (s))->to_relative_octave (p);
-	}
+        {
+          lily_1_8_compatibility_used = true;
+          unsmob_music (scm_car (s))->to_relative_octave (p);
+        }
 
       return last.smobbed_copy ();
     }
@@ -83,7 +83,7 @@ Repeated_music::alternatives_get_length (Music *me, bool fold)
       m = m + unsmob_music (scm_car (p))->get_length ();
       done++;
       if (count - done < len)
-	p = scm_cdr (p);
+        p = scm_cdr (p);
     }
   return m;
 }
@@ -167,7 +167,7 @@ Repeated_music::first_start (SCM m)
   Music *body = unsmob_music (me->get_property ("element"));
 
   Moment rv = (body) ? body->start_mom ()
-    : Music_sequence::first_start (me->get_property ("elements"));
+              : Music_sequence::first_start (me->get_property ("elements"));
 
   return rv.smobbed_copy ();
 }

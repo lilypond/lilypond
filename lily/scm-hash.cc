@@ -40,7 +40,7 @@ static void
 copy_scm_hashes (SCM dest, SCM src)
 {
   scm_internal_hash_for_each_handle ((scm_t_hash_handle_fn) &copy_handle,
-				     dest, src);
+                                     dest, src);
 }
 
 Scheme_hash_table::Scheme_hash_table ()
@@ -63,7 +63,7 @@ Scheme_hash_table::copy (Scheme_hash_table const &src)
   if (&src == this)
     return;
 
-  hash_tab_ = scm_c_make_hash_table (SCM_HASHTABLE_N_ITEMS(src.hash_tab_));
+  hash_tab_ = scm_c_make_hash_table (SCM_HASHTABLE_N_ITEMS (src.hash_tab_));
   copy_scm_hashes (hash_tab_, src.hash_tab_);
 }
 
@@ -80,7 +80,7 @@ Scheme_hash_table::mark_smob (SCM s)
 }
 
 int
-Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state*)
+Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state *)
 {
   assert (unsmob (s));
   scm_puts ("#<Scheme_hash_table  ", p);
@@ -91,7 +91,8 @@ Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state*)
 }
 
 bool
-Scheme_hash_table::try_retrieve (SCM k, SCM *v){
+Scheme_hash_table::try_retrieve (SCM k, SCM *v)
+{
 
   SCM handle = scm_hashq_get_handle (hash_tab_, k);
   if (scm_is_pair (handle))
@@ -133,18 +134,18 @@ Scheme_hash_table::remove (SCM k)
 
 static SCM
 collect_handles (void * /* closure */,
-		 SCM key,
-		 SCM value,
-		 SCM result)
+                 SCM key,
+                 SCM value,
+                 SCM result)
 {
-  return scm_acons(key, value, result);
+  return scm_acons (key, value, result);
 }
 
 SCM
 Scheme_hash_table::to_alist () const
 {
   return scm_internal_hash_fold ((scm_t_hash_fold_fn) &collect_handles,
-				 NULL, SCM_EOL, hash_tab_);
+                                 NULL, SCM_EOL, hash_tab_);
 }
 
 IMPLEMENT_SMOBS (Scheme_hash_table);

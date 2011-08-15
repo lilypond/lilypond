@@ -2,6 +2,7 @@ ancient-notation.itely
 chords.itely
 colorado.itexi
 computer-notation.itexi
+context-mod-identifiers.tely
 context-properties.tely
 contexts-and-engravers.itely
 editorial-annotations.itely

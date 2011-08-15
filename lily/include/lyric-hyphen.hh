@@ -27,7 +27,7 @@ struct Lyric_hyphen
 {
 public:
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 };
 

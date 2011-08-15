@@ -64,7 +64,7 @@ protected:
   Moment music_length_;
   Moment start_mom_;
 
-  DECLARE_CLASSNAME(Music_iterator);
+  DECLARE_CLASSNAME (Music_iterator);
   DECLARE_SMOBS (Music_iterator);
   Music_iterator (Music_iterator const &);
 
@@ -102,15 +102,15 @@ private:
 
 bool is_child_context (Context *me, Context *child);
 
-#define IMPLEMENT_CTOR_CALLBACK(Class)					\
+#define IMPLEMENT_CTOR_CALLBACK(Class)                                  \
   LY_DEFINE_MEMBER_FUNCTION (Class, constructor, \
-			     mangle_cxx_identifier (string (#Class) + "::constructor").c_str(), \
-			     0, 0, 0,					\
-			     (),					\
-			     "")					\
-  {									\
-    Class *c = (new Class);						\
-    return c->unprotect ();						\
+                             mangle_cxx_identifier (string (#Class) + "::constructor").c_str(), \
+                             0, 0, 0,                                   \
+                             (),                                        \
+                             "")                                        \
+  {                                                                     \
+    Class *c = (new Class);                                             \
+    return c->unprotect ();                                             \
   }
 
 DECLARE_UNSMOB (Music_iterator, iterator);

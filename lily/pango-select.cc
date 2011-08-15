@@ -36,22 +36,22 @@ properties_to_pango_description (SCM chain, Real text_size)
   else
     {
       SCM family = ly_chain_assoc_get (ly_symbol2scm ("font-family"), chain,
-				       SCM_BOOL_F);
+                                       SCM_BOOL_F);
       SCM variant = ly_chain_assoc_get (ly_symbol2scm ("font-shape"), chain,
-					SCM_BOOL_F);
+                                        SCM_BOOL_F);
 
       SCM style = ly_chain_assoc_get (ly_symbol2scm ("font-shape"), chain,
-				      SCM_BOOL_F);
+                                      SCM_BOOL_F);
       SCM weight = ly_chain_assoc_get (ly_symbol2scm ("font-series"), chain,
-				       SCM_BOOL_F);
+                                       SCM_BOOL_F);
 
       description
-	= symbols_to_pango_font_description (family, style, variant, weight,
-					     SCM_BOOL_F);
+        = symbols_to_pango_font_description (family, style, variant, weight,
+                                             SCM_BOOL_F);
     }
 
   Real step = robust_scm2double (ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F),
-				 0.0);
+                                 0.0);
   Real size = text_size * pow (2.0, step / 6.0);
 
   pango_font_description_set_size (description, gint (size * PANGO_SCALE));
@@ -63,14 +63,14 @@ select_pango_font (Output_def *layout, SCM chain)
 {
   PangoFontDescription *pfd
     = properties_to_pango_description (chain,
-				       point_constant
-				       * layout->get_dimension (ly_symbol2scm ("text-font-size")));
+                                       point_constant
+                                       * layout->get_dimension (ly_symbol2scm ("text-font-size")));
 
   char *str = pango_font_description_to_string (pfd);
   SCM scm_str = scm_from_locale_string (str);
   g_free (str);
   pango_font_description_free (pfd);
-  
+
   return find_pango_font (layout, scm_str, 1.0);
 }
 
@@ -81,7 +81,7 @@ symbol_to_pango_style (SCM style)
   if (style == ly_symbol2scm ("italic"))
     pstyle = PANGO_STYLE_ITALIC;
   else if (style == ly_symbol2scm ("oblique")
-	   || style == ly_symbol2scm ("slanted"))
+           || style == ly_symbol2scm ("slanted"))
     pstyle = PANGO_STYLE_OBLIQUE;
 
   return pstyle;
@@ -137,10 +137,10 @@ symbol_to_pango_stretch (SCM) //  stretch)
 
 PangoFontDescription *
 symbols_to_pango_font_description (SCM family,
-				   SCM style,
-				   SCM variant,
-				   SCM weight,
-				   SCM stretch)
+                                   SCM style,
+                                   SCM variant,
+                                   SCM weight,
+                                   SCM stretch)
 {
   PangoFontDescription *description = pango_font_description_new ();
 
@@ -151,15 +151,15 @@ symbols_to_pango_font_description (SCM family,
     family_str = ly_scm2string (family);
 
   pango_font_description_set_family (description,
-				     family_str.c_str ());
+                                     family_str.c_str ());
   pango_font_description_set_style (description,
-				    symbol_to_pango_style (style));
+                                    symbol_to_pango_style (style));
   pango_font_description_set_variant (description,
-				      symbol_to_pango_variant (variant));
+                                      symbol_to_pango_variant (variant));
   pango_font_description_set_weight (description,
-				     symbol_to_pango_weight (weight));
+                                     symbol_to_pango_weight (weight));
   pango_font_description_set_stretch (description,
-				      symbol_to_pango_stretch (stretch));
+                                      symbol_to_pango_stretch (stretch));
 
   return description;
 }

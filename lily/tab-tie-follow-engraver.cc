@@ -81,12 +81,12 @@ Tab_tie_follow_engraver::stop_translation_timestep ()
       bool spanner_start = false;
       for (vsize j = 0; j < slurs_.size (); j++)
         {
-          Item* left_item = slurs_[j]->get_bound (LEFT);
+          Item *left_item = slurs_[j]->get_bound (LEFT);
           if (left_item)
             {
               SCM left_cause = left_item->get_property ("cause");
               Item *slur_cause = unsmob_item (left_cause);
-              if (slur_cause ==  note_heads_[k])
+              if (slur_cause == note_heads_[k])
                 {
                   note_heads_[k]->set_property ("span-start", SCM_BOOL_T);
                   spanner_start = true;
@@ -107,25 +107,24 @@ Tab_tie_follow_engraver::stop_translation_timestep ()
     }
   slurs_.clear ();
   glissandi_.clear ();
-  note_heads_.clear();
+  note_heads_.clear ();
 }
 
 ADD_ACKNOWLEDGER (Tab_tie_follow_engraver, slur);
 ADD_ACKNOWLEDGER (Tab_tie_follow_engraver, glissando);
 ADD_ACKNOWLEDGER (Tab_tie_follow_engraver, tab_note_head);
 
-
 ADD_TRANSLATOR (Tab_tie_follow_engraver,
-		/* doc */
-		"Adjust TabNoteHead properties when a tie is followed"
-		" by a slur or glissando.",
+                /* doc */
+                "Adjust TabNoteHead properties when a tie is followed"
+                " by a slur or glissando.",
 
-		/* create */
-		" ",
-
-		/* read */
+                /* create */
                 " ",
 
-		/* write */
+                /* read */
+                " ",
+
+                /* write */
                 " "
-                );
+               );

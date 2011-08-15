@@ -2,7 +2,7 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2008--2011 Han-Wen Nienhuys <hanwen@lilypond.org>
-  
+
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -79,21 +79,20 @@ Skyline_pair::print_points () const
   skylines_[DOWN].print ();
 }
 
-
 bool
 Skyline_pair::is_empty () const
 {
   return skylines_[UP].is_empty ()
-    && skylines_[DOWN].is_empty ();
+         && skylines_[DOWN].is_empty ();
 }
 
-Skyline&
+Skyline &
 Skyline_pair::operator [] (Direction d)
 {
   return skylines_[d];
 }
 
-Skyline const&
+Skyline const &
 Skyline_pair::operator [] (Direction d) const
 {
   return skylines_[d];

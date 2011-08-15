@@ -189,6 +189,7 @@ def ossystem_system (cmd,
                      ignore_error=False,
                      progress_p=True,
                      be_verbose=False,
+                     redirect_output=False,
                      log_file=None):
 
 

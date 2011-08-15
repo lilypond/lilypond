@@ -2,7 +2,7 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2008--2011 Han-Wen Nienhuys <hanwen@lilypond.org>
-  
+
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -21,20 +21,20 @@
 #include "prob.hh"
 
 #include "skyline-pair.hh"
-  
+
 LY_DEFINE (ly_paper_system_p, "ly:paper-system?",
-	  1, 0, 0, (SCM obj),
-	  "Is @var{obj} a C++ @code{Prob} object of type"
-	  " @code{paper-system}?")
+           1, 0, 0, (SCM obj),
+           "Is @var{obj} a C++ @code{Prob} object of type"
+           " @code{paper-system}?")
 {
   return ly_prob_type_p (obj, ly_symbol2scm ("paper-system"));
 }
 
 LY_DEFINE (ly_paper_system_minimum_distance, "ly:paper-system-minimum-distance",
-	   2, 0, 0, (SCM sys1, SCM sys2),
-	   "Measure the minimum distance between these two paper-systems,"
-	   " using their stored skylines if possible and falling back to"
-	   " their extents otherwise.")
+           2, 0, 0, (SCM sys1, SCM sys2),
+           "Measure the minimum distance between these two paper-systems,"
+           " using their stored skylines if possible and falling back to"
+           " their extents otherwise.")
 {
   Real ret = 0;
   Prob *p1 = unsmob_prob (sys1);

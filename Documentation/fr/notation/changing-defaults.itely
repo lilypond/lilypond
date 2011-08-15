@@ -458,7 +458,7 @@ deux.
 @translationof Changing context default settings
 
 Les réglages montrés dans les sous-sections
-@ref{La commande de fixation  (set)},
+@ref{La commande de fixation (set)},
 @ref{Modification des greffons de contexte}
 @c et @c r ef{Retouches de mise en forme au sein des contextes}
 peuvent également être saisis indépendamment de la musique dans le bloc
@@ -1118,7 +1118,7 @@ Le graveur Fingering_engraver fait partie des contextes@tie{}: @dots{}
 
 
 @node La commande de fixation (set)
-@subsection La commande @code{@bs{}set}
+@subsection La commande de fixation @code{@bs{}set}
 @translationof The set command
 
 @cindex propriétés
@@ -1250,7 +1250,7 @@ Translation @expansion{} Tunable context properties.
 
 
 @node La commande de dérogation (override)
-@subsection La commande @code{@bs{}override}
+@subsection La commande de dérogation @code{@bs{}override}
 @translationof The override command
 
 
@@ -1314,7 +1314,7 @@ propriétés causant des désagréments.
 
 
 @node La commande d'affinage (tweak)
-@subsection La commande @code{@bs{}tweak}
+@subsection La commande d'affinage @code{@bs{}tweak}
 @translationof The tweak command
 
 

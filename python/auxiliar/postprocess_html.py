@@ -102,7 +102,7 @@ def source_links_replace (m, source_val):
     return 'href="' + os.path.join (source_val, m.group (1)) + '"'
 
 # More hardcoding, yay!
-splitted_docs_re = re.compile('(Documentation/out-www/(automated-engraving|essay|notation|changes|extending|music-glossary|usage|web|learning|snippets))/')
+split_docs_re = re.compile('(Documentation/out-www/(automated-engraving|essay|notation|changes|extending|music-glossary|usage|web|learning|snippets|contributor))/')
 lily_snippets_re = re.compile ('(href|src)="([0-9a-f]{2}/lily-.*?)"')
 pictures_re = re.compile ('src="(pictures/.*?)"')
 
@@ -110,11 +110,11 @@ docindex_link_re = re.compile (r'href="index.html"')
 manuals_page_link_re = re.compile (r'href="((?:\.\./)+)Documentation/web/manuals')
 
 ## Windows does not support symlinks.
-# This function avoids creating symlinks for splitted HTML manuals
+# This function avoids creating symlinks for split HTML manuals
 # Get rid of symlinks in GNUmakefile.in (local-WWW-post)
 # this also fixes missing PNGs only present in translated docs
 def hack_urls (s, prefix, target, is_development_branch):
-    if splitted_docs_re.match (prefix):
+    if split_docs_re.match (prefix):
         s = lily_snippets_re.sub ('\\1="../\\2"', s)
         s = pictures_re.sub ('src="../\\1"', s)
 

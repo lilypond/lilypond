@@ -59,26 +59,26 @@ Simultaneous_music_iterator::construct_children ()
       Music_iterator *mi = unsmob_iterator (scm_iter);
 
       /* if create_separate_contexts_ is set, create a new context with the
-	 number number as name */
+         number number as name */
 
       SCM name = ly_symbol2scm (get_outlet ()->context_name ().c_str ());
       Context *c = (j && create_separate_contexts_)
-	? get_outlet ()->find_create_context (name, to_string (j), SCM_EOL)
-	: get_outlet ();
+                   ? get_outlet ()->find_create_context (name, to_string (j), SCM_EOL)
+                   : get_outlet ();
 
       if (!c)
-	c = get_outlet ();
+        c = get_outlet ();
 
       mi->init_context (mus, c);
       mi->construct_children ();
 
       if (mi->ok ())
-	{
-	  *tail = scm_cons (scm_iter, *tail);
-	  tail = SCM_CDRLOC (*tail);
-	}
+        {
+          *tail = scm_cons (scm_iter, *tail);
+          tail = SCM_CDRLOC (*tail);
+        }
       else
-	mi->quit ();
+        mi->quit ();
     }
 }
 
@@ -90,15 +90,15 @@ Simultaneous_music_iterator::process (Moment until)
     {
       Music_iterator *i = unsmob_iterator (scm_car (*proc));
       if (i->run_always ()
-	  || i->pending_moment () == until)
-	i->process (until);
+          || i->pending_moment () == until)
+        i->process (until);
       if (!i->ok ())
-	{
-	  i->quit ();
-	  *proc = scm_cdr (*proc);
-	}
+        {
+          i->quit ();
+          *proc = scm_cdr (*proc);
+        }
       else
-	proc = SCM_CDRLOC (*proc);
+        proc = SCM_CDRLOC (*proc);
     }
 }
 
@@ -125,9 +125,9 @@ Simultaneous_music_iterator::ok () const
     {
       Music_iterator *it = unsmob_iterator (scm_car (s));
       if (!it->run_always ())
-	return true;
+        return true;
       else
-	run_always_ok = run_always_ok || it->ok ();
+        run_always_ok = run_always_ok || it->ok ();
     }
   return run_always_ok;
 }
@@ -139,7 +139,7 @@ Simultaneous_music_iterator::run_always () const
     {
       Music_iterator *it = unsmob_iterator (scm_car (s));
       if (it->run_always ())
-	return true;
+        return true;
     }
   return false;
 }

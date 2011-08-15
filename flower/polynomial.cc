@@ -23,7 +23,6 @@
 
 #include <cmath>
 
-
 using namespace std;
 
 /*
@@ -55,8 +54,8 @@ Polynomial::multiply (const Polynomial &p1, const Polynomial &p2)
     {
       dest.coefs_.push_back (0);
       for (int j = 0; j <= i; j++)
-	if (i - j <= p2.degree () && j <= p1.degree ())
-	  dest.coefs_.back () += p1.coefs_[j] * p2.coefs_[i - j];
+        if (i - j <= p2.degree () && j <= p1.degree ())
+          dest.coefs_.back () += p1.coefs_[j] * p2.coefs_[i - j];
     }
 
   return dest;
@@ -82,16 +81,16 @@ Polynomial::power (int exponent, const Polynomial &src)
   while (e > 0)
     {
       if (e % 2)
-	{
-	  dest = multiply (dest, base);
-	  e--;
-	}
+        {
+          dest = multiply (dest, base);
+          e--;
+        }
       else
 
-	{
-	  base = multiply (base, base);
-	  e /= 2;
-	}
+        {
+          base = multiply (base, base);
+          e /= 2;
+        }
     }
   return dest;
 }
@@ -105,8 +104,8 @@ Polynomial::clean ()
     We only do relative comparisons. Absolute comparisons break down in
     degenerate cases.  */
   while (degree () > 0
-	 && (fabs (coefs_.back ()) < FUDGE * fabs (back (coefs_, 1))
-	     || !coefs_.back ()))
+         && (fabs (coefs_.back ()) < FUDGE * fabs (back (coefs_, 1))
+             || !coefs_.back ()))
     coefs_.pop_back ();
 }
 
@@ -153,25 +152,25 @@ Polynomial::set_mod (const Polynomial &u, const Polynomial &v)
   if (v.lc () < 0.0)
     {
       for (int k = u.degree () - v.degree () - 1; k >= 0; k -= 2)
-	coefs_[k] = -coefs_[k];
+        coefs_[k] = -coefs_[k];
 
       for (int k = u.degree () - v.degree (); k >= 0; k--)
-	for (int j = v.degree () + k - 1; j >= k; j--)
-	  coefs_[j] = -coefs_[j] - coefs_[v.degree () + k] * v.coefs_[j - k];
+        for (int j = v.degree () + k - 1; j >= k; j--)
+          coefs_[j] = -coefs_[j] - coefs_[v.degree () + k] * v.coefs_[j - k];
     }
   else
 
     {
       for (int k = u.degree () - v.degree (); k >= 0; k--)
-	for (int j = v.degree () + k - 1; j >= k; j--)
-	  coefs_[j] -= coefs_[v.degree () + k] * v.coefs_[j - k];
+        for (int j = v.degree () + k - 1; j >= k; j--)
+          coefs_[j] -= coefs_[v.degree () + k] * v.coefs_[j - k];
     }
 
   int k = v.degree () - 1;
   while (k >= 0 && coefs_[k] == 0.0)
     k--;
 
-  coefs_.resize (1+ ((k < 0) ? 0 : k));
+  coefs_.resize (1 + ((k < 0) ? 0 : k));
   return degree ();
 }
 
@@ -231,9 +230,9 @@ Polynomial::solve_cubic ()const
    * substitute x = y - A/3 to eliminate quadric term: x^3 +px + q = 0
    */
 
-  Real sq_A = A *A;
+  Real sq_A = A * A;
   Real p = 1.0 / 3 * (-1.0 / 3 * sq_A + B);
-  Real q = 1.0 / 2 * (2.0 / 27 * A *sq_A - 1.0 / 3 * A *B + C);
+  Real q = 1.0 / 2 * (2.0 / 27 * A * sq_A - 1.0 / 3 * A * B + C);
 
   /* use Cardano's formula */
 
@@ -242,21 +241,23 @@ Polynomial::solve_cubic ()const
 
   if (iszero (D))
     {
-      if (iszero (q)) {	/* one triple solution */
-	sol.push_back (0);
-	sol.push_back (0);
-	sol.push_back (0);
-      }
-      else {		/* one single and one double solution */
-	Real u = cubic_root (-q);
+      if (iszero (q))   /* one triple solution */
+        {
+          sol.push_back (0);
+          sol.push_back (0);
+          sol.push_back (0);
+        }
+      else              /* one single and one double solution */
+        {
+          Real u = cubic_root (-q);
 
-	sol.push_back (2 * u);
-	sol.push_back (-u);
-      }
+          sol.push_back (2 * u);
+          sol.push_back (-u);
+        }
     }
   else if (D < 0)
     {
-    /* Casus irreducibilis: three real solutions */
+      /* Casus irreducibilis: three real solutions */
       Real phi = 1.0 / 3 * acos (-q / sqrt (-cb));
       Real t = 2 * sqrt (-p);
 
@@ -304,7 +305,7 @@ Polynomial::lc ()
 int
 Polynomial::degree ()const
 {
-  return coefs_.size () -1;
+  return coefs_.size () - 1;
 }
 /*
   all roots of quadratic eqn.

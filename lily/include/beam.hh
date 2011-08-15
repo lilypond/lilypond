@@ -29,13 +29,13 @@
 struct Beam_segment
 {
   int vertical_count_;
-  Interval horizontal_; 
+  Interval horizontal_;
   Beam_segment ();
 };
 
-bool beam_segment_less (Beam_segment const& a, Beam_segment const& b);
+bool beam_segment_less (Beam_segment const &a, Beam_segment const &b);
 
-struct Beam_stem_segment 
+struct Beam_stem_segment
 {
   Beam_stem_segment ();
 
@@ -49,7 +49,6 @@ struct Beam_stem_segment
   int max_connect_;
 };
 
-
 bool operator <(Beam_stem_segment const &a, Beam_stem_segment const &b);
 
 class Beam
@@ -58,7 +57,7 @@ public:
   static int normal_stem_count (Grob *);
   static Grob *first_normal_stem (Grob *);
   static Grob *last_normal_stem (Grob *);
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   static void add_stem (Grob *, Grob *);
   static bool is_cross_staff (Grob *);
   static bool is_knee (Grob *);
@@ -68,9 +67,9 @@ public:
   static Real get_beam_translation (Grob *me);
   static Real get_beam_thickness (Grob *me);
   static void connect_beams (Grob *me);
-  static vector<Beam_segment> get_beam_segments (Grob *me_grob, Grob **common); 
+  static vector<Beam_segment> get_beam_segments (Grob *me_grob, Grob **common);
   static Interval no_visible_stem_positions (Grob *me, Interval default_value);
-  
+
   DECLARE_SCHEME_CALLBACK (rest_collision_callback, (SCM element, SCM prev_off));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_beaming, (SCM));
@@ -78,7 +77,7 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positions, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_least_squares_positions, (SCM, SCM));
-  DECLARE_SCHEME_CALLBACK (calc_normal_stems, (SCM));  
+  DECLARE_SCHEME_CALLBACK (calc_normal_stems, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_concaveness, (SCM));
   DECLARE_SCHEME_CALLBACK (set_stem_lengths, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
@@ -87,22 +86,21 @@ public:
   DECLARE_SCHEME_CALLBACK (shift_region_to_valid, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (slope_damping, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (quanting, (SCM, SCM));
-  
+
   static int get_direction_beam_count (Grob *me, Direction d);
 
 private:
   friend class Beam_scoring_problem;
-  
+
   static Direction get_default_dir (Grob *);
   static void set_stem_directions (Grob *, Direction);
   static void consider_auto_knees (Grob *);
   static void set_stem_shorten (Grob *);
   static int forced_stem_count (Grob *);
   static Real calc_stem_y (Grob *, Grob *s, Grob **c,
-			   Real, Real, Direction,
-			   Drul_array<Real> pos, bool french);
+                           Real, Real, Direction,
+                           Drul_array<Real> pos, bool french);
 };
-
 
 #endif /* BEAM_HH */
 

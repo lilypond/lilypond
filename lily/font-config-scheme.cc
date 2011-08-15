@@ -38,14 +38,14 @@ display_fontset (FcFontSet *fs)
 
       font = FcNameUnparse (fs->fonts[j]);
       if (FcPatternGetString (fs->fonts[j], FC_FILE, 0, &str) == FcResultMatch)
-	retval += String_convert::form_string ("FILE %s\n", str);
+        retval += String_convert::form_string ("FILE %s\n", str);
       if (FcPatternGetString (fs->fonts[j], FC_INDEX, 0, &str) == FcResultMatch)
-	retval += String_convert::form_string ("INDEX %s\n", str);
+        retval += String_convert::form_string ("INDEX %s\n", str);
       if (FcPatternGetString (fs->fonts[j], FC_FAMILY, 0, &str) == FcResultMatch)
-	retval += String_convert::form_string ("family %s\n ", str);
+        retval += String_convert::form_string ("family %s\n ", str);
       if (FcPatternGetString (fs->fonts[j],
-			      "designsize", 0, &str) == FcResultMatch)
-	retval += String_convert::form_string ("designsize %s\n ", str);
+                              "designsize", 0, &str) == FcResultMatch)
+        retval += String_convert::form_string ("designsize %s\n ", str);
 
       retval += String_convert::form_string ("%s\n", (const char *)font);
       free (font);
@@ -98,10 +98,9 @@ display_list (FcConfig *fcc)
   return retval;
 }
 
-
 LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0, 0,
-	   (SCM name),
-	   "Get the file for font @var{name}.")
+           (SCM name),
+           "Get the file for font @var{name}.")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
 
@@ -127,10 +126,10 @@ LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0, 0
 
   return scm_result;
 }
-	
+
 LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0, 0,
-	   (),
-	   "Dump a list of all fonts visible to FontConfig.")
+           (),
+           "Dump a list of all fonts visible to FontConfig.")
 {
   string str = display_list (NULL);
   str += display_config (NULL);
@@ -141,8 +140,8 @@ LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0, 0
 }
 
 LY_DEFINE (ly_font_config_add_directory, "ly:font-config-add-directory", 1, 0, 0,
-	   (SCM dir),
-	   "Add directory @var{dir} to FontConfig.")
+           (SCM dir),
+           "Add directory @var{dir} to FontConfig.")
 {
   LY_ASSERT_TYPE (scm_is_string, dir, 1);
 
@@ -157,8 +156,8 @@ LY_DEFINE (ly_font_config_add_directory, "ly:font-config-add-directory", 1, 0, 0
 }
 
 LY_DEFINE (ly_font_config_add_font, "ly:font-config-add-font", 1, 0, 0,
-	   (SCM font),
-	   "Add font @var{font} to FontConfig.")
+           (SCM font),
+           "Add font @var{font} to FontConfig.")
 {
   LY_ASSERT_TYPE (scm_is_string, font, 1);
 

@@ -122,7 +122,7 @@ Translator::connect_to_context (Context *c)
 {
   for (translator_listener_record *r = get_listener_list (); r; r = r->next_)
     c->events_below ()->add_listener (r->get_listener_ (this, r->event_class_),
-				      r->event_class_);
+                                      r->event_class_);
 }
 
 void
@@ -130,7 +130,7 @@ Translator::disconnect_from_context (Context *c)
 {
   for (translator_listener_record *r = get_listener_list (); r; r = r->next_)
     c->events_below ()->remove_listener (r->get_listener_ (this, r->event_class_),
-					 r->event_class_);
+                                         r->event_class_);
 }
 
 static SCM listened_event_class_table;
@@ -141,19 +141,18 @@ ensure_listened_hash ()
     listened_event_class_table = scm_permanent_object (scm_c_make_hash_table (61));
 }
 
-
 LY_DEFINE (ly_get_listened_event_classes, "ly:get-listened-event-classes",
-	   0, 0, 0, (),
-	   "Return a list of all event classes that some translator listens"
-	   " to.")
+           0, 0, 0, (),
+           "Return a list of all event classes that some translator listens"
+           " to.")
 {
   ensure_listened_hash ();
   return ly_hash_table_keys (listened_event_class_table);
 }
 
 LY_DEFINE (ly_is_listened_event_class, "ly:is-listened-event-class",
-	   1, 0, 0, (SCM sym),
-	   "Is @var{sym} a listened event class?")
+           1, 0, 0, (SCM sym),
+           "Is @var{sym} a listened event class?")
 {
   ensure_listened_hash ();
   return scm_hashq_ref (listened_event_class_table, sym, SCM_BOOL_F);
@@ -166,7 +165,6 @@ add_listened_event_class (SCM sym)
   scm_hashq_set_x (listened_event_class_table, sym, SCM_BOOL_T);
 }
 
-
 /*
   internally called once, statically, for each translator
   listener. Connects the name of an event class with a procedure that
@@ -177,17 +175,17 @@ add_listened_event_class (SCM sym)
  */
 void
 Translator::add_translator_listener (translator_listener_record **listener_list,
-				     translator_listener_record *r,
-				     Listener (*get_listener) (void *, SCM), 
-				     const char *ev_class)
+                                     translator_listener_record *r,
+                                     Listener (*get_listener) (void *, SCM),
+                                     const char *ev_class)
 {
   /* ev_class is the C++ identifier name. Convert to scm symbol */
   string name = string (ev_class);
   name = replace_all (&name, '_', '-');
   name += "-event";
-  
+
   SCM class_sym = scm_from_locale_symbol (name.c_str ());
-  
+
   add_listened_event_class (class_sym);
 
   r->event_class_ = class_sym;
@@ -201,34 +199,34 @@ Translator::add_translator_listener (translator_listener_record **listener_list,
 */
 SCM
 Translator::static_translator_description (const char *grobs,
-					   const char *desc,
-					   translator_listener_record *listener_list,
-					   const char *read, 
-					   const char *write) const
+                                           const char *desc,
+                                           translator_listener_record *listener_list,
+                                           const char *read,
+                                           const char *write) const
 {
-  SCM static_properties = SCM_EOL;					
+  SCM static_properties = SCM_EOL;
 
-  static_properties = scm_acons (ly_symbol2scm ("grobs-created"),	
-				 parse_symbol_list (grobs), static_properties);
-  
-  static_properties = scm_acons (ly_symbol2scm ("description"),	
-				 scm_from_locale_string (desc), static_properties); 
-  
+  static_properties = scm_acons (ly_symbol2scm ("grobs-created"),
+                                 parse_symbol_list (grobs), static_properties);
+
+  static_properties = scm_acons (ly_symbol2scm ("description"),
+                                 scm_from_locale_string (desc), static_properties);
+
   SCM list = SCM_EOL;
   for (; listener_list; listener_list = listener_list->next_)
     list = scm_cons (listener_list->event_class_, list);
   static_properties = scm_acons (ly_symbol2scm ("events-accepted"),
-				 list, static_properties);
-  
-  static_properties = scm_acons (ly_symbol2scm ("properties-read"),	
-				 parse_symbol_list (read), static_properties); 
-  
-  static_properties = scm_acons (ly_symbol2scm ("properties-written"), 
-				 parse_symbol_list (write), static_properties); 
-  
-  return static_properties;						
+                                 list, static_properties);
+
+  static_properties = scm_acons (ly_symbol2scm ("properties-read"),
+                                 parse_symbol_list (read), static_properties);
+
+  static_properties = scm_acons (ly_symbol2scm ("properties-written"),
+                                 parse_symbol_list (write), static_properties);
+
+  return static_properties;
 }
-  
+
 /*
   SMOBS
 */
@@ -279,8 +277,8 @@ Translator::print_smob (SCM s, SCM port, scm_print_state *)
 
 void
 add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
-		  char const *func_name,
-		  vector<Acknowledge_information> *ack_array)
+                  char const *func_name,
+                  vector<Acknowledge_information> *ack_array)
 {
   Acknowledge_information inf;
   inf.function_ = ptr;
@@ -303,11 +301,10 @@ generic_get_acknowledger (SCM sym, vector<Acknowledge_information> const *ack_ar
   for (vsize i = 0; i < ack_array->size (); i++)
     {
       if (ack_array->at (i).symbol_ == sym)
-	return ack_array->at (i).function_;
+        return ack_array->at (i).function_;
     }
   return 0;
 }
-
 
 Moment
 get_event_length (Stream_event *e)
@@ -323,7 +320,7 @@ Moment
 get_event_length (Stream_event *e, Moment now)
 {
   Moment len = get_event_length (e);
-  
+
   if (now.grace_part_)
     {
       len.grace_part_ = len.main_part_;
@@ -340,15 +337,15 @@ get_event_length (Stream_event *e, Moment now)
 bool
 internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const char *function)
 {
-  if (*old_ev &&
-      !to_boolean (scm_equal_p ((*old_ev)->self_scm (), 
-			       new_ev->self_scm ())))
+  if (*old_ev
+      && !to_boolean (scm_equal_p ((*old_ev)->self_scm (),
+                                   new_ev->self_scm ())))
     {
       /* extract event class from function name */
       string ev_class = function;
 
       /* This assertion fails if EVENT_ASSIGNMENT was called outside a
-	 translator listener. Don't do that. */
+         translator listener. Don't do that. */
       const char *prefix = "listen_";
       assert (0 == ev_class.find (prefix));
 
@@ -368,15 +365,15 @@ internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const ch
 }
 
 ADD_TRANSLATOR (Translator,
-		/* doc */
-		"Base class.  Not instantiated.",
+                /* doc */
+                "Base class.  Not instantiated.",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

@@ -1315,7 +1315,7 @@ underneath the version number.
 
 When the file is processed, the title and composer are printed
 above the music.  More information on titling can be found in
-@ruser{Creating titles}.
+@ruser{Creating titles headers and footers}.
 
 
 @node Absolute note names

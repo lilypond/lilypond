@@ -49,7 +49,7 @@ public:
 private:
   Item *create_custos ();
   bool custos_permitted_;
-  vector<Grob*> custodes_;
+  vector<Grob *> custodes_;
   vector<Pitch> pitches_;
 };
 
@@ -89,12 +89,12 @@ Custos_engraver::acknowledge_note_head (Grob_info info)
     {
 
       /*
-	ideally, we'd do custos->set_parent (Y_AXIS, notehead),
-	but since the note head lives on the other system, we can't
+        ideally, we'd do custos->set_parent (Y_AXIS, notehead),
+        but since the note head lives on the other system, we can't
 
-	So we copy the position from the note head pitch.  We
-	don't look at the staff-position, since we can't be sure
-	whether Clef_engraver already applied a vertical shift.
+        So we copy the position from the note head pitch.  We
+        don't look at the staff-position, since we can't be sure
+        whether Clef_engraver already applied a vertical shift.
       */
       pitches_.push_back (*unsmob_pitch (ev->get_property ("pitch")));
     }
@@ -109,17 +109,17 @@ Custos_engraver::process_acknowledged ()
   if (custos_permitted_)
     {
       for (vsize i = pitches_.size (); i--;)
-	{
-	  Item *c = create_custos ();
+        {
+          Item *c = create_custos ();
 
-	  int p = pitches_[i].steps ();
-	  SCM c0 = get_property ("middleCPosition");
-	  if (scm_is_number (c0))
-	    p += scm_to_int (c0);
+          int p = pitches_[i].steps ();
+          SCM c0 = get_property ("middleCPosition");
+          if (scm_is_number (c0))
+            p += scm_to_int (c0);
 
-	  c->set_property ("staff-position",
-			   scm_from_int (p));
-	}
+          c->set_property ("staff-position",
+                           scm_from_int (p));
+        }
 
       pitches_.clear ();
     }
@@ -147,15 +147,15 @@ ADD_ACKNOWLEDGER (Custos_engraver, bar);
 ADD_ACKNOWLEDGER (Custos_engraver, note_head);
 
 ADD_TRANSLATOR (Custos_engraver,
-		/* doc */
-		"Engrave custodes.",
+                /* doc */
+                "Engrave custodes.",
 
-		/* create */
-		"Custos ",
+                /* create */
+                "Custos ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

@@ -26,14 +26,14 @@
 class Bar_line
 {
 public:
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 
   static Stencil dashed_bar_line (Grob *me, Interval const &extent, Real thick);
   static Stencil tick_bar_line (Grob *me, Real h, bool rounded);
   static Stencil compound_barline (Grob *, string, Interval const &extent,
-				   bool rounded);
+                                   bool rounded);
   static Stencil simple_barline (Grob *, Real wid, Interval const &extent,
-				 bool rounded);
+                                 bool rounded);
   static Interval bar_y_extent (Grob *, Grob *);
   static bool non_empty_barline (Grob *me);
 

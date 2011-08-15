@@ -66,7 +66,7 @@ public:
   void *lexval_;
   Input *lexloc_;
   bool is_main_input_;
-  
+
   Sources *sources_;
 
   /* Scheme hash tables with (oct name acc)  values, and symbol keys.  */
@@ -81,7 +81,7 @@ public:
   Lily_lexer (Sources *, Lily_parser *);
   Lily_lexer (Lily_lexer const &, Lily_parser *);
   int yylex ();
-  
+
   void add_lexed_char (int);
 
   void prepare_for_next_token ();

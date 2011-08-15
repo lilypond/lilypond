@@ -73,7 +73,7 @@ Dynamic_align_engraver::create_line_spanner (Stream_event *event)
 {
   if (!line_)
     line_ = make_spanner ("DynamicLineSpanner",
-			  event ? event->self_scm () : SCM_EOL);
+                          event ? event->self_scm () : SCM_EOL);
 }
 
 void
@@ -83,10 +83,10 @@ Dynamic_align_engraver::acknowledge_end_dynamic (Grob_info info)
     ended_.push_back (info.spanner ());
 
   /* If the break flag is set, store the current spanner and let new dynamics
-   * create a new spanner 
+   * create a new spanner
    */
-  bool spanner_broken = current_dynamic_spanner_ == info.spanner () &&
-                        to_boolean (current_dynamic_spanner_->get_property ("spanner-broken"));
+  bool spanner_broken = current_dynamic_spanner_ == info.spanner ()
+                        && to_boolean (current_dynamic_spanner_->get_property ("spanner-broken"));
   if (spanner_broken && line_)
     {
       if (ended_line_)
@@ -149,7 +149,7 @@ Dynamic_align_engraver::acknowledge_dynamic (Grob_info info)
   if (cause)
     {
       if (Direction d = to_dir (cause->get_property ("direction")))
-	set_grob_direction (line_, d);
+        set_grob_direction (line_, d);
     }
 }
 
@@ -161,25 +161,25 @@ Dynamic_align_engraver::set_spanner_bounds (Spanner *line, bool end)
   Direction d = LEFT;
   do
     {
-      if ((d == LEFT && !line->get_bound (LEFT)) ||
-	  (end && d == RIGHT && !line->get_bound (RIGHT)))
-	{
-	  vector<Spanner *> const &spanners
-	    = (d == LEFT) ? started_ : ended_;
+      if ((d == LEFT && !line->get_bound (LEFT))
+          || (end && d == RIGHT && !line->get_bound (RIGHT)))
+        {
+          vector<Spanner *> const &spanners
+            = (d == LEFT) ? started_ : ended_;
 
-	  Grob *bound = 0;
-	  if (scripts_.size ())
-	    bound = scripts_[0];
-	  else if (spanners.size ())
-	    bound = spanners[0]->get_bound (d);
-	  else
-	    {
-	      bound = unsmob_grob (get_property ("currentMusicalColumn"));
-	      programming_error ("started DynamicLineSpanner but have no left bound");
-	    }
+          Grob *bound = 0;
+          if (scripts_.size ())
+            bound = scripts_[0];
+          else if (spanners.size ())
+            bound = spanners[0]->get_bound (d);
+          else
+            {
+              bound = unsmob_grob (get_property ("currentMusicalColumn"));
+              programming_error ("started DynamicLineSpanner but have no left bound");
+            }
 
-	  line->set_bound (d, bound);
-	}
+          line->set_bound (d, bound);
+        }
     }
   while (flip (&d) != LEFT);
 }
@@ -195,9 +195,9 @@ Dynamic_align_engraver::stop_translation_timestep ()
 
       set<Spanner *>::iterator it = running_.find (sp);
       if (it != running_.end ())
-	running_.erase (it);
+        running_.erase (it);
       else
-	started_[i]->programming_error ("lost track of this dynamic spanner");
+        started_[i]->programming_error ("lost track of this dynamic spanner");
     }
 
   bool end = line_ && running_.empty ();
@@ -206,11 +206,11 @@ Dynamic_align_engraver::stop_translation_timestep ()
   // is ended now
   set_spanner_bounds (ended_line_, true);
   set_spanner_bounds (line_, end);
-  // If the flag is set to break the spanner after the current child, don't 
+  // If the flag is set to break the spanner after the current child, don't
   // add any more support points (needed e.g. for style=none, where the
   // invisible spanner should NOT be shifted since we don't have a line).
-  bool spanner_broken = current_dynamic_spanner_ &&
-                        to_boolean (current_dynamic_spanner_->get_property ("spanner-broken"));
+  bool spanner_broken = current_dynamic_spanner_
+                        && to_boolean (current_dynamic_spanner_->get_property ("spanner-broken"));
   for (vsize i = 0; line_ && !spanner_broken && i < support_.size (); i++)
     Side_position_interface::add_support (line_, support_[i]);
 
@@ -227,15 +227,15 @@ Dynamic_align_engraver::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Dynamic_align_engraver,
-		/* doc */
-		"Align hairpins and dynamic texts on a horizontal line.",
+                /* doc */
+                "Align hairpins and dynamic texts on a horizontal line.",
 
-		/* create */
-		"DynamicLineSpanner ",
+                /* create */
+                "DynamicLineSpanner ",
 
-		/* read */
-		"currentMusicalColumn ",
+                /* read */
+                "currentMusicalColumn ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

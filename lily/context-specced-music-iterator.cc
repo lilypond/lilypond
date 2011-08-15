@@ -21,7 +21,6 @@
 #include "context.hh"
 #include "music.hh"
 
-
 class Context_specced_music_iterator : public Music_wrapper_iterator
 {
 public:

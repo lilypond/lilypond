@@ -23,7 +23,6 @@
 #include "lily-proto.hh"
 #include "grob-interface.hh"
 
-
 class Arpeggio
 {
 public:
@@ -34,7 +33,7 @@ public:
   DECLARE_SCHEME_CALLBACK (brew_chord_slur, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM));
   DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 };
 
 #endif /* ARPEGGIO_HH */

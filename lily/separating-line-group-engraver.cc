@@ -35,7 +35,7 @@
 struct Spacings
 {
   Item *staff_spacing_;
-  vector<Item*> note_spacings_;
+  vector<Item *> note_spacings_;
 
   Spacings ()
   {
@@ -64,7 +64,7 @@ protected:
   void stop_translation_timestep ();
   void start_translation_timestep ();
 
-  vector<Grob*> break_aligned_;
+  vector<Grob *> break_aligned_;
 public:
   TRANSLATOR_DECLARATIONS (Separating_line_group_engraver);
 };
@@ -94,24 +94,24 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
       context ()->set_property ("hasStaffSpacing", SCM_BOOL_T);
 
       Pointer_group_interface::add_grob (current_spacings_.staff_spacing_,
-					 ly_symbol2scm ("left-items"),
-					 col);
-      
+                                         ly_symbol2scm ("left-items"),
+                                         col);
+
       if (!last_spacings_.note_spacings_.size ()
-	  && last_spacings_.staff_spacing_)
-	{
-	  SCM ri = last_spacings_.staff_spacing_->get_object ("right-items");
-	  Grob_array *ga = unsmob_grob_array (ri);
-	  if (!ga)
-	    {
-	      SCM ga_scm = Grob_array::make_array ();
-	      last_spacings_.staff_spacing_->set_object ("right-items", ga_scm);
-	      ga = unsmob_grob_array (ga_scm);
-	    }
-	  
-	  ga->clear ();
-	  ga->add (col);
-	}
+          && last_spacings_.staff_spacing_)
+        {
+          SCM ri = last_spacings_.staff_spacing_->get_object ("right-items");
+          Grob_array *ga = unsmob_grob_array (ri);
+          if (!ga)
+            {
+              SCM ga_scm = Grob_array::make_array ();
+              last_spacings_.staff_spacing_->set_object ("right-items", ga_scm);
+              ga = unsmob_grob_array (ga_scm);
+            }
+
+          ga->clear ();
+          ga->add (col);
+        }
     }
 }
 
@@ -135,11 +135,11 @@ Separating_line_group_engraver::stop_translation_timestep ()
       SCM smob = break_aligned_[i]->self_scm ();
 
       if (Item *sp = current_spacings_.staff_spacing_)
-	Pointer_group_interface::add_grob (sp, ly_symbol2scm ("left-break-aligned"), smob);
+        Pointer_group_interface::add_grob (sp, ly_symbol2scm ("left-break-aligned"), smob);
 
       for (vsize j = 0; j < last_spacings_.note_spacings_.size (); j++)
-	Pointer_group_interface::add_grob (last_spacings_.note_spacings_[j],
-					   ly_symbol2scm ("right-break-aligned"), smob);
+        Pointer_group_interface::add_grob (last_spacings_.note_spacings_[j],
+                                           ly_symbol2scm ("right-break-aligned"), smob);
     }
 
   if (!current_spacings_.is_empty ())
@@ -157,15 +157,15 @@ ADD_ACKNOWLEDGER (Separating_line_group_engraver, item);
 ADD_ACKNOWLEDGER (Separating_line_group_engraver, break_aligned);
 
 ADD_TRANSLATOR (Separating_line_group_engraver,
-		/* doc */
-		"Generate objects for computing spacing parameters.",
+                /* doc */
+                "Generate objects for computing spacing parameters.",
 
-		/* create */
-		"StaffSpacing ",
+                /* create */
+                "StaffSpacing ",
 
-		/* read */
-		"createSpacing ",
+                /* read */
+                "createSpacing ",
 
-		/* write */
-		"hasStaffSpacing "
-		);
+                /* write */
+                "hasStaffSpacing "
+               );

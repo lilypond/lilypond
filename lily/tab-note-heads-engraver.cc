@@ -86,20 +86,20 @@ void
 Tab_note_heads_engraver::process_music ()
 {
   SCM tab_strings = articulation_list (note_events_,
-				       tabstring_events_,
-				       "string-number-event");
+                                       tabstring_events_,
+                                       "string-number-event");
   SCM defined_fingers = articulation_list (note_events_,
-					   fingering_events_,
-					   "fingering-event");
+                                           fingering_events_,
+                                           "fingering-event");
   SCM tab_notes = ly_cxx_vector_to_list (note_events_);
   SCM proc = get_property ("noteToFretFunction");
   SCM string_fret_finger = SCM_EOL;
   if (ly_is_procedure (proc))
     string_fret_finger = scm_call_3 (proc,
-				     context ()->self_scm (),
-				     tab_notes,
-				     scm_list_2 (tab_strings,
-						 defined_fingers));
+                                     context ()->self_scm (),
+                                     tab_notes,
+                                     scm_list_2 (tab_strings,
+                                                 defined_fingers));
   SCM note_entry = SCM_EOL;
   SCM string_number = SCM_EOL;
   SCM fret = SCM_EOL;
@@ -114,22 +114,22 @@ Tab_note_heads_engraver::process_music ()
   if (string_fret_finger != SCM_EOL)
     for (vsize i = 0; i < fret_count; i++)
       {
-	note_entry = scm_list_ref (string_fret_finger, scm_from_int (i));
-	string_number = scm_car (note_entry);
+        note_entry = scm_list_ref (string_fret_finger, scm_from_int (i));
+        string_number = scm_car (note_entry);
         if (string_number != SCM_BOOL_F)
           {
-	    fret = scm_cadr (note_entry);
-	    fret_label = scm_call_3 (fret_procedure,
-    			             context ()->self_scm (),
-				     string_number,
-				     fret);
-	    index = length_changed ? 0 : i;
-	    Item *note = make_item ("TabNoteHead", note_events_[index]->self_scm ());
-	    note->set_property ("text", fret_label);
-	    staff_position = scm_call_2 (staff_line_procedure,
-				         context ()->self_scm (),
-				         string_number);
-	    note->set_property ("staff-position", staff_position);
+            fret = scm_cadr (note_entry);
+            fret_label = scm_call_3 (fret_procedure,
+                                     context ()->self_scm (),
+                                     string_number,
+                                     fret);
+            index = length_changed ? 0 : i;
+            Item *note = make_item ("TabNoteHead", note_events_[index]->self_scm ());
+            note->set_property ("text", fret_label);
+            staff_position = scm_call_2 (staff_line_procedure,
+                                         context ()->self_scm (),
+                                         string_number);
+            note->set_property ("staff-position", staff_position);
           }
       }
 }
@@ -143,26 +143,26 @@ Tab_note_heads_engraver::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Tab_note_heads_engraver,
-		/* doc */
-		"Generate one or more tablature note heads from event of type"
-		" @code{NoteEvent}.",
+                /* doc */
+                "Generate one or more tablature note heads from event of type"
+                " @code{NoteEvent}.",
 
-		/* create */
-		"TabNoteHead ",
+                /* create */
+                "TabNoteHead ",
 
-		/* read */
-		"defaultStrings "
-		"fretLabels "
-		"highStringOne "
-		"middleCPosition "
-		"minimumFret "
-		"noteToFretFunction "
-		"stringOneTopmost "
-		"stringTunings "
-		"tablatureFormat "
-		"tabStaffLineLayoutFunction ",
+                /* read */
+                "defaultStrings "
+                "fretLabels "
+                "highStringOne "
+                "middleCPosition "
+                "minimumFret "
+                "noteToFretFunction "
+                "stringOneTopmost "
+                "stringTunings "
+                "tablatureFormat "
+                "tabStaffLineLayoutFunction ",
 
-		/* write */
-		""
-                );
+                /* write */
+                ""
+               );
 

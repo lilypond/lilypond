@@ -28,7 +28,7 @@ class Rest_collision
 public:
   static void add_column (Grob *me, Grob *);
 
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM element));
   DECLARE_SCHEME_CALLBACK (force_shift_callback_rest, (SCM element, SCM off));
   static SCM do_shift (Grob *);

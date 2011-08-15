@@ -9,7 +9,17 @@ collision resolution moves the dots to the right."
 \layout { ragged-right = ##t }
 
 \relative c {
-  \key d \minor
   \clef bass
-  << <cis a' cis>4 \\ { g'8. bes16} >>
+  \override Staff.NoteCollision #'prefer-dotted-right = ##t
+  s1*0^"prefer-dotted-right = #t"
+  << <b g' >4 \\ { c8. d16 } >>
+  << <b g' >4 \\ { d8. d16 } >>
+  << <b g' >4 \\ { f'8. d16 } >>
+  << <c a' >4 \\ { g'8. d16 } >>
+  \override Staff.NoteCollision #'prefer-dotted-right = ##f
+  s1*0^"prefer-dotted-right = #f"
+  << <b g' >4 \\ { c8. d16 } >>
+  << <b g' >4 \\ { d8. d16 } >>
+  << <b g' >4 \\ { f'8. d16 } >>
+  << <c a' >4 \\ { g'8. d16 } >>
 }

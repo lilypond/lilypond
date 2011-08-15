@@ -83,14 +83,14 @@ Volta_engraver::process_music ()
       SCM c = scm_car (cs);
 
       if (scm_is_pair (c)
-	  && scm_car (c) == ly_symbol2scm ("volta")
-	  && scm_is_pair (scm_cdr (c)))
-	{
-	  if (scm_cadr (c) == SCM_BOOL_F)
-	    end = true;
-	  else
-	    start_string_ = scm_cadr (c);
-	}
+          && scm_car (c) == ly_symbol2scm ("volta")
+          && scm_is_pair (scm_cdr (c)))
+        {
+          if (scm_cadr (c) == SCM_BOOL_F)
+            end = true;
+          else
+            start_string_ = scm_cadr (c);
+        }
 
       cs = scm_cdr (cs);
     }
@@ -101,7 +101,7 @@ Volta_engraver::process_music ()
       Moment now = now_mom ();
 
       bool early_stop = unsmob_moment (l)
-	&& *unsmob_moment (l) <= now - started_mom_;
+                        && *unsmob_moment (l) <= now - started_mom_;
 
       end = end || early_stop;
     }
@@ -121,11 +121,11 @@ Volta_engraver::process_music ()
       warning (_ ("already have a volta spanner, ending that one prematurely"));
 
       if (end_volta_bracket_)
-	{
-	  warning (_ ("also already have an ended spanner"));
-	  warning (_ ("giving up"));
-	  return;
-	}
+        {
+          warning (_ ("also already have an ended spanner"));
+          warning (_ ("giving up"));
+          return;
+        }
 
       end_volta_bracket_ = volta_bracket_;
       volta_bracket_ = 0;
@@ -141,7 +141,7 @@ Volta_engraver::process_music ()
       volta_bracket_->set_property ("text", start_string_);
 
       if (!volta_spanner_)
-	volta_spanner_ = make_spanner ("VoltaBracketSpanner", SCM_EOL);
+        volta_spanner_ = make_spanner ("VoltaBracketSpanner", SCM_EOL);
 
       Axis_group_interface::add_element (volta_spanner_, volta_bracket_);
     }
@@ -174,7 +174,7 @@ Volta_engraver::stop_translation_timestep ()
   if (end_volta_bracket_ && !volta_bracket_)
     {
       for (SCM s = get_property ("stavesFound"); scm_is_pair (s); s = scm_cdr (s))
-	Side_position_interface::add_support (volta_spanner_, unsmob_grob (scm_car (s)));
+        Side_position_interface::add_support (volta_spanner_, unsmob_grob (scm_car (s)));
       volta_spanner_ = 0;
     }
 
@@ -192,18 +192,18 @@ Volta_engraver::stop_translation_timestep ()
 */
 ADD_ACKNOWLEDGER (Volta_engraver, bar_line);
 ADD_TRANSLATOR (Volta_engraver,
-		/* doc */
-		"Make volta brackets.",
+                /* doc */
+                "Make volta brackets.",
 
-		/* create */
-		"VoltaBracket "
-		"VoltaBracketSpanner ",
+                /* create */
+                "VoltaBracket "
+                "VoltaBracketSpanner ",
 
-		/* read */
-		"repeatCommands "
-		"voltaSpannerDuration "
-		"stavesFound ",
+                /* read */
+                "repeatCommands "
+                "voltaSpannerDuration "
+                "stavesFound ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

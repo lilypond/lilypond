@@ -30,10 +30,10 @@ struct Audio_staff : public Audio_element
   void output (Midi_stream &midi_stream_r, int track, bool port);
 
   Audio_staff ();
-  
+
   bool percussion_;
   bool merge_unisons_;
-  vector<Audio_item*> audio_items_;
+  vector<Audio_item *> audio_items_;
 };
 
 #endif // AUDIO_STAFF_HH

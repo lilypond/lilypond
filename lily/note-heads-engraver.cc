@@ -73,45 +73,45 @@ Note_heads_engraver::process_music ()
 #if 0 /* TODO: should have a mechanism to switch off these warnings. */
 
       if (!pit)
-	ev->origin ()->warning (_ ("NoteEvent without pitch"));
+        ev->origin ()->warning (_ ("NoteEvent without pitch"));
 #endif
 
       int pos;
       if (pit == 0)
-	pos = 0;
+        pos = 0;
       else if (ly_is_procedure (layout_proc))
-	{
-	  SCM pitch = ev->get_property ("pitch");
-	  pos = scm_to_int (scm_call_1 (layout_proc, pitch));
-	}
+        {
+          SCM pitch = ev->get_property ("pitch");
+          pos = scm_to_int (scm_call_1 (layout_proc, pitch));
+        }
       else
-	pos = pit->steps ();
+        pos = pit->steps ();
 
       if (scm_is_number (c0))
-	pos += scm_to_int (c0);
+        pos += scm_to_int (c0);
 
       note->set_property ("staff-position", scm_from_int (pos));
 
       /*
-	Shape note heads change on step of the scale.
+        Shape note heads change on step of the scale.
       */
       SCM shape_vector = get_property ("shapeNoteStyles");
       if (scm_is_vector (shape_vector))
-	{
-	  SCM scm_tonic = get_property ("tonic");
-	  Pitch tonic (0, 0, 0);
-	  if (unsmob_pitch (scm_tonic))
-	    tonic = *unsmob_pitch (scm_tonic);
+        {
+          SCM scm_tonic = get_property ("tonic");
+          Pitch tonic (0, 0, 0);
+          if (unsmob_pitch (scm_tonic))
+            tonic = *unsmob_pitch (scm_tonic);
 
-	  unsigned int delta = (pit->get_notename () - tonic.get_notename () + 7) % 7;
+          unsigned int delta = (pit->get_notename () - tonic.get_notename () + 7) % 7;
 
-	  SCM style = SCM_EOL;
-	  if (scm_c_vector_length (shape_vector) > delta
-	      && scm_is_symbol (scm_vector_ref (shape_vector, scm_from_int (delta))))
-	    style = scm_vector_ref (shape_vector, scm_from_int (delta));
-	  if (scm_is_symbol (style))
-	    note->set_property ("style", style);
-	}
+          SCM style = SCM_EOL;
+          if (scm_c_vector_length (shape_vector) > delta
+              && scm_is_symbol (scm_vector_ref (shape_vector, scm_from_int (delta))))
+            style = scm_vector_ref (shape_vector, scm_from_int (delta));
+          if (scm_is_symbol (style))
+            note->set_property ("style", style);
+        }
     }
 }
 
@@ -122,16 +122,16 @@ Note_heads_engraver::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Note_heads_engraver,
-		/* doc */
-		"Generate note heads.",
+                /* doc */
+                "Generate note heads.",
 
-		/* create */
-		"NoteHead ",
+                /* create */
+                "NoteHead ",
 
-		/* read */
-		"middleCPosition "
-		"staffLineLayoutFunction ",
+                /* read */
+                "middleCPosition "
+                "staffLineLayoutFunction ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

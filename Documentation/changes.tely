@@ -36,11 +36,11 @@ See user manual, \NAME\
 @finalout
 
 @node Top
-@top New features in 2.14 since 2.12
+@top New features in 2.16 since 2.14
 
 @allowcodebreaks false
 
-@itemize @bullet
+@itemize
 
 @ignore
 
@@ -62,613 +62,53 @@ which scares away people.
 @end ignore
 
 @item
-Lilypond now helps beams avoid collisions with other grobs!  This feature
-works completely with manual beams.  It also works for all automatic beams
-that do not end right before a change in staff.  For this special case, please
-use manual beams.
+@code{\set \once} now correctly resets the property value to the previous value.
+@lilypond[fragment,quote,relative=2]
+  \set fingeringOrientations = #'(left)
+  <e-1>4
+  \once \set fingeringOrientations = #'(right)
+  <e-1>
+  <e-1>-"left"
+@end lilypond
+
 
 @item
-The Articulate script by Peter Chubb, which is GPLv3 licensed, is now
-a part of the distribution.  It allows easy generation of improved
-MIDI files that perform non-legato by default, legato slurs, staccato,
-tempo markings, trills, etc.
+The alignment of dynamic spanners (hairpins, text crescendo, etc.) is now
+automatically broken if a different direction is explicitly given.
+@lilypond[fragment,quote,relative=2]
+c4_\< c c^\> c c1_\p
+@end lilypond
 
-@example
-\include "articulate.ly"
-\articulate <<
-      all the rest of the score...
->>
-@end example
 
 @item
-Single beat repeats for sixteenth or shorter notes and beat repeats for
-measures containing notes of varying durations are now supported.
-
+Appoggiaturas and acciaccaturas now also work inside a slur, not only inside
+a phrasing slur. Also, a function @code{\slashedGrace} was added that does
+does not use a slur from the acciaccatura note.
 @lilypond[fragment,relative=2]
-\repeat percent 2 { c16 d }
-\repeat percent 2 { c32 e }
-\repeat percent 2 { c64 f }
-\repeat percent 2 { c128 g' }
+c4( \appoggiatura e8 d4 \acciaccatura e8 d4 \slashedGrace e8 c4)
 @end lilypond
 
 
 @item
-Lilypond now engraves woodwind fingering charts.
-
-@lilypond
-\relative c' {
-  \textLengthOn
-  des1^\markup {
-    \woodwind-diagram #'bassoon #'((lh . (thumb-cis))
-                                   (cc . (one two three five six))
-                                   (rh . (f)))
-    } _"bassoon"
-  c1^\markup {
-    \woodwind-diagram #'oboe #'((rh . (c))
-                                (lh . ())
-                                (cc . (one two three four five six)))
-    } _"oboe"
-
-}
+To suppress the line on a crescendo text spanner (and other similar spanners),
+LilyPond now fully supports the @code{#'style = #'none} property.
+@lilypond[fragment,quote,relative=2]
+\override DynamicTextSpanner #'style = #'none
+c4\cresc c c g, c'\p
 @end lilypond
 
 @item
-MIDI output has been improved
-@itemize @bullet
-@item the option @code{\set Score.midiChannelMapping = #'voice} puts each voice on its own midi MIDI channel
-@item the option @code{\set Score.midiChannelMapping = #'instrument} puts identical instruments on the same MIDI channel.  This means that e.g. for a full orchestral score there are always 16 (15 plus percussion) differently sounding instruments available, unrestricted by the number of staves or voices.  (Some MIDI players will cut off notes, however, if two voices play the same pitch simultaneously on the same channel.) This option also stores each voice in a separate track in the MIDI file.
-@item the default, @code{\set Score.midiChannelMapping = #'staff}, assigns one MIDI channel per staff.  This setting allows instrument changes (implemented as MIDI program changes) to re-use single MIDI channel.
-@item dynamics are now rendered as note velocities, no longer as midi volume.  This improves the sound on [high end] midi renderers.
-@end itemize
+LilyPond.app now supports MacOS X 10.7, thanks Christian Hitz!
 
 @item
-MIDI-import through Midi2ly is improved
-@itemize @bullet
-@item Midi2ly now also works on Windows systems
-@item MIDI-files with more than 32 tracks are now handled
-@item notes on certain simultaneous voices no longer ignored
-@item notes overrunning a bar line are no longer truncated
-@item initial key signature and time signature are respected
-@item a problem with octaves in subsequent tracks/voices is fixed
-@item initial support for multiple voices notated on one staff
-@item the instrumentName is set from track data
-@item new --skip option, rests are displayed by default
-@item rests overrunning a bar line are not truncated
-@item new --include-header option for setting titles
-@item new --preview option for big MIDI-files
-@end itemize
-The first feature was sponsored by Valentin Villenave,
-the other features were sponsored by Image-Line Software for FL Studio.
-
-@item
-A new @code{Completion_rest_engraver} is available for automatically
-converting long rests which overrun bar lines, matching the
-@code{Completion_heads_engraver} for notes
-@example
-\layout @{
-  \context @{
-    \Voice
-    \remove "Note_heads_engraver"
-    \consists "Completion_heads_engraver"
-    \remove "Rest_engraver"
-    \consists "Completion_rest_engraver"
-  @}
-@}
-@end example
-This feature was sponsored by Image-Line Software for FL Studio.
-
-@item
-Dots can be added to the table of contents items using:
-@example
-\paper @{
-  tocItemMarkup = \tocItemWithDotsMarkup
-@}
-@end example
-
-@item
-New markup commands @code{\pattern} and @code{\fill-with-pattern} are available.
-@lilypond
-\markup \column {
-  \pattern #3 #Y #0.3 \flat
-  \null
-  \pattern #7 #X #2 \flat
-  \override #'(line-width . 40) \fill-with-pattern #1 #CENTER . left right
-}
-@end lilypond
-
-@item
-A minimal composer toolkit of modal transformations is provided.
-A motif may be @notation{transposed}, @notation{inverted} and/or
-converted to its @notation{retrograde} within any scale.
-
-@lilypond
-pentatonicScale = \relative a' { a c d f g }
-motif = \relative c'' { d8 c f,4 <a f'> <a f'> }
-
-\new Staff <<
-  {
-    \partial 4
-    \pentatonicScale
-    \motif
-    \modalTranspose c a, \pentatonicScale \motif
-    \modalInversion d'' a' \pentatonicScale \motif
-    \retrograde \motif
-  }
-  {
-    \partial 4
-    s4^"pentatonic scale"
-    s1
-    s1^"motif"
-    s1^"transposition"
-    s1^"inversion"
-    s1^"retrograde"
-  }
->>
-@end lilypond
-
-@item
-Added minimal support for black mensural notation.
-
-@item
-Enhanced support for obliqua shapes within white mensural ligatures.
-
-@lilypond
-\context MensuralStaff
-{
-  \clef "petrucci-c3"
-  \[
-    \override NoteHead #'style = #'semipetrucci
-    c'\maxima
-    \override NoteHead #'style = #'blackpetrucci
-    a\breve
-    \revert NoteHead #'style
-    \override NoteHead #'ligature-flexa = ##t
-    \override NoteHead #'flexa-width = #3
-    g
-    g'
-    \override NoteHead #'flexa-width = #5
-    c'
-    d'
-    \revert NoteHead #'style
-    c'\longa
-  \]
-}
-@end lilypond
-
-@item
-New markup functions @code{\with-link} and @code{\page-link} that add
-hyperlinks to a given label or a given page number. This works in the PDF
-backend only. All entries to the table of contents now automatically add
-hyperlinks to the pages they are referring to.
-
-@item
-Compound time signatures are now supported by the @code{\compoundMeter} command,
-which can be used instead of @code{\time}:
-
-@lilypond
-\relative c'' {
-  \compoundMeter #'(3 1 8)
-  c8 c c c
-  \compoundMeter #'((2 8) (5 8))
-  c8 c c c c c c
-  \compoundMeter #'((1 2 3 8) (1 4) (3 8))
-  c8 c c c c c c4 c8 c c
-}
-@end lilypond
-
-@item
-Lyrics above a staff must have their @code{staff-affinity} set to
-@code{DOWN} or must have their @code{alignAboveContext} property
-set in order to be properly aligned.  For more information, see
-@ruser{Placing lyrics vertically}.
-
-@item
-@code{stringTunings} property values have changed from a list of
-semitones above middle C to a list of LilyPond pitch values.
-convert-ly will handle the change automatically where the value
-of @code{stringTunings} is set to a Scheme constant value.
-
-New commands @code{makeStringTuning} and @code{contextStringTuning}
-allow the creation of string tunings in the form of a Lilypond
-chord construct.
-
-@item
-By using @code{\cueDuringWithClef}, cue notes can now also have their own
-clef, which is correctly reset at the end of the cue notes.  At the begin
-of each line, the standard clef is still displayed, but the cue clef is
-shown after the time/key signature in smaller size.
-
-@lilypond
-vI = \relative c'' { \clef "treble" \repeat unfold 40 g4 }
-\addQuote vIQuote { \vI }
-
-Solo = \relative c {
-  \clef "bass"
-  \cueDuringWithClef #"vIQuote" #DOWN #"treble" { R1 } |
-  c4 \cueDuringWithClef #"vIQuote" #DOWN #"treble" {
-    r4 r2 |
-    r4
-  } c4 c2 |
-  \cueDuringWithClef #"vIQuote" #DOWN "soprano" { R1*2 \break R1 } |
-  c1
-}
-
-\score {
-  <<
-    \new Staff \new Voice \Solo
-  >>
-}
-@end lilypond
-
-
-@item
-Note names can be selected with a new
-@code{@bs{}language "italiano"} command, which
-can be used in safe mode.  The old
-@code{@bs{}include "italiano.ly"} syntax is
-still supported for now, but will be deprecated
-in the future.
-
-@item
-autobeaming is now disabled by @code{\cadenzaOn} and enabled by
-@code{\cadenzaOff}.  Beaming in cadenzas should be indicated manually.
-Also, if a cadenza is used in a piece with autobeaming disabled, it
-will need to be disabled again after the cadenza.
-
-@item
-The user is now able to specify the name of the predefined fretboard
-table.  This allows the use of multiple tables, with switching between them
-based on user input.
-
-@item
-The part-combiner's decision to combine/not combine notes can now be customized
-
-@lilypond[quote,relative=2]
-\partcombine
-\relative c' { c2 \partcombineApart c | \partcombineChordsOnce e' e }
-\relative c' { c2 \partcombineApart c | c c }
-@end lilypond
-
-@item
-Tablature staves show fret numbers only by default. To get the
-former style, @code{\tabFullNotation} is provided.
-
-@item
-Funk-style and Walker-style shape notes have been added.
-
-@item
-Rests will no longer keep a staff alive if @code{\RemoveEmptyStaffContext}
-is used.
-
-@item
-New option @code{-dinclude-settings=INCLUDEFILE.ly}, which causes lilypond
-to include the given file before the score is processed. This allows the
-user to change global settings without the need to change the score itself.
-That way, several different editions/version (e.g. different page sizes)
-can be generated from a file without having to modify the score for each
-version.
-
-@item
-The autobeaming settings syntax has been changed.  beatLength,
-beatGrouping, beamSettings, and measureGrouping have all been eliminated.
-Autobeaming is now controlled by baseMoment, beatStructure, and
-beamExceptions.  Default settings for each of these properties can be
-stored for any time signature in time-signature-settings, so that
-when the time signature is changed, the autobeaming will automatically
-change.  The new syntax should be much easier and require fewer
-overrides.
-
-@item
-The SVG backend has optional support for
-@uref{http://www.w3.org/Submission/WOFF, WOFF fonts}.  Using the Scheme
-option @code{-d svg-woff} together with the SVG backend selection
-@code{-d backend=svg}, produces SVG output with CSS WOFF font selection.
-
-@item
-The LilyPond G clef has been rotated 1.5 degrees clockwise for improved
-balance.  The old and new versions can be compared by looking at the
-documentation:
-@uref{http://lilypond.org/doc/v2.12/Documentation/user/lilypond/The-Feta-font.html#Clef-glyphs,
-old version},
-@uref{http://lilypond.org/doc/v2.14/Documentation/notation/the-feta-font.html#Clef-glyphs,
-new version}.
-
-
-@item
-Text crescendo spanners can now be added directly using @code{\cresc},
-@code{\dim} and @code{\decresc}.
-@lilypond[quote,relative=2]
-c4\cresc c c c\f |
-c4\dim c c c\!
-@end lilypond
-
-
-@item
-The documented syntax of @samp{lilypond} environments in the @LaTeX{}
-mode of @command{lilypond-book} has been changed to conform with
-standard @LaTeX{} syntax: options now come after the environment name:
-@example
-\begin@{lilypond@}[@var{options}] @dots{}
-@end example
-
-The previous syntax with options after @samp{\begin} is still accepted
-by @command{lilypond-book} but deprecated.  Something like
-@example
-sed -i '/begin\[/s/begin\(\[[^]]*]\)\(@{lilypond@}\)/begin\2\1/'
-@end example
-
-might do the trick for conversion.
-
-@item
-Aesthetics of shape note heads have been enhanced.  Variable line thicknesses
-have been implemented.  All note widths have been made consistent.
-Minor shape note commands that use the relative major key for scale steps
-have been added.
-
-@item
-A variant of the Segno sign is provided:
-@lilypond[quote,relative=2]
-c4 d e f \bar "S"
-g4 f e d
-@end lilypond
-
-@item
-Context modifications (@code{\with} blocks) can be stored in variables and
-inserted into contexts or other @code{\with} blocks:
-@lilypond[quote,verbatim]
-coloredheads = \with { \override NoteHead #'color = #red }
-noclef = \with { \remove "Clef_engraver" }
-\score {
-  \new Staff {
-    \new Voice \with { \coloredheads } \relative c' { c4 e g c }
-  }
-  \layout {
-    \context {
-      \Staff
-      \noclef
-    }
-  }
-}
-@end lilypond
-
-@item
-A half-open articulation was added:
-@lilypond[quote,relative=2]
-c4\halfopen
-@end lilypond
-This is sometimes used to indicate half-open hi-hats.
-
-@item
-The Unicode Bidirectional Algorithm is now fully supported for
-single-line markup due to enhanced integration with Pango.
-
-@item
-LilyPond is now licensed under the GNU GPL v3+.
-
-@item
-In tablature, frets can be indicated with labels other than numbers:
-
-@lilypond[verbatim,quote,relative=1]
-\new TabStaff
-\with {
-  stringTunings = #`(,(ly:make-pitch 1 3 NATURAL)
-                     ,(ly:make-pitch 1 1 NATURAL)
-		     ,(ly:make-pitch 0 5 NATURAL)
-		     ,(ly:make-pitch 0 3 NATURAL)
-		     ,(ly:make-pitch 0 1 NATURAL)
-		     ,(ly:make-pitch -1 5 NATURAL))
-  tablatureFormat = #fret-letter-tablature-format
-}
-\new TabVoice {
-  \set fretLabels = #`(,(markup #:with-color red "a")
-                       "b"
-                       ,(markup #:italic #:smaller "c"))
-  <f d>4. <bes>8 <g e>4
-}
-@end lilypond
-
-@item
-Layout objects can be printed over a white background, which whites-out objects
-in lower layers which lie beneath:
-
-@lilypond[verbatim,quote,relative=1]
-\time 3/4
-\override Staff.StaffSymbol #'layer = #4
-\once \override Tie #'layer = #2
-b'2.~
-\once \override Staff.TimeSignature #'whiteout = ##t
-\once \override Staff.TimeSignature #'layer = #3
-\time 5/4
-b4
-@end lilypond
-
-@item
-Chords can be repeated using the @code{q} shortcut:
-
-@lilypond[verbatim,quote,relative=2]
-<c e g>8.-^ q16 q4-^
-@end lilypond
-
-@item
-With two-sided mode, margins for odd and even pages can be set using
-@code{inner-margin} and @code{outer-margin}:
-
-@example
-\paper @{
-  two-sided = ##t
-  inner-margin = 10 \mm
-  outer-margin = 20 \mm
-@}
-@end example
-
-@item
-Paper margin defaults, as specified in @file{ly/paper@/-defaults-init.ly}, apply
-to the default paper size (a4) and are automatically scaled according to the
-paper size chosen.
-
-@item
-All combinations of @code{left-margin}, @code{right-margin} and
-@code{line-width} work now.  There is no more need to set @code{line-width}
-manually unless you explicitly want to.
-
-@item
-Support for using an alternative music font, such as Gonville, is now
-added.
-
-@item
-In addition to the existing @code{\hspace} markup command,
-a new @code{\vspace} command has been added to provide an easy
-and flexible way to add vertical space in markups.
-
-@item
-The direction of manual beams can be set with @code{^[} and @code{_[}.
-
-@item
-A version of the breve note head has been added with two vertical lines on each side.
-@lilypond[quote,relative=2]
-\time 4/2
-\override Staff.NoteHead #'style = #'altdefault
-c\breve | b\breve
-@end lilypond
-
-@item
-Instrument names and vocal names now take into account the extent of
-system start delimiters in other staves for their positioning,
-resulting in improved default alignment for left-, center- and
-right-aligned names.
-@lilypond[quote,indent=18\mm]
-<<
-  \new StaffGroup <<
-    \new GrandStaff <<
-      \new Staff {
-        \set Staff.instrumentName = #"Piccolo"
-        c''1
-      }
-      \new Staff {
-        \set Staff.instrumentName = #"Flute"
-        c''1
-      }
-    >>
-    \new Staff {
-      \set Staff.instrumentName = #"Bassoon"
-      \clef tenor
-      c'1
-    }
-  >>
-  \new PianoStaff <<
-    \set PianoStaff.instrumentName = #"Piano"
-    \context Staff = "up" {
-      c'1
-    }
-    \context Staff = "down" {
-      \clef bass
-      c1
-    }
-  >>
->>
-@end lilypond
-
-@item
-Braces in markup can now be selected by point size using the markup commands
-@code{\left-brace} and @code{\right-brace}.
-@lilypond[quote]
-\markup {
-  \left-brace #35
-  \hspace #2
-  \right-brace #45
-}
-@end lilypond
-
-@item
-Intermediate .ps files which are created by LilyPond
-during compilation are now deleted by default.  To keep them,
-add the following line to your input files:
-@example
-#(ly:set-option 'delete-intermediate-files #f)
-@end example
-
-@item
-Dashed and dotted slurs, phrasing slurs, and ties
-have been made variable thickness, and
-partially dashed slurs are now available:
-@lilypond[quote,relative=2]
-\slurDashed
-c4( d e f) |
-\slurDotted
-g4( f e d) |
-\slurHalfDashed
-c4( d e f)
-@end lilypond
-
-@item
-An eyeglasses markup was added, indicating strongly to look at the
-conductor for instructions:
-@lilypond[quote,relative=2]
-\mark \markup { \eyeglasses }
-c4_\markup { \eyeglasses }
-@end lilypond
-
-@item
-A snap-pizzicato (also known as Bartok-pizzicato) articulation was added:
-@lilypond[quote,relative=2]
-c4\snappizzicato
-@end lilypond
-
-@item
-Tuplet number formatting functions are now available to print other fractions
-and to add notes to the number or fraction:
-@lilypond[quote,relative=2]
-\once \override TupletNumber #'text =
-  #(tuplet-number::non-default-tuplet-denominator-text 7)
-\times 2/3 { c4. c4. c4. c4. }
-
-\once \override TupletNumber #'text =
-  #(tuplet-number::non-default-tuplet-fraction-text 12 7)
-\times 2/3 { c4. c4. c4. c4. }
-\once \override TupletNumber #'text =
-  #(tuplet-number::append-note-wrapper
-    (tuplet-number::non-default-tuplet-fraction-text 12 7) "8")
-\times 2/3 { c4. c4. c4. c4. }
-
-\once \override TupletNumber #'text =
-  #(tuplet-number::append-note-wrapper tuplet-number::calc-denominator-text "4")
-\times 2/3 { c8 c8 c8 c8 c8 c8 }
-\once \override TupletNumber #'text =
-  #(tuplet-number::append-note-wrapper tuplet-number::calc-fraction-text "4")
-\times 2/3 { c8 c8 c8 c8 c8 c8 }
-
-\once \override TupletNumber #'text =
-  #(tuplet-number::fraction-with-notes "4." "8")
-\times 2/3 { c4. c4. c4. c4. }
-\once \override TupletNumber #'text =
-  #(tuplet-number::non-default-fraction-with-notes 12 "8" 4 "4")
-\times 2/3  { c4. c4. c4. c4. }
-@end lilypond
-
-@item
-FretBoards now have a chordChanges property to keep repeated FretBoard objects
-from being typeset.
-
-@item
-The vertical spacing engine has been drastically changed, making
-it more flexible and easier to control.
-The spacing between staves within a system can now change
-to better use the space on the page.
-User-defined contexts may participate in this flexible spacing,
-depending on how their @code{staff-affinity} is defined.
-Some page formatting variables (@code{page-top-space},
-@code{between-system-space -padding}, and
-@code{before- between- after-title-space}) have been replaced
-by flexible vertical dimensions.
+Glissandi can now span multiple lines.
 
 @end itemize
-
-
 
 @ifhtml
 For older news, go to
+@uref{http://lilypond.org/doc/v2.14/Documentation/changes/},
 @uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS.html},
-@uref{http://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS.html},
 or @uref{../,go back} to the Documentation index.
 
 

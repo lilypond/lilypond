@@ -36,11 +36,11 @@ Clef::calc_glyph_name (SCM smob)
       string str = ly_scm2string (glyph);
 
       if (to_boolean (s->get_property ("non-default"))
-	  && s->break_status_dir () != RIGHT
-	  && !to_boolean (s->get_property ("full-size-change")))
-	{
-	  str += "_change";
-	}
+          && s->break_status_dir () != RIGHT
+          && !to_boolean (s->get_property ("full-size-change")))
+        {
+          str += "_change";
+        }
 
       return ly_string2scm (str);
     }
@@ -67,12 +67,12 @@ Clef::print (SCM smob)
 }
 
 ADD_INTERFACE (Clef,
-	       "A clef sign.",
+               "A clef sign.",
 
-	       /* properties */
-	       "full-size-change "
-	       "glyph "
-	       "glyph-name "
-	       "non-default "
-	       );
+               /* properties */
+               "full-size-change "
+               "glyph "
+               "glyph-name "
+               "non-default "
+              );
 

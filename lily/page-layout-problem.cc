@@ -45,9 +45,9 @@ Page_layout_problem::get_footnote_count (SCM lines)
   for (SCM s = lines; scm_is_pair (s); s = scm_cdr (s))
     {
       if (Grob *g = unsmob_grob (scm_car (s)))
-	{
-	  System *sys = dynamic_cast<System *> (g);
-	  if (!sys)
+        {
+          System *sys = dynamic_cast<System *> (g);
+          if (!sys)
             {
               programming_error ("got a grob for footnotes that wasn't a System");
               continue;
@@ -112,7 +112,7 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_boo
     TODO: This recalculates numbering every time this function is called, including once
     after the balloon prints are called.  Although it is not a huge computational drain,
     it'd be more elegant to turn this calculation off when it is no longer needed.
-    
+
     In a separate commit, it'd be nice to streamline the way that page layout property
     is handled so that the process of building `config's in page-breaking does result
     in duplicated work, either by making this process less complicated or (preferably)
@@ -130,7 +130,7 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_boo
             {
               programming_error ("Your numbering function needs to return a stencil.");
               markup = SCM_EOL;
-              s = new Stencil (Box (Interval (0,0), Interval (0,0)), SCM_EOL);
+              s = new Stencil (Box (Interval (0, 0), Interval (0, 0)), SCM_EOL);
             }
           footnote_number_markups.push_back (markup);
           footnote_number_stencils.push_back (s);
@@ -166,54 +166,54 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_boo
     {
       // Take care of musical systems.
       if (Grob *g = unsmob_grob (scm_car (s)))
-	{
-	  System *sys = dynamic_cast<System *> (g);
-	  if (!sys)
+        {
+          System *sys = dynamic_cast<System *> (g);
+          if (!sys)
             {
               programming_error ("got a grob for footnotes that wasn't a System");
               continue;
             }
-            Stencil mol;
+          Stencil mol;
 
-            for (vsize i = 0; i < sys->footnote_grobs ()->size (); i++)
-              {
-                Grob *footnote = sys->footnote_grobs ()->at (i);
-                SCM footnote_markup = footnote->get_property ("footnote-text");
-                if (Spanner *orig = dynamic_cast<Spanner *>(footnote))
-                  if (orig->is_broken ())
-                    footnote_markup = orig->broken_intos_[0]->get_property ("footnote-text");
+          for (vsize i = 0; i < sys->footnote_grobs ()->size (); i++)
+            {
+              Grob *footnote = sys->footnote_grobs ()->at (i);
+              SCM footnote_markup = footnote->get_property ("footnote-text");
+              if (Spanner *orig = dynamic_cast<Spanner *>(footnote))
+                if (orig->is_broken ())
+                  footnote_markup = orig->broken_intos_[0]->get_property ("footnote-text");
 
-                if (!Text_interface::is_markup (footnote_markup))
-                  continue;
+              if (!Text_interface::is_markup (footnote_markup))
+                continue;
 
-                SCM props = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
-                                        paper->self_scm ());
+              SCM props = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
+                                      paper->self_scm ());
 
-                SCM footnote_stl = Text_interface::interpret_markup (paper->self_scm (),
-                                                                     props, footnote_markup);
+              SCM footnote_stl = Text_interface::interpret_markup (paper->self_scm (),
+                                                                   props, footnote_markup);
 
-                Stencil *footnote_stencil = unsmob_stencil (footnote_stl);
-                if (do_numbering)
-                  {
-                    SCM annotation_scm = scm_car (in_text_numbers);
-                    footnote->set_property ("text", annotation_scm);
-                    if (Spanner *orig = dynamic_cast<Spanner *>(footnote))
-                      {
-                        orig->set_property ("text", annotation_scm);
-                        if (orig->is_broken ())
-                          for (vsize i = 0; i < orig->broken_intos_.size (); i++)
-                              orig->broken_intos_[i]->set_property ("text", annotation_scm);
-                      }
-                    
-                    Stencil *annotation = unsmob_stencil (scm_car (numbers));
-                    annotation->translate_axis (footnote_stencil->extent (Y_AXIS)[UP] + number_raise - annotation->extent(Y_AXIS)[UP], Y_AXIS);
-                    footnote_stencil->add_at_edge (X_AXIS, LEFT, *annotation, 0.0);
-                    numbers = scm_cdr (numbers);
-                    in_text_numbers = scm_cdr (in_text_numbers);
-                  }
-                mol.add_at_edge (Y_AXIS, DOWN, *footnote_stencil, padding);
-              }
-            footnotes = scm_cons (mol.smobbed_copy (), footnotes);
+              Stencil *footnote_stencil = unsmob_stencil (footnote_stl);
+              if (do_numbering)
+                {
+                  SCM annotation_scm = scm_car (in_text_numbers);
+                  footnote->set_property ("text", annotation_scm);
+                  if (Spanner *orig = dynamic_cast<Spanner *>(footnote))
+                    {
+                      orig->set_property ("text", annotation_scm);
+                      if (orig->is_broken ())
+                        for (vsize i = 0; i < orig->broken_intos_.size (); i++)
+                          orig->broken_intos_[i]->set_property ("text", annotation_scm);
+                    }
+
+                  Stencil *annotation = unsmob_stencil (scm_car (numbers));
+                  annotation->translate_axis (footnote_stencil->extent (Y_AXIS)[UP] + number_raise - annotation->extent (Y_AXIS)[UP], Y_AXIS);
+                  footnote_stencil->add_at_edge (X_AXIS, LEFT, *annotation, 0.0);
+                  numbers = scm_cdr (numbers);
+                  in_text_numbers = scm_cdr (in_text_numbers);
+                }
+              mol.add_at_edge (Y_AXIS, DOWN, *footnote_stencil, padding);
+            }
+          footnotes = scm_cons (mol.smobbed_copy (), footnotes);
         }
       // Take care of top-level markups
       else if (Prob *p = unsmob_prob (scm_car (s)))
@@ -236,7 +236,7 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_boo
                   if (!unsmob_stencil (in_text_stencil))
                     in_text_stencil = SCM_EOL;
                   number_footnote_table = scm_cons (scm_cons (scm_caar (st), in_text_stencil), number_footnote_table);
-                  annotation->translate_axis (mol.extent (Y_AXIS)[UP] + number_raise - annotation->extent(Y_AXIS)[UP], Y_AXIS);
+                  annotation->translate_axis (mol.extent (Y_AXIS)[UP] + number_raise - annotation->extent (Y_AXIS)[UP], Y_AXIS);
                   mol.add_at_edge (X_AXIS, LEFT, *annotation, 0.0);
                   numbers = scm_cdr (numbers);
                   in_text_numbers = scm_cdr (in_text_numbers);
@@ -255,7 +255,7 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_boo
   return scm_reverse (footnotes);
 }
 
-Stencil*
+Stencil *
 Page_layout_problem::get_footnote_separator_stencil (Output_def *paper)
 {
   SCM props = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
@@ -277,10 +277,15 @@ Page_layout_problem::get_footnote_separator_stencil (Output_def *paper)
 void
 Page_layout_problem::add_footnotes_to_footer (SCM footnotes, Stencil *foot, Paper_book *pb)
 {
+  if (!foot && scm_is_pair (footnotes))
+    {
+      warning ("Must have a footer to add footnotes.");
+      return;
+    }
   bool footnotes_found = false;
   Real footnote_padding = robust_scm2double (pb->paper_->c_variable ("footnote-padding"), 0.0);
   Real footnote_footer_padding = robust_scm2double (pb->paper_->c_variable ("footnote-footer-padding"), 0.0);
-  
+
   footnotes = scm_reverse (footnotes);
 
   for (SCM s = footnotes; scm_is_pair (s); s = scm_cdr (s))
@@ -363,64 +368,63 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
       last_bottom_spacing = paper->c_variable ("last-bottom-spacing");
       top_system_spacing = paper->c_variable ("top-system-spacing");
       if (scm_is_pair (systems) && unsmob_prob (scm_car (systems)))
-	top_system_spacing = paper->c_variable ("top-markup-spacing");
+        top_system_spacing = paper->c_variable ("top-markup-spacing");
 
       // Note: the page height here does _not_ reserve space for headers and
       // footers. This is because we want to anchor the top-system-spacing
       // spring at the _top_ of the header.
       page_height_ -= robust_scm2double (paper->c_variable ("top-margin"), 0)
-	+ robust_scm2double (paper->c_variable ("bottom-margin"), 0);
+                      + robust_scm2double (paper->c_variable ("bottom-margin"), 0);
 
       read_spacing_spec (top_system_spacing, &header_padding_, ly_symbol2scm ("padding"));
       read_spacing_spec (last_bottom_spacing, &footer_padding_, ly_symbol2scm ("padding"));
     }
   bool last_system_was_title = false;
 
-
   for (SCM s = systems; scm_is_pair (s); s = scm_cdr (s))
     {
       bool first = (s == systems);
 
       if (Grob *g = unsmob_grob (scm_car (s)))
-	{
-	  System *sys = dynamic_cast<System*> (g);
-	  if (!sys)
-	    {
-	      programming_error ("got a grob for vertical spacing that wasn't a System");
-	      continue;
-	    }
+        {
+          System *sys = dynamic_cast<System *> (g);
+          if (!sys)
+            {
+              programming_error ("got a grob for vertical spacing that wasn't a System");
+              continue;
+            }
 
-	  SCM spec = system_system_spacing;
-	  if (first)
-	    spec = top_system_spacing;
-	  else if (last_system_was_title)
-	    spec = markup_system_spacing;
-	  else if (0 == Paper_column::get_rank (sys->get_bound (LEFT)))
-	    spec = score_system_spacing;
+          SCM spec = system_system_spacing;
+          if (first)
+            spec = top_system_spacing;
+          else if (last_system_was_title)
+            spec = markup_system_spacing;
+          else if (0 == Paper_column::get_rank (sys->get_bound (LEFT)))
+            spec = score_system_spacing;
 
-	  Spring spring (0, 0);
-	  Real padding = 0.0;
-	  Real indent = line_dimensions_int (sys->paper_score ()->layout (), sys->get_rank ())[LEFT];
-	  alter_spring_from_spacing_spec (spec, &spring);
-	  read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
+          Spring spring (0, 0);
+          Real padding = 0.0;
+          Real indent = line_dimensions_int (sys->paper_score ()->layout (), sys->get_rank ())[LEFT];
+          alter_spring_from_spacing_spec (spec, &spring);
+          read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
 
-	  append_system (sys, spring, indent, padding);
-	  last_system_was_title = false;
-	}
+          append_system (sys, spring, indent, padding);
+          last_system_was_title = false;
+        }
       else if (Prob *p = unsmob_prob (scm_car (s)))
-	{
-	  SCM spec = first ? top_system_spacing
-	    : (last_system_was_title ? markup_markup_spacing : score_markup_spacing);
-	  Spring spring (0, 0);
-	  Real padding = 0.0;
-	  alter_spring_from_spacing_spec (spec, &spring);
-	  read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
+        {
+          SCM spec = first ? top_system_spacing
+                     : (last_system_was_title ? markup_markup_spacing : score_markup_spacing);
+          Spring spring (0, 0);
+          Real padding = 0.0;
+          alter_spring_from_spacing_spec (spec, &spring);
+          read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
 
-	  append_prob (p, spring, padding);
-	  last_system_was_title = true;
-	}
+          append_prob (p, spring, padding);
+          last_system_was_title = true;
+        }
       else
-	programming_error ("got a system that was neither a Grob nor a Prob");
+        programming_error ("got a system that was neither a Grob nor a Prob");
     }
 
   Spring last_spring (0, 0);
@@ -438,15 +442,15 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
       // bottom-space has the flexibility that one can do it per-system.
       // NOTE: bottom-space is misnamed since it is not stretchable space.
       if (Prob *p = elements_.back ().prob)
-	bottom_padding = robust_scm2double (p->get_property ("bottom-space"), 0);
+        bottom_padding = robust_scm2double (p->get_property ("bottom-space"), 0);
       else if (elements_.back ().staves.size ())
-	{
-	  SCM details = get_details (elements_.back ());
-	  bottom_padding = robust_scm2double (ly_assoc_get (ly_symbol2scm ("bottom-space"),
-							    details,
-							    SCM_BOOL_F),
-					      0.0);
-	}
+        {
+          SCM details = get_details (elements_.back ());
+          bottom_padding = robust_scm2double (ly_assoc_get (ly_symbol2scm ("bottom-space"),
+                                                            details,
+                                                            SCM_BOOL_F),
+                                              0.0);
+        }
       page_height_ -= bottom_padding;
     }
 }
@@ -464,7 +468,7 @@ Page_layout_problem::set_footer_height (Real height)
 }
 
 void
-Page_layout_problem::append_system (System *sys, Spring const& spring, Real indent, Real padding)
+Page_layout_problem::append_system (System *sys, Spring const &spring, Real indent, Real padding)
 {
   Grob *align = sys->get_vertical_alignment ();
   if (!align)
@@ -473,7 +477,7 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real inde
   align->set_property ("positioning-done", SCM_BOOL_T);
 
   extract_grob_set (align, "elements", all_elts);
-  vector<Grob*> elts = filter_dead_elements (all_elts);
+  vector<Grob *> elts = filter_dead_elements (all_elts);
   vector<Real> minimum_offsets = Align_interface::get_minimum_translations_without_min_dist (align, elts, Y_AXIS);
   vector<Real> minimum_offsets_with_min_dist = Align_interface::get_minimum_translations (align, elts, Y_AXIS);
 
@@ -509,38 +513,38 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real inde
   for (vsize i = 0; i < elts.size (); ++i)
     {
       if (is_spaceable (elts[i]))
-	{
-	  // We don't add a spring for the first staff, since
-	  // we are only adding springs _between_ staves here.
-	  if (!found_spaceable_staff)
-	    {
-	      found_spaceable_staff = true;
-	      last_spaceable_staff = i;
-	      continue;
-	    }
+        {
+          // We don't add a spring for the first staff, since
+          // we are only adding springs _between_ staves here.
+          if (!found_spaceable_staff)
+            {
+              found_spaceable_staff = true;
+              last_spaceable_staff = i;
+              continue;
+            }
 
-	  Spring spring (0.5, 0.0);
-	  SCM spec = elts[last_spaceable_staff]->get_property ("staff-staff-spacing");
-	  alter_spring_from_spacing_spec (spec, &spring);
+          Spring spring (0.5, 0.0);
+          SCM spec = elts[last_spaceable_staff]->get_property ("staff-staff-spacing");
+          alter_spring_from_spacing_spec (spec, &spring);
 
-	  springs_.push_back (spring);
-	  Real min_distance = (found_spaceable_staff ? minimum_offsets_with_min_dist[last_spaceable_staff] : 0) - minimum_offsets_with_min_dist[i];
-	  springs_.back ().ensure_min_distance (min_distance);
+          springs_.push_back (spring);
+          Real min_distance = (found_spaceable_staff ? minimum_offsets_with_min_dist[last_spaceable_staff] : 0) - minimum_offsets_with_min_dist[i];
+          springs_.back ().ensure_min_distance (min_distance);
 
-	  if (scm_is_pair (manual_dists))
-	    {
-	      if (scm_is_number (scm_car (manual_dists)))
-		{
-		  Real dy = scm_to_double (scm_car (manual_dists));
+          if (scm_is_pair (manual_dists))
+            {
+              if (scm_is_number (scm_car (manual_dists)))
+                {
+                  Real dy = scm_to_double (scm_car (manual_dists));
 
-		  springs_.back ().set_distance (dy);
-		  springs_.back ().set_min_distance (dy);
-		  springs_.back ().set_inverse_stretch_strength (0);
-		}
-	      manual_dists = scm_cdr (manual_dists);
-	    }
-	  last_spaceable_staff = i;
-	}
+                  springs_.back ().set_distance (dy);
+                  springs_.back ().set_min_distance (dy);
+                  springs_.back ().set_inverse_stretch_strength (0);
+                }
+              manual_dists = scm_cdr (manual_dists);
+            }
+          last_spaceable_staff = i;
+        }
     }
 
   // Corner case: there was only one staff, and it wasn't spaceable.
@@ -551,7 +555,7 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real inde
 }
 
 void
-Page_layout_problem::append_prob (Prob *prob, Spring const& spring, Real padding)
+Page_layout_problem::append_prob (Prob *prob, Spring const &spring, Real padding)
 {
   Skyline_pair *sky = Skyline_pair::unsmob (prob->get_property ("vertical-skylines"));
   Real minimum_distance = 0;
@@ -599,19 +603,19 @@ Page_layout_problem::solve_rod_spring_problem (bool ragged)
   if (!spacer.fits ())
     {
       Real overflow = spacer.configuration_length (spacer.force ())
-		      - page_height_;
+                      - page_height_;
       if (ragged && overflow < 1e-6)
-	warning (_ ("cannot fit music on page: ragged-spacing was requested, but page was compressed"));
+        warning (_ ("cannot fit music on page: ragged-spacing was requested, but page was compressed"));
       else
-	{
-	  warning (_f ("cannot fit music on page: overflow is %f",
-		       overflow));
-	  warning (_ ("compressing music to fit"));
-	  vsize space_count = solution_.size ();
-	  Real spacing_increment = overflow / (space_count - 2);
-	  for (vsize i = 2; i < space_count; i++)
-	    solution_[i] -= (i-1) * spacing_increment;
-	}
+        {
+          warning (_f ("cannot fit music on page: overflow is %f",
+                       overflow));
+          warning (_ ("compressing music to fit"));
+          vsize space_count = solution_.size ();
+          Real spacing_increment = overflow / (space_count - 2);
+          for (vsize i = 2; i < space_count; i++)
+            solution_[i] -= (i - 1) * spacing_increment;
+        }
     }
 }
 
@@ -628,7 +632,7 @@ Page_layout_problem::find_system_offsets ()
 
   // spring_idx 0 is the top of the page. Interesting values start from 1.
   vsize spring_idx = 1;
-  vector<Grob*> loose_lines;
+  vector<Grob *> loose_lines;
   vector<Real> loose_line_min_distances;
   Grob *last_spaceable_line = 0;
   Real last_spaceable_line_translation = 0;
@@ -636,126 +640,127 @@ Page_layout_problem::find_system_offsets ()
   for (vsize i = 0; i < elements_.size (); ++i)
     {
       if (elements_[i].prob)
-	{
-	  *tail = scm_cons (scm_from_double (solution_[spring_idx]), SCM_EOL);
-	  tail = SCM_CDRLOC (*tail);
-	  Interval prob_extent = unsmob_stencil (elements_[i].prob->get_property ("stencil"))->extent (Y_AXIS);
+        {
+          *tail = scm_cons (scm_from_double (solution_[spring_idx]), SCM_EOL);
+          tail = SCM_CDRLOC (*tail);
+          Interval prob_extent = unsmob_stencil (elements_[i].prob->get_property ("stencil"))->extent (Y_AXIS);
 
-	  // Lay out any non-spaceable lines between this line and
-	  // the last one.
-	  if (loose_lines.size ())
-	    {
-	      Interval loose_extent = loose_lines.back ()->extent (loose_lines.back (), Y_AXIS);
-	      Real min_distance = (-loose_extent[DOWN] + prob_extent[UP]
-				   + elements_[i].padding);
+          // Lay out any non-spaceable lines between this line and
+          // the last one.
+          if (loose_lines.size ())
+            {
+              Interval loose_extent = loose_lines.back ()->extent (loose_lines.back (), Y_AXIS);
+              Real min_distance = (-loose_extent[DOWN] + prob_extent[UP]
+                                   + elements_[i].padding);
 
-	      loose_line_min_distances.push_back (min_distance);
-	      loose_lines.push_back (0);
+              loose_line_min_distances.push_back (min_distance);
+              loose_lines.push_back (0);
 
-	      distribute_loose_lines (loose_lines, loose_line_min_distances,
-				      last_spaceable_line_translation, -solution_[spring_idx]);
-	      loose_lines.clear ();
-	      loose_line_min_distances.clear ();
-	    }
+              distribute_loose_lines (loose_lines, loose_line_min_distances,
+                                      last_spaceable_line_translation, -solution_[spring_idx]);
+              loose_lines.clear ();
+              loose_line_min_distances.clear ();
+            }
 
-	  last_spaceable_line = 0;
-	  last_spaceable_line_translation = -solution_[spring_idx];
-	  last_title_extent = prob_extent;
-	  spring_idx++;
-	}
+          last_spaceable_line = 0;
+          last_spaceable_line_translation = -solution_[spring_idx];
+          last_title_extent = prob_extent;
+          spring_idx++;
+        }
       else
-	{
-	  // Getting this signs right here is a little tricky. The configuration
-	  // we return has zero at the top of the page and positive numbers further
-	  // down, as does the solution_ vector.  Within a staff, however, positive
-	  // numbers are up.
-	  // TODO: perhaps change the way the page 'configuration variable works so
-	  // that it is consistent with the usual up/down sign conventions in
-	  // Lilypond. Then this would be less confusing.
+        {
+          // Getting this signs right here is a little tricky. The configuration
+          // we return has zero at the top of the page and positive numbers further
+          // down, as does the solution_ vector.  Within a staff, however, positive
+          // numbers are up.
+          // TODO: perhaps change the way the page 'configuration variable works so
+          // that it is consistent with the usual up/down sign conventions in
+          // Lilypond. Then this would be less confusing.
 
-	  // These two positions are relative to the page (with positive numbers being
-	  // down).
-	  Real first_staff_position = solution_[spring_idx];
-	  Real first_staff_min_translation = elements_[i].min_offsets.size () ? elements_[i].min_offsets[0] : 0;
-	  Real system_position = first_staff_position + first_staff_min_translation;
+          // These two positions are relative to the page (with positive numbers being
+          // down).
+          Real first_staff_position = solution_[spring_idx];
+          Real first_staff_min_translation = elements_[i].min_offsets.size () ? elements_[i].min_offsets[0] : 0;
+          Real system_position = first_staff_position + first_staff_min_translation;
 
-	  // Position the staves within this system.
-	  vector<Real> const& min_offsets = elements_[i].min_offsets;
-	  bool found_spaceable_staff = false;
-	  for (vsize staff_idx = 0; staff_idx < elements_[i].staves.size (); ++staff_idx)
-	    {
-	      Grob *staff = elements_[i].staves[staff_idx];
-	      staff->set_property ("system-Y-offset", scm_from_double (-system_position));
+          // Position the staves within this system.
+          vector<Real> const &min_offsets = elements_[i].min_offsets;
+          bool found_spaceable_staff = false;
+          for (vsize staff_idx = 0; staff_idx < elements_[i].staves.size (); ++staff_idx)
+            {
+              Grob *staff = elements_[i].staves[staff_idx];
+              staff->set_property ("system-Y-offset", scm_from_double (-system_position));
 
-	      if (is_spaceable (staff))
-		{
-		  // this is relative to the system: negative numbers are down.
-		  staff->translate_axis (system_position - solution_[spring_idx], Y_AXIS);
+              if (is_spaceable (staff))
+                {
+                  // this is relative to the system: negative numbers are down.
+                  staff->translate_axis (system_position - solution_[spring_idx], Y_AXIS);
 
-		  // Lay out any non-spaceable lines between this line and
-		  // the last one.
-		  if (loose_lines.size ())
-		    {
-		      if (staff_idx)
-			loose_line_min_distances.push_back (min_offsets[staff_idx-1] - min_offsets[staff_idx]);
-		      else
-			loose_line_min_distances.push_back (elements_[i].padding - min_offsets[staff_idx]);
-		      loose_lines.push_back (staff);
+                  // Lay out any non-spaceable lines between this line and
+                  // the last one.
+                  if (loose_lines.size ())
+                    {
+                      if (staff_idx)
+                        loose_line_min_distances.push_back (min_offsets[staff_idx - 1] - min_offsets[staff_idx]);
+                      else
+                        loose_line_min_distances.push_back (elements_[i].padding - min_offsets[staff_idx]);
+                      loose_lines.push_back (staff);
 
-		      distribute_loose_lines (loose_lines, loose_line_min_distances,
-					      last_spaceable_line_translation, -solution_[spring_idx]);
-		      loose_lines.clear ();
-		      loose_line_min_distances.clear ();
-		    }
-		  last_spaceable_line = staff;
-		  last_spaceable_line_translation = -solution_[spring_idx];
-		  found_spaceable_staff = true;
-		  spring_idx++;
-		}
-	      else
-		{
-		  if (loose_lines.empty ())
-		    loose_lines.push_back (last_spaceable_line);
+                      distribute_loose_lines (loose_lines, loose_line_min_distances,
+                                              last_spaceable_line_translation, -solution_[spring_idx]);
+                      loose_lines.clear ();
+                      loose_line_min_distances.clear ();
+                    }
+                  last_spaceable_line = staff;
+                  last_spaceable_line_translation = -solution_[spring_idx];
+                  found_spaceable_staff = true;
+                  spring_idx++;
+                }
+              else
+                {
+                  if (loose_lines.empty ())
+                    loose_lines.push_back (last_spaceable_line);
 
-		  if (staff_idx)
-		    // NOTE: the way we do distances between loose lines (and other lines too, actually)
-		    // is not the most accurate way possible: we only insert rods between adjacent
-		    // lines.  To be more accurate, we could insert rods between non-adjacent lines
-		    // using a scheme similar to the one in set_column_rods.
-		    loose_line_min_distances.push_back (min_offsets[staff_idx-1] - min_offsets[staff_idx]);
-		  else
-		    { // this is the first line in a system
-		      Real min_dist = 0;
-		      if (loose_lines.back ())
-			// distance to the final line in the preceding system,
-			// including 'system-system-spacing 'padding
-			min_dist = (Axis_group_interface::minimum_distance (loose_lines.back (),
-									    staff,
-									    Y_AXIS)
-				    + elements_[i].padding);
-		      else if (!last_title_extent.is_empty ())
-			// distance to the preceding title,
-			//  including 'markup-system-spacing 'padding
-			min_dist = (staff->extent (staff, Y_AXIS)[UP] - last_title_extent[DOWN]
-				    + elements_[i].padding);
-		      else // distance to the top margin
-			min_dist = header_padding_ + header_height_ + staff->extent (staff, Y_AXIS)[UP];
+                  if (staff_idx)
+                    // NOTE: the way we do distances between loose lines (and other lines too, actually)
+                    // is not the most accurate way possible: we only insert rods between adjacent
+                    // lines.  To be more accurate, we could insert rods between non-adjacent lines
+                    // using a scheme similar to the one in set_column_rods.
+                    loose_line_min_distances.push_back (min_offsets[staff_idx - 1] - min_offsets[staff_idx]);
+                  else
+                    {
+                      // this is the first line in a system
+                      Real min_dist = 0;
+                      if (loose_lines.back ())
+                        // distance to the final line in the preceding system,
+                        // including 'system-system-spacing 'padding
+                        min_dist = (Axis_group_interface::minimum_distance (loose_lines.back (),
+                                                                            staff,
+                                                                            Y_AXIS)
+                                    + elements_[i].padding);
+                      else if (!last_title_extent.is_empty ())
+                        // distance to the preceding title,
+                        //  including 'markup-system-spacing 'padding
+                        min_dist = (staff->extent (staff, Y_AXIS)[UP] - last_title_extent[DOWN]
+                                    + elements_[i].padding);
+                      else // distance to the top margin
+                        min_dist = header_padding_ + header_height_ + staff->extent (staff, Y_AXIS)[UP];
 
-		      loose_line_min_distances.push_back (min_dist);
-		    }
-		  loose_lines.push_back (staff);
-		}
-	    }
+                      loose_line_min_distances.push_back (min_dist);
+                    }
+                  loose_lines.push_back (staff);
+                }
+            }
 
-	  // Corner case: even if a system has no live staves, it still takes up
-	  // one spring (a system with one live staff also takes up one spring),
-	  // which we need to increment past.
-	  if (!found_spaceable_staff)
-	    spring_idx++;
+          // Corner case: even if a system has no live staves, it still takes up
+          // one spring (a system with one live staff also takes up one spring),
+          // which we need to increment past.
+          if (!found_spaceable_staff)
+            spring_idx++;
 
-	  *tail = scm_cons (scm_from_double (system_position), SCM_EOL);
-	  tail = SCM_CDRLOC (*tail);
-	}
+          *tail = scm_cons (scm_from_double (system_position), SCM_EOL);
+          tail = SCM_CDRLOC (*tail);
+        }
     }
 
   if (loose_lines.size ())
@@ -766,7 +771,7 @@ Page_layout_problem::find_system_offsets ()
       loose_lines.push_back (0);
 
       distribute_loose_lines (loose_lines, loose_line_min_distances,
-			      last_spaceable_line_translation, -page_height_);
+                              last_spaceable_line_translation, -page_height_);
 
     }
 
@@ -779,14 +784,14 @@ Page_layout_problem::find_system_offsets ()
 // them.
 // first_translation and last_translation are relative to the page.
 void
-Page_layout_problem::distribute_loose_lines (vector<Grob*> const &loose_lines,
-					     vector<Real> const &min_distances,
-					     Real first_translation, Real last_translation)
+Page_layout_problem::distribute_loose_lines (vector<Grob *> const &loose_lines,
+                                             vector<Real> const &min_distances,
+                                             Real first_translation, Real last_translation)
 {
   Simple_spacer spacer;
   for (vsize i = 0; i + 1 < loose_lines.size (); ++i)
     {
-      SCM spec = get_spacing_spec (loose_lines[i], loose_lines[i+1], false, 0, INT_MAX);
+      SCM spec = get_spacing_spec (loose_lines[i], loose_lines[i + 1], false, 0, INT_MAX);
       Spring spring (1.0, 0.0);
       alter_spring_from_spacing_spec (spec, &spring);
       spring.ensure_min_distance (min_distances[i]);
@@ -821,10 +826,10 @@ Page_layout_problem::solution (bool ragged)
 // The upper skyline is relative to the top staff; the lower skyline is relative to
 // the bottom staff.
 void
-Page_layout_problem::build_system_skyline (vector<Grob*> const& staves,
-					   vector<Real> const& minimum_translations,
-					   Skyline *up,
-					   Skyline *down)
+Page_layout_problem::build_system_skyline (vector<Grob *> const &staves,
+                                           vector<Real> const &minimum_translations,
+                                           Skyline *up,
+                                           Skyline *down)
 {
   if (minimum_translations.empty ())
     return;
@@ -841,24 +846,24 @@ Page_layout_problem::build_system_skyline (vector<Grob*> const& staves,
       Grob *g = staves[i];
       Skyline_pair *sky = Skyline_pair::unsmob (g->get_property ("vertical-skylines"));
       if (sky)
-	{
-	  up->raise (-dy);
-	  up->merge ((*sky)[UP]);
-	  up->raise (dy);
+        {
+          up->raise (-dy);
+          up->merge ((*sky)[UP]);
+          up->raise (dy);
 
-	  down->raise (-dy);
-	  down->merge ((*sky)[DOWN]);
-	  down->raise (dy);
-	}
+          down->raise (-dy);
+          down->merge ((*sky)[DOWN]);
+          down->raise (dy);
+        }
       if (is_spaceable (staves[i]))
-	{
-	  if (!found_spaceable_staff)
-	    {
-	      found_spaceable_staff = true;
-	      first_spaceable_dy = dy;
-	    }
-	  last_spaceable_dy = dy;
-	}
+        {
+          if (!found_spaceable_staff)
+            {
+              found_spaceable_staff = true;
+              first_spaceable_dy = dy;
+            }
+          last_spaceable_dy = dy;
+        }
     }
 
   // Leave the up skyline at a position relative
@@ -878,7 +883,7 @@ Page_layout_problem::prob_extent (Prob *p)
 }
 
 Interval
-Page_layout_problem::first_staff_extent (Element const& e)
+Page_layout_problem::first_staff_extent (Element const &e)
 {
   if (e.prob)
     return prob_extent (e.prob);
@@ -889,7 +894,7 @@ Page_layout_problem::first_staff_extent (Element const& e)
 }
 
 Interval
-Page_layout_problem::last_staff_extent (Element const& e)
+Page_layout_problem::last_staff_extent (Element const &e)
 {
   if (e.prob)
     return prob_extent (e.prob);
@@ -900,7 +905,7 @@ Page_layout_problem::last_staff_extent (Element const& e)
 }
 
 SCM
-Page_layout_problem::get_details (Element const& elt)
+Page_layout_problem::get_details (Element const &elt)
 {
   if (elt.staves.empty ())
     return SCM_EOL;
@@ -911,7 +916,7 @@ Page_layout_problem::get_details (Element const& elt)
 SCM
 Page_layout_problem::get_details (Grob *g)
 {
-  Grob *left_bound = dynamic_cast<Spanner*> (g)->get_bound (LEFT);
+  Grob *left_bound = dynamic_cast<Spanner *> (g)->get_bound (LEFT);
   return left_bound->get_property ("line-break-system-details");
 }
 
@@ -928,7 +933,7 @@ Page_layout_problem::mark_as_spaceable (Grob *g)
 }
 
 bool
-Page_layout_problem::read_spacing_spec (SCM spec, Real* dest, SCM sym)
+Page_layout_problem::read_spacing_spec (SCM spec, Real *dest, SCM sym)
 {
   SCM pair = scm_sloppy_assq (sym, spec);
   if (scm_is_pair (pair) && scm_is_number (scm_cdr (pair)))
@@ -946,17 +951,17 @@ Page_layout_problem::read_spacing_spec (SCM spec, Real* dest, SCM sym)
 Real
 Page_layout_problem::get_fixed_spacing (Grob *before, Grob *after, int spaceable_index, bool pure, int start, int end)
 {
-  Spanner *after_sp = dynamic_cast<Spanner*> (after);
+  Spanner *after_sp = dynamic_cast<Spanner *> (after);
   SCM cache_symbol = (is_spaceable (before) && is_spaceable (after))
-    ? ly_symbol2scm ("spaceable-fixed-spacing")
-    : ly_symbol2scm ("loose-fixed-spacing");
+                     ? ly_symbol2scm ("spaceable-fixed-spacing")
+                     : ly_symbol2scm ("loose-fixed-spacing");
   if (pure)
     {
       // The result of this function doesn't depend on "end," so we can reduce the
       // size of the cache by ignoring it.
       SCM cached = after_sp->get_cached_pure_property (cache_symbol, start, 0);
       if (scm_is_number (cached))
-	return robust_scm2double (cached, 0.0);
+        return robust_scm2double (cached, 0.0);
     }
 
   Real ret = -infinity_f;
@@ -971,11 +976,11 @@ Page_layout_problem::get_fixed_spacing (Grob *before, Grob *after, int spaceable
       SCM details = left_bound->get_property ("line-break-system-details");
       SCM manual_dists = ly_assoc_get (ly_symbol2scm ("alignment-distances"), details, SCM_EOL);
       if (scm_is_pair (manual_dists))
-	{
-	  SCM forced = robust_list_ref (spaceable_index - 1, manual_dists);
-	  if (scm_is_number (forced))
-	    ret = max (ret, scm_to_double (forced));
-	}
+        {
+          SCM forced = robust_list_ref (spaceable_index - 1, manual_dists);
+          if (scm_is_number (forced))
+            ret = max (ret, scm_to_double (forced));
+        }
     }
 
   // Cache the result.  As above, we ignore "end."
@@ -1016,44 +1021,44 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure, int
   if (is_spaceable (before))
     {
       if (is_spaceable (after))
-	return before->get_maybe_pure_property ("staff-staff-spacing", pure, start, end);
+        return before->get_maybe_pure_property ("staff-staff-spacing", pure, start, end);
       else
-	{
-	  Direction affinity = to_dir (after->get_maybe_pure_property ("staff-affinity", pure, start, end));
-	  return (affinity == DOWN)
-	    ? add_stretchability (after->get_maybe_pure_property ("nonstaff-unrelatedstaff-spacing", pure, start, end),
-				  LARGE_STRETCH)
-	    : after->get_maybe_pure_property ("nonstaff-relatedstaff-spacing", pure, start, end);
-	}
+        {
+          Direction affinity = to_dir (after->get_maybe_pure_property ("staff-affinity", pure, start, end));
+          return (affinity == DOWN)
+                 ? add_stretchability (after->get_maybe_pure_property ("nonstaff-unrelatedstaff-spacing", pure, start, end),
+                                       LARGE_STRETCH)
+                 : after->get_maybe_pure_property ("nonstaff-relatedstaff-spacing", pure, start, end);
+        }
     }
   else
     {
       if (is_spaceable (after))
-	{
-	  Direction affinity = to_dir (before->get_maybe_pure_property ("staff-affinity", pure, start, end));
-	  return (affinity == UP)
-	    ? add_stretchability (before->get_maybe_pure_property ("nonstaff-unrelatedstaff-spacing", pure, start, end),
-				  LARGE_STRETCH)
-	    : before->get_maybe_pure_property ("nonstaff-relatedstaff-spacing", pure, start, end);
-	}
+        {
+          Direction affinity = to_dir (before->get_maybe_pure_property ("staff-affinity", pure, start, end));
+          return (affinity == UP)
+                 ? add_stretchability (before->get_maybe_pure_property ("nonstaff-unrelatedstaff-spacing", pure, start, end),
+                                       LARGE_STRETCH)
+                 : before->get_maybe_pure_property ("nonstaff-relatedstaff-spacing", pure, start, end);
+        }
       else
-	{
-	  Direction before_affinity = to_dir (before->get_maybe_pure_property ("staff-affinity", pure, start, end));
-	  Direction after_affinity = to_dir (after->get_maybe_pure_property ("staff-affinity", pure, start, end));
-	  static bool warned = false;
-	  if (after_affinity > before_affinity
-	      && !warned && !pure)
-	    {
-	      warning (_ ("staff-affinities should only decrease"));
-	      warned = true;
-	    }
-	  if (before_affinity != UP)
-	    return before->get_maybe_pure_property ("nonstaff-nonstaff-spacing", pure, start, end);
-	  else if (after_affinity != DOWN)
-	    return before->get_maybe_pure_property ("nonstaff-nonstaff-spacing", pure, start, end);
-	  return add_stretchability (before->get_maybe_pure_property ("nonstaff-unrelatedstaff-spacing", pure, start, end),
-				     LARGE_STRETCH);
-	}
+        {
+          Direction before_affinity = to_dir (before->get_maybe_pure_property ("staff-affinity", pure, start, end));
+          Direction after_affinity = to_dir (after->get_maybe_pure_property ("staff-affinity", pure, start, end));
+          static bool warned = false;
+          if (after_affinity > before_affinity
+              && !warned && !pure)
+            {
+              warning (_ ("staff-affinities should only decrease"));
+              warned = true;
+            }
+          if (before_affinity != UP)
+            return before->get_maybe_pure_property ("nonstaff-nonstaff-spacing", pure, start, end);
+          else if (after_affinity != DOWN)
+            return before->get_maybe_pure_property ("nonstaff-nonstaff-spacing", pure, start, end);
+          return add_stretchability (before->get_maybe_pure_property ("nonstaff-unrelatedstaff-spacing", pure, start, end),
+                                     LARGE_STRETCH);
+        }
     }
 
   assert (0);
@@ -1061,7 +1066,7 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure, int
 }
 
 void
-Page_layout_problem::alter_spring_from_spacing_spec (SCM spec, Spring* spring)
+Page_layout_problem::alter_spring_from_spacing_spec (SCM spec, Spring *spring)
 {
   Real space;
   Real stretch;
@@ -1076,17 +1081,17 @@ Page_layout_problem::alter_spring_from_spacing_spec (SCM spec, Spring* spring)
     spring->set_inverse_stretch_strength (stretch);
 }
 
-vector<Grob*>
-Page_layout_problem::filter_dead_elements (vector<Grob*> const& input)
+vector<Grob *>
+Page_layout_problem::filter_dead_elements (vector<Grob *> const &input)
 {
-  vector<Grob*> output;
+  vector<Grob *> output;
   for (vsize i = 0; i < input.size (); ++i)
     {
       if (Hara_kiri_group_spanner::has_interface (input[i]))
-	Hara_kiri_group_spanner::consider_suicide (input[i]);
+        Hara_kiri_group_spanner::consider_suicide (input[i]);
 
       if (input[i]->is_live ())
-	output.push_back (input[i]);
+        output.push_back (input[i]);
     }
 
   return output;

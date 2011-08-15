@@ -34,7 +34,7 @@ Scheme_listener::Scheme_listener (SCM c)
   callback_ = SCM_EOL;
   self_scm_ = SCM_EOL;
   smobify_self ();
-  callback_ = c; 
+  callback_ = c;
 }
 
 SCM
@@ -45,7 +45,7 @@ Scheme_listener::mark_smob (SCM obj)
 }
 
 int
-Scheme_listener::print_smob (SCM obj, SCM p, scm_print_state*)
+Scheme_listener::print_smob (SCM obj, SCM p, scm_print_state *)
 {
   Scheme_listener *me = (Scheme_listener *) SCM_CELL_WORD_1 (obj);
   scm_puts ("#<Scheme_listener ", p);

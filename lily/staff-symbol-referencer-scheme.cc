@@ -30,7 +30,7 @@ LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
   Grob *g = unsmob_grob (sg);
   Real pos = Staff_symbol_referencer::get_position (g);
 
-  if (fabs (rint (pos) -pos) < 1e-6) // ugh.
+  if (fabs (rint (pos) - pos) < 1e-6) // ugh.
     return scm_from_int ((int) my_round (pos));
   else
     return scm_from_double (pos);

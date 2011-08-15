@@ -43,7 +43,7 @@ public:
   vector<Real> solve_derivative (Offset) const;
   Interval extent (Axis) const;
   Interval control_point_extent (Axis) const;
-  
+
   Polynomial polynomial (Axis)const;
   Offset curve_point (Real t) const;
   Real curve_coordinate (Real t, Axis) const;
@@ -63,7 +63,7 @@ void rotate (vector<Offset> *array, Real phi);
 void translate (vector<Offset> *array, Offset o);
 
 Bezier slur_shape (Real width, Real height_limit,
-		   Real height_proportion);
+                   Real height_proportion);
 Real slur_height (Real width, Real height_limit, Real height_proportion);
 void get_slur_indent_height (Real *indent, Real *height, Real width, Real h_inf, Real r_0);
 

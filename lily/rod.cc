@@ -54,7 +54,7 @@ Rod::add_to_cols ()
   if (item_drul_[LEFT] != item_drul_[RIGHT]
       && item_drul_[LEFT] && item_drul_[RIGHT])
     Spaceable_grob::add_rod (item_drul_[LEFT],
-			     item_drul_[RIGHT],
-			     distance_);
+                             item_drul_[RIGHT],
+                             distance_);
 }
 

@@ -52,13 +52,6 @@
    (else
     #f)))
 
-
-(define (identifier<? a b)
-  (ly:string-ci<?
-   (symbol->string (car a))
-   (symbol->string (car b))))
-
-
 (define-public (identifiers-doc-string)
   (format #f
    "@table @asis

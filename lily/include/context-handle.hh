@@ -22,7 +22,6 @@
 
 #include "lily-proto.hh"
 
-
 class Context_handle
 {
 public:
@@ -32,7 +31,7 @@ public:
   void set_context (Context *);
   void operator = (Context_handle const &);
   Context_handle (Context_handle const &);
-  Context *get_outlet () const;
+  Context *get_context () const;
 
   int get_count () const;
 private:

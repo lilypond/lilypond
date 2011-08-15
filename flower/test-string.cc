@@ -13,12 +13,11 @@
 
 using namespace std;
 
-
 FUNC (string_split_join)
 {
   string orig = "a/bbbb/cc//d";
   vector<string> splits = string_split (orig, '/');
   string loop = string_join (splits, "/");
-  EQUAL(orig, loop);
-  EQUAL(splits.size (), size_t (5));
+  EQUAL (orig, loop);
+  EQUAL (splits.size (), size_t (5));
 }

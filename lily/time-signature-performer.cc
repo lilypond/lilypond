@@ -82,15 +82,15 @@ Time_signature_performer::stop_translation_timestep ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Time_signature_performer,
-		/* doc */
-		"",
+                /* doc */
+                "",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

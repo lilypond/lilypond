@@ -23,13 +23,12 @@
 #include "grob-interface.hh"
 #include "lily-proto.hh"
 
-
 class Measure_grouping
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 };
 
 #endif /* MEASURE_GROUPING_SPANNER_HH */

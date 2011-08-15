@@ -32,49 +32,49 @@ using namespace std;
 char *
 pfb2pfa (Byte const *pfb, int length)
 {
-  char *out = (char*) malloc(sizeof(char));
+  char *out = (char *) malloc (sizeof (char));
   int olen = 0;
 
   Byte const *p = pfb;
   while (p < pfb + length)
     {
       if (*p++ != 128)
-	break;
+        break;
 
       Byte type = *p++;
       if (type == 3)
-	break;
+        break;
 
       unsigned seglen
-	= p[0] | (p[1] << 8)
-	| (p[2] << 16) | (p[3] << 24);
+        = p[0] | (p[1] << 8)
+          | (p[2] << 16) | (p[3] << 24);
 
       p += 4;
       if (type == 1)
-	{
-	  out = (char *)realloc (out, olen + seglen + 1);
-	  char *outp = out + olen;
-	  memcpy (outp, p, seglen);
-	  olen += seglen;
-	  p += seglen;
-	}
+        {
+          out = (char *)realloc (out, olen + seglen + 1);
+          char *outp = out + olen;
+          memcpy (outp, p, seglen);
+          olen += seglen;
+          p += seglen;
+        }
       else if (type == 2)
-	{
-	  unsigned outlength = (seglen * 2) + (seglen / 32) + 2;
+        {
+          unsigned outlength = (seglen * 2) + (seglen / 32) + 2;
 
-	  out = (char *)realloc (out, olen + outlength + 1);
+          out = (char *)realloc (out, olen + outlength + 1);
 
-	  char *outp = out + olen;
-	  for (int i = seglen; i--;)
-	    {
-	      sprintf (outp, "%02x", *p++);
-	      outp += 2;
-	      if (! (i % 32))
-		*outp++ = '\n';
-	    }
+          char *outp = out + olen;
+          for (int i = seglen; i--;)
+            {
+              sprintf (outp, "%02x", *p++);
+              outp += 2;
+              if (! (i % 32))
+                *outp++ = '\n';
+            }
 
-	  olen = outp - out;
-	}
+          olen = outp - out;
+        }
     }
   out[olen] = 0;
 

@@ -27,7 +27,6 @@
 #include "virtual-methods.hh"
 #include <set>
 
-
 /*
   The definition of a interpretation context as given in the
   input. The lists are stored in order of definition.
@@ -58,15 +57,15 @@ public:
   SCM get_translator_group_type () const { return translator_group_type_; }
   void set_acceptor (SCM accepts, bool add);
 
-  VIRTUAL_COPY_CONSTRUCTOR(Context_def, Context_def);
+  VIRTUAL_COPY_CONSTRUCTOR (Context_def, Context_def);
 
-  vector<Context_def*> path_to_acceptable_context (SCM type_string,
-						   Output_def *,
-						   SCM) const;
-  vector<Context_def*> internal_path_to_acceptable_context (SCM type_string,
-							    Output_def *,
-							    SCM,
-							    set<const Context_def *> *seen) const;
+  vector<Context_def *> path_to_acceptable_context (SCM type_string,
+                                                    Output_def *,
+                                                    SCM) const;
+  vector<Context_def *> internal_path_to_acceptable_context (SCM type_string,
+                                                             Output_def *,
+                                                             SCM,
+                                                             set<const Context_def *> *seen) const;
   Context *instantiate (SCM extra_ops);
 
   SCM to_alist () const;

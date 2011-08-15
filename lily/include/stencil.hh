@@ -19,7 +19,7 @@
 #ifndef STENCIL_HH
 #define STENCIL_HH
 
-#include <cstdlib>		// size_t
+#include <cstdlib>              // size_t
 using namespace std;
 
 #include "lily-proto.hh"
@@ -90,14 +90,13 @@ public:
 DECLARE_UNSMOB (Stencil, stencil);
 
 void interpret_stencil_expression (SCM expr,
-				   void (*func) (void *, SCM),
-				   void *func_arg,
-				   Offset o);
+                                   void (*func) (void *, SCM),
+                                   void *func_arg,
+                                   Offset o);
 SCM find_expression_fonts (SCM expr);
 
 void register_stencil_head (SCM symbol);
 bool is_stencil_head (SCM symbol);
 SCM all_stencil_heads ();
-
 
 #endif /* STENCIL_HH */

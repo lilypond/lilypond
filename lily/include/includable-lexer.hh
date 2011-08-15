@@ -40,7 +40,7 @@ class Includable_lexer : public yyFlexLexer
 
 protected:
   bool close_input ();
-  vector<Source_file*> include_stack_;
+  vector<Source_file *> include_stack_;
   vector<int> char_count_stack_;
   vector<string> pending_string_includes_;
 
@@ -55,10 +55,10 @@ public:
 
   Source_file *get_source_file () const;
   virtual void new_input (string s, Sources *);
-  
+
   void new_input (string name, string data, Sources *);
   void add_string_include (string data);
-  
+
   char const *here_str0 () const;
 };
 

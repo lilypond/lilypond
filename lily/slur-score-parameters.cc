@@ -18,19 +18,17 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "slur-score-parameters.hh"
 #include "grob.hh"
-
 
 Real
 get_detail (SCM alist, SCM sym)
 {
   SCM entry = scm_assq (sym, alist);
   return robust_scm2double (scm_is_pair (entry)
-			    ? scm_cdr (entry)
-			    : SCM_EOL,
-			    0.0);
+                            ? scm_cdr (entry)
+                            : SCM_EOL,
+                            0.0);
 }
 
 void
@@ -78,4 +76,6 @@ Slur_score_parameters::fill (Grob *me)
     = get_detail (details, ly_symbol2scm ("free-slur-distance"));
   edge_slope_exponent_
     = get_detail (details, ly_symbol2scm ("edge-slope-exponent"));
+  close_to_edge_length_
+    = get_detail (details, ly_symbol2scm ("close-to-edge-length"));
 }

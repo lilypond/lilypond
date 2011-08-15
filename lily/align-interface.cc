@@ -32,7 +32,6 @@
 #include "system.hh"
 #include "warn.hh"
 
-
 MAKE_SCHEME_CALLBACK (Align_interface, align_to_minimum_distances, 1);
 SCM
 Align_interface::align_to_minimum_distances (SCM smob)
@@ -70,99 +69,99 @@ Align_interface::align_to_ideal_distances (SCM smob)
 // code. Split them into 2 functions, perhaps?
 static void
 get_skylines (Grob *me,
-	      vector<Grob*> *const elements,
-	      Axis a,
-	      bool pure, int start, int end,
-	      vector<Skyline_pair> *const ret)
+              vector<Grob *> *const elements,
+              Axis a,
+              bool pure, int start, int end,
+              vector<Skyline_pair> *const ret)
 {
   Grob *other_common = common_refpoint_of_array (*elements, me, other_axis (a));
-  
+
   for (vsize i = elements->size (); i--;)
     {
       Grob *g = (*elements)[i];
       Skyline_pair skylines;
 
       if (!pure)
-	{
-	  Skyline_pair *skys = Skyline_pair::unsmob (g->get_property (a == Y_AXIS
-								      ? "vertical-skylines"
-								      : "horizontal-skylines"));
-	  if (skys)
-	    skylines = *skys;
+        {
+          Skyline_pair *skys = Skyline_pair::unsmob (g->get_property (a == Y_AXIS
+                                                                      ? "vertical-skylines"
+                                                                      : "horizontal-skylines"));
+          if (skys)
+            skylines = *skys;
 
-	  /* This skyline was calculated relative to the grob g. In order to compare it to
-	     skylines belonging to other grobs, we need to shift it so that it is relative
-	     to the common reference. */
-	  Real offset = g->relative_coordinate (other_common, other_axis (a));
-	  skylines.shift (offset);
-	}
+          /* This skyline was calculated relative to the grob g. In order to compare it to
+             skylines belonging to other grobs, we need to shift it so that it is relative
+             to the common reference. */
+          Real offset = g->relative_coordinate (other_common, other_axis (a));
+          skylines.shift (offset);
+        }
       else
-	{
-	  assert (a == Y_AXIS);
-	  Interval extent = g->pure_height (g, start, end);
+        {
+          assert (a == Y_AXIS);
+          Interval extent = g->pure_height (g, start, end);
 
-	  // This is a hack to get better accuracy on the pure-height of VerticalAlignment.
-	  // It's quite common for a treble clef to be the highest element of one system
-	  // and for a low note (or lyrics) to be the lowest note on another. The two will
-	  // never collide, but the pure-height stuff only works with bounding boxes, so it
-	  // doesn't know that. The result is a significant over-estimation of the pure-height,
-	  // especially on systems with many staves. To correct for this, we build a skyline
-	  // in two parts: the part we did above contains most of the grobs (note-heads, etc.)
-	  // while the bit we're about to do only contains the breakable grobs at the beginning
-	  // of the system. This way, the tall treble clefs are only compared with the treble
-	  // clefs of the other staff and they will be ignored if the staff above is, for example,
-	  // lyrics.
-	  if (Axis_group_interface::has_interface (g)
-	      && !Hara_kiri_group_spanner::request_suicide (g, start, end))
-	    {
-	      extent = Axis_group_interface::rest_of_line_pure_height (g, start, end);
-	      Interval begin_of_line_extent = Axis_group_interface::begin_of_line_pure_height (g, start);
-	      if (!begin_of_line_extent.is_empty ())
-		{
-		  Box b;
-		  b[a] = begin_of_line_extent;
-		  b[other_axis (a)] = Interval (-infinity_f, -1);
-		  skylines.insert (b, 0, other_axis (a));
-		}
-	    }
+          // This is a hack to get better accuracy on the pure-height of VerticalAlignment.
+          // It's quite common for a treble clef to be the highest element of one system
+          // and for a low note (or lyrics) to be the lowest note on another. The two will
+          // never collide, but the pure-height stuff only works with bounding boxes, so it
+          // doesn't know that. The result is a significant over-estimation of the pure-height,
+          // especially on systems with many staves. To correct for this, we build a skyline
+          // in two parts: the part we did above contains most of the grobs (note-heads, etc.)
+          // while the bit we're about to do only contains the breakable grobs at the beginning
+          // of the system. This way, the tall treble clefs are only compared with the treble
+          // clefs of the other staff and they will be ignored if the staff above is, for example,
+          // lyrics.
+          if (Axis_group_interface::has_interface (g)
+              && !Hara_kiri_group_spanner::request_suicide (g, start, end))
+            {
+              extent = Axis_group_interface::rest_of_line_pure_height (g, start, end);
+              Interval begin_of_line_extent = Axis_group_interface::begin_of_line_pure_height (g, start);
+              if (!begin_of_line_extent.is_empty ())
+                {
+                  Box b;
+                  b[a] = begin_of_line_extent;
+                  b[other_axis (a)] = Interval (-infinity_f, -1);
+                  skylines.insert (b, 0, other_axis (a));
+                }
+            }
 
-	  if (!extent.is_empty ())
-	    {
-	      Box b;
-	      b[a] = extent;
-	      b[other_axis (a)] = Interval (0, infinity_f);
-	      skylines.insert (b, 0, other_axis (a));
-	    }
-	}
+          if (!extent.is_empty ())
+            {
+              Box b;
+              b[a] = extent;
+              b[other_axis (a)] = Interval (0, infinity_f);
+              skylines.insert (b, 0, other_axis (a));
+            }
+        }
 
       if (skylines.is_empty ())
-	elements->erase (elements->begin () + i);
+        elements->erase (elements->begin () + i);
       else
-	ret->push_back (skylines);
+        ret->push_back (skylines);
     }
   reverse (*ret);
 }
 
 vector<Real>
 Align_interface::get_minimum_translations (Grob *me,
-					   vector<Grob*> const &all_grobs,
-					   Axis a)
+                                           vector<Grob *> const &all_grobs,
+                                           Axis a)
 {
   return internal_get_minimum_translations (me, all_grobs, a, true, false, 0, 0);
 }
 
 vector<Real>
 Align_interface::get_pure_minimum_translations (Grob *me,
-						vector<Grob*> const &all_grobs,
-						Axis a, int start, int end)
+                                                vector<Grob *> const &all_grobs,
+                                                Axis a, int start, int end)
 {
   return internal_get_minimum_translations (me, all_grobs, a, true, true, start, end);
 }
 
 vector<Real>
 Align_interface::get_minimum_translations_without_min_dist (Grob *me,
-							    vector<Grob*> const &all_grobs,
-							    Axis a)
+                                                            vector<Grob *> const &all_grobs,
+                                                            Axis a)
 {
   return internal_get_minimum_translations (me, all_grobs, a, false, false, 0, 0);
 }
@@ -178,24 +177,24 @@ Align_interface::get_minimum_translations_without_min_dist (Grob *me,
 //   else centered dynamics will break when there is a fixed alignment).
 vector<Real>
 Align_interface::internal_get_minimum_translations (Grob *me,
-						    vector<Grob*> const &all_grobs,
-						    Axis a,
-						    bool include_fixed_spacing,
-						    bool pure, int start, int end)
+                                                    vector<Grob *> const &all_grobs,
+                                                    Axis a,
+                                                    bool include_fixed_spacing,
+                                                    bool pure, int start, int end)
 {
-  if (!pure && a == Y_AXIS && dynamic_cast<Spanner*> (me) && !me->get_system ())
+  if (!pure && a == Y_AXIS && dynamic_cast<Spanner *> (me) && !me->get_system ())
     me->programming_error ("vertical alignment called before line-breaking");
 
   // If include_fixed_spacing is true, we look at things like system-system-spacing
   // and alignment-distances, which only make sense for the toplevel VerticalAlignment.
   // If we aren't toplevel, we're working on something like BassFigureAlignment
   // and so we definitely don't want to include alignment-distances!
-  if (!dynamic_cast<System*> (me->get_parent (Y_AXIS)))
+  if (!dynamic_cast<System *> (me->get_parent (Y_AXIS)))
     include_fixed_spacing = false;
-  
+
   Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
-					   DOWN);
-  vector<Grob*> elems (all_grobs); // writable copy
+                                           DOWN);
+  vector<Grob *> elems (all_grobs); // writable copy
   vector<Skyline_pair> skylines;
 
   get_skylines (me, &elems, a, pure, start, end, &skylines);
@@ -214,44 +213,44 @@ Align_interface::internal_get_minimum_translations (Grob *me,
       Real padding = default_padding;
 
       if (j == 0)
-	dy = skylines[j][-stacking_dir].max_height () + padding;
+        dy = skylines[j][-stacking_dir].max_height () + padding;
       else
-	{
-	  SCM spec = Page_layout_problem::get_spacing_spec (elems[j-1], elems[j], pure, start, end);
-	  Page_layout_problem::read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
+        {
+          SCM spec = Page_layout_problem::get_spacing_spec (elems[j - 1], elems[j], pure, start, end);
+          Page_layout_problem::read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
 
-	  dy = down_skyline.distance (skylines[j][-stacking_dir]) + padding;
+          dy = down_skyline.distance (skylines[j][-stacking_dir]) + padding;
 
-	  Real min_distance = 0;
-	  if (Page_layout_problem::read_spacing_spec (spec, &min_distance, ly_symbol2scm ("minimum-distance")))
-	    dy = max (dy, min_distance);
+          Real min_distance = 0;
+          if (Page_layout_problem::read_spacing_spec (spec, &min_distance, ly_symbol2scm ("minimum-distance")))
+            dy = max (dy, min_distance);
 
-	  if (include_fixed_spacing && Page_layout_problem::is_spaceable (elems[j]) && last_spaceable_element)
-	    {
-	      // Spaceable staves may have
-	      // constraints coming from the previous spaceable staff
-	      // as well as from the previous staff.
-	      spec = Page_layout_problem::get_spacing_spec (last_spaceable_element, elems[j], pure, start, end);
-	      Real spaceable_padding = 0;
-	      Page_layout_problem::read_spacing_spec (spec,
-						      &spaceable_padding,
-						      ly_symbol2scm ("padding"));
-	      dy = max(dy, (last_spaceable_skyline.distance (skylines[j][-stacking_dir])
-			    + stacking_dir*(last_spaceable_element_pos - where) + spaceable_padding));
+          if (include_fixed_spacing && Page_layout_problem::is_spaceable (elems[j]) && last_spaceable_element)
+            {
+              // Spaceable staves may have
+              // constraints coming from the previous spaceable staff
+              // as well as from the previous staff.
+              spec = Page_layout_problem::get_spacing_spec (last_spaceable_element, elems[j], pure, start, end);
+              Real spaceable_padding = 0;
+              Page_layout_problem::read_spacing_spec (spec,
+                                                      &spaceable_padding,
+                                                      ly_symbol2scm ("padding"));
+              dy = max (dy, (last_spaceable_skyline.distance (skylines[j][-stacking_dir])
+                             + stacking_dir * (last_spaceable_element_pos - where) + spaceable_padding));
 
-	      Real spaceable_min_distance = 0;
-	      if (Page_layout_problem::read_spacing_spec (spec,
-							  &spaceable_min_distance,
-							  ly_symbol2scm ("minimum-distance")))
-		dy = max (dy, spaceable_min_distance + stacking_dir*(last_spaceable_element_pos - where));
+              Real spaceable_min_distance = 0;
+              if (Page_layout_problem::read_spacing_spec (spec,
+                                                          &spaceable_min_distance,
+                                                          ly_symbol2scm ("minimum-distance")))
+                dy = max (dy, spaceable_min_distance + stacking_dir * (last_spaceable_element_pos - where));
 
-	      dy = max (dy, Page_layout_problem::get_fixed_spacing (last_spaceable_element, elems[j], spaceable_count,
-								    pure, start, end));
-	    }
-	}
+              dy = max (dy, Page_layout_problem::get_fixed_spacing (last_spaceable_element, elems[j], spaceable_count,
+                                                                    pure, start, end));
+            }
+        }
 
       if (isinf (dy)) /* if the skyline is empty, maybe max_height is infinity_f */
-	dy = 0.0;
+        dy = 0.0;
 
       dy = max (0.0, dy);
       down_skyline.raise (-stacking_dir * dy);
@@ -260,12 +259,12 @@ Align_interface::internal_get_minimum_translations (Grob *me,
       translates.push_back (where);
 
       if (Page_layout_problem::is_spaceable (elems[j]))
-	{
-	  spaceable_count++;
-	  last_spaceable_element = elems[j];
-	  last_spaceable_element_pos = where;
-	  last_spaceable_skyline = down_skyline;
-	}
+        {
+          spaceable_count++;
+          last_spaceable_element = elems[j];
+          last_spaceable_element_pos = where;
+          last_spaceable_skyline = down_skyline;
+        }
     }
 
   // So far, we've computed the translates for all the non-empty elements.
@@ -275,12 +274,12 @@ Align_interface::internal_get_minimum_translations (Grob *me,
   if (!translates.empty ())
     {
       Real w = translates[0];
-      for  (vsize i = 0, j = 0; j < all_grobs.size (); j++)
-	{
-	  if (i < elems.size () && all_grobs[j] == elems[i])
-	    w = translates[i++];
-	  all_translates.push_back (w);
-	}
+      for (vsize i = 0, j = 0; j < all_grobs.size (); j++)
+        {
+          if (i < elems.size () && all_grobs[j] == elems[i])
+            w = translates[i++];
+          all_translates.push_back (w);
+        }
     }
   return all_translates;
 }
@@ -318,8 +317,8 @@ Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, int start, in
   if (translates.size ())
     {
       for (vsize i = 0; i < all_grobs.size (); i++)
-	if (all_grobs[i] == ch)
-	  return translates[i];
+        if (all_grobs[i] == ch)
+          return translates[i];
     }
   else
     return 0;
@@ -340,7 +339,7 @@ Align_interface::add_element (Grob *me, Grob *element)
   Axis a = Align_interface::axis (me);
   SCM sym = axis_offset_symbol (a);
   SCM proc = axis_parent_positioning (a);
-    
+
   element->set_property (sym, proc);
   Axis_group_interface::add_element (me, element);
 }
@@ -361,17 +360,17 @@ Align_interface::set_ordered (Grob *me)
 }
 
 ADD_INTERFACE (Align_interface,
-	       "Order grobs from top to bottom, left to right, right to left"
-	       " or bottom to top.  For vertical alignments of staves, the"
-	       " @code{break-system-details} of the left"
-	       " @rinternals{NonMusicalPaperColumn} may be set to tune"
-	       " vertical spacing.",
-	       
-	       /* properties */
-	       "align-dir "
-	       "axes "
-	       "elements "
-	       "padding "
-	       "positioning-done "
-	       "stacking-dir "
-	       );
+               "Order grobs from top to bottom, left to right, right to left"
+               " or bottom to top.  For vertical alignments of staves, the"
+               " @code{break-system-details} of the left"
+               " @rinternals{NonMusicalPaperColumn} may be set to tune"
+               " vertical spacing.",
+
+               /* properties */
+               "align-dir "
+               "axes "
+               "elements "
+               "padding "
+               "positioning-done "
+               "stacking-dir "
+              );

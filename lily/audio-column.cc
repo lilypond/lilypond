@@ -51,4 +51,3 @@ Audio_column::offset_when (Moment m)
   when_ += m;
 }
 
-

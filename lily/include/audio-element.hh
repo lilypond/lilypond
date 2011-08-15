@@ -28,7 +28,7 @@ public:
   Audio_element ();
   virtual ~Audio_element ();
 
-  DECLARE_CLASSNAME(Audio_element);
+  DECLARE_CLASSNAME (Audio_element);
   virtual char const *name () const;
 };
 

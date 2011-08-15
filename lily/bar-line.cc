@@ -68,18 +68,18 @@ Bar_line::print (SCM smob)
       string str = ly_scm2string (s);
       Interval ex = ly_scm2interval (extent);
       if (ex.length () > 0)
-	{
-	  Stencil result = compound_barline (me, str, ex, false);
+        {
+          Stencil result = compound_barline (me, str, ex, false);
 
-	  return result.smobbed_copy ();
-	}
+          return result.smobbed_copy ();
+        }
     }
   return SCM_EOL;
 }
 
 Stencil
 Bar_line::compound_barline (Grob *me, string str, Interval const &extent,
-			    bool rounded)
+                            bool rounded)
 {
   Real kern = robust_scm2double (me->get_property ("kern"), 1);
   Real thinkern = robust_scm2double (me->get_property ("thin-kern"), 1);
@@ -184,10 +184,10 @@ Bar_line::compound_barline (Grob *me, string str, Interval const &extent,
   else if (str == "||")
     {
       /*
-	should align to other side? this never appears
-	on the system-start?
-	m.add_at_edge (X_AXIS, RIGHT, thin, 0);
-	m.add_at_edge (X_AXIS, RIGHT, thin, thinkern);
+        should align to other side? this never appears
+        on the system-start?
+        m.add_at_edge (X_AXIS, RIGHT, thin, 0);
+        m.add_at_edge (X_AXIS, RIGHT, thin, thinkern);
       */
       m.add_at_edge (X_AXIS, LEFT, thin, thinkern);
       m.add_at_edge (X_AXIS, RIGHT, thin, thinkern);
@@ -201,72 +201,72 @@ Bar_line::compound_barline (Grob *me, string str, Interval const &extent,
       segno.add_stencil (Font_interface::get_default_font (me)->find_by_name ("scripts.varsegno"));
 
       if (str == "S")
-	m.add_stencil (segno);
+        m.add_stencil (segno);
       else if (str == "S|:" || str == ".S|:")
-	{
-	  m.add_at_edge (X_AXIS, RIGHT, thick, 0);
-	  m.add_at_edge (X_AXIS, RIGHT, thin, kern);
-	  m.add_at_edge (X_AXIS, RIGHT, colon, kern);
-	  m.add_at_edge (X_AXIS, LEFT, segno, thinkern);
-	}
+        {
+          m.add_at_edge (X_AXIS, RIGHT, thick, 0);
+          m.add_at_edge (X_AXIS, RIGHT, thin, kern);
+          m.add_at_edge (X_AXIS, RIGHT, colon, kern);
+          m.add_at_edge (X_AXIS, LEFT, segno, thinkern);
+        }
       else if (str == ":|S" || str == ":|S.")
-	{
-	  m.add_at_edge (X_AXIS, LEFT, thick, 0);
-	  m.add_at_edge (X_AXIS, LEFT, thin, kern);
-	  m.add_at_edge (X_AXIS, LEFT, colon, kern);
-	  m.add_at_edge (X_AXIS, RIGHT, segno, thinkern);
-	}
+        {
+          m.add_at_edge (X_AXIS, LEFT, thick, 0);
+          m.add_at_edge (X_AXIS, LEFT, thin, kern);
+          m.add_at_edge (X_AXIS, LEFT, colon, kern);
+          m.add_at_edge (X_AXIS, RIGHT, segno, thinkern);
+        }
       else if (str == ":|S|:" || str == ":|S.|:")
-	{
-	  m.add_at_edge (X_AXIS, LEFT, thick, 0);
-	  m.add_at_edge (X_AXIS, LEFT, thin, kern);
-	  m.add_at_edge (X_AXIS, LEFT, colon, kern);
-	  m.add_at_edge (X_AXIS, RIGHT, segno, thinkern);
-	  m.add_at_edge (X_AXIS, RIGHT, thick, thinkern);
-	  m.add_at_edge (X_AXIS, RIGHT, thin, kern);
-	  m.add_at_edge (X_AXIS, RIGHT, colon, kern);
-	}
+        {
+          m.add_at_edge (X_AXIS, LEFT, thick, 0);
+          m.add_at_edge (X_AXIS, LEFT, thin, kern);
+          m.add_at_edge (X_AXIS, LEFT, colon, kern);
+          m.add_at_edge (X_AXIS, RIGHT, segno, thinkern);
+          m.add_at_edge (X_AXIS, RIGHT, thick, thinkern);
+          m.add_at_edge (X_AXIS, RIGHT, thin, kern);
+          m.add_at_edge (X_AXIS, RIGHT, colon, kern);
+        }
       else if (str == "|._.|") // :|S|: or :|S.|: without segno and colon
-	{
-	  // get the width of the segno sign
-	  Real segno_width = segno.extent (X_AXIS).length ();
-	  m.add_at_edge (X_AXIS, LEFT, thick, 0);
-	  m.add_at_edge (X_AXIS, LEFT, thin, kern);
-	  m.add_at_edge (X_AXIS, RIGHT, thick, segno_width + 2 * thinkern);
-	  m.add_at_edge (X_AXIS, RIGHT, thin, kern);
-	}
+        {
+          // get the width of the segno sign
+          Real segno_width = segno.extent (X_AXIS).length ();
+          m.add_at_edge (X_AXIS, LEFT, thick, 0);
+          m.add_at_edge (X_AXIS, LEFT, thin, kern);
+          m.add_at_edge (X_AXIS, RIGHT, thick, segno_width + 2 * thinkern);
+          m.add_at_edge (X_AXIS, RIGHT, thin, kern);
+        }
       // end varsegno block
     }
   else if (str == ":")
     {
       if (Grob *staff = Staff_symbol_referencer::get_staff_symbol (me))
-	{
-	  Interval staff_extent = staff->extent (staff, Y_AXIS);
+        {
+          Interval staff_extent = staff->extent (staff, Y_AXIS);
 
-	  /*
-	    assume staff lines are disposed equally at unit space;
-	    put a dot into each space within extent (may extend staff_extent).
+          /*
+            assume staff lines are disposed equally at unit space;
+            put a dot into each space within extent (may extend staff_extent).
 
-	    staff_extent is an interval of two integers or two half-integers;
-	    in the former case dots are to be placed at half-integers,
-	    in the latter at integers.
+            staff_extent is an interval of two integers or two half-integers;
+            in the former case dots are to be placed at half-integers,
+            in the latter at integers.
 
-	    these integers are not exact due to staff line thickness.
-	  */
-	  int const pos = int (rint (staff_extent.at (UP) * 2));
-	  Real const correction = pos & 1 ? 0.0 : 0.5;
+            these integers are not exact due to staff line thickness.
+          */
+          int const pos = int (rint (staff_extent.at (UP) * 2));
+          Real const correction = pos & 1 ? 0.0 : 0.5;
 
-	  for (int i = int (rint (extent.at (DOWN) + (0.5 - correction))),
-		 e = int (rint (extent.at (UP) + (0.5 - correction)));
-	       i < e;
-	       ++i)
-	    {
-	      Stencil d (dot);
+          for (int i = int (rint (extent.at (DOWN) + (0.5 - correction))),
+               e = int (rint (extent.at (UP) + (0.5 - correction)));
+               i < e;
+               ++i)
+            {
+              Stencil d (dot);
 
-	      d.translate_axis (i + correction, Y_AXIS);
-	      m.add_stencil (d);
-	    }
-	}
+              d.translate_axis (i + correction, Y_AXIS);
+              m.add_stencil (d);
+            }
+        }
     }
   else if (str == "dashed")
     m = dashed_bar_line (me, extent, hair);
@@ -278,14 +278,14 @@ Bar_line::compound_barline (Grob *me, string str, Interval const &extent,
 
 Stencil
 Bar_line::simple_barline (Grob *me,
-			  Real w,
-			  Interval const &extent,
-			  bool rounded)
+                          Real w,
+                          Interval const &extent,
+                          bool rounded)
 {
   Real blot
     = rounded
-    ? me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"))
-    : 0.0;
+      ? me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"))
+      : 0.0;
 
   return Lookup::round_filled_box (Box (Interval (0, w), extent), blot);
 }
@@ -298,11 +298,11 @@ Bar_line::tick_bar_line (Grob *me, Real h, bool rounded)
 
   Real blot
     = rounded
-    ? me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"))
-    : 0.0;
+      ? me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"))
+      : 0.0;
 
   return Lookup::round_filled_box (Box (Interval (0, line_thick),
-					Interval (h - th, h + th)), blot);
+                                        Interval (h - th, h + th)), blot);
 }
 
 Stencil
@@ -330,40 +330,40 @@ Bar_line::dashed_bar_line (Grob *me, Interval const &extent, Real thick)
   if (fabs (h / ss - dashes) < 0.1)
     {
       Real blot
-	= me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
+        = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
       Real const half_dash = dash_size / 2;
       Stencil bar;
 
       for (int i = 0; i <= dashes; ++i)
-	{
-	  Real top_y = extent.at (DOWN)
-	    + (i == dashes ? h : (i + half_dash) * ss);
-	  Real bot_y = extent.at (DOWN) + (i ? (i - half_dash) * ss : 0.0);
+        {
+          Real top_y = extent.at (DOWN)
+                       + (i == dashes ? h : (i + half_dash) * ss);
+          Real bot_y = extent.at (DOWN) + (i ? (i - half_dash) * ss : 0.0);
 
-	  bar.add_stencil (Lookup::round_filled_box (Box (Interval (0, thick),
-							  Interval (bot_y, top_y)),
-						     blot));
-	}
+          bar.add_stencil (Lookup::round_filled_box (Box (Interval (0, thick),
+                                                          Interval (bot_y, top_y)),
+                                                     blot));
+        }
       return bar;
     }
   else
     {
       /*
-	We have to scale the dashing so it starts and ends with half a
-	dash exactly.
+        We have to scale the dashing so it starts and ends with half a
+        dash exactly.
       */
       Real total_dash_size = h / dashes;
       Real factor = (dash_size - thick) / ss;
 
       SCM at = scm_list_n (ly_symbol2scm ("dashed-line"),
-			   scm_from_double (thick),
-			   scm_from_double (factor * total_dash_size),
-			   scm_from_double ((1 - factor) * total_dash_size),
-			   scm_from_double (0),
-			   scm_from_double (h),
-			   scm_from_double (factor * total_dash_size * 0.5),
-			   SCM_UNDEFINED);
+                           scm_from_double (thick),
+                           scm_from_double (factor * total_dash_size),
+                           scm_from_double ((1 - factor) * total_dash_size),
+                           scm_from_double (0),
+                           scm_from_double (h),
+                           scm_from_double (factor * total_dash_size * 0.5),
+                           SCM_UNDEFINED);
 
       Box box;
       box.add_point (Offset (0, 0));
@@ -405,56 +405,56 @@ Bar_line::calc_anchor (SCM smob)
 }
 
 ADD_INTERFACE (Bar_line,
-	       "Bar line.\n"
-	       "\n"
-	       "Print a special bar symbol.  It replaces the regular bar"
-	       " symbol with a special symbol.  The argument @var{bartype}"
-	       " is a string which specifies the kind of bar line to print."
-	       "  Options are @code{|}, @code{:|}, @code{|:}, @code{:|:}, @code{:|.|:},"
-	       " @code{:|.:}, @code{.}, @code{||}, @code{|.}, @code{.|}, @code{.|.},"
-	       " @code{|.|}, @code{:}, @code{dashed}, @code{'} and @code{S}.\n"
-	       "\n"
-	       "These produce, respectively, a normal bar line, a right repeat, a left repeat,"
-	       " a thick double repeat, a thin-thick-thin double repeat,"
-	       " a thin-thick double repeat, a thick bar, a double bar, a start bar,"
-	       " an end bar, a thick double bar, a thin-thick-thin bar,"
-	       " a dotted bar, a dashed bar, a tick as bar line and a segno bar.\n"
-	       "\n"
-	       "In addition, there is an option"
-	       " @code{||:} which is equivalent to @code{|:} except at line"
-	       " breaks, where it produces a double bar (@code{||}) at the"
-	       " end of the line and a repeat sign (@code{|:}) at the"
-	       " beginning of the new line.\n"
-	       "\n"
-	       "For segno, @code{S} produces a segno sign except at line breaks,"
-	       " where it produces a double bar (@code{||}) at the"
-	       " end of the line and a segno sign at the beginning of the new line."
-	       " @code{|S} is equivalent to @code{S} but produces a simple bar line"
-	       " (@code{|}) instead of a double bar line (@code{||}) at line breaks."
-	       " @code{S|} produces the segno sign at line breaks and starts the following"
-	       " line without special bar lines.\n"
-	       "\n"
-	       "@code{S|:} and @code{:|S} are used for repeat/segno combinations that are"
-	       " separated at line breaks.  Alternatively, @code{.S|:} and @code{:|S.}"
-	       " may be used which combine repeat signs and segno at the same line in"
-	       " case of a line break.  @code{:|S|:} is a combination of a left repeat"
-	       " (@code{:|}), a segno (@code{S}) and a right repeat @code{|:} which"
-	       " splits before the segno at line breaks; @code{:|S.|:} splits after"
-	       " the segno sign.\n"
-	       "\n"
-	       "If @var{bartype} is set to @code{empty} then nothing is"
-	       " printed, but a line break is allowed at that spot.\n"
-	       "\n"
-	       "@code{gap} is used for the gaps in dashed bar lines.",
+               "Bar line.\n"
+               "\n"
+               "Print a special bar symbol.  It replaces the regular bar"
+               " symbol with a special symbol.  The argument @var{bartype}"
+               " is a string which specifies the kind of bar line to print."
+               "  Options are @code{|}, @code{:|}, @code{|:}, @code{:|:}, @code{:|.|:},"
+               " @code{:|.:}, @code{.}, @code{||}, @code{|.}, @code{.|}, @code{.|.},"
+               " @code{|.|}, @code{:}, @code{dashed}, @code{'} and @code{S}.\n"
+               "\n"
+               "These produce, respectively, a normal bar line, a right repeat, a left repeat,"
+               " a thick double repeat, a thin-thick-thin double repeat,"
+               " a thin-thick double repeat, a thick bar, a double bar, a start bar,"
+               " an end bar, a thick double bar, a thin-thick-thin bar,"
+               " a dotted bar, a dashed bar, a tick as bar line and a segno bar.\n"
+               "\n"
+               "In addition, there is an option"
+               " @code{||:} which is equivalent to @code{|:} except at line"
+               " breaks, where it produces a double bar (@code{||}) at the"
+               " end of the line and a repeat sign (@code{|:}) at the"
+               " beginning of the new line.\n"
+               "\n"
+               "For segno, @code{S} produces a segno sign except at line breaks,"
+               " where it produces a double bar (@code{||}) at the"
+               " end of the line and a segno sign at the beginning of the new line."
+               " @code{|S} is equivalent to @code{S} but produces a simple bar line"
+               " (@code{|}) instead of a double bar line (@code{||}) at line breaks."
+               " @code{S|} produces the segno sign at line breaks and starts the following"
+               " line without special bar lines.\n"
+               "\n"
+               "@code{S|:} and @code{:|S} are used for repeat/segno combinations that are"
+               " separated at line breaks.  Alternatively, @code{.S|:} and @code{:|S.}"
+               " may be used which combine repeat signs and segno at the same line in"
+               " case of a line break.  @code{:|S|:} is a combination of a left repeat"
+               " (@code{:|}), a segno (@code{S}) and a right repeat @code{|:} which"
+               " splits before the segno at line breaks; @code{:|S.|:} splits after"
+               " the segno sign.\n"
+               "\n"
+               "If @var{bartype} is set to @code{empty} then nothing is"
+               " printed, but a line break is allowed at that spot.\n"
+               "\n"
+               "@code{gap} is used for the gaps in dashed bar lines.",
 
-	       /* properties */
-	       "allow-span-bar "
-	       "gap "
-	       "kern "
-	       "thin-kern "
-	       "hair-thickness "
-	       "thick-thickness "
-	       "glyph "
-	       "glyph-name "
-	       "bar-extent "
-	       );
+               /* properties */
+               "allow-span-bar "
+               "gap "
+               "kern "
+               "thin-kern "
+               "hair-thickness "
+               "thick-thickness "
+               "glyph "
+               "glyph-name "
+               "bar-extent "
+              );

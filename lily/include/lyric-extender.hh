@@ -27,7 +27,7 @@
 class Lyric_extender
 {
 public:
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 };
 

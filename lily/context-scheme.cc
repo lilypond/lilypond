@@ -23,9 +23,9 @@
 #include "dispatcher.hh"
 
 LY_DEFINE (ly_context_current_moment,
-	   "ly:context-current-moment",
-	   1, 0, 0, (SCM context),
-	   "Return the current moment of @var{context}.")
+           "ly:context-current-moment",
+           1, 0, 0, (SCM context),
+           "Return the current moment of @var{context}.")
 {
   Context *tr = unsmob_context (context);
 
@@ -35,10 +35,10 @@ LY_DEFINE (ly_context_current_moment,
 }
 
 LY_DEFINE (ly_context_id, "ly:context-id",
-	   1, 0, 0, (SCM context),
-	   "Return the ID string of @var{context},"
-	   " i.e., for @code{\\context Voice = \"one\" @dots{}}"
-	   " return the string @code{one}.")
+           1, 0, 0, (SCM context),
+           "Return the ID string of @var{context},"
+           " i.e., for @code{\\context Voice = \"one\" @dots{}}"
+           " return the string @code{one}.")
 {
   Context *tr = unsmob_context (context);
 
@@ -48,10 +48,10 @@ LY_DEFINE (ly_context_id, "ly:context-id",
 }
 
 LY_DEFINE (ly_context_name, "ly:context-name",
-	   1, 0, 0, (SCM context),
-	   "Return the name of @var{context},"
-	   " i.e., for @code{\\context Voice = \"one\" @dots{}}"
-	   " return the symbol @code{Voice}.")
+           1, 0, 0, (SCM context),
+           "Return the name of @var{context},"
+           " i.e., for @code{\\context Voice = \"one\" @dots{}}"
+           " return the symbol @code{Voice}.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
 
@@ -61,9 +61,9 @@ LY_DEFINE (ly_context_name, "ly:context-name",
 }
 
 LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition",
-	   2, 0, 0, (SCM context, SCM name),
-	   "Return the definition of @var{name} (a symbol) within"
-	   " @var{context} as an alist.")
+           2, 0, 0, (SCM context, SCM name),
+           "Return the definition of @var{name} (a symbol) within"
+           " @var{context} as an alist.")
 {
   Context *tr = unsmob_context (context);
 
@@ -74,11 +74,11 @@ LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition",
 }
 
 LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
-	   3, 1, 0, (SCM context, SCM grob, SCM eltprop, SCM val),
-	   "Do a single @code{\\override} or @code{\\revert} operation"
-	   " in @var{context}.  The grob definition @var{grob} is extended"
-	   " with @var{eltprop} (if @var{val} is specified) or reverted"
-	   " (if unspecified).")
+           3, 1, 0, (SCM context, SCM grob, SCM eltprop, SCM val),
+           "Do a single @code{\\override} or @code{\\revert} operation"
+           " in @var{context}.  The grob definition @var{grob} is extended"
+           " with @var{eltprop} (if @var{val} is specified) or reverted"
+           " (if unspecified).")
 {
   Context *tg = unsmob_context (context);
 
@@ -106,9 +106,9 @@ LY_DEFINE (ly_context_property, "ly:context-property",
 }
 
 LY_DEFINE (ly_context_set_property_x, "ly:context-set-property!",
-	   3, 0, 0, (SCM context, SCM name, SCM val),
-	   "Set value of property @var{name} in context @var{context}"
-	   " to @var{val}.")
+           3, 0, 0, (SCM context, SCM name, SCM val),
+           "Set value of property @var{name} in context @var{context}"
+           " to @var{val}.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
@@ -121,9 +121,9 @@ LY_DEFINE (ly_context_set_property_x, "ly:context-set-property!",
 }
 
 LY_DEFINE (ly_context_property_where_defined, "ly:context-property-where-defined",
-	   2, 0, 0, (SCM context, SCM name),
-	   "Return the context above @var{context}"
-	   " where @var{name} is defined.")
+           2, 0, 0, (SCM context, SCM name),
+           "Return the context above @var{context}"
+           " where @var{name} is defined.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
@@ -139,8 +139,8 @@ LY_DEFINE (ly_context_property_where_defined, "ly:context-property-where-defined
 }
 
 LY_DEFINE (ly_context_unset_property, "ly:context-unset-property", 2, 0, 0,
-	   (SCM context, SCM name),
-	   "Unset value of property @var{name} in context @var{context}.")
+           (SCM context, SCM name),
+           "Unset value of property @var{name} in context @var{context}.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
@@ -151,8 +151,8 @@ LY_DEFINE (ly_context_unset_property, "ly:context-unset-property", 2, 0, 0,
 }
 
 LY_DEFINE (ly_context_parent, "ly:context-parent",
-	   1, 0, 0, (SCM context),
-	   "Return the parent of @var{context}, @code{#f} if none.")
+           1, 0, 0, (SCM context),
+           "Return the parent of @var{context}, @code{#f} if none.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
   Context *tr = unsmob_context (context);
@@ -166,9 +166,9 @@ LY_DEFINE (ly_context_parent, "ly:context-parent",
 
 /* FIXME: todo: should support translator IDs, and creation? */
 LY_DEFINE (ly_context_find, "ly:context-find",
-	   2, 0, 0, (SCM context, SCM name),
-	   "Find a parent of @var{context} that has name or alias @var{name}."
-	   "  Return @code{#f} if not found.")
+           2, 0, 0, (SCM context, SCM name),
+           "Find a parent of @var{context} that has name or alias @var{name}."
+           "  Return @code{#f} if not found.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
@@ -177,7 +177,7 @@ LY_DEFINE (ly_context_find, "ly:context-find",
   while (tr)
     {
       if (tr->is_alias (name))
-	return tr->self_scm ();
+        return tr->self_scm ();
       tr = tr->get_parent_context ();
     }
 
@@ -185,8 +185,8 @@ LY_DEFINE (ly_context_find, "ly:context-find",
 }
 
 LY_DEFINE (ly_context_now, "ly:context-now",
-	   1, 0, 0, (SCM context),
-	   "Return @code{now-moment} of context @var{context}.")
+           1, 0, 0, (SCM context),
+           "Return @code{now-moment} of context @var{context}.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
   Context *ctx = unsmob_context (context);

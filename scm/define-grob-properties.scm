@@ -240,6 +240,10 @@ Positive means move the center to the right.")
 the vertical edges: @code{(@var{left-height} . @var{right-height})}.")
      (edge-text ,pair? "A pair specifying the texts to be set at the
 edges: @code{(@var{left-text} . @var{right-text})}.")
+     (round-up-exceptions ,list? "A list of pairs where car is the numerator
+and cdr the denominator of a moment.  Each pair in this list means that
+the multi-measure rests of the corresponding length will be rounded up to
+the longer rest.  See @var{round-up-to-longer-rest}.")
      (expand-limit ,integer? "Maximum number of measures expanded in
 church rests.")
      ;; remove me?
@@ -696,7 +700,7 @@ of an object (e.g., between note and its accidentals).")
      (rotation ,list? "Number of degrees to rotate this object, and
 what point to rotate around.  For example, @code{#'(45 0 0)} rotates
 by 45 degrees around the center of this object.")
-     (round-to-longer-rest ,boolean? "Displays the longer multi-measure
+     (round-up-to-longer-rest ,boolean? "Displays the longer multi-measure
 rest when the length of a measure is between two values of
 @code{usable-duration-logs}.  For example, displays a breve instead of a whole
 in a 3/2 measure.")

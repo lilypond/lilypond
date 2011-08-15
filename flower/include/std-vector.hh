@@ -74,40 +74,41 @@ typedef size_t vsize;
 #include <vector>
 #undef vector
 
-namespace std {
+namespace std
+{
 
-  /* Interface without pointer arithmetic (iterator) semantics.  */
-  template<typename T, typename A=std::allocator<T> >
-  class vector : public __flower_vector<T, A>
+/* Interface without pointer arithmetic (iterator) semantics.  */
+template<typename T, typename A = std::allocator<T> >
+class vector : public __flower_vector<T, A>
+{
+public:
+  typedef typename __flower_vector<T>::iterator iterator;
+  typedef typename __flower_vector<T>::const_iterator const_iterator;
+
+  vector<T, A> () : __flower_vector<T, A> ()
   {
-  public:
-    typedef typename __flower_vector<T>::iterator iterator;
-    typedef typename __flower_vector<T>::const_iterator const_iterator;
+  }
 
-    vector<T, A> () : __flower_vector<T, A> ()
-    {
-    }
+  vector<T, A> (vector<T, A> const &v) : __flower_vector<T, A> (v)
+  {
+  }
 
-    vector<T, A> (vector<T, A> const& v) : __flower_vector<T, A> (v)
-    {
-    }
+  vector<T, A> (const_iterator b, const_iterator e) : __flower_vector<T, A> (b, e)
+  {
+  }
 
-    vector<T, A> (const_iterator b, const_iterator e) : __flower_vector<T, A> (b, e)
-    {
-    }
+  T *
+  data ()
+  {
+    return &(*this)[0];
+  }
 
-    T*
-    data ()
-    {
-      return &(*this)[0];
-    }
-
-    T const*
-    data () const
-    {
-      return &(*this)[0];
-    }
-  };
+  T const *
+  data () const
+  {
+    return &(*this)[0];
+  }
+};
 
 } /* namespace std */
 
@@ -137,7 +138,7 @@ back (vector<T> const &v, vsize i)
 }
 
 template<typename T>
-T&
+T &
 back (vector<T> &v, vsize i)
 {
   return v[v.size () - i - 1];
@@ -145,7 +146,7 @@ back (vector<T> &v, vsize i)
 
 template<typename T>
 void
-concat (vector<T> &v, vector<T> const& w)
+concat (vector<T> &v, vector<T> const &w)
 {
   v.insert (v.end (), w.begin (), w.end ());
 }
@@ -153,16 +154,16 @@ concat (vector<T> &v, vector<T> const& w)
 template<typename T, typename Compare>
 vsize
 lower_bound (vector<T> const &v,
-	     T const &key,
-	     Compare less,
-	     vsize b=0, vsize e=VPOS)
+             T const &key,
+             Compare less,
+             vsize b = 0, vsize e = VPOS)
 {
   if (e == VPOS)
     e = v.size ();
   typename vector<T>::const_iterator i = lower_bound (v.begin () + b,
-						      v.begin () + e,
-						      key,
-						      less);
+                                                      v.begin () + e,
+                                                      key,
+                                                      less);
 
   return i - v.begin ();
 }
@@ -170,17 +171,17 @@ lower_bound (vector<T> const &v,
 template<typename T, typename Compare>
 vsize
 upper_bound (vector<T> const &v,
-	     T const &key,
-	     Compare less,
-	     vsize b=0, vsize e=VPOS)
+             T const &key,
+             Compare less,
+             vsize b = 0, vsize e = VPOS)
 {
   if (e == VPOS)
     e = v.size ();
 
   typename vector<T>::const_iterator i = upper_bound (v.begin () + b,
-						      v.begin () + e,
-						      key,
-						      less);
+                                                      v.begin () + e,
+                                                      key,
+                                                      less);
 
   return i - v.begin ();
 }
@@ -188,9 +189,9 @@ upper_bound (vector<T> const &v,
 template<typename T, typename Compare>
 vsize
 binary_search (vector<T> const &v,
-	       T const &key,
-	       Compare less=less<T> (),
-	       vsize b=0, vsize e=VPOS)
+               T const &key,
+               Compare less = less<T> (),
+               vsize b = 0, vsize e = VPOS)
 {
   vsize lb = lower_bound (v, key, less, b, e);
 
@@ -202,8 +203,8 @@ binary_search (vector<T> const &v,
 template<typename T, typename Compare>
 void
 vector_sort (vector<T> &v,
-	     Compare less,
-	     vsize b=0, vsize e=VPOS)
+             Compare less,
+             vsize b = 0, vsize e = VPOS)
 {
   if (e == VPOS)
     e = v.size ();
@@ -236,7 +237,7 @@ find (vector<T> const &v, T const &key)
 
 template<typename T> struct del : public unary_function<T, void>
 {
-  void operator() (T x)
+  void operator () (T x)
   {
     delete x;
     x = 0;

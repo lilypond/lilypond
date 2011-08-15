@@ -29,7 +29,7 @@ class Laissez_vibrer_engraver : public Engraver
 {
   Stream_event *event_;
   Grob *lv_column_;
-  vector<Grob*> lv_ties_;
+  vector<Grob *> lv_ties_;
 
   void stop_translation_timestep ();
   DECLARE_ACKNOWLEDGER (note_head);
@@ -75,7 +75,7 @@ Laissez_vibrer_engraver::acknowledge_note_head (Grob_info inf)
   lv_tie->set_object ("note-head", inf.grob ()->self_scm ());
 
   Pointer_group_interface::add_grob (lv_column_, ly_symbol2scm ("ties"),
-				     lv_tie);
+                                     lv_tie);
 
   if (is_direction (unsmob_stream_event (cause)->get_property ("direction")))
     {
@@ -90,16 +90,16 @@ Laissez_vibrer_engraver::acknowledge_note_head (Grob_info inf)
 
 ADD_ACKNOWLEDGER (Laissez_vibrer_engraver, note_head);
 ADD_TRANSLATOR (Laissez_vibrer_engraver,
-		/* doc */
-		"Create laissez vibrer items.",
+                /* doc */
+                "Create laissez vibrer items.",
 
-		/* create */
-		"LaissezVibrerTie "
-		"LaissezVibrerTieColumn ",
+                /* create */
+                "LaissezVibrerTie "
+                "LaissezVibrerTieColumn ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

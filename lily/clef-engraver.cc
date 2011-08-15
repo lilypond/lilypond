@@ -106,30 +106,30 @@ Clef_engraver::create_clef ()
       SCM cpos = get_property ("clefPosition");
 
       if (scm_is_number (cpos))
-	clef_->set_property ("staff-position", cpos);
+        clef_->set_property ("staff-position", cpos);
 
       SCM oct = get_property ("clefOctavation");
       if (scm_is_number (oct) && scm_to_int (oct))
-	{
-	  Item *g = make_item ("OctavateEight", SCM_EOL);
+        {
+          Item *g = make_item ("OctavateEight", SCM_EOL);
 
-	  int abs_oct = scm_to_int (oct);
-	  int dir = sign (abs_oct);
-	  abs_oct = abs (abs_oct) + 1;
+          int abs_oct = scm_to_int (oct);
+          int dir = sign (abs_oct);
+          abs_oct = abs (abs_oct) + 1;
 
-	  SCM txt = scm_number_to_string (scm_from_int (abs_oct),
-					  scm_from_int (10));
+          SCM txt = scm_number_to_string (scm_from_int (abs_oct),
+                                          scm_from_int (10));
 
-	  g->set_property ("text",
-			   scm_list_n (ly_lily_module_constant ("vcenter-markup"),
-				       txt, SCM_UNDEFINED));
-	  Side_position_interface::add_support (g, clef_);
+          g->set_property ("text",
+                           scm_list_n (ly_lily_module_constant ("vcenter-markup"),
+                                       txt, SCM_UNDEFINED));
+          Side_position_interface::add_support (g, clef_);
 
-	  g->set_parent (clef_, Y_AXIS);
-	  g->set_parent (clef_, X_AXIS);
-	  g->set_property ("direction", scm_from_int (dir));
-	  octavate_ = g;
-	}
+          g->set_parent (clef_, Y_AXIS);
+          g->set_parent (clef_, X_AXIS);
+          g->set_property ("direction", scm_from_int (dir));
+          octavate_ = g;
+        }
     }
 }
 void
@@ -140,12 +140,11 @@ Clef_engraver::process_music ()
 
 static void apply_on_children (Context *context, SCM fun)
 {
-  scm_call_1(fun, context->self_scm());
+  scm_call_1 (fun, context->self_scm ());
   for (SCM s = context->children_contexts ();
-       scm_is_pair(s); s = scm_cdr (s))
-    apply_on_children(unsmob_context (scm_car(s)), fun);
+       scm_is_pair (s); s = scm_cdr (s))
+    apply_on_children (unsmob_context (scm_car (s)), fun);
 }
-  
 
 void
 Clef_engraver::inspect_clef_properties ()
@@ -161,15 +160,15 @@ Clef_engraver::inspect_clef_properties ()
       || scm_equal_p (octavation, prev_octavation_) == SCM_BOOL_F
       || to_boolean (force_clef))
     {
-      apply_on_children(context (),
-			ly_lily_module_constant ("invalidate-alterations"));
-      
+      apply_on_children (context (),
+                         ly_lily_module_constant ("invalidate-alterations"));
+
       set_glyph ();
       if (prev_cpos_ != SCM_BOOL_F || to_boolean (get_property ("firstClef")))
-	create_clef ();
+        create_clef ();
 
       if (clef_)
-	clef_->set_property ("non-default", SCM_BOOL_T);
+        clef_->set_property ("non-default", SCM_BOOL_T);
 
       prev_cpos_ = clefpos;
       prev_glyph_ = glyph;
@@ -191,10 +190,10 @@ Clef_engraver::stop_translation_timestep ()
     {
       SCM vis = 0;
       if (to_boolean (clef_->get_property ("non-default")))
-	vis = get_property ("explicitClefVisibility");
+        vis = get_property ("explicitClefVisibility");
 
       if (vis)
-	clef_->set_property ("break-visibility", vis);
+        clef_->set_property ("break-visibility", vis);
 
       clef_ = 0;
 
@@ -204,20 +203,20 @@ Clef_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Clef_engraver, bar_line);
 ADD_TRANSLATOR (Clef_engraver,
-		/* doc */
-		"Determine and set reference point for pitches.",
+                /* doc */
+                "Determine and set reference point for pitches.",
 
-		/* create */
-		"Clef "
-		"OctavateEight ",
+                /* create */
+                "Clef "
+                "OctavateEight ",
 
-		/* read */
-		"clefGlyph "
-		"clefOctavation "
-		"clefPosition "
-		"explicitClefVisibility "
-		"forceClef ",
+                /* read */
+                "clefGlyph "
+                "clefOctavation "
+                "clefPosition "
+                "explicitClefVisibility "
+                "forceClef ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

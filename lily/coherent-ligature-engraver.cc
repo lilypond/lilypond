@@ -83,7 +83,6 @@
  * example, Ligature_bracket_engraver does not share any of this code.
  */
 
-
 /*
  * TODO: move this function to class Item?
  */
@@ -98,21 +97,21 @@ Coherent_ligature_engraver::move_related_items_to_column
     {
       Item *sibling = elements[i];
       if (!sibling)
-	// should not occur, but who knows... -jr
-	continue;
+        // should not occur, but who knows... -jr
+        continue;
 
       if (Staff_symbol_referencer::get_staff_symbol (sibling) != staff_symbol)
-	// sibling is from a staff different than that of the item of
-	// interest
-	continue;
+        // sibling is from a staff different than that of the item of
+        // interest
+        continue;
 
 #if 0 /* experimental code to collapse spacing after ligature */
       Grob *sibling_parent = sibling->get_parent (X_AXIS);
       sibling_parent->warning (_f ("Coherent_ligature_engraver: "
-				   "setting `spacing-increment="
-				   "0.01': ptr=%ul", parent));
+                                   "setting `spacing-increment="
+                                   "0.01': ptr=%ul", parent));
       sibling_parent->set_property ("forced-spacing",
-				    scm_from_double (0.01));
+                                    scm_from_double (0.01));
 #endif
 
       sibling->set_parent (target_column, X_AXIS);
@@ -148,13 +147,13 @@ compute_delta_pitches (vector<Grob_info> primitives)
       primitive = dynamic_cast<Item *> (primitives[i].grob ());
       Stream_event *cause = primitives[i].event_cause ();
       int pitch
-	= unsmob_pitch (cause->get_property ("pitch"))->steps ();
+        = unsmob_pitch (cause->get_property ("pitch"))->steps ();
       if (prev_primitive)
-	{
-	  delta_pitch = pitch - prev_pitch;
-	  prev_primitive->set_property ("delta-position",
-					scm_from_int (delta_pitch));
-	}
+        {
+          delta_pitch = pitch - prev_pitch;
+          prev_primitive->set_property ("delta-position",
+                                        scm_from_int (delta_pitch));
+        }
       prev_pitch = pitch;
       prev_primitive = primitive;
     }
@@ -163,7 +162,7 @@ compute_delta_pitches (vector<Grob_info> primitives)
 
 void
 Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
-					      vector<Grob_info> primitives)
+                                              vector<Grob_info> primitives)
 {
   // compute some commonly needed context info stored as grob
   // properties

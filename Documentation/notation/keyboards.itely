@@ -247,8 +247,7 @@ Internals Reference:
 
 @knownissues
 Beam collision avoidance does not work for automatic beams that end
-right before a change in staff. To make the latter work, use manual
-beaming.
+right before a change in staff.  In this case use manual beams.
 
 
 @node Changing staff automatically

@@ -177,15 +177,15 @@ ADD_ACKNOWLEDGER (Beam_collision_engraver, time_signature);
 ADD_ACKNOWLEDGER (Beam_collision_engraver, beam);
 
 ADD_TRANSLATOR (Beam_collision_engraver,
-		/* doc */
-		"Help beams avoid colliding with notes and clefs in other voices.",
+                /* doc */
+                "Help beams avoid colliding with notes and clefs in other voices.",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

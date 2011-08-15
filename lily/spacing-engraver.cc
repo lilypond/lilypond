@@ -53,7 +53,7 @@ compare (Rhythmic_tuple const &a, Rhythmic_tuple const &b)
 
 int
 Rhythmic_tuple::time_compare (Rhythmic_tuple const &h1,
-			      Rhythmic_tuple const &h2)
+                              Rhythmic_tuple const &h2)
 {
   return (h1.end_ - h2.end_).main_part_.sign ();
 }
@@ -72,7 +72,7 @@ class Spacing_engraver : public Engraver
   Moment now_;
   Spanner *spacing_;
   Stream_event *start_section_;
-  
+
   TRANSLATOR_DECLARATIONS (Spacing_engraver);
 
 protected:
@@ -111,7 +111,7 @@ Spacing_engraver::process_music ()
 {
   if (start_section_ && spacing_)
     stop_spanner ();
-  
+
   if (!spacing_)
     start_spanner ();
 }
@@ -121,10 +121,9 @@ Spacing_engraver::start_spanner ()
 {
   assert (!spacing_);
 
-
   spacing_ = make_spanner ("SpacingSpanner", SCM_EOL);
   spacing_->set_bound (LEFT,
-		       unsmob_grob (get_property ("currentCommandColumn")));
+                       unsmob_grob (get_property ("currentCommandColumn")));
 }
 
 void
@@ -160,7 +159,7 @@ Spacing_engraver::acknowledge_staff_spacing (Grob_info i)
 void
 Spacing_engraver::acknowledge_rhythmic_grob (Grob_info i)
 {
- add_starter_duration (i);  
+  add_starter_duration (i);
 }
 
 void
@@ -168,7 +167,6 @@ Spacing_engraver::acknowledge_rhythmic_head (Grob_info i)
 {
   add_starter_duration (i);
 }
-
 
 void
 Spacing_engraver::add_starter_duration (Grob_info i)
@@ -184,11 +182,11 @@ Spacing_engraver::add_starter_duration (Grob_info i)
     {
       Stream_event *r = i.event_cause ();
       if (r && r->in_event_class ("rhythmic-event"))
-	{
-	  Moment len = get_event_length (r, now_);
-	  Rhythmic_tuple t (i, now_mom () + len);
-	  now_durations_.push_back (t);
-	}
+        {
+          Moment len = get_event_length (r, now_);
+          Rhythmic_tuple t (i, now_mom () + len);
+          now_durations_.push_back (t);
+        }
     }
 }
 
@@ -198,14 +196,13 @@ Spacing_engraver::stop_translation_timestep ()
   Paper_column *musical_column
     = dynamic_cast<Paper_column *> (unsmob_grob (get_property ("currentMusicalColumn")));
 
-
   if (!spacing_)
     start_spanner ();
 
   musical_column->set_object ("spacing", spacing_->self_scm ());
   unsmob_grob (get_property ("currentCommandColumn"))
-    ->set_object ("spacing", spacing_->self_scm ());
-  
+  ->set_object ("spacing", spacing_->self_scm ());
+
   SCM proportional = get_property ("proportionalNotationDuration");
   if (unsmob_moment (proportional))
     {
@@ -221,11 +218,11 @@ Spacing_engraver::stop_translation_timestep ()
     {
       Stream_event *ev = playing_durations_[i].info_.event_cause ();
       if (ev)
-	{
-	  Moment now = now_mom ();
-	  Moment m = get_event_length (ev);
-	  shortest_playing = min (shortest_playing, m);
-	}
+        {
+          Moment now = now_mom ();
+          Moment m = get_event_length (ev);
+          shortest_playing = min (shortest_playing, m);
+        }
     }
   Moment starter;
   starter.set_infinite (1);
@@ -234,10 +231,10 @@ Spacing_engraver::stop_translation_timestep ()
     {
       Moment m = get_event_length (now_durations_[i].info_.event_cause ());
       if (m.to_bool ())
-	{
-	  starter = min (starter, m);
-	  playing_durations_.insert (now_durations_[i]);
-	}
+        {
+          starter = min (starter, m);
+          playing_durations_.insert (now_durations_[i]);
+        }
     }
   now_durations_.clear ();
 
@@ -251,8 +248,6 @@ Spacing_engraver::stop_translation_timestep ()
   musical_column->set_property ("shortest-starter-duration", st);
 }
 
-
-
 void
 Spacing_engraver::start_translation_timestep ()
 {
@@ -260,7 +255,7 @@ Spacing_engraver::start_translation_timestep ()
 
   now_ = now_mom ();
   stopped_durations_.clear ();
-  
+
   while (playing_durations_.size () && playing_durations_.front ().end_ < now_)
     playing_durations_.delmin ();
   while (playing_durations_.size () && playing_durations_.front ().end_ == now_)
@@ -273,18 +268,18 @@ ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_grob);
 
 ADD_TRANSLATOR (Spacing_engraver,
-		/* doc */
-		"Make a @code{SpacingSpanner} and do bookkeeping of shortest"
-		" starting and playing notes.",
+                /* doc */
+                "Make a @code{SpacingSpanner} and do bookkeeping of shortest"
+                " starting and playing notes.",
 
-		/* create */
-		"SpacingSpanner ",
+                /* create */
+                "SpacingSpanner ",
 
-		/* read */
-		"currentMusicalColumn "
-		"currentCommandColumn "
-		"proportionalNotationDuration ",
-		
-		/* write */
-		""
-		);
+                /* read */
+                "currentMusicalColumn "
+                "currentCommandColumn "
+                "proportionalNotationDuration ",
+
+                /* write */
+                ""
+               );

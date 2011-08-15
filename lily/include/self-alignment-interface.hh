@@ -25,14 +25,14 @@
 
 struct Self_alignment_interface
 {
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 
   static SCM aligned_on_self (Grob *me, Axis a, bool pure, int start, int end);
   static SCM centered_on_object (Grob *me, Axis a);
   static SCM aligned_on_parent (Grob *me, Axis a);
   static void set_center_parent (Grob *me, Axis a);
   static void set_align_self (Grob *me, Axis a);
-  
+
   DECLARE_SCHEME_CALLBACK (x_aligned_on_self, (SCM element));
   DECLARE_SCHEME_CALLBACK (y_aligned_on_self, (SCM element));
 

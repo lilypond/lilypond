@@ -89,14 +89,14 @@ public:
     vsize j = i / 2;
     while (j)
       {
-	if (compare (elt (j), v) > 0)
-	  {
-	    elt (i) = elt (j);
-	    i = j;
-	    j = i / 2;
-	  }
-	else
-	  break;
+        if (compare (elt (j), v) > 0)
+          {
+            elt (i) = elt (j);
+            i = j;
+            j = i / 2;
+          }
+        else
+          break;
       }
     elt (i) = v;
     OK ();
@@ -117,13 +117,13 @@ public:
 
     while (mini < size ())
       {
-	if (compare (elt (mini + 1), elt (mini)) < 0)
-	  mini++;
-	if (compare (last, elt (mini)) < 0)
-	  break;
-	elt (lasti) = elt (mini);
-	lasti = mini;
-	mini *= 2;
+        if (compare (elt (mini + 1), elt (mini)) < 0)
+          mini++;
+        if (compare (last, elt (mini)) < 0)
+          break;
+        elt (lasti) = elt (mini);
+        lasti = mini;
+        mini *= 2;
       }
     elt (lasti) = last;
     heap_array_.pop_back ();

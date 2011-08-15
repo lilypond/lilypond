@@ -59,7 +59,7 @@ Text_engraver::process_music ()
       Item *text = make_item ("TextScript", r->self_scm ());
 
       int priority = robust_scm2int (text->get_property ("script-priority"),
-				     200);
+                                     200);
 
       /* see script-engraver.cc */
       priority += i;
@@ -68,7 +68,7 @@ Text_engraver::process_music ()
 
       Direction dir = to_dir (r->get_property ("direction"));
       if (dir)
-	set_grob_direction (text, dir);
+        set_grob_direction (text, dir);
 
       SCM mark = r->get_property ("text");
 
@@ -87,15 +87,15 @@ Text_engraver::Text_engraver ()
 }
 
 ADD_TRANSLATOR (Text_engraver,
-		/* doc */
-		"Create text scripts.",
+                /* doc */
+                "Create text scripts.",
 
-		/* create */
-		"TextScript ",
+                /* create */
+                "TextScript ",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

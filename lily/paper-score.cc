@@ -78,14 +78,14 @@ Paper_score::find_break_indices () const
 
   for (vsize i = 0; i < cols_.size (); i++)
     {
-      Item *it = dynamic_cast<Item*> (cols_[i]);
+      Item *it = dynamic_cast<Item *> (cols_[i]);
       if (Paper_column::is_breakable (cols_[i])
-	  && (i == 0 || it->find_prebroken_piece (LEFT))
-	  && (i == cols_.size () - 1 || it->find_prebroken_piece (RIGHT)))
-	{
-	  break_indices_.push_back (i);
-	  break_ranks_.push_back (it->get_column ()->get_rank ());
-	}
+          && (i == 0 || it->find_prebroken_piece (LEFT))
+          && (i == cols_.size () - 1 || it->find_prebroken_piece (RIGHT)))
+        {
+          break_indices_.push_back (i);
+          break_ranks_.push_back (it->get_column ()->get_rank ());
+        }
     }
 }
 
@@ -97,7 +97,7 @@ Paper_score::get_break_indices () const
   return break_indices_;
 }
 
-vector<Grob*>
+vector<Grob *>
 Paper_score::get_columns () const
 {
   if (cols_.empty ())
@@ -133,8 +133,8 @@ Paper_score::process ()
 {
   if (be_verbose_global)
     message (_f ("Element count %d (spanners %d) ",
-		 system_->element_count (),
-		 system_->spanner_count ()));
+                 system_->element_count (),
+                 system_->spanner_count ()));
 
   message (_ ("Preprocessing graphical objects..."));
 
@@ -167,9 +167,8 @@ Paper_score::get_paper_systems ()
   return paper_systems_;
 }
 
-
 Paper_score *
 unsmob_paper_score (SCM x)
 {
-  return dynamic_cast<Paper_score*> (unsmob_music_output (x));
+  return dynamic_cast<Paper_score *> (unsmob_music_output (x));
 }

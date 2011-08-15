@@ -40,7 +40,7 @@ public:
 struct Bracket_nesting_group : public Bracket_nesting_node
 {
   Spanner *delimiter_;
-  vector<Bracket_nesting_node*> children_;
+  vector<Bracket_nesting_node *> children_;
   SCM symbol_;
 
   void from_list (SCM);
@@ -53,7 +53,6 @@ struct Bracket_nesting_group : public Bracket_nesting_node
   Bracket_nesting_group ();
 };
 
-
 struct Bracket_nesting_staff : public Bracket_nesting_node
 {
   Grob *staff_;
@@ -61,7 +60,6 @@ struct Bracket_nesting_staff : public Bracket_nesting_node
   Bracket_nesting_staff (Grob *s) { staff_ = s; }
   virtual bool add_staff (Grob *);
 };
-
 
 Bracket_nesting_group::Bracket_nesting_group ()
 {
@@ -85,9 +83,9 @@ Bracket_nesting_group::create_grobs (Engraver *engraver, SCM default_type)
 {
   SCM type = scm_is_symbol (symbol_) ? symbol_ : default_type;
   delimiter_ = engraver->make_spanner (ly_symbol2string (type).c_str (),
-				       SCM_EOL);
+                                       SCM_EOL);
 
-  for (vsize i = 0 ; i < children_.size (); i++)
+  for (vsize i = 0; i < children_.size (); i++)
     children_[i]->create_grobs (engraver, default_type);
 }
 
@@ -95,7 +93,7 @@ void
 Bracket_nesting_group::add_support (Grob *g)
 {
   Side_position_interface::add_support (g, delimiter_);
-  for (vsize i = 0 ; i < children_.size (); i++)
+  for (vsize i = 0; i < children_.size (); i++)
     children_[i]->add_support (g);
 }
 
@@ -108,7 +106,7 @@ void
 Bracket_nesting_group::set_bound (Direction d, Grob *g)
 {
   delimiter_->set_bound (d, g);
-  for (vsize i = 0 ; i < children_.size (); i++)
+  for (vsize i = 0; i < children_.size (); i++)
     children_[i]->set_bound (d, g);
 }
 
@@ -118,10 +116,9 @@ Bracket_nesting_group::set_nesting_support (Grob *parent)
   if (parent)
     Side_position_interface::add_support (delimiter_, parent);
 
-  for (vsize i = 0 ; i < children_.size (); i++)
+  for (vsize i = 0; i < children_.size (); i++)
     children_[i]->set_nesting_support (delimiter_);
 }
-
 
 void
 Bracket_nesting_group::from_list (SCM x)
@@ -130,18 +127,18 @@ Bracket_nesting_group::from_list (SCM x)
     {
       SCM entry = scm_car (s);
       if (scm_is_pair (entry))
-	{
-	  Bracket_nesting_group *node = new Bracket_nesting_group;
-	  node->from_list (entry);
-	  children_.push_back (node);
-	}
+        {
+          Bracket_nesting_group *node = new Bracket_nesting_group;
+          node->from_list (entry);
+          children_.push_back (node);
+        }
       else if (entry == ly_symbol2scm ("SystemStartBrace")
-	       || entry == ly_symbol2scm ("SystemStartBracket")
-	       || entry == ly_symbol2scm ("SystemStartBar")
-	       || entry == ly_symbol2scm ("SystemStartSquare"))
-	symbol_ = entry;
+               || entry == ly_symbol2scm ("SystemStartBracket")
+               || entry == ly_symbol2scm ("SystemStartBar")
+               || entry == ly_symbol2scm ("SystemStartSquare"))
+        symbol_ = entry;
       else
-	children_.push_back (new Bracket_nesting_staff (0));
+        children_.push_back (new Bracket_nesting_staff (0));
     }
 }
 
@@ -151,17 +148,14 @@ Bracket_nesting_group::add_staff (Grob *grob)
   for (vsize i = 0; i < children_.size (); i++)
     {
       if (children_[i]->add_staff (grob))
-	{
-	  Pointer_group_interface::add_grob (delimiter_,
-					     ly_symbol2scm ("elements"), grob);
-	  return true;
-	}
+        {
+          Pointer_group_interface::add_grob (delimiter_,
+                                             ly_symbol2scm ("elements"), grob);
+          return true;
+        }
     }
   return false;
 }
-
-
-
 
 /****************/
 
@@ -197,7 +191,7 @@ System_start_delimiter_engraver::process_music ()
       nesting_->from_list (hierarchy);
       nesting_->create_grobs (this, delimiter_name);
       nesting_->set_bound (LEFT,
-			   unsmob_grob (get_property ("currentCommandColumn")));
+                           unsmob_grob (get_property ("currentCommandColumn")));
     }
 }
 
@@ -207,7 +201,7 @@ System_start_delimiter_engraver::finalize ()
   if (nesting_)
     {
       nesting_->set_bound (RIGHT,
-			   unsmob_grob (get_property ("currentCommandColumn")));
+                           unsmob_grob (get_property ("currentCommandColumn")));
       nesting_->set_nesting_support (0);
 
       delete nesting_;
@@ -239,23 +233,23 @@ ADD_ACKNOWLEDGER (System_start_delimiter_engraver, staff_symbol);
 ADD_ACKNOWLEDGER (System_start_delimiter_engraver, system_start_delimiter);
 
 ADD_TRANSLATOR (System_start_delimiter_engraver,
-		/* doc */
-		"Create a system start delimiter (i.e., a"
-		" @code{SystemStartBar}, @code{SystemStartBrace},"
-		" @code{SystemStartBracket} or @code{SystemStartSquare}"
-		" spanner).",
+                /* doc */
+                "Create a system start delimiter (i.e., a"
+                " @code{SystemStartBar}, @code{SystemStartBrace},"
+                " @code{SystemStartBracket} or @code{SystemStartSquare}"
+                " spanner).",
 
-		/* create */
-		"SystemStartSquare "
-		"SystemStartBrace "
-		"SystemStartBracket "
-		"SystemStartBar ",
+                /* create */
+                "SystemStartSquare "
+                "SystemStartBrace "
+                "SystemStartBracket "
+                "SystemStartBar ",
 
-		/* read */
-		"systemStartDelimiter "
-		"systemStartDelimiterHierarchy "
-		"currentCommandColumn ",
+                /* read */
+                "systemStartDelimiter "
+                "systemStartDelimiterHierarchy "
+                "currentCommandColumn ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

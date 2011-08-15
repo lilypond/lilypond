@@ -33,12 +33,12 @@ public:
 
 protected:
 
-  virtual void derived_mark () const; 
+  virtual void derived_mark () const;
   void stop_translation_timestep ();
   void process_music ();
 private:
   Audio_tempo *audio_;
-  SCM last_tempo_; 
+  SCM last_tempo_;
 };
 
 void
@@ -86,15 +86,15 @@ Tempo_performer::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Tempo_performer,
-		/* doc */
-		"",
+                /* doc */
+                "",
 
-		/* create */
-		"",
+                /* create */
+                "",
 
-		/* read */
-		"tempoWholesPerMinute ",
+                /* read */
+                "tempoWholesPerMinute ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

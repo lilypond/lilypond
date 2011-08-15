@@ -64,11 +64,11 @@ Arpeggio_engraver::acknowledge_stem (Grob_info info)
   if (arpeggio_)
     {
       if (!arpeggio_->get_parent (Y_AXIS))
-	arpeggio_->set_parent (info.grob (), Y_AXIS);
+        arpeggio_->set_parent (info.grob (), Y_AXIS);
 
       Pointer_group_interface::add_grob (arpeggio_,
-					 ly_symbol2scm ("stems"),
-					 info.grob ());
+                                         ly_symbol2scm ("stems"),
+                                         info.grob ());
     }
 }
 void
@@ -103,15 +103,15 @@ ADD_ACKNOWLEDGER (Arpeggio_engraver, stem);
 ADD_ACKNOWLEDGER (Arpeggio_engraver, rhythmic_head);
 
 ADD_TRANSLATOR (Arpeggio_engraver,
-		/* doc */
-		"Generate an Arpeggio symbol.",
+                /* doc */
+                "Generate an Arpeggio symbol.",
 
-		/* create */
-		"Arpeggio",
+                /* create */
+                "Arpeggio",
 
-		/* read */
-		"",
+                /* read */
+                "",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

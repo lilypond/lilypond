@@ -71,22 +71,22 @@ Lyric_engraver::process_music ()
       SCM text = event_->get_property ("text");
 
       if (ly_is_equal (text, scm_from_locale_string (" ")))
-	{
-	  if (last_text_)
-	    last_text_->set_property ("self-alignment-X",
-				      get_property ("lyricMelismaAlignment"));
-	}
+        {
+          if (last_text_)
+            last_text_->set_property ("self-alignment-X",
+                                      get_property ("lyricMelismaAlignment"));
+        }
       else
-	text_ = make_item ("LyricText", event_->self_scm ());
+        text_ = make_item ("LyricText", event_->self_scm ());
     }
 
-    Context *voice = get_voice_to_lyrics (context ());
-    if (last_text_
-        && voice
-        && to_boolean (voice->get_property ("melismaBusy"))
-        && !to_boolean (context ()->get_property ("ignoreMelismata")))
-      last_text_->set_property ("self-alignment-X",
-	                        get_property ("lyricMelismaAlignment"));
+  Context *voice = get_voice_to_lyrics (context ());
+  if (last_text_
+      && voice
+      && to_boolean (voice->get_property ("melismaBusy"))
+      && !to_boolean (context ()->get_property ("ignoreMelismata")))
+    last_text_->set_property ("self-alignment-X",
+                              get_property ("lyricMelismaAlignment"));
 }
 
 Context *
@@ -109,7 +109,7 @@ get_voice_to_lyrics (Context *lyrics)
     {
       ssize idx = nm.rfind ('-');
       if (idx != NPOS)
-	nm = nm.substr (0, idx);
+        nm = nm.substr (0, idx);
     }
 
   Context *parent = lyrics;
@@ -144,17 +144,17 @@ get_current_note_head (Context *voice, bool include_grace_notes)
       Grob *g = unsmob_grob (scm_cdar (s));;
       Moment *end_mom = unsmob_moment (scm_caar (s));
       if (!end_mom || !g)
-	{
-	  programming_error ("busyGrobs invalid");
-	  continue;
-	}
+        {
+          programming_error ("busyGrobs invalid");
+          continue;
+        }
 
-      if (((end_mom->main_part_ > now.main_part_) ||
-           (include_grace_notes && end_mom->grace_part_ > now.grace_part_))
+      if (((end_mom->main_part_ > now.main_part_)
+           || (include_grace_notes && end_mom->grace_part_ > now.grace_part_))
           && dynamic_cast<Item *> (g)
           && Note_head::has_interface (g))
         {
-	  return g;
+          return g;
         }
     }
 
@@ -169,24 +169,24 @@ Lyric_engraver::stop_translation_timestep ()
       Context *voice = get_voice_to_lyrics (context ());
 
       if (voice)
-	{
-	  bool include_grace_notes = to_boolean (get_property ("includeGraceNotes"));
-	  Grob *head = get_current_note_head (voice, include_grace_notes);
+        {
+          bool include_grace_notes = to_boolean (get_property ("includeGraceNotes"));
+          Grob *head = get_current_note_head (voice, include_grace_notes);
 
-	  if (head)
-	    {
-	      text_->set_parent (head, X_AXIS);
-	      if (melisma_busy (voice)
-		  && !to_boolean (get_property ("ignoreMelismata")))
-		text_->set_property ("self-alignment-X",
-				     get_property ("lyricMelismaAlignment"));
-	    }
-	  else
-	    {
-	      text_->warning (_ ("Lyric syllable does not have note. Use \\lyricsto or associatedVoice."));
-	      text_->set_property ("X-offset", scm_from_int (0));
-	    }
-	}
+          if (head)
+            {
+              text_->set_parent (head, X_AXIS);
+              if (melisma_busy (voice)
+                  && !to_boolean (get_property ("ignoreMelismata")))
+                text_->set_property ("self-alignment-X",
+                                     get_property ("lyricMelismaAlignment"));
+            }
+          else
+            {
+              text_->warning (_ ("Lyric syllable does not have note. Use \\lyricsto or associatedVoice."));
+              text_->set_property ("X-offset", scm_from_int (0));
+            }
+        }
 
       last_text_ = text_;
       text_ = 0;
@@ -195,18 +195,18 @@ Lyric_engraver::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Lyric_engraver,
-		/* doc */
-		"Engrave text for lyrics.",
+                /* doc */
+                "Engrave text for lyrics.",
 
-		/* create */
-		"LyricText ",
+                /* create */
+                "LyricText ",
 
-		/* read */
-		"ignoreMelismata "
-		"includeGraceNotes "
-		"lyricMelismaAlignment "
-		"searchForVoice",
+                /* read */
+                "ignoreMelismata "
+                "includeGraceNotes "
+                "lyricMelismaAlignment "
+                "searchForVoice",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+               );

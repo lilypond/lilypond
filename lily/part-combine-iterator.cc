@@ -26,14 +26,14 @@
 #include "warn.hh"
 
 enum Outlet_type
-  {
-    CONTEXT_ONE, CONTEXT_TWO,
-    CONTEXT_SHARED, CONTEXT_SOLO,
-    CONTEXT_NULL, NUM_OUTLETS
-  };
+{
+  CONTEXT_ONE, CONTEXT_TWO,
+  CONTEXT_SHARED, CONTEXT_SOLO,
+  CONTEXT_NULL, NUM_OUTLETS
+};
 
-static const char *outlet_names_[NUM_OUTLETS] =
-  {"one", "two", "shared", "solo", "null"};
+static const char *outlet_names_[NUM_OUTLETS]
+  = {"one", "two", "shared", "solo", "null"};
 
 class Part_combine_iterator : public Music_iterator
 {
@@ -72,14 +72,14 @@ private:
   Stream_event *mmrest_event_;
 
   enum Status
-    {
-      APART,
-      TOGETHER,
-      SOLO1,
-      SOLO2,
-      UNISONO,
-      UNISILENCE,
-    };
+  {
+    APART,
+    TOGETHER,
+    SOLO1,
+    SOLO2,
+    UNISONO,
+    UNISILENCE,
+  };
   Status state_;
   Status playing_state_;
 
@@ -94,7 +94,7 @@ private:
   Context_handle handles_[NUM_OUTLETS];
 
   void substitute_both (Outlet_type to1,
-			Outlet_type to2);
+                        Outlet_type to2);
 
   /* parameter is really Outlet_type */
   void kill_mmrest (int in);
@@ -116,9 +116,9 @@ Part_combine_iterator::do_quit ()
   // Add listeners to all contexts except Devnull.
   for (int i = 0; i < NUM_OUTLETS; i++)
     {
-      Context *c = handles_[i].get_outlet ();
+      Context *c = handles_[i].get_context ();
       if (c->is_alias (ly_symbol2scm ("Voice")))
-	c->event_source ()->remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
+        c->event_source ()->remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
       handles_[i].set_context (0);
     }
 }
@@ -128,7 +128,7 @@ Part_combine_iterator::Part_combine_iterator ()
   mmrest_event_ = 0;
   unisono_event_ = 0;
   solo_two_event_ = 0;
-  solo_one_event_= 0;
+  solo_one_event_ = 0;
 
   first_iter_ = 0;
   second_iter_ = 0;
@@ -148,7 +148,8 @@ Part_combine_iterator::derived_mark () const
   if (second_iter_)
     scm_gc_mark (second_iter_->self_scm ());
 
-  Stream_event *ptrs[] = {
+  Stream_event *ptrs[] =
+  {
     unisono_event_,
     mmrest_event_,
     solo_two_event_,
@@ -162,7 +163,7 @@ Part_combine_iterator::derived_mark () const
 
 void
 Part_combine_iterator::derived_substitute (Context *f,
-					   Context *t)
+                                           Context *t)
 {
   if (first_iter_)
     first_iter_->substitute_outlet (f, t);
@@ -189,7 +190,7 @@ Part_combine_iterator::ok () const
 
 void
 Part_combine_iterator::substitute_both (Outlet_type to1,
-					Outlet_type to2)
+                                        Outlet_type to2)
 {
   Outlet_type tos[] = {to1, to2};
 
@@ -198,14 +199,14 @@ Part_combine_iterator::substitute_both (Outlet_type to1,
   for (int i = 0; i < 2; i++)
     {
       for (int j = 0; j < NUM_OUTLETS; j++)
-	if (j != tos[i])
-	  mis[i]->substitute_outlet (handles_[j].get_outlet (), handles_[tos[i]].get_outlet ());
+        if (j != tos[i])
+          mis[i]->substitute_outlet (handles_[j].get_context (), handles_[tos[i]].get_context ());
     }
 
   for (int j = 0; j < NUM_OUTLETS; j++)
     {
       if (j != to1 && j != to2)
-	kill_mmrest (j);
+        kill_mmrest (j);
     }
 }
 
@@ -220,7 +221,7 @@ Part_combine_iterator::kill_mmrest (int in)
       mmrest_event_->unprotect ();
     }
 
-  handles_[in].get_outlet ()->event_source ()->broadcast (mmrest_event_);
+  handles_[in].get_context ()->event_source ()->broadcast (mmrest_event_);
 }
 
 void
@@ -233,32 +234,31 @@ Part_combine_iterator::unisono (bool silent)
   else
     {
       /*
-	If we're coming from SOLO2 state, we might have kill mmrests
-	in the 1st voice, so in that case, we use the second voice
-	as a basis for events.
+        If we're coming from SOLO2 state, we might have kill mmrests
+        in the 1st voice, so in that case, we use the second voice
+        as a basis for events.
       */
       Outlet_type c1 = (last_playing_ == SOLO2) ? CONTEXT_NULL : CONTEXT_SHARED;
       Outlet_type c2 = (last_playing_ == SOLO2) ? CONTEXT_SHARED : CONTEXT_NULL;
       substitute_both (c1, c2);
       kill_mmrest ((last_playing_ == SOLO2)
-		   ? CONTEXT_ONE : CONTEXT_TWO);
+                   ? CONTEXT_ONE : CONTEXT_TWO);
       kill_mmrest (CONTEXT_SHARED);
 
       if (playing_state_ != UNISONO
-	  && newstate == UNISONO)
-	{
-	  if (!unisono_event_)
-	    {
-	      unisono_event_ = new Stream_event (ly_symbol2scm ("unisono-event"));
-	      unisono_event_->unprotect ();
-	    }
+          && newstate == UNISONO)
+        {
+          if (!unisono_event_)
+            {
+              unisono_event_ = new Stream_event (ly_symbol2scm ("unisono-event"));
+              unisono_event_->unprotect ();
+            }
 
-
-	  Context *out = (last_playing_ == SOLO2 ? second_iter_ : first_iter_)
-	    ->get_outlet ();
-	  out->event_source ()->broadcast (unisono_event_);
-	  playing_state_ = UNISONO;
-	}
+          Context *out = (last_playing_ == SOLO2 ? second_iter_ : first_iter_)
+                         ->get_outlet ();
+          out->event_source ()->broadcast (unisono_event_);
+          playing_state_ = UNISONO;
+        }
       state_ = newstate;
     }
 }
@@ -277,15 +277,15 @@ Part_combine_iterator::solo1 ()
       kill_mmrest (CONTEXT_SHARED);
 
       if (playing_state_ != SOLO1)
-	{
-	  if (!solo_one_event_)
-	    {
-	      solo_one_event_ = new Stream_event (ly_symbol2scm ("solo-one-event"));
-	      solo_one_event_->unprotect ();
-	    }
+        {
+          if (!solo_one_event_)
+            {
+              solo_one_event_ = new Stream_event (ly_symbol2scm ("solo-one-event"));
+              solo_one_event_->unprotect ();
+            }
 
-	  first_iter_->get_outlet ()->event_source ()->broadcast (solo_one_event_);
-	}
+          first_iter_->get_outlet ()->event_source ()->broadcast (solo_one_event_);
+        }
       playing_state_ = SOLO1;
     }
 }
@@ -302,16 +302,16 @@ Part_combine_iterator::solo2 ()
       substitute_both (CONTEXT_NULL, CONTEXT_SOLO);
 
       if (playing_state_ != SOLO2)
-	{
-	  if (!solo_two_event_)
-	    {
-	      solo_two_event_ = new Stream_event (ly_symbol2scm ("solo-two-event"));
-	      solo_two_event_->unprotect ();
-	    }
+        {
+          if (!solo_two_event_)
+            {
+              solo_two_event_ = new Stream_event (ly_symbol2scm ("solo-two-event"));
+              solo_two_event_->unprotect ();
+            }
 
-	  second_iter_->get_outlet ()->event_source ()->broadcast (solo_two_event_);
-	  playing_state_ = SOLO2;
-	}
+          second_iter_->get_outlet ()->event_source ()->broadcast (solo_two_event_);
+          playing_state_ = SOLO2;
+        }
     }
 }
 
@@ -359,23 +359,23 @@ Part_combine_iterator::construct_children ()
       c = c->find_create_context (type, outlet_names_[i], SCM_EOL);
       handles_[i].set_context (c);
       if (c->is_alias (ly_symbol2scm ("Voice")))
-	c->event_source ()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
+        c->event_source ()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
     }
 
   SCM lst = get_music ()->get_property ("elements");
-  Context *one = handles_[CONTEXT_ONE].get_outlet ();
+  Context *one = handles_[CONTEXT_ONE].get_context ();
   set_context (one);
   first_iter_ = unsmob_iterator (get_iterator (unsmob_music (scm_car (lst))));
-  Context *two = handles_[CONTEXT_TWO].get_outlet ();
+  Context *two = handles_[CONTEXT_TWO].get_context ();
   set_context (two);
   second_iter_ = unsmob_iterator (get_iterator (unsmob_music (scm_cadr (lst))));
-
 
   /* Mimic all settings of voiceOne/voiceTwo for the two separate voices...*/
   /* FIXME: Is there any way to use the definition of \voiceOne/\voiceTwo
             directly??? */
   char const *syms[]
-    = {
+  =
+  {
     "Stem",
     "DynamicLineSpanner",
     "Tie",
@@ -391,21 +391,21 @@ Part_combine_iterator::construct_children ()
     {
       SCM sym = ly_symbol2scm (*p);
       execute_pushpop_property (one, sym,
-				ly_symbol2scm ("direction"), scm_from_int (1));
+                                ly_symbol2scm ("direction"), scm_from_int (1));
 
       execute_pushpop_property (two, sym,
-				ly_symbol2scm ("direction"), scm_from_int (-1));
+                                ly_symbol2scm ("direction"), scm_from_int (-1));
     }
-   /* Handle horizontal shifts for crossing notes */
+  /* Handle horizontal shifts for crossing notes */
   execute_pushpop_property (one, ly_symbol2scm ("NoteColumn"),
-				 ly_symbol2scm ("horizontal-shift"), scm_from_int (0));
+                            ly_symbol2scm ("horizontal-shift"), scm_from_int (0));
   execute_pushpop_property (two, ly_symbol2scm ("NoteColumn"),
-				 ly_symbol2scm ("horizontal-shift"), scm_from_int (1));
-   /* Also handle MultiMeasureRest positions for voice 1/2 */
+                            ly_symbol2scm ("horizontal-shift"), scm_from_int (1));
+  /* Also handle MultiMeasureRest positions for voice 1/2 */
   execute_pushpop_property (one, ly_symbol2scm ("MultiMeasureRest"),
-				 ly_symbol2scm ("staff-position"), scm_from_int (4));
+                            ly_symbol2scm ("staff-position"), scm_from_int (4));
   execute_pushpop_property (two, ly_symbol2scm ("MultiMeasureRest"),
-				 ly_symbol2scm ("staff-position"), scm_from_int (-4));
+                            ly_symbol2scm ("staff-position"), scm_from_int (-4));
 
 }
 
@@ -453,30 +453,30 @@ Part_combine_iterator::process (Moment m)
     {
       splitm = unsmob_moment (scm_caar (split_list_));
       if (splitm && *splitm + start_moment_ > now)
-	break;
+        break;
 
       SCM tag = scm_cdar (split_list_);
 
       if (tag == ly_symbol2scm ("chords"))
-	chords_together ();
+        chords_together ();
       else if (tag == ly_symbol2scm ("apart")
-	       || tag == ly_symbol2scm ("apart-silence")
-	       || tag == ly_symbol2scm ("apart-spanner"))
-	apart (tag == ly_symbol2scm ("apart-silence"));
+               || tag == ly_symbol2scm ("apart-silence")
+               || tag == ly_symbol2scm ("apart-spanner"))
+        apart (tag == ly_symbol2scm ("apart-silence"));
       else if (tag == ly_symbol2scm ("unisono"))
-	unisono (false);
+        unisono (false);
       else if (tag == ly_symbol2scm ("unisilence"))
-	unisono (true);
+        unisono (true);
       else if (tag == ly_symbol2scm ("solo1"))
-	solo1 ();
+        solo1 ();
       else if (tag == ly_symbol2scm ("solo2"))
-	solo2 ();
+        solo2 ();
       else if (scm_is_symbol (tag))
-	{
-	  string s = "Unknown split directive: "
-	    + (scm_is_symbol (tag) ? ly_symbol2string (tag) : string ("not a symbol"));
-	  programming_error (s);
-	}
+        {
+          string s = "Unknown split directive: "
+                     + (scm_is_symbol (tag) ? ly_symbol2string (tag) : string ("not a symbol"));
+          programming_error (s);
+        }
     }
 
   if (first_iter_->ok ())
@@ -488,7 +488,7 @@ Part_combine_iterator::process (Moment m)
   if (second_iter_->ok ())
     {
       if (try_process (second_iter_, m))
-	last_playing_ = SOLO2;
+        last_playing_ = SOLO2;
     }
 }
 

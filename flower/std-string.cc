@@ -93,7 +93,7 @@ replace_all (string *str, string const &find, string const &replace)
   ssize len = find.length ();
   ssize replen = replace.length ();
   for (ssize i = str->find (find); i != NPOS; i = str->find (find, i + replen))
-    *str = str->replace (i, len, replace);
+    * str = str->replace (i, len, replace);
   return *str;
 }
 
@@ -112,7 +112,7 @@ string_copy (string s)
   char *dest = new char[len + 1];
   copy (s.begin (), s.end (), dest);
   dest[len] = 0;
-  
+
   return dest;
 }
 
@@ -134,7 +134,7 @@ string_split (string str, char c)
     {
       string s = str.substr (0, i);
       a.push_back (s);
-      i ++;
+      i++;
       str = str.substr (i);
       i = str.find (c);
     }
@@ -147,10 +147,10 @@ string
 string_join (vector<string> const &strs, string infix)
 {
   string result;
-  for (vsize i = 0; i < strs.size (); i ++)
+  for (vsize i = 0; i < strs.size (); i++)
     {
       if (i)
-	result += infix;
+        result += infix;
       result += strs[i];
     }
 

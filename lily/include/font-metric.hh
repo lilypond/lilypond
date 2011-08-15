@@ -32,7 +32,7 @@ typedef std::map<FT_UInt, FT_ULong> Index_to_charcode_map;
 
 class Font_metric
 {
-  DECLARE_CLASSNAME(Font_metric);
+  DECLARE_CLASSNAME (Font_metric);
 
 public:
   SCM description_;

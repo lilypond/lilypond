@@ -23,7 +23,6 @@
 #include "grob-interface.hh"
 #include "lily-proto.hh"
 
-
 /** a struct for treating a group of noteheads (noteheads, stem
     (chord) and scripts) as a single entity.
 
@@ -44,7 +43,7 @@ public:
   static bool has_rests (Grob *me);
   static Grob *dot_column (Grob *me);
   static Interval cross_staff_extent (Grob *me, Grob *refp);
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 
   static Item *get_stem (Grob *);
 };

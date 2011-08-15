@@ -43,6 +43,7 @@ struct Slur_score_parameters
   Real extra_encompass_free_distance_;
   Real absolute_closeness_measure_;
   Real edge_slope_exponent_;
+  Real close_to_edge_length_;
   Real head_slur_distance_max_ratio_;
   Real head_slur_distance_factor_;
 

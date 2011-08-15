@@ -63,8 +63,8 @@ Music *
 Tuplet_iterator::create_event (Direction d)
 {
   SCM ev_scm = scm_call_2 (ly_lily_module_constant ("make-span-event"),
-			   ly_symbol2scm ("TupletSpanEvent"),
-			   scm_from_int (d));
+                           ly_symbol2scm ("TupletSpanEvent"),
+                           scm_from_int (d));
 
   Music *mus = get_music ();
 
@@ -75,8 +75,8 @@ Tuplet_iterator::create_event (Direction d)
       ev->set_property ("numerator", mus->get_property ("numerator"));
       ev->set_property ("denominator", mus->get_property ("denominator"));
       ev->set_property ("tweaks", mus->get_property ("tweaks"));
-      ev->set_property ("length", spanner_duration_.smobbed_copy ()); 
-    }  
+      ev->set_property ("length", spanner_duration_.smobbed_copy ());
+    }
 
   synthesized_events_ = scm_cons (ev_scm, synthesized_events_);
   return ev;
@@ -104,23 +104,23 @@ Tuplet_iterator::process (Moment m)
       && m.main_part_ == next_split_mom_)
     {
       descend_to_bottom_context ();
-      if (tuplet_handler_.get_outlet ())
-	create_event (STOP)->send_to_context (tuplet_handler_.get_outlet ());
+      if (tuplet_handler_.get_context ())
+        create_event (STOP)->send_to_context (tuplet_handler_.get_context ());
 
       if (m.main_part_ < music_get_length ().main_part_)
-	{
-	  tuplet_handler_.set_context (get_outlet ());
-	  report_event (create_event (START));
+        {
+          tuplet_handler_.set_context (get_outlet ());
+          report_event (create_event (START));
 
-	  next_split_mom_ += spanner_duration_;
-	}
+          next_split_mom_ += spanner_duration_;
+        }
       else
-	tuplet_handler_.set_context (0);
+        tuplet_handler_.set_context (0);
     }
   Music_wrapper_iterator::process (m);
   if (child_iter_ && child_iter_->ok ())
     descend_to_child (child_iter_->get_outlet ());
-  
+
 }
 
 void

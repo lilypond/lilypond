@@ -30,7 +30,7 @@ public:
   virtual void derived_substitute (Context *f, Context *t);
   virtual void derived_mark () const;
   DECLARE_SCHEME_CALLBACK (constructor, ());
-  DECLARE_CLASSNAME(Simultaneous_music_iterator);
+  DECLARE_CLASSNAME (Simultaneous_music_iterator);
 
   /// make a new context for every child.
   bool create_separate_contexts_;

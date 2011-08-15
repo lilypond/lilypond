@@ -27,7 +27,7 @@ class Dots
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 };
 
 #endif // DOTS_HH

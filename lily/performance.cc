@@ -35,8 +35,8 @@ using namespace std;
 #include "warn.hh"
 
 Performance::Performance (bool ports)
-  : midi_ (0)
-  , ports_ (ports)
+  : midi_ (0),
+    ports_ (ports)
 {
 }
 
@@ -53,15 +53,15 @@ Performance::output (Midi_stream &midi_stream) const
   midi_stream.write (Midi_header (1, tracks_, 384));
   if (be_verbose_global)
     progress_indication (_ ("Track...") + " ");
-  
+
   for (vsize i = 0; i < audio_staffs_.size (); i++)
     {
       Audio_staff *s = audio_staffs_[i];
       if (be_verbose_global)
-	progress_indication ("[" + to_string (i));
+        progress_indication ("[" + to_string (i));
       s->output (midi_stream, i, ports_);
       if (be_verbose_global)
-	progress_indication ("]");
+        progress_indication ("]");
     }
 }
 
@@ -88,7 +88,6 @@ Performance::write_output (string out) const
   progress_indication ("\n");
 }
 
-
 void
 Performance::process ()
 {
@@ -97,5 +96,5 @@ Performance::process ()
 Performance *
 unsmob_performance (SCM x)
 {
-  return dynamic_cast<Performance*> (unsmob_music_output (x));
+  return dynamic_cast<Performance *> (unsmob_music_output (x));
 }

@@ -96,20 +96,20 @@ Fretboard_engraver::process_music ()
     return;
 
   SCM tab_strings = articulation_list (note_events_,
-				       tabstring_events_,
-				       "string-number-event");
+                                       tabstring_events_,
+                                       "string-number-event");
   SCM fingers = articulation_list (note_events_,
-				   fingering_events_,
-				   "fingering-event");
+                                   fingering_events_,
+                                   "fingering-event");
   fret_board_ = make_item ("FretBoard", note_events_[0]->self_scm ());
   SCM fret_notes = ly_cxx_vector_to_list (note_events_);
   SCM proc = get_property ("noteToFretFunction");
   if (ly_is_procedure (proc))
     scm_call_4 (proc,
-		context ()->self_scm (),
-		fret_notes,
-		scm_list_2 (tab_strings, fingers),
-		fret_board_->self_scm ());
+                context ()->self_scm (),
+                fret_notes,
+                scm_list_2 (tab_strings, fingers),
+                fret_board_->self_scm ());
   SCM changes = get_property ("chordChanges");
   if (to_boolean (changes) && scm_is_pair (last_fret_notes_)
       && ly_is_equal (last_fret_notes_, fret_notes))
@@ -128,25 +128,25 @@ Fretboard_engraver::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Fretboard_engraver,
-		/* doc */
-		"Generate fret diagram from one or more events of type"
-		" @code{NoteEvent}.",
+                /* doc */
+                "Generate fret diagram from one or more events of type"
+                " @code{NoteEvent}.",
 
-		/* create */
-		"FretBoard ",
+                /* create */
+                "FretBoard ",
 
-		/* read */
-		"chordChanges "
-		"defaultStrings "
-		"highStringOne "
-		"maximumFretStretch "
-		"minimumFret "
-		"noteToFretFunction "
-		"predefinedDiagramTable "
-		"stringTunings "
-		"tablatureFormat ",
+                /* read */
+                "chordChanges "
+                "defaultStrings "
+                "highStringOne "
+                "maximumFretStretch "
+                "minimumFret "
+                "noteToFretFunction "
+                "predefinedDiagramTable "
+                "stringTunings "
+                "tablatureFormat ",
 
-		/* write */
-		""
-                );
+                /* write */
+                ""
+               );
 

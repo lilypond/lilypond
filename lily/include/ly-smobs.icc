@@ -23,116 +23,116 @@
 #include "lily-guile-macros.hh"
 #include "smobs.hh"
 
-#define IMPLEMENT_TYPE_P(CL, FUNCNAME)					\
-  SCM CL ## _type_p_proc;						\
-  void init_type_ ## CL ()						\
-  {									\
-    SCM subr = scm_c_define_gsubr (FUNCNAME, 1, 0, 0,			\
-				   (scm_t_subr) CL::smob_p); \
-    CL ## _type_p_proc = subr;						\
-    ly_add_function_documentation (subr, FUNCNAME, "(SCM x)",		\
-				   "Is @var{x} a @code{" #CL "} object?"); \
-    scm_c_export (FUNCNAME, NULL);					\
-  }									\
+#define IMPLEMENT_TYPE_P(CL, FUNCNAME)                                  \
+  SCM CL ## _type_p_proc;                                               \
+  void init_type_ ## CL ()                                              \
+  {                                                                     \
+    SCM subr = scm_c_define_gsubr (FUNCNAME, 1, 0, 0,                   \
+                                   (scm_t_subr) CL::smob_p); \
+    CL ## _type_p_proc = subr;                                          \
+    ly_add_function_documentation (subr, FUNCNAME, "(SCM x)",           \
+                                   "Is @var{x} a @code{" #CL "} object?"); \
+    scm_c_export (FUNCNAME, NULL);                                      \
+  }                                                                     \
   ADD_SCM_INIT_FUNC (init_type_ ## CL, init_type_ ## CL)
 
-#define IMPLEMENT_BASE_SMOBS(CL)					\
+#define IMPLEMENT_BASE_SMOBS(CL)                                        \
   void \
-  CL ## _type_adder ()			\
+  CL ## _type_adder ()                  \
   {\
-    ly_add_type_predicate ((void*) &CL::unsmob, #CL);	\
+    ly_add_type_predicate ((void*) &CL::unsmob, #CL);   \
   }\
   ADD_SCM_INIT_FUNC(CL ## _type_adder_ctor, \
-		    CL ## _type_adder);\
-  const char *CL::smob_name_ = #CL;					\
-  scm_t_bits CL::smob_tag_;						\
-  SCM									\
-  CL::smob_p (SCM s)							\
-  {									\
-    if (SCM_NIMP (s) && SCM_CELL_TYPE (s) == smob_tag_)			\
-      return SCM_BOOL_T;						\
-    else								\
-      return SCM_BOOL_F;						\
-									\
-  }									\
-									\
-  void									\
-  CL::init_smobs ()							\
-  {									\
-    smob_tag_ = scm_make_smob_type (#CL, 0);				\
-    scm_set_smob_mark (smob_tag_, CL::mark_smob);			\
-    scm_set_smob_free (smob_tag_, CL::free_smob);			\
-    scm_set_smob_print (smob_tag_, CL::print_smob);			\
-    scm_set_smob_equalp (smob_tag_, CL::equal_p);			\
-  }									\
-									\
-  size_t								\
-  CL::free_smob (SCM ses)						\
-  {									\
-    CL *s = (CL *) SCM_CELL_WORD_1 (ses);				\
-    delete s;								\
+                    CL ## _type_adder);\
+  const char *CL::smob_name_ = #CL;                                     \
+  scm_t_bits CL::smob_tag_;                                             \
+  SCM                                                                   \
+  CL::smob_p (SCM s)                                                    \
+  {                                                                     \
+    if (SCM_NIMP (s) && SCM_CELL_TYPE (s) == smob_tag_)                 \
+      return SCM_BOOL_T;                                                \
+    else                                                                \
+      return SCM_BOOL_F;                                                \
+                                                                        \
+  }                                                                     \
+                                                                        \
+  void                                                                  \
+  CL::init_smobs ()                                                     \
+  {                                                                     \
+    smob_tag_ = scm_make_smob_type (#CL, 0);                            \
+    scm_set_smob_mark (smob_tag_, CL::mark_smob);                       \
+    scm_set_smob_free (smob_tag_, CL::free_smob);                       \
+    scm_set_smob_print (smob_tag_, CL::print_smob);                     \
+    scm_set_smob_equalp (smob_tag_, CL::equal_p);                       \
+  }                                                                     \
+                                                                        \
+  size_t                                                                \
+  CL::free_smob (SCM ses)                                               \
+  {                                                                     \
+    CL *s = (CL *) SCM_CELL_WORD_1 (ses);                               \
+    delete s;                                                           \
     /*    scm_gc_unregister_collectable_memory (s, sizeof (CL), #CL " smob"); */ \
-    return SMOB_FREE_RETURN_VAL (CL);					\
-  }									\
-									\
+    return SMOB_FREE_RETURN_VAL (CL);                                   \
+  }                                                                     \
+                                                                        \
   ADD_SCM_INIT_FUNC (CL, CL::init_smobs)
 
-#define IMPLEMENT_SIMPLE_SMOBS(CL)					\
-  IMPLEMENT_BASE_SMOBS (CL);						\
-  SCM CL::smobbed_copy () const						\
-  {									\
-    CL *ptr = new CL (*this);						\
-    SCM s;								\
-    s = scm_cons (SCM_PACK (CL::smob_tag_), SCM_PACK (ptr));		\
+#define IMPLEMENT_SIMPLE_SMOBS(CL)                                      \
+  IMPLEMENT_BASE_SMOBS (CL);                                            \
+  SCM CL::smobbed_copy () const                                         \
+  {                                                                     \
+    CL *ptr = new CL (*this);                                           \
+    SCM s;                                                              \
+    s = scm_cons (SCM_PACK (CL::smob_tag_), SCM_PACK (ptr));            \
     scm_gc_register_collectable_memory ((CL *)this, sizeof (CL), #CL " smob"); \
-									\
-    return s;								\
+                                                                        \
+    return s;                                                           \
   }
 
-#define IMPLEMENT_SMOBS(CL)						\
-  IMPLEMENT_BASE_SMOBS (CL)						\
-    void								\
-  CL::smobify_self ()							\
-  {									\
-    protection_cons_ = SCM_EOL;						\
-    self_scm_ = unprotected_smobify_self ();				\
-    protect ();								\
-  }									\
-  void									\
-  CL::protect ()							\
-  {									\
-    protect_smob (self_scm_, &protection_cons_);			\
-  }									\
-  SCM									\
-  CL::unprotect ()							\
-  {									\
-    unprotect_smob (self_scm_, &protection_cons_);			\
-    return self_scm_;							\
-  }									\
-  SCM									\
-  CL::unprotected_smobify_self ()					\
-  {									\
-    /*									\
-      This is local. We don't assign to self_scm_ directly, to assure	\
-      that S isn't GC-ed from under us.					\
-									\
+#define IMPLEMENT_SMOBS(CL)                                             \
+  IMPLEMENT_BASE_SMOBS (CL)                                             \
+    void                                                                \
+  CL::smobify_self ()                                                   \
+  {                                                                     \
+    protection_cons_ = SCM_EOL;                                         \
+    self_scm_ = unprotected_smobify_self ();                            \
+    protect ();                                                         \
+  }                                                                     \
+  void                                                                  \
+  CL::protect ()                                                        \
+  {                                                                     \
+    protect_smob (self_scm_, &protection_cons_);                        \
+  }                                                                     \
+  SCM                                                                   \
+  CL::unprotect ()                                                      \
+  {                                                                     \
+    unprotect_smob (self_scm_, &protection_cons_);                      \
+    return self_scm_;                                                   \
+  }                                                                     \
+  SCM                                                                   \
+  CL::unprotected_smobify_self ()                                       \
+  {                                                                     \
+    /*                                                                  \
+      This is local. We don't assign to self_scm_ directly, to assure   \
+      that S isn't GC-ed from under us.                                 \
+                                                                        \
       We don't use smobbed_self () to ensure that mark_smob () doesn't  \
       have to deal half-initialized objects: scm_done_malloc ( ) might  \
       trigger GC.the warning in smobs.hh is just to be doubleplus       \
       goodly sure                                                       \
-    */									\
-    SCM s;								\
-    SCM_NEWSMOB (s, CL::smob_tag_, this);				\
-    self_scm_ = s;							\
+    */                                                                  \
+    SCM s;                                                              \
+    SCM_NEWSMOB (s, CL::smob_tag_, this);                               \
+    self_scm_ = s;                                                      \
     scm_gc_register_collectable_memory (this, sizeof (CL), #CL " smob"); \
-    return s;								\
+    return s;                                                           \
   }
 
-#define IMPLEMENT_DEFAULT_EQUAL_P(CL)		\
-  SCM						\
-  CL::equal_p (SCM a, SCM b)			\
-  {						\
-    return a == b ? SCM_BOOL_T : SCM_BOOL_F;	\
+#define IMPLEMENT_DEFAULT_EQUAL_P(CL)           \
+  SCM                                           \
+  CL::equal_p (SCM a, SCM b)                    \
+  {                                             \
+    return a == b ? SCM_BOOL_T : SCM_BOOL_F;    \
   }
 
 #endif /* LY_SMOBS_ICC */

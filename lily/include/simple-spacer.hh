@@ -32,7 +32,7 @@ public:
 
   void solve (Real line_len, bool ragged);
   void add_rod (int l, int r, Real dist);
-  void add_spring (Spring const&);
+  void add_spring (Spring const &);
   Real range_ideal_len (int l, int r) const;
   Real range_stiffness (int l, int r, bool stretch) const;
   Real configuration_length (Real) const;
@@ -57,15 +57,15 @@ private:
 };
 
 /* returns a vector of dimensions breaks.size () * breaks.size () */
-vector<Real> get_line_forces (vector<Grob*> const &columns,
-			      Real line_len,
-			      Real indent,
-			      bool ragged);
+vector<Real> get_line_forces (vector<Grob *> const &columns,
+                              Real line_len,
+                              Real indent,
+                              bool ragged);
 
-Column_x_positions get_line_configuration (vector<Grob*> const &columns,
-					   Real line_len,
-					   Real indent,
-					   bool ragged);
+Column_x_positions get_line_configuration (vector<Grob *> const &columns,
+                                           Real line_len,
+                                           Real indent,
+                                           bool ragged);
 
 #endif /* SIMPLE_SPACER_HH */
 

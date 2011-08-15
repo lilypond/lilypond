@@ -27,7 +27,7 @@ using namespace std;
 #include "program-option.hh"
 
 Modified_font_metric::Modified_font_metric (Font_metric *fm,
-					    Real magnification)
+                                            Real magnification)
 {
   magnification_ = magnification;
 

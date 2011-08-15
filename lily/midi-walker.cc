@@ -46,10 +46,10 @@ compare (Midi_note_event const &left, Midi_note_event const &right)
 }
 
 bool
-audio_item_less (Audio_item * const a,
-		 Audio_item * const b)
+audio_item_less (Audio_item *const a,
+                 Audio_item *const b)
 {
-  return a->get_column ()->when_ <  b->get_column ()->when_;
+  return a->get_column ()->when_ < b->get_column ()->when_;
 }
 
 Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track)
@@ -89,39 +89,39 @@ Midi_walker::do_start_note (Midi_note *note)
     {
       /* if this pitch already in queue */
       if (stop_note_queue[i].val->get_semitone_pitch ()
-	  == note->get_semitone_pitch ())
-	{
-	  int queued_ticks
-	    = stop_note_queue[i].val->audio_->audio_column_->ticks ();
-	  // If the two notes started at the same time, or option is set,
-	  if (now_ticks == queued_ticks || merge_unisons_)
-	    {
-	      // merge them.
-	      if (stop_note_queue[i].key < stop_ticks)
-		{
-		  Midi_note_event e;
-		  e.val = stop_note_queue[i].val;
-		  e.key = stop_ticks;
-		  stop_note_queue[i].ignore_ = true;
-		  stop_note_queue.insert (e);
-		}
-	      note = 0;
-	      break;
-	    }
-	  else
-	    {
-	      // A note was played that interruped a played note.
-	      // Stop the old note, and continue to the greatest moment
-	      // between the two.
-	      if (stop_note_queue[i].key > stop_ticks)
-		{
-		  stop_ticks = stop_note_queue[i].key;
-		}
-	      output_event (now_ticks, stop_note_queue[i].val);
-	      stop_note_queue[i].ignore_ = true;
-	      break;
-	    }
-	}
+          == note->get_semitone_pitch ())
+        {
+          int queued_ticks
+            = stop_note_queue[i].val->audio_->audio_column_->ticks ();
+          // If the two notes started at the same time, or option is set,
+          if (now_ticks == queued_ticks || merge_unisons_)
+            {
+              // merge them.
+              if (stop_note_queue[i].key < stop_ticks)
+                {
+                  Midi_note_event e;
+                  e.val = stop_note_queue[i].val;
+                  e.key = stop_ticks;
+                  stop_note_queue[i].ignore_ = true;
+                  stop_note_queue.insert (e);
+                }
+              note = 0;
+              break;
+            }
+          else
+            {
+              // A note was played that interruped a played note.
+              // Stop the old note, and continue to the greatest moment
+              // between the two.
+              if (stop_note_queue[i].key > stop_ticks)
+                {
+                  stop_ticks = stop_note_queue[i].key;
+                }
+              output_event (now_ticks, stop_note_queue[i].val);
+              stop_note_queue[i].ignore_ = true;
+              break;
+            }
+        }
     }
 
   if (note)
@@ -144,9 +144,9 @@ Midi_walker::do_stop_notes (int max_ticks)
     {
       Midi_note_event e = stop_note_queue.get ();
       if (e.ignore_)
-	{
-	  continue;
-	}
+        {
+          continue;
+        }
 
       int stop_ticks = e.key;
       Midi_note *note = e.val;
@@ -183,22 +183,22 @@ Midi_walker::process ()
   if (Midi_item *midi = get_midi (audio))
     {
       if (Midi_note *note = dynamic_cast<Midi_note *> (midi))
-	{
-	  if (note->audio_->length_mom_.to_bool ())
-	    do_start_note (note);
-	}
+        {
+          if (note->audio_->length_mom_.to_bool ())
+            do_start_note (note);
+        }
       else
-	output_event (audio->audio_column_->ticks (), midi);
+        output_event (audio->audio_column_->ticks (), midi);
     }
 }
 
-Midi_item*
+Midi_item *
 Midi_walker::get_midi (Audio_item *i)
 {
   Midi_item *mi = Midi_item::get_midi (i);
 
   if (percussion_)
-    if (Midi_channel_item *mci = dynamic_cast<Midi_channel_item*> (mi))
+    if (Midi_channel_item *mci = dynamic_cast<Midi_channel_item *> (mi))
       mci->channel_ = 9;
 
   midi_events_.push_back (mi);
@@ -212,7 +212,7 @@ Midi_walker::ok () const
 }
 
 void
-Midi_walker::operator ++ (int)
+Midi_walker::operator ++(int)
 {
   assert (ok ());
   index_++;

@@ -35,6 +35,10 @@
 
 @itemize
 
+@item Bertrand Bordage:
+@email{bordage.bertrand@@gmail.com},
+Core developer, font designer
+
 @item Trevor Daniels:
 @email{t.daniels@@treda.co.uk},
 Assistant documentation editor
@@ -148,7 +152,6 @@ Core developer, Schemer extraordinaire
 
 @c use commas not colons
 
-Bertrand Bordage,
 Karin Hoethker,
 Jan Warchoł
 
@@ -196,6 +199,7 @@ Dmytro O. Redchuk
 @c use commas not colons
 
 Colin Campbell,
+Christian Hitz,
 Phil Holmes
 
 @c no comma for last entry

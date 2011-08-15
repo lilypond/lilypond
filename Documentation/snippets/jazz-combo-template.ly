@@ -4,23 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.2"
+\version "2.15.7"
 
 \header {
-%% Translation of GIT committish: 4077120c18ac1dc490501b3d7d5886bc93e61a42
-  texidocit = "
-Ecco un modello piuttosto complesso, per un gruppo jazz. Si noti che tutti
-gli strumenti sono in @code{\\key c \\major}. Si tratta della tonalità
-reale; sarà trasposta automaticamente includendo la
-musica all'interno di una sezione @code{\\transpose}.
-
-"
-  doctitleit = "Modello per combo jazz"
-
   lsrtags = "keyboards, percussion, fretted-strings, template"
-
-
-
 
 %% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
   texidoces = "
@@ -33,6 +20,16 @@ dentro de una sección @code{\\transpose}.
 "
   doctitlees = "Plantilla para combo de jazz"
 
+
+%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+  texidocit = "
+Ecco un modello piuttosto complesso, per un gruppo jazz. Si noti che tutti
+gli strumenti sono in @code{\\key c \\major}. Si tratta della tonalità
+reale; sarà trasposta automaticamente includendo la
+musica all'interno di una sezione @code{\\transpose}.
+
+"
+  doctitleit = "Modello per combo jazz"
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "

@@ -33,14 +33,14 @@ Stream_event::Stream_event ()
 
 Stream_event::Stream_event (SCM event_class, SCM mutable_props)
   : Prob (ly_symbol2scm ("Stream_event"),
-	  scm_list_1 (scm_cons (ly_symbol2scm ("class"), event_class)))
+          scm_list_1 (scm_cons (ly_symbol2scm ("class"), event_class)))
 {
   mutable_property_alist_ = mutable_props;
 }
 
 Stream_event::Stream_event (SCM class_name, Input *origin)
   : Prob (ly_symbol2scm ("Stream_event"),
-	  scm_list_1 (scm_cons (ly_symbol2scm ("class"), class_name)))
+          scm_list_1 (scm_cons (ly_symbol2scm ("class"), class_name)))
 {
   if (origin)
     set_spot (origin);
@@ -82,7 +82,7 @@ Stream_event::dump (SCM self)
   Stream_event *ev = unsmob_stream_event (self);
   // Reversed alists look prettier.
   return scm_cons (scm_reverse (ev->immutable_property_alist_),
-		   scm_reverse (ev->mutable_property_alist_));
+                   scm_reverse (ev->mutable_property_alist_));
 }
 
 SCM
@@ -97,5 +97,5 @@ Stream_event::undump (SCM data)
 Stream_event *
 unsmob_stream_event (SCM m)
 {
-  return dynamic_cast<Stream_event*> (unsmob_prob (m));
+  return dynamic_cast<Stream_event *> (unsmob_prob (m));
 }

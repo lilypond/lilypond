@@ -67,7 +67,7 @@ rules = {
     ('([\w\(\)\]]) +(&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|\+|-|=|/|:|&|\||\*) +([\w\(\)])', '\\1 \\2 \\3'),
 
     # trailing operator, but don't un-trail close angle-braces > nor pointer *, and not before a preprocessor line
-    (' (::|&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|\+|-|=|/|:|&XXX|\||\*XXX) *\n( *)([^\s#])', '\n\\2\\1 \\3'),
+    ('(?<!\s) (::|&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|\+|-|=|/|:|&XXX|\||\*XXX) *\n( *)([^\s#])', '\n\\2\\1 \\3'),
     # space after `operator'
     ('(\Woperator) *([^\w\s])', '\\1 \\2'),
     # trailing parenthesis open
@@ -133,9 +133,10 @@ snippet_res = {
 
     'string':
     r'''(?x)
+    "      # leave the leading " character visible to CXX rules
     (?P<match>
     (?P<code>
-    "([^"\n]|\\")*"))''',
+    ([^"\n]|\\")*"))''',
     
     'char':
     r'''(?x)

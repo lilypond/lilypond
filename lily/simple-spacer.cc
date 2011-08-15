@@ -25,7 +25,7 @@
 #include "column-x-positions.hh"
 #include "dimensions.hh"
 #include "international.hh"
-#include "libc-extension.hh"	// isinf
+#include "libc-extension.hh"    // isinf
 #include "paper-column.hh"
 #include "simple-spacer.hh"
 #include "spaceable-grob.hh"
@@ -115,13 +115,13 @@ Simple_spacer::add_rod (int l, int r, Real dist)
     {
       Real spring_dist = range_ideal_len (l, r);
       if (spring_dist < dist)
-	for (int i = l; i < r; i++)
-	  {
-	    if (spring_dist)
-	      springs_[i].set_distance (springs_[i].distance () * dist / spring_dist);
-	    else
-	      springs_[i].set_distance (dist / (r - l));
-	  }
+        for (int i = l; i < r; i++)
+          {
+            if (spring_dist)
+              springs_[i].set_distance (springs_[i].distance () * dist / spring_dist);
+            else
+              springs_[i].set_distance (dist / (r - l));
+          }
 
       return;
     }
@@ -145,7 +145,7 @@ Simple_spacer::range_stiffness (int l, int r, bool stretch) const
   Real den = 0.0;
   for (int i = l; i < r; i++)
     den += stretch ? springs_[i].inverse_stretch_strength ()
-      : springs_[i].inverse_compress_strength ();
+           : springs_[i].inverse_compress_strength ();
 
   return 1 / den;
 }
@@ -183,7 +183,7 @@ Simple_spacer::expand_line ()
   double cur_len = configuration_length (force_);
 
   fits_ = true;
-  for (vsize i=0; i < springs_.size (); i++)
+  for (vsize i = 0; i < springs_.size (); i++)
     inv_hooke += springs_[i].inverse_stretch_strength ();
 
   if (inv_hooke == 0.0) /* avoid division by zero. If springs are infinitely stiff */
@@ -221,31 +221,31 @@ Simple_spacer::compress_line ()
   /* inv_hooke is the total flexibility of currently-active springs */
   double inv_hooke = 0;
   vsize i = sorted_springs.size ();
-  for ( ; i && sorted_springs[i - 1].blocking_force () < cur_force; i--)
+  for (; i && sorted_springs[i - 1].blocking_force () < cur_force; i--)
     inv_hooke += compressed
-      ? sorted_springs[i - 1].inverse_compress_strength ()
-      : sorted_springs[i - 1].inverse_stretch_strength ();
+                 ? sorted_springs[i - 1].inverse_compress_strength ()
+                 : sorted_springs[i - 1].inverse_stretch_strength ();
   /* i now indexes the first active spring, so */
-  for ( ; i < sorted_springs.size (); i++)
+  for (; i < sorted_springs.size (); i++)
     {
       Spring sp = sorted_springs[i];
 
       if (isinf (sp.blocking_force ()))
-	break;
+        break;
 
       double block_dist = (cur_force - sp.blocking_force ()) * inv_hooke;
       if (cur_len - block_dist < line_len_)
-	{
-	  cur_force += (line_len_ - cur_len) / inv_hooke;
-	  cur_len = line_len_;
+        {
+          cur_force += (line_len_ - cur_len) / inv_hooke;
+          cur_len = line_len_;
 
-	  /*
-	    Paranoia check.
-	  */
-	  assert (fabs (configuration_length (cur_force) - cur_len) < 1e-6);
-	  return cur_force;
-	}
-      
+          /*
+            Paranoia check.
+          */
+          assert (fabs (configuration_length (cur_force) - cur_len) < 1e-6);
+          return cur_force;
+        }
+
       cur_len -= block_dist;
       inv_hooke -= compressed ? sp.inverse_compress_strength () : sp.inverse_stretch_strength ();
       cur_force = sp.blocking_force ();
@@ -284,7 +284,7 @@ Simple_spacer::force_penalty (bool ragged) const
 
   /* Use a convex compression penalty. */
   Real f = force_;
-  return f - (f < 0 ? f*f*f*f*2 : 0);
+  return f - (f < 0 ? f * f * f * f * 2 : 0);
 }
 
 /****************************************************************/
@@ -294,7 +294,7 @@ struct Rod_description
   vsize r_;
   Real dist_;
 
-  bool operator< (const Rod_description r)
+  bool operator < (const Rod_description r)
   {
     return r_ < r.r_;
   }
@@ -334,26 +334,26 @@ is_loose (Grob *g)
   return (scm_is_pair (g->get_object ("between-cols")));
 }
 
-static Grob*
+static Grob *
 maybe_find_prebroken_piece (Grob *g, Direction d)
 {
-  Grob *ret = dynamic_cast<Item*> (g)->find_prebroken_piece (d);
+  Grob *ret = dynamic_cast<Item *> (g)->find_prebroken_piece (d);
   if (ret)
     return ret;
   return g;
 }
 
-static Grob*
-next_spaceable_column (vector<Grob*> const &list, vsize starting)
+static Grob *
+next_spaceable_column (vector<Grob *> const &list, vsize starting)
 {
-  for (vsize i = starting+1; i < list.size (); i++)
+  for (vsize i = starting + 1; i < list.size (); i++)
     if (!is_loose (list[i]))
       return list[i];
   return 0;
 }
 
 static Column_description
-get_column_description (vector<Grob*> const &cols, vsize col_index, bool line_starter)
+get_column_description (vector<Grob *> const &cols, vsize col_index, bool line_starter)
 {
   Grob *col = cols[col_index];
   if (line_starter)
@@ -364,7 +364,7 @@ get_column_description (vector<Grob*> const &cols, vsize col_index, bool line_st
   if (next_col)
     description.spring_ = Spaceable_grob::get_spring (col, next_col);
 
-  Grob *end_col = dynamic_cast<Item*> (cols[col_index+1])->find_prebroken_piece (LEFT);
+  Grob *end_col = dynamic_cast<Item *> (cols[col_index + 1])->find_prebroken_piece (LEFT);
   if (end_col)
     description.end_spring_ = Spaceable_grob::get_spring (col, end_col);
 
@@ -374,14 +374,14 @@ get_column_description (vector<Grob*> const &cols, vsize col_index, bool line_st
       Grob *other = unsmob_grob (scm_caar (s));
       vsize j = binary_search (cols, other, Paper_column::less_than, col_index);
       if (j != VPOS)
-	{
-	  if (cols[j] == other)
-	    description.rods_.push_back (Rod_description (j, scm_to_double (scm_cdar (s))));
-	  else /* it must end at the LEFT prebroken_piece */
-	    description.end_rods_.push_back (Rod_description (j, scm_to_double (scm_cdar (s))));
-	}
+        {
+          if (cols[j] == other)
+            description.rods_.push_back (Rod_description (j, scm_to_double (scm_cdar (s))));
+          else /* it must end at the LEFT prebroken_piece */
+            description.end_rods_.push_back (Rod_description (j, scm_to_double (scm_cdar (s))));
+        }
     }
-  
+
   if (!line_starter && to_boolean (col->get_property ("keep-inside-line")))
     description.keep_inside_line_ = col->extent (col, X_AXIS);
 
@@ -390,12 +390,12 @@ get_column_description (vector<Grob*> const &cols, vsize col_index, bool line_st
 }
 
 vector<Real>
-get_line_forces (vector<Grob*> const &columns,
-		 Real line_len, Real indent, bool ragged)
+get_line_forces (vector<Grob *> const &columns,
+                 Real line_len, Real indent, bool ragged)
 {
   vector<vsize> breaks;
   vector<Real> force;
-  vector<Grob*> non_loose;
+  vector<Grob *> non_loose;
   vector<Column_description> cols;
   SCM force_break = ly_symbol2scm ("force");
 
@@ -409,7 +409,7 @@ get_line_forces (vector<Grob*> const &columns,
   for (vsize i = 1; i + 1 < non_loose.size (); i++)
     {
       if (Paper_column::is_breakable (non_loose[i]))
-	breaks.push_back (cols.size ());
+        breaks.push_back (cols.size ());
 
       cols.push_back (get_column_description (non_loose, i, false));
     }
@@ -421,67 +421,66 @@ get_line_forces (vector<Grob*> const &columns,
       cols[breaks[b]] = get_column_description (non_loose, breaks[b], true);
       vsize st = breaks[b];
 
-      for (vsize c = b+1; c < breaks.size (); c++)
-	{
-	  vsize end = breaks[c];
-	  Simple_spacer spacer;
+      for (vsize c = b + 1; c < breaks.size (); c++)
+        {
+          vsize end = breaks[c];
+          Simple_spacer spacer;
 
-	  for (vsize i = breaks[b]; i < end - 1; i++)
-	    spacer.add_spring (cols[i].spring_);
-	  spacer.add_spring (cols[end-1].end_spring_);
+          for (vsize i = breaks[b]; i < end - 1; i++)
+            spacer.add_spring (cols[i].spring_);
+          spacer.add_spring (cols[end - 1].end_spring_);
 
+          for (vsize i = breaks[b]; i < end; i++)
+            {
+              for (vsize r = 0; r < cols[i].rods_.size (); r++)
+                if (cols[i].rods_[r].r_ < end)
+                  spacer.add_rod (i - st, cols[i].rods_[r].r_ - st, cols[i].rods_[r].dist_);
+              for (vsize r = 0; r < cols[i].end_rods_.size (); r++)
+                if (cols[i].end_rods_[r].r_ == end)
+                  spacer.add_rod (i - st, end - st, cols[i].end_rods_[r].dist_);
+              if (!cols[i].keep_inside_line_.is_empty ())
+                {
+                  spacer.add_rod (i - st, end - st, cols[i].keep_inside_line_[RIGHT]);
+                  spacer.add_rod (0, i - st, -cols[i].keep_inside_line_[LEFT]);
+                }
+            }
+          spacer.solve ((b == 0) ? line_len - indent : line_len, ragged);
+          force[b * breaks.size () + c] = spacer.force_penalty (ragged);
 
-	  for (vsize i = breaks[b]; i < end; i++)
-	    {
-	      for (vsize r = 0; r < cols[i].rods_.size (); r++)
-		if (cols[i].rods_[r].r_ < end)
-		  spacer.add_rod (i - st, cols[i].rods_[r].r_ - st, cols[i].rods_[r].dist_);
-	      for (vsize r = 0; r < cols[i].end_rods_.size (); r++)
-		if (cols[i].end_rods_[r].r_ == end)
-		  spacer.add_rod (i - st, end - st, cols[i].end_rods_[r].dist_);
-	      if (!cols[i].keep_inside_line_.is_empty ())
-		{
-		  spacer.add_rod (i - st, end - st, cols[i].keep_inside_line_[RIGHT]);
-		  spacer.add_rod (0, i - st, -cols[i].keep_inside_line_[LEFT]);
-		}
-	    }
-	  spacer.solve ((b == 0) ? line_len - indent : line_len, ragged);
-	  force[b * breaks.size () + c] = spacer.force_penalty (ragged);
-
-	  if (!spacer.fits ())
-	    {
-	      if (c == b + 1)
-		force[b * breaks.size () + c] = -200000;
-	      else
-		force[b * breaks.size () + c] = infinity_f;
-	      break;
-	    }
-	  if (end < cols.size () && cols[end].break_permission_ == force_break)
-	    break;
-	}
+          if (!spacer.fits ())
+            {
+              if (c == b + 1)
+                force[b * breaks.size () + c] = -200000;
+              else
+                force[b * breaks.size () + c] = infinity_f;
+              break;
+            }
+          if (end < cols.size () && cols[end].break_permission_ == force_break)
+            break;
+        }
     }
   return force;
 }
 
 Column_x_positions
-get_line_configuration (vector<Grob*> const &columns,
-			Real line_len,
-			Real indent,
-			bool ragged)
+get_line_configuration (vector<Grob *> const &columns,
+                        Real line_len,
+                        Real indent,
+                        bool ragged)
 {
   vector<Column_description> cols;
   Simple_spacer spacer;
   Column_x_positions ret;
 
-  ret.cols_.push_back (dynamic_cast<Item*> (columns[0])->find_prebroken_piece (RIGHT));
+  ret.cols_.push_back (dynamic_cast<Item *> (columns[0])->find_prebroken_piece (RIGHT));
   for (vsize i = 1; i + 1 < columns.size (); i++)
     {
       if (is_loose (columns[i]))
-	ret.loose_cols_.push_back (columns[i]);
+        ret.loose_cols_.push_back (columns[i]);
       else
-	ret.cols_.push_back (columns[i]);
+        ret.cols_.push_back (columns[i]);
     }
-  ret.cols_.push_back (dynamic_cast<Item*> (columns.back ())->find_prebroken_piece (LEFT));
+  ret.cols_.push_back (dynamic_cast<Item *> (columns.back ())->find_prebroken_piece (LEFT));
 
   /* since we've already put our line-ending column in the column list, we can ignore
      the end_XXX_ fields of our column_description */
@@ -493,13 +492,13 @@ get_line_configuration (vector<Grob*> const &columns,
   for (vsize i = 0; i < cols.size (); i++)
     {
       for (vsize r = 0; r < cols[i].rods_.size (); r++)
-	spacer.add_rod (i, cols[i].rods_[r].r_, cols[i].rods_[r].dist_);
+        spacer.add_rod (i, cols[i].rods_[r].r_, cols[i].rods_[r].dist_);
 
       if (!cols[i].keep_inside_line_.is_empty ())
-	{
-	  spacer.add_rod (i, cols.size (), cols[i].keep_inside_line_[RIGHT]);
-	  spacer.add_rod (0, i, -cols[i].keep_inside_line_[LEFT]);
-	}
+        {
+          spacer.add_rod (i, cols.size (), cols[i].keep_inside_line_[RIGHT]);
+          spacer.add_rod (0, i, -cols[i].keep_inside_line_[LEFT]);
+        }
     }
 
   spacer.solve (line_len, ragged);
@@ -518,9 +517,28 @@ get_line_configuration (vector<Grob*> const &columns,
     {
       SCM p = ret.cols_[i]->get_property ("line-break-permission");
       if (p == ly_symbol2scm ("force"))
-	ret.satisfies_constraints_ = false;
+        ret.satisfies_constraints_ = false;
     }
 
   return ret;
+}
+
+
+#include "ly-smobs.icc"
+
+IMPLEMENT_SIMPLE_SMOBS (Simple_spacer);
+IMPLEMENT_DEFAULT_EQUAL_P (Simple_spacer);
+
+SCM
+Simple_spacer::mark_smob (SCM /* x */)
+{
+  return SCM_EOL;
+}
+
+int
+Simple_spacer::print_smob (SCM /* x */, SCM p, scm_print_state *)
+{
+  scm_puts ("#<Simple spacer>", p);
+  return 1;
 }
 

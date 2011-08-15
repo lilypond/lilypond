@@ -31,10 +31,10 @@
 
 Stencil
 vaticana_brew_cauda (Grob *me,
-		     int pos,
-		     int delta_pitch,
-		     Real thickness,
-		     Real blotdiameter)
+                     int pos,
+                     int delta_pitch,
+                     Real thickness,
+                     Real blotdiameter)
 {
   bool on_staffline = Staff_symbol_referencer::on_line (me, pos);
   int interspaces = Staff_symbol_referencer::line_count (me) - 1;
@@ -49,25 +49,25 @@ vaticana_brew_cauda (Grob *me,
   if (on_staffline)
     {
       if (delta_pitch >= -1)
-	length = 1.30;
+        length = 1.30;
       else if (delta_pitch >= -2)
-	length = 1.35;
+        length = 1.35;
       else
-	length = 1.85;
+        length = 1.85;
     }
   else
     {
       if (delta_pitch >= -1)
-	if (above_staff)
-	  length = 1.30;
-	else
-	  length = 1.00;
+        if (above_staff)
+          length = 1.30;
+        else
+          length = 1.00;
       else if (delta_pitch >= -2)
-	length = 1.35;
+        length = 1.35;
       else if (delta_pitch >= -3)
-	length = 1.50;
+        length = 1.50;
       else
-	length = 1.85;
+        length = 1.85;
     }
   Box cauda_box (Interval (0, thickness), Interval (-length, 0));
   return Lookup::round_filled_box (cauda_box, blotdiameter);
@@ -78,8 +78,8 @@ vaticana_brew_cauda (Grob *me,
  */
 Stencil
 vaticana_brew_flexa (Grob *me,
-		     bool solid,
-		     Real line_thickness)
+                     bool solid,
+                     Real line_thickness)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Stencil stencil;
@@ -92,7 +92,7 @@ vaticana_brew_flexa (Grob *me,
   else
     {
       me->warning ("Vaticana_ligature: "
-		   + _ ("flexa-height undefined; assuming 0"));
+                   + _ ("flexa-height undefined; assuming 0"));
       interval = 0.0;
     }
 
@@ -107,7 +107,7 @@ vaticana_brew_flexa (Grob *me,
    */
   Real left_height
     = right_height
-    + min (0.12 * abs (interval), 0.3) * staff_space;
+      + min (0.12 * abs (interval), 0.3) * staff_space;
 
   /*
    * Compensate optical illusion regarding vertical position of left
@@ -137,7 +137,7 @@ vaticana_brew_flexa (Grob *me,
   if (solid)
     {
       Stencil solid_head
-	= Lookup::bezier_sandwich (top_curve, bottom_curve, 0.0);
+        = Lookup::bezier_sandwich (top_curve, bottom_curve, 0.0);
       stencil.add_stencil (solid_head);
     }
   else // outline
@@ -145,13 +145,13 @@ vaticana_brew_flexa (Grob *me,
       Bezier inner_top_curve = top_curve;
       inner_top_curve.translate (Offset (0.0, -line_thickness));
       Stencil top_edge
-	= Lookup::bezier_sandwich (top_curve, inner_top_curve, 0.0);
+        = Lookup::bezier_sandwich (top_curve, inner_top_curve, 0.0);
       stencil.add_stencil (top_edge);
 
       Bezier inner_bottom_curve = bottom_curve;
       inner_bottom_curve.translate (Offset (0.0, +line_thickness));
       Stencil bottom_edge
-	= Lookup::bezier_sandwich (bottom_curve, inner_bottom_curve, 0.0);
+        = Lookup::bezier_sandwich (bottom_curve, inner_bottom_curve, 0.0);
       stencil.add_stencil (bottom_edge);
 
       /*
@@ -163,12 +163,12 @@ vaticana_brew_flexa (Grob *me,
        * the left end of the bezier curve.
        */
       Box left_edge_box (Interval (0, line_thickness),
-			 Interval (-0.5 * left_height, +0.5 * left_height));
+                         Interval (-0.5 * left_height, +0.5 * left_height));
       Stencil left_edge = Lookup::filled_box (left_edge_box);
       stencil.add_stencil (left_edge);
 
       Box right_edge_box (Interval (-line_thickness, 0),
-			  Interval (-0.5 * right_height, +0.5 * right_height));
+                          Interval (-0.5 * right_height, +0.5 * right_height));
       Stencil right_edge = Lookup::filled_box (right_edge_box);
       right_edge.translate_axis (width, X_AXIS);
       right_edge.translate_axis (corrected_interval / 2.0, Y_AXIS);
@@ -180,19 +180,19 @@ vaticana_brew_flexa (Grob *me,
 
 Stencil
 vaticana_brew_join (Grob *me, int delta_pitch,
-		    Real join_thickness, Real blotdiameter)
+                    Real join_thickness, Real blotdiameter)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   if (!delta_pitch)
     {
       me->programming_error (_ ("Vaticana_ligature: "
-				"zero join (delta_pitch == 0)"));
+                                "zero join (delta_pitch == 0)"));
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     }
   Interval x_extent = Interval (0, join_thickness);
   Interval y_extent = (delta_pitch > 0)
-    ? Interval (0, delta_pitch * 0.5 * staff_space) : // ascending join
-    Interval (delta_pitch * 0.5 * staff_space, 0); // descending join
+                      ? Interval (0, delta_pitch * 0.5 * staff_space) : // ascending join
+                      Interval (delta_pitch * 0.5 * staff_space, 0); // descending join
   Box join_box (x_extent, y_extent);
   return Lookup::round_filled_box (join_box, blotdiameter);
 }
@@ -204,7 +204,7 @@ vaticana_brew_primitive (Grob *me)
   if (glyph_name_scm == SCM_EOL)
     {
       me->programming_error ("Vaticana_ligature: "
-			     "undefined glyph-name -> ignoring grob");
+                             "undefined glyph-name -> ignoring grob");
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     }
 
@@ -246,15 +246,15 @@ vaticana_brew_primitive (Grob *me)
       Real staff_space = Staff_symbol_referencer::staff_space (me);
       Real flexa_width = robust_scm2double (me->get_property ("flexa-width"), 2) * staff_space;
       out
-	= Lookup::blank (Box (Interval (0, 0.5 * flexa_width), Interval (0, 0)));
+        = Lookup::blank (Box (Interval (0, 0.5 * flexa_width), Interval (0, 0)));
     }
   else if (glyph_name == "flexa")
     out = vaticana_brew_flexa (me, true, line_thickness);
   else
     {
       out
-	= Font_interface::get_default_font (me)->
-	find_by_name ("noteheads.s" + glyph_name);
+        = Font_interface::get_default_font (me)->
+          find_by_name ("noteheads.s" + glyph_name);
     }
   out.translate_axis (x_offset, X_AXIS);
   Real head_width = out.extent (X_AXIS).length ();
@@ -262,16 +262,16 @@ vaticana_brew_primitive (Grob *me)
   if (add_cauda)
     {
       Stencil cauda
-	= vaticana_brew_cauda (me, pos, delta_pitch,
-			       line_thickness, blotdiameter);
+        = vaticana_brew_cauda (me, pos, delta_pitch,
+                               line_thickness, blotdiameter);
       out.add_stencil (cauda);
     }
 
   if (add_stem)
     {
       Stencil stem
-	= vaticana_brew_cauda (me, pos, -1,
-			       line_thickness, blotdiameter);
+        = vaticana_brew_cauda (me, pos, -1,
+                               line_thickness, blotdiameter);
       stem.translate_axis (head_width - line_thickness, X_AXIS);
       out.add_stencil (stem);
     }
@@ -279,7 +279,7 @@ vaticana_brew_primitive (Grob *me)
   if (add_join)
     {
       Stencil join
-	= vaticana_brew_join (me, delta_pitch, line_thickness, blotdiameter);
+        = vaticana_brew_join (me, delta_pitch, line_thickness, blotdiameter);
       join.translate_axis (head_width - line_thickness, X_AXIS);
       out.add_stencil (join);
     }
@@ -304,16 +304,16 @@ Vaticana_ligature::print (SCM)
 }
 
 ADD_INTERFACE (Vaticana_ligature,
-	       "A vaticana style Gregorian ligature.",
+               "A vaticana style Gregorian ligature.",
 
-	       /* properties */
-	       "glyph-name "
-	       "flexa-height "
-	       "flexa-width "
-	       "thickness "
-	       "add-cauda "
-	       "add-stem "
-	       "add-join "
-	       "delta-position "
-	       "x-offset "
-	       );
+               /* properties */
+               "glyph-name "
+               "flexa-height "
+               "flexa-width "
+               "thickness "
+               "add-cauda "
+               "add-stem "
+               "add-join "
+               "delta-position "
+               "x-offset "
+              );
