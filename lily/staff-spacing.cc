@@ -151,7 +151,7 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col)
     }
 
   SCM alist = last_grob->get_property ("space-alist");
-  if (!scm_list_p (alist))
+  if (!ly_is_list (alist))
     return Spring ();
 
   SCM space_def = scm_sloppy_assq (ly_symbol2scm ("first-note"), alist);

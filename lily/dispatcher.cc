@@ -77,7 +77,7 @@ Dispatcher::dispatch (SCM sev)
 {
   Stream_event *ev = unsmob_stream_event (sev);
   SCM class_symbol = ev->get_property ("class");
-  if (!scm_symbol_p (class_symbol))
+  if (!scm_is_symbol (class_symbol))
     {
       warning (_ ("Event class should be a symbol"));
       return;

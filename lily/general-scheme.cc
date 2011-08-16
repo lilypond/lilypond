@@ -381,7 +381,7 @@ LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
   string m = "w";
   string f = ly_scm2string (file_name);
   FILE *stderrfile;
-  if (mode != SCM_UNDEFINED && scm_string_p (mode))
+  if (scm_is_string (mode))
     m = ly_scm2string (mode);
   /* dup2 and (fileno (current-error-port)) do not work with mingw'c
      gcc -mwindows.  */
