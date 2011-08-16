@@ -1,29 +1,35 @@
 \version "2.14.0"
-\header{
+
+\header {
   texidoc="
-Note head shapes may be set from several choices.  
-The stem endings should be adjusted according to the note head.  
+Note head shapes may be set from several choices.
+The stem endings should be adjusted according to the note head.
 If you want different note head styles on one stem,
 you must create a special context.
 
 Harmonic notes have a different shape and different
-dimensions. 
+dimensions.
 "
 }
 
 \layout {
   indent = 0.0
   ragged-right = ##t
+
+  \context {
+    \Score
+    \remove "Bar_number_engraver"
+  }
 }
 
 pattern = <<
   \new Voice {
-    \override Stem  #'direction = #UP
-    e'4 e'2. e'1 e'\breve*1/2 e'\longa*1/4
+    \override Stem #'direction = #UP
+    e'4 e'2. e'1 e'\breve*1/2 e'\longa*1/4 \bar "||"
   }
   \new Voice {
-    \override Stem  #'direction = #DOWN
-    a4 a2. a1 a\breve*1/2 a\longa*1/4
+    \override Stem #'direction = #DOWN
+    a4 a2. a1 a\breve*1/2 a\longa*1/4 \bar "||"
   }
 >>
 
@@ -99,6 +105,3 @@ pattern = <<
   s1*0^\markup { "slash" }
   \pattern
 }
-
-
-
