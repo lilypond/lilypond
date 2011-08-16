@@ -256,6 +256,13 @@ but instead:
 @end example
 
 @item
+With the exception of @code{@@} commands, the section name must
+match the node name exactly.
+
+@item
+No commas may be used in the node names.
+
+@item
 If a heading is desired without creating a @code{@@node}, please use
 the following:
 
