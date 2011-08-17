@@ -92,7 +92,7 @@ LY_DEFINE (ly_stencil_empty_p, "ly:stencil-empty?",
 }
 
 LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
-           4, 2, 0, (SCM first, SCM axis, SCM direction,
+           4, 1, 0, (SCM first, SCM axis, SCM direction,
                      SCM second,
                      SCM padding),
            "Construct a stencil by putting @var{second} next to @var{first}."
