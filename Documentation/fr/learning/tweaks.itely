@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-	Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
+	Translation of GIT committish: a6cd9e45dcb86a249936f174403c9f8bc8afebc0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2001,9 +2001,7 @@ les objets de rendu.  Par défaut, elle est réglée sur @code{#f} pour
 tous les objets de la portée, et porte une valeur numérique appropriée à
 chacun des objets extérieurs à la portée, à mesure qu'ils sont créés.
 Le tableau suivant montre la valeur numérique par défaut pour
-quelques-uns des objets extérieurs à la portée les plus courants qui
-sont placés, par défaut, dans les contextes @code{Staff} ou
-@code{Voice}.
+quelques-uns des objets extérieurs à la portée les plus courant.
 
 @cindex spanners
 @cindex bandeaux
@@ -2026,12 +2024,21 @@ plusieurs soufflets ou indications de nuance.
 @headitem Objet de rendu
   @tab Priorité
   @tab Contrôle la position de :
-@item @code{MultiMeasureRestText}
-  @tab @code{450}
-  @tab Texte sur les silences qui couvrent des mesures entières
+@item @code{RehearsalMark}
+  @tab @code{1500}
+  @tab Repère
+@item @code{MetronomeMark}
+  @tab @code{1000}
+  @tab Indication métronomique
+@item @code{VoltaBracketSpanner}
+  @tab @code{600}
+  @tab Bandeau de répétition
 @item @code{TextScript}
   @tab @code{450}
   @tab Texte des @emph{markup} (ou étiquettes)
+@item @code{MultiMeasureRestText}
+  @tab @code{450}
+  @tab Texte sur les silences qui couvrent des mesures entières
 @item @code{OttavaBracket}
   @tab @code{400}
   @tab Indication d'octaviation
@@ -2041,9 +2048,9 @@ plusieurs soufflets ou indications de nuance.
 @item @code{DynamicLineSpanner}
   @tab @code{250}
   @tab Toutes les marques de nuances
-@item @code{VoltaBracketSpanner}
+@item @code{BarNumber}
   @tab @code{100}
-  @tab Bandeau de répétition
+  @tab Numéro de mesure
 @item @code{TrillSpanner}
   @tab @code{50}
   @tab Bandeau de trille
@@ -2102,35 +2109,15 @@ Il montre aussi comment créer des marques d'octaviation.
 @cindex modification du positionnement des marques de repère
 @cindex marques de repère, modification du positionnement
 
-Vous aurez remarqué que les numéros de mesure, l'indication métronomique
-et les marques de répétition n'apparaissent pas.  Par défaut, ils sont
-créés dans le contexte @code{Score} et leur
-@code{outside-staff-priority} est ignorée face aux objets qui sont créés
-dans le contexte @code{Staff}.  Si vous voulez faire apparaître les
-numéros de mesure, l'indication métronomique ou les marques de
-répétition conformément à la valeur de leur
-@code{outside-staff-priority}, il vous faudra retirer respectivement le
-@code{Bar_number_engraver}, le @code{Metronome_mark_engraver} ou le
-@code{Mark_engraver} du contexte @code{Score} et les placer en tête du
-contexte @code{Staff}.  Après quoi ces marques porteront les valeurs de
-@code{outside-staff-priority} par défaut suivantes@tie{}:
-
-@multitable @columnfractions .3 .3
-@headitem Objet de rendu          @tab Priorité
-@item @code{RehearsalMark}        @tab @code{1500}
-@item @code{MetronomeMark}        @tab @code{1000}
-@item @code{BarNumber}            @tab @code{ 100}
-@end multitable
-
 Si les valeurs de @code{outside-staff-priority} par défaut ne donnent
 pas les résultats escomptés, il suffit de modifier la priorité
 de l'un de ces objets.  Supposons que vous vouliez placer l'indication
 d'octaviation sous le bandeau de texte, dans l'exemple précédent.  Tout
 ce que nous devons faire, c'est regarder la priorité de
-@code{OttavaBracket} dans la RPI ou dans le tableau plus haut, et la
-ramener à une valeur plus basse que celle de @code{TextSpanner}, en
-gardant à l'esprit que @code{OttavaBracket} est créé dans le contexte
-@code{Staff}@tie{}:
+@code{OttavaBracket} dans la Référence des propriétés internes ou dans
+le tableau plus haut, et la ramener à une valeur plus basse que celle de
+@code{TextSpanner}, en gardant à l'esprit que @code{OttavaBracket} est
+créé dans le contexte @code{Staff}@tie{}:
 
 @cindex TextSpanner, exemple de dérogation
 @cindex bound-details, exemple d'utilisation de la propriété
@@ -2194,9 +2181,9 @@ contrôler le positionnement vertical des objets individuels, quoique le
 résultat ne soit pas toujours formidable.  Imaginons que nous voulions
 placer @qq{Text3} au-dessus de @qq{Text4} dans l'exemple de la section
 @ref{Comportement automatique}, plus haut.  Il nous suffit pour cela de
-regarder dans la RPI ou dans le tableau plus haut la priorité de
-@code{TextScript}, et d'augmenter la priorité de @qq{Text3} jusqu'à une
-valeur très haute@tie{}:
+regarder dans la Référence des propriétés internes ou dans le tableau
+plus haut la priorité de @code{TextScript}, et d'augmenter la priorité
+de @qq{Text3} jusqu'à une valeur très haute@tie{}:
 
 @cindex TextScript, exemple de dérogation
 @cindex outside-staff-priority, exemple d'utilisation de la propriété
@@ -2910,44 +2897,56 @@ r4
 \acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
-Voici un autre exemple, tiré du début de la partie de main gauche
-du Prélude de Chopin, Op. 28, No 2. Comme nous pouvons le
-constater, les barres de ligature chevauchent les notes les plus
-hautes@tie{}:
+Voici un autre exemple. Comme nous pouvons le constater, les barres de
+ligature chevauchent les liaisons de tenue@tie{}:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
-  \clef "bass"
-  << { b,8 ais, b, g, } \\ { e,8 g e, g } >>
-  << { b,8 ais, b, g, } \\ { e,8 g e, g } >>
+  \time 4/2
+  <<
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
+  <<
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
 }
 @end lilypond
 
 @noindent
 On peut y remédier en déplaçant manuellement vers le haut les deux
-extrémités des ligatures de croches, non plus à 2 intervalles au-dessus
-de la ligne médiane mais, disons, à 3@tie{}:
+extrémités des ligatures de croches, non plus à 1,81 intervalle
+au-dessous de la ligne médiane mais, disons, à 1@tie{}:
 
 @cindex Beam, exemple de dérogation
 @cindex positions, exemple d'utilisation de la propriété
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
-  \clef "bass"
+  \time 4/2
   <<
-    \override Beam #'positions = #'(3 . 3)
-    { b,8 ais, b, g, }
-  \\
-    { e,8 g e, g }
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    {
+      \override Beam #'positions = #'(-1 . -1)
+      e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g''
+    }
   >>
-  << { b,8 ais, b, g, } \\ { e,8 g e, g } >>
+  <<
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
 }
 @end lilypond
 
 @noindent
 Vous remarquerez que la retouche continue de s'appliquer au
 second bloc de croches de la première voix mais qu'il ne s'applique
-à aucune barre de la deuxième voix.
+à aucune mesure de la deuxième voix.
 
 @subheading la propriété force-hshift
 
@@ -3542,7 +3541,6 @@ lhMusic = \relative c' {
 * Utilisation de variables dans les retouches::
 * Feuilles de style::
 * Autres sources de documentation::
-* Options ralentissant le traitement::
 * Retouches avancées avec Scheme::
 @end menu
 
@@ -4246,38 +4244,6 @@ sont@tie{}:
 	@tab Réglages par défaut des articulations
 @end multitable
 
-
-
-@node Options ralentissant le traitement
-@subsection Options ralentissant le traitement
-@translationof Avoiding tweaks with slower processing
-
-LilyPond peut effectuer des vérifications supplémentaires lors du
-traitement des fichiers@tie{}; cependant, le rendu nécessitera alors
-plus de temps.  En contrepartie, il y aura moins d'ajustements manuels à
-réaliser.  Si une indication textuelle ou des paroles débordent dans la
-marge, ces vérifications auront pour effet de resserrer la ligne
-suffisamment pour faire tenir le texte entre les marges.
-
-Pour pouvoir fonctionner en toutes circonstances, ces vérifications
-doivent être activées@tie{}; il faut pour cela placer les retouches dans
-un @code{\context} à l'intérieur d'un bloc @code{\layout}, plutôt que
-directement dans le fragment musical, comme ceci@tie{}:
-
-@example
-\score @{
-  @{ @dots{}notes@dots{} @}
-  \layout @{
-    \context @{
-      \Score
-      % Pour s'assurer que les indications textuelles et paroles
-      % seront à l'intérieur des marges de la page.
-      \override PaperColumn #'keep-inside-line = ##t
-      \override NonMusicalPaperColumn #'keep-inside-line = ##t
-    @}
-  @}
-@}
-@end example
 
 
 @node Retouches avancées avec Scheme
