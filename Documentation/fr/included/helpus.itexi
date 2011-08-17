@@ -145,7 +145,7 @@ Nous prendrons le temps de discuter la spécification de ce
 format de saisie définitif.
 
 
-@warning{Le GLISS commencera peu après la sortie de la version 2.14.}
+@warning{Le GLISS commencera peu après la sortie de la version 2.16.}
 
 
 @subsubheading Projet GOP d'organisation de LilyPond
@@ -164,8 +164,6 @@ d'ajouter de nouvelles fonctionnalités considérables ni de
 repenser complètement quoi que ce soit.  L'objectif est plutôt de
 nous donner une base bien plus stable pour pouvoir entreprendre
 de grands travaux à l'avenir.
-
-@warning{Le GOP commencera peu après la sortie de la version 2.14.}
 
 @end macro
 

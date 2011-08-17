@@ -189,7 +189,7 @@ Créez un fichier texte du nom de @file{test.ly} et saisissez@tie{}:
 
 @c double \\ required because this is inside a macro!
 @example
-\\version "@w{@version{}}"
+\\version "@w{@versionStable{}}"
 @{
   c' e' g' e'
 @}
@@ -209,7 +209,7 @@ lilypond test.ly
 Vous verrez alors quelque chose qui ressemblera à@tie{}:
 
 @example
-GNU LilyPond @w{@version{}}
+GNU LilyPond @w{@versionStable{}}
 Traitement de « test.ly »
 Analyse...
 Interprétation en cours de la musique...
