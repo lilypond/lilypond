@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
+    Translation of GIT committish: ca62336a8f9ccb00fe4d81bcb8c88ad40ef9e2ae
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -24,7 +24,7 @@ L'inspiration pour LilyPond provient de deux musiciens qui s'étaient
 lassés de l'aspect fade et ennuyeux des partitions musicales produites
 avec un ordinateur.  Tous les musiciens préfèrent lire de belles
 partitions de musique, pourquoi donc les programmeurs ne
-développeraient-ils pas un logiciel pouvant en produire@tie{}?
+développeraient-ils pas un logiciel capable d'en produire@tie{}?
 
 C'est justement ce que fait LilyPond : ce logiciel grave de la musique
 selon le meilleur de la tradition typographique avec un minimum de
@@ -623,6 +623,18 @@ utiliser LilyPond, nous vous recommandons de lire d'abord
 
 @divClass{keep-bullets}
 @itemize
+
+ @item
+Avril 2011
+
+@uref{http://www.linux-magazine.com,Linux Magazine} publie un
+article sur trois projets en pleine évolution,
+@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+Projects on the Move}.  Dans cette présentation de MuseScore, LilyPond
+et Chordii, Carla Schroder indique que @qq{même si LilyPond se base sur
+la ligne de commande, l'absence d'interface graphique n'est en rien
+rebutante@tie{}; son langage est agréable et facile à apprendre}, et
+fournit un exemple simple et concret.
 
 @item
 Mai 2010

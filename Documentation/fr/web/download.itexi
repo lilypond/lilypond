@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
+    Translation of GIT committish: ca62336a8f9ccb00fe4d81bcb8c88ad40ef9e2ae
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -214,6 +214,14 @@ Dans un terminal, tapez :
 uninstall-lilypond
 @end example
 
+@subsubheading Aide
+
+Dans un terminal, tapez :
+
+@example
+sh lilypond-@versionStable{}-OS-TYPE.sh --help
+@end example
+
 @divEnd
 
 
@@ -236,22 +244,22 @@ mettre à jour ces versions.
 @item
 @sourceimage{logo-fedora,,,}
 @uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
-Fedora: LilyPond 2.12.3}
+Fedora: LilyPond 2.14.1}
 
 @item
 @sourceimage{logo-ubuntu,,,}
 @uref{http://packages.ubuntu.com/search?keywords=lilypond,
-Ubuntu: LilyPond 2.12.2}
+Ubuntu: LilyPond 2.12.3}
 
 @item
 @sourceimage{logo-slackware,,,}
 @uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.12.3}
+Slackware: LilyPond 2.14.1}
 
 @item
 @sourceimage{logo-debian,,,}
 @uref{http://packages.debian.org/search?keywords=lilypond,
-Debian: LilyPond 2.12.2}
+Debian: LilyPond 2.12.3}
 
 @item
 @sourceimage{logo-suse,,,}
