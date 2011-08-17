@@ -2633,7 +2633,7 @@ measure, the shortest duration is determined.  The most common shortest
 duration is taken as the basis for the spacing, with the stipulation
 that this shortest duration should always be equal to or shorter than
 an 8th note.  The shortest duration is printed when you run
-@code{lilypond} with the @code{--verbose} option.
+@code{lilypond} with the @option{--verbose} option.
 
 These durations may also be customized.  If you set the
 @code{common-shortest-duration} in @rinternals{SpacingSpanner}, then

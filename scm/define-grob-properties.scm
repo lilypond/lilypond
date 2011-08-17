@@ -38,7 +38,7 @@
 included in this script's support.")
      (after-line-breaking ,boolean? "Dummy property, used to trigger
 callback for @code{after-line-breaking}.")
-     (align-dir ,ly:dir? "Which side to align? @code{-1}: left side,
+     (align-dir ,ly:dir? "Which side to align? @w{@code{-1}}: left side,
 @code{0}: around center of width, @code{1}: right side.")
      (allow-loose-spacing ,boolean? "If set, column can be detached
 from main spacing.")
@@ -217,8 +217,8 @@ having a @code{details} property.")
 @code{#LEFT}, @code{#CENTER} or @code{#RIGHT} with respect to the
 other object.  Otherwise, it determines whether the object is placed
 @code{#UP}, @code{#CENTER} or @code{#DOWN}.  Numerical values may also
-be used: @code{#UP}=@code{1}, @code{#DOWN}=@code{-1},
-@code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1},
+be used: @code{#UP}=@code{1}, @code{#DOWN}=@w{@code{-1}},
+@code{#LEFT}=@w{@code{-1}}, @code{#RIGHT}=@code{1},
 @code{#CENTER}=@code{0}.")
      (dot-count ,integer? "The number of dots.")
      (dot-negative-kern ,number? "The space to remove between a dot
@@ -300,7 +300,7 @@ include @code{medium}, @code{bold}, @code{bold-narrow}, etc.")
 include @code{upright}, @code{italic}, @code{caps}.")
      (font-size ,number? "The font size, compared to the
 @q{normal}@tie{}size.  @code{0}@tie{}is style-sheet's normal size,
-@code{-1} is smaller, @code{+1} is bigger.  Each step of@tie{}1 is
+@w{@code{-1}} is smaller, @code{+1} is bigger.  Each step of@tie{}1 is
 approximately 12% larger; 6@tie{}steps are exactly a factor@tie{}2
 larger.  Fractional values are allowed.")
      (footnote-text ,markup? "A footnote for the grob.")
@@ -356,7 +356,7 @@ the center of the fret in direction parallel to strings.
 Default@tie{}0.
 @item
 @code{label-dir} -- Side to which the fret label is attached.
-@code{-1}, @code{#LEFT}, or @code{#DOWN} for left or down; @code{1},
+@w{@code{-1}}, @code{#LEFT}, or @code{#DOWN} for left or down; @code{1},
 @code{#RIGHT}, or @code{#UP} for right or up.  Default @code{#RIGHT}.
 @item
 @code{mute-string} -- Character string to be used to indicate muted
@@ -716,7 +716,7 @@ stem distance.")
      (script-priority ,number? "A sorting key that determines in what
 order a script is within a stack of scripts.")
      (self-alignment-X ,number? "Specify alignment of an object.  The
-value @code{-1} means left aligned, @code{0}@tie{}centered, and
+value @w{@code{-1}} means left aligned, @code{0}@tie{}centered, and
 @code{1}@tie{}right-aligned in X@tie{}direction.  Other numerical
 values may also be specified.")
      (self-alignment-Y ,number? "Like @code{self-alignment-X} but for
@@ -779,7 +779,8 @@ bounds (i.e., clefs, key signatures and time signatures) using the following
 override:
 
 @example
-\\override MultiMeasureRest #'spacing-pair = #'(staff-bar . staff-bar)
+\\override MultiMeasureRest
+  #'spacing-pair = #'(staff-bar . staff-bar)
 @end example")
      (spanner-id ,string? "An identifier to distinguish concurrent spanners.")
      (springs-and-rods ,boolean? "Dummy variable for triggering
@@ -889,7 +890,7 @@ should use @code{LEFT}.")
 @var{dir})} pairs, indicating the desired tie configuration, where
 @var{position} is the offset from the center of the staff in staff
 space and @var{dir} indicates the direction of the tie
-(@code{1}=>up, @code{-1}=>down, @code{0}=>center).  A non-pair entry
+(@code{1}=>up, @w{@code{-1}}=>down, @code{0}=>center).  A non-pair entry
 in the list causes the corresponding tie to be formatted
 automatically.")
      (to-barline ,boolean? "If true, the spanner will stop at the bar

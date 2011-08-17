@@ -102,8 +102,8 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 
 LY_DEFINE (ly_dir_p, "ly:dir?",
            1, 0, 0, (SCM s),
-           "Is @var{s} a direction?  Valid directions are @code{-1},"
-           " @code{0}, or@tie{}@code{1}, where @code{-1} represents"
+           "Is @var{s} a direction?  Valid directions are @w{@code{-1}},"
+           " @code{0}, or@tie{}@code{1}, where @w{@code{-1}} represents"
            " left or down, @code{1}@tie{}represents right or up, and @code{0}"
            " represents a neutral direction.")
 {
@@ -187,7 +187,7 @@ LY_DEFINE (ly_string_percent_encode, "ly:string-percent-encode",
            1, 0, 0, (SCM str),
            "Encode all characters in string @var{str} with hexadecimal"
            " percent escape sequences, with the following exceptions:"
-           " characters @code{-}, @code{.}, @code{/}, and @code{_}; and"
+           " characters @w{@code{-},} @code{.}, @code{/}, and @code{_}; and"
            " characters in ranges @code{0-9}, @code{A-Z}, and @code{a-z}.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);

@@ -4075,7 +4075,7 @@ in the
 @subsubheading February 2, 2004
 LilyPond 2.1.17 is out. It adds texts
 (solo, a due) for the part combiner. It also reinstates the
-@code{--safe} option which prevents havoc by Scheme exploits.  More
+@option{--safe} option which prevents havoc by Scheme exploits.  More
 information in the
 @ref{Changes}.
 @newsEnd

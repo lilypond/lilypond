@@ -239,7 +239,7 @@ for pitches, durations are only written when necessary.
 It is possible to record a MIDI file using a digital keyboard, and
 then convert it to @file{.ly}.  However, human players are not
 rhythmically exact enough to make a MIDI to LY conversion trivial.
-When invoked with quantizing (@code{-s} and @code{-d} options)
+When invoked with quantizing (@option{-s} and @option{-d} options)
 @command{midi2ly} tries to compensate for these timing errors, but is not
 very good at this.  It is therefore not recommended to use @command{midi2ly}
 for human-generated midi files.

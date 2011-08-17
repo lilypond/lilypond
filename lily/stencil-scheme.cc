@@ -201,7 +201,7 @@ LY_DEFINE (ly_make_stencil, "ly:make-stencil",
 LY_DEFINE (ly_stencil_aligned_to, "ly:stencil-aligned-to",
            3, 0, 0, (SCM stil, SCM axis, SCM dir),
            "Align @var{stil} using its own extents.  @var{dir} is a number."
-           "  @code{-1} and @code{1} are left and right, respectively."
+           "  @w{@code{-1}} and @code{1} are left and right, respectively."
            "  Other values are interpolated (so @code{0} means the center).")
 {
   LY_ASSERT_SMOB (Stencil, stil, 1);

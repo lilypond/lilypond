@@ -1116,13 +1116,13 @@ If there are multiple fret indicators desired on a string, they
 should be separated by spaces.
 
 @item
-Fingerings are given by following the fret number with a @code{-},
+Fingerings are given by following the fret number with a @w{@code{-},}
 followed by the finger indicator, e.g. @samp{3-2} for playing the third
 fret with the second finger.
 
 @item
 Where a barre indicator is desired, follow the fret (or fingering) symbol
-with @code{-(} to start a barre and @code{-)} to end the barre.
+with @w{@code{-(}} to start a barre and @w{@code{-)}} to end the barre.
 
 @end itemize"
   ;; TODO -- change syntax to fret\string-finger

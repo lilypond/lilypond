@@ -128,7 +128,7 @@ xpdf lilybook
 
 Running @command{lilypond-book} and @command{latex} creates a lot of
 temporary files, which would clutter up the working directory.  To
-remedy this, use the @code{--output=@var{dir}} option.  It will create
+remedy this, use the @option{--output=@var{dir}} option.  It will create
 the files in a separate subdirectory @file{dir}.
 
 Finally the result of the @LaTeX{} example shown above.@footnote{This
@@ -845,7 +845,7 @@ will be included in the @file{.ps} and @file{.pdf} files.
 
 Running @command{dvips} may produce some warnings about fonts; these
 are harmless and may be ignored.  If you are running @command{latex} in
-twocolumn mode, remember to add @code{-t landscape} to the
+twocolumn mode, remember to add @option{-t landscape} to the
 @command{dvips} options.
 
 @subsubheading Texinfo
@@ -902,7 +902,7 @@ Add @var{dir} to the include path.  @command{lilypond-book} also looks
 for already compiled snippets in the include path, and does not write
 them back to the output directory, so in some cases it is necessary to
 invoke further processing commands such as @command{makeinfo} or
-@command{latex} with the same @code{-I @var{dir}} options.
+@command{latex} with the same @option{-I @var{dir}} options.
 
 @item -o @var{dir}
 @itemx --output=@var{dir}
@@ -927,7 +927,7 @@ Do not fail if no PNG images are found for EPS files.  It is used for
 LilyPond Info documentation without images.
 
 @itemx --lily-output-dir=@var{dir}
-Write lily-XXX files to directory @var{dir}, link into @code{--output}
+Write lily-XXX files to directory @var{dir}, link into @option{--output}
 directory.  Use this option to save building time for documents in
 different directories which share a lot of identical snippets.
 
@@ -953,8 +953,8 @@ line to the right by the same amount.
 @item -P @var{command}
 @itemx --process=@var{command}
 Process LilyPond snippets using @var{command}.  The default command is
-@code{lilypond}.  @code{lilypond-book} will not @code{--filter} and
-@code{--process} at the same time.
+@code{lilypond}.  @code{lilypond-book} will not @option{--filter} and
+@option{--process} at the same time.
 
 @item --pdf
 Create PDF files for use with PDF@LaTeX{}.
@@ -966,8 +966,8 @@ all output to log files in the same directory as the source files.
 @itemx --use-source-file-names
 Write snippet output files with the same base name as their source file.
 This option works only for snippets included with @code{lilypondfile}
-and only if directories implied by @code{--output-dir} and
-@code{--lily-output-dir} options are different.
+and only if directories implied by @option{--output-dir} and
+@option{--lily-output-dir} options are different.
 
 @item -V
 @itemx --verbose
@@ -1017,7 +1017,7 @@ selects the output format based on the input filename's extension.
 If you use the same filename extension for the input file than the
 extension @command{lilypond-book} uses for the output file, and if the
 input file is in the same directory as @command{lilypond-book} working
-directory, you must use @code{--output} option to make
+directory, you must use @option{--output} option to make
 @command{lilypond-book} running, otherwise it will exit with an error
 message like @qq{Output would overwrite input file}.
 

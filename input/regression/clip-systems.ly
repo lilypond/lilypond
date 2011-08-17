@@ -9,7 +9,7 @@ Notes:
 @item Regions can span multiple systems. In this case, multiple EPS files are generated.
 @end itemize
 
-This file needs to be run separately with @code{-dclip-systems}; the
+This file needs to be run separately with @option{-dclip-systems}; the
 collated-files.html of the regression test does not adequately show
 the results.
 

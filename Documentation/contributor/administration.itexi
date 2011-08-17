@@ -20,7 +20,7 @@ don't fit anywhere else.
 The Contributor's Guide as a whole is still a work in progress,
 but some chapters are much more complete than others.  Chapters
 which are @qq{almost finished} should not have major changes
-without a discussion on @code{-devel}; in other chapters, a
+without a discussion on @w{@code{-devel}}; in other chapters, a
 disorganized @qq{wiki-style dump} of information is encouraged.
 
 Do not change (other than spelling mistakes) without discussion:
@@ -110,9 +110,9 @@ Currently: Francisco
 @item
 Frog Meister: is responsible for code patches from (relatively)
 inexperienced contributors.  Keeps track of patches, does initial
-reviewing of those patches, sends them to @code{-devel} when
+reviewing of those patches, sends them to @w{@code{-devel}} when
 they've had some initial review on the Frog list, pesters the
-@code{-devel} community into actually reviewing said patches, and
+@w{@code{-devel}} community into actually reviewing said patches, and
 finally pushes the patches once they're accepted.  This person is
 @emph{not} responsible for training new programmers, because that
 would be far too much work -- he job is @qq{only} to guide

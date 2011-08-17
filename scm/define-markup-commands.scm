@@ -1683,7 +1683,7 @@ Align @var{arg} in @var{axis} direction to the @var{dir} side.
   "
 @cindex setting horizontal text alignment
 
-Set horizontal alignment.  If @var{dir} is @code{-1}, then it is
+Set horizontal alignment.  If @var{dir} is @w{@code{-1}}, then it is
 left-aligned, while @code{+1} is right.  Values in between interpolate
 alignment accordingly.
 

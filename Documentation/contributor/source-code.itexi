@@ -196,7 +196,7 @@ should configure some basic settings with the
 global and repository-specific options.
 
 To configure settings that affect all repositories, use the
-@command{--global} command line option.  For example, the first
+@option{--global} command line option.  For example, the first
 two options that you should always set are your @var{name} and
 @var{email}, since Git needs these to keep track of commit
 authors:
@@ -247,7 +247,7 @@ by the above commands would look like this:
 @end example
 
 Using the @command{git@tie{}config} command @emph{without} the
-@command{--global} option configures repository-specific settings,
+@option{--global} option configures repository-specific settings,
 which are stored in the file @file{.git/config}.  This file is
 created when a repository is initialized (using
 @command{git@tie{}init}), and by default contains these lines:
@@ -522,7 +522,7 @@ git pull    # recommended for translators
 @end example
 
 If you're tracking the remote @code{master} branch, you should add
-the @code{-r} option (short for @code{--rebase}) to keep commits
+the @option{-r} option (short for @option{--rebase}) to keep commits
 on your local branch current:
 
 @example
@@ -530,7 +530,7 @@ git pull -r # use with caution when translating
 @end example
 
 If you don't edit translated documentation and don't want to type
-@code{-r} every time, configure the master branch to rebase by
+@option{-r} every time, configure the master branch to rebase by
 default with this command:
 
 @example
@@ -629,7 +629,7 @@ git branch -d @var{name}
 @end example
 
 Git will ask you for confirmation if it sees that data would be
-lost by deleting the branch.  Use @code{-D} instead of @code{-d}
+lost by deleting the branch.  Use @option{-D} instead of @option{-d}
 to bypass this.  Note that you cannot delete a branch if it is
 currently checked out.
 
@@ -801,7 +801,7 @@ git commit -a
 @end example
 
 @noindent
-The @code{-a} is short for @code{--all} which includes modified
+The @option{-a} is short for @option{--all} which includes modified
 and deleted files, but only those newly created files that have
 previously been added.
 
@@ -873,7 +873,7 @@ We prefer it if you follow the instructions in
 alternate method here.
 
 You should always run @command{git@tie{}pull@tie{}-r} (translators
-should leave off the @code{-r}) before doing this to ensure that
+should leave off the @option{-r}) before doing this to ensure that
 your patches are as current as possible.
 
 Once you have made one or more commits in your local repository,

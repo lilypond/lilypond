@@ -644,7 +644,7 @@ left-aligned with the first note of the melisma.
 When a melisma occurs on a syllable other that the last one in a
 word, that syllable is usually joined to the following one with a
 hyphenated line.  This is indicated by placing a double hyphen,
-@code{--}, immediately after the syllable.
+@w{@code{--}}, immediately after the syllable.
 
 Alternatively, when a melisma occurs on the last or only syllable in
 a word an extender line is usually drawn from the end of the syllable

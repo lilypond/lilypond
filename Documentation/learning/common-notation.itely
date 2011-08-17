@@ -197,7 +197,7 @@ aes4 c b c
 
 If the above seems confusing, consider this: if you were playing a
 piano, which key would you hit?  If you would press a black key,
-then you @emph{must} add @code{-is} or @code{-es} to the note
+then you @emph{must} add @w{@code{-is}} or @w{@code{-es}} to the note
 name!
 
 Adding all alterations explicitly might require a little more

@@ -219,7 +219,7 @@ grep -i functionName subdirectory/*
 
 This command will search all the contents of the directory subdirectory/
 and display every line in any of the files that contains
-functionName.  The @code{-i} option makes @command{grep} ignore
+functionName.  The @option{-i} option makes @command{grep} ignore
 case -- this can be very useful if you are not yet familiar with
 our capitalization conventions.
 
@@ -731,7 +731,7 @@ the console should be:
 @end itemize
 
 The loglevel can either be set with the environment variable
-@code{LILYPOND_LOGLEVEL} or on the command line with the @code{--loglevel=...}
+@code{LILYPOND_LOGLEVEL} or on the command line with the @option{--loglevel=...}
 option.
 
 @unnumberedsubsec Functions for debug and log output
@@ -1181,7 +1181,7 @@ number of different platforms:
 In order for the Graphviz tool to work, config.make must be modified.
 It is probably a good idea to first save a copy of config.make under
 a different name.  Then, edit config.make by removing every occurrence
-of @code{-DNDEBUG}.
+of @option{-DNDEBUG}.
 
 @item Rebuilding LilyPond
 
@@ -1229,7 +1229,7 @@ dot -Tpdf graphviz.log > graphviz.pdf
 
 The pdf file can then be viewed with any pdf viewer.
 
-When compiled without @code{-DNDEBUG}, lilypond may run slower
+When compiled without @option{-DNDEBUG}, lilypond may run slower
 than normal.  The original configuration can be restored by either
 renaming the saved copy of @code{config.make} or rerunning
 @code{configure}.  Then rebuild lilypond with

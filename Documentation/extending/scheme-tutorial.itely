@@ -148,7 +148,7 @@ and False is @code{#f}.
 
 @item Numbers
 Numbers are entered in the standard fashion,
-@code{1} is the (integer) number one, while @code{-1.5} is a
+@code{1} is the (integer) number one, while @w{@code{-1.5}} is a
 floating point number (a non-integer number).
 
 @item Strings
@@ -780,7 +780,7 @@ define some Scheme code in a macro (to be called later), use
 @knownissues
 
 Mixing Scheme and LilyPond variables is not possible with the
-@code{--safe} option.
+@option{--safe} option.
 
 
 @node Object properties

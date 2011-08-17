@@ -1104,7 +1104,7 @@ active pitch in any octave.
 @var{laziness} states over how many bars an accidental should be remembered.
 @code{0}@tie{}is the default -- accidental lasts over 0@tie{}bar lines, that
 is, to the end of current measure.  A positive integer means that the
-accidental lasts over that many bar lines.  @code{-1} is `forget
+accidental lasts over that many bar lines.  @w{@code{-1}} is `forget
 immediately', that is, only look at key signature.  @code{#t} is `forever'."
 
   (check-pitch-against-signature context pitch barnum laziness octaveness))

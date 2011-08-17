@@ -923,7 +923,7 @@ to the front of these values when they are entered in the
   @tab A valid direction constant or its numerical equivalent (decimal
 values between -1 and 1 are allowed)
   @tab @code{LEFT}, @code{CENTER}, @code{UP},
-       @code{1}, @code{-1}
+       @code{1}, @w{@code{-1}}
 @item Integer
   @tab A positive whole number
   @tab @code{3}, @code{1}
@@ -942,7 +942,7 @@ make-moment function
        @code{(ly:make-moment 3 8)}
 @item Number
   @tab Any positive or negative decimal value
-  @tab @code{3.5}, @code{-2.45}
+  @tab @code{3.5}, @w{@code{-2.45}}
 @item Pair (of numbers)
   @tab Two numbers separated by a @q{space . space} and enclosed
 in brackets preceded by an apostrophe
@@ -1718,7 +1718,7 @@ a4 g c a |
 @end lilypond
 
 Here we use the constants @code{DOWN} and @code{UP}.
-These have the values @code{-1} and @code{+1} respectively, and
+These have the values @w{@code{-1}} and @code{+1} respectively, and
 these numerical values may be used instead.  The value @code{0}
 may also be used in some cases.  It is simply treated as meaning
 @code{UP} for stems, but for some objects it means @q{center}.
@@ -1901,8 +1901,8 @@ Here are a few examples:
 @noindent
 If the fingering seems a little crowded the @code{font-size}
 could be reduced.  The default value can be seen from the
-@code{Fingering} object in the IR to be @code{-5}, so let's
-try @code{-7}:
+@code{Fingering} object in the IR to be @w{@code{-5}}, so let's
+try @w{@code{-7}}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 \override Fingering #'font-size = #-7
@@ -2422,11 +2422,11 @@ reference point.  It may be used with all objects which support
 the @code{self-alignment-interface}.  In general these are objects
 that contain text.  The values are @code{LEFT}, @code{RIGHT}
 or @code{CENTER}.  Alternatively, a numerical value between
-@code{-1} and @code{+1} may be specified, where @code{-1} is
+@w{@code{-1}} and @code{+1} may be specified, where @w{@code{-1}} is
 left-aligned, @code{+1} is right-aligned, and numbers in between
 move the text progressively from left-aligned to right-aligned.
 Numerical values greater than @code{1} may be specified to move
-the text even further to the left, or less than @code{-1} to
+the text even further to the left, or less than @w{@code{-1}} to
 move the text even further to the right.  A change of @code{1}
 in the value corresponds to a movement of half the text's length.
 
@@ -2709,7 +2709,7 @@ The best solution here is to move the multimeasure rest down, since
 the rest is in voice two.  The default in @code{\voiceTwo} (i.e. in
 the second voice of a @code{<<@{...@} \\ @{...@}>>} construct) is that
 @code{staff-position} is set to -4 for MultiMeasureRest, so we need to
-move it, say, four half-staff spaces down to @code{-8}.
+move it, say, four half-staff spaces down to @w{@code{-8}}.
 
 @cindex MultiMeasureRest, example of overriding
 @cindex staff-position property, example

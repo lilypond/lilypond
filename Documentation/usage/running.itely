@@ -135,7 +135,7 @@ The following options are supported:
 
 @item -e,--evaluate=@var{expr}
 Evaluate the Scheme @var{expr} before parsing any @file{.ly} files.
-Multiple @code{-e} options may be given, they will be evaluated
+Multiple @option{-e} options may be given, they will be evaluated
 sequentially.
 
 The expression will be evaluated in the @code{guile-user} module, so
@@ -186,7 +186,7 @@ Here are a few interesting options.
 
 @table @samp
 @item help
-Running @code{lilypond -dhelp} will print all of the @code{-d} options
+Running @code{lilypond -dhelp} will print all of the @option{-d} options
 available.
 
 @cindex paper-size, command line
@@ -207,8 +207,8 @@ Note that the string must be enclosed in escaped quotes ( @code{\"} ).
 Do not trust the @code{.ly} input.
 
 When LilyPond formatting is available through a web server, either the
-@code{--safe} or the @code{--jail} option @b{MUST} be passed.  The
-@code{--safe} option will prevent inline Scheme code from wreaking
+@option{--safe} or the @option{--jail} option @b{MUST} be passed.  The
+@option{--safe} option will prevent inline Scheme code from wreaking
 havoc, for example
 
 @quotation
@@ -220,7 +220,7 @@ havoc, for example
 @end verbatim
 @end quotation
 
-The @code{-dsafe} option works by evaluating in-line Scheme
+The @option{-dsafe} option works by evaluating in-line Scheme
 expressions in a special safe module.  This safe module is derived from
 GUILE @file{safe-r5rs} module, but adds a number of functions of the
 LilyPond API.  These functions are listed in @file{scm/safe-lily.scm}.
@@ -231,14 +231,14 @@ disables the use of backslashes in @TeX{} strings.
 In safe mode, it is not possible to import LilyPond variables
 into Scheme.
 
-@code{-dsafe} does @emph{not} detect resource overuse.  It is still possible to
+@option{-dsafe} does @emph{not} detect resource overuse.  It is still possible to
 make the program hang indefinitely, for example by feeding cyclic data
 structures into the backend.  Therefore, if using LilyPond on a
 publicly accessible webserver, the process should be limited in both
 CPU and memory usage.
 
 The safe mode will prevent many useful LilyPond snippets from being
-compiled.  The @code{--jail} is a more secure alternative, but
+compiled.  The @option{--jail} is a more secure alternative, but
 requires more work to set up.
 
 @cindex output format, setting
@@ -286,7 +286,7 @@ This mode is used by default by @command{lilypond-book}.
  for a dump of the raw, internal Scheme-based drawing commands.
 
 @item null
- do not output a printed score; has the same effect as @code{-dno-print-pages}.
+ do not output a printed score; has the same effect as @option{-dno-print-pages}.
 @end table
 
 Example: @code{lilypond -dbackend=svg @var{filename}.ly}
@@ -305,13 +305,13 @@ Runs silently and redirect all output to a log file.
 Note to Windows users: By default @code{lilypond.exe} outputs all
 progress information to the command window, @code{lilypond-windows.exe}
 does not and returns a prompt, with no progress information, immediately
-at the command line.  The @code{-dgui} option can be used in this case
+at the command line.  The @option{-dgui} option can be used in this case
 to redirect output to a log file.
 
 
 @item print-pages
-Generate the full pages, the default.  @code{-dno-print-pages} is
-useful in combination with @code{-dpreview}.
+Generate the full pages, the default.  @option{-dno-print-pages} is
+useful in combination with @option{-dpreview}.
 
 @end table
 
@@ -380,7 +380,7 @@ Generate PostScript.
 
 @item --png
 Generate pictures of each page, in PNG format.  This implies
-@code{--ps}.  The resolution in DPI of the image may be set with
+@option{--ps}.  The resolution in DPI of the image may be set with
 @example
 -dresolution=110
 @end example
@@ -388,24 +388,24 @@ Generate pictures of each page, in PNG format.  This implies
 @cindex Portable Document Format (PDF) output
 
 @item --pdf
-Generate PDF.  This implies @code{--ps}.
+Generate PDF.  This implies @option{--ps}.
 
 
 
 @item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}
 Run @command{lilypond} in a chroot jail.
 
-The @code{--jail} option provides a more flexible alternative to
-@code{--safe} when LilyPond formatting is available through a web
+The @option{--jail} option provides a more flexible alternative to
+@option{--safe} when LilyPond formatting is available through a web
 server or whenever LilyPond executes externally provided
 sources.
 
-The @code{--jail} option works by changing the root of @command{lilypond} to
+The @option{--jail} option works by changing the root of @command{lilypond} to
 @var{jail} just before starting the actual compilation process.  The user
 and group are then changed to match those provided, and the current
 directory is changed to @var{dir}.  This setup guarantees that it is not
 possible (at least in theory) to escape from the jail.  Note that for
-@code{--jail} to work @command{lilypond} must be run as root, which is usually
+@option{--jail} to work @command{lilypond} must be run as root, which is usually
 accomplished in a safe way using @command{sudo}.
 
 Setting up a jail is a slightly delicate matter, as we must be sure that
@@ -483,7 +483,7 @@ This selects the language for the warning messages.
 
 @item LILYPOND_LOGLEVEL
 The default loglevel. If LilyPond is called without an explicit loglevel (i.e.
-no @code{--loglevel} command line option), this value is used.
+no @option{--loglevel} command line option), this value is used.
 
 @item LILYPOND_GC_YIELD
 A variable, as a percentage, that tunes memory management
@@ -642,8 +642,8 @@ happens rarely.  The most usual cause is misinstalled fonts.
 @cindex call trace
 @cindex Scheme error
 Errors that occur while executing Scheme code are caught by the Scheme
-interpreter.  If running with the verbose option (@code{-V} or
-@code{--verbose}) then a call trace of the offending
+interpreter.  If running with the verbose option (@option{-V} or
+@option{--verbose}) then a call trace of the offending
 function call is printed.
 
 @item Programming error
