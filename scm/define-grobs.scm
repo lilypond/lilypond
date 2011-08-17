@@ -1414,6 +1414,7 @@
     (NoteColumn
      . (
 	(axes . (,X ,Y))
+	(bound-alignment-interfaces . (rhythmic-head-interface stem-interface))
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
 	(skyline-vertical-padding . 0.15)
 	(X-extent . ,ly:axis-group-interface::width)
@@ -1518,6 +1519,7 @@
 	(allow-loose-spacing . #t)
 	(axes . (,X))
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
+	(bound-alignment-interfaces . (note-column-interface))
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
 	(keep-inside-line . #t)
 	;; (stencil . ,ly:paper-column::print)

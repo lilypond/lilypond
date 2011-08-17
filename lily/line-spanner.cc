@@ -25,6 +25,7 @@
 #include "lily-proto.hh"
 #include "line-interface.hh"
 #include "output-def.hh"
+#include "paper-column.hh"
 #include "pointer-group-interface.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
@@ -108,9 +109,12 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
                          ? columns[0] : columns.back ();
         }
 
+      Interval extent = (Paper_column::has_interface (bound_grob)
+                         ? Axis_group_interface::generic_bound_extent (bound_grob, commonx, X_AXIS)
+                         : robust_relative_extent (bound_grob, commonx, X_AXIS));
+
       details = scm_acons (ly_symbol2scm ("X"),
-                           scm_from_double (robust_relative_extent (bound_grob, commonx, X_AXIS)
-                                            .linear_combination (attach)),
+                           scm_from_double (extent.linear_combination (attach)),
                            details);
     }
 

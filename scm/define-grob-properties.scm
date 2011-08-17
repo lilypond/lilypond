@@ -994,6 +994,8 @@ function is to protect objects from being garbage collected.")
 
      (bars ,ly:grob-array? "An array of bar line pointers.")
      (beam ,ly:grob? "A pointer to the beam, if applicable.")
+     (bound-alignment-interfaces ,list "Interfaces to be used
+for positioning elements that align with a column.")
      (bounded-by-me ,ly:grob-array? "An array of spanners that have this
 column as start/begin point.  Only columns that have grobs or act as
 bounds are spaced.")
