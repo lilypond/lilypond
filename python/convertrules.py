@@ -3013,6 +3013,12 @@ def conv (str):
     str = re.sub (r'\\(cresc|dim|endcresc|enddim)\b', r'\\deprecated\1', str)
     return str
 
+@rule ((2, 13, 27),
+       ("interval-translate -> coord-translate"))
+def conv (str):
+    str = re.sub ('interval-translate', 'coord-translate', str)
+    return str
+
 @rule ((2, 13, 29),
        _ ("Eliminate beamSettings, beatLength, \\setBeatGrouping, \\overrideBeamSettings and \\revertBeamSettings.\n\
 \"accordion.accEtcbase\" -> \"accordion.etcbass\""))
