@@ -1,7 +1,7 @@
 
 \header {
 
-  texidoc = "Beam/rest collision resolution and normal rest/note
+  texidoc = "Beam/rest collision resolution and normal rest/@/note
 collisions can be combined."
 
 }

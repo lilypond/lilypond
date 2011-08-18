@@ -111,7 +111,7 @@ Syntax for manual control: @code{c8-[ c c-] c8}")
 	))
 
     (BendAfterEvent
-     . ((description . "A drop/fall/doit jazz articulation.")
+     . ((description . "A drop/@/fall/@/doit jazz articulation.")
 	(types . (general-music bend-after-event event))))
 
     (BreathingEvent

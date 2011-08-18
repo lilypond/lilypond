@@ -1,7 +1,7 @@
 
 \header {
   texidoc = "Individual ties may be formatted manually by
-specifying their @code{direction} and/or @code{staff-position}."
+specifying their @code{direction} and/@/or @code{staff-position}."
   
 }
 

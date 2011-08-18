@@ -167,7 +167,7 @@ Arguments:
 @var{design-size-alist} is a list of @code{(rounded . designsize)}.
 @code{rounded} is a suffix for font filenames, while @code{designsize}
 should be the actual design size.  The latter is used for text fonts
-loaded through pango/fontconfig.
+loaded through pango/@/fontconfig.
 
 @item
 @var{factor} is a size factor relative to the default size that is being

@@ -1,6 +1,6 @@
 \header
 {
-  texidoc = "TM and No should not be changed into trademark/number symbols.
+  texidoc = "TM and No should not be changed into trademark/@/number symbols.
 This may happen with incorrect font versions.
 "
 }

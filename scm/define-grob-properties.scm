@@ -164,12 +164,12 @@ stick out of its bounds?")
 ;;
      (c0-position ,integer? "An integer indicating the position of
 middle@tie{}C.")
-     (circled-tip ,boolean? "Put a circle at start/end of
-hairpins (al/del niente).")
+     (circled-tip ,boolean? "Put a circle at start/@/end of
+hairpins (al/@/del niente).")
      (clip-edges ,boolean? "Allow outward pointing beamlets at the
 edges of beams?")
      (collapse-height ,ly:dimension? "Minimum height of system start
-delimiter.  If equal or smaller, the bracket/brace/line is removed.")
+delimiter.  If equal or smaller, the bracket/@/brace/@/line is removed.")
      (collision-interfaces ,list? "A list of interfaces for which
 automatic beam-collision resolution is run.")
      (collision-voice-only ,boolean? "Does automatic beam collsion apply
@@ -434,8 +434,8 @@ be included in harp-pedal-details include the following:
 
 @itemize @bullet
 @item
-@code{box-offset} -- Vertical shift of the center of flat/sharp pedal
-boxes above/below the horizontal line.  Default value@tie{}0.8.
+@code{box-offset} -- Vertical shift of the center of flat/@/sharp pedal
+boxes above/@/below the horizontal line.  Default value@tie{}0.8.
 @item
 @code{box-width} -- Width of each pedal box.  Default value@tie{}0.4.
 @item
@@ -998,7 +998,7 @@ function is to protect objects from being garbage collected.")
      (bound-alignment-interfaces ,list "Interfaces to be used
 for positioning elements that align with a column.")
      (bounded-by-me ,ly:grob-array? "An array of spanners that have this
-column as start/begin point.  Only columns that have grobs or act as
+column as start/@/begin point.  Only columns that have grobs or act as
 bounds are spaced.")
      (bracket ,ly:grob? "The bracket for a number.")
 
@@ -1169,7 +1169,7 @@ an additional stem on the right side?")
 
      (cavum ,boolean? "Is this neume outlined?")
      (context-info ,integer? "Within a ligature, the final glyph or shape of
-a head may be affected by the left and/or right neighbour head.
+a head may be affected by the left and/@/or right neighbour head.
 @code{context-info} holds for each head such information about the left and
 right neighbour, encoded as a bit mask.")
 

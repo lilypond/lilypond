@@ -98,7 +98,7 @@ printed.  @code{(#t . #f)} does not make sense.
 
 @end table")
      (autoBeamCheck ,procedure? "A procedure taking three
-arguments, @var{context}, @var{dir} [start/stop (-1 or 1)], and
+arguments, @var{context}, @var{dir} [start/@/stop (-1 or 1)], and
 @var{test} [shortest note in the beam].  A non-@code{#f} return value
 starts or stops the auto beam.")
      (autoBeaming ,boolean? "If set to true then beams are generated
@@ -239,7 +239,7 @@ for a bass figure.")
      (figuredBassPlusDirection ,ly:dir? "Where to put plus signs
 relative to the main figure.")
      (fingeringOrientations ,list? "A list of symbols, containing
-@samp{left}, @samp{right}, @samp{up} and/or @samp{down}.  This list
+@samp{left}, @samp{right}, @samp{up} and/@/or @samp{down}.  This list
 determines where fingerings are put relative to the chord being
 fingered.")
      (firstClef ,boolean? "If true, create a new clef when starting a
@@ -477,7 +477,7 @@ subdivided at @code{baseMoment} positions by only drawing one beam over the beat
      (suggestAccidentals ,boolean? "If set, accidentals are typeset as
 cautionary suggestions over the note.")
      (systemStartDelimiter ,symbol? "Which grob to make for the start
-of the system/staff?  Set to @code{SystemStartBrace},
+of the system/@/staff?  Set to @code{SystemStartBrace},
 @code{SystemStartBracket} or @code{SystemStartBar}.")
      (systemStartDelimiterHierarchy ,pair? "A nested list, indicating
 the nesting of a start delimiters.")
@@ -624,7 +624,7 @@ is not set")
 
      (scriptDefinitions ,list? "The description of scripts.  This is
 used by the @code{Script_engraver} for typesetting note-superscripts
-and subscripts.  See @file{scm/script.scm} for more information.")
+and subscripts.  See @file{scm/@/script.scm} for more information.")
      (slurMelismaBusy ,boolean? "Signal if a slur is present.")
      (stavesFound ,grob-list? "A list of all staff-symbols found.")
 

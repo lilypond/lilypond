@@ -1,9 +1,9 @@
 \version "2.14.0"
 \header {
 
-  texidoc = "Rests can have pitches--these will be affected by
-transposition and relativization. If a rest has a pitch, rest/rest and
-beam/rest collision resolving will leave it alone."
+  texidoc = "Rests can have pitches -- these will be affected by
+transposition and relativization.  If a rest has a pitch, rest/@/rest and
+beam/@/rest collision resolving will leave it alone."
 
 }
 

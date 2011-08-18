@@ -1,6 +1,6 @@
 \version "2.14.0"
 \header {
-  texidoc = "Span bars can be turned on/off on a staff-by-staff basis."
+  texidoc = "Span bars can be turned on/@/off on a staff-by-staff basis."
 }
 
 \layout {

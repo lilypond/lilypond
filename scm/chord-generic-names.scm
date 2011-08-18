@@ -53,7 +53,7 @@ FIXME: func, options/context have changed
 
 See @file{double-plus-new-chord-name.scm} for the signature of @var{style}.
 @var{pitches}, @var{bass}, and @var{inversion} are lily pitches.
-@var{options} is an alist-alist (see @file{input/test/dpncnt.ly})."
+@var{options} is an alist-alist (see @file{input/@/test/@/dpncnt.ly})."
 
   (define (step-nr pitch)
     (let* ((pitch-nr (+ (* 7 (ly:pitch-octave pitch))
