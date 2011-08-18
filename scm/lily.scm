@@ -36,7 +36,7 @@
     (debug-enable 'debug)
     (begin
       (debug-enable 'backtrace)
-      (debug-enable 'show-file-name)))
+      (debug-set! show-file-name #t)))
 
 (define-public PLATFORM
   (string->symbol
