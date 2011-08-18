@@ -707,7 +707,7 @@ A LilyPond @version{} verziójához
 </div>
 @end html
 @iftex
-@image{examples/\IMAGE-FILE\-small,,,\IMAGE-FILE\,png}
+@image{ly-examples/\IMAGE-FILE\,6in,,\IMAGE-FILE\,png}
 @end iftex
 @ifinfo
 @image{lilypond/examples/\IMAGE-FILE\,,,\IMAGE-FILE\,png}

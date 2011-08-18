@@ -739,7 +739,7 @@ For LilyPond version @version{}
 </div>
 @end html
 @iftex
-@image{ly-examples/\IMAGE-FILE\-small,,,\IMAGE-FILE\,png}
+@image{ly-examples/\IMAGE-FILE\,6in,,\IMAGE-FILE\,png}
 @end iftex
 @ifinfo
 @image{lilypond/ly-examples/\IMAGE-FILE\,,,\IMAGE-FILE\,png}
