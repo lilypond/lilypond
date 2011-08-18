@@ -17,7 +17,7 @@ grupo de valoración especial es imprimir el corchete a no ser que haya
 una barra de la misma longitud que el grupo especial.  Para controlar
 la visibilidad de los corchetes de grupo, establezca la propiedad
 @code{'bracket-visibility} a @code{#t} (imprimir el corchete siempre),
-@code{#f} (no imprimirlo nunca) o @code{#'if-no-beam} (imprimir el
+@code{#f} (no imprimirlo nunca) o @code{'if-no-beam} (imprimir el
 corchete solamente si no hay barra).
 
 "
@@ -33,7 +33,7 @@ ligature.  LilyPond permet, au travers de la propriété
 @code{'bracket-visibility}, de contôler précisément leur
 affichage@tie{}: déterminée à @code{#t}, ils seront toujours
 imprimés@tie{}; @code{#f} permet de ne jamais les imprimer, et
-@code{#'if-no-beam} les imprimera en l'absence de ligature.
+@code{'if-no-beam} les imprimera en l'absence de ligature.
 
 "
   doctitlefr = "Contrôle de l'impression des crochets de nolet"
@@ -44,7 +44,7 @@ The default behavior of tuplet-bracket visibility is to print a bracket
 unless there is a beam of the same length as the tuplet. To control the
 visibility of tuplet brackets, set the property
 @code{'bracket-visibility} to either @code{#t} (always print a
-bracket), @code{#f} (never print a bracket) or @code{#'if-no-beam}
+bracket), @code{#f} (never print a bracket) or @code{'if-no-beam}
 (only print a bracket if there is no beam).
 
 "

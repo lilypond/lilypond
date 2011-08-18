@@ -4,7 +4,7 @@
 
   texidoc = "When figures appear inside a voice, @code{ignoreFiguredBassRest} 
   causes all figures on rests to be discarded and all spanners ended.
-  If set to @code{##f}, figures on rests are printed.
+  If set to @code{#f}, figures on rests are printed.
 "
 
 }

@@ -213,13 +213,13 @@ looking at the top of the Internals Reference page for each interface
 having a @code{details} property.")
      (digit-names ,vector? "Names for string finger digits.")
      (direction ,ly:dir? "If @code{side-axis} is @code{0} (or
-@code{#X}), then this property determines whether the object is placed
-@code{#LEFT}, @code{#CENTER} or @code{#RIGHT} with respect to the
+@code{X}), then this property determines whether the object is placed
+@code{LEFT}, @code{CENTER} or @code{RIGHT} with respect to the
 other object.  Otherwise, it determines whether the object is placed
-@code{#UP}, @code{#CENTER} or @code{#DOWN}.  Numerical values may also
-be used: @code{#UP}=@code{1}, @code{#DOWN}=@w{@code{-1}},
-@code{#LEFT}=@w{@code{-1}}, @code{#RIGHT}=@code{1},
-@code{#CENTER}=@code{0}.")
+@code{UP}, @code{CENTER} or @code{DOWN}.  Numerical values may also
+be used: @code{UP}=@code{1}, @code{DOWN}=@w{@code{-1}},
+@code{LEFT}=@w{@code{-1}}, @code{RIGHT}=@code{1},
+@code{CENTER}=@code{0}.")
      (dot-count ,integer? "The number of dots.")
      (dot-negative-kern ,number? "The space to remove between a dot
 and a slash in percent repeat glyphs.  Larger values bring the two
@@ -356,8 +356,8 @@ the center of the fret in direction parallel to strings.
 Default@tie{}0.
 @item
 @code{label-dir} -- Side to which the fret label is attached.
-@w{@code{-1}}, @code{#LEFT}, or @code{#DOWN} for left or down; @code{1},
-@code{#RIGHT}, or @code{#UP} for right or up.  Default @code{#RIGHT}.
+@w{@code{-1}}, @code{LEFT}, or @code{DOWN} for left or down; @code{1},
+@code{RIGHT}, or @code{UP} for right or up.  Default @code{RIGHT}.
 @item
 @code{mute-string} -- Character string to be used to indicate muted
 string.  Default @code{\"x\"}.
@@ -698,7 +698,7 @@ attachments of spanners to edges.")
      (right-padding ,ly:dimension? "Space to insert on the right side
 of an object (e.g., between note and its accidentals).")
      (rotation ,list? "Number of degrees to rotate this object, and
-what point to rotate around.  For example, @code{#'(45 0 0)} rotates
+what point to rotate around.  For example, @code{'(45 0 0)} rotates
 by 45 degrees around the center of this object.")
      (round-up-to-longer-rest ,boolean? "Displays the longer multi-measure
 rest when the length of a measure is between two values of
@@ -732,9 +732,9 @@ space for the shortest duration.  This is expressed in
 shortest note playing here.")
      (shortest-starter-duration ,ly:moment? "The duration of the
 shortest note that starts here.")
-     (side-axis ,number? "If the value is @code{#X} (or
+     (side-axis ,number? "If the value is @code{X} (or
 equivalently@tie{}@code{0}), the object is placed horizontally next to
-the other object.  If the value is @code{#Y} or@tie{}@code{1}, it is
+the other object.  If the value is @code{Y} or@tie{}@code{1}, it is
 placed vertically.")
      (side-relative-direction ,ly:dir? "Multiply direction of
 @code{direction-source} with this to get the direction of this
@@ -1068,10 +1068,11 @@ objects.")
      (spanner-broken ,boolean? "Indicates whether spanner
 alignment should be broken after the current spanner.")
      (spanner-placement ,ly:dir? "The place of an annotation on a spanner.
-LEFT is for the first spanner, and RIGHT is for the last.  CENTER will
-place it on the broken spanner that falls closest to the center of the length
-of the entire spanner, although this behavior is unpredictable in situations
-with lots of rhythmic diversity.  For predictable results, use LEFT and RIGHT.")
+@code{LEFT} is for the first spanner, and @code{RIGHT} is for the last.
+@code{CENTER} will place it on the broken spanner that falls closest to the
+center of the length of the entire spanner, although this behavior is
+unpredictable in situations with lots of rhythmic diversity.  For predictable
+results, use @code{LEFT} and @code{RIGHT}.")
      (staff-grouper ,ly:grob? "The staff grouper we belong to.")
      (staff-symbol ,ly:grob? "The staff symbol grob that we are in.")
      (stem ,ly:grob? "A pointer to a @code{Stem} object.")

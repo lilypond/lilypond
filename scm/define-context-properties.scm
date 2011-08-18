@@ -247,7 +247,7 @@ staff.")
      (followVoice ,boolean? "If set, note heads are tracked across
 staff switches by a thin line.")
      (fontSize ,number? "The relative size of all grobs in a context.")
-     (forbidBreak ,boolean? "If set to @code{##t}, prevent a line break
+     (forbidBreak ,boolean? "If set to @code{#t}, prevent a line break
 at this point.")
      (forceClef ,boolean? "Show clef symbol, even if it has not
 changed.  Only active for the first clef after the property is set, not
@@ -339,7 +339,7 @@ we had.  This can be set manually to create incomplete measures.")
      (melismaBusyProperties ,list? "A list of properties (symbols) to
 determine whether a melisma is playing.  Setting this property will
 influence how lyrics are aligned to notes.  For example, if set to
-@code{#'(melismaBusy beamMelismaBusy)}, only manual melismata and
+@code{'(melismaBusy beamMelismaBusy)}, only manual melismata and
 manual beams are considered.  Possible values include
 @code{melismaBusy}, @code{slurMelismaBusy}, @code{tieMelismaBusy}, and
 @code{beamMelismaBusy}.")
@@ -496,7 +496,7 @@ minute.")
 follow each other directly.  This can be used for writing out
 arpeggios.")
      (timeSignatureFraction ,number-pair? "A pair of numbers,
-signifying the time signature.  For example, @code{#'(4 . 4)} is a
+signifying the time signature.  For example, @code{'(4 . 4)} is a
 4/4 time signature.")
      (timeSignatureSettings ,cheap-list? "A nested alist of settings for
 time signatures.  Contains elements for various time signatures.  The
@@ -570,7 +570,7 @@ are described in @rinternals{bar-line-interface}.")
 barcheck fail?")
      (beamMelismaBusy ,boolean? "Signal if a beam is present.")
      (busyGrobs ,list? "A queue of @code{(@var{end-moment} .
-@var{GROB})} cons cells.  This is for internal (C++) use only.  This
+@var{grob})} cons cells.  This is for internal (C++) use only.  This
 property contains the grobs which are still busy (e.g. note heads,
 spanners, etc.).")
 

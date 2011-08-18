@@ -2039,7 +2039,7 @@ c16 c c |
 of beaming-rules.
 
 At this time the only available value of rule-type is
-@code{#'end} for beam ending.
+@code{'end} for beam ending.
 
 Beaming-rules is a scheme alist (or list of pairs) that indicates the
 beam type and the grouping to be applied to beams containing notes with

@@ -493,7 +493,7 @@ circumstances to avoid errors:
 @item After every command or variable, i.e. every item that
 begins with a @code{\} sign.
 @item After every item that is to be interpreted as a Scheme
-expression, i.e. every item that begins with a @code{#} sign.
+expression, i.e. every item that begins with a @code{#}@tie{}sign.
 @item To separate all elements of a Scheme expression.
 @item In @code{lyricmode} to separate all the terms in both
 @code{\override} and @code{\set} commands.  In particular, spaces

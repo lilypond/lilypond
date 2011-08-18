@@ -944,7 +944,7 @@ of the cover page so that page 1 is on the right hand side.
 
 The relative importance of page (vertical) spacing and line
 (horizontal) spacing.  High values will make page spacing more
-important.  Default: @code{#10}.
+important.  Default: @code{10}.
 
 @item print-all-headers
 @funindex print-all-headers
@@ -1345,7 +1345,7 @@ inserted at top-level, between scores and top-level markups.
 There are also analogous settings to @code{ragged-right} and
 @code{ragged-last} which have the same effect on vertical spacing:
 @code{ragged-bottom} and @code{ragged-last-bottom}.  If set to
-@code{##t} the systems on all pages or just the last page
+@code{#t} the systems on all pages or just the last page
 respectively will not be justified vertically.  See
 @ref{Fixed vertical spacing \paper variables}.
 
@@ -1463,7 +1463,7 @@ the section.
 The @code{Page_turn_engraver} reads the context property
 @code{minimumPageTurnLength} to determine how long a note-free section must
 be before a page turn is considered.  The default value for
-@code{minimumPageTurnLength} is @code{#(ly:make-moment 1 1)}.  If you want
+@code{minimumPageTurnLength} is @code{(ly:make-moment 1 1)}.  If you want
 to disable page turns, you can set it to something very large.
 
 @example
@@ -1776,7 +1776,7 @@ follow the format @code{@var{item1}-@var{item2}-spacing}, where
 spaced.  Note that @code{@var{item2}} is not necessarily below
 @code{@var{item1}}; for example,
 @code{nonstaff-relatedstaff-spacing} will measure upwards from the
-non-staff line if @code{staff-affinity} is @code{#UP}.
+non-staff line if @code{staff-affinity} is @code{UP}.
 
 Each distance is measured between the @emph{reference points} of
 the two items.  The reference point for a staff is the vertical
@@ -2975,10 +2975,10 @@ The @code{proportionalNotationDuration} setting takes a single argument,
 which is the reference duration against that all music will be spaced.
 The LilyPond Scheme function @code{make-moment} takes two arguments
 -- a numerator and denominator which together express some fraction of
-a whole note.  The call @code{#(ly:make-moment 1 20)} therefore produces
+a whole note.  The call @code{(ly:make-moment 1 20)} therefore produces
 a reference duration of a twentieth note.  Values such as
-@code{#(ly:make-moment 1 16)}, @code{#(ly:make-moment 1 8)}, and
-@code{#(ly:make-moment 3 97)} are all possible as well.
+@code{(ly:make-moment 1 16)}, @code{(ly:make-moment 1 8)}, and
+@code{(ly:make-moment 3 97)} are all possible as well.
 
 How do we select the right reference duration to pass to
 @code{proportionalNotationDuration}?  Usually by a process of trial

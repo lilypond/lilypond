@@ -2551,7 +2551,7 @@ If a transposing instrument is being quoted the instrument part should
 specify its key so the conversion of its cue notes will be done
 automatically.  The example below shows this transposition for a
 B-flat clarinet.  The notes in this example are low on the staff so
-@code{#DOWN} is specified in @code{\cueDuring} (so the stems are
+@code{DOWN} is specified in @code{\cueDuring} (so the stems are
 down) and the instrument name is positioned below the staff.  Note
 also that the piano right-hand voice is explicitly declared.  This
 is because the cue notes in this example begin at the start of the

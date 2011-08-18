@@ -36,9 +36,10 @@ and is also included with the LilyPond documentation package.
 Internally, LilyPond uses Scheme (a LISP dialect) to provide
 infrastructure.  Overriding layout decisions in effect accesses the
 program internals, which requires Scheme input.  Scheme elements are
-introduced in a @file{.ly} file with the hash mark
-@code{#}.@footnote{@rextend{Scheme tutorial}, contains a short tutorial
-on entering numbers, lists, strings, and symbols in Scheme.}
+introduced in a @file{.ly} file with the hash
+mark@tie{}@code{#}.@footnote{@rextend{Scheme tutorial}, contains a
+short tutorial on entering numbers, lists, strings, and symbols in
+Scheme.}
 
 
 @menu
@@ -1488,7 +1489,7 @@ command, which has the following syntax:
 @end example
 
 @var{value} is a Scheme object, which is why it must be preceded by
-the @code{#} character.
+the @code{#}@tie{}character.
 
 Contexts properties are usually named in
 @code{studlyCaps}.  They mostly control the translation from
@@ -1765,7 +1766,7 @@ properties.  To tweak those, use commands in the form
 @cindex internal documentation
 
 For many properties, regardless of the data type of the property, setting the
-property to false ( @code{##f} ) will result in turning it off, causing
+property to false (@code{#f}) will result in turning it off, causing
 LilyPond to ignore that property entirely.  This is particularly useful for
 turning off grob properties which may otherwise be causing problems.
 

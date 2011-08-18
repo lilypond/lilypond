@@ -219,7 +219,7 @@ we shall use just a few simple properties and values which are
 easily understood.
 
 For now, don't worry about the @code{#'}, which must precede the
-layout property, and the @code{#}, which must precede the value.
+layout property, and the@tie{}@code{#}, which must precede the value.
 These must always be present in exactly this form.  This is the
 most common command used in tweaking, and most of the rest of
 this chapter will be directed to presenting examples of how it is
@@ -584,7 +584,7 @@ at first, so we can be sure the command is working.  We get:
 @end example
 
 Don't forget the @code{#'} preceding the
-property name and a @code{#} preceding the new value!
+property name and a@tie{}@code{#} preceding the new value!
 
 The final question is, @q{Where should this command be
 placed?}  While you are unsure and learning, the best
@@ -1090,7 +1090,7 @@ our example we want all bar lines to be suppressed, so the value we
 need is @code{'#(#f #f #f)}.  Let's try that, remembering to include
 the @code{Staff} context.  Note also that in writing this value we
 have @code{#'#} before the opening bracket.  The @code{'#} is required
-as part of the value to introduce a vector, and the first @code{#} is
+as part of the value to introduce a vector, and the first@tie{}@code{#} is
 required, as always, to precede the value itself in the
 @code{\override} command.
 

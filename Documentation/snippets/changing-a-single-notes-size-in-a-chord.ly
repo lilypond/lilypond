@@ -16,8 +16,8 @@ Se pueden modificar notas individuales de un acorde con la instrucción
 
 Dentro de un acorde (entre ángulos simples @code{< >}), antes de la
 nota que queremos alterar, situamos la instrucción @code{\\tweak}
-seguida por @code{#'font-size} y definimos el tamaño adecuado como
-@code{#-2} (una cabeza pequeña).
+seguida por @code{'font-size} y definimos el tamaño adecuado como
+@w{@code{-2}} (una cabeza pequeña).
 
 "
   doctitlees = "Modificar el tamaño de una nota suelta de un acorde"
@@ -30,7 +30,7 @@ property.
 
 Inside the chord (within the brackets @code{< >}), before the note to
 be altered, place the @code{\\tweak} command, followed by
-@code{#'font-size} and define the proper size like @code{#-2} (a tiny
+@code{'font-size} and define the proper size like @w{@code{-2}} (a tiny
 note head).
 
 
@@ -40,6 +40,7 @@ note head).
 } % begin verbatim
 
 \relative c' {
-  <\tweak #'font-size #+2 c e g c \tweak #'font-size #-2 e>1^\markup { A tiny e }_\markup { A big c }
+  <\tweak #'font-size #+2 c e g c \tweak #'font-size #-2 e>1
+    ^\markup { A tiny e }_\markup { A big c }
 }
 

@@ -609,7 +609,7 @@ guile> (cond ((< a b) "a is less than b")
 @subsection LilyPond Scheme syntax
 
 The Guile interpreter is part of LilyPond, which means that
-Scheme can be included in LilyPond input files.  The hash mark @code{#}
+Scheme can be included in LilyPond input files.  The hash mark@tie{}@code{#}
 is used to tell the LilyPond parser that the next value is a Scheme
 value.
 
@@ -640,7 +640,7 @@ as follows:
 @end example
 
 For the rest of this section, we will assume that the data is entered
-in a music file, so we add @code{#}s at the beginning of each Scheme
+in a music file, so we add@tie{}@code{#}s at the beginning of each Scheme
 expression.
 
 All of the top-level Scheme expressions in a LilyPond input file can
