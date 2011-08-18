@@ -353,8 +353,11 @@ Warnings and error messages, no progress.
 @item BASIC_PROGRESS
 Basic progress messages (success), warnings and errors.
 
-@item PROGRESS (default)
+@item PROGRESS
 All progress messages, warnings and errors.
+
+@item INFO (default)
+Progress messages, warnings, errors and further execution information.
 
 @item DEBUG
 All possible messages, including verbose debug output.

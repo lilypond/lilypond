@@ -28,7 +28,6 @@
 #define LOG_WARN 1<<1
 #define LOG_BASIC 1<<2  // undocumented basic_progress, i.e. input file name and success
 #define LOG_PROGRESS 1<<3
-// Currently, there is no separation between progress and other info messages:
 #define LOG_INFO 1<<4
 #define LOG_DEBUG 1<<8
 
@@ -38,7 +37,6 @@
 #define LOGLEVEL_WARN (LOGLEVEL_ERROR | LOG_WARN)
 #define LOGLEVEL_BASIC (LOGLEVEL_WARN | LOG_BASIC)
 #define LOGLEVEL_PROGRESS (LOGLEVEL_BASIC | LOG_PROGRESS)
-// Currently, there is no separation between progress and other info messages:
 #define LOGLEVEL_INFO (LOGLEVEL_PROGRESS | LOG_INFO)
 #define LOGLEVEL_DEBUG (LOGLEVEL_INFO | LOG_DEBUG)
 

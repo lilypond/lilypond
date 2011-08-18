@@ -37,9 +37,7 @@ using namespace std;
   and print the message only if that's the case
 */
 
-/* Define the loglevel (default is PROGRESS); for now, PROGRESS=INFO for a
-   all relevant output, so be on the safe side and use INFO as default, just
-   in case some output is generated with INFO */
+/* Define the loglevel (default is INFO) */
 int loglevel = LOGLEVEL_INFO;
 
 bool
@@ -86,7 +84,7 @@ set_loglevel (string level)
         set_loglevel (l);
       else
         {
-          non_fatal_error (_f ("unknown log level `%s', using default (PROGRESS)", 
+          non_fatal_error (_f ("unknown log level `%s', using default (INFO)", 
                                level));
           set_loglevel (LOGLEVEL_INFO);
         }
