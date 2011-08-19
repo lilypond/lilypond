@@ -1,5 +1,5 @@
 <!--
-    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
+    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,11 +9,11 @@
 <form action="http://google.com/search"
       method="get"
       name="search"
-      onSubmit="search.q.value='site:lilypond.org +v2.12 '
+      onSubmit="search.q.value='site:lilypond.org +v2.14 '
 		+ search.brute_query.value"
-      onMouseMove="search.q.value='site:lilypond.org +v2.12 '
+      onMouseMove="search.q.value='site:lilypond.org +v2.14 '
 		   + search.brute_query.value"
-      onKeyUp="search.q.value='site:lilypond.org +v2.12 '
+      onKeyUp="search.q.value='site:lilypond.org +v2.14 '
 	       + search.brute_query.value">
   <input type="hidden" name="btnG" value="Mit Google suchen">
   <input type="text" name="brute_query" onfocus="this.value=''" value="Suche">
