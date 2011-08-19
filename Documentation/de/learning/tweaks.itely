@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: bf45bed3887f818f2d99756e6b92c77a8698be92
+    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3093,22 +3093,29 @@ r4
 \acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
-Hier noch ein weiteres Beispiel aus der Einleitung von Chopins
-Prelude Op. 28 Nr. 2, das untere System.  Wie zu sehen ist,
-stößt der Balken mit den oberen Noten zusammen:
+Hier noch ein weiteres Beispiel.  Wie zu sehen ist,
+stößt der Balken mit den oberen Bögen zusammen:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
-  \clef "bass"
-  << { b,8 ais, b, g, } \\ { e, g e, g } >>
-  << { b,8 ais, b, g, } \\ { e, g e, g } >>
+  \time 4/2
+  <<
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
+  <<
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
 }
 @end lilypond
 
 @noindent
 Das kann manuell gelöst werden, indem beide Enden des Balkens
-von ihrer Position 2 Notenlinienabstände über der Mittellinie
-hochgeschoben werden, etwa auf 3:
+von ihrer Position 1.81 Notenlinienabstände unter der Mittellinie
+hochgeschoben werden, etwa auf 1:
 
 @cindex Balken, Beispiel zur Veränderung
 @cindex positions-Eigenschaft, Beispiel
@@ -3116,20 +3123,26 @@ hochgeschoben werden, etwa auf 3:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
-  \clef "bass"
+  \time 4/2
   <<
-    \override Beam #'positions = #'(3 . 3)
-    { b,8 ais, b, g, }
-  \\
-    { e, g e, g }
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    {
+      \override Beam #'positions = #'(-1 . -1)
+      e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g''
+    }
   >>
-  << { b,8 ais, b, g, } \\ { e, g e, g } >>
+  <<
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
 }
 @end lilypond
 
 @noindent
-Hier ist zu beobachten, dass die Veränderung sich auch auf die
-weiteren Achtelbalken der ersten Stimme auswirkt, während sie keine
+Hier ist zu beobachten, dass die Veränderung sich auch auf den
+die erste Stimme des weiteren Taktes mit Achtelnoten auswirkt, während sie keine
 Auswirkung auf die Balken der zweiten Stimme hat.
 
 @subheading force-hshift (vertikale Verschiebunseigenschaft)
