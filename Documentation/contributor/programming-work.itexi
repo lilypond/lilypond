@@ -803,7 +803,7 @@ treated as if @code{Input::error} was called.
 @tab -
 
 @item INFO
-@tab @code{@code{message (msg)}
+@tab @code{message (msg)}
 @tab @code{Input::message (msg)}
 
 @item DEBUG
