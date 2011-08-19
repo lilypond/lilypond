@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @ignore
-    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
+    Translation of GIT committish: ca62336a8f9ccb00fe4d81bcb8c88ad40ef9e2ae
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -30,7 +30,8 @@
 @ref{Contact} : obtenir de l'aide, discuter et rester en contact.
 
 @item
-@ref{Exemples minimaux} : une nécessité lorsque l'on discute de LilyPond.
+@ref{Exemples minimaux} : une nécessité lorsque l'on discute de
+LilyPond.
 
 @item
 @ref{Signalement de bogue} : disfonctionnement du programme.
@@ -45,7 +46,8 @@
 @itemize
 
 @item
-@ref{Participation} : pour les bonnes volontés qui se sentent concernées.
+@ref{Participation} : pour les bonnes volontés qui se sentent
+concernées.
 
 @item
 @ref{Développement} : pour ceux qui veulent contribuer et tester.
@@ -64,7 +66,8 @@ aujourd'hui.
 @itemize
 
 @item
-@ref{Publications} : ce que nous avons écrit, et ce que l'on dit de nous.
+@ref{Publications} : ce que nous avons écrit, et ce que l'on dit de
+nous.
 
 @item
 @ref{Archives} : archives des dépèches.
@@ -283,7 +286,8 @@ liste sont répertoriées dans @ref{Signalement de bogue}.}
 @divClass{column-center-top}
 @subheading Exemple minimal@dots{} mais qu'est-ce donc que cela ?
 
-Un exemple minimal est un bout de code duquel plus rien ne peut être retiré.
+Un exemple minimal est un bout de code duquel @strong{plus rien} ne peut
+être retiré.
 @divEnd
 
 @divClass{column-left-bottom}
@@ -299,7 +303,8 @@ aider comprendront votre propos et vous apporteront une réponse.
 @item
 Réduire l'exemple à sa plus simple expression indique que vous avez déjà
 tenté par vous-même de trouver une solution.  Des tonnes de lignes
-laissent à penser que celui qui les envoie se soucie peu de ce qui arrive.
+laissent à penser que celui qui les envoie se soucie peu de ce qui
+arrive.
 
 @item
 La génération d'un exemple minimaliste permet de comprendre ce qui se
@@ -322,12 +327,14 @@ LilyPond plutôt que réellement d'un @qq{bogue}.
 @itemize
 
 @item
-Inclure une mention \version pour indiquer le numéro de version utilisée.
+Inclure une mention @code{\version} pour indiquer le numéro de version
+utilisée.
 
 @item
 Être aussi bref et concis que possible.  Si des problèmes concernant les
 espacements ou la mise en page peuvent nécessiter un certain nombre de
-mesures, la plupart des litiges peuvent se cantonner à une seule mesure.
+mesures, la plupart des litiges peuvent se cantonner à moins d'une
+mesure.
 
 @item
 Lorsque vous créez un exemple minimal à partir de votre code, commencez
@@ -345,12 +352,51 @@ litige.
 N'utilisez pas les commandes @code{\override} ou @code{\set} à moins que
 le problème ne soit directement lié à leur utilisation.
 
+@item
+Le cas échéant, joignez une image de ce à quoi vous voulez arriver.
 @end itemize
 @divEnd
 
 @divEnd
 
+@divClass{column-center-bottom}
+@subheading Jusqu'où pousser le minimalisme@tie{}?
 
+En voici un exemple@tie{}:
+
+@example
+\version "2.14.1"
+\include "english.ly"
+
+\score @{
+  \new Staff @{
+    \key d \major
+    \numericTimeSignature
+    \time 2/4
+    <cs' d'' b''>16 <cs' d'' b''>8.
+    %% Ici : la liaison des ré est bizarre.
+    %% Trop haute ? Extrémité gauche décalée par rapport à celle du si ?
+    ~
+    <cs' d'' b''>8 [ <b d'' a''> ]
+  @}
+@}
+@end example
+
+C'est vrai, ce n'est pas très long.  Mais on peut encore le
+réduire@tie{}:
+
+@example
+\version "2.14.1"
+@{
+  % la liaison du milieu est bizarre :
+  <c' d'' b''>8. ~ <c' d'' b''>8
+@}
+@end example
+
+Les exemples minimaux dépassant les dix lignes de code ne sont pas
+légion -- quatre lignes suffisent bien souvent à indiquer le problème.
+
+@divEnd
 
 
 @node Signalement de bogue
@@ -440,7 +486,8 @@ sans oublier le @code{>} au tout début de votre message@tie{}; c'est
 
 Si vous ne voulez ou ne pouvez pas envoyer un rapport de bogue selon les
 instructions et en anglais, envoyez votre rapport ou posez votre
-question sur la @uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+question sur la
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
 liste francophone}@tie{}; nous nous chargerons de transmettre un rapport
 à la liste anglophone et assurerons le suivi.
 
@@ -896,8 +943,8 @@ with Constraint Satisfaction Programming}, International Computer
 Music Conference 2008.
 
 @item
-Alexandre Tachard Passos, Marcos Sampaio, Pedro Kröger, Givaldo de Cidra,
-@emph{Functional Harmonic Analysis and Computational Musicology
+Alexandre Tachard Passos, Marcos Sampaio, Pedro Kröger, Givaldo de
+Cidra, @emph{Functional Harmonic Analysis and Computational Musicology
 in Rameau}, Proceedings of the 12th Brazilian Symposium on Computer
 Music, 2009, p. 207-210.
 
@@ -908,11 +955,11 @@ New Trends in Artificial Intelligence, 2007 J. Neves et al ed.
 
 @item
 Kevin C. Baird 2005,
-@emph{Real-time generation of music notation via audience interaction using
-python and GNU lilypond}. Proceedings of the 2005 Conference on New interfaces
-For Musical Expression (Vancouver, Canada, May 26 - 28, 2005).
-New Interfaces For Musical Expression. National University of Singapore,
-Singapore, 240-241.
+@emph{Real-time generation of music notation via audience interaction
+using python and GNU lilypond}.  Proceedings of the 2005 Conference on
+New interfaces For Musical Expression (Vancouver, Canada, May 26 - 28,
+2005).  New Interfaces For Musical Expression. National University of
+Singapore, Singapore, 240-241.
 
 @end itemize
 

@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 40bf2b38d674c43f38058494692d1a0993fad0bd
+
+  texidocfr = "
+Un glissando sur des accords s'indique dans un @code{TabStaff} de la
+même manière que dans un @code{Staff}, à ceci près que nous aurons
+besoin des numéros de corde afin de déterminer correctement les frets
+d'arrivée.
+
+"
+
+  doctitlefr = "Glissando d'accords et tablature"
+
