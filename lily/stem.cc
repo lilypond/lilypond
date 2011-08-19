@@ -277,7 +277,12 @@ Stem::is_invisible (Grob *me)
 bool
 Stem::is_normal_stem (Grob *me)
 {
-  return head_count (me) && scm_to_int (me->get_property ("duration-log")) >= 1;
+  if (!head_count (me))
+     return false;
+
+  extract_grob_set (me, "note-heads", heads);
+  SCM style = heads[0]->get_property ("style");
+  return style != ly_symbol2scm ("kievan") && scm_to_int (me->get_property ("duration-log")) >= 1;
 }
 
 MAKE_SCHEME_CALLBACK (Stem, pure_height, 3)

@@ -1706,5 +1706,246 @@ fet_beginchar ("Hufnagel pes lower punctum", "shufnagel.lpes")
 %	labels (1, 2, 3, 4);
 fet_endchar;
 
+%%%%%%%%%%%%
+%%
+%% Noteheads for Medieval East-Slavic (Kievan) Notation
+%% Code by Aleksandr Andreev <aleksandr.andreev@gmail.com>
+%%
+%%%%%%%%%%%%
+
+fet_beginchar ("kievan final note", "sM2kievan");
+	% this draws the Final Note
+	% the final note is the last note of a piece of music
+	% equivalent to having a whole note and fermata in CMN
+	% it always has an invariant representation
+	vert_bar_thickness# := 2 * stafflinethickness#;
+	vert_height# := 1.5 * staff_space#;
+	blank_space# := 1.5 * stafflinethickness#;
+	note_width#  := vert_height# - 2 * vert_bar_thickness#;
+	define_pixels(vert_height, blank_space, note_width);
+	define_blacker_pixels (vert_bar_thickness);
+
+	path p;
+	p := (0, blank_space) --
+	     (0, staff_space - blank_space) --
+	     (note_width, staff_space - blank_space) --
+	     (note_width, blank_space) --
+	      cycle;
+	fill p;
+	fill p reflectedabout ((0, 0), (1, 0));
+	pickup pensquare xscaled vert_bar_thickness;
+	draw (note_width + 0.5 * vert_bar_thickness, vert_height) --
+	     (note_width + 0.5 * vert_bar_thickness, -vert_height);
+
+	set_char_box (0, note_width# + vert_bar_thickness#,
+		      vert_height#, vert_height#);
+fet_endchar;
+
+fet_beginchar ("kievan recitative mark", "sM1kievan");
+	inner_width# := 4 * staff_space#;
+	vert_bar_thickness# := 2 * stafflinethickness#;
+	vert_bar_height# := staff_space# - stafflinethickness#;
+	blank_space# := 0.20 * vert_bar_height#;
+	define_pixels(inner_width, blank_space, vert_bar_height);
+	define_blacker_pixels (vert_bar_thickness);
+
+	path p;
+	p := (3 * vert_bar_thickness, blank_space) --
+	     (3 * vert_bar_thickness, vert_bar_height - blank_space) --
+	     (3 * vert_bar_thickness + inner_width, vert_bar_height - blank_space) --
+	     (3 * vert_bar_thickness + inner_width, blank_space) --
+	      cycle;
+	fill p;
+	fill p reflectedabout ((0, 0), (1, 0));
+
+	% draw the four vertical lines
+	pickup pensquare xscaled vert_bar_thickness;
+	p := (0.5 * vert_bar_thickness, vert_bar_height) --
+	     (0.5 * vert_bar_thickness, -vert_bar_height);
+	draw p;
+	draw p shifted (2 * vert_bar_thickness, 0);
+	draw p shifted (3 * vert_bar_thickness + inner_width, 0);
+	draw p shifted (5 * vert_bar_thickness + inner_width, 0);
+
+	set_char_box (0, 6 * vert_bar_thickness# + inner_width#,
+		      vert_bar_height#, vert_bar_height#);
+fet_endchar;
+
+fet_beginchar ("Kievan whole note", "s0kievan");
+	% the amount by which top and bottom diamond overlap
+	overlap# := stafflinethickness#;
+	height# := staff_space# - stafflinethickness#;
+	width# := height# + overlap#;
+	define_pixels(overlap, height, width);
+
+	% pars for superellipse are right, top, left, bottom
+	fill superellipse((width, 0.5 * (height + overlap)),
+			  (width/2, height + overlap),
+			  (0, 0.5 * (height + overlap)),
+			  (width/2, -overlap),
+			   0.51);
+	fill superellipse((width, -0.5 * (height + overlap)),
+			  (width/2, overlap),
+			  (0, -0.5 * (height + overlap)),
+			  (width/2, -height - overlap),
+			   0.51);
+	set_char_box (0, width#, height# + overlap#,
+	              height# + overlap#);
+fet_endchar;
+
+fet_beginchar ("Kievan quarter note down", "d2kievan");
+	z1 = (0.09 * staff_space, 0.33 * staff_space);
+	z2 = (0.66 * staff_space, 0.37 * staff_space);
+	z3 = (0.99 * staff_space, 0.36 * staff_space);
+	z4 = (0.90 * staff_space, -1.05 * staff_space);
+	z5 = (1.02 * staff_space, -2.19 * staff_space);
+	z6 = (0.60 * staff_space, -2.49 * staff_space);
+	z7 = (0.58 * staff_space, -1.91 * staff_space);
+	z8 = (0.73 * staff_space, -0.35 * staff_space);
+	z9 = (0.02 * staff_space, -0.39 * staff_space);
+	z10 = (0, -0.24 * staff_space);
+	fill z1{dir 8.6} .. z2 .. z3
+	     & z3 .. z4 .. z5
+	     & z5 -- z6
+	     & z6 .. z7 .. z8
+	     & z8{left} .. z9
+	     & z9 .. z10 ... {dir 75}cycle;
+	set_char_box (0, 1.02 staff_space#, 2.50 staff_space#, 0.40 staff_space#);
+fet_endchar;
+
+fet_beginchar ("Kievan quarter note up", "u2kievan");
+	z1 = (0.090 staff_space, -0.330 staff_space);
+	z2 = (0.664 staff_space, -0.371 staff_space);
+	z3 = (0.986 staff_space, -0.363 staff_space);
+	z4 = (0.897 staff_space, 1.051 staff_space);
+	z5 = (1.019 staff_space, 2.387 staff_space);
+	z6 = (0.603 staff_space, 2.587 staff_space);
+	z7 = (0.583 staff_space, 1.911 staff_space);
+	z8 = (0.725 staff_space, 0.346 staff_space);
+	z9 = (0.017 staff_space, 0.391 staff_space);
+	z10 = (0, 0.240 staff_space);
+	fill z1{dir -6.9} .. z2 .. z3
+	     & z3 .. z4 .. z5
+	     & z5 -- z6
+	     & z6 .. z7 .. z8
+	     & z8{left} .. z9
+	     & z9 .. z10 ... {dir -76.9}cycle;
+	set_char_box (0, 1.02 staff_space#, 0.40 staff_space#, 2.6 staff_space#);
+fet_endchar;
+
+fet_beginchar ("kievan half note (line position)", "s1kievan");
+	% this draws the half note with a short tail up and a long tail down
+	% this version of the half note is used on any line of the staff
+	z1 = (1.031 staff_space, 0.945 staff_space);
+	z2 = (0.945 staff_space, -0.122 staff_space);
+	z3 = (1.059 staff_space, -1.393 staff_space);
+	z4 = (0.713 staff_space, -1.564 staff_space);
+	z5 = (0.672 staff_space, -0.729 staff_space);
+	z6 = (0.684 staff_space, -0.318 staff_space);
+	z7 = (0.448 staff_space, -0.326 staff_space);
+	z8 = (0, -0.281 staff_space);
+	z9 = (0.086 staff_space, 0.350 staff_space);
+	z10 = (0.746 staff_space, 0.277 staff_space);
+	z11 = (0.909 staff_space, 0.921 staff_space);
+	fill z1 .. z2{down} .. z3
+	     & z3 -- z4
+	     & z4 .. z5{up} .. z6
+	     & z6 .. z7{left} .. z8
+	     & z8 -- z9
+	     & z9 .. {right}z10
+	     & z10{up} .. z11
+	     & z11 -- cycle;
+	set_char_box (0, 1.06 staff_space#, 1.6 staff_space#, 1.0 staff_space#);
+fet_endchar;
+
+fet_beginchar ("kievan half note (space position)", "sr1kievan");
+	% this draws the half note with a short tail down and a long tail up
+	% this version of the half note is used in any space of the staff
+	z1 = (1.071 staff_space, 1.426 staff_space);
+	z2 = (0.974 staff_space, 0.191 staff_space);
+	z3 = (1.059 staff_space, -0.994 staff_space);
+	z4 = (0.713 staff_space, -1.169 staff_space);
+	z5 = (0.676 staff_space, -0.436 staff_space);
+	z6 = (0.684 staff_space, -0.310 staff_space);
+	z7 = (0.448 staff_space, -0.322 staff_space);
+	z8 = (0, -0.277 staff_space);
+	z9 = (0.0856 staff_space, 0.359 staff_space);
+	z10 = (0.746 staff_space, 0.281 staff_space);
+	z11 = (0.807 staff_space, 0.847 staff_space);
+	z12 = (0.945 staff_space, 1.401 staff_space);
+	fill z1 .. z2{down} .. z3
+	     & z3 -- z4
+	     & z4 .. z5{up} .. z6
+	     & z6 .. z7{left} .. z8
+	     & z8 -- z9
+	     & z9 .. z10{right}
+	     & z10 .. z11 .. z12
+	     & z12 -- cycle;
+	set_char_box (0, 1.1 staff_space#, 1.0 staff_space#, 1.4 staff_space#);
+fet_endchar;
+
+fet_beginchar ("kievan eighth note (down)", "d3kievan");
+	% this draws the eighth note
+	% this form of the eight note occurs on the third line or higher
+	% and sometimes between the second line and the third line
+	z1 = (0.261 staff_space, 0.416 staff_space);
+	z2 = (1.022 staff_space, 0.269 staff_space);
+	z3 = (0.664 staff_space, -0.603 staff_space);
+	z4 = (1.259 staff_space, -0.726 staff_space);
+	z5 = (1.055 staff_space, -2.012 staff_space);
+	z6 = (1.186 staff_space, -2.794 staff_space);
+	z7 = (0.778 staff_space, -2.999 staff_space);
+	z8 = (0.741 staff_space, -2.567 staff_space);
+	z9 = (0.941 staff_space, -1.467 staff_space);
+	z10 = (0.33 staff_space, -1.340 staff_space);
+	z11 = (0.631 staff_space, -0.448 staff_space);
+	z12 = (0, -0.334 staff_space);
+	fill z1{right} .. z2
+	     & z2 -- z3
+	     & z3{right} .. z4
+	     & z4 .. z5{down} .. z6
+	     & z6 -- z7
+	     & z7 .. z8{up} .. z9
+	     & z9 .. {left}z10
+	     & z10{dir 78.7} .. z11
+	     & z11 .. {left}z12
+	     & z12{dir 78.7} .. {dir 62}cycle;
+	set_char_box (0, 1.25 staff_space#, 3.0 staff_space#, 0.5 staff_space#);
+fet_endchar;
+
+fet_beginchar ("kievan eighth note (up)", "u3kievan");
+	% this draws the flagged eighth note
+	% this version of the eighth note occurs on the second line or lower
+	% first, draw the upside down quarter note
+	z1 = (0.090 staff_space, -0.33 staff_space);
+	z2 = (0.664 staff_space, -0.371 staff_space);
+	z3 = (0.986 staff_space, -0.363 staff_space);
+	z4 = (0.896 staff_space, 1.051 staff_space);
+	z5 = (1.019 staff_space, 2.387 staff_space);
+	z6 = (0.603 staff_space, 2.587 staff_space);
+	z7 = (0.583 staff_space, 1.911 staff_space);
+	z8 = (0.725 staff_space, 0.346 staff_space);
+	z9 = (0.016 staff_space, 0.391 staff_space);
+	z10 = (0, 0.240 staff_space);
+	fill z1{dir -6.9} .. z2 .. z3
+	     & z3 .. z4 .. z5
+	     & z5 -- z6
+	     & z6 .. z7 .. z8
+	     & z8{left} .. z9
+	     & z9 .. z10 ... {dir -76.9}cycle;
+	% now, draw the stem
+	z11 = (0.033 staff_space, 2.823 staff_space);
+	z12 = (0.391 staff_space, 2.648 staff_space);
+	z13 = (0.354 staff_space, 2.290 staff_space);
+	z14 = (0.676 staff_space, 1.076 staff_space);
+	z15 = (0.693 staff_space, 0.88 staff_space);
+	z16 = (0.208 staff_space, 1.699 staff_space);
+	z17 = (0.024 staff_space, 2.616 staff_space);
+	fill z11 -- z12
+	     & z12 .. z13{down} .. z14
+	     & z14 -- z15
+	     & z15 .. z16 .. z17{up} .. cycle;
+	set_char_box (0, 1.0 staff_space#, 0.4 staff_space#, 2.9 staff_space#);
+fet_endchar;
 
 fet_endgroup ("noteheads");

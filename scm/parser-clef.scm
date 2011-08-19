@@ -76,7 +76,8 @@
     ("petrucci-f4" . ("clefs.petrucci.f" 2 0))
     ("petrucci-f5" . ("clefs.petrucci.f" 4 0))
     ("petrucci-f" . ("clefs.petrucci.f" 2 0))
-    ("petrucci-g" . ("clefs.petrucci.g" -2 0))))
+    ("petrucci-g" . ("clefs.petrucci.g" -2 0))
+    ("kievan-do" . ("clefs.kievan.do" 0 0))))
 
 ;; "an alist mapping GLYPHNAME to the position of the middle C for
 ;; that symbol"
@@ -103,7 +104,8 @@
     ("clefs.petrucci.c4" . 0)
     ("clefs.petrucci.c5" . 0)
     ("clefs.petrucci.f" . 4)
-    ("clefs.petrucci.g" . -4)))
+    ("clefs.petrucci.g" . -4)
+    ("clefs.kievan.do" . 0)))
 
 (define-public (make-clef-set clef-name)
   "Generate the clef setting commands for a clef with name @var{clef-name}."

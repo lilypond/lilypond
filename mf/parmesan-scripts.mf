@@ -238,5 +238,57 @@ fet_beginchar ("signum congruentiae down", "dsignumcongruentiae");
 	xy_mirror_char;
 fet_endchar;
 
+%%%%%%%%%%%%%
+%%%%
+%%%% Code for Kievan Notation
+%%%%
+%%%%%%%%%%%%%
+
+fet_beginchar ("kievan end of piece (slash)", "barline.kievan");
+       % this draws the end of piece figure
+       % this figure is placed at the end of the musical piece, after the staff
+       save hair_thickness, thick_thickness, width, depth, height, padding;
+       hair# = 1.9 linethickness#;
+       thick# = 6.0 linethickness#;
+       width = .8 staff_space;
+       height# + depth# = 4 staff_space#;
+       depth# = height# + hair# / 2;
+       padding = .2 staff_space;
+
+       set_char_box (0, 0, depth#, height#);
+       define_pixels (hair, thick);
+
+       x1r - x2l = width;
+       y1 - y3r = d + h + linethickness / 2;
+       z3 = z2;
+       z4 = .5 [z1, z2] = (width / 2 + padding, hair / 8);
+       z5 = (x2 - .17 staff_space, 9/10 [y2, y1]);
+       z7 - z6 = (.5 staff_space, -.2 staff_space);
+       .4 [z6, z7] = 7/6 [z2, z1];
+
+       pickup pencircle scaled blot_diameter;
+       penpos1 (hair, 0);
+       penpos2 (hair, 0);
+       penpos3 (hair, -90);
+       penpos4 (thick, 10);
+       penpos5 (thick, 35);
+       penpos6 (hair, -90);
+       penpos7 (.5 thick, -120);
+
+       penlabels (1, 2, 3, 4, 5, 6, 7);
+
+       penstroke z1e
+		 -- z2e;
+
+       fill simple_serif (z3l, z3r, 90){1.5 right}
+            .. z4r
+            .. z5r
+            .. z6r
+            .. simple_serif (z7r, z7l, 80)
+            .. {left}z6l
+            .. z5l
+            .. z4l
+            .. cycle;
+fet_endchar;
 
 fet_endgroup ("scripts");

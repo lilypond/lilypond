@@ -32,6 +32,7 @@
   (define hufnagel (get-group glyph-list "^.*hufnagel.*$"))
   (define petrucci (get-group glyph-list "^.*petrucci.*$"))
   (define solesmes (get-group glyph-list "^.*solesmes.*$"))
+  (define kievan (get-group glyph-list "^.*kievan.*$"))
 
   ;; remove ancient-music groups from the glyph-list
   (for-each
@@ -42,7 +43,8 @@
             mensural
             neomensural
             petrucci
-            solesmes))
+            solesmes
+            kievan))
 
   ;; define all remaining groups
   (define numbers
