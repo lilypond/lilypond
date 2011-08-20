@@ -686,7 +686,8 @@ printing diff against existing file." % filename)
 
         # UGH - junk self.global_options
         skip_lily = self.global_options.skip_lilypond_run
-        for required in [base + '.ly']:
+        for required in [base + '.ly',
+                         base + '.txt']:
             require_file (required)
         if not skip_lily:
             require_file (base + '-systems.count')
@@ -935,6 +936,8 @@ printing diff against existing file.") % filename)
             out = file (filename, 'w')
             out.write (self.full_ly ())
             out.close ()
+            file (path + '.txt', 'w').write ('image of music')
+
 
 
 class LilyPondVersionString (Snippet):
