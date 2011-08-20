@@ -503,8 +503,6 @@ easier/faster processing), use this header:
 \paper @{
   indent = 0\mm
   line-width = 160\mm - 2.0 * 0.4\in
-  ragged-right = ##t
-  force-assignment = #""
   line-width = #(- line-width (* mm  3.000000))
 @}
 
