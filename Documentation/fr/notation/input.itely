@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f77212d801fa4603bf596a19cecf5a068f1d9d85
+    Translation of GIT committish: d0c96d3f0b1dca7df98ef5586059965dd46ab16f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -27,6 +27,7 @@ LilyPond.
 * Travail sur des fichiers texte::
 * Contrôle des sorties::
 * Sortie MIDI::
+* Extraction d'information musicale::
 @end menu
 
 @node Agencement du code
@@ -36,7 +37,6 @@ LilyPond.
 LilyPond traite des fichiers textuels.  Ces fichiers portent par
 convention une extension @code{.ly}.
 
-
 @menu
 * Structure d'une partition::
 * Plusieurs partitions dans un même ouvrage::
@@ -44,6 +44,7 @@ convention une extension @code{.ly}.
 * Nom des fichiers de sortie::
 * Structure de fichier::
 @end menu
+
 
 @node Structure d'une partition
 @subsection Structure d'une partition
@@ -114,8 +115,9 @@ implicitement inclus dans un bloc @code{\book}.  Le bloc @code{\book}
 d'un fichier source permet la production d'au moins un fichier dont le
 nom sera, par défaut, déduit du fichier source@tie{}: le traitement de
 @file{fandangopourelephants.ly} produira donc
-@file{fandangopourelephants.pdf}.  Pour de plus amples informations à
-propos du bloc @code{\book}, lisez
+@file{fandangopourelephants.pdf}.
+
+Pour de plus amples informations à propos du bloc @code{\book}, lisez
 @ref{Plusieurs partitions dans un même ouvrage},
 @ref{Plusieurs éditions pour une même source} et
 @ref{Structure de fichier}.
@@ -208,9 +210,9 @@ au sein du bloc @code{\book}.  Dans le cas contraire, le contenu du bloc
 @funindex \bookpart
 
 Plusieurs pièces seront regroupées dans un même @qq{chapitre} à l'aide
-d'un bloc @code{\bookpart}.  Les différentes parties sont séparées par
-un saut de page et peuvent comporter un titre à l'instar de l'ouvrage
-dès lors que vous y insérez un bloc @code{\header}.
+d'un bloc @code{\bookpart}.  Ces différents @qq{chapitres} sont séparés
+par un saut de page et peuvent comporter un titre à l'instar de
+l'ouvrage dès lors que vous y insérez un bloc @code{\header}.
 
 @example
 \bookpart @{
@@ -399,7 +401,7 @@ différents documents à partir d'une même source.  La présence explicite
 d'un bloc @code{\book} est aussi nécessaire lorsque vous travaillez sur
 un document lilypond-book qui reprendrait plusieurs @code{\score}s ou
 @code{\markup}s dans un même extrait.  Vous pouvez modifier ce
-comportement à l'aide de la variable @code{toplevel-score-handler}
+comportement à l'aide de la variable @code{toplevel-book-handler}
 placée en tête.
 @ignore
 @c FIXME - I cannot read "toplevel-book-handler" in scm/lily.scm -jcm
@@ -529,7 +531,7 @@ Pour séparer les éléments d'une expression Scheme ;
 En mode parole -- @code{lyricmode} -- pour séparer les termes des
 commandes @code{\override} et @code{\set}.  Précisons à ce sujet qu'en
 plus d'ajouter une espace avant et après l'intégralité de la commande,
-vous devrez encadrer d'espace le point et le signe égal qu'elle peut
+vous devrez encadrer d'espaces le point et le signe égal qu'elle peut
 contenir, comme dans
 @w{@code{\override Score . LyricText #'font-size = #5}}.
 
@@ -549,167 +551,45 @@ La plupart de la musique qui est éditée comporte un titre et le nom de
 son compositeur@tie{}; certains ouvrages divulguent beaucoup plus
 d'information.
 
-
 @menu
-* Création de titres::
+* Création de titres et entête ou pied de page::
 * Titrages personnalisés::
 * Référencement des numéros de page::
 * Table des matières::
 @end menu
 
-@node Création de titres
-@subsection Création de titres
-@translationof Creating titles
 
-Des éléments de titrage peuvent s'attacher à un bloc @code{\score}, une
-partie -- créée par un bloc @code{\bookpart} -- ou bien un ouvrage
-entier créé par un bloc @code{\book}.
+@node Création de titres et entête ou pied de page
+@subsection Création de titres et entête ou pied de page
+@translationof Creating titles headers and footers
 
-Les différents éléments du titrage sont contenus dans un bloc
-@code{\header}.  Un ouvrage complet peut comporter@tie{}:
+@menu
+* Contenu des blocs de titrage::
+* Mise en forme par défaut des titrages::
+* Mise en forme par défaut des entête et pied de page::
+@end menu
 
 
-@table @code
-@funindex dedication
-@item dedication
-Le dédicataire de l'œuvre, centré en haut de la première page.
+@node Contenu des blocs de titrage
+@unnumberedsubsubsec Contenu des blocs de titrage
+@translationof Title blocks explained
 
-@funindex title
-@item title
-Le titre de l'œuvre, centré en dessous de la dédicace.
+@c TODO: figure out how \bookpart titles work
 
-@funindex subtitle
-@item subtitle
-Le sous-titre, centré sous le titre.
+Il existe en fait deux types de blocs de titrage@tie{}: un bloc pour
+contenir le titre principal qui doit apparaître avant le tout premier
+@code{\score} d'un ouvrage, et un autre attaché à chacun des blocs
+@code{\score} qui le composent.  Dans les deux cas, les champs qui
+composent un bloc de titrage se saisissent dans un bloc @code{\header}.
 
-@funindex subsubtitle
-@item subsubtitle
-Un niveau supplémentaire de sous-titre, centré en dessous du sous-titre.
+Lorsque l'ouvrage ne comporte qu'un seul morceau, le bloc @code{\header}
+peut se placer en dehors ou au sein même du bloc @code{\score}.
 
-@funindex poet
-@item poet
-Le poète, parolier ou librétiste, aligné à gauche en dessous du
-deuxième sous-titre.
+Dans le cas où le bloc @code{\header} est défini à l'intérieur du bloc
+@code{\score}, seuls les champs @code{piece} et @code{opus} seront
+imprimés.
 
-@funindex instrument
-@item instrument
-L'instrument, centré en dessous du deuxième sous-titre.  Il sera rappelé
-sur les pages suivant la première, centré sur la ligne d'entête.
-
-@funindex composer
-@item composer
-Le compositeur, aligné à droite en dessous du deuxième sous-titre.
-
-@funindex meter
-@item meter
-Le libellé du tempo, aligné à gauche sous le poète.
-
-@funindex arranger
-@item arranger
-L'arrangeur, aligné à droite sous le compositeur.
-
-@funindex piece
-@item piece
-La pièce ou le mouvement, aligné à gauche sous le tempo.
-
-@funindex opus
-@item opus
-L'opus ou le numéro au catalogue, aligné à droite sous l'arrangeur.
-
-@cindex page breaks, forcing
-@funindex breakbefore
-@item breakbefore
-Ce commutateur (activé par ##t@tie{}; ##f pour le désactiver) permet de
-forcer le saut de page avant d'afficher les titres.
-
-@funindex copyright
-@item copyright
-La notice de droits d'auteur, centrée en pied de la première page.  Pour
-imprimer le symbole @emph{copyright}, consultez la rubrique
-@ref{Codage du texte}.
-
-@funindex tagline
-@item tagline
-Mention spéciale imprimée en pied de la dernière page.
-
-@end table
-
-Voici ce que cela peut donner lorsque tout ces champs sont utilisés.  
-Les différentes commandes mentionnées à la rubrique
-@ref{Mise en forme du texte} sont opérationnelles pour tous ces
-éléments.
-
-@c KEEP LY
-@lilypond[quote,verbatim,line-width=11.0\cm]
-\paper {
-  line-width = 9.0\cm
-  paper-height = 10.0\cm
-}
-
-\book {
-  \header {
-    dedication = "dédié à moi-même"
-    title = \markup \center-column { "Première ligne de titre" "Deuxième
-  ligne de titre, plus longue" }
-    subtitle = "un sous-titre,"
-    subsubtitle = #(string-append "sous-sous-titre LilyPond version "
-(lilypond-version))
-    poet = "Auteur"
-    composer =  \markup \center-column { "compositeur" \small "(1847-1973)" }
-    texttranslator = "Traduit par"
-    meter = \markup { \teeny "m" \tiny "e" \normalsize "t" \large "e" \huge
-"r" }
-    arranger = \markup { \fontsize #8.5 "a" \fontsize #2.5 "r" \fontsize
-#-2.5 "r" \fontsize #-5.3 "a" \fontsize #7.5 "ngeur" }
-    instrument = \markup \bold \italic "instrument"
-    piece = "Pièce"
-  }
-
-  \score {
-    { c'1 }
-    \header {
-      piece = "pièce1"
-      opus = "opus1"
-    }
-  }
-  \markup {
-      et puis...
-  }
-  \score {
-    { c'1 }
-    \header {
-      piece = "pièce2"
-      opus = "opus2"
-    }
-  }
-}
-@end lilypond
-
-Comme nous venons de la voir, vous pouvez multiplier les blocs
-@code{\header}.  Lorsqu'un même champ apparaît dans plusieurs blocs,
-LilyPond utilisera le dernier mentionné@tie{}:
-
-@example
-\header @{
-  composer = "Compositeur"
-@}
-\header @{
-  piece = "Morceau"
-@}
-\score @{
-  \new Staff @{ c'4 @}
-  \header @{
-    piece = "Nouveau morceau"  % remplace le précédent
-  @}
-@}
-@end example
-
-Lorsque le bloc @code{\header} est défini à l'intérieur du bloc
-@code{\score}, seul les champs @code{piece} et @code{opus} seront
-imprimés.  Attention cependant à toujours placer le bloc @code{\header}
-après l'expression musicale.
-
-@lilypond[quote,verbatim,line-width=11.0\cm]
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
 \score {
   { c'4 }
   \header {
@@ -731,124 +611,489 @@ bloc @code{\header} défini dans un bloc @code{\score} en ajoutant
 @}
 @end example
 
-@cindex copyright
-@cindex tagline
+@warning{N'oubliez pas que lorsqu'il est placé à l'intérieur d'un bloc
+@code{@bs{}score}, le bloc @code{@bs{}header} doit impérativement se
+trouver @strong{à la suite} de l'expression musicale.}
 
-Les pieds de page sont vides, hormis pour la première page qui portera
-la champ @code{copyright} du @code{\header}, et pour la dernière page où
-apparaîtra le @code{tagline}.  Celui-ci est par défaut @qq{Music
-engraving by LilyPond (@var{version})}.@footnote{Afin que l'on sache qui
-est capable d'une telle qualité, nous vous saurons gré de ne pas
-suprimer cette mention spéciale, autant que faire se peut.}
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\header {
+  title = "SUITE I."
+  composer = "J. S. Bach."
+}
 
-Un champ de titrage peut être désactivé@tie{}:
+\score {
+  \new Staff \relative g, {
+    \clef bass
+    \key g \major
+    \repeat unfold 2 { g16( d' b') a b d, b' d, } |
+    \repeat unfold 2 { g,16( e' c') b c e, c' e, } |
+  }
+  \header {
+    piece = "Prélude."
+  }
+}
 
-@example
-\header @{
-  tagline = ##f
-  composer = ##f
-@}
-@end example
+\score {
+  \new Staff \relative b {
+    \clef bass
+    \key g \major
+    \partial 16 b16 |
+    <g, d' b'~>4 b'16 a( g fis) g( d e fis) g( a b c) |
+    d16( b g fis) g( e d c) b(c d e) fis( g a b) |
+  }
+  \header {
+    piece = "Allemande."
+  }
+}
+@end lilypond
+
+Tous les champs appartenant au titrage principal d'un ouvrage peuvent se
+reporter dans chaque bloc @code{\score} ou être supprimés
+manuellement@tie{}:
+
+@c KEEP LY
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    print-all-headers = ##t
+  }
+  \header {
+    title = "DAS WOHLTEMPERIRTE CLAVIER"
+    subtitle = "TEIL I"
+    % Pas de pied en dernière page pour ce livret
+    tagline = ##f
+  }
+  \markup { \vspace #1 }
+  \score {
+    \new PianoStaff <<
+      \new Staff { s1 }
+      \new Staff { \clef "bass" s1 }
+    >>
+    \header {
+      title = "PRAELUDIUM I"
+      opus = "BWV 846"
+      % Pas de sous-titre pour ce morceau
+      subtitle = ##f
+    }
+  }
+  \score {
+    \new PianoStaff <<
+      \new Staff { s1 }
+      \new Staff { \clef "bass" s1 }
+    >>
+    \header {
+      title = "FUGA I"
+      subsubtitle = "A 4 VOCI"
+      opus = "BWV 846"
+      % Pas de sous-titre pour ce morceau
+      subtitle = ##f
+    }
+  }
+}
+@end lilypond
+
+@seealso
+Manuel de notation :
+@ref{Structure de fichier},
+@ref{Mise en forme personnalisée des blocs de titrage}.
+
+
+@node Mise en forme par défaut des titrages
+@unnumberedsubsubsec Mise en forme par défaut des titrages
+@translationof Default layout of book and score title blocks
+
+La mise en forme des blocs de titrage est contrôlée par deux variables
+attachées au bloc @code{\paper}@tie{}: @code{bookTitleMarkup} pour le
+bloc @code{\header} principal, et @code{scoreTitleMarkup} pour les blocs
+@code{\header} relevant des blocs @code{\score}.
+
+@c KEEP LY
+@lilypond[papersize=a6,quote,verbatim,noragged-right]
+\header {
+  % Les champs suivants sont centrés
+  dedication = "Dédice"
+  title = "Titre"
+  subtitle = "Sous-titre"
+  subsubtitle = "Sous-sous-titre"
+  instrument = "Instrument"
+
+  % Les champs suivants sont alignés sur le bord gauche
+  poet = "Librettiste"
+  meter = "Tempo"
+
+  % Les champs suivants sont alignés sur le bord droit
+  composer = "Compositeur"
+  arranger = "Arrangeur"
+}
+
+\score {
+  { s1 }
+  \header {
+    % Les champs suivants sont en opposition sur la même ligne
+    piece = "Pièce"
+    opus = "Opus"
+  }
+}
+@end lilypond
+
+@c Is the bit about \null markups true? -mp
+
+Les champs d'un bloc @code{\header} qui n'auront pas été alimentés
+seront remplacés par un @emph{markup} @code{\null} de façon à ne pas
+gaspiller d'espace.
+
+Par défaut, @code{scoreTitleMarkup} place les champs @code{piece} et
+@code{opus} de part et d'autre sur une même ligne.
+
+@cindex breakbefore
+
+La variable @code{breakbefore} activée dans un bloc @code{\header} situé
+dans un bloc @code{\score} force le saut de page avant le morceau
+contenu dans ce @code{\score}.  Vous pourrez ainsi séparer le titre
+principal de la musique.
+
+@lilypond[papersize=a8landscape,verbatim,noragged-right]
+\book {
+  \header {
+    title = "This is my Title"
+    subtitle = "This is my Subtitle"
+    copyright = "This is the bottom of the first page"
+  }
+  \score {
+    \repeat unfold 4 { e'' e'' e'' e'' }
+    \header {
+      piece = "This is the Music"
+      breakbefore = ##t
+    }
+  }
+}
+@end lilypond
+
+@seealso
+Manuel d'initiation :
+@rlearning{Organisation des fichiers LilyPond}.
+
+Manuel de notation :
+@ref{Structure de fichier}.
+
+Fichiers d'initialisation :
+@file{ly/titling-init.ly}.
+
+
+@node Mise en forme par défaut des entête et pied de page
+@unnumberedsubsubsec Mise en forme par défaut des entête et pied de page
+@translationof Default layout of headers and footers
+
+Les entête et pied -- @emph{headers} et @emph{footers} -- sont des
+lignes de textes qui apparaîssent en haut et en bas de chaque page,
+indépendamment du texte de l'ouvrage.  Ils sont contrôlés par les
+variables suivantes, attachées au bloc @code{\paper}@tie{}:
+
+@itemize
+@item @code{oddHeaderMarkup} -- entête de page impaire
+@item @code{evenHeaderMarkup} -- entête de page paire
+@item @code{oddFooterMarkup} -- pied de page impaire
+@item @code{evenFooterMarkup} -- pied de page paire
+@end itemize
+
+Ces variables @emph{markup} n'accèdent qu'au contenu des champs du bloc
+@code{\header} principal, celui qui s'appliquera à tous les blocs
+@code{\score} du document.  Ces variables sont définies dans le fichier
+@file{ly/titling-init.ly}, et sont par défaut@tie{}:
+
+@itemize
+
+@item
+les numéros sont placés en haut à gauche (si pair) ou à droite (si
+impair) de chaque page à compter de la deuxième@tie{};
+
+@item
+le contenu du champ @code{instrument} est centré en haut de chaque page
+à compter de la deuxième@tie{};
+
+@item
+le texte du @code{copyright} est centré au bas de la première
+page@tie{};
+
+@item
+le @code{tagline} -- mention spéciale -- se place au bas de la dernière
+page, ou bien sous le @code{copyright} s'il n'y a qu'une seule page.
+
+@end itemize
+
+@lilypond[papersize=a8landscape]
+\book {
+  \score {
+    \relative c' {
+      c4 d e f
+    }
+  }
+}
+@end lilypond
+
+La mention spéciale se modifie en alimentant le champ @code{tagline} au
+niveau du bloc @code{\header} principal.
+
+@lilypond[papersize=a8landscape,verbatim]
+\book {
+  \header {
+    tagline = "... music notation for Everyone"
+  }
+  \score {
+    \relative c' {
+      c4 d e f
+    }
+  }
+}
+@end lilypond
+
+Pour supprimer le @code{tagline}, il suffit de lui assigner la valeur
+@code{##f}.
 
 
 @node Titrages personnalisés
 @subsection Titrages personnalisés
 @translationof Custom headers footers and titles
 
-Vous pouvez personnaliser, dans le bloc @code{\paper}, la définition des
-variables listées ci-dessous.  Leur mise en forme par défaut est
-inscrite dans le fichier d'initialisation @file{../ly/titling-init.ly}.
+@c TODO: somewhere put a link to header spacing info
+@c       (you'll have to explain it more in NR 4).
 
-@table @code
-@funindex bookTitleMarkup
-@item bookTitleMarkup
-Ce titre est apposé au début du document final.  Il comprend normalement
-le compositeur et le titre de l'œuvre.
-
-@funindex scoreTitleMarkup
-@item scoreTitleMarkup
-Ce titre est attaché à un bloc @code{\score}.  Il comprend normalement
-le nom du mouvement -- le champ @code{piece}.
-
-@funindex oddHeaderMarkup
-@item oddHeaderMarkup
-L'entête des pages impaires.
-
-@funindex evenHeaderMarkup
-@item evenHeaderMarkup
-L'entête des pages paires.  Lorsqu'il n'est pas défini, LilyPond utilise
-celui des pages impaires.
-
-Les entêtes comportent par défaut le nom de l'instrument, au centre, et
-le numéro de page, sur le bord extérieur de la page.
-
-@funindex oddFooterMarkup
-@item oddFooterMarkup
-Le pied de page impaire.
-
-@funindex evenFooterMarkup
-@item evenFooterMarkup
-Le pied de page paire.  Lorsqu'il n'est pas défini, LilyPond utilise
-celui des pages impaires.
-
-Par défaut, le pied de la première page comporte la notice de droits
-d'auteur, et celui de la dernière page la @qq{mention spéciale} -- le
-@code{tagline}.
-@end table
+@menu
+* Mise en forme personnalisée des champs de titrage::
+* Mise en forme personnalisée des blocs de titrage::
+* Mise en forme personnalisée des entête et pied de page::
+@end menu
 
 
-@cindex \paper
-@cindex header
-@cindex entête
-@cindex footer
-@cindex pied de page
-@cindex mise en page
-@cindex titres
+@node Mise en forme personnalisée des champs de titrage
+@unnumberedsubsubsec Mise en forme personnalisée des champs de titrage
+@translationof Custom text formatting for title blocks
 
-La définition suivante permt d'obtenir, sur la même ligne, le titre
-aligné à gauche et le compositeur aligné à droite.
+Toutes les commandes de mise en forme d'un @code{\markup} permettent de
+personnaliser le texte des entête, pied de page et éléments de titre
+contenus dans un bloc @code{\header}.
+
+@lilypond[quote,verbatim,noragged-right]
+\score {
+  { s1 }
+  \header {
+    piece = \markup { \fontsize #4 \bold "PRAELUDIUM I" }
+    opus = \markup { \italic "(Excerpt)" }
+  }
+}
+@end lilypond
+
+@seealso
+Manuel de notation :
+@ref{Mise en forme du texte}.
+
+
+@node Mise en forme personnalisée des blocs de titrage
+@unnumberedsubsubsec Mise en forme personnalisée des blocs de titrage
+@translationof Custom layout for title blocks
+
+L'utilisation de commandes @code{\markup} au sein d'un bloc
+@code{\header} permet de modifier aisément l'apparence du texte,
+mais n'influence en rien le positionnement précis des éléments de
+titrage.  L'accès au positionnement des champs de titrage est géré par
+les deux variables suivantes, attachées au bloc @code{\paper}@tie{}:
+
+@itemize
+@item @code{bookTitleMarkup}
+@item @code{scoreTitleMarkup}
+@end itemize
+
+Ces variables sont abordées à la rubrique
+@ref{Mise en forme par défaut des titrages}.
+
+Voici les réglages par défaut de @code{scoreTitleMarkup}, tels que
+définis dans le fichier @file{ly/titling-init.ly}@tie{}:
 
 @example
-\paper @{
-  bookTitleMarkup = \markup @{
-   \fill-line @{
-     \fromproperty #'header:title
-     \fromproperty #'header:composer
-   @}
+scoreTitleMarkup = \markup @{ \column @{
+  \on-the-fly #print-all-headers @{ \bookTitleMarkup \hspace #1 @}
+  \fill-line @{
+    \fromproperty #'header:piece
+    \fromproperty #'header:opus
   @}
+@}
 @}
 @end example
 
-Les entêtes et pieds de page sont créés respectivement par les fonctions
-@code{make-header} and @code{make-footer}, que vous pouvez définir au
-sein du bloc @code{\paper}.  Leur implémentation est contenue dans les
-fichiers d'initialisation @file{ly/paper-defaults-init.ly} et
-@file{ly/titling-init.ly}.
+Ceci aura donc pour effet de positionner les champs @code{piece} et
+@code{opus} sur la même ligne, en opposition@tie{}:
 
-Voici comment centrer le numéro en pied de chaque page@tie{}:
+@lilypond[quote,verbatim,noragged-right]
+\score {
+  { s1 }
+  \header {
+    piece = "PRAELUDIUM I"
+    opus = "BWV 846"
+  }
+}
+@end lilypond
 
-@example
-\paper @{
-  print-page-number = ##t
-  print-first-page-number = ##t
-  oddHeaderMarkup = \markup \fill-line @{ " " @}
-  evenHeaderMarkup = \markup \fill-line @{ " " @}
-  oddFooterMarkup = \markup @{
-    \fill-line @{
-      \bold \fontsize #3
-      \on-the-fly #print-page-number-check-first
-      \fromproperty #'page:page-number-string
-    @}
-  @}
-  evenFooterMarkup = \markup @{
-    \fill-line @{
-      \bold \fontsize #3
-      \on-the-fly #print-page-number-check-first
-      \fromproperty #'page:page-number-string
-    @}
-  @}
-@}
-@end example
+Voici comment positionner le champ @code{piece}, dont nous modifions
+la taille et la graisse, au centre de cette ligne@tie{}:
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    indent = 0\mm
+    scoreTitleMarkup = \markup {
+      \fill-line {
+        \null
+        \fontsize #4 \bold \fromproperty #'header:piece
+        \fromproperty #'header:opus
+      }
+    }
+  }
+  \header { tagline = ##f }
+  \score {
+    { s1 }
+    \header {
+      piece = "PRAELUDIUM I"
+      opus = "BWV 846"
+    }
+  }
+}
+@end lilypond
+
+Les champs normalement réservés au bloc de titrage principal seront
+reportés au niveau au niveau inférieur dès lors que vous aurez activé
+l'instruction @code{print-all-headers} au sein du bloc @code{\paper}.
+Le principal inconvénient de cette fonction réside dans le fait que les
+champs réservés au bloc @code{\header} principal devront être supprimés
+dans chacun des blocs @code{\score} de votre fichier source -- voir
+@ref{Contenu des blocs de titrage}.
+
+Afin d'éviter ce désagrément, ajoutez le champ que vous désirez voir
+apparaître à la définition de @code{scoreTitleMarkup}.  Nous allons,
+dans l'exemple suivant, ajouter au @code{scoreTitleMarkup} le champ
+@code{composer}, normalement associé au @code{bookTitleMarkup}@tie{};
+chaque @code{\score} pourra mentionner un compositeur différent.
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    indent = 0\mm
+    scoreTitleMarkup = \markup {
+      \fill-line {
+        \null
+        \fontsize #4 \bold \fromproperty #'header:piece
+        \fromproperty #'header:composer
+      }
+    }
+  }
+  \header { tagline = ##f }
+  \score {
+    { s1 }
+    \header {
+      piece = "MENUET"
+      composer = "Christian Petzold"
+    }
+  }
+  \score {
+    { s1 }
+    \header {
+      piece = "RONDEAU"
+      composer = "François Couperin"
+    }
+  }
+}
+@end lilypond
+
+Rien ne vous empêche de créer votre propre champ personnalisé, puis d'y
+faire référence dans la définition du @emph{markup}.
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    indent = 0\mm
+    scoreTitleMarkup = \markup {
+      \fill-line {
+        \null
+        \override #`(direction . ,UP) {
+          \dir-column {
+            \center-align \fontsize #-1 \bold
+              \fromproperty #'header:mycustomtext %% User-defined field
+            \center-align \fontsize #4 \bold
+              \fromproperty #'header:piece
+          }
+        }
+        \fromproperty #'header:opus
+      }
+    }
+  }
+  \header { tagline = ##f }
+  \score {
+    { s1 }
+    \header {
+      piece = "FUGA I"
+      mycustomtext = "A 4 VOCI" %% User-defined field
+      opus = "BWV 846"
+    }
+  }
+}
+@end lilypond
+
+@seealso
+Manuel de notation :
+@ref{Contenu des blocs de titrage}.
+
+
+@node Mise en forme personnalisée des entête et pied de page
+@unnumberedsubsubsec Mise en forme personnalisée des entête et pied de page
+@translationof Custom layout for headers and footers
+
+@c can make-header and make-footer be removed from
+@c paper-defaults-init.ly? -mp
+
+L'utilisation de commandes @code{\markup} au sein d'un bloc
+@code{\header} permet de modifier aisément l'apparence du texte,
+mais n'influence en rien le positionnement précis des entête et pied
+de page.  L'accès au positionnement des champs concernés est géré par
+les quatre variables suivantes, attachées au bloc @code{\paper}@tie{}:
+
+@itemize
+@item @code{oddHeaderMarkup}
+@item @code{evenHeaderMarkup}
+@item @code{oddFooterMarkup}
+@item @code{evenFooterMarkup}
+@end itemize
+
+L'exemple suivant illustre  la manière de centrer son numéro au bas de
+chaque page.  Il nous faut tout d'abord annuler la définition de
+@code{oddHeaderMarkup} et @code{evenHeaderMarkup} à l'aide d'un
+@emph{markup} @code{\null}. Nous redéfinissons ensuite
+@code{oddFooterMarkup} pour qu'il contienne le numéro de page, centré.
+Enfin, nous appliquons le même paramétrage au @code{\oddFooterMarkup}.
+
+@lilypond[papersize=a8,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    print-page-number = ##t
+    print-first-page-number = ##t
+    oddHeaderMarkup = \markup \null
+    evenHeaderMarkup = \markup \null
+    oddFooterMarkup = \markup {
+      \fill-line {
+        \on-the-fly #print-page-number-check-first
+        \fromproperty #'page:page-number-string
+      }
+    }
+    evenFooterMarkup = \oddFooterMarkup
+  }
+  \score {
+    \new Staff { s1 \break s1 \break s1 }
+  }
+}
+@end lilypond
+
+@seealso
+Manuel de notation :
+@ref{Contenu des blocs de titrage},
+@ref{Mise en forme par défaut des titrages}.
 
 
 @node Référencement des numéros de page
@@ -862,7 +1107,7 @@ l'intérieur d'un @emph{markup}@tie{}; vous pourrez même y ajouter le
 numéro de page grâce à la commande de @emph{markup} @code{\page-ref}.
 
 @c KEEP LY
-@lilypond[verbatim,line-width=11.0\cm]
+@lilypond[verbatim]
 \header { tagline = ##f }
 \book {
   \label #'firstScore
@@ -1058,7 +1303,6 @@ Fichiers d'initialisation :
 * Insertion de fichiers LilyPond::
 * Différentes éditions à partir d'une même source::
 * Codage du texte::
-* Affichage de notation au format LilyPond::
 @end menu
 
 @node Insertion de fichiers LilyPond
@@ -1092,12 +1336,12 @@ répertoire, donner seulement son nom en argument à la commande
 @code{\include} suffit.  S'il se trouve ailleurs, vous devrez indiquer
 le chemin d'accès, absolu ou relatif, en respectant toutefois la syntaxe
 UNIX -- autrement dit, le séparateur de répertoire est une oblique
-normale @code{/} et non l'oblique inverse @code{\} de DOS/Windows.  Par
-exemple, si le fichier @file{truc.ly} se trouve dans le répertoire
+normale @code{/} et non l'oblique inverse @code{\} de DOS ou Windows.
+Par exemple, si le fichier @file{truc.ly} se trouve dans le répertoire
 supérieur au répertoire de travail, la ligne devra être
 
 @example
-\include "../stuff.ly"
+\include "../truc.ly"
 @end example
 
 @noindent
@@ -1115,14 +1359,15 @@ Les fichiers à inclure peuvent eux-même contenir des instructions
 @code{\include}.  Ces instructions @code{\include} de second niveau ne
 pourront, par défaut, être interprétées qu'une fois intégrées dans le
 fichier principal@tie{}; leur argument doit donc comporter le chemin
-relativement au fichier principal et non par rapport au fichier dan
-lesquel cette inclusion est mentionnée.  Vous pouvez toutefois influer
-sur ce comportement à l'aide de l'option @code{-drelative-includes} en
-ligne de commande ou en ajoutant une clause
+relativement au fichier principal et non par rapport au fichier dans
+lequel cette inclusion est mentionnée.  Vous pouvez toutefois influer
+sur ce comportement à l'aide de l'option @w{@code{-drelative-includes}}
+en ligne de commande ou en ajoutant une clause
 @code{@w{#(ly:set-option 'relative-includes #t)}} en tête du fichier
 principal.  Une fois @code{relative-include} activé, le chemin à suivre
 pour chacune des commandes @code{\include} sera pris relativement au
-fichier qui la contient.
+fichier qui la contient.  Cette option est vouée à être activée par
+défaut dans une future version de LilyPond.
 
 Vous pouvez inclure des fichiers dont vous spécifierez le chemin d'accès
 sur la ligne de commande au moment de lancer la compilation. L'appel à
@@ -1153,9 +1398,9 @@ fichier de définition particulier @file{gregorian.ly}.
 
 Au moment où vous lancez LilyPond, un certain nombre de fichiers se
 retrouvent inclus par défaut@tie{}; il suffit d'activer le mode verbeux
-en faisant @code{lilypond --verbose} pour s'en rendre compte.  Vous
+en faisant @w{@code{lilypond --verbose}} pour s'en rendre compte.  Vous
 verrez ainsi défiler, en plus de nombreuses informations, le nom d'un
-certain nombre de fichier et de chemins d'accès.  Les fichiers les plus
+certain nombre de fichiers et de chemins d'accès.  Les fichiers les plus
 important sont mentionnés au chapitre
 @rlearning{Autres sources de documentation}.  Si vous venez à les
 modifier, rappelez-vous qu'ils seront écrasés à l'installation d'une
@@ -1287,8 +1532,8 @@ manière suivante@tie{}:
 
 @item
 Musique balisée précédée de @code{\keepWithTag #'@var{nom}}
-  @tab Musique non balisée et musique balisée par @var{nom} seront
-  incluses@tie{}; la musique balisée autrement est exclue.
+ @tab Musique non balisée et musique balisée par @var{nom} seront
+ incluses@tie{}; la musique balisée autrement est exclue.
 
 @item
 Musique balisée précédée de @code{\removeWithTag #'@var{nom}}
@@ -1296,7 +1541,7 @@ Musique balisée précédée de @code{\removeWithTag #'@var{nom}}
  seront inclus@tie{}; la musique balisée par @var{nom} est exclue.
 
 @item
-Musiqeu balisée non précédée de @code{\keepWithTag} ou
+Musique balisée non précédée de @code{\keepWithTag} ou
 @code{\removeWithTag}
  @tab Musique balisée et non balisée seront incluses.
 
@@ -1483,7 +1728,7 @@ la bibliothèque Pango pour assurer le rendu des textes multilingues.
 
 LilyPond n'effectue aucune conversion d'encodage que ce soit.  Ceci
 implique donc que tout texte, qu'il s'agisse d'un titre, de paroles ou
-même d'instruction musicale, comportant des caractères non ASCII soit
+même d'instruction musicale, comportant des caractères non ASCII, soit
 codé en UTF-8.  Le plus sûr moyen de saisir du texte de la sorte
 consiste à utiliser un éditeur supportant l'unicode et à enregistrer vos
 fichier en UTF-8.  C'est le cas pour la plupart des éditeurs actuels,
@@ -1578,38 +1823,6 @@ la manière suivante@tie{}:
 @end example
 
 
-@node Affichage de notation au format LilyPond
-@subsection Affichage de notation au format LilyPond
-@translationof Displaying LilyPond notation
-
-@funindex \displayLilyMusic
-
-La fonction musicale @code{\displayLilyMusic}, disponible uniquement
-pour un traitement en ligne de commande, permet d'afficher en
-notation LilyPond une expression musicale.  Par exemple,
-
-@example
-@{
-  \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
-@}
-@end example
-
-affichera
-
-@example
-@{ a,4 cis e fis g @}
-@end example
-
-LilyPond affichera le résultat sous forme de message en console, au
-milieu de toutes les informations de compilation.  Afin d'isoler ces
-messages et enregistrer le résultat de la fonction
-@code{\display@{STUFF@}}, pensez à rediriger la sortie vers un fichier.
-
-@example
-lilypond fichier.ly >display.txt
-@end example
-
-
 @node Contrôle des sorties
 @section Contrôle des sorties
 @translationof Controlling output
@@ -1653,9 +1866,9 @@ Rien ne vous empêche d'extraire plusieurs fragments, dès lors que vous
 définissez dans la liste d'autres paires d'emplacements ryhtmiques.
 
 Cette fonctionnalité n'est toutefois effective que lorsque vous lancez
-LilyPond avec l'option @code{-dclip-systems}.  Les @qq{coupures} seront
-générées sous la forme de fichiers EPS, convertis en PDF ou PNG selon le
-format que vous aurez stipulé.
+LilyPond avec l'option @w{@code{-dclip-systems}}.  Les @qq{coupures}
+seront générées sous la forme de fichiers EPS, convertis en PDF ou PNG
+selon le format que vous aurez stipulé.
 
 Pour de plus amples informations quant au format des résultats,
 consultez le chapitre @rprogram{Lancement de lilypond}.
@@ -1689,7 +1902,7 @@ générer.  Vous pourriez aussi être amené à retravailler le début d'une
 œuvre, pour y ajouter une partie par exemple, auquel cas c'est la
 propriété @code{showFirstLength} que vous utiliserez.
 
-Vous pouvez contrôler très finement les parties à escamoter, grâce u
+Vous pouvez contrôler très finement les parties à escamoter, grâce au
 commutateur @code{Score.skipTypesetting}@tie{}: lorsqu'il est activé,
 aucune gravure n'est réalisée.
 
@@ -1720,7 +1933,7 @@ de temps.
 @cindex EPS, format de sortie
 
 En matière de partition imprimable, LilyPond génère par défaut des
-documents au format PstScript (PS) et Portable Document Format (PDF).
+documents au format PostScript (PS) et Portable Document Format (PDF).
 Vous pouvez aussi obtenir des documents au format Scalable Vector
 Graphics (SVG), Encapsulated PostScript (EPS) ou Portable Network
 Graphics (PNG) dès lors que vous aurez lancé LilyPond en ligne de
@@ -1755,7 +1968,7 @@ Et ces même mesures avec la police de LilyPond, Feta@tie{}:
 Téléchargez puis décompressez l'archive zip.  Recopiez le répertoire
 @code{lilyfonts} dans  @file{@var{SHARE_DIR}/lilypond/current} -- voir
 @rlearning{Autres sources de documentation} à ce sujet.  Renommez le
-répertoire @code{fonts} qui s'y trouve en @code{fonts_orig}, puis les
+répertoire @code{fonts} qui s'y trouve en @code{fonts_orig}, puis le
 répertoire @code{lilyfonts} en @code{fonts}.  Il vous suffira, pour
 retrouver la fonte Feta, de renommer @code{fonts_orig} en @code{fonts}.
 
@@ -1766,25 +1979,32 @@ Manuel d'initiation :
 
 @knownissues
 
-Gonville ne permet pas de générer de la notation ancienne.  Consultez le
-site de l'auteur pour de plus amples informations ainsi qu'à propos des
-conditions d'utilisation.
+Gonville ne permet pas de générer de la notation ancienne, et certains
+glyphes ajoutés depuis lors aux jeux de caractères en soient absent.
+Consultez le site de l'auteur pour de plus amples informations ainsi
+qu'à propos des conditions d'utilisation.
 
 
 @node Sortie MIDI
 @section Sortie MIDI
 @translationof MIDI output
 
+@cindex son
+@cindex MIDI
+
 MIDI (Musical Instrument Digital Interface) constitue un standard en
 matière de connexion et de contrôle des instruments électroniques.  Un
 fichier MIDI contient une série de notes réparties dans différentes
 pistes.  Il ne s'agit en rien d'un fichier sonore@tie{}; il vous faudra
-un logiciel capable de traduire ces séries de notes en sons.
+un logiciel capable de traduire ces séries de notes en sons réels.
 
 Vous pouvez convertir vos partition en fichier MIDI de manière à
 entendre ce que vous avez saisi.  Ceci vous permet de contrôler aisément
 ce que vous avez saisi@tie{}: octaves et altérations erronées heuteront
 votre oreille avertie grâce au MIDI.
+
+Le fichier MIDI généré par LilyPond est relativement brut.  Vous pouvez
+cependant obtenir un meilleur rendu avec @ref{Le script Articulate}.
 
 @c TODO Check this
 Dans une sortie MIDI, LilyPond alloue un canal à chaque portée, plus un
@@ -1800,6 +2020,7 @@ silencieuses.
 * Répétitions et MIDI::
 * Gestion des nuances en MIDI::
 * MIDI et percussions::
+* Le script Articulate::
 @end menu
 
 
@@ -1941,7 +2162,7 @@ est comparable à ce lui du bloc @code{\layout}, voire plus simple.  Si
 le bloc @code{\midi} est la plupart du temps laissé vide, il peut
 contenir des aménagements pour certains contextes, la définition de
 contextes particuliers ou du code permettant de déterminer la valeur de
-certianes propriétés.  L'exemple suivant détermine le tempo initial du
+certaines propriétés.  L'exemple suivant détermine le tempo initial du
 fichier MIDI tout en se passant de son indication sur la partition
 imprimée.
 
@@ -2023,6 +2244,10 @@ commande @code{\score}.
 @cindex MIDI, accords nommés
 @cindex Rythme en MIDI
 @cindex MIDI, Rythme
+@cindex articulations et MIDI
+@cindex MIDI et articulations
+@cindex trilles et MIDI
+@cindex MIDI et trilles
 @c TODO etc
 
 Un fichier MIDI généré par LilyPond comprendra les éléments de notation
@@ -2050,7 +2275,7 @@ les tremolos, exceptés ceux utilisant la syntaxe
 les liaisons de prolongation ;
 
 @item
-les indications de nuance
+les indications de nuance ;
 
 @item
 les crescendos et decrescendos s'étalant sur plusieurs notes@tie{};
@@ -2062,6 +2287,15 @@ les changements de tempo indiqués par un @code{\tempo}@tie{};
 les paroles.
 @end itemize
 
+Si vous utilisez @ref{Le scrip Articulate}, d'autres éléments seront
+alors inclus@tie{}:
+
+@itemize
+@item articulations (lié, staccato, etc.),
+@item trilles et groupettos,
+@item rallentando et accelerando.
+@end itemize
+
 
 @unnumberedsubsubsec Éléments non pris en compte dans le MIDI
 @translationof Unsupported in MIDI
@@ -2069,7 +2303,7 @@ les paroles.
 @c TODO index as above
 
 LilyPond ne peut générer d'événement MIDI pour les éléments
-suivant@tie{}:
+suivant, sauf à utiliser @ref{Le scrip Articulate}@tie{}:
 
 @itemize
 @item
@@ -2104,6 +2338,7 @@ les accords en microtonalité.
 @translationof Repeats in MIDI
 
 @cindex reprises développées
+@cindex MIDI et reprises
 @funindex \unfoldRepeats
 
 Au prix de quelques réglages, les reprises de toutes sortes peuvent être
@@ -2125,6 +2360,10 @@ en reprises de type @code{unfold}.
 }
 \bar "|."
 @end lilypond
+
+Dans une partition comportant plusieurs voix, le développement des
+reprises ne sera effectif en MIDI qu'à la condition que ces reprises
+soient mentionnée correctement dans @strong{toutes} les voix.
 
 Lorsque l'on veut utiliser @code{\unfoldRepeats} seulement pour le rendu
 MIDI, il faut établir deux blocs @code{\score}@tie{}: un pour le MIDI,
@@ -2172,7 +2411,7 @@ que vous avez indiqué par @code{\rfz}.  Cette indication de nuance
 n'étant pas répertoriée dans le jeu par défaut, elle ne produira aucun
 effet en MIDI.  Il en sera d'ailleurs de même pour toute indication
 créée de toute pièce à l'aide de l'instruction
-@code{make-dynamic-script}.  Voici comment procéder pour ajuster le
+@w{@code{make-dynamic-script}}.  Voici comment procéder pour ajuster le
 volume MIDI de ce @notation{rinforzando} que le compositeur a indiqué.
 La fonction Scheme définit une fraction de 0,9 en cas de @notation{rfz},
 et demande d'utiliser la fonction par défaut dans les autre cas.
@@ -2445,3 +2684,154 @@ son le plus proche dans la banque standard.
 Le standard @emph{general MIDI} ne dispose pas du @emph{rim shot}@tie{};
 LilyPond lui subtitue un @emph{sidestick}.
 
+
+@node Le script Articulate
+@subsection Le script Articulate
+@translationof The Articulate script
+
+Vous obtiendrez un rendu MIDI plus @qq{réaliste} grâce au script
+@code{articulate}.  Celui-ci va tout faire pour d'une part prendre en
+compte les articulations (liaisons, staccato, etc.) -- en ajoutant un
+blanc aux notes raccourcies -- et, d'autre part, développer les trilles
+ou groupettos ainsi que tenir compte des éventuels rallentando et
+accelerando.
+
+L'utilisation du script @code{articulate} se fait en deux temps.  Vous
+devez dans un premier temps inclure son fichier d'initialisation en
+ajoutant en tête de votre fichier la ligne
+
+@example
+\include "articulate.ly"
+@end example
+
+puis, dans le bloc @code{\score}, indiquer que toutes les répétitions
+seront développées et appliquer la commande à votre musique@tie{}:
+
+@example
+\unfoldRepeats \articulate <<
+	tout le reste du bloc contenant la partition...
+>>
+@end example
+
+Une fois votre fichier modifié de la sorte, vous constaterez que la
+version imprimable aura été modifiée en profondeur.  Le bloc
+@code{\midi} produira par contre un fichier MIDI de bien meilleure
+qualité.
+
+Bien que cela ne gène en rien le fonctionnement du script
+@code{articulate}, lui adjoindre la commande @code{\unfoldRepeats} comme
+illustré ci-dessus permettra le rendu d'un certain nombre
+d'articulations tels les trilles.
+
+@knownissues
+
+Dans la mesure où la script @code{articulate} tend à raccourcir les
+accords, certaines musiques, notamment pour l'orgue, paraîtront de moins
+bonne qualité.
+
+
+@node Extraction d'informations musicales
+@section Extraction d'informations musicales
+@translationof Extracting musical information
+
+En plus de générer du graphisme et du MIDI, LilyPond peut présenter
+l'information musicale sous forme textuelle.
+
+@menu
+* Affichage de notation au format LilyPond::
+* Affichage de la musique sous forme d'expression scheme::
+* Enregistrement d'événements musicaux dans un fichier::
+@end menu
+
+
+@node Affichage de notation au format LilyPond
+@subsection Affichage de notation au format LilyPond
+@translationof Displaying LilyPond notation
+
+@funindex \displayLilyMusic
+
+La fonction musicale @code{\displayLilyMusic}, disponible uniquement
+pour un traitement en ligne de commande, permet d'afficher en
+notation LilyPond une expression musicale.  Par exemple,
+
+@example
+@{
+  \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
+@}
+@end example
+
+affichera
+
+@example
+@{ a,4 cis e fis g @}
+@end example
+
+LilyPond affichera le résultat sous forme de message en console, au
+milieu de toutes les informations de compilation.  Afin d'isoler ces
+messages et enregistrer le résultat de la fonction
+@code{\display@{MATÉRIAU@}}, pensez à rediriger la sortie vers un
+fichier.
+
+@example
+lilypond fichier.ly >display.txt
+@end example
+
+
+@node Affichage de la musique sous forme d'expression scheme
+@subsection Affichage de la musique sous forme d'expression scheme
+@translationof Displaying scheme music expressions
+
+Voir @rextend{Displaying music expressions}.
+
+
+@node Enregistrement d'événements musicaux dans un fichier
+@subsection Enregistrement d'événements musicaux dans un fichier
+@translationof Saving music events to a file
+
+LilyPond vous permet de sauvegarder dans un fichier séparé, sur la base
+de la portée, les événements musicaux.  Vous devrez pour ce faire
+inclure dans votre fichier maître un fichier d'initialisation
+spécifique@tie{}:
+
+@example
+\include "event-listener.ly"
+@end example
+
+Pour chaque portée que comporte votre partition, vous obtiendrez un
+fichier @file{NOMFICHIER-PORTÉENOMMÉE.notes} ou
+@file{NOMFICHIER-unnamed-staff.notes}.  Notez bien que si plusieurs
+portées ne sont pas explicitement nomées, tous leurs événements seront
+regroupés et mélangés dans le même fichier.  Le résultat ressemblera à
+ceci@tie{}:
+
+@example
+0.000   note     57       4   p-c 2 12
+0.000   dynamic  f
+0.250   note     62       4   p-c 7 12
+0.500   note     66       8   p-c 9 12
+0.625   note     69       8   p-c 14 12
+0.750   rest     4
+0.750   breathe
+@end example
+
+Il s'agit d'un tableau dont les colonnes sont délimitées par une
+tabulation.  Chaque ligne comporte deux champs fixes suivis d'un certain
+nombre de paramètres optionnels.
+
+@example
+@var{temps}  @var{type}  @var{...paramètres...}
+@end example
+
+Ces informations peuvent faire l'objet d'un retraîtement par d'autres
+programmes, comme des scripts python, aux fins de recherche en analyse
+musicologique ou des expériences à partir du rendu de LilyPond.
+
+
+@knownissues
+
+Tous les événements ne sont pas pris en charge par
+@file{event-listener.ly}.  Il s'agit en premier lieu d'une
+démonstration, un @qq{proof of concept} du potentiel de LilyPond.  Si
+certains des éléments que vous cherchez à obtenir n'apparaîssent pas,
+recopiez le fichier @file{event-listener.ly} dans votre répoertoire et
+modifiez-le de telle sorte qu'il travaille selon vos attentes.
