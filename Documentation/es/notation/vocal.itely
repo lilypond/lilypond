@@ -224,7 +224,7 @@ ver una explicación de muchas de las opciones, consulte
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
 
 
@@ -1131,7 +1131,7 @@ elaboración de los ejemplos anteriores, o examinando las plantillas de
 @rlearning{Conjuntos vocales} del manual de aprendizaje.
 
 @snippets
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {lyrics-old-spacing-settings.ly}
 
 @seealso
@@ -1188,7 +1188,7 @@ la propiedad dentro del bloque @code{\layout}.
 @end lilypond
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {lyrics-alignment.ly}
 
 @c TODO: move to LSR -vv
@@ -2171,7 +2171,7 @@ el @q{modo de acordes}; esta sintaxis se explica en
 @ref{Notación de acordes}.
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
 @seealso
@@ -2372,7 +2372,7 @@ Referencia de funcionamiento interno:
 
 @cindex voces divididas
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
 @seealso
@@ -2701,7 +2701,7 @@ función musical para reducir la cantidad de texto que se teclea y para
 hacer que las notas del piano estén más claras.
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {adding-orchestral-cues-to-a-vocal-score.ly}
 
 @seealso
@@ -3138,7 +3138,7 @@ primero de los siguientes fragmentos de código.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {chant-or-psalms-notation.ly}
 
 Los cánticos y otros textos litúrgicos pueden disponerse de una forma
@@ -3148,7 +3148,7 @@ alineada con las notas.  En este caso, las notas se disponen
 espaciadas de acuerdo con las sílabas en vez de hacerlo con las
 duraciones de las notas.
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 @seealso
@@ -3338,7 +3338,7 @@ corresponde exactamente con una línea de texto.  Esto requiere una
 instrucción @code{\partial} al principio de la música e instrucciones
 @code{\bar "|"} ó @code{\bar "||"} al final de cada línea.
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {hymn-template.ly}
 
 

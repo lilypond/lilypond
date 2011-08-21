@@ -37,22 +37,22 @@ de lancer LilyPond, et d'aprécier le résultat.
 
 @appendixsubsec Notes seules
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
 {single-staff-template-with-only-notes.ly}
 
 @appendixsubsec Notes et paroles
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
 {single-staff-template-with-notes-and-lyrics.ly}
 
 @appendixsubsec Notes et accords
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {single-staff-template-with-notes-and-chords.ly}
 
 @appendixsubsec Notes, paroles et accords
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
@@ -62,22 +62,22 @@ de lancer LilyPond, et d'aprécier le résultat.
 
 @appendixsubsec Piano seul
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-simple.ly}
 
 @appendixsubsec Chant et accompagnement
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-melody-and-lyrics.ly}
 
 @appendixsubsec Piano et paroles entre les portées
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
 
 @appendixsubsec Piano et nuances entre les portées
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-dynamics.ly}
 
 
@@ -87,12 +87,12 @@ de lancer LilyPond, et d'aprécier le résultat.
 
 @appendixsubsec Quatuor à cordes
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-simple.ly}
 
 @appendixsubsec Parties pour quatuor à cordes
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-with-separate-parts.ly}
 
 
@@ -102,37 +102,37 @@ de lancer LilyPond, et d'aprécier le résultat.
 
 @appendixsubsec Partition pour chœur à quatre voix mixtes
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template.ly}
 
 @appendixsubsec Partition pour chœur SATB avec réduction pour piano
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-automatic-piano-reduction.ly}
 
 @appendixsubsec Partition pour chœur SATB avec alignement des contextes
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
 @appendixsubsec Partition pour chœur SATB, sur quatre portées
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {satb-choir-template---four-staves.ly}
 
 @appendixsubsec Couplet pour solo et refrain à deux voix
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-verse-and-refrain.ly}
 
 @appendixsubsec Hymnes et cantiques
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {hymn-template.ly}
 
 @appendixsubsec Psalmodie
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {anglican-psalm-template.ly}
 
 
@@ -142,7 +142,7 @@ de lancer LilyPond, et d'aprécier le résultat.
 
 @appendixsubsec Orchestre, chœur et piano
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {orchestra,-choir-and-piano-template.ly}
 
 
@@ -153,12 +153,12 @@ de lancer LilyPond, et d'aprécier le résultat.
 
 @appendixsubsec Transcription de musique mensurale
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {ancient-notation-template----modern-transcription-of-mensural-music.ly}
 
 @appendixsubsec Transcription du grégorien
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
@@ -169,6 +169,6 @@ de lancer LilyPond, et d'aprécier le résultat.
 @appendixsubsec Symboles de jazz
 @translationof Jazz combo
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {jazz-combo-template.ly}
 

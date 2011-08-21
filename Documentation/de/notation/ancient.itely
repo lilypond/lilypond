@@ -1306,7 +1306,7 @@ unterstützt. Wenn versucht wird, ein Versetzungszeichen zu notieren,
 das von einem bestimmten Stil nicht unterstützt wird, wechselt LilyPond zu einem
 anderen Stil.
 
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@c @lilypondfile[verbatim,quote,texidoc,doctitle]
 @c {ancient-accidentals.ly}
 
 Der Stil für Versetzungs- und Vorzeichen wird von der
@@ -2563,7 +2563,7 @@ und etwa Synkopen nicht über Taktlinien hinweg aufgeteilt
 werden müssen, während man sich dennoch an den Taktlinien
 rhythmisch orientieren kann.
 
-@lilypondfile[verbatim,lilyquote,texidoc]
+@lilypondfile[verbatim,quote,texidoc]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 @c This simple setup will take care of the

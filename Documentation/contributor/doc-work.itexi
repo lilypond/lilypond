@@ -376,7 +376,7 @@ Inspirational headwords are produced with:
 LSR snippets are linked with:
 
 @example
-@@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 @{filename.ly@}
 @end example
 

@@ -2512,7 +2512,7 @@ compás, y al mismo tiempo ofrecer la ayuda orientativa que
 proporcionan las barras de compás.
 
 
-@lilypondfile[verbatim,lilyquote,texidoc]
+@lilypondfile[verbatim,quote,texidoc]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 

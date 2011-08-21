@@ -249,10 +249,10 @@ l'explique @ref{Définition de nouveaux contextes}.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {use-square-bracket-at-the-start-of-a-staff-group.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {display-bracket-with-only-one-staff-in-a-system.ly}
 
 @cindex présentation mensurale
@@ -260,7 +260,7 @@ l'explique @ref{Définition de nouveaux contextes}.
 @cindex transcription de musique ancienne
 @cindex musique ancienne, transcription
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 
@@ -327,7 +327,7 @@ l'explique @ref{Définition de nouveaux contextes}.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {nesting-staves.ly}
 
 
@@ -537,7 +537,7 @@ e4 d c2
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-some-staff-lines-thicker-than-the-others.ly}
 
 
@@ -701,7 +701,7 @@ début de ligne.  Pour plus d'information au sujet de la commande
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
 
 
@@ -812,7 +812,7 @@ contextes @code{RhythmicStaff}, il faudra utiliser
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {removing-the-first-empty-line.ly}
 
 
@@ -1159,7 +1159,7 @@ clarinet = \relative c'' {
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {quoting-another-voice-with-transposition.ly}
 
 @cindex note-event
@@ -1170,7 +1170,7 @@ clarinet = \relative c'' {
 @funindex quotedEventTypes
 @funindex quotedCueEventTypes
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {quoting-another-voice.ly}
 
 

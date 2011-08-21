@@ -773,13 +773,6 @@ contiene un campo @code{texidoc@var{LANG}}, quando si lancia @command{lilypond}
 con l'opzione @option{--header=@/texidoc@var{LANG}} verrà incluso
 @file{foo.texidoc@var{LANG}} invece di @file{foo.texidoc}.
 
-@item lilyquote
-(Solo per l'output Texinfo.)  Questa opzione è simile alla citazione, ma solo
-il frammento musicale (e l'opzionale blocco di testo sottinteso dall'opzione
-@code{verbatim}) vengono inseriti in un blocco di citazione.  Questa opzione è
-utile se si vuole citare (@code{quote}) il frammento musicale ma non il
-blocco della documentazione @code{texidoc}.
-
 @item doctitle
 (Solo per l'output Texinfo.) Questa opzione funziona in modo simile
 all'opzione @code{texidoc}: se @command{lilypond} viene lanciato con

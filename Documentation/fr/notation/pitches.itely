@@ -385,10 +385,10 @@ cis
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle,ragged-right]
+@lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
 {hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc, doctitle]
+@lilypondfile[verbatim,quote,texidoc, doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
 
@@ -779,7 +779,7 @@ Pour plus d'information à ce sujet, consultez
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 
@@ -918,7 +918,7 @@ sujet @ref{Notations anciennes}
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
 
@@ -1017,10 +1017,10 @@ fis
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
 
@@ -1079,7 +1079,7 @@ a2 b
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {ottava-text.ly}
 
 
@@ -2389,13 +2389,13 @@ deux notes représentant la hauteur la plus basse et la plus haute.  Les
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-ambitus-per-voice.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {ambitus-with-multiple-voices.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-ambitus-gap.ly}
 
 
@@ -2569,7 +2569,7 @@ Voir à ce propos @ref{Définition de la taille de portée}.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {numbers-as-easy-note-heads.ly}
 
 
@@ -2685,7 +2685,7 @@ a2 b c d \break
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 Pour une liste exhaustive des styles de tête de note, consultez

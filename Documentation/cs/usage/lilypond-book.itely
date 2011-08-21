@@ -778,13 +778,6 @@ die Übersetzung im Feld @code{texidoc@var{LANG}} enthalten. Wird nun
 aufgerufen, so wird der Inhalt der Datei @file{foo.texidoc@var{LANG}}
 anstelle von @file{foo.texidoc} eingefügt.
 
-@item lilyquote
-(Nur innerhalb von Texinfo-Dateien.) Diese Option wirkt wie die
-@code{quote} Option, außer dass nur das Musikfragment (und natürlich optional der
-gesamte LilyPond-Code bei Benutzung von @code{verbatim}) in den Zitatblock
-eingefügt wird. Dies ist nützlich, wenn Sie ein Musikfragment zitieren möchten,
-nicht aber dessen @code{texidoc} Dokumentationsblock.
-
 @item doctitle
 (Nur innerhalb von Texinfo-Dateien.) Diese Option wirkt ähnlich wie die
 @code{texidoc} Option: Wenn @command{lilypond} mit der Option

@@ -82,7 +82,7 @@ información}.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {makam-example.ly}
 
 @seealso
@@ -338,7 +338,7 @@ los maqams más comunes a armaduras de tonalidad:
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
 
@@ -386,10 +386,10 @@ barrado automático y/o utilizar indicaciones de compás compuestas.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {compound-time-signatures.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {arabic-improvisation.ly}
 
 
