@@ -122,13 +122,6 @@ Syntax: @var{note}@code{\\breathe}")
 	(types . (general-music event breathing-event))
 	))
 
-    (BraceEvent
-     . ((description . "Make a brace for this chord.
-
-Syntax: @var{chord}@code{-\\brace}")
-	(types . (general-music brace-event event))
-	))
-
     (ClusterNoteEvent
      . ((description . "A note that is part of a cluster.")
 	;; not a note-event, to ensure that Note_heads_engraver doesn't eat it.

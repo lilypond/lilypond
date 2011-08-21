@@ -30,7 +30,6 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positions, (SCM));
   DECLARE_SCHEME_CALLBACK (brew_chord_bracket, (SCM));
-  DECLARE_SCHEME_CALLBACK (brew_chord_brace, (SCM));
   DECLARE_SCHEME_CALLBACK (brew_chord_slur, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM));
   DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));

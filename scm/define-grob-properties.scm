@@ -567,8 +567,6 @@ this long, normally in the horizontal direction.  This requires an
 appropriate callback for the @code{springs-and-rods} property.  If
 added to a @code{Tie}, this sets the minimum distance between
 noteheads.")
-     (minimum-brace-height ,integer? "Specifies a minimum height for
-a brace.  The unit is an increment in fetaBraces.")
      (minimum-length-fraction ,number? "Minimum length of ledger line
 as fraction of note head size.")
      (minimum-space ,ly:dimension? "Minimum distance that the victim

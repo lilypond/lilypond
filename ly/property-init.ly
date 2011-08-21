@@ -23,8 +23,6 @@ defaultNoteHeads =
 % cross-staff brackets are desired.
 
 arpeggio = #(make-music 'ArpeggioEvent)
-brace = #(make-music 'BraceEvent)
-
 arpeggioArrowUp = {
   \revert Arpeggio  #'stencil
   \revert Arpeggio #'X-extent

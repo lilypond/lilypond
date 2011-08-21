@@ -57,11 +57,6 @@ note)."
  '())
 
 (ly:add-interface
- 'brace-interface
- "A brace."
- '())
-
-(ly:add-interface
  'dynamic-line-spanner-interface
  "Dynamic line spanner."
  '(avoid-slur))
