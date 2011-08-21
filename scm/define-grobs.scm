@@ -2615,6 +2615,7 @@
     (,ly:accidental-interface::height . ,ly:accidental-interface::pure-height)
     (,ly:axis-group-interface::calc-staff-staff-spacing . ,ly:axis-group-interface::calc-pure-staff-staff-spacing)
     (,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
+    (,ly:beam::rest-collision-callback . ,ly:beam::pure-rest-collision-callback)
     (,ly:grob::stencil-height . ,pure-stencil-height)
     (,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)
     (,ly:rest-collision::force-shift-callback-rest . ,pure-chain-offset-callback)

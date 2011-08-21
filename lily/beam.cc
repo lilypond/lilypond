@@ -54,6 +54,7 @@
 #include "pointer-group-interface.hh"
 #include "rhythmic-head.hh"
 #include "spanner.hh"
+#include "staff-symbol.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
 #include "warn.hh"
@@ -1730,6 +1731,77 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
 
   return scm_from_double (offset + staff_space * shift);
 }
+
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Beam, pure_rest_collision_callback, 4, 1, "");
+SCM
+Beam::pure_rest_collision_callback (SCM smob,
+                                    SCM, /* prev_offset */
+                                    SCM, /* start */
+                                    SCM /* end */)
+{
+  Real amount = 0.0;
+
+  Grob *me = unsmob_grob (smob);
+  Grob *stem = unsmob_grob (me->get_object ("stem"));
+  if (!stem)
+    return scm_from_double (amount);
+  Grob *beam = unsmob_grob (stem->get_object ("beam"));
+  if (!beam
+      || !Beam::normal_stem_count (beam))
+    return scm_from_double (amount);
+
+  Real ss = Staff_symbol_referencer::staff_space (me);
+
+  /*
+    This gives the extrema of rest positions.
+    In general, beams are never typeset more than one staff space away
+    from the staff in either direction.
+  */
+  Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
+  Interval rest_max_pos = staff ? Staff_symbol::line_span (staff) : Interval (0.0, 0.0);
+  rest_max_pos.widen (1);
+  rest_max_pos *= ss / 2;
+
+  extract_grob_set (beam, "stems", stems);
+  vector<Grob *> my_stems;
+
+  for (vsize i = 0; i < stems.size (); i++)
+    if (Stem::head_count (stems[i]) || stems[i] == stem)
+      my_stems.push_back (stems[i]);
+
+  vsize idx = -1;
+
+  for (vsize i = 0; i < my_stems.size (); i++)
+    if (my_stems[i] == stem)
+      {
+        idx = i;
+        break;
+      }
+  Grob *left;
+  Grob *right;
+
+  if (idx == -1 || my_stems.size () == 1)
+    return scm_from_double (amount);
+  else if (idx == 0)
+    left = right = my_stems[1];
+  else if (idx == my_stems.size () - 1)
+    left = right = my_stems[idx - 1];
+  else
+    {
+      left = my_stems[idx - 1];
+      right = my_stems[idx + 1];
+    }
+  Direction beamdir = get_grob_direction (beam);
+  /*
+    Take the position between the two bounding head_positions,
+    then bound it by the minimum and maximum positions outside the staff.
+    4.0 = 2.0 to get out of staff space * 2.0 for the average
+  */
+  amount = min (max ((Stem::head_positions (left)[beamdir] + Stem::head_positions (right)[beamdir]) / 4.0, rest_max_pos[DOWN]), rest_max_pos[UP]);
+
+  return scm_from_double (amount);
+}
+
 
 bool
 Beam::is_knee (Grob *me)
