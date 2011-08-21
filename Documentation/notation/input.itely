@@ -546,32 +546,6 @@ both types are entered using a @code{\header} block.
 If the book only has a single score, the @code{\header} block may be
 placed inside or outside of the @code{\score} block.
 
-The default behavior, when the @code{\header} has been defined inside
-the @code{\score} block, is to print only the @code{piece} and
-@code{opus} fields:
-
-@lilypond[papersize=a5,quote,verbatim,noragged-right]
-\score {
-  { c'4 }
-  \header {
-    title = "title"  % not printed
-    piece = "piece"
-    opus = "opus"
-  }
-}
-@end lilypond
-
-@funindex print-all-headers
-@noindent
-You may change this behavior (and print all the headers when defining
-@code{\header} inside @code{\score}) by using
-
-@example
-\paper@{
-  print-all-headers = ##t
-@}
-@end example
-
 @warning{Remember when adding a @bs{}@code{header} block inside a
 @bs{}@code{score} block, that the music expression must come before the
 @bs{}@code{header} block.}
@@ -825,7 +799,7 @@ footer and title text within the @code{\header} block.
   { s1 }
   \header {
     piece = \markup { \fontsize #4 \bold "PRAELUDIUM I" }
-    opus = \markup { \italic "(Excerpt)" }
+    subtitle = \markup { \italic "(Excerpt)" }
   }
 }
 @end lilypond
