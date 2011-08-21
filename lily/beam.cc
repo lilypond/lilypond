@@ -1780,7 +1780,7 @@ Beam::pure_rest_collision_callback (SCM smob,
   Grob *left;
   Grob *right;
 
-  if (idx == -1 || my_stems.size () == 1)
+  if (idx == (vsize)-1 || my_stems.size () == 1)
     return scm_from_double (amount);
   else if (idx == 0)
     left = right = my_stems[1];

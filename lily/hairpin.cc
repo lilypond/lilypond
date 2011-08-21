@@ -122,7 +122,7 @@ Hairpin::print (SCM smob)
           else
             {
               bool neighbor_found = false;
-              Spanner *adjacent;
+              Spanner *adjacent = NULL;
               extract_grob_set (me, "adjacent-spanners", neighbors);
               for (vsize i = 0; i < neighbors.size (); i++)
                 {
