@@ -89,7 +89,7 @@ private:
   Status last_playing_;
 
   /*
-    TODO: this is getting of hand...
+    TODO: this is getting off hand...
   */
   Context_handle handles_[NUM_OUTLETS];
 
@@ -135,6 +135,7 @@ Part_combine_iterator::Part_combine_iterator ()
   split_list_ = SCM_EOL;
   state_ = APART;
   playing_state_ = APART;
+  last_playing_ = APART;
 
   busy_ = false;
   notice_busy_ = false;
@@ -241,8 +242,7 @@ Part_combine_iterator::unisono (bool silent)
       Outlet_type c1 = (last_playing_ == SOLO2) ? CONTEXT_NULL : CONTEXT_SHARED;
       Outlet_type c2 = (last_playing_ == SOLO2) ? CONTEXT_SHARED : CONTEXT_NULL;
       substitute_both (c1, c2);
-      kill_mmrest ((last_playing_ == SOLO2)
-                   ? CONTEXT_ONE : CONTEXT_TWO);
+      kill_mmrest ((last_playing_ == SOLO2) ? CONTEXT_ONE : CONTEXT_TWO);
       kill_mmrest (CONTEXT_SHARED);
 
       if (playing_state_ != UNISONO
