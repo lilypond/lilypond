@@ -92,14 +92,12 @@ SCM ly_hash2alist (SCM tab);
 SCM ly_hash_table_keys (SCM tab);
 
 SCM ly_assoc_prepend_x (SCM alist, SCM key, SCM val);
-// is SCM_FRACTIONP (x) now scm_is_true (scm_rational_p (x))
-//                       or scm_is_true (scm_exact_p (x)) ?
 inline bool ly_is_fraction (SCM x) { return SCM_FRACTIONP (x) || scm_is_integer (x); }
 
-inline bool ly_is_list (SCM x) { return scm_is_true (scm_list_p (x)); }
+inline bool ly_is_list (SCM x) { return SCM_NFALSEP (scm_list_p (x)); }
 inline bool ly_cheap_is_list (SCM x) { return scm_is_pair (x) || x == SCM_EOL; }
-inline bool ly_is_procedure (SCM x) { return scm_is_true (scm_procedure_p (x)); }
-inline bool ly_is_port (SCM x) { return scm_is_true (scm_port_p (x)); }
+inline bool ly_is_procedure (SCM x) { return SCM_NFALSEP (scm_procedure_p (x)); }
+inline bool ly_is_port (SCM x) { return SCM_NFALSEP (scm_port_p (x)); }
 
 /*
   want to take the address of this function; scm_is_symbol() is a
@@ -109,12 +107,12 @@ inline bool ly_is_symbol (SCM x) { return scm_is_symbol (x); }
 
 inline bool ly_is_equal (SCM x, SCM y)
 {
-  return scm_is_true (scm_equal_p (x, y));
+  return SCM_NFALSEP (scm_equal_p (x, y));
 }
 
-inline bool ly_scm2bool (SCM x) { return scm_is_true (x); }
+inline bool ly_scm2bool (SCM x) { return SCM_NFALSEP (x); }
 inline char ly_scm2char (SCM x) { return (char)SCM_CHAR (x); }
-inline SCM ly_bool2scm (bool x) { return scm_from_bool (x); }
+inline SCM ly_bool2scm (bool x) { return SCM_BOOL (x); }
 
 inline SCM ly_append2 (SCM x1, SCM x2)
 {

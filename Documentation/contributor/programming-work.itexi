@@ -16,7 +16,6 @@
 * Engraver tutorial::
 * Callback tutorial::
 * LilyPond scoping::
-* Scheme->C interface::
 * LilyPond miscellany::
 @end menu
 
@@ -1544,7 +1543,7 @@ Otherwise, a developer with push privileges will push the patch.
 Once the patch has been pushed, all the relevant issues should be
 closed.
 
-On Rietveld, the author should log in and close the issue either by
+On Rietveld, the author should log in an close the issue either by
 using the @q{Edit Issue} link, or by clicking the circled x icon
 to the left of the issue name.
 
@@ -1801,139 +1800,6 @@ information belonging to user-defined commands and markups is stored in
 a manner that allows it to be garbage-collected when the module is
 dispersed, either by being stored module-locally, or in weak hash
 tables.
-
-
-@node Scheme->C interface
-@section Scheme->C interface
-
-Most of the C functions interfacing with Guile/Scheme used in LilyPond
-are described in the API Reference of the Guile Reference Manual
-(see @ref{LilyPond programming languages}).
-
-The remaining functions are defined in @file{lily/lily-guile.cc},
-@file{lily/include/lily-guile.hh} and
-@file{lily/include/lily-guile-macros.hh}.
-Although their names are meaningful there's a few things you should know
-about them.
-
-@menu
-* Comparison::
-* Conversion::
-@end menu
-
-@node Comparison
-@subsection Comparison
-
-This is the trickiest part of the interface.
-
-Mixing Scheme values with C comparison operators won't produce any crash
-or warning when compiling but must be avoided:
-
-@example
-scm_string_p ([any_SCM_you_want]) == SCM_BOOL_T
-@end example
-
-As we can read in the reference, @code{scm_string_p} returns a Scheme
-value: either @code{#t} or @code{#f} which are written @code{SCM_BOOL_T}
-and @code{SCM_BOOL_F} in C.  This looks correct but is dirty since it
-isn't idiomatic and because the proper way would be shorter to write and
-quicker in terms of execution time.
-
-Let's take a look at the Guile reference again; there's a function called
-@code{scm_is_string} described after @code{string?} and @code{scm_string_p}
-that returns 0 or 1.  These are C values.  I specify it because there is
-a misnomer in the reference: it says @code{scm_is_string} returns @code{#t}
-or @code{#f} instead of @code{SCM_BOOL_T} and @code{SCM_BOOL_F}, so we may
-think 0 and 1 are Scheme values.
-
-So the best solution was simply:
-
-@example
-scm_is_string ([any_SCM_you_want])
-@end example
-
-There a simple solution for almost every common comparison.  Another example:
-we want to know if a Scheme value is a non-empty list.  Instead of:
-
-@example
-scm_list_p ([SCM_value]) && [SCM_value] != SCM_EOL)
-@end example
-
-one should use:
-
-@example
-scm_is_pair ([SCM_value])
-@end example
-
-since a list of at least one member is considered as a pair.
-
-Unfortunately, there is not a @code{scm_is_[something]} function for
-everything.  That's one of the reasons why LilyPond has its own Scheme
-interface.
-
-@subheading Reference
-
-Here is a list of these functions:
-
-TODO: complete this list.
-
-@subsubheading bool to_boolean (SCM b)
-
-Convert a Scheme boolean @var{b} to a C boolean, else return false.
-
-This should be used instead of @code{scm_is_true} and @code{scm_is_false}
-for properties since empty lists are sometimes used to unset them.
-
-@subsubheading bool ly_is_equal (SCM x, SCM y)
-
-Return @code{true} if @var{x} and @var{y} are the same type, and their
-contents or value are equal, else return @code{false}.
-
-@subsubheading bool is_direction (SCM x)
-
-Return @code{true} if @var{x} is -1, 0 or 1,
-else return @code{false}.
-
-@subsubheading bool is_axis (SCM x)
-
-Return @code{true} if @var{x} is 0 or 1,
-else return @code{false}.
-
-@subsubheading bool is_number_pair (SCM p)
-
-Return @code{true} if @var{key} and @var{value} of a pair @var{p}
-are numbers, else return @code{false}.
-
-@subsubheading bool ly_is_alist_equal (SCM a, SCM b)
-
-Return @code{true} if the contents of the alists @var{a} and @var{b}
-are equal, else return @code{false}.  This is order-insensitive,
-contrary to equal.
-
-@node Conversion
-@subsection Conversion
-
-@subheading Reference
-
-TODO: complete this list.
-
-@subsubheading bool to_boolean (SCM b)
-
-Convert a Scheme boolean @var{b} to a C boolean, else return false.
-
-This should be used instead of @code{scm_is_true} and @code{scm_is_false}
-for properties since empty lists are sometimes used to unset them.
-
-@subsubheading Interval ly_scm2interval (SCM p)
-
-Convert a pair of floating point numbers @var{p} to an interval,
-else return @code{Interval (0, 0)}.
-
-@subsubheading Offset ly_scm2offset (SCM p)
-
-Convert a pair of floating point numbers @var{p} to an offset,
-else return @code{Offset (0, 0)}.
-
 
 @node LilyPond miscellany
 @section LilyPond miscellany

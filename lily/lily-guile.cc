@@ -178,7 +178,7 @@ ly_scm_hash (SCM s)
 bool
 is_axis (SCM s)
 {
-  if (scm_is_integer (s))
+  if (scm_is_number (s))
     {
       int i = scm_to_int (s);
       return i == 0 || i == 1;
@@ -212,7 +212,7 @@ robust_scm2dir (SCM d, Direction def)
 bool
 is_direction (SCM s)
 {
-  if (scm_is_integer (s))
+  if (scm_is_number (s))
     {
       int i = scm_to_int (s);
       return i >= -1 && i <= 1;
@@ -226,10 +226,7 @@ is_direction (SCM s)
 Interval
 ly_scm2interval (SCM p)
 {
-  return is_number_pair (p) ?
-           Interval (scm_to_double (scm_car (p)),
-                     scm_to_double (scm_cdr (p))) :
-           Interval (0, 0);
+  return Interval (scm_to_double (scm_car (p)), scm_to_double (scm_cdr (p)));
 }
 
 Drul_array<Real>
@@ -287,10 +284,8 @@ ly_offset2scm (Offset o)
 Offset
 ly_scm2offset (SCM s)
 {
-  return is_number_pair (s) ?
-           Offset (scm_to_double (scm_car (s)),
-                   scm_to_double (scm_cdr (s))) :
-           Offset (0, 0);
+  return Offset (scm_to_double (scm_car (s)),
+                 scm_to_double (scm_cdr (s)));
 }
 
 Offset
@@ -325,19 +320,20 @@ ly_scm2offsets (SCM s)
 /*
   ALIST
 */
-// This one is used nowhere.
+
 bool
-ly_is_alist_equal (SCM a, SCM b)
+alist_equal_p (SCM a, SCM b)
 {
-  if (!scm_is_pair (a) || !scm_is_pair (b))
-    return false;
-  for (SCM s = a; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = a;
+       scm_is_pair (s); s = scm_cdr (s))
     {
       SCM key = scm_caar (s);
       SCM val = scm_cdar (s);
       SCM l = scm_assoc (key, b);
 
-      if (scm_is_false (l) || !ly_is_equal (scm_cdr (l), val))
+      if (l == SCM_BOOL_F
+          || !ly_is_equal (scm_cdr (l), val))
+
         return false;
     }
   return true;
