@@ -44,7 +44,6 @@ LINE_WIDTH = 'line-width'
 NOFRAGMENT = 'nofragment'
 NOGETTEXT = 'nogettext'
 NOINDENT = 'noindent'
-NOQUOTE = 'noquote'
 INDENT = 'indent'
 NORAGGED_RIGHT = 'noragged-right'
 NOTES = 'body'
@@ -67,7 +66,6 @@ VERSION = 'lilypondversion'
 
 # NOTIME and NOGETTEXT have no opposite so they aren't part of this
 # dictionary.
-# NOQUOTE is used internally only.
 no_options = {
     NOFRAGMENT: FRAGMENT,
     NOINDENT: INDENT,
