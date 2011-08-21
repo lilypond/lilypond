@@ -39,7 +39,6 @@ FILENAME = 'filename'
 FILTER = 'filter'
 FRAGMENT = 'fragment'
 LAYOUT = 'layout'
-LILYQUOTE = 'lilyquote'
 LINE_WIDTH = 'line-width'
 NOFRAGMENT = 'nofragment'
 NOGETTEXT = 'nogettext'
@@ -113,7 +112,6 @@ snippet_options = {
         INDENT: r'''indent = %(indent)s''',
         LINE_WIDTH: r'''line-width = %(line-width)s''',
         QUOTE: r'''line-width = %(line-width)s - 2.0 * %(exampleindent)s''',
-        LILYQUOTE: r'''line-width = %(line-width)s - 2.0 * %(exampleindent)s''',
         RAGGED_RIGHT: r'''ragged-right = ##t''',
         NORAGGED_RIGHT: r'''ragged-right = ##f''',
     },
@@ -142,6 +140,8 @@ snippet_options = {
 
 
 def classic_lilypond_book_compatibility (key, value):
+    if key == 'lilyquote':
+        return (QUOTE, value)
     if key == 'singleline' and value == None:
         return (RAGGED_RIGHT, None)
 
@@ -422,8 +422,7 @@ class LilypondSnippet (Snippet):
         # all settings before writing them in the \paper block.
         if not LINE_WIDTH in self.option_dict:
             if not QUOTE in self.option_dict:
-                if not LILYQUOTE in self.option_dict:
-                    self.option_dict[LINE_WIDTH] = "#(- paper-width \
+                self.option_dict[LINE_WIDTH] = "#(- paper-width \
 left-margin-default right-margin-default)"
 
     def get_option_list (self):

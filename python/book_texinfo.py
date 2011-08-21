@@ -247,16 +247,13 @@ class BookTexinfoOutputFormat (BookBase.BookOutputFormat):
             rep['verb'] = snippet.verb_ly ()
             substr = self.output[VERBATIM] % rep
         substr += self.output_info (basename, snippet)
-        if LILYQUOTE in snippet.option_dict:
+        if (QUOTE in snippet.option_dict):
             substr = self.output[QUOTE] % {'str': substr}
         str += substr
 
 #                str += ('@ifinfo\n' + self.output_info () + '\n@end ifinfo\n')
 #                str += ('@tex\n' + self.output_latex () + '\n@end tex\n')
 #                str += ('@html\n' + self.output_html () + '\n@end html\n')
-
-        if QUOTE in snippet.option_dict:
-            str = self.output[QUOTE] % {'str': str}
 
         # need par after image
         str += '\n'
