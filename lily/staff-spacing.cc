@@ -214,6 +214,7 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col, Real situational_space)
 
   Spring ret (ideal, min_dist);
   ret.set_inverse_stretch_strength (max (0.0, stretchability));
+  ret.set_inverse_compress_strength (max (0.0, ideal - fixed));
   return ret;
 }
 
