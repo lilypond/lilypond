@@ -968,17 +968,3 @@ between the two text elements."
 (define-public (laissez-vibrer::print grob)
  (ly:tie::print grob))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; text replacements
-
-(define-public default-string-replacement-alist
-         '(; Whitespaces
-           ("\t" . " ")
-           ("\n" . " ")
-           ("\v" . " ")))
-
-(define-public (internal-add-text-replacements props alist)
-  (let* ((dummy-replacements (chain-assoc-get 'replacement-alist props '()))
-         (new-replacements
-             (append dummy-replacements alist)))
-        (prepend-alist-chain 'replacement-alist new-replacements props)))

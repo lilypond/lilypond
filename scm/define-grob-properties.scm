@@ -689,9 +689,6 @@ number, the quicker the slur attains its @code{height-limit}.")
 interesting items.")
      (remove-first ,boolean? "Remove the first staff of an orchestral
 score?")
-     (replacement-alist ,list? "Alist of strings or characters.
-The key is a string of the pattern to be replaced. The value is a
-string of what should be displayed. Useful for ligatures.")
      (restore-first ,boolean? "Print a natural before the
 accidental.")
      (rhythmic-location ,rhythmic-location? "Where (bar number,

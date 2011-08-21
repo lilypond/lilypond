@@ -149,9 +149,6 @@
   #(define text-font-defaults
      `((font-encoding . latin1)
        (baseline-skip . 3)
-       (replacement-alist . ,default-string-replacement-alist)
        (word-space . 0.6)))
-
-  \include "text-replacements.ly"
 
 }

@@ -2100,18 +2100,16 @@ Adjusts @code{baseline-skip} and @code{word-space} accordingly.
 }
 @end lilypond"
   (let* ((ref-size (ly:output-def-lookup layout 'text-font-size 12))
-         (text-props (list (ly:output-def-lookup layout 'text-font-defaults)))
-         (ref-word-space (chain-assoc-get 'word-space text-props 0.6))
-         (ref-baseline (chain-assoc-get 'baseline-skip text-props 3))
-         (magnification (/ size ref-size)))
-     (interpret-markup
-       layout
-       (cons
-         `((baseline-skip . ,(* magnification ref-baseline))
-           (word-space . ,(* magnification ref-word-space))
-           (font-size . ,(magnification->font-size magnification)))
-         props)
-       arg)))
+	 (text-props (list (ly:output-def-lookup layout 'text-font-defaults)))
+	 (ref-word-space (chain-assoc-get 'word-space text-props 0.6))
+	 (ref-baseline (chain-assoc-get 'baseline-skip text-props 3))
+	 (magnification (/ size ref-size)))
+    (interpret-markup layout
+		      (cons `((baseline-skip . ,(* magnification ref-baseline))
+			      (word-space . ,(* magnification ref-word-space))
+			      (font-size . ,(magnification->font-size magnification)))
+			    props)
+		      arg)))
 
 (define-markup-command (fontsize layout props increment arg)
   (number? markup?)
@@ -2130,14 +2128,11 @@ accordingly.
   smaller
 }
 @end lilypond"
-  (interpret-markup
-    layout
-    (cons
-      `((baseline-skip . ,(* baseline-skip (magstep increment)))
-        (word-space . ,(* word-space (magstep increment)))
-        (font-size . ,(+ font-size increment)))
-      props)
-    arg))
+  (let ((entries (list
+                  (cons 'baseline-skip (* baseline-skip (magstep increment)))
+                  (cons 'word-space (* word-space (magstep increment)))
+                  (cons 'font-size (+ font-size increment)))))
+    (interpret-markup layout (cons entries props) arg)))
 
 (define-markup-command (magnify layout props sz arg)
   (number? markup?)
@@ -3641,28 +3636,6 @@ Patterns are aligned to the @var{dir} markup.
                               #:translate (cons x-offset 0)
                               #:pattern (1+ count) X space pattern
                               right))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Replacements
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(define-markup-command (replace layout props replacements arg)
-  (list? markup?)
-  #:category font
-  "
-Used to automatically replace a string by another in the markup @var{arg}.
-Each pair of the alist @var{replacements} specifies what should be replaced.
-The @code{key} is the string to be replaced by the @code{value} string.
-
-@lilypond[verbatim, quote]
-\\markup \\replace #'((\"thx\" . \"Thanks!\")) thx
-@end lilypond"
-  (interpret-markup
-    layout
-    (internal-add-text-replacements
-      props
-      replacements)
-    (markup arg)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Markup list commands

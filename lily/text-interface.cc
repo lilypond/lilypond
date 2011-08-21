@@ -31,36 +31,22 @@
 #include "warn.hh"
 
 static void
-replace_special_characters (string *str, SCM props)
+replace_whitespace (string *str)
 {
   vsize i = 0;
-  SCM replacement_alist = ly_chain_assoc_get (ly_symbol2scm ("replacement-alist"),
-                                              props,
-                                              SCM_BOOL_F);
+  vsize n = str->size ();
 
-  if (!to_boolean (scm_list_p (replacement_alist))
-        || to_boolean (scm_null_p (replacement_alist)))
-    return;
-
-  int max_length = 0;
-  for (SCM s = replacement_alist; scm_is_pair (s); s = scm_cdr (s))
+  while (i < n)
     {
-      max_length = max (max_length, scm_to_int
-                                        (scm_string_length (scm_caar (s))));
-    }
+      char cur = (*str)[i];
 
-  while (i <= str->size ())
-    {
-      for (int j = max_length; j > 0; j--)
-        {
-          string dummy = str->substr (i, j);
-          string ligature = robust_scm2string
-                              (ly_assoc_get (ly_string2scm (dummy),
-                              replacement_alist, SCM_BOOL_F), "");
-          if (ligature != "")
-            str->replace (i, j, ligature);
-        }
-      i += utf8_char_len ((*str)[i]);
+      // avoid the locale-dependent isspace
+      if (cur == '\n' || cur == '\t' || cur == '\v')
+        (*str)[i] = ' ';
+
+      vsize char_len = utf8_char_len (cur);
+
+      i += char_len;
     }
 }
 
@@ -77,7 +63,7 @@ Text_interface::interpret_string (SCM layout_smob,
   Output_def *layout = unsmob_output_def (layout_smob);
   Font_metric *fm = select_encoded_font (layout, props);
 
-  replace_special_characters (&str, props);
+  replace_whitespace (&str);
 
   /*
     We want to filter strings with a music font that pass through
@@ -172,7 +158,6 @@ ADD_INTERFACE (Text_interface,
 
                /* properties */
                "baseline-skip "
-               "replacement-alist "
                "text "
                "word-space "
                "text-direction "
