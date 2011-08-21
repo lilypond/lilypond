@@ -143,23 +143,6 @@ snippet_options = {
 
 
 
-FRAGMENT_LY = r'''
-%(notes_string)s
-{
-
-
-%% ****************************************************************
-%% ly snippet contents follows:
-%% ****************************************************************
-%(code)s
-
-
-%% ****************************************************************
-%% end ly snippet
-%% ****************************************************************
-}
-'''
-
 def classic_lilypond_book_compatibility (key, value):
     if key == 'singleline' and value == None:
         return (RAGGED_RIGHT, None)
@@ -219,9 +202,22 @@ FULL_LY = '''
 %% ****************************************************************
 '''
 
+FRAGMENT_LY = r'''
+%(notes_string)s
+{
 
 
+%% ****************************************************************
+%% ly snippet contents follows:
+%% ****************************************************************
+%(code)s
 
+
+%% ****************************************************************
+%% end ly snippet
+%% ****************************************************************
+}
+'''
 
 
 
@@ -457,10 +453,6 @@ left-margin-default right-margin-default)"
         return self.option_list
 
     def compose_ly (self, code):
-        if FRAGMENT in self.option_dict:
-            body = FRAGMENT_LY
-        else:
-            body = FULL_LY
 
         # Defaults.
         relative = 1
@@ -571,6 +563,10 @@ left-margin-default right-margin-default)"
         d = globals().copy()
         d.update (locals())
         d.update (self.global_options.information)
+        if FRAGMENT in self.option_dict:
+            body = FRAGMENT_LY
+        else:
+            body = FULL_LY
         return (PREAMBLE_LY + body) % d
 
     def get_checksum (self):
