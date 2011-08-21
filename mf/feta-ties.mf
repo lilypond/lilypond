@@ -18,37 +18,21 @@
 
 fet_begingroup ("ties");
 
-save min_width, max_width, min_height, max_height, thin, thick;
+fet_beginchar ("lyric tie", "lyric");
+	save padding;
 
-min_width:= .5 staff_space#;
-max_width:= 5 staff_space#;
-min_height := .2 staff_space#;
-max_height := .4 staff_space#;
-thin := 1.2 linethickness;
-thick := 2 linethickness;
-
-def draw_lyric_tie (expr width_sharp) =
-	save padding, angularity, width, height, depth;
-
-	padding# := .4 staff_space#;
-	angularity := 2.5;
-	width# := max (min (width_sharp, max_width), min_width);
-	height# := (max (width# - min_width, 0) / (max_width - min_width))
-	           [min_height, max_height];
-	depth# := padding# + height#;
+	padding := .4 staff_space;
 
 	set_char_box (0, 0,
-		depth#, 0);
+		.7 staff_space#, 0);
 
-	define_pixels (width, padding);
-
-	z1 = (-width / 2, -padding);
+	z1 = (-staff_space, -padding);
 	z2 = (0, -d);
-	z3 = (width / 2, -padding);
+	z3 = (staff_space, -padding);
 
-	penpos1 (thin, angularity * angle (z2 - z1) + 90);
-	penpos2 (thick, 90);
-	penpos3 (thin, angularity * angle (z3 - z2) + 90);
+	penpos1 (1.2 linethickness, 50);
+	penpos2 (2 linethickness, 90);
+	penpos3 (1.2 linethickness, 130);
 
 	fill z2l
 		.. simple_serif (z3l, z3r, 90)
@@ -57,18 +41,6 @@ def draw_lyric_tie (expr width_sharp) =
 		.. cycle;
 
 	penlabels (1, 2, 3);
-enddef;
-
-fet_beginchar ("short lyric tie", "lyric.short");
-	draw_lyric_tie (1.25 staff_space#);
-fet_endchar;
-
-fet_beginchar ("medium lyric tie", "lyric.medium");
-	draw_lyric_tie (2 staff_space#);
-fet_endchar;
-
-fet_beginchar ("long lyric tie", "lyric.long");
-	draw_lyric_tie (3 staff_space#);
 fet_endchar;
 
 fet_endgroup ("ties");

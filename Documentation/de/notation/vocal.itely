@@ -629,11 +629,11 @@ gesetzt werden.
 
 @lilypond[quote,ragged-right,verbatim]
 {
-  \relative c'' { \autoBeamOff
-    r8 b c fis, fis c' b e, }
-  \addlyrics { Che_in ques -- ta_è_in quel -- l'al -- tr'on -- da }
-  \addlyrics { "Che in" ques -- "ta è in" quel -- l'al -- tr'on -- da }
-  \addlyrics { Che~in ques -- ta~è~in quel -- l'al -- tr'on -- da }
+  \time 3/4
+  \relative c' { c2 e4 g2 e4 }
+  \addlyrics { gran -- de_a -- mi -- go }
+  \addlyrics { pu -- "ro y ho" -- nes -- to }
+  \addlyrics { pu -- ro~y~ho -- nes -- to }
 }
 @end lilypond
 
