@@ -861,19 +861,19 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
 
     def convert_from_musicxml (self):
         name = self.filename
-        option_list = []
+        xml2ly_option_list = []
         for (key, value) in self.option_dict.items ():
             cmd_key = self.musicxml_options_dict.get (key, None)
             if cmd_key == None:
                 continue
             if value == None:
-                option_list.append (cmd_key)
+                xml2ly_option_list.append (cmd_key)
             else:
-                option_list.append (cmd_key + '=' + value)
-        if ('.mxl' in name) and ('--compressed' not in option_list):
-            option_list.append ('--compressed')
+                xml2ly_option_list.append (cmd_key + '=' + value)
+        if ('.mxl' in name) and ('--compressed' not in xml2ly_option_list):
+            xml2ly_option_list.append ('--compressed')
             self.compressed = True
-        opts = " ".join (option_list)
+        opts = " ".join (xml2ly_option_list)
         progress (_ ("Converting MusicXML file `%s'...\n") % self.filename)
 
         ly_code = self.filter_pipe (self.contents, 'musicxml2ly %s --out=- - ' % opts)
