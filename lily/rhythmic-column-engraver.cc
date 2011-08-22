@@ -56,7 +56,6 @@ class Rhythmic_column_engraver : public Engraver
   vector<Grob *> rheads_;
   Grob *stem_;
   Grob *note_column_;
-  Grob *dotcol_;
   Grob *arpeggio_;
 
   TRANSLATOR_DECLARATIONS (Rhythmic_column_engraver);
