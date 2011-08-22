@@ -667,11 +667,9 @@ Set staff size to @var{ht}, which is measured in points.
 
 @item ragged-right
 Produce ragged-right lines with natural spacing, i.e.,
-@code{ragged-right = ##t} is added to the LilyPond snippet.  This is the
-default for the @code{\lilypond@{@}} command if no @code{line-width}
-option is present.  It is also the default for the @code{lilypond}
-environment if the @code{fragment} option is set, and no line width is
-explicitly specified.
+@code{ragged-right = ##t} is added to the LilyPond snippet.  Single-line
+snippets will always be typeset by default as ragged-right, unless
+@code{noragged-right} is explicitly given.
 
 @item noragged-right
 For single-line snippets, allow the staff length to be stretched to
