@@ -915,8 +915,8 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
         if os.path.exists (xmlfilename):
             diff_against_existing = self.filter_pipe (self.contents, 'diff -u %s - ' % xmlfilename)
             if diff_against_existing:
-                warning ("%s: duplicate filename but different contents of orginal file,\n\
-printing diff against existing file." % xmlfilename)
+                warning (_ ("%s: duplicate filename but different contents of orginal file,\n\
+printing diff against existing file.") % xmlfilename)
                 ly.stderr_write (diff_against_existing)
         else:
             out = file (xmlfilename, 'w')
@@ -928,8 +928,8 @@ printing diff against existing file." % xmlfilename)
         if os.path.exists (filename):
             diff_against_existing = self.filter_pipe (self.full_ly (), 'diff -u %s -' % filename)
             if diff_against_existing:
-                warning ("%s: duplicate filename but different contents of converted lilypond file,\n\
-printing diff against existing file." % filename)
+                warning (_ ("%s: duplicate filename but different contents of converted lilypond file,\n\
+printing diff against existing file.") % filename)
                 ly.stderr_write (diff_against_existing)
         else:
             out = file (filename, 'w')
