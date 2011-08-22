@@ -329,7 +329,7 @@ class LilypondSnippet (Snippet):
     def __init__ (self, type, match, formatter, line_number, global_options):
         Snippet.__init__ (self, type, match, formatter, line_number, global_options)
         os = match.group ('options')
-        self.do_options (os, self.type)
+        self.parse_snippet_options (os, self.type)
 
 
     def snippet_options (self):
@@ -379,64 +379,85 @@ class LilypondSnippet (Snippet):
     def split_options (self, option_string):
         return self.formatter.split_snippet_options (option_string);
 
-    def do_options (self, option_string, type):
-        self.option_dict = {}
+    def parse_snippet_options (self, option_string, type):
+        self.snippet_option_dict = {}
 
+        # Split option string and create raw option_dict from it
         options = self.split_options (option_string)
 
         for option in options:
+            (key, value) = (option, None)
             if '=' in option:
                 (key, value) = re.split ('\s*=\s*', option)
-                self.option_dict[key] = value
             else:
-                if option in no_options:
-                    if no_options[option] in self.option_dict:
-                        del self.option_dict[no_options[option]]
+                # a no... option removes a previous option if present!
+                if key in no_options:
+                    if no_options[key] in self.option_dict:
+                        del self.snippet_option_dict[no_options[key]]
+                        key = None
+            # Check for deprecated options, replace them by new ones
+            (c_key, c_value) = classic_lilypond_book_compatibility (key, value)
+            if c_key:
+                if c_value:
+                    warning (
+                        _ ("deprecated ly-option used: %s=%s") % (key, value))
+                    warning (
+                        _ ("compatibility mode translation: %s=%s") % (c_key, c_value))
                 else:
-                    self.option_dict[option] = None
+                    warning (
+                        _ ("deprecated ly-option used: %s") % key)
+                    warning (
+                        _ ("compatibility mode translation: %s") % c_key)
+                (key, value) = (c_key, c_value)
+            # Finally, insert the option:
+            if key:
+                self.snippet_option_dict[key] = value
 
+        # If LINE_WIDTH is used without parameter, set it to default.
+        has_line_width = self.snippet_option_dict.has_key (LINE_WIDTH)
+        if has_line_width and self.snippet_option_dict[LINE_WIDTH] == None:
+            del self.snippet_option_dict[LINE_WIDTH]
 
-        # Store if we have an explicit line-width given
-        has_line_width = self.option_dict.has_key (LINE_WIDTH)
-        if has_line_width and self.option_dict[LINE_WIDTH] == None:
-            has_line_width = False
-            del self.option_dict[LINE_WIDTH]
+        # RELATIVE does not work without FRAGMENT, so imply that
+        if self.snippet_option_dict.has_key (RELATIVE):
+            self.snippet_option_dict[FRAGMENT] = None
 
-        # Use default options (i.e. auto-detected line-width, etc)
-        for k in self.formatter.default_snippet_options:
-            if k not in self.option_dict:
-                self.option_dict[k] = self.formatter.default_snippet_options[k]
+        # Now get the default options from the formatter object (HTML, latex,
+        # texinfo, etc.) and insert the explicit snippet options to get the
+        # list of all options for this snippet
+        # first, make sure we have an INDENT value as a fallback
+        self.option_dict = {INDENT: '0\\mm'};
+        self.option_dict.update (self.formatter.default_snippet_options);
+        self.option_dict.update (self.snippet_option_dict);
 
-        # RELATIVE does not work without FRAGMENT;
-        # make RELATIVE imply FRAGMENT
-        has_relative = self.option_dict.has_key (RELATIVE)
-        if has_relative and not self.option_dict.has_key (FRAGMENT):
-            self.option_dict[FRAGMENT] = None
+        # also construct a list of all options (as strings) that influence the
+        # visual appearance of the snippet
+        lst = filter (lambda (x,y): x not in PROCESSING_INDEPENDENT_OPTIONS,
+                      self.option_dict.iteritems ());
+        option_list = []
+        for (key, value) in lst:
+            if value == None:
+                option_list.append (key)
+            else:
+                option_list.append (key + "=" + value)
+        option_list.sort ()
+        self.outputrelevant_option_list = option_list
+        #print ("self.outputrelevant_option_list: %s\n" % self.outputrelevant_option_list);
 
-        if not INDENT in self.option_dict:
-            self.option_dict[INDENT] = '0\\mm'
 
         # Set a default line-width if there is none. We need this, because
         # lilypond-book has set left-padding by default and therefore does
         # #(define line-width (- line-width (* 3 mm)))
         # TODO: Junk this ugly hack if the code gets rewritten to concatenate
         # all settings before writing them in the \paper block.
-        if not LINE_WIDTH in self.option_dict:
-            if not QUOTE in self.option_dict:
-                self.option_dict[LINE_WIDTH] = "#(- paper-width \
-left-margin-default right-margin-default)"
+        #if not LINE_WIDTH in self.option_dict:
+            #if not QUOTE in self.option_dict:
+                #self.option_dict[LINE_WIDTH] = "#(- paper-width \
+#left-margin-default right-margin-default)"
 
-    def get_option_list (self):
-        if not 'option_list' in self.__dict__:
-            option_list = []
-            for (key, value) in self.option_dict.items ():
-                if value == None:
-                    option_list.append (key)
-                else:
-                    option_list.append (key + '=' + value)
-            option_list.sort ()
-            self.option_list = option_list
-        return self.option_list
+    # Get a list of all options (as string) that influence the snippet appearance
+    def get_outputrelevant_option_strings (self):
+        return self.outputrelevant_option_list
 
     def compose_ly (self, code):
 
@@ -466,18 +487,18 @@ left-margin-default right-margin-default)"
         #
         # To set @exampleindent locally to zero, we use the @format
         # environment for non-quoted snippets.
+        #
+        # Update: since July 2011 we are running texinfo on a test file
+        #         to detect the default exampleindent, so we might reintroduce
+        #         further usage of exampleindent again.
+        #
+        # First, make sure we have some falback default value, auto-detected
+        # values and explicitly specified values will always override them:
         override[EXAMPLEINDENT] = r'0.4\in'
-        override[LINE_WIDTH] = '5\\in' # = texinfo_line_widths['@smallbook']
+        override[LINE_WIDTH] = '5\\in'
         override.update (self.formatter.default_snippet_options)
 
-        option_list = []
-        for option in self.get_option_list ():
-            for name in PROCESSING_INDEPENDENT_OPTIONS:
-                if option.startswith (name):
-                    break
-            else:
-                option_list.append (option)
-        option_string = ','.join (option_list)
+        option_string = ','.join (self.get_outputrelevant_option_strings ())
         compose_dict = {}
         compose_types = [NOTES, PREAMBLE, LAYOUT, PAPER]
         for a in compose_types:
@@ -487,20 +508,6 @@ left-margin-default right-margin-default)"
         option_names.sort ()
         for key in option_names:
             value = self.option_dict[key]
-            (c_key, c_value) = classic_lilypond_book_compatibility (key, value)
-            if c_key:
-                if c_value:
-                    warning (
-                        _ ("deprecated ly-option used: %s=%s") % (key, value))
-                    warning (
-                        _ ("compatibility mode translation: %s=%s") % (c_key, c_value))
-                else:
-                    warning (
-                        _ ("deprecated ly-option used: %s") % key)
-                    warning (
-                        _ ("compatibility mode translation: %s") % c_key)
-
-                (key, value) = (c_key, c_value)
 
             if value:
                 override[key] = value
@@ -567,12 +574,8 @@ left-margin-default right-margin-default)"
             # code plus fragment options relevant to processing by
             # lilypond, not the snippet + preamble
             hash = md5 (self.relevant_contents (self.ly ()))
-            for option in self.get_option_list ():
-                for name in PROCESSING_INDEPENDENT_OPTIONS:
-                    if option.startswith (name):
-                        break
-                else:
-                    hash.update (option)
+            for option in self.get_outputrelevant_option_strings ():
+                hash.update (option)
 
             ## let's not create too long names.
             self.checksum = hash.hexdigest ()[:10]
