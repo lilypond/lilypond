@@ -158,13 +158,17 @@ fi;
 
 
 def draw_brevis (expr linecount, line_thickness_multiplier) =
-	save stemthick, fudge;
+	save stemthick, fudge, gap;
 
 	stemthick# = line_thickness_multiplier * 2 * stafflinethickness#;
 	define_whole_blacker_pixels (stemthick);
 
-	% Breves of smaller design sizes should have their lines
-	% farther apart (the overlap should be smaller).
+	% double-lined breves of smaller design sizes should have
+	% bigger gap between the lines.
+	gap# := (0.95 - 0.008 * design_size) * stemthick#;
+
+	% Breves of smaller design sizes should have their lines farther
+	% apart (the overlap with notehead ellipsoid should be smaller).
 	fudge = hround (blot_diameter
 			* min (max (-0.15,
 				    (0.8
@@ -175,6 +179,12 @@ def draw_brevis (expr linecount, line_thickness_multiplier) =
 	draw_outside_ellipse (1.80, 0, 0.707, 0);
 	undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#);
 
+	set_char_box (stemthick# * linecount + gap# * (linecount - 1),
+	              width# + stemthick# * linecount + gap# * (linecount - 1),
+	              noteheight# / 2,
+	              noteheight# / 2);
+
+	define_pixels (gap);
 	pickup pencircle scaled stemthick;
 
 	% Breves of smaller design sizes should have their lines longer.
@@ -194,20 +204,18 @@ def draw_brevis (expr linecount, line_thickness_multiplier) =
 	rt x1 - fudge = 0;
 	x1 = x2;
 
-	fudge + lft x3 = w;
+	fudge + lft x3 = width;
 	x4 = x3;
 	y4 = y2;
 	y3 = y1;
 
-	% Breves of smaller design sizes should have their lines
-	% farther apart.
-	line_distance := (1.95 - 0.008 * design_size) * stemthick;
 	for i := 0 step 1 until linecount - 1:
-		draw_gridline (z1 - (i * line_distance, 0),
-		               z2 - (i * line_distance, 0),
+		line_distance := i * (gap + stemthick);
+		draw_gridline (z1 - (line_distance, 0),
+		               z2 - (line_distance, 0),
 		               stemthick);
-		draw_gridline (z3 + (i * line_distance, 0),
-		               z4 + (i * line_distance, 0),
+		draw_gridline (z3 + (line_distance, 0),
+		               z4 + (line_distance, 0),
 		               stemthick);
 	endfor;
 enddef;
