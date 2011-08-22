@@ -227,6 +227,11 @@ case --pdf option is set instead of pdflatex"),
               metavar=_ ("PROG"),
               action='store', dest='latex_program',
               default='latex')
+    group.add_option ('--texinfo-program',
+              help=_ ("run executable PROG instead of texi2pdf"),
+              metavar=_ ("PROG"),
+              action='store', dest='texinfo_program',
+              default='texi2pdf')
     group.add_option ('--pdf',
               action="store_true",
               dest="create_pdf",
