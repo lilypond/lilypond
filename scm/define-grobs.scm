@@ -930,11 +930,12 @@
     (Glissando
      . (
 	(after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
-	(bound-details . ((right . ((attach-dir .  ,CENTER)
-				    (padding . 1.5)
+	(bound-details . ((right . ((attach-dir .  ,LEFT)
+				    (end-on-accidental . #t)
+				    (padding . 0.5)
 				      ))
-			  (left . ((attach-dir .  ,CENTER)
-				   (padding . 1.5)
+			  (left . ((attach-dir .  ,RIGHT)
+				   (padding . 0.5)
 				      ))
 			  ))
 	(gap . 0.5)
