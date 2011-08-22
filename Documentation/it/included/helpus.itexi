@@ -1,0 +1,145 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+@c This file is part of web/community.itexi and
+@c contributor/introduction.itely
+
+@ignore
+    Translation of GIT committish: 66e5185e494d29c40ec25d5f71326836204cd680
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@macro helpusNeed
+@subheading Abbiamo bisogno di te!
+
+Il team di sviluppo di LilyPond è piuttosto piccolo; desideriamo davvero
+coinvolgere nuove persone.  Prendi in considerazione l'idea di aiutare i
+tuoi compagni utenti di LilyPond diventando un collaboratore!
+
+Anche lavorare su piccoli compiti può avre un grande impatto: occuparsi di
+questi compiti permette agli sviluppatori esperti di lavorare sui compiti
+complessi, invece di impiegare il tempo in quelli semplici.
+
+@end macro
+
+
+@macro helpusTasks
+@subheading Compiti semplici
+
+Non è richiesto compilare o lavorare sul codice sorgente!
+
+@itemize
+@item
+Supporto nelle mailing list: rispondi alle domande degli utenti.
+
+@item
+Segnalazione bug: aiuta gli utenti a creare una @rweb{Segnalazione bug}
+corretta e/o entra nel Bug Squad per l'organizzazione dei @rcontribnamed{Issues, Problemi}.
+
+@item
+Documentazione: puoi proporre piccole modifiche seguendo le linee
+guida per i @rcontribnamed{Documentation suggestions,Consigli per la documentazione}.
+
+@item
+LilyPond Snippet Repository (LSR): crea e correggi i frammenti di codice
+seguendo le linee guida in
+@rcontribnamed{Adding and editing snippets, Aggiungere e modificare i frammenti di codice}.
+
+@item
+Discussioni, revisioni e prove: gli sviluppatori chiedono spesso
+delle opinioni sulla documentazione, possibili cambiamenti di sintassi
+e il test di nuove funzionalità.  Contribuisci a queste discussioni!
+
+@end itemize
+
+@subheading Compiti avanzati
+
+Questi compiti di solito richiedono il codice sorgente e la capacità di
+compilare LilyPond.
+
+@warning{Consigliamo ai collaboratori che usano Windows o MacOS X di
+@strong{non} cercare di configurare il proprio ambiente di sviluppo;
+si consiglia invece di usare Lilydev come spiegato in @rcontribnamed{Quick start,Avvio rapido}.}
+
+Anche i collaboratori che usano Linux o FreeBSD possono usare Lilydev, ma se
+preferiscono il proprio ambiente di sviluppo, devono leggere
+@rcontribnamed{Working with source code,Lavorare col codice sorgente} e
+@rcontribnamed{Compiling,Compilare}.
+
+@itemize
+@item
+Documentazione: per ampie modifiche si veda
+@rcontribnamed{Documentation work,Lavorare sulla documentazione}.
+
+@item
+Sito web: il sito web viene creato dai sorgenti della
+documentazione.  Si vedano le informazioni relative alla documentazione e anche
+@rcontribnamed{Website work,Lavorare sul sito web}.
+
+@item
+Traduzioni: si veda @rcontribnamed{Translating the documentation,Tradurre la documentazione}
+e @rcontribnamed{Translating the website,Tradurre il sito web}.
+
+@item
+Correzioni di bug o nuove funzionalità: il miglior modo per iniziare è unirsi
+ai Frogs e leggere @rcontribnamed{Programming work,Lavori di programmazione}.
+
+@end itemize
+
+@end macro
+
+
+@macro helpusProjects
+@subheading Progetti
+
+@subsubheading Frogs
+
+Sito web e mailing list:
+
+@example
+@uref{http://frogs.lilynet.net}
+@end example
+
+I Frogs sono comuni utenti LilyPond che hanno scelto di impegnarsi
+nello sviluppo del loro software preferito.  Correggere i bug,
+implementare nuove funzionalità, documentare il codice sorgente: c'è
+molto da fare.  Ma soprattutto si tratta di un'occasione per tutti
+per acquisire maggiori conoscenze su LilyPond, il Software Libero e
+la programmazione... e per divertirsi.  Se uno di questi punti
+ti incuriosisce, allora il monito è: @emph{Join the Frogs!}
+
+
+
+@subsubheading Grand LilyPond Input Syntax Standardization
+
+Sito web:
+@rcontrib{Grand LilyPond Input Syntax Standardization (GLISS)}.
+
+GLISS renderà stabile la sintassi di input (esclusi i tweak) per il futuro
+LilyPond 3.0.  Dopo l'aggiornamento alla versione 3.0, la sintassi di input per
+la musica senza tweak rimarrà stabile nell'immediato futuro.
+
+Ci sarà un ampio periodo di discussione per determinare la specifica finale
+per l'input.
+
+@warning{GLISS inizierà poco dopo il rilascio della versione 2.16.}
+
+@subsubheading Grand Organizing Project
+
+Sito web: @rcontrib{Grand Organization Project (GOP)}.
+
+GOP sarà la nostra grande iniziativa di reclutamento di nuovi collaboratori.  Abbiamo
+un disperato bisogno di distribuire tra più persone i compiti di sviluppo (inclusi
+i @qq{compiti semplici} che non richiedono di dover programmare o avere a che
+fare col codice sorgente!).  Abbiamo anche bisogno di documentare la conoscenza
+degli attuali sviluppatori in modo che non vada persa.
+
+Diversamente dalla maggior parte dei @qq{Grand Projects}, GOP non aggiungerà
+nuove funzionalità né riprogetterà completamente le cose.  Il suo scopo è darci
+delle fondamenta più stabili in modo da poter andare avanti con compiti più
+grandi in futuro.
+
+@end macro
+
+
