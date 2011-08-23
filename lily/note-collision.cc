@@ -186,7 +186,7 @@ check_meshing_chords (Grob *me,
       && Rhythmic_head::dot_count (head_up) < Rhythmic_head::dot_count (head_down))
     {
       shift_amount = -1;
-      if (!touch || full_collide)
+      if (!touch)
         // remember to leave clearance between stems
         stem_to_stem = true;
     }
