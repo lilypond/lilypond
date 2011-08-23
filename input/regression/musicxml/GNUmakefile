@@ -16,7 +16,7 @@ include $(depth)/make/stepmake.make
 TITLE=Unofficial MusicXML test suite
 AUTHOR=Reinhold Kainhofer
 TEST_SUITE_VERSION=0.1
-LILYPOND_BOOK_FLAGS += --load-custom-package=book-musicxml-testsuite.py
+LILYPOND_BOOK_FLAGS += --load-custom-package=$(src-dir)/book-musicxml-testsuite.py
 # This breaks since *.tex and *.texi still contains ac/lily-xxxxxx references!
 #LILYPOND_BOOK_FLAGS += --use-source-file-names
 
