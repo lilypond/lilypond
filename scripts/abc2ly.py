@@ -1332,6 +1332,7 @@ def parse_file (fn):
 
         orig_ln = ln
 
+        ln = junk_space (ln, state)
         ln = try_parse_header_line (ln, state)
 
         # Try nibbling characters off until the line doesn't change.
