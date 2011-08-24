@@ -1422,15 +1422,15 @@ Contributor of} on your @qq{My Group Membership} page.
 
 
 @item
-Generate an SSH @q{dsa} key pair.  Enter the following at the
+Generate an SSH @q{rsa} key pair.  Enter the following at the
 command prompt:
 
 @example
-ssh-keygen -t dsa
+ssh-keygen -t rsa
 @end example
 
 When prompted for a location to save the key, press <ENTER> to
-accept the default location (@file{~/.ssh/id_dsa}).
+accept the default location (@file{~/.ssh/id_rsa}).
 
 Next you are asked to enter an optional passphrase.  On most
 systems, if you use a passphrase, you will likely be prompted for
@@ -1442,7 +1442,7 @@ though you may find it tedious to keep re-entering it.
 You can change/enable/disable your passphrase at any time with:
 
 @example
-ssh-keygen -f ~/.ssh/id_dsa -p
+ssh-keygen -f ~/.ssh/id_rsa -p
 @end example
 
 Note that the GNOME desktop has a feature which stores your
@@ -1457,14 +1457,14 @@ gconftool-2 --set -t bool \
 @end example
 
 After setting up your passphrase, your private key is saved as
-@file{~/.ssh/id_dsa} and your public key is saved as
-@file{~/.ssh/id_dsa.pub}.
+@file{~/.ssh/id_rsa} and your public key is saved as
+@file{~/.ssh/id_rsa.pub}.
 
 
 @item
-Register your public SSH @q{dsa} key with Savannah.  From the
+Register your public SSH @q{rsa} key with Savannah.  From the
 @qq{My Account Configuration} page, click on @qq{Edit SSH Keys},
-then paste the contents of your @file{~/.ssh/id_dsa.pub} file into
+then paste the contents of your @file{~/.ssh/id_rsa.pub} file into
 one of the @qq{Authorized keys} text fields, and click
 @qq{Update}.
 
@@ -1485,7 +1485,7 @@ git config remote.origin.url \
 @end example
 
 @noindent
-where @var{user} is your username on Savannah.
+replacing @var{user} with your Savannah username.
 
 
 @item
@@ -1566,8 +1566,16 @@ git config push.default matching
 @noindent
 Then @code{git@tie{}push} should work as before.  For more
 details, consult the @code{git@tie{}push} man page.
-@end enumerate
 
+
+@item
+Repeat the steps from generating an RSA key through to testing
+your commit access, for each machine from which you will be
+making commits, or you may simply copy the files from your
+local @file{~/.ssh} folder to the same folder on the other
+machine.
+
+@end enumerate
 
 @subsubheading Technical details
 
