@@ -39,7 +39,10 @@ public:
   Bezier extract (Real, Real) const;
 
   Real get_other_coordinate (Axis a, Real x) const;
+  vector<Real> get_other_coordinates (Axis a, Real x) const;
   vector<Real> solve_point (Axis, Real coordinate) const;
+  Real minmax (Axis, Real, Real, Direction) const;
+  Real minmax (Axis, Real, Real, Direction, vsize, vsize) const;
   vector<Real> solve_derivative (Offset) const;
   Interval extent (Axis) const;
   Interval control_point_extent (Axis) const;

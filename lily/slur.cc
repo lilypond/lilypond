@@ -279,42 +279,47 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
                                          0.0);
   yext.widen (slur_padding);
 
-  const Real EPS = 1e-3;
-  Interval bezext (curve.control_[0][X_AXIS], curve.control_[3][X_AXIS]);
-  bool consider[] = {false, false, false};
-  Real ys[] = {0, 0, 0};
+  Interval exts[] = {xext, yext};
   bool do_shift = false;
-
-  for (int d = LEFT, k = 0; d <= RIGHT; d++, k++)
+  Real EPS = 1.0e-5;
+  if (avoid == ly_symbol2scm ("outside"))
     {
-      Real x = xext.linear_combination ((Direction) d);
-      consider[k] = bezext.contains (x);
-
-      if (consider[k])
+      Direction d = LEFT;
+      do
         {
-          ys[k]
-            = (fabs (bezext[LEFT] - x) < EPS)
-              ? curve.control_[0][Y_AXIS]
-              : ((fabs (bezext[RIGHT] - x) < EPS)
-                 ? curve.control_[3][Y_AXIS]
-                 : curve.get_other_coordinate (X_AXIS, x));
-
-          /* Request shift if slur is contained script's Y, or if
-             script is inside slur and avoid == outside.  */
-          if (yext.contains (ys[k])
-              || (dir * ys[k] > dir * yext[-dir] && avoid == ly_symbol2scm ("outside")))
-            do_shift = true;
+          Real x = minmax (-d, xext[d], curve.control_[d == LEFT ? 0 : 3][X_AXIS] + -d * EPS);
+          Real y = curve.get_other_coordinate (X_AXIS, x);
+          do_shift = y == minmax (dir, yext[-dir], y);
+          if (do_shift)
+            break;
+        }
+      while (flip (&d) != LEFT);
+    }
+  else
+    {
+      for (int a = X_AXIS; a < NO_AXES; a++)
+        {
+          Direction d = LEFT;
+          do
+            {
+              vector<Real> coords = curve.get_other_coordinates (Axis (a), exts[a][d]);
+              for (vsize i = 0; i < coords.size (); i++)
+                {
+                  do_shift = exts[(a + 1) % NO_AXES].contains (coords[i]);
+                  if (do_shift)
+                    break;
+                }
+              if (do_shift)
+                break;
+            }
+          while (flip (&d) != LEFT);
+          if (do_shift)
+            break;
         }
     }
 
-  Real avoidance_offset = 0.0;
-  if (do_shift)
-    {
-      for (int d = LEFT, k = 0; d <= RIGHT; d++, k++)
-        if (consider[k])
-          avoidance_offset = dir * (max (dir * avoidance_offset,
-                                         dir * (ys[k] - yext[-dir] + dir * slur_padding)));
-    }
+  Real avoidance_offset = do_shift ? curve.minmax (X_AXIS, max (xext[LEFT], curve.control_[0][X_AXIS] + EPS), min (xext[RIGHT], curve.control_[3][X_AXIS] - EPS), dir) - yext[-dir] : 0.0;
+
   return scm_from_double (offset + avoidance_offset);
 }
 

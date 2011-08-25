@@ -81,6 +81,17 @@ Bezier::get_other_coordinate (Axis a, Real x) const
   return curve_coordinate (ts[0], other);
 }
 
+vector<Real>
+Bezier::get_other_coordinates (Axis a, Real x) const
+{
+  Axis other = other_axis (a);
+  vector<Real> ts = solve_point (a, x);
+  vector<Real> sols;
+  for (vsize i = 0; i < ts.size (); i++)
+    sols.push_back (curve_coordinate (ts[i], other));
+  return sols;
+}
+
 Real
 Bezier::curve_coordinate (Real t, Axis a) const
 {
@@ -200,6 +211,51 @@ Bezier::solve_point (Axis ax, Real coordinate) const
 
   vector<Real> sol (p.solve ());
   return filter_solutions (sol);
+}
+
+Real
+Bezier::minmax (Axis ax, Real l, Real r, Direction d) const
+{
+  return minmax (ax, l, r, d, 0, 0);
+}
+
+Real
+Bezier::minmax (Axis axis, Real l, Real r, Direction d, vsize left_index, vsize right_index) const
+{
+  Axis other = other_axis (axis);
+  Interval lr (l, r);
+  Drul_array<vector<Real> > sol;
+  Direction dir = LEFT;
+  do
+    {
+      Polynomial p (polynomial (axis));
+      p.coefs_[0] -= lr[dir];
+
+      sol[dir] = filter_solutions (p.solve ());
+    }
+  while (flip (&dir) != LEFT);
+
+  if (!sol[LEFT].size () || !sol[RIGHT].size ())
+    {
+      programming_error ("no solution found for Bezier intersection");
+      return 0.0;
+    }
+
+  Polynomial p (polynomial (other));
+
+  Drul_array<vsize> indices(left_index, right_index);
+  do
+    {
+      vector_sort (sol[dir], less<Real> ());
+      if (!Interval (0, sol[LEFT].size () - 1).contains (indices[dir]))
+        {
+          programming_error ("requested bezier solution outside range of solutions.  defaulting to lowest solution.");
+          indices[dir] = 0;
+        }
+    }
+  while (flip (&dir) != LEFT);
+
+  return p.minmax (sol[LEFT][indices[LEFT]], sol[RIGHT][indices[RIGHT]], d != LEFT);
 }
 
 /**

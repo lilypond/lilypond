@@ -1716,6 +1716,7 @@
 	(side-axis . ,Y)
 
 	;; padding set in script definitions.
+	(slur-padding . 0.2)
 	(staff-padding . 0.25)
 
 	(stencil . ,ly:script-interface::print)
