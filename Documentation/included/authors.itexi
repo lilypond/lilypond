@@ -109,6 +109,9 @@ Translation Meister
 @item Valentin Villenave:
 LSR editor and Bug squad member
 
+@item Jan Warchoł:
+happy nitpicker
+
 @end itemize
 @end macro
 
@@ -157,8 +160,7 @@ Core developer, Schemer extraordinaire
 
 @c use commas not colons
 
-Karin Hoethker,
-Jan Warchoł
+Karin Hoethker
 
 @c no comma for last entry
 

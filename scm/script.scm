@@ -175,7 +175,6 @@
      . (
 	(script-stencil . (feta . ("uportato" . "dportato")))
 	(avoid-slur . around)
-	(slur-padding . 0.3)
 	(padding . 0.45)
 	(side-relative-direction . ,DOWN)))
     ("prall"
@@ -300,7 +299,6 @@
 	(avoid-slur . around)
 	(padding . 0.50)
 	(direction . ,UP)
-	(slur-padding . 0.2)
 	(staff-padding . 0.5)))
     ("trill"
      . (

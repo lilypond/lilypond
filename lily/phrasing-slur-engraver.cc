@@ -51,6 +51,7 @@ class Phrasing_slur_engraver : public Engraver
   vector<Stream_event *> stop_events_;
   vector<Grob *> slurs_;
   vector<Grob *> end_slurs_;
+  vector<Grob_info> objects_to_acknowledge_;
 
 protected:
   DECLARE_TRANSLATOR_LISTENER (phrasing_slur);
@@ -103,7 +104,7 @@ Phrasing_slur_engraver::acknowledge_note_column (Grob_info info)
 void
 Phrasing_slur_engraver::acknowledge_extra_object (Grob_info info)
 {
-  Slur::auxiliary_acknowledge_extra_object (info, slurs_, end_slurs_);
+  objects_to_acknowledge_.push_back (info);
 }
 
 void
@@ -209,9 +210,13 @@ Phrasing_slur_engraver::process_music ()
 void
 Phrasing_slur_engraver::stop_translation_timestep ()
 {
+  for (vsize i = 0; i < objects_to_acknowledge_.size (); i++)
+    Slur::auxiliary_acknowledge_extra_object (objects_to_acknowledge_[i], slurs_, end_slurs_);
+
   end_slurs_.clear ();
   start_events_.clear ();
   stop_events_.clear ();
+  objects_to_acknowledge_.clear ();
 }
 
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, accidental);

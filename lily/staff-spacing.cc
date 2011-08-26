@@ -124,7 +124,7 @@ Staff_spacing::next_notes_correction (Grob *me,
    We arrange things so that the fixed distance will be attained when the
    line is compressed with a force of 1.0 */
 Spring
-Staff_spacing::get_spacing (Grob *me, Grob *right_col)
+Staff_spacing::get_spacing (Grob *me, Grob *right_col, Real situational_space)
 {
   Item *me_item = dynamic_cast<Item *> (me);
   Grob *left_col = me_item->get_column ();
@@ -151,7 +151,7 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col)
     }
 
   SCM alist = last_grob->get_property ("space-alist");
-  if (!scm_list_p (alist))
+  if (!ly_is_list (alist))
     return Spring ();
 
   SCM space_def = scm_sloppy_assq (ly_symbol2scm ("first-note"), alist);
@@ -195,18 +195,26 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col)
       ideal = fixed;
     }
 
+  Real stretchability = ideal - fixed;
+
+  /* 'situational_space' passed by the caller
+      could include full-measure-extra-space */
+  ideal += situational_space;
+
   Real optical_correction = next_notes_correction (me, last_grob);
+  fixed += optical_correction;
+  ideal += optical_correction;
+
   Real min_dist = Paper_column::minimum_distance (left_col, right_col);
 
   /* ensure that the "fixed" distance will leave a gap of at least 0.3 ss. */
   Real min_dist_correction = max (0.0, 0.3 + min_dist - fixed);
-  Real correction = max (optical_correction, min_dist_correction);
-
-  fixed += correction;
-  ideal += correction;
+  fixed += min_dist_correction;
+  ideal = max (ideal, fixed);
 
   Spring ret (ideal, min_dist);
-  ret.set_inverse_stretch_strength (max (0.0, ideal - fixed));
+  ret.set_inverse_stretch_strength (max (0.0, stretchability));
+  ret.set_inverse_compress_strength (max (0.0, ideal - fixed));
   return ret;
 }
 

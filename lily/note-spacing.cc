@@ -304,7 +304,6 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
       if (beams_drul[LEFT] && beams_drul[LEFT] == beams_drul[RIGHT])
         {
           correction = knee_correction (me, stems_drul[RIGHT], increment);
-          *fixed += correction;
         }
       else
         {
@@ -322,6 +321,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
            && !acc_right)
     correction = same_direction_correction (me, head_posns);
 
+  *fixed += correction;
   *space += correction;
 
   /* there used to be a correction for bar_xextent () here, but

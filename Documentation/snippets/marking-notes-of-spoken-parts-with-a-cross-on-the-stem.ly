@@ -32,7 +32,7 @@ speakOn = {
               (grob-interpret-markup grob
                                     (markup #:center-align #:fontsize -4
                                             #:musicglyph "noteheads.s2cross"))
-              -2.3 0))))
+              -2.3))))
 }
 
 speakOff = {

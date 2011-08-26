@@ -24,7 +24,9 @@
 #include "item.hh"
 #include "lily-proto.hh"
 #include "line-interface.hh"
+#include "note-column.hh"
 #include "output-def.hh"
+#include "paper-column.hh"
 #include "pointer-group-interface.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
@@ -108,9 +110,16 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
                          ? columns[0] : columns.back ();
         }
 
+      Real x_coord = (Paper_column::has_interface (bound_grob)
+                      ? Axis_group_interface::generic_bound_extent (bound_grob, commonx, X_AXIS)
+                      : robust_relative_extent (bound_grob, commonx, X_AXIS)).linear_combination (attach);
+
+      Grob *acc = Note_column::accidentals (bound_grob->get_parent (X_AXIS));
+      if (acc && to_boolean (ly_assoc_get (ly_symbol2scm ("end-on-accidental"), details, SCM_BOOL_F)))
+        x_coord = robust_relative_extent (acc, commonx, X_AXIS).linear_combination (attach);
+
       details = scm_acons (ly_symbol2scm ("X"),
-                           scm_from_double (robust_relative_extent (bound_grob, commonx, X_AXIS)
-                                            .linear_combination (attach)),
+                           scm_from_double (x_coord),
                            details);
     }
 

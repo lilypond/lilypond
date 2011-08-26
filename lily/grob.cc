@@ -88,13 +88,16 @@ Grob::Grob (Grob const &s)
   self_scm_ = SCM_EOL;
 
   immutable_property_alist_ = s.immutable_property_alist_;
-  mutable_property_alist_ = ly_deep_copy (s.mutable_property_alist_);
+  mutable_property_alist_ = SCM_EOL;
   interfaces_ = s.interfaces_;
   object_alist_ = SCM_EOL;
 
   layout_ = 0;
 
   smobify_self ();
+
+  mutable_property_alist_ = ly_deep_copy (s.mutable_property_alist_);
+
 }
 
 Grob::~Grob ()

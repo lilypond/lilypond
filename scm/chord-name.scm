@@ -107,7 +107,7 @@
 	   (list-ref '("eses" "es" "" "is" "isis") (+ 2 (cdr n-a)))))))))
 
 (define-public ((chord-name->italian-markup re-with-eacute) pitch lowercase?)
-  "Return pitch markup for @var{pitch}, using italian/french note names.
+  "Return pitch markup for @var{pitch}, using Italian/@/French note names.
 If @var{re-with-eacute} is set to @code{#t}, french `ré' is returned for
 pitch@tie{}D instead of `re'."
 

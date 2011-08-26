@@ -23,7 +23,7 @@
 
 LY_DEFINE (ly_spanner_bound, "ly:spanner-bound",
            2, 0, 0, (SCM spanner, SCM dir),
-           "Get one of the bounds of @var{spanner}.  @var{dir} is @code{-1}"
+           "Get one of the bounds of @var{spanner}.  @var{dir} is @w{@code{-1}}"
            " for left, and @code{1} for right.")
 {
   LY_ASSERT_TYPE (unsmob_spanner, spanner, 1);

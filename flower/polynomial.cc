@@ -61,6 +61,32 @@ Polynomial::multiply (const Polynomial &p1, const Polynomial &p2)
   return dest;
 }
 
+Real
+Polynomial::minmax (Real l, Real r, bool ret_max) const
+{
+  vector<Real> sols;
+  if (l > r)
+    {
+      programming_error ("left bound greater than right bound for polynomial minmax.  flipping bounds.");
+      l = l + r;
+      r = l - r;
+      l = l - r;
+    }
+
+  sols.push_back (eval (l));
+  sols.push_back (eval (r));
+
+  Polynomial deriv (*this);
+  deriv.differentiate ();
+  vector<Real> maxmins = deriv.solve ();
+  for (vsize i = 0; i < maxmins.size (); i++)
+    if (maxmins[i] >= l && maxmins[i] <= r)
+      sols.push_back (eval (maxmins[i]));
+  vector_sort (sols, less<Real> ());
+
+  return ret_max ? sols.back () : sols[0];
+}
+
 void
 Polynomial::differentiate ()
 {

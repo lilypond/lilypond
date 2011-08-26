@@ -260,7 +260,7 @@ To update LSR, perform the following steps:
 @item
 Download the latest snippet tarball, extract it, and run
 @code{convert-ly} on all files using the command-line option
-@code{--to=VERSION} to ensure snippets are updated to the
+@option{--to=@var{version}} to ensure snippets are updated to the
 correct stable version.
 
 @item

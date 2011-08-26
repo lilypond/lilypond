@@ -3,7 +3,7 @@
 \header {
 
     texidoc = "Point-symmetric beams should receive the same
-    quanting. There is no up/down bias in the quanting code."
+quanting.  There is no up/@/down bias in the quanting code."
 
 }
 \layout{

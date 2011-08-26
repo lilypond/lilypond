@@ -219,7 +219,7 @@ grep -i functionName subdirectory/*
 
 This command will search all the contents of the directory subdirectory/
 and display every line in any of the files that contains
-functionName.  The @code{-i} option makes @command{grep} ignore
+functionName.  The @option{-i} option makes @command{grep} ignore
 case -- this can be very useful if you are not yet familiar with
 our capitalization conventions.
 
@@ -726,12 +726,12 @@ the console should be:
 @item WARN: Only error messages and warnings
 @item BASIC_PROGRESS: Warnings, errors and basic progress (success, etc.)
 @item PROGRESS: Warnings, errors and full progress messages
-@item INFO: Warnings, errors, progress and more detailed information
+@item INFO: Warnings, errors, progress and more detailed information (default)
 @item DEBUG: All messages, including vull debug messages (very verbose!)
 @end itemize
 
 The loglevel can either be set with the environment variable
-@code{LILYPOND_LOGLEVEL} or on the command line with the @code{--loglevel=...}
+@code{LILYPOND_LOGLEVEL} or on the command line with the @option{--loglevel=...}
 option.
 
 @unnumberedsubsec Functions for debug and log output
@@ -754,21 +754,32 @@ only prints out the message, but no location.
 @end itemize
 
 There are also Scheme functions to access all of these logging functions from
-scheme. In addition, the Grob class contains some convenience wrappers for
+scheme.  In addition, the Grob class contains some convenience wrappers for
 even easier access to these functions.
 
 The message and debug functions in @code{warn.hh} also have an optional 
 argument @code{newline}, which specifies whether the message should always
-start on a new line or continue a previous message. 
+start on a new line or continue a previous message.
 By default, @code{progress_indication} does NOT start on a new line, but rather
-continue the previous output. All other functions by default start their 
-output on a new line.
+continue the previous output.  They also do not have a particular input
+position associated, so there are no progress functions in the Input class.
+All other functions by default start their output on a new line.
+
+The error functions come in three different flavors: fatal error messages,
+programming error messages and normal error messages.  Errors written
+by the @code{error ()} function will cause LilyPond to exit immediately,
+errors by @code{Input::error ()} will continue the compilation, but
+return a non-zero return value of the lilypond call (i.e. indicate an 
+unsuccessful program execution).  All other errors will be printed on the 
+console, but not exit LilyPond or indicate an unsuccessful return code.
+Their only differences to a warnings are the displayed text and that
+they will be shown with loglevel @code{ERROR}.
+
+If the Scheme option @code{warning-as-error} is set, any warning will be
+treated as if @code{Input::error} was called.
+
 
 @unnumberedsubsec All logging functions at a glance
-
-Currently, there are no particular message functions for the INFO loglevel, 
-so it is basically identical to PROGRESS.
-
 
 @multitable @columnfractions 0.16 0.42 0.42
 @headitem
@@ -780,15 +791,19 @@ so it is basically identical to PROGRESS.
 @tab @code{Input::error (msg)}, @code{Input::programming_error (msg)}
 
 @item WARN
-@tab @code{warning (msg)} @c WARN
-@tab @code{Input::warning (msg)} @c WARN
+@tab @code{warning (msg)}
+@tab @code{Input::warning (msg)}
 
 @item BASIC
 @tab @code{successful (msg)}
 @tab -
 
 @item PROGRESS
-@tab @code{progress_indication (msg)}, @code{message (msg)}
+@tab @code{progress_indication (msg)}
+@tab -
+
+@item INFO
+@tab @code{message (msg)}
 @tab @code{Input::message (msg)}
 
 @item DEBUG
@@ -815,6 +830,10 @@ so it is basically identical to PROGRESS.
 
 @item PROGRESS
 @tab -
+@tab -
+
+@item INFO
+@tab -
 @tab @code{(ly:music-message music msg)}
 
 @item DEBUG
@@ -840,13 +859,16 @@ so it is basically identical to PROGRESS.
 @tab -
 
 @item PROGRESS
-@tab (ly:progress msg args), (ly:message msg args)
+@tab @code{(ly:progress msg args)}
+@tab -
+
+@item INFO
+@tab @code{(ly:message msg args)}
 @tab @code{(ly:input-message input msg args)}
 
 @item DEBUG
 @tab @code{(ly:debug msg args)}
 @tab -
-
 
 @end multitable
 
@@ -1181,7 +1203,7 @@ number of different platforms:
 In order for the Graphviz tool to work, config.make must be modified.
 It is probably a good idea to first save a copy of config.make under
 a different name.  Then, edit config.make by removing every occurrence
-of @code{-DNDEBUG}.
+of @option{-DNDEBUG}.
 
 @item Rebuilding LilyPond
 
@@ -1229,7 +1251,7 @@ dot -Tpdf graphviz.log > graphviz.pdf
 
 The pdf file can then be viewed with any pdf viewer.
 
-When compiled without @code{-DNDEBUG}, lilypond may run slower
+When compiled without @option{-DNDEBUG}, lilypond may run slower
 than normal.  The original configuration can be restored by either
 renaming the saved copy of @code{config.make} or rerunning
 @code{configure}.  Then rebuild lilypond with

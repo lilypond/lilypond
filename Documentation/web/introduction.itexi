@@ -920,8 +920,8 @@ entered with backslashes.
 @imageFloat{text-input-1-annotate,png,center}
 @imageFloat{text-input-1-output,png,center}
 
-Alterations are made with different names: add @code{-is} for
-sharp, and @code{-es} for flat (these are Dutch note names, other
+Alterations are made with different names: add @w{@code{-is}} for
+sharp, and @w{@code{-es}} for flat (these are Dutch note names, other
 languages are available).  LilyPond figures out where to put
 accidentals.
 

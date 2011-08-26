@@ -13,9 +13,8 @@ tabstuff = {
   f4\f g a^\fermata |
   R2.*3 |
   c8\<\( c16 c ~ c2\! |
-  c'2.\) |
   \mark \default
-  R2. |
+  c'2.\) |
   \ottava #1
   r4 d'4 r8 e |
   \ottava #0

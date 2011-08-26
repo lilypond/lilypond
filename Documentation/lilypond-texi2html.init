@@ -55,6 +55,8 @@
 ###           makeinfo_like_foot_line_and_ref
 ###           makeinfo_like_foot_lines
 ###           makeinfo_like_paragraph
+### -) In tables, don't wrap <p> around the contents. Implemented in
+###           makeinfo_like_paragraph
 ###
 ###
 ### Useful helper functions:
@@ -2070,6 +2072,13 @@ sub makeinfo_like_paragraph ($$$$$$$$$$$$$)
          return $text  if (($format eq 'itemize' or $format eq 'enumerate') and
             ($$paragraph_number == 1));
     }
+    # The cells of a table should not be wrapped in a <p> tag, so just return the text
+    if (defined($command_stack_at_begin->[0]) and $command_stack_at_begin->[0] eq 'multitable')
+    {
+        return $text;
+    }
+
+    # Adjust all footnotes so that they look like good old makeinfo
     my $open = '<p';
     if ($align)
     {

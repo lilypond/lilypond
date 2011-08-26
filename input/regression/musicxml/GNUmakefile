@@ -7,17 +7,18 @@ EXTRA_DIST_FILES = LICENSE
 
 TEXI2HTML_FLAGS += --nomenu
 
-# Urgh, how can I do two replacements at once without messing up the order of the list?
-TMP = $(sort $(MUSICXML_FILES) $(MUSICMXL_FILES) $(TEXINFO_SOURCES) )
-TMP1 = ${TMP:%.xml=$(outdir)/%.ly}
-COLLATED_FILES = ${TMP1:%.mxl=$(outdir)/%.ly}
+COLLATED_FILES = $(sort $(MUSICXML_FILES) $(MUSICMXL_FILES) $(TEXINFO_SOURCES) )
 
 
 include $(depth)/make/stepmake.make
 
 
 TITLE=Unofficial MusicXML test suite
+AUTHOR=Reinhold Kainhofer
 TEST_SUITE_VERSION=0.1
+LILYPOND_BOOK_FLAGS += --load-custom-package=$(src-dir)/book-musicxml-testsuite.py
+# This breaks since *.tex and *.texi still contains ac/lily-xxxxxx references!
+#LILYPOND_BOOK_FLAGS += --use-source-file-names
 
 ifeq ($(out),www)
 local-WWW-2: zip

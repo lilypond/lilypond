@@ -1377,7 +1377,7 @@ For example, @code{\partial 8*3} becomes:
 The property @code{measurePosition} contains a rational number
 indicating how much of the measure has passed at this point.  Note
 that this is set to a negative number by the @code{\partial} command:
-i.e., @code{\partial 4} is internally translated to @code{-4}, meaning
+i.e., @code{\partial 4} is internally translated to @w{@code{-4}}, meaning
 @qq{there is a quarter note left in the measure.}
 
 @seealso
@@ -2039,7 +2039,7 @@ c16 c c |
 of beaming-rules.
 
 At this time the only available value of rule-type is
-@code{#'end} for beam ending.
+@code{'end} for beam ending.
 
 Beaming-rules is a scheme alist (or list of pairs) that indicates the
 beam type and the grouping to be applied to beams containing notes with

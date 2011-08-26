@@ -1872,7 +1872,8 @@
   "Make a woodwind-instrument diagram.  For example, say
 
 @example
-\\markup \\woodwind-diagram #'oboe #'((lh . (d ees)) (cc . (five3qT1q)) (rh . (gis)))
+\\markup \\woodwind-diagram
+  #'oboe #'((lh . (d ees)) (cc . (five3qT1q)) (rh . (gis)))
 @end example
 
 @noindent

@@ -169,7 +169,7 @@ static Long_option_init options_static[]
   {
     _i ("LOGLEVEL"), "loglevel", 'l', _i ("print log messages according to"
     " LOGLEVEL.  Possible values are:\n"
-    "NONE, ERROR, WARNING, BASIC, PROGRESS (default) and DEBUG.")
+    "NONE, ERROR, WARNING, BASIC, PROGRESS, INFO (default) and DEBUG.")
   },
   {_i ("FILE"), "output", 'o', _i ("write output to FILE (suffix will be added)")},
   {0, "relocate", 0, _i ("relocate using directory of lilypond program")},

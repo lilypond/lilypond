@@ -1,8 +1,8 @@
 \version "2.14.0"
 
 \header {
-  texidoc = "The default callback for break-align-anchor in clefs and time/key
-signatures reads the break-align-anchor-aligment property to align
+  texidoc = "The default callback for break-align-anchor in clefs and time/@/key
+signatures reads the @code{break-align-anchor-aligment} property to align
 the anchor to the extent of the break-aligned grob."
 }
 

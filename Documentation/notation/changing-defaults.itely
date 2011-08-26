@@ -36,9 +36,10 @@ and is also included with the LilyPond documentation package.
 Internally, LilyPond uses Scheme (a LISP dialect) to provide
 infrastructure.  Overriding layout decisions in effect accesses the
 program internals, which requires Scheme input.  Scheme elements are
-introduced in a @file{.ly} file with the hash mark
-@code{#}.@footnote{@rextend{Scheme tutorial}, contains a short tutorial
-on entering numbers, lists, strings, and symbols in Scheme.}
+introduced in a @file{.ly} file with the hash
+mark@tie{}@code{#}.@footnote{@rextend{Scheme tutorial}, contains a
+short tutorial on entering numbers, lists, strings, and symbols in
+Scheme.}
 
 
 @menu
@@ -1043,7 +1044,7 @@ This fragment points to two parts of the program reference: a page
 on @code{FingeringEvent} and one on @code{Fingering}.
 
 The page on @code{FingeringEvent} describes the properties of the music
-expression for the input @code{-2}.  The page contains many links
+expression for the input @w{@code{-2}}.  The page contains many links
 forward.  For example, it says
 
 @quotation
@@ -1488,7 +1489,7 @@ command, which has the following syntax:
 @end example
 
 @var{value} is a Scheme object, which is why it must be preceded by
-the @code{#} character.
+the @code{#}@tie{}character.
 
 Contexts properties are usually named in
 @code{studlyCaps}.  They mostly control the translation from
@@ -1765,7 +1766,7 @@ properties.  To tweak those, use commands in the form
 @cindex internal documentation
 
 For many properties, regardless of the data type of the property, setting the
-property to false ( @code{##f} ) will result in turning it off, causing
+property to false (@code{#f}) will result in turning it off, causing
 LilyPond to ignore that property entirely.  This is particularly useful for
 turning off grob properties which may otherwise be causing problems.
 
@@ -2242,8 +2243,8 @@ but a direction indicator is @strong{always} required before
 @item @code{\markup} commands
 @item @code{\tag} commands
 @item string markups, e.g. -"string"
-@item fingering instructions, e.g. @code{-1}
-@item articulation shortcuts, e.g. @code{-.}, @code{->}, @code{--}
+@item fingering instructions, e.g. @w{@code{-1}}
+@item articulation shortcuts, e.g. @w{@code{-.}}, @w{@code{->}}, @w{@code{--}}
 @end itemize
 
 Direction indicators affect only the next note:
@@ -2261,9 +2262,9 @@ The position or direction of many layout objects is controlled
 by the @code{direction} property.
 
 The value of the @code{direction} property may be
-set to @code{1}, meaning @qq{up} or @qq{above}, or to @code{-1},
+set to @code{1}, meaning @qq{up} or @qq{above}, or to @w{@code{-1}},
 meaning @qq{down} or @qq{below}.  The symbols @code{UP} and
-@code{DOWN} may be used instead of @code{1} and @code{-1}
+@code{DOWN} may be used instead of @code{1} and @w{@code{-1}}
 respectively.  The default direction may be specified by setting
 @code{direction} to @code{0} or @code{CENTER}.  Alternatively,
 in many cases predefined commands
@@ -2279,7 +2280,7 @@ See @rlearning{Within-staff objects}.
 In a few cases, arpeggio being the only common example, the value
 of the @code{direction} property specifies whether the object
 is to be placed to the right or left of the parent object.  In
-this case @code{-1} or @code{LEFT} means @qq{to the left} and
+this case @w{@code{-1}} or @code{LEFT} means @qq{to the left} and
 @code{1} or @code{RIGHT} means @qq{to the right}.  @code{0}
 or @code{CENTER} means @qq{use the default} direction, as before.
 
@@ -2636,7 +2637,7 @@ it is hardcoded to 0.
 
 @item attach-dir
 This determines where the line starts and ends in the X-direction,
-relative to the bound object.  So, a value of @code{-1} (or
+relative to the bound object.  So, a value of @w{@code{-1}} (or
 @code{LEFT}) makes the line start/end at the left side of the note
 head it is attached to.
 
@@ -2681,7 +2682,7 @@ c4^\startTextSpan c c c \stopTextSpan
 @end lilypond
 
 Note that negative values move the text @emph{up}, contrary to the
-effect that might be expected, as a value of @code{-1} or
+effect that might be expected, as a value of @w{@code{-1}} or
 @code{DOWN} means align the @emph{bottom} edge of the text with
 the spanner line.  A value of @code{1} or @code{UP} aligns
 the top edge of the text with the spanner line.
@@ -2824,7 +2825,7 @@ In the example above the white clef, with a default @code{layer}
 value of @code{1}, is drawn after the staff lines (default
 @code{layer} value @code{0}), so overwriting them.  To change this,
 the @code{Clef} object must be given in a lower value of
-@code{layer}, say @code{-1}, so that it is drawn earlier:
+@code{layer}, say @w{@code{-1}}, so that it is drawn earlier:
 
 @lilypond[quote,verbatim,relative=2]
 \override Staff.Clef #'color = #white
@@ -3103,7 +3104,7 @@ e2 \glissando f
 e2 \glissando f
 @end lilypond
 
-The value for @code{Y} is set to @code{-2} for the right end
+The value for @code{Y} is set to @w{@code{-2}} for the right end
 point.  The left side may be similarly adjusted by specifying
 @code{left} instead of @code{right}.
 
@@ -3338,12 +3339,12 @@ the @code{self-alignment-X} property, provided the object's
 real value, in units of half the total X extent of the
 object.  Negative values move the object to the right, positive
 to the left.  A value of @code{0} centers the object on the
-reference point of its parent, a value of @code{-1} aligns the
+reference point of its parent, a value of @w{@code{-1}} aligns the
 left edge of the object on the reference point of its parent,
 and a value of @code{1} aligns the right edge of the object on the
 reference point of its parent.  The symbols @code{LEFT},
-@code{CENTER} and @code{RIGHT} may be used instead of the values
-@code{-1, 0, 1} respectively.
+@code{CENTER}, and @code{RIGHT} may be used instead of the values
+@w{@code{-1}}, @code{0}, and @code{1}, respectively.
 
 Normally the @code{\override} command would be used to modify the
 value of @code{self-alignment-X}, but the @code{\tweak} command
@@ -3372,13 +3373,13 @@ value of @code{Y-offset} is just one variable taken into account.
 This may make adjusting the value of some objects tricky.
 The units are just half the vertical extent of the object, which
 is usually quite small, so quite large numbers may be required.
-A value of @code{-1} aligns the lower edge of the object with
+A value of @w{@code{-1}} aligns the lower edge of the object with
 the reference point of the parent object, a value of @code{0}
 aligns the center of the object with the reference point of the
 parent, and a value of @code{1} aligns the top edge of the object
 with the reference point of the parent.  The symbols @code{DOWN},
-@code{CENTER}, @code{UP} may be substituted for @code{-1, 0, 1}
-respectively.
+@code{CENTER}, and @code{UP} may be substituted for @w{@code{-1}},
+@code{0}, and @code{1}, respectively.
 
 @emph{Self-aligning objects in both directions}
 

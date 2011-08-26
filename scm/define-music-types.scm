@@ -55,7 +55,7 @@ context, and 3.@tie{}the context where @var{func} is called.")
     (ArpeggioEvent
      . ((description . "Make an arpeggio on this note.
 
-Syntax: @var{note}@code{-\\arpeggio}")
+Syntax: @w{@var{note}@code{-\\arpeggio}}")
 	(types . (general-music arpeggio-event event))
 	))
 
@@ -67,7 +67,7 @@ Syntax: @var{note}@code{-\\arpeggio}")
 Syntax: @var{note}@code{x}@code{y}, where @code{x} is a direction
 (@code{^} for up or @code{_} for down), or LilyPond's choice
 (no direction specified), and where @code{y} is an articulation
-(such as @code{-.}, @code{->}, @code{\\tenuto}, @code{\\downbow}).
+(such as @w{@code{-.}}, @w{@code{->}}, @code{\\tenuto}, @code{\\downbow}).
 See the Notation Reference for details.")
 	(types . (general-music event articulation-event script-event))
 	))
@@ -111,7 +111,7 @@ Syntax for manual control: @code{c8-[ c c-] c8}")
 	))
 
     (BendAfterEvent
-     . ((description . "A drop/fall/doit jazz articulation.")
+     . ((description . "A drop/@/fall/@/doit jazz articulation.")
 	(types . (general-music bend-after-event event))))
 
     (BreathingEvent
@@ -609,7 +609,7 @@ octavation.")
     (TieEvent
      . ((description . "A tie.
 
-Syntax: @var{note}@code{-~}")
+Syntax: @w{@var{note}@code{-~}}")
 	(types . (general-music tie-event event))
 	))
 

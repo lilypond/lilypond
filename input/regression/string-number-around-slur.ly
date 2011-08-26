@@ -7,6 +7,6 @@ is a collision."
 
 \relative c'' {
   \textLengthOn
-  <c\3>4-"inside"( d' <e,\2>-"inside" g
+  <c\3>4-"outside"( d' <e,\2>-"inside" g
   <c\1>1-"outside")
 }

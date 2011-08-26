@@ -64,7 +64,7 @@ defined in the output modules (@file{output-*.scm})."
 
 (define-public (ly:all-output-backend-commands)
   "Return the list of extra output backend commands that
-are used internally in @file{lily/stencil-interpret.cc}."
+are used internally in @file{lily/@/stencil-interpret.cc}."
   '(color
     combine-stencil
     delay-stencil-evaluation

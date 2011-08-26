@@ -3,7 +3,7 @@
 \header {
 
 texidoc = "Ordering of the fingerings depends on vertical ordering of the notes, and  
-is independent of up/down direction."
+is independent of up/@/down direction."
 
 }
 

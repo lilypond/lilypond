@@ -110,8 +110,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
               // (*it).moment_ already stores the end of the tied note!
               Moment skip = now_mom () - (*it).end_moment_;
               an->tie_to (th, skip);
-              // this invalidates the iterator, we are leaving the loop anyway
-              heads_to_tie_.erase (it);
+              it = heads_to_tie_.erase (it);
             }
         }
     }

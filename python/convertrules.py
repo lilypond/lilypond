@@ -3013,6 +3013,12 @@ def conv (str):
     str = re.sub (r'\\(cresc|dim|endcresc|enddim)\b', r'\\deprecated\1', str)
     return str
 
+@rule ((2, 13, 27),
+       ("interval-translate -> coord-translate"))
+def conv (str):
+    str = re.sub ('interval-translate', 'coord-translate', str)
+    return str
+
 @rule ((2, 13, 29),
        _ ("Eliminate beamSettings, beatLength, \\setBeatGrouping, \\overrideBeamSettings and \\revertBeamSettings.\n\
 \"accordion.accEtcbase\" -> \"accordion.etcbass\""))
@@ -3207,20 +3213,22 @@ def conv(str):
 def conv (str):
     return str
 
-@rule ((2, 15, 2),
-       _ ("Change in internal property for MultiMeasureRest"))
-def conv (str):
-    if re.search (r'use-breve-rest',str):
-        stderr_write (NOT_SMART % _("use-breve-rest.  This internal property has been replaced by round-to-longer-rest and usable-duration-logs.\n"))
-        stderr_write (UPDATE_MANUALLY)
-    return str
-
 @rule ((2, 15, 7),
     _ ("Handling of non-automatic footnotes."))
 def conv(str):
     if re.search (r'\\footnote', str):
         stderr_write ("\n")
         stderr_write (NOT_SMART % _("If you are using non-automatic footnotes, make sure to set footnote-auto-numbering = ##f in the paper block.\n"))
+        stderr_write (UPDATE_MANUALLY)
+    return str
+
+@rule ((2, 15, 9),
+       _ ("Change in internal property for MultiMeasureRest"))
+def conv (str):
+    if re.search (r'use-breve-rest',str):
+        stderr_write ("\n")
+        stderr_write (NOT_SMART % "use-breve-rest.\n")
+        stderr_write (_ ("This internal property has been replaced by round-up-to-longer-rest, round-up-exceptions and usable-duration-logs.\n"))
         stderr_write (UPDATE_MANUALLY)
     return str
 

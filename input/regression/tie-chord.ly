@@ -1,15 +1,13 @@
 \header {
 
-
   texidoc = "In chords, ties keep closer to the note head vertically,
-but never collide with heads or stems. Seconds are formatted up/down;
+but never collide with heads or stems.  Seconds are formatted up/@/down;
 the rest of the ties are positioned according to their vertical
 position.
 
-The code does not handle all cases. Sometimes ties will printed on top
-of or very close to each other. This happens in the last chords of
-each system.  "
-  
+The code does not handle all cases.  Sometimes ties will printed on top
+of or very close to each other.  This happens in the last chords of
+each system."
 
 }
 

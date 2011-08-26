@@ -49,7 +49,7 @@ splitStaffBarLine = {
         (ly:bar-line::print grob)
         X RIGHT
         (grob-interpret-markup grob splitStaffBarLineMarkup)
-        0 0))
+        0))
   \break
 }
 

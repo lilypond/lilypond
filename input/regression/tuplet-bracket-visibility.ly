@@ -14,7 +14,7 @@ unless there is a beam of the same length as the tuplet.  Overriding
 @code{#f} (never print a bracket)
 
 @item
-@code{#'if-no-beam} (only print a bracket if there is no beam)
+@code{'if-no-beam} (only print a bracket if there is no beam)
 
 @end itemize
 "

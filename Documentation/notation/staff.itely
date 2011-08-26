@@ -1296,14 +1296,15 @@ oboeNotes = \relative c'' {
 
 It is possible to adjust which aspects of the music are quoted with
 @code{\cueDuring} by setting the @code{quotedCueEventTypes}
-property.  Its default value is @code{#'(note-event rest-event
+property.  Its default value is @code{'(note-event rest-event
 tie-event beam-event tuplet-span-event)}, which means that only
 notes, rests, ties, beams and tuplets are quoted, but not
 articulations, dynamic marks, markup etc.
 
-In this example, the @code{Voice} context must be
-explicitly declared, or else the entire music expression would
-belong to the @code{CueVoice} context.
+@warning{When a @code{Voice} starts with @code{\cueDuring}, as in the
+following example, the @code{Voice} context must be explicitly declared,
+or else the entire music expression would belong to the @code{CueVoice}
+context.}
 
 @lilypond[verbatim,quote]
 oboeNotes = \relative c'' {

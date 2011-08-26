@@ -261,7 +261,11 @@ Source_file::get_counts (char const *pos_str0,
                          int *column,
                          int *byte_offset) const
 {
+  // Initialize arguments to defaults, needed if pos_str0 is not in source
   *line_number = 0;
+  *line_char = 0;
+  *column = 0;
+  *byte_offset = 0;
 
   if (!contains (pos_str0))
     return;
@@ -275,10 +279,6 @@ Source_file::get_counts (char const *pos_str0,
   ssize left = (char const *) pos_str0 - line_start;
   string line_begin (line_start, left);
   char const *line_chars = line_begin.c_str ();
-
-  *line_char = 0;
-  *column = 0;
-  *byte_offset = 0;
 
   while (left > 0)
     {

@@ -396,7 +396,7 @@ directory.  Here are the relevant lines taken from the output of
 By default, `@command{make@tie{}install}' will install all the
 files in @file{/usr/local/bin}, @file{/usr/local/lib} etc.  You
 can specify an installation prefix other than @file{/usr/local}
-using `@code{--prefix}', for instance `@code{--prefix=$HOME}'.
+using `@option{--prefix}', for instance `@option{--prefix=$HOME}'.
 @end quotation
 
 A typical installation prefix is @file{$HOME/usr}:
@@ -483,9 +483,9 @@ that case, running @samp{make} without the @option{-j} is advised.
 
 If you want to build multiple versions of LilyPond with different
 configuration settings, you can use the
-@code{--enable-config=@var{CONF}} option of @command{configure}.
-You should use @code{make@tie{}conf=@var{CONF}} to generate the
-output in @file{out-@var{CONF}}.  For example, suppose you want to
+@option{--enable-config=@var{conf}} option of @command{configure}.
+You should use @code{make@tie{}conf=@var{conf}} to generate the
+output in @file{out-@var{conf}}.  For example, suppose you want to
 build with and without profiling, then use the following for the
 normal build
 

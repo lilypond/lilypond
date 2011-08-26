@@ -644,7 +644,7 @@ left-aligned with the first note of the melisma.
 When a melisma occurs on a syllable other that the last one in a
 word, that syllable is usually joined to the following one with a
 hyphenated line.  This is indicated by placing a double hyphen,
-@code{--}, immediately after the syllable.
+@w{@code{--}}, immediately after the syllable.
 
 Alternatively, when a melisma occurs on the last or only syllable in
 a word an extender line is usually drawn from the end of the syllable
@@ -2551,7 +2551,7 @@ If a transposing instrument is being quoted the instrument part should
 specify its key so the conversion of its cue notes will be done
 automatically.  The example below shows this transposition for a
 B-flat clarinet.  The notes in this example are low on the staff so
-@code{#DOWN} is specified in @code{\cueDuring} (so the stems are
+@code{DOWN} is specified in @code{\cueDuring} (so the stems are
 down) and the instrument name is positioned below the staff.  Note
 also that the piano right-hand voice is explicitly declared.  This
 is because the cue notes in this example begin at the start of the

@@ -62,7 +62,7 @@ which scares away people.
 @end ignore
 
 @item
-New command-line option @code{--loglevel=LEVEL} to control how much output
+New command-line option @option{--loglevel=@var{level}} to control how much output
 LilyPond creates. Possible values are ERROR, WARN, BASIC_PROGRESS, PROGRESS, DEBUG.
 
 @item

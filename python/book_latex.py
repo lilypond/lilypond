@@ -68,6 +68,17 @@ Latex_snippet_res = {
            (?P<filename>\S+?)
           })''',
 
+    'musicxml_file':
+         r'''(?smx)
+          ^[^%\n]*?
+          (?P<match>
+          \\musicxmlfile\s*(
+          \[
+           \s*(?P<options>.*?)\s*
+          \])?\s*\{
+           (?P<filename>\S+?)
+          })''',
+
     'singleline_comment':
          r'''(?mx)
           ^.*?

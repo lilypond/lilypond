@@ -75,18 +75,53 @@ Interval
 Axis_group_interface::relative_group_extent (vector<Grob *> const &elts,
                                              Grob *common, Axis a)
 {
+  return relative_maybe_bound_group_extent (elts, common, a, false);
+}
+
+Interval
+Axis_group_interface::relative_maybe_bound_group_extent (vector<Grob *> const &elts,
+                                                        Grob *common, Axis a, bool bound)
+{
   Interval r;
   for (vsize i = 0; i < elts.size (); i++)
     {
       Grob *se = elts[i];
       if (!to_boolean (se->get_property ("cross-staff")))
         {
-          Interval dims = se->extent (common, a);
+          Interval dims = (bound && has_interface (se)
+                           ? generic_bound_extent (se, common, a)
+                           : se->extent (common, a));
           if (!dims.is_empty ())
             r.unite (dims);
         }
     }
   return r;
+}
+
+Interval
+Axis_group_interface::generic_bound_extent (Grob *me, Grob *common, Axis a)
+{
+  /* trigger the callback to do skyline-spacing on the children */
+  if (a == Y_AXIS)
+    (void) me->get_property ("vertical-skylines");
+
+  extract_grob_set (me, "elements", elts);
+  vector<Grob *> new_elts;
+
+  SCM interfaces = me->get_property ("bound-alignment-interfaces");
+
+  for (vsize i = 0; i < elts.size (); i++)
+    for (SCM l = interfaces; scm_is_pair (l); l = scm_cdr (l))
+      if (elts[i]->internal_has_interface (scm_car (l)))
+        new_elts.push_back (elts[i]);
+
+  if (!new_elts.size ())
+    return robust_relative_extent (me, common, a);
+
+  if (!common)
+    common = common_refpoint_of_array (new_elts, me, a);
+
+  return relative_maybe_bound_group_extent (new_elts, common, a, true);
 }
 
 Interval
@@ -719,7 +754,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob *> elements)
       vector<Grob *> current_elts;
       current_elts.push_back (elements[i]);
       while (i + 1 < elements.size ()
-             && scm_eq_p (elements[i + 1]->get_property ("outside-staff-priority"), priority))
+             && scm_is_eq (elements[i + 1]->get_property ("outside-staff-priority"), priority))
         {
           if (!to_boolean (elements[i + 1]->get_property ("cross-staff")))
             current_elts.push_back (elements[i + 1]);
@@ -808,6 +843,7 @@ ADD_INTERFACE (Axis_group_interface,
                /* properties */
                "adjacent-pure-heights "
                "axes "
+               "bound-alignment-interfaces "
                "default-staff-staff-spacing "
                "elements "
                "max-stretch "
