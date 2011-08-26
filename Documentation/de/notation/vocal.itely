@@ -41,7 +41,7 @@ an Vokalmusik gemeinsam haben.
 
 @menu
 * Referenz für Vokalmusik::
-* Gesangstext notieren::
+* Eingabe von Text::
 * Text an einer Melodie ausrichten::
 * Automatische Silbendauern::
 * Manuelle Silbendauern::
@@ -180,7 +180,7 @@ Punkte, Gesangstext mit Akzenten, verschiedene lateinische und nicht-lateinische
 Zeichen sowie auch etwa Sonderzeichen (wie ein Herz-Symbol) könn direkt in
 die Notationsdatei geschrieben werden.  Es muss dabei sichergestell werden, dass
 die Datei in der UTF-8-Kodierung gespeichert wird.  Zu mehr Information siehe
-@ref{Zeichnkodierung}.
+@ref{Zeichenkodierung}.
 
 @lilypond[quote,verbatim]
 \relative c'' { d8 c16 a bes8 f e' d c4 }
@@ -527,8 +527,8 @@ Notationsreferenz:
 
 
 
-@node Manuelle Silbendauer
-@unnumberedsubsubsec Manuelle Silbendauer
+@node Manuelle Silbendauern
+@unnumberedsubsubsec Manuelle Silbendauern
 @translationof Manual syllable durations
 
 In komplexer Vokalmusik kann es nötig sein, den Gesangstext vollkommen
@@ -2790,7 +2790,7 @@ dialogue = \lyricmode {
 
 @seealso
 Notationsreferenz:
-@ref{Manuelle Silbendauer},
+@ref{Manuelle Silbendauern},
 @ref{Text}.
 
 Referenz der Interna:

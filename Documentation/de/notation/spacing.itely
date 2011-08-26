@@ -3526,7 +3526,7 @@ Schnipsel:
 Die Ausgabe von @code{annotate-spacing} bietet sehr viele
 Details zu den vertikalen Dimensionen einer Partitur.  Zu Information,
 wie Seitenränder und andere Layout-Variablen geändert werden
-können, siehe @ref{Seitenformatierung}.
+können, siehe @ref{Seitenlayout}.
 
 Neben Rändern gibt es einige weitere Optionen, Platz zu sparen:
 
