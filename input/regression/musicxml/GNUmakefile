@@ -3,7 +3,7 @@ depth = ../../..
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc musicxml
 
-EXTRA_DIST_FILES = LICENSE
+EXTRA_DIST_FILES = LICENSE book-musicxml-testsuite.py
 
 TEXI2HTML_FLAGS += --nomenu
 
