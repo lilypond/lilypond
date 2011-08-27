@@ -63,6 +63,17 @@
   (ly:duration-log
    (ly:event-property (event-cause grob) 'duration)))
 
+(define-public (stem::length val)
+  (lambda (grob)
+    (let* ((d (ly:grob-property grob 'direction))
+           (ss (ly:staff-symbol-staff-space grob))
+           (beg (ly:stem::calc-stem-begin-position grob))
+           (y1 (* beg (* 0.5 ss)))
+           (y2 (* ((if (eqv? d DOWN) - +) beg val) (* 0.5 ss))))
+      (if (eqv? d DOWN)
+          (cons y2 y1)
+          (cons y1 y2)))))
+
 (define-public (note-head::calc-duration-log grob)
   (min 2
        (ly:duration-log

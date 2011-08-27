@@ -67,6 +67,7 @@ Flag::print (SCM smob)
   Grob *me = unsmob_grob (smob);
   Grob *stem = me->get_parent (X_AXIS);
 
+  Direction d = get_grob_direction (stem);
   int log = Stem::duration_log (stem);
   string flag_style;
 
@@ -91,7 +92,8 @@ Flag::print (SCM smob)
     {
       if (adjust)
         {
-          int p = (int) (rint (Stem::stem_end_position (stem)));
+          Real ss = Staff_symbol_referencer::staff_space (me);
+          int p = (int) (rint (stem->extent (stem, Y_AXIS)[d] * 2 / ss));
           staffline_offs
             = Staff_symbol_referencer::on_line (stem, p) ? "0" : "1";
         }
@@ -101,7 +103,7 @@ Flag::print (SCM smob)
   else
     staffline_offs = "";
 
-  char dir = (get_grob_direction (stem) == UP) ? 'u' : 'd';
+  char dir = (d == UP) ? 'u' : 'd';
   string font_char = flag_style
                      + to_string (dir) + staffline_offs + to_string (log);
   Font_metric *fm = Font_interface::get_default_font (me);
@@ -146,10 +148,10 @@ Flag::calc_y_offset (SCM smob)
 
   Real blot
     = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
-  Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
-  Real y2 = robust_scm2double (stem->get_property ("stem-end-position"), 0.0);
 
-  return scm_from_double (y2 * half_space - d * blot / 2);
+  Real y2 = stem->extent (stem, Y_AXIS)[d];
+
+  return scm_from_double (y2 - d * blot / 2);
 }
 
 MAKE_SCHEME_CALLBACK (Flag, calc_x_offset, 1);

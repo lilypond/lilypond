@@ -782,7 +782,6 @@ context."
   \remove "Accidental_engraver"
   %% make the Stems as short as possible to minimize their influence
   %% on the slur::calc-control-points routine
-  \override Stem #'length = #0
   \override Stem #'no-stem-extend = ##t
   \override Flag #'style = #'no-flag
   \override Stem #'details = #'((lengths 0 0 0 0 0 0)

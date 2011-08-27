@@ -137,7 +137,6 @@ Dot_column::calc_positioning_done (SCM smob)
         {
           Grob *commony = stem->common_refpoint (flag, Y_AXIS);
           Interval y = flag->extent (commony, Y_AXIS) * (2 / ss);
-
           Interval x = flag->extent (commonx, X_AXIS);
 
           boxes.push_back (Box (x, y));

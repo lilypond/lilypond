@@ -216,10 +216,9 @@ Stem_tremolo::translated_stencil (Grob *me, Real slope)
   Real beam_translation = get_beam_translation (me);
 
   int beam_count = beam ? (Stem::beam_multiplicity (stem).length () + 1) : 0;
-  Real ss = Staff_symbol_referencer::staff_space (me);
 
   Real end_y
-    = Stem::stem_end_position (stem) * ss / 2
+    = stem->extent (stem, Y_AXIS)[stemdir]
       - stemdir * max (beam_count, 1) * beam_translation;
 
   if (!beam && Stem::duration_log (stem) >= 3)
@@ -234,6 +233,7 @@ Stem_tremolo::translated_stencil (Grob *me, Real slope)
     {
       /* we shouldn't position relative to the end of the stem since the stem
          is invisible */
+      Real ss = Staff_symbol_referencer::staff_space (me);
       vector<int> nhp = Stem::note_head_positions (stem);
       Real note_head = (stemdir == UP ? nhp.back () : nhp[0]) * ss / 2;
       end_y = note_head + stemdir * 1.5;

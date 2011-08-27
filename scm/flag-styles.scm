@@ -188,7 +188,14 @@ a flag always touches a staff line."
 
   (let* ((stem-grob (ly:grob-parent grob X))
          (adjust #t)
-         (stem-end (inexact->exact (round (ly:grob-property stem-grob 'stem-end-position))))
+         (d (ly:grob-property stem-grob 'direction))
+         (ss (ly:staff-symbol-staff-space stem-grob))
+         (stem-end (inexact->exact (round (* (index-cell
+                                               (ly:grob-extent stem-grob
+                                                               stem-grob
+                                                               Y)
+                                               d)
+                                             (/ 2 ss)))))
          ; For some reason the stem-end is a real instead of an integer...
          (dir-modifier (if (ly:position-on-line? stem-grob stem-end) "1" "0"))
          (modifier (if adjust dir-modifier "2")))

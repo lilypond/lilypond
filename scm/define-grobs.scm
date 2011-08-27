@@ -1929,11 +1929,8 @@
 
 	(direction . ,ly:stem::calc-direction)
 	(duration-log . ,stem::calc-duration-log)
-	(length . ,ly:stem::calc-length)
 	(neutral-direction . ,DOWN)
 	(positioning-done . ,ly:stem::calc-positioning-done)
-	(stem-begin-position . ,ly:stem::calc-stem-begin-position)
-	(stem-end-position . ,ly:stem::calc-stem-end-position)
 	(stem-info . ,ly:stem::calc-stem-info)
 	(stencil . ,ly:stem::print)
 	(thickness . 1.3)
@@ -2643,6 +2640,7 @@
     (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
     (,ly:slur::height . ,ly:slur::pure-height)
     (,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
+    (,ly:stem::calc-stem-end-position . ,ly:stem::pure-calc-stem-end-position)
     (,ly:stem::height . ,ly:stem::pure-height)
     (,ly:system::height . ,ly:system::calc-pure-height)))
 
