@@ -576,6 +576,7 @@ re-install.  See @ref{Configuring target directories}.
 @menu
 * Documentation editor's edit/compile cycle::
 * Building documentation::
+* Building a single document::
 * Saving time with CPU_COUNT::
 * AJAX search::
 * Installing documentation::
@@ -696,6 +697,21 @@ However, this will rebuild all of the manuals
 indiscriminately---it is more efficient to @command{touch} only
 the affected files.
 
+@node Building a single document
+@unnumberedsubsubsec Building a single document
+It's possible to build a single document.  For example, to rebuild
+only @file{contributor.pdf}, do the following:
+
+@example
+cd build/
+cd Documentation/
+touch ../../Documentation/contributor.texi
+make out=www out-www/contributor.pdf
+@end example
+
+If you are only working on a single document, test-building it in
+this way can give substantial time savings - recreating
+@file{contributor.pdf}, for example, takes a matter of seconds.
 
 @node Saving time with CPU_COUNT
 @unnumberedsubsubsec Saving time with @code{CPU_COUNT}
