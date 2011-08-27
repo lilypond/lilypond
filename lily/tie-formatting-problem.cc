@@ -170,9 +170,13 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
 
           if (dir == LEFT)
             {
-              Box flag_box = Stem::get_translated_flag (stem).extent_box ();
-              flag_box.translate ( Offset (x[RIGHT], X_AXIS));
-              boxes.push_back (flag_box);
+              Grob *flag = Stem::flag (stem);
+              if (flag)
+                {
+                  Grob* commony = stem->common_refpoint (flag, Y_AXIS);
+                  boxes.push_back (Box (flag->extent (x_refpoint_, X_AXIS),
+                                        flag->extent (commony, Y_AXIS)));
+                }
             }
         }
       else

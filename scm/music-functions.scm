@@ -424,6 +424,7 @@ in @var{grob}."
      (make-property-set 'graceSettings
 			;; TODO: take this from voicedGraceSettings or similar.
 			'((Voice Stem font-size -3)
+			  (Voice Flag font-size -3)
 			  (Voice NoteHead font-size -3)
 			  (Voice TabNoteHead font-size -4)
 			  (Voice Dots font-size -3)

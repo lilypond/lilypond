@@ -132,15 +132,13 @@ Dot_column::calc_positioning_done (SCM smob)
        i != stems.end (); i++)
     {
       Grob *stem = (*i);
-      Stencil flag = Stem::flag (stem);
-      if (!flag.is_empty ())
+      Grob *flag = Stem::flag (stem);
+      if (flag)
         {
-          Interval y = flag.extent (Y_AXIS)
-                       * (2 / ss)
-                       + Stem::stem_end_position (stem);
+          Grob *commony = stem->common_refpoint (flag, Y_AXIS);
+          Interval y = flag->extent (commony, Y_AXIS) * (2 / ss);
 
-          Interval x = stem->relative_coordinate (commonx, X_AXIS)
-                       + flag.extent (X_AXIS);
+          Interval x = flag->extent (commonx, X_AXIS);
 
           boxes.push_back (Box (x, y));
         }

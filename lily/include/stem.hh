@@ -50,10 +50,9 @@ public:
   static bool is_cross_staff (Grob *);
   static Interval head_positions (Grob *);
   static Real stem_end_position (Grob *);
-  static Stencil flag (Grob *);
-  static Stencil get_translated_flag (Grob *);
   DECLARE_GROB_INTERFACE ();
   static void set_spacing_hints (Grob *);
+  static Grob *flag (Grob *);
 
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_default_direction, (SCM));
@@ -69,6 +68,5 @@ public:
   DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
-  DECLARE_SCHEME_CALLBACK (calc_flag, (SCM));
 };
 #endif

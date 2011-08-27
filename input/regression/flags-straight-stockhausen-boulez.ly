@@ -17,7 +17,7 @@ stemLength = #(define-music-function (parser location length) (number?)
 {
     \autoBeamOff
     \time 3/8
-    \override Stem #'flag = #modern-straight-flag
+    \override Flag #'stencil = #modern-straight-flag
     \override Stem #'length-fraction = #'1.5
     r8
     \acciaccatura {

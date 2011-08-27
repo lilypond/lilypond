@@ -599,106 +599,6 @@ Stem::stem_end_position (Grob *me)
   return robust_scm2double (me->get_property ("stem-end-position"), 0);
 }
 
-MAKE_SCHEME_CALLBACK (Stem, calc_flag, 1);
-SCM
-Stem::calc_flag (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-
-  int log = duration_log (me);
-  /*
-    TODO: maybe property stroke-style should take different values,
-    e.g. "" (i.e. no stroke), "single" and "double" (currently, it's
-    '() or "grace").  */
-  string flag_style;
-
-  SCM flag_style_scm = me->get_property ("flag-style");
-  if (scm_is_symbol (flag_style_scm))
-    flag_style = ly_symbol2string (flag_style_scm);
-
-  if (flag_style == "no-flag")
-    return Stencil ().smobbed_copy ();
-
-  bool adjust = true;
-
-  string staffline_offs;
-  if (flag_style == "mensural")
-    /* Mensural notation: For notes on staff lines, use different
-       flags than for notes between staff lines.  The idea is that
-       flags are always vertically aligned with the staff lines,
-       regardless if the note head is on a staff line or between two
-       staff lines.  In other words, the inner end of a flag always
-       touches a staff line.
-    */
-    {
-      if (adjust)
-        {
-          int p = (int) (rint (stem_end_position (me)));
-          staffline_offs
-            = Staff_symbol_referencer::on_line (me, p) ? "0" : "1";
-        }
-      else
-        staffline_offs = "2";
-    }
-  else
-    staffline_offs = "";
-
-  char dir = (get_grob_direction (me) == UP) ? 'u' : 'd';
-  string font_char = flag_style
-                     + to_string (dir) + staffline_offs + to_string (log);
-  Font_metric *fm = Font_interface::get_default_font (me);
-  Stencil flag = fm->find_by_name ("flags." + font_char);
-  if (flag.is_empty ())
-    me->warning (_f ("flag `%s' not found", font_char));
-
-  SCM stroke_style_scm = me->get_property ("stroke-style");
-  if (scm_is_string (stroke_style_scm))
-    {
-      string stroke_style = ly_scm2string (stroke_style_scm);
-      if (!stroke_style.empty ())
-        {
-          string font_char = flag_style + to_string (dir) + stroke_style;
-          Stencil stroke = fm->find_by_name ("flags." + font_char);
-          if (stroke.is_empty ())
-            {
-              font_char = to_string (dir) + stroke_style;
-              stroke = fm->find_by_name ("flags." + font_char);
-            }
-          if (stroke.is_empty ())
-            me->warning (_f ("flag stroke `%s' not found", font_char));
-          else
-            flag.add_stencil (stroke);
-        }
-    }
-
-  return flag.smobbed_copy ();
-}
-
-Stencil
-Stem::flag (Grob *me)
-{
-  int log = duration_log (me);
-  if (log < 3
-      || unsmob_grob (me->get_object ("beam")))
-    return Stencil ();
-
-  if (!is_normal_stem (me))
-    return Stencil ();
-
-  // This get_property call already evaluates the scheme function with
-  // the grob passed as argument! Thus, we only have to check if a valid
-  // stencil is returned.
-  SCM flag_style_scm = me->get_property ("flag");
-  if (Stencil *flag = unsmob_stencil (flag_style_scm))
-    {
-      return *flag;
-    }
-  else
-    {
-      return Stencil ();
-    }
-}
-
 MAKE_SCHEME_CALLBACK (Stem, width, 1);
 SCM
 Stem::width (SCM e)
@@ -709,17 +609,12 @@ Stem::width (SCM e)
 
   if (is_invisible (me))
     r.set_empty ();
-  else if (unsmob_grob (me->get_object ("beam"))
-           || abs (duration_log (me)) <= 2)
+  else
     {
       r = Interval (-1, 1);
       r *= thickness (me) / 2;
     }
-  else
-    {
-      r = Interval (-1, 1) * thickness (me) * 0.5;
-      r.unite (flag (me).extent (X_AXIS));
-    }
+
   return ly_interval2scm (r);
 }
 
@@ -820,27 +715,7 @@ Stem::print (SCM smob)
   Stencil ss = Lookup::round_filled_box (b, blot);
   mol.add_stencil (ss);
 
-  mol.add_stencil (get_translated_flag (me));
-
   return mol.smobbed_copy ();
-}
-
-Stencil
-Stem::get_translated_flag (Grob *me)
-{
-  Stencil fl = flag (me);
-  if (!fl.is_empty ())
-    {
-      Direction d = get_grob_direction (me);
-      Real blot
-        = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
-      Real stem_width = thickness (me);
-      Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
-      Real y2 = robust_scm2double (me->get_property ("stem-end-position"), 0.0);
-      fl.translate_axis (y2 * half_space - d * blot / 2, Y_AXIS);
-      fl.translate_axis (stem_width / 2, X_AXIS);
-    }
-  return fl;
 }
 
 /*
@@ -1070,6 +945,12 @@ Stem::calc_cross_staff (SCM smob)
   return scm_from_bool (is_cross_staff (unsmob_grob (smob)));
 }
 
+Grob*
+Stem::flag (Grob *me)
+{
+  return unsmob_grob (me->get_object ("flag"));
+}
+
 /* FIXME:  Too many properties  */
 ADD_INTERFACE (Stem,
                "The stem represents the graphical stem.  In addition, it"
@@ -1108,7 +989,6 @@ ADD_INTERFACE (Stem,
                "direction "
                "duration-log "
                "flag "
-               "flag-style "
                "french-beaming "
                "length "
                "length-fraction "
@@ -1122,7 +1002,6 @@ ADD_INTERFACE (Stem,
                "stem-end-position "
                "stem-info "
                "stemlet-length "
-               "stroke-style "
                "thickness "
                "tremolo-flag "
               );

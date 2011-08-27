@@ -272,17 +272,7 @@ Y@tie{}dimension by this much.")
 ;;
 ;; f
 ;;
-     (flag ,ly:stencil? "A function returning the full flag stencil
-for the @code{Stem}, which is passed to the function as the only
-argument.  The default ly:stem::calc-stencil function uses the
-@code{flag-style} property to determine the correct glyph for the
-flag.  By providing your own function, you can create arbitrary
-flags.")
      (flag-count ,number? "The number of tremolo beams.")
-     (flag-style ,symbol? "A symbol determining what style of flag
-glyph is typeset on a @code{Stem}.  Valid options include @code{'()}
-for standard flags, @code{'mensural} and @code{'no-flag}, which
-switches off the flag.")
      (font-encoding ,symbol? "The font encoding is the broadest
 category for selecting a font.  Currently, only lilypond's system
 fonts (Emmentaler) are using this property.  Available
@@ -1020,6 +1010,7 @@ the grob where this is set in.")
 in addition to notes and stems.")
 
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
+     (flag ,ly:grob? "A pointer to a @code{Flag} object.")
 
      (glissando-index ,integer? "The index of a glissando in its note
 column.")

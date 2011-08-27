@@ -12,7 +12,7 @@
 }
 
 mus = \relative c' {
-  % Acciaccaturas contain a slur and  \override Stem #'stroke-style
+  % Acciaccaturas contain a slur and  \override Flag #'stroke-style
   % Thus, we're checking \override here
   c4 \acciaccatura d8 c4
   % Checking \set and \unset
@@ -23,12 +23,12 @@ mus = \relative c' {
   % Checking \once \override
   \once \override Stem #'thickness = #8.0 d8
   % Checking two overrides
-  \override Stem #'thickness = #8.0 \override Stem #'stroke-style = "grace"
+  \override Stem #'thickness = #8.0 \override Flag #'stroke-style = "grace"
   d8
   % reverting one of them
   \revert Stem #'thickness d8
   % and the other
-  \revert Stem #'stroke-style c8
+  \revert Flag #'stroke-style c8
 
   % checking tweaks
   c2-\tweak #'color #red ->

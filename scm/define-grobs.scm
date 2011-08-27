@@ -351,6 +351,7 @@
 	(clip-edges . #t)
 	(collision-interfaces . (beam-interface
 				 clef-interface
+				 flag-interface
 				 inline-accidental-interface
 				 key-signature-interface
 				 note-head-interface
@@ -875,6 +876,16 @@
 				side-position-interface
 				text-interface
 				text-script-interface))))))
+
+    (Flag
+     . (
+	(stencil . ,ly:flag::print)
+	(X-extent . ,ly:flag::width)
+	(X-offset . ,ly:flag::calc-x-offset)
+	(Y-offset . ,ly:flag::calc-y-offset)
+	(meta . ((class . Item)
+		 (interfaces . (flag-interface
+                                font-interface))))))
 
     (FootnoteItem
      . (
@@ -1918,7 +1929,6 @@
 
 	(direction . ,ly:stem::calc-direction)
 	(duration-log . ,stem::calc-duration-log)
-	(flag . ,ly:stem::calc-flag)
 	(length . ,ly:stem::calc-length)
 	(neutral-direction . ,DOWN)
 	(positioning-done . ,ly:stem::calc-positioning-done)
@@ -1932,8 +1942,7 @@
 	(Y-extent . ,ly:stem::height)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
-		 (interfaces . (font-interface
-				stem-interface))))))
+		 (interfaces . (stem-interface))))))
 
     (StemTremolo
      . (
@@ -2577,6 +2586,13 @@
    ly:note-head::print
    ly:dots::print
    ly:clef::print
+   ly:flag::print
+   default-flag
+   normal-flag
+   mensural-flag
+   no-flag
+   modern-straight-flag
+   old-straight-flag
    ly:key-signature-interface::print
    ly:percent-repeat-item-interface::beat-slash
    ly:text-interface::print
@@ -2634,6 +2650,7 @@
   (list
    parenthesize-elements
    laissez-vibrer::print
+   ly:flag::calc-y-offset
    ly:rest::y-offset-callback
    ly:staff-symbol-referencer::callback
    ly:staff-symbol::height))
