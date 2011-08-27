@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Wed Jul 13 10:59:12 UTC 2011
+@emph{Zuletzt aktualisiert am Sat Aug 13 14:15:49 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -231,28 +231,28 @@ ja
 @item
 2 Schnittstellen für Programmierer
 @*
-3568
+3899
 @tab Till Paala
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #dfef77">teilweise (98 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise (98 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #39ff22">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @end multitable
@@ -353,7 +353,7 @@ ja
 @item
 2 Übliche Notation
 @*
-4184
+4187
 @tab Till Paala
 @tab 
 @tab 
@@ -637,7 +637,7 @@ ja
 @item
 1.4 Wiederholungszeichen
 @*
-945
+944
 @tab Till Paala
 @tab 
 @tab 
@@ -654,11 +654,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #25fe1f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -691,7 +691,7 @@ teilweise
 @item
 1.6 Notation auf Systemen
 @*
-2345
+2341
 @tab Till Paala
 @tab 
 @tab 
@@ -708,7 +708,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #9eff30">teilweise</span>
+<span style="background-color: #a5ff31">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -826,7 +826,7 @@ ja
 @item
 2.2 Tasteninstrumente und andere Instrumente mit mehreren Systemen
 @*
-864
+862
 @tab  Till Paala
 @tab 
 @tab 
@@ -1069,7 +1069,7 @@ ja
 @item
 3 Allgemeine Eingabe und Ausgabe
 @*
-7671
+7686
 @tab Till Paala
 @tab 
 @tab 
@@ -1086,7 +1086,7 @@ teilweise (90 %)
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">teilweise</span>
+<span style="background-color: #8aff2d">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1123,7 +1123,7 @@ ja
 @item
 5 Standardeinstellungen verändern
 @*
-12248
+12258
 @tab Till Paala
 @tab 
 @tab 
@@ -1150,7 +1150,7 @@ ja
 @item
 A Notationsübersicht
 @*
-1989
+2017
 @tab Till Paala
 @tab 
 @tab 
@@ -1270,7 +1270,7 @@ ja
 @item
 1 @command{lilypond} starten
 @*
-3622
+3681
 @tab Reinhold Kainhofer
 @*
 Till Paala
@@ -1326,7 +1326,7 @@ ja
 @item
 3 @command{lilypond-book} aufrufen
 @*
-3952
+3978
 @tab Reinhold Kainhofer
 @tab Till Paala
 @tab 
@@ -1353,7 +1353,7 @@ ja
 @item
 4 Externe Programme
 @*
-2170
+2180
 @tab Till Paala
 @*
 Reinhold Kainhofer
@@ -1372,11 +1372,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #25fe1f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -1529,7 +1529,7 @@ teilweise
 @item
 Handbücher
 @*
-1203
+1214
 @tab Till Paala
 @tab 
 @tab 
@@ -1556,7 +1556,7 @@ ja
 @item
 Gemeinschaft
 @*
-1755
+1888
 @tab  Till Paala
 @tab 
 @tab 
@@ -1573,11 +1573,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #40fe23">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @end multitable

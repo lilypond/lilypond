@@ -314,7 +314,9 @@ class SystemLink:
                 self.geometric_distance ())
 
 def scheme_float (s) :
-  return float(s) if 'nan' not in s else float(s.split('.')[0])
+    if 'nan' not in s :
+        return float(s)
+    return float(s.split('.')[0])
 
 def read_signature_file (name):
     print 'reading', name

@@ -77,7 +77,7 @@ Dispatcher::dispatch (SCM sev)
 {
   Stream_event *ev = unsmob_stream_event (sev);
   SCM class_symbol = ev->get_property ("class");
-  if (!scm_symbol_p (class_symbol))
+  if (!scm_is_symbol (class_symbol))
     {
       warning (_ ("Event class should be a symbol"));
       return;
@@ -89,7 +89,9 @@ Dispatcher::dispatch (SCM sev)
       ev->origin ()->warning (_f ("Unknown event class %s", ly_symbol2string (class_symbol).c_str ()));
       return;
     }
+#if 0
   bool sent = false;
+#endif
   int num_classes = scm_ilength (class_list);
 
   /*
@@ -148,7 +150,9 @@ Dispatcher::dispatch (SCM sev)
 
           Listener *l = unsmob_listener (scm_cdar (lists[0].list));
           l->listen (ev->self_scm ());
+#if 0
           sent = true;
+#endif
         }
       // go to the next listener; bubble-sort the class list.
       SCM next = scm_cdr (lists[0].list);
@@ -161,10 +165,11 @@ Dispatcher::dispatch (SCM sev)
       lists[i].list = next;
     }
 
-  /* TODO: Uncomment.
+#if 0
+  /* TODO: Uncomment. */
     if (!sent)
       warning (_f ("Junking event: %s", ly_symbol2string (class_symbol).c_str ()));
-  */
+#endif
 }
 
 void

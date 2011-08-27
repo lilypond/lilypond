@@ -149,8 +149,8 @@ LY_DEFINE (ly_font_config_add_directory, "ly:font-config-add-directory", 1, 0, 0
 
   if (!FcConfigAppFontAddDir (0, (const FcChar8 *)d.c_str ()))
     error (_f ("failed adding font directory: %s", d.c_str ()));
-  else if (be_verbose_global)
-    message (_f ("adding font directory: %s", d.c_str ()));
+  else
+    debug_output (_f ("Adding font directory: %s", d.c_str ()));
 
   return SCM_UNSPECIFIED;
 }
@@ -165,8 +165,8 @@ LY_DEFINE (ly_font_config_add_font, "ly:font-config-add-font", 1, 0, 0,
 
   if (!FcConfigAppFontAddFile (0, (const FcChar8 *)f.c_str ()))
     error (_f ("failed adding font file: %s", f.c_str ()));
-  else if (be_verbose_global)
-    message (_f ("adding font file: %s", f.c_str ()));
+  else
+    debug_output (_f ("Adding font file: %s", f.c_str ()));
 
   return SCM_UNSPECIFIED;
 }

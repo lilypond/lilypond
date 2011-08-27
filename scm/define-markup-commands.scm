@@ -60,7 +60,7 @@
 ;;;     functions that take a markup as their last argument.
 ;;;
 ;;;   args-signature
-;;;     the arguments signature, i.e. a list of type predicates which
+;;;     the arguments signature, i.e., a list of type predicates which
 ;;;     are used to type check the arguments, and also to define the general
 ;;;     argument types (markup, markup-list, scheme) that the command is
 ;;;     expecting.
@@ -69,19 +69,19 @@
 ;;;
 ;;;   category
 ;;;     for documentation purpose, builtin markup commands are grouped by
-;;;     category. This can be any symbol. When documentation is generated,
+;;;     category.  This can be any symbol.  When documentation is generated,
 ;;;     the symbol is converted to a capitalized string, where hyphens are
 ;;;     replaced by spaces.
 ;;;
 ;;;   property-bindings
 ;;;     this is used both for documentation generation, and to ease
-;;;     programming the command itself. It is list of
+;;;     programming the command itself.  It is list of
 ;;;        (property-name default-value)
 ;;;     or (property-name)
-;;;     elements. Each property is looked-up in the `props' argument, and
+;;;     elements.  Each property is looked-up in the `props' argument, and
 ;;;     the symbol naming the property is bound to its value.
 ;;;     When the property is not found in `props', then the symbol is bound
-;;;     to the given default value. When no default value is given, #f is
+;;;     to the given default value.  When no default value is given, #f is
 ;;;     used instead.
 ;;;     Thus, using the following property bindings:
 ;;;       ((thickness 0.1)
@@ -92,15 +92,15 @@
 ;;;         ..body..)
 ;;;     When a command `B' internally calls an other command `A', it may
 ;;;     desirable to see in `B' documentation all the properties and
-;;;     default values used by `A'. In that case, add `A-markup' to the
-;;;     property-bindings of B. (This is used when generating
+;;;     default values used by `A'.  In that case, add `A-markup' to the
+;;;     property-bindings of B.  (This is used when generating
 ;;;     documentation, but won't create bindings.)
 ;;;
 ;;;   documentation-string
 ;;;     the command documentation string (used to generate manuals)
 ;;;
 ;;;   body
-;;;     the command body. The function is supposed to return a stencil.
+;;;     the command body.  The function is supposed to return a stencil.
 ;;;
 ;;; Each markup command definition shall have a documentation string
 ;;; with description, syntax and example.
@@ -270,8 +270,8 @@ the PDF backend.
   "
 @cindex referencing page numbers in text
 
-Add a link to the page @var{page-number} around @var{arg}. This only works in
-the PDF backend.
+Add a link to the page @var{page-number} around @var{arg}.  This only works
+in the PDF backend.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -292,12 +292,14 @@ the PDF backend.
   "
 @cindex referencing page labels in text
 
-Add a link to the page holding label @var{label} around @var{arg}. This
+Add a link to the page holding label @var{label} around @var{arg}.  This
 only works in the PDF backend.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\with-link #\"label\" { \\italic { This links to the page containing the label... } }
+  \\with-link #\"label\" {
+    \\italic { This links to the page containing the label... }
+  }
 }
 @end lilypond"
   (let* ((arg-stencil (interpret-markup layout props arg))
@@ -860,13 +862,15 @@ Inline an image of music.
       indent = 0.0\\cm
       \\context {
         \\Score
-        \\override RehearsalMark #'break-align-symbols =
-          #'(time-signature key-signature)
-        \\override RehearsalMark #'self-alignment-X = #LEFT
+        \\override RehearsalMark
+          #'break-align-symbols = #'(time-signature key-signature)
+        \\override RehearsalMark
+          #'self-alignment-X = #LEFT
       }
       \\context {
         \\Staff
-        \\override TimeSignature #'break-align-anchor-alignment = #LEFT
+        \\override TimeSignature
+          #'break-align-anchor-alignment = #LEFT
       }
     }
   }
@@ -926,6 +930,7 @@ the use of @code{\\simple} is unnecessary.
 (define-markup-command (tied-lyric layout props str)
   (string?)
   #:category music
+  #:properties ((word-space))
   "
 @cindex simple text strings with tie characters
 
@@ -938,19 +943,18 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols.
 @end lilypond"
   (if (string-contains str "~")
       (let*
-	  ((parts (string-split str #\~))
-	   (tie-str (ly:wide-char->utf-8 #x203f))
+	  ((half-space (/ word-space 2))
+	   (parts (string-split str #\~))
+	   (tie-str (markup #:hspace half-space
+	                    #:musicglyph "ties.lyric"
+	                    #:hspace half-space))
 	   (joined  (list-join parts tie-str))
 	   (join-stencil (interpret-markup layout props tie-str))
 	   )
 
 	(interpret-markup layout
-			  (prepend-alist-chain
-			   'word-space
-			   (/ (interval-length (ly:stencil-extent join-stencil X)) -3.5)
-			   props)
-			  (make-line-markup joined)))
-			   ;(map (lambda (s) (interpret-markup layout props s)) parts))
+			  props
+			  (make-concat-markup joined)))
       (interpret-markup layout props str)))
 
 (define-public empty-markup
@@ -1335,9 +1339,10 @@ the line width, where @var{X} is the number of staff spaces.
 \\header {
   title = \"My title\"
   myText = \"Lorem ipsum dolor sit amet, consectetur adipisicing
-    elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-    aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-    laboris nisi ut aliquip ex ea commodo consequat.\"
+    elit, sed do eiusmod tempor incididunt ut labore et dolore
+    magna aliqua.  Ut enim ad minim veniam, quis nostrud
+    exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat.\"
 }
 
 \\paper {
@@ -1678,7 +1683,7 @@ Align @var{arg} in @var{axis} direction to the @var{dir} side.
   "
 @cindex setting horizontal text alignment
 
-Set horizontal alignment.  If @var{dir} is @code{-1}, then it is
+Set horizontal alignment.  If @var{dir} is @w{@code{-1}}, then it is
 left-aligned, while @code{+1} is right.  Values in between interpolate
 alignment accordingly.
 
@@ -2515,13 +2520,13 @@ normal text font, no matter what font was used earlier.
 @lilypond[verbatim,quote]
 \\markup {
   \\huge \\bold \\sans \\caps {
-    Some text with font overrides
+    huge bold sans caps
     \\hspace #2
     \\normal-text {
-      Default text, same font-size
+      huge normal
     }
     \\hspace #2
-    More text as before
+    as before
   }
 }
 @end lilypond"
@@ -3500,7 +3505,7 @@ a column containing several lines of text.
   "
 @cindex referencing page numbers in text
 
-Reference to a page number. @var{label} is the label set on the referenced
+Reference to a page number.  @var{label} is the label set on the referenced
 page (using the @code{\\label} command), @var{gauge} a markup used to estimate
 the maximum width of the page number, and @var{default} the value to display
 when @var{label} is not found."
@@ -3611,8 +3616,10 @@ Patterns are aligned to the @var{dir} markup.
   \\fill-with-pattern #1.5 #CENTER - left right
   \\null
   \"left-aligned :\"
-  \\override #'(line-width . 50) \\fill-with-pattern #2 #LEFT : left first
-  \\override #'(line-width . 50) \\fill-with-pattern #2 #LEFT : left second
+  \\override #'(line-width . 50)
+  \\fill-with-pattern #2 #LEFT : left first
+  \\override #'(line-width . 50)
+  \\fill-with-pattern #2 #LEFT : left second
 }
 @end lilypond"
   (let* ((pattern-x-extent (ly:stencil-extent (interpret-markup layout props pattern) X))

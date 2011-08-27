@@ -3,7 +3,7 @@
 \header {
   texidoc="
 Fret diagrams can be scaled using the @code{size} property.
-The position and size of first fret label, mute/open signs, fingers,
+The position and size of first fret label, mute/@/open signs, fingers,
 relative to the diagram grid, shall be the same in all cases.
 
 "

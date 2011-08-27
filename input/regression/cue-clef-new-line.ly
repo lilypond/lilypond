@@ -7,7 +7,7 @@ Similarly, an end clef for cue notes ending at a line break should only be
 printed at the end of the line.
 
 Cue notes going over a line break should print the standard clef on the new
-line plus an additional cue clef after the time/key signature."
+line plus an additional cue clef after the time/@/key signature."
 }
 
 vI = \relative c'' { \clef "treble" \repeat unfold 40 g4 }

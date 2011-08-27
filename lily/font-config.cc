@@ -35,8 +35,7 @@ FcConfig *font_config_global = 0;
 void
 init_fontconfig ()
 {
-  if (be_verbose_global)
-    message (_ ("Initializing FontConfig..."));
+  debug_output (_ ("Initializing FontConfig..."));
 
   /* TODO: Find a way for Fontconfig to update its cache, if needed. */
   font_config_global = FcInitLoadConfig ();
@@ -52,18 +51,16 @@ init_fontconfig ()
       string dir = dirs[i];
       if (!FcConfigAppFontAddDir (font_config_global, (FcChar8 *)dir.c_str ()))
         error (_f ("failed adding font directory: %s", dir.c_str ()));
-      else if (be_verbose_global)
-        message (_f ("adding font directory: %s", dir.c_str ()));
+      else
+        debug_output (_f ("Adding font directory: %s", dir.c_str ()));
     }
 
-  if (be_verbose_global)
-    message (_ ("Building font database..."));
+  debug_output (_ ("Building font database..."));
 
   FcConfigBuildFonts (font_config_global);
   FcConfigSetCurrent (font_config_global);
 
-  if (be_verbose_global)
-    message ("\n");
+  debug_output ("\n");
 
 }
 

@@ -1,0 +1,6 @@
+<html>
+<body>
+Including a MusicXML file:
+<musicxmlfile>include.xml</musicxmlfile>
+</body>
+</html>

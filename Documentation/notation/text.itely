@@ -441,7 +441,7 @@ c
 
 A @code{\markup} block may also contain quoted text strings.  Such
 strings are treated as minimal text expressions, and therefore any
-markup command or special character (such as @code{\} and @code{#})
+markup command or special character (such as @code{\} and@tie{}@code{#})
 will be printed verbatim without affecting the formatting of the text.
 Double quotation marks themselves may be printed by preceding them
 with backslashes.

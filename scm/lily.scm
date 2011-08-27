@@ -36,7 +36,7 @@
     (debug-enable 'debug)
     (begin
       (debug-enable 'backtrace)
-      (debug-enable 'show-file-name)))
+      (debug-set! show-file-name #t)))
 
 (define-public PLATFORM
   (string->symbol
@@ -121,8 +121,8 @@ jobs.")
 "If string FOO is given as argument, redirect
 output to log file `FOO.log'.")
     (midi-extension ,(if (eq? PLATFORM 'windows)
-			 "mid"
-			 "midi")
+                         "mid"
+                         "midi")
 "Set the default file extension for MIDI output
 file to given string.")
     (music-strings-to-paths #f
@@ -179,8 +179,8 @@ second.  Dump results to `FILE.stacks' and
 `FILE.graph'.")
     (trace-scheme-coverage #f
 "Record coverage of Scheme files in `FILE.cov'.")
-    (verbose ,(ly:command-line-verbose?)
-"Value of the --verbose flag (read-only).")
+    (verbose ,(ly:verbose-output?)
+"Verbose output, i.e. loglevel at least DEBUG (read-only).")
     (warning-as-error #f
 "Change all warning and programming_error
 messages into errors.")
@@ -190,12 +190,12 @@ messages into errors.")
 ;; initialization depend on these options.
 
 (for-each (lambda (x)
-	    (ly:add-option (car x) (cadr x) (caddr x)))
-	  scheme-options-definitions)
+            (ly:add-option (car x) (cadr x) (caddr x)))
+          scheme-options-definitions)
 
 (for-each (lambda (x)
-	    (ly:set-option (car x) (cdr x)))
-	  (eval-string (ly:command-line-options)))
+            (ly:set-option (car x) (cdr x)))
+          (eval-string (ly:command-line-options)))
 
 (debug-set! stack 0)
 
@@ -205,17 +205,17 @@ messages into errors.")
 ;;(set-debug-cell-accesses! 1000)
 
 (use-modules (ice-9 regex)
-	     (ice-9 safe)
-	     (ice-9 format)
-	     (ice-9 rdelim)
-	     (ice-9 optargs)
-	     (oop goops)
-	     (srfi srfi-1)
-	     (srfi srfi-13)
-	     (srfi srfi-14)
-	     (scm clip-region)
-	     (scm memory-trace)
-	     (scm coverage))
+             (ice-9 safe)
+             (ice-9 format)
+             (ice-9 rdelim)
+             (ice-9 optargs)
+             (oop goops)
+             (srfi srfi-1)
+             (srfi srfi-13)
+             (srfi srfi-14)
+             (scm clip-region)
+             (scm memory-trace)
+             (scm coverage))
 
 (define-public _ gettext)
 ;;; There are new modules defined in Guile V2.0 which we need to use.
@@ -226,12 +226,10 @@ messages into errors.")
 
 (cond
   ((guile-v2)
-   (if (ly:get-option 'verbose)
-       (ly:message  (_ "Using (ice-9 curried-definitions) module\n")))
+   (ly:debug (_ "Using (ice-9 curried-definitions) module\n"))
    (use-modules (ice-9 curried-definitions)))
   (else
-    (if (ly:get-option 'verbose)
-        (ly:message (_ "Guile 1.8\n")))))
+    (ly:debug (_ "Guile 1.8\n"))))
 
 ;; TODO add in modules for V1.8.7 deprecated in V2.0 and integrated
 ;; into Guile base code, like (ice-9 syncase).
@@ -266,9 +264,10 @@ messages into errors.")
 ;;; Debugging evaluator is slower.  This should have a more sensible
 ;;; default.
 
+
 (if (or (ly:get-option 'verbose)
-	(ly:get-option 'trace-memory-frequency)
-	(ly:get-option 'trace-scheme-coverage))
+        (ly:get-option 'trace-memory-frequency)
+        (ly:get-option 'trace-scheme-coverage))
     (begin
       (ly:set-option 'protected-scheme-parsing #f)
       (debug-enable 'backtrace)
@@ -288,26 +287,27 @@ messages into errors.")
 
 (define-public (ly:load x)
   (let* ((file-name (%search-load-path x)))
-    (if (ly:get-option 'verbose)
-	(ly:progress "[~A" file-name))
+    (ly:debug "[~A" file-name)
     (if (not file-name)
-	(ly:error (_ "cannot find: ~A") x))
+        (ly:error (_ "cannot find: ~A") x))
     (primitive-load-path file-name)  ;; to support Guile V2 autocompile
+    ;; TODO: Any chance to use ly:debug here? Need to extend it to prevent
+    ;;       a newline in this case
     (if (ly:get-option 'verbose)
-	(ly:progress "]\n"))))
+        (ly:progress "]\n"))))
 
 (define-public DOS
   (let ((platform (string-tokenize
-		   (vector-ref (uname) 0) char-set:letter+digit)))
+                   (vector-ref (uname) 0) char-set:letter+digit)))
     (if (null? (cdr platform)) #f
-	(member (string-downcase (cadr platform)) '("95" "98" "me")))))
+        (member (string-downcase (cadr platform)) '("95" "98" "me")))))
 
 (define (slashify x)
   (if (string-index x #\\)
       x
       (string-regexp-substitute
-	"//*" "/"
-	(string-regexp-substitute "\\\\" "/" x))))
+        "//*" "/"
+        (string-regexp-substitute "\\\\" "/" x))))
 
 (define-public (ly-getcwd)
   (if (eq? PLATFORM 'windows)
@@ -317,12 +317,12 @@ messages into errors.")
 (define-public (is-absolute? file-name)
   (let ((file-name-length (string-length file-name)))
     (if (= file-name-length 0)
-	#f
-	(or (eq? (string-ref file-name 0) #\/)
-	    (and (eq? PLATFORM 'windows)
-		 (> file-name-length 2)
-		 (eq? (string-ref file-name 1) #\:)
-		 (eq? (string-ref file-name 2) #\/))))))
+        #f
+        (or (eq? (string-ref file-name 0) #\/)
+            (and (eq? PLATFORM 'windows)
+                 (> file-name-length 2)
+                 (eq? (string-ref file-name 1) #\:)
+                 (eq? (string-ref file-name 2) #\/))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; If necessary, emulate Guile V2 module_export_all! for Guile V1.8.n
@@ -331,13 +331,13 @@ messages into errors.")
   (define (module-export-all! mod)
     (define (fresh-interface!)
       (let ((iface (make-module)))
-	(set-module-name! iface (module-name mod))
-	;; for guile 2: (set-module-version! iface (module-version mod))
-	(set-module-kind! iface 'interface)
-	(set-module-public-interface! mod iface)
-	iface))
+        (set-module-name! iface (module-name mod))
+        ;; for guile 2: (set-module-version! iface (module-version mod))
+        (set-module-kind! iface 'interface)
+        (set-module-public-interface! mod iface)
+        iface))
     (let ((iface (or (module-public-interface mod)
-		     (fresh-interface!))))
+                     (fresh-interface!))))
       (set-module-obarray! iface (module-obarray mod))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -347,19 +347,19 @@ Print a message at LOCATION if any predicate failed."
   (define (recursion-helper signature arguments count)
     (define (helper pred? arg count)
       (if (not (pred? arg))
-	  (begin
-	    (ly:input-message
-	     location
-	     (format
-	      #f (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
-	      count (type-name pred?) arg))
-	    #f)
-	  #t))
+          (begin
+            (ly:input-message
+             location
+             (format
+              #f (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
+              count (type-name pred?) arg))
+            #f)
+          #t))
 
     (if (null? signature)
-	#t
-	(and (helper (car signature) (car arguments) count)
-	     (recursion-helper (cdr signature) (cdr arguments) (1+ count)))))
+        #t
+        (and (helper (car signature) (car arguments) count)
+             (recursion-helper (cdr signature) (cdr arguments) (1+ count)))))
   (recursion-helper signature arguments 1))
 
 
@@ -388,9 +388,9 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 (define-safe-public (lilypond-version)
   (string-join
    (map (lambda (x) (if (symbol? x)
-			(symbol->string x)
-			(number->string x)))
-	(ly:version))
+                        (symbol->string x)
+                        (number->string x)))
+        (ly:version))
    "."))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -401,36 +401,43 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.
 
-(define init-scheme-files
+;;
+;;  List of Scheme files to be loaded into the (lily) module.
+;;
+;;  - Library definitions, need to be at the head of the list
+(define init-scheme-files-lib
   '("lily-library.scm"
-    "file-cache.scm"
+    "output-lib.scm"))
+;;  - Files containing definitions used later by other files later in load
+(define init-scheme-files-used
+  '("markup-macros.scm"))
+;;  - Main body of files to be loaded
+(define init-scheme-files-body
+  '("file-cache.scm"
     "define-event-classes.scm"
     "define-music-callbacks.scm"
     "define-music-types.scm"
     "define-note-names.scm"
-    "output-lib.scm"
     "c++.scm"
-    "chord-ignatzek-names.scm"
     "chord-entry.scm"
-    "chord-generic-names.scm"
     "stencil.scm"
+    "define-markup-commands.scm"
     "markup.scm"
     "modal-transforms.scm"
+    "chord-generic-names.scm"
+    "chord-ignatzek-names.scm"
     "music-functions.scm"
     "part-combiner.scm"
     "autochange.scm"
     "define-music-properties.scm"
     "time-signature-settings.scm"
     "auto-beam.scm"
+    "chord-name.scm"
     "bezier-tools.scm"
     "parser-ly-from-scheme.scm"
     "ly-syntax-constructors.scm"
 
     "define-context-properties.scm"
-    ;; guile 1.9 wants markups defined before referenced
-    "define-markup-commands.scm"
-
-    "chord-name.scm"
     "translation-functions.scm"
     "script.scm"
     "midi.scm"
@@ -455,10 +462,19 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 
     "paper.scm"
     "backend-library.scm"
-    "x11-color.scm"
-
-    ;; must be after everything has been defined
-    "safe-lily.scm"))
+    "x11-color.scm"))
+;;  - Files to be loaded last
+(define init-scheme-files-tail
+;;  - must be after everything has been defined
+  '("safe-lily.scm"))
+;;
+;; Now construct the load list
+;;
+(define init-scheme-files
+  (append init-scheme-files-lib
+          init-scheme-files-used
+          init-scheme-files-body
+          init-scheme-files-tail))
 
 (for-each ly:load init-scheme-files)
 
@@ -582,22 +598,22 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 
 (define (profile-measurements)
   (let* ((t (times))
-	 (stats (gc-stats)))
+         (stats (gc-stats)))
     (list (- (+ (tms:cutime t)
-		(tms:utime t))
-	     (assoc-get 'gc-time-taken stats))
-	  (assoc-get 'total-cells-allocated  stats 0))))
+                (tms:utime t))
+             (assoc-get 'gc-time-taken stats))
+          (assoc-get 'total-cells-allocated  stats 0))))
 
 (define (dump-profile base last this)
   (let* ((outname (format #f "~a.profile" (dir-basename base ".ly")))
-	 (diff (map (lambda (y) (apply - y)) (zip this last))))
+         (diff (map (lambda (y) (apply - y)) (zip this last))))
     (ly:progress "\nWriting timing to ~a..." outname)
     (format (open-file outname "w")
-	    "time: ~a\ncells: ~a\n"
-	    (if (ly:get-option 'dump-cpu-profile)
-		(car diff)
-		0)
-	    (cadr diff))))
+            "time: ~a\ncells: ~a\n"
+            (if (ly:get-option 'dump-cpu-profile)
+                (car diff)
+                0)
+            (cadr diff))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; debug memory leaks
@@ -610,61 +626,61 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 
 (define-public (dump-live-object-stats outfile)
   (for-each (lambda (x)
-	      (format outfile "~a: ~a\n" (car x) (cdr x)))
-	    (sort (gc-live-object-stats)
-		  (lambda (x y)
-		    (string<? (car x) (car y))))))
+              (format outfile "~a: ~a\n" (car x) (cdr x)))
+            (sort (gc-live-object-stats)
+                  (lambda (x y)
+                    (string<? (car x) (car y))))))
 
 (define-public (dump-gc-protects)
   (set! gc-protect-stat-count (1+ gc-protect-stat-count))
   (let* ((protects (sort (hash-table->alist (ly:protects))
-			 (lambda (a b)
-			   (< (object-address (car a))
-			      (object-address (car b))))))
-	 (out-file-name (string-append
-			 "gcstat-" (number->string gc-protect-stat-count)
-			 ".scm"))
-	 (outfile (open-file out-file-name "w")))
+                         (lambda (a b)
+                           (< (object-address (car a))
+                              (object-address (car b))))))
+        (out-file-name (string-append
+                       "gcstat-" (number->string gc-protect-stat-count)
+                       ".scm"))
+        (outfile (open-file out-file-name "w")))
     (set! gc-dumping #t)
     (format #t "Dumping GC statistics ~a...\n" out-file-name)
     (for-each (lambda (y)
-		(let ((x (car y))
-		      (c (cdr y)))
-		  (format outfile "~a (~a) = ~a\n" (object-address x) c x)))
-	      (filter
-	       (lambda (x)
-		 (not (symbol? (car x))))
-	       protects))
+                (let ((x (car y))
+                      (c (cdr y)))
+                  (format outfile "~a (~a) = ~a\n" (object-address x) c x)))
+              (filter
+               (lambda (x)
+                 (not (symbol? (car x))))
+               protects))
     (format outfile "\nprotected symbols: ~a\n"
-	    (apply + (map (lambda (obj-count)
-			    (if (symbol? (car obj-count))
-				(cdr obj-count)
-				0))
-			  protects)))
+            (apply + (map (lambda (obj-count)
+                            (if (symbol? (car obj-count))
+                                (cdr obj-count)
+                                0))
+                          protects)))
 
     ;; (display (ly:smob-protects))
     (newline outfile)
     (if (defined? 'gc-live-object-stats)
-	(let* ((stats #f))
-	  (display "Live object statistics: GC'ing\n")
-	  (ly:reset-all-fonts)
-	  (gc)
-	  (gc)
-	  (display "Asserting dead objects\n")
-	  (ly:set-option 'debug-gc-assert-parsed-dead #t)
-	  (gc)
-	  (ly:set-option 'debug-gc-assert-parsed-dead #f)
-	  (set! stats (gc-live-object-stats))
-	  (display "Dumping live object statistics.\n")
-	  (dump-live-object-stats outfile)))
+        (let* ((stats #f))
+          (display "Live object statistics: GC'ing\n")
+          (ly:reset-all-fonts)
+          (gc)
+          (gc)
+          (display "Asserting dead objects\n")
+          (ly:set-option 'debug-gc-assert-parsed-dead #t)
+          (gc)
+          (ly:set-option 'debug-gc-assert-parsed-dead #f)
+          (set! stats (gc-live-object-stats))
+          (display "Dumping live object statistics.\n")
+          (dump-live-object-stats outfile)))
     (newline outfile)
     (let* ((stats (gc-stats)))
       (for-each (lambda (sym)
-		  (format outfile "~a ~a ~a\n"
-			  gc-protect-stat-count
-			  sym
-			  (assoc-get sym stats "?")))
-		'(protected-objects bytes-malloced cell-heap-size)))
+                  (format outfile "~a ~a ~a\n"
+                          gc-protect-stat-count
+                          sym
+                          (assoc-get sym stats "?")))
+                '(protected-objects bytes-malloced cell-heap-size)))
     (set! gc-dumping #f)
     (close-port outfile)))
 
@@ -672,23 +688,23 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
   "Read `/proc/self' to check up on memory use."
   (define (gulp-file name)
     (let* ((file (open-input-file name))
-	   (text (read-delimited "" file)))
+           (text (read-delimited "" file)))
       (close file)
       text))
 
   (let* ((stat (gulp-file "/proc/self/status"))
-	 (lines (string-split stat #\newline))
-	 (interesting (filter identity
-			      (map
-			       (lambda (l)
-				 (string-match "^VmData:[ \t]*([0-9]*) kB" l))
-			       lines)))
-	 (mem (string->number (match:substring (car interesting) 1))))
+         (lines (string-split stat #\newline))
+         (interesting (filter identity
+                              (map
+                               (lambda (l)
+                                 (string-match "^VmData:[ \t]*([0-9]*) kB" l))
+                               lines)))
+         (mem (string->number (match:substring (car interesting) 1))))
     (format #t "VMDATA: ~a\n" mem)
     (display (gc-stats))
     (if (> mem 100000)
-	(begin (dump-gc-protects)
-	       (raise 1)))))
+        (begin (dump-gc-protects)
+               (raise 1)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -697,11 +713,11 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 PIDs or the number of the process."
   (define (helper count acc)
     (if (> count 0)
-	(let* ((pid (primitive-fork)))
-	  (if (= pid 0)
-	      (1- count)
-	      (helper (1- count) (cons pid acc))))
-	acc))
+        (let* ((pid (primitive-fork)))
+              (if (= pid 0)
+                  (1- count)
+                  (helper (1- count) (cons pid acc))))
+        acc))
 
   (helper count '()))
 
@@ -711,9 +727,9 @@ PIDs or the number of the process."
   "Exit function for lilypond"
   (if (not silently)
       (case status
-	((0) (ly:success (_ "Compilation successfully completed")))
-	((1) (ly:warning (_ "Compilation completed with warnings or errors")))
-	(else (ly:message ""))))
+        ((0) (ly:success (_ "Compilation successfully completed")))
+        ((1) (ly:warning (_ "Compilation completed with warnings or errors")))
+        (else (ly:message ""))))
   (exit status))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -723,141 +739,141 @@ PIDs or the number of the process."
   (eval-string (ly:command-line-code))
   (if (ly:get-option 'help)
       (begin (ly:option-usage)
-	     (ly:exit 0 #t)))
+             (ly:exit 0 #t)))
   (if (ly:get-option 'show-available-fonts)
       (begin (ly:font-config-display-fonts)
-	     (ly:exit 0 #t)))
+             (ly:exit 0 #t)))
   (if (ly:get-option 'gui)
       (gui-main files))
   (if (null? files)
       (begin (ly:usage)
-	     (ly:exit 2 #t)))
+             (ly:exit 2 #t)))
   (if (ly:get-option 'read-file-list)
       (set! files
-	    (filter (lambda (s)
-		      (> (string-length s) 0))
-		    (apply append
-			   (map (lambda (f)
-				  (string-split (ly:gulp-file f) #\nl))
-				files)))))
+            (filter (lambda (s)
+                      (> (string-length s) 0))
+                    (apply append
+                           (map (lambda (f)
+                                  (string-split (ly:gulp-file f) #\nl))
+                                files)))))
   (if (and (number? (ly:get-option 'job-count))
-	   (>= (length files) (ly:get-option 'job-count)))
+           (>= (length files) (ly:get-option 'job-count)))
       (let* ((count (ly:get-option 'job-count))
-	     (split-todo (split-list files count))
-	     (joblist (multi-fork count))
-	     (errors '()))
-	(if (not (string-or-symbol? (ly:get-option 'log-file)))
-	    (ly:set-option 'log-file "lilypond-multi-run"))
-	(if (number? joblist)
-	    (begin (ly:set-option
-		    'log-file (format #f "~a-~a"
-				      (ly:get-option 'log-file) joblist))
-		   (set! files (vector-ref split-todo joblist)))
-	    (begin (ly:progress "\nForking into jobs:  ~a\n" joblist)
-		   (for-each
-		    (lambda (pid)
-		      (let* ((stat (cdr (waitpid pid))))
-			(if (not (= stat 0))
-			    (set! errors
-				  (acons (list-element-index joblist pid)
-					 stat errors)))))
-		    joblist)
-		   (for-each
-		    (lambda (x)
-		      (let* ((job (car x))
-			     (state (cdr x))
-			     (logfile (format #f "~a-~a.log"
-					      (ly:get-option 'log-file) job))
-			     (log (ly:gulp-file logfile))
-			     (len (string-length log))
-			     (tail (substring  log (max 0 (- len 1024)))))
-			(if (status:term-sig state)
-			    (ly:message
-			     "\n\n~a\n"
-			     (format #f (_ "job ~a terminated with signal: ~a")
-				     job (status:term-sig state)))
-			    (ly:message
-			     (_ "logfile ~a (exit ~a):\n~a")
-			     logfile (status:exit-val state) tail))))
-		    errors)
-		   (if (pair? errors)
-		       (ly:error "Children ~a exited with errors."
-				 (map car errors)))
-		   ;; must overwrite individual entries
-		   (if (ly:get-option 'dump-profile)
-		       (dump-profile "lily-run-total"
-				     '(0 0) (profile-measurements)))
-		   (if (null? errors)
-		       (ly:exit 0 #f)
-		       (ly:exit 1 #f))))))
+             (split-todo (split-list files count))
+             (joblist (multi-fork count))
+             (errors '()))
+        (if (not (string-or-symbol? (ly:get-option 'log-file)))
+            (ly:set-option 'log-file "lilypond-multi-run"))
+        (if (number? joblist)
+            (begin (ly:set-option
+                    'log-file (format #f "~a-~a"
+                                      (ly:get-option 'log-file) joblist))
+                    (set! files (vector-ref split-todo joblist)))
+            (begin (ly:progress "\nForking into jobs:  ~a\n" joblist)
+                   (for-each
+                    (lambda (pid)
+                      (let* ((stat (cdr (waitpid pid))))
+                        (if (not (= stat 0))
+                            (set! errors
+                                  (acons (list-element-index joblist pid)
+                                 stat errors)))))
+                    joblist)
+                   (for-each
+                    (lambda (x)
+                      (let* ((job (car x))
+                             (state (cdr x))
+                             (logfile (format #f "~a-~a.log"
+                                              (ly:get-option 'log-file) job))
+                             (log (ly:gulp-file logfile))
+                             (len (string-length log))
+                             (tail (substring  log (max 0 (- len 1024)))))
+                        (if (status:term-sig state)
+                            (ly:message
+                             "\n\n~a\n"
+                             (format #f (_ "job ~a terminated with signal: ~a")
+                                     job (status:term-sig state)))
+                            (ly:message
+                             (_ "logfile ~a (exit ~a):\n~a")
+                             logfile (status:exit-val state) tail))))
+                      errors)
+                     (if (pair? errors)
+                         (ly:error "Children ~a exited with errors."
+                                   (map car errors)))
+                     ;; must overwrite individual entries
+                     (if (ly:get-option 'dump-profile)
+                         (dump-profile "lily-run-total"
+                                       '(0 0) (profile-measurements)))
+                     (if (null? errors)
+                         (ly:exit 0 #f)
+                         (ly:exit 1 #f))))))
 
   (if (string-or-symbol? (ly:get-option 'log-file))
       (ly:stderr-redirect (format #f "~a.log" (ly:get-option 'log-file)) "w"))
   (let ((failed (lilypond-all files)))
     (if (ly:get-option 'trace-scheme-coverage)
-	(begin
-	  (coverage:show-all (lambda (f)
-			       (string-contains f "lilypond")))))
+        (begin
+          (coverage:show-all (lambda (f)
+                               (string-contains f "lilypond")))))
     (if (pair? failed)
-	(begin (ly:error (_ "failed files: ~S") (string-join failed))
-	       (ly:exit 1 #f))
-	(begin
-	  (ly:exit 0 #f)))))
+        (begin (ly:error (_ "failed files: ~S") (string-join failed))
+               (ly:exit 1 #f))
+        (begin
+          (ly:exit 0 #f)))))
 
 
 (define-public (lilypond-all files)
   (let* ((failed '())
-	 (separate-logs (ly:get-option 'separate-log-files))
-	 (ping-log
-	  (if separate-logs
-	      (open-file (if (string-or-symbol? (ly:get-option 'log-file))
-			     (format #f "~a.log" (ly:get-option 'log-file))
-			     "/dev/stderr") "a") #f))
-	 (do-measurements (ly:get-option 'dump-profile))
-	 (handler (lambda (key failed-file)
-		    (set! failed (append (list failed-file) failed)))))
+         (separate-logs (ly:get-option 'separate-log-files))
+         (ping-log
+          (if separate-logs
+              (open-file (if (string-or-symbol? (ly:get-option 'log-file))
+                             (format #f "~a.log" (ly:get-option 'log-file))
+                     "/dev/stderr") "a") #f))
+         (do-measurements (ly:get-option 'dump-profile))
+         (handler (lambda (key failed-file)
+                    (set! failed (append (list failed-file) failed)))))
     (gc)
     (for-each
      (lambda (x)
        (let* ((start-measurements (if do-measurements
-				      (profile-measurements)
-				      #f))
-	      (base (dir-basename x ".ly"))
-	      (all-settings (ly:all-options)))
-	 (if separate-logs
-	     (ly:stderr-redirect (format #f "~a.log" base) "w"))
-	 (if ping-log
-	     (format ping-log "Processing ~a\n" base))
-	 (if (ly:get-option 'trace-memory-frequency)
-	     (mtrace:start-trace  (ly:get-option 'trace-memory-frequency)))
-	 (lilypond-file handler x)
-	 (if start-measurements
-	     (dump-profile x start-measurements (profile-measurements)))
-	 (if (ly:get-option 'trace-memory-frequency)
-	     (begin (mtrace:stop-trace)
-		    (mtrace:dump-results base)))
-	 (for-each (lambda (s)
-		     (ly:set-option (car s) (cdr s)))
-		   all-settings)
-	 (ly:set-option 'debug-gc-assert-parsed-dead #t)
-	 (gc)
-	 (ly:set-option 'debug-gc-assert-parsed-dead #f)
-	 (if (ly:get-option 'debug-gc)
-	     (dump-gc-protects)
+                                      (profile-measurements)
+                                      #f))
+              (base (dir-basename x ".ly"))
+              (all-settings (ly:all-options)))
+         (if separate-logs
+             (ly:stderr-redirect (format #f "~a.log" base) "w"))
+         (if ping-log
+             (format ping-log "Processing ~a\n" base))
+         (if (ly:get-option 'trace-memory-frequency)
+             (mtrace:start-trace  (ly:get-option 'trace-memory-frequency)))
+         (lilypond-file handler x)
+         (if start-measurements
+             (dump-profile x start-measurements (profile-measurements)))
+         (if (ly:get-option 'trace-memory-frequency)
+             (begin (mtrace:stop-trace)
+                    (mtrace:dump-results base)))
+         (for-each (lambda (s)
+                     (ly:set-option (car s) (cdr s)))
+                   all-settings)
+         (ly:set-option 'debug-gc-assert-parsed-dead #t)
+         (gc)
+         (ly:set-option 'debug-gc-assert-parsed-dead #f)
+         (if (ly:get-option 'debug-gc)
+             (dump-gc-protects)
              (ly:reset-all-fonts))))
      files)
 
     ;; Ensure a notice re failed files is written to aggregate logfile.
     (if ping-log
-	(format ping-log "Failed files: ~a\n" failed))
+        (format ping-log "Failed files: ~a\n" failed))
     (if (ly:get-option 'dump-profile)
-	(dump-profile "lily-run-total" '(0 0) (profile-measurements)))
+        (dump-profile "lily-run-total" '(0 0) (profile-measurements)))
     failed))
 
 (define (lilypond-file handler file-name)
   (catch 'ly-file-failed
-	 (lambda () (ly:parse-file file-name))
-	 (lambda (x . args) (handler x file-name))))
+         (lambda () (ly:parse-file file-name))
+         (lambda (x . args) (handler x file-name))))
 
 (use-modules (scm editor))
 
@@ -866,27 +882,27 @@ PIDs or the number of the process."
       (gui-no-files-handler))
   (if (not (string? (ly:get-option 'log-file)))
       (let* ((base (dir-basename (car files) ".ly"))
-	     (log-name (string-append base ".log")))
-	(if (not (ly:get-option 'gui))
-	    (ly:message (_ "Redirecting output to ~a...") log-name))
-	(ly:stderr-redirect log-name "w")
-	(ly:message "# -*-compilation-*-"))
+             (log-name (string-append base ".log")))
+        (if (not (ly:get-option 'gui))
+            (ly:message (_ "Redirecting output to ~a...") log-name))
+        (ly:stderr-redirect log-name "w")
+        (ly:message "# -*-compilation-*-"))
       (let ((failed (lilypond-all files)))
-	(if (pair? failed)
-	    (begin
-	      ;; ugh
-	      (ly:stderr-redirect "foo" "r")
-	      (system (get-editor-command log-name 0 0 0))
-	      (ly:error (_ "failed files: ~S") (string-join failed))
-	      ;; not reached?
-	      (exit 1))
-	    (ly:exit 0 #f)))))
+        (if (pair? failed)
+            (begin
+              ;; ugh
+              (ly:stderr-redirect "foo" "r")
+              (system (get-editor-command log-name 0 0 0))
+              (ly:error (_ "failed files: ~S") (string-join failed))
+              ;; not reached?
+              (exit 1))
+            (ly:exit 0 #f)))))
 
 (define (gui-no-files-handler)
   (let* ((ly (string-append (ly:effective-prefix) "/ly/"))
-	 ;; FIXME: soft-code, localize
-	 (welcome-ly (string-append ly "Welcome_to_LilyPond.ly"))
-	 (cmd (get-editor-command welcome-ly 0 0 0)))
+         ;; FIXME: soft-code, localize
+         (welcome-ly (string-append ly "Welcome_to_LilyPond.ly"))
+         (cmd (get-editor-command welcome-ly 0 0 0)))
     (ly:message (_ "Invoking `~a'...\n") cmd)
     (system cmd)
     (ly:exit 1 #f)))

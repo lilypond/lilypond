@@ -15,8 +15,7 @@ LY_DEFINE (ly_pfb_2_pfa, "ly:pfb->pfa",
 
   string file_name = ly_scm2string (pfb_file_name);
 
-  if (be_verbose_global)
-    progress_indication ("\n[" + file_name);
+  debug_output ("[" + file_name); // start message on a new line
 
   vector<char> pfb_string = gulp_file (file_name, 0);
   char *pfa = pfb2pfa ((Byte *) &pfb_string[0], pfb_string.size ());
@@ -24,8 +23,7 @@ LY_DEFINE (ly_pfb_2_pfa, "ly:pfb->pfa",
   SCM pfa_scm = scm_from_locale_string (pfa);
   free (pfa);
 
-  if (be_verbose_global)
-    progress_indication ("]");
+  debug_output ("]", false);
 
   return pfa_scm;
 }
@@ -38,8 +36,7 @@ LY_DEFINE (ly_otf_2_cff, "ly:otf->cff",
   LY_ASSERT_TYPE (scm_is_string, otf_file_name, 1);
 
   string file_name = ly_scm2string (otf_file_name);
-  if (be_verbose_global)
-    progress_indication ("\n[" + file_name);
+  debug_output ("[" + file_name); // start message on a new line
 
   FT_Face face = open_ft_face (file_name, 0 /* index */);
   string table = get_otf_table (face, "CFF ");
@@ -47,8 +44,7 @@ LY_DEFINE (ly_otf_2_cff, "ly:otf->cff",
   SCM asscm = scm_from_locale_stringn ((char *) table.data (),
                                        table.length ());
 
-  if (be_verbose_global)
-    progress_indication ("]");
+  debug_output ("]", false);
 
   return asscm;
 }

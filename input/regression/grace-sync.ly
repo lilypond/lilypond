@@ -1,6 +1,6 @@
 \version "2.14.0"
 \header  {
-  texidoc = "Grace notes in different voices/staves are synchronized."
+  texidoc = "Grace notes in different voices/@/staves are synchronized."
 }
 
 \layout { ragged-right = ##t}

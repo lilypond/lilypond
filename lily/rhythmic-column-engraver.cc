@@ -56,7 +56,6 @@ class Rhythmic_column_engraver : public Engraver
   vector<Grob *> rheads_;
   Grob *stem_;
   Grob *note_column_;
-  Grob *dotcol_;
   Grob *arpeggio_;
 
   TRANSLATOR_DECLARATIONS (Rhythmic_column_engraver);
@@ -102,7 +101,10 @@ Rhythmic_column_engraver::process_acknowledged ()
         }
 
       if (arpeggio_)
-        note_column_->set_object ("arpeggio", arpeggio_->self_scm ());
+        {
+          Pointer_group_interface::add_grob (note_column_, ly_symbol2scm ("elements"), arpeggio_);
+          note_column_->set_object ("arpeggio", arpeggio_->self_scm ());
+        }
     }
 }
 

@@ -189,7 +189,6 @@ Tie::get_default_control_points (Grob *me_grob)
   Tie_formatting_problem problem;
   problem.from_tie (me);
 
-  Tie_specification spec = problem.get_tie_specification (0);
   if (!me->is_live ())
     return SCM_EOL;
 

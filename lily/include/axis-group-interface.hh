@@ -28,6 +28,7 @@
 struct Axis_group_interface
 {
   static SCM generic_group_extent (Grob *me, Axis a);
+  static Interval generic_bound_extent (Grob *me, Grob *common, Axis a);
   static Interval pure_group_height (Grob *me, int start, int end);
   DECLARE_SCHEME_CALLBACK (width, (SCM smob));
   DECLARE_SCHEME_CALLBACK (calc_x_common, (SCM smob));
@@ -46,6 +47,8 @@ struct Axis_group_interface
   DECLARE_SCHEME_CALLBACK (calc_pure_y_common, (SCM));
   static Interval relative_group_extent (vector<Grob *> const &list,
                                          Grob *common, Axis);
+  static Interval relative_maybe_bound_group_extent (vector<Grob *> const &list,
+                                                     Grob *common, Axis, bool);
   static Interval relative_pure_height (Grob *me, int start, int end);
   static Interval combine_pure_heights (Grob *me, SCM, int, int);
   static Interval sum_partial_pure_heights (Grob *me, int, int);

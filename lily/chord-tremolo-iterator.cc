@@ -34,7 +34,6 @@ Chord_tremolo_iterator::get_music_list () const
 {
   Music *mus = get_music ();
   Input *origin = mus->origin ();
-  Moment l = mus->get_length ();
   Music *body = Repeated_music::body (mus);
   bool body_is_sequential = body->is_mus_type ("sequential-music");
 

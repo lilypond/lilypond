@@ -62,6 +62,10 @@ which scares away people.
 @end ignore
 
 @item
+New command-line option @option{--loglevel=@var{level}} to control how much output
+LilyPond creates. Possible values are ERROR, WARN, BASIC_PROGRESS, PROGRESS, DEBUG.
+
+@item
 @code{\set \once} now correctly resets the property value to the previous value.
 @lilypond[fragment,quote,relative=2]
   \set fingeringOrientations = #'(left)

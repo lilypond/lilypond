@@ -92,7 +92,7 @@ for opt in options:
 
 texi_file_re = re.compile ('.*\.i?te(ly|xi)$')
 html_file_re = re.compile ('.*\.i?htm(l)?$')
-xml_file_re = re.compile ('.*\.i?xml$')
+xml_file_re = re.compile ('.*\.i?(xm|mx)l$')
 tex_file_re = re.compile ('.*\.i?(la)?tex$')
 pdf_file_re = re.compile ('.*\.i?pdf$')
 
@@ -101,7 +101,7 @@ def name2line (n):
         # We have a texi include file, simply include it:
         s = r"@include %s" % os.path.basename (n)
     elif (html_file_re.match (n) or pdf_file_re.match (n) or
-          xml_file_re.match (n) or tex_file_re.match (n)):
+          tex_file_re.match (n)):
         s = r"""
 @ifhtml
 @html
@@ -110,7 +110,19 @@ def name2line (n):
 @end html
 @end ifhtml
 """ % (os.path.basename (n), os.path.basename (n))
-        return s
+
+    elif (xml_file_re.match (n)):
+        # Assume it's a MusicXML file -> convert, create image etc.
+        s = r"""
+@ifhtml
+@html
+<a name="%s"></a>
+@end html
+@end ifhtml
+
+@musicxmlfile[%s]{%s}
+""" % (os.path.basename (n), fragment_options, n)
+
     else:
         # Assume it's a lilypond file -> create image etc.
         s = r"""

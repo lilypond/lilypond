@@ -43,6 +43,11 @@ Core developer, font designer
 @email{t.daniels@@treda.co.uk},
 Assistant documentation editor
 
+@item Phil Holmes:
+@email{mail@@philholmes.net}
+@uref{http://www.philholmes.net}
+Build unentangler, Bug squad member
+
 @item Reinhold Kainhofer:
 @email{reinhold@@kainhofer.com},
 @uref{http://reinhold.kainhofer.com},
@@ -104,6 +109,9 @@ Translation Meister
 @item Valentin Villenave:
 LSR editor and Bug squad member
 
+@item Jan Warchoł:
+happy nitpicker
+
 @end itemize
 @end macro
 
@@ -152,8 +160,7 @@ Core developer, Schemer extraordinaire
 
 @c use commas not colons
 
-Karin Hoethker,
-Jan Warchoł
+Karin Hoethker
 
 @c no comma for last entry
 

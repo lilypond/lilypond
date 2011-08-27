@@ -70,19 +70,18 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       else
         {
           File_name out (output_name);
-          if (is_dir (out.dir_part ()))
-            {
-              dir = out.dir_part ();
-              out_file_name = out.file_part ();
-            }
+          dir = out.dir_part ();
+          out_file_name = out.file_part ();
         }
 
       if (dir != "" && dir != "." && dir != get_working_directory ())
         {
           global_path.prepend (get_working_directory ());
-          message (_f ("Changing working directory to: `%s'",
-                       dir.c_str ()));
-          chdir (dir.c_str ());
+          message (_f ("Changing working directory to: `%s'", dir));
+          // If we can't change to the output dir (not existing, wrong
+          // permissions), exit lilypond
+          if (chdir (dir.c_str ()) != 0)
+            error (_f ("unable to change directory to: `%s'", dir));
         }
       else
         out_file_name = File_name (output_name);

@@ -29,6 +29,24 @@ LY_DEFINE (ly_input_location_p, "ly:input-location?", 1, 0, 0,
   return unsmob_input (x) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
+LY_DEFINE (ly_input_warning, "ly:input-warning", 2, 0, 1, (SCM sip, SCM msg, SCM rest),
+           "Print @var{msg} as a GNU compliant warning message, pointing"
+           " to the location in @var{sip}.  @var{msg} is interpreted"
+           " similar to @code{format}'s argument, using @var{rest}.")
+{
+  Input *ip = unsmob_input (sip);
+
+  LY_ASSERT_TYPE (unsmob_input, sip, 1);
+  LY_ASSERT_TYPE (scm_is_string, msg, 2);
+
+  msg = scm_simple_format (SCM_BOOL_F, msg, rest);
+
+  string m = ly_scm2string (msg);
+  ip->warning (m);
+
+  return SCM_UNSPECIFIED;
+}
+
 LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 1, (SCM sip, SCM msg, SCM rest),
            "Print @var{msg} as a GNU compliant error message, pointing"
            " to the location in @var{sip}.  @var{msg} is interpreted"

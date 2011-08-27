@@ -493,7 +493,7 @@ circumstances to avoid errors:
 @item After every command or variable, i.e. every item that
 begins with a @code{\} sign.
 @item After every item that is to be interpreted as a Scheme
-expression, i.e. every item that begins with a @code{#} sign.
+expression, i.e. every item that begins with a @code{#}@tie{}sign.
 @item To separate all elements of a Scheme expression.
 @item In @code{lyricmode} to separate all the terms in both
 @code{\override} and @code{\set} commands.  In particular, spaces
@@ -1258,7 +1258,7 @@ been brought into the main file, so the file names they specify
 must all be relative to the directory containing the main file,
 not the directory containing the included file.  However,
 this behavior can be changed by passing the option
-@code{-drelative-includes} option at the command line
+@option{-drelative-includes} option at the command line
 (or by adding @code{#(ly:set-option 'relative-includes #t)}
 at the top of the main input file).  With @code{relative-includes}
 set, the path for each @code{\include} command will be taken
@@ -1742,7 +1742,7 @@ More clip regions can be defined by adding more pairs of
 rhythmic-locations to the list.
 
 In order to use this feature, LilyPond must be invoked with
-@code{-dclip-systems}.  The clips are output as EPS files, and are
+@option{-dclip-systems}.  The clips are output as EPS files, and are
 converted to PDF and PNG if these formats are switched on as well.
 
 For more information on output formats, see @rprogram{Invoking lilypond}.

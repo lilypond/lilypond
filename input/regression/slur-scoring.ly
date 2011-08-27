@@ -7,7 +7,7 @@
     one big file, since changing one score parameter for one situation
     may affect several other situations.
 
-    Tunable parameters are in @file{scm/slur.scm}.
+    Tunable parameters are in @file{scm/@/slur.scm}.
 "
 
 }

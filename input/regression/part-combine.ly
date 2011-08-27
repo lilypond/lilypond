@@ -3,7 +3,7 @@
   texidoc ="The new part combiner stays apart from:
 @itemize @bullet
 @item different durations,
-@item different articulations (taking into account only slur/beam/tie), and
+@item different articulations (taking into account only slur/@/beam/@/tie), and
 @item wide pitch ranges.
 @end itemize
 "

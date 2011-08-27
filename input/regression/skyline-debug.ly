@@ -1,5 +1,5 @@
 \header {
-  texidoc = "@code{-ddebug-skyline} draws the outline of the skyline used."
+  texidoc = "@option{-ddebug-skyline} draws the outline of the skyline used."
   }
 \version "2.14.0"
 

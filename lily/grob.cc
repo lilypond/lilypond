@@ -88,13 +88,16 @@ Grob::Grob (Grob const &s)
   self_scm_ = SCM_EOL;
 
   immutable_property_alist_ = s.immutable_property_alist_;
-  mutable_property_alist_ = ly_deep_copy (s.mutable_property_alist_);
+  mutable_property_alist_ = SCM_EOL;
   interfaces_ = s.interfaces_;
   object_alist_ = SCM_EOL;
 
   layout_ = 0;
 
   smobify_self ();
+
+  mutable_property_alist_ = ly_deep_copy (s.mutable_property_alist_);
+
 }
 
 Grob::~Grob ()
@@ -573,11 +576,24 @@ Grob::fixup_refpoint ()
   MESSAGES
 ****************************************************************/
 void
+Grob::programming_error (string s) const
+{
+  SCM cause = self_scm ();
+  while (Grob *g = unsmob_grob (cause))
+    cause = g->get_property ("cause");
+
+  /* ES TODO: cause can't be Music*/
+  if (Music *m = unsmob_music (cause))
+    m->origin ()->programming_error (s);
+  else if (Stream_event *ev = unsmob_stream_event (cause))
+    ev->origin ()->programming_error (s);
+  else
+    ::programming_error (s);
+}
+
+void
 Grob::warning (string s) const
 {
-  if (get_program_option ("warning-as-error"))
-    error (s);
-
   SCM cause = self_scm ();
   while (Grob *g = unsmob_grob (cause))
     cause = g->get_property ("cause");
@@ -598,27 +614,6 @@ Grob::name () const
   SCM nm = scm_assq (ly_symbol2scm ("name"), meta);
   nm = (scm_is_pair (nm)) ? scm_cdr (nm) : SCM_EOL;
   return scm_is_symbol (nm) ? ly_symbol2string (nm) : this->class_name ();
-}
-
-void
-Grob::programming_error (string s) const
-{
-  if (get_program_option ("warning-as-error"))
-    error (s);
-
-  SCM cause = self_scm ();
-  while (Grob *g = unsmob_grob (cause))
-    cause = g->get_property ("cause");
-
-  s = _f ("programming error: %s", s);
-
-  /* ES TODO: cause can't be Music*/
-  if (Music *m = unsmob_music (cause))
-    m->origin ()->message (s);
-  else if (Stream_event *ev = unsmob_stream_event (cause))
-    ev->origin ()->message (s);
-  else
-    ::message (s);
 }
 
 ADD_INTERFACE (Grob,

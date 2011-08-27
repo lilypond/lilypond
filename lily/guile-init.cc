@@ -43,12 +43,12 @@ ly_init_ly_module (void *)
   for (vsize i = scm_init_funcs_->size (); i--;)
     (scm_init_funcs_->at (i)) ();
 
-  if (be_verbose_global)
+  if (is_loglevel (LOG_DEBUG))
     {
-      progress_indication ("[");
+      debug_output ("[", true);
       scm_display (scm_c_eval_string ("(%search-load-path \"lily.scm\")"),
                    scm_current_error_port ());
-      progress_indication ("]\n");
+      debug_output ("]\n", false);
     }
 
   scm_primitive_load_path (scm_from_locale_string ("lily.scm"));

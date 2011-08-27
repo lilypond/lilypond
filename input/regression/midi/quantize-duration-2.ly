@@ -18,7 +18,7 @@
 }
 
 \header {
-texidoc="midi2ly @code{--duration-quant} preserves first note length (16)"
+texidoc="@code{midi2ly}'s option @option{--duration-quant} preserves first note length (16)."
 options="--duration-quant=16"
 }
 

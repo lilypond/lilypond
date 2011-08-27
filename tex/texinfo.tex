@@ -6051,6 +6051,12 @@ end
   \normbskip=\baselineskip \normpskip=\parskip \normlskip=\lineskip
   % Flag to tell @lisp, etc., not to narrow margin.
   \let\nonarrowing = t%
+  %
+  % If this cartouche directly follows a sectioning command, we need the
+  % \parskip glue (backspaced over by default) or the cartouche can
+  % collide with the section heading.
+  \ifnum\lastpenalty>10000 \vskip\parskip \fi
+  %
   \vbox\bgroup
       \baselineskip=0pt\parskip=0pt\lineskip=0pt
       \carttop

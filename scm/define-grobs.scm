@@ -527,7 +527,7 @@
 			(key-signature . (minimum-space . 3.5))
 			(time-signature . (minimum-space . 4.2))
 			(first-note . (minimum-fixed-space . 5.0))
-			(next-note . (extra-space . 0.5))
+			(next-note . (extra-space . 1.0))
 			(right-edge . (extra-space . 0.5))))
 	(stencil . ,ly:clef::print)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
@@ -593,7 +593,7 @@
 			(time-signature . (minimum-space . 4.2))
 			(custos . (minimum-space . 0.0))
 			(first-note . (minimum-fixed-space . 3.0))
-			(next-note . (extra-space . 0.5))
+			(next-note . (extra-space . 1.0))
 			(right-edge . (extra-space . 0.5))))
 	(stencil . ,ly:clef::print)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
@@ -620,7 +620,7 @@
 			(key-signature . (minimum-space . 3.5))
 			(time-signature . (minimum-space . 4.2))
 			(first-note . (minimum-fixed-space . 5.0))
-			(next-note . (extra-space . 0.5))
+			(next-note . (extra-space . 1.0))
 			(right-edge . (extra-space . 0.5))))
 	(stencil . ,ly:clef::print)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
@@ -919,6 +919,7 @@
 	(fret-diagram-details . ((finger-code . below-string)))
 	(stencil . ,fret-board::calc-stencil)
 	(extra-spacing-height . (0.2 . -0.2))
+	(extra-spacing-width . (-0.5 . 0.5))
 	(meta . ((class . Item)
 		 (interfaces . (chord-name-interface
 				font-interface
@@ -929,11 +930,12 @@
     (Glissando
      . (
 	(after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
-	(bound-details . ((right . ((attach-dir .  ,CENTER)
-				    (padding . 1.5)
+	(bound-details . ((right . ((attach-dir .  ,LEFT)
+				    (end-on-accidental . #t)
+				    (padding . 0.5)
 				      ))
-			  (left . ((attach-dir .  ,CENTER)
-				   (padding . 1.5)
+			  (left . ((attach-dir .  ,RIGHT)
+				   (padding . 0.5)
 				      ))
 			  ))
 	(gap . 0.5)
@@ -1071,7 +1073,7 @@
 			(key-signature . (extra-space . 0.5))
 			(cue-clef . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))
-			(first-note . (fixed-space . 2.5))))
+			(first-note . (semi-fixed-space . 2.5))))
 	(stencil . ,ly:key-signature-interface::print)
 	(extra-spacing-width . (0.0 . 0.5))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
@@ -1095,7 +1097,7 @@
 			(staff-bar . (extra-space . 1.1))
 			(cue-clef . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))
-			(first-note . (fixed-space . 2.5))))
+			(first-note . (semi-fixed-space . 2.5))))
 	(stencil . ,ly:key-signature-interface::print)
 	(extra-spacing-width . (0.0 . 0.5))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
@@ -1414,6 +1416,7 @@
     (NoteColumn
      . (
 	(axes . (,X ,Y))
+	(bound-alignment-interfaces . (rhythmic-head-interface stem-interface))
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
 	(skyline-vertical-padding . 0.15)
 	(X-extent . ,ly:axis-group-interface::width)
@@ -1518,6 +1521,7 @@
 	(allow-loose-spacing . #t)
 	(axes . (,X))
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
+	(bound-alignment-interfaces . (note-column-interface))
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
 	(keep-inside-line . #t)
 	;; (stencil . ,ly:paper-column::print)
@@ -1712,6 +1716,7 @@
 	(side-axis . ,Y)
 
 	;; padding set in script definitions.
+	(slur-padding . 0.2)
 	(staff-padding . 0.25)
 
 	(stencil . ,ly:script-interface::print)
@@ -2239,7 +2244,7 @@
 	(non-musical . #t)
 	(space-alist . (
 			(cue-clef . (extra-space . 1.5))
-			(first-note . (fixed-space . 2.0))
+			(first-note . (semi-fixed-space . 2.0))
 			(right-edge . (extra-space . 0.5))
 			(staff-bar . (minimum-space . 2.0))))
 	(stencil . ,ly:time-signature::print)
@@ -2613,6 +2618,7 @@
     (,ly:accidental-interface::height . ,ly:accidental-interface::pure-height)
     (,ly:axis-group-interface::calc-staff-staff-spacing . ,ly:axis-group-interface::calc-pure-staff-staff-spacing)
     (,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
+    (,ly:beam::rest-collision-callback . ,ly:beam::pure-rest-collision-callback)
     (,ly:grob::stencil-height . ,pure-stencil-height)
     (,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)
     (,ly:rest-collision::force-shift-callback-rest . ,pure-chain-offset-callback)

@@ -8,6 +8,7 @@
 * Programming without compiling::
 * Finding functions::
 * Code style::
+* Warnings Errors Progress and Debug Output::
 * Debugging LilyPond::
 * Tracing object relationships::
 * Adding or modifying features::
@@ -218,7 +219,7 @@ grep -i functionName subdirectory/*
 
 This command will search all the contents of the directory subdirectory/
 and display every line in any of the files that contains
-functionName.  The @code{-i} option makes @command{grep} ignore
+functionName.  The @option{-i} option makes @command{grep} ignore
 case -- this can be very useful if you are not yet familiar with
 our capitalization conventions.
 
@@ -712,6 +713,167 @@ Do not run make po/po-update with GNU gettext < 0.10.35
 @end itemize
 
 
+@node Warnings Errors Progress and Debug Output
+@section Warnings, Errors, Progress and Debug Output
+
+@unnumberedsubsec Available log levels
+
+LilyPond has several loglevels, which specify how verbose the output on
+the console should be:
+@itemize
+@item NONE: No output at all, even on failure
+@item ERROR: Only error messages
+@item WARN: Only error messages and warnings
+@item BASIC_PROGRESS: Warnings, errors and basic progress (success, etc.)
+@item PROGRESS: Warnings, errors and full progress messages
+@item INFO: Warnings, errors, progress and more detailed information (default)
+@item DEBUG: All messages, including vull debug messages (very verbose!)
+@end itemize
+
+The loglevel can either be set with the environment variable
+@code{LILYPOND_LOGLEVEL} or on the command line with the @option{--loglevel=...}
+option.
+
+@unnumberedsubsec Functions for debug and log output
+
+LilyPond has two different types of error and log functions:
+@itemize 
+
+@item
+If a warning or error is caused by an identified position in the input file,
+e.g. by a grob or by a music expression, the functions of the @code{Input}
+class provide logging functionality that prints the position of the message
+in addition to the message.
+
+@item
+If a message can not be associated with a particular position in an input file,
+e.g. the output file cannot be written, then the functions in the 
+@code{flower/include/warn.hh} file will provide logging functionality that 
+only prints out the message, but no location.
+
+@end itemize
+
+There are also Scheme functions to access all of these logging functions from
+scheme.  In addition, the Grob class contains some convenience wrappers for
+even easier access to these functions.
+
+The message and debug functions in @code{warn.hh} also have an optional 
+argument @code{newline}, which specifies whether the message should always
+start on a new line or continue a previous message.
+By default, @code{progress_indication} does NOT start on a new line, but rather
+continue the previous output.  They also do not have a particular input
+position associated, so there are no progress functions in the Input class.
+All other functions by default start their output on a new line.
+
+The error functions come in three different flavors: fatal error messages,
+programming error messages and normal error messages.  Errors written
+by the @code{error ()} function will cause LilyPond to exit immediately,
+errors by @code{Input::error ()} will continue the compilation, but
+return a non-zero return value of the lilypond call (i.e. indicate an 
+unsuccessful program execution).  All other errors will be printed on the 
+console, but not exit LilyPond or indicate an unsuccessful return code.
+Their only differences to a warnings are the displayed text and that
+they will be shown with loglevel @code{ERROR}.
+
+If the Scheme option @code{warning-as-error} is set, any warning will be
+treated as if @code{Input::error} was called.
+
+
+@unnumberedsubsec All logging functions at a glance
+
+@multitable @columnfractions 0.16 0.42 0.42
+@headitem
+@tab C++, no location
+@tab C++ from input location
+
+@item ERROR
+@tab @code{error ()}, @code{programming_error (msg)}, @code{non_fatal_error (msg)}
+@tab @code{Input::error (msg)}, @code{Input::programming_error (msg)}
+
+@item WARN
+@tab @code{warning (msg)}
+@tab @code{Input::warning (msg)}
+
+@item BASIC
+@tab @code{successful (msg)}
+@tab -
+
+@item PROGRESS
+@tab @code{progress_indication (msg)}
+@tab -
+
+@item INFO
+@tab @code{message (msg)}
+@tab @code{Input::message (msg)}
+
+@item DEBUG
+@tab @code{debug_output (msg)}
+@tab @code{Input::debug_output (msg)}
+
+@item @tab @tab
+
+@headitem
+@tab C++ from a Grob
+@tab Scheme, music expression
+
+@item ERROR
+@tab @code{Grob::programming_error (msg)}
+@tab -
+
+@item WARN
+@tab @code{Grob::warning (msg)}
+@tab @code{(ly:music-warning music msg)}
+
+@item BASIC
+@tab -
+@tab -
+
+@item PROGRESS
+@tab -
+@tab -
+
+@item INFO
+@tab -
+@tab @code{(ly:music-message music msg)}
+
+@item DEBUG
+@tab -
+@tab -
+
+@item @tab @tab
+
+@headitem
+@tab Scheme, no location
+@tab Scheme, input location
+
+@item ERROR
+@tab -
+@tab @code{(ly:error msg args)}, @code{(ly:programming-error msg args)}
+
+@item WARN
+@tab @code{(ly:warning msg args)}
+@tab @code{(ly:input-warning input msg args)}
+
+@item BASIC
+@tab @code{(ly:success msg args)}
+@tab -
+
+@item PROGRESS
+@tab @code{(ly:progress msg args)}
+@tab -
+
+@item INFO
+@tab @code{(ly:message msg args)}
+@tab @code{(ly:input-message input msg args)}
+
+@item DEBUG
+@tab @code{(ly:debug msg args)}
+@tab -
+
+@end multitable
+
+
+
 
 @node Debugging LilyPond
 @section Debugging LilyPond
@@ -1041,7 +1203,7 @@ number of different platforms:
 In order for the Graphviz tool to work, config.make must be modified.
 It is probably a good idea to first save a copy of config.make under
 a different name.  Then, edit config.make by removing every occurrence
-of @code{-DNDEBUG}.
+of @option{-DNDEBUG}.
 
 @item Rebuilding LilyPond
 
@@ -1089,7 +1251,7 @@ dot -Tpdf graphviz.log > graphviz.pdf
 
 The pdf file can then be viewed with any pdf viewer.
 
-When compiled without @code{-DNDEBUG}, lilypond may run slower
+When compiled without @option{-DNDEBUG}, lilypond may run slower
 than normal.  The original configuration can be restored by either
 renaming the saved copy of @code{config.make} or rerunning
 @code{configure}.  Then rebuild lilypond with

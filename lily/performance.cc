@@ -51,17 +51,14 @@ Performance::output (Midi_stream &midi_stream) const
   int tracks_ = audio_staffs_.size ();
 
   midi_stream.write (Midi_header (1, tracks_, 384));
-  if (be_verbose_global)
-    progress_indication (_ ("Track...") + " ");
+  debug_output (_ ("Track...") + " ", false);
 
   for (vsize i = 0; i < audio_staffs_.size (); i++)
     {
       Audio_staff *s = audio_staffs_[i];
-      if (be_verbose_global)
-        progress_indication ("[" + to_string (i));
+      debug_output ("[" + to_string (i), true);
       s->output (midi_stream, i, ports_);
-      if (be_verbose_global)
-        progress_indication ("]");
+      debug_output ("]", false);
     }
 }
 

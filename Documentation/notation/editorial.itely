@@ -387,9 +387,9 @@ An X11 color is not necessarily exactly the same shade as a
 similarly named normal color.
 
 Not all X11 colors are distinguishable in a web browser, i.e.,
-a web browser might not display a difference between @code{'LimeGreen}
-and @code{'ForestGreen}.  For web use normal colors are recommended
-(i.e., @code{#blue}, @code{#green}, @code{#red}).
+a web browser might not display a difference between @code{LimeGreen}
+and @code{ForestGreen}.  For web use normal colors are recommended
+(i.e., @code{blue}, @code{green}, @code{red}).
 
 
 Notes in a chord cannot be colored with @code{\override}; use

@@ -103,13 +103,10 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
   vector<Grob *> elems = ordered_elements (me);
   vector<Interval> extents;
 
-  int last_nonempty = -1;
   for (vsize i = 0; i < elems.size (); i++)
     {
       Interval y = elems[i]->extent (elems[i], X_AXIS);
       extents.push_back (y);
-      if (!y.is_empty ())
-        last_nonempty = i;
     }
 
   vsize idx = 0;

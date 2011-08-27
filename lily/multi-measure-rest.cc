@@ -111,11 +111,6 @@ Multi_measure_rest::print (SCM smob)
   Stencil mol;
   mol.add_stencil (symbol_stencil (me, space));
 
-  int measure_count = 0;
-  SCM m (me->get_property ("measure-count"));
-  if (scm_is_number (m))
-    measure_count = scm_to_int (m);
-
   mol.translate_axis (x_off, X_AXIS);
   return mol.smobbed_copy ();
 }

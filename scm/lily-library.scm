@@ -852,17 +852,12 @@ print a warning and set an optional @var{default}."
     scaling))
 
 (define-public (version-not-seen-message input-file-name)
-  (ly:message
-   "~a:0: ~a ~a"
-    input-file-name
-    (_ "warning:")
-    (format #f
-	    (_ "no \\version statement found, please add~afor future compatibility")
-	    (format #f "\n\n\\version ~s\n\n" (lilypond-version)))))
+  (ly:warning-located
+    (ly:format "~a:0" input-file-name)
+    (_ "no \\version statement found, please add~afor future compatibility")
+    (format #f "\n\n\\version ~s\n\n" (lilypond-version))))
 
 (define-public (old-relative-not-used-message input-file-name)
-  (ly:message
-   "~a:0: ~a ~a"
-    input-file-name
-    (_ "warning:")
+  (ly:warning-located
+    (ly:format "~a:0" input-file-name)
     (_ "old relative compatibility not used")))

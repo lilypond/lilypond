@@ -92,14 +92,12 @@ gulp_file_to_string (string fn, bool must_exist, int size)
       return s;
     }
 
-  if (be_verbose_global)
-    progress_indication ("[" + s);
+  debug_output ("[" + s, true);
 
   vector<char> chars = gulp_file (s, size);
   string result (&chars[0], chars.size ());
 
-  if (be_verbose_global)
-    progress_indication ("]\n");
+  debug_output ("]\n", false);
 
   return result;
 }

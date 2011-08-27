@@ -135,7 +135,6 @@ PUNCT		[?!:'`]
 ACCENT		\\[`'"^]
 NATIONAL	[\001-\006\021-\027\031\036]
 TEX		{AA}|-|{PUNCT}|{ACCENT}|{NATIONAL}
-WORD		{A}{AN}*
 DASHED_WORD		{A}({AN}|-)*
 DASHED_KEY_WORD		\\{DASHED_WORD}
 
@@ -148,7 +147,6 @@ E_UNSIGNED	\\{N}+
 FRACTION	{N}+\/{N}+
 INT		-?{UNSIGNED}
 REAL		({INT}\.{N}*)|(-?\.{N}+)
-KEYWORD		\\{WORD}
 WHITE		[ \n\t\f\r]
 HORIZONTALWHITE		[ \t]
 BLACK		[^ \n\t\f\r]
@@ -165,7 +163,7 @@ BOM_UTF8	\357\273\277
 
 
 <*>\r		{
-	// windows-suck-suck-suck
+	// swallow and ignore carriage returns
 }
 
 <extratoken>{ANY_CHAR}	{
@@ -192,8 +190,7 @@ BOM_UTF8	\357\273\277
       LexerError (_ ("stray UTF-8 BOM encountered").c_str ());
       exit (1);
     }
-  if (be_verbose_global)
-     message (_ ("Skipping UTF-8 BOM"));
+  debug_output (_ ("Skipping UTF-8 BOM"));
 }
 
 <INITIAL,chords,figures,incl,lyrics,markup,notes>{
@@ -264,15 +261,15 @@ BOM_UTF8	\357\273\277
 	this->here_input ().get_source_file ()->set_line (here_input ().start (), i);
 }
 
-<version>. 	{
+<version>{ANY_CHAR} 	{
 	LexerError (_ ("quoted string expected after \\version").c_str ());
 	yy_pop_state ();
 }
-<sourcefilename>. 	{
+<sourcefilename>{ANY_CHAR} 	{
 	LexerError (_ ("quoted string expected after \\sourcefilename").c_str ());
 	yy_pop_state ();
 }
-<sourcefileline>. 	{
+<sourcefileline>{ANY_CHAR} 	{
 	LexerError (_ ("integer expected after \\sourcefileline").c_str ());
 	yy_pop_state ();
 }
@@ -284,12 +281,6 @@ BOM_UTF8	\357\273\277
 	}
 	"%"+"}"		{
 		yy_pop_state ();
-	}
-	<<EOF>> 	{
-		LexerError (_ ("EOF found inside a comment").c_str ());
-		is_main_input_ = false; // should be safe , can't have \include in --safe.
-		if (! close_input ()) 
-		  yyterminate (); // can't move this, since it actually rets a YY_NULL
 	}
 }
 
@@ -314,7 +305,7 @@ BOM_UTF8	\357\273\277
 	new_input (s, sources_);
 	yy_pop_state ();
 }
-<incl>\\{BLACK}*{WHITE} { /* got the include identifier */
+<incl>\\{BLACK}*{WHITE}? { /* got the include identifier */
 	string s = YYText () + 1;
 	strip_trailing_white (s);
 	if (s.length () && (s[s.length () - 1] == ';'))
@@ -333,7 +324,7 @@ BOM_UTF8	\357\273\277
 	    scm_display (sid, err);
 	  }
 }
-<incl>\"[^"]*   { // backup rule
+<incl,version,sourcefilename>\"[^"]*   { // backup rule
 	error (_ ("end quote missing"));
 	exit (1);
 }
@@ -420,11 +411,15 @@ BOM_UTF8	\357\273\277
 		yylval.scm =  scan_fraction (YYText ());
 		return FRACTION;
 	}
-
 	{DIGIT}		{
 		yylval.i = String_convert::dec2int (string (YYText ()));
 		return DIGIT;
 	}
+	{UNSIGNED}/\/[^0-9] { // backup rule
+		yylval.i = String_convert::dec2int (string (YYText ()));
+		return UNSIGNED;
+	}
+	{UNSIGNED}/\/	| // backup rule
 	{UNSIGNED}		{
 		yylval.i = String_convert::dec2int (string (YYText ()));
 		return UNSIGNED;
@@ -465,6 +460,11 @@ BOM_UTF8	\357\273\277
 		yylval.scm =  scan_fraction (YYText ());
 		return FRACTION;
 	}
+	{UNSIGNED}/\/[^0-9] { // backup rule
+		yylval.i = String_convert::dec2int (string (YYText ()));
+		return UNSIGNED;
+	}
+	{UNSIGNED}/\/	| // backup rule
 	{UNSIGNED}		{
 		yylval.i = String_convert::dec2int (string (YYText ()));
 		return UNSIGNED;
@@ -505,6 +505,11 @@ BOM_UTF8	\357\273\277
 		yylval.scm =  scan_fraction (YYText ());
 		return FRACTION;
 	}
+	{UNSIGNED}/\/[^0-9] { // backup rule
+		yylval.i = String_convert::dec2int (string (YYText ()));
+		return UNSIGNED;
+	}
+	{UNSIGNED}/\/	| // backup rule
 	{UNSIGNED}		{
 		yylval.i = String_convert::dec2int (string (YYText ()));
 		return UNSIGNED;
@@ -606,7 +611,14 @@ BOM_UTF8	\357\273\277
 }
 
 <*><<EOF>> {
-	if (is_main_input_)
+	if (YY_START == longcomment)
+	{
+		LexerError (_ ("EOF found inside a comment").c_str ());
+		is_main_input_ = false; // should be safe , can't have \include in --safe.
+		if (!close_input ())
+		  yyterminate (); // can't move this, since it actually rets a YY_NULL
+	}
+	else if (is_main_input_)
 	{
 		/* 2 = init.ly + current file.
 		   > because we're before closing, but is_main_input_ should
@@ -631,12 +643,7 @@ BOM_UTF8	\357\273\277
 	}
 }
 
-{WORD}	{
-	return scan_bare_word (YYText ());
-}
-{KEYWORD}	{
-	return scan_escaped_word (YYText () + 1);
-}
+-{UNSIGNED}	| // backup rule
 {REAL}		{
 	Real r;
 	int cnv = sscanf (YYText (), "%lf", &r);
@@ -644,6 +651,10 @@ BOM_UTF8	\357\273\277
 	(void) cnv;
 
 	yylval.scm = scm_from_double (r);
+	return REAL;
+}
+-\.	{ // backup rule
+	yylval.scm = scm_from_double (0.0);
 	return REAL;
 }
 

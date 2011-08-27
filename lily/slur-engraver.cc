@@ -51,6 +51,7 @@ class Slur_engraver : public Engraver
   vector<Stream_event *> stop_events_;
   vector<Grob *> slurs_;
   vector<Grob *> end_slurs_;
+  vector<Grob_info> objects_to_acknowledge_;
 
   void set_melisma (bool);
 
@@ -110,7 +111,7 @@ Slur_engraver::acknowledge_note_column (Grob_info info)
 void
 Slur_engraver::acknowledge_extra_object (Grob_info info)
 {
-  Slur::auxiliary_acknowledge_extra_object (info, slurs_, end_slurs_);
+  objects_to_acknowledge_.push_back (info);
 }
 
 void
@@ -242,6 +243,11 @@ Slur_engraver::stop_translation_timestep ()
         s->set_bound (RIGHT, unsmob_grob (get_property ("currentMusicalColumn")));
       announce_end_grob (s, SCM_EOL);
     }
+
+  for (vsize i = 0; i < objects_to_acknowledge_.size (); i++)
+    Slur::auxiliary_acknowledge_extra_object (objects_to_acknowledge_[i], slurs_, end_slurs_);
+
+  objects_to_acknowledge_.clear ();
   end_slurs_.clear ();
   start_events_.clear ();
   stop_events_.clear ();

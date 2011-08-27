@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Wed Jul 13 10:59:12 UTC 2011
+@emph{Dernière mise à jour Sat Aug 13 14:15:49 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -249,7 +249,7 @@ oui
 @item
 2 Bases de notation musicale
 @*
-4184
+4187
 @tab Nicolas Grandclaude
 @*
 Ludovic Sardain
@@ -565,7 +565,7 @@ oui
 @item
 1.4 Répétitions et reprises
 @*
-945
+944
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -586,7 +586,7 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partiellement</span>
+<span style="background-color: #40fe23">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -629,7 +629,7 @@ partiellement
 @item
 1.6 Notation sur la portée
 @*
-2345
+2341
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -648,7 +648,7 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #9eff30">partiellement</span>
+<span style="background-color: #a5ff31">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -774,7 +774,7 @@ oui
 @item
 2.2 Instruments utilisant des portées multiples
 @*
-864
+862
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1008,7 +1008,7 @@ partiellement
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-7671
+7686
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1027,7 +1027,7 @@ partiellement (83 %)
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partiellement</span>
+<span style="background-color: #97ff2f">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1066,7 +1066,7 @@ oui
 @item
 5 Modification des réglages prédéfinis
 @*
-12248
+12258
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1095,7 +1095,7 @@ oui
 @item
 A Tables du manuel de notation
 @*
-1989
+2017
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -1104,11 +1104,11 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partiellement (85 %)</span>
+<span style="background-color: #dfef77">partiellement (84 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement (85 %)
+partiellement (84 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -1221,7 +1221,7 @@ oui
 @item
 1 Exécution de @command{lilypond}
 @*
-3622
+3681
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1238,11 +1238,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #25fe1f">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1275,7 +1275,7 @@ oui
 @item
 3 Association musique-texte avec @command{lilypond-book}
 @*
-3952
+3978
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1302,7 +1302,7 @@ N/A
 @item
 4 Programmes externes
 @*
-2170
+2180
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1319,11 +1319,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #25fe1f">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1490,7 +1490,7 @@ partiellement
 @item
 Manuels
 @*
-1203
+1214
 @tab John Mandereau
 @tab Jean-Charles Malahieude
 @tab 
@@ -1517,7 +1517,7 @@ partiellement
 @item
 Communauté
 @*
-1755
+1888
 @tab Jean-Charles Malahieude
 @*
 John Mandereau
@@ -1536,11 +1536,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #40fe23">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @end multitable

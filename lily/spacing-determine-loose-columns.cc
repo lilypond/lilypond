@@ -163,7 +163,7 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
             }
           else if (Staff_spacing::has_interface (sp))
             {
-              Spring spring = Staff_spacing::get_spacing (sp, rc);
+              Spring spring = Staff_spacing::get_spacing (sp, rc, 0.0);
 
               dists[d] = max (dists[d], spring.min_distance ());
             }

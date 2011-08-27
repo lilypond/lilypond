@@ -495,6 +495,12 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
   vector<Spring> springs;
   Spring spring;
 
+  Real full_measure_space = 0.0;
+  if (Paper_column::is_musical (r)
+      && l->break_status_dir () == CENTER
+      && fills_measure (me, l, r))
+    full_measure_space = robust_scm2double (l->get_property ("full-measure-extra-space"), 1.0);
+
   Moment dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
 
   if (dt == Moment (0, 0))
@@ -514,7 +520,8 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
           */
           assert (spacing_grob->get_column () == l);
 
-          springs.push_back (Staff_spacing::get_spacing (spacing_grob, r));
+          springs.push_back (Staff_spacing::get_spacing (spacing_grob, r,
+                                                         full_measure_space));
         }
     }
 
@@ -531,15 +538,6 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
         Ugh. The 0.8 is arbitrary.
       */
       spring *= 0.8;
-    }
-
-  if (Paper_column::is_musical (r)
-      && l->break_status_dir () == CENTER
-      && fills_measure (me, l, r))
-    {
-      Real full_measure_extra_space = robust_scm2double (l->get_property ("full-measure-extra-space"), 1.0);
-      spring.set_distance (spring.distance () + full_measure_extra_space);
-      spring.set_default_compress_strength ();
     }
 
   if (options->stretch_uniformly_ && l->break_status_dir () != RIGHT)
