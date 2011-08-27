@@ -268,12 +268,12 @@ If we give names, Bison complains.
 %token <i> UNSIGNED
 
 /* Artificial tokens, for more generic function syntax */
-%token <i> EXPECT_MARKUP;
-%token <i> EXPECT_MUSIC;
-%token <i> EXPECT_PITCH;
-%token <i> EXPECT_DURATION;
-%token <i> EXPECT_SCM;
-%token <i> EXPECT_MARKUP_LIST
+%token <i> EXPECT_MARKUP "markup?"
+%token <i> EXPECT_MUSIC "ly:music?"
+%token <i> EXPECT_PITCH "ly:pitch?"
+%token <i> EXPECT_DURATION "ly:duration?"
+%token <i> EXPECT_SCM "scheme?"
+%token <i> EXPECT_MARKUP_LIST "markup-list?"
 /* After the last argument. */
 %token <i> EXPECT_NO_MORE_ARGS;
 
