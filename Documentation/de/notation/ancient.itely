@@ -762,7 +762,7 @@ werden.  Neben dem Standardstil (@code{default}) ist
 nur (@code{mensural}) unterstützt.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\override Stem #'flag-style = #'mensural
+\override Flag #'style = #'mensural
 \override Stem #'thickness = #1.0
 \override NoteHead #'style = #'mensural
 \autoBeamOff
