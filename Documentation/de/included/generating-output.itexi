@@ -3,7 +3,7 @@
 @c learning/tutorial.itely
 
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -197,7 +197,9 @@ eine Datei zu kompilieren.}
 Erstellen Sie eine Text-Datei mit dem Namen @file{test.ly} und
 geben Sie folgenden Text ein:
 
+@c double \\ required because this is inside a macro!
 @example
+\\version "@w{@versionStable{}}"
 @{
   c' e' g' e'
 @}
@@ -218,7 +220,7 @@ Sie werden ungefähr folgende Meldungen sehen:
 
 @example
 lilypond test.ly
-GNU LilyPond @version{}
+GNU LilyPond  @w{@versionStable{}}
 »test.ly« wird verarbeitet
 Analysieren...
 Interpretation der Musik...

@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish:  a463d80d4be008ce05b12de86fc21f2b7c1c120f
+    Translation of GIT committish:  8cbb38db1591ab95a178643e7bf41db018aa22c0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -141,7 +141,7 @@ angepasste) Syntax für die absehbare Zukunft unverändert bleiben.
 Es wird eine Zeit der ausführlichen Diskussionen geben, damit
 die endgültigen Eingabespezifikationen festgelegt werden können.
 
-@warning{GLISS beginnt kurz nachdem 2.14 veröffentlicht wird.}
+@warning{GLISS beginnt kurz nach der Veröffentlichung von 2.16.}
 
 
 @subsubheading GOP (Grand Organizing Project)
@@ -161,8 +161,6 @@ darum, großartige neue Eigenschaften zu entwickeln oder alles
 völlig umzugestalten.  Das Ziel ist es vielmehr, uns eine stabile
 Basis zu geben, sodass große Änderungen in der Zukunft einfacher
 bewerkstelligt werden können.
-
-@warning{GOP beginnt kurz nachdem 2.14 veröffentlicht wird.}
 
 @end macro
 

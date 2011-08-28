@@ -1,9 +1,9 @@
-%% Translation of GIT committish: a06cb0b0d9593ba110e001f2b0f44b8bef084693
+%% Translation of GIT committish: a6b5eea83ddcdd8e1fd0760db385176ff9b2b1cd
 
   texidocfr = "
 Il s'agit de fonctions postfix pour personnaliser l'extension des
 crescendos textuels.  L'extension devrait débuter sur la première notte
-de la mesure.  Il faut utiliser @code{-\mycresc} -- comme une
+de la mesure.  Il faut utiliser @w{@code{-\mycresc}} -- comme une
 articulation -- sous peine que le départ de l'extension n'apparaisse
 qu'à la note suivante.
 "

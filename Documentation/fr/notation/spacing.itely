@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 657b89ab28b463ccda7991070242353cf38dc25d
+    Translation of GIT committish: f93e4199873c91ae32f0e84a610d14853dc379df
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -61,7 +61,7 @@ L'agencement général d'une partition dépend de trois facteurs
 interdépendants@tie{}: la mise en page, les sauts de ligne et
 l'espacement.  Les choix faits en matière d'espacement détermineront la
 densité de chacun des systèmes, ce qui influera sur le positionnement
-des sauts de lignes et, par voie de conséquence, sur le nombre de pages
+des sauts de ligne et, par voie de conséquence, sur le nombre de pages
 de la partition.
 
 En pratique, cette procédure comporte quatre étapes.  Dans un premier
@@ -143,7 +143,7 @@ mise en page, et
 
 @item
 la définition des différents @emph{markups} qui personnaliseront la mise
-en forme des entêtes, pied de page et titrages.
+en forme des entêtes et pieds de page ainsi que des titrages.
 
 @end itemize
 
@@ -245,8 +245,8 @@ Le format du papier est déterminé par deux fonctions différentes@tie{}:
 La seule restriction à l'utilisation isolée de la fonction
 @code{set-default-paper-size} est qu'elle doit intervenir avant le
 premier bloc @code{\paper}.  À l'intérieur d'un bloc @code{\paper}, il
-vaut mieux utiliser la fonction @code{set-paper-size}, avant toute autre
-variables.  Les raisons à ceci sont abordées dans la rubrique
+vaut mieux utiliser la fonction @code{set-paper-size} avant toute autre
+variable.  Les raisons à ceci sont abordées dans la rubrique
 @ref{Adaptation automatique au format}.
 
 @code{set-default-paper-size} fixe le format pour toutes les pages,
@@ -354,8 +354,8 @@ Les valeurs par défaut (avant étalonnage) sont définies dans le fichier
 
 La hauteur de la feuille.  Il s'agit par défaut de la dimension du
 papier utilisé.  Notez bien que cette variable n'affectera pas
-l'ajustement automatique d'un certain nombre de dimmensionnement
-vertical.
+l'ajustement automatique d'un certain nombre de dimmensionnements
+verticaux.
 
 @item top-margin
 @funindex top-margin
@@ -613,7 +613,7 @@ Manuel de notation :
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
-Snippets:
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
@@ -837,8 +837,8 @@ Manuel de notation :
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
 
-Snippets:
-@rlsr{Spacing}.
+Morceaux choisis :
+@rlsrnamed{Spacing, Espacements}.
 
 
 @node Autres variables du bloc \paper
@@ -911,7 +911,7 @@ Les valeurs par défaut sont définies dans le fichier
 
 Pénalité pour apparition d'une page blanche entre deux partitions.  Sa
 valeur est par défaut inférieure à celle de
-@code{blank-page-force}@tie{}; nous préférons q'une page blanche
+@code{blank-page-force}@tie{}; nous préférons qu'une page blanche
 s'insère après la fin de la partition plutôt qu'au milieu.
 
 @item blank-last-page-force
@@ -1104,14 +1104,14 @@ concerner toutes les partitions d'un même ouvrage, auquel cas un bloc
 @code{\layout} indépendant se placera en tête de fichier.  Dans le cas
 où la mise en forme concerne une partition en particulier, un bloc
 @code{\layout} se placera au sein du bloc @code{\score} en question.
-Sont susceptibles d'apparître dans un bloc @code{\layout}@tie{}:
+Sont susceptibles d'apparaître dans un bloc @code{\layout}@tie{}:
 
 @itemize
 @item
 la fonction scheme @code{layout-set-staff-size},
 
 @item
-dans des blocs @code{\contexte}, les  modifications apportées aux
+dans des blocs @code{\context}, les  modifications apportées aux
 différents contextes, et
 
 @item
@@ -1408,7 +1408,7 @@ ailleurs@tie{}:
     s1 \noBreak s1 \noBreak
     s1 \noBreak s1 \break
   @}
-  @{ @var{the actual music@dots{}} @}
+  @{ @var{et ici la musique@dots{}} @}
 >>
 @end example
 
@@ -1486,7 +1486,7 @@ Lorsqu'un ouvrage contient plusieurs partitions et un certain nombre de
 pages, la gestion des sauts de page finit par devenir très gourmande,
 tant au niveau du processeur que de la mémoire.  Vous pouvez cependant
 alléger la charge en recourant à des blocs @code{\bookpart} afin de
-sectionner l'ouvrage que vous traitez@tie{}; les sauts de pages seront
+sectionner l'ouvrage que vous traitez@tie{}; les sauts de page seront
 alors gérés individuellement au niveau de chacune des parties.  Par
 ailleurs, cela vous autorisera une gestion différente selon les
 sections.
@@ -1578,7 +1578,7 @@ de l'œuvre.  Vous pouvez alors recourir au @code{Page_turn_engraver} que
 vous mentionnerez dans un contexte de voix ou de portée.  Ce graveur de
 tournes recherchera dans le contexte en question les passages sans note.
 Notez bien qu'il ne recherche pas des silences, mais l'absence de
-notes@tie{}; autrement dit, il ne restera pas inactif dans la cadre
+notes@tie{}; autrement dit, il ne restera pas inactif dans le cadre
 d'une portée polyphonique dont l'une des parties contiendrait des
 silences.  Lorsqu'il rencontre un fragment suffisamment long ne
 contenant aucune note, il insère un @code{\allowPageTurn} à la barre
@@ -1911,13 +1911,13 @@ la distance entre une ligne de non-portée alors que sa
 @code{staff-affinity} a été déterminée à @code{#UP}.
 
 Toutes ces distances sont mesurées entre les points de référence
-respectifs de éléments considérés.
+respectifs des éléments considérés.
 Le @i{point de référence} d'une portée est le centre vertical du
 @code{StaffSymbol} -- la ligne médiane si @code{line-count} est impair,
 l'interligne médian si @code{line-count} est pair.
 Quant aux lignes rattachées à des portées -- lignes de non-portée -- le
-tableau suivant présente le @i{point de référence} pour chacun d'entre
-eux@tie{}:
+tableau suivant présente le @i{point de référence} pour chacune
+d'elles@tie{}:
 
 @multitable {Non-staff line} {Reference point}
 @headitem Ligne de non-portée @tab Point de référence
@@ -1955,8 +1955,10 @@ labelContext =
   \context { \Dynamics    \alignToZero }
   \context { \FiguredBass \alignToZero }
   \context { \Lyrics      \alignToZero }
-  \context { \NoteNames   \alignToZero }
-  \context { \ChordNames  \alignToZero \lowerCaseChords }
+  \context { \NoteNames   \alignToZero \staffAffinityDown }
+  \context { \ChordNames  \alignToZero
+                          \staffAffinityDown
+                          \lowerCaseChords }
   \context { \FretBoards  \alignToZero \staffAffinityDown }
   \context { \Score
     \override BarLine #'stencil = ##f
@@ -1990,7 +1992,7 @@ labelContext =
     \set RhythmicStaff.instrumentName = #"centre vertical "
     \labelContext "Dynamics" s1*3
   }
-  \new Dynamics { s2\mp s\fp }
+  \new Dynamics { s1\mp s\fp }
 >>
 
 %% Le point de référence de FiguredBass est son point le plus haut
@@ -2083,13 +2085,13 @@ d'un @code{VerticalAxisGroup} affectera les propriétés du
 elle s'appliquera au @code{default-staff-staff-spacing} en l'absence de
 regroupement.  Les portées peuvent donc s'aligner différemment selon
 qu'elles sont ou non regroupées.  Pour obtenir le même espacement sans
-tenir compte dees éventuels regroupements, cette fonction peut faire
+tenir compte des éventuels regroupements, cette fonction peut faire
 place à une complète redéfinition des espacements fluctuants à l'aide de
 règles dérogatoires comme vu précédemment.
 
 @item default-staff-staff-spacing
 Il s'agit de la distance qui s'appliquera par défaut aux portées
-isolées, à loins que @code{staff-staff-spacing} n'ait été redéfini
+isolées, à moins que @code{staff-staff-spacing} n'ait été redéfini
 explicitement par un @code{\override}.
 
 @item staff-affinity
@@ -2105,7 +2107,7 @@ Une ligne de non-portée en dessous d'un système devrait avoir sa
 @code{staff-affinity} définie à @code{UP}.  De la même manière, lorsque
 cette ligne surplombe un système, sa @code{staff-affinity} devrait être
 définie à @code{DOWN}.  Prenez garde à la valeur que vous affectez à
-@code{staff-affinity}@tie{}: si vous lui affectez la valeur @code{#f} à
+@code{staff-affinity}@tie{}: si vous affectez la valeur @code{#f} à
 une ligne de non-portée, cette ligne sera considérée comme étant une
 portée@tie{}; à l'inverse, utiliser la propriété @code{staff-affinity}
 pour une portée lui fera perdre cette qualité.
@@ -2124,9 +2126,9 @@ non-portée est présente (quelque soit le côté).
 
 @item nonstaff-nonstaff-spacing
 Il s'agit de la distance entre deux lignes de non-portée selon
-l'orientation définie par @code{staff-affinity} et qu'elles ont la même
-orientation.  Bien entendu, ceci ne peut concerner que les valeurs
-@code{UP} et @code{DOWN} de @code{staff-affinity}.
+l'orientation définie par @code{staff-affinity} et dès lors qu'elles ont
+la même orientation.  Bien entendu, ceci ne peut concerner que les
+valeurs @code{UP} et @code{DOWN} de @code{staff-affinity}.
 
 @item nonstaff-unrelatedstaff-spacing
 Il s'agit de la distance entre une ligne de non-portée et la portée à
@@ -2149,7 +2151,7 @@ d'un @code{\override} au niveau d'un contexte @code{StaffGroup} (ou son
 @item staff-staff-spacing
 Il s'agit de la distance entre deux portées consécutives d'un même
 système.  La propriété @code{staff-staff-spacing} de l'objet
-@code{VerticalAxisGroup} d'un portée en particulier peut se redéfinir à
+@code{VerticalAxisGroup} d'une portée en particulier peut se redéfinir à
 l'aide de règles dérogatoires.
 
 @item staffgroup-staff-spacing
@@ -2203,8 +2205,8 @@ ces portées sont regroupées -- voir
 L'exemple suivant illustre la manière de gérer l'espacement de portées
 isolées à l'aide de la propriété @code{default-staff-staff-spacing}.
 Les mêmes règles appliquées de manière dérogatoire au
-@code{staff-staff-spacing} produiront les mêmes effets, y comris au sein
-de regroupements.
+@code{staff-staff-spacing} produiront les mêmes effets, y compris au
+sein de regroupements.
 
 @lilypond[verbatim,quote,staffsize=16]
 \layout {
@@ -2261,7 +2263,7 @@ souvent que des portées soient regroupées.  L'espacement est alors plus
 important entre deux regroupements qu'entre les portées d'un même
 groupe.  
 
-Les @i{regroupement de portées} tels le @code{StaffGroup} ou le
+Les @i{regroupements de portées} tels le @code{StaffGroup} ou le
 @code{ChoirStaff} sont des contextes qui peuvent contenir simultanément
 une ou plusieurs portées.
 
@@ -2284,7 +2286,7 @@ Ces propriétés d'objet graphique sont expliquées une à une au chapitre
 @ref{Propriétés d'espacement au sein d'un système}.
 
 L'exemple suivant illustre la manière de gérer l'espacement de portées
-regroupes, à l'aide des propriétés de l'objet graphique
+regroupées, à l'aide des propriétés de l'objet graphique
 @code{StaffGrouper}@tie{}:
 
 @lilypond[verbatim,quote,staffsize=16]
@@ -2632,7 +2634,7 @@ Dans la mesure où @code{NonMusicalPaperColumn
 #'line-break-system-details} permet de positionner systèmes et portées
 n'importe où sur une page, vous pourriez être en contradiction avec les
 dimensionnements de la feuille ou bien aboutir à des surimpressions.
-Soyez donc raisonnables quant aux différentes valeurs que vous affectez
+Soyez donc raisonnable quant aux différentes valeurs que vous affectez
 à ces réglages.
 
 @end itemize
@@ -2656,7 +2658,7 @@ matière de notation musicale appartiennent à la portée, et que
 d'autres se placent en dehors de la portée.  Entre autres objets
 externes, nous avons les marques repères, les textes et les
 nuances@tie{}; nous les appellerons @qq{objets extérieurs à la portée}.
-La règle qu'applique LilyPond pour positionner verticalement ces
+La règle adoptée par LilyPond pour positionner verticalement ces
 objets extérieurs consiste à les placer au plus près de la portée
 tout en prenant garde d'éviter qu'il y ait chevauchement.
 
@@ -2759,7 +2761,7 @@ la note un espace fixé d'après la propriété @code{spacing-increment}.
 
 L'exemple suivant comporte des blanches, des noires et un certain nombre
 de croches.  La croche est suivie d'un espace de la largeur d'une tête
-de note@tie{}; pour la noire , cette espace est de deux têtes@tie{}; il
+de note@tie{}; pour la noire , cet espace est de deux têtes@tie{}; il
 est de trois pour la blanche.
 
 @lilypond[quote,verbatim,relative=1]
@@ -3019,7 +3021,7 @@ lignes et l'indentation de la première.
 L'activation du commutateur @code{ragged-right} au sein du bloc
 @code{\layout} permet de terminer les systèmes naturellement plutôt que
 de les voir s'étirer sur toute la largeur de la page.  Cette option est
-particulièrement utile lorsque vous traitez de courts fragment, ou bien
+particulièrement utile lorsque vous traitez de courts fragments, ou bien
 pour vérifier ce que donnerait l'espacement naturel.  Bien qu'il soit
 désactivé par défaut, il sera activé si la partition ne comporte qu'un
 seul système.
@@ -3109,7 +3111,7 @@ n'en occupent pas la moitié de l'espace horizontal.
 
 En matière de gravure traditionnelle, cet espacement correspond tout à
 fait à nos attentes, puisque nous pouvons rogner l'espace sur la
-blanche et ainsi en gagner en largeur sur toute la mesure qui fait une
+blanche et ainsi gagner en largeur sur toute la mesure qui fait une
 ronde.
 
 Par contre, si nous avons besoin d'insérer une indication temporelle ou
@@ -3149,7 +3151,7 @@ propriétés d'un contexte à trois différents endroits de votre
 fichier@tie{}: dans un bloc @code{\with}, dans un bloc @code{\context}
 ou au beau milieu de la musique à l'aide de la commande @code{\set}.
 Vous pouvez donc définir @code{proportionalNotationDuration} selon l'une
-de ces trois façons, à l'instar de n'importe quel définition de
+de ces trois façons, à l'instar de n'importe quelle définition de
 contexte.
 
 La propriété @code{proportionalNotationDuration} prend en unique
@@ -3228,7 +3230,7 @@ une durée de référence élevée produira une musique resserrée.
 Vous ne manquerez pas de noter qu'une durée de référence trop grande,
 comme la croche pour la première ligne, a pour conséquence de resserrer
 la musique, ce qui peut aboutir à des chevauchements de têtes.  Vous
-remarquez aussi que , par principe, la notation proportionnelle occupe
+remarquez aussi que, par principe, la notation proportionnelle occupe
 beaucoup plus d'espace horizontal que l'espacement traditionnel.  La
 notation proportionnelle met en évidence le rythme au détriment de
 l'espacement horizontal.
@@ -3440,8 +3442,8 @@ pouvez le constater, l'activation de @code{strict-note-spacing} a pour
 conséquence que l'algorithme d'espacement ignore tout bonnement la
 largeur des métriques, armures, clefs et altérations.
 
-En plus ceux que nous venons de voir, vous trouverez d'autres réglages
-en usage dans la notation proportionnelle comme, entre autres,
+En plus de ceux que nous venons de voir, vous trouverez d'autres
+réglages en usage dans la notation proportionnelle comme, entre autres,
 
 @itemize
 @item @code{\override SpacingSpanner #'strict-grace-spacing = ##t}
@@ -3471,13 +3473,13 @@ Morceaux choisis :
 @section Réduction du nombre de pages de la partition
 @translationof Fitting music onto fewer pages
 
-Vous pourriez un jour être confronté au problème suiven@tie{}: l'une
+Vous pourriez un jour être confronté au problème suivant@tie{}: l'une
 des pages de votre partition ne comporte que deux portées alors que --
 ce qui est d'autant plus frustrant -- l'espace libre sur les autres
 pages aurait permis une distribution différente.
 
 L'instruction @code{annotate-spacing} se révèle être un outil
-indispensable pour pour l'analyse des problèmes de mise en forme.  Cette
+indispensable pour l'analyse des problèmes de mise en forme.  Cette
 commande met en surimpression la valeur des différentes variables
 d'espacement et de mise en forme, comme nous allons le voir dans la
 rubrique @ref{Mise en évidence de l'espacement}.
