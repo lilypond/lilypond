@@ -17,7 +17,7 @@ Las abreviaturas se encuentran definidas dentro del archivo
 @code{dashLarger}, @code{dashDot} y @code{dashUnderscore} reciben
 valores predeterminados.  Se pueden modificar estos valores
 predeterminados para las abreviaturas. Por ejemplo, para asociar
-la abreviatura @w{@code{-+}} (@code{dashPlus}) con el símbolo del
+la abreviatura @code{-+} (@code{dashPlus}) con el símbolo del
 semitrino en lugar del símbolo predeterminado +, asigne el valor
 @code{trill} a la variable @code{dashPlus}:
 
@@ -32,7 +32,7 @@ den Variablen @code{dashHat}, @code{dashPlus}, @code{dashDash},
 @code{dashBar}, @code{dashLarger}, @code{dashDot} und
 @code{dashUnderscore} Standardwerte zugewiesen werden.  Diese Standardwerte
 können verändert werden.  Um zum Beispiel die Abkürzung
-@w{@code{-+}} (@code{dashPlus}) mit dem Triller anstatt mit dem +-Symbol zu
+@code{-+} (@code{dashPlus}) mit dem Triller anstatt mit dem +-Symbol zu
 assoziieren, muss der Wert @code{trill} der Variable
 @code{dashPlus} zugewiesen werden:
 
@@ -46,7 +46,7 @@ Les raccourcis sont répertoriés dans le fichier
 @code{dashHat}, @code{dashPlus}, @code{dashDash}, @code{dashBar},
 @code{dashLarger}, @code{dashDot}, et @code{dashUnderscore} ainsi que
 leur valeur par défaut.  Ces valeurs peuvent être modifiées selon vos
-besoins.  Il suffit par exemple, pour affecter au raccourci @w{@code{-+}}
+besoins.  Il suffit par exemple, pour affecter au raccourci @code{-+}
 (@code{dashPlus}) le symbole du trille en lieu et place du @code{+}
 (caractère plus), d'assigner la valeur @code{trill} à la variable
 @code{dashPlus} :

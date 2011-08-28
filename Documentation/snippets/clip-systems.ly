@@ -14,7 +14,7 @@ Este código muestra cómo recortar (extraer) fragmentos a partir de una
 partitura completa.
 
 Este archivo tiene que procesarse de forma separada con la opción
-@option{-dclip-systems}; la página de fragmentos de código podría no
+@code{-dclip-systems}; la página de fragmentos de código podría no
 mostrar el resultado adecuadamente.
 
 La salida consiste en archivos con los nombres

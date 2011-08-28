@@ -33,7 +33,7 @@ fixB = {
   \once \override NoteHead #'X-offset = #1.7
   \once \override Stem #'rotation = #'(45 0 0)
   \once \override Stem #'extra-offset = #'(-0.2 . -0.2)
-  \once \override Stem #'flag-style = #'no-flag
+  \once \override Flag #'style = #'no-flag
   \once \override Accidental #'extra-offset = #'(4 . 0)
 }
 
