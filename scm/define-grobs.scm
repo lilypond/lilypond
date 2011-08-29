@@ -1949,6 +1949,7 @@
 	(stencil . ,ly:stem-tremolo::print)
 	(style . ,ly:stem-tremolo::calc-style)
 	(X-extent . ,ly:stem-tremolo::width)
+	(Y-offset . ,ly:stem-tremolo::calc-y-offset)
 	(meta . ((class . Item)
 		 (interfaces . (stem-tremolo-interface))))))
 
@@ -2643,6 +2644,7 @@
     (,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
     (,ly:stem::calc-stem-end-position . ,ly:stem::pure-calc-stem-end-position)
     (,ly:stem::height . ,ly:stem::pure-height)
+    (,ly:stem-tremolo::calc-y-offset . ,ly:stem-tremolo::pure-calc-y-offset)
     (,ly:system::height . ,ly:system::calc-pure-height)))
 
 (define pure-functions
