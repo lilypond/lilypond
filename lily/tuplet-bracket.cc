@@ -556,14 +556,21 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
       Drul_array<Grob *> stems (Note_column::get_stem (columns[0]),
                                 Note_column::get_stem (columns.back ()));
 
-      Real lp = stems[LEFT]->extent (stems[LEFT], Y_AXIS)[get_grob_direction (stems[LEFT])]
-                + stems[LEFT]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS);
-      Real rp = stems[RIGHT]->extent (stems[RIGHT], Y_AXIS)[get_grob_direction (stems[RIGHT])]
-                + stems[RIGHT]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS);
+      Interval poss;
+      Direction side = LEFT;
+      do
+        {
+          // Trigger setting of stem lengths if necessary.
+          if (Grob *beam = Stem::get_beam (stems[side]))
+            (void) beam->get_property ("quantized-positions");
+          poss[side] = stems[side]->extent (stems[side], Y_AXIS)[get_grob_direction (stems[side])]
+                       + stems[side]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS);
+        }
+      while (flip (&side) != LEFT);
 
-      *dy = rp - lp;
-      points.push_back (Offset (stems[LEFT]->relative_coordinate (commonx, X_AXIS) - x0, lp));
-      points.push_back (Offset (stems[RIGHT]->relative_coordinate (commonx, X_AXIS) - x0, rp));
+      *dy = poss[RIGHT] - poss[LEFT];
+      points.push_back (Offset (stems[LEFT]->relative_coordinate (commonx, X_AXIS) - x0, poss[LEFT]));
+      points.push_back (Offset (stems[RIGHT]->relative_coordinate (commonx, X_AXIS) - x0, poss[RIGHT]));
     }
   else
     {
