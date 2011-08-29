@@ -232,8 +232,7 @@ void Beam_scoring_problem::init_collisions (vector<Grob *> grobs)
                      - beam->relative_coordinate (common[Y_AXIS], Y_AXIS);
 
       Real factor = parameters.STEM_COLLISION_FACTOR;
-      if (!unsmob_grob (s->get_object ("beam"))
-          && !Stem::flag (s).is_empty ())
+      if (!unsmob_grob (s->get_object ("beam")))
         factor = 1.0;
       add_collision (x, y, factor);
     }

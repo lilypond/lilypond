@@ -38,6 +38,7 @@ class Stem_engraver : public Engraver
 {
   Grob *stem_;
   Grob *tremolo_;
+  vector <Grob *> maybe_flags_;
   Stream_event *rhythmic_ev_;
   Stream_event *tremolo_ev_;
 
@@ -49,6 +50,8 @@ protected:
   DECLARE_TRANSLATOR_LISTENER (tremolo);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   void stop_translation_timestep ();
+  void finalize ();
+  void kill_unused_flags ();
 };
 
 Stem_engraver::Stem_engraver ()
@@ -65,7 +68,6 @@ Stem_engraver::make_stem (Grob_info gi)
   /* Announce the cause of the head as cause of the stem.  The
      stem needs a rhythmic structure to fit it into a beam.  */
   stem_ = make_item ("Stem", gi.grob ()->self_scm ());
-
   if (tremolo_ev_)
     {
       /* Stem tremolo is never applied to a note by default,
@@ -158,11 +160,37 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
     }
 
   Stem::add_head (stem_, gi.grob ());
+
+  if (Stem::is_normal_stem (stem_)
+      && Stem::duration_log (stem_) > 2)
+    {
+      Item *flag = make_item ("Flag", stem_->self_scm ());
+      flag->set_parent (stem_, X_AXIS);
+      stem_->set_object ("flag", flag->self_scm ());
+      maybe_flags_.push_back (flag);
+    }
+}
+
+void
+Stem_engraver::kill_unused_flags ()
+{
+  for (vsize i = 0; i < maybe_flags_.size (); i++)
+    if (unsmob_grob (maybe_flags_[i]->get_parent (X_AXIS)->get_object ("beam")))
+      maybe_flags_[i]->suicide ();
+}
+
+void
+Stem_engraver::finalize ()
+{
+  kill_unused_flags ();
 }
 
 void
 Stem_engraver::stop_translation_timestep ()
 {
+  if (scm_is_string (get_property ("whichBar")))
+    kill_unused_flags ();
+
   tremolo_ = 0;
   if (stem_)
     {
@@ -205,7 +233,8 @@ ADD_TRANSLATOR (Stem_engraver,
                 /* read */
                 "tremoloFlags "
                 "stemLeftBeamCount "
-                "stemRightBeamCount ",
+                "stemRightBeamCount "
+                "whichBar ",
 
                 /* write */
                 ""

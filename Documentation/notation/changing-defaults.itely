@@ -854,6 +854,7 @@ The notes look like a slash, and have no stem,
 @example
 \override NoteHead #'style = #'slash
 \override Stem #'transparent = ##t
+\override Flag #'transparent = ##t
 @end example
 
 All these plug-ins have to cooperate, and this is achieved with a
@@ -876,6 +877,7 @@ Put together, we get
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t
+  \override Flag #'transparent = ##t
   \alias Voice
 @}
 @end example

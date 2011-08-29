@@ -16,8 +16,8 @@
 notas guía orquestales a la reducción de piano en una partitura vocal.
 La función musical @code{\\cueWhile} toma cuatro argumentos: la música
 de la que se toma la cita, como viene definida por @code{\\addQuote},
-el nombre que insertar antes de las notas guía, y después @code{UP} o
-@code{DOWN} para especificar @code{\\voiceOne} con el nombre encima
+el nombre que insertar antes de las notas guía, y después @code{#UP} o
+@code{#DOWN} para especificar @code{\\voiceOne} con el nombre encima
 del pentagrama o bien @code{\\voiceTwo} con el nombre debajo del
 pentagrama, y finalmente la música de piano con la que las notas guía
 deben aparecer en paralelo.  El nombre del instrumento citado se
@@ -41,7 +41,7 @@ zu einem Klavierauszug hinzufügen kann.  Die musikalische Funktion
 @code{\\cueWhile} braucht vier Argumente:  Die Noten, von denen die
 Stichnoten formatiert werden sollen, definiert durch @code{\\addQuote},
 die Bezeichnung, die mit den Noten angegeben werden soll, dann entweder
-@code{UP} (hoch) oder @code{DOWN} (runter) zur Angabe von entweder
+@code{#UP} (hoch) oder @code{#DOWN} (runter) zur Angabe von entweder
 @code{\\voiceOne} mit der Bezeichnung über dem System oder @code{\\voiceTwo}
 mit der Bezeichnung unter dem System, und schließlich die Klaviermusik,
 die parallel zu den Stichnoten gespielt werden soll.  Die Bezeichnung des
@@ -60,7 +60,7 @@ multiplie, vous pourriez avoir intérêt à créer votre propre fonction
 pour gérer ces repères.  La fonction musicale @code{\\cueWhile} prend
 quatre arguments@tie{}: la musique d'où provient la citation, telle que
 définie par @code{\\addQuote}, le nom qui sera mentionné en regard de
-cette citation, son positionnement -- @code{UP} ou @code{DOWN} selon
+cette citation, son positionnement -- @code{#UP} ou @code{#DOWN} selon
 qu'il sera attribué à @code{\\voiceOne} et placé au-dessus ou
 @code{\\voiceTwo} et placé en dessous -- et enfin la musique du piano
 qui interviendra en parallèle.  Le nom de l'instrument en question

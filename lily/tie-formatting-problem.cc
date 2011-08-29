@@ -149,8 +149,9 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
           else
             {
               if (use_horizontal_spacing_ || !Stem::get_beam (stem))
-                stem_end_position = Stem::stem_end_position (stem) * staff_space * .5;
+                stem_end_position = stem->extent (stem, Y_AXIS)[get_grob_direction (stem)];
               else
+                // May want to change this to the stem's pure height...
                 stem_end_position = Stem::note_head_positions (stem)[get_grob_direction (stem)]
                                     * staff_space * .5;
             }
@@ -170,9 +171,13 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
 
           if (dir == LEFT)
             {
-              Box flag_box = Stem::get_translated_flag (stem).extent_box ();
-              flag_box.translate ( Offset (x[RIGHT], X_AXIS));
-              boxes.push_back (flag_box);
+              Grob *flag = Stem::flag (stem);
+              if (flag)
+                {
+                  Grob* commony = stem->common_refpoint (flag, Y_AXIS);
+                  boxes.push_back (Box (flag->extent (x_refpoint_, X_AXIS),
+                                        flag->extent (commony, Y_AXIS)));
+                }
             }
         }
       else

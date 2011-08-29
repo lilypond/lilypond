@@ -1549,10 +1549,10 @@ Beam::set_stem_lengths (SCM smob)
         stem_y += thick * 0.5 * get_grob_direction (s);
 
       /*
-        Do set_stemend for invisible stems too, so tuplet brackets
+        Do set_stem_positions for invisible stems too, so tuplet brackets
         have a reference point for sloping
        */
-      Stem::set_stemend (s, 2 * stem_y / staff_space);
+      Stem::set_stem_positions (s, 2 * stem_y / staff_space);
     }
 
   return posns;

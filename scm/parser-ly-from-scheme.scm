@@ -28,14 +28,6 @@
                                                                         (char->integer #\0)))))
                                                  (string->list (number->string var-idx)))))))))
 
-(define-public (parse-string-result str parser)
-  "Parse @var{str}, which is supposed to contain a music expression."
-
-  (ly:parser-parse-string
-   parser
-   (format #f "parseStringResult = \\notemode { ~a }" str))
-  (ly:parser-lookup parser 'parseStringResult))
-
 (define-public (read-lily-expression chr port)
   "Read a lilypond music expression enclosed within @code{#@}} and @code{#@}}
 from @var{port} and return the corresponding Scheme music expression.
@@ -93,6 +85,6 @@ symbols.  @code{$$} may be used to simply write a @samp{$} character itself."
          ,@(map (lambda (binding)
                   `(ly:parser-define! parser-clone ',(car binding) ,(cdr binding)))
                 (reverse bindings))
-         (parse-string-result ,lily-string parser-clone)))))
+         (ly:parse-string-expression parser-clone ,lily-string)))))
 
 (read-hash-extend #\{ read-lily-expression)

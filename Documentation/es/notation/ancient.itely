@@ -759,7 +759,7 @@ Aparte del estilo de corchete por defecto @code{default}, sólo está
 contemplado el estilo @code{mensural}
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\override Stem #'flag-style = #'mensural
+\override Flag #'style = #'mensural
 \override Stem #'thickness = #1.0
 \override NoteHead #'style = #'mensural
 \autoBeamOff

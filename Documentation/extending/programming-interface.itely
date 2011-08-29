@@ -76,7 +76,11 @@ LilyPond code enclosed in hashed braces
 (@tie{}@w{@code{#@{@dots{}#@}}}@tie{}).  Within LilyPond code
 blocks, use @code{$} to reference function arguments (eg.,
 @samp{$arg1}) or to start an inline scheme expression containing
-function arguments (eg., @w{@samp{$(cons arg1 arg2)}}).
+function arguments (eg., @w{@samp{$(cons arg1 arg2)}}).  A LilyPond code
+block may contain anything that you can use on the right side of an
+assignment.  In addition, an empty LilyPond block corresponds to a void
+music expression, and a LilyPond block containing multiple music events
+gets turned into a sequential music expression.
 
 @end multitable
 
@@ -117,9 +121,7 @@ compatible with the context in which it is called.
 @itemize
 @item
 At top level in a music expression.  There are no special restrictions
-on the argument list.  Using the @code{#@{}@dots{}@code{#@}} construct
-produces a sequential music expression and consequently can only applied
-in this context.
+on the argument list.
 
 @item
 As a post-event.  All trailing arguments of the music function with the
@@ -295,12 +297,9 @@ may want to have a function that does not involve music (such as
 turning off Point and Click).  To do this, we return a @code{void}
 music expression.
 
-That is why the form that is returned is the
-@w{@code{(make-music @dots{})}}.  With the @code{'void} property
-set to @code{#t}, the parser is told to actually disregard this
-returned music expression.  Thus the important part of the void
-music function is the processing done by the function, not the
-music expression that is returned.
+Using the form @code{#@{ #@}} will actually achieve that.  If you for
+some reason really need an empty sequential music expression, you would
+have to write @code{#@{ @{ @} #@}} instead.
 
 @example
 noPointAndClick =
@@ -308,7 +307,7 @@ noPointAndClick =
      (parser location)
      ()
    (ly:set-option 'point-and-click #f)
-   (make-music 'SequentialMusic 'void #t))
+   #@{ #@})
 ...
 \noPointAndClick   % disable point and click
 @end example
@@ -343,13 +342,16 @@ providing a LilyPond-like syntax.  For example,
 @noindent
 is equivalent to:
 @example
-\markup \column @{ \line @{ \bold \italic "hello" \raise #0.4 "world" @}
-                  \larger \line @{ foo bar baz @} @}
+#@{ \markup \column @{ \line @{ \bold \italic "hello" \raise #0.4 "world" @}
+                  \larger \line @{ foo bar baz @} @} #@}
 @end example
 
 @noindent
 This example demonstrates the main translation rules between regular
-LilyPond markup syntax and Scheme markup syntax.
+LilyPond markup syntax and Scheme markup syntax.  Using @code{#@{
+@dots{} #@}} for entering in Lilypond syntax will often be most
+convenient, but we explain how to use the @code{markup} macro to get a
+Scheme-only solution.
 
 @quotation
 @multitable @columnfractions .3 .3
@@ -564,6 +566,16 @@ padding.
 #(define-markup-command (double-box layout props text) (markup?)
   "Draw a double box around text."
   (interpret-markup layout props
+    #@{\markup \override #'(box-padding . 0.4) \box
+            \override #'(box-padding . 0.6) \box @{ $text @}#@}))
+@end lisp
+
+or, equivalently 
+
+@lisp
+#(define-markup-command (double-box layout props text) (markup?)
+  "Draw a double box around text."
+  (interpret-markup layout props
     (markup #:override '(box-padding . 0.4) #:box
             #:override '(box-padding . 0.6) #:box text)))
 @end lisp
@@ -571,10 +583,10 @@ padding.
 @code{text} is the name of the command argument, and @code{markup?} its
 type: it identifies it as a markup.  The @code{interpret-markup}
 function is used in most of markup commands: it builds a stencil, using
-@code{layout}, @code{props}, and a markup.  Here, this markup is built
-using the @code{markup} scheme macro, see @ref{Markup construction in Scheme}.
-The transformation from @code{\markup} expression to scheme
-markup expression is straight-forward.
+@code{layout}, @code{props}, and a markup.  In the second case, this
+markup is built using the @code{markup} scheme macro, see @ref{Markup
+construction in Scheme}.  The transformation from @code{\markup}
+expression to scheme markup expression is straight-forward.
 
 The new command can be used as follow:
 
@@ -590,6 +602,19 @@ and the text.  So we will introduce a new property,
 @code{inter-box-padding}, for the padding between the two boxes.  The
 @code{box-padding} will be used for the inner padding.  The new code is
 now as follows:
+
+@lisp
+#(define-markup-command (double-box layout props text) (markup?)
+  #:properties ((inter-box-padding 0.4)
+                (box-padding 0.6))
+  "Draw a double box around text."
+  (interpret-markup layout props
+    #@{\markup \override #`(box-padding . ,$inter-box-padding) \box
+               \override #`(box-padding . ,$box-padding) \box
+               @{ $text @} #@}))
+@end lisp
+
+Again, the equivalent version using the markup macro would be:
 
 @lisp
 #(define-markup-command (double-box layout props text) (markup?)
@@ -620,8 +645,9 @@ customized:
                 (box-padding 0.6))
   "Draw a double box around text."
   (interpret-markup layout props
-    (markup #:override `(box-padding . ,inter-box-padding) #:box
-            #:override `(box-padding . ,box-padding) #:box text)))
+    #{\markup \override #`(box-padding . ,$inter-box-padding) \box
+              \override #`(box-padding . ,$box-padding) \box
+              { $text } #}))
 
 \markup \double-box A
 \markup \override #'(inter-box-padding . 0.8) \double-box A
@@ -722,6 +748,16 @@ a single stencil, the former returns a list of stencils.
 In the following example, a @code{\paragraph} markup list command is
 defined, which returns a list of justified lines, the first one being
 indented.  The indent width is taken from the @code{props} argument.
+
+@example
+#(define-markup-list-command (paragraph layout props args) (markup-list?)
+   #:properties ((par-indent 2))
+   (interpret-markup-list layout props
+     #@{\markuplines \justified-lines @{ \hspace #$par-indent $args @} #@}))
+@end example
+
+
+The version using just Scheme is more complex:
 @example
 #(define-markup-list-command (paragraph layout props args) (markup-list?)
    #:properties ((par-indent 2))
@@ -737,11 +773,11 @@ Besides the usual @code{layout} and @code{props} arguments, the
 First, the function gets the indent width, a property here named
 @code{par-indent}, from the property list @code{props}.  If the
 property is not found, the default value is @code{2}.  Then, a
-list of justified lines is made using the
-@code{make-justified-lines-markup-list} function, which is related
-to the @code{\justified-lines} built-in markup list command.  A
-horizontal space is added at the beginning using the
-@code{make-hspace-markup} function.  Finally, the markup list is
+list of justified lines is made using the built-in markup list command
+@code{\justified-lines}, which is related to the
+@code{make-justified-lines-markup-list} function.  A
+horizontal space is added at the beginning using @code{\hspace} (or the
+@code{make-hspace-markup} function).  Finally, the markup list is
 interpreted using the @code{interpret-markup-list} function.
 
 This new markup list command can be used as follows:

@@ -24,6 +24,19 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*
+  Note that several internal functions have a calc_beam bool argument.
+  This argument means: "If set, acknowledge the fact that there is a beam
+  and deal with it.  If not, give me the measurements as if there is no beam."
+  Most pure functions are called WITHOUT calc_beam, whereas non-pure functions
+  are called WITH calc_beam.
+
+  The only exception to this is ::pure_height, which calls internal_pure_height
+  with "true" for calc_beam in order to trigger the calculations of other
+  pure heights in case there is a beam.  It passes false, however, to
+  internal_height and internal_pure_height for all subsequent iterations.
+*/
+
 #include "stem.hh"
 #include "spanner.hh"
 
@@ -105,15 +118,46 @@ Stem::chord_start_y (Grob *me)
 }
 
 void
-Stem::set_stemend (Grob *me, Real se)
+Stem::set_stem_positions (Grob *me, Real se)
 {
   // todo: margins
   Direction d = get_grob_direction (me);
 
+  Grob *beam = unsmob_grob (me->get_object ("beam"));
   if (d && d * head_positions (me)[get_grob_direction (me)] >= se * d)
     me->warning (_ ("weird stem size, check for narrow beams"));
 
-  me->set_property ("stem-end-position", scm_from_double (se));
+  Interval height = me->pure_height (me, 0, INT_MAX);
+  Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
+
+  height[d] = se * half_space + beam_end_corrective (me);
+
+  Real stemlet_length = robust_scm2double (me->get_property ("stemlet-length"),
+                                           0.0);
+  bool stemlet = stemlet_length > 0.0;
+
+  Grob *lh = get_reference_head (me);
+
+  if (!lh)
+    {
+      if (stemlet && beam)
+        {
+          Real beam_translation = Beam::get_beam_translation (beam);
+          Real beam_thickness = Beam::get_beam_thickness (beam);
+          int beam_count = beam_multiplicity (me).length () + 1;
+
+          height[-d] = (height[d] - d
+                        * (0.5 * beam_thickness
+                        + beam_translation * max (0, (beam_count - 1))
+                        + stemlet_length));
+        }
+      else if (!stemlet && beam)
+        height[-d] = height[d];
+      else if (stemlet && !beam)
+        me->programming_error ("Can't have a stemlet without a beam.");
+    }
+
+  me->set_property ("Y-extent", ly_interval2scm (height));
 }
 
 /* Note head that determines hshift for upstems
@@ -241,47 +285,60 @@ Stem::pure_height (SCM smob,
                    SCM /* end */)
 {
   Grob *me = unsmob_grob (smob);
-  Interval iv;
+  return ly_interval2scm (internal_pure_height (me, true));
+}
 
+Interval
+Stem::internal_pure_height (Grob *me, bool calc_beam)
+{
   if (!is_normal_stem (me))
-    return ly_interval2scm (iv);
+    return Interval (0.0, 0.0);
 
-  Real ss = Staff_symbol_referencer::staff_space (me);
-  Real rad = Staff_symbol_referencer::staff_radius (me);
+  Grob *beam = unsmob_grob (me->get_object ("beam"));
 
-  if (!to_boolean (me->get_property ("cross-staff")))
+  Interval iv = internal_height (me, false);
+
+  if (!beam)
+    return iv;
+  if (!to_boolean (me->get_property ("cross-staff")) && calc_beam)
     {
-      Real len_in_halfspaces;
-      SCM user_set_len_scm = me->get_property_data ("length");
-      if (scm_is_number (user_set_len_scm))
-        len_in_halfspaces = scm_to_double (user_set_len_scm);
-      else
-        len_in_halfspaces = scm_to_double (calc_length (smob));
-      Real len = len_in_halfspaces * ss / 2;
+      Interval overshoot;
       Direction dir = get_grob_direction (me);
+      Direction d = DOWN;
+      do
+        overshoot[d] = d == dir ? dir * infinity_f : iv[d];
+      while (flip (&d) != DOWN);
 
-      Interval hp = head_positions (me);
-      if (dir == UP)
-        iv = Interval (0, len);
-      else
-        iv = Interval (-len, 0);
-
-      if (!hp.is_empty ())
-        {
-          iv.translate (hp[dir] * ss / 2);
-          iv.add_point (hp[-dir] * ss / 2);
-        }
-
-      /* extend the stem (away from the head) to cover the staff */
-      if (dir == UP)
-        iv[UP] = max (iv[UP], rad * ss);
-      else
-        iv[DOWN] = min (iv[DOWN], -rad * ss);
+      vector<Interval> heights;
+      vector<Grob *> my_stems;
+      extract_grob_set (beam, "normal-stems", normal_stems);
+      for (vsize i = 0; i < normal_stems.size (); i++)
+        if (normal_stems[i] != me && get_grob_direction (normal_stems[i]) == dir)
+          {
+            heights.push_back (Stem::internal_pure_height (normal_stems[i], false));
+            my_stems.push_back (normal_stems[i]);
+            iv.unite (heights.back ());
+          }
+      for (vsize i = 0; i < my_stems.size (); i++)
+        cache_pure_height (my_stems[i], iv, heights[i]);
+      iv.intersect (overshoot);
     }
-  else
-    iv = Interval (-rad * ss, rad * ss);
 
-  return ly_interval2scm (iv);
+  return iv;
+}
+
+void
+Stem::cache_pure_height (Grob *me, Interval iv, Interval my_iv)
+{
+  Interval overshoot;
+  Direction dir = get_grob_direction (me);
+  Direction d = DOWN;
+  do
+    overshoot[d] = d == dir ? dir * infinity_f : my_iv[d];
+  while (flip (&d) != DOWN);
+
+  iv.intersect (overshoot);
+  dynamic_cast<Item *> (me)->cache_pure_height (iv);
 }
 
 MAKE_SCHEME_CALLBACK (Stem, calc_stem_end_position, 1)
@@ -289,44 +346,39 @@ SCM
 Stem::calc_stem_end_position (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
+  return scm_from_double (internal_calc_stem_end_position (me, true));
+}
 
+MAKE_SCHEME_CALLBACK (Stem, pure_calc_stem_end_position, 3)
+SCM
+Stem::pure_calc_stem_end_position (SCM smob,
+                                   SCM, /* start */
+                                   SCM /* end */)
+{
+  Grob *me = unsmob_grob (smob);
+  return scm_from_double (internal_calc_stem_end_position (me, false));
+}
+
+Real
+Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
+{
   if (!head_count (me))
-    return scm_from_double (0.0);
+    return 0.0;
 
-  if (Grob *beam = get_beam (me))
+  Grob *beam = get_beam (me);
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  if (beam && calc_beam)
     {
       (void) beam->get_property ("quantized-positions");
-      return me->get_property ("stem-end-position");
+      return me->extent (me, Y_AXIS)[get_grob_direction (me)] * ss * 2;
     }
 
   vector<Real> a;
 
   /* WARNING: IN HALF SPACES */
-  Real length = robust_scm2double (me->get_property ("length"), 7);
-
-  Direction dir = get_grob_direction (me);
-  Interval hp = head_positions (me);
-  Real stem_end = dir ? hp[dir] + dir * length : 0;
-
-  /* TODO: change name  to extend-stems to staff/center/'()  */
-  bool no_extend = to_boolean (me->get_property ("no-stem-extend"));
-  if (!no_extend && dir * stem_end < 0)
-    stem_end = 0.0;
-
-  return scm_from_double (stem_end);
-}
-
-/* Length is in half-spaces (or: positions) here. */
-MAKE_SCHEME_CALLBACK (Stem, calc_length, 1)
-SCM
-Stem::calc_length (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-
   SCM details = me->get_property ("details");
   int durlog = duration_log (me);
 
-  Real ss = Staff_symbol_referencer::staff_space (me);
   Real staff_rad = Staff_symbol_referencer::staff_radius (me);
   Real length = 7;
   SCM s = ly_assoc_get (ly_symbol2scm ("lengths"), details, SCM_EOL);
@@ -370,7 +422,7 @@ Stem::calc_length (SCM smob)
 
   /* Tremolo stuff.  */
   Grob *t_flag = unsmob_grob (me->get_object ("tremolo-flag"));
-  if (t_flag && !unsmob_grob (me->get_object ("beam")))
+  if (t_flag && (!unsmob_grob (me->get_object ("beam")) || !calc_beam))
     {
       /* Crude hack: add extra space if tremolo flag is there.
 
@@ -398,8 +450,16 @@ Stem::calc_length (SCM smob)
       length = max (length, minlen + 1.0);
     }
 
-  return scm_from_double (length);
+  Real stem_end = dir ? hp[dir] + dir * length : 0;
+
+  /* TODO: change name  to extend-stems to staff/center/'()  */
+  bool no_extend = to_boolean (me->get_property ("no-stem-extend"));
+  if (!no_extend && dir * stem_end < 0)
+    stem_end = 0.0;
+
+  return stem_end;
 }
+
 /* The log of the duration (Number of hooks on the flag minus two)  */
 int
 Stem::duration_log (Grob *me)
@@ -557,29 +617,29 @@ Stem::calc_default_direction (SCM smob)
   return scm_from_int (dir);
 }
 
+// note - height property necessary to trigger quantized beam positions
+// otherwise, we could just use Grob::stencil_height_proc
 MAKE_SCHEME_CALLBACK (Stem, height, 1);
 SCM
 Stem::height (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  if (!is_normal_stem (me))
-    return ly_interval2scm (Interval ());
+  return ly_interval2scm (internal_height (me, true));
+}
 
+Grob*
+Stem::get_reference_head (Grob *me)
+{
+  return to_boolean (me->get_property ("avoid-note-head"))
+         ? last_head (me)
+         : first_head (me);
+}
+
+Real
+Stem::beam_end_corrective (Grob *me)
+{
+  Grob *beam = unsmob_grob (me->get_object ("beam"));
   Direction dir = get_grob_direction (me);
-
-  Grob *beam = get_beam (me);
-  if (beam)
-    {
-      /* trigger set-stem-lengths. */
-      beam->get_property ("quantized-positions");
-    }
-
-  /*
-    Can't get_stencil (), since that would cache stencils too early.
-    This causes problems with beams.
-   */
-  Stencil *stencil = unsmob_stencil (print (smob));
-  Interval iv = stencil ? stencil->extent (Y_AXIS) : Interval ();
   if (beam)
     {
       if (dir == CENTER)
@@ -587,116 +647,36 @@ Stem::height (SCM smob)
           programming_error ("no stem direction");
           dir = UP;
         }
-      iv[dir] += dir * Beam::get_beam_thickness (beam) * 0.5;
+      return dir * Beam::get_beam_thickness (beam) * 0.5;
     }
-
-  return ly_interval2scm (iv);
+  return 0.0;
 }
 
-Real
-Stem::stem_end_position (Grob *me)
+Interval
+Stem::internal_height (Grob *me, bool calc_beam)
 {
-  return robust_scm2double (me->get_property ("stem-end-position"), 0);
-}
+  if (!is_valid_stem (me))
+    return Interval ();
 
-MAKE_SCHEME_CALLBACK (Stem, calc_flag, 1);
-SCM
-Stem::calc_flag (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
+  Direction dir = get_grob_direction (me);
 
-  int log = duration_log (me);
-  /*
-    TODO: maybe property stroke-style should take different values,
-    e.g. "" (i.e. no stroke), "single" and "double" (currently, it's
-    '() or "grace").  */
-  string flag_style;
-
-  SCM flag_style_scm = me->get_property ("flag-style");
-  if (scm_is_symbol (flag_style_scm))
-    flag_style = ly_symbol2string (flag_style_scm);
-
-  if (flag_style == "no-flag")
-    return Stencil ().smobbed_copy ();
-
-  bool adjust = true;
-
-  string staffline_offs;
-  if (flag_style == "mensural")
-    /* Mensural notation: For notes on staff lines, use different
-       flags than for notes between staff lines.  The idea is that
-       flags are always vertically aligned with the staff lines,
-       regardless if the note head is on a staff line or between two
-       staff lines.  In other words, the inner end of a flag always
-       touches a staff line.
-    */
+  Grob *beam = get_beam (me);
+  if (beam && calc_beam)
     {
-      if (adjust)
-        {
-          int p = (int) (rint (stem_end_position (me)));
-          staffline_offs
-            = Staff_symbol_referencer::on_line (me, p) ? "0" : "1";
-        }
-      else
-        staffline_offs = "2";
-    }
-  else
-    staffline_offs = "";
-
-  char dir = (get_grob_direction (me) == UP) ? 'u' : 'd';
-  string font_char = flag_style
-                     + to_string (dir) + staffline_offs + to_string (log);
-  Font_metric *fm = Font_interface::get_default_font (me);
-  Stencil flag = fm->find_by_name ("flags." + font_char);
-  if (flag.is_empty ())
-    me->warning (_f ("flag `%s' not found", font_char));
-
-  SCM stroke_style_scm = me->get_property ("stroke-style");
-  if (scm_is_string (stroke_style_scm))
-    {
-      string stroke_style = ly_scm2string (stroke_style_scm);
-      if (!stroke_style.empty ())
-        {
-          string font_char = flag_style + to_string (dir) + stroke_style;
-          Stencil stroke = fm->find_by_name ("flags." + font_char);
-          if (stroke.is_empty ())
-            {
-              font_char = to_string (dir) + stroke_style;
-              stroke = fm->find_by_name ("flags." + font_char);
-            }
-          if (stroke.is_empty ())
-            me->warning (_f ("flag stroke `%s' not found", font_char));
-          else
-            flag.add_stencil (stroke);
-        }
+      /* trigger set-stem-lengths. */
+      (void) beam->get_property ("quantized-positions");
+      return me->extent (me, Y_AXIS);
     }
 
-  return flag.smobbed_copy ();
-}
+  Real y2 = internal_calc_stem_end_position (me, calc_beam);
+  Real y1 = internal_calc_stem_begin_position (me, calc_beam);
 
-Stencil
-Stem::flag (Grob *me)
-{
-  int log = duration_log (me);
-  if (log < 3
-      || unsmob_grob (me->get_object ("beam")))
-    return Stencil ();
+  Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
 
-  if (!is_normal_stem (me))
-    return Stencil ();
+  Interval stem_y  = Interval (min (y1, y2), max (y2, y1)) * half_space;
+  stem_y[dir] += beam_end_corrective (me);
 
-  // This get_property call already evaluates the scheme function with
-  // the grob passed as argument! Thus, we only have to check if a valid
-  // stencil is returned.
-  SCM flag_style_scm = me->get_property ("flag");
-  if (Stencil *flag = unsmob_stencil (flag_style_scm))
-    {
-      return *flag;
-    }
-  else
-    {
-      return Stencil ();
-    }
+  return stem_y;
 }
 
 MAKE_SCHEME_CALLBACK (Stem, width, 1);
@@ -709,17 +689,12 @@ Stem::width (SCM e)
 
   if (is_invisible (me))
     r.set_empty ();
-  else if (unsmob_grob (me->get_object ("beam"))
-           || abs (duration_log (me)) <= 2)
+  else
     {
       r = Interval (-1, 1);
       r *= thickness (me) / 2;
     }
-  else
-    {
-      r = Interval (-1, 1) * thickness (me) * 0.5;
-      r.unite (flag (me).extent (X_AXIS));
-    }
+
   return ly_interval2scm (r);
 }
 
@@ -735,12 +710,32 @@ SCM
 Stem::calc_stem_begin_position (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
+  return scm_from_double (internal_calc_stem_begin_position (me, true));
+}
+
+MAKE_SCHEME_CALLBACK (Stem, pure_calc_stem_begin_position, 3);
+SCM
+Stem::pure_calc_stem_begin_position (SCM smob,
+                                     SCM, /* start */
+                                     SCM /* end */)
+{
+  Grob *me = unsmob_grob (smob);
+  return scm_from_double (internal_calc_stem_begin_position (me, false));
+}
+
+Real
+Stem::internal_calc_stem_begin_position (Grob *me, bool calc_beam)
+{
+  Grob *beam = get_beam (me);
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  if (beam && calc_beam)
+    {
+      (void) beam->get_property ("quantized-positions");
+      return me->extent (me, Y_AXIS)[-get_grob_direction (me)] * ss * 2;
+    }
+
   Direction d = get_grob_direction (me);
-  Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
-  Grob *lh
-    = to_boolean (me->get_property ("avoid-note-head"))
-      ? last_head (me)
-      : first_head (me);
+  Grob *lh = get_reference_head (me);
 
   Real pos = Staff_symbol_referencer::get_position (lh);
 
@@ -750,10 +745,37 @@ Stem::calc_stem_begin_position (SCM smob)
       Real y_attach = Note_head::stem_attachment_coordinate (head, Y_AXIS);
 
       y_attach = head_height.linear_combination (y_attach);
-      pos += d * y_attach / half_space;
+      pos += d * y_attach * 2 / ss;
     }
 
-  return scm_from_double (pos);
+  return pos;
+}
+
+bool
+Stem::is_valid_stem (Grob *me)
+{
+  /* TODO: make the stem start a direction ?
+     This is required to avoid stems passing in tablature chords.  */
+  Real stemlet_length = robust_scm2double (me->get_property ("stemlet-length"),
+                                           0.0);
+  bool stemlet = stemlet_length > 0.0;
+
+  Grob *lh = get_reference_head (me);
+  Grob *beam = unsmob_grob (me->get_object ("beam"));
+
+  if (!lh && !stemlet)
+    return false;
+
+  if (!lh && stemlet && !beam)
+    return false;
+
+  if (lh && robust_scm2int (lh->get_property ("duration-log"), 0) < 1)
+    return false;
+
+  if (is_invisible (me))
+    return false;
+
+  return true;
 }
 
 MAKE_SCHEME_CALLBACK (Stem, print, 1);
@@ -761,53 +783,13 @@ SCM
 Stem::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Grob *beam = get_beam (me);
-
-  Stencil mol;
-  Direction d = get_grob_direction (me);
-
-  Real stemlet_length = robust_scm2double (me->get_property ("stemlet-length"),
-                                           0.0);
-  bool stemlet = stemlet_length > 0.0;
-
-  /* TODO: make the stem start a direction ?
-     This is required to avoid stems passing in tablature chords.  */
-  Grob *lh
-    = to_boolean (me->get_property ("avoid-note-head"))
-      ? last_head (me)
-      : first_head (me);
-
-  if (!lh && !stemlet)
+  if (!is_valid_stem (me))
     return SCM_EOL;
 
-  if (!lh && stemlet && !beam)
-    return SCM_EOL;
+  Interval stem_y = me->extent (me, Y_AXIS);
+  Direction dir = get_grob_direction (me);
 
-  if (lh && robust_scm2int (lh->get_property ("duration-log"), 0) < 1)
-    return SCM_EOL;
-
-  if (is_invisible (me))
-    return SCM_EOL;
-
-  Real y2 = robust_scm2double (me->get_property ("stem-end-position"), 0.0);
-  Real y1 = y2;
-  Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
-
-  if (lh)
-    y2 = robust_scm2double (me->get_property ("stem-begin-position"), 0.0);
-  else if (stemlet)
-    {
-      Real beam_translation = Beam::get_beam_translation (beam);
-      Real beam_thickness = Beam::get_beam_thickness (beam);
-      int beam_count = beam_multiplicity (me).length () + 1;
-
-      y2 -= d
-            * (0.5 * beam_thickness
-               + beam_translation * max (0, (beam_count - 1))
-               + stemlet_length) / half_space;
-    }
-
-  Interval stem_y (min (y1, y2), max (y2, y1));
+  stem_y[dir] -= beam_end_corrective (me);
 
   // URG
   Real stem_width = thickness (me);
@@ -815,32 +797,13 @@ Stem::print (SCM smob)
     = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
   Box b = Box (Interval (-stem_width / 2, stem_width / 2),
-               Interval (stem_y[DOWN] * half_space, stem_y[UP] * half_space));
+               stem_y);
 
+  Stencil mol;
   Stencil ss = Lookup::round_filled_box (b, blot);
   mol.add_stencil (ss);
 
-  mol.add_stencil (get_translated_flag (me));
-
   return mol.smobbed_copy ();
-}
-
-Stencil
-Stem::get_translated_flag (Grob *me)
-{
-  Stencil fl = flag (me);
-  if (!fl.is_empty ())
-    {
-      Direction d = get_grob_direction (me);
-      Real blot
-        = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
-      Real stem_width = thickness (me);
-      Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
-      Real y2 = robust_scm2double (me->get_property ("stem-end-position"), 0.0);
-      fl.translate_axis (y2 * half_space - d * blot / 2, Y_AXIS);
-      fl.translate_axis (stem_width / 2, X_AXIS);
-    }
-  return fl;
 }
 
 /*
@@ -1070,6 +1033,12 @@ Stem::calc_cross_staff (SCM smob)
   return scm_from_bool (is_cross_staff (unsmob_grob (smob)));
 }
 
+Grob*
+Stem::flag (Grob *me)
+{
+  return unsmob_grob (me->get_object ("flag"));
+}
+
 /* FIXME:  Too many properties  */
 ADD_INTERFACE (Stem,
                "The stem represents the graphical stem.  In addition, it"
@@ -1108,9 +1077,7 @@ ADD_INTERFACE (Stem,
                "direction "
                "duration-log "
                "flag "
-               "flag-style "
                "french-beaming "
-               "length "
                "length-fraction "
                "max-beam-connect "
                "neutral-direction "
@@ -1118,11 +1085,8 @@ ADD_INTERFACE (Stem,
                "note-heads "
                "positioning-done "
                "rests "
-               "stem-begin-position "
-               "stem-end-position "
                "stem-info "
                "stemlet-length "
-               "stroke-style "
                "thickness "
                "tremolo-flag "
               );

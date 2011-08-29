@@ -1,7 +1,7 @@
 % 
 
-longgrace = \override Stem  #'stroke-style = #'()
-endlonggrace = \revert Stem #'stroke-style
+longgrace = \override Flag  #'stroke-style = #'()
+endlonggrace = \revert Flag #'stroke-style
 ritenuto = \markup { \italic  "rit." }
 
 \version "2.14.0"

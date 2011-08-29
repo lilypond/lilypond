@@ -92,7 +92,7 @@ tupletbp       = \once \override Staff.TupletBracket #'padding = #2.25
 %% Flag [Note Head - Stem]
 %%
 
-noflag         = \once \override Stem #'flag-style = #'no-flag
+noflag         = \once \override Flag #'style = #'no-flag
 
 %%%
 %%% Functions
