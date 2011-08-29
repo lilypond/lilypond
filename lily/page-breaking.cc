@@ -265,9 +265,7 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_bre
   footnote_padding_ = robust_scm2double (pb->paper_->c_variable ("footnote-padding"), 0.0);
   footnote_footer_padding_ = robust_scm2double (pb->paper_->c_variable ("footnote-footer-padding"), 0.0);
 
-  footnote_number_raise_ = (to_boolean (pb->paper_->c_variable ("footnote-auto-numbering"))
-                            ? robust_scm2double (pb->paper_->c_variable ("footnote-number-raise"), 0.0)
-                            : 0.0);
+  footnote_number_raise_ = robust_scm2double (pb->paper_->c_variable ("footnote-number-raise"), 0.0);
 
   if (systems_per_page_ && (max_systems_per_page_ || min_systems_per_page_))
     {

@@ -346,6 +346,7 @@ footnoteGrob =
    (_i "Attach @var{text} to @var{grob-name} at offset @var{offset},
 with @var{text} referring to @var{footnote} (use like @code{\\once})")
    (make-music 'FootnoteEvent
+               'automatically-numbered #f
 	       'symbol grob-name
 	       'X-offset (car offset)
 	       'Y-offset (cdr offset)
@@ -360,9 +361,14 @@ allowing for the footnote to be automatically numbered such that
 the number appears at @var{offset}.  Note that, for this to take effect,
 auto-numbering must be turned on in the paper block.  Otherwise, no
 number will appear.  Use like @code{\\once})")
-   #{
-     \footnoteGrob $grob-name $offset \markup { \null } $footnote
-   #})
+   (make-music 'FootnoteEvent
+               'automatically-numbered #t
+	       'symbol grob-name
+	       'X-offset (car offset)
+	       'Y-offset (cdr offset)
+               'text (make-null-markup)
+	       'footnote-text footnote))
+
 
 footnote =
 #(define-music-function (parser location offset text footnote)
@@ -370,14 +376,12 @@ footnote =
    (_i "Attach @var{text} at @var{offset} with @var{text} referring
 to @var{footnote} (use like @code{\\tweak})")
    (make-music 'FootnoteEvent
+               'automatically-numbered #f
 	       'X-offset (car offset)
 	       'Y-offset (cdr offset)
 	       'text text
 	       'footnote-text footnote))
 
-% this function can't be a simple copy and past of the above because
-% it needs to be encapsulated in a Sequential Music.
-% so, there's a code dup of above :-(
 autoFootnote =
 #(define-music-function (parser location offset footnote)
    (number-pair? markup?)
@@ -387,6 +391,7 @@ such that the number appears at @var{offset}.  Note that, for this to
 take effect, auto-numbering must be turned on in the paper block.
 Otherwise, no number will appear.  Use like @code{\\tweak})")
    (make-music 'FootnoteEvent
+               'automatically-numbered #t
 	       'X-offset (car offset)
 	       'Y-offset (cdr offset)
 	       'text (make-null-markup)

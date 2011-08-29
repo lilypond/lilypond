@@ -58,6 +58,8 @@ arpeggio squiggly line.")
      (auto-knee-gap ,ly:dimension? "If a gap is found between note
 heads where a horizontal beam fits that is larger than this number,
 make a kneed beam.")
+     (automatically-numbered ,boolean? "Should a footnote be automatically
+numbered?")
      (average-spacing-wishes ,boolean? "If set, the spacing wishes are
 averaged over staves.")
      (avoid-note-head ,boolean? "If set, the stem of a chord does not

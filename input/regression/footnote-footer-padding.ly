@@ -5,10 +5,6 @@
 
 #(set-default-paper-size "a6")
 
-\paper {
-  footnote-footer-padding = 1\in
-}
-
 \book {
 
   \relative c' {

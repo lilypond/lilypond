@@ -106,8 +106,6 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_boo
   // now, make the footnote stencils with the numbering function
   SCM numbers = SCM_EOL;
   SCM in_text_numbers = SCM_EOL;
-  bool do_numbering = to_boolean (paper->c_variable ("footnote-auto-numbering"));
-  // if there's no numbering, skip all this
   /*
     TODO: This recalculates numbering every time this function is called, including once
     after the balloon prints are called.  Although it is not a huge computational drain,
@@ -118,45 +116,42 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_boo
     in duplicated work, either by making this process less complicated or (preferably)
     by passing its results downstream.
   */
-  if (do_numbering)
+  vector<SCM> footnote_number_markups; // Holds the numbering markups.
+  vector<Stencil *> footnote_number_stencils; // Holds translated versions of the stencilized numbering markups.
+  for (vsize i = 0; i < fn_count; i++)
     {
-      vector<SCM> footnote_number_markups; // Holds the numbering markups.
-      vector<Stencil *> footnote_number_stencils; // Holds translated versions of the stencilized numbering markups.
-      for (vsize i = 0; i < fn_count; i++)
+      SCM markup = scm_call_1 (numbering_function, scm_from_int (counter));
+      Stencil *s = unsmob_stencil (Text_interface::interpret_markup (layout, props, markup));
+      if (!s)
         {
-          SCM markup = scm_call_1 (numbering_function, scm_from_int (counter));
-          Stencil *s = unsmob_stencil (Text_interface::interpret_markup (layout, props, markup));
-          if (!s)
-            {
-              programming_error ("Your numbering function needs to return a stencil.");
-              markup = SCM_EOL;
-              s = new Stencil (Box (Interval (0, 0), Interval (0, 0)), SCM_EOL);
-            }
-          footnote_number_markups.push_back (markup);
-          footnote_number_stencils.push_back (s);
-          counter++;
+          programming_error ("Your numbering function needs to return a stencil.");
+          markup = SCM_EOL;
+          s = new Stencil (Box (Interval (0, 0), Interval (0, 0)), SCM_EOL);
         }
+      footnote_number_markups.push_back (markup);
+      footnote_number_stencils.push_back (s);
+      counter++;
+    }
 
-      // find the maximum X_AXIS length
-      Real max_length = -infinity_f;
-      for (vsize i = 0; i < fn_count; i++)
-        max_length = max (max_length, footnote_number_stencils[i]->extent (X_AXIS).length ());
+  // find the maximum X_AXIS length
+  Real max_length = -infinity_f;
+  for (vsize i = 0; i < fn_count; i++)
+    max_length = max (max_length, footnote_number_stencils[i]->extent (X_AXIS).length ());
 
-      /*
-        translate each stencil such that it attains the correct maximum length and bundle the
-        footnotes into a scheme object.
-      */
-      SCM *tail = &numbers;
-      SCM *in_text_tail = &in_text_numbers;
+  /*
+    translate each stencil such that it attains the correct maximum length and bundle the
+    footnotes into a scheme object.
+  */
+  SCM *tail = &numbers;
+  SCM *in_text_tail = &in_text_numbers;
 
-      for (vsize i = 0; i < fn_count; i++)
-        {
-          *in_text_tail = scm_cons (footnote_number_markups[i], SCM_EOL);
-          in_text_tail = SCM_CDRLOC (*in_text_tail);
-          footnote_number_stencils[i]->translate_axis (max_length - footnote_number_stencils[i]->extent (X_AXIS).length (), X_AXIS);
-          *tail = scm_cons (footnote_number_stencils[i]->smobbed_copy (), SCM_EOL);
-          tail = SCM_CDRLOC (*tail);
-        }
+  for (vsize i = 0; i < fn_count; i++)
+    {
+      *in_text_tail = scm_cons (footnote_number_markups[i], SCM_EOL);
+      in_text_tail = SCM_CDRLOC (*in_text_tail);
+      footnote_number_stencils[i]->translate_axis (max_length - footnote_number_stencils[i]->extent (X_AXIS).length (), X_AXIS);
+      *tail = scm_cons (footnote_number_stencils[i]->smobbed_copy (), SCM_EOL);
+      tail = SCM_CDRLOC (*tail);
     }
   // build the footnotes
 
@@ -193,6 +188,13 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_boo
                                                                    props, footnote_markup);
 
               Stencil *footnote_stencil = unsmob_stencil (footnote_stl);
+              bool do_numbering = to_boolean (footnote->get_property ("automatically-numbered"));
+              if (Spanner *orig = dynamic_cast<Spanner *>(footnote))
+                {
+                  if (orig->is_broken ())
+                    for (vsize i = 0; i < orig->broken_intos_.size (); i++)
+                      do_numbering = do_numbering || to_boolean (orig->broken_intos_[i]->get_property ("automatically-numbered"));
+                }
               if (do_numbering)
                 {
                   SCM annotation_scm = scm_car (in_text_numbers);
@@ -226,21 +228,23 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_boo
           for (SCM st = stencils; scm_is_pair (st); st = scm_cdr (st))
             {
               Stencil mol;
-              Stencil *footnote = unsmob_stencil (scm_cadar (st));
+              Stencil *footnote = unsmob_stencil (scm_caddar (st));
               mol.add_stencil (*footnote);
+              bool do_numbering = to_boolean (scm_cadar (st));
+              SCM in_text_stencil = Stencil ().smobbed_copy ();
               if (do_numbering)
                 {
                   Stencil *annotation = unsmob_stencil (scm_car (numbers));
                   SCM in_text_annotation = scm_car (in_text_numbers);
-                  SCM in_text_stencil = Text_interface::interpret_markup (layout, props, in_text_annotation);
+                  in_text_stencil = Text_interface::interpret_markup (layout, props, in_text_annotation);
                   if (!unsmob_stencil (in_text_stencil))
                     in_text_stencil = SCM_EOL;
-                  number_footnote_table = scm_cons (scm_cons (scm_caar (st), in_text_stencil), number_footnote_table);
                   annotation->translate_axis (mol.extent (Y_AXIS)[UP] + number_raise - annotation->extent (Y_AXIS)[UP], Y_AXIS);
                   mol.add_at_edge (X_AXIS, LEFT, *annotation, 0.0);
                   numbers = scm_cdr (numbers);
                   in_text_numbers = scm_cdr (in_text_numbers);
                 }
+              number_footnote_table = scm_cons (scm_cons (scm_caar (st), in_text_stencil), number_footnote_table);
               footnote_stencil.add_at_edge (Y_AXIS, DOWN, mol, padding);
             }
           footnotes = scm_cons (footnote_stencil.smobbed_copy (), footnotes);

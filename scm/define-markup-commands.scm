@@ -1902,17 +1902,41 @@ returns an empty markup.
 (define-markup-command (footnote layout props mkup note)
   (markup? markup?)
   #:category other
+  "Have footnote @var{note} act as an annotation to the markup @var{mkup}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\auto-footnote a b
+  \\override #'(padding . 0.2)
+  \\auto-footnote c d
+}
+@end lilypond
+The footnote will not be annotated automatically."
+  (ly:stencil-combine-at-edge
+    (interpret-markup layout props mkup)
+    X
+    RIGHT
+    (ly:make-stencil
+      `(footnote (gensym "footnote") #f ,(interpret-markup layout props note))
+      '(0 . 0)
+      '(0 . 0))
+    0.0))
+
+(define-markup-command (auto-footnote layout props mkup note)
+  (markup? markup?)
+  #:category other
   #:properties ((raise 0.5)
                 (padding 0.0))
   "Have footnote @var{note} act as an annotation to the markup @var{mkup}.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\footnote a b
+  \\auto-footnote a b
   \\override #'(padding . 0.2)
-  \\footnote c d
+  \\auto-footnote c d
 }
-@end lilypond"
+@end lilypond
+The footnote will be annotated automatically."
   (let* ((markup-stencil (interpret-markup layout props mkup))
          (auto-numbering (ly:output-def-lookup layout
                                                'footnote-auto-numbering))
@@ -1970,7 +1994,7 @@ returns an empty markup.
   (ly:stencil-add
     main-stencil
     (ly:make-stencil
-      `(footnote ,footnote-hash ,(interpret-markup layout props note))
+      `(footnote ,footnote-hash #t ,(interpret-markup layout props note))
       '(0 . 0)
       '(0 . 0)))))
 

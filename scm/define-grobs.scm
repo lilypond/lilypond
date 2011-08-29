@@ -891,6 +891,7 @@
      . (
 	(annotation-balloon . #f)
 	(annotation-line . #t)
+	(automatically-numbered . ,(grob::calc-property-by-copy 'automatically-numbered))
 	(break-visibility . ,inherit-y-parent-visibility)
 	(footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
 	(stencil . ,ly:balloon-interface::print)
@@ -909,6 +910,7 @@
      . (
 	(annotation-balloon . #f)
 	(annotation-line . #t)
+	(automatically-numbered . ,(grob::calc-property-by-copy 'automatically-numbered))
 	(footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
 	(spanner-placement . ,LEFT)
 	(stencil . ,ly:balloon-interface::print-spanner)
