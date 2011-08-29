@@ -6,6 +6,7 @@ TODO:
 
  * Add @nodes, split at sections?
 
+ * -o --output   listed in help is not implemented?!
 '''
 
 
@@ -26,6 +27,7 @@ Options:
  -f, --fragment-options=OPTIONS use OPTIONS as lilypond-book fragment
    options
  -o, --output=NAME              write tely doc to NAME
+ -i, --input-filenames=NAME     read list of files from a file instead of stdin
  -t, --title=TITLE              set tely doc title TITLE
  -a, --author=AUTHOR            set tely author AUTHOR
      --template=TEMPLATE        use TEMPLATE as Texinfo template file,
@@ -39,11 +41,14 @@ def help (text):
     sys.exit (0)
 
 (options, files) = getopt.getopt (sys.argv[1:], 'f:hn:t:',
-                     ['fragment-options=', 'help', 'name=', 'title=', 'author=', 'template='])
+                     ['fragment-options=', 'help', 'name=',
+                     'title=', 'author=', 'template=',
+                     'input-filenames='])
 
 name = "ly-doc"
 title = "Ly Doc"
 author = "Han-Wen Nienhuys and Jan Nieuwenhuizen"
+input_filename = ""
 template = '''\input texinfo
 @setfilename %%(name)s.info
 @settitle %%(title)s
@@ -83,6 +88,8 @@ for opt in options:
         title = a
     elif o == '-a' or o == '--author':
         author = a
+    elif o == '-i' or o == '--input-filenames':
+        input_filename = a
     elif o == '-f' or o == '--fragment-options':
         fragment_options = a
     elif o == '--template':
@@ -135,6 +142,9 @@ def name2line (n):
 @lilypondfile[%s]{%s}
 """ % (os.path.basename (n), fragment_options, n)
     return s
+
+if input_filename:
+    files = open(input_filename).read().splitlines()
 
 if files:
     dir = os.path.dirname (name) or "."
