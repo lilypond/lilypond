@@ -395,13 +395,13 @@ class LilypondSnippet (Snippet):
                     self.option_dict[option] = None
 
 
-        # If LINE_WIDTH is used without parameter, set it to default.
+        # Store if we have an explicit line-width given
         has_line_width = self.option_dict.has_key (LINE_WIDTH)
         if has_line_width and self.option_dict[LINE_WIDTH] == None:
             has_line_width = False
             del self.option_dict[LINE_WIDTH]
 
-        # TODO: Can't we do that more efficiently (built-in python func?)
+        # Use default options (i.e. auto-detected line-width, etc)
         for k in self.formatter.default_snippet_options:
             if k not in self.option_dict:
                 self.option_dict[k] = self.formatter.default_snippet_options[k]
