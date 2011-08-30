@@ -351,6 +351,7 @@
 	(clip-edges . #t)
 	(collision-interfaces . (beam-interface
 				 clef-interface
+				 flag-interface
 				 inline-accidental-interface
 				 key-signature-interface
 				 note-head-interface
@@ -855,7 +856,7 @@
 	;; sync with TextScript (?)
 
 	(avoid-slur . around)
-	(cross-staff . ,ly:side-position-interface::calc-cross-staff)
+	(cross-staff . ,script-or-side-position-cross-staff)
 	(direction . ,ly:script-interface::calc-direction)
 	(font-encoding . fetaText)
 	(font-size . -5) 		; don't overlap when next to heads.
@@ -876,10 +877,21 @@
 				text-interface
 				text-script-interface))))))
 
+    (Flag
+     . (
+	(stencil . ,ly:flag::print)
+	(X-extent . ,ly:flag::width)
+	(X-offset . ,ly:flag::calc-x-offset)
+	(Y-offset . ,ly:flag::calc-y-offset)
+	(meta . ((class . Item)
+		 (interfaces . (flag-interface
+                                font-interface))))))
+
     (FootnoteItem
      . (
 	(annotation-balloon . #f)
 	(annotation-line . #t)
+	(automatically-numbered . ,(grob::calc-property-by-copy 'automatically-numbered))
 	(break-visibility . ,inherit-y-parent-visibility)
 	(footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
 	(stencil . ,ly:balloon-interface::print)
@@ -898,6 +910,7 @@
      . (
 	(annotation-balloon . #f)
 	(annotation-line . #t)
+	(automatically-numbered . ,(grob::calc-property-by-copy 'automatically-numbered))
 	(footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
 	(spanner-placement . ,LEFT)
 	(stencil . ,ly:balloon-interface::print-spanner)
@@ -1918,12 +1931,8 @@
 
 	(direction . ,ly:stem::calc-direction)
 	(duration-log . ,stem::calc-duration-log)
-	(flag . ,ly:stem::calc-flag)
-	(length . ,ly:stem::calc-length)
 	(neutral-direction . ,DOWN)
 	(positioning-done . ,ly:stem::calc-positioning-done)
-	(stem-begin-position . ,ly:stem::calc-stem-begin-position)
-	(stem-end-position . ,ly:stem::calc-stem-end-position)
 	(stem-info . ,ly:stem::calc-stem-info)
 	(stencil . ,ly:stem::print)
 	(thickness . 1.3)
@@ -1932,8 +1941,7 @@
 	(Y-extent . ,ly:stem::height)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
-		 (interfaces . (font-interface
-				stem-interface))))))
+		 (interfaces . (stem-interface))))))
 
     (StemTremolo
      . (
@@ -1943,12 +1951,14 @@
 	(stencil . ,ly:stem-tremolo::print)
 	(style . ,ly:stem-tremolo::calc-style)
 	(X-extent . ,ly:stem-tremolo::width)
+	(Y-offset . ,ly:stem-tremolo::calc-y-offset)
 	(meta . ((class . Item)
 		 (interfaces . (stem-tremolo-interface))))))
 
     (StringNumber
      . (
 	(avoid-slur . around)
+	(cross-staff . ,script-or-side-position-cross-staff)
 	(font-encoding . fetaText)
 	(font-size . -5) 		; don't overlap when next to heads.
 	(padding . 0.5)
@@ -2133,7 +2143,7 @@
     (TextScript
      . (
 	(avoid-slur . around)
-	(cross-staff . ,ly:script-interface::calc-cross-staff)
+	(cross-staff . ,script-or-side-position-cross-staff)
 	(direction . ,DOWN)
 	(extra-spacing-width . (+inf.0 . -inf.0))
 	(outside-staff-priority . 450)
@@ -2577,6 +2587,13 @@
    ly:note-head::print
    ly:dots::print
    ly:clef::print
+   ly:flag::print
+   default-flag
+   normal-flag
+   mensural-flag
+   no-flag
+   modern-straight-flag
+   old-straight-flag
    ly:key-signature-interface::print
    ly:percent-repeat-item-interface::beat-slash
    ly:text-interface::print
@@ -2627,13 +2644,16 @@
     (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
     (,ly:slur::height . ,ly:slur::pure-height)
     (,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
+    (,ly:stem::calc-stem-end-position . ,ly:stem::pure-calc-stem-end-position)
     (,ly:stem::height . ,ly:stem::pure-height)
+    (,ly:stem-tremolo::calc-y-offset . ,ly:stem-tremolo::pure-calc-y-offset)
     (,ly:system::height . ,ly:system::calc-pure-height)))
 
 (define pure-functions
   (list
    parenthesize-elements
    laissez-vibrer::print
+   ly:flag::calc-y-offset
    ly:rest::y-offset-callback
    ly:staff-symbol-referencer::callback
    ly:staff-symbol::height))

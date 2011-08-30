@@ -58,6 +58,8 @@ arpeggio squiggly line.")
      (auto-knee-gap ,ly:dimension? "If a gap is found between note
 heads where a horizontal beam fits that is larger than this number,
 make a kneed beam.")
+     (automatically-numbered ,boolean? "Should a footnote be automatically
+numbered?")
      (average-spacing-wishes ,boolean? "If set, the spacing wishes are
 averaged over staves.")
      (avoid-note-head ,boolean? "If set, the stem of a chord does not
@@ -272,17 +274,7 @@ Y@tie{}dimension by this much.")
 ;;
 ;; f
 ;;
-     (flag ,ly:stencil? "A function returning the full flag stencil
-for the @code{Stem}, which is passed to the function as the only
-argument.  The default ly:stem::calc-stencil function uses the
-@code{flag-style} property to determine the correct glyph for the
-flag.  By providing your own function, you can create arbitrary
-flags.")
      (flag-count ,number? "The number of tremolo beams.")
-     (flag-style ,symbol? "A symbol determining what style of flag
-glyph is typeset on a @code{Stem}.  Valid options include @code{'()}
-for standard flags, @code{'mensural} and @code{'no-flag}, which
-switches off the flag.")
      (font-encoding ,symbol? "The font encoding is the broadest
 category for selecting a font.  Currently, only lilypond's system
 fonts (Emmentaler) are using this property.  Available
@@ -846,10 +838,6 @@ the @code{staff-staff-spacing} property of the staff's
 structure.")
      (stem-attachment ,number-pair? "An @code{(@var{x} . @var{y})}
 pair where the stem attaches to the notehead.")
-     (stem-begin-position ,number? "Where does the stem begin (the
-position of the support-head)?")
-     (stem-end-position ,number? "Where does the stem end (the end is
-opposite to the support-head)?")
      ;;[TODO: doco]
      (stem-spacing-correction ,number? "Optical correction amount for
 stems that are placed in tight configurations.  For opposite
@@ -1020,6 +1008,7 @@ the grob where this is set in.")
 in addition to notes and stems.")
 
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
+     (flag ,ly:grob? "A pointer to a @code{Flag} object.")
 
      (glissando-index ,integer? "The index of a glissando in its note
 column.")

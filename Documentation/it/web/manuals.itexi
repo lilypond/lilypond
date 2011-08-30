@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: ee3a89f9f7289bcd90c5f27fd8f86400159088b2
+    Translation of GIT committish: c7175b7e8387655964d9c9a975e9789fe581043c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -41,21 +41,21 @@ LilyPond è un compositore tipografico musicale @strong{basato su testo}.  Leggi
 prima questo!
 
 @item
-@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Learning}}
+@ifWebLinks{@manualStableLearningSplitNoName-it,@rlearningnamed{Top,Apprendimento}}
 un'introduzione a LilyPond leggera e @qq{imprescindibile}.
-@details{Learning}
+@details{Apprendimento}
 
 @item
-@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossary}}
+@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossario}}
 @emph{(lettura opzionale)}
 termini musicali e traduzioni.
-@details{Glossary}
+@details{Glossario}
 
 @item
-@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
+@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Saggio}}
 @emph{(lettura opzionale)}
 informazioni sull'incisione realizzata dal computer.
-@details{Essay}
+@details{Saggio}
 
 
 @end itemize
@@ -67,17 +67,17 @@ informazioni sull'incisione realizzata dal computer.
 
 @itemize
 
-@item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notation}}
+@item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notazione}}
 guida alla sintassi.
-@details{Notation}
+@details{Notazione}
 
-@item @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Usage}}
+@item @ifWebLinks{@manualStableUsageSplitNoName-it,@rprogramnamed{Top,Uso}}
 eseguire i programmi.
-@details{Usage}
+@details{Uso}
 
-@item @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippets}}
+@item @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Frammenti}}
 brevi trucchi e consigli.
-@details{Snippets}
+@details{Frammenti}
 
 @end itemize
 
@@ -96,17 +96,17 @@ Domande frequenti (Frequently Asked Questions).
 questo documento.
 @details{Web}
 
-@item @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Changes}}
+@item @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Cambiamenti}}
 cosa c'è di nuovo?
-@details{Changes}
+@details{Cambiamenti}
 
-@item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extending}}
+@item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Estendere}}
 tweak interessanti.
-@details{Extending}
+@details{Estendere}
 
-@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
+@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Funzionamento interno}}
 guida ai tweak.
-@details{Internals}
+@details{Funzionamento interno}
 
 @end itemize
 
@@ -118,11 +118,16 @@ guida ai tweak.
 
 @itemize
 
+@item
+@ref{Tutti}:
+versioni stabili precedenti e quella attuale in un archivio compresso.
+
 @item @ref{Tradotti}:
 stato delle traduzioni per i lettori di lingua non inglese.
 
-@item @ref{Tutti}:
-manuali vecchi e scaricabili.
+@item
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}:
+esempi, consigli e trucchi creati dagli utenti.
 
 @item @ref{Sviluppo}:
 manuali per la versione non stabile.
@@ -145,11 +150,11 @@ License.
 * Saggio::                    Saggio.
 * Notazione::                 Riferimento.
 * Uso::                       Utilizzo.
-* Frammenti di codice::       Frammenti di codice.
+* Frammenti::                 Frammenti di codice.
 * FAQ::                       FAQ.
 * Web::                       Web.
 * Cambiamenti::               Novità.
-* Estensioni::                Programmazione.
+* Estendere::                 Programmazione.
 * Funzionamento interno::     Funzionamento interno.
 * Tradotti::                  Traduzione.
 * Tutti::                     Tutti i manuali.
@@ -183,8 +188,8 @@ e seguire questi riferimenti incrociati per maggiori informazioni.
 
 @divClass{column-right-bottom}
 
-@docLinks{Learning, learning,
-  @rlearningnamed{Top,Learning},
+@docLinks{Apprendimento, learning,
+  @rlearningnamed{Top,Apprendimento},
   @manualStableLearningSplit,
   @manualStableLearningBig, 1.5 MB,
   @manualStableLearningPdf, 3 MB}
@@ -208,8 +213,8 @@ si raccomanda vivamente di consultare il glossario.
 
 @divClass{column-right-bottom}
 
-@docLinks{Music glossary, music-glossary,
-  @rglosnamed{Top,Music glossary},
+@docLinks{Glossario musicale, music-glossary,
+  @rglosnamed{Top,Glossario musicale},
   @manualStableGlossarySplit,
   @manualStableGlossaryBig, 1 MB,
   @manualStableGlossaryPdf, 1.5 MB}
@@ -235,8 +240,8 @@ nella versione PDF a causa della sua maggiore risoluzione.}
 
 @divClass{column-right-bottom}
 
-@docLinks{Essay, essay,
-  @ressaynamed{Top,Essay},
+@docLinks{Saggio, essay,
+  @ressaynamed{Top,Saggio},
   @manualStableEssaySplit,
   @manualStableEssayBig, 2 MB,
   @manualStableEssayPdf, 2.5 MB}
@@ -262,8 +267,8 @@ musicali inglesi presentati nel Glossario.}
 
 @divClass{column-right-bottom}
 
-@docLinks{Notation, notation,
-  @rusernamed{Top,Notation},
+@docLinks{Notazione, notation,
+  @rusernamed{Top,Notazione},
   @manualStableNotationSplit,
   @manualStableNotationBig, 7 MB,
   @manualStableNotationPdf, 18 MB}
@@ -276,7 +281,7 @@ musicali inglesi presentati nel Glossario.}
 @translationof Usage
 
 @divClass{column-left-top}
-@subheading Usage manual
+@subheading Manuale d'uso
 
 Questo libro spiega come eseguire i programmi, come integrare la
 notazione di LilyPond in altri programmi, e suggerisce le @qq{migliori
@@ -287,21 +292,21 @@ intraprendere un progetto impegnativo.
 
 @divClass{column-right-bottom}
 
-@docLinks{Usage, usage,
-  @rprogramnamed{Top,Usage},
+@docLinks{Uso, usage,
+  @rprogramnamed{Top,Uso},
   @manualStableUsageSplit,
-  @manualStableUsageBig, 300 KB,
-  @manualStableUsagePdf, 400 KB}
+  @manualStableUsageBig, 400 KB,
+  @manualStableUsagePdf, 600 KB}
 
 @divEnd
 
 
-@node Frammenti di codice
-@unnumberedsec Frammenti di codice
+@node Frammenti
+@unnumberedsec Frammenti
 @translationof Snippets
 
 @divClass{column-left-top}
-@subheading Frammenti di codice
+@subheading Frammenti
 
 Questo manuale presenta una selezione di frammenti di codice LilyPond tratti dal
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
@@ -319,8 +324,8 @@ ha un collegamento alla lista dei relativi frammenti di codice.
 
 @divClass{column-right-bottom}
 
-@docLinks{Snippets, snippets,
-  @rlsrnamed{Top,Snippets},
+@docLinks{Frammenti, snippets,
+  @rlsrnamed{Top,Frammenti},
   @manualStableSnippetsSplit,
   @manualStableSnippetsBig, 2.5 MB,
   @manualStableSnippetsPdf, 8 MB}
@@ -343,7 +348,7 @@ Per usare LilyPond devi scrivere musica in formato testo.  Leggi cosa
 
 @subsubheading C'è un sacco di documentazione!  Devo leggerla?
 
-Devi leggere @ref{Learning, il Manuale di Apprendimento}.  Per quanto
+Devi leggere il @ref{Learning, Manuale di Apprendimento}.  Per quanto
 riguarda il resto della documentazione, puoi leggere solo le sezioni
 sul tipo di notazione che vuoi creare.
 
@@ -351,7 +356,7 @@ sul tipo di notazione che vuoi creare.
 @subsubheading C'è ancora molto da leggere!  Ne vale la pena?
 
 Tocca a te decidere; le ragioni per cui potresti voler usare
-LilyPond sono esposte nell' @ref{Introduzione}.
+LilyPond sono esposte nell'@ref{Introduzione}.
 
 @divEnd
 
@@ -360,12 +365,12 @@ LilyPond sono esposte nell' @ref{Introduzione}.
 
 @subsubheading Qualcosa non funziona!  Come posso risolvere?
 
-Questo viene spiegato in @rprogram{Troubleshooting}.
+Questo viene spiegato in @rprogram{Risoluzione dei problemi}.
 
 
 @subsubheading Perché cambiate la sintassi?
 
-Questo viene spiegato in @rprogram{Why does the syntax change?}.
+Questo viene spiegato in @rprogram{Perché la sintassi cambia?}.
 
 @divEnd
 
@@ -419,8 +424,8 @@ funzionalità di LilyPond rispetto alla versione stabile precedente.
 
 @divClass{column-right-bottom}
 
-@docLinks{Changes, changes,
-  @rchangesnamed{Top,Changes},
+@docLinks{Cambiamenti, changes,
+  @rchangesnamed{Top,Cambiamenti},
   @manualStableChangesSplit,
   @manualStableChangesBig, 6 KB,
   @manualStableChangesPdf, 200 KB}
@@ -428,8 +433,8 @@ funzionalità di LilyPond rispetto alla versione stabile precedente.
 @divEnd
 
 
-@node Estensioni
-@unnumberedsec Estensioni
+@node Estendere
+@unnumberedsec Estendere
 @translationof Extending
 
 @divClass{column-left-top}
@@ -442,8 +447,8 @@ funzionalità di LilyPond.
 
 @divClass{column-right-bottom}
 
-@docLinks{Extending, extending,
-  @rextendnamed{Top,Extending},
+@docLinks{Estendere, extending,
+  @rextendnamed{Top,Estendere},
   @manualStableExtendingSplit,
   @manualStableExtendingBig, 200 KB,
   @manualStableExtendingPdf, 400 KB}
@@ -475,8 +480,8 @@ che si riferisce alla documentazione generata.
 
 @divClass{column-right-bottom}
 
-@docLinks{Internals, internals,
-  @rinternalsnamed{Top,Internals},
+@docLinks{Funzionamento interno, internals,
+  @rinternalsnamed{Top,Funzionamento interno},
   @manualStableInternalsSplit,
   @manualStableInternalsBig, 2.5 MB,
   @manualStableInternalsPdf, 2.8 MB}

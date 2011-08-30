@@ -675,6 +675,7 @@ automatically when an output definition (a @code{\score} or
   graceSettings = #`(
     (Voice Stem direction ,UP)
     (Voice Stem font-size -3)
+    (Voice Flag font-size -3)
     (Voice NoteHead font-size -3)
     (Voice TabNoteHead font-size -4)
     (Voice Dots font-size -3)
@@ -781,9 +782,8 @@ context."
   \remove "Accidental_engraver"
   %% make the Stems as short as possible to minimize their influence
   %% on the slur::calc-control-points routine
-  \override Stem #'length = #0
   \override Stem #'no-stem-extend = ##t
-  \override Stem #'flag-style = #'no-flag
+  \override Flag #'style = #'no-flag
   \override Stem #'details = #'((lengths 0 0 0 0 0 0)
                                 (beamed-lengths 0 0 0)
                                 (beamed-minimum-free-lengths 0 0 0)

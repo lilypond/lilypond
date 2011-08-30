@@ -154,7 +154,7 @@ bass = \new Voice \relative c{
     >>
 
     \grace {
-	\override Stem  #'stroke-style = #"grace"
+	\override Flag  #'stroke-style = #"grace"
 
         s8
         s16 s s
@@ -163,7 +163,7 @@ bass = \new Voice \relative c{
 	\clef bass
 	<e,,, e,>32(\sustainOff\sustainOn
 
-	\revert Stem #'stroke-style
+	\revert Flag #'stroke-style
     }
     <gis' e>2)
 

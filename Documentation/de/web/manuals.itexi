@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  ac3dd3ad38528113d97f6a8a7b81751c328f1c36
+    Translation of GIT committish:  8cbb38db1591ab95a178643e7bf41db018aa22c0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -133,8 +133,8 @@ Referenz für Anpassungen.
 der Übersetzungsstatus für nicht Nicht-Englischsprachige.
 
 @item
-@ref{Alles}:
-Handbücher zum Herunterladen und alte Handbücher.
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}:
+Beispiele, Tricks und Tipps, von LilyPond-Benutzern erstellt.
 
 @item
 @ref{Entwicklung}:

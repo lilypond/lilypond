@@ -182,6 +182,18 @@ BOM_UTF8	\357\273\277
   return type;
 }
 
+<extratoken><<EOF>>	{
+  /* Generate a token without swallowing anything */
+
+  /* produce requested token */
+  int type = extra_token_types_.back ();
+  extra_token_types_.pop_back ();
+  if (extra_token_types_.empty ())
+    yy_pop_state ();
+
+  return type;
+}
+
    /* Use the trailing context feature. Otherwise, the BOM will not be
       found if the file starts with an identifier definition. */
 <INITIAL,chords,lyrics,figures,notes>{BOM_UTF8}/.* {
@@ -610,15 +622,14 @@ BOM_UTF8	\357\273\277
 	}
 }
 
-<*><<EOF>> {
-	if (YY_START == longcomment)
-	{
+<longcomment><<EOF>> {
 		LexerError (_ ("EOF found inside a comment").c_str ());
 		is_main_input_ = false; // should be safe , can't have \include in --safe.
 		if (!close_input ())
 		  yyterminate (); // can't move this, since it actually rets a YY_NULL
 	}
-	else if (is_main_input_)
+
+<<EOF>> { if (is_main_input_)
 	{
 		/* 2 = init.ly + current file.
 		   > because we're before closing, but is_main_input_ should
@@ -728,6 +739,12 @@ Lily_lexer::push_extra_token (int token_type)
 		yy_push_state (extratoken);
 	}
 	extra_token_types_.push_back (token_type);
+}
+
+void
+Lily_lexer::push_embedded_token ()
+{
+	push_extra_token (EMBEDDED_LILY);
 }
 
 void

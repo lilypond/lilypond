@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 46ec3bd9ded640faef62938929a0af97345cf955
+    Translation of GIT committish: 72ffce252ed4be33c47b925ff2d79428a9367056
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -145,7 +145,7 @@ Nous prendrons le temps de discuter la spécification de ce
 format de saisie définitif.
 
 
-@warning{Le GLISS commencera peu après la sortie de la version 2.14.}
+@warning{Le GLISS commencera peu après la sortie de la version 2.16.}
 
 
 @subsubheading Projet GOP d'organisation de LilyPond
@@ -164,8 +164,6 @@ d'ajouter de nouvelles fonctionnalités considérables ni de
 repenser complètement quoi que ce soit.  L'objectif est plutôt de
 nous donner une base bien plus stable pour pouvoir entreprendre
 de grands travaux à l'avenir.
-
-@warning{Le GOP commencera peu après la sortie de la version 2.14.}
 
 @end macro
 

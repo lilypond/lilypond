@@ -6,6 +6,7 @@ TODO:
 
  * Add @nodes, split at sections?
 
+ * -o --output   listed in help is not implemented?!
 '''
 
 
@@ -13,6 +14,7 @@ import sys
 import os
 import getopt
 import re
+import glob
 
 program_name = 'lys-to-tely'
 
@@ -26,6 +28,8 @@ Options:
  -f, --fragment-options=OPTIONS use OPTIONS as lilypond-book fragment
    options
  -o, --output=NAME              write tely doc to NAME
+ -i, --input-filenames=NAME     read list of files from a file instead of stdin
+ -g, --glob-input=GLOB          a string which will be passed to glob.glob(GLOB)
  -t, --title=TITLE              set tely doc title TITLE
  -a, --author=AUTHOR            set tely author AUTHOR
      --template=TEMPLATE        use TEMPLATE as Texinfo template file,
@@ -39,11 +43,15 @@ def help (text):
     sys.exit (0)
 
 (options, files) = getopt.getopt (sys.argv[1:], 'f:hn:t:',
-                     ['fragment-options=', 'help', 'name=', 'title=', 'author=', 'template='])
+                     ['fragment-options=', 'help', 'name=',
+                     'title=', 'author=', 'template=',
+                     'input-filenames=', 'glob-input='])
 
 name = "ly-doc"
 title = "Ly Doc"
 author = "Han-Wen Nienhuys and Jan Nieuwenhuizen"
+input_filename = ""
+glob_input = ""
 template = '''\input texinfo
 @setfilename %%(name)s.info
 @settitle %%(title)s
@@ -83,6 +91,10 @@ for opt in options:
         title = a
     elif o == '-a' or o == '--author':
         author = a
+    elif o == '-i' or o == '--input-filenames':
+        input_filename = a
+    elif o == '-p' or o == '--glob-input':
+        glob_input = a
     elif o == '-f' or o == '--fragment-options':
         fragment_options = a
     elif o == '--template':
@@ -135,6 +147,11 @@ def name2line (n):
 @lilypondfile[%s]{%s}
 """ % (os.path.basename (n), fragment_options, n)
     return s
+
+if glob_input:
+    files = glob.glob(glob_input)
+elif input_filename:
+    files = open(input_filename).read().splitlines()
 
 if files:
     dir = os.path.dirname (name) or "."

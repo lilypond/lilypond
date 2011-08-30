@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: a463d80d4be008ce05b12de86fc21f2b7c1c120f
+    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -72,7 +72,17 @@ wobei
 
 @item @var{TypN?}
 @tab ein Scheme-Typenprädikat (engl. type predicate), für welches
-@code{@var{ArgN}} @code{#t} ausgeben muss
+@code{@var{ArgN}} @code{#t} ausgeben muss.  Einige dieser Prädikate
+werden durch den Parser gesondert erkannt, sodass die entsprechenden
+Werte als LilyPond-Syntx gelesen werden und nicht als Scheme-Syntax.
+Diese Prädikate sind gegenwärtig @code{ly:music?}, @code{markup?}, @code{ly:pitch?}
+und @code{ly:duration?}.  Nicht alle Kombinationen sind erlaubt:
+man kann z. B. nicht eine Dauer nach den Noten suchen, denn Noten
+können @emph{optional} mit einer Dauer enden.
+
+Wenn Sie wirklich einige dieser Elemente als Scheme- und nicht als
+LilyPond-Ausdruck einsetzen wollen, können Sie sie in einen Aufruf
+von @code{ly:export} einfügen.
 
 @item @var{...Noten...}
 @tab ein musikalischer Ausdruck, optional in Scheme geschrieben, mit allem

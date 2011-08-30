@@ -245,9 +245,15 @@ Item::pure_height (Grob *g, int start, int end)
   if (cached_pure_height_valid_)
     return cached_pure_height_ + pure_relative_y_coordinate (g, start, end);
 
-  cached_pure_height_ = Grob::pure_height (this, start, end);
-  cached_pure_height_valid_ = true;
+  cache_pure_height (Grob::pure_height (this, start, end));
   return cached_pure_height_ + pure_relative_y_coordinate (g, start, end);
+}
+
+void
+Item::cache_pure_height (Interval height)
+{
+  cached_pure_height_ = height;
+  cached_pure_height_valid_ = true;
 }
 
 ADD_INTERFACE (Item,

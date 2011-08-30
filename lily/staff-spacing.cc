@@ -56,17 +56,7 @@ Staff_spacing::optical_correction (Grob *me, Grob *g, Interval bar_height)
       Direction d = get_grob_direction (stem);
       if (Stem::is_normal_stem (stem) && d == DOWN)
         {
-
-          /*
-            can't look at stem-end-position, since that triggers
-            beam slope computations.
-          */
-          Real stem_start = Stem::head_positions (stem) [d];
-          Real stem_end = stem_start
-                          + d * robust_scm2double (stem->get_property ("length"), 7);
-
-          Interval stem_posns (min (stem_start, stem_end),
-                               max (stem_end, stem_start));
+          Interval stem_posns = stem->pure_height (stem, 0, INT_MAX);
 
           stem_posns.intersect (bar_height);
 

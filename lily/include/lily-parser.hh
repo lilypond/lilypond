@@ -66,6 +66,7 @@ public:
   void include_string (string ly_code);
   void parse_file (string init, string name, string out_name);
   void parse_string (string ly_code);
+  SCM parse_string_expression (string ly_code);
   void parser_error (string);
   void parser_error (Input const &, string);
   void set_yydebug (bool);

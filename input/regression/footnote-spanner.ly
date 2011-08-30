@@ -8,7 +8,6 @@ annotation goes to the correct page."
 
 \paper {
   ragged-last-bottom = ##f
-  footnote-auto-numbering = ##f
 }
 
 \book {

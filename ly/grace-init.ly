@@ -21,18 +21,18 @@ stopAppoggiaturaMusic =  {
 
 startAcciaccaturaMusic =  {
     s1*0\startGraceSlur
-    \override Stem  #'stroke-style = #"grace"
+    \override Flag  #'stroke-style = #"grace"
 }
 
 stopAcciaccaturaMusic =  {
-    \revert Stem #'stroke-style
+    \revert Flag #'stroke-style
     s1*0\stopGraceSlur
 }
 
 startSlashedGraceMusic =  {
-  \override Stem  #'stroke-style = #"grace"
+  \override Flag #'stroke-style = #"grace"
 }
 
 stopSlashedGraceMusic =  {
-  \revert Stem #'stroke-style
+  \revert Flag #'stroke-style
 }

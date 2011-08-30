@@ -233,6 +233,7 @@ hideNotes = {
   \override NoteHead #'transparent = ##t
   \override NoteHead #'no-ledgers = ##t
   \override Stem #'transparent = ##t
+  \override Flag #'transparent = ##t
   \override Beam #'transparent = ##t
   \override Accidental #'transparent = ##t
 }
@@ -240,6 +241,7 @@ unHideNotes = {
   \revert Accidental #'transparent
   \revert Beam #'transparent
   \revert Stem #'transparent
+  \revert Flag #'transparent
   \revert NoteHead #'transparent
   \revert NoteHead #'no-ledgers
   \revert Dots #'transparent
@@ -424,7 +426,7 @@ tabFullNotation = {
   % stems (the half note gets a double stem)
   \revert TabVoice.Stem #'length
   \revert TabVoice.Stem #'no-stem-extend
-  \revert TabVoice.Stem #'flag-style
+  \revert TabVoice.Flag #'style
   \revert TabVoice.Stem #'details
   \revert TabVoice.Stem #'transparent
   \override TabVoice.Stem #'stencil = #tabvoice::draw-double-stem-for-half-notes
@@ -544,30 +546,35 @@ voiceOneStyle = {
   \override NoteHead #'style = #'diamond
   \override NoteHead #'color = #red
   \override Stem #'color = #red
+  \override Flag #'color = #red
   \override Beam #'color = #red
 }
 voiceTwoStyle = {
   \override NoteHead #'style = #'triangle
   \override NoteHead #'color = #blue
   \override Stem #'color = #blue
+  \override Flag #'color = #blue
   \override Beam #'color = #blue
 }
 voiceThreeStyle = {
   \override NoteHead #'style = #'xcircle
   \override NoteHead #'color = #green
   \override Stem #'color = #green
+  \override Flag #'color = #green
   \override Beam #'color = #green
 }
 voiceFourStyle = {
   \override NoteHead #'style = #'cross
   \override NoteHead #'color = #magenta
   \override Stem #'color = #magenta
+  \override Flag #'color = #magenta
   \override Beam #'color = #magenta
 }
 voiceNeutralStyle = {
   \revert NoteHead #'style
   \revert NoteHead #'color
   \revert Stem #'color
+  \revert Flag #'color
   \revert Beam #'color
 }
 

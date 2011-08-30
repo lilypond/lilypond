@@ -31,6 +31,7 @@
 #include "separation-item.hh"
 #include "spacing-interface.hh"
 #include "staff-spacing.hh"
+#include "staff-symbol-referencer.hh"
 #include "stem.hh"
 #include "warn.hh"
 
@@ -273,17 +274,8 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
           Interval hp = Stem::head_positions (stem);
           if (!hp.is_empty ())
             {
-              Real chord_start = hp[stem_dir];
-
-              /*
-                can't look at stem-end-position, since that triggers
-                beam slope computations.
-              */
-              Real stem_end = hp[stem_dir]
-                              + stem_dir * robust_scm2double (stem->get_property ("length"), 7);
-
-              stem_posns[d] = Interval (min (chord_start, stem_end),
-                                        max (chord_start, stem_end));
+              Real ss = Staff_symbol_referencer::staff_space (stem);
+              stem_posns[d] = stem->pure_height (stem, 0, INT_MAX) * (2 / ss);
               head_posns[d].unite (hp);
             }
         }

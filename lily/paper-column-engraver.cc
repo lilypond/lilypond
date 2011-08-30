@@ -61,8 +61,18 @@ Paper_column_engraver::finalize ()
 
   if (command_column_)
     {
+      // At the end of the score, allow page breaks and turns by default, but...
+      command_column_->set_property ("page-break-permission", ly_symbol2scm ("allow"));
+      command_column_->set_property ("page-turn-permission", ly_symbol2scm ("allow"));
+
+      // ...allow the user to override them.
+      handle_manual_breaks (true);
+
+      // On the other hand, line breaks are always allowed at the end of a score,
+      // even if they try to stop us.
       if (!scm_is_symbol (command_column_->get_property ("line-break-permission")))
         command_column_->set_property ("line-break-permission", ly_symbol2scm ("allow"));
+
       system_->set_bound (RIGHT, command_column_);
     }
 }
@@ -147,7 +157,7 @@ Paper_column_engraver::listen_label (Stream_event *ev)
 }
 
 void
-Paper_column_engraver::process_music ()
+Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
 {
   for (vsize i = 0; i < break_events_.size (); i++)
     {
@@ -170,7 +180,7 @@ Paper_column_engraver::process_music ()
       SCM pen = break_events_[i]->get_property ("break-penalty");
       SCM perm = break_events_[i]->get_property ("break-permission");
 
-      if (scm_is_number (pen))
+      if (!only_do_permissions && scm_is_number (pen))
         {
           Real new_pen = robust_scm2double (cur_pen, 0.0) + scm_to_double (pen);
           command_column_->set_property (pen_str.c_str (), scm_from_double (new_pen));
@@ -179,6 +189,12 @@ Paper_column_engraver::process_music ()
       else
         command_column_->set_property (perm_str.c_str (), perm);
     }
+}
+
+void
+Paper_column_engraver::process_music ()
+{
+  handle_manual_breaks (false);
 
   for (vsize i = 0; i < label_events_.size (); i++)
     {

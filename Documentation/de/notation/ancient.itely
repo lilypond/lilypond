@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: bf45bed3887f818f2d99756e6b92c77a8698be92
+    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -762,7 +762,7 @@ werden.  Neben dem Standardstil (@code{default}) ist
 nur (@code{mensural}) unterstützt.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\override Stem #'flag-style = #'mensural
+\override Flag #'style = #'mensural
 \override Stem #'thickness = #1.0
 \override NoteHead #'style = #'mensural
 \autoBeamOff

@@ -13,11 +13,11 @@ testnotes = { \autoBeamOff c'8 d'16 c'32 d'64 \acciaccatura {c'8} d'64
   \override Score.RehearsalMark #'self-alignment-X = #LEFT
   \time 2/4
   \mark "modern straight"
-  \override Stem #'flag = #modern-straight-flag
+  \override Flag #'stencil = #modern-straight-flag
   \testnotes
 
   \mark "old straight (large angles)"
-  \override Stem #'flag = #old-straight-flag
+  \override Flag #'stencil = #old-straight-flag
   \testnotes
 %
 %   \mark "custom slant"
@@ -25,6 +25,6 @@ testnotes = { \autoBeamOff c'8 d'16 c'32 d'64 \acciaccatura {c'8} d'64
 % %                flag thickness and spacing
 % %                up-flag angle and length
 % %               down-flag angle and length
-%   \override Stem #'flag = #(straight-flag 0.35 0.8 -5 0.5 60 2.0)
+%   \override Flag #'stencil = #(straight-flag 0.35 0.8 -5 0.5 60 2.0)
 %   \testnotes
 }

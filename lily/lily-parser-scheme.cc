@@ -207,6 +207,25 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE (ly_parse_string_expression, "ly:parse-string-expression",
+           2, 0, 0, (SCM parser_smob, SCM ly_code),
+           "Parse the string @var{ly-code} with @var{parser-smob}."
+" Return the contained music expression.")
+{
+  LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
+  Lily_parser *parser = unsmob_lily_parser (parser_smob);
+  LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
+
+  if (!parser->lexer_->is_clean ())
+    {
+      parser->parser_error (_ ("ly:parse-string-expression is only valid with a new parser."
+			       "  Use ly:parser-include-string instead."));
+      return SCM_UNSPECIFIED;
+    }
+
+  return parser->parse_string_expression (ly_scm2string (ly_code));
+}
+
 LY_DEFINE (ly_parser_include_string, "ly:parser-include-string",
            2, 0, 0, (SCM parser_smob, SCM ly_code),
            "Include the string @var{ly-code} into the input stream"

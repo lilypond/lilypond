@@ -37,7 +37,7 @@ zugewiesen.
   texidocfr = "
 Il s'agit de fonctions postfix pour personnaliser l'extension des
 crescendos textuels.  L'extension devrait débuter sur la première notte
-de la mesure.  Il faut utiliser @w{@code{-\mycresc}} -- comme une
+de la mesure.  Il faut utiliser @code{-\mycresc} -- comme une
 articulation -- sous peine que le départ de l'extension n'apparaisse
 qu'à la note suivante.
 "

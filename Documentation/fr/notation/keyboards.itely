@@ -457,7 +457,7 @@ celle de l'autre portée.
         % extend the stems to reach the other staff
         \override Stem #'length = #12
         % do not print extra flags
-        \override Stem #'flag-style = #'no-flag
+        \override Flag #'style = #'no-flag
         % prevent beaming as needed
         a8 g4 f8 f bes\noBeam g4
       }
