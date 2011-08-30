@@ -247,7 +247,7 @@ class BookTexinfoOutputFormat (BookBase.BookOutputFormat):
             rep['verb'] = snippet.verb_ly ()
             substr = self.output[VERBATIM] % rep
         substr += self.output_info (basename, snippet)
-        if (QUOTE in snippet.option_dict):
+        if QUOTE in snippet.option_dict:
             substr = self.output[QUOTE] % {'str': substr}
         str += substr
 
