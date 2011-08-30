@@ -151,7 +151,7 @@ def name2line (n):
 if glob_input:
     files = glob.glob(glob_input)
 elif input_filename:
-    files = open(input_filename).read().splitlines()
+    files = open(input_filename).read().split()
 
 if files:
     dir = os.path.dirname (name) or "."
