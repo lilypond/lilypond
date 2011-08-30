@@ -2644,6 +2644,7 @@
     (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
     (,ly:slur::height . ,ly:slur::pure-height)
     (,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
+    (,ly:stem::calc-stem-begin-position . ,ly:stem::pure-calc-stem-begin-position)
     (,ly:stem::calc-stem-end-position . ,ly:stem::pure-calc-stem-end-position)
     (,ly:stem::height . ,ly:stem::pure-height)
     (,ly:stem-tremolo::calc-y-offset . ,ly:stem-tremolo::pure-calc-y-offset)
