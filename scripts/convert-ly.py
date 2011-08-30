@@ -182,9 +182,11 @@ string."""
     conv_list = get_conversions (from_version, to_version)
 
     error_file_write (_ ("Applying conversion: "))
-        
+
     last_conversion = ()
     try:
+        if not conv_list:
+            last_conversion = to_version
         for x in conv_list:
             error_file_write (tup_to_str (x[0]))
             if x != conv_list[-1]:
@@ -275,7 +277,7 @@ def do_one_file (infile_name):
         elif not global_options.skip_version_add:
             result = newversion + '\n' + result
             
-        error_file_write ('\n')            
+        error_file_write ('\n')
     
         if global_options.edit:
             try:
