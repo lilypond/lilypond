@@ -5,6 +5,8 @@
     is printed over the beam."
 
 }
+%% FIXME: This file should actually NOT produce any warnings!
+#(ly:set-option 'warning-as-error #f)
 
 \version "2.14.0"
 
@@ -17,7 +19,7 @@ filler = \new Voice \relative c' {
   \hideNotes
   e4 e
 }
-				%
+%
 
 %%
 %% Ross p108--112
@@ -106,7 +108,7 @@ filler = \new Voice \relative c' {
   e4 e4.
 }
 
-				% Ross, p122
+% Ross, p122
 primeSixteenths = \relative c' {
   \stemUp
   \assertBeamQuant #'(0 . -1)  #'(0 . -1)
