@@ -38,6 +38,7 @@
 #include "staff-symbol-referencer.hh"
 #include "text-interface.hh"
 #include "warn.hh"
+#include "unpure-pure-container.hh"
 
 System::System (System const &src)
   : Spanner (src)

@@ -2666,6 +2666,7 @@
   (let ((extent-callback (ly:grob-property-data grob 'Y-extent)))
     (not (eq? #f
 	      (or
+               (ly:unpure-pure-container? extent-callback)
 	       (pair? extent-callback)
 	       (memq extent-callback pure-functions)
 	       (and
@@ -2677,16 +2678,29 @@
 		   (assq stencil pure-print-to-height-conversions)
 		   (ly:stencil? stencil)))))))))
 
+;; hideous code dup below - to be cleaned up when call pure functino
+;; is eliminated and lilypond works entirely from unpure-pure-containers
+
 (define-public (call-pure-function unpure args start end)
-  (if (ly:simple-closure? unpure)
-      (ly:eval-simple-closure (car args) unpure start end)
-      (if (not (procedure? unpure))
-	  unpure
-	  (if (memq unpure pure-functions)
-	      (apply unpure args)
-	      (let ((pure (assq unpure pure-conversions-alist)))
-		(if pure
-		    (apply (cdr pure)
-			   (append
-			    (list (car args) start end)
-			    (cdr args)))))))))
+  (if (ly:unpure-pure-container? unpure)
+      (let ((unpure (ly:unpure-pure-container-pure-part unpure)))
+        (if (ly:simple-closure? unpure)
+          (ly:eval-simple-closure (car args) unpure start end)
+          (if (not (procedure? unpure))
+              unpure
+              (apply (cdr pure)
+                     (append
+                       (list (car args) start end)
+                       (cdr args))))))
+      (if (ly:simple-closure? unpure)
+          (ly:eval-simple-closure (car args) unpure start end)
+          (if (not (procedure? unpure))
+              unpure
+              (if (memq unpure pure-functions)
+                  (apply unpure args)
+                  (let ((pure (assq unpure pure-conversions-alist)))
+                    (if pure
+                        (apply (cdr pure)
+                               (append
+                                (list (car args) start end)
+                                (cdr args))))))))))
