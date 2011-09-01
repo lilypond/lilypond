@@ -126,6 +126,7 @@ Run
 @example
 make -f ../lilypond-git/make/website.make WEBSITE_ONLY_BUILD=1 \
   TOP_SRC_DIR=$HOME/lilypond-git/ \
+  PYTHONPATH=$HOME/lilypond-git/python \
   TEXI2HTML_PROGRAM=texi2html \
   website
 @end example
