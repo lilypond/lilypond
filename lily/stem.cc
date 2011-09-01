@@ -128,7 +128,8 @@ Stem::set_stem_positions (Grob *me, Real se)
     me->warning (_ ("weird stem size, check for narrow beams"));
 
   Interval height = me->pure_height (me, 0, INT_MAX);
-  Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  Real half_space =  staff_space * 0.5;
 
   height[d] = se * half_space + beam_end_corrective (me);
 
@@ -157,7 +158,9 @@ Stem::set_stem_positions (Grob *me, Real se)
         me->programming_error ("Can't have a stemlet without a beam.");
     }
 
-  me->set_property ("Y-extent", ly_interval2scm (height));
+  me->set_property ("stem-begin-position", scm_from_double (height[-d] * 2 / staff_space));
+  me->set_property ("length", scm_from_double (height.length () * 2 / staff_space));
+  (void) me->extent (me, Y_AXIS);
 }
 
 /* Note head that determines hshift for upstems
@@ -367,10 +370,13 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
 
   Grob *beam = get_beam (me);
   Real ss = Staff_symbol_referencer::staff_space (me);
+  Direction dir = get_grob_direction (me);
+
   if (beam && calc_beam)
     {
       (void) beam->get_property ("quantized-positions");
-      return me->extent (me, Y_AXIS)[get_grob_direction (me)] * ss * 2;
+      return robust_scm2double (me->get_property ("length"), 0.0)
+             + dir * robust_scm2double (me->get_property ("stem-begin-position"), 0.0);
     }
 
   vector<Real> a;
@@ -385,7 +391,6 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
   if (scm_is_pair (s))
     length = 2 * scm_to_double (robust_list_ref (durlog - 2, s));
 
-  Direction dir = get_grob_direction (me);
 
   /* Stems in unnatural (forced) direction should be shortened,
      according to [Roush & Gourlay] */
@@ -655,26 +660,32 @@ Stem::beam_end_corrective (Grob *me)
 Interval
 Stem::internal_height (Grob *me, bool calc_beam)
 {
-  if (!is_valid_stem (me))
+  Grob *beam = get_beam (me);
+  if (!is_valid_stem (me) && ! beam)
     return Interval ();
 
   Direction dir = get_grob_direction (me);
 
-  Grob *beam = get_beam (me);
   if (beam && calc_beam)
     {
       /* trigger set-stem-lengths. */
       (void) beam->get_property ("quantized-positions");
-      return me->extent (me, Y_AXIS);
     }
 
-  Real y2 = internal_calc_stem_end_position (me, calc_beam);
-  Real y1 = internal_calc_stem_begin_position (me, calc_beam);
+  Real y1 = robust_scm2double ((calc_beam
+                                ? me->get_property ("stem-begin-position")
+                                : me->get_pure_property ("stem-begin-position", 0, INT_MAX)),
+                               0.0);
+
+  Real y2 = dir * robust_scm2double ((calc_beam
+                                     ? me->get_property ("length")
+                                     : me->get_pure_property ("length", 0, INT_MAX)),
+                                      0.0)
+                + y1;
 
   Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
 
   Interval stem_y  = Interval (min (y1, y2), max (y2, y1)) * half_space;
-  stem_y[dir] += beam_end_corrective (me);
 
   return stem_y;
 }
@@ -731,11 +742,14 @@ Stem::internal_calc_stem_begin_position (Grob *me, bool calc_beam)
   if (beam && calc_beam)
     {
       (void) beam->get_property ("quantized-positions");
-      return me->extent (me, Y_AXIS)[-get_grob_direction (me)] * ss * 2;
+      return robust_scm2double (me->get_property ("stem-begin-position"), 0.0);
     }
 
   Direction d = get_grob_direction (me);
   Grob *lh = get_reference_head (me);
+
+  if (!lh)
+    return 0.0;
 
   Real pos = Staff_symbol_referencer::get_position (lh);
 
@@ -756,17 +770,10 @@ Stem::is_valid_stem (Grob *me)
 {
   /* TODO: make the stem start a direction ?
      This is required to avoid stems passing in tablature chords.  */
-  Real stemlet_length = robust_scm2double (me->get_property ("stemlet-length"),
-                                           0.0);
-  bool stemlet = stemlet_length > 0.0;
-
   Grob *lh = get_reference_head (me);
   Grob *beam = unsmob_grob (me->get_object ("beam"));
 
-  if (!lh && !stemlet)
-    return false;
-
-  if (!lh && stemlet && !beam)
+  if (!lh && !beam)
     return false;
 
   if (lh && robust_scm2int (lh->get_property ("duration-log"), 0) < 1)
@@ -786,8 +793,13 @@ Stem::print (SCM smob)
   if (!is_valid_stem (me))
     return SCM_EOL;
 
-  Interval stem_y = me->extent (me, Y_AXIS);
   Direction dir = get_grob_direction (me);
+  Real y1 = robust_scm2double (me->get_property ("stem-begin-position"), 0.0);
+  Real y2 = dir * robust_scm2double (me->get_property ("length"), 0.0) + y1;
+
+  Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
+
+  Interval stem_y  = Interval (min (y1, y2), max (y2, y1)) * half_space;
 
   stem_y[dir] -= beam_end_corrective (me);
 
@@ -1078,6 +1090,7 @@ ADD_INTERFACE (Stem,
                "duration-log "
                "flag "
                "french-beaming "
+               "length "
                "length-fraction "
                "max-beam-connect "
                "neutral-direction "
@@ -1085,6 +1098,7 @@ ADD_INTERFACE (Stem,
                "note-heads "
                "positioning-done "
                "rests "
+               "stem-begin-position "
                "stem-info "
                "stemlet-length "
                "thickness "

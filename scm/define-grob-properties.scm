@@ -838,6 +838,8 @@ the @code{staff-staff-spacing} property of the staff's
 structure.")
      (stem-attachment ,number-pair? "An @code{(@var{x} . @var{y})}
 pair where the stem attaches to the notehead.")
+     (stem-begin-position ,ly:dimension? "User override for the
+begin position of a stem.")
      ;;[TODO: doco]
      (stem-spacing-correction ,number? "Optical correction amount for
 stems that are placed in tight configurations.  For opposite
