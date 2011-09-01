@@ -57,9 +57,12 @@ newly-defined tuning.
 @{chord} must be in absolute pitches and should have the highest
 string number (generally the lowest pitch) first.  @code{tuning}
 should be a string that will be converted to a symbol.")
-  (chord->tuning parser tuning chord)
-  #{ \set stringTunings #(ly:parser-lookup $parser $tuning)
-  #})
+   (begin
+     (chord->tuning parser tuning chord)
+     #{
+        \set TabStaff.stringTunings = $(ly:parser-lookup parser tuning)
+        \set FretBoards.stringTunings = $(ly:parser-lookup parser tuning)
+     #}))
 
 %% A music function for converting an alist to string-tunings
 makeDefaultStringTunings =
