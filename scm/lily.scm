@@ -861,7 +861,8 @@ PIDs or the number of the process."
          (ly:set-option 'debug-gc-assert-parsed-dead #f)
          (if (ly:get-option 'debug-gc)
              (dump-gc-protects)
-             (ly:reset-all-fonts))))
+             (ly:reset-all-fonts))
+         (flush-all-ports)))
      files)
 
     ;; Ensure a notice re failed files is written to aggregate logfile.
