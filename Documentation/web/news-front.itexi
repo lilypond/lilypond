@@ -9,6 +9,21 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
+@subsubheading LilyPond 2.15.9 released!  @emph{August 30, 2011}
+
+We are happy to announce the release of LilyPond 2.15.9.  This
+release contains the usual number of bugfixes, and also adds
+support for MacOS X 10.7.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.  Please
+note that due to a few outstanding Critical bugs, this is not the
+next release candidate.
+
+@newsEnd
+
+
+@newsItem
 @subsubheading Release candidate 1 of 2.16 - LilyPond 2.15.8 released!  @emph{Aug 01, 2011}
 
 LilyPond 2.15.8 is out; this is the first release candidate of

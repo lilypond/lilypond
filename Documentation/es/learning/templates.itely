@@ -36,23 +36,23 @@ unas hermosas partituras impresas!
 
 @appendixsubsec Sólo notas
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
 {single-staff-template-with-only-notes.ly}
 
 
 @appendixsubsec Notas y letra
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
 {single-staff-template-with-notes-and-lyrics.ly}
 
 @appendixsubsec Notas y acordes
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {single-staff-template-with-notes-and-chords.ly}
 
 @appendixsubsec Notas, letra y acordes.
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
@@ -62,22 +62,22 @@ unas hermosas partituras impresas!
 
 @appendixsubsec Piano solo
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-simple.ly}
 
 @appendixsubsec Piano y melodía con letra
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-melody-and-lyrics.ly}
 
 @appendixsubsec Piano con letra centrada
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
 
 @appendixsubsec Piano con dinámicas centradas
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-dynamics.ly}
 
 
@@ -87,12 +87,12 @@ unas hermosas partituras impresas!
 
 @appendixsubsec Cuarteto de cuerda
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-simple.ly}
 
 @appendixsubsec Particellas de cuarteto de cuerda
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-with-separate-parts.ly}
 
 
@@ -102,37 +102,37 @@ unas hermosas partituras impresas!
 
 @appendixsubsec Partitura vocal SATB
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template.ly}
 
 @appendixsubsec Partitura vocal SATB y reducción para piano automática
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-automatic-piano-reduction.ly}
 
 @appendixsubsec SATB con contextos alineados
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
 @appendixsubsec SATB sobre cuatro pentagramas
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {satb-choir-template---four-staves.ly}
 
 @appendixsubsec Estrofas a solo y estribillo a dos voces
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-verse-and-refrain.ly}
 
 @appendixsubsec Melodías de himnos
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {hymn-template.ly}
 
 @appendixsubsec Salmos
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {anglican-psalm-template.ly}
 
 
@@ -141,7 +141,7 @@ unas hermosas partituras impresas!
 @translationof Orchestral templates
 
 @appendixsubsec Orquesta, coro y piano
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {orchestra,-choir-and-piano-template.ly}
 
 
@@ -152,12 +152,12 @@ unas hermosas partituras impresas!
 
 @appendixsubsec Transcripción de música mensural
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {ancient-notation-template----modern-transcription-of-mensural-music.ly}
 
 @appendixsubsec Plantilla para transcripción de canto gregoriano
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
@@ -168,7 +168,7 @@ unas hermosas partituras impresas!
 @appendixsubsec Combo de jazz
 @translationof Jazz combo
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {jazz-combo-template.ly}
 
 

@@ -754,13 +754,6 @@ is called with @option{--header=@/texidoc@var{LANG}}, then
 @file{foo.texidoc@var{LANG}} will be included instead of
 @file{foo.texidoc}.
 
-@item lilyquote
-(Only for Texinfo output.)  This option is similar to quote, but only
-the music snippet (and the optional verbatim block implied by
-@code{verbatim} option) is put into a quotation block.  This option is
-useful if you want to @code{quote} the music snippet but not the
-@code{texidoc} documentation block.
-
 @item doctitle
 (Only for Texinfo output.) This option works similarly to
 @code{texidoc} option: if @command{lilypond} is called with the

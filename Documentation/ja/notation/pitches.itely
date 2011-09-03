@@ -397,10 +397,10 @@ cis
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle,ragged-right]
+@lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
 {hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
 @seealso
@@ -799,7 +799,7 @@ musicInBflat = @{ e4 @dots{} @}
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 
@@ -1217,7 +1217,7 @@ tablatures} で説明します。
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
 
@@ -1315,10 +1315,10 @@ fis
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
 
@@ -1375,12 +1375,12 @@ a2 b
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {ottava-text.ly}
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {ottava-text.ly}
 
 
@@ -2607,7 +2607,7 @@ musicB = {
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
 
 
@@ -2723,13 +2723,13 @@ forget = #(define-music-function (parser location music) (ly:music?) #{
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-ambitus-per-voice.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {ambitus-with-multiple-voices.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-ambitus-gap.ly}
 
 
@@ -2910,7 +2910,7 @@ c b < g \xNote c f > b
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {numbers-as-easy-note-heads.ly}
 
 
@@ -3032,7 +3032,7 @@ a2 b c d \break
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 すべての符頭スタイルを調べるには、@ref{Note head styles} を参照してください。

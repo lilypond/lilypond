@@ -1259,7 +1259,7 @@ As shown, not all accidentals are supported by each style.  When
 trying to access an unsupported accidental, LilyPond will switch to a
 different style.
 
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@c @lilypondfile[verbatim,quote,texidoc,doctitle]
 @c {ancient-accidentals.ly}
 
 The style for accidentals and key signatures is controlled by the
@@ -2469,7 +2469,7 @@ syncopated notes at bar lines, while still providing the
 orientation aids that bar lines give.
 
 
-@lilypondfile[verbatim,lilyquote,texidoc]
+@lilypondfile[verbatim,quote,texidoc]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 @c This simple setup will take care of the

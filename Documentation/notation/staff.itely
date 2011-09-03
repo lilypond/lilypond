@@ -235,10 +235,10 @@ New staff group contexts may be defined.  For details, see
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {use-square-bracket-at-the-start-of-a-staff-group.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {display-bracket-with-only-one-staff-in-a-system.ly}
 
 @cindex mensurstriche layout
@@ -246,7 +246,7 @@ New staff group contexts may be defined.  For details, see
 @cindex transcription of mensural music
 @cindex mensural music, transcription of
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 
@@ -315,7 +315,7 @@ New nested staff group contexts can be defined.  For details, see
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {nesting-staves.ly}
 
 
@@ -519,7 +519,7 @@ e4 d c2
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-some-staff-lines-thicker-than-the-others.ly}
 
 
@@ -680,7 +680,7 @@ break.  For more information about
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
 
 
@@ -790,7 +790,7 @@ hide empty staves in ancient music contexts.  Similarly,
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {removing-the-first-empty-line.ly}
 
 

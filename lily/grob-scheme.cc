@@ -78,6 +78,28 @@ LY_DEFINE (ly_grob_set_nested_property_x, "ly:grob-set-nested-property!",
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE (ly_grob_pure_property, "ly:grob-pure-property",
+           4, 1, 0, (SCM grob, SCM sym, SCM beg, SCM end, SCM val),
+           "Return the pure value for property @var{sym} of @var{grob}."
+           "  If no value is found, return @var{val} or @code{'()}"
+           " if @var{val} is not specified.")
+{
+  Grob *sc = unsmob_grob (grob);
+
+  LY_ASSERT_SMOB (Grob, grob, 1);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
+  LY_ASSERT_TYPE (scm_is_integer, beg, 3);
+  LY_ASSERT_TYPE (scm_is_integer, end, 4);
+  if (val == SCM_UNDEFINED)
+    val = SCM_EOL;
+
+  SCM retval = sc->internal_get_pure_property (sym, scm_to_int (beg), scm_to_int (end));
+  if (retval == SCM_EOL)
+    retval = val;
+
+  return retval;
+}
+
 LY_DEFINE (ly_grob_property, "ly:grob-property",
            2, 1, 0, (SCM grob, SCM sym, SCM val),
            "Return the value for property @var{sym} of @var{grob}."

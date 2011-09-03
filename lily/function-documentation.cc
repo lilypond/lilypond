@@ -97,6 +97,7 @@ predicate_to_typename (void *ptr)
 #include "performance.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
+#include "unpure-pure-container.hh"
 
 void
 init_func_doc ()
@@ -110,6 +111,7 @@ init_func_doc ()
   ly_add_type_predicate ((void *) &unsmob_moment, "Moment");
   ly_add_type_predicate ((void *) &unsmob_paper_score, "Paper_score");
   ly_add_type_predicate ((void *) &unsmob_performance, "Performance");
+  ly_add_type_predicate ((void *) &is_unpure_pure_container, "unpure pure container");
 
   ly_add_type_predicate ((void *) &is_axis, "axis");
   ly_add_type_predicate ((void *) &is_number_pair, "number pair");

@@ -891,6 +891,7 @@
      . (
 	(annotation-balloon . #f)
 	(annotation-line . #t)
+	(automatically-numbered . ,(grob::calc-property-by-copy 'automatically-numbered))
 	(break-visibility . ,inherit-y-parent-visibility)
 	(footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
 	(stencil . ,ly:balloon-interface::print)
@@ -909,6 +910,7 @@
      . (
 	(annotation-balloon . #f)
 	(annotation-line . #t)
+	(automatically-numbered . ,(grob::calc-property-by-copy 'automatically-numbered))
 	(footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
 	(spanner-placement . ,LEFT)
 	(stencil . ,ly:balloon-interface::print-spanner)
@@ -1929,9 +1931,11 @@
 
 	(direction . ,ly:stem::calc-direction)
 	(duration-log . ,stem::calc-duration-log)
+        (length . ,stem::length)
 	(neutral-direction . ,DOWN)
 	(positioning-done . ,ly:stem::calc-positioning-done)
 	(stem-info . ,ly:stem::calc-stem-info)
+	(stem-begin-position . ,ly:stem::calc-stem-begin-position)
 	(stencil . ,ly:stem::print)
 	(thickness . 1.3)
 	(X-extent . ,ly:stem::width)
@@ -1949,6 +1953,7 @@
 	(stencil . ,ly:stem-tremolo::print)
 	(style . ,ly:stem-tremolo::calc-style)
 	(X-extent . ,ly:stem-tremolo::width)
+	(Y-offset . ,ly:stem-tremolo::calc-y-offset)
 	(meta . ((class . Item)
 		 (interfaces . (stem-tremolo-interface))))))
 
@@ -2641,8 +2646,11 @@
     (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
     (,ly:slur::height . ,ly:slur::pure-height)
     (,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
+    (,ly:stem::calc-stem-begin-position . ,ly:stem::pure-calc-stem-begin-position)
     (,ly:stem::calc-stem-end-position . ,ly:stem::pure-calc-stem-end-position)
+    (,stem::length . ,stem::pure-length)
     (,ly:stem::height . ,ly:stem::pure-height)
+    (,ly:stem-tremolo::calc-y-offset . ,ly:stem-tremolo::pure-calc-y-offset)
     (,ly:system::height . ,ly:system::calc-pure-height)))
 
 (define pure-functions
@@ -2658,6 +2666,7 @@
   (let ((extent-callback (ly:grob-property-data grob 'Y-extent)))
     (not (eq? #f
 	      (or
+               (ly:unpure-pure-container? extent-callback)
 	       (pair? extent-callback)
 	       (memq extent-callback pure-functions)
 	       (and
@@ -2669,16 +2678,29 @@
 		   (assq stencil pure-print-to-height-conversions)
 		   (ly:stencil? stencil)))))))))
 
+;; hideous code dup below - to be cleaned up when call pure functino
+;; is eliminated and lilypond works entirely from unpure-pure-containers
+
 (define-public (call-pure-function unpure args start end)
-  (if (ly:simple-closure? unpure)
-      (ly:eval-simple-closure (car args) unpure start end)
-      (if (not (procedure? unpure))
-	  unpure
-	  (if (memq unpure pure-functions)
-	      (apply unpure args)
-	      (let ((pure (assq unpure pure-conversions-alist)))
-		(if pure
-		    (apply (cdr pure)
-			   (append
-			    (list (car args) start end)
-			    (cdr args)))))))))
+  (if (ly:unpure-pure-container? unpure)
+      (let ((unpure (ly:unpure-pure-container-pure-part unpure)))
+        (if (ly:simple-closure? unpure)
+          (ly:eval-simple-closure (car args) unpure start end)
+          (if (not (procedure? unpure))
+              unpure
+              (apply (cdr pure)
+                     (append
+                       (list (car args) start end)
+                       (cdr args))))))
+      (if (ly:simple-closure? unpure)
+          (ly:eval-simple-closure (car args) unpure start end)
+          (if (not (procedure? unpure))
+              unpure
+              (if (memq unpure pure-functions)
+                  (apply unpure args)
+                  (let ((pure (assq unpure pure-conversions-alist)))
+                    (if pure
+                        (apply (cdr pure)
+                               (append
+                                (list (car args) start end)
+                                (cdr args))))))))))

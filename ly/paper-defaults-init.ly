@@ -110,7 +110,6 @@
   footnote-padding = 0.5\mm
   footnote-footer-padding = 0.5\mm
   footnote-number-raise = 0.5\mm
-  footnote-auto-numbering = ##t
   footnote-numbering-function = #numbered-footnotes
   reset-footnotes-on-new-page = ##t
 

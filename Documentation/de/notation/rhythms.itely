@@ -153,10 +153,10 @@ siehe @ref{Richtung und Platzierung}.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {alternative-breve-note.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
 
 @seealso
@@ -267,23 +267,23 @@ zu setzen, siehe @ref{Tondauern skalieren}.
 @funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {entering-several-tuplets-using-only-one--times-command.ly}
 
 @cindex Triolennummer, Änderung
 
 @funindex TupletNumber
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-tuplet-number.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {non-default-tuplet-numbers.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {controlling-tuplet-bracket-visibility.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
 @seealso
@@ -577,10 +577,10 @@ die Schnipsel im Abschnitt @ref{Legatobögen}.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-ties-with-arpeggios.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
 
 @seealso
@@ -690,7 +690,7 @@ a4\rest d4\rest
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {rest-styles.ly}
 
 @seealso
@@ -959,16 +959,16 @@ Taktprüfungswarnungen nicht angezeigt.
 @cindex Pausen, Kirchenstil
 @cindex Balkenpausen, mehrtaktig
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-form-of-multi-measure-rests.ly}
 
 @cindex Mehrtaktpausen, Positionierung
 @cindex Position von Mehrtaktpausen
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {positioning-multi-measure-rests.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-markup.ly}
 
 @seealso
@@ -1253,16 +1253,16 @@ Notensysteme können eingerichtet werden, indem man den
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-time-signature-without-affecting-the-beaming.ly}
 
 @cindex compound time signatures
 @cindex time signature, compound
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {compound-time-signatures.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
 
@@ -1345,15 +1345,15 @@ d4 g e c
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-metronome-and-rehearsal-marks-below-the-staff.ly}
 
 @c perhaps also an example of how to move it horizontally?
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-tempo-without-a-metronome-mark.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-metronome-marks-in-markup-mode.ly}
 
 Zu Einzelheiten siehe @ref{Text formatieren}.
@@ -1695,7 +1695,7 @@ verschoben werden.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {compound-time-signatures.ly}
 
 
@@ -1872,7 +1872,7 @@ eingeschaltet wird mit @code{\improvisationOn}.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {guitar-strum-rhythms.ly}
 
 @seealso
@@ -1966,16 +1966,16 @@ können erstellt werden, siehe @ref{Einstellung von automatischen Balken}.
 @cindex auto-knee-gap
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beams-across-line-breaks.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
 @cindex Balken, \partcombine und \autoBeamOff
 @cindex Stimmen, \autoBeamOff und \partcombine
 
-@lilypondfile [verbatim, lilyquote, ragged-right, texidoc, doctitle]
+@lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}
 
 @seealso
@@ -2245,7 +2245,7 @@ Die Standardbebalkungsregeln finden sich in der Datei
 
 @funindex subdivideBeams
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {subdividing-beams.ly}
 
 @cindex Taktgruppen
@@ -2256,13 +2256,13 @@ Die Standardbebalkungsregeln finden sich in der Datei
 
 @funindex autoBeamSettings
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {conducting-signs,-measure-grouping-signs.ly}
 
 @cindex Balken, letzter in Partitur
 @cindex Balken, letzter in polyphoner Stimme
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
 
 @seealso
@@ -2415,7 +2415,7 @@ g16 a]
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {flat-flags-and-beam-nibs.ly}
 
 @seealso
@@ -2838,22 +2838,22 @@ c1 | c | c | c
 @cindex Taktnummer, Form
 @cindex Aussehen von Taktnummern
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-the-bar-number-for-the-first-measure.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-at-regular-intervals.ly}
 
 @cindex Ausrichtung von Taktlinien
 @cindex Taktlinien, Ausrichtung
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-inside-boxes-or-circles.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {aligning-bar-numbers.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {removing-bar-numbers-from-a-score.ly}
 
 
@@ -3262,16 +3262,16 @@ Standard eingestellt:
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {using-grace-note-slashes-with-normal-heads.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-grace-layout-within-music.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {redefining-grace-note-global-defaults.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {positioning-grace-notes-with-floating-space.ly}
 
 

@@ -199,8 +199,8 @@ BOM_UTF8	\357\273\277
 <INITIAL,chords,lyrics,figures,notes>{BOM_UTF8}/.* {
   if (this->lexloc_->line_number () != 1 || this->lexloc_->column_number () != 0)
     {
-      LexerError (_ ("stray UTF-8 BOM encountered").c_str ());
-      exit (1);
+      LexerWarning (_ ("stray UTF-8 BOM encountered").c_str ());
+      // exit (1);
     }
   debug_output (_ ("Skipping UTF-8 BOM"));
 }

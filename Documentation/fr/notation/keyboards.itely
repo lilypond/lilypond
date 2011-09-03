@@ -471,7 +471,7 @@ celle de l'autre portée.
 @end lilypond
 
 @snippets
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 
@@ -625,7 +625,7 @@ pour exécuter un morceau.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {accordion-discant-symbols.ly}
 
 

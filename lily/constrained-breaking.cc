@@ -554,7 +554,7 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
 
   if (scm_is_pair (footnotes))
     for (SCM s = footnotes; scm_is_pair (s); s = scm_cdr (s))
-      footnotes_.push_back (unsmob_stencil (scm_cadar (s)));
+      footnotes_.push_back (unsmob_stencil (scm_caddar (s)));
 
   last_column_ = 0;
   force_ = 0;

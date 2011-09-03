@@ -25,7 +25,7 @@ to the last beam.
 
     g'4\rest
     b,8[ b16 \stemDown b''16 b ]
-  }	     
+  }
   
 >>
 

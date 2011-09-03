@@ -18,6 +18,7 @@
 #include "program-option.hh"
 #include "profile.hh"
 #include "simple-closure.hh"
+#include "unpure-pure-container.hh"
 #include "warn.hh"
 #include "protected-scm.hh"
 
@@ -123,6 +124,7 @@ Grob::internal_set_value_on_alist (SCM *alist, SCM sym, SCM v)
     {
       if (!ly_is_procedure (v)
           && !is_simple_closure (v)
+          && !is_unpure_pure_container (v)
           && v != ly_symbol2scm ("calculation-in-progress"))
         type_check_assignment (sym, v, ly_symbol2scm ("backend-type?"));
 
@@ -149,7 +151,7 @@ Grob::internal_get_property_data (SCM sym) const
   if (do_internal_type_checking_global && scm_is_pair (handle))
     {
       SCM val = scm_cdr (handle);
-      if (!ly_is_procedure (val) && !is_simple_closure (val))
+      if (!ly_is_procedure (val) && !is_simple_closure (val) && !is_unpure_pure_container (val))
         type_check_assignment (sym, val, ly_symbol2scm ("backend-type?"));
 
       check_interfaces_for_property (this, sym);
@@ -177,6 +179,8 @@ Grob::internal_get_property (SCM sym) const
     }
 #endif
 
+  if (is_unpure_pure_container (val))
+    val = unpure_pure_container_unpure_part (val);
   if (ly_is_procedure (val)
       || is_simple_closure (val))
     {
@@ -192,7 +196,7 @@ SCM
 Grob::internal_get_pure_property (SCM sym, int start, int end) const
 {
   SCM val = internal_get_property_data (sym);
-  if (ly_is_procedure (val))
+  if (ly_is_procedure (val) || is_unpure_pure_container (val))
     return call_pure_function (val, scm_list_1 (self_scm ()), start, end);
   if (is_simple_closure (val))
     return evaluate_with_simple_closure (self_scm (),
@@ -294,7 +298,8 @@ Grob::internal_get_object (SCM sym) const
     {
       SCM val = scm_cdr (s);
       if (ly_is_procedure (val)
-          || is_simple_closure (val))
+          || is_simple_closure (val)
+          || is_unpure_pure_container (val))
         {
           Grob *me = ((Grob *)this);
           val = me->try_callback_on_alist (&me->object_alist_, sym, val);

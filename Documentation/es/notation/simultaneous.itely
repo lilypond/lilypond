@@ -748,10 +748,10 @@ direcciones opuestas).
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {additional-voices-to-avoid-collisions.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
 
 
@@ -947,10 +947,10 @@ instrumentTwo = \relative c' {
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {combining-two-parts-on-the-same-staff.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
 
 

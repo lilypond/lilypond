@@ -801,15 +801,6 @@ variable @code{texidoc@var{LANGUE}} dans l'entête du fichier
 contenu de @file{toto.texidoc@var{LANGUE}} en lieu et place de celui de
 @file{toto.texidoc}.
 
-@item lilyquote
-Option disponible uniquement pour Texinfo.@*
-Cette option est équivalente à l'option @code{quote} à ceci près que
-seule l'image de la partition -- ainsi que les éventuels blocs
-@emph{verbatim} si vous la couplez à l'option @code{verbatim} -- fera
-l'objet d'une citation.  Cette option permet l'inclusion de la partition
-en omettant les commentaires contenus dans le bloc @code{texidoc} du
-fichier source.
-
 @item doctitle
 Option disponible uniquement pour Texinfo.@*
 Cette option fonctionne selon le même principe que l'option

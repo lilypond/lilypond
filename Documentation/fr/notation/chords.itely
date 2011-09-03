@@ -327,7 +327,7 @@ par défaut définies dans @file{ly/chord-modifier-init.ly}@tie{}:
 @cindex exceptions, chiffrage d'accords
 @cindex chiffrage d'accords, exceptions
 @cindex accords chiffrés, exceptions
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {chord-name-exceptions.ly}
 
 @funindex majorSevenSymbol

@@ -217,19 +217,16 @@ Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
 void
 Figured_bass_engraver::center_continuations (vector<Spanner *> const &consecutive_lines)
 {
-  if (consecutive_lines.size () == 2)
-    {
-      vector<Grob *> left_figs;
-      for (vsize j = consecutive_lines.size (); j--;)
-        left_figs.push_back (consecutive_lines[j]->get_bound (LEFT));
+  vector<Grob *> left_figs;
+  for (vsize j = consecutive_lines.size (); j--;)
+    left_figs.push_back (consecutive_lines[j]->get_bound (LEFT));
 
-      SCM ga = Grob_array::make_array ();
-      unsmob_grob_array (ga)->set_array (left_figs);
+  SCM ga = Grob_array::make_array ();
+  unsmob_grob_array (ga)->set_array (left_figs);
 
-      for (vsize j = consecutive_lines.size (); j--;)
-        consecutive_lines[j]->set_object ("figures",
-                                          unsmob_grob_array (ga)->smobbed_copy ());
-    }
+  for (vsize j = consecutive_lines.size (); j--;)
+    consecutive_lines[j]->set_object ("figures",
+                                      unsmob_grob_array (ga)->smobbed_copy ());
 }
 
 void
