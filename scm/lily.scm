@@ -702,7 +702,8 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
          (mem (string->number (match:substring (car interesting) 1))))
     (format #t "VMDATA: ~a\n" mem)
     (display (gc-stats))
-    (if (> mem 100000)
+    (newline)
+    (if (> mem 500000)
         (begin (dump-gc-protects)
                (raise 1)))))
 
