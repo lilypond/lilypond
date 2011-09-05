@@ -818,11 +818,16 @@ Lily_lexer::scan_escaped_word (string str)
 	SCM sid = lookup_identifier (str);
 	if (is_music_function (sid))
 	{
+		int funtype = MUSIC_FUNCTION;
+
 		yylval.scm = get_music_function_transform (sid);
 
 		SCM s = scm_object_property (yylval.scm, ly_symbol2scm ("music-function-signature"));
+		if (scm_is_eq (scm_car (s), ly_lily_module_constant ("scheme-function")))
+			funtype = SCM_FUNCTION;
+			       
 		push_extra_token (EXPECT_NO_MORE_ARGS);
-		for (; scm_is_pair (s); s = scm_cdr (s))
+		for (s = scm_cdr (s); scm_is_pair (s); s = scm_cdr (s))
 		{
 			SCM cs = scm_car (s);
 			
@@ -838,7 +843,7 @@ Lily_lexer::scan_escaped_word (string str)
 				push_extra_token (EXPECT_SCM);
 			else programming_error ("Function parameter without type-checking predicate");
 		}
-		return MUSIC_FUNCTION;
+		return funtype;
 	}
 
 	if (sid != SCM_UNDEFINED)

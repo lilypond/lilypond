@@ -303,6 +303,7 @@ If we give names, Bison complains.
 %token <scm> OUTPUT_DEF_IDENTIFIER
 %token <scm> REAL
 %token <scm> RESTNAME
+%token <scm> SCM_FUNCTION
 %token <scm> SCM_IDENTIFIER
 %token <scm> SCM_TOKEN
 %token <scm> SCORE_IDENTIFIER
@@ -439,6 +440,7 @@ If we give names, Bison complains.
 %type <scm> property_operation
 %type <scm> property_path property_path_revved
 %type <scm> scalar
+%type <scm> scm_function_call
 %type <scm> script_abbreviation
 %type <scm> simple_chord_elements
 %type <scm> simple_markup
@@ -544,6 +546,15 @@ toplevel_expression:
 embedded_scm:
 	SCM_TOKEN
 	| SCM_IDENTIFIER
+	| scm_function_call
+	;
+
+scm_function_call:
+	SCM_FUNCTION closed_function_arglist
+	{
+		$$ = run_music_function (PARSER, @$,
+					 $1, $2);
+	}
 	;
 
 embedded_lilypond:
@@ -2689,14 +2700,14 @@ run_music_function (Lily_parser *parser, Input loc, SCM func, SCM args)
 
 	SCM type_check_proc = ly_lily_module_constant ("type-check-list");
 
-	if (!to_boolean (scm_call_3  (type_check_proc, make_input (loc), sig, args)))
+	if (!to_boolean (scm_call_3  (type_check_proc, make_input (loc), scm_cdr (sig), args)))
 	{
 		parser->error_level_ = 1;
 		return LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("void-music"), scm_list_2 (parser->self_scm (), make_input (loc)));
 	}
 
 	SCM syntax_args = scm_list_4 (parser->self_scm (), make_input (loc), func, args);
-	return LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("music-function"), syntax_args);
+	return LOWLEVEL_MAKE_SYNTAX (scm_car (sig), syntax_args);
 }
 
 bool
