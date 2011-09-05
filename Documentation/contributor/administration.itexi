@@ -360,48 +360,6 @@ away.  This is not good.
 
 (prep: 2 hours.  discuss: 10 hours)
 
-@item @strong{Future release policy}:
-(how) should we change any policies pertaining to releases? Should
-an undocumented new feature count as release-blocking?
-
-(prep: 1 hour.  discuss: 15 hours)
-
-@item @strong{lilypond-hackers mailing list}:
-Should we have a private mailing list for senior developers?  If
-so, who should be on it?
-
-(prep: 2 hours+3 weeks.  discuss: 10 hours)
-
-@item @strong{Hackers B}:
-
-
-@item @strong{Git repository(s)}:
-We currently have a web/ branch in our main repo; this seems
-misleading to new developers. More generally, should we have
-branches that aren't related to the master? i.e. should we
-restrict a git branch to code which is an actual "branch" of
-development? Also, some of our code (notably the windows and osx
-lilypad) isn't in a git repository at all.
-We can add new repositories very easily; should make repositories
-like
-@example
-git://git.sv.gnu.org/lilypond/gub.git
-git://git.sv.gnu.org/lilypond/lilypad.git
-git://git.sv.gnu.org/lilypond/misc.git
-@end example
-? More information here:
-@uref{http://code.google.com/p/lilypond/issues/detail?id=980}
-
-(prep: 2 hours.  discuss: 10 hours)
-
-@item @strong{Roadmap of future development}:
-Many projects have a roadmap of planned (or desired) future work.
-Should we use one? If so, what should go on it, bearing in mind
-our volunteer status? Is there any way of having a roadmap that
-isn't vaporware?
-
-(prep: 1 hour.  discuss: 5 hours)
-
 @item @strong{Official links to other organizations?}:
 There's something called the "software freedom conservancy", and
 in general, there's a bunch of "umbrella organizations". Joining
@@ -410,14 +368,6 @@ more users, more developers, maybe even financial grants or use in
 schools, etc.
 
 (prep: 2 hours.  discuss: 5 hours)
-
-@item @strong{Mailing lists}:
-We currently have a mix of official GNU mailing lists and lilynet
-lists. Is there a strong rationale for having separate mailing
-list servers? Why not pick one place, and put all our lists there?
-(or at least, all "permanent" lists?)
-
-(prep: 1 hour.  discuss: 5 hours)
 
 @item @strong{Issue tracking with google code}:
 We use the google issue tracker, but this means that we are
@@ -442,15 +392,6 @@ frog.lilypond.org, or news.lilypond.org. Is this something that we
 want to do?
 
 (prep: 1 hours+2 weeks.  discuss: 5 hours)
-
-@item @strong{Authorship in source files}:
-Our documentation currently does not attempt to track individual
-authors of each file, while our source code makes a confused and
-jumbled attempt to track this. A number of guidelines for F/OSS
-projects explicitly recommends _not_ tracking this in individual
-files, since the code repository will track that for you.
-
-(prep: 2 hours.  discuss: 15 hours)
 
 @item @strong{Clarity for sponsorships}:
 We currently do not advertize bounties and sponsorships on the
