@@ -145,7 +145,7 @@ SCM get_next_unique_lyrics_context_id ();
 
 static Music *make_music_with_input (SCM name, Input where);
 SCM make_music_relative (Pitch start, SCM music, Input loc);
-SCM run_music_function (Lily_parser *, SCM expr);
+SCM run_music_function (Lily_parser *parser, Input loc, SCM func, SCM args);
 SCM get_first_context_id (SCM type, Music *m);
 SCM make_chord_elements (SCM pitch, SCM dur, SCM modification_list);
 SCM make_chord_step (int step, Rational alter);
@@ -1146,7 +1146,9 @@ function_arglist_nonmusic_last:
 
 generic_prefix_music_scm:
 	MUSIC_FUNCTION function_arglist {
-		$$ = scm_cons2 ($1, make_input (@$), scm_reverse_x ($2, SCM_EOL));
+		$$ = run_music_function (PARSER, @$,
+					 $1,
+					 scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
@@ -1160,9 +1162,7 @@ optional_id:
 
 
 prefix_composite_music:
-	generic_prefix_music_scm {
-		$$ = run_music_function (PARSER, $1);
-	}
+	generic_prefix_music_scm
 	| CONTEXT simple_string optional_id optional_context_mod music {
                 Context_mod *ctxmod = unsmob_context_mod ($4);
                 SCM mods = SCM_EOL;
@@ -1591,9 +1591,7 @@ chord_body_element:
 		}
 		$$ = n->unprotect ();
 	}
-	| music_function_chord_body {
-		$$ = run_music_function (PARSER, $1);
-	}
+	| music_function_chord_body
 	;
 
 /* We can't accept a music argument, not even a closed one,
@@ -1614,7 +1612,8 @@ music_function_chord_body_arglist:
 
 music_function_chord_body:
 	MUSIC_FUNCTION music_function_chord_body_arglist {
-		$$ = scm_cons2 ($1, make_input (@$), scm_reverse_x ($2, SCM_EOL));
+		$$ = run_music_function (PARSER, @$,
+					 $1, scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
@@ -1632,7 +1631,8 @@ music_function_event_arglist:
 
 music_function_event:
 	MUSIC_FUNCTION music_function_event_arglist {
-		$$ = scm_cons2 ($1, make_input (@$), scm_reverse_x ($2, SCM_EOL));
+		$$ = run_music_function (PARSER, @$,
+					 $1, scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
@@ -1731,7 +1731,7 @@ post_event:
 		$$ = $1;
 	}
 	| script_dir music_function_event {
-		$$ = run_music_function (PARSER, $2);
+		$$ = $2;
 		if ($1)
 		{
 			unsmob_music ($$)->set_property ("direction", scm_from_int ($1));
@@ -2683,22 +2683,19 @@ get_next_unique_lyrics_context_id ()
 
 
 SCM
-run_music_function (Lily_parser *parser, SCM expr)
+run_music_function (Lily_parser *parser, Input loc, SCM func, SCM args)
 {
-	SCM func = scm_car (expr);
-	Input *loc = unsmob_input (scm_cadr (expr));
-	SCM args = scm_cddr (expr);
 	SCM sig = scm_object_property (func, ly_symbol2scm ("music-function-signature"));
 
 	SCM type_check_proc = ly_lily_module_constant ("type-check-list");
 
-	if (!to_boolean (scm_call_3  (type_check_proc, scm_cadr (expr), sig, args)))
+	if (!to_boolean (scm_call_3  (type_check_proc, make_input (loc), sig, args)))
 	{
 		parser->error_level_ = 1;
-		return LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("void-music"), scm_list_2 (parser->self_scm (), make_input (*loc)));
+		return LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("void-music"), scm_list_2 (parser->self_scm (), make_input (loc)));
 	}
 
-	SCM syntax_args = scm_list_4 (parser->self_scm (), make_input (*loc), func, args);
+	SCM syntax_args = scm_list_4 (parser->self_scm (), make_input (loc), func, args);
 	return LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("music-function"), syntax_args);
 }
 
