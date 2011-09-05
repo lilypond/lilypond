@@ -1,4 +1,5 @@
 \version "2.14.0"
+#(ly:set-option 'warning-as-error #f)
 
 \header {
   texidoc = "If you specify two different key signatures at one point, a

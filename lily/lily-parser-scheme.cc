@@ -114,8 +114,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       sources.set_path (&global_path);
 
       string mapped_fn = map_file_name (file_name);
-      message (_f ("Processing `%s'", mapped_fn.c_str ()));
-      progress_indication ("\n");
+      basic_progress (_f ("Processing `%s'", mapped_fn.c_str ()));
 
       Lily_parser *parser = new Lily_parser (&sources);
 

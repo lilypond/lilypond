@@ -134,9 +134,9 @@ Latex_output = {
     PRINTFILENAME: '''\\texttt{%(filename)s}
 ''',
 
-    QUOTE: r'''\begin{quotation}
+    QUOTE: r'''\begin{quote}
 %(str)s
-\end{quotation}''',
+\end{quote}''',
 
     VERBATIM: r'''\noindent
 \begin{verbatim}%(verb)s\end{verbatim}

@@ -32,9 +32,9 @@ original = \relative c'' { c8 d s2 es8 gis8 }
 	
 	\set Staff.instrumentName = "orig+quote"	
 	\set Staff.quotedEventTypes = #'(note-event articulation-event)
-	\new Voice {
+	\new Voice {\voiceOne
 	    \override Voice . Beam #'collision-voice-only = ##t
 	    \original }
-	{ s4 \quoteDuring #"quoteMe" { s2. } }
+	\new Voice {\voiceTwo s4 \quoteDuring #"quoteMe" { s2. } }
     >>
 >>

@@ -9,21 +9,14 @@ import sys
 import os
 import glob
 
+# these links are relative from /website/ on lilypond.org
+depth = "../"
+
 ### translation data -- shouldn't be here; see issue
 ### http://code.google.com/p/lilypond/issues/detail?id=1050
 
-langs = []
-
-import langdefs
-langobjs = langdefs.LANGUAGES
-for i in langobjs:
-    if i.code == 'en':
-        langs.append ('')
-    else:
-        langs.append(i.code)
-
-# these links are relative from /website/ on lilypond.org
-depth = "../"
+#langs = ['', 'cs', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl', 'zh']
+langs = ['', 'cs', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl', 'zh']
 
 # Get/update node translations
 '''

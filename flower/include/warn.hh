@@ -47,7 +47,7 @@ void error (string s, string location = ""); // Fatal error, exits lilypond!
 void programming_error (string s, string location = "");
 void non_fatal_error (string, string location = "");
 void warning (string s, string location = "");
-void successful (string s, string location = "");
+void basic_progress (string s, string location = "");
 /* progress_indication does by default *NOT* start on a new line */
 void progress_indication (string s, bool newline = false, string location = "");
 void message (string s, bool newline = true, string location = "");

@@ -15,7 +15,7 @@ a fixed distance from the note head.
 "
 }
 
-
+#(ly:set-option 'warning-as-error #f)
 
 \context Voice \relative c''{
   \textSpannerUp

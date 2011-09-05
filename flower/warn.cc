@@ -162,9 +162,9 @@ warning (string s, string location)
 
 /* Display a success message.  */
 void
-successful (string s, string location)
+basic_progress (string s, string location)
 {
-  print_message (LOG_BASIC, location, _f ("success: %s", s) + "\n", true);
+  print_message (LOG_BASIC, location, s + "\n", true);
 }
 
 /* Display information about the progress.  */
