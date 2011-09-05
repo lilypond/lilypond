@@ -9,6 +9,20 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
+@subsubheading LilyPond 2.15.10 released!  @emph{September 6, 2011}
+
+We are happy to announce the release of LilyPond 2.15.10.  This
+release contains the usual number of bugfixes.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.  Please
+note that due to a few outstanding Critical bugs, this is not the
+next release candidate.
+
+@newsEnd
+
+
+@newsItem
 @subsubheading LilyPond 2.15.9 released!  @emph{August 30, 2011}
 
 We are happy to announce the release of LilyPond 2.15.9.  This
@@ -36,40 +50,6 @@ There are no known Critical issues with this release.  If no
 Critical bugs are found, then the official 2.16.0 release will be
 on 08 Aug 2011.  If you discover any problems, please send us
 @ref{Bug reports}.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.15.7 released!  @emph{July 29, 2011}
-
-We are happy to announce the release of LilyPond 2.15.7.  This
-release contains the usual number of bugfixes.
-
-It is strongly recommended that normal users do @strong{not} use
-this release, and instead use the stable 2.14 version.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.15.6 released!  @emph{July 26, 2011}
-
-We are happy to announce the release of LilyPond 2.15.6.  This
-release contains the usual number of bugfixes.
-
-It is strongly recommended that normal users do @strong{not} use
-this release, and instead use the stable 2.14 version.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.14.2 released!  @emph{July 25, 2011}
-
-We are happy to announce the release of LilyPond 2.14.2.  This
-fixes a few minor bugs in the stable version, and should cause no
-problems.  We recommend that everybody upgrade to this version.
 
 @newsEnd
 

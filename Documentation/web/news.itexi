@@ -26,6 +26,40 @@ NOTE:
   * don't duplicate entries from news-front.itexi
 @end ignore
 
+@newsItem
+@subsubheading LilyPond 2.15.7 released!  @emph{July 29, 2011}
+
+We are happy to announce the release of LilyPond 2.15.7.  This
+release contains the usual number of bugfixes.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond 2.15.6 released!  @emph{July 26, 2011}
+
+We are happy to announce the release of LilyPond 2.15.6.  This
+release contains the usual number of bugfixes.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond 2.14.2 released!  @emph{July 25, 2011}
+
+We are happy to announce the release of LilyPond 2.14.2.  This
+fixes a few minor bugs in the stable version, and should cause no
+problems.  We recommend that everybody upgrade to this version.
+
+@newsEnd
+
+
 
 
 @newsItem
