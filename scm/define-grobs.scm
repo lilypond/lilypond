@@ -1088,7 +1088,7 @@
 			(right-edge . (extra-space . 0.5))
 			(first-note . (fixed-space . 2.5))))
 	(stencil . ,ly:key-signature-interface::print)
-	(extra-spacing-width . (0.0 . 0.5))
+	(extra-spacing-width . (0.0 . 1.0))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
@@ -1112,7 +1112,7 @@
 			(right-edge . (extra-space . 0.5))
 			(first-note . (fixed-space . 2.5))))
 	(stencil . ,ly:key-signature-interface::print)
-	(extra-spacing-width . (0.0 . 0.5))
+	(extra-spacing-width . (0.0 . 1.0))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
@@ -2253,6 +2253,7 @@
 	(break-align-anchor-alignment . ,LEFT)
 	(break-visibility . ,all-visible)
 	(extra-spacing-height . (-1.0 . 1.0))
+	(extra-spacing-width . (0.0 . 0.8))
 	(non-musical . #t)
 	(space-alist . (
 			(cue-clef . (extra-space . 1.5))
