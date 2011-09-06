@@ -8,6 +8,7 @@
 * Adding a new font section::
 * Adding a new glyph::
 * Building the changed font::
+* METAFONT formatting rules::
 @end menu
 
 @node Overview of the feta font
@@ -111,3 +112,21 @@ is to do:
 rm mf/out/*
 make
 @end example
+
+@node METAFONT formatting rules
+@section METAFONT formatting rules
+
+There are special formatting rules for METAFONT files.
+
+Tabs are used for indentation.
+
+When a path contains more than two points, put each point on a
+separate line, with the operator at the beginning  of the line:
+
+@example
+fill z1
+     -- z2
+     -- z3
+     .. cycle;
+@end example
+
