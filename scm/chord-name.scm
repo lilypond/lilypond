@@ -170,31 +170,3 @@ FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
 	 (alist (map chord-to-exception-entry elts)))
     (filter (lambda (x) (cdr x)) alist)))
 
-(define-public (capo-handler pitches bass inversion context)
-  (let ((chord-function
-          (ly:context-property context 'chordNameFunction 'jazz-chord-names))
-        (capo-pitch (ly:context-property context 'capoPitch #f)))
-    (if (not capo-pitch)
-        (chord-function pitches bass inversion context)  ;; call the chordNameFunction as of old
-        (let* ((new-pitches   ;; else transpose the pitches and do the chord twice
-               (map (lambda (p)
-                       (ly:pitch-transpose p capo-pitch))
-                    pitches))
-               (new-bass
-                 (if (ly:pitch? bass)
-                     (ly:pitch-transpose bass capo-pitch)
-                     '()))
-               (new-inversion
-                 (if (ly:pitch? inversion)
-                     (ly:pitch-transpose inversion capo-pitch)
-                     '()))
-               (capo-markup
-                 (make-parenthesize-markup
-                   (chord-function new-pitches new-bass new-inversion context)))
-               (name-markup (chord-function pitches bass  inversion context))
-               (capo-vertical (ly:context-property context 'capoVertical #f)))
-          (if capo-vertical
-              (make-column-markup (list name-markup capo-markup))
-              (make-line-markup (list name-markup
-                                      (make-hspace-markup 1)
-                                      capo-markup)))))))
