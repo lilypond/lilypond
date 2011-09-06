@@ -34,8 +34,22 @@ Bar_line::calc_bar_extent (SCM smob)
   Interval result;
   Grob *me = unsmob_grob (smob);
   if (Grob *staff = Staff_symbol_referencer::get_staff_symbol (me))
-    result = staff->extent (staff, Y_AXIS);
+    {
+      result = staff->extent (staff, Y_AXIS);
 
+      /* Due to rounding problems, bar lines extending to the outermost edges
+         of the staff lines appear wrongly in on-screen display
+         (and, to a lesser extent, in print) - they stick out a pixel.
+         The solution is to extend bar lines only to the middle
+         of the staff line - unless they have different colors,
+         when it would be undesirable.
+      */
+      SCM bar_line_color = me->get_property ("color");
+      SCM staff_color = staff->get_property ("color");
+      if (bar_line_color == staff_color)
+	result *= (1 - 0.5 * (Staff_symbol_referencer::line_thickness (me) /
+			      Staff_symbol_referencer::staff_radius (me)));
+    }
   return ly_interval2scm (result);
 }
 

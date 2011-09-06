@@ -135,8 +135,6 @@ that normally end on beats.")
      (beatStructure ,list? "List of @code{baseMoment}s that are combined
 to make beats.")
 
-     (capoPitch ,ly:pitch? "The pitch to transpose chords down by when using the capo.")
-     (capoVertical ,boolean? "Whether to display actual and transposed pitches above each other or not.")
      (chordChanges ,boolean? "Only show changes in chords scheme?")
      (chordNameExceptions ,list? "An alist of chord exceptions.
 Contains @code{(@var{chord} . @var{markup})} entries.")
