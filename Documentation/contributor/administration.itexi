@@ -385,41 +385,12 @@ lilypond. Should we switch to something like gerritt?
 
 (prep: 5 hours.  discuss: 15 hours)
 
-@item @strong{Subdomains of *.lilypond.org}:
-Unless Jan has a really weird DNS hosting setup, there are no
-technical barriers to having names like lsr.lilypond.org,
-frog.lilypond.org, or news.lilypond.org. Is this something that we
-want to do?
-
-(prep: 1 hours+2 weeks.  discuss: 5 hours)
-
 @item @strong{Clarity for sponsorships}:
 We currently do not advertize bounties and sponsorships on the
 webpage.  How much advertising do we want, and what type?
 Should we change the "structure" / "framework" for bounties?
 
 (prep: 2 hours.  discuss: 10 hours)
-
-@item @strong{Separate branches for active development}:
-it might be good to have @emph{everybody} working on separate
-branches.  This complicates the git setup, but with sufficient
-logic in lily-git.tcl, we can probably make it transparent to
-newbies.  However, we'd need a reliable person to handle all the
-required merging and stuff.
-
-(prep: 2 hours.  discuss: 10 hours)
-
-@item @strong{When do we add regtests?}:
-There is a discrepancy between our stated policy on adding
-regtests, and our actual practice in handling bugs and patches.
-Clarify.
-
-There is also a wider question how to organize the regtests, such
-as where to put interesting-console-output regtests, including
-stuff like lilypond-book and midi2ly in a sensible manner, and
-possibly including regtests for currently-broken functionality.
-
-(prep: 2 hours.  discuss: 5 hours)
 
 @item @strong{code readability}:
 "Our aim when producing source code for Lilypond in whatever
