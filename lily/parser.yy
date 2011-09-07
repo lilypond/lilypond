@@ -390,6 +390,7 @@ If we give names, Bison complains.
 %type <scm> context_prop_spec
 %type <scm> direction_less_char
 %type <scm> duration_length
+%type <scm> closed_embedded_scm
 %type <scm> embedded_scm
 %type <scm> figure_list
 %type <scm> figure_spec
@@ -413,6 +414,7 @@ If we give names, Bison complains.
 %type <scm> markup_composed_list
 %type <scm> markup_command_list
 %type <scm> markup_command_list_arguments
+%type <scm> closed_markup_command_list_arguments
 %type <scm> markup_command_basic_arguments
 %type <scm> markup_head_1_item
 %type <scm> markup_head_1_list
@@ -440,7 +442,9 @@ If we give names, Bison complains.
 %type <scm> property_operation
 %type <scm> property_path property_path_revved
 %type <scm> scalar
-%type <scm> scm_function_call
+%type <scm> closed_scalar
+%type <scm> open_scm_function_call
+%type <scm> closed_scm_function_call
 %type <scm> script_abbreviation
 %type <scm> simple_chord_elements
 %type <scm> simple_markup
@@ -543,14 +547,27 @@ toplevel_expression:
 	}
 	;
 
-embedded_scm:
+closed_embedded_scm:
 	SCM_TOKEN
 	| SCM_IDENTIFIER
-	| scm_function_call
+	| closed_scm_function_call
 	;
 
-scm_function_call:
+embedded_scm:
+	closed_embedded_scm
+	| open_scm_function_call
+	;
+
+closed_scm_function_call:
 	SCM_FUNCTION closed_function_arglist
+	{
+		$$ = run_music_function (PARSER, @$,
+					 $1, $2);
+	}
+	;
+
+open_scm_function_call:
+	SCM_FUNCTION open_function_arglist
 	{
 		$$ = run_music_function (PARSER, @$,
 					 $1, $2);
@@ -962,10 +979,10 @@ tempo_event:
 	TEMPO steno_duration '=' tempo_range	{
 		$$ = MAKE_SYNTAX ("tempo", @$, SCM_EOL, $2, $4);
 	}
-	| TEMPO scalar steno_duration '=' tempo_range	{
+	| TEMPO closed_scalar steno_duration '=' tempo_range	{
 		$$ = MAKE_SYNTAX ("tempo", @$, $2, $3, $5);
 	}
-	| TEMPO scalar {
+	| TEMPO closed_scalar {
 		$$ = MAKE_SYNTAX ("tempo", @$, $2);
 	}
 	;
@@ -1102,7 +1119,7 @@ grouped_music_list:
 	;
 
 function_scm_argument:
-	embedded_scm
+	closed_embedded_scm
 	| simple_string
 	;
 
@@ -1119,6 +1136,9 @@ function_arglist:
 open_function_arglist:
 	EXPECT_MUSIC function_arglist open_music {
 		$$ = scm_cons ($3, $2);
+	}
+	| EXPECT_SCM function_arglist open_scm_function_call {
+	  	$$ = scm_cons ($3, $2);
 	}
 	;
 
@@ -1334,10 +1354,10 @@ context_change:
 
 
 property_path_revved:
-	embedded_scm {
+	closed_embedded_scm {
 		$$ = scm_cons ($1, SCM_EOL);
 	}
-	| property_path_revved embedded_scm {
+	| property_path_revved closed_embedded_scm {
 		$$ = scm_cons ($2, $1);
 	}
 	;
@@ -1475,7 +1495,7 @@ simple_string: STRING {
 	}
 	;
 
-scalar: string {
+closed_scalar: string {
 		$$ = $1;
 	}
 	| lyric_element {
@@ -1484,7 +1504,7 @@ scalar: string {
 	| bare_number {
 		$$ = $1;
 	}
-        | embedded_scm {
+        | closed_embedded_scm {
 		$$ = $1;
 	}
 	| full_markup {
@@ -1493,6 +1513,10 @@ scalar: string {
 	| DIGIT {
 		$$ = scm_from_int ($1);
 	}
+	;
+
+scalar: closed_scalar
+	| open_scm_function_call
 	;
 
 event_chord:
@@ -2510,7 +2534,7 @@ markup_braced_list_body:
 	;
 
 markup_command_list:
-	MARKUP_LIST_FUNCTION markup_command_list_arguments {
+	MARKUP_LIST_FUNCTION closed_markup_command_list_arguments {
 	  $$ = scm_cons ($1, scm_reverse_x($2, SCM_EOL));
 	}
 	;
@@ -2519,7 +2543,7 @@ markup_command_basic_arguments:
 	EXPECT_MARKUP_LIST markup_command_list_arguments markup_list {
 	  $$ = scm_cons ($3, $2);
 	}
-	| EXPECT_SCM markup_command_list_arguments embedded_scm {
+	| EXPECT_SCM markup_command_list_arguments closed_embedded_scm {
 	  $$ = scm_cons ($3, $2);
 	}
 	| EXPECT_NO_MORE_ARGS {
@@ -2527,9 +2551,17 @@ markup_command_basic_arguments:
 	}
 	;
 
-markup_command_list_arguments:
+closed_markup_command_list_arguments:
 	markup_command_basic_arguments { $$ = $1; }
 	| EXPECT_MARKUP markup_command_list_arguments markup {
+	  $$ = scm_cons ($3, $2);
+	}
+	;
+
+markup_command_list_arguments:
+	closed_markup_command_list_arguments
+	| EXPECT_SCM markup_command_list_arguments open_scm_function_call
+	{
 	  $$ = scm_cons ($3, $2);
 	}
 	;
