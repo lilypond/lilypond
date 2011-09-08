@@ -769,11 +769,30 @@ Syntax:
       ;; (_i "doc string"), keep the literal string only
       (let ((docstring (cadar body))
 	    (body (cdr body)))
-	`(ly:make-music-function (list ,@signature)
+	`(ly:make-music-function (list music-function ,@signature)
 				 (lambda (,@args)
 				   ,docstring
 				   ,@body)))
-      `(ly:make-music-function (list ,@signature)
+      `(ly:make-music-function (list music-function ,@signature)
+			       (lambda (,@args)
+				 ,@body))))
+
+(defmacro-public define-scheme-function (args signature . body)
+  "Helper macro for `ly:make-music-function'.
+Syntax:
+  (define-scheme-function (parser location arg1 arg2 ...) (arg1-type? arg2-type? ...)
+    ...function body...)
+"
+(if (and (pair? body) (pair? (car body)) (eqv? '_i (caar body)))
+      ;; When the music function definition contains a i10n doc string,
+      ;; (_i "doc string"), keep the literal string only
+      (let ((docstring (cadar body))
+	    (body (cdr body)))
+	`(ly:make-music-function (list scheme-function ,@signature)
+				 (lambda (,@args)
+				   ,docstring
+				   ,@body)))
+      `(ly:make-music-function (list scheme-function ,@signature)
 			       (lambda (,@args)
 				 ,@body))))
 

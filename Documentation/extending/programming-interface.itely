@@ -18,6 +18,8 @@ not familiar with Scheme, you may wish to read our
 @ref{Scheme tutorial}.
 
 @menu
+* Lilypond code blocks::
+* Scheme functions::
 * Music functions::
 * Markup functions::
 * Contexts for programmers::
@@ -26,6 +28,173 @@ not familiar with Scheme, you may wish to read our
 * Difficult tweaks::
 @end menu
 
+@node Lilypond code blocks
+@section Lilypond code blocks
+
+Lilypond code blocks look like
+@example
+  #@{ @var{Lilypond code} #@}
+@end example
+They can be used anywhere where you can write scheme code: the scheme
+reader actually is changed for accommodating Lilypond code blocks.  When
+the Lilypond code block is being read, it is parsed superficially and
+replaced by a call to the Lilypond parser which is executed at runtime
+to interpret the Lilypond code block.
+
+The point of the superficial parsing is the interpretation of @code{$}
+signs which can be used for splicing in expressions from the surrounding
+lexical scheme context (like @code{let} variables and function
+parameters).  @code{$} can be used in the following ways:
+
+@table @code
+@item $$
+just passes a single @code{$} to the Lilypond parser.
+@item $@var{form}
+will evaluate the Scheme form at runtime and splice its value as an
+identifier @code{\form} into the Lilypond parser.  Depending on the
+value type, it may be interpreted as several different syntactic
+entities.
+@item #$@var{form}
+will evaluate the Scheme form at runtime and splice its value as a
+Scheme expression into the Lilypond parser.
+@item #@var{form}
+Forms in Scheme expressions started with @code{#} are read and parsed
+recursively for @code{$} signs.  Those are treated as follows:
+@item #@dots{}$@var{variable}
+splices the value of the variable into the surrounding expression.
+@item #@dots{}($ @var{form} @dots{})
+splices the value of the form into the surrounding expression.  As
+opposed to a Lilypond level @code{$@var{form}}, you need to separate the
+form with a blank, making @code{$} be recognizable as a separate Scheme
+symbol.
+@end table
+
+A LilyPond code block may contain anything that you can use on the right
+side of an assignment.  In addition, an empty LilyPond block corresponds
+to a void music expression, and a LilyPond block containing multiple
+music events gets turned into a sequential music expression.
+
+@node Scheme functions
+@section Scheme functions
+
+@emph{Scheme functions} are scheme procedures that can create scheme
+expressions from input written in Lilypond syntax.  They can be called
+in pretty much all places where using @code{#} for specifying a value in
+Scheme syntax is allowed.  While scheme has functions of its own, this
+chapter is concerned with @emph{syntactic} functions, functions that
+receive arguments specified in Lilypond syntax.
+
+@menu
+* Scheme function definitions::
+* Scheme function usage::
+* Void scheme functions::
+@end menu
+
+@node Scheme function definitions
+@subsection Scheme function definitions
+
+The general form for defining scheme functions is:
+
+@example
+function =
+#(define-scheme-function
+     (parser location @var{arg1} @var{arg2} @dots{})
+     (@var{type1?} @var{type2?} @dots{})
+   @var{body})
+@end example
+
+@noindent
+where
+
+@multitable @columnfractions .33 .66
+@item @code{@var{argN}}
+@tab @var{n}th argument
+
+@item @code{@var{typeN?}}
+@tab a scheme @emph{type predicate} for which @code{@var{argN}}
+must return @code{#t}.  Some of these predicates are specially
+recognized by the parser, see below.
+
+@item @code{@var{body}}
+@tab A sequence of scheme forms evaluated in order, the last one being
+used as the return value of the scheme function.  It may contain
+LilyPond code blocks enclosed in hashed braces
+(@tie{}@w{@code{#@{@dots{}#@}}}@tie{}), like described in @ref{Lilypond
+code blocks}.  Within LilyPond code blocks, use @code{$} to reference
+function arguments (eg., @samp{$arg1}) or to start an inline scheme
+expression containing function arguments (eg., @w{@samp{$(cons arg1
+arg2)}}).
+@end multitable
+
+@noindent
+Some type predicates are specially recognized by the parser and will
+make the parser look for the respective arguments in Lilypond syntax
+rather than in Scheme syntax.  Currently these are @code{ly:music?},
+@code{markup?}, @code{ly:pitch?}, and @code{ly:duration?}.
+
+If you really want to input one of the special items as a Scheme rather
+than a Lilypond expression, you may write them as a Scheme expression
+that calls @code{ly:export} at its outermost level.
+
+Other type predicates, including user-defined ones, will make the
+respective argument only be accepted as a Scheme expression, usually
+introduced with @code{#} or as the result of calling a scheme function
+itself.
+
+For a list of available type predicates, see
+@ruser{Predefined type predicates}.
+
+@seealso
+
+Notation Reference:
+@ruser{Predefined type predicates}.
+
+Installed Files:
+@file{lily/music-scheme.cc},
+@file{scm/c++.scm},
+@file{scm/lily.scm}.
+
+@node Scheme function usage
+@subsection Scheme function usage
+Scheme functions can be called pretty much anywhere where a Scheme
+expression starting with @code{#} can be written.  You call a scheme
+function by writing its name preceded by @code{\}, followed by its
+arguments.
+
+Apart from places where a Scheme value is required, there are a few
+places where @code{#} expressions are accepted and evaluated for their
+side effects but otherwise ignored.  Mostly those are the places where
+an assignment would be acceptable as well.
+
+There are a few special places where an argument matching
+@code{ly:music?} has to be either a music identifier or a music
+expression enclosed in @code{@{}@dots{}@code{@}} or
+@code{<<}@dots{}@code{>>} explicitly, so that possibly following
+optional durations or postevents can't be confused with additional
+arguments.  One obvious place is before a @code{ly:duration?}
+predicate.  Another is as the last argument of a scheme function when it
+is used in a place where such optional parts could be considered either
+part of the music argument or not.
+
+In those rare cases, you have to delimit your music arguments
+appropriately to spare Lilypond from getting confused.
+
+@node Void scheme functions
+@subsection Void scheme functions
+
+Sometimes a function is only executed for its side effects.  In that
+case, using a Scheme function means that its value will not usually be
+considered:
+
+@example
+noPointAndClick =
+#(define-scheme-function
+     (parser location)
+     ()
+   (ly:set-option 'point-and-click #f))
+...
+\noPointAndClick   % disable point and click
+@end example
 
 @node Music functions
 @section Music functions
@@ -41,7 +210,7 @@ input file.
 * Intermediate substitution functions::
 * Mathematics in functions::
 * Functions without arguments::
-* Void functions::
+* Void music functions::
 @end menu
 
 
@@ -55,47 +224,12 @@ function =
 #(define-music-function
      (parser location @var{arg1} @var{arg2} @dots{})
      (@var{type1?} @var{type2?} @dots{})
-   @var{music})
+   @var{body})
 @end example
 
 @noindent
-where
-
-@multitable @columnfractions .33 .66
-@item @code{@var{argN}}
-@tab @var{n}th argument
-
-@item @code{@var{typeN?}}
-@tab a scheme @emph{type predicate} for which @code{@var{argN}}
-must return @code{#t}.  Some of these predicates are specially
-recognized by the parser, see below.
-
-@item @code{@var{music}}
-@tab A music expression, optionally written in scheme, with any
-LilyPond code enclosed in hashed braces
-(@tie{}@w{@code{#@{@dots{}#@}}}@tie{}).  Within LilyPond code
-blocks, use @code{$} to reference function arguments (eg.,
-@samp{$arg1}) or to start an inline scheme expression containing
-function arguments (eg., @w{@samp{$(cons arg1 arg2)}}).  A LilyPond code
-block may contain anything that you can use on the right side of an
-assignment.  In addition, an empty LilyPond block corresponds to a void
-music expression, and a LilyPond block containing multiple music events
-gets turned into a sequential music expression.
-
-@end multitable
-
-@noindent
-Some type predicates are specially recognized by the parser and will
-make the parser look for the respective arguments in Lilypond syntax
-rather than in Scheme syntax.  Currently these are @code{ly:music?},
-@code{markup?}, @code{ly:pitch?}, and @code{ly:duration?}.
-
-If you really want to input one of those items as a Scheme rather than a
-Lilypond expression, you may write them as a Scheme expression that
-calls @code{ly:export} at its outermost level.
-
-Other type predicates, including user-defined ones, will make the
-respective argument only be accepted as a Scheme expression.
+quite in analogy to @ref{Scheme function definitions}.  More often than
+not, @var{body} will be a @ref{Lilypond code blocks, Lilypond code block}.
 
 For a list of available type predicates, see
 @ruser{Predefined type predicates}.
@@ -289,28 +423,15 @@ lilypond -d display-bar-numbers FILENAME.ly
 @end example
 
 
-@node Void functions
-@subsection Void functions
+@node Void music functions
+@subsection Void music functions
 
-A music function must return a music expression, but sometimes we
-may want to have a function that does not involve music (such as
-turning off Point and Click).  To do this, we return a @code{void}
-music expression.
-
-Using the form @code{#@{ #@}} will actually achieve that.  If you for
-some reason really need an empty sequential music expression, you would
-have to write @code{#@{ @{ @} #@}} instead.
-
-@example
-noPointAndClick =
-#(define-music-function
-     (parser location)
-     ()
-   (ly:set-option 'point-and-click #f)
-   #@{ #@})
-...
-\noPointAndClick   % disable point and click
-@end example
+A music function must return a music expression.  If you want to execute
+a function only for its side effect, it might make more sense to use a
+scheme function instead.  But there may be cases where you sometimes
+want to produce a music expression, and sometimes not (like in the
+previous example).  Returning a @code{void} music expression via
+@code{#@{ #@}} will do that.
 
 
 @node Markup functions

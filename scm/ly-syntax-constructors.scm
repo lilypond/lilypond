@@ -42,9 +42,13 @@
        (set! (ly:music-property m 'origin) location)
        m)))
 
+;; Scheme function: Apply function, return value can be anything
+(define-ly-syntax (scheme-function parser loc fun args)
+      (apply fun parser loc args))
+
 ;; Music function: Apply function and check return value.
 (define-ly-syntax-loc (music-function parser loc fun args)
-  (let ((m (apply fun (cons* parser loc args))))
+  (let ((m (apply fun parser loc args)))
     (if (ly:music? m)
 	m
 	(begin

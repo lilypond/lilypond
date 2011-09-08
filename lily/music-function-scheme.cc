@@ -20,9 +20,9 @@ LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
            (SCM signature, SCM func),
            "Make a function to process music, to be used for the"
            " parser.  @var{func} is the function, and @var{signature}"
-           " describes its arguments.  @var{signature} is a list"
+           " describes its arguments.  @var{signature}'s cdr is a list"
            " containing either @code{ly:music?} predicates or other type"
-           " predicates.")
+           " predicates.  Its car is the syntax function to call.")
 {
   LY_ASSERT_TYPE (ly_is_procedure, func, 1);
   return make_music_function (signature, func);
