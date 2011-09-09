@@ -89,7 +89,6 @@ static Keyword_ent the_key_tab[]
   {"tempo", TEMPO},
   {"time", TIME_T},
   {"times", TIMES},
-  {"transpose", TRANSPOSE},
   {"type", TYPE},
   {"unset", UNSET},
   {"with", WITH},

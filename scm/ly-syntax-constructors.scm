@@ -89,10 +89,6 @@
   	      'numerator (car fraction)
   	      'denominator (cdr fraction)))
 
-(define-ly-syntax-simple (transpose-music pitch music)
-  (make-music 'TransposedMusic
-  	      'element (ly:music-transpose music pitch)))
-
 (define-ly-syntax (tempo parser location text . rest)
   (let* ((unit (and (pair? rest)
 		    (car rest)))

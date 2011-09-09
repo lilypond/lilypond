@@ -215,7 +215,6 @@ void set_music_properties (Music *p, SCM a);
 %token SKIP "\\skip"
 %token TEMPO "\\tempo"
 %token TIMES "\\times"
-%token TRANSPOSE "\\transpose"
 %token TYPE "\\type"
 %token UNSET "\\unset"
 %token WITH "\\with"
@@ -1212,12 +1211,6 @@ prefix_composite_music:
                 $$ = MAKE_SYNTAX ("time-scaled-music", @$, $2, $3);
 	}
 	| repeated_music		{ $$ = $1; }
-	| TRANSPOSE pitch_also_in_chords pitch_also_in_chords music {
-		Pitch from = *unsmob_pitch ($2);
-		Pitch to = *unsmob_pitch ($3);
-		SCM pitch = pitch_interval (from, to).smobbed_copy ();
-		$$ = MAKE_SYNTAX ("transpose-music", @$, pitch, $4);
-	}
 	| mode_changing_head grouped_music_list {
 		if ($1 == ly_symbol2scm ("chords"))
 		{

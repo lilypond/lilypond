@@ -943,6 +943,15 @@ tag =
 	  (ly:music-property arg 'tags)))
    arg)
 
+transpose =
+#(define-music-function
+   (parser location from to music)
+   (ly:pitch? ly:pitch? ly:music?)
+
+   (_i "Transpose @var{music} from pitch @var{from} to pitch @var{to}.")
+   (make-music 'TransposedMusic
+               'element (ly:music-transpose music (ly:pitch-diff to from))))
+
 transposedCueDuring =
 #(define-music-function
    (parser location what dir pitch-note main-music)
