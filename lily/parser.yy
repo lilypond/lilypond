@@ -199,7 +199,6 @@ void set_music_properties (Music *p, SCM a);
 %token MIDI "\\midi"
 %token NAME "\\name"
 %token NOTEMODE "\\notemode"
-%token OCTAVE "\\octave"
 %token ONCE "\\once"
 %token OVERRIDE "\\override"
 %token PAPER "\\paper"
