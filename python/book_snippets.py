@@ -580,7 +580,7 @@ left-margin-default right-margin-default)"
 
     def basename (self):
         cs = self.get_checksum ()
-        name = '%s/lily-%s' % (cs[:2], cs[2:])
+        name = os.path.join (cs[:2], 'lily-%s' % cs[2:])
         return name
 
     final_basename = basename
