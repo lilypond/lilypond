@@ -1883,6 +1883,14 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
 ;; property
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define-markup-command (property-recursive layout props symbol)
+  (symbol?)
+  #:category other
+  "Print out a warning when a header field markup contains some recursive
+markup definition."
+  (ly:warning "Recursive definition of property ~a detected!" symbol)
+  empty-stencil)
+
 (define-markup-command (fromproperty layout props symbol)
   (symbol?)
   #:category other
@@ -1905,7 +1913,8 @@ returns an empty markup.
 @end lilypond"
   (let ((m (chain-assoc-get symbol props)))
     (if (markup? m)
-        (interpret-markup layout props m)
+        ;; prevent infinite loops by clearing the interpreted property:
+        (interpret-markup layout (cons (list (cons symbol `(,property-recursive-markup ,symbol))) props) m)
         empty-stencil)))
 
 (define-markup-command (on-the-fly layout props procedure arg)
