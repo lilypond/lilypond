@@ -517,7 +517,7 @@ makeClusters =
 
 modalInversion =
 #(define-music-function (parser location around to scale music)
-    (ly:music? ly:music? ly:music? ly:music?)
+    (ly:pitch? ly:pitch? ly:music? ly:music?)
     (_i "Invert @var{music} about @var{around} using @var{scale} and
 transpose from @var{around} to @var{to}.")
     (let ((inverter (make-modal-inverter around to scale)))
@@ -526,7 +526,7 @@ transpose from @var{around} to @var{to}.")
 
 modalTranspose =
 #(define-music-function (parser location from to scale music)
-    (ly:music? ly:music? ly:music? ly:music?)
+    (ly:pitch? ly:pitch? ly:music? ly:music?)
     (_i "Transpose @var{music} from pitch @var{from} to pitch @var{to}
 using @var{scale}.")
     (let ((transposer (make-modal-transposer from to scale)))
@@ -535,7 +535,7 @@ using @var{scale}.")
 
 inversion =
 #(define-music-function
-   (parser location around to music) (ly:music? ly:music? ly:music?)
+   (parser location around to music) (ly:pitch? ly:pitch? ly:music?)
    (_i "Invert @var{music} about @var{around} and
 transpose from @var{around} to @var{to}.")
    (music-invert around to music))
@@ -570,10 +570,10 @@ markups), or inside a score.")
 
 
 octaveCheck =
-#(define-music-function (parser location pitch-note) (ly:music?)
+#(define-music-function (parser location pitch) (ly:pitch?)
    (_i "Octave check.")
    (make-music 'RelativeOctaveCheck
-	       'pitch (pitch-of-note pitch-note)))
+               'pitch pitch))
 
 ottava =
 #(define-music-function (parser location octave) (integer?)
@@ -843,18 +843,12 @@ removeWithTag =
     music))
 
 resetRelativeOctave =
-#(define-music-function (parser location reference-note) (ly:music?)
+#(define-music-function (parser location pitch) (ly:pitch?)
    (_i "Set the octave inside a \\relative section.")
 
-   (let* ((notes (ly:music-property reference-note 'elements))
-	  (pitch (ly:music-property (car notes) 'pitch)))
-
-     (set! (ly:music-property reference-note 'elements) '())
-     (set! (ly:music-property reference-note 'to-relative-callback)
-	   (lambda (music last-pitch)
-	     pitch))
-
-     reference-note))
+   (make-music 'SequentialMusic
+               'to-relative-callback
+               (lambda (music last-pitch) pitch)))
 
 retrograde =
 #(define-music-function (parser location music)
@@ -875,16 +869,11 @@ rightHandFinger =
 #(define-music-function (parser location finger) (number-or-string?)
    (_i "Apply @var{finger} as a fingering indication.")
 
-   (apply make-music
-	  (append
-	   (list
-	    'StrokeFingerEvent
-	    'origin location)
-	   (if	(string? finger)
-		(list 'text finger)
-		(list 'digit finger)))))
-
-
+   (make-music
+            'StrokeFingerEvent
+            'origin location
+            (if (string? finger) 'text 'digit)
+            finger))
 
 scaleDurations =
 #(define-music-function (parser location fraction music)
@@ -954,11 +943,11 @@ transpose =
 
 transposedCueDuring =
 #(define-music-function
-   (parser location what dir pitch-note main-music)
-   (string? ly:dir? ly:music? ly:music?)
+   (parser location what dir pitch main-music)
+   (string? ly:dir? ly:pitch? ly:music?)
 
    (_i "Insert notes from the part @var{what} into a voice called @code{cue},
-using the transposition defined by @var{pitch-note}.  This happens
+using the transposition defined by @var{pitch}.  This happens
 simultaneously with @var{main-music}, which is usually a rest.	The
 argument @var{dir} determines whether the cue notes should be notated
 as a first or second voice.")
@@ -969,15 +958,15 @@ as a first or second voice.")
 	       'quoted-context-id "cue"
 	       'quoted-music-name what
 	       'quoted-voice-direction dir
-	       'quoted-transposition (pitch-of-note pitch-note)))
+	       'quoted-transposition pitch))
 
 transposition =
-#(define-music-function (parser location pitch-note) (ly:music?)
+#(define-music-function (parser location pitch) (ly:pitch?)
    (_i "Set instrument transposition")
 
    (context-spec-music
     (make-property-set 'instrumentTransposition
-		       (ly:pitch-negate (pitch-of-note pitch-note)))
+                       (ly:pitch-negate pitch))
     'Staff))
 
 tweak =

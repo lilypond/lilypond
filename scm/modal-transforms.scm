@@ -176,21 +176,15 @@ Typically used to construct a scale for input to transposer-factory
 
 ;; ------------- PUBLIC FUNCTIONS -----------------------------
 
-(define-public (make-modal-transposer from-pitch to-pitch scale)
+(define-public (make-modal-transposer from to scale)
   "Wrapper function for transposer-factory."
-  (let ((transposer (transposer-factory (make-extended-scale scale)))
-	(from (car (extract-pitch-sequence from-pitch)))
-	(to (car (extract-pitch-sequence to-pitch))))
-
+  (let ((transposer (transposer-factory (make-extended-scale scale))))
     (lambda (p)
       (transposer from to p))))
 
-(define-public (make-modal-inverter around-pitch to-pitch scale)
+(define-public (make-modal-inverter around to scale)
   "Wrapper function for inverter-factory"
-  (let ((inverter (inverter-factory (make-extended-scale scale)))
-	(around (car (extract-pitch-sequence around-pitch)))
-	(to (car (extract-pitch-sequence to-pitch))))
-
+  (let ((inverter (inverter-factory (make-extended-scale scale))))
     (lambda (p)
       (inverter around to p))))
 
@@ -231,9 +225,6 @@ and transposes from @var{around} to @var{to}."
 	 (ly:pitch-transpose to (ly:pitch-diff around p))))
     music))
 
-(define-public (music-invert around-pitch to-pitch music)
+(define-public (music-invert around to music)
   "Applies pitch-invert to all pitches in @var{music}."
-  (let ((around (car (extract-pitch-sequence around-pitch)))
-	(to (car (extract-pitch-sequence to-pitch))))
-     (music-map (lambda (x) (pitch-invert around to x)) music)))
-
+     (music-map (lambda (x) (pitch-invert around to x)) music))
