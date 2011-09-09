@@ -1,0 +1,15 @@
+\version "2.15.11"
+#(ly:set-option 'warning-as-error #f)
+
+\header {
+  texidoc = "Cyclic references in header fields should cause a warning, but
+not crash LilyPond with an endless loop"
+
+  title = \markup {Cyclic reference to \fromproperty #'header:title }
+
+  composer = \markup {Cyclic reference to \fromproperty #'header:temp }
+  temp = \markup {Cyclic reference to \fromproperty #'header:composer }
+}
+\score {
+  { c' d' e' f' }
+}
