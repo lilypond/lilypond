@@ -1164,7 +1164,7 @@ function_arglist_nonmusic_last:
 	| EXPECT_MARKUP function_arglist simple_string {
 		$$ = scm_cons ($3, $2);
 	}
-	| EXPECT_PITCH function_arglist pitch {
+	| EXPECT_PITCH function_arglist pitch_also_in_chords {
 	  	$$ = scm_cons ($3, $2);
 	}
 	| EXPECT_DURATION closed_function_arglist duration_length {
