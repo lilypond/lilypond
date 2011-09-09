@@ -63,16 +63,32 @@ Laissez_vibrer_engraver::listen_laissez_vibrer (Stream_event *ev)
 void
 Laissez_vibrer_engraver::acknowledge_note_head (Grob_info inf)
 {
-  if (!event_)
+  /* use the heard event_ for all note heads, or an individual event for just
+   * a single note head (attached as an articulation inside a chord) */
+  Stream_event *tie_ev = event_;
+  Grob *head = inf.grob ();
+  Stream_event *note_ev = unsmob_stream_event (head->get_property ("cause"));
+  if (!tie_ev && note_ev && note_ev->in_event_class ("note-event"))
+    {
+      SCM articulations = note_ev->get_property ("articulations");
+      for (SCM s = articulations; !tie_ev && scm_is_pair (s); s = scm_cdr (s))
+        {
+          Stream_event *ev = unsmob_stream_event (scm_car (s));
+          if (ev && ev->in_event_class ("laissez-vibrer-event"))
+            tie_ev = ev;
+        }
+    }
+
+  if (!tie_ev)
     return;
 
-  SCM cause = event_->self_scm ();
+  SCM cause = tie_ev->self_scm ();
 
   if (!lv_column_)
     lv_column_ = make_item ("LaissezVibrerTieColumn", cause);
 
   Grob *lv_tie = make_item ("LaissezVibrerTie", cause);
-  lv_tie->set_object ("note-head", inf.grob ()->self_scm ());
+  lv_tie->set_object ("note-head", head->self_scm ());
 
   Pointer_group_interface::add_grob (lv_column_, ly_symbol2scm ("ties"),
                                      lv_tie);
