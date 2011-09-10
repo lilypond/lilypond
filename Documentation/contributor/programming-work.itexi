@@ -1718,6 +1718,16 @@ Engraver_name::acknowledge_interface_name (Grob_info info)
 @}
 @end example
 
+Acknowledge functions are called in the order engravers are
+@code{\consist}-ed (the only exception is if you set
+@code{must-be-last} to @code{#t}).
+
+If useful things are to be done to the acknowledged grobs, this
+should be deferred until all the acknowledging has finished, i.e.,
+store the acknowledged grobs and process the information in a
+@code{process-acknowledged ()} or @code{stop-translation-timestep ()} 
+function.
+
 
 @node Engraver declaration/documentation
 @subsection Engraver declaration/documentation
