@@ -22,6 +22,13 @@ Flageolett für Bundinstrumente:
 "
   doctitlede = "Flageolett von Bundinstrumenten in einer Tabulatur"
 
+%% Translation of GIT committish: 40bf2b38d674c43f38058494692d1a0993fad0bd
+  texidocfr = "
+Harmoniques et tablature (harmoniques artificielles)
+"
+  doctitlefr = "Harmoniques et tablature"
+
+
   lsrtags = "fretted-strings"
   texidoc = "
 Fretted-string harmonics:

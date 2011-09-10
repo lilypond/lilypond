@@ -1205,12 +1205,6 @@ for different staves by moving the @code{Timing_translator} and the
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-time-signature-without-affecting-the-beaming.ly}
 
-@cindex compound time signatures
-@cindex time signature, compound
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{compound-time-signatures.ly}
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
@@ -1542,36 +1536,32 @@ piece with @code{\cadenzaOn}, otherwise strange errors may occur.
 @funindex \times
 @funindex times
 
-Polymetric notation is supported, either explicitly or by modifying
-the visible time signature symbol and scaling the note durations.
+Polymetric notation is supported explicitly or by manually modifying the
+visible time signature symbol and/or scaling note durations.
 
-@strong{@i{Staves with different time signatures, equal measure lengths}}
+@subsubheading Different time signatures with equal-length measures
 
-This notation can be created by setting a common time signature
-for each staff but replacing the symbol manually by setting
-@code{timeSignatureFraction} to the desired fraction and scaling
-the printed durations in each staff to the common time
-signature; see @ref{Time signature}.  The scaling is done with
-@code{\scaleDurations}, which is used in a similar way to
-@code{\times}, but does not create a tuplet bracket; see
-@ref{Scaling durations}.
+Set a common time signature for each staff, and set the
+@code{timeSignatureFraction} to the desired fraction.  Then use the
+@code{\scaleDurations} function to scale the durations of the notes in
+each staff to the common time signature.
 
 @cindex beams, with polymetric meters
 @cindex polymetric meters, with beams
 
-In this example, music with the time signatures of 3/4, 9/8, and
-10/8 are used in parallel.  In the second staff, shown durations
-are multiplied by 2/3, as 2/3 * 9/8 = 3/4, and in the third
-staff, shown durations are multiplied by 3/5, as 3/5 * 10/8 = 3/4.
-It will often be necessary to insert beams manually, as the
-duration scaling affects the autobeaming rules.
+In the following example, music with the time signatures of 3/4, 9/8 and
+10/8 are used in parallel.  In the second staff, shown durations are
+multiplied by 2/3 (because 2/3 * 9/8 = 3/4) and in the third staff, the
+shown durations are multiplied by 3/5 (because 3/5 * 10/8 = 3/4).  It
+may be necessary to insert beams manually, as the duration scaling will
+affect the autobeaming rules.
 
 @lilypond[quote,verbatim]
 \relative c' <<
   \new Staff {
     \time 3/4
     c4 c c |
-    c c c |
+    c4 c c |
   }
   \new Staff {
     \time 3/4
@@ -1585,13 +1575,13 @@ duration scaling affects the autobeaming rules.
     \scaleDurations #'(3 . 5) {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
-      c4. c4. \times 2/3 { c8[ c c] } c4
+      c4. c \times 2/3 { c8[ c c] } c4
     }
   }
 >>
 @end lilypond
 
-@strong{@i{Staves with different time signatures, unequal bar lengths}}
+@subsubheading Different time signatures with unequal-length measures
 
 Each staff can be given its own independent time signature by
 moving the @code{Timing_translator} and the
@@ -1635,11 +1625,44 @@ moving the @code{Timing_translator} and the
 >>
 @end lilypond
 
-@snippets
+@funindex \compoundMeter
+@cindex compound time signatures
+@cindex time signature, compound
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{compound-time-signatures.ly}
+@subsubheading Compound time signatures
 
+These are created using the @code{\compoundMeter} function.  The syntax
+for this is:
+
+@example
+\compoundMeter #'@var{(list of lists)}
+@end example
+
+The simplest construction is a single list, where the @emph{last} number
+indicates the bottom number of the time signature and those that come
+before it, the top numbers.
+
+@lilypond[quote,verbatim]
+\relative c' {
+  \compoundMeter #'((2 2 2 8))
+  \repeat unfold 6 c8 \repeat unfold 12 c16
+}
+@end lilypond
+
+More complex meters can be constructed using additional lists.  Also,
+automatic beaming settings will be adjusted depending on the values.
+
+@lilypond[quote,verbatim]
+\relative c' {
+  \compoundMeter #'((1 4) (3 8))
+  \repeat unfold 5 c8 \repeat unfold 10 c16
+}
+
+\relative c' {
+  \compoundMeter #'((1 2 3 8) (3 4))
+  \repeat unfold 12 c8
+}
+@end lilypond
 
 @seealso
 Music Glossary:
@@ -1648,6 +1671,8 @@ Music Glossary:
 @rglos{meter}.
 
 Notation Reference:
+@ref{Automatic beams},
+@ref{Manual beams},
 @ref{Time signature},
 @ref{Scaling durations}.
 
@@ -1662,13 +1687,11 @@ Internals Reference:
 
 
 @knownissues
-
-When using different time signatures in parallel, notes
-at the same moment will be placed at the same horizontal
-location.  However, the bar lines in the different staves
-will cause the note spacing to be less regular in each of the
-individual staves than would be normal without the different
-time signatures.
+When using different time signatures in parallel, notes at the same
+moment will be placed at the same horizontal location.  However, the bar
+lines in the different staves will cause the note spacing to be less
+regular in each of the individual staves than would be normal without
+the different time signatures.
 
 @node Automatic note splitting
 @unnumberedsubsubsec Automatic note splitting

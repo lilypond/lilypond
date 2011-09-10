@@ -372,9 +372,6 @@ the automatic beaming behaviour and/or use compound time signatures.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{compound-time-signatures.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
 {arabic-improvisation.ly}
 
 

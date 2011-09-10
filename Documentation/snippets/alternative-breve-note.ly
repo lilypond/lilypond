@@ -7,6 +7,8 @@
 %% Note: this file works from version 2.14.0
 \version "2.14.0"
 \header {
+%% Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+
 
   texidocde = "Dieses Schnipsel zeigt, wie man die alternative Brevis mit zwei
 vertikalen Linien an jeder Seite des Notenkopfes benutzt."

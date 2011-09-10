@@ -27,6 +27,16 @@ wenn der Akkord sich ändert oder eine neue Zeile anfängt.
 
   doctitlede = "Akkordänderungen für Bunddiagramme"
 
+%% Translation of GIT committish: 40bf2b38d674c43f38058494692d1a0993fad0bd
+  texidocfr = "
+Vous pouvez opter pour n'imprimer les diagrammes de fret qu'à l'occasion
+d'un changement d'accord ou de saut de ligne.
+
+"
+
+  doctitlefr = "Changement d'accord et diagramme de fret"
+
+
   lsrtags = "fretted-strings"
   texidoc = "FretBoards can be set to display only when the chord changes
 or at the beginning of a new line."

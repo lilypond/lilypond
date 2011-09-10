@@ -387,9 +387,6 @@ barrado automático y/o utilizar indicaciones de compás compuestas.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{compound-time-signatures.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
 {arabic-improvisation.ly}
 
 

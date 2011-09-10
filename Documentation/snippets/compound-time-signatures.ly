@@ -61,18 +61,6 @@ database.)
 } % begin verbatim
 
 
-#(define ((compound-time one two num) grob)
-   (grob-interpret-markup grob
-                          (markup #:override '(baseline-skip . 0) #:number
-                                  (#:line ((#:column (one num))
-                                           #:vcenter "+"
-                                           (#:column (two num)))))))
-
-\relative c' {
-  \override Staff.TimeSignature #'stencil = #(compound-time "2" "3" "8")
-  \time 5/8
-  \set Staff.beatStructure = #'(2 3)
-  c8 d e fis gis
-  c8 fis, gis e d
-  c8 d e4 gis8
+\markup {
+  This snippet is deprecated as of 2.15.9 and will be removed in 2.16
 }

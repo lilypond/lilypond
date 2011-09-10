@@ -7,7 +7,20 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 40bf2b38d674c43f38058494692d1a0993fad0bd
+
+  texidocfr = "
+Les diagrammes de fret peuvent s'orienter de trois manières différentes.
+Ils s'aligneront par défaut sur la corde du haut ou le sommet du fret.
+
+
+"
+
+  doctitlefr = "Orientation des diagrammes de fret"
+
+
   lsrtags = "fretted-strings"
+
 
 %% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
 

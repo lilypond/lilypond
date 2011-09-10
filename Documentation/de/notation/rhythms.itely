@@ -1260,9 +1260,6 @@ Notensysteme können eingerichtet werden, indem man den
 @cindex time signature, compound
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{compound-time-signatures.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
 
@@ -1692,12 +1689,6 @@ verschoben werden.
   }
 >>
 @end lilypond
-
-@snippets
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{compound-time-signatures.ly}
-
 
 @seealso
 Glossar:

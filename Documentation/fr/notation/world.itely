@@ -363,9 +363,6 @@ chiffres de mesure composés.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{compound-time-signatures.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
 {arabic-improvisation.ly}
 
 
