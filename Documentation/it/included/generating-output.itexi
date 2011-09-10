@@ -1,0 +1,226 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+@c This file is part of web/download.itexi and
+@c learning/tutorial.itely
+@ignore
+    Translation of GIT committish: 8f02aa6516b3cfe16b2c145142ea652cbc3b8970
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c This is about "compiling" a lilypond file
+@c (Learning 1 Tutorial), **not** compiling the
+@c source code.
+
+@macro lilypadOSX
+@warning{Queste istruzioni presumono che tu stia usando il programma
+LilyPond.  Se stai usando uno dei programmi descritti in
+@rweb{Editing facilitato}, in caso di problemi consulta la documentazione
+di quei programmi.}
+
+
+@subsubheading Passo 1. Crea il tuo file @file{.ly}
+
+Clicca due volte su @command{LilyPond.app}, si aprirà un file di esempio.
+
+@sourceimage{Learning_Macos_welcome,,,}
+
+Dai menu in cima a sinistra dello schermo seleziona
+@w{@code{File > Save}}.
+
+@sourceimage{Learning_Macos_Save_menu,,,}
+
+Scegli un nome per il tuo file, ad esempio @file{test.ly}.
+
+@sourceimage{Learning_Macos_Save_file_with_name,,,}
+
+
+@subsubheading Passo 2. Compila (con LilyPad)
+
+Dagli stessi menu seleziona
+@w{@code{Compile > Typeset}}.
+
+@sourceimage{Learning_Macos_Typeset_menu,,,}
+
+Si aprirà una nuova finestra che mostra i messaggi di log della compilazione
+del file che hai appena salvato.
+
+@sourceimage{Learning_Macos_Compiling_log,,,}
+
+
+@subsubheading Passo 3. Visualizza l'output
+
+Quando la compilazione è finita, un file PDF con lo stesso nome del file
+originale viene creato e automaticamente aperto nel visualizzatore
+PDF predefinito, che lo mostrerà sullo schermo.
+
+@sourceimage{Learning_Macos_pdf_output,,,}
+
+
+@subsubheading Altri comandi
+
+Per creare nuovi file per LilyPond, comincia col selezionare
+@w{@code{File > New}}
+
+@sourceimage{Learning_Macos_New_menu,,,}
+
+oppure @w{@code{File > Open}} per aprire e modificare file esistenti che
+hai salvato precedentemente.
+
+@sourceimage{Learning_Macos_Open_menu,,,}
+
+Devi salvare qualsiasi nuova modifica fatta al file prima di cliccare
+@w{@code{Compile > Typeset}} e se il file PDF non compare controlla se
+ci sono degli errori nella finestra dei messaggi di log.
+
+Se non stai usando il visualizzatore d'anteprima PDF incluso nel sistema
+operativo del Mac e un file PDF generato da una compilazione precedente
+è aperto, qualsiasi compilazione successiva potrebbe non riuscire a
+generare un PDF aggiornato finché non chiudi l'originale.
+
+
+
+@end macro
+
+
+@macro lilypadWindows
+@warning{Queste istruzioni presumono che tu stia usando l'editor LilyPad
+incluso nel programma.  Se stai usando uno dei programmi descritti in
+@rweb{Editing facilitato}, in caso di problemi nel compilare un file consulta
+la documentazione di quei programmi.}
+
+
+@subsubheading Passo 1. Crea il tuo file @file{.ly}
+
+Clicca due volte sull'icona di LilyPond sulla scrivania, si aprirà un file di esempio.
+
+@sourceimage{Learning_Win7_Welcome_File_Whole,,,}
+
+Dai menu che appaiono in cima al file di esempio seleziona
+@w{@code{File > Save as}}.  Non usare @w{@code{File > Save}}
+per il file di esempio perché non funzionerà finché non gli darai
+un nome di file valido per LilyPond.
+
+@sourceimage{Learning_Win7_Save_Menu,,,}
+
+Scegli un nome per il tuo file, ad esempio @file{test.ly}.
+
+@sourceimage{Learning_Win7_Save_File_With_Name,,,}
+
+
+@subsubheading Passo 2a. Compila (con drag-and-drop)
+
+A seconda di quel che preferisci, per compilare il file puoi:
+
+Trascinare e rilasciare (drag-and-drop) il file direttamente sull'icona di LilyPond.
+
+@sourceimage{Learning_Win7_Open_Dragndrop,,,}
+
+Cliccare col tasto destro sul file e dal menu contestuale a comparsa scegliere
+@w{@code{Open with > LilyPond}}.
+
+@sourceimage{Learning_Win7_Open_Context_Menu,,,}
+
+
+@subsubheading Passo 2b. Compilare (con doppio clic)
+
+O semplicemente clicca due volte su @file{test.ly}.
+
+
+@subsubheading Passo 3. Visualizza l'output
+
+Durante la compilazione del file @file{test.ly}, una finestra dei comandi
+si aprirà per breve tempo e poi si chiuderà.  Nel corso di questo processo
+verranno creati tre ulteriori file.
+
+@sourceimage{Learning_Win7_All_Files_Created,,,}
+
+Il file PDF contiene il file @file{test.ly} compilato.
+
+@sourceimage{Learning_Win7_Pdf_Output,,,}
+
+
+@subsubheading Altri comandi
+
+Per creare un nuovo file, per prima cosa seleziona @w{@code{File > New}} se
+hai aperto un file creato in precedenza.
+
+@sourceimage{Learning_Win7_New_Menu,,,}
+
+@noindent
+oppure @w{@code{File > Open}} per aprire e modificare i file che hai
+salvato prima.
+
+@sourceimage{Learning_Win7_Open_Menu,,,}
+
+Devi salvare qualsiasi nuovo modifica prima di compilare.  Se il file
+PDF non viene creato, controlla se ci sono degli errori nel file di log che
+sarà stato creato durante il tentativo di compilazione.
+
+@sourceimage{Learning_Win7_Log_File,,,}
+
+Questo file di log viene sovrascritto ogni volta che compili il file LilyPond.
+
+Il file PS viene usato da LilyPond per creare il file PDF e può essere
+ignorato.  Anch'esso viene sovrascritto ogni volta che compili il file.
+
+Se visualizzi il file in un lettore PDF, devi chiudere il PDF se desideri
+fare una nuova compilazione, perché potrebbe non riuscire a creare il
+nuovo file PDF mentre è ancora aperto per la visualizzazione.
+
+
+@end macro
+
+
+@c not lilypad at all, but I ran out of names.  :(
+@macro lilypadCommandLine
+@warning{Queste istruzioni presumono che tu abbia familiarità con i
+programmi a linea di comando.  Se stai usando uno dei programmi descritti in
+@rweb{Editing facilitato}, in caso di problemi nel compilare un file consulta
+la documentazione di quei programmi.}
+
+
+@subsubheading Passo 1. Crea il tuo file @file{.ly}
+
+Crea un file di testo chiamato @file{test.ly} e scrivi:
+
+@c double \\ required because this is inside a macro!
+@example
+\\version "@w{@versionStable{}}"
+@{
+  c' e' g' e'
+@}
+@end example
+
+
+@subsubheading Passo 2. Compila (da linea di comando)
+
+Per elaborare @file{test.ly}, scrivi il seguente comando nel terminale:
+
+@example
+lilypond test.ly
+@end example
+
+@noindent
+Vedrai qualcosa di simile a questo:
+
+@example
+GNU LilyPond @w{@versionStable{}}
+Processing `test.ly'
+Parsing...
+Interpreting music...
+Preprocessing graphical objects...
+Solving 1 page-breaking chunks...[1: 1 pages]
+Drawing systems...
+Layout output to `test.ps'...
+Converting to `./test.pdf'...
+@end example
+
+@subsubheading Passo 3. Visualizza l'output
+
+Puoi visualizzare o stampare il file @file{test.pdf}.
+
+@end macro
+
+

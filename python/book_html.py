@@ -40,6 +40,13 @@ HTML_snippet_res = {
     'multiline_comment':
          r'''(?smx)(?P<match>\s*(?!@c\s+)(?P<code><!--\s.*?!-->)\s)''',
 
+    'musicxml_file':
+         r'''(?mx)
+          (?P<match>
+          <musicxmlfile\s*(?P<options>.*?)\s*>
+          \s*(?P<filename>.*?)\s*
+          </musicxmlfile\s*>)''',
+
     'verb':
          r'''(?x)(?P<match>(?P<code><pre>.*?</pre>))''',
 
@@ -62,7 +69,7 @@ HTML_output = {
 </p>''',
 
     BEFORE: r'''<p>
- <a href="%(base)s.ly">''',
+ <a href="%(base)s%(ext)s">''',
 
     OUTPUT: r'''
   <img align="middle"
@@ -70,7 +77,7 @@ HTML_output = {
        src="%(image)s"
        alt="%(alt)s">''',
 
-    PRINTFILENAME: '<p><tt><a href="%(base)s.ly">%(filename)s</a></tt></p>',
+    PRINTFILENAME: '<p><tt><a href="%(base)s%(ext)s">%(filename)s</a></tt></p>',
 
     QUOTE: r'''<blockquote>
 %(str)s
@@ -118,6 +125,8 @@ class BookHTMLOutputFormat (BookBase.BookOutputFormat):
         str = ''
         rep = snippet.get_replacements ();
         rep['base'] = basename
+        rep['filename'] = os.path.basename (snippet.filename)
+        rep['ext'] = snippet.ext
         str += self.output_print_filename (basename, snippet)
         if VERBATIM in snippet.option_dict:
             rep['verb'] = BookBase.verbatim_html (snippet.verb_ly ())

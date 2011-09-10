@@ -128,7 +128,7 @@ können, sind demonstriert in
 
 
 @c @snippets
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@c @lilypondfile[verbatim,quote,texidoc,doctitle]
 @c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\Staff \RemoveEmptyStaves.ly}
 @c http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
 
@@ -462,7 +462,7 @@ Hälsen, die nach unten zeigen.
         % extend the stems to reach the other staff
         \override Stem #'length = #12
         % do not print extra flags
-        \override Stem #'flag-style = #'no-flag
+        \override Flag #'style = #'no-flag
         % prevent beaming as needed
         a8 g4 f8 f bes\noBeam g4
       }
@@ -476,7 +476,7 @@ Hälsen, die nach unten zeigen.
 @end lilypond
 
 @snippets
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 @seealso
@@ -622,7 +622,7 @@ Anzahl an Symbolen wird benutzt um die Wechsel anzuzeigen.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {accordion-discant-symbols.ly}
 
 @seealso

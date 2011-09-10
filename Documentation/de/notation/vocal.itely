@@ -210,7 +210,7 @@ beeinflussen, wenn man dafür Textbeschriftungsbefehle einsetzt.  Siehe
 hierzu @ref{Text formatieren}.
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
 
 
@@ -625,19 +625,15 @@ Um mehr als eine Silbe zu einer Note zuzuordnen, können die Silben
 mit geraden Anführungszeichen (@code{"}) umgeben werden oder ein
 Unterstrich (@code{_}) benutzt werden, um ein Leerzeichen zwischen
 Silben zu setzen.  Mit der Tilde (@code{~}) kann ein Bindebogen
-gesetzt werden.  Dies erfordert, dass eine Schriftart vorhanden ist,
-die das entsprechende Symbol (U+203F) beinhaltet.  Frei erhältliche
-Schriftarten, die den Bindebogen enthalten, sind @qq{FreeSerif} (ein
-Times-Klon), @qq{DejaVuSans} (aber nicht DejaVuSerif) oder
-TeXGyreSchole (ein Century Schoolbook-Klon).
+gesetzt werden.
 
 @lilypond[quote,ragged-right,verbatim]
 {
   \time 3/4
   \relative c' { c2 e4 g2 e4 }
-  \addlyrics { gran- de_a- mi- go }
-  \addlyrics { pu- "ro y ho-" nes- to }
-  \addlyrics { pu- ro~y~ho- nes- to }
+  \addlyrics { gran -- de_a -- mi -- go }
+  \addlyrics { pu -- "ro y ho" -- nes -- to }
+  \addlyrics { pu -- ro~y~ho -- nes -- to }
 }
 @end lilypond
 
@@ -1113,7 +1109,7 @@ indem man die gegebenen Beispiele modifiziert oder auch die
 @rlearning{Vokalensemble}-Vorlagen im Handbuch zum Lernen heranzieht.
 
 @snippets
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {lyrics-old-spacing-settings.ly}
 
 @seealso
@@ -1174,7 +1170,7 @@ wirkt, muss sie im @code{layout}-Block vorgenommen werden.
 @end lilypond
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {lyrics-alignment.ly}
 
 @c TODO: move to LSR -vv
@@ -2151,7 +2147,7 @@ Akkorden im Akkord-Modus kombiniert; die Syntax ist erklärt in
 @ref{Notation von Akkorden}.
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
 @seealso
@@ -2347,7 +2343,7 @@ Referenz der Interna:
 @cindex Stimmen, geteilt
 @cindex geteilte Stimmen
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
 @seealso
@@ -2666,7 +2662,7 @@ Schnipsel wird jedoch gezeigt, wie man eine Musikfunktion definiert,
 die Tipparbeit erspart und die Klaviernoten klarer macht.
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {adding-orchestral-cues-to-a-vocal-score.ly}
 
 @seealso
@@ -3100,7 +3096,7 @@ im ersten der folgenden Schnipsel.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {chant-or-psalms-notation.ly}
 
 Cantica und andere liturgische Texte können freier gesetzt werdne,
@@ -3109,7 +3105,7 @@ Oft weren die Worte unter den Noten und an ihnen ausgerichtet
 gesetzt.  In diesem Fall werden die Noten entsprechend der
 Ausdehnung des Textes und nicht der Notenlänge gesetzt.
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 @seealso
@@ -3299,7 +3295,7 @@ unvollständigen Takt, sodass jede Notenzeile exakt mit eine Textzeile
 Beginn der Musik ein und @code{\bar "|"} oder @code{\bar "||"},
 um die schließende Taktlinie am Ende der Zeile zu setzen.
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {hymn-template.ly}
 
 

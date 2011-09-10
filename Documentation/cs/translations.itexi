@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Naposledy obnoveno Wed Jul 13 10:59:12 UTC 2011
+@emph{Naposledy obnoveno Sat Aug 13 14:15:49 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -111,7 +111,7 @@ ano
 @item
 2 Běžný notový zápis
 @*
-4184
+4187
 @tab Pavel Fric
 @tab 
 @tab 
@@ -339,7 +339,7 @@ ano
 @item
 Příručky
 @*
-1203
+1214
 @tab Pavel Fric
 @tab 
 @tab 
@@ -366,7 +366,7 @@ ano
 @item
 Společenství
 @*
-1755
+1888
 @tab  Pavel Fric
 @tab 
 @tab 
@@ -383,7 +383,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">částečně</span>
+<span style="background-color: #4efe25">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml

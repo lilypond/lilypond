@@ -172,7 +172,7 @@ barNumberCheck =
 	       (lambda (c)
 		 (let ((cbn (ly:context-property c 'currentBarNumber)))
 		   (if (and  (number? cbn) (not (= cbn n)))
-		       (ly:input-message location
+		       (ly:input-warning location
 					 "Barcheck failed got ~a expect ~a"
 					 cbn n))))))
 
@@ -346,6 +346,7 @@ footnoteGrob =
    (_i "Attach @var{text} to @var{grob-name} at offset @var{offset},
 with @var{text} referring to @var{footnote} (use like @code{\\once})")
    (make-music 'FootnoteEvent
+               'automatically-numbered #f
 	       'symbol grob-name
 	       'X-offset (car offset)
 	       'Y-offset (cdr offset)
@@ -360,9 +361,14 @@ allowing for the footnote to be automatically numbered such that
 the number appears at @var{offset}.  Note that, for this to take effect,
 auto-numbering must be turned on in the paper block.  Otherwise, no
 number will appear.  Use like @code{\\once})")
-   #{
-     \footnoteGrob $grob-name $offset \markup { \null } $footnote
-   #})
+   (make-music 'FootnoteEvent
+               'automatically-numbered #t
+	       'symbol grob-name
+	       'X-offset (car offset)
+	       'Y-offset (cdr offset)
+               'text (make-null-markup)
+	       'footnote-text footnote))
+
 
 footnote =
 #(define-music-function (parser location offset text footnote)
@@ -370,14 +376,12 @@ footnote =
    (_i "Attach @var{text} at @var{offset} with @var{text} referring
 to @var{footnote} (use like @code{\\tweak})")
    (make-music 'FootnoteEvent
+               'automatically-numbered #f
 	       'X-offset (car offset)
 	       'Y-offset (cdr offset)
 	       'text text
 	       'footnote-text footnote))
 
-% this function can't be a simple copy and past of the above because
-% it needs to be encapsulated in a Sequential Music.
-% so, there's a code dup of above :-(
 autoFootnote =
 #(define-music-function (parser location offset footnote)
    (number-pair? markup?)
@@ -387,6 +391,7 @@ such that the number appears at @var{offset}.  Note that, for this to
 take effect, auto-numbering must be turned on in the paper block.
 Otherwise, no number will appear.  Use like @code{\\tweak})")
    (make-music 'FootnoteEvent
+               'automatically-numbered #t
 	       'X-offset (car offset)
 	       'Y-offset (cdr offset)
 	       'text (make-null-markup)
@@ -433,7 +438,7 @@ instrumentSwitch =
 	  (instrument-def (if handle (cdr handle) '())))
 
      (if (not handle)
-	 (ly:input-message location "No such instrument: ~a" name))
+	 (ly:input-warning location "No such instrument: ~a" name))
      (context-spec-music
       (make-music 'SimultaneousMusic
 		  'elements
@@ -501,7 +506,7 @@ languageRestore =
        (begin
         (set! pitchnames previous-pitchnames)
         (ly:parser-set-note-names parser pitchnames))
-      (ly:warning (_ "No other language was defined previously. Ignoring.")))
+      (ly:input-warning location (_ "No other language was defined previously. Ignoring.")))
    (make-music 'Music 'void #t))
 
 
@@ -725,7 +730,7 @@ Example:
 			      (let ((moment-reference (ly:music-length (car seqs))))
 				(for-each (lambda (seq moment)
 					    (if (not (equal? moment moment-reference))
-						(ly:music-message seq
+						(ly:music-warning seq
 								  "Bars in parallel music don't have the same length")))
 					  seqs (map-in-order ly:music-length seqs))))
 	    voices)
@@ -808,7 +813,7 @@ print @var{secondary-note} as a stemless note head in parentheses.")
                  (for-each (lambda (m)
                              (ly:music-set-property! m 'pitch trill-pitch)) trill-events)
                  (begin
-                   (ly:warning (_ "Second argument of \\pitchedTrill should be single note: "))
+                   (ly:input-warning location (_ "Second argument of \\pitchedTrill should be single note: "))
                    (display sec-note-events)))
 
              (if (eq? forced #t)
@@ -891,7 +896,7 @@ scaleDurations =
 shiftDurations =
 #(define-music-function (parser location dur dots arg)
    (integer? integer? ly:music?)
-   (_i "Scale @var{arg} up by a factor of @var{2^dur*(2-(1/2)^dots)}.")
+   (_i "Scale @var{arg} up by a factor of 2^@var{dur}*(2-(1/2)^@var{dots}).")
 
    (music-map
     (lambda (x)
@@ -973,7 +978,7 @@ tweak =
 
    (if (equal? (object-property sym 'backend-type?) #f)
        (begin
-	 (ly:warning (_ "cannot find property type-check for ~a") sym)
+	 (ly:input-warning location (_ "cannot find property type-check for ~a") sym)
 	 (ly:warning (_ "doing assignment anyway"))))
    (set!
     (ly:music-property arg 'tweaks)

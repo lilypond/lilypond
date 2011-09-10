@@ -17,9 +17,7 @@
                           (display c out))))))
     `(let* ((parser-clone (ly:parser-clone parser))
             (input-str (string-trim-both ,lily-string))
-            (music (car (ly:music-property (parse-string-result input-str
-                                                                parser-clone)
-                                           'elements)))
+            (music (ly:parse-string-expression parser-clone input-str))
             (result-str (string-trim-both (music->lily-string music parser-clone))))
        (cons input-str result-str))))
 

@@ -172,7 +172,8 @@ class BookOutputFormat:
         rep = snippet.get_replacements ()
         if PRINTFILENAME in snippet.option_dict:
             rep['base'] = basename
-            rep['filename'] = os.path.basename (snippet.substring ('filename'))
+            rep['filename'] = os.path.basename (snippet.filename)
+            rep['ext'] = snippet.ext
             str = self.output[PRINTFILENAME] % rep
 
         return str

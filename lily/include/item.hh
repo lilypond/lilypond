@@ -52,6 +52,7 @@ public:
   virtual void handle_prebroken_dependencies ();
   virtual Interval_t<int> spanned_rank_interval () const;
   virtual Interval pure_height (Grob *ref, int start, int end);
+  virtual void cache_pure_height (Interval height);
   DECLARE_GROB_INTERFACE ();
 protected:
   virtual void discretionary_processing ();

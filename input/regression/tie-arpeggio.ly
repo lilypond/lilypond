@@ -1,15 +1,15 @@
+\version "2.14.0"
+#(ly:set-option 'warning-as-error #f)
+
 \header
 {
 
   texidoc =
-
   "when @code{tieWaitForNote} is set, the right-tied note does not
  have to follow the lef-tied note directly. When @code{tieWaitForNote}
  is set to false, any tie will erase all pending ties."
   
 }
-
-\version "2.14.0"
 
 \paper { ragged-right =  ##t }
 \relative c' {

@@ -35,19 +35,19 @@ procedures}.
 7492  total
 
 -2- Tutorial
-1203  web/manuals.itexi
+1214  web/manuals.itexi
 124   learning.tely
 2535  learning/tutorial.itely
-4184  learning/common-notation.itely
-8046  total
+4187  learning/common-notation.itely
+8060  total
 
 -3- Fundamental Concepts, starting of Usage and Community
 11139 learning/fundamental.itely -- Fundamental concepts
 135   usage.tely
-3622  usage/running.itely
+3681  usage/running.itely
 1189  usage/updating.itely
-1755  web/community.itexi
-17840 total
+1888  web/community.itexi
+18032 total
 
 -4- Rest of Learning manual and Suggestions on writing LilyPond files
 15393 learning/tweaks.itely -- Tweaking output
@@ -61,9 +61,9 @@ procedures}.
 4502  notation/pitches.itely
 6048  notation/rhythms.itely
 1726  notation/expressive.itely
-945   notation/repeats.itely
+944   notation/repeats.itely
 2216  notation/simultaneous.itely
-2345  notation/staff.itely
+2341  notation/staff.itely
 931   notation/editorial.itely
 2716  notation/text.itely
 81    notation/specialist.itely -- Specialist notation
@@ -75,19 +75,19 @@ procedures}.
 66    notation/strings.itely
 242   notation/bagpipes.itely
 4752  notation/ancient.itely
-7671  notation/input.itely -- Input syntax
+7686  notation/input.itely -- Input syntax
 2164  notation/non-music.itely -- Non-musical notation
 11087 notation/spacing.itely -- Spacing issues
-12248 notation/changing-defaults.itely -- Changing defaults
+12258 notation/changing-defaults.itely -- Changing defaults
 5187  notation/programming-interface.itely -- Interfaces for programmers
-1989  notation/notation-appendices.itely -- Notation manual tables
+2017  notation/notation-appendices.itely -- Notation manual tables
 252   notation/cheatsheet.itely -- Cheat sheet
-76610 total
+76658 total
 
 -6- Rest of Application Usage
-3952  usage/lilypond-book.itely -- LilyPond-book
+3978  usage/lilypond-book.itely -- LilyPond-book
 1122  usage/converters.itely -- Converting from other formats
-5074  total
+5100  total
 
 -7- Appendices whose translation is optional
 326   essay/literature.itely

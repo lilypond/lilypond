@@ -98,7 +98,7 @@ printed.  @code{(#t . #f)} does not make sense.
 
 @end table")
      (autoBeamCheck ,procedure? "A procedure taking three
-arguments, @var{context}, @var{dir} [start/stop (-1 or 1)], and
+arguments, @var{context}, @var{dir} [start/@/stop (-1 or 1)], and
 @var{test} [shortest note in the beam].  A non-@code{#f} return value
 starts or stops the auto beam.")
      (autoBeaming ,boolean? "If set to true then beams are generated
@@ -135,6 +135,8 @@ that normally end on beats.")
      (beatStructure ,list? "List of @code{baseMoment}s that are combined
 to make beats.")
 
+     (capoPitch ,ly:pitch? "The pitch to transpose chords down by when using the capo.")
+     (capoVertical ,boolean? "Whether to display actual and transposed pitches above each other or not.")
      (chordChanges ,boolean? "Only show changes in chords scheme?")
      (chordNameExceptions ,list? "An alist of chord exceptions.
 Contains @code{(@var{chord} . @var{markup})} entries.")
@@ -239,7 +241,7 @@ for a bass figure.")
      (figuredBassPlusDirection ,ly:dir? "Where to put plus signs
 relative to the main figure.")
      (fingeringOrientations ,list? "A list of symbols, containing
-@samp{left}, @samp{right}, @samp{up} and/or @samp{down}.  This list
+@samp{left}, @samp{right}, @samp{up} and/@/or @samp{down}.  This list
 determines where fingerings are put relative to the chord being
 fingered.")
      (firstClef ,boolean? "If true, create a new clef when starting a
@@ -247,7 +249,7 @@ staff.")
      (followVoice ,boolean? "If set, note heads are tracked across
 staff switches by a thin line.")
      (fontSize ,number? "The relative size of all grobs in a context.")
-     (forbidBreak ,boolean? "If set to @code{##t}, prevent a line break
+     (forbidBreak ,boolean? "If set to @code{#t}, prevent a line break
 at this point.")
      (forceClef ,boolean? "Show clef symbol, even if it has not
 changed.  Only active for the first clef after the property is set, not
@@ -322,7 +324,7 @@ containing @code{(@var{step} . @var{alter})} or @code{((@var{octave} .
 alterations, use symbols, e.g. @code{keySignature = #`((6 . ,FLAT))}.")
 
 
-     (lyricMelismaAlignment ,ly:dir? "Alignment to use for a melisma syllable.")
+     (lyricMelismaAlignment ,number? "Alignment to use for a melisma syllable.")
 
 
      (majorSevenSymbol ,markup? "How should the major 7th be formatted
@@ -339,7 +341,7 @@ we had.  This can be set manually to create incomplete measures.")
      (melismaBusyProperties ,list? "A list of properties (symbols) to
 determine whether a melisma is playing.  Setting this property will
 influence how lyrics are aligned to notes.  For example, if set to
-@code{#'(melismaBusy beamMelismaBusy)}, only manual melismata and
+@code{'(melismaBusy beamMelismaBusy)}, only manual melismata and
 manual beams are considered.  Possible values include
 @code{melismaBusy}, @code{slurMelismaBusy}, @code{tieMelismaBusy}, and
 @code{beamMelismaBusy}.")
@@ -477,7 +479,7 @@ subdivided at @code{baseMoment} positions by only drawing one beam over the beat
      (suggestAccidentals ,boolean? "If set, accidentals are typeset as
 cautionary suggestions over the note.")
      (systemStartDelimiter ,symbol? "Which grob to make for the start
-of the system/staff?  Set to @code{SystemStartBrace},
+of the system/@/staff?  Set to @code{SystemStartBrace},
 @code{SystemStartBracket} or @code{SystemStartBar}.")
      (systemStartDelimiterHierarchy ,pair? "A nested list, indicating
 the nesting of a start delimiters.")
@@ -496,7 +498,7 @@ minute.")
 follow each other directly.  This can be used for writing out
 arpeggios.")
      (timeSignatureFraction ,number-pair? "A pair of numbers,
-signifying the time signature.  For example, @code{#'(4 . 4)} is a
+signifying the time signature.  For example, @code{'(4 . 4)} is a
 4/4 time signature.")
      (timeSignatureSettings ,cheap-list? "A nested alist of settings for
 time signatures.  Contains elements for various time signatures.  The
@@ -570,7 +572,7 @@ are described in @rinternals{bar-line-interface}.")
 barcheck fail?")
      (beamMelismaBusy ,boolean? "Signal if a beam is present.")
      (busyGrobs ,list? "A queue of @code{(@var{end-moment} .
-@var{GROB})} cons cells.  This is for internal (C++) use only.  This
+@var{grob})} cons cells.  This is for internal (C++) use only.  This
 property contains the grobs which are still busy (e.g. note heads,
 spanners, etc.).")
 
@@ -624,7 +626,7 @@ is not set")
 
      (scriptDefinitions ,list? "The description of scripts.  This is
 used by the @code{Script_engraver} for typesetting note-superscripts
-and subscripts.  See @file{scm/script.scm} for more information.")
+and subscripts.  See @file{scm/@/script.scm} for more information.")
      (slurMelismaBusy ,boolean? "Signal if a slur is present.")
      (stavesFound ,grob-list? "A list of all staff-symbols found.")
 

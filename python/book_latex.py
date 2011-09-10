@@ -3,6 +3,7 @@
 import re
 import tempfile
 import os
+import subprocess
 import book_base as BookBase
 from book_snippets import *
 import lilylib as ly
@@ -68,6 +69,17 @@ Latex_snippet_res = {
            (?P<filename>\S+?)
           })''',
 
+    'musicxml_file':
+         r'''(?smx)
+          ^[^%\n]*?
+          (?P<match>
+          \\musicxmlfile\s*(
+          \[
+           \s*(?P<options>.*?)\s*
+          \])?\s*\{
+           (?P<filename>\S+?)
+          })''',
+
     'singleline_comment':
          r'''(?mx)
           ^.*?
@@ -122,9 +134,9 @@ Latex_output = {
     PRINTFILENAME: '''\\texttt{%(filename)s}
 ''',
 
-    QUOTE: r'''\begin{quotation}
+    QUOTE: r'''\begin{quote}
 %(str)s
-\end{quotation}''',
+\end{quote}''',
 
     VERBATIM: r'''\noindent
 \begin{verbatim}%(verb)s\end{verbatim}
@@ -169,12 +181,20 @@ def get_latex_textwidth (source, global_options):
     tmp_handle.write (latex_document)
     tmp_handle.close ()
 
-    ly.system ('%s %s' % (global_options.latex_program, tmpfile),
-               be_verbose=global_options.verbose)
-    parameter_string = file (logfile).read()
-
+    progress (_ ("Running `%s' on file `%s' to detect default page settings.\n")
+              % (global_options.latex_program, tmpfile));
+    cmd = '%s %s' % (global_options.latex_program, tmpfile);
+    proc = subprocess.Popen (cmd,
+        universal_newlines=True, shell=True,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE);
+    if proc.returncode != 0:
+        warning (_ ("Unable to auto-detect default page settings:\n%s")
+                 % proc.communicate ()[1]);
     os.unlink (tmpfile)
-    os.unlink (logfile)
+    parameter_string = ""
+    if os.path.exists (logfile):
+        parameter_string = file (logfile).read()
+        os.unlink (logfile)
 
     columns = 0
     m = re.search ('columns=([0-9.]+)', parameter_string)

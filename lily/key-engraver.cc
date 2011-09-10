@@ -86,7 +86,6 @@ Key_engraver::create_key (bool is_default)
           && !scm_is_eq (last, key))
         {
           SCM restore = SCM_EOL;
-          SCM *tail = &restore;
           for (SCM s = last; scm_is_pair (s); s = scm_cdr (s))
             {
               SCM new_alter_pair = scm_assoc (scm_caar (s), key);
@@ -95,8 +94,7 @@ Key_engraver::create_key (bool is_default)
                   || ((ly_scm2rational (scm_cdr (new_alter_pair)) - old_alter) * old_alter
                       < Rational (0)))
                 {
-                  *tail = scm_cons (scm_car (s), *tail);
-                  tail = SCM_CDRLOC (*tail);
+                  restore = scm_cons (scm_car (s), restore);
                 }
             }
 
@@ -106,7 +104,7 @@ Key_engraver::create_key (bool is_default)
                                          key_event_
                                          ? key_event_->self_scm () : SCM_EOL);
 
-              cancellation_->set_property ("alteration-alist", scm_reverse (restore));
+              cancellation_->set_property ("alteration-alist", restore);
               cancellation_->set_property ("c0-position",
                                            get_property ("middleCPosition"));
             }

@@ -131,10 +131,9 @@ Paper_score::calc_breaking ()
 void
 Paper_score::process ()
 {
-  if (be_verbose_global)
-    message (_f ("Element count %d (spanners %d) ",
-                 system_->element_count (),
-                 system_->spanner_count ()));
+  debug_output (_f ("Element count %d (spanners %d) ",
+                    system_->element_count (),
+                    system_->spanner_count ()));
 
   message (_ ("Preprocessing graphical objects..."));
 

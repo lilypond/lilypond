@@ -21,5 +21,6 @@ Use the @code{\\override} and @code{\\revert} expressions to set the
   b
   \override NoteHead #'color = #green
   \override Stem #'color = #blue
+  \override Flag #'color = #magenta
   e8 es d dis e4 r
 }

@@ -41,6 +41,8 @@ this @code{\\lyricsto} section.")
 (with @code{+} sign).")
      (augmented-slash ,boolean? "This figure is for an augmented figured bass
 (back-slashed number).")
+     (automatically-numbered ,boolean? "Should a footnote be automatically
+numbered?")
      (autosplit-end ,boolean? "Duration of event was truncated by automatic
 splitting in @code{Completion_heads_engraver}.")
 

@@ -19,6 +19,7 @@
 
 #include "hairpin.hh"
 
+#include "axis-group-interface.hh"
 #include "dimensions.hh"
 #include "international.hh"
 #include "line-interface.hh"
@@ -121,7 +122,7 @@ Hairpin::print (SCM smob)
           else
             {
               bool neighbor_found = false;
-              Spanner *adjacent;
+              Spanner *adjacent = NULL;
               extract_grob_set (me, "adjacent-spanners", neighbors);
               for (vsize i = 0; i < neighbors.size (); i++)
                 {
@@ -140,7 +141,9 @@ Hairpin::print (SCM smob)
                     }
                 }
 
-              Interval e = robust_relative_extent (b, common, X_AXIS);
+              Interval e = (Axis_group_interface::has_interface (b)
+                            ? Axis_group_interface::generic_bound_extent (b, common, X_AXIS)
+                            : robust_relative_extent (b, common, X_AXIS));
               if (neighbor_found)
                 {
                   if (Hairpin::has_interface (adjacent))

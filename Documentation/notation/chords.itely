@@ -506,19 +506,69 @@ Rests passed to a @code{ChordNames} context will cause the
 }
 @end lilypond
 
+@cindex Transposing guitar chords for capo
+
+If the @code{capoPitch} property is set, then the chords will additionally be printed
+transposed for a guitar with the capo set appropriately. By default the chords are
+printed on one line, but if the @code{capoVertical} property is set, the chords will be
+printed one above the other.
+
+In make-pitch, leave the first argument at 0, the second argument is the
+interval (-2 is a third), and the third argument adjusts it up or down a
+semitone.
+
+@lilypond[verbatim,quote,ragged-right]
+<<
+  \new ChordNames \chordmode {
+    c1
+    r1
+    g1
+    c1
+    \break
+    c1
+    r1
+    g1
+    c1
+    \break
+    c1
+    r1
+    g1
+    c1
+  }
+  \chordmode {
+    c1
+    r1
+    g1
+    c1
+    \break
+    \set ChordNames.capoPitch = #(ly:make-pitch 0 -2 -1/2)
+    c1
+    r1
+    g1
+    c1
+    \break
+    \set ChordNames.capoVertical = ##t
+    c1
+    r1
+    g1
+    c1
+  }
+>>
+@end lilypond
+
 @snippets
 
 @c Keep index entries with following snippet
 @cindex chords, suppressing repeated
 @funindex chordChanges
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {showing-chords-at-changes.ly}
 
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 @c {adding-bar-lines-to-chordnames-context.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
 
@@ -673,20 +723,20 @@ The spacer is not used when the root is altered.
 @snippets
 
 @cindex exceptions, chord names.
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-name-exceptions.ly}
 
 @c TODO - tweak snippet to use \blackTriangleMarkup as well
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-name-major7.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-bar-lines-to-chordnames-context.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {volta-below-chords.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
 
@@ -975,7 +1025,7 @@ End of continuation line
 
 
 @snippets
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
 

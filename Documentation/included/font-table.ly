@@ -76,6 +76,7 @@
   (define brackettips (get-group glyph-list "^brackettips\\."))
   (define pedal       (get-group glyph-list "^pedal\\."))
   (define accordion   (get-group glyph-list "^accordion\\."))
+  (define ties   (get-group glyph-list "^ties\\."))
 
   ;; remove all remaining groups from the glyph-list
   (for-each
@@ -95,7 +96,8 @@
             arrowheads
             brackettips
             pedal
-            accordion))
+            accordion
+            ties))
 
   ;;;;;;;;;
 

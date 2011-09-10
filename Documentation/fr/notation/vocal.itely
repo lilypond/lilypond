@@ -611,21 +611,15 @@ Référence des propriétés internes :
 Pour attribuer plus d'une syllabe à une même note, vous pouvez soit les
 mettre entre guillemets, soit utiliser le caractère souligné
 (@code{_}) pour obtenir une espace, ou bien encore utiliser un tilde
-(@code{~}) pour obtenir une liaison entre les syllabes. Cette
-liaison adaptée aux paroles correspond au caractère Unicode
-@code{U+203F}, et n'apparaîtra dans la partition que si le système
-dispose d'une police installée qui contient ce symbole.  Un certain
-nombre de fontes librement disponibles en disposent, comme FreeSerif
-(un clone de Times), `DejaVuSans' (mais pas DejaVuSerif) ou
-TeXGyreSchola (un clone de Century Schoolbook).
+(@code{~}) pour obtenir une liaison entre les syllabes.
 
 @lilypond[quote,ragged-right,verbatim]
 {
   \time 3/4
   \relative c' { c2 e4 g2 e4 }
-  \addlyrics { gran- de_a- mi- go }
-  \addlyrics { pu- "ro y ho-" nes- to }
-  \addlyrics { pu- ro~y~ho- nes- to }
+  \addlyrics { gran -- de_a -- mi -- go }
+  \addlyrics { pu -- "ro y ho" -- nes -- to }
+  \addlyrics { pu -- ro~y~ho -- nes -- to }
 }
 @end lilypond
 
@@ -1114,7 +1108,7 @@ de ces exemples, ou en examinant les
 d'initiation.
 
 @snippets
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {lyrics-old-spacing-settings.ly}
 
 
@@ -1173,7 +1167,7 @@ dans le bloc @code{\layout}.
 @end lilypond
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {lyrics-alignment.ly}
 
 @c TODO: move to LSR -vv
@@ -2164,7 +2158,7 @@ son harmonisation.  La syntaxe appropriée est expliquée en détails au
 chapitre @ref{Notation des accords}.
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
 
@@ -2367,7 +2361,7 @@ Référence des propriétés internes :
 
 @cindex voix, division
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
 @seealso
@@ -2698,7 +2692,7 @@ musicale dans le but de vous épargner de la saisie tout en améliorant
 la lisibilité des notes du piano.
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {adding-orchestral-cues-to-a-vocal-score.ly}
 
 @seealso
@@ -3141,7 +3135,7 @@ exemples qui suivent.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {chant-or-psalms-notation.ly}
 
 Cantiques et autres textes liturgiques peuvent être mis en forme avec
@@ -3150,7 +3144,7 @@ ancienne.  Le texte apparaît souvent sous la mélodie, les mots alors
 alignés sur les notes.  En pareil cas, les notes sont espacées selon les
 syllabes et non leur durée.
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 @seealso
@@ -3341,7 +3335,7 @@ l'utilisation de la commande @code{\partial} en début de partition et
 d'une commande @code{\bar@tie{}"|"} ou @code{\bar@tie{}"||"} à la fin de
 chaque ligne.
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {hymn-template.ly}
 
 

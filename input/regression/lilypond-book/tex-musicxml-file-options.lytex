@@ -1,0 +1,5 @@
+\documentclass{article}
+\begin{document}
+Including MusicMXL file:
+\musicxmlfile[language=deutsch,absolute,no-beaming]{include.xml}
+\end{document}

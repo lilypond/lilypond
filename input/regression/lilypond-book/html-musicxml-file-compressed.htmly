@@ -1,0 +1,6 @@
+<html>
+<body>
+Including a compressed MusicXML file:
+<musicxmlfile language="deutsch" absolute no-beaming printfilename>include.mxl</musicxmlfile>
+</body>
+</html>

@@ -38,7 +38,7 @@
 included in this script's support.")
      (after-line-breaking ,boolean? "Dummy property, used to trigger
 callback for @code{after-line-breaking}.")
-     (align-dir ,ly:dir? "Which side to align? @code{-1}: left side,
+     (align-dir ,ly:dir? "Which side to align? @w{@code{-1}}: left side,
 @code{0}: around center of width, @code{1}: right side.")
      (allow-loose-spacing ,boolean? "If set, column can be detached
 from main spacing.")
@@ -58,6 +58,8 @@ arpeggio squiggly line.")
      (auto-knee-gap ,ly:dimension? "If a gap is found between note
 heads where a horizontal beam fits that is larger than this number,
 make a kneed beam.")
+     (automatically-numbered ,boolean? "Should a footnote be automatically
+numbered?")
      (average-spacing-wishes ,boolean? "If set, the spacing wishes are
 averaged over staves.")
      (avoid-note-head ,boolean? "If set, the stem of a chord does not
@@ -164,12 +166,12 @@ stick out of its bounds?")
 ;;
      (c0-position ,integer? "An integer indicating the position of
 middle@tie{}C.")
-     (circled-tip ,boolean? "Put a circle at start/end of
-hairpins (al/del niente).")
+     (circled-tip ,boolean? "Put a circle at start/@/end of
+hairpins (al/@/del niente).")
      (clip-edges ,boolean? "Allow outward pointing beamlets at the
 edges of beams?")
      (collapse-height ,ly:dimension? "Minimum height of system start
-delimiter.  If equal or smaller, the bracket/brace/line is removed.")
+delimiter.  If equal or smaller, the bracket/@/brace/@/line is removed.")
      (collision-interfaces ,list? "A list of interfaces for which
 automatic beam-collision resolution is run.")
      (collision-voice-only ,boolean? "Does automatic beam collsion apply
@@ -213,13 +215,13 @@ looking at the top of the Internals Reference page for each interface
 having a @code{details} property.")
      (digit-names ,vector? "Names for string finger digits.")
      (direction ,ly:dir? "If @code{side-axis} is @code{0} (or
-@code{#X}), then this property determines whether the object is placed
-@code{#LEFT}, @code{#CENTER} or @code{#RIGHT} with respect to the
+@code{X}), then this property determines whether the object is placed
+@code{LEFT}, @code{CENTER} or @code{RIGHT} with respect to the
 other object.  Otherwise, it determines whether the object is placed
-@code{#UP}, @code{#CENTER} or @code{#DOWN}.  Numerical values may also
-be used: @code{#UP}=@code{1}, @code{#DOWN}=@code{-1},
-@code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1},
-@code{#CENTER}=@code{0}.")
+@code{UP}, @code{CENTER} or @code{DOWN}.  Numerical values may also
+be used: @code{UP}=@code{1}, @code{DOWN}=@w{@code{-1}},
+@code{LEFT}=@w{@code{-1}}, @code{RIGHT}=@code{1},
+@code{CENTER}=@code{0}.")
      (dot-count ,integer? "The number of dots.")
      (dot-negative-kern ,number? "The space to remove between a dot
 and a slash in percent repeat glyphs.  Larger values bring the two
@@ -272,17 +274,7 @@ Y@tie{}dimension by this much.")
 ;;
 ;; f
 ;;
-     (flag ,ly:stencil? "A function returning the full flag stencil
-for the @code{Stem}, which is passed to the function as the only
-argument.  The default ly:stem::calc-stencil function uses the
-@code{flag-style} property to determine the correct glyph for the
-flag.  By providing your own function, you can create arbitrary
-flags.")
      (flag-count ,number? "The number of tremolo beams.")
-     (flag-style ,symbol? "A symbol determining what style of flag
-glyph is typeset on a @code{Stem}.  Valid options include @code{'()}
-for standard flags, @code{'mensural} and @code{'no-flag}, which
-switches off the flag.")
      (font-encoding ,symbol? "The font encoding is the broadest
 category for selecting a font.  Currently, only lilypond's system
 fonts (Emmentaler) are using this property.  Available
@@ -300,7 +292,7 @@ include @code{medium}, @code{bold}, @code{bold-narrow}, etc.")
 include @code{upright}, @code{italic}, @code{caps}.")
      (font-size ,number? "The font size, compared to the
 @q{normal}@tie{}size.  @code{0}@tie{}is style-sheet's normal size,
-@code{-1} is smaller, @code{+1} is bigger.  Each step of@tie{}1 is
+@w{@code{-1}} is smaller, @code{+1} is bigger.  Each step of@tie{}1 is
 approximately 12% larger; 6@tie{}steps are exactly a factor@tie{}2
 larger.  Fractional values are allowed.")
      (footnote-text ,markup? "A footnote for the grob.")
@@ -356,8 +348,8 @@ the center of the fret in direction parallel to strings.
 Default@tie{}0.
 @item
 @code{label-dir} -- Side to which the fret label is attached.
-@code{-1}, @code{#LEFT}, or @code{#DOWN} for left or down; @code{1},
-@code{#RIGHT}, or @code{#UP} for right or up.  Default @code{#RIGHT}.
+@w{@code{-1}}, @code{LEFT}, or @code{DOWN} for left or down; @code{1},
+@code{RIGHT}, or @code{UP} for right or up.  Default @code{RIGHT}.
 @item
 @code{mute-string} -- Character string to be used to indicate muted
 string.  Default @code{\"x\"}.
@@ -434,8 +426,8 @@ be included in harp-pedal-details include the following:
 
 @itemize @bullet
 @item
-@code{box-offset} -- Vertical shift of the center of flat/sharp pedal
-boxes above/below the horizontal line.  Default value@tie{}0.8.
+@code{box-offset} -- Vertical shift of the center of flat/@/sharp pedal
+boxes above/@/below the horizontal line.  Default value@tie{}0.8.
 @item
 @code{box-width} -- Width of each pedal box.  Default value@tie{}0.4.
 @item
@@ -698,7 +690,7 @@ attachments of spanners to edges.")
      (right-padding ,ly:dimension? "Space to insert on the right side
 of an object (e.g., between note and its accidentals).")
      (rotation ,list? "Number of degrees to rotate this object, and
-what point to rotate around.  For example, @code{#'(45 0 0)} rotates
+what point to rotate around.  For example, @code{'(45 0 0)} rotates
 by 45 degrees around the center of this object.")
      (round-up-to-longer-rest ,boolean? "Displays the longer multi-measure
 rest when the length of a measure is between two values of
@@ -716,7 +708,7 @@ stem distance.")
      (script-priority ,number? "A sorting key that determines in what
 order a script is within a stack of scripts.")
      (self-alignment-X ,number? "Specify alignment of an object.  The
-value @code{-1} means left aligned, @code{0}@tie{}centered, and
+value @w{@code{-1}} means left aligned, @code{0}@tie{}centered, and
 @code{1}@tie{}right-aligned in X@tie{}direction.  Other numerical
 values may also be specified.")
      (self-alignment-Y ,number? "Like @code{self-alignment-X} but for
@@ -732,9 +724,9 @@ space for the shortest duration.  This is expressed in
 shortest note playing here.")
      (shortest-starter-duration ,ly:moment? "The duration of the
 shortest note that starts here.")
-     (side-axis ,number? "If the value is @code{#X} (or
+     (side-axis ,number? "If the value is @code{X} (or
 equivalently@tie{}@code{0}), the object is placed horizontally next to
-the other object.  If the value is @code{#Y} or@tie{}@code{1}, it is
+the other object.  If the value is @code{Y} or@tie{}@code{1}, it is
 placed vertically.")
      (side-relative-direction ,ly:dir? "Multiply direction of
 @code{direction-source} with this to get the direction of this
@@ -779,7 +771,8 @@ bounds (i.e., clefs, key signatures and time signatures) using the following
 override:
 
 @example
-\\override MultiMeasureRest #'spacing-pair = #'(staff-bar . staff-bar)
+\\override MultiMeasureRest
+  #'spacing-pair = #'(staff-bar . staff-bar)
 @end example")
      (spanner-id ,string? "An identifier to distinguish concurrent spanners.")
      (springs-and-rods ,boolean? "Dummy variable for triggering
@@ -845,10 +838,8 @@ the @code{staff-staff-spacing} property of the staff's
 structure.")
      (stem-attachment ,number-pair? "An @code{(@var{x} . @var{y})}
 pair where the stem attaches to the notehead.")
-     (stem-begin-position ,number? "Where does the stem begin (the
-position of the support-head)?")
-     (stem-end-position ,number? "Where does the stem end (the end is
-opposite to the support-head)?")
+     (stem-begin-position ,number? "User override for the
+begin position of a stem.")
      ;;[TODO: doco]
      (stem-spacing-correction ,number? "Optical correction amount for
 stems that are placed in tight configurations.  For opposite
@@ -889,7 +880,7 @@ should use @code{LEFT}.")
 @var{dir})} pairs, indicating the desired tie configuration, where
 @var{position} is the offset from the center of the staff in staff
 space and @var{dir} indicates the direction of the tie
-(@code{1}=>up, @code{-1}=>down, @code{0}=>center).  A non-pair entry
+(@code{1}=>up, @w{@code{-1}}=>down, @code{0}=>center).  A non-pair entry
 in the list causes the corresponding tie to be formatted
 automatically.")
      (to-barline ,boolean? "If true, the spanner will stop at the bar
@@ -994,8 +985,10 @@ function is to protect objects from being garbage collected.")
 
      (bars ,ly:grob-array? "An array of bar line pointers.")
      (beam ,ly:grob? "A pointer to the beam, if applicable.")
+     (bound-alignment-interfaces ,list "Interfaces to be used
+for positioning elements that align with a column.")
      (bounded-by-me ,ly:grob-array? "An array of spanners that have this
-column as start/begin point.  Only columns that have grobs or act as
+column as start/@/begin point.  Only columns that have grobs or act as
 bounds are spaced.")
      (bracket ,ly:grob? "The bracket for a number.")
 
@@ -1017,6 +1010,7 @@ the grob where this is set in.")
 in addition to notes and stems.")
 
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
+     (flag ,ly:grob? "A pointer to a @code{Flag} object.")
 
      (glissando-index ,integer? "The index of a glissando in its note
 column.")
@@ -1065,10 +1059,11 @@ objects.")
      (spanner-broken ,boolean? "Indicates whether spanner
 alignment should be broken after the current spanner.")
      (spanner-placement ,ly:dir? "The place of an annotation on a spanner.
-LEFT is for the first spanner, and RIGHT is for the last.  CENTER will
-place it on the broken spanner that falls closest to the center of the length
-of the entire spanner, although this behavior is unpredictable in situations
-with lots of rhythmic diversity.  For predictable results, use LEFT and RIGHT.")
+@code{LEFT} is for the first spanner, and @code{RIGHT} is for the last.
+@code{CENTER} will place it on the broken spanner that falls closest to the
+center of the length of the entire spanner, although this behavior is
+unpredictable in situations with lots of rhythmic diversity.  For predictable
+results, use @code{LEFT} and @code{RIGHT}.")
      (staff-grouper ,ly:grob? "The staff grouper we belong to.")
      (staff-symbol ,ly:grob? "The staff symbol grob that we are in.")
      (stem ,ly:grob? "A pointer to a @code{Stem} object.")
@@ -1165,7 +1160,7 @@ an additional stem on the right side?")
 
      (cavum ,boolean? "Is this neume outlined?")
      (context-info ,integer? "Within a ligature, the final glyph or shape of
-a head may be affected by the left and/or right neighbour head.
+a head may be affected by the left and/@/or right neighbour head.
 @code{context-info} holds for each head such information about the left and
 right neighbour, encoded as a bit mask.")
 

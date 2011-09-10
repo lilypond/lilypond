@@ -231,7 +231,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
                         SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
-
+  pango_fc_font_unlock_face (fcfont);
   pango_glyph_string_free (pgs);
   pgs = 0;
   PangoFontDescription *descr = pango_font_describe (pa->font);

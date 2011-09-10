@@ -408,9 +408,10 @@ table.menu {
 /***********************************************************/
 
 @media print {
-  /* Hide the sidebar: */
-  body { padding-left: 0; }
-  #tocframe { display: none; }
+  /* Hide the sidebar and make the main contents take up the full width */
+  div#main { position: static; overflow: visible; left: 0; }
+  div#tocframe { display: none; }
+  /* Also don't show the navigation toolbars between all sections */
   .nav_table { display: none; }
 }
 

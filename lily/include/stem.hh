@@ -40,35 +40,42 @@ public:
   static void add_head (Grob *me, Grob *n);
   static Stem_info get_stem_info (Grob *);
   static Real chord_start_y (Grob *);
-  static void set_stemend (Grob *, Real);
+  static void set_stem_positions (Grob *, Real);
+  static void cache_pure_height (Grob *, Interval, Interval);
   static Slice beam_multiplicity (Grob *);
   static Direction get_default_dir (Grob *);
   static Real thickness (Grob *);
+  static Real beam_end_corrective (Grob *);
   static int head_count (Grob *);
   static bool is_invisible (Grob *);
   static bool is_normal_stem (Grob *);
   static bool is_cross_staff (Grob *);
   static Interval head_positions (Grob *);
-  static Real stem_end_position (Grob *);
-  static Stencil flag (Grob *);
-  static Stencil get_translated_flag (Grob *);
+  static Interval internal_pure_height (Grob *, bool);
+  static Interval internal_height (Grob *, bool);
+  static bool is_valid_stem (Grob *);
+  static Grob *get_reference_head (Grob *);
+  static Real internal_calc_stem_end_position (Grob *, bool);
+  static Real internal_calc_stem_begin_position (Grob *, bool);
+
   DECLARE_GROB_INTERFACE ();
   static void set_spacing_hints (Grob *);
+  static Grob *flag (Grob *);
 
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_default_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (offset_callback, (SCM element));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_beaming, (SCM));
-  DECLARE_SCHEME_CALLBACK (calc_length, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_stem_begin_position, (SCM));
+  DECLARE_SCHEME_CALLBACK (pure_calc_stem_begin_position, (SCM, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (calc_stem_end_position, (SCM));
+  DECLARE_SCHEME_CALLBACK (pure_calc_stem_end_position, (SCM, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (calc_stem_info, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM smob));
   DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
-  DECLARE_SCHEME_CALLBACK (calc_flag, (SCM));
 };
 #endif

@@ -14,3 +14,4 @@ input feta-accidentals;
 %input feta-timesignatures;
 %input feta-pedals;
 %input feta-accordion;
+%input feta-ties;

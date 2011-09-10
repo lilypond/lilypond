@@ -25,7 +25,7 @@ dwn = {
   (ly:stencil-combine-at-edge
     (ly:accidental-interface::print grob) Y UP
     (grob-interpret-markup grob (markup #:line
-          (#:fontsize -1 (#:musicglyph "flags.ugrace")))) -1.3 0))
+          (#:fontsize -1 (#:musicglyph "flags.ugrace")))) -1.3))
 }
 
 %

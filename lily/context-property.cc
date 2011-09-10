@@ -24,6 +24,7 @@
 #include "main.hh"
 #include "simple-closure.hh"
 #include "spanner.hh"
+#include "unpure-pure-container.hh"
 #include "warn.hh"
 
 /*
@@ -113,10 +114,15 @@ execute_override_property (Context *context,
   target_alist = scm_acons (symbol, new_value, target_alist);
 
   bool ok = true;
-  if (!ly_is_procedure (new_value)
-      && !is_simple_closure (new_value))
-    ok = type_check_assignment (symbol, new_value,
-                                ly_symbol2scm ("backend-type?"));
+  bool pc = is_unpure_pure_container (new_value);
+  SCM vals[] = {pc ? unpure_pure_container_unpure_part (new_value) : new_value,
+                pc ? unpure_pure_container_pure_part (new_value) : SCM_BOOL_F};
+
+  for (int i = 0; i < 2; i++)
+    if (!ly_is_procedure (vals[i])
+        && !is_simple_closure (vals[i]))
+      ok = ok && type_check_assignment (symbol, vals[i],
+                                    ly_symbol2scm ("backend-type?"));
 
   /*
     tack onto alist.  We can use set_car, since

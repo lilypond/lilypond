@@ -57,11 +57,35 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; cross-staff stuff
+
+(define-public (script-or-side-position-cross-staff g)
+  (or
+   (ly:script-interface::calc-cross-staff g)
+   (ly:side-position-interface::calc-cross-staff g)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; note heads
 
 (define-public (stem::calc-duration-log grob)
   (ly:duration-log
    (ly:event-property (event-cause grob) 'duration)))
+
+(define-public (stem::length grob)
+  (let* ((d (ly:grob-property grob 'direction))
+         (ss (ly:staff-symbol-staff-space grob))
+         (beg (ly:grob-property grob 'stem-begin-position))
+         (beam (ly:grob-object grob 'beam)))
+    (if (null? beam)
+        (abs (- (ly:stem::calc-stem-end-position grob) beg))
+        (ly:grob-property grob 'length))))
+
+(define-public (stem::pure-length grob beg end)
+  (let* ((d (ly:grob-property grob 'direction))
+         (ss (ly:staff-symbol-staff-space grob))
+         (beg (ly:grob-pure-property grob 'stem-begin-position 0 1000)))
+    (abs (- (ly:stem::pure-calc-stem-end-position grob 0 2147483646) beg))))
 
 (define-public (note-head::calc-duration-log grob)
   (min 2

@@ -347,7 +347,7 @@ install-WWW:
 @end smallexample
 
 I don't currently understand the @code{ifeq}, since @code{$(out)}
-is empty at this point, but the line starting @code{-$(INSTALL)}
+is empty at this point, but the line starting @w{@code{-$(INSTALL)}}
 translates to:
 
 @example

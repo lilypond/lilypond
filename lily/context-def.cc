@@ -174,8 +174,7 @@ Context_def::get_accepted (SCM user_mod) const
   SCM def = get_default_child (user_mod);
   if (scm_is_symbol (def))
     {
-      if (scm_memq (def, acc))
-        acc = scm_delete_x (def, acc);
+      acc = scm_delete_x (def, acc);
       acc = scm_cons (def, acc);
     }
 

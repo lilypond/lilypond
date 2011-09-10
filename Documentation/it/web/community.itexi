@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: ee3a89f9f7289bcd90c5f27fd8f86400159088b2
+    Translation of GIT committish: 402e3b1ac8d0c65b63a992dfd1247ed058e69ff8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -268,7 +268,7 @@ linee guida per la @ref{Segnalazione bug}.}
 @divClass{column-center-top}
 @subheading Cosa sono gli @qq{Esempi minimi}?
 
-Un esempio minimo è un esempio dal quale niente può essere tolto.
+Un esempio minimo è un esempio dal quale @strong{niente} può essere tolto.
 @divEnd
 
 @divClass{column-left-bottom}
@@ -282,12 +282,12 @@ Più l'esempio è semplice, più rapidamente potenziali solutori
 possono comprenderlo e aiutarti.
 
 @item
-Un esempio semplice dimostra che hai tentato di risolvere il problema
+Un esempio minimo dimostra che hai tentato di risolvere il problema
 da solo.  Quando le persone inviano grandi porzioni di input, sembra
 che non si preoccupino che noi li possiamo aiutare o no.
 
 @item
-Creare un esempio minimo ti spinge a capire cosa sta
+Creare un esempio minimo ti aiuta a capire cosa sta
 succedendo.  Molte segnalazioni di un falso problema possono essere
 evitate se si prova a creare un esempio minimo; se non riesci a ricreare
 un @qq{bug} in un esempio minimo, allora probabilmente il problema è
@@ -300,19 +300,18 @@ una comprensione di LilyPond insufficiente, non un vero bug!
 
 
 @divClass{column-right-bottom}
-@subheading Come li creo?
+@subheading Come crearli?
 
 @divClass{keep-bullets}
 @itemize
 
 @item
-Includi il numero di versione nel comando \version.
+Includi il numero di versione nel comando @code{\version}.
 
 @item
 Crea un esempio piccolo!  Gli esempi che riguardano la spaziatura o la
 formattazione di pagina potrebbero richiedere molte battute, ma la maggior
-parte dei problemi può essere ricreata in una singola
-battuta.
+parte dei problemi può essere ricreata in meno di una sola battuta.
 
 @item
 Durante la preparazione di un esempio, cerca di commentare @w{(@code{%}
@@ -321,19 +320,58 @@ commentare una porzione di codice riuscendo a mantenere chiara l'idea principale
 allora elimina il materiale commentato!
 
 @item
-Evita di usare note, tonalità, o segni di tempo complicati a meno che
+Evita di usare note, tonalità o segni di tempo complicati a meno che
 il malfunzionamento non riguardi proprio il comportamento di questi elementi.
 
 @item
 Non usare i comandi @code{\override} o @code{\set} a meno che il malfunzionamento
 non riguardi questi comandi in particolare.
 
+@item
+Eventualmente, allega un'immagine che mostri il risultato grafico desiderato.
+
 @end itemize
 @divEnd
 
 @divEnd
 
+@divClass{column-center-bottom}
+@subheading Quanto piccoli devono essere?
 
+Il codice seguente è un esempio minimo?
+
+@example
+\version "2.14.1"
+\include "english.ly"
+
+\score @{
+  \new Staff @{
+    \key d \major
+    \numericTimeSignature
+    \time 2/4
+    <cs' d'' b''>16 <cs' d'' b''>8.
+    %% Here: the tie on the D's looks funny
+    %% Too tall? Left-hand endpoint is not aligned with the B tie?
+    ~
+    <cs' d'' b''>8 [ <b d'' a''> ]
+  @}
+@}
+@end example
+
+Non è così grande, ma un vero esempio minimo è il seguente:
+
+@example
+\version "2.14.1"
+@{
+  % middle tie looks funny here:
+  <c' d'' b''>8. ~ <c' d'' b''>8
+@}
+@end example
+
+Sono pochi gli esempi minimi che superano 10 righe di codice -
+spesso 4 righe sono sufficienti per spiegare il problema!
+
+@divEnd
 
 
 @node Segnalazione bug
@@ -372,15 +410,14 @@ ogni bug può essere dimostrato con quattro note o meno!}
 Ecco un esempio di una valida segnalazione bug:
 
 @example
-%% il comando di ottavazione
-%% non modifica l'output!
+% Le alterazioni dovrebbero comparire solo nella
+% prima nota di una legatura di valore, ma questa
+% versione mostra il bemolle accanto a entrambe le note.
+\version "2.10.1"
 
-\version "2.10.0"
-\paper@{ ragged-right=##t @}
-\relative c''' @{
-  c1
-  #(set-octavation 1)
-  c1
+\relative c'' @{
+ bes1 ~
+ bes1
 @}
 @end example
 
@@ -418,6 +455,10 @@ Per evitarlo, aggiungi
 
 @end itemize
 @divEnd
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Passo 4: Attendi una risposta
 
 Una volta che il bug è stato inviato alla lista, la nostra Squadra Bug esaminerà
 la segnalazione.  Una risposta può richiedere fino a 24 ore, perché abbiamo
@@ -429,6 +470,17 @@ Puoi contrassegnare il bug in modo da ricevere automaticamente delle email
 ogni volta capiti un'attività relativa al bug.  Per fare questo occorre
 avere un account google.
 @divEnd
+
+@divClass{column-center-bottom}
+@subheading Aiuto facoltativo: mostra il comportamento desiderato
+
+Dopo che il problema è stato aggiunto al tracker, può essere molto
+utile poter vedere l'output desiderato.  Aggiungi pure del codice di
+input e/o delle immagini (se possibile, create con altri strumenti) che
+mostrino come dovrebbe apparire secondo te!
+
+@divEnd
+
 
 
 @node Aiutaci

@@ -38,6 +38,7 @@ protected:
   void stop_translation_timestep ();
   void start_translation_timestep ();
   void process_music ();
+  void handle_manual_breaks (bool);
   virtual void initialize ();
   virtual void finalize ();
 

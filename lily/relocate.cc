@@ -49,9 +49,8 @@ sane_putenv (char const *key, string value, bool overwrite)
       string combine = string (key) + "=" + value;
       char *s = strdup (combine.c_str ());
 
-      if (be_verbose_global)
-        progress_indication (_f ("Setting %s to %s", key, value.c_str ())
-                             + "\n");
+      debug_output (_f ("Setting %s to %s", key, value.c_str ())
+                    + "\n");
 
       int retval = putenv (s);
       /*
@@ -69,7 +68,8 @@ set_env_file (char const *key, string value, bool overwrite = false)
 {
   if (is_file (value))
     return sane_putenv (key, value, overwrite);
-  else if (be_verbose_global)
+  else if (is_loglevel (LOG_DEBUG))
+    // this warning should only be printed in debug mode!
     warning (_f ("no such file: %s for %s", value, key));
   return -1;
 }
@@ -79,7 +79,8 @@ set_env_dir (char const *key, string value)
 {
   if (is_dir (value))
     return sane_putenv (key, value, false);
-  else if (be_verbose_global)
+  else if (is_loglevel (LOG_DEBUG))
+    // this warning should only be printed in debug mode!
     warning (_f ("no such directory: %s for %s", value, key));
   return -1;
 }
@@ -89,15 +90,15 @@ prepend_env_path (char const *key, string value)
 {
   if (is_dir (value))
     {
-      if (be_verbose_global)
-        progress_indication (_f ("%s=%s (prepend)\n", key, value.c_str ()));
+      debug_output (_f ("%s=%s (prepend)\n", key, value.c_str ()), false);
 
       if (char const *cur = getenv (key))
         value += to_string (PATHSEP) + cur;
 
       return sane_putenv (key, value.c_str (), true);
     }
-  else if (be_verbose_global)
+  else if (is_loglevel (LOG_DEBUG))
+    // this warning should only be printed in debug mode
     warning (_f ("no such directory: %s for %s", value, key));
   return -1;
 }
@@ -130,10 +131,9 @@ prefix_relocation (string prefix)
 
   prepend_env_path ("PATH", bindir);
 
-  if (be_verbose_global)
-    warning (_f ("Relocation: compile datadir=%s, new datadir=%s",
-                 old_lilypond_datadir.c_str (),
-                 lilypond_datadir.c_str ()));
+  debug_output (_f ("Relocation: compile datadir=%s, new datadir=%s",
+                    old_lilypond_datadir.c_str (),
+                    lilypond_datadir.c_str ()));
 }
 
 /*
@@ -143,8 +143,7 @@ prefix_relocation (string prefix)
 static void
 framework_relocation (string prefix)
 {
-  if (be_verbose_global)
-    warning (_f ("Relocation: framework_prefix=%s", prefix));
+  debug_output (_f ("Relocation: framework_prefix=%s", prefix));
 
   sane_putenv ("INSTALLER_PREFIX", prefix, true);
 
@@ -184,15 +183,13 @@ setup_paths (char const *argv0_ptr)
           if (argv0_filename.is_absolute ())
             {
               argv0_abs = argv0_filename.to_string ();
-              if (be_verbose_global)
-                warning (_f ("Relocation: is absolute: argv0=%s", argv0_ptr));
+              debug_output (_f ("Relocation: is absolute: argv0=%s\n", argv0_ptr));
             }
           else if (argv0_filename.dir_.length ())
             {
               argv0_abs = get_working_directory ()
                           + "/" + string (argv0_filename.to_string ());
-              if (be_verbose_global)
-                warning (_f ("Relocation: from cwd: argv0=%s", argv0_ptr));
+              debug_output (_f ("Relocation: from cwd: argv0=%s\n", argv0_ptr));
             }
           else
             {
@@ -208,9 +205,8 @@ setup_paths (char const *argv0_ptr)
               argv0_abs = path.find (argv0_filename.to_string (), ext);
 #endif /* __MINGW32__ */
 
-              if (be_verbose_global)
-                warning (_f ("Relocation: from PATH=%s\nargv0=%s",
-                             path.to_string ().c_str (), argv0_ptr));
+              debug_output (_f ("Relocation: from PATH=%s\nargv0=%s",
+                                path.to_string ().c_str (), argv0_ptr), true);
 
               if (argv0_abs.empty ())
                 programming_error ("cannot find absolute argv0");
@@ -361,10 +357,7 @@ read_line (FILE *f)
 void
 read_relocation_file (string filename)
 {
-  if (be_verbose_global)
-    progress_indication (_f ("Relocation file: %s", filename.c_str ())
-                         + "\n");
-
+  debug_output (_f ("Relocation file: %s", filename.c_str ()) + "\n");
   char const *cname = filename.c_str ();
   FILE *f = fopen (cname, "r");
   if (!f)

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最近更新 Wed Jul 13 10:59:12 UTC 2011
+@emph{最近更新 Sat Aug 13 14:15:49 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -129,7 +129,7 @@ LilyPond --- \TITLE\
 @item
 手册
 @*
-1203
+1214
 @tab Ben Luo
 @tab 
 @tab 
@@ -156,7 +156,7 @@ LilyPond --- \TITLE\
 @item
 社区
 @*
-1755
+1888
 @tab 
 @tab 
 @tab 

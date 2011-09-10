@@ -16,9 +16,9 @@ have been reached.
 \book {
 
 \markup {
-  a \footnote b c
-  \footnote d e
-  \footnote f g
+  a \auto-footnote b c
+  \auto-footnote d e
+  \auto-footnote f g
 }
 
 \markup { h i }
@@ -29,7 +29,7 @@ a b c d }
 
 \pageBreak
 
-\markup { k \footnote l m }
+\markup { k \auto-footnote l m }
 
 \relative c' { a1 }
 

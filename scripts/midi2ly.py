@@ -975,7 +975,7 @@ def convert_midi (in_file, out_file):
 
     s = tag
     s += r'''
-\version "2.13.53"
+\version "2.14.0"
 '''
 
     s += r'''

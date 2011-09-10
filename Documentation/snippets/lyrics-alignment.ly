@@ -48,8 +48,8 @@ les valeurs @code{#1} ou @code{#RIGHT} un alignement par la droite.
   texidoc = "
 Horizontal alignment for lyrics cam be set by overriding the
 @code{self-alignment-X} property of the @code{LyricText} object.
-@code{#-1} is left, @code{#0} is center and @code{#1} is right;
-however, you can use @code{#LEFT}, @code{#CENTER} and @code{#RIGHT} as
+@w{@code{-1}} is left, @code{0} is center and @code{1} is right;
+however, you can use @code{LEFT}, @code{CENTER} and @code{RIGHT} as
 well.
 
 "

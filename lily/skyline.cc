@@ -392,7 +392,7 @@ Skyline::Skyline (Direction sky)
   added to it.
 */
 
-Skyline::Skyline (Skyline const &src, Real horizon_padding, Axis a)
+Skyline::Skyline (Skyline const &src, Real horizon_padding, Axis /*a*/)
 {
   /*
      We extract boxes from the skyline, then build a new skyline from
@@ -406,6 +406,7 @@ Skyline::Skyline (Skyline const &src, Real horizon_padding, Axis a)
   list<Box> boxes;
 
   // establish a baseline box
+  // FIXME: This has hardcoded logic, assuming a == X_AXIS!
   boxes.push_back (Box (Interval (-infinity_f, infinity_f),
                         Interval (0, 0)));
   list<Building>::const_iterator end = src.buildings_.end ();
@@ -513,6 +514,7 @@ Skyline::distance (Skyline const &other, Real horizon_padding) const
 
   Skyline const *padded_this = this;
   Skyline const *padded_other = &other;
+  bool created_tmp_skylines = false;
 
   /*
     For systems, padding is not added at creation time.  Padding is
@@ -524,6 +526,7 @@ Skyline::distance (Skyline const &other, Real horizon_padding) const
     {
       padded_this = new Skyline (*padded_this, horizon_padding, X_AXIS);
       padded_other = new Skyline (*padded_other, horizon_padding, X_AXIS);
+      created_tmp_skylines = true;
     }
 
   list<Building>::const_iterator i = padded_this->buildings_.begin ();
@@ -543,6 +546,13 @@ Skyline::distance (Skyline const &other, Real horizon_padding) const
         j++;
       start = end;
     }
+
+  if (created_tmp_skylines)
+    {
+      delete padded_this;
+      delete padded_other;
+    }
+
   return dist;
 }
 

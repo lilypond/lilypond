@@ -2,7 +2,7 @@
 
 \header {
   texidoc = "Clefs for cue notes at the start of a score should print the
-standard clef plus a small cue clef after the time/key signature."
+standard clef plus a small cue clef after the time/@/key signature."
 }
 
 vI = \relative c'' { \clef "treble" \repeat unfold 40 g4 }

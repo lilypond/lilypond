@@ -24,10 +24,7 @@
 	     (ice-9 optargs))
 
 (define-public (ly:system command)
-  (if (ly:get-option 'verbose)
-      (begin
-	(ly:message (_ "Invoking `~a'...") (string-join command)))
-      (ly:progress "\n"))
+  (ly:debug (_ "Invoking `~a'...") (string-join command))
   (let ((status (apply ly:spawn command)))
     (if (> status 0)
 	(begin

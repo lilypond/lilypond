@@ -34,23 +34,23 @@ beautiful printed scores!
 
 @appendixsubsec Notes only
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
 {single-staff-template-with-only-notes.ly}
 
 
 @appendixsubsec Notes and lyrics
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
 {single-staff-template-with-notes-and-lyrics.ly}
 
 @appendixsubsec Notes and chords
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {single-staff-template-with-notes-and-chords.ly}
 
 @appendixsubsec Notes, lyrics, and chords.
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
@@ -59,22 +59,22 @@ beautiful printed scores!
 
 @appendixsubsec Solo piano
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-simple.ly}
 
 @appendixsubsec Piano and melody with lyrics
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-melody-and-lyrics.ly}
 
 @appendixsubsec Piano centered lyrics
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
 
 @appendixsubsec Piano centered dynamics
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-dynamics.ly}
 
 
@@ -83,12 +83,12 @@ beautiful printed scores!
 
 @appendixsubsec String quartet
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-simple.ly}
 
 @appendixsubsec String quartet parts
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-with-separate-parts.ly}
 
 
@@ -97,37 +97,37 @@ beautiful printed scores!
 
 @appendixsubsec SATB vocal score
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template.ly}
 
 @appendixsubsec SATB vocal score and automatic piano reduction
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-automatic-piano-reduction.ly}
 
 @appendixsubsec SATB with aligned contexts
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
 @appendixsubsec SATB on four staves
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {satb-choir-template---four-staves.ly}
 
 @appendixsubsec Solo verse and two-part refrain
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-verse-and-refrain.ly}
 
 @appendixsubsec Hymn tunes
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {hymn-template.ly}
 
 @appendixsubsec Psalms
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {anglican-psalm-template.ly}
 
 
@@ -135,7 +135,7 @@ beautiful printed scores!
 @appendixsec Orchestral templates
 
 @appendixsubsec Orchestra, choir and piano
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {orchestra,-choir-and-piano-template.ly}
 
 
@@ -145,12 +145,12 @@ beautiful printed scores!
 
 @appendixsubsec Transcription of mensural music
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {ancient-notation-template----modern-transcription-of-mensural-music.ly}
 
 @appendixsubsec Gregorian transcription template
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
@@ -159,7 +159,7 @@ beautiful printed scores!
 
 @appendixsubsec Jazz combo
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {jazz-combo-template.ly}
 
 

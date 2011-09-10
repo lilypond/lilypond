@@ -70,19 +70,18 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       else
         {
           File_name out (output_name);
-          if (is_dir (out.dir_part ()))
-            {
-              dir = out.dir_part ();
-              out_file_name = out.file_part ();
-            }
+          dir = out.dir_part ();
+          out_file_name = out.file_part ();
         }
 
       if (dir != "" && dir != "." && dir != get_working_directory ())
         {
           global_path.prepend (get_working_directory ());
-          message (_f ("Changing working directory to: `%s'",
-                       dir.c_str ()));
-          chdir (dir.c_str ());
+          message (_f ("Changing working directory to: `%s'", dir));
+          // If we can't change to the output dir (not existing, wrong
+          // permissions), exit lilypond
+          if (chdir (dir.c_str ()) != 0)
+            error (_f ("unable to change directory to: `%s'", dir));
         }
       else
         out_file_name = File_name (output_name);
@@ -115,8 +114,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       sources.set_path (&global_path);
 
       string mapped_fn = map_file_name (file_name);
-      message (_f ("Processing `%s'", mapped_fn.c_str ()));
-      progress_indication ("\n");
+      basic_progress (_f ("Processing `%s'", mapped_fn.c_str ()));
 
       Lily_parser *parser = new Lily_parser (&sources);
 
@@ -206,6 +204,25 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
     parser->parse_string (ly_scm2string (ly_code));
 
   return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_parse_string_expression, "ly:parse-string-expression",
+           2, 0, 0, (SCM parser_smob, SCM ly_code),
+           "Parse the string @var{ly-code} with @var{parser-smob}."
+" Return the contained music expression.")
+{
+  LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
+  Lily_parser *parser = unsmob_lily_parser (parser_smob);
+  LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
+
+  if (!parser->lexer_->is_clean ())
+    {
+      parser->parser_error (_ ("ly:parse-string-expression is only valid with a new parser."
+			       "  Use ly:parser-include-string instead."));
+      return SCM_UNSPECIFIED;
+    }
+
+  return parser->parse_string_expression (ly_scm2string (ly_code));
 }
 
 LY_DEFINE (ly_parser_include_string, "ly:parser-include-string",

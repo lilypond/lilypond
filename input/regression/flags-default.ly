@@ -3,8 +3,8 @@
 
 \header {
   texidoc = "Default flag styles: '(), 'mensural and 'no-flag.
-  Compare all three methods to print them: (1) C++ default implementation, 
-  (2) Scheme implementation using the 'flag-style grob property and 
+  Compare all three methods to print them: (1) C++ default implementation,
+  (2) Scheme implementation using the 'style grob property and
   (3) setting the 'flag property explicitly to the desired Scheme function.
   All three systems should be absolutely identical."
 }
@@ -19,7 +19,7 @@ testnotes = { \autoBeamOff
   c''8 d''16 c''32 d''64 \acciaccatura {c''8} d''64
 }
 
-% Old settings: flag-style set to default, 'mensural, 'no-flag; using the
+% Old settings: style set to default, 'mensural, 'no-flag; using the
 % default C++ function ly:stem::calc-stem
 {
   \override Score.RehearsalMark #'self-alignment-X = #LEFT
@@ -29,11 +29,11 @@ testnotes = { \autoBeamOff
   \testnotes
 
   \mark "Symbol: 'mensural (C++)"
-  \override Stem #'flag-style = #'mensural
+  \override Flag #'style = #'mensural
   \testnotes
 
   \mark "Symbol: 'no-flag (C++)"
-  \override Stem #'flag-style = #'no-flag
+  \override Flag #'style = #'no-flag
   \testnotes
 }
 
@@ -42,17 +42,17 @@ testnotes = { \autoBeamOff
   \override Score.RehearsalMark #'self-alignment-X = #LEFT
   \time 2/4
 
-  \override Stem #'flag = #default-flag
-  \revert Stem #'flag-style
+  \override Flag #'stencil = #default-flag
+  \revert Flag #'style
   \mark "Default flags (Scheme)"
   \testnotes
 
   \mark "Symbol: 'mensural (Scheme)"
-  \override Stem #'flag-style = #'mensural
+  \override Flag #'style = #'mensural
   \testnotes
 
   \mark "Symbol: 'no-flag (Scheme)"
-  \override Stem #'flag-style = #'no-flag
+  \override Flag #'style = #'no-flag
   \testnotes
 }
 
@@ -62,14 +62,14 @@ testnotes = { \autoBeamOff
   \time 2/4
 
   \mark "Function: normal-flag"
-  \override Stem #'flag = #normal-flag
+  \override Flag #'stencil = #normal-flag
   \testnotes
 
   \mark "Function: mensural-flag"
-  \override Stem #'flag = #mensural-flag
+  \override Flag #'stencil = #mensural-flag
   \testnotes
 
   \mark "Function: no-flag"
-  \override Stem #'flag = #no-flag
+  \override Flag #'stencil = #no-flag
   \testnotes
 }

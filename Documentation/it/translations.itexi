@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Wed Jul 13 10:59:12 UTC 2011
+@emph{Last updated Sat Aug 13 14:15:49 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -111,7 +111,7 @@ yes
 @item
 2 Notazione comunemente utilizzata
 @*
-4184
+4187
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -258,7 +258,7 @@ yes
 @item
 1 Eseguire @command{lilypond}
 @*
-3622
+3681
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -312,7 +312,7 @@ yes
 @item
 3 Eseguire @command{lilypond-book}
 @*
-3952
+3978
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -339,7 +339,7 @@ yes
 @item
 4 Programmi esterni
 @*
-2170
+2180
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -356,11 +356,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -513,7 +513,7 @@ partially
 @item
 Manuali
 @*
-1203
+1214
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -540,7 +540,7 @@ partially
 @item
 Comunità
 @*
-1755
+1888
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -557,7 +557,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #4efe25">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

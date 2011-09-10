@@ -204,7 +204,7 @@ options, see @ref{Formatting text}.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
 
 
@@ -609,21 +609,15 @@ Internals Reference:
 In order to assign more than one syllable to a single note with
 spaces between the syllables, you can surround the phrase with
 quotes or use a @code{_} character.  Alternatively, you can use
-code the tilde symbol (@code{~}) to get a lyric tie.  The lyric
-tie is implemented with the Unicode character U+203F, so be
-sure to use a font for this glyph which actually contains it.
-Freely available fonts with a lyric tie are, for example,
-`FreeSerif' (a Times clone), `DejaVuSans' (but not
-`DejaVuSerif'), or `TeXGyreSchola' (a Century Schoolbook
-clone).
+the tilde symbol (@code{~}) to get a lyric tie.
 
 @lilypond[quote,ragged-right,verbatim]
 {
   \time 3/4
   \relative c' { c2 e4 g2 e4 }
-  \addlyrics { gran- de_a- mi- go }
-  \addlyrics { pu- "ro y ho-" nes- to }
-  \addlyrics { pu- ro~y~ho- nes- to }
+  \addlyrics { gran -- de_a -- mi -- go }
+  \addlyrics { pu -- "ro y ho" -- nes -- to }
+  \addlyrics { pu -- ro~y~ho -- nes -- to }
 }
 @end lilypond
 
@@ -650,7 +644,7 @@ left-aligned with the first note of the melisma.
 When a melisma occurs on a syllable other that the last one in a
 word, that syllable is usually joined to the following one with a
 hyphenated line.  This is indicated by placing a double hyphen,
-@code{--}, immediately after the syllable.
+@w{@code{--}}, immediately after the syllable.
 
 Alternatively, when a melisma occurs on the last or only syllable in
 a word an extender line is usually drawn from the end of the syllable
@@ -1097,7 +1091,7 @@ elaborating these examples, or by examining the
 @rlearning{Vocal ensembles} templates in the Learning Manual.
 
 @snippets
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {lyrics-old-spacing-settings.ly}
 
 @seealso
@@ -1153,7 +1147,7 @@ To make this change for all lyrics in the score, set the property in the
 @end lilypond
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {lyrics-alignment.ly}
 
 @c TODO: move to LSR -vv
@@ -2100,7 +2094,7 @@ Lead sheets may be printed by combining vocal parts and
 @q{chord mode}; this syntax is explained in @ref{Chord notation}.
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
 @seealso
@@ -2289,7 +2283,7 @@ Internals Reference:
 
 @cindex voices, divided
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
 @seealso
@@ -2557,7 +2551,7 @@ If a transposing instrument is being quoted the instrument part should
 specify its key so the conversion of its cue notes will be done
 automatically.  The example below shows this transposition for a
 B-flat clarinet.  The notes in this example are low on the staff so
-@code{#DOWN} is specified in @code{\cueDuring} (so the stems are
+@code{DOWN} is specified in @code{\cueDuring} (so the stems are
 down) and the instrument name is positioned below the staff.  Note
 also that the piano right-hand voice is explicitly declared.  This
 is because the cue notes in this example begin at the start of the
@@ -2604,7 +2598,7 @@ possible to define a music function to reduce the amount of typing
 and to make the piano notes clearer.
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {adding-orchestral-cues-to-a-vocal-score.ly}
 
 @seealso
@@ -3025,7 +3019,7 @@ of the following snippets.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {chant-or-psalms-notation.ly}
 
 Canticles and other liturgical texts may be set more freely, and
@@ -3034,7 +3028,7 @@ are shown underneath and aligned with the notes.  If so, the notes
 are spaced in accordance with the syllables rather than the notes'
 durations.
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 @seealso
@@ -3219,7 +3213,7 @@ with a line of text.  This requires a @code{\partial} command at
 the start of the music and @code{\bar "|"} or @code{\bar "||"}
 commands at the end of each line.
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {hymn-template.ly}
 
 

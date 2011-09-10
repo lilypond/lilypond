@@ -256,6 +256,13 @@ but instead:
 @end example
 
 @item
+With the exception of @code{@@} commands, the section name must
+match the node name exactly.
+
+@item
+No commas may be used in the node names.
+
+@item
 If a heading is desired without creating a @code{@@node}, please use
 the following:
 
@@ -369,7 +376,7 @@ Inspirational headwords are produced with:
 LSR snippets are linked with:
 
 @example
-@@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 @{filename.ly@}
 @end example
 
@@ -496,8 +503,6 @@ easier/faster processing), use this header:
 \paper @{
   indent = 0\mm
   line-width = 160\mm - 2.0 * 0.4\in
-  ragged-right = ##t
-  force-assignment = #""
   line-width = #(- line-width (* mm  3.000000))
 @}
 

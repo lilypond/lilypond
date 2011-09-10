@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: cd0fa693cd2297298aabfdc2d2d9d8b0d7746a5c
+    Translation of GIT committish: d282588015bad1ed86833848a5bcbdc43cfdc9e5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -576,7 +576,19 @@ nostro @ref{Input testuale}.
 @itemize
 
 @item
-May 2010
+Aprile 2011
+
+@uref{http://www.linux-magazine.com,Linux Magazine} pubblica un
+articolo intitolato
+@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+Projects on the Move}.  È un articolo introduttivo a MuseScore,
+LilyPond e Chordii.  L'autrice Carla Schroder afferma @qq{LilyPond è un
+programma a linea di comando, ma non lasciatevi spaventare dalla mancanza
+dell'interfaccia grafica; LilyPond è facile da usare e da imparare}, e fornisce
+anche un esempio pratico.
+
+@item
+Maggio 2010
 
 Peter Kirn, sul sito Create Digital Music, pubblica una
 @uref{http://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/,recensione
@@ -591,7 +603,7 @@ La rivista tedesca LinuxUser ha scritto un
 articolo su LilyPond}.
 
 @item
-August 2009
+Agosto 2009
 
 Ann Drinan, sul sito
 @uref{http://www.polyphonic.org/article.php?id=188, Polyphonic.org}, presenta
@@ -599,7 +611,7 @@ i commenti di due bibliotecari di un'orchestra che parlano dell'uso del
 software per gestire le loro biblioteche.
 
 @item
-June 2009
+Giugno 2009
 
 In un @uref{http://news.lilynet.net/Free-Music-Now, articolo}
 pubblicato nella rivista annuale francese @emph{National Conservatory Parent
@@ -639,7 +651,7 @@ Kris Shaffer commenta @qq{GNU Lilypond genera una grafica splendida
 che fa sembrare le alternative commerciali di second'ordine.}
 
 @item
-August 20, 2005
+20 Agosto 2005
 
 La rivista belga De Standaard fa un'indagine sulle motivazioni degli
 autori di Software Libero in un articolo intitolato
@@ -1044,17 +1056,17 @@ e attualmente gira su tutte le distro Linux e altri sistemi operativi UNIX.
 
 @uref{http://denemo.org}
 
-Denemo è un editor grafico che genera codice sorgente LilyPond,
-nella versione 2.8.7, e permette anche la riproduzione audio.  Consente
-agli utenti di vedere il codice sorgente LilyPond in parallelo alla
-visualizzazione grafica. Modifiche manuali del codice possono essere attaccate a note,
-accordi etc. e vengono salvate nel file di Denemo, così che gli utenti possano
-continuare a modificare il documento tramite l'interfaccia grafica.
+Denemo è un editor grafico che genera codice sorgente LilyPond
+e permette anche la riproduzione audio.  Consente agli utenti di vedere
+il codice sorgente LilyPond in parallelo alla visualizzazione grafica.  Modifiche
+manuali del codice possono essere attaccate a note, accordi etc. e vengono
+salvate nel file di Denemo, così che gli utenti possano continuare a
+modificare il documento tramite l'interfaccia grafica.
 
 Se si muove il cursore nel codice LilyPond si muove anche il cursore
 nella visualizzazione grafica, e qualsiasi errore di sintassi nelle tue modifiche
 manuali al codice LilyPond viene evidenziato nella visualizzazione testuale
-quando stampi da lì.
+quando elaborato da lì.
 
 
 @divEnd
@@ -1088,7 +1100,7 @@ Vim, allora probabilmente vorrai usare un editor diverso per scrivere
 i file di input di LilyPond.
 
 Puoi trovare maggiori informazioni sulla configurazione di Emacs e Vim in
-@rprogram{Text editor support}.
+@rprogram{LilyPond e gli editor di testo}.
 
 @sourceimage{logo-macosx,,,}
 
@@ -1189,8 +1201,8 @@ ambiente costruito sul linguaggio di programmazione a vincoli
 @itemize
 
 @item
-@uref{http://lilykde.googlecode.com/,LilyKDE} è stato sosituito da
-@uref{http://www.frescobaldi.org/,Frescobaldi}, e esiste soltanto come
+@uref{http://lilykde.googlecode.com/,LilyKDE} è stato sostituito da
+@uref{http://www.frescobaldi.org/,Frescobaldi}; esiste soltanto come
 LilyKDE3 per KDE 3.5 e lilypond-KDE4 per KDE 4.1.
 
 @item

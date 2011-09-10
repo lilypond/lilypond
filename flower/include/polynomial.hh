@@ -44,6 +44,7 @@ struct Polynomial
   Real lc () const;
   void print () const;
   Real eval (Real) const;
+  Real minmax (Real, Real, bool) const;
   void print_sols (vector<Real>) const;
   void check_sols (vector<Real>) const;
   void check_sol (Real x) const;

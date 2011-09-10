@@ -4,7 +4,7 @@
 
   texidoc = "Like normal ties, single semities (LaissezVibrerTie or
 RepeatTie) get their direction from the stem direction, and may be
-tweaked with @code{#'direction}."
+tweaked with @code{'direction}."
 
 
 }

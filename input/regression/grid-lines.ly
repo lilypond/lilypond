@@ -74,6 +74,7 @@ skips =
     \override NoteHead #'transparent = ##t
     \override NoteHead #'no-ledgers = ##t
     \override Stem #'transparent = ##t
+    \override Flag #'transparent = ##t
     \override Beam #'transparent = ##t
     << \skips
 

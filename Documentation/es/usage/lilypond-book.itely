@@ -810,14 +810,6 @@ contiene @code{@@documentlanguage @var{LANG}} y la cabecera de
 @file{loquesea.texidoc@var{LANG}} en lugar de
 @file{loquesea.texidoc}.
 
-@item lilyquote
-(Sólo para la salida de Texinfo.)  Esta opción es similar a quote,
-pero se pone dentro del bloque de cita solamente el fragmento de
-música (y el bloque preformateado que se da en la opción
-@code{verbatim}).  Esta opción es útil si queremos citar
-(@code{quote}) el fragmento musical pero no el bloque de documentación
-@code{texidoc}.
-
 @item doctitle
 (Sólo para la salida de Texinfo.) Esta opción funciona de forma
 parecida a la opción @code{texidoc}: si @command{lilypond} se llama

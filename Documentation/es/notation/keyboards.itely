@@ -115,7 +115,7 @@ se cruzan entre voces, como se explica en @rlearning{Otras aplicaciones de los t
 @end itemize
 
 @c @snippets
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@c @lilypondfile[verbatim,quote,texidoc,doctitle]
 @c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
 @c http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
 
@@ -460,7 +460,7 @@ Se pueden hacer acordes que cruzan los pentagramas:
         % extend the stems to reach the other staff
         \override Stem #'length = #12
         % do not print extra flags
-        \override Stem #'flag-style = #'no-flag
+        \override Flag #'style = #'no-flag
         % prevent beaming as needed
         a8 g4 f8 f bes\noBeam g4
       }
@@ -474,7 +474,7 @@ Se pueden hacer acordes que cruzan los pentagramas:
 @end lilypond
 
 @snippets
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 
@@ -633,7 +633,7 @@ ejecución.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {accordion-discant-symbols.ly}
 
 

@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 
 import re
+import tempfile
+import subprocess
 import book_base as BookBase
 from book_snippets import *
+import lilylib as ly
+global _;_=ly._
+
 
 # Recognize special sequences in the input.
 #
@@ -58,6 +63,15 @@ TexInfo_snippet_res = {
             .*?
            @end\s+ignore))\s''',
 
+    'musicxml_file': r'''(?mx)
+          ^(?P<match>
+          @musicxmlfile\s*(
+          \[
+           \s*(?P<options>.*?)\s*
+          \])?\s*{
+           (?P<filename>\S+)
+          })''',
+
     'singleline_comment': r'''(?mx)
           ^.*
           (?P<match>
@@ -103,7 +117,7 @@ TexInfo_output = {
 @end ifinfo
 @html
 <p>
- <a href="%(base)s.ly">
+ <a href="%(base)s%(ext)s">
   <img align="middle"
        border="0"
        src="%(image)s"
@@ -115,7 +129,7 @@ TexInfo_output = {
 
     PRINTFILENAME: '''
 @html
-<a href="%(base)s.ly">
+<a href="%(base)s%(ext)s">
 @end html
 @file{%(filename)s}
 @html
@@ -125,10 +139,6 @@ TexInfo_output = {
 
     QUOTE: r'''@quotation
 %(str)s@end quotation
-''',
-
-    NOQUOTE: r'''@format
-%(str)s@end format
 ''',
 
     VERBATIM: r'''@exampleindent 0
@@ -147,6 +157,97 @@ texinfo_line_widths = {
     '@smallbook': '5\\in',
     '@letterpaper': '6\\in',
 }
+
+
+###
+# Retrieve dimensions from texinfo
+TEXINFO_INSPECTION_DOCUMENT = r'''
+\input texinfo
+@setfilename Texinfo_width_test
+@settitle Texinfo width test
+%(preamble)s
+
+@message{Global: textwidth=@the@hsize,exampleindent=@the@lispnarrowing}
+
+@bye
+'''
+
+def get_texinfo_width_indent (source, global_options):
+    #TODO: Check for end of header command "@c %**end of header"
+    #      only use material before that comment ?
+
+    # extract all relevant papter settings from the input:
+    pagesize = None
+    texinfo_paper_size_regexp = r'''(@(?:afourpaper|afourwide|afourlatex|afivepaper|smallbook|letterpaper))''';
+    m = re.search (texinfo_paper_size_regexp, source);
+    if m:
+        pagesize = m.group (1)
+
+    relevant_settings_regexp = r'''(@(?:fonttextsize|pagesizes|cropmarks|exampleindent).*)\n''';
+    m = re.findall (relevant_settings_regexp, source);
+    if pagesize:
+        m.insert (0, pagesize);
+    # all relevant options to insert into the test document:
+    preamble = "\n".join (m);
+
+    texinfo_document = TEXINFO_INSPECTION_DOCUMENT % {'preamble': preamble}
+
+    (handle, tmpfile) = tempfile.mkstemp('.texi')
+    outfile = os.path.splitext (tmpfile)[0] + '.pdf'
+
+    tmp_handle = os.fdopen (handle,'w')
+    tmp_handle.write (texinfo_document)
+    tmp_handle.close ()
+
+    # Work around a texi2pdf bug: if LANG=C is not given, a broken regexp is
+    # used to detect relative/absolute pathes, so the absolute path is not
+    # detected as such and this command fails:
+    progress (_ ("Running texi2pdf on file %s to detect default page settings.\n") % tmpfile);
+
+    # execute the command and pipe stdout to the parameter_string:
+    cmd = 'LC_ALL=C %s -c -o %s %s' % (global_options.texinfo_program, outfile, tmpfile);
+    if (global_options.verbose):
+        progress ("Executing: %s\n" % cmd);
+
+    proc = subprocess.Popen (cmd,
+        universal_newlines=True, shell=True,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    (parameter_string, error_string) = proc.communicate ()
+    if proc.returncode != 0:
+        warning (_ ("Unable to auto-detect default settings:\n%s")
+                 % error_string)
+    os.unlink (tmpfile)
+    if os.path.exists(outfile):
+        os.unlink (outfile)
+
+    # Find textwidth and exampleindent and format it as \\mm or \\in
+    # Use defaults if they cannot be extracted
+    textwidth = 0
+    m = re.search ('textwidth=([0-9.]+)pt', parameter_string)
+    if m:
+        val = float (m.group (1))/72.27
+        if pagesize and pagesize.startswith ("@afour"):
+            textwidth = "%g\\mm" % round (val*25.4, 3);
+        else:
+            textwidth = "%g\\in" % round (val, 3);
+    else:
+        textwidth = texinfo_line_widths.get(pagesize, "6\\in")
+
+    exampleindent = 0
+    m = re.search ('exampleindent=([0-9.]+)pt', parameter_string)
+    if m:
+        val = float (m.group (1))/72.27
+        if pagesize and pagesize.startswith ("@afour"):
+            exampleindent = "%g\\mm" % round (val*25.4, 3);
+        else:
+            exampleindent = "%g\\in" % round (val, 3);
+    else:
+        exampleindent = "0.4\\in"
+
+    retval = {LINE_WIDTH: textwidth, EXAMPLEINDENT: exampleindent}
+    if (global_options.verbose):
+        progress ("Auto-detected values are: %s\n" % retval);
+    return retval;
 
 
 
@@ -176,19 +277,10 @@ class BookTexinfoOutputFormat (BookBase.BookOutputFormat):
         else:
             return ''
 
-    def get_line_width (self, source):
-        for regex in texinfo_line_widths:
-            # FIXME: @layout is usually not in
-            # chunk #0:
-            #
-            #  \input texinfo @c -*-texinfo-*-
-            #
-            # Bluntly search first K items of
-            # source.
-            # s = chunks[0].replacement_text ()
-            if re.search (regex, source[:1024]):
-                return texinfo_line_widths[regex]
-        return None
+    def init_default_snippet_options (self, source):
+        texinfo_defaults = get_texinfo_width_indent (source, self.global_options);
+        self.default_snippet_options.update (texinfo_defaults)
+        BookBase.BookOutputFormat.init_default_snippet_options (self, source)
 
     def adjust_snippet_command (self, cmd):
         if '--formats' not in cmd:
@@ -242,16 +334,9 @@ class BookTexinfoOutputFormat (BookBase.BookOutputFormat):
             rep['verb'] = snippet.verb_ly ()
             substr = self.output[VERBATIM] % rep
         substr += self.output_info (basename, snippet)
-        if LILYQUOTE in snippet.option_dict:
+        if QUOTE in snippet.option_dict:
             substr = self.output[QUOTE] % {'str': substr}
         str += substr
-
-#                str += ('@ifinfo\n' + self.output_info () + '\n@end ifinfo\n')
-#                str += ('@tex\n' + self.output_latex () + '\n@end tex\n')
-#                str += ('@html\n' + self.output_html () + '\n@end html\n')
-
-        if QUOTE in snippet.option_dict:
-            str = self.output[QUOTE] % {'str': str}
 
         # need par after image
         str += '\n'

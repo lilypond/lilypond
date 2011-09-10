@@ -41,22 +41,22 @@
 
 @appendixsubsec 音符のみ
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
 {single-staff-template-with-only-notes.ly}
 
 @appendixsubsec 音符と歌詞
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
 {single-staff-template-with-notes-and-lyrics.ly}
 
 @appendixsubsec 音符とコード
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {single-staff-template-with-notes-and-chords.ly}
 
 @appendixsubsec 音符、歌詞それにコード
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
@@ -66,22 +66,22 @@
 
 @appendixsubsec ソロ ピアノ
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-simple.ly}
 
 @appendixsubsec ピアノと歌詞を持つ旋律
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-melody-and-lyrics.ly}
 
 @appendixsubsec 歌詞が中央に配置されたピアノ譜
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
 
 @appendixsubsec 強弱記号が中央に配置されたピアノ譜
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-dynamics.ly}
 
 
@@ -92,12 +92,12 @@
 @appendixsubsec 弦楽四重奏
 @translationof String quartet
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-simple.ly}
 
 @appendixsubsec 弦楽四重奏パート
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-with-separate-parts.ly}
 
 
@@ -107,39 +107,39 @@
 
 @appendixsubsec SATB ボーカル譜
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template.ly}
 
 @appendixsubsec SATB ボーカル譜と自動ピアノ譜
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-automatic-piano-reduction.ly}
 
 @appendixsubsec 整列されたコンテキストを持つ SATB
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
 @appendixsubsec 4 つの譜に配置された SATB
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {satb-choir-template---four-staves.ly}
 
 @appendixsubsec ソロと 2 パートのリフレイン
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-verse-and-refrain.ly}
 
 @appendixsubsec Hymn tunes
 @c Hymn tunes
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {hymn-template.ly}
 
 @appendixsubsec 賛美歌
 @c Psalms
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {anglican-psalm-template.ly}
 
 
@@ -148,7 +148,7 @@
 @translationof Orchestral templates
 
 @appendixsubsec オーケストラ、合唱それにピアノ
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {orchestra,-choir-and-piano-template.ly}
 
 
@@ -159,12 +159,12 @@
 
 @appendixsubsec Transcription of mensural music
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {ancient-notation-template----modern-transcription-of-mensural-music.ly}
 
 @appendixsubsec Gregorian transcription template
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
@@ -174,7 +174,7 @@
 
 @appendixsubsec Jazz コンボ
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {jazz-combo-template.ly}
 
 

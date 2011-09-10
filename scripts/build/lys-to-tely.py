@@ -6,6 +6,7 @@ TODO:
 
  * Add @nodes, split at sections?
 
+ * -o --output   listed in help is not implemented?!
 '''
 
 
@@ -13,6 +14,7 @@ import sys
 import os
 import getopt
 import re
+import glob
 
 program_name = 'lys-to-tely'
 
@@ -26,6 +28,8 @@ Options:
  -f, --fragment-options=OPTIONS use OPTIONS as lilypond-book fragment
    options
  -o, --output=NAME              write tely doc to NAME
+ -i, --input-filenames=NAME     read list of files from a file instead of stdin
+ -g, --glob-input=GLOB          a string which will be passed to glob.glob(GLOB)
  -t, --title=TITLE              set tely doc title TITLE
  -a, --author=AUTHOR            set tely author AUTHOR
      --template=TEMPLATE        use TEMPLATE as Texinfo template file,
@@ -39,11 +43,15 @@ def help (text):
     sys.exit (0)
 
 (options, files) = getopt.getopt (sys.argv[1:], 'f:hn:t:',
-                     ['fragment-options=', 'help', 'name=', 'title=', 'author=', 'template='])
+                     ['fragment-options=', 'help', 'name=',
+                     'title=', 'author=', 'template=',
+                     'input-filenames=', 'glob-input='])
 
 name = "ly-doc"
 title = "Ly Doc"
 author = "Han-Wen Nienhuys and Jan Nieuwenhuizen"
+input_filename = ""
+glob_input = ""
 template = '''\input texinfo
 @setfilename %%(name)s.info
 @settitle %%(title)s
@@ -83,6 +91,10 @@ for opt in options:
         title = a
     elif o == '-a' or o == '--author':
         author = a
+    elif o == '-i' or o == '--input-filenames':
+        input_filename = a
+    elif o == '-p' or o == '--glob-input':
+        glob_input = a
     elif o == '-f' or o == '--fragment-options':
         fragment_options = a
     elif o == '--template':
@@ -92,7 +104,7 @@ for opt in options:
 
 texi_file_re = re.compile ('.*\.i?te(ly|xi)$')
 html_file_re = re.compile ('.*\.i?htm(l)?$')
-xml_file_re = re.compile ('.*\.i?xml$')
+xml_file_re = re.compile ('.*\.i?(xm|mx)l$')
 tex_file_re = re.compile ('.*\.i?(la)?tex$')
 pdf_file_re = re.compile ('.*\.i?pdf$')
 
@@ -101,7 +113,7 @@ def name2line (n):
         # We have a texi include file, simply include it:
         s = r"@include %s" % os.path.basename (n)
     elif (html_file_re.match (n) or pdf_file_re.match (n) or
-          xml_file_re.match (n) or tex_file_re.match (n)):
+          tex_file_re.match (n)):
         s = r"""
 @ifhtml
 @html
@@ -110,7 +122,19 @@ def name2line (n):
 @end html
 @end ifhtml
 """ % (os.path.basename (n), os.path.basename (n))
-        return s
+
+    elif (xml_file_re.match (n)):
+        # Assume it's a MusicXML file -> convert, create image etc.
+        s = r"""
+@ifhtml
+@html
+<a name="%s"></a>
+@end html
+@end ifhtml
+
+@musicxmlfile[%s]{%s}
+""" % (os.path.basename (n), fragment_options, n)
+
     else:
         # Assume it's a lilypond file -> create image etc.
         s = r"""
@@ -123,6 +147,11 @@ def name2line (n):
 @lilypondfile[%s]{%s}
 """ % (os.path.basename (n), fragment_options, n)
     return s
+
+if glob_input:
+    files = glob.glob(glob_input)
+elif input_filename:
+    files = open(input_filename).read().split()
 
 if files:
     dir = os.path.dirname (name) or "."

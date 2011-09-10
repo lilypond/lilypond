@@ -241,10 +241,10 @@ más detalles, consulte @ref{Definir contextos nuevos}.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {use-square-bracket-at-the-start-of-a-staff-group.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {display-bracket-with-only-one-staff-in-a-system.ly}
 
 @cindex diseño «mensurstriche»
@@ -253,7 +253,7 @@ más detalles, consulte @ref{Definir contextos nuevos}.
 @cindex transcripción de música mensural
 @cindex mensural, música, transcripción de
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 @seealso
@@ -320,7 +320,7 @@ Para ver más detalles, consulte @ref{Definir contextos nuevos}.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {nesting-staves.ly}
 
 
@@ -527,7 +527,7 @@ e4 d c2
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-some-staff-lines-thicker-than-the-others.ly}
 
 
@@ -688,7 +688,7 @@ sobre @code{\RemoveEmptyStaves}, consulte @ref{Ocultar pentagramas}.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
 
 
@@ -803,7 +803,7 @@ los pentagramas vacíos en contextos de música antigua como
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {removing-the-first-empty-line.ly}
 
 

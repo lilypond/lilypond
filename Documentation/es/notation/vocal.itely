@@ -224,7 +224,7 @@ ver una explicación de muchas de las opciones, consulte
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
 
 
@@ -640,20 +640,15 @@ Para asignar más de una sílaba a una única nota con espacios entre las
 sílabas, podemos encerrar la frase entre comillas o utilizar un
 carácter de guión bajo @code{_}.  De forma alternativa, podemos usar
 el símbolo de tilde curva (@code{~}) para obtener una ligadura de
-texto.  La ligadura de texto está implementada con el carácter Unicode
-U+203F, por tanto debemos asegurarnos de usar una fuente tipográfica
-para este glifo que realmente lo contenga.  Algunas de las fuentes
-tipográficas disponibles libremente con una ligadura de letra son, por
-ejemplo, `FreeSerif' (un clon de Times), `DejaVuSans' (pero no
-`DejaVuSerif') o `TeXGyreSchola' (un clon de Century Schoolbook).
+texto.
 
 @lilypond[quote,ragged-right,verbatim]
 {
   \time 3/4
   \relative c' { c2 e4 g2 e4 }
-  \addlyrics { gran- de_a- mi- go }
-  \addlyrics { pu- "ro y ho-" nes- to }
-  \addlyrics { pu- ro~y~ho- nes- to }
+  \addlyrics { gran -- de_a -- mi -- go }
+  \addlyrics { pu -- "ro y ho" -- nes -- to }
+  \addlyrics { pu -- ro~y~ho -- nes -- to }
 }
 @end lilypond
 
@@ -1136,7 +1131,7 @@ elaboración de los ejemplos anteriores, o examinando las plantillas de
 @rlearning{Conjuntos vocales} del manual de aprendizaje.
 
 @snippets
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {lyrics-old-spacing-settings.ly}
 
 @seealso
@@ -1193,7 +1188,7 @@ la propiedad dentro del bloque @code{\layout}.
 @end lilypond
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {lyrics-alignment.ly}
 
 @c TODO: move to LSR -vv
@@ -2176,7 +2171,7 @@ el @q{modo de acordes}; esta sintaxis se explica en
 @ref{Notación de acordes}.
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
 @seealso
@@ -2377,7 +2372,7 @@ Referencia de funcionamiento interno:
 
 @cindex voces divididas
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
 @seealso
@@ -2706,7 +2701,7 @@ función musical para reducir la cantidad de texto que se teclea y para
 hacer que las notas del piano estén más claras.
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {adding-orchestral-cues-to-a-vocal-score.ly}
 
 @seealso
@@ -3143,7 +3138,7 @@ primero de los siguientes fragmentos de código.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {chant-or-psalms-notation.ly}
 
 Los cánticos y otros textos litúrgicos pueden disponerse de una forma
@@ -3153,7 +3148,7 @@ alineada con las notas.  En este caso, las notas se disponen
 espaciadas de acuerdo con las sílabas en vez de hacerlo con las
 duraciones de las notas.
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 @seealso
@@ -3343,7 +3338,7 @@ corresponde exactamente con una línea de texto.  Esto requiere una
 instrucción @code{\partial} al principio de la música e instrucciones
 @code{\bar "|"} ó @code{\bar "||"} al final de cada línea.
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {hymn-template.ly}
 
 

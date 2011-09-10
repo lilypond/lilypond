@@ -1,0 +1,177 @@
+/*
+  This file is part of LilyPond, the GNU music typesetter.
+
+  Copyright (C) 1996--2011 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Jan Nieuwenhuizen <janneke@gnu.org>
+
+  LilyPond is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  LilyPond is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include "stem.hh"
+
+#include "directional-element-interface.hh"
+#include "font-interface.hh"
+#include "grob.hh"
+#include "international.hh"
+#include "output-def.hh"
+#include "staff-symbol-referencer.hh"
+#include "stencil.hh"
+#include "warn.hh"
+
+class Flag
+{
+public:
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (width, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_y_offset, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_x_offset, (SCM));
+  DECLARE_GROB_INTERFACE ();
+};
+
+
+
+MAKE_SCHEME_CALLBACK (Flag, width, 1);
+SCM
+Flag::width (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Stencil *sten = unsmob_stencil (me->get_property ("stencil"));
+  if (!sten)
+    return ly_interval2scm (Interval (0.0, 0.0));
+
+  Grob *stem = me->get_parent (X_AXIS);
+
+  /*
+    TODO:
+    This reproduces a bad hard-coding that has been in the code for quite some time:
+    the bounding boxes for the flags are slightly off and need to be fixed.
+  */
+
+  return ly_interval2scm (sten->extent (X_AXIS) - stem->extent (stem, X_AXIS)[RIGHT]);
+}
+MAKE_SCHEME_CALLBACK (Flag, print, 1);
+SCM
+Flag::print (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Grob *stem = me->get_parent (X_AXIS);
+
+  Direction d = get_grob_direction (stem);
+  int log = Stem::duration_log (stem);
+  string flag_style;
+
+  SCM flag_style_scm = me->get_property ("style");
+  if (scm_is_symbol (flag_style_scm))
+    flag_style = ly_symbol2string (flag_style_scm);
+
+  if (flag_style == "no-flag")
+    return Stencil ().smobbed_copy ();
+
+  bool adjust = true;
+
+  string staffline_offs;
+  if (flag_style == "mensural")
+    /* Mensural notation: For notes on staff lines, use different
+       flags than for notes between staff lines.  The idea is that
+       flags are always vertically aligned with the staff lines,
+       regardless if the note head is on a staff line or between two
+       staff lines.  In other words, the inner end of a flag always
+       touches a staff line.
+    */
+    {
+      if (adjust)
+        {
+          Real ss = Staff_symbol_referencer::staff_space (me);
+          int p = (int) (rint (stem->extent (stem, Y_AXIS)[d] * 2 / ss));
+          staffline_offs
+            = Staff_symbol_referencer::on_line (stem, p) ? "0" : "1";
+        }
+      else
+        staffline_offs = "2";
+    }
+  else
+    staffline_offs = "";
+
+  char dir = (d == UP) ? 'u' : 'd';
+  string font_char = flag_style
+                     + to_string (dir) + staffline_offs + to_string (log);
+  Font_metric *fm = Font_interface::get_default_font (me);
+  Stencil flag = fm->find_by_name ("flags." + font_char);
+  if (flag.is_empty ())
+    me->warning (_f ("flag `%s' not found", font_char));
+
+  /*
+    TODO: maybe property stroke-style should take different values,
+    e.g. "" (i.e. no stroke), "single" and "double" (currently, it's
+    '() or "grace").  */
+  SCM stroke_style_scm = me->get_property ("stroke-style");
+  if (scm_is_string (stroke_style_scm))
+    {
+      string stroke_style = ly_scm2string (stroke_style_scm);
+      if (!stroke_style.empty ())
+        {
+          string font_char = flag_style + to_string (dir) + stroke_style;
+          Stencil stroke = fm->find_by_name ("flags." + font_char);
+          if (stroke.is_empty ())
+            {
+              font_char = to_string (dir) + stroke_style;
+              stroke = fm->find_by_name ("flags." + font_char);
+            }
+          if (stroke.is_empty ())
+            me->warning (_f ("flag stroke `%s' not found", font_char));
+          else
+            flag.add_stencil (stroke);
+        }
+    }
+
+  return flag.smobbed_copy ();
+}
+
+MAKE_SCHEME_CALLBACK (Flag, calc_y_offset, 1);
+SCM
+Flag::calc_y_offset (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Grob *stem = me->get_parent (X_AXIS);
+  Direction d = get_grob_direction (stem);
+
+  Real blot
+    = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
+
+  Real y2 = stem->extent (stem, Y_AXIS)[d];
+
+  return scm_from_double (y2 - d * blot / 2);
+}
+
+MAKE_SCHEME_CALLBACK (Flag, calc_x_offset, 1);
+SCM
+Flag::calc_x_offset (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Grob *stem = me->get_parent (X_AXIS);
+  return scm_from_double (stem->extent (stem, X_AXIS)[RIGHT]);
+}
+
+ADD_INTERFACE (Flag,
+               "A flag that gets attached to a stem."
+               "The style property is  symbol determining"
+               " what style of flag glyph is typeset on a"
+               " @code{Stem}.  Valid options include @code{'()}"
+               " for standard flags, @code{'mensural} and"
+               " @code{'no-flag}, which switches off the flag.",
+
+               /* properties */
+               "style "
+               "stroke-style "
+              );

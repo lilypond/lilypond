@@ -245,9 +245,15 @@ Item::pure_height (Grob *g, int start, int end)
   if (cached_pure_height_valid_)
     return cached_pure_height_ + pure_relative_y_coordinate (g, start, end);
 
-  cached_pure_height_ = Grob::pure_height (this, start, end);
-  cached_pure_height_valid_ = true;
+  cache_pure_height (Grob::pure_height (this, start, end));
   return cached_pure_height_ + pure_relative_y_coordinate (g, start, end);
+}
+
+void
+Item::cache_pure_height (Interval height)
+{
+  cached_pure_height_ = height;
+  cached_pure_height_valid_ = true;
 }
 
 ADD_INTERFACE (Item,
@@ -270,7 +276,7 @@ ADD_INTERFACE (Item,
                "Whether these versions are visible and take up space is"
                " determined by the outcome of the @code{break-visibility}"
                " grob property, which is a function taking a direction"
-               " (@code{-1}, @code{0} or@tie{}@code{1}) as an argument.  It"
+               " (@w{@code{-1}}, @code{0} or@tie{}@code{1}) as an argument.  It"
                " returns a cons of booleans, signifying whether this grob"
                " should be transparent and have no extent.\n"
                "\n"

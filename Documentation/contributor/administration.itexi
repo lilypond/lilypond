@@ -20,7 +20,7 @@ don't fit anywhere else.
 The Contributor's Guide as a whole is still a work in progress,
 but some chapters are much more complete than others.  Chapters
 which are @qq{almost finished} should not have major changes
-without a discussion on @code{-devel}; in other chapters, a
+without a discussion on @w{@code{-devel}}; in other chapters, a
 disorganized @qq{wiki-style dump} of information is encouraged.
 
 Do not change (other than spelling mistakes) without discussion:
@@ -110,9 +110,9 @@ Currently: Francisco
 @item
 Frog Meister: is responsible for code patches from (relatively)
 inexperienced contributors.  Keeps track of patches, does initial
-reviewing of those patches, sends them to @code{-devel} when
+reviewing of those patches, sends them to @w{@code{-devel}} when
 they've had some initial review on the Frog list, pesters the
-@code{-devel} community into actually reviewing said patches, and
+@w{@code{-devel}} community into actually reviewing said patches, and
 finally pushes the patches once they're accepted.  This person is
 @emph{not} responsible for training new programmers, because that
 would be far too much work -- he job is @qq{only} to guide
@@ -528,7 +528,23 @@ can probably wrap it up with some other code-related questions.
 @node Policy decisions (finished)
 @subsection Policy decisions (finished)
 
-@subheading GOP-PROP 1: python formatting
+Here is a record the final decisions, along with links to the
+discussions.
+
+@menu
+* GOP-PROP 1 - python formatting::
+* GOP-PROP 2 - mentors and frogs::
+* GOP-PROP 3 - C++ formatting::
+* GOP-PROP 4 - lessons from 2.14::
+* GOP-PROP 5 - build system output (not accepted)::
+* GOP-PROP 6 - private mailing lists::
+* GOP-PROP 7 - developers as resources::
+* GOP-PROP 8 - issue priorities::
+* GOP-PROP 9 - behavior of make doc::
+@end menu
+
+@node GOP-PROP 1 - python formatting
+@subsubsection GOP-PROP 1 - python formatting
 
 We will follow the indentation described in PEP-8.
 @uref{http://www.python.org/dev/peps/pep-0008/}
@@ -553,8 +569,18 @@ There should be absolutely no tab characters for indentation in
 any @code{.py} file in lilypond git.  All such files should be
 converted to use spaces only.
 
+@subsubheading Discussions
 
-@subheading GOP-PROP 2: mentors and frogs
+@smallexample
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-06/msg00060.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-06/msg00084.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-06/msg00310.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-06/msg00574.html}
+@end smallexample
+
+
+@node GOP-PROP 2 - mentors and frogs
+@subsubsection GOP-PROP 2 - mentors and frogs
 
 Nothing much was decided.  The list of responsibilities was
 slightly altered; see the new one in @ref{Mentors}.  We should
@@ -566,6 +592,545 @@ contributor-mentor pairs in:
 @end smallexample
 
 That's pretty much it.
+
+@subsubheading Discussions
+
+@smallexample
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-06/msg00311.html}
+@uref{}
+@uref{}
+@end smallexample
+
+
+@node GOP-PROP 3 - C++ formatting
+@subsubsection GOP-PROP 3 - C++ formatting
+
+Speaking academically, C++ code style is a "solved problem". Let's
+pick one of the existing solutions, and let a computer deal with
+this.  Humans should not waste their time, energy, and creativity
+manually adding tabs or spaces to source code.
+
+We have modified @code{fixcc.py} to use astyle, along with extra
+regex tweaks.
+
+@itemize
+@item
+the final script will be run @strong{blindly} on the lilypond
+source code.  We will accept whatever formatting the final version
+of this script produces, with no manual tweaking.
+
+@item
+patches which have been run through this tool will not be rejected
+for style reasons.  Any code formatting @qq{desires} which are not
+enforced by @code{fixcc.py} will not be considered grounds for
+rejecting a patch.
+
+@item
+for now, this style will not be enforced.  It is not cause for
+concern if patches which do not follow the formatting done by
+@code{fixcc.py} are pushed.  From time to time, Graham will run
+the formatter on the entire code base, and commit the resulting
+changes.
+
+In a few months, we will tighten up this policy item (with some
+sort of automatic processing), but that is outside the scope of
+this policy item and is a matter for later discussion.
+
+@item
+after the proposal is accepted, we will leave some time for
+existing patches to be accepted and pushed.  The script was
+run on the source code on @strong{2011 August 01}.
+
+@end itemize
+
+@subheading GNU code
+
+LilyPond is a GNU project, so it makes sense to follow the GNU
+coding standards.  These standards state:
+
+@quotation
+We don’t think of these recommendations as requirements, because
+it causes no problems for users if two different programs have
+different formatting styles.
+
+But whatever style you use, please use it consistently, since a
+mixture of styles within one program tends to look ugly. If you
+are contributing changes to an existing program, please follow the
+style of that program. 
+@end quotation
+
+(@uref{http://www.gnu.org/prep/standards/html_node/Formatting.html})
+
+With that in mind, we do not think that we must blindly follow the
+formatting given by the currrent version of Emacs.
+
+@subheading Implementation notes
+
+We can avoid some of the style change pollution in git history by
+ignoring whitespaces changes:
+
+@example
+git diff -w
+@end example
+
+@subsubheading Discussions
+
+@smallexample
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-06/msg00526.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-06/msg00796.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-07/msg00200.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-07/msg00525.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-07/msg00751.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-07/msg00751.html}
+@end smallexample
+
+
+@node GOP-PROP 4 - lessons from 2.14
+@subsubsection GOP-PROP 4 - lessons from 2.14
+
+@subheading History
+
+A brief history of releases:
+
+@multitable @columnfractions .2 .2 .3
+@headitem date (YYYY-MM-DD) @tab version @tab comment
+@item 2008-10-28 @tab 2.11.63 @tab nobody checking regtests
+@item 2008-11-17 @tab 2.11.64
+@item 2008-11-29 @tab 2.11.65
+@item 2008-12-23 @tab 2.12.0
+@item 2009-01-01 @tab @tab somewhere around here, Graham becomes
+officially release manager, but Han-Wen still builds the actual
+releases
+@item 2009-01-01 @tab 2.12.1
+@item 2009-01-25 @tab 2.12.2
+@item 2009-02-28 @tab 2.13.0
+@item 2009-06-01 @tab 2.13.1 @tab note jump in time!
+@item 2009-06-27 @tab 2.13.2 @tab first Graham release?
+@item 2009-07-03 @tab 2.13.3
+@item 2009-09-09 @tab @tab Graham arrives in Glasgow, gets a
+powerful desktop computer, and begins serious work on GUB (sending
+bug reports to Jan).  It takes approximately 100 hours until GUB
+is stable enough to make regular releases.
+@item 2009-09-24 @tab 2.13.4
+@item 2009-10-02 @tab 2.13.5
+@item 2009-10-22 @tab 2.13.6
+@item 2009-11-05 @tab 2.13.7
+@item ...
+@item 2010-01-13 @tab 2.12.3
+@item ...
+@item 2010-03-19 @tab 2.13.16 @tab Bug squad starts doing a few
+regtest comparisons, but IIRC the effort dies out after a few
+weeks (BLUE)
+@item ...
+@item 2010-08-04 @tab 2.13.29 @tab Phil starts checking regtests (BLUE)
+@item ...
+@item 2011-01-12 @tab 2.13.46 @tab release candidate 1 (GREEN)
+@item ...
+@item 2011-05-30 @tab 2.13.63 @tab release candidate 7 (GREEN)
+@item 2011-06-06 @tab 2.14.0
+@end multitable
+
+@c A graphical display of bugs:
+@c 
+@c @image{bugs-2.13-visualization,png}
+@c @image{zoom-2.13-visualization,png}
+
+@subheading Carl's analysis of the bugs
+
+A @file{csv} spreadsheet is available.
+
+@smallexample
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-06/msg00852.html}
+@end smallexample
+
+@example
+@uref{lilypond-issues-analysis.csv}
+@uref{lilypond-issues-analysis-trim-duplicates.csv}
+@end example
+
+There 148 issues marked with Priority=Critical in the tracker.
+
+I've done an analysis, and it looks to me like there was initially
+a backlog of critical issues that weren't fixed, and little work
+was being done to eliminate critical issues.
+
+Somewhere about 2010-08-01, critical issues started to disappear,
+but occasional new ones appeared.
+
+There were a couple of major changes that introduced unanticipated
+regressions (new spacing code, beam collision avoidance).  These
+produced more than the expected number of regressions.
+
+It appears to me that we didn't really get serious about
+eliminating critical bugs until about 2010-06-15 or so.  After
+that point, the number of critical bugs more-or-less steadily
+decreased until we got to a release candidate.
+
+Of particular interest, the first release candidate of 2.14 was
+released on 2011-01-12.  Over the next 10 days, about a dozen bugs
+were reported and fixed.  Release candidate 2 came out on
+2011-02-09.   No surge of bugs occurred with this release.
+Candidate 3 came out on 2011-03-13; we got 2 bugs per week.
+Candidate 4 came out on 2011-03-29; 2 new bugs.  Candidate 6 came
+out on 2011-04-07.  We got a couple of bugs per week.
+
+@subheading Notes, commentary, and opinions
+
+@example
+Han-Wen: Overall, I think this cycle took too long
+Mike: I agree
+Graham: +1
+@end example
+
+@subsubheading Discussions
+
+@smallexample
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-06/msg00797.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-07/msg00364.html}
+@uref{}
+@end smallexample
+
+
+@node GOP-PROP 5 - build system output (not accepted)
+@subsubsection GOP-PROP 5 - build system output (not accepted)
+
+This proposal was too broad; after a month of discussion, Graham
+withdrew the proposal.  Portions of it will be introduced in later
+proposals.
+
+@subsubheading Discussions
+
+@smallexample
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-07/msg00320.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-07/msg00527.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-07/msg00753.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-07/msg01042.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg00116.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg00310.html}
+@end smallexample
+
+
+@node GOP-PROP 6 - private mailing lists
+@subsubsection GOP-PROP 6 - private mailing list
+
+Potentially sensitive or private matters will be referred to
+Graham.  He will then decide who should discuss the matter on an
+ad-hoc basis, and forward or CC them on future emails.
+
+For emphasis, the project administrators are Han-Wen, Jan, and
+Graham; those three will always be CC'd on any important
+discussions.
+
+The lilypond-hackers mailing list will be removed.
+
+@subheading History
+
+There is some unhappy history about this idea in our development
+community:
+
+@example
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/2010-09/msg00178.html}
+@uref{http://news.lilynet.net/spip.php?article121}
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/2010-11/msg00076.html}
+@end example
+
+@subheading Other projects
+
+The idea of private mailing lists is hardly uncommon in
+open-source software.  For example,
+
+@example
+@uref{http://lwn.net/Articles/394660/}   about debian-private
+@uref{http://subversion.apache.org/mailing-lists.html}  private@@
+@uref{http://www.freebsd.org/administration.html#t-core}
+@uref{http://foundation.gnome.org/legal/}   board members pledge
+to keep certain matters confidential
+
+every security team of every linux distribution and OS
+@end example
+
+In fact, Karl Fogel's @qq{Producing Open Source Software}
+explicitly suggests a private mailing list for some circumstances:
+
+@example
+[on granting commit/push access to a contributor]
+
+But here is one of the rare instances where secrecy is
+appropriate. You can't have votes about potential committers
+posted to a public mailing list, because the candidate's feelings
+(and reputation) could be hurt.
+
+@uref{http://producingoss.com/en/consensus-democracy.html#electorate}
+@end example
+
+@subheading Board of governers, voting, etc?
+
+Many projects have an official board of directors, or a list of
+@qq{core developers}, with set term limits and elections and
+stuff.
+
+I don't think that we're that big.  I think we're still small
+enough, and there's enough trust and consensus decisions, that we
+can avoid that.  I would rather that we kept on going with
+trust+consensus for at least the next 2-3 years, and spent more
+time+energy on bug fixes and new features instead of
+administrative stuff.
+
+Project administrators are Han-Wen, Jan, and Graham.
+
+@subsubheading Discussions
+
+@smallexample
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-07/msg00783.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-07/msg01004.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg00117.html}
+@end smallexample
+
+
+@node GOP-PROP 7 - developers as resources
+@subsubsection GOP-PROP 7 - developers as resources
+
+We shall treat developers (and contributors) as
+@strong{Independent volunteers}: each person does whatever they
+want, whenever they want.  We have busy careers and lives; we make
+no expectations of action from anybody (with the exception of the
+6 people in @qq{Meister} positions).
+
+@subsubheading Discussions
+
+@smallexample
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-07/msg01092.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg00087.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg00497.html}
+@end smallexample
+
+
+@node GOP-PROP 8 - issue priorities
+@subsubsection GOP-PROP 8 - issue priorities
+
+We will delete the @qq{priority} field of the issue tracker
+altogether.  The @qq{type} system will be tweaked.
+
+Type-critical:
+
+@itemize
+
+@item
+a reproducible failure to build either @code{make} or @code{make
+doc}, from an empty build tree, in a first run, if
+@code{configure} does not report any errors.
+
+@item
+any program behaviour which is @strong{unintentionally} worse than
+the previous stable version or the current development version.
+Developers may always use the @qq{this is intentional}, or even
+the @qq{this is an unavoidable effect of an improvement in another
+area}, reason to move this to a different type.
+
+@item
+anything which stops contributors from helping out (e.g.
+lily-git.tcl not working, source tree(s) not being available,
+lilydev being unable to compile git master, inaccurate
+instructions in the Contributor's Guide 2 Quick start).
+
+To limit this scope of this point, we will assume that the
+contributor is using the latest lilydev and has read the relevant
+part(s) of the Contributor's Guide.  Problems in other chapters of
+the CG are not sufficient to qualify as Type-Critical.
+
+@end itemize
+
+@subsubheading More new/changed types and labels
+
+Unless otherwise specified, the current types and labels will
+continue to be used.  The new types introduced by this proposal
+are:
+
+@itemize
+
+@item
+Type-crash: any segfault, regardless of what the input file looks
+like or which options are given.  Disclaimer: this might not be
+possible in some cases, for example certain guile programs (we
+certainly can't predict if a piece of scheme will ever stop
+running, i.e. the halting problem), or if we rely on other
+programs (i.e. ghostscript).  If there are any such cases that
+make segfault-prevention impossible, we will document those
+exceptions (and the issue will remain as a "crash" instead of
+"documentation" until the warning has been pushed).
+
+@item
+Type-maintainability: anything which makes it difficult for
+serious contributors to help out (e.g. difficult to find the
+relevant source tree(s), confusing policies, problems with
+automatic indentation tools, etc).
+
+@item
+Type-ugly: replaces Type-collision, and it will include things
+like bad slurs in addition to actual collision.
+
+@end itemize
+
+A new label will be added:
+
+@itemize
+@item
+(label) Needs_evidence: it is not clear what the correct output
+should look like.  We need scans, references, examples, etc.
+
+@end itemize
+
+@subheading Reminding users about stars
+
+We can remind users that they can @qq{star} an issue to indicate
+that they care about it.  Since we resolved to treat developers as
+independent volunteers, there is no expectation that anybody will
+look at those stars, but if any developer want to organize their
+work schedule according to the stars, they are welcome to do so.
+
+@subsubheading Discussions
+
+@smallexample
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg00019.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg00277.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg00413.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg00624.html}
+@uref{}
+@end smallexample
+
+
+@node GOP-PROP 9 - behavior of make doc
+@subsubsection GOP-PROP 9 - behavior of make doc
+
+If there are build problems, then it should be easier to find out
+why it's failing.  This will be achieved with log files, as well
+as possibly including scripts which automatically display portions
+of those log files for a failing build.
+
+We will also add targets for building a specific manual (for
+quick+easy checking of doc work), as well as for building all
+documentation in a specific language (either English or a
+translated language).
+
+When you run @code{make doc},
+
+@itemize
+
+@item
+All output will be saved to various log files, with the exception
+of output directly from @code{make(1)}.
+
+Note that @code{make(1)} refers to a specific executable file on
+unix computers, and is not a general term for the build system.
+
+@item
+By default, no other output will be displayed on the console, with
+one exception: if a build fails, we might display some portion(s)
+of log file(s) which give useful clues about the reason for the
+failure.
+
+The user may optionally request additional output to be printed;
+this is controlled with the @code{VERBOSE=x} flag.  In such cases,
+all output will still be written to log files; the console output
+is strictly additional to the log files.
+
+@item
+Logfiles from calling lilypond (as part of lilypond-book) will go
+in the relevant @file{build/out/lybook-db/12/lily-123456.log}
+file.  All other logfiles will go in the @file{build/logfiles/}
+directory.
+
+A single @code{make doc} will therefore result in hundreds of log
+files.  Log files produced from individual lilypond runs are not
+under our control; apart from that, I anticipate having one or two
+dozen log files.  As long as it is clear which log file is
+associated with which operation(s), I think this is entirely
+appropriate.  The precise implementation will be discussed for
+specific patches as they appear.
+
+@item
+Both stderr and stdout will be saved in @code{*.log}.  The order
+of lines from these streams should be preserved.
+
+@item
+There will be no additional @qq{progress messages} during the
+build process.  If you run @code{make --silent}, a non-failing
+build should print absolutely nothing to the screen.
+
+@item
+Assuming that the loglevels patch is accepted, lilypond (inside
+lilypond-book) will be run with --loglevel=WARN.
+@uref{http://codereview.appspot.com/4822055/}
+
+@item
+Ideally, a failing build should provide hints about the reason why
+it failed, or at least hints about which log file(s) to examine.
+
+@end itemize
+
+If this proposal is accepted, none of these policies will be
+assumed to apply to any other aspect of the build system.
+Policies for any other aspect of the build system will be
+discussed in separate proposals.
+
+@subheading Don't cause more build problems
+
+However, there is a danger in this approach, that vital error
+messages can also be lost, thus preventing the cause of the
+failure of a make being found.  We therefore need to be
+exceptionally careful to move cautiously, include plenty of tests,
+and give time for people to experiment/find problems in each stage
+before proceeding to the next stage.
+
+This will be done by starting from individual lilypond calls
+within lilypond-book, and slowly moving to @qq{larger} targets of
+the build system -- after the individual lilypond calls are are
+producing the appropriate amount of output and this is saved in
+the right place and we can automatically isolate parts of a
+failing build, we will work on lilypond-book in general, and only
+then will we look at the build system itself.
+
+@subheading Implementation notes
+
+There is an existing make variable QUIET_BUILD, which
+alter the amount of output being displayed
+(@uref{
+http://lilypond.org/doc/v2.15/Documentation/contributor/useful-make-variables}
+).  We are not planning on keeping this make variable.
+
+The standard way for GNU packages to give more output is with a
+@code{V=x} option.  Presumably this is done by increasing
+@code{x}?  If we support this option, we should still write log
+files; we would simply print more of the info in those log files
+to screen.
+
+The command @code{tee} may be useful to write to a file and
+display to stdout (in the case of VERBOSE).
+
+
+@subsubheading Discussions
+
+@smallexample
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg00378.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg00703.html}
+@end smallexample
+
+
+@ignore
+@n ode GOP-PROP 10 - scheme indentation
+@s ubsubsection GOP-PROP 10 - scheme indentation
+
+still under discussion
+
+@subsubheading Discussions
+
+@smallexample
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg00625.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg01026.html}
+@c @uref{}
+@end smallexample
+@end ignore
+
 
 
 @node Grand LilyPond Input Syntax Standardization (GLISS)

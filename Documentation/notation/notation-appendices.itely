@@ -627,6 +627,7 @@ see @ref{Formatting text}.
 * Bracket-tip glyphs::
 * Pedal glyphs::
 * Accordion glyphs::
+* Tie glyphs::
 * Vaticana glyphs::
 * Medicaea glyphs::
 * Hufnagel glyphs::
@@ -794,6 +795,16 @@ see @ref{Formatting text}.
 \include "font-table.ly"
 \markuplines \override-lines #'(word-space . 4)
              \doc-chars #accordion
+@end lilypond
+
+
+@node Tie glyphs
+@unnumberedsubsec Tie glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #ties
 @end lilypond
 
 

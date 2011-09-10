@@ -622,6 +622,7 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 * Glyphes d'extrémité d'accolade::
 * Glyphes de pédale::
 * Glyphes d'accordéon::
+* Glyphes de liaison::
 * Glyphes de style vaticana::
 * Glyphes de style medicaea::
 * Glyphes de style Hufnagel::
@@ -805,6 +806,16 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 \include "font-table.ly"
 \markuplines \override-lines #'(word-space . 4)
              \doc-chars #accordion
+@end lilypond
+
+
+@node Glyphes de liaison
+@unnumberedsubsec Tie glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #ties
 @end lilypond
 
 

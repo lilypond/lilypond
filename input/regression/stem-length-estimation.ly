@@ -1,8 +1,9 @@
 \version "2.14.0"
 
 \header {
-  texidoc = "Stems with overridden 'length should not confuse height estimation.
-This example should fit snugly on one page.
+  texidoc = "Stems with overridden 'Y-extent should
+not confuse height estimation.  This example should fit snugly
+on one page.
 "
 }
 
@@ -25,7 +26,7 @@ This example should fit snugly on one page.
   \score {
     \new Voice {
       \voiceTwo
-      \override Stem #'length = #0
+      \override Stem #'Y-extent = #'(0.0 . 0.0)
       \repeat unfold 144 a4
     }
     \layout {

@@ -79,7 +79,7 @@ Um Dateien wie @file{arabic.ly} oder @file{makam.ly} zu finden, siehe
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {makam-example.ly}
 
 @seealso
@@ -329,7 +329,7 @@ häufigsten Maqams bestimmten Vorzeichen zugeordnet werden:
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
 @seealso
@@ -380,10 +380,10 @@ zu benutzen.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {compound-time-signatures.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {arabic-improvisation.ly}
 
 

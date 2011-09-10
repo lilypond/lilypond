@@ -123,7 +123,7 @@ select_encoded_font (Output_def *layout, SCM chain)
     return select_pango_font (layout, chain);
   else
 #endif
-    if (scm_instance_p (name))
+    if (scm_is_true (scm_instance_p (name)))
       {
         SCM base_size = scm_slot_ref (name, ly_symbol2scm ("default-size"));
         SCM vec = scm_slot_ref (name, ly_symbol2scm ("size-vector"));

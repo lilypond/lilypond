@@ -6,7 +6,7 @@
   texidoc = "
 This code shows how to clip (extract) snippets from a full score.
 
-This file needs to be run separately with @code{-dclip-systems}; the
+This file needs to be run separately with @option{-dclip-systems}; the
 snippets page may not adequately show the results.
 
 The result will be files named

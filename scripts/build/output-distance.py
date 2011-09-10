@@ -3,6 +3,7 @@ import sys
 import optparse
 import os
 import math
+import re
 
 ## so we can call directly as scripts/build/output-distance.py
 me_path = os.path.abspath (os.path.split (sys.argv[0])[0])
@@ -314,7 +315,9 @@ class SystemLink:
                 self.geometric_distance ())
 
 def scheme_float (s) :
-  return float(s) if 'nan' not in s else float(s.split('.')[0])
+    if 'nan' not in s :
+        return float(s)
+    return float(s.split('.')[0])
 
 def read_signature_file (name):
     print 'reading', name
@@ -466,11 +469,22 @@ class GitFileCompareLink (FileCompareLink):
         return d
 
 
+snippet_fn_re = re.compile (r"`\./([0-9a-f]{2}/lily-[0-9a-f]{8}).eps'");
 class TextFileCompareLink (FileCompareLink):
     def calc_distance (self):
         import difflib
-        diff = difflib.unified_diff (self.contents[0].strip().split ('\n'),
-                                     self.contents[1].strip().split ('\n'),
+        # Extract the old and the new hashed snippet names from the log file
+        # and replace the old by the new, so file name changes don't show
+        # up as log differences...
+        cont0 = self.contents[0].strip();
+        cont1 = self.contents[1].strip();
+        m0 = re.search (snippet_fn_re, cont0);
+        m1 = re.search (snippet_fn_re, cont1);
+        if (m0 and m1 and (m0.group(1) != m1.group(1))):
+            cont0 = cont0.replace (m0.group(1), m1.group(1));
+
+        diff = difflib.unified_diff (cont0.split ('\n'),
+                                     cont1.split ('\n'),
                                      fromfiledate = self.file_names[0],
                                      tofiledate = self.file_names[1]
                                      )
@@ -752,7 +766,6 @@ class SignatureFileLink (FileLink):
 # Files/directories
 
 import glob
-import re
 
 def compare_signature_files (f1, f2):
     s1 = read_signature_file (f1)

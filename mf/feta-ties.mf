@@ -1,0 +1,46 @@
+% Feta (not the Font-En-Tja) music font -- small ties
+% This file is part of LilyPond, the GNU music typesetter.
+%
+% Copyright (C) 2011 Bertrand Bordage <bordage.bertrand@gmail.com>
+%
+% LilyPond is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% LilyPond is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
+
+fet_begingroup ("ties");
+
+fet_beginchar ("lyric tie", "lyric");
+	save padding;
+
+	padding := .4 staff_space;
+
+	set_char_box (0, 0,
+		.7 staff_space#, 0);
+
+	z1 = (-staff_space, -padding);
+	z2 = (0, -d);
+	z3 = (staff_space, -padding);
+
+	penpos1 (1.2 linethickness, 50);
+	penpos2 (2 linethickness, 90);
+	penpos3 (1.2 linethickness, 130);
+
+	fill z2l
+		.. simple_serif (z3l, z3r, 90)
+		.. z2r
+		.. simple_serif (z1r, z1l, 90)
+		.. cycle;
+
+	penlabels (1, 2, 3);
+fet_endchar;
+
+fet_endgroup ("ties");

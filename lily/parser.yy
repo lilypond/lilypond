@@ -268,14 +268,17 @@ If we give names, Bison complains.
 %token <i> UNSIGNED
 
 /* Artificial tokens, for more generic function syntax */
-%token <i> EXPECT_MARKUP;
-%token <i> EXPECT_MUSIC;
-%token <i> EXPECT_PITCH;
-%token <i> EXPECT_DURATION;
-%token <i> EXPECT_SCM;
-%token <i> EXPECT_MARKUP_LIST
+%token <i> EXPECT_MARKUP "markup?"
+%token <i> EXPECT_MUSIC "ly:music?"
+%token <i> EXPECT_PITCH "ly:pitch?"
+%token <i> EXPECT_DURATION "ly:duration?"
+%token <i> EXPECT_SCM "scheme?"
+%token <i> EXPECT_MARKUP_LIST "markup-list?"
 /* After the last argument. */
 %token <i> EXPECT_NO_MORE_ARGS;
+
+/* An artificial token for parsing embedded Lilypond */
+%token <i> EMBEDDED_LILY "#{"
 
 %token <scm> BOOK_IDENTIFIER
 %token <scm> CHORDMODIFIER_PITCH
@@ -343,6 +346,7 @@ If we give names, Bison complains.
 %type <scm> context_change
 %type <scm> direction_less_event
 %type <scm> direction_reqd_event
+%type <scm> embedded_lilypond
 %type <scm> event_chord
 %type <scm> gen_text_def
 %type <scm> music_property_def
@@ -352,6 +356,7 @@ If we give names, Bison complains.
 %type <scm> relative_music
 %type <scm> simple_element
 %type <scm> simple_music_property_def
+%type <scm> start_symbol
 %type <scm> string_number_event
 %type <scm> tempo_event
 
@@ -396,6 +401,7 @@ If we give names, Bison complains.
 %type <scm> closed_function_arglist
 %type <scm> open_function_arglist
 %type <scm> identifier_init
+%type <scm> lilypond
 %type <scm> lilypond_header
 %type <scm> lilypond_header_body
 %type <scm> lyric_element
@@ -458,7 +464,18 @@ prec levels in different prods */
 
 %%
 
-lilypond:	/* empty */
+start_symbol:
+	lilypond
+	| EMBEDDED_LILY {
+		SCM nn = PARSER->lexer_->lookup_identifier ("pitchnames");
+		PARSER->lexer_->push_note_state (alist_to_hashq (nn));
+	} embedded_lilypond {
+		PARSER->lexer_->pop_state ();
+		PARSER->lexer_->set_identifier (ly_symbol2scm ("$parseStringResult"), $3);
+ 	}
+	;
+
+lilypond:	/* empty */ { }
 	| lilypond toplevel_expression {
 	}
 	| lilypond assignment {
@@ -527,6 +544,21 @@ toplevel_expression:
 embedded_scm:
 	SCM_TOKEN
 	| SCM_IDENTIFIER
+	;
+
+embedded_lilypond:
+	{ $$ = MAKE_SYNTAX ("void-music", @$, SCM_UNDEFINED); }
+	| identifier_init
+	| music music music_list {
+		$$ = MAKE_SYNTAX ("sequential-music", @$,	
+				  scm_cons2 ($1, $2, scm_reverse_x ($3, SCM_EOL)));
+	}
+	| error {
+		PARSER->error_level_ = 1;
+	}
+	| embedded_lilypond INVALID	{
+		PARSER->error_level_ = 1;
+	}
 	;
 
 

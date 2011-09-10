@@ -3,10 +3,6 @@
   texidoc = "Lilypond does footnotes."
 }
 
-\paper {
-  footnote-auto-numbering = ##f
-}
-
 #(set-default-paper-size "a6")
 \book {
 

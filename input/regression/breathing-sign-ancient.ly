@@ -3,10 +3,9 @@
 \header{
   texidoc="
 Gregorian chant notation sometimes also uses commas and ticks, but in
-smaller font size (we call it 'virgula' and 'caesura').  However, the
-most common breathing signs are divisio minima/maior/maxima and
+smaller font size (we call it `virgula' and `caesura').  However, the
+most common breathing signs are divisio minima/@/maior/@/maxima and
 finalis, the latter three looking similar to bar glyphs.
-
 " }
 
 \include "gregorian.ly"

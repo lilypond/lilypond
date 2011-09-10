@@ -186,7 +186,7 @@ check_meshing_chords (Grob *me,
       && Rhythmic_head::dot_count (head_up) < Rhythmic_head::dot_count (head_down))
     {
       shift_amount = -1;
-      if (!touch || full_collide)
+      if (!touch)
         // remember to leave clearance between stems
         stem_to_stem = true;
     }
@@ -213,7 +213,6 @@ check_meshing_chords (Grob *me,
       && (up_style == ly_symbol2scm ("fa") || up_style == ly_symbol2scm ("faThin"))
       && (down_style == ly_symbol2scm ("fa") || down_style == ly_symbol2scm ("faThin")))
     {
-      Interval uphead_size = head_up->extent (head_up, Y_AXIS);
       Offset att = Offset (0.0, -1.0);
       head_up->set_property ("stem-attachment", ly_offset2scm (att));
       head_up->set_property ("transparent", SCM_BOOL_T);

@@ -310,12 +310,24 @@ void
 Lily_lexer::LexerError (char const *s)
 {
   if (include_stack_.empty ())
-    message (_f ("error at EOF: %s", s) + "\n");
+    non_fatal_error (s, _f ("%s:EOF", s));
   else
     {
       error_level_ |= 1;
       Input spot (*lexloc_);
       spot.error (s);
+    }
+}
+
+void
+Lily_lexer::LexerWarning (char const *s)
+{
+  if (include_stack_.empty ())
+    warning (s, _f ("%s:EOF", s));
+  else
+    {
+      Input spot (*lexloc_);
+      spot.warning (s);
     }
 }
 

@@ -132,7 +132,7 @@ in-place.
 @item -f,--from=@var{from-patchlevel}
 Set the version to convert from.  If this is not set, @command{convert-ly}
 will guess this, on the basis of @code{\version} strings in the file.
-E.g. @code{--from=2.10.25}
+E.g. @option{--from=2.10.25}
 
 @item -n,--no-version
 Normally, @command{convert-ly} adds a @code{\version} indicator
@@ -143,7 +143,7 @@ Show all known conversions and exit.
 
 @item --to=@var{to-patchlevel}
 Set the goal version of the conversion.  It defaults to the latest
-available version.  E.g. @code{--to=2.12.2}
+available version.  E.g. @option{--to=2.12.2}
 
 @item -h, --help
 Print usage help.

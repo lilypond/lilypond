@@ -11,6 +11,8 @@ get to the number of repeats.
 Unfolded behavior:"
 }
 
+#(ly:set-option 'warning-as-error #f)
+
 \context Voice \relative c'' {
   \repeat unfold 3 { c^"3x 0a" d }
   %% less alts than body

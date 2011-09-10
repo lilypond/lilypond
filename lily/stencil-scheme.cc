@@ -92,17 +92,14 @@ LY_DEFINE (ly_stencil_empty_p, "ly:stencil-empty?",
 }
 
 LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
-           4, 2, 0, (SCM first, SCM axis, SCM direction,
+           4, 1, 0, (SCM first, SCM axis, SCM direction,
                      SCM second,
-                     SCM padding,
-                     SCM minimum),
+                     SCM padding),
            "Construct a stencil by putting @var{second} next to @var{first}."
            "  @var{axis} can be 0 (x-axis) or@tie{}1 (y-axis)."
            "  @var{direction} can be -1 (left or down) or@tie{}1 (right or"
-           "  up).  The stencils are juxtaposed with @var{padding} as extra"
-           " space.  If this puts the reference points closer than"
-           " @var{minimum}, they are moved by the latter amount."
-           "  @var{first} and @var{second} may also be @code{'()} or"
+           " up).  The stencils are juxtaposed with @var{padding} as extra"
+           " space.  @var{first} and @var{second} may also be @code{'()} or"
            " @code{#f}.")
 {
   Stencil *s1 = unsmob_stencil (first);
@@ -121,12 +118,6 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
     {
       LY_ASSERT_TYPE (scm_is_number, padding, 5);
       p = scm_to_double (padding);
-    }
-  Real m = 0.0;
-  if (minimum != SCM_UNDEFINED)
-    {
-      LY_ASSERT_TYPE (scm_is_number, minimum, 6);
-      m = scm_to_double (minimum);
     }
 
   if (s1)
@@ -210,7 +201,7 @@ LY_DEFINE (ly_make_stencil, "ly:make-stencil",
 LY_DEFINE (ly_stencil_aligned_to, "ly:stencil-aligned-to",
            3, 0, 0, (SCM stil, SCM axis, SCM dir),
            "Align @var{stil} using its own extents.  @var{dir} is a number."
-           "  @code{-1} and @code{1} are left and right, respectively."
+           "  @w{@code{-1}} and @code{1} are left and right, respectively."
            "  Other values are interpolated (so @code{0} means the center).")
 {
   LY_ASSERT_SMOB (Stencil, stil, 1);

@@ -148,7 +148,7 @@ and False is @code{#f}.
 
 @item Numbers
 Numbers are entered in the standard fashion,
-@code{1} is the (integer) number one, while @code{-1.5} is a
+@code{1} is the (integer) number one, while @w{@code{-1.5}} is a
 floating point number (a non-integer number).
 
 @item Strings
@@ -609,7 +609,7 @@ guile> (cond ((< a b) "a is less than b")
 @subsection LilyPond Scheme syntax
 
 The Guile interpreter is part of LilyPond, which means that
-Scheme can be included in LilyPond input files.  The hash mark @code{#}
+Scheme can be included in LilyPond input files.  The hash mark@tie{}@code{#}
 is used to tell the LilyPond parser that the next value is a Scheme
 value.
 
@@ -640,7 +640,7 @@ as follows:
 @end example
 
 For the rest of this section, we will assume that the data is entered
-in a music file, so we add @code{#}s at the beginning of each Scheme
+in a music file, so we add@tie{}@code{#}s at the beginning of each Scheme
 expression.
 
 All of the top-level Scheme expressions in a LilyPond input file can
@@ -780,7 +780,7 @@ define some Scheme code in a macro (to be called later), use
 @knownissues
 
 Mixing Scheme and LilyPond variables is not possible with the
-@code{--safe} option.
+@option{--safe} option.
 
 
 @node Object properties

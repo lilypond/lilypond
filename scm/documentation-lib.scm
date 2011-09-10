@@ -56,7 +56,7 @@
        (node-children node)))
 
 (define (processing name)
-  (ly:message (_ "Processing ~S...") name))
+  (ly:basic-progress (_ "Processing ~S...") name))
 
 (define (self-evaluating? x)
   (or (number? x) (string? x) (procedure? x) (boolean? x)))
