@@ -38,7 +38,6 @@ articulation_list (vector<Stream_event *> note_events,
                    vector<Stream_event *> articulation_events,
                    char const *articulation_name)
 {
-  vector<Stream_event *> string_events;
   SCM articulations = SCM_EOL;
   vsize j = 0;
 
