@@ -236,6 +236,7 @@
 
 	(break-visibility . ,begin-of-line-visible)
 	(direction . ,UP)
+	(extra-spacing-width . (+inf.0 . -inf.0))
 	(font-family . roman)
 	(font-size . -2)
 	(non-musical . #t)
