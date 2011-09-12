@@ -1,0 +1,306 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+
+@ignore
+    Translation of GIT committish: d34556def05ad286c0426dcf29118088ed14b153
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.14.0"
+
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+
+@c TODO: add tablature.
+
+@node カンニング ペーパー
+@appendix カンニング ペーパー
+@translationof Cheat sheet
+
+
+@multitable @columnfractions .35 .3 .35
+
+@item @b{構文}
+@tab @b{説明}
+@tab @b{例}
+
+@item @code{1 2 8 16}
+@tab 演奏時間
+@tab
+@lilypond[fragment,relative=2,notime]
+\set Staff.autoBeaming = ##f
+\override Staff.Clef #'break-visibility = #all-invisible
+c1 c2 c8 c16
+@end lilypond
+
+@item @code{c4. c4..}
+@tab 増音の付点
+@tab
+@lilypond[relative=2,notime]
+\override Staff.Clef #'break-visibility = #all-invisible
+c4. c4..
+@end lilypond
+
+@item @code{c d e f g a b }
+@tab 音階
+@tab
+@lilypond[fragment,relative=1,notime]
+c d e f g a b
+@end lilypond
+
+@c 保留: alteration -- 変音？
+@item @code{fis bes}
+@tab 変音
+@tab
+@lilypond[fragment,relative=1,notime]
+fis bes
+@end lilypond
+
+@item @code{\clef treble \clef bass }
+@tab 音部記号
+@tab
+@lilypond[fragment,notime]
+\clef treble
+s4_" "
+\clef bass
+s4_" "
+@end lilypond
+
+@item @code{\time 3/4 \time 4/4 }
+@tab 拍子記号
+@tab
+@lilypond[fragment]
+\override Staff.Clef #'transparent = ##t
+\time 3/4
+s4_" "
+\time 4/4
+s16_" "
+@end lilypond
+
+
+@item @code{r4 r8}
+@tab 休符
+@tab
+@lilypond[relative=2,notime,fragment]
+\override Staff.Clef #'break-visibility = #all-invisible
+r4 r8
+@end lilypond
+
+@item @code{d ~ d}
+@tab タイ
+@tab
+@lilypond[relative=2,notime,fragment]
+\set Score.timing = ##f
+\set Staff.autoBeaming = ##f
+d ~ d
+@end lilypond
+
+@item @code{\key es \major }
+@tab 調号
+@tab
+@lilypond[notime,relative=1]
+\clef treble
+\key es \major
+\hideNotes
+c128
+@end lilypond
+
+@item @var{note}@code{'}
+@tab 1 オクターブ上げる
+@tab
+@lilypond[relative=2,notime,fragment]
+\set Score.timing = ##f
+\set Staff.autoBeaming = ##f
+a a'
+@end lilypond
+
+@item @var{note}@code{,}
+@tab 1 オクターブ下げる
+@tab
+@lilypond[relative=2,notime,fragment]
+\set Score.timing = ##f
+\set Staff.autoBeaming = ##f
+c c,
+@end lilypond
+
+
+@item @code{c( d e)}
+@tab スラー
+@tab
+@lilypond[fragment,relative=2]
+\set Score.timing = ##f
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.autoBeaming = ##f
+c( d e)
+@end lilypond
+
+
+@item @code{c\( c( d) e\)}
+@tab プレージング スラー
+@tab
+@lilypond[fragment,relative=2]
+\set Score.timing = ##f
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.autoBeaming = ##f
+c\( c( d) e\)
+@end lilypond
+
+
+@item @code{a8[ b]}
+@tab 連桁
+@tab
+@lilypond[fragment,relative=2]
+\set Score.timing = ##f
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.autoBeaming = ##f
+a8-[ b-]
+@end lilypond
+
+
+@item @code{<< \new Staff ... >>}
+@tab 複数の譜
+@tab
+@lilypond[fragment]
+<< \new Staff {
+     \set Staff.implicitTimeSignatureVisibility = #all-invisible
+     c'1
+   }
+   \new Staff {
+     \set Staff.implicitTimeSignatureVisibility = #all-invisible
+     c'1
+   } >>
+@end lilypond
+
+
+@item @code{c-> c-.}
+@tab アーティキュレーション
+@tab
+@lilypond[fragment,relative=2]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+c-> c-.
+@end lilypond
+
+
+@item @code{c2\mf c\sfz}
+@tab 強弱記号
+@tab
+@lilypond[fragment,relative=2]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+c2\mf c\sfz
+@end lilypond
+
+
+@item @code{a\< a a\!}
+@tab クレッシェンド
+@tab
+@lilypond[fragment,relative=2]
+\set Score.timing = ##f
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.autoBeaming = ##f
+a\< a a\!
+@end lilypond
+
+@item @code{a\> a a\!}
+@tab デクレッシェンド
+@tab
+@lilypond[fragment,relative=2]
+\set Score.timing = ##f
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.autoBeaming = ##f
+a\> a a\!
+@end lilypond
+
+
+@item @code{< >}
+@tab 和音
+@tab
+@lilypond[fragment,relative=2]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+<c e>
+@end lilypond
+
+
+@item @code{\partial 8}
+@tab 上拍
+@tab
+@lilypond[fragment,relative=2]
+\partial 8
+f8 c2 d e
+@end lilypond
+
+
+@item @code{\times 2/3 @{f g a@}}
+@tab 3 連符
+@tab
+@lilypond[relative=1,fragment]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\times 2/3 { f8 g a }
+@end lilypond
+
+
+@item @code{\grace}
+@tab 装飾小音符
+@tab
+@lilypond[relative=2,fragment]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\context Voice { \grace b16 c4 }
+@end lilypond
+
+@item @code{\lyricmode @{ twinkle @}}
+@tab 歌詞を入力する
+@tab
+twinkle
+
+
+@item @code{\new Lyrics}
+@tab 歌詞を譜刻する
+@tab
+@lilypond[fragment]
+\new Lyrics \lyricmode { twinkle }
+@end lilypond
+
+@item @code{twin -- kle}
+@tab 歌詞のハイフン
+@tab
+@lilypond[fragment,relative=2]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+<<
+   { g'1 g }
+  \new Lyrics \lyricsto "" { twin -- kle }
+>>
+@end lilypond
+
+@item @code{\chordmode @{ c:dim f:maj7 @}}
+@tab コード
+@tab
+@lilypond[fragment,relative=2]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\chordmode { c:dim f:maj7 }
+@end lilypond
+
+@item @code{\context ChordNames}
+@tab コード ネームを譜刻する
+@tab
+@lilypond[fragment,relative=2]
+\chords { c:dim f:maj7 }
+@end lilypond
+
+@item @code{<<@{e f@} \\ @{c d@}>>}
+@tab 多声
+@tab
+@lilypond[fragment,relative=2]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\context Staff <<{e f} \\ {c d}>>
+@end lilypond
+
+
+@item @code{s4 s8 s16}
+@tab 空白休符
+@tab
+
+@end multitable
+
