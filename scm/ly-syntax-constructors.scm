@@ -119,10 +119,6 @@
 	(make-sequential-music (list tempo-change tempo-set))
 	tempo-change)))
 
-(define-ly-syntax-simple (skip-music dur)
-  (make-music 'SkipMusic
-	      'duration dur))
-
 (define-ly-syntax-simple (repeat type num body alts)
   (make-repeat type num body alts))
 
@@ -252,15 +248,3 @@ into a @code{MultiMeasureTextEvent}."
 	(begin
 	  (set! (ly:music-property ev 'label) label)
 	  ev))))
-
-(define-ly-syntax (partial parser location dur)
-  "Make a partial measure."
-
-  ;; We use `descend-to-context' here instead of `context-spec-music' to
-  ;; ensure \partial still works if the Timing_translator is moved
-    (descend-to-context
-     (context-spec-music (make-music 'PartialSet
-				     'origin location
-				     'partial-duration dur)
-			 'Timing)
-     'Score))

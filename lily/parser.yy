@@ -202,7 +202,6 @@ void set_music_properties (Music *p, SCM a);
 %token ONCE "\\once"
 %token OVERRIDE "\\override"
 %token PAPER "\\paper"
-%token PARTIAL "\\partial"
 %token RELATIVE "\\relative"
 %token REMOVE "\\remove"
 %token REPEAT "\\repeat"
@@ -212,7 +211,6 @@ void set_music_properties (Music *p, SCM a);
 %token SEQUENTIAL "\\sequential"
 %token SET "\\set"
 %token SIMULTANEOUS "\\simultaneous"
-%token SKIP "\\skip"
 %token TEMPO "\\tempo"
 %token TIMES "\\times"
 %token TYPE "\\type"
@@ -1661,9 +1659,6 @@ command_element:
 	command_event {
 		$$ = $1;
 	}
-	| SKIP duration_length {
-		$$ = MAKE_SYNTAX ("skip-music", @$, $2);
-	}
 	| E_BRACKET_OPEN {
 		Music *m = MY_MAKE_MUSIC ("LigatureEvent", @$);
 		m->set_property ("span-direction", scm_from_int (START));
@@ -1691,10 +1686,6 @@ command_element:
 			$$ = MAKE_SYNTAX ("bar-check", @$, SCM_UNDEFINED);
 
 	}
-	| PARTIAL duration_length	{
-		$$ = MAKE_SYNTAX ("partial", @$, $2);
-	}
-
 	| TIME_T fraction  {
 		SCM proc = ly_lily_module_constant ("make-time-signature-set");
 

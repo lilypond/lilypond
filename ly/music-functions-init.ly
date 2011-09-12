@@ -789,6 +789,18 @@ partcombineSoloIIOnce = \partcombineForce #'solo2 ##t
 partcombineAutomatic = \partcombineForce ##f ##f
 partcombineAutomaticOnce = \partcombineForce ##f ##t
 
+partial =
+#(define-music-function (parser location dur) (ly:duration?)
+  (_i "Make a partial measure.")
+
+  ;; We use `descend-to-context' here instead of `context-spec-music' to
+  ;; ensure \partial still works if the Timing_translator is moved
+    (descend-to-context
+     (context-spec-music (make-music 'PartialSet
+				     'origin location
+				     'partial-duration dur)
+			 'Timing)
+     'Score))
 
 pitchedTrill =
 #(define-music-function
@@ -890,6 +902,13 @@ shiftDurations =
    (music-map
     (lambda (x)
       (shift-one-duration-log x dur dots)) arg))
+
+skip =
+#(define-music-function (parser location dur) (ly:duration?)
+  (_i "Skip forward by @var{dur}.")
+  (make-music 'SkipMusic
+	      'duration dur))
+
 
 slashedGrace =
 #(def-grace-function startSlashedGraceMusic stopSlashedGraceMusic
