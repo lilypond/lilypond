@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: 2763b2de261e4f6263e2d4751b45d7c40f1ef7ea
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -161,7 +161,7 @@ Los valores Booleanos son Verdadero y Falso.  Verdadero en Scheme es
 
 @item Números
 Los números se escriben de la forma normal, @code{1} es el número
-(entero) uno, mientras que @code{-1.5} es un número en coma flotante
+(entero) uno, mientras que @w{@code{-1.5}} es un número en coma flotante
 (un número no entero).
 
 @item Cadenas
@@ -642,7 +642,7 @@ guile> (cond ((< a b) "a es menor que b")
 
 El intérprete Guile forma parte de LilyPond, lo que significa que se
 puede incluir Scheme dentro de los archivos de entrada de LilyPond.
-La marca de almohadilla @code{#} se utiliza para indicar al analizador
+La marca de almohadilla@tie{}@code{#} se utiliza para indicar al analizador
 sintáctico de LilyPond que lo siguiente es un valor de Scheme.
 
 Una vez el analizador sintáctico se encuentra con un símbolo de
@@ -675,8 +675,8 @@ Guile se introducen como sigue:
 @end example
 
 Durante el resto de esta sección, supondremos que los datos se
-introducen en un archivo de música, por lo que añadiremos almohadillas
-@code{#} al principio de todas las expresiones de Scheme.
+introducen en un archivo de música, por lo que añadiremos
+almohadillas@tie{}@code{#} al principio de todas las expresiones de Scheme.
 
 Todas las expresiones de Scheme del nivel jerárquico superior dentro
 de un archivo de entrada de LilyPond se pueden combinar en una sola
@@ -817,7 +817,7 @@ llamarse más tarde), utilice @ref{Funciones vacías}, o bien
 @knownissues
 
 No es posible mezclar variables de Scheme y de LilyPond con la opción
-@code{--safe}.
+@option{--safe}.
 
 
 @node Propiedades de los objetos
