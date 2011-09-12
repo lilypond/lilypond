@@ -595,7 +595,7 @@ BOM_UTF8	\357\273\277
 	[{}]	{
 		return YYText ()[0];
 	}
-	[^#{}"\\ \t\n\r\f]+ {
+	[^#{}\"\\ \t\n\r\f]+ {
 		string s (YYText ()); 
 
 		char c = s[s.length () - 1];
