@@ -2735,8 +2735,8 @@ run_music_function (Lily_parser *parser, Input loc, SCM func, SCM args)
 		return LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("void-music"), scm_list_2 (parser->self_scm (), make_input (loc)));
 	}
 
-	SCM syntax_args = scm_list_4 (parser->self_scm (), make_input (loc), func, args);
-	return LOWLEVEL_MAKE_SYNTAX (scm_car (sig), syntax_args);
+	SCM syntax_args = scm_list_5 (parser->self_scm (), make_input (loc), scm_car (sig), func, args);
+	return LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("music-function"), syntax_args);
 }
 
 bool

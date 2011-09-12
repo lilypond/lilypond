@@ -803,18 +803,23 @@ Lily_lexer::scan_escaped_word (string str)
 	SCM sid = lookup_identifier (str);
 	if (is_music_function (sid))
 	{
-		int funtype = MUSIC_FUNCTION;
+		int funtype = SCM_FUNCTION;
 
 		yylval.scm = get_music_function_transform (sid);
 
 		SCM s = scm_object_property (yylval.scm, ly_symbol2scm ("music-function-signature"));
-		if (scm_is_eq (scm_car (s), ly_lily_module_constant ("scheme-function")))
+		SCM cs = scm_car (s);
+
+		if (scm_is_eq (cs, ly_lily_module_constant ("ly:music?")))
+			funtype = MUSIC_FUNCTION;
+		else if (ly_is_procedure (cs))
 			funtype = SCM_FUNCTION;
-			       
+		else programming_error ("Bad syntax function predicate");
+
 		push_extra_token (EXPECT_NO_MORE_ARGS);
 		for (s = scm_cdr (s); scm_is_pair (s); s = scm_cdr (s))
 		{
-			SCM cs = scm_car (s);
+			cs = scm_car (s);
 			
 			if (cs == ly_music_p_proc)
 				push_extra_token (EXPECT_MUSIC);
