@@ -187,7 +187,7 @@ void set_music_properties (Music *p, SCM a);
 %token FIGURES "\\figures"
 %token GROBDESCRIPTIONS "\\grobdescriptions"
 %token HEADER "\\header"
-%token INVALID "\\invalid"
+%token INVALID "\\version-error"
 %token KEY "\\key"
 %token LAYOUT "\\layout"
 %token LYRICMODE "\\lyricmode"
