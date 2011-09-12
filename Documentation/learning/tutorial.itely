@@ -287,6 +287,12 @@ To change a note by two (or more!) octaves, we use multiple
 quotes @code{''} and not one double quote @code{"}@tie{}!
 @c " - keeps quotes in order for context-sensitive editor -td
 
+If you carefully consider all the rules above and remember that the
+octave of absolute pitches also is specified disregarding any
+accidentals, one rather interesting consequence is that the first note
+in @code{@w{\relative f}} music is interpreted just the same as in
+absolute pitch mode.
+
 @subheading Durations (rhythms)
 
 @cindex note durations
