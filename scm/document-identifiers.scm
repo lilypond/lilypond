@@ -37,7 +37,7 @@
 	      (zip arg-names type-names)))))
     (format #f
      "@item @code{~a}~a~a
-@findex ~a
+@funindex ~a
 ~a
 "
      name-sym (if (equal? "" signature-str) "" " - ") signature-str
