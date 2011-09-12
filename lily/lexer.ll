@@ -733,12 +733,6 @@ Lily_lexer::push_extra_token (int token_type)
 }
 
 void
-Lily_lexer::push_embedded_token ()
-{
-	push_extra_token (EMBEDDED_LILY);
-}
-
-void
 Lily_lexer::push_chord_state (SCM tab)
 {
 	pitchname_tab_stack_ = scm_cons (tab, pitchname_tab_stack_);

@@ -175,10 +175,10 @@ Lily_parser::parse_string_expression (string ly_code)
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
 
   SCM mod = lexer_->set_current_scope ();
-  lexer_->push_embedded_token ();
+  lexer_->push_extra_token (EMBEDDED_LILY);
   do_yyparse ();
-  SCM result = lexer_->lookup_identifier_symbol (ly_symbol2scm ("$parseStringResult"));
-  // $parseStringResult is set in the grammar rule for embedded_lilypond
+  SCM result = lexer_->lookup_identifier_symbol (ly_symbol2scm ("parseStringResult"));
+  // parseStringResult is set in the grammar rule for embedded_lilypond
   
   scm_set_current_module (mod);
 

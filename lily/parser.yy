@@ -476,7 +476,7 @@ start_symbol:
 		PARSER->lexer_->push_note_state (alist_to_hashq (nn));
 	} embedded_lilypond {
 		PARSER->lexer_->pop_state ();
-		PARSER->lexer_->set_identifier (ly_symbol2scm ("$parseStringResult"), $3);
+		PARSER->lexer_->set_identifier (ly_symbol2scm ("parseStringResult"), $3);
  	}
 	;
 
@@ -583,7 +583,7 @@ embedded_lilypond:
 	| error {
 		PARSER->error_level_ = 1;
 	}
-	| embedded_lilypond INVALID	{
+	| INVALID embedded_lilypond {
 		PARSER->error_level_ = 1;
 	}
 	;
