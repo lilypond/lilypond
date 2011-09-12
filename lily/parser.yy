@@ -1174,8 +1174,7 @@ function_arglist_nonmusic_last:
 generic_prefix_music_scm:
 	MUSIC_FUNCTION function_arglist {
 		$$ = run_music_function (PARSER, @$,
-					 $1,
-					 scm_reverse_x ($2, SCM_EOL));
+					 $1, $2);
 	}
 	;
 
@@ -1635,7 +1634,7 @@ music_function_chord_body_arglist:
 music_function_chord_body:
 	MUSIC_FUNCTION music_function_chord_body_arglist {
 		$$ = run_music_function (PARSER, @$,
-					 $1, scm_reverse_x ($2, SCM_EOL));
+					 $1, $2);
 	}
 	;
 
@@ -1654,7 +1653,7 @@ music_function_event_arglist:
 music_function_event:
 	MUSIC_FUNCTION music_function_event_arglist {
 		$$ = run_music_function (PARSER, @$,
-					 $1, scm_reverse_x ($2, SCM_EOL));
+					 $1, $2);
 	}
 	;
 
@@ -2727,6 +2726,8 @@ run_music_function (Lily_parser *parser, Input loc, SCM func, SCM args)
 	SCM sig = scm_object_property (func, ly_symbol2scm ("music-function-signature"));
 
 	SCM type_check_proc = ly_lily_module_constant ("type-check-list");
+
+	args = scm_reverse_x (args, SCM_EOL);
 
 	if (!to_boolean (scm_call_3  (type_check_proc, make_input (loc), scm_cdr (sig), args)))
 	{
