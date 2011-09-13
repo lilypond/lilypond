@@ -770,11 +770,11 @@ Syntax:
       (let ((docstring (cadar body))
 	    (body (cdr body)))
 	`(ly:make-music-function (list ,type ,@signature)
-				 (lambda (,@args)
+				 (lambda ,args
 				   ,docstring
 				   ,@body)))
       `(ly:make-music-function (list ,type ,@signature)
-			       (lambda (,@args)
+			       (lambda ,args
 				 ,@body))))
 
 (defmacro-public define-music-function rest
