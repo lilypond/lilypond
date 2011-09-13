@@ -43,13 +43,15 @@
        m)))
 
 ;; Music function: Apply function and check return value.
-(define-ly-syntax-loc (music-function parser loc pred fun args)
+(define-ly-syntax (music-function parser loc pred fun args)
   (let ((m (apply fun parser loc args)))
+    (if (ly:music? m)
+	(set! (ly:music-property m 'origin) loc))
     (if (pred m)
 	m
 	(cond ((eq? pred ly:music?)
 	       (ly:parser-error parser (_ "Music syntax function must return Music object") loc)
-	       (make-music 'Music))
+	       (make-music 'Music 'origin loc))
 	      (else
 	       (ly:parser-error parser
 				(format #f (_ "Scheme function must return ~a object") (type-name pred))

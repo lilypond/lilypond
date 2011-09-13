@@ -792,7 +792,7 @@ Syntax:
   (define-scheme-function (parser location arg1 arg2 ...) (arg1-type? arg2-type? ...)
     ...function body...)
 "
-  `(define-syntax-function ly:scheme? ,@rest))
+  `(define-syntax-function scheme? ,@rest))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
