@@ -19,6 +19,7 @@ ifeq ($(WEBSITE_ONLY_BUILD),1)
   TEXI2HTML_PROGRAM=$(HOME)/usr/bin/texi2html
   EXAMPLES=$(HOME)/lilypond/media/ly-examples
   PICTURES=$(HOME)/lilypond/media/pictures
+  PYTHON=python
 else
   ### for normal git
   script-dir=$(top-src-dir)/scripts/build
@@ -49,15 +50,10 @@ ifeq ($(quiet-run),true)
   quiet-flag=-q
 endif
 
-
-
 ################################################################
 OUT=out-website
 
-### only update this when the language compiles correctly!
-# LANGUAGES = (site, cs, de, es, fr, hu, it, ja, nl, zh)
-#WEB_LANGS = de es fr hu it ja nl zh cs
-WEB_LANGS = cs de es fr hu it ja nl zh
+WEB_LANGS = $(shell MAKEWEB=1 $(PYTHON) $(top-src-dir)/python/langdefs.py)
 
 TEXI2HTML=ONLY_WEB=1 TOP_SRC_DIR=$(top-src-dir) DEPTH=$(depth) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 

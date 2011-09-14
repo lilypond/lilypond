@@ -73,8 +73,11 @@ zh = LanguageDef ('zh', '中文', enable_ly_identifier_l10n=False)
 # (please run 'make doc-clean' before doing that):
 #fr.enabled = False
 
-# LANGUAGES = (site, cs, de, es, fr, hu, it, ja, nl, zh)
 LANGUAGES = (site, cs, de, es, fr, hu, it, ja, nl, zh)
+WEB_LANGUAGES = (site, cs, de, es, fr, hu, it, ja, nl, zh)
+
+if os.getenv("MAKEWEB") == '1':
+    LANGUAGES=WEB_LANGUAGES
 
 if __name__ == '__main__':
     print ' '.join ([l.code for l in LANGUAGES if l.enabled and l.code != 'en'])
