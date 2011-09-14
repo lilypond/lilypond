@@ -42,7 +42,11 @@
      name-sym (car type-names)
      (if (equal? "" signature-str) "" " - ") signature-str
      name-sym
-     (or doc "(undocumented; fixme)"))))
+     (if doc
+         doc
+         (begin
+           (ly:warning "music function `~a' not documented." name-sym)
+           "(undocumented; fixme)")))))
 
 
 (define (document-object obj-pair)
