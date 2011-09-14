@@ -398,6 +398,8 @@ grace =
    (_i "Insert @var{music} as grace notes."))
 
 harmonicByFret = #(define-music-function (parser location fret music) (number? ly:music?)
+  (_i "Convert @var{music} into harmonics; the resulting notes resemble
+harmonics played on a fretted instrument by touching the strings above @var{fret}.")
   (let* ((fret (number->string fret))
          (pitch (fret->pitch fret)))
         (make-sequential-music
@@ -412,6 +414,9 @@ harmonicByFret = #(define-music-function (parser location fret music) (number? l
           #}))))
 
 harmonicByRatio = #(define-music-function (parser location ratio music) (number? ly:music?)
+    (_i "Convert @var{music} into harmonics; the resulting notes resemble
+harmonics played on a fretted instrument by touching the strings above the point
+given through @var{ratio}.")
   (let ((pitch (ratio->pitch ratio))
         (fret (ratio->fret ratio)))
        (make-sequential-music
