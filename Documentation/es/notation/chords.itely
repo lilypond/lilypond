@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: 7770772b6101f60b28173fd68ceb701048016b21
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -522,6 +522,57 @@ Sin Acorde).
     c2 f4.:m g8:maj7
   }
 }
+@end lilypond
+
+@cindex transposición de acordes de guitarra para cejilla
+
+Si está ajustada la propiedad @code{capoPitch}, los acordes se
+imprimen además transportados para una guitarra con la cejilla puesta
+de la manera correspondiente.  De forma predeterminada, los acordes se
+imprimen sobre una línea, pero si está fijada la propiedad
+@code{capoVertical}, os acordes se imprimen uno encima del otro.
+
+En make-pitch, deje el primer argumento como cero 0, el segundo
+argumento es el intervalo (-2 es una tercera), y el tercer argumento
+la ajusta un semitono arriba o abajo.
+
+@lilypond[verbatim,quote,ragged-right]
+<<
+  \new ChordNames \chordmode {
+    c1
+    r1
+    g1
+    c1
+    \break
+    c1
+    r1
+    g1
+    c1
+    \break
+    c1
+    r1
+    g1
+    c1
+  }
+  \chordmode {
+    c1
+    r1
+    g1
+    c1
+    \break
+    \set ChordNames.capoPitch = #(ly:make-pitch 0 -2 -1/2)
+    c1
+    r1
+    g1
+    c1
+    \break
+    \set ChordNames.capoVertical = ##t
+    c1
+    r1
+    g1
+    c1
+  }
+>>
 @end lilypond
 
 @snippets
