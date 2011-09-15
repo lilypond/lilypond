@@ -282,6 +282,7 @@ If we give names, Bison complains.
 %token <scm> CONTEXT_DEF_IDENTIFIER
 %token <scm> CONTEXT_MOD_IDENTIFIER
 %token <scm> DRUM_PITCH
+%token <scm> PITCH_IDENTIFIER
 %token <scm> DURATION_IDENTIFIER
 %token <scm> EVENT_IDENTIFIER
 %token <scm> FRACTION
@@ -1936,6 +1937,7 @@ pitch:
 	steno_pitch {
 		$$ = $1;
 	}
+	| PITCH_IDENTIFIER
 	;
 
 pitch_also_in_chords:
@@ -1997,7 +1999,7 @@ script_dir:
 
 
 absolute_pitch:
-	steno_pitch	{
+	pitch	{
 		$$ = $1;
 	}
 	;
@@ -2671,6 +2673,9 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 
 		mus->unprotect ();
 		return is_event ? EVENT_IDENTIFIER : MUSIC_IDENTIFIER;
+	} else if (unsmob_pitch (sid)) {
+		*destination = unsmob_pitch (sid)->smobbed_copy ();
+		return PITCH_IDENTIFIER;
 	} else if (unsmob_duration (sid)) {
 		*destination = unsmob_duration (sid)->smobbed_copy ();
 		return DURATION_IDENTIFIER;
