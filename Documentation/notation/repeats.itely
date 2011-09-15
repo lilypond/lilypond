@@ -471,6 +471,21 @@ where @code{@var{musicexpr}} is a music expression and
 c1
 @end lilypond
 
+In some cases, especially in a @code{\relative} context, the
+@code{\repeat unfold} function is not the same as writing out the
+music expression multiple times. E.g,
+
+@example
+\repeat unfold 2 @{ a'4 b c @}
+@end example
+
+is not equivalent to
+
+@example
+a'4 b c | a'4 b c
+@end example
+
+
 Unfold repeats can be made with alternate endings.
 
 @lilypond[verbatim,quote,relative=2]
