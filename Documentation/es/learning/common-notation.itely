@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: d6315a746c47259f56dc2835347985658d71d0c9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -222,8 +222,8 @@ aes4 c b c
 
 Si se encuentra confundido por lo anterior, piense en lo siguiente: si
 estuvises tocando un piano, ¿qué tecla pulsaría?  Si se tratase de una
-tecla negra, entonces ¡@emph{tiene que} añadir @code{-is} ó @code{-es}
-al nombre de la nota!
+tecla negra, entonces ¡@emph{tiene que} añadir @w{@code{-is}} ó
+@w{@code{-es}} al nombre de la nota!
 
 Poner todas las alteraciones de forma explícita puede que requiera
 algo más de trabajo al teclear, pero la ventaja es que la
@@ -1403,7 +1403,7 @@ sitúa por debajo del número de versión.
 
 Cuando se procesa el archivo, el título y el autor se imprimen por
 encima de la música.  Puede obtener más información sobre los títulos
-en @ruser{Crear títulos}.
+en @ruser{Crear títulos cabeceras y pies de página}.
 
 
 @node Nombres de nota absolutos
