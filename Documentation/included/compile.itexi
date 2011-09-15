@@ -647,6 +647,14 @@ the docs.  Please do not complain about anything which is broken
 in those places; the only complete set of documentation is in
 @file{out-www/offline-root/} from the top of the source tree.
 
+@code{make doc} compiles the documents for all languages.  To save
+some compile time, the English language documents can be compiled
+on their own with:
+
+@example
+make LANGS='' doc
+@end example
+
 Compilation of documentation in Info format with images can be
 done separately by issuing:
 
