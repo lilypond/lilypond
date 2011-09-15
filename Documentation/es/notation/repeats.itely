@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -523,8 +523,8 @@ c1
 @end lilypond
 
 Si existen más finales alternativos que repeticiones,
-se aplican los primeros finales alternativos y LilyPond
-ignora las alternativas restantes, que no se imprimen.
+se aplican solo los primeros finales alternativos.
+Las alternativas restantes se ignoran y no se imprimen.
 
 @lilypond[verbatim,quote,relative=2]
 \repeat unfold 2 { c4 d e f }

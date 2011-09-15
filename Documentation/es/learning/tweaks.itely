@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: cf4e2cb33bbcc867d74cd40b2efe28c961ca4a60
+    Translation of GIT committish: f0978ed121192fee9bdf2453a325d98693148acf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -229,7 +229,7 @@ instrucciones usaremos sólo unas cuantas propiedades y valores
 sencillos que sean fáciles de entender.
 
 Por ahora no se preocupe por el @code{#'}, que debe anteponerse a la
-propiedad de presentación, y el @code{#}, que debe preceder al valor.
+propiedad de presentación, y el@tie{}@code{#}, que debe preceder al valor.
 Deben estar presentes siempre y de esa forma exacta.  Es la
 instrucción de uso más común dentro del trucaje, y durante la mayor
 parte del resto de este capítulo presentaremos ejemplos de cómo se
@@ -607,7 +607,7 @@ siguiente:
 \override Slur #'thickness = #5.0
 @end example
 
-¡No olvide el @code{#'} antes del nombre de la propiedad y @code{#}
+¡No olvide el @code{#'} antes del nombre de la propiedad y@tie{}@code{#}
 antes del valor nuevo!
 
 La pregunta final es @q{¿Dónde se debe colocar esta instrucción?}
@@ -967,7 +967,7 @@ en la instrucción @code{\override}.
 @item Dirección
   @tab Una constante válida de dirección o su equivalente numérico (se permiten valores decimales entre -1 y 1)
   @tab @code{LEFT}, @code{CENTER}, @code{UP},
-       @code{1}, @code{-1}
+       @code{1}, @w{@code{-1}}
 @item Entero
   @tab Un número entero positivo
   @tab @code{3}, @code{1}
@@ -984,7 +984,7 @@ en la instrucción @code{\override}.
        @code{(ly:make-moment 3 8)}
 @item Número
   @tab Cualquier valor decimal positivo o negativo
-  @tab @code{3.5}, @code{-2.45}
+  @tab @code{3.5}, @w{@code{-2.45}}
 @item Pareja (de números)
   @tab Dos números separados por un @q{espacio . espacio}, encerrado entre paréntesis y precedido de un apóstrofo
   @tab @code{'(2 . 3.5)}, @code{'(0.1 . -3.2)}
@@ -1141,7 +1141,7 @@ barras de compás se supriman, por lo que el valor que necesitamos es
 de @code{Staff}.  Observe también que al escribir este valor tenemos
 @code{#'#} antes del paréntesis de apertura.  Se necesita @code{'#}
 como parte del valor para introducir un vector, y el primer símbolo de
-almohadilla @code{#} se necesita, como siempre, para preceder el valor
+almohadilla@tie{}@code{#} se necesita, como siempre, para preceder el valor
 en sí dentro de la instrucción @code{\override}.
 
 @cindex BarLine, ejemplo de sobreescritura
@@ -1797,7 +1797,7 @@ a4 g c a |
 @end lilypond
 
 Aquí utilizamos las constantes @code{DOWN} (abajo) y @code{UP}
-(arriba).  Éstos tienen los valores @code{-1} y @code{+1}
+(arriba).  Éstos tienen los valores @w{@code{-1}} y @code{+1}
 respectivamente, y dichos valores numéricos también se pueden usar
 directamente.  El valor @code{0} también se puede usar en algunos
 casos.  Se trata simplemente con el significado de @code{UP} para las
@@ -1985,8 +1985,8 @@ Aquí podemos ver algunos ejemplos:
 @noindent
 Si la digitación parece un poco superpoblada, se puede reducir el
 tamaño @code{font-size}.  El valor predeterminado puede verse en el
-objeto @code{Fingering} del RFI que es @code{-5}, así que probaremos
-@code{-7}:
+objeto @code{Fingering} del RFI que es @w{@code{-5}}, así que probaremos
+@w{@code{-7}}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 \override Fingering #'font-size = #-7
@@ -2537,12 +2537,12 @@ interface
 @code{self-alignment-interface}.  En general son objetos que contienen
 texto.  Los valores son @code{LEFT}, @code{RIGHT} o @code{CENTER}.  De
 forma alternativa se puede especificar un valor numérico entre
-@code{-1} y @code{+1}, donde @code{-1} es alineado por la izquierda,
+@w{@code{-1}} y @code{+1}, donde @w{@code{-1}} es alineado por la izquierda,
 @code{+1} es alineado por la derecha, y los números intermedios mueven
 el texto progresivamente desde alineado por la izquierda hasta alineado
 por la derecha.  Se pueden especificar valores numéricos mayores de
 @code{1} para mover el texto incluso más lejos hacia la izquierda, o
-menos de @code{-1} para alejarlo más hacia la derecha.  Un cambio en
+menos de @w{@code{-1}} para alejarlo más hacia la derecha.  Un cambio en
 @code{1} en el valor corresponde a un movimiento de la mitad de la
 longitud total del propio texto.
 
@@ -2842,7 +2842,7 @@ pues el silencio está en la voz dos.  El ajuste predeterminado para
 @code{\voiceTwo} (es decir, en la segunda voz de una construcción
 @code{<<@{...@} \\ @{...@}>>}) es que @code{staff-position} tenga el
 valor -4 para MultiMeasureRest, así que tenemos que bajarlo, digamos,
-cuatro semi-espacios de pentagrama, al valor @code{-8}.
+cuatro semi-espacios de pentagrama, al valor @w{@code{-8}}.
 
 @cindex MultiMeasureRest, ejemplo de sobreescritura
 @cindex staff-position, propiedad, ejemplo
@@ -3614,6 +3614,7 @@ de que la ligadura se cruza entre las voces:
 <<
   {
     \once \override Stem #'transparent = ##t
+    \once \override Flag #'transparent = ##t
     b8~ b\noBeam
   }
 \\
@@ -3629,6 +3630,7 @@ valor de longitud @code{length} a @code{8},
 <<
   {
     \once \override Stem #'transparent = ##t
+    \once \override Flag #'transparent = ##t
     \once \override Stem #'length = #8
     b8~ b\noBeam
   }

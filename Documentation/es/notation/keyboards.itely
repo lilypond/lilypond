@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: c388d94847574943f7766c5fd5f9cdb5ab8128bb
+    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -259,8 +259,7 @@ Referencia de funcionamiento interno:
 @knownissues
 El mecanismo para evitar las colisiones de barras de corchea no
 funciona para las barras automáticas que terminan justo antes de un
-cambio de pauta.  Para hacer que ello funcione, utilice barrado
-manual.
+cambio de pauta.  En este caso, utilice barras manuales.
 
 
 @node Cambiar de pentagrama automáticamente

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -463,7 +463,7 @@ c
 Un bloque @code{\markup} puede contener también cadenas de texto entre
 comillas.  Dichas cadenas se tratan como expresiones de texto mínimas,
 y por tanto cualquier instrucción de marcado o carácter especial (como
-@code{\} y @code{#}) se imprimen literalmente sin afectar al formateo
+@code{\} y@tie{}@code{#}) se imprimen literalmente sin afectar al formateo
 del texto.  Se puede hacer que se impriman las propias comillas si se
 les antepone una barra invertida.
 
