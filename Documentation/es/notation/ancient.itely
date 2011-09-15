@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1169,6 +1169,7 @@ Clave de Do, estilo Editio Vaticana
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
   \override Voice.Stem #'transparent = ##t
+  \override Voice.Flag #'transparent = ##t
   \override NoteHead #'style = #'vaticana.punctum
   \clef "vaticana-do2"
   c
@@ -1184,6 +1185,7 @@ Clave de Fa, estilo Editio Vaticana
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
   \override Voice.Stem #'transparent = ##t
+  \override Voice.Flag #'transparent = ##t
   \override NoteHead #'style = #'vaticana.punctum
   \clef "vaticana-fa2"
   c
@@ -1200,6 +1202,7 @@ Clave de Do, estilo Editio Medicaea
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
   \override Voice.Stem #'transparent = ##t
+  \override Voice.Flag #'transparent = ##t
   \override NoteHead #'style = #'medicaea.punctum
   \clef "medicaea-do2"
   c
@@ -1215,6 +1218,7 @@ Clave de Fa, estilo Editio Medicaea
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
   \override Voice.Stem #'transparent = ##t
+  \override Voice.Flag #'transparent = ##t
   \override NoteHead #'style = #'medicaea.punctum
   \clef "medicaea-fa2"
   c
@@ -1231,6 +1235,7 @@ Clave de Do, estilo hufnagel
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
   \override Voice.Stem #'transparent = ##t
+  \override Voice.Flag #'transparent = ##t
   \override NoteHead #'style = #'hufnagel.punctum
   \clef "hufnagel-do2"
   c
@@ -1246,6 +1251,7 @@ Clave de Fa, estilo hufnagel
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
   \override Voice.Stem #'transparent = ##t
+  \override Voice.Flag #'transparent = ##t
   \override NoteHead #'style = #'hufnagel.punctum
   \clef "hufnagel-fa2"
   c
@@ -1260,6 +1266,7 @@ Clave combinada de Do y Fa, estilo hufnagel
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
   \override Voice.Stem #'transparent = ##t
+  \override Voice.Flag #'transparent = ##t
   \override NoteHead #'style = #'hufnagel.punctum
   \clef "hufnagel-do-fa"
   c
@@ -1306,6 +1313,8 @@ Como se ve en el ejemplo, cada estilo no contempla todas las
 alteraciones.  Al intentar acceder a una alteración que no está
 contemplada, LilyPond cambia a un estilo diferente.
 
+@c @lilypondfile[verbatim,quote,texidoc,doctitle]
+@c {ancient-accidentals.ly}
 
 El estilo de las alteraciones y las armaduras de tonalidad se controla
 a través de la propiedad @code{glyph-name-alist} de los grobs (objetos
@@ -2530,7 +2539,6 @@ ciertos trucos sencillos.
 @b{Plicas}.  Todas las plicas se pueden eliminar de una vez retirando
 el grabador @code{Stem_engraver} del contexto de voz:
 
-
 @example
 \layout @{
   ...
@@ -2547,7 +2555,9 @@ recitativo monotónico a un gesto melódico fijo.  En estos casos
 podemos usar bien @code{\override Stem #'transparent = ##t} o bien
 @code{\override Stem #'length = #0}, y restaurar la plica cuando se
 necesite con el correspondiente @code{\once \override Stem
-#'transparent = ##f} (véase el ejemplo de abajo).
+#'transparent = ##f} (véase el ejemplo de abajo).  Al utilizar
+plicas que lleven corchetes, asegúrese de establecer también
+@code{\override Flag #'transparent = ##t}.
 
 @b{Compás}.  Para el canto no medido, existen diversas alternativas.
 
@@ -2655,7 +2665,7 @@ del original, en notación moderna.
 
 Para evitar que las sílabas de distinta anchura (como @qq{-ri} y
 @qq{-rum}) dispongan los grupos de notas de las sílabas de forma
-irregular, se puede ajustar la propiedad @code{#'X-extent} del objeto
+irregular, se puede ajustar la propiedad @code{'X-extent} del objeto
 @code{LyricText} a un valor fijo.  Otra forma más engorrosa sería
 añadir las sílabas como elementos de @code{\markup}.  Si se necesitan
 más ajustes posteriormente, esto se puede hacer fácilmente con
@@ -2686,6 +2696,7 @@ spirLyr = \lyricmode {
       \remove "Time_signature_engraver"
       \override BarLine #'X-extent = #'(-1 . 1)
       \override Stem #'transparent = ##t
+      \override Flag #'transparent = ##t
       \override Beam #'transparent = ##t
       \override BarLine #'transparent = ##t
       \override TupletNumber #'transparent = ##t
