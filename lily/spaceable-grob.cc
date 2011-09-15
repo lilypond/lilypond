@@ -91,8 +91,8 @@ Spaceable_grob::get_spring (Grob *this_col, Grob *next_col)
     }
 
   if (!spring)
-    programming_error (_f ("No spring between column %d and next one",
-                           Paper_column::get_rank (this_col)));
+    programming_error (to_string ("No spring between column %d and next one",
+                                  Paper_column::get_rank (this_col)));
 
   return spring ? *spring : Spring ();
 }

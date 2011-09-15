@@ -168,8 +168,8 @@ internal_brew_primitive (Grob *me)
                         note_shape == MLP_FLEXA_BEGIN);
       break;
     default:
-      programming_error (_ ("Mensural_ligature:"
-                            " unexpected case fall-through"));
+      programming_error ("Mensural_ligature:"
+                         " unexpected case fall-through");
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     }
 
@@ -230,7 +230,7 @@ internal_brew_primitive (Grob *me)
           out.add_stencil (join);
         }
       else
-        programming_error (_ ("Mensural_ligature: (join_right == 0)"));
+        programming_error ("Mensural_ligature: (join_right == 0)");
     }
 
 #if 0 /* what happend with the ledger lines? */

@@ -193,9 +193,9 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
           if (unsmob_grob (l->get_property ("cause")))
             orig_string = unsmob_grob (l->get_property ("cause"))->name ();
 
-          programming_error (_f ("No spacing entry from %s to `%s'",
-                                 orig_string.c_str (),
-                                 sym_string.c_str ()));
+          programming_error (to_string ("No spacing entry from %s to `%s'",
+                                        orig_string.c_str (),
+                                        sym_string.c_str ()));
         }
 
       Real distance = 1.0;
