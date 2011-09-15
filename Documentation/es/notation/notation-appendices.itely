@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: 8d148ea05fa4b34f8cc3407e112363d715b27ad8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -31,6 +31,7 @@
 * Todas las propiedades de contexto::
 * Propiedades de disposición::
 * Funciones musicales disponibles::
+* Identificadores de modificación de contextos::
 * Predicados de tipo predefinidos::
 * Funciones de Scheme::
 @end menu
@@ -638,6 +639,7 @@ consulte @ref{Formatear el texto}.
 * Glifos de puntas de corchete::
 * Glifos de pedal::
 * Glifos de acordeón::
+* Glifos de ligadura::
 * Glifos de vaticana::
 * Glifos de medicea::
 * Glifos de Hufnagel::
@@ -823,6 +825,16 @@ consulte @ref{Formatear el texto}.
              \doc-chars #accordion
 @end lilypond
 
+
+@node Glifos de ligadura
+@unnumberedsubsec Glifos de ligadura
+@translationof Tie glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #ties
+@end lilypond
 
 @node Glifos de vaticana
 @unnumberedsubsec Glifos de vaticana
@@ -1467,6 +1479,15 @@ Referencia de funcionamiento interno:
 
 @include identifiers.tely
 
+@node Identificadores de modificación de contextos
+@appendixsec Identificadores de modificación de contextos
+@translationof Context modification identifiers
+
+Se definen las siguientes instrucciones
+para su uso como modificaciones de contexto dentro de un
+bloque @code{\layout} o @code{\with}.
+
+@include context-mod-identifiers.tely
 
 @node Predicados de tipo predefinidos
 @appendixsec Predicados de tipo predefinidos

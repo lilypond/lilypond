@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 40b0e2041fc67f6dca2b2d70717ac424919e89f7
+    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1196,8 +1196,8 @@ Archivos de inicio:
 @knownissues
 Sólo el contenido de la primera voz de una instrucción
 @code{\addQuote} se tiene en cuenta para la cita, de manera que
-la expresión musical no puede contener enunciados @code{\new}
-ni @code{\contextVoice} que cambiarían a una voz distinta.
+si la expresión musical contiene enunciados @code{\new}
+o @code{\context Voice}, sus contenidos no serían citados.
 La cita de notas de adorno no está contemplada y puede hacer que
 LilyPond termine de forma abrupta; la cita de unos tresillos
 dentro de otros puede dar como resultado una
@@ -1322,18 +1322,21 @@ oboeNotes = \relative c'' {
 @end lilypond
 
 @noindent
-En el ejemplo anterior, el contexto @code{Voice} se tuvo que declarar
-explícitamente, pues en caso contrario toda la expresión musical
-habría pertenecido al contexto @code{CueVoice}.
+
 
 Es posible ajustar qué aspectos de la música se citan con
 @code{\cueDuring} estableciendo el valor de la propiedad
 @code{quotedCueEventTypes}.  Su valor por omisión es
-@code{#'(note-event rest-event tie-event beam-event
+@code{'(note-event rest-event tie-event beam-event
 tuplet-span-event)}, lo que significa que solamente las notas,
 silencios, ligaduras de unión, barras y grupos especiales se citan,
 pero no las articulaciones, marcas dinámicas, elementos de marcado,
 etc.
+
+@warning{Cuando un contexto @code{Voice} da comienzo con @code{\cueDuring},
+como en el ejemplo siguiente, el contexto @code{Voice} se debe
+declarar explícitamente, pues en caso contrario toda la expresión musical
+pertenecería al contexto @code{CueVoice}.}
 
 @lilypond[verbatim,quote]
 oboeNotes = \relative c'' {

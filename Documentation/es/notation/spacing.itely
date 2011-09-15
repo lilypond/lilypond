@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: 2763b2de261e4f6263e2d4751b45d7c40f1ef7ea
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,6 +9,49 @@
 @end ignore
 
 @c \version "2.14.0"
+
+@ignore
+GDP TODO list
+This block comment is copied here to ease comparation of
+original and its translation.
+
+Negative numbers are allowed:
+> Are you sure? The following works well
+> \paper{
+>   first-page-number = -2
+> }
+> and prints page number -1 on the second page, for example.
+
+
+In 5.2.1 the @refbugs (line 495 in spacing.itely on master) it
+states:
+
+"@code{layout-set-staff-size} does not change the distance between
+the
+staff lines."
+
+Could we add a sentence:
+"Use instead the pair               fontSize = #@var{N}
+            \override StaffSymbol #'staff-space = #(magstep
+@var{N})
+inside the Staff context to change the size of the font and the
+distance between
+staff lines accordingly."
+
+Actually I found, that the @internalsref{StaffSymbol} at line 481
+sends to an incomplete
+documentation.  The property staff-space is not explained here.  I
+thought Y-extent might be of
+help, but it is in turn explained by x-space which again is
+missing from the list.  Who has the
+knowledge to fix this?
+
+
+Clarify
+http://code.google.com/p/lilypond/issues/detail?id=68
+
+@end ignore
+
 
 @node Problemas de espaciado
 @chapter Problemas de espaciado
@@ -972,7 +1015,7 @@ de manera que la página 1 esté en el lado derecho.
 Importancia relativa del espacio (vertical) de las páginas y el
 espaciado (horizontal) de las líneas.  Los valores altos hacen que el
 espaciado de la página tenga más importancia.  Predeterminado:
-@code{#10}.
+@code{10}.
 
 @item print-all-headers
 @funindex print-all-headers
@@ -1396,7 +1439,7 @@ elementos de marcado situados en el nivel superior.
 Hay ajustes análogos a @code{ragged-right} y @code{ragged-last} que
 tienen el mismo efecto sobre el espaciado vertical:
 @code{ragged-bottom} y @code{ragged-last-bottom}.  Si están
-establecidos a @code{##t} los sistemas de todas las páginas o sólo de
+establecidos a @code{#t} los sistemas de todas las páginas o sólo de
 la última página, respectivamente, no se verán justificados
 verticalmente.  Véase
 @ref{Variables de espaciado de \paper verticales fijas}.
@@ -1527,7 +1570,7 @@ El grabador @code{Page_turn_engraver} lee la propiedad de contexto
 @code{minimumPageTurnLength} para determinar qué longitud debe tener
 una sección sin notas antes de que se considere la posibilidad de un
 paso de página.  El valor predeterminado para
-@code{minimumPageTurnLength} es @code{#(ly:make-moment 1 1)}.  Si
+@code{minimumPageTurnLength} es @code{(ly:make-moment 1 1)}.  Si
 quiere inhabilitar las vueltas de página, puede establecerlo a algún
 valor muy grande.
 
@@ -1860,7 +1903,7 @@ elementos que se van a espaciar.  Observe que @code{@var{elemento2}}
 no está necesariamente por debajo de @code{@var{elemento1}}; por
 ejemplo, @code{nonstaff-relatedstaff-spacing} mide hacia arriba a
 partir de la línea del tipo no-pauta si @code{staff-affinity} es
-@code{#UP}.
+@code{UP}.
 
 Cada distancia se mide entre los @emph{puntos de referencia} de los
 dos elementos.  El @emph{punto de referencia} para un pentagrama y
@@ -2757,7 +2800,7 @@ manera: en cada compás se determina la duración más breve.  La menor
 duración más común se toma como base para el espaciado, habiendo
 estipulado que esta duración menor siempre debe ser igual o menor que
 una corchea.  La duración más breve se imprime cuando se ejecuta
-@code{lilypond} con la opción @code{--verbose}.
+@code{lilypond} con la opción @option{--verbose}.
 
 Estas duraciones también se pueden personalizar.  Si establecemos la
 @code{common-shortest-duration} en @rinternals{SpacingSpanner},
@@ -3115,11 +3158,11 @@ argumento, que es la duración de referencia contra el que se aplica el
 espaciado de toda la música.  La función Scheme de LilyPond
 @code{make-moment} acepta dos argumentos: un numerador y un
 denominador que, juntos, expresan una cierta fracción de redonda.  La
-llamada @code{#(ly:make-moment 1 20)}, por tanto, produce una duración
+llamada @code{(ly:make-moment 1 20)}, por tanto, produce una duración
 de referencia de una nota de un veinteavo de redonda (semicorcheas de
 cinquillo).  Son también posibles valores como
-@code{#(ly:make-moment 1 16)},
-@code{#(ly:make-moment 1 8)} y @code{#(ly:make-moment 3 97)}.
+@code{(ly:make-moment 1 16)},
+@code{(ly:make-moment 1 8)} y @code{(ly:make-moment 3 97)}.
 
 ¿Cómo seleccionamos la duración correcta de referencia para pasarla a
 @code{proportionalNotationDuration}?  Normalmente mediante un proceso

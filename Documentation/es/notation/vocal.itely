@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -676,7 +676,7 @@ la izquierda con la primera nota del melisma.
 Cuando se produce un melisma sobre una sílaba distinta de la última de
 una palabra, dicha sílaba se suele unir a la siguiente con un guión
 separador.  Esto se indica en el código de entrada escribiendo un
-doble guión, @code{--}, inmediatamente después de la sílaba.
+doble guión, @w{@code{--}}, inmediatamente después de la sílaba.
 
 De forma alternativa, cuando se produce un melisma sobre la última o
 sobre la única sílaba de una palabra, se suele trazar una línea
@@ -2651,7 +2651,7 @@ debe especificar la tonalidad de manera que la conversión de las notas
 citadas se realice automáticamente.  El ejemplo de abajo muestra esta
 transposición para un clarinete en Si bemol.  Las notas de este
 ejemplo son bajas en el pentagrama, por lo que se especifica
-@code{#DOWN} en @code{\cueDuring} (para que las plicas se orienten
+@code{DOWN} en @code{\cueDuring} (para que las plicas se orienten
 hacia abajo) y el nombre del instrumento se coloca debajo del
 pentagrama.  Observe también que la voz de la mano derecha del piano
 está declarada explícitamente.  Esto es así porque las notas citadas en
