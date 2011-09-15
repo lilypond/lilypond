@@ -44,11 +44,11 @@ Véase el manual del usuario, \NAME\
 @finalout
 
 @node Top
-@top Funcionalidades nuevas de la versión 2.14 desde la 2.12
+@top Funcionalidades nuevas de la versión 2.16 desde la 2.14
 
 @allowcodebreaks false
 
-@itemize @bullet
+@itemize
 
 @ignore
 
@@ -70,651 +70,81 @@ which scares away people.
 @end ignore
 
 @item
-¡Ahora Lilypond ayuda a las barras de corchea a evitar colisiones con
-otros objetos gráficos!  Esta funcionalidad funciona completamente con
-las barras manuales.  También funciona para todas las barras
-automáticas que no terminan justo antes de un cambio de pauta.  Para
-este caso particular, le rogamos que utilice barras manuales.
+Ahora se puede utilizar la construcción @code{#@{ @dots{} #@}} no solo
+para crear listas secuenciales de música, sino también para eventos
+musicales únicos, expresiones musicales vacías, post-eventos,
+elementos de marcado (sobre todo para liberar a los usuarios de la
+necesidad de usar la macro @code{markup}), listas de marcado,
+expresiones numéricas, definiciones y modificaciones de contextos y
+algunas otras cosas.  Si no contiene nada o contiene un único evento
+musical, ya no devuelve una lista secuencial de música, sino una
+expresión musical vacía o simplemente el propio evento musical,
+respectivamente.
 
 @item
-Ahora forma parte de la distibución el script Articulate, obra de
-Peter Chubb, que se publica bajo la licencia GPLv3.  Permite la
-producción sencilla de archivos MIDI que realizan de forma
-predeterminada una articulación non-legato además de interpretar
-correctamente las ligaduras de expresión, los picados, las
-indicaciones de tempo, los trinos, etc.
-
-@example
-\include "articulate.ly"
-\articulate <<
-      resto de la partitura...
->>
-@end example
+Nueva opción de la línea de órdenes @option{--loglevel=@var{level}}
+para controlar el volumen de datos que LilyPond produce en la salida.
+Los valores posibles son ERROR (errores), WARN (advertencias),
+BASIC_PROGRESS (progreso básico), PROGRESS (progreso) y DEBUG
+(depuración).
 
 @item
-Ahora están contempladas las repeticiones de un pulso para
-semicorcheas y figuras de menor duración y las repeticiones de pulso
-para compases que contienen notas de duraciones diversas.
+@code{\set \once} ahora reinicia correctamente el valor de la
+propiedad al valor previo.
+
+@lilypond[fragment,quote,relative=2]
+  \set fingeringOrientations = #'(left)
+  <e-1>4
+  \once \set fingeringOrientations = #'(right)
+  <e-1>
+  <e-1>-"left"
+@end lilypond
+
+
+@item
+La alineación de los elementos de matiz dinámico extensos
+(reguladores, crescendi textuales, etc.) se divide automáticamente si
+se da explícitamente una dirección distinta.
+
+@lilypond[fragment,quote,relative=2]
+c4_\< c c^\> c c1_\p
+@end lilypond
+
+
+@item
+Ahora las apoyaturas y mordentes funcionan también dentro de una
+ligadura de expresión, y no solo dentro de una ligadura de fraseo.
+Asimismo, se ha añadido la función @code{\slashedGrace} que no imprime
+ninguna ligadura partiendo de la nota del mordente.
 
 @lilypond[fragment,relative=2]
-\repeat percent 2 { c16 d }
-\repeat percent 2 { c32 e }
-\repeat percent 2 { c64 f }
-\repeat percent 2 { c128 g' }
+c4( \appoggiatura e8 d4 \acciaccatura e8 d4 \slashedGrace e8 c4)
 @end lilypond
 
 
 @item
-Lilypond produce diagramas de digitación para instrumentos de viento
-madera.
+Para suprimir a línea en un elemento de crescendo extenso (y otros
+elementos extensos similares), LilyPond contempla ahora de forma plena
+la propiedad @code{#'style = #'none}.
 
-@lilypond
-\relative c' {
-  \textLengthOn
-  des1^\markup {
-    \woodwind-diagram #'bassoon #'((lh . (thumb-cis))
-                                   (cc . (one two three five six))
-                                   (rh . (f)))
-    } _"bassoon"
-  c1^\markup {
-    \woodwind-diagram #'oboe #'((rh . (c))
-                                (lh . ())
-                                (cc . (one two three four five six)))
-    } _"oboe"
-
-}
+@lilypond[fragment,quote,relative=2]
+\override DynamicTextSpanner #'style = #'none
+c4\cresc c c g, c'\p
 @end lilypond
 
 @item
-Se ha mejorado la salida MIDI:
-@itemize @bullet
-@item las voces se mantienen separadas, lo que hace que el MIDI sea mucho más útil para el post-procesado
-@item distribución óptima de los canales: los instrumentos idénticos comparten el mismo canal.  Esto significa que p.ej. para una partitura orquestal siempre están disponibles 16 (15 más percusión) instrumentos de distinto sonido, sin limitarse al número de pautas o voces.
-@item @code{\set Score.midiChannelMapping = #'staff} asigna un canal MIDI por cada pauta, que era el comportamiento anterior.  Este ajuste es necesario si se quiere que los cambios de instrumento creen cambios de programa MIDI sobre un único canal MIDI.
-@item los matices dinámicos ahora se realizan mediante velocidades de nota, ya no como volumen de MIDI.  Esto mejora el sonido sobre los módulos MIDI de gama alta.
-@end itemize
+LilyPond.app está disponible ahora para MacOS X 10.7. ¡Gracias,
+Christian Hitz!
 
 @item
-Se ha mejorado la importación de MIDI por medio de Midi2ly
-@itemize @bullet
-@item Midi2ly ahora funciona también en sistemas Windows
-@item ahora se manejan bien los archivos MIDI con más de 32 pistas
-@item ya no se ignoran las notas de ciertas voces simultáneas
-@item no se truncan las notas que sobrepasan una línea divisoria
-@item se respetan la armadura de la tonalidad y la indicación de compás iniciales
-@item se ha arreglado un problema con las octavas en pistas o voces subsiguientes
-@item se contemplan de forma incipiente varias voces sobre un pentagrama
-@item se fija el instrumentName a partir de los datos de la pista
-@item nueva opción --skip, por omisiión se muestran los silencios
-@item no se truncan los silencios que sobrepasan una línea divisoria
-@item nueva opción --include-header para establecer los títulos
-@item nueva opción --preview para archivos MIDI grandes
-@end itemize
-La primera funcionalidad estuvo patrocinada por Valentin Villenave,
-las otras funcionalidades han sido patrocinadas por Image-Line Software para FL Studio.
-
-@item
-Está disponible un nuevo grabador @code{Completion_rest_engraver} para convertir automáticamente
-silencios largos que sobrepasan a las líneas divisorias, de forma correspondiente al grabador
-@code{Completion_heads_engraver} para las notas
-@example
-\layout @{
-  \context @{
-    \Voice
-    \remove "Note_heads_engraver"
-    \consists "Completion_heads_engraver"
-    \remove "Rest_engraver"
-    \consists "Completion_rest_engraver"
-  @}
-@}
-@end example
-Esta funcionalidad ha sido patrocinada por Image-Line Software para FL Studio.
-
-@item
-Se pueden añadir puntos a los elementos del índice general utilizando:
-@example
-\paper @{
-  tocItemMarkup = \tocItemWithDotsMarkup
-@}
-@end example
-
-@item
-Hay disponibles dos nuevas instrucciones de marcado para patrones y
-relleno con patrones: @code{\pattern} y @code{\fill-with-pattern}.
-
-@lilypond
-\markup \column {
-  \pattern #3 #Y #0.3 \flat
-  \null
-  \pattern #7 #X #2 \flat
-  \override #'(line-width . 40) \fill-with-pattern #1 #CENTER . left right
-}
-@end lilypond
-
-@item
-Se ha añadido un conjunto de herramientas de transformación modal
-mínimo para el compositor.  Se puede @notation{transportar} un motivo,
-@notation{invertirlo} y/o convertirlo en su @notation{retrogradación}
-dentro de cualquier escala.
-
-@lilypond
-pentatonicScale = \relative a' { a c d f g }
-motif = \relative c'' { d8 c f,4 <a f'> <a f'> }
-
-\new Staff <<
-  {
-    \partial 4
-    \pentatonicScale
-    \motif
-    \modalTranspose c a, \pentatonicScale \motif
-    \modalInversion d'' a' \pentatonicScale \motif
-    \retrograde \motif
-  }
-  {
-    \partial 4
-    s4^"pentatonic scale"
-    s1
-    s1^"motif"
-    s1^"transposition"
-    s1^"inversion"
-    s1^"retrograde"
-  }
->>
-@end lilypond
-
-@item
-Está mínimamente contemplada la notación mensural negra.
-
-@item
-Están contempladas más ampliamente las formas oblicuas dentro de las
-ligaduras mensurales blancas.
-
-@lilypond
-\context MensuralStaff
-{
-  \clef "petrucci-c3"
-  \[
-    \override NoteHead #'style = #'semipetrucci
-    c'\maxima
-    \override NoteHead #'style = #'blackpetrucci
-    a\breve
-    \revert NoteHead #'style
-    \override NoteHead #'ligature-flexa = ##t
-    \override NoteHead #'flexa-width = #3
-    g
-    g'
-    \override NoteHead #'flexa-width = #5
-    c'
-    d'
-    \revert NoteHead #'style
-    c'\longa
-  \]
-}
-@end lilypond
-
-@item
-Hay dos funciones nuevas @code{\with-link} y @code{\page-link} que
-aportan hiperenlaces a una etiqueta o a un número de página dados.
-Esto funciona solamente en el motor de salida PDF.  Todos los
-elementos de la tabla de contenidos añaden ahora hiperenlaces a las
-páginas a que se refieren, automáticamente.
-
-@item
-Ahora están contemplados los compases compuestos a través de la
-instrucción @code{\compoundMeter}, que se puede usar en lugar de
-@code{\time}:
-
-@lilypond
-\relative c'' {
-  \compoundMeter #'(3 1 8)
-  c8 c c c
-  \compoundMeter #'((2 8) (5 8))
-  c8 c c c c c c
-  \compoundMeter #'((1 2 3 8) (1 4) (3 8))
-  c8 c c c c c c4 c8 c c
-}
-@end lilypond
-
-@item
-Las líneas de letra por encima de una pauta deben tener la propiedad
-@code{staff-affinity} ajustada al valor @code{DOWN} o la propiedad
-@code{alignAboveContext} ajustada de manera que esté adecuadamente
-alineada.  Para ver más información, consulte @ruser{Posicionamiento
-vertical de la letra}.
-
-@item
-Los valores de la propiedad @code{stringTunings} han cambiado de una
-lista de semitonos por encima del Do central a una lista de alturas de
-notas de LilyPond.  convert-ly maneja el cambio automáticamente donde
-el valor de @code{stringTunings} esté establecido a un valor constante
-de Scheme.
-
-Las nuevas instrucciones @code{makeStringTuning} y
-@code{contextStringTuning} permiten la creación de afinaciones de
-cuerdas en la forma de una construcción de acorde de LilyPond.
-
-@item
-Mediante la utilización de @code{\cueDuringWithClef}, ahora las notas
-guía también pueden llevar su propia clave que se reinicia
-correctamente al final del pasaje de notas guía.  Al comienzo de cada
-línea aún se imprime la clave estándar, pero se muestra la clave de
-las notas guía después de la armadura y compás en un tamaño menor.
-
-@lilypond
-vI = \relative c'' { \clef "treble" \repeat unfold 40 g4 }
-\addQuote vIQuote { \vI }
-
-Solo = \relative c {
-  \clef "bass"
-  \cueDuringWithClef #"vIQuote" #DOWN #"treble" { R1 } |
-  c4 \cueDuringWithClef #"vIQuote" #DOWN #"treble" {
-    r4 r2 |
-    r4
-  } c4 c2 |
-  \cueDuringWithClef #"vIQuote" #DOWN "soprano" { R1*2 \break R1 } |
-  c1
-}
-
-\score {
-  <<
-    \new Staff \new Voice \Solo
-  >>
-}
-@end lilypond
-
-
-@item
-Los nombres de las notas se pueden seleccionar con una nueva
-instrucción @code{@bs{}language "italiano"}, que se puede usar en el
-modo seguro.  La sintaxis antigua @code{@bs{}include "italiano.ly"}
-está contemplada por ahora, pero quedará obsoleta en el futuro.
-
-@item
-Ahora el barrado automático se desactiva mediante @code{\cadenzaOn} y
-se habilita con @code{\cadenzaOff}.  Hay que indicar el barrado de las
-cadencias manualmente.  Asimismo, si se usa una cadencia en una pieza
-con el barrado automático desactivado, tiene que desactivarse de nuevo
-después de la cadencia.
-
-@item
-Ahora el usuario puede especificar el nombre de la tabla
-predeterminada de diagramas de posiciones de acordes.  Esto permite la
-utilización de varias tablas y el cambio de una a otra en función de
-los deseos del usuario.
-
-@item
-Ahora se puede personalizar la decisión del combinador de voces de
-combinar o no las notas.
-
-@lilypond[quote,relative=2]
-\partcombine
-\relative c' { c2 \partcombineApart c | \partcombineChordsOnce e' e }
-\relative c' { c2 \partcombineApart c | c c }
-@end lilypond
-
-@item
-De forma predeterminada, las pautas de tablatura sólo muestran los
-números de traste.  Para conseguir el estilo anterior, se ofrece la
-instrucción @code{\tabFullNotation}.
-
-@item
-Se han añadido notas con forma en los estilos Funk y Walker.
-
-@item
-Los silencios ya no mantienen vivo un contexto de pauta si se está
-utilizando @code{\RemoveEmptyStaffContext}.
-
-@item
-Nueva opción @code{-dinclude-settings=INCLUDEFILE.ly}, que indica a
-lilypond que incluya el archivo especificado antes de que se procese
-la partitura.  Ello permite al usuario cambiar los ajustes globales
-sin necesidad de modificar la propia partitura.  De esta forma se
-pueden generar distintas versiones o ediciones (como distintos tamaños
-de página) a partir del mismo documento, sin tener que modificar la
-partitura para cada una de las versiones.
-
-@item
-Se ha modificado la sintaxis de los ajustes de barrado automático.  Se
-han eliminado beatLength, beatGrouping, beamSettings y
-measureGrouping.  El barrado automático está controlado ahora a través
-de baseMoment, beatStructure y beamExceptions.  Los ajustes
-predeterminados para cada una de estas propiedades se pueden almacenar
-en time-signature-settings, de manera que el autobarrado cambia
-automáticamente cada vez que se modifica el tipo de compás.  La nueva
-sintaxis pretende ser mucho más sencilla de utilizar y requerir menos
-ajustes manuales.
-
-@item
-El @q{backend} de SVG contempla opcionalmente las fuentes tipográficas
-@uref{http://www.w3.org/Submission/WOFF, WOFF}.  Utilizar la opción de
-Scheme @code{-d svg-woff} junto a la selección del backend SVG
-@code{-d backend=svg} produce una salida SVG con selección CSS de la
-fuente WOFF.
-
-@item
-Se ha girado la clave de sol 1.5 grados a la derecha para mejorar su
-equilibrio.  Se pueden comparar las versiones antigua y moderna a
-partir de la documentación:
-@uref{http://lilypond.org/doc/v2.12/Documentation/user/lilypond/The-Feta-font.html#Clef-glyphs,
-versión antigua},
-@uref{http://lilypond.org/doc/v2.13/Documentation/notation/the-feta-font.html#Clef-glyphs,
-versión nueva}.
-
-
-@item
-Los elementos de extensión de reguladores de texto ahora se pueden
-añadir directamente usando @code{\cresc}, @code{\dim} y
-@code{\decresc}.
-@lilypond[quote,relative=2]
-c4\cresc c c c\f |
-c4\dim c c c\!
-@end lilypond
-
-@item
-La sintaxis documentada del entorno @samp{lilypond} en el modo
-@LaTeX{} de @command{lilypond-book} se ha modificado de forma que se
-corresponda con la sintaxis estándar de @LaTeX{}: ahora las opciones
-se colocan después del nombre del entorno:
-@example
-\begin@{lilypond@}[@var{opciones}] @dots{}
-@end example
-
-La sintaxis anterior con las opciones después de @samp{\begin} todavía
-se acepta por parte de @command{lilypond-book} pero está obsoleta.
-Algo como
-@example
-sed -i '/begin\[/s/begin\(\[[^]]*]\)\(@{lilypond@}\)/begin\2\1/'
-@end example
-
-puede servir para realizar la conversión.
-
-@item
-Se ha mejorado el aspecto estético del sistema de cabezas de nota con
-forma.  Se ha implementado el grosor de líneas variable.  Se han hecho
-consistentes todas las anchuras de las notas.  Se han añadido
-instrucciones menores para el sistema de notas con forma, que utilizan
-la tonalidad relativa mayor para las notas de la escala.
-
-@item
-Se ofrece una variante de la llamada de tipo segno:
-@lilypond[quote,relative=2]
-c4 d e f \bar "S"
-g4 f e d
-@end lilypond
-
-@item
-Las modificaciones de contexto (bloques @code{\with}) se pueden
-almacenar en variables e insertarse dentro de contextos u otros
-bloques @code{\with}:
-@lilypond[quote,verbatim]
-coloredheads = \with { \override NoteHead #'color = #red }
-noclef = \with { \remove "Clef_engraver" }
-\score {
-  \new Staff {
-    \new Voice \with { \coloredheads } \relative c' { c4 e g c }
-  }
-  \layout {
-    \context {
-      \Staff
-      \noclef
-    }
-  }
-}
-@end lilypond
-
-@item
-Se ha añadido una articulación de semi-abierta:
-@lilypond[quote,relative=2]
-c4\halfopen
-@end lilypond
-A veces se utiliza para indicar golpes de hi-hat semi-abierto.
-
-@item
-Ahora está totalmente contemplado el algoritmo bidireccional de
-Unicode para elementos de marcado de una sola línea, gracias a la
-integración mejorada con Pango.
-
-@item
-LilyPond se encuentra ahora licenciado bajo la GPL v3+ de GNU.
-
-@item
-En las tablaturas, los trastes se pueden indicar mediante etiquetas
-que no sean números:
-
-@lilypond[verbatim,quote,relative=1]
-\new TabStaff
-\with {
-  stringTunings = #`(,(ly:make-pitch 1 3 NATURAL)
-                     ,(ly:make-pitch 1 1 NATURAL)
-		     ,(ly:make-pitch 0 5 NATURAL)
-		     ,(ly:make-pitch 0 3 NATURAL)
-		     ,(ly:make-pitch 0 1 NATURAL)
-		     ,(ly:make-pitch -1 5 NATURAL))
-  tablatureFormat = #fret-letter-tablature-format
-}
-\new TabVoice {
-  \set fretLabels = #`(,(markup #:with-color red "a")
-                       "b"
-                       ,(markup #:italic #:smaller "c"))
-  <f d>4. <bes>8 <g e>4
-}
-@end lilypond
-
-@item
-Los objetos de presentación se pueden imprimir sobre un fondo blanco,
-lo que tiene el efecto de tapar los objetos de las capas inferiores
-que coincidan en el mismo lugar:
-
-@lilypond[verbatim,quote,relative=1]
-\time 3/4
-\override Staff.StaffSymbol #'layer = #4
-\once \override Tie #'layer = #2
-b'2.~
-\once \override Staff.TimeSignature #'whiteout = ##t
-\once \override Staff.TimeSignature #'layer = #3
-\time 5/4
-b4
-@end lilypond
-
-@item
-Los acordes se pueden repetir utilizando la abreviatura @code{q}:
-
-@lilypond[verbatim,quote,relative=2]
-<c e g>8.-^ q16 q4-^
-@end lilypond
-
-@item
-En el modo de doble cara, los márgenes para las páginas impares y
-pares se pueden fijar utilizando @code{inner-margin} y
-@code{outer-margin}:
-
-@example
-\paper @{
-  two-sided = ##t
-  inner-margin = 10 \mm
-  outer-margin = 20 \mm
-@}
-@end example
-
-@item
-Los márgenes predeterminados del papel, tal y como se especifican en
-el archivo @file{ly/paper@/-defaults-init.ly}, se aplican al
-tamaño de papel predeterminado (A4) y se redimensionan automáticamente
-al tamaño del papel seleccionado.
-
-@item
-Ahora funcionan todas las combinaciones de @code{left-margin},
-@code{right-margin} y @code{line-width}.  Ya no hay necesidad de
-establecer a mano el valor de @code{line-width} a no ser que queramos
-hacerlo explícitamente.
-
-@item
-A partir de ahora se contempla la utilización de una fuente
-tipográfica alternativa para la música, como Gonville.
-
-@item
-Además de la instrucción de marcado @code{\hspace}, se ha añadido una
-nueva instrucción @code{\vspace} para proporcionar una forma fácil y
-flexible de añadir espacio vertical dentro de los elementos de
-marcado.
-
-@item
-La dirección de las barras de corchea manuales se puede establecer con
-@code{^[} y @code{_[}.
-
-@item
-Se ha añadido una versión de la figura cuadrada que lleva dos líneas
-verticales a cada lado.
-
-@lilypond[quote,relative=2]
-\time 4/2
-\override Staff.NoteHead #'style = #'altdefault
-c\breve | b\breve
-@end lilypond
-
-@item
-Ahora los nombres de instrumentos y voces tienen en cuenta, para su
-posicionamiento, las dimensiones de los delimitadores iniciales de
-sistema (llaves o corchetes) que están en otros pentagramas, con el
-resultado de un mejor alineado predeterminado de los nombres por la
-izquierda, por la derecha o centrados.
-
-@lilypond[quote,indent=18\mm]
-<<
-  \new StaffGroup <<
-    \new GrandStaff <<
-      \new Staff {
-        \set Staff.instrumentName = #"Piccolo"
-        c''1
-      }
-      \new Staff {
-        \set Staff.instrumentName = #"Flute"
-        c''1
-      }
-    >>
-    \new Staff {
-      \set Staff.instrumentName = #"Bassoon"
-      \clef tenor
-      c'1
-    }
-  >>
-  \new PianoStaff <<
-    \set PianoStaff.instrumentName = #"Piano"
-    \context Staff = "up" {
-      c'1
-    }
-    \context Staff = "down" {
-      \clef bass
-      c1
-    }
-  >>
->>
-@end lilypond
-
-@item
-Ahora se pueden seleccionar las llaves dentro de los elementos de
-marcado por su tamaño en puntos, usando las instrucciones de marcado
-@code{\left-brace} y @code{\right-brace}.
-
-@lilypond[quote]
-\markup {
-  \left-brace #35
-  \hspace #2
-  \right-brace #45
-}
-@end lilypond
-
-@item
-Los archivos .ps intermedios que LilyPond crea
-durante la compilación, ahora se borran de forma predeterminada.  Para
-conservarlos, escriba siguiente línea en el archivo de entrada:
-@example
-#(ly:set-option 'delete-intermediate-files #f)
-@end example
-
-@item Las ligaduras de unión, de expresión  y de fraseo,
-discontinuas y punteadas, pueden ahora tener un grosor variable,
-y están disponibles ligaduras parcialmente discontinuas:
-@lilypond[quote,relative=2]
-\slurDashed
-c4( d e f) |
-\slurDotted
-g4( f e d) |
-\slurHalfDashed
-c4( d e f)
-@end lilypond
-
-
-@item
-Se ha añadido una marca en forma de gafas, indicando con vehemencia que se mire al director:
-@lilypond[quote,relative=2]
-\mark \markup { \eyeglasses }
-c4_\markup { \eyeglasses }
-@end lilypond
-
-@item
-Se ha añadido una articulación de pizzicato pellizcado (conocido
-también como snap o pizzicato de Bartok):
-@lilypond[quote,relative=2]
-c4\snappizzicato
-@end lilypond
-
-@item
-Ahora están disponibles unas nuevas funciones de formateo de números
-para imprimir otras fracciones y añadir figuras a los números o
-fracciones de un grupo especial:
-@lilypond[quote,relative=2]
-\once \override TupletNumber #'text =
-  #(tuplet-number::non-default-tuplet-denominator-text 7)
-\times 2/3 { c4. c4. c4. c4. }
-
-\once \override TupletNumber #'text =
-  #(tuplet-number::non-default-tuplet-fraction-text 12 7)
-\times 2/3 { c4. c4. c4. c4. }
-\once \override TupletNumber #'text =
-  #(tuplet-number::append-note-wrapper
-    (tuplet-number::non-default-tuplet-fraction-text 12 7) "8")
-\times 2/3 { c4. c4. c4. c4. }
-
-\once \override TupletNumber #'text =
-  #(tuplet-number::append-note-wrapper tuplet-number::calc-denominator-text "4")
-\times 2/3 { c8 c8 c8 c8 c8 c8 }
-\once \override TupletNumber #'text =
-  #(tuplet-number::append-note-wrapper tuplet-number::calc-fraction-text "4")
-\times 2/3 { c8 c8 c8 c8 c8 c8 }
-
-\once \override TupletNumber #'text =
-  #(tuplet-number::fraction-with-notes "4." "8")
-\times 2/3 { c4. c4. c4. c4. }
-\once \override TupletNumber #'text =
-  #(tuplet-number::non-default-fraction-with-notes 12 "8" 4 "4")
-\times 2/3  { c4. c4. c4. c4. }
-@end lilypond
-
-@item
-Los diagramas de posiciones ahora tienen una propiedad chordChanges
-para evitar que se impriman de nuevo los objetos FretBoard repetidos.
-
-@item
-El motor de espaciado vertical ha cambiado drásticamente haciéndolo
-más flexible y sencillo de controlar.  El espaciado entre los
-pentagramas dentro de un sistema puede mejorar el uso del espacio
-sobre la página.  Los contextos definidos por el usuario pueden
-participar en este espaciado flexible, según la forma en que se haya
-definido el valor de su @code{staff-affinity}.  Ciertas variables de
-formateo de la página (@code{page-top-space},
-@code{between-system-space -padding} y @code{before- between-
-after-title-space}) se han sustituido por dimensiones verticales
-flexibles.
+Los glissandos pueden abarcar varias líneas.
 
 @end itemize
-
-
 
 @ifhtml
-Para ver noticias más antiguas, diríjase a
-@uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS.es.html},
-@uref{http://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS.html},
+Para ver noticias anteriores, diríjase a
+@uref{http://lilypond.org/doc/v2.14/Documentation/changes/},
+@uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS.html},
 o @uref{../,vuelva} al índice de la documentación.
 
 
