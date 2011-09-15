@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 49d3a287160de19e29031b34c6307982d6ad9c9b
+    Translation of GIT committish: 66e5185e494d29c40ec25d5f71326836204cd680
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -135,7 +135,7 @@ Habrá un amplio período de discusión para determinar la especificación
 final de la entrada.
 
 @warning{El proyecto GLISS dará comienzo poco después del lanzamiento
-de la versión 2.14.}
+de la versión 2.16.}
 
 @subsubheading El proyecto GOP (Grand Organizing Project)
 
@@ -153,9 +153,6 @@ va a ocupar de añadir un montón de funcionalidades nuevas o rediseñar
 cosas completamente.  Más bien está orientado a proporcionarnos una
 base mucho más estable de forma que podamos afrontar mayores tareas en
 el futuro.
-
-@warning{El proyecto GOP dará comienzo poco después del
-lanzamiento de la versión 2.14.}
 
 @end macro
 
