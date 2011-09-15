@@ -120,6 +120,9 @@ jobs.")
     (log-file #f
 "If string FOO is given as argument, redirect
 output to log file `FOO.log'.")
+    (max-markup-depth 1024
+"Maximum depth for the markup tree. If a markup has more levels, assume that
+it will not terminate at all and print out a warning, but continue processing.")
     (midi-extension ,(if (eq? PLATFORM 'windows)
                          "mid"
                          "midi")

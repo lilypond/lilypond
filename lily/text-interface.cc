@@ -28,6 +28,7 @@
 #include "modified-font-metric.hh"
 #include "output-def.hh"
 #include "pango-font.hh"
+#include "program-option.hh"
 #include "international.hh"
 #include "warn.hh"
 
@@ -116,6 +117,19 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
               non_fatal_error (_f("Cyclic markup detected: %s", name));
               return Stencil().smobbed_copy ();
             }
+        }
+
+      /* Check for non-terminating markups, e.g. recursive calls with
+       * changing arguments */
+      SCM opt_depth = ly_get_option (ly_symbol2scm ("max-markup-depth"));
+      size_t max_depth = robust_scm2int(opt_depth, 1024);
+      if (depth > max_depth)
+        {
+          string name = ly_symbol2string (scm_procedure_name (func));
+          // TODO: Also print the arguments of the markup!
+          non_fatal_error (_f("Markup depth exceeds maximal value of %d; "
+                              "Markup: %s", max_depth, name.c_str ()));
+          return Stencil().smobbed_copy ();
         }
 
       encountered_markups.push_back (markup);
