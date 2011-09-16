@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sat Aug 13 14:15:49 UTC 2011
+@emph{Last updated Fri Sep 16 14:46:06 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -165,7 +165,7 @@ partially
 @item
 4 A kimenet finomhangolása
 @*
-15393
+15390
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -182,7 +182,7 @@ no
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">partially</span>
+<span style="background-color: #6fff29">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -209,7 +209,7 @@ no
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially</span>
+<span style="background-color: #b9ff33">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -285,7 +285,7 @@ partially
 @item
 1 A @command{lilypond} használata
 @*
-3681
+3793
 @tab Team-hu
 @tab 
 @tab 
@@ -302,7 +302,7 @@ partially (96 %)
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">partially</span>
+<span style="background-color: #c7ff35">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -329,7 +329,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -339,7 +339,7 @@ partially
 @item
 3 A @command{lilypond-book} használata
 @*
-3978
+4002
 @tab Team-hu
 @tab 
 @tab 
@@ -356,7 +356,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #4efe25">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -449,11 +449,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -513,7 +513,7 @@ partially
 @item
 Közösség
 @*
-1888
+1910
 @tab Harmath Dénes
 @tab 
 @tab 

@@ -44,16 +44,16 @@ procedures}.
 -3- Fundamental Concepts, starting of Usage and Community
 11139 learning/fundamental.itely -- Fundamental concepts
 135   usage.tely
-3681  usage/running.itely
+3793  usage/running.itely
 1189  usage/updating.itely
-1888  web/community.itexi
-18032 total
+1910  web/community.itexi
+18166 total
 
 -4- Rest of Learning manual and Suggestions on writing LilyPond files
-15393 learning/tweaks.itely -- Tweaking output
+15390 learning/tweaks.itely -- Tweaking output
 225   learning/templates.itely -- Templates
 2694  usage/suggestions.itely -- Suggestions on writing LilyPond files
-18312 total
+18309 total
 
 -5- Notation reference
 355   notation.tely
@@ -63,31 +63,31 @@ procedures}.
 1726  notation/expressive.itely
 944   notation/repeats.itely
 2216  notation/simultaneous.itely
-2341  notation/staff.itely
+2349  notation/staff.itely
 931   notation/editorial.itely
-2716  notation/text.itely
+2715  notation/text.itely
 81    notation/specialist.itely -- Specialist notation
-4807  notation/vocal.itely
-1855  notation/chords.itely
+4758  notation/vocal.itely
+1937  notation/chords.itely
 702   notation/piano.itely
 806   notation/percussion.itely
 826   notation/guitar.itely
 66    notation/strings.itely
 242   notation/bagpipes.itely
 4752  notation/ancient.itely
-7686  notation/input.itely -- Input syntax
+7685  notation/input.itely -- Input syntax
 2164  notation/non-music.itely -- Non-musical notation
 11087 notation/spacing.itely -- Spacing issues
-12258 notation/changing-defaults.itely -- Changing defaults
+12269 notation/changing-defaults.itely -- Changing defaults
 5187  notation/programming-interface.itely -- Interfaces for programmers
-2017  notation/notation-appendices.itely -- Notation manual tables
+2022  notation/notation-appendices.itely -- Notation manual tables
 252   notation/cheatsheet.itely -- Cheat sheet
-76658 total
+76713 total
 
 -6- Rest of Application Usage
-3978  usage/lilypond-book.itely -- LilyPond-book
+4002  usage/lilypond-book.itely -- LilyPond-book
 1122  usage/converters.itely -- Converting from other formats
-5100  total
+5124  total
 
 -7- Appendices whose translation is optional
 326   essay/literature.itely
