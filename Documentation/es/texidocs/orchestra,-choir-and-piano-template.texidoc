@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
+%% Translation of GIT committish: 3e25629d9edb04bb4683d56e2657001f61fca14f
   texidoces = "
 Esta plantilla muestra el uso de contextos @code{StaffGroup} y
 @code{GrandStaff} anidados para sub-agrupar instrumentos del mismo
