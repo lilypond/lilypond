@@ -38,18 +38,16 @@ acciaccatura =
 %% keep these two together
 "instrument-definitions" = #'()
 addInstrumentDefinition =
-#(define-music-function
+#(define-scheme-function
    (parser location name lst) (string? list?)
    (_i "Create instrument @var{name} with properties @var{list}.")
-   (set! instrument-definitions (acons name lst instrument-definitions))
-   (make-music 'SequentialMusic 'void #t))
+   (set! instrument-definitions (acons name lst instrument-definitions)))
 
 addQuote =
-#(define-music-function (parser location name music) (string? ly:music?)
+#(define-scheme-function (parser location name music) (string? ly:music?)
    (_i "Define @var{music} as a quotable music expression named
 @var{name}")
-   (add-quotable parser name music)
-   (make-music 'SequentialMusic 'void #t))
+   (add-quotable parser name music))
 
 %% keep these two together
 afterGraceFraction = #(cons 6 8)
@@ -183,17 +181,15 @@ bendAfter =
 	       'delta-step delta))
 
 bookOutputName =
-#(define-music-function (parser location newfilename) (string?)
+#(define-scheme-function (parser location newfilename) (string?)
    (_i "Direct output for the current book block to @var{newfilename}.")
-   (set! book-filename newfilename)
-   (make-music 'SequentialMusic 'void #t))
+   (set! book-filename newfilename))
 
 bookOutputSuffix =
-#(define-music-function (parser location newsuffix) (string?)
+#(define-scheme-function (parser location newsuffix) (string?)
    (_i "Set the output filename suffix for the current book block to
 @var{newsuffix}.")
-   (set! book-output-suffix newsuffix)
-   (make-music 'SequentialMusic 'void #t))
+   (set! book-output-suffix newsuffix))
 
 %% \breathe is defined as a music function rather than an event identifier to
 %% ensure it gets useful input location information: as an event identifier,
@@ -487,27 +483,24 @@ label =
 
 
 language =
-#(define-music-function (parser location language) (string?)
+#(define-scheme-function (parser location language) (string?)
    (_i "Set note names for language @var{language}.")
-   (note-names-language parser language)
-   (make-music 'Music 'void #t))
+   (note-names-language parser language))
 
 languageSaveAndChange =
-#(define-music-function (parser location language) (string?)
+#(define-scheme-function (parser location language) (string?)
   (_i "Store the previous pitchnames alist, and set a new one.")
   (set! previous-pitchnames pitchnames)
-  (note-names-language parser language)
-  (make-music 'Music 'void #t))
+  (note-names-language parser language))
 
 languageRestore =
-#(define-music-function (parser location) ()
+#(define-scheme-function (parser location) ()
    (_i "Restore a previously-saved pitchnames alist.")
    (if previous-pitchnames
        (begin
         (set! pitchnames previous-pitchnames)
         (ly:parser-set-note-names parser pitchnames))
-      (ly:input-warning location (_ "No other language was defined previously. Ignoring.")))
-   (make-music 'Music 'void #t))
+      (ly:input-warning location (_ "No other language was defined previously. Ignoring."))))
 
 
 makeClusters =
@@ -655,7 +648,7 @@ pageTurn =
 					   'break-permission 'force))))
 
 parallelMusic =
-#(define-music-function (parser location voice-ids music) (list? ly:music?)
+#(define-scheme-function (parser location voice-ids music) (list? ly:music?)
    (_i "Define parallel music sequences, separated by '|' (bar check signs),
 and assign them to the identifiers provided in @var{voice-ids}.
 
