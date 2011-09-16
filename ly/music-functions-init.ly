@@ -706,7 +706,7 @@ Example:
 			 (and (not (null? origins)) (car origins)))))))
      ;;
      ;; first, split the music and fill in voices
-     (map-in-order (lambda (m)
+     (for-each (lambda (m)
 		     (push-music m)
 		     (if (bar-check? m) (change-voice)))
 		   (ly:music-property music 'elements))
@@ -736,14 +736,12 @@ Example:
 	    voices)
      ;;
      ;; bind voice identifiers to the voices
-     (map (lambda (voice-id voice)
+     (for-each (lambda (voice-id voice)
 	    (ly:parser-define! parser voice-id
 			       (make-music 'SequentialMusic
 					   'origin location
 					   'elements voice)))
-	  voice-ids voices))
-   ;; Return an empty sequence.  This function is actually a "void" function.
-   (make-music 'SequentialMusic 'void #t))
+	  voice-ids voices)))
 
 parenthesize =
 #(define-music-function (parser loc arg) (ly:music?)
@@ -752,7 +750,7 @@ parenthesize =
    (if (memq 'event-chord (ly:music-property arg 'types))
        ;; arg is an EventChord -> set the parenthesize property
        ;; on all child notes and rests
-       (map
+       (for-each
 	(lambda (ev)
 	  (if (or (memq 'note-event (ly:music-property ev 'types))
 		  (memq 'rest-event (ly:music-property ev 'types)))
