@@ -16,8 +16,8 @@
 notas guía orquestales a la reducción de piano en una partitura vocal.
 La función musical @code{\\cueWhile} toma cuatro argumentos: la música
 de la que se toma la cita, como viene definida por @code{\\addQuote},
-el nombre que insertar antes de las notas guía, y después @code{#UP} o
-@code{#DOWN} para especificar @code{\\voiceOne} con el nombre encima
+el nombre que insertar antes de las notas guía, y después @code{UP} o
+@code{DOWN} para especificar @code{\\voiceOne} con el nombre encima
 del pentagrama o bien @code{\\voiceTwo} con el nombre debajo del
 pentagrama, y finalmente la música de piano con la que las notas guía
 deben aparecer en paralelo.  El nombre del instrumento citado se

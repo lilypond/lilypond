@@ -47,6 +47,28 @@ wird mit der Eigenschaft @code{\\predefinedDiagramTable} ausgewählt.
   doctitlede = "Alternative Bunddiagrammtabellen"
 
 
+%% Translation of GIT committish: 40bf2b38d674c43f38058494692d1a0993fad0bd
+
+  texidocfr = "
+Vous pouvez tout à fait créer des tables de diagrammes de fret
+supplémentaires, notamment dans l'optique d'un fret alternatif pour un
+accord donné.
+
+Avant de pouvoir utiliser un diagramme alternatif, vous devrez alimenter
+une table à cet effet.  Les différents diagrammes seront ajoutés à cette
+table.
+
+Il peut aussi bien s'agir d'une table vide, que de la recopie d'une
+table existante.
+
+La table servant de base pour les diagrammes prédéfinis est sélectionnée
+par la propriété @code{\\predefinedDiagramTable}.
+
+"
+
+  doctitlefr = "Diagrammes de fret alternatifs"
+
+
   lsrtags = "fretted-strings"
 
   texidoc = "
