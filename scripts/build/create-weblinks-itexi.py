@@ -13,7 +13,15 @@ import glob
 ### http://code.google.com/p/lilypond/issues/detail?id=1050
 
 import langdefs
-langs = [i.code if i.code != 'en' else '' for i in langdefs.WEB_LANGUAGES]
+# GUB only has python 2.4 !!!
+# langs = [i.code if i.code != 'en' else '' for i in langdefs.WEB_LANGUAGES]
+langs = []
+for lang in langdefs.WEB_LANGUAGES:
+    if lang.code == 'en':
+        langs.append('')
+    else:
+        langs.append(lang.code)
+
 
 # these links are relative from /website/ on lilypond.org
 depth = "../"
