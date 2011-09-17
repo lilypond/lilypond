@@ -213,49 +213,59 @@ Bezier::solve_point (Axis ax, Real coordinate) const
   return filter_solutions (sol);
 }
 
+/**
+   Assuming AX is X_AXIS, and D is UP, finds the
+   maximum value of curve_coordinate(t, Y_AXIS) subject to
+   l <= curve_coordinate(t, X_AXIS) <= r.
+*/
 Real
 Bezier::minmax (Axis ax, Real l, Real r, Direction d) const
 {
-  return minmax (ax, l, r, d, 0, 0);
-}
-
-Real
-Bezier::minmax (Axis axis, Real l, Real r, Direction d, vsize left_index, vsize right_index) const
-{
-  Axis other = other_axis (axis);
+  Axis other = other_axis (ax);
   Interval lr (l, r);
-  Drul_array<vector<Real> > sol;
+  vector<Real> solutions;
+
+  // Possible solutions are:
+  // t = 0 or 1, or...
+  solutions.push_back (0);
+  solutions.push_back (1);
+
+  // t is a critical point for the other-axis polynomial, or...
+  Polynomial p_prime (polynomial (other));
+  p_prime.differentiate ();
+  vector<Real> criticals = p_prime.solve ();
+  solutions.insert (solutions.end (), criticals.begin (), criticals.end ());
+
+  // t solves curve_coordinate(t, X_AXIS) = l or r.
   Direction dir = LEFT;
   do
     {
-      Polynomial p (polynomial (axis));
+      Polynomial p (polynomial (ax));
       p.coefs_[0] -= lr[dir];
 
-      sol[dir] = filter_solutions (p.solve ());
+      vector<Real> sol = p.solve ();
+      solutions.insert (solutions.end (), sol.begin (), sol.end ());
     }
   while (flip (&dir) != LEFT);
 
-  if (!sol[LEFT].size () || !sol[RIGHT].size ())
+  Polynomial p (polynomial (ax));
+  Polynomial other_p (polynomial (other));
+  vector<Real> values;
+  for (vsize i = solutions.size (); i--;)
+    {
+      Real t = solutions[i];
+      if (t >= 0 && t <= 1 && p.eval (t) >= l && p.eval (t) <= r)
+        values.push_back (other_p.eval (t));
+    }
+
+  if (values.empty ())
     {
       programming_error ("no solution found for Bezier intersection");
       return 0.0;
     }
 
-  Polynomial p (polynomial (other));
-
-  Drul_array<vsize> indices(left_index, right_index);
-  do
-    {
-      vector_sort (sol[dir], less<Real> ());
-      if (!Interval (0, sol[LEFT].size () - 1).contains (indices[dir]))
-        {
-          programming_error ("requested bezier solution outside range of solutions.  defaulting to lowest solution.");
-          indices[dir] = 0;
-        }
-    }
-  while (flip (&dir) != LEFT);
-
-  return p.minmax (sol[LEFT][indices[LEFT]], sol[RIGHT][indices[RIGHT]], d != LEFT);
+  vector_sort (values, less<Real> ());
+  return (d == DOWN) ? values[0] : values.back ();
 }
 
 /**
