@@ -172,11 +172,10 @@ internal_brew_primitive (Grob *me)
       if (out.is_empty ())
         index = prefix + "d";
       out = fm->find_by_name (index + "r" + suffix);
-      if (!out.is_empty () && scm_is_false (
-                                scm_zero_p (
-                                  scm_modulo (
-                                    me->get_property ("staff-position"),
-                                    scm_from_int (2)))))
+      if (!out.is_empty ()
+          && !Staff_symbol_referencer::on_line
+              (me,
+               robust_scm2int (me->get_property ("staff-position"), 0)))
         index += "r";
       out = fm->find_by_name (index + suffix);
       break;
