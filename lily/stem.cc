@@ -160,7 +160,6 @@ Stem::set_stem_positions (Grob *me, Real se)
 
   me->set_property ("stem-begin-position", scm_from_double (height[-d] * 2 / staff_space));
   me->set_property ("length", scm_from_double (height.length () * 2 / staff_space));
-  (void) me->extent (me, Y_AXIS);
 }
 
 /* Note head that determines hshift for upstems
@@ -850,7 +849,11 @@ Stem::offset_callback (SCM smob)
       Real r = real_attach;
 
       /* If not centered: correct for stem thickness.  */
-      if (attach)
+      extract_grob_set (me, "note-heads", heads);
+      SCM style = heads[0]->get_property ("style");
+      if (attach && !scm_is_eq (style, ly_symbol2scm ("mensural"))
+                 && !scm_is_eq (style, ly_symbol2scm ("neomensural"))
+                 && !scm_is_eq (style, ly_symbol2scm ("petrucci")))
         {
           Real rule_thick = thickness (me);
           r += -d * rule_thick * 0.5;

@@ -65,10 +65,11 @@ Piano_pedal_bracket::print (SCM smob)
             height[d] = 0.0;
           else
             flare[d] = 0.0;
-        }
 
-      Interval ext = robust_relative_extent (b, common, X_AXIS);
-      span_points[d] = ext [broken[d] ? RIGHT : LEFT];
+          span_points[d] = robust_relative_extent (b, common, X_AXIS)[RIGHT];
+        }
+      else
+        span_points[d] = b->relative_coordinate (common, X_AXIS);
     }
   while (flip (&d) != LEFT);
 

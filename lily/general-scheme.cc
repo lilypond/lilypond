@@ -229,8 +229,8 @@ LY_DEFINE (ly_number_2_string, "ly:number->string",
       Real r (scm_to_double (s));
       if (isinf (r) || isnan (r))
         {
-          programming_error (_ ("infinity or NaN encountered while converting Real number"));
-          programming_error (_ ("setting to zero"));
+          programming_error ("infinity or NaN encountered while converting Real number, "
+                             "setting to zero");
 
           r = 0.0;
         }

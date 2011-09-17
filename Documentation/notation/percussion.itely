@@ -100,11 +100,10 @@ be set explicitly.  Other clefs may be used as well.
 
 @lilypond[quote,ragged-right,verbatim]
 \drums {
-  \clef treble
-  hh4 hh hh hh
-  \break
   \clef percussion
   bd4 bd bd bd
+  \clef treble
+  hh4 hh hh hh
 }
 @end lilypond
 
@@ -133,8 +132,7 @@ quarter notes or longer the three slashes are shown explicitly,
 eighth notes are shown with two slashes (the beam being the
 third), and drum rolls shorter than eighths have one stem slash to
 supplement the beams.  This is achieved with the tremolo notation,
-@code{:32}, as described in @ref{Tremolo repeats}.  Here is an
-example of some snare rolls:
+as described in @ref{Tremolo repeats}.
 
 @lilypond[quote,verbatim]
 \drums {
@@ -146,20 +144,27 @@ example of some snare rolls:
 }
 @end lilypond
 
-Sticking can be indicated by placing @code{^"R"} or @code{^"L"}
-after the note.  The @code{staff-padding} property may be
-overridden to achieve a pleasing baseline.
+Sticking can be indicated by placing placing markup for @code{"R"}
+or @code{"L"} above or below notes, as discussed in
+@ref{Direction and placement}.  The @code{staff-padding} property
+may be overridden to achieve a pleasing baseline.
 
 @lilypond[quote,verbatim]
 \drums {
   \repeat unfold 2 {
-    sn16 ^"L" sn^"R" sn^"L" sn^"L" sn^"R" sn^"L"  sn^"R" sn^"R"
+    sn16^"L" sn^"R" sn^"L" sn^"L" sn^"R" sn^"L" sn^"R" sn^"R"
+    \stemUp
+    sn16_"L" sn_"R" sn_"L" sn_"L" sn_"R" sn_"L" sn_"R" sn_"R"
   }
 }
 @end lilypond
 
 
 @seealso
+
+Notation Reference:
+@ref{Tremolo repeats}.
+
 Snippets:
 @rlsr{Percussion}.
 

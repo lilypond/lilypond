@@ -1250,9 +1250,6 @@ moviendo el @code{Timing_translator} y el
 @cindex compás compuesto, indicaciones de
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{compound-time-signatures.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
 
@@ -1687,12 +1684,6 @@ independiente trasladando los grabadores @code{Timing_translator} y
   }
 >>
 @end lilypond
-
-@snippets
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{compound-time-signatures.ly}
-
 
 @seealso
 Glosario musical:

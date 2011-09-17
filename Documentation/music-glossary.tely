@@ -2102,29 +2102,16 @@ A meter that includes a triplet subdivision within the beat: see
 @ref{compound meter}.
 
 @item
-A time signature that additively combines two or more unequal meters, e.g.,
-@q{3/8 + 2/8} instead of @q{5/8}.  Sometimes called additive time signatures.
+A time signature that additively combines two or more unequal meters,
+e.g., @q{3/8 + 2/8} instead of @q{5/8}.  Sometimes called additive time
+signatures.
 
 @end enumerate
 
-@lilypond[quote,line-width=13.0\cm]
-#(define ((compound-time one two three num) grob)
-  (grob-interpret-markup grob
-    (markup
-      #:override '(baseline-skip . 0)
-      #:number
-      #:line (
-        #:left-column (one num)
-        #:vcenter "+"
-        #:left-column (two num)
-        #:vcenter "+"
-        #:left-column (three num)))))
-
+@lilypond[quote,verbatim]
 \relative c' {
   \key f \major
-  #(set-time-signature 8 8 '(3 2 3))
-  \override Staff.TimeSignature #'stencil =
-    #(compound-time "3" "2" "3" "8")
+  \compoundMeter #'((3 8) (2 8) (3 8))
   c8 d e f4 d8 c bes
   c4 g'8 e c f4.
   \bar "||"
@@ -2132,7 +2119,9 @@ A time signature that additively combines two or more unequal meters, e.g.,
 @end lilypond
 
 @seealso
-@ref{compound meter}, @ref{meter}, @ref{polymetric time signature}.
+@ref{compound meter},
+@ref{meter},
+@ref{polymetric time signature}.
 
 
 @node concert pitch
@@ -6842,10 +6831,8 @@ scale as roots of chords.  The most important are degrees I = tonic
 \new Staff \relative c' {
   c1 d e f g a b c
 }
- \lyrics {
-  << { I II III IV V VI VII I }
-     { T "" ""  S  D } >>
-}
+ \lyrics { I II III IV V VI VII I }
+ \lyrics { T "" ""  S  D }
 >>
 @end lilypond
 

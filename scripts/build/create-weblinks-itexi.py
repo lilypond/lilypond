@@ -9,14 +9,22 @@ import sys
 import os
 import glob
 
-# these links are relative from /website/ on lilypond.org
-depth = "../"
-
 ### translation data -- shouldn't be here; see issue
 ### http://code.google.com/p/lilypond/issues/detail?id=1050
 
-#langs = ['', 'cs', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl', 'zh']
-langs = ['', 'cs', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl', 'zh']
+import langdefs
+# GUB only has python 2.4 !!!
+# langs = [i.code if i.code != 'en' else '' for i in langdefs.WEB_LANGUAGES]
+langs = []
+for lang in langdefs.WEB_LANGUAGES:
+    if lang.code == 'en':
+        langs.append('')
+    else:
+        langs.append(lang.code)
+
+
+# these links are relative from /website/ on lilypond.org
+depth = "../"
 
 # Get/update node translations
 '''

@@ -1231,9 +1231,6 @@ c c c c
 @cindex time signature, compound
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{compound-time-signatures.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
 
@@ -1675,12 +1672,6 @@ LilyPond は改行と改ページを小節線の箇所にのみ挿入します�
   }
 >>
 @end lilypond
-
-@snippets
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{compound-time-signatures.ly}
-
 
 @seealso
 音楽用語集:

@@ -73,7 +73,11 @@
 "
      name-sym
      name-sym
-     (if (pair? docstring) (cadar docstring) "(undocumented; fixme)")
+     (if (pair? docstring) 
+         (cadar docstring) 
+         (begin
+           (ly:warning "context modification `~a' not documented." name-sym)
+           "(undocumented; fixme)"))
      (map document-mod-list mod-list))))
 
 (define (document-mod obj-pair)

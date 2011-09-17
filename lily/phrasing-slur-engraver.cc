@@ -55,7 +55,7 @@ class Phrasing_slur_engraver : public Engraver
 
 protected:
   DECLARE_TRANSLATOR_LISTENER (phrasing_slur);
-  DECLARE_ACKNOWLEDGER (accidental);
+  DECLARE_ACKNOWLEDGER (inline_accidental);
   DECLARE_ACKNOWLEDGER (fingering);
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (slur);
@@ -108,7 +108,7 @@ Phrasing_slur_engraver::acknowledge_extra_object (Grob_info info)
 }
 
 void
-Phrasing_slur_engraver::acknowledge_accidental (Grob_info info)
+Phrasing_slur_engraver::acknowledge_inline_accidental (Grob_info info)
 {
   acknowledge_extra_object (info);
 }
@@ -219,7 +219,7 @@ Phrasing_slur_engraver::stop_translation_timestep ()
   objects_to_acknowledge_.clear ();
 }
 
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver, accidental);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver, inline_accidental);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, fingering)
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, note_column);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, slur);

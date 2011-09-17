@@ -38,18 +38,16 @@ acciaccatura =
 %% keep these two together
 "instrument-definitions" = #'()
 addInstrumentDefinition =
-#(define-music-function
+#(define-scheme-function
    (parser location name lst) (string? list?)
    (_i "Create instrument @var{name} with properties @var{list}.")
-   (set! instrument-definitions (acons name lst instrument-definitions))
-   (make-music 'SequentialMusic 'void #t))
+   (set! instrument-definitions (acons name lst instrument-definitions)))
 
 addQuote =
-#(define-music-function (parser location name music) (string? ly:music?)
+#(define-scheme-function (parser location name music) (string? ly:music?)
    (_i "Define @var{music} as a quotable music expression named
 @var{name}")
-   (add-quotable parser name music)
-   (make-music 'SequentialMusic 'void #t))
+   (add-quotable parser name music))
 
 %% keep these two together
 afterGraceFraction = #(cons 6 8)
@@ -183,17 +181,15 @@ bendAfter =
 	       'delta-step delta))
 
 bookOutputName =
-#(define-music-function (parser location newfilename) (string?)
+#(define-scheme-function (parser location newfilename) (string?)
    (_i "Direct output for the current book block to @var{newfilename}.")
-   (set! book-filename newfilename)
-   (make-music 'SequentialMusic 'void #t))
+   (set! book-filename newfilename))
 
 bookOutputSuffix =
-#(define-music-function (parser location newsuffix) (string?)
+#(define-scheme-function (parser location newsuffix) (string?)
    (_i "Set the output filename suffix for the current book block to
 @var{newsuffix}.")
-   (set! book-output-suffix newsuffix)
-   (make-music 'SequentialMusic 'void #t))
+   (set! book-output-suffix newsuffix))
 
 %% \breathe is defined as a music function rather than an event identifier to
 %% ensure it gets useful input location information: as an event identifier,
@@ -402,6 +398,8 @@ grace =
    (_i "Insert @var{music} as grace notes."))
 
 harmonicByFret = #(define-music-function (parser location fret music) (number? ly:music?)
+  (_i "Convert @var{music} into harmonics; the resulting notes resemble
+harmonics played on a fretted instrument by touching the strings above @var{fret}.")
   (let* ((fret (number->string fret))
          (pitch (fret->pitch fret)))
         (make-sequential-music
@@ -416,6 +414,9 @@ harmonicByFret = #(define-music-function (parser location fret music) (number? l
           #}))))
 
 harmonicByRatio = #(define-music-function (parser location ratio music) (number? ly:music?)
+    (_i "Convert @var{music} into harmonics; the resulting notes resemble
+harmonics played on a fretted instrument by touching the strings above the point
+given through @var{ratio}.")
   (let ((pitch (ratio->pitch ratio))
         (fret (ratio->fret ratio)))
        (make-sequential-music
@@ -487,27 +488,24 @@ label =
 
 
 language =
-#(define-music-function (parser location language) (string?)
+#(define-scheme-function (parser location language) (string?)
    (_i "Set note names for language @var{language}.")
-   (note-names-language parser language)
-   (make-music 'Music 'void #t))
+   (note-names-language parser language))
 
 languageSaveAndChange =
-#(define-music-function (parser location language) (string?)
+#(define-scheme-function (parser location language) (string?)
   (_i "Store the previous pitchnames alist, and set a new one.")
   (set! previous-pitchnames pitchnames)
-  (note-names-language parser language)
-  (make-music 'Music 'void #t))
+  (note-names-language parser language))
 
 languageRestore =
-#(define-music-function (parser location) ()
+#(define-scheme-function (parser location) ()
    (_i "Restore a previously-saved pitchnames alist.")
    (if previous-pitchnames
        (begin
         (set! pitchnames previous-pitchnames)
         (ly:parser-set-note-names parser pitchnames))
-      (ly:input-warning location (_ "No other language was defined previously. Ignoring.")))
-   (make-music 'Music 'void #t))
+      (ly:input-warning location (_ "No other language was defined previously. Ignoring."))))
 
 
 makeClusters =
@@ -517,7 +515,7 @@ makeClusters =
 
 modalInversion =
 #(define-music-function (parser location around to scale music)
-    (ly:music? ly:music? ly:music? ly:music?)
+    (ly:pitch? ly:pitch? ly:music? ly:music?)
     (_i "Invert @var{music} about @var{around} using @var{scale} and
 transpose from @var{around} to @var{to}.")
     (let ((inverter (make-modal-inverter around to scale)))
@@ -526,7 +524,7 @@ transpose from @var{around} to @var{to}.")
 
 modalTranspose =
 #(define-music-function (parser location from to scale music)
-    (ly:music? ly:music? ly:music? ly:music?)
+    (ly:pitch? ly:pitch? ly:music? ly:music?)
     (_i "Transpose @var{music} from pitch @var{from} to pitch @var{to}
 using @var{scale}.")
     (let ((transposer (make-modal-transposer from to scale)))
@@ -535,7 +533,7 @@ using @var{scale}.")
 
 inversion =
 #(define-music-function
-   (parser location around to music) (ly:music? ly:music? ly:music?)
+   (parser location around to music) (ly:pitch? ly:pitch? ly:music?)
    (_i "Invert @var{music} about @var{around} and
 transpose from @var{around} to @var{to}.")
    (music-invert around to music))
@@ -570,10 +568,10 @@ markups), or inside a score.")
 
 
 octaveCheck =
-#(define-music-function (parser location pitch-note) (ly:music?)
+#(define-music-function (parser location pitch) (ly:pitch?)
    (_i "Octave check.")
    (make-music 'RelativeOctaveCheck
-	       'pitch (pitch-of-note pitch-note)))
+               'pitch pitch))
 
 ottava =
 #(define-music-function (parser location octave) (integer?)
@@ -655,7 +653,7 @@ pageTurn =
 					   'break-permission 'force))))
 
 parallelMusic =
-#(define-music-function (parser location voice-ids music) (list? ly:music?)
+#(define-scheme-function (parser location voice-ids music) (list? ly:music?)
    (_i "Define parallel music sequences, separated by '|' (bar check signs),
 and assign them to the identifiers provided in @var{voice-ids}.
 
@@ -706,7 +704,7 @@ Example:
 			 (and (not (null? origins)) (car origins)))))))
      ;;
      ;; first, split the music and fill in voices
-     (map-in-order (lambda (m)
+     (for-each (lambda (m)
 		     (push-music m)
 		     (if (bar-check? m) (change-voice)))
 		   (ly:music-property music 'elements))
@@ -736,14 +734,12 @@ Example:
 	    voices)
      ;;
      ;; bind voice identifiers to the voices
-     (map (lambda (voice-id voice)
+     (for-each (lambda (voice-id voice)
 	    (ly:parser-define! parser voice-id
 			       (make-music 'SequentialMusic
 					   'origin location
 					   'elements voice)))
-	  voice-ids voices))
-   ;; Return an empty sequence.  This function is actually a "void" function.
-   (make-music 'SequentialMusic 'void #t))
+	  voice-ids voices)))
 
 parenthesize =
 #(define-music-function (parser loc arg) (ly:music?)
@@ -752,7 +748,7 @@ parenthesize =
    (if (memq 'event-chord (ly:music-property arg 'types))
        ;; arg is an EventChord -> set the parenthesize property
        ;; on all child notes and rests
-       (map
+       (for-each
 	(lambda (ev)
 	  (if (or (memq 'note-event (ly:music-property ev 'types))
 		  (memq 'rest-event (ly:music-property ev 'types)))
@@ -789,6 +785,18 @@ partcombineSoloIIOnce = \partcombineForce #'solo2 ##t
 partcombineAutomatic = \partcombineForce ##f ##f
 partcombineAutomaticOnce = \partcombineForce ##f ##t
 
+partial =
+#(define-music-function (parser location dur) (ly:duration?)
+  (_i "Make a partial measure.")
+
+  ;; We use `descend-to-context' here instead of `context-spec-music' to
+  ;; ensure \partial still works if the Timing_translator is moved
+    (descend-to-context
+     (context-spec-music (make-music 'PartialSet
+				     'origin location
+				     'partial-duration dur)
+			 'Timing)
+     'Score))
 
 pitchedTrill =
 #(define-music-function
@@ -843,18 +851,12 @@ removeWithTag =
     music))
 
 resetRelativeOctave =
-#(define-music-function (parser location reference-note) (ly:music?)
+#(define-music-function (parser location pitch) (ly:pitch?)
    (_i "Set the octave inside a \\relative section.")
 
-   (let* ((notes (ly:music-property reference-note 'elements))
-	  (pitch (ly:music-property (car notes) 'pitch)))
-
-     (set! (ly:music-property reference-note 'elements) '())
-     (set! (ly:music-property reference-note 'to-relative-callback)
-	   (lambda (music last-pitch)
-	     pitch))
-
-     reference-note))
+   (make-music 'SequentialMusic
+               'to-relative-callback
+               (lambda (music last-pitch) pitch)))
 
 retrograde =
 #(define-music-function (parser location music)
@@ -875,16 +877,11 @@ rightHandFinger =
 #(define-music-function (parser location finger) (number-or-string?)
    (_i "Apply @var{finger} as a fingering indication.")
 
-   (apply make-music
-	  (append
-	   (list
-	    'StrokeFingerEvent
-	    'origin location)
-	   (if	(string? finger)
-		(list 'text finger)
-		(list 'digit finger)))))
-
-
+   (make-music
+            'StrokeFingerEvent
+            'origin location
+            (if (string? finger) 'text 'digit)
+            finger))
 
 scaleDurations =
 #(define-music-function (parser location fraction music)
@@ -901,6 +898,13 @@ shiftDurations =
    (music-map
     (lambda (x)
       (shift-one-duration-log x dur dots)) arg))
+
+skip =
+#(define-music-function (parser location dur) (ly:duration?)
+  (_i "Skip forward by @var{dur}.")
+  (make-music 'SkipMusic
+	      'duration dur))
+
 
 slashedGrace =
 #(def-grace-function startSlashedGraceMusic stopSlashedGraceMusic
@@ -943,13 +947,22 @@ tag =
 	  (ly:music-property arg 'tags)))
    arg)
 
+transpose =
+#(define-music-function
+   (parser location from to music)
+   (ly:pitch? ly:pitch? ly:music?)
+
+   (_i "Transpose @var{music} from pitch @var{from} to pitch @var{to}.")
+   (make-music 'TransposedMusic
+               'element (ly:music-transpose music (ly:pitch-diff to from))))
+
 transposedCueDuring =
 #(define-music-function
-   (parser location what dir pitch-note main-music)
-   (string? ly:dir? ly:music? ly:music?)
+   (parser location what dir pitch main-music)
+   (string? ly:dir? ly:pitch? ly:music?)
 
    (_i "Insert notes from the part @var{what} into a voice called @code{cue},
-using the transposition defined by @var{pitch-note}.  This happens
+using the transposition defined by @var{pitch}.  This happens
 simultaneously with @var{main-music}, which is usually a rest.	The
 argument @var{dir} determines whether the cue notes should be notated
 as a first or second voice.")
@@ -960,15 +973,15 @@ as a first or second voice.")
 	       'quoted-context-id "cue"
 	       'quoted-music-name what
 	       'quoted-voice-direction dir
-	       'quoted-transposition (pitch-of-note pitch-note)))
+	       'quoted-transposition pitch))
 
 transposition =
-#(define-music-function (parser location pitch-note) (ly:music?)
+#(define-music-function (parser location pitch) (ly:pitch?)
    (_i "Set instrument transposition")
 
    (context-spec-music
     (make-property-set 'instrumentTransposition
-		       (ly:pitch-negate (pitch-of-note pitch-note)))
+                       (ly:pitch-negate pitch))
     'Staff))
 
 tweak =

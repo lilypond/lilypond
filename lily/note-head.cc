@@ -50,26 +50,31 @@ internal_print (Grob *me, string *font_char)
 
   Font_metric *fm = Font_interface::get_default_font (me);
 
+  string prefix = "noteheads.";
   string idx_symmetric;
   string idx_directed;
-  string idx_either;
-  idx_symmetric = idx_either = "noteheads.s" + suffix;
-  Stencil out = fm->find_by_name (idx_symmetric);
+  string idx_either = idx_symmetric = prefix + "s";
+  Stencil out = fm->find_by_name (idx_either + suffix);
   if (out.is_empty ())
     {
-      string prefix = "noteheads.";
-
       Grob *stem = unsmob_grob (me->get_object ("stem"));
       Direction stem_dir = stem ? get_grob_direction (stem) : CENTER;
 
       if (stem_dir == CENTER)
         programming_error ("must have stem dir for note head");
 
-      idx_directed = idx_either
-                     = prefix + ((stem_dir == UP) ? "u" : "d") + suffix;
-      out = fm->find_by_name (idx_directed);
+      idx_either = idx_directed = prefix + ((stem_dir == UP) ? "u" : "d");
     }
 
+  out = fm->find_by_name (idx_either + "r" + suffix);
+  if (!out.is_empty ()
+        && !Staff_symbol_referencer::on_line
+             (me,
+              robust_scm2int (me->get_property ("staff-position"), 0)))
+      idx_either += "r";
+
+  idx_either += suffix;
+  out = fm->find_by_name (idx_either);
   if (out.is_empty ())
     {
       me->warning (_f ("none of note heads `%s' or `%s' found",

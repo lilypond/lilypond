@@ -16,9 +16,10 @@ EXTRA_DIST_FILES += README mf2pt1.mp
 FETA_MF_FILES = $(call src-wildcard,feta[0-9]*.mf) \
 		$(call src-wildcard,feta-braces-[a-z].mf) \
 		$(call src-wildcard,feta-alphabet*[0-9].mf) \
-		$(call src-wildcard,feta-notehead*[0-9].mf) \
+		$(call src-wildcard,feta-noteheads*[0-9].mf) \
 		$(call src-wildcard,feta-flags*[0-9].mf) \
-		$(call src-wildcard,parmesan[0-9]*.mf)
+		$(call src-wildcard,parmesan[0-9]*.mf) \
+		$(call src-wildcard,parmesan-noteheads*[0-9].mf)
 
 STAFF_SIZES = 11 13 14 16 18 20 23 26
 BRACES = a b c d e f g h i
@@ -69,6 +70,7 @@ $(outdir)/emmentaler-%.otf\
 			    $(outdir)/feta-flags%.pfb \
 			    $(outdir)/feta-alphabet%.pfb \
 			    $(outdir)/parmesan%.pfb \
+			    $(outdir)/parmesan-noteheads%.pfb \
 			    $(outdir)/feta%.otf-table \
 			    $(outdir)/feta%.otf-gtable
 	cd $(outdir) && $(FONTFORGE) -script $(notdir $(basename ,$@).pe)
@@ -84,6 +86,7 @@ $(outdir)/%.pfb: $(outdir)/%.log
 
 $(outdir)/%.otf-table: $(outdir)/%.lisp
 	cat $< $(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) \
+	       $(if $(findstring brace,$<),,$(subst feta,parmesan-noteheads,$<)) \
 	       $(if $(findstring brace,$<),,$(subst feta,feta-noteheads,$<)) \
 	       $(if $(findstring brace,$<),,$(subst feta,feta-flags,$<)) \
 	       $(if $(findstring brace,$<),,$(subst feta,feta-alphabet,$<)) > $@
@@ -94,41 +97,49 @@ $(outdir)/feta26.otf-table: $(outdir)/feta26.lisp \
 			    $(outdir)/feta-noteheads26.lisp \
 			    $(outdir)/feta-flags26.lisp \
 			    $(outdir)/parmesan26.lisp \
+			    $(outdir)/parmesan-noteheads26.lisp \
 			    $(outdir)/feta-alphabet26.lisp
 $(outdir)/feta23.otf-table: $(outdir)/feta23.lisp \
 			    $(outdir)/feta-noteheads23.lisp \
 			    $(outdir)/feta-flags23.lisp \
 			    $(outdir)/parmesan23.lisp \
+			    $(outdir)/parmesan-noteheads23.lisp \
 			    $(outdir)/feta-alphabet23.lisp
 $(outdir)/feta20.otf-table: $(outdir)/feta20.lisp \
 			    $(outdir)/feta-noteheads20.lisp \
 			    $(outdir)/feta-flags20.lisp \
 			    $(outdir)/parmesan20.lisp \
+			    $(outdir)/parmesan-noteheads20.lisp \
 			    $(outdir)/feta-alphabet20.lisp
 $(outdir)/feta18.otf-table: $(outdir)/feta18.lisp \
 			    $(outdir)/feta-noteheads18.lisp \
 			    $(outdir)/feta-flags18.lisp \
 			    $(outdir)/parmesan18.lisp \
+			    $(outdir)/parmesan-noteheads18.lisp \
 			    $(outdir)/feta-alphabet18.lisp
 $(outdir)/feta16.otf-table: $(outdir)/feta16.lisp \
 			    $(outdir)/feta-noteheads16.lisp \
 			    $(outdir)/feta-flags16.lisp \
 			    $(outdir)/parmesan16.lisp \
+			    $(outdir)/parmesan-noteheads16.lisp \
 			    $(outdir)/feta-alphabet16.lisp
 $(outdir)/feta14.otf-table: $(outdir)/feta14.lisp \
 			    $(outdir)/feta-noteheads14.lisp \
 			    $(outdir)/feta-flags14.lisp \
 			    $(outdir)/parmesan14.lisp \
+			    $(outdir)/parmesan-noteheads14.lisp \
 			    $(outdir)/feta-alphabet14.lisp
 $(outdir)/feta13.otf-table: $(outdir)/feta13.lisp \
 			    $(outdir)/feta-noteheads13.lisp \
 			    $(outdir)/feta-flags13.lisp \
 			    $(outdir)/parmesan13.lisp \
+			    $(outdir)/parmesan-noteheads13.lisp \
 			    $(outdir)/feta-alphabet13.lisp
 $(outdir)/feta11.otf-table: $(outdir)/feta11.lisp \
 			    $(outdir)/feta-noteheads11.lisp \
 			    $(outdir)/feta-flags11.lisp \
 			    $(outdir)/parmesan11.lisp \
+			    $(outdir)/parmesan-noteheads11.lisp \
 			    $(outdir)/feta-alphabet11.lisp
 
 $(outdir)/emmentaler-brace.otf: $(outdir)/emmentaler-brace.subfonts \

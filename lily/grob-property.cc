@@ -168,9 +168,9 @@ Grob::internal_get_property (SCM sym) const
 #ifndef NDEBUG
   if (val == ly_symbol2scm ("calculation-in-progress"))
     {
-      programming_error (_f ("cyclic dependency: calculation-in-progress encountered for #'%s (%s)",
-                             ly_symbol2string (sym).c_str (),
-                             name ().c_str ()));
+      programming_error (to_string ("cyclic dependency: calculation-in-progress encountered for #'%s (%s)",
+                                    ly_symbol2string (sym).c_str (),
+                                    name ().c_str ()));
       if (debug_property_callbacks)
         {
           message ("backtrace: ");

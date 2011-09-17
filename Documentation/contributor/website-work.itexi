@@ -219,6 +219,7 @@ diff -u $DEST/create-weblinks-itexi.py $GIT/scripts/build/create-weblinks-itexi.
 diff -u $DEST/mass-link.py $GIT/scripts/build/mass-link.py
 diff -u $DEST/website_post.py $GIT/scripts/build/website_post.py
 diff -u $DEST/bib2texi.py $GIT/scripts/build/bib2texi.py
+diff -u $DEST/langdefs.py $GIT/python/langdefs.py
 diff -u $DEST/lilypond.org.htaccess $GIT/Documentation/web/server/lilypond.org.htaccess
 diff -u $DEST/website-dir.htaccess $GIT/Documentation/web/server/website-dir.htaccess
 @end verbatim
@@ -238,6 +239,7 @@ cp $GIT/scripts/build/create-weblinks-itexi.py $DEST/create-weblinks-itexi.py
 cp $GIT/scripts/build/mass-link.py $DEST/mass-link.py
 cp $GIT/scripts/build/website_post.py $DEST/website_post.py
 cp $GIT/scripts/build/bib2texi.py $DEST/bib2texi.py
+cp $GIT/python/langdefs.py $DEST/langdefs.py
 cp $GIT/Documentation/web/server/lilypond.org.htaccess $DEST/lilypond.org.htaccess
 cp $GIT/Documentation/web/server/website-dir.htaccess $DEST/website-dir.htaccess
 @end verbatim
@@ -293,6 +295,10 @@ make WEB_TARGETS="offline online" doc
 make website
 @end example
 
+This will make all the language variants of the website.  To save
+a little time, just the English version can be made with the
+command @code{make WEB_LANGS='' website} or the English and (for
+example) the French with @code{make WEB_LANGS='fr' website}.
 
 @item
 Move the built stuff into those directories.  It's highly
@@ -345,10 +351,12 @@ scripts/build/website_post.py
 
 @item
 Translations are not included by default in @code{make website}.
-To test your translation, edit the @code{WEB_LANGS} line in
-@file{make/website.make}.  Do not submit a patch to add your language
-to this file unless @code{make website} completes with less than 5
-warnings.
+To test your translation, edit the @code{WEB_LANGUAGES =} line in
+@file{python/langdefs.py}.  You will need to copy this updated
+script to @code{build/python/out}.
+
+Do not submit a patch to add your language to this file unless
+@code{make website} completes with fewer than 5 warnings.
 
 @item
 Links to manuals are done with macros like

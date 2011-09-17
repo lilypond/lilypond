@@ -307,7 +307,7 @@ phrasingSlurDashPattern =
 #(define-music-function (parser location dash-fraction dash-period)
    (number? number?)
    (_i "Set up a custom style of dash pattern for @var{dash-fraction} ratio of
-line to space repeated at @var{dash-period} interval.")
+line to space repeated at @var{dash-period} interval for phrasing slurs.")
   #{
      \override PhrasingSlur #'dash-definition =
        $(make-simple-dash-definition dash-fraction dash-period)
@@ -391,6 +391,8 @@ slurNeutral    = \revert Slur #'direction
 slurDashPattern =
 #(define-music-function (parser location dash-fraction dash-period)
   (number? number?)
+  (_i "Set up a custom style of dash pattern for @var{dash-fraction}
+ratio of line to space repeated at @var{dash-period} interval for slurs.")
   #{
      \override Slur #'dash-definition =
        $(make-simple-dash-definition dash-fraction dash-period)
@@ -510,6 +512,8 @@ tieNeutral = \revert Tie #'direction
 tieDashPattern =
 #(define-music-function (parser location dash-fraction dash-period)
   (number? number?)
+  (_i "Set up a custom style of dash pattern for @var{dash-fraction}
+ratio of line to space repeated at @var{dash-period} interval for ties.")
   #{
      \override Tie #'dash-definition =
        $(make-simple-dash-definition dash-fraction dash-period)

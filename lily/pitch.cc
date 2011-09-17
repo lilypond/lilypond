@@ -25,6 +25,7 @@
 #include "warn.hh"
 
 #include "ly-smobs.icc"
+#include <cmath>
 
 Pitch::Pitch (int o, int n, Rational a)
 {
@@ -78,13 +79,13 @@ Pitch::tone_pitch () const
 int
 Pitch::rounded_semitone_pitch () const
 {
-  return int (double (tone_pitch () * Rational (2)));
+  return int (floor (double (tone_pitch () * Rational (2) + Rational (1,2))));
 }
 
 int
 Pitch::rounded_quartertone_pitch () const
 {
-  return int (double (tone_pitch () * Rational (4)));
+  return int (floor (double (tone_pitch () * Rational (4) + Rational (1,2))));
 }
 
 void

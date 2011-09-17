@@ -190,6 +190,7 @@ LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (),
 {
   string help = get_help_string ();
   puts (help.c_str ());
+  fflush (stdout);
 
   return SCM_UNSPECIFIED;
 }

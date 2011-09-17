@@ -674,6 +674,7 @@ def main ():
     else:
         global_options.lily_output_dir = os.path.abspath(global_options.output_dir)
 
+    relative_output_dir = global_options.output_dir
 
     identify ()
     try:
@@ -686,9 +687,8 @@ def main ():
 
     base_file_name = os.path.splitext (os.path.basename (files[0]))[0]
     dep_file = os.path.join (global_options.output_dir, base_file_name + '.dep')
-    final_output_file = os.path.join (global_options.output_dir,
-                     base_file_name
-                     + '.%s' % global_options.format)
+    final_output_file = os.path.join (relative_output_dir,
+                     base_file_name + global_options.formatter.default_extension)
 
     os.chdir (original_dir)
     file (dep_file, 'w').write ('%s: %s'

@@ -758,24 +758,41 @@ NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
 						      music
 						      (ly:music-deep-copy ,stop))))))
 
-(defmacro-public define-music-function (args signature . body)
+(defmacro-public define-syntax-function (type args signature . body)
+  "Helper macro for `ly:make-music-function'.
+Syntax:
+  (define-syntax-function (result-type? parser location arg1 arg2 ...) (result-type? arg1-type? arg2-type? ...)
+    ...function body...)
+"
+  (if (and (pair? body) (pair? (car body)) (eqv? '_i (caar body)))
+      ;; When the music function definition contains a i10n doc string,
+      ;; (_i "doc string"), keep the literal string only
+      (let ((docstring (cadar body))
+	    (body (cdr body)))
+	`(ly:make-music-function (list ,type ,@signature)
+				 (lambda ,args
+				   ,docstring
+				   ,@body)))
+      `(ly:make-music-function (list ,type ,@signature)
+			       (lambda ,args
+				 ,@body))))
+
+(defmacro-public define-music-function rest
   "Helper macro for `ly:make-music-function'.
 Syntax:
   (define-music-function (parser location arg1 arg2 ...) (arg1-type? arg2-type? ...)
     ...function body...)
 "
-(if (and (pair? body) (pair? (car body)) (eqv? '_i (caar body)))
-      ;; When the music function definition contains a i10n doc string,
-      ;; (_i "doc string"), keep the literal string only
-      (let ((docstring (cadar body))
-	    (body (cdr body)))
-	`(ly:make-music-function (list ,@signature)
-				 (lambda (,@args)
-				   ,docstring
-				   ,@body)))
-      `(ly:make-music-function (list ,@signature)
-			       (lambda (,@args)
-				 ,@body))))
+  `(define-syntax-function ly:music? ,@rest))
+
+
+(defmacro-public define-scheme-function rest
+  "Helper macro for `ly:make-music-function'.
+Syntax:
+  (define-scheme-function (parser location arg1 arg2 ...) (arg1-type? arg2-type? ...)
+    ...function body...)
+"
+  `(define-syntax-function scheme? ,@rest))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

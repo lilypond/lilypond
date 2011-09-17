@@ -1250,9 +1250,6 @@ particuliers pour les différentes portées d'un regroupement@tie{}:
 @cindex métriques composites
 @cindex métriques décomposées
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{compound-time-signatures.ly}
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
@@ -1687,12 +1684,6 @@ parviendrez en déplaçant le @code{Timing_translator} et le
   }
 >>
 @end lilypond
-
-@snippets
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{compound-time-signatures.ly}
-
 
 @seealso
 Glossaire musicologique :

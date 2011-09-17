@@ -28,21 +28,25 @@
        (doc (procedure-documentation func))
        (sign (object-property func 'music-function-signature))
        (type-names (map type-name sign))
-
        (signature-str
 	(string-join
 	 (map (lambda (x) (format #f "@var{~a} (~a)"
 				  (car x)
 				  (cadr x)))
-	      (zip arg-names type-names)))))
+	      (zip arg-names (cdr type-names))))))
     (format #f
-     "@item @code{~a}~a~a
-@findex ~a
+     "@item @code{~a} (~a) ~a~a
+@funindex ~a
 ~a
 "
-     name-sym (if (equal? "" signature-str) "" " - ") signature-str
+     name-sym (car type-names)
+     (if (equal? "" signature-str) "" " - ") signature-str
      name-sym
-     (if doc doc "(undocumented; fixme)"))))
+     (if doc
+         doc
+         (begin
+           (ly:warning "music function `~a' not documented." name-sym)
+           "(undocumented; fixme)")))))
 
 
 (define (document-object obj-pair)

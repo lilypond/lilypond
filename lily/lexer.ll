@@ -141,7 +141,6 @@ DASHED_KEY_WORD		\\{DASHED_WORD}
 
 
 ALPHAWORD	{A}+
-DIGIT		{N}
 UNSIGNED	{N}+
 E_UNSIGNED	\\{N}+
 FRACTION	{N}+\/{N}+
@@ -423,14 +422,6 @@ BOM_UTF8	\357\273\277
 		yylval.scm =  scan_fraction (YYText ());
 		return FRACTION;
 	}
-	{DIGIT}		{
-		yylval.i = String_convert::dec2int (string (YYText ()));
-		return DIGIT;
-	}
-	{UNSIGNED}/\/[^0-9] { // backup rule
-		yylval.i = String_convert::dec2int (string (YYText ()));
-		return UNSIGNED;
-	}
 	{UNSIGNED}/\/	| // backup rule
 	{UNSIGNED}		{
 		yylval.i = String_convert::dec2int (string (YYText ()));
@@ -604,7 +595,7 @@ BOM_UTF8	\357\273\277
 	[{}]	{
 		return YYText ()[0];
 	}
-	[^#{}"\\ \t\n\r\f]+ {
+	[^#{}\"\\ \t\n\r\f]+ {
 		string s (YYText ()); 
 
 		char c = s[s.length () - 1];
@@ -742,12 +733,6 @@ Lily_lexer::push_extra_token (int token_type)
 }
 
 void
-Lily_lexer::push_embedded_token ()
-{
-	push_extra_token (EMBEDDED_LILY);
-}
-
-void
 Lily_lexer::push_chord_state (SCM tab)
 {
 	pitchname_tab_stack_ = scm_cons (tab, pitchname_tab_stack_);
@@ -818,13 +803,23 @@ Lily_lexer::scan_escaped_word (string str)
 	SCM sid = lookup_identifier (str);
 	if (is_music_function (sid))
 	{
+		int funtype = SCM_FUNCTION;
+
 		yylval.scm = get_music_function_transform (sid);
 
 		SCM s = scm_object_property (yylval.scm, ly_symbol2scm ("music-function-signature"));
+		SCM cs = scm_car (s);
+
+		if (scm_is_eq (cs, ly_lily_module_constant ("ly:music?")))
+			funtype = MUSIC_FUNCTION;
+		else if (ly_is_procedure (cs))
+			funtype = SCM_FUNCTION;
+		else programming_error ("Bad syntax function predicate");
+
 		push_extra_token (EXPECT_NO_MORE_ARGS);
-		for (; scm_is_pair (s); s = scm_cdr (s))
+		for (s = scm_cdr (s); scm_is_pair (s); s = scm_cdr (s))
 		{
-			SCM cs = scm_car (s);
+			cs = scm_car (s);
 			
 			if (cs == ly_music_p_proc)
 				push_extra_token (EXPECT_MUSIC);
@@ -838,7 +833,7 @@ Lily_lexer::scan_escaped_word (string str)
 				push_extra_token (EXPECT_SCM);
 			else programming_error ("Function parameter without type-checking predicate");
 		}
-		return MUSIC_FUNCTION;
+		return funtype;
 	}
 
 	if (sid != SCM_UNDEFINED)

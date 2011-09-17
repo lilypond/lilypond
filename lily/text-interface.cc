@@ -28,6 +28,7 @@
 #include "modified-font-metric.hh"
 #include "output-def.hh"
 #include "pango-font.hh"
+#include "international.hh"
 #include "warn.hh"
 
 static void
@@ -109,12 +110,7 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
       scm_display (markup, scm_current_error_port ());
       scm_puts ("\n", scm_current_error_port ());
 
-      Box b;
-      b[X_AXIS].set_empty ();
-      b[Y_AXIS].set_empty ();
-
-      Stencil s (b, SCM_EOL);
-      return s.smobbed_copy ();
+      return Stencil ().smobbed_copy ();
     }
 }
 

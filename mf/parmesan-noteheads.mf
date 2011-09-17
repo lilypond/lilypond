@@ -6,7 +6,6 @@
 % Neo-mensural heads originally by
 % Christian Mondrup and Mats Bengtsson
 %
-%
 % LilyPond is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
 % the Free Software Foundation, either version 3 of the License, or
@@ -57,31 +56,30 @@ define_pixels (noteheight);
 %
 %
 %
-% MENSURAL NOTATION
+% NEO-MENSURAL NOTATION
 %
 %
 %
 
-def draw_neomensural_brevis (expr brevwid, open, full) =
-	save beamheight, head_width;
-	save holeheight, stem_width;
-	save serif_size, serif_protrude;
+def draw_neomensural_brevis (expr brevwid, holeheight, open, full) =
+	save beamheight, head_width, head_height;
+	save stem_width, serif_size, serif_protrude;
 
-	head_width# = brevwid;
-	holeheight = 3 stafflinethickness;
-	stem_width = 1.4 stafflinethickness;
+	head_width# := brevwid;
+	head_height# := noteheight#;
+	stem_width := 1.3 linethickness;
 
-	define_pixels (head_width);
+	define_pixels (head_width, head_height);
 
 	set_char_box (0, head_width#,
-		      noteheight# / 2, noteheight# / 2);
+		      head_height# / 2, head_height# / 2);
 
-	2 beamheight + holeheight = noteheight;
-	serif_size = (holeheight - stafflinethickness) / 2;
-	serif_protrude = 1.5 serif_size;
+	2 beamheight + holeheight = head_height;
+	serif_size := .75 linethickness;
+	serif_protrude := .15 head_height;
 
 	z1l = (0, 0);
-	z2l = (0, -stafflinethickness / 2);
+	z2l = (0, - (holeheight - 2 serif_size) / 2);
 	z3r = z2r + serif_size * (1, -1);
 	y4r = y3r;
 	x4r = head_width / 2;
@@ -135,50 +133,20 @@ def draw_neomensural_brevis (expr brevwid, open, full) =
 enddef;
 
 
-%%% This head does not seem to be used anywhere.  Junk me?  -- jr
-def draw_neomensural_left_stemmed_head (expr wid) =
-	draw_neomensural_brevis (wid, true, true);
-
-	x6 = x7 = stem_width / 2;
-	y6 = y5;
-	y7 = y5 - 2.25 staff_space;
-
-	z17 = (x7, y7 - stem_width / 2);
-
-	penpos6 (stem_width, 0);
-	penpos7 (stem_width, 0);
-
-	fill z7l
-	     -- z6l
-	     -- z6r
-	     -- z7r
-	     .. z17
-	     .. cycle;
-
-	penlabels (6, 7);
-	labels (17);
-enddef;
-
-
-%%% This head does not seem to be used anywhere.  Junk me?  -- jr
-fet_beginchar ("Left stemmed notehead", "slneomensural");
-	draw_neomensural_left_stemmed_head (2 staff_space#);
-fet_endchar;
-
-
 %
 % Some sources (eg. Musix/OpusTeX) think that the appendage should be on
 % the left, some say right.  Right wins democratically.
 %
-def draw_neomensural_longa (expr wid) =
-	draw_neomensural_brevis (wid, true, true);
+def draw_neomensural_longa (expr wid, holeheight, direction) =
+	draw_neomensural_brevis (wid, holeheight, true, true);
 
-	save theta;
+	save theta, dir;
+	dir := -direction;
 
-	x7r = head_width;
-	y7 = y5;
-	z6 - z7 = (stem_width / 2, -staff_space);
-	theta = angle (z6 - z7) + 90;
+	x7 = head_width - stem_width / 2;
+	y7 = dir * y5;
+	z6 - z7 = (stem_width / 2, -dir * staff_space);
+	theta = dir * angle (z6 - z7) + 90;
 
 	penpos7 (stem_width, 0);
 	penpos6 (1.2 stem_width, theta);
@@ -198,43 +166,28 @@ def draw_neomensural_longa (expr wid) =
 enddef;
 
 
-%
-% En wij presenteren U: de opvolgster van Emily
-%
-% (ze is wel breed)
-%
-fet_beginchar ("Neo-mensural maxima notehead", "sM3neomensural");
-	draw_neomensural_longa (2.6 staff_space#);
-fet_endchar;
-
-
-fet_beginchar ("Neo-mensural longa notehead", "sM2neomensural");
-	draw_neomensural_longa (2 staff_space#);
-fet_endchar;
-
-
-fet_beginchar ("Neo-mensural brevis notehead", "sM1neomensural");
-	draw_neomensural_brevis (2 staff_space#, true, true);
-fet_endchar;
-
-
 def draw_neomensural_black_head (expr wid, height) =
-	save head_width;
-	save ne, nw, ne_dist, nw_dist;
+	save head_height, head_width, stem_width,
+			 ne, nw, ne_dist, nw_dist, penthickness;
 	pair ne, nw, ne_dist, nw_dist;
 
-	head_width# = wid;
+	penthickness# = linethickness#;
+	head_height# := height + penthickness#;
+	head_width# := wid + penthickness#;
+	stem_width# := 1.3 linethickness#;
 
 	set_char_box (0, head_width#,
-		      height / 2, height / 2);
+		      head_height# / 2, head_height# / 2);
 
 	charwx := head_width# / 2;
-	charwy := height / 2;
+	charwy := head_height# / 2 - 2 stem_width#;
+
+	define_pixels (penthickness);
 
 	y3 = y1 = 0;
-	x2 = x4 = (x1 + x3) / 2;
+	x2 = x4 = 1/2 [x1, x3];
 
-	pickup pencircle scaled blot_diameter;
+	pickup pencircle scaled penthickness;
 
 	top y2 = h;
 	bot y4 = -d;
@@ -242,22 +195,22 @@ def draw_neomensural_black_head (expr wid, height) =
 	rt x3 = w;
 
 	ne := unitvector (z2 - z1);
-	nw_dist := (ne rotated 90) * 0.5 blot_diameter;
+	nw_dist := (ne rotated 90) * penthickness / 2;
 	nw := unitvector (z2 - z3);
-	ne_dist := (nw rotated -90) * 0.5 blot_diameter;
+	ne_dist := (nw rotated -90) * penthickness / 2;
 
-	fill lft z1{up}
-	     .. (z1 + nw_dist){ne}
-	     -- (z2 + nw_dist){ne}
-	     .. top z2{right}
-	     .. (z2 + ne_dist){-nw}
-	     -- (z3 + ne_dist){-nw}
-	     .. rt z3{down}
-	     .. (z3 - nw_dist){-ne}
-	     -- (z4 - nw_dist){-ne}
-	     .. bot z4{left}
-	     .. (z4 - ne_dist){nw}
-	     -- (z1 - ne_dist){nw}
+	fill lft z1
+	     .. (z1 + nw_dist)
+	     -- (z2 + nw_dist)
+	     .. top z2
+	     .. (z2 + ne_dist)
+	     -- (z3 + ne_dist)
+	     .. rt z3
+	     .. (z3 - nw_dist)
+	     -- (z4 - nw_dist)
+	     .. bot z4
+	     .. (z4 - ne_dist)
+	     -- (z1 - ne_dist)
 	     .. cycle;
 
 	labels (1, 2, 3, 4);
@@ -267,40 +220,134 @@ enddef;
 def draw_neomensural_open_head (expr wid, height)=
 	draw_neomensural_black_head (wid, height);
 
-	save diamNW, diamSW;
+	save headNW, headSW, stem_width;
 
-	diamNW = length (z2 - z1) + blot_diameter;
-	diamSW = length (z4 - z1) + blot_diameter;
+	headNW = length (z2 - z1) + penthickness;
+	headSW = length (z4 - z1) + penthickness;
+	stem_width = 1.3 linethickness;
 
 	save hole_widthNW, hole_widthSW;
 
-	hole_widthNW = 0.34 diamNW ;
-	hole_widthSW + 2.6 linethickness = diamSW;
+	hole_widthNW = .25 headNW;
+	hole_widthSW + 2 stem_width = headSW;
 
-	(z7 + z5) / 2 = (w / 2, 0);
-	(z8 + z6) / 2 = (w / 2, 0);
-	z6 - z5 = hole_widthNW * unitvector (z2 - z1);
-	z7 - z6 = hole_widthSW * unitvector (z4 - z1);
+	(rt z7 + lft z5) / 2 = (w / 2, 0);
+	(bot z8 + top z6) / 2 = (w / 2, 0);
+	z6 - z5 = (hole_widthNW - penthickness) * unitvector (z2 - z1);
+	z7 - z6 = (hole_widthSW - penthickness) * unitvector (z4 - z1);
 
-	unfill z5
-	       -- z6
-	       -- z7
-	       -- z8
-	       -- cycle;
+	unfill lft z5
+	       .. (z5 + nw_dist)
+	       -- (z6 + nw_dist)
+	       .. top z6
+	       .. (z6 + ne_dist)
+	       -- (z7 + ne_dist)
+	       .. rt z7
+	       .. (z7 - nw_dist)
+	       -- (z8 - nw_dist)
+	       .. bot z8
+	       .. (z8 - ne_dist)
+	       -- (z5 - ne_dist)
+	       .. cycle;
 
 	labels (5, 6, 7, 8);
 enddef;
 
 
 %
+% Neo-mensural maxima/longa/brevis
+%
+% En wij presenteren U: de opvolgster van Emily
+%
+% (ze is wel breed)
+%
+
+save nm_maxima_width, nm_longa_width, nm_brevis_width,
+		 nm_holeheight, nm_red_holeheight;
+nm_maxima_width := 2.6 staff_space#;
+nm_longa_width := 2 staff_space#;
+nm_brevis_width := nm_longa_width;
+nm_holeheight := 4 linethickness;
+nm_red_holeheight := 2.5 linethickness;
+
+fet_beginchar ("Neo-mensural maxima notehead (up)", "uM3neomensural");
+	draw_neomensural_longa (nm_maxima_width, nm_holeheight, 1);
+fet_endchar;
+
+fet_beginchar ("Neo-mensural maxima notehead (down)", "dM3neomensural");
+	draw_neomensural_longa (nm_maxima_width, nm_holeheight, -1);
+fet_endchar;
+
+fet_beginchar ("Neo-mensural longa notehead (up)", "uM2neomensural");
+	draw_neomensural_longa (nm_longa_width, nm_holeheight, 1);
+fet_endchar;
+
+fet_beginchar ("Neo-mensural longa notehead (down)", "dM2neomensural");
+	draw_neomensural_longa (nm_longa_width, nm_holeheight, -1);
+fet_endchar;
+
+fet_beginchar ("Neo-mensural brevis notehead", "sM1neomensural");
+	draw_neomensural_brevis (nm_brevis_width, nm_holeheight, true, true);
+fet_endchar;
+
+fet_beginchar ("Neo-mensural maxima notehead (up, reduced hole)", "urM3neomensural");
+	draw_neomensural_longa (nm_maxima_width, nm_red_holeheight, 1);
+fet_endchar;
+
+fet_beginchar ("Neo-mensural maxima notehead (down, reduced hole)", "drM3neomensural");
+	draw_neomensural_longa (nm_maxima_width, nm_red_holeheight, -1);
+fet_endchar;
+
+fet_beginchar ("Neo-mensural longa notehead (up, reduced hole)", "urM2neomensural");
+	draw_neomensural_longa (nm_longa_width, nm_red_holeheight, 1);
+fet_endchar;
+
+fet_beginchar ("Neo-mensural longa notehead (down, reduced hole)", "drM2neomensural");
+	draw_neomensural_longa (nm_longa_width, nm_red_holeheight, -1);
+fet_endchar;
+
+fet_beginchar ("Neo-mensural brevis notehead (reduced hole)", "srM1neomensural");
+	draw_neomensural_brevis (nm_brevis_width, nm_red_holeheight, true, true);
+fet_endchar;
+
+
+%
+% Neo-mensural semibrevis/minima/semiminima
+%
+
+save nm_height, nm_width;
+nm_height := noteheight#;
+nm_width := staff_space#;
+fet_beginchar ("Neo-mensural semibrevis head", "s0neomensural");
+	draw_neomensural_open_head (nm_width, nm_height);
+fet_endchar;
+
+fet_beginchar ("Neo-mensural minima head", "s1neomensural");
+	draw_neomensural_open_head (nm_width, nm_height);
+fet_endchar;
+
+fet_beginchar ("Neo-mensural semiminima head", "s2neomensural");
+	draw_neomensural_black_head (nm_width, nm_height);
+fet_endchar;
+
+%%%%%%%%
+%
+%
+%
+% HARMONIC NOTATION
+%
+%
+%
+
+%
 % WL says the thin lines should be thinner.
 %
+
 fet_beginchar ("Harmonic notehead (Neo-mensural open)", "s0harmonic");
 	draw_neomensural_open_head (1.3 staff_space#, 1.3 noteheight#);
 	charwx := head_width#;
 	charwy := 0;
 fet_endchar;
-
 
 fet_beginchar ("Harmonic notehead (Neo-mensural black)", "s2harmonic");
 	draw_neomensural_black_head (1.3 staff_space#, 1.3 noteheight#);
@@ -309,63 +356,35 @@ fet_beginchar ("Harmonic notehead (Neo-mensural black)", "s2harmonic");
 fet_endchar;
 
 
-fet_beginchar ("Neo-mensural semibrevis head", "s0neomensural");
-	draw_neomensural_open_head (staff_space#, noteheight#);
-fet_endchar;
+%%%%%%%%
+%
+%
+%
+% MENSURAL/PETRUCCI NOTATIONS
+%
+%
+%
 
-
-fet_beginchar ("Neo-mensural minima head", "s1neomensural");
-	draw_neomensural_open_head (staff_space#, noteheight#);
-fet_endchar;
-
-
-fet_beginchar ("Neo-mensural semiminima head", "s2neomensural");
-	draw_neomensural_black_head (staff_space#, noteheight#);
-fet_endchar;
-
-
-def draw_mensural_brevis (expr wid, open, full) =
+def draw_mensural_brevis (expr wid, holeheight, open, full) =
 	% TODO.  For the moment, fall back to draw_neomensural_brevis.
-	draw_neomensural_brevis (wid, open, full);
+	draw_neomensural_brevis (wid, holeheight, open, full);
 enddef;
 
 
-%%% This head does not seem to be used anywhere.  Junk me?  -- jr
-def draw_mensural_left_stemmed_head (expr wid, open, full) =
-	draw_mensural_brevis (wid, open, full);
+def draw_mensural_longa (expr wid, holeheight, open, full, direction) =
+	draw_mensural_brevis (wid, holeheight, open, full);
 
-	x6 = x7 = stem_width / 2;
-	y6 = y5;
-	y7 = y5 - 2.25 staff_space;
-
-	z17 = (x7, y7 - stem_width / 2);
-
-	penpos6 (stem_width, 0);
-	penpos7 (stem_width, 0);
-
-	fill z7l
-	     -- z6l
-	     -- z6r
-	     -- z7r
-	     .. z17
-	     .. cycle;
-
-	penlabels (6, 7);
-	labels (17);
-enddef;
-
-
-def draw_mensural_longa (expr wid, open, full) =
-	draw_mensural_brevis (wid, open, full);
+	save dir;
+	dir := -direction;
 
 	x6 = x7 = head_width - stem_width / 2;
-	y6 = y5;
-	y7 = y5 - 2.25 staff_space;
+	y6 = dir * y5;
+	y7 = dir * y5 -1.75 dir * staff_space;
 
-	z17 = (x7, y7 - stem_width / 2);
+	z17 = (x7, y7 - dir * stem_width / 2);
 
 	penpos6 (stem_width, 0);
-	penpos7 (stem_width, 0);
+	penpos7 (1.5 stem_width, 0);
 
 	fill z7l
 	     -- z6l
@@ -377,72 +396,6 @@ def draw_mensural_longa (expr wid, open, full) =
 	penlabels (6, 7);
 	labels (17);
 enddef;
-
-
-%%% This head does not seem to be used anywhere.  Junk me?  -- jr
-fet_beginchar ("Mensural left stemmed notehead", "slmensural");
-	draw_mensural_left_stemmed_head (staff_space#, true, true);
-fet_endchar;
-
-
-fet_beginchar ("Mensural maxima notehead", "sM3mensural");
-	draw_mensural_longa (2.0 staff_space#, true, true);
-fet_endchar;
-
-
-fet_beginchar ("Mensural maxima notehead in ligaturae", "sM3ligmensural");
-	draw_mensural_brevis (2.0 staff_space#, true, true);
-fet_endchar;
-
-
-fet_beginchar ("Mensural longa notehead", "sM2mensural");
-	draw_mensural_longa (staff_space#, true, true);
-fet_endchar;
-
-
-fet_beginchar ("Mensural brevis notehead", "sM1mensural");
-	draw_mensural_brevis (staff_space#, true, true);
-fet_endchar;
-
-
-fet_beginchar ("Black mensural maxima notehead", "sM3blackmensural");
-	draw_mensural_longa (2.0 staff_space#, false, false);
-fet_endchar;
-
-
-fet_beginchar ("Black mensural maxima notehead in ligaturae", "sM3blackligmensural");
-	draw_mensural_brevis (2.0 staff_space#, false, false);
-fet_endchar;
-
-
-fet_beginchar ("Black mensural longa notehead", "sM2blackmensural");
-	draw_mensural_longa (staff_space#, false, false);
-fet_endchar;
-
-
-fet_beginchar ("Black mensural brevis notehead", "sM1blackmensural");
-	draw_mensural_brevis (staff_space#, false, false);
-fet_endchar;
-
-
-fet_beginchar ("Semi-colored mensural maxima notehead", "sM3semimensural");
-	draw_mensural_longa (2.0 staff_space#, true, false);
-fet_endchar;
-
-
-fet_beginchar ("Semi-colored mensural maxima notehead in ligaturae", "sM3semiligmensural");
-	draw_mensural_brevis (2.0 staff_space#, true, false);
-fet_endchar;
-
-
-fet_beginchar ("Semi-colored mensural longa notehead", "sM2semimensural");
-	draw_mensural_longa (staff_space#, true, false);
-fet_endchar;
-
-
-fet_beginchar ("Semi-colored mensural brevis notehead", "sM1semimensural");
-	draw_mensural_brevis (staff_space#, true, false);
-fet_endchar;
 
 
 def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
@@ -457,7 +410,7 @@ def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
 		      head_height# / 2, head_height# / 2);
 
 	charwx := head_width# / 2;
-	charwy := head_height# / 2 - linethickness#;
+	charwy := head_height# / 2 - 2 linethickness#;
 
 	define_pixels (head_width, head_height);
 
@@ -506,59 +459,213 @@ def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
 enddef;
 
 
+%
+% Mensural/Petrucci maxima/longa/brevis
+%
+
+save m_maxima_width, m_longa_width, m_brevis_width,
+		 m_holeheight, m_red_holeheight;
+m_maxima_width := 2.0 staff_space#;
+m_longa_width := staff_space#;
+m_brevis_width := m_longa_width;
+m_holeheight := nm_holeheight;
+m_red_holeheight := nm_red_holeheight;
+
+fet_beginchar ("Mensural maxima notehead (up)", "uM3mensural");
+	draw_mensural_longa (m_maxima_width, m_holeheight, true, true, 1);
+fet_endchar;
+
+fet_beginchar ("Mensural maxima notehead (down)", "dM3mensural");
+	draw_mensural_longa (m_maxima_width, m_holeheight, true, true, -1);
+fet_endchar;
+
+fet_beginchar ("Mensural maxima notehead (ligature)", "sM3ligmensural");
+	draw_mensural_brevis (m_maxima_width, m_holeheight, true, true);
+fet_endchar;
+
+fet_beginchar ("Mensural longa notehead (up)", "uM2mensural");
+	draw_mensural_longa (m_longa_width, m_holeheight, true, true, 1);
+fet_endchar;
+
+fet_beginchar ("Mensural longa notehead (down)", "dM2mensural");
+	draw_mensural_longa (m_longa_width, m_holeheight, true, true, -1);
+fet_endchar;
+
+fet_beginchar ("Mensural brevis notehead", "sM1mensural");
+	draw_mensural_brevis (m_brevis_width, m_holeheight, true, true);
+fet_endchar;
+
+fet_beginchar ("Mensural maxima notehead (up, reduced hole)", "urM3mensural");
+	draw_mensural_longa (m_maxima_width, m_red_holeheight, true, true, 1);
+fet_endchar;
+
+fet_beginchar ("Mensural maxima notehead (down, reduced hole)", "drM3mensural");
+	draw_mensural_longa (m_maxima_width, m_red_holeheight, true, true, -1);
+fet_endchar;
+
+fet_beginchar ("Mensural maxima notehead (ligature, reduced hole)", "srM3ligmensural");
+	draw_mensural_brevis (m_maxima_width, m_red_holeheight, true, true);
+fet_endchar;
+
+fet_beginchar ("Mensural longa notehead (up, reduced hole)", "urM2mensural");
+	draw_mensural_longa (m_longa_width, m_red_holeheight, true, true, 1);
+fet_endchar;
+
+fet_beginchar ("Mensural longa notehead (down, reduced hole)", "drM2mensural");
+	draw_mensural_longa (m_longa_width, m_red_holeheight, true, true, -1);
+fet_endchar;
+
+fet_beginchar ("Mensural brevis notehead (reduced hole)", "srM1mensural");
+	draw_mensural_brevis (m_brevis_width, m_red_holeheight, true, true);
+fet_endchar;
+
+
+%
+% Semi-colored mensural/Petrucci maxima/longa/brevis
+%
+
+fet_beginchar ("Semi-colored mensural maxima notehead (up)", "uM3semimensural");
+	draw_mensural_longa (m_maxima_width, m_holeheight, true, false, 1);
+fet_endchar;
+
+fet_beginchar ("Semi-colored mensural maxima notehead (down)", "dM3semimensural");
+	draw_mensural_longa (m_maxima_width, m_holeheight, true, false, -1);
+fet_endchar;
+
+fet_beginchar ("Semi-colored mensural maxima notehead (ligature)", "sM3semiligmensural");
+	draw_mensural_brevis (m_maxima_width, m_holeheight, true, false);
+fet_endchar;
+
+fet_beginchar ("Semi-colored mensural longa notehead (up)", "uM2semimensural");
+	draw_mensural_longa (m_longa_width, m_holeheight, true, false, 1);
+fet_endchar;
+
+fet_beginchar ("Semi-colored mensural longa notehead (down)", "dM2semimensural");
+	draw_mensural_longa (m_longa_width, m_holeheight, true, false, -1);
+fet_endchar;
+
+fet_beginchar ("Semi-colored mensural brevis notehead", "sM1semimensural");
+	draw_mensural_brevis (m_brevis_width, m_holeheight, true, false);
+fet_endchar;
+
+fet_beginchar ("Semi-colored mensural maxima notehead (up, reduced hole)", "urM3semimensural");
+	draw_mensural_longa (m_maxima_width, m_red_holeheight, true, false, 1);
+fet_endchar;
+
+fet_beginchar ("Semi-colored mensural maxima notehead (down, reduced hole)", "drM3semimensural");
+	draw_mensural_longa (m_maxima_width, m_red_holeheight, true, false, -1);
+fet_endchar;
+
+fet_beginchar ("Semi-colored mensural maxima notehead (ligature, reduced hole)", "srM3semiligmensural");
+	draw_mensural_brevis (m_maxima_width, m_red_holeheight, true, false);
+fet_endchar;
+
+fet_beginchar ("Semi-colored mensural longa notehead (up, reduced hole)", "urM2semimensural");
+	draw_mensural_longa (m_longa_width, m_red_holeheight, true, false, 1);
+fet_endchar;
+
+fet_beginchar ("Semi-colored mensural longa notehead (down, reduced hole)", "drM2semimensural");
+	draw_mensural_longa (m_longa_width, m_red_holeheight, true, false, -1);
+fet_endchar;
+
+fet_beginchar ("Semi-colored mensural brevis notehead (reduced hole)", "srM1semimensural");
+	draw_mensural_brevis (m_brevis_width, m_red_holeheight, true, false);
+fet_endchar;
+
+
+%
+% Black mensural/Petrucci maxima/longa/brevis
+%
+
+fet_beginchar ("Black mensural maxima notehead (up)", "uM3blackmensural");
+	draw_mensural_longa (m_maxima_width, 0, false, false, 1);
+fet_endchar;
+
+fet_beginchar ("Black mensural maxima notehead (down)", "dM3blackmensural");
+	draw_mensural_longa (m_maxima_width, 0, false, false, -1);
+fet_endchar;
+
+fet_beginchar ("Black mensural maxima notehead (ligature)", "sM3blackligmensural");
+	draw_mensural_brevis (m_maxima_width, 0, false, false);
+fet_endchar;
+
+fet_beginchar ("Black mensural longa notehead (up)", "uM2blackmensural");
+	draw_mensural_longa (m_longa_width, 0, false, false, 1);
+fet_endchar;
+
+fet_beginchar ("Black mensural longa notehead (down)", "dM2blackmensural");
+	draw_mensural_longa (m_longa_width, 0, false, false, -1);
+fet_endchar;
+
+fet_beginchar ("Black mensural brevis notehead", "sM1blackmensural");
+	draw_mensural_brevis (m_brevis_width, 0, false, false);
+fet_endchar;
+
+
+%
+% Mensural semibrevis/minima/semiminima
+%
+
 fet_beginchar ("Mensural semibrevis head", "s0mensural");
 	draw_diamond_head (staff_space#, 0.15, 0.30, 30, true);
 fet_endchar;
 
-
 fet_beginchar ("Mensural minima head", "s1mensural");
 	draw_diamond_head (staff_space#, 0.15, 0.30, 30, true);
 fet_endchar;
-
 
 fet_beginchar ("Mensural semiminima head", "s2mensural");
 	draw_diamond_head (staff_space#, 0.15, 0.30, 30, false);
 fet_endchar;
 
 
+%
+% Black mensural semibrevis/minima/semiminima
+%
+
 fet_beginchar ("Black mensural semibrevis head", "s0blackmensural");
 	draw_diamond_head (staff_space#, 0.15, 0.30, 30, false);
 fet_endchar;
 
 
-fet_beginchar ("Petrucci semibrevis head", "s0petrucci");
-%	draw_diamond_head (1.8 staff_space#, 0.15, 0.40, 30, true);
-	draw_neomensural_open_head (staff_space#, 1.8 staff_space#);
-fet_endchar;
+%
+% Petrucci semibrevis/minima/semiminima
+%
+% These values can be measured in several sources.
+% I used "Modulis ex sacris literis delecti, Liber primus"
+% Josquin Desprez, BNF
 
+save petrucci_width, petrucci_height;
+petrucci_height := 1.3 noteheight#;
+petrucci_width := .72 petrucci_height;
+
+fet_beginchar ("Petrucci semibrevis head", "s0petrucci");
+	draw_neomensural_open_head (petrucci_width, petrucci_height);
+fet_endchar;
 
 fet_beginchar ("Petrucci minima head", "s1petrucci");
-%	draw_diamond_head (1.8 staff_space#, 0.15, 0.40, 30, true);
-	draw_neomensural_open_head (staff_space#, 1.8 staff_space#);
+	draw_neomensural_open_head (petrucci_width, petrucci_height);
 fet_endchar;
-
 
 fet_beginchar ("Petrucci semiminima head", "s2petrucci");
-%	draw_diamond_head (1.8 staff_space#, 0.15, 0.40, 30, false);
-	draw_neomensural_black_head (staff_space#, 1.8 staff_space#);
+	draw_neomensural_black_head (petrucci_width, petrucci_height);
 fet_endchar;
 
+
+%
+% Black Petrucci semibrevis/minima/semiminima
+%
 
 fet_beginchar ("Petrucci colored semibrevis head", "s0blackpetrucci");
-%	draw_diamond_head (1.8 staff_space#, 0.15, 0.40, 30, true);
-	draw_neomensural_black_head (staff_space#, 1.8 staff_space#);
+	draw_neomensural_black_head (petrucci_width, petrucci_height);
 fet_endchar;
-
 
 fet_beginchar ("Petrucci colored minima head", "s1blackpetrucci");
-%	draw_diamond_head (1.8 staff_space#, 0.15, 0.40, 30, true);
-	draw_neomensural_black_head (staff_space#, 1.8 staff_space#);
+	draw_neomensural_black_head (petrucci_width, petrucci_height);
 fet_endchar;
 
-
 fet_beginchar ("Petrucci colored semiminima head", "s2blackpetrucci");
-%	draw_diamond_head (1.8 staff_space#, 0.15, 0.40, 30, true);
-	draw_neomensural_black_head (staff_space#, 1.8 staff_space#);
+	draw_neomensural_black_head (petrucci_width, petrucci_height);
 fet_endchar;
 
 

@@ -762,6 +762,8 @@ class Part (Music_xml_node):
         attributes._dict = attr._dict.copy ()
         attributes._original_tag = attr
         # copy only the relevant children over for the given staff
+        if staff == "None":
+            staff = "1"
         for c in attr._children:
             if (not (hasattr (c, 'number') and (c.number != staff)) and
                 not (isinstance (c, Hash_text))):
@@ -788,6 +790,8 @@ class Part (Music_xml_node):
             if voice_id:
                 vid = voice_id.get_text ()
             elif isinstance (n, Note):
+                # TODO: Check whether we shall really use "None" here, or
+                #       rather use "1" as the default?
                 vid = "None"
 
             staff_id = n.get_maybe_exist_named_child (u'staff')
@@ -795,6 +799,10 @@ class Part (Music_xml_node):
             if staff_id:
                 sid = staff_id.get_text ()
             else:
+                # TODO: Check whether we shall really use "None" here, or
+                #       rather use "1" as the default?
+                #       If this is changed, need to change the corresponding
+                #       check in extract_attributes_for_staff, too.
                 sid = "None"
             if vid and not voices.has_key (vid):
                 voices[vid] = Musicxml_voice()

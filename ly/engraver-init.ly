@@ -543,6 +543,7 @@ automatically when an output definition (a @code{\score} or
   \accepts "VaticanaStaff"
   \accepts "GregorianTranscriptionStaff"
   \accepts "MensuralStaff"
+  \accepts "PetrucciStaff"
   \accepts "StaffGroup"
   \accepts "DrumStaff"
   \accepts "Lyrics"
@@ -988,6 +989,7 @@ accommodated for typesetting a piece in mensural style."
   %% Set default head for notes outside of \[ \].
   \override NoteHead #'style = #'mensural
   \override Rest #'style = #'mensural
+  \override Flag #'style = #'mensural
 
   %% There are no beams in mensural notation.
   autoBeaming = ##f
@@ -1034,6 +1036,61 @@ accommodated for typesetting a piece in mensural style."
   %% #(set-accidental-style 'forget))
   extraNatural = ##f
   autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave -1))
+  autoCautionaries = #'()
+  printKeyCancellation = ##f
+}
+
+\context {
+  \Voice
+  \name "PetrucciVoice"
+  \alias "Voice"
+  \description "Same as @code{Voice} context, except that it is
+accommodated for typesetting a piece in Petrucci style."
+
+  \remove "Ligature_bracket_engraver"
+  \consists "Mensural_ligature_engraver"
+
+  %% Set glyph styles.
+  \override NoteHead #'style = #'petrucci
+  \override Rest #'style = #'mensural
+
+  % Thickens and shortens stems.
+  \override Stem #'thickness = #1.7
+  \override Stem #'length = #5
+
+  %% There are no beams in Petrucci notation.
+  autoBeaming = ##f
+}
+
+\context {
+  \Staff
+  \name "PetrucciStaff"
+  \alias "Staff"
+  \denies "Voice"
+  \defaultchild "PetrucciVoice"
+  \accepts "PetrucciVoice"
+  \description "Same as @code{Staff} context, except that it is
+accommodated for typesetting a piece in Petrucci style."
+
+  \consists "Custos_engraver"
+
+  \override StaffSymbol #'thickness = #1.3
+
+  %% Choose Petrucci g clef on 2nd line as default.
+  clefGlyph = #"clefs.petrucci.g"
+  middleCClefPosition = #-6
+  middleCPosition = #-6
+  clefPosition = #-2
+  clefOctavation = #0
+
+  \override Custos #'style = #'mensural
+  \override Custos #'neutral-position = #3
+  \override Custos #'neutral-direction = #DOWN
+
+  %% Accidentals are valid only once (if the following note is different)
+  extraNatural = ##f
+  autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave 0)
+                             ,neo-modern-accidental-rule)
   autoCautionaries = #'()
   printKeyCancellation = ##f
 }

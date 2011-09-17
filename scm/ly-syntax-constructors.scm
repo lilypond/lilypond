@@ -43,13 +43,20 @@
        m)))
 
 ;; Music function: Apply function and check return value.
-(define-ly-syntax-loc (music-function parser loc fun args)
-  (let ((m (apply fun (cons* parser loc args))))
+(define-ly-syntax (music-function parser loc pred fun args)
+  (let ((m (apply fun parser loc args)))
     (if (ly:music? m)
+	(set! (ly:music-property m 'origin) loc))
+    (if (pred m)
 	m
-	(begin
-	  (ly:parser-error parser (_ "Music head function must return Music object") loc)
-	  (make-music 'Music)))))
+	(cond ((eq? pred ly:music?)
+	       (ly:parser-error parser (_ "Music syntax function must return Music object") loc)
+	       (make-music 'Music 'origin loc))
+	      (else
+	       (ly:parser-error parser
+				(format #f (_ "Scheme function must return ~a object") (type-name pred))
+				loc)
+	       #f)))))
 
 (define-ly-syntax-simple (void-music)
   (make-music 'Music))
@@ -85,10 +92,6 @@
   	      'numerator (car fraction)
   	      'denominator (cdr fraction)))
 
-(define-ly-syntax-simple (transpose-music pitch music)
-  (make-music 'TransposedMusic
-  	      'element (ly:music-transpose music pitch)))
-
 (define-ly-syntax (tempo parser location text . rest)
   (let* ((unit (and (pair? rest)
 		    (car rest)))
@@ -117,10 +120,6 @@
     (if tempo-set
 	(make-sequential-music (list tempo-change tempo-set))
 	tempo-change)))
-
-(define-ly-syntax-simple (skip-music dur)
-  (make-music 'SkipMusic
-	      'duration dur))
 
 (define-ly-syntax-simple (repeat type num body alts)
   (make-repeat type num body alts))
@@ -251,15 +250,3 @@ into a @code{MultiMeasureTextEvent}."
 	(begin
 	  (set! (ly:music-property ev 'label) label)
 	  ev))))
-
-(define-ly-syntax (partial parser location dur)
-  "Make a partial measure."
-
-  ;; We use `descend-to-context' here instead of `context-spec-music' to
-  ;; ensure \partial still works if the Timing_translator is moved
-    (descend-to-context
-     (context-spec-music (make-music 'PartialSet
-				     'origin location
-				     'partial-duration dur)
-			 'Timing)
-     'Score))

@@ -286,7 +286,7 @@ Grob::translate_axis (Real y, Axis a)
 {
   if (isinf (y) || isnan (y))
     {
-      programming_error (_ ("Infinity or NaN encountered"));
+      programming_error ("Infinity or NaN encountered");
       return;
     }
 

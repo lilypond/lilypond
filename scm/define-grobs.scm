@@ -236,6 +236,7 @@
 
 	(break-visibility . ,begin-of-line-visible)
 	(direction . ,UP)
+	(extra-spacing-width . (+inf.0 . -inf.0))
 	(font-family . roman)
 	(font-size . -2)
 	(non-musical . #t)
@@ -1086,9 +1087,9 @@
 			(key-signature . (extra-space . 0.5))
 			(cue-clef . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))
-			(first-note . (semi-fixed-space . 2.5))))
+			(first-note . (fixed-space . 2.5))))
 	(stencil . ,ly:key-signature-interface::print)
-	(extra-spacing-width . (0.0 . 0.5))
+	(extra-spacing-width . (0.0 . 1.0))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
@@ -1110,9 +1111,9 @@
 			(staff-bar . (extra-space . 1.1))
 			(cue-clef . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))
-			(first-note . (semi-fixed-space . 2.5))))
+			(first-note . (fixed-space . 2.5))))
 	(stencil . ,ly:key-signature-interface::print)
-	(extra-spacing-width . (0.0 . 0.5))
+	(extra-spacing-width . (0.0 . 1.0))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
@@ -1283,7 +1284,7 @@
     (MensuralLigature
      . (
 	(stencil . ,ly:mensural-ligature::print)
-	(thickness . 1.4)
+	(thickness . 1.3)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
 				mensural-ligature-interface))))))
@@ -2253,10 +2254,11 @@
 	(break-align-anchor-alignment . ,LEFT)
 	(break-visibility . ,all-visible)
 	(extra-spacing-height . (-1.0 . 1.0))
+	(extra-spacing-width . (0.0 . 0.8))
 	(non-musical . #t)
 	(space-alist . (
 			(cue-clef . (extra-space . 1.5))
-			(first-note . (semi-fixed-space . 2.0))
+			(first-note . (fixed-space . 2.0))
 			(right-edge . (extra-space . 0.5))
 			(staff-bar . (minimum-space . 2.0))))
 	(stencil . ,ly:time-signature::print)

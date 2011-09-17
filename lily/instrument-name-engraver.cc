@@ -17,13 +17,14 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "align-interface.hh"
+#include "axis-group-interface.hh"
 #include "engraver.hh"
+#include "page-layout-problem.hh"
 #include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
-#include "axis-group-interface.hh"
-#include "align-interface.hh"
-#include "text-interface.hh"
 #include "system.hh"
+#include "text-interface.hh"
 
 #include "translator.icc"
 
@@ -125,6 +126,7 @@ Instrument_name_engraver::acknowledge_axis_group (Grob_info info)
 {
   if (dynamic_cast<Spanner *> (info.grob ())
       && Axis_group_interface::has_axis (info.grob (), Y_AXIS)
+      && Page_layout_problem::is_spaceable (info.grob ())
 
       /* ugh. */
 
