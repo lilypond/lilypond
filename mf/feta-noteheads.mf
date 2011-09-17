@@ -82,42 +82,64 @@ endgroup;
 enddef;
 
 
-%
-% dimensions aren't entirely right.
-%
 def draw_longa (expr up) =
 	save stemthick, fudge;
 
 	stemthick# = 2 stafflinethickness#;
 	define_whole_blacker_pixels (stemthick);
 
-	fudge = hround (blot_diameter / 2);
+	% Longas of smaller design sizes should have their lines farther
+	% apart (the overlap with notehead ellipsoid should be smaller).
+	fudge = hround (blot_diameter
+			* min (max (-0.15,
+				    (0.9
+				     - (20 / (design_size + 4)))),
+			       0.3));
 
 	draw_outside_ellipse (1.80, 0, 0.707, 0);
 	undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#);
 
+	set_char_box (stemthick#,
+	              width# + stemthick#,
+	              noteheight# / 2,
+	              noteheight# / 2);
+
 	pickup pencircle scaled stemthick;
 
+	% Longas of smaller design sizes should have their lines longer.
+	line_length := min (max (0.7, (64/60 - (design_size / 60))), 0.85);
+
+	% Line lengths between 0.72 and 0.77 are not nice
+	% because they are neither separate nor connected
+	% when there is an interval of fourth.
+	if line_length < 0.75:
+		quanted_line_length := min (0.72, line_length);
+	else:
+		quanted_line_length := max (0.77, line_length);
+	fi;
+
+	final_line_length := quanted_line_length * staff_space;
+
 	if up:
-		bot y1 = -d;
-		top y2 = h;
+		bot y1 = -final_line_length;
+		top y2 = final_line_length;
 		rt x1 - fudge = 0;
 		x1 = x2;
 
-		fudge + lft x3 = w;
+		fudge + lft x3 = width;
 		x4 = x3;
 		top y4 = h + 3.0 staff_space;
 		y3 = y1;
 	else:
 		bot y1 = -d - 3.0 staff_space;
-		top y2 = h;
+		top y2 = final_line_length;
 		rt x1 - fudge = 0;
 		x1 = x2;
 
-		fudge + lft x3 = w;
+		fudge + lft x3 = width;
 		x4 = x3;
 		y4 = y2;
-		bot y3 = -d;
+		bot y3 = -final_line_length;
 	fi;
 
 	draw_gridline (z1, z2, stemthick);
