@@ -20,6 +20,7 @@ ifeq ($(WEBSITE_ONLY_BUILD),1)
   EXAMPLES=$(HOME)/lilypond/media/ly-examples
   PICTURES=$(HOME)/lilypond/media/pictures
   PYTHON=python
+  PYTHONPATH=$(TRUSTED_DIR)
 else
   ### for normal git
   script-dir=$(top-src-dir)/scripts/build
