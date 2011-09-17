@@ -160,7 +160,6 @@ Stem::set_stem_positions (Grob *me, Real se)
 
   me->set_property ("stem-begin-position", scm_from_double (height[-d] * 2 / staff_space));
   me->set_property ("length", scm_from_double (height.length () * 2 / staff_space));
-  (void) me->extent (me, Y_AXIS);
 }
 
 /* Note head that determines hshift for upstems
