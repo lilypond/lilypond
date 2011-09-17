@@ -70,14 +70,17 @@ brew_flexa (Grob *me,
   Real ypos_correction = -0.1 * staff_space * sign (slope);
   Real slope_correction = 0.2 * staff_space * sign (slope);
   Real corrected_slope = slope + slope_correction / width;
+  Real blotdiameter
+    = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
+  width += 2 * blotdiameter;
 
   if (solid) // colorated flexae
     {
-      stencil = Lookup::beam (corrected_slope, width * 0.5, staff_space, 0.0);
+      stencil = Lookup::beam (corrected_slope, width * 0.5, staff_space, blotdiameter);
     }
   else // outline
     {
-      stencil = Lookup::beam (corrected_slope, thickness, height, 0.0);
+      stencil = Lookup::beam (corrected_slope, thickness, height, blotdiameter);
       if (!begin)
         {
           stencil.translate_axis (width * 0.5 - thickness, X_AXIS);
@@ -87,13 +90,13 @@ brew_flexa (Grob *me,
 
       Stencil bottom_edge
         = Lookup::beam (corrected_slope, width * 0.5, horizontal_line_thickness,
-                        0.0);
+                        blotdiameter);
       bottom_edge.translate_axis (-0.5 * height, Y_AXIS);
       stencil.add_stencil (bottom_edge);
 
       Stencil top_edge
         = Lookup::beam (corrected_slope, width * 0.5, horizontal_line_thickness,
-                        0.0);
+                        blotdiameter);
       top_edge.translate_axis (+0.5 * height, Y_AXIS);
       stencil.add_stencil (top_edge);
     }
@@ -102,7 +105,7 @@ brew_flexa (Grob *me,
     stencil.translate_axis (ypos_correction, Y_AXIS);
   else
     {
-      stencil.translate_axis (0.5 * thickness, X_AXIS);
+      stencil.translate_axis (0.5 * thickness - blotdiameter, X_AXIS);
 
       stencil.translate_axis (interval / -4.0 * staff_space, Y_AXIS);
     }
@@ -166,11 +169,8 @@ internal_brew_primitive (Grob *me)
     case MLP_BREVIS:
       duration_log--;
       suffix = to_string (duration_log) + color
-                      + (duration_log == -3 ? "lig" : "") + "mensural";
+                      + (duration_log < -1 ? "lig" : "") + "mensural";
       index = prefix + "s";
-      out = fm->find_by_name (index + suffix);
-      if (out.is_empty ())
-        index = prefix + "d";
       out = fm->find_by_name (index + "r" + suffix);
       if (!out.is_empty ()
           && !Staff_symbol_referencer::on_line
@@ -190,18 +190,27 @@ internal_brew_primitive (Grob *me)
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     }
 
-  Real blotdiameter
-    = (me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter")));
+  /*
+    we use thickness because the stem end of the glyph
+    "noteheads.sM2ligmensural" is round.
+  */
+  Real blotdiameter = thickness;
+  /*
+    instead of 2.5 the length of a longa stem should be used
+    Font_interface::get_default_font (???)->find_by_name
+    ("noteheads.sM2ligmensural").extent (Y_AXIS).length () * 0.5
+  */
+  Real stem_length = 2.5 * staff_space;
 
   if (primitive & MLP_STEM)
     {
       // assume MLP_UP
-      Real y_bottom = 0.5 * staff_space, y_top = 2.5 * staff_space;
+      Real y_bottom = 0.0, y_top = stem_length;
 
       if (primitive & MLP_DOWN)
         {
           y_bottom = -y_top;
-          y_top = -0.5 * staff_space;
+          y_top = 0.0;
         }
 
       Interval x_extent (0, thickness);
@@ -231,12 +240,7 @@ internal_brew_primitive (Grob *me)
                 to serve as stem as well
               */
               if (primitive & MLP_LONGA)
-                /*
-                  instead of 3.0 the length of a longa stem should be used
-                  Font_interface::get_default_font (???)->find_by_name
-                  ("noteheads.s-2mensural").extent (Y_AXIS).length () * 0.5
-                */
-                y_bottom -= 2.5 * staff_space;
+                y_bottom -= stem_length + 0.25 * blotdiameter;
             }
 
           Interval x_extent (width - thickness, width);
