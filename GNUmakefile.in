@@ -38,6 +38,7 @@ LOCALSTEPMAKE_TEMPLATES=lilypond
 
 include $(depth)/make/stepmake.make
 
+.PHONY: test info website
 
 local-dist: refresh-release-files dist-toplevel-txt-files
 
