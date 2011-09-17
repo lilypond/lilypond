@@ -6831,10 +6831,8 @@ scale as roots of chords.  The most important are degrees I = tonic
 \new Staff \relative c' {
   c1 d e f g a b c
 }
- \lyrics {
-  << { I II III IV V VI VII I }
-     { T "" ""  S  D } >>
-}
+ \lyrics { I II III IV V VI VII I }
+ \lyrics { T "" ""  S  D }
 >>
 @end lilypond
 
