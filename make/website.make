@@ -1,6 +1,7 @@
 ################################################################
 # website (without the rest of the docs)
 
+
 ################################################################
 #####  SECURITY -- check these values for lilypond.org #########
 ################################################################
@@ -17,8 +18,6 @@ ifeq ($(WEBSITE_ONLY_BUILD),1)
   top-htaccess=$(trusted-dir)/lilypond.org.htaccess
   dir-htaccess=$(trusted-dir)/website-dir.htaccess
   TEXI2HTML_PROGRAM=$(HOME)/usr/bin/texi2html
-  EXAMPLES=$(HOME)/lilypond/media/ly-examples
-  PICTURES=$(HOME)/lilypond/media/pictures
   PYTHON=python
   PYTHONPATH=$(TRUSTED_DIR)
 else
@@ -28,10 +27,10 @@ else
   top-htaccess=$(top-src-dir)/Documentation/web/server/lilypond.org.htaccess
   dir-htaccess=$(top-src-dir)/Documentation/web/server/website-dir.htaccess
   include $(config_make)
-  # I assume this is run from top-build-dir
-  EXAMPLES=Documentation/web/ly-examples/out-www
-  PICTURES=Documentation/pictures/out-www
 endif
+
+EXAMPLES=$(LILYPOND_WEB_MEDIA_GIT)/ly-examples
+PICTURES=$(LILYPOND_WEB_MEDIA_GIT)/pictures
 
 ################################################################
 #The 4 lines below present an option to force make website to run
@@ -165,7 +164,14 @@ website-examples:
 web-post:
 	$(WEB_POST) $(OUT)/website
 
-website: website-texinfo website-css website-pictures website-examples web-post
+.PHONY: check-setup
+check-setup:
+ifeq ($(LILYPOND_WEB_MEDIA_GIT),)
+	echo "Need a $LILYPOND_WEB_MEDIA_GIT environment variable!"
+	exit 1
+endif
+
+website: check-setup website-texinfo website-css website-pictures website-examples web-post
 	cp $(SERVER_FILES)/favicon.ico $(OUT)/website
 	cp $(SERVER_FILES)/robots.txt $(OUT)/website
 	cp $(top-htaccess) $(OUT)/.htaccess
