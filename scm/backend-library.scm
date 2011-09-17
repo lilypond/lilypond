@@ -28,8 +28,7 @@
   (let ((status (apply ly:spawn command)))
     (if (> status 0)
 	(begin
-	  (ly:message (_ "`~a' failed (~a)") command status)
-	  (ly:progress "\n")
+	  (ly:warning (_ "`~a' failed (~a)\n") command status)
 	  ;; hmmm.  what's the best failure option? 
 	  (throw 'ly-file-failed)))))
 
@@ -88,8 +87,7 @@
 	       "-c.setpdfwrite"
 	       (string-append "-f" name)))))
 
-    (ly:message (_ "Converting to `~a'...") pdf-name)
-    (ly:progress "\n")
+    (ly:progress (_ "Converting to `~a'...\n") pdf-name)
     (ly:system cmd)))
 
 (define-public (postscript->png resolution paper-width paper-height name)
@@ -98,7 +96,7 @@
 
     ;; Do not try to guess the name of the png file,
     ;; GS produces PNG files like BASE-page%d.png.
-    (ly:message (_ "Converting to ~a...") "PNG")
+    (ly:progress (_ "Converting to ~a...") "PNG")
     (make-ps-images name
 		    #:resolution resolution
 		    #:page-width paper-width

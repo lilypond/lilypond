@@ -63,15 +63,11 @@
 ;; copy of ly:system. ly:* not available via lilypond-ps2png.scm
 (define (my-system be-verbose exit-on-error cmd)
   (define status 0)
-  (if be-verbose
-      (begin
-	(format (current-error-port) (_ "Invoking `~a'...") cmd)
-	(newline (current-error-port))))
+  (ly:debug (_ "Invoking `~a'...\n") cmd)
   (set! status (system cmd))
   (if (not (= status 0))
       (begin
-	(format (current-error-port)
-		(format #f (_ "~a exited with status: ~S") "GS" status))
+	(ly:error (_ "~a exited with status: ~S") "GS" status)
 	(if exit-on-error (exit 1))))
   status)
 

@@ -348,11 +348,10 @@ Print a message at LOCATION if any predicate failed."
     (define (helper pred? arg count)
       (if (not (pred? arg))
           (begin
-            (ly:input-message
+            (ly:input-warning
              location
-             (format
-              #f (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
-              count (type-name pred?) arg))
+             (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
+              count (type-name pred?) arg)
             #f)
           #t))
 
