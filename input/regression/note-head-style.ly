@@ -1,13 +1,13 @@
-\version "2.14.0"
+\version "2.15.12"
 \header{
   texidoc="
-Note head shapes may be set from several choices.  
-The stem endings should be adjusted according to the note head.  
+Note head shapes may be set from several choices.
+The stem endings should be adjusted according to the note head.
 If you want different note head styles on one stem,
 you must create a special context.
 
 Harmonic notes have a different shape and different
-dimensions. 
+dimensions.
 "
 }
 
@@ -23,7 +23,7 @@ pattern = <<
   }
   \new Voice {
     \override Stem  #'direction = #DOWN
-    a4 a2. a1 a\breve*1/2 a\longa*1/4
+    g4 g2. g1 g\breve*1/2 g\longa*1/4
   }
 >>
 

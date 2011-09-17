@@ -339,7 +339,7 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
                                                   vector<Grob_info> primitives)
 {
   Real thickness
-    = robust_scm2double (ligature->get_property ("thickness"), 1.4);
+    = robust_scm2double (ligature->get_property ("thickness"), 1.3);
   thickness
   *= ligature->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
 

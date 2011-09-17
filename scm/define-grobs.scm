@@ -1284,7 +1284,7 @@
     (MensuralLigature
      . (
 	(stencil . ,ly:mensural-ligature::print)
-	(thickness . 1.4)
+	(thickness . 1.3)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
 				mensural-ligature-interface))))))

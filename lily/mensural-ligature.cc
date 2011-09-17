@@ -20,6 +20,7 @@
 
 #include "mensural-ligature.hh"
 
+#include "directional-element-interface.hh"
 #include "font-interface.hh"
 #include "international.hh"
 #include "item.hh"
@@ -121,50 +122,67 @@ internal_brew_primitive (Grob *me)
     }
   int primitive = scm_to_int (primitive_scm);
 
-  Stencil out;
   Real thickness = 0.0;
   Real width = 0.0;
   Real flexa_width = 0.0;
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  bool const color
-    = me->get_property ("style") == ly_symbol2scm ("blackpetrucci");
+  SCM style = me->get_property ("style");
+  bool const black
+    = scm_is_eq (style, ly_symbol2scm ("blackpetrucci"));
   bool const semi
-    = me->get_property ("style") == ly_symbol2scm ("semipetrucci");
+    = scm_is_eq (style, ly_symbol2scm ("semipetrucci"));
 
   if (primitive & MLP_ANY)
     {
-      thickness = robust_scm2double (me->get_property ("thickness"), .14);
+      thickness = robust_scm2double (me->get_property ("thickness"), .13);
       width = robust_scm2double (me->get_property ("head-width"), staff_space);
     }
   if (primitive & MLP_FLEXA)
     flexa_width = robust_scm2double (me->get_property ("flexa-width"), 2.0)
                   * staff_space;
 
+  Stencil out;
   int const note_shape = primitive & MLP_ANY;
+  int duration_log = 0;
+  Font_metric *fm = Font_interface::get_default_font (me);
+  string prefix = "noteheads.";
+  string index;
+  string suffix;
+  string color = "";
+  if (black)
+    color = "black";
+  if (semi)
+    color = "semi";
 
   switch (note_shape)
     {
     case MLP_NONE:
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
-    case MLP_LONGA: // mensural brevis head with right cauda
-      out = Font_interface::get_default_font (me)->find_by_name
-            (color ? "noteheads.sM2blackmensural"
-             : semi ? "noteheads.sM2semimensural" : "noteheads.sM2mensural");
-      break;
-    case MLP_BREVIS: // mensural brevis head
-      out = Font_interface::get_default_font (me)->find_by_name
-            (color ? "noteheads.sM1blackmensural"
-             : semi ? "noteheads.sM1semimensural" : "noteheads.sM1mensural");
-      break;
-    case MLP_MAXIMA: // should be mensural maxima head without stem
-      out = Font_interface::get_default_font (me)->find_by_name
-            (color ? "noteheads.sM3blackligmensural"
-             : semi ? "noteheads.sM3semiligmensural" : "noteheads.sM3ligmensural");
+    case MLP_MAXIMA:
+      duration_log--;
+    case MLP_LONGA:
+      duration_log--;
+    case MLP_BREVIS:
+      duration_log--;
+      suffix = to_string (duration_log) + color
+                      + (duration_log == -3 ? "lig" : "") + "mensural";
+      index = prefix + "s";
+      out = fm->find_by_name (index + suffix);
+      if (out.is_empty ())
+        index = prefix + "d";
+      out = fm->find_by_name (index + "r" + suffix);
+      if (!out.is_empty () && scm_is_false (
+                                scm_zero_p (
+                                  scm_modulo (
+                                    me->get_property ("staff-position"),
+                                    scm_from_int (2)))))
+        index += "r";
+      out = fm->find_by_name (index + suffix);
       break;
     case MLP_FLEXA_BEGIN:
     case MLP_FLEXA_END:
-      out = brew_flexa (me, color, flexa_width, thickness,
+      out = brew_flexa (me, black, flexa_width, thickness,
                         note_shape == MLP_FLEXA_BEGIN);
       break;
     default:
@@ -179,12 +197,12 @@ internal_brew_primitive (Grob *me)
   if (primitive & MLP_STEM)
     {
       // assume MLP_UP
-      Real y_bottom = 0.0, y_top = 3.0 * staff_space;
+      Real y_bottom = 0.5 * staff_space, y_top = 2.5 * staff_space;
 
       if (primitive & MLP_DOWN)
         {
           y_bottom = -y_top;
-          y_top = 0.0;
+          y_top = -0.5 * staff_space;
         }
 
       Interval x_extent (0, thickness);
@@ -219,7 +237,7 @@ internal_brew_primitive (Grob *me)
                   Font_interface::get_default_font (???)->find_by_name
                   ("noteheads.s-2mensural").extent (Y_AXIS).length () * 0.5
                 */
-                y_bottom -= 3.0 * staff_space;
+                y_bottom -= 2.5 * staff_space;
             }
 
           Interval x_extent (width - thickness, width);
