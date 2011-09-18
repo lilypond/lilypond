@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: d6315a746c47259f56dc2835347985658d71d0c9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -146,7 +146,7 @@ modificándolo in situ.
 @item -f,--from=@var{versión_de_origen}
 Establece la versión desde la que convertir.  Si no aparece esta
 opción, @command{convert-ly} tratará de adivinarla, basándose en el
-enunciado @code{\version} del archivo.  Ejemplo: @code{--from=2.10.25}
+enunciado @code{\version} del archivo.  Ejemplo: @option{--from=2.10.25}
 
 @item -n,--no-version
 Normalmente @command{convert-ly} añade un indicador @code{\version} a
@@ -157,7 +157,7 @@ Mostrar todas las conversiones conocidas y salir.
 
 @item --to=@var{versión_final}
 Fijar la versión de destino de la conversión.  De forma predeterminada
-se convierte a la última versión disponible.
+se convierte a la última versión disponible.  Ejemplo: @option{--to=2.12.2}
 
 @item -h, --help
 Imprimir la ayuda de la utilización.
