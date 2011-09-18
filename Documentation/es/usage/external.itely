@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: d6315a746c47259f56dc2835347985658d71d0c9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -270,7 +270,7 @@ Es posible grabar un archivo MIDI usando un teclado digital y
 convertirlo después a @file{.ly}.  Sin embargo, los intérpretes
 humanos no son lo suficientemente exactos desde el punto de vista
 rítmico como para hacer que sea trivial la conversión de MIDI a LY.
-Si se invoca con las opciones de cuantización (@code{-s} y @code{-d}),
+Si se invoca con las opciones de cuantización (@option{-s} y @option{-d}),
 @command{midi2ly} intenta compensar los errores de medida, pero no lo
 hace muy bien.  Por ello, no se recomienda usar @command{midi2ly} para
 archivos midi generados por seres humanos.
@@ -599,13 +599,21 @@ utilice las siguientes opciones:
 @{ c1 @}
 @end example
 
-Para obtener un archivo @file{EPS} que sea útil, utilice
+Para obtener archivos de imagen que sean útiles:
 
 @example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts miarchivo.ly
+EPS
 
-@file{PNG}:
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png miarchivo.ly
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts myfile.ly
+
+PNG
+
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
+
+PNG transparentes
+
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts \
+  -dpixmap-format=pngalpha --png myfile.ly
 @end example
 
 

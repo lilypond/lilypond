@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: f0fa35f1a6989bb9a6b2799ea41f9003a791dcd9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -110,11 +110,10 @@ explícitamente o utilizar otras claves.
 
 @lilypond[quote,ragged-right,verbatim]
 \drums {
-  \clef treble
-  hh4 hh hh hh
-  \break
   \clef percussion
   bd4 bd bd bd
+  \clef treble
+  hh4 hh hh hh
 }
 @end lilypond
 
@@ -146,8 +145,7 @@ explícitamente, las corcheas se presentan con dos barras cruzadas
 (siendo la barra de corchea la tercera), y los redobles más breves que
 las corcheas tienen una barra cruzada para complementar las barras
 normales.  Esto se consigue mediante la notación de trémolo,
-@code{:32}, véase @ref{Repeticiones de trémolo}.  He aquí un ejemplo de
-redobles de caja:
+véase @ref{Repeticiones de trémolo}.
 
 @lilypond[quote,verbatim]
 \drums {
@@ -160,20 +158,27 @@ redobles de caja:
 @end lilypond
 
 Los golpes de baqueta se pueden indicar mediante la colocación de
-@code{^"R"} o @code{^"L"} después de la nota.  La propiedad
+los elementos de marcado @code{"R"} o @code{"L"} encima o debajo de
+las notas, como se estudia en @ref{Dirección y posición}. La propiedad
 @code{staff-padding} se puede sobreescribir para conseguir una línea
 de base satisfactoria.
 
 @lilypond[quote,verbatim]
 \drums {
   \repeat unfold 2 {
-    sn16 ^"L" sn^"R" sn^"L" sn^"L" sn^"R" sn^"L"  sn^"R" sn^"R"
+    sn16^"L" sn^"R" sn^"L" sn^"L" sn^"R" sn^"L" sn^"R" sn^"R"
+    \stemUp
+    sn16_"L" sn_"R" sn_"L" sn_"L" sn_"R" sn_"L" sn_"R" sn_"R"
   }
 }
 @end lilypond
 
 
 @seealso
+
+Referencia de la notación:
+@ref{Repeticiones de trémolo}.
+
 Fragmentos de código:
 @rlsr{Percussion}.
 
@@ -187,7 +192,6 @@ xilófono, el vibráfono y los timbales) se escriben usando pentagramas
 normales.  Esto se estudia en otras secciones del manual.
 
 @seealso
-@c
 @c TODO: possibly link to an alternate section of NR 3.5, if
 @c "percussion in MIDI" gets a separate subsubsection for
 @c pitched percussion sounds.  -gp
@@ -411,6 +415,7 @@ down = \drummode { bd4 sn bd toml8 toml }
   \new DrumVoice { \voiceTwo \down }
 >>
 @end lilypond
+
 
 @snippets
 
@@ -642,4 +647,3 @@ Observe, además, que debe añadir acordes (paréntesis en ángulo @code{<
 @seealso
 Fragmentos de código:
 @rlsr{Percussion}.
-	

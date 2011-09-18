@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d282588015bad1ed86833848a5bcbdc43cfdc9e5
+    Translation of GIT committish: d6315a746c47259f56dc2835347985658d71d0c9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -958,8 +958,8 @@ especiales se introducen mediante barras invertidas.
 @imageFloat{text-input-1-annotate-es,png,center}
 @imageFloat{text-input-1-output,png,center}
 
-Las alteraciones se hacen con nombres distintos: añada @code{-is} para
-obtener un sostenido, y @code{-es} para un bemol (son los nombres de
+Las alteraciones se hacen con nombres distintos: añada @w{@code{-is}} para
+obtener un sostenido, y @w{@code{-es}} para un bemol (son los nombres de
 las notas en holandés, pero están disponibles otros idiomas).
 LilyPond averigua dónde hay que imprimir las alteraciones.
 

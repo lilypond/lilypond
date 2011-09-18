@@ -803,7 +803,7 @@ sido introducido en la sintaxis de LilyPond.  En lugar de definir
 
 El código de Scheme se evalúa tan pronto como el analizador sintáctico
 lo encuentra.  Para definir código de Scheme dentro de un macro (para
-llamarse más tarde), utilice @ref{Funciones vacías}, o bien
+llamarse más tarde), utilice @ref{Funciones de scheme vacías}, o bien
 
 @example
 #(define (nopc)

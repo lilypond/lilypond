@@ -41,7 +41,7 @@ pueden usar para simplificar enormemente el archivo de entrada.
 * Funciones de sustitución intermedias::
 * Matemáticas dentro de las funciones::
 * Funciones sin argumentos::
-* Funciones vacías::
+* Funciones de scheme vacías::
 @end menu
 
 @node Sintaxis de las funciones musicales
@@ -244,9 +244,9 @@ lilypond -d display-bar-numbers ARCHIVO.ly
 @end example
 
 
-@node Funciones vacías
-@subsection Funciones vacías
-@translationof Void functions
+@node Funciones de scheme vacías
+@subsection Funciones de scheme vacías
+@translationof Void scheme functions
 
 Una función musical debe devolver una expresión musical, pero a veces
 podemos necesitar una función en la que no hay música en juego (como

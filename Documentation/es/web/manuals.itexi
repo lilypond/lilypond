@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4d828c178c06d87332301030cc02dde9a9403538
+    Translation of GIT committish: c7175b7e8387655964d9c9a975e9789fe581043c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -122,6 +122,10 @@ referencia sobre el trucaje.
 @subheading Otros materiales
 
 @itemize
+
+@item
+@ref{Todos}:
+Versiones estables anteriores y versión actual como un archivo comprimido.
 
 @item
 @ref{Traducido}:
