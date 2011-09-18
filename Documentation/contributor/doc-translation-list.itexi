@@ -59,7 +59,7 @@ procedures}.
 355   notation.tely
 91    notation/notation.itely -- Musical notation
 4502  notation/pitches.itely
-6048  notation/rhythms.itely
+6256  notation/rhythms.itely
 1726  notation/expressive.itely
 944   notation/repeats.itely
 2216  notation/simultaneous.itely
@@ -68,9 +68,9 @@ procedures}.
 2715  notation/text.itely
 81    notation/specialist.itely -- Specialist notation
 4758  notation/vocal.itely
-1937  notation/chords.itely
+1855  notation/chords.itely
 702   notation/piano.itely
-806   notation/percussion.itely
+811   notation/percussion.itely
 826   notation/guitar.itely
 66    notation/strings.itely
 242   notation/bagpipes.itely
@@ -82,7 +82,7 @@ procedures}.
 5187  notation/programming-interface.itely -- Interfaces for programmers
 2022  notation/notation-appendices.itely -- Notation manual tables
 252   notation/cheatsheet.itely -- Cheat sheet
-76713 total
+76844 total
 
 -6- Rest of Application Usage
 4002  usage/lilypond-book.itely -- LilyPond-book

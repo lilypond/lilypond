@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Fri Sep 16 14:46:06 UTC 2011
+@emph{Last updated Sun Sep 18 15:02:17 UTC 2011
 }
 @multitable @columnfractions  0.5 0.5
 
@@ -26,7 +26,7 @@ LilyPond Changes
 @item
 Section titles
 @*
-(296)
+(324)
 @tab Francisco Vila
 @*
 
@@ -670,7 +670,7 @@ up to date
 @item
 1 Scheme tutorial
 @*
-(5005)
+(5006)
 @tab Till Paala
 @*
 
@@ -720,25 +720,25 @@ up to date
 @item
 2 Interfaces for programmers
 @*
-(4051)
+(4711)
 @tab Till Paala
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (98 %)</span>
+<span style="background-color: #dfef77">partially translated (77 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (98 %)
+partially translated (77 %)
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">partially up to date</span>
+<span style="background-color: #97ff2f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -750,18 +750,18 @@ partially up to date
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (98 %)</span>
+<span style="background-color: #dfef77">partially translated (77 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (98 %)
+partially translated (77 %)
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">partially up to date</span>
+<span style="background-color: #97ff2f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -2938,11 +2938,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #ff625a">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @item
 LilyPond --- \TITLE\
@@ -3270,7 +3270,7 @@ partially up to date
 @item
 1.2 Rhythms
 @*
-(6048)
+(6256)
 @tab Till Paala
 @*
 
@@ -3288,7 +3288,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially up to date</span>
+<span style="background-color: #39ff22">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -3311,11 +3311,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Frédéric Chiasson
 @*
@@ -3378,7 +3378,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially up to date</span>
+<span style="background-color: #54ff26">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -3401,7 +3401,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially up to date</span>
+<span style="background-color: #54ff26">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -4741,7 +4741,7 @@ up to date
 @item
 2.5 Percussion
 @*
-(806)
+(811)
 @tab Till Paala
 @*
 
@@ -4759,11 +4759,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -4997,7 +4997,7 @@ up to date
 @item
 2.7 Chord notation
 @*
-(1937)
+(1855)
 @tab Till Paala
 @*
 
@@ -5015,7 +5015,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -5081,18 +5081,18 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (46 %)</span>
+<span style="background-color: #dfef77">partially translated (48 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (46 %)
+partially translated (48 %)
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">partially up to date</span>
+<span style="background-color: #54ff26">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -5741,11 +5741,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #ff6759">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @item
 A Notation manual tables
@@ -5955,11 +5955,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #fff23f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @item
 C GNU Free Documentation License
@@ -6893,11 +6893,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #ff6759">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Team-hu
 @*
@@ -7034,11 +7034,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Jean-Charles Malahieude
 @*

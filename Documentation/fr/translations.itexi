@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Fri Sep 16 14:46:06 UTC 2011
+@emph{Dernière mise à jour Sun Sep 18 15:02:17 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -501,7 +501,7 @@ partiellement
 @item
 1.2 Rythme
 @*
-6048
+6256
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -524,7 +524,7 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partiellement</span>
+<span style="background-color: #54ff26">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -863,7 +863,7 @@ partiellement
 @item
 2.5 Percussions
 @*
-806
+811
 @tab Valentin Villenave
 @tab Jean-Charles Malahieude
 @*
@@ -923,7 +923,7 @@ partiellement
 @item
 2.7 Notation des accords
 @*
-1937
+1855
 @tab Valentin Villenave
 @tab Jean-Charles Malahieude
 @*
@@ -932,17 +932,17 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partiellement (46 %)</span>
+<span style="background-color: #dfef77">partiellement (48 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement (46 %)
+partiellement (48 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">partiellement</span>
+<span style="background-color: #54ff26">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1292,11 +1292,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #ff6759">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item

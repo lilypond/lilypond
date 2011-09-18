@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Fri Sep 16 14:46:06 UTC 2011
+@emph{Zuletzt aktualisiert am Sun Sep 18 15:02:17 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -204,7 +204,7 @@ ja
 @item
 1 Scheme-Übung
 @*
-5005
+5006
 @tab Till Paala
 @tab 
 @tab 
@@ -231,24 +231,24 @@ ja
 @item
 2 Schnittstellen für Programmierer
 @*
-4051
+4711
 @tab Till Paala
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">teilweise (98 %)</span>
+<span style="background-color: #dfef77">teilweise (77 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise (98 %)
+teilweise (77 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">teilweise</span>
+<span style="background-color: #97ff2f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -583,7 +583,7 @@ teilweise
 @item
 1.2 Rhythmus
 @*
-6048
+6256
 @tab Till Paala
 @tab 
 @tab 
@@ -600,7 +600,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">teilweise</span>
+<span style="background-color: #39ff22">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -907,7 +907,7 @@ teilweise
 @item
 2.5 Schlagzeug
 @*
-806
+811
 @tab Till Paala
 @tab 
 @tab 
@@ -924,11 +924,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #2cff20">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -961,7 +961,7 @@ teilweise
 @item
 2.7 Notation von Akkorden
 @*
-1937
+1855
 @tab Till Paala
 @tab 
 @tab 
@@ -978,7 +978,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">teilweise</span>
+<span style="background-color: #25fe1f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
