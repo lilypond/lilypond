@@ -62,7 +62,8 @@ public:
   Input (Input const &i);
   Input ();
 protected:
-  void print_message (int level, string s) const;
+  string message_location () const;
+  string message_string (string msg) const;
 };
 
 #include "smobs.hh"

@@ -78,21 +78,24 @@ Input::set_location (Input const &i_start, Input const &i_end)
 
   [file:line:column:][warning:]message
 */
-void
-Input::print_message (int level, string s) const
+string
+Input::message_string (string msg) const
 {
-  string location;
   if (source_file_)
-    ::print_message (level, location_string (),
-                     s + "\n" + source_file_->quote_input (start_) + "\n");
+    return msg + "\n" + source_file_->quote_input (start_);
   else
-    ::print_message (level, "", s);
+    return msg;
 }
 
+string
+Input::message_location () const
+{
+  return (source_file_) ? location_string () : "";
+}
 void
 Input::error (string s) const
 {
-  print_message (LOG_ERROR, _f ("error: %s", s));
+  ::non_fatal_error (message_string (s), message_location ());
   // UGH, fix naming or usage (use non_fatal_error in most places, instead)
   // exit (1);
 }
@@ -101,39 +104,36 @@ void
 Input::programming_error (string s) const
 {
   if (get_program_option ("warning-as-error"))
-    error (s);
+    ::error (message_string (s), message_location ());
   else
-    {
-      print_message (LOG_ERROR, _f ("programming error: %s", s));
-      print_message (LOG_ERROR, _ ("continuing, cross fingers") + "\n");
-    }
+    ::programming_error (message_string (s), message_location ());
 }
 
 void
 Input::non_fatal_error (string s) const
 {
-  print_message (LOG_ERROR, _f ("error: %s", s));
+  ::non_fatal_error (message_string (s), message_location ());
 }
 
 void
 Input::warning (string s) const
 {
   if (get_program_option ("warning-as-error"))
-    error (s);
+    ::non_fatal_error (message_string (s), message_location ());
   else
-    print_message (LOG_WARN, _f ("warning: %s", s));
+    ::warning (message_string (s), message_location ());
 }
 
 void
 Input::message (string s) const
 {
-  print_message (LOG_INFO, s);
+  ::message (message_string (s), true, message_location ());
 }
 
 void
 Input::debug_output (string s) const
 {
-  print_message (LOG_DEBUG, s);
+  ::debug_output (message_string (s), true, message_location ());
 }
 
 string
