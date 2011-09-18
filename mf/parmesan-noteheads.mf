@@ -167,8 +167,8 @@ enddef;
 
 
 def draw_neomensural_black_head (expr wid, height) =
-	save head_height, head_width, stem_width,
-			 ne, nw, ne_dist, nw_dist, penthickness;
+	save head_height, head_width, stem_width;
+	save ne, nw, ne_dist, nw_dist, penthickness;
 	pair ne, nw, ne_dist, nw_dist;
 
 	penthickness# = linethickness#;
@@ -262,8 +262,9 @@ enddef;
 % (ze is wel breed)
 %
 
-save nm_maxima_width, nm_longa_width, nm_brevis_width,
-		 nm_holeheight, nm_red_holeheight;
+save nm_maxima_width, nm_longa_width, nm_brevis_width;
+save nm_holeheight, nm_red_holeheight;
+
 nm_maxima_width := 2.6 staff_space#;
 nm_longa_width := 2 staff_space#;
 nm_brevis_width := nm_longa_width;
