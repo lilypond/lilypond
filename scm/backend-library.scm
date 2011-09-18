@@ -87,7 +87,7 @@
 	       "-c.setpdfwrite"
 	       (string-append "-f" name)))))
 
-    (ly:progress (_ "Converting to `~a'...\n") pdf-name)
+    (ly:message (_ "Converting to `~a'...\n") pdf-name)
     (ly:system cmd)))
 
 (define-public (postscript->png resolution paper-width paper-height name)
@@ -96,7 +96,7 @@
 
     ;; Do not try to guess the name of the png file,
     ;; GS produces PNG files like BASE-page%d.png.
-    (ly:progress (_ "Converting to ~a...") "PNG")
+    (ly:message (_ "Converting to ~a...") "PNG")
     (make-ps-images name
 		    #:resolution resolution
 		    #:page-width paper-width
