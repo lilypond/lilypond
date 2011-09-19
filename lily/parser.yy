@@ -40,13 +40,14 @@
 deleting them.  Let's hope that a stack overflow doesnt trigger a move
 of the parse stack onto the heap. */
 
-%left PREC_TOP
-%left ADDLYRICS
 %left PREC_BOT
+%nonassoc REPEAT
+%nonassoc ALTERNATIVE
+%left ADDLYRICS
+%left PREC_TOP
 
-%expect 1
 
-/* One shift/reduce problem
+/* The above precedences tackle the shift/reduce problem
 
 1.  \repeat
 	\repeat .. \alternative
@@ -327,6 +328,7 @@ If we give names, Bison complains.
 /* Music */
 %type <scm> composite_music
 %type <scm> grouped_music_list
+%type <scm> braced_music_list
 %type <scm> closed_music
 %type <scm> music
 %type <scm> prefix_composite_music
@@ -364,7 +366,6 @@ If we give names, Bison complains.
 %type <outputdef> output_def
 %type <outputdef> paper_block
 
-%type <scm> alternative_music
 %type <scm> generic_prefix_music_scm
 %type <scm> music_list
 %type <scm> absolute_pitch
@@ -996,41 +997,43 @@ music_list:
 	}
 	;
 
+braced_music_list:
+	'{' music_list '}'
+	{
+		$$ = scm_reverse_x ($2, SCM_EOL);
+	}
+	;
+
 music:
 	simple_music
 	| composite_music
 	| MUSIC_IDENTIFIER
 	;
 
-alternative_music:
-	/* empty */ {
-		$$ = SCM_EOL;
-	}
-	| ALTERNATIVE '{' music_list '}' {
-		$$ = scm_reverse_x ($3, SCM_EOL);
-	}
-	;
-
 
 repeated_music:
-	REPEAT simple_string unsigned_number music alternative_music
+	REPEAT simple_string unsigned_number music
 	{
-		$$ = MAKE_SYNTAX ("repeat", @$, $2, $3, $4, $5);
+		$$ = MAKE_SYNTAX ("repeat", @$, $2, $3, $4, SCM_EOL);
+	}
+	| REPEAT simple_string unsigned_number music ALTERNATIVE braced_music_list
+	{
+		$$ = MAKE_SYNTAX ("repeat", @$, $2, $3, $4, $6);
 	}
 	;
 
 sequential_music:
-	SEQUENTIAL '{' music_list '}'		{
-		$$ = MAKE_SYNTAX ("sequential-music", @$, scm_reverse_x ($3, SCM_EOL));
+	SEQUENTIAL braced_music_list {
+		$$ = MAKE_SYNTAX ("sequential-music", @$, $2);
 	}
-	| '{' music_list '}'		{
-		$$ = MAKE_SYNTAX ("sequential-music", @$, scm_reverse_x ($2, SCM_EOL));
+	| braced_music_list {
+		$$ = MAKE_SYNTAX ("sequential-music", @$, $1);
 	}
 	;
 
 simultaneous_music:
-	SIMULTANEOUS '{' music_list '}'{
-		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_reverse_x ($3, SCM_EOL));
+	SIMULTANEOUS braced_music_list {
+		$$ = MAKE_SYNTAX ("simultaneous-music", @$, $2);
 	}
 	| DOUBLE_ANGLE_OPEN music_list DOUBLE_ANGLE_CLOSE	{
 		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_reverse_x ($2, SCM_EOL));
