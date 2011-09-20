@@ -1918,7 +1918,7 @@ returns an empty markup.
         empty-stencil)))
 
 (define-markup-command (on-the-fly layout props procedure arg)
-  (symbol? markup?)
+  (procedure? markup?)
   #:category other
   "Apply the @var{procedure} markup command to @var{arg}.
 @var{procedure} should take a single argument."
