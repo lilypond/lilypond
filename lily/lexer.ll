@@ -590,7 +590,7 @@ BOM_UTF8	\357\273\277
 		  else if (predicate == ly_lily_module_constant ("markup?"))
 		    push_extra_token(EXPECT_MARKUP);
 		  else
-		    push_extra_token(EXPECT_SCM);
+		    push_extra_token(EXPECT_SCM, predicate);
 		}
 		return token_type;
 	}
@@ -846,7 +846,7 @@ Lily_lexer::scan_escaped_word (string str)
 			else if (cs == ly_lily_module_constant ("markup?"))
 				push_extra_token (EXPECT_MARKUP);
 			else if (ly_is_procedure (cs))
-				push_extra_token (EXPECT_SCM);
+				push_extra_token (EXPECT_SCM, cs);
 			else
 			{
 				programming_error ("Function parameter without type-checking predicate");
