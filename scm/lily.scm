@@ -350,6 +350,8 @@ messages into errors.")
 Print a message at LOCATION if any predicate failed."
   (define (recursion-helper signature arguments count)
     (define (helper pred? arg count)
+      (if (pair? pred?)
+	  (set! pred? (car pred?)))
       (if (not (pred? arg))
           (begin
             (ly:input-warning
