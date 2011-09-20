@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+Translation of GIT committish: f0978ed121192fee9bdf2453a325d98693148acf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -42,7 +42,7 @@ LISP) para aportar la infraestructura.  La sobreescritura de las
 decisiones de disposición da acceso efectivo a las interioridades del
 programa, lo que requiere código de Scheme como entrada.  Los
 elementos de Scheme se inauguran dentro de un archivo @file{.ly} con
-el símbolo de cuadradillo @code{#}.@footnote{@rextend{Tutorial de Scheme}
+el símbolo de cuadradillo@tie{}@code{#}.@footnote{@rextend{Tutorial de Scheme}
 contiene un breve tutorial sobre la introducción de números,
 listas, cadenas y símbolos en Scheme.}
 
@@ -848,6 +848,7 @@ Las notas parecen barras inclinadas y no tienen plica:
 @example
 \override NoteHead #'style = #'slash
 \override Stem #'transparent = ##t
+\override Flag #'transparent = ##t
 @end example
 
 Todos estos añadidos tienen que cooperar, y esto se consigue con un
@@ -870,6 +871,7 @@ Al juntarlo todo, obtenemos
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t
+  \override Flag #'transparent = ##t
   \alias Voice
 @}
 @end example
@@ -1465,7 +1467,7 @@ paso de interpretación.  Se consigue insertando la instrucción
 @end example
 
 @var{valor} es un objeto de Scheme, razón por la que va precedido del
-carácter almohadilla, @code{#}.
+carácter almohadilla,@tie{}@code{#}.
 
 El nombre de las propiedades de contexto suele ir en minúsculas con
 mayúscula en medio.  Controlan sobre todo la traducción de la música a
@@ -1751,7 +1753,7 @@ instrucciones de la forma
 
 Para muchas propiedades, independientemente del tipo de datos de la
 propiedad, si se establece el valor de la propiedad a falso
-(@code{##f}) se producirá su desactivación, ocasionando que LilyPond
+(@code{#f}) se producirá su desactivación, ocasionando que LilyPond
 ignore por completo dicha propiedad.  Esto es especialmente útil para
 «apagar» propiedades de grobs (objetos gráficos) que de otra manera
 causarían problemas.
@@ -2240,25 +2242,13 @@ dirección de las plicas (como las ligaduras o los acentos).
 
 @c TODO Add table showing these
 
-@strong{Disposición de contexto}
-
-Los contextos se colocan dentro de un sistema de arriba a abajo en el
-orden en que se encuentran.  Sin embargo, observe que se crea un
-contexto implícitamente si se encuentra una instrucción cuando no está
-disponible un contexto apropiado para contenerla.
-
-@c TODO Add example ?
-
-Se pude cambiar el orden predeterminado en que los contextos se
-presentan, véase @ref{Alinear los contextos}
-
-@strong{Indicadores de dirección de las articulaciones}
-
-Al añadir articulaciones a notas se puede omitir normalmente el
-indicador de dirección, @code{^} (que significa @qq{arriba}), @code{_}
+Se puede sobreescribir la acción predeterminada mediante el prefijado
+de la articulación por un @emph{indicacor de dirección}.  Están disponibles
+tres indicadores de dirección: @code{^} (que significa @qq{arriba}), @code{_}
 (que significa @qq{abajo}) o @code{-} (que significa @qq{usar la
-dirección predeterminada}), en cuyo caso se supone el predeterminado
-@code{-}.  Pero se necesita un indicador de dirección @strong{siempre}
+dirección predeterminada}).  El indicador de dirección se puede normalmente
+omitir, en cuyo caso se supone el indicador predeterminado
+@code{-}, pero se necesita un indicador de dirección @strong{siempre}
 antes de:
 
 @itemize
@@ -2266,8 +2256,8 @@ antes de:
 @item las instrucciones @code{\markup}
 @item las instrucciones @code{\tag}
 @item los marcados de cadena, p.ej. -"cadena"
-@item las instrucciones de digitación, p.ej. @code{-1}
-@item las abreviaturas de articulación, p.ej. @code{-.}, @code{->}, @code{--}
+@item las instrucciones de digitación, p.ej. @w{@code{-1}}
+@item las abreviaturas de articulación, p.ej. @w{@code{-.}}, @w{@code{->}}, @w{@code{--}}
 @end itemize
 
 Estas indicaciones afectan sólo a la nota siguiente.
@@ -2286,9 +2276,9 @@ controlada por la propiedad @code{direction}.
 
 El valor de la propiedad @code{direction} se puede establecer al valor
 @code{1}, con el significado de @qq{hacia arriba} o @qq{encima}, o a
-@code{-1}, con el significado de @qq{hacia abajo} o @qq{debajo}.  Se
+@w{@code{-1}}, con el significado de @qq{hacia abajo} o @qq{debajo}.  Se
 pueden usar los símbolos @code{UP} y @code{DOWN} en sustitución de
-@code{1} y @code{-1} respectivamente.  La dirección predeterminada se
+@code{1} y @w{@code{-1}} respectivamente.  La dirección predeterminada se
 puede especificar estableciendo @code{direction} a @code{0} ó a
 @code{CENTER}.  De forma alternativa, en muchos casos existen
 instrucciones predefinidas para especificar la dirección.  Todas ellas
@@ -2304,7 +2294,7 @@ predeterminada}.  Véase @rlearning{Objetos interiores al pentagrama}.
 En alguna que otra ocasión, con el único ejemplo usual del arpegio, el
 valor de la propiedad @code{direction} especifica si el objeto se debe
 colocar a la izquierda o a la derecha del objeto padre.  En este caso
-@code{-1} ó @code{LEFT} significan @qq{a la izquierda} y @code{1} ó
+@w{@code{-1}} ó @code{LEFT} significan @qq{a la izquierda} y @code{1} ó
 @code{RIGHT} significan @qq{a la derecha}.  @code{0} ó @code{CENTER}
 significan @qq{utilizar la dirección predeterminada}, como antes.
 
@@ -2669,7 +2659,7 @@ trinos, está inamoviblemente codificado como 0.
 
 @item attach-dir (dirección de anclaje)
 Determina dónde comienza y termina la línea en la dirección X, con
-relación al objeto ancla.  Sí, un valor de @code{-1} (o @code{LEFT},
+relación al objeto ancla.  Sí, un valor de @w{@code{-1}} (o @code{LEFT},
 izquierda) hace que la línea comience o termine en el lado izquierdo
 de la cabeza de la nota a la que está anclado.
 
@@ -2715,7 +2705,7 @@ c4^\startTextSpan c c c \stopTextSpan
 @end lilypond
 
 Observe que los valores negativos mueven el texto @emph{hacia arriba},
-al contrario de lo que podría esperarse, pues el valor de @code{-1} o
+al contrario de lo que podría esperarse, pues el valor de @w{@code{-1}} o
 @code{DOWN} (abajo) significa alinear el borde @emph{inferior} del
 texto con la línea de extensión.  Un valor de @code{1} o @code{UP}
 (arriba) alinea el borde superior del texto con la línea extensora.
@@ -2864,7 +2854,7 @@ En el ejemplo de arriba, la clave blanca, con un valor @code{layer}
 predeterminado de @code{1}, se dibuja después de las líneas del
 pentagrama (valor @code{layer} predeterminado de @code{0}),
 sobreimpresionándolas.  Para cambiarlo, se debe dar al objeto
-@code{Clef} un valor de @code{layer} más bajo, digamos @code{-1}, para
+@code{Clef} un valor de @code{layer} más bajo, digamos @w{@code{-1}}, para
 que se dibuje antes:
 
 @lilypond[quote,verbatim,relative=2]
@@ -3154,7 +3144,7 @@ e2 \glissando f
 e2 \glissando f
 @end lilypond
 
-El valor de @code{Y} está establecido a @code{-2} para el extremo
+El valor de @code{Y} está establecido a @w{@code{-2}} para el extremo
 derecho.  El lado izquierdo se puede ajustar de forma similar
 especificando @code{left} en vez de @code{right}.
 
@@ -3373,9 +3363,9 @@ determinan dónde colocar el objeto, como sigue:
 @headitem @code{side-axis}  @tab @code{direction}  @tab
 @headitem propiedad         @tab propiedad         @tab colocación
 
-@item     @code{0}          @tab @code{-1}         @tab izquierda
+@item     @code{0}          @tab @w{@code{-1}}         @tab izquierda
 @item     @code{0}          @tab @code{1}          @tab derecha
-@item     @code{1}          @tab @code{-1}         @tab debajo
+@item     @code{1}          @tab @w{@code{-1}}         @tab debajo
 @item     @code{1}          @tab @code{1}          @tab encima
 
 @end multitable
@@ -3409,11 +3399,11 @@ dar a @code{self-alignment-X} cualquier valor real, en unidades de la
 mitad de la extensión X total del objeto.  Los valores negativos
 mueven el objeto a la derecha, los positivos hacia la izquierda.  Un
 valor de @code{0} centra el objeto sobre el punto de referencia de su
-padre, un valor de @code{-1} alinea el borde izquierdo del objeto
+padre, un valor de @w{@code{-1}} alinea el borde izquierdo del objeto
 sobre el punto de referencia de su padre, y un valor de @code{1}
 alinea el borde derecho del objeto sobre el punto de referencia de su
 padre.  Se pueden usar los símbolos @code{LEFT}, @code{CENTER} y
-@code{RIGHT} en sustitución de los valores @code{-1, 0, 1},
+@code{RIGHT} en sustitución de los valores @w{@code{-1}}, @code{0} y @code{1},
 respectivamente.
 
 Normalmente se usaría la instrucción @code{\override} para modificar
@@ -3444,12 +3434,13 @@ tiene en cuenta.  Esto puede hacer que ajustar el valor de ciertos
 objetos sea una tarea dificultosa.  Las unidades son sólo la mitad de
 las dimensiones verticales del objeto, que suele ser bastante pequeño,
 por lo que pueden requerirse números bastante grandes.  Un valor de
-@code{-1} alinea el borde inferior del objeto con el punto de
+@w{@code{-1}} alinea el borde inferior del objeto con el punto de
 referencia del objeto padre, un valor de @code{0} alinea el centro del
 objeto con el punto de referencia del padre, y un valor de @code{1}
 alinea el borde superior del objeto con el punto de referencia del
 padre.  Se pueden usar los símbolos @code{DOWN}, @code{CENTER},
-@code{UP} en sustitución de @code{-1, 0, 1} respectivamente.
+@code{UP} en sustitución de @w{@code{-1}},
+@code{0} y @code{1}, respectivamente.
 
 @emph{Auto-alineación de objetos en las dos direcciones}
 
@@ -3702,8 +3693,8 @@ Referencia de la notación:
 
 @cindex ligaduras de expresión, modificar
 @cindex ligaduras de unión, modificar
-@cindex Bézier, curvas de
-@cindex Bézier, puntos de control
+@cindex Bézier, curvas de, puntos de control
+@cindex puntos de control en curvas de Bézier
 
 Las ligaduras de unión, de expresión y de fraseo se trazan como curvas
 de Bézier de tercer orden.  Si la forma de la ligadura calculada
@@ -3729,7 +3720,7 @@ He aquí un ejemplo de un caso en que la ligadura no es óptima, y donde
 
 @lilypond[verbatim,quote,relative=1]
 <<
-  { e1 ~ e }
+  { e1~ e }
 \\
   { r4 <g c,> <g c,> <g c,> }
 >>
@@ -3764,20 +3755,23 @@ de unión.
   {
     \once \override Tie
       #'control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
-     e1 ~ e1
+     e1 ~ e
   }
 \\
-  { r4 <g c,> <g c,> <g c,>4  }
+  { r4 <g c,> <g c,> <g c,> }
 >>
 @end lilypond
 
 @knownissues
-
 No es posible modificar la forma de las ligaduras de unión o de
 expresión cambiando la propiedad @code{control-points} si hay más de
 una en el mismo momento musical, ni siquiera usando la instrucción
-@code{\tweak}.
+@code{\tweak}.  Sin embargo, se puede sobreescribir la propiedad @code{tie-configuration} de
+@code{TieColumn} para fijar la línea de inicio y la dirección según se requiera.
 
+@seealso
+Referencia de funcionamiento interno:
+@rinternals{TieColumn}.
 
 
 @node Uso de las funciones musicales
