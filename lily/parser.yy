@@ -784,6 +784,7 @@ book_body:
 	| book_body lilypond_header {
 		$$->header_ = $2;
 	}
+	| book_body embedded_scm { }
 	| book_body error {
 		$$->paper_ = 0;
 		$$->scores_ = SCM_EOL;
@@ -836,6 +837,7 @@ bookpart_body:
 	| bookpart_body lilypond_header {
 		$$->header_ = $2;
 	}
+	| bookpart_body embedded_scm { }
 	| bookpart_body error {
 		$$->paper_ = 0;
 		$$->scores_ = SCM_EOL;
