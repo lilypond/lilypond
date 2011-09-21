@@ -137,7 +137,10 @@ in lyrics or text are not found.
 Developers may wish to see the output of the complete regression
 test suite for the current version of the source repository
 between releases.  Current source code is available; see
-@ref{Working with source code}.  Then you will need
+@ref{Working with source code}.
+
+For regression testing @code{../configure} should be run with the
+@code{--disable-optimising} option.  Then you will need
 to build the LilyPond binary; see @ref{Compiling LilyPond}.
 
 Uninstalling the previous LilyPond version is not necessary, nor is
