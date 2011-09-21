@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -137,7 +137,7 @@ xpdf lilybook
 La ejecución de @command{lilypond-book} y @command{latex} crea un gran
 número de archivos temporales, que podrían abarrotar el directorio de
 trabajo.  Para poner remedio a esto utilice la opción
-@code{--output=@var{directorio}}.  Creará los archivos en un
+@option{--output=@var{directorio}}.  Creará los archivos en un
 subdirectorio aparte @file{directorio}.
 
 Finalmente el resultado del ejemplo de @LaTeX{} que acabamos de
@@ -216,27 +216,45 @@ Consulte
 @emph{The Not So Short Introduction to @LaTeX{}}} (Introducción no tan
 breve a @LaTeX{}) para ver una panorámica sobre cómo usar @LaTeX{}.
 
-La música se introduce usando
+@code{lilypond-book} aporta las instrucciones y entornos siguientes
+para incluir música dentro de archivos de @LaTeX{}:
+
+@itemize
+
+@item
+la instrucción @code{\lilypond@{...@}}, donde podemos escribir directamente fragmentos cortos de código de LilyPond
+
+@item
+el entorno @code{\begin@{lilypond@}...\end@{lilypond@}}, donde podemos
+introducir directamente bloques más largos de código de LilyPond
+
+@item
+la instrucción @code{\lilypondfile@{...@}} para insertar un archivo de LilyPond
+
+@item
+la instrucción @code{\musicxmlfile@{...@}} para insertar un archivo de
+MusicXML, que se procesa por parte de @code{musicxml2ly} y
+@code{lilypond}.
+
+@end itemize
+
+En el archivo de entrada, se especifica la música con cualquiera de
+las instrucciones siguientes:
 
 @example
 \begin@{lilypond@}[las,opciones,van,aquí]
   EL CÓDIGO DE LILYPOND
 \end@{lilypond@}
-@end example
 
-@noindent
-o bien
-
-@example
-\lilypondfile[las,opciones,van,aquí]@{@var{archivo}@}
-@end example
-
-@noindent
-o bien
-
-@example
 \lilypond[las,opciones,van,aquí]@{ EL CÓDIGO DE LILYPOND @}
+
+\lilypondfile[las,opciones,van,aquí]@{@var{archivo}@}
+
+\musicxmlfile[las,opciones,van,aquí]@{@var{archivo}@}
 @end example
+
+
+@noindent
 
 De forma adicional, @code{\lilypondversion} imprime la versión actual
 de lilypond.
@@ -417,27 +435,43 @@ Texinfo es el formato estándar para la documentación del proyecto GNU.
 Este mismo manual es un ejemplo de documento Texinfo.  Las versiones
 HTML, PDF e Info del manual se hacen a partir del documento Texinfo.
 
+@code{lilypond-book} aporta las siguientes instrucciones y entornos
+para incluir música dentro de archivos de Texinfo:
 
-En el archivo de entrada, la música se especifica con
+@itemize
+
+@item
+la instrucción @code{@@lilypond@{...@}}, donde podemos introducir
+directamente fragmentos cortos de código de LilyPond
+
+@item
+el entorno @code{@@lilypond...@@end lilypond}, donde podemos escribir
+directamente bloques más extensos de código de LilyPond
+
+@item
+la instrucción @code{@@lilypondfile@{...@}} para insertar un archivo
+de LilyPond
+
+@item
+la instrucción @code{@@musicxmlfile@{...@}} para insertar un archivo
+de MusicXML, que se procesa después por parte de @code{musicxml2ly} y
+de @code{lilypond}.
+
+@end itemize
+
+En el archivo de entrada, la música se especifica con cualquiera de
+las instrucciones siguientes:
 
 @example
 @@lilypond[las,opciones,van,aquí]
   EL CÓDIGO DE LILYPOND
 @@end lilypond
-@end example
 
-@noindent
-o bien
-
-@example
 @@lilypond[las,opciones,van,aquí]@{ EL CÓDIGO DE LILYPOND @}
-@end example
 
-@noindent
-o bien
-
-@example
 @@lilypondfile[las,opciones,van,aquí]@{@var{archivo}@}
+
+@@musicxmlfile[las,opciones,van,aquí]@{@var{archivo}@}
 @end example
 
 De forma adicional, @code{@@lilypondversion} imprime la versión actual
@@ -476,7 +510,7 @@ produce
 
 @lilypond[fragment,staffsize=11]{<c' e' g'>}
 
-No como @LaTeX{}, @code{@@lilypond@{...@}} no genera una imagen en
+A diferencia de @LaTeX{}, @code{@@lilypond@{...@}} no genera una imagen en
 línea.  Siempre consiste en un párrafo para ella sola.
 
 
@@ -484,8 +518,56 @@ línea.  Siempre consiste en un párrafo para ella sola.
 @subsection HTML
 @translationof HTML
 
-La música se introduce usando
+@code{lilypond-book} aporta las siguientes instrucciones y entornos
+para incluir música dentro de archivos HTML:
 
+@itemize
+
+@item
+la instrucción @code{<lilypond .... />}, donde podemos introducir
+directamente fragmentos cortos de código de LilyPond
+
+@item
+el entorno @code{<lilyond>...</lilypond>}, donde podemos escribir
+directamente bloques más extensos de código de LilyPond
+
+@item
+la instrucción @code{<lilypondfile>...</lilypondfile>} para insertar
+un archivo de LilyPond
+
+@item
+la instrucción @code{<musicxmlfile>...</musicxmlfile>} para insertar
+un archivo de MusicXML, que se procesa después por parte de
+@code{musicxml2ly} y de @code{lilypond}.
+
+@end itemize
+
+En el archivo de entrada, la música se especifica con cualquiera de
+las instrucciones siguientes:
+
+
+\begin@{lilypond@}[las,opciones,van,aquí]
+  EL CÓDIGO DE LILYPOND
+\end@{lilypond@}
+
+\lilypond[las,opciones,van,aquí]@{ EL CÓDIGO DE LILYPOND @}
+
+\lilypondfile[las,opciones,van,aquí]@{@var{archivo}@}
+
+\musicxmlfile[las,opciones,van,aquí]@{@var{archivo}@}
+@example
+<lilypond las opciones van aquí>
+  EL CÓDIGO DE LILYPOND
+</lilypond>
+
+<lilypond las opciones van aquí: EL CÓDIGO DE LILYPOND />
+
+<lilypondfile las opciones van aquí>@var{archivo}</lilypondfile>
+
+<musicxmlfile las opciones van aquí>@var{archivo}</musicxmlfile>
+@end example
+
+Por ejemplo, podemos escribr
 @example
 <lilypond fragment relative=2>
 \key c \minor c4 es g2
@@ -513,6 +595,10 @@ Para incluir archivos externos, escriba
 @example
 <lilypondfile @var{opción1} @var{opción2} ...>@var{archivo}</lilypondfile>
 @end example
+
+@code{<musicxmlfile>} usa la misma sintaxis que @code{<lilypondfile>},
+pero sencillamente referencia un archivo de MusicXML en lugar de un
+archivo de LilyPond.
 
 Para ver una lista de las opciones que utilizar con las etiquetas
 @code{lilypond} o @code{lilypondfile}, véase
@@ -623,11 +709,9 @@ puntos.
 @item ragged-right
 Producir líneas no justificadas por la derecha y con espaciado
 natural, es decir, se añade @code{ragged-right = ##t} al fragmento de
-LilyPond.  Esta es la opción predeterminada para la instrucción
-@code{\lilypond@{@}} si no está presente la opción @code{line-width}.
-También es la opción predeterminada para el entorno @code{lilypond} si
-está establecida la opción @code{fragment}, y no se especifica la
-anchura de la línea explícitamente.
+LilyPond.  Los fragmentos de una sola línea siempre se tipografían de
+forma predeterminada sin justificación por la derecha, a no ser que se
+use explícitamente la opción @code{noragged-right}.
 
 @item noragged-right
 Para fragmentos de una sola línea, permitir que la longitud del
@@ -766,12 +850,12 @@ mensajes @file{.mo} con @code{lilypond-doc} como dominio.
 @item texidoc
 (Sólo para la salida de Texinfo.)  Si se llama a @command{lilypond}
 con la opción @option{--header=@/texidoc}, y el archivo que se procesa
-se llama @file{fulanito.ly}, crea un archivo
-@file{fulanito.texidoc} si existe un campo @code{texidoc} dentro del
-bloque @code{\header} de cabecera.  La opción @code{texidoc} hace que
-@command{lilypond-book} incluya estos archivos, añadiendo su contenido
-como un bloque de documentación inmediatamente antes del fragmento
-musical.
+se llama @file{fulanito.ly}, crea un archivo @file{fulanito.texidoc}
+si existe un campo @code{texidoc} dentro del bloque @code{\header} de
+cabecera.  La opción @code{texidoc} hace que @command{lilypond-book}
+incluya estos archivos, añadiendo su contenido como un bloque de
+documentación inmediatamente antes del fragmento musical (pero fuera
+del entorno @code{example} generado por la opción @code{quote}).
 
 Suponiendo que el archivo @file{fulanito.ly} contiene
 
@@ -892,7 +976,7 @@ aparecerán en los archivos @file{.ps} y @file{.pdf}.
 La ejecución de @command{dvips} puede dar como resultado algunas
 advertencias sobre las fuentes tipográficas; son inocuas y se pueden
 ignorar.  Si está ejecutando @command{latex} en modo de dos columnas,
-recuerde añadir @code{-t landscape} a las opciones de @command{dvips}.
+recuerde añadir @option{-t landscape} a las opciones de @command{dvips}.
 
 @subsubheading Texinfo
 
@@ -951,7 +1035,7 @@ Añadir @var{directorio} a la ruta de inclusión.
 la ruta de inclusión, y no los vuelve a escribir en el directorio de
 salida, así que en ciertos casos es necesario invocar instrucciones de
 procesado posteriores como @command{makeinfo} o @command{latex} con
-las mismas opciones @code{-I @var{directorio}}.
+las mismas opciones @option{-I @var{directorio}}.
 
 @item -o @var{directorio}
 @itemx --output=@var{directorio}
@@ -979,7 +1063,7 @@ imágenes.
 
 @itemx --lily-output-dir=@var{directorio}
 Escribir archivos lily-XXX en el directorio @var{directorio}, enlazar
-en el directorio de @code{--output}.  Use esta opción para ahorrar
+en el directorio de @option{--output}.  Use esta opción para ahorrar
 tiempo de construcción para documentos de distintos directorios que
 comparten muchos fragmentos idénticos de código.
 
@@ -1009,17 +1093,22 @@ derecha en la misma medida.
 @itemx --process=@var{instrucción}
 Procesar los fragmentos de LilyPond utilizando @var{instrucción}.  La
 instrucción predeterminada es @code{lilypond}.  @code{lilypond-book}
-no obedecerá a @code{--filter} y a @code{--process} al mismo tiempo.
+no obedecerá a @option{--filter} y a @option{--process} al mismo tiempo.
 
 @item --pdf
 Crear archivos PDF para su uso con PDF@LaTeX{}.
+
+@item --redirect-lilypond-output
+De forma predeterminada, la salida se imprime por la consola.  Esta
+opción redirecciona toda la salida hacia archivos de registro situados
+en el mismo directorio que los archivos fuente.
 
 @itemx --use-source-file-names
 Escribir los archivos de salida de los fragmentos de música con el
 mismo nombre de base que su archivo fuente.  Esta opción sólo funciona
 para fragmentos incluidos con @code{lilypondfile} y sólo si los
-directorios determinados por las opciones @code{--output-dir} y
-@code{--lily-output-dir} son distintos.
+directorios determinados por las opciones @option{--output-dir} y
+@option{--lily-output-dir} son distintos.
 
 @item -V
 @itemx --verbose
@@ -1071,10 +1160,11 @@ salida basándose en la extensión del nombre del archivo de entrada.
 Si usa la misma extensión para el archivo de entrada que la que usa
 @command{lilypond-book} para el archivo de salida, y si el archivo de
 entrada está en el mismo directorio que el directorio de trabajo de
-@command{lilypond-book}, debe usar la opción @code{--output} para que
+@command{lilypond-book}, debe usar la opción @option{--output} para que
 funcione @command{lilypond-book}, pues en caso contrario saldrá con un
 mensaje de error como @qq{La salida sobreescribirá al archivo de
 entrada}.
+
 
 @node Plantillas de lilypond-book
 @section Plantillas de lilypond-book

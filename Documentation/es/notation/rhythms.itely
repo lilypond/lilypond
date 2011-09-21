@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
+    Translation of GIT committish: e1fb62a6d5f6aaeadafdef10550e38e25704394e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1246,9 +1246,6 @@ moviendo el @code{Timing_translator} y el
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-time-signature-without-affecting-the-beaming.ly}
 
-@cindex compuesto, indicaciones de compás
-@cindex compás compuesto, indicaciones de
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
@@ -1589,29 +1586,24 @@ ocurrir algunos errores extraños.
 @funindex times
 
 Está contemplada la notación polimétrica, ya sea explícitamente o
-mediante la modificación de la indicación visible del compás y el
+mediante la modificación manual de la indicación visible del compás y/o el
 escalado de la duración de las notas.
 
-@strong{Pentagramas con distintas indicaciones de compás, compases de
-igual longitud}
+@subsubheading Pentagramas con distintas indicaciones de compás y compases de igual longitud
 
-Se puede crear esta notación estableciendo una indicación de compás
-común para cada pentagrama pero sustituyendo el símbolo manualmente
-mediante el establecimiento de @code{timeSignatureFraction} a la
-fracción deseada y escalando las duraciones impresas en cada
-pentagrama a la indicación de compás común; véase @ref{Indicación de
-compás}.  El escalado se hace con @code{\scaleDurations}, que se usa
-de una forma similar a @code{\times}, pero no crea un corchete de
-grupo especial, véase @ref{Escalar las duraciones}.
+Establezca una indicación de compás común para cada pentagrama, y fije
+@code{timeSignatureFraction} a la fracción deseada.  Luego use la función
+@code{\scaleDurations} para escalar las duraciones de las notas en cada
+pauta a la indicación de compás común.
 
 @cindex barras en música polimétrica
 @cindex polimétrico, metro, barras en 
 
-En este ejemplo, se usa en paralelo música con compases de 3/4, 9/8 y
+En el siguiente ejemplo, se usa en paralelo música con compases de 3/4, 9/8 y
 10/8.  En el segundo pentagrama, las duraciones mostradas se
-multiplican por 2/3, pues 2/3 * 9/8 = 3/4, y en el tercer pentagrama,
-las duraciones que se muestran están multiplicadas por 3/5, pues 3/5 *
-10/8 = 3/4.  Con frecuencia se hace necesario insertar las barras de
+multiplican por 2/3 (pues 2/3 * 9/8 = 3/4), y en el tercer pentagrama,
+las duraciones que se muestran están multiplicadas por 3/5 (pues 3/5 *
+10/8 = 3/4).  Con frecuencia habrá que insertar las barras de
 forma manual, pues el escalado de las duraciones afecta a las reglas
 de barrado automático.
 
@@ -1620,7 +1612,7 @@ de barrado automático.
   \new Staff {
     \time 3/4
     c4 c c |
-    c c c |
+    c4 c c |
   }
   \new Staff {
     \time 3/4
@@ -1634,14 +1626,13 @@ de barrado automático.
     \scaleDurations #'(3 . 5) {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
-      c4. c4. \times 2/3 { c8[ c c] } c4
+      c4. c \times 2/3 { c8[ c c] } c4
     }
   }
 >>
 @end lilypond
 
-@strong{@i{Pentagramas con distintas indicaciones de compás y
-longitudes de compás distintas}}
+@subsubheading Pentagramas con distintas indicaciones de compás y longitudes de compás distintas
 
 Se puede dar a cada pentagrama su propia indicación de compás
 independiente trasladando los grabadores @code{Timing_translator} y
@@ -1685,6 +1676,45 @@ independiente trasladando los grabadores @code{Timing_translator} y
 >>
 @end lilypond
 
+@funindex \compoundMeter
+@cindex compuesto, indicaciones de compás
+@cindex compás compuesto, indicación de
+
+@subsubheading Indicaciones de compás compuesto
+
+Se crean usando la función @code{\compoundMeter}.  La sintaxis es:
+
+@example
+\compoundMeter #'@code{(lista de listas)}
+@end example
+
+La construcción más simple es una lista única, en la que el
+@emph{último} número indica el denominador de la indicación de compás
+y los anteriores son los numeradores.
+
+@lilypond[quote,verbatim]
+\relative c' {
+  \compoundMeter #'((2 2 2 8))
+  \repeat unfold 6 c8 \repeat unfold 12 c16
+}
+@end lilypond
+
+Se pueden construir compases más complejos utilizando listas
+adicionales.  Asimismo, los ajustes de barrado se ajustarán
+dependiendo de los valores.
+
+@lilypond[quote,verbatim]
+\relative c' {
+  \compoundMeter #'((1 4) (3 8))
+  \repeat unfold 5 c8 \repeat unfold 10 c16
+}
+
+\relative c' {
+  \compoundMeter #'((1 2 3 8) (3 4))
+  \repeat unfold 12 c8
+}
+@end lilypond
+
 @seealso
 Glosario musical:
 @rglos{polymetric},
@@ -1692,6 +1722,8 @@ Glosario musical:
 @rglos{meter}.
 
 Referencia de la notación:
+@ref{Barras automáticas},
+@ref{Barras manuales},
 @ref{Indicación de compás},
 @ref{Escalar las duraciones}.
 
