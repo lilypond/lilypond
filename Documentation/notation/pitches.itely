@@ -255,6 +255,9 @@ that each interval contains.
 }
 @end lilypond
 
+One consequence of these rules is that the first note inside
+@code{@w{\relative f}} music is interpreted just the same as
+if it was written in absolute pitch mode.
 
 @seealso
 Music Glossary:
