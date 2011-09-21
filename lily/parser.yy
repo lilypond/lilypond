@@ -2741,13 +2741,27 @@ run_music_function (Lily_parser *parser, Input loc, SCM func, SCM args)
 
 	args = scm_reverse_x (args, SCM_EOL);
 
+	SCM fallback = SCM_BOOL_F;
+	SCM pred = scm_car (sig);
+
+	if (scm_is_pair (pred))
+	{
+		fallback = scm_cdr (pred);
+		if (Music *m = unsmob_music (fallback)) {
+			m = m->clone ();
+			m->set_spot (loc);
+			fallback = m->unprotect ();
+		}
+		pred = scm_car (pred);
+	}
+
 	if (!to_boolean (scm_call_3  (type_check_proc, make_input (loc), scm_cdr (sig), args)))
 	{
 		parser->error_level_ = 1;
-		return LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("void-music"), scm_list_2 (parser->self_scm (), make_input (loc)));
+		return fallback;
 	}
 
-	SCM syntax_args = scm_list_5 (parser->self_scm (), make_input (loc), scm_car (sig), func, args);
+	SCM syntax_args = scm_list_n (parser->self_scm (), make_input (loc), pred, fallback, func, args, SCM_UNDEFINED);
 	return LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("music-function"), syntax_args);
 }
 

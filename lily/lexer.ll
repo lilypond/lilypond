@@ -810,6 +810,11 @@ Lily_lexer::scan_escaped_word (string str)
 		SCM s = scm_object_property (yylval.scm, ly_symbol2scm ("music-function-signature"));
 		SCM cs = scm_car (s);
 
+		if (scm_is_pair (cs))
+		{
+			cs = SCM_CAR (cs);
+		}
+
 		if (scm_is_eq (cs, ly_lily_module_constant ("ly:music?")))
 			funtype = MUSIC_FUNCTION;
 		else if (ly_is_procedure (cs))

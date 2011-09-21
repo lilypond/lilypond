@@ -794,37 +794,90 @@ NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
 (defmacro-public define-syntax-function (type args signature . body)
   "Helper macro for `ly:make-music-function'.
 Syntax:
-  (define-syntax-function (result-type? parser location arg1 arg2 ...) (result-type? arg1-type? arg2-type? ...)
+  (define-syntax-function (result-type? parser location arg1 arg2 ...) (result-type? arg1-type arg2-type ...)
     ...function body...)
-"
+
+argX-type can take one of the forms @code{predicate?} for mandatory
+arguments satisfying the predicate, @code{(predicate?)} for optional
+parameters of that type defaulting to @code{#f}, @code{@w{(predicate?
+value)}} for optional parameters with a specified default
+value (evaluated at definition time).  An optional parameter can be
+omitted in a call only when it can't get confused with a following
+parameter of different type.
+
+Predicates with syntactical significance are @code{ly:pitch?},
+@code{ly:duration?}, @code{ly:music?}, @code{markup?}.  Other
+predicates require the parameter to be entered as Scheme expression.
+
+@code{result-type?} can specify a default in the same manner as
+predicates, to be used in case of a type error in arguments or
+result."
+
+  (set! signature (map (lambda (pred)
+			 (if (pair? pred)
+			     `(cons ,(car pred)
+				    ,(and (pair? (cdr pred)) (cadr pred)))
+			     pred))
+		       (cons type signature)))
   (if (and (pair? body) (pair? (car body)) (eqv? '_i (caar body)))
       ;; When the music function definition contains a i10n doc string,
       ;; (_i "doc string"), keep the literal string only
       (let ((docstring (cadar body))
 	    (body (cdr body)))
-	`(ly:make-music-function (list ,type ,@signature)
+	`(ly:make-music-function (list ,@signature)
 				 (lambda ,args
 				   ,docstring
 				   ,@body)))
-      `(ly:make-music-function (list ,type ,@signature)
+      `(ly:make-music-function (list ,@signature)
 			       (lambda ,args
 				 ,@body))))
 
 (defmacro-public define-music-function rest
-  "Helper macro for `ly:make-music-function'.
+  "Defining macro returning music functions.
 Syntax:
   (define-music-function (parser location arg1 arg2 ...) (arg1-type? arg2-type? ...)
     ...function body...)
-"
-  `(define-syntax-function ly:music? ,@rest))
+
+argX-type can take one of the forms @code{predicate?} for mandatory
+arguments satisfying the predicate, @code{(predicate?)} for optional
+parameters of that type defaulting to @code{#f}, @code{@w{(predicate?
+value)}} for optional parameters with a specified default
+value (evaluated at definition time).  An optional parameter can be
+omitted in a call only when it can't get confused with a following
+parameter of different type.
+
+Predicates with syntactical significance are @code{ly:pitch?},
+@code{ly:duration?}, @code{ly:music?}, @code{markup?}.  Other
+predicates require the parameter to be entered as Scheme expression.
+
+Must return a music expression.  The @code{origin} is automatically
+set to the @code{location} parameter."
+
+  `(define-syntax-function (ly:music? (make-music 'Music 'void #t)) ,@rest))
 
 
 (defmacro-public define-scheme-function rest
-  "Helper macro for `ly:make-music-function'.
+  "Defining macro returning Scheme functions.
 Syntax:
   (define-scheme-function (parser location arg1 arg2 ...) (arg1-type? arg2-type? ...)
     ...function body...)
-"
+
+argX-type can take one of the forms @code{predicate?} for mandatory
+arguments satisfying the predicate, @code{(predicate?)} for optional
+parameters of that type defaulting to @code{#f}, @code{@w{(predicate?
+value)}} for optional parameters with a specified default
+value (evaluated at definition time).  An optional parameter can be
+omitted in a call only when it can't get confused with a following
+parameter of different type.
+
+Predicates with syntactical significance are @code{ly:pitch?},
+@code{ly:duration?}, @code{ly:music?}, @code{markup?}.  Other
+predicates require the parameter to be entered as Scheme expression.
+
+Can return arbitrary expressions.  If a music expression is returned,
+its @code{origin} is automatically set to the @code{location}
+parameter."
+
   `(define-syntax-function scheme? ,@rest))
 
 
