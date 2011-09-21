@@ -1329,7 +1329,10 @@ of different versions of a score from the same music source.
 Variables are perhaps most useful for combining lengthy sections
 of music and/or annotation in various ways, while tags are more
 useful for selecting one from several alternative shorter sections
-of music.  Whichever method is used, separating the notation from
+of music.  You can also employ tags for splicing pieced of music
+together at several places.
+
+Whichever method is used, separating the notation from
 the structure of the score will make it easier to change the
 structure while leaving the notation untouched.
 
@@ -1406,9 +1409,12 @@ LilyPond files}.
 @funindex \tag
 @funindex \keepWithTag
 @funindex \removeWithTag
+@funindex \pushToTag
+@funindex \appendToTag
 @cindex tag
 @cindex keep tagged music
 @cindex remove tagged music
+@cindex splice into tagged music
 
 The @code{\tag #'@var{partA}} command marks a music expression
 with the name @var{partA}.
@@ -1533,6 +1539,28 @@ expression will cause @emph{all} tagged sections to be removed, as
 the first filter will remove all tagged sections except the one
 named, and the second filter will remove even that tagged section.
 
+Sometimes you want to splice some music at a particular place in an
+existing music expression.  You can use @code{\pushToTag} and
+@code{\appendToTag} for adding material at the front or end of the
+@code{elements} of an existing music construct.  Not every music
+construct has @code{elements}, but sequential and simultaneous music are
+safe bets:
+
+@lilypond[verbatim,quote]
+test = { \tag #'here { \tag #'here <<c''>> } }
+
+{
+  \pushToTag #'here \pushToTag #'here
+     \pushToTag #'here \test g' e' c'
+  \appendToTag #'here \appendToTag #'here
+     \appendToTag #'here \test g' e' c'
+}
+@end lilypond
+
+Both commands get a tag, the tagged expression, and finally the material
+you want to splice in at every given tag.  The commands make sure to
+copy everything that they change so that the original @code{\test}
+retains its meaning.
 
 @seealso
 Learning Manual:

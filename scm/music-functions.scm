@@ -66,6 +66,36 @@ First it recurses over the children, then the function is applied to
 	      (music-map function  e)))
     (function music)))
 
+(define-public (music-map-copy function music)
+  "Apply @var{function} to @var{music} and all of the music it contains.
+
+First it recurses over the children, then the function is applied to
+@var{music}.  This can be used for non-destructive changes when the
+original @var{music} should retain its meaning.  When you change an
+element, return a changed copy.  Then all ancestors will recursively
+become changed copies as well.  The check for change is done via
+@code{eq?}."
+  (let* ((es (ly:music-property music 'elements))
+	 (e (ly:music-property music 'element))
+	 (esnew (pair-fold-right
+		 (lambda (y tail)
+		   (let ((res (music-map-copy function (car y))))
+		     (if (and (eq? (cdr y) tail)
+			      (eq? (car y) res))
+			 y
+			 (cons res tail))))
+		 '() es))
+	 (enew (if (ly:music? e)
+		   (music-map-copy function e)
+		   e)))
+    (if (not (and (eq? es esnew)
+		  (eq? e enew)))
+	(begin
+	  (set! music (music-clone music))
+	  (set! (ly:music-property music 'elements) esnew)
+	  (set! (ly:music-property music 'element) enew)))
+    (function music)))
+
 (define-public (music-filter pred? music)
   "Filter out music expressions that do not satisfy @var{pred?}."
 

@@ -85,6 +85,21 @@ markups), or inside a score.")
 	       'elements (list (make-music 'PageTurnEvent
 					   'break-permission 'allow))))
 
+appendToTag =
+#(define-music-function (parser location tag music more)
+   (symbol? ly:music? ly:music?)
+   (_i "Append @var{more} to the @code{elements} of all music
+expressions in @var{music} that are tagged with @var{tag}.")
+   (music-map-copy (lambda (m)
+		     (if (memq tag (ly:music-property m 'tags))
+			 (begin
+			   (set! m (music-clone m))
+			   (set! (ly:music-property m 'elements)
+				 (append (ly:music-property m 'elements)
+					 (list more)))))
+		     m)
+		   music))
+
 applyContext =
 #(define-music-function (parser location proc) (procedure?)
    (_i "Modify context properties with Scheme procedure @var{proc}.")
@@ -829,6 +844,20 @@ print @var{secondary-note} as a stemless note head in parentheses.")
                              (ly:music-set-property! m 'force-accidental forced))
                            trill-events)))))
      main-note))
+
+pushToTag =
+#(define-music-function (parser location tag music more)
+   (symbol? ly:music? ly:music?)
+   (_i "Add @var{more} to the front of @code{elements} of all music
+expressions in @var{music} that are tagged with @var{tag}.")
+   (music-map-copy (lambda (m)
+		     (if (memq tag (ly:music-property m 'tags))
+			 (begin
+			   (set! m (music-clone m))
+			   (set! (ly:music-property m 'elements)
+				 (cons more (ly:music-property m 'elements)))))
+		     m)
+		   music))
 
 quoteDuring =
 #(define-music-function (parser location what main-music) (string? ly:music?)
