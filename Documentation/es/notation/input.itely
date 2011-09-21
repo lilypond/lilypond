@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: ba10db0a4ffe50a260d76179b77c396034434ce4
+    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -514,7 +514,7 @@ evitar errores, en las siguientes situaciones:
 @item A continuación de las instrucciones y variables, es decir, todos los elementos
 que comienzan con un signo @code{\} de barra invertida.
 @item A continuación de todo elemento que se deba interpretar como expresión
-de Scheme, es decir, todo elemento que comience por un signo @code{#}.
+de Scheme, es decir, todo elemento que comience por un signo@tie{}@code{#}.
 @item Para separar los elementos de una expresión de Scheme.
 @item Dentro de @code{lyricmode} para separar todos los términos de las instrucciones
 @code{\override} y @code{\set}.  Concretamente, hay que usar espacios
@@ -1317,7 +1317,7 @@ incorporan al archivo principal, por lo que los nombres de archivo que
 especifican deben ser relativos al directorio que contiene el archivo
 principal, no al directorio que contiene el archivo incluido.  Sin
 embargo, este comportamiento se puede modificar pasando la opción
-@code{-drelative-includes} en la línea de órdenes (o mediante la
+@option{-drelative-includes} en la línea de órdenes (o mediante la
 adición de @code{#(ly:set-option 'relative-includes #t)} al principio
 del archivo principal de entrada).  Con el valor de
 @code{relative-includes} establecido, la ruta de cada instrucción
@@ -1825,7 +1825,7 @@ Se pueden definir más zonas de recorte añadiendo más parejas de
 definición de tiempo rhythmic-location a la lista.
 
 Para poder utilizar esta funcionalidad, LilyPond se debe invocar con
-la opción @code{-dclip-systems}.  Los recortes aparecen en la salida
+la opción @option{-dclip-systems}.  Los recortes aparecen en la salida
 como archivos EPS, y se convierten en PDF y PNG si estos formatos
 también están activados.
 
@@ -1926,10 +1926,10 @@ LilyPond:
 
 Descargue y extraiga el archivo zip. Copie la carpeta @code{lilyfonts}
 a @file{@var{SHARE_DIR}/lilypond/current}; para más información,
-consulte @rlearning{Otras fuentes de información}.  Mueva la carpeta
-@code{fonts} existente a @code{fonts_orig} y mueva la carpeta
-@code{lilyfonts} a @code{fonts}.  Sencillamente vuelva a mover
-@code{fonts_orig} a @code{fonts} para volver a la fuente Feta.
+consulte @rlearning{Otras fuentes de información}.  Renombre la carpeta
+@code{fonts} existente a @code{fonts_orig} y la carpeta
+@code{lilyfonts} a @code{fonts}.  Para volver a la fuente Feta,
+invierta el proceso.
 
 @seealso
 Manual de aprendizaje:
@@ -1938,7 +1938,9 @@ Manual de aprendizaje:
 @knownissues
 
 Gonville no se puede usar para tipografiar notación de @q{Música
-Antigua}.  Diríjase a la página web del autor para obtener más
+Antigua} y es probable que cualquier nuevo glifo en versiones
+posteriores de LilyPond no existan en la familia
+tipográfica Gonville.  Diríjase a la página web del autor para obtener más
 información sobre éste y otros asuntos, entre ellos el régimen de
 licencias de Gonville.
 
