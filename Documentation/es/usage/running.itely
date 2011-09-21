@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: f40abd6c55ade9dba9be72ddb415f23a58bb003e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -142,7 +142,7 @@ Están contempladas las siguientes opciones:
 
 @item -e,--evaluate=@var{expresión}
 Evaluar la @var{expresión} de Scheme antes de analizar los archivos
-@file{.ly}.  Se pueden pasar varias opciones @code{-e}, que se
+@file{.ly}.  Se pueden pasar varias opciones @option{-e}, que se
 evaluarán en secuencia.
 
 La expresión se evaluará en el módulo @code{guile-user}, de manera que
@@ -193,7 +193,7 @@ A continuación veremos algunas opciones interesantes.
 @table @samp
 @item help
 La ejecución de @code{lilypond -dhelp} imprimirá todas las opciones
-@code{-d} que están disponibles.
+@option{-d} que están disponibles.
 
 @cindex paper-size, línea de órdenes
 
@@ -216,8 +216,8 @@ No confiar en la entrada @file{.ly}.
 
 Cuando el proceso de tipografía de LilyPond se encuentra disponible a
 través de un servidor web, @b{SE DEBEN} pasar las opciones
-@code{--safe} (seguro) o @code{--jail} (jaula).  La opción
-@code{--safe} evita que el código de Scheme en línea arme un desastre,
+@option{--safe} (seguro) o @option{--jail} (jaula).  La opción
+@option{--safe} evita que el código de Scheme en línea arme un desastre,
 por ejemplo
 
 @quotation
@@ -229,7 +229,7 @@ por ejemplo
 @end verbatim
 @end quotation
 
-La opción @code{-dsafe} funciona evaluando las expresiones en línea de
+La opción @option{-dsafe} funciona evaluando las expresiones en línea de
 Scheme dentro de un módulo especial seguro.  Este módulo seguro deriva
 del módulo GUILE @file{safe-r5rs}, pero añade ciertas funciones del
 API de LilyPond.  Estas funciones se relacionan en
@@ -241,7 +241,7 @@ inhabilita el uso de barras invertidas en las cadenas de @TeX{}.
 En el modo seguro, no es posible la importación de variables de
 LilyPond dentro de Scheme.
 
-@code{-dsafe} @emph{no} detecta la sobreutilización de recursos.  Aún
+@option{-dsafe} @emph{no} detecta la sobreutilización de recursos.  Aún
 es posible hacer que el programa se cuelgue indefinidamente, por
 ejemplo alimentando el backend con estructuras de datos cíclicas.  Por
 tanto, si se está utilizando LilyPond sobre un servidor web accesible
@@ -249,7 +249,7 @@ públicamente, el proceso debe limitarse tanto en el uso de CPU como de
 memoria.
 
 El modo seguro impide que muchos fragmentos útiles de código de
-LilyPond se puedan compilar.  La opción @code{--jail} es una
+LilyPond se puedan compilar.  La opción @option{--jail} es una
 alternativa más segura, pero su preparación requiere más trabajo.
 
 @cindex salida, establecer el formato de
@@ -299,7 +299,7 @@ LilyPond (que normalmente es
 basadas en Scheme, en bruto.
 
 @item null
- no producir una salida impresa; tiene el mismo efecto que @code{-dno-print-pages}.
+ no producir una salida impresa; tiene el mismo efecto que @option{-dno-print-pages}.
 @end table
 
 Ejemplo: @code{lilypond -dbackend=svg @var{archivo}.ly}
@@ -312,9 +312,21 @@ cabecera y el primer sistema de música.  Si se usan bloques
 @code{\bookpart} aparecerán en la salida.  Los motores @code{ps},
 @code{eps} y @code{svg} contemplan esta opción.
 
+@item gui
+Ejecutar en modo silencioso y redirigir toda la salida a un archivo de
+registro.
+
+Nota para usuarios de Windows: de forma predeterminada
+@code{lilypond.exe} imprime toda la información del progreso de
+ejecución hacia la ventana de la consola, @code{lilypond-windows.exe}
+no lo hace y devuelve una indicación del sistema o prompt sin ninguna
+información del progreso de la ejecución inmediatamente en la línea de
+órdenes.  La opción @option{-dgui} se puede usar en este caso para
+redirigir la salida a un archivo de registro.
+
 @item print-pages
 Generar las páginas completas, el ajuste predeterminado.
-@code{-dno-print-pages} es útil en combinación con @code{-dpreview}.
+@option{-dno-print-pages} es útil en combinación con @option{-dpreview}.
 
 @end table
 
@@ -340,6 +352,38 @@ encuentra, la búsqueda continúa en los directorios siguientes.
 Establecer el archivo de inicio a @var{archivo} (predeterminado:
 @file{init.ly}).
 
+@cindex loglevel
+@cindex registro, nivel de
+@cindex salida prolija, fijar el nivel
+
+@item -l,--loglevel=@var{LEVEL}
+Fijar el grado en que la salida de consola es prolija al nivel
+@var{LEVEL}. Los valores posibles son:
+@table @code
+@item NONE
+Ninguna salida en absoluto, ni siquiera mensajes de error.
+
+@item ERROR
+Solamente mensajes de error, no advertencias o indicaciones de progreso.
+
+@item WARN
+Advertencias y mensajes de error, no de progreso.
+
+@item BASIC_PROGRESS
+Mensajes de progreso básicos (éxito), advertencias y errores.
+
+@item PROGRESS
+Todos los mensajes de progreso, advertencias y errores.
+
+@item INFO (predeterminado)
+Mensajes de progreso, advertencias, errores e información de ejecución
+adicional.
+
+@item DEBUG
+Todos los mensajes posibles, incuida la información de depuración
+prolija.
+@end table
+
 @cindex carpeta, dirigir la salida hacia
 @cindex salida, establecer el nombre del archivo de
 
@@ -355,7 +399,7 @@ Generar PostScript.
 
 @item --png
 Generar imágenes de las páginas en formato PNG.  Esto implica
-@code{--ps}.  La resolución en PPP de la imagen se puede establecer
+@option{--ps}.  La resolución en PPP de la imagen se puede establecer
 con
 @example
 -dresolution=110
@@ -364,25 +408,25 @@ con
 @cindex PDF (formato de documento portátil), salida de
 
 @item --pdf
-Generar PDF.  Implica @code{--ps}.
+Generar PDF.  Implica @option{--ps}.
 
 
 
 @item -j,--jail=@var{usuario},@var{grupo},@var{jaula},@var{directorio}
 Ejecutar @command{lilypond} en una jaula de chroot.
 
-La opción @code{--jail} (jaula) proporciona una alternativa más
-flexible a la opción @code{--safe} cuando el proceso de tipografía de
+La opción @option{--jail} (jaula) proporciona una alternativa más
+flexible a la opción @option{--safe} cuando el proceso de tipografía de
 LilyPond está disponible a través de un servidor web o cuando LilyPond
 ejecuta archivos fuente procedentes del exterior.
 
-La opción @code{--jail} funciona cambiando la raíz de
+La opción @option{--jail} funciona cambiando la raíz de
 @command{lilypond} a @var{jaula} justo antes de comenzar el proceso de
 compilación en sí.  Entonces se cambian el usuario y el grupo a los
 que se han dado en la opción, y el directorio actual se cambia a
 @var{directorio}.  Esta instalación garantiza que no es posible, al
 menos en teoría, escapar de la jaula.  Observe que para que funcione
-@code{--jail} se debe ejecutar @command{lilypond} como root, lo que
+@option{--jail} se debe ejecutar @command{lilypond} como root, lo que
 normalmente se puede hacer de una forma segura utilizando
 @command{sudo}.
 
@@ -462,6 +506,11 @@ etc.
 
 @item LANG
 Selecciona el idioma de los mensajes de advertencia.
+
+@item LILYPOND_LOGLEVEL
+Nivel de registro predeterminado.  Si LilyPond se llama sin ningún
+nivel de registro explícito (es decir, sin opción de línea de órdenes
+@option{--loglevel}), se usa este valor.
 
 @item LILYPOND_GC_YIELD
 Una variable, como porcentaje, que ajusta el comportamiento de la
@@ -624,7 +673,7 @@ esto.  La causa más frecuente son las tipografías mal instaladas.
 @cindex error de Scheme
 Los errores que ocurren al ejecutar código de Scheme se interceptan
 por parte del intérprete de Scheme.  Si se está ejecutando con las
-opciones @code{-V} o @code{--verbose} (prolijo) entonces se imprime
+opciones @option{-V} o @option{--verbose} (prolijo) entonces se imprime
 una traza de llamadas de la función ofensiva.
 
 @item Error de programación
