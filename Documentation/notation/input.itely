@@ -1306,35 +1306,30 @@ version of LilyPond.
 Some simple examples of using @code{\include} are shown in
 @rlearning{Scores and parts}.
 
-
 @seealso
 Learning Manual:
 @rlearning{Other sources of information},
 @rlearning{Scores and parts}.
 
-
 @knownissues
-
 If an included file is given a name which is the same as one in
 LilyPond's installation files, LilyPond's file from the
 installation files takes precedence.
 
 
-
 @node Different editions from one source
 @subsection Different editions from one source
 
-Several mechanisms are available to facilitate the generation
-of different versions of a score from the same music source.
-Variables are perhaps most useful for combining lengthy sections
-of music and/or annotation in various ways, while tags are more
-useful for selecting one from several alternative shorter sections
-of music.  You can also employ tags for splicing pieced of music
-together at several places.
+Several methods can be used to generate different versions of a score
+from the same music source.  Variables are perhaps the most useful for
+combining lengthy sections of music and/or annotation.  Tags are more
+useful for selecting one section from several alternative shorter
+sections of music, and can also be used for splicing pieces of music
+together at different points.
 
-Whichever method is used, separating the notation from
-the structure of the score will make it easier to change the
-structure while leaving the notation untouched.
+Whichever method is used, separating the notation from the structure of
+the score will make it easier to change the structure while leaving the
+notation untouched.
 
 @menu
 * Using variables::
