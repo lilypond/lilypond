@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Fri Sep 16 14:46:06 UTC 2011
+@emph{最終更新日 Wed Sep 21 11:44:51 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -248,11 +248,11 @@ LilyPond 記譜法リファレンス
 @ifhtml
 
 @html
-<span style="background-color: #ff625a">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @item
@@ -339,7 +339,7 @@ partially
 @item
 1.2 リズム
 @*
-6048
+6256
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -356,7 +356,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially</span>
+<span style="background-color: #54ff26">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -599,11 +599,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #ff6759">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @item
@@ -626,11 +626,11 @@ A カンニング ペーパー
 @ifhtml
 
 @html
-<span style="background-color: #fff23f">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @end multitable

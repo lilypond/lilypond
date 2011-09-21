@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualizado en Sun Sep 18 15:02:17 UTC 2011
+@emph{Actualizado en Wed Sep 21 11:44:51 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -304,21 +304,21 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">parcialmente (77 %)</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente (77 %)
+sí
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -662,11 +662,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1148,11 +1148,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1202,11 +1202,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1349,11 +1349,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1403,11 +1403,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
