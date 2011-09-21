@@ -120,6 +120,10 @@ jobs.")
     (log-file #f
 "If string FOO is given as argument, redirect
 output to log file `FOO.log'.")
+    (max-markup-depth 1024
+"Maximum depth for the markup tree. If a markup has more levels,
+assume it will not terminate on its own, print a warning and return a
+null markup instead.")
     (midi-extension ,(if (eq? PLATFORM 'windows)
                          "mid"
                          "midi")
@@ -348,11 +352,10 @@ Print a message at LOCATION if any predicate failed."
     (define (helper pred? arg count)
       (if (not (pred? arg))
           (begin
-            (ly:input-message
+            (ly:input-warning
              location
-             (format
-              #f (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
-              count (type-name pred?) arg))
+             (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
+              count (type-name pred?) arg)
             #f)
           #t))
 

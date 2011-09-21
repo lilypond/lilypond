@@ -273,7 +273,6 @@ Paper_column_engraver::stop_translation_timestep ()
   context ()->get_score_context ()->unset_property (ly_symbol2scm ("forbidBreak"));
 
   first_ = false;
-  break_events_.clear ();
   label_events_.clear ();
 
   SCM mpos = get_property ("measurePosition");
@@ -292,6 +291,7 @@ Paper_column_engraver::stop_translation_timestep ()
 void
 Paper_column_engraver::start_translation_timestep ()
 {
+  break_events_.clear ();
   if (!first_ && !to_boolean (get_property ("skipTypesetting")))
     {
       make_columns ();

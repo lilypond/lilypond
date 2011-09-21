@@ -40,13 +40,14 @@
 deleting them.  Let's hope that a stack overflow doesnt trigger a move
 of the parse stack onto the heap. */
 
-%left PREC_TOP
-%left ADDLYRICS
 %left PREC_BOT
+%nonassoc REPEAT
+%nonassoc ALTERNATIVE
+%left ADDLYRICS
+%left PREC_TOP
 
-%expect 1
 
-/* One shift/reduce problem
+/* The above precedences tackle the shift/reduce problem
 
 1.  \repeat
 	\repeat .. \alternative
@@ -327,8 +328,8 @@ If we give names, Bison complains.
 /* Music */
 %type <scm> composite_music
 %type <scm> grouped_music_list
+%type <scm> braced_music_list
 %type <scm> closed_music
-%type <scm> open_music
 %type <scm> music
 %type <scm> prefix_composite_music
 %type <scm> repeated_music
@@ -365,7 +366,6 @@ If we give names, Bison complains.
 %type <outputdef> output_def
 %type <outputdef> paper_block
 
-%type <scm> alternative_music
 %type <scm> generic_prefix_music_scm
 %type <scm> music_list
 %type <scm> absolute_pitch
@@ -388,18 +388,19 @@ If we give names, Bison complains.
 %type <scm> context_prop_spec
 %type <scm> direction_less_char
 %type <scm> duration_length
-%type <scm> closed_embedded_scm
 %type <scm> embedded_scm
+%type <scm> embedded_scm_bare
+%type <scm> embedded_scm_closed
+%type <scm> embedded_scm_chord_body
+%type <scm> embedded_scm_event
 %type <scm> figure_list
 %type <scm> figure_spec
 %type <scm> fraction
 %type <scm> full_markup
 %type <scm> full_markup_list
-%type <scm> function_scm_argument
 %type <scm> function_arglist
-%type <scm> function_arglist_nonmusic_last
-%type <scm> closed_function_arglist
-%type <scm> open_function_arglist
+%type <scm> function_arglist_bare
+%type <scm> function_arglist_closed
 %type <scm> identifier_init
 %type <scm> lilypond
 %type <scm> lilypond_header
@@ -412,7 +413,6 @@ If we give names, Bison complains.
 %type <scm> markup_composed_list
 %type <scm> markup_command_list
 %type <scm> markup_command_list_arguments
-%type <scm> closed_markup_command_list_arguments
 %type <scm> markup_command_basic_arguments
 %type <scm> markup_head_1_item
 %type <scm> markup_head_1_list
@@ -440,9 +440,10 @@ If we give names, Bison complains.
 %type <scm> property_operation
 %type <scm> property_path property_path_revved
 %type <scm> scalar
-%type <scm> closed_scalar
-%type <scm> open_scm_function_call
-%type <scm> closed_scm_function_call
+%type <scm> scalar_bare
+%type <scm> scalar_closed
+%type <scm> scm_function_call
+%type <scm> scm_function_call_closed
 %type <scm> script_abbreviation
 %type <scm> simple_chord_elements
 %type <scm> simple_markup
@@ -545,28 +546,20 @@ toplevel_expression:
 	}
 	;
 
-closed_embedded_scm:
+embedded_scm_bare:
 	SCM_TOKEN
 	| SCM_IDENTIFIER
-	| closed_scm_function_call
 	;
+
+/* The generic version may end in music, or not */
 
 embedded_scm:
-	closed_embedded_scm
-	| open_scm_function_call
+	embedded_scm_bare
+	| scm_function_call
 	;
 
-closed_scm_function_call:
-	SCM_FUNCTION closed_function_arglist
-	{
-		$$ = run_music_function (PARSER, @$,
-					 $1, $2);
-	}
-	;
-
-open_scm_function_call:
-	SCM_FUNCTION open_function_arglist
-	{
+scm_function_call:
+	SCM_FUNCTION function_arglist {
 		$$ = run_music_function (PARSER, @$,
 					 $1, $2);
 	}
@@ -791,6 +784,7 @@ book_body:
 	| book_body lilypond_header {
 		$$->header_ = $2;
 	}
+	| book_body embedded_scm { }
 	| book_body error {
 		$$->paper_ = 0;
 		$$->scores_ = SCM_EOL;
@@ -843,6 +837,7 @@ bookpart_body:
 	| bookpart_body lilypond_header {
 		$$->header_ = $2;
 	}
+	| bookpart_body embedded_scm { }
 	| bookpart_body error {
 		$$->paper_ = 0;
 		$$->scores_ = SCM_EOL;
@@ -974,10 +969,10 @@ tempo_event:
 	TEMPO steno_duration '=' tempo_range	{
 		$$ = MAKE_SYNTAX ("tempo", @$, SCM_EOL, $2, $4);
 	}
-	| TEMPO closed_scalar steno_duration '=' tempo_range	{
+	| TEMPO scalar_closed steno_duration '=' tempo_range	{
 		$$ = MAKE_SYNTAX ("tempo", @$, $2, $3, $5);
 	}
-	| TEMPO closed_scalar {
+	| TEMPO scalar {
 		$$ = MAKE_SYNTAX ("tempo", @$, $2);
 	}
 	;
@@ -1004,41 +999,43 @@ music_list:
 	}
 	;
 
+braced_music_list:
+	'{' music_list '}'
+	{
+		$$ = scm_reverse_x ($2, SCM_EOL);
+	}
+	;
+
 music:
 	simple_music
 	| composite_music
 	| MUSIC_IDENTIFIER
 	;
 
-alternative_music:
-	/* empty */ {
-		$$ = SCM_EOL;
-	}
-	| ALTERNATIVE '{' music_list '}' {
-		$$ = scm_reverse_x ($3, SCM_EOL);
-	}
-	;
-
 
 repeated_music:
-	REPEAT simple_string unsigned_number music alternative_music
+	REPEAT simple_string unsigned_number music
 	{
-		$$ = MAKE_SYNTAX ("repeat", @$, $2, $3, $4, $5);
+		$$ = MAKE_SYNTAX ("repeat", @$, $2, $3, $4, SCM_EOL);
+	}
+	| REPEAT simple_string unsigned_number music ALTERNATIVE braced_music_list
+	{
+		$$ = MAKE_SYNTAX ("repeat", @$, $2, $3, $4, $6);
 	}
 	;
 
 sequential_music:
-	SEQUENTIAL '{' music_list '}'		{
-		$$ = MAKE_SYNTAX ("sequential-music", @$, scm_reverse_x ($3, SCM_EOL));
+	SEQUENTIAL braced_music_list {
+		$$ = MAKE_SYNTAX ("sequential-music", @$, $2);
 	}
-	| '{' music_list '}'		{
-		$$ = MAKE_SYNTAX ("sequential-music", @$, scm_reverse_x ($2, SCM_EOL));
+	| braced_music_list {
+		$$ = MAKE_SYNTAX ("sequential-music", @$, $1);
 	}
 	;
 
 simultaneous_music:
-	SIMULTANEOUS '{' music_list '}'{
-		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_reverse_x ($3, SCM_EOL));
+	SIMULTANEOUS braced_music_list {
+		$$ = MAKE_SYNTAX ("simultaneous-music", @$, $2);
 	}
 	| DOUBLE_ANGLE_OPEN music_list DOUBLE_ANGLE_CLOSE	{
 		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_reverse_x ($2, SCM_EOL));
@@ -1102,20 +1099,9 @@ closed_music:
 	| grouped_music_list
 	;
 
-/* Music that potentially accepts additional events or durations */
-open_music:
-	simple_music
-	| prefix_composite_music
-	;
- 
 grouped_music_list:
 	simultaneous_music		{ $$ = $1; }
 	| sequential_music		{ $$ = $1; }
-	;
-
-function_scm_argument:
-	closed_embedded_scm
-	| simple_string
 	;
 
 /* An argument list. If a function \foo expects scm scm music, then the lexer expands \foo into the token sequence:
@@ -1124,30 +1110,38 @@ and this rule returns the reversed list of arguments. */
 
 
 function_arglist:
-	closed_function_arglist
-	| open_function_arglist
-	;
-
-open_function_arglist:
-	EXPECT_MUSIC function_arglist open_music {
+	function_arglist_bare
+	| EXPECT_MUSIC function_arglist music {
 		$$ = scm_cons ($3, $2);
 	}
-	| EXPECT_SCM function_arglist open_scm_function_call {
+	| EXPECT_SCM function_arglist embedded_scm {
 	  	$$ = scm_cons ($3, $2);
 	}
 	;
 
-/* a closed argument list is one that does not end in a music
-   expression that could still take a duration or event */
-
-closed_function_arglist:
-	function_arglist_nonmusic_last
+function_arglist_closed:
+	function_arglist_bare
 	| EXPECT_MUSIC function_arglist closed_music {
 		$$ = scm_cons ($3, $2);
-		}
+	}
+	| EXPECT_SCM function_arglist embedded_scm_closed {
+	  	$$ = scm_cons ($3, $2);
+	}
 	;
 
-function_arglist_nonmusic_last:
+embedded_scm_closed:
+	embedded_scm_bare
+	| scm_function_call_closed
+	;
+
+scm_function_call_closed:
+	SCM_FUNCTION function_arglist_closed {
+		$$ = run_music_function (PARSER, @$,
+					 $1, $2);
+	}
+	;
+
+function_arglist_bare:
 	EXPECT_NO_MORE_ARGS {
 		/* This is for 0-ary functions, so they don't need to
 		   read a lookahead token */
@@ -1162,11 +1156,11 @@ function_arglist_nonmusic_last:
 	| EXPECT_PITCH function_arglist pitch_also_in_chords {
 	  	$$ = scm_cons ($3, $2);
 	}
-	| EXPECT_DURATION closed_function_arglist duration_length {
+	| EXPECT_DURATION function_arglist_closed duration_length {
 	   	$$ = scm_cons ($3, $2);
 	}
-	| EXPECT_SCM function_arglist function_scm_argument {
-		$$ = scm_cons ($3, $2);
+	| EXPECT_SCM function_arglist simple_string {
+	   	$$ = scm_cons ($3, $2);
 	}
 	;
 
@@ -1342,10 +1336,10 @@ context_change:
 
 
 property_path_revved:
-	closed_embedded_scm {
+	embedded_scm_closed {
 		$$ = scm_cons ($1, SCM_EOL);
 	}
-	| property_path_revved closed_embedded_scm {
+	| property_path_revved embedded_scm_closed {
 		$$ = scm_cons ($2, $1);
 	}
 	;
@@ -1483,7 +1477,8 @@ simple_string: STRING {
 	}
 	;
 
-closed_scalar: string {
+scalar_bare:
+	string {
 		$$ = $1;
 	}
 	| lyric_element {
@@ -1492,7 +1487,7 @@ closed_scalar: string {
 	| bare_number {
 		$$ = $1;
 	}
-        | closed_embedded_scm {
+        | embedded_scm_bare {
 		$$ = $1;
 	}
 	| full_markup {
@@ -1500,9 +1495,16 @@ closed_scalar: string {
 	}
 	;
 
-scalar: closed_scalar
-	| open_scm_function_call
+scalar:
+	scalar_bare |
+	scm_function_call
 	;
+
+scalar_closed:
+	scalar_bare |
+	scm_function_call_closed
+	;
+
 
 event_chord:
 	/* TODO: Create a special case that avoids the creation of
@@ -1624,9 +1626,20 @@ chord_body_element:
  */
 
 music_function_chord_body_arglist:
-	function_arglist_nonmusic_last
+	function_arglist_bare
 	| EXPECT_MUSIC music_function_chord_body_arglist chord_body_element {
 		$$ = scm_cons ($3, $2);
+	}
+	| EXPECT_SCM function_arglist embedded_scm_chord_body {
+		$$ = scm_cons ($3, $2);
+	}
+	;
+
+embedded_scm_chord_body:
+	embedded_scm_bare
+	| SCM_FUNCTION music_function_chord_body_arglist {
+		$$ = run_music_function (PARSER, @$,
+					 $1, $2);
 	}
 	;
 
@@ -1643,9 +1656,20 @@ music_function_chord_body:
  * refrain from doing so.
  */
 music_function_event_arglist:
-	function_arglist_nonmusic_last
+	function_arglist_bare
 	| EXPECT_MUSIC music_function_event_arglist post_event {
 		$$ = scm_cons ($3, $2);
+	}
+	| EXPECT_SCM function_arglist embedded_scm_event {
+		$$ = scm_cons ($3, $2);
+	}
+	;
+
+embedded_scm_event:
+	embedded_scm_bare
+	| SCM_FUNCTION music_function_event_arglist {
+		$$ = run_music_function (PARSER, @$,
+					 $1, $2);
 	}
 	;
 
@@ -2522,7 +2546,7 @@ markup_braced_list_body:
 	;
 
 markup_command_list:
-	MARKUP_LIST_FUNCTION closed_markup_command_list_arguments {
+	MARKUP_LIST_FUNCTION markup_command_list_arguments {
 	  $$ = scm_cons ($1, scm_reverse_x($2, SCM_EOL));
 	}
 	;
@@ -2531,7 +2555,7 @@ markup_command_basic_arguments:
 	EXPECT_MARKUP_LIST markup_command_list_arguments markup_list {
 	  $$ = scm_cons ($3, $2);
 	}
-	| EXPECT_SCM markup_command_list_arguments closed_embedded_scm {
+	| EXPECT_SCM markup_command_list_arguments embedded_scm_closed {
 	  $$ = scm_cons ($3, $2);
 	}
 	| EXPECT_NO_MORE_ARGS {
@@ -2539,17 +2563,9 @@ markup_command_basic_arguments:
 	}
 	;
 
-closed_markup_command_list_arguments:
+markup_command_list_arguments:
 	markup_command_basic_arguments { $$ = $1; }
 	| EXPECT_MARKUP markup_command_list_arguments markup {
-	  $$ = scm_cons ($3, $2);
-	}
-	;
-
-markup_command_list_arguments:
-	closed_markup_command_list_arguments
-	| EXPECT_SCM markup_command_list_arguments open_scm_function_call
-	{
 	  $$ = scm_cons ($3, $2);
 	}
 	;

@@ -400,10 +400,12 @@ in @var{grob}."
 	      'grob-property gprop))
 
 (define direction-polyphonic-grobs
-  '(DotColumn
+  '(AccidentalSuggestion
+    DotColumn
     Dots
     Fingering
     LaissezVibrerTie
+    LigatureBracket
     PhrasingSlur
     RepeatTie
     Rest
@@ -412,7 +414,8 @@ in @var{grob}."
     Stem
     TextScript
     Tie
-    TupletBracket))
+    TupletBracket
+    TrillSpanner))
 
 (define-safe-public (make-voice-props-set n)
   (make-sequential-music

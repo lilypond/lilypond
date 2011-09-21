@@ -28,6 +28,7 @@
 #include "modified-font-metric.hh"
 #include "output-def.hh"
 #include "pango-font.hh"
+#include "program-option.hh"
 #include "international.hh"
 #include "warn.hh"
 
@@ -101,7 +102,40 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
       if (!is_markup (markup))
         programming_error ("markup head has no markup signature");
 
-      return scm_apply_2 (func, layout_smob, props, args);
+      /* Use a hare/tortoise algorithm to detect whether we are in a cycle,
+       * i.e. whether we have already encountered the same markup in the
+       * current branch of the markup tree structure. */
+      static vector<SCM> encountered_markups;
+      size_t depth = encountered_markups.size ();
+      if (depth > 0)
+        {
+          int slow = depth / 2;
+          if (ly_is_equal (encountered_markups[slow], markup))
+            {
+              string name = ly_symbol2string (scm_procedure_name (func));
+              // TODO: Also print the arguments of the markup!
+              non_fatal_error (_f("Cyclic markup detected: %s", name));
+              return Stencil().smobbed_copy ();
+            }
+        }
+
+      /* Check for non-terminating markups, e.g. recursive calls with
+       * changing arguments */
+      SCM opt_depth = ly_get_option (ly_symbol2scm ("max-markup-depth"));
+      size_t max_depth = robust_scm2int(opt_depth, 1024);
+      if (depth > max_depth)
+        {
+          string name = ly_symbol2string (scm_procedure_name (func));
+          // TODO: Also print the arguments of the markup!
+          non_fatal_error (_f("Markup depth exceeds maximal value of %d; "
+                              "Markup: %s", max_depth, name.c_str ()));
+          return Stencil().smobbed_copy ();
+        }
+
+      encountered_markups.push_back (markup);
+      SCM retval = scm_apply_2 (func, layout_smob, props, args);
+      encountered_markups.pop_back ();
+      return retval;
     }
   else
     {

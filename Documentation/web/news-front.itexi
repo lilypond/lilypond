@@ -9,15 +9,18 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading LilyPond 2.15.12 released!  @emph{September 17, 2011}
+@subsubheading Release candidate 2 of 2.16 - LilyPond 2.15.12 released!  @emph{Aug 20, 2011}
 
-We are happy to announce the release of LilyPond 2.15.12.  This
-release contains the usual number of bugfixes.
+LilyPond 2.15.12 is out; this is the second release candidate of
+the upcoming 2.16 stable release.  All users are invited to
+experiment with this version.  New features since 2.14.2 are
+listed in the @qq{Changes} manual on the website section about
+@ref{Development}.
 
-It is strongly recommended that normal users do @strong{not} use
-this release, and instead use the stable 2.14 version.  Please
-note that due to the possibility of a few Critical bugs, this is
-not the next release candidate.
+There are no known Critical issues with this release.  If no
+Critical bugs are found, then the official 2.16.0 release will be
+on 27 Sep Aug 2011.  If you discover any problems, please send us
+@ref{Bug reports}.
 
 @newsEnd
 
@@ -32,52 +35,6 @@ It is strongly recommended that normal users do @strong{not} use
 this release, and instead use the stable 2.14 version.  Please
 note that due to the possibility of a few Critical bugs, this is
 not the next release candidate.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.15.10 released!  @emph{September 6, 2011}
-
-We are happy to announce the release of LilyPond 2.15.10.  This
-release contains the usual number of bugfixes.
-
-It is strongly recommended that normal users do @strong{not} use
-this release, and instead use the stable 2.14 version.  Please
-note that due to a few outstanding Critical bugs, this is not the
-next release candidate.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.15.9 released!  @emph{August 30, 2011}
-
-We are happy to announce the release of LilyPond 2.15.9.  This
-release contains the usual number of bugfixes, and also adds
-support for MacOS X 10.7.
-
-It is strongly recommended that normal users do @strong{not} use
-this release, and instead use the stable 2.14 version.  Please
-note that due to a few outstanding Critical bugs, this is not the
-next release candidate.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading Release candidate 1 of 2.16 - LilyPond 2.15.8 released!  @emph{Aug 01, 2011}
-
-LilyPond 2.15.8 is out; this is the first release candidate of
-the upcoming 2.16 stable release.  All users are invited to
-experiment with this version.  New features since 2.14.2 are
-listed in the @qq{Changes} manual on the website section about
-@ref{Development}.
-
-There are no known Critical issues with this release.  If no
-Critical bugs are found, then the official 2.16.0 release will be
-on 08 Aug 2011.  If you discover any problems, please send us
-@ref{Bug reports}.
 
 @newsEnd
 

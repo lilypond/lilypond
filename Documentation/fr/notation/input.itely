@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d0c96d3f0b1dca7df98ef5586059965dd46ab16f
+    Translation of GIT committish: 3930746d3e6cab846a02332c39510c48027c6006
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2287,7 +2287,7 @@ les changements de tempo indiqués par un @code{\tempo}@tie{};
 les paroles.
 @end itemize
 
-Si vous utilisez @ref{Le scrip Articulate}, d'autres éléments seront
+Si vous utilisez @ref{Le script Articulate}, d'autres éléments seront
 alors inclus@tie{}:
 
 @itemize
@@ -2303,7 +2303,7 @@ alors inclus@tie{}:
 @c TODO index as above
 
 LilyPond ne peut générer d'événement MIDI pour les éléments
-suivant, sauf à utiliser @ref{Le scrip Articulate}@tie{}:
+suivant, sauf à utiliser @ref{Le script Articulate}@tie{}:
 
 @itemize
 @item

@@ -40,6 +40,7 @@ protected:
   SCM short_text_;
 
   vector<Grob *> axis_groups_;
+  vector<Grob *> backup_axis_groups_;
 
   virtual void finalize ();
   DECLARE_ACKNOWLEDGER (axis_group);
@@ -126,7 +127,6 @@ Instrument_name_engraver::acknowledge_axis_group (Grob_info info)
 {
   if (dynamic_cast<Spanner *> (info.grob ())
       && Axis_group_interface::has_axis (info.grob (), Y_AXIS)
-      && Page_layout_problem::is_spaceable (info.grob ())
 
       /* ugh. */
 
@@ -135,7 +135,13 @@ Instrument_name_engraver::acknowledge_axis_group (Grob_info info)
       && !info.grob ()->internal_has_interface (ly_symbol2scm ("volta-interface"))
       && (!Align_interface::has_interface (info.grob ())))
     {
-      axis_groups_.push_back (info.grob ());
+      if (Page_layout_problem::is_spaceable (info.grob ()))
+        axis_groups_.push_back (info.grob ());
+      else
+        // By default, don't include non-spaceable staves in the
+        // support of an instrument name.  However, if the only staves
+        // are non-spaceable, we'll fall back to using them.
+        backup_axis_groups_.push_back (info.grob ());
     }
 }
 
@@ -149,6 +155,9 @@ Instrument_name_engraver::finalize ()
 void
 Instrument_name_engraver::stop_spanner ()
 {
+  if (axis_groups_.empty ())
+    axis_groups_ = backup_axis_groups_;
+
   for (vsize i = 0; i < axis_groups_.size (); i++)
     Pointer_group_interface::add_grob (text_spanner_,
                                        ly_symbol2scm ("elements"),

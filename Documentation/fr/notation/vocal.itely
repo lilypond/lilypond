@@ -615,11 +615,11 @@ mettre entre guillemets, soit utiliser le caractère souligné
 
 @lilypond[quote,ragged-right,verbatim]
 {
-  \time 3/4
-  \relative c' { c2 e4 g2 e4 }
-  \addlyrics { gran -- de_a -- mi -- go }
-  \addlyrics { pu -- "ro y ho" -- nes -- to }
-  \addlyrics { pu -- ro~y~ho -- nes -- to }
+  \relative c'' { \autoBeamOff
+    r8 b c fis, fis c' b e, }
+  \addlyrics { Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da }
+  \addlyrics { "Che in" ques -- "ta e in" quel -- l'al -- tr'on -- da }
+  \addlyrics { Che~in ques -- ta~e~in quel -- l'al -- tr'on -- da }
 }
 @end lilypond
 
