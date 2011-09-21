@@ -286,6 +286,7 @@ If we give names, Bison complains.
 %token <scm> PITCH_IDENTIFIER
 %token <scm> DURATION_IDENTIFIER
 %token <scm> EVENT_IDENTIFIER
+%token <scm> EVENT_FUNCTION
 %token <scm> FRACTION
 %token <scm> LYRICS_STRING
 %token <scm> LYRIC_MARKUP_IDENTIFIER
@@ -393,6 +394,7 @@ If we give names, Bison complains.
 %type <scm> embedded_scm_closed
 %type <scm> embedded_scm_chord_body
 %type <scm> embedded_scm_event
+%type <scm> event_function_event
 %type <scm> figure_list
 %type <scm> figure_spec
 %type <scm> fraction
@@ -1680,6 +1682,13 @@ music_function_event:
 	}
 	;
 
+event_function_event:
+	EVENT_FUNCTION music_function_event_arglist {
+		$$ = run_music_function (PARSER, @$,
+					 $1, $2);
+	}
+	;
+
 command_element:
 	command_event {
 		$$ = $1;
@@ -1879,6 +1888,7 @@ direction_less_event:
                a->set_property ("tremolo-type", scm_from_int ($1));
                $$ = a->unprotect ();
         }
+	| event_function_event	
 	;
 
 direction_reqd_event:

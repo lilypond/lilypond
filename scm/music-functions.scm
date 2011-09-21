@@ -880,6 +880,28 @@ parameter."
 
   `(define-syntax-function scheme? ,@rest))
 
+(defmacro-public define-event-function rest
+  "Defining macro returning event functions.
+Syntax:
+  (define-event-function (parser location arg1 arg2 ...) (arg1-type? arg2-type? ...)
+    ...function body...)
+
+argX-type can take one of the forms @code{predicate?} for mandatory
+arguments satisfying the predicate, @code{(predicate?)} for optional
+parameters of that type defaulting to @code{#f}, @code{@w{(predicate?
+value)}} for optional parameters with a specified default
+value (evaluated at definition time).  An optional parameter can be
+omitted in a call only when it can't get confused with a following
+parameter of different type.
+
+Predicates with syntactical significance are @code{ly:pitch?},
+@code{ly:duration?}, @code{ly:music?}, @code{markup?}.  Other
+predicates require the parameter to be entered as Scheme expression.
+
+Must return an event expression.  The @code{origin} is automatically
+set to the @code{location} parameter."
+
+  `(define-syntax-function (ly:event? (make-music 'Event 'void #t)) ,@rest))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

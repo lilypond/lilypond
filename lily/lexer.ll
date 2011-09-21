@@ -817,6 +817,8 @@ Lily_lexer::scan_escaped_word (string str)
 
 		if (scm_is_eq (cs, ly_lily_module_constant ("ly:music?")))
 			funtype = MUSIC_FUNCTION;
+		else if (scm_is_eq (cs, ly_lily_module_constant ("ly:event?")))
+			funtype = EVENT_FUNCTION;
 		else if (ly_is_procedure (cs))
 			funtype = SCM_FUNCTION;
 		else programming_error ("Bad syntax function predicate");
