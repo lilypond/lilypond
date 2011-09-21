@@ -315,7 +315,17 @@ After @strong{every release} (both stable and unstable):
 
 @item
 Regression test comparison: if anything has changed suspiciously,
-ask if it was deliberate.  The official comparison is online, at:
+ask if it was deliberate.  If the text output from LilyPond (the
+logfile) changes, the differences will be displayed with a +
+before text added to the logfile and - before any text removed
+from the logfile.  This may or may not be suspicious.
+
+There is one test designed to produce output every time the
+regtests are created. @code{test-output-distance.ly} creates
+randomly spaced notes and will always have different output if the
+regtest checker is working.
+
+The official comparison is online, at:
 
 @c NOTE: leave this here.  In this case, it's worth duplicating
 @c       the link.  -gp
