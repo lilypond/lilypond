@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: 5b7a2524c1d3b7e3df53219aafc10bb3f33a7c53
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -61,7 +61,7 @@ del tipo del valor, se puede interpretar como varias entidades
 sintácticas diferentes.
 @item #$@var{forma}
 evalúa la forma de Scheme en tiempo de ejecución y analiza su valor
-como una espresión de Scheme dentro del analizador de LilyPond.
+como una expresión de Scheme dentro del analizador de LilyPond.
 @item #@var{forma}
 las formas que están dentro de expresiones de Scheme y que comienzan
 por @code{#} se leen y se analizan recursivamente hasta que se
@@ -72,7 +72,7 @@ analiza el valor de la variable dentro de la expresión circundante.
 analiza el valor de la forma dentro de la expresión circundante.  Al
 contrario que las @code{$@var{formas}} a nivel de LilyPond,
 necesitamos separar la forma con un espacio en blanco, haciendo que
-@code{$} sea reconocible como un símblo de Scheme separado.
+@code{$} sea reconocible como un símbolo de Scheme separado.
 @end table
 
 Un bloque de código de LilyPond puede contener cualquier cosa que
@@ -85,7 +85,7 @@ convierte en una expresión de música secuencial.
 @section Funciones de Scheme
 @translationof Scheme functions
 
-Las @emph{funciones de Scheme} son procedimientos de Scheme que poeden
+Las @emph{funciones de Scheme} son procedimientos de Scheme que pueden
 crear expresiones de Scheme a partir de código de entrada escrito en
 la sintaxis de LilyPond.  Se pueden llamar desde prácticamente
 cualquier lugar en el que se permita el uso de @code{#} para la
@@ -190,7 +190,7 @@ Hay ciertos lugares especiales en los que un argumento que corresponde
 a @code{ly:music?} tiene que ser un identificador musical o bien una
 expresión musical encerrada dentro de @code{@{}@dots{}@code{@}} o
 @code{<<}@dots{}@code{>>} de forma explícita, de manera que las
-duraciones o post-eventos ocionales que posiblemente le sigan no
+duraciones o post-eventos opcionales que posiblemente le sigan no
 puedan confundirse con argumentos adicionales.  Un sitio obvio es
 antes de un predicado @code{ly:duration?}.  Otro es el último
 argumento de una función de Scheme cuando se utiliza en un lugar en
@@ -216,7 +216,7 @@ noApuntarYPulsar =
      ()
    (ly:set-option 'point-and-click #f))
 ...
-\noPointAndClick   % desactivar la función de apuntar y pulsar
+\noApuntarYPulsar   % desactivar la función de apuntar y pulsar
 @end example
 
 @node Funciones musicales
@@ -277,42 +277,44 @@ Archivos de inicio:
 
 Las funciones musicales se pueden actualmente utilizar en tres
 lugares.  Dependiendo de dónde se usan, son de aplicación ciertas
-restricciones para que sea posible su anámusicisis sintáctico de forma
+restricciones para que sea posible su análisis sintáctico de forma
 no ambigua.  El resultado que devuelve una función musical debe ser
 compatible con el contexto desde el que se la llama.
 
 @itemize
 @item
-At top level in a music expression.  There are no special restrictions
-on the argument list.
+En el nivel superior dentro de una expresión musical.  No existen
+especiales restricciones sobre la lista de argumentos.
 
 @item
-As a post-event.  All trailing arguments of the music function with the
-predicate @code{ly:music?} will get parsed also as post-events.  Note
-that returning post-events will also be acceptable for music functions
-called at top level, leading to a result roughly equivalent to
+Como un post-evento.  Todos los argumentos añadidos al final de la
+función musical con el predicado @code{ly:music?} se analizan
+sintácticamente también como post-eventos.  Observe que los
+post-eventos que se devuelven también serán aceptables por parte de
+las funciones musicales que se llamen desde el nivel superior, lo que
+lleva a un resultado aproximadamente equivalente a
 @example
 s 1*0-\fun
 @end example
 
 @item
-As a chord constituent.  All trailing arguments of the music function
-with the predicate @code{ly:music?} will get parsed also as chord
-constituents.
+Como componente de un acordes.  Todos los argumentos añadidos al final
+de la función musical con el predicado @code{ly:music?} se analizarán
+sintácticamente también como componentes de acorde.
 @end itemize
 
 @noindent
-The special rules for trailing arguments make it possible to write
-polymorphic functions like @code{\tweak} that can be applied to
-different constructs.
+Las reglas especiales para los argumentos del final hacen posible
+escribir funciones polimórficas como @code{\tweak} que se pueden
+aplicar a construcciones distintas.
 
-There is another somewhat special rule: if you have a predicate
-@code{ly:music?} directly before a @code{ly:duration?} predicate, then
-the corresponding music expression must be either a music identifier, or
-literal sequential or parallel music enclosed in
-@code{@{}@dots{}@code{@}} or @code{<<}@dots{}@code{>>} explicitly.
-Otherwise, Lilypond could get confused about where the music ends and
-the duration starts.
+Hay otra regla que es de alguna manera especial: si tenemos un
+predicado @code{ly:music?} justo antes de un predicado
+@code{ly:duration?}, la expresión musical correspondiente debe ser un
+identificador musical, o bien música secuencial o paralela encerrada
+en @code{@{}@dots{}@code{@}} o en @code{<<}@dots{}@code{>>} de forma
+explícita.  De lo contrario, LilyPond podría entrar en confusión
+acerca de dónde termina la música y dónde empieza la duración.
 
 @node Funciones de sustitución sencillas
 @subsection Funciones de sustitución sencillas
@@ -462,12 +464,13 @@ lilypond -d display-bar-numbers ARCHIVO.ly
 @subsection Funciones musicales vacías
 @translationof Void music functions
 
-A music function must return a music expression.  If you want to execute
-a function only for its side effect, it might make more sense to use a
-scheme function instead.  But there may be cases where you sometimes
-want to produce a music expression, and sometimes not (like in the
-previous example).  Returning a @code{void} music expression via
-@code{#@{ #@}} will do that.
+Una función musical debe devolver una expresión musical.  Si quiere
+ejecutar una función exclusivamente por sus efectos secundarios,
+podría ser más sensato usar en su lugar una función de Scheme.  Pero
+puede haber casos en los que a veces queremos producir una expresión
+musical, y a veces no (como en el ejemplo anterior).  Devolver una
+expresión musical @code{void} (vacía) por medio de @code{#@{ #@}} lo
+hace posible.
 
 
 @node Funciones de marcado
@@ -510,10 +513,10 @@ equivale a:
 @noindent
 Este ejemplo muestra las principales reglas de traducción entre la
 sintaxis del marcado normal de LilyPond y la sintaxis del marcado de
-Scheme.  Using @code{#@{
-@dots{} #@}} for entering in Lilypond syntax will often be most
-convenient, but we explain how to use the @code{markup} macro to get a
-Scheme-only solution.
+Scheme.  La utilización de @code{#@{ @dots{} #@}} para escribir en la
+sintaxis de LilyPond será con frecuencia lo más conveniente, pero
+explicamos cómo usar la macro @code{markup} para obtener una solución
+sólo con Scheme.
 
 @quotation
 @multitable @columnfractions .3 .3
@@ -661,7 +664,7 @@ aplicado a todos los elementos de la lista de marcados original.
 Dado que la replicación de los argumentos precedentes para aplicar una
 función de marcado a una lista de marcados es poco costosa
 principalmente por los argumentos de Scheme, se evitan las caídas de
-reindimiento simplemente mediante la utilización de argumentos de
+rendimiento simplemente mediante la utilización de argumentos de
 Scheme para los argumentos antecedentes de las funciones de marcado
 que toman un marcado como su último argumento.
 
@@ -710,8 +713,8 @@ El ejemplo siguiente define una instrucción de marcado para trazar un
 rectángulo doble alrededor de un fragmento de texto.
 
 En primer lugar, necesitamos construir un resultado aproximado
-utilizando marcados.  Una consulta a @ruser{Text markup commands} nos
-muestra que es útil la instrucción @code{\box}:
+utilizando marcados.  Una consulta a @ruser{Instrucciones de marcado
+de texto} nos muestra que es útil la instrucción @code{\box}:
 
 @lilypond[quote,verbatim,ragged-right]
 \markup \box \box HELLO
@@ -794,13 +797,13 @@ Ahora el código nuevo es como se ve a continuación:
                @{ $text @} #@}))
 @end lisp
 
-Again, the equivalent version using the markup macro would be:
+De nuevo, la versión equivalente que utiliza la macro de marcado sería:
 
 @lisp
 #(define-markup-command (double-box layout props text) (markup?)
   #:properties ((inter-box-padding 0.4)
                 (box-padding 0.6))
-  "Draw a double box around text."
+  "Trazar un rectángulo doble rodeando el texto."
   (interpret-markup layout props
     (markup #:override `(box-padding . ,inter-box-padding) #:box
             #:override `(box-padding . ,box-padding) #:box text)))
@@ -948,7 +951,7 @@ del argumento @code{props}.
 @end example
 
 
-The version using just Scheme is more complex:
+La versión que usa solamente Scheme es más compleja:
 @example
 #(define-markup-list-command (paragraph layout props args) (markup-list?)
    #:properties ((par-indent 2))
