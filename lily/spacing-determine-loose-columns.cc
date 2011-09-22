@@ -191,7 +191,6 @@ Spacing_spanner::prune_loose_columns (Grob *me,
                                       Spacing_options *options)
 {
   vector<Grob *> newcols;
-
   for (vsize i = 0; i < cols->size (); i++)
     {
       Grob *c = cols->at (i);
@@ -243,14 +242,14 @@ Spacing_spanner::prune_loose_columns (Grob *me,
               /*
                 Set distance constraints for loose columns
               */
-              Drul_array<Item *> next_door (dynamic_cast<Item *> (cols->at (i - 1)),
-                                            dynamic_cast<Item *> (cols->at (i + 1)));
+              Drul_array<Item *> next_door (dynamic_cast<Item *> (left_neighbor),
+                                            dynamic_cast<Item *> (right_neighbor));
 
               set_distances_for_loose_col (me, c, next_door, options);
             }
         }
 
-      if (!loose)
+      else
         newcols.push_back (c);
     }
 
