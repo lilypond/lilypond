@@ -332,7 +332,8 @@ If we give names, Bison complains.
 %type <scm> braced_music_list
 %type <scm> closed_music
 %type <scm> music
-%type <scm> prefix_composite_music
+%type <scm> complex_music
+%type <scm> mode_changed_music
 %type <scm> repeated_music
 %type <scm> sequential_music
 %type <scm> simple_music
@@ -367,7 +368,7 @@ If we give names, Bison complains.
 %type <outputdef> output_def
 %type <outputdef> paper_block
 
-%type <scm> generic_prefix_music_scm
+%type <scm> music_function_call
 %type <scm> music_list
 %type <scm> absolute_pitch
 %type <scm> assignment_id
@@ -1011,7 +1012,6 @@ braced_music_list:
 music:
 	simple_music
 	| composite_music
-	| MUSIC_IDENTIFIER
 	;
 
 
@@ -1091,13 +1091,14 @@ context_mod_list:
         ;
 
 composite_music:
-	prefix_composite_music { $$ = $1; }
-	| grouped_music_list { $$ = $1; }
+	complex_music
+	| closed_music
 	;
 
 /* Music that can't be followed by additional events or durations */
 closed_music:
-	MUSIC_IDENTIFIER
+	mode_changed_music
+	| MUSIC_IDENTIFIER
 	| grouped_music_list
 	;
 
@@ -1166,7 +1167,7 @@ function_arglist_bare:
 	}
 	;
 
-generic_prefix_music_scm:
+music_function_call:
 	MUSIC_FUNCTION function_arglist {
 		$$ = run_music_function (PARSER, @$,
 					 $1, $2);
@@ -1181,9 +1182,8 @@ optional_id:
 	}
 	;
 
-
-prefix_composite_music:
-	generic_prefix_music_scm
+complex_music:
+	music_function_call
 	| CONTEXT simple_string optional_id optional_context_mod music {
                 Context_mod *ctxmod = unsmob_context_mod ($4);
                 SCM mods = SCM_EOL;
@@ -1203,7 +1203,12 @@ prefix_composite_music:
                 $$ = MAKE_SYNTAX ("time-scaled-music", @$, $2, $3);
 	}
 	| repeated_music		{ $$ = $1; }
-	| mode_changing_head grouped_music_list {
+	| relative_music	{ $$ = $1; }
+	| re_rhythmed_music	{ $$ = $1; }
+	;
+
+mode_changed_music:
+	mode_changing_head grouped_music_list {
 		if ($1 == ly_symbol2scm ("chords"))
 		{
 		  $$ = MAKE_SYNTAX ("unrelativable-music", @$, $2);
@@ -1226,8 +1231,6 @@ prefix_composite_music:
 		}
 		PARSER->lexer_->pop_state ();
 	}
-	| relative_music	{ $$ = $1; }
-	| re_rhythmed_music	{ $$ = $1; }
 	;
 
 mode_changing_head:
