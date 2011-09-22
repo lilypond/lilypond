@@ -73,17 +73,16 @@
    (ly:event-property (event-cause grob) 'duration)))
 
 (define-public (stem::length grob)
-  (let* ((d (ly:grob-property grob 'direction))
-         (ss (ly:staff-symbol-staff-space grob))
+  (let* ((ss (ly:staff-symbol-staff-space grob))
          (beg (ly:grob-property grob 'stem-begin-position))
          (beam (ly:grob-object grob 'beam)))
     (if (null? beam)
         (abs (- (ly:stem::calc-stem-end-position grob) beg))
-        (ly:grob-property grob 'length))))
+        (ly:programming-error
+          "stem::length called but will not be used for beamed stem."))))
 
 (define-public (stem::pure-length grob beg end)
-  (let* ((d (ly:grob-property grob 'direction))
-         (ss (ly:staff-symbol-staff-space grob))
+  (let* ((ss (ly:staff-symbol-staff-space grob))
          (beg (ly:grob-pure-property grob 'stem-begin-position 0 1000)))
     (abs (- (ly:stem::pure-calc-stem-end-position grob 0 2147483646) beg))))
 
