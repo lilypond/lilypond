@@ -79,7 +79,6 @@ $(outdir)/parser.cc: $(config_h)
 $(outdir)/general-scheme.o: $(outdir)/version.hh
 $(outdir)/lily-guile.o: $(outdir)/version.hh
 $(outdir)/lily-version.o: $(outdir)/version.hh
-$(outdir)/lexer.ll.o: $(outdir)/version.hh
 $(outdir)/main.o: $(outdir)/version.hh
 $(outdir)/relocate.o: $(outdir)/version.hh
 $(outdir)/warn-scheme.o: $(outdir)/version.hh
