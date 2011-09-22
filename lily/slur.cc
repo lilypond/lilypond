@@ -270,6 +270,16 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
 
   Interval yext = robust_relative_extent (script, cy, Y_AXIS);
   Interval xext = robust_relative_extent (script, cx, X_AXIS);
+  Interval slur_wid (curve.control_[0][X_AXIS], curve.control_[3][X_AXIS]);
+
+  bool contains = false;
+  Direction d = LEFT;
+  do
+    contains |= slur_wid.contains (xext[d]);
+  while (flip (&d) != LEFT);
+
+  if (!contains)
+    return offset_scm;
 
   Real offset = robust_scm2double (offset_scm, 0);
   yext.translate (offset);
