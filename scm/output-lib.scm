@@ -78,8 +78,10 @@
          (beam (ly:grob-object grob 'beam)))
     (if (null? beam)
         (abs (- (ly:stem::calc-stem-end-position grob) beg))
-        (ly:programming-error
-          "stem::length called but will not be used for beamed stem."))))
+        (begin
+          (ly:programming-error
+            "stem::length called but will not be used for beamed stem.")
+          0.0))))
 
 (define-public (stem::pure-length grob beg end)
   (let* ((ss (ly:staff-symbol-staff-space grob))
