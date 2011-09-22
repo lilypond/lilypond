@@ -105,7 +105,6 @@ def source_links_replace (m, source_val):
 split_docs_re = re.compile('(Documentation/out-www/(automated-engraving|essay|notation|changes|extending|music-glossary|usage|web|learning|snippets|contributor))/')
 lily_snippets_re = re.compile ('(href|src)="([0-9a-f]{2}/lily-.*?)"')
 pictures_re = re.compile ('src="(pictures/.*?)"')
-lyexamples_re = re.compile ('="web/(ly-examples/.*?)"')
 
 docindex_link_re = re.compile (r'href="index.html"')
 manuals_page_link_re = re.compile (r'href="((?:\.\./)+)Documentation/web/manuals')
@@ -118,7 +117,6 @@ def hack_urls (s, prefix, target, is_development_branch):
     if split_docs_re.match (prefix):
         s = lily_snippets_re.sub ('\\1="../\\2"', s)
         s = pictures_re.sub ('src="../\\1"', s)
-        s = lyexamples_re.sub ('="\\1"', s)
 
     # we also need to replace in the lsr, which is already processed above!
     if 'input/' in prefix or 'Documentation/topdocs' in prefix or \
