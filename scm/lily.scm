@@ -553,6 +553,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     (,ly:dir? . "direction")
     (,ly:dispatcher? . "dispatcher")
     (,ly:duration? . "duration")
+    (,ly:event? . "event")
     (,ly:font-metric? . "font metric")
     (,ly:grob? . "graphical (layout) object")
     (,ly:grob-array? . "array of grobs")

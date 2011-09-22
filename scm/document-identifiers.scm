@@ -27,15 +27,17 @@
 	     (cddr (cadr (procedure-source func)))))
        (doc (procedure-documentation func))
        (sign (object-property func 'music-function-signature))
-       (type-names (map type-name sign))
+       (type-names (map (lambda (pred)
+			  (if (pair? pred)
+			      (format #f "[~a]" (type-name (car pred)))
+			      (format #f "(~a)" (type-name pred))))
+			sign))
        (signature-str
 	(string-join
-	 (map (lambda (x) (format #f "@var{~a} (~a)"
-				  (car x)
-				  (cadr x)))
-	      (zip arg-names (cdr type-names))))))
+	 (map (lambda (arg type) (format #f "@var{~a} ~a" arg type))
+	      arg-names (cdr type-names)))))
     (format #f
-     "@item @code{~a} (~a) ~a~a
+     "@item @code{~a} ~a ~a~a
 @funindex ~a
 ~a
 "

@@ -286,6 +286,7 @@ If we give names, Bison complains.
 %token <scm> PITCH_IDENTIFIER
 %token <scm> DURATION_IDENTIFIER
 %token <scm> EVENT_IDENTIFIER
+%token <scm> EVENT_FUNCTION
 %token <scm> FRACTION
 %token <scm> LYRICS_STRING
 %token <scm> LYRIC_MARKUP_IDENTIFIER
@@ -393,6 +394,7 @@ If we give names, Bison complains.
 %type <scm> embedded_scm_closed
 %type <scm> embedded_scm_chord_body
 %type <scm> embedded_scm_event
+%type <scm> event_function_event
 %type <scm> figure_list
 %type <scm> figure_spec
 %type <scm> fraction
@@ -1680,6 +1682,13 @@ music_function_event:
 	}
 	;
 
+event_function_event:
+	EVENT_FUNCTION music_function_event_arglist {
+		$$ = run_music_function (PARSER, @$,
+					 $1, $2);
+	}
+	;
+
 command_element:
 	command_event {
 		$$ = $1;
@@ -1879,6 +1888,7 @@ direction_less_event:
                a->set_property ("tremolo-type", scm_from_int ($1));
                $$ = a->unprotect ();
         }
+	| event_function_event	
 	;
 
 direction_reqd_event:
@@ -2741,13 +2751,27 @@ run_music_function (Lily_parser *parser, Input loc, SCM func, SCM args)
 
 	args = scm_reverse_x (args, SCM_EOL);
 
+	SCM fallback = SCM_BOOL_F;
+	SCM pred = scm_car (sig);
+
+	if (scm_is_pair (pred))
+	{
+		fallback = scm_cdr (pred);
+		if (Music *m = unsmob_music (fallback)) {
+			m = m->clone ();
+			m->set_spot (loc);
+			fallback = m->unprotect ();
+		}
+		pred = scm_car (pred);
+	}
+
 	if (!to_boolean (scm_call_3  (type_check_proc, make_input (loc), scm_cdr (sig), args)))
 	{
 		parser->error_level_ = 1;
-		return LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("void-music"), scm_list_2 (parser->self_scm (), make_input (loc)));
+		return fallback;
 	}
 
-	SCM syntax_args = scm_list_5 (parser->self_scm (), make_input (loc), scm_car (sig), func, args);
+	SCM syntax_args = scm_list_n (parser->self_scm (), make_input (loc), pred, fallback, func, args, SCM_UNDEFINED);
 	return LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("music-function"), syntax_args);
 }
 
