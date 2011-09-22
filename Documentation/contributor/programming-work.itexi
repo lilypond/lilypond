@@ -16,6 +16,7 @@
 * Engraver tutorial::
 * Callback tutorial::
 * LilyPond scoping::
+* Scheme->C interface::
 * LilyPond miscellany::
 @end menu
 
@@ -1543,7 +1544,7 @@ Otherwise, a developer with push privileges will push the patch.
 Once the patch has been pushed, all the relevant issues should be
 closed.
 
-On Rietveld, the author should log in an close the issue either by
+On Rietveld, the author should log in and close the issue either by
 using the @q{Edit Issue} link, or by clicking the circled x icon
 to the left of the issue name.
 
@@ -1810,6 +1811,117 @@ information belonging to user-defined commands and markups is stored in
 a manner that allows it to be garbage-collected when the module is
 dispersed, either by being stored module-locally, or in weak hash
 tables.
+
+
+@node Scheme->C interface
+@section Scheme->C interface
+
+Most of the C functions interfacing with Guile/Scheme used in LilyPond
+are described in the API Reference of the
+@uref{http://www.gnu.org/software/guile/manual/html_node/index.html,
+GUILE Reference Manual}.
+
+The remaining functions are defined in @file{lily/lily-guile.cc},
+@file{lily/include/lily-guile.hh} and
+@file{lily/include/lily-guile-macros.hh}.
+Although their names are meaningful there's a few things you should know
+about them.
+
+@menu
+* Comparison::
+* Conversion::
+@end menu
+
+@node Comparison
+@subsection Comparison
+
+This is the trickiest part of the interface.
+
+Mixing Scheme values with C comparison operators won't produce any crash
+or warning when compiling but must be avoided:
+
+@example
+scm_string_p (scm_value) == SCM_BOOL_T
+@end example
+
+As we can read in the reference, @code{scm_string_p} returns a Scheme
+value: either @code{#t} or @code{#f} which are written @code{SCM_BOOL_T}
+and @code{SCM_BOOL_F} in C.  This will work, but it is not following
+to the API guidelines.  For further information, read this discussion:
+
+@smallexample
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg00646.html}
+@end smallexample
+
+There are functions in the Guile reference that returns C values
+instead of Scheme values.  In our example, a function called
+@code{scm_is_string} (described after @code{string?} and @code{scm_string_p})
+returns the C value 0 or 1.
+
+So the best solution was simply:
+
+@example
+scm_is_string (scm_value)
+@end example
+
+There a simple solution for almost every common comparison.  Another example:
+we want to know if a Scheme value is a non-empty list.  Instead of:
+
+@example
+(scm_list_p (scm_value) && scm_value != SCM_EOL)
+@end example
+
+one should use:
+
+@example
+scm_is_pair (scm_value)
+@end example
+
+since a list of at least one member is considered as a pair.
+
+Unfortunately, there is not a @code{scm_is_[something]} function for
+everything.  That's one of the reasons why LilyPond has its own Scheme
+interface.
+
+@subheading General definitions
+
+@subsubheading bool to_boolean (SCM b)
+
+Return @code{true} if @var{b} is @code{SCM_BOOL_T}, else return @code{false}.
+
+This should be used instead of @code{scm_is_true} and @code{scm_is_false}
+for properties since empty lists are sometimes used to unset them.
+
+@subsubheading bool ly_is_[something] (args)
+
+Behave the same as scm_is_[something] would do if it existed.
+
+@subsubheading bool is_[type] (SCM s)
+
+Test whether the type of @var{s} is [type].
+[type] is a LilyPond-only type of value (direction, axis...).
+
+@node Conversion
+@subsection Conversion
+
+@subheading General definitions
+
+@subsubheading bool to_boolean (SCM b)
+
+Return @code{true} if @var{b} is @code{SCM_BOOL_T}, else return @code{false}.
+
+This should be used instead of @code{scm_is_true} and @code{scm_is_false}
+for properties since empty lists are sometimes used to unset them.
+
+@subsubheading [C type] ly_scm2[C type] (SCM s)
+
+Behave the same as scm_to_[C type] would do if it existed.
+
+@subsubheading [C type] robust_scm2[C type] (SCM s, [C type] d)
+
+Behave the same as scm_to_[C type] would do if it existed.
+Return @var{d} if type verification fails.
+
 
 @node LilyPond miscellany
 @section LilyPond miscellany
