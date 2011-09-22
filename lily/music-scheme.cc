@@ -73,6 +73,17 @@ LY_DEFINE (ly_music_p, "ly:music?",
   return scm_from_bool (unsmob_music (obj));
 }
 
+LY_DEFINE (ly_event_p, "ly:event?",
+           1, 0, 0, (SCM obj),
+           "Is @var{obj} an event object?")
+{
+  if (Music *m = unsmob_music (obj))
+    {
+      return scm_from_bool (m->is_mus_type ("event"));
+    }
+  return SCM_BOOL_F;
+}
+
 /* todo: property args */
 LY_DEFINE (ly_music_mutable_properties, "ly:music-mutable-properties",
            1, 0, 0, (SCM mus),
