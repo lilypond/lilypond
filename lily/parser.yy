@@ -326,7 +326,6 @@ If we give names, Bison complains.
 %type <i> tremolo_type
 
 /* Music */
-%type <scm> composite_music
 %type <scm> grouped_music_list
 %type <scm> braced_music_list
 %type <scm> closed_music
@@ -517,7 +516,7 @@ toplevel_expression:
 		scm_call_2 (proc, PARSER->self_scm (), score->self_scm ());
 		score->unprotect ();
 	}
-	| composite_music {
+	| closed_music {
 		Music *music = unsmob_music ($1);
 		SCM proc = PARSER->lexer_->lookup_identifier ("toplevel-music-handler");
 		scm_call_2 (proc, PARSER->self_scm (), music->self_scm ());
@@ -768,7 +767,7 @@ book_body:
 		scm_call_2 (proc, $$->self_scm (), score->self_scm ());
 		score->unprotect ();
 	}
-	| book_body composite_music {
+	| book_body closed_music {
 		Music *music = unsmob_music ($2);
 		SCM proc = PARSER->lexer_->lookup_identifier ("book-music-handler");
 		scm_call_3 (proc, PARSER->self_scm (), $$->self_scm (), music->self_scm ());
@@ -821,7 +820,7 @@ bookpart_body:
 		scm_call_2 (proc, $$->self_scm (), score->self_scm ());
 		score->unprotect ();
 	}
-	| bookpart_body composite_music {
+	| bookpart_body closed_music {
 		Music *music = unsmob_music ($2);
 		SCM proc = PARSER->lexer_->lookup_identifier ("bookpart-music-handler");
 		scm_call_3 (proc, PARSER->self_scm (), $$->self_scm (), music->self_scm ());
@@ -1008,7 +1007,8 @@ braced_music_list:
 
 music:
 	simple_music
-	| composite_music
+	| prefix_composite_music { $$ = $1; }
+	| grouped_music_list { $$ = $1; }
 	| MUSIC_IDENTIFIER
 	;
 
@@ -1087,11 +1087,6 @@ context_mod_list:
                      unsmob_context_mod ($1)->add_context_mods (md->get_mods ());
         }
         ;
-
-composite_music:
-	prefix_composite_music { $$ = $1; }
-	| grouped_music_list { $$ = $1; }
-	;
 
 /* Music that can't be followed by additional events or durations */
 closed_music:
@@ -1292,7 +1287,7 @@ relative_music:
 		Pitch start = *unsmob_pitch ($2);
 		$$ = make_music_relative (start, $3, @$);
 	}
-	| RELATIVE composite_music {
+	| RELATIVE closed_music {
 		Pitch middle_c (0, 0, 0);
 		$$ = make_music_relative (middle_c, $2, @$);
 	}
