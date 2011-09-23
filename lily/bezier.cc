@@ -254,7 +254,14 @@ Bezier::minmax (Axis ax, Real l, Real r, Direction d) const
   for (vsize i = solutions.size (); i--;)
     {
       Real t = solutions[i];
-      if (t >= 0 && t <= 1 && p.eval (t) >= l && p.eval (t) <= r)
+      if (t >= 0 && t <= 1
+          // FIXME: floating point comparison for equality
+          // Two of the t in solutions were found by solving
+          // p(t) = l, bzw. r, and we want this test to pass for these t,
+          // but it can easily fail if floating point internal precision
+          // differs from storage precision.
+          // Better to store separately the two t for which p(t) = l and r
+          && p.eval (t) >= l && p.eval (t) <= r)
         values.push_back (other_p.eval (t));
     }
 
