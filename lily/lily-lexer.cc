@@ -105,6 +105,7 @@ Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
   is_main_input_ = false;
   start_module_ = SCM_EOL;
   chord_repetition_ = Chord_repetition ();
+  extra_tokens_ = SCM_EOL;
   smobify_self ();
 
   add_scope (ly_make_module (false));
@@ -127,6 +128,7 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser)
   is_main_input_ = src.is_main_input_;
 
   scopes_ = SCM_EOL;
+  extra_tokens_ = SCM_EOL;
 
   smobify_self ();
 
@@ -388,6 +390,7 @@ Lily_lexer::mark_smob (SCM s)
     scm_gc_mark (lexer->parser_->self_scm ());
   scm_gc_mark (lexer->pitchname_tab_stack_);
   scm_gc_mark (lexer->start_module_);
+  scm_gc_mark (lexer->extra_tokens_);
   return lexer->scopes_;
 }
 

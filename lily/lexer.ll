@@ -173,9 +173,10 @@ BOM_UTF8	\357\273\277
   yyless (0);
 
   /* produce requested token */
-  int type = extra_token_types_.back ();
-  extra_token_types_.pop_back ();
-  if (extra_token_types_.empty ())
+  int type = scm_to_int (scm_caar (extra_tokens_));
+  yylval.scm = scm_cdar (extra_tokens_);
+  extra_tokens_ = scm_cdr (extra_tokens_);
+  if (scm_is_null (extra_tokens_))
     yy_pop_state ();
 
   return type;
@@ -185,9 +186,10 @@ BOM_UTF8	\357\273\277
   /* Generate a token without swallowing anything */
 
   /* produce requested token */
-  int type = extra_token_types_.back ();
-  extra_token_types_.pop_back ();
-  if (extra_token_types_.empty ())
+  int type = scm_to_int (scm_caar (extra_tokens_));
+  yylval.scm = scm_cdar (extra_tokens_);
+  extra_tokens_ = scm_cdr (extra_tokens_);
+  if (scm_is_null (extra_tokens_))
     yy_pop_state ();
 
   return type;
@@ -588,7 +590,7 @@ BOM_UTF8	\357\273\277
 		  else if (predicate == ly_lily_module_constant ("markup?"))
 		    push_extra_token(EXPECT_MARKUP);
 		  else
-		    push_extra_token(EXPECT_SCM);
+		    push_extra_token(EXPECT_SCM, predicate);
 		}
 		return token_type;
 	}
@@ -721,15 +723,15 @@ BOM_UTF8	\357\273\277
 /* Make the lexer generate a token of the given type as the next token. 
  TODO: make it possible to define a value for the token as well */
 void
-Lily_lexer::push_extra_token (int token_type)
+Lily_lexer::push_extra_token (int token_type, SCM scm)
 {
-	if (extra_token_types_.empty ())
+	if (scm_is_null (extra_tokens_))
 	{
 		if (YY_START != extratoken)
 			hidden_state_ = YY_START;
 		yy_push_state (extratoken);
 	}
-	extra_token_types_.push_back (token_type);
+	extra_tokens_ = scm_acons (scm_from_int (token_type), scm, extra_tokens_);
 }
 
 void
@@ -826,7 +828,14 @@ Lily_lexer::scan_escaped_word (string str)
 		push_extra_token (EXPECT_NO_MORE_ARGS);
 		for (s = scm_cdr (s); scm_is_pair (s); s = scm_cdr (s))
 		{
+			SCM optional = SCM_UNDEFINED;
 			cs = scm_car (s);
+
+			if (scm_is_pair (cs))
+			{
+				optional = SCM_CDR (cs);
+				cs = SCM_CAR (cs);
+			}
 			
 			if (cs == ly_music_p_proc)
 				push_extra_token (EXPECT_MUSIC);
@@ -837,8 +846,14 @@ Lily_lexer::scan_escaped_word (string str)
 			else if (cs == ly_lily_module_constant ("markup?"))
 				push_extra_token (EXPECT_MARKUP);
 			else if (ly_is_procedure (cs))
-				push_extra_token (EXPECT_SCM);
-			else programming_error ("Function parameter without type-checking predicate");
+				push_extra_token (EXPECT_SCM, cs);
+			else
+			{
+				programming_error ("Function parameter without type-checking predicate");
+				continue;
+			}
+			if (!scm_is_eq (optional, SCM_UNDEFINED))
+				push_extra_token (EXPECT_OPTIONAL, optional);
 		}
 		return funtype;
 	}
