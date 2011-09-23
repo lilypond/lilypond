@@ -345,16 +345,26 @@ messages into errors.")
       (set-module-obarray! iface (module-obarray mod))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (type-check-arg location arg args pred?)
-  "Typecheck an argument after previous arguments.
-Print a message at LOCATION if predicate fails and return #f"
-  (or (pred? arg)
-      (begin
-	(ly:input-warning
-	 location
-	 (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
-	 (1+ (length args)) (type-name pred?) arg)
-	#f)))
+(define (type-check-list location signature arguments)
+  "Typecheck a list of arguments against a list of type predicates.
+Print a message at LOCATION if any predicate failed."
+  (define (recursion-helper signature arguments count)
+    (define (helper pred? arg count)
+      (if (not (pred? arg))
+          (begin
+            (ly:input-warning
+             location
+             (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
+              count (type-name pred?) arg)
+            #f)
+          #t))
+
+    (if (null? signature)
+        #t
+        (and (helper (car signature) (car arguments) count)
+             (recursion-helper (cdr signature) (cdr arguments) (1+ count)))))
+  (recursion-helper signature arguments 1))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Safe definitions utility
