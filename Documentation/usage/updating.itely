@@ -147,6 +147,11 @@ available version.  E.g. @option{--to=2.12.2}
 
 @item -h, --help
 Print usage help.
+
+@item -l @var{loglevel}, --loglevel=@var{loglevel}
+Set the output verbosity to @var{loglevel}. Possible values are @code{NONE},
+@code{ERROR}, @code{WARNING}, @code{PROGRESS} (default) and @code{DEBUG}.
+
 @end table
 
 To upgrade LilyPond fragments in texinfo files, use

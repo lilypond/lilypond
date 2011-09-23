@@ -974,6 +974,13 @@ them back to the output directory, so in some cases it is necessary to
 invoke further processing commands such as @command{makeinfo} or
 @command{latex} with the same @option{-I @var{dir}} options.
 
+@item -l @var{loglevel}
+@itemx --loglevel=@var{loglevel}
+Set the output verbosity to @var{loglevel}. Possible values are @code{NONE},
+@code{ERROR}, @code{WARNING}, @code{PROGRESS} (default) and @code{DEBUG}. If
+this option is not used, and the environment variable
+@code{LILYPOND_BOOK_LOGLEVEL} is set, its value is used as the loglevel.
+
 @item -o @var{dir}
 @itemx --output=@var{dir}
 Place generated files in directory @var{dir}.  Running
@@ -1000,6 +1007,14 @@ LilyPond Info documentation without images.
 Write lily-XXX files to directory @var{dir}, link into @option{--output}
 directory.  Use this option to save building time for documents in
 different directories which share a lot of identical snippets.
+
+@itemx --lily-loglevel=@var{loglevel}
+Set the output verbosity of the invoked @command{lilypond} calls to @var{loglevel}.
+Possible values are @code{NONE}, @code{ERROR}, @code{WARNING}, @code{BASIC_PROGRESS},
+@code{PROGRESS}, @code{INFO} (default) and @code{DEBUG}. If
+this option is not used, and the environment variable
+@code{LILYPOND_LOGLEVEL} is set, its value is used as the loglevel.
+
 
 @itemx --info-images-dir=@var{dir}
 Format Texinfo output so that Info will look for images of music in
@@ -1041,12 +1056,15 @@ and only if directories implied by @option{--output-dir} and
 
 @item -V
 @itemx --verbose
-Be verbose.
+Be verbose. This is equivalent to @code{--loglevel=DEBUG}.
 
 @item -v
 @itemx --version
 Print version information.
 @end table
+
+
+In addition, @command{lilypond-book}
 
 @knownissues
 

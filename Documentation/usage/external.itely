@@ -341,6 +341,10 @@ print usage and option summary.
 @item -l, --language=LANG
 use LANG for pitch names, e.g. 'deutsch' for note names in German.
 
+@item --loglevel=@var{loglevel}
+Set the output verbosity to @var{loglevel}. Possible values are @code{NONE},
+@code{ERROR}, @code{WARNING}, @code{PROGRESS} (default) and @code{DEBUG}.
+
 @item --lxml
 use the lxml.etree Python package for XML-parsing; uses less memory and cpu time.
 
