@@ -297,7 +297,7 @@ only works in the PDF backend.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\with-link #\"label\" {
+  \\with-link #'label {
     \\italic { This links to the page containing the label... }
   }
 }
