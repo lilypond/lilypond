@@ -9,7 +9,16 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading Release candidate 2 of 2.16 - LilyPond 2.15.12 released!  @emph{Aug 20, 2011}
+@subsubheading Release candidate 2 cancelled @emph{Sep 23, 2011}
+
+The release countdown is cancelled due to the discovery of a
+Critical regression.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Release candidate 2 of 2.16 - LilyPond 2.15.12 released!  @emph{Sep 20, 2011}
 
 LilyPond 2.15.12 is out; this is the second release candidate of
 the upcoming 2.16 stable release.  All users are invited to
@@ -19,7 +28,7 @@ listed in the @qq{Changes} manual on the website section about
 
 There are no known Critical issues with this release.  If no
 Critical bugs are found, then the official 2.16.0 release will be
-on 27 Sep Aug 2011.  If you discover any problems, please send us
+on 27 Sep 2011.  If you discover any problems, please send us
 @ref{Bug reports}.
 
 @newsEnd
