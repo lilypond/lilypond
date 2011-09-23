@@ -21,6 +21,7 @@ not familiar with Scheme, you may wish to read our
 * Lilypond code blocks::
 * Scheme functions::
 * Music functions::
+* Event functions::
 * Markup functions::
 * Contexts for programmers::
 * Callback functions::
@@ -35,15 +36,15 @@ Lilypond code blocks look like
 @example
   #@{ @var{Lilypond code} #@}
 @end example
-They can be used anywhere where you can write scheme code: the scheme
+They can be used anywhere where you can write Scheme code: the Scheme
 reader actually is changed for accommodating Lilypond code blocks.  When
 the Lilypond code block is being read, it is parsed superficially and
-replaced by a call to the Lilypond parser which is executed at runtime
-to interpret the Lilypond code block.
+replaced by a call to the Lilypond @code{parser} which is executed at
+runtime to interpret the Lilypond code block.
 
 The point of the superficial parsing is the interpretation of @code{$}
 signs which can be used for splicing in expressions from the surrounding
-lexical scheme context (like @code{let} variables and function
+lexical Scheme context (like @code{let} variables and function
 parameters).  @code{$} can be used in the following ways:
 
 @table @code
@@ -76,11 +77,12 @@ music events gets turned into a sequential music expression.
 
 @node Scheme functions
 @section Scheme functions
+@cindex Scheme functions (Lilypond syntax)
 
-@emph{Scheme functions} are scheme procedures that can create scheme
+@emph{Scheme functions} are Scheme procedures that can create Scheme
 expressions from input written in Lilypond syntax.  They can be called
 in pretty much all places where using @code{#} for specifying a value in
-Scheme syntax is allowed.  While scheme has functions of its own, this
+Scheme syntax is allowed.  While Scheme has functions of its own, this
 chapter is concerned with @emph{syntactic} functions, functions that
 receive arguments specified in Lilypond syntax.
 
@@ -92,6 +94,7 @@ receive arguments specified in Lilypond syntax.
 
 @node Scheme function definitions
 @subsection Scheme function definitions
+@funindex define-scheme-function
 
 The general form for defining scheme functions is:
 
@@ -107,23 +110,39 @@ function =
 where
 
 @multitable @columnfractions .33 .66
+@item @code{parser}
+@tab needs to be literally @code{parser} in order to give Lilypond code
+blocks (@code{#@{}@dots{}@code{#@}}) access to the parser.
+
 @item @code{@var{argN}}
 @tab @var{n}th argument
 
 @item @code{@var{typeN?}}
-@tab a scheme @emph{type predicate} for which @code{@var{argN}}
+@tab a Scheme @emph{type predicate} for which @code{@var{argN}}
 must return @code{#t}.  Some of these predicates are specially
-recognized by the parser, see below.
+recognized by the parser, see below.  There is also a special form
+@code{(@emph{predicate?} @emph{default})} for specifying optional
+arguments.  If the actual argument is missing when the function is being
+called, the default value is substituted instead.  Default values are
+evaluated at definition time (including Lilypond code blocks!), so if
+you need a default calculated at runtime, instead write a special value
+you can easily recognize.  If you write the predicate in parentheses but
+don't follow it with a default value, @code{#f} is used as the default.
+Default values are not verified with @emph{predicate?} at either
+definition or run time: it is your responsibility to deal with the
+values you specify.  Default values that happen to be music expressions
+are copied while setting @code{origin} to the @code{location} parameter.
 
 @item @code{@var{body}}
-@tab A sequence of scheme forms evaluated in order, the last one being
+@tab A sequence of Scheme forms evaluated in order, the last one being
 used as the return value of the scheme function.  It may contain
 LilyPond code blocks enclosed in hashed braces
 (@tie{}@w{@code{#@{@dots{}#@}}}@tie{}), like described in @ref{Lilypond
 code blocks}.  Within LilyPond code blocks, use @code{$} to reference
-function arguments (eg., @samp{$arg1}) or to start an inline scheme
+function arguments (eg., @samp{$arg1}) or to start an inline Scheme
 expression containing function arguments (eg., @w{@samp{$(cons arg1
-arg2)}}).
+arg2)}}).  If your function returns a music expression, it is cloned and
+given the correct @code{origin}.
 @end multitable
 
 @noindent
@@ -156,10 +175,15 @@ Installed Files:
 
 @node Scheme function usage
 @subsection Scheme function usage
+
 Scheme functions can be called pretty much anywhere where a Scheme
 expression starting with @code{#} can be written.  You call a scheme
 function by writing its name preceded by @code{\}, followed by its
-arguments.
+arguments.  The last argument can't be an optional argument.  If there
+are several optional arguments in a row, they are filled with values
+left to right.  Once an optional argument can't match input, it and all
+immediately following optional arguments are replaced with their default
+values, and the matching continues with the next non-optional argument.
 
 Apart from places where a Scheme value is required, there are a few
 places where @code{#} expressions are accepted and evaluated for their
@@ -183,7 +207,7 @@ appropriately to spare Lilypond from getting confused.
 @subsection Void scheme functions
 
 Sometimes a function is only executed for its side effects.  In that
-case, using a Scheme function means that its value will not usually be
+case, using a scheme function means that its value will not usually be
 considered:
 
 @example
@@ -199,7 +223,9 @@ noPointAndClick =
 @node Music functions
 @section Music functions
 
-@emph{Music functions} are scheme procedures that can create music
+@cindex music functions
+
+@emph{Music functions} are Scheme procedures that can create music
 expressions automatically, and can be used to greatly simplify the
 input file.
 
@@ -216,6 +242,8 @@ input file.
 
 @node Music function definitions
 @subsection Music function definitions
+@cindex defining music functions
+@funindex define-music-function
 
 The general form for defining music functions is:
 
@@ -258,10 +286,14 @@ At top level in a music expression.  There are no special restrictions
 on the argument list.
 
 @item
-As a post-event.  All trailing arguments of the music function with the
-predicate @code{ly:music?} will get parsed also as post-events.  Note
-that returning post-events will also be acceptable for music functions
-called at top level, leading to a result roughly equivalent to
+As a post-event, explicitly started with a direction indicator (one of
+@code{-}, @code{^}, @w{and @code{_}}).  All trailing arguments of the
+music function with the predicate @code{ly:music?} will get parsed also
+as post-events (if the last argument is a scheme function, this will
+hold for trailing @code{ly:music?} arguments of the scheme function
+instead).  Note that returning a post-event will be acceptable for music
+functions called as normal music, leading to a result roughly equivalent
+to
 @example
 s 1*0-\fun
 @end example
@@ -276,14 +308,6 @@ constituents.
 The special rules for trailing arguments make it possible to write
 polymorphic functions like @code{\tweak} that can be applied to
 different constructs.
-
-There is another somewhat special rule: if you have a predicate
-@code{ly:music?} directly before a @code{ly:duration?} predicate, then
-the corresponding music expression must be either a music identifier, or
-literal sequential or parallel music enclosed in
-@code{@{}@dots{}@code{@}} or @code{<<}@dots{}@code{>>} explicitly.
-Otherwise, Lilypond could get confused about where the music ends and
-the duration starts.
 
 @node Simple substitution functions
 @subsection Simple substitution functions
@@ -432,6 +456,26 @@ scheme function instead.  But there may be cases where you sometimes
 want to produce a music expression, and sometimes not (like in the
 previous example).  Returning a @code{void} music expression via
 @code{#@{ #@}} will do that.
+
+@node Event functions
+@section Event functions
+@funindex define-event-function
+@cindex event functions
+
+To use a music function in the place of an event, you need to write a
+direction indicator before it.  But sometimes, this does not quite match
+the syntax of constructs you want to replace.  For example, if you want
+to write dynamics commands, those are usually attached without direction
+indicator, like @code{c'\pp}.  Here is a way to write arbitrary
+dynamics:
+@lilypond[quote,verbatim,raggedright]
+dyn=#(define-event-function (parser location arg) (markup?)
+         (make-dynamic-script arg))
+\relative c' { c\dyn pfsss }
+@end lilypond
+You could do the same using a music function, but then you always would
+have to write a direction indicator before calling it, like
+@code{@w{c-\dyn pfsss}}.
 
 
 @node Markup functions
@@ -675,7 +719,8 @@ Then, the padding between the two boxes is considered too small, so we
 override it too:
 
 @lilypond[quote,verbatim,ragged-right]
-\markup \override #'(box-padding . 0.4) \box \override #'(box-padding . 0.6) \box A
+\markup \override #'(box-padding . 0.4) \box
+     \override #'(box-padding . 0.6) \box A
 @end lilypond
 
 Repeating this lengthy markup would be painful.  This is where a markup

@@ -60,10 +60,24 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+@item
+Music, event, and scheme functions can now be defined with optional
+arguments before mandatory arguments.
+
+@item
+There is a new @code{define-event-function} command in analogy to
+@code{define-music-function} that can be used for defining music
+functions acting as events without requiring a direction specifier
+(@code{-}, @code{^}, or @code{_}) placed before them.
+@lilypond[quote,verbatim,raggedright]
+dyn=#(define-event-function (parser location arg) (markup?)
+         (make-dynamic-script arg))
+\relative c' { c\dyn pfsss }
+@end lilypond
 
 @item
 There is a new @code{define-scheme-function} command in analogy to
-@code{define-music-function} which can be used to define functions
+@code{define-music-function} that can be used to define functions
 evaluating to Scheme expressions while accepting arguments in Lilypond
 syntax.
 
@@ -104,7 +118,7 @@ c4_\< c c^\> c c1_\p
 Appoggiaturas and acciaccaturas now also work inside a slur, not only inside
 a phrasing slur. Also, a function @code{\slashedGrace} was added that does
 does not use a slur from the acciaccatura note.
-@lilypond[fragment,relative=2]
+@lilypond[fragment,quote,relative=2]
 c4( \appoggiatura e8 d4 \acciaccatura e8 d4 \slashedGrace e8 c4)
 @end lilypond
 
