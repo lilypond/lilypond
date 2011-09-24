@@ -214,65 +214,52 @@ Bezier::solve_point (Axis ax, Real coordinate) const
 }
 
 /**
-   Assuming AX is X_AXIS, and D is UP, finds the
-   maximum value of curve_coordinate(t, Y_AXIS) subject to
-   l <= curve_coordinate(t, X_AXIS) <= r.
+   For the portion of the curve between L and R along axis AX,
+   return the bounding box limit in direction D along the cross axis to AX.
+   If there is no portion between L and R, return 0.0 and report error.
 */
 Real
 Bezier::minmax (Axis ax, Real l, Real r, Direction d) const
 {
-  Axis other = other_axis (ax);
+  Axis bx = other_axis (ax);
+
+  // The curve could hit its bounding box limit along BX at:
+  //  points where the curve is parallel to AX,
+  Offset vec (0.0, 0.0);
+  vec[ax] = 1.0;
+  vector<Real> sols (solve_derivative (vec));
+  //  or endpoints of the curve,
+  sols.push_back (0.999);
+  sols.push_back (0.001);
+  // (using points just inside the ends, so that an endpoint is evaulated
+  //  if it falls within rounding error of L or R and the curve lies inside)
+
+  Interval iv;
+  for (vsize i = sols.size (); i--;)
+    {
+      Offset p (curve_point (sols[i]));
+      if (p[ax] >= l && p[ax] <= r)
+        iv.add_point (p[bx]);
+    }
+
+  //  or intersections of the curve with the bounding lines at L and R.
   Interval lr (l, r);
-  vector<Real> solutions;
-
-  // Possible solutions are:
-  // t = 0 or 1, or...
-  solutions.push_back (0);
-  solutions.push_back (1);
-
-  // t is a critical point for the other-axis polynomial, or...
-  Polynomial p_prime (polynomial (other));
-  p_prime.differentiate ();
-  vector<Real> criticals = p_prime.solve ();
-  solutions.insert (solutions.end (), criticals.begin (), criticals.end ());
-
-  // t solves curve_coordinate(t, X_AXIS) = l or r.
   Direction dir = LEFT;
   do
     {
-      Polynomial p (polynomial (ax));
-      p.coefs_[0] -= lr[dir];
-
-      vector<Real> sol = p.solve ();
-      solutions.insert (solutions.end (), sol.begin (), sol.end ());
+      vector<Real> v = get_other_coordinates (ax, lr[dir]);
+      for (vsize i = v.size (); i--;)
+        iv.add_point (v[i]);
     }
   while (flip (&dir) != LEFT);
 
-  Polynomial p (polynomial (ax));
-  Polynomial other_p (polynomial (other));
-  vector<Real> values;
-  for (vsize i = solutions.size (); i--;)
+  if (iv.is_empty ())
     {
-      Real t = solutions[i];
-      if (t >= 0 && t <= 1
-          // FIXME: floating point comparison for equality
-          // Two of the t in solutions were found by solving
-          // p(t) = l, bzw. r, and we want this test to pass for these t,
-          // but it can easily fail if floating point internal precision
-          // differs from storage precision.
-          // Better to store separately the two t for which p(t) = l and r
-          && p.eval (t) >= l && p.eval (t) <= r)
-        values.push_back (other_p.eval (t));
-    }
-
-  if (values.empty ())
-    {
-      programming_error ("no solution found for Bezier intersection");
+      programming_error ("Bezier curve does not cross region of concern");
       return 0.0;
     }
 
-  vector_sort (values, less<Real> ());
-  return (d == DOWN) ? values[0] : values.back ();
+  return iv.at (d);
 }
 
 /**
