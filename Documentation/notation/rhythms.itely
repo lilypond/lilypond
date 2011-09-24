@@ -1201,10 +1201,6 @@ for different staves by moving the @code{Timing_translator} and the
 
 
 @snippets
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-the-time-signature-without-affecting-the-beaming.ly}
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
