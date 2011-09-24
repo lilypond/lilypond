@@ -869,6 +869,14 @@ usually contains spacers or multi-measure rests.")
                'element main-music
                'quoted-music-name what))
 
+relative =
+#(define-music-function (parser location pitch music)
+   ((ly:pitch? (ly:make-pitch 0 0 0)) ly:music?)
+   (_i "Make @var{music} relative to @var{pitch} (default @code{c'}).")
+   (ly:make-music-relative! music pitch)
+   (make-music 'RelativeOctaveMusic
+	       'element music))
+
 removeWithTag =
 #(define-music-function (parser location tag music) (symbol? ly:music?)
    (_i "Remove elements of @var{music} that are tagged with @var{tag}.")
