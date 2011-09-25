@@ -90,15 +90,13 @@ appendToTag =
    (symbol? ly:music? ly:music?)
    (_i "Append @var{more} to the @code{elements} of all music
 expressions in @var{music} that are tagged with @var{tag}.")
-   (music-map-copy (lambda (m)
-		     (if (memq tag (ly:music-property m 'tags))
-			 (begin
-			   (set! m (music-clone m))
-			   (set! (ly:music-property m 'elements)
-				 (append (ly:music-property m 'elements)
-					 (list more)))))
-		     m)
-		   music))
+   (music-map (lambda (m)
+		(if (memq tag (ly:music-property m 'tags))
+		    (set! (ly:music-property m 'elements)
+			  (append (ly:music-property m 'elements)
+				  (list more))))
+		m)
+	      music))
 
 applyContext =
 #(define-music-function (parser location proc) (procedure?)
@@ -850,14 +848,12 @@ pushToTag =
    (symbol? ly:music? ly:music?)
    (_i "Add @var{more} to the front of @code{elements} of all music
 expressions in @var{music} that are tagged with @var{tag}.")
-   (music-map-copy (lambda (m)
-		     (if (memq tag (ly:music-property m 'tags))
-			 (begin
-			   (set! m (music-clone m))
-			   (set! (ly:music-property m 'elements)
-				 (cons more (ly:music-property m 'elements)))))
-		     m)
-		   music))
+   (music-map (lambda (m)
+		(if (memq tag (ly:music-property m 'tags))
+		    (set! (ly:music-property m 'elements)
+			  (cons more (ly:music-property m 'elements))))
+		m)
+	      music))
 
 quoteDuring =
 #(define-music-function (parser location what main-music) (string? ly:music?)
