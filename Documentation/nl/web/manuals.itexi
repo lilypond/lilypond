@@ -44,12 +44,12 @@ LilyPond is een @strong{tekstgebaseerd}
 muzieknotatieprogramma.  Lees dit eerst!
 
 @item
-@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Beginnen}}
+@ifWebLinks{@manualStableLearningSplitNoName-nl,@rlearningnamed{Top,Beginnen}}
 een @qq{onmisbare} gebruiksvriendelijke inleiding in LilyPond.
 @details{Beginnen}
 
 @item
-@ifWebLinks{@manualStableGlossarySplitNoName-nl,@rglosnamed{Top,Terminologie}}
+@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Terminologie}}
 @emph{(optioneel te lezen)}
 muziektermen en vertalingen.
 @details{Terminologie}
