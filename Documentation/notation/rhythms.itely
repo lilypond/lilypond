@@ -3043,33 +3043,39 @@ Internals Reference:
 @cindex acciaccatura
 
 @funindex \grace
-@funindex grace
+@funindex \slashedGrace
+@funindex \acciaccatura
+@funindex \appoggiatura
 
-Grace notes are ornaments that are written out.  Grace notes
-are printed in a smaller font and take up no logical time
-in a measure.
+Grace notes are musical ornaments, printed in a smaller font, that take
+up no additional logical time in a measure.
 
 @lilypond[quote,relative=2,verbatim]
-c4 \grace c16 c4
-\grace { c16[ d16] } c2
+c4 \grace b16 a4(
+\grace { b16[ c16] } a2)
 @end lilypond
 
-LilyPond also supports two special types of grace notes, the
+There are three other types of grace notes possible; the
 @emph{acciaccatura} -- an unmeasured grace note indicated by a slurred
-small note with a slashed stem -- and the @emph{appoggiatura}, which
-takes a fixed fraction of the main note and appears in small print
-without a slash.
+note with a slashed stem -- and the @emph{appoggiatura}, which takes a
+fixed fraction of the main note it is attached to and prints without the
+slash.  It is also possible to write a grace note with a slashed stem,
+like the @emph{acciaccatura} but without the slur, so as to place it
+between notes that are slurred themselves, using the
+@code{\slashedGrace} function.
 
 @lilypond[quote,relative=2,verbatim]
-\grace c8 b4
 \acciaccatura d8 c4
 \appoggiatura e8 d4
-\acciaccatura { g16[ f] } e4
+\acciaccatura { g16[ f] } e2
+\slashedGrace a,8 g4
+\slashedGrace b16 a4(
+\slashedGrace b8 a2)
 @end lilypond
 
-The placement of grace notes is synchronized between different
-staves.  In the following example, there are two sixteenth grace
-notes for every eighth grace note
+The placement of grace notes is synchronized between different staves.
+In the following example, there are two sixteenth grace notes for every
+eighth grace note
 
 @lilypond[quote,relative=2,verbatim]
 <<
