@@ -86,7 +86,7 @@ markups), or inside a score.")
 					   'break-permission 'allow))))
 
 appendToTag =
-#(define-music-function (parser location tag music more)
+#(define-music-function (parser location tag more music)
    (symbol? ly:music? ly:music?)
    (_i "Append @var{more} to the @code{elements} of all music
 expressions in @var{music} that are tagged with @var{tag}.")
@@ -846,7 +846,7 @@ print @var{secondary-note} as a stemless note head in parentheses.")
      main-note))
 
 pushToTag =
-#(define-music-function (parser location tag music more)
+#(define-music-function (parser location tag more music)
    (symbol? ly:music? ly:music?)
    (_i "Add @var{more} to the front of @code{elements} of all music
 expressions in @var{music} that are tagged with @var{tag}.")
