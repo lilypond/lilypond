@@ -1545,15 +1545,17 @@ safe bets:
 test = { \tag #'here { \tag #'here <<c''>> } }
 
 {
-  \pushToTag #'here \pushToTag #'here
-     \pushToTag #'here \test g' e' c'
-  \appendToTag #'here \appendToTag #'here
-     \appendToTag #'here \test g' e' c'
+  \pushToTag #'here c'
+  \pushToTag #'here e'
+  \pushToTag #'here g' \test
+  \appendToTag #'here c'
+  \appendToTag #'here e'
+  \appendToTag #'here g' \test
 }
 @end lilypond
 
-Both commands get a tag, the tagged expression, and finally the material
-you want to splice in at every given tag.  The commands make sure to
+Both commands get a tag, the material to splice in at every occurence of
+the tag, and the tagged expression.  The commands make sure to
 copy everything that they change so that the original @code{\test}
 retains its meaning.
 

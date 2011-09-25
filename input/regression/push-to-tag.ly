@@ -16,6 +16,11 @@ equivalent of
 test = { \tag #'here { \tag #'here <<c''>> }}
 
 {
-  \pushToTag #'here \pushToTag #'here \pushToTag #'here \test g' e' c'
-  \appendToTag #'here \appendToTag #'here \appendToTag #'here \test g' e' c'
+  \pushToTag #'here c'
+  \pushToTag #'here e'
+  \pushToTag #'here g' \test
+  \appendToTag #'here c'
+  \appendToTag #'here e'
+  \appendToTag #'here g' \test
 }
+
