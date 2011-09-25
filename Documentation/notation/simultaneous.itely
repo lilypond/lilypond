@@ -304,7 +304,7 @@ voices in a single staff is illustrated in the following example:
 
 @noindent
 Here, voices are instantiated explicitly and are given names.  The
-@code{\voiceOne} ... @code{\voiceFour} commands set up the voices
+@code{\voiceOne} @dots{} @code{\voiceFour} commands set up the voices
 so that first and third voices get stems up, second and fourth
 voices get stems down, third and fourth voice note heads are
 horizontally shifted, and rests in the respective voices are
@@ -382,7 +382,7 @@ The first example could be typeset as follows:
 This syntax can be used where it does not matter that temporary
 voices are created and then discarded.  These implicitly created
 voices are given the settings equivalent to the effect of the
-@code{\voiceOne} ... @code{\voiceFour} commands, in the order in
+@code{\voiceOne} @dots{} @code{\voiceFour} commands, in the order in
 which they appear in the code.
 
 In the following example, the intermediate voice has stems up,

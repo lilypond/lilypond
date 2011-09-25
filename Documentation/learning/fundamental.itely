@@ -943,7 +943,7 @@ Notation Reference: @ruser{Multiple voices}.
 
 Voice contexts can also be created manually
 inside a @code{<< >>} block to create polyphonic music, using
-@code{\voiceOne} ... @code{\voiceFour} to indicate the required
+@code{\voiceOne} @dots{} @code{\voiceFour} to indicate the required
 directions of stems, slurs, etc.  In longer scores this method
 is clearer, as it permits the voices to be separated and to be
 given more descriptive names.
