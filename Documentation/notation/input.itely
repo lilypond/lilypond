@@ -413,9 +413,10 @@ music expression will be translated into
         @{ c'4 d' e'2 @}
       @}
     @}
+    \layout @{ @}
   @}
-	\layout @{ @}
-	\header @{ @}
+  \paper @{ @}
+  \header @{ @}
 @}
 @end example
 
