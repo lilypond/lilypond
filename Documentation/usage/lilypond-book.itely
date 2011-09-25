@@ -498,7 +498,7 @@ music in HTML files:
 @itemize
 
 @item
-the @code{<lilypond .... />} command, where you can directly enter short lilypond code
+the @code{<lilypond ... />} command, where you can directly enter short lilypond code
 
 @item
 the @code{<lilyond>...</lilypond>} environment, where you can directly enter longer

@@ -823,7 +823,7 @@ mismatched quote will usually be on the line one or two above.
 @unnumberedsubsec Error message Unbound variable %
 
 This error message will appear at the bottom of the console
-output or log file together with a @qq{GUILE signalled an error ...}
+output or log file together with a @qq{GUILE signalled an error @dots{}}
 message every time a Scheme routine is called which (invalidly)
 contains a @emph{LilyPond} rather than a @emph{Scheme} comment.
 

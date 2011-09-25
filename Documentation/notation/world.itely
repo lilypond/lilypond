@@ -532,7 +532,7 @@ Western scales and modes: @notation{koma} (1/9 of a tone),
 @notation{artık ikili} (12/9 or 13/9 of a tone).
 
 From a modern notational point of view it is convenient to
-use the standard Western staff notes (c, d, e, ...) with
+use the standard Western staff notes (c, d, e, @dots{}) with
 special accidentals that raise or lower notes by intervals
 of 1/9, 4/9, 5/9 and 8/9 of a tone.  These accidentals are
 defined in the file @file{makam.ly}.
