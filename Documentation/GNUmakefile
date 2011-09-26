@@ -214,6 +214,9 @@ txt-to-html:
 	$(foreach a, $(README_TOP_FILES), cp $(top-src-dir)/$(a) $(outdir)/$(a).txt && ) true
 	$(PYTHON) $(step-bindir)/text2html.py $(OUT_TXT_FILES)
 
+# Explicitly list the dependencies on generated content
+$(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi $(outdir)/weblinks.itexi
+
 ifeq ($(out),www)
 ## Extra images dependencies
 $(OUT_TEXINFO_MANUALS): $(outdir)/pictures
@@ -222,16 +225,11 @@ $(outdir)/pictures:
 	$(MAKE) -C pictures WWW-1
 	ln -sf ../pictures/$(outdir) $@
 
+$(outdir)/web.texi: $(outdir)/ly-examples
+
 $(outdir)/ly-examples:
 	$(MAKE) -C web/ly-examples
 	ln -sf ../web/ly-examples/$(outdir) $@
-endif
-
-ifeq ($(out),www)
-$(outdir)/web.texi: $(outdir)/ly-examples $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi
-else
-# duplicate (without ly-examples)
-$(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi
 endif
 
 
@@ -245,11 +243,6 @@ $(outdir)/internals/internals.xml: $(outdir)/internals.texi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$(dir $@) --docbook $<
 
 $(outdir)/learning.texi $(outdir)/notation.texi: $(OUT_PDF_IMAGES)
-
-$(foreach manual, $(MANUAL_SUBDIRS),\
-$(eval $(outdir)/(manual).texi: $(call src-wildcard,$(manual)/*.ite??)))
-
-
 
 $(outdir)/source:
 	@rm -f $(@)
