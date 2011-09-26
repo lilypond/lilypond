@@ -75,7 +75,6 @@ static Keyword_ent the_key_tab[]
   {"once", ONCE},
   {"override", OVERRIDE},
   {"paper", PAPER},
-  {"relative", RELATIVE},
   {"remove", REMOVE},
   {"repeat", REPEAT},
   {"rest", REST},

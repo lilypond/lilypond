@@ -62,6 +62,8 @@ or
       PITCH_IDENTIFIER NOTENAME_PITCH TONICNAME_PITCH
       SCM_FUNCTION SCM_IDENTIFIER SCM_TOKEN
       UNSIGNED DURATION_IDENTIFIER
+      CHORDMODE CHORDS DRUMMODE DRUMS FIGUREMODE FIGURES LYRICMODE LYRICS
+      NOTEMODE
 
  /* The above are the symbols that can start function arguments */
 
@@ -107,10 +109,8 @@ using namespace std;
 #include "main.hh"
 #include "misc.hh"
 #include "music.hh"
-#include "music.hh"
 #include "output-def.hh"
 #include "paper-book.hh"
-#include "program-option.hh"
 #include "scm-hash.hh"
 #include "score.hh"
 #include "text-interface.hh"
@@ -156,7 +156,6 @@ SCM get_next_unique_lyrics_context_id ();
 
 
 static Music *make_music_with_input (SCM name, Input where);
-SCM make_music_relative (Pitch start, SCM music, Input loc);
 SCM run_music_function (Lily_parser *parser, Input loc, SCM func, SCM args);
 SCM check_scheme_arg (Lily_parser *parser, Input loc, SCM fallback,
 		      SCM arg, SCM args, SCM pred);
@@ -217,7 +216,6 @@ void set_music_properties (Music *p, SCM a);
 %token ONCE "\\once"
 %token OVERRIDE "\\override"
 %token PAPER "\\paper"
-%token RELATIVE "\\relative"
 %token REMOVE "\\remove"
 %token REPEAT "\\repeat"
 %token REST "\\rest"
@@ -370,7 +368,6 @@ If we give names, Bison complains.
 %type <scm> post_event
 %type <scm> post_event_nofinger
 %type <scm> re_rhythmed_music
-%type <scm> relative_music
 %type <scm> simple_element
 %type <scm> simple_music_property_def
 %type <scm> start_symbol
@@ -385,7 +382,6 @@ If we give names, Bison complains.
 
 %type <scm> music_function_call
 %type <scm> music_list
-%type <scm> absolute_pitch
 %type <scm> assignment_id
 %type <scm> bare_number
 %type <scm> unsigned_number
@@ -1329,7 +1325,6 @@ complex_music:
                 $$ = MAKE_SYNTAX ("time-scaled-music", @$, $2, $3);
 	}
 	| repeated_music		{ $$ = $1; }
-	| relative_music	{ $$ = $1; }
 	| re_rhythmed_music	{ $$ = $1; }
 	;
 
@@ -1414,18 +1409,6 @@ mode_changing_head_with_context:
 	| LYRICS
 		{ PARSER->lexer_->push_lyric_state ();
 		$$ = ly_symbol2scm ("Lyrics");
-	}
-	;
-
-
-relative_music:
-	RELATIVE absolute_pitch music {
-		Pitch start = *unsmob_pitch ($2);
-		$$ = make_music_relative (start, $3, @$);
-	}
-	| RELATIVE composite_music {
-		Pitch middle_c (0, 0, 0);
-		$$ = make_music_relative (middle_c, $2, @$);
 	}
 	;
 
@@ -2158,13 +2141,6 @@ script_dir:
 	'_'	{ $$ = DOWN; }
 	| '^'	{ $$ = UP; }
 	| '-'	{ $$ = CENTER; }
-	;
-
-
-absolute_pitch:
-	pitch	{
-		$$ = $1;
-	}
 	;
 
 duration_length:
@@ -3008,19 +2984,6 @@ ly_input_procedure_p (SCM x)
 {
 	return ly_is_procedure (x)
 		|| (scm_is_pair (x) && ly_is_procedure (scm_car (x)));
-}
-
-SCM
-make_music_relative (Pitch start, SCM music, Input loc)
-{
-	Music *relative = MY_MAKE_MUSIC ("RelativeOctaveMusic", loc);
- 	relative->set_property ("element", music);
-
-	Music *m = unsmob_music (music);
- 	Pitch last = m->to_relative_octave (start);
- 	if (lily_1_8_relative)
- 		m->set_property ("last-pitch", last.smobbed_copy ());
-	return relative->unprotect ();
 }
 
 int
