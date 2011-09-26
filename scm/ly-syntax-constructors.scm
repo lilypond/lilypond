@@ -49,7 +49,7 @@
 	m
 	(begin
 	  (ly:parser-error parser
-			   (format #f (_ "~a function can't return ~a")
+			   (format #f (_ "~a function cannot return ~a")
 				   (type-name pred) m)
 			   loc)
 	  default))))
