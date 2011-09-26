@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2763b2de261e4f6263e2d4751b45d7c40f1ef7ea
+    Translation of GIT committish: 7ae1e99ff67432c96faf743bc28ac7b90a47a852
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3476,9 +3476,9 @@ Fragmentos de código:
 @translationof Fitting music onto fewer pages
 
 En ocasiones, podemos terminar con uno o dos pentagramas en una
-segunda página (o tercera, o cuarta...).  Es fastidioso, especialmente
-cuando vemos que las páginas anteriores parecen tener espacio de
-sobra.
+segunda página (o tercera, o cuarta@dots{}).  Es fastidioso,
+especialmente cuando vemos que las páginas anteriores parecen tener
+espacio de sobra.
 
 Al investigar los problemas de disposición, una herramienta de valor
 incalculable es @code{annotate-spacing}.  Esta instrucción imprime los

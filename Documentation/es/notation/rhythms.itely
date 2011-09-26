@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: e1fb62a6d5f6aaeadafdef10550e38e25704394e
+    Translation of GIT committish: 875ee88c8a68b924af0916239e8d081acafc4dfb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1242,10 +1242,6 @@ moviendo el @code{Timing_translator} y el
 
 
 @snippets
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-the-time-signature-without-affecting-the-beaming.ly}
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 

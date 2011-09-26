@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: f40abd6c55ade9dba9be72ddb415f23a58bb003e
+    Translation of GIT committish: 7ae1e99ff67432c96faf743bc28ac7b90a47a852
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -867,7 +867,7 @@ general una o dos líneas por encima.
 
 Este mensaje de error aparece al final de los mensajes de la consola o
 del archivo de registro junto a un mensaje @qq{GUILE señaló un error
-...} cada vez que se llame a una rutina de Scheme que
+@dots{}} cada vez que se llame a una rutina de Scheme que
 (incorrectamente) contenga un comentario @emph{de LilyPond} en lugar
 de un comentario @emph{de Scheme}.
 

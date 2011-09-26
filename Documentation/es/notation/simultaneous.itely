@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
+    Translation of GIT committish: 7ae1e99ff67432c96faf743bc28ac7b90a47a852
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -316,7 +316,7 @@ siguiente:
 @noindent
 Aquí se crean explícitamente instancias de voces, cada una de las
 cuales recibe un nombre.  Las instrucciones @code{\voiceOne}
-... @code{\voiceFour} (voz uno hasta voz cuatro) preparan las voces de
+@dots{} @code{\voiceFour} (voz uno hasta voz cuatro) preparan las voces de
 manera que la primera y segunda voces llevan las plicas hacia arriba,
 las voces segunda y cuarta llevan las plicas hacia abajo, las cabezas
 de las notas en las voces tercera y cuarta se desplazan
@@ -395,7 +395,7 @@ El primer ejemplo podría haberse tipografiado de la manera siguiente:
 Esta sintaxis se puede usar siempre que no nos importe que se creen
 nuevas voces temporales que después serán descartadas.  Estas voces
 creadas implícitamente reciben ajustes equivalentes al efecto de las
-instrucciones @code{\voiceOne} ... @code{\voiceFour}, en el orden en
+instrucciones @code{\voiceOne} @dots{} @code{\voiceFour}, en el orden en
 que aparecen en el código.
 
 En el siguiente ejemplo, la voz intermedia lleva las plicas hacia

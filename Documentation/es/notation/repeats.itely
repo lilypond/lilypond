@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
+    Translation of GIT committish: f84eab93e732ed2b9aa50436202a28f34243c658
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -495,6 +495,20 @@ donde @code{@var{expresión_musical}} es una expresión musical y
 \repeat unfold 2 { c4 d e f }
 c1
 @end lilypond
+
+En ciertos casos, especialmente dentro de un contexto
+@code{\relative}, la función @code{\repeat unfold} no es exactamente
+igual que escribir la expresión musical varias veces. P. ej.:
+
+@example
+\repeat unfold 2 @{ a'4 b c @}
+@end example
+
+no equivale a
+
+@example
+a'4 b c | a'4 b c
+@end example
 
 Se pueden hacer repeticiones desplegadas con finales alternativos.
 

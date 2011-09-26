@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: 7ae1e99ff67432c96faf743bc28ac7b90a47a852
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -988,7 +988,7 @@ Referencia de la notación:
 
 Los contextos de voz también se pueden crear manualmente dentro de un
 bloque @code{<< >>} para crear música polifónica, utilizando
-@code{\voiceOne} ... @code{\voiceFour} para indicar las direcciones
+@code{\voiceOne} @dots{} @code{\voiceFour} para indicar las direcciones
 requeridas de plicas, ligaduras, etc.  En partituras más largas, este
 método es más claro porque permite que las voces estén separadas y
 reciban nombres más descriptivos.

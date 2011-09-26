@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: d6315a746c47259f56dc2835347985658d71d0c9
+    Translation of GIT committish: 2aeac5e3815effa47427dad86d6be811c7b0d8a2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -376,6 +376,12 @@ mostrar un resumen de la utilización y las opciones.
 @item -l, --language=IDIOMA
 utilizar IDIOMA para los nombres de las notas, p.ej.
 'espanol' para los nombres de las notas en español.
+
+@item --loglevel=@var{loglevel}
+fijar el grado en que la salida es prolija al valor dado en
+@var{loglevel}.  Los valores posibles son @code{NONE} (ninguno),
+@code{ERROR} (errores), @code{WARNING} (advertencias), @code{PROGRESS}
+(avance; predeterminado) y @code{DEBUG} (depuración).
 
 @item --lxml
 usar el paquete de Python lxml.etree para el análisis de XML; usa

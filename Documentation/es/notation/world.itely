@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: c358ec6f8ed8f31b5fa1d97da6a2284b3759bdfd
+    Translation of GIT committish: 7ae1e99ff67432c96faf743bc28ac7b90a47a852
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -555,10 +555,10 @@ completamente diferente de las escalas y modos occidentales:
 @notation{artık ikili} (12/9 ó 13/9 de tono).
 
 Desde el punto de vista de la notación moderna, es conveniente
-utilizar las notas occidentales (do, re, mi, ... ó c, d, e, ...) con
-alteraciones especiales que elevan o bajan las notas en intervalos de
-1/9, 4/9, 5/9 y 8/9 de tono.  Esetas alteraciones están definidas en
-el archivo @file{makam.ly}.
+utilizar las notas occidentales (do, re, mi, @dots{} ó c, d, e,
+@dots{}) con alteraciones especiales que elevan o bajan las notas en
+intervalos de 1/9, 4/9, 5/9 y 8/9 de tono.  Estas alteraciones están
+definidas en el archivo @file{makam.ly}.
 
 
 La tabla siguiente relaciona:
