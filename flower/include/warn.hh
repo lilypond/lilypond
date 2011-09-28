@@ -41,6 +41,8 @@
 #define LOGLEVEL_DEBUG (LOGLEVEL_INFO | LOG_DEBUG)
 
 extern int loglevel;
+extern bool warning_as_error;
+
 
 /* output messages, in decreasing order of importance */
 void error (string s, string location = ""); // Fatal error, exits lilypond!

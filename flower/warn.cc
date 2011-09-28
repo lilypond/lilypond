@@ -40,6 +40,7 @@ using namespace std;
 
 /* Define the loglevel (default is INFO) */
 int loglevel = LOGLEVEL_INFO;
+bool warning_as_error = false;
 
 bool
 is_loglevel (int level)
@@ -188,12 +189,15 @@ error (string s, string location)
 void
 programming_error (string s, string location)
 {
-  if (is_expected (s)) {
+  if (is_expected (s))
     print_message (LOG_DEBUG, location, _f ("suppressed programming error: %s", s) + "\n");
-  } else {
-    print_message (LOG_ERROR, location, _f ("programming error: %s", s) + "\n");
-    print_message (LOG_ERROR, location, _ ("continuing, cross fingers") + "\n");
-  }
+  else if (warning_as_error)
+    error (s, location);
+  else 
+    {
+      print_message (LOG_ERROR, location, _f ("programming error: %s", s) + "\n");
+      print_message (LOG_ERROR, location, _ ("continuing, cross fingers") + "\n");
+    }
 }
 
 /* Display a non-fatal error message, don't exit.  */
@@ -202,9 +206,10 @@ non_fatal_error (string s, string location)
 {
   if (is_expected (s))
     print_message (LOG_DEBUG, location, _f ("suppressed error: %s", s) + "\n");
-  else {
+  else if (warning_as_error)
+    error (s, location);
+  else
     print_message (LOG_ERROR, location, _f ("error: %s", s) + "\n");
-  }
 }
 
 /* Display a warning message. */
@@ -213,10 +218,10 @@ warning (string s, string location)
 {
   if (is_expected (s))
     print_message (LOG_DEBUG, location, _f ("suppressed warning: %s", s) + "\n");
-  else {
-    // TODO: Add warning-as-error check here
+  else if (warning_as_error)
+    error (s, location);
+  else 
     print_message (LOG_WARN, location, _f ("warning: %s", s) + "\n");
-  }
 }
 
 /* Display a success message.  */

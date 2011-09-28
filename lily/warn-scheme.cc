@@ -49,12 +49,7 @@ LY_DEFINE (ly_programming_error, "ly:programming-error",
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-
-  if (get_program_option ("warning-as-error"))
-    error (ly_scm2string (str));
-  else
-    programming_error (ly_scm2string (str));
-
+  programming_error (ly_scm2string (str));
   return SCM_UNSPECIFIED;
 }
 
@@ -65,12 +60,7 @@ LY_DEFINE (ly_warning, "ly:warning",
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-
-  if (get_program_option ("warning-as-error"))
-    error (ly_scm2string (str));
-  else
-    warning (ly_scm2string (str));
-
+  warning (ly_scm2string (str));
   return SCM_UNSPECIFIED;
 }
 
@@ -129,12 +119,7 @@ LY_DEFINE (ly_warning_located, "ly:warning-located",
   LY_ASSERT_TYPE (scm_is_string, location, 1);
   LY_ASSERT_TYPE (scm_is_string, str, 2);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-
-  if (get_program_option ("warning-as-error"))
-    error (ly_scm2string (str), ly_scm2string (location));
-  else
-    warning (ly_scm2string (str), ly_scm2string (location));
-
+  warning (ly_scm2string (str), ly_scm2string (location));
   return SCM_UNSPECIFIED;
 }
 

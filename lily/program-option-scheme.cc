@@ -123,7 +123,11 @@ internal_set_option (SCM var,
       val = val_scm_bool;
     }
   else if (varstr == "warning-as-error")
-    val = val_scm_bool;
+    {
+      /* warning_as_error is defined in flower/warn.cc */
+      warning_as_error = valbool;
+      val = val_scm_bool;
+    }
   else if (varstr == "music-strings-to-paths")
     {
       music_strings_to_paths = valbool;

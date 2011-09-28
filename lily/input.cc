@@ -103,10 +103,7 @@ Input::error (string s) const
 void
 Input::programming_error (string s) const
 {
-  if (get_program_option ("warning-as-error"))
-    ::error (message_string (s), message_location ());
-  else
-    ::programming_error (message_string (s), message_location ());
+  ::programming_error (message_string (s), message_location ());
 }
 
 void
@@ -118,10 +115,7 @@ Input::non_fatal_error (string s) const
 void
 Input::warning (string s) const
 {
-  if (get_program_option ("warning-as-error"))
-    ::non_fatal_error (message_string (s), message_location ());
-  else
-    ::warning (message_string (s), message_location ());
+  ::warning (message_string (s), message_location ());
 }
 
 void
