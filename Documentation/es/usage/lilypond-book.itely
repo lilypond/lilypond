@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
+    Translation of GIT committish: 7ae1e99ff67432c96faf743bc28ac7b90a47a852
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -524,7 +524,7 @@ para incluir música dentro de archivos HTML:
 @itemize
 
 @item
-la instrucción @code{<lilypond .... />}, donde podemos introducir
+la instrucción @code{<lilypond ... />}, donde podemos introducir
 directamente fragmentos cortos de código de LilyPond
 
 @item
@@ -1037,6 +1037,15 @@ salida, así que en ciertos casos es necesario invocar instrucciones de
 procesado posteriores como @command{makeinfo} o @command{latex} con
 las mismas opciones @option{-I @var{directorio}}.
 
+@item -l @var{nivel_de_registro}
+@itemx --loglevel=@var{nivel_de_registro}
+Fijar el nivel en que la salida es prolija, al valor
+@var{nivel_de_registro}. Los valores posibles son @code{NONE} (nada),
+@code{ERROR} (errores), @code{WARNING} (advertencias), @code{PROGRESS}
+(avance; predeterminado) y @code{DEBUG} (depuración). Si esta opción
+no se utiliza, y la variable de entorno @code{LILYPOND_BOOK_LOGLEVEL}
+está establecida, se usa su valor como el nivel de registro.
+
 @item -o @var{directorio}
 @itemx --output=@var{directorio}
 Colocar los archivos generados en el @var{directorio}.  La ejecución
@@ -1066,6 +1075,18 @@ Escribir archivos lily-XXX en el directorio @var{directorio}, enlazar
 en el directorio de @option{--output}.  Use esta opción para ahorrar
 tiempo de construcción para documentos de distintos directorios que
 comparten muchos fragmentos idénticos de código.
+
+@itemx --lily-loglevel=@var{nivel_de_registro}
+Fijar el nivel en que la salida es prolija para las llamadas de la
+instrucción invocada @command{lilypond}, al valor
+@var{nivel_de_registro}.  Los valores posibles son @code{NONE} (nada),
+@code{ERROR} (errores), @code{WARNING} (advertencias),
+@code{BASIC_PROGRESS} (avance básico), @code{PROGRESS} (avance),
+@code{INFO} (información; predeterminado) y @code{DEBUG}
+(depuración). Si no se utiliza esta opción y la variable de entorno
+@code{LILYPOND_LOGLEVEL} está establecida, su valor se usa como nivel
+de registro.
+
 
 @itemx --info-images-dir=@var{directorio}
 Dar formato a la salida de Texinfo de manera que Info busque las
@@ -1112,7 +1133,7 @@ directorios determinados por las opciones @option{--output-dir} y
 
 @item -V
 @itemx --verbose
-Ser prolijo.
+Ser prolijo.  Equivale a @code{--loglevel=DEBUG}.
 
 @item -v
 @itemx --version

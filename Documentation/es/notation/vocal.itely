@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2fff263f10fd542454455994aea5ff3bbe075c7d
+    Translation of GIT committish: 688f5f1711d8ca07338385a2ae0191b1a8aae315
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -190,7 +190,7 @@ cualquier idioma distinto del inglés, o los caracteres especiales
 (como el símbolo del corazón o las comillas inclinadas), se pueden
 insertar directamente en el archivo de entrada, siempre que éste se
 grabe con la codificación UTF-8.  Para más información, consulte
-@ref{Codificación del texto}.
+@ref{Caracteres especiales}.
 
 @lilypond[quote,verbatim]
 \relative c'' { d8 c16 a bes8 f e' d c4 }
@@ -238,7 +238,7 @@ Referencia de la notación:
 @ref{Formatear el texto},
 @ref{Modos de entrada},
 @ref{Duración manual de las sílabas},
-@ref{Codificación del texto}.
+@ref{Caracteres especiales}.
 
 Referencia de funcionamiento interno:
 @rinternals{LyricText}.
