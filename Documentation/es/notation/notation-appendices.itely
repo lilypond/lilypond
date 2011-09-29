@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 8d148ea05fa4b34f8cc3407e112363d715b27ad8
+    Translation of GIT committish: 688f5f1711d8ca07338385a2ae0191b1a8aae315
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -25,6 +25,7 @@
 * Estilos de cabezas de nota::
 * Instrucciones de marcado de texto::
 * Instrucciones de listas de marcado de texto::
+* Lista de caracteres especiales::
 * Lista de articulaciones::
 * Notas de percusión::
 * Glosario técnico::
@@ -940,6 +941,26 @@ Se puede usar cualquiera de las siguientes instrucciones con
 @include markup-list-commands.tely
 
 
+@node Lista de caracteres especiales
+@appendixsec Lista de caracteres especiales
+@translationof Lista de caracteres especiales
+
+Se pueden usar las siguientes referencias a carcteres especiales; para
+ver más detalles, consulte @ref{Alias de ASCII}.
+
+Se usa la sintaxis del HTML y casi todas estas referencias son las
+mismas que en el HTML.  El resto están inspiradas en @LaTeX{}.
+
+Los caracteres están enmarcados en un rectángulo de forma que pueda
+verse el tamaño que tienen. Se ha añadido un pequeño relleno de
+separación entre el carácter y el rectángulo para mejorar la
+legibilidad.
+
+@lilypond[quote]
+\include "special-characters.ly"
+@end lilypond
+
+
 @node Lista de articulaciones
 @appendixsec Lista de articulaciones
 @translationof List of articulations
@@ -1190,7 +1211,7 @@ que abarcan varios estilos forman un tipo.
 @seealso
 Referencia de la notación:
 @ref{Tipografías},
-@ref{Codificación del texto}.
+@ref{Caracteres especiales}.
 
 
 @node grob (objeto gráfico)
