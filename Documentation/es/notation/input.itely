@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
+    Translation of GIT committish: a4784ac9714fb3ec737fc4afedd4ea7ef4ad4209
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -434,9 +434,10 @@ contiene sólo la expresión musical anterior se traduce a
         @{ c'4 d' e'2 @}
       @}
     @}
+    \layout @{ @}
   @}
-	\layout @{ @}
-	\header @{ @}
+  \paper @{ @}
+  \header @{ @}
 @}
 @end example
 
@@ -1256,7 +1257,7 @@ Archivos de inicio:
 @menu
 * Inclusión de archivos de LilyPond::
 * Distintas ediciones a partir de una misma fuente::
-* Codificación del texto::
+* Caracteres especiales::
 @end menu
 
 
@@ -1373,9 +1374,7 @@ Manual de aprendizaje:
 @rlearning{Otras fuentes de información},
 @rlearning{Partituras y particellas}.
 
-
 @knownissues
-
 Si un archivo incluido recibe un nombre igual al de uno de los
 archivos de instalación de LilyPond, el archivo que tiene prioridad es
 el de los archivos de instalación de LilyPond.
@@ -1385,15 +1384,18 @@ el de los archivos de instalación de LilyPond.
 @subsection Distintas ediciones a partir de una misma fuente
 @translationof Different editions from one source
 
-Se encuentran disponibles varios mecanismos para facilitar la
-producción de distintas versiones de una partitura a partir de la
-misma fuente musical.  Las variables son quizá más útiles para
-combinar secciones extensas de música y/o anotaciones de diversas
-formas, mientras que las etiquetas son más útiles para seleccionar una
-de entra varias secciones de música más cortas.  Cualquiera que sea el
-método utilizado, la separación de la notación de la estructura de la
-partitura hará que sea más fácil cambiar la estructura dejando intacta
-la notación.
+Se pueden usar varios métodos para generar la producción de distintas
+versiones de una partitura a partir de la misma fuente musical.  Las
+variables son quizá el más útil para combinar secciones extensas de
+música y/o anotaciones.  Las etiquetas son más útiles para seleccionar
+una sección de entre varias secciones de música alternativas, más
+cortas, y se pueden usar también para dividir piezas de música en
+distintos trozos.
+
+Cualquiera que sea el método utilizado, la separación de la notación
+de la estructura de la partitura hará que sea más fácil cambiar la
+estructura dejando intacta la notación.
+
 
 @menu
 * Uso de las variables::
@@ -1470,9 +1472,12 @@ en archivos separados que se incluyen más tarde, véase @ref{Inclusión de arch
 @funindex \tag
 @funindex \keepWithTag
 @funindex \removeWithTag
+@funindex \pushToTag
+@funindex \appendToTag
 @cindex etiqueta
 @cindex mantener música etiquetada
 @cindex quitar música etiquetada
+@cindex división en música etiquetada
 
 La instrucción @code{\tag #'@var{parteA}} marca una expresión musical
 con el nombre @var{parteA}.  Las expresiones etiquetadas de esta
@@ -1602,6 +1607,30 @@ etiquetadas, porque el primer filtro quita todas las secciones
 etiquetadas excepto la que se nombra, y el segundo filtro elimina
 incluso esa sección etiquetada.
 
+A vecespodemos desear dividir la música en un determinado lugar dentro
+de una expresión musical existente.  Podemos usar @code{\pushToTag} y
+@code{\appendToTag} para añadir material delante o al final de los
+@code{elements} de una construcción musical existente.  No toda
+construcción musical tiene la parte @code{elements}, pero las músicas
+secuenciaes y simultáneas son dos apuestas seguras:
+
+@lilypond[verbatim,quote]
+test = { \tag #'here { \tag #'here <<c''>> } }
+
+{
+  \pushToTag #'here c'
+  \pushToTag #'here e'
+  \pushToTag #'here g' \test
+  \appendToTag #'here c'
+  \appendToTag #'here e'
+  \appendToTag #'here g' \test
+}
+@end lilypond
+
+Las dos instrucciones admiten una etiqueta, el material que dividir en
+cada ocurrencia de la etiqueta, y la expresión etiquetada.  Las
+instrucciones aseguran que se copia todo lo que cambian, de forma que
+el código original @code{\test} retiene su significado.
 
 @seealso
 Manual de aprendizaje:
@@ -1654,13 +1683,25 @@ Manual de aprendizaje:
 Referencia de la notación:
 @ref{Inclusión de archivos de LilyPond}.
 
+@node Caracteres especiales
+@subsection Caracteres especiales
+@translationof Special characters
+
+@cindex caracteres especiales
+@cindex caracteres no ASCII
+
+@menu
+* Codificación del texto::
+* Unicode::
+* Alias de ASCII::
+@end menu
+
+
 @node Codificación del texto
-@subsection Codificación del texto
+@unnumberedsubsubsec Codificación del texto
 @translationof Text encoding
 
-@cindex Unicode
 @cindex UTF-8
-@cindex caracteres no ASCII
 
 LilyPond usa el conjunto de caracteres definido por el consorcio
 Unicode y la norma ISO/IEC 10646.  Define un nombre único y un código
@@ -1727,6 +1768,12 @@ portuguese = \lyricmode {
 \addlyrics { \portuguese }
 @end lilypond
 
+
+@node Unicode
+@unnumberedsubsubsec Unicode
+
+@cindex Unicode
+
 Para introducir un carácter aislado para el que se conoce el punto de
 código Unicode pero no está disponible en el editor que se está
 usando, use @code{\char ##xhhhh} o bien @code{\char #dddd} dentro de
@@ -1780,6 +1827,58 @@ Para escribir el símbolo de copyright en la nota de créditos, utilice:
 @end example
 
 
+@node Alias de ASCII
+@unnumberedsubsubsec Alias de ASCII
+@translationof ASCII aliases
+
+Se puede incluir una lista de alias de ASCII para caracteres
+especiales:
+
+@lilypond[quote,verbatim]
+\paper {
+  #(include-special-characters)
+}
+
+\markup "&flqq; &ndash; &OE;uvre incomplète&hellip; &frqq;"
+
+\score {
+  \new Staff { \repeat unfold 9 a'4 }
+  \addlyrics {
+    This is al -- so wor -- kin'~in ly -- rics: &ndash;_&OE;&hellip;
+  }
+}
+
+\markup \column {
+  "The replacement can be disabled:"
+  "&ndash; &OE; &hellip;"
+  \override #'(replacement-alist . ()) "&ndash; &OE; &hellip;"
+}
+@end lilypond
+
+También podemos hacer nuestros propios alias, ya sea de forma global:
+
+@lilypond[quote,verbatim]
+\paper {
+  #(add-text-replacements!
+    '(("100" . "hundred")
+      ("dpi" . "dots per inch")))
+}
+\markup "A 100 dpi."
+@end lilypond
+
+o local:
+
+@lilypond[quote,verbatim]
+\markup \replace #'(("100" . "hundred")
+                    ("dpi" . "dots per inch")) "A 100 dpi."
+@end lilypond
+
+@seealso
+Referencia de la notación:
+@ref{Lista de caracteres especiales}.
+
+Archivos instalados:
+@file{ly/text-replacements.ly}.
 
 
 
