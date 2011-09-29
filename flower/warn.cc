@@ -22,6 +22,7 @@
 #include <cstdlib>
 #include <cstdio>
 
+#include "std-vector.hh"
 #include "international.hh"
 
 using namespace std;
@@ -91,6 +92,51 @@ set_loglevel (string level)
     }
 }
 
+/**
+ * Register a warning string to be expected and the output suppressed.
+ * If the warning is encountered, it will be removed from the list of
+ * expected warnings again.
+ */
+vector<string> expected_warnings;
+void expect_warning (string msg)
+{
+  expected_warnings.push_back (msg);
+}
+
+void check_expected_warnings ()
+{
+  if (expected_warnings.size () > 0) 
+    {
+      /* Some expected warning was not triggered, so print out a warning. */
+      string msg = _f ("%d expected warning(s) not encountered: ", 
+                       expected_warnings.size ());
+      for (vsize i = 0; i< expected_warnings.size (); i++)
+          msg += "\n        " + expected_warnings[i];
+      
+      warning (msg);
+    }
+  expected_warnings.clear ();
+}
+
+bool is_expected (string s)
+{
+  bool expected = false;
+  for (vsize i = 0; i< expected_warnings.size (); i++)
+    {
+      // Compare the msg with the suppressed string; If the beginning matches,
+      // i.e. the msg can have additional content AFTER the full (exact)
+      // suppressed message, suppress the warning.
+      // This is needed for the Input class, where the message contains
+      // the input file contents after the real message.
+      if (s.compare (0, expected_warnings[i].size (), expected_warnings[i]) == 0 ) {
+        expected = true;
+        expected_warnings.erase (expected_warnings.begin () + i);
+        break;
+      }
+    }
+  return expected;
+}
+
 
 /**
  * Helper functions: print_message_part (no newline prepended)
@@ -142,22 +188,35 @@ error (string s, string location)
 void
 programming_error (string s, string location)
 {
-  print_message (LOG_ERROR, location, _f ("programming error: %s", s) + "\n");
-  print_message (LOG_ERROR, location, _ ("continuing, cross fingers") + "\n");
+  if (is_expected (s)) {
+    print_message (LOG_DEBUG, location, _f ("suppressed programming error: %s", s) + "\n");
+  } else {
+    print_message (LOG_ERROR, location, _f ("programming error: %s", s) + "\n");
+    print_message (LOG_ERROR, location, _ ("continuing, cross fingers") + "\n");
+  }
 }
 
 /* Display a non-fatal error message, don't exit.  */
 void
 non_fatal_error (string s, string location)
 {
-  print_message (LOG_ERROR, location, _f ("error: %s", s) + "\n");
+  if (is_expected (s))
+    print_message (LOG_DEBUG, location, _f ("suppressed error: %s", s) + "\n");
+  else {
+    print_message (LOG_ERROR, location, _f ("error: %s", s) + "\n");
+  }
 }
 
 /* Display a warning message. */
 void
 warning (string s, string location)
 {
-  print_message (LOG_WARN, location, _f ("warning: %s", s) + "\n");
+  if (is_expected (s))
+    print_message (LOG_DEBUG, location, _f ("suppressed warning: %s", s) + "\n");
+  else {
+    // TODO: Add warning-as-error check here
+    print_message (LOG_WARN, location, _f ("warning: %s", s) + "\n");
+  }
 }
 
 /* Display a success message.  */

@@ -843,6 +843,7 @@ PIDs or the number of the process."
          (if (ly:get-option 'trace-memory-frequency)
              (mtrace:start-trace  (ly:get-option 'trace-memory-frequency)))
          (lilypond-file handler x)
+         (ly:check-expected-warnings)
          (if start-measurements
              (dump-profile x start-measurements (profile-measurements)))
          (if (ly:get-option 'trace-memory-frequency)
