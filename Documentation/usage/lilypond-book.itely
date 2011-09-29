@@ -1064,7 +1064,6 @@ Print version information.
 @end table
 
 
-In addition, @command{lilypond-book}
 
 @knownissues
 
