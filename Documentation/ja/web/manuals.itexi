@@ -15,7 +15,7 @@
 
 @macro details{reference}
 @spanClass{detail}
-(@ref{\reference\, \reference\} の詳細)
+(@ref{\reference\, \reference\ の詳細})
 @spanEnd
 @end macro
 
@@ -40,7 +40,7 @@
 LilyPond は @strong{テキスト ベース} の楽譜作成プログラムです。@c
 まず最初にこのドキュメントを読んでください！
 
-@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,学習}}
+@item @ifWebLinks{@manualStableLearningSplitNoName-ja,@rlearningnamed{Top,学習}}
 @qq{必読} のやさしい LilyPond 入門書です。
 @details{学習}
 
@@ -64,11 +64,11 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 
 @itemize
 
-@item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,記譜法}}
+@item @ifWebLinks{@manualStableNotationSplitNoName-ja,@rusernamed{Top,記譜法}}
 構文リファレンス。
 @details{記譜法}
 
-@item @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,使用方法}}
+@item @ifWebLinks{@manualStableUsageSplitNoName-ja,@rprogramnamed{Top,使用方法}}
 このプログラムの実行方法。
 @details{使用方法}
 
@@ -182,8 +182,8 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 
 @docLinks{学習, learning,
   @rlearningnamed{Top,学習},
-  @manualStableLearningSplit,
-  @manualStableLearningBig, 1.5 MB,
+  @manualStableLearningSplit-ja,
+  @manualStableLearningBig-ja, 1.5 MB,
   @manualStableLearningPdf, 3 MB}
 
 @divEnd
@@ -262,8 +262,8 @@ LilyPond の譜刻テクニックの例を挙げます。@c
 
 @docLinks{記譜法, notation,
   @rusernamed{Top,記譜法},
-  @manualStableNotationSplit,
-  @manualStableNotationBig, 7 MB,
+  @manualStableNotationSplit-ja,
+  @manualStableNotationBig-ja, 7 MB,
   @manualStableNotationPdf, 18 MB}
 
 @divEnd
@@ -286,8 +286,8 @@ LilyPond 記譜法を他のプログラムと統合する方法について説�
 
 @docLinks{使用方法, usage,
   @rprogramnamed{Top,使用方法},
-  @manualStableUsageSplit,
-  @manualStableUsageBig, 300 KB,
+  @manualStableUsageSplit-ja,
+  @manualStableUsageBig-ja, 300 KB,
   @manualStableUsagePdf, 400 KB}
 
 @divEnd
@@ -398,8 +398,8 @@ LilyPond を使う理由については、@ref{導入部} に書かれていま�
 
 @docLinksBare{Web, web,
   @ref{Top,Web},
-  @manualDevelWebSplit,
-  @manualDevelWebBig, 1 MB,
+  @manualDevelWebSplit-ja,
+  @manualDevelWebBig-ja, 1 MB,
   @manualDevelWebPdf, 2 MB}
 
 @divEnd

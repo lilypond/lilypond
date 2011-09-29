@@ -646,9 +646,9 @@ LilyPond の開発手法はかなり複雑です。@c
 @multitable @columnfractions .3 .3 .3
 @headitem 導入部
 @item
-@docLinkSplit{学習,learning,@manualDevelLearningSplit}
+@docLinkSplit{学習,learning,@manualDevelLearningSplit-ja}
 @tab
-@docLinkBig{学習,learning,@manualDevelLearningBig}
+@docLinkBig{学習,learning,@manualDevelLearningBig-ja}
 @tab
 @docLinkPdf{学習,learning,@manualDevelLearningPdf}
 
@@ -669,16 +669,16 @@ LilyPond の開発手法はかなり複雑です。@c
 @headitem 常用マニュアル
 
 @item
-@docLinkSplit{Notation,notation,@manualDevelNotationSplit}
+@docLinkSplit{Notation,notation,@manualDevelNotationSplit-ja}
 @tab
-@docLinkBig{Notation,notation,@manualDevelNotationBig}
+@docLinkBig{Notation,notation,@manualDevelNotationBig-ja}
 @tab
 @docLinkPdf{Notation,notation,@manualDevelNotationPdf}
 
 @item
-@docLinkSplit{使用方法,usage,@manualDevelUsageSplit}
+@docLinkSplit{使用方法,usage,@manualDevelUsageSplit-ja}
 @tab
-@docLinkBig{使用方法,usage,@manualDevelUsageBig}
+@docLinkBig{使用方法,usage,@manualDevelUsageBig-ja}
 @tab
 @docLinkPdf{使用方法,usage,@manualDevelUsagePdf}
 
@@ -692,9 +692,9 @@ LilyPond の開発手法はかなり複雑です。@c
 @headitem 時々使用するマニュアル
 
 @item
-@docLinkSplit{Web,web,@manualDevelWebSplit}
+@docLinkSplit{Web,web,@manualDevelWebSplit-ja}
 @tab
-@docLinkBig{Web,web,@manualDevelWebBig}
+@docLinkBig{Web,web,@manualDevelWebBig-ja}
 @tab
 @docLinkPdf{Web,web,@manualDevelWebPdf}
 
