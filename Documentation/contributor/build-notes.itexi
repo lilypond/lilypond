@@ -286,11 +286,11 @@ are:
 
 @example
 $(outdir)/%.ly: %.lym4
-	$(M4) $< | sed "s/\`/,/g" > $@
+        $(M4) $< | sed "s/\`/,/g" > $@
 
 $(outdir)/%: %.in
-	rm -f $@
-	cat $< | sed $(sed-atfiles) | sed $(sed-atvariables) > $@
+        rm -f $@
+        cat $< | sed $(sed-atfiles) | sed $(sed-atvariables) > $@
 @end example
 
 I believe the first rule is for *.ly files, and has a prerequisite
@@ -311,7 +311,7 @@ can comment on exactly what the rules mean/do.
 @example
 ## TODO: fail dist or web if no \version present.
 check-version:
-	grep -L version $(LY_FILES)
+        grep -L version $(LY_FILES)
 @end example
 
 @file{stepmake/generic-targets.make} contains lots of rules - too
@@ -341,9 +341,9 @@ ifeq ($(out),www)
 # All web targets, except info image symlinks and info docs are
 # installed in non-recursing target from TOP-SRC-DIR
 install-WWW:
-	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
-	rsync -rl --exclude='*.signature' $(outdir)/offline-root $(DESTDIR)$(webdir)
-	$(MAKE) -C Documentation omf-local-install
+        -$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
+        rsync -rl --exclude='*.signature' $(outdir)/offline-root $(DESTDIR)$(webdir)
+        $(MAKE) -C Documentation omf-local-install
 @end smallexample
 
 I don't currently understand the @code{ifeq}, since @code{$(out)}
@@ -676,7 +676,7 @@ Must remake target `out-www/collated-files.tely'
 
 @smallexample
 $(outdir)/collated-files.tely: $(COLLATED_FILES)
-	$(LYS_TO_TELY) --name=$(outdir)/collated-files.tely --title="$(TITLE)" --author="$(AUTHOR)" $^
+        $(LYS_TO_TELY) --name=$(outdir)/collated-files.tely --title="$(TITLE)" --author="$(AUTHOR)" $^
 @end smallexample
 
 @file{lysdoc-vars.make} has:
@@ -710,7 +710,7 @@ depends on @file{git/VERSION}:
 
 @smallexample
 $(outdir)/version.%: $(top-src-dir)/VERSION
-	$(PYTHON) $(top-src-dir)/scripts/build/create-version-itexi.py > $@
+        $(PYTHON) $(top-src-dir)/scripts/build/create-version-itexi.py > $@
 @end smallexample
 
 This causes create-version-itexi.py to run and create
@@ -888,10 +888,10 @@ is:
 
 @example
 $(outdir)/colorado.itexi:
-	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
-		-s $(top-src-dir)/Documentation/lily-bib \
-		-o $(outdir)/colorado.itexi \
-		$(src-dir)/essay/colorado.bib
+        BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
+                -s $(top-src-dir)/Documentation/lily-bib \
+                -o $(outdir)/colorado.itexi \
+                $(src-dir)/essay/colorado.bib
 @end example
 
 Line by line:
@@ -904,27 +904,27 @@ We're making the file @file{colorado.itexi} and so this is the
 make instruction.
 
 @example
-	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
+        BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
 @end example
 
 It's in the @file{essay} directory and we want to run the
 bib2texi.py script against it.
 
 @example
-		-s $(top-src-dir)/Documentation/lily-bib \
+                -s $(top-src-dir)/Documentation/lily-bib \
 @end example
 
 The style template is @file{lily-bib.bst} and is found in the
 @file{Documentation} directory.
 
 @example
-		-o $(outdir)/colorado.itexi \
+                -o $(outdir)/colorado.itexi \
 @end example
 
 The output file in @file{colorado.itexi}.
 
 @example
-		$(src-dir)/essay/colorado.bib
+                $(src-dir)/essay/colorado.bib
 @end example
 
 The input file is @file{colorado.bib} in the @file{essay}
@@ -960,77 +960,339 @@ The file @file{lily-bib.bst} also has fairly extensive commenting.
 @node Website build
 @section Website build
 
-Start here: @file{make/website.make}
+@warning{This information applies only to the standard @code{make
+website} from the normal build directory.  The process is
+different for @code{dev/website-build}.}
 
-The overall build system begins with @ref{How stepmake works}.
-Summary: when you type @code{make website} this ends up running
-@file{GNUmakefile.in} in the @file{git} directory.  Right at the
-bottom, this has the lines:
+The rule for make website is found in GNUmakefile.in:
 
 @example
-# we want this separate for security; see CG 4.2.  -gp
 website:
-	$(MAKE) config_make=$(config_make) \
-		top-src-dir=$(top-src-dir) \
-		-f $(top-src-dir)/make/website.make \
-		website
+$(MAKE) config_make=$(config_make) \
+        top-src-dir=$(top-src-dir) \
+        -f $(top-src-dir)/make/website.make \
+        website
 @end example
 
-On my system this expands to:
+This translates as:
 
 @example
 make --no-builtin-rules config_make=./config.make \
-		top-src-dir=/home/phil/lilypond-git \
-		-f /home/phil/lilypond-git/make/website.make \
-		website
+                top-src-dir=/home/phil/lilypond-git \
+                -f /home/phil/lilypond-git/make/website.make \
+                website
 @end example
 
-We see that the @code{$(MAKE)} expands to
-@code{make --no-builtin-rules} which is how @code{MAKE} is
-defined higher up the makefile.  The -f switch defines the
-makefile to be used - in this case
-@file{git/make/website.make}.  That's where all the action
-happens.
+which has the effect of setting the variables @code{config_make}
+and @code{top-src-dir} and then processing the file
+@code{git/make/website.make} with the target of website.
 
-We believe that note that *none* of the variables that
-are loaded (from depth to version numbers to whatever) are used in
-@file{website.make}.  Instead, @file{website.make} sets up its own
-variables at the top of the file.  If you're wondering if there's
-some smart reason for this, then the answer is "no".  It's because
-I (GP) didn't know/trust the original variables when I was writing
-that file.
-
-Website build includes @ref{Building a bibliography}.
-
-@subsubheading Output from @code{make -n website}
-
-Sorry, including this output directly produces problems in the
-build system.  Please run:
+@code{website.make} starts with the following:
 
 @example
-make -n website &> my-file.txt
+ifeq (@$(WEBSITE_ONLY_BUILD),1)
 @end example
 
-to see the full output from the make.
+which checks to see whether the variable @code{WEBSITE_ONLY_BUILD}
+was set to one on the command line.  This is only done for
+standalone website builds, not in the normal case.  The result of
+the test determines the value of some variables that are set.  A
+number of other variables are set, in order to establish locations
+of various files.  An example is:
 
-@subsubheading website.make variables
+@example
+CREATE_VERSION=python @$(script-dir)/create-version-itexi.py
+@end example
 
-The file begins by setting up some variables.  These
-may/might/probably mirror existing variables, but lacking any docs
-about those variables, I thought it would be simpler to keep
-everything in the same file.
+The rule for website is:
 
-Note that for security reasons, we @strong{don't} call scripts in
-the git dir when building on the web server.  See @ref{Uploading
-and security}.  So we definitely want to keep those definitions
-for the WEBSITE_ONLY_BUILD.
+@smallexample
+website: website-texinfo website-css website-pictures website-examples web-post
+        cp @$(SERVER_FILES)/favicon.ico @$(OUT)/website
+        cp @$(SERVER_FILES)/robots.txt @$(OUT)/website
+        cp @$(top-htaccess) @$(OUT)/.htaccess
+        cp @$(dir-htaccess) @$(OUT)/website/.htaccess
+@end smallexample
 
-After some split WEBSITE_ONLY_BUILD vs. normal build definitions,
-there's another bunch of lines setting up generic variables.
+so we see that this starts by running the rules for 5 other
+targets, then finishes by copying some files.  We'll cover that
+later - first @code{website-texinfo}.  That rule is:
 
-@subsubheading website.make building parts
+@example
+website-texinfo: website-version website-xrefs website-bibs
+        for l in '' @$(WEB_LANGS); do \
+                if test -n "@$@$l"; then \
+                        langopt=--lang="@$@$l"; \
+                        langsuf=.@$@$l; \
+                fi; \
+                @$(TEXI2HTML) --prefix=index \
+                        --split=section \
+                        --I=@$(top-src-dir)/Documentation/"@$@$l" \
+                        --I=@$(top-src-dir)/Documentation \
+                        --I=@$(OUT) \
+                        @$@$langopt \
+                        --init-file=@$(texi2html-init-file) \
+                        -D web_version \
+                        --output=@$(OUT)/"@$@$l" \
+                        @$(top-src-dir)/Documentation/"@$@$l"/web.texi ; \
+                ls @$(OUT)/@$@$l/*.html | xargs grep -L \
+                        'UNTRANSLATED NODE: IGNORE ME' | \
+                        sed 's!@$(OUT)/'@$@$l'/!!g' | xargs \
+                        @$(MASS_LINK) --prepend-suffix="@$@$langsuf" \
+                        hard @$(OUT)/@$@$l/ @$(OUT)/website/ ; \
+        done
+@end example
 
-Parts of @file{website.make}:
+which therefore depends on @code{website-version},
+@code{website-xrefs} and @code{website-bibs}.
+
+@example
+website-version:
+        mkdir -p @$(OUT)
+        @$(CREATE_VERSION) @$(top-src-dir) > @$(OUT)/version.itexi
+        @$(CREATE_WEBLINKS) @$(top-src-dir) > @$(OUT)/weblinks.itexi
+@end example
+
+which translates as:
+
+@example
+mkdir -p out-website
+python /home/phil/lilypond-git/scripts/build/create-version-itexi.py
+        /home/phil/lilypond-git > out-website/version.itexi
+python /home/phil/lilypond-git/scripts/build/create-weblinks-itexi.py
+        /home/phil/lilypond-git > out-website/weblinks.itexi
+@end example
+
+So, we make out-website then send the output of
+@code{create-version-itexi.py} to @code{out-website/version.itexi}
+and @code{create-weblinks-itexi.py} to
+@code{out-website/weblinks.itexi}.
+
+@code{create-version-itexi.py} parses the file @code{VERSION} in
+the top source dir.  It contains:
+
+@example
+PACKAGE_NAME=LilyPond
+MAJOR_VERSION=2
+MINOR_VERSION=15
+PATCH_LEVEL=13
+MY_PATCH_LEVEL=
+VERSION_STABLE=2.14.2
+VERSION_DEVEL=2.15.12
+@end example
+
+currently.  @code{c-v-i.py} parses this to:
+
+@example
+@@c ************************ Version numbers ************
+@@macro version
+2.15.13
+@@end macro
+
+@@macro versionStable
+2.14.2
+@@end macro
+
+@@macro versionDevel
+2.15.12
+@@end macro
+@end example
+
+@code{create-weblinks-itexi.py} creates a load of texi macros (of
+the order of 1000) similar to:
+
+@example
+@@macro manualStableGlossaryPdf
+@@uref{../doc/v2.14/Documentation/music-glossary.pdf,Music glossary.pdf}
+@@end macro.
+@end example
+
+It loads its languages from langdefs.py, and therefore outputs the following unhelpful warning:
+
+@code{langdefs.py: warning: lilypond-doc gettext domain not found.}
+
+Next:
+
+@example
+website-xrefs: website-version
+        for l in '' @$(WEB_LANGS); do \
+@end example
+
+is the start of the rule, truncated for brevity.  This loops
+through the languages to be used on the website, processing some
+variables which I don't fully understand, to run this command:
+
+@smallexample
+python /home/phil/lilypond-git/scripts/build/extract_texi_filenames.py \
+        -I /home/phil/lilypond-git/Documentation \
+        -I /home/phil/lilypond-git/Documentation/"@$l" \
+        -I out-website -o out-website --split=node \
+        --known-missing-files= \
+                 /home/phil/lilypond-git/scripts/build/website-known-missing-files.txt \
+        -q \
+        /home/phil/lilypond-git/Documentation/"@$l"/web.texi ;\
+@end smallexample
+
+There's a good description of what
+@code{extract_texi_filenames.py} does at the top of the script,
+but a shortened version is:
+
+@code{If this script is run on a file texifile.texi, it produces
+a file texifile[.LANG].xref-map with tab-separated entries
+of the form NODE\tFILENAME\tANCHOR.}
+
+An example from
+@code{web.nl.xref-map} is:
+
+@example
+Inleiding        Introduction        Introduction
+@end example
+
+@code{e-t-f.py} follows the includes from document to document.
+We know some have not been created yet, and
+@code{known-missing-files} option tells @code{e-t-f.py} which
+these are.
+
+It then does this:
+
+@example
+for m in @$(MANUALS); do \
+@end example
+
+to run @code{e-t-f.py} against all of the manuals, in each
+language. Next:
+
+@example
+website-bibs: website-version
+        BSTINPUTS=@$(top-src-dir)/Documentation/web \
+                @$(WEB_BIBS) -s web \
+                -s @$(top-src-dir)/Documentation/lily-bib \
+                -o @$(OUT)/others-did.itexi \
+                @$(quiet-flag) \
+                @$(top-src-dir)/Documentation/web/others-did.bib
+@end example
+
+This is half the command.  It runs @code{bib2texi.py} on 2
+@code{.bib} files - @code{others-did.bib} and @code{we-wrote.bib}.
+This converts bibliography files into texi files with
+@code{bibtex}.
+
+Next the commands in the @code{website-texinfo} rule are run:
+
+@example
+for l in '' @$(WEB_LANGS); do \
+@end example
+
+run @code{texi2html}.  This is the program that outputs the
+progress message (found in
+@code{Documentation/lilypond-texi2html.init}):
+
+@code{Processing web site: []}
+
+It also outputs warning messages like:
+
+@code{WARNING: Unable to find node 'Řešení potíží' in book usage.}
+
+@example
+website-css:
+        cp @$(top-src-dir)/Documentation/css/*.css @$(OUT)/website
+@end example
+
+Copies 3 css files to out-website/website.  Then:
+
+@example
+website-pictures:
+        mkdir -p @$(OUT)/website/pictures
+        if [ -d @$(PICTURES) ]; \
+        then \
+                cp @$(PICTURES)/* @$(OUT)/website/pictures ; \
+                ln -sf website/pictures @$(OUT)/pictures  ;\
+        fi
+@end example
+
+which translates as:
+
+@smallexample
+if [ -d Documentation/pictures/out-www ]; \
+    then \
+        cp Documentation/pictures/out-www/* out-website/website/pictures ; \
+        ln -sf website/pictures out-website/pictures  ;\
+    fi
+@end smallexample
+
+i.e. it copies the contents of
+@code{build/Documentation/pictures/out-www/*} to
+@code{out-website/website/pictures}.  Unfortunately, the pictures
+are only created once @code{make doc} has been run, so an initial
+run of @code{make website} copies nothing, and the pictures on the
+website (e.g. the logo) do not exist.  Next:
+
+@example
+website-examples:
+        mkdir -p @$(OUT)/website/ly-examples
+        if [ -d @$(EXAMPLES) ]; \
+        then \
+                cp @$(EXAMPLES)/* @$(OUT)/website/ly-examples ; \
+        fi
+@end example
+
+translates to:
+
+@smallexample
+mkdir -p out-website/website/ly-examples
+if [ -d Documentation/web/ly-examples/out-www ]; \
+    then \
+        cp Documentation/web/ly-examples/out-www/* out-website/website/ly-examples ; \
+    fi
+@end smallexample
+
+This does the same with the LilyPond examples (found at
+@uref{http://lilypond.org/examples.html}).  Again, these are
+actually only created by @code{make doc} (and since they are
+generated from LilyPond source files, require a working LilyPond
+@code{exe} made with @code{make}).  So this does nothing
+initially.  Then:
+
+@example
+web-post:
+        @$(WEB_POST) @$(OUT)/website
+@end example
+
+which is:
+
+@smallexample
+python /home/phil/lilypond-git/scripts/build/website_post.py out-website/website
+@end smallexample
+
+which describes itself as:
+
+@code{This is web_post.py. This script deals with translations
+in the "make website" target.}
+
+It also does a number of other things, including adding the Google
+tracker code and the language selection footer.  We're now at
+the end of our story.  The final 4 lines of the recipe for website
+are:
+
+@example
+cp @$(SERVER_FILES)/favicon.ico @$(OUT)/website
+cp @$(SERVER_FILES)/robots.txt @$(OUT)/website
+cp @$(top-htaccess) @$(OUT)/.htaccess
+cp @$(dir-htaccess) @$(OUT)/website/.htaccess
+@end example
+
+The first translates as:
+
+@smallexample
+cp /home/phil/lilypond-git/Documentation/web/server/favicon.ico out-website/website
+@end smallexample
+
+so we see these are just copying the support files for the web
+server.
+
+@subsubheading website.make summary
+
+Recipes in @file{website.make}:
 
 @itemize
 
@@ -1043,7 +1305,6 @@ of the process it produces.
 @item
 @code{website-version}:
 this calls the python scripts below:
-
 @itemize
 @item
 @example
@@ -1067,7 +1328,6 @@ It's quite monstrous because it deals with combinations of
 stable/devel, source/docs, lang/lang/lang*10, etc.
 
 @end itemize
-
 
 @item
 @code{website-xrefs:}
