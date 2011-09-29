@@ -990,7 +990,7 @@ and @code{top-src-dir} and then processing the file
 @code{website.make} starts with the following:
 
 @example
-ifeq (@$(WEBSITE_ONLY_BUILD),1)
+ifeq ($(WEBSITE_ONLY_BUILD),1)
 @end example
 
 which checks to see whether the variable @code{WEBSITE_ONLY_BUILD}
@@ -1001,17 +1001,17 @@ number of other variables are set, in order to establish locations
 of various files.  An example is:
 
 @example
-CREATE_VERSION=python @$(script-dir)/create-version-itexi.py
+CREATE_VERSION=python $(script-dir)/create-version-itexi.py
 @end example
 
 The rule for website is:
 
 @smallexample
 website: website-texinfo website-css website-pictures website-examples web-post
-        cp @$(SERVER_FILES)/favicon.ico @$(OUT)/website
-        cp @$(SERVER_FILES)/robots.txt @$(OUT)/website
-        cp @$(top-htaccess) @$(OUT)/.htaccess
-        cp @$(dir-htaccess) @$(OUT)/website/.htaccess
+        cp $(SERVER_FILES)/favicon.ico $(OUT)/website
+        cp $(SERVER_FILES)/robots.txt $(OUT)/website
+        cp $(top-htaccess) $(OUT)/.htaccess
+        cp $(dir-htaccess) $(OUT)/website/.htaccess
 @end smallexample
 
 so we see that this starts by running the rules for 5 other
@@ -1020,26 +1020,26 @@ later - first @code{website-texinfo}.  That rule is:
 
 @example
 website-texinfo: website-version website-xrefs website-bibs
-        for l in '' @$(WEB_LANGS); do \
-                if test -n "@$@$l"; then \
-                        langopt=--lang="@$@$l"; \
-                        langsuf=.@$@$l; \
+        for l in '' $(WEB_LANGS); do \
+                if test -n "$$l"; then \
+                        langopt=--lang="$$l"; \
+                        langsuf=.$$l; \
                 fi; \
-                @$(TEXI2HTML) --prefix=index \
+                $(TEXI2HTML) --prefix=index \
                         --split=section \
-                        --I=@$(top-src-dir)/Documentation/"@$@$l" \
-                        --I=@$(top-src-dir)/Documentation \
-                        --I=@$(OUT) \
-                        @$@$langopt \
-                        --init-file=@$(texi2html-init-file) \
+                        --I=$(top-src-dir)/Documentation/"$$l" \
+                        --I=$(top-src-dir)/Documentation \
+                        --I=$(OUT) \
+                        $$langopt \
+                        --init-file=$(texi2html-init-file) \
                         -D web_version \
-                        --output=@$(OUT)/"@$@$l" \
-                        @$(top-src-dir)/Documentation/"@$@$l"/web.texi ; \
-                ls @$(OUT)/@$@$l/*.html | xargs grep -L \
+                        --output=$(OUT)/"$$l" \
+                        $(top-src-dir)/Documentation/"$$l"/web.texi ; \
+                ls $(OUT)/$$l/*.html | xargs grep -L \
                         'UNTRANSLATED NODE: IGNORE ME' | \
-                        sed 's!@$(OUT)/'@$@$l'/!!g' | xargs \
-                        @$(MASS_LINK) --prepend-suffix="@$@$langsuf" \
-                        hard @$(OUT)/@$@$l/ @$(OUT)/website/ ; \
+                        sed 's!$(OUT)/'$$l'/!!g' | xargs \
+                        $(MASS_LINK) --prepend-suffix="$$langsuf" \
+                        hard $(OUT)/$$l/ $(OUT)/website/ ; \
         done
 @end example
 
@@ -1048,9 +1048,9 @@ which therefore depends on @code{website-version},
 
 @example
 website-version:
-        mkdir -p @$(OUT)
-        @$(CREATE_VERSION) @$(top-src-dir) > @$(OUT)/version.itexi
-        @$(CREATE_WEBLINKS) @$(top-src-dir) > @$(OUT)/weblinks.itexi
+        mkdir -p $(OUT)
+        $(CREATE_VERSION) $(top-src-dir) > $(OUT)/version.itexi
+        $(CREATE_WEBLINKS) $(top-src-dir) > $(OUT)/weblinks.itexi
 @end example
 
 which translates as:
@@ -1103,7 +1103,7 @@ the order of 1000) similar to:
 
 @example
 @@macro manualStableGlossaryPdf
-@@uref{../doc/v2.14/Documentation/music-glossary.pdf,Music glossary.pdf}
+@@uref@{../doc/v2.14/Documentation/music-glossary.pdf,Music glossary.pdf@}
 @@end macro.
 @end example
 
@@ -1115,7 +1115,7 @@ Next:
 
 @example
 website-xrefs: website-version
-        for l in '' @$(WEB_LANGS); do \
+        for l in '' $(WEB_LANGS); do \
 @end example
 
 is the start of the rule, truncated for brevity.  This loops
@@ -1125,12 +1125,12 @@ variables which I don't fully understand, to run this command:
 @smallexample
 python /home/phil/lilypond-git/scripts/build/extract_texi_filenames.py \
         -I /home/phil/lilypond-git/Documentation \
-        -I /home/phil/lilypond-git/Documentation/"@$l" \
+        -I /home/phil/lilypond-git/Documentation/"$l" \
         -I out-website -o out-website --split=node \
         --known-missing-files= \
                  /home/phil/lilypond-git/scripts/build/website-known-missing-files.txt \
         -q \
-        /home/phil/lilypond-git/Documentation/"@$l"/web.texi ;\
+        /home/phil/lilypond-git/Documentation/"$l"/web.texi ;\
 @end smallexample
 
 There's a good description of what
@@ -1156,7 +1156,7 @@ these are.
 It then does this:
 
 @example
-for m in @$(MANUALS); do \
+for m in $(MANUALS); do \
 @end example
 
 to run @code{e-t-f.py} against all of the manuals, in each
@@ -1164,12 +1164,12 @@ language. Next:
 
 @example
 website-bibs: website-version
-        BSTINPUTS=@$(top-src-dir)/Documentation/web \
-                @$(WEB_BIBS) -s web \
-                -s @$(top-src-dir)/Documentation/lily-bib \
-                -o @$(OUT)/others-did.itexi \
-                @$(quiet-flag) \
-                @$(top-src-dir)/Documentation/web/others-did.bib
+        BSTINPUTS=$(top-src-dir)/Documentation/web \
+                $(WEB_BIBS) -s web \
+                -s $(top-src-dir)/Documentation/lily-bib \
+                -o $(OUT)/others-did.itexi \
+                $(quiet-flag) \
+                $(top-src-dir)/Documentation/web/others-did.bib
 @end example
 
 This is half the command.  It runs @code{bib2texi.py} on 2
@@ -1180,7 +1180,7 @@ This converts bibliography files into texi files with
 Next the commands in the @code{website-texinfo} rule are run:
 
 @example
-for l in '' @$(WEB_LANGS); do \
+for l in '' $(WEB_LANGS); do \
 @end example
 
 run @code{texi2html}.  This is the program that outputs the
@@ -1195,18 +1195,18 @@ It also outputs warning messages like:
 
 @example
 website-css:
-        cp @$(top-src-dir)/Documentation/css/*.css @$(OUT)/website
+        cp $(top-src-dir)/Documentation/css/*.css $(OUT)/website
 @end example
 
 Copies 3 css files to out-website/website.  Then:
 
 @example
 website-pictures:
-        mkdir -p @$(OUT)/website/pictures
-        if [ -d @$(PICTURES) ]; \
+        mkdir -p $(OUT)/website/pictures
+        if [ -d $(PICTURES) ]; \
         then \
-                cp @$(PICTURES)/* @$(OUT)/website/pictures ; \
-                ln -sf website/pictures @$(OUT)/pictures  ;\
+                cp $(PICTURES)/* $(OUT)/website/pictures ; \
+                ln -sf website/pictures $(OUT)/pictures  ;\
         fi
 @end example
 
@@ -1229,10 +1229,10 @@ website (e.g. the logo) do not exist.  Next:
 
 @example
 website-examples:
-        mkdir -p @$(OUT)/website/ly-examples
-        if [ -d @$(EXAMPLES) ]; \
+        mkdir -p $(OUT)/website/ly-examples
+        if [ -d $(EXAMPLES) ]; \
         then \
-                cp @$(EXAMPLES)/* @$(OUT)/website/ly-examples ; \
+                cp $(EXAMPLES)/* $(OUT)/website/ly-examples ; \
         fi
 @end example
 
@@ -1255,7 +1255,7 @@ initially.  Then:
 
 @example
 web-post:
-        @$(WEB_POST) @$(OUT)/website
+        $(WEB_POST) $(OUT)/website
 @end example
 
 which is:
@@ -1275,10 +1275,10 @@ the end of our story.  The final 4 lines of the recipe for website
 are:
 
 @example
-cp @$(SERVER_FILES)/favicon.ico @$(OUT)/website
-cp @$(SERVER_FILES)/robots.txt @$(OUT)/website
-cp @$(top-htaccess) @$(OUT)/.htaccess
-cp @$(dir-htaccess) @$(OUT)/website/.htaccess
+cp $(SERVER_FILES)/favicon.ico $(OUT)/website
+cp $(SERVER_FILES)/robots.txt $(OUT)/website
+cp $(top-htaccess) $(OUT)/.htaccess
+cp $(dir-htaccess) $(OUT)/website/.htaccess
 @end example
 
 The first translates as:
