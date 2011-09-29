@@ -1,6 +1,7 @@
 \version "2.15.5"
 
 #(ly:set-option 'warning-as-error #f)
+#(ly:expect-warning (_ "already have slur"))
 
 \header {
   texidoc = "An additional opening slur during a running slur should be ignored

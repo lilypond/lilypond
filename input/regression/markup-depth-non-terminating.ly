@@ -1,5 +1,6 @@
 \version "2.15.12"
 #(ly:set-option 'warning-as-error #f)
+#(ly:expect-warning (ly:translate-cpp-warning-scheme "Markup depth exceeds maximal value of %d; Markup: %s") 1024 "recursive-explosion-markup")
 
 \header {
   texidoc = "Markups have a maximum depth to prevent non-termination."

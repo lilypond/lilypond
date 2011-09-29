@@ -1,5 +1,6 @@
 \version "2.14.0"
 #(ly:set-option 'warning-as-error #f)
+#(ly:expect-warning (_ "No open string for pitch ~a") "#<Pitch f >")
 
 \header {
   texidoc="

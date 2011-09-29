@@ -1,6 +1,8 @@
 \version "2.14.0"
 
 #(ly:set-option 'warning-as-error #f)
+#(ly:expect-warning (ly:translate-cpp-warning-scheme "unknown translator: `%s'") "Rhythmic_column_engraver_foo")
+#(ly:expect-warning (ly:translate-cpp-warning-scheme "cannot find: `%s'") "Rhythmic_column_engraver_foo")
 
 \header {
   texidoc = "Engravers which do not exist produce a warning."

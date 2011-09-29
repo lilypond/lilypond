@@ -1,5 +1,8 @@
 \version "2.15.5"
 
+#(ly:set-option 'warning-as-error #f)
+#(ly:expect-warning (ly:translate-cpp-warning-scheme "cannot find Voice `%s'") "not-existing-notes")
+
 \header {
 
   texidoc = "If lyrics are assigned to a non-existing voice, a warning should
@@ -8,7 +11,6 @@ no warning should be printed."
 
 }
 
-#(ly:set-option 'warning-as-error #f)
 <<
   \new Staff
     \new Voice = "notes" {

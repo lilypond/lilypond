@@ -1,5 +1,10 @@
-\header
-{
+\version "2.14.0"
+
+#(ly:expect-warning (_ "Cannot determine neighbors for floating column. "))
+#(ly:expect-warning (_ "Loose column does not have right side to attach to."))
+#(ly:expect-warning (_ "Loose column does not have right side to attach to."))
+
+\header {
 
 texidoc = "Even in case of incorrect contexts (eg. shortlived
   contexts) that break linking of columns through spacing wishes,
@@ -10,8 +15,6 @@ texidoc = "Even in case of incorrect contexts (eg. shortlived
   normal notes.  This is expected."
 
 }
-
-\version "2.14.0"
 
 %% \new Staff cause shortlived, disconnected Voice contexts
 %% breaking spacing-wishes links.

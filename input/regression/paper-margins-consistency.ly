@@ -1,6 +1,7 @@
 \version "2.14.0"
 
 #(ly:set-option 'warning-as-error #f)
+#(ly:expect-warning (_ "margins do not fit with line-width, setting default values"))
 
 \header {
   texidoc = "Margin values must fit the line-width, that means: paper-width =
