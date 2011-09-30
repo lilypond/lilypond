@@ -242,6 +242,7 @@ Positive means move the center to the right.")
 the vertical edges: @code{(@var{left-height} . @var{right-height})}.")
      (edge-text ,pair? "A pair specifying the texts to be set at the
 edges: @code{(@var{left-text} . @var{right-text})}.")
+     (elements-filtered ,boolean? "Callback to filter an element list.")
      (round-up-exceptions ,list? "A list of pairs where car is the numerator
 and cdr the denominator of a moment.  Each pair in this list means that
 the multi-measure rests of the corresponding length will be rounded up to
