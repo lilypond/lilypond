@@ -28,8 +28,12 @@
 struct Tuplet_number
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_x_offset, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_y_offset, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
   DECLARE_GROB_INTERFACE ();
+
+  static Real calc_offset (Spanner *me, Axis a);
 };
 
 MAKE_SCHEME_CALLBACK (Tuplet_number, print, 1);
@@ -51,20 +55,32 @@ Tuplet_number::print (SCM smob)
   stc->align_to (X_AXIS, CENTER);
   stc->align_to (Y_AXIS, CENTER);
 
-  SCM cpoints = tuplet->get_property ("control-points");
-  Drul_array<Offset> points;
-  if (scm_is_pair (cpoints))
-    {
-      points[LEFT] = ly_scm2offset (scm_car (cpoints));
-      points[RIGHT] = ly_scm2offset (scm_cadr (cpoints));
-    }
-  else
-    {
-      programming_error ("wrong type for control-points");
-    }
-  stc->translate ((points[RIGHT] + points[LEFT]) / 2);
+  return stc->smobbed_copy ();
+}
 
-  return stc_scm;
+MAKE_SCHEME_CALLBACK (Tuplet_number, calc_x_offset, 1);
+SCM
+Tuplet_number::calc_x_offset (SCM smob)
+{
+  Spanner *me = unsmob_spanner (smob);
+  Spanner *tuplet = unsmob_spanner (me->get_object ("bracket"));
+
+  Interval x_positions = robust_scm2interval (tuplet->get_property ("X-positions"), Interval (0.0, 0.0));
+
+  return scm_from_double (x_positions.center ());
+}
+
+MAKE_SCHEME_CALLBACK (Tuplet_number, calc_y_offset, 1);
+SCM
+Tuplet_number::calc_y_offset (SCM smob)
+{
+
+  Spanner *me = unsmob_spanner (smob);
+  Spanner *tuplet = unsmob_spanner (me->get_object ("bracket"));
+
+  Interval positions = robust_scm2interval (tuplet->get_property ("positions"), Interval (0.0, 0.0));
+
+  return scm_from_double (positions.center ());
 }
 
 MAKE_SCHEME_CALLBACK (Tuplet_number, calc_cross_staff, 1)

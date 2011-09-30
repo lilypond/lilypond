@@ -1,6 +1,8 @@
 \version "2.14.0"
 
 #(ly:set-option 'warning-as-error #f)
+#(ly:expect-warning (ly:translate-cpp-warning-scheme "unterminated %s") "crescendo")
+#(ly:expect-warning (ly:translate-cpp-warning-scheme "unterminated %s") "decrescendo")
 
 \header {
   texidoc = "A warning is printed if a dynamic spanner is

@@ -1,5 +1,7 @@
 \version "2.15.11"
 #(ly:set-option 'warning-as-error #f)
+#(ly:expect-warning (ly:translate-cpp-warning-scheme "Cyclic markup detected: %s") 'cycle-markup)
+#(ly:expect-warning (ly:translate-cpp-warning-scheme "Cyclic markup detected: %s") 'cycleI-markup)
 
 \header {
   texidoc = "Cyclic markup definitions should cause a warning, but

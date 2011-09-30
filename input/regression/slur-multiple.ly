@@ -1,6 +1,8 @@
 \version "2.15.5"
 
 #(ly:set-option 'warning-as-error #f)
+#(ly:expect-warning (_ "already have slur"))
+#(ly:expect-warning (_ "cannot end slur"))
 
 \header {
   texidoc = "LilyPond does not support multiple concurrent slurs with the 

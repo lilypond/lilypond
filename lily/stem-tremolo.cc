@@ -265,7 +265,8 @@ Stem_tremolo::y_offset (Grob *me, bool pure)
 
   Real end_y
     = stem->extent (stem, Y_AXIS)[stemdir]
-      - stemdir * max (beam_count, 1) * beam_translation;
+      - stemdir * max (beam_count, 1) * beam_translation
+      - Stem::beam_end_corrective (stem);
 
   if (!beam && Stem::duration_log (stem) >= 3)
     {

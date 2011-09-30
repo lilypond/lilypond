@@ -1,3 +1,8 @@
+\version "2.14.0"
+
+#(ly:set-option 'warning-as-error #f)
+#(ly:expect-warning (_ "forced break was overridden by some other event, should you be using bar checks?"))
+#(ly:expect-warning (_ "forced break was overridden by some other event, should you be using bar checks?"))
 
 \header {
 
@@ -5,8 +10,6 @@
  a warning is printed."
 
 }
-
-\version "2.14.0"
 
 \new Staff {
    c'1 \glissando

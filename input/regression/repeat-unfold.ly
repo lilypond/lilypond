@@ -1,5 +1,8 @@
 \version "2.14.0"
 
+#(ly:set-option 'warning-as-error #f)
+#(ly:expect-warning (_ "More alternatives than repeats.  Junking excess alternatives"))
+
 \header{
   texidoc="LilyPond has two modes for repeats: unfolded and semi-unfolded. 
 Unfolded repeats are fully written out.  Semi unfolded repeats have the body
@@ -10,8 +13,6 @@ get to the number of repeats.
 
 Unfolded behavior:"
 }
-
-#(ly:set-option 'warning-as-error #f)
 
 \context Voice \relative c'' {
   \repeat unfold 3 { c^"3x 0a" d }

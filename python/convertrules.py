@@ -3232,6 +3232,16 @@ def conv (str):
         stderr_write (UPDATE_MANUALLY)
     return str
 
+@rule ((2, 15, 10),
+       _ ("Creation of a Flag grob and moving of certain Stem properties to this grob"))
+def conv (str):
+    str = re.sub (r"Stem\s+#'flag-style", r"Flag #'style", str)
+    str = re.sub (r"Stem\s+#'stroke-style", r"Flag #'stroke-style", str)
+    str = re.sub (r"Stem\s+#'flag", r"Flag #'print", str)
+    str = re.sub (r"((?:\\once)?\s*)\\override\s+Stem\s+#'transparent\s*=\s*##t", r"\g<1>\\override Stem #'transparent = ##t \g<1>\\override Flag #'transparent = ##t", str)
+    str = re.sub (r"((?:\\once)?\s*)\\revert\s*Stem\s+#'transparent", r"\g<1>\\revert Stem #'transparent \g<1>\\revert Flag #'transparent", str)
+    return str
+
 
 # Guidelines to write rules (please keep this at the end of this file)
 #

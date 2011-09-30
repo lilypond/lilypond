@@ -1,6 +1,7 @@
 \version "2.14.0"
 
 #(ly:set-option 'warning-as-error #f)
+#(ly:expect-warning (_ "systems run off the page due to improper paper settings, setting default values"))
 
 \header {
   texidoc = "Normally, margin settings must not cause systems to run off the page."

@@ -1,6 +1,8 @@
 \version "2.14.0"
 
 #(ly:set-option 'warning-as-error #f)
+#(ly:expect-warning (_ "no brace found for point size ~S ") 10)
+#(ly:expect-warning (_ "defaulting to ~S pt") 10.5)
 
 \header {
   texidoc = "If  @code{\\left-brace} or @code{\\right-brace} cannot

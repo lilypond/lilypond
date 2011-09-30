@@ -1,5 +1,9 @@
-
 \version "2.14.0"
+
+#(ly:set-option 'warning-as-error #f)
+#(ly:expect-warning (_ "tremolo duration is too long"))
+#(ly:expect-warning (_ "tremolo duration is too long"))
+
 \header{
   texidoc="
 Stem tremolos or rolls are tremolo signs that look like beam segments
@@ -12,16 +16,19 @@ and tilted extra if the stem is down.
 The tremolos should be positioned a fixed distance from the end of the
 stems unless there is no stem, in which case they should be positioned
 a fixed distance from the note head.
+
+If an impossible tremolo duration (e.g. :4) is given, a warning is
+printed.
 "
 }
-
-#(ly:set-option 'warning-as-error #f)
 
 \context Voice \relative c''{
   \textSpannerUp
   \override TextScript  #'padding = #5
+  % The following note should print a warning (quarter tremolo cannot be notated)
   a1:4^":4" a:8^":8" c:16^":16" a:32^":32" a^"x" a:^":"
   a':32 a,,:32
+  % The following note should print a warning (quarter tremolo cannot be notated)
   a'4:4 c:8 a:16 c:32 a a: a2:
   \break
   \stemUp

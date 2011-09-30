@@ -61,4 +61,8 @@ bool is_loglevel (int level);
 void set_loglevel (int level);
 void set_loglevel (string level);
 
+void expect_warning (string msg);
+void check_expected_warnings ();
+
+
 #endif /* WARN_HH */
