@@ -26,9 +26,6 @@
 (define-public (grob::is-live? grob)
   (pair? (ly:grob-basic-properties grob)))
 
-(define-public (grob::x-parent-width grob)
-  (ly:grob-property (ly:grob-parent grob X) 'X-extent))
-
 (define-public (make-stencil-boxer thickness padding callback)
   "Return function that adds a box around the grob passed as argument."
   (lambda (grob)
@@ -348,9 +345,6 @@ and duration-log @var{log}."
 	   (equal? (ly:item-break-dir g) RIGHT))
       (ly:grob-translate-axis! g 3.5 X)))
 
-(define-public (span-bar-stub::height grob)
-  (ly:grob-property grob 'elements-filtered)
-  (ly:axis-group-interface::height grob))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tuplets

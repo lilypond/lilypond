@@ -312,7 +312,6 @@ contained staves are connected vertically."
 
   \consists "Instrument_name_engraver"
   \consists "Span_bar_engraver"
-  \consists "Span_bar_stub_engraver"
   \consists "Span_arpeggio_engraver"
   \consists "System_start_delimiter_engraver"
   \consists "Vertical_align_engraver"
@@ -429,7 +428,6 @@ printing of a single line of lyrics."
   \consists "Instrument_name_engraver"
   \consists "Font_size_engraver"
   \consists "Hara_kiri_engraver"
-  \consists "Pure_from_neighbor_engraver"
   searchForVoice = ##f
   %% explicitly set instrument, so it is not inherited from the parent
   instrumentName = #'()

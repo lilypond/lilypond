@@ -1840,21 +1840,13 @@
 	(non-musical . #t)
 	(stencil . ,ly:span-bar::print)
 	(X-extent . ,ly:span-bar::width)
-	(Y-extent . #f)
-	(meta . ((class . Item)
-		 (interfaces . (bar-line-interface
-				font-interface
-				span-bar-interface))))))
-
-    (SpanBarStub
-     . (
-	(elements-filtered . ,ly:pure-from-neighbor-interface::filter-elements)
-        (X-extent . ,grob::x-parent-width)
-	(Y-extent . ,span-bar-stub::height)
+	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Item)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
 				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
-		 (interfaces . (pure-from-neighbor-interface))))))
+		 (interfaces . (bar-line-interface
+				font-interface
+				span-bar-interface))))))
 
     (StaffGrouper
      . (
@@ -2658,7 +2650,6 @@
     (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
     (,ly:slur::height . ,ly:slur::pure-height)
     (,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
-    (,span-bar-stub::height . ,ly:axis-group-interface::pure-height)
     (,ly:stem::calc-stem-begin-position . ,ly:stem::pure-calc-stem-begin-position)
     (,ly:stem::calc-stem-end-position . ,ly:stem::pure-calc-stem-end-position)
     (,stem::length . ,stem::pure-length)

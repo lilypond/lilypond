@@ -140,12 +140,6 @@ public:
   Grob *get_parent (Axis a) const;
   void fixup_refpoint ();
 
-  /* vertical ordering */
-  static Grob *get_root_vertical_alignment (Grob *g);
-  static Grob *get_vertical_axis_group (Grob *g);
-  static bool vertical_less (Grob *g1, Grob *g2);
-  static int get_vertical_axis_group_index (Grob *g);
-
   virtual Interval_t<int> spanned_rank_interval () const;
   virtual bool pure_is_visible (int start, int end) const;
   bool check_cross_staff (Grob *common);
