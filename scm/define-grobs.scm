@@ -1187,7 +1187,6 @@
 	;; a tuplet bracket.
 
 	(connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
-	(control-points . ,ly:tuplet-bracket::calc-control-points)
 	(direction . ,UP)
 	(edge-height . (0.7 . 0.7))
 	(padding . 2.0)
@@ -1196,6 +1195,7 @@
 	(staff-padding . 0.25)
 	(stencil . ,ly:tuplet-bracket::print)
 	(thickness . 1.6)
+	(X-positions . ,ly:tuplet-bracket::calc-x-positions)
 	(meta . ((class . Spanner)
 		 (interfaces . (line-interface
 				tuplet-bracket-interface))))))
@@ -2347,7 +2347,6 @@
     (TupletBracket
      . (
 	(connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
-	(control-points . ,ly:tuplet-bracket::calc-control-points)
 	(cross-staff . ,ly:tuplet-bracket::calc-cross-staff)
 	(direction  . ,ly:tuplet-bracket::calc-direction)
 	(edge-height . (0.7 . 0.7))
@@ -2358,6 +2357,7 @@
 	(staff-padding . 0.25)
 	(stencil . ,ly:tuplet-bracket::print)
 	(thickness . 1.6)
+	(X-positions . ,ly:tuplet-bracket::calc-x-positions)
 
 	(meta . ((class . Spanner)
 		 (interfaces . (line-interface
@@ -2372,6 +2372,8 @@
 	(font-size . -2)
 	(stencil . ,ly:tuplet-number::print)
 	(text . ,tuplet-number::calc-denominator-text)
+	(X-offset . ,ly:tuplet-number::calc-x-offset)
+	(Y-offset . ,ly:tuplet-number::calc-y-offset)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
 				text-interface

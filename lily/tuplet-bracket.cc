@@ -51,6 +51,7 @@
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
+#include "skyline.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
@@ -180,23 +181,12 @@ Tuplet_bracket::get_common_x (Spanner *me)
   return commonx;
 }
 
-MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_control_points, 1)
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_x_positions, 1)
 SCM
-Tuplet_bracket::calc_control_points (SCM smob)
+Tuplet_bracket::calc_x_positions (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
-
   extract_grob_set (me, "note-columns", columns);
-
-  SCM scm_positions = me->get_property ("positions");
-  if (!me->is_live ())
-    return SCM_EOL;
-
-  if (!scm_is_pair (scm_positions))
-    programming_error ("Positions should be number pair");
-
-  Drul_array<Real> positions
-    = robust_scm2drul (scm_positions, Drul_array<Real> (0, 0));
 
   Grob *commonx = get_common_x (me);
   Direction dir = get_grob_direction (me);
@@ -254,9 +244,7 @@ Tuplet_bracket::calc_control_points (SCM smob)
     }
   while (flip (&d) != LEFT);
 
-  x_span -= me->get_bound (LEFT)->relative_coordinate (commonx, X_AXIS);
-  return scm_list_2 (ly_offset2scm (Offset (x_span[LEFT], positions[LEFT])),
-                     ly_offset2scm (Offset (x_span[RIGHT], positions[RIGHT])));
+  return ly_interval2scm (x_span - me->get_bound (LEFT)->relative_coordinate (commonx, X_AXIS));
 }
 
 /*
@@ -290,10 +278,11 @@ Tuplet_bracket::print (SCM smob)
 
   /*
     Don't print a tuplet bracket and number if
-    no control-points were calculated
+    no X or Y positions were calculated.
   */
-  SCM cpoints = me->get_property ("control-points");
-  if (scm_ilength (cpoints) < 2)
+  SCM scm_x_span = me->get_property ("X-positions");
+  SCM scm_positions = me->get_property ("positions");
+  if (!scm_is_pair (scm_x_span) || !scm_is_pair (scm_positions))
     {
       me->suicide ();
       return SCM_EOL;
@@ -307,12 +296,14 @@ Tuplet_bracket::print (SCM smob)
           == robust_scm2moment (me->get_bound (RIGHT)->get_column ()->get_property ("when"), Moment (0))))
     bracket_visibility = false;
 
-  Drul_array<Offset> points;
-  points[LEFT] = ly_scm2offset (scm_car (cpoints));
-  points[RIGHT] = ly_scm2offset (scm_cadr (cpoints));
+  Interval x_span = robust_scm2interval (scm_x_span, Interval (0.0, 0.0));
+  Interval positions = robust_scm2interval (scm_positions, Interval (0.0, 0.0));
 
-  Interval x_span (points[LEFT][X_AXIS], points[RIGHT][X_AXIS]);
-  Drul_array<Real> positions (points[LEFT][Y_AXIS], points[RIGHT][Y_AXIS]);
+  Drul_array<Offset> points;
+  Direction d = LEFT;
+  do
+    points[d] = Offset (x_span[d], positions[d]);
+  while (flip (&d) != LEFT);
 
   Output_def *pap = me->layout ();
 
@@ -657,6 +648,11 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
           points.push_back (Offset (tuplet_x[d] - x0, y));
         }
       while (flip (&d) != LEFT);
+      // Check for number-on-bracket collisions
+      Grob *number = unsmob_grob (tuplets[i]->get_object ("tuplet-number"));
+      if (number)
+        points.push_back (Offset (number->extent (commonx, X_AXIS).center () - x0,
+                                                  number->extent (commony, Y_AXIS)[dir]));
     }
 
   *offset = -dir * infinity_f;
@@ -820,7 +816,6 @@ ADD_INTERFACE (Tuplet_bracket,
                "bracket-visibility "
                "break-overshoot "
                "connect-to-neighbor "
-               "control-points "
                "direction "
                "edge-height "
                "edge-text "
@@ -835,4 +830,5 @@ ADD_INTERFACE (Tuplet_bracket,
                "staff-padding "
                "thickness "
                "tuplets "
+               "X-positions "
               );

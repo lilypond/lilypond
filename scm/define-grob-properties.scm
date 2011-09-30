@@ -939,6 +939,9 @@ texts.")
      (X-extent ,number-pair? "Hard coded extent in X@tie{}direction.")
      (X-offset ,number? "The horizontal amount that this object is
 moved relative to its X-parent.")
+     (X-positions ,number-pair? "Pair of X staff coordinates of a spanner
+in the form @code{(@var{left} . @var{right})}, where both @var{left} and
+@var{right} are in @code{staff-space} units of the current staff.")
 
 
 ;;

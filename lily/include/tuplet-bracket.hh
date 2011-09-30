@@ -29,7 +29,7 @@ class Tuplet_bracket
 public:
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positions, (SCM));
-  DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_x_positions, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_connect_to_neighbors, (SCM smob));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
