@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: b1eca8bedcef213d00b5ce85d0c4df8c338c2bb2
+    Translation of GIT committish: cdb17afb97109951b61ce069d36f4084ad08d149
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -263,7 +263,13 @@ indicaciones para elaborar @ref{Informes de fallos}.}
 
 @divEnd
 
+@divClass{column-right-bottom}
+@subheading Correos delicados
 
+Los asuntos privados se deben enviar a Graham Percival (gestor del
+proyecto), que lo discutirá con las personas pertinentes.
+
+@divEnd
 
 @node Ejemplos mínimos
 @unnumberedsec Ejemplos mínimos
@@ -272,7 +278,7 @@ indicaciones para elaborar @ref{Informes de fallos}.}
 @divClass{column-center-top}
 @subheading ¿Qué son los @qq{ejemplos mínimos}?
 
-Un ejemplo mínimo es un ejemplo del que no se puede eliminar nada.
+Un ejemplo mínimo es un ejemplo del que no se puede eliminar @strong{nada}.
 @divEnd
 
 @divClass{column-left-bottom}
@@ -286,13 +292,13 @@ Cuanto más simple es el ejemplo, más rápidamente pueden los
 desarrolladores entenderlo y ayudarle.
 
 @item
-Un ejemplo simple demuestra que se ha esforzado en resolver el
+Un ejemplo mínimo demuestra que se ha esforzado en resolver el
 problema por sí mismo.  Cuando alguien envía bloques grandes de código
 de entrada, da la impresión de que no le importa que le ayudemos o que
 no.
 
 @item
-La creación de un ejemplo mínimo le fuerza a entender lo que está
+La creación de un ejemplo mínimo le ayuda a entender lo que está
 ocurriendo.  Muchos informes falsos de problemas se podrían evitar
 intentando crear un ejemplo mínimo; si no puede reproducir un @qq{bug}
 en un ejemplo mínimo, probablemente el problema era una comprensión
@@ -305,7 +311,7 @@ insuficiente sobre LilyPond, ¡no un verdadero bug!
 
 
 @divClass{column-right-bottom}
-@subheading ¿Cómo los hago?
+@subheading ¿Cómo se hacen?
 
 @divClass{keep-bullets}
 @itemize
@@ -316,13 +322,13 @@ Incluya el número de versión en una instrucción @code{\version}.
 @item
 ¡Hágalo muy pequeño!  Los ejemplos relacionados con el espaciado o la
 disposición de las páginas pueden requerir muchos compases, pero casi
-todos los problemas se pueden reproducir mediante un solo compás.
+todos los problemas se pueden reproducir mediante un solo compás o menos.
 
 @item
 Cuando trate de crear un ejemplo, pruebe a convertir en comentarios
 @w{(@code{%} ó @code{%@{ @dots{} %@}})} distintas secciones del
 archivo.  Si puede convertir un bloque en un comentario y aún mostrar
-la idea principal, entonces ¡elimine ese bloque!
+la idea principal, entonces elimine ese bloque.
 
 @item
 Evite la utilización de notas, tonalidades o compases muy complicados,
@@ -331,13 +337,55 @@ elementos.
 
 @item
 No utilice instrucciones @code{\override} ni @code{\set} a no ser que
-el bug se refiera a esas instrucciones en particular.
+el bug se refiera a esas instrucciones en concreto.
+
+@item
+Opcionalmente, adjunte una imagen que muestre el resultado gráfico
+que desea.
 
 @end itemize
 @divEnd
 
 @divEnd
 
+@divClass{column-center-bottom}
+@subheading ¿Cuán pequeño debe ser?
+
+El código que sige ¿es un ejemplo mínimo?
+
+@example
+\version "2.14.1"
+\include "espanol.ly"
+
+\score @{
+  \new Staff @{
+    \key re \major
+    \numericTimeSignature
+    \time 2/4
+    <dos' re'' si''>16 <dos' re'' si''>8.
+    %% Aquí: la ligadura de unión sobre los Re tiene un aspecto gracioso
+    %% ¿Demasiado alta? ¿El punto final de la mano izquierda no se alinea
+    %% con la ligadura del Si?
+    ~
+    <dos' re'' si''>8 [ <si re'' la''> ]
+  @}
+@}
+@end example
+
+Bueno, no es muy grande, pero he aquí un ejemplo verdaderamente mínimo:
+
+@example
+\version "2.14.1"
+@{
+  % la ligadura intermedia tiene un aspecto gracioso aquí:
+  <c' d'' b''>8. ~ <c' d'' b''>8
+@}
+@end example
+
+Muy pocos ejemplos mínimos superan las 10 líneas de código;
+¡lo más corriente es que basten 4 líneas para mostrar el problema!
+
+@divEnd
 
 
 
