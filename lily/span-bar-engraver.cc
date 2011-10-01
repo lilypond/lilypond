@@ -33,6 +33,7 @@ dependencies to the spanbars.
 class Span_bar_engraver : public Engraver
 {
   Item *spanbar_;
+  bool make_spanbar_;
   vector<Item *> bars_;
 
 public:
@@ -40,11 +41,13 @@ public:
 protected:
   DECLARE_ACKNOWLEDGER (bar_line);
   void stop_translation_timestep ();
+  void process_acknowledged ();
 };
 
 Span_bar_engraver::Span_bar_engraver ()
 {
   spanbar_ = 0;
+  make_spanbar_ = false;
 }
 
 void
@@ -57,11 +60,24 @@ Span_bar_engraver::acknowledge_bar_line (Grob_info i)
       bars_.push_back (it);
 
       if (bars_.size () >= 2 && !spanbar_)
-        {
-          spanbar_ = make_item ("SpanBar", SCM_EOL);
+        make_spanbar_ = true;
+    }
+}
 
-          spanbar_->set_parent (bars_[0], X_AXIS);
-        }
+void
+Span_bar_engraver::process_acknowledged ()
+{
+  if (make_spanbar_)
+    {
+      Grob *vag = Grob::get_root_vertical_alignment (bars_[0]);
+      if (vag)
+        vector_sort (bars_, Grob::vertical_less);
+      spanbar_ = make_item ("SpanBar", SCM_EOL);
+
+      spanbar_->set_parent (bars_[0], X_AXIS);
+      for (vsize i = 0; i < bars_.size (); i++)
+        Span_bar::add_bar (spanbar_, bars_[i]);
+      make_spanbar_ = false;
     }
 }
 
@@ -70,9 +86,6 @@ Span_bar_engraver::stop_translation_timestep ()
 {
   if (spanbar_)
     {
-      for (vsize i = 0; i < bars_.size (); i++)
-        Span_bar::add_bar (spanbar_, bars_[i]);
-
       SCM vissym = ly_symbol2scm ("break-visibility");
       SCM vis = bars_[0]->internal_get_property (vissym);
       if (ly_is_equal (spanbar_->internal_get_property (vissym), vis))
