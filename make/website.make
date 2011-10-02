@@ -54,11 +54,22 @@ endif
 ################################################################
 OUT=out-website
 
-WEB_LANGS = $(shell MAKEWEB=1 $(PYTHON) $(top-src-dir)/python/langdefs.py)
+WEB_LANGS := $(shell MAKEWEB=1 $(PYTHON) $(top-src-dir)/python/langdefs.py)
 
-TEXI2HTML=ONLY_WEB=1 TOP_SRC_DIR=$(top-src-dir) DEPTH=$(depth) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
+TEXI2HTML=ONLY_WEB=1 TOP_SRC_DIR=$(top-src-dir) DEPTH=$(depth) PERL_UNICODE=SD \
+	$(TEXI2HTML_PROGRAM) -D web_version --prefix=index --split=section \
+		--init-file=$(texi2html-init-file) \
+		--I=$(dir $<) \
+		--I=$(top-src-dir)/Documentation \
+		--I=$(OUT) \
+		--output=$(dir $@)
 
-EXTRACT_TEXI_FILENAMES=python $(script-dir)/extract_texi_filenames.py
+EXTRACT_TEXI_FILENAMES=$(PYTHON) $(script-dir)/extract_texi_filenames.py $(quiet-flag) \
+	--known-missing-files=$(top-src-dir)/scripts/build/website-known-missing-files.txt \
+		-I $(top-src-dir)/Documentation \
+		-I $(dir $<) \
+		-I $(OUT) \
+		-o $(OUT)
 CREATE_VERSION=python $(script-dir)/create-version-itexi.py
 CREATE_WEBLINKS=python $(script-dir)/create-weblinks-itexi.py
 MASS_LINK=python $(script-dir)/mass-link.py
@@ -68,107 +79,168 @@ WEB_BIBS=python $(script-dir)/bib2texi.py
 SERVER_FILES=$(top-src-dir)/Documentation/web/server
 
 # don't include web
-MANUALS=$(wildcard $(top-src-dir)/Documentation/*.tely)
-MANUALS+=$(top-src-dir)/Documentation/contributor.texi
+MANUALS = $(MANUALS_TELY) $(MANUALS_TEXI) $(MANUALS_TRANSLATION)
+MANUALS_TELY := $(notdir $(wildcard $(top-src-dir)/Documentation/*.tely))
+MANUALS_TEXI := contributor.texi
+
+# Harvest the translated manuals.
+#   - Store each manual in a language-specific macro, e.g. when we find
+#     de/learning.tely we add learning.tely to MANUALS_de,
+#   - Store each manual with an added language suffix in MANUALS_TRANSLATION,
+#     e.g. learning.de.tely for the German learning manual.
+$(eval $(foreach l,$(WEB_LANGS),\
+	$(eval MANUALS_$(l) := $(notdir $(wildcard $(top-src-dir)/Documentation/$(l)/*.tely))) \
+	$(eval MANUALS_TRANSLATION += $(MANUALS_$(l):%.tely=%.$(l).tely)) \
+))
+
+# The web.texi manuals, English and translated
+MANUALS_WEB := web.texi $(WEB_LANGS:%=web.%.texi)
+
+# The basename of all manuals (basename includes the language suffix)
+MANUALS_BASE = $(basename $(MANUALS) $(MANUALS_WEB))
+
+
+###################
+### Generated files
+
+bib-files = $(OUT)/others-did.itexi $(OUT)/we-wrote.itexi
+
+css-src-files := $(notdir $(wildcard $(top-src-dir)/Documentation/css/*.css))
+css-files = $(css-src-files:%=$(OUT)/website/%)
+
+example-src-files := $(notdir $(wildcard $(EXAMPLES)/*))
+example-files = $(example-src-files:%=$(OUT)/website/ly-examples/%)
+
+misc-files = $(OUT)/.htaccess \
+             $(OUT)/website/.htaccess \
+             $(OUT)/website/favicon.ico \
+             $(OUT)/website/robots.txt
+
+picture-src-files := $(notdir $(wildcard $(PICTURES)/*))
+picture-files = $(picture-src-files:%=$(OUT)/website/pictures/%)
+
+post-files = $(OUT)/website/index.html
+
+texinfo-files = $(OUT)/index.html $(WEB_LANGS:%=$(OUT)/%/index.html)
+
+version-files = $(OUT)/version.itexi $(OUT)/weblinks.itexi
+
+xref-files = $(MANUALS_BASE:%=$(OUT)/%.xref-map)
+
+
+###########
+### Targets
+
+.PHONY: website website-bibs website-css website-examples website-misc \
+        website-pictures website-post website-test website-texinfo \
+        website-version website-xrefs
+
+website: website-post website-examples website-pictures website-css website-misc
+
+website-bibs: website-version $(OUT) $(bib-files)
+
+website-css: $(OUT)/website $(css-files)
+
+website-examples: $(OUT)/website/ly-examples $(example-files)
+
+website-misc: $(OUT)/website $(misc-files)
+
+website-pictures: $(OUT)/website/pictures $(OUT)/pictures $(picture-files)
+
+website-post: website-texinfo $(post-files)
 
 website-test:
 	echo $(TEXI2HTML)
 
-website-version:
-	mkdir -p $(OUT)
+website-texinfo: website-version website-xrefs website-bibs $(texinfo-files)
+
+website-version: $(OUT) $(version-files)
+
+website-xrefs: website-version $(OUT) $(xref-files)
+
+
+#########
+### Rules
+
+# Directories
+$(OUT) $(OUT)/website $(OUT)/website/ly-examples $(OUT)/website/pictures: %:
+	mkdir -p $@
+
+$(OUT)/pictures: $(OUT)/website/pictures
+	ln -sf website/pictures $(OUT)/pictures
+
+# Generated itexi files
+$(OUT)/version.itexi: #FIXME: add dependencies
 	$(CREATE_VERSION) $(top-src-dir) > $(OUT)/version.itexi
+
+$(OUT)/weblinks.itexi: #FIXME: add dependencies
 	$(CREATE_WEBLINKS) $(top-src-dir) > $(OUT)/weblinks.itexi
 
-website-xrefs: website-version
-	for l in '' $(WEB_LANGS); do \
-		len="$${#l}" ; \
-		r="$$l"; \
-		if [ "$$len" -gt "0" ] ; then \
-			r="$$r"/; \
-		fi ; \
-		$(EXTRACT_TEXI_FILENAMES) \
-			-I $(top-src-dir)/Documentation \
-			-I $(top-src-dir)/Documentation/"$$l" \
-			-I $(OUT) -o $(OUT) --split=node \
-			--known-missing-files=$(top-src-dir)/scripts/build/website-known-missing-files.txt \
-			$(quiet-flag) \
-			$(top-src-dir)/Documentation/"$$l"/web.texi ;\
-		for m in $(MANUALS); do \
-			n=`echo "$$m" | sed 's/Documentation/Documentation\/'$$l'/'` ; \
-			b=`basename "$$n" .texi`; \
-			d=`basename "$$b" .tely`; \
-			if [ -e "$$n" ] ; then \
-				$(EXTRACT_TEXI_FILENAMES) \
-				-I $(top-src-dir)/Documentation \
-				-I $(top-src-dir)/Documentation/"$$l" \
-				-I $(top-src-dir)/Documentation/"$$r""$$d" \
-				--known-missing-files=$(top-src-dir)/scripts/build/website-known-missing-files.txt \
-			  $(quiet-flag) \
-				-I $(OUT) -o $(OUT) "$$n" ; \
-			fi ; \
-		done; \
-	done;
-
-website-bibs: website-version
+$(bib-files): $(OUT)/%.itexi: $(top-src-dir)/Documentation/web/%.bib
 	BSTINPUTS=$(top-src-dir)/Documentation/web \
 		$(WEB_BIBS) -s web \
 		-s $(top-src-dir)/Documentation/lily-bib \
-		-o $(OUT)/others-did.itexi \
+		-o $@ \
 		$(quiet-flag) \
-		$(top-src-dir)/Documentation/web/others-did.bib
-	BSTINPUTS=$(top-src-dir)/Documentation/web \
-		$(WEB_BIBS) -s web \
-		-s $(top-src-dir)/Documentation/lily-bib \
-		-o $(OUT)/we-wrote.itexi \
-		$(quiet-flag) \
-		$(top-src-dir)/Documentation/web/we-wrote.bib
+		$<
 
+# Get xrefs for English tely manuals
+$(MANUALS_TELY:%.tely=$(OUT)/%.xref-map): $(OUT)/%.xref-map: $(top-src-dir)/Documentation/%.tely
+	$(DO_TEXI_DEP) $(EXTRACT_TEXI_FILENAMES) $<
 
-website-texinfo: website-version website-xrefs website-bibs
-	for l in '' $(WEB_LANGS); do \
-	        if test -n "$$l"; then \
-			langopt=--lang="$$l"; \
-			langsuf=.$$l; \
-		fi; \
-		$(TEXI2HTML) --prefix=index \
-			--split=section \
-			--I=$(top-src-dir)/Documentation/"$$l" \
-			--I=$(top-src-dir)/Documentation \
-			--I=$(OUT) \
-			$$langopt \
-			--init-file=$(texi2html-init-file) \
-			-D web_version \
-			--output=$(OUT)/"$$l" \
-			$(top-src-dir)/Documentation/"$$l"/web.texi ; \
-		ls $(OUT)/$$l/*.html | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(OUT)/'$$l'/!!g' | xargs $(MASS_LINK) --prepend-suffix="$$langsuf" hard $(OUT)/$$l/ $(OUT)/website/ ; \
-	done
+# Get xrefs for English texi manuals
+$(MANUALS_TEXI:%.texi=$(OUT)/%.xref-map): $(OUT)/%.xref-map: $(top-src-dir)/Documentation/%.texi
+	$(DO_TEXI_DEP) $(EXTRACT_TEXI_FILENAMES) $<
 
+# Get xrefs for translated tely manuals
+$(eval $(foreach l,$(WEB_LANGS),\
+$(eval $(MANUALS_$(l):%.tely=$(OUT)/%.$(l).xref-map): $(OUT)/%.$(l).xref-map: $(top-src-dir)/Documentation/$(l)/%.tely; \
+	$$(DO_TEXI_DEP) $$(EXTRACT_TEXI_FILENAMES) $$< ) \
+))
 
-website-css:
-	cp $(top-src-dir)/Documentation/css/*.css $(OUT)/website
+# Get xrefs for the English web.texi manual
+$(OUT)/web.xref-map: $(top-src-dir)/Documentation/web.texi
+	$(DO_TEXI_DEP) $(EXTRACT_TEXI_FILENAMES) --split=node $<
 
-website-pictures:
-	mkdir -p $(OUT)/website/pictures
-	if [ -d $(PICTURES) ]; \
-	then \
-		cp $(PICTURES)/* $(OUT)/website/pictures ; \
-		ln -sf website/pictures $(OUT)/pictures  ;\
-	fi
+# Get xrefs for translated web.texi manuals
+$(OUT)/web.%.xref-map: $(top-src-dir)/Documentation/%/web.texi
+	$(DO_TEXI_DEP) $(EXTRACT_TEXI_FILENAMES) --split=node $<
 
-website-examples:
-	mkdir -p $(OUT)/website/ly-examples
-	if [ -d $(EXAMPLES) ]; \
-	then \
-		cp $(EXAMPLES)/* $(OUT)/website/ly-examples ; \
-	fi
+# Build the English website
+$(OUT)/index.html: $(top-src-dir)/Documentation/web.texi
+	$(DO_TEXI_DEP) $(TEXI2HTML) $<
 
-web-post:
+# Build translated websites
+$(eval $(foreach l,$(WEB_LANGS),\
+$(eval $(OUT)/$(l)/index.html: $(top-src-dir)/Documentation/$(l)/web.texi; \
+	$$(DO_TEXI_DEP) $$(TEXI2HTML) --lang="$(l)" $$<; ) \
+))
+
+# Website post-processing
+$(OUT)/website/index.html: $(wildcard $(OUT)/*.html)
+	ls $(OUT)/*.html | sed 's!$(OUT)/!!g' | xargs $(MASS_LINK) --prepend-suffix="" hard $(OUT)/ $(OUT)/website/
+	$(foreach l,$(WEB_LANGS), \
+		ls $(OUT)/$(l)/*.html | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(OUT)/$(l)/!!g' | xargs $(MASS_LINK) --prepend-suffix=".$(l)" hard $(OUT)/$(l)/ $(OUT)/website/; )
 	$(WEB_POST) $(OUT)/website
 
-website: website-texinfo website-css website-pictures website-examples web-post
-	cp $(SERVER_FILES)/favicon.ico $(OUT)/website
-	cp $(SERVER_FILES)/robots.txt $(OUT)/website
-	cp $(top-htaccess) $(OUT)/.htaccess
-	cp $(dir-htaccess) $(OUT)/website/.htaccess
+# Simple copy
+$(css-files): $(OUT)/website/%: $(top-src-dir)/Documentation/css/%
+	cp $< $@
 
+$(example-files): $(OUT)/website/ly-examples/%: $(EXAMPLES)/%
+	cp $< $@
 
+$(picture-files): $(OUT)/website/pictures/%: $(PICTURES)/%
+	cp $< $@
+
+$(OUT)/website/favicon.ico: $(SERVER_FILES)/favicon.ico
+	cp $< $@
+
+$(OUT)/website/robots.txt: $(SERVER_FILES)/robots.txt
+	cp $< $@
+
+$(OUT)/.htaccess: $(top-htaccess)
+	cp $< $@
+
+$(OUT)/website/.htaccess: $(dir-htaccess)
+	cp $< $@
