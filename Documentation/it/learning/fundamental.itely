@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: 7ae1e99ff67432c96faf743bc28ac7b90a47a852
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -941,7 +941,7 @@ Guida alla notazione: @ruser{Multiple voices}.
 
 I contesti della voce possono anche essere creati manualmente,
 all'interno di un blocco @code{<< >>} che crea musica polifonica, usando
-@code{\voiceOne} ... @code{\voiceFour} per indicare le direzioni desiderate
+@code{\voiceOne} @dots{} @code{\voiceFour} per indicare le direzioni desiderate
 per gambi, legature, etc.  Nelle partiture più grandi questo metodo
 è più chiaro, perché fa sì che le voci possano essere separate e nominate
 in modo più descrittivo.

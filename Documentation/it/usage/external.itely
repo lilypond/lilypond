@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: 2aeac5e3815effa47427dad86d6be811c7b0d8a2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -246,7 +246,7 @@ la modalità relativa, mentre le durate sono precisate solo quando necessario.
 È possibile registrare un file MIDI usando una tastiera digitale e poi
 convertirlo in file @file{.ly}.  Tuttavia, la conversione da MIDI a LY non
 è banale: l'esecuzione umana non sarà mai sufficientemente precisa dal punto di vista
-ritmico.  Se lanciata con la quantizzazione (opzioni @code{-s} e @code{-d})
+ritmico.  Se lanciata con la quantizzazione (opzioni @option{-s} e @option{-d})
 @command{midi2ly} cerca di compensare questi errori di tempo, ma non è
 molto efficace.  Dunque non si raccomanda l'uso di @command{midi2ly}
 per i file midi generati a partire da un'esecuzione umana.
@@ -349,6 +349,10 @@ mostra una sintesi dell'utilizzo e delle opzioni.
 @item -l, --language=LANG
 usa LANG per i nomi delle altezze, ad esempio 'deutsch' per i nomi delle note
 in tedesco.
+
+@item --loglevel=@var{loglevel}
+Imposta la verbosità dell'output su @var{loglevel}. I valori possibili sono @code{NONE},
+@code{ERROR}, @code{WARNING}, @code{PROGRESS} (predefinito) e @code{DEBUG}.
 
 @item --lxml
 usa il pacchetto Python lxml.etree per l'analisi della sintassi XML; usa meno
@@ -563,13 +567,21 @@ le seguenti opzioni
 @{ c1 @}
 @end example
 
-Per creare un file @file{EPS}, si usa
+Per creare file immagine utili, si usa
 
 @example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts   miofile.ly
+EPS
 
-@file{PNG}:
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts myfile.ly
+
+PNG
+
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png miofile.ly
+
+Un file PNG transparente
+
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts \
+  -dpixmap-format=pngalpha --png miofile.ly
 @end example
 
 

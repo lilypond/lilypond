@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 402e3b1ac8d0c65b63a992dfd1247ed058e69ff8
+    Translation of GIT committish: cdb17afb97109951b61ce069d36f4084ad08d149
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -259,6 +259,13 @@ linee guida per la @ref{Segnalazione bug}.}
 
 @divEnd
 
+@divClass{column-right-bottom}
+@subheading Email delicate
+
+Le questioni private devono essere inviate a Graham Percival (project
+manager), che ne discuterà con gli interessati.
+
+@divEnd
 
 
 @node Esempi minimi

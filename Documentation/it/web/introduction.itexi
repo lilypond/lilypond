@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: d282588015bad1ed86833848a5bcbdc43cfdc9e5
+    Translation of GIT committish: d6315a746c47259f56dc2835347985658d71d0c9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -916,8 +916,8 @@ inseriti con barre inverse (backslash).
 @imageFloat{text-input-1-annotate-it,png,center}
 @imageFloat{text-input-1-output,png,center}
 
-Le alterazioni si ottengono con nomi diversi: si aggiunge @code{-is} per
-il diesis, e @code{-es} per il bemolle (questi sono i nomi delle note in
+Le alterazioni si ottengono con nomi diversi: si aggiunge @w{@code{-is}} per
+il diesis, e @w{@code{-es}} per il bemolle (questi sono i nomi delle note in
 olandese, ma sono disponibili altre lingue).  LilyPond calcola dove mettere
 le alterazioni.
 

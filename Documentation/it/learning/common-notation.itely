@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: d6315a746c47259f56dc2835347985658d71d0c9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -201,7 +201,7 @@ aes4 c b c
 
 Se l'esempio precedente sembra poco chiaro, considera questo: se tu stessi
 suonando un pianoforte, quale tasto premeresti?  Se premi un tasto nero,
-allora @emph{devi} aggiungere @code{-is} o @code{-es} al nome della
+allora @emph{devi} aggiungere @w{@code{-is}} o @w{@code{-es}} al nome della
 nota!
 
 Aggiungere esplicitamente tutte le alterazioni richiederà un po' più
@@ -1338,7 +1338,7 @@ posto sotto il numero di versione.
 
 Quando il file viene elaborato, sopra la musica vengono visualizzati
 il titolo e il compositore.  Si possono trovare  maggiori informazioni
-sui titoli in @ruser{Creating titles}.
+sui titoli in @ruser{Creating titles headers and footers}.
 
 
 @node Nomi assoluti delle note

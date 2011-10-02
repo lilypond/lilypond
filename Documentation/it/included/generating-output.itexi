@@ -2,7 +2,7 @@
 @c This file is part of web/download.itexi and
 @c learning/tutorial.itely
 @ignore
-    Translation of GIT committish: 8f02aa6516b3cfe16b2c145142ea652cbc3b8970
+    Translation of GIT committish: 66194168b6d61bee8aac10552f029817eb41d835
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -215,6 +215,7 @@ Solving 1 page-breaking chunks...[1: 1 pages]
 Drawing systems...
 Layout output to `test.ps'...
 Converting to `./test.pdf'...
+Success: compilation successfully completed
 @end example
 
 @subsubheading Passo 3. Visualizza l'output

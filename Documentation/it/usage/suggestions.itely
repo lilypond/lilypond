@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: de9ddc8183a93f28d167af8f195be95e5fbc91b9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -325,7 +325,7 @@ nella directory @file{Notes}:
 
 @example
 %%% inizio del file "symphony-cello.ly"
-\include ../definitions.ily
+\include ../symphonyDefs.ily
 \include ../Notes/cello.ily
 @end example
 

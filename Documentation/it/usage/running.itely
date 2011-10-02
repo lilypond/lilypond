@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: 7ae1e99ff67432c96faf743bc28ac7b90a47a852
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -139,7 +139,7 @@ Sono contemplate le seguenti opzioni:
 
 @item -e,--evaluate=@var{espressione}
 Valuta l'@var{espressione} di Scheme prima di analizzare qualsiasi file @file{.ly}.
-Si possono specificare varie opzioni @code{-e}; saranno analizzate in modo
+Si possono specificare varie opzioni @option{-e}; saranno analizzate in modo
 sequenziale.
 
 L'espressione sarà analizzata nel modulo @code{guile-user}, dunque se vuoi
@@ -192,7 +192,7 @@ Di seguito alcune opzioni interessanti.
 @table @samp
 @item help
 L'esecuzione di @code{lilypond -dhelp} mostrerà tutte le opzioni disponibili
-di @code{-d}.
+di @option{-d}.
 
 @cindex paper-size, linea di comando
 
@@ -213,8 +213,8 @@ segno di escape ( @code{\"} ).
 Non si fida dell'input nel file @code{.ly}.
 
 Quando la formattazione di LilyPond viene messa a disposizione tramite un server
-web, si @b{DEVE} passare l'opzione @code{--safe} o l'opzione @code{--jail}.  L'opzione
-@code{--safe} impedirà che il codice Scheme presente nell'input possa fare uno
+web, si @b{DEVE} passare l'opzione @option{--safe} o l'opzione @option{--jail}.  L'opzione
+@option{--safe} impedirà che il codice Scheme presente nell'input possa fare uno
 scempio, ad esempio
 
 @quotation
@@ -226,7 +226,7 @@ scempio, ad esempio
 @end verbatim
 @end quotation
 
-L'opzione @code{-dsafe} serve a valutare le espressioni Scheme presenti nell'input
+L'opzione @option{-dsafe} serve a valutare le espressioni Scheme presenti nell'input
 in uno speciale modulo di sicurezza.  Questo modulo di sicurezza è derivato dal
 modulo GUILE @file{safe-r5rs}, ma aggiunge alcune funzioni del
 LilyPond API.  Queste funzioni sono elencate in @file{scm/safe-lily.scm}.
@@ -237,14 +237,14 @@ disabilita l'uso del backslash nelle stringhe @TeX{}.
 In modalità sicura, non è possibile importare le variabili di LilyPond
 in Scheme.
 
-@code{-dsafe} @emph{non} rileva il sovrautilizzo di risorse.  È ancora possibile
+@option{-dsafe} @emph{non} rileva il sovrautilizzo di risorse.  È ancora possibile
 far sì che il programma rimanga in sospeso per un tempo indefinito, ad esempio
 alimentando il backend con strutture di dati cicliche.  Dunque se si vuole usare
 LilyPond su un server web pubblicamente accessibile, si deve limitare il processo
 nell'uso della CPU e della memoria.
 
 La modalità sicura bloccherà la compilazione di molti utili frammenti di codice
-LilyPond.  L'opzione @code{--jail} è un'alternativa più sicura, ma richiede
+LilyPond.  L'opzione @option{--jail} è un'alternativa più sicura, ma richiede
 più lavoro per configurarla.
 
 @cindex formato di output, impostare il
@@ -293,7 +293,7 @@ Questa è la modalità predefinita di @command{lilypond-book}.
  per estrarre i comandi di disegno grezzi e interni, basati su Scheme.
 
 @item null
- non produce la stampa della partitura; ha lo stesso effetto di @code{-dno-print-pages}.
+ non produce la stampa della partitura; ha lo stesso effetto di @option{-dno-print-pages}.
 @end table
 
 Esempio: @code{lilypond -dbackend=svg @var{filename}.ly}
@@ -306,9 +306,18 @@ primo sistema di ogni @code{\bookpart} apparirà nell'output.
 I backend @code{ps}, @code{eps}, e @code{svg} supportano questa
 opzione.
 
+@item gui
+Viene eseguito senza avvisi e redirige tutto l'output verso un file di log.
+
+Nota per gli utenti Windows: Per impostazione predefinita @code{lilypond.exe} mostra
+tutta l'informazione dell'elaborazione in corso nella finestra dei comandi, @code{lilypond-windows.exe}
+invece fa apparire un prompt, privo di informazioni sull'elaborazione, subito
+nella linea di comando.  In questo caso si può usare l'opzione @option{-dgui}
+per redirigere l'output verso un file di log.
+
 @item print-pages
-Genera tutte le pagine, come da impostazione predefinita.  @code{-dno-print-pages} è
-utile in combinazione con @code{-dpreview}.
+Genera tutte le pagine, come da impostazione predefinita.  @option{-dno-print-pages} è
+utile in combinazione con @option{-dpreview}.
 
 @end table
 
@@ -332,6 +341,34 @@ la ricerca continuerà nelle directory seguenti.
 @item -i,--init=@var{file}
 Imposta il file di inizializzazione su @var{file} (predefinito: @file{init.ly}).
 
+@cindex loglevel
+@cindex output verbosity, setting
+
+@item -l,--loglevel=@var{LIVELLO}
+Imposta la verbosità dell'output della console su @var{LIVELLO}. I valori possibili sono:
+@table @code
+@item NONE
+Nessun output, nemmeno i messaggi di errore.
+
+@item ERROR
+Solo i messaggi di errore, niente avvisi o messaggi di elaborazione.
+
+@item WARN
+Avvisi e nessaggi di errore, nessun messaggio di elaborazione.
+
+@item BASIC_PROGRESS
+Messaggi di elaborazione di base (riuscita), avvisi e errori.
+
+@item PROGRESS
+Tutti i messaggi di elaborazione, avvisi e errori.
+
+@item INFO (predefinito)
+Messaggi di elaborazione, avvisi, errori e ulteriori informazioni di esecuzione.
+
+@item DEBUG
+Tutti i messaggi possibili, incluso l'output verboso di debug.
+@end table
+
 @cindex cartella, dirigere l'output in
 @cindex nome del file di output, impostare
 
@@ -351,7 +388,7 @@ Genera PostScript.
 
 @item --png
 Genera immmagini di ogni pagina in formato PNG.  Questo implica
-@code{--ps}.  La risoluzione in DPI dell'immagine può essere impostata con
+@option{--ps}.  La risoluzione in DPI dell'immagine può essere impostata con
 @example
 -dresolution=110
 @end example
@@ -359,23 +396,23 @@ Genera immmagini di ogni pagina in formato PNG.  Questo implica
 @cindex Portable Document Format (PDF)
 
 @item --pdf
-Genera PDF.  Questo implica @code{--ps}.
+Genera PDF.  Questo implica @option{--ps}.
 
 
 
 @item -j,--jail=@var{utente},@var{gruppo},@var{gabbia},@var{directory}
 Esegue @command{lilypond} in una gabbia chroot.
 
-L'opzione @code{--jail} fornisce un'alternativa più flessibile a
-@code{--safe} quando la formattazione di LilyPond è messa a disposizione attraverso
+L'opzione @option{--jail} fornisce un'alternativa più flessibile a
+@option{--safe} quando la formattazione di LilyPond è messa a disposizione attraverso
 un server web o quando LilyPond esegue sorgenti provenienti dall'esterno.
 
-L'opzione @code{--jail} modifica la radice di @command{lilypond} in
+L'opzione @option{--jail} modifica la radice di @command{lilypond} in
 @var{gabbia} appena prima di iniziare il vero processo di compilazione.  L'utente
 e il gruppo vengono poi modificati per corrispondere a quelli forniti, e la
 directory corrente viene spostata in @var{directory}.  Questa configurazione
 garantisce che non sia possibile (almeno in teoria) uscire dalla gabbia.  Si noti
-che perché @code{--jail} funzioni @command{lilypond} deve essere eseguito come root;
+che perché @option{--jail} funzioni @command{lilypond} deve essere eseguito come root;
 di solito questo si fa in modo sicuro col comando @command{sudo}.
 
 Configurare una gabbia è una questione un po' delicata, perché bisogna essere
@@ -450,6 +487,11 @@ sottodirectory chiamate @file{ly/}, @file{ps/}, @file{tex/}, etc.
 
 @item LANG
 Determina la lingua per i messaggi di avviso.
+
+@item LILYPOND_LOGLEVEL
+Il livello di log (loglevel) predefinito. Se LilyPond viene chiamato senza un
+livello di log esplicito (ovvero senza l'opzione @option{--loglevel} della
+linea di comando), viene usato questo valore.
 
 @item LILYPOND_GC_YIELD
 Una variabile, in forma di percentuale, che regola il modo in cui viene gestita
@@ -613,7 +655,7 @@ carattere.
 @cindex errore Scheme
 Gli errori che capitano mentre si esegue del codice Scheme sono individuati
 dall'interprete Scheme.  Se si esegue con l'opzione di prolissità (@code{-V} o
-@code{--verbose}), viene stampata una traccia della chiamata di funzione
+@option{--verbose}), viene stampata una traccia della chiamata di funzione
 responsabile dell'errore.
 
 @item Errore di programmazione
@@ -795,7 +837,7 @@ non chiusa sarà solitamente una o due righe sopra.
 @translationof Error message Unbound variable %
 
 Questo messaggio di errore comparirà in fondo alla console di
-output o nel file di log insieme al messaggio @qq{GUILE signalled an error ...}
+output o nel file di log insieme al messaggio @qq{GUILE signalled an error @dots{}}
 ogni volta che viene chiamata una routine di Scheme che contenga (erroneamente)
 un commento @emph{LilyPond} invece di un commento @emph{Scheme}.
 
