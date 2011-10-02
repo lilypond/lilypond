@@ -517,6 +517,8 @@ il comando @code{\lilypondfile@{...@}} per inserire un file lilypond
 il comando @code{\musicxmlfile@{...@}} per inserire un file MusicXML, che
 sarà elaborato da @code{musicxml2ly} e da @code{lilypond}.
 
+@end itemize
+
 Nel file di input, la musica viene specificata con uno dei seguenti comandi:
 
 \begin@{lilypond@}[le,opzioni,vanno,qui]
