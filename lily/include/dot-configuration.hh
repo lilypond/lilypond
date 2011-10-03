@@ -32,7 +32,6 @@ struct Dot_position
   Direction dir_;
   Grob *dot_;
   Box dot_extents_;
-  bool extremal_head_;
   Interval x_extent_;
 
   Dot_position ()
@@ -40,7 +39,6 @@ struct Dot_position
     dot_ = 0;
     pos_ = 0;
     dir_ = CENTER;
-    extremal_head_ = false;
   }
 };
 

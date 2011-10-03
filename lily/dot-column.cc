@@ -164,9 +164,8 @@ Dot_column::calc_positioning_done (SCM smob)
       Grob *note = dots[i]->get_parent (Y_AXIS);
       if (note)
         {
-          Grob *stem = unsmob_grob (note->get_object ("stem"));
-          if (stem)
-            dp.extremal_head_ = Stem::first_head (stem) == note;
+          if (Note_head::has_interface (note))
+            dp.dir_ = to_dir (dp.dot_->get_property ("direction"));
 
           dp.x_extent_ = note->extent (commonx, X_AXIS);
         }
@@ -177,8 +176,6 @@ Dot_column::calc_positioning_done (SCM smob)
          offset callback but adding a dot overwrites Y-offset. */
       p += (int) robust_scm2double (dp.dot_->get_property ("staff-position"), 0.0);
       dp.pos_ = p;
-      if (dp.extremal_head_)
-        dp.dir_ = to_dir (dp.dot_->get_property ("direction"));
 
       cfg.remove_collision (p);
       cfg[p] = dp;
