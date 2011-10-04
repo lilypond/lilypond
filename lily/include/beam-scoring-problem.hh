@@ -121,18 +121,18 @@ public:
   Drul_array<Real> solve () const;
 
 private:
-  Grob *beam;
+  Grob *beam_;
 
-  Interval unquanted_y;
+  Interval unquanted_y_;
 
-  Real staff_space;
-  Real beam_thickness;
-  Real line_thickness;
-  Real musical_dy;
+  Real staff_space_;
+  Real beam_thickness_;
+  Real line_thickness_;
+  Real musical_dy_;
 
-  Interval x_span;
+  Interval x_span_;
 
-  vector<Stem_info> stem_infos;
+  vector<Stem_info> stem_infos_;
 
   /*
     Do stem computations.  These depend on YL and YR linearly, so we can
@@ -142,25 +142,25 @@ private:
     affine linear in YL and YR. If YL == YR == 0, then we might have
     stem_y != 0.0, when we're cross staff.
   */
-  vector<Real> base_lengths;
-  vector<Real> stem_xpositions;
+  vector<Real> base_lengths_;
+  vector<Real> stem_xpositions_;
 
-  Grob *common[2];
-  bool is_xstaff;
-  bool is_knee;
+  Grob *common_[2];
+  bool is_xstaff_;
+  bool is_knee_;
 
-  Beam_quant_parameters parameters;
+  Beam_quant_parameters parameters_;
 
-  Real staff_radius;
-  Drul_array<int> edge_beam_counts;
-  Drul_array<Direction> edge_dirs;
+  Real staff_radius_;
+  Drul_array<int> edge_beam_counts_;
+  Drul_array<Direction> edge_dirs_;
 
   // Half-open intervals, representing allowed positions for the beam,
   // starting from close to the notehead to the direction of the stem
   // end.  This is used for quickly weeding out invalid
   // Beam_configurations.
-  Drul_array<Interval> quant_range;
-  Real beam_translation;
+  Drul_array<Interval> quant_range_;
+  Real beam_translation_;
   vector<Beam_collision> collisions_;
   vector<Beam_segment> segments_;
 
