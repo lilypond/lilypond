@@ -2701,7 +2701,7 @@
           (ly:eval-simple-closure (car args) unpure start end)
           (if (not (procedure? unpure))
               unpure
-              (apply (cdr pure)
+              (apply unpure
                      (append
                        (list (car args) start end)
                        (cdr args))))))
