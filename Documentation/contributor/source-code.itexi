@@ -927,6 +927,12 @@ Install @command{git-cl} by entering:
 git clone https://github.com/gperciva/git-cl.git
 @end example
 
+If that command fails for some reason, try this instead:
+
+@example
+git clone git://github.com/gperciva/git-cl.git
+@end example
+
 @item
 Add the @file{git-cl/} directory to your PATH, or create a
 symbolic link to the @command{git-cl} and @command{upload.py}
