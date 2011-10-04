@@ -6,6 +6,7 @@ global _;_=ly._
 import re
 import os
 import copy
+import shutil
 # TODO: We are using os.popen3, which has been deprecated since python 2.6. The
 # suggested replacement is the Popen function of the subprocess module.
 # Unfortunately, on windows this needs the msvcrt module, which doesn't seem
@@ -639,7 +640,13 @@ printing diff against existing file." % filename)
             dst_path = os.path.split(dst)[0]
             if not os.path.isdir (dst_path):
                 os.makedirs (dst_path)
-            os.link (src, dst)
+            try:
+                os.link (src, dst)
+            except AttributeError:
+                shutil.copyfile (src, dst)
+            except OSError:
+                print '\nCould not overwrite file', dst
+                raise CompileError(self.basename())
 
     def additional_files_to_consider (self, base, full):
         return []
