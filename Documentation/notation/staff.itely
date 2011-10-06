@@ -404,124 +404,138 @@ sections are also described.
 @node Staff symbol
 @unnumberedsubsubsec Staff symbol
 
-@cindex adjusting staff symbol
-@cindex drawing staff symbol
-@cindex staff symbol, setting of
-@cindex staff symbol, drawing
-@cindex stop staff lines
-@cindex start staff lines
-@cindex staff lines, amount of
-@cindex staff lines, number of
-@cindex staff line, thickness of
-@cindex amount of staff lines
-@cindex thickness of staff lines
-@cindex ledger lines, setting
-@cindex setting of ledger lines
-@cindex spacing of ledger lines
-@cindex number of staff lines
-
-The lines of a staff belong to the @code{StaffSymbol} grob.
-@code{StaffSymbol} properties can be modified to change the
-appearance of a staff, but they must be modified before the staff
-is created.
-
-The number of staff lines may be changed.  The clef position and
-the position of middle C may need to be modified to fit the new
-staff.  For an explanation, refer to the snippet section in
-@ref{Clef}.
-
-@lilypond[verbatim,quote,relative=2]
-\new Staff \with {
-  \override StaffSymbol #'line-count = #3
-}
-{ d4 d d d }
-@end lilypond
-
-Staff line thickness can be modified.  The thickness of ledger
-lines and stems are also affected, since they depend on staff line
-thickness.
-
-@lilypond[verbatim,quote,relative=1]
-\new Staff \with {
-  \override StaffSymbol #'thickness = #3
-}
-{ e4 d c b }
-@end lilypond
-
-Ledger line thickness can be set independently of staff line
-thickness.  In the example the two numbers are factors multiplying
-the staff line thickness and the staff line spacing.  The two
-contributions are added to give the ledger line thickness.
-
-@lilypond[verbatim,quote,relative=1]
-\new Staff \with {
-  \override StaffSymbol #'ledger-line-thickness = #'(1 . 0.2)
-}
-{ e4 d c b }
-@end lilypond
-
-The distance between staff lines can be changed.  This setting
-affects the spacing of ledger lines as well.
-
-@lilypond[verbatim,quote,relative=1]
-\new Staff \with {
-  \override StaffSymbol #'staff-space = #1.5
-}
-{ a4 b c d }
-@end lilypond
-
-Further details about the properties of @code{StaffSymbol} can be
-found in @rinternals{staff-symbol-interface}.
-
-@cindex stopping a staff
-@cindex starting a staff
-@cindex staff, starting
-@cindex staff, stopping
+@cindex staff symbol
+@cindex staff lines, stopping and starting
+@cindex staff lines, modifying
+@cindex ledger lines
+@cindex ledger lines, internal
+@cindex ledger lines, modifying
 
 @funindex \startStaff
 @funindex startStaff
 @funindex \stopStaff
 @funindex stopStaff
 
-Modifications to staff properties in the middle of a score can be
-placed between @code{\stopStaff} and @code{\startStaff}:
+The @code{\stopStaff} and @code{\startStaff} commands can be used to
+stop or (re)start the staff lines respectively, from being printed at
+any point witin a score.
 
 @lilypond[verbatim,quote,relative=2]
-c2 c
-\stopStaff
-\override Staff.StaffSymbol #'line-count = #2
-\startStaff
-b2 b
-\stopStaff
-\revert Staff.StaffSymbol #'line-count
-\startStaff
-a2 a
+\stopStaff f4 d \startStaff g, e
+f'4 d \stopStaff g, e
+f'4 d \startStaff g, e
 @end lilypond
-
-@noindent
-In general, @code{\startStaff} and @code{\stopStaff} can be used
-to stop or start a staff in the middle of a score.
-
-@lilypond[verbatim,quote,relative=2]
-c4 b a2
-\stopStaff
-b4 c d2
-\startStaff
-e4 d c2
-@end lilypond
-
 
 @predefined
 @code{\startStaff},
 @code{\stopStaff}.
 @endpredefined
 
+The lines of a staff belong to the @code{StaffSymbol} grob (including
+ledger lines) can be modified using @code{StaffSymbol} properties, but
+these modifications must be made before the staff is (re)started.
+
+The number of staff lines can be altered,
+
+@lilypond[verbatim,quote,relative=2]
+f4 d \stopStaff
+\override Staff.StaffSymbol #'line-count = #2
+\startStaff g, e |
+
+f'4 d \stopStaff
+\revert Staff.StaffSymbol #'line-count
+\startStaff g, e |
+@end lilypond
+
+The position of each the staff lines can also be altered.  The values
+used are @emph{half} staff line spaces and the new position is relative
+to the normal center line.  A single staff line is printed for every
+value entered so that the number of staff lines, as well as their
+position in the staff, can be changed with a single override.
+
+@lilypond[verbatim,quote,relative=2]
+f4 d \stopStaff
+\override Staff.StaffSymbol #'line-positions = #'(1 3 5 -1 -3)
+\startStaff g, e |
+f'4 d \stopStaff
+\override Staff.StaffSymbol #'line-positions = #'(8 6.5 -6 -8 -0.5)
+\startStaff g, e
+@end lilypond
+
+The clef position and the position of middle C may need to be adjusted
+accordingly to fit the new lines.  See @ref{Clef}.
+
+Staff line thickness can be altered.  Ledger lines and note stems, by
+default, are also affected.
+
+@lilypond[verbatim,quote,relative=2]
+\new Staff \with {
+  \override StaffSymbol #'thickness = #3
+}
+{ f4 d g, e }
+@end lilypond
+
+However, it is possible to set ledger line thickness independently of
+staff lines.  The two values required multiply the staff line thickness
+with the staff line spacing and are then added together to give the
+ledger line thickness.
+
+@lilypond[verbatim,quote,relative=2]
+\new Staff \with {
+  \override StaffSymbol #'thickness = #2
+  \override StaffSymbol #'ledger-line-thickness = #'(0.5 . 0.4)
+}
+{ f'4 a, a,, f }
+@end lilypond
+
+The vertical positions of ledger lines can be altered,
+
+@lilypond[verbatim,quote,relative=2]
+\new Staff \with {
+  \override StaffSymbol #'ledger-positions = #'(-3 -2 -1 2 5 6)
+}
+{ f'4 a, a,, f }
+@end lilypond
+
+Additional ledger lines can be made to appear above or below note heads
+depending on the current position relative to other note heads that
+also have their own ledger lines.
+
+@lilypond[verbatim,quote,relative=2]
+\new Staff \with {
+  \override StaffSymbol #'ledger-extra = #4
+}
+{ f'4 a, d, f, }
+@end lilypond
+
+Legder lines can also be made to appear inside the staff where custom
+staff lines are required.  The example shows the default position of
+ledger lines when the explicit @code{legder-position} is and is not set.
+The @code{stopStaff} is needed in the example to revert the
+@code{\override} for the whole @code{StaffSymbol}.
+
+@lilypond[fragment,quote,relative=1]
+\override Staff.StaffSymbol #'line-positions =   #'(-8 0 2 4)
+d4 e f g
+\stopStaff
+\startStaff
+\override Staff.StaffSymbol #'ledger-positions = #'(-8 -6 (-4 -2) 0)
+d4 e f g
+@end lilypond
+
+The distance between staff lines can be altered.  This affects ledger
+line spacing as well.
+
+@lilypond[verbatim,quote,relative=2]
+\new Staff \with {
+  \override StaffSymbol #'staff-space = #1.5
+}
+{ f'4 d, g, e, }
+@end lilypond
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-some-staff-lines-thicker-than-the-others.ly}
-
 
 @seealso
 Music Glossary:
