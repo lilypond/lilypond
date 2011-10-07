@@ -45,8 +45,8 @@ protected:
 private:
   vector<Spanner *> lines_;
   vector<Spanner *> kill_me_;
-  bool start_glissandi;
-  bool stop_glissandi;
+  bool start_glissandi_;
+  bool stop_glissandi_;
 
   Stream_event *event_;
   vector<vsize> note_column_1;
@@ -56,8 +56,8 @@ private:
 Glissando_engraver::Glissando_engraver ()
 {
   event_ = 0;
-  start_glissandi = false;
-  stop_glissandi = false;
+  start_glissandi_ = false;
+  stop_glissandi_ = false;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Glissando_engraver, glissando);
@@ -71,14 +71,14 @@ void
 Glissando_engraver::process_music ()
 {
   if (event_)
-    start_glissandi = true;
+    start_glissandi_ = true;
 }
 
 void
 Glissando_engraver::acknowledge_note_column (Grob_info info)
 {
   Grob *g = info.grob ();
-  if (stop_glissandi)
+  if (stop_glissandi_)
     {
       extract_grob_set (g, "note-heads", note_heads);
       int glissando_index = 0;
@@ -100,10 +100,10 @@ Glissando_engraver::acknowledge_note_column (Grob_info info)
       lines_.clear ();
       note_column_1.clear ();
       note_column_2.clear ();
-      stop_glissandi = false;
+      stop_glissandi_ = false;
     }
 
-  if (start_glissandi)
+  if (start_glissandi_)
     {
       extract_grob_set (g, "note-heads", note_heads);
       SCM map = get_property ("glissandoMap");
@@ -137,13 +137,12 @@ Glissando_engraver::acknowledge_note_column (Grob_info info)
 void
 Glissando_engraver::stop_translation_timestep ()
 {
-
-  if (start_glissandi)
+  if (start_glissandi_)
     {
-      if (stop_glissandi)
+      if (stop_glissandi_)
         programming_error ("overwriting glissando");
-      stop_glissandi = true;
-      start_glissandi = false;
+      stop_glissandi_ = true;
+      start_glissandi_ = false;
     }
   event_ = 0;
 }
