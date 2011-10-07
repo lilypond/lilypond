@@ -19,7 +19,7 @@ def escape_instrument_string (input_string):
     if re.match ('.*[\r\n]+.*', retstring):
         rx = re.compile (r'[\n\r]+')
         strings = rx.split (retstring)
-        retstring = "\\markup { \\column { "
+        retstring = "\\markup { \\center-column { "
         for s in strings:
             retstring += "\\line {\"" + s + "\"} "
         retstring += "} }"
@@ -198,6 +198,17 @@ class Duration:
 
         return base * dot_fact * self.factor
 
+# implement the midi command line option '-m' and '--midi'
+# if TRUE add midi-block to .ly file (see below)
+def set_create_midi (option):
+    global midi_option
+    midi_option = option
+
+def get_create_midi ():
+    try:
+        return midi_option
+    except:
+        return False
 
 # Implement the different note names for the various languages
 def pitch_generic (pitch, notenames, accidentals):
@@ -1919,6 +1930,7 @@ class Score:
           self.contents.set_part_information (part_id, staves_info)
 
     def print_ly (self, printer):
+        self.create_midi = get_create_midi ()
         printer.dump ("\\score {");
         printer.newline ()
         if self.contents:

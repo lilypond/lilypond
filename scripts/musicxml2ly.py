@@ -165,15 +165,25 @@ def extract_score_information (tree):
         if value:
             header.set_field (field, musicxml.escape_ly_output_string (value))
 
-    movement_title = tree.get_maybe_exist_named_child ('movement-title')
-    if movement_title:
-        set_if_exists ('title', movement_title.get_text ())
     work = tree.get_maybe_exist_named_child ('work')
     if work:
-        # Overwrite the title from movement-title with work->title
-        set_if_exists ('title', work.get_work_title ())
         set_if_exists ('worknumber', work.get_work_number ())
         set_if_exists ('opus', work.get_opus ())
+
+    movement_title = tree.get_maybe_exist_named_child ('movement-title')
+
+    # use either work-title or movement-title as title.
+    # if both exist use movement-title as subtitle.
+    # if there is only a movement-title (or work-title is empty or missing) the movement-title should be typeset as a title
+    if work:
+        work_title = work.get_work_title ()
+        set_if_exists ('title', work_title)
+        if work_title == '':
+            set_if_exists ('title', movement_title.get_text ())
+        elif movement_title:
+            set_if_exists ('subtitle', movement_title.get_text ())
+    elif movement_title:
+        set_if_exists ('title', movement_title.get_text ())
 
     identifications = tree.get_named_children ('identification')
     for ids in identifications:
@@ -183,12 +193,14 @@ def extract_score_information (tree):
         set_if_exists ('editor', ids.get_editor ())
         set_if_exists ('poet', ids.get_poet ())
 
-        set_if_exists ('tagline', ids.get_encoding_software ())
         set_if_exists ('encodingsoftware', ids.get_encoding_software ())
         set_if_exists ('encodingdate', ids.get_encoding_date ())
         set_if_exists ('encoder', ids.get_encoding_person ())
         set_if_exists ('encodingdescription', ids.get_encoding_description ())
 
+        set_if_exists ('source', ids.get_source ())
+
+        # miscellaneous --> texidoc
         set_if_exists ('texidoc', ids.get_file_description ());
 
         # Finally, apply the required compatibility modes
@@ -2648,6 +2660,13 @@ information.""") % 'lilypond')
                   type = 'string',
                   dest = 'output_name',
                   help = _ ("set output filename to FILE, stdout if -"))
+
+    p.add_option ('-m', '--midi',
+                  action = "store_true",
+                  default = False,
+                  dest = "midi",
+                  help = _("add midi-block to .ly file"))
+
     p.add_option_group ('',
                         description = (
             _ ("Report bugs via %s")
@@ -2760,7 +2779,7 @@ def update_layout_information ():
 
 def print_ly_preamble (printer, filename):
     printer.dump_version ()
-    printer.print_verbatim ('%% automatically converted from %s\n' % filename)
+    printer.print_verbatim ('%% automatically converted by musicxml2ly from %s\n' % filename)
 
 def print_ly_additional_definitions (printer, filename):
     if needed_additional_definitions:
@@ -2914,6 +2933,9 @@ def main ():
     if not args:
         opt_parser.print_usage()
         sys.exit (2)
+
+    if options.midi:
+        musicexp.set_create_midi (options.midi)
 
     if options.language:
         musicexp.set_pitch_language (options.language)

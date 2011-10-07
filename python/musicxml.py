@@ -167,6 +167,14 @@ class Identification (Xml_node):
           ret.append (r.get_text ())
         return string.join (ret, "\n")
 
+    # get contents of the source-element (usually used for publishing information). (These contents are saved in a custom variable named "source" in the header of the .ly file.)
+    def get_source (self):
+        source = self.get_named_children ('source')
+        ret = []
+        for r in source:
+          ret.append (r.get_text ())
+        return string.join (ret, "\n")
+
     def get_creator (self, type):
         creators = self.get_named_children ('creator')
         # return the first creator tag that has the particular type
@@ -231,8 +239,6 @@ class Identification (Xml_node):
                 if hasattr (mf, 'name') and mf.name == 'description':
                     return mf.get_text () 
         return None
-
-
 
 class Duration (Music_xml_node):
     def get_length (self):
