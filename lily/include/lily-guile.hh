@@ -54,6 +54,7 @@ string gulp_file_to_string (string fn, bool must_exist, int size);
 SCM ly_string2scm (string const &s);
 string ly_scm2string (SCM s);
 string ly_symbol2string (SCM);
+string robust_symbol2string (SCM, string);
 Rational ly_scm2rational (SCM);
 SCM ly_rational2scm (Rational);
 SCM ly_offset2scm (Offset);

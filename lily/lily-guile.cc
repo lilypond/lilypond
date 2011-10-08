@@ -71,8 +71,13 @@ ly_symbol2string (SCM s)
   /*
     Ugh. this is not very efficient.
   */
-  SCM str = scm_symbol_to_string (s);
-  return ly_scm2string (str);
+  return ly_scm2string (scm_symbol_to_string (s));
+}
+
+string
+robust_symbol2string (SCM sym, string str)
+{
+  return scm_is_symbol (sym) ? ly_symbol2string (sym) : str;
 }
 
 string

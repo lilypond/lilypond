@@ -36,17 +36,11 @@ using namespace std;
 static Stencil
 internal_print (Grob *me, string *font_char)
 {
-  SCM style = me->get_property ("style");
-  if (!scm_is_symbol (style))
-    style = ly_symbol2scm ("default");
+  string style = robust_symbol2string (me->get_property ("style"), "default");
 
   string suffix = to_string (min (robust_scm2int (me->get_property ("duration-log"), 2), 2));
-  if (style != ly_symbol2scm ("default"))
-    {
-      SCM gn = me->get_property ("glyph-name");
-      if (scm_is_string (gn))
-        suffix = ly_scm2string (gn);
-    }
+  if (style != "default")
+    suffix = robust_scm2string (me->get_property ("glyph-name"), "");
 
   Font_metric *fm = Font_interface::get_default_font (me);
 
@@ -63,18 +57,29 @@ internal_print (Grob *me, string *font_char)
       if (stem_dir == CENTER)
         programming_error ("must have stem dir for note head");
 
-      idx_either = idx_directed = prefix + ((stem_dir == UP) ? "u" : "d");
+      idx_either = idx_directed = prefix + (stem_dir == UP ? "u" : "d");
+      out = fm->find_by_name (idx_either + suffix);
     }
 
-  out = fm->find_by_name (idx_either + "r" + suffix);
-  if (!out.is_empty ()
-        && !Staff_symbol_referencer::on_line
-             (me,
-              robust_scm2int (me->get_property ("staff-position"), 0)))
-      idx_either += "r";
+  if (style == "mensural"
+      || style == "neomensural"
+      || style == "petrucci"
+      || style == "baroque")
+    {
+      if (!Staff_symbol_referencer::on_line
+          (me,
+           robust_scm2int (me->get_property ("staff-position"), 0)))
+        {
+          Stencil test = fm->find_by_name (idx_either + "r" + suffix);
+          if (!test.is_empty ())
+            {
+              idx_either += "r";
+              out = test;
+            }
+        }
+    }
 
   idx_either += suffix;
-  out = fm->find_by_name (idx_either);
   if (out.is_empty ())
     {
       me->warning (_f ("none of note heads `%s' or `%s' found",
