@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks, text, tweaks-and-overrides"
 
-%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
+%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
   texidoces = "
 Las instrucciones @code{\\startTextSpan} y @code{\\stopTextSpan}
 permiten la creación de elementos de extensión textuales tan

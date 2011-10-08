@@ -9,7 +9,7 @@
 \header {
   lsrtags = "chords"
 
-%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
+%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
   texidoces = "
 Al juntar nombres de acorde en cifrado americano, melodía y letra,
 obtenemos una hoja guía de acordes o «lead sheet»:

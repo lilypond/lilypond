@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
+%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
   texidoces = "
 Se puede hacer que una ligadura de expresión sea asimétrica para
 adaptarse mejor a un patrón asimétrico de notas.

@@ -9,7 +9,7 @@
 \header {
   lsrtags = "vocal-music, template"
 
-%% Translation of GIT committish: b1bebb842d9762894fc7b2a178e2bdfcd544419f
+%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
 
   texidoces = "
 Plantilla de coro SATB (en cuatro pentagramas)
