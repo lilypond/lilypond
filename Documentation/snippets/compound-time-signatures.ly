@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 70f5f30161f7b804a681cd080274bfcdc9f4fe8c
+%% Translation of GIT committish: ea4fdf1afa3e6bb9a7c586f5a533be93ff3312d3
  doctitlees = "Indicaciones de compases compuestos"
  texidoces = "
 Las indicaciones de compás poco frecuentes como @qq{5/8} se pueden
