@@ -439,8 +439,6 @@ ADD_INTERFACE (Slur,
                "Demerit to apply when note heads collide with a slur.\n"
                "@item stem-encompass-penalty\n"
                "Demerit to apply when stems collide with a slur.\n"
-               "@item closeness-factor\n"
-               "Additional demerit used when scoring encompasses.\n"
                "@item edge-attraction-factor\n"
                "Factor used to calculate the demerit for distances"
                " between slur endpoints and their corresponding base"
@@ -496,7 +494,7 @@ ADD_INTERFACE (Slur,
 
                /* properties */
                "annotation "
-               "avoid-slur "    /* UGH. */
+               "avoid-slur "  /* UGH. */
                "control-points "
                "dash-definition "
                "details "

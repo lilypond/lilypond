@@ -277,18 +277,6 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
 
           demerit += stem_dem;
         }
-      else if (!edge)
-        {
-          Interval ext;
-          ext.add_point (state.encompass_infos_[j].stem_);
-          ext.add_point (state.encompass_infos_[j].head_);
-
-          // ?
-          demerit += -state.parameters_.closeness_factor_
-                     * min (state.dir_
-                            * (y - (ext[state.dir_] + state.dir_ * state.parameters_.free_head_distance_)), 0.0)
-                     / state.encompass_infos_.size ();
-        }
     }
   add_score (demerit, "encompass");
 

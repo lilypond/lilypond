@@ -28,7 +28,6 @@ struct Slur_score_parameters
 
   Real head_encompass_penalty_;
   Real stem_encompass_penalty_;
-  Real closeness_factor_;
   Real edge_attraction_factor_;
   Real same_slope_penalty_;
   Real steeper_slope_factor_;
