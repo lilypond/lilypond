@@ -65,5 +65,6 @@ ADD_INTERFACE (Rhythmic_head,
                /* properties */
                "dot "
                "duration-log "
+               "glissando-skip "
                "stem "
               );

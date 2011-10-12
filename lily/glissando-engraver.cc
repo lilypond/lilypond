@@ -78,6 +78,9 @@ void
 Glissando_engraver::acknowledge_note_column (Grob_info info)
 {
   Grob *g = info.grob ();
+  if (to_boolean (g->get_property ("glissando-skip")))
+    return;
+
   if (stop_glissandi_)
     {
       extract_grob_set (g, "note-heads", note_heads);
