@@ -41,6 +41,8 @@ public:
   bool is_empty () const;
   void print () const;
   void print_points () const;
+
+  DECLARE_SCHEME_CALLBACK (skyline, (SCM, SCM));
 };
 
 #endif /* SKYLINE_PAIR_HH */

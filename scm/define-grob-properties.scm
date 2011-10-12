@@ -406,6 +406,8 @@ read from the NonMusicalPaperColumn that begins the measure.")
 ;;
      (gap ,ly:dimension? "Size of a gap in a variable symbol.")
      (gap-count ,integer? "Number of gapped beams for tremolo.")
+     (glissando-skip ,boolean? "Should this @code{NoteHead} be skipped
+by glissandi?")
      (glyph ,string? "A string determining what @q{style} of glyph is
 typeset.  Valid choices depend on the function that is reading this
 property.")

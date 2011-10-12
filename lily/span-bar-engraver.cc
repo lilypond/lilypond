@@ -86,10 +86,6 @@ Span_bar_engraver::stop_translation_timestep ()
 {
   if (spanbar_)
     {
-      vector_sort (bars_, Grob::vertical_less);
-      for (vsize i = 0; i < bars_.size (); i++)
-        Span_bar::add_bar (spanbar_, bars_[i]);
-
       SCM vissym = ly_symbol2scm ("break-visibility");
       SCM vis = bars_[0]->internal_get_property (vissym);
       if (ly_is_equal (spanbar_->internal_get_property (vissym), vis))

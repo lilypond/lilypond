@@ -76,11 +76,22 @@ public:
   void raise (Real);
   void shift (Real);
   Real distance (Skyline const &, Real horizon_padding = 0) const;
+  Real touching_point (Skyline const &, Real horizon_padding = 0) const;
   Real height (Real airplane) const;
   Real max_height () const;
+  Real max_height_position () const;
   void set_minimum_height (Real height);
   void clear ();
   bool is_empty () const;
+
+  DECLARE_SCHEME_CALLBACK (get_touching_point, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (get_distance, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (get_max_height, (SCM));
+  DECLARE_SCHEME_CALLBACK (get_max_height_position, (SCM));
+  DECLARE_SCHEME_CALLBACK (get_height, (SCM, SCM));
+
+protected:
+  Real internal_distance (Skyline const &, Real horizon_padding, Real *touch_point) const;
 };
 
 extern bool debug_skylines;

@@ -20,7 +20,6 @@
   '((region-size . 4)
     (head-encompass-penalty . 1000.0)
     (stem-encompass-penalty . 30.0)
-    (closeness-factor . 10)
     (edge-attraction-factor . 4)
     (same-slope-penalty . 20)
     (steeper-slope-factor . 50)

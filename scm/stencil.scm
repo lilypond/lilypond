@@ -658,43 +658,43 @@ with optional arrows of @code{max-size} on start and end controlled by
                                             (center-stencil-on-extent dim-stencil)
                                             0.5))
 	  (set! annotation
-		(ly:make-stencil (list 'color color (ly:stencil-expr annotation))
-				 (ly:stencil-extent annotation X)
-				 (cons 10000 -10000)))))
+		(stencil-with-color annotation color))))
     annotation))
 
 
-(define*-public (annotate-spacing-spec layout spacing-spec start-Y-offset prev-system-end
+;; TODO: figure out how to annotate padding nicely
+;; TODO: emphasize either padding or min-dist depending on which constraint was active
+(define*-public (annotate-spacing-spec layout spacing-spec start-Y-offset next-staff-Y
 				      #:key (base-color blue))
-  (let* ((get-spacing-var (lambda (sym) (assoc-get sym spacing-spec 0.0)))
-	 (space (get-spacing-var 'space))
+   (let* ((get-spacing-var (lambda (sym) (assoc-get sym spacing-spec 0.0)))
+	 (space (get-spacing-var 'basic-distance))
 	 (padding (get-spacing-var 'padding))
 	 (min-dist (get-spacing-var 'minimum-distance))
-	 (contrast-color (append (cdr base-color) (list (car base-color)))))
+	 (contrast-color (append (cdr base-color) (list (car base-color))))
+	 (min-dist-blocks (<= (- start-Y-offset min-dist) next-staff-Y))
+	 (min-dist-color (if min-dist-blocks contrast-color base-color))
+	 (basic-annotation (annotate-y-interval layout
+						"basic-dist"
+						(cons (- start-Y-offset space) start-Y-offset)
+						#t
+						#:color (map (lambda (x) (* x 0.25)) base-color)))
+	 (min-annotation (annotate-y-interval layout
+					      "min-dist"
+					      (cons (- start-Y-offset min-dist) start-Y-offset)
+					      #t
+					      #:color min-dist-color))
+	 (extra-annotation (annotate-y-interval layout
+						"extra dist"
+						(cons next-staff-Y (- start-Y-offset min-dist))
+						#t
+						#:color (map (lambda (x) (* x 0.5)) min-dist-color))))
+
     (stack-stencils X RIGHT 0.0
 		    (list
-		     (annotate-y-interval layout
-					  "space"
-					  (cons (- start-Y-offset space) start-Y-offset)
-					  #t
-					  #:color (map (lambda (x) (* x 0.25)) base-color))
-		     (annotate-y-interval layout
-					  "min-dist"
-					  (cons (- start-Y-offset min-dist) start-Y-offset)
-					  #t
-					  #:color (map (lambda (x) (* x 0.5)) base-color))
-		     (ly:stencil-add
-		      (annotate-y-interval layout
-					   "bottom-of-extent"
-					   (cons prev-system-end start-Y-offset)
-					   #t
-					   #:color base-color)
-		      (annotate-y-interval layout
-					   "padding"
-					   (cons (- prev-system-end padding) prev-system-end)
-					   #t
-					   #:color contrast-color))))))
-
+		     basic-annotation
+		     (if min-dist-blocks
+			 min-annotation
+			 (ly:stencil-add min-annotation extra-annotation))))))
 
 (define-public (eps-file->stencil axis size file-name)
   (let*

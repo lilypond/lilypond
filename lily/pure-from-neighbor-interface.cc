@@ -54,4 +54,6 @@ ADD_INTERFACE (Pure_from_neighbor_interface,
 
                /* properties */
                "elements-filtered "
+               "pure-relevant-grobs "
+               "pure-Y-common "
               );

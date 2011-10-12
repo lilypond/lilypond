@@ -79,9 +79,11 @@ Audio_dynamic::Audio_dynamic ()
 {
 }
 
-Audio_span_dynamic::Audio_span_dynamic ()
+Audio_span_dynamic::Audio_span_dynamic (Real min_volume, Real max_volume)
 {
   grow_dir_ = CENTER;
+  min_volume_ = min_volume;
+  max_volume_ = max_volume;
 }
 
 void
@@ -135,7 +137,7 @@ Audio_span_dynamic::render ()
 
   Real start_v = dynamics_[0]->volume_;
   if (dynamics_.back ()->volume_ < 0)
-    dynamics_.back ()->volume_ = max (min (start_v + grow_dir_ * 0.25, 1.0), 0.1);
+    dynamics_.back ()->volume_ = max (min (start_v + grow_dir_ * 0.25, max_volume_), min_volume_);
 
   delta_v = dynamics_.back ()->volume_ - dynamics_[0]->volume_;
 

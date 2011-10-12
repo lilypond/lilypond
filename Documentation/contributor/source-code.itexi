@@ -924,7 +924,13 @@ LilyDev users should skip over these @q{install} instructions.
 Install @command{git-cl} by entering:
 
 @example
-git clone https://github.com/martine/git-cl
+git clone https://github.com/gperciva/git-cl.git
+@end example
+
+If that command fails for some reason, try this instead:
+
+@example
+git clone git://github.com/gperciva/git-cl.git
 @end example
 
 @item

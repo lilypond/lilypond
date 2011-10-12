@@ -78,9 +78,8 @@ Tuplet_number::calc_y_offset (SCM smob)
   Spanner *me = unsmob_spanner (smob);
   Spanner *tuplet = unsmob_spanner (me->get_object ("bracket"));
 
-  Interval positions = robust_scm2interval (tuplet->get_property ("positions"), Interval (0.0, 0.0));
-
-  return scm_from_double (positions.center ());
+  Drul_array<Real> positions = robust_scm2drul (tuplet->get_property ("positions"), Drul_array<Real> (0.0, 0.0));
+  return scm_from_double ((positions[LEFT] + positions[RIGHT]) / 2.0);
 }
 
 MAKE_SCHEME_CALLBACK (Tuplet_number, calc_cross_staff, 1)

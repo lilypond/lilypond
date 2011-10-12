@@ -54,10 +54,12 @@ class Audio_span_dynamic : public Audio_element
 public:
   Direction grow_dir_;
   vector<Audio_dynamic *> dynamics_;
+  Real min_volume_;
+  Real max_volume_;
 
   virtual void render ();
   void add_absolute (Audio_dynamic *);
-  Audio_span_dynamic ();
+  Audio_span_dynamic (Real min_volume, Real max_volume);
 };
 
 class Audio_key : public Audio_item

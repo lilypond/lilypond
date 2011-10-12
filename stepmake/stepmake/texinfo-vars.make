@@ -8,6 +8,27 @@ OMF_FILES += $(foreach format, html pdf, $(foreach f, $(TEXI_FILES), $(outdir)/$
 
 GENERATE_OMF = $(buildscript-dir)/texi2omf --format $(1) --location $(webdir)$(tree-dir)/$(notdir $(basename $@))  --version $(TOPLEVEL_VERSION) $< > $@
 
+# Find the file $(1) within the texinfo include dirs and return its path.
+# If not found, return $(outdir)/$(1) assuming that it is a generated file.
+find-texi = \
+$(firstword \
+	$(wildcard $(src-dir)/$(1)) \
+	$(wildcard $(top-src-dir)/Documentation/$(1)) \
+	$(outdir)/$(1) \
+)
+
+# Recursively scan the file $(1) for @include, search for included files
+# within the texinfo include dirs, and return all dependencies.
+scan-texi = \
+$(foreach f, $(shell sed -ne "/^@include[[:space:]]/s/@include//p" $(1)), \
+	$(call find-texi,$(f)) \
+	$(call scan-texi,$(call find-texi,$(f))) \
+)
+
+# Find dependencies for the target $@, based on the texinfo source file $<,
+# and write the dependencies to a .dep file.
+DO_TEXI_DEP = ( echo ./$@: $(call scan-texi,$<) > $(basename $@).dep ) &&
+
 TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 
 DOCUMENTATION_INCLUDES += -I $(top-src-dir)/Documentation

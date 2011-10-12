@@ -1,0 +1,12 @@
+\version "2.15.12"
+
+\header {
+  texidoc = "@code{NoteColumn} grobs can be skipped over by glissandi.
+"
+}
+
+\relative c' {
+  a2 \glissando
+  \once \override NoteColumn #'glissando-skip = ##t
+  f''4 d,
+}

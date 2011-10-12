@@ -42,8 +42,6 @@ Slur_score_parameters::fill (Grob *me)
     = get_detail (details, ly_symbol2scm ("head-encompass-penalty"));
   stem_encompass_penalty_
     = get_detail (details, ly_symbol2scm ("stem-encompass-penalty"));
-  closeness_factor_
-    = get_detail (details, ly_symbol2scm ("closeness-factor"));
   edge_attraction_factor_
     = get_detail (details, ly_symbol2scm ("edge-attraction-factor"));
   same_slope_penalty_

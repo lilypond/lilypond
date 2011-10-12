@@ -23,8 +23,14 @@ ifneq ($(INFO_IMAGES_DIR),)
 endif
 	touch $@
 
+# Copy files while tracking their dependencies.
 $(outdir)/%.texi: $(src-dir)/%.texi
-	cp -p $< $@
+	mkdir -p $(dir $@)
+	$(DO_TEXI_DEP) cp -f $< $@
+
+$(outdir)/%.itexi: $(src-dir)/%.itexi
+	mkdir -p $(dir $@)
+	$(DO_TEXI_DEP) cp -f $< $@
 
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi
 ifeq ($(WEB_VERSION),yes)
@@ -80,6 +86,5 @@ $(outdir)/version.%: $(top-src-dir)/VERSION
 $(outdir)/weblinks.%: $(top-src-dir)/VERSION
 	$(PYTHON) $(top-src-dir)/scripts/build/create-weblinks-itexi.py > $@
 
-.SECONDARY: $(outdir)/version.itexi $(outdir)/version.texi \
-  $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep \
-  $(outdir)/*.texi
+# Keep this empty to prevent make from removing intermediate files.
+.SECONDARY:

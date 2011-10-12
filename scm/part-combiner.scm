@@ -243,7 +243,7 @@ LilyPond version 2.8 and earlier."
     (ly:interpret-music-expression (make-non-relative-music music) global)
     context-list))
 
-(define-public (make-part-combine-music parser music-list)
+(define-public (make-part-combine-music parser music-list direction)
   (let* ((m (make-music 'PartCombineMusic))
 	 (m1 (make-non-relative-music (context-spec-music (first music-list) 'Voice "one")))
 	 (m2  (make-non-relative-music  (context-spec-music (second music-list) 'Voice "two")))
@@ -252,6 +252,7 @@ LilyPond version 2.8 and earlier."
 	 (evs1 (recording-group-emulate m1 listener)))
 
     (set! (ly:music-property m 'elements) (list m1 m2))
+    (set! (ly:music-property m 'direction) direction)
     (set! (ly:music-property m 'split-list)
 	  (if (and (assoc "one" evs1) (assoc "two" evs2))
 	      (determine-split-list (reverse! (assoc-get "one" evs1) '())
