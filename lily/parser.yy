@@ -1313,14 +1313,14 @@ complex_music:
                 SCM mods = SCM_EOL;
                 if (ctxmod)
                         mods = ctxmod->get_mods ();
-		$$ = MAKE_SYNTAX ("context-specification", @$, $2, $3, $5, mods, SCM_BOOL_F);
+		$$ = MAKE_SYNTAX ("context-specification", @$, $2, $3, mods, SCM_BOOL_F, $5);
 	}
 	| NEWCONTEXT simple_string optional_id optional_context_mod music {
                 Context_mod *ctxmod = unsmob_context_mod ($4);
                 SCM mods = SCM_EOL;
                 if (ctxmod)
                         mods = ctxmod->get_mods ();
-		$$ = MAKE_SYNTAX ("context-specification", @$, $2, $3, $5, mods, SCM_BOOL_T);
+		$$ = MAKE_SYNTAX ("context-specification", @$, $2, $3, mods, SCM_BOOL_T, $5);
 	}
 
 	| TIMES fraction music {
@@ -1347,7 +1347,7 @@ mode_changed_music:
                 SCM mods = SCM_EOL;
                 if (ctxmod)
                         mods = ctxmod->get_mods ();
-		$$ = MAKE_SYNTAX ("context-specification", @$, $1, SCM_EOL, $3, mods, SCM_BOOL_T);
+		$$ = MAKE_SYNTAX ("context-specification", @$, $1, SCM_EOL, mods, SCM_BOOL_T, $3);
 		if ($1 == ly_symbol2scm ("ChordNames"))
 		{
 		  $$ = MAKE_SYNTAX ("unrelativable-music", @$, $$);
