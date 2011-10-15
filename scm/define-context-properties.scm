@@ -225,8 +225,7 @@ function for explicit key changes.  @samp{\\override} of the
      (extendersOverRests ,boolean? "Whether to continue extenders as
 they cross a rest.")
      (extraNatural ,boolean? "Whether to typeset an extra natural sign
-before accidentals changing from a non-natural to another
-non-natural.")
+before accidentals that reduce the effect of a previous alteration.")
 
 
      (figuredBassAlterationDirection ,ly:dir? "Where to put alterations
