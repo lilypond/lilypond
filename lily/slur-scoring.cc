@@ -24,9 +24,11 @@
 
 #include "accidental-interface.hh"
 #include "beam.hh"
+#include "clef.hh"
 #include "directional-element-interface.hh"
 #include "libc-extension.hh"
 #include "main.hh"
+#include "misc.hh"
 #include "note-column.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
@@ -38,6 +40,7 @@
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
 #include "stem.hh"
+#include "time-signature.hh"
 #include "warn.hh"
 
 /*
@@ -262,15 +265,54 @@ Slur_score_state::fill (Grob *me)
   Drul_array<Real> end_ys
     = get_y_attachment_range ();
 
+  extra_encompass_infos_ = get_extra_encompass_infos ();
+
+  Interval additional_ys (0.0,0.0);
+
+  for (vsize i = 0; i < extra_encompass_infos_.size (); i++)
+    {
+      if (extra_encompass_infos_[i].extents_[X_AXIS].is_empty ())
+        continue;
+
+      Real y_place = linear_interpolate (extra_encompass_infos_[i].extents_[X_AXIS].center (),
+                                         base_attachments_[RIGHT][X_AXIS],
+                                         base_attachments_[LEFT][X_AXIS],
+                                         end_ys[RIGHT],
+                                         end_ys[LEFT]);
+      Real encompass_place = extra_encompass_infos_[i].extents_[Y_AXIS][dir_];
+      if (extra_encompass_infos_[i].type_ == ly_symbol2scm ("inside")
+          && minmax (dir_, encompass_place, y_place) == encompass_place
+          && (!extra_encompass_infos_[i].grob_->internal_has_interface (ly_symbol2scm ("key-signature-interface"))
+              && !Clef::has_interface (extra_encompass_infos_[i].grob_)
+              && !Time_signature::has_interface (extra_encompass_infos_[i].grob_)))
+        {
+          Direction d = LEFT;
+          do
+            additional_ys[d] = minmax (dir_,
+                                       additional_ys[d],
+                                       (dir_
+                                        * (parameters_.encompass_object_range_overshoot_
+                                           + (y_place - encompass_place)
+                                              * (normalize (extra_encompass_infos_[i].extents_[X_AXIS].center (),
+                                                            base_attachments_[RIGHT][X_AXIS],
+                                                            base_attachments_[LEFT][X_AXIS])
+                                               + (dir_ == LEFT ? 0 : -1)))));
+          while (flip (&d) != LEFT);
+        }
+    }
+
+  Direction d = LEFT;
+  do
+    end_ys[d] += additional_ys[d];
+  while (flip (&d) != LEFT);
+
   configurations_ = enumerate_attachments (end_ys);
   for (vsize i = 0; i < columns_.size (); i++)
     encompass_infos_.push_back (get_encompass_info (columns_[i]));
 
-  extra_encompass_infos_ = get_extra_encompass_infos ();
   valid_ = true;
 
   musical_dy_ = 0.0;
-  Direction d = LEFT;
   do
     {
       if (!is_broken_
