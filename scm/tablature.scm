@@ -107,7 +107,7 @@
          (left-pitch (ly:event-property (event-cause left-bound) 'pitch))
          (right-pitch (ly:event-property (event-cause right-bound) 'pitch)))
 
-    (if (< (ly:pitch-semitones right-pitch) (ly:pitch-semitones left-pitch))
+    (if (< (ly:pitch-tones right-pitch) (ly:pitch-tones left-pitch))
         -0.75
         0.75)))
 

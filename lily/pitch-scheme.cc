@@ -92,7 +92,7 @@ LY_DEFINE (ly_pitch_alteration, "ly:pitch-alteration",
   return ly_rational2scm (q);
 }
 
-LY_DEFINE (pitch_notename, "ly:pitch-notename",
+LY_DEFINE (ly_pitch_notename, "ly:pitch-notename",
            1, 0, 0, (SCM pp),
            "Extract the note name from pitch @var{pp}.")
 {
@@ -101,6 +101,16 @@ LY_DEFINE (pitch_notename, "ly:pitch-notename",
   int q = p->get_notename ();
   return scm_from_int (q);
 }
+
+LY_DEFINE (ly_pitch_tones, "ly:pitch-tones",
+	   1, 0, 0, (SCM pp),
+           "Calculate the number of tones of@tie{}@var{pp} from"
+           " middle@tie{}C as a rational number.")
+{
+  LY_ASSERT_SMOB (Pitch, pp, 1);
+  return ly_rational2scm (unsmob_pitch (pp)->tone_pitch ());
+}
+
 
 LY_DEFINE (ly_pitch_quartertones, "ly:pitch-quartertones",
            1, 0, 0, (SCM pp),

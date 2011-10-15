@@ -286,7 +286,7 @@ along with @var{minimum-fret}, @var{maximum-stretch}, and
     (define (calc-fret pitch string tuning)
       "Calculate the fret to play @var{pitch} on @var{string} with
 @var{tuning}."
-      (- (ly:pitch-semitones pitch) (ly:pitch-semitones (list-ref tuning (1- string)))))
+      (* 2  (- (ly:pitch-tones pitch) (ly:pitch-tones (list-ref tuning (1- string))))))
 
     (define (note-pitch note)
       "Get the pitch (in semitones) from @var{note}."
@@ -342,6 +342,7 @@ notes?"
 	(and (or (and (not restrain-open-strings)
 		      (eq? fret 0))
 		 (>= fret minimum-fret))
+	     (integer? fret)
 	     (close-enough fret))))
 
     (define (open-string string pitch)
@@ -356,7 +357,10 @@ the current tuning?"
 				  tuning)))
 	(if (< this-fret 0)
 	  (ly:warning (_ "Negative fret for pitch ~a on string ~a")
-		      (car pitch-entry) string))
+		      (car pitch-entry) string)
+	  (if (not (integer? this-fret))
+	      (ly:warning (_ "Missing fret for pitch ~a on string ~a")
+			  (car pitch-entry) string)))
 	(delete-free-string string)
         (set! specified-frets (cons this-fret specified-frets))
         (list-set! string-fret-fingers
@@ -415,7 +419,7 @@ the current tuning?"
 		            (ly:context-property context
 					         'handleNegativeFrets
 					         'recalculate)))
-		      (cond ((or (>= this-fret 0)
+		      (cond ((or (and (>= this-fret 0) (integer? this-fret))
 			         (eq? handle-negative 'include))
                              (set-fret! pitch-entry string finger))
 		            ((eq? handle-negative 'recalculate)
