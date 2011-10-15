@@ -64,6 +64,7 @@ or
       UNSIGNED DURATION_IDENTIFIER
       CHORDMODE CHORDS DRUMMODE DRUMS FIGUREMODE FIGURES LYRICMODE LYRICS
       NOTEMODE
+      CONTEXT TIMES NEWCONTEXT
 
  /* The above are the symbols that can start function arguments */
 
@@ -142,6 +143,10 @@ using namespace std;
 /* Syntactic Sugar. */
 #define MAKE_SYNTAX(name, location, ...)	\
   LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (PARSER->self_scm (), make_input (location), ##__VA_ARGS__, SCM_UNDEFINED));
+#define START_MAKE_SYNTAX(name, ...)					\
+	scm_list_n (ly_lily_module_constant (name), ##__VA_ARGS__, SCM_UNDEFINED)
+#define FINISH_MAKE_SYNTAX(start, location, ...)			\
+	LOWLEVEL_MAKE_SYNTAX (scm_car (start), scm_cons2 (PARSER->self_scm (), make_input (location), scm_append_x (scm_list_2 (scm_cdr (start), scm_list_n (__VA_ARGS__, SCM_UNDEFINED)))))
 
 SCM get_next_unique_context_id ();
 SCM get_next_unique_lyrics_context_id ();
@@ -344,7 +349,9 @@ If we give names, Bison complains.
 %type <scm> braced_music_list
 %type <scm> closed_music
 %type <scm> music
+%type <scm> music_bare
 %type <scm> complex_music
+%type <scm> complex_music_prefix
 %type <scm> mode_changed_music
 %type <scm> repeated_music
 %type <scm> sequential_music
@@ -1109,11 +1116,20 @@ context_mod_list:
 
 composite_music:
 	complex_music
-	| closed_music
+	| music_bare
 	;
 
 /* Music that can't be followed by additional events or durations */
 closed_music:
+	music_bare
+	| complex_music_prefix closed_music
+	{
+		$$ = FINISH_MAKE_SYNTAX ($1, @$, $2);
+	} %prec FUNCTION_ARGUMENTS
+	   /* \addlyrics attaches to innermost closed_music */
+	;
+
+music_bare:
 	mode_changed_music
 	| MUSIC_IDENTIFIER
 	| grouped_music_list
@@ -1308,26 +1324,32 @@ optional_id:
 
 complex_music:
 	music_function_call
-	| CONTEXT simple_string optional_id optional_context_mod music {
-                Context_mod *ctxmod = unsmob_context_mod ($4);
-                SCM mods = SCM_EOL;
-                if (ctxmod)
-                        mods = ctxmod->get_mods ();
-		$$ = MAKE_SYNTAX ("context-specification", @$, $2, $3, mods, SCM_BOOL_F, $5);
-	}
-	| NEWCONTEXT simple_string optional_id optional_context_mod music {
-                Context_mod *ctxmod = unsmob_context_mod ($4);
-                SCM mods = SCM_EOL;
-                if (ctxmod)
-                        mods = ctxmod->get_mods ();
-		$$ = MAKE_SYNTAX ("context-specification", @$, $2, $3, mods, SCM_BOOL_T, $5);
-	}
-
-	| TIMES fraction music {
-                $$ = MAKE_SYNTAX ("time-scaled-music", @$, $2, $3);
-	}
 	| repeated_music		{ $$ = $1; }
 	| re_rhythmed_music	{ $$ = $1; }
+	| complex_music_prefix music
+	{
+		$$ = FINISH_MAKE_SYNTAX ($1, @$, $2);
+	}
+	;
+
+complex_music_prefix:
+	CONTEXT simple_string optional_id optional_context_mod {
+                Context_mod *ctxmod = unsmob_context_mod ($4);
+                SCM mods = SCM_EOL;
+                if (ctxmod)
+                        mods = ctxmod->get_mods ();
+		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_F);
+	}
+	| NEWCONTEXT simple_string optional_id optional_context_mod {
+                Context_mod *ctxmod = unsmob_context_mod ($4);
+                SCM mods = SCM_EOL;
+                if (ctxmod)
+                        mods = ctxmod->get_mods ();
+		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_T);
+	}
+	| TIMES fraction {
+                $$ = START_MAKE_SYNTAX ("time-scaled-music", $2);
+	}
 	;
 
 mode_changed_music:
