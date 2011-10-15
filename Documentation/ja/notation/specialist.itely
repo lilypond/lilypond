@@ -1,0 +1,44 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@ignore
+    Translation of GIT committish: 3ef893f1fe182e9f6cf5841cbff0706789bd3361
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.14.0"
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+@node 専門的な記譜法
+@chapter 専門的な記譜法
+@translationof Specialist notation
+
+この章では、特定のタイプの楽器やスタイル向けの音楽記譜を作成するための方法@c
+について説明します。
+
+@menu
+* Vocal music::
+* キーボードと他の複数譜の楽器::
+* フレットの無い弦楽器::
+* Fretted string instruments::
+* Percussion::
+* Wind instruments::
+* Chord notation::
+* Contemporary music::
+* Ancient notation::
+* World music::
+@end menu
+
+@include notation/vocal.itely
+@include notation/keyboards.itely
+@include notation/unfretted-strings.itely
+@include notation/fretted-strings.itely
+@include notation/percussion.itely
+@include notation/wind.itely
+@include notation/chords.itely
+@include notation/contemporary.itely
+@include notation/ancient.itely
+@include notation/world.itely
