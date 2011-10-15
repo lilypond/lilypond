@@ -156,7 +156,6 @@ SCM get_next_unique_lyrics_context_id ();
 
 
 static Music *make_music_with_input (SCM name, Input where);
-SCM run_music_function (Lily_parser *parser, Input loc, SCM func, SCM args);
 SCM check_scheme_arg (Lily_parser *parser, Input loc, SCM fallback,
 		      SCM arg, SCM args, SCM pred);
 SCM loc_on_music (Input loc, SCM arg);
@@ -578,7 +577,7 @@ embedded_scm:
 
 scm_function_call:
 	SCM_FUNCTION function_arglist {
-		$$ = run_music_function (PARSER, @$,
+		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
 	;
@@ -1266,7 +1265,7 @@ embedded_scm_closed:
 
 scm_function_call_closed:
 	SCM_FUNCTION function_arglist_closed {
-		$$ = run_music_function (PARSER, @$,
+		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
 	;
@@ -1294,7 +1293,7 @@ function_arglist_bare:
 
 music_function_call:
 	MUSIC_FUNCTION function_arglist {
-		$$ = run_music_function (PARSER, @$,
+		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
 	;
@@ -1755,14 +1754,14 @@ music_function_chord_body_arglist:
 embedded_scm_chord_body:
 	embedded_scm_bare
 	| SCM_FUNCTION music_function_chord_body_arglist {
-		$$ = run_music_function (PARSER, @$,
+		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
 	;
 
 music_function_chord_body:
 	MUSIC_FUNCTION music_function_chord_body_arglist {
-		$$ = run_music_function (PARSER, @$,
+		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
 	;
@@ -1785,21 +1784,21 @@ music_function_event_arglist:
 embedded_scm_event:
 	embedded_scm_bare
 	| SCM_FUNCTION music_function_event_arglist {
-		$$ = run_music_function (PARSER, @$,
+		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
 	;
 
 music_function_event:
 	MUSIC_FUNCTION music_function_event_arglist {
-		$$ = run_music_function (PARSER, @$,
+		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
 	;
 
 event_function_event:
 	EVENT_FUNCTION music_function_event_arglist {
-		$$ = run_music_function (PARSER, @$,
+		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
 	;
@@ -2849,26 +2848,6 @@ get_next_unique_lyrics_context_id ()
 	return scm_from_locale_string (s);
 }
 
-
-SCM
-run_music_function (Lily_parser *parser, Input loc, SCM func, SCM args)
-{
-	SCM sig = scm_object_property (func, ly_symbol2scm ("music-function-signature"));
-
-	args = scm_reverse_x (args, SCM_EOL);
-
-	SCM fallback = SCM_BOOL_F;
-	SCM pred = scm_car (sig);
-
-	if (scm_is_pair (pred))
-	{
-		fallback = loc_on_music (loc, scm_cdr (pred));
-		pred = scm_car (pred);
-	}
-
-	SCM syntax_args = scm_list_n (parser->self_scm (), make_input (loc), pred, fallback, func, args, SCM_UNDEFINED);
-	return LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("music-function"), syntax_args);
-}
 
 SCM check_scheme_arg (Lily_parser *parser, Input loc, SCM fallback,
 		      SCM arg, SCM args, SCM pred)

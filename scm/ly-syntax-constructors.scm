@@ -43,8 +43,11 @@
        m)))
 
 ;; Music function: Apply function and check return value.
-(define-ly-syntax (music-function parser loc pred default fun args)
-  (let ((m (apply fun parser loc args)))
+;; args are in reverse order, rest may specify additional ones
+(define-ly-syntax (music-function parser loc fun args . rest)
+  (let* ((sig (object-property fun 'music-function-signature))
+	 (pred (if (pair? (car sig)) (caar sig) (car sig)))
+	 (m (apply fun parser loc (reverse! args rest))))
     (if (pred m)
 	(begin
 	  (if (ly:music? m)
@@ -55,7 +58,7 @@
 			   (format #f (_ "~a function cannot return ~a")
 				   (type-name pred) m)
 			   loc)
-	  default))))
+	  (and (pair? (car sig)) (cdar sig))))))
 
 (define-ly-syntax-simple (void-music)
   (make-music 'Music))
