@@ -839,8 +839,6 @@ Lily_lexer::scan_escaped_word (string str)
 				push_extra_token (EXPECT_PITCH);
 			else if (cs == Duration_type_p_proc)
 				push_extra_token (EXPECT_DURATION);
-			else if (cs == ly_lily_module_constant ("markup?"))
-				push_extra_token (EXPECT_MARKUP);
 			else if (ly_is_procedure (cs))
 				push_extra_token (EXPECT_SCM, cs);
 			else

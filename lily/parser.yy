@@ -58,6 +58,7 @@ or
 
 %right FUNCTION_ARGUMENTS
       MARKUP LYRICS_STRING MARKUP_IDENTIFIER STRING STRING_IDENTIFIER
+      MARKUPLINES WITH CONTEXT_MOD_IDENTIFIER MARKUPLINES_IDENTIFIER
       SEQUENTIAL SIMULTANEOUS DOUBLE_ANGLE_OPEN MUSIC_IDENTIFIER '{'
       PITCH_IDENTIFIER NOTENAME_PITCH TONICNAME_PITCH
       SCM_FUNCTION SCM_IDENTIFIER SCM_TOKEN
@@ -418,7 +419,10 @@ If we give names, Bison complains.
 %type <scm> direction_less_char
 %type <scm> duration_length
 %type <scm> embedded_scm
+%type <scm> embedded_scm_arg
+%type <scm> embedded_scm_arg_closed
 %type <scm> embedded_scm_bare
+%type <scm> embedded_scm_bare_arg
 %type <scm> embedded_scm_closed
 %type <scm> embedded_scm_chord_body
 %type <scm> embedded_scm_event
@@ -585,10 +589,23 @@ embedded_scm_bare:
 	| SCM_IDENTIFIER
 	;
 
+embedded_scm_bare_arg:
+	embedded_scm_bare
+	| simple_string
+	| full_markup
+	| full_markup_list
+	| context_modification
+	;
+
 /* The generic version may end in music, or not */
 
 embedded_scm:
 	embedded_scm_bare
+	| scm_function_call
+	;
+
+embedded_scm_arg:
+	embedded_scm_bare_arg
 	| scm_function_call
 	;
 
@@ -1160,7 +1177,7 @@ function_arglist:
 	{
 		$$ = scm_cons ($3, $2);
 	}
-	| EXPECT_SCM function_arglist_optional embedded_scm
+	| EXPECT_SCM function_arglist_optional embedded_scm_arg
 	{
 		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED, $3, $2, $1);
 	}
@@ -1180,10 +1197,6 @@ function_arglist_optional:
 	{
 		$$ = scm_cons ($1, $3);
 	}
-	| EXPECT_OPTIONAL EXPECT_MARKUP function_arglist_optional
-	{
-		$$ = scm_cons ($1, $3);
-	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_optional
 	{
 		$$ = scm_cons (loc_on_music (@3, $1), $3);
@@ -1191,13 +1204,7 @@ function_arglist_optional:
 	;
 
 function_arglist_keep:
-	EXPECT_OPTIONAL EXPECT_MARKUP function_arglist_keep full_markup {
-		$$ = scm_cons ($4, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_MARKUP function_arglist_keep simple_string {
-		$$ = scm_cons ($4, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_keep pitch_also_in_chords {
+	EXPECT_OPTIONAL EXPECT_PITCH function_arglist_keep pitch_also_in_chords {
 		$$ = scm_cons ($4, $3);
 	}
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed_keep duration_length {
@@ -1208,17 +1215,7 @@ function_arglist_keep:
 		$$ = scm_cons ($4, $3);
 	}
 	| function_arglist
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep simple_string
-	{
-		if (scm_is_true (scm_call_1 ($2, $4)))
-		{
-			$$ = scm_cons ($4, $3);
-		} else {
-			$$ = scm_cons (loc_on_music (@3, $1), $3);
-			MYBACKUP (SKIPPED_SCM, $4, @4);
-		}
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep embedded_scm_closed
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep embedded_scm_arg_closed
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
@@ -1237,7 +1234,7 @@ function_arglist_closed:
 	{
 		$$ = scm_cons ($3, $2);
 	}
-	| EXPECT_SCM function_arglist_optional embedded_scm_closed
+	| EXPECT_SCM function_arglist_optional embedded_scm_arg_closed
 	{
 		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED, $3, $2, $1);
 	}
@@ -1257,10 +1254,6 @@ function_arglist_closed_optional:
 	{
 		$$ = scm_cons ($1, $3);
 	}
-	| EXPECT_OPTIONAL EXPECT_MARKUP function_arglist_closed_optional
-	{
-		$$ = scm_cons ($1, $3);
-	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_optional
 	{
 		$$ = scm_cons (loc_on_music (@3, $1), $3);
@@ -1268,13 +1261,7 @@ function_arglist_closed_optional:
 	;
 
 function_arglist_closed_keep:
-	EXPECT_OPTIONAL EXPECT_MARKUP function_arglist_keep full_markup {
-		$$ = scm_cons ($4, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_MARKUP function_arglist_keep simple_string {
-		$$ = scm_cons ($4, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_keep pitch_also_in_chords {
+	EXPECT_OPTIONAL EXPECT_PITCH function_arglist_keep pitch_also_in_chords {
 		$$ = scm_cons ($4, $3);
 	}
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed_keep duration_length {
@@ -1284,17 +1271,7 @@ function_arglist_closed_keep:
 	{
 		$$ = scm_cons ($4, $3);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep simple_string
-	{
-		if (scm_is_true (scm_call_1 ($2, $4)))
-		{
-			$$ = scm_cons ($4, $3);
-		} else {
-			$$ = scm_cons (loc_on_music (@3, $1), $3);
-			MYBACKUP (SKIPPED_SCM, $4, @4);
-		}
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep embedded_scm_closed
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep embedded_scm_arg_closed
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
@@ -1312,6 +1289,11 @@ embedded_scm_closed:
 	| scm_function_call_closed
 	;
 
+embedded_scm_arg_closed:
+	embedded_scm_bare_arg
+	| scm_function_call_closed
+	;
+
 scm_function_call_closed:
 	SCM_FUNCTION function_arglist_closed {
 		$$ = MAKE_SYNTAX ("music-function", @$,
@@ -1323,20 +1305,11 @@ function_arglist_bare:
 	EXPECT_NO_MORE_ARGS {
 		$$ = SCM_EOL;
 	}
-	| EXPECT_MARKUP function_arglist_optional full_markup {
-		$$ = scm_cons ($3, $2);
-	}
-	| EXPECT_MARKUP function_arglist_optional simple_string {
-		$$ = scm_cons ($3, $2);
-	}
 	| EXPECT_PITCH function_arglist_optional pitch_also_in_chords {
 		$$ = scm_cons ($3, $2);
 	}
 	| EXPECT_DURATION function_arglist_closed_optional duration_length {
 		$$ = scm_cons ($3, $2);
-	}
-	| EXPECT_SCM function_arglist_optional simple_string {
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED, $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_optional SKIPPED_SCM
 	{
@@ -1811,7 +1784,7 @@ music_function_chord_body_arglist:
 	;
 
 embedded_scm_chord_body:
-	embedded_scm_bare
+	embedded_scm_bare_arg
 	| SCM_FUNCTION music_function_chord_body_arglist {
 		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
@@ -1841,7 +1814,7 @@ music_function_event_arglist:
 	;
 
 embedded_scm_event:
-	embedded_scm_bare
+	embedded_scm_bare_arg
 	| SCM_FUNCTION music_function_event_arglist {
 		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
