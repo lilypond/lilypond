@@ -1035,7 +1035,7 @@ braced_music_list:
 
 music:
 	simple_music
-	| composite_music
+	| composite_music %prec FUNCTION_ARGUMENTS
 	;
 
 
@@ -1119,14 +1119,13 @@ composite_music:
 	| music_bare
 	;
 
-/* Music that can't be followed by additional events or durations */
+/* Music that can be parsed without lookahead */
 closed_music:
 	music_bare
 	| complex_music_prefix closed_music
 	{
 		$$ = FINISH_MAKE_SYNTAX ($1, @$, $2);
-	} %prec FUNCTION_ARGUMENTS
-	   /* \addlyrics attaches to innermost closed_music */
+	}
 	;
 
 music_bare:
@@ -1439,7 +1438,7 @@ mode_changing_head_with_context:
 new_lyrics:
 	ADDLYRICS { PARSER->lexer_->push_lyric_state (); }
 	/*cont */
-	closed_music {
+	composite_music {
 	/* Can also use music at the expensive of two S/Rs similar to
            \repeat \alternative */
 		PARSER->lexer_->pop_state ();
@@ -1448,16 +1447,16 @@ new_lyrics:
 	}
 	| new_lyrics ADDLYRICS {
 		PARSER->lexer_->push_lyric_state ();
-	} closed_music {
+	} composite_music {
 		PARSER->lexer_->pop_state ();
 		$$ = scm_cons ($4, $1);
 	}
 	;
 
 re_rhythmed_music:
-	closed_music new_lyrics {
+	composite_music new_lyrics {
 		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
-	}
+	} %prec FUNCTION_ARGUMENTS
 	| LYRICSTO simple_string {
 		PARSER->lexer_->push_lyric_state ();
 	} music {
