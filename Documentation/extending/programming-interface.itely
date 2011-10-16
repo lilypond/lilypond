@@ -146,19 +146,20 @@ given the correct @code{origin}.
 @end multitable
 
 @noindent
-Some type predicates are specially recognized by the parser and will
-make the parser look for the respective arguments in LilyPond syntax
-rather than in Scheme syntax.  Currently these are @code{ly:music?},
-@code{markup?}, @code{ly:pitch?}, and @code{ly:duration?}.
+Some type predicates are specially handled by the parser since it
+can't recognize the arguments reliably otherwise.  Currently these are
+@code{ly:music?}, @code{ly:pitch?}, and @code{ly:duration?}.
+
+All other predicates can be specified in Scheme syntax if desired
+(introduced with @code{#} or as the result of calling a scheme
+function), but Lilypond will also accept a number of Lilypond
+constructs it can recognize fully without lookahead.  Currently, those
+include simple strings (with or without quotes), context
+modifications, full markups and markup lists.
 
 If you really want to input one of the special items as a Scheme rather
 than a LilyPond expression, you may write them as a Scheme expression
 that calls @code{ly:export} at its outermost level.
-
-Other type predicates, including user-defined ones, will make the
-respective argument only be accepted as a Scheme expression, usually
-introduced with @code{#} or as the result of calling a scheme function
-itself.
 
 For a list of available type predicates, see
 @ruser{Predefined type predicates}.
