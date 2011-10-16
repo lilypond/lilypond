@@ -117,6 +117,15 @@ using namespace std;
 #include "text-interface.hh"
 #include "warn.hh"
 
+#define MYBACKUP(Token, Value, Location)				\
+	do								\
+		if (yychar == YYEMPTY)					\
+			PARSER->lexer_->push_extra_token (Token, Value); \
+		else							\
+			PARSER->parser_error				\
+				(Location, _("cannot backup token"));	\
+	while (0)
+
 %}
 
 
@@ -285,6 +294,7 @@ If we give names, Bison complains.
 %token <i> EXPECT_PITCH "ly:pitch?"
 %token <i> EXPECT_DURATION "ly:duration?"
 %token <scm> EXPECT_SCM "scheme?"
+%token <scm> SKIPPED_SCM "(scheme?)"
 %token <i> EXPECT_MARKUP_LIST "markup-list?"
 %token <scm> EXPECT_OPTIONAL "optional?"
 /* After the last argument. */
@@ -1193,19 +1203,31 @@ function_arglist_keep:
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed_keep duration_length {
 		$$ = scm_cons ($4, $3);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep simple_string
-	{
-		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
-	}
 	| EXPECT_OPTIONAL EXPECT_MUSIC function_arglist_keep closed_music
 	{
 		$$ = scm_cons ($4, $3);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep embedded_scm
-	{
-		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
-	}
 	| function_arglist
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep simple_string
+	{
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			$$ = scm_cons ($4, $3);
+		} else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (SKIPPED_SCM, $4, @4);
+		}
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep embedded_scm_closed
+	{
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			$$ = scm_cons ($4, $3);
+		} else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (SKIPPED_SCM, $4, @4);
+		}
+	}
 	;
 
 
@@ -1258,17 +1280,29 @@ function_arglist_closed_keep:
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed_keep duration_length {
 		$$ = scm_cons ($4, $3);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep simple_string
-	{
-		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
-	}
 	| EXPECT_OPTIONAL EXPECT_MUSIC function_arglist_keep closed_music
 	{
 		$$ = scm_cons ($4, $3);
 	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep simple_string
+	{
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			$$ = scm_cons ($4, $3);
+		} else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (SKIPPED_SCM, $4, @4);
+		}
+	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep embedded_scm_closed
 	{
-		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			$$ = scm_cons ($4, $3);
+		} else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (SKIPPED_SCM, $4, @4);
+		}
 	}
 	| function_arglist_closed
 	;
@@ -1302,6 +1336,10 @@ function_arglist_bare:
 		$$ = scm_cons ($3, $2);
 	}
 	| EXPECT_SCM function_arglist_optional simple_string {
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED, $3, $2, $1);
+	}
+	| EXPECT_SCM function_arglist_optional SKIPPED_SCM
+	{
 		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED, $3, $2, $1);
 	}
 	;
