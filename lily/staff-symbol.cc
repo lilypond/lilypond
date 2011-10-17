@@ -156,6 +156,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos)
   Direction dir = (Direction)sign (pos - nearest_line);
 
   if (scm_is_pair (ledger_positions))
+    // custom ledger line positions
     {
       Real min_pos = HUGE_VAL;
       Real max_pos = -HUGE_VAL;
@@ -184,6 +185,8 @@ Staff_symbol::ledger_positions (Grob *me, int pos)
       int n = (int) floor ((ledger_fill[DOWN] - min_pos) / cycle);
       Real current;
       SCM s = scm_cdr (ledger_positions);
+      if (!scm_is_pair (s) || cycle < 0.1)
+        return values;
       do
         {
           s2 = scm_car (s);
@@ -225,6 +228,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos)
       while (current <= ledger_fill[UP]);
     }
   else
+    // normal ledger lines
     {
       int ledger_count = (int) floor ((abs (nearest_line - pos) + ledger_extra) / 2);
       values.resize (ledger_count);
