@@ -163,6 +163,24 @@ UNTRANSLATED NODE: IGNORE ME
 @end html
 @end macro
 
+@ifclear web_version
+  @ifclear bigpage
+    @macro docLink{name,target,webLink}
+      @uref{../\target\, \name\}
+    @end macro
+  @end ifclear
+  @ifset bigpage
+    @macro docLink{name,target,webLink}
+      @uref{\target\, \name\}
+    @end macro
+  @end ifset
+@end ifclear
+@ifset web_version
+  @macro docLink{name,target,webLink}
+    \webLink\
+  @end macro
+@end ifset
+
 @macro spanClass {CLASS}
 @html
 <span class="\CLASS\">

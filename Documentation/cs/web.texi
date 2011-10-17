@@ -217,30 +217,15 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @end macro
 
 @macro docLinkSplit{name,base,webLink}
-@ifclear web_version
-  @uref{../\base\/index.html, \name\ (rozdělené HTML)}
-@end ifclear
-@ifset web_version
-  \webLink\
-@end ifset
+  @docLink{\name\ (rozdělené HTML),\base\/index.html,\webLink\}
 @end macro
 
 @macro docLinkBig{name,base,webLink}
-@ifclear web_version
-  @uref{../\base\-big-page.html, \name\ (velké HTML)}
-@end ifclear
-@ifset web_version
-  \webLink\
-@end ifset
+  @docLink{\name\ (velké HTML),\base\-big-page.html,\webLink\}
 @end macro
 
 @macro docLinkPdf{name,base,webLink}
-@ifclear web_version
-  @uref{../\base\.pdf, \base\.pdf}
-@end ifclear
-@ifset web_version
-  \webLink\
-@end ifset
+  @docLink{\base\.pdf,\base\.pdf,\webLink\}
 @end macro
 
 
