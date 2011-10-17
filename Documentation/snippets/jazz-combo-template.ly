@@ -54,50 +54,6 @@ dans une section @code{\\transpose}.
 
   lsrtags = "keyboards, percussion, fretted-strings, template"
 
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
-  texidoces = "
-Ésta es una plantilla bastante avanzada, para un conjunto de
-jazz. Observe que la notación de todos los instrumentos está en
-@code{\\key c \\major} (Do mayor). Esto se refiere al tono de
-concierto; la armadura se transporta automáticamente si la música está
-dentro de una sección @code{\\transpose}.
-
-"
-  doctitlees = "Plantilla para combo de jazz"
-
-
-%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
-  texidocit = "
-Ecco un modello piuttosto complesso, per un gruppo jazz. Si noti che tutti
-gli strumenti sono in @code{\\key c \\major}. Si tratta della tonalità
-reale; sarà trasposta automaticamente includendo la
-musica all'interno di una sezione @code{\\transpose}.
-
-"
-  doctitleit = "Modello per combo jazz"
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Hier ist ein ziemlich kompliziertes Beispiel für ein Jazz-Ensemble. Achtung:
-Alle Instrumente sind in @code{\\key c \major} (C-Dur) notiert. Das bezieht sich
-auf die klingende Musik: LilyPond transponiert die Tonart automatisch, wenn
-sich die Noten innerhalb eines @code{\\transpose}-Abschnitts befinden.
-
-"
-
-  doctitlede = "Vorlage für Jazz-Combo"
-
-%% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
-  texidocfr = "
-Bien que compliqué de prime abord, voici un canevas tout à fait indiqué
-pour les ensembles de jazz.  Vous noterez que tous les instruments sont
-notés en ut (@code{\\key c \major}), la tonalité de concert.  Les notes
-seront automatiquement transposée dès lors qu'elles seront inscrites
-dans une section @code{\\transpose}.
-
-"
-  doctitlefr = "Symboles de jazz"
-
   texidoc = "
 This is quite an advanced template, for a jazz ensemble. Note that all
 instruments are notated in @code{\\key c \\major}. This refers to the
@@ -107,6 +63,7 @@ music is within a @code{\\transpose} section.
 "
   doctitle = "Jazz combo template"
 } % begin verbatim
+
 
 \header {
   title = "Song"
@@ -118,8 +75,7 @@ music is within a @code{\\transpose} section.
     \column {
       "LilyPond example file by Amelie Zapf,"
       "Berlin 07/07/2003"
-    } % begin verbatim
-
+    }
   }
 }
 

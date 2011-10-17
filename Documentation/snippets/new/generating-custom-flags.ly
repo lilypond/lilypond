@@ -9,7 +9,7 @@ function to generate the glyph for the flag.
 
 "
   doctitle = "Generating custom flags"
-} % begin verbatim
+}
 
 #(define-public (weight-flag grob)
    (let* ((stem-grob (ly:grob-parent grob X))

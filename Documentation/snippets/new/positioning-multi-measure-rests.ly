@@ -13,7 +13,7 @@ follows:
 
 "
   doctitle = "Positioning multi-measure rests"
-} % begin verbatim
+}
 
 \relative c'' {
   % Multi-measure rests by default are set under the fourth line

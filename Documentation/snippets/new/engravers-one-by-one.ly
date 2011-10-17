@@ -33,7 +33,7 @@ line, etc. form a @code{Staff} context.
 
 "
   doctitle = "Engravers one-by-one"
-} % begin verbatim
+}
 
 
 %% sample music

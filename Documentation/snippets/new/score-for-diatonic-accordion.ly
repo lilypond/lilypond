@@ -52,7 +52,7 @@ editor.
 
 "
   doctitle = "Score for diatonic accordion"
-} % begin verbatim
+}
 
 verse = \lyricmode { Wie gross bist du! Wie gross bist du! }
 

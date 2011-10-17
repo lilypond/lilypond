@@ -36,6 +36,7 @@ LilyPond's support for ancient notation.
   doctitle = "Ancient fonts"
 } % begin verbatim
 
+
 upperStaff = \new VaticanaStaff = "upperStaff" <<
   \context VaticanaVoice <<
     \transpose c c {
@@ -129,8 +130,7 @@ upperStaff = \new VaticanaStaff = "upperStaff" <<
 
       s32*1
       % \break % 12 (32*1)
-    } % begin verbatim
-
+    }
   >>
 >>
 

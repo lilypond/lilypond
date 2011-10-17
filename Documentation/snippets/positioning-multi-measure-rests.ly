@@ -60,6 +60,7 @@ follows:
   doctitle = "Positioning multi-measure rests"
 } % begin verbatim
 
+
 \relative c'' {
   % Multi-measure rests by default are set under the fourth line
   R1
@@ -88,8 +89,7 @@ follows:
   % requires an override
   << { R1 } \\ { R1 } \\
      \once \override MultiMeasureRest #'staff-position = #0
-     { R1 } % begin verbatim
-
+     { R1 }
   >>
 
   % Using compressed bars in multiple voices requires another override

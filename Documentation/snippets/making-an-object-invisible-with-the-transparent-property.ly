@@ -26,6 +26,7 @@ in that voice, the tie appears to cross voices.
   doctitle = "Making an object invisible with the 'transparent property"
 } % begin verbatim
 
+
 \relative c'' {
   \time 2/4
   <<
@@ -36,8 +37,7 @@ in that voice, the tie appears to cross voices.
       \once \override Stem #'transparent = ##t
       \once \override Stem #'length = #8
       g8 ~ g\noBeam
-    } % begin verbatim
-
+    }
     \\
     {
       b8 g g e

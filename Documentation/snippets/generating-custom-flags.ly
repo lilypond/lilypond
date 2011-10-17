@@ -18,6 +18,7 @@ function to generate the glyph for the flag.
   doctitle = "Generating custom flags"
 } % begin verbatim
 
+
 #(define-public (weight-flag grob)
    (let* ((stem-grob (ly:grob-parent grob X))
           (log (- (ly:grob-property stem-grob 'duration-log) 2))
@@ -46,8 +47,7 @@ function to generate the glyph for the flag.
           (rotated-flag (ly:stencil-rotate-absolute stencil 180 0 0)))
      (ly:stencil-translate rotated-flag (cons (- (/ stem-width 2)) 0))))
 
-snippetexamplenotes = { \autoBeamOff c'8 d'16 c'32 d'64 \acciaccatura {c'8} d'64 } % begin verbatim
-
+snippetexamplenotes = { \autoBeamOff c'8 d'16 c'32 d'64 \acciaccatura {c'8} d'64 }
 
 {
   \override Score.RehearsalMark #'self-alignment-X = #LEFT

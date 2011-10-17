@@ -17,7 +17,7 @@ in that voice, the tie appears to cross voices.
 
 "
   doctitle = "Making an object invisible with the 'transparent property"
-} % begin verbatim
+}
 
 \relative c'' {
   \time 2/4
