@@ -105,7 +105,7 @@
 			\new Voice \with {
 				\remove Forbid_line_break_engraver
 				\override Stem #'direction = #up
-				\override Stem #'stroke-style = #"grace" 
+				\override Flag #'stroke-style = #"grace" 
 				\override Stem #'font-size = #-3
 				\override Rest #'transparent = ##t
 				\override NoteHead #'no-ledgers = ##t
@@ -247,7 +247,7 @@
 				\remove Forbid_line_break_engraver
 				\override Stem #'direction = #down
 				\override Stem #'font-size = #-3
-				\override Stem #'stroke-style = #"grace" 
+				\override Flag #'stroke-style = #"grace" 
 				\override Rest #'transparent = ##t
 				\override NoteHead #'no-ledgers = ##t
 				\override Dots #'transparent = ##t
