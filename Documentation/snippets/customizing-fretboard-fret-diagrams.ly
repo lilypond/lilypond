@@ -25,6 +25,7 @@ l'instancier de manière explicite pour adapter ses propriétés.
 
 
 
+
 %% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
   texidoces = "
 Se pueden establecer las propiedades de los diagramas de
