@@ -141,7 +141,7 @@ using namespace std;
   scm_apply_0 (proc, args)
 /* Syntactic Sugar. */
 #define MAKE_SYNTAX(name, location, ...)	\
-  LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (PARSER->self_scm (), make_input (location), __VA_ARGS__, SCM_UNDEFINED));
+  LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (PARSER->self_scm (), make_input (location), ##__VA_ARGS__, SCM_UNDEFINED));
 
 SCM get_next_unique_context_id ();
 SCM get_next_unique_lyrics_context_id ();
@@ -584,7 +584,7 @@ scm_function_call:
 	;
 
 embedded_lilypond:
-	{ $$ = MAKE_SYNTAX ("void-music", @$, SCM_UNDEFINED); }
+	{ $$ = MAKE_SYNTAX ("void-music", @$); }
 	| identifier_init
 	| music music music_list {
 		$$ = MAKE_SYNTAX ("sequential-music", @$,	
@@ -1816,7 +1816,7 @@ command_element:
 		$$ = m->unprotect ();
 	}
 	| E_BACKSLASH {
-		$$ = MAKE_SYNTAX ("voice-separator", @$, SCM_UNDEFINED);
+		$$ = MAKE_SYNTAX ("voice-separator", @$);
 	}
 	| '|'      {
 		SCM pipe = PARSER->lexer_->lookup_identifier ("pipeSymbol");
@@ -1829,7 +1829,7 @@ command_element:
 			$$ = m->unprotect ();
 		}
 		else
-			$$ = MAKE_SYNTAX ("bar-check", @$, SCM_UNDEFINED);
+			$$ = MAKE_SYNTAX ("bar-check", @$);
 
 	}
 	| TIME_T fraction  {
