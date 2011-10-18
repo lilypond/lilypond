@@ -59,6 +59,7 @@ or
 %right FUNCTION_ARGUMENTS
       MARKUP LYRICS_STRING MARKUP_IDENTIFIER STRING STRING_IDENTIFIER
       MARKUPLINES WITH CONTEXT_MOD_IDENTIFIER MARKUPLINES_IDENTIFIER
+      SCORE BOOK BOOKPART PAPER LAYOUT MIDI
       SEQUENTIAL SIMULTANEOUS DOUBLE_ANGLE_OPEN MUSIC_IDENTIFIER '{'
       PITCH_IDENTIFIER NOTENAME_PITCH TONICNAME_PITCH
       SCM_FUNCTION SCM_IDENTIFIER SCM_TOKEN
@@ -595,6 +596,27 @@ embedded_scm_bare_arg:
 	| full_markup
 	| full_markup_list
 	| context_modification
+	| score_block
+	{
+		$$ = $1->self_scm ();
+		$1->unprotect ();
+	}
+	| context_def_spec_block
+	| book_block
+	{
+		$$ = $1->self_scm ();
+		$1->unprotect ();
+	}
+	| bookpart_block
+	{
+		$$ = $1->self_scm ();
+		$1->unprotect ();
+	}
+	| output_def
+	{
+		$$ = $1->self_scm ();
+		$1->unprotect ();
+	}
 	;
 
 /* The generic version may end in music, or not */
