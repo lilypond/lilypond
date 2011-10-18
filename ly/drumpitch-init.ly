@@ -230,7 +230,7 @@ midiDrumPitches = #`(
 )
 
 
-#(map
+#(for-each
   (lambda (k-v)
     (module-define! (current-module)
 		    (car k-v)
