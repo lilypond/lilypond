@@ -849,11 +849,10 @@ Stem::offset_callback (SCM smob)
       Real r = real_attach;
 
       /* If not centered: correct for stem thickness.  */
-      extract_grob_set (me, "note-heads", heads);
-      SCM style = heads[0]->get_property ("style");
-      if (attach && !scm_is_eq (style, ly_symbol2scm ("mensural"))
-                 && !scm_is_eq (style, ly_symbol2scm ("neomensural"))
-                 && !scm_is_eq (style, ly_symbol2scm ("petrucci")))
+      string style = robust_symbol2string (f->get_property ("style"), "default");
+      if (attach && style != "mensural"
+                 && style != "neomensural"
+                 && style != "petrucci")
         {
           Real rule_thick = thickness (me);
           r += -d * rule_thick * 0.5;

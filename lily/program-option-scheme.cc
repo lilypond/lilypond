@@ -55,81 +55,84 @@ void
 internal_set_option (SCM var,
                      SCM val)
 {
+  string varstr = robust_symbol2string (var, "");
+  bool valbool = to_boolean (val);
+  SCM val_scm_bool = scm_from_bool (valbool);
   if (0)
     ;
-  else if (var == ly_symbol2scm ("profile-property-accesses"))
+  else if (varstr == "profile-property-accesses")
     {
-      profile_property_accesses = to_boolean (val);
-      val = scm_from_bool (to_boolean (val));
+      profile_property_accesses = valbool;
+      val = val_scm_bool;
     }
-  else if (var == ly_symbol2scm ("point-and-click"))
+  else if (varstr == "point-and-click")
     {
-      point_and_click_global = to_boolean (val);
-      val = scm_from_bool (to_boolean (val));
+      point_and_click_global = valbool;
+      val = val_scm_bool;
     }
-  else if (var == ly_symbol2scm ("protected-scheme-parsing"))
+  else if (varstr == "protected-scheme-parsing")
     {
-      parse_protect_global = to_boolean (val);
-      val = scm_from_bool (to_boolean (val));
+      parse_protect_global = valbool;
+      val = val_scm_bool;
     }
-  else if (var == ly_symbol2scm ("check-internal-types"))
+  else if (varstr == "check-internal-types")
     {
-      do_internal_type_checking_global = to_boolean (val);
-      val = scm_from_bool (to_boolean (val));
+      do_internal_type_checking_global = valbool;
+      val = val_scm_bool;
     }
-  else if (var == ly_symbol2scm ("debug-gc-assert-parsed-dead"))
+  else if (varstr == "debug-gc-assert-parsed-dead")
     {
-      parsed_objects_should_be_dead = to_boolean (val);
-      val = scm_from_bool (parsed_objects_should_be_dead);
+      parsed_objects_should_be_dead = valbool;
+      val = val_scm_bool;
     }
-  else if (var == ly_symbol2scm ("safe"))
+  else if (varstr == "safe")
     {
-      be_safe_global = to_boolean (val);
-      val = scm_from_bool (be_safe_global);
+      be_safe_global = valbool;
+      val = val_scm_bool;
     }
-  else if (var == ly_symbol2scm ("old-relative"))
+  else if (varstr == "old-relative")
     {
-      lily_1_8_relative = to_boolean (val);
+      lily_1_8_relative = valbool;
       /* Needs to be reset for each file that uses this option. */
-      lily_1_8_compatibility_used = to_boolean (val);
-      val = scm_from_bool (to_boolean (val));
+      lily_1_8_compatibility_used = valbool;
+      val = val_scm_bool;
     }
-  else if (var == ly_symbol2scm ("strict-infinity-checking"))
+  else if (varstr == "strict-infinity-checking")
     {
-      strict_infinity_checking = to_boolean (val);
-      val = scm_from_bool (to_boolean (val));
+      strict_infinity_checking = valbool;
+      val = val_scm_bool;
     }
-  else if (var == ly_symbol2scm ("debug-skylines"))
+  else if (varstr == "debug-skylines")
     {
-      debug_skylines = to_boolean (val);
-      val = scm_from_bool (to_boolean (val));
+      debug_skylines = valbool;
+      val = val_scm_bool;
     }
-  else if (var == ly_symbol2scm ("debug-property-callbacks"))
+  else if (varstr == "debug-property-callbacks")
     {
-      debug_property_callbacks = to_boolean (val);
-      val = scm_from_bool (to_boolean (val));
+      debug_property_callbacks = valbool;
+      val = val_scm_bool;
     }
-  else if (var == ly_symbol2scm ("debug-page-breaking-scoring"))
+  else if (varstr == "debug-page-breaking-scoring")
     {
-      debug_page_breaking_scoring = to_boolean (val);
-      val = scm_from_bool (to_boolean (val));
+      debug_page_breaking_scoring = valbool;
+      val = val_scm_bool;
     }
-  else if (var == ly_symbol2scm ("datadir"))
+  else if (varstr == "datadir")
     {
       /* ignore input value. */
       val = ly_string2scm (lilypond_datadir);
     }
-  else if (var == ly_symbol2scm ("relative-includes"))
+  else if (varstr == "relative-includes")
     {
-      relative_includes = to_boolean (val);
-      val = scm_from_bool (to_boolean (val));
+      relative_includes = valbool;
+      val = val_scm_bool;
     }
-  else if (var == ly_symbol2scm ("warning-as-error"))
-    val = scm_from_bool (to_boolean (val));
-  else if (var == ly_symbol2scm ("music-strings-to-paths"))
+  else if (varstr == "warning-as-error")
+    val = val_scm_bool;
+  else if (varstr == "music-strings-to-paths")
     {
-      music_strings_to_paths = to_boolean (val);
-      val = scm_from_bool (to_boolean (val));
+      music_strings_to_paths = valbool;
+      val = val_scm_bool;
     }
 
   scm_hashq_set_x (option_hash, var, val);
@@ -221,7 +224,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
   if (val == SCM_UNDEFINED)
     val = SCM_BOOL_T;
 
-  string varstr = ly_scm2string (scm_symbol_to_string (var));
+  string varstr = robust_symbol2string (var, "");
   if (varstr.substr (0, 3) == string ("no-"))
     {
       var = ly_symbol2scm (varstr.substr (3, varstr.length () - 3).c_str ());

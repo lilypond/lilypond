@@ -149,10 +149,7 @@ Rest::brew_internal_stencil (Grob *me, bool ledgered)
 
   int balltype = scm_to_int (balltype_scm);
 
-  string style;
-  SCM style_scm = me->get_property ("style");
-  if (scm_is_symbol (style_scm))
-    style = ly_scm2string (scm_symbol_to_string (style_scm));
+  string style = robust_symbol2string (me->get_property ("style"), "default");
 
   Font_metric *fm = Font_interface::get_default_font (me);
   string font_char = glyph_name (me, balltype, style, ledgered);
