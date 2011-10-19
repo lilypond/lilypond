@@ -584,7 +584,10 @@ scm_function_call:
 	;
 
 embedded_lilypond:
-	{ $$ = MAKE_SYNTAX ("void-music", @$); }
+	/* empty */
+	{
+		$$ = MAKE_SYNTAX ("void-music", @$);
+	}
 	| identifier_init
 	| music music music_list {
 		$$ = MAKE_SYNTAX ("sequential-music", @$,	
