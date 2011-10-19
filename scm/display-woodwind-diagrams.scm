@@ -1823,19 +1823,13 @@
          (assoc-get 'stencils stencil-alist))))
 
 (define-public (print-keys instrument)
-  (let*
-    ((chosen-instrument
-      (begin
-        (format #t "\nPrinting keys for: ~a\n" instrument)
-        (assoc-get instrument woodwind-data-alist)))
-   (key-list (list-all-possible-keys (assoc-get 'keys chosen-instrument))))
-  (define (key-list-loop key-list)
-    (if (null? key-list)
-      0
-      (begin
-        (format #t "~a\n   ~a\n" (caar key-list) (cdar key-list))
-        (key-list-loop (cdr key-list)))))
-  (key-list-loop key-list)))
+  (format #t "\nPrinting keys for: ~a\n" instrument)
+  (let ((chosen-instrument (assoc-get instrument woodwind-data-alist)))
+    (do	((key-list
+	  (list-all-possible-keys (assoc-get 'keys chosen-instrument))
+	  (cdr key-list)))
+	((null? key-list))
+      (format #t "~a\n   ~a\n" (caar key-list) (cdar key-list)))))
 
 (define-public (get-woodwind-key-list instrument)
   (list-all-possible-keys-verbose
@@ -1844,23 +1838,15 @@
       (assoc-get instrument woodwind-data-alist))))
 
 (define-public (print-keys-verbose instrument)
-  (let*
-    ((chosen-instrument
-      (begin
-        (format #t "\nPrinting keys in verbose mode for: ~a\n" instrument)
-        (assoc-get instrument woodwind-data-alist)))
-   (key-list
-     (list-all-possible-keys-verbose (assoc-get 'keys chosen-instrument))))
-  (define (key-list-loop key-list)
-    (if (null? key-list)
-      0
-      (begin
-        (format #t "~a\n" (caar key-list))
-        (map (lambda (x)
-               (format #t "   possibilities for ~a:\n      ~a\n" (car x) (cdr x)))
-             (cdar key-list))
-        (key-list-loop (cdr key-list)))))
-  (key-list-loop key-list)))
+  (format #t "\nPrinting keys in verbose mode for: ~a\n" instrument)
+  (do ((key-list (get-woodwind-key-list instrument)
+		 (cdr key-list)))
+      ((null? key-list))
+    (format #t "~a\n" (caar key-list))
+    (for-each
+     (lambda (x)
+       (format #t "   possibilities for ~a:\n      ~a\n" (car x) (cdr x)))
+     (cdar key-list))))
 
 (define-markup-command
   (woodwind-diagram layout props instrument user-draw-commands)
