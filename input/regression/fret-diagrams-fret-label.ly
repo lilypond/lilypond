@@ -46,7 +46,7 @@ size, and number type.
                                      (barre 5 1 3))}
 
      %% C major for guitar, verbose style
-    \revert TextScript #'fret-diagram-details #'label-dir
+    \revert TextScript #'(fret-diagram-details label-dir)
     \override TextScript #'fret-diagram-details 
         #'fret-label-font-mag = #0.4 
     \override TextScript #'fret-diagram-details 
@@ -63,7 +63,7 @@ size, and number type.
                                      (barre 5 1 3))}
 
      %% C major for guitar, verbose style
-    \revert TextScript #'fret-diagram-details #'label-dir
+    \revert TextScript #'(fret-diagram-details label-dir)
     \once \override TextScript #'fret-diagram-details 
         #'number-type = #'custom
     \once \override TextScript #'fret-diagram-details 

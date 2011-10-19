@@ -25,7 +25,7 @@ Solo = \relative c' {
   c2 c2 |
   
   % Revert back to default
-  \revert Score.BarLine #'space-alist #'cue-clef 
+  \revert Score.BarLine #'(space-alist cue-clef)
   \revert Score.BreakAlignment #'break-align-orders
   \cueDuringWithClef #"instrQuote" #UP #"bass" { R1 }
   c2 c2 |
