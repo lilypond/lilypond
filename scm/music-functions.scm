@@ -850,6 +850,14 @@ parameter."
 
   `(define-syntax-function scheme? ,@rest))
 
+(defmacro-public define-void-function rest
+  "This defines a Scheme function like @code{define-scheme-function} with
+void return value (i.e., what most Guile functions with `unspecified'
+value return).  Use this when defining functions for executing actions
+rather than returning values, to keep Lilypond from trying to interpret
+the return value."
+  `(define-syntax-function void? ,@rest #f (begin)))
+
 (defmacro-public define-event-function rest
   "Defining macro returning event functions.
 Syntax:
