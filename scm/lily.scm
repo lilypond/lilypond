@@ -535,6 +535,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     (,scheme? . "any type")
     (,string-or-pair? . "string or pair")
     (,string-or-symbol? . "string or symbol")
+    (,void? . "void")
     ))
 
 (define-public lilypond-exported-predicates
