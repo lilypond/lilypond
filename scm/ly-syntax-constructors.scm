@@ -46,7 +46,10 @@
 (define-ly-syntax (music-function parser loc pred default fun args)
   (let ((m (apply fun parser loc args)))
     (if (pred m)
-	m
+	(begin
+	  (if (ly:music? m)
+	      (set! (ly:music-property m 'origin) loc))
+	  m)
 	(begin
 	  (ly:parser-error parser
 			   (format #f (_ "~a function cannot return ~a")
