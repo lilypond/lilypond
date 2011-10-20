@@ -540,6 +540,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 (define-public lilypond-exported-predicates
   `((,ly:box? . "box")
     (,ly:context? . "context")
+    (,ly:context-mod? . "context modification")
     (,ly:dimension? . "dimension, in staff space")
     (,ly:dir? . "direction")
     (,ly:dispatcher? . "dispatcher")
@@ -577,6 +578,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     (,ly:stream-event? . "stream event")
     (,ly:translator? . "translator")
     (,ly:translator-group? . "translator group")
+    (,ly:unpure-pure-container? . "unpure/pure container")
     ))
 
 
