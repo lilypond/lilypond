@@ -80,6 +80,7 @@
 	(side-axis . ,Y)
 	(staff-padding . 0.25)
 	(stencil . ,ly:accidental-interface::print)
+	(use-skylines . #t)
 	(X-extent . ,ly:accidental-interface::width)
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+
@@ -1726,6 +1727,7 @@
 	(staff-padding . 0.25)
 
 	(stencil . ,ly:script-interface::print)
+	(use-skylines . #t)
 	(X-offset . ,script-interface::calc-x-offset)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(meta . ((class . Item)

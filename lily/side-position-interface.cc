@@ -24,6 +24,7 @@
 
 using namespace std;
 
+#include "accidental-interface.hh"
 #include "axis-group-interface.hh"
 #include "directional-element-interface.hh"
 #include "grob.hh"
@@ -45,6 +46,38 @@ Side_position_interface::add_support (Grob *me, Grob *e)
   Pointer_group_interface::add_unordered_grob (me, ly_symbol2scm ("side-support-elements"), e);
 }
 
+SCM
+finish_offset (Grob *me, Direction dir, Real total_off, Real *current_offset)
+{
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  Real minimum_space = ss * robust_scm2double (me->get_property ("minimum-space"), -1);
+  total_off += dir * ss * robust_scm2double (me->get_property ("padding"), 0);
+
+  if (minimum_space >= 0
+      && dir
+      && total_off * dir < minimum_space)
+    total_off = minimum_space * dir;
+
+
+  if (current_offset)
+    total_off = dir * max (dir * total_off,
+                           dir * (*current_offset));
+
+  /* FIXME: 1000 should relate to paper size.  */
+  if (fabs (total_off) > 1000)
+    {
+      string msg
+        = String_convert::form_string ("Improbable offset for grob %s: %f",
+                                       me->name ().c_str (), total_off);
+
+      programming_error (msg);
+      if (strict_infinity_checking)
+        scm_misc_error (__FUNCTION__, "Improbable offset.", SCM_EOL);
+    }
+
+  return scm_from_double (total_off);
+}
+
 /* Put the element next to the support, optionally taking in
    account the extent of the support.
 
@@ -56,8 +89,6 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
                                                 bool pure, int start, int end,
                                                 Real *current_offset)
 {
-  Real ss = Staff_symbol_referencer::staff_space (me);
-
   extract_grob_set (me, "side-support-elements", support);
 
   Grob *common = common_refpoint_of_array (support, me->get_parent (a), a);
@@ -109,16 +140,8 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
     dim = Interval (0, 0);
 
   Real off = me->get_parent (a)->maybe_pure_coordinate (common, a, pure, start, end);
-  Real minimum_space = ss * robust_scm2double (me->get_property ("minimum-space"), -1);
 
   Real total_off = dim.linear_combination (dir) - off;
-  total_off += dir * ss * robust_scm2double (me->get_property ("padding"), 0);
-
-  if (minimum_space >= 0
-      && dir
-      && total_off * dir < minimum_space)
-    total_off = minimum_space * dir;
-
   if (include_my_extent)
     {
       Interval iv = me->maybe_pure_extent (me, a, pure, start, end);
@@ -133,23 +156,102 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
         }
     }
 
-  if (current_offset)
-    total_off = dir * max (dir * total_off,
-                           dir * (*current_offset));
+  return finish_offset (me, dir, total_off, current_offset);
+}
 
-  /* FIXME: 1000 should relate to paper size.  */
-  if (fabs (total_off) > 1000)
+SCM
+Side_position_interface::skyline_side_position (Grob *me, Axis a,
+                                                bool pure, int start, int end,
+                                                Real *current_offset)
+{
+  extract_grob_set (me, "side-support-elements", support);
+
+  Grob *common[2];
+  for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
+    common[ax] = common_refpoint_of_array (support, ax == a ? me->get_parent (ax) : me, ax);
+
+  Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
+  Direction dir = get_grob_direction (me);
+
+  Box off;
+  Real my_min_h = dir == LEFT ? -infinity_f : infinity_f;
+  for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
     {
-      string msg
-        = String_convert::form_string ("Improbable offset for grob %s: %f",
-                                       me->name ().c_str (), total_off);
-
-      programming_error (msg);
-      if (strict_infinity_checking)
-        scm_misc_error (__FUNCTION__, "Improbable offset.", SCM_EOL);
+      if (ax == a)
+        off[ax] = me->get_parent (ax)->maybe_pure_coordinate (common[ax], ax, pure, start, end)
+                  + me->maybe_pure_extent (me, ax, pure, start, end);
+      else
+        off[ax] = me->maybe_pure_extent (common[ax], ax, pure, start, end);
     }
 
-  return scm_from_double (total_off);
+  if (off[X_AXIS].is_empty () || off[Y_AXIS].is_empty ())
+    return scm_from_double (0.0);
+
+  my_min_h = off[a][dir];
+
+  Real skyline_padding = 0.1;
+
+  Skyline my_dim (off, skyline_padding, other_axis (a), -dir);
+  my_dim.set_minimum_height (my_min_h);
+
+  bool include_staff
+    = staff_symbol
+      && a == Y_AXIS
+      && scm_is_number (me->get_property ("staff-padding"))
+      && !to_boolean (me->get_property ("quantize-position"));
+
+  vector<Box> boxes;
+  Real min_h = dir == LEFT ? infinity_f : -infinity_f;
+  for (vsize i = 0; i < support.size (); i++)
+    {
+      Grob *e = support[i];
+
+      // In the case of a stem, we will find a note head as well
+      // ignoring the stem solves cyclic dependencies if the stem is
+      // attached to a cross-staff beam.
+      if (a == Y_AXIS
+          && Stem::has_interface (e)
+          && dir == - get_grob_direction (e))
+        continue;
+
+      if (e)
+        {
+          if (Accidental_interface::has_interface (e))
+            {
+              vector<Box> bs = Accidental_interface::accurate_boxes (e, common);
+              boxes.insert (boxes.end (), bs.begin (), bs.end ());
+            }
+          else
+            {
+              Box b;
+              for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
+                b[ax] = e->maybe_pure_extent (common[ax], ax, pure, start, end);
+
+              if (b[X_AXIS].is_empty () || b[Y_AXIS].is_empty ())
+                continue;
+
+              boxes.push_back (b);
+              min_h = minmax (dir, b[a][-dir], min_h);
+            }
+        }
+    }
+
+  Skyline dim (boxes, skyline_padding, other_axis (a), dir);
+  if (!boxes.size ())
+    dim.set_minimum_height (0.0);
+  else
+    dim.set_minimum_height (min_h);
+
+  if (include_staff)
+    {
+      Interval staff_extents;
+      common[Y_AXIS] = staff_symbol->common_refpoint (common[Y_AXIS], Y_AXIS);
+      staff_extents = staff_symbol->maybe_pure_extent (common[Y_AXIS], Y_AXIS, pure, start, end);
+      dim.set_minimum_height (minmax (dir, min_h, staff_extents[dir]));
+    }
+
+  Real total_off = dir * dim.distance (my_dim);
+  return finish_offset (me, dir, total_off, current_offset);
 }
 
 MAKE_SCHEME_CALLBACK (Side_position_interface, y_aligned_on_support_refpoints, 1);
@@ -228,8 +330,11 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
                                        Real *current_off)
 {
   Direction dir = get_grob_direction (me);
+  bool skyline = to_boolean (me->get_property ("use-skylines"));
 
-  Real o = scm_to_double (general_side_position (me, a, true, true, pure, start, end, current_off));
+  Real o = scm_to_double (skyline
+                          ? skyline_side_position (me, a, pure, start, end, current_off)
+                          : general_side_position (me, a, true, true, pure, start, end, current_off));
 
   /*
     Maintain a minimum distance to the staff. This is similar to side
@@ -371,4 +476,5 @@ ADD_INTERFACE (Side_position_interface,
                "side-support-elements "
                "slur-padding "
                "staff-padding "
+               "use-skylines "
               );

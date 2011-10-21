@@ -59,6 +59,7 @@ protected:
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (stem_tremolo);
   DECLARE_ACKNOWLEDGER (note_column);
+  DECLARE_ACKNOWLEDGER (inline_accidental);
 
 public:
   TRANSLATOR_DECLARATIONS (Script_engraver);
@@ -73,8 +74,7 @@ void
 Script_engraver::listen_articulation (Stream_event *ev)
 {
   /* Discard double articulations for part-combining.  */
-  int script_count = scripts_.size ();
-  for (int i = 0; i < script_count; i++)
+  for (vsize i = 0; i < scripts_.size (); i++)
     if (ly_is_equal (scripts_[i].event_
                      ->get_property ("articulation-type"),
                      ev->get_property ("articulation-type")))
@@ -178,8 +178,7 @@ Script_engraver::process_music ()
 void
 Script_engraver::acknowledge_stem (Grob_info info)
 {
-  int script_count = scripts_.size ();
-  for (int i = 0; i < script_count; i++)
+  for (vsize i = 0; i < scripts_.size (); i++)
     {
       Grob *e = scripts_[i].script_;
 
@@ -193,8 +192,17 @@ Script_engraver::acknowledge_stem (Grob_info info)
 void
 Script_engraver::acknowledge_stem_tremolo (Grob_info info)
 {
-  int script_count = scripts_.size ();
-  for (int i = 0; i < script_count; i++)
+  for (vsize i = 0; i < scripts_.size (); i++)
+    {
+      Grob *e = scripts_[i].script_;
+      Side_position_interface::add_support (e, info.grob ());
+    }
+}
+
+void
+Script_engraver::acknowledge_inline_accidental (Grob_info info)
+{
+  for (vsize i = 0; i < scripts_.size (); i++)
     {
       Grob *e = scripts_[i].script_;
       Side_position_interface::add_support (e, info.grob ());
@@ -249,6 +257,7 @@ ADD_ACKNOWLEDGER (Script_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (Script_engraver, stem);
 ADD_ACKNOWLEDGER (Script_engraver, note_column);
 ADD_ACKNOWLEDGER (Script_engraver, stem_tremolo);
+ADD_ACKNOWLEDGER (Script_engraver, inline_accidental);
 
 ADD_TRANSLATOR (Script_engraver,
                 /* doc */

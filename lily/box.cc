@@ -90,6 +90,16 @@ Box::widen (Real x, Real y)
   interval_a_[Y_AXIS].widen (y);
 }
 
+// for debugging
+
+void
+Box::print ()
+{
+  printf ("X left %4.4f right %4.4f Y down %4.4f up %4.4f\n",
+          interval_a_[X_AXIS][LEFT], interval_a_[X_AXIS][RIGHT],
+          interval_a_[Y_AXIS][DOWN], interval_a_[Y_AXIS][UP]);
+}
+
 /****************************************************************/
 
 #include "ly-smobs.icc"

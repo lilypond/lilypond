@@ -483,8 +483,6 @@ Grob::pure_height (Grob *refp, int start, int end)
 Interval
 Grob::maybe_pure_extent (Grob *refp, Axis a, bool pure, int start, int end)
 {
-  if (pure && a != Y_AXIS)
-    programming_error ("tried to get pure width");
   return (pure && a == Y_AXIS) ? pure_height (refp, start, end) : extent (refp, a);
 }
 

@@ -916,7 +916,8 @@ polyphonic patterns.")
 spacing problem.")
      (usable-duration-logs ,list? "List of @code{duration-log}s that
 can be used in typesetting the grob.")
-
+     (use-skylines ,boolean? "Should skylines be used for side
+positioning?")
 
 ;;
 ;; v

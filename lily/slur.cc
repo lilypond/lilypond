@@ -272,6 +272,13 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   Interval xext = robust_relative_extent (script, cx, X_AXIS);
   Interval slur_wid (curve.control_[0][X_AXIS], curve.control_[3][X_AXIS]);
 
+  /*
+    cannot use is_empty because some 0-extent scripts
+    come up with TabStaffs.
+  */
+  if (xext.length () <= 0 || yext.length () <= 0)
+    return offset_scm;
+
   bool contains = false;
   Direction d = LEFT;
   do
