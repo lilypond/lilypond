@@ -650,12 +650,7 @@ BOM_UTF8	\357\273\277
 
 -{UNSIGNED}	| // backup rule
 {REAL}		{
-	Real r;
-	int cnv = sscanf (YYText (), "%lf", &r);
-	assert (cnv == 1);
-	(void) cnv;
-
-	yylval.scm = scm_from_double (r);
+	yylval.scm = scm_c_read_string (YYText ());
 	return REAL;
 }
 -\.	{ // backup rule
