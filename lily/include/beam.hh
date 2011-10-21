@@ -68,7 +68,6 @@ public:
   static Real get_beam_thickness (Grob *me);
   static void connect_beams (Grob *me);
   static vector<Beam_segment> get_beam_segments (Grob *me_grob, Grob **common);
-  static Interval no_visible_stem_positions (Grob *me, Interval default_value);
 
   DECLARE_SCHEME_CALLBACK (rest_collision_callback, (SCM element, SCM prev_off));
   DECLARE_SCHEME_CALLBACK (pure_rest_collision_callback, (SCM element, SCM prev_off, SCM, SCM));
@@ -77,16 +76,13 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_stem_shorten, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positions, (SCM));
-  DECLARE_SCHEME_CALLBACK (calc_least_squares_positions, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (calc_normal_stems, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_concaveness, (SCM));
   DECLARE_SCHEME_CALLBACK (set_stem_lengths, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
 
   /* position callbacks */
-  DECLARE_SCHEME_CALLBACK (shift_region_to_valid, (SCM, SCM));
-  DECLARE_SCHEME_CALLBACK (slope_damping, (SCM, SCM));
-  DECLARE_SCHEME_CALLBACK (quanting, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (quanting, (SCM));
 
   static int get_direction_beam_count (Grob *me, Direction d);
 

@@ -111,8 +111,6 @@ struct Beam_collision
   Parameters for a single beam.  Precomputed to save time in
   scoring individual configurations.
 
-  TODO - use trailing _ on data members.
-
   */
 class Beam_scoring_problem
 {
@@ -121,18 +119,19 @@ public:
   Drul_array<Real> solve () const;
 
 private:
-  Grob *beam_;
+  Spanner *beam_;
 
   Interval unquanted_y_;
+  bool consistent_broken_slope_;
 
   Real staff_space_;
   Real beam_thickness_;
   Real line_thickness_;
   Real musical_dy_;
+  int normal_stem_count_;
 
-  Interval x_span_;
+  Real x_span_;
 
-  vector<Stem_info> stem_infos_;
 
   /*
     Do stem computations.  These depend on YL and YR linearly, so we can
@@ -142,10 +141,15 @@ private:
     affine linear in YL and YR. If YL == YR == 0, then we might have
     stem_y != 0.0, when we're cross staff.
   */
+  vector<Stem_info> stem_infos_;
+  vector<Real> chord_start_y_;
+  vector<Interval> head_positions_;
+  vector<Slice> beam_multiplicity_;
+  vector<bool> is_normal_;
   vector<Real> base_lengths_;
   vector<Real> stem_xpositions_;
+  vector<Real> stem_ypositions_;
 
-  Grob *common_[2];
   bool is_xstaff_;
   bool is_knee_;
 
@@ -164,9 +168,15 @@ private:
   vector<Beam_collision> collisions_;
   vector<Beam_segment> segments_;
 
+  vsize first_normal_index ();
+  vsize last_normal_index ();
+
   void init_stems ();
-  void init_collisions (vector<Grob *> grobs);
   void add_collision (Real x, Interval y, Real factor);
+  void no_visible_stem_positions ();
+  void least_squares_positions ();
+  void slope_damping ();
+  void shift_region_to_valid ();
 
   void one_scorer (Beam_configuration *config) const;
   Beam_configuration *force_score (SCM inspect_quants,

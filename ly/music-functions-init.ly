@@ -124,23 +124,13 @@ appoggiatura =
 assertBeamQuant =
 #(define-music-function (parser location l r) (pair? pair?)
    (_i "Testing function: check whether the beam quants @var{l} and @var{r} are correct")
-   (make-grob-property-override 'Beam 'positions
-				(ly:make-simple-closure
-				 (ly:make-simple-closure
-				  (append
-				   (list chain-grob-member-functions `(,cons 0 0))
-				   (check-quant-callbacks l r))))))
+   (make-grob-property-override 'Beam 'positions (check-quant-callbacks l r)))
 
 % for regression testing purposes.
 assertBeamSlope =
 #(define-music-function (parser location comp) (procedure?)
    (_i "Testing function: check whether the slope of the beam is the same as @code{comp}")
-   (make-grob-property-override 'Beam 'positions
-				(ly:make-simple-closure
-				 (ly:make-simple-closure
-				  (append
-				   (list chain-grob-member-functions `(,cons 0 0))
-				   (check-slope-callbacks comp))))))
+   (make-grob-property-override 'Beam 'positions (check-slope-callbacks comp)))
 
 autochange =
 #(define-music-function (parser location music) (ly:music?)

@@ -383,15 +383,7 @@
 
 	(gap . 0.8)
 	(neutral-direction . ,DOWN)
-	(positions .  ,(ly:make-simple-closure
-			(ly:make-simple-closure
-			 (list chain-grob-member-functions
-			   `(,cons 0 0)
-			   ly:beam::calc-least-squares-positions
-			   ly:beam::slope-damping
-			   ly:beam::shift-region-to-valid
-			   ly:beam::quanting
-			   ))))
+	(positions . ,ly:beam::quanting)
 
 	;; this is a hack to set stem lengths, if positions is set.
 	(quantized-positions . ,ly:beam::set-stem-lengths)

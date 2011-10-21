@@ -918,13 +918,12 @@ Beam::calc_stem_shorten (SCM smob)
   return scm_from_double (0.0);
 }
 
-MAKE_SCHEME_CALLBACK (Beam, quanting, 2);
+MAKE_SCHEME_CALLBACK (Beam, quanting, 1);
 SCM
-Beam::quanting (SCM smob, SCM posns)
+Beam::quanting (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Drul_array<Real> ys (0, 0);
-  ys = robust_scm2drul (posns, ys);
   Beam_scoring_problem problem (me, ys);
 
   ys = problem.solve ();
@@ -1423,6 +1422,7 @@ ADD_INTERFACE (Beam,
                "break-overshoot "
                "clip-edges "
                "concaveness "
+               "consistent-broken-slope "
                "collision-interfaces "
                "collision-voice-only "
                "covered-grobs "
@@ -1441,5 +1441,6 @@ ADD_INTERFACE (Beam,
                "positions "
                "quantized-positions "
                "shorten "
+               "skip-quanting "
                "stems "
               );
