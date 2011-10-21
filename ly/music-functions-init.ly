@@ -313,7 +313,9 @@ without the need of a specific end spanner.")
 						 end-ev-chord))))
 	 total)
 
-       (ly:input-message location (_ "argument endSpanners is not an EventChord: ~a" music))))
+       (begin
+	 (ly:input-message location (_ "argument endSpanners is not an EventChord: ~a" music))
+	 music)))
 
 
 
