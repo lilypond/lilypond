@@ -205,14 +205,27 @@ appropriately to spare LilyPond from getting confused.
 
 @node Void scheme functions
 @subsection Void scheme functions
+@funindex define-void-function
 
-Sometimes a function is only executed for its side effects.  In that
-case, using a scheme function means that its value will not usually be
-considered:
+Sometimes a procedure is executed in order to perform an action rather
+than return a value.  Some programming languages (like C and Scheme)
+use functions for either concept and just discard the returned value
+(usually by allowing any expression to act as statement, ignoring the
+result).  This is clever but error-prone: most C compilers nowadays
+offer warnings for various non-``void'' expressions being discarded.
+For many functions executing an action, the Scheme standards declare
+the return value to be unspecified.  Lilypond's Scheme interpreter
+Guile has a unique ``unspecified'' value that it usually (such when
+using @code{set!} directly on a variable) but unfortunately not
+consistently returns in such cases.
+
+Defining a Lilypond function with @code{define-void-function} makes
+sure that this special value (the only value satisfying the predicate
+@code{void?}) will be returned.
 
 @example
 noPointAndClick =
-#(define-scheme-function
+#(define-void-function
      (parser location)
      ()
    (ly:set-option 'point-and-click #f))
@@ -450,12 +463,12 @@ lilypond -d display-bar-numbers FILENAME.ly
 @node Void music functions
 @subsection Void music functions
 
-A music function must return a music expression.  If you want to execute
-a function only for its side effect, it might make more sense to use a
-scheme function instead.  But there may be cases where you sometimes
-want to produce a music expression, and sometimes not (like in the
-previous example).  Returning a @code{void} music expression via
-@code{#@{ #@}} will do that.
+A music function must return a music expression.  If you want to
+execute a function only for its side effect, you should use
+@code{define-void-function}.  But there may be cases where you
+sometimes want to produce a music expression, and sometimes not (like
+in the previous example).  Returning a @code{void} music expression
+via @code{#@{ #@}} will achieve that.
 
 @node Event functions
 @section Event functions
