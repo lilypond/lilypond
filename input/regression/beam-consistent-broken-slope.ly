@@ -2,7 +2,7 @@
 \version "2.15.15"
 
 \header {
-  texidoc = "The @code{consistent-broken-slope} property of @{Beam}
+  texidoc = "The @code{consistent-broken-slope} property of @code{Beam}
 allows for slopes to be almost consistent across line breaks.  Almost
 because quanting can still cause minor differences between beams slopes.
 "
