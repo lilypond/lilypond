@@ -44,21 +44,36 @@
 
 ;; Music function: Apply function and check return value.
 ;; args are in reverse order, rest may specify additional ones
+;;
+;; If args is not a proper list, an error has been flagged earlier
+;; and no fallback value had been available.  In this case,
+;; we don't call the function but rather return the general
+;; fallback.
 (define-ly-syntax (music-function parser loc fun args . rest)
   (let* ((sig (object-property fun 'music-function-signature))
 	 (pred (if (pair? (car sig)) (caar sig) (car sig)))
-	 (m (apply fun parser loc (reverse! args rest))))
-    (if (pred m)
+	 (good (proper-list? args))
+	 (m (and good (apply fun parser loc (reverse! args rest)))))
+    (if (and good (pred m))
 	(begin
 	  (if (ly:music? m)
 	      (set! (ly:music-property m 'origin) loc))
 	  m)
 	(begin
-	  (ly:parser-error parser
-			   (format #f (_ "~a function cannot return ~a")
-				   (type-name pred) m)
-			   loc)
+	  (if good
+	      (ly:parser-error parser
+			       (format #f (_ "~a function cannot return ~a")
+				       (type-name pred) m)
+			       loc))
 	  (and (pair? (car sig)) (cdar sig))))))
+
+(define-ly-syntax (argument-error parser location n pred arg)
+  (ly:parser-error
+   parser
+   (format #f
+	   (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
+	   n (type-name pred) arg)
+   location))
 
 (define-ly-syntax-simple (void-music)
   (make-music 'Music))

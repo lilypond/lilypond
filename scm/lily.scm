@@ -345,18 +345,6 @@ messages into errors.")
       (set-module-obarray! iface (module-obarray mod))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (type-check-arg location arg args pred?)
-  "Typecheck an argument after previous arguments.
-Print a message at LOCATION if predicate fails and return #f"
-  (or (pred? arg)
-      (begin
-	(ly:input-warning
-	 location
-	 (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
-	 (1+ (length args)) (type-name pred?) arg)
-	#f)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Safe definitions utility
 
 (define safe-objects

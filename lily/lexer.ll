@@ -833,9 +833,7 @@ Lily_lexer::scan_escaped_word (string str)
 				cs = SCM_CAR (cs);
 			}
 			
-			if (cs == ly_music_p_proc)
-				push_extra_token (EXPECT_MUSIC);
-			else if	(cs == Pitch_type_p_proc)
+			if (cs == Pitch_type_p_proc)
 				push_extra_token (EXPECT_PITCH);
 			else if (cs == Duration_type_p_proc)
 				push_extra_token (EXPECT_DURATION);

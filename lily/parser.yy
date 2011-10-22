@@ -179,6 +179,7 @@ SCM get_first_context_id (SCM type, Music *m);
 SCM make_chord_elements (SCM pitch, SCM dur, SCM modification_list);
 SCM make_chord_step (int step, Rational alter);
 SCM make_simple_markup (SCM a);
+SCM try_unpack_lyrics (SCM pred, SCM arg);
 bool is_duration (int t);
 bool is_regular_identifier (SCM id);
 bool ly_input_procedure_p (SCM x);
@@ -292,7 +293,6 @@ If we give names, Bison complains.
 
 /* Artificial tokens, for more generic function syntax */
 %token <i> EXPECT_MARKUP "markup?"
-%token <i> EXPECT_MUSIC "ly:music?"
 %token <i> EXPECT_PITCH "ly:pitch?"
 %token <i> EXPECT_DURATION "ly:duration?"
 %token <scm> EXPECT_SCM "scheme?"
@@ -592,7 +592,8 @@ embedded_scm_bare:
 
 embedded_scm_bare_arg:
 	embedded_scm_bare
-	| simple_string
+	| STRING
+	| STRING_IDENTIFIER
 	| full_markup
 	| full_markup_list
 	| context_modification
@@ -629,6 +630,7 @@ embedded_scm:
 embedded_scm_arg:
 	embedded_scm_bare_arg
 	| scm_function_call
+	| music
 	;
 
 scm_function_call:
@@ -1188,29 +1190,27 @@ grouped_music_list:
 	| sequential_music		{ $$ = $1; }
 	;
 
-/* An argument list. If a function \foo expects scm scm music, then the lexer expands \foo into the token sequence:
- MUSIC_FUNCTION EXPECT_MUSIC EXPECT_SCM EXPECT_SCM EXPECT_NO_MORE_ARGS
+/* An argument list. If a function \foo expects scm scm pitch, then the lexer expands \foo into the token sequence:
+ MUSIC_FUNCTION EXPECT_PITCH EXPECT_SCM EXPECT_SCM EXPECT_NO_MORE_ARGS
 and this rule returns the reversed list of arguments. */
 
 
 function_arglist:
 	function_arglist_bare
-	| EXPECT_MUSIC function_arglist_optional music
-	{
-		$$ = scm_cons ($3, $2);
-	}
 	| EXPECT_SCM function_arglist_optional embedded_scm_arg
 	{
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED, $3, $2, $1);
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+				       $3, $2, $1);
+	}
+	| EXPECT_SCM function_arglist_optional SKIPPED_SCM
+	{
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+				       $3, $2, $1);
 	}
 	;
 
 function_arglist_optional:
 	function_arglist_keep %prec FUNCTION_ARGUMENTS
-	| EXPECT_OPTIONAL EXPECT_MUSIC function_arglist_optional
-	{
-		$$ = scm_cons (loc_on_music (@3, $1), $3);
-	}
 	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_optional
 	{
 		$$ = scm_cons ($1, $3);
@@ -1232,42 +1232,41 @@ function_arglist_keep:
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed_keep duration_length {
 		$$ = scm_cons ($4, $3);
 	}
-	| EXPECT_OPTIONAL EXPECT_MUSIC function_arglist_keep closed_music
-	{
-		$$ = scm_cons ($4, $3);
-	}
-	| function_arglist
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep embedded_scm_arg_closed
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
 			$$ = scm_cons ($4, $3);
 		} else {
-			$$ = scm_cons (loc_on_music (@3, $1), $3);
-			MYBACKUP (SKIPPED_SCM, $4, @4);
+			$$ = try_unpack_lyrics ($2, $4);
+			if (!SCM_UNBNDP ($$))
+				$$ = scm_cons ($$, $3);
+			else {
+				$$ = scm_cons (loc_on_music (@3, $1), $3);
+				MYBACKUP (SKIPPED_SCM, $4, @4);
+			}
 		}
 	}
+	| function_arglist
 	;
 
 
 function_arglist_closed:
 	function_arglist_bare
-	| EXPECT_MUSIC function_arglist_optional closed_music
-	{
-		$$ = scm_cons ($3, $2);
-	}
 	| EXPECT_SCM function_arglist_optional embedded_scm_arg_closed
 	{
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED, $3, $2, $1);
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+				       $3, $2, $1);
+	}
+	| EXPECT_SCM function_arglist_optional SKIPPED_SCM
+	{
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+				       $3, $2, $1);
 	}
 	;
 
 function_arglist_closed_optional:
 	function_arglist_closed_keep %prec FUNCTION_ARGUMENTS
-	| EXPECT_OPTIONAL EXPECT_MUSIC function_arglist_closed_optional
-	{
-		$$ = scm_cons (loc_on_music (@3, $1), $3);
-	}
 	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_closed_optional
 	{
 		$$ = scm_cons ($1, $3);
@@ -1289,18 +1288,19 @@ function_arglist_closed_keep:
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed_keep duration_length {
 		$$ = scm_cons ($4, $3);
 	}
-	| EXPECT_OPTIONAL EXPECT_MUSIC function_arglist_keep closed_music
-	{
-		$$ = scm_cons ($4, $3);
-	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep embedded_scm_arg_closed
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
 			$$ = scm_cons ($4, $3);
 		} else {
-			$$ = scm_cons (loc_on_music (@3, $1), $3);
-			MYBACKUP (SKIPPED_SCM, $4, @4);
+			$$ = try_unpack_lyrics ($2, $4);
+			if (!SCM_UNBNDP ($$))
+				$$ = scm_cons ($$, $3);
+			else {
+				$$ = scm_cons (loc_on_music (@3, $1), $3);
+				MYBACKUP (SKIPPED_SCM, $4, @4);
+			}
 		}
 	}
 	| function_arglist_closed
@@ -1314,6 +1314,7 @@ embedded_scm_closed:
 embedded_scm_arg_closed:
 	embedded_scm_bare_arg
 	| scm_function_call_closed
+	| closed_music
 	;
 
 scm_function_call_closed:
@@ -1332,10 +1333,6 @@ function_arglist_bare:
 	}
 	| EXPECT_DURATION function_arglist_closed_optional duration_length {
 		$$ = scm_cons ($3, $2);
-	}
-	| EXPECT_SCM function_arglist_optional SKIPPED_SCM
-	{
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED, $3, $2, $1);
 	}
 	;
 
@@ -1797,11 +1794,10 @@ chord_body_element:
 
 music_function_chord_body_arglist:
 	function_arglist_bare
-	| EXPECT_MUSIC music_function_chord_body_arglist chord_body_element {
-		$$ = scm_cons ($3, $2);
-	}
-	| EXPECT_SCM function_arglist_optional embedded_scm_chord_body {
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED, $3, $2, $1);
+	| EXPECT_SCM music_function_chord_body_arglist embedded_scm_chord_body
+	{
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+				       $3, $2, $1);
 	}
 	;
 
@@ -1811,6 +1807,8 @@ embedded_scm_chord_body:
 		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
+	| chord_body_element
+	| SKIPPED_SCM
 	;
 
 music_function_chord_body:
@@ -1827,11 +1825,10 @@ music_function_chord_body:
  */
 music_function_event_arglist:
 	function_arglist_bare
-	| EXPECT_MUSIC music_function_event_arglist post_event {
-		$$ = scm_cons ($3, $2);
-	}
-	| EXPECT_SCM function_arglist_optional embedded_scm_event {
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED, $3, $2, $1);
+	| EXPECT_SCM music_function_event_arglist embedded_scm_event
+	{
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+				       $3, $2, $1);
 	}
 	;
 
@@ -1841,6 +1838,8 @@ embedded_scm_event:
 		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
+	| post_event
+	| SKIPPED_SCM
 	;
 
 music_function_event:
@@ -2902,24 +2901,26 @@ get_next_unique_lyrics_context_id ()
 	return scm_from_locale_string (s);
 }
 
-
-SCM check_scheme_arg (Lily_parser *parser, Input loc, SCM fallback,
+SCM check_scheme_arg (Lily_parser *my_lily_parser, Input loc, SCM fallback,
 		      SCM arg, SCM args, SCM pred)
 {
-	SCM type_check_arg = ly_lily_module_constant ("type-check-arg");
-	if (scm_is_false (scm_call_4 (type_check_arg, make_input (loc),
-				      arg, args, pred)))
-	{
-		if (SCM_UNBNDP (fallback))
-			fallback = SCM_BOOL_F;
-		else
-			fallback = loc_on_music (loc, fallback);
-			
-		parser->error_level_ = 1;
-
-		return scm_cons (fallback, args);
+	SCM unwrap = SCM_UNDEFINED;
+	if (scm_is_true (scm_call_1 (pred, arg)))
+		return scm_cons (arg, args);
+	unwrap = try_unpack_lyrics (pred, arg);
+	if (!SCM_UNBNDP (unwrap))
+		return scm_cons (unwrap, args);
+	if (SCM_UNBNDP (fallback)) {
+		args = scm_cons (SCM_BOOL_F, args);
+		fallback = SCM_BOOL_F;
+	} else {
+		args = scm_cons (loc_on_music (loc, fallback), args);
+		fallback = SCM_CDR (scm_last_pair (args));
 	}
-	return scm_cons (arg, args);
+	scm_set_cdr_x (scm_last_pair (args), SCM_EOL);
+	MAKE_SYNTAX ("argument-error", loc, scm_length (args), pred, arg);
+	scm_set_cdr_x (scm_last_pair (args), fallback);
+	return args;
 }
 
 SCM loc_on_music (Input loc, SCM arg)
@@ -3013,6 +3014,17 @@ make_chord_elements (SCM pitch, SCM dur, SCM modification_list)
 	return scm_call_3 (chord_ctor, pitch, dur, modification_list);
 }
 
+SCM
+try_unpack_lyrics (SCM pred, SCM arg)
+{
+	if (Music *m = unsmob_music (arg))
+		if (m->is_mus_type ("lyric-event")) {
+			SCM text = m->get_property ("text");
+			if (scm_is_true (scm_call_1 (pred, text)))
+					return text;
+			}
+	return SCM_UNDEFINED;
+}	
 
 /* Todo: actually also use apply iso. call too ...  */
 bool

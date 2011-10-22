@@ -856,7 +856,7 @@ void return value (i.e., what most Guile functions with `unspecified'
 value return).  Use this when defining functions for executing actions
 rather than returning values, to keep Lilypond from trying to interpret
 the return value."
-  `(define-syntax-function void? ,@rest #f (begin)))
+  `(define-syntax-function (void? (begin)) ,@rest #f (begin)))
 
 (defmacro-public define-event-function rest
   "Defining macro returning event functions.
