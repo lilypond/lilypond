@@ -519,6 +519,7 @@ some pieces include a lot more information.
 @menu
 * Creating titles headers and footers::
 * Custom headers footers and titles::
+* Creating footnotes::
 * Reference to page numbers::
 * Table of contents::
 @end menu
@@ -1012,6 +1013,265 @@ same layout by defining it as @code{\oddFooterMarkup}:
 Notation Reference:
 @ref{Title blocks explained},
 @ref{Default layout of book and score title blocks}.
+
+@node Creating footnotes
+@subsection Creating footnotes
+
+There are two types of footnotes that can be created; automatic
+footnotes and manual footnotes.
+
+@menu
+* Footnotes overview::
+* Automatic footnotes::
+* Manual footnotes::
+@end menu
+
+@node Footnotes overview
+@unnumberedsubsubsec Footnotes overview
+
+Automatic footnotes create incrementing, numerical indicators and
+manual footnotes allow a custom indicator to be created instead.  All
+grobs, top-level @code{\markup} and chorded notes can be annotated.
+
+The order in which each grob is drawn determines the order in which each
+indicator and so footnotes are created during compilation.
+
+
+@node Automatic footnotes
+@unnumberedsubsubsec Automatic footnotes
+
+Of the two commands used to create automatic footnotes, use
+@code{\autoFootnoteGrob} for individual grobs (i.e. note heads, stems,
+slurs, dynamics including @code{\markup} when using @code{TextScripts});
+and @code{\autoFootnote} for annotating chorded notes.
+
+Both commands take three arguments; the @var{Layout Object} to be
+annotated, the @var{(x . y)} position of the indicator and a
+@code{\markup} that will appear in the footnote at the bottom of the
+page.
+
+The command @code{\autoFootnoteGrob} must come @emph{before} the grob
+that the footnote is being attached to:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \autoFootnoteGrob #'NoteHead #'(0.5 . -2)
+      \markup { The first note }
+    a'4 b8
+    \autoFootnoteGrob #'NoteHead #'(0.5 . 1)
+      \markup { The third note }
+    e c4 d4
+  }
+}
+@end lilypond
+
+To annotate chorded notes, the @code{\autoFootnote} must come
+@emph{after} the note to which the footnote is being attached as a
+@code{TextScript}:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    <
+    c-\autoFootnote #'(1 . -1.25) "Here is a C"
+    es-\autoFootnote #'(2 . -0.25) \markup { \italic "An E-flat" }
+    g-\autoFootnote #'(2 . 3) \markup { \bold "This is a G" }
+    >1
+  }
+}
+@end lilypond
+
+@warning {When footnotes have the same vertical position, the footnotes
+are printed in order of descendancy; the higher the footnote, the
+higher up in the list.}
+
+Here are some examples of automatically footnoted grobs, also showing
+the relative position of the footnotes to the tagline and copyright.
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { copyright = \markup { "Copyright 1970" } }
+  \relative c' {
+    \autoFootnoteGrob #'DynamicText #'(-3 . 0)
+      \markup { \bold Forte }
+
+    \autoFootnoteGrob #'Slur #'(0 . 1.5)
+      \markup { A slur }
+    a'4\f(
+
+    \autoFootnoteGrob #'Beam #'(0 . -2)
+      \markup { Beam }
+    b8)[ e]
+
+    \autoFootnoteGrob #'Stem #'(1 . -1)
+      \markup  { \teeny { This is a stem } }
+    c4
+
+    \autoFootnoteGrob #'AccidentalCautionary #'(0 . 0.5)
+      \markup \italic { A cautionary accidental }
+
+    \autoFootnoteGrob #'TextScript #'(0.5 . -0.5)
+      \markup \italic { Slow Down }
+    dis?4_"rit."
+  }
+}
+@end lilypond
+
+For top-level @code{\markup}, the @code{\auto-footnote} command is
+required:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \markup { \auto-footnote "A simple tune" \italic "By me" }
+  \relative c' {
+    a'4 b8 e c4 d
+  }
+}
+@end lilypond
+
+
+@node Manual footnotes
+@unnumberedsubsubsec Manual footnotes
+
+@funindex \footnote
+@funindex \footnoteGrob
+@cindex footnotes, manual
+
+There are two commands used to create manual footnotes; @code{\footnote}
+for top-level @code{\markup} and chorded notes; and @code{\footnoteGrob}
+for individual grobs (including @code{\markup} when using
+@code{TextScripts}).
+
+When annotating grobs, the @code{\footnote} command takes four
+arguments; the @var{Layout Object} to be annotated, the @var{(x . y)}
+position of the indicator and two @code{\markup} commands; the first is
+the indicator attached to the note or grob and the second is the
+footnote at the bottom of the page.
+
+The command @code{\footnoteGrob} must come @emph{after} the grob
+that the footnote footnote is annotating and attached as a
+@code{TextScript}:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    a'4-\footnoteGrob #'NoteHead #'(0.5 . -2)
+          "1" \markup { \italic "1. The first note" }
+    b8
+    e-\footnoteGrob #'NoteHead #'(0.5 . 1)
+          \markup { \bold "2" } "2. The second note"
+    c4
+    d\p-\footnoteGrob #'DynamicText #'(0.5 . -1) "3" "3. Piano"
+  }
+}
+@end lilypond
+
+To annotate chorded notes, the @code{\footnote} must come @emph{after}
+the note that the footnote is annotating and attached as a
+@code{TextScript}:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    <
+    c-\footnote #'(1 . -1.25) "1" "1. C"
+    es-\footnote #'(2 . -0.25)
+       \markup { \bold "b" } "b. E-flat"
+    g-\footnote #'(2 . 3) "3" \markup { \italic "iii. G" }
+    >1
+  }
+}
+@end lilypond
+
+@warning {When footnotes have the same vertical position, the footnotes
+are printed in order of descendancy; the higher the footnote, the
+higher up in the list.}
+
+Here are some examples of manually footnoted grobs, also showing
+the relative position of the footnotes to the tagline and copyright
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \footnoteGrob #'DynamicText #'(-3 . 0)
+      \markup { \teeny 1 }
+      \markup { 1. \bold Forte }
+
+    \footnoteGrob #'Slur #'(0 . 1.5)
+      \markup { \teeny b }
+      \markup { b. A slur }
+    a'4\f(
+
+    \footnoteGrob #'Beam #'(0 . -2)
+      \markup { \teeny 3 }
+      \markup { 3. Beam }
+    b8)[ e]
+
+    \footnoteGrob #'Stem #'(1 . -1)
+      \markup { 4 }
+      \markup  { \bold 4. { This is a stem } }
+    c4
+
+    \footnoteGrob #'AccidentalCautionary #'(0 . 0.5)
+      \markup \concat \teeny { "sharp (v)" }
+      \markup \italic { v. A cautionary accidental }
+
+    \footnoteGrob #'TextScript #'(0.5 . -0.5)
+      \markup \concat \teeny { "a" }
+      \markup \italic { a. Slow Down }
+    dis?4_"rit."
+
+    \breathe
+    \footnoteGrob #'BreathingSign #'(1.5 . -0.25)
+      \markup { \teeny \musicglyph #"rests.4" }
+      \markup { \null }
+  }
+}
+@end lilypond
+
+To manually footnote a top-level @code{\markup}:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \markup { "A simple tune" \footnote "*" \italic "* By me" }
+  \relative c' {
+    a'4 b8 e c4 d4
+  }
+}
+@end lilypond
+
+@seealso
+Learning Manual:
+@rlearning{Objects and interfaces}.
+
+Notation Reference:
+@ref{Balloon help},
+@ref{Page layout},
+@ref{Text marks},
+@ref{Text scripts},
+@ref{Titles and headers}.
+
+Internals Reference:
+@rinternals{FootnoteEvent},
+@rinternals{FootnoteItem},
+@rinternals{FootnoteSpanner},
+@rinternals{Footnote_engraver}.
+
+@knownissues
+Multiple footnotes for the same page can only be stacked, one on top of
+the other, and cannot be printed on the same line.  Footnotes cannot be
+attached to @code{MultiMeasureRests} and may collide with @code{Staff},
+@code{\markup} objects and other @code{footnote} annotations.  When
+using any manual @code{footnote} command a @code{\paper} block
+containing @code{footnote-auto-number = ##f} is required.
 
 
 @node Reference to page numbers
