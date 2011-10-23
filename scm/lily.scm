@@ -403,7 +403,8 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     "output-lib.scm"))
 ;;  - Files containing definitions used later by other files later in load
 (define init-scheme-files-used
-  '("markup-macros.scm"))
+  '("markup-macros.scm"
+    "parser-ly-from-scheme.scm"))
 ;;  - Main body of files to be loaded
 (define init-scheme-files-body
   '("file-cache.scm"
@@ -427,7 +428,6 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     "auto-beam.scm"
     "chord-name.scm"
     "bezier-tools.scm"
-    "parser-ly-from-scheme.scm"
     "ly-syntax-constructors.scm"
 
     "define-context-properties.scm"
