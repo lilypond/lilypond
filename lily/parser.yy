@@ -58,7 +58,7 @@ or
 
 %right FUNCTION_ARGUMENTS
       MARKUP LYRICS_STRING MARKUP_IDENTIFIER STRING STRING_IDENTIFIER
-      MARKUPLINES WITH CONTEXT_MOD_IDENTIFIER MARKUPLINES_IDENTIFIER
+      MARKUPLIST WITH CONTEXT_MOD_IDENTIFIER MARKUPLIST_IDENTIFIER
       SCORE BOOK BOOKPART PAPER LAYOUT MIDI
       SEQUENTIAL SIMULTANEOUS DOUBLE_ANGLE_OPEN MUSIC_IDENTIFIER '{'
       PITCH_IDENTIFIER NOTENAME_PITCH TONICNAME_PITCH
@@ -225,7 +225,7 @@ void set_music_properties (Music *p, SCM a);
 %token LYRICSTO "\\lyricsto"
 %token MARK "\\mark"
 %token MARKUP "\\markup"
-%token MARKUPLINES "\\markuplines"
+%token MARKUPLIST "\\markuplist"
 %token MIDI "\\midi"
 %token NAME "\\name"
 %token NOTEMODE "\\notemode"
@@ -322,7 +322,7 @@ If we give names, Bison complains.
 %token <scm> MARKUP_FUNCTION
 %token <scm> MARKUP_LIST_FUNCTION
 %token <scm> MARKUP_IDENTIFIER
-%token <scm> MARKUPLINES_IDENTIFIER
+%token <scm> MARKUPLIST_IDENTIFIER
 %token <scm> MUSIC_FUNCTION
 %token <scm> MUSIC_IDENTIFIER
 %token <scm> NOTENAME_PITCH
@@ -2642,10 +2642,10 @@ lyric_markup:
 	;
 
 full_markup_list:
-	MARKUPLINES_IDENTIFIER {
+	MARKUPLIST_IDENTIFIER {
 		$$ = $1;
 	}
-	| MARKUPLINES
+	| MARKUPLIST
 		{ PARSER->lexer_->push_markup_state (); }
 	markup_list {
 		$$ = $3;
@@ -2678,7 +2678,7 @@ markup_top:
 	;
 
 markup_list:
-	MARKUPLINES_IDENTIFIER {
+	MARKUPLIST_IDENTIFIER {
 		$$ = $1;
 	}
 	| markup_composed_list {
@@ -2879,7 +2879,7 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		return MARKUP_IDENTIFIER;
 	} else if (Text_interface::is_markup_list (sid)) {
 		*destination = sid;
-		return MARKUPLINES_IDENTIFIER;
+		return MARKUPLIST_IDENTIFIER;
 	}
 
 	return -1;

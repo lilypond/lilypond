@@ -3257,6 +3257,17 @@ def conv (str):
                   r"#(define \g<2> #{ \\stringTuning\g<3> #})", str)
     return str
 
+@rule ((2, 15, 17), "\\markuplines -> \\markuplist")
+def conv (str):
+    str = re.sub (r"""
+\\markuplines( +)([^ ].*)
+            \1([^ ])""", r"""
+\\markuplist\g<1>\g<2>
+           \g<1>\g<3>""", str)
+    str = re.sub (r"\\markuplines", r"\\markuplist", str)
+    str = re.sub (r"@funindex markuplines", r"@funindex markuplist", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
