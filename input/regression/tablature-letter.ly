@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.16"
 
 \header {
   texidoc = "
@@ -29,12 +29,7 @@ notes = \relative c' {
 \score {
   \new TabStaff
   \with {
-    stringTunings = #`(,(ly:make-pitch 1 3 0)
-                       ,(ly:make-pitch 1 1 0)
-		       ,(ly:make-pitch 0 5 0)
-		       ,(ly:make-pitch 0 3 0)
-		       ,(ly:make-pitch 0 1 0)
-		       ,(ly:make-pitch -1 5 0))
+    stringTunings = \stringTuning \notemode { <a d' f' a' d'' f''> }
     tablatureFormat = #fret-letter-tablature-format
   }
   \new TabVoice {

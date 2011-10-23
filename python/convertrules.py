@@ -3244,6 +3244,18 @@ def conv (str):
     str = re.sub (r"(\s+(?:\\once\s*)?)\\revert\s*Stem\s+#'stencil", r"\g<1>\\revert Stem #'stencil\g<1>\\revert Flag #'stencil", str)
     return str
 
+@rule ((2, 15, 16), r"\makeStringTuning, \contextStringTuning -> \stringTuning")
+def conv (str):
+    str = re.sub (r"(\s+)\\contextStringTuning(\s+)#'([-a-zA-Z]+)(\s+<[^<>]+>)",
+                  r"""\g<1>#(define \g<3> #{ \\stringTuning\g<4> #})\g<1>\\set stringTunings = #\g<3>""",
+                  str)
+    str = re.sub (r"""
+\\makeStringTuning(\s+)#'([-a-zA-Z]+)""",
+                  r"""
+"\g<2>" = \\stringTuning""", str)
+    str = re.sub (r"\\makeStringTuning(\s+)#'([-a-zA-Z]+)(\s+<[^<>]+>)",
+                  r"#(define \g<2> #{ \\stringTuning\g<3> #})", str)
+    return str
 
 # Guidelines to write rules (please keep this at the end of this file)
 #

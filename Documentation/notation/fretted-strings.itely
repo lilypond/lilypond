@@ -503,7 +503,7 @@ Guitar special effects are limited to harmonics and slides.
 @cindex tablature, bass
 @cindex tablature, double bass
 
-@funindex StringTunings
+@funindex stringTunings
 
 LilyPond tablature automatically calculates the fret for
 a note based on the string to which the note is assigned.
@@ -541,19 +541,18 @@ is the standard EADGBE tuning.  Some other predefined tunings are
 @code{banjo-open-g-tuning}.  The predefined string tunings
 are found in @file{ly/string-tuning-init.ly}.
 
-@funindex contextStringTunings
-@funindex \contextStringTunings
+@funindex stringTuning
+@funindex \stringTuning
 @cindex tablature, custom string tunings
 @cindex custom string tunings
 
 Any desired string tuning can be created.  The
-@code{\contextStringTuning} function can be
-used to define a string tuning and set it as the
-@code{stringTunings} for the current context.
-@code{\contextStringTuning} takes two arguments: the
-symbol in which the string tuning will be stored,
-and a chord construct
-that defines the pitches of each string in the tuning.
+@code{\stringTuning} function can be
+used to define a string tuning which can be used
+to set @code{stringTunings} for the current context.
+
+Its argument is a chord construct
+defining the pitches of each string in the tuning.
 The chord construct must be in absolute octave mode,
 see @ref{Absolute octave entry}.  The string
 with the highest number (generally the lowest string) must
@@ -574,7 +573,7 @@ mynotes = {
     \mynotes
   }
   \new TabStaff {
-    \contextStringTuning #'custom-tuning <c' g' d'' a''>
+    \set stringTunings = \stringTuning <c' g' d'' a''>
     \mynotes
   }
 >>
@@ -583,17 +582,10 @@ mynotes = {
 The @code{stringTunings} property is also used by
 @code{FretBoards} to calculate automatic fret diagrams.
 
-@funindex makeStringTuning
-@funindex \makeStringTuning
-
 String tunings are used as part of the hash key
 for predefined fret diagrams
-(see @ref{Predefined fret diagrams}).  The @code{\makeStringTuning}
-function is used to create a string tuning without setting the
-@code{stringTunings} property in the current context.  The
-arguments to @code{\makeStringTuning} are the symbol to be
-used for the new string tuning and a chord construct used
-to define the tuning.
+(see @ref{Predefined fret diagrams}).
+
 The previous example could also be written as follows:
 
 @lilypond[quote,verbatim]
@@ -627,35 +619,25 @@ A string pitch in a string tuning list is a LilyPond pitch
 object.  Pitch objects are created with the Scheme function
 @code{ly:make-pitch} (see @ref{Scheme functions}).
 
-If desired, a string tuning can be created as a Scheme
-literal.  The example below recreates the examples above,
-but the string tuning is not saved as a separate object:
-
-@lilypond[quote,verbatim]
-mynotes = {
-  c'4 e' g' c'' |
-  e''4 g'' b'' c'''
-}
-
-<<
-  \new Staff {
-    \clef treble
-    \mynotes
-  }
-  \new TabStaff {
-    \set TabStaff.stringTunings = #`(,(ly:make-pitch 1 5 0)
-				     ,(ly:make-pitch 1 1 0)
-				     ,(ly:make-pitch 0 4 0)
-				     ,(ly:make-pitch 0 0 0))
-    \mynotes
-  }
->>
-@end lilypond
+@code{\stringTuning} creates such an object from chord input.
 
 LilyPond automatically calculates the number of lines in the
 @code{TabStaff} and the number of strings in an automatically
 calculated @code{FretBoard} as the number of elements
 in @code{stringTunings}.
+
+To let all TabStaff contexts use the same custom tuning by default,
+you can use
+
+@example
+\layout @{
+  \context @{
+    \TabStaff
+    stringTunings = \stringTuning \notemode @{ <c' g' d'' a''> @}
+  @}
+@}
+@end example
+
 
 @cindex moderntab clef
 @cindex clef, moderntab

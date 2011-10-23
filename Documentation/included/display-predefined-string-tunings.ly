@@ -7,30 +7,18 @@
            tuning-alist))
 
 #(define (chord-display tuning-alist-entry)
-   (let* ((ch-mus (cdr tuning-alist-entry))
-          (tuning-symbol (car tuning-alist-entry))
-          (ev-chord (car (extract-named-music
-                           ch-mus
-                           'EventChord)))
-          (elts (ly:music-property ev-chord 'elements)))
-     (music-map (lambda (m)
-                  (begin
-                    (if (not (null? (ly:music-property m 'duration)))
-                        (ly:music-set-property!
-                          m
-                          'duration
-                          (ly:make-duration 0 0 1 1)))
-                    m))
-                ev-chord)
-     (let ((elts (ly:music-property ev-chord 'elements))
-           (script (make-music 'TextScriptEvent
-                               'direction 1
-                               'text (symbol->string tuning-symbol))))
-       (ly:music-set-property!
-         ev-chord
-         'elements
-         (cons script elts)))
-     ev-chord))
+   (let* ((tuning-symbol (car tuning-alist-entry))
+	  (pitches (cdr tuning-alist-entry)))
+     (make-music 'EventChord
+		 'elements
+		 (cons (make-music 'TextScriptEvent
+				   'direction 1
+				   'text (symbol->string tuning-symbol))
+		       (map (lambda (pitch)
+			      (make-music 'NoteEvent
+					  'duration (ly:make-duration 0 0 1 1)
+					  'pitch pitch))
+			    pitches)))))
 
 displayInstrumentDefaultTunings =
 #(define-music-function (parser location instrument) (string?)

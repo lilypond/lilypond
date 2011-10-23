@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.16"
 
 \header {
 
@@ -10,10 +10,7 @@
 
 
 \new TabStaff {
-  \set TabStaff.stringTunings = #`(,(ly:make-pitch 0 3 0)
-				   ,(ly:make-pitch 0 5 SHARP)
-				   ,(ly:make-pitch 1 1 SHARP)
-				   ,(ly:make-pitch 1 4 SHARP))
+  \set TabStaff.stringTunings = \stringTuning <gis'' dis'' ais' f'>
   \relative c''  { c4 d e f }
 }
 
