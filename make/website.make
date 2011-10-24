@@ -17,8 +17,6 @@ ifeq ($(WEBSITE_ONLY_BUILD),1)
   top-htaccess=$(trusted-dir)/lilypond.org.htaccess
   dir-htaccess=$(trusted-dir)/website-dir.htaccess
   TEXI2HTML_PROGRAM=$(HOME)/usr/bin/texi2html
-  EXAMPLES=$(HOME)/lilypond/media/ly-examples
-  PICTURES=$(HOME)/lilypond/media/pictures
   PYTHON=python
   PYTHONPATH=$(TRUSTED_DIR)
 else
@@ -28,9 +26,6 @@ else
   top-htaccess=$(top-src-dir)/Documentation/web/server/lilypond.org.htaccess
   dir-htaccess=$(top-src-dir)/Documentation/web/server/website-dir.htaccess
   include $(config_make)
-  # I assume this is run from top-build-dir
-  EXAMPLES=Documentation/web/ly-examples/out-www
-  PICTURES=Documentation/pictures/out-www
 endif
 
 ################################################################
@@ -75,6 +70,9 @@ CREATE_WEBLINKS=python $(script-dir)/create-weblinks-itexi.py
 MASS_LINK=python $(script-dir)/mass-link.py
 WEB_POST=python $(script-dir)/website_post.py
 WEB_BIBS=python $(script-dir)/bib2texi.py
+
+EXAMPLES=$(LILYPOND_WEB_MEDIA_GIT)/ly-examples
+PICTURES=$(LILYPOND_WEB_MEDIA_GIT)/pictures
 
 SERVER_FILES=$(top-src-dir)/Documentation/web/server
 
@@ -133,9 +131,15 @@ xref-files = $(MANUALS_BASE:%=$(OUT)/%.xref-map)
 
 .PHONY: website website-bibs website-css website-examples website-misc \
         website-pictures website-post website-test website-texinfo \
-        website-version website-xrefs
+        website-version website-xrefs check-setup
 
-website: website-post website-examples website-pictures website-css website-misc
+check-setup:
+ifeq ($(LILYPOND_WEB_MEDIA_GIT),)
+	echo "Need a $LILYPOND_WEB_MEDIA_GIT environment variable!"
+	exit 1
+endif
+
+website: check-setup website-post website-examples website-pictures website-css website-misc
 
 website-bibs: website-version $(OUT) $(bib-files)
 
