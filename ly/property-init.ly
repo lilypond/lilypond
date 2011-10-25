@@ -1,6 +1,6 @@
 % property-init.ly
 
-\version "2.14.0"
+\version "2.15.10"
 
 %% for dashed slurs, phrasing slurs, and ties
 #(define (make-simple-dash-definition dash-fraction dash-period)
@@ -234,6 +234,7 @@ hideNotes = {
   \override NoteHead #'no-ledgers = ##t
   \override Stem #'transparent = ##t
   \override Flag #'transparent = ##t
+  \override Flag #'transparent = ##t
   \override Beam #'transparent = ##t
   \override Accidental #'transparent = ##t
 }
@@ -241,6 +242,7 @@ unHideNotes = {
   \revert Accidental #'transparent
   \revert Beam #'transparent
   \revert Stem #'transparent
+  \revert Flag #'transparent
   \revert Flag #'transparent
   \revert NoteHead #'transparent
   \revert NoteHead #'no-ledgers

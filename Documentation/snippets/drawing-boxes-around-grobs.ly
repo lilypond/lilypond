@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.15.10"
 
 \header {
   lsrtags = "editorial-annotations, tweaks-and-overrides"
@@ -29,6 +29,8 @@ arbitrary grob.
   b8
 
   \revert Stem #'stencil
+
+  \revert Flag #'stencil
   c4. c4
   \mark "F"
   c1

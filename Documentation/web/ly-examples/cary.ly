@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.10"
 % the example header file caused the head to be chopped off
 %\include "example-header.ily"
 
@@ -176,6 +176,7 @@
 			\new Voice \with {
 				\remove Forbid_line_break_engraver
 				\override Stem #'transparent = ##t
+				\override Flag #'transparent = ##t
 				\override Rest #'transparent = ##t
 				\override Rest #'staff-position = #-0.5
 				\override Dots #'transparent = ##t

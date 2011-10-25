@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.10"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -828,6 +828,7 @@ Internals Reference @expansion{} Translation @expansion{} Context.
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t
+  \override Flag #'transparent = ##t
   \alias Voice
 }
 \context { \Staff
@@ -895,6 +896,7 @@ squashedPosition = #0
 \override NoteHead #'style = #'slash
 \override Stem #'transparent = ##t
 \override Flag #'transparent = ##t
+\override Flag #'transparent = ##t
 @end example
 
 これらのプラグインすべてが共同する必要があり、@c
@@ -918,6 +920,7 @@ squashedPosition = #0
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t
+  \override Flag #'transparent = ##t
   \override Flag #'transparent = ##t
   \alias Voice
 @}

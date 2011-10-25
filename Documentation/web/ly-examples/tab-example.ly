@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.10"
 
 #(set-global-staff-size 22.45)
 
@@ -21,6 +21,7 @@ hideFretNumber = {
   \once \override TabNoteHead #'whiteout = ##f
   \once \override NoteHead #'transparent = ##t
   \once \override Stem #'transparent = ##t
+  \once \override Flag #'transparent = ##t
   \once \override NoteHead #'no-ledgers = ##t
 }
 

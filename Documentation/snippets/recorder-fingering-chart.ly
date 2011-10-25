@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.15.10"
 
 \header {
   lsrtags = "winds"
@@ -52,6 +52,7 @@ centermarkup = {
   \new Staff \with {
     \remove "Time_signature_engraver"
     \override Stem #'stencil = ##f
+    \override Flag #'stencil = ##f
     \consists "Horizontal_bracket_engraver"
   }
   {
