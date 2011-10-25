@@ -6,14 +6,15 @@ grob."
 }
 
 %% to prevent warnings/programming errors:
-#(set-object-property! 'music 'backend-type? ly:music?)
-#(set-object-property! 'music 'backend-doc "Incipit music")
-#(ly:add-interface 'incipit-interface "An incipit." '(music))
-#(let* ((instrument-def (assoc 'InstrumentName all-grob-descriptions))
-        (meta-def (assoc 'meta (cdr instrument-def)))
-        (interfaces-def (assoc 'interfaces (cdr meta-def)))
-        (interfaces (cdr interfaces-def)))
-   (set-cdr! interfaces-def (cons 'incipit-interface interfaces)))
+#(begin
+   (set-object-property! 'music 'backend-type? ly:music?)
+   (set-object-property! 'music 'backend-doc "Incipit music")
+   (ly:add-interface 'incipit-interface "An incipit." '(music))
+   (let* ((instrument-def (assoc 'InstrumentName all-grob-descriptions))
+	  (meta-def (assoc 'meta (cdr instrument-def)))
+	  (interfaces-def (assoc 'interfaces (cdr meta-def)))
+	  (interfaces (cdr interfaces-def)))
+     (set-cdr! interfaces-def (cons 'incipit-interface interfaces))))
 
 \score {
   \new Staff {

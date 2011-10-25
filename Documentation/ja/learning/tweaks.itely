@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.10"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -3082,6 +3082,7 @@ rhMusic = \relative c'' {
         \stemDown
         % d2 の符幹を不可視にします
         \once \override Stem #'transparent = ##t
+        \once \override Flag #'transparent = ##t
         d2
       }
       \new Voice {
@@ -3537,6 +3538,7 @@ rhMusic = \relative c'' {
         \stemDown
         % d2 の符幹を不可視にします
         \once \override Stem #'transparent = ##t
+        \once \override Flag #'transparent = ##t
         d2
       }
       \new Voice {
@@ -3621,6 +3623,7 @@ lhMusic = \relative c' {
 <<
   {
     \once \override Stem #'transparent = ##t
+    \once \override Flag #'transparent = ##t
     b8~ b\noBeam
   }
 \\
@@ -3635,6 +3638,7 @@ lhMusic = \relative c' {
 <<
   {
     \once \override Stem #'transparent = ##t
+    \once \override Flag #'transparent = ##t
     \once \override Stem #'length = #8
     b8~ b\noBeam
   }

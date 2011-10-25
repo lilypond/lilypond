@@ -1883,22 +1883,21 @@ correct fret numbers for the fifth string:
 @funindex banjo-open-dm-tuning
 @funindex four-string-banjo
 
-A number of common tunings for banjo are predefined in LilyPond:
+A number of common tunings for the five-string banjo are predefined:
 @code{banjo-c-tuning} (gCGBD), @code{banjo-modal-tuning} (gDGCD),
 @code{banjo-open-d-tuning} (aDF#AD) and @code{banjo-open-dm-tuning}
 (aDFAD).
 
-These tunings may be converted to four-string banjo tunings using the
+These may be converted to four-string tunings using the
 @code{four-string-banjo} function:
 
 @example
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
 @end example
 
-
 @seealso
 Snippets:
 @rlsr{Fretted strings}.
 
 Installed Files:
-@file{scm/string-tunings-init.scm} contains predefined banjo tunings.
+@file{ly/string-tunings-init.ly}

@@ -31,6 +31,7 @@ public:
   void widen (Real x, Real y);
   void scale (Real r);
   void unite (Box b);
+  void print ();
   Box ();
   Box (Interval ix, Interval iy);
 };

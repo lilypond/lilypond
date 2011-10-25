@@ -56,7 +56,6 @@ ifeq ($(WEB_VERSION),yes)
 else
 	DEPTH=$(depth)/../ AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) --output=$(dir $@) $<
 endif
-	cp $(top-src-dir)/Documentation/css/*.css $(dir $@)
 
 $(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi
 	$(buildscript-dir)/extract_texi_filenames $(XREF_MAP_FLAGS) -o $(XREF_MAPS_DIR) $<

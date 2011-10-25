@@ -114,6 +114,9 @@ manuals_page_link_re = re.compile (r'href="((?:\.\./)+)Documentation/web/manuals
 # Get rid of symlinks in GNUmakefile.in (local-WWW-post)
 # this also fixes missing PNGs only present in translated docs
 def hack_urls (s, prefix, target, is_development_branch):
+    depth = (prefix.count ('/') - 1) * '../'
+    # fix css links
+    s = css_re.sub ('<link \\1href="%(rel)sDocumentation/css/\\2"\\3>' % {'rel': depth}, s)
     if split_docs_re.match (prefix):
         s = lily_snippets_re.sub ('\\1="../\\2"', s)
         s = pictures_re.sub ('src="../\\1"', s)
@@ -149,11 +152,11 @@ body_tag_re = re.compile ('(?i)<body([^>]*)>')
 html_tag_re = re.compile ('(?i)<html>')
 doctype_re = re.compile ('(?i)<!DOCTYPE')
 doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'
-css_re = re.compile ('(?i)<link rel="stylesheet" type="text/css" ([^>]*)href="[^">]*?lilypond.*\.css"([^>]*)>')
+css_re = re.compile ('(?i)<link ([^>]*)href="[^">]*?(lilypond.*\.css)"([^>]*)>')
 end_head_tag_re = re.compile ('(?i)</head>')
-css_link = """    <link rel="stylesheet" type="text/css" title="Default design" href="%(rel)sDocumentation/lilypond-manuals.css">
+css_link = """    <link rel="stylesheet" type="text/css" title="Default design" href="%(rel)sDocumentation/css/lilypond-manuals.css">
     <!--[if lte IE 7]>
-    <link href="%(rel)sDocumentation/lilypond-ie-fixes.css" rel="stylesheet" type="text/css">
+    <link href="%(rel)sDocumentation/css/lilypond-ie-fixes.css" rel="stylesheet" type="text/css">
     <![endif]-->
 """
 

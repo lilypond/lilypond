@@ -345,18 +345,6 @@ messages into errors.")
       (set-module-obarray! iface (module-obarray mod))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (type-check-arg location arg args pred?)
-  "Typecheck an argument after previous arguments.
-Print a message at LOCATION if predicate fails and return #f"
-  (or (pred? arg)
-      (begin
-	(ly:input-warning
-	 location
-	 (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
-	 (1+ (length args)) (type-name pred?) arg)
-	#f)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Safe definitions utility
 
 (define safe-objects
@@ -403,7 +391,8 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     "output-lib.scm"))
 ;;  - Files containing definitions used later by other files later in load
 (define init-scheme-files-used
-  '("markup-macros.scm"))
+  '("markup-macros.scm"
+    "parser-ly-from-scheme.scm"))
 ;;  - Main body of files to be loaded
 (define init-scheme-files-body
   '("file-cache.scm"
@@ -427,7 +416,6 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     "auto-beam.scm"
     "chord-name.scm"
     "bezier-tools.scm"
-    "parser-ly-from-scheme.scm"
     "ly-syntax-constructors.scm"
 
     "define-context-properties.scm"
@@ -535,11 +523,13 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     (,scheme? . "any type")
     (,string-or-pair? . "string or pair")
     (,string-or-symbol? . "string or symbol")
+    (,void? . "void")
     ))
 
 (define-public lilypond-exported-predicates
   `((,ly:box? . "box")
     (,ly:context? . "context")
+    (,ly:context-mod? . "context modification")
     (,ly:dimension? . "dimension, in staff space")
     (,ly:dir? . "direction")
     (,ly:dispatcher? . "dispatcher")
@@ -577,6 +567,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     (,ly:stream-event? . "stream event")
     (,ly:translator? . "translator")
     (,ly:translator-group? . "translator group")
+    (,ly:unpure-pure-container? . "unpure/pure container")
     ))
 
 

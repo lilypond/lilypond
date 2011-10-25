@@ -186,6 +186,8 @@ measure of the closeness of the inner stems.  It is used for damping
 the slope of the beam.")
      (connect-to-neighbor ,pair? "Pair of booleans, indicating whether
 this grob looks as a continued break.")
+     (consistent-broken-slope ,boolean? "Keep a beam's slope across line
+breaks.")
      (control-points ,list? "List of offsets (number pairs) that form
 control points for the tie, slur, or bracket shape.  For B@'eziers,
 this should list the control points of a third-order B@'ezier curve.")
@@ -744,6 +746,7 @@ object.")
      (simple-Y ,boolean? "Should the Y placement of a spanner
 disregard changes in system heights?")
      (size ,number? "Size of object, relative to standard size.")
+     (skip-quanting ,boolean? "Should beam quanting be skipped?")
      (skyline-horizontal-padding ,number? "For determining the
 vertical distance between two staves, it is possible to have a
 configuration which would result in a tight interleaving of grobs from
@@ -913,7 +916,8 @@ polyphonic patterns.")
 spacing problem.")
      (usable-duration-logs ,list? "List of @code{duration-log}s that
 can be used in typesetting the grob.")
-
+     (use-skylines ,boolean? "Should skylines be used for side
+positioning?")
 
 ;;
 ;; v

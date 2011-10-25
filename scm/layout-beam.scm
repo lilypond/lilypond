@@ -60,19 +60,15 @@
 
 
 (define-public (check-quant-callbacks l r)
-  (list ly:beam::calc-least-squares-positions
-	ly:beam::slope-damping
-	ly:beam::shift-region-to-valid
-	ly:beam::quanting
-	(check-beam-quant l r)
-	))
+  (lambda (grob)
+    ((check-beam-quant l r)
+       grob
+       (ly:beam::quanting grob))))
 
 
 (define-public (check-slope-callbacks comparison)
-  (list ly:beam::calc-least-squares-positions
-	ly:beam::slope-damping
-	ly:beam::shift-region-to-valid
-	ly:beam::quanting
-	(check-beam-slope-sign comparison)	
-	))
+  (lambda (grob)
+    ((check-beam-slope-sign comparison)
+       grob
+       (ly:beam::quanting grob))))
 

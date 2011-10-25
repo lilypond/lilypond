@@ -172,7 +172,7 @@ IMPLEMENT_TRANSLATOR_LISTENER (Page_turn_engraver, break);
 void
 Page_turn_engraver::listen_break (Stream_event *ev)
 {
-  string name = ly_scm2string (scm_symbol_to_string (ev->get_property ("class")));
+  string name = ly_symbol2string (ev->get_property ("class"));
 
   if (name == "page-turn-event")
     {

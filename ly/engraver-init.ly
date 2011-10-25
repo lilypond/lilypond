@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.14.0"
+\version "2.15.10"
 
 \context {
   \name "Global"
@@ -794,6 +794,7 @@ context."
                                 (stem-shorten 0 0))
   %% after all, the stubs of the stems may still be visible, so ...
   \override Stem #'transparent = ##t
+  \override Flag #'transparent = ##t
   %% automatic beams should be suppressed for similar reasons ...
   autoBeaming = ##f
   %% remove beams, dots and rests ...

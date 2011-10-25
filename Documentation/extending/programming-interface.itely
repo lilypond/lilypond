@@ -146,19 +146,20 @@ given the correct @code{origin}.
 @end multitable
 
 @noindent
-Some type predicates are specially recognized by the parser and will
-make the parser look for the respective arguments in LilyPond syntax
-rather than in Scheme syntax.  Currently these are @code{ly:music?},
-@code{markup?}, @code{ly:pitch?}, and @code{ly:duration?}.
+Some type predicates are specially handled by the parser since it
+can't recognize the arguments reliably otherwise.  Currently these are
+@code{ly:music?}, @code{ly:pitch?}, and @code{ly:duration?}.
+
+All other predicates can be specified in Scheme syntax if desired
+(introduced with @code{#} or as the result of calling a scheme
+function), but Lilypond will also accept a number of Lilypond
+constructs it can recognize fully without lookahead.  Currently, those
+include simple strings (with or without quotes), context
+modifications, full markups and markup lists.
 
 If you really want to input one of the special items as a Scheme rather
 than a LilyPond expression, you may write them as a Scheme expression
 that calls @code{ly:export} at its outermost level.
-
-Other type predicates, including user-defined ones, will make the
-respective argument only be accepted as a Scheme expression, usually
-introduced with @code{#} or as the result of calling a scheme function
-itself.
 
 For a list of available type predicates, see
 @ruser{Predefined type predicates}.
@@ -205,14 +206,27 @@ appropriately to spare LilyPond from getting confused.
 
 @node Void scheme functions
 @subsection Void scheme functions
+@funindex define-void-function
 
-Sometimes a function is only executed for its side effects.  In that
-case, using a scheme function means that its value will not usually be
-considered:
+Sometimes a procedure is executed in order to perform an action rather
+than return a value.  Some programming languages (like C and Scheme)
+use functions for either concept and just discard the returned value
+(usually by allowing any expression to act as statement, ignoring the
+result).  This is clever but error-prone: most C compilers nowadays
+offer warnings for various non-``void'' expressions being discarded.
+For many functions executing an action, the Scheme standards declare
+the return value to be unspecified.  Lilypond's Scheme interpreter
+Guile has a unique ``unspecified'' value that it usually (such when
+using @code{set!} directly on a variable) but unfortunately not
+consistently returns in such cases.
+
+Defining a Lilypond function with @code{define-void-function} makes
+sure that this special value (the only value satisfying the predicate
+@code{void?}) will be returned.
 
 @example
 noPointAndClick =
-#(define-scheme-function
+#(define-void-function
      (parser location)
      ()
    (ly:set-option 'point-and-click #f))
@@ -450,12 +464,12 @@ lilypond -d display-bar-numbers FILENAME.ly
 @node Void music functions
 @subsection Void music functions
 
-A music function must return a music expression.  If you want to execute
-a function only for its side effect, it might make more sense to use a
-scheme function instead.  But there may be cases where you sometimes
-want to produce a music expression, and sometimes not (like in the
-previous example).  Returning a @code{void} music expression via
-@code{#@{ #@}} will do that.
+A music function must return a music expression.  If you want to
+execute a function only for its side effect, you should use
+@code{define-void-function}.  But there may be cases where you
+sometimes want to produce a music expression, and sometimes not (like
+in the previous example).  Returning a @code{void} music expression
+via @code{#@{ #@}} will achieve that.
 
 @node Event functions
 @section Event functions

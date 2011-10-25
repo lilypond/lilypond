@@ -71,8 +71,13 @@ ly_symbol2string (SCM s)
   /*
     Ugh. this is not very efficient.
   */
-  SCM str = scm_symbol_to_string (s);
-  return ly_scm2string (str);
+  return ly_scm2string (scm_symbol_to_string (s));
+}
+
+string
+robust_symbol2string (SCM sym, string str)
+{
+  return scm_is_symbol (sym) ? ly_symbol2string (sym) : str;
 }
 
 string
@@ -178,7 +183,7 @@ ly_scm_hash (SCM s)
 bool
 is_axis (SCM s)
 {
-  if (scm_is_number (s))
+  if (scm_is_integer (s))
     {
       int i = scm_to_int (s);
       return i == 0 || i == 1;
@@ -226,7 +231,8 @@ is_direction (SCM s)
 Interval
 ly_scm2interval (SCM p)
 {
-  return Interval (scm_to_double (scm_car (p)), scm_to_double (scm_cdr (p)));
+  return Interval (scm_to_double (scm_car (p)),
+                   scm_to_double (scm_cdr (p)));
 }
 
 Drul_array<Real>
@@ -321,19 +327,19 @@ ly_scm2offsets (SCM s)
   ALIST
 */
 
+// This one is used nowhere.
 bool
-alist_equal_p (SCM a, SCM b)
+ly_is_alist_equal (SCM a, SCM b)
 {
-  for (SCM s = a;
-       scm_is_pair (s); s = scm_cdr (s))
+  if (!scm_is_pair (a) || !scm_is_pair (b))
+    return false;
+  for (SCM s = a; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM key = scm_caar (s);
       SCM val = scm_cdar (s);
       SCM l = scm_assoc (key, b);
 
-      if (l == SCM_BOOL_F
-          || !ly_is_equal (scm_cdr (l), val))
-
+      if (scm_is_false (l) || !ly_is_equal (scm_cdr (l), val))
         return false;
     }
   return true;

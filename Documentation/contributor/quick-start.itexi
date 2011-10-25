@@ -263,7 +263,7 @@ Click on the @qq{Get source} button.
 
 This will create a directory called @file{lilypond-git/} within
 your home directory, and will download the source code into that
-directory (around 55Mb).  When the process is finished, the
+directory (around 121Mb).  When the process is finished, the
 @qq{Command output} window will display @qq{Done}, and the button
 label will change to say @qq{Update source}.
 
@@ -283,13 +283,6 @@ You should now progress to @ref{Compiling with lilydev}.
 @warning{Throughout the rest of this manual, most command-line
 input should be entered from @file{~/lilypond-git/}.  This is
 referred to as the @emph{top source directory}.}
-
-@advanced{the @qq{Get source} button does not fetch the entire
-history of the git repository, so utilities like @command{gitk}
-will only be able to display the most recent additions.  As you
-continue to work with @command{lily-git.tcl}, the @qq{Update
-source} button will take any new additions and add it to whatever
-is currently in your repository's history.}
 
 
 @node Daily use of lily-git.tcl

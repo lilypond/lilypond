@@ -13,9 +13,9 @@
 #(whitelist-grob "Stem")
 #(whitelist-grob "Flag")
 
-#(map whitelist-symbol '(stencil style duration-log
-			 stem-attachment end-position staff-position
-			 glyph-name direction))
+#(for-each whitelist-symbol '(stencil style duration-log
+			      stem-attachment end-position staff-position
+			      glyph-name direction))
 
 
 \book { \score {

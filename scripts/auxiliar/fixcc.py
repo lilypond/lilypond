@@ -31,6 +31,7 @@ import re
 import string
 import sys
 import time
+import subprocess
 
 COMMENT = 'COMMENT'
 STRING = 'STRING'
@@ -38,6 +39,8 @@ GLOBAL_CXX = 'GC++'
 CXX = 'C++'
 verbose_p = 0
 indent_p = 1
+REQUIRED_ASTYLE_VERSION = "Artistic Style Version 2.02"
+
 
 rules = {
     GLOBAL_CXX:
@@ -392,6 +395,14 @@ def do_options ():
         sys.exit (2)
     return files
 
+def check_astyle_version():
+    cmd = "astyle --version"
+    process = subprocess.Popen(cmd, shell=True, stderr=subprocess.PIPE)
+    stdout, stderr = process.communicate()
+    if REQUIRED_ASTYLE_VERSION in stderr:
+        return True
+    return False
+
 
 outdir = 0
 format = CXX
@@ -399,6 +410,10 @@ socketdir = '/tmp/fixcc'
 socketname = 'fixcc%d' % os.getpid ()
 
 def main ():
+    if not check_astyle_version():
+        print "Error: we require %s" % REQUIRED_ASTYLE_VERSION
+        print "Sorry, no higher (or lower) versions allowed"
+        sys.exit(1)
     files = do_options ()
     if outdir and not os.path.isdir (outdir):
         os.makedirs (outdir)

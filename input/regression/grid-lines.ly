@@ -5,7 +5,7 @@
 staves synchronized with the notes."
 
 }
-\version "2.14.0"
+\version "2.15.10"
 
 skips =
 {
@@ -74,6 +74,7 @@ skips =
     \override NoteHead #'transparent = ##t
     \override NoteHead #'no-ledgers = ##t
     \override Stem #'transparent = ##t
+    \override Flag #'transparent = ##t
     \override Flag #'transparent = ##t
     \override Beam #'transparent = ##t
     << \skips

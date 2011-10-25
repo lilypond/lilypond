@@ -422,7 +422,7 @@ def write_file_map (lys, name):
 #(define output-empty-score-list #f)
 #(ly:add-file-name-alist '(%s
     ))\n
-""" % '\n'.join(['("%s.ly" . "%s")\n' % (ly.basename (), name)
+""" % '\n'.join(['("%s.ly" . "%s")\n' % (ly.basename ().replace('\\','/'), name)
                  for ly in lys]))
 
 def split_output_files(directory):

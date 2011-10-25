@@ -37,4 +37,5 @@
     (absolute-closeness-measure . 0.3)
     (edge-slope-exponent . 1.7)
     (close-to-edge-length . 2.5)
+    (encompass-object-range-overshoot . 0.5)
     ))

@@ -1762,11 +1762,11 @@ So this turns off extra naturals in one staff:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais2 aes
+    aeses2 aes
   }
   \new Staff \relative c'' {
     \set Staff.extraNatural = ##f
-    ais2 aes
+    aeses2 aes
   }
 >>
 @end lilypond
@@ -1777,11 +1777,11 @@ and this turns them off in all staves:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais2 aes
+    aeses2 aes
   }
   \new Staff \relative c'' {
     \set Score.extraNatural = ##f
-    ais2 aes
+    aeses2 aes
   }
 >>
 @end lilypond
@@ -1852,12 +1852,12 @@ like this:
 <<
   \new Staff {
     \relative c'' {
-      gis4 ges aes ais
+      gisis4 gis aeses aes
     }
   }
   \new Staff \with { extraNatural = ##f } {
     \relative c'' {
-      gis4 ges aes ais
+      gisis4 gis aeses aes
     }
   }
 >>
@@ -1895,7 +1895,7 @@ throughout the @code{\score} or @code{\book} block in which the
 \score {
   \new Staff {
     \relative c'' {
-      cis4 e d ces
+      cisis4 e d cis
     }
   }
   \layout {
@@ -1915,12 +1915,12 @@ within the score:
   <<
     \new Staff {
       \relative c'' {
-        gis4 ges aes ais
+        gisis4 gis aeses aes
       }
     }
     \new Staff {
       \relative c'' {
-        gis4 ges aes ais
+        gisis4 gis aeses aes
       }
     }
   >>

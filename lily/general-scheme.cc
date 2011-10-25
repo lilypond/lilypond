@@ -107,7 +107,7 @@ LY_DEFINE (ly_dir_p, "ly:dir?",
            " left or down, @code{1}@tie{}represents right or up, and @code{0}"
            " represents a neutral direction.")
 {
-  if (scm_is_number (s))
+  if (scm_is_integer (s))
     {
       int i = scm_to_int (s);
       return (i >= -1 && i <= 1) ? SCM_BOOL_T : SCM_BOOL_F;

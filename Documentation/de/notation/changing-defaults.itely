@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.10"
 
 @c Translators: Till Paala
 
@@ -802,6 +802,7 @@ in Jazzmusik anzuzeigen.
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t
+  \override Flag #'transparent = ##t
   \alias Voice
 }
 \context { \Staff
@@ -871,6 +872,7 @@ Die Noten sehen wie ein Querstrich aus und haben keine Hälse:
 @example
 \override NoteHead #'style = #'slash
 \override Stem #'transparent = ##t
+\override Flag #'transparent = ##t
 @end example
 
 Alle diese Engraver müssen zusammenarbeiten, und das wird erreicht mit
@@ -893,6 +895,7 @@ Alles zusammen haben wir folgende Einstellungen:
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t
+  \override Flag #'transparent = ##t
   \alias Voice
 @}
 @end example

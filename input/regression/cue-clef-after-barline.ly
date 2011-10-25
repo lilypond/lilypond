@@ -1,4 +1,4 @@
-\version "2.13.63"
+\version "2.14.0"
 
 instrument = \relative c' {
   \repeat unfold 40 { c8 }
@@ -25,7 +25,7 @@ Solo = \relative c' {
   c2 c2 |
   
   % Revert back to default
-  \revert Score.BarLine #'space-alist #'cue-clef 
+  \revert Score.BarLine #'(space-alist cue-clef)
   \revert Score.BreakAlignment #'break-align-orders
   \cueDuringWithClef #"instrQuote" #UP #"bass" { R1 }
   c2 c2 |

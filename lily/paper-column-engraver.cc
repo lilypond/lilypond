@@ -163,7 +163,7 @@ Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
     {
       string prefix;
       SCM name_sym = break_events_[i]->get_property ("class");
-      string name = ly_scm2string (scm_symbol_to_string (name_sym));
+      string name = ly_symbol2string (name_sym);
       size_t end = name.rfind ("-event");
       if (end)
         prefix = name.substr (0, end);

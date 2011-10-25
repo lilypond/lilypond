@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.10"
 
 @c Translators: Valentin Villenave, Nicolas Klutchnikoff, Damien Heurtebise
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -3095,6 +3095,7 @@ rhMusic = \relative c'' {
         \stemDown
         % Stem on the d2 should be invisible
         \once \override Stem #'transparent = ##t
+        \once \override Flag #'transparent = ##t
         d2
       }
       \new Voice {
@@ -3535,6 +3536,7 @@ rhMusic = \relative c'' {
         \stemDown
         % Stem on the d2 should be invisible
         \once \override Stem #'transparent = ##t
+        \once \override Flag #'transparent = ##t
         d2
       }
       \new Voice {
@@ -3621,6 +3623,7 @@ on a alors l'impression que la liaison couvre les deux voix.
 <<
   {
     \once \override Stem #'transparent = ##t
+    \once \override Flag #'transparent = ##t
     b8~ b\noBeam
   }
 \\
@@ -3636,6 +3639,7 @@ réglant la longueur (@code{length}) sur @code{8},
 <<
   {
     \once \override Stem #'transparent = ##t
+    \once \override Flag #'transparent = ##t
     \once \override Stem #'length = #8
     b8~ b8\noBeam
   }

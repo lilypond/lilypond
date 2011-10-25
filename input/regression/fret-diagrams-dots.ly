@@ -44,7 +44,7 @@ size, and coloring.
                                      (barre 5 1 3))}
 
      %% C major for guitar, verbose style
-    \revert TextScript #'fret-diagram-details #'dot-radius
+    \revert TextScript #'(fret-diagram-details dot-radius)
     \once \override TextScript #'fret-diagram-details 
         #'dot-color = #'white
     c' ^\markup {

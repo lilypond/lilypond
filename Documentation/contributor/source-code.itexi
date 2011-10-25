@@ -947,8 +947,11 @@ LilyDev users should perform these @q{configuration} instructions.
 
 @enumerate
 @item
-You must have a gmail account; please create one if you do not
+You must have a google account; please create one if you do not
 have one already.
+
+Note that a google account does not need to be a gmail account; you can
+use any email address for your google account when you sign up.
 
 @item
 Move into the top source directory and then configure @command{git
@@ -990,6 +993,13 @@ If you have git push ability, make sure that you @emph{remove}
 your patch (with @command{git rebase} or @command{git reset})
 before pushing other stuff.
 
+@c don't make this one an @example; we don't want to make it easy
+@c for people to use this accidently
+Notifications of patches are automatically added to our issue
+tracker to reduce the chance of patches getting lost.  To suppress
+this (not recommended), add the @code{-n / --no-code-issue}
+option.
+
 @item
 @strong{Separate branch}: (complicated option)
 
@@ -1024,9 +1034,9 @@ patch set will be posted to Rietveld, and you will be given a URL
 for your patch.
 
 @warning{Some installations of git-cl fail when uploading a patch
-set that includes a .scm file.  When this happens, it can
-generally be fixed by editing the file @file{/etc/mime.types}.
-Add a line to this file containing @code{text/x-script.scheme scm}.}
+with certain filename extensions.  If this happens, it can
+generally be fixed by editing the list of exceptions at top of
+@file{git-cl.py}.}
 
 @subsubheading Announcing your patch set
 

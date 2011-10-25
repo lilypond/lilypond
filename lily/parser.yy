@@ -58,12 +58,15 @@ or
 
 %right FUNCTION_ARGUMENTS
       MARKUP LYRICS_STRING MARKUP_IDENTIFIER STRING STRING_IDENTIFIER
+      MARKUPLINES WITH CONTEXT_MOD_IDENTIFIER MARKUPLINES_IDENTIFIER
+      SCORE BOOK BOOKPART PAPER LAYOUT MIDI
       SEQUENTIAL SIMULTANEOUS DOUBLE_ANGLE_OPEN MUSIC_IDENTIFIER '{'
       PITCH_IDENTIFIER NOTENAME_PITCH TONICNAME_PITCH
       SCM_FUNCTION SCM_IDENTIFIER SCM_TOKEN
       UNSIGNED DURATION_IDENTIFIER
       CHORDMODE CHORDS DRUMMODE DRUMS FIGUREMODE FIGURES LYRICMODE LYRICS
       NOTEMODE
+      CONTEXT TIMES NEWCONTEXT
 
  /* The above are the symbols that can start function arguments */
 
@@ -116,6 +119,15 @@ using namespace std;
 #include "text-interface.hh"
 #include "warn.hh"
 
+#define MYBACKUP(Token, Value, Location)				\
+	do								\
+		if (yychar == YYEMPTY)					\
+			PARSER->lexer_->push_extra_token (Token, Value); \
+		else							\
+			PARSER->parser_error				\
+				(Location, _("cannot backup token"));	\
+	while (0)
+
 %}
 
 
@@ -141,7 +153,11 @@ using namespace std;
   scm_apply_0 (proc, args)
 /* Syntactic Sugar. */
 #define MAKE_SYNTAX(name, location, ...)	\
-  LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (PARSER->self_scm (), make_input (location), __VA_ARGS__, SCM_UNDEFINED));
+  LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (PARSER->self_scm (), make_input (location), ##__VA_ARGS__, SCM_UNDEFINED));
+#define START_MAKE_SYNTAX(name, ...)					\
+	scm_list_n (ly_lily_module_constant (name), ##__VA_ARGS__, SCM_UNDEFINED)
+#define FINISH_MAKE_SYNTAX(start, location, ...)			\
+	LOWLEVEL_MAKE_SYNTAX (scm_car (start), scm_cons2 (PARSER->self_scm (), make_input (location), scm_append_x (scm_list_2 (scm_cdr (start), scm_list_n (__VA_ARGS__, SCM_UNDEFINED)))))
 
 SCM get_next_unique_context_id ();
 SCM get_next_unique_lyrics_context_id ();
@@ -156,7 +172,6 @@ SCM get_next_unique_lyrics_context_id ();
 
 
 static Music *make_music_with_input (SCM name, Input where);
-SCM run_music_function (Lily_parser *parser, Input loc, SCM func, SCM args);
 SCM check_scheme_arg (Lily_parser *parser, Input loc, SCM fallback,
 		      SCM arg, SCM args, SCM pred);
 SCM loc_on_music (Input loc, SCM arg);
@@ -164,6 +179,7 @@ SCM get_first_context_id (SCM type, Music *m);
 SCM make_chord_elements (SCM pitch, SCM dur, SCM modification_list);
 SCM make_chord_step (int step, Rational alter);
 SCM make_simple_markup (SCM a);
+SCM try_unpack_lyrics (SCM pred, SCM arg);
 bool is_duration (int t);
 bool is_regular_identifier (SCM id);
 bool ly_input_procedure_p (SCM x);
@@ -277,10 +293,10 @@ If we give names, Bison complains.
 
 /* Artificial tokens, for more generic function syntax */
 %token <i> EXPECT_MARKUP "markup?"
-%token <i> EXPECT_MUSIC "ly:music?"
 %token <i> EXPECT_PITCH "ly:pitch?"
 %token <i> EXPECT_DURATION "ly:duration?"
 %token <scm> EXPECT_SCM "scheme?"
+%token <scm> SKIPPED_SCM "(scheme?)"
 %token <i> EXPECT_MARKUP_LIST "markup-list?"
 %token <scm> EXPECT_OPTIONAL "optional?"
 /* After the last argument. */
@@ -345,7 +361,9 @@ If we give names, Bison complains.
 %type <scm> braced_music_list
 %type <scm> closed_music
 %type <scm> music
+%type <scm> music_bare
 %type <scm> complex_music
+%type <scm> complex_music_prefix
 %type <scm> mode_changed_music
 %type <scm> repeated_music
 %type <scm> sequential_music
@@ -402,7 +420,10 @@ If we give names, Bison complains.
 %type <scm> direction_less_char
 %type <scm> duration_length
 %type <scm> embedded_scm
+%type <scm> embedded_scm_arg
+%type <scm> embedded_scm_arg_closed
 %type <scm> embedded_scm_bare
+%type <scm> embedded_scm_bare_arg
 %type <scm> embedded_scm_closed
 %type <scm> embedded_scm_chord_body
 %type <scm> embedded_scm_event
@@ -569,6 +590,36 @@ embedded_scm_bare:
 	| SCM_IDENTIFIER
 	;
 
+embedded_scm_bare_arg:
+	embedded_scm_bare
+	| STRING
+	| STRING_IDENTIFIER
+	| full_markup
+	| full_markup_list
+	| context_modification
+	| score_block
+	{
+		$$ = $1->self_scm ();
+		$1->unprotect ();
+	}
+	| context_def_spec_block
+	| book_block
+	{
+		$$ = $1->self_scm ();
+		$1->unprotect ();
+	}
+	| bookpart_block
+	{
+		$$ = $1->self_scm ();
+		$1->unprotect ();
+	}
+	| output_def
+	{
+		$$ = $1->self_scm ();
+		$1->unprotect ();
+	}
+	;
+
 /* The generic version may end in music, or not */
 
 embedded_scm:
@@ -576,15 +627,24 @@ embedded_scm:
 	| scm_function_call
 	;
 
+embedded_scm_arg:
+	embedded_scm_bare_arg
+	| scm_function_call
+	| music
+	;
+
 scm_function_call:
 	SCM_FUNCTION function_arglist {
-		$$ = run_music_function (PARSER, @$,
+		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
 	;
 
 embedded_lilypond:
-	{ $$ = MAKE_SYNTAX ("void-music", @$, SCM_UNDEFINED); }
+	/* empty */
+	{
+		$$ = MAKE_SYNTAX ("void-music", @$);
+	}
 	| identifier_init
 	| music music music_list {
 		$$ = MAKE_SYNTAX ("sequential-music", @$,	
@@ -1026,7 +1086,7 @@ braced_music_list:
 
 music:
 	simple_music
-	| composite_music
+	| composite_music %prec FUNCTION_ARGUMENTS
 	;
 
 
@@ -1107,11 +1167,19 @@ context_mod_list:
 
 composite_music:
 	complex_music
-	| closed_music
+	| music_bare
 	;
 
-/* Music that can't be followed by additional events or durations */
+/* Music that can be parsed without lookahead */
 closed_music:
+	music_bare
+	| complex_music_prefix closed_music
+	{
+		$$ = FINISH_MAKE_SYNTAX ($1, @$, $2);
+	}
+	;
+
+music_bare:
 	mode_changed_music
 	| MUSIC_IDENTIFIER
 	| grouped_music_list
@@ -1122,38 +1190,32 @@ grouped_music_list:
 	| sequential_music		{ $$ = $1; }
 	;
 
-/* An argument list. If a function \foo expects scm scm music, then the lexer expands \foo into the token sequence:
- MUSIC_FUNCTION EXPECT_MUSIC EXPECT_SCM EXPECT_SCM EXPECT_NO_MORE_ARGS
+/* An argument list. If a function \foo expects scm scm pitch, then the lexer expands \foo into the token sequence:
+ MUSIC_FUNCTION EXPECT_PITCH EXPECT_SCM EXPECT_SCM EXPECT_NO_MORE_ARGS
 and this rule returns the reversed list of arguments. */
 
 
 function_arglist:
 	function_arglist_bare
-	| EXPECT_MUSIC function_arglist_optional music
+	| EXPECT_SCM function_arglist_optional embedded_scm_arg
 	{
-		$$ = scm_cons ($3, $2);
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_optional embedded_scm
+	| EXPECT_SCM function_arglist_optional SKIPPED_SCM
 	{
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED, $3, $2, $1);
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+				       $3, $2, $1);
 	}
 	;
 
 function_arglist_optional:
 	function_arglist_keep %prec FUNCTION_ARGUMENTS
-	| EXPECT_OPTIONAL EXPECT_MUSIC function_arglist_optional
-	{
-		$$ = scm_cons (loc_on_music (@3, $1), $3);
-	}
 	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_optional
 	{
 		$$ = scm_cons ($1, $3);
 	}
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_optional
-	{
-		$$ = scm_cons ($1, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_MARKUP function_arglist_optional
 	{
 		$$ = scm_cons ($1, $3);
 	}
@@ -1164,29 +1226,26 @@ function_arglist_optional:
 	;
 
 function_arglist_keep:
-	EXPECT_OPTIONAL EXPECT_MARKUP function_arglist_keep full_markup {
-		$$ = scm_cons ($4, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_MARKUP function_arglist_keep simple_string {
-		$$ = scm_cons ($4, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_keep pitch_also_in_chords {
+	EXPECT_OPTIONAL EXPECT_PITCH function_arglist_keep pitch_also_in_chords {
 		$$ = scm_cons ($4, $3);
 	}
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed_keep duration_length {
 		$$ = scm_cons ($4, $3);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep simple_string
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep embedded_scm_arg_closed
 	{
-		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
-	}
-	| EXPECT_OPTIONAL EXPECT_MUSIC function_arglist_keep closed_music
-	{
-		$$ = scm_cons ($4, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep embedded_scm
-	{
-		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			$$ = scm_cons ($4, $3);
+		} else {
+			$$ = try_unpack_lyrics ($2, $4);
+			if (!SCM_UNBNDP ($$))
+				$$ = scm_cons ($$, $3);
+			else {
+				$$ = scm_cons (loc_on_music (@3, $1), $3);
+				MYBACKUP (SKIPPED_SCM, $4, @4);
+			}
+		}
 	}
 	| function_arglist
 	;
@@ -1194,31 +1253,25 @@ function_arglist_keep:
 
 function_arglist_closed:
 	function_arglist_bare
-	| EXPECT_MUSIC function_arglist_optional closed_music
+	| EXPECT_SCM function_arglist_optional embedded_scm_arg_closed
 	{
-		$$ = scm_cons ($3, $2);
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_optional embedded_scm_closed
+	| EXPECT_SCM function_arglist_optional SKIPPED_SCM
 	{
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED, $3, $2, $1);
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+				       $3, $2, $1);
 	}
 	;
 
 function_arglist_closed_optional:
 	function_arglist_closed_keep %prec FUNCTION_ARGUMENTS
-	| EXPECT_OPTIONAL EXPECT_MUSIC function_arglist_closed_optional
-	{
-		$$ = scm_cons (loc_on_music (@3, $1), $3);
-	}
 	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_closed_optional
 	{
 		$$ = scm_cons ($1, $3);
 	}
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed_optional
-	{
-		$$ = scm_cons ($1, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_MARKUP function_arglist_closed_optional
 	{
 		$$ = scm_cons ($1, $3);
 	}
@@ -1229,29 +1282,26 @@ function_arglist_closed_optional:
 	;
 
 function_arglist_closed_keep:
-	EXPECT_OPTIONAL EXPECT_MARKUP function_arglist_keep full_markup {
-		$$ = scm_cons ($4, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_MARKUP function_arglist_keep simple_string {
-		$$ = scm_cons ($4, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_keep pitch_also_in_chords {
+	EXPECT_OPTIONAL EXPECT_PITCH function_arglist_keep pitch_also_in_chords {
 		$$ = scm_cons ($4, $3);
 	}
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed_keep duration_length {
 		$$ = scm_cons ($4, $3);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep simple_string
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep embedded_scm_arg_closed
 	{
-		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
-	}
-	| EXPECT_OPTIONAL EXPECT_MUSIC function_arglist_keep closed_music
-	{
-		$$ = scm_cons ($4, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep embedded_scm_closed
-	{
-		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			$$ = scm_cons ($4, $3);
+		} else {
+			$$ = try_unpack_lyrics ($2, $4);
+			if (!SCM_UNBNDP ($$))
+				$$ = scm_cons ($$, $3);
+			else {
+				$$ = scm_cons (loc_on_music (@3, $1), $3);
+				MYBACKUP (SKIPPED_SCM, $4, @4);
+			}
+		}
 	}
 	| function_arglist_closed
 	;
@@ -1261,9 +1311,15 @@ embedded_scm_closed:
 	| scm_function_call_closed
 	;
 
+embedded_scm_arg_closed:
+	embedded_scm_bare_arg
+	| scm_function_call_closed
+	| closed_music
+	;
+
 scm_function_call_closed:
 	SCM_FUNCTION function_arglist_closed {
-		$$ = run_music_function (PARSER, @$,
+		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
 	;
@@ -1272,26 +1328,17 @@ function_arglist_bare:
 	EXPECT_NO_MORE_ARGS {
 		$$ = SCM_EOL;
 	}
-	| EXPECT_MARKUP function_arglist_optional full_markup {
-		$$ = scm_cons ($3, $2);
-	}
-	| EXPECT_MARKUP function_arglist_optional simple_string {
-		$$ = scm_cons ($3, $2);
-	}
 	| EXPECT_PITCH function_arglist_optional pitch_also_in_chords {
 		$$ = scm_cons ($3, $2);
 	}
 	| EXPECT_DURATION function_arglist_closed_optional duration_length {
 		$$ = scm_cons ($3, $2);
 	}
-	| EXPECT_SCM function_arglist_optional simple_string {
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED, $3, $2, $1);
-	}
 	;
 
 music_function_call:
 	MUSIC_FUNCTION function_arglist {
-		$$ = run_music_function (PARSER, @$,
+		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
 	;
@@ -1306,26 +1353,32 @@ optional_id:
 
 complex_music:
 	music_function_call
-	| CONTEXT simple_string optional_id optional_context_mod music {
-                Context_mod *ctxmod = unsmob_context_mod ($4);
-                SCM mods = SCM_EOL;
-                if (ctxmod)
-                        mods = ctxmod->get_mods ();
-		$$ = MAKE_SYNTAX ("context-specification", @$, $2, $3, $5, mods, SCM_BOOL_F);
-	}
-	| NEWCONTEXT simple_string optional_id optional_context_mod music {
-                Context_mod *ctxmod = unsmob_context_mod ($4);
-                SCM mods = SCM_EOL;
-                if (ctxmod)
-                        mods = ctxmod->get_mods ();
-		$$ = MAKE_SYNTAX ("context-specification", @$, $2, $3, $5, mods, SCM_BOOL_T);
-	}
-
-	| TIMES fraction music {
-                $$ = MAKE_SYNTAX ("time-scaled-music", @$, $2, $3);
-	}
 	| repeated_music		{ $$ = $1; }
 	| re_rhythmed_music	{ $$ = $1; }
+	| complex_music_prefix music
+	{
+		$$ = FINISH_MAKE_SYNTAX ($1, @$, $2);
+	}
+	;
+
+complex_music_prefix:
+	CONTEXT simple_string optional_id optional_context_mod {
+                Context_mod *ctxmod = unsmob_context_mod ($4);
+                SCM mods = SCM_EOL;
+                if (ctxmod)
+                        mods = ctxmod->get_mods ();
+		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_F);
+	}
+	| NEWCONTEXT simple_string optional_id optional_context_mod {
+                Context_mod *ctxmod = unsmob_context_mod ($4);
+                SCM mods = SCM_EOL;
+                if (ctxmod)
+                        mods = ctxmod->get_mods ();
+		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_T);
+	}
+	| TIMES fraction {
+                $$ = START_MAKE_SYNTAX ("time-scaled-music", $2);
+	}
 	;
 
 mode_changed_music:
@@ -1345,7 +1398,7 @@ mode_changed_music:
                 SCM mods = SCM_EOL;
                 if (ctxmod)
                         mods = ctxmod->get_mods ();
-		$$ = MAKE_SYNTAX ("context-specification", @$, $1, SCM_EOL, $3, mods, SCM_BOOL_T);
+		$$ = MAKE_SYNTAX ("context-specification", @$, $1, SCM_EOL, mods, SCM_BOOL_T, $3);
 		if ($1 == ly_symbol2scm ("ChordNames"))
 		{
 		  $$ = MAKE_SYNTAX ("unrelativable-music", @$, $$);
@@ -1415,7 +1468,7 @@ mode_changing_head_with_context:
 new_lyrics:
 	ADDLYRICS { PARSER->lexer_->push_lyric_state (); }
 	/*cont */
-	closed_music {
+	composite_music {
 	/* Can also use music at the expensive of two S/Rs similar to
            \repeat \alternative */
 		PARSER->lexer_->pop_state ();
@@ -1424,16 +1477,16 @@ new_lyrics:
 	}
 	| new_lyrics ADDLYRICS {
 		PARSER->lexer_->push_lyric_state ();
-	} closed_music {
+	} composite_music {
 		PARSER->lexer_->pop_state ();
 		$$ = scm_cons ($4, $1);
 	}
 	;
 
 re_rhythmed_music:
-	closed_music new_lyrics {
+	composite_music new_lyrics {
 		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
-	}
+	} %prec FUNCTION_ARGUMENTS
 	| LYRICSTO simple_string {
 		PARSER->lexer_->push_lyric_state ();
 	} music {
@@ -1741,25 +1794,26 @@ chord_body_element:
 
 music_function_chord_body_arglist:
 	function_arglist_bare
-	| EXPECT_MUSIC music_function_chord_body_arglist chord_body_element {
-		$$ = scm_cons ($3, $2);
-	}
-	| EXPECT_SCM function_arglist_optional embedded_scm_chord_body {
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED, $3, $2, $1);
+	| EXPECT_SCM music_function_chord_body_arglist embedded_scm_chord_body
+	{
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+				       $3, $2, $1);
 	}
 	;
 
 embedded_scm_chord_body:
-	embedded_scm_bare
+	embedded_scm_bare_arg
 	| SCM_FUNCTION music_function_chord_body_arglist {
-		$$ = run_music_function (PARSER, @$,
+		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
+	| chord_body_element
+	| SKIPPED_SCM
 	;
 
 music_function_chord_body:
 	MUSIC_FUNCTION music_function_chord_body_arglist {
-		$$ = run_music_function (PARSER, @$,
+		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
 	;
@@ -1771,32 +1825,33 @@ music_function_chord_body:
  */
 music_function_event_arglist:
 	function_arglist_bare
-	| EXPECT_MUSIC music_function_event_arglist post_event {
-		$$ = scm_cons ($3, $2);
-	}
-	| EXPECT_SCM function_arglist_optional embedded_scm_event {
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED, $3, $2, $1);
+	| EXPECT_SCM music_function_event_arglist embedded_scm_event
+	{
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+				       $3, $2, $1);
 	}
 	;
 
 embedded_scm_event:
-	embedded_scm_bare
+	embedded_scm_bare_arg
 	| SCM_FUNCTION music_function_event_arglist {
-		$$ = run_music_function (PARSER, @$,
+		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
+	| post_event
+	| SKIPPED_SCM
 	;
 
 music_function_event:
 	MUSIC_FUNCTION music_function_event_arglist {
-		$$ = run_music_function (PARSER, @$,
+		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
 	;
 
 event_function_event:
 	EVENT_FUNCTION music_function_event_arglist {
-		$$ = run_music_function (PARSER, @$,
+		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
 	;
@@ -1816,7 +1871,7 @@ command_element:
 		$$ = m->unprotect ();
 	}
 	| E_BACKSLASH {
-		$$ = MAKE_SYNTAX ("voice-separator", @$, SCM_UNDEFINED);
+		$$ = MAKE_SYNTAX ("voice-separator", @$);
 	}
 	| '|'      {
 		SCM pipe = PARSER->lexer_->lookup_identifier ("pipeSymbol");
@@ -1829,7 +1884,7 @@ command_element:
 			$$ = m->unprotect ();
 		}
 		else
-			$$ = MAKE_SYNTAX ("bar-check", @$, SCM_UNDEFINED);
+			$$ = MAKE_SYNTAX ("bar-check", @$);
 
 	}
 	| TIME_T fraction  {
@@ -2846,44 +2901,26 @@ get_next_unique_lyrics_context_id ()
 	return scm_from_locale_string (s);
 }
 
-
-SCM
-run_music_function (Lily_parser *parser, Input loc, SCM func, SCM args)
-{
-	SCM sig = scm_object_property (func, ly_symbol2scm ("music-function-signature"));
-
-	args = scm_reverse_x (args, SCM_EOL);
-
-	SCM fallback = SCM_BOOL_F;
-	SCM pred = scm_car (sig);
-
-	if (scm_is_pair (pred))
-	{
-		fallback = loc_on_music (loc, scm_cdr (pred));
-		pred = scm_car (pred);
-	}
-
-	SCM syntax_args = scm_list_n (parser->self_scm (), make_input (loc), pred, fallback, func, args, SCM_UNDEFINED);
-	return LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("music-function"), syntax_args);
-}
-
-SCM check_scheme_arg (Lily_parser *parser, Input loc, SCM fallback,
+SCM check_scheme_arg (Lily_parser *my_lily_parser, Input loc, SCM fallback,
 		      SCM arg, SCM args, SCM pred)
 {
-	SCM type_check_arg = ly_lily_module_constant ("type-check-arg");
-	if (scm_is_false (scm_call_4 (type_check_arg, make_input (loc),
-				      arg, args, pred)))
-	{
-		if (SCM_UNBNDP (fallback))
-			fallback = SCM_BOOL_F;
-		else
-			fallback = loc_on_music (loc, fallback);
-			
-		parser->error_level_ = 1;
-
-		return scm_cons (fallback, args);
+	SCM unwrap = SCM_UNDEFINED;
+	if (scm_is_true (scm_call_1 (pred, arg)))
+		return scm_cons (arg, args);
+	unwrap = try_unpack_lyrics (pred, arg);
+	if (!SCM_UNBNDP (unwrap))
+		return scm_cons (unwrap, args);
+	if (SCM_UNBNDP (fallback)) {
+		args = scm_cons (SCM_BOOL_F, args);
+		fallback = SCM_BOOL_F;
+	} else {
+		args = scm_cons (loc_on_music (loc, fallback), args);
+		fallback = SCM_CDR (scm_last_pair (args));
 	}
-	return scm_cons (arg, args);
+	scm_set_cdr_x (scm_last_pair (args), SCM_EOL);
+	MAKE_SYNTAX ("argument-error", loc, scm_length (args), pred, arg);
+	scm_set_cdr_x (scm_last_pair (args), fallback);
+	return args;
 }
 
 SCM loc_on_music (Input loc, SCM arg)
@@ -2977,6 +3014,17 @@ make_chord_elements (SCM pitch, SCM dur, SCM modification_list)
 	return scm_call_3 (chord_ctor, pitch, dur, modification_list);
 }
 
+SCM
+try_unpack_lyrics (SCM pred, SCM arg)
+{
+	if (Music *m = unsmob_music (arg))
+		if (m->is_mus_type ("lyric-event")) {
+			SCM text = m->get_property ("text");
+			if (scm_is_true (scm_call_1 (pred, text)))
+					return text;
+			}
+	return SCM_UNDEFINED;
+}	
 
 /* Todo: actually also use apply iso. call too ...  */
 bool

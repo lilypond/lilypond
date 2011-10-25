@@ -58,11 +58,7 @@ rossBeams = \relative c'' {
 
 #(define (<> x y) (not (= x  y)))
 \new Voice {
-  \override Beam #'positions = #(ly:make-simple-closure
-				 (ly:make-simple-closure
-				  (append
-				   (list chain-grob-member-functions `(,cons 0 0))
-				   (check-slope-callbacks =))))
+  \override Beam #'positions = #(check-slope-callbacks =)
   \rossBeams
   
 }

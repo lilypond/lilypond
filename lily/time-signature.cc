@@ -66,7 +66,7 @@ Time_signature::print (SCM smob)
 Stencil
 Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
 {
-  string style = ly_scm2string (scm_symbol_to_string (scm_style));
+  string style = robust_symbol2string (scm_style, "default");
 
   if (style == "numbered")
     return numbered_time_signature (me, n, d);

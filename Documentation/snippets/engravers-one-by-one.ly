@@ -72,6 +72,7 @@ line, etc. form a @code{Staff} context.
 } % begin verbatim
 
 
+
 %% sample music
 topVoice = \relative c' {
   \key d \major
@@ -79,8 +80,7 @@ topVoice = \relative c' {
   b4
   b16[-. b-. b-. cis-.]
   d4->
-} % begin verbatim
-
+}
 
 botVoice = \relative c' {
   \key d \major

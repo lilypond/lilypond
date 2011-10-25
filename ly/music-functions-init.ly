@@ -38,13 +38,13 @@ acciaccatura =
 %% keep these two together
 "instrument-definitions" = #'()
 addInstrumentDefinition =
-#(define-scheme-function
+#(define-void-function
    (parser location name lst) (string? list?)
    (_i "Create instrument @var{name} with properties @var{list}.")
    (set! instrument-definitions (acons name lst instrument-definitions)))
 
 addQuote =
-#(define-scheme-function (parser location name music) (string? ly:music?)
+#(define-void-function (parser location name music) (string? ly:music?)
    (_i "Define @var{music} as a quotable music expression named
 @var{name}")
    (add-quotable parser name music))
@@ -124,23 +124,13 @@ appoggiatura =
 assertBeamQuant =
 #(define-music-function (parser location l r) (pair? pair?)
    (_i "Testing function: check whether the beam quants @var{l} and @var{r} are correct")
-   (make-grob-property-override 'Beam 'positions
-				(ly:make-simple-closure
-				 (ly:make-simple-closure
-				  (append
-				   (list chain-grob-member-functions `(,cons 0 0))
-				   (check-quant-callbacks l r))))))
+   (make-grob-property-override 'Beam 'positions (check-quant-callbacks l r)))
 
 % for regression testing purposes.
 assertBeamSlope =
 #(define-music-function (parser location comp) (procedure?)
    (_i "Testing function: check whether the slope of the beam is the same as @code{comp}")
-   (make-grob-property-override 'Beam 'positions
-				(ly:make-simple-closure
-				 (ly:make-simple-closure
-				  (append
-				   (list chain-grob-member-functions `(,cons 0 0))
-				   (check-slope-callbacks comp))))))
+   (make-grob-property-override 'Beam 'positions (check-slope-callbacks comp)))
 
 autochange =
 #(define-music-function (parser location music) (ly:music?)
@@ -194,12 +184,12 @@ bendAfter =
 	       'delta-step delta))
 
 bookOutputName =
-#(define-scheme-function (parser location newfilename) (string?)
+#(define-void-function (parser location newfilename) (string?)
    (_i "Direct output for the current book block to @var{newfilename}.")
    (set! book-filename newfilename))
 
 bookOutputSuffix =
-#(define-scheme-function (parser location newsuffix) (string?)
+#(define-void-function (parser location newsuffix) (string?)
    (_i "Set the output filename suffix for the current book block to
 @var{newsuffix}.")
    (set! book-output-suffix newsuffix))
@@ -323,7 +313,9 @@ without the need of a specific end spanner.")
 						 end-ev-chord))))
 	 total)
 
-       (ly:input-message location (_ "argument endSpanners is not an EventChord: ~a" music))))
+       (begin
+	 (ly:input-message location (_ "argument endSpanners is not an EventChord: ~a" music))
+	 music)))
 
 
 
@@ -501,18 +493,18 @@ label =
 
 
 language =
-#(define-scheme-function (parser location language) (string?)
+#(define-void-function (parser location language) (string?)
    (_i "Set note names for language @var{language}.")
    (note-names-language parser language))
 
 languageSaveAndChange =
-#(define-scheme-function (parser location language) (string?)
+#(define-void-function (parser location language) (string?)
   (_i "Store the previous pitchnames alist, and set a new one.")
   (set! previous-pitchnames pitchnames)
   (note-names-language parser language))
 
 languageRestore =
-#(define-scheme-function (parser location) ()
+#(define-void-function (parser location) ()
    (_i "Restore a previously-saved pitchnames alist.")
    (if previous-pitchnames
        (begin
@@ -666,7 +658,7 @@ pageTurn =
 					   'break-permission 'force))))
 
 parallelMusic =
-#(define-scheme-function (parser location voice-ids music) (list? ly:music?)
+#(define-void-function (parser location voice-ids music) (list? ly:music?)
    (_i "Define parallel music sequences, separated by '|' (bar check signs),
 and assign them to the identifiers provided in @var{voice-ids}.
 
@@ -1055,6 +1047,11 @@ unfoldRepeats =
 as @code{\\repeat unfold}.")
    (unfold-repeats music))
 
+void =
+#(define-void-function (parser location arg) (scheme?)
+   (_i "Accept a scheme argument, return a void expression.
+Use this if you want to have a scheme expression evaluated
+because of its side-effects, but its value ignored."))
 
 
 withMusicProperty =

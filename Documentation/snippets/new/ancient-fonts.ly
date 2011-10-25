@@ -9,7 +9,7 @@ Shown here are many (all?) of the symbols that are included in
 LilyPond's support for ancient notation.
 "
   doctitle = "Ancient fonts"
-} % begin verbatim
+}
 
 upperStaff = \new VaticanaStaff = "upperStaff" <<
   \context VaticanaVoice <<

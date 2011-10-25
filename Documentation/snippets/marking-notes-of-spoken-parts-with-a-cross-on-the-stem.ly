@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.15.10"
 
 \header {
   lsrtags = "editorial-annotations, vocal-music"
@@ -37,6 +37,7 @@ speakOn = {
 
 speakOff = {
   \revert Stem #'stencil
+  \revert Flag #'stencil
 }
 
 \score {

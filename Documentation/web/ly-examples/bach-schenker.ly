@@ -15,7 +15,7 @@
 
 I = \once \override NoteColumn #'ignore-collision = ##t
 
-\version "2.14.0"
+\version "2.15.10"
 
 staffPiano = \new PianoStaff {
   \set Score.timing = ##f
@@ -57,6 +57,7 @@ staffPiano = \new PianoStaff {
             % Add color to both Dashed Slurs in top staff
             \override Slur #'color = #(x11-color "purple")
 	    \override Stem #'transparent = ##t
+	    \override Flag #'transparent = ##t
 	    s1
 	    \once \override Slur #'height-limit = #6
 	    \once \override Slur #'extra-offset = #'(1.25 . 0)
@@ -70,6 +71,7 @@ staffPiano = \new PianoStaff {
 	    \once \override NoteHead #'transparent = ##t
 	    a4) g2
 	    \revert Stem #'transparent
+	    \revert Flag #'transparent
 	  }
 	\\
 	  \override Staff.NoteCollision
@@ -93,6 +95,7 @@ staffPiano = \new PianoStaff {
             \override Slur #'color = #(x11-color "violet")
             \override PhrasingSlur #'color = #(x11-color "violet")
 	    \override Stem #'transparent = ##t
+	    \override Flag #'transparent = ##t
 	    \override Stem #'length = #0
             % Add color to text markups in top staff
 	    g4_\( fis^(_\markup { \with-color #blue \tiny N } g)\)
@@ -100,12 +103,14 @@ staffPiano = \new PianoStaff {
 	    b4^(^\markup { \with-color #blue \tiny P }
 	    \stemUp
 	    \revert Stem #'transparent
+	    \revert Flag #'transparent
 	    \override Stem #'length = #10
 	    c8)^( s
 	    \override Stem #'length = #14
 	    b4) s s
 	    \override Stem #'length = #0
 	    \override Stem #'transparent = ##t
+	    \override Flag #'transparent = ##t
 	    \once \override Slur #'extra-offset = #'(0 . 0.35)
             % Add color to remaining text markup in top staff
 	    c4^\( b_(_\markup { \with-color #blue \tiny P } a)\) s2
@@ -114,18 +119,21 @@ staffPiano = \new PianoStaff {
 	\\
 	  {
 	    \override Stem #'transparent = ##t
+	    \override Flag #'transparent = ##t
 	    \override NoteHead #'transparent = ##t
 	    \override Stem #'length = #0
 	    s1 s4 e4 s
 	    \change Staff = "LH"
 	    fis,4 s2
 	    \revert Stem #'transparent
+	    \revert Flag #'transparent
 	    \revert NoteHead #'transparent
 	    \revert Stem #'length
 	  }
 	\\
 	  {
 	    \override Stem #'transparent = ##t
+	    \override Flag #'transparent = ##t
 	    \override NoteHead #'transparent = ##t
 	    \override Stem #'length = #0
 	    s1 s s2
@@ -133,6 +141,7 @@ staffPiano = \new PianoStaff {
 	    \change Staff = "LH"
 	    g,4 s s2
 	    \revert Stem #'transparent
+	    \revert Flag #'transparent
 	    \revert NoteHead #'transparent
 	    \revert Stem #'length
 	  }
@@ -165,16 +174,19 @@ staffPiano = \new PianoStaff {
 	\\
 	  {
 	    \override Stem #'transparent = ##t
+	    \override Flag #'transparent = ##t
 	    \stemDown
 	    \override TextScript #'extra-offset = #'(-11.75 . -12.25)
 	    \I g'2 s1 s s2 \I d2 g,2
 	    \revert Stem #'transparent
+	    \revert Flag #'transparent
 	  }
 	\\
 	  {
             % Add color to all single-note Slurs in bottom staff
             \override Slur #'color = #(x11-color "violet")
 	    \override Stem #'transparent = ##t
+	    \override Flag #'transparent = ##t
 	    \once \override NoteHead #'transparent = ##t
 	    \override Stem #'length = #0
 	    g'4
@@ -190,12 +202,14 @@ staffPiano = \new PianoStaff {
 	    \once \override Slur #'extra-offset = #'(0 . 0.5)
 	    \I fis,4_(
 	    \revert Stem #'transparent
+	    \revert Flag #'transparent
 	    \override Stem #'length = #10
 	    \stemDown
 	    g4) s
 	    \once \override Slur #'extra-offset = #'(0 . 0.25)
 	    \I c8_( s
 	    \override Stem #'transparent = ##t
+	    \override Flag #'transparent = ##t
 	    \revert Stem #'length
 	    a4)
 	    \once \override NoteHead #'transparent = ##t
@@ -206,9 +220,11 @@ staffPiano = \new PianoStaff {
             % Add color to all two-note Slurs in bottom staff
             \override Slur #'color = #(x11-color "violet")
 	    \override Stem #'transparent = ##t
+	    \override Flag #'transparent = ##t
 	    \override NoteHead #'transparent = ##t
 	    \I g'4^( s b) s2
 	    \revert Stem #'transparent
+	    \revert Flag #'transparent
 	    \revert NoteHead #'transparent
 	    \override Beam #'positions = #'(-4 . 1)
 	    \stemDown
@@ -221,6 +237,7 @@ staffPiano = \new PianoStaff {
 	    b8] s
 	    \revert Beam #'positions
 	    \override Stem #'transparent = ##t
+	    \override Flag #'transparent = ##t
 	    \override NoteHead #'transparent = ##t
 	    c4^( s d4) s s2
 	  }
@@ -229,6 +246,7 @@ staffPiano = \new PianoStaff {
             % Add color to four-note Slur in bottom staff
             \override Slur #'color = #(x11-color "violet")
 	    \override Stem #'transparent = ##t
+	    \override Flag #'transparent = ##t
 	    \override NoteHead #'transparent = ##t
 	    \override Stem #'length = #0
 	    \stemDown
@@ -236,6 +254,7 @@ staffPiano = \new PianoStaff {
 	    \once \override Slur #'extra-offset = #'(0 . 0.25)
 	    \I g4_( s2. e4) s2. s2 s1 s2
 	    \revert Stem #'transparent
+	    \revert Flag #'transparent
 	    \revert NoteHead #'transparent
 	  }
 	\\
@@ -243,6 +262,7 @@ staffPiano = \new PianoStaff {
             % Add color to dashed Slur in bottom staff
             \override Slur #'color = #(x11-color "purple")
 	    \override Stem #'transparent = ##t
+	    \override Flag #'transparent = ##t
 	    \override NoteHead #'transparent = ##t
 	    \slurDashed
 	    \once \override Slur #'height-limit = #6.0
@@ -250,6 +270,7 @@ staffPiano = \new PianoStaff {
 	    \override Stem #'length = #0
 	    g4_( s2. s1 g,4) s s1 s2
 	    \revert Stem #'transparent
+	    \revert Flag #'transparent
 	    \revert NoteHead #'transparent
 	  }
 	>>

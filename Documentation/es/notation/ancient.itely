@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.10"
 
 @node Notación antigua
 @section Notación antigua
@@ -2606,6 +2606,7 @@ verba = \lyricmode {
       \remove "Time_signature_engraver"
       \remove "Bar_engraver"
       \override Stem #'transparent = ##t
+      \override Flag #'transparent = ##t
     }
   }
 }
@@ -2625,7 +2626,8 @@ chant = \relative c' {
   c\breve \override NoteHead #'transparent = ##t  c c c c c
   \revert NoteHead #'transparent
   \override Stem #'transparent = ##f \stemUp c4 b4 a
-  \override Stem #'transparent = ##t c2 c4  \divisioMaior
+  \override Stem #'transparent = ##t
+  \override Flag #'transparent = ##t c2 c4  \divisioMaior
   c\breve \override NoteHead #'transparent = ##t c c c c c c c
   \revert NoteHead #'transparent c4 c f, f \finalis
 }
@@ -2646,6 +2648,7 @@ verba = \lyricmode {
       \remove "Time_signature_engraver"
       \override BarLine #'transparent = ##t
       \override Stem #'transparent = ##t
+      \override Flag #'transparent = ##t
     }
   }
 }
@@ -2696,6 +2699,7 @@ spirLyr = \lyricmode {
       \remove "Time_signature_engraver"
       \override BarLine #'X-extent = #'(-1 . 1)
       \override Stem #'transparent = ##t
+      \override Flag #'transparent = ##t
       \override Flag #'transparent = ##t
       \override Beam #'transparent = ##t
       \override BarLine #'transparent = ##t

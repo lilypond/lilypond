@@ -61,6 +61,9 @@
 (define-public (symbol-or-boolean? x)
   (or (symbol? x) (boolean? x)))
 
+(define-public (void? x)
+  (eq? x (begin)))
+
 ;; moved list to end of lily.scm: then all type-predicates are
 ;; defined.
 (define type-p-name-alist '())

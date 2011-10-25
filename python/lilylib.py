@@ -150,6 +150,8 @@ please read 'Setup for MacOS X' in Application Usage.")
 # Modified version of the commands.mkarg(x), which always uses
 # double quotes (since Windows can't handle the single quotes:
 def mkarg(x):
+    if os.name == 'nt':
+        return x
     s = ' "'
     for c in x:
         if c in '\\$"`':
