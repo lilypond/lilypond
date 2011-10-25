@@ -326,25 +326,6 @@ ly_scm2offsets (SCM s)
 /*
   ALIST
 */
-
-// This one is used nowhere.
-bool
-ly_is_alist_equal (SCM a, SCM b)
-{
-  if (!scm_is_pair (a) || !scm_is_pair (b))
-    return false;
-  for (SCM s = a; scm_is_pair (s); s = scm_cdr (s))
-    {
-      SCM key = scm_caar (s);
-      SCM val = scm_cdar (s);
-      SCM l = scm_assoc (key, b);
-
-      if (scm_is_false (l) || !ly_is_equal (scm_cdr (l), val))
-        return false;
-    }
-  return true;
-}
-
 SCM
 ly_alist_vals (SCM alist)
 {
