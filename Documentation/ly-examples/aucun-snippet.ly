@@ -7,7 +7,7 @@
 }
 
 % Aucun ont trouvé, from Montpellier Codex
-% 
+%
 % Put brackets in where the original has ligatures, using
 % "Analysis Brackets," and adjust the "bracket-flare" property
 % to make the ends vertical instead of slanted.
@@ -22,7 +22,7 @@ incipitGlobal = {
 		\override KeySignature #'style = #'mensural
 		\override Rest #'style = #'mensural
 %		\override Staff.TimeSignature #'style = #'mensural
-		\cadenzaOn 
+		\cadenzaOn
 	  \override Score.Clef #'extra-offset = #'(-0.0 . 0.5)
 	  \override Score.Clef #'font-size = #3
 	  \clef "vaticana-do1"
@@ -51,7 +51,7 @@ incipitTriplum = \markup{
 
 incipitMotetus = \markup{
 	\score{
-		{ 
+		{
 		\set Staff.instrumentName="Motetus"
 		\incipitGlobal
 		s1.
@@ -71,7 +71,7 @@ incipitMotetus = \markup{
 }
 
 incipitTenor = \markup{
-    \score{ 
+    \score{
 		{
     \set Staff.instrumentName = "Tenor  "
 		\incipitGlobal
@@ -98,7 +98,7 @@ incipitBassus = \markup{
 		\override Accidental #'style = #'neomensural
 	\override Rest #'style = #'neomensural
 	\override Staff.TimeSignature #'style = #'neomensural
-	\cadenzaOn 
+	\cadenzaOn
 	\clef "petrucci-f3"
 	\key f \major
 	\time 3/2
@@ -126,31 +126,31 @@ global = {
   \time 3/4
 	\override Staff.BarLine #'transparent = ##t
   \override HorizontalBracket #'direction = #UP
-  \override HorizontalBracket #'bracket-flare = #'(0 . 0) 
+  \override HorizontalBracket #'bracket-flare = #'(0 . 0)
 }
 
 %%%%%%%%% MACRO FOR MAKING SLASHES THROUGH STEMS %%%%%%%%%%
-MakeSlash = #(define-music-function (parser location angle len-left len-right 
+MakeSlash = #(define-music-function (parser location angle len-left len-right
 thick y-factor offset)
-                                    (number? number? number? number? number? 
+                                    (number? number? number? number? number?
 pair?)
 #{
 \once \override Voice.Stem #'text = \markup {
     \postscript #(let ((x-off (car $offset))
                        (y-off (cdr $offset)))
     (string-append
-    (ly:number->string (car $offset)) " " (ly:number->string (cdr $offset)) " 
+    (ly:number->string (car $offset)) " " (ly:number->string (cdr $offset)) "
 translate "
     (ly:number->string $angle) " rotate "
-    (ly:number->string (- x-off)) " " 
+    (ly:number->string (- x-off)) " "
     (ly:number->string (- y-off)) " translate 0 setlinewidth "
-    (ly:number->string (- x-off $len-left))  " " (ly:number->string (+ y-off 
-$thick)) " moveto " 
+    (ly:number->string (- x-off $len-left))  " " (ly:number->string (+ y-off
+$thick)) " moveto "
     (ly:number->string (- x-off $len-left))  " " (ly:number->string y-off)
-                                             " " (ly:number->string $thick) " 
+                                             " " (ly:number->string $thick) "
 90 270 arc "
     (ly:number->string (+ x-off $len-right)) " " (ly:number->string y-off)
-                                             " " (ly:number->string $thick) " 
+                                             " " (ly:number->string $thick) "
 270 90 arc "
                                              " gsave fill grestore stroke")) }
 
@@ -162,7 +162,7 @@ $thick)) " moveto "
     (ly:stencil-add
         sten1
         (ly:stencil-translate sten2
-                              (cons 0 (+ (* $y-factor (cdr extent1)) 
+                              (cons 0 (+ (* $y-factor (cdr extent1))
                                          (* (- 1 $y-factor) (car extent1))))))))
 #})
 
@@ -175,7 +175,7 @@ triplumWords = \lyricmode {
   Au -- cun ont trou -- ve chant par u -- sa -- ge,
 	mes a moi en doune o -- choi -- son __
   a -- mours, qui res -- bou -- dist mon cou -- ra -- ge
-	si que m'ès -- tuet fai -- re _ chan -- _ _ çon 
+	si que m'ès -- tuet fai -- re _ chan -- _ _ çon
 }
 
 triplumNotes = \relative c' {
@@ -185,7 +185,7 @@ triplumNotes = \relative c' {
 	\override StemTremolo #'beam-thickness = #.125
 	\override StemTremolo #'slope = #1.0
   f8 f4 e8 d c f f f | % 1
-	% the \scaleDurations command below makes 5 notes last the 
+	% the \scaleDurations command below makes 5 notes last the
 	% duration of a dotted quarter
 	e8 c4 \scaleDurations #'(3 . 2) {	\times 4/5{e16[ d e d e]} } e8 f4 | % 2
   g2. ~ g4. | % 3
@@ -197,7 +197,7 @@ triplumNotes = \relative c' {
 
 motetusWords = \lyricmode {
   lonc tans _ _  me fiu -- te -- nu de chan -- _ _ ter __
-  mes or ai _ _  
+  mes or ai _ _
 }
 
 motetusNotes = \relative c' {
@@ -220,7 +220,7 @@ tenorNotes = \relative c {
   \new StaffGroup <<
 	  \new Staff = "triplum" <<
 		  %\set Staff.instrumentName = "Triplum"
-		  \set Staff.instrumentName = \incipitTriplum 
+		  \set Staff.instrumentName = \incipitTriplum
 			\set Staff.shortInstrumentName = "Tr."
       \set Staff.timeSignatureFraction = #'(9 . 8)
       \scaleDurations #'(2 . 3)
@@ -235,14 +235,14 @@ tenorNotes = \relative c {
 			\set Staff.shortInstrumentName = "M."
       \set Staff.timeSignatureFraction = #'(9 . 8)
       \scaleDurations #'(2 . 3)
-			\context Voice = "motetus" { \global \motetusNotes } 
+			\context Voice = "motetus" { \global \motetusNotes }
 	    \new Lyrics { \lyricsto "motetus" { \motetusWords }}
 	  >>
-		\new Staff = "tenor" { 
+		\new Staff = "tenor" {
 		  %\set Staff.instrumentName = "Tenor"
-		  \set Staff.instrumentName = \incipitTenor 
+		  \set Staff.instrumentName = \incipitTenor
 			\set Staff.shortInstrumentName = "T."
-			\global \tenorNotes 
+			\global \tenorNotes
 		}
 	>>
 	%\midi {}

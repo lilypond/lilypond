@@ -1,4 +1,4 @@
-depth=../../..
+depth=../..
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 include $(depth)/make/stepmake.make
 
@@ -19,4 +19,3 @@ $(outdir)/%.png: %.ly
 
 $(outdir)/%-small.png: $(outdir)/%.png
 	pngtopnm $< | pnmscale -w=600 | pnmtopng > $@
-

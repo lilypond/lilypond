@@ -4,27 +4,27 @@
 #(ly:set-option 'point-and-click #f)
 
 global = {
-    \time 4/4 
+    \time 4/4
     \numericTimeSignature
     \key c \major
     #(set-global-staff-size 24)
 }
 
-cf = \relative c { 
+cf = \relative c {
   \clef bass
   \global
-  c4 c' b a | 
-  g a f d | 
-  e f g g, | 
-  c1 
+  c4 c' b a |
+  g a f d |
+  e f g g, |
+  c1
 }
 
-upper = \relative c'' { 
+upper = \relative c'' {
   \global
-  r4 s4 s2 | 
-  s1*2 | 
-  s2 s4 s 
-  \bar "||" 
+  r4 s4 s2 |
+  s1*2 |
+  s2 s4 s
+  \bar "||"
 }
 
 bassFigures = \figuremode {
@@ -35,14 +35,14 @@ bassFigures = \figuremode {
 
 \score {
   \new PianoStaff <<
-    \new Staff { 
+    \new Staff {
       \context Voice = "added voice" \with {
         \consists "Balloon_engraver"
       }
       \upper
     }
 
-    \new Staff = lower { 
+    \new Staff = lower {
       <<
 %      \context Voice = "cantus firmus" \with {
 %        \consists "Balloon_engraver"
@@ -57,7 +57,6 @@ bassFigures = \figuremode {
     \context {
       \Score
       tempoWholesPerMinute = #(ly:make-moment 120 4)
-    }  
+    }
   }%}
 }
-

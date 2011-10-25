@@ -9,4 +9,3 @@
   bookTitleMarkup = ##f
   scoreTitleMarkup = ##f
 }
-

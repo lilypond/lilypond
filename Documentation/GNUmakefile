@@ -12,7 +12,7 @@ LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 MANUALS_SUBDIRS = usage contributor essay \
   web learning notation extending
 SUBDIRS = $(MANUALS_SUBDIRS) snippets logo pictures misc po css topdocs \
-  included $(LANGS)
+  included ly-examples $(LANGS)
 STEPMAKE_TEMPLATES = documentation texinfo tex omf
 LOCALSTEPMAKE_TEMPLATES = lilypond ly
 
@@ -232,8 +232,8 @@ $(outdir)/css:
 	ln -sf ../css/$(outdir) $@
 
 $(outdir)/ly-examples:
-	$(MAKE) -C web/ly-examples
-	ln -sf ../web/ly-examples/$(outdir) $@
+	$(MAKE) -C ly-examples
+	ln -sf ../ly-examples/$(outdir) $@
 endif
 
 

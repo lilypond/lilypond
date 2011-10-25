@@ -3,7 +3,7 @@
 
 #(set-global-staff-size 15)
 
-\include "gregorian.ly" 
+\include "gregorian.ly"
 
 \score {
   <<
@@ -121,4 +121,3 @@
     \consists Custos_engraver
   }
 }
-
