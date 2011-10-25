@@ -22,6 +22,7 @@
 #include "lookup.hh"
 #include "dimensions.hh"
 #include "output-def.hh"
+#include "paper-column.hh"
 #include "warn.hh"
 #include "item.hh"
 #include "staff-symbol-referencer.hh"
@@ -66,10 +67,10 @@ Staff_symbol::print (SCM smob)
         {
           Item *x = sp->get_bound (d);
 
-          span_points[d] = x->relative_coordinate (common, X_AXIS);
-          if (!x->break_status_dir ()
-              && !x->extent (x, X_AXIS).is_empty ())
-            span_points[d] += x->extent (x, X_AXIS)[d];
+          span_points[d] = ((!x->break_status_dir ()
+                             && !x->extent (x, X_AXIS).is_empty ())
+                            ? Paper_column::break_align_width (x, ly_symbol2scm ("break-alignment"))[d]
+                            : x->relative_coordinate (common, X_AXIS));
         }
 
       span_points[d] -= d * t / 2;
