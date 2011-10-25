@@ -302,7 +302,6 @@ neumeDemoLayout = \layout {
 	\override NoteHead #'style = #'vaticana.punctum
 	\override Stem #'transparent = ##t
 	\override Flag #'transparent = ##t
-	\override Flag #'transparent = ##t
     }
 }
 

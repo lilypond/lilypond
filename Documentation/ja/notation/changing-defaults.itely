@@ -896,7 +896,6 @@ squashedPosition = #0
 \override NoteHead #'style = #'slash
 \override Stem #'transparent = ##t
 \override Flag #'transparent = ##t
-\override Flag #'transparent = ##t
 @end example
 
 これらのプラグインすべてが共同する必要があり、@c
@@ -920,7 +919,6 @@ squashedPosition = #0
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t
-  \override Flag #'transparent = ##t
   \override Flag #'transparent = ##t
   \alias Voice
 @}

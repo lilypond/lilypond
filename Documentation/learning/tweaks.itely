@@ -3469,7 +3469,6 @@ cross voices:
   {
     \once \override Stem #'transparent = ##t
     \once \override Flag #'transparent = ##t
-    \once \override Flag #'transparent = ##t
     b8~ b\noBeam
   }
 \\
@@ -3485,7 +3484,6 @@ too much, we can lengthen the stem by setting the
 <<
   {
     \once \override Stem #'transparent = ##t
-    \once \override Flag #'transparent = ##t
     \once \override Flag #'transparent = ##t
     \once \override Stem #'length = #8
     b8~ b\noBeam

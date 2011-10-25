@@ -3617,7 +3617,6 @@ de que la ligadura se cruza entre las voces:
   {
     \once \override Stem #'transparent = ##t
     \once \override Flag #'transparent = ##t
-    \once \override Flag #'transparent = ##t
     b8~ b\noBeam
   }
 \\
@@ -3633,7 +3632,6 @@ valor de longitud @code{length} a @code{8},
 <<
   {
     \once \override Stem #'transparent = ##t
-    \once \override Flag #'transparent = ##t
     \once \override Flag #'transparent = ##t
     \once \override Stem #'length = #8
     b8~ b\noBeam

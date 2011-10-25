@@ -2651,7 +2651,6 @@ spirLyr = \lyricmode {
       \override BarLine #'X-extent = #'(-1 . 1)
       \override Stem #'transparent = ##t
       \override Flag #'transparent = ##t
-      \override Flag #'transparent = ##t
       \override Beam #'transparent = ##t
       \override BarLine #'transparent = ##t
       \override TupletNumber #'transparent = ##t

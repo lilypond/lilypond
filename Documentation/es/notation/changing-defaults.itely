@@ -850,7 +850,6 @@ Las notas parecen barras inclinadas y no tienen plica:
 \override NoteHead #'style = #'slash
 \override Stem #'transparent = ##t
 \override Flag #'transparent = ##t
-\override Flag #'transparent = ##t
 @end example
 
 Todos estos añadidos tienen que cooperar, y esto se consigue con un
@@ -873,7 +872,6 @@ Al juntarlo todo, obtenemos
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t
-  \override Flag #'transparent = ##t
   \override Flag #'transparent = ##t
   \alias Voice
 @}
