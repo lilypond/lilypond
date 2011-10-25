@@ -106,7 +106,7 @@ MANUALS_BASE = $(basename $(MANUALS) $(MANUALS_WEB))
 bib-files = $(OUT)/others-did.itexi $(OUT)/we-wrote.itexi
 
 css-src-files := $(notdir $(wildcard $(top-src-dir)/Documentation/css/*.css))
-css-files = $(css-src-files:%=$(OUT)/website/%)
+css-files = $(css-src-files:%=$(OUT)/website/css/%)
 
 example-src-files := $(notdir $(wildcard $(EXAMPLES)/*))
 example-files = $(example-src-files:%=$(OUT)/website/ly-examples/%)
@@ -139,7 +139,7 @@ website: website-post website-examples website-pictures website-css website-misc
 
 website-bibs: website-version $(OUT) $(bib-files)
 
-website-css: $(OUT)/website $(css-files)
+website-css: $(OUT)/website/css $(css-files)
 
 website-examples: $(OUT)/website/ly-examples $(example-files)
 
@@ -163,7 +163,7 @@ website-xrefs: website-version $(OUT) $(xref-files)
 ### Rules
 
 # Directories
-$(OUT) $(OUT)/website $(OUT)/website/ly-examples $(OUT)/website/pictures: %:
+$(OUT) $(OUT)/website $(OUT)/website/css $(OUT)/website/ly-examples $(OUT)/website/pictures: %:
 	mkdir -p $@
 
 $(OUT)/pictures: $(OUT)/website/pictures
@@ -224,7 +224,7 @@ $(OUT)/website/index.html: $(wildcard $(OUT)/*.html)
 	$(WEB_POST) $(OUT)/website
 
 # Simple copy
-$(css-files): $(OUT)/website/%: $(top-src-dir)/Documentation/css/%
+$(css-files): $(OUT)/website/css/%: $(top-src-dir)/Documentation/css/%
 	cp $< $@
 
 $(example-files): $(OUT)/website/ly-examples/%: $(EXAMPLES)/%

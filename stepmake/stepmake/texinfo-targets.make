@@ -4,8 +4,6 @@ default: $(INFO_FILES)
 
 ifeq ($(out),www)
 local-WWW-1: $(XREF_MAPS_FILES)
-
-local-WWW-2: $(OUT_CSS_FILES)
 endif
 
 local-txt-doc:  $(OUTTXT_FILES)

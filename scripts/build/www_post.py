@@ -47,9 +47,15 @@ dirs, symlinks, files = mirrortree.walk_tree (
 # actual mirrorring stuff
 html_files = []
 hardlinked_files = []
+# These whitelisted files actually do contain the string
+# 'UNTRANSLATED NODE: IGNORE ME' for documentation purposes.
+whitelisted_files = [
+    'Documentation/out-www/contributor-big-page.html',
+    'Documentation/out-www/contributor/website-build.html',
+]
 for f in files:
     if f.endswith ('.html'):
-        if not 'UNTRANSLATED NODE: IGNORE ME' in open (f).read ():
+        if f in whitelisted_files or not 'UNTRANSLATED NODE: IGNORE ME' in open (f).read ():
             html_files.append (f)
     else:
         hardlinked_files.append (f)

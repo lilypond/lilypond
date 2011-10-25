@@ -225,7 +225,11 @@ $(outdir)/pictures:
 	$(MAKE) -C pictures WWW-1
 	ln -sf ../pictures/$(outdir) $@
 
-$(outdir)/web.texi: $(outdir)/ly-examples
+$(outdir)/web.texi: $(outdir)/css $(outdir)/ly-examples
+
+$(outdir)/css:
+	$(MAKE) -C css
+	ln -sf ../css/$(outdir) $@
 
 $(outdir)/ly-examples:
 	$(MAKE) -C web/ly-examples

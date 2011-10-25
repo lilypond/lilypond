@@ -2,8 +2,6 @@
 
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 
-CSS_SOURCE_FILES = $(shell ls $(top-src-dir)/Documentation/lilypond*.css)
-
 TELY_FILES := $(call src-wildcard,*.tely)
 TEXI_FILES := $(call src-wildcard,*.texi)
 MASTER_TEXI_FILES := $(TEXI_FILES) $(TELY_FILES:%.tely=$(outdir)/%.texi)
