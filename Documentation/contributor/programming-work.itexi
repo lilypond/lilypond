@@ -1868,20 +1868,27 @@ There a simple solution for almost every common comparison.  Another example:
 we want to know if a Scheme value is a non-empty list.  Instead of:
 
 @example
-(scm_list_p (scm_value) && scm_value != SCM_EOL)
+(scm_is_true (scm_list_p (scm_value)) && scm_value != SCM_EOL)
 @end example
 
-one should use:
+one can usually use:
 
 @example
 scm_is_pair (scm_value)
 @end example
 
-since a list of at least one member is considered as a pair.
+since a list of at least one member is a pair.  This test is
+cheap; @code{scm_list_p} is actually quite more complex since it makes
+sure that its argument is neither a `dotted list' where the last pair
+has a non-null @code{cdr}, nor a circular list.  There are few
+situations where the complexity of those tests make sense.
 
 Unfortunately, there is not a @code{scm_is_[something]} function for
 everything.  That's one of the reasons why LilyPond has its own Scheme
-interface.
+interface.  As a rule of thumb, tests that are cheap enough to be
+worth inlining tend to have such a C interface.  So there is
+@code{scm_is_pair} but not @code{scm_is_list}, and @code{scm_is_eq}
+but not @code{scm_is_equal}.
 
 @subheading General definitions
 
@@ -1889,8 +1896,13 @@ interface.
 
 Return @code{true} if @var{b} is @code{SCM_BOOL_T}, else return @code{false}.
 
-This should be used instead of @code{scm_is_true} and @code{scm_is_false}
-for properties since empty lists are sometimes used to unset them.
+This should be used instead of @code{scm_is_true} and
+@code{scm_is_false} for properties since in Lilypond, unset properties
+are read as an empty list, and by convention unset Boolean properties
+default to false.  Since both @code{scm_is_true} and
+@code{scm_is_false} only compare with @code{##f} in line with what
+Scheme's conditionals do, they are not really useful for checking the
+state of a Boolean property.
 
 @subsubheading bool ly_is_[something] (args)
 
@@ -1899,7 +1911,15 @@ Behave the same as scm_is_[something] would do if it existed.
 @subsubheading bool is_[type] (SCM s)
 
 Test whether the type of @var{s} is [type].
-[type] is a LilyPond-only type of value (direction, axis...).
+[type] is a LilyPond-only set of values (direction, axis...).  More
+often than not, the code checks Lilypond specific C++-implemented
+types using
+
+@subsubheading [type *] unsmob_[type] (SCM s)
+
+This tries converting a Scheme object to a pointer of the desired
+kind.  If the Scheme object is of the wrong type, a pointer value
+of@w{ }@code{0} is returned, making this suitable for a Boolean test.
 
 @node Conversion
 @subsection Conversion
