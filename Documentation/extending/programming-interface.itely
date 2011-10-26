@@ -148,18 +148,33 @@ given the correct @code{origin}.
 @noindent
 Some type predicates are specially handled by the parser since it
 can't recognize the arguments reliably otherwise.  Currently these are
-@code{ly:music?}, @code{ly:pitch?}, and @code{ly:duration?}.
+@code{ly:pitch?} and @code{ly:duration?}.
 
-All other predicates can be specified in Scheme syntax if desired
-(introduced with @code{#} or as the result of calling a scheme
-function), but Lilypond will also accept a number of Lilypond
-constructs it can recognize fully without lookahead.  Currently, those
-include simple strings (with or without quotes), context
-modifications, full markups and markup lists.
+Suitability of arguments for all other predicates is determined by
+actually calling the predicate after Lilypond has already converted
+them into a Scheme expression.  As a consequence, the argument can be
+specified in Scheme syntax if desired (introduced with @code{#} or as
+the result of calling a scheme function), but Lilypond will also
+convert a number of Lilypond constructs into Scheme before actually
+checking the predicate on them.  Currently, those include music,
+simple strings (with or without quotes), full markups and markup
+lists, score, book, bookpart, context definition and output definition
+blocks.
 
-If you really want to input one of the special items as a Scheme rather
-than a LilyPond expression, you may write them as a Scheme expression
-that calls @code{ly:export} at its outermost level.
+For some kinds of expression (like most music not enclosed in braces)
+Lilypond needs to look further than the expression itself in order to
+determine its end.  When such an expression is considered for an
+optional argument by evaluating its predicate, Lilypond can't ``back
+up'' when it decides the expression does not fit the parameter, and
+complains.  So in some contexts involving optional arguments, you may
+need extra braces to make them acceptable to Lilypond.
+
+This also applies for music arguments preceding @code{ly:duration?}
+arguments.  It may also affect the last argument of a scheme function
+that is used as the last part of another expression, since otherwise
+Lilypond won't know whether following postevents or durations apply to
+the argument of the Scheme function, or to the containing music
+expression.
 
 For a list of available type predicates, see
 @ruser{Predefined type predicates}.
@@ -187,26 +202,19 @@ immediately following optional arguments are replaced with their default
 values, and the matching continues with the next non-optional argument.
 
 Apart from places where a Scheme value is required, there are a few
-places where @code{#} expressions are accepted and evaluated for their
-side effects but otherwise ignored.  Mostly those are the places where
-an assignment would be acceptable as well.
+places where @code{#} expressions are currently accepted and evaluated
+for their side effects but otherwise ignored.  Mostly those are the
+places where an assignment would be acceptable as well.
 
-There are a few special places where an argument matching
-@code{ly:music?} has to be either a music identifier or a music
-expression enclosed in @code{@{}@dots{}@code{@}} or
-@code{<<}@dots{}@code{>>} explicitly, so that possibly following
-optional durations or postevents can't be confused with additional
-arguments.  One obvious place is before a @code{ly:duration?}
-predicate.  Another is as the last argument of a scheme function when it
-is used in a place where such optional parts could be considered either
-part of the music argument or not.
-
-In those rare cases, you have to delimit your music arguments
-appropriately to spare LilyPond from getting confused.
+Since it is a bad idea to return values that can be misinterpreted in
+some context, you should use normal scheme functions only for those
+cases where you always return a useful value, and use void scheme
+functions (@pxref{Void scheme functions}) otherwise.
 
 @node Void scheme functions
 @subsection Void scheme functions
 @funindex define-void-function
+@funindex \void
 
 Sometimes a procedure is executed in order to perform an action rather
 than return a value.  Some programming languages (like C and Scheme)
@@ -233,6 +241,18 @@ noPointAndClick =
 ...
 \noPointAndClick   % disable point and click
 @end example
+
+If you want to evaluate an expression only for its side-effect and
+don't want any value it may return interpreted, you can do so by
+prefixing it with @code{\void}:
+
+@example
+\void #(hashq-set! some-table some-key some-value)
+@end example
+
+That way, you can be sure that Lilypond will not assign meaning to the
+returned value regardless of where it encounters it.  This will also
+work for music functions such as @code{\displayMusic}.
 
 @node Music functions
 @section Music functions

@@ -2630,8 +2630,9 @@ display musical information as text.
 
 @funindex \displayLilyMusic
 Displaying a music expression in LilyPond notation can be
-done with the music function @code{\displayLilyMusic} but only when
-using the command line.  For example,
+done with the music function @code{\displayLilyMusic}.  To see the
+output, you will typically want to call LilyPond using the command
+line.  For example,
 
 @example
 @{
@@ -2652,6 +2653,21 @@ redirect the output to a file.
 
 @example
 lilypond file.ly >display.txt
+@end example
+
+@funindex \void
+Note that Lilypond does not just display the music expression, but
+also interprets it (since @code{\displayLilyMusic} returns it in
+addition to displaying it).  This is convenient since you can just
+insert @code{\displayLilyMusic} into existing music in order to get
+information about it.  If you don't actually want Lilypond to
+interpret the displayed music as well as display it, use @code{\void}
+in order to have it ignored:
+
+@example
+@{
+  \void \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
+@}
 @end example
 
 

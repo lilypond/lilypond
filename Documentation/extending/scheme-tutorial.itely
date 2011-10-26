@@ -1006,6 +1006,10 @@ containing a @code{NoteEvent} object (storing the duration and
 pitch properties) and any extra information (in this case, an
 @code{AbsoluteDynamicEvent} with a @code{"f"} text property.
 
+@funindex{\void}
+@code{\displayMusic} returns the music it displays, so it will get
+interpreted as well as displayed.  To avoid interpretation, write
+@code{\void} before @code{\displayMusic}.
 
 @node Music properties
 @subsection Music properties
