@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.17"
 
 @c Translators: Till Paala
 
@@ -380,14 +380,14 @@ dass man Textdokumente oder Bücher ausschließlich mit LilyPond
 setzen kann.  Einzelheiten zu den vielfältigen Möglichkeiten finden
 sich in @ref{Textbeschriftung über mehrere Seiten}.
 
-@funindex \markuplines
+@funindex \markuplist
 @funindex \markup
-@funindex markuplines
+@funindex markuplist
 @funindex markup
 
 @predefined
 @code{\markup},
-@code{\markuplines}.
+@code{\markuplist}.
 @endpredefined
 
 
@@ -1341,8 +1341,8 @@ Installierte Dateien:
 @cindex Text über mehrere Seiten
 @cindex mehrseitiger Text
 
-@funindex \markuplines
-@funindex markuplines
+@funindex \markuplist
+@funindex markuplist
 @funindex \justified-lines
 @funindex justified-lines
 @funindex \wordwrap-lines
@@ -1353,7 +1353,7 @@ einer spezifischen Umgebung ist es möglich, Text auch über mehrere Seiten
 fließen zu lassen:
 
 @lilypond[quote,verbatim]
-\markuplines {
+\markuplist {
   \justified-lines {
     A very long text of justified lines.
     ...
@@ -1396,11 +1396,11 @@ Referenz der Interna:
 Installierte Dateien:
 @file{scm/define-markup-commands.scm}.
 
-@funindex \markuplines
-@funindex markuplines
+@funindex \markuplist
+@funindex markuplist
 
 @predefined
-@code{\markuplines}.
+@code{\markuplist}.
 @endpredefined
 
 

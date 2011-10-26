@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.17"
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
 
@@ -1158,13 +1158,13 @@ emporte-pièce sur deux caractères -- soit @code{"00"}.
 @subsection Table des matières
 @translationof Table of contents
 
-La commande @code{\markuplines \table-of-contents} vous permettra de
+La commande @code{\markuplist \table-of-contents} vous permettra de
 générer une table des matières.  Les éléments qui la composeront sont
 créés par la commande @code{\tocItem}, insérée indépendamment ou au sein
 d'une expression musicale.
 
 @verbatim
-\markuplines \table-of-contents
+\markuplist \table-of-contents
 \pageBreak
 
 \tocItem \markup "Premier mouvement"
@@ -1253,7 +1253,7 @@ tocAct =
    (add-toc-item! 'tocActMarkup text))
 
 \book {
-  \markuplines \table-of-contents
+  \markuplist \table-of-contents
   \tocAct \markup { Atto Primo }
   \tocItem \markup { Coro. Viva il nostro Alcide }
   \tocItem \markup { Cesare. Presti omai l'Egizzia terra }
@@ -1274,7 +1274,7 @@ pointillée@tie{}:
 }
 
 \book {
-  \markuplines \table-of-contents
+  \markuplist \table-of-contents
   \tocItem \markup { Allegro }
   \tocItem \markup { Largo }
   \markup \null

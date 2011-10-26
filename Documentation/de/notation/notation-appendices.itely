@@ -10,7 +10,7 @@
 
 @c Translators: Till Paala
 
-@c \version "2.14.0"
+@c \version "2.15.17"
 
 @node Notationsübersicht
 @appendix Notationsübersicht
@@ -654,8 +654,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #clefs
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #clefs
 @end lilypond
 
 
@@ -666,8 +666,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #timesig
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #timesig
 @end lilypond
 
 
@@ -677,8 +677,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #numbers
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #numbers
 @end lilypond
 
 
@@ -688,8 +688,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #accidentals
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #accidentals
 @end lilypond
 
 
@@ -699,8 +699,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #default-noteheads
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #default-noteheads
 @end lilypond
 
 
@@ -710,8 +710,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #special-noteheads
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #special-noteheads
 @end lilypond
 
 
@@ -721,8 +721,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #shape-note-noteheads
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #shape-note-noteheads
 @end lilypond
 
 
@@ -732,8 +732,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #rests
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #rests
 @end lilypond
 
 
@@ -743,8 +743,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #flags
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #flags
 @end lilypond
 
 
@@ -754,8 +754,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #dots
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #dots
 @end lilypond
 
 
@@ -765,8 +765,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #dynamics
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #dynamics
 @end lilypond
 
 
@@ -775,8 +775,8 @@ zu (bspw. @code{g^\markup @{
 @translationof Script glyphs
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #scripts
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #scripts
 @end lilypond
 
 
@@ -786,8 +786,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #arrowheads
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #arrowheads
 @end lilypond
 
 
@@ -797,8 +797,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #brackettips
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #brackettips
 @end lilypond
 
 
@@ -808,8 +808,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #pedal
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #pedal
 @end lilypond
 
 
@@ -819,8 +819,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #accordion
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #accordion
 @end lilypond
 
 
@@ -830,8 +830,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #vaticana
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #vaticana
 @end lilypond
 
 
@@ -841,8 +841,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #medicaea
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #medicaea
 @end lilypond
 
 
@@ -852,8 +852,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #hufnagel
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #hufnagel
 @end lilypond
 
 
@@ -863,8 +863,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #mensural
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #mensural
 @end lilypond
 
 
@@ -874,8 +874,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #neomensural
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #neomensural
 @end lilypond
 
 
@@ -885,8 +885,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #petrucci
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #petrucci
 @end lilypond
 
 
@@ -896,8 +896,8 @@ zu (bspw. @code{g^\markup @{
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #solesmes
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #solesmes
 @end lilypond
 
 
@@ -927,7 +927,7 @@ Folgende Stile können zur Darstellung der Notenköpfe verwendet werden:
 @appendixsec Textbeschriftungslistenbefehle
 @translationof Text markup list commands
 
-Folgende Befehle können mit dem Befehl @code{\markuplines} zusammen
+Folgende Befehle können mit dem Befehl @code{\markuplist} zusammen
 benutzt werden:
 
 @include markup-list-commands.tely

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.17"
 
 @node Notation manual tables
 @appendix Notation manual tables
@@ -644,8 +644,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #clefs
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #clefs
 @end lilypond
 
 
@@ -654,8 +654,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #timesig
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #timesig
 @end lilypond
 
 
@@ -664,8 +664,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #numbers
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #numbers
 @end lilypond
 
 
@@ -674,8 +674,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #accidentals
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #accidentals
 @end lilypond
 
 
@@ -684,8 +684,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #default-noteheads
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #default-noteheads
 @end lilypond
 
 
@@ -694,8 +694,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #special-noteheads
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #special-noteheads
 @end lilypond
 
 
@@ -704,8 +704,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #shape-note-noteheads
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #shape-note-noteheads
 @end lilypond
 
 
@@ -714,8 +714,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #rests
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #rests
 @end lilypond
 
 
@@ -724,8 +724,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #flags
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #flags
 @end lilypond
 
 
@@ -734,8 +734,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #dots
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #dots
 @end lilypond
 
 
@@ -744,8 +744,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #dynamics
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #dynamics
 @end lilypond
 
 
@@ -754,8 +754,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #scripts
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #scripts
 @end lilypond
 
 
@@ -764,8 +764,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #arrowheads
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #arrowheads
 @end lilypond
 
 
@@ -774,8 +774,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #brackettips
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #brackettips
 @end lilypond
 
 
@@ -784,8 +784,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #pedal
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #pedal
 @end lilypond
 
 
@@ -794,8 +794,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #accordion
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #accordion
 @end lilypond
 
 
@@ -804,8 +804,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #ties
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #ties
 @end lilypond
 
 
@@ -814,8 +814,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #vaticana
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #vaticana
 @end lilypond
 
 
@@ -824,8 +824,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #medicaea
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #medicaea
 @end lilypond
 
 
@@ -834,8 +834,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #hufnagel
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #hufnagel
 @end lilypond
 
 
@@ -844,8 +844,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #mensural
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #mensural
 @end lilypond
 
 
@@ -854,8 +854,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #neomensural
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #neomensural
 @end lilypond
 
 
@@ -864,8 +864,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #petrucci
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #petrucci
 @end lilypond
 
 
@@ -874,8 +874,8 @@ see @ref{Formatting text}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #solesmes
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #solesmes
 @end lilypond
 
 
@@ -897,7 +897,7 @@ The following styles may be used for note heads.
 @node Text markup list commands
 @appendixsec Text markup list commands
 
-The following commands can all be used with @code{\markuplines}:
+The following commands can all be used with @code{\markuplist}:
 
 @include markup-list-commands.tely
 

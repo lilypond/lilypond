@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.17"
 
 @node Text
 @section Text
@@ -348,12 +348,12 @@ requires, are described in @ref{Multi-page markup}.
 
 @funindex \markup
 @funindex markup
-@funindex \markuplines
-@funindex markuplines
+@funindex \markuplist
+@funindex markuplist
 
 @predefined
 @code{\markup},
-@code{\markuplines}.
+@code{\markuplist}.
 @endpredefined
 
 
@@ -1277,8 +1277,8 @@ Installed Files:
 @cindex markup text, multi-page
 @cindex text spread over multiple pages
 
-@funindex \markuplines
-@funindex markuplines
+@funindex \markuplist
+@funindex markuplist
 @funindex \justified-lines
 @funindex justified-lines
 @funindex \wordwrap-lines
@@ -1289,7 +1289,7 @@ makes it possible to enter lines of text that can spread over multiple
 pages:
 
 @lilypond[quote,verbatim]
-\markuplines {
+\markuplist {
   \justified-lines {
     A very long text of justified lines.
     ...
@@ -1333,11 +1333,11 @@ Installed Files:
 @file{scm/define-markup-commands.scm}.
 
 
-@funindex \markuplines
-@funindex markuplines
+@funindex \markuplist
+@funindex markuplist
 
 @predefined
-@code{\markuplines}.
+@code{\markuplist}.
 @endpredefined
 
 

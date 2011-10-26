@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.17"
 
 \header {
   texidoc = "A book can be split into several parts with different paper settings,
@@ -35,5 +35,5 @@ Page labels are also collected into the top-level paper."
 
   \tocItem \markup "Third part"
   \markup { Third part }
-  \markuplines \table-of-contents
+  \markuplist \table-of-contents
 }

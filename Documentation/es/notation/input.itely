@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.17"
 
 @node Entrada y salida generales
 @chapter Entrada y salida generales
@@ -1118,13 +1118,13 @@ dígitos.
 @translationof Table of contents
 
 Se puede insertar un índice general o tabla de contenidos utilizando
-la instrucción @code{\markuplines \table-of-contents}.  Los elementos
+la instrucción @code{\markuplist \table-of-contents}.  Los elementos
 que deben aparecer en la tabla de contenidos se introducen con la
 instrucción @code{\tocItem}, que se puede usar en el nivel más alto de
 la jerarquía del código, o dentro de una expresión musical.
 
 @verbatim
-\markuplines \table-of-contents
+\markuplist \table-of-contents
 \pageBreak
 
 \tocItem \markup "Primera partitura"
@@ -1209,7 +1209,7 @@ tocAct =
    (add-toc-item! 'tocActMarkup text))
 
 \book {
-  \markuplines \table-of-contents
+  \markuplist \table-of-contents
   \tocAct \markup { Atto Primo }
   \tocItem \markup { Coro. Viva il nostro Alcide }
   \tocItem \markup { Cesare. Presti omai l'Egizzia terra }
@@ -1229,7 +1229,7 @@ Se pueden añadir puntos de relleno entre un elemento y su número de página:
 }
 
 \book {
-  \markuplines \table-of-contents
+  \markuplist \table-of-contents
   \tocItem \markup { Allegro }
   \tocItem \markup { Largo }
   \markup \null

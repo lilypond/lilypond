@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.17"
 
 @c Translators: Till Paala
 
@@ -934,14 +934,14 @@ bestimmt.  Wenn eine Partitur zwischen 10 und 99 Seiten hat, kann man
 @translationof Table of contents
 
 Ein Inhaltsverzeichnis kann eingefügt werden mit dem Befehl
-@code{\markuplines \table-of-contents}.  Die Elemente, die im
+@code{\markuplist \table-of-contents}.  Die Elemente, die im
 Inhaltsverzeichnis aufgelistet werden sollen, werden mit dem
 @code{\tocItem}-Befehl markiert, welches sowohl auf höchster
 Ebene als auch in einem musikalischen Ausdruck verwendet werden
 kann.
 
 @verbatim
-\markuplines \table-of-contents
+\markuplist \table-of-contents
 \pageBreak
 
 \tocItem \markup "Erste Partitur"
@@ -1033,7 +1033,7 @@ tocAct =
    (add-toc-item! 'tocActMarkup text))
 
 \book {
-  \markuplines \table-of-contents
+  \markuplist \table-of-contents
   \tocAct \markup { Atto Primo }
   \tocItem \markup { Coro. Viva il nostro Alcide }
   \tocItem \markup { Cesare. Presti omai l'Egizzia terra }
@@ -1054,7 +1054,7 @@ Linie gefüllt werden:
 }
 
 \book {
-  \markuplines \table-of-contents
+  \markuplist \table-of-contents
   \tocItem \markup { Allegro }
   \tocItem \markup { Largo }
   \markup \null

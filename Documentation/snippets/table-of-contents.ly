@@ -4,13 +4,13 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.15.17"
 
 \header {
   lsrtags = "paper-and-layout"
 
   texidoc = "
-A table of contents is included using @code{\\markuplines
+A table of contents is included using @code{\\markuplist
 \\table-of-contents}.  The TOC items are added with the
 @code{\\tocItem} command.
 
@@ -21,7 +21,7 @@ A table of contents is included using @code{\\markuplines
 #(set-default-paper-size "a6")
 
 \book {
-  \markuplines \table-of-contents
+  \markuplist \table-of-contents
   \pageBreak
   \tocItem \markup { The first score }
   \score {

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.17"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 
@@ -639,8 +639,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #clefs
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #clefs
 @end lilypond
 
 
@@ -650,8 +650,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #timesig
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #timesig
 @end lilypond
 
 
@@ -661,8 +661,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #numbers
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #numbers
 @end lilypond
 
 
@@ -672,8 +672,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #accidentals
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #accidentals
 @end lilypond
 
 
@@ -683,8 +683,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #default-noteheads
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #default-noteheads
 @end lilypond
 
 
@@ -694,8 +694,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #special-noteheads
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #special-noteheads
 @end lilypond
 
 
@@ -705,8 +705,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #shape-note-noteheads
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #shape-note-noteheads
 @end lilypond
 
 
@@ -716,8 +716,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #rests
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #rests
 @end lilypond
 
 
@@ -727,8 +727,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #flags
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #flags
 @end lilypond
 
 
@@ -738,8 +738,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #dots
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #dots
 @end lilypond
 
 
@@ -749,8 +749,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #dynamics
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #dynamics
 @end lilypond
 
 
@@ -760,8 +760,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #scripts
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #scripts
 @end lilypond
 
 
@@ -771,8 +771,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #arrowheads
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #arrowheads
 @end lilypond
 
 
@@ -782,8 +782,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #brackettips
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #brackettips
 @end lilypond
 
 
@@ -793,8 +793,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #pedal
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #pedal
 @end lilypond
 
 
@@ -804,8 +804,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #accordion
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #accordion
 @end lilypond
 
 
@@ -814,8 +814,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #ties
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #ties
 @end lilypond
 
 
@@ -825,8 +825,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #vaticana
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #vaticana
 @end lilypond
 
 
@@ -836,8 +836,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #medicaea
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #medicaea
 @end lilypond
 
 
@@ -847,8 +847,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #hufnagel
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #hufnagel
 @end lilypond
 
 
@@ -858,8 +858,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #mensural
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #mensural
 @end lilypond
 
 
@@ -869,8 +869,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #neomensural
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #neomensural
 @end lilypond
 
 
@@ -880,8 +880,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #petrucci
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #petrucci
 @end lilypond
 
 
@@ -891,8 +891,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[quote]
 \include "font-table.ly"
-\markuplines \override-lines #'(word-space . 4)
-             \doc-chars #solesmes
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #solesmes
 @end lilypond
 
 
@@ -920,7 +920,7 @@ Les commandes suivantes peuvent être utilisées dans un bloc
 @translationof Text markup list commands
 
 Les commandes suivantes peuvent être utilisées dans un
-bloc @code{\markuplines @{ @}}.
+bloc @code{\markuplist @{ @}}.
 
 @include markup-list-commands.tely
 

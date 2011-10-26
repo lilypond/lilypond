@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.17"
 
 \header {
   texidoc = "Adjacent lines of markup are placed as closely
@@ -10,7 +10,7 @@ together as possible."
   \paper {
     ragged-last-bottom = ##f
   }
-  \markuplines {
+  \markuplist {
     \column { A B } C D E
   }
 }

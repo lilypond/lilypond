@@ -1,8 +1,8 @@
-\version "2.14.0"
+\version "2.15.17"
 
 \header {
   texidoc = "A table of contents is included using
-@code{\\markuplines \\table-of-contents}. The toc items are added with
+@code{\\markuplist \\table-of-contents}. The toc items are added with
 the @code{\\tocItem} command. In the PDF backend, the toc items are linked
 to the corresponding pages."
 }
@@ -10,7 +10,7 @@ to the corresponding pages."
 #(set-default-paper-size "a6")
 
 \book {
-  \markuplines \table-of-contents
+  \markuplist \table-of-contents
   \pageBreak
 
   \tocItem \markup "The first score"

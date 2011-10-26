@@ -1,10 +1,10 @@
-\version "2.14.0"
+\version "2.15.17"
 
 \header {
   tagline = ##f
   texidoc = "Text that can spread over pages is entered with the
-@code{\\markuplines} command.  Widowed and orphaned lines are avoided
-at the begininng and end of a @code{\\markuplines} containing more
+@code{\\markuplist} command.  Widowed and orphaned lines are avoided
+at the begininng and end of a @code{\\markuplist} containing more
 than one line."
 }
 
@@ -14,9 +14,9 @@ than one line."
   (interpret-markup-list layout props 
    (make-justified-lines-markup-list (cons (make-hspace-markup 2) args))))
 \book {
-  \markuplines {} % Empty list is handled gracefully
+  \markuplist {} % Empty list is handled gracefully
   %% Candide, Voltaire
-  \markuplines \override-lines #'(baseline-skip . 3.0) {
+  \markuplist \override-lines #'(baseline-skip . 3.0) {
     \paragraph { % The final two lines are placed on page 2.
       Il y avait en Westphalie, dans le château de M. le baron de
       Thunder-ten-tronckh, un jeune garçon à qui la nature avait donné
@@ -31,7 +31,7 @@ than one line."
       perdu par l'injure du temps. (not orphaned)
     }
   }
-  \markuplines \override-lines #'(baseline-skip . 3.9) {
+  \markuplist \override-lines #'(baseline-skip . 3.9) {
     \paragraph {
       Monsieur le baron était un des plus puissants seigneurs de la
       Westphalie, car son château avait une porte et des fenêtres.  Sa
@@ -42,7 +42,7 @@ than one line."
       riaient quand il faisait des contes.
     }
   }
-  \markuplines {
+  \markuplist {
     \paragraph { % A single-line paragraph may be orphaned
       Madame la ... (may be orphaned)
     }

@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.17"
 
 %% defined later, in a closure
 #(define-public (add-toc-item! markup-symbol text)
@@ -38,7 +38,7 @@ tocItemWithDotsMarkup = \markup \fill-with-pattern #1 #RIGHT .
   ( _i "Outputs the table of contents, using the paper variable
 @code{tocTitleMarkup} for its title, then the list of lines
 built using the @code{tocItem} music function
-Usage: @code{\\markuplines \\table-of-contents}" )
+Usage: @code{\\markuplist \\table-of-contents}" )
   (cons (interpret-markup layout props
 			  (ly:output-def-lookup layout 'tocTitleMarkup))
 	(space-lines (chain-assoc-get 'baseline-skip props)

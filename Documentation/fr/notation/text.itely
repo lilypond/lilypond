@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.17"
 
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, John Mandereau
@@ -372,12 +372,12 @@ détail au chapitre @ref{Texte avec sauts de page}.
 
 @funindex \markup
 @funindex markup
-@funindex \markuplines
-@funindex markuplines
+@funindex \markuplist
+@funindex markuplist
 
 @predefined
 @code{\markup},
-@code{\markuplines}.
+@code{\markuplist}.
 @endpredefined
 
 
@@ -1334,21 +1334,21 @@ Fichiers d'initialisation :
 @cindex markup, texte multi-page
 @cindex plusieurs pages de texte
 
-@funindex \markuplines
-@funindex markuplines
+@funindex \markuplist
+@funindex markuplist
 @funindex \justified-lines
 @funindex justified-lines
 @funindex \wordwrap-lines
 @funindex wordwrap-lines
 
 Alors que @code{\markup} s'utilise pour traiter un bloc de texte
-insécable, @code{\markuplines} permet, employé en tête de partition,
+insécable, @code{\markuplist} permet, employé en tête de partition,
 d'obtenir un bloc de lignes réparties différemment et, le cas échéant,
 sur plusieurs pages.
 
 @c KEEP LY
 @lilypond[quote,verbatim]
-\markuplines {
+\markuplist {
   \justified-lines {
     Un long texte constitué de lignes justifiées.
     ...
@@ -1394,11 +1394,11 @@ Fichiers d'initialisation :
 @file{scm/define-markup-commands.scm}.
 
 
-@funindex \markuplines
-@funindex markuplines
+@funindex \markuplist
+@funindex markuplist
 
 @predefined
-@code{\markuplines}.
+@code{\markuplist}.
 @endpredefined
 
 

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.17"
 
 @node General input and output
 @chapter General input and output
@@ -1066,13 +1066,13 @@ ie. a two digit number.
 
 @node Table of contents
 @subsection Table of contents
-A table of contents is included using the @code{\markuplines \table-of-contents}
+A table of contents is included using the @code{\markuplist \table-of-contents}
 command.  The elements which should appear in the table of contents are
 entered with the @code{\tocItem} command, which may be used either at
 top-level, or inside a music expression.
 
 @verbatim
-\markuplines \table-of-contents
+\markuplist \table-of-contents
 \pageBreak
 
 \tocItem \markup "First score"
@@ -1155,7 +1155,7 @@ tocAct =
    (add-toc-item! 'tocActMarkup text))
 
 \book {
-  \markuplines \table-of-contents
+  \markuplist \table-of-contents
   \tocAct \markup { Atto Primo }
   \tocItem \markup { Coro. Viva il nostro Alcide }
   \tocItem \markup { Cesare. Presti omai l'Egizzia terra }
@@ -1175,7 +1175,7 @@ Dots can be added to fill the line between an item and its page number:
 }
 
 \book {
-  \markuplines \table-of-contents
+  \markuplist \table-of-contents
   \tocItem \markup { Allegro }
   \tocItem \markup { Largo }
   \markup \null

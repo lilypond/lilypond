@@ -1,6 +1,6 @@
-\version "2.14.0"
+\version "2.15.17"
 
-\markuplines \wordwrap-lines {
+\markuplist \wordwrap-lines {
   This regtest does not contain any header and paper blocks. Its purpose is to
   test whether anything breaks if these blocks are absent.
 }

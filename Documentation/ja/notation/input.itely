@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.17"
 
 
 @c Translators: Yoshiki Sawada
@@ -1189,12 +1189,12 @@ book のページ数が 10 から 99 までの範囲であるのなら、ゲー�
 @subsection 目次
 @translationof Table of contents
 
-目次は @code{\markuplines \table-of-contents} コマンドを用いて挿入します。@c
+目次は @code{\markuplist \table-of-contents} コマンドを用いて挿入します。@c
 目次に表示すべき要素は @code{\tocItem} コマンドで挿入されます
 -- このコマンドは最上位あるいは音楽表記の内部で使用します。
 
 @verbatim
-\markuplines \table-of-contents
+\markuplist \table-of-contents
 \pageBreak
 
 \tocItem \markup "First score"
@@ -1280,7 +1280,7 @@ tocAct =
    (add-toc-item! 'tocActMarkup text))
 
 \book {
-  \markuplines \table-of-contents
+  \markuplist \table-of-contents
   \tocAct \markup { Atto Primo }
   \tocItem \markup { Coro. Viva il nostro Alcide }
   \tocItem \markup { Cesare. Presti omai l'Egizzia terra }
@@ -1300,7 +1300,7 @@ tocAct =
 }
 
 \book {
-  \markuplines \table-of-contents
+  \markuplist \table-of-contents
   \tocItem \markup { Allegro }
   \tocItem \markup { Largo }
   \markup \null

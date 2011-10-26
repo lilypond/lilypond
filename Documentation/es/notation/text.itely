@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.17"
 
 @node Texto
 @section Texto
@@ -367,12 +367,12 @@ requiere se describen en @ref{Elementos de marcado de varias páginas}.
 
 @funindex \markup
 @funindex markup
-@funindex \markuplines
-@funindex markuplines
+@funindex \markuplist
+@funindex markuplist
 
 @predefined
 @code{\markup},
-@code{\markuplines}.
+@code{\markuplist}.
 @endpredefined
 
 
@@ -1322,8 +1322,8 @@ Archivos de inicio:
 @cindex marcado, texto de, varias páginas
 @cindex texto que ocupa varias páginas
 
-@funindex \markuplines
-@funindex markuplines
+@funindex \markuplist
+@funindex markuplist
 @funindex \justified-lines
 @funindex justified-lines
 @funindex \wordwrap-lines
@@ -1335,7 +1335,7 @@ que pueden abarcar varias páginas:
 
 @c KEEP LY
 @lilypond[quote,verbatim]
-\markuplines {
+\markuplist {
   \justified-lines {
     Un texto muy largo de líneas justificadas.
     ...
@@ -1379,11 +1379,11 @@ Archivos de inicio:
 @file{scm/define-markup-commands.scm}.
 
 
-@funindex \markuplines
-@funindex markuplines
+@funindex \markuplist
+@funindex markuplist
 
 @predefined
-@code{\markuplines}.
+@code{\markuplist}.
 @endpredefined
 
 
