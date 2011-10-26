@@ -1964,10 +1964,9 @@ Standard MIDI oputput is somewhat crude; optionally, an enhanced and
 more realistic MIDI output is available by means of
 @ref{The Articulate script}.
 
-@c TODO Check this
-The midi output allocates a channel for each staff, and one for global
-settings.  Therefore the midi file should not have more than 15 staves
-(or 14 if you do not use drums).  Other staves will remain silent.
+The MIDI output allocates a channel for each staff, and reserves channel
+10 for drums.  There are only 16 MIDI channels per device, so if the
+score contains more than 15 staves, MIDI channels will be reused.
 
 @menu
 * Creating MIDI files::
