@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.16"
 
 @c Translators: Till Paala
 
@@ -584,7 +584,8 @@ mynotes = {
     \mynotes
   }
   \new TabStaff {
-    \contextStringTuning #'custom-tuning <c' g' d'' a''>
+    #(define custom-tuning #{ \stringTuning <c' g' d'' a''> #})
+    \set stringTunings = #custom-tuning
     \mynotes
   }
 >>
@@ -606,7 +607,7 @@ benutzt werden soll und eine Akkordkonstruktion, die die Stimmung definiert.
 Das vorherige Beispiel könnte auch folgenderweise geschrieben werden:
 
 @lilypond[quote,verbatim]
-\makeStringTuning #'custom-tuning <c' g' d'' a''>
+"custom-tuning" = \stringTuning <c' g' d'' a''>
 
 mynotes = {
   c'4 e' g' c'' |

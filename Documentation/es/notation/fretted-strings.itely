@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.16"
 
 @node Instrumentos de cuerda con trastes
 @section Instrumentos de cuerda con trastes
@@ -592,7 +592,8 @@ mynotes = {
     \mynotes
   }
   \new TabStaff {
-    \contextStringTuning #'custom-tuning <c' g' d'' a''>
+    #(define custom-tuning #{ \stringTuning <c' g' d'' a''> #})
+    \set stringTunings = #custom-tuning
     \mynotes
   }
 >>
@@ -615,7 +616,7 @@ la afinación.  El ejemplo anterior también se podría haber escrito
 como sigue:
 
 @lilypond[quote,verbatim]
-\makeStringTuning #'custom-tuning <c' g' d'' a''>
+"custom-tuning" = \stringTuning <c' g' d'' a''>
 
 mynotes = {
   c'4 e' g' c'' |
