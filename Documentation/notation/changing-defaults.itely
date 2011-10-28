@@ -724,10 +724,48 @@ this score block.
 Modifications can be made to the @code{Score} context or all
 @code{Voice} contexts in a similar way.
 
-@knownissues
+Context changes can be placed in a variable and applied to a
+@code{\context} definition by prepending the modification with
+@code{\with}:
+@lilypond[quote,verbatim]
+blubb = \with {
+  fontSize = #-4
+  \override Stem #'thickness = #4.0
+  \remove "Time_signature_engraver"
+}
 
-It is not possible to collect context changes in a variable and apply
-them to a @code{\context} definition by referring to that variable.
+bla = \with {
+  fontSize = #3
+  \override Stem #'thickness = #-2.0
+}
+
+melody = \relative c'' {
+  a4 a a a |
+  a4 a a a |
+}
+
+\score {
+  <<
+    \new Staff <<
+      \melody
+      s1*0^"Small, thicker stems, no time signature"
+    >>
+    \new Staff \bla <<
+      \melody
+      s1*0^"Different"
+    >>
+  >>
+  \layout {
+    \context {
+      \Staff
+      \blubb
+    }
+  }
+}
+@end lilypond
+
+
+@knownissues
 
 The @code{\Staff \RemoveEmptyStaves} will overwrite your current
 @code{\Staff} settings.  If you wish to change the defaults for a
