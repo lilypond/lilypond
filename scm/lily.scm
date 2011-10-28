@@ -563,6 +563,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     (,ly:skyline-pair? . "pair of skylines")
     (,ly:source-file? . "source file")
     (,ly:spanner? . "spanner")
+    (,ly:spring? . "spring")
     (,ly:stencil? . "stencil")
     (,ly:stream-event? . "stream event")
     (,ly:translator? . "translator")

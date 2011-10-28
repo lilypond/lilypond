@@ -42,3 +42,41 @@ Spring::equal_p (SCM a, SCM b)
   return a == b ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
+LY_DEFINE (ly_make_spring, "ly:make-spring",
+           2, 0, 0, (SCM ideal, SCM min_dist),
+           "Make a spring.  @var{ideal} is the ideal distance of the"
+           " spring, and @var{min-dist} is the minimum distance.")
+{
+  LY_ASSERT_TYPE (scm_is_number, ideal, 1);
+  LY_ASSERT_TYPE (scm_is_number, min_dist, 2);
+
+  Spring s (scm_to_double (ideal), scm_to_double (min_dist));
+
+  return s.smobbed_copy ();
+}
+
+LY_DEFINE (ly_spring_set_inverse_compress_strength_x, "ly:spring-set-inverse-compress-strength!",
+           2, 0, 0, (SCM spring, SCM strength),
+           "Set the inverse compress @var{strength} of @var{spring}.")
+{
+  LY_ASSERT_SMOB (Spring, spring, 1);
+  LY_ASSERT_TYPE (scm_is_number, strength, 2);
+
+  Spring *s = unsmob_spring (spring);
+  s->set_inverse_compress_strength (scm_to_double (strength));
+  return s->smobbed_copy ();
+}
+
+LY_DEFINE (ly_spring_set_inverse_stretch_strength_x, "ly:spring-set-inverse-stretch-strength!",
+           2, 0, 0, (SCM spring, SCM strength),
+           "Set the inverse stretch @var{strength} of @var{spring}.")
+{
+  LY_ASSERT_SMOB (Spring, spring, 1);
+  LY_ASSERT_TYPE (scm_is_number, strength, 2);
+
+  Spring *s = unsmob_spring (spring);
+  s->set_inverse_stretch_strength (scm_to_double (strength));
+  return s->smobbed_copy ();
+}
+
+IMPLEMENT_TYPE_P (Spring, "ly:spring?");
