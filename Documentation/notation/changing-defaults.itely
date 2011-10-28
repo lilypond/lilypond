@@ -764,24 +764,6 @@ melody = \relative c'' {
 }
 @end lilypond
 
-
-@knownissues
-
-The @code{\Staff \RemoveEmptyStaves} will overwrite your current
-@code{\Staff} settings.  If you wish to change the defaults for a
-staff which uses @code{\Staff \RemoveEmptyStaves}, you must do so
-after calling @code{\Staff \RemoveEmptyStaves}, ie
-
-@example
-\layout @{
-  \context @{
-    \Staff \RemoveEmptyStaves
-
-    \override Stem #'thickness = #4.0
-  @}
-@}
-@end example
-
 @c TODO: add \with in here.
 
 
