@@ -275,9 +275,10 @@ Abelson, see
 @node Lists
 @unnumberedsubsubsec Lists
 
-A very common Scheme data structure is the @emph{list}.  Formally, a
-list is defined as either the empty list (represented as @code{'()},
-or a pair whose @code{cdr} is a list.
+A very common Scheme data structure is the @emph{list}.  Formally,
+a @q{proper} list is defined to be either the empty list with its
+input form @code{'()} and length@tie{}0, or a pair whose
+@code{cdr} in turn is a shorter list.
 
 There are many ways of creating lists.  Perhaps the most common is
 with the @code{list} procedure:
