@@ -1,4 +1,4 @@
-\version "2.15.16"
+\version "2.15.17"
 
 \header {
   texidoc = "
@@ -16,13 +16,13 @@ if the length is too short.
 notes = \relative c' {
   \time 3/4
   <f d>4. <bes>8 <g e>4
-  \set fretLabels = #`("a" "b" ,(markup #:italic #:smaller "c"))
+  \set fretLabels = \markuplist {"a" "b" \italic \smaller "c"}
   <f d>4. <bes>8 <g e>4
-  \set fretLabels = #`(,(markup #:with-color red "a")
+  \set fretLabels = \markuplist {\with-color #red "a"
                        "b"
-                       ,(markup #:italic #:smaller "c"))
+                       \italic \smaller "c"}
   <f d>4. <bes>8 <g e>4
-  \set fretLabels = #'("α" "β" "γ")
+  \set fretLabels = \markuplist {"α" "β" "γ"}
   <f d>4. <bes>8 <g e>4
 }
 
