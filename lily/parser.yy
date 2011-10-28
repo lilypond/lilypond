@@ -1660,6 +1660,10 @@ scalar_bare:
 	| full_markup {
 		$$ = $1;
 	}
+	| full_markup_list
+	{
+		$$ = $1;
+	}
 	;
 
 scalar:
