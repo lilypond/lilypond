@@ -240,7 +240,6 @@ void set_music_properties (Music *p, SCM a);
 %token LYRICMODE "\\lyricmode"
 %token LYRICS "\\lyrics"
 %token LYRICSTO "\\lyricsto"
-%token MARK "\\mark"
 %token MARKUP "\\markup"
 %token MARKUPLIST "\\markuplist"
 %token MIDI "\\midi"
@@ -1994,18 +1993,11 @@ command_element:
 			$$ = MAKE_SYNTAX ("bar-check", @$);
 
 	}
-	| MARK scalar {
-		$$ = MAKE_SYNTAX ("make-mark-set", @$, $2);
-	}
 	;
 
 command_event:
 	E_TILDE {
 		$$ = MY_MAKE_MUSIC ("PesOrFlexaEvent", @$)->unprotect ();
-	}
-	| MARK DEFAULT  {
-		Music *m = MY_MAKE_MUSIC ("MarkEvent", @$);
-		$$ = m->unprotect ();
 	}
 	| tempo_event {
 		$$ = $1;

@@ -560,6 +560,22 @@ inversion =
 transpose from @var{around} to @var{to}.")
    (music-invert around to music))
 
+mark =
+#(define-music-function
+   (parser location label) ((scheme? '()))
+  "Make the music for the \\mark command."
+  (let* ((set (and (integer? label)
+		   (context-spec-music (make-property-set 'rehearsalMark label)
+				      'Score)))
+	 (ev (make-music 'MarkEvent
+			 'origin location)))
+
+    (if set
+	(make-sequential-music (list set ev))
+	(begin
+	  (set! (ly:music-property ev 'label) label)
+	  ev))))
+
 musicMap =
 #(define-music-function (parser location proc mus) (procedure? ly:music?)
    (_i "Apply @var{proc} to @var{mus} and all of the music it contains.")
