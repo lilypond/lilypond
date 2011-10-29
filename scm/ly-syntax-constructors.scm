@@ -103,12 +103,6 @@
 (define-ly-syntax-simple (bar-check)
   (make-music 'BarCheck))
 
-(define-ly-syntax-simple (time-scaled-music fraction music)
-  (make-music 'TimeScaledMusic
-  	      'element (ly:music-compress music (ly:make-moment (car fraction) (cdr fraction)))
-  	      'numerator (car fraction)
-  	      'denominator (cdr fraction)))
-
 (define-ly-syntax (tempo parser location text . rest)
   (let* ((unit (and (pair? rest)
 		    (car rest)))

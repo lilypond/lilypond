@@ -257,13 +257,11 @@ void set_music_properties (Music *p, SCM a);
 %token SET "\\set"
 %token SIMULTANEOUS "\\simultaneous"
 %token TEMPO "\\tempo"
-%token TIMES "\\times"
 %token TYPE "\\type"
 %token UNSET "\\unset"
 %token WITH "\\with"
 
 /* Keyword token exceptions.  */
-%token TIME_T "\\time"
 %token NEWCONTEXT "\\new"
 
 
@@ -1489,9 +1487,6 @@ complex_music_prefix:
                         mods = ctxmod->get_mods ();
 		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_T);
 	}
-	| TIMES fraction {
-                $$ = START_MAKE_SYNTAX ("time-scaled-music", $2);
-	}
 	;
 
 mode_changed_music:
@@ -1998,11 +1993,6 @@ command_element:
 		else
 			$$ = MAKE_SYNTAX ("bar-check", @$);
 
-	}
-	| TIME_T fraction  {
-		SCM proc = ly_lily_module_constant ("make-time-signature-set");
-
-		$$ = scm_apply_2   (proc, scm_car ($2), scm_cdr ($2), SCM_EOL);
 	}
 	| MARK scalar {
 		$$ = MAKE_SYNTAX ("make-mark-set", @$, $2);

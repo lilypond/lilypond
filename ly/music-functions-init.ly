@@ -1015,6 +1015,20 @@ tag =
 	  (ly:music-property arg 'tags)))
    arg)
 
+time =
+#(define-music-function (parser location fraction) (fraction?)
+   (_i "Set @var{fraction} as time signature.")
+   (make-time-signature-set (car fraction) (cdr fraction)))
+
+times =
+#(define-music-function (parser location fraction music)
+   (fraction? ly:music?)
+   (_i "Scale @var{music} in time by @var{fraction}.")
+  (make-music 'TimeScaledMusic
+  	      'element (ly:music-compress music (ly:make-moment (car fraction) (cdr fraction)))
+  	      'numerator (car fraction)
+  	      'denominator (cdr fraction)))
+
 transpose =
 #(define-music-function
    (parser location from to music)

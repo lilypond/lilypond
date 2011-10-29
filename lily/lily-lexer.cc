@@ -82,8 +82,6 @@ static Keyword_ent the_key_tab[]
   {"set", SET},
   {"simultaneous", SIMULTANEOUS},
   {"tempo", TEMPO},
-  {"time", TIME_T},
-  {"times", TIMES},
   {"type", TYPE},
   {"unset", UNSET},
   {"with", WITH},
