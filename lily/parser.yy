@@ -56,6 +56,14 @@ or
     \repeat { \repeat } \alternative
 */
 
+%nonassoc COMPOSITE
+%left ADDLYRICS
+
+ /* ADDLYRICS needs to have lower precedence than FUNCTION_ARGUMENTS,
+  * or we won't be able to tell music apart from closed_music without
+  * lookahead in the context of function calls.
+  */
+
 %right FUNCTION_ARGUMENTS
       MARKUP LYRICS_STRING MARKUP_IDENTIFIER STRING STRING_IDENTIFIER
       MARKUPLIST WITH CONTEXT_MOD_IDENTIFIER MARKUPLIST_IDENTIFIER
@@ -70,7 +78,6 @@ or
 
  /* The above are the symbols that can start function arguments */
 
-%left ADDLYRICS
 %left PREC_TOP
 
 
@@ -1085,7 +1092,7 @@ braced_music_list:
 
 music:
 	simple_music
-	| composite_music %prec FUNCTION_ARGUMENTS
+	| composite_music %prec COMPOSITE
 	;
 
 
@@ -1485,7 +1492,7 @@ new_lyrics:
 re_rhythmed_music:
 	composite_music new_lyrics {
 		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
-	} %prec FUNCTION_ARGUMENTS
+	} %prec COMPOSITE
 	| LYRICSTO simple_string {
 		PARSER->lexer_->push_lyric_state ();
 	} music {
