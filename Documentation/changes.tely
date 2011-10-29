@@ -61,6 +61,15 @@ which scares away people.
 
 @end ignore
 @item
+The @code{\markuplines} command has been renamed to @code{\markuplist}
+for a better match with its semantics and general Lilypond
+nomenclature.
+
+@item
+The interface for specifying string tunings in tablature has been
+simplified considerably.
+
+@item
 Beams can now have their slopes preserved over line breaks.
 @lilypond[fragment,quote,relative=2]
 \override Beam #'breakable = ##t
@@ -78,8 +87,18 @@ Furthermore, @code{ly:beam::quanting} now only takes one argument -
 the beam grob.
 
 @item
-Music, event, and scheme functions can now be defined with optional
-arguments before mandatory arguments.
+In function arguments music, markups and Scheme expressions (as well
+as several other syntactic entities) have become mostly
+interchangeable and are told apart only by evaluating the respective
+predicate.
+
+@item
+Music functions (and their close relatives) can now be defined with
+optional arguments.
+
+@item
+For defining commands executed only for their side-effects,
+@code{define-void-function} is now available.
 
 @item
 There is a new @code{define-event-function} command in analogy to
