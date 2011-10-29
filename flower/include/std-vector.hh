@@ -89,6 +89,10 @@ public:
   {
   }
 
+  vector<T, A> (size_t n) : __flower_vector<T, A> (n)
+  {
+  }
+
   vector<T, A> (vector<T, A> const &v) : __flower_vector<T, A> (v)
   {
   }
