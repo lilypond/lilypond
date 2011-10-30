@@ -1,0 +1,235 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@ignore
+    Translation of GIT committish: 3ef893f1fe182e9f6cf5841cbff0706789bd3361
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.14.0"
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+@node フレットの無い弦楽器
+@section フレットの無い弦楽器
+@translationof Unfretted string instruments
+
+
+@lilypondfile[quote]
+{unfretted-headword.ly}
+
+@cindex orchestral strings (オーケストラの弦楽器)
+@cindex strings, orchestral (オーケストラの弦楽器)
+@cindex strings, writing for (弦楽器のための記譜法)
+
+このセクションではフレットの無い弦楽器
+-- 主にオーケストラで使用される弦楽器 --
+のための楽譜を記述する際に有用な情報とリファレンスを提供します。
+orchestral strings.
+
+@menu
+* フレットの無い弦楽器で共通の記譜法::
+@end menu
+
+@node フレットの無い弦楽器で共通の記譜法
+@subsection フレットの無い弦楽器で共通の記譜法
+@translationof Common notation for unfretted strings
+
+フレットの無い弦楽器のための特殊な記譜法は少ししかありません。@c
+フレットの無い弦楽器の演奏は単一の譜で記譜され、@c
+通常は 1 つのボイスしか必要としません。@c
+ダブル ストップ (重音奏法) やディヴィジ (divisi) パッセージで
+2 つのボイスが必要となる場合もあります。
+
+@menu
+* フレットの無い弦楽器のためのリファレンス::
+* ボーイング指示::
+* ハーモニクス::
+* スナップ (バルトーク) ピッツィカート::
+@end menu
+
+@node フレットの無い弦楽器のためのリファレンス
+@unnumberedsubsubsec フレットの無い弦楽器のためのリファレンス
+@translationof References for unfretted strings
+
+オーケストラの弦楽器や他の弓を使う楽器で用いられる記譜法のほとんどは@c
+他の場所でカバーされています。
+
+@itemize
+
+@item @qq{pizz.} や @qq{arco} などのテキスト指示は、@c
+単なるテキストとして付け加えます
+-- @ref{テキスト スクリプト} を参照してください。
+
+@item 親指の指示も含めた運指は、@ref{運指の指示} で説明しています。
+
+@item ダブル ストップは通常、和音として記述します
+-- @ref{和音の音符} を参照してください。@c
+和音を弾く方向を付け加えることもできます
+-- @ref{アルペジオ} を参照してください。
+
+@item @rlearning{弦楽四重奏} に弦楽四重奏のテンプレートがあります。@c
+他の例はコード断片集で示されています。
+
+@end itemize
+
+
+@seealso
+学習マニュアル:
+@rlearning{弦楽四重奏}
+
+記譜法リファレンス:
+@ref{テキスト スクリプト},
+@ref{運指の指示},
+@ref{和音の音符},
+@ref{アルペジオ}
+
+コード断片集:
+@rlsr{Unfretted strings}
+
+
+@node ボーイング指示
+@unnumberedsubsubsec ボーイング指示
+@translationof Bowing indications
+
+@funindex \upbow
+@funindex \downbow
+@funindex \open
+
+@cindex bowing indications (ボーイング指示)
+@cindex up bow indication (アップ ボー指示)
+@cindex down bow indication (ダウン ボー指示)
+@cindex open string indication (開放弦の指示)
+@cindex string, indicating open (開放弦の指示)
+
+ボーイング指示はアーティキュレーションとして作成します。@c
+アーティキュレーションについては、@c
+@ref{アーティキュレーションと装飾} で説明しています。
+
+ボーイングのコマンド
+-- @code{\upbow} と @code{\downbow} --
+は、以下のようにスラーと一緒に用います:
+
+@lilypond[verbatim,quote,relative=2]
+c4(\downbow d) e(\upbow f)
+@end lilypond
+
+@noindent
+以下の例は、バイオリンで A の開放弦を表す 3 つの方法を示しています:
+
+@lilypond[verbatim,quote,relative=2]
+a4 \open
+a^\markup { \teeny "II" }
+a2^\markup { \small "sul A" }
+@end lilypond
+
+
+@predefined
+@code{\downbow},
+@code{\upbow},
+@code{\open}
+@endpredefined
+
+
+@seealso
+記譜法リファレンス:
+@ref{アーティキュレーションと装飾},
+@ref{スラー}
+
+
+@node ハーモニクス
+@unnumberedsubsubsec ハーモニクス
+@translationof Harmonics
+
+@funindex \harmonic
+
+@strong{@i{ナチュラル ハーモニクス}}
+
+@cindex note heads, diamond-shaped (ダイアモンド形の符頭)
+@cindex diamond-shaped note heads (ダイアモンド形の符頭)
+@cindex natural harmonics (ナチュラル ハーモニクス)
+@cindex harmonics, natural (ナチュラル ハーモニクス)
+@funindex \harmonicsOn
+@funindex \harmonicsOff
+
+いくつかの方法でナチュラル ハーモニクスを記譜することができます。@c
+一般的に、ダイアモンド形の符頭は、@c
+符頭がダイアモンド形ではない場合に押さえる弦に触れることを意味します。
+
+@lilypond[verbatim,quote,relative=2]
+d4 e4.
+\harmonicsOn
+d8 e e
+d4 e4.
+\harmonicsOff
+d8 e e
+@end lilypond
+
+一方、鳴らすピッチに通常の符頭を記譜すると共に、@c
+小さな丸を付けることでハーモニクスとして演奏することを示す方法もあります:
+
+@lilypond[verbatim,quote,relative=2]
+d2^\flageolet d_\flageolet
+@end lilypond
+
+より小さな丸を描くこともできます。@c
+@ref{フレットの無い弦楽器のためのリファレンス} にある@c
+コード断片集を参照してください。
+
+@strong{@i{アーティフィシャル ハーモニクス}}
+
+@cindex artificial harmonics (アーティフィシャル ハーモニクス)
+@cindex harmonics, artificial (アーティフィシャル ハーモニクス)
+
+アーティフィシャル ハーモニクスは 2 つの音符で記譜します
+-- 1 つは通常の符頭でストップ ポジションを示し、@c
+もう 1 つは中空のダイアモンド形の符頭でハーモニクス ポジションを示します。
+
+@c TODO If the default for harmonicDots is changed, change this
+@code{\harmonic} で記譜したアーティフィシャル ハーモニクスは符点を持ちません。@c
+符点を付ける必要がある場合は、@c
+コンテキスト プロパティ @code{harmonicDots} を設定します。
+
+@lilypond[verbatim,quote,relative=1]
+<e a\harmonic>2.  <c g'\harmonic>4
+\set harmonicDots = ##t
+<e a\harmonic>2.  <c g'\harmonic>4
+@end lilypond
+
+@warning{@code{@bs{}harmonic} は、単一の音符しかない場合であっても、@c
+和音構造の中に配置する @strong{必要があります}。@c
+通常、単一の音符のハーモニクスには @code{@bs{}harmonicsOn} を使います。}
+
+
+@seealso
+Music Glossary:
+@rglos{harmonics}
+
+記譜法リファレンス:
+@ref{特殊な符頭},
+@ref{フレットの無い弦楽器のためのリファレンス}
+
+
+@node スナップ (バルトーク) ピッツィカート
+@unnumberedsubsubsec スナップ (バルトーク) ピッツィカート
+@translationof Snap (Bartok) pizzicato
+
+@cindex pizzicato, Bartók (バルトーク ピッツィカート)
+@cindex pizzicato, snap (スナップ ピッツィカート)
+@cindex Bartók pizzicato (バルトーク ピッツィカート)
+@cindex snap pizzicato (スナップ ピッツィカート)
+
+@notation{スナップ ピッツィカート} (@notation{snap pizzicato})
+-- @notation{バルトーク ピッツィカート} (@notation{Bartók pizzicato}) とも呼ばれます
+-- は、ピッツィカートの 1 つで、@c
+故意に弦を上 (フィンガーボードと垂直) に引いて、@c
+弦をフィンガーボードにぶつけます。
+
+@lilypond[verbatim,quote,relative=1]
+c4\snappizzicato
+<c' e g>4\snappizzicato
+<c' e g>4^\snappizzicato
+<c, e g>4_\snappizzicato
+@end lilypond
