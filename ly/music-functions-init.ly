@@ -469,6 +469,23 @@ keepWithTag =
 	 res)))
     music))
 
+key =
+#(define-music-function (parser location tonic pitch-alist)
+   ((ly:pitch? '()) (list? '()))
+   (_i "Set key to @var{tonic} and scale @var{pitch-alist}.
+If both are null, just generate @code{KeyChangeEvent}.")
+   (cond ((null? tonic) (make-music 'KeyChangeEvent))
+	 ((null? pitch-alist)
+	  (ly:parser-error parser (_ "second argument must be pitch list")
+			   location)
+	  (make-music 'SequentialMusic 'void #t))
+	 (else
+	  (ly:music-transpose
+	   (make-music 'KeyChangeEvent
+		'tonic (ly:make-pitch 0 0 0)
+		'pitch-alist pitch-alist)
+	   tonic))))
+
 killCues =
 #(define-music-function (parser location music) (ly:music?)
    (_i "Remove cue notes from @var{music}.")

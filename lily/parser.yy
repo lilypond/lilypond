@@ -236,7 +236,6 @@ void set_music_properties (Music *p, SCM a);
 %token GROBDESCRIPTIONS "\\grobdescriptions"
 %token HEADER "\\header"
 %token INVALID "\\version-error"
-%token KEY "\\key"
 %token LAYOUT "\\layout"
 %token LYRICMODE "\\lyricmode"
 %token LYRICS "\\lyrics"
@@ -2020,24 +2019,6 @@ command_event:
 	}
 	| tempo_event {
 		$$ = $1;
-	}
-	| KEY DEFAULT {
-		Music *key = MY_MAKE_MUSIC ("KeyChangeEvent", @$);
-		$$ = key->unprotect ();
-	}
-	| KEY NOTENAME_PITCH SCM_IDENTIFIER 	{
-
-		Music *key = MY_MAKE_MUSIC ("KeyChangeEvent", @$);
-		if (scm_ilength ($3) > 0)
-		{
-			key->set_property ("pitch-alist", $3);
-			key->set_property ("tonic", Pitch (0, 0, 0).smobbed_copy ());
-			key->transpose (* unsmob_pitch ($2));
-		} else {
-			PARSER->parser_error (@3, _ ("second argument must be pitch list"));
-		}
-
-		$$ = key->unprotect ();
 	}
 	;
 

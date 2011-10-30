@@ -60,7 +60,6 @@ static Keyword_ent the_key_tab[]
   {"figures", FIGURES},
   {"grobdescriptions", GROBDESCRIPTIONS},
   {"header", HEADER},
-  {"key", KEY},
   {"layout", LAYOUT},
   {"lyricmode", LYRICMODE},
   {"lyrics", LYRICS},
