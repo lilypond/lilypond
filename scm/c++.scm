@@ -25,6 +25,11 @@
   (and (pair? x)
        (number? (car x)) (number? (cdr x))))
 
+(define-public (fraction? x)
+  (and (pair? x)
+       (integer? (car x)) (integer? (cdr x))
+       (>= (car x) 0) (>= (cdr x) 0)))
+
 (define-public (number-or-grob? x)
   (or (ly:grob? x) (number? x)))
 

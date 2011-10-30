@@ -508,6 +508,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
   `((,boolean-or-symbol? . "boolean or symbol")
     (,color? . "color")
     (,cheap-list? . "list")
+    (,fraction? . "fraction, as pair")
     (,grob-list? . "list of grobs")
     ;; this is built on cheap-list
     (,list-or-symbol? . "list or symbol")
