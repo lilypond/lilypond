@@ -306,7 +306,7 @@ larger.  Fractional values are allowed.")
      (force-hshift ,number? "This specifies a manual shift for notes
 in collisions.  The unit is the note head width of the first voice
 note.  This is used by @rinternals{note-collision-interface}.")
-     (fraction ,number-pair? "Numerator and denominator of a time
+     (fraction ,fraction? "Numerator and denominator of a time
 signature object.")
      (french-beaming ,boolean? "Use French beaming style for this
 stem.  The stem stops at the innermost beams.")

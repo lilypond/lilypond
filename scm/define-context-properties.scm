@@ -494,7 +494,7 @@ minute.")
      (tieWaitForNote ,boolean? "If true, tied notes do not have to
 follow each other directly.  This can be used for writing out
 arpeggios.")
-     (timeSignatureFraction ,number-pair? "A pair of numbers,
+     (timeSignatureFraction ,fraction? "A pair of numbers,
 signifying the time signature.  For example, @code{'(4 . 4)} is a
 4/4 time signature.")
      (timeSignatureSettings ,cheap-list? "A nested alist of settings for

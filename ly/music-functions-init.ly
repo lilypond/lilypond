@@ -936,7 +936,7 @@ rightHandFinger =
 
 scaleDurations =
 #(define-music-function (parser location fraction music)
-   (number-pair? ly:music?)
+   (fraction? ly:music?)
    (_i "Multiply the duration of events in @var{music} by @var{fraction}.")
    (ly:music-compress music
 		      (ly:make-moment (car fraction) (cdr fraction))))
