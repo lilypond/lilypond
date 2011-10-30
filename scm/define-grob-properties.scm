@@ -80,6 +80,9 @@ grobs, this should contain only one number.")
 ;;
 ;; b
 ;;
+     (bar-extent ,number-pair? "The Y-extent of the actual bar line.
+This may differ from @code{Y-extent} because it does not include the
+dots in a repeat bar line.")
      (base-shortest-duration ,ly:moment? "Spacing is based on the
 shortest notes in a piece.  Normally, pieces are spaced as if notes at
 least as short as this are present.")
@@ -1104,9 +1107,6 @@ results, use @code{LEFT} and @code{RIGHT}.")
 @code{VerticalAxisGroup} to cache the @code{Y-extent}s of different column
 ranges.")
 
-     (bar-extent ,number-pair? "The Y-extent of the actual bar line.
-This may differ from @code{Y-extent} because it does not include the dots in
-a repeat bar line.")
      (begin-of-line-visible ,boolean? "Set to make @code{ChordName} or
 @code{FretBoard} be visible only at beginning of line or at
 chord changes.")
