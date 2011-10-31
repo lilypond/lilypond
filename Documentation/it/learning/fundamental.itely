@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 7ae1e99ff67432c96faf743bc28ac7b90a47a852
+    Translation of GIT committish: fb04880077ab1b4107815ab50b171a97e2fd3772
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1770,11 +1770,11 @@ Quindi in questo modo si disattiva il bequadro su un rigo:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais2 aes
+    aeses2 aes
  }
   \new Staff \relative c'' {
     \set Staff.extraNatural = ##f
-    ais2 aes
+    aeses2 aes
  }
 >>
 @end lilypond
@@ -1785,11 +1785,11 @@ e in questo modo si disattiva in tutti i righi:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais2 aes
+    aeses2 aes
  }
   \new Staff \relative c'' {
     \set Score.extraNatural = ##f
-    ais2 aes
+    aeses2 aes
  }
 >>
 @end lilypond
@@ -1859,12 +1859,12 @@ così:
 <<
   \new Staff {
     \relative c'' {
-      gis4 ges aes ais
+      gisis4 gis aeses aes
     }
   }
   \new Staff \with { extraNatural = ##f } {
     \relative c'' {
-      gis4 ges aes ais
+      gisis4 gis aeses aes
     }
   }
 >>
@@ -1903,13 +1903,38 @@ nel blocco @code{\score} o @code{\book} nel quale il blocco
 \score {
   \new Staff {
     \relative c'' {
-      cis4 e d ces
+      cisis4 e d cis
     }
   }
   \layout {
     \context {
       \Staff
       extraNatural = ##t
+    }
+  }
+}
+@end lilypond
+
+Se si vuole che la modifica della proprietà venga applicata a tutti i righi
+della partitura:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \relative c'' {
+        gisis4 gis aeses aes
+      }
+    }
+    \new Staff {
+      \relative c'' {
+        gisis4 gis aeses aes
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score extraNatural = ##f
     }
   }
 }
