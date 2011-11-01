@@ -52,9 +52,8 @@ License''.
 
 @c TITLE PAGE
 @ifnottex
-@node Su
+@node Top
 @top LilyPond... notazione musicale per tutti
-@translationof Top
 @end ifnottex
 
 
