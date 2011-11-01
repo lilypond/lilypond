@@ -21,6 +21,7 @@ chs =
 <c e g a bes>1
 <c e g a d'>1
 <c e g b fis'>1
+<c e g bes des' ees' fis' aes'>1
 }
 
 

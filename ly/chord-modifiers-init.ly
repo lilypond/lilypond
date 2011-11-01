@@ -31,6 +31,7 @@ ignatzekExceptionMusic = {
   }
   <c es ges beses>-\markup { \super  "o7" }
   <c e g b fis'>-\markup { \super "lyd" } % Lydian
+  <c e g bes des' ees' fis' aes'>-\markup { \super "alt" } % altered chord (super-Locrian)
 }
 
 partialJazzMusic = {
