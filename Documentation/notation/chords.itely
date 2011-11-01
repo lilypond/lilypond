@@ -631,9 +631,40 @@ bass note can be printed in lower case.
 
 @item chordNameSeparator
 
-Different parts of a chord name are normally separated by a slash.
-By setting @code{chordNameSeparator}, you can use any desired markup
-for a separator.
+Different parts of a chord name are normally separated by a small
+amount of horizontal space.  By setting @code{chordNameSeparator}, you
+can use any desired markup for a separator.  This does not affect the
+separator between a chord and its bass note; to customize that, use
+@code{slashChordSeparator}.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:7.9- c:7.9-/g
+  \set chordNameSeparator = \markup { "/" }
+  \break
+  c4:7.9- c:7.9-/g
+}
+@end lilypond
+
+@funindex slashChordSeparator
+
+@item slashChordSeparator
+
+Chords can be played over a bass note other than the conventional root
+of the chord.  These are known as ``inversions'' or ``slash chords'',
+because the default way of notating them is with a forward slash
+between the main chord and the bass note.  Therefore the value of
+@code{slashChordSeparator} defaults to a forward slash, but you can
+change it to any markup you choose.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:7.9- c:7.9-/g
+  \set slashChordSeparator = \markup { " over " }
+  \break
+  c4:7.9- c:7.9-/g
+}
+@end lilypond
 
 @funindex chordNameExceptions
 

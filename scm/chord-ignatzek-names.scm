@@ -168,6 +168,7 @@ work than classifying the pitches."
         (make-line-markup total)))
 
     (let* ((sep (ly:context-property context 'chordNameSeparator))
+           (slashsep (ly:context-property context 'slashChordSeparator))
            (root-markup (name-root root lowercase-root?))
            (add-markups (map (lambda (x) (glue-word-to-step "add" x))
                              addition-pitches))
@@ -183,7 +184,7 @@ work than classifying the pitches."
                                  suffixes
                                  add-markups) sep))
            (base-stuff (if (ly:pitch? bass-pitch)
-                           (list sep (name-note bass-pitch #f))
+                           (list slashsep (name-note bass-pitch #f))
                            '())))
 
       (set! base-stuff
@@ -209,7 +210,7 @@ work than classifying the pitches."
        ,exception-markup
        .
        ,(if (ly:pitch? bass-pitch)
-            (list (ly:context-property context 'chordNameSeparator)
+            (list (ly:context-property context 'slashChordSeparator)
                   (name-note bass-pitch #f))
             '()))))
 

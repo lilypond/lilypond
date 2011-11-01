@@ -148,6 +148,9 @@ of pitches to chord names.")
      (chordNameLowercaseMinor ,boolean? "Downcase roots of minor chords?")
      (chordNameSeparator ,markup? "The markup object used to
 separate parts of a chord name.")
+     (slashChordSeparator ,markup? "The markup object used to separate
+a chord name from its root note in case of inversions or slash
+chords.")
      (chordNoteNamer ,procedure? "A function that converts from a pitch
 object to a text markup.  Used for single pitches.")
      (chordPrefixSpacer ,number? "The space added between the root
