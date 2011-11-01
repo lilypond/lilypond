@@ -229,7 +229,6 @@ void set_music_properties (Music *p, SCM a);
 %token MIDI "\\midi"
 %token NAME "\\name"
 %token NOTEMODE "\\notemode"
-%token ONCE "\\once"
 %token OVERRIDE "\\override"
 %token PAPER "\\paper"
 %token REMOVE "\\remove"
@@ -1614,10 +1613,7 @@ simple_music_property_def:
 
 music_property_def:
 	simple_music_property_def {
-		$$ = LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("property-operation"), scm_cons (PARSER->self_scm (), scm_cons2 (make_input (@$), SCM_BOOL_F, $1)));
-	}
-	| ONCE simple_music_property_def {
-		$$ = LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("property-operation"), scm_cons (PARSER->self_scm (), scm_cons2 (make_input (@$), SCM_BOOL_T, $2)));
+		$$ = LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("property-operation"), scm_cons2 (PARSER->self_scm (), make_input (@$), $1));
 	}
 	;
 

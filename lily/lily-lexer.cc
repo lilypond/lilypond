@@ -72,7 +72,6 @@ static Keyword_ent the_key_tab[]
   {"name", NAME},
   {"new", NEWCONTEXT},
   {"notemode", NOTEMODE},
-  {"once", ONCE},
   {"override", OVERRIDE},
   {"paper", PAPER},
   {"remove", REMOVE},

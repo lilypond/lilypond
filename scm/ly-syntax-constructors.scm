@@ -177,7 +177,7 @@ into a @code{MultiMeasureTextEvent}."
     (if create-new (set! (ly:music-property csm 'create-new) #t))
     csm))
 
-(define-ly-syntax (property-operation parser location once ctx music-type symbol . args)
+(define-ly-syntax (property-operation parser location ctx music-type symbol . args)
   (let* ((props (case music-type
 		  ((PropertySet) (list 'value (car args)))
 		  ((PropertyUnset) '())
@@ -191,11 +191,10 @@ into a @code{MultiMeasureTextEvent}."
 		       (list 'grob-property-path (car args))
 		       (list 'grob-property-path args)))
 		  (else (ly:error (_ "Invalid property operation ~a") music-type))))
-	 (oprops (if once (cons* 'once once props) props))
 	 (m (apply make-music music-type
 		   'symbol symbol
 		   'origin location
-		   oprops)))
+		   props)))
     (make-music 'ContextSpeccedMusic
 		'element m
 		'context-type ctx

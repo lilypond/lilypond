@@ -578,6 +578,18 @@ octaveCheck =
    (make-music 'RelativeOctaveCheck
                'pitch pitch))
 
+once =
+#(define-music-function (parser location music) (ly:music?)
+   (_i "Set @code{once} to @code{#t} on all layout instruction events in @var{music}.")
+   (music-map
+    (lambda (m)
+      (cond ((music-is-of-type? m 'layout-instruction-event)
+	     (set! (ly:music-property m 'once) #t))
+	    ((ly:duration? (ly:music-property m 'duration))
+	     (ly:music-warning m (_ "Cannot apply \\once to timed music"))))
+      m)
+    music))
+
 ottava =
 #(define-music-function (parser location octave) (integer?)
    (_i "Set the octavation.")
