@@ -157,24 +157,29 @@ specified in Scheme syntax if desired (introduced with @code{#} or as
 the result of calling a scheme function), but Lilypond will also
 convert a number of Lilypond constructs into Scheme before actually
 checking the predicate on them.  Currently, those include music,
-simple strings (with or without quotes), full markups and markup
+simple strings (with or without quotes), numbers, full markups and markup
 lists, score, book, bookpart, context definition and output definition
 blocks.
 
 For some kinds of expression (like most music not enclosed in braces)
 Lilypond needs to look further than the expression itself in order to
-determine its end.  When such an expression is considered for an
-optional argument by evaluating its predicate, Lilypond can't ``back
-up'' when it decides the expression does not fit the parameter, and
-complains.  So in some contexts involving optional arguments, you may
-need extra braces to make them acceptable to Lilypond.
+determine its end.  If such an expression were considered for an
+optional argument by evaluating its predicate, Lilypond would not be
+able to ``backup'' when it decides the expression does not fit the
+parameter.  So some forms of music might need to be enclosed in braces
+to make them acceptable to Lilypond.  There are also some other
+complications that may cause a predicate function to be called several
+times on successive versions of an argument (like @code{3} and
+@code{3\cm}) or several interpretations (like @code{"a" 4} in lyric
+mode, which can either be a string followed by a number, or a lyric
+event of duration @code{4}).
 
-This also applies for music arguments preceding @code{ly:duration?}
-arguments.  It may also affect the last argument of a scheme function
-that is used as the last part of another expression, since otherwise
-Lilypond won't know whether following postevents or durations apply to
-the argument of the Scheme function, or to the containing music
-expression.
+Music arguments preceding @code{ly:duration?} arguments must also be
+lookahead-free.  This may also hold for the last argument of a scheme
+function that is used as the last part of another expression, since
+otherwise Lilypond won't know whether following postevents or
+durations apply to the argument of the Scheme function, or to the
+containing music expression.
 
 For a list of available type predicates, see
 @ruser{Predefined type predicates}.
