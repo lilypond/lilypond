@@ -20,7 +20,7 @@ afinación de concierto.
 "
   doctitlees = "Plantilla de orquesta con coro y piano"
 
-%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+%% Translation of GIT committish: 34607d3e36a93030690ccd780a7ffce621ca1e0f
   texidocit = "
 Questo modello mostra come usare i contesti annidati @code{StaffGroup} e
 @code{GrandStaff} per creare sottogruppi degli strumenti dello stesso

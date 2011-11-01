@@ -25,7 +25,7 @@ encima de ellos.
   doctitlees = "Plantilla de notación de música antigua (transcripción moderna de música mensural)"
 
 
-%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+%% Translation of GIT committish: c3b519f0dd5ff0f8ccfc9a39ed1fe8df8b43741c
   texidocit = "
 Quando si trascrive musica mensurale, può essere utile inserire all'inizio del
 pezzo un incipit che indichi l'intonazione e il tempo originali. Le stanghette

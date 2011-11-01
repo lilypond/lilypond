@@ -46,7 +46,7 @@ los archivos independientes!
 別々のファイルに分ける場合は、指定されたコメントを外すことを忘れないでください！
 "
 
-%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+%% Translation of GIT committish: c3b519f0dd5ff0f8ccfc9a39ed1fe8df8b43741c
   texidocit = "
 Il frammento di codice del @qq{Modello per quartetto d'archi} crea un bel
 quartetto, ma cosa fare se si ha bisogno di creare le singole parti? Questo

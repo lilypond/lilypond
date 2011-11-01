@@ -13,7 +13,7 @@
 
 Se pueden imprimir estilos alternativos del corchete o gancho de las
 corcheas y figuras menores, mediante la sobreescritura de la propiedad
-@code{flag} del objeto @code{Stem}.  Son valores válidos
+@code{stencil} del objeto @code{Flag}.  Son valores válidos
 @code{modern-straight-flag} y @code{old-straight-flag}.
 
 "

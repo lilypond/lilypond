@@ -24,7 +24,7 @@ doctitlees = "Plantilla de pentagrama único con música y acordes"
 旋律とコードを持つリード譜を欲しくはありませんか？他を見る必要はありません！
 "
 
-%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+%% Translation of GIT committish: c3b519f0dd5ff0f8ccfc9a39ed1fe8df8b43741c
   texidocit = "
 Vuoi preparare uno spartito semplificato (lead sheet) con melodia e
 accordi?  La tua ricerca è finita!
