@@ -74,9 +74,6 @@ string output_name_global;
 /* Run in safe mode? */
 bool be_safe_global = false;
 
-/* Provide URI links to the original file */
-bool point_and_click_global = true;
-
 /* Scheme code to execute before parsing, after .scm init.
    This is where -e arguments are appended to.  */
 string init_scheme_code_global;

@@ -65,11 +65,6 @@ internal_set_option (SCM var,
       profile_property_accesses = valbool;
       val = val_scm_bool;
     }
-  else if (varstr == "point-and-click")
-    {
-      point_and_click_global = valbool;
-      val = val_scm_bool;
-    }
   else if (varstr == "protected-scheme-parsing")
     {
       parse_protect_global = valbool;
