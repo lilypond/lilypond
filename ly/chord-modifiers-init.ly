@@ -23,29 +23,29 @@ blackTriangleMarkup = \markup {
 }
 
 ignatzekExceptionMusic = {
-	<c e gis>1-\markup { "+" }
-	<c es ges>-\markup { \super "o" } % should be $\circ$ ?
-	<c es ges bes>-\markup {
-	  %%  f8 is o with slash.
-	  \super #(ly:export (ly:wide-char->utf-8 #x00f8))
-	}
-	<c es ges beses>-\markup { \super  "o7" }
+  <c e gis>1-\markup { "+" }
+  <c es ges>-\markup { \super "o" } % should be $\circ$ ?
+  <c es ges bes>-\markup {
+    %%  f8 is o with slash.
+    \super #(ly:export (ly:wide-char->utf-8 #x00f8))
+  }
+  <c es ges beses>-\markup { \super  "o7" }
 }
 
 partialJazzMusic = {
-    <c d>1-\markup { \normal-size-super "2" }
-    <c es>-\markup { "m" }
-    <c f>-\markup { \normal-size-super "sus4" }
-    <c g>-\markup { \normal-size-super "5" }
-    
-    %% TODO, partial exceptions
-    <c es f>-\markup { "m" }-\markup { \normal-size-super "sus4" }
-    <c d es>-\markup { "m" }-\markup { \normal-size-super "sus2" }
+  <c d>1-\markup { \normal-size-super "2" }
+  <c es>-\markup { "m" }
+  <c f>-\markup { \normal-size-super "sus4" }
+  <c g>-\markup { \normal-size-super "5" }
+
+  %% TODO, partial exceptions
+  <c es f>-\markup { "m" }-\markup { \normal-size-super "sus4" }
+  <c d es>-\markup { "m" }-\markup { \normal-size-super "sus2" }
 }
 
 powerChordSymbol = {
-    <c g>-\markup { \normal-size-super "5" }
-    <c g c'>1-\markup { \normal-size-super "5" }
+  <c g>-\markup { \normal-size-super "5" }
+  <c g c'>1-\markup { \normal-size-super "5" }
 }
 
 
@@ -57,7 +57,7 @@ partialJazzExceptions=
 #(sequential-music-to-chord-exceptions partialJazzMusic #f)
 
 powerChordExceptions =
-  #(sequential-music-to-chord-exceptions powerChordSymbol #t)
+#(sequential-music-to-chord-exceptions powerChordSymbol #t)
 
 ignatzekExceptions  =
 #(sequential-music-to-chord-exceptions ignatzekExceptionMusic #t)
