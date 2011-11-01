@@ -295,7 +295,7 @@ If we give names, Bison complains.
 
 
 %token <i> E_UNSIGNED
-%token <i> UNSIGNED
+%token <scm> UNSIGNED
 
 /* Artificial tokens, for more generic function syntax */
 %token <i> EXPECT_MARKUP "markup?"
@@ -2170,7 +2170,7 @@ gen_text_def:
 fingering:
 	UNSIGNED {
 		Music *t = MY_MAKE_MUSIC ("FingeringEvent", @$);
-		t->set_property ("digit", scm_from_int ($1));
+		t->set_property ("digit", $1);
 		$$ = t->unprotect ();
 	}
 	;
@@ -2258,7 +2258,7 @@ multiplied_duration:
 fraction:
 	FRACTION { $$ = $1; }
 	| UNSIGNED '/' UNSIGNED {
-		$$ = scm_cons (scm_from_int ($1), scm_from_int ($3));
+		$$ = scm_cons ($1, $3);
 	}
 	;
 
@@ -2283,9 +2283,7 @@ tremolo_type:
 	;
 
 bass_number:
-	UNSIGNED {
-		$$ = scm_from_int ($1);
-	}
+	UNSIGNED { $$ = $1; }
 	| STRING { $$ = $1; }
 	| full_markup { $$ = $1; }
 	;
@@ -2592,7 +2590,7 @@ number_factor:
 
 bare_number:
 	UNSIGNED	{
-		$$ = scm_from_int ($1);
+		$$ = $1;
 	}
 	| REAL		{
 		$$ = $1;
@@ -2603,7 +2601,7 @@ bare_number:
 	| REAL NUMBER_IDENTIFIER	{
 		$$ = scm_from_double (scm_to_double ($1) *scm_to_double ($2));
 	}
-	| UNSIGNED NUMBER_IDENTIFIER	{
+	| bare_unsigned NUMBER_IDENTIFIER	{
 		$$ = scm_from_double ($1 *scm_to_double ($2));
 	}
 	;
@@ -2611,15 +2609,13 @@ bare_number:
 
 bare_unsigned:
 	UNSIGNED {
-			$$ = $1;
+		$$ = scm_to_int ($1);
 	}
 	;
 
 unsigned_number:
-	bare_unsigned  { $$ = scm_from_int ($1); }
-	| NUMBER_IDENTIFIER {
-		$$ = $1;
-	}
+	UNSIGNED
+	| NUMBER_IDENTIFIER
 	;
 
 exclamations:

@@ -427,7 +427,7 @@ BOM_UTF8	\357\273\277
 	}
 	{UNSIGNED}/\/	| // backup rule
 	{UNSIGNED}		{
-		yylval.i = String_convert::dec2int (string (YYText ()));
+		yylval.scm = scm_c_read_string (YYText ());
 		return UNSIGNED;
 	}
 	{E_UNSIGNED}	{
@@ -467,12 +467,12 @@ BOM_UTF8	\357\273\277
 		return FRACTION;
 	}
 	{UNSIGNED}/\/[^0-9] { // backup rule
-		yylval.i = String_convert::dec2int (string (YYText ()));
+		yylval.scm = scm_c_read_string (YYText ());
 		return UNSIGNED;
 	}
 	{UNSIGNED}/\/	| // backup rule
 	{UNSIGNED}		{
-		yylval.i = String_convert::dec2int (string (YYText ()));
+		yylval.scm = scm_c_read_string (YYText ());
 		return UNSIGNED;
 	}
 	{NOTECOMMAND}	{
@@ -512,12 +512,12 @@ BOM_UTF8	\357\273\277
 		return FRACTION;
 	}
 	{UNSIGNED}/\/[^0-9] { // backup rule
-		yylval.i = String_convert::dec2int (string (YYText ()));
+		yylval.scm = scm_c_read_string (YYText ());
 		return UNSIGNED;
 	}
 	{UNSIGNED}/\/	| // backup rule
 	{UNSIGNED}		{
-		yylval.i = String_convert::dec2int (string (YYText ()));
+		yylval.scm = scm_c_read_string (YYText ());
 		return UNSIGNED;
 	}
 	-  {
@@ -659,7 +659,7 @@ BOM_UTF8	\357\273\277
 }
 
 {UNSIGNED}	{
-	yylval.i = String_convert::dec2int (string (YYText ()));
+	yylval.scm = scm_c_read_string (YYText ());
 	return UNSIGNED;
 }
 
