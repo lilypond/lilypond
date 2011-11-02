@@ -221,8 +221,8 @@ work than classifying the pitches."
          (pitches (map (lambda (x) (ly:pitch-diff x root)) (cdr in-pitches)))
          (lowercase-root?
           (and (ly:context-property context 'chordNameLowercaseMinor)
-       (let ((third (get-step 3 pitches)))
-            (and third (= (ly:pitch-alteration third) FLAT)))))
+               (let ((third (get-step 3 pitches)))
+                 (and third (= (ly:pitch-alteration third) FLAT)))))
          (exceptions (ly:context-property context 'chordNameExceptions))
          (exception (assoc-get pitches exceptions))
          (prefixes '())
