@@ -30,6 +30,7 @@ ignatzekExceptionMusic = {
     \normal-size-super $(ly:wide-char->utf-8 #x00f8)
   }
   <c es ges beses>-\markup { \super  "o7" }
+  <c e g b fis'>-\markup { \super "lyd" } % Lydian
 }
 
 partialJazzMusic = {

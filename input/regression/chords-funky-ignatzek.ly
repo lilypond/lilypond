@@ -16,6 +16,7 @@ chs =
 <c e g bes c'  d' e'>1
 <c e g a bes>1
 <c e g a d'>1
+<c e g b fis'>1
 }
 
 

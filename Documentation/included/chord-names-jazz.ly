@@ -59,6 +59,7 @@ chs =  \transpose c' c'
 	<c f g bes d'>
 	<c e g d'>	% add9
 	<c es g f'>
+	<c e g b fis'>	% Lydian
 }
 
 
