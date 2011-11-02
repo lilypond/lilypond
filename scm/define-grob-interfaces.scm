@@ -84,7 +84,7 @@ note)."
 (ly:add-interface
  'footnote-interface
  "Make a footnote."
- '(automatically-numbered footnote-text))
+ '(automatically-numbered footnote footnote-text))
 
 (ly:add-interface
  'footnote-spanner-interface

@@ -249,7 +249,6 @@ System::get_footnote_grobs_in_range (vector<Grob *> &out, vsize start, vsize end
   for (vsize i = 0; i < footnote_grobs_.size (); i++)
     {
       int pos = footnote_grobs_[i]->spanned_rank_interval ()[LEFT];
-      bool end_of_line_visible = true;
       if (Spanner *s = dynamic_cast<Spanner *>(footnote_grobs_[i]))
         {
           Direction spanner_placement = robust_scm2dir (s->get_property ("spanner-placement"), LEFT);
@@ -264,17 +263,18 @@ System::get_footnote_grobs_in_range (vector<Grob *> &out, vsize start, vsize end
           if (!Item::break_visible (item))
             continue;
           // safeguard to bring down the column rank so that end of line footnotes show up on the correct line
-          end_of_line_visible = (LEFT == item->break_status_dir ());
+          if (pos == int (start) && item->break_status_dir () != RIGHT)
+            continue;
+          if (pos == int (end) && item->break_status_dir () != LEFT)
+            continue;
+          if (pos != int (end) && pos != int (start) && item->break_status_dir () != CENTER)
+            continue;
         }
 
       if (pos < int (start))
         continue;
       if (pos > int (end))
         break;
-      if (pos == int (start) && end_of_line_visible)
-        continue;
-      if (pos == int (end) && !end_of_line_visible)
-        continue;
       if (!footnote_grobs_[i]->is_live ())
         continue;
 
@@ -282,12 +282,30 @@ System::get_footnote_grobs_in_range (vector<Grob *> &out, vsize start, vsize end
     }
 }
 
-vector<Stencil *>
-System::get_footnotes_in_range (vsize start, vsize end)
+vector<Real>
+System::get_footnote_heights_in_range (vsize start, vsize end)
+{
+  return internal_get_note_heights_in_range (start, end, true);
+}
+
+vector<Real>
+System::get_in_note_heights_in_range (vsize start, vsize end)
+{
+  return internal_get_note_heights_in_range (start, end, false);
+}
+
+vector<Real>
+System::internal_get_note_heights_in_range (vsize start, vsize end, bool foot)
 {
   vector<Grob *> footnote_grobs;
   get_footnote_grobs_in_range (footnote_grobs, start, end);
-  vector<Stencil *> out;
+  vector<Real> out;
+
+  for (vsize i = footnote_grobs.size (); i--;)
+    if (foot
+        ? !to_boolean (footnote_grobs[i]->get_property ("footnote"))
+        : to_boolean (footnote_grobs[i]->get_property ("footnote")))
+      footnote_grobs.erase (footnote_grobs.begin () + i);
 
   for (vsize i = 0; i < footnote_grobs.size (); i++)
     {
@@ -303,7 +321,7 @@ System::get_footnotes_in_range (vsize start, vsize end)
                                                            props, footnote_markup);
 
       Stencil *footnote_stencil = unsmob_stencil (footnote_stl);
-      out.push_back (footnote_stencil);
+      out.push_back (footnote_stencil->extent (Y_AXIS).length ());
     }
 
   return out;
@@ -905,6 +923,10 @@ ADD_INTERFACE (System,
                /* properties */
                "all-elements "
                "columns "
+               "footnote-stencil "
+               "in-note-direction "
+               "in-note-padding "
+               "in-note-stencil "
                "labels "
                "pure-Y-extent "
                "skyline-horizontal-padding "

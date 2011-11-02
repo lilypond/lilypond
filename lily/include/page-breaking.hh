@@ -126,6 +126,7 @@ public:
   vsize system_count () const;
   Real footnote_separator_stencil_height () const;
   Real footnote_padding () const;
+  Real in_note_padding () const;
   Real footnote_number_raise () const;
   Real footnote_footer_padding () const;
   Real line_count_penalty (int line_count) const;
@@ -190,6 +191,7 @@ private:
   vsize system_count_;
   Real footnote_separator_stencil_height_;
   Real footnote_padding_;
+  Real in_note_padding_;
   Real footnote_number_raise_;
   Real footnote_footer_padding_;
   int orphan_penalty_;
@@ -230,7 +232,7 @@ private:
   void create_system_list ();
   void find_chunks_and_breaks (Break_predicate, Prob_break_predicate);
   SCM make_page (int page_num, bool last) const;
-  SCM get_page_configuration (SCM systems, int page_num, int footnote_count, bool ragged, bool last);
-  SCM draw_page (SCM systems, SCM config, int page_num, int footnote_num, bool last);
+  SCM get_page_configuration (SCM systems, int page_num, bool ragged, bool last);
+  SCM draw_page (SCM systems, SCM config, int page_num, bool last);
 };
 #endif /* PAGE_BREAKING_HH */

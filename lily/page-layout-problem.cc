@@ -67,16 +67,52 @@ Page_layout_problem::get_footnote_count (SCM lines)
   return fn_count;
 }
 
+SCM
+Page_layout_problem::get_footnotes_from_lines (SCM lines)
+{
+  if (!scm_is_pair (lines))
+    return SCM_EOL;
+
+  bool footnotes_added;
+  if (Grob *g = unsmob_grob (scm_car (lines)))
+    footnotes_added = !scm_is_null (g->get_property ("footnote-stencil"));
+  else if (Prob *p = unsmob_prob (scm_car (lines)))
+    footnotes_added = !scm_is_null (p->get_property ("footnote-stencil"));
+  else
+    {
+      programming_error ("Systems on a page must be a prob or grob.");
+      return SCM_EOL;
+    }
+  if (!footnotes_added)
+    {
+      programming_error ("Footnotes must be added to lines before they are retrieved.");
+      return SCM_EOL;
+    }
+
+  SCM out = SCM_EOL;
+  for (SCM s = lines; scm_is_pair (s); s = scm_cdr (s))
+    {
+      if (Grob *g = unsmob_grob (scm_car (s)))
+        out = scm_cons (g->get_property ("footnote-stencil"), out);
+      else if (Prob *p = unsmob_prob (scm_car (s)))
+        out = scm_cons (p->get_property ("footnote-stencil"), out);
+      else
+        programming_error ("Systems on a page must be a prob or grob.");
+    }
+
+  return scm_reverse (out);
+}
+
 /*
-   Returns a stencil for the footnote of each system.  This stencil may
+   Adds a footnote stencil to each system.  This stencil may
    itself be comprised of several footnotes.
 
    This is a long function, but it seems better to keep it intact rather than
    splitting it into parts.
 */
 
-SCM
-Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_book *pb)
+void
+Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book *pb)
 {
   /*
     first, we have to see how many footnotes are on this page.
@@ -88,7 +124,7 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_boo
   if (!paper)
     {
       programming_error ("Cannot get footnotes because there is no valid paper block.");
-      return SCM_EOL;
+      return;
     }
 
   SCM number_footnote_table = pb->top_paper ()->c_variable ("number-footnote-table");
@@ -149,13 +185,13 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_boo
     {
       *in_text_tail = scm_cons (footnote_number_markups[i], SCM_EOL);
       in_text_tail = SCM_CDRLOC (*in_text_tail);
-      footnote_number_stencils[i]->translate_axis (max_length - footnote_number_stencils[i]->extent (X_AXIS).length (), X_AXIS);
+      footnote_number_stencils[i]->translate_axis ((max_length
+                                                    - footnote_number_stencils[i]->extent (X_AXIS).length ()),
+                                                   X_AXIS);
       *tail = scm_cons (footnote_number_stencils[i]->smobbed_copy (), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
   // build the footnotes
-
-  SCM footnotes = SCM_EOL;
 
   for (SCM s = lines; scm_is_pair (s); s = scm_cdr (s))
     {
@@ -169,7 +205,7 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_boo
               continue;
             }
           Stencil mol;
-
+          Stencil in_note_mol;
           for (vsize i = 0; i < sys->footnote_grobs ()->size (); i++)
             {
               Grob *footnote = sys->footnote_grobs ()->at (i);
@@ -177,9 +213,6 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_boo
               if (Spanner *orig = dynamic_cast<Spanner *>(footnote))
                 if (orig->is_broken ())
                   footnote_markup = orig->broken_intos_[0]->get_property ("footnote-text");
-
-              if (!Text_interface::is_markup (footnote_markup))
-                continue;
 
               SCM props = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
                                       paper->self_scm ());
@@ -193,7 +226,8 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_boo
                 {
                   if (orig->is_broken ())
                     for (vsize i = 0; i < orig->broken_intos_.size (); i++)
-                      do_numbering = do_numbering || to_boolean (orig->broken_intos_[i]->get_property ("automatically-numbered"));
+                      do_numbering = do_numbering
+                                    || to_boolean (orig->broken_intos_[i]->get_property ("automatically-numbered"));
                 }
               if (do_numbering)
                 {
@@ -208,55 +242,67 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines, int counter, Paper_boo
                     }
 
                   Stencil *annotation = unsmob_stencil (scm_car (numbers));
-                  annotation->translate_axis (footnote_stencil->extent (Y_AXIS)[UP] + number_raise - annotation->extent (Y_AXIS)[UP], Y_AXIS);
+                  annotation->translate_axis ((footnote_stencil->extent (Y_AXIS)[UP]
+                                               + number_raise
+                                               - annotation->extent (Y_AXIS)[UP]),
+                                              Y_AXIS);
                   footnote_stencil->add_at_edge (X_AXIS, LEFT, *annotation, 0.0);
                   numbers = scm_cdr (numbers);
                   in_text_numbers = scm_cdr (in_text_numbers);
                 }
-              mol.add_at_edge (Y_AXIS, DOWN, *footnote_stencil, padding);
+              if (!footnote_stencil->is_empty ())
+                {
+                  if (to_boolean (footnote->get_property ("footnote")))
+                    mol.add_at_edge (Y_AXIS, DOWN, *footnote_stencil, padding);
+                  else
+                    in_note_mol.add_at_edge (Y_AXIS, DOWN, *footnote_stencil, padding);
+                }
             }
-          footnotes = scm_cons (mol.smobbed_copy (), footnotes);
+          sys->set_property ("in-note-stencil", in_note_mol.smobbed_copy ());
+          sys->set_property ("footnote-stencil", mol.smobbed_copy ());
         }
       // Take care of top-level markups
       else if (Prob *p = unsmob_prob (scm_car (s)))
         {
           SCM stencils = p->get_property ("footnotes");
-          if (stencils == SCM_EOL)
-            continue;
-          Stencil footnote_stencil;
+          Stencil mol;
 
           for (SCM st = stencils; scm_is_pair (st); st = scm_cdr (st))
             {
-              Stencil mol;
+              Stencil footnote_stencil;
               Stencil *footnote = unsmob_stencil (scm_caddar (st));
-              mol.add_stencil (*footnote);
+              footnote_stencil.add_stencil (*footnote);
               bool do_numbering = to_boolean (scm_cadar (st));
               SCM in_text_stencil = Stencil ().smobbed_copy ();
               if (do_numbering)
                 {
                   Stencil *annotation = unsmob_stencil (scm_car (numbers));
                   SCM in_text_annotation = scm_car (in_text_numbers);
-                  in_text_stencil = Text_interface::interpret_markup (layout, props, in_text_annotation);
+                  in_text_stencil = Text_interface::interpret_markup (layout,
+                                                                      props,
+                                                                      in_text_annotation);
                   if (!unsmob_stencil (in_text_stencil))
                     in_text_stencil = SCM_EOL;
-                  annotation->translate_axis (mol.extent (Y_AXIS)[UP] + number_raise - annotation->extent (Y_AXIS)[UP], Y_AXIS);
-                  mol.add_at_edge (X_AXIS, LEFT, *annotation, 0.0);
+                  annotation->translate_axis ((footnote_stencil.extent (Y_AXIS)[UP]
+                                               + number_raise
+                                               - annotation->extent (Y_AXIS)[UP]),
+                                              Y_AXIS);
+                  footnote_stencil.add_at_edge (X_AXIS, LEFT, *annotation, 0.0);
                   numbers = scm_cdr (numbers);
                   in_text_numbers = scm_cdr (in_text_numbers);
                 }
-              number_footnote_table = scm_cons (scm_cons (scm_caar (st), in_text_stencil), number_footnote_table);
-              footnote_stencil.add_at_edge (Y_AXIS, DOWN, mol, padding);
+              number_footnote_table = scm_cons (scm_cons (scm_caar (st),
+                                                          in_text_stencil),
+                                                number_footnote_table);
+              if (!footnote_stencil.is_empty ())
+                mol.add_at_edge (Y_AXIS, DOWN, footnote_stencil, padding);
             }
-          footnotes = scm_cons (footnote_stencil.smobbed_copy (), footnotes);
+          p->set_property ("footnote-stencil", mol.smobbed_copy ());
         }
     }
 
   // note that this line of code doesn't do anything if numbering isn't turned on
   pb->top_paper ()->set_variable (ly_symbol2scm ("number-footnote-table"), number_footnote_table);
-  if (!scm_is_pair (footnotes))
-    return SCM_EOL;
-
-  return scm_reverse (footnotes);
 }
 
 Stencil *
@@ -314,7 +360,7 @@ Page_layout_problem::add_footnotes_to_footer (SCM footnotes, Stencil *foot, Pape
     }
 }
 
-Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM systems, int footnote_count)
+Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM systems)
   : bottom_skyline_ (DOWN)
 {
   Prob *page = unsmob_prob (page_scm);
@@ -331,9 +377,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 
       if (pb && pb->paper_)
         {
-          if (to_boolean (pb->paper_->c_variable ("reset-footnotes-on-new-page")))
-            footnote_count = 0;
-          SCM footnotes = get_footnotes_from_lines (systems, footnote_count, pb);
+          SCM footnotes = get_footnotes_from_lines (systems);
           add_footnotes_to_footer (footnotes, foot, pb);
         }
       else
@@ -382,6 +426,8 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 
       read_spacing_spec (top_system_spacing, &header_padding_, ly_symbol2scm ("padding"));
       read_spacing_spec (last_bottom_spacing, &footer_padding_, ly_symbol2scm ("padding"));
+      in_note_padding_ = robust_scm2double (paper->c_variable ("in-note-padding"), 0.5);
+      in_note_direction_ = robust_scm2dir (paper->c_variable ("in-note-direction"), UP);
     }
   bool last_system_was_title = false;
 
@@ -490,6 +536,18 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
   build_system_skyline (elts, minimum_offsets_with_min_dist, &up_skyline, &down_skyline);
   up_skyline.shift (indent);
   down_skyline.shift (indent);
+  Stencil *in_note_stencil = unsmob_stencil (sys->get_property ("in-note-stencil"));
+
+  if (in_note_stencil && in_note_stencil->extent (Y_AXIS).length () > 0)
+    {
+      sys->set_property ("in-note-padding", scm_from_double (in_note_padding_));
+      sys->set_property ("in-note-direction", scm_from_int (in_note_direction_));
+      Skyline *sky = in_note_direction_ == UP ? &up_skyline : &down_skyline;
+      sky->set_minimum_height (sky->max_height ()
+                               + in_note_direction_
+                                 * (in_note_padding_
+                                    + in_note_stencil->extent (Y_AXIS).length ()));
+    }
 
   /*
     We need to call distance with skyline-horizontal-padding because
@@ -497,7 +555,10 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
     of an individual staff.  So we add the padding for the distance check
     at the time of adding in the system.
   */
-  Real minimum_distance = up_skyline.distance (bottom_skyline_, robust_scm2double (sys->get_property ("skyline-horizontal-padding"), 0)) + padding;
+  Real minimum_distance = up_skyline.distance (bottom_skyline_,
+                                               robust_scm2double (sys->get_property ("skyline-horizontal-padding"),
+                                                                  0))
+                          + padding;
 
   Spring spring_copy = spring;
   spring_copy.ensure_min_distance (minimum_distance);
