@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-   Translation of GIT committish: 5f722f1688eff7436789f8ca011205bdb16c04b7
+   Translation of GIT committish: 72012c900e38247806dcc32c01e162f02c63287b
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -219,7 +219,7 @@ aes4 c b c
 
 Prenons un autre exemple@tie{}: imaginez-vous devant un piano@tie{}; dès
 lors que vous voulez enfoncer l'une des touches noires, il vous faudra
-@strong{ajouter} un @code{-is} ou un @code{-es} au nom de la note.
+@strong{ajouter} un @code{is} ou un @code{es} au nom de la note.
 
 Ajouter explicitement toutes les altérations demande un peu plus
 d'effort dans la phase de saisie, mais cela facilite grandement la

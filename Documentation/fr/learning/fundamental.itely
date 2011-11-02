@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 5f722f1688eff7436789f8ca011205bdb16c04b7
+    Translation of GIT committish: 72012c900e38247806dcc32c01e162f02c63287b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -975,7 +975,7 @@ Manuel de notation :
 @cindex Voice, création de contextes
 
 Les contextes @rinternals{Voice} peuvent être déclarés manuellement
-dans un bloc @code{<< >>} pour créer de la musique polyphonique, en
+dans un bloc @code{@w{<< >>}} pour créer de la musique polyphonique, en
 utilisant @code{\voiceOne}, @dots{} jusqu'à @code{\voiceFour} pour
 assigner des directions de hampes et un déplacement horizontal pour
 chaque partie.  Cette méthode apporte de la clarté pour des partitions
@@ -1832,11 +1832,11 @@ portée@tie{}:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais2 aes
+    aeses2 aes
   }
   \new Staff \relative c'' {
     \set Staff.extraNatural = ##f
-    ais2 aes
+    aeses2 aes
   }
 >>
 @end lilypond
@@ -1847,11 +1847,11 @@ et pour toutes les portées :
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais2 aes
+    aeses2 aes
   }
   \new Staff \relative c'' {
     \set Score.extraNatural = ##f
-    ais2 aes
+    aeses2 aes
   }
 >>
 @end lilypond
@@ -1927,11 +1927,11 @@ ce qui donnerait :
 <<
   \new Staff
     \relative c'' {
-      gis4 ges aes ais
+      gisis4 gis aeses aes
     }
   \new Staff \with { extraNatural = ##f } {
     \relative c'' {
-      gis4 ges aes ais
+      gisis4 gis aeses aes
     }
   }
 >>
@@ -1973,7 +1973,7 @@ avec la commande @code{\with}, puisqu'on se place dans un bloc
 \score {
   \new Staff {
     \relative c'' {
-      cis4 e d ces
+      cisis4 e d cis
     }
   }
   \layout {
@@ -1993,12 +1993,12 @@ toutes les portées de la partition, nous utiliserons alors@tie{}:
   <<
     \new Staff {
       \relative c'' {
-        gis4 ges aes ais
+        gisis4 gis aeses aes
       }
     }
     \new Staff {
       \relative c'' {
-        gis4 ges aes ais
+        gisis4 gis aeses aes
       }
     }
   >>
