@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3930746d3e6cab846a02332c39510c48027c6006
+    Translation of GIT committish: a207161184e0e589c93615b86caab7ab6aa8cdcc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -433,9 +433,10 @@ simple expression musicale sera traduit en
         @{ c'4 d' e'2 @}
       @}
     @}
+    \layout @{ @}
   @}
-	\layout @{ @}
-	\header @{ @}
+  \paper @{ @}
+  \header @{ @}
 @}
 @end example
 
@@ -488,7 +489,7 @@ Voici trois éléments que vous pouvez placer à un niveau supérieur@tie{}:
 @{ c'4 d' e2 @}
 @end example
 
-Vous pouvez placer, n'importe où dans votre fichier, les instruction
+Vous pouvez placer, n'importe où dans votre fichier, les instructions
 suivantes@tie{}:
 
 @itemize
@@ -1302,7 +1303,7 @@ Fichiers d'initialisation :
 @menu
 * Insertion de fichiers LilyPond::
 * Différentes éditions à partir d'une même source::
-* Codage du texte::
+* Caractères spéciaux::
 @end menu
 
 @node Insertion de fichiers LilyPond
@@ -1417,7 +1418,6 @@ Manuel d'initiation :
 
 
 @knownissues
-
 Lorsque vous incluez un fichier qui porte le même nom que l'un des
 fichiers d'initialisation de LilyPond, le fichier de la distribution de
 LilyPond aura préséance.
@@ -1427,15 +1427,17 @@ LilyPond aura préséance.
 @subsection Différentes éditions à partir d'une même source
 @translationof Different editions from one source
 
-Différents mécanismes permettent de générer plusieurs versions d'une
+Plusieurs méthodes permettent de générer différentes versions d'une
 partition à partir d'une même source.  Les variables -- ou
 idendificateurs -- sont sûrement le moyen le plus simple de combiner de
 différente manière des passages relativement longs, alors que les
 balises permettront de sélectionner de courts fragments selon leur
-utilisation.  Quelle que soit la méthode utilisée, séparer la notation
-de la structure de la partition vous donnera plus de liberté dans
-l'agencement de l'ouvrage final, puisque vous ne reviendrez pas sur la
-musique qui le compose.
+utilisation.
+
+Quelle que soit la méthode utilisée, séparer la notation de la structure
+de la partition vous donnera plus de liberté dans l'agencement de
+l'ouvrage final, puisque vous ne reviendrez pas sur la musique qui le
+compose.
 
 @menu
 * Utilisation de variables::
@@ -1516,6 +1518,8 @@ rappellerez ensuite, comme indiqué à la rubrique
 @funindex \tag
 @funindex \keepWithTag
 @funindex \removeWithTag
+@funindex \pushToTag
+@funindex \appendToTag
 @cindex tag
 @cindex balise
 
@@ -1649,6 +1653,32 @@ expression musicale aboutit à l'exclusion de @b{tous} les balisages.
 En effet, si le premier filtre exclut tous les autres balisages,
 l'application du second exclura les effets du premier.
 
+Il peut arriver que vous ayez besoin de raccorder quelque chose en un
+point particulier d'une expression musicale.  Les commandes
+@code{\pushToTag} et @code{\appendToTag} permettent d'insérer du
+matériau, qu'il soit antérieur ou postérieur à des @code{éléments}
+d'une construction musicale existante.  La musique séquentielle ou
+simultanée comporte assurément des @code{éléments}@tie{}:
+
+@lilypond[verbatim,quote]
+test = { \tag #'here { \tag #'here <<c''>> } }
+
+{
+  \pushToTag #'here c'
+  \pushToTag #'here e'
+  \pushToTag #'here g' \test
+  \appendToTag #'here c'
+  \appendToTag #'here e'
+  \appendToTag #'here g' \test
+}
+@end lilypond
+
+Ces deux instructions sont afféctées d'une balise, le matériau à
+raccorder à chaque instance de la balise, et l'expression balisée.
+Ces instructions prennent soin de recopier tout ce qui doit être
+modifié, de telle sorte que l'expression @code{\test} originale conserve
+tout son sens.
+ 
 
 @seealso
 Manuel d'initiation :
@@ -1703,13 +1733,25 @@ Manuel de notation :
 @ref{Insertion de fichiers LilyPond}.
 
 
+@node Caractères spéciaux
+@subsection Caractères spéciaux
+@translationof Special characters
+
+@cindex caractères spéciaux
+@cindex non-ASCII, caractères
+
+@menu
+* Codage du texte::
+* Unicode::
+* Équivalents ASCII::
+@end menu
+
+
 @node Codage du texte
-@subsection Codage du texte
+@unnumberedsubsubsec Codage du texte
 @translationof Text encoding
 
-@cindex Unicode
 @cindex UTF-8
-@cindex non-ASCII characters
 
 LilyPond utilise le jeu de caractères défini par le consortium Unicode
 et la norme ISO/CEI@tie{}10646.  Chaque caractère est identifié par un
@@ -1773,6 +1815,13 @@ portuguese = \lyricmode {
 \addlyrics { \portuguese }
 @end lilypond
 
+
+@node Unicode
+@unnumberedsubsubsec Unicode
+@translationof Unicode
+
+@cindex Unicode
+
 Lorsque vous avez besoin d'un caractère dont vous connaissez le point de
 code mais que votre éditeur ne permet pas de saisir directement, vous
 pouvez utitliser les instructions @code{\char@tie{}##xhhhh} ou
@@ -1821,6 +1870,60 @@ la manière suivante@tie{}:
   copyright = \markup @{ \char ##x00A9 "2008" @}
 @}
 @end example
+
+
+@node Équivalents ASCII
+@unnumberedsubsubsec Équivalents ASCII
+@translationof ASCII aliases
+
+Dès lors que vous aurez inclus la liste de leur équivalent ASCII,
+LilyPond reconnaitra un certain nombre de caractères spéciaux@tie{}:
+
+@lilypond[quote,verbatim]
+\paper {
+  #(include-special-characters)
+}
+
+\markup "&flqq; &ndash; &OE;uvre incomplète&hellip; &frqq;"
+
+\score {
+  \new Staff { \repeat unfold 9 a'4 }
+  \addlyrics {
+    This is al -- so wor -- kin'~in ly -- rics: &ndash;_&OE;&hellip;
+  }
+}
+
+\markup \column {
+  "The replacement can be disabled:"
+  "&ndash; &OE; &hellip;"
+  \override #'(replacement-alist . ()) "&ndash; &OE; &hellip;"
+}
+@end lilypond
+
+L'extension de cette liste est possible aussi bien de manière globale :
+
+@lilypond[quote,verbatim]
+\paper {
+  #(add-text-replacements!
+    '(("100" . "hundred")
+      ("dpi" . "dots per inch")))
+}
+\markup "A 100 dpi."
+@end lilypond
+
+qu'en un point particulier de votre source :
+
+@lilypond[quote,verbatim]
+\markup \replace #'(("100" . "hundred")
+                    ("dpi" . "dots per inch")) "A 100 dpi."
+@end lilypond
+
+@seealso
+Manuel de notation :
+@ref{Liste des caractères spéciaux}.
+
+Fichiers d'initialisation :
+@file{ly/text-replacements.ly}.
 
 
 @node Contrôle des sorties
@@ -2006,12 +2109,10 @@ votre oreille avertie grâce au MIDI.
 Le fichier MIDI généré par LilyPond est relativement brut.  Vous pouvez
 cependant obtenir un meilleur rendu avec @ref{Le script Articulate}.
 
-@c TODO Check this
-Dans une sortie MIDI, LilyPond alloue un canal à chaque portée, plus un
-pour les réglages globaux.  Par voie de conséquence, un fichier MIDI ne
-peut comporter au maximmum que quinze portées (quatorze en l'absence de
-percussions)@tie{}; les portées supplémentaires seront tout simplement
-silencieuses.
+Dans une sortie MIDI, LilyPond alloue un canal à chaque portée, tout en
+réservant le canal@tie{}10 aux percussions. Dans la mesure ou un
+périphérique MIDI ne comprend que 16 canaux, un fichier MIDI qui
+comportera plus de quinze portées verra le même canal réutilisé.
 
 @menu
 * Création de fichiers MIDI::
@@ -2750,9 +2851,9 @@ l'information musicale sous forme textuelle.
 
 @funindex \displayLilyMusic
 
-La fonction musicale @code{\displayLilyMusic}, disponible uniquement
-pour un traitement en ligne de commande, permet d'afficher en
-notation LilyPond une expression musicale.  Par exemple,
+La fonction musicale @code{\displayLilyMusic} permet d'afficher en
+notation LilyPond une expression musicale.  Le réultat défilera dans le
+terminal après avoir lancé LilyPond en ligne de commande.  Par exemple,
 
 @example
 @{
@@ -2773,7 +2874,23 @@ messages et enregistrer le résultat de la fonction
 fichier.
 
 @example
-lilypond fichier.ly >display.txt
+lilypond fichier.ly >affichage.txt
+@end example
+
+@funindex \void
+
+Vous noterez que LilyPond ne se contente pas de simplement afficher
+l'expression musicale, mais procède aussi à son interprétation -- du
+fait que @code{\displayLilyMusic} renvoie l'expression tout en
+l'affichant.  S'il est bien pratique d'insérer un
+@code{\displayLilyMusic} dans une expression musicale pour en obtenir
+des informations, l'interprétation de cette expression peut toutefois
+être évitée en ajoutant un @code{\void} avant l'instruction@tie{}:
+
+@example
+@{
+  \void \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
+@}
 @end example
 
 
