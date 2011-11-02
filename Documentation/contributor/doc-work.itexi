@@ -1416,24 +1416,7 @@ In order to save build time, a script is available to build only
 one section of the documentation in English with a default html
 appearance.
 
-The script is available as:
-
-@example
-scripts/auxiliar/doc-section.sh
-@end example
-
-This script will require customization for your site if your
-LilyPond git repository is anyplace but @code{$HOME/lilypond}.
-
-Assuming that no customization is required, you can setup the
-single section build with:
-
-@example
-mkdir $HOME/lilypond/tempdocs
-cp $HOME/lilypond/Documentation/out/version.itexi $HOME/lilypond/tempdocs
-@end example
-
-You can then build a section of the documentation with:
+You can build a section of the documentation with:
 
 @example
 scripts/auxiliar/doc-section.sh MANUAL SECTION
@@ -1448,6 +1431,25 @@ Notation Reference, use the command:
 @example
 scripts/auxiliar/doc-section.sh notation pitches
 @end example
+
+You can then see the generated document for the section at
+
+@example
+tempdocs/pitches/out/pitches.html
+@end example
+
+According to
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1236,Lilypond issue 1236},
+the location of the lilypond git tree is taken from @code{$LILYPOND_GIT}
+if specified, otherwise it is auto-detected.
+
+It is assumed that compilation takes place in the @file{build/}
+subdirectory, but this can be overridden by setting the environment
+variable @code{LILYPOND_BUILD_DIR}.
+
+Similarly, output defaults to @file{build/tempdocs/} but this can be
+overridden by setting the environment variable
+@code{LILYPOND_TEMPDOCS}.
 
 This script will not work for building sections of the
 Contributors' guide.  For building sections of the Contributors'
@@ -1466,8 +1468,8 @@ use:
 scripts/auxiliar/cg-section.sh doc-work
 @end example
 
-Like @code{doc-section.sh}, @code{cg-section.sh} may need to be customized
-for your installation.
+@code{cg-section.sh} uses the same environment variables and
+corresponding default values as @code{doc-section.sh}.
 
 @subheading Stripping whitespace and generating menus
 
