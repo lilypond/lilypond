@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 5f722f1688eff7436789f8ca011205bdb16c04b7
+    Translation of GIT committish: ad39ce30a8fa9ba7db76f959709c1683b4bb1b7c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -158,6 +158,12 @@ s'utilise sous la forme@tie{}: @code{--to=2.12.2}
 
 @item -h, --help
 visualiser l'aide et quitter.
+
+@item -l @var{loglevel}, --loglevel=@var{loglevel}
+pour régler le degré de verbosité à @var{loglevel}.  Les différentes
+valeurs sont @code{NONE}, @code{ERROR}, @code{WARNING}, @code{PROGRESS}
+(par défaut) et @code{DEBUG}.
+
 @end table
 
 Lorsqu'il s'agit de fragments inclus dans un fichier texinfo, il

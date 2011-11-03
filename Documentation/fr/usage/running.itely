@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ada15837e81a658a807d004b18877ba67a136fa3
+    Translation of GIT committish: ad39ce30a8fa9ba7db76f959709c1683b4bb1b7c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -152,7 +152,7 @@ Voici les différentes options disponibles à la ligne de commande@tie{}:
 
 @item -e,--evaluate=@var{expr}
 Évalue l'expression Scheme @var{expr} avant d'analyser tout fichier
-@file{.ly}.  Lorsque vous spécifiez l'option @code{-e} à plusieurs
+@file{.ly}.  Lorsque vous spécifiez l'option @option{-e} à plusieurs
 reprises, l'évaluation sera faite en séquence.
 
 Dans la mesure où l'expression est évaluée par le module
@@ -230,10 +230,10 @@ Veillez à ne pas oublier d'encadrer la valeur par des guillemets
 Ne pas avoir une confiance aveugle dans le code @file{.ly}.
 
 Lorsque LilyPond est accessible au travers d'un serveur web, il est
-@strong{impératif} d'utiliser les options @code{--safe} ou
-@code{--jail}.  L'option @code{--safe} aura pour effet d'empêcher tout
-code Scheme inclus de mettre en péril votre installation grâce à quelque
-chose du style
+@strong{impératif} d'utiliser les options @option{--safe} ou
+@option{--jail}.  L'option @option{--safe} aura pour effet d'empêcher
+tout code Scheme inclus de mettre en péril votre installation grâce à
+quelque chose du style
 
 @quotation
 @verbatim
@@ -345,8 +345,8 @@ alors de rediriger ces informations dans un fichier journal.
 
 @item print-pages
 Génère l'intégralité des pages de la partition.  L'option
-@code{-dno-print-pages} est particulièrement utile lorsqu'utilisée
-conjointement avec l'option @code{-dpreview}.
+@option{-dno-print-pages} est particulièrement utile lorsqu'utilisée
+conjointement avec l'option @option{-dpreview}.
 
 @end table
 
@@ -366,8 +366,8 @@ Recopie le champ d'entête dans le fichier @file{RACINE.@var{CHAMP}}.
 
 Ajoute @var{répertoire} au chemin de recherche pour les inclusions.
 
-Vous pouvez mentionner plusieurs fois l'option @code{-I}, auquel cas le
-la recherche commencera dans le premier répertoire inclus et, si le
+Vous pouvez mentionner plusieurs fois l'option @option{-I}, auquel cas
+le la recherche commencera dans le premier répertoire inclus et, si le
 fichier en question ne s'y trouve pas, les répertoires suivants seront
 examinés l'un après l'autre.
 
@@ -375,6 +375,39 @@ examinés l'un après l'autre.
 @item -i,--init=@var{fichier}
 Définit @var{fichier} (par défaut @file{init.ly}) en tant que fichier
 d'initialisation.
+
+
+@item -l,--loglevel=@var{DEGRÉ}
+@cindex loglevel
+@cindex verbosité, définir le degré de
+
+Règle le niveau de verbosité des messages console à @var{DEGRÉ}.  Les
+différentes valeurs sont@tie{}:
+@table @code
+@item NONE
+Aucun verbiage, même pas les messages d'erreur.
+
+@item ERROR
+Uniquement les messages d'erreur@tie{}; pas de message d'avertissement
+ni de progression.
+
+@item WARN
+Messages d'avertissement ou d'erreur@tie{}; pas d'information de
+progression.
+
+@item BASIC_PROGRESS
+Information de progression basique (réussite) et avertissements ou erreurs.
+
+@item PROGRESS
+Toutes les informations de progression, avertissements et erreurs.
+
+@item INFO (par défaut)
+Informations de progression, avertissements et erreurs, ainsi que
+d'autres informations quant à l'exécution.
+
+@item DEBUG
+Tout ce qui peut être affiché, y compris le verbiage utile au débogage.
+@end table
 
 
 @item -o,--output=@var{FICHIER} ou @var{RÉP}
@@ -397,8 +430,8 @@ Génère du PostScript.
 
 @item --png
 Génère une image par page, au format PNG@tie{}; ceci sous-entend
-l'utilisation de @code{--ps}.  La résolution de l'image, en DPI, peut se
-régler en ajoutant par exemple
+l'utilisation de @option{--ps}.  La résolution de l'image, en DPI, peut
+se régler en ajoutant par exemple
 @example
 -dresolution=110
 @end example
@@ -407,22 +440,22 @@ régler en ajoutant par exemple
 @cindex Portable Document Format (PDF) output
 
 @item --pdf
-Génère du PDF.  Ceci sous-entend l'utilisation de @code{--ps}.
+Génère du PDF.  Ceci sous-entend l'utilisation de @option{--ps}.
 
 
 @item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}
 Lance @command{lilypond} dans un environnement protégé.
 
-L'option @code{--jail} est une alternative qui offre plus de flexibilité
-que l'option @code{--safe} lorsque LilyPond est installé sur un serveur
-web ou traite des fichiers externes.
+L'option @option{--jail} est une alternative qui offre plus de
+flexibilité que l'option @option{--safe} lorsque LilyPond est installé
+sur un serveur web ou traite des fichiers externes.
 
-L'option @code{--jail} va détourner la racine de @command{lilypond} sur
-@code{jail} juste avant d'effectuer la compilation à proprement parler.
-L'utilisateur et le groupe sont modifiés en conséquence, et le
+L'option @option{--jail} va détourner la racine de @command{lilypond}
+sur @code{jail} juste avant d'effectuer la compilation à proprement
+parler.  L'utilisateur et le groupe sont modifiés en conséquence, et le
 répertoire en cours devient @code{dir}.  Ces réglages assurent -- du
 moins en théorie -- l'impossibilité de s'échapper de la cellule.  Notez
-cependant que, pour que l'option @code{--jail} soit fonctionnelle,
+cependant que, pour que l'option @option{--jail} soit fonctionnelle,
 @code{lilypond} doit être lancé en tant qu'administrateur -- ce qui se
 réalise aisément à l'aide de la commande @command{sudo}.
 
@@ -435,14 +468,14 @@ suivantes@tie{}:
 @table @asis
 @item Création d'un système de fichiers indépendant
 L'intérêt d'un système de fichiers dédié à LilyPond réside dans le fait
-qu'on peut le brider à l'aide des options @code{noexec}, @code{nodev} et
-@code{nosuid}.  Il sera de fait impossible de lancer des exécutables ou
-d'écrire sur un périphérique à partir de LilyPond.  Si vous n'avez pas
-l'intention de créer un tel système sur une partition séparée, vous
-pouvez avoir recours à un pseudo-périphérique (@emph{loop device}) monté
-à partir d'un simple fichier de taille raisonnable.  D'autre part, le
-recours à un système de fichiers indépendant permet de limiter l'espace
-dévolu à LilyPond.
+qu'on peut le brider à l'aide des options @option{noexec},
+@option{nodev} et @option{nosuid}.  Il sera de fait impossible de lancer
+des exécutables ou d'écrire sur un périphérique à partir de LilyPond.
+Si vous n'avez pas l'intention de créer un tel système sur une partition
+séparée, vous pouvez avoir recours à un pseudo-périphérique (@emph{loop
+device}) monté à partir d'un simple fichier de taille raisonnable.
+D'autre part, le recours à un système de fichiers indépendant permet de
+limiter l'espace dévolu à LilyPond.
 
 @item Création d'un utilisateur spécifique
 L'utilisation de LilyPond au sein de la cellule devrait être réservé à
@@ -462,8 +495,8 @@ En cas de problème, lancer LilyPond en utilisant @code{strace} devrait
 vous permettre de déterminer quels fichiers manquent à l'appel.
 
 @item Lancement de LilyPond
-Dans un environnement protégé monté avec l'option @code{noexec}, il est
-impossible de lancer un quelconque programme extérieur.  LilyPond ne
+Dans un environnement protégé monté avec l'option @option{noexec}, il
+est impossible de lancer un quelconque programme extérieur.  LilyPond ne
 saurait donc avoir recours à un moteur de traitement qui le mettrait
 dans cette situation.  Comme nous l'avons vu plus haut, LilyPond sera
 lancé avec les privilèges de l'administrateur -- privilèges qu'il perdra
@@ -509,6 +542,12 @@ sous-répertoires @file{ly/}, @file{ps/}, @file{tex/}, etc.
 @item LANG
 Cette variable détermine la langue dans laquelle seront émis les
 messages.
+
+@item LILYPOND_LOGLEVEL
+Cette variable détermine le niveau par défaut de verbosité.  En
+l'absence de niveau explicite -- autrement dit la ligne de commande ne
+comporte pas de @option{--loglevel} -- c'est cette valeur qui sera
+utilisée.
 
 @item LILYPOND_GC_YIELD
 Cette variable permet d'ajuster l'empreinte mémoire et le rendement de
@@ -682,7 +721,7 @@ défectueuse des fontes.
 @cindex Scheme error
 Les erreurs qui interviennent lors de l'exécution de code Scheme sont
 gérées par l'interpréteur Scheme.  L'utilisation du mode verbeux
-(options @code{-V} ou @code{--verbose}) vous permettra de localiser
+(options @option{-V} ou @option{--verbose}) vous permettra de localiser
 l'appel de fonction délictueux.
 
 @item Programming error -- Erreur de programmation
@@ -855,7 +894,7 @@ Lorsqu'il s'agit d'un guillemet fermant (@code{"}) omis, le message
 d'erreur devrait vous indiquer un numéro de ligne avoisinant.  L'erreur
 se situe la plupart du temps une ou deux lignes au-dessus de celle
 indiquée.
-
+@c Match quote character "
 
 @node Message d'erreur Unbound variable %
 @unnumberedsubsec Message d'erreur « Unbound variable % »
@@ -863,7 +902,7 @@ indiquée.
 
 Ce message d'erreur, qu'il apparaisse sur le terminal ou en fin de
 fichier journal, est associé à un message du type @qq{GUILE a signalé
-une erreur @dots{}}. Il survient à chaque fois qu'un commentaire
+une erreur@dots{}}. Il survient à chaque fois qu'un commentaire
 @emph{LilyPond} est indûment placé dans une routine @emph{Scheme}.
 
 Un commentaire LilyPond est introduit par le signe pourcent (@code{%})
@@ -879,7 +918,7 @@ Ce message d'erreur, qu'il apparaisse sur le terminal ou en fin de
 fichier journal, survient lorsqu'un fichier source contient des
 caractères non ASCII et qu'il n'a pas été enregistré avec un encodage
 UTF-8.  Pour plus de détails, reportez-vous au chapitre
-@ruser{Codage du texte}.
+@ruser{Caractères spéciaux}.
 
 
 @node staff-affinities devraient aller en ordre décroissant
