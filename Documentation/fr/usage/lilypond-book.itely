@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3e0974be7b4d4ae1cedebeee8376093fe8816740
+    Translation of GIT committish: 7b822b92827ecd84c240d52e07309052f74484db
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -148,7 +148,7 @@ xpdf lilybook
 Le traitement par @command{lilypond-book} puis @command{latex} va
 générer un certain nombre de fichiers temporaires susceptibles
 d'encombrer inutilement votre répertoire de travail, aussi nous vous
-recommandons d'utiliser l'option @code{--output=@var{répertoire}} afin
+recommandons d'utiliser l'option @option{--output=@var{répertoire}} afin
 que les fichiers créés soient isolés dans le sous-répertoire
 @file{répertoire}.
 
@@ -183,6 +183,21 @@ indépendant, alors inclus avec @code{\lilypondfile}.
 
 @lilypondfile[quote,noindent]{screech-boink.ly}
 
+Lorsque vous désirez y inclure un @code{tagline}, personnalisé ou non,
+l'intégralité de l'extrait devra apparaître dans une construction de
+type @code{\book @{ @}}.
+
+@lilypond[papersize=a8,verbatim]
+\book{
+  \header{
+    title = "LilyPond fait ses gammes"
+  }
+
+  \relative c' {
+    c d e f g a b c
+  }
+}
+@end lilypond
 
 @page
 
@@ -214,27 +229,47 @@ Consultez
 @emph{The Not So Short Introduction to @LaTeX{}} en français} pour un
 aperçu des possibilités de @LaTeX{}.
 
-Il suffit, pour inclure de la musique, d'utiliser
+Afin d'insérer de la musique dans vos fichiers @LaTeX{},
+@code{lilypond-book} dispose des environnements et commandes
+suivantes@tie{}:
+
+@itemize
+
+@item
+la commande @code{\lilypond@{...@}} qui permet de directement saisir du
+code LilyPond simple@tie;
+
+@item
+l'environnement @code{\begin@{lilypond@}...\end@{lilypond@}} qui permet
+de saisir directement du code LilyPond plus élaboré@tie{};
+
+@item
+la commande @code{\lilypondfile@{...@}} qui permet d'insérer un fichier
+LilyPond@tie{};
+
+@item
+la commande @code{\musicxmlfile@{...@}} qui permet d'insérer un fichier
+MusicXML qui sera alors traité par @code{musicxml2ly} puis @code{lilypond}.
+
+@end itemize
+
+
+Il suffit, pour inclure de la musique, d'utiliser l'une des instructions
+suivantes@tie{}:
 
 @example
 \begin@{lilypond@}[liste,des,options]
   VOTRE CODE LILYPOND
 \end@{lilypond@}
-@end example
 
-@noindent
-ou
-
-@example
-\lilypondfile[liste,des,options]@{@var{fichier}@}
-@end example
-
-@noindent
-ou encore
-
-@example
 \lilypond[liste,des,options]@{ VOTRE CODE LILYPOND @}
+
+\lilypondfile[liste,des,options]@{@var{fichier}@}
+
+\musicxmlfile[liste,des,options]@{@var{fichier}@}
 @end example
+
+@noindent
 
 Par ailleurs, la commande @code{\lilypondversion} vous permet d'afficher
 le numéro de version de LilyPond.
@@ -271,7 +306,7 @@ produit
 Dans l'état actuel des choses, il n'est pas possible d'inclure des
 accolades -- @code{@{} ou @code{@}} -- dans un
 @code{\lilypond@{@}}@tie{}; cette commande n'est donc pertinente que
-lorsque conjuguée à l'option @code{fragment}.
+lorsque conjuguée à l'option @option{fragment}.
 
 La longueur par défaut des portées sera ajustée en fonction des
 commandes contenues dans le préambule du document -- ce qui précède la
@@ -282,7 +317,7 @@ algorithme heuristique n'est pas infaillible@tie{}; vous devrez alors
 recourir à l'option @code{line-width}.
 
 @cindex titrage et lilypond-book
-@cindex \header et documents @LaTeX{}
+@cindex \header et document @LaTeX{}
 
 Dès lors qu'elles auront été définies dans votre document, les macros
 suivantes seront appelées avant chaque extrait musical@tie{}:
@@ -295,7 +330,7 @@ suivantes seront appelées avant chaque extrait musical@tie{}:
 @item @code{\betweenLilyPondSystem[1]} entre les systèmes, si tant est
 que @code{lilypond-book} a découpé la partition en plusieurs fichiers
 PostScript.  Elle requiert un paramètre et reçoit le nombre de fichiers
-inclus dans l'extrait.  Par défaut, elle insert simplement un
+inclus dans l'extrait.  Par défaut, elle insère simplement un
 @code{\linebreak}.
 @end itemize
 
@@ -417,26 +452,44 @@ GNU.  À titre d'exemple, toute la documentation de LilyPond -- qu'il
 s'agisse des versions HTML, PDF ou info -- est générée à partir de
 documents Texinfo.
 
-Dans le fichier source, on spécifie qu'il s'agit de musique avec
+Afin d'insérer de la musique dans vos fichiers Texinfo,
+@code{lilypond-book} dispose des environnements et commandes
+suivantes@tie{}:
+
+@itemize
+
+@item
+la commande @code{@@lilypond@{...@}} qui permet de directement saisir du
+code LilyPond simple@tie;
+
+@item
+l'environnement @code{@@lilypond...@@endlilypond} qui permet
+de saisir directement du code LilyPond plus élaboré@tie{};
+
+@item
+la commande @code{@@lilypondfile@{...@}} qui permet d'insérer un fichier
+LilyPond@tie{};
+
+@item
+la commande @code{@@musicxmlfile@{...@}} qui permet d'insérer un fichier
+MusicXML qui sera alors traité par @code{musicxml2ly} puis @code{lilypond}.
+
+@end itemize
+
+
+Il suffit, pour inclure de la musique, d'utiliser l'une des instructions
+suivantes dans votre fichier source@tie{}:
 
 @example
 @@lilypond[liste,des,options]
   VOTRE CODE LILYPOND
-@@end lilypond
-@end example
+@@endlilypond
 
-@noindent
-ou
-
-@example
 @@lilypond[liste,des,options]@{ VOTRE CODE LILYPOND @}
-@end example
 
-@noindent
-ou bien encore
-
-@example
 @@lilypondfile[liste,des,options]@{@var{fichier}@}
+
+@@musicxmlfile[liste,des,options]@{@var{fichier}@}
 @end example
 
 Par ailleurs, l'utilisation d'un @code{@@lilypondversion} permet
@@ -483,6 +536,47 @@ intégrer d'image dans le document, mais générer un paragraphe.
 @subsection HTML
 @translationof HTML
 
+Afin d'insérer de la musique dans vos fichiers Texinfo,
+@code{lilypond-book} dispose des environnements et commandes
+suivantes@tie{}:
+
+@itemize
+
+@item
+la commande @code{<lilypond ... />} qui permet de directement saisir du
+code LilyPond simple@tie;
+
+@item
+l'environnement @code{<lilyond>...</lilypond>} qui permet de saisir
+directement du code LilyPond plus élaboré@tie{};
+
+@item
+la commande @code{<lilypondfile>...</lilypondfile>} qui permet d'insérer
+un fichier LilyPond@tie{};
+
+@item
+la commande @code{<musicxmlfile>...</musicxmlfile>} qui permet d'insérer
+un fichier MusicXML qui sera alors traité par @code{musicxml2ly} puis
+@code{lilypond}.
+
+@end itemize
+
+
+Il suffit, pour inclure de la musique, d'utiliser l'une des instructions
+suivantes dans votre fichier source@tie{}:
+
+@example
+<lilypond liste des options>
+  VOTRE CODE LILYPOND
+</lilypond>
+
+<lilypond liste des options: VOTRE CODE LILYPOND />
+
+<lilypondfile liste des options>@var{fichier}</lilypondfile>
+
+<musicxmlfile liste des options>@var{fichier}</musicxmlfile>
+@end example
+
 Il suffit, pour inclure de la musique, d'utiliser
 
 @example
@@ -507,7 +601,7 @@ caractère deux points, comme ici@tie{}:
 De la musique <lilypond relative=2: a b c/> au milieu d'une ligne de texte.
 @end example
 
-Lorsque l'inclusion  concerne des fichiers indépendants, utilisez
+Lorsque l'inclusion concerne des fichiers indépendants, utilisez
 
 @example
 <lilypondfile @var{option1} @var{option2} ...>@var{fichier}</lilypondfile>
@@ -517,8 +611,8 @@ Une liste des différentes options utilisables avec les balises
 @code{lilypond} et @code{lilypondfile} est disponible, à la rubrique
 @ref{Options applicables aux fragments de musique}.
 
-Par ailleurs, la commande @code{\lilypondversion} vous permet d'afficher
-le numéro de version de LilyPond.
+Par ailleurs, la commande @code{<lilypondversion/>} vous permet
+d'afficher le numéro de version de LilyPond.
 
 @cindex titrage et HTML
 @cindex prévisualisation d'image
@@ -632,7 +726,7 @@ d'autres termes, sera ajoutée la commande de mise en forme
 @w{@code{ragged-right = ##t}}.  Il s'agit de l'option par défaut de la
 commande @code{\lilypond@{@}} en l'absence d'option @code{line-width}.
 C'est aussi l'option par défaut pour l'environnement @code{lilypond}
-lorsque l'option @code{fragment} est activée sans avoir défini
+lorsque l'option @option{fragment} est activée sans avoir défini
 explicitement de longueur de ligne.
 
 @item noragged-right
@@ -654,7 +748,16 @@ par défaut telle que calculée par un algoritme heuristique.
 Lorsque l'option @code{line-width} n'est pas utilisée,
 @command{lilypond-book} tentera de déterminer des valeurs par défaut
 pour les cas où les environnements @code{lilypond} ne font pas appel à
-@code{ragged-right}.
+@option{ragged-right}.
+
+@item papersize=@var{chaîne}
+Détermine le format du papier à @var{chaîne} tel que défini dans le
+fichier @file{scm/paper.scm} -- @code{a5}, @code{quarto}, @code{11x17},
+etc.
+
+Toute valeur non mentionnée dans @file{scm/paper.scm} sera rejetée.
+@code{lilypond-book} émettra un message d'avertissement et l'extrait
+utilisera le format par défaut, à savoir @code{a4}.
 
 @item notime
 Désactive l'impression des métriques et barres de mesure pour
@@ -691,11 +794,11 @@ où il s'agit du comportement par défaut, point n'est besoin de spécifier
 Réduit la longueur des lignes musicales de @math{2*0.4}@dmn{in} (soit
 @math{2 * 10,16}@tie{}@dmn{mm}) pour renvoyer l'extrait dans un bloc de
 citation.  La valeur @qq{0,4@tie{}pouce} est contrôlée par l'option
-@code{exampleindent}.
+@option{exampleindent}.
 
 @item exampleindent
 Détermine la valeur de l'indentation qui sera utilisée par l'option
-@code{quote}.
+@option{quote}.
 
 @item relative
 @itemx relative=@var{n}
@@ -703,9 +806,10 @@ Utilise le mode d'octave relative.  Les notes sont donc par défaut
 positionnées relativement au do central.  L'argument -- un nombre entier
 -- fourni à l'option @code{relative} spécifie l'octave de départ de
 l'extrait@tie{}; @code{1} correspond au do central.  Cette option
-@code{relative} n'a d'effet que si elle est utilisée en combinaison avec
-l'option @code{fragment}@tie{}; autrement dit, l'option @code{fragment}
-est implicite dès lors que @code{relative} est explicité.
+@option{relative} n'a d'effet que si elle est utilisée en combinaison
+avec l'option @option{fragment}@tie{}; autrement dit, l'option
+@option{fragment} est implicite dès lors que @code{relative} est
+explicité.
 @end table
 
 
@@ -720,7 +824,7 @@ fichier généré, avant l'image de la partition.  Cependant, cette option
 n'est pas pleinement opérationnelle lorsqu'un @code{\lilypond@{@}} se
 trouve au milieu d'un paragraphe.
 
-L'utilisation conjointe d'un @code{verbatim} et de la commande
+L'utilisation conjointe d'un @option{verbatim} et de la commande
 @code{lilypondfile} permet de n'inclure textuellement qu'une seule
 partie du fichier source.  @code{lilypond-book} reproduira alors
 textuellement la partie du fichier source comprise entre les
@@ -753,17 +857,18 @@ messages -- fichiers d'extension @code{.mo} -- du domaine
 @code{lilypond-doc}.
 
 @item addversion
-Cette option, effective uniquement pour Texinfo, permet d'ajouter une
+Cette option, effective uniquement avec Texinfo, permet d'ajouter une
 ligne @code{\version @@w@{"@@version@{@}"@}} au @code{verbatim}.
 
 @item texidoc
-Option disponible uniquement pour Texinfo.@*
+Option disponible uniquement avec Texinfo.@*
 Dès lors qu'un fichier @file{toto.ly} contient dans sa section
-@code{\header} la variable @code{texidoc}, l'appel de @command{lilypond}
+@code{\header} un champ @code{texidoc}, l'appel de @command{lilypond}
 avec l'option @option{--header=@/texidoc} créera le fichier
 @file{toto.texidoc}.  Par ailleurs, c'est le contenu de ce
 @file{toto.texidoc} qui sera ensuite recopié par
-@command{lilypond-book} en préambule de l'extrait de partition.
+@command{lilypond-book} en préambule de l'extrait de partition -- soit
+avant l'environnement @code{example} créé par un @code{quote}.
 
 Prenons par exemple le fichier @file{toto.ly} dont le contenu est
 
@@ -796,13 +901,13 @@ Cette option est fort utile dans le cadre de l'adaptation en langue
 étrangère.  En effet, s'il est spécifié dans le document Texinfo une
 clause @code{@@documentlanguage@tie{}@var{LANGUE}}, la présence d'une
 variable @code{texidoc@var{LANGUE}} dans l'entête du fichier
-@file{foo.ly} entraînera la reproduction -- par l'appel
+@file{toto.ly} entraînera la reproduction -- par l'appel
 @code{lilypond}@tie{}@option{--header=@/texidoc@var{LANGUE}} -- du
 contenu de @file{toto.texidoc@var{LANGUE}} en lieu et place de celui de
 @file{toto.texidoc}.
 
 @item doctitle
-Option disponible uniquement pour Texinfo.@*
+Option disponible uniquement avec Texinfo.@*
 Cette option fonctionne selon le même principe que l'option
 @code{texidoc}@tie{}: lorsqu'un fichier @file{toto.ly} contient dans
 son @code{\header} une variable @code{doctitle} et que @code{lilypond}
@@ -888,7 +993,7 @@ lors de la génération du @file{.ps} puis dans le @file{.pdf}.
 La commande @command{dvips} peut déclencher certains messages concernant
 des fontes, que vous pouvez ignorer sans scrupule.@*
 Si vous utilisez @command{latex} en mode colonnage, n'oubliez pas
-d'ajouter @option{-t landscape} aux options de @command{dvips}.
+d'ajouter @option{-t@tie{}landscape} aux options de @command{dvips}.
 
 
 @subsubheading Texinfo
@@ -899,8 +1004,8 @@ s'obtient grâce aux commandes Texinfo habituelles, c'est à dire
 @command{texi2pdf}, @command{texi2dvi} ou @command{makeinfo} selon le
 résultat que vous désirez obtenir.
 @ifinfo
-@xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, et @ref{Creating
-an Info File, , , texinfo, GNU Texinfo}.
+@xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, et
+@ref{Creating an Info File, , , texinfo, GNU Texinfo}.
 @end ifinfo
 @ifnotinfo
 Pour plus de détails, consultez la documentation de Texinfo.
@@ -946,10 +1051,18 @@ Affiche un bref résumé des options.
 @itemx --include=@var{répertoire}
 Ajoute @var{répertoire} au chemin des inclusions.  Si des extraits ont
 déjà été compilés dans l'un des répertoires inclus,
-@command{lilypond-book}  ne les rééecria pas dans le répertoire de
+@command{lilypond-book} ne les rééecria pas dans le répertoire de
 sortie@tie{}; il sera donc nécessaire, dans la suite du traitement par
 @command{makeinfo} ou @command{latex}, de penser à utiliser cette même
-option @code{-I @var{répertoire}}.
+option @code{-I@tie{}@var{répertoire}}.
+
+@item -l @var{loglevel}
+@itemx --loglevel=@var{loglevel}
+Détermine le degré de verbosité à @var{loglevel}. Les différentes
+valeurs admises sont @code{NONE}, @code{ERROR}, @code{WARNING},
+@code{PROGRESS} (par défaut) et @code{DEBUG}. Lorsque cette option n'est
+pas activée, c'est le niveau déterminé par la variable d'environnement
+@code{LILYPOND_BOOK_LOGLEVEL} qui sera utilisé.
 
 @item -o @var{dir}
 @itemx --output=@var{répertoire}
@@ -982,6 +1095,14 @@ d'économiser du temps lors de la génération de documents qui se trouvent
 dans différents répertoires et partagent un certain nombre d'extraits
 identiques.
 
+@itemx --lily-loglevel=@var{loglevel}
+Détermine le degré de verbosité lors des appels à @command{lilypond}.
+Les valeurs autorisée de @var{loglevel} sont@tie{}: @code{NONE},
+@code{ERROR}, @code{WARNING}, @code{BASIC_PROGRESS}, @code{PROGRESS},
+@code{INFO} (par défaut) et @code{DEBUG}. Lorsque cette option n'est
+pas activée, c'est le niveau déterminé par la variable d'environnement
+@code{LILYPOND_LOGLEVEL} qui sera utilisé.
+
 @itemx --info-images-dir=@var{répertoire}
 Formate la sortie Texinfo de telle sorte que Info cherche les images
 de musique dans @var{répertoire}.
@@ -1006,10 +1127,15 @@ la droite, de la distance donnée en argument.
 Traite les extraits LilyPond avec @var{commande}.  Par défaut, il s'agit
 de @code{lilypond}.@*
 Rappelez-vous que @code{lilypond-book} ne peut en même temps traiter
-l'option @code{--filter} et l'option @code{--process}.
+l'option @option{--filter} et l'option @option{--process}.
 
 @item --pdf
 Crée des fichiers PDF pour les retraiter avec PDF@LaTeX{}.
+
+@item --redirect-lilypond-output
+Le résultat des commandes est habituellement affiché dans le terminal.
+Cette option permet de rediriger tout le verbiage dans un journal situé
+dans le même répertoire que le fichier source.
 
 @itemx --use-source-file-names
 Cette option permet d'affecter aux fichiers correspondant aux extraits
@@ -1020,7 +1146,8 @@ et que les répertoires mentionnés par les options @code{--output-dir} et
 
 @item -V
 @itemx --verbose
-@command{lilypond-book} sait être volubile@tie{}!
+@command{lilypond-book} sait être volubile@tie{}!  Cette option est
+éqivalente à @code{--loglevel=DEBUG}.
 
 @item -v
 @itemx --version
@@ -1045,10 +1172,10 @@ premier sera traité.
 
 Vous pouvez affecter à votre fichier source n'importe quelle extension.
 Nous vous recommandons cependant un certain nombre d'extensions selon le
-format de sortie désiré.  Une extension hors du commun vous obligera à
-spécifier le format de sortie, alors que @code{lilpond-book} est en
-mesure de déterminer le format de sortie en fonction de l'extension du
-fichier source.
+format de sortie désiré -- voir @ref{Utilisation de lilypond-book}.  Une
+extension hors du commun vous obligera à spécifier le format de sortie,
+alors que @code{lilpond-book} est en mesure de déterminer le format de
+sortie en fonction de l'extension du fichier source.
 
 @quotation
 @multitable @columnfractions .2 .5
@@ -1073,7 +1200,7 @@ Lorsque le fichier source a la même extension que celle que
 lancez @code{lilypond-book} à partir du répertoire le contenant, vous
 verrez assurément un message du type @qq{La sortie va écraser le fichier
 d'entrée}.  Aussi ne saurions-nous trop vous conseiller d'utiliser
-l'option @code{--output}.
+l'option @option{--output}.
 
 
 @node  Modèles pour lilypond-book
@@ -1123,7 +1250,7 @@ l'intégralité de ce manuel est rédigée en Texinfo.
 @@node Top
 @@top
 
-Du verbiage en mode Texinfo
+Du verbiage à la mode Texinfo
 
 @@lilypond
 \relative c' @{
@@ -1236,7 +1363,7 @@ werden.
 @section Gestion de la table des matières
 @translationof Sharing the table of contents
 
-Les fonctions qui sint ici mentionnées sont incluses dans le paquetage
+Les fonctions ici mentionnées sont incluses dans le paquetage
 OrchestralLily, disponible sur
 
 @example
