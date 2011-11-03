@@ -200,8 +200,8 @@ See
 @emph{The Not So Short Introduction to @LaTeX{}}} for an overview on how
 to use @LaTeX{}.
 
-@code{lilypond-book} provides the following commands and environments to include
-music in @LaTeX{} files:
+@code{lilypond-book} provides the following commands and environments to
+include music in @LaTeX{} files:
 
 @itemize
 
@@ -414,8 +414,8 @@ Texinfo is the standard format for documentation of the GNU project.  An
 example of a Texinfo document is this manual.  The HTML, PDF, and Info
 versions of the manual are made from the Texinfo document.
 
-@code{lilypond-book} provides the following commands and environments to include
-music into Texinfo files:
+@code{lilypond-book} provides the following commands and environments to
+include music into Texinfo files:
 
 @itemize
 
@@ -492,38 +492,30 @@ in-line image.  It always gets a paragraph of its own.
 @node HTML
 @subsection HTML
 
-@code{lilypond-book} provides the following commands and environments to include
-music in HTML files:
+@code{lilypond-book} provides the following commands and environments to
+include music in HTML files:
 
 @itemize
 
 @item
-the @code{<lilypond ... />} command, where you can directly enter short lilypond code
+the @code{<lilypond ... />} command, where you can directly enter short
+lilypond code
 
 @item
-the @code{<lilyond>...</lilypond>} environment, where you can directly enter longer
-lilypond code
+the @code{<lilyond>...</lilypond>} environment, where you can directly
+enter longer lilypond code
 
 @item
 the @code{<lilypondfile>...</lilypondfile>} command to insert a lilypond file
 
 @item
-the @code{<musicxmlfile>...</musicxmlfile>} command to insert a MusicXML file, which
-will be processed by @code{musicxml2ly} and @code{lilypond}.
+the @code{<musicxmlfile>...</musicxmlfile>} command to insert a MusicXML
+file, which will be processed by @code{musicxml2ly} and @code{lilypond}.
 
 @end itemize
 
 In the input file, music is specified with any of the following commands:
 
-\begin@{lilypond@}[options,go,here]
-  YOUR LILYPOND CODE
-\end@{lilypond@}
-
-\lilypond[options,go,here]@{ YOUR LILYPOND CODE @}
-
-\lilypondfile[options,go,here]@{@var{filename}@}
-
-\musicxmlfile[options,go,here]@{@var{filename}@}
 @example
 <lilypond options go here>
   YOUR LILYPOND CODE
@@ -564,8 +556,8 @@ To include separate files, say
 <lilypondfile @var{option1} @var{option2} ...>@var{filename}</lilypondfile>
 @end example
 
-@code{<musicxmlfile>} uses the same syntax as @code{<lilypondfile>}, but simply
-references a MusicXML file rather than a LilyPond file.
+@code{<musicxmlfile>} uses the same syntax as @code{<lilypondfile>}, but
+simply references a MusicXML file rather than a LilyPond file.
 
 For a list of options to use with the @code{lilypond} or
 @code{lilypondfile} tags, see @ref{Music fragment options}.
@@ -1009,11 +1001,12 @@ directory.  Use this option to save building time for documents in
 different directories which share a lot of identical snippets.
 
 @itemx --lily-loglevel=@var{loglevel}
-Set the output verbosity of the invoked @command{lilypond} calls to @var{loglevel}.
-Possible values are @code{NONE}, @code{ERROR}, @code{WARNING}, @code{BASIC_PROGRESS},
-@code{PROGRESS}, @code{INFO} (default) and @code{DEBUG}. If
-this option is not used, and the environment variable
-@code{LILYPOND_LOGLEVEL} is set, its value is used as the loglevel.
+Set the output verbosity of the invoked @command{lilypond} calls to
+@var{loglevel}.  Possible values are @code{NONE}, @code{ERROR},
+@code{WARNING}, @code{BASIC_PROGRESS}, @code{PROGRESS}, @code{INFO}
+(default) and @code{DEBUG}.  If this option is not used, and the
+environment variable @code{LILYPOND_LOGLEVEL} is set, its value is used
+as the loglevel.
 
 
 @itemx --info-images-dir=@var{dir}
