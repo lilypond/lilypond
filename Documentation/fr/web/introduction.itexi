@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: ca62336a8f9ccb00fe4d81bcb8c88ad40ef9e2ae
+    Translation of GIT committish: e5a30584121ce0a75b81ce1613b30c6a51203834
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -167,8 +167,8 @@ partitions dans un document OpenOffice.org.
 Le format de fichier de LilyPond, qui décrit la musique sous forme de
 texte, permet également son utilisation par des utilisateurs ayant
 certains handicaps physiques.  Les personnes ne pouvant saisir au
-clavier ou contrôler une souris peuvent utiliser la reconnaissance vocale
-pour éditer des fichiers LilyPond.  Même des personnes aveugles
+clavier ou contrôler une souris peuvent utiliser la reconnaissance
+vocale pour éditer des fichiers LilyPond.  Même des personnes aveugles
 peuvent utiliser des outils de lecture d'écran pour écrire des fichiers
 LilyPond, ce qui est quasiment impossible avec les logiciels de gravure
 musicale fonctionnant avec une interface graphique.
@@ -957,9 +957,10 @@ graphiques l'apprentissage d'une nouvelle façon de travailler, mais les
 résultats en valent vraiment la peine@tie{}!
 
 @warning{nous ne présentons ici qu'un rapide aperçu du langage de
-LilyPond -- ce n'est pas si compliqué que ça en a l'air@tie{}!  Ce n'est pas
-la peine de comprendre ces exemples en détail, notre manuel d'initiation
-aborde d'une façon progressive tout ceci et bien d'autres choses encore.}
+LilyPond -- ce n'est pas si compliqué que ça en a l'air@tie{}!  Ce n'est
+pas la peine de comprendre ces exemples en détail, notre manuel
+d'initiation aborde d'une façon progressive tout ceci et bien d'autres
+choses encore.}
 
 
 @subsubheading C'est simple comme bonjour
@@ -970,9 +971,10 @@ commandes spéciales commencent par un antislash.
 @imageFloat{text-input-1-annotate-fr,png,center}
 @imageFloat{text-input-1-output,png,center}
 
-Les altérations sont obtenues avec différents suffixes : @code{-is} pour dièse,
-@code{-es} pour bémol -- ce sont des noms de note hollandais, d'autres langues
-sont disponibles.  LilyPond détermine où placer les signes d'altération.
+Les altérations sont obtenues avec différents suffixes : @code{is} pour
+dièse, @code{es} pour bémol -- ce sont des noms de note hollandais,
+d'autres langues sont disponibles.  LilyPond détermine où placer les
+signes d'altération.
 
 @imageFloat{text-input-2-annotate-fr,png,center}
 @imageFloat{text-input-2-output,png,center}
@@ -1095,7 +1097,8 @@ visonneuse de PDF intégrée avec un excellent pointer-cliquer.
 Frescobaldi est un éditeur de texte dédié à LilyPond, avec visionneuse
 PDF intégrée, un assistant de création de partition et beaucoup de
 fonctionnalités d'édition.  Il repose sur les bibliothèques KDE@tie{}4
-et fonctionne actuellement sur toutes les variantes d'Unix dont GNU/Linux.
+et fonctionne actuellement sur toutes les variantes d'Unix dont
+GNU/Linux.
 
 @divEnd
 
@@ -1137,10 +1140,11 @@ la vue graphique et toute erreur de syntaxe dans votre code sera mise en
 Emacs est un éditeur de texte avec des fontionnalités spécifiques pour
 un grand nombre de langages de programmation et de documents.  C'est un
 éditeur très extensible, qui peut être utilisé comme un environnement de
-développement intégré (IDE).  Il existe un @emph{mode LilyPond} qui offre
-quelques fonctionnalités spécifiques pour travailler avec des fichiers
-source LilyPond.  L'un des développeurs a même écrit un mode majeur pour
-Emacs, @uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi}.
+développement intégré (IDE).  Il existe un @emph{mode LilyPond} qui
+offre quelques fonctionnalités spécifiques pour travailler avec des
+fichiers source LilyPond.  L'un des développeurs a même écrit un mode
+majeur pour Emacs,
+@uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi}.
 
 @uref{http://www.vim.org}
 
@@ -1293,9 +1297,9 @@ Vous êtes toujours incrédule ?  Beaucoup de compositeurs, musiciens et
 chefs ont appris à écrire de la musique dans notre format texte.  Des
 utilisateurs expérimentés nous font savoir qu'ils parviennent à entrer
 une partition LilyPond complète plus rapidement qu'avec un clavier MIDI
-ou la souris dans une interface graphique@tie{}!  Peut-être souhaitez-vous
-relire les @ref{Fonctionnalités}, les @ref{Exemples}, la @ref{Liberté}
-donnée par LilyPond, ou revoir les @ref{Témoignages} ou
+ou la souris dans une interface graphique@tie{}!  Peut-être
+souhaitez-vous relire les @ref{Fonctionnalités}, les @ref{Exemples}, la
+@ref{Liberté} donnée par LilyPond, ou revoir les @ref{Témoignages} ou
 @ref{Productions} des utilisateurs.  De plus, nous expliquons notre
 approche de la technique informatique au service de la gravure musicale
 dans la partie @ref{Contexte}.
