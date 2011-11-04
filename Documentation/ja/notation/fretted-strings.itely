@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.16"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -114,7 +114,6 @@
 
 運指と弦の指示を一緒に使う場合、@c
 それら 2 要素を記述する順序で配置を制御することができます:
-in the code:
 
 @lilypond[verbatim,quote,relative=1]
 \clef "treble_8"
@@ -506,12 +505,13 @@ melodia = \partcombine { e4 g g g } { e4 e e e }
 @cindex tablature, bass (バス タブ譜)
 @cindex tablature, double bass (ダブル バス タブ譜)
 
-@funindex StringTunings
+@funindex stringTunings
 
 LilyPond のタブ譜は、音符に対するフレットを、@c
 その音符が割り当てられている弦に基づいて、自動的に算出します。@c
 フレットの算出を行うために、弦のチューニングを指定する必要があります。@c
 弦のチューニングは @code{stringTunings} プロパティで指定します。
+
 LilyPond にはあらかじめ定義された弦チューニングが用意されています
 -- バンジョー、マンドリン、ギター、バス ギター、ウクレレ、バイオリン、@c
 ビオラ、チェロ、それにダブル バス用があります。@c
@@ -545,17 +545,17 @@ LilyPond は、あらかじめ定義されたチューニングに対して、@c
 あらかじめ定義された弦チューニングは @file{ly/string-tuning-init.ly} の中に@c
 あります。
 
-@funindex contextStringTunings
-@funindex \contextStringTunings
-@cindex tablature, custom string tunings
-@cindex custom string tunings
+@funindex stringTunings
+@funindex \stringTunings
+@cindex tablature, custom string tunings (カスタム弦チューニングのタブ譜)
+@cindex custom string tunings (カスタム弦チューニング)
 
 望みに応じて任意の弦チューニングを作成することができます。@c
-@code{\contextStringTuning} 関数を用いて、弦チューニングを定義し、@c
-カレント コンテキストの @code{stringTunings} としてセットすることができます。@c
-@code{\contextStringTuning} は 2 つの引数を取ります:
-弦チューニングを保存するためのシンボルと、@c
-そのチューニングにおける各弦のピッチを定義する和音構造です。@c
+@code{\stringTuning} 関数を用いて、弦チューニングを定義し、@c
+カレント コンテキストの @code{stringTunings} としてセットすることができます。
+
+@code{\stringTuning} の引数は、@c
+チューニングにおける各弦のピッチを定義する和音構造です。@c
 和音構造は絶対オクターブ モードにする必要があります
 -- @ref{絶対オクターブ入力} を参照してください。@c
 和音の中で、@c
@@ -585,18 +585,10 @@ mynotes = {
 @code{FretBoards} で @code{stringTunings} プロパティ用いることで、@c
 自動的にフレット ダイアグラムを算出させることもできます。
 
-@funindex makeStringTuning
-@funindex \makeStringTuning
-
 弦チューニングは、@c
 あらかじめ定義されたフレット ダイアグラムに対するハッシュ キーの一部@c
 として使われます
-(@ref{あらかじめ定義されたフレット ダイアグラム} を参照してください)。@c
-カレント コンテキストの中で @code{stringTunings} をセットせずに、@c
-@code{\makeStringTuning} 関数を用いて弦チューニングを作成することができます。@c
-@code{\makeStringTuning} の引数は、@c
-新しい弦チューニングに使用されるシンボルと、@c
-チューニングを定義する和音構造です。@c
+
 上記の例を、以下のように書き換えることができます:
 
 @lilypond[quote,verbatim]
@@ -631,33 +623,24 @@ LilyPond ピッチ オブジェクトです。@c
 ピッチ オブジェクトは Scheme 関数 @code{ly:make-pitch}
 (@ref{Scheme functions} を参照してください) で作成されます。@c
 
-お望みなら、弦チューニングを Scheme リテラルとして作成することもできます。@c
-以下の例は上記の例と同じですが、@c
-弦チューニングは単独のオブジェクトではありません:
-
-@lilypond[quote,verbatim]
-mynotes = {
-  c'4 e' g' c'' |
-  e''4 g'' b'' c'''
-}
-
-<<
-  \new Staff {
-    \clef treble
-    \mynotes
-  }
-  \new TabStaff {
-    \set TabStaff.stringTunings = #`(,(ly:make-pitch 1 5 0)
-				     ,(ly:make-pitch 1 1 0)
-				     ,(ly:make-pitch 0 4 0)
-				     ,(ly:make-pitch 0 0 0))
-    \mynotes
-  }
->>
-@end lilypond
+@code{\stringTuning} は和音構造から弦チューニング リストを作成します。
 
 LilyPond は、@code{TabStaff} の行数と自動的に算出される @code{FretBoard} の弦数
 (これは @code{stringTunings} の要素数です) を自動的に算出します。
+
+すべての @code{TabStaff} コンテキストに同じカスタム チューニングを@c
+適用するには、@c
+下記のようにします:
+
+@example
+\layout @{
+  \context @{
+    \TabStaff
+    stringTunings = \stringTuning \notemode @{ <c' g' d'' a''> @}
+  @}
+@}
+@end example
+
 
 @cindex moderntab clef (現代タブ譜の音部記号)
 @cindex clef, moderntab (現代タブ譜の音部記号)
@@ -1919,13 +1902,13 @@ LilyPond は 5 弦バンジョーの基本的なサポートを提供します�
 @funindex banjo-open-dm-tuning
 @funindex four-string-banjo
 
-バンジョーの一般的なチューニングのいくつかは、あらかじめ定義されています:
+5 弦バンジョーの一般的なチューニングのいくつかは、あらかじめ定義されています:
 @code{banjo-c-tuning} (gCGBD), @code{banjo-modal-tuning} (gDGCD),
 @code{banjo-open-d-tuning} (aDF#AD) それに @code{banjo-open-dm-tuning}
 (aDFAD) です。
 
-これらのチューニングは、@code{four-string-banjo} 関数を用いて
-4 弦バンジョーのチューニングに変換することができます:
+@code{four-string-banjo} 関数を用いて、@c
+これらを 4 弦バンジョーのチューニングに変換することができます:
 
 @example
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
@@ -1937,5 +1920,4 @@ LilyPond は 5 弦バンジョーの基本的なサポートを提供します�
 @rlsr{Fretted strings}
 
 インストールされているファイル:
-@file{scm/string-tunings-init.scm} が@c
-あらかじめ定義されたバンジョーのチューニングを保持しています。
+@file{ly/string-tunings-init.ly}
