@@ -73,16 +73,18 @@ or
  /* expressions with units are permitted into argument lists */
 
 %right PITCH_IDENTIFIER NOTENAME_PITCH TONICNAME_PITCH
-      UNSIGNED REAL DURATION_IDENTIFIER
+      UNSIGNED REAL DURATION_IDENTIFIER ':'
 
  /* The above are the symbols that can start optional function arguments
     that are recognized in the grammar rather than by predicate
  */
 
-%nonassoc NUMBER_IDENTIFIER
+%nonassoc NUMBER_IDENTIFIER '/'
 
  /* Number-unit expressions, where permitted, are concatenated into
-  * function arguments.
+  * function arguments, just like fractions and tremoli.  Tremoli must
+  * not have higher precedence than UNSIGNED, or Lilypond will not
+  * join ':' with a following optional number.
   */
 
 %left PREC_TOP
@@ -146,6 +148,24 @@ do									\
 	}								\
 while (0)
 
+
+#define MYREPARSE(Location, Default, Pred, Token, Value)		\
+do									\
+	if (yychar == YYEMPTY)						\
+	{								\
+		PARSER->lexer_->push_extra_token (Token, Value);	\
+		if (Default != SCM_UNDEFINED)				\
+			PARSER->lexer_->push_extra_token (REPARSE,	\
+							  scm_cons (Default, Pred)); \
+		else							\
+			PARSER->lexer_->push_extra_token (REPARSE,	\
+							  Pred);	\
+	} else {							\
+		PARSER->parser_error					\
+			(Location, _("Too much lookahead"));		\
+	}								\
+while (0)
+
 %}
 
 
@@ -154,7 +174,6 @@ while (0)
 	Output_def *outputdef;
 	SCM scm;
 	std::string *string;
- 	Music *music;
  	Score *score;
  	int i;
 }
@@ -171,9 +190,9 @@ while (0)
   scm_apply_0 (proc, args)
 /* Syntactic Sugar. */
 #define MAKE_SYNTAX(name, location, ...)	\
-  LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (PARSER->self_scm (), make_input (location), ##__VA_ARGS__, SCM_UNDEFINED));
+  LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (PARSER->self_scm (), make_input (location) , ##__VA_ARGS__, SCM_UNDEFINED));
 #define START_MAKE_SYNTAX(name, ...)					\
-	scm_list_n (ly_lily_module_constant (name), ##__VA_ARGS__, SCM_UNDEFINED)
+	scm_list_n (ly_lily_module_constant (name) , ##__VA_ARGS__, SCM_UNDEFINED)
 #define FINISH_MAKE_SYNTAX(start, location, ...)			\
 	LOWLEVEL_MAKE_SYNTAX (scm_car (start), scm_cons2 (PARSER->self_scm (), make_input (location), scm_append_x (scm_list_2 (scm_cdr (start), scm_list_n (__VA_ARGS__, SCM_UNDEFINED)))))
 
@@ -310,6 +329,7 @@ If we give names, Bison complains.
 %token <i> EXPECT_DURATION "ly:duration?"
 %token <scm> EXPECT_SCM "scheme?"
 %token <scm> BACKUP "(backed-up?)"
+%token <scm> REPARSE "(reparsed?)"
 %token <i> EXPECT_MARKUP_LIST "markup-list?"
 %token <scm> EXPECT_OPTIONAL "optional?"
 /* After the last argument. */
@@ -331,6 +351,8 @@ If we give names, Bison complains.
 %token <scm> EVENT_FUNCTION
 %token <scm> FRACTION
 %token <scm> LYRICS_STRING
+%token <scm> LYRIC_ELEMENT
+%token <scm> LYRIC_ELEMENT_P
 %token <scm> LYRIC_MARKUP_IDENTIFIER
 %token <scm> MARKUP_FUNCTION
 %token <scm> MARKUP_LIST_FUNCTION
@@ -375,6 +397,7 @@ If we give names, Bison complains.
 %type <scm> closed_music
 %type <scm> music
 %type <scm> music_bare
+%type <scm> music_arg
 %type <scm> complex_music
 %type <scm> complex_music_prefix
 %type <scm> mode_changed_music
@@ -456,6 +479,7 @@ If we give names, Bison complains.
 %type <scm> function_arglist_closed
 %type <scm> function_arglist_closed_optional
 %type <scm> function_arglist_common
+%type <scm> function_arglist_common_lyric
 %type <scm> function_arglist_closed_common
 %type <scm> function_arglist_keep
 %type <scm> function_arglist_closed_keep
@@ -464,6 +488,8 @@ If we give names, Bison complains.
 %type <scm> lilypond_header
 %type <scm> lilypond_header_body
 %type <scm> lyric_element
+%type <scm> lyric_element_arg
+%type <scm> lyric_element_music
 %type <scm> lyric_markup
 %type <scm> markup
 %type <scm> markup_braced_list
@@ -498,7 +524,6 @@ If we give names, Bison complains.
 %type <scm> property_operation
 %type <scm> property_path property_path_revved
 %type <scm> scalar
-%type <scm> scalar_bare
 %type <scm> scalar_closed
 %type <scm> scm_function_call
 %type <scm> scm_function_call_closed
@@ -649,7 +674,7 @@ embedded_scm:
 embedded_scm_arg:
 	embedded_scm_bare_arg
 	| scm_function_call
-	| music
+	| music_arg
 	;
 
 scm_function_call:
@@ -1103,11 +1128,15 @@ braced_music_list:
 	}
 	;
 
-music:
-	simple_music
+music:	simple_music
+	| lyric_element_music
 	| composite_music %prec COMPOSITE
 	;
 
+music_arg:
+	simple_music
+	| composite_music %prec COMPOSITE
+	;
 
 repeated_music:
 	REPEAT simple_string unsigned_number music
@@ -1241,11 +1270,11 @@ function_arglist_nonbackup:
 	{
 		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed bare_number_closed
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed bare_number
 	{
 		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed FRACTION
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed fraction
 	{
 		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
 	}
@@ -1269,20 +1298,33 @@ function_arglist_backup:
 		{
 			$$ = scm_cons ($4, $3);
 		} else {
-			$$ = try_unpack_lyrics ($2, $4);
-			if (!SCM_UNBNDP ($$))
-				$$ = scm_cons ($$, $3);
-			else {
-				$$ = scm_cons (loc_on_music (@3, $1), $3);
-				MYBACKUP (SCM_IDENTIFIER, $4, @4);
-			}
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (SCM_IDENTIFIER, $4, @4);
+		}
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep lyric_element
+	{
+		// There is no point interpreting a lyrics string as
+		// an event, since we don't allow music possibly
+		// followed by durations or postevent into closed
+		// music, and we only accept closed music in optional
+		// arguments at the moment.  If this changes, more
+		// complex schemes might become interesting here as
+		// well: see how we do this at the mandatory argument
+		// point.
+		if (scm_is_true (scm_call_1 ($2, $4)))
+			$$ = scm_cons ($3, $2);
+		else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (LYRIC_MARKUP_IDENTIFIER, $4, @4);
 		}
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep UNSIGNED
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
-			$$ = scm_cons ($4, $3);
+			$$ = $3;
+			MYREPARSE (@4, $1, $2, UNSIGNED, $4);
 		} else {
 			$$ = scm_cons (loc_on_music (@3, $1), $3);
 			MYBACKUP (UNSIGNED, $4, @4);
@@ -1292,7 +1334,8 @@ function_arglist_backup:
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
-			$$ = scm_cons ($4, $3);
+			$$ = $3;
+			MYREPARSE (@4, $1, $2, REAL, $4);
 		} else {
 			$$ = scm_cons (loc_on_music (@3, $1), $3);
 			MYBACKUP (REAL, $4, @4);
@@ -1331,6 +1374,21 @@ function_arglist_backup:
 		$$ = scm_cons ($1, $3);
 		MYBACKUP(0, SCM_UNDEFINED, @3);
 	}
+	| function_arglist_backup REPARSE embedded_scm_arg_closed
+	{
+		$$ = check_scheme_arg (PARSER, @3, scm_car ($2),
+				       $3, $1, scm_cdr ($2));
+	}
+	| function_arglist_backup REPARSE bare_number
+	{
+		$$ = check_scheme_arg (PARSER, @3, scm_car ($2),
+				       $3, $1, scm_cdr ($2));
+	}
+	| function_arglist_backup REPARSE fraction
+	{
+		$$ = check_scheme_arg (PARSER, @3, scm_car ($2),
+				       $3, $1, scm_cdr ($2));
+	}
 	;
 
 function_arglist:
@@ -1355,6 +1413,47 @@ function_arglist_common:
 		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
 				       $3, $2, $1);
 	}
+	| function_arglist_common_lyric
+	;
+
+function_arglist_common_lyric:
+	EXPECT_SCM function_arglist_optional lyric_element
+	{
+		// We check how the predicate thinks about a lyrics
+		// event or about a markup.  If it accepts neither, we
+		// backup the original token.  Otherwise we commit to
+		// taking the token.  Depending on what the predicate
+		// is willing to accept, we interpret as a string, as
+		// a lyric event, or ambiguously (meaning that if
+		// something looking like a duration or post event
+		// follows, we take the event, otherwise the string).
+		SCM lyric_event = MAKE_SYNTAX ("lyric-event", @3, $3,
+					       PARSER->default_duration_.smobbed_copy ());
+		if (scm_is_true (scm_call_1 ($1, $3)))
+			if (scm_is_true (scm_call_1 ($1, lyric_event)))
+			{
+				$$ = $2;
+				MYREPARSE (@3, SCM_UNDEFINED, $1, LYRIC_ELEMENT_P, $3);
+			} else {
+				$$ = scm_cons ($3, $2);
+			}
+		else if (scm_is_true (scm_call_1 ($1, lyric_event)))
+		{
+			$$ = $2;
+			MYREPARSE (@3, SCM_UNDEFINED, $1, LYRIC_ELEMENT, $3);
+		} else {
+			// This is going to flag a syntax error, we
+			// know the predicate to be false.
+			check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+					  $3, $2, $1);
+		}
+	}
+	| function_arglist_common_lyric REPARSE lyric_element_arg
+	{
+		// This should never be false
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+				       $3, $1, $2);
+	}
 	;
 
 function_arglist_closed:
@@ -1375,6 +1474,11 @@ function_arglist_closed_common:
 				       $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional FRACTION
+	{
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+				       $3, $2, $1);
+	}
+	| EXPECT_SCM function_arglist_optional lyric_element
 	{
 		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
 				       $3, $2, $1);
@@ -1748,36 +1852,16 @@ simple_string: STRING {
 	}
 	;
 
-scalar_bare:
-	string {
-		$$ = $1;
-	}
-	| lyric_element {
-		$$ = $1;
-	}
-	| bare_number {
-		$$ = $1;
-	}
-        | embedded_scm_bare {
-		$$ = $1;
-	}
-	| full_markup {
-		$$ = $1;
-	}
-	| full_markup_list
-	{
-		$$ = $1;
-	}
-	;
-
 scalar:
-	scalar_bare |
-	scm_function_call
+	embedded_scm_arg
+	| bare_number
+	| lyric_element
 	;
 
 scalar_closed:
-	scalar_bare |
-	scm_function_call_closed
+	embedded_scm_arg_closed
+	| bare_number
+	| lyric_element
 	;
 
 
@@ -1915,6 +1999,9 @@ embedded_scm_chord_body:
 		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
+	| bare_number
+	| fraction
+	| lyric_element
 	| chord_body_element
 	;
 
@@ -1945,6 +2032,9 @@ embedded_scm_event:
 		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
+	| bare_number
+	| fraction
+	| lyric_element
 	| post_event
 	;
 
@@ -2509,15 +2599,6 @@ simple_element:
 		ev->set_property ("duration", $2);
  		$$ = ev->unprotect ();
 	}
-	| lyric_element optional_notemode_duration 	{
-		if (!PARSER->lexer_->is_lyric_state ())
-			PARSER->parser_error (@1, _ ("have to be in Lyric mode for lyrics"));
-
-		Music *levent = MY_MAKE_MUSIC ("LyricEvent", @$);
-		levent->set_property ("text", $1);
-		levent->set_property ("duration",$2);
-		$$= levent->unprotect ();
-	}
 	;
 
 simple_chord_elements:
@@ -2544,6 +2625,42 @@ lyric_element:
 	}
 	| LYRICS_STRING {
 		$$ = $1;
+	}
+	| LYRIC_ELEMENT_P
+	;
+
+lyric_element_arg:
+	lyric_element
+	| lyric_element multiplied_duration post_events {
+		SCM lyric_event = MAKE_SYNTAX ("lyric-event", @$, $1, $2);
+		$$ = MAKE_SYNTAX ("event-chord", @$,
+				  scm_cons (lyric_event,
+					    scm_reverse_x ($3, SCM_EOL)));
+	}
+	| lyric_element post_event post_events {
+		SCM lyric_event =
+			MAKE_SYNTAX ("lyric-event", @$, $1,
+				     PARSER->default_duration_.smobbed_copy ());
+		$$ = MAKE_SYNTAX ("event-chord", @$,
+				  scm_cons2 (lyric_event, $2,
+					     scm_reverse_x ($3, SCM_EOL)));
+					     
+	}
+	| LYRIC_ELEMENT optional_notemode_duration post_events {
+		SCM lyric_event = MAKE_SYNTAX ("lyric-event", @$, $1, $2);
+		$$ = MAKE_SYNTAX ("event-chord", @$,
+				  scm_cons (lyric_event,
+					    scm_reverse_x ($3, SCM_EOL)));
+	}
+	;
+
+
+lyric_element_music:
+	lyric_element optional_notemode_duration post_events {
+		SCM lyric_event = MAKE_SYNTAX ("lyric-event", @$, $1, $2);
+		$$ = MAKE_SYNTAX ("event-chord", @$,
+				  scm_cons (lyric_event,
+					    scm_reverse_x ($3, SCM_EOL)));
 	}
 	;
 

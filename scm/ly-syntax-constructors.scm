@@ -210,6 +210,9 @@ into a @code{MultiMeasureTextEvent}."
   (set! unique-counter (1+ unique-counter))
   (call-with-output-string (lambda (p) (format p "uniqueContext~s" unique-counter))))
 
+(define-ly-syntax-simple (lyric-event text duration)
+  (make-lyric-event text duration))
+
 (define (lyric-combine-music sync music loc)
   ;; CompletizeExtenderEvent is added following the last lyric in MUSIC
   ;; to signal to the Extender_engraver that any pending extender should
