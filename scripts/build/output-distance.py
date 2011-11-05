@@ -827,7 +827,15 @@ class ComparisonData:
     def compare_trees (self, dir1, dir2):
         self.compare_directories (dir1, dir2)
 
-        (root, dirs, files) = os.walk (dir1).next ()
+        try:
+            (root, dirs, files) = os.walk (dir1).next ()
+        except StopIteration:
+            if dir1.endswith("-baseline"):
+                sys.stderr.write("Failed to walk through %s. This can be caused by forgetting to run make test-baseline.\n" % dir1)
+            else:
+                sys.stderr.write("Failed to walk through %s; please check it exists.\n" % dir1)
+            sys.exit(1)
+
         for d in dirs:
             d1 = os.path.join (dir1, d)
             d2 = os.path.join (dir2, d)
