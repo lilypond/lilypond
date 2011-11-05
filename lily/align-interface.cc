@@ -167,7 +167,7 @@ Align_interface::get_minimum_translations_without_min_dist (Grob *me,
 }
 
 // If include_fixed_spacing is false, the only constraints that will be measured
-// here are those that result from collisions (+ padding) and minimum-distance
+// here are those that result from collisions (+ padding) and the spacing spec
 // between adjacent staves.
 // If include_fixed_spacing is true, constraints from line-break-system-details,
 // basic-distance+stretchable=0, and staff-staff-spacing of spaceable staves
@@ -221,9 +221,13 @@ Align_interface::internal_get_minimum_translations (Grob *me,
 
           dy = down_skyline.distance (skylines[j][-stacking_dir]) + padding;
 
-          Real min_distance = 0;
-          if (Page_layout_problem::read_spacing_spec (spec, &min_distance, ly_symbol2scm ("minimum-distance")))
-            dy = max (dy, min_distance);
+          Real spec_distance = 0;
+          if (Page_layout_problem::read_spacing_spec (spec, &spec_distance, ly_symbol2scm ("minimum-distance")))
+            dy = max (dy, spec_distance);
+          // Consider the likely final spacing when estimating distance between staves of the full score
+          if (INT_MAX == end && 0 == start
+              && Page_layout_problem::read_spacing_spec (spec, &spec_distance, ly_symbol2scm ("basic-distance")))
+            dy = max (dy, spec_distance);
 
           if (include_fixed_spacing && Page_layout_problem::is_spaceable (elems[j]) && last_spaceable_element)
             {
@@ -307,7 +311,6 @@ Align_interface::align_elements_to_minimum_distances (Grob *me, Axis a)
     for (vsize j = 0; j < all_grobs.size (); j++)
       all_grobs[j]->translate_axis (translates[j], a);
 }
-
 
 MAKE_SCHEME_CALLBACK (Align_interface, full_score_pure_minimum_translations, 1);
 SCM
