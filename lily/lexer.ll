@@ -383,6 +383,32 @@ BOM_UTF8	\357\273\277
 	yylval.scm = sval;
 	return SCM_TOKEN;
 }
+
+<INITIAL,chords,figures,lyrics,markup,notes>\$	{ //immediate scm
+	int n = 0;
+	Input hi = here_input();
+	hi.step_forward ();
+	SCM sval = ly_parse_scm (hi.start (), &n, hi,
+		be_safe_global && is_main_input_, parser_);
+
+	for (int i = 0; i < n; i++)
+	{
+		yyinput ();
+	}
+	char_count_stack_.back () += n;
+
+	if (sval == SCM_UNDEFINED)
+	{
+		yylval.scm = SCM_UNSPECIFIED;
+		error_level_ = 1;
+
+		LexerError (_ ("bad Scheme expression").c_str ());
+		return SCM_IDENTIFIER;
+	}
+
+	return scan_scm_id (sval);
+}
+
 <INITIAL,notes,lyrics>{ 
 	\<\<	{
 		return DOUBLE_ANGLE_OPEN;
@@ -598,7 +624,7 @@ BOM_UTF8	\357\273\277
 	[{}]	{
 		return YYText ()[0];
 	}
-	[^#{}\"\\ \t\n\r\f]+ {
+	[^$#{}\"\\ \t\n\r\f]+ {
 		string s (YYText ()); 
 
 		char c = s[s.length () - 1];
@@ -799,6 +825,20 @@ Lily_lexer::scan_escaped_word (string str)
 		return i;
 
 	SCM sid = lookup_identifier (str);
+	if (sid != SCM_UNDEFINED)
+		return scan_scm_id (sid);
+
+	string msg (_f ("unknown escaped string: `\\%s'", str));	
+	LexerError (msg.c_str ());
+
+	yylval.scm = ly_string2scm (str);
+
+	return STRING;
+}
+
+int
+Lily_lexer::scan_scm_id (SCM sid)
+{
 	if (is_music_function (sid))
 	{
 		int funtype = SCM_FUNCTION;
@@ -849,19 +889,8 @@ Lily_lexer::scan_escaped_word (string str)
 		}
 		return funtype;
 	}
-
-	if (sid != SCM_UNDEFINED)
-	{
-		yylval.scm = sid;
-		return identifier_type (sid);
-	}
-
-	string msg (_f ("unknown escaped string: `\\%s'", str));	
-	LexerError (msg.c_str ());
-
-	yylval.scm = ly_string2scm (str);
-
-	return STRING;
+	yylval.scm = sid;
+	return identifier_type (sid);
 }
 
 int
