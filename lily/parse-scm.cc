@@ -55,7 +55,9 @@ internal_ly_parse_scm (Parse_start *ps)
   /* Read expression from port.  */
   if (!SCM_EOF_OBJECT_P (form))
     {
-      if (ps->safe_)
+      if (ps->parser_ && !SCM_UNBNDP (ps->parser_->local_environment_))
+	answer = scm_local_eval (form, ps->parser_->local_environment_);
+      else if (ps->safe_)
         {
           static SCM module = SCM_BOOL_F;
           if (module == SCM_BOOL_F)

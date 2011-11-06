@@ -50,13 +50,14 @@ public:
   Sources *sources_;
   Duration default_duration_;
   string output_basename_;
+  SCM local_environment_;
 
   int fatal_error_;
   int error_level_;
   bool ignore_version_b_;
 
   Lily_parser (Sources *sources);
-  Lily_parser (Lily_parser const &);
+  Lily_parser (Lily_parser const &, SCM env = SCM_UNDEFINED);
 
   DECLARE_SCHEME_CALLBACK (layout_description, ());
 

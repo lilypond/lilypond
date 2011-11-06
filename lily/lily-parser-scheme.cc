@@ -146,12 +146,12 @@ LY_DEFINE (ly_parser_lexer, "ly:parser-lexer",
 }
 
 LY_DEFINE (ly_parser_clone, "ly:parser-clone",
-           1, 0, 0, (SCM parser_smob),
+           1, 1, 0, (SCM parser_smob, SCM local_environment),
            "Return a clone of @var{parser-smob}.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
-  Lily_parser *clone = new Lily_parser (*parser);
+  Lily_parser *clone = new Lily_parser (*parser, local_environment);
 
   return clone->unprotect ();
 }

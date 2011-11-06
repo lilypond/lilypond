@@ -44,6 +44,7 @@ Lily_parser::Lily_parser (Sources *sources)
   sources_ = sources;
   default_duration_ = Duration (2, 0);
   error_level_ = 0;
+  local_environment_ = SCM_UNDEFINED;
 
   smobify_self ();
 
@@ -51,13 +52,14 @@ Lily_parser::Lily_parser (Sources *sources)
   lexer_->unprotect ();
 }
 
-Lily_parser::Lily_parser (Lily_parser const &src)
+Lily_parser::Lily_parser (Lily_parser const &src, SCM env)
 {
   lexer_ = 0;
   sources_ = src.sources_;
   default_duration_ = src.default_duration_;
   error_level_ = src.error_level_;
   output_basename_ = src.output_basename_;
+  local_environment_ = env;
 
   smobify_self ();
   if (src.lexer_)
@@ -76,6 +78,7 @@ SCM
 Lily_parser::mark_smob (SCM s)
 {
   Lily_parser *parser = (Lily_parser *) SCM_CELL_WORD_1 (s);
+  scm_gc_mark (parser->local_environment_);
   return (parser->lexer_) ? parser->lexer_->self_scm () : SCM_EOL;
 }
 
