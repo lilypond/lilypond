@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 1f655fba7d94feb67f846785f47ab6fb20dc2e59
+    Translation of GIT committish: 9c74179ab62d3a785e890df9c90656ee8fb90fef
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -155,6 +155,9 @@ chapitre @ref{Direction et positionnement}.
 
 
 @snippets
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{alternative-breve-note.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
@@ -1244,12 +1247,6 @@ particuliers pour les différentes portées d'un regroupement@tie{}:
 
 @snippets
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-the-time-signature-without-affecting-the-beaming.ly}
-
-@cindex métriques composites
-@cindex métriques décomposées
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
@@ -1594,16 +1591,15 @@ LilyPond gère les métriques composites, aussi bien de manière explicite
 que de manière détournée -- modification de l'indicateur de métrique
 et échelonnement de la durée des notes.
 
-@strong{@i{Portées aux métriques différentes, mesures d'égale longueur}}
+@subsubheading Métriques différentes et mesures d'égale longueur
+@translationof Different time signatures with equal-length measures
 
 Il suffit, pour obtenir cette forme de notation, de tout d'abord
-affecter une même métrique aux différentes portées.  L'indicateur de
-métrique sera ensuite remplacé dans chacune des portées par un quotient
-donné en argument à la propriété @code{timeSignatureFraction}.  La durée
-des notes sera enfin proratisée selon la métrique commune (voir
-@ref{Métrique}) grâce à la fonction @code{\scaleDurations}, qui
-s'utilise tout comme la commande @code{\times} -- sans toutefois créer
-de crochet de nolet (voir @ref{Changement d'échelle des durées}).
+affecter une même métrique aux différentes portées.  Cette métrique sera
+ensuite remplacée dans chacune des portées par un quotient fourni en
+argument à la propriété @code{timeSignatureFraction}.  La durée des
+notes sera enfin proratisée selon la métrique commune grâce à la
+fonction @code{\scaleDurations}.
 
 @cindex ligature et musique polymétrique
 @cindex polymétrie et ligature
@@ -1621,13 +1617,13 @@ ligature automatique.
   \new Staff {
     \time 3/4
     c4 c c |
-    c c c |
+    c4 c c |
   }
   \new Staff {
     \time 3/4
     \set Staff.timeSignatureFraction = #'(9 . 8)
     \scaleDurations #'(2 . 3)
-    \repeat unfold 6 { c8[ c c] }
+      \repeat unfold 6 { c8[ c c] }
   }
   \new Staff {
     \time 3/4
@@ -1635,13 +1631,14 @@ ligature automatique.
     \scaleDurations #'(3 . 5) {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
-      c4. c4. \times 2/3 { c8[ c c] } c4
+      c4. c \times 2/3 { c8[ c c] } c4
     }
   }
 >>
 @end lilypond
 
-@strong{@i{Portées aux métriques différentes, mesures de longueur inégale}}
+@subsubheading Métriques différentes et mesures de longueur inégale
+@translationof Different time signatures with unequal-length measures
 
 Il arrive aussi que chaque portée ait sa propre métrique.  Vous y
 parviendrez en déplaçant le @code{Timing_translator} et le
@@ -1667,13 +1664,13 @@ parviendrez en déplaçant le @code{Timing_translator} et le
   \new Staff {
     \time 3/4
     c4 c c |
-    c c c |
+    c4 c c |
   }
   \new Staff {
     \time 2/4
     c4 c |
-    c c |
-    c c |
+    c4 c |
+    c4 c |
   }
   \new Staff {
     \time 3/8
@@ -1685,6 +1682,50 @@ parviendrez en déplaçant le @code{Timing_translator} et le
 >>
 @end lilypond
 
+
+@subsubheading Métriques complexes
+@translationof Compound time signatures
+
+@cindex métrique composite
+@cindex complexe, métrique
+
+@funindex \compoundMeter
+
+Une métrique composite se crée à l'aide de la fonction
+@code{\compoundMeter}, en suivant la syntaxe@tie{}:
+
+@example
+\compoundMeter #'@code{(liste de listes)}
+@end example
+
+La construction la plus simple est constituée d'une seule liste, dans
+laquelle le @emph{dernier} nombre indique le @qq{dénominateur} de la
+métrique, les précédents représentent le @qq{numérateur}.
+
+@lilypond[quote,verbatim]
+\relative c' {
+  \compoundMeter #'((2 2 2 8))
+  \repeat unfold 6 c8 \repeat unfold 12 c16
+}
+@end lilypond
+
+Une métrique plus élabborée s'obtient en ajoutant d'autres listes.  Bien
+entendu, les ligatures automatoques s'ajusteront aux différentes
+valeurs.
+
+@lilypond[quote,verbatim]
+\relative c' {
+  \compoundMeter #'((1 4) (3 8))
+  \repeat unfold 5 c8 \repeat unfold 10 c16
+}
+
+\relative c' {
+  \compoundMeter #'((1 2 3 8) (3 4))
+  \repeat unfold 12 c8
+}
+@end lilypond
+
+
 @seealso
 Glossaire musicologique :
 @rglosnamed{polymetric,polymétrie},
@@ -1692,11 +1733,13 @@ Glossaire musicologique :
 @rglosnamed{meter,métrique}.
 
 Manuel de notation :
+@ref{Barres de ligature automatiques},
+@ref{Barres de ligature manuelles},
 @ref{Métrique},
 @ref{Changement d'échelle des durées}.
 
 Morceaux choisis :
-@rlsrnamed{Rhythms,Rythme}.
+@rlsrnamed{Rhythms, Rythme}.
 
 Références des propriétés internes :
 @rinternals{TimeSignature},
@@ -1718,29 +1761,37 @@ fausser l'espacement régulier entre les différentes portées.
 
 @cindex notes, division
 @cindex division de notes
+@cindex silences, division
+@cindex division de silences
 
 @funindex Note_heads_engraver
 @funindex Completion_heads_engraver
+@funindex Completion_rest_engraver
 
 On peut convertir automatiquement les notes longues en notes liées.  Il
 suffit pour cela de remplacer le graveur @code{Note_heads_engraver}
-par le graveur @code{Completion_heads_engraver}.  Dans l'exemple
-suivant, les notes qui dépassent de la mesure sont divisées et liées.
+par le graveur @code{Completion_heads_engraver}.  Il en va de la même
+manière pour des silences@tie{}; le @code{Completion_rest_engraver}
+devra alors remplacer le @code{Rest_engraver}.  Dans l'exemple
+suivant, les notes ou silences qui dépassent de la mesure sont divisées
+et au besoin liées.
 
 @lilypond[quote,verbatim,relative=1]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
+  \remove "Rest_engraver"
+  \consists "Completion_rest_engraver"
 }
 
-{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 }
+{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2 }
 @end lilypond
 
-Ce graveur divise toutes les notes qui sortent de la mesure, et insère
-des liaisons de prolongation.  Dans la pratique, cette fonctionnalité
-permet de déboguer des partitions complexes@tie{}: si les mesures ne
-sont pas entièrement remplies, alors les liaisons de prolongation
-montrent exactement la durée des décalages de mesure.
+Ces graveurs divisent toutes les notes et silences qui sortent de la
+mesure, et insèrent des liaisons de prolongation.  Dans la pratique,
+cette fonctionnalité permet de déboguer des partitions complexes@tie{}:
+si les mesures ne sont pas entièrement remplies, alors les liaisons de
+prolongation montrent exactement la durée des décalages de mesure.
 
 
 @seealso
@@ -1757,6 +1808,8 @@ Morceaux choisis :
 Références des propriétés internes :
 @rinternals{Note_heads_engraver},
 @rinternals{Completion_heads_engraver},
+@rinternals{Rest_engraver},
+@rinternals{Completion_rest_engraver},
 @rinternals{Forbid_line_break_engraver}.
 
 
@@ -1929,12 +1982,13 @@ possibles@tie{}; voir
 @endpredefined
 
 
-@snippets
-
 @cindex saut de ligne et ligature
 @cindex ligature et saut de ligne
+@cindex ligature coudée
 
 @funindex breakable
+
+@snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beams-across-line-breaks.ly}
@@ -1942,8 +1996,8 @@ possibles@tie{}; voir
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@cindex \partcombine et \autoBeamOff
-@cindex \autoBeamOff et \partcombine
+@cindex ligature, \partcombine et \autoBeamOff
+@cindex voix, \autoBeamOff et \partcombine
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {partcombine-and-autobeamoff.ly}
@@ -1970,20 +2024,11 @@ Références des propriétés internes :
 @rinternals{unbreakable-spanner-interface}.
 
 
-@knownissues
-
-Les ligatures peuvent générer des collisions avec des têtes de note ou
-altérations appartenant à d'autres voix.
-
-
 @node Définition des règles de ligature automatique
 @unnumberedsubsubsec Définition des règles de ligature automatique
 @translationof Setting automatic beam behavior
 
-@cindex ligatures automatiques, personnalisation
-@cindex réglage des ligatures automatiques
-@cindex ligatures automatiques, génération de
-@cindex autobeam
+@cindex ligatures te paroles
 @cindex paroles et ligatures
 
 @funindex autoBeaming
@@ -2108,7 +2153,7 @@ c16 c c |
 @code{beamExceptions} contient la liste des règles de ligature selon
 leur type.
 
-Le seul type de règle pris en charge à ce jour est @code{#'end}, qui
+Le seul type de règle pris en charge à ce jour est @code{'end}, qui
 concerne les terminaisons.
 
 Chaque règle est constituée d'une liste de doublets associatifs en
@@ -2154,9 +2199,6 @@ Les règles de ligature automatique par défaut sont répertoriées, par
 métrique, dans le fichier @file{scm/time-signature-settings.scm}.  Les
 manières de déroger à ce comportement sont abordées au chapitre
 @ref{Métrique}.
-
-@cindex ligature, mesure à 4/4
-@cindex mesure à 3/4 et ligature
 
 De nombreuses règles de ligature automatique comportent une clé
 @code{beamExceptions}.  Par exemple, s'il n'y a que des croches dans une
@@ -2219,10 +2261,11 @@ pour regrouper les notes par des ligatures.
 
 @end itemize
 
-Le type de ligature correspond à la durée la plus courte dans le groupe.
+Le @emph{type de ligature} correspond à la durée la plus courte dans le
+groupe.
 
-Pour information, les règles de ligature par défaut sont répertoriées
-dans le fichier @file{scm/time-signature-settings.scm}.
+Les règles de ligature par défaut sont répertoriées dans le fichier
+@file{scm/time-signature-settings.scm}.
 
 
 @snippets
@@ -3099,27 +3142,34 @@ Référence des propriétés internes :
 @cindex petite note
 
 @funindex \grace
-@funindex grace
+@funindex \slashedGrace
+@funindex \acciaccatura
+@funindex \appoggiatura
 
 Les petites notes sont des ornements entièrement écrits.  Leur taille
 est un peu plus petite que celle des notes normales et elles n'occupent
 pas de temps dans la mesure.
 
 @lilypond[quote,relative=2,verbatim]
-c4 \grace c16 c4
-\grace { c16[ d16] } c2
+c4 \grace b16 a4(
+\grace { b16[ c16] } a2)
 @end lilypond
 
 Les plus courantes sont les acciaccatures, qui doivent se jouer très
 vite, et qui s'écrivent sous forme d'une petite note barrée (sur la
 hampe) et liée.  L'appoggiature est une petite note non barrée, qui vole
-une fraction à la durée de la note réelle qui la suit.
+une fraction à la durée de la note réelle qui la suit. LilyPond dispose
+aussi, grâce à la fonction @code{\slashedGrace}, d'une petite note
+barrée et dépourvue de liaison, qui viendra s'insérer entre deux notes
+déjà liées.
 
 @lilypond[quote,relative=2,verbatim]
-\grace c8 b4
 \acciaccatura d8 c4
 \appoggiatura e8 d4
-\acciaccatura { g16[ f] } e4
+\acciaccatura { g16[ f] } e2
+\slashedGrace a,8 g4
+\slashedGrace b16 a4(
+\slashedGrace b8 a2)
 @end lilypond
 
 Les petites notes se placent de façon synchrone entre les différentes
@@ -3139,9 +3189,9 @@ pour chaque petite croche.
 @funindex afterGrace
 
 La commande @code{\afterGrace} sert à placer une petite note après une
-note réelle -- et non @i{avant} comme d'ordinaire.  Cette commande
+note réelle -- et non @emph{avant} comme d'ordinaire.  Cette commande
 requiert deux arguments@tie{}: la note réelle, et la ou les petites
-notes qui suivent.
+notes qui s'y rattachent.
 
 @lilypond[quote,verbatim,relative=2]
 c1 \afterGrace d1 { c16[ d] } c1
@@ -3188,7 +3238,7 @@ sept huitièmes de la durée de la note de base@tie{}:
 @cindex notes d'ornement, mise en forme
 
 Les expressions @code{\grace} obéissent à des règles typographiques
-particulières, notamment pour régler l'orientation et la taille des
+particulières, notamment en matière d'orientation et de taille des
 objets.  De ce fait, toute subtilité de mise en forme devra être
 indiquée @strong{à l'intérieur} de l'expression introduite par
 @code{\grace}@tie{}; ces réglages additionnels doivent également être
@@ -3277,10 +3327,63 @@ correspondant à la durée des petites notes@tie{}:
 >>
 @end lilypond
 
+Lorsque des petites notes font l'objet d'un contexte de voix, cela
+perturbe la présentation des voix normales.  Vous pourrez y remédier en
+insérant un silence ou une note entre la commande affectant la voix et
+les petites notes.
+
+@lilypond[quote,verbatim]
+accMusic = {
+  \acciaccatura { f8 } e8 r8 \acciaccatura { f8 } e8 r4
+}
+
+\new Staff {
+  <<
+    \new Voice {
+      \relative c'' {
+        r8 r8 \voiceOne \accMusic \oneVoice r8 |
+        r8 \voiceOne r8 \accMusic \oneVoice r8 |
+      }
+    }
+    \new Voice {
+      \relative c' {
+        s8 s8 \voiceTwo \accMusic \oneVoice s8 |
+        s8 \voiceTwo r8 \accMusic \oneVoice s8 |
+      }
+    }
+  >>
+}
+@end lilypond
+
 Seules des expressions musicales séquentielles peuvent être utilisées
 pour des petites notes@tie{}; il n'est pas possible d'imbriquer ni de
 juxtaposer des sections de petites notes, faute de quoi le traitement du
 code peut échouer ou produire des erreurs.
+
+En ce qui concerne la sortie MIDI, les petites notes ont une durée du
+quart de la valeur que vous leur attribuez.  Par voie de conséquence, si
+la durée globale d'une succession de petites notes venait à dépasser la
+durée de la note qui précède, vous déclencheriez une erreur du type
+@qq{@code{Going back in MIDI time}}.  Il vous faudra donc raccourcir les
+petites notes.  Par exemple,
+
+@example
+\acciaccatura @{ c'8[ d' e' f' g'] @}
+@end example
+
+deviendrait :
+
+@example
+\acciaccatura @{ c'16[ d' e' f' g'] @}
+@end example
+
+ou bien modifier explicitement l'échelle des durées :
+
+@example
+\acciaccatura @{ \scaleDurations #' (1 . 2) @{ c'8[ d' e' f' g'] @} @}
+@end example
+
+Voir @ref{Changement d'échelle des durées}.
 
 
 @node Alignement et cadences
