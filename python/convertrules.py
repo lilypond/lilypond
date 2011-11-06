@@ -3274,6 +3274,65 @@ def conv (str):
         stderr_write (UPDATE_MANUALLY)
     return str
 
+def paren_matcher (n):
+    # poor man's matched paren scanning, gives up
+    # after n+1 levels.
+    return r"\([^()]*(?:"*n+r"\([^()]*\)"+r"[^()]*)*\)"*n
+    return
+
+def undollar_scm (m):
+    return re.sub (r"\$", "", m.group (0))
+
+def undollar_embedded (m):
+    str = re.sub (r"#\$", "#", m.group (1))
+    # poor man's matched paren scanning after #, gives up
+    # after 25 levels.
+    str = re.sub ("#`?"+paren_matcher (25), undollar_scm, str)
+    return m.string[m.start (0):m.start (1)] + str + m.string[m.end (1):m.end (0)]
+
+def strip_export (str):
+    return re.sub (r"\(ly:export\s+((?:[^()]*?" + paren_matcher (25)
+                   + r")*[^()]*)\)",
+                   r"\1", str)
+
+def export_puller (m):
+    if not re.search (r"ly:export\s+", m.group (0)):
+        return m.group (0)
+    return "$" + strip_export (m.string[m.start (0)+1:m.end (0)])
+
+def ugly_function_rewriter (m):
+    return m.string[m.start(0):m.start(1)] + strip_export (m.group (1)) + m.string[m.end(1):m.end(0)]
+
+should_really_be_music_function = "(?:\
+set-time-signature|empty-music|add-grace-property|\
+remove-grace-property|set-accidental-style)"
+
+def record_ugly (m):
+    global should_really_be_music_function
+    if not re.match (should_really_be_music_function, m.group (1)) \
+            and re.search (r"ly:export\s+", m.group (2)):
+        should_really_be_music_function = \
+            should_really_be_music_function[:-1] + "|" + m.group (1) + ")"
+    return m.group (0)
+
+@rule ((2, 15, 18), "#$ -> #, ly:export -> $")
+def conv (str):
+    str = re.sub (r"(?s)#@?\{(.*?)#@?\}", undollar_embedded, str)
+    str = re.sub (r"#\(define(?:-public)?\s+\(([-a-zA-Z]+)"
+                  + r"\b[^()]*?\)([^()]*(?:" + paren_matcher (25)
+                  + r"[^()]*)*)\)", record_ugly, str)
+    str = re.sub (r"\(define(?:-public)?\s+\(" + should_really_be_music_function
+                  + r"\b[^()]*\)([^()]*(?:" + paren_matcher (25)
+                  + r"[^()]*)*)\)", ugly_function_rewriter, str)
+    str = re.sub (r"#(?=\(" + should_really_be_music_function + ")", "$", str)
+    str = re.sub (r"#\(markup\*(?=\s)", r"$(markup", str)
+    str = re.sub ("#"+paren_matcher (25), export_puller, str)
+    if re.search (r"\(ly:export\s+", str):
+        stderr_write ('\n')
+        stderr_write (NOT_SMART % "ly:export")
+        stderr_write ('\n')
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
