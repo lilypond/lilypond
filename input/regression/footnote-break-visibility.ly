@@ -1,8 +1,9 @@
-\version "2.14.0"
+\version "2.15.17"
 \header {
   texidoc = "With grobs that have break visibility, footnotes will
-automatically print to the first line of the break.  This behavior
-can be overrided."
+automatically take the break visibility of the grob being footnoted.
+This behavior can be overridden.
+"
 }
 
 #(set-default-paper-size "a6")

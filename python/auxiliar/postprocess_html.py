@@ -103,6 +103,7 @@ def source_links_replace (m, source_val):
 
 # More hardcoding, yay!
 split_docs_re = re.compile('(Documentation/out-www/(automated-engraving|essay|notation|changes|extending|music-glossary|usage|web|learning|snippets|contributor))/')
+lily_examples_re = re.compile ('(href|src)="(ly-examples/.*?)"')
 lily_snippets_re = re.compile ('(href|src)="([0-9a-f]{2}/lily-.*?)"')
 pictures_re = re.compile ('src="(pictures/.*?)"')
 
@@ -117,7 +118,9 @@ def hack_urls (s, prefix, target, is_development_branch):
     depth = (prefix.count ('/') - 1) * '../'
     # fix css links
     s = css_re.sub ('<link \\1href="%(rel)sDocumentation/css/\\2"\\3>' % {'rel': depth}, s)
+    # fix image links
     if split_docs_re.match (prefix):
+        s = lily_examples_re.sub ('\\1="../\\2"', s)
         s = lily_snippets_re.sub ('\\1="../\\2"', s)
         s = pictures_re.sub ('src="../\\1"', s)
 

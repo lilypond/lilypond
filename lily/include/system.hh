@@ -46,7 +46,9 @@ public:
   Grob *get_pure_bound (Direction dir, int start, int end);
   Grob *get_maybe_pure_bound (Direction dir, bool pure, int start, int end);
   int get_rank () const;
-  vector<Stencil *> get_footnotes_in_range (vsize st, vsize end);
+  vector<Real> get_footnote_heights_in_range (vsize st, vsize end);
+  vector<Real> get_in_note_heights_in_range (vsize st, vsize end);
+  vector<Real> internal_get_note_heights_in_range (vsize st, vsize end, bool foot);
   void get_footnote_grobs_in_range (vector<Grob *> &out, vsize st, vsize end);
   vector<Grob *> *footnote_grobs ();
   vsize num_footnotes ();

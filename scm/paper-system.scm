@@ -25,8 +25,21 @@
   (equal? #t (ly:prob-property system 'is-title)
 	  ))
 
+(define (system-stencil system-grob main-stencil)
+  (let* ((padding (ly:grob-property system-grob 'in-note-padding #f))
+         (in-notes (if padding (ly:grob-property system-grob 'in-note-stencil) empty-stencil))
+         (in-notes (if in-notes in-notes empty-stencil))
+         (direction (if padding (ly:grob-property system-grob 'in-note-direction) UP)))
+    (if padding
+       (ly:stencil-combine-at-edge main-stencil Y direction in-notes padding)
+       main-stencil)))
+
 (define-public (paper-system-stencil system)
-  (ly:prob-property system 'stencil))
+  (let ((main-stencil (ly:prob-property system 'stencil))
+        (system-grob (ly:prob-property system 'system-grob)))
+    (if (ly:grob? system-grob)
+        (system-stencil system-grob main-stencil)
+        main-stencil)))
 
 (define-public (paper-system-layout system)
   (let*

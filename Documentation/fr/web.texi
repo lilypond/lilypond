@@ -219,30 +219,15 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 
 @macro docLinkSplit{name,base,webLink}
-@ifclear web_version
-  @uref{../\base\/index.html, \name\ (HTML multipages)}
-@end ifclear
-@ifset web_version
-  \webLink\
-@end ifset
+  @docLink{\name\ (HTML multipages),\base\/index.html,\webLink\}
 @end macro
 
 @macro docLinkBig{name,base,webLink}
-@ifclear web_version
-  @uref{../\base\-big-page.html, \name\ (HTML page unique)}
-@end ifclear
-@ifset web_version
-  \webLink\
-@end ifset
+  @docLink{\name\ (HTML page unique),\base\-big-page.html,\webLink\}
 @end macro
 
 @macro docLinkPdf{name,base,webLink}
-@ifclear web_version
-  @uref{../\base\.pdf, \base\.fr.pdf}
-@end ifclear
-@ifset web_version
-  \webLink\
-@end ifset
+  @docLink{\base\.fr.pdf,\base\.pdf,\webLink\}
 @end macro
 
 

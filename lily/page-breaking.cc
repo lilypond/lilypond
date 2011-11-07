@@ -183,8 +183,12 @@ compress_lines (const vector<Line_details> &orig)
           compressed.title_ = old.title_;
 
           // adds footnotes of one line to the footnotes of another
-          compressed.footnotes_.insert (compressed.footnotes_.begin (),
-                                        old.footnotes_.begin (), old.footnotes_.end ());
+          compressed.footnote_heights_.insert (compressed.footnote_heights_.begin (),
+                                               old.footnote_heights_.begin (),
+                                               old.footnote_heights_.end ());
+          compressed.in_note_heights_.insert (compressed.in_note_heights_.begin (),
+                                              old.in_note_heights_.begin (),
+                                              old.in_note_heights_.end ());
 
           ret.back () = compressed;
         }
@@ -263,6 +267,7 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_bre
     footnote_separator_stencil_height_ = 0.0;
 
   footnote_padding_ = robust_scm2double (pb->paper_->c_variable ("footnote-padding"), 0.0);
+  in_note_padding_ = robust_scm2double (pb->paper_->c_variable ("in-note-padding"), 0.0);
   footnote_footer_padding_ = robust_scm2double (pb->paper_->c_variable ("footnote-footer-padding"), 0.0);
 
   footnote_number_raise_ = robust_scm2double (pb->paper_->c_variable ("footnote-number-raise"), 0.0);
@@ -330,6 +335,12 @@ Real
 Page_breaking::footnote_separator_stencil_height () const
 {
   return footnote_separator_stencil_height_;
+}
+
+Real
+Page_breaking::in_note_padding () const
+{
+  return in_note_padding_;
 }
 
 Real
@@ -529,15 +540,15 @@ Page_breaking::breakpoint_property (vsize breakpoint, char const *str)
 }
 
 SCM
-Page_breaking::get_page_configuration (SCM systems, int page_num, int footnote_count, bool ragged, bool last)
+Page_breaking::get_page_configuration (SCM systems, int page_num, bool ragged, bool last)
 {
   SCM dummy_page = make_page (page_num, last);
-  Page_layout_problem layout (book_, dummy_page, systems, footnote_count);
+  Page_layout_problem layout (book_, dummy_page, systems);
   return scm_is_pair (systems) ? layout.solution (ragged) : SCM_EOL;
 }
 
 SCM
-Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, int footnote_num, bool last)
+Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool last)
 {
   // Create a stencil for each system.
   SCM paper_systems = SCM_EOL;
@@ -565,13 +576,7 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, int foot
 
   Stencil *foot = unsmob_stencil (p->get_property ("foot-stencil"));
 
-  footnote_num = (to_boolean (book_->paper_->c_variable ("reset-footnotes-on-new-page"))
-                  ? 0
-                  : footnote_num);
-
-  SCM footnotes = Page_layout_problem::get_footnotes_from_lines (systems,
-                  footnote_num,
-                  book_);
+  SCM footnotes = Page_layout_problem::get_footnotes_from_lines (systems);
 
   Page_layout_problem::add_footnotes_to_footer (footnotes, foot, book_);
 
@@ -591,6 +596,7 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   int first_page_number
     = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
   SCM ret = SCM_EOL;
+  bool reset_footnotes_on_new_page = to_boolean (book_->top_paper ()->c_variable ("reset-footnotes-on-new-page"));
   SCM label_page_table = book_->top_paper ()->c_variable ("label-page-table");
   if (label_page_table == SCM_UNDEFINED)
     label_page_table = SCM_EOL;
@@ -612,9 +618,11 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
       SCM line_count = scm_from_int (lines_per_page[i]);
       SCM lines = scm_list_head (systems, line_count);
       int fn_lines = Page_layout_problem::get_footnote_count (lines);
-      SCM config = get_page_configuration (lines, page_num, footnote_count, rag, bookpart_last_page);
+      Page_layout_problem::add_footnotes_to_lines (lines, reset_footnotes_on_new_page ? 0 : footnote_count, book_);
 
-      systems_configs_fncounts = scm_cons (scm_list_3 (lines, config, scm_from_int ((int)footnote_count)), systems_configs_fncounts);
+      SCM config = get_page_configuration (lines, page_num, rag, bookpart_last_page);
+
+      systems_configs_fncounts = scm_cons (scm_cons (lines, config), systems_configs_fncounts);
       footnote_count += fn_lines;
       systems = scm_list_tail (systems, line_count);
     }
@@ -624,11 +632,10 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   for (SCM s = systems_configs_fncounts; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM lines = scm_caar (s);
-      SCM config = scm_cadar (s);
-      int footnote_num = scm_to_int (scm_caddar (s));
+      SCM config = scm_cdar (s);
 
       bool bookpart_last_page = (s == systems_configs_fncounts);
-      SCM page = draw_page (lines, config, page_num, footnote_num, bookpart_last_page);
+      SCM page = draw_page (lines, config, page_num, bookpart_last_page);
       /* collect labels */
       SCM page_num_scm = scm_from_int (page_num);
       for (SCM l = lines; scm_is_pair (l); l = scm_cdr (l))

@@ -72,7 +72,18 @@ Real
 Page_spacing::account_for_footnotes (Line_details const &line)
 {
   Real footnote_height = 0.0;
-  for (vsize i = 0; i < line.footnotes_.size (); i++)
+  Real in_note_height = 0.0;
+  bool has_in_notes = false;
+  for (vsize i = 0; i < line.in_note_heights_.size (); i++)
+    {
+      in_note_height += (has_in_notes
+                         ? 0.0
+                         : breaker_->in_note_padding ());
+      has_in_notes = true;
+      in_note_height += line.in_note_heights_[i];
+    }
+
+  for (vsize i = 0; i < line.footnote_heights_.size (); i++)
     {
       footnote_height += (has_footnotes_
                           ? 0.0
@@ -81,12 +92,16 @@ Page_spacing::account_for_footnotes (Line_details const &line)
                              + breaker_->footnote_number_raise ()));
 
       has_footnotes_ = true;
-      Interval extent = line.footnotes_[i]->extent (Y_AXIS);
-      footnote_height += extent[UP] - extent[DOWN];
+      footnote_height += line.footnote_heights_[i];
       footnote_height += breaker_->footnote_padding ();
     }
 
-  return (footnote_height
+  return (in_note_height
+          - (has_in_notes
+             ? breaker_->in_note_padding ()
+             : 0.0))
+         +
+         (footnote_height
           - (has_footnotes_
              ? breaker_->footnote_padding () + breaker_->footnote_footer_padding ()
              : 0.0));

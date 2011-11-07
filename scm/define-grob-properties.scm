@@ -80,6 +80,9 @@ grobs, this should contain only one number.")
 ;;
 ;; b
 ;;
+     (bar-extent ,number-pair? "The Y-extent of the actual bar line.
+This may differ from @code{Y-extent} because it does not include the
+dots in a repeat bar line.")
      (base-shortest-duration ,ly:moment? "Spacing is based on the
 shortest notes in a piece.  Normally, pieces are spaced as if notes at
 least as short as this are present.")
@@ -298,6 +301,7 @@ include @code{upright}, @code{italic}, @code{caps}.")
 @w{@code{-1}} is smaller, @code{+1} is bigger.  Each step of@tie{}1 is
 approximately 12% larger; 6@tie{}steps are exactly a factor@tie{}2
 larger.  Fractional values are allowed.")
+     (footnote ,boolean? "Should this be a footnote or in-note?")
      (footnote-text ,markup? "A footnote for the grob.")
      (force-hshift ,number? "This specifies a manual shift for notes
 in collisions.  The unit is the note head width of the first voice
@@ -1028,6 +1032,7 @@ in addition to notes and stems.")
 
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
      (flag ,ly:grob? "A pointer to a @code{Flag} object.")
+     (footnote-stencil ,ly:stencil? "The stencil of a system's footnotes.")
 
      (glissando-index ,integer? "The index of a glissando in its note
 column.")
@@ -1037,6 +1042,9 @@ column.")
 
      (items-worth-living ,ly:grob-array? "An array of interesting items.  If
 empty in a particular staff, then that staff is erased.")
+     (in-note-direction ,ly:dir? "Direction to place in-notes above a system.")
+     (in-note-padding ,number? "Padding between in-notes.")
+     (in-note-stencil ,ly:stencil? "The stencil of a system's in-notes.")
 
      (keep-alive-with ,ly:grob-array? "An array of other
 @code{VerticalAxisGroup}s.  If any of them are alive, then we will stay alive.")
@@ -1099,9 +1107,6 @@ results, use @code{LEFT} and @code{RIGHT}.")
 @code{VerticalAxisGroup} to cache the @code{Y-extent}s of different column
 ranges.")
 
-     (bar-extent ,number-pair? "The Y-extent of the actual bar line.
-This may differ from @code{Y-extent} because it does not include the dots in
-a repeat bar line.")
      (begin-of-line-visible ,boolean? "Set to make @code{ChordName} or
 @code{FretBoard} be visible only at beginning of line or at
 chord changes.")

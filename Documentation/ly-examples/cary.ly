@@ -14,7 +14,7 @@
 
   composer = "Trevor Bača"
   copyright = "Copyright 2006 Trevor Bača, licensed under the FDL 1.1 or higher"
-  
+
 }
 
 % Verbatim from composer's score.
@@ -30,9 +30,9 @@
 
 \score {
   <<
-	
+
 	\new StaffGroup <<
-		
+
 		\new Staff \with {
 			\override Stem #'direction = #down
 			\override Beam #'positions = #'(-7 . -7)
@@ -40,22 +40,22 @@
 			\override TupletBracket #'staff-padding = #5
 			\override TupletBracket #'padding = #2.25
 		} <<
-			
+
 			\new Voice {
-				
+
             \override Score.MetronomeMark #'extra-offset = #'(0 . 6)
             \override Score.MetronomeMark #'font-size = #3
             \tempo 8=42
 				\time 5/16	 s4 ~ s16 	\noBreak		 % measure 6
 				\time 4/8	 s2 			\noBreak		 % measure 7
 				\time 4/8	 s2 			\noBreak		 % measure 8
-				
+
 			}
-			
+
 			\new Voice \with {
 				\remove Forbid_line_break_engraver
 			} {
-				
+
 				% measure 6
 				\fraction \times 5/3 {
 					\times 4/5 {
@@ -74,7 +74,7 @@
 					}
 					bf''16 % 46
 				}
-				
+
 				% measure 7
 				r8 % 47
 				\times 4/5 {
@@ -85,15 +85,15 @@
 					b'32 ] % 52
 				}
 				ef'''4 % 53
-				
+
 				% measure 8
 				b''8 [ % 54
 				g''8 ] % 55
 				d''4 % 56
-				
+
 			}
 		>>
-		
+
 		\new Staff \with {
 			\override Clef #'transparent = ##t
 			\override StaffSymbol #'line-positions = #'(-4 -2   2 4)
@@ -101,11 +101,11 @@
 			\override TupletBracket #'staff-padding = #5
 			\override TupletBracket #'padding = #2.25
 		} <<
-			
+
 			\new Voice \with {
 				\remove Forbid_line_break_engraver
 				\override Stem #'direction = #up
-				\override Flag #'stroke-style = #"grace" 
+				\override Flag #'stroke-style = #"grace"
 				\override Stem #'font-size = #-3
 				\override Rest #'transparent = ##t
 				\override NoteHead #'no-ledgers = ##t
@@ -113,7 +113,7 @@
 				\override TupletBracket #'transparent = ##t
 				\override TupletNumber #'transparent = ##t
 			} {
-				
+
 				% measure 6
 				\fraction \times 5/3 {
 					\square f''16 * 1/8 % 40
@@ -137,7 +137,7 @@
 						\square f''16 * 1/4 % 55
 					}
 				}
-				
+
 				% measure 7
 				s8 % 56
 				\square g''16 * 2/1 % 57
@@ -151,7 +151,7 @@
 					f''16 * 1/4 % 64
 					f''16 * 1/4 % 65
 				}
-				
+
 				% measure 8
 				\times 4/5 {
 					\times 4/7 {
@@ -170,9 +170,9 @@
 					\triangle g''16 * 1/2 % 77
 					\triangle g''16 * 1/2 % 78
 				}
-				
+
 			}
-			
+
 			\new Voice \with {
 				\remove Forbid_line_break_engraver
 				\override Stem #'transparent = ##t
@@ -184,7 +184,7 @@
 				\override TupletBracket #'transparent = ##t
 				\override TupletNumber #'transparent = ##t
 			} {
-				
+
 				% measure 6
 				\fraction \times 5/3 {
 					\blackdiamond f'128 [ % 40
@@ -208,7 +208,7 @@
 						\blackdiamond f'64 % 55
 					}
 				}
-				
+
 				% measure 7
 				s8 % 56
 				\harmonic a'8 \glissando % 57
@@ -222,7 +222,7 @@
 					\harmonic g'64 \glissando % 64
 					\blackdiamond g'64 % 65
 				}
-				
+
 				% measure 8
 				\times 4/5 {
 					\times 4/7 {
@@ -241,21 +241,21 @@
 					\harmonic e'32 \glissando % 77
 					\blackdiamond e'32 % 78
 				}
-				
+
 			}
-			
+
 			\new Voice \with {
 				\remove Forbid_line_break_engraver
 				\override Stem #'direction = #down
 				\override Stem #'font-size = #-3
-				\override Flag #'stroke-style = #"grace" 
+				\override Flag #'stroke-style = #"grace"
 				\override Rest #'transparent = ##t
 				\override NoteHead #'no-ledgers = ##t
 				\override Dots #'transparent = ##t
 				\override TupletBracket #'transparent = ##t
 				\override TupletNumber #'transparent = ##t
 			} {
-				
+
 				% measure 6
 				\fraction \times 5/3 {
 					s128 % 40
@@ -279,7 +279,7 @@
 						\semicircle a16 * 1/4 % 55
 					}
 				}
-				
+
 				% measure 7
 				s8 % 56
 				s8 % 57
@@ -293,7 +293,7 @@
 					s64 % 64
 					\triangle a16 * 1/4 % 65
 				}
-				
+
 				% measure 8
 				\times 4/5 {
 					\times 4/7 {
@@ -312,9 +312,9 @@
 					s32 % 77
 					\semicircle a16 * 1/2 % 78
 				}
-				
+
 			}
-			
+
 			\new Voice \with {
 				\remove Forbid_line_break_engraver
 				\override Stem #'direction = #down
@@ -331,7 +331,7 @@
 				\override TextSpanner #'(bound-details right padding) = #0.5
 				\override TextSpanner #'staff-padding = #4
 			} {
-				
+
 				% measure 6
 				\fraction \times 5/3 {
 					\beam #0 #5 g,128 \sffp \< [ % 40
@@ -355,7 +355,7 @@
 						\beam #4 #0 g,64 \fX ] % 55
 					}
 				}
-				
+
 				% measure 7
 				r8 % 56
 				g,8 \sf \< [ % 57
@@ -369,7 +369,7 @@
 					\beam #4 #4 g,64 % 64
 					\beam #4 #0 g,64 \fX ] % 65
 				}
-				
+
 				% measure 8
 				\times 4/5 {
 					\times 4/7 {
@@ -388,7 +388,7 @@
 					\beam #3 #3 g,32 % 77
 					\beam #3 #0 g,32 \ffX ] % 78
 				}
-				
+
 			}
 		>>
 	>>

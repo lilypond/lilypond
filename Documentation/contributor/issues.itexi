@@ -158,10 +158,10 @@ the currently-active Bug Squad member(s) can handle the message.
 @c spacing is deliberate to help reinforce the "cyclic" nature
 
 @example
-Monday:    Dmytro
+Monday:    James
 Tuesday:    Colin
 Wednesday:   Brett
-Thursday:  Dmytro
+Thursday:  James
 Friday:     Colin
 Saturday:    Brett
 Sunday:       Phil
@@ -354,7 +354,7 @@ will handle them.
 @item
 Check for any incorrectly-classified items in the tracker.  This
 generally just means looking at the grid to see any items without
-a Type or Priority.
+a Type.
 
 @end itemize
 

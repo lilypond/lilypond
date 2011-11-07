@@ -22,7 +22,7 @@ melody = \relative c' {
 }
 
 harmonies = \chordmode {
-  \global 
+  \global
   s4 g1 | c | a:m | d   % 1-3
 }
 
@@ -35,10 +35,9 @@ text = \lyricmode {
   <<
     \new ChordNames { \harmonies }
     \new FretBoards { \harmonies }
-    \new Staff  { 
+    \new Staff  {
       \context Voice = "vocal" { \melody }
     }
     \new Lyrics \lyricsto "vocal" \text
   >>
 }
-

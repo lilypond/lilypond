@@ -6,7 +6,7 @@
   ragged-right = ##t
   \context {
     \Score
-    
+
     proportionalNotationDuration = #(ly:make-moment 1 64)
     \override Beam #'breakable = ##t
     autoBeaming = ##f
@@ -26,11 +26,11 @@
 \paper {
   oddHeaderMarkup = \markup \fill-line { " " }
   evenHeaderMarkup = \markup \fill-line { " " }
-  oddFooterMarkup = \markup { 
-    \fill-line { 
+  oddFooterMarkup = \markup {
+    \fill-line {
       \bold \fontsize #3 \on-the-fly #print-page-number-check-first \fromproperty #'page:page-number-string } }
-  evenFooterMarkup = \markup { 
-    \fill-line { 
+  evenFooterMarkup = \markup {
+    \fill-line {
       \bold \fontsize #3 \on-the-fly #print-page-number-check-first \fromproperty #'page:page-number-string } }
   printfirst-page-number = ##t
   print-page-number = ##t
@@ -102,4 +102,3 @@ cross = #(define-music-function (parser location music) (ly:music?)
 
 white = #(define-music-function (parser location music) (ly:music?)
 	#{ \once \override NoteHead #'duration-log = #1 $music #})
-

@@ -33,14 +33,9 @@ Dot_configuration::badness () const
       int demerit = sqr (p - i->second.pos_) * 2;
 
       int dot_move_dir = sign (p - i->second.pos_);
-      if (i->second.extremal_head_)
-        {
-          if (i->second.dir_
-              && dot_move_dir != i->second.dir_)
-            demerit += 3;
-          else if (dot_move_dir != UP)
-            demerit += 2;
-        }
+      if (i->second.dir_
+          && dot_move_dir != i->second.dir_)
+        demerit += 2;
       else if (dot_move_dir != UP)
         demerit += 1;
 
