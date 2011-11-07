@@ -37,38 +37,16 @@ Lilypond code blocks look like
   #@{ @var{Lilypond code} #@}
 @end example
 They can be used anywhere where you can write Scheme code: the Scheme
-reader actually is changed for accommodating LilyPond code blocks.  When
-the LilyPond code block is being read, it is parsed superficially and
-replaced by a call to the LilyPond @code{parser} which is executed at
-runtime to interpret the LilyPond code block.
+reader actually is changed for accommodating LilyPond code blocks and
+can deal with embedded Scheme expressions starting with @code{$}
+and@w{ }@code{#}.
 
-The point of the superficial parsing is the interpretation of @code{$}
-signs which can be used for splicing in expressions from the surrounding
-lexical Scheme context (like @code{let} variables and function
-parameters).  @code{$} can be used in the following ways:
-
-@table @code
-@item $$
-just passes a single @code{$} to the LilyPond parser.
-@item $@var{form}
-will evaluate the Scheme form at runtime and splice its value as an
-identifier @code{\form} into the LilyPond parser.  Depending on the
-value type, it may be interpreted as several different syntactic
-entities.
-@item #$@var{form}
-will evaluate the Scheme form at runtime and splice its value as a
-Scheme expression into the LilyPond parser.
-@item #@var{form}
-Forms in Scheme expressions started with @code{#} are read and parsed
-recursively for @code{$} signs.  Those are treated as follows:
-@item #@dots{}$@var{variable}
-splices the value of the variable into the surrounding expression.
-@item #@dots{}($ @var{form} @dots{})
-splices the value of the form into the surrounding expression.  As
-opposed to a LilyPond level @code{$@var{form}}, you need to separate the
-form with a blank, making @code{$} be recognizable as a separate Scheme
-symbol.
-@end table
+It extracts the Lilypond code block and generates a call to the
+LilyPond @code{parser} which is executed at runtime to interpret the
+LilyPond code block.  Any embedded Scheme expression is executed in
+the lexical environment of the Lilypond code block, so you have access
+to local variables and function parameters at the point the Lilypond
+code block is written.
 
 A LilyPond code block may contain anything that you can use on the right
 side of an assignment.  In addition, an empty LilyPond block corresponds
