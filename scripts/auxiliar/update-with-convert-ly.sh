@@ -20,10 +20,12 @@ make
 cd $TOP_SRC_DIR
 
 ### update manuals
-find Documentation/ -path 'Documentation/snippets' -prune -o \
-  -name '*.itely' | xargs $BUILD_DIR/out/bin/convert-ly -e -d
+find Documentation/ -path 'Documentation/snippets' -prune -o -name out -prune \
+  -o -name out-www -prune -o -name '*.itely' -print \
+  | xargs $BUILD_DIR/out/bin/convert-ly -e -d
 
 ### update .ly files
 # don't look in . otherwise it'll find stuff in build/ !
-find Documentation/ input/ ly/ \
-  -name '*.ly' | xargs $BUILD_DIR/out/bin/convert-ly -e -d
+find Documentation/ input/ ly/ -name out -prune -o -name out-www -prune \
+  -o \( -name '*.ly' -o -name '*.ily' \) -print \
+  | xargs $BUILD_DIR/out/bin/convert-ly -e -d
