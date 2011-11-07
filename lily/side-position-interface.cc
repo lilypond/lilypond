@@ -174,7 +174,6 @@ Side_position_interface::skyline_side_position (Grob *me, Axis a,
   Direction dir = get_grob_direction (me);
 
   Box off;
-  Real my_min_h = dir == LEFT ? -infinity_f : infinity_f;
   for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
     {
       if (ax == a)
@@ -187,12 +186,9 @@ Side_position_interface::skyline_side_position (Grob *me, Axis a,
   if (off[X_AXIS].is_empty () || off[Y_AXIS].is_empty ())
     return scm_from_double (0.0);
 
-  my_min_h = off[a][dir];
-
   Real skyline_padding = 0.1;
 
   Skyline my_dim (off, skyline_padding, other_axis (a), -dir);
-  my_dim.set_minimum_height (my_min_h);
 
   bool include_staff
     = staff_symbol
