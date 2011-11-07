@@ -375,6 +375,8 @@ page turn to be allowed.")
      (minimumRepeatLengthForPageTurn ,ly:moment? "Minimum length of a
 repeated section for a page turn to be allowed within that section.")
 
+     (minorChordModifier ,markup? "Markup displayed following the root
+for a minor chord")
 
      (noChordSymbol ,markup? "Markup to be displayed for rests in a
 ChordNames context.")

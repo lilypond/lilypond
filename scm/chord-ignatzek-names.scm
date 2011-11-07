@@ -130,7 +130,9 @@ work than classifying the pitches."
     (define (prefix-modifier->markup mod)
       (if (and (= 3 (pitch-step mod))
                (= FLAT (ly:pitch-alteration mod)))
-          (make-simple-markup (if lowercase-root? "" "m"))
+          (if lowercase-root?
+              empty-markup
+              (ly:context-property context 'minorChordModifier))
           (make-simple-markup "huh")))
 
     (define (filter-alterations alters)

@@ -675,13 +675,32 @@ is a set of pitches used to identify the steps present in the chord.
 The second item is a markup that will follow the @code{chordRootNamer}
 output to create the chord name.
 
+@funindex minorChordModifier
+
+@item minorChordModifier
+
+Minor chords are often denoted via a @q{m} suffix to the right of the
+root of the chord.  However some idioms prefer other suffices, such as
+a minus sign.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:min f:min7
+  \set minorChordModifier = \markup { "-" }
+  \break
+  c4:min f:min7
+}
+@end lilypond
+
 @funindex chordPrefixSpacer
+
 @item chordPrefixSpacer
 
-The @q{m} for minor chords is usually printed immediately to the
-right of the root of the chord.  A spacer can be placed between
-the root and @q{m} by setting @code{chordPrefixSpacer}.
-The spacer is not used when the root is altered.
+The modifier for minor chords as determined by
+@code{minorChordModifier} is usually printed immediately to the right
+of the root of the chord.  A spacer can be placed between the root and
+the modifier by setting @code{chordPrefixSpacer}.  The spacer is not
+used when the root is altered.
 
 @end table
 
