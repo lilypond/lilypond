@@ -45,6 +45,8 @@
      ;; TODO FIXME
 
      (aDueText ,markup? "Text to print at a unisono passage.")
+     (additionalPitchPrefix ,string? "Text with which to prefix
+additional pitches within a chord name.")
      (alignAboveContext ,string? "Where to insert newly created context in
 vertical alignment.")
      (alignBassFigureAccidentals ,boolean? "If true, then the accidentals

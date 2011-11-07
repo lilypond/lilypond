@@ -616,6 +616,23 @@ of @code{chordRootNamer} to identify a major 7 chord.  Predefined
 options are @code{whiteTriangleMarkup} and
 @code{blackTriangleMarkup}.
 
+@funindex additionalPitchPrefix
+
+@item additionalPitchPrefix
+
+When the chord name contains additional pitches, they can optionally
+be prefixed with some text.  The default is no prefix, in order to
+avoid too much visual clutter, but for small numbers of additional
+pitches this can be visually effective.
+
+@lilypond[verbatim,quote,ragged-right]
+\new ChordNames {
+  <c e g d'>    % add9
+  \set additionalPitchPrefix = #"add"
+  <c e g d'>    % add9
+}
+@end lilypond
+
 @funindex chordNoteNamer
 
 @item chordNoteNamer
