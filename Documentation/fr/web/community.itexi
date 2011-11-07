@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @ignore
-    Translation of GIT committish: ca62336a8f9ccb00fe4d81bcb8c88ad40ef9e2ae
+    Translation of GIT committish: e5a30584121ce0a75b81ce1613b30c6a51203834
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -277,6 +277,14 @@ liste sont répertoriées dans @ref{Signalement de bogue}.}
 
 @divEnd
 
+@divClass{column-right-bottom}
+@subheading Courriels sensibles
+
+Lorsque cela touche la sphère privée, contactez Graham Percival qui, en
+tant qu'administrateur du projet, en discutera avec les personnes
+appropriées.
+
+@divEnd
 
 
 @node Exemples minimaux

@@ -21,7 +21,7 @@ todas las partes) a lo largo de toda la partitura.
 
   doctitlees = "Estrofa para solista y estribillo a dos voces"
 
-%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+%% Translation of GIT committish: 34607d3e36a93030690ccd780a7ffce621ca1e0f
   texidocit = "
 Questo modello crea una partitura che inizia con una sezione solistica e
 prosegue in un ritornello a due voci.  Illustra anche l'uso delle

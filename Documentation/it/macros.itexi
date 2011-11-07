@@ -158,9 +158,8 @@ Questo documento è stato posto nel pubblico dominio.
 
 @c   ***** Title page *****
 @ifnottex
-@node Su
+@node Top
 @top LilyPond --- \TITLE\
-@translationof Top
 
 @cartouche
 @manualIntro{}

@@ -19,7 +19,7 @@ especiales que indican silencios de distintas longitudes.
 
   doctitlees = "Plantilla para notación de música antigua (transcripción moderna de canto gregoriano)"
 
-%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+%% Translation of GIT committish: c3b519f0dd5ff0f8ccfc9a39ed1fe8df8b43741c
   texidocit = "
 Questo esempio mostra come realizzare una trascrizione moderna di musica
 gregoriana. La musica gregoriana non presenta suddivisione in misure né gambi;

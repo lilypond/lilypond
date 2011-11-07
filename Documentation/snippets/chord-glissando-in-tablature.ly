@@ -19,6 +19,7 @@ los acordes y para notas sueltas.
 "
 
   doctitlees = "Glissando de acordes en tablatura"
+
 %% Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
   texidocde = "
 Gleiten von Akkorden kann sowohl im normalen Notensystem als auch in einer

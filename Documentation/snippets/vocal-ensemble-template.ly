@@ -27,7 +27,7 @@ voces se reagrupan en sólo dos pentagramas.
 便利です。例えば、拍子記号と調号はほとんど常にすべてのパートで同じです。\"賛美@c
 歌\" テンプレートのように、4 つのボイスは 2 つの譜にグループ分けされています。"
 
-%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+%% Translation of GIT committish: c3b519f0dd5ff0f8ccfc9a39ed1fe8df8b43741c
   texidocit = "
 Ecco una tipica partitura corale a quattro parti, SATB. Se il complesso è più
 ampio, è spesso comodo scrivere gli elementi comuni in un'unica sezione, che

@@ -26,7 +26,7 @@ un archivo, escriba las notas y ¡ya está!
 "
 
 
-%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+%% Translation of GIT committish: c3b519f0dd5ff0f8ccfc9a39ed1fe8df8b43741c
   texidocit = "
 Questo modello molto semplice mette a disposizione un rigo con delle note ed è
 quindi adatto per uno strumento non accompagnato o per un frammento

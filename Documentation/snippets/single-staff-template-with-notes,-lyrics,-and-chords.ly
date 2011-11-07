@@ -23,7 +23,7 @@ letra y acordes.
 これは旋律、単語、コードを持つ歌曲の楽譜のためのテンプレートです。
 "
 
-%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+%% Translation of GIT committish: c3b519f0dd5ff0f8ccfc9a39ed1fe8df8b43741c
   texidocit = "
 Ecco il modello di un comune spartito semplificato (lead sheet): include
 linea melodica, testo vocale, sigle degli accordi e relativi diagrammi

@@ -19,6 +19,7 @@ alinear el borde derecho de la marca con la línea divisoria.
 
 "
   doctitlees = "Imprimir marcas al final de una línea"
+
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "
 Les indications textuelles peuvent être imprimées à la fin d'une ligne

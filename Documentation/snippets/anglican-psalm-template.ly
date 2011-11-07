@@ -19,7 +19,7 @@ codifican en estilos diferentes para ilustrar más posibilidades.
 "
   doctitlees = "Plantilla de salmo del canto anglicano"
 
-%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+%% Translation of GIT committish: c3b519f0dd5ff0f8ccfc9a39ed1fe8df8b43741c
   texidocit = "
 Questo modello presenta un modo di impostare un salmo anglicano.  Mostra
 anche come le strofe possono essere aggiunte come testo separato al di sotto

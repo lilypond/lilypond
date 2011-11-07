@@ -17,7 +17,7 @@ Plantilla de coro SATB (en cuatro pentagramas)
 "
   doctitlees = "Plantilla de coro SATB a cuatro pentagramas"
 
-%% Translation of GIT committish: 514674cb00c18629242dfcde0c1a4976758adc56
+%% Translation of GIT committish: 34607d3e36a93030690ccd780a7ffce621ca1e0f
   texidocit = "
 Modello per coro SATB (quattro righi)
 

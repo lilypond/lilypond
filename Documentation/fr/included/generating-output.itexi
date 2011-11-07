@@ -2,7 +2,7 @@
 @c This file is part of web/download.itexi and
 @c learning/tutorial.itely
 @ignore
-    Translation of GIT committish: 72ffce252ed4be33c47b925ff2d79428a9367056
+    Translation of GIT committish: 72012c900e38247806dcc32c01e162f02c63287b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -219,6 +219,7 @@ Répartition de la musique sur une page...
 Dessin des systèmes...
 Sortie mise en page vers « test.ps »...
 Conversion à « ./test.pdf »...
+Résultat : Compilation menée à son terme, avec succès.
 @end example
 
 @c DIV specific
