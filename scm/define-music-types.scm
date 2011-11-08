@@ -16,6 +16,9 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+; for define-safe-public when byte-compiling using Guile V2
+(use-modules (scm safe-utility-defs))
+
 ;; TODO: should link back into user manual.
 
 (define-public music-descriptions

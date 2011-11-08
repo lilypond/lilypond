@@ -219,7 +219,8 @@ messages into errors.")
              (srfi srfi-14)
              (scm clip-region)
              (scm memory-trace)
-             (scm coverage))
+             (scm coverage)
+	     (scm safe-utility-defs))
 
 (define-public _ gettext)
 ;;; There are new modules defined in Guile V2.0 which we need to use.
@@ -344,27 +345,6 @@ messages into errors.")
                      (fresh-interface!))))
       (set-module-obarray! iface (module-obarray mod))))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Safe definitions utility
-
-(define safe-objects
-  (list))
-
-(define-macro (define-safe-public arglist . body)
-  "Define a variable, export it, and mark it as safe, i.e. usable in
-LilyPond safe mode.  The syntax is the same as `define*-public'."
-  (define (get-symbol arg)
-    (if (pair? arg)
-        (get-symbol (car arg))
-        arg))
-
-  (let ((safe-symbol (get-symbol arglist)))
-    `(begin
-       (define*-public ,arglist
-         ,@body)
-       (set! safe-objects (cons (cons ',safe-symbol ,safe-symbol)
-                                safe-objects))
-       ,safe-symbol)))
 
 (define-safe-public (lilypond-version)
   (string-join

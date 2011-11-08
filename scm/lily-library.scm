@@ -19,6 +19,9 @@
 ; for take, drop, take-while, list-index, and find-tail:
 (use-modules (srfi srfi-1))
 
+; for define-safe-public when byte-compiling using Guile V2
+(use-modules (scm safe-utility-defs))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants.
 
