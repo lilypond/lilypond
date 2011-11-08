@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.15.18"
 
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
@@ -64,8 +64,8 @@ up, and changes the default note heads to crosses.
 
 \relative c'' {
   \new Staff {
-    #(remove-grace-property 'Voice 'Stem 'direction)
-    #(add-grace-property 'Voice 'NoteHead 'style 'cross)
+    $(remove-grace-property 'Voice 'Stem 'direction)
+    $(add-grace-property 'Voice 'NoteHead 'style 'cross)
     \new Voice {
        \acciaccatura { f16 } g4
        \grace { d16[ e] } f4

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.18"
 
 @c Translators: Reinhold Kainhofer, Till Paala
 @c Translation checkers: Till Paala
@@ -237,7 +237,7 @@ Scheme-Code das System gefährden kann, wie etwa in folgendem Beispiel:
 @verbatim
 #(system "rm -rf /")
 {
-  c4^#(ly:export (ly:gulp-file "/etc/passwd"))
+  c4^$(ly:gulp-file "/etc/passwd")
 }
 @end verbatim
 @end quotation

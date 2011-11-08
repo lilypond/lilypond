@@ -3,7 +3,7 @@
 % on melodies from Bellini's "Norma"                              %
 %*****************************************************************%
 
-\version "2.14.0"
+\version "2.15.18"
 
 #(set-global-staff-size 15)
 \paper {
@@ -41,7 +41,7 @@ ssnor = \set stringNumberOrientations = #'(right)
 % define fingering offset
 FO = #(define-music-function (parser location offsetX offsetY) (number? number?)
 #{
-  \once \override Voice.Fingering #'extra-offset = #(cons $offsetX $offsetY)
+  \once \override Voice.Fingering #'extra-offset = #(cons offsetX offsetY)
 #})
 
 % markups

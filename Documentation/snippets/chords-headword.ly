@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.14.0
-\version "2.14.0"
+\version "2.15.18"
 #(set-global-staff-size 15)
 \paper {
   ragged-right = ##f
@@ -85,7 +85,7 @@ Bass = {
     \context Staff = lower {
       \new Voice {
         \clef bass
-        #(set-accidental-style 'modern-cautionary)
+        $(set-accidental-style 'modern-cautionary)
         <<
           \Tenor
           \Bass

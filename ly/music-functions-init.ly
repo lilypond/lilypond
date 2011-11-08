@@ -18,7 +18,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.14.0"
+\version "2.15.18"
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -227,7 +227,7 @@ as @code{\\compoundMeter #'((3 2 8))} or shorter
                         (ly:moment-main-denominator mlen))))
   #{
     \once \override Staff.TimeSignature #'stencil = #(lambda (grob)
-		(grob-interpret-markup grob (format-compound-time $args)))
+		(grob-interpret-markup grob (format-compound-time args)))
     \set Timing.timeSignatureFraction = $timesig
     \set Timing.baseMoment = $beat
     \set Timing.beatStructure = $beatGrouping
@@ -410,7 +410,7 @@ harmonics played on a fretted instrument by touching the strings above @var{fret
         (make-sequential-music
          (list
           #{
-            \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label $fret)
+            \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label fret)
           #}
           (make-harmonic
             (calc-harmonic-pitch pitch music))
@@ -427,7 +427,7 @@ given through @var{ratio}.")
        (make-sequential-music
         (list
          #{
-           \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label $fret)
+           \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label fret)
          #}
          (make-harmonic
            (calc-harmonic-pitch pitch music))
@@ -1002,7 +1002,7 @@ the `parameters' assoc list.")
    #{
      \overrideProperty #"Score.NonMusicalPaperColumn"
      #'line-break-system-details
-     #$(list (cons 'alignment-extra-space (cdr (assoc 'system-stretch parameters)))
+     #(list (cons 'alignment-extra-space (cdr (assoc 'system-stretch parameters)))
 	     (cons 'system-Y-extent (cdr (assoc 'system-Y-extent parameters))))
    #})
 

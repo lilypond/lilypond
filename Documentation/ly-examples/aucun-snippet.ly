@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.18"
 \include "example-header.ily"
 
 \paper {
@@ -136,21 +136,21 @@ thick y-factor offset)
 pair?)
 #{
 \once \override Voice.Stem #'text = \markup {
-    \postscript #(let ((x-off (car $offset))
-                       (y-off (cdr $offset)))
+    \postscript #(let ((x-off (car offset))
+                       (y-off (cdr offset)))
     (string-append
-    (ly:number->string (car $offset)) " " (ly:number->string (cdr $offset)) "
+    (ly:number->string (car offset)) " " (ly:number->string (cdr offset)) "
 translate "
-    (ly:number->string $angle) " rotate "
+    (ly:number->string angle) " rotate "
     (ly:number->string (- x-off)) " "
     (ly:number->string (- y-off)) " translate 0 setlinewidth "
-    (ly:number->string (- x-off $len-left))  " " (ly:number->string (+ y-off
-$thick)) " moveto "
-    (ly:number->string (- x-off $len-left))  " " (ly:number->string y-off)
-                                             " " (ly:number->string $thick) "
+    (ly:number->string (- x-off len-left))  " " (ly:number->string (+ y-off
+thick)) " moveto "
+    (ly:number->string (- x-off len-left))  " " (ly:number->string y-off)
+                                             " " (ly:number->string thick) "
 90 270 arc "
-    (ly:number->string (+ x-off $len-right)) " " (ly:number->string y-off)
-                                             " " (ly:number->string $thick) "
+    (ly:number->string (+ x-off len-right)) " " (ly:number->string y-off)
+                                             " " (ly:number->string thick) "
 270 90 arc "
                                              " gsave fill grestore stroke")) }
 
@@ -162,8 +162,8 @@ $thick)) " moveto "
     (ly:stencil-add
         sten1
         (ly:stencil-translate sten2
-                              (cons 0 (+ (* $y-factor (cdr extent1))
-                                         (* (- 1 $y-factor) (car extent1))))))))
+                              (cons 0 (+ (* y-factor (cdr extent1))
+                                         (* (- 1 y-factor) (car extent1))))))))
 #})
 
 

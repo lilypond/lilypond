@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.18"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, Jean-Charles Malahieude,
@@ -3418,9 +3418,9 @@ MyCadenza = \relative c' {
     \MyCadenza c'1
   }
   \new Staff {
-    #(ly:export (mmrest-of-length MyCadenza))
+    $(mmrest-of-length MyCadenza)
     c'1
-    #(ly:export (skip-of-length MyCadenza))
+    $(skip-of-length MyCadenza)
     c'1
   }
 >>

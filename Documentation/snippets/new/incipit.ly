@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.18"
 
 \header {
   lsrtags = "staff-notation, ancient-notation"
@@ -31,7 +31,7 @@ incipit =
                                        'VerticalAxisGroup
                                        'Y-extent '(-4 . 4))))
                                'MensuralStaff)
-                              $incipit-music)))
+                              incipit-music)))
                 (score (ly:make-score music))
                 (mm (ly:output-def-lookup layout 'mm))
                 (indent (ly:output-def-lookup layout 'indent))

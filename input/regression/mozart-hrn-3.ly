@@ -28,8 +28,8 @@
         }
       }
       \fill-line {
-        #(ly:export (string-append  "It has been typeset and placed in the public "
-                                    "domain by " maintainer "."))
+        $(string-append  "It has been typeset and placed in the public "
+                                    "domain by " maintainer ".")
       }
       \fill-line {
         \line {
@@ -48,7 +48,7 @@ virtuoso that taught in Geneva.
 "
 }
 
-\version "2.14.0"
+\version "2.15.18"
 
 \include "mozart-hrn3-defs.ily"
 \include "mozart-hrn3-allegro.ily"

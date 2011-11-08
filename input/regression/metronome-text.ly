@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.18"
 
 \header{
   texidoc="
@@ -10,9 +10,8 @@ The tempo command supports text markup and/@/or `duration=count'.  Using
 \relative c'' {
   \tempo "Allegro" c1
   \tempo "Allegro" c1
-  #(ly:export
-    (make-event-chord (list (make-music 'TempoChangeEvent
-                                        'text "blah"))))
+  $(make-event-chord (list (make-music 'TempoChangeEvent
+                                        'text "blah")))
   d1
   \tempo \markup { \italic \medium "Allegro" } c1 \break
   \tempo 4 = 120 c1

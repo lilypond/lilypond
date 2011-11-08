@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.15.17"
+@c \version "2.15.18"
 
 @node Interfaces para programadores
 @chapter Interfaces para programadores
@@ -846,8 +846,8 @@ Ahora el código nuevo es como se ve a continuación:
                 (box-padding 0.6))
   "Trazar un rectángulo doble rodeando el texto."
   (interpret-markup layout props
-    #@{\markup \override #`(box-padding . ,$inter-box-padding) \box
-               \override #`(box-padding . ,$box-padding) \box
+    #@{\markup \override #`(box-padding . ,inter-box-padding) \box
+               \override #`(box-padding . ,box-padding) \box
                @{ $text @} #@}))
 @end lisp
 
@@ -883,8 +883,8 @@ y el relleno de los rectángulos se puede personalizar:
                 (box-padding 0.6))
   "Draw a double box around text."
   (interpret-markup layout props
-    #{\markup \override #`(box-padding . ,$inter-box-padding) \box
-              \override #`(box-padding . ,$box-padding) \box
+    #{\markup \override #`(box-padding . ,inter-box-padding) \box
+              \override #`(box-padding . ,box-padding) \box
               { $text } #}))
 
 \markup \double-box A
@@ -1001,7 +1001,7 @@ del argumento @code{props}.
 #(define-markup-list-command (paragraph layout props args) (markup-list?)
    #:properties ((par-indent 2))
    (interpret-markup-list layout props
-     #@{\markuplist \justified-lines @{ \hspace #$par-indent $args @} #@}))
+     #@{\markuplist \justified-lines @{ \hspace #par-indent $args @} #@}))
 @end example
 
 
