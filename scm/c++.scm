@@ -36,6 +36,9 @@
 (define-public (grob-list? x)
   (list? x))
 
+(define-public (number-list? x)
+  (and (list? x) (every number? x)))
+
 (define-public (moment-pair? x)
   (and (pair? x)
        (ly:moment? (car x)) (ly:moment? (cdr x))))
