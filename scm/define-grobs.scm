@@ -278,7 +278,8 @@
 	(stacking-dir . ,DOWN)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Spanner)
-		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
+		 (object-callbacks . ((full-score-pure-minimum-translations . ,ly:align-interface::full-score-pure-minimum-translations)
+				      (pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
 				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (align-interface
 				axis-group-interface
@@ -2437,7 +2438,8 @@
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Spanner)
-		 (object-callbacks . ((Y-common . ,ly:axis-group-interface::calc-y-common)
+		 (object-callbacks . ((full-score-pure-minimum-translations . ,ly:align-interface::full-score-pure-minimum-translations)
+				      (Y-common . ,ly:axis-group-interface::calc-y-common)
 				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
 				      (pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)))
 		 (interfaces . (align-interface

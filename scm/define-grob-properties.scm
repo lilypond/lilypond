@@ -1033,6 +1033,8 @@ in addition to notes and stems.")
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
      (flag ,ly:grob? "A pointer to a @code{Flag} object.")
      (footnote-stencil ,ly:stencil? "The stencil of a system's footnotes.")
+     (full-score-pure-minimum-translations ,list? "A list of translations
+for a full score's worth of grobs.")
 
      (glissando-index ,integer? "The index of a glissando in its note
 column.")

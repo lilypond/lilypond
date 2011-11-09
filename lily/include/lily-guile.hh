@@ -26,6 +26,7 @@
 
 #include <libguile.h>
 #include <string.h>
+#include <vector>
 
 /*
   Hack for various MacOS incarnations.
@@ -78,6 +79,8 @@ Interval robust_scm2interval (SCM, Drul_array<Real>);
 Offset robust_scm2offset (SCM, Offset);
 string robust_scm2string (SCM, string);
 Rational robust_scm2rational (SCM, Rational);
+vector<Real> ly_scm2floatvector (SCM);
+SCM ly_floatvector2scm (vector<Real> v);
 
 SCM ly_quote_scm (SCM s);
 bool type_check_assignment (SCM val, SCM sym, SCM type_symbol);
