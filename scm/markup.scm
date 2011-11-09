@@ -32,8 +32,7 @@ Example:
   (markup \"foo\"
           #:raise 0.2 #:hbracket #:bold \"bar\"
           #:override '(baseline-skip . 4)
-          #:bracket #:column (\"baz\" \"bazr\" \"bla\"))
-Use `markup*' in a \\notemode context."
+          #:bracket #:column (\"baz\" \"bazr\" \"bla\"))"
 
   (car (compile-all-markup-expressions `(#:line ,body))))
 

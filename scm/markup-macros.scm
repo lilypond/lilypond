@@ -344,11 +344,6 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
 
 (use-modules (ice-9 receive))
 
-(defmacro*-public markup* (#:rest body)
-  "Same as `markup', for use in a \\notes block."
-  `(ly:export (markup ,@body)))
-
-
 (define (compile-all-markup-expressions expr)
   "Return a list of canonical markups expressions, e.g.:
   (#:COMMAND1 arg11 arg12 #:COMMAND2 arg21 arg22 arg23)

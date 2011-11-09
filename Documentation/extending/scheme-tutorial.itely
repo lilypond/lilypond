@@ -754,7 +754,7 @@ above example, the @code{newLa} definition is executed before
 
 The above example shows how to @q{export} music expressions from the
 input to the Scheme interpreter.  The opposite is also possible.  By
-wrapping a Scheme value in the function @code{ly:export}, a Scheme
+placing it after @code{$}, a Scheme
 value is interpreted as if it were entered in LilyPond syntax.
 Instead of defining @code{\twice}, the example above could also have
 been written as
@@ -763,6 +763,11 @@ been written as
 ...
 @{ $(make-sequential-music (list newLa)) @}
 @end example
+
+You can use @code{$} with a Scheme expression anywhere you could use
+@code{\@var{name}} after assigning the Scheme expression to a variable
+@var{name}.  This replacement happens in the @q{Lexer}, so Lilypond is
+not even aware of the difference.
 
 Scheme code is evaluated as soon as the parser encounters it.  To
 define some Scheme code in a macro (to be called later), use

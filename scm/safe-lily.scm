@@ -44,7 +44,6 @@
    ly:duration<?
    ly:duration?
    ly:error
-   ly:export
    ly:font-get-glyph
    ly:font-design-size
    ly:font-file-name

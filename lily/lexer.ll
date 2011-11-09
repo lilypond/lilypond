@@ -47,7 +47,6 @@ using namespace std;
 
 #include "context-def.hh"
 #include "duration.hh"
-#include "identifier-smob.hh"
 #include "international.hh"
 #include "interval.hh"
 #include "lily-guile.hh"
@@ -368,12 +367,6 @@ BOM_UTF8	\357\273\277
 		yyinput ();
 	}
 	char_count_stack_.back () += n;
-
-	if (unpack_identifier (sval) != SCM_UNDEFINED)
-	{
-		yylval.scm = unpack_identifier(sval);
-		return identifier_type (yylval.scm);
-	}
 
 	for (size_t i = 0; i < pending_string_includes_.size (); i++)
 		new_input ("<included string>", pending_string_includes_[i],
