@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.18"
+\version "2.15.19"
 
 \header {
   lsrtags = "rhythms, percussion"
@@ -37,7 +37,7 @@ is the template of a real Balkan song!).
 melody = \relative c'' {
   \set Staff.instrumentName = #"Bb Sop."
   \key g \major
-  $(set-time-signature 25 8 '(3 2 2 3 2 2 2 2 3 2 2))
+  \time #'(3 2 2 3 2 2 2 2 3 2 2) 25/8
   \override Staff.TimeSignature #'stencil =
     #(custom-time-signature "3" "2" "2" "3" "2" "2"
       "2" "2" "3" "2" "2" "8")

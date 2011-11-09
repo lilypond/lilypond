@@ -1,4 +1,4 @@
-\version "2.15.18"
+\version "2.15.19"
 
 \header {
   lsrtags = "rhythms"
@@ -35,7 +35,7 @@ is grouped according to the default setting in
     g8 g d d g g a( bes g) |
     \set Timing.beatStructure = #'(2 2 2 3)
     g8 g d d g g a( bes g) |
-    $(set-time-signature 9 8 '(4 5))
+    \time #'(4 5) 9/8
     g8 g d d g g a( bes g) |
     \time 5/8
     a4. g4 |

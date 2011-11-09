@@ -7,7 +7,7 @@ brackets above beats when the beats of a time signature are grouped.  "
 
 }
 
-\version "2.15.18"
+\version "2.15.19"
 
 \layout  {
   ragged-right = ##t
@@ -20,13 +20,13 @@ brackets above beats when the beats of a time signature are grouped.  "
   }
 
 \relative c' {
-  $(set-time-signature 2 4) 
+  \time 2/4 
   c8 a'4 a8~
-  $(set-time-signature 5 8 '(3 2)) 
+  \time #'(3 2) 5/8 
   a8 bes4 r8 bes8->
   \time 2/4
   c,8 g'4 g8~
-  $(set-time-signature 5 8 '(3 2)) 
+  \time #'(3 2) 5/8 
   g8 a4 g a4.->
 }
 
