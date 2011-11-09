@@ -52,6 +52,7 @@ public:
 
   DECLARE_GROB_INTERFACE ();
   static int get_rank (Grob const *);
+  static bool is_loose (Grob *);
   static bool is_musical (Grob *);
   static Moment when_mom (Grob *);
   static bool is_used (Grob *);

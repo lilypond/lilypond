@@ -32,6 +32,7 @@
 class System : public Spanner
 {
   int rank_;
+  vector<Simple_spacer> simple_spacers_;
   Grob_array *all_elements_;
   void init_elements ();
   friend class Paper_score;     // ugh.
@@ -46,6 +47,8 @@ public:
   Grob *get_pure_bound (Direction dir, int start, int end);
   Grob *get_maybe_pure_bound (Direction dir, bool pure, int start, int end);
   int get_rank () const;
+  vector<Simple_spacer> get_simple_spacers (Real line_len, Real indent, bool ragged);
+  void gen_simple_spacers (Real line_len, Real indent, bool ragged);
   vector<Real> get_footnote_heights_in_range (vsize st, vsize end);
   vector<Real> get_in_note_heights_in_range (vsize st, vsize end);
   vector<Real> internal_get_note_heights_in_range (vsize st, vsize end, bool foot);

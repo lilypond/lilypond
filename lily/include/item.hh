@@ -40,6 +40,7 @@ public:
 
   static bool is_non_musical (Grob *);
   static bool break_visible (Grob *);
+  static Item * maybe_find_prebroken_piece (Item *g, Direction d);
   bool is_broken () const;
   virtual bool pure_is_visible (int start, int end) const;
 

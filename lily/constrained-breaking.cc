@@ -436,10 +436,10 @@ Constrained_breaking::initialize ()
   breaks_ = pscore_->get_break_indices ();
   all_ = pscore_->root_system ()->used_columns ();
   lines_.resize (breaks_.size (), breaks_.size (), Line_details ());
-  vector<Real> forces = get_line_forces (all_,
-                                         other_lines.length (),
-                                         other_lines.length () - first_line.length (),
-                                         ragged_right_);
+  vector<Simple_spacer> spacers =
+    pscore_->root_system ()->get_simple_spacers(other_lines.length (),
+                                                other_lines.length () - first_line.length (),
+                                                ragged_right_);
   for (vsize i = 0; i + 1 < breaks_.size (); i++)
     {
       for (vsize j = i + 1; j < breaks_.size (); j++)
@@ -448,9 +448,18 @@ Constrained_breaking::initialize ()
           bool ragged = ragged_right_ || (last && ragged_last_);
           Line_details &line = lines_.at (j, i);
 
-          line.force_ = forces[i * breaks_.size () + j];
+          line.force_ = spacers[i * breaks_.size () + j].force_penalty (ragged_right_);
+          if (!spacers[i * breaks_.size () + j].fits ())
+            {
+              if (spacers[i * breaks_.size () + j].minimal_)
+                line.force_ = -200000;
+              else
+                line.force_ = infinity_f;
+            }
           if (ragged && last && !isinf (line.force_))
             line.force_ = (line.force_ < 0 && j > i + 1) ? infinity_f : 0;
+          if (!line.force_ && !spacers[i * breaks_.size () + j].line_len ())
+            line.force_ = infinity_f;
           if (isinf (line.force_))
             break;
 
