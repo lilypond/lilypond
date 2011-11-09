@@ -32,6 +32,8 @@ struct Parse_start
   int nchars;
   Input start_location_;
   bool safe_;
+  SCM (*func_)(Parse_start *ps);
+  SCM form_;
   Lily_parser *parser_;
 
   Parse_start ()
@@ -40,11 +42,14 @@ struct Parse_start
     nchars = 0;
     safe_ = false;
     parser_ = 0;
+    form_ = SCM_UNDEFINED;
+    func_ = 0;
   }
 };
 
 SCM catch_protected_parse_body (void *);
 SCM protected_ly_parse_scm (Parse_start *, bool);
 SCM ly_parse_scm (char const *, int *, Input, bool, Lily_parser *);
+SCM ly_eval_scm (SCM, Input, bool, Lily_parser *);
 
 #endif /* PARSE_SCM_HH */

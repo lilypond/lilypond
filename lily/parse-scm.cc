@@ -28,7 +28,7 @@ using namespace std;
 #include "paper-book.hh"
 #include "source-file.hh"
 
-/* Pass string to scm parser, evaluate one expression.
+/* Pass string to scm parser, read one expression.
    Return result value and #chars read.
 
    Thanks to Gary Houston <ghouston@freewire.co.uk>  */
@@ -46,36 +46,10 @@ internal_ly_parse_scm (Parse_start *ps)
   scm_set_port_line_x (port, scm_from_int (ps->start_location_.line_number () - 1));
   scm_set_port_column_x (port, scm_from_int (ps->start_location_.column_number () - 1));
 
-  SCM answer = SCM_UNSPECIFIED;
   SCM form = scm_read (port);
 
   SCM to = scm_ftell (port);
   ps->nchars = scm_to_int (to) - scm_to_int (from);
-
-  /* Read expression from port.  */
-  if (!SCM_EOF_OBJECT_P (form))
-    {
-      if (ps->parser_ && !SCM_UNBNDP (ps->parser_->local_environment_))
-	answer = scm_local_eval (form, ps->parser_->local_environment_);
-      else if (ps->safe_)
-        {
-          static SCM module = SCM_BOOL_F;
-          if (module == SCM_BOOL_F)
-            {
-              SCM function = ly_lily_module_constant ("make-safe-lilypond-module");
-              module = scm_call_0 (function);
-            }
-
-          // We define the parser so trusted Scheme functions can
-          // access the real namespace underlying the parser.
-          if (ps->parser_)
-            scm_module_define (module, ly_symbol2scm ("parser"),
-                               ps->parser_->self_scm ());
-          answer = scm_eval (form, module);
-        }
-      else
-        answer = scm_primitive_eval (form);
-    }
 
   /* Don't close the port here; if we re-enter this function via a
      continuation, then the next time we enter it, we'll get an error.
@@ -83,15 +57,43 @@ internal_ly_parse_scm (Parse_start *ps)
      early. */
   // scm_close_port (port);
 
-  return answer;
+  if (!SCM_EOF_OBJECT_P (form))
+    return scm_cons (form, make_input (ps->start_location_));
+
+  return SCM_UNDEFINED;
 }
+
+SCM
+internal_ly_eval_scm (Parse_start *ps)
+{
+  if (ps->parser_ && !SCM_UNBNDP (ps->parser_->local_environment_))
+    return scm_local_eval (ps->form_, ps->parser_->local_environment_);
+  if (ps->safe_)
+    {
+      static SCM module = SCM_BOOL_F;
+      if (module == SCM_BOOL_F)
+	{
+	  SCM function = ly_lily_module_constant ("make-safe-lilypond-module");
+	  module = scm_call_0 (function);
+	}
+      
+      // We define the parser so trusted Scheme functions can
+      // access the real namespace underlying the parser.
+      if (ps->parser_)
+	scm_module_define (module, ly_symbol2scm ("parser"),
+			   ps->parser_->self_scm ());
+      return scm_eval (ps->form_, module);
+    }
+  return scm_primitive_eval (ps->form_);
+}
+
 
 SCM
 catch_protected_parse_body (void *p)
 {
   Parse_start *ps = (Parse_start *) p;
 
-  return internal_ly_parse_scm (ps);
+  return (*ps->func_) (ps);
 }
 
 SCM
@@ -125,8 +127,8 @@ protected_ly_parse_scm (Parse_start *ps)
 bool parse_protect_global = true;
 bool parsed_objects_should_be_dead = false;
 
-/* Try parsing.  Upon failure return SCM_UNDEFINED.
-   FIXME: shouldn't we return SCM_UNSCPECIFIED -- jcn  */
+/* Try parsing.  Upon failure return SCM_UNDEFINED. */
+
 SCM
 ly_parse_scm (char const *s, int *n, Input i, bool safe, Lily_parser *parser)
 {
@@ -134,12 +136,31 @@ ly_parse_scm (char const *s, int *n, Input i, bool safe, Lily_parser *parser)
   ps.str = s;
   ps.start_location_ = i;
   ps.safe_ = safe;
+  ps.form_ = SCM_UNDEFINED;
   ps.parser_ = parser;
+  ps.func_ = internal_ly_parse_scm;
 
   SCM ans = parse_protect_global ? protected_ly_parse_scm (&ps)
             : internal_ly_parse_scm (&ps);
   *n = ps.nchars;
 
+  return ans;
+}
+
+SCM
+ly_eval_scm (SCM form, Input i, bool safe, Lily_parser *parser)
+{
+  Parse_start ps;
+  ps.str = 0;
+  ps.start_location_ = i;
+  ps.safe_ = safe;
+  ps.form_ = form;
+  ps.parser_ = parser;
+  ps.func_ = internal_ly_eval_scm;
+
+  SCM ans = parse_protect_global ? protected_ly_parse_scm (&ps)
+            : internal_ly_eval_scm (&ps);
+  scm_remember_upto_here_1 (form);
   return ans;
 }
 

@@ -63,6 +63,7 @@ private:
   SCM start_module_;
   int hidden_state_;
 public:
+  SCM eval_scm (SCM);
   SCM extra_tokens_;
   void *lexval_;
   Input *lexloc_;

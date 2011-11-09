@@ -357,10 +357,7 @@ BOM_UTF8	\357\273\277
 		be_safe_global && is_main_input_, parser_);
 
 	if (sval == SCM_UNDEFINED)
-	{
-		sval = SCM_UNSPECIFIED;
 		error_level_ = 1;
- 	}
 
 	for (int i = 0; i < n; i++)
 	{
@@ -383,21 +380,13 @@ BOM_UTF8	\357\273\277
 	hi.step_forward ();
 	SCM sval = ly_parse_scm (hi.start (), &n, hi,
 		be_safe_global && is_main_input_, parser_);
+	sval = eval_scm (sval);
 
 	for (int i = 0; i < n; i++)
 	{
 		yyinput ();
 	}
 	char_count_stack_.back () += n;
-
-	if (sval == SCM_UNDEFINED)
-	{
-		yylval.scm = SCM_UNSPECIFIED;
-		error_level_ = 1;
-
-		LexerError (_ ("bad Scheme expression").c_str ());
-		return SCM_IDENTIFIER;
-	}
 
 	return scan_scm_id (sval);
 }
@@ -949,6 +938,29 @@ Lily_lexer::is_figure_state () const
 {
 	return get_state () == figures;
 }
+
+SCM
+Lily_lexer::eval_scm (SCM readerdata)
+{
+	SCM sval = SCM_UNDEFINED;
+
+	if (!SCM_UNBNDP (readerdata))
+	{
+		sval = ly_eval_scm (scm_car (readerdata),
+				    *unsmob_input (scm_cdr (readerdata)),
+				    be_safe_global && is_main_input_,
+				    parser_);
+	}
+
+	if (SCM_UNBNDP (sval))
+	{
+		error_level_ = 1;
+		return SCM_UNSPECIFIED;
+	}
+	return sval;
+}
+
+
 
 /*
  urg, belong to string (_convert)
