@@ -3257,7 +3257,8 @@ def conv (str):
                   r"#(define \g<2> #{ \\stringTuning\g<3> #})", str)
     return str
 
-@rule ((2, 15, 17), "\\markuplines -> \\markuplist")
+@rule ((2, 15, 17), "\\markuplines -> \\markuplist\n\
+Change Beam broken slope syntax.")
 def conv (str):
     str = re.sub (r"""
 \\markuplines( +)([^ ].*)
@@ -3266,6 +3267,11 @@ def conv (str):
            \g<1>\g<3>""", str)
     str = re.sub (r"\\markuplines", r"\\markuplist", str)
     str = re.sub (r"@funindex markuplines", r"@funindex markuplist", str)
+    if re.search (r'consistent-broken-slope', str):
+        stderr_write ("\n")
+        stderr_write (NOT_SMART % _("consistent-broken-slope, which is now handled through the positions callback.\n"))
+        stderr_write (_ ("input/regression/beam-broken-classic.ly shows how broken beams are now handled.\n"))
+        stderr_write (UPDATE_MANUALLY)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

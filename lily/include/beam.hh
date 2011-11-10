@@ -77,12 +77,12 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positions, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_normal_stems, (SCM));
-  DECLARE_SCHEME_CALLBACK (calc_concaveness, (SCM));
   DECLARE_SCHEME_CALLBACK (set_stem_lengths, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
-
+  DECLARE_SCHEME_CALLBACK (calc_beam_segments, (SCM));
   /* position callbacks */
-  DECLARE_SCHEME_CALLBACK (quanting, (SCM));
+  DECLARE_SCHEME_CALLBACK (quanting, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (calc_x_positions, (SCM));
 
   static int get_direction_beam_count (Grob *me, Direction d);
 
@@ -90,6 +90,7 @@ private:
   friend class Beam_scoring_problem;
 
   static Direction get_default_dir (Grob *);
+  static vector<Beam_segment> get_beam_segments (Grob *);
   static void set_stem_directions (Grob *, Direction);
   static void consider_auto_knees (Grob *);
   static void set_stem_shorten (Grob *);

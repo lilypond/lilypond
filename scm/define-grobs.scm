@@ -332,6 +332,7 @@
 	;; todo: clean this up a bit: the list is getting
 	;; rather long.
 	(auto-knee-gap . 5.5)
+	(beam-segments . ,ly:beam::calc-beam-segments)
 	(beam-thickness . 0.48) ; in staff-space
 
 	;; We have some unreferenced problems here.
@@ -360,7 +361,6 @@
 				 note-head-interface
 				 stem-interface
 				 time-signature-interface))
-	(concaveness . ,ly:beam::calc-concaveness)
 	(cross-staff . ,ly:beam::calc-cross-staff)
 	(damping . 1)
 	(details
@@ -385,7 +385,8 @@
 
 	(gap . 0.8)
 	(neutral-direction . ,DOWN)
-	(positions . ,ly:beam::quanting)
+	(positions . ,beam::place-broken-parts-individually)
+	(X-positions . ,ly:beam::calc-x-positions)
 
 	;; this is a hack to set stem lengths, if positions is set.
 	(quantized-positions . ,ly:beam::set-stem-lengths)

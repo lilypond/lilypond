@@ -336,23 +336,24 @@ operator <(Beam_stem_segment const &a,
 
 typedef map<int, vector<Beam_stem_segment> > Position_stem_segments_map;
 
-// TODO - should store result in a property?
-vector<Beam_segment>
-Beam::get_beam_segments (Grob *me_grob, Grob **common)
+MAKE_SCHEME_CALLBACK (Beam, calc_beam_segments, 1);
+SCM
+Beam::calc_beam_segments (SCM smob)
 {
   /* ugh, this has a side-effect that we need to ensure that
      Stem #'beaming is correct */
+  Grob *me_grob = unsmob_grob (smob);
   (void) me_grob->get_property ("beaming");
 
   Spanner *me = dynamic_cast<Spanner *> (me_grob);
 
   extract_grob_set (me, "stems", stems);
+
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
-
-  commonx = me->get_bound (LEFT)->common_refpoint (commonx, X_AXIS);
-  commonx = me->get_bound (RIGHT)->common_refpoint (commonx, X_AXIS);
-
-  *common = commonx;
+  Direction d = LEFT;
+  do
+    commonx = me->get_bound (d)->common_refpoint (commonx, X_AXIS);
+  while (flip (&d) != LEFT);
 
   int gap_count = robust_scm2int (me->get_property ("gap-count"), 0);
   Real gap_length = robust_scm2double (me->get_property ("gap"), 0.0);
@@ -373,7 +374,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
       Real stem_width = robust_scm2double (stem->get_property ("thickness"), 1.0) * lt;
       Real stem_x = stem->relative_coordinate (commonx, X_AXIS);
       SCM beaming = stem->get_property ("beaming");
-      Direction d = LEFT;
+
       do
         {
           // Find the maximum and minimum beam ranks.
@@ -542,6 +543,62 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 
     }
 
+  SCM segments_scm = SCM_EOL;
+  SCM *tail = &segments_scm;
+
+  for (vsize i = 0; i < segments.size (); i++)
+    {
+      *tail = scm_cons (scm_list_2 (scm_cons (ly_symbol2scm ("vertical-count"),
+                                              scm_from_int (segments[i].vertical_count_)),
+                                    scm_cons (ly_symbol2scm ("horizontal"),
+                                              ly_interval2scm (segments[i].horizontal_))),
+                        SCM_EOL);
+      tail = SCM_CDRLOC (*tail);
+    }
+
+  return segments_scm;
+}
+
+MAKE_SCHEME_CALLBACK (Beam, calc_x_positions, 1);
+SCM
+Beam::calc_x_positions (SCM smob)
+{
+  Spanner *me = unsmob_spanner (smob);
+  SCM segments = me->get_property ("beam-segments");
+  Interval x_positions;
+  x_positions.set_empty ();
+  for (SCM s = segments; scm_is_pair (s); s = scm_cdr (s))
+    x_positions.unite (robust_scm2interval (ly_assoc_get (ly_symbol2scm ("horizontal"),
+                                                          scm_car (s),
+                                                          SCM_EOL),
+                                            Interval (0.0, 0.0)));
+
+  // Case for beams without segments (i.e. uniting two skips with a beam)
+  // TODO: should issue a warning?  warning likely issued downstream, but couldn't hurt...
+  if (x_positions.is_empty ())
+    {
+      extract_grob_set (me, "stems", stems);
+      Grob *common_x = common_refpoint_of_array (stems, me, X_AXIS);
+      Direction d = LEFT;
+      do
+        x_positions[d] = me->relative_coordinate (common_x, X_AXIS);
+      while (flip (&d) != LEFT);
+    }
+  return ly_interval2scm (x_positions);
+}
+
+vector<Beam_segment>
+Beam::get_beam_segments (Grob *me)
+{
+  SCM segments_scm = me->get_property ("beam-segments");
+  vector<Beam_segment> segments;
+  for (SCM s = segments_scm; scm_is_pair (s); s = scm_cdr (s))
+    {
+      segments.push_back (Beam_segment ());
+      segments.back ().vertical_count_ = robust_scm2int (ly_assoc_get (ly_symbol2scm ("vertical-count"), scm_car (s), SCM_EOL), 0);
+      segments.back ().horizontal_ = robust_scm2interval (ly_assoc_get (ly_symbol2scm ("horizontal"), scm_car (s), SCM_EOL), Interval (0.0, 0.0));
+    }
+
   return segments;
 }
 
@@ -550,27 +607,30 @@ SCM
 Beam::print (SCM grob)
 {
   Spanner *me = unsmob_spanner (grob);
-  Grob *commonx = 0;
-  vector<Beam_segment> segments = get_beam_segments (me, &commonx);
+  /*
+    TODO - mild code dup for all the commonx calls.
+    Some use just common_refpoint_of_array, some (in print and
+    calc_beam_segments) use this plus calls to get_bound.
+
+    Figure out if there is any particular reason for this and
+    consolidate in one Beam::get_common function.
+  */
+  extract_grob_set (me, "stems", stems);
+  Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
+  Direction d = LEFT;
+  do
+    commonx = me->get_bound (d)->common_refpoint (commonx, X_AXIS);
+  while (flip (&d) != LEFT);
+
+  vector<Beam_segment> segments = get_beam_segments (me);
+
   if (!segments.size ())
     return SCM_EOL;
-
-  Interval span;
-  if (normal_stem_count (me))
-    {
-      span[LEFT] = first_normal_stem (me)->relative_coordinate (commonx, X_AXIS);
-      span[RIGHT] = last_normal_stem (me)->relative_coordinate (commonx, X_AXIS);
-    }
-  else
-    {
-      extract_grob_set (me, "stems", stems);
-      span[LEFT] = stems[0]->relative_coordinate (commonx, X_AXIS);
-      span[RIGHT] = stems.back ()->relative_coordinate (commonx, X_AXIS);
-    }
 
   Real blot = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
   SCM posns = me->get_property ("quantized-positions");
+  Interval span = robust_scm2interval (me->get_property ("X-positions"), Interval (0, 0));
   Interval pos;
   if (!is_number_pair (posns))
     {
@@ -593,7 +653,6 @@ Beam::print (SCM grob)
   Interval placements = robust_scm2interval (me->get_property ("normalized-endpoints"), Interval (0.0, 0.0));
 
   Stencil the_beam;
-
   int extreme = (segments[0].vertical_count_ == 0
                  ? segments[0].vertical_count_
                  : segments.back ().vertical_count_);
@@ -918,15 +977,17 @@ Beam::calc_stem_shorten (SCM smob)
   return scm_from_double (0.0);
 }
 
-MAKE_SCHEME_CALLBACK (Beam, quanting, 1);
+MAKE_SCHEME_CALLBACK (Beam, quanting, 3);
 SCM
-Beam::quanting (SCM smob)
+Beam::quanting (SCM smob, SCM ys_scm, SCM align_broken_intos)
 {
   Grob *me = unsmob_grob (smob);
-  Drul_array<Real> ys (0, 0);
-  Beam_scoring_problem problem (me, ys);
+  Drul_array<Real> ys = robust_scm2drul (ys_scm, Drul_array<Real> (infinity_f, -infinity_f));
+  bool cbs = to_boolean (align_broken_intos);
 
+  Beam_scoring_problem problem (me, ys, cbs);
   ys = problem.solve ();
+
   return ly_interval2scm (ys);
 }
 
@@ -1033,8 +1094,7 @@ Beam::set_stem_lengths (SCM smob)
   Grob *fvs = first_normal_stem (me);
   Grob *lvs = last_normal_stem (me);
 
-  Real xl = fvs ? fvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
-  Real xr = lvs ? lvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
+  Interval x_span = robust_scm2interval (me->get_property ("X-positions"), Interval (0,0));
   Direction feather_dir = to_dir (me->get_property ("grow-direction"));
 
   for (vsize i = 0; i < stems.size (); i++)
@@ -1043,7 +1103,7 @@ Beam::set_stem_lengths (SCM smob)
 
       bool french = to_boolean (s->get_property ("french-beaming"));
       Real stem_y = calc_stem_y (me, s, common,
-                                 xl, xr, feather_dir,
+                                 x_span[LEFT], x_span[RIGHT], feather_dir,
                                  pos, french && s != lvs && s != fvs);
 
       /*
@@ -1183,14 +1243,13 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
 
   Real dy = pos[RIGHT] - pos[LEFT];
 
-  Drul_array<Grob *> visible_stems (first_normal_stem (beam),
-                                    last_normal_stem (beam));
   extract_grob_set (beam, "stems", stems);
-
   Grob *common = common_refpoint_of_array (stems, beam, X_AXIS);
 
-  Real x0 = visible_stems[LEFT]->relative_coordinate (common, X_AXIS);
-  Real dx = visible_stems[RIGHT]->relative_coordinate (common, X_AXIS) - x0;
+  Interval x_span = robust_scm2interval (beam->get_property ("X-positions"),
+                                         Interval (0.0, 0.0));
+  Real x0 = x_span[LEFT];
+  Real dx = x_span.length ();
   Real slope = dy && dx ? dy / dx : 0;
 
   Direction d = get_grob_direction (stem);
@@ -1378,7 +1437,6 @@ ADD_INTERFACE (Beam,
                " measured in staffspace.  The @code{direction} property is"
                " not user-serviceable.  Use the @code{direction} property"
                " of @code{Stem} instead.\n"
-               "\n"
                "The following properties may be set in the @code{details}"
                " list.\n"
                "\n"
@@ -1418,11 +1476,11 @@ ADD_INTERFACE (Beam,
                "auto-knee-gap "
                "beamed-stem-shorten "
                "beaming "
+               "beam-segments "
                "beam-thickness "
                "break-overshoot "
                "clip-edges "
                "concaveness "
-               "consistent-broken-slope "
                "collision-interfaces "
                "collision-voice-only "
                "covered-grobs "
@@ -1443,4 +1501,5 @@ ADD_INTERFACE (Beam,
                "shorten "
                "skip-quanting "
                "stems "
+               "X-positions "
               );
