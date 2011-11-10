@@ -513,15 +513,39 @@ Grob::less (Grob *g1, Grob *g2)
 Grob *
 Grob::common_refpoint (Grob const *s, Axis a) const
 {
-  /* I don't like the quadratic aspect of this code, but I see no
-     other way.  The largest chain of parents might be 10 high or so,
-     so it shouldn't be a real issue.  */
-  for (Grob const *c = this; c; c = c->dim_cache_[a].parent_)
-    for (Grob const *d = s; d; d = d->dim_cache_[a].parent_)
-      if (d == c)
-        return (Grob *) d;
 
-  return 0;
+  /* Catching the trivial cases is likely costlier than just running
+     through: one can't avoid going to the respective chain ends
+     anyway.  We might save the second run through when the chain ends
+     differ, but keeping track of the ends makes the loop more costly.
+  */
+
+  int balance = 0;
+  Grob const *c;
+  Grob const *d;
+
+  for (c = this; c; ++balance)
+    c = c->dim_cache_[a].parent_;
+
+  for (d = s; d; --balance)
+    d = d->dim_cache_[a].parent_;
+
+  /* Cut down ancestry to same size */
+
+  for (c = this; balance > 0; --balance)
+    c = c->dim_cache_[a].parent_;
+
+  for (d = s; balance < 0; ++balance)
+    d = d->dim_cache_[a].parent_;
+
+  /* Now find point where our lineages converge */
+  while (c != d)
+    {
+      c = c->dim_cache_[a].parent_;
+      d = d->dim_cache_[a].parent_;
+    }
+
+  return (Grob *) c;
 }
 
 void
