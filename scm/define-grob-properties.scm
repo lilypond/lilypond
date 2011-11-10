@@ -163,7 +163,6 @@ stick out of its bounds?")
 @code{#t} means visible, @code{#f} means killed.")
      (breakable ,boolean? "Allow breaks here.")
 
-
 ;;
 ;; c
 ;;
@@ -189,8 +188,6 @@ measure of the closeness of the inner stems.  It is used for damping
 the slope of the beam.")
      (connect-to-neighbor ,pair? "Pair of booleans, indicating whether
 this grob looks as a continued break.")
-     (consistent-broken-slope ,boolean? "Keep a beam's slope across line
-breaks.")
      (control-points ,list? "List of offsets (number pairs) that form
 control points for the tie, slur, or bracket shape.  For B@'eziers,
 this should list the control points of a third-order B@'ezier curve.")
@@ -1006,6 +1003,7 @@ function is to protect objects from being garbage collected.")
 
      (bars ,ly:grob-array? "An array of bar line pointers.")
      (beam ,ly:grob? "A pointer to the beam, if applicable.")
+     (beam-segments ,list? "Internal representation of beam segments.")
      (bound-alignment-interfaces ,list "Interfaces to be used
 for positioning elements that align with a column.")
      (bounded-by-me ,ly:grob-array? "An array of spanners that have this
@@ -1033,6 +1031,8 @@ in addition to notes and stems.")
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
      (flag ,ly:grob? "A pointer to a @code{Flag} object.")
      (footnote-stencil ,ly:stencil? "The stencil of a system's footnotes.")
+     (full-score-pure-minimum-translations ,list? "A list of translations
+for a full score's worth of grobs.")
 
      (glissando-index ,integer? "The index of a glissando in its note
 column.")

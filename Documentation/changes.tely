@@ -73,7 +73,10 @@ simplified considerably.
 Beams can now have their slopes preserved over line breaks.
 @lilypond[fragment,quote,relative=2]
 \override Beam #'breakable = ##t
-\override Beam #'consistent-broken-slope = ##t
+a8[ b c d e f g \bar "" \break f e d c b a]
+\once \override Beam #'positions = #beam::align-with-broken-parts
+a8[ b c d e f g \bar "" \break f e d c b a]
+\once \override Beam #'positions = #beam::slope-like-broken-parts
 a8[ b c d e f g \bar "" \break f e d c b a]
 @end lilypond
 To do this, several callback functions are now deprecated.
@@ -82,9 +85,9 @@ To do this, several callback functions are now deprecated.
 @item @code{ly:beam::slope-damping}
 @item @code{ly:beam::shift-region-to-valid}
 @end itemize
-All of these functions are now automatically called via @code{ly:beam::quanting}.
-Furthermore, @code{ly:beam::quanting} now only takes one argument -
-the beam grob.
+Furthermore, @code{ly:beam::quanting} now takes an additional argument
+to help calculations over line breaks.  All of these functions are now
+automatically called when setting the @code{positions} parameter.
 
 @item
 In function arguments music, markups and Scheme expressions (as well

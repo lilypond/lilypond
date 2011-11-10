@@ -60,6 +60,48 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; beam slope
+
+;; calculates each slope of a broken beam individually
+(define-public (beam::place-broken-parts-individually grob)
+  (ly:beam::quanting grob '(+inf.0 . -inf.0) #f))
+
+;; calculates the slope of a beam as a single unit,
+;; even if it is broken.  this assures that the beam
+;; will pick up where it left off after a line break
+(define-public (beam::align-with-broken-parts grob)
+  (ly:beam::quanting grob '(+inf.0 . -inf.0) #t))
+
+;; uses the broken beam style from edition peters combines the
+;; values of place-broken-parts-individually and align-with-broken-parts above,
+;; favoring place-broken-parts-individually when the beam naturally has a steeper
+;; incline and align-with-broken-parts when the beam is flat
+(define-public (beam::slope-like-broken-parts grob)
+  (define (slope y x)
+    (/ (- (cdr y) (car y)) (- (cdr x) (car x))))
+  (let* ((quant1 (ly:beam::quanting grob '(+inf.0 . -inf.0) #t))
+         (original (ly:grob-original grob))
+         (siblings (if (ly:grob? original)
+                       (ly:spanner-broken-into original)
+                       '())))
+    (if (null? siblings)
+        quant1
+        (let* ((quant2 (ly:beam::quanting grob '(+inf.0 . -inf.0) #f))
+               (x-span (ly:grob-property grob 'X-positions))
+               (slope1 (slope quant1 x-span))
+               (slope2 (slope quant2 x-span))
+               (quant2 (if (not (= (sign slope1) (sign slope2)))
+                           '(0 . 0)
+                           quant2))
+               (factor (/ (atan (abs slope1)) PI-OVER-TWO))
+               (base (cons-map
+                       (lambda (x)
+                         (+ (* (x quant1) (- 1 factor))
+                            (* (x quant2) factor)))
+                       (cons car cdr))))
+          (ly:beam::quanting grob base #f)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; cross-staff stuff
 
 (define-public (script-or-side-position-cross-staff g)

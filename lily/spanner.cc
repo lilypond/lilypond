@@ -233,22 +233,39 @@ Spanner::Spanner (Spanner const &s)
   pure_property_cache_ = SCM_UNDEFINED;
 }
 
+/*
+  Certain spanners have pre-computed X values that lie either in
+  X-positions or the X key of the alists returned for left-bound-info
+  and right-bound-info.  These are calculated to give the real length
+  of a spanner (which, because of various padding or overhang properties,
+  can extend pass or arrive short of a given bound).  If possible, we
+  use these to calculate the spanner's length, and otherwise, we use
+  the bound.
+
+  For those writing a new spanner, DO NOT use both X-positions and
+  left-bound-info/right-bound-info.
+*/
 Real
 Spanner::spanner_length () const
 {
-  Interval lr;
-
-  Drul_array<SCM> bounds (get_property ("left-bound-info"),
-                          get_property ("right-bound-info"));
-
-  Direction d = LEFT;
-  do
-    lr[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("X"),
-                                             bounds[d], SCM_BOOL_F), -d);
-  while (flip (&d) != LEFT);
+  Interval lr = robust_scm2interval (get_property ("X-positions"),
+                                     Interval (1,-1));
 
   if (lr.is_empty ())
     {
+      Drul_array<SCM> bounds (get_property ("left-bound-info"),
+                              get_property ("right-bound-info"));
+
+      Direction d = LEFT;
+      do
+        lr[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("X"),
+                                             bounds[d], SCM_BOOL_F), -d);
+      while (flip (&d) != LEFT);
+    }
+
+  if (lr.is_empty ())
+    {
+      Direction d = LEFT;
       do
         lr[d] = spanned_drul_[d]->relative_coordinate (0, X_AXIS);
       while (flip (&d) != LEFT);

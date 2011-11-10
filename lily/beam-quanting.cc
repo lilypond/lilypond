@@ -181,27 +181,57 @@ void Beam_scoring_problem::add_collision (Real x, Interval y,
   collisions_.push_back (c);
 }
 
-void Beam_scoring_problem::init_stems ()
+void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> ys, bool align_broken_intos)
 {
+  beam_ = dynamic_cast<Spanner *> (me);
+  unquanted_y_ = ys;
+
+  /*
+    If 'ys' are finite, use them as starting points for y-positions of the
+    ends of the beam, instead of the best-fit through the natural ends of
+    the stems.  Otherwise, we want to do initial slope calculations.
+  */
+  do_initial_slope_calculations_ = false;
+  Direction d = LEFT;
+  do
+    do_initial_slope_calculations_ |= isinf (unquanted_y_[d]) || isnan (unquanted_y_[d]);
+  while (flip (&d) != LEFT);
+
+  /*
+    Calculations are relative to a unit-scaled staff, i.e. the quants are
+    divided by the current staff_space_.
+  */
+  staff_space_ = Staff_symbol_referencer::staff_space (beam_);
+  beam_thickness_ = Beam::get_beam_thickness (beam_) / staff_space_;
+  line_thickness_ = Staff_symbol_referencer::line_thickness (beam_) / staff_space_;
+
+  // This is the least-squares DY, corrected for concave beams.
+  musical_dy_ = robust_scm2double (beam_->get_property ("least-squares-dy"), 0);
+
   vector<Spanner *> beams;
-  if (consistent_broken_slope_)
+  align_broken_intos_ = align_broken_intos;
+  if (align_broken_intos_)
     {
       Spanner *orig = dynamic_cast<Spanner *> (beam_->original ());
       if (!orig)
-        consistent_broken_slope_ = false;
+        align_broken_intos_ = false;
       else if (!orig->broken_intos_.size ())
-        consistent_broken_slope_ = false;
+        align_broken_intos_ = false;
       else
         beams.insert (beams.end (), orig->broken_intos_.begin (), orig->broken_intos_.end ());
     }
-  if (!consistent_broken_slope_)
+  if (!align_broken_intos_)
     beams.push_back (beam_);
 
+  /*
+    x_span_ is a single scalar, cumulatively summing the length of all the
+    segments the parent beam was broken-into.
+  */
   x_span_ = 0.0;
+  is_knee_ = false;
   normal_stem_count_ = 0;
   for (vsize i = 0; i < beams.size (); i++)
     {
-      Interval local_x_span;
       extract_grob_set (beams[i], "stems", stems);
       extract_grob_set (beams[i], "covered-grobs", fake_collisions);
       vector<Grob *> collisions;
@@ -214,14 +244,17 @@ void Beam_scoring_problem::init_stems ()
       for (int a = 2; a--;)
         common[a] = common_refpoint_of_array (stems, beams[i], Axis (a));
 
-      Real x_left = beams[i]->relative_coordinate(common[X_AXIS], X_AXIS);
+      Direction d = LEFT;
+      do
+        common[X_AXIS] = beams[i]->get_bound (d)->common_refpoint (common[X_AXIS], X_AXIS);
+      while (flip (&d) != LEFT);
+
+      // positions of the endpoints of this beam segment, including any overhangs
+      const Interval x_pos = robust_scm2interval (beams[i]->get_property ("X-positions"),
+                                                  Interval (0.0, 0.0));
 
       Drul_array<Grob *> edge_stems (Beam::first_normal_stem (beams[i]),
                                      Beam::last_normal_stem (beams[i]));
-      Direction d = LEFT;
-      do
-        local_x_span[d] = edge_stems[d] ? edge_stems[d]->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
-      while (flip (&d) != LEFT);
 
       Drul_array<bool> dirs_found (0, 0);
 
@@ -244,10 +277,10 @@ void Beam_scoring_problem::init_stems ()
           bool f = to_boolean (s->get_property ("french-beaming"))
                    && s != edge_stems[LEFT] && s != edge_stems[RIGHT];
 
-          Real y = Beam::calc_stem_y (beams[i], s, common, local_x_span[LEFT], local_x_span[RIGHT], CENTER,
+          Real y = Beam::calc_stem_y (beams[i], s, common, x_pos[LEFT], x_pos[RIGHT], CENTER,
                                       Interval (0, 0), f);
           base_lengths_.push_back (y / staff_space_);
-          stem_xpositions_.push_back (s->relative_coordinate (common[X_AXIS], X_AXIS) - x_left + x_span_);
+          stem_xpositions_.push_back (s->relative_coordinate (common[X_AXIS], X_AXIS) - x_pos[LEFT] + x_span_);
           stem_ypositions_.push_back (s->relative_coordinate (common[Y_AXIS], Y_AXIS) - my_y);
           if (is_normal_.back ())
             {
@@ -264,7 +297,7 @@ void Beam_scoring_problem::init_stems ()
                                             stem_infos_.back ().dir_);
 
       is_xstaff_ = Align_interface::has_interface (common[Y_AXIS]);
-      is_knee_ = dirs_found[LEFT] && dirs_found[RIGHT];
+      is_knee_ |= dirs_found[DOWN] && dirs_found[UP];
 
       staff_radius_ = Staff_symbol_referencer::staff_radius (beams[i]);
       edge_beam_counts_ = Drul_array<int>
@@ -291,11 +324,11 @@ void Beam_scoring_problem::init_stems ()
           quant_range_[d][-ed] = heads[ed] + stem_offset;
         }
       while (flip (&d) != LEFT);
-      Grob *common_x = NULL;
-      segments_ = Beam::get_beam_segments (beams[i], &common_x);
+
+      segments_ = Beam::get_beam_segments (beams[i]);
       vector_sort (segments_, beam_segment_less);
       for (vsize j = 0; j < segments_.size (); j++)
-        segments_[j].horizontal_ += (x_span_ - x_left);
+        segments_[j].horizontal_ += (x_span_ - x_pos[LEFT]);
 
       set<Grob *> colliding_stems;
       for (vsize j = 0; j < collisions.size (); j++)
@@ -310,10 +343,12 @@ void Beam_scoring_problem::init_stems ()
           for (Axis a = X_AXIS; a < NO_AXES; incr (a))
             b[a] = collisions[j]->extent (common[a], a);
 
+          if (b[X_AXIS][RIGHT] < x_pos[LEFT] || b[X_AXIS][LEFT] > x_pos[RIGHT])
+            continue;
           if (b[X_AXIS].is_empty () || b[Y_AXIS].is_empty ())
             continue;
 
-          b[X_AXIS] += (x_span_ - x_left);
+          b[X_AXIS] += (x_span_ - x_pos[LEFT]);
           Real width = b[X_AXIS].length ();
           Real width_factor = sqrt (width / staff_space_);
 
@@ -332,7 +367,7 @@ void Beam_scoring_problem::init_stems ()
       for (set<Grob *>::const_iterator it (colliding_stems.begin ()); it != colliding_stems.end (); it++)
         {
           Grob *s = *it;
-          Real x = (s->extent (common[X_AXIS], X_AXIS) - x_left + x_span_).center ();
+          Real x = (s->extent (common[X_AXIS], X_AXIS) - x_pos[LEFT] + x_span_).center ();
 
           Direction stem_dir = get_grob_direction (*it);
           Interval y;
@@ -347,54 +382,22 @@ void Beam_scoring_problem::init_stems ()
         }
       x_span_ += beams[i]->spanner_length ();
     }
-
-  /*
-    Here, we eliminate all extremal hangover, be it from non-normal stems
-    (like stemlets) or broken beams (if we're not calculating consistent
-    slope).
-  */
-  if (normal_stem_count_)
-    {
-      Interval trimmings (0.0, 0.0);
-      Direction d = LEFT;
-
-      do
-        {
-          vsize idx = d == LEFT ? first_normal_index () : last_normal_index ();
-          trimmings[d] = d * ((d == LEFT ? 0 : x_span_) - stem_xpositions_[idx]);
-        }
-      while (flip (&d) != LEFT);
-
-      do
-        x_span_ -= trimmings[d];
-      while (flip (&d) != LEFT);
-
-      for (vsize i = 0; i < stem_xpositions_.size (); i++)
-        stem_xpositions_[i] -= trimmings[LEFT];
-    }
 }
 
-Beam_scoring_problem::Beam_scoring_problem (Grob *me, Drul_array<Real> ys)
+Beam_scoring_problem::Beam_scoring_problem (Grob *me, Drul_array<Real> ys, bool align_broken_intos)
 {
   beam_ = dynamic_cast<Spanner *> (me);
   unquanted_y_ = ys;
-  consistent_broken_slope_ = to_boolean (me->get_property ("consistent-broken-slope"));
-  /*
-    Calculations are relative to a unit-scaled staff, i.e. the quants are
-    divided by the current staff_space_.
-  */
-  staff_space_ = Staff_symbol_referencer::staff_space (me);
-  beam_thickness_ = Beam::get_beam_thickness (me) / staff_space_;
-  line_thickness_ = Staff_symbol_referencer::line_thickness (me) / staff_space_;
-
-  // This is the least-squares DY, corrected for concave beams.
-  musical_dy_ = robust_scm2double (me->get_property ("least-squares-dy"), 0);
+  align_broken_intos_ = align_broken_intos;
 
   parameters_.fill (me);
-  init_stems ();
-  least_squares_positions ();
-  slope_damping ();
-  shift_region_to_valid ();
+  init_instance_variables (me, ys, align_broken_intos);
+  if (do_initial_slope_calculations_)
+    {
+      least_squares_positions ();
+      slope_damping ();
+      shift_region_to_valid ();
+    }
 }
 
 // Assuming V is not empty, pick a 'reasonable' point inside V.
@@ -536,11 +539,6 @@ Beam_scoring_problem::least_squares_positions ()
       else
         unquanted_y_ = ideal;
 
-      /*
-        For broken beams this doesn't work well. In this case, the
-        slope esp. of the first part of a broken beam should predict
-        where the second part goes.
-      */
       ldy = unquanted_y_[RIGHT] - unquanted_y_[LEFT];
     }
   else
@@ -563,6 +561,142 @@ Beam_scoring_problem::least_squares_positions ()
     }
 
   musical_dy_ = ldy;
+  beam_->set_property ("least-squares-dy", scm_from_double (musical_dy_));
+}
+
+/*
+  Determine whether a beam is concave.
+
+  A beam is concave when the middle notes get closer to the
+  beam than the left and right edge notes.
+
+  This is determined in two ways: by looking at the positions of the
+  middle notes, or by looking at the deviation of the inside notes
+  compared to the line connecting first and last.
+
+  The tricky thing is what to do with beams with chords. There are no
+  real guidelines in this case.
+*/
+
+bool
+is_concave_single_notes (vector<int> const &positions, Direction beam_dir)
+{
+  Interval covering;
+  covering.add_point (positions[0]);
+  covering.add_point (positions.back ());
+
+  bool above = false;
+  bool below = false;
+  bool concave = false;
+
+  /*
+    notes above and below the interval covered by 1st and last note.
+  */
+  for (vsize i = 1; i + 1 < positions.size (); i++)
+    {
+      above = above || (positions[i] > covering[UP]);
+      below = below || (positions[i] < covering[DOWN]);
+    }
+
+  concave = concave || (above && below);
+  /*
+    A note as close or closer to the beam than begin and end, but the
+    note is reached in the opposite direction as the last-first dy
+  */
+  int dy = positions.back () - positions[0];
+  int closest = max (beam_dir * positions.back (), beam_dir * positions[0]);
+  for (vsize i = 2; !concave && i + 1 < positions.size (); i++)
+    {
+      int inner_dy = positions[i] - positions[i - 1];
+      if (sign (inner_dy) != sign (dy)
+          && (beam_dir * positions[i] >= closest
+              || beam_dir * positions[i - 1] >= closest))
+        concave = true;
+    }
+
+  bool all_closer = true;
+  for (vsize i = 1; all_closer && i + 1 < positions.size (); i++)
+    {
+      all_closer = all_closer
+                   && (beam_dir * positions[i] > closest);
+    }
+
+  concave = concave || all_closer;
+  return concave;
+}
+
+Real
+calc_positions_concaveness (vector<int> const &positions, Direction beam_dir)
+{
+  Real dy = positions.back () - positions[0];
+  Real slope = dy / Real (positions.size () - 1);
+  Real concaveness = 0.0;
+  for (vsize i = 1; i + 1 < positions.size (); i++)
+    {
+      Real line_y = slope * i + positions[0];
+
+      concaveness += max (beam_dir * (positions[i] - line_y), 0.0);
+    }
+
+  concaveness /= positions.size ();
+
+  /*
+    Normalize. For dy = 0, the slope ends up as 0 anyway, so the
+    scaling of concaveness doesn't matter much.
+  */
+  if (dy)
+    concaveness /= fabs (dy);
+  return concaveness;
+}
+
+Real
+Beam_scoring_problem::calc_concaveness ()
+{
+  SCM conc = beam_->get_property ("concaveness");
+  if (scm_is_number (conc))
+    return scm_to_double (conc);
+
+  if (is_knee_)
+    return 0.0;
+
+  Direction beam_dir = CENTER;
+  for (vsize i = is_normal_.size (); i--;)
+    if (is_normal_[i] && stem_infos_[i].dir_)
+      beam_dir = stem_infos_[i].dir_;
+
+  if (normal_stem_count_ <= 2)
+    return 0.0;
+
+  vector<int> close_positions;
+  vector<int> far_positions;
+  for (vsize i = 0; i < is_normal_.size (); i++)
+    if (is_normal_[i])
+      {
+        /*
+          For chords, we take the note head that is closest to the beam.
+
+          Hmmm.. wait, for the beams in the last measure of morgenlied,
+          this doesn't look so good. Let's try the heads farthest from
+          the beam.
+        */
+
+        close_positions.push_back ((int) rint (head_positions_[i][beam_dir]));
+        far_positions.push_back ((int) rint (head_positions_[i][-beam_dir]));
+    }
+
+  Real concaveness = 0.0;
+
+  if (is_concave_single_notes (beam_dir == UP ? close_positions : far_positions, beam_dir))
+    {
+      concaveness = 10000;
+    }
+  else
+    {
+      concaveness = (calc_positions_concaveness (far_positions, beam_dir)
+                     + calc_positions_concaveness (close_positions, beam_dir)) / 2;
+    }
+
+  return concaveness;
 }
 
 void
@@ -573,7 +707,7 @@ Beam_scoring_problem::slope_damping ()
 
   SCM s = beam_->get_property ("damping");
   Real damping = scm_to_double (s);
-  Real concaveness = robust_scm2double (beam_->get_property ("concaveness"), 0.0);
+  Real concaveness = calc_concaveness ();
   if (concaveness >= 10000)
     {
       unquanted_y_[LEFT] = unquanted_y_[RIGHT];
@@ -938,7 +1072,7 @@ Beam_scoring_problem::solve () const
 #endif
 
   junk_pointers (configs);
-  if (consistent_broken_slope_)
+  if (align_broken_intos_)
     {
       Interval normalized_endpoints = robust_scm2interval (beam_->get_property ("normalized-endpoints"), Interval (0, 1));
       Real y_length = final_positions[RIGHT] - final_positions[LEFT];
@@ -993,6 +1127,16 @@ Beam_scoring_problem::score_stem_lengths (Beam_configuration *config) const
   do
     score[d] /= max (count[d], 1);
   while (flip (&d) != DOWN);
+
+  /*
+    sometimes, two perfectly symmetric kneed beams will have the same score
+    and can either be quanted up or down.
+
+    we choose the quanting in the direction of the slope so that the first stem
+    always seems longer, reaching to the second, rather than squashed.
+  */
+  if (is_knee_ && count[LEFT] == count[RIGHT] && count[LEFT] == 1 && unquanted_y_.delta ())
+    score[Direction (sign (unquanted_y_.delta ()))] += score[Direction (sign (unquanted_y_.delta ()))] < 1.0 ? 0.01 : 0.0;
 
   config->add (score[LEFT] + score[RIGHT], "L");
 }
@@ -1123,8 +1267,15 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
 
                 /*
                   this parameter is tuned to grace-stem-length.ly
+                  retuned from 0.40 to 0.39 by MS because of slight increases
+                  in gap.length () resulting from measuring beams at real ends
+                  instead of from the middle of stems.
+
+                  TODO:
+                  This function needs better comments so we know what is forbidden
+                  and why.
                 */
-                Real fixed_demerit = 0.4;
+                Real fixed_demerit = 0.39;
 
                 dem += extra_demerit
                        * (fixed_demerit

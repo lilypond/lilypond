@@ -527,6 +527,28 @@ robust_scm2double (SCM k, double x)
   return x;
 }
 
+vector<Real>
+ly_scm2floatvector (SCM l)
+{
+  vector<Real> floats;
+  for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
+    floats.push_back (robust_scm2double (scm_car (s), 0.0));
+  return floats;
+}
+
+SCM
+ly_floatvector2scm (vector<Real> v)
+{
+  SCM l = SCM_EOL;
+  SCM *tail = &l;
+  for (vsize i = 0; i < v.size (); i++)
+    {
+      *tail = scm_cons (scm_from_double (v[i]), SCM_EOL);
+      tail = SCM_CDRLOC (*tail);
+    }
+  return l;
+}
+
 string
 robust_scm2string (SCM k, string s)
 {

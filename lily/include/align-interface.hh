@@ -29,6 +29,7 @@ class Align_interface
 public:
   DECLARE_SCHEME_CALLBACK (align_to_minimum_distances, (SCM));
   DECLARE_SCHEME_CALLBACK (align_to_ideal_distances, (SCM));
+  DECLARE_SCHEME_CALLBACK (full_score_pure_minimum_translations, (SCM));
   static void align_elements_to_minimum_distances (Grob *, Axis a);
   static void align_elements_to_ideal_distances (Grob *);
   static vector<Real> get_minimum_translations (Grob *, vector<Grob *> const &, Axis a);

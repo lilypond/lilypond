@@ -115,21 +115,21 @@ struct Beam_collision
 class Beam_scoring_problem
 {
 public:
-  Beam_scoring_problem (Grob *me, Drul_array<Real> ys);
+  Beam_scoring_problem (Grob *me, Drul_array<Real> ys, bool);
   Drul_array<Real> solve () const;
 
 private:
   Spanner *beam_;
 
   Interval unquanted_y_;
-  bool consistent_broken_slope_;
+  bool align_broken_intos_;
+  bool do_initial_slope_calculations_;
 
   Real staff_space_;
   Real beam_thickness_;
   Real line_thickness_;
   Real musical_dy_;
   int normal_stem_count_;
-
   Real x_span_;
 
 
@@ -171,10 +171,11 @@ private:
   vsize first_normal_index ();
   vsize last_normal_index ();
 
-  void init_stems ();
+  void init_instance_variables (Grob *me, Drul_array<Real> ys, bool align_broken_intos);
   void add_collision (Real x, Interval y, Real factor);
   void no_visible_stem_positions ();
   void least_squares_positions ();
+  Real calc_concaveness ();
   void slope_damping ();
   void shift_region_to_valid ();
 

@@ -124,6 +124,12 @@ Paper_column::when_mom (Grob *me)
 }
 
 bool
+Paper_column::is_loose (Grob *g)
+{
+  return (scm_is_pair (g->get_object ("between-cols")));
+}
+
+bool
 Paper_column::is_musical (Grob *me)
 {
   SCM m = me->get_property ("shortest-starter-duration");

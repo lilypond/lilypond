@@ -37,12 +37,12 @@ template<class T, class A> class Matrix;
 
 typedef Interval_t<Real> Interval;
 
-struct Offset;
+class Offset;
 struct Long_option_init;
-struct Rational;
+class Rational;
 class File_name;
 class File_path;
-struct Getopt_long;
+class Getopt_long;
 
 typedef unsigned char U8;
 typedef short I16;

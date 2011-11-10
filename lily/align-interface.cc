@@ -308,11 +308,25 @@ Align_interface::align_elements_to_minimum_distances (Grob *me, Axis a)
       all_grobs[j]->translate_axis (translates[j], a);
 }
 
+
+MAKE_SCHEME_CALLBACK (Align_interface, full_score_pure_minimum_translations, 1);
+SCM
+Align_interface::full_score_pure_minimum_translations (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  extract_grob_set (me, "elements", all_grobs);
+
+  vector<Real> pure_minimum_translations = Align_interface::get_pure_minimum_translations (me, all_grobs, Y_AXIS, 0, INT_MAX);
+  return ly_floatvector2scm (pure_minimum_translations);
+}
+
 Real
 Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, int start, int end)
 {
   extract_grob_set (me, "elements", all_grobs);
-  vector<Real> translates = get_pure_minimum_translations (me, all_grobs, Y_AXIS, start, end);
+  vector<Real> translates = start == 0 && end == INT_MAX
+                            ? ly_scm2floatvector (me->get_object ("full-score-pure-minimum-translations"))
+                            : get_pure_minimum_translations (me, all_grobs, Y_AXIS, start, end);
 
   if (translates.size ())
     {
@@ -369,6 +383,7 @@ ADD_INTERFACE (Align_interface,
                /* properties */
                "align-dir "
                "axes "
+               "full-score-pure-minimum-translations "
                "elements "
                "padding "
                "positioning-done "

@@ -63,12 +63,12 @@
   (lambda (grob)
     ((check-beam-quant l r)
        grob
-       (ly:beam::quanting grob))))
+       (beam::place-broken-parts-individually grob))))
 
 
 (define-public (check-slope-callbacks comparison)
   (lambda (grob)
     ((check-beam-slope-sign comparison)
        grob
-       (ly:beam::quanting grob))))
+       (beam::place-broken-parts-individually grob))))
 
