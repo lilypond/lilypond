@@ -463,7 +463,6 @@ If we give names, Bison complains.
 %type <scm> embedded_scm_bare_arg
 %type <scm> embedded_scm_closed
 %type <scm> embedded_scm_chord_body
-%type <scm> embedded_scm_event
 %type <scm> event_function_event
 %type <scm> figure_list
 %type <scm> figure_spec
@@ -506,7 +505,6 @@ If we give names, Bison complains.
 %type <scm> mode_changing_head_with_context
 %type <scm> multiplied_duration
 %type <scm> music_function_event
-%type <scm> music_function_event_arglist
 %type <scm> music_function_chord_body
 %type <scm> music_function_chord_body_arglist
 %type <scm> new_chord
@@ -1278,6 +1276,10 @@ function_arglist_nonbackup:
 	{
 		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
 	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed post_event
+	{
+		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
+	}
 	;
 
 
@@ -1300,6 +1302,16 @@ function_arglist_backup:
 		} else {
 			$$ = scm_cons (loc_on_music (@3, $1), $3);
 			MYBACKUP (SCM_IDENTIFIER, $4, @4);
+		}
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep post_event
+	{
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			$$ = scm_cons ($4, $3);
+		} else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (EVENT_IDENTIFIER, $4, @4);
 		}
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep lyric_element
@@ -1413,6 +1425,11 @@ function_arglist_common:
 		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
 				       $3, $2, $1);
 	}
+	| EXPECT_SCM function_arglist_closed_optional post_event
+	{
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+				       $3, $2, $1);
+	}
 	| function_arglist_common_lyric
 	;
 
@@ -1469,6 +1486,11 @@ function_arglist_closed_common:
 				       $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional bare_number_closed
+	{
+		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+				       $3, $2, $1);
+	}
+	| EXPECT_SCM function_arglist_closed_optional post_event
 	{
 		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
 				       $3, $2, $1);
@@ -2012,41 +2034,20 @@ music_function_chord_body:
 	}
 	;
 
-/* We could accept a closed music argument before the post events
- * indicated by a trailing argument list.  For symmetry with chord
- * bodies and in order to avoid too tricky and complex behavior, we
- * refrain from doing so.
- */
-music_function_event_arglist:
-	function_arglist_bare
-	| EXPECT_SCM music_function_event_arglist embedded_scm_event
-	{
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
-				       $3, $2, $1);
-	}
-	;
-
-embedded_scm_event:
-	embedded_scm_bare_arg
-	| SCM_FUNCTION music_function_event_arglist {
-		$$ = MAKE_SYNTAX ("music-function", @$,
-					 $1, $2);
-	}
-	| bare_number
-	| fraction
-	| lyric_element
-	| post_event
-	;
+// Event functions may only take closed arglists, otherwise it would
+// not be clear whether a following postevent should be associated
+// with the last argument of the event function or with the expression
+// for which the function call acts itself as event.
 
 music_function_event:
-	MUSIC_FUNCTION music_function_event_arglist {
+	MUSIC_FUNCTION function_arglist_closed {
 		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
 	;
 
 event_function_event:
-	EVENT_FUNCTION music_function_event_arglist {
+	EVENT_FUNCTION function_arglist_closed {
 		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
@@ -2318,7 +2319,7 @@ gen_text_def:
 		t->set_property ("text", $1);
 		$$ = t->unprotect ();
 	}
-	| string {
+	| simple_string {
 		Music *t = MY_MAKE_MUSIC ("TextScriptEvent", @$);
 		t->set_property ("text",
 			make_simple_markup ($1));
