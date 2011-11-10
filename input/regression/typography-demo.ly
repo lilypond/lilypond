@@ -8,7 +8,7 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 
 }
 
-\version "2.14.0"
+\version "2.15.18"
 
 ignoreMelisma =	\set ignoreMelismata = ##t
 ignoreMelismaOff = \unset ignoreMelismata 
@@ -74,7 +74,7 @@ secondVerse = \lyricmode {
 }
 
 pianoRH =  \relative c''' \repeat volta 2\new Voice {
-  #(set-accidental-style 'modern)
+  $(set-accidental-style 'modern)
   \voiceOne
   g16( fis a g fis g f e d c b
   \oneVoice
@@ -97,7 +97,7 @@ pianoRH =  \relative c''' \repeat volta 2\new Voice {
 	      }
 
 pianoLH =  \relative c'' \repeat volta 2\new Voice {
-    #(set-accidental-style 'modern)
+    $(set-accidental-style 'modern)
     \voiceTwo
     g16( fis a g fis g
 
@@ -123,7 +123,7 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
 	   fontSize = #-3
 	   \override StaffSymbol #'staff-space = #(magstep -3)
 	 } <<
-	   \context Staff #(set-accidental-style 'modern)
+	   \context Staff $(set-accidental-style 'modern)
 	   \melody >>
 	 \lyricsto "singer" \new Lyrics \firstVerse
 	 \lyricsto "singer" \new Lyrics \secondVerse

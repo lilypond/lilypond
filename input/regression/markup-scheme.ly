@@ -25,7 +25,7 @@ For maintenance reasons, we don't excercise the entire markup command set.
 
 
 
-\version "2.14.0"
+\version "2.15.18"
 
 {
   \textLengthOn
@@ -54,7 +54,7 @@ For maintenance reasons, we don't excercise the entire markup command set.
     \larger \sub "alike"
   }	
   \break
-  f'1-#(markup* 
+  f'1-$(markup 
 	"foo"
 	#:raise 0.2 #:hbracket #:bold "bar"
 	#:override '(baseline-skip . 4) 

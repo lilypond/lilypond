@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.18"
 
 @node Scheme-Übung
 @chapter Scheme-Übung
@@ -785,7 +785,7 @@ Anstatt @code{\twice} zu definieren, könne man also auch schreiben:
 
 @example
 ...
-@{ #(ly:export (make-sequential-music (list newLa))) @}
+@{ $(make-sequential-music (list newLa)) @}
 @end example
 
 Scheme-Code wird sofort interpretiert, wenn der Parser darauf stößt.  Um
@@ -1415,7 +1415,7 @@ TODO Find a simple example
 @lilypond[quote,verbatim,ragged-right]
 padText = #(define-music-function (parser location padding) (number?)
 #{
-  \once \override TextScript #'padding = #$padding
+  \once \override TextScript #'padding = #padding
 #})
 
 \relative c''' {

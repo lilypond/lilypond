@@ -900,7 +900,7 @@ Otherwise, return #f."
                 num den
                 (new-line->lily-string))
         (format #f
-                "#(set-time-signature ~a ~a '~a)~a"
+                "$(set-time-signature ~a ~a '~a)~a"
                 num den structure
                 (new-line->lily-string)))))
 

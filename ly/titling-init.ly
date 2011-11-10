@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.18"
 
 slashSeparator = \markup {
   \center-align
@@ -15,11 +15,10 @@ tagline = \markup {
 
     %% 2014 = em dash.
 
-    #(ly:export
-      (format #f "Music engraving by LilyPond ~a~awww.lilypond.org"
+    $(format #f "Music engraving by LilyPond ~a~awww.lilypond.org"
        (lilypond-version)
        (ly:wide-char->utf-8 #x2014)
-       ))
+       )
   }
 }
 

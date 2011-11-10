@@ -1,4 +1,4 @@
-\version "2.15.15"
+\version "2.15.18"
 
 \header {
   lsrtags = "template"
@@ -176,7 +176,7 @@ staffVoice = \new Staff = astaffvoice  {
 
 staffAccordionMel =
 \new Staff  \with { \remove "Clef_engraver" } {
-  #(set-accidental-style 'forget) %Set the accidentals (Vorzeichen) for each note,
+  $(set-accidental-style 'forget) %Set the accidentals (Vorzeichen) for each note,
   %do not remember them for the rest of the measure.
   \time 4/4
   \set Staff.instrumentName="Accordion"
@@ -188,9 +188,9 @@ staffAccordionMel =
 
 AltOn =
 #(define-music-function (parser location mag) (number?)
-  #{ \override Stem #'length = #$(* 7.0 mag)
+  #{ \override Stem #'length = #(* 7.0 mag)
       \override NoteHead #'font-size =
-#$(inexact->exact (* (/ 6.0 (log 2.0)) (log mag))) #})
+#(inexact->exact (* (/ 6.0 (log 2.0)) (log mag))) #})
 
 AltOff = {
   \revert Stem #'length

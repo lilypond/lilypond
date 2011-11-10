@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.18"
 
 forcedLastBreak =  { \break }
 
@@ -16,9 +16,9 @@ forcedLastBreak =  { \break }
 
 
 #(define (assert-system-count-override count)
-  (ly:export #{ \override NoteHead #'after-line-breaking
-       = #(lambda (smob) (assert-system-count smob $count))
-  #}))
+  #{ \override NoteHead #'after-line-breaking
+       = #(lambda (smob) (assert-system-count smob count))
+  #})
 
 
 \header {
@@ -126,7 +126,7 @@ sarabandeA =  \context Voice  \relative c {
   d'[ cis] |
   %%  d4 d,,2 |
   d4
-%  #(assert-system-count-override 6)
+%  $(assert-system-count-override 6)
   d,,2 |
 }
 

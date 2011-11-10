@@ -1,4 +1,4 @@
-\version "2.15.5"
+\version "2.15.18"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -175,7 +175,7 @@ stderr of this run."
 \test "" ##[ \clef "french^2" #]
 \test "" ##[ \clef "alto_3" #]
 \test "" ##[ \time 2/4 #]
-\test "" ##[ #(set-time-signature 5 8 '(3 2)) #]
+\test "" ##[ $(set-time-signature 5 8 '(3 2)) #]
 \test "" ##[ \bar "|." #]
 
 %% staff switches

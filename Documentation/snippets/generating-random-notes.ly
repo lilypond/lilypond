@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.15.18"
 
 \header {
   lsrtags = "pitches"
@@ -33,9 +33,8 @@ get different random note patterns, just change this number.
 
 \score {
   {
-    #(let ((random-state (seed->random-state (current-time))))
-       (ly:export
-        (make-sequential-music
+    $(let ((random-state (seed->random-state (current-time))))
+       (make-sequential-music
          (map (lambda (x)
                 (let ((idx (random 12 random-state)))
                   (make-event-chord
@@ -46,6 +45,6 @@ get different random note patterns, just change this number.
                                         (quotient idx 7)
                                         (remainder idx 7)
                                         0))))))
-              (make-list 24)))))
+              (make-list 24))))
   }
 }

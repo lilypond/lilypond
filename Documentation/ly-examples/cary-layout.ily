@@ -1,5 +1,5 @@
 
-\version "2.14.0"
+\version "2.15.18"
 
 \layout {
   indent = #0
@@ -57,18 +57,18 @@ sffpp = #(make-dynamic-script "sffpp")
 beam = #(define-music-function (parser location left right) (number? number?)
 	(cond ((and (= left 0) (> right 0))
 			#{
-				\set stemRightBeamCount = #$right
+				\set stemRightBeamCount = #right
 			#})
 
 			((and (> left 0) (= right 0))
 			#{
-				\set stemLeftBeamCount = #$left
+				\set stemLeftBeamCount = #left
 			#})
 
 			(else
 			#{
-				\set stemLeftBeamCount = #$left
-				\set stemRightBeamCount = #$right
+				\set stemLeftBeamCount = #left
+				\set stemRightBeamCount = #right
 			#})
 	)
 )

@@ -9,7 +9,7 @@
   $Id: bagpipe.ly,v 1.12 2006/03/16 14:39:46 hanwen Exp $
 %}
 
-\version "2.14.0"
+\version "2.15.18"
 
 % Notes of the scale of the Great Highland Bagpipe. Extra high notes for bombarde.
 % Flat notes used mainly in some modern music.
@@ -41,14 +41,14 @@ hideKeySignature = {
   \override Staff.KeySignature  #'stencil = ##f
   \set Staff.extraNatural = ##f
   \key d \major
-  #(set-accidental-style 'forget)
+  $(set-accidental-style 'forget)
 }
 showKeySignature = {
   % Show the key signature e.g. for BMW compatibility.
   \override Staff.KeySignature  #'stencil = #ly:key-signature-interface::print
   \set Staff.extraNatural = ##f
   \key d \major
-  #(set-accidental-style 'forget)
+  $(set-accidental-style 'forget)
 }
 
 % Layout tweaks.
@@ -89,7 +89,7 @@ marchTime = {
 
 % Add appropriate tweaks needed for piping grace notes to look great.
 stemspace = #(define-music-function (parser location extent) (pair?) #{
-  \once \override Staff.Stem #'X-extent = #$extent
+  \once \override Staff.Stem #'X-extent = #extent
 #})
 pgrace = #(define-music-function (parser location notes) (ly:music?) #{
   \override Score.GraceSpacing #'spacing-increment = #0

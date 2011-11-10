@@ -526,11 +526,10 @@ in @var{grob}."
 (define-public (set-time-signature num den . rest)
   "Set properties for time signature @var{num}/@var{den}.
 If @var{rest} is present, it is used to set @code{beatStructure}."
-  (ly:export
-   (make-music 'TimeSignatureMusic
+  (make-music 'TimeSignatureMusic
 	       'numerator num
 	       'denominator den
-	       'beat-structure (if (null? rest) rest (car rest)))))
+	       'beat-structure (if (null? rest) rest (car rest))))
 
 (define-safe-public (make-articulation name)
   (make-music 'ArticulationEvent
@@ -634,7 +633,7 @@ NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
     m))
 
 (define-public (empty-music)
-  (ly:export (make-music 'Music)))
+  (make-music 'Music))
 
 ;; Make a function that checks score element for being of a specific type.
 (define-public (make-type-checker symbol)
@@ -727,7 +726,7 @@ NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
 	   (new-settings (append current
 				 (list (list context-name grob sym val)))))
       (ly:context-set-property! where 'graceSettings new-settings)))
-  (ly:export (context-spec-music (make-apply-context set-prop) 'Voice)))
+  (context-spec-music (make-apply-context set-prop) 'Voice))
 
 (define-public (remove-grace-property context-name grob sym)
   "Remove all @var{sym} for @var{grob} in @var{context-name}."
@@ -746,7 +745,7 @@ NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
                  (set! new-settings (delete x new-settings)))
                prop-settings)
       (ly:context-set-property! where 'graceSettings new-settings)))
-  (ly:export (context-spec-music (make-apply-context delete-prop) 'Voice)))
+  (context-spec-music (make-apply-context delete-prop) 'Voice))
 
 
 
@@ -1316,8 +1315,7 @@ as a context."
 		     (car rest) 'Staff))
 	(pcontext (if (pair? rest)
 		      (car rest) 'GrandStaff)))
-    (ly:export
-     (cond
+    (cond
       ;; accidentals as they were common in the 18th century.
       ((equal? style 'default)
        (set-accidentals-properties #t
@@ -1470,7 +1468,7 @@ as a context."
 				   context))
       (else
        (ly:warning (_ "unknown accidental style: ~S") style)
-       (make-sequential-music '()))))))
+       (make-sequential-music '())))))
 
 (define-public (invalidate-alterations context)
   "Invalidate alterations in @var{context}.

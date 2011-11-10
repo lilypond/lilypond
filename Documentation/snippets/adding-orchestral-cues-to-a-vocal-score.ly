@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.15.18"
 
 \header {
   lsrtags = "staff-notation, vocal-music"
@@ -93,7 +93,7 @@ cueWhile =
    (parser location instrument name dir music)
    (string? string? ly:dir? ly:music?)
    #{
-     \cueDuring $instrument #$dir {
+     \cueDuring $instrument #dir {
        \once \override TextScript #'self-alignment-X = #RIGHT
        \once \override TextScript #'direction = $dir
        s1*0-\markup { \tiny $name }

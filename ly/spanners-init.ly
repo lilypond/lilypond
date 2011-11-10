@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.18"
 
 startGroup = #(make-span-event 'NoteGroupingEvent START)
 stopGroup = #(make-span-event 'NoteGroupingEvent STOP)
@@ -32,26 +32,26 @@ enddecresc =  #(make-span-event 'DecrescendoEvent STOP)
 % Deprecated functions:
 % TODO: DEPRECATED_2_13_19
 deprecatedcresc =  {
-  #(ly:export (make-event-chord (list cr)))
+  $(make-event-chord (list cr))
   \once \set crescendoText = \markup { \italic "cresc." }
   \once \set crescendoSpanner = #'text
 }
 
 
 deprecateddim =  {
-  #(ly:export (make-event-chord (list decr)))
+  $(make-event-chord (list decr))
   \once \set decrescendoText = \markup { \italic "dim." }
   \once \set decrescendoSpanner = #'text
 }
 
 deprecatedenddim =  {
-  #(ly:export (make-event-chord (list enddecr)))
+  $(make-event-chord (list enddecr))
 %  \unset decrescendoText 
 %  \unset decrescendoSpanner 
 }
 
 deprecatedendcresc =  {
-  #(ly:export (make-event-chord (list endcr)))
+  $(make-event-chord (list endcr))
 %  \unset crescendoText 
 %  \unset crescendoSpanner 
 }

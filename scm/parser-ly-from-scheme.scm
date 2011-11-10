@@ -16,75 +16,28 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-(define gen-lily-sym
-  ;; Generate a lilyvartmpXX symbol, that may be (hopefully) unique.
-  (let ((var-idx -1))
-    (lambda ()
-      (set! var-idx (1+ var-idx))
-      (string->symbol (format #f "lilyvartmp~a"
-                              (list->string (map (lambda (chr)
-                                                   (integer->char (+ (char->integer #\a)
-                                                                     (- (char->integer chr)
-                                                                        (char->integer #\0)))))
-                                                 (string->list (number->string var-idx)))))))))
-
 (define-public (read-lily-expression chr port)
-  "Read a lilypond music expression enclosed within @code{#@}} and @code{#@}}
+  "Read a lilypond music expression enclosed within @code{#@{} and @code{#@}}
 from @var{port} and return the corresponding Scheme music expression.
-The @samp{$} character may be used to introduce Scheme forms, typically
-symbols.  @code{$$} may be used to simply write a @samp{$} character itself."
-  (let ((bindings '()))
-
-    (define (create-binding! val)
-      "Create a new symbol, bind it to `val' and return it."
-      (let ((tmp-symbol (gen-lily-sym)))
-        (set! bindings (cons (cons tmp-symbol val) bindings))
-        tmp-symbol))
-    
-    (define (remove-dollars! form)
-      "Generate a form where `$variable' and `$ value' mottos are replaced
-      by new symbols, which are binded to the adequate values."
-      (cond (;; $variable
-             (and (symbol? form)
-                  (string=? (substring (symbol->string form) 0 1) "$")
-                  (not (and (<= 2 (string-length (symbol->string form)))
-			    (string=? (substring (symbol->string form) 1 2) "$"))))
-             (create-binding! (string->symbol (substring (symbol->string form) 1))))
-            (;; atom
-             (not (pair? form)) form)
-            (;; ($ value ...)
-             (eqv? (car form) '$)
-             (cons (create-binding! (cadr form)) (remove-dollars! (cddr form))))
-            (else ;; (something ...)
-             (cons (remove-dollars! (car form)) (remove-dollars! (cdr form))))))
-    
-    (let ((lily-string (call-with-output-string
-                        (lambda (out)
-                          (do ((c (read-char port) (read-char port)))
-                              ((and (char=? c #\#)
-                                    (char=? (peek-char port) #\})) ;; we stop when #} is encoutered
-                               (read-char port))
-                            (cond
-                             ;; a $form expression
-                             ((and (char=? c #\$) (not (char=? (peek-char port) #\$)))
-                              (format out "\\~a" (create-binding! (read port))))
-                             ;; just a $ character
-                             ((and (char=? c #\$) (char=? (peek-char port) #\$))
-                              ;; pop the second $
-                              (display (read-char port) out))
-                             ;; a #scheme expression
-                             ((char=? c #\#)
-                              (let ((expr (read port)))
-                                (format out "#~s" (if (eq? '$ expr)
-                                                      (create-binding! (read port))
-                                                      (remove-dollars! expr)))))
-                             ;; other caracters
-                             (else
-                              (display c out))))))))
-      `(let ((parser-clone (ly:parser-clone parser)))
-         ,@(map (lambda (binding)
-                  `(ly:parser-define! parser-clone ',(car binding) ,(cdr binding)))
-                (reverse bindings))
-         (ly:parse-string-expression parser-clone ,lily-string)))))
+@samp{$} and @samp{#} introduce immediate and normal Scheme forms."
+  (let ((lily-string (call-with-output-string
+		      (lambda (out)
+			(do ((c (read-char port) (read-char port)))
+			    ((and (char=? c #\#)
+				  (char=? (peek-char port) #\})) ;; we stop when #} is encountered
+			     (read-char port))
+			  ;; a #scheme or $scheme expression
+			  (if (or (char=? c #\#) (char=? c #\$))
+			      (format out "~a~s" c (read port))
+			      ;; other characters
+			      (display c out)))))))
+    `(let* ((clone
+	     (ly:parser-clone parser (procedure-environment (lambda () '()))))
+	    (result (begin
+		      (ly:parser-clear-error clone)
+		      (ly:parse-string-expression clone ,lily-string))))
+       (if (ly:parser-has-error? clone)
+	   (ly:parser-error parser (_ "error in #{ ... #}")))
+       result)))
 
 (read-hash-extend #\{ read-lily-expression)

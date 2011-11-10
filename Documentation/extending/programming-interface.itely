@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.17"
+@c \version "2.15.18"
 
 @node Interfaces for programmers
 @chapter Interfaces for programmers
@@ -814,8 +814,8 @@ now as follows:
                 (box-padding 0.6))
   "Draw a double box around text."
   (interpret-markup layout props
-    #@{\markup \override #`(box-padding . ,$inter-box-padding) \box
-               \override #`(box-padding . ,$box-padding) \box
+    #@{\markup \override #`(box-padding . ,inter-box-padding) \box
+               \override #`(box-padding . ,box-padding) \box
                @{ $text @} #@}))
 @end lisp
 
@@ -850,8 +850,8 @@ customized:
                 (box-padding 0.6))
   "Draw a double box around text."
   (interpret-markup layout props
-    #{\markup \override #`(box-padding . ,$inter-box-padding) \box
-              \override #`(box-padding . ,$box-padding) \box
+    #{\markup \override #`(box-padding . ,inter-box-padding) \box
+              \override #`(box-padding . ,box-padding) \box
               { $text } #}))
 
 \markup \double-box A
@@ -958,7 +958,7 @@ indented.  The indent width is taken from the @code{props} argument.
 #(define-markup-list-command (paragraph layout props args) (markup-list?)
    #:properties ((par-indent 2))
    (interpret-markup-list layout props
-     #@{\markuplist \justified-lines @{ \hspace #$par-indent $args @} #@}))
+     #@{\markuplist \justified-lines @{ \hspace #par-indent $args @} #@}))
 @end example
 
 
