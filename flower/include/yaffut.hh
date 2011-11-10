@@ -6,7 +6,12 @@
 #ifndef __YAFFUT_H__
 #define __YAFFUT_H__
 
+#include "config.hh"
+#if HAVE_CXA_DEMANGLE
 #include <cxxabi.h>
+#else
+#include <typeinfo>
+#endif
 
 #include <cmath>
 #include <cstring>
@@ -65,6 +70,7 @@ namespace yaffut
 template <typename T>
 std::string demangle ()
 {
+#if HAVE_CXA_DEMANGLE
   size_t sz;
   int status;
   char *ptr = abi::__cxa_demangle (typeid (T).name (), 0, &sz, &status);
@@ -76,6 +82,9 @@ std::string demangle ()
       name = name.substr (pos + 2);
     }
   return name;
+#else
+  return typeid (T).name ();
+#endif
 }
 
 struct ITest
