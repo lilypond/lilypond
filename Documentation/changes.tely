@@ -61,6 +61,17 @@ which scares away people.
 
 @end ignore
 @item
+Scheme expressions inside of embedded Lilypond (@code{#@{@dots{}#@}})
+are now executed in lexical closure of the surrounding Scheme code.
+@code{$} is no longer special in embedded Lilypond.  It can be used
+unconditionally in Lilypond code for immediate evaluation, similar to
+how @code{ly:export} could previously be used.  @code{ly:export} has
+been removed.  As a consequence, @code{#} is now free to delay
+evaluation of its argument until the parser actually reduces the
+containing expression, greatly reducing the potential for premature
+evaluation.
+
+@item
 The @code{\markuplines} command has been renamed to @code{\markuplist}
 for a better match with its semantics and general Lilypond
 nomenclature.
