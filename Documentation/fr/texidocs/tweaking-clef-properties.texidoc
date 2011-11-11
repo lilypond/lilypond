@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
+%% Translation of GIT committish: 099369f020021577e7455eb627b547482af7cd02
   texidocfr = "
 La commande @code{\\clef \"treble_8\"} équivaut à définir @code{clefGlyph},
 @code{clefPosition} -- qui contrôle la position verticale de la clé --
@@ -18,7 +18,7 @@ une autre valeur.
 
 
 Lorsqu'un changement de clef intervient en même temps qu'un saut de
-ligne, la nouvelle clef est imprimer à la fois en fin de ligne et au
+ligne, la nouvelle clef est imprimée à la fois en fin de ligne et au
 début de la suivante.  Vous pouvez toujours supprimer cette « clef de
 précaution » en affectant la valeur @code{end-of-line-invisible} à la
 propriété @code{explicitClefVisibility} du contexte @code{Staff}.  Le

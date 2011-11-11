@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 20a4e530e15d5e9d3a679067aa6124a2740031de
+    Translation of GIT committish: 099369f020021577e7455eb627b547482af7cd02
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -238,6 +238,8 @@ bloc @code{\transpose}.
 @cindex accords et octave relative
 @cindex octave relative et accords
 
+@funindex \chordmode
+@funindex chordmode
 
 Si l'expression précédente est un accord, c'est la première note de
 l'accord qui détermine l'emplacement de la première note du prochain
@@ -270,6 +272,10 @@ et la quinte diminuée de seulement six demi-tons.
   b2 feses
 }
 @end lilypond
+
+L'une des conséquences de toutes ces règles est que la première note
+rencontrée dans un fragment balisé par @code{@w{\relative f}} sera
+interprétée tout comme si elle avait été saisie en mode absolu.
 
 
 @seealso
@@ -594,6 +600,9 @@ Cette partie traite de la manière de modifier les hauteurs de note.
 @menu
 * Vérifications d'octave::
 * Transposition::
+* Inversion::
+* Rétrogradation::
+* Transformations modales::
 @end menu
 
 @node Vérifications d'octave
@@ -631,7 +640,7 @@ fonction de ce @code{d'} et non de @code{d''}.
 
 Il existe aussi une vérification d'octave qui ne produit pas de musique
 imprimée, ayant pour syntaxe
-@code{\octaveCheck}@tie{}@var{hauteur_référence} --
+@code{\octaveCheck@tie{}@var{hauteur_référence}} --
 @code{@var{hauteur_référence}} étant spécifiée en mode absolu.  Cette
 commande vérifie que l'intervalle entre la note qui précède et
 @code{@var{hauteur_référence}} est inférieur à la quinte comme il se
@@ -786,10 +795,13 @@ Pour plus d'information à ce sujet, consultez
 @seealso
 Manuel de notation :
 @ref{Octaves relatives},
-@ref{Instruments transpositeurs}.
+@ref{Instruments transpositeurs},
+@ref{Inversion},
+@ref{Transformations modales},
+@ref{Rétrogradation}.
 
 Morceaux choisis :
-@rlsrnamed{Pitches,Hauteurs}.
+@rlsrnamed{Pitches, Hauteurs}.
 
 Référence des propriété internes :
 @rinternals{TransposedMusic}.
@@ -804,10 +816,226 @@ Référence des propriété internes :
 
 @knownissues
 
-Si vous voulez utiliser en même temps @code{@bs{}transpose} et
-@code{@bs{}relative}, vous devez mettre @code{@bs{}transpose} en dehors de
-@code{@bs{}relative}, puisque @code{@bs{}relative} n'aura aucun effet sur la
-musique apparaissant dans un @code{@bs{}transpose}.
+Si vous voulez utiliser en même temps @code{\transpose} et
+@code{\relative}, vous devez mettre @code{\transpose} en dehors de
+@code{\relative}, puisque @code{\relative} n'aura aucun effet sur la
+musique apparaissant dans un @code{\transpose}.
+
+La fonction @code{\transpose} ne permet pas d'imprimer des altérations
+triples@tie{}; elle les remplacera par un @qq{équivalent enharmonique}
+-- par exemple ré bémol au lieu de mi triple bémol.
+
+
+@node Inversion
+@unnumberedsubsubsec Inversion
+@translationof Inversion
+
+@cindex inversion
+
+@funindex \inversion
+
+Une expression musicale peut s'inverser à l'aide de l'instruction
+
+@example
+\inversion @var{hauteur-départ} @var{hauteur-arrivée} @var{expression_musicale}
+@end example
+
+L'@code{@var{expression_musicale}} sera alors inversée, intervalle par
+intervalle, puis transposée de @code{@var{hauteur-départ}} à
+@code{@var{hauteur-arrivée}}.
+
+@lilypond[verbatim,quote]
+music = \relative c' { c d e f }
+\new Staff {
+  \music
+  \inversion d' d' \music
+  \inversion d' ees' \music
+}
+@end lilypond
+
+@seealso
+Manuel de notation :
+@ref{Transformations modales},
+@ref{Rétrogradation},
+@ref{Transposition}.
+
+
+@node Rétrogradation
+@unnumberedsubsubsec Rétrogradation
+@translationof Retrograde
+
+@cindex rétrograde, transformation
+@cindex transformation rétrograde
+
+@funindex \retrograde
+@funindex retrograde
+
+Une expression musicale peut se renverser et se presenter sous forme
+rétrograde@tie{}:
+
+@lilypond[verbatim,quote]
+music = \relative c' { c8. ees16( fis8. a16 b8.) gis16 f8. d16 }
+
+\new Staff {
+  \music
+  \retrograde \music
+}
+@end lilypond
+
+@knownissues
+Une liaison de prolongation à l'intérieur d'un bloc @code{\transpose}
+sera de fait rompue, ce qui générera un message d'avertissement.
+Des liaisons de prolongation seront toutefois générées automatiquement 
+dès lors qu'est activé le @ref{Découpage automatique des notes}.
+
+@seealso
+Manuel de notation :
+@ref{Inversion},
+@ref{Transformations modales},
+@ref{Transposition}.
+
+
+@node Transformations modales
+@unnumberedsubsubsec Transformations modales
+@translationof Modal transformations
+
+@cindex modales, transformations
+
+Dans une composition basée sur une gamme, un même motif est transformé à
+plusieurs reprises et selon des schémas différents.  Il peut être
+@notation{transposé} pour partir de différents points de la gamme ou
+bien être @notation{inversé} à partir d'une note pivot dans la gamme.
+Il peut aussi être renversé pour produire une rétrogradation.
+
+@warning{Toute note qui ne ferait pas partie de la gamme en question ne
+sera pas transformée.}
+
+
+@subsubheading Transposition modale
+@translationof Modal transposition
+
+@cindex modale, transposition
+
+@funindex \modalTranspose
+@funindex modalTranspose
+
+Un motif peut se transposer selon une gamme donnée@tie{}:
+
+@example
+\modalTranspose @var{hauteur-départ} @var{hauteur-arrivée} @var{gamme} @var{motif}
+@end example
+
+Les notes de @var{motif} seront décalées à l'intérieur de la @var{gamme}
+selon leur degré, déterminé par l'intervalle entre @var{hauteur-départ}
+et @var{hauteur-arrivée}@tie{}:
+
+@lilypond[verbatim,quote]
+diatonicScale = \relative c' { c d e f g a b }
+motif = \relative c' { c8 d e f g a b c }
+
+\new Staff {
+  \motif
+  \modalTranspose c f \diatonicScale \motif
+  \modalTranspose c b, \diatonicScale \motif
+}
+@end lilypond
+
+Il est ainsi possible de déterminer une gamme ascendante, quels qu'en soient
+l'amplitude et les différents intervalles@tie{}:
+
+@lilypond[verbatim,quote]
+pentatonicScale = \relative c' { ges aes bes des ees }
+motif = \relative c' { ees8 des ges,4 <ges' bes,> <ges bes,> }
+
+\new Staff {
+  \motif
+  \modalTranspose ges ees' \pentatonicScale \motif
+}
+@end lilypond
+
+L'utilisation de @code{\modalTranspose} avec une gamme chromatique
+produit les mêmes effets qu'un @code{\transpose}, à ceci près que les
+notes seront alors prédéterminées@tie{}:
+
+@lilypond[verbatim,quote]
+chromaticScale = \relative c' { c cis d dis e f fis g gis a ais b }
+motif = \relative c' { c8 d e f g a b c }
+
+\new Staff {
+  \motif
+  \transpose c f \motif
+  \modalTranspose c f \chromaticScale \motif
+}
+@end lilypond
+
+
+@subsubheading Inversion modale
+@translationof Modal inversion
+
+@cindex modale, inversion
+
+@funindex \modalInversion
+@funindex modalInversion
+
+Un motif peut s'inverser selon une certaine gamme et à partir d'un pivot
+déterminé, puis transposé, le tout en une seule opération@tie{}:
+
+@example
+\modalInversion @var{hauteur-pivot} @var{hauteur-arrivée} @var{gamme} @var{motif}
+@end example
+
+Les notes de @var{motif} se retrouvent au même degré par rapport à
+@var{hauteur-pivot} dans la @var{gamme}, toutefois dans le sens opposé,
+puis décalées dans cette même @var{gamme} de l'intervalle séparant
+@var{hauteur-départ} et @var{hauteur-arrivée}.
+
+Il est donc possible de simplement inverser à partir d'une des notes de
+la gamme en donnant la même valeur à @var{hauteur-départ} et
+@var{hauteur-arrivée}@tie{}:
+
+@lilypond[verbatim,quote]
+octatonicScale = \relative c' { ees f fis gis a b c d }
+motif = \relative c' { c8. ees16 fis8. a16 b8. gis16 f8. d16 }
+
+\new Staff {
+  \motif
+  \modalInversion fis' fis' \octatonicScale \motif
+}
+@end lilypond
+
+Pour permuter deux notes de la gamme, il suffit donc d'inverser à partir
+de l'une des notes et de transposer d'un degré de la gamme.  Les deux
+notes spécifiées peuvent s'interpréter comme étant les bornes du pivot.
+
+@lilypond[verbatim,quote]
+scale = \relative c' { c g' }
+motive = \relative c' { c c g' c, }
+
+\new Staff {
+  \motive
+  \modalInversion c' g' \scale \motive
+}
+@end lilypond
+
+L'opération conjointe d'une inversion et d'une rétrogradation produit
+une rétrogradation inversée@tie{}:
+
+@lilypond[verbatim,quote]
+octatonicScale = \relative c' { ees f fis gis a b c d }
+motif = \relative c' { c8. ees16 fis8. a16 b8. gis16 f8. d16 }
+
+\new Staff {
+  \motif
+  \retrograde \modalInversion c' c' \octatonicScale \motif
+}
+@end lilypond
+
+@seealso
+Manuel de notation :
+@ref{Inversion},
+@ref{Rétrogradation},
+@ref{Transposition}.
+
 
 @node Gravure des hauteurs
 @subsection Gravure des hauteurs
@@ -913,7 +1141,11 @@ c2 c
 Il existe d'autres clefs, destinées à un usage particulier.  Voir à ce
 sujet @ref{Notations anciennes}
 @c r ef{Mensural clefs}, @c r ef{Gregorian clefs},
-@ref{Tablatures par défaut} et @ref{Tablatures personnalisées}.
+@ref{Tablatures par défaut} et @ref{Tablatures personnalisées}.  La
+nécessité de recourir à d'autres clefs dans le cas où la partition
+comprend des petites notes est abordée au chapitre 
+@ref{Mise en forme d'une citation} -- voir les fonctions @code{\cueClef}
+et @code{\cueDuringWithClef}.
 
 
 @snippets
@@ -927,6 +1159,7 @@ Manuel de notation :
 @ref{Notations anciennes},
 @c r ef{Mensural clefs},
 @c r ef{Gregorian clefs},
+@ref{Mise en forme d'une citation},
 @ref{Tablatures par défaut},
 @ref{Tablatures personnalisées}.
 
@@ -1160,7 +1393,7 @@ conducteur.  Les deux instruments sont à l'unisson.
 @end lilypond
 
 La @code{\transposition} peut évoluer au cours d'un morceau.  Un
-clarinettiste peut être amené à jongler entre une clarinette en la et
+clarinettiste peut être amené à jongler avec une clarinette en la et
 une autre en si bémol.
 
 @lilypond[verbatim,quote,relative=2]
@@ -1238,7 +1471,7 @@ l'exemple suivant@tie{}:
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1319,7 +1552,7 @@ la deuxième mesure, ni avant le dernier @notation{do}.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1391,7 +1624,7 @@ musicien, il vaut mieux utiliser @code{modern} ou
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1441,8 +1674,11 @@ musicB = {
 
 @funindex modern
 
-Cette règle est la plus courante au XXe siècle.  Les altérations
-accidentelles sont imprimées comme avec le style @code{default}, mais
+Cette règle est la plus courante au XXe siècle.  Certains bécarres ne
+sont pas imprimés, comme il était d'usage lorsqu'une note dièsée suit
+cette même note flanquée d'un double dièse, ou bien un bémol un double
+bémol.  Le style @code{modern} suit la même règle que le style
+@code{default}, avec deux additions afin de lever les ambiguités@tie{}:
 lorsqu'une note non-altérée apparaît à une octave différente, ou bien
 dans la mesure suivante, des bécarres de précaution sont ajoutés.  Dans
 l'exemple suivant, notez ainsi les deux bécarres dans la deuxième mesure
@@ -1452,7 +1688,7 @@ de la main droite.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1514,7 +1750,7 @@ particulière@tie{}: soit plus petit, soit (par défaut) entre parenthèses
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1575,13 +1811,13 @@ voix d'un même contexte @code{Staff} en @emph{tiennent compte}
 cette fois.  C'est pourquoi le @notation{la} de la dernière mesure est
 affublé d'un bécarre bien qu'il y en ait déjà eu un dans la mesure
 précédente, et que le @notation{ré} de la main gauche en ait un alors
-qu'il avait auparavant concerné la main droite.
+que le dièse qu'il avait auparavant concernait la main droite.
 
 @lilypond[quote]
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1641,7 +1877,7 @@ considérées comme étant @qq{de précaution}.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1704,7 +1940,7 @@ Cette règle s'applique par défaut dans un @code{GrandStaff} et dans un
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1761,7 +1997,7 @@ imprimées différemment.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1819,7 +2055,7 @@ sauf si elles concernent deux notes consécutives.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1876,7 +2112,7 @@ sont imprimées différemment.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1940,7 +2176,7 @@ en tiennent aussi compte.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1995,7 +2231,7 @@ soit entre parenthèses (par défaut), soit en plus petit.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2054,7 +2290,7 @@ altération, même si elle est naturelle.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2115,7 +2351,7 @@ dièse ou bémol à la clef -- sauf dans le cas de notes consécutives.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2174,7 +2410,7 @@ accidentelles ne cesse jamais, même dans les mesures suivantes.
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2227,14 +2463,13 @@ musicB = {
 Tout le contraire de @code{no-reset}@tie{}: l'effet des altérations
 cesse aussitôt@tie{}; toutes les altérations, quelque soit leur place
 dans la mesure, sont de ce fait imprimées en fonction de l'éventuelle
-armure.  À l'inverse du style @code{dodecaphonic}, aucun bécarre ne sera
-ici imprimé.
+armure.
 
 @lilypond[quote]
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2277,6 +2512,7 @@ musicB = {
 }
 @end lilypond
 @end table
+
 
 @seealso
 Morceaux choisis :
@@ -2369,8 +2605,9 @@ début des partitions vocales, afin que les exécutants puissent voir au
 premier coup d'œil s'ils sont en mesure de tenir la partie en question.
 
 Pour exprimer l'@emph{ambitus} d'une pièce, on indique avant la clef
-deux notes représentant la hauteur la plus basse et la plus haute.  Les
-éventuelles altérations accidentelles seront automatiquement ajoutées.
+deux têtes de note représentant la hauteur la plus basse et la plus
+haute.  Les éventuelles altérations accidentelles seront automatiquement
+ajoutées.
 
 @lilypond[verbatim,quote]
 \layout {
