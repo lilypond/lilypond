@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 9c74179ab62d3a785e890df9c90656ee8fb90fef
+    Translation of GIT committish: 3b8f430efd506ccd6ae8235be0f08468c0da937d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1709,8 +1709,8 @@ métrique, les précédents représentent le @qq{numérateur}.
 }
 @end lilypond
 
-Une métrique plus élabborée s'obtient en ajoutant d'autres listes.  Bien
-entendu, les ligatures automatoques s'ajusteront aux différentes
+Une métrique plus élaborée s'obtient en ajoutant d'autres listes.  Bien
+entendu, les ligatures automatiques s'ajusteront aux différentes
 valeurs.
 
 @lilypond[quote,verbatim]
