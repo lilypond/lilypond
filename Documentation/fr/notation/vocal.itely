@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
+    Translation of GIT committish: f88e964fea14c10b48787ec9f4b5f8261a23de48
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -109,6 +109,7 @@ Morceaux choisis :
 @cindex ponctuation
 @cindex espaces, dans les paroles
 @cindex guillemets, dans les paroles
+@cindex paroles, mise en forme
 @cindex ponctuation et paroles
 
 @funindex \lyricmode
@@ -179,7 +180,7 @@ mais plutôt
 Pour utiliser des lettres accentuées ou des caractères spéciaux
 -- cœurs ou guillemets inversés par exemple -- il suffit de les insérer
 dans le fichier et de veiller à le sauvegarder avec le codage UTF-8.
-Voir à ce sujet @ref{Codage du texte} pour plus de détails.
+Voir à ce sujet @ref{Caractères spéciaux} pour plus de détails.
 
 @lilypond[quote,verbatim]
 \relative c'' { d8 c16 a bes8 f e' d c4 }
@@ -206,14 +207,27 @@ codes de contrôle @code{^A} à @code{^F} et @code{^Q} à @code{^W},
 
 @c " to balance double quotes for not-so-bright context-sensitive editors
 
+LilyPond permet de contrôler très finement le rendu des paroles grâce au
+mode @code{\markup}, utilisable y compris au sein du mode
+@code{\lyricmode}.  Des explications complètes sont disponibles au
+chapitre @ref{Mise en forme du texte}.
+
+@snippets
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{formatting-lyrics-syllables.ly}
+
+
 @seealso
 Manuel d'initiation :
 @rlearning{Chansons}
 
 Manuel de notation :
+@ref{Caractères spéciaux},
 @ref{Durée automatique des syllabes},
 @ref{Durée explicite des syllabes},
 @ref{Fontes},
+@ref{Mise en forme du texte},
 @rusernamed{Input modes,Modes de saisie}.
 
 Référence des propriétés internes :
@@ -245,7 +259,7 @@ mélodie@tie{}:
 @item
 Les paroles peuvent s'aligner automatiquement, la durée des syllabes
 étant déterminée à partir d'un contexte de voix ou, dans certaines
-circonstance, une mélodie associée, grâce aux commandes
+circonstances, une mélodie associée, grâce aux commandes
 @code{\addlyrics} et @code{\lyricsto} ou en définissant la propriété
 @code{associatedVoice}.  Ceci est détaillé à la rubrique
 @ref{Durée automatique des syllabes}.
@@ -646,8 +660,8 @@ notes correspondent à une même syllabe.  Ces vocalises sont appelées
 traditionnellement alignée sur la gauche de la première note du mélisme.
 
 Lorsqu'un mélisme tombe sur une syllabe autre que la dernière d'un mot,
-un trait d'union étiré, indiqué par un double tiret @code{--} dans le
-fichier source, reliera cette syllabe  à la suivante. 
+un trait d'union étiré, indiqué par un double tiret @w{@code{--}} dans
+le fichier source, reliera cette syllabe  à la suivante. 
 
 Lorsqu'un mélisme tombe sur la dernière syllabe d'un mot ou que ce mot
 n'en comporte qu'une, l'usage est d'indiquer la @qq{tenue} jusqu'à la
@@ -1117,7 +1131,7 @@ Manuel d'initiation :
 @rlearning{Ensemble vocal}.
 
 Manuel de notation :
-@ref{Alignement des contextes},
+@rusernamed{Context layout order, Ordre des contextes de mise en forme},
 @ref{Création d'un contexte}.
 
 
@@ -1174,11 +1188,11 @@ dans le bloc @code{\layout}.
 
 L'assurance que tous les scripts textuels et les paroles resteront bien
 à l'intérieur des marges requiert des ressources non négligeables.
-Afin de réduire le temps de traitement, LilyPond n'effectue pas ces
-calculs par défaut@tie{}; pour l'y obliger, vous devrez ajouter
+Afin de réduire le temps de traitement, vous pouvez désactiver cette
+fonctionnalité en ajoutant
 
 @example
-\override Score.PaperColumn #'keep-inside-line = ##t
+\override Score.PaperColumn #'keep-inside-line = ##f
 @end example
 
 Pour s'assurer que les paroles ne seront pas traversées par des barres
@@ -1297,7 +1311,7 @@ saisissez le texte normalement@tie{}:
 @end lilypond
 
 Lorsque les paroles diffèrent pour une reprise non développée --
-utiliation de @code{volta} au lieu de @code{unfold} -- les paroles en
+utilisation de @code{volta} au lieu de @code{unfold} -- les paroles en
 question doivent être saisies dans des contextes @code{Lyrics}
 séparés@tie{}; ils seront combinés dans une section parallèle@tie{}:
 
@@ -1454,8 +1468,9 @@ puisque la longueur de l'alternative est accrue en raison de la liaison.
 
 D'autre part, une liaison de prolongation crée un mélisme qui sera
 effectif pour la première alternative, mais pas pour les autres.  La
-solution pour recaler les paroles, consiste à désactiver temporairement
-la détection automatique de mélismes et insérer des @qq{blancs}.
+solution pour @qq{recaler} les paroles consiste à désactiver
+temporairement la détection automatique de mélismes et insérer des
+@qq{blancs}.
 
 @lilypond[quote,verbatim]
 \score {
@@ -1525,7 +1540,7 @@ insérer des blancs@tie{}:
 @end lilypond
 
 Les indications de mélisme et traits d'union en début d'alternative
-doivent être insérés manuellement@tie{}:
+doivent être insérées manuellement@tie{}:
 
 @lilypond[quote,verbatim]
 \score {
@@ -1601,7 +1616,7 @@ en spécifiant ces mélismes au niveau des paroles@tie{}:
 @end lilypond
 
 En donnant un nom à chaque voix et en leur attribuant spécifiquement
-des paroles, vous pourez traiter le cas où notes et rythme diffèrent
+des paroles, vous pourrez traiter le cas où notes et rythme diffèrent
 d'une fois sur l'autre@tie{}:
 
 @lilypond[verbatim,ragged-right,quote]
@@ -1880,7 +1895,7 @@ plusieurs voix.  Les paroles peuvent suivre l'une ou l'autre des
 lignes mélodiques, et même basculer de l'une à l'autre si l'on
 modifie la propriété @code{associatedVoice}.  Dans cet exemple,
 
-@lilypond[ragged-right,quote]
+@lilypond[verbatim,quote]
 <<
   \relative c' \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
@@ -2203,13 +2218,13 @@ Les paroles sont traitées dans des contextes @code{Lyrics} qui viendront
 se placer tantôt sous la portée, tantôt au-dessus et au-dessous de la
 portée si elle contient deux voix.
 
-Un certain nombre de composantes d'une partition pour chœur sont
-examinés à différents endroits de la documentation de LilyPond@tie{}:
+Certaines composantes d'une partition pour chœur sont examinées à
+différents endroits de la documentation de LilyPond@tie{}:
 
 @itemize
 
 @item
-La création pas à pas d'une partition pour chœur se trouve dans la
+La création pas à pas d'une partition pour chœur se trouve dans le
 manuel d'initiation, au chapitre
 @rlearning{Partition pour chœur à quatre voix mixtes}.
 
@@ -2223,8 +2238,8 @@ Des informations détaillées sur les contextes @code{ChoirStaff} et
 @ref{Regroupement de portées}.
 
 @item
-Les formes de notation particulière, telles que celle utilisée en
-@emph{Sacred Harp} et assimilées, sont abrodées au chapitre
+Les formes de notation particulière, telle que celle utilisée en
+@emph{Sacred Harp} et assimilées, sont abordées au chapitre
 @ref{Têtes de note à forme variable}.
 
 @item
@@ -2643,7 +2658,7 @@ faudra mentionner sa tonalité dans sa définition, afin que ses hauteurs
 soient automatiquement converties dans la réplique.  Ceci est illustré
 par l'exemple ci-dessous, dans lequel il est fait appel à une clarinette
 en si bémol.  Dans la mesure où les notes citées se trouvent vers le bas
-de la portée, nous ajoutons un @code{#DOWN} à la commande
+de la portée, nous affrectons un @code{DOWN} à la commande
 @code{\cueDuring}, de telle sorte que les hampes aillent vers le bas et
 que le nom de l'instrument cité soit en dessous de la portée.  Vous
 noterez que la voix contenant la main droite du piano est explicitement
@@ -2715,7 +2730,7 @@ Référence des propriétés internes :
 
 @knownissues
 @code{\cueDuring} crée automatiquement un contexte @code{CueVoice} qui
-accueillera toutes les notes répliquées.  Il est par conséquenet
+accueillera toutes les notes répliquées.  Il est par conséquent
 impossible de faire se superposer des citations à l'aide de la technique
 simplifiée telle que nous venons de le voir.  La superposition de
 fragments cités requiert que les contextes @code{CueVoice} soient
@@ -2746,7 +2761,7 @@ indiqué par des notes en croix, à l'instar des percussions -- voir
 @unnumberedsubsubsec Dialogue et musique
 @translationof Dialogue over music
 
-Les dialogues que l'on ajoute à la musiqua sont traditionnellement
+Les dialogues que l'on ajoute à la musique sont traditionnellement
 imprimés en italique au-dessus des portées, au moment même où ils
 surviennent.
 
@@ -3168,7 +3183,7 @@ Manuel de notation :
 Les versets d'un psaume anglican sont habituellement centrées sous la
 mélodie.
 
-Dans le cas d'un chant simple, les sept mesures sui le composent sont
+Dans le cas d'un chant simple, les sept mesures qui le composent sont
 répétées pour chaque verset.  Dans le cas d'un chant double, les
 quatorze mesures se répètent par couple de versets.  Des marques
 insérées dans le texte indiquent comment il s'articule par rapport à la
@@ -3279,7 +3294,7 @@ tick = \markup {
 }
 @end lilypond
 
-D'autres psautiers indiquent une syllabe accentuées en la surchargeant
+D'autres psautiers indiquent une syllabe accentuée en la surchargeant
 d'un accent.
 
 @lilypond[verbatim,quote]
