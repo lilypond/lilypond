@@ -125,14 +125,10 @@ CXXFLAGS="$save_CXXFLAGS"
 
 ## Check for usable cxxabi
 AC_MSG_CHECKING(for usable C++ demangler)
-AC_LINK_IFELSE([#include <cxxabi.h>
-int main(){
-    size_t sz;
-    int status;
-    char *ptr = abi::__cxa_demangle ("", 0, &sz, &status);
-    return 0;
- }], [AC_DEFINE(HAVE_CXA_DEMANGLE)
-      AC_MSG_RESULT(yes)],
+AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <cxxabi.h>],
+	    [abi::__cxa_demangle ("", 0, 0, 0)]);],
+    [AC_DEFINE(HAVE_CXA_DEMANGLE)
+AC_MSG_RESULT(yes)],
     [AC_MSG_RESULT([no, use c++filt -t for manual demangling])])
 
 ## check rational bugfix.
