@@ -59,13 +59,13 @@ Download the Ubuntu LilyPond Developer Remix disk image:
 (approximately 1 GB)
 
 @example
-@uref{http://files.lilynet.net/ubuntu-lilydev-remix-1.1.iso}
+@uref{http://www.et.byu.edu/~sorensen/ubuntu-lilydev-remix-1.1.iso}
 @end example
 
 @advanced{Some users might want these files, but if you don't
 recognize what they are, then you don't want them:
 @*
-@uref{http://files.lilynet.net/ubuntu-lilydev-remix-1.1.iso.md5}
+@uref{http://www.et.byu.edu/~sorensen/ubuntu-lilydev-remix-1.1.iso.md5}
 @c @*
 @c @uref{http://files.lilynet.net/ubuntu-lilydev-remix-1.0.iso.torrent}
 }
@@ -129,9 +129,9 @@ client.
 Not all hardware is supported in all virtualization tools.  In
 particular, some contributors have reported problems with USB
 devices, for example USB network adapters.  If you have problems
-with network connection (for example internet connection in the 
+with network connection (for example internet connection in the
 host system is lost when you launch virtual system), try installing
-and running Lilydev with your computer's built-in network adapter 
+and running Lilydev with your computer's built-in network adapter
 used to connect to the network.
 If you would like to investigate further, then look for
 help for your virtualization tool using your normal OS as the
