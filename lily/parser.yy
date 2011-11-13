@@ -149,17 +149,13 @@ do									\
 while (0)
 
 
-#define MYREPARSE(Location, Default, Pred, Token, Value)		\
+#define MYREPARSE(Location, Pred, Token, Value)				\
 do									\
 	if (yychar == YYEMPTY)						\
 	{								\
 		PARSER->lexer_->push_extra_token (Token, Value);	\
-		if (Default != SCM_UNDEFINED)				\
-			PARSER->lexer_->push_extra_token (REPARSE,	\
-							  scm_cons (Default, Pred)); \
-		else							\
-			PARSER->lexer_->push_extra_token (REPARSE,	\
-							  Pred);	\
+		PARSER->lexer_->push_extra_token (REPARSE,		\
+						  Pred);		\
 	} else {							\
 		PARSER->parser_error					\
 			(Location, _("Too much lookahead"));		\
@@ -209,14 +205,13 @@ SCM get_next_unique_lyrics_context_id ();
 
 
 static Music *make_music_with_input (SCM name, Input where);
-SCM check_scheme_arg (Lily_parser *parser, Input loc, SCM fallback,
+SCM check_scheme_arg (Lily_parser *parser, Input loc,
 		      SCM arg, SCM args, SCM pred);
 SCM loc_on_music (Input loc, SCM arg);
 SCM get_first_context_id (SCM type, Music *m);
 SCM make_chord_elements (SCM pitch, SCM dur, SCM modification_list);
 SCM make_chord_step (int step, Rational alter);
 SCM make_simple_markup (SCM a);
-SCM try_unpack_lyrics (SCM pred, SCM arg);
 bool is_duration (int t);
 bool is_regular_identifier (SCM id);
 bool ly_input_procedure_p (SCM x);
@@ -1269,19 +1264,19 @@ function_arglist_nonbackup:
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist embedded_scm_arg_closed
 	{
-		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
+		$$ = check_scheme_arg (PARSER, @4, $4, $3, $2);
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed bare_number
 	{
-		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
+		$$ = check_scheme_arg (PARSER, @4, $4, $3, $2);
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed fraction
 	{
-		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
+		$$ = check_scheme_arg (PARSER, @4, $4, $3, $2);
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed post_event
 	{
-		$$ = check_scheme_arg (PARSER, @4, $1, $4, $3, $2);
+		$$ = check_scheme_arg (PARSER, @4, $4, $3, $2);
 	}
 	;
 
@@ -1339,7 +1334,7 @@ function_arglist_backup:
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
 			$$ = $3;
-			MYREPARSE (@4, $1, $2, UNSIGNED, $4);
+			MYREPARSE (@4, $2, UNSIGNED, $4);
 		} else {
 			$$ = scm_cons (loc_on_music (@3, $1), $3);
 			MYBACKUP (UNSIGNED, $4, @4);
@@ -1350,7 +1345,7 @@ function_arglist_backup:
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
 			$$ = $3;
-			MYREPARSE (@4, $1, $2, REAL, $4);
+			MYREPARSE (@4, $2, REAL, $4);
 		} else {
 			$$ = scm_cons (loc_on_music (@3, $1), $3);
 			MYBACKUP (REAL, $4, @4);
@@ -1391,18 +1386,18 @@ function_arglist_backup:
 	}
 	| function_arglist_backup REPARSE embedded_scm_arg_closed
 	{
-		$$ = check_scheme_arg (PARSER, @3, scm_car ($2),
-				       $3, $1, scm_cdr ($2));
+		$$ = check_scheme_arg (PARSER, @3,
+				       $3, $1, $2);
 	}
 	| function_arglist_backup REPARSE bare_number
 	{
-		$$ = check_scheme_arg (PARSER, @3, scm_car ($2),
-				       $3, $1, scm_cdr ($2));
+		$$ = check_scheme_arg (PARSER, @3,
+				       $3, $1, $2);
 	}
 	| function_arglist_backup REPARSE fraction
 	{
-		$$ = check_scheme_arg (PARSER, @3, scm_car ($2),
-				       $3, $1, scm_cdr ($2));
+		$$ = check_scheme_arg (PARSER, @3,
+				       $3, $1, $2);
 	}
 	;
 
@@ -1415,22 +1410,22 @@ function_arglist_common:
 	function_arglist_bare
 	| EXPECT_SCM function_arglist_optional embedded_scm_arg
 	{
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional bare_number
 	{
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional fraction
 	{
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional post_event
 	{
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $2, $1);
 	}
 	| function_arglist_common_lyric
@@ -1453,25 +1448,25 @@ function_arglist_common_lyric:
 			if (scm_is_true (scm_call_1 ($1, lyric_event)))
 			{
 				$$ = $2;
-				MYREPARSE (@3, SCM_UNDEFINED, $1, LYRIC_ELEMENT_P, $3);
+				MYREPARSE (@3, $1, LYRIC_ELEMENT_P, $3);
 			} else {
 				$$ = scm_cons ($3, $2);
 			}
 		else if (scm_is_true (scm_call_1 ($1, lyric_event)))
 		{
 			$$ = $2;
-			MYREPARSE (@3, SCM_UNDEFINED, $1, LYRIC_ELEMENT, $3);
+			MYREPARSE (@3, $1, LYRIC_ELEMENT, $3);
 		} else {
 			// This is going to flag a syntax error, we
 			// know the predicate to be false.
-			check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+			check_scheme_arg (PARSER, @3,
 					  $3, $2, $1);
 		}
 	}
 	| function_arglist_common_lyric REPARSE lyric_element_arg
 	{
 		// This should never be false
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $1, $2);
 	}
 	;
@@ -1485,27 +1480,27 @@ function_arglist_closed_common:
 	function_arglist_bare
 	| EXPECT_SCM function_arglist_optional embedded_scm_arg_closed
 	{
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional bare_number_closed
 	{
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional post_event
 	{
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional FRACTION
 	{
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_optional lyric_element
 	{
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $2, $1);
 	}
 	;
@@ -2013,7 +2008,7 @@ music_function_chord_body_arglist:
 	function_arglist_bare
 	| EXPECT_SCM music_function_chord_body_arglist embedded_scm_chord_body
 	{
-		$$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED,
+		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $2, $1);
 	}
 	;
@@ -2916,7 +2911,7 @@ markup_command_basic_arguments:
 	  $$ = scm_cons ($3, $2);
 	}
 	| EXPECT_SCM markup_command_list_arguments embedded_scm_closed {
-	  $$ = check_scheme_arg (PARSER, @3, SCM_UNDEFINED, $3, $2, $1);
+	  $$ = check_scheme_arg (PARSER, @3, $3, $2, $1);
 	}
 	| EXPECT_NO_MORE_ARGS {
 	  $$ = SCM_EOL;
@@ -3091,25 +3086,15 @@ get_next_unique_lyrics_context_id ()
 	return scm_from_locale_string (s);
 }
 
-SCM check_scheme_arg (Lily_parser *my_lily_parser, Input loc, SCM fallback,
+SCM check_scheme_arg (Lily_parser *my_lily_parser, Input loc,
 		      SCM arg, SCM args, SCM pred)
 {
-	SCM unwrap = SCM_UNDEFINED;
+	args = scm_cons (arg, args);
 	if (scm_is_true (scm_call_1 (pred, arg)))
-		return scm_cons (arg, args);
-	unwrap = try_unpack_lyrics (pred, arg);
-	if (!SCM_UNBNDP (unwrap))
-		return scm_cons (unwrap, args);
-	if (SCM_UNBNDP (fallback)) {
-		args = scm_cons (SCM_BOOL_F, args);
-		fallback = SCM_BOOL_F;
-	} else {
-		args = scm_cons (loc_on_music (loc, fallback), args);
-		fallback = SCM_CDR (scm_last_pair (args));
-	}
+		return args;
 	scm_set_cdr_x (scm_last_pair (args), SCM_EOL);
 	MAKE_SYNTAX ("argument-error", loc, scm_length (args), pred, arg);
-	scm_set_cdr_x (scm_last_pair (args), fallback);
+	scm_set_cdr_x (scm_last_pair (args), SCM_BOOL_F);
 	return args;
 }
 
