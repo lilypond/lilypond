@@ -311,7 +311,7 @@ BOM_UTF8	\357\273\277
 <INITIAL,chords,lyrics,figures,notes>\\include           {
 	yy_push_state (incl);
 }
-<incl>\"[^"]*\"   { /* got the include file name */
+<incl>\"[^""]*\"   { /* got the include file name */
 	string s (YYText ()+1);
 	s = s.substr (0, s.rfind ('"'));
 
@@ -328,7 +328,7 @@ BOM_UTF8	\357\273\277
 	if (scm_is_string (sid)) {
 		new_input (ly_scm2string (sid), sources_);
 		yy_pop_state ();
-	} else { 
+	} else {
 	    string msg (_f ("wrong or undefined identifier: `%s'", s ));
 
 	    LexerError (msg.c_str ());
@@ -337,7 +337,34 @@ BOM_UTF8	\357\273\277
 	    scm_display (sid, err);
 	  }
 }
-<incl,version,sourcefilename>\"[^"]*   { // backup rule
+<incl>(\$|#) { // scm for the filename
+	int n = 0;
+	Input hi = here_input();
+	hi.step_forward ();
+	SCM sval = ly_parse_scm (hi.start (), &n, hi,
+		be_safe_global && is_main_input_, parser_);
+	sval = eval_scm (sval);
+
+	for (int i = 0; i < n; i++)
+	{
+		yyinput ();
+	}
+	char_count_stack_.back () += n;
+
+	if (scm_is_string (sval)) {
+		new_input (ly_scm2string (sval), sources_);
+		yy_pop_state ();
+	} else {
+		LexerError (_ ("string expected after \\include").c_str ());
+		if (sval != SCM_UNDEFINED) {
+			SCM err = scm_current_error_port ();
+			scm_puts ("This value was found instead: ", err);
+			scm_display (sval, err);
+		}
+	}
+}
+
+<incl,version,sourcefilename>\"[^""]*   { // backup rule
 	error (_ ("end quote missing"));
 	exit (1);
 }
