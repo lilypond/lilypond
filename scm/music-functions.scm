@@ -517,23 +517,6 @@ in @var{grob}."
   (make-music 'PropertyUnset
 	      'symbol sym))
 
-;;; Need to keep this definition for \time calls from parser
-(define-public (make-time-signature-set num den)
-  "Set properties for time signature @var{num}/@var{den}."
-  (make-music 'TimeSignatureMusic
-              'numerator num
-              'denominator den
-              'beat-structure '()))
-
-;;; Used for calls that include beat-grouping setting
-(define-public (set-time-signature num den . rest)
-  "Set properties for time signature @var{num}/@var{den}.
-If @var{rest} is present, it is used to set @code{beatStructure}."
-  (make-music 'TimeSignatureMusic
-	       'numerator num
-	       'denominator den
-	       'beat-structure (if (null? rest) rest (car rest))))
-
 (define-safe-public (make-articulation name)
   (make-music 'ArticulationEvent
 	      'articulation-type name))

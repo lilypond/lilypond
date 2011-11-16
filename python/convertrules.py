@@ -3276,8 +3276,10 @@ def conv (str):
 
 def paren_matcher (n):
     # poor man's matched paren scanning, gives up
-    # after n+1 levels.
-    return r"\([^()]*(?:"*n+r"\([^()]*\)"+r"[^()]*)*\)"*n
+    # after n+1 levels.  Matches any string with balanced
+    # parens inside; add the outer parens yourself if needed.
+    # Nongreedy.
+    return r"[^()]*?(?:\("*n+r"[^()]*?"+r"\)[^()]*?)*?"*n
     return
 
 def undollar_scm (m):
@@ -3287,12 +3289,11 @@ def undollar_embedded (m):
     str = re.sub (r"#\$", "#", m.group (1))
     # poor man's matched paren scanning after #, gives up
     # after 25 levels.
-    str = re.sub ("#`?"+paren_matcher (25), undollar_scm, str)
+    str = re.sub ("#`?\("+paren_matcher (25)+"\)", undollar_scm, str)
     return m.string[m.start (0):m.start (1)] + str + m.string[m.end (1):m.end (0)]
 
 def strip_export (str):
-    return re.sub (r"\(ly:export\s+((?:[^()]*?" + paren_matcher (25)
-                   + r")*[^()]*)\)",
+    return re.sub (r"\(ly:export\s+(" + paren_matcher (25) + r")\)",
                    r"\1", str)
 
 def export_puller (m):
@@ -3319,17 +3320,29 @@ def record_ugly (m):
 def conv (str):
     str = re.sub (r"(?s)#@?\{(.*?)#@?\}", undollar_embedded, str)
     str = re.sub (r"#\(define(?:-public)?\s+\(([-a-zA-Z]+)"
-                  + r"\b[^()]*?\)([^()]*(?:" + paren_matcher (25)
-                  + r"[^()]*)*)\)", record_ugly, str)
+                  + r"\b[^()]*?\)(" + paren_matcher (25)
+                  + r")\)", record_ugly, str)
     str = re.sub (r"\(define(?:-public)?\s+\(" + should_really_be_music_function
-                  + r"\b[^()]*\)([^()]*(?:" + paren_matcher (25)
-                  + r"[^()]*)*)\)", ugly_function_rewriter, str)
+                  + r"\b[^()]*\)(" + paren_matcher (25)
+                  + r")\)", ugly_function_rewriter, str)
     str = re.sub (r"#(?=\(" + should_really_be_music_function + ")", "$", str)
     str = re.sub (r"#\(markup\*(?=\s)", r"$(markup", str)
-    str = re.sub ("#"+paren_matcher (25), export_puller, str)
+    str = re.sub ("#\("+paren_matcher (25)+"\)", export_puller, str)
     if re.search (r"\(ly:export\s+", str):
         stderr_write ('\n')
         stderr_write (NOT_SMART % "ly:export")
+        stderr_write ('\n')
+    return str
+
+@rule ((2, 15, 19), r"$(set-time-signature ...) -> \time")
+def conv (str):
+    str = re.sub (r"\$\(set-time-signature\s+([0-9]+)\s+([0-9]+)\s*\)",
+                  r"\\time \1/\2", str)
+    str = re.sub (r"\$\(set-time-signature\s+([0-9]+)\s+([0-9]+)\s+(" +
+                  paren_matcher (5) + r")\)", r"\\time #\3 \1/\2", str)
+    if re.search (r"\(set-time-signature\s+", str):
+        stderr_write ('\n')
+        stderr_write (NOT_SMART % "set-time-signature")
         stderr_write ('\n')
     return str
 

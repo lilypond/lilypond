@@ -1,4 +1,4 @@
-\version "2.15.18"
+\version "2.15.19"
 
 \header {
   lsrtags = "rhythms"
@@ -8,15 +8,14 @@ Beat grouping within a measure is controlled by the context property
 established for many time signatures in
 @file{scm/time-signature-settings.scm}.  Values of @code{beatStructure}
 can be changed or set with @code{\set}.
-Alternatively, the
-Scheme function @code{set-time-signature} can be used to both
+Alternatively, @code{\time} can be used to both
 set the time signature and establish the beat structure.
-@code{set-time-signature}, takes three arguments: the
-number of beats, the beat length, and the internal grouping of beats in
-the measure.  @code{\time} and @code{set-time-signature} both apply
-to the @code{Timing} context, so they will not reset values of
-@code{beatStructure} or @code{baseMoment} that are set in
-other lower-level contexts, such as @code{Voice}.
+For this, you specify the internal grouping of beats in a measure
+as a list of numbers (in Scheme syntax) before the time signature.
+
+@code{\time} applies to the @code{Timing} context, so it will not
+reset values of @code{beatStructure} or @code{baseMoment} that are set
+in other lower-level contexts, such as @code{Voice}.
 
 If the @code{Measure_grouping_engraver} is included
 in one of the display contexts, measure grouping signs will be
@@ -36,7 +35,7 @@ is grouped according to the default setting in
     g8 g d d g g a( bes g) |
     \set Timing.beatStructure = #'(2 2 2 3)
     g8 g d d g g a( bes g) |
-    $(set-time-signature 9 8 '(4 5))
+    \time #'(4 5) 9/8
     g8 g d d g g a( bes g) |
     \time 5/8
     a4. g4 |

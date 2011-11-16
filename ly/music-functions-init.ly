@@ -1032,9 +1032,14 @@ tag =
    arg)
 
 time =
-#(define-music-function (parser location fraction) (fraction?)
-   (_i "Set @var{fraction} as time signature.")
-   (make-time-signature-set (car fraction) (cdr fraction)))
+#(define-music-function (parser location beat-structure fraction)
+   ((number-list? '()) fraction?)
+   (_i "Set @var{fraction} as time signature, with optional
+number list @var{beat-structure} before it.")
+  (make-music 'TimeSignatureMusic
+              'numerator (car fraction)
+              'denominator (cdr fraction)
+              'beat-structure beat-structure))
 
 times =
 #(define-music-function (parser location fraction music)
