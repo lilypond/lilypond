@@ -2862,6 +2862,21 @@ markup_top:
 	}
 	;
 
+markup_scm:
+	embedded_scm_bare
+	{
+		if (Text_interface::is_markup ($1))
+			MYBACKUP (MARKUP_IDENTIFIER, $1, @1);
+		else if (Text_interface::is_markup_list ($1))
+			MYBACKUP (MARKUPLIST_IDENTIFIER, $1, @1);
+		else {
+			PARSER->parser_error (@1, _("markup expected"));
+			MYBACKUP (MARKUP_IDENTIFIER, scm_string (SCM_EOL), @1);
+		}
+	} BACKUP
+	;
+			
+
 markup_list:
 	MARKUPLIST_IDENTIFIER {
 		$$ = $1;
@@ -2874,6 +2889,10 @@ markup_list:
 	}
 	| markup_command_list {
 		$$ = scm_list_1 ($1);
+	}
+	| markup_scm MARKUPLIST_IDENTIFIER
+	{
+		$$ = $2;
 	}
 	;
 
@@ -2964,6 +2983,10 @@ simple_markup:
 	}
 	| MARKUP_FUNCTION markup_command_basic_arguments {
 		$$ = scm_cons ($1, scm_reverse_x ($2, SCM_EOL));
+	}
+	| markup_scm MARKUP_IDENTIFIER
+	{
+		$$ = $2;
 	}
 	;
 
