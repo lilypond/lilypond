@@ -23,6 +23,7 @@
 using namespace std;
 
 #include "lily-parser.hh"
+#include "lily-lexer.hh"
 #include "international.hh"
 #include "main.hh"
 #include "paper-book.hh"
@@ -57,8 +58,14 @@ internal_ly_parse_scm (Parse_start *ps)
      early. */
   // scm_close_port (port);
 
-  if (!SCM_EOF_OBJECT_P (form))
+  if (!SCM_EOF_OBJECT_P (form)) {
+    if (ps->parser_->lexer_->top_input ()
+	&& scm_is_pair (ps->parser_->local_environment_)) {
+      form = scm_list_1 (scm_car (ps->parser_->local_environment_));
+      ps->parser_->local_environment_ = scm_cdr (ps->parser_->local_environment_);
+    }
     return scm_cons (form, make_input (ps->start_location_));
+  }
 
   return SCM_UNDEFINED;
 }
@@ -66,8 +73,6 @@ internal_ly_parse_scm (Parse_start *ps)
 SCM
 internal_ly_eval_scm (Parse_start *ps)
 {
-  if (ps->parser_ && !SCM_UNBNDP (ps->parser_->local_environment_))
-    return scm_local_eval (ps->form_, ps->parser_->local_environment_);
   if (ps->safe_)
     {
       static SCM module = SCM_BOOL_F;

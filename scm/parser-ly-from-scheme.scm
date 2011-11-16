@@ -20,19 +20,24 @@
   "Read a lilypond music expression enclosed within @code{#@{} and @code{#@}}
 from @var{port} and return the corresponding Scheme music expression.
 @samp{$} and @samp{#} introduce immediate and normal Scheme forms."
-  (let ((lily-string (call-with-output-string
-		      (lambda (out)
-			(do ((c (read-char port) (read-char port)))
-			    ((and (char=? c #\#)
-				  (char=? (peek-char port) #\})) ;; we stop when #} is encountered
-			     (read-char port))
-			  ;; a #scheme or $scheme expression
-			  (if (or (char=? c #\#) (char=? c #\$))
-			      (format out "~a~s" c (read port))
-			      ;; other characters
-			      (display c out)))))))
+  (let* ((closures '())
+	 (lily-string (call-with-output-string
+		       (lambda (out)
+			 (do ((c (read-char port) (read-char port)))
+			     ((and (char=? c #\#)
+				   (char=? (peek-char port) #\})) ;; we stop when #} is encountered
+			      (read-char port))
+			   ;; a #scheme or $scheme expression
+			   (if (or (char=? c #\#) (char=? c #\$))
+			       (begin
+				 (set! closures (cons (read port) closures))
+				 (format out "~a~s" c (car closures)))
+			       ;; other characters
+			       (display c out)))))))
     `(let* ((clone
-	     (ly:parser-clone parser (procedure-environment (lambda () '()))))
+	     (ly:parser-clone parser (list ,@(map (lambda (c)
+						    `(lambda () ,c))
+						  (reverse! closures)))))
 	    (result (ly:parse-string-expression clone ,lily-string)))
        (if (ly:parser-has-error? clone)
 	   (ly:parser-error parser (_ "error in #{ ... #}")))

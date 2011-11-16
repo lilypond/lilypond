@@ -100,6 +100,7 @@ public:
   virtual void new_input (string s, Sources *);
   virtual void new_input (string s, string d, Sources *);
 
+  bool top_input () { return include_stack_.size () < 2; }
   SCM keyword_list () const;
   SCM lookup_identifier (string s);
   SCM lookup_identifier_symbol (SCM s);
