@@ -466,8 +466,11 @@ Beam::calc_beam_segments (SCM smob)
                                || abs (vertical_count) >= neighbor_seg.max_connect_);
 
               if (!event)
-                // Then this edge of the current segment is irrelevent because it will
+                // Then this edge of the current segment is irrelevant because it will
                 // be connected with the next segment in the event_dir direction.
+                // If we skip the left edge here, the right edge of
+                // the previous segment has already been skipped since
+                // the conditions are symmetric
                 continue;
 
               current.vertical_count_ = vertical_count;
