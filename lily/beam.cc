@@ -640,16 +640,14 @@ Beam::calc_beam_segments (SCM smob)
     }
 
   SCM segments_scm = SCM_EOL;
-  SCM *tail = &segments_scm;
 
-  for (vsize i = 0; i < segments.size (); i++)
+  for (vsize i = segments.size (); i--;)
     {
-      *tail = scm_cons (scm_list_2 (scm_cons (ly_symbol2scm ("vertical-count"),
-                                              scm_from_int (segments[i].vertical_count_)),
-                                    scm_cons (ly_symbol2scm ("horizontal"),
-                                              ly_interval2scm (segments[i].horizontal_))),
-                        SCM_EOL);
-      tail = SCM_CDRLOC (*tail);
+      segments_scm = scm_cons (scm_list_2 (scm_cons (ly_symbol2scm ("vertical-count"),
+						     scm_from_int (segments[i].vertical_count_)),
+					   scm_cons (ly_symbol2scm ("horizontal"),
+						     ly_interval2scm (segments[i].horizontal_))),
+			       segments_scm);
     }
 
   return segments_scm;
