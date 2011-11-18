@@ -614,8 +614,19 @@ is used to tell the LilyPond parser that the next value is a Scheme
 value.
 
 Once the parser sees a hash mark, input is passed to the Guile
-interpreter to evaluate the Scheme expression.  The interpreter continues
-to process input until the end of a Scheme expression is seen.
+interpreter to evaluate the Scheme expression.  The interpreter
+continues to process input until the end of a Scheme expression is seen.
+The resulting value can be used wherever @code{SCM_TOKEN} is explicitly
+accepted by the @ruser{LilyPond grammar}.
+
+There is another way to execute Scheme expressions by using a
+dollar@tie{}@code{$} instead of a hash mark for introducing Scheme
+expressions.  In this case, Lilypond evaluates the code immediately,
+checks the resulting type, and reinserts a syntactical entity of that
+type (like a number, string, music expression, pitch, duration@dots{})
+into the input, making a copy of the value.  This process bypasses the
+grammar, and the result appears in the grammar as one of several
+@code{xxx_IDENTIFIER} tokens.
 
 Scheme procedures can be defined in LilyPond input files:
 
@@ -733,9 +744,6 @@ imported in a @code{\score} block by means of a second variable
 @lilypond[verbatim]
 traLaLa = { c'4 d'4 }
 
-%% dummy action to deal with parser lookahead
-#(display "this needs to be here, sorry!")
-
 #(define newLa (map ly:music-deep-copy
   (list traLaLa traLaLa)))
 #(define twice
@@ -746,11 +754,12 @@ traLaLa = { c'4 d'4 }
 
 @c Due to parser lookahead
 
-In this example, the assignment happens after the parser has
-verified that nothing interesting happens after
-@code{traLaLa = @{ ... @}}.  Without the dummy statement in the
-above example, the @code{newLa} definition is executed before
-@code{traLaLa} is defined, leading to a syntax error.
+This is actually a rather interesting example.  The assignment will only
+take place after the parser has ascertained that nothing akin to
+@code{\addlyrics} follows, so it needs to check what comes next.  It
+reads @code{#} and the following Scheme expression @emph{without}
+evaluating it, so it can go ahead with the assignment, and
+@emph{afterwards} execute the Scheme code without problem.
 
 The above example shows how to @q{export} music expressions from the
 input to the Scheme interpreter.  The opposite is also possible.  By
@@ -765,9 +774,18 @@ been written as
 @end example
 
 You can use @code{$} with a Scheme expression anywhere you could use
-@code{\@var{name}} after assigning the Scheme expression to a variable
-@var{name}.  This replacement happens in the @q{Lexer}, so Lilypond is
-not even aware of the difference.
+@code{\@var{name}} after having assigned the Scheme expression to a
+variable @var{name}.  This replacement happens in the @q{Lexer}, so
+Lilypond is not even aware of the difference.
+
+One drawback, however, is that of timing.  If we had been using @code{$}
+instead of @code{#} for defining @code{newLa} in the above example, the
+Lexer would have evaluated the Scheme code right away in order to figure
+out the kind of the next token before Lilypond would have had a chance
+for executing the assignment.  Consequently, the Scheme definition would
+have failed because @code{traLaLa} would not yet have been defined.  As
+a rule, using @code{#} rather than @code{$} whenever it is allowed will
+cause fewer surprises.
 
 Scheme code is evaluated as soon as the parser encounters it.  To
 define some Scheme code in a macro (to be called later), use
@@ -992,7 +1010,18 @@ a file.
 lilypond file.ly >display.txt
 @end example
 
-With a bit of reformatting, the above information is easier to read,
+With a combined bit of Lilypond and Scheme magick, you can actually
+let Lilypond direct just this output to a file of its own:
+
+@example
+@{
+  $(with-output-to-file "display.txt"
+      (lambda () #@{ \displayMusic @{ c'4\f @} #@}))
+@}
+@end example
+
+
+A bit of reformatting makes the above information easier to read:
 
 @example
 (make-music 'SequentialMusic

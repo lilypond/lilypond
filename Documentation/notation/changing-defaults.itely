@@ -3737,10 +3737,11 @@ where
 must return @code{#t}.
 
 @item @code{@var{@dots{}music@dots{}}}
-@tab normal LilyPond input, using @code{$} to reference arguments
-(eg. @samp{$arg1}).
+@tab normal LilyPond input, using @code{$} (in places where only
+Lilypond constructs are allowed) or @code{#} (to use it as a Scheme
+value or music function argument) to reference arguments
+(eg. @samp{#arg1}).
 @end multitable
-
 
 The @code{parser} and @code{location} arguments are mandatory, and
 are used in some advanced situations as described in the
@@ -3753,7 +3754,9 @@ common type predicates used in music functions are:
 @example
 boolean?
 cheap-list?  @emph{(use instead of }@q{list?}@emph{ for faster processing)}
+ly:duration?
 ly:music?
+ly:pitch?
 markup?
 number?
 pair?
@@ -3797,7 +3800,7 @@ padText =
      (parser location padding)
      (number?)
    #{
-     \once \override TextScript #'padding = $padding
+     \once \override TextScript #'padding = #padding
    #})
 
 \relative c''' {
@@ -3839,7 +3842,7 @@ tempoPadded =
      (parser location padding tempotext)
      (number? string?)
    #{
-     \once \override Score.MetronomeMark #'padding = $padding
+     \once \override Score.MetronomeMark #'padding = #padding
      \tempo \markup { \bold $tempotext }
    #})
 
