@@ -77,7 +77,7 @@ License''.
 
 @c TITLE PAGE
 @ifnottex
-@node Začátek
+@node Top
 @top LilyPond... Notová sazba pro každého
 @translationof Top
 @end ifnottex

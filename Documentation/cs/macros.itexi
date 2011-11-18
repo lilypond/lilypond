@@ -116,7 +116,7 @@ Tento dokument byl zařazen jako volně šiřitelné dílo.
 
 @c   ***** Title page *****
 @ifnottex
-@node Začátek
+@node Top
 @top LilyPond -- \TITLE\
 
 @cartouche

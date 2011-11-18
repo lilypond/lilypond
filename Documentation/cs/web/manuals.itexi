@@ -42,12 +42,12 @@ LilyPond je @strong{textově založený} program na sazbu not.  Pokud
 tomuto pojetí nedůvěřujete, přečtěte si o něm, prosím, nyní!
 
 @item
-@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Začátek,Učení}}
+@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Učení}}
 @qq{bezpodmínečně si přečíst!} jemné uvedení do LilyPondu.
 @details{Učení}
 
 @item
-@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Začátek,Slovníček}}
+@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Slovníček}}
 @emph{(optional)} zde jsou hudební pojmy vysvětleny v angličtině a
 a podány odpovídající překlady v mnoha dalších řečech.
 @details{Slovníček}
@@ -55,7 +55,7 @@ a podány odpovídající překlady v mnoha dalších řečech.
 
 
 @item
-@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Začátek,Článek}}
+@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Článek}}
 @emph{(optional)} Informace o pozadí procesu notové sazby a kráse
 rytí not v 19. století.
 @details{Článek}
@@ -70,17 +70,17 @@ rytí not v 19. století.
 @itemize
 
 @item
-@ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Začátek,Notový zápis}}
+@ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notový zápis}}
 doporučení týkající se skladby.
 @details{Notový zápis}
 
 @item
-@ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Začátek,Používání}}
+@ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Používání}}
 jak jsou programy vyvolávány.
 @details{Používání}
 
 @item
-@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Začátek,Úryvky}}
+@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Úryvky}}
 krátké lsti, rady a příklady.
 @details{Úryvky}
 
@@ -99,21 +99,21 @@ krátké lsti, rady a příklady.
 Často kladené dotazy.
 
 @item
-@ref{Začátek,Web}:
+@ref{Top,Web}:
 Tento dokument.
 
 @item
-@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Začátek,Změny}}
+@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Změny}}
 Co je nového?
 @details{Změny}
 
 @item
-@ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Začátek,Rozšíření}}
+@ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Rozšíření}}
 Chytrá přizpůsobení.
 @details{Rozšíření}
 
 @item
-@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Začátek,Vnitřnosti}}
+@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Vnitřnosti}}
 Doporučení pro přizpůsobení.
 @details{Vnitřnosti}
 
@@ -197,7 +197,7 @@ další informace.
 @divClass{column-right-bottom}
 
 @docLinks{Učení, learning,
-  @rlearningnamed{Začátek,Učení},
+  @rlearningnamed{Top,Učení},
   @manualStableLearningSplit-cs,
   @manualStableLearningBig-cs, 1.5 MB,
   @manualStableLearningPdf-cs, 3 MB}
@@ -222,7 +222,7 @@ vzít si na pomoc tento slovníček.
 @divClass{column-right-bottom}
 
 @docLinks{Slovníček, music-glossary,
-  @rglosnamed{Začátek,Slovníček},
+  @rglosnamed{Top,Slovníček},
   @manualStableGlossarySplit-cs,
   @manualStableGlossaryBig-cs, 1 MB,
   @manualStableGlossaryPdf-cs, 1.5 MB}
@@ -251,7 +251,7 @@ rozlišení.}
 @divClass{column-right-bottom}
 
 @docLinks{Článek, essay,
-  @ressaynamed{Začátek,Článek},
+  @ressaynamed{Top,Článek},
   @manualStableEssaySplit-cs,
   @manualStableEssayBig-cs, 2 MB,
   @manualStableEssayPdf-cs, 2.5 MB}
@@ -278,7 +278,7 @@ pojmosloví (podívejte se do slovníčku).}
 @divClass{column-right-bottom}
 
 @docLinks{Notový zápis, notation,
-  @rusernamed{Začátek,Notový zápis},
+  @rusernamed{Top,Notový zápis},
   @manualStableNotationSplit-cs,
   @manualStableNotationBig-cs, 7 MB,
   @manualStableNotationPdf-cs, 18 MB}
@@ -303,7 +303,7 @@ tento dokument přečíst, dříve než si člověk začne myslet na větší pr
 @divClass{column-right-bottom}
 
 @docLinks{Používání, usage,
-  @rprogramnamed{Začátek,Používání},
+  @rprogramnamed{Top,Používání},
   @manualStableUsageSplit-cs,
   @manualStableUsageBig-cs, 300 KB,
   @manualStableUsagePdf-cs, 400 KB}
@@ -337,7 +337,7 @@ jsou také odkázány z odstavce @strong{Podívejte se také na}.
 @divClass{column-right-bottom}
 
 @docLinks{Úryvky, snippets,
-  @rlsrnamed{Začátek,Úryvky},
+  @rlsrnamed{Top,Úryvky},
   @manualStableSnippetsSplit,
   @manualStableSnippetsBig, 2.5 MB,
   @manualStableSnippetsPdf, 8 MB}
@@ -410,14 +410,14 @@ spolupráci na programu.
 
 @divClass{keep-bullets}
 @itemize
-@ref{Začátek,Web}
+@ref{Top,Web}
 @end itemize
 @divEnd
 
 @subsubheading Web - příručka @versionDevel
 
 @docLinksBare{Web, web,
-  @ref{Začátek,Web},
+  @ref{Top,Web},
   @manualDevelWebSplit-cs,
   @manualDevelWebBig-cs, 1 MB,
   @manualDevelWebPdf, 2 MB}
@@ -441,7 +441,7 @@ vlastností v LilyPondu od předchozí stálé verze.
 @divClass{column-right-bottom}
 
 @docLinks{Změny, changes,
-  @rchangesnamed{Začátek,Změny},
+  @rchangesnamed{Top,Změny},
   @manualStableChangesSplit-cs,
   @manualStableChangesBig-cs, 6 KB,
   @manualStableChangesPdf-cs, 200 KB}
@@ -463,7 +463,7 @@ V této knize se vysvětluje, jak se pro LilyPond píší rozšíření.
 @divClass{column-right-bottom}
 
 @docLinks{Rozšíření, extend,
-  @rextendnamed{Začátek,Rozšíření},
+  @rextendnamed{Top,Rozšíření},
   @manualStableExtendingSplit-cs,
   @manualStableExtendingBig-cs, 200 KB,
   @manualStableExtendingPdf-cs, 400 KB}
@@ -497,7 +497,7 @@ dokumentu.  Každá část doporučení k notovému zápisu má také část
 @divClass{column-right-bottom}
 
 @docLinks{Vnitřnosti, internals,
-  @rinternalsnamed{Začátek,Vnitřnosti},
+  @rinternalsnamed{Top,Vnitřnosti},
   @manualStableInternalsSplit-cs,
   @manualStableInternalsBig-cs, 2.5 MB,
   @manualStableInternalsPdf-cs, 2.8 MB}
