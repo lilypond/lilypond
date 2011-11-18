@@ -14,6 +14,13 @@ defaultNoteHeads =
    (revert-head-style '(NoteHead TabNoteHead)))
 
 
+accidentalStyle =
+#(define-music-function
+   (parser location style) (string-or-symbol?)
+   (_i "Set @var{style} as the accidental style to use.")
+   (set-accidental-style (if (string? style)
+                             (string->symbol style)
+                             style)))
 
 %% arpeggios
 

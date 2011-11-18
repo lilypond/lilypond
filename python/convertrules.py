@@ -3346,6 +3346,12 @@ def conv (str):
         stderr_write ('\n')
     return str
 
+@rule ((2, 15, 20), r"$(set-accidental-style ...) -> \accidentalStyle")
+def conv (str):
+    str = re.sub (r"\$\(set-accidental-style\s+'([-a-z]+)\)",
+                  r'\\accidentalStyle "\1"', str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
