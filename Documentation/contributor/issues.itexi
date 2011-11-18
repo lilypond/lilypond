@@ -155,16 +155,14 @@ the currently-active Bug Squad member(s) can handle the message.
 
 @subsubheading Daily schedule
 
-@c spacing is deliberate to help reinforce the "cyclic" nature
-
 @example
-Monday:    James
-Tuesday:    Colin
-Wednesday:   Brett
-Thursday:  James
-Friday:     Colin
-Saturday:    Brett
-Sunday:       Phil
+Monday:    Ralph
+Tuesday:   Eluze
+Wednesday: Brett
+Thursday:  Colin Hall (disambiguation here)
+Friday:    Marek
+Saturday:  Brett
+Sunday:    Phil
 @end example
 
 
