@@ -474,6 +474,7 @@ If we give names, Bison complains.
 %type <scm> function_arglist_closed_optional
 %type <scm> function_arglist_common
 %type <scm> function_arglist_common_lyric
+%type <scm> function_arglist_common_minus
 %type <scm> function_arglist_closed_common
 %type <scm> function_arglist_keep
 %type <scm> function_arglist_closed_keep
@@ -1266,17 +1267,45 @@ function_arglist_nonbackup:
 	{
 		$$ = check_scheme_arg (PARSER, @4, $4, $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed bare_number
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed bare_number_closed
 	{
 		$$ = check_scheme_arg (PARSER, @4, $4, $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed fraction
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed FRACTION
 	{
 		$$ = check_scheme_arg (PARSER, @4, $4, $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed post_event
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed post_event_nofinger
 	{
 		$$ = check_scheme_arg (PARSER, @4, $4, $3, $2);
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed '-' UNSIGNED
+	{
+		SCM n = scm_difference ($5, SCM_UNDEFINED);
+		if (scm_is_true (scm_call_1 ($2, n)))
+			$$ = scm_cons (n, $3);
+		else {
+			Music *t = MY_MAKE_MUSIC ("FingeringEvent", @5);
+			t->set_property ("digit", $5);
+			$$ = t->unprotect ();
+			if (scm_is_true (scm_call_1 ($2, $$)))
+				$$ = scm_cons ($$, $3);
+			else
+				$$ = check_scheme_arg (PARSER, @4, n, $3, $2);
+		}
+		
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed '-' REAL
+	{
+		$$ = check_scheme_arg (PARSER, @4,
+				       scm_difference ($5, SCM_UNDEFINED),
+				       $3, $2);
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed '-' NUMBER_IDENTIFIER
+	{
+		$$ = check_scheme_arg (PARSER, @4,
+				       scm_difference ($5, SCM_UNDEFINED),
+				       $3, $2);
 	}
 	;
 
@@ -1302,7 +1331,7 @@ function_arglist_backup:
 			MYBACKUP (SCM_IDENTIFIER, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep post_event
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep post_event_nofinger
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
@@ -1371,6 +1400,45 @@ function_arglist_backup:
 			MYBACKUP (FRACTION, $4, @4);
 		}
 	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep '-' UNSIGNED
+	{
+		SCM n = scm_difference ($5, SCM_UNDEFINED);
+		if (scm_is_true (scm_call_1 ($2, n))) {
+			$$ = $3;
+			MYREPARSE (@5, $2, REAL, n);
+		} else {
+			Music *t = MY_MAKE_MUSIC ("FingeringEvent", @5);
+			t->set_property ("digit", $5);
+			$$ = t->unprotect ();
+			if (scm_is_true (scm_call_1 ($2, $$)))
+				$$ = scm_cons ($$, $3);
+			else {
+				$$ = scm_cons (loc_on_music (@3, $1), $3);
+				MYBACKUP (UNSIGNED, $5, @5);
+				PARSER->lexer_->push_extra_token ('-');
+			}
+		}
+		
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep '-' REAL
+	{
+		SCM n = scm_difference ($5, SCM_UNDEFINED);
+		if (scm_is_true (scm_call_1 ($2, n))) {
+			MYREPARSE (@5, $2, REAL, n);
+			$$ = $3;
+		} else {
+			MYBACKUP (REAL, n, @5);
+		}
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep '-' NUMBER_IDENTIFIER
+	{
+		SCM n = scm_difference ($5, SCM_UNDEFINED);
+		if (scm_is_true (scm_call_1 ($2, n))) {
+			$$ = scm_cons (n, $3);
+		} else {
+			MYBACKUP (NUMBER_IDENTIFIER, n, @5);
+		}
+	}
 	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_keep pitch_also_in_chords
 	{
 		$$ = scm_cons ($4, $3);
@@ -1423,11 +1491,12 @@ function_arglist_common:
 		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional post_event
+	| EXPECT_SCM function_arglist_closed_optional post_event_nofinger
 	{
 		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $2, $1);
 	}
+	| function_arglist_common_minus
 	| function_arglist_common_lyric
 	;
 
@@ -1471,6 +1540,41 @@ function_arglist_common_lyric:
 	}
 	;
 
+function_arglist_common_minus:
+	EXPECT_SCM function_arglist_closed_optional '-' UNSIGNED
+	{
+		SCM n = scm_difference ($4, SCM_UNDEFINED);
+		if (scm_is_true (scm_call_1 ($1, n))) {
+			$$ = $2;
+			MYREPARSE (@4, $1, REAL, n);
+		} else {
+			Music *t = MY_MAKE_MUSIC ("FingeringEvent", @4);
+			t->set_property ("digit", $4);
+			$$ = t->unprotect ();
+			if (scm_is_true (scm_call_1 ($1, $$)))
+				$$ = scm_cons ($$, $2);
+			else
+				$$ = check_scheme_arg (PARSER, @3, n, $2, $1);
+		}
+		
+	}
+	| EXPECT_SCM function_arglist_closed_optional '-' REAL
+	{
+		$$ = $2;
+		SCM n = scm_difference ($4, SCM_UNDEFINED);
+		MYREPARSE (@4, $1, REAL, n);
+	}
+	| EXPECT_SCM function_arglist_closed_optional '-' NUMBER_IDENTIFIER
+	{
+		SCM n = scm_difference ($4, SCM_UNDEFINED);
+		$$ = check_scheme_arg (PARSER, @4, n, $2, $1);
+	}
+	| function_arglist_common_minus REPARSE bare_number
+	{
+		$$ = check_scheme_arg (PARSER, @3, $3, $1, $2);
+	}
+	;
+
 function_arglist_closed:
 	function_arglist_closed_common
 	| function_arglist_nonbackup
@@ -1483,17 +1587,45 @@ function_arglist_closed_common:
 		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional bare_number_closed
+	| EXPECT_SCM function_arglist_closed_optional bare_number
 	{
 		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional post_event
+	| EXPECT_SCM function_arglist_closed_optional '-' UNSIGNED
+	{
+		SCM n = scm_difference ($4, SCM_UNDEFINED);
+		if (scm_is_true (scm_call_1 ($1, n))) {
+			$$ = scm_cons (n, $2);
+		} else {
+			Music *t = MY_MAKE_MUSIC ("FingeringEvent", @4);
+			t->set_property ("digit", $4);
+			$$ = t->unprotect ();
+			if (scm_is_true (scm_call_1 ($1, $$)))
+				$$ = scm_cons ($$, $2);
+			else
+				$$ = check_scheme_arg (PARSER, @3, n, $2, $1);
+		}
+		
+	}
+	| EXPECT_SCM function_arglist_closed_optional '-' REAL
+	{
+		$$ = check_scheme_arg (PARSER, @3,
+				       scm_difference ($4, SCM_UNDEFINED),
+				       $2, $1);
+	}
+	| EXPECT_SCM function_arglist_closed_optional '-' NUMBER_IDENTIFIER
+	{
+		$$ = check_scheme_arg (PARSER, @3,
+				       scm_difference ($4, SCM_UNDEFINED),
+				       $2, $1);
+	}
+	| EXPECT_SCM function_arglist_closed_optional post_event_nofinger
 	{
 		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional FRACTION
+	| EXPECT_SCM function_arglist_closed_optional fraction
 	{
 		$$ = check_scheme_arg (PARSER, @3,
 				       $3, $2, $1);
@@ -2142,16 +2274,21 @@ post_event_nofinger:
 		$$ = $2;
 	}
 	| string_number_event
+	| '^' fingering
+	{
+		$$ = $2;
+		unsmob_music ($$)->set_property ("direction", scm_from_int (UP));
+	}
+	| '_' fingering
+	{
+		$$ = $2;
+		unsmob_music ($$)->set_property ("direction", scm_from_int (DOWN));
+	}			
 	;
 
 post_event:
 	post_event_nofinger
-	| script_dir fingering {
-		if ($1)
-		{
-			Music *m = unsmob_music ($2);
-			m->set_property ("direction", scm_from_int ($1));
-		}
+	| '-' fingering {
 		$$ = $2;
 	}
 	;
