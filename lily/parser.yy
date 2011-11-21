@@ -247,7 +247,6 @@ void set_music_properties (Music *p, SCM a);
 %token DRUMS "\\drums"
 %token FIGUREMODE "\\figuremode"
 %token FIGURES "\\figures"
-%token GROBDESCRIPTIONS "\\grobdescriptions"
 %token HEADER "\\header"
 %token INVALID "\\version-error"
 %token LAYOUT "\\layout"
@@ -815,15 +814,16 @@ context_def_spec_body:
 		$$ = $1;
 		unsmob_context_def ($$)->origin ()->set_spot (@$);
 	}
-	| context_def_spec_body GROBDESCRIPTIONS embedded_scm {
-		Context_def*td = unsmob_context_def ($$);
+	| context_def_spec_body embedded_scm {
+		if (Context_mod *cm = unsmob_context_mod ($2)) {
+			SCM p = cm->get_mods ();
+			Context_def*td = unsmob_context_def ($$);
 
-		for (SCM p = $3; scm_is_pair (p); p = scm_cdr (p)) {
-			SCM tag = scm_caar (p);
-
-			/* TODO: should make new tag "grob-definition" ? */
-			td->add_context_mod (scm_list_3 (ly_symbol2scm ("assign"),
-							tag, scm_cons (scm_cdar (p), SCM_EOL)));
+			for (; scm_is_pair (p); p = scm_cdr (p)) {
+				td->add_context_mod (scm_car (p));
+			}
+		} else {
+			PARSER->parser_error (@2, "context-mod expected");
 		}
 	}
 	| context_def_spec_body context_mod {
@@ -1184,6 +1184,15 @@ context_modification:
         {
                 $$ = $1;
         }
+	| WITH embedded_scm_closed
+	{
+		if (unsmob_context_mod ($2))
+			$$ = $2;
+		else {
+			PARSER->parser_error (@2, "context-mod expected");
+			$$ = Context_mod ().smobbed_copy ();
+		}
+	}
         ;
 
 optional_context_mod:

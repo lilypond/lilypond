@@ -402,6 +402,15 @@ grace =
 #(def-grace-function startGraceMusic stopGraceMusic
    (_i "Insert @var{music} as grace notes."))
 
+grobdescriptions =
+#(define-scheme-function (parser location descriptions) (list?)
+   (_i "Create a context modification from @var{descriptions}, a list
+in the format of @code{all-grob-descriptions}.")
+   (ly:make-context-mod
+    (map (lambda (p)
+	   (list 'assign (car p) (list (cdr p))))
+	 descriptions)))
+
 harmonicByFret = #(define-music-function (parser location fret music) (number? ly:music?)
   (_i "Convert @var{music} into harmonics; the resulting notes resemble
 harmonics played on a fretted instrument by touching the strings above @var{fret}.")
@@ -974,6 +983,44 @@ scaleDurations =
    (ly:music-compress music
 		      (ly:make-moment (car fraction) (cdr fraction))))
 
+settingsFrom =
+#(define-scheme-function (parser location ctx music)
+   ((symbol?) ly:music?)
+   (_i "Take the layout instruction events from @var{music}, optionally
+restricted to those applying to context type @var{ctx}, and return
+a context modification duplicating their effect.")
+   (let ((mods (ly:make-context-mod)))
+     (define (musicop m)
+       (if (music-is-of-type? m 'layout-instruction-event)
+	   (ly:add-context-mod
+	    mods
+	    (case (ly:music-property m 'name)
+	      ((PropertySet)
+	       (list 'assign
+		     (ly:music-property m 'symbol)
+		     (ly:music-property m 'value)))
+	      ((PropertyUnset)
+	       (list 'unset
+		     (ly:music-property m 'symbol)))
+	      ((OverrideProperty)
+	       (list 'push
+		     (ly:music-property m 'symbol)
+		     (ly:music-property m 'grob-property-path)
+		     (ly:music-property m 'grob-value)))
+	      ((RevertProperty)
+	       (list 'pop
+		     (ly:music-property m 'symbol)
+		     (ly:music-property m 'grob-property-path)))))
+	   (case (ly:music-property m 'name)
+	     ((SequentialMusic SimultaneousMusic)
+	      (for-each musicop (ly:music-property m 'elements)))
+	     ((ContextSpeccedMusic)
+	      (if (or (not ctx)
+		      (eq? ctx (ly:music-property m 'context-type)))
+		  (musicop (ly:music-property m 'element)))))))
+     (musicop music)
+     mods))
+
 shiftDurations =
 #(define-music-function (parser location dur dots arg)
    (integer? integer? ly:music?)
@@ -1116,7 +1163,6 @@ void =
    (_i "Accept a scheme argument, return a void expression.
 Use this if you want to have a scheme expression evaluated
 because of its side-effects, but its value ignored."))
-
 
 withMusicProperty =
 #(define-music-function (parser location sym val music)

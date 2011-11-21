@@ -58,7 +58,6 @@ static Keyword_ent the_key_tab[]
   {"drums", DRUMS},
   {"figuremode", FIGUREMODE},
   {"figures", FIGURES},
-  {"grobdescriptions", GROBDESCRIPTIONS},
   {"header", HEADER},
   {"layout", LAYOUT},
   {"lyricmode", LYRICMODE},
