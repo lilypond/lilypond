@@ -4,7 +4,7 @@
 #(if (and #t (defined? 'set-debug-cell-accesses!))
   (set-debug-cell-accesses! 5000))
 
-\version "2.14.0"
+\version "2.15.18"
 
 \include "declarations-init.ly"
 
@@ -23,7 +23,7 @@
 #(define book-output-suffix #f)
 #(use-modules (scm clip-region))
 
-#(if (ly:get-option 'include-settings)
+$(if (ly:get-option 'include-settings)
   (ly:parser-include-string parser
     (format #f "\\include \"~a\"" (ly:get-option 'include-settings))))
 

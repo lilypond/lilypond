@@ -392,11 +392,6 @@ BOM_UTF8	\357\273\277
 	}
 	char_count_stack_.back () += n;
 
-	for (size_t i = 0; i < pending_string_includes_.size (); i++)
-		new_input ("<included string>", pending_string_includes_[i],
-			   parser_->sources_);
-	pending_string_includes_.clear ();
-		
 	yylval.scm = sval;
 	return SCM_TOKEN;
 }
@@ -415,7 +410,14 @@ BOM_UTF8	\357\273\277
 	}
 	char_count_stack_.back () += n;
 
-	return scan_scm_id (sval);
+	for (size_t i = 0; i < pending_string_includes_.size (); i++)
+		new_input ("<included string>", pending_string_includes_[i],
+			   parser_->sources_);
+	pending_string_includes_.clear ();
+		
+	int token = scan_scm_id (sval);
+	if (!scm_is_eq (yylval.scm, SCM_UNSPECIFIED))
+	  return token;
 }
 
 <INITIAL,notes,lyrics>{ 

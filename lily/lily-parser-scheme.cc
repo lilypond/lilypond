@@ -228,7 +228,8 @@ LY_DEFINE (ly_parse_string_expression, "ly:parse-string-expression",
 LY_DEFINE (ly_parser_include_string, "ly:parser-include-string",
            2, 0, 0, (SCM parser_smob, SCM ly_code),
            "Include the string @var{ly-code} into the input stream"
-           " for @var{parser-smob}.")
+           " for @var{parser-smob}.  Can only be used in immediate"
+	   " Scheme expressions (@code{$} instead of @code{#}).")
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
