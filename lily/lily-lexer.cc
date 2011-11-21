@@ -118,7 +118,7 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser)
   start_module_ = SCM_EOL;
   chord_repetition_ = src.chord_repetition_;
 
-  error_level_ = src.error_level_;
+  error_level_ = 0;
   is_main_input_ = src.is_main_input_;
 
   scopes_ = SCM_EOL;

@@ -33,9 +33,7 @@ from @var{port} and return the corresponding Scheme music expression.
 			      (display c out)))))))
     `(let* ((clone
 	     (ly:parser-clone parser (procedure-environment (lambda () '()))))
-	    (result (begin
-		      (ly:parser-clear-error clone)
-		      (ly:parse-string-expression clone ,lily-string))))
+	    (result (ly:parse-string-expression clone ,lily-string)))
        (if (ly:parser-has-error? clone)
 	   (ly:parser-error parser (_ "error in #{ ... #}")))
        result)))

@@ -57,7 +57,7 @@ Lily_parser::Lily_parser (Lily_parser const &src, SCM env)
   lexer_ = 0;
   sources_ = src.sources_;
   default_duration_ = src.default_duration_;
-  error_level_ = src.error_level_;
+  error_level_ = 0;
   output_basename_ = src.output_basename_;
   local_environment_ = env;
 
