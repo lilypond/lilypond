@@ -199,7 +199,7 @@ Lily_parser::parse_string_expression (string ly_code)
 void
 Lily_parser::include_string (string ly_code)
 {
-  lexer_->add_string_include (ly_code);
+  lexer_->new_input ("<included string>", ly_code, sources_);
 }
 
 void

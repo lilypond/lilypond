@@ -402,7 +402,6 @@ BOM_UTF8	\357\273\277
 	hi.step_forward ();
 	SCM sval = ly_parse_scm (hi.start (), &n, hi,
 		be_safe_global && is_main_input_, parser_);
-	sval = eval_scm (sval);
 
 	for (int i = 0; i < n; i++)
 	{
@@ -410,10 +409,7 @@ BOM_UTF8	\357\273\277
 	}
 	char_count_stack_.back () += n;
 
-	for (size_t i = 0; i < pending_string_includes_.size (); i++)
-		new_input ("<included string>", pending_string_includes_[i],
-			   parser_->sources_);
-	pending_string_includes_.clear ();
+	sval = eval_scm (sval);
 		
 	int token = scan_scm_id (sval);
 	if (!scm_is_eq (yylval.scm, SCM_UNSPECIFIED))

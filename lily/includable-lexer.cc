@@ -111,12 +111,6 @@ Includable_lexer::new_input (string name, string data, Sources *sources)
   yy_switch_to_buffer (yy_create_buffer (file->get_istream (), YY_BUF_SIZE));
 }
 
-void
-Includable_lexer::add_string_include (string data)
-{
-  pending_string_includes_.push_back (data);
-}
-
 /** pop the inputstack.  conceptually this is a destructor, but it
     does not destruct the Source_file that Includable_lexer::new_input
     creates.  */
