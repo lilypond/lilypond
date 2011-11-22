@@ -31,7 +31,7 @@ Context_mod::Context_mod (Context_mod const &s)
 
 Context_mod::Context_mod (SCM mod_list)
 {
-  mods_ = mod_list;
+  mods_ = scm_reverse (mod_list);
 }
 
 #include "ly-smobs.icc"
