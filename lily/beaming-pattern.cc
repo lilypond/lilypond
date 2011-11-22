@@ -217,7 +217,7 @@ Beaming_pattern::unbeam_invisible_stems ()
         infos_[i].beam_count_drul_[RIGHT] = b;
       }
 
-  for (vsize i = infos_.size (); i--;)
+  for (vsize i = infos_.size () - 1; i--;)
     if (infos_[i].invisible_)
       {
         int b = min (infos_[i].count (LEFT), infos_[i + 1].count (LEFT));
