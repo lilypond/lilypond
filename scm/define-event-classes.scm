@@ -87,7 +87,7 @@
                            (hashq-ref ancestor-lookup
                                       (cadr heritage)
                                       '())))))
-  (begin))
+  *unspecified*)
 
 ;; TODO: Allow entering more complex classes, by taking unions.
 (define-public (ly:make-event-class leaf)

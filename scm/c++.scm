@@ -70,7 +70,7 @@
   (or (symbol? x) (boolean? x)))
 
 (define-public (void? x)
-  (eq? x (begin)))
+  (unspecified? x))
 
 ;; moved list to end of lily.scm: then all type-predicates are
 ;; defined.
