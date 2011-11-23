@@ -121,10 +121,10 @@ Beaming_pattern::de_grace ()
 void
 Beaming_pattern::beamify (Beaming_options const &options)
 {
-  unbeam_invisible_stems ();
-
   if (infos_.size () <= 1)
     return;
+
+  unbeam_invisible_stems ();
 
   if (infos_[0].start_moment_.grace_part_)
     de_grace ();
@@ -217,13 +217,14 @@ Beaming_pattern::unbeam_invisible_stems ()
         infos_[i].beam_count_drul_[RIGHT] = b;
       }
 
-  for (vsize i = infos_.size () - 1; i--;)
-    if (infos_[i].invisible_)
-      {
-        int b = min (infos_[i].count (LEFT), infos_[i + 1].count (LEFT));
-        infos_[i].beam_count_drul_[LEFT] = b;
-        infos_[i].beam_count_drul_[RIGHT] = b;
-      }
+  if (infos_.size () > 1)
+    for (vsize i = infos_.size () - 1; i--;)
+      if (infos_[i].invisible_)
+        {
+          int b = min (infos_[i].count (LEFT), infos_[i + 1].count (LEFT));
+          infos_[i].beam_count_drul_[LEFT] = b;
+          infos_[i].beam_count_drul_[RIGHT] = b;
+        }
 }
 
 void
