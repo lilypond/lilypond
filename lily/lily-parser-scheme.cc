@@ -146,12 +146,19 @@ LY_DEFINE (ly_parser_lexer, "ly:parser-lexer",
 }
 
 LY_DEFINE (ly_parser_clone, "ly:parser-clone",
-           1, 1, 0, (SCM parser_smob, SCM local_environment),
-           "Return a clone of @var{parser-smob}.")
+           1, 1, 0, (SCM parser_smob, SCM closures),
+           "Return a clone of @var{parser-smob}.  An association list"
+" of port positions to closures can be specified in @var{closures}"
+" in order to have @code{$} and @code{#} interpreted in their original"
+" lexical environment.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
-  Lily_parser *clone = new Lily_parser (*parser, local_environment);
+  if (SCM_UNBNDP (closures))
+    closures = SCM_EOL;
+  else
+    LY_ASSERT_TYPE (ly_is_list, closures, 2);
+  Lily_parser *clone = new Lily_parser (*parser, closures);
 
   return clone->unprotect ();
 }
@@ -207,13 +214,29 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 }
 
 LY_DEFINE (ly_parse_string_expression, "ly:parse-string-expression",
-           2, 0, 0, (SCM parser_smob, SCM ly_code),
+           2, 2, 0, (SCM parser_smob, SCM ly_code, SCM filename,
+		     SCM line),
            "Parse the string @var{ly-code} with @var{parser-smob}."
-" Return the contained music expression.")
+" Return the contained music expression."
+" @var{filename} and @var{line} are optional source indicators.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
   LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
+  string fn;
+  if (SCM_UNBNDP (filename))
+    fn = "<string>";
+  else {
+    LY_ASSERT_TYPE (scm_is_string, filename, 3);
+    fn = ly_scm2string (filename);
+  }
+  int ln;
+  if (SCM_UNBNDP (line))
+    ln = 0;
+  else {
+    LY_ASSERT_TYPE (scm_is_integer, line, 4);
+    ln = scm_to_int (line);
+  }
 
   if (!parser->lexer_->is_clean ())
     {
@@ -222,7 +245,8 @@ LY_DEFINE (ly_parse_string_expression, "ly:parse-string-expression",
       return SCM_UNSPECIFIED;
     }
 
-  return parser->parse_string_expression (ly_scm2string (ly_code));
+  return parser->parse_string_expression (ly_scm2string (ly_code),
+					  fn, ln);
 }
 
 LY_DEFINE (ly_parser_include_string, "ly:parser-include-string",

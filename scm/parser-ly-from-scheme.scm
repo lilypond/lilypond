@@ -21,24 +21,38 @@
 from @var{port} and return the corresponding Scheme music expression.
 @samp{$} and @samp{#} introduce immediate and normal Scheme forms."
   (let* ((closures '())
+	 (filename (port-filename port))
+	 (line (port-line port))
 	 (lily-string (call-with-output-string
 		       (lambda (out)
-			 (do ((c (read-char port) (read-char port)))
-			     ((and (char=? c #\#)
-				   (char=? (peek-char port) #\})) ;; we stop when #} is encountered
-			      (read-char port))
-			   ;; a #scheme or $scheme expression
-			   (if (or (char=? c #\#) (char=? c #\$))
-			       (begin
-				 (set! closures (cons (read port) closures))
-				 (format out "~a~s" c (car closures)))
-			       ;; other characters
-			       (display c out)))))))
+			 (let ((copycat 
+				(make-soft-port
+				 (vector #f #f #f
+					 (lambda ()
+					   (let ((x (read-char port)))
+					     (write-char x out)
+					     x)) #f)
+				 "r")))
+			   (do ((c (read-char port) (read-char port)))
+			       ((and (char=? c #\#)
+				     (char=? (peek-char port) #\}))
+				;; we stop when #} is encountered
+				(read-char port))
+			     (write-char c out)
+			     ;; a #scheme or $scheme expression
+			     (if (or (char=? c #\#) (char=? c #\$))
+				 (let ((p (ftell out)))
+				   (set! closures
+					 (cons (cons p (read copycat))
+					       closures))))))))))
     `(let* ((clone
 	     (ly:parser-clone parser (list ,@(map (lambda (c)
-						    `(lambda () ,c))
+						    `(cons ,(car c)
+							   (lambda () ,(cdr c))))
 						  (reverse! closures)))))
-	    (result (ly:parse-string-expression clone ,lily-string)))
+	    (result (ly:parse-string-expression clone ,lily-string
+						,filename
+						,line)))
        (if (ly:parser-has-error? clone)
 	   (ly:parser-error parser (_ "error in #{ ... #}")))
        result)))

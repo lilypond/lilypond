@@ -317,7 +317,7 @@ Source_file::get_line (char const *pos_str0) const
     return 0;
 
   if (!newline_locations_.size ())
-    return 1;
+    return 1 + line_offset_;
 
   /* this will find the '\n' character at the end of our line */
   vsize lo = lower_bound (newline_locations_,
@@ -331,10 +331,15 @@ Source_file::get_line (char const *pos_str0) const
 void
 Source_file::set_line (char const *pos_str0, int line)
 {
-  int current_line = get_line (pos_str0);
-  line_offset_ += line - current_line;
-
-  assert (line == get_line (pos_str0));
+  if (pos_str0)
+    {
+      int current_line = get_line (pos_str0);
+      line_offset_ += line - current_line;
+      
+      assert (line == get_line (pos_str0));
+    }
+  else
+    line_offset_ = line;
 }
 
 int

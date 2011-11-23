@@ -52,20 +52,24 @@ internal_ly_parse_scm (Parse_start *ps)
   SCM to = scm_ftell (port);
   ps->nchars = scm_to_int (to) - scm_to_int (from);
 
+
+  if (!SCM_EOF_OBJECT_P (form)) {
+    if (ps->parser_->lexer_->top_input ())
+      {
+	// Find any precompiled form.
+	SCM c = scm_assv_ref (ps->parser_->closures_, from);
+	if (scm_is_true (c))
+	  // Replace form with a call to previously compiled closure
+	  form = scm_list_1 (c);
+      }
+    return scm_cons (form, make_input (ps->start_location_));
+}
+
   /* Don't close the port here; if we re-enter this function via a
      continuation, then the next time we enter it, we'll get an error.
      It's a string port anyway, so there's no advantage to closing it
      early. */
   // scm_close_port (port);
-
-  if (!SCM_EOF_OBJECT_P (form)) {
-    if (ps->parser_->lexer_->top_input ()
-	&& scm_is_pair (ps->parser_->local_environment_)) {
-      form = scm_list_1 (scm_car (ps->parser_->local_environment_));
-      ps->parser_->local_environment_ = scm_cdr (ps->parser_->local_environment_);
-    }
-    return scm_cons (form, make_input (ps->start_location_));
-  }
 
   return SCM_UNDEFINED;
 }
