@@ -131,12 +131,6 @@ Lily_parser::parse_file (string init, string name, string out_name)
 
   scm_set_current_module (mod);
 
-  if (!define_spots_.empty ())
-    {
-      define_spots_.back ().warning (_ ("braces do not match"));
-      error_level_ = 1;
-    }
-
   error_level_ = error_level_ | lexer_->error_level_;
   clear ();
 }
@@ -155,13 +149,6 @@ Lily_parser::parse_string (string ly_code)
   SCM mod = lexer_->set_current_scope ();
   do_yyparse ();
   scm_set_current_module (mod);
-
-  if (!define_spots_.empty ())
-    {
-      if (define_spots_.empty ()
-          && !error_level_)
-        programming_error ("define_spots_ don't match, but error_level_ not set.");
-    }
 
   error_level_ = error_level_ | lexer_->error_level_;
 }
@@ -184,13 +171,6 @@ Lily_parser::parse_string_expression (string ly_code)
   // parseStringResult is set in the grammar rule for embedded_lilypond
   
   scm_set_current_module (mod);
-
-  if (!define_spots_.empty ())
-    {
-      if (define_spots_.empty ()
-          && !error_level_)
-        programming_error ("define_spots_ don't match, but error_level_ not set.");
-    }
 
   error_level_ = error_level_ | lexer_->error_level_;
   return result;

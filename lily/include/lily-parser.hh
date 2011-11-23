@@ -35,8 +35,6 @@ class Lily_parser
   DECLARE_SMOBS (Lily_parser);
   friend int yyparse (void *);
 
-  vector<Input> define_spots_;
-
   char const *here_str0 () const;
   Simultaneous_music *get_chord (Pitch tonic,
                                  vector<Pitch> *adds, vector<Pitch> *subs,
