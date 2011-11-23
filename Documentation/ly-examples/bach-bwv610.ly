@@ -1,4 +1,4 @@
-\version "2.15.18"
+\version "2.15.20"
 %\include "example-header.ily"
 
 
@@ -30,7 +30,7 @@
 global = {
    \key c \minor
    \time 4/4
-   $(set-accidental-style 'default)
+   \accidentalStyle "default"
 }
 
 halsup = {

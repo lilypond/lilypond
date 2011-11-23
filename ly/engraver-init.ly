@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.15.18"
+\version "2.15.20"
 
 \context {
   \name "Global"
@@ -1036,7 +1036,7 @@ accommodated for typesetting a piece in mensural style."
   \override Custos #'neutral-direction = #DOWN
 
   %% Accidentals are valid only once (same as
-  %% $(set-accidental-style 'forget))
+  %% \accidentalStyle "forget")
   extraNatural = ##f
   autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave -1))
   autoCautionaries = #'()

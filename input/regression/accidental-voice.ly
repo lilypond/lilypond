@@ -1,4 +1,4 @@
-\version "2.15.18"
+\version "2.15.20"
 \layout { ragged-right = ##t }
 
 \header{
@@ -28,7 +28,7 @@ voiceb =  \transpose c c' {
     \voicea
   }
   \context Staff << 
-    $(set-accidental-style 'modern-voice-cautionary)
+    \accidentalStyle "modern-voice-cautionary"
     \new Voice \voicea
     \new Voice \voiceb
   >>

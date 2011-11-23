@@ -1,4 +1,4 @@
-\version "2.15.18"
+\version "2.15.20"
 
 \header {
   lsrtags = "template"
@@ -176,7 +176,7 @@ staffVoice = \new Staff = astaffvoice  {
 
 staffAccordionMel =
 \new Staff  \with { \remove "Clef_engraver" } {
-  $(set-accidental-style 'forget) %Set the accidentals (Vorzeichen) for each note,
+  \accidentalStyle "forget" %Set the accidentals (Vorzeichen) for each note,
   %do not remember them for the rest of the measure.
   \time 4/4
   \set Staff.instrumentName="Accordion"

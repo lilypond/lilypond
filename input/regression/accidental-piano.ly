@@ -6,7 +6,7 @@ accidental."
 
 }
 
-\version "2.15.18"
+\version "2.15.20"
 
 \layout
 {
@@ -14,7 +14,7 @@ accidental."
 }
     
 \new PianoStaff \relative <<
-    $(set-accidental-style 'piano)
+    \accidentalStyle "piano"
     \new Staff { ges'4 ges4 }
     \new Staff { r8 gis r8 gis }
     >>

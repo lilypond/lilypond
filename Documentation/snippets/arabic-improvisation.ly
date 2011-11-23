@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.18"
+\version "2.15.20"
 
 \header {
   lsrtags = "world-music"
@@ -50,7 +50,7 @@ of what could be the start of a hijaz improvisation:
 
 \relative sol' {
   \key re \kurd
-  $(set-accidental-style 'forget)
+  \accidentalStyle "forget"
   \cadenzaOn
   sol4 sol sol sol fad mib sol1 fad8 mib re4. r8 mib1 fad sol
 }

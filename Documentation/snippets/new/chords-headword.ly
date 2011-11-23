@@ -1,4 +1,4 @@
-\version "2.15.18"
+\version "2.15.20"
 #(set-global-staff-size 15)
 \paper {
   ragged-right = ##f
@@ -77,7 +77,7 @@ Bass = {
     \context Staff = lower {
       \new Voice {
         \clef bass
-        $(set-accidental-style 'modern-cautionary)
+        \accidentalStyle "modern-cautionary"
         <<
           \Tenor
           \Bass
