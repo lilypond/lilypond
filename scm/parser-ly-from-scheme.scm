@@ -41,15 +41,20 @@ from @var{port} and return the corresponding Scheme music expression.
 			     (write-char c out)
 			     ;; a #scheme or $scheme expression
 			     (if (or (char=? c #\#) (char=? c #\$))
-				 (let ((p (ftell out)))
-				   (set! closures
-					 (cons (cons p (read copycat))
-					       closures))))))))))
+				 (let* ((p (ftell out))
+					(expr (read copycat)))
+				   ;; only put symbols and non-quote
+				   ;; lists into closures -- constants
+				   ;; don't need lexical environments
+				   ;; for evaluation.
+				   (if (or (symbol? expr)
+					   (and (pair? expr)
+						(not (eq? 'quote (car expr)))))
+				       (set! closures
+					     (cons `(cons ,p (lambda () ,expr))
+						   closures)))))))))))
     `(let* ((clone
-	     (ly:parser-clone parser (list ,@(map (lambda (c)
-						    `(cons ,(car c)
-							   (lambda () ,(cdr c))))
-						  (reverse! closures)))))
+	     (ly:parser-clone parser (list ,@closures)))
 	    (result (ly:parse-string-expression clone ,lily-string
 						,filename
 						,line)))
