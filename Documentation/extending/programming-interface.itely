@@ -116,11 +116,15 @@ are copied while setting @code{origin} to the @code{location} parameter.
 used as the return value of the scheme function.  It may contain
 LilyPond code blocks enclosed in hashed braces
 (@tie{}@w{@code{#@{@dots{}#@}}}@tie{}), like described in @ref{Lilypond
-code blocks}.  Within LilyPond code blocks, use @code{$} to reference
-function arguments (eg., @samp{$arg1}) or to start an inline Scheme
-expression containing function arguments (eg., @w{@samp{$(cons arg1
-arg2)}}).  If your function returns a music expression, it is cloned and
-given the correct @code{origin}.
+code blocks}.  Within LilyPond code blocks, use @code{#} to reference
+function arguments (eg., @samp{#arg1}) or to start an inline Scheme
+expression containing function arguments (eg., @w{@samp{#(cons arg1
+arg2)}}).  Where normal Scheme expressions using @code{#} don't do the
+trick, you might need to revert to immediate Scheme expressions using
+@code{$}, for example as @samp{$music}.
+
+If your function returns a music expression, it is cloned and given the
+correct @code{origin}.
 @end multitable
 
 @noindent
@@ -129,13 +133,13 @@ can't recognize the arguments reliably otherwise.  Currently these are
 @code{ly:pitch?} and @code{ly:duration?}.
 
 Suitability of arguments for all other predicates is determined by
-actually calling the predicate after Lilypond has already converted
-them into a Scheme expression.  As a consequence, the argument can be
+actually calling the predicate after Lilypond has already converted them
+into a Scheme expression.  As a consequence, the argument can be
 specified in Scheme syntax if desired (introduced with @code{#} or as
-the result of calling a scheme function), but Lilypond will also
-convert a number of Lilypond constructs into Scheme before actually
-checking the predicate on them.  Currently, those include music,
-simple strings (with or without quotes), numbers, full markups and markup
+the result of calling a scheme function), but Lilypond will also convert
+a number of Lilypond constructs into Scheme before actually checking the
+predicate on them.  Currently, those include music, postevents, simple
+strings (with or without quotes), numbers, full markups and markup
 lists, score, book, bookpart, context definition and output definition
 blocks.
 
@@ -146,20 +150,14 @@ optional argument by evaluating its predicate, Lilypond would not be
 able to ``backup'' when it decides the expression does not fit the
 parameter.  So some forms of music might need to be enclosed in braces
 to make them acceptable to Lilypond.  There are also some other
-complications that may cause a predicate function to be called several
-times on successive versions of an argument (like @code{3} and
-@code{3\cm}) or several interpretations (like @code{"a" 4} in lyric
-mode, which can either be a string followed by a number, or a lyric
-event of duration @code{4}).
+ambiguities that Lilypond sorts out by checking with predicate
+functions: is @samp{-3} a fingering postevent or a negative number?  Is
+@code{"a" 4} in lyric mode a string followed by a number, or a lyric
+event of duration @code{4}?  Lilypond decides by asking the predicates.
+That means that a lenient predicate like @code{scheme?} might be good
+for surprising interpretations.
 
-Music arguments preceding @code{ly:duration?} arguments must also be
-lookahead-free.  This may also hold for the last argument of a scheme
-function that is used as the last part of another expression, since
-otherwise Lilypond won't know whether following postevents or
-durations apply to the argument of the Scheme function, or to the
-containing music expression.
-
-For a list of available type predicates, see
+For a list of available predefined type predicates, see
 @ruser{Predefined type predicates}.
 
 @seealso
@@ -178,11 +176,20 @@ Installed Files:
 Scheme functions can be called pretty much anywhere where a Scheme
 expression starting with @code{#} can be written.  You call a scheme
 function by writing its name preceded by @code{\}, followed by its
-arguments.  The last argument can't be an optional argument.  If there
-are several optional arguments in a row, they are filled with values
-left to right.  Once an optional argument can't match input, it and all
-immediately following optional arguments are replaced with their default
-values, and the matching continues with the next non-optional argument.
+arguments.  Once an optional argument predicate does not match an
+argument, Lilypond skips this and all following optional arguments,
+replacing them with their specified default, and @q{backs up} the
+argument that did not match to the place of the next mandatory argument.
+Since the backed up argument needs to go somewhere, optional arguments
+are not actually considered optional unless followed by a mandatory
+argument.
+
+There is one exception: if you write @code{\default} in the place of an
+optional argument, this and all following optional arguments are skipped
+and replaced by their default.  This works even when no mandatory
+argument follows since @code{\default} does not need to get backed up.
+The @code{mark} and @code{key} commands make use of that trick to
+provide their default behavior when just followed by @code{\default}.
 
 Apart from places where a Scheme value is required, there are a few
 places where @code{#} expressions are currently accepted and evaluated
@@ -353,7 +360,7 @@ manualBeam =
      (parser location beg-end)
      (pair?)
    #@{
-     \once \override Beam #'positions = $beg-end
+     \once \override Beam #'positions = #beg-end
    #@})
 
 \relative c' @{
@@ -372,7 +379,7 @@ manualBeam =
      (parser location beg end)
      (number? number?)
    #{
-     \once \override Beam #'positions = $(cons beg end)
+     \once \override Beam #'positions = #(cons beg end)
    #})
 
 \relative c' {
@@ -393,9 +400,9 @@ AltOn =
      (parser location mag)
      (number?)
    #{
-     \override Stem #'length = $(* 7.0 mag)
+     \override Stem #'length = #(* 7.0 mag)
      \override NoteHead #'font-size =
-       $(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
+       #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
    #})
 
 AltOff = {
@@ -418,9 +425,9 @@ withAlt =
      (parser location mag music)
      (number? ly:music?)
    #{
-     \override Stem #'length = $(* 7.0 mag)
+     \override Stem #'length = #(* 7.0 mag)
      \override NoteHead #'font-size =
-       $(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
+       #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
      $music
      \revert Stem #'length
      \revert NoteHead #'font-size
