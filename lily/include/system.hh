@@ -37,8 +37,6 @@ class System : public Spanner
   void init_elements ();
   friend class Paper_score;     // ugh.
   Paper_score *pscore_; // ugh.
-  bool checked_footnotes_;
-  vector<Grob *> footnote_grobs_; // TODO: make this a grob array
 
 public:
   Paper_score *paper_score () const;
@@ -52,17 +50,17 @@ public:
   vector<Real> get_footnote_heights_in_range (vsize st, vsize end);
   vector<Real> get_in_note_heights_in_range (vsize st, vsize end);
   vector<Real> internal_get_note_heights_in_range (vsize st, vsize end, bool foot);
-  void get_footnote_grobs_in_range (vector<Grob *> &out, vsize st, vsize end);
-  vector<Grob *> *footnote_grobs ();
+  vector<Grob *> get_footnote_grobs_in_range (vsize st, vsize end);
   vsize num_footnotes ();
   void do_break_substitution_and_fixup_refpoints ();
   void post_processing ();
-  void populate_footnote_grob_vector ();
   SCM get_paper_system ();
   SCM get_paper_systems ();
   SCM get_broken_system_grobs ();
   SCM get_broken_footnote_stencils ();
 
+  DECLARE_SCHEME_CALLBACK (footnotes_before_line_breaking, (SCM));
+  DECLARE_SCHEME_CALLBACK (footnotes_after_line_breaking, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_relevant_grobs, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_height, (SCM, SCM, SCM));

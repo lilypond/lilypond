@@ -1031,6 +1031,10 @@ in addition to notes and stems.")
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
      (flag ,ly:grob? "A pointer to a @code{Flag} object.")
      (footnote-stencil ,ly:stencil? "The stencil of a system's footnotes.")
+     (footnotes-before-line-breaking ,ly:grob-array? "Footnote grobs of
+a whole system.")
+     (footnotes-after-line-breaking ,ly:grob-array? "Footnote grobs of
+a broken system.")
      (full-score-pure-minimum-translations ,list? "A list of translations
 for a full score's worth of grobs.")
 

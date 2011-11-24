@@ -645,6 +645,18 @@ Grob::get_vertical_axis_group_index (Grob *g)
 bool
 Grob::vertical_less (Grob *g1, Grob *g2)
 {
+  return internal_vertical_less (g1, g2, false);
+}
+
+bool
+Grob::pure_vertical_less (Grob *g1, Grob *g2)
+{
+  return internal_vertical_less (g1, g2, true);
+}
+
+bool
+Grob::internal_vertical_less (Grob *g1, Grob *g2, bool pure)
+{
   Grob *vag = get_root_vertical_alignment (g1);
   if (!vag)
     return false;
@@ -657,6 +669,12 @@ Grob::vertical_less (Grob *g1, Grob *g2)
   Grob *ag2 = get_vertical_axis_group (g2);
 
   extract_grob_set (vag, "elements", elts);
+
+  if (ag1 == ag2 && !pure)
+    {
+      Grob *common = g1->common_refpoint (g2, Y_AXIS);
+      return g1->relative_coordinate (common, Y_AXIS) > g2->relative_coordinate (common, Y_AXIS);
+    }
 
   for (vsize i = 0; i < elts.size (); i++)
     {

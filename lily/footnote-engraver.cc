@@ -23,6 +23,7 @@
 #include "item.hh"
 #include "pointer-group-interface.hh"
 #include "spanner.hh"
+#include "system.hh"
 
 #include "translator.icc"
 
@@ -37,6 +38,7 @@ class Footnote_engraver : public Engraver
   vector<Drul_array<Spanner *> > annotated_spanners_;
 
   void stop_translation_timestep ();
+  void finalize ();
 
   void footnotify (Grob *, Stream_event *);
 };
@@ -52,6 +54,12 @@ void
 Footnote_engraver::stop_translation_timestep ()
 {
   events_.clear ();
+}
+
+void
+Footnote_engraver::finalize ()
+{
+  annotated_spanners_.resize (0);
 }
 
 Footnote_engraver::Footnote_engraver ()

@@ -206,9 +206,10 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
             }
           Stencil mol;
           Stencil in_note_mol;
-          for (vsize i = 0; i < sys->footnote_grobs ()->size (); i++)
+          extract_grob_set (sys, "footnotes-after-line-breaking", footnote_grobs);
+          for (vsize i = 0; i < footnote_grobs.size (); i++)
             {
-              Grob *footnote = sys->footnote_grobs ()->at (i);
+              Grob *footnote = footnote_grobs[i];
               SCM footnote_markup = footnote->get_property ("footnote-text");
               if (Spanner *orig = dynamic_cast<Spanner *>(footnote))
                 if (orig->is_broken ())
