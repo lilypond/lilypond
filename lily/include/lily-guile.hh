@@ -26,7 +26,6 @@
 
 #include <libguile.h>
 #include <string.h>
-#include <vector>
 
 /*
   Hack for various MacOS incarnations.
@@ -39,6 +38,7 @@
 #include "interval.hh"
 #include "lily-guile-macros.hh"
 #include "ly-module.hh"
+#include "std-vector.hh"
 
 /** Conversion functions follow the GUILE naming convention, i.e.
     A ly_B2A (B b);  */
