@@ -60,8 +60,10 @@ TODO: Use SpanEvents?")
 cautionary accidental.")
      (change-to-id ,string? "Name of the context to change to.")
      (change-to-type ,symbol? "Type of the context to change to.")
+     (class ,symbol? "The class name of an event class.")
      (compress-procedure ,procedure? "Compress this music expression.
 Arg@tie{}1: the music, arg@tie{}2: factor.")
+     (context ,ly:context? "The context to which an event is sent.")
      (context-id ,string? "Name of context.")
      (context-type ,symbol?  "Type of context.")
      (create-new ,boolean? "Create a fresh context.")
@@ -84,6 +86,7 @@ simultaneous music, or the alternatives of repeated music.")
 a sequential iterator.  Takes a single music parameter.")
      (error-found ,boolean?
 		  "If true, a parsing error was found in this expression.")
+     (events ,list? "A list of events contained in this event.")
 
      (figure ,integer? "A bass figure.")
      (footnote-text ,markup? "Text to appear in a footnote.")
@@ -96,6 +99,7 @@ always be printed on this note.")
 property, e.g., @code{(beamed-lengths details)}.")
      (grob-value ,scheme? "The value of the grob property to set.")
 
+     (id ,symbol? "The ID of an event.")
      (input-tag ,scheme? "Arbitrary marker to relate input and output.")
      (inversion ,boolean? "If set, this chord note is inverted.")
      (iterator-ctor ,procedure? "Function to construct a
@@ -111,6 +115,9 @@ This property can only be defined as initializer in
 whether to allow, forbid or force a line break.")
 
      (metronome-count ,number-or-pair? "How many beats in a minute?")
+     (moment ,ly:moment? "The moment at which an event happens.")
+     (music-cause ,ly:music? "The music object that is the cause of
+an event.")
 
      (name ,symbol? "Name of this music object.")
      (no-continuation ,boolean? "If set, disallow continuation lines.")
@@ -119,6 +126,8 @@ whether to allow, forbid or force a line break.")
      (octavation ,integer? "This pitch was octavated by how many octaves?
 For chord inversions, this is negative.")
      (once ,boolean? "Apply this operation only during one time step?")
+     (ops ,scheme? "The operations to apply during the creation of a
+context.")
      (origin ,ly:input-location? "Where was this piece of music defined?")
      (original-chord ,ly:music? "Original chord of a repeated chord.
 Used by repeated chords in \\relative mode, to determine the first note octave")
@@ -146,6 +155,7 @@ on some grob property.")
 It must take a single argument, being the context.")
      (property-operations ,list? "Do these operations for instantiating
 the context.")
+     (property-path ,symbol? "The path of a property.")
 
      (quoted-context-id ,string? "The ID of the context to direct quotes to,
 e.g., @code{cue}.")

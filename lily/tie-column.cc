@@ -122,5 +122,6 @@ ADD_INTERFACE (Tie_column,
                /* properties */
                "positioning-done "
                "tie-configuration "
+               "ties "
               );
 

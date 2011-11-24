@@ -230,5 +230,6 @@ ADD_INTERFACE (Dot_column,
                "dots "
                "positioning-done "
                "direction "
+               "note-collision "
               );
 

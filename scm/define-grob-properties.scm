@@ -303,6 +303,8 @@ larger.  Fractional values are allowed.")
      (force-hshift ,number? "This specifies a manual shift for notes
 in collisions.  The unit is the note head width of the first voice
 note.  This is used by @rinternals{note-collision-interface}.")
+     (forced-spacing ,number? "Spacing forced between grobs, used in
+various ligature engravers.")
      (fraction ,fraction? "Numerator and denominator of a time
 signature object.")
      (french-beaming ,boolean? "Use French beaming style for this
@@ -1057,6 +1059,8 @@ empty in a particular staff, then that staff is erased.")
      (left-neighbor ,ly:grob? "The right-most column that has a spacing-wish
 for this column.")
 
+     (melody-spanner ,ly:grob? "The @code{MelodyItem} object for a stem.")
+
      (normal-stems ,ly:grob-array? "An array of visible stems.")
      (note-columns ,ly:grob-array? "An array of @code{NoteColumn} grobs.")
      (note-head ,ly:grob? "A single note head.")
@@ -1099,6 +1103,7 @@ results, use @code{LEFT} and @code{RIGHT}.")
      (stems ,ly:grob-array? "An array of stem objects.")
 
      (tie ,ly:grob? "A pointer to a @code{Tie} object.")
+     (ties ,ly:grob-array? "A grob array of @code{Tie} objects.")
      (tremolo-flag ,ly:grob? "The tremolo object on a stem.")
      (tuplet-number ,ly:grob? "The number for a bracket.")
      (tuplets ,ly:grob-array? "An array of smaller tuplet brackets.")
@@ -1142,6 +1147,9 @@ loose if and only if it is in the middle of a line.")
 entries @code{name} and @code{interfaces}.")
      (minimum-distances ,list? "A list of rods that have the format
 @code{(@var{obj} . @var{dist})}.")
+
+     (note-collision ,ly:grob? "The @code{NoteCollision} object of a
+dot column.")
 
      (positioning-done ,boolean? "Used to signal that a positioning element
 did its job.  This ensures that a positioning is only done once.")

@@ -786,6 +786,7 @@ ADD_INTERFACE (Grob,
                "extra-X-extent "
                "extra-Y-extent "
                "extra-offset "
+               "forced-spacing "
                "interfaces "
                "layer "
                "meta "

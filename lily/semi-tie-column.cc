@@ -37,6 +37,7 @@ ADD_INTERFACE (Semi_tie_column,
                "positioning-done "
                "head-direction "
                "tie-configuration "
+               "ties "
               );
 
 /*
