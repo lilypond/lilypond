@@ -233,15 +233,16 @@ Returns `obj'.
 
 (define-public (shift-one-duration-log music shift dot)
   "Add @var{shift} to @code{duration-log} of @code{'duration} in
-@var{music} and optionally @var{dot} to any note encountered.  This
-scales the music up by a factor `2^@var{shift} * (2 - (1/2)^@var{dot})'."
+@var{music} and optionally @var{dot} to any note encountered.
+The number of dots in the shifted music may not be less than zero."
   (let ((d (ly:music-property music 'duration)))
     (if (ly:duration? d)
 	(let* ((cp (ly:duration-factor d))
-	       (nd (ly:make-duration (+ shift (ly:duration-log d))
-				     (+ dot (ly:duration-dot-count d))
-				     (car cp)
-				     (cdr cp))))
+	       (nd (ly:make-duration
+                    (+ shift (ly:duration-log d))
+                    (max 0 (+ dot (ly:duration-dot-count d)))
+		    (car cp)
+		    (cdr cp))))
 	  (set! (ly:music-property music 'duration) nd)))
     music))
 
@@ -1485,7 +1486,7 @@ Entries that conform with the current key signature are not invalidated."
 		   entry
 		   (cons (car entry) (cons 'clef (cddr entry))))))
 	   (ly:context-property context 'localKeySignature)))))
-  		    
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (skip-of-length mus)

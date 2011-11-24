@@ -1024,7 +1024,8 @@ a context modification duplicating their effect.")
 shiftDurations =
 #(define-music-function (parser location dur dots arg)
    (integer? integer? ly:music?)
-   (_i "Scale @var{arg} up by a factor of 2^@var{dur}*(2-(1/2)^@var{dots}).")
+   (_i "Change the duration of @var{arg} by adding @var{dur} to the
+@code{durlog} of @var{arg} and @var{dots} to the @code{dots} of @var{arg}.")
 
    (music-map
     (lambda (x)
