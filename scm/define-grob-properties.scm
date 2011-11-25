@@ -244,7 +244,6 @@ Positive means move the center to the right.")
 the vertical edges: @code{(@var{left-height} . @var{right-height})}.")
      (edge-text ,pair? "A pair specifying the texts to be set at the
 edges: @code{(@var{left-text} . @var{right-text})}.")
-     (elements-filtered ,boolean? "Callback to filter an element list.")
      (round-up-exceptions ,list? "A list of pairs where car is the numerator
 and cdr the denominator of a moment.  Each pair in this list means that
 the multi-measure rests of the corresponding length will be rounded up to
@@ -683,7 +682,6 @@ positions are requested, the closest one is taken.")
 shift dotted up-note to the right, rather than shifting just the
 dot.")
 
-
 ;;
 ;; r
 ;;
@@ -1044,6 +1042,8 @@ for a full score's worth of grobs.")
 column.")
      (grace-spacing ,ly:grob? "A run of grace notes.")
 
+     (has-span-bar ,pair? "A pair of booleans indicating whether a a span bar
+is drawn above, or respectively below, this staff.")
      (heads ,ly:grob-array? "An array of note heads.")
 
      (items-worth-living ,ly:grob-array? "An array of interesting items.  If
@@ -1060,6 +1060,9 @@ empty in a particular staff, then that staff is erased.")
 for this column.")
 
      (melody-spanner ,ly:grob? "The @code{MelodyItem} object for a stem.")
+
+     (neighbors ,ly:grob-array? "The X-axis neighbors of a grob. Used by the
+pure-from-neighbor-interface to determine various grob heights.")
 
      (normal-stems ,ly:grob-array? "An array of visible stems.")
      (note-columns ,ly:grob-array? "An array of @code{NoteColumn} grobs.")

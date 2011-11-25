@@ -29,6 +29,12 @@
 #include "span-bar.hh"
 #include "engraver.hh"
 
+/*
+  Note that span bar stubs exist for pure height calculations ONLY.
+  They should never be visually present on the page and should never
+  be engraved in contexts where BarLines are engraved.
+*/
+
 class Span_bar_stub_engraver : public Engraver
 {
   vector<Grob *> spanbars_;
@@ -51,8 +57,6 @@ Span_bar_stub_engraver::acknowledge_span_bar (Grob_info i)
 {
   spanbars_.push_back (i.grob ());
 }
-
-// note that this can get out of hand if there are lots of vertical axis groups...
 
 void
 Span_bar_stub_engraver::acknowledge_hara_kiri_group_spanner (Grob_info i)
@@ -118,7 +122,7 @@ Span_bar_stub_engraver::process_acknowledged ()
           gi.rerouting_daddy_context_ = affected_contexts[j];
           announce_grob (gi);
           if (!keep_extent[j])
-            it->set_property ("Y-extent", ly_interval2scm (Interval (infinity_f, -infinity_f)));
+            it->suicide ();//it->set_property ("Y-extent", ly_interval2scm (Interval (infinity_f, -infinity_f)));
         }
     }
   spanbars_.clear ();

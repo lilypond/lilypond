@@ -17,34 +17,39 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "axis-group-interface.hh"
 #include "grob.hh"
 #include "grob-array.hh"
+#include "moment.hh"
+#include "paper-column.hh"
 #include "pointer-group-interface.hh"
 #include "pure-from-neighbor-interface.hh"
 #include "spanner.hh"
 #include "system.hh"
 
-MAKE_SCHEME_CALLBACK (Pure_from_neighbor_interface, filter_elements, 1);
+MAKE_SCHEME_CALLBACK (Pure_from_neighbor_interface, calc_pure_relevant_grobs, 1);
 SCM
-Pure_from_neighbor_interface::filter_elements (SCM smob)
+Pure_from_neighbor_interface::calc_pure_relevant_grobs (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  extract_grob_set (me, "elements", elts);
+  extract_grob_set ((me->original () && me->original ()->is_live ()
+                      ? me->original ()
+                      : me),
+                     "neighbors",
+                     elts);
+
   vector<Grob *> new_elts;
-  Interval_t<int> srl = me->get_system ()->spanned_rank_interval ();
-  for (vsize i = 0; i < elts.size (); i++)
-    if (srl.contains (elts[i]->spanned_rank_interval ()[LEFT]))
-      new_elts.push_back (elts[i]);
+  new_elts.insert (new_elts.end (), elts.begin (), elts.end ());
 
-  SCM elements_scm = me->get_object ("elements");
-  if (Grob_array::unsmob (elements_scm))
-    {
-      vector<Grob *> &arr
-        = unsmob_grob_array (elements_scm)->array_reference ();
-      arr = new_elts;
-    }
+  SCM neighbors_scm = me->get_object ("neighbors");
+  if (Grob_array::unsmob (neighbors_scm))
+     {
+       vector<Grob *> &arr
+         = unsmob_grob_array (neighbors_scm)->array_reference ();
+       arr = new_elts;
+     }
 
-  return SCM_BOOL_T;
+  return Axis_group_interface::internal_calc_pure_relevant_grobs (me, "neighbors");
 }
 
 ADD_INTERFACE (Pure_from_neighbor_interface,
@@ -53,7 +58,7 @@ ADD_INTERFACE (Pure_from_neighbor_interface,
                "heights of the objects' neighbors.",
 
                /* properties */
-               "elements-filtered "
+               "neighbors "
                "pure-relevant-grobs "
                "pure-Y-common "
               );

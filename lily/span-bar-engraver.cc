@@ -90,7 +90,7 @@ Span_bar_engraver::stop_translation_timestep ()
       SCM vis = bars_[0]->internal_get_property (vissym);
       if (ly_is_equal (spanbar_->internal_get_property (vissym), vis))
         spanbar_->set_property (vissym, vis);
-
+      Span_bar::notify_grobs_of_my_existence (spanbar_);
       spanbar_ = 0;
     }
   bars_.resize (0);

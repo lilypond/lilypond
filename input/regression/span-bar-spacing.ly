@@ -1,9 +1,14 @@
 \header {
-  texidoc = "SpanBars participate in the horizontal collision system;
-the accidentals should not collide with the bar lines."
+  texidoc = "Because @code{BarLine} grobs take their
+extra-positioning-height from their neighbors via the
+@code{pure-from-neighbor-interface}, the left edge of an
+accidental should never fall to the left of the right
+edge of a bar line.  This spacing should also take place when
+@code{SpanBar} grobs are present.
+"
 }
 
-\version "2.14.0"
+\version "2.15.21"
 
 upper = \relative c' {
   \key f \minor \time 12/8 

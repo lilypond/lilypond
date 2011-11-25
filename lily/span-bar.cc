@@ -214,6 +214,18 @@ Span_bar::calc_glyph_name (SCM smob)
   return ly_string2scm (type);
 }
 
+void
+Span_bar::notify_grobs_of_my_existence (Grob *me)
+{
+  extract_grob_set (me, "elements", elts);
+  vector<Grob *> sortable (elts.begin (), elts.end ());
+  vector_sort (sortable, Grob::vertical_less);
+  for (vsize i = 0; i < sortable.size (); i++)
+    sortable[i]->set_property ("has-span-bar",
+                               scm_cons (scm_from_bool (i != 0),
+                                         scm_from_bool (i != sortable.size () - 1)));
+}
+
 Interval
 Span_bar::get_spanned_interval (Grob *me)
 {

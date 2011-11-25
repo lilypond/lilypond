@@ -26,7 +26,7 @@
 class Pure_from_neighbor_interface
 {
 public:
-  DECLARE_SCHEME_CALLBACK (filter_elements, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_pure_relevant_grobs, (SCM));
   DECLARE_GROB_INTERFACE ();
 
 };

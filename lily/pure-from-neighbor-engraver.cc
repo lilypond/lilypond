@@ -28,17 +28,15 @@
 
 class Pure_from_neighbor_engraver : public Engraver
 {
-  vector<Grob *> items_then_;
-  vector<Grob *> items_now_;
-  vector<Grob *> pures_then_;
-  vector<Grob *> pures_now_;
+  vector<Grob *> pure_relevants_;
+  vector<Grob *> need_pure_heights_from_neighbors_;
 
 public:
   TRANSLATOR_DECLARATIONS (Pure_from_neighbor_engraver);
 protected:
   DECLARE_ACKNOWLEDGER (pure_from_neighbor);
   DECLARE_ACKNOWLEDGER (item);
-  void stop_translation_timestep ();
+  void finalize ();
 };
 
 Pure_from_neighbor_engraver::Pure_from_neighbor_engraver ()
@@ -49,40 +47,71 @@ void
 Pure_from_neighbor_engraver::acknowledge_item (Grob_info i)
 {
   SCM pure_relevant_p = ly_lily_module_constant ("pure-relevant?");
-  if (!Pure_from_neighbor_interface::has_interface (i.grob ())
+  if (!Pure_from_neighbor_interface::has_interface (i.item ())
       && to_boolean (scm_call_1 (pure_relevant_p, i.item ()->self_scm ())))
-    items_now_.push_back (i.item ());
+    pure_relevants_.push_back (i.item ());
 }
-
-// note that this can get out of hand if there are lots of vertical axis groups...
 
 void
 Pure_from_neighbor_engraver::acknowledge_pure_from_neighbor (Grob_info i)
 {
-  pures_now_.push_back (i.item ());
+  need_pure_heights_from_neighbors_.push_back (i.item ());
 }
 
 void
-Pure_from_neighbor_engraver::stop_translation_timestep ()
+Pure_from_neighbor_engraver::finalize ()
 {
-  if (pures_now_.size ())
+  if (!need_pure_heights_from_neighbors_.size ())
+    return;
+
+  vector_sort (need_pure_heights_from_neighbors_, Grob::less);
+  vector_sort (pure_relevants_, Grob::less);
+
+  /*
+    first, clump need_pure_heights_from_neighbors into
+    vectors of grobs that have the same column.
+  */
+
+  vsize l = 0;
+  vector<vector<Grob *> > need_pure_heights_from_neighbors;
+  do
     {
-      for (vsize i = 0; i < pures_now_.size (); i++)
-        for (vsize j = 0; j < items_then_.size (); j++)
-          Pointer_group_interface::add_grob (pures_now_[i], ly_symbol2scm ("elements"), items_then_[j]);
-
-      for (vsize i = 0; i < pures_then_.size (); i++)
-        for (vsize j = 0; j < items_now_.size (); j++)
-          Pointer_group_interface::add_grob (pures_then_[i], ly_symbol2scm ("elements"), items_now_[j]);
-
-      items_then_.clear ();
-      items_then_.insert (items_then_.end (), items_now_.begin (), items_now_.end ());
-      items_now_.clear ();
-
-      pures_then_.clear ();
-      pures_then_.insert (pures_then_.end (), pures_now_.begin (), pures_now_.end ());
-      pures_now_.clear ();
+      vector<Grob *> temp;
+      temp.push_back (need_pure_heights_from_neighbors_[l]);
+      for (;
+           (l < need_pure_heights_from_neighbors_.size () - 1
+            && (need_pure_heights_from_neighbors_[l]->spanned_rank_interval ()[LEFT]
+                == need_pure_heights_from_neighbors_[l + 1]->spanned_rank_interval ()[LEFT]));
+           l++)
+        temp.push_back (need_pure_heights_from_neighbors_[l + 1]);
+      need_pure_heights_from_neighbors.push_back (temp);
+      l++;
     }
+  while (l < need_pure_heights_from_neighbors_.size ());
+
+  /*
+    then, loop through the pure_relevants_ list, adding the items
+    to the elements of need_pure_heights_from_neighbors_ on either side.
+  */
+
+  int pos[2] = {-1, 0};
+  for (vsize i = 0; i < pure_relevants_.size (); i++)
+    {
+      if (pos[1] < (int) need_pure_heights_from_neighbors.size ()
+          && (pure_relevants_[i]->spanned_rank_interval ()[LEFT]
+              > need_pure_heights_from_neighbors[pos[1]][0]->spanned_rank_interval ()[LEFT]))
+        {
+          pos[0] = pos[1];
+          pos[1]++;
+        }
+      for (int j = 0; j < 2; j++)
+        if (pos[j] >= 0 && pos[j] < (int) need_pure_heights_from_neighbors.size ())
+          for (vsize k = 0; k < need_pure_heights_from_neighbors[pos[j]].size (); k++)
+            Pointer_group_interface::add_grob (need_pure_heights_from_neighbors[pos[j]][k], ly_symbol2scm ("neighbors"), pure_relevants_[i]);
+    }
+
+  need_pure_heights_from_neighbors_.clear ();
+  pure_relevants_.clear ();
 }
 
 #include "translator.icc"

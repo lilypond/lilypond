@@ -390,9 +390,40 @@ and duration-log @var{log}."
 	   (equal? (ly:item-break-dir g) RIGHT))
       (ly:grob-translate-axis! g 3.5 X)))
 
-(define-public (span-bar-stub::height grob)
-  (ly:grob-property grob 'elements-filtered)
-  (ly:axis-group-interface::height grob))
+(define-public (pure-from-neighbor-interface::extra-spacing-height grob)
+  (let* ((height (ly:grob::stencil-height grob))
+         (from-neighbors (interval-union
+                            height
+                            (ly:axis-group-interface::pure-height
+                              grob
+                              0
+                              10000000))))
+    (coord-operation - from-neighbors height)))
+
+(define-public (pure-from-neighbor-interface::account-for-span-bar grob)
+  (define (other-op x) (x (cons cdr car)))
+  (let* ((esh (pure-from-neighbor-interface::extra-spacing-height grob))
+         (hsb (ly:grob-property grob 'has-span-bar)))
+    (if (pair? hsb)
+      (cons-map
+        (lambda (x)
+          (if (and ((other-op x) hsb)
+                   (not (and (eq? x car)
+                             (not (ly:grob-property grob 'allow-span-bar)))))
+              (x esh)
+              0))
+        (cons car cdr))
+      '(0 . 0))))
+
+(define (pure-from-neighbor-interface::extra-spacing-height-including-staff grob)
+  (let ((esh (pure-from-neighbor-interface::extra-spacing-height grob))
+        (to-staff (coord-operation -
+                                   (interval-widen
+                                     '(0 . 0)
+                                     (ly:staff-symbol-staff-radius grob))
+                                   (ly:grob::stencil-height grob))))
+    (interval-union esh to-staff)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tuplets
