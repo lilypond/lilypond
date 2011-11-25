@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
+    Translation of GIT committish: 0a55232131369e73d4db0b81ffcd596cd37a046e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -135,11 +135,10 @@ Référence des propriétés internes :
 
 S'assurer que tous les éléments textuels et les paroles respectent
 les marges du document requiert des calculs relativement lourds@tie{};
-c'est la raison pour laquelle LilyPond, par défaut, ne s'en préoccupe
-pas.  Vous pouvez cependant l'y forcer en définissant
+vous pouvez toutefois vous en affranchir en ajoutant
 
 @example
-\override Score.PaperColumn #'keep-inside-line = ##t
+\override Score.PaperColumn #'keep-inside-line = ##f
 @end example
 
 
@@ -446,7 +445,7 @@ d'être mis entre accolades.
 Contrairement aux indications simples, du type "entre guillemets", les
 blocs @code{\markup} peuvent contenir des expressions imbriquées ou
 d'autres commandes @emph{markup}, dès lors qu'elles sont précédées du
-caractère @code{\}.  Ces commandes n'affecteront que la première
+caractère@tie{}@code{\}.  Ces commandes n'affecteront que la première
 expression qui les suit.
 
 @lilypond[quote,verbatim,relative=2]
@@ -470,10 +469,11 @@ c
 Un bloc @code{\markup} peut contenir du texte entre guillemets.  De
 telles chaines seront considérées comme des expressions textuelles
 minimales@tie{}; à ce titre, toute commande de type @emph{markup} ou
-tout caractère spécial -- tel un @code{\} ou un @code{#} -- sera imprimé
-littéralement et sans influer sur le formatage du texte.  Il est de ce
-fait possible d'imprimer des guillemets informatiques @code{"} dès lors
-qu'ils sont précédés d'une oblique inverse.
+tout caractère spécial -- tel un@tie{}@code{\} ou un@tie{}@code{#} --
+sera imprimé littéralement et sans influer sur le formatage du texte.
+Il est de ce fait possible d'imprimer des guillemets
+informatiques@tie{}@code{"} dès lors qu'ils sont précédés d'une oblique
+inverse.
 @c repeat double quote for pairing "
 
 @c KEEP LY

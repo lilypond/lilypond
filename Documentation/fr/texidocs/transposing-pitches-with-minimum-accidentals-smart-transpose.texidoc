@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
+%% Translation of GIT committish: 099369f020021577e7455eb627b547482af7cd02
   texidocfr = "
 Cet exemple, grâce à un peu de code Scheme, donne la priorité aux
 enharmoniques  afin de limiter le nombre d'altérations supplémentaires.
@@ -26,4 +26,4 @@ Cette façon de procéder aboutit à plus d'enharmoniques naturelles.
 
 "
 
-  doctitlefr = "Transposition et réduction du nombrer d'altérations accidentelles"
+  doctitlefr = "Transposition et réduction du nombre d'altérations accidentelles"

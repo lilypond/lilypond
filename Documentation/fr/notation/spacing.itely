@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f93e4199873c91ae32f0e84a610d14853dc379df
+    Translation of GIT committish: d5ec6db5ee399e590238f06081dbe61367c38687
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -286,7 +286,7 @@ longues.
 
 
 @seealso
-Notation Reference:
+Manuel de notation :
 @ref{Adaptation automatique au format}.
 
 Fichiers d'initialisation :
@@ -376,7 +376,7 @@ format de papier.
 
 L'activation de cette variable permet de ne pas répartir verticalement
 les systèmes sur les pages hormis la dernière.  La valeur par défaut
-est@tie{}@code{##f}.  Lorsque la partition ne comporte que deux ou trois
+est@tie{}@code{#f}.  Lorsque la partition ne comporte que deux ou trois
 systèmes par page, comme pour un conducteur d'orchestre, nous vous
 conseillons d'activer cette variable.
 
@@ -385,7 +385,7 @@ conseillons d'activer cette variable.
 
 La désactivation de cette variable permet de répartir verticalement les
 systèmes de la dernière page d'une partition.  La valeur par défaut
-est@tie{}@code{##t}.  Nous vous conseillons, lorsque des pièces couvrent
+est@tie{}@code{#t}.  Nous vous conseillons, lorsque des pièces couvrent
 deux pages ou plus, d'activer cette variable.@*
 Notez bien que la variable @code{ragged-last-bottom} affecte aussi la
 dernière page de chacune des parties -- créées à l'aide d'un bloc
@@ -701,7 +701,7 @@ qui a pour effet de centrer les systèmes sur la page.  Voir aussi
 Lorsqu'elle est activée, cette variable vérifie que  @code{left-margin},
 @code{line-width} et @code{right-margin} sont en cohérence, et que
 l'addition de ces trois éléments ne dépassera pas la largeur du papier
-(@code{paper-width}).  La valeur par défaut est@tie{}@code{##t}.  Dans
+(@code{paper-width}).  La valeur par défaut est@tie{}@code{#t}.  Dans
 le cas d'une incohérence, un message d'avertissement est émis et les
 trois variables -- marges et longueur de ligne -- rétablies à leur
 valeur par défaut (ajustées selon le fromat du papier).
@@ -711,8 +711,8 @@ valeur par défaut (ajustées selon le fromat du papier).
 
 Lorsque cette variable est activée, les systèmes ne s'étendront pas sur
 la longueur de la ligne, mais s'arrêteront à leur longueur normale.
-La valeur par défaut est @code{##f} mais, si la partition ne comporte
-qu'un seul système, elle passe à @code{##t}.  Cette variable peut aussi
+La valeur par défaut est @code{#f} mais, si la partition ne comporte
+qu'un seul système, elle passe à @code{#t}.  Cette variable peut aussi
 se gérer au sein d'un bloc @code{\layout}.
 
 @item ragged-last
@@ -720,13 +720,13 @@ se gérer au sein d'un bloc @code{\layout}.
 
 Lorsqu'elle est activée, cette variable permet de ne pas étendre le
 dernier système de façon à occuper toute la longueur de la ligne.  La
-valeur par défaut est@tie{}@code{##f}.  Cette variable peut aussi
+valeur par défaut est@tie{}@code{#f}.  Cette variable peut aussi
 se gérer au sein d'un bloc @code{\layout}.
 
 @end table
 
 @seealso
-Notation Reference:
+Manuel de notation :
 @ref{Adaptation automatique au format}.
 
 Fichiers d'initialisation :
@@ -753,7 +753,7 @@ Lorsqu'elle est activée, les réglages affectés à @code{inner-margin},
 @code{outer-margin} ainsi que @code{binding-offset} détermineront les
 différentes marges selon qu'il s'agit d'une page paire ou impaire.
 Cette variable s'applique en lieu et place de @code{left-margin} et
-@code{right-margin}.  La valeur par défaut est@tie{}@code{##f}.
+@code{right-margin}.  La valeur par défaut est@tie{}@code{#f}.
 
 @item inner-margin
 @funindex inner-margin
@@ -980,7 +980,7 @@ premier numéro de page soit pair ou impair.  Lorsque cette
 fonctionnalité est activée, l'algorithme des sauts de page décidera de
 lui-même si le premier numéro sera pair ou impair, ce qui se traduira
 par un éventuel incrément de un.  La valeur par défaut
-est@tie{}@code{##f}.
+est@tie{}@code{#f}.
 
 @item first-page-number
 @funindex first-page-number
@@ -992,13 +992,13 @@ de@tie{}@code{#1}.
 @funindex print-first-page-number
 
 Cette variable permet d'imprimer le numéro de page y compris sur la
-première.  La valeur par défaut est@tie{}@code{##f}.
+première.  La valeur par défaut est@tie{}@code{#f}.
 
 @item print-page-number
 @funindex print-page-number
 
 La désactivation de cette variable permet d'obtenir des pages non
-numérotées.  La valeur par défaut est@tie{}@code{##t}.
+numérotées.  La valeur par défaut est@tie{}@code{#t}.
 
 @end table
 
@@ -1024,7 +1024,7 @@ sorte que la page une se retrouve à droite.
 Cette variable définit l'importance relative des espacements entre la
 page (verticalité) et la ligne (horizontalité).  Une valeur élevée
 privilégiera l'espacement au niveau de la page.  La valeur par défaut
-est de@tie{}@code{#10}.
+est de@tie{}@code{10}.
 
 @item print-all-headers
 @funindex print-all-headers
@@ -1032,7 +1032,7 @@ est de@tie{}@code{#10}.
 Lorsque cette variable est activée, l'intégralité des champs d'entête
 sera imprimée pour chaque bloc @code{\score}, plutôt que les seuls
 champs @code{piece} et @code{opus}.  La valeur par défaut
-est@tie{}@code{##f}.
+est@tie{}@code{#f}.
 
 @item system-separator-markup
 @funindex system-separator-markup
@@ -1433,7 +1433,7 @@ complicated.  More details are available in
 
 
 @seealso
-Notation Reference:
+Manuel de notation :
 @ref{Variables de gestion des sauts de ligne}.
 
 Référence des propriétés internes :
@@ -1463,7 +1463,7 @@ Tout comme @code{ragged-right} et @code{ragged-last} qui permettent de
 gérer la répartition horizontale, LilyPond dispose de commutateurs
 équivalents au niveau de la verticalité@tie{}: @code{ragged-bottom} et
 @code{ragged-last-bottom}.  Lorsqu'ils sont tous deux activés --
-affectés de @code{##t} -- les systèmes ne seront pas répartis sur les
+affectés de @code{#t} -- les systèmes ne seront pas répartis sur les
 pages y compris la dernière.  Pour de plus amples détails, reportez-vous
 à @ref{Variables d'espacement vertical fixe}.
 
@@ -1592,7 +1592,7 @@ Le @code{Page_turn_engraver} examine la propriété de contexte
 @code{minimumPageTurnLength} pour déterminer quelle doit être la
 longueur d'un fragment sans note avant une tourne.  La valeur par
 défaut de @code{minimumPageTurnLength} est
-@code{#(ly:make-moment@tie{}1@tie{}1)}, soit une ronde, et s'ajuste de
+@code{(ly:make-moment@tie{}1@tie{}1)}, soit une ronde, et s'ajuste de
 la manière suivante@tie{}:
 
 @example
@@ -1908,7 +1908,7 @@ Le nom de ces propriétés, sauf @code{staff-affinity}, suit le schéma
 @code{@var{item2}} n'est pas forcément placé au-dessous@tie{}: c'est le
 cas pour la propriété @code{nonstaff-relatedstaff-spacing} qui spécifie
 la distance entre une ligne de non-portée alors que sa
-@code{staff-affinity} a été déterminée à @code{#UP}.
+@code{staff-affinity} a été déterminée à @code{UP}.
 
 Toutes ces distances sont mesurées entre les points de référence
 respectifs des éléments considérés.
@@ -2630,12 +2630,11 @@ distance entre des portées adjacentes.  Des valeurs positives remontent
 les portées et paroles, des valeurs négatives les descendent.
 
 @item
-Dans la mesure où @code{NonMusicalPaperColumn
-#'line-break-system-details} permet de positionner systèmes et portées
-n'importe où sur une page, vous pourriez être en contradiction avec les
-dimensionnements de la feuille ou bien aboutir à des surimpressions.
-Soyez donc raisonnable quant aux différentes valeurs que vous affectez
-à ces réglages.
+Dans la mesure où @code{NonMusicalPaperColumn #'line-break-system-details}
+permet de positionner systèmes et portées n'importe où sur une page,
+vous pourriez être en contradiction avec les dimensionnements de la
+feuille ou bien aboutir à des surimpressions.  Soyez donc raisonnable
+quant aux différentes valeurs que vous affectez à ces réglages.
 
 @end itemize
 
@@ -2792,7 +2791,7 @@ plus courte de chaque mesure.  C'est elle qui servira de base pour
 l'espacement, à cette nuance près que la plus courte durée ne saurait
 être strictement supérieure à la croche.  Cette @qq{durée de référence}
 est d'ailleurs affichée lorsque vous lancez @code{lilypond} avec l'option
-@code{--verbose}.
+@option{--verbose}.
 
 Ces durées peuvent être adaptées.  Vous pouvez définir la durée de base
 pour les espacements grâce à la propriété
@@ -3159,10 +3158,10 @@ argument la durée de référence qui servira de base pour espacer toute la
 musique.  La fonction scheme @code{make-moment} intégrée à LilyPond
 prend deux arguments@tie{}: un numérateur et un dénominateur qui
 représentent une fraction de ronde.  L'appel de
-@w{@code{#(ly:make-moment 1 20)}} produit donc une durée de référence
+@w{@code{(ly:make-moment 1 20)}} produit donc une durée de référence
 égale à un vingtième de ronde.  Vous pourriez tout aussi bien  utiliser
-@code{#(ly:make-moment 1 16)}, @code{#(ly:make-moment 1 8)} ou
-@code{#(ly:make-moment 3 97)}.
+@code{(ly:make-moment 1 16)}, @code{(ly:make-moment 1 8)} ou
+@code{(ly:make-moment 3 97)}.
 
 Se pose alors le problème de fournir la juste durée de référence à
 @code{proportionalNotationDuration}.  Il faut en l'occurrence procéder par

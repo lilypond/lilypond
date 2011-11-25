@@ -1,6 +1,6 @@
-%% Translation of GIT committish: 1baa2adf57c84e8d50e6907416eadb93e2e2eb5c
+%% Translation of GIT committish: 654411c88c0c1e5986f0f443fff8503c3bbd23e0
   texidocfr = "
-Dans certains cas de musique polyphonie complexe, une voix
+Dans certains cas de musique polyphonique complexe, une voix
 supplémentaire peut permettre d'éviter les risques de collision.
 Lorsque quatre voix parallèles ne suffisent pas, la fonction Scheme
 @code{context-spec-music} permet d'ajouter des d'autres voix.
