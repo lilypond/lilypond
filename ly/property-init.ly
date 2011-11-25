@@ -16,11 +16,15 @@ defaultNoteHeads =
 
 accidentalStyle =
 #(define-music-function
-   (parser location style) (string-or-symbol?)
-   (_i "Set @var{style} as the accidental style to use.")
-   (set-accidental-style (if (string? style)
-                             (string->symbol style)
-                             style)))
+   (parser location context style) ((symbol?) string?)
+   (_i "Set accidental style to @var{style}, a string.  If an optional
+@var{context} symbol is given, e.g. @code{#'Staff} or @code{#'Voice},
+the settings are applied to that context.  Otherwise, the context
+defaults to @samp{Staff}, except for piano styles, which use
+@samp{GrandStaff} as a context." )
+   (if context
+       (set-accidental-style (string->symbol style) context)
+       (set-accidental-style (string->symbol style))))
 
 %% arpeggios
 
