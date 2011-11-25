@@ -15,6 +15,7 @@
 * Iterator tutorial::
 * Engraver tutorial::
 * Callback tutorial::
+* Understanding pure properties::
 * LilyPond scoping::
 * Scheme->C interface::
 * LilyPond miscellany::
@@ -1775,10 +1776,302 @@ information.
 
 TODO -- This is a placeholder for a tutorial on callback functions.
 
+
+@node Understanding pure properties
+@section Understanding pure properties
+
+@menu
+* Purity in LilyPond::
+* Writing a pure function::
+* How purity is defined and stored::
+* Where purity is used::
+* Case studies::
+* Debugging tips::
+@end menu
+
+Pure properties are some of the most difficult properties to understand
+in LilyPond but, once understood, it is much easier to work with
+horizontal spacing.  This document provides an overview of what it means
+for something to be @q{pure} in LilyPond, what this purity guarantees,
+and where pure properties are stored and used.  It finishes by
+discussing a few case studies for the pure programmer to save you some
+time and to prevent you some major headaches.
+
+
+@node Purity in LilyPond
+@subsection Purity in LilyPond
+Pure properties in LilyPond that do not have any @q{side effects}.
+That is, looking up a pure property should never result in calls to the
+following functions:
+@itemize
+@item @code{set_property}
+@item @code{set_object}
+@item @code{suicide}
+@end itemize
+This means that, if the property is calculated via a callback, this callback
+must not only avoid the functions above but make sure that any functions
+it calls also avoid the functions above.  Also, to date in LilyPond, a pure
+function will always return the same value before line breaking (or, more
+precisely, before any version of @code{break_into_pieces} is called).  This
+convention makes it possible to cache pure functions and be more flexible
+about the order in which functions are called. For example; Stem #'length has
+a pure property that will @emph{never} trigger one of the functions listed
+above and will @emph{always} return the same value before line breaking,
+independent of where it is called.  Sometimes, this will be the actual length
+of the Stem.  But sometimes it will not.  For example; stem that links up
+with a beam will need its end set to the Y position of the beam at the stem's
+X position.  However, the beam's Y positions can only be known after the score
+is broken up in to several systems (a beam that has a shallow slope on a
+compressed line of music, for example, may have a steeper one on an
+uncompressed line).  Thus, we only call the impure version of the properties
+once we are @emph{absolutely certain} that all of the parameters needed to
+calculate their final value have been calculated.  The pure version provides a
+useful estimate of what this Stem length (or any property) will be, and
+the art of creating good pure properties is trying to get the estimation
+as close to the actual value as possible.
+
+Of course, like Gregory Peck and Tintin, some Grobs will have properties
+that will always be pure.  For example, the height of a note-head in
+not-crazy music will never depend on line breaking or other parameters
+decided late in the typesetting process.  Inversely, in rare cases,
+certain properties are difficult to estimate with pure values.  For
+example, the height of a Hairpin at a certain cross-section of its
+horizontal span is difficult to know without knowing the horizontal
+distance that the hairpin spans, and LilyPond provides an
+over-estimation by reporting the pure height as the entire height of the
+Hairpin.
+
+Purity, like for those living in a convent, is more like a contract than
+an @emph{a priori}.  If you write a pure-function, you are promising
+the user (and the developer who may have to clean up after you) that
+your function will not be dependent on factors that change at different
+stages of the compilation process (compilation of a score, not of
+LilyPond).
+
+One last oddity is that purity, in LilyPond, is currently limited
+exclusively to things that have to do with Y-extent and positioning.
+There is no concept of @q{pure X} as, by design, X is always the
+independent variable (i.e. from column X1 to column X2, what will be the
+Y height of a given grob).  Furthermore, there is no purity for
+properties like color, text, and other things for which a meaningful notion
+of estimation is either not necessary or has not yet been found.  For example,
+even if a color were susceptible to change at different points of the
+compilation process, it is not clear what a pure estimate of this color
+would be or how this pure color could be used.  Thus, in this document and
+in the source, you will see purity discussed almost interchangeably with
+Y-axis positioning issues.
+
+
+@node Writing a pure function
+@subsection Writing a pure function
+Pure functions take, at a minimum, three arguments: the @var{grob}, the
+starting column at which the function is being evaluated (hereafter
+referred to as @var{start}), and the end column at which the grob is
+being evaluated (hereafter referred to as @var{end}).  For items,
+@var{start} and @var{end} must be provided (meaning they are not optional)
+but will not have a meaningful impact on the result, as items only occupy
+one column and will thus yield a value or not (if they are not in the range
+from @var{start} to @var{end}).  For spanners however, @var{start} and
+@var{end} are important, as we may can get a better pure estimation of a
+slice of the spanner than considering it on the whole.  This is useful
+during line breaking, for example, when we want to estimate the Y-extent
+of a spanner broken at given starting and ending columns.
+
+If the pure function you're writing takes more than three arguments
+(say, for example, a chained offset callback), this is not a problem:
+just make sure that the grob is the first argument and that start and
+end are the last two arguments.
+
+
+@node How purity is defined and stored
+@subsection How purity is defined and stored
+Purity can currently be defined two different ways in LilyPond that
+correspond to two types of scenarios.  In one scenario, we know that a
+callback is pure, but we are not necessarily certain what properties
+will use this callback.  In another, we want a property to be pure, but
+we don't want to guarantee that its callback function will be pure in
+all circumstances.
+
+In the first scenario, we register the callback in define-grobs.scm in
+one of four places depending on what the function does.
+
+@itemize
+@item @code{pure-print-functions}: If finding a print function's vertical
+extent does not have any @q{side effects} we register it here. We then
+don't have to set the pure Y-extent property, which will be taken from the
+stencil.
+
+@item @code{pure-print-to-height-conversions}: If a stencil can
+eventually be used to glean a grob's Y-extent but is not pure (meaning
+it will have a different height at different stages of the compilation
+process), we add it to this list along with a function for the pure
+Y-extent.
+
+@item @code{pure-conversions-alist}: This list contains pairs of
+functions and their pure equivalents.  It is onto but not one-to-one.
+
+@item @code{pure-functions}: Like pure-print-functions in that they work
+for both pure and impure values, but they do not return a stencil.
+@end itemize
+
+At all stages of the compilation process, when LilyPond wants the pure
+version of a property, it will consult these lists and see if it can get
+this property for a given Grob.  Note that you do @emph{not} need to
+register the pure property in the grob itself.  For example, there is no
+property @q{pure-Y-extent}.  Rather, by registering these functions as
+defined above, every time LilyPond needs a pure property, it will check
+to see if a Grob contains one of these functions and, if so, will use
+its value.  If LilyPond cannot get a pure function, it will return a
+value of @code{##f} for the property.
+
+LilyPond is smart enough to know if a series of chained functions are
+pure.  For example, if a Y-offset property has four chained functions
+and all of them have pure equivalents, LilyPond will read the four pure
+equivalents when calculating the pure property.  However, if even one is
+impure, LilyPond will not return a pure property for the offset (instead
+returning something like @code{#f} or @code{'()}) and will likely wreak
+havoc on your score.
+
+In the second scenario, we create an unpure-pure-container (unpure is
+not a word, but hey, neither was Lilypond until the 90s).  For example:
+
+@example
+#(define (foo grob)
+  '(-1 . 1))
+
+#(define (bar grob start end)
+  '(-2 . 2))
+
+\override Stem #'length = #(ly:make-unpure-pure-container foo bar)
+@end example
+
+This is useful if we want to:
+
+@itemize
+@item create overrides that have pure alternatives (should not be used
+in development, but useful for users)
+
+@item use return values that are not functions (i.e. pairs or booleans)
+for either pure or unpure values.
+
+@item allow a function to be considered pure in a limited amount of
+circumstances.  This is useful if we are sure that, when associated with
+one grob a function will be pure but not necessarily with another grob
+that has different callbacks.
+@end itemize
+
+Items can only ever have two pure heights: their actual pure height if
+they are between @q{start} and @q{end}, or an empty interval if they are
+not.  Thus, their pure property is cached to speed LilyPond up.  Pure
+heights for spanners are generally not cached as they change depending
+on the start and end values.  They are only cached in certain particular
+cases.  Before writing a lot of caching code, make sure that it is a
+value that will be reused a lot.
+
+
+@node Where purity is used
+@subsection Where purity is used
+Pure Y values must be used in any functions that are called before
+line breaking.  Examples of this can be seen in
+@code{Separation_items::boxes} to construct horizontal skylines and in
+@code{Note_spacing::stem_dir_correction} to correct for optical
+illusions in spacing.  Pure properties are also used in the calculation
+of other pure properties.  For example, the @code{Axis_group_interface}
+has pure functions that look up other pure functions.
+
+Purity is also implicitly used in any functions that should only ever
+return pure values.  For example, extra-spacing-height is only ever used
+before line-breaking and thus should never use values that would only be
+available after line breaking.  In this case, there is no need to create
+callbacks with pure equivalents because these functions, by design, need
+to be pure.
+
+To know if a property will be called before and/or after line-breaking
+is sometimes tricky and can, like all things in coding, be found by
+using a debugger and/or adding @var{printf} statements to see where they
+are called in various circumstances.
+
+
+@node Case studies
+@subsection Case studies
+In each of these case studies, we expose a problem in pure properties, a
+solution, and the pros and cons of this solution.
+
+@subheading Time signatures
+A time signature needs to prevent accidentals from passing over or under
+it, but its extent does not necessarily extend to the Y-position of
+accidentals.  LilyPond's horizontal spacing sometimes makes a line of
+music compact and, when doing so, allows certain columns to pass over
+each other if they will not collide.  This type of passing over is not
+desirable with time signatures in traditional engraving.  But how do we
+know if this passing over will happen before line breaking, as we are
+not sure what the X positions will be?  We need a pure estimation of how
+much extra spacing height the time signatures would need to prevent this
+form of passing over without making this height so large as to
+overly-distort the Y-extent of an system, which could result in a very
+@q{loose} looking score with lots of horizontal space between columns.
+So, to approximate this extra spacing height, we use the Y-extent of a
+time signature's next-door-neighbor grobs via the pure-from-neighbor
+interface.
+
+@itemize
+@item pros: By extending the extra spacing height of a time signature to
+that of its next-door-neighbors, we make sure that grobs to the right of
+it that could pass above or below it do not.
+
+@item cons: This over-estimation of the vertical height could prevent
+snug vertical spacing of systems, as the system will be registered as
+being taller at the point of the time signature than it actually is.
+This approach can be used for clefs and bar lines as well.
+@end itemize
+
+@subheading Stems
+As described above, Stems need pure height approximations when they are
+beamed, as we do not know the beam positions before line breaking.  To
+estimate this pure height, we take all the stems in a beam and find
+their pure heights as if they were not beamed.  Then, we find the union
+of all these pure heights and take the intersection between this
+interval (which is large) and an interval going from the note-head of a
+stem to infinity in the direction of the stem so that the interval stops
+at the note head.
+
+@itemize
+@item pros: This is guaranteed to be at least as long as the beamed
+stem, as a beamed stem will never go over the ideal length of the
+extremal beam of a stem.
+
+@item cons: Certain stems will be estimated as being too long, which
+leads to the same problem of too-much-vertical-height as described
+above.
+
+@end itemize
+
+
+@node Debugging tips
+@subsection Debugging tips
+A few questions to ask yourself when working with pure properties:
+
+@itemize
+@item Is the property really pure?  Are you sure that its value could
+not be changed later in the compiling process due to other changes?
+
+@item Can the property be made to correspond even more exactly with the
+eventual impure property?
+
+@item For a spanner, is the pure property changing correctly depending
+on the starting and ending points of the spanner?
+
+@item For an Item, will the item's pure height need to act in horizontal
+spacing but not in vertical spacing?  If so, use extra-spacing-height
+instead of pure height.
+
+@end itemize
+
+
 @node LilyPond scoping
 @section LilyPond scoping
 
-The Lilypond language has a concept of scoping, i.e. you can do
+The Lilypond language has a concept of scoping, i.e. you can do:
 
 @example
 foo = 1
