@@ -3283,7 +3283,7 @@ def paren_matcher (n):
     return
 
 def undollar_scm (m):
-    return re.sub (r"\$", "", m.group (0))
+    return re.sub (r"\$(.?)", r"\1", m.group (0))
 
 def undollar_embedded (m):
     str = re.sub (r"#\$", "#", m.group (1))
