@@ -79,7 +79,7 @@ internal_ly_eval_scm (Parse_start *ps)
       if (module == SCM_BOOL_F)
 	{
 	  SCM function = ly_lily_module_constant ("make-safe-lilypond-module");
-	  module = scm_call_0 (function);
+	  module = scm_gc_protect_object (scm_call_0 (function));
 	}
       
       // We define the parser so trusted Scheme functions can
