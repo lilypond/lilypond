@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 77dc111a8a92e808c987ee61d5559ce070764242
+    Translation of GIT committish: 04a1f20da162cd0fec86bddbd14f167a695da480
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -606,6 +606,10 @@ Lorsque l'inclusion concerne des fichiers indépendants, utilisez
 @example
 <lilypondfile @var{option1} @var{option2} ...>@var{fichier}</lilypondfile>
 @end example
+
+La syntaxe pour @code{>musicXmlfile>} est identique à celle de
+@code{<lilypondfile>}, à ceci près qu'elle fait référence à un fichier
+MusicXML plutôt qu'à un fichier LilyPond.
 
 Une liste des différentes options utilisables avec les balises
 @code{lilypond} et @code{lilypondfile} est disponible, à la rubrique
