@@ -24,10 +24,10 @@ are @qq{simple} tasks: they can be done by a normal user with
 nothing more than a web browser, email, and lilypond.}
 
 @qq{Issues} isn't just a politically-correct term for @qq{bug}.
-We use the same tracker for feature requests and code TODOs, so
-the term @qq{bug} wouldn't be accurate.  Despite the difference
-between @qq{issue} and @qq{bug}, we call our team of contributors
-who organize issues the @emph{Bug Squad}.
+We use the same tracker for feature requests, code TODOs and
+patches, so the term @qq{bug} wouldn't be accurate.  Despite the
+difference between @qq{issue} and @qq{bug}, we call our team of
+contributors who organize issues the @emph{Bug Squad}.
 
 The Bug Squad is mainly composed of non-programmers -- their job
 is to @emph{organize} issues, not solve them.  Their duties
@@ -312,6 +312,45 @@ After @strong{every release} (both stable and unstable):
 @itemize
 
 @item
+Issues to verify: try to reproduce the bug with the latest
+officially released version (not one you've built yourself from
+source); if the bug is no longer there, mark the
+issue @qq{Verified} (i.e. @qq{the fix has been verified to work}).
+
+The list of items to verify is here:
+
+@example
+@uref{http://code.google.com/p/lilypond/issues/list?can=7}
+@end example
+
+You can also generate this list by selecting @qq{Issues to verify}
+from the drop-down list next to the search box.
+
+Quite a few of these will be issues tracking patches.  @strong{You
+do not have to prove these patches work - simply that they have
+been pushed into the code base.}  The developer should have put
+information similar to @qq{Pushed as as
+d8fce1e1ea2aca1a82e25e47805aef0f70f511b9} in the tracker.  The
+long list of letters and numbers is called the @qq{committish}.
+Providing you can find this at the git tracker:
+
+@example
+@uref{http://git.savannah.gnu.org/gitweb/?p=lilypond.git}
+@end example
+
+then you should mark the issue as verified.  A quick way of
+finding these is to enter the committish at the following address:
+
+@example
+@uref{http://philholmes.net/lilypond/git/}
+@end example
+
+A few (approximately 10%) of the fixed issues relate to the
+build system or fundamental architecture changes; there is no way
+for you to verify these.  Leave those issues alone; somebody else
+will handle them.
+
+@item
 Regression test comparison: if anything has changed suspiciously,
 ask if it was deliberate.  If the text output from LilyPond (the
 logfile) changes, the differences will be displayed with a +
@@ -333,21 +372,6 @@ The official comparison is online, at:
 
 More information is available from in
 @ref{Precompiled regression tests}.
-
-
-@item
-Issues to verify: try to reproduce the bug with the latest
-official GUB version; if you cannot reproduce the bug, mark the
-item @qq{Verified} (i.e. @qq{the fix has been verified to work}).
-
-@example
-@uref{http://code.google.com/p/lilypond/issues/list?can=7}
-@end example
-
-A few (approximately 10%) of these fixed issues relate to the
-build system or fundamental architecture changes; there is no way
-for you to verify these.  Leave those issues alone; somebody else
-will handle them.
 
 @item
 Check for any incorrectly-classified items in the tracker.  This
@@ -394,8 +418,8 @@ same (broken) output as the initial report, then simply post a
 @section Issue classification
 
 The Bug Squad should classify issues according to the guidelines
-given by developers.  Every issue should have a Status, Type, and
-Priority; the other fields are optional.
+given by developers.  Every issue should have a Status and Type;
+the other fields are optional.
 
 @subheading Status (mandatory)
 
@@ -456,7 +480,22 @@ The issue's Type should be the first relevant item in this list.
 @itemize
 
 @item
-Type-Collision: overlapping notation.
+Type-Critical: normally a regression
+against a previous stable version or a regression against a fix
+developed for this version. This does not apply where the
+@qq{regression} occurred because a feature was removed
+deliberately - this is not a bug.
+
+Currently, only Critical items will block a stable release.
+
+@item
+Type-Maintainability: hinders future development.
+
+@item
+Type-Crash: any input which produces a crash.
+
+@item
+Type-Ugly: overlapping or other ugly notation in graphical output.
 
 @item
 Type-Defect: a problem in the core program.  (the @code{lilypond}
@@ -485,7 +524,7 @@ Type-Other: anything else.
 
 @end itemize
 
-
+@ignore
 @subheading Priority (mandatory)
 
 Currently, only Critical items will block a stable release.
@@ -530,6 +569,8 @@ to change by others in the development team.  For example, a
 regression against an old stable version which hasn't been
 noticed for a long time and which is unlikely to get fixed could
 be downgraded from Priority-Critical by one of the programmers.
+
+@end ignore
 
 @subheading Opsys (optional)
 
@@ -583,8 +624,8 @@ didn't try to stop a collision, but it just so happened that two
 grobs didn't collide), then breaking it does not count as a
 regression.
 
-To help decide whether the change is a regression, and therefore
-should be Priority-Critical, please adopt the following process:
+To help decide whether the change is a regression, please adopt
+the following process:
 
 @enumerate
 
@@ -593,12 +634,12 @@ Are you certain the change is OK?  If so, do nothing.
 
 @item
 Are you certain that the change is bad?  Add it to the tracker
-as a Critical issue, regression.
+as a regression.
 
 @item
 If you're not certain either way, add it to the tracker as a
-Critical issue, regression but be aware that it may be
-recategorised or marked invalid.
+regression but be aware that it may be recategorised or marked
+invalid.
 
 @end enumerate
 
@@ -609,10 +650,6 @@ regression.
 Frog: the fix is believed to be suitable for a new contributor
 (does not require a great deal of knowledge about LilyPond).  The
 issue should also have an estimated time in a comment.
-
-@item
-Maintainability: hinders development of LilyPond.  For example,
-improvements to the build system, or @qq{helper} python scripts.
 
 @item
 Bounty: somebody is willing to pay for the fix.  Only add this tag
@@ -626,15 +663,18 @@ to warnings when compiling the source code or generating
 documentation.
 
 @item
-Security: might potentially be used.
+Security: security risk.
 
 @item
-Performance: might potentially be used.
+Performance: performance issue.
 
 @end itemize
 
 If you particularly want to add a label not in the list, go
-ahead, but this is not recommended.
+ahead, but this is not recommended, except when an issue is marked
+as fixed.  In this case it should be labelled fixed_mm_MM_ss,
+where mm is major version, MM minor version and ss current
+release.
 
 
 @node Adding issues to the tracker
@@ -706,8 +746,8 @@ generate a @file{bug.pdf} file with:
 lilypond --pdf bug.ly
 @end example
 
-Note that this is likely to be extremely rare; most bugs should fit
-into the first two categories above.
+Note that this is likely to be extremely rare; most bugs should
+fit into the first two categories above.
 
 
 @end itemize
