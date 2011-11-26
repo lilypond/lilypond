@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 099369f020021577e7455eb627b547482af7cd02
+%% Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
   texidocfr = "
 En mode « easy play », les têtes de note utilisent la propriété
 @code{note-names} attachée à l'objet @code{NoteHead} pour déterminer ce
@@ -9,4 +9,3 @@ La création d'un graveur dédié permet de traiter toutes les notes.
 "
 
   doctitlefr = "Easy play -- chiffre en lieu et place des lettres"
-
