@@ -9,7 +9,7 @@
 \header {
   lsrtags = "pitches, editorial-annotations"
 
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
   doctitlees = "Aplicar estilos de cabeza según la nota de la escala"
   texidoces = "
 La propiedad @code{shapeNoteStyles} se puede usar para definir varios
@@ -56,7 +56,7 @@ harmonischen Funktionen und dem Notenstil verloren geht.
 
 "
 
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
+%% Translation of GIT committish: 099369f020021577e7455eb627b547482af7cd02
   texidocfr = "
 La propriété @code{shapeNoteStyles} permet d'affecter un profil
 particulier à chaque degré de la gamme -- à partir de l'armure ou
@@ -66,11 +66,11 @@ de symboles, qu'il s'agisse de formes géométriques (@code{triangle},
 américains (avec quelques noms de note latins).
 
 LilyPond dispose de deux raccourcis, @code{\\aikenHeads} et
-@code{\\sacredHarpHeads}, permettant de reproduire déanciens recueils de
+@code{\\sacredHarpHeads}, permettant de reproduire d'anciens recueils de
 chansons américaines.
 
 L'exemple suivant montre plusieurs manières de profiler les têtes de
-note, ainsi que la capacité de trnsposer tout en respectant la fonction
+note, ainsi que la capacité de transposer tout en respectant la fonction
 harmonique de chaque note dans la gamme.
 
 "

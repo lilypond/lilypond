@@ -7,9 +7,23 @@
 \version "2.15.20"
 
 \header {
+%% Translation of GIT committish: af2292dff32d630f62d69294158452f103f3e393
+  texidocfr = "
+Lorsque les improvisations ou @emph{taqasim} sont temporairement libres,
+la métrique peut ne pas apparaître, auquel cas on utilisera un
+@code{\\cadenzaOn}.  Les altérations accidentelles devront alors être
+répétées en raison de l'absence de barre de mesure.  Voici comment
+  pourrait débuter un improvisation de @emph{hijaz}.
+
+"
+
+  doctitlefr = "Improvisation en musique arabe"
+
+
   lsrtags = "world-music"
 
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
   texidoces = "
 Para las improvisaciones o @emph{taqasim} que son libres durante unos
 momentos, se puede omitir la indicación de compás y se puede usar

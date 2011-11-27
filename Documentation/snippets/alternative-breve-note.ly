@@ -15,6 +15,13 @@ vertikalen Linien an jeder Seite des Notenkopfes benutzt."
   doctitlede = "Alternative Brevis mit zwei vertiaklen Linien"
 
 
+%% Translation of GIT committish: 9c74179ab62d3a785e890df9c90656ee8fb90fef
+  texidocfr = "Voici comment obtenir une brève -- aussi appelée note carée --
+flanquée de deux barres verticales, au lieu d'une comme habituellement."
+
+  doctitlefr = "Brève alternative avec deux barres verticales"
+
+
   lsrtags = "rhythms,expressive-marks"
   texidoc = "This code demonstrates how to use the alternative breve note
 with two vertical lines on each side of the notehead instead of one line."

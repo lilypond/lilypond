@@ -9,7 +9,7 @@
 \header {
   lsrtags = "ancient-notation, template"
 
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
   texidoces = "
 Al transcribir música mensural, es útil un «incipit» al compienzo
 de la pieza para indicar la tonalidad y el tempo

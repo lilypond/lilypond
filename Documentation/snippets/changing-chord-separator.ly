@@ -9,7 +9,7 @@
 \header {
   lsrtags = "chords"
 
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
   texidoces = "
 Se puede establecer el separador entre las distintas partes del
 nombre de un acorde para que sea cualquier elemento de marcado.

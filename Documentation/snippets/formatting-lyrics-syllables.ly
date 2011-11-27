@@ -7,6 +7,14 @@
 \version "2.14.0"
 
 \header {
+%%  Translation of GIT committish: f88e964fea14c10b48787ec9f4b5f8261a23de48
+  texidocfr = "
+Le mode markup permet d'individualiser la mise en forme de certaines syllabes.
+
+"
+  doctitlefr = "Mise en forme individuelle de syllabes"
+
+
   lsrtags = "text, vocal-music"
 
 %%%    Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422

@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
   texidoces = "
 Para tipografiar las barras agrupadas en la forma @code{3-4-3-2} sólo
 es necesario modificar la estructura de pulsos:
