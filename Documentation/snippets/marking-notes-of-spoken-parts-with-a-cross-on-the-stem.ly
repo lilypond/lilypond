@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.10"
+\version "2.15.20"
 
 \header {
   lsrtags = "editorial-annotations, vocal-music"
@@ -30,8 +30,8 @@ speakOn = {
               Y
               (- (ly:grob-property grob 'direction))
               (grob-interpret-markup grob
-                                    (markup #:center-align #:fontsize -4
-                                            #:musicglyph "noteheads.s2cross"))
+                                     (markup #:center-align #:fontsize -4
+                                             #:musicglyph "noteheads.s2cross"))
               -2.3))))
 }
 

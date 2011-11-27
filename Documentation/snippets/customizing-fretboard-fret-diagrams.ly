@@ -4,34 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.7"
+\version "2.15.20"
 
 \header {
-%% Translation of GIT committish: 40bf2b38d674c43f38058494692d1a0993fad0bd
-  texidocfr = "
-Les propriétés d'un diagramme de fret sont définies par les
-@code{fret-diagram-details}.  En matière de diagramme FretBoards, les
-adaptations s'appliquent à l'objet @code{FretBoards.FretBoard}.  Un
-@code{FretBoard} est comparable à un @code{Voice}@tie{}: il s'agit
-d'un contexte du plus bas niveau, et il n'est donc pas primordial de
-l'instancier de manière explicite pour adapter ses propriétés.
-
-"
-  doctitlefr = "Personnalisation de diagrammes de fret"
-
-
   lsrtags = "fretted-strings, tweaks-and-overrides"
-
-
-
-
-
-
-
-
-
-
-
 
 %% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
   texidoces = "
@@ -58,6 +34,19 @@ weggelassen werden kann.
 
 "
   doctitlede = "Bunddiagramme anpassen"
+
+%% Translation of GIT committish: 40bf2b38d674c43f38058494692d1a0993fad0bd
+  texidocfr = "
+Les propriétés d'un diagramme de fret sont définies par les
+@code{fret-diagram-details}.  En matière de diagramme FretBoards, les
+adaptations s'appliquent à l'objet @code{FretBoards.FretBoard}.  Un
+@code{FretBoard} est comparable à un @code{Voice}@tie{}: il s'agit
+d'un contexte du plus bas niveau, et il n'est donc pas primordial de
+l'instancier de manière explicite pour adapter ses propriétés.
+
+"
+  doctitlefr = "Personnalisation de diagrammes de fret"
+
 
   texidoc = "
 Fret diagram properties can be set through

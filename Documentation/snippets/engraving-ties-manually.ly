@@ -47,8 +47,8 @@ le second la direction (1 pour haut, @minus{}1 pour bas).
   texidoc = "
 Ties may be engraved manually by changing the @code{tie-configuration}
 property of the @code{TieColumn} object. The first number indicates the
-distance from the center of the staff in half staff-spaces, and the second
-number indicates the direction (1 = up, -1 = down).
+distance from the center of the staff in half staff-spaces, and the
+second number indicates the direction (1 = up, -1 = down).
 
 "
   doctitle = "Engraving ties manually"

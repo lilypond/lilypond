@@ -39,9 +39,9 @@ other situations.
   doctitle = "Using grace note slashes with normal heads"
 } % begin verbatim
 
+
 \relative c'' {
   \override Flag #'stroke-style = #"grace"
   c8( d2) e8( f4)
-} % begin verbatim
-
+}
 

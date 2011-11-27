@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.18"
+\version "2.15.20"
 
 \header {
   lsrtags = "staff-notation, vocal-music"
@@ -76,7 +76,7 @@ This shows one approach to simplify adding many orchestral cues to the
 piano reduction in a vocal score.  The music function @code{\\cueWhile}
 takes four arguments: the music from which the cue is to be taken, as
 defined by @code{\\addQuote}, the name to be inserted before the cue
-notes, then either @code{UP} or @code{DOWN} to specify either
+notes, then either @code{#UP} or @code{#DOWN} to specify either
 @code{\\voiceOne} with the name above the staff or @code{\\voiceTwo}
 with the name below the staff, and finally the piano music in parallel
 with which the cue notes are to appear.  The name of the cued
