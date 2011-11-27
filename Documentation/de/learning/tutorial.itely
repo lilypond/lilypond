@@ -93,7 +93,7 @@ weggelassen werden. Es kann sein, dass in diesem Handbuch
 die Klammern in manchen Beispielen fehlen, aber man sollte
 immer daran denken, sie in den eigenen Dateien zu benutzen!
 Mehr Informationen zu der Darstellung der Beispiele in diesem
-Handbuch gibt der Abschnitt @ref{Wie soll das Handbuch gelesen werden}.}
+Handbuch gibt der Abschnitt @ref{Wie die Handbücher gelesen werden sollen}.}
 
 Zusätzlich unterscheidet LilyPond @strong{Groß- und Kleinschreibung}.
 @w{@samp{ @{ c d e @}}} ist zulässiger Code,
