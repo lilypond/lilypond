@@ -129,12 +129,22 @@ AC_CHECK_TYPES([scm_t_subr],
 CXXFLAGS="$save_CXXFLAGS"
 
 ## Check for usable cxxabi
+save_LIBS="$LIBS"
+LIBS="$LIBS $CXXABI_LIBS"
 AC_MSG_CHECKING(for usable C++ demangler)
 AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <cxxabi.h>],
-	    [abi::__cxa_demangle ("", 0, 0, 0)]);],
+	    [abi::__cxa_demangle ("", 0, 0, 0)])],
     [AC_DEFINE(HAVE_CXA_DEMANGLE)
-AC_MSG_RESULT(yes)],
-    [AC_MSG_RESULT([no, use c++filt -t for manual demangling])])
+	AC_MSG_RESULT(yes)],[
+	LIBS="$LIBS -lsupc++"
+	AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <cxxabi.h>],
+		    [abi::__cxa_demangle ("", 0, 0, 0)])],
+	    [AC_DEFINE(HAVE_CXA_DEMANGLE)
+		AC_MSG_RESULT([yes, using -lsupc++])
+		CXXABI_LIBS="$CXXABI_LIBS -lsupc++"],
+	    [AC_MSG_RESULT([no, use c++filt -t for manual demangling])])])
+LIBS="$save_LIBS"
+AC_SUBST(CXXABI_LIBS)
 
 ## check rational bugfix.
 save_CPPFLAGS="$CPPFLAGS"
