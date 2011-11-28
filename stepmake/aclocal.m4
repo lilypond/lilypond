@@ -286,6 +286,18 @@ AC_DEFUN(STEPMAKE_CXXTEMPLATE, [
     fi
 ])
 
+AC_DEFUN(STEPMAKE_GXXCODEGENBUG, [
+    AC_MSG_CHECKING([options for known g++ tail call bug])
+    case "$GXX:$CXX_VERSION" in
+	yes:400600?)
+	    AC_MSG_RESULT([-fno-optimize-sibling-calls])
+	    CXXFLAGS="$CXXFLAGS -fno-optimize-sibling-calls"
+	    ;;
+	*) AC_MSG_RESULT([none])
+    esac
+    AC_SUBST(CXXFLAGS)
+])
+
 
 AC_DEFUN(STEPMAKE_DATADIR, [
     if test "$datadir" = "\${prefix}/share"; then
