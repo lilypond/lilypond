@@ -494,13 +494,17 @@ EOF
         AC_MSG_RESULT($FLEXLEXER_FILE)
 ])
 
-AC_DEFUN(STEPMAKE_GCC, [
-    if test "$GCC" = "yes"; then
-        STEPMAKE_CHECK_VERSION(CC, $1, $2)
-    else
-	warn="$CC (Please install *GNU* cc)"
-	STEPMAKE_ADD_ENTRY($1, $warn)
+AC_DEFUN(STEPMAKE_GCC_OR_CLANG, [
+    STEPMAKE_HAS_CLANG()
+    if test "$HAS_CLANG" = "no"; then
+        if test "$GCC" = "yes"; then
+            STEPMAKE_CHECK_VERSION(CC, $1, $2)
+        else
+	    warn="$CC (Please install *GNU* cc)"
+	    STEPMAKE_ADD_ENTRY($1, $warn)
+        fi
     fi
+    # no else, we're fine with any clang
 ])
 
 AC_DEFUN(STEPMAKE_GETTEXT, [
@@ -616,13 +620,25 @@ AC_DEFUN(STEPMAKE_DLOPEN, [
     AC_CHECK_FUNCS(dlopen)
 ])
 
-AC_DEFUN(STEPMAKE_GXX, [
-    if test "$GXX" = "yes"; then
-        STEPMAKE_CHECK_VERSION(CXX, $1, $2)
-    else
-	warn="$CXX (Please install *GNU* c++)"
-	STEPMAKE_ADD_ENTRY($1, $warn)
+AC_DEFUN(STEPMAKE_HAS_CLANG, [
+    AC_EGREP_CPP(yes,
+      [#ifdef __clang__
+       yes
+       #endif
+      ], HAS_CLANG=yes, HAS_CLANG=no)
+])
+
+AC_DEFUN(STEPMAKE_GXX_OR_CLANG, [
+    STEPMAKE_HAS_CLANG()
+    if test "$HAS_CLANG" = "no"; then
+        if test "$GXX" = "yes"; then
+            STEPMAKE_CHECK_VERSION(CXX, $1, $2)
+        else
+	    warn="$CXX (Please install *GNU* c++)"
+	    STEPMAKE_ADD_ENTRY($1, $warn)
+        fi
     fi
+    # no else, we're fine with any clang
 ])
 
 
