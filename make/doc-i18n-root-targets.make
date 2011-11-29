@@ -1,7 +1,7 @@
 default:
 
 ifeq ($(out),www)
-ifneq ($(N0_PDF_FILES),)
+ifneq ($(NO_PDF_FILES),)
 local-WWW-1: $(MASTER_TEXI_FILES) $(XREF_MAPS_FILES)
 endif
 ifeq ($(NO_PDF_FILES),)

@@ -1,8 +1,8 @@
 
 .SUFFIXES: .html .info .texi .texinfo
 
-$(outdir)/%.texi: $(src-dir)/%.texi
-	cp -p $< $@
+# Explicitly list the dependencies on generated content
+$(outdir)/web.texi: $(outdir)/weblinks.itexi
 
 $(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map $(TRANSLATION_LILY_IMAGES)
 	mkdir -p $(dir $@)
