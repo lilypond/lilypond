@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.15.20"
 
 \header {
   lsrtags = "chords, fretted-strings"
@@ -76,9 +76,9 @@ bbarre= #(define-music-function (barre location str music) (string? ly:music?)
                         \once \override TextSpanner #'to-barline = ##f
                         \once \override TextSpanner #'bound-details =  #'((left (Y . 0) (padding . 0.25) (attach-dir . -2)) (right (Y . 0) (padding . 0.25) (attach-dir . 2)))
                         \once  \override TextSpanner #'bound-details #'right #'text = \markup { \draw-line #'( 0 . -.5) }
-                        \once  \override TextSpanner #'bound-details #'left #'text =  \markup { \pScript $str }
+                        \once  \override TextSpanner #'bound-details #'left #'text =  \markup { \pScript #str }
 %% uncomment this line for make full barred
-                       % \once  \override TextSpanner #'bound-details #'left #'text =  \markup { "B" $str }
+                       % \once  \override TextSpanner #'bound-details #'left #'text =  \markup { "B" #str }
                           #}
     spanned-music))))
 

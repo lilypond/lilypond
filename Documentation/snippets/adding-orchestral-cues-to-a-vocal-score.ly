@@ -95,7 +95,7 @@ cueWhile =
      \cueDuring $instrument #dir {
        \once \override TextScript #'self-alignment-X = #RIGHT
        \once \override TextScript #'direction = $dir
-       s1*0-\markup { \tiny $name }
+       s1*0-\markup { \tiny #name }
        $music
      }
    #})

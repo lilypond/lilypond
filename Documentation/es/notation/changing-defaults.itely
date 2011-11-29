@@ -8,7 +8,7 @@ Translation of GIT committish: f0978ed121192fee9bdf2453a325d98693148acf
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.10"
+@c \version "2.15.20"
 
 @node Cambiar los valores por omisión
 @chapter Cambiar los valores por omisión
@@ -3928,7 +3928,7 @@ tempoPadded =
      (number? string?)
    #{
      \once \override Score.MetronomeMark #'padding = $padding
-     \tempo \markup { \bold $tempotext }
+     \tempo \markup { \bold #tempotext }
    #})
 
 \relative c'' {

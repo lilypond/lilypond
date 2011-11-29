@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.15.20"
 
 \header {
   lsrtags = "editorial-annotations, text, fretted-strings, tweaks-and-overrides"
@@ -23,7 +23,7 @@ stringNumberSpanner =
     \override TextSpanner #'style = #'solid
     \override TextSpanner #'font-size = #-5
     \override TextSpanner #'(bound-details left stencil-align-dir-y) = #CENTER
-    \override TextSpanner #'(bound-details left text) = \markup { \circle \number $StringNumber }
+    \override TextSpanner #'(bound-details left text) = \markup { \circle \number #StringNumber }
   #})
 
 

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.18"
+@c \version "2.15.20"
 
 @node Scheme-Übung
 @chapter Scheme-Übung
@@ -1438,7 +1438,7 @@ tempoPadded = #(define-music-function (parser location padding tempotext)
   (number? string?)
 #{
   \once \override Score.MetronomeMark #'padding = $padding
-  \tempo \markup { \bold $tempotext }
+  \tempo \markup { \bold #tempotext }
 #})
 
 \relative c'' {

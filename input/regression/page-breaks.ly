@@ -1,4 +1,4 @@
-\version "2.15.18"
+\version "2.15.20"
 
 \header {
 
@@ -59,7 +59,7 @@
     \column {
       \fill-line {
 	" "
-	\line { "Music engraving by LilyPond" $(lilypond-version) }4
+	\line { "Music engraving by LilyPond" #(lilypond-version) }4
 	" "
       }
       \with-url
