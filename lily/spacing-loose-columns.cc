@@ -176,6 +176,10 @@ set_loose_columns (System *which, Column_x_positions const *posns)
               tight_note_space = spring.min_distance ();
             }
 
+          Real loose_col_horizontal_length = loose_col->extent (loose_col, X_AXIS).length ();
+          base_note_space = max (base_note_space, loose_col_horizontal_length);
+          tight_note_space = max (tight_note_space, loose_col_horizontal_length);
+
           clique_spacing.push_back (base_note_space);
           clique_tight_spacing.push_back (tight_note_space);
         }

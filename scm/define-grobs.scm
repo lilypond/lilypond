@@ -520,7 +520,7 @@
 	(break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
-	;(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height)
+	(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-at-beginning-of-line)
 	(glyph-name . ,ly:clef::calc-glyph-name)
 	(non-musical . #t)
 	(space-alist . ((cue-clef . (extra-space . 2.0))
@@ -534,12 +534,12 @@
 	(stencil . ,ly:clef::print)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
-                 ;(object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                 ;                     (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
+                                      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (break-aligned-interface
 				clef-interface
 				font-interface
-				;pure-from-neighbor-interface
+				pure-from-neighbor-interface
 				staff-symbol-referencer-interface))))))
 
     (ClusterSpanner
@@ -588,7 +588,7 @@
 	(break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
 	(break-align-symbol . cue-clef)
 	(break-visibility . ,begin-of-line-visible)
-	;(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height)
+	(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-at-beginning-of-line)
 	(font-size . -4)
 	(glyph-name . ,ly:clef::calc-glyph-name)
 	(non-musical . #t)
@@ -604,12 +604,12 @@
 	(stencil . ,ly:clef::print)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
-                 ;(object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                 ;                     (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
+                                      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (break-aligned-interface
 				clef-interface
 				font-interface
-				;pure-from-neighbor-interface
+				pure-from-neighbor-interface
 				staff-symbol-referencer-interface))))))
 
     (CueEndClef
@@ -618,7 +618,7 @@
 	(break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
 	(break-align-symbol . cue-end-clef)
 	(break-visibility . ,begin-of-line-invisible)
-	;(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height)
+	(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-at-beginning-of-line)
 	(font-size . -4)
 	(glyph-name . ,ly:clef::calc-glyph-name)
 	(non-musical . #t)
@@ -635,12 +635,12 @@
 	(stencil . ,ly:clef::print)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
-                 ;(object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                 ;                     (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
+                                      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (break-aligned-interface
 				clef-interface
 				font-interface
-				;pure-from-neighbor-interface
+				pure-from-neighbor-interface
 				staff-symbol-referencer-interface))))))
 
     (Custos
@@ -1103,12 +1103,16 @@
 			(first-note . (fixed-space . 2.5))))
 	(stencil . ,ly:key-signature-interface::print)
 	(extra-spacing-width . (0.0 . 1.0))
+	(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
+                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
+                                      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (break-aligned-interface
 				font-interface
 				key-cancellation-interface
 				key-signature-interface
+				pure-from-neighbor-interface
 				staff-symbol-referencer-interface))))))
 
     (KeySignature
@@ -1127,15 +1131,15 @@
 			(first-note . (fixed-space . 2.5))))
 	(stencil . ,ly:key-signature-interface::print)
 	(extra-spacing-width . (0.0 . 1.0))
-	;(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
+	(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
-                 ;(object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                 ;                     (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
+                                      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (break-aligned-interface
 				font-interface
 				key-signature-interface
-				;pure-from-neighbor-interface
+				pure-from-neighbor-interface
 				staff-symbol-referencer-interface))))))
 
 
@@ -1409,8 +1413,6 @@
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
 	(full-measure-extra-space . 1.0)
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
-	;; sufficient padding to prevent ledger lines from moving over/under
-	(skyline-vertical-padding . 0.6)
 	;;		      (stencil . ,ly:paper-column::print)
 
 	(keep-inside-line . #t)
@@ -2280,8 +2282,7 @@
 	(break-align-symbol . time-signature)
 	(break-align-anchor-alignment . ,LEFT)
 	(break-visibility . ,all-visible)
-	;(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
-	(extra-spacing-height . (-1.0 . 1.0))
+	(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
 	(extra-spacing-width . (0.0 . 0.8))
 	(non-musical . #t)
 	(space-alist . (
@@ -2292,11 +2293,11 @@
 	(stencil . ,ly:time-signature::print)
 	(style . C)
 	(meta . ((class . Item)
-                 ;(object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                 ;                     (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
+                                      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (break-aligned-interface
 				font-interface
-				;pure-from-neighbor-interface
+				pure-from-neighbor-interface
 				time-signature-interface))))))
 
     (TrillPitchAccidental

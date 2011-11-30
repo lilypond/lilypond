@@ -390,6 +390,11 @@ and duration-log @var{log}."
 	   (equal? (ly:item-break-dir g) RIGHT))
       (ly:grob-translate-axis! g 3.5 X)))
 
+(define-public (pure-from-neighbor-interface::extra-spacing-height-at-beginning-of-line grob)
+  (if (= 1 (ly:item-break-dir grob))
+      (pure-from-neighbor-interface::extra-spacing-height grob)
+      (cons -0.1 0.1)))
+
 (define-public (pure-from-neighbor-interface::extra-spacing-height grob)
   (let* ((height (ly:grob::stencil-height grob))
          (from-neighbors (interval-union
@@ -411,9 +416,9 @@ and duration-log @var{log}."
                    (not (and (eq? x car)
                              (not (ly:grob-property grob 'allow-span-bar)))))
               (x esh)
-              0))
+              (x (cons -1.01 1.01))))
         (cons car cdr))
-      '(0 . 0))))
+      '(-1.01 . 1.01))))
 
 (define (pure-from-neighbor-interface::extra-spacing-height-including-staff grob)
   (let ((esh (pure-from-neighbor-interface::extra-spacing-height grob))
