@@ -1502,7 +1502,7 @@ c2 g
 @cindex automatic accidentals (自動臨時記号)
 @cindex default accidental style (デフォルトの臨時記号スタイル)
 
-@funindex set-accidental-style
+@funindex \accidentalStyle
 @funindex voice
 @funindex default
 
@@ -1528,7 +1528,7 @@ LilyPond はどの臨時記号スタイルを使用するのかを指定する�
 以下のようにします:
 
 @example
-$(set-accidental-style 'voice 'StaffGroup)
+\accidentalStyle #'StaffGroup "voice"
 @end example
 
 サポートされる臨時記号スタイルを以下で示します。@c
@@ -1589,7 +1589,7 @@ musicB = {
   <<
     \context Staff = "up" @{
       %%% 次の行を変更したいスタイルに合わせて変更してください:
-      $(set-accidental-style 'default 'Score)
+      \accidentalStyle #'Score "default"
       \musicA
     @}
     \context Staff = "down" @{

@@ -1471,7 +1471,7 @@ Fragmentos de código:
 @cindex predeterminado, estilo de las alteraciones
 @cindex alteraciones, estilo predeterminado de las
 
-@funindex set-accidental-style
+@funindex \accidentalStyle
 @funindex voice
 @funindex default
 
@@ -1495,7 +1495,7 @@ usar el mismo estilo en todos los pentagramas del @code{StaffGroup} en
 curso, use
 
 @example
-$(set-accidental-style 'voice 'StaffGroup)
+\accidentalStyle #'StaffGroup "voice"
 @end example
 
 Están contemplados los siguientes estilos de alteración.  Para dar una
@@ -1556,7 +1556,7 @@ dos pentagramas.
   <<
     \context Staff = "up" @{
       %%% cambie la línea siguiente como desee:
-      $(set-accidental-style 'default 'Score)
+      \accidentalStyle #'Score "default"
       \musicA
     @}
     \context Staff = "down" @{

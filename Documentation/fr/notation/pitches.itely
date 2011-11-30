@@ -1435,7 +1435,7 @@ Morceaux choisis :
 @cindex automatiques, altérations accidentelles
 @cindex style d'accidentelle
 
-@funindex set-accidental-style
+@funindex \accidentalStyle
 @funindex voice
 @funindex default
 
@@ -1460,7 +1460,7 @@ utiliser, pour que toutes les portées d'un même système -- contexte
 @code{StaffGroup} -- soient soumises à la même règle@tie{}:
 
 @example
-$(set-accidental-style 'voice 'StaffGroup)
+\accidentalStyle #'StaffGroup "voice"
 @end example
 
 Nous vous présentons ci-après les différentes régles d'altération prises
@@ -1522,7 +1522,7 @@ dernières lignes de cet exemple nous intéressent.
   <<
     \context Staff = "haut" @{
       %%% voici la ligne à modifier en conséquence :
-      $(set-accidental-style 'default 'Score)
+      \accidentalStyle #'Score "default"
       \musicA
     @}
     \context Staff = "bas" @{
