@@ -208,13 +208,11 @@ static Music *make_music_with_input (SCM name, Input where);
 SCM check_scheme_arg (Lily_parser *parser, Input loc,
 		      SCM arg, SCM args, SCM pred);
 SCM loc_on_music (Input loc, SCM arg);
-SCM get_first_context_id (SCM type, Music *m);
 SCM make_chord_elements (SCM pitch, SCM dur, SCM modification_list);
 SCM make_chord_step (int step, Rational alter);
 SCM make_simple_markup (SCM a);
 bool is_duration (int t);
 bool is_regular_identifier (SCM id);
-bool ly_input_procedure_p (SCM x);
 int yylex (YYSTYPE *s, YYLTYPE *loc, void *v);
 void set_music_properties (Music *p, SCM a);
 
@@ -3306,19 +3304,6 @@ make_music_with_input (SCM name, Input where)
 }
 
 SCM
-get_first_context_id (SCM type, Music *m)
-{
-	SCM id = m->get_property ("context-id");
-	if (SCM_BOOL_T == scm_equal_p (m->get_property ("context-type"), type)
-	    && scm_is_string (m->get_property ("context-id"))
-	    && scm_c_string_length (id) > 0)
-	{
-		return id;
-	}
-	return SCM_EOL;
-}
-
-SCM
 make_simple_markup (SCM a)
 {
 	return a;
@@ -3356,26 +3341,6 @@ make_chord_elements (SCM pitch, SCM dur, SCM modification_list)
 {
 	SCM chord_ctor = ly_lily_module_constant ("construct-chord-elements");
 	return scm_call_3 (chord_ctor, pitch, dur, modification_list);
-}
-
-SCM
-try_unpack_lyrics (SCM pred, SCM arg)
-{
-	if (Music *m = unsmob_music (arg))
-		if (m->is_mus_type ("lyric-event")) {
-			SCM text = m->get_property ("text");
-			if (scm_is_true (scm_call_1 (pred, text)))
-					return text;
-			}
-	return SCM_UNDEFINED;
-}	
-
-/* Todo: actually also use apply iso. call too ...  */
-bool
-ly_input_procedure_p (SCM x)
-{
-	return ly_is_procedure (x)
-		|| (scm_is_pair (x) && ly_is_procedure (scm_car (x)));
 }
 
 int
