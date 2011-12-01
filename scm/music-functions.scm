@@ -276,12 +276,12 @@ through MUSIC."
     (set! (ly:music-property r 'repeat-count) (max times 1))
     (set! (ly:music-property r 'elements) talts)
     (if (and (equal? name "tremolo")
-	     (or (pair? (ly:music-property main 'elements))
-		 (ly:music? (ly:music-property main 'element))))
+	     (pair? (extract-named-music main 'NoteEvent)))
 	;; This works for single-note and multi-note tremolos!
 	(let* ((children (if (music-is-of-type? main 'sequential-music)
 			     ;; \repeat tremolo n { ... }
-			     (length (extract-named-music main 'EventChord))
+			     (length (extract-named-music main '(EventChord
+								 NoteEvent)))
 			     ;; \repeat tremolo n c4
 			     1))
 	       ;; # of dots is equal to the 1 in bitwise representation (minus 1)!
@@ -311,7 +311,7 @@ if durations in @var{music} vary, allowing slash beats and double-percent
 beats to be distinguished."
   (let* ((durs (map (lambda (elt)
 		      (duration-of-note elt))
-		    (extract-named-music music 'EventChord)))
+		    (extract-named-music music '(EventChord NoteEvent))))
 	 (first-dur (car durs)))
 
     (if (every (lambda (d) (equal? d first-dur)) durs)
@@ -1517,7 +1517,8 @@ Entries that conform with the current key signature are not invalidated."
 (define-public (duration-of-note event-chord)
   (let ((evs (filter (lambda (x)
 		       (music-has-type x 'rhythmic-event))
-		     (ly:music-property event-chord 'elements))))
+		     (cons event-chord
+			   (ly:music-property event-chord 'elements)))))
 
     (and (pair? evs)
 	 (ly:music-property (car evs) 'duration))))
@@ -1526,21 +1527,33 @@ Entries that conform with the current key signature are not invalidated."
 
 (define-public (extract-named-music music music-name)
   "Return a flat list of all music named @var{music-name} from @var{music}."
-   (let ((extracted-list
-          (if (ly:music? music)
-              (if (eq? (ly:music-property music 'name) music-name)
-                  (list music)
-                  (let ((elt (ly:music-property music 'element))
-                        (elts (ly:music-property music 'elements)))
-                    (if (ly:music? elt)
-                        (extract-named-music elt music-name)
-                        (if (null? elts)
-                            '()
-                            (map (lambda(x)
-                                    (extract-named-music x music-name ))
-                             elts)))))
-              '())))
-     (flatten-list extracted-list)))
+  (if (not (list? music-name))
+      (set! music-name (list music-name)))
+  (if (ly:music? music)
+      (if (memq (ly:music-property music 'name) music-name)
+	  (list music)
+	  (let ((arts (ly:music-property music 'articulations)))
+	    (append-map!
+	     (lambda (x) (extract-named-music x music-name))
+	     (if (pair? arts)
+		 arts
+		 (cons (ly:music-property music 'element)
+		       (ly:music-property music 'elements))))))
+      '()))
+
+(define-public (extract-typed-music music type)
+  "Return a flat list of all music with @var{type} from @var{music}."
+  (if (ly:music? music)
+      (if (music-is-of-type? music type)
+	  (list music)
+	  (let ((arts (ly:music-property music 'articulations)))
+	    (append-map!
+	     (lambda (x) (extract-typed-music x type))
+	     (if (pair? arts)
+		 arts
+		 (cons (ly:music-property music 'element)
+		       (ly:music-property music 'elements))))))
+      '()))
 
 (define-public (event-chord-notes event-chord)
   "Return a list of all notes from @var{event-chord}."

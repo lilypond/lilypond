@@ -74,7 +74,7 @@ stderr of this run."
 
 %% tags
 \test ##[ { \tag #'foo { c4 d } } #]
-\test ##[ c-\tag #'foo -\tag #'baz -^ -. #]
+\test ##[ c-\tag #'foo -\tag #'baz -^-. #]
 
 %% Graces
 \test ##[ { \grace c8 d2 } #]				% GraceMusic
