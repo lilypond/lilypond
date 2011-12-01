@@ -224,19 +224,15 @@ LY_DEFINE (ly_parse_string_expression, "ly:parse-string-expression",
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
   LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
   string fn;
-  if (SCM_UNBNDP (filename))
+  if (SCM_UNBNDP (filename) || !scm_is_string (filename))
     fn = "<string>";
-  else {
-    LY_ASSERT_TYPE (scm_is_string, filename, 3);
+  else
     fn = ly_scm2string (filename);
-  }
   int ln;
-  if (SCM_UNBNDP (line))
+  if (SCM_UNBNDP (line) || !scm_is_integer (line))
     ln = 0;
-  else {
-    LY_ASSERT_TYPE (scm_is_integer, line, 4);
+  else
     ln = scm_to_int (line);
-  }
 
   if (!parser->lexer_->is_clean ())
     {
