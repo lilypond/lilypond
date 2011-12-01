@@ -1039,23 +1039,30 @@ will display
 
 By default, LilyPond will print these messages to the console along
 with all the other messages.  To split up these messages and save
-the results of @code{\display@{STUFF@}}, redirect the output to
-a file.
-
-@example
-lilypond file.ly >display.txt
-@end example
-
-With a combined bit of Lilypond and Scheme magick, you can actually
-let Lilypond direct just this output to a file of its own:
+the results of @code{\display@{STUFF@}}, you can specify an optional
+output port to use:
 
 @example
 @{
-  $(with-output-to-file "display.txt"
-      (lambda () #@{ \displayMusic @{ c'4\f @} #@}))
+  \displayMusic #(open-output-file "display.txt") @{ c'4\f @}
 @}
 @end example
 
+This will overwrite a previous output file whenever it is called; if you
+need to write more than one expression, you would use a variable for
+your port and reuse it:
+@example
+@{
+  port = #(open-output-file "display.txt")
+  \displayMusic \port @{ c'4\f @}
+  \displayMusic \port @{ d'4 @}
+  #(close-output-port port)
+@}
+@end example
+
+Guile's manual describes ports in detail.  Closing the port is actually
+only necessary if you need to read the file before Lilypond finishes; in
+the first example, we did not bother to do so.
 
 A bit of reformatting makes the above information easier to read:
 
