@@ -34,6 +34,7 @@ public:
   static bool read_spacing_spec (SCM spec, Real *dest, SCM sym);
   static bool is_spaceable (Grob *g);
   static SCM get_details (Grob *g);
+  static vector<Grob *> get_footnote_grobs (SCM lines);
   static vsize get_footnote_count (SCM lines);
   static SCM get_footnotes_from_lines (SCM lines);
   static void add_footnotes_to_lines (SCM lines, int counter, Paper_book *pb);

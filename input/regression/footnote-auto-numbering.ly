@@ -1,4 +1,4 @@
-\version "2.15.7"
+\version "2.15.21"
 \header {
   texidoc = "This is an example of automatic footnote numbering
 where the number is not reset on each page.  It uses the default
@@ -6,6 +6,21 @@ numbering function, which assigns numbers starting at 1 to successive
 footnotes.
 "
 }
+
+#(define (make-footnote-numbering-assertion-function n)
+  (lambda (x)
+    (if (not (= n x))
+      (ly:error (_ "Expecting number ~a, got ~a") n x))))
+
+#(define (simultaneous-footnote-numbering-assertion-function x y)
+  (lambda (grob)
+    (let ((n (if (grob::has-interface (ly:grob-parent grob Y)
+                                      'beam-interface)
+                 x
+                 y)))
+      (lambda (x)
+        (if (not (= n x))
+          (ly:error (_ "Expecting number ~a, got ~a") n x))))))
 
 \paper {
   reset-footnotes-on-new-page = ##f
@@ -23,8 +38,11 @@ footnotes.
 \markup { h i }
 
 \relative c' {
-\autoFootnoteGrob #'NoteHead #'(1 . -1) \markup { j }
-a b c d }
+  \once \override FootnoteItem #'numbering-assertion-function =
+    #(lambda (grob) (make-footnote-numbering-assertion-function 3))
+  \autoFootnoteGrob #'NoteHead #'(1 . -1) \markup { j }
+  a b c d
+}
 
 \pageBreak
 
@@ -34,7 +52,11 @@ a b c d }
 
 \relative c' {
   d4 e
+  \once \override FootnoteItem #'numbering-assertion-function =
+    #(lambda (grob) (make-footnote-numbering-assertion-function 5))
   < f  a-\autoFootnote #'(1 . -1) \markup { n } c >
+  \once \override FootnoteSpanner #'numbering-assertion-function =
+    #(simultaneous-footnote-numbering-assertion-function 6 7)
   \autoFootnoteGrob #'Beam #'(1 . 1) \markup { o }
   \autoFootnoteGrob #'Hairpin #'(1 . 1) \markup { p }
   a8\< [ b c d ] a4 b c |

@@ -1153,6 +1153,8 @@ entries @code{name} and @code{interfaces}.")
 
      (note-collision ,ly:grob? "The @code{NoteCollision} object of a
 dot column.")
+     (numbering-assertion-function ,scheme? "The function used to assert
+that footnotes are receiving correct automatic numbers.")
 
      (positioning-done ,boolean? "Used to signal that a positioning element
 did its job.  This ensures that a positioning is only done once.")

@@ -38,10 +38,10 @@
  Returns the number of footntoes associated with a given line.
 */
 
-vsize
-Page_layout_problem::get_footnote_count (SCM lines)
+vector<Grob *>
+Page_layout_problem::get_footnote_grobs (SCM lines)
 {
-  vsize fn_count = 0;
+  vector<Grob *> footnotes;
   for (SCM s = lines; scm_is_pair (s); s = scm_cdr (s))
     {
       if (Grob *g = unsmob_grob (scm_car (s)))
@@ -52,7 +52,8 @@ Page_layout_problem::get_footnote_count (SCM lines)
               programming_error ("got a grob for footnotes that wasn't a System");
               continue;
             }
-          fn_count += sys->num_footnotes ();
+          extract_grob_set (sys, "footnotes-after-line-breaking", footnote_grobs);
+          footnotes.insert (footnotes.end (), footnote_grobs.begin (), footnote_grobs.end ());
         }
       else if (Prob *p = unsmob_prob (scm_car (s)))
         {
@@ -60,11 +61,18 @@ Page_layout_problem::get_footnote_count (SCM lines)
           if (stencils == SCM_EOL)
             continue;
           for (SCM st = stencils; scm_is_pair (st); st = scm_cdr (st))
-            fn_count++;
+            footnotes.push_back (0);
         }
     }
 
-  return fn_count;
+  return footnotes;
+}
+
+vsize
+Page_layout_problem::get_footnote_count (SCM lines)
+{
+  vector<Grob *> notes = get_footnote_grobs (lines);
+  return notes.size ();
 }
 
 SCM
@@ -137,7 +145,8 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
   Real padding = robust_scm2double (paper->c_variable ("footnote-padding"), 0.0);
   Real number_raise = robust_scm2double (paper->c_variable ("footnote-number-raise"), 0.0);
 
-  vsize fn_count = get_footnote_count (lines);
+  vector<Grob *> fn_grobs = get_footnote_grobs (lines);
+  vsize fn_count = fn_grobs.size ();
 
   // now, make the footnote stencils with the numbering function
   SCM numbers = SCM_EOL;
@@ -156,6 +165,12 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
   vector<Stencil *> footnote_number_stencils; // Holds translated versions of the stencilized numbering markups.
   for (vsize i = 0; i < fn_count; i++)
     {
+      if (fn_grobs[i])
+        {
+          SCM assertion_function = fn_grobs[i]->get_property ("numbering-assertion-function");
+          if (ly_is_procedure (assertion_function))
+            (void) scm_call_1 (assertion_function, scm_from_int (counter));
+        }
       SCM markup = scm_call_1 (numbering_function, scm_from_int (counter));
       Stencil *s = unsmob_stencil (Text_interface::interpret_markup (layout, props, markup));
       if (!s)
