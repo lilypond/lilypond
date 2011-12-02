@@ -420,7 +420,7 @@ and duration-log @var{log}."
         (cons car cdr))
       '(-1.01 . 1.01))))
 
-(define (pure-from-neighbor-interface::extra-spacing-height-including-staff grob)
+(define-public (pure-from-neighbor-interface::extra-spacing-height-including-staff grob)
   (let ((esh (pure-from-neighbor-interface::extra-spacing-height grob))
         (to-staff (coord-operation -
                                    (interval-widen
