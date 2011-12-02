@@ -82,7 +82,7 @@ Click on the @qq{Get source} button.
 
 This will create a directory called @file{lilypond-git/} within
 your home directory, and will download the source code into that
-directory (around 55Mb).  When the process is finished, the
+directory (around 150@tie{}Mb).  When the process is finished, the
 @qq{Command output} window will display @qq{Done}, and the button
 label will change to say @qq{Update source}.
 
@@ -97,13 +97,6 @@ input should be entered from @file{~/lilypond-git/}.  This is
 referred to as the @emph{top source directory}.}
 
 Further instructions are in @ref{Daily use of lily-git.tcl}.
-
-@advanced{the @qq{Get source} button does not fetch the entire
-history of the git repository, so utilities like @command{gitk}
-will only be able to display the most recent additions.  As you
-continue to work with @command{lily-git.tcl}, the @qq{Update
-source} button will take any new additions and add it to whatever
-is currently in your repository's history.}
 
 
 @node Starting with Git
@@ -125,10 +118,6 @@ multiple projects concurrently.
 @node Setting up
 @subsection Setting up
 
-
-TODO: Remove this note if incorporating Windows instructions
-throughout this section:
-
 @warning{These instructions assume that you are using the
 command-line version of Git 1.5 or higher.  Windows users should
 skip to @ref{Git on Windows}.}
@@ -143,10 +132,9 @@ skip to @ref{Git on Windows}.}
 @node Installing Git
 @unnumberedsubsubsec Installing Git
 
-
 If you are using a Unix-based machine, the easiest way to download
 and install Git is through a package manager such as @command{rpm}
-or @command{apt-get}---the installation is generally automatic.
+or @command{apt-get} -- the installation is generally automatic.
 The only required package is (usually) called @command{git-core},
 although some of the auxiliary @command{git@var{*}} packages are
 also useful (such as @command{gitk}).
@@ -155,24 +143,18 @@ Alternatively, you can visit the Git website
 (@uref{http://git-scm.com/}) for downloadable binaries and
 tarballs.
 
-TODO: add Windows installation instructions (or @@ref@{Git on
-Windows@}).
-
 
 @node Initializing a repository
 @unnumberedsubsubsec Initializing a repository
 
-
-Once Git is installed, you'll need to create a new directory where
-your initial repository will be stored (the example below uses
-@file{~/lilypond-git/}, where @code{~} represents your home
-directory).  Run @command{git@tie{}init} from within the new
-directory to initialize an empty repository:
+Once Git is installed, get a copy of the source code:
 
 @example
-mkdir ~/lilypond-git/; cd ~/lilypond-git/
-git init
+git clone git://git.sv.gnu.org/lilypond.git ~/lilypond-git
 @end example
+
+The above command will put the it in @file{~/lilypond-git}, where
+@code{~} represents your home directory.
 
 @subsubheading Technical details
 
@@ -190,7 +172,7 @@ input should be entered from the top directory of the Git
 repository being discussed (eg. @file{~/lilypond-git/}).  This is
 referred to as the @emph{top source directory}.}
 
-Before downloading a copy of the main LilyPond repository, you
+Before working with the copy of the main LilyPond repository, you
 should configure some basic settings with the
 @command{git@tie{}config} command.  Git allows you to set both
 global and repository-specific options.
@@ -223,9 +205,6 @@ change the default editor to @command{nano}, enter:
 @example
 git config --global core.editor @var{nano}
 @end example
-
-TODO: Add instructions for changing the editor on Windows, which
-is a little different, I think. -mp
 
 @subsubheading Technical details
 
@@ -1076,6 +1055,23 @@ running:
 git cl issue 0
 @end example
 
+@subsubheading Wait for a countdown
+
+Your patch will be available for reviews for the next few hours or
+days.  Three times a week, patches with no known problems are
+gathered into a @qq{patch countdown} and their status changed to
+@code{patch-countdown}.  The countdown is a 48-hour waiting period
+in which any final reviews or complaints should be made.
+
+During the countdown, your patch may be set to
+@code{patch-needs_work}, indicating that you should fix something
+(or at least discuss why the patch needs no modification).  If no
+problems are found, the patch will be set to @code{patch-push}.
+
+Once a patch has @code{patch-push}, it should be sent to your
+mentor for uploading.  If you have git push ability, look at
+@ref{Pushing to staging}.
+
 
 @node Advanced Git procedures
 @section Advanced Git procedures
@@ -1104,6 +1100,7 @@ several Git branches of LilyPond source code is presented.
 * Sending and receiving patches via email::
 * Cleaning up multiple patches::
 * Commit access::
+* Pushing to staging::
 @end menu
 
 
@@ -1390,7 +1387,6 @@ remove those commits.}
 @node Commit access
 @subsection Commit access
 
-
 Most contributors are not able to commit patches directly to the
 main repository---only members of the LilyPond development team
 have @emph{commit access}.  If you are a contributor and are
@@ -1567,6 +1563,9 @@ Git properly in the previous step.
 @item
 Test your commit access with a dry run:
 
+@warning{Do not push directly to master; instead, push to staging.
+See @ref{Pushing to staging}.}
+
 @example
 git push --dry-run --verbose
 @end example
@@ -1658,8 +1657,53 @@ broadband may use a slightly smaller MTU for efficient transmission
 over ATM.  If this problem is encountered a possible work-around is
 to set the MTU in the local router to 1500.
 
+
+@node Pushing to staging
+@subsection Pushing to staging
+
+Do not push directly to the git @code{master} branch.  Instead,
+push to @code{staging}.
+
+You will not see your patch on @code{origin/master} until some
+automatic tests have been run.  These tests are run every couple
+of hours; please wait at least 12 hours before wondering if your
+patch has been lost.  Note that you can check the commits on
+@code{origin/staging} by looking at the git web interface on
+savannah.
+
+@subsubheading If your work is in a patch file
+
+Assuming that your patch is in a file called
+@file{0001-my-patch.patch}, and you are currently on git master,
+do:
+
+@example
+git checkout staging
+git pull -r
+git am 0001-my-patch.patch
+git push origin staging
+git checkout master
+@end example
+
+@subsubheading If your work is in a branch
+
+If you are working on branches and your work in is
+@code{my_branch_name}, then do:
+
+@example
+git checkout staging
+git pull -r
+git merge my_branch_name
+git push origin staging
+@end example
+
+
+
 @node Git on Windows
 @section Git on Windows
+
+@warning{We heavily recommend that development be done with our
+virtual machine @ref{Lilydev}.}
 
 @c Some of this may duplicate stuff in other sections
 @c But it is probably best for windows users to have it all together

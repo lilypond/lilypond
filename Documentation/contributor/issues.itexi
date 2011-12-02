@@ -769,6 +769,15 @@ email should contain a link to the issue you just added.
 @warning{This is not a Bug Squad responsibility; we have a
 separate person handling this task.}
 
+For contributors/developers: follow the steps in
+@ref{Commits and patches}, and @ref{Pushing to staging}.
+
+For people doing maintenance tasks: git-cl is adding issues, James
+is testing them, Colin is selecting them for countdowns, and
+Patchy is merging from staging to master.  In the coming weeks,
+these tasks will be more and more automated.
+
+@ignore
 There is a single Patch Meister, and a number of Patch Helpers
 (rename this?).  The list of known patches awaiting review is:
 
@@ -794,6 +803,7 @@ new issue with the @code{Patch-new} label and a link to the patch
 Issue numbers are cheap; losing developers because they got fed up
 with us losing their hard work is expensive.
 
+@end ignore
 @c if we enter patches immediately, I don't think this is relevant.
 @ignore
 @item
@@ -806,6 +816,7 @@ message) on the webgit page:
 @uref{http://git.savannah.gnu.org/gitweb/?p=lilypond.git}
 @end example
 @end ignore
+@ignore
 
 @item
 If the patch is clearly in response to an existing issue, then
@@ -883,7 +894,7 @@ weeks.
 
 @end itemize
 
-
+@end ignore
 
 
 @node Summary of project status
