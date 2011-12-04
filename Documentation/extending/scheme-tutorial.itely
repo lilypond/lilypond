@@ -13,7 +13,6 @@
 @node Scheme tutorial
 @chapter Scheme tutorial
 
-@funindex #
 @cindex Scheme
 @cindex GUILE
 @cindex Scheme, in-line code
@@ -607,28 +606,59 @@ guile> (cond ((< a b) "a is less than b")
 
 @node LilyPond Scheme syntax
 @subsection LilyPond Scheme syntax
+@funindex $
+@funindex #
 
 The Guile interpreter is part of LilyPond, which means that
-Scheme can be included in LilyPond input files.  The hash mark@tie{}@code{#}
-is used to tell the LilyPond parser that the next value is a Scheme
-value.
+Scheme can be included in LilyPond input files.  There are several
+methods for including Scheme in LilyPond.
 
-Once the parser sees a hash mark, input is passed to the Guile
-interpreter to evaluate the Scheme expression.  The interpreter
-continues to process input until the end of a Scheme expression is seen.
-The resulting value can be used wherever @code{SCM_TOKEN} is explicitly
-accepted by the @ruser{LilyPond grammar}.
+The simplest way is to use a hash mark@tie{}@code{#} before a Scheme
+expression.
 
-There is another way to execute Scheme expressions by using a
+Now LilyPond's input is structured into tokens and expressions, much
+like human language is structured into words and sentences.  LilyPond
+has a lexer that recognizes tokens (literal numbers, strings, Scheme
+elements, pitches and so on), and a parser that understands the syntax,
+@ruser{LilyPond grammar}.  Once it knows that a particular syntax rule
+applies, it executes actions associated with it.
+
+The hash mark@tie{}@code{#} method of embedding Scheme is a natural fit
+for this system.  Once the lexer sees a hash mark, it calls the Scheme
+reader to read one full Scheme expression (this can be an identifier, an
+expression enclosed in parentheses, or several other things).  After the
+Scheme expression is read, it is stored away as the value for an
+@code{SCM_TOKEN} in the grammar.  Once the parser knows how to make use
+of this token, it calls Guile for evaluating the Scheme expression.
+Since the parser usually requires a bit of lookahead from the lexer to
+make its parsing decisions, this separation of reading and evaluation
+between lexer and parser is exactly what is needed to keep the execution
+of LilyPond and Scheme expressions in sync.  For this reason, you should
+use the hash mark@tie{}@code{#} for calling Scheme whenever this is
+feasible.
+
+Another way to call the Scheme interpreter from LilyPond is the use of
 dollar@tie{}@code{$} instead of a hash mark for introducing Scheme
-expressions.  In this case, Lilypond evaluates the code immediately,
-checks the resulting type, and reinserts a syntactical entity of that
-type (like a number, string, music expression, pitch, duration@dots{})
-into the input, making a copy of the value.  This process bypasses the
-grammar, and the result appears in the grammar as one of several
-@code{xxx_IDENTIFIER} tokens.
+expressions.  In this case, Lilypond evaluates the code right after the
+lexer has read it.  It checks the resulting type of the Scheme
+expression and then picks a token type (one of several
+@code{xxx_IDENTIFIER} in the syntax) for it.  It creates a @emph{copy}
+of the value and uses that for the value of the token.  If the value of
+the expression is void (Guile's value of @code{*unspecified*}), nothing
+at all is passed to the parser.
 
-Scheme procedures can be defined in LilyPond input files:
+This is, in fact, exactly the same mechanism that Lilypond employs when
+you call any variable or music function by name, as @code{\name}, with
+the only difference that its end is determined by the Lilypond lexer
+without consulting the Scheme reader, and thus only variable names
+consistent with the current Lilypond mode are accepted.
+
+The immediate action of @code{$} can lead to surprises, @ref{Input
+variables and Scheme}.  Using @code{#} where the parser supports it is
+usually preferable.
+
+Now let's take a look at some actual Scheme code.  Scheme procedures can
+be defined in LilyPond input files:
 
 @example
 #(define (average a b c) (/ (+ a b c) 3))
@@ -636,7 +666,7 @@ Scheme procedures can be defined in LilyPond input files:
 
 Note that LilyPond comments (@code{%} and @code{%@{ %@}}) cannot
 be used within Scheme code, even in a LilyPond input file, because
-the Guile interpreter, not the LilyPond parser, is interpreting
+the Guile interpreter, not the LilyPond lexer, is reading
 the Scheme expression.  Comments in Guile Scheme are entered
 as follows:
 
@@ -692,6 +722,15 @@ twentyFour = #(* 2 twelve)
 @noindent
 which would result in the number 24 being stored in the
 LilyPond (and Scheme) variable @code{twentyFour}.
+
+The usual way to refer to Lilypond variables, @ref{LilyPond Scheme
+syntax}, is to call them using a backslash, i.e., @code{\twentyFour}.
+Since this creates a copy of the value for most of LilyPond's internal
+types, in particular music expressions, music functions don't usually
+create copies of material they change.  For this reason, music
+expressions given with @code{#} should usually not contain material that
+is not either created from scratch or explicitly copied rather than
+directly referenced.
 
 @node Input variables and Scheme
 @subsection Input variables and Scheme
@@ -775,21 +814,18 @@ been written as
 
 You can use @code{$} with a Scheme expression anywhere you could use
 @code{\@var{name}} after having assigned the Scheme expression to a
-variable @var{name}.  This replacement happens in the @q{Lexer}, so
+variable @var{name}.  This replacement happens in the @q{lexer}, so
 Lilypond is not even aware of the difference.
 
 One drawback, however, is that of timing.  If we had been using @code{$}
 instead of @code{#} for defining @code{newLa} in the above example, the
-Lexer would have evaluated the Scheme code right away in order to figure
-out the kind of the next token before Lilypond would have had a chance
-for executing the assignment.  Consequently, the Scheme definition would
-have failed because @code{traLaLa} would not yet have been defined.  As
-a rule, using @code{#} rather than @code{$} whenever it is allowed will
-cause fewer surprises.
+following Scheme definition would have failed because @code{traLaLa}
+would not yet have been defined.  For an explanation of this timing
+problem, @ref{LilyPond Scheme syntax}.
 
-Scheme code is evaluated as soon as the parser encounters it.  To
-define some Scheme code in a macro (to be called later), use
-@ref{Void scheme functions}, or
+In any case, evaluation of Scheme code happens in the parser at latest.
+If you need it to be executed at a later point of time, @ref{Void scheme
+functions}, or store it in a macro:
 
 @example
 #(define (nopc)

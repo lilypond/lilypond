@@ -207,16 +207,16 @@ functions (@pxref{Void scheme functions}) otherwise.
 @funindex \void
 
 Sometimes a procedure is executed in order to perform an action rather
-than return a value.  Some programming languages (like C and Scheme)
-use functions for either concept and just discard the returned value
+than return a value.  Some programming languages (like C and Scheme) use
+functions for either concept and just discard the returned value
 (usually by allowing any expression to act as statement, ignoring the
 result).  This is clever but error-prone: most C compilers nowadays
 offer warnings for various non-``void'' expressions being discarded.
-For many functions executing an action, the Scheme standards declare
-the return value to be unspecified.  Lilypond's Scheme interpreter
-Guile has a unique ``unspecified'' value that it usually (such when
-using @code{set!} directly on a variable) but unfortunately not
-consistently returns in such cases.
+For many functions executing an action, the Scheme standards declare the
+return value to be unspecified.  Lilypond's Scheme interpreter Guile has
+a unique value @code{*unspecified*} that it usually (such when using
+@code{set!} directly on a variable) but unfortunately not consistently
+returns in such cases.
 
 Defining a Lilypond function with @code{define-void-function} makes
 sure that this special value (the only value satisfying the predicate
