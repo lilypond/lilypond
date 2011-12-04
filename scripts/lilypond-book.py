@@ -380,11 +380,19 @@ def system_in_directory (cmd, directory, logfile):
 
     current = os.getcwd()
     os.chdir (directory)
-    ly.system(cmd,
+    """NB - ignore_error is deliberately set to the same value
+    as redirect_output - this is not a typo."""
+    retval = ly.system(cmd,
               be_verbose=ly.is_verbose (),
               redirect_output=global_options.redirect_output,
               log_file=logfile,
-              progress_p=1)
+              progress_p=1,
+              ignore_error=global_options.redirect_output)
+    if retval != 0:
+        print ("Error trapped by lilypond-book")
+        print ("\nPlease see " + logfile + ".log\n")
+        sys.exit(1)
+
     os.chdir (current)
 
 

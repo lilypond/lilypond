@@ -179,7 +179,7 @@ def subprocess_system (cmd,
     error_log_file = ''
 
     if redirect_output:
-        progress (_ ("Processing %s.ly") % log_file)
+        progress (_ ("Processing %s.ly \n") % log_file)
     else:
         if be_verbose:
             show_progress = 1
@@ -193,9 +193,7 @@ def subprocess_system (cmd,
         stdout_setting = subprocess.PIPE
 
     if redirect_output:
-        stdout_filename = ' '.join([log_file, '.log'])
-        stderr_filename = ' '.join([log_file, '.err.log'])
-        stdout_setting = open(stdout_filename, 'w')
+        stderr_filename = log_file + '.log'
         stderr_setting = open(stderr_filename, 'w')
 
     proc = subprocess.Popen (cmd,
@@ -208,9 +206,8 @@ def subprocess_system (cmd,
 
     if redirect_output:
         while proc.poll()==None:
-            time.sleep(1)
+            time.sleep(0.01)
         retval = proc.returncode
-        stdout_setting.close()
         stderr_setting.close()
     else:
         if show_progress:
@@ -227,7 +224,7 @@ def subprocess_system (cmd,
             print >>sys.stderr, "Child returned", retval
 
         if ignore_error:
-            print >>sys.stderr, "Error ignored"
+            print >>sys.stderr, "Error ignored by lilylib"
         else:
             if not show_progress:
                 print log[0]
