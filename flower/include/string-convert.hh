@@ -19,7 +19,7 @@ class String_convert
   static int hex2nibble (Byte byte);
   static Byte nibble2hex_byte (Byte byte);
 public:
-  static string pad_to (string s, int length);
+  static string pad_to (string s, size_t length);
   static string bool_string (bool b);
   static string bin2dec (string bin_string);
   static string bin2hex (Byte bin_char);
@@ -38,10 +38,11 @@ public:
   static string hex2bin (string str);
   static string int_string (int i, char const *fmt = 0);
   static string unsigned_string (unsigned);
+  static string unsigned_long_string (unsigned long);
   static string long_string (long);
-  static string int2hex (int i, int length_i, char ch);
-  static string unsigned2hex (unsigned u, ssize length, char ch);
-  static string int2dec (int i, int length_i, char ch);
+  static string int2hex (int i, size_t length_i, char ch);
+  static string unsigned2hex (unsigned u, size_t length, char ch);
+  static string int2dec (int i, size_t length_i, char ch);
   static string rational_string (Rational);
   static string pointer_string (void const *);
   static string precision_string (double x, int n);

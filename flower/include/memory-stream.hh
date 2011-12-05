@@ -40,8 +40,8 @@ class Memory_out_stream
 public:
   static ssize_t reader (void *, char *, size_t);
   static ssize_t writer (void *, char const *, size_t);
-  static int seeker (void *, off64_t *, int);
-  static int cleaner (void *);
+  static ssize_t seeker (void *, off64_t *, size_t);
+  static ssize_t cleaner (void *);
 
   Memory_out_stream ();
   ~Memory_out_stream ();

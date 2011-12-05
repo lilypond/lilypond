@@ -120,13 +120,13 @@ Paper_book::add_performance (SCM s)
   performances_ = scm_cons (s, performances_);
 }
 
-int
+long
 Paper_book::output_aux (SCM output_channel,
                         bool is_last,
-                        int *first_page_number,
-                        int *first_performance_number)
+                        long *first_page_number,
+                        long *first_performance_number)
 {
-  int page_nb = 0;
+  long page_nb = 0;
   if (scm_is_pair (performances_))
     {
       SCM proc = ly_lily_module_constant ("write-performances-midis");
@@ -168,9 +168,9 @@ Paper_book::output_aux (SCM output_channel,
 void
 Paper_book::output (SCM output_channel)
 {
-  int first_page_number
+  long first_page_number
     = robust_scm2int (paper_->c_variable ("first-page-number"), 1);
-  int first_performance_number = 0;
+  long first_performance_number = 0;
 
   /* FIXME: We need a line-width for ps output (framework-ps.scm:92).
      If we don't have any, we take the paper-width unless we know
@@ -237,7 +237,7 @@ Paper_book::output (SCM output_channel)
 
 void
 Paper_book::classic_output_aux (SCM output,
-                                int *first_performance_number)
+                                long *first_performance_number)
 {
   if (scm_is_pair (performances_))
     {
@@ -256,7 +256,7 @@ Paper_book::classic_output_aux (SCM output,
 void
 Paper_book::classic_output (SCM output)
 {
-  int first_performance_number = 0;
+  long first_performance_number = 0;
   classic_output_aux (output, &first_performance_number);
 
   SCM scopes = SCM_EOL;

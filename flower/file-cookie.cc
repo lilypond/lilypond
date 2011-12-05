@@ -23,14 +23,14 @@ extern "C" {
     return (FILE *) cookie;
   }
 
-  int
+  ssize_t
   lily_cookie_fclose (void *file)
   {
     assert (is_memory_stream (file));
     return Memory_out_stream::cleaner (file);
   }
 
-  int
+  ssize_t
   lily_cookie_fprintf (void *file, char const *format, ...)
   {
     assert (is_memory_stream (file));
@@ -45,7 +45,7 @@ extern "C" {
     return Memory_out_stream::writer (file, buf, i);
   }
 
-  int
+  ssize_t
   lily_cookie_putc (int c, void *file)
   {
     assert (is_memory_stream (file));
