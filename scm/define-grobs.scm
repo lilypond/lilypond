@@ -673,6 +673,7 @@
 
     (Dots
      . (
+	(avoid-slur . inside)
 	(dot-count . ,dots::calc-dot-count)
 	(staff-position . ,dots::calc-staff-position)
 	(stencil . ,ly:dots::print)
