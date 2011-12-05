@@ -329,7 +329,7 @@ expression."
 							'OverrideProperty
 							grob-property-path '(stroke-style)
 							grob-value "grace"
-							symbol 'Stem)))))
+							symbol 'Flag)))))
 	   #t)
 	 (with-music-match (?stop (music
 				   'SequentialMusic
@@ -338,7 +338,7 @@ expression."
 					      element (music
 						       'RevertProperty
 						       grob-property-path '(stroke-style)
-						       symbol 'Stem))
+						       symbol 'Flag))
 					     (music
 					      'EventChord
 					      elements ((music
