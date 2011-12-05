@@ -72,7 +72,14 @@ see @rlearning{Other sources of information}.  Alternatively, Windows
 users may simply choose @q{Run} from the Start menu and enter
 @q{guile}.
 
-Once the guile sandbox is running, you will receive a guile prompt:
+However, a hands-on Scheme sandbox with all of Lilypond loaded is
+available with this command line:
+@example
+lilypond scheme-sandbox
+@end example
+
+@noindent
+Once the sandbox is running, you will receive a guile prompt:
 
 @lisp
 guile>
