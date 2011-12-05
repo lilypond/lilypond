@@ -32,6 +32,11 @@ Syntax: @var{note}@code{\\x}, where @code{\\x} is a dynamic mark like
 	(types . (general-music event dynamic-event absolute-dynamic-event))
 	))
 
+    (AlternativeEvent
+     . ((description . "Create a alternative event.")
+        (types . (general-music event alternative-event))
+	))
+
     (AnnotateOutputEvent
      . ((description . "Print an annotation of an output element.")
 	(types . (general-music event annotate-output-event))
@@ -712,6 +717,7 @@ Syntax: @code{\\\\}")
     (VoltaRepeatedMusic
      . ((description . "Repeats with alternatives placed sequentially.")
 	(iterator-ctor . ,ly:volta-repeat-iterator::constructor)
+	(elements-callback . ,make-volta-set)
 	(start-callback .  ,ly:repeated-music::first-start)
 	(length-callback . ,ly:repeated-music::volta-music-length)
 	(types . (general-music repeated-music volta-repeated-music))

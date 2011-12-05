@@ -697,6 +697,8 @@ Otherwise, return #f."
 ;;; Repeats
 ;;;
 
+(define-display-method AlternativeEvent (alternative parser) "")
+
 (define (repeat->lily-string expr repeat-type parser)
   (format #f "\\repeat ~a ~a ~a ~a"
 	  repeat-type

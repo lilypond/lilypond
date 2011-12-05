@@ -30,6 +30,10 @@
      (absolute-octave ,integer?
 		      "The absolute octave for a octave check note.")
      (alteration ,number? "Alteration for figured bass.")
+     (alternative-dir ,ly:dir? "Indicates if an AlternativeMusic is the
+First (-1), Middle (0), or Last (1) of group of alternate endings.")
+     (alternative-increment ,integer? "The number of times an alternative's
+lettering should be incremented.")
      (articulation-type ,string? "Key for script definitions alist.
 
 TODO: Consider making type into symbol.")
@@ -210,6 +214,8 @@ engraver this music expression is processed.")
      (value ,scheme? "Assignment value for a translation property.")
      (void ,boolean? "If this property is @code{#t}, then the
 music expression is to be discarded by the toplevel music handler.")
+     (volta-repeats ,list? "A list that is transformed into a volta
+repeat element list.")
 
      (what ,symbol? "What to change for auto-change.
 

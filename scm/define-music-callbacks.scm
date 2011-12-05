@@ -34,6 +34,34 @@ to be used by the sequential-iterator"
 	  (make-music 'BarCheck
 		      'origin location))))
 
+(define (make-volta-set music)
+  (let* ((alts (ly:music-property music 'elements))
+         (lalts (length alts))
+         (times (ly:music-property music 'repeat-count)))
+    (map (lambda (x y)
+           (make-music
+             'SequentialMusic
+             'elements
+               ;; set properties for proper bar numbering
+               (append
+                 (list (make-music 'AlternativeEvent
+                                   'alternative-dir (if (= y 0)
+                                                        -1
+                                                        0)
+                                   'alternative-increment
+                                     (if (= 0 y)
+                                         (1+ (- times
+                                                lalts))
+                                             1)))
+                       (list x)
+                       (if (= y (1- lalts))
+                           (list (make-music 'AlternativeEvent
+                                             'alternative-dir 1
+                                             'alternative-increment 0))
+                           '()))))
+         alts
+         (iota lalts))))
+
 (define (make-ottava-set music)
   "Set context properties for an ottava bracket."
   (let ((octavation (ly:music-property music 'ottava-number)))

@@ -523,6 +523,7 @@ automatically when an output definition (a @code{\score} or
 
   %% move the alias along with the engraver.
 
+  % timing translator must come BEFORE bar number engraver
   \consists "Timing_translator"
   \consists "Default_bar_line_engraver"
   \consists "Output_property_engraver"

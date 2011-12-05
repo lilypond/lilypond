@@ -50,7 +50,7 @@ SCM
 Volta_repeat_iterator::get_music_list ()const
 {
   return scm_cons (get_music ()->get_property ("element"),
-                   get_music ()->get_property ("elements"));
+                   Sequential_iterator::get_music_list ());
 }
 
 void
