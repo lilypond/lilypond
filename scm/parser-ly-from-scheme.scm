@@ -43,6 +43,9 @@ from @var{port} and return the corresponding Scheme music expression.
 			     (if (or (char=? c #\#) (char=? c #\$))
 				 (let* ((p (ftell out))
 					(expr (read copycat)))
+				   ;; kill unused lookahead, it has been
+				   ;; written out already
+				   (drain-input copycat)
 				   ;; only put symbols and non-quote
 				   ;; lists into closures -- constants
 				   ;; don't need lexical environments
