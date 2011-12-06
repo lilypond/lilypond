@@ -863,100 +863,112 @@ and @code{ChoirStaff} contexts.  The value of
 of @code{shortInstrumentName} is used for all succeeding staves.
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
-\set Staff.instrumentName = #"Violin "
-\set Staff.shortInstrumentName = #"Vln "
-c4.. g'16 c4.. g'16
-\break
-c1
+\new Staff \with {
+  instrumentName = #"Violin "
+  shortInstrumentName = #"Vln. "
+}
+{ c4.. g'16 c4.. g'16 \break | c1 }
 @end lilypond
 
-Markup mode can be used to create more complicated instrument
-names:
+@cindex instrument names, complex
+
+@code{\markup} can be used to create more complex instrument names:
 
 @lilypond[verbatim,quote,relative=2]
-\set Staff.instrumentName = \markup {
-  \column { "Clarinetti"
-            \line { "in B" \smaller \flat } } }
-c4 c,16 d e f g2
+\new Staff \with {
+  instrumentName = \markup {
+    \column { "Clarinetti"
+      \line { "in B" \smaller \flat }
+    }
+  }
+}
+{ c4 c,16 d e f g2 }
 @end lilypond
 
 @cindex instrument names, centering
 
-When two or more staff contexts are grouped together, the
-instrument names and short instrument names are centered by
-default.  To center multi-line instrument names,
-@code{\center-column} must be used:
+When two or more staff contexts are grouped together, the instrument
+names and short instrument names are centered by default.  To center
+multi-line instrument names, @code{\center-column} must be used:
 
 @lilypond[verbatim,quote,indent=1.5\cm,relative=2]
 <<
-  \new Staff {
-    \set Staff.instrumentName = #"Flute"
-    f2 g4 f
+  \new Staff \with {
+    instrumentName = #"Flute"
   }
-  \new Staff {
-    \set Staff.instrumentName = \markup \center-column {
-      Clarinet
+  { f2 g4 f }
+  \new Staff \with {
+    instrumentName = \markup {
+      \center-column { "Clarinet" }
       \line { "in B" \smaller \flat }
     }
-    c4 b c2
   }
+  { c4 b c2 }
 >>
 @end lilypond
 
 @funindex indent
 @funindex short-indent
 
-However, if the instrument names are longer, the instrument names
-in a staff group may not be centered unless the @code{indent} and
-@code{short-indent} settings are increased.  For details about
-these settings, see @ref{\paper variables for shifts and indents}.
+However, if the instrument names are longer, the instrument names in a
+staff group may not be centered unless the @code{indent} and
+@code{short-indent} settings are increased.  For details about these
+settings, see @ref{\paper variables for shifts and indents}.
 
 @lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  <<
+    \new Staff \with {
+      instrumentName = #"Alto Flute in G"
+      shortInstrumentName = #"Flt."
+    }
+    {
+      f2 g4 f \break
+      g4 f g2
+    }
+    \new Staff \with {
+      instrumentName = #"Clarinet"
+      shortInstrumentName = #"Clar."
+    }
+    {
+      c,4 b c2 \break
+      c2 b4 c
+    }
+  >>
+}
+
 \layout {
   indent = 3.0\cm
   short-indent = 1.5\cm
 }
-
-\relative c'' <<
-  \new Staff {
-    \set Staff.instrumentName = #"Alto Flute in G"
-    \set Staff.shortInstrumentName = #"Fl."
-    f2 g4 f \break
-    g4 f g2
-  }
-  \new Staff {
-    \set Staff.instrumentName = #"Clarinet"
-    \set Staff.shortInstrumentName = #"Clar."
-    c,4 b c2 \break
-    c2 b4 c
-  }
->>
 @end lilypond
 
 @cindex instrument names, adding to other contexts
 
-To add instrument names to other contexts (such as
-@code{ChordNames} or @code{FiguredBass}),
-@code{Instrument_name_engraver} must be added to that context.
-For details, see @ref{Modifying context plug-ins}.
+To add instrument names to other contexts (such as @code{ChordNames} or
+@code{FiguredBass}), @code{Instrument_name_engraver} must be added to
+that context.  For details, see @ref{Modifying context plug-ins}.
 
 @cindex instrument names, changing
 @cindex changing instrument names
 
-Instrument names may be changed in the middle of a piece.
-However, remember that @code{instrumentName} will not be
-displayed in the middle of the piece, as it only appears
-on the first staff:
+The @code{shortInstrumentName} may be changed in the middle of a piece.
+However, only the first instance of @code{instrumentName} will be
+printed and subsequent changes will be ignored:
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
-\set Staff.instrumentName = #"First"
-\set Staff.shortInstrumentName = #"one"
-c1 c c c \break
-c1 c c c \break
-\set Staff.instrumentName = #"Second"
-\set Staff.shortInstrumentName = #"two"
-c1 c c c \break
-c1 c c c \break
+\new Staff \with {
+  instrumentName = #"Flute"
+  shortInstrumentName = #"Flt."
+}
+{
+  c1 c c c \break
+  c1 c c c \break
+  \set Staff.instrumentName = #"Clarinet"
+  \set Staff.shortInstrumentName = #"Clt."
+  c1 c c c \break
+  c1 c c c \break
+}
 @end lilypond
 
 @cindex instrument switch
