@@ -33,6 +33,7 @@ from @var{port} and return the corresponding Scheme music expression.
 					     (write-char x out)
 					     x)) #f)
 				 "r")))
+			   (set-port-filename! copycat filename)
 			   (do ((c (read-char port) (read-char port)))
 			       ((and (char=? c #\#)
 				     (char=? (peek-char port) #\}))
@@ -42,7 +43,13 @@ from @var{port} and return the corresponding Scheme music expression.
 			     ;; a #scheme or $scheme expression
 			     (if (or (char=? c #\#) (char=? c #\$))
 				 (let* ((p (ftell out))
-					(expr (read copycat)))
+					(expr
+					 (begin
+					   (set-port-line! copycat
+							   (port-line port))
+					   (set-port-column! copycat
+							     (port-column port))
+					   (read copycat))))
 				   ;; kill unused lookahead, it has been
 				   ;; written out already
 				   (drain-input copycat)
