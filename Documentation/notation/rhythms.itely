@@ -523,10 +523,24 @@ c2 ~ c
 c2 ~ c
 @end lilypond
 
-Dash pattern definitions for ties have the same structure as
-dash pattern definitions for slurs.
-For more information about complex dash patterns,
-see the snippets under @ref{Slurs}.
+Dash pattern definitions for ties have the same structure as dash
+pattern definitions for slurs. For more information about complex dash
+patterns, see @rlsr{slurs}.
+
+Override @var{whiteout} and @var{layer} layout properties for ties that
+collide with other objects in a staff.
+
+@lilypond[verbatim,quote,ragged-right,relative=2]
+\override Tie #'layer = #-2
+\override Staff.TimeSignature #'layer = #-1
+\override Staff.KeySignature #'layer = #-1
+\override Staff.TimeSignature #'whiteout = ##t
+\override Staff.KeySignature #'whiteout = ##t
+b2 b~
+\time 3/4
+\key a \major
+b r4
+@end lilypond
 
 @predefined
 @code{\tieUp},
@@ -540,7 +554,6 @@ see the snippets under @ref{Slurs}.
 @code{\tieSolid}.
 @endpredefined
 
-
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -548,7 +561,6 @@ see the snippets under @ref{Slurs}.
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
-
 
 @seealso
 Music Glossary:
@@ -560,6 +572,7 @@ Notation Reference:
 @ref{Automatic note splitting}.
 
 Snippets:
+@rlsr{slurs},
 @rlsr{Rhythms}.
 
 Internals Reference:
@@ -568,14 +581,11 @@ Internals Reference:
 @rinternals{TieColumn},
 @rinternals{Tie}.
 
-
 @knownissues
-Switching staves when a tie is active will not produce a slanted
-tie.
+Switching staves when a tie is active will not produce a slanted tie.
 
-Changing clefs or ottavations during a tie is not really
-well-defined.  In these cases, a slur may be preferable.
-
+Changing clefs or ottavations during a tie is not really well-defined.
+In these cases, a slur may be preferable.
 
 
 @node Writing rests
