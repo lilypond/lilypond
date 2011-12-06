@@ -539,7 +539,7 @@ principal note to which it is attached.  The acciaccatura is drawn as a
 small eighth note (quaver) with a line drawn through the flag and stem.
 
 @seealso
-@ref{appoggiatura}, @ref{grace notes}, @ref{ornament}.
+@ref{appoggiatura}, @ref{grace notes}, @ref{mordent}, @ref{ornament}.
 
 
 @node accidental
@@ -3990,8 +3990,7 @@ Notes printed in small types to indicate that their time values are not
 counted in the rhythm of the bar.
 
 @seealso
-@ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes},
-@ref{ornament}.
+@ref{acciaccatura}, @ref{appoggiatura}, @ref{mordent}, @ref{ornament}.
 
 
 @node grand staff
@@ -5533,6 +5532,7 @@ S: mordent,
 FI: mordent, korukuvio.
 
 @seealso
+@ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes},
 @ref{ornament}.
 
 
@@ -5663,7 +5663,7 @@ FI: ?.
 
 @seealso
 @ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes},
-@ref{ornament}.
+@ref{mordent}, @ref{ornament}.
 
 
 @node ninth
@@ -5991,7 +5991,8 @@ the @emph{prall} (inverted mordent).
 @end lilypond
 
 @seealso
-@ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes}.
+@ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes},
+@ref{mordent}.
 
 
 @node ossia
