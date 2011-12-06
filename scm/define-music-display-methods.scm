@@ -377,7 +377,7 @@ expression."
 	(chord? (make-music-type-predicate 'EventChord))
 	(cluster? (make-music-type-predicate 'ClusterNoteEvent))
 	(note? (make-music-type-predicate 'NoteEvent)))
-    (format #f "~a~a{~v%~v_~{~a ~}~v%~v_}"
+    (format #f "~a~a{~v%~v_~{~a~^ ~}~v%~v_}"
 	    (if (any (lambda (e)
 		       (and (chord? e)
 			    (any cluster? (ly:music-property e 'elements))))
@@ -415,7 +415,7 @@ expression."
 					  (music->lily-string music parser))
 					elements))
 	    (if force-line-break 1 0)
-	    (if force-line-break (*indent*) 0))))
+	    (if force-line-break (*indent*) 1))))
 
 (define-display-method SimultaneousMusic (sim parser)
   (parameterize ((*indent* (+ 3 (*indent*))))
@@ -473,7 +473,7 @@ Otherwise, return #f."
 	    ;; simple_element : note | figure | rest | mmrest | lyric_element | skip
 	    (let* ((simple-element (car simple-elements))
 		   (duration (ly:music-property simple-element 'duration))
-		   (lily-string (format #f "~a~a~a~{~a ~}"
+		   (lily-string (format #f "~a~a~a~{~a~^ ~}"
 					(music->lily-string simple-element parser)
 					(duration->lily-string duration)
 					(if (and ((make-music-type-predicate 'RestEvent) simple-element)
@@ -491,7 +491,7 @@ Otherwise, return #f."
 		  (post-events (filter post-event? elements)))
 	      (if (not (null? chord-elements))
 		  ;; note_chord_element : '<' (notepitch | drumpitch)* '>" duration post_events
-		  (let ((lily-string (format #f "< ~{~a ~}>~a~{~a ~}"
+		  (let ((lily-string (format #f "< ~{~a ~}>~a~{~a~^ ~}"
 					     (map-in-order (lambda (music)
 							     (music->lily-string music parser))
 							   chord-elements)
@@ -503,13 +503,13 @@ Otherwise, return #f."
 		    (*previous-duration* (ly:music-property (car chord-elements) 'duration))
 		    lily-string)
 		  ;; command_element
-		  (format #f "~{~a ~}" (map-in-order (lambda (music)
+		  (format #f "~{~a~^ ~}" (map-in-order (lambda (music)
 						       (music->lily-string music parser))
 						     elements))))))))
 
 (define-display-method MultiMeasureRestMusic (mmrest parser)
   (let* ((dur (ly:music-property mmrest 'duration))
-	 (ly (format #f "R~a~{~a ~}"
+	 (ly (format #f "R~a~{~a~^ ~}"
 		     (duration->lily-string dur)
 		     (map-in-order (lambda (music)
 				     (music->lily-string music parser))

@@ -92,8 +92,8 @@ stderr of this run."
 
 %% Lyrics
 \test ##[ \lyrics { a b } #]
-\test ##[ \lyricmode { a --  b } #] 		% HyphenEvent
-\test ##[ \lyricmode { a __  b } #] 		% ExtenderEvent
+\test ##[ \lyricmode { a -- b } #] 		% HyphenEvent
+\test ##[ \lyricmode { a __ b } #] 		% ExtenderEvent
 \test ##[ \lyricmode { "a " } #] 			% LyricEvent
 \test ##[ \lyricsto "foo" { bla bla  } #]		% LyricCombineMusic
 \test ##[ { { c d }
@@ -107,41 +107,41 @@ stderr of this run."
 \test ##[ c4 ~ #]			 		% TieEvent
 \test ##[ c\noBeam #] 					% BeamForbidEvent
 \test ##[ c\1 #] 					% StringNumberEvent
-\test ##[ { c:  c:1  } #]				% TremoloEvent
-\test ##[ { c-^  c^^  c_^  } #]				% ArticulationEvent
-\test ##[ { c-+  c^+  c_+  } #]
-\test ##[ { c--  c^-  c_-  } #]
-\test ##[ { c-|  c^|  c_|  } #]
-\test ##[ { c->  c^>  c_>  } #]
-\test ##[ { c-.  c^.  c_.  } #]
-\test ##[ { c-_  c^_  c__  } #]
-\test ##[ { c-\trill  c^\trill  c_\trill  } #]
-\test ##[ { c-1  c^2  c_3  } #]				% FingerEvent
-\test ##[ { c-"foo"  c^"foo"  c_"foo"  } #]	% TextScriptEvent
-\test ##[ { R1*4-"foo"  R^"foo"  R_"foo"  } #]		% MultiMeasureTextEvent
+\test ##[ { c: c:1 } #]					% TremoloEvent
+\test ##[ { c-^ c^^ c_^ } #]				% ArticulationEvent
+\test ##[ { c-+ c^+ c_+ } #]
+\test ##[ { c-- c^- c_- } #]
+\test ##[ { c-| c^| c_| } #]
+\test ##[ { c-> c^> c_> } #]
+\test ##[ { c-. c^. c_. } #]
+\test ##[ { c-_ c^_ c__ } #]
+\test ##[ { c-\trill c^\trill c_\trill } #]
+\test ##[ { c-1 c^2 c_3 } #]				% FingerEvent
+\test ##[ { c-"foo" c^"foo" c_"foo" } #]		% TextScriptEvent
+\test ##[ { R1*4-"foo" R^"foo" R_"foo" } #]		% MultiMeasureTextEvent
 \test ##[ { < c\harmonic >4 < c e\harmonic > } #] 	% HarmonicEvent
-\test ##[ { c-\glissando  c^\glissando  c_\glissando  } #]    % GlissandoEvent
-\test ##[ { c-\arpeggio  c^\arpeggio  c_\arpeggio  } #] 	% ArpeggioEvent
-\test ##[ { c\p  c^\ff  c_\sfz  } #] 			% AbsoluteDynamicEvent
-\test ##[ { c[  c]  c^[  c^]  c_[  c_]  } #] 		% BeamEvent
-\test ##[ { c(  c)  c^(  c^)  c_(  c_)  } #] 		% SlurEvent
-\test ##[ { c\<  c\!  c^\<  c^\!  c_\<  c_\!  } #]	% CrescendoEvent
-\test ##[ { c\>  c\!  c^\>  c^\!  c_\>  c_\!  } #]	% DecrescendoEvent
-\test ##[ { c\episemInitium  c\episemFinis  } #]    % EpisemaEvent
-\test ##[ { c\(  c\)  c^\(  c^\)  c_\(  c_\)  } #]	% PhrasingSlurEvent
-\test ##[ { c\sustainOn  c\sustainOff  } #]    % SustainEvent
-\test ##[ { c\sostenutoOn  c\sostenutoOff  } #]    % SostenutoEvent
+\test ##[ { c-\glissando c^\glissando c_\glissando } #]	% GlissandoEvent
+\test ##[ { c-\arpeggio c^\arpeggio c_\arpeggio } #] 	% ArpeggioEvent
+\test ##[ { c\p c^\ff c_\sfz } #] 			% AbsoluteDynamicEvent
+\test ##[ { c[ c] c^[ c^] c_[ c_] } #] 			% BeamEvent
+\test ##[ { c( c) c^( c^) c_( c_) } #] 			% SlurEvent
+\test ##[ { c\< c\! c^\< c^\! c_\< c_\! } #]		% CrescendoEvent
+\test ##[ { c\> c\! c^\> c^\! c_\> c_\! } #]		% DecrescendoEvent
+\test ##[ { c\episemInitium c\episemFinis } #]		% EpisemaEvent
+\test ##[ { c\( c\) c^\( c^\) c_\( c_\) } #]		% PhrasingSlurEvent
+\test ##[ { c\sustainOn c\sustainOff } #]		% SustainEvent
+\test ##[ { c\sostenutoOn c\sostenutoOff } #]		% SostenutoEvent
 \test ##[ \melisma #]
 \test ##[ \melismaEnd #]
-\test ##[ { c\startTextSpan  c\stopTextSpan  } #]    % TextSpanEvent
-\test ##[ { c\startTrillSpan  c\stopTrillSpan  } #]    % TrillSpanEvent
-\test ##[ { c \startStaff c \stopStaff } #]	% StaffSpanEvent
-\test ##[ { c\startGroup  c\stopGroup  c^\startGroup  c^\stopGroup  c_\startGroup  c_\stopGroup  } #]    % NoteGroupingEvent
-\test ##[ { c\unaCorda  c\treCorde  } #]    % UnaCordaEvent
+\test ##[ { c\startTextSpan c\stopTextSpan } #]		% TextSpanEvent
+\test ##[ { c\startTrillSpan c\stopTrillSpan } #]	% TrillSpanEvent
+\test ##[ { c \startStaff c \stopStaff } #]		% StaffSpanEvent
+\test ##[ { c\startGroup c\stopGroup c^\startGroup c^\stopGroup c_\startGroup c_\stopGroup } #]    % NoteGroupingEvent
+\test ##[ { c\unaCorda c\treCorde } #]			% UnaCordaEvent
 \test ##[ \breathe #]
 \test ##[ { c \[ c \] } #]			% LigatureEvent
 \test ##[ \~ #]						% PesOrFlexaEvent
-\test ##[ { c-\bendAfter #3  } #]    % BendAfterEvent
+\test ##[ { c-\bendAfter #3 } #]    % BendAfterEvent
 \test ##[ < c-\rightHandFinger #1 > #]    % StrokeFingerEvent
 
 \test ##[ \break #]

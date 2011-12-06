@@ -33,6 +33,7 @@ from @var{port} and return the corresponding Scheme music expression.
 					     (write-char x out)
 					     x)) #f)
 				 "r")))
+			   (set-port-filename! copycat filename)
 			   (do ((c (read-char port) (read-char port)))
 			       ((and (char=? c #\#)
 				     (char=? (peek-char port) #\}))
@@ -42,7 +43,16 @@ from @var{port} and return the corresponding Scheme music expression.
 			     ;; a #scheme or $scheme expression
 			     (if (or (char=? c #\#) (char=? c #\$))
 				 (let* ((p (ftell out))
-					(expr (read copycat)))
+					(expr
+					 (begin
+					   (set-port-line! copycat
+							   (port-line port))
+					   (set-port-column! copycat
+							     (port-column port))
+					   (read copycat))))
+				   ;; kill unused lookahead, it has been
+				   ;; written out already
+				   (drain-input copycat)
 				   ;; only put symbols and non-quote
 				   ;; lists into closures -- constants
 				   ;; don't need lexical environments
@@ -53,13 +63,13 @@ from @var{port} and return the corresponding Scheme music expression.
 				       (set! closures
 					     (cons `(cons ,p (lambda () ,expr))
 						   closures)))))))))))
-    `(let* ((clone
-	     (ly:parser-clone parser (list ,@closures)))
-	    (result (ly:parse-string-expression clone ,lily-string
-						,filename
-						,line)))
-       (if (ly:parser-has-error? clone)
-	   (ly:parser-error parser (_ "error in #{ ... #}")))
-       result)))
+    (define (embedded-lilypond parser lily-string filename line closures)
+      (let* ((clone (ly:parser-clone parser closures))
+	     (result (ly:parse-string-expression clone lily-string
+						 filename line)))
+	(if (ly:parser-has-error? clone)
+	    (ly:parser-error parser (_ "error in #{ ... #}")))
+	result))
+    (list embedded-lilypond 'parser lily-string filename line (cons 'list (reverse! closures)))))
 
 (read-hash-extend #\{ read-lily-expression)
