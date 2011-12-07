@@ -23,3 +23,21 @@
                 s2.
         }
 >>
+
+\new PianoStaff <<
+        \new Staff = "rh" \relative c'' {
+                \time 6/8
+                bes16 c d
+                \change Staff = lh
+                \stemUp bes a g
+                \change Staff = rh
+                \stemDown bes c d
+                \change Staff = lh
+                \clef bass
+                \stemUp ces, a g
+
+        }
+        \new Staff = "lh" \relative c' {
+                s2.
+        }
+>>

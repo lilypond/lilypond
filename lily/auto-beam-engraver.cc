@@ -404,7 +404,10 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
   if (bool (beam_start_location_.grace_part_) != bool (now.grace_part_))
     return;
 
-  Moment dur = unsmob_duration (ev->get_property ("duration"))->get_length ();
+  Duration *stem_duration = unsmob_duration (ev->get_property ("duration"));
+  Moment dur = stem_duration->get_length ();
+
+  //Moment dur = unsmob_duration (ev->get_property ("duration"))->get_length ();
   Moment measure_now = measure_position (context ());
   bool recheck_needed = false;
 
@@ -425,7 +428,8 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
 
   grouping_->add_stem (now - beam_start_moment_ + beam_start_location_,
                        durlog - 2,
-                       Stem::is_invisible (stem));
+                       Stem::is_invisible (stem),
+                       stem_duration->factor ());
   stems_->push_back (stem);
   last_add_mom_ = now;
   extend_mom_ = max (extend_mom_, now) + get_event_length (ev, now);

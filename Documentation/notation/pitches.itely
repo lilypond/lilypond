@@ -1443,7 +1443,7 @@ Snippets:
 @cindex automatic accidentals
 @cindex default accidental style
 
-@funindex set-accidental-style
+@funindex \accidentalStyle
 @funindex voice
 @funindex default
 
@@ -1466,7 +1466,7 @@ scope the style should be changed.  For example, to use the same
 style in all staves of the current @code{StaffGroup}, use:
 
 @example
-$(set-accidental-style 'voice 'StaffGroup)
+\accidentalStyle #'StaffGroup "voice"
 @end example
 
 The following accidental styles are supported.  To demonstrate
@@ -1529,7 +1529,7 @@ both staves.
   <<
     \context Staff = "up" @{
       %%% change the next line as desired:
-      $(set-accidental-style 'default 'Score)
+      \accidentalStyle #'Score "default"
       \musicA
     @}
     \context Staff = "down" @{

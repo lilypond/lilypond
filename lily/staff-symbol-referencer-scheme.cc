@@ -71,3 +71,14 @@ LY_DEFINE (ly_staff_symbol_staff_space, "ly:staff-symbol-staff-space",
   Real staff_space = Staff_symbol_referencer::staff_space (g);
   return scm_from_double (staff_space);
 }
+
+LY_DEFINE (ly_staff_symbol_staff_radius, "ly:staff-symbol-staff-radius",
+           1, 0, 0, (SCM grob),
+           "Returns the radius of the staff associated with"
+           " @var{grob}.")
+{
+  LY_ASSERT_SMOB (Grob, grob, 1);
+  Grob *g = unsmob_grob (grob);
+  Real staff_radius = Staff_symbol_referencer::staff_radius (g);
+  return scm_from_double (staff_radius);
+}

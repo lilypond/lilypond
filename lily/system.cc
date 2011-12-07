@@ -47,7 +47,6 @@ System::System (System const &src)
   all_elements_ = 0;
   pscore_ = 0;
   rank_ = 0;
-  checked_footnotes_ = false;
   init_elements ();
 }
 
@@ -56,7 +55,6 @@ System::System (SCM s)
 {
   all_elements_ = 0;
   rank_ = 0;
-  checked_footnotes_ = false;
   init_elements ();
 }
 
@@ -191,6 +189,7 @@ System::do_break_substitution_and_fixup_refpoints ()
     {
       System *child = dynamic_cast<System *> (broken_intos_[i]);
       child->all_elements_->remove_duplicates ();
+
       for (vsize j = 0; j < child->all_elements_->size (); j++)
         {
           Grob *g = child->all_elements_->grob (j);
@@ -229,37 +228,32 @@ System::get_paper_systems ()
   return lines;
 }
 
-void
-System::populate_footnote_grob_vector ()
+vector<Grob *>
+System::get_footnote_grobs_in_range (vsize start, vsize end)
 {
-  extract_grob_set (this, "all-elements", all_elts);
-  for (vsize i = 0; i < all_elts.size (); i++)
-    if (all_elts[i]->internal_has_interface (ly_symbol2scm ("footnote-interface")))
-      footnote_grobs_.push_back (all_elts[i]);
-
-  sort (footnote_grobs_.begin (), footnote_grobs_.end (), Grob::less);
-  checked_footnotes_ = true;
-}
-
-void
-System::get_footnote_grobs_in_range (vector<Grob *> &out, vsize start, vsize end)
-{
-  if (!checked_footnotes_)
-    populate_footnote_grob_vector ();
-
-  for (vsize i = 0; i < footnote_grobs_.size (); i++)
+  vector<Grob *> out;
+  extract_grob_set (this, "footnotes-before-line-breaking", footnote_grobs);
+  for (vsize i = 0; i < footnote_grobs.size (); i++)
     {
-      int pos = footnote_grobs_[i]->spanned_rank_interval ()[LEFT];
-      if (Spanner *s = dynamic_cast<Spanner *>(footnote_grobs_[i]))
+      Grob *at_bat = footnote_grobs[i];
+      int pos = at_bat->spanned_rank_interval ()[LEFT];
+      bool end_of_line_visible = true;
+      if (Spanner *s = dynamic_cast<Spanner *>(at_bat))
         {
           Direction spanner_placement = robust_scm2dir (s->get_property ("spanner-placement"), LEFT);
           if (spanner_placement == CENTER)
             spanner_placement = LEFT;
 
           pos = s->spanned_rank_interval ()[spanner_placement];
+          if (s->original ())
+            {
+              Spanner *orig = dynamic_cast<Spanner *>(s->original ());
+              at_bat = spanner_placement == LEFT ? orig->broken_intos_[0] : orig->broken_intos_.back ();
+              pos = at_bat->spanned_rank_interval ()[RIGHT];
+            }
         }
 
-      if (Item *item = dynamic_cast<Item *>(footnote_grobs_[i]))
+      if (Item *item = dynamic_cast<Item *>(at_bat))
         {
           if (!Item::break_visible (item))
             continue;
@@ -275,12 +269,17 @@ System::get_footnote_grobs_in_range (vector<Grob *> &out, vsize start, vsize end
       if (pos < int (start))
         continue;
       if (pos > int (end))
-        break;
-      if (!footnote_grobs_[i]->is_live ())
+        continue;
+      if (pos == int (start) && end_of_line_visible)
+        continue;
+      if (pos == int (end) && !end_of_line_visible)
+        continue;
+      if (!at_bat->is_live ())
         continue;
 
-      out.push_back (footnote_grobs_[i]);
+      out.push_back (at_bat);
     }
+  return out;
 }
 
 vector<Real>
@@ -298,8 +297,7 @@ System::get_in_note_heights_in_range (vsize start, vsize end)
 vector<Real>
 System::internal_get_note_heights_in_range (vsize start, vsize end, bool foot)
 {
-  vector<Grob *> footnote_grobs;
-  get_footnote_grobs_in_range (footnote_grobs, start, end);
+  vector<Grob *> footnote_grobs = get_footnote_grobs_in_range (start, end);
   vector<Real> out;
 
   for (vsize i = footnote_grobs.size (); i--;)
@@ -331,13 +329,66 @@ System::internal_get_note_heights_in_range (vsize start, vsize end, bool foot)
 vsize
 System::num_footnotes ()
 {
-  return footnote_grobs_.size ();
+  extract_grob_set (this, "footnotes-after-line-breaking", footnote_grobs);
+  return footnote_grobs.size ();
 }
 
-vector<Grob *>*
-System::footnote_grobs ()
+bool
+grob_2D_less (Grob *g1, Grob *g2)
 {
-  return &footnote_grobs_;
+  int sri[] = {0,0};
+  Grob *gs[] = {g1, g2};
+
+  for (int i = 0; i < 2; i++)
+    {
+      sri[i] = gs[i]->spanned_rank_interval ()[LEFT];
+      if (Spanner *s = dynamic_cast<Spanner *> (gs[i]))
+        {
+          if (s->broken_intos_.size ())
+            s = (scm_to_int (s->broken_intos_[0]->get_property ("spanner-placement")) == LEFT
+                 ? s->broken_intos_[0]
+                 : s->broken_intos_.back ());
+          gs[i] = s;
+          if (robust_scm2double (s->get_property ("X-offset"), 0.0) > 0)
+            sri[i] = s->spanned_rank_interval ()[RIGHT];
+        }
+    }
+
+  if (sri[0] == sri[1])
+    return Grob::vertical_less (gs[0], gs[1]);
+
+ return sri[0] < sri[1];
+}
+
+MAKE_SCHEME_CALLBACK (System, footnotes_before_line_breaking, 1);
+SCM
+System::footnotes_before_line_breaking (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  vector<Grob *> footnotes;
+  SCM grobs_scm = Grob_array::make_array ();
+  extract_grob_set (me, "all-elements", elts);
+  for (vsize i = 0; i < elts.size (); i++)
+    if (elts[i]->internal_has_interface (ly_symbol2scm ("footnote-interface")))
+      footnotes.push_back (elts[i]);
+
+  unsmob_grob_array (grobs_scm)->set_array (footnotes);
+  return grobs_scm;
+}
+
+MAKE_SCHEME_CALLBACK (System, footnotes_after_line_breaking, 1);
+SCM
+System::footnotes_after_line_breaking (SCM smob)
+{
+  Spanner *sys_span = unsmob_spanner (smob);
+  System *sys = dynamic_cast<System *> (sys_span);
+  Interval_t<int> sri = sys->spanned_rank_interval ();
+  vector<Grob *> footnote_grobs = sys->get_footnote_grobs_in_range (sri[LEFT], sri[RIGHT]);
+  vector_sort (footnote_grobs, grob_2D_less);
+
+  SCM grobs_scm = Grob_array::make_array ();
+  unsmob_grob_array (grobs_scm)->set_array (footnote_grobs);
+  return grobs_scm;
 }
 
 void
@@ -355,8 +406,6 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
       int end = Paper_column::get_rank (c.back ());
       Interval iv (pure_height (this, st, end));
       system->set_property ("pure-Y-extent", ly_interval2scm (iv));
-
-      get_footnote_grobs_in_range (system->footnote_grobs_, st, end);
 
       system->set_bound (LEFT, c[0]);
       system->set_bound (RIGHT, c.back ());
@@ -1001,6 +1050,8 @@ ADD_INTERFACE (System,
                "all-elements "
                "columns "
                "footnote-stencil "
+               "footnotes-before-line-breaking "
+               "footnotes-after-line-breaking "
                "in-note-direction "
                "in-note-padding "
                "in-note-stencil "

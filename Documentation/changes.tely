@@ -72,6 +72,17 @@ containing expression, greatly reducing the potential for premature
 evaluation.
 
 @item
+Support for jazz-like chords has been improved: Lydian and altered
+chords are recognised; separators between chord modifiers are now
+treated independently of separators between ``slash'' chords and their
+bass notes (and by default, slashes are now only used for the latter
+type of separator); additional pitches are no longer prefixed with
+``add'' by default; and the ``m'' in minor chords can be customized.
+@ruser{Customizing chord names} for more information.
+
+@item
+
+@item
 The @code{\markuplines} command has been renamed to @code{\markuplist}
 for a better match with its semantics and general Lilypond
 nomenclature.

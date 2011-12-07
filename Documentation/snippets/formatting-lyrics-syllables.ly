@@ -17,6 +17,14 @@ zu formatieren.
 "
   doctitlede = "Silben im Gesangstext formatieren"
 
+%%  Translation of GIT committish: f88e964fea14c10b48787ec9f4b5f8261a23de48
+  texidocfr = "
+Le mode markup permet d'individualiser la mise en forme de certaines syllabes.
+
+"
+  doctitlefr = "Mise en forme individuelle de syllabes"
+
+
   texidoc = "
 Markup mode may be used to format individual syllables in lyrics.
 

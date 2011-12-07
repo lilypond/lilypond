@@ -29,6 +29,11 @@ Context_mod::Context_mod (Context_mod const &s)
   mods_ = s.mods_;
 }
 
+Context_mod::Context_mod (SCM mod_list)
+{
+  mods_ = scm_reverse (mod_list);
+}
+
 #include "ly-smobs.icc"
 IMPLEMENT_SIMPLE_SMOBS (Context_mod);
 IMPLEMENT_DEFAULT_EQUAL_P (Context_mod);

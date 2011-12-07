@@ -1,4 +1,4 @@
-\version "2.15.18"
+\version "2.15.20"
 
 chordmodifiers = #default-chord-modifier-list
 
@@ -6,20 +6,20 @@ chordmodifiers = #default-chord-modifier-list
 whiteTriangleMarkup = \markup {
   \triangle ##f
   %%  394 capital delta
-  %$(ly:wide-char->utf-8 #x0394)
+  %#(ly:wide-char->utf-8 #x0394)
 
   %% 2206 : delta from the symbol font.
-  %   $(ly:wide-char->utf-8 #x2206)
+  %   #(ly:wide-char->utf-8 #x2206)
   
   %% up pointing triangle
-  % $(ly:wide-char->utf-8 #x25B3)
+  % #(ly:wide-char->utf-8 #x25B3)
 } 
 
 blackTriangleMarkup = \markup {
   \triangle ##t
 
   %% black up pointing triangle
-%  $(ly:wide-char->utf-8 #x25B2)
+%  #(ly:wide-char->utf-8 #x25B2)
 }
 
 ignatzekExceptionMusic = {
@@ -27,9 +27,11 @@ ignatzekExceptionMusic = {
   <c es ges>-\markup { \super "o" } % should be $\circ$ ?
   <c es ges bes>-\markup {
     %%  f8 is o with slash.
-    \super $(ly:wide-char->utf-8 #x00f8)
+    \normal-size-super #(ly:wide-char->utf-8 #x00f8)
   }
   <c es ges beses>-\markup { \super  "o7" }
+  <c e g b fis'>-\markup { \super "lyd" } % Lydian
+  <c e g bes des' ees' fis' aes'>-\markup { \super "alt" } % altered chord (super-Locrian)
 }
 
 partialJazzMusic = {

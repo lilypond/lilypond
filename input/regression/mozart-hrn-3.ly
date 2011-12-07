@@ -28,7 +28,7 @@
         }
       }
       \fill-line {
-        $(string-append  "It has been typeset and placed in the public "
+        #(string-append  "It has been typeset and placed in the public "
                                     "domain by " maintainer ".")
       }
       \fill-line {
@@ -48,7 +48,7 @@ virtuoso that taught in Geneva.
 "
 }
 
-\version "2.15.18"
+\version "2.15.20"
 
 \include "mozart-hrn3-defs.ily"
 \include "mozart-hrn3-allegro.ily"

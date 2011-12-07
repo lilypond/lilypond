@@ -158,7 +158,7 @@ String_convert::hex2nibble (Byte byte)
 
 // stupido.  Should use int_string ()
 string
-String_convert::int2dec (int i, int length_i, char ch)
+String_convert::int2dec (int i, size_t length_i, char ch)
 {
   char fill_char = ch;
   if (fill_char)
@@ -168,12 +168,12 @@ String_convert::int2dec (int i, int length_i, char ch)
   string dec_string = to_string (i);
 
   // ugh
-  return to_string (fill_char, length_i - dec_string.length ()) + dec_string;
+  return to_string (fill_char, ssize_t (length_i - dec_string.length ())) + dec_string;
 }
 
 // stupido.  Should use int_string ()
 string
-String_convert::unsigned2hex (unsigned u, ssize length, char fill_char)
+String_convert::unsigned2hex (unsigned u, size_t length, char fill_char)
 {
   string str;
   if (!u)
@@ -189,7 +189,7 @@ String_convert::unsigned2hex (unsigned u, ssize length, char fill_char)
   str += int_string (u, "%x");  // hmm. %lx vs. %x -> portability?
 #endif
 
-  str = to_string (fill_char, length - str.length ()) + str;
+  str = to_string (fill_char, ssize_t (length - str.length ())) + str;
   while ((str.length () > length) && (str[ 0 ] == 'f'))
     str = str.substr (2);
 
@@ -197,7 +197,7 @@ String_convert::unsigned2hex (unsigned u, ssize length, char fill_char)
 }
 
 string
-String_convert::int2hex (int i, int length_i, char fill_char)
+String_convert::int2hex (int i, size_t length_i, char fill_char)
 {
   return unsigned2hex ((unsigned)i, length_i, fill_char);
 }
@@ -344,7 +344,15 @@ String_convert::unsigned_string (unsigned u)
 }
 
 string
-String_convert::pad_to (string s, int n)
+String_convert::unsigned_long_string (unsigned long ul)
+{
+  char s[STRING_BUFFER_LEN];
+  sprintf (s, "%lu", ul);
+  return s;
+}
+
+string
+String_convert::pad_to (string s, size_t n)
 {
   return s + string (max (int (n - s.length ()), 0), ' ');
 }

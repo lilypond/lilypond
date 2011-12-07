@@ -616,6 +616,23 @@ of @code{chordRootNamer} to identify a major 7 chord.  Predefined
 options are @code{whiteTriangleMarkup} and
 @code{blackTriangleMarkup}.
 
+@funindex additionalPitchPrefix
+
+@item additionalPitchPrefix
+
+When the chord name contains additional pitches, they can optionally
+be prefixed with some text.  The default is no prefix, in order to
+avoid too much visual clutter, but for small numbers of additional
+pitches this can be visually effective.
+
+@lilypond[verbatim,quote,ragged-right]
+\new ChordNames {
+  <c e g d'>    % add9
+  \set additionalPitchPrefix = #"add"
+  <c e g d'>    % add9
+}
+@end lilypond
+
 @funindex chordNoteNamer
 
 @item chordNoteNamer
@@ -631,9 +648,40 @@ bass note can be printed in lower case.
 
 @item chordNameSeparator
 
-Different parts of a chord name are normally separated by a slash.
-By setting @code{chordNameSeparator}, you can use any desired markup
-for a separator.
+Different parts of a chord name are normally separated by a small
+amount of horizontal space.  By setting @code{chordNameSeparator}, you
+can use any desired markup for a separator.  This does not affect the
+separator between a chord and its bass note; to customize that, use
+@code{slashChordSeparator}.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:7.9- c:7.9-/g
+  \set chordNameSeparator = \markup { "/" }
+  \break
+  c4:7.9- c:7.9-/g
+}
+@end lilypond
+
+@funindex slashChordSeparator
+
+@item slashChordSeparator
+
+Chords can be played over a bass note other than the conventional root
+of the chord.  These are known as ``inversions'' or ``slash chords'',
+because the default way of notating them is with a forward slash
+between the main chord and the bass note.  Therefore the value of
+@code{slashChordSeparator} defaults to a forward slash, but you can
+change it to any markup you choose.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:7.9- c:7.9-/g
+  \set slashChordSeparator = \markup { " over " }
+  \break
+  c4:7.9- c:7.9-/g
+}
+@end lilypond
 
 @funindex chordNameExceptions
 
@@ -644,13 +692,32 @@ is a set of pitches used to identify the steps present in the chord.
 The second item is a markup that will follow the @code{chordRootNamer}
 output to create the chord name.
 
+@funindex minorChordModifier
+
+@item minorChordModifier
+
+Minor chords are often denoted via a @q{m} suffix to the right of the
+root of the chord.  However some idioms prefer other suffices, such as
+a minus sign.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:min f:min7
+  \set minorChordModifier = \markup { "-" }
+  \break
+  c4:min f:min7
+}
+@end lilypond
+
 @funindex chordPrefixSpacer
+
 @item chordPrefixSpacer
 
-The @q{m} for minor chords is usually printed immediately to the
-right of the root of the chord.  A spacer can be placed between
-the root and @q{m} by setting @code{chordPrefixSpacer}.
-The spacer is not used when the root is altered.
+The modifier for minor chords as determined by
+@code{minorChordModifier} is usually printed immediately to the right
+of the root of the chord.  A spacer can be placed between the root and
+the modifier by setting @code{chordPrefixSpacer}.  The spacer is not
+used when the root is altered.
 
 @end table
 

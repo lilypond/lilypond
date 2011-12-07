@@ -55,9 +55,6 @@ Item::Item (Item const &s)
 bool
 Item::is_non_musical (Grob *me)
 {
-  if (me->original ())
-    return false;
-
   Item *i = dynamic_cast<Item *> (me->get_parent (X_AXIS));
   return i ? Item::is_non_musical (i) : to_boolean (me->get_property ("non-musical"));
 }
@@ -105,7 +102,7 @@ Item::is_broken () const
 void
 Item::discretionary_processing ()
 {
-  if (is_broken ())
+  if (is_broken () || original ())
     return;
 
   if (Item::is_non_musical (this))

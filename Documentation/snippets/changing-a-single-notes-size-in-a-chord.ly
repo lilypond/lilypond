@@ -9,7 +9,7 @@
 \header {
   lsrtags = "simultaneous-notes, editorial-annotations, tweaks-and-overrides"
 
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
   texidoces = "
 Se pueden modificar notas individuales de un acorde con la instrucción
 @code{\\tweak}, alterando la propiedad @code{font-size}.
@@ -30,7 +30,7 @@ property.
 
 Inside the chord (within the brackets @code{< >}), before the note to
 be altered, place the @code{\\tweak} command, followed by
-@code{'font-size} and define the proper size like @w{@code{-2}} (a tiny
+@code{#'font-size} and define the proper size like @code{#-2} (a tiny
 note head).
 
 
@@ -40,7 +40,6 @@ note head).
 } % begin verbatim
 
 \relative c' {
-  <\tweak #'font-size #+2 c e g c \tweak #'font-size #-2 e>1
-    ^\markup { A tiny e }_\markup { A big c }
+  <\tweak #'font-size #+2 c e g c \tweak #'font-size #-2 e>1^\markup { A tiny e }_\markup { A big c }
 }
 

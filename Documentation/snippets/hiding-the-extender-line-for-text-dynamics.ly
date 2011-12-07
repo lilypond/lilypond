@@ -4,12 +4,12 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.7"
+\version "2.15.20"
 
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
   texidoces = "
 Los cambios de dinámica con estilo de texto (como cresc. y dim.)
 se imprimen con una línea intermitente que muestra su alcance.

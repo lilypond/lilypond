@@ -5,6 +5,8 @@ import os
 import math
 import re
 
+import cgi
+
 ## so we can call directly as scripts/build/output-distance.py
 me_path = os.path.abspath (os.path.split (sys.argv[0])[0])
 sys.path.insert (0, me_path + '/../python/')
@@ -457,7 +459,7 @@ class GitFileCompareLink (FileCompareLink):
         str = '\n'.join ([l[:80] for l in str.split ('\n')])
 
 
-        str = '<font size="-2"><pre>%s</pre></font>' % str
+        str = '<font size="-2"><pre>%s</pre></font>' % cgi.escape (str)
         return str
 
     def calc_distance (self):
@@ -825,7 +827,15 @@ class ComparisonData:
     def compare_trees (self, dir1, dir2):
         self.compare_directories (dir1, dir2)
 
-        (root, dirs, files) = os.walk (dir1).next ()
+        try:
+            (root, dirs, files) = os.walk (dir1).next ()
+        except StopIteration:
+            if dir1.endswith("-baseline"):
+                sys.stderr.write("Failed to walk through %s. This can be caused by forgetting to run make test-baseline.\n" % dir1)
+            else:
+                sys.stderr.write("Failed to walk through %s; please check it exists.\n" % dir1)
+            sys.exit(1)
+
         for d in dirs:
             d1 = os.path.join (dir1, d)
             d2 = os.path.join (dir2, d)
@@ -942,32 +952,69 @@ class ComparisonData:
         (changed, below, unchanged) = self.thresholded_results (threshold)
 
 
-        html = ''
+        table_rows = ''
         old_prefix = os.path.split (dir1)[1]
         for link in changed:
-            html += link.html_record_string (dest_dir)
+            table_rows += link.html_record_string (dest_dir)
 
 
         short_dir1 = shorten_string (dir1)
         short_dir2 = shorten_string (dir2)
+
+        summary = ''
+        below_count = len (below)
+
+        if below_count:
+            summary += '<p>%d below threshold</p>' % below_count
+
+        summary += '<p>%d unchanged</p>' % len (unchanged)
+
         html = '''<html>
+<head>
+<title>LilyPond regression test results</title>
+<script language="javascript" type="text/javascript">
+// <![CDATA[
+    var rows = document.getElementsByTagName("tr");
+    function showOnlyMatchingRows(substring) {
+        var rowcount = rows.length;
+        for (var i = 0; i < rowcount; i++) {
+            row = rows[i];
+            html = row.innerHTML;
+            row.style.display =
+                (html.indexOf(substring + '">') != -1) ? "" : "none";
+        }
+    }
+// ]]>
+</script>
+</head>
+<body>
+<p>
+  click to filter rows by type:
+  <a href="#" onClick="showOnlyMatchingRows('.ly')">ly</a> /
+  <a href="#" onClick="showOnlyMatchingRows('.profile')">profiling</a> /
+  <a href="#" onClick="showOnlyMatchingRows('.signature')">signature</a> /
+  <a href="#" onClick="showOnlyMatchingRows('.midi')">midi</a> /
+  <a href="#" onClick="showOnlyMatchingRows('.log')">log</a> /
+  <a href="#" onClick="showOnlyMatchingRows('.gittxt')">gittxt</a> /
+  <a href="#" onClick="showOnlyMatchingRows('')">reset to all</a>
+</p>
+
+<hr />
+
+%(summary)s
+
+<hr />
+
 <table rules="rows" border bordercolor="blue">
 <tr>
 <th>distance</th>
 <th>%(short_dir1)s</th>
 <th>%(short_dir2)s</th>
 </tr>
-%(html)s
+%(table_rows)s
 </table>
+</body>
 </html>''' % locals()
-
-        html += ('<p>')
-        below_count = len (below)
-
-        if below_count:
-            html += ('<p>%d below threshold</p>' % below_count)
-
-        html += ('<p>%d unchanged</p>' % len (unchanged))
 
         dest_file = dest_dir + '/index.html'
         open_write_file (dest_file).write (html)
@@ -1262,7 +1309,7 @@ def main ():
         run_tests ()
         sys.exit (0)
 
-    if len (args) % 2:
+    if len (args) % 2 == 1:
         p.print_usage ()
         sys.exit (2)
 

@@ -9,7 +9,7 @@
 \header {
   lsrtags = "text, vocal-music"
 
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
   texidoces = "
 La alineación horizontal de la letra se puede ajustar sobreescribiendo
 la propiedad @code{self-alignment-X} del objeto @code{LyricText}.
@@ -33,13 +33,13 @@ und @code{#RIGHT} benutzen.
   doctitlede = "Ausrichtung von Gesangstext"
 
 
-%% Translation of GIT committish: c1d5bb448321d688185e0c6b798575d4c325ae80
+%% Translation of GIT committish: f88e964fea14c10b48787ec9f4b5f8261a23de48
   texidocfr = "
 L'alignement horizontal des paroles peut se gérer à l'aide de la
 propriété @code{self-alignment-X} de l'objet @code{LyricText}.
-Les valeurs @code{#-1} ou @code{#LEFT} produiront un alignement par la
-gauche, les valeurs @code{#0} ou @code{#CENTER} un alignement centré, et
-les valeurs @code{#1} ou @code{#RIGHT} un alignement par la droite.
+Les valeurs @code{-1} ou @code{LEFT} produiront un alignement par la
+gauche, les valeurs @code{0} ou @code{CENTER} un alignement centré, et
+les valeurs @code{1} ou @code{RIGHT} un alignement par la droite.
 
 "
   doctitlefr = "Alignement des syllabes"
@@ -48,8 +48,8 @@ les valeurs @code{#1} ou @code{#RIGHT} un alignement par la droite.
   texidoc = "
 Horizontal alignment for lyrics cam be set by overriding the
 @code{self-alignment-X} property of the @code{LyricText} object.
-@w{@code{-1}} is left, @code{0} is center and @code{1} is right;
-however, you can use @code{LEFT}, @code{CENTER} and @code{RIGHT} as
+@code{#-1} is left, @code{#0} is center and @code{#1} is right;
+however, you can use @code{#LEFT}, @code{#CENTER} and @code{#RIGHT} as
 well.
 
 "

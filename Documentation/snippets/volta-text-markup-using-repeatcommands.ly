@@ -17,7 +17,7 @@ volta text needs more advanced formatting with @code{\\markup}.
 
 Since @code{repeatCommands} takes a list, the simplest method of
 including markup is to use an identifier for the text and embed it in
-the command list using the Scheme syntax @code{(list (list 'volta
+the command list using the Scheme syntax @code{#(list (list 'volta
 textIdentifier))}. Start- and end-repeat commands can be added as
 separate list elements:
 

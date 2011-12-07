@@ -50,7 +50,7 @@ SCM
 Volta_repeat_iterator::get_music_list ()const
 {
   return scm_cons (get_music ()->get_property ("element"),
-                   get_music ()->get_property ("elements"));
+                   Sequential_iterator::get_music_list ());
 }
 
 void
@@ -60,7 +60,7 @@ Volta_repeat_iterator::construct_children ()
 
   SCM alts = get_music ()->get_property ("elements");
 
-  alt_count_ = scm_ilength (alts);
+  alt_count_ = int (scm_ilength (alts));
   rep_count_ = scm_to_int (get_music ()->get_property ("repeat-count"));
   done_count_ = 0;
 }

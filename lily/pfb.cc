@@ -33,7 +33,7 @@ char *
 pfb2pfa (Byte const *pfb, int length)
 {
   char *out = (char *) malloc (sizeof (char));
-  int olen = 0;
+  long olen = 0;
 
   Byte const *p = pfb;
   while (p < pfb + length)

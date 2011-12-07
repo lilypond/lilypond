@@ -467,6 +467,7 @@ ADD_INTERFACE (Bar_line,
                "kern "
                "thin-kern "
                "hair-thickness "
+               "has-span-bar "
                "thick-thickness "
                "glyph "
                "glyph-name "

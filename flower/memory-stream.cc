@@ -39,7 +39,7 @@ Memory_out_stream::functions_
   Memory_out_stream::cleaner
 };
 
-int
+ssize_t
 Memory_out_stream::cleaner (void *cookie)
 {
   Memory_out_stream *stream = (Memory_out_stream *) cookie;
@@ -122,10 +122,10 @@ Memory_out_stream::reader (void * /* cookie */,
   return 0;
 }
 
-int
+ssize_t
 Memory_out_stream::seeker (void *,
                            off64_t *,
-                           int)
+                           size_t)
 {
   assert (false);
   return 0;

@@ -8,7 +8,7 @@
 \version "2.15.15"
 
 \header {
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
   texidoces = "
 Este tipo de notación se utiliza para el canto de los Salmos, en
 que las estrofas no siempre tienen la misma longitud.

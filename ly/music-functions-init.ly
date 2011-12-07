@@ -273,18 +273,23 @@ in a CueVoice oriented by @var{dir}.")
 
 
 displayLilyMusic =
-#(define-music-function (parser location music) (ly:music?)
+#(define-music-function (parser location port music) ((port?) ly:music?)
    (_i "Display the LilyPond input representation of @var{music}
-to the console.")
-   (newline)
-   (display-lily-music music parser)
+to @var{port}, defaulting to the console.")
+   (if (not port)
+       (set! port (current-output-port)))
+   (newline port)
+   (display-lily-music music parser port)
    music)
 
 displayMusic =
-#(define-music-function (parser location music) (ly:music?)
-   (_i "Display the internal representation of @var{music} to the console.")
-   (newline)
-   (display-scheme-music music)
+#(define-music-function (parser location port music) ((port?) ly:music?)
+   (_i "Display the internal representation of @var{music} to
+@var{port}, default to the console.")
+   (if (not port)
+       (set! port (current-output-port)))
+   (newline port)
+   (display-scheme-music music port)
    music)
 
 
@@ -401,6 +406,15 @@ Otherwise, no number will appear.  Use like @code{\\tweak})")
 grace =
 #(def-grace-function startGraceMusic stopGraceMusic
    (_i "Insert @var{music} as grace notes."))
+
+grobdescriptions =
+#(define-scheme-function (parser location descriptions) (list?)
+   (_i "Create a context modification from @var{descriptions}, a list
+in the format of @code{all-grob-descriptions}.")
+   (ly:make-context-mod
+    (map (lambda (p)
+	   (list 'assign (car p) (list (cdr p))))
+	 descriptions)))
 
 harmonicByFret = #(define-music-function (parser location fret music) (number? ly:music?)
   (_i "Convert @var{music} into harmonics; the resulting notes resemble
@@ -974,10 +988,49 @@ scaleDurations =
    (ly:music-compress music
 		      (ly:make-moment (car fraction) (cdr fraction))))
 
+settingsFrom =
+#(define-scheme-function (parser location ctx music)
+   ((symbol?) ly:music?)
+   (_i "Take the layout instruction events from @var{music}, optionally
+restricted to those applying to context type @var{ctx}, and return
+a context modification duplicating their effect.")
+   (let ((mods (ly:make-context-mod)))
+     (define (musicop m)
+       (if (music-is-of-type? m 'layout-instruction-event)
+	   (ly:add-context-mod
+	    mods
+	    (case (ly:music-property m 'name)
+	      ((PropertySet)
+	       (list 'assign
+		     (ly:music-property m 'symbol)
+		     (ly:music-property m 'value)))
+	      ((PropertyUnset)
+	       (list 'unset
+		     (ly:music-property m 'symbol)))
+	      ((OverrideProperty)
+	       (list 'push
+		     (ly:music-property m 'symbol)
+		     (ly:music-property m 'grob-property-path)
+		     (ly:music-property m 'grob-value)))
+	      ((RevertProperty)
+	       (list 'pop
+		     (ly:music-property m 'symbol)
+		     (ly:music-property m 'grob-property-path)))))
+	   (case (ly:music-property m 'name)
+	     ((SequentialMusic SimultaneousMusic)
+	      (for-each musicop (ly:music-property m 'elements)))
+	     ((ContextSpeccedMusic)
+	      (if (or (not ctx)
+		      (eq? ctx (ly:music-property m 'context-type)))
+		  (musicop (ly:music-property m 'element)))))))
+     (musicop music)
+     mods))
+
 shiftDurations =
 #(define-music-function (parser location dur dots arg)
    (integer? integer? ly:music?)
-   (_i "Scale @var{arg} up by a factor of 2^@var{dur}*(2-(1/2)^@var{dots}).")
+   (_i "Change the duration of @var{arg} by adding @var{dur} to the
+@code{durlog} of @var{arg} and @var{dots} to the @code{dots} of @var{arg}.")
 
    (music-map
     (lambda (x)
@@ -1116,7 +1169,6 @@ void =
    (_i "Accept a scheme argument, return a void expression.
 Use this if you want to have a scheme expression evaluated
 because of its side-effects, but its value ignored."))
-
 
 withMusicProperty =
 #(define-music-function (parser location sym val music)

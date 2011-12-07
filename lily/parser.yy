@@ -208,13 +208,11 @@ static Music *make_music_with_input (SCM name, Input where);
 SCM check_scheme_arg (Lily_parser *parser, Input loc,
 		      SCM arg, SCM args, SCM pred);
 SCM loc_on_music (Input loc, SCM arg);
-SCM get_first_context_id (SCM type, Music *m);
 SCM make_chord_elements (SCM pitch, SCM dur, SCM modification_list);
 SCM make_chord_step (int step, Rational alter);
 SCM make_simple_markup (SCM a);
 bool is_duration (int t);
 bool is_regular_identifier (SCM id);
-bool ly_input_procedure_p (SCM x);
 int yylex (YYSTYPE *s, YYLTYPE *loc, void *v);
 void set_music_properties (Music *p, SCM a);
 
@@ -247,7 +245,6 @@ void set_music_properties (Music *p, SCM a);
 %token DRUMS "\\drums"
 %token FIGUREMODE "\\figuremode"
 %token FIGURES "\\figures"
-%token GROBDESCRIPTIONS "\\grobdescriptions"
 %token HEADER "\\header"
 %token INVALID "\\version-error"
 %token LAYOUT "\\layout"
@@ -815,15 +812,16 @@ context_def_spec_body:
 		$$ = $1;
 		unsmob_context_def ($$)->origin ()->set_spot (@$);
 	}
-	| context_def_spec_body GROBDESCRIPTIONS embedded_scm {
-		Context_def*td = unsmob_context_def ($$);
+	| context_def_spec_body embedded_scm {
+		if (Context_mod *cm = unsmob_context_mod ($2)) {
+			SCM p = cm->get_mods ();
+			Context_def*td = unsmob_context_def ($$);
 
-		for (SCM p = $3; scm_is_pair (p); p = scm_cdr (p)) {
-			SCM tag = scm_caar (p);
-
-			/* TODO: should make new tag "grob-definition" ? */
-			td->add_context_mod (scm_list_3 (ly_symbol2scm ("assign"),
-							tag, scm_cons (scm_cdar (p), SCM_EOL)));
+			for (; scm_is_pair (p); p = scm_cdr (p)) {
+				td->add_context_mod (scm_car (p));
+			}
+		} else {
+			PARSER->parser_error (@2, "context-mod expected");
 		}
 	}
 	| context_def_spec_body context_mod {
@@ -1184,6 +1182,15 @@ context_modification:
         {
                 $$ = $1;
         }
+	| WITH embedded_scm_closed
+	{
+		if (unsmob_context_mod ($2))
+			$$ = $2;
+		else {
+			PARSER->parser_error (@2, "context-mod expected");
+			$$ = Context_mod ().smobbed_copy ();
+		}
+	}
         ;
 
 optional_context_mod:
@@ -3297,19 +3304,6 @@ make_music_with_input (SCM name, Input where)
 }
 
 SCM
-get_first_context_id (SCM type, Music *m)
-{
-	SCM id = m->get_property ("context-id");
-	if (SCM_BOOL_T == scm_equal_p (m->get_property ("context-type"), type)
-	    && scm_is_string (m->get_property ("context-id"))
-	    && scm_c_string_length (id) > 0)
-	{
-		return id;
-	}
-	return SCM_EOL;
-}
-
-SCM
 make_simple_markup (SCM a)
 {
 	return a;
@@ -3347,26 +3341,6 @@ make_chord_elements (SCM pitch, SCM dur, SCM modification_list)
 {
 	SCM chord_ctor = ly_lily_module_constant ("construct-chord-elements");
 	return scm_call_3 (chord_ctor, pitch, dur, modification_list);
-}
-
-SCM
-try_unpack_lyrics (SCM pred, SCM arg)
-{
-	if (Music *m = unsmob_music (arg))
-		if (m->is_mus_type ("lyric-event")) {
-			SCM text = m->get_property ("text");
-			if (scm_is_true (scm_call_1 (pred, text)))
-					return text;
-			}
-	return SCM_UNDEFINED;
-}	
-
-/* Todo: actually also use apply iso. call too ...  */
-bool
-ly_input_procedure_p (SCM x)
-{
-	return ly_is_procedure (x)
-		|| (scm_is_pair (x) && ly_is_procedure (scm_car (x)));
 }
 
 int

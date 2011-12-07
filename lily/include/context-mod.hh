@@ -48,6 +48,7 @@ public:
 
   Context_mod ();
   Context_mod (Context_mod const &);
+  Context_mod (SCM mod_list);
   DECLARE_SIMPLE_SMOBS (Context_mod);
 };
 

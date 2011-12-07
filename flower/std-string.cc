@@ -59,7 +59,7 @@ to_string (long b)
 string
 to_string (long unsigned b)
 {
-  return String_convert::unsigned_string (b);
+  return String_convert::unsigned_long_string (b);
 }
 
 string

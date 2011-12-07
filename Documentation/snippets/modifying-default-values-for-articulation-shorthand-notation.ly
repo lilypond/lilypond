@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
   texidoces = "
 Las abreviaturas se encuentran definidas dentro del archivo
 @file{ly/script-init.ly}, donde las variables @code{dashHat},
@@ -61,7 +61,7 @@ variables @code{dashHat}, @code{dashPlus}, @code{dashDash},
 @code{dashBar}, @code{dashLarger}, @code{dashDot}, and
 @code{dashUnderscore} are assigned default values.  The default values
 for the shorthands can be modified. For example, to associate the
-@w{@code{-+}} (@code{dashPlus}) shorthand with the trill symbol instead of
+@code{-+} (@code{dashPlus}) shorthand with the trill symbol instead of
 the default + symbol, assign the value @code{trill} to the variable
 @code{dashPlus}:
 

@@ -17,12 +17,15 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <algorithm> // for reverse
+
 #include "paper-column.hh"
 #include "output-def.hh"
 #include "side-position-interface.hh"
 #include "engraver.hh"
 #include "context.hh"
 #include "grob-array.hh"
+#include "stream-event.hh"
 
 #include "translator.icc"
 
@@ -35,13 +38,61 @@ class Bar_number_engraver : public Engraver
 {
 protected:
   Item *text_;
+  int alternative_starting_bar_number_;
+  int alternative_number_;
+  int alternative_number_increment_;
+  Stream_event *alternative_event_;
+
 protected:
   void stop_translation_timestep ();
+  DECLARE_TRANSLATOR_LISTENER (alternative);
   DECLARE_ACKNOWLEDGER (break_alignment);
   void process_music ();
   void create_items ();
   TRANSLATOR_DECLARATIONS (Bar_number_engraver);
 };
+
+IMPLEMENT_TRANSLATOR_LISTENER (Bar_number_engraver, alternative);
+void
+Bar_number_engraver::listen_alternative (Stream_event *ev)
+{
+  if (alternative_event_)
+    return;
+
+  alternative_event_ = ev;
+  int current_barnumber = robust_scm2int (get_property ("currentBarNumber"), 0);
+  Direction alternative_dir = robust_scm2dir (ev->get_property ("alternative-dir"), CENTER);
+  bool make_alternative = get_property ("alternativeNumberingStyle") == ly_symbol2scm ("numbers")
+                          || get_property ("alternativeNumberingStyle") == ly_symbol2scm ("numbers-with-letters");
+  if (make_alternative)
+    {
+      /*
+        if we're starting the first alternative, we set the starting
+        bar number to the current bar number
+      */
+      if (alternative_dir == LEFT)
+        alternative_starting_bar_number_ = current_barnumber;
+
+      /*
+        if the alternative is not the last one, we send the
+        current bar number back to the alternative bar number.
+      */
+      if (alternative_dir < RIGHT)
+        current_barnumber = alternative_starting_bar_number_;
+
+      context ()->set_property ("currentBarNumber", scm_from_int (current_barnumber));
+    }
+}
+
+int
+int_pow (int n, int i)
+{
+  if (i == 1)
+    return n;
+  if (i <= 0)
+    return 1;
+  return int_pow (n * n, i - 1);
+}
 
 void
 Bar_number_engraver::process_music ()
@@ -59,9 +110,51 @@ Bar_number_engraver::process_music ()
               && to_boolean (scm_call_1 (proc, bn)))
             {
               create_items ();
+              SCM alternative_style = get_property ("alternativeNumberingStyle");
+              string text_tag = "";
+              if (alternative_style == ly_symbol2scm ("numbers-with-letters"))
+                {
+                  if (alternative_event_)
+                    {
+                      Direction alternative_dir = robust_scm2dir (alternative_event_->get_property ("alternative-dir"), RIGHT);
+                      switch (alternative_dir)
+                        {
+                        case LEFT:
+                          alternative_number_ = 0;
+                          break;
+                        case CENTER:
+                          break;
+                        case RIGHT:
+                          alternative_number_ = INT_MIN;
+                          break;
+                        default:
+                          assert (false);
+                        }
+                      alternative_number_ += alternative_number_increment_;
+
+                      alternative_number_increment_ = robust_scm2int (alternative_event_->get_property ("alternative-increment"), 1);
+                    }
+                  if (alternative_number_ >= 0)
+                    {
+                      string alphabet = "abcdefghijklmnopqrstuvwxyz";
+                      int power = 0;
+                      int running_sum = 0;
+                      int scratch = alternative_number_;
+                      while (running_sum <= alternative_number_)
+                        {
+                          power++;
+                          running_sum += int_pow (26, power);
+                        }
+                      scratch += int_pow (26, power) - running_sum;
+                      for (int i = power; i--;)
+                        text_tag += alphabet.at ((scratch / int_pow (26, i)) % 26);
+                    }
+                }
               // guh.
               text_->set_property
-              ("text", scm_number_to_string (bn, scm_from_int (10)));
+                ("text",
+                  scm_string_concatenate (scm_list_2 (scm_number_to_string (bn, scm_from_int (10)),
+                                                      ly_string2scm (text_tag))));
             }
         }
     }
@@ -70,6 +163,10 @@ Bar_number_engraver::process_music ()
 Bar_number_engraver::Bar_number_engraver ()
 {
   text_ = 0;
+  alternative_starting_bar_number_ = 0;
+  alternative_number_increment_ = 0;
+  alternative_number_ = INT_MIN;
+  alternative_event_ = 0;
 }
 
 void
@@ -86,6 +183,7 @@ Bar_number_engraver::acknowledge_break_alignment (Grob_info inf)
 void
 Bar_number_engraver::stop_translation_timestep ()
 {
+  alternative_event_ = 0;
   if (text_)
     {
       text_->set_object ("side-support-elements",
@@ -121,8 +219,9 @@ ADD_TRANSLATOR (Bar_number_engraver,
                 "currentBarNumber "
                 "whichBar "
                 "stavesFound "
-                "barNumberVisibility ",
+                "barNumberVisibility "
+                "alternativeNumberingStyle ",
 
                 /* write */
-                ""
+                "currentBarNumber "
                );

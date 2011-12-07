@@ -9,7 +9,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
  doctitlees = "Grabado manual de las ligaduras"
  texidoces = "
 Se pueden grabar a mano las ligaduras modificando la propiedad
@@ -47,8 +47,8 @@ le second la direction (1 pour haut, @minus{}1 pour bas).
   texidoc = "
 Ties may be engraved manually by changing the @code{tie-configuration}
 property of the @code{TieColumn} object. The first number indicates the
-distance from the center of the staff in half staff-spaces, and the second
-number indicates the direction (1 = up, -1 = down).
+distance from the center of the staff in half staff-spaces, and the
+second number indicates the direction (1 = up, -1 = down).
 
 "
   doctitle = "Engraving ties manually"

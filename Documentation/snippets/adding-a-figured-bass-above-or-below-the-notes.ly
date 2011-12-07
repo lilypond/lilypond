@@ -9,7 +9,7 @@
 \header {
   lsrtags = "chords, ancient-notation, contexts-and-engravers"
 
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
   texidoces = "
 
 Al escribir un bajo cifrado, podemos situar las cifras encima o debajo
@@ -33,9 +33,9 @@ a toda la partitura.
   texidoc = "
 When writing a figured bass, you can place the figures above or below
 the bass notes, by defining the @code{BassFigureAlignmentPositioning
-#'direction} property (exclusively in a @code{Staff} context).  Choices
-are @code{UP} (or @code{1}), @code{CENTER} (or @code{0}) and
-@code{DOWN} (or @w{@code{-1}}).
+#'direction} property (exclusively in a @code{Staff} context). Choices
+are @code{#UP} (or @code{#1}), @code{#CENTER} (or @code{#0}) and
+@code{#DOWN} (or @code{#-1}).
 
 This property can be changed as many times as you wish. Use
 @code{\\once \\override} if you don't want the override to apply to the

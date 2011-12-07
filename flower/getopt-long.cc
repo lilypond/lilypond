@@ -54,7 +54,7 @@ Getopt_long::parselong ()
   assert (*optnm);
 
   char const *endopt = strchr (optnm, '=');
-  int searchlen = (endopt) ? endopt - optnm : strlen (optnm);
+  size_t searchlen = (endopt) ? endopt - optnm : strlen (optnm);
 
   found_option_ = 0;
   for (int i = 0; i < table_len_; i++)

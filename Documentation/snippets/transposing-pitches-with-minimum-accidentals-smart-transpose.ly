@@ -9,7 +9,7 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
 doctitlees = "Transportar música con el menor número de alteraciones"
 texidoces = "
 Este ejemplo utiliza código de Scheme para forzar las
@@ -71,7 +71,7 @@ Variante gewählt.
 "
 
 
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
+%% Translation of GIT committish: 099369f020021577e7455eb627b547482af7cd02
   texidocfr = "
 Cet exemple, grâce à un peu de code Scheme, donne la priorité aux
 enharmoniques  afin de limiter le nombre d'altérations supplémentaires.
@@ -99,7 +99,7 @@ Cette façon de procéder aboutit à plus d'enharmoniques naturelles.
 
 "
 
-  doctitlefr = "Transposition et réduction du nombrer d'altérations accidentelles"
+  doctitlefr = "Transposition et réduction du nombre d'altérations accidentelles"
 
   texidoc = "
 This example uses some Scheme code to enforce enharmonic modifications

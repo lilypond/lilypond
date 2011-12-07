@@ -61,6 +61,7 @@ protected:
   DECLARE_ACKNOWLEDGER (fingering);
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (script);
+  DECLARE_ACKNOWLEDGER (dots);
   DECLARE_ACKNOWLEDGER (text_script);
   DECLARE_ACKNOWLEDGER (tie);
   DECLARE_ACKNOWLEDGER (tuplet_number);
@@ -116,6 +117,12 @@ Slur_engraver::acknowledge_extra_object (Grob_info info)
 
 void
 Slur_engraver::acknowledge_inline_accidental (Grob_info info)
+{
+  acknowledge_extra_object (info);
+}
+
+void
+Slur_engraver::acknowledge_dots (Grob_info info)
 {
   acknowledge_extra_object (info);
 }
@@ -258,6 +265,7 @@ ADD_ACKNOWLEDGER (Slur_engraver, fingering);
 ADD_ACKNOWLEDGER (Slur_engraver, note_column);
 ADD_ACKNOWLEDGER (Slur_engraver, script);
 ADD_ACKNOWLEDGER (Slur_engraver, text_script);
+ADD_ACKNOWLEDGER (Slur_engraver, dots);
 ADD_ACKNOWLEDGER (Slur_engraver, tie);
 ADD_ACKNOWLEDGER (Slur_engraver, tuplet_number);
 ADD_TRANSLATOR (Slur_engraver,

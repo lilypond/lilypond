@@ -4,12 +4,12 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.18"
+\version "2.15.20"
 
 \header {
   lsrtags = "staff-notation, vocal-music"
 
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
 
   texidoces = "
    Este ejemplo muestra una forma de simplificar la adición de muchas
@@ -52,7 +52,7 @@ Abschnitte können zitiert werden, aber sie dürfen sich nicht überlappen.
   doctitlede = "Orchesterstichnoten zu einem Klavierauszug hinzufügen"
 
 
-%% Translation of GIT committish: c1d5bb448321d688185e0c6b798575d4c325ae80
+%% Translation of GIT committish: f88e964fea14c10b48787ec9f4b5f8261a23de48
 
   texidocfr = "
 Lorsque le nombre d'instruments cités dans la réduction pour piano se
@@ -60,7 +60,7 @@ multiplie, vous pourriez avoir intérêt à créer votre propre fonction
 pour gérer ces repères.  La fonction musicale @code{\\cueWhile} prend
 quatre arguments@tie{}: la musique d'où provient la citation, telle que
 définie par @code{\\addQuote}, le nom qui sera mentionné en regard de
-cette citation, son positionnement -- @code{#UP} ou @code{#DOWN} selon
+cette citation, son positionnement -- @code{UP} ou @code{DOWN} selon
 qu'il sera attribué à @code{\\voiceOne} et placé au-dessus ou
 @code{\\voiceTwo} et placé en dessous -- et enfin la musique du piano
 qui interviendra en parallèle.  Le nom de l'instrument en question
@@ -68,8 +68,7 @@ viendra s'aligner sur la gauche de la citation.  Bien que vous puissiez
 effectuer plusieurs citations, elle ne peuvent être simultanées.
 
 "
- doctitlefr = "Indication de l'instrument cité dans l'accompagnement d'une
-partition pour chœur"
+ doctitlefr = "Indication de l'instrument cité dans l'accompagnement d'une partition pour chœur"
 
 
   texidoc = "
@@ -77,7 +76,7 @@ This shows one approach to simplify adding many orchestral cues to the
 piano reduction in a vocal score.  The music function @code{\\cueWhile}
 takes four arguments: the music from which the cue is to be taken, as
 defined by @code{\\addQuote}, the name to be inserted before the cue
-notes, then either @code{UP} or @code{DOWN} to specify either
+notes, then either @code{#UP} or @code{#DOWN} to specify either
 @code{\\voiceOne} with the name above the staff or @code{\\voiceTwo}
 with the name below the staff, and finally the piano music in parallel
 with which the cue notes are to appear.  The name of the cued
@@ -96,7 +95,7 @@ cueWhile =
      \cueDuring $instrument #dir {
        \once \override TextScript #'self-alignment-X = #RIGHT
        \once \override TextScript #'direction = $dir
-       s1*0-\markup { \tiny $name }
+       s1*0-\markup { \tiny #name }
        $music
      }
    #})

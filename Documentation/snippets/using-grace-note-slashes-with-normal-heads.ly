@@ -8,7 +8,7 @@
 \version "2.15.15"
 
 \header {
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
   texidoces = "
 
 Es posible aplicar la barrita que cruza la barra de las
@@ -39,9 +39,9 @@ other situations.
   doctitle = "Using grace note slashes with normal heads"
 } % begin verbatim
 
+
 \relative c'' {
   \override Flag #'stroke-style = #"grace"
   c8( d2) e8( f4)
-} % begin verbatim
-
+}
 

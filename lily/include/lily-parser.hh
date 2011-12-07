@@ -35,8 +35,6 @@ class Lily_parser
   DECLARE_SMOBS (Lily_parser);
   friend int yyparse (void *);
 
-  vector<Input> define_spots_;
-
   char const *here_str0 () const;
   Simultaneous_music *get_chord (Pitch tonic,
                                  vector<Pitch> *adds, vector<Pitch> *subs,
@@ -50,14 +48,14 @@ public:
   Sources *sources_;
   Duration default_duration_;
   string output_basename_;
-  SCM local_environment_;
+  SCM closures_;
 
   int fatal_error_;
   int error_level_;
   bool ignore_version_b_;
 
   Lily_parser (Sources *sources);
-  Lily_parser (Lily_parser const &, SCM env = SCM_UNDEFINED);
+  Lily_parser (Lily_parser const &, SCM closures = SCM_EOL);
 
   DECLARE_SCHEME_CALLBACK (layout_description, ());
 
@@ -67,7 +65,7 @@ public:
   void include_string (string ly_code);
   void parse_file (string init, string name, string out_name);
   void parse_string (string ly_code);
-  SCM parse_string_expression (string ly_code);
+  SCM parse_string_expression (string ly_code, string filename, int line);
   void parser_error (string);
   void parser_error (Input const &, string);
   void set_yydebug (bool);

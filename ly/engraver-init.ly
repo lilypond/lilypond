@@ -54,6 +54,7 @@
 
   \consists "Output_property_engraver"
   \consists "Bar_engraver"
+  \consists "Pure_from_neighbor_engraver"
   %% Bar_engraver must be first so default bars aren't overwritten
   %% with empty ones.
 
@@ -358,6 +359,7 @@ together, never separately."
 
   \consists "Instrument_name_engraver"
   \consists "Span_bar_engraver"
+  \consists "Span_bar_stub_engraver"
   \consists "Span_arpeggio_engraver"
   \consists "Output_property_engraver"
   systemStartDelimiter = #'SystemStartBracket
@@ -521,6 +523,7 @@ automatically when an output definition (a @code{\score} or
 
   %% move the alias along with the engraver.
 
+  % timing translator must come BEFORE bar number engraver
   \consists "Timing_translator"
   \consists "Default_bar_line_engraver"
   \consists "Output_property_engraver"
@@ -644,9 +647,12 @@ automatically when an output definition (a @code{\score} or
 
 %% chord names:
   chordNameFunction = #ignatzek-chord-names
+  minorChordModifier = #(make-simple-markup "m")
+  additionalPitchPrefix = #"" % was "add"
   majorSevenSymbol = #whiteTriangleMarkup
   chordNameLowercaseMinor = ##f
-  chordNameSeparator = #(make-simple-markup  "/")
+  chordNameSeparator = #(make-hspace-markup 0.5)
+  slashChordSeparator = #(make-simple-markup "/")
   chordNameExceptions = #ignatzekExceptions
   chordNoteNamer = #'()
   chordRootNamer = #note-name->markup

@@ -244,7 +244,6 @@ Positive means move the center to the right.")
 the vertical edges: @code{(@var{left-height} . @var{right-height})}.")
      (edge-text ,pair? "A pair specifying the texts to be set at the
 edges: @code{(@var{left-text} . @var{right-text})}.")
-     (elements-filtered ,boolean? "Callback to filter an element list.")
      (round-up-exceptions ,list? "A list of pairs where car is the numerator
 and cdr the denominator of a moment.  Each pair in this list means that
 the multi-measure rests of the corresponding length will be rounded up to
@@ -303,6 +302,8 @@ larger.  Fractional values are allowed.")
      (force-hshift ,number? "This specifies a manual shift for notes
 in collisions.  The unit is the note head width of the first voice
 note.  This is used by @rinternals{note-collision-interface}.")
+     (forced-spacing ,number? "Spacing forced between grobs, used in
+various ligature engravers.")
      (fraction ,fraction? "Numerator and denominator of a time
 signature object.")
      (french-beaming ,boolean? "Use French beaming style for this
@@ -681,7 +682,6 @@ positions are requested, the closest one is taken.")
 shift dotted up-note to the right, rather than shifting just the
 dot.")
 
-
 ;;
 ;; r
 ;;
@@ -1031,6 +1031,10 @@ in addition to notes and stems.")
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
      (flag ,ly:grob? "A pointer to a @code{Flag} object.")
      (footnote-stencil ,ly:stencil? "The stencil of a system's footnotes.")
+     (footnotes-before-line-breaking ,ly:grob-array? "Footnote grobs of
+a whole system.")
+     (footnotes-after-line-breaking ,ly:grob-array? "Footnote grobs of
+a broken system.")
      (full-score-pure-minimum-translations ,list? "A list of translations
 for a full score's worth of grobs.")
 
@@ -1038,6 +1042,8 @@ for a full score's worth of grobs.")
 column.")
      (grace-spacing ,ly:grob? "A run of grace notes.")
 
+     (has-span-bar ,pair? "A pair of booleans indicating whether a a span bar
+is drawn above, or respectively below, this staff.")
      (heads ,ly:grob-array? "An array of note heads.")
 
      (items-worth-living ,ly:grob-array? "An array of interesting items.  If
@@ -1052,6 +1058,11 @@ empty in a particular staff, then that staff is erased.")
      (left-items ,ly:grob-array? "DOCME")
      (left-neighbor ,ly:grob? "The right-most column that has a spacing-wish
 for this column.")
+
+     (melody-spanner ,ly:grob? "The @code{MelodyItem} object for a stem.")
+
+     (neighbors ,ly:grob-array? "The X-axis neighbors of a grob. Used by the
+pure-from-neighbor-interface to determine various grob heights.")
 
      (normal-stems ,ly:grob-array? "An array of visible stems.")
      (note-columns ,ly:grob-array? "An array of @code{NoteColumn} grobs.")
@@ -1095,6 +1106,7 @@ results, use @code{LEFT} and @code{RIGHT}.")
      (stems ,ly:grob-array? "An array of stem objects.")
 
      (tie ,ly:grob? "A pointer to a @code{Tie} object.")
+     (ties ,ly:grob-array? "A grob array of @code{Tie} objects.")
      (tremolo-flag ,ly:grob? "The tremolo object on a stem.")
      (tuplet-number ,ly:grob? "The number for a bracket.")
      (tuplets ,ly:grob-array? "An array of smaller tuplet brackets.")
@@ -1138,6 +1150,11 @@ loose if and only if it is in the middle of a line.")
 entries @code{name} and @code{interfaces}.")
      (minimum-distances ,list? "A list of rods that have the format
 @code{(@var{obj} . @var{dist})}.")
+
+     (note-collision ,ly:grob? "The @code{NoteCollision} object of a
+dot column.")
+     (numbering-assertion-function ,scheme? "The function used to assert
+that footnotes are receiving correct automatic numbers.")
 
      (positioning-done ,boolean? "Used to signal that a positioning element
 did its job.  This ensures that a positioning is only done once.")

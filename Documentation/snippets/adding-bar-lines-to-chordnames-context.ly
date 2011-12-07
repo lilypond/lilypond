@@ -4,12 +4,12 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.7"
+\version "2.15.20"
 
 \header {
   lsrtags = "chords"
 
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
   texidoces = "
 Para añadir indicaciones de línea divisoria dentro del contexto de
 los nombres de acorde @code{ChordNames}, incluya el grabador

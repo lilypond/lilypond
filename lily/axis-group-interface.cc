@@ -456,8 +456,13 @@ SCM
 Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
+  return internal_calc_pure_relevant_grobs (me, "elements");
+}
 
-  extract_grob_set (me, "elements", elts);
+SCM
+Axis_group_interface::internal_calc_pure_relevant_grobs (Grob *me, string grob_set_name)
+{
+  extract_grob_set (me, grob_set_name.c_str (), elts);
 
   vector<Grob *> relevant_grobs;
   SCM pure_relevant_p = ly_lily_module_constant ("pure-relevant?");

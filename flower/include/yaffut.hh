@@ -278,7 +278,7 @@ struct Test: public ITest, public virtual Suite
   Test (): Suite ()
   {
     Registrator<Suite, Case>* r = &s_Registrator;
-    r = 0;
+    (void)r;
   }
   template <typename E, typename T>
   void assert_throw (void (T::*mf) (), const char *at)
@@ -302,7 +302,7 @@ struct Test<Case, void>: public ITest
   Test ()
   {
     Registrator<Case, void>* r = &s_Registrator;
-    r = 0;
+    (void)r;
   }
   template <typename E, typename T>
   void assert_throw (void (T::*mf) (), const char *at)

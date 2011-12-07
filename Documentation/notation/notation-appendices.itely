@@ -41,7 +41,7 @@
 @node Chord name chart
 @appendixsec Chord name chart
 
-The following charts shows two standard systems for printing chord
+The following chart shows two standard systems for printing chord
 names, along with the pitches they represent.
 
 @lilypondfile{chord-names-jazz.ly}

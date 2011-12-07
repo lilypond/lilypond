@@ -10,7 +10,10 @@ TEST (File_path, Find)
   char const *extensions[] = {"ly", "", 0};
   string file = "init";
   char cwd[PATH_MAX];
-  getcwd (cwd, PATH_MAX);
+  if (!getcwd (cwd, PATH_MAX)) {
+    cerr << "Could not get current work directory\n";
+    exit (1);
+  }
   string ly_dir = string (getenv ("top-src-dir")) + "/ly";
   parse_path (string (1, PATHSEP) + ly_dir);
   string file_name = find (file, extensions);

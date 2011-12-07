@@ -98,24 +98,23 @@ First it recurses over the children, then the function is applied to
       music
       (make-music 'Music)))	  ;must return music.
 
-(define-public (display-music music)
+(define*-public (display-music music #:optional (port (current-output-port)))
   "Display music, not done with @code{music-map} for clarity of
 presentation."
-
-  (display music)
-  (display ": { ")
+  (display music port)
+  (display ": { " port)
   (let ((es (ly:music-property music 'elements))
 	(e (ly:music-property music 'element)))
-    (display (ly:music-mutable-properties music))
+    (display (ly:music-mutable-properties music) port)
     (if (pair? es)
-	(begin (display "\nElements: {\n")
-	       (map display-music es)
-	       (display "}\n")))
+	(begin (display "\nElements: {\n" port)
+	       (for-each (lambda (m) (display-music m port)) es)
+	       (display "}\n" port)))
     (if (ly:music? e)
 	(begin
-	  (display "\nChild:")
-	  (display-music e))))
-  (display " }\n")
+	  (display "\nChild:" port)
+	  (display-music e port))))
+  (display " }\n" port)
   music)
 
 ;;;
@@ -211,7 +210,7 @@ which often can be read back in order to generate an equivalent expression.
 Returns `obj'.
 "
   (pretty-print (music->make-music obj) port)
-  (newline)
+  (newline port)
   obj)
 
 ;;;
@@ -220,28 +219,30 @@ Returns `obj'.
 (use-modules (srfi srfi-39)
              (scm display-lily))
 
-(define*-public (display-lily-music expr parser #:key force-duration)
+(define*-public (display-lily-music expr parser #:optional (port (current-output-port))
+				    #:key force-duration)
   "Display the music expression using LilyPond syntax"
   (memoize-clef-names supported-clefs)
   (parameterize ((*indent* 0)
 		 (*previous-duration* (ly:make-duration 2))
 		 (*force-duration* force-duration))
-    (display (music->lily-string expr parser))
-    (newline)))
+    (display (music->lily-string expr parser) port)
+    (newline port)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (shift-one-duration-log music shift dot)
   "Add @var{shift} to @code{duration-log} of @code{'duration} in
-@var{music} and optionally @var{dot} to any note encountered.  This
-scales the music up by a factor `2^@var{shift} * (2 - (1/2)^@var{dot})'."
+@var{music} and optionally @var{dot} to any note encountered.
+The number of dots in the shifted music may not be less than zero."
   (let ((d (ly:music-property music 'duration)))
     (if (ly:duration? d)
 	(let* ((cp (ly:duration-factor d))
-	       (nd (ly:make-duration (+ shift (ly:duration-log d))
-				     (+ dot (ly:duration-dot-count d))
-				     (car cp)
-				     (cdr cp))))
+	       (nd (ly:make-duration
+                    (+ shift (ly:duration-log d))
+                    (max 0 (+ dot (ly:duration-dot-count d)))
+		    (car cp)
+		    (cdr cp))))
 	  (set! (ly:music-property music 'duration) nd)))
     music))
 
@@ -1485,7 +1486,7 @@ Entries that conform with the current key signature are not invalidated."
 		   entry
 		   (cons (car entry) (cons 'clef (cddr entry))))))
 	   (ly:context-property context 'localKeySignature)))))
-  		    
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (skip-of-length mus)

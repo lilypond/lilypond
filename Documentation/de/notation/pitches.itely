@@ -1490,7 +1490,7 @@ Schnipsel:
 @cindex Versetzungszeichen, automatisch
 @cindex Standard-Versetzungszeichenstil
 
-@funindex set-accidental-style
+@funindex \accidentalStyle
 @funindex voice
 @funindex default
 
@@ -1516,7 +1516,7 @@ Um etwa den neuen Stil in allen Systemen einer
 Stimmgruppe (@code{StaffGroup}) zu benutzen, müsste der Befehl so aussehen:
 
 @example
-$(set-accidental-style 'voice 'StaffGroup)
+\accidentalStyle #'StaffGroup "voice"
 @end example
 
 Folgende Versetzungszeichenstile sind unterstützt.
@@ -1579,7 +1579,7 @@ in beiden Systemen benutzt werden soll:
   <<
     \context Staff = "up" @{
       %%% change the next line as desired:
-      $(set-accidental-style 'default 'Score)
+      \accidentalStyle #'Score "default"
       \musicA
     @}
     \context Staff = "down" @{

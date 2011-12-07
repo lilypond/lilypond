@@ -9,7 +9,7 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
 doctitlees = "Evitar que se añadan becuadros adicionales automáticamente"
 
 texidoces = "
@@ -48,7 +48,7 @@ altération précédente.  Pour modifier ce comportement, assignez la propriét�
 In accordance with standard typesetting rules, a natural sign is
 printed before a sharp or flat if a previous accidental on the same
 note needs to be canceled.  To change this behavior, set the
-@code{extraNatural} property to @code{#f} in the @code{Staff} context.
+@code{extraNatural} property to @code{f} in the @code{Staff} context.
 
 
 

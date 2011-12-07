@@ -2372,10 +2372,10 @@ For details of other page formatting properties, see
 @ref{Page layout}.
 
 @item
-Dialogue cues and stage directions can be inserted with markup.
-See @ref{Text}.  Extensive stage directions can be inserted with
-a section of stand-alone markup between two @code{\score} blocks.
-See @ref{Separate text}.
+Dialogue cues, stage directions and footnotes can be inserted, see
+@ref{Creating footnotes} and @ref{Text}.  Extensive stage directions
+can also be added with a section of stand-alone markups between two
+@code{\score} blocks, see @ref{Separate text}.
 
 @end itemize
 
@@ -2386,6 +2386,7 @@ Musical Glossary:
 @rglos{transposing instrument}.
 
 Notation Reference:
+@ref{Creating footnotes},
 @ref{Grouping staves},
 @ref{Hiding staves},
 @ref{Instrument transpositions},

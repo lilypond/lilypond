@@ -4,11 +4,11 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.14.0
+%% Note: this file works from version 2.15.19
 \version "2.15.19"
 
 \header {
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
   texidoces = "
 La agrupación de pulsos dentro de un compás está controlada por la
 propiedad de contexto @code{beatStructure}.  Hay establecidos valores
@@ -87,15 +87,14 @@ Beat grouping within a measure is controlled by the context property
 established for many time signatures in
 @file{scm/time-signature-settings.scm}.  Values of @code{beatStructure}
 can be changed or set with @code{\\set}.
-Alternatively, the
-Scheme function @code{set-time-signature} can be used to both
+Alternatively, @code{\\time} can be used to both
 set the time signature and establish the beat structure.
-@code{set-time-signature}, takes three arguments: the
-number of beats, the beat length, and the internal grouping of beats in
-the measure.  @code{\\time} and @code{set-time-signature} both apply
-to the @code{Timing} context, so they will not reset values of
-@code{beatStructure} or @code{baseMoment} that are set in
-other lower-level contexts, such as @code{Voice}.
+For this, you specify the internal grouping of beats in a measure
+as a list of numbers (in Scheme syntax) before the time signature.
+
+@code{\\time} applies to the @code{Timing} context, so it will not
+reset values of @code{beatStructure} or @code{baseMoment} that are set
+in other lower-level contexts, such as @code{Voice}.
 
 If the @code{Measure_grouping_engraver} is included
 in one of the display contexts, measure grouping signs will be

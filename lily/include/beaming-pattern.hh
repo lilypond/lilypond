@@ -43,7 +43,9 @@ struct Beam_rhythmic_element
   int rhythmic_importance_;
   bool invisible_;
 
-  Beam_rhythmic_element (Moment, int, bool);
+  Rational factor_;
+
+  Beam_rhythmic_element (Moment, int, bool, Rational);
   Beam_rhythmic_element ();
 
   int count (Direction d) const;
@@ -61,9 +63,10 @@ public:
 
   void beamify (Beaming_options const &);
   void de_grace ();
-  void add_stem (Moment d, int beams, bool invisible);
+  void add_stem (Moment d, int beams, bool invisible, Rational factor);
   int beamlet_count (int idx, Direction d) const;
   bool invisibility (int idx) const;
+  Rational factor (int idx) const;
   Moment start_moment (int idx) const;
   Moment end_moment (int idx) const;
   Beaming_pattern *split_pattern (int idx);

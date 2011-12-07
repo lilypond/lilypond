@@ -144,6 +144,8 @@ public:
   static Grob *get_root_vertical_alignment (Grob *g);
   static Grob *get_vertical_axis_group (Grob *g);
   static bool vertical_less (Grob *g1, Grob *g2);
+  static bool pure_vertical_less (Grob *g1, Grob *g2);
+  static bool internal_vertical_less (Grob *g1, Grob *g2, bool pure);
   static int get_vertical_axis_group_index (Grob *g);
 
   virtual Interval_t<int> spanned_rank_interval () const;

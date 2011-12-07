@@ -1095,6 +1095,7 @@ ADD_INTERFACE (Stem,
                "length "
                "length-fraction "
                "max-beam-connect "
+               "melody-spanner "
                "neutral-direction "
                "no-stem-extend "
                "note-heads "

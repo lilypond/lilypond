@@ -9,7 +9,7 @@
 \header {
   lsrtags = "unfretted-strings, template"
 
-%% Translation of GIT committish: 2d548a99cb9dba80f2ff035582009477cd37eceb
+%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
   texidoces = "
 El fragmento de código @qq{Plantilla de cuarteto de cuerda} produce un
 resultado satisfactorio para el cuarteto, pero ¿y si tenemos que

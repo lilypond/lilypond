@@ -70,15 +70,26 @@ MAKE_SCHEME_CALLBACK (Slur, pure_height, 3);
 SCM
 Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
+  /*
+    Note that this estimation uses a rote add-on of 0.5 to the
+    highest encompassed note-head for a slur estimate.  This is,
+    in most cases, shorter than the actual slur.
+
+    Ways to improve this could include:
+    -- adding extra height for scripts that avoid slurs on the inside
+    -- adding extra height for the "bulge" in a slur above a note head
+  */
   Grob *me = unsmob_grob (smob);
   int start = scm_to_int (start_scm);
   int end = scm_to_int (end_scm);
-  Real height = robust_scm2double (me->get_property ("height-limit"), 2.0);
+  Direction dir = get_grob_direction (me);
 
   extract_grob_set (me, "note-columns", encompasses);
   Interval ret;
+  ret.set_empty ();
 
   Grob *parent = me->get_parent (Y_AXIS);
+  Drul_array<Real> extremal_heights (infinity_f, -infinity_f);
   if (common_refpoint_of_array (encompasses, me, Y_AXIS) != parent)
     /* this could happen if, for example, we are a cross-staff slur.
        in this case, we want to be ignored */
@@ -88,13 +99,35 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
     {
       Interval d = encompasses[i]->pure_height (parent, start, end);
       if (!d.is_empty ())
-        ret.unite (d);
+        {
+          Direction downup = DOWN;
+          do
+            ret.add_point (d[dir]);
+          while (flip (&downup) != DOWN);
+
+          if (extremal_heights[LEFT] == infinity_f)
+            extremal_heights[LEFT] = d[dir];
+          extremal_heights[RIGHT] = d[dir];
+        }
     }
 
-  // The +0.5 comes from the fact that we try to place a slur
-  // 0.5 staff spaces from the note-head.
-  // (see Slur_score_state.get_base_attachments ())
-  ret.widen (height * 0.5 + 0.5);
+  if (ret.is_empty ())
+    return ly_interval2scm (Interval ());
+
+  Interval extremal_span;
+  extremal_span.set_empty ();
+  Direction d = LEFT;
+  do
+    extremal_span.add_point (extremal_heights[d]);
+  while (flip (&d) != LEFT);
+  ret[-dir] = minmax (dir, extremal_span[-dir], ret[-dir]);
+
+  /*
+    The +0.5 comes from the fact that we try to place a slur
+    0.5 staff spaces from the note-head.
+    (see Slur_score_state.get_base_attachments ())
+  */
+  ret += 0.5 * dir;
   return ly_interval2scm (ret);
 }
 

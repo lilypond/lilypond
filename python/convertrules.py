@@ -3283,7 +3283,7 @@ def paren_matcher (n):
     return
 
 def undollar_scm (m):
-    return re.sub (r"\$", "", m.group (0))
+    return re.sub (r"\$(.?)", r"\1", m.group (0))
 
 def undollar_embedded (m):
     str = re.sub (r"#\$", "#", m.group (1))
@@ -3350,6 +3350,10 @@ def conv (str):
 def conv (str):
     str = re.sub (r"\$\(set-accidental-style\s+'([-a-z]+)\)",
                   r'\\accidentalStyle "\1"', str)
+    str = re.sub (r"\$\(set-accidental-style\s+'([-a-z]+)\s+'([-A-Za-z]+)\s*\)",
+                  r'''\\accidentalStyle #'\2 "\1"''', str)
+    str = re.sub (r"(@funindex\s+)set-accidental-style",
+                  r"\1\\accidentalStyle", str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

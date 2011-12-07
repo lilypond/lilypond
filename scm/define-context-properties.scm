@@ -45,12 +45,18 @@
      ;; TODO FIXME
 
      (aDueText ,markup? "Text to print at a unisono passage.")
+     (additionalPitchPrefix ,string? "Text with which to prefix
+additional pitches within a chord name.")
      (alignAboveContext ,string? "Where to insert newly created context in
 vertical alignment.")
      (alignBassFigureAccidentals ,boolean? "If true, then the accidentals
 are aligned in bass figure context.")
      (alignBelowContext ,string? "Where to insert newly created context in
 vertical alignment.")
+     (alternativeNumberingStyle ,symbol? "The style of an alternative's bar
+numbers.  Can be @code{numbers} for going back to the same number or
+@code{numbers-with-letters} for going back to the same number with letter
+suffixes.  No setting will not go back in measure-number time.")
      (associatedVoice ,string? "Name of the @code{Voice} that has the
 melody for this @code{Lyrics} line.")
      (autoAccidentals ,list? "List of different ways to typeset an
@@ -148,6 +154,9 @@ of pitches to chord names.")
      (chordNameLowercaseMinor ,boolean? "Downcase roots of minor chords?")
      (chordNameSeparator ,markup? "The markup object used to
 separate parts of a chord name.")
+     (slashChordSeparator ,markup? "The markup object used to separate
+a chord name from its root note in case of inversions or slash
+chords.")
      (chordNoteNamer ,procedure? "A function that converts from a pitch
 object to a text markup.  Used for single pitches.")
      (chordPrefixSpacer ,number? "The space added between the root
@@ -372,6 +381,8 @@ page turn to be allowed.")
      (minimumRepeatLengthForPageTurn ,ly:moment? "Minimum length of a
 repeated section for a page turn to be allowed within that section.")
 
+     (minorChordModifier ,markup? "Markup displayed following the root
+for a minor chord")
 
      (noChordSymbol ,markup? "Markup to be displayed for rests in a
 ChordNames context.")
