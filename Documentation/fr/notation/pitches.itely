@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
+    Translation of GIT committish: a42aaa559b71ce5776795fa11a7e1df9110d85b7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -573,7 +573,7 @@ La plupart des langues dont nous venons de parler correspondent à la
 musique classique occidentale au tempérament égal -- le concept de
 @emph{Common Practice Period} en anglais.  LilyPond prend néanmoins en
 charge d'autres systèmes de notation, comme indiqué au chapitre
-@ref{Noms de note et altérations non-occidentaux}.
+@ref{Noms des notes et altérations non-occidentaux}.
 
 
 @seealso
@@ -582,7 +582,7 @@ Glossaire musicologique :
 @rglos{Common Practice Period}.
 
 Manuel de notation :
-@ref{Noms de note et altérations non-occidentaux}.
+@ref{Noms des notes et altérations non-occidentaux}.
 
 Fichiers d'initialisation :
 @file{scm/define-note-names.scm}.

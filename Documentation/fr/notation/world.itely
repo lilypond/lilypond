@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
+    Translation of GIT committish: a42aaa559b71ce5776795fa11a7e1df9110d85b7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -20,14 +20,14 @@ Ce chapitre a pour objet la notation des
 musiques traditionnelles autres qu'occidentales.
 
 @menu
-* Noms de note et altération non-occidentaux::
+* Noms des notes et altérations non-occidentaux::
 * Musique arabe::
 * Musique classique turque::
 @end menu
 
 
-@node Noms de note et altération non-occidentaux
-@subsection Noms de note et altération non-occidentaux
+@node Noms des notes et altérations non-occidentaux
+@subsection Noms des notes et altérations non-occidentaux
 @translationof Common notation for non-Western music
 
 Nous allons voir ici comment saisir et imprimer des partitions dans
@@ -153,7 +153,7 @@ ailleurs@tie{}:
 @itemize
 @item Les noms des notes et altérations (y compris les quarts de tons)
 peuvent être adaptés comme l'explique
-@ref{Noms de note et altération non-occidentaux}.
+@ref{Noms des notes et altérations non-occidentaux}.
 
 @item Les armures peuvent également être adaptées comme expliqué dans
 @ref{Armure}.
@@ -168,7 +168,7 @@ façon indiquée dans @ref{Musique sans métrique}.
 
 @seealso
 Manuel de notation :
-@ref{Noms de note et altération non-occidentaux},
+@ref{Noms des notes et altérations non-occidentaux},
 @ref{Armure},
 @ref{Barres de ligature manuelles}.
 
@@ -223,7 +223,7 @@ l'aspect du demi-bémol dans l'armure.
 
 @seealso
 Manuel de notation :
-@ref{Noms de note et altération non-occidentaux},
+@ref{Noms des notes et altérations non-occidentaux},
 @ref{Nom des notes dans d'autres langues}
 
 Morceaux choisis :
@@ -530,7 +530,7 @@ traitées dans d'autres chapitres@tie{}:
 
 @itemize
 @item Les noms de notes et altérations sont mentionnés dans
-@ref{Noms de note et altération non-occidentaux}.
+@ref{Noms des notes et altérations non-occidentaux}.
 
 @end itemize
 
@@ -589,7 +589,7 @@ altérations, le suffixe à utiliser, ainsi que la fraction de ton entier
 
 Pour plus d'information sur les formes de notation non-occidentales,
 reportez-vous au chapitre
-@ref{Noms de note et altération non-occidentaux}.
+@ref{Noms des notes et altérations non-occidentaux}.
 
 
 @seealso
@@ -598,4 +598,4 @@ Glossaire musicologique :
 @rglos{makamlar}.
 
 Manuel de notation :
-@ref{Noms de note et altération non-occidentaux}.
+@ref{Noms des notes et altérations non-occidentaux}.
