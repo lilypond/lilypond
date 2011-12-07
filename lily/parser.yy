@@ -344,7 +344,6 @@ If we give names, Bison complains.
 %token <scm> FRACTION
 %token <scm> LYRICS_STRING
 %token <scm> LYRIC_ELEMENT
-%token <scm> LYRIC_ELEMENT_P
 %token <scm> LYRIC_MARKUP_IDENTIFIER
 %token <scm> MARKUP_FUNCTION
 %token <scm> MARKUP_LIST_FUNCTION
@@ -1359,10 +1358,10 @@ function_arglist_backup:
 		// well: see how we do this at the mandatory argument
 		// point.
 		if (scm_is_true (scm_call_1 ($2, $4)))
-			$$ = scm_cons ($3, $2);
+			$$ = scm_cons ($4, $3);
 		else {
 			$$ = scm_cons (loc_on_music (@3, $1), $3);
-			MYBACKUP (LYRIC_MARKUP_IDENTIFIER, $4, @4);
+			MYBACKUP (LYRICS_STRING, $4, @4);
 		}
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep UNSIGNED
@@ -1524,7 +1523,7 @@ function_arglist_common_lyric:
 			if (scm_is_true (scm_call_1 ($1, lyric_event)))
 			{
 				$$ = $2;
-				MYREPARSE (@3, $1, LYRIC_ELEMENT_P, $3);
+				MYREPARSE (@3, $1, LYRICS_STRING, $3);
 			} else {
 				$$ = scm_cons ($3, $2);
 			}
@@ -2769,7 +2768,6 @@ lyric_element:
 	| LYRICS_STRING {
 		$$ = $1;
 	}
-	| LYRIC_ELEMENT_P
 	;
 
 lyric_element_arg:
