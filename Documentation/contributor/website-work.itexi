@@ -256,7 +256,7 @@ mkdir -p $BUILD
 cd $BUILD
 cp $HOME/lilypond/trusted-scripts/website.make .
 
-make -f website.make WEBSITE_ONLY_BUILD=1 website
+make -f website.make WEBSITE_ONLY_BUILD=1 -B website
 rsync -raO $BUILD/out-website/website/ $DEST/website/
 cp $BUILD/out-website/pictures $DEST
 cp $BUILD/out-website/.htaccess $DEST
