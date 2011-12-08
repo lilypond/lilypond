@@ -183,7 +183,7 @@ make lilypond-upload \
 @item Switch back to master and get the updated news:
 
 @example
-git checkout master
+git checkout origin/staging
 git merge release/unstable
 @end example
 
@@ -207,7 +207,7 @@ STABLE_VERSION = what's online (probably no change here)
 
 @example
 git commit -m "Release: bump version." VERSION
-git push origin
+git push origin HEAD:staging
 @end example
 
 
