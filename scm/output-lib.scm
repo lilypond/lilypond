@@ -418,6 +418,7 @@ and duration-log @var{log}."
               (x esh)
               (x (cons -1.01 1.01))))
         (cons car cdr))
+      ;; sufficient height to prevent ledger lines from moving over/under
       '(-1.01 . 1.01))))
 
 (define-public (pure-from-neighbor-interface::extra-spacing-height-including-staff grob)
