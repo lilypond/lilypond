@@ -194,7 +194,7 @@ template<typename T, typename Compare>
 vsize
 binary_search (vector<T> const &v,
                T const &key,
-               Compare less = less<T> (),
+               Compare less,
                vsize b = 0, vsize e = VPOS)
 {
   vsize lb = lower_bound (v, key, less, b, e);
