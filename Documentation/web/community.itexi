@@ -42,6 +42,9 @@ discussing LilyPond.
 @ref{Help us}: your assistance is requested.
 
 @item
+@ref{Sponsoring}: financial contributions.
+
+@item
 @ref{Development}: for contributors and testers.
 
 @item
@@ -72,6 +75,7 @@ discussing LilyPond.
 * Tiny examples::
 * Bug reports::
 * Help us::
+* Sponsoring::
 * Development::
 * Authors::
 * Publications::
@@ -510,6 +514,83 @@ demonstrate what you think it should look like!
 @divClass{column-right-top}
 @helpusProjects
 
+@divEnd
+
+
+@node Sponsoring
+@unnumberedsec Sponsoring
+
+@divClass{keep-bullets}
+@divClass{column-left-top}
+@subheading Bounties
+
+In the past,
+
+@itemize
+@item some users have paid for new features
+@item some developers have added new features for hire
+@end itemize
+
+The LilyPond project does not organize such efforts; we neither
+endorse nor discourage such agreements.  Any contracts between
+private individuals is the business of those individuals, not
+ours.
+
+@divEnd
+
+@divClass{column-right-top}
+@subheading Guidelines
+
+Any user wanting to offer money in exchange for work should bear
+in mind the following points:
+
+@itemize
+@item
+LilyPond developers may advertise their services on the lilypnod
+email lists from time to time.
+
+@item
+Any agreements between private individuals should include the
+normal precautions when conducting business: who pays, how much do
+they pay, with what method of payment, and upon what set of
+conditions.  We suggest that any ambiguity or uncertainty in these
+questions should be resolved before any work begins.
+
+@end itemize
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Interested developers
+
+Here is a list of people who have expressed an interest in
+bounties.  Note that the amount of work done by individuals varies
+quite a bit throughout the years.  We do not guarantee that this
+list is up-to-date, nor do we guarantee that the people listed
+here have any ability.  The only criteria is "XYZ asked to be
+listed on this page".
+
+Looking at the git history is a good way to determine who the most
+active and experienced developers are.  Statistics up to version
+@versionDevel{}:
+
+@multitable @columnfractions .3 .3 .3
+@item @uref{http://lilypond.org/~graham/gitstats-all/, overall history}
+@tab @uref{http://lilypond.org/~graham/gitstats-1year/, past year}
+@tab @uref{http://lilypond.org/~graham/gitstats-3months/, past three months}
+@end multitable
+
+Interested developers:
+@itemize
+
+
+
+@c Format
+@c @item name, email: area of interest (256 chars max)
+
+@end itemize
+
+@divEnd
 @divEnd
 
 
