@@ -581,14 +581,17 @@ active and experienced developers are.  Statistics up to version
 @end multitable
 
 Interested developers:
-@itemize
-
-
+@table @asis
+@item @email{dak@@gnu.org, David Kastrup}
+Donations are required to let me continue my current fulltime work on
+LilyPond.  I focus on user and programmer interface design, coherence,
+implementation, simplification, documentation, and debugging.
 
 @c Format
-@c @item name, email: area of interest (256 chars max)
+@c @item @email{name@@adress.domain, Name}
+@c area of interest (256 chars max)
 
-@end itemize
+@end table
 
 @divEnd
 @divEnd
