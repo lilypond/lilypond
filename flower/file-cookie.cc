@@ -39,10 +39,10 @@ extern "C" {
 
     static char buf[65536];
     int i = vsnprintf (buf, sizeof (buf), format, ap);
-    if (i == -1 || (unsigned) i > sizeof (buf))
+    if (i < 0 || (unsigned) i > sizeof (buf))
       assert (false);
     va_end (ap);
-    return Memory_out_stream::writer (file, buf, i);
+    return Memory_out_stream::writer (file, buf, (unsigned)i);
   }
 
   ssize_t
