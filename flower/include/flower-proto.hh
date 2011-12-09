@@ -24,12 +24,12 @@ char const *flower_version_str0 ();
 
 typedef unsigned char Byte;
 typedef long long I64;
-struct String_convert;
+class String_convert;
 
 #include "std-string.hh"
-using namespace std;
 
 #include "real.hh"
+using namespace std;
 
 template<class T> struct Interval_t;
 template<class T> struct PQueue;
