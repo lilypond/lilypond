@@ -54,7 +54,7 @@ Getopt_long::parselong ()
   assert (*optnm);
 
   char const *endopt = strchr (optnm, '=');
-  size_t searchlen = (endopt) ? endopt - optnm : strlen (optnm);
+  size_t searchlen = (endopt) ? (size_t) (endopt - optnm) : strlen (optnm);
 
   found_option_ = 0;
   for (int i = 0; i < table_len_; i++)
@@ -314,9 +314,9 @@ Long_option_init::table_string (Long_option_init *l)
 {
   string tabstr = "";
 
-  int wid = 0;
+  size_t wid = 0;
   for (int i = 0; l[i].shortname_char_ || l[i].longname_str0_; i++)
-    wid = max (int (wid), int (l[i].str_for_help ().length ()));
+    wid = max (wid, l[i].str_for_help ().length ());
 
   for (int i = 0; l[i].shortname_char_ || l[i].longname_str0_; i++)
     {
