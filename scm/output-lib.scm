@@ -406,20 +406,15 @@ and duration-log @var{log}."
     (coord-operation - from-neighbors height)))
 
 (define-public (pure-from-neighbor-interface::account-for-span-bar grob)
-  (define (other-op x) (x (cons cdr car)))
   (let* ((esh (pure-from-neighbor-interface::extra-spacing-height grob))
-         (hsb (ly:grob-property grob 'has-span-bar)))
+         (hsb (ly:grob-property grob 'has-span-bar))
+         (ii (interval-intersection esh (cons -1.01 1.01))))
     (if (pair? hsb)
-      (cons-map
-        (lambda (x)
-          (if (and ((other-op x) hsb)
-                   (not (and (eq? x car)
-                             (not (ly:grob-property grob 'allow-span-bar)))))
-              (x esh)
-              (x (cons -1.01 1.01))))
-        (cons car cdr))
-      ;; sufficient height to prevent ledger lines from moving over/under
-      '(-1.01 . 1.01))))
+        (cons (car (if (and (cdr hsb)
+                       (ly:grob-property grob 'allow-span-bar))
+                       esh ii))
+              (cdr (if (car hsb) esh ii)))
+        ii)))
 
 (define-public (pure-from-neighbor-interface::extra-spacing-height-including-staff grob)
   (let ((esh (pure-from-neighbor-interface::extra-spacing-height grob))
