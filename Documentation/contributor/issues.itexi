@@ -794,6 +794,7 @@ new issue with the @code{Patch-new} label and a link to the patch
 Issue numbers are cheap; losing developers because they got fed up
 with us losing their hard work is expensive.
 
+@end ignore
 @c if we enter patches immediately, I don't think this is relevant.
 @ignore
 @item
