@@ -143,17 +143,15 @@ Music_sequence::minimum_start (SCM l)
 Moment
 Music_sequence::first_start (SCM l)
 {
-  Moment m;
 
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
     {
       Music *mus = unsmob_music (scm_car (s));
-      Moment l = mus->get_length ();
-      Moment s = mus->start_mom ();
-      if (l.to_bool () || s.to_bool ())
-        return s;
+      Moment start = mus->start_mom ();
+      if (mus->get_length ().to_bool () || start.to_bool ())
+        return start;
     }
-  return m;
+  return Moment ();
 }
 
 MAKE_SCHEME_CALLBACK (Music_sequence, simultaneous_relative_callback, 2);
