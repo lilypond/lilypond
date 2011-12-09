@@ -356,7 +356,7 @@ static PyObject *
 pymidi_parse_track (PyObject *self, PyObject *args)
 {
   unsigned char *track, *track_end;
-  unsigned long track_size;
+  int track_size;
   int clocks_max;
 
   debug_print ("%s", "\n");
@@ -398,9 +398,11 @@ midi_parse (unsigned char **midi,unsigned  char *midi_end, int clocks_max)
   division = get_number (midi, *midi + 2, 2) * 4;
 
 
+  /*
   if (division < 0)
-    /* return midi_error (cannot handle non-metrical time"); */
+    return midi_error (cannot handle non-metrical time");
     ;
+  */
   *midi += header_len - 6;
 
   pymidi = PyList_New (0);
