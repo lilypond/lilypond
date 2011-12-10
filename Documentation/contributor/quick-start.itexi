@@ -52,7 +52,7 @@ Any virtualization tool can be used, but we recommend VirtualBox:
 @end example
 
 In virtualization terminology, your main operating system is the
-@qq{host}, while lilydev is the @qq{guest}.
+@strong{host}, while lilydev is the @strong{guest}.
 
 @item
 Download the Ubuntu LilyPond Developer Remix disk image:
@@ -71,7 +71,7 @@ recognize what they are, then you don't want them:
 }
 
 @item
-Create a music new @qq{virtual machine} inside your virtualization
+Create a new @qq{virtual machine} inside your virtualization
 software.
 
 If possible, use at least 700 MB of RAM (1GB would be better) for
@@ -80,7 +80,7 @@ for the virtual hard drive.  A complete compile of everything
 (code, docs, regression tests) can reach 10 GB.
 
 @item
-Install @file{ubuntu-lilydev-remix-1.1.iso} as the @qq{guest}
+Install @file{ubuntu-lilydev-remix-1.1.iso} as the @strong{guest}
 operating system on your virtualized system.
 
 @enumerate
@@ -96,7 +96,8 @@ install
 @item
 At the @qq{Prepare disk space} stage, do not be afraid to select
 @qq{Erase and use the entire disk}, since this refers to your
-@emph{virtual disk}, not your machine's actual hard drive.
+@strong{@emph{virtual disk}}, not your machine's actual hard
+drive.
 
 @item
 When prompted to remove the installation CD, go to
@@ -223,7 +224,7 @@ Right-click allows you to edit a file with gedit.  We recommend
 using gedit.
 
 @item
-Some contributors have recommended: (pdf available for free)
+Some contributors have recommended a free pdf:
 
 @example
 @uref{http://www.ubuntupocketguide.com/}
@@ -263,7 +264,7 @@ Click on the @qq{Get source} button.
 
 This will create a directory called @file{lilypond-git/} within
 your home directory, and will download the source code into that
-directory (around 121Mb).  When the process is finished, the
+directory (around 150@tie{}Mb).  When the process is finished, the
 @qq{Command output} window will display @qq{Done}, and the button
 label will change to say @qq{Update source}.
 

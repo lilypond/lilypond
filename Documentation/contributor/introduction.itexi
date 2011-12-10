@@ -11,6 +11,7 @@ help LilyPond.
 @menu
 * Help us::
 * Overview of work flow::
+* Summary for experienced developers::
 * Mentors::
 @end menu
 
@@ -28,12 +29,8 @@ help LilyPond.
 @node Overview of work flow
 @section Overview of work flow
 
-@cartouche
-@strong{Short summary for Unix developers}: source code is at
-@uref{git://git.sv.gnu.org/lilypond.git}.  Documentation is built
-with Texinfo, after pre-processing with @code{lilypond-book}.
-Send well-formed patches to @email{lilypond-devel@@gnu.org}.
-@end cartouche
+@advanced{Experienced developers should skip to
+@ref{Summary for experienced developers}.}
 
 Git is a @emph{version control system} that tracks the history of
 a program's source code.  The LilyPond source code is maintained
@@ -99,6 +96,113 @@ the developers' mailing list here:
 @warning{Contributors on Windows or MacOS X wishing to compile
 code or documentation are strongly advised to use our Ubuntu
 LilyPond Developer Remix, as discussed in @ref{Quick start}.}
+
+
+@node Summary for experienced developers
+@section Summary for experienced developers
+
+If you are already familiar with typical open-source tools, here's
+what you need to know:
+
+@itemize
+@item @strong{source repository}:
+hosted by GNU savannah.
+
+@example
+@uref{http://git.savannah.gnu.org/gitweb/?p=lilypond.git}
+@end example
+
+@item @strong{mailing lists}:
+given on @rweb{Contacts}.
+
+@item @strong{branches}:
+
+@itemize
+@item @code{master}:
+base your work from this, but do @strong{not push} to it.
+
+@item @code{staging}:
+after a successful review (see below), push here.
+
+@item @code{lilypond/translation}:
+translators should base their work from this, and also push to it.
+
+@item @code{dev/foo}:
+feel free to push any new branch name under @code{dev/}.
+
+@end itemize
+
+@item @strong{regression tests}:
+also known as @qq{regtests}; this is a collection of more than a
+thousand .ly files.  We track the output of those files between
+versions.
+
+If a patch introduces any unintentional changes to the regtests,
+we will likely reject it -- make sure that you are aware and can
+explain any regtest changes.  More info in @ref{Regression tests}.
+
+@item @strong{reviews}:
+after finishing work on a patch or branch:
+
+@enumerate
+@item
+upload it with our custom @code{git-cl}.  In addition to uploading
+it to the google rietveld code review tool, this adds a tracker
+issue so that we don't lose your patch.  The @qq{status} of your
+patch is kept on the issue tracker; see @ref{Issues}.
+
+@example
+@uref{https://github.com/gperciva/git-cl}
+@end example
+
+Your patch will be given @code{Patch-new} status.  More info in
+@ref{Uploading a patch for review}.
+
+@item
+If your patch passes some automatic tests, it will be given
+@code{Patch-review} status.  This generally happens within 24
+hours.
+
+@item
+After that, the patch must wait for the next @qq{patch countdown},
+which occur 3 times a week.  If there are a lot of patches waiting
+for a countdown, a subset of patches are chosen randomly.  When
+your patch is put on a countdown, it will be given
+@code{Patch-countdown} status.
+
+@item
+The countdown is a 48-hour period which gives other developers a
+chance to review the patch.  If no significant problems are found,
+your patch will be given @code{Patch-push} status.
+
+@item
+You may now either push it to the @code{staging} branch, or email
+your patch (created with @w{@code{git format-patch}}) to somebody
+who will push it for you.
+
+@end enumerate
+
+@advanced{Yes, this process means that most patches wait between
+60-120 hours before reaching master.  This is unfortunate, but
+given our limited resources for reviewing patches and a history of
+unintended breakage in @code{master}, this is the best compromise
+we have found.}
+
+@c I don't think this is important enough to list here, but I may
+@c change my mind and/or leave a link to a later CG section.
+@ignore
+@item @strong{code style}:
+C++ code should be formatted with
+@file{scripts/auxiliar/fixcc.py}, which requires
+@url{http://astyle.sourceforge.net/, astyle 2.02}.  However, we
+are not very strict about this requirement.
+
+At the moment, scheme code should be formatted @qq{like emacs does
+it}.  We are working on an automated tool to simplify this step.
+However, we are not very strict about this requirement either.
+@end ignore
+
+@end itemize
 
 
 @node Mentors
