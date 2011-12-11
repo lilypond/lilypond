@@ -1681,9 +1681,15 @@ do:
 git checkout staging
 git pull -r
 git am 0001-my-patch.patch
+gitk
 git push origin staging
 git checkout master
 @end example
+
+@warning{Do not skip the @command{gitk} step; a quick 5-second
+check of the visual history can save a great deal of frustration
+later on.  You should only see that @command{staging} is only 1
+commit ahead of @code{origin/staging}.}
 
 @subsubheading If your work is in a branch
 
@@ -1694,8 +1700,14 @@ If you are working on branches and your work in is
 git checkout staging
 git pull -r
 git merge my_branch_name
+gitk
 git push origin staging
 @end example
+
+@warning{Do not skip the @command{gitk} step; a quick 5-second
+check of the visual history can save a great deal of frustration
+later on.  You should see that @code{staging} is only ahead of
+@code{origin/staging} by the commits from your branch.}
 
 
 
