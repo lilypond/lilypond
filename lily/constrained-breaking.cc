@@ -436,10 +436,10 @@ Constrained_breaking::initialize ()
   breaks_ = pscore_->get_break_indices ();
   all_ = pscore_->root_system ()->used_columns ();
   lines_.resize (breaks_.size (), breaks_.size (), Line_details ());
-  vector<Simple_spacer> spacers =
-    pscore_->root_system ()->get_simple_spacers(other_lines.length (),
-                                                other_lines.length () - first_line.length (),
-                                                ragged_right_);
+  vector<Simple_spacer> spacers
+    = pscore_->root_system ()->get_simple_spacers (other_lines.length (),
+                                                   other_lines.length () - first_line.length (),
+                                                   ragged_right_);
   for (vsize i = 0; i + 1 < breaks_.size (); i++)
     {
       for (vsize j = i + 1; j < breaks_.size (); j++)

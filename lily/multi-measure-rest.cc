@@ -132,7 +132,7 @@ calc_closest_duration_log (Grob *me, double duration, bool force_round_up)
 
   SCM duration_logs_list = me->get_property ("usable-duration-logs");
   if (to_boolean (scm_null_p (duration_logs_list))
-                    || !to_boolean (scm_list_p (duration_logs_list)))
+      || !to_boolean (scm_list_p (duration_logs_list)))
     {
       warning (_ ("usable-duration-logs must be a non-empty list.  Falling back to whole rests."));
       closest_usable_duration_log = 0;
@@ -172,16 +172,13 @@ int
 calc_measure_duration_log (Grob *me)
 {
   SCM sml = dynamic_cast<Spanner *> (me)->get_bound (LEFT)
-                                          ->get_property ("measure-length");
+            ->get_property ("measure-length");
   Rational ml = (unsmob_moment (sml)) ? unsmob_moment (sml)->main_part_
-                                      : Rational (1);
+                : Rational (1);
   double measure_duration = ml.Rational::to_double ();
-  bool force_round_up = to_boolean (
-                          scm_list_p (
-                            scm_member (
-                              scm_cons (scm_from_int64 (ml.numerator ()),
-                                        scm_from_int64 (ml.denominator ())),
-                              me->get_property ("round-up-exceptions"))));
+  bool force_round_up = to_boolean (scm_list_p (scm_member (scm_cons (scm_from_int64 (ml.numerator ()),
+                                                            scm_from_int64 (ml.denominator ())),
+                                                            me->get_property ("round-up-exceptions"))));
   return calc_closest_duration_log (me, measure_duration, force_round_up);
 }
 

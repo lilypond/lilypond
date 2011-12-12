@@ -186,7 +186,8 @@ void mark_listen_closure (void *target)
   scm_gc_mark ((SCM)target);
 }
 
-Listener_function_table listen_closure =
+Listener_function_table listen_closure
+=
 {
   call_listen_closure, mark_listen_closure
 };

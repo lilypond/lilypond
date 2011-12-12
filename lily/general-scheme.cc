@@ -99,7 +99,6 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
   return scm_from_locale_stringn (contents.c_str (), contents.length ());
 }
 
-
 LY_DEFINE (ly_dir_p, "ly:dir?",
            1, 0, 0, (SCM s),
            "Is @var{s} a direction?  Valid directions are @w{@code{-1}},"

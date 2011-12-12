@@ -81,7 +81,7 @@ Axis_group_interface::relative_group_extent (vector<Grob *> const &elts,
 
 Interval
 Axis_group_interface::relative_maybe_bound_group_extent (vector<Grob *> const &elts,
-                                                        Grob *common, Axis a, bool bound)
+                                                         Grob *common, Axis a, bool bound)
 {
   Interval r;
   for (vsize i = 0; i < elts.size (); i++)

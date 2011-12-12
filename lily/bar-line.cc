@@ -48,7 +48,7 @@ Bar_line::calc_bar_extent (SCM smob)
       SCM staff_color = staff->get_property ("color");
       Real radius = Staff_symbol_referencer::staff_radius (me);
       if (bar_line_color == staff_color && radius)
-	result *= (1 - 0.5 * (Staff_symbol_referencer::line_thickness (me) / radius));
+        result *= (1 - 0.5 * (Staff_symbol_referencer::line_thickness (me) / radius));
     }
   return ly_interval2scm (result);
 }

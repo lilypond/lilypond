@@ -268,7 +268,7 @@ Slur_score_state::fill (Grob *me)
 
   extra_encompass_infos_ = get_extra_encompass_infos ();
 
-  Interval additional_ys (0.0,0.0);
+  Interval additional_ys (0.0, 0.0);
 
   for (vsize i = 0; i < extra_encompass_infos_.size (); i++)
     {
@@ -294,10 +294,10 @@ Slur_score_state::fill (Grob *me)
                                        (dir_
                                         * (parameters_.encompass_object_range_overshoot_
                                            + (y_place - encompass_place)
-                                              * (normalize (extra_encompass_infos_[i].extents_[X_AXIS].center (),
-                                                            base_attachments_[RIGHT][X_AXIS],
-                                                            base_attachments_[LEFT][X_AXIS])
-                                               + (dir_ == LEFT ? 0 : -1)))));
+                                           * (normalize (extra_encompass_infos_[i].extents_[X_AXIS].center (),
+                                                         base_attachments_[RIGHT][X_AXIS],
+                                                         base_attachments_[LEFT][X_AXIS])
+                                              + (dir_ == LEFT ? 0 : -1)))));
           while (flip (&d) != LEFT);
         }
     }

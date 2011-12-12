@@ -174,7 +174,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
               Grob *flag = Stem::flag (stem);
               if (flag)
                 {
-                  Grob* commony = stem->common_refpoint (flag, Y_AXIS);
+                  Grob *commony = stem->common_refpoint (flag, Y_AXIS);
                   boxes.push_back (Box (flag->extent (x_refpoint_, X_AXIS),
                                         flag->extent (commony, Y_AXIS)));
                 }
@@ -443,7 +443,8 @@ Tie_configuration *
 Tie_formatting_problem::get_configuration (int pos, Direction dir, Drul_array<int> columns,
                                            bool tune_dy) const
 {
-  int key_components[] =
+  int key_components[]
+  =
   {
     pos, dir, columns[LEFT], columns[RIGHT]
   };

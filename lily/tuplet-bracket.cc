@@ -652,7 +652,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
       Grob *number = unsmob_grob (tuplets[i]->get_object ("tuplet-number"));
       if (number)
         points.push_back (Offset (number->extent (commonx, X_AXIS).center () - x0,
-                                                  number->extent (commony, Y_AXIS)[dir]));
+                                  number->extent (commony, Y_AXIS)[dir]));
     }
 
   *offset = -dir * infinity_f;

@@ -152,7 +152,7 @@ LY_DEFINE (ly_translate_cpp_warning_scheme, "ly:translate-cpp-warning-scheme",
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   string s = _ (ly_scm2string (str).c_str ());
-  
+
   /* Now replace all printf placeholders by scheme placeholders (~a).
    * Guile's format syntax is pretty similar to C's printf, only with
    * a tilde as the placeholder instead of a percent sign.
@@ -167,27 +167,32 @@ LY_DEFINE (ly_translate_cpp_warning_scheme, "ly:translate-cpp-warning-scheme",
       // In some cases (%%, %s) we need to do a lookahead. As the C string is
       // always \0-terminated the next char is never beyond the end of the
       // memory!
-      switch (*pos) {
+      switch (*pos)
+        {
         case '~':
           result += "~~";
           break;
         case '%':
-          if (*(pos+1) == '%') {
-            result += "%";
-            // Skip the second '%'
-            pos++;
-          } else if (*(pos+1) == 's' || *(pos+1) == 'd') {
-            // %s in C++ corresponds to ~a; ~s would add quotes!
-            // ~d is only supported by ice-9, use ~a instead
-            result += "~a";
-            // Skip the following 's'
-            pos++;
-          } else
+          if (*(pos + 1) == '%')
+            {
+              result += "%";
+              // Skip the second '%'
+              pos++;
+            }
+          else if (*(pos + 1) == 's' || *(pos + 1) == 'd')
+            {
+              // %s in C++ corresponds to ~a; ~s would add quotes!
+              // ~d is only supported by ice-9, use ~a instead
+              result += "~a";
+              // Skip the following 's'
+              pos++;
+            }
+          else
             result += "~";
           break;
         default:
           result += *pos;
-      }
+        }
       pos++;
     }
   return ly_string2scm (result);

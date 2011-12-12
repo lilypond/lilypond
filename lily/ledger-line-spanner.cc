@@ -295,8 +295,8 @@ Ledger_line_spanner::print (SCM smob)
                     Interval accidental_size = g->extent (common[X_AXIS], X_AXIS);
                     Real d
                       = linear_combination (Drul_array<Real> (accidental_size[RIGHT],
-                                                            head_size[LEFT]),
-                                          0.0);
+                                                              head_size[LEFT]),
+                                            0.0);
 
                     Real left_shorten = max (-ledger_size[LEFT] + d, 0.0);
 

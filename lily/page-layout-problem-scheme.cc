@@ -22,8 +22,8 @@
 #include "page-layout-problem.hh"
 
 LY_DEFINE (ly_get_spacing_spec, "ly:get-spacing-spec", 2, 0, 0,
-	   (SCM from_scm, SCM to_scm),
-	   "Return the spacing spec going between the two given grobs,"
+           (SCM from_scm, SCM to_scm),
+           "Return the spacing spec going between the two given grobs,"
            " @var{from_scm} and @var{to_scm}.")
 {
   LY_ASSERT_SMOB (Grob, from_scm, 1);

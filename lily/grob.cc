@@ -598,7 +598,7 @@ Grob::fixup_refpoint ()
   VERTICAL ORDERING
 ****************************************************************/
 
-Grob*
+Grob *
 get_maybe_root_vertical_alignment (Grob *g, Grob *maybe)
 {
   if (!g)
@@ -609,13 +609,13 @@ get_maybe_root_vertical_alignment (Grob *g, Grob *maybe)
 
 }
 
-Grob*
+Grob *
 Grob::get_root_vertical_alignment (Grob *g)
 {
   return get_maybe_root_vertical_alignment (g, 0);
 }
 
-Grob*
+Grob *
 Grob::get_vertical_axis_group (Grob *g)
 {
   if (!g)

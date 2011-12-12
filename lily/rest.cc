@@ -54,7 +54,6 @@ Rest::y_offset_callback (SCM smob)
   if (!position_override)
     amount += 2 * ss * get_grob_direction (me);
 
-
   return scm_from_double (amount);
 }
 

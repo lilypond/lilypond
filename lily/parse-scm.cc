@@ -52,18 +52,18 @@ internal_ly_parse_scm (Parse_start *ps)
   SCM to = scm_ftell (port);
   ps->nchars = scm_to_int (to) - scm_to_int (from);
 
-
-  if (!SCM_EOF_OBJECT_P (form)) {
-    if (ps->parser_->lexer_->top_input ())
-      {
-	// Find any precompiled form.
-	SCM c = scm_assv_ref (ps->parser_->closures_, from);
-	if (scm_is_true (c))
-	  // Replace form with a call to previously compiled closure
-	  form = scm_list_1 (c);
-      }
-    return scm_cons (form, make_input (ps->start_location_));
-}
+  if (!SCM_EOF_OBJECT_P (form))
+    {
+      if (ps->parser_->lexer_->top_input ())
+        {
+          // Find any precompiled form.
+          SCM c = scm_assv_ref (ps->parser_->closures_, from);
+          if (scm_is_true (c))
+            // Replace form with a call to previously compiled closure
+            form = scm_list_1 (c);
+        }
+      return scm_cons (form, make_input (ps->start_location_));
+    }
 
   /* Don't close the port here; if we re-enter this function via a
      continuation, then the next time we enter it, we'll get an error.
@@ -81,21 +81,20 @@ internal_ly_eval_scm (Parse_start *ps)
     {
       static SCM module = SCM_BOOL_F;
       if (module == SCM_BOOL_F)
-	{
-	  SCM function = ly_lily_module_constant ("make-safe-lilypond-module");
-	  module = scm_gc_protect_object (scm_call_0 (function));
-	}
-      
+        {
+          SCM function = ly_lily_module_constant ("make-safe-lilypond-module");
+          module = scm_gc_protect_object (scm_call_0 (function));
+        }
+
       // We define the parser so trusted Scheme functions can
       // access the real namespace underlying the parser.
       if (ps->parser_)
-	scm_module_define (module, ly_symbol2scm ("parser"),
-			   ps->parser_->self_scm ());
+        scm_module_define (module, ly_symbol2scm ("parser"),
+                           ps->parser_->self_scm ());
       return scm_eval (ps->form_, module);
     }
   return scm_primitive_eval (ps->form_);
 }
-
 
 SCM
 catch_protected_parse_body (void *p)

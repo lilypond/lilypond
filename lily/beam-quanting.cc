@@ -260,7 +260,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
 
       Real my_y = beams[i]->relative_coordinate (common[Y_AXIS], Y_AXIS);
 
-      Interval beam_width (-1.0,-1.0);
+      Interval beam_width (-1.0, -1.0);
       for (vsize j = 0; j < stems.size (); j++)
         {
           Grob *s = stems[j];
@@ -301,8 +301,8 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
 
       staff_radius_ = Staff_symbol_referencer::staff_radius (beams[i]);
       edge_beam_counts_ = Drul_array<int>
-                         (Stem::beam_multiplicity (stems[0]).length () + 1,
-                          Stem::beam_multiplicity (stems.back ()).length () + 1);
+                          (Stem::beam_multiplicity (stems[0]).length () + 1,
+                           Stem::beam_multiplicity (stems.back ()).length () + 1);
 
       // TODO - why are we dividing by staff_space_?
       beam_translation_ = Beam::get_beam_translation (beams[i]) / staff_space_;
@@ -682,7 +682,7 @@ Beam_scoring_problem::calc_concaveness ()
 
         close_positions.push_back ((int) rint (head_positions_[i][beam_dir]));
         far_positions.push_back ((int) rint (head_positions_[i][-beam_dir]));
-    }
+      }
 
   Real concaveness = 0.0;
 
@@ -1347,8 +1347,8 @@ Beam_scoring_problem::score_collisions (Beam_configuration *config) const
                     beam_y.distance (collision_y[UP]));
 
       Real scale_free
-        = max (parameters_.COLLISION_PADDING - dist, 0.0) /
-          parameters_.COLLISION_PADDING;
+        = max (parameters_.COLLISION_PADDING - dist, 0.0)
+          / parameters_.COLLISION_PADDING;
       demerits
       += collisions_[i].base_penalty_ *
          pow (scale_free, 3) * parameters_.COLLISION_PENALTY;

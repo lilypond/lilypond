@@ -94,7 +94,7 @@ Pure_from_neighbor_engraver::finalize ()
     to the elements of need_pure_heights_from_neighbors_ on either side.
   */
 
-  int pos[2] = {-1, 0};
+  int pos[2] = { -1, 0};
   for (vsize i = 0; i < pure_relevants_.size (); i++)
     {
       if (pos[1] < (int) need_pure_heights_from_neighbors.size ()

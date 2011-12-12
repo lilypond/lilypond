@@ -160,22 +160,21 @@ LY_DEFINE (ly_music_compress, "ly:music-compress",
 }
 
 LY_DEFINE (ly_make_music_relative_x, "ly:make-music-relative!",
-	   2, 0, 0, (SCM music, SCM pitch),
-	   "Make @var{music} relative to @var{pitch},"
-	   " return final pitch.")
+           2, 0, 0, (SCM music, SCM pitch),
+           "Make @var{music} relative to @var{pitch},"
+           " return final pitch.")
 {
   LY_ASSERT_TYPE (unsmob_music, music, 1);
   LY_ASSERT_TYPE (unsmob_pitch, pitch, 2);
 
-	Pitch start = *unsmob_pitch (pitch);
-	Music *m = unsmob_music (music);
- 	Pitch last = m->to_relative_octave (start);
- 	if (lily_1_8_relative)
- 		m->set_property ("last-pitch", last.smobbed_copy ());
+  Pitch start = *unsmob_pitch (pitch);
+  Music *m = unsmob_music (music);
+  Pitch last = m->to_relative_octave (start);
+  if (lily_1_8_relative)
+    m->set_property ("last-pitch", last.smobbed_copy ());
 
- 	return last.smobbed_copy ();
+  return last.smobbed_copy ();
 }
-
 
 LY_DEFINE (ly_music_duration_length, "ly:music-duration-length", 1, 0, 0,
            (SCM mus),

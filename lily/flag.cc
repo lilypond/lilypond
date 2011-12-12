@@ -39,8 +39,6 @@ public:
   DECLARE_GROB_INTERFACE ();
 };
 
-
-
 MAKE_SCHEME_CALLBACK (Flag, width, 1);
 SCM
 Flag::width (SCM smob)

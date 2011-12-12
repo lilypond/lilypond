@@ -116,13 +116,14 @@ execute_override_property (Context *context,
   bool ok = true;
   bool pc = is_unpure_pure_container (new_value);
   SCM vals[] = {pc ? unpure_pure_container_unpure_part (new_value) : new_value,
-                pc ? unpure_pure_container_pure_part (new_value) : SCM_BOOL_F};
+                pc ? unpure_pure_container_pure_part (new_value) : SCM_BOOL_F
+               };
 
   for (int i = 0; i < 2; i++)
     if (!ly_is_procedure (vals[i])
         && !is_simple_closure (vals[i]))
       ok = ok && type_check_assignment (symbol, vals[i],
-                                    ly_symbol2scm ("backend-type?"));
+                                        ly_symbol2scm ("backend-type?"));
 
   /*
     tack onto alist.  We can use set_car, since

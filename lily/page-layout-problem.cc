@@ -243,7 +243,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
                   if (orig->is_broken ())
                     for (vsize i = 0; i < orig->broken_intos_.size (); i++)
                       do_numbering = do_numbering
-                                    || to_boolean (orig->broken_intos_[i]->get_property ("automatically-numbered"));
+                                     || to_boolean (orig->broken_intos_[i]->get_property ("automatically-numbered"));
                 }
               if (do_numbering)
                 {
@@ -561,8 +561,8 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
       Skyline *sky = in_note_direction_ == UP ? &up_skyline : &down_skyline;
       sky->set_minimum_height (sky->max_height ()
                                + in_note_direction_
-                                 * (in_note_padding_
-                                    + in_note_stencil->extent (Y_AXIS).length ()));
+                               * (in_note_padding_
+                                  + in_note_stencil->extent (Y_AXIS).length ()));
     }
 
   /*
@@ -573,7 +573,7 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
   */
   Real minimum_distance = up_skyline.distance (bottom_skyline_,
                                                robust_scm2double (sys->get_property ("skyline-horizontal-padding"),
-                                                                  0))
+                                                   0))
                           + padding;
 
   Spring spring_copy = spring;

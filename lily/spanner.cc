@@ -249,7 +249,7 @@ Real
 Spanner::spanner_length () const
 {
   Interval lr = robust_scm2interval (get_property ("X-positions"),
-                                     Interval (1,-1));
+                                     Interval (1, -1));
 
   if (lr.is_empty ())
     {
@@ -259,7 +259,7 @@ Spanner::spanner_length () const
       Direction d = LEFT;
       do
         lr[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("X"),
-                                             bounds[d], SCM_BOOL_F), -d);
+                                                 bounds[d], SCM_BOOL_F), -d);
       while (flip (&d) != LEFT);
     }
 

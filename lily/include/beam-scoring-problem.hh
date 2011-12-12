@@ -132,7 +132,6 @@ private:
   int normal_stem_count_;
   Real x_span_;
 
-
   /*
     Do stem computations.  These depend on YL and YR linearly, so we can
     precompute for every stem 2 factors.

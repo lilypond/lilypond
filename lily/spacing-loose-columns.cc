@@ -192,7 +192,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
       Real sum_spacing = 0;
       // currently a magic number - what would be a good grob to hold this property?
       Real left_padding = 0.15;
-      for (vsize j = 0; j  < clique_spacing.size (); j++)
+      for (vsize j = 0; j < clique_spacing.size (); j++)
         {
           sum_tight_spacing += clique_tight_spacing[j];
           sum_spacing += clique_spacing[j];

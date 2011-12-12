@@ -58,7 +58,6 @@ finish_offset (Grob *me, Direction dir, Real total_off, Real *current_offset)
       && total_off * dir < minimum_space)
     total_off = minimum_space * dir;
 
-
   if (current_offset)
     total_off = dir * max (dir * total_off,
                            dir * (*current_offset));

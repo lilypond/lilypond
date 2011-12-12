@@ -152,9 +152,9 @@ Bar_number_engraver::process_music ()
                 }
               // guh.
               text_->set_property
-                ("text",
-                  scm_string_concatenate (scm_list_2 (scm_number_to_string (bn, scm_from_int (10)),
-                                                      ly_string2scm (text_tag))));
+              ("text",
+               scm_string_concatenate (scm_list_2 (scm_number_to_string (bn, scm_from_int (10)),
+                                                   ly_string2scm (text_tag))));
             }
         }
     }

@@ -148,9 +148,9 @@ LY_DEFINE (ly_parser_lexer, "ly:parser-lexer",
 LY_DEFINE (ly_parser_clone, "ly:parser-clone",
            1, 1, 0, (SCM parser_smob, SCM closures),
            "Return a clone of @var{parser-smob}.  An association list"
-" of port positions to closures can be specified in @var{closures}"
-" in order to have @code{$} and @code{#} interpreted in their original"
-" lexical environment.")
+           " of port positions to closures can be specified in @var{closures}"
+           " in order to have @code{$} and @code{#} interpreted in their original"
+           " lexical environment.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
@@ -215,10 +215,10 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 
 LY_DEFINE (ly_parse_string_expression, "ly:parse-string-expression",
            2, 2, 0, (SCM parser_smob, SCM ly_code, SCM filename,
-		     SCM line),
+                     SCM line),
            "Parse the string @var{ly-code} with @var{parser-smob}."
-" Return the contained music expression."
-" @var{filename} and @var{line} are optional source indicators.")
+           " Return the contained music expression."
+           " @var{filename} and @var{line} are optional source indicators.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
@@ -237,19 +237,19 @@ LY_DEFINE (ly_parse_string_expression, "ly:parse-string-expression",
   if (!parser->lexer_->is_clean ())
     {
       parser->parser_error (_ ("ly:parse-string-expression is only valid with a new parser."
-			       "  Use ly:parser-include-string instead."));
+                               "  Use ly:parser-include-string instead."));
       return SCM_UNSPECIFIED;
     }
 
   return parser->parse_string_expression (ly_scm2string (ly_code),
-					  fn, ln);
+                                          fn, ln);
 }
 
 LY_DEFINE (ly_parser_include_string, "ly:parser-include-string",
            2, 0, 0, (SCM parser_smob, SCM ly_code),
            "Include the string @var{ly-code} into the input stream"
            " for @var{parser-smob}.  Can only be used in immediate"
-	   " Scheme expressions (@code{$} instead of @code{#}).")
+           " Scheme expressions (@code{$} instead of @code{#}).")
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   Lily_parser *parser = unsmob_lily_parser (parser_smob);

@@ -78,4 +78,4 @@ Slur_score_parameters::fill (Grob *me)
     = get_detail (details, ly_symbol2scm ("close-to-edge-length"));
   encompass_object_range_overshoot_
     = get_detail (details, ly_symbol2scm ("encompass-object-range-overshoot"));
-  }
+}

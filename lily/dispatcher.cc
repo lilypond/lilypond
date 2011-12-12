@@ -167,8 +167,8 @@ Dispatcher::dispatch (SCM sev)
 
 #if 0
   /* TODO: Uncomment. */
-    if (!sent)
-      warning (_f ("Junking event: %s", ly_symbol2string (class_symbol).c_str ()));
+  if (!sent)
+    warning (_f ("Junking event: %s", ly_symbol2string (class_symbol).c_str ()));
 #endif
 }
 

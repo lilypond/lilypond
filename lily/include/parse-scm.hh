@@ -32,7 +32,7 @@ struct Parse_start
   int nchars;
   Input start_location_;
   bool safe_;
-  SCM (*func_)(Parse_start *ps);
+  SCM (*func_) (Parse_start *ps);
   SCM form_;
   Lily_parser *parser_;
 

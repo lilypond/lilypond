@@ -21,7 +21,8 @@
 #include "warn.hh"
 #include "libc-extension.hh"
 
-Real binomial_coefficient_3[] =
+Real binomial_coefficient_3[]
+=
 {
   1, 3, 3, 1
 };

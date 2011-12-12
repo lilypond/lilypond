@@ -43,7 +43,6 @@
 extern int loglevel;
 extern bool warning_as_error;
 
-
 /* output messages, in decreasing order of importance */
 void error (string s, string location = ""); // Fatal error, exits lilypond!
 void programming_error (string s, string location = "");
@@ -65,6 +64,5 @@ void set_loglevel (string level);
 
 void expect_warning (string msg);
 void check_expected_warnings ();
-
 
 #endif /* WARN_HH */

@@ -558,9 +558,9 @@ Skyline::internal_distance (Skyline const &other, Real horizon_padding, Real *to
       dist = max (dist, max (start_dist, end_dist));
 
       if (end_dist == dist)
-	touch = end;
+        touch = end;
       else if (start_dist == dist)
-	touch = start;
+        touch = start;
 
       if (i->end_ <= j->end_)
         i++;

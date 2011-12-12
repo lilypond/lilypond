@@ -1097,7 +1097,7 @@ Beam::set_stem_lengths (SCM smob)
   Grob *fvs = first_normal_stem (me);
   Grob *lvs = last_normal_stem (me);
 
-  Interval x_span = robust_scm2interval (me->get_property ("X-positions"), Interval (0,0));
+  Interval x_span = robust_scm2interval (me->get_property ("X-positions"), Interval (0, 0));
   Direction feather_dir = to_dir (me->get_property ("grow-direction"));
 
   for (vsize i = 0; i < stems.size (); i++)
@@ -1348,7 +1348,7 @@ Beam::pure_rest_collision_callback (SCM smob,
   Grob *left;
   Grob *right;
 
-  if (idx == (vsize)-1 || my_stems.size () == 1)
+  if (idx == (vsize) - 1 || my_stems.size () == 1)
     return scm_from_double (amount);
   else if (idx == 0)
     left = right = my_stems[1];
@@ -1369,7 +1369,6 @@ Beam::pure_rest_collision_callback (SCM smob,
 
   return scm_from_double (amount);
 }
-
 
 bool
 Beam::is_knee (Grob *me)

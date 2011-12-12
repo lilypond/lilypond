@@ -129,7 +129,7 @@ Stem::set_stem_positions (Grob *me, Real se)
 
   Interval height = me->pure_height (me, 0, INT_MAX);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real half_space =  staff_space * 0.5;
+  Real half_space = staff_space * 0.5;
 
   height[d] = se * half_space + beam_end_corrective (me);
 
@@ -149,8 +149,8 @@ Stem::set_stem_positions (Grob *me, Real se)
 
           height[-d] = (height[d] - d
                         * (0.5 * beam_thickness
-                        + beam_translation * max (0, (beam_count - 1))
-                        + stemlet_length));
+                           + beam_translation * max (0, (beam_count - 1))
+                           + stemlet_length));
         }
       else if (!stemlet && beam)
         height[-d] = height[d];
@@ -389,7 +389,6 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
   SCM s = ly_assoc_get (ly_symbol2scm ("lengths"), details, SCM_EOL);
   if (scm_is_pair (s))
     length = 2 * scm_to_double (robust_list_ref (durlog - 2, s));
-
 
   /* Stems in unnatural (forced) direction should be shortened,
      according to [Roush & Gourlay] */
@@ -631,7 +630,7 @@ Stem::height (SCM smob)
   return ly_interval2scm (internal_height (me, true));
 }
 
-Grob*
+Grob *
 Stem::get_reference_head (Grob *me)
 {
   return to_boolean (me->get_property ("avoid-note-head"))
@@ -677,14 +676,14 @@ Stem::internal_height (Grob *me, bool calc_beam)
                                0.0);
 
   Real y2 = dir * robust_scm2double ((calc_beam
-                                     ? me->get_property ("length")
-                                     : me->get_pure_property ("length", 0, INT_MAX)),
-                                      0.0)
-                + y1;
+                                      ? me->get_property ("length")
+                                      : me->get_pure_property ("length", 0, INT_MAX)),
+                                     0.0)
+            + y1;
 
   Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
 
-  Interval stem_y  = Interval (min (y1, y2), max (y2, y1)) * half_space;
+  Interval stem_y = Interval (min (y1, y2), max (y2, y1)) * half_space;
 
   return stem_y;
 }
@@ -798,7 +797,7 @@ Stem::print (SCM smob)
 
   Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
 
-  Interval stem_y  = Interval (min (y1, y2), max (y2, y1)) * half_space;
+  Interval stem_y = Interval (min (y1, y2), max (y2, y1)) * half_space;
 
   stem_y[dir] -= beam_end_corrective (me);
 
@@ -851,8 +850,8 @@ Stem::offset_callback (SCM smob)
       /* If not centered: correct for stem thickness.  */
       string style = robust_symbol2string (f->get_property ("style"), "default");
       if (attach && style != "mensural"
-                 && style != "neomensural"
-                 && style != "petrucci")
+          && style != "neomensural"
+          && style != "petrucci")
         {
           Real rule_thick = thickness (me);
           r += -d * rule_thick * 0.5;
@@ -1047,7 +1046,7 @@ Stem::calc_cross_staff (SCM smob)
   return scm_from_bool (is_cross_staff (unsmob_grob (smob)));
 }
 
-Grob*
+Grob *
 Stem::flag (Grob *me)
 {
   return unsmob_grob (me->get_object ("flag"));

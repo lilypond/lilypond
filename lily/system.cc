@@ -336,7 +336,7 @@ System::num_footnotes ()
 bool
 grob_2D_less (Grob *g1, Grob *g2)
 {
-  int sri[] = {0,0};
+  int sri[] = {0, 0};
   Grob *gs[] = {g1, g2};
 
   for (int i = 0; i < 2; i++)
@@ -357,7 +357,7 @@ grob_2D_less (Grob *g1, Grob *g2)
   if (sri[0] == sri[1])
     return Grob::vertical_less (gs[0], gs[1]);
 
- return sri[0] < sri[1];
+  return sri[0] < sri[1];
 }
 
 MAKE_SCHEME_CALLBACK (System, footnotes_before_line_breaking, 1);
@@ -605,7 +605,7 @@ System::get_paper_system ()
   pl->set_property ("page-break-penalty", right_bound->get_property ("page-break-penalty"));
   pl->set_property ("page-turn-penalty", right_bound->get_property ("page-turn-penalty"));
 
-  if (right_bound->original () == dynamic_cast<System*> (original ())->get_bound (RIGHT))
+  if (right_bound->original () == dynamic_cast<System *> (original ())->get_bound (RIGHT))
     pl->set_property ("last-in-score", SCM_BOOL_T);
 
   Interval staff_refpoints;
@@ -984,7 +984,8 @@ System::get_maybe_pure_bound (Direction d, bool pure, int start, int end)
   return pure ? get_pure_bound (d, start, end) : get_bound (d);
 }
 
-enum {
+enum
+{
   SPACEABLE_STAVES,
   NONSPACEABLE_STAVES,
   ALL_STAVES
@@ -993,7 +994,7 @@ enum {
 static SCM
 get_maybe_spaceable_staves (SCM smob, int filter)
 {
-  System *me = dynamic_cast<System*> (unsmob_grob (smob));
+  System *me = dynamic_cast<System *> (unsmob_grob (smob));
   Grob *align = me->get_vertical_alignment ();
   SCM ret = SCM_EOL;
 
@@ -1005,10 +1006,10 @@ get_maybe_spaceable_staves (SCM smob, int filter)
       for (vsize i = 0; i < staves.size (); ++i)
         {
           bool spaceable = Page_layout_problem::is_spaceable (staves[i]);
-          if (staves[i]->is_live () &&
-              ((filter == ALL_STAVES)
-               || (filter == SPACEABLE_STAVES && spaceable)
-               || (filter == NONSPACEABLE_STAVES && !spaceable)))
+          if (staves[i]->is_live ()
+              && ((filter == ALL_STAVES)
+                  || (filter == SPACEABLE_STAVES && spaceable)
+                  || (filter == NONSPACEABLE_STAVES && !spaceable)))
             {
               *tail = scm_cons (staves[i]->self_scm (), SCM_EOL);
               tail = SCM_CDRLOC (*tail);
@@ -1039,7 +1040,6 @@ System::get_nonspaceable_staves (SCM smob)
 {
   return get_maybe_spaceable_staves (smob, NONSPACEABLE_STAVES);
 }
-
 
 ADD_INTERFACE (System,
                "This is the top-level object: Each object in a score"

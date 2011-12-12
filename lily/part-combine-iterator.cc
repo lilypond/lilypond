@@ -159,7 +159,8 @@ Part_combine_iterator::derived_mark () const
   if (second_iter_)
     scm_gc_mark (second_iter_->self_scm ());
 
-  Stream_event *ptrs[] =
+  Stream_event *ptrs[]
+  =
   {
     unisono_event_,
     mmrest_event_,
@@ -421,7 +422,7 @@ Part_combine_iterator::construct_children ()
 
       if (scm_is_number (direction_))
         execute_pushpop_property (shared, sym,
-				  ly_symbol2scm ("direction"), direction_);
+                                  ly_symbol2scm ("direction"), direction_);
     }
   /* Handle horizontal shifts for crossing notes */
   execute_pushpop_property (one, ly_symbol2scm ("NoteColumn"),

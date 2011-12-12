@@ -169,13 +169,13 @@ internal_brew_primitive (Grob *me)
     case MLP_BREVIS:
       duration_log--;
       suffix = to_string (duration_log) + color
-                      + (duration_log < -1 ? "lig" : "") + "mensural";
+               + (duration_log < -1 ? "lig" : "") + "mensural";
       index = prefix + "s";
       out = fm->find_by_name (index + "r" + suffix);
       if (!out.is_empty ()
           && !Staff_symbol_referencer::on_line
-              (me,
-               robust_scm2int (me->get_property ("staff-position"), 0)))
+          (me,
+           robust_scm2int (me->get_property ("staff-position"), 0)))
         index += "r";
       out = fm->find_by_name (index + suffix);
       break;

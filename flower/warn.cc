@@ -86,7 +86,7 @@ set_loglevel (string level)
         set_loglevel (l);
       else
         {
-          non_fatal_error (_f ("unknown log level `%s', using default (INFO)", 
+          non_fatal_error (_f ("unknown log level `%s', using default (INFO)",
                                level));
           set_loglevel (LOGLEVEL_INFO);
         }
@@ -106,14 +106,14 @@ void expect_warning (string msg)
 
 void check_expected_warnings ()
 {
-  if (expected_warnings.size () > 0) 
+  if (expected_warnings.size () > 0)
     {
       /* Some expected warning was not triggered, so print out a warning. */
-      string msg = _f ("%d expected warning(s) not encountered: ", 
+      string msg = _f ("%d expected warning(s) not encountered: ",
                        expected_warnings.size ());
-      for (vsize i = 0; i< expected_warnings.size (); i++)
-          msg += "\n        " + expected_warnings[i];
-      
+      for (vsize i = 0; i < expected_warnings.size (); i++)
+        msg += "\n        " + expected_warnings[i];
+
       warning (msg);
     }
   expected_warnings.clear ();
@@ -122,22 +122,22 @@ void check_expected_warnings ()
 bool is_expected (string s)
 {
   bool expected = false;
-  for (vsize i = 0; i< expected_warnings.size (); i++)
+  for (vsize i = 0; i < expected_warnings.size (); i++)
     {
       // Compare the msg with the suppressed string; If the beginning matches,
       // i.e. the msg can have additional content AFTER the full (exact)
       // suppressed message, suppress the warning.
       // This is needed for the Input class, where the message contains
       // the input file contents after the real message.
-      if (s.compare (0, expected_warnings[i].size (), expected_warnings[i]) == 0 ) {
-        expected = true;
-        expected_warnings.erase (expected_warnings.begin () + i);
-        break;
-      }
+      if (s.compare (0, expected_warnings[i].size (), expected_warnings[i]) == 0)
+        {
+          expected = true;
+          expected_warnings.erase (expected_warnings.begin () + i);
+          break;
+        }
     }
   return expected;
 }
-
 
 /**
  * Helper functions: print_message_part (no newline prepended)
@@ -171,7 +171,6 @@ print_message (int level, string location, string s, bool newline)
     message_newline = s[s.length () - 1] == '\n';
 }
 
-
 /** The actual output functions to be called in lilypond code.
  *  Sorted in descending order of importance (errors, warnings, progress, info,
  *  debug). Each prints a message on a separate line.
@@ -193,7 +192,7 @@ programming_error (string s, string location)
     print_message (LOG_DEBUG, location, _f ("suppressed programming error: %s", s) + "\n");
   else if (warning_as_error)
     error (s, location);
-  else 
+  else
     {
       print_message (LOG_ERROR, location, _f ("programming error: %s", s) + "\n");
       print_message (LOG_ERROR, location, _ ("continuing, cross fingers") + "\n");
@@ -220,7 +219,7 @@ warning (string s, string location)
     print_message (LOG_DEBUG, location, _f ("suppressed warning: %s", s) + "\n");
   else if (warning_as_error)
     error (s, location);
-  else 
+  else
     print_message (LOG_WARN, location, _f ("warning: %s", s) + "\n");
 }
 
