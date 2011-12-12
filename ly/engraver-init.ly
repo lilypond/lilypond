@@ -585,7 +585,8 @@ automatically when an output definition (a @code{\score} or
 
   defaultBarType = #"|"
   doubleRepeatType = #":|:"
-  barNumberVisibility = #first-bar-number-invisible
+  barNumberVisibility = #first-bar-number-invisible-and-no-parenthesized-bar-numbers
+  barNumberFormatter = #robust-bar-number-function
   automaticBars = ##t
 
   explicitClefVisibility = #all-visible

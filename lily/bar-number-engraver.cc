@@ -84,16 +84,6 @@ Bar_number_engraver::listen_alternative (Stream_event *ev)
     }
 }
 
-int
-int_pow (int n, int i)
-{
-  if (i == 1)
-    return n;
-  if (i <= 0)
-    return 1;
-  return int_pow (n * n, i - 1);
-}
-
 void
 Bar_number_engraver::process_music ()
 {
@@ -102,60 +92,44 @@ Bar_number_engraver::process_music ()
   if (scm_is_string (wb))
     {
       Moment mp (robust_scm2moment (get_property ("measurePosition"), Moment (0)));
-      if (mp.main_part_ == Rational (0))
+      SCM bn = get_property ("currentBarNumber");
+      SCM proc = get_property ("barNumberVisibility");
+      if (scm_is_number (bn) && ly_is_procedure (proc)
+          && to_boolean (scm_call_2 (proc, bn, mp.smobbed_copy ())))
         {
-          SCM bn = get_property ("currentBarNumber");
-          SCM proc = get_property ("barNumberVisibility");
-          if (scm_is_number (bn) && ly_is_procedure (proc)
-              && to_boolean (scm_call_1 (proc, bn)))
+          create_items ();
+          SCM alternative_style = get_property ("alternativeNumberingStyle");
+          string text_tag = "";
+          if (alternative_style == ly_symbol2scm ("numbers-with-letters"))
             {
-              create_items ();
-              SCM alternative_style = get_property ("alternativeNumberingStyle");
-              string text_tag = "";
-              if (alternative_style == ly_symbol2scm ("numbers-with-letters"))
+              if (alternative_event_)
                 {
-                  if (alternative_event_)
+                  Direction alternative_dir = robust_scm2dir (alternative_event_->get_property ("alternative-dir"), RIGHT);
+                  switch (alternative_dir)
                     {
-                      Direction alternative_dir = robust_scm2dir (alternative_event_->get_property ("alternative-dir"), RIGHT);
-                      switch (alternative_dir)
-                        {
-                        case LEFT:
-                          alternative_number_ = 0;
-                          break;
-                        case CENTER:
-                          break;
-                        case RIGHT:
-                          alternative_number_ = INT_MIN;
-                          break;
-                        default:
-                          assert (false);
-                        }
-                      alternative_number_ += alternative_number_increment_;
+                    case LEFT:
+                      alternative_number_ = 0;
+                      break;
+                    case CENTER:
+                      break;
+                    case RIGHT:
+                      alternative_number_ = INT_MIN;
+                      break;
+                    default:
+                      assert (false);
+                    }
+                  alternative_number_ += alternative_number_increment_;
 
-                      alternative_number_increment_ = robust_scm2int (alternative_event_->get_property ("alternative-increment"), 1);
-                    }
-                  if (alternative_number_ >= 0)
-                    {
-                      string alphabet = "abcdefghijklmnopqrstuvwxyz";
-                      int power = 0;
-                      int running_sum = 0;
-                      int scratch = alternative_number_;
-                      while (running_sum <= alternative_number_)
-                        {
-                          power++;
-                          running_sum += int_pow (26, power);
-                        }
-                      scratch += int_pow (26, power) - running_sum;
-                      for (int i = power; i--;)
-                        text_tag += alphabet.at ((scratch / int_pow (26, i)) % 26);
-                    }
+                  alternative_number_increment_ = robust_scm2int (alternative_event_->get_property ("alternative-increment"), 1);
                 }
-              // guh.
-              text_->set_property
-              ("text",
-               scm_string_concatenate (scm_list_2 (scm_number_to_string (bn, scm_from_int (10)),
-                                                   ly_string2scm (text_tag))));
             }
+          SCM formatter = get_property ("barNumberFormatter");
+          if (ly_is_procedure (formatter))
+            text_->set_property ("text", scm_call_4 (formatter,
+                                                     bn,
+                                                     mp.smobbed_copy (),
+                                                     scm_from_int (alternative_number_),
+                                                     context ()->self_scm ()));
         }
     }
 }
@@ -219,6 +193,7 @@ ADD_TRANSLATOR (Bar_number_engraver,
                 "currentBarNumber "
                 "whichBar "
                 "stavesFound "
+                "barNumberFormatter "
                 "barNumberVisibility "
                 "alternativeNumberingStyle ",
 

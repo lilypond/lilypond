@@ -599,10 +599,10 @@ only ~a fret labels provided")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bar numbers
 
-(define-public ((every-nth-bar-number-visible n) barnum)
+(define-public ((every-nth-bar-number-visible n) barnum mp)
   (= 0 (modulo barnum n)))
 
-(define-public ((modulo-bar-number-visible n m) barnum)
+(define-public ((modulo-bar-number-visible n m) barnum mp)
   (and (> barnum 1) (= m (modulo barnum n))))
 
 (define-public ((set-bar-number-visibility n) tr)
@@ -610,9 +610,44 @@ only ~a fret labels provided")
     (ly:context-set-property! tr 'barNumberVisibility
 			      (modulo-bar-number-visible n (modulo bn n)))))
 
-(define-public (first-bar-number-invisible barnum) (> barnum 1))
+(define-public (first-bar-number-invisible barnum mp)
+  (> barnum 1))
 
-(define-public (all-bar-numbers-visible barnum) #t)
+(define-public (first-bar-number-invisible-save-broken-bars barnum mp)
+  (or (> barnum 1)
+      (> (ly:moment-main-numerator mp) 0)))
+
+(define-public (first-bar-number-invisible-and-no-parenthesized-bar-numbers barnum mp)
+  (and (> barnum 1)
+       (= (ly:moment-main-numerator mp) 0)))
+
+(define-public (robust-bar-number-function barnum measure-pos alt-number context)
+  (define (get-number-and-power an pow)
+    (if (<= an alt-number)
+        (get-number-and-power (+ an (expt 26 (1+ pow))) (1+ pow))
+        (cons (+ alt-number (- (expt 26 pow) an)) (1- pow))))
+  (define (make-letter so-far an pow)
+    (if (< pow 0)
+      so-far
+      (let ((pos (modulo (quotient an (expt 26 pow)) 26)))
+        (make-letter (string-append so-far
+                                    (substring "abcdefghijklmnopqrstuvwxyz"
+                                               pos
+                                               (1+ pos)))
+                   an
+                   (1- pow)))))
+  (let* ((number-and-power (get-number-and-power 0 0))
+         (begin-measure (= 0 (ly:moment-main-numerator measure-pos)))
+         (maybe-open-parenthesis (if begin-measure "" "("))
+         (maybe-close-parenthesis (if begin-measure "" ")")))
+    (markup (string-append maybe-open-parenthesis
+                           (number->string barnum)
+                           (make-letter ""
+                                        (car number-and-power)
+                                        (cdr number-and-power))
+                           maybe-close-parenthesis))))
+
+(define-public (all-bar-numbers-visible barnum mp) #t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

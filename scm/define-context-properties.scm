@@ -124,9 +124,12 @@ count if this property is unset.")
 each note.")
      (barCheckSynchronize ,boolean? "If true then reset
 @code{measurePosition} when finding a bar check.")
-     (barNumberVisibility ,procedure? "A Procedure that takes an
-integer and returns whether the corresponding bar number should be
-printed.")
+     (barNumberFormatter ,procedure? "A procedure that takes a bar
+number, measure position, and alternative number and returns a markup
+of the bar number to print.")
+     (barNumberVisibility ,procedure? "A procedure that takes a bar
+number and a measure position and returns whether the corresponding
+bar number should be printed.")
      (baseMoment ,ly:moment? "Smallest unit of time that will stand on its
 own as a subdivided section.")
      (bassFigureFormatFunction ,procedure? "A procedure that is
