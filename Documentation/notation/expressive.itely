@@ -1055,6 +1055,9 @@ Different styles of glissandi can be created.  For details, see
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
+{glissandi-can-skip-grobs.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {contemporary-glissando.ly}
 
 

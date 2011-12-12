@@ -9,6 +9,7 @@ creating-blank-staves.ly
 creating-double-digit-fingerings.ly
 display-bracket-with-only-one-staff-in-a-system.ly
 forcing-measure-width-to-adapt-to-metronomemarks-width.ly
+glissandi-can-skip-grobs.ly
 how-to-print-two-rehearsal-marks-above-and-below-the-same-barline-method-1.ly
 how-to-print-two-rehearsal-marks-above-and-below-the-same-barline-method-2.ly
 incipit.ly
