@@ -163,7 +163,7 @@ stick out of its bounds?")
 @code{#t} means visible, @code{#f} means killed.")
      (breakable ,boolean? "Allow breaks here.")
      (broken-bound-padding ,number? "The amount of padding to insert
-around spanner bounds at a line break.")
+when a spanner is broken at a line break.")
 
 ;;
 ;; c
