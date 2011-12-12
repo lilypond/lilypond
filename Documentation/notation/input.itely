@@ -1042,7 +1042,7 @@ indicator and so footnotes are created during compilation.
 
 Of the two commands used to create automatic footnotes, use
 @code{\autoFootnoteGrob} for individual grobs (i.e. note heads, stems,
-slurs, dynamics including @code{\markup} when using @code{TextScripts});
+slurs, dynamics and @code{\markup} when using @code{TextScripts});
 and @code{\autoFootnote} for annotating chorded notes.
 
 Both commands take three arguments; the @var{Layout Object} to be
@@ -1143,8 +1143,7 @@ required:
 
 There are two commands used to create manual footnotes; @code{\footnote}
 for top-level @code{\markup} and chorded notes; and @code{\footnoteGrob}
-for individual grobs (including @code{\markup} when using
-@code{TextScripts}).
+for individual grobs (and @code{\markup} when using @code{TextScripts}).
 
 When annotating grobs, the @code{\footnote} command takes four
 arguments; the @var{Layout Object} to be annotated, the @var{(x . y)}
