@@ -149,11 +149,12 @@ please read 'Setup for MacOS X' in Application Usage.")
         os.system ("open http://python.org/download/")
         sys.exit (2)
 
-# Modified version of the commands.mkarg(x), which always uses
-# double quotes (since Windows can't handle the single quotes:
+# A modified version of the commands.mkarg(x) that always uses
+# double quotes (since Windows can't handle the single quotes)
+# and escapes the characters \, $, ", and ` for unix shells.
 def mkarg(x):
     if os.name == 'nt':
-        return x
+        return ' "%s"' % x
     s = ' "'
     for c in x:
         if c in '\\$"`':
