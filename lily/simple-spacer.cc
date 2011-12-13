@@ -168,6 +168,12 @@ Simple_spacer::configuration_length (Real force) const
 }
 
 void
+Simple_spacer::set_force (Real force)
+{
+  force_ = force;
+}
+
+void
 Simple_spacer::solve (Real line_len, bool ragged)
 {
   Real conf = configuration_length (force_);

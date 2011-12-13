@@ -601,7 +601,8 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   if (label_page_table == SCM_UNDEFINED)
     label_page_table = SCM_EOL;
 
-  // Build a list of (systems . configuration) pairs. Note that we lay out
+  // Build a list of (systems configuration . footnote-count) triples.
+  // Note that we lay out
   // the staves and find the configurations before drawing anything. Some
   // grobs (like tuplet brackets) look at their neighbours while drawing
   // themselves. If this happens before the neighbouring staves have
@@ -609,6 +610,7 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   // Align_interface::align_to_ideal_distances might be called).
   SCM systems_configs_fncounts = SCM_EOL;
   vsize footnote_count = 0;
+  Real last_page_force = 0;
 
   for (vsize i = 0; i < lines_per_page.size (); i++)
     {
@@ -620,7 +622,19 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
       int fn_lines = Page_layout_problem::get_footnote_count (lines);
       Page_layout_problem::add_footnotes_to_lines (lines, reset_footnotes_on_new_page ? 0 : footnote_count, book_);
 
-      SCM config = get_page_configuration (lines, page_num, rag, bookpart_last_page);
+      SCM config = SCM_EOL;
+      SCM dummy_page = make_page (page_num, bookpart_last_page);
+      Page_layout_problem layout (book_, dummy_page, lines);
+      if (!scm_is_pair (systems))
+        config = SCM_EOL;
+      else if (rag && !ragged ())
+        // If we're ragged-last but not ragged, make the last page
+        // have the same force as the previous page.
+        config = layout.fixed_force_solution (last_page_force);
+      else
+        config = layout.solution (rag);
+
+      last_page_force = layout.force ();
 
       systems_configs_fncounts = scm_cons (scm_cons (lines, config), systems_configs_fncounts);
       footnote_count += fn_lines;

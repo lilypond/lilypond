@@ -40,6 +40,7 @@ public:
   Real configuration_length (Real) const;
   vector<Real> spring_positions () const;
 
+  void set_force (Real force);
   Real force () const;
   Real line_len () const;
   Real force_penalty (bool ragged) const;
