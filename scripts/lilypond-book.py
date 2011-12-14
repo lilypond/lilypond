@@ -143,7 +143,7 @@ def get_option_parser ():
     p.add_option ("-I", '--include', help=_ ("add DIR to include path"),
                   metavar=_ ("DIR"),
                   action='append', dest='include_path',
-                  default=[os.path.abspath (os.getcwd ())])
+                  default=[])
 
     p.add_option ('--info-images-dir',
                   help=_ ("format Texinfo output so that Info will "
@@ -616,8 +616,7 @@ def do_options ():
     (global_options, args) = opt_parser.parse_args ()
 
     global_options.information = {'program_version': ly.program_version, 'program_name': ly.program_name }
-
-    global_options.include_path =  map (os.path.abspath, global_options.include_path)
+    global_options.original_dir = original_dir
 
     # Load the python packages (containing e.g. custom formatter classes)
     # passed on the command line
@@ -667,7 +666,7 @@ def main ():
         if global_options.lily_output_dir:
             # This must be first, so lilypond prefers to read .ly
             # files in the other lybookdb dir.
-            includes = [os.path.abspath(global_options.lily_output_dir)] + includes
+            includes = [global_options.lily_output_dir] + includes
         global_options.process_cmd += ' '.join ([' -I %s' % ly.mkarg (p)
                                                  for p in includes])
 
@@ -713,7 +712,7 @@ def main ():
                      base_file_name + global_options.formatter.default_extension)
 
     os.chdir (original_dir)
-    file (dep_file, 'w').write ('%s: %s'
+    file (dep_file, 'w').write ('%s: %s\n'
                                 % (final_output_file, ' '.join (inputs)))
 
 if __name__ == '__main__':

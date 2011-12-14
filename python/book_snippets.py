@@ -804,7 +804,8 @@ class LilypondFileSnippet (LilypondSnippet):
         LilypondSnippet.__init__ (self, type, match, formatter, line_number, global_options)
         self.filename = self.substring ('filename')
         self.ext = os.path.splitext (os.path.basename (self.filename))[1]
-        self.contents = file (BookBase.find_file (self.filename, global_options.include_path)).read ()
+        self.contents = file (BookBase.find_file (self.filename,
+            global_options.include_path, global_options.original_dir)).read ()
 
     def get_snippet_code (self):
         return self.contents;
