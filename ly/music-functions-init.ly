@@ -763,10 +763,16 @@ Example:
 			 (and (not (null? origins)) (car origins)))))))
      ;;
      ;; first, split the music and fill in voices
-     (for-each (lambda (m)
-		     (push-music m)
-		     (if (bar-check? m) (change-voice)))
-		   (ly:music-property music 'elements))
+     ;; We flatten direct layers of SequentialMusic since they are
+     ;; pretty much impossible to avoid when writing music functions.
+     (let rec ((music music))
+       (for-each (lambda (m)
+		   (if (eq? (ly:music-property m 'name) 'SequentialMusic)
+		       (rec m)
+		       (begin
+			 (push-music m)
+			 (if (bar-check? m) (change-voice)))))
+		 (ly:music-property music 'elements)))
      (if (not (null? current-sequence)) (change-voice))
      ;; un-circularize `voices' and reorder the voices
      (set! voices (map-in-order (lambda (dummy seqs)
