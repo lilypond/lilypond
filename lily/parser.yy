@@ -820,7 +820,7 @@ context_def_spec_body:
 				td->add_context_mod (scm_car (p));
 			}
 		} else {
-			PARSER->parser_error (@2, "context-mod expected");
+			PARSER->parser_error (@2, _ ("not a context mod"));
 		}
 	}
 	| context_def_spec_body context_mod {
@@ -1186,7 +1186,7 @@ context_modification:
 		if (unsmob_context_mod ($2))
 			$$ = $2;
 		else {
-			PARSER->parser_error (@2, "context-mod expected");
+			PARSER->parser_error (@2, _ ("not a context mod"));
 			$$ = Context_mod ().smobbed_copy ();
 		}
 	}
@@ -1213,6 +1213,13 @@ context_mod_list:
                  Context_mod *md = unsmob_context_mod ($2);
                  if (md)
                      unsmob_context_mod ($1)->add_context_mods (md->get_mods ());
+        }
+	| context_mod_list embedded_scm {
+		Context_mod *md = unsmob_context_mod ($2);
+		if (md)
+			unsmob_context_mod ($1)->add_context_mods (md->get_mods ());
+		else
+			PARSER->parser_error (@2, _ ("not a context mod"));
         }
         ;
 
@@ -3012,7 +3019,7 @@ markup_scm:
 		else if (Text_interface::is_markup_list ($1))
 			MYBACKUP (MARKUPLIST_IDENTIFIER, $1, @1);
 		else {
-			PARSER->parser_error (@1, _("markup expected"));
+			PARSER->parser_error (@1, _ ("not a markup"));
 			MYBACKUP (MARKUP_IDENTIFIER, scm_string (SCM_EOL), @1);
 		}
 	} BACKUP
