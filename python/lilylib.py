@@ -115,10 +115,12 @@ def is_verbose ():
 def stderr_write (s):
     encoded_write (sys.stderr, s)
 
-def print_logmessage (level, s, fullmessage = True):
+def print_logmessage (level, s, fullmessage = True, newline = True):
     if (is_loglevel (level)):
         if fullmessage:
             stderr_write (program_name + ": " + s + '\n')
+        elif newline:
+            stderr_write (s + '\n')
         else:
             stderr_write (s)
 
@@ -131,11 +133,11 @@ def warning (s):
 def basic_progress (s):
     print_logmessage ("BASIC", s);
 
-def progress (s, fullmessage = False):
-    print_logmessage ("PROGRESS", s, fullmessage);
+def progress (s, fullmessage = False, newline = True):
+    print_logmessage ("PROGRESS", s, fullmessage, newline);
 
-def debug_output (s, fullmessage = False):
-    print_logmessage ("DEBUG", s, fullmessage);
+def debug_output (s, fullmessage = False, newline = True):
+    print_logmessage ("DEBUG", s, fullmessage, newline);
 
 
 
@@ -179,7 +181,7 @@ def subprocess_system (cmd,
     error_log_file = ''
 
     if redirect_output:
-        progress (_ ("Processing %s.ly \n") % log_file)
+        progress (_ ("Processing %s.ly") % log_file)
     else:
         if be_verbose:
             show_progress = 1

@@ -181,16 +181,18 @@ tuple (LAST,STR), with the last successful conversion and the resulting
 string."""
     conv_list = get_conversions (from_version, to_version)
 
-    ly.progress (_ ("Applying conversion: "))
+    ly.progress (_ ("Applying conversion: "), newline = False)
 
     last_conversion = ()
     try:
         if not conv_list:
             last_conversion = to_version
         for x in conv_list:
-            ly.progress (tup_to_str (x[0]))
             if x != conv_list[-1]:
-                ly.progress (', ')
+                ly.progress (tup_to_str (x[0]), newline = False)
+                ly.progress (', ', newline = False)
+            else:
+                ly.progress (tup_to_str (x[0]))
             str = x[1] (str)
             last_conversion = x[0]
 
@@ -344,6 +346,5 @@ def main ():
                          "Valid version strings consist of three numbers, "
                          "separated by dots, e.g. `2.8.12'") % (f, v.version) )
 
-    ly.progress ('\n')
 
 main ()
