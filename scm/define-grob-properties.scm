@@ -174,8 +174,13 @@ hairpins (al/@/del niente).")
 edges of beams?")
      (collapse-height ,ly:dimension? "Minimum height of system start
 delimiter.  If equal or smaller, the bracket/@/brace/@/line is removed.")
+     (collision-bias ,number? "Number determining how much to favor the
+left (negative) or right (positive).  Larger absolute values in either
+direction will push a collision in this direction.")
      (collision-interfaces ,list? "A list of interfaces for which
 automatic beam-collision resolution is run.")
+     (collision-padding ,number? "Amount of padding to apply after
+a collision is detected via the self-alignment-interface.")
      (collision-voice-only ,boolean? "Does automatic beam collsion apply
 only to the voice in which the beam was created?")
      (color ,color? "The color of this grob.")
@@ -1070,6 +1075,8 @@ pure-from-neighbor-interface to determine various grob heights.")
      (note-heads ,ly:grob-array? "An array of note head grobs.")
      (pedal-text ,ly:grob? "A pointer to the text of a mixed-style piano
 pedal.")
+     (potential-X-colliding-grobs ,ly:grob-array? "Grobs that can potentially
+collide with a self-aligned grob on the X-axis.")
      (pure-relevant-grobs ,ly:grob-array? "All the grobs (items and spanners)
 that are relevant for finding the @code{pure-Y-extent}")
      (pure-relevant-items ,ly:grob-array? "A subset of elements that are
@@ -1110,6 +1117,10 @@ results, use @code{LEFT} and @code{RIGHT}.")
      (tremolo-flag ,ly:grob? "The tremolo object on a stem.")
      (tuplet-number ,ly:grob? "The number for a bracket.")
      (tuplets ,ly:grob-array? "An array of smaller tuplet brackets.")
+     (X-colliding-grobs ,ly:grob-array? "Grobs that can collide
+with a self-aligned grob on the X-axis.")
+     (Y-colliding-grobs ,ly:grob-array? "Grobs that can collide
+with a self-aligned grob on the Y-axis.")
      (X-common ,ly:grob? "Common reference point for axis group.")
      (Y-common ,ly:grob? "See @code{X-common}.")
 

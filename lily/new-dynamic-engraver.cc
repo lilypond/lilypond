@@ -260,6 +260,7 @@ New_dynamic_engraver::acknowledge_note_column (Grob_info info)
   if (script_ && !script_->get_parent (X_AXIS))
     {
       extract_grob_set (info.grob (), "note-heads", heads);
+      Grob *stem = unsmob_grob (info.grob ()->get_object ("stem"));
       /*
         Spacing constraints may require dynamics to be aligned on rests,
         so check for a rest if this note column has no note heads.
@@ -271,7 +272,10 @@ New_dynamic_engraver::acknowledge_note_column (Grob_info info)
         {
           script_->set_parent (x_parent, X_AXIS);
           Self_alignment_interface::set_center_parent (script_, X_AXIS);
+          Self_alignment_interface::avoid_x_collisions (script_);
         }
+      if (stem)
+        Pointer_group_interface::add_grob (script_, ly_symbol2scm ("potential-X-colliding-grobs"), stem);
     }
 
   if (current_spanner_ && !current_spanner_->get_bound (LEFT))

@@ -33,6 +33,7 @@ using namespace std;
 #include "grob-array.hh"
 #include "item.hh"
 #include "international.hh"
+#include "interval-minefield.hh"
 #include "least-squares.hh"
 #include "libc-extension.hh"
 #include "main.hh"
@@ -811,42 +812,14 @@ Beam_scoring_problem::shift_region_to_valid ()
     }
 
   vector_sort (forbidden_intervals, Interval::left_less);
-  Real epsilon = 1.0e-10;
   Real beam_left_y = unquanted_y_[LEFT];
   Interval feasible_beam_placements (beam_left_y, beam_left_y);
 
-  /*
-    forbidden_intervals contains a vector of intervals in which
-    the beam cannot start.  it iterates through these intervals,
-    pushing feasible_beam_placements epsilon over or epsilon under a
-    collision.  when this type of change happens, the loop is marked
-    as "dirty" and re-iterated.
-
-    TODO: figure out a faster ways that this loop can happen via
-    a better search algorithm and/or OOP.
-  */
-
-  bool dirty = false;
-  do
-    {
-      dirty = false;
-      for (vsize i = 0; i < forbidden_intervals.size (); i++)
-        {
-          Direction d = DOWN;
-          do
-            {
-              if (forbidden_intervals[i][d] == d * infinity_f)
-                feasible_beam_placements[d] = d * infinity_f;
-              else if (forbidden_intervals[i].contains (feasible_beam_placements[d]))
-                {
-                  feasible_beam_placements[d] = d * epsilon + forbidden_intervals[i][d];
-                  dirty = true;
-                }
-            }
-          while (flip (&d) != DOWN);
-        }
-    }
-  while (dirty);
+  Interval_minefield minefield (feasible_beam_placements, 0.0);
+  for (vsize i = 0; i < forbidden_intervals.size (); i++)
+    minefield.add_forbidden_interval (forbidden_intervals[i]);
+  minefield.solve ();
+  feasible_beam_placements = minefield.feasible_placements ();
 
   // if the beam placement falls out of the feasible region, we push it
   // to infinity so that it can never be a feasible candidate below

@@ -766,6 +766,8 @@
 
 	;; todo.
 
+	(collision-bias . -2.0)
+	(collision-padding . 0.5)
 	(direction . ,ly:script-interface::calc-direction)
 	(extra-spacing-width . (+inf.0 . -inf.0))
 	(font-encoding . fetaText)
@@ -780,6 +782,7 @@
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(Y-offset . ,ly:self-alignment-interface::y-aligned-on-self)
 	(meta . ((class . Item)
+		 (object-callbacks . ((X-colliding-grobs . ,ly:self-alignment-interface::x-colliding-grobs)))
 		 (interfaces . (dynamic-interface
 				dynamic-text-interface
 				font-interface

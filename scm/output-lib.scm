@@ -58,7 +58,6 @@
 
     (ly:text-interface::interpret-markup layout props text)))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; beam slope
 

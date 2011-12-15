@@ -19,8 +19,12 @@
 
 #include "self-alignment-interface.hh"
 
+#include "directional-element-interface.hh"
 #include "grob.hh"
+#include "grob-array.hh"
+#include "interval-minefield.hh"
 #include "paper-column.hh"
+#include "pointer-group-interface.hh"
 #include "warn.hh"
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, y_aligned_on_self, 1);
@@ -134,12 +138,81 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
   return scm_from_double (x);
 }
 
+MAKE_SCHEME_CALLBACK (Self_alignment_interface, avoid_x_colliding_grobs, 2);
+SCM
+Self_alignment_interface::avoid_x_colliding_grobs (SCM smob, SCM o)
+{
+  SCM avoided = avoid_colliding_grobs (unsmob_grob (smob), X_AXIS, robust_scm2double (o, 0.0));
+  return scm_is_null (avoided) ? o : avoided;
+}
+
+MAKE_SCHEME_CALLBACK (Self_alignment_interface, x_colliding_grobs, 1);
+SCM
+Self_alignment_interface::x_colliding_grobs (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  extract_grob_set (me, "potential-X-colliding-grobs", pot);
+  vector<Grob *> act;
+  Direction d = get_grob_direction (me->get_parent (Y_AXIS));
+  for (vsize i = 0; i < pot.size (); i++)
+    if (d == get_grob_direction (pot[i])
+        && to_boolean (pot[i]->get_property ("cross-staff")))
+      act.push_back (pot[i]);
+
+  SCM grobs_scm = Grob_array::make_array ();
+  unsmob_grob_array (grobs_scm)->set_array (act);
+
+  return grobs_scm;
+}
+
+SCM
+Self_alignment_interface::avoid_colliding_grobs (Grob *me, Axis a, Real offset)
+{
+  extract_grob_set (me, a == X_AXIS ? "X-colliding-grobs" : "Y-colliding-grobs", colls);
+  if (!colls.size ())
+    return SCM_EOL;
+  vector<Interval> ivs;
+
+  Item *refp = dynamic_cast<Item *> (common_refpoint_of_array (colls, me, a));
+  if (!refp)
+    return SCM_EOL;
+
+  Interval iv = me->extent (me, a) + offset;
+  for (vsize i = 0; i < colls.size (); i++)
+    ivs.push_back (colls[i]->extent (refp, a));
+
+  Interval_minefield minefield (Interval (iv.center (), iv.center ()), iv.length ());
+  for (vsize i = 0; i < ivs.size (); i++)
+    minefield.add_forbidden_interval (ivs[i]);
+  minefield.solve ();
+  Interval pos = minefield.feasible_placements ();
+
+  if (pos[LEFT] == pos[RIGHT])
+    return SCM_EOL;
+
+  Direction col_dir = ((abs (pos[LEFT] - iv.center ())
+                        + robust_scm2double (me->get_property ("collision-bias"), 0.0))
+                       > abs (pos[RIGHT] - iv.center ()))
+                      ? RIGHT
+                      : LEFT;
+
+  return scm_from_double ((pos[col_dir] - (iv.length () / 2)
+                          + col_dir
+                          * robust_scm2double (me->get_property ("collision-padding"), 0.0)));
+}
+
 void
 Self_alignment_interface::set_center_parent (Grob *me, Axis a)
 {
   add_offset_callback (me,
                        (a == X_AXIS) ? centered_on_x_parent_proc : centered_on_y_parent_proc,
                        a);
+}
+
+void
+Self_alignment_interface::avoid_x_collisions (Grob *me)
+{
+  chain_offset_callback (me, avoid_x_colliding_grobs_proc, X_AXIS);
 }
 
 void
@@ -165,6 +238,11 @@ ADD_INTERFACE (Self_alignment_interface,
                "@end table\n",
 
                /* properties */
+               "collision-bias "
+               "collision-padding "
+               "potential-X-colliding-grobs "
                "self-alignment-X "
                "self-alignment-Y "
+               "X-colliding-grobs "
+               "Y-colliding-grobs "
               );
