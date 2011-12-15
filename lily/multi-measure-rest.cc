@@ -19,6 +19,7 @@
 
 #include "multi-measure-rest.hh"
 
+#include "duration.hh"
 #include "font-interface.hh"
 #include "international.hh"
 #include "lookup.hh"
@@ -29,6 +30,7 @@
 #include "percent-repeat-item.hh"
 #include "rest.hh"
 #include "separation-item.hh"
+#include "spacing-options.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "system.hh"
@@ -116,7 +118,7 @@ Multi_measure_rest::print (SCM smob)
 }
 
 int
-calc_closest_duration_log (Grob *me, double duration, bool force_round_up)
+calc_closest_duration_log (Grob *me, double duration, bool force_round_up, bool paranoid)
 {
   bool round_up = force_round_up
                   || to_boolean (me->get_property ("round-up-to-longer-rest"));
@@ -131,8 +133,9 @@ calc_closest_duration_log (Grob *me, double duration, bool force_round_up)
   int maximum_usable_duration_log = 15;
 
   SCM duration_logs_list = me->get_property ("usable-duration-logs");
-  if (to_boolean (scm_null_p (duration_logs_list))
-      || !to_boolean (scm_list_p (duration_logs_list)))
+  if (paranoid
+      && (to_boolean (scm_null_p (duration_logs_list))
+          || !to_boolean (scm_list_p (duration_logs_list))))
     {
       warning (_ ("usable-duration-logs must be a non-empty list.  Falling back to whole rests."));
       closest_usable_duration_log = 0;
@@ -169,7 +172,7 @@ calc_closest_duration_log (Grob *me, double duration, bool force_round_up)
 }
 
 int
-calc_measure_duration_log (Grob *me)
+calc_measure_duration_log (Grob *me, bool paranoid)
 {
   SCM sml = dynamic_cast<Spanner *> (me)->get_bound (LEFT)
             ->get_property ("measure-length");
@@ -179,7 +182,8 @@ calc_measure_duration_log (Grob *me)
   bool force_round_up = to_boolean (scm_list_p (scm_member (scm_cons (scm_from_int64 (ml.numerator ()),
                                                             scm_from_int64 (ml.denominator ())),
                                                             me->get_property ("round-up-exceptions"))));
-  return calc_closest_duration_log (me, measure_duration, force_round_up);
+
+  return calc_closest_duration_log (me, measure_duration, force_round_up, paranoid);
 }
 
 Stencil
@@ -204,7 +208,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   Font_metric *musfont = Font_interface::get_default_font (me);
-  int mdl = calc_measure_duration_log (me);
+  int mdl = calc_measure_duration_log (me, true);
 
   if (measure_count == 1)
     {
@@ -257,11 +261,11 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
   SCM mols = SCM_EOL;
   int symbol_count = 0;
   Real symbols_width = 0.0;
-  double total_duration = measure_count * pow (2.0, -calc_measure_duration_log (me));
+  double total_duration = measure_count * pow (2.0, -calc_measure_duration_log (me, true));
 
   while (total_duration > 0)
     {
-      int dl = calc_closest_duration_log (me, total_duration, false);
+      int dl = calc_closest_duration_log (me, total_duration, false, true);
       double duration = pow (2.0, -dl);
 
       total_duration -= duration;
@@ -314,6 +318,20 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
   Item *ri = sp->get_bound (RIGHT)->get_column ();
   Item *lb = li->find_prebroken_piece (RIGHT);
   Item *rb = ri->find_prebroken_piece (LEFT);
+  Grob *spacing = unsmob_grob (li->get_object ("spacing"));
+  if (!spacing)
+    spacing = unsmob_grob (ri->get_object ("spacing"));
+  if (!spacing)
+    me->warning ("Using naive multi measure rest spacing.");
+  else
+    {
+      Spacing_options options;
+      options.init_from_grob (me);
+      int dl = calc_measure_duration_log (me, false);
+      Duration dur = Duration (dl, 0);
+      Rational rat = dur.get_length ();
+      length = max (length, options.get_duration_space (rat));
+    }
 
   Item *combinations[4][2] = {{li, ri},
     {lb, ri},
