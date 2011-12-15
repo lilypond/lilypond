@@ -60,13 +60,13 @@ Interval_set::remove_interval (Interval rm)
 
           if (!before.is_empty () && before.length () > 0.0)
             {
-              allowed_regions_.insert (allowed_regions_.begin () + i, before);
+              allowed_regions_.insert (allowed_regions_.begin () + (long)i, before);
               i++;
             }
-          allowed_regions_.erase (allowed_regions_.begin () + i);
+          allowed_regions_.erase (allowed_regions_.begin () + (long)i);
           if (!after.is_empty () && after.length () > 0.0)
             {
-              allowed_regions_.insert (allowed_regions_.begin () + i, after);
+              allowed_regions_.insert (allowed_regions_.begin () + (long)i, after);
               i++;
             }
         }
