@@ -93,7 +93,7 @@ Memory_out_stream::writer (void *cookie,
 {
   Memory_out_stream *stream = (Memory_out_stream *) cookie;
 
-  ssize_t newsize = stream->size_ + size;
+  ssize_t newsize = stream->size_ + (ssize_t) size;
 
   bool change = false;
   while (newsize > stream->buffer_blocks_ * block_size_)
@@ -105,12 +105,12 @@ Memory_out_stream::writer (void *cookie,
 
   if (change)
     stream->buffer_ = (char *) realloc (stream->buffer_,
-                                        stream->buffer_blocks_ * block_size_);
+                                        (size_t) (stream->buffer_blocks_ * block_size_));
 
   memcpy (stream->buffer_ + stream->size_, buffer, size);
   stream->size_ = newsize;
 
-  return size;
+  return (ssize_t) size;
 }
 
 ssize_t
