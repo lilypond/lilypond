@@ -88,7 +88,7 @@ Commit, push, switch back to master:
 
 @example
 git commit -m "Release: update news." Documentation/web/
-git push origin
+git push origin release/unstable
 @end example
 
 @item
