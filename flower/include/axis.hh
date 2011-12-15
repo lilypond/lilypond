@@ -21,7 +21,6 @@
 #define AXES_HH
 
 #include <cassert>
-using namespace std;
 
 enum Axis
 {
