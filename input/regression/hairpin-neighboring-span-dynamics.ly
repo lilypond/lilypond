@@ -1,7 +1,7 @@
 \version "2.14.0"
 
 \header {
-  texidoc = "Bound padding for hairpins also works with neighboring
+  texidoc = "Bound padding for hairpins also applies before following
 @code{DynamicTextSpanner} grobs.  In this case, @code{bound-padding}
 is not scaled down.
 "

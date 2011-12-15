@@ -220,9 +220,9 @@ Hairpin::print (SCM smob)
                       else
                         x_points[d] = e.center () - d * padding / 3;
                     }
-                  // Our neighbor is a dynamic text spanner, so add the
-                  // same amount of padding as for text dynamics
-                  else
+                  // Our neighbor is a dynamic text spanner.
+                  // If we end on the text, pad as for text dynamics
+                  else if (d == RIGHT)
                     x_points[d] = e[-d] - d * padding;
                 }
               else
