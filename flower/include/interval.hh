@@ -31,7 +31,7 @@
 template<class T>
 struct Interval_t : public Drul_array<T>
 {
-  Drul_array<T>::at;
+  using Drul_array<T>::at;
 
   static T infinity ();
   static string T_to_string (T arg);
