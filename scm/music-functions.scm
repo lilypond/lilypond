@@ -206,13 +206,9 @@ equivalent to @var{obj}, that is, for a music expression, a
 (use-modules (ice-9 pretty-print))
 (define*-public (display-scheme-music obj #:optional (port (current-output-port)))
   "Displays `obj', typically a music expression, in a friendly fashion,
-which often can be read back in order to generate an equivalent expression.
-
-Returns `obj'.
-"
+which often can be read back in order to generate an equivalent expression."
   (pretty-print (music->make-music obj) port)
-  (newline)
-  obj)
+  (newline port))
 
 ;;;
 ;;; Scheme music expression --> Lily-syntax-using string translator
