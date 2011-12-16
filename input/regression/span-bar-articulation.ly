@@ -1,4 +1,4 @@
-\version "2.15.22"
+\version "2.15.23"
 
 \header {
   texidoc = "Articulations on cross-staff stems do not collide with
