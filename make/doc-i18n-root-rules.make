@@ -4,20 +4,21 @@
 # Explicitly list the dependencies on generated content
 $(outdir)/web.texi: $(outdir)/weblinks.itexi
 
-$(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map $(TRANSLATION_LILY_IMAGES)
+$(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html: $(outdir)/%/index.html $(TRANSLATION_LILY_IMAGES)
 	mkdir -p $(dir $@)
-	mkdir -p $(outdir)/$*
-	$(buildscript-dir)/run-and-check "DEPTH=$(depth)/../ $(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) --output=$(outdir)/$* $<" "$*.splittexi.log"
 	find $(outdir)/$* -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(outdir)/!!g' | xargs $(buildscript-dir)/mass-link --prepend-suffix .$(ISOLANG) hard $(outdir) $(top-build-dir)/Documentation/$(outdir)
 
-$(top-build-dir)/Documentation/$(outdir)/%-big-page.$(ISOLANG).html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map $(TRANSLATION_LILY_IMAGES)
-	$(buildscript-dir)/run-and-check "DEPTH=$(depth) $(TEXI2HTML) -D bigpage $(TEXI2HTML_FLAGS) --output=$@ $<" "$*.bigtexi.log"
+$(top-build-dir)/Documentation/$(outdir)/%-big-page.$(ISOLANG).html: $(outdir)/%-big-page.html $(TRANSLATION_LILY_IMAGES)
+	mkdir -p $(dir $@)
+	cp -f $< $@
 
-$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi
-	$(buildscript-dir)/run-and-check "DEPTH=$(depth) $(TEXI2HTML) $(TEXI2HTML_FLAGS) --output=$@ $<" "$*.texilog"
+$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).html: $(outdir)/%.html
+	mkdir -p $(dir $@)
+	cp -f $< $@
 
-$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf: $(outdir)/%.texi
-	$(buildscript-dir)/run-and-check "cd $(outdir) && texi2pdf $(TEXI2PDF_FLAGS) $(TEXINFO_PAPERSIZE_OPTION) $*.texi && mkdir -p $(dir $@) && mv $*.pdf $@ < /dev/null" "$*.texi2pdf.log"
+$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf: $(outdir)/%.pdf
+	mkdir -p $(dir $@)
+	cp -f $< $@
 
 $(outdir)/version.%: $(top-src-dir)/VERSION
 	$(PYTHON) $(top-src-dir)/scripts/build/create-version-itexi.py > $@
