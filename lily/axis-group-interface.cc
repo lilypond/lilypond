@@ -31,6 +31,7 @@
 #include "separation-item.hh"
 #include "skyline-pair.hh"
 #include "staff-grouper-interface.hh"
+#include "stem.hh"
 #include "stencil.hh"
 #include "system.hh"
 #include "warn.hh"
@@ -326,7 +327,8 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
       Interval_t<int> rank_span = g->spanned_rank_interval ();
       if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start
           && g->pure_is_visible (start, end)
-          && !to_boolean (g->get_property ("cross-staff")))
+          && !(to_boolean (g->get_property ("cross-staff"))
+               && Stem::has_interface (g)))
         {
           Interval dims = g->pure_height (common, start, end);
           if (!dims.is_empty ())
