@@ -753,6 +753,36 @@ System::get_extremal_staff (Direction dir, Interval const &iv)
   return 0;
 }
 
+// Finds the neighboring staff in the given direction over bounds
+Grob *
+System::get_neighboring_staff (Direction dir, Grob *vertical_axis_group, Interval_t<int> bounds)
+{
+  Grob *align = get_vertical_alignment ();
+  if (!align)
+    return 0;
+
+  extract_grob_set (align, "elements", elts);
+  vsize start = (dir == UP) ? 0 : elts.size () - 1;
+  vsize end = (dir == UP) ? elts.size () : VPOS;
+
+  Grob *out = 0;
+
+  for (vsize i = start; i != end; i += dir)
+    {
+      if (elts[i] == vertical_axis_group)
+        return out;
+
+      if (Hara_kiri_group_spanner::has_interface (elts[i]))
+        Hara_kiri_group_spanner::consider_suicide (elts[i]);
+
+      bounds.intersect (elts[i]->spanned_rank_interval ());
+      if (elts[i]->is_live () && !bounds.is_empty ())
+        out = elts[i];
+    }
+
+  return 0;
+}
+
 vector<Simple_spacer>
 System::get_simple_spacers (Real line_len, Real indent, bool ragged)
 {

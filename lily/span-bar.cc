@@ -222,8 +222,8 @@ Span_bar::notify_grobs_of_my_existence (Grob *me)
   vector_sort (sortable, Grob::vertical_less);
   for (vsize i = 0; i < sortable.size (); i++)
     sortable[i]->set_property ("has-span-bar",
-                               scm_cons (scm_from_bool (i != 0),
-                                         scm_from_bool (i != sortable.size () - 1)));
+                               scm_cons (i != sortable.size () - 1 ? me->self_scm () : scm_from_bool (false),
+                                         i != 0 ? me->self_scm () : scm_from_bool (false)));
 }
 
 Interval

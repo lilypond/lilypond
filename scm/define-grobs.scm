@@ -1023,6 +1023,7 @@
      . (
 	(after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
 	(bound-padding . 1.0)
+	(broken-bound-padding . ,ly:hairpin::broken-bound-padding)
 	(circled-tip . #f)
 	(grow-direction . ,hairpin::calc-grow-direction)
 	(height . 0.6666)

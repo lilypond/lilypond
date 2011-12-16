@@ -162,6 +162,8 @@ stick out of its bounds?")
 @code{#(@var{end-of-line} @var{unbroken} @var{begin-of-line})}.
 @code{#t} means visible, @code{#f} means killed.")
      (breakable ,boolean? "Allow breaks here.")
+     (broken-bound-padding ,number? "The amount of padding to insert
+around spanner bounds at a line break.")
 
 ;;
 ;; c
@@ -1018,6 +1020,7 @@ bounds are spaced.")
 
      (columns ,ly:grob-array? "An array of grobs, typically containing
 @code{PaperColumn} or @code{NoteColumn} objects.")
+     (concurrent-hairpins ,ly:grob-array? "All concurrent hairpins.")
      (conditional-elements ,ly:grob-array? "Internal use only.")
      (covered-grobs ,ly:grob-array? "Grobs that could potentially collide
 with a beam.")
@@ -1047,8 +1050,9 @@ for a full score's worth of grobs.")
 column.")
      (grace-spacing ,ly:grob? "A run of grace notes.")
 
-     (has-span-bar ,pair? "A pair of booleans indicating whether a a span bar
-is drawn above, or respectively below, this staff.")
+     (has-span-bar ,pair? "A pair of grobs containing the span bars to
+be drawn below and above the staff.  If no span bar is in a position,
+the respective element is set to @code{#f}.")
      (heads ,ly:grob-array? "An array of note heads.")
 
      (items-worth-living ,ly:grob-array? "An array of interesting items.  If
@@ -1176,6 +1180,7 @@ cyclic dependencies.")
 to be within staff spaces.")
      (quantized-positions ,number-pair? "The beam positions after
 quanting.")
+
 
      (script-stencil ,pair? "A pair @code{(@var{type} . @var{arg})} which
 acts as an index for looking up a @code{Stencil} object.")

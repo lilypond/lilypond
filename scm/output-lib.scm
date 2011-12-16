@@ -409,10 +409,10 @@ and duration-log @var{log}."
          (hsb (ly:grob-property grob 'has-span-bar))
          (ii (interval-intersection esh (cons -1.01 1.01))))
     (if (pair? hsb)
-        (cons (car (if (and (cdr hsb)
+        (cons (car (if (and (car hsb)
                        (ly:grob-property grob 'allow-span-bar))
                        esh ii))
-              (cdr (if (car hsb) esh ii)))
+              (cdr (if (cdr hsb) esh ii)))
         ii)))
 
 (define-public (pure-from-neighbor-interface::extra-spacing-height-including-staff grob)

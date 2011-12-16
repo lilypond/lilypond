@@ -20,7 +20,9 @@
 #include "hairpin.hh"
 
 #include "axis-group-interface.hh"
+#include "bar-line.hh"
 #include "dimensions.hh"
+#include "directional-element-interface.hh"
 #include "international.hh"
 #include "line-interface.hh"
 #include "output-def.hh"
@@ -30,6 +32,7 @@
 #include "staff-symbol-referencer.hh"
 #include "text-interface.hh"
 #include "note-column.hh"
+#include "system.hh"
 #include "warn.hh"
 
 MAKE_SCHEME_CALLBACK (Hairpin, pure_height, 3);
@@ -45,6 +48,62 @@ Hairpin::pure_height (SCM smob, SCM, SCM)
 
   height += thickness / 2;
   return ly_interval2scm (Interval (-height, height));
+}
+
+MAKE_SCHEME_CALLBACK (Hairpin, broken_bound_padding, 1);
+SCM
+Hairpin::broken_bound_padding (SCM smob)
+{
+  Spanner *me = unsmob_spanner (smob);
+  Item *r_bound = me->get_bound (RIGHT);
+  if (r_bound->break_status_dir () != -1)
+    {
+      me->warning ("Asking for broken bound padding at a non-broken bound.");
+      return scm_from_double (0.0);
+    }
+
+  System *sys = dynamic_cast<System *> (me->get_system ());
+  Direction dir = get_grob_direction (me->get_parent (Y_AXIS));
+  if (!dir)
+    return scm_from_double (0.0);
+
+  Grob *my_vertical_axis_group = Grob::get_vertical_axis_group (me);
+  Drul_array<Grob *> vertical_axis_groups;
+  Direction d = DOWN;
+  do
+    vertical_axis_groups[d] = d == dir
+                              ? sys->get_neighboring_staff (d, my_vertical_axis_group, Interval_t<int> (me->spanned_rank_interval ()))
+                              : my_vertical_axis_group;
+  while (flip (&d) != DOWN);
+
+  if (!vertical_axis_groups[dir])
+    return scm_from_double (0.0);
+
+  Drul_array<Grob *> span_bars (0, 0);
+  d = DOWN;
+  do
+    {
+      extract_grob_set (vertical_axis_groups[d], "elements", elts);
+      for (vsize i = elts.size (); i--;)
+        if (Bar_line::has_interface (elts[i])
+            && dynamic_cast<Item *> (elts[i])->break_status_dir () == -1)
+          {
+            SCM hsb = elts[i]->get_property ("has-span-bar");
+            if (!scm_is_pair (hsb))
+              break;
+
+            span_bars[d] = unsmob_grob ((d == UP ? scm_car : scm_cdr) (hsb));
+            break;
+          }
+      if (!span_bars[d])
+        return scm_from_double (0.0);
+    }
+  while (flip (&d) != DOWN);
+
+  if (span_bars[DOWN] != span_bars[UP])
+    return scm_from_double (0.0);
+
+  return scm_from_double (0.6);
 }
 
 MAKE_SCHEME_CALLBACK (Hairpin, print, 1);
@@ -173,17 +232,33 @@ Hairpin::print (SCM smob)
                     x_points[d] = e[-d];
                   else
                     x_points[d] = e[d];
-
-                  Item *bound = me->get_bound (d);
-                  if (bound->is_non_musical (bound))
-                    x_points[d] -= d * padding;
                 }
             }
         }
     }
   while (flip (&d) != LEFT);
 
+  // here, add padding for barlines that are not at the end of a staff
+  if (Item::is_non_musical (bounds[RIGHT]) && bounds[RIGHT]->break_status_dir () == 0)
+    x_points[RIGHT] -= padding;
+
+  // here, add padding for barlines that are at the end of a staff
+  Real broken_bound_padding = 0.0;
+  if (bounds[RIGHT]->break_status_dir () == -1)
+    {
+      extract_grob_set (me, "concurrent-hairpins", chp);
+      for (vsize i = 0; i < chp.size (); i++)
+        {
+          Spanner *span_elt = dynamic_cast<Spanner *> (chp[i]);
+          if (span_elt->get_bound (RIGHT)->break_status_dir () == -1)
+            broken_bound_padding = max (broken_bound_padding,
+                                         robust_scm2double (span_elt->get_property ("broken-bound-padding"), 0.0));
+        }
+    }
+  x_points[RIGHT] -= broken_bound_padding;
+
   Real width = x_points[RIGHT] - x_points[LEFT];
+
   if (width < 0)
     {
       me->warning (_ ((grow_dir < 0) ? "decrescendo too small"
@@ -262,6 +337,8 @@ ADD_INTERFACE (Hairpin,
                /* properties */
                "adjacent-spanners "
                "circled-tip "
+               "concurrent-hairpins "
+               "broken-bound-padding "
                "bound-padding "
                "grow-direction "
                "height "

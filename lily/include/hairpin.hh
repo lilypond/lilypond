@@ -26,7 +26,9 @@
 struct Hairpin
 {
 public:
+  static Real span_bar_correction (Spanner *me);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (broken_bound_padding, (SCM));
   DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
   DECLARE_GROB_INTERFACE ();
 };
