@@ -134,18 +134,6 @@ $(outdir)/essay.texi: \
   $(outdir)/computer-notation.itexi \
   $(outdir)/engravingbib.itexi
 
-$(outdir)/others-did.itexi:
-	BSTINPUTS=$(src-dir)/web/ $(buildscript-dir)/bib2texi \
-		-s $(top-src-dir)/Documentation/lily-bib \
-		-o $(outdir)/others-did.itexi \
-		$(src-dir)/web/others-did.bib
-
-$(outdir)/we-wrote.itexi:
-	BSTINPUTS=$(src-dir)/web/ $(buildscript-dir)/bib2texi \
-		-s $(top-src-dir)/Documentation/lily-bib \
-		-o $(outdir)/we-wrote.itexi \
-		$(src-dir)/web/we-wrote.bib
-
 
 ###########
 ### Targets

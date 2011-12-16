@@ -40,3 +40,9 @@ $(outdir)/%.html.omf: $(outdir)/%.texi
 
 $(outdir)/%.pdf.omf: $(outdir)/%.texi
 	$(call GENERATE_OMF,pdf)
+
+$(outdir)/others-did.itexi $(outdir)/we-wrote.itexi: $(outdir)/%.itexi: $(top-src-dir)/Documentation/web/%.bib $(top-src-dir)/Documentation/lily-bib.bst
+	BSTINPUTS=$(top-src-dir)/Documentation/web/ $(buildscript-dir)/bib2texi \
+		-s $(top-src-dir)/Documentation/lily-bib \
+		-o $(outdir)/$*.itexi \
+		$(top-src-dir)/Documentation/web/$*.bib
