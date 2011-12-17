@@ -37,10 +37,14 @@ MAKEINFO_FLAGS += --enable-encoding --error-limit=0 $(DOCUMENTATION_INCLUDES)
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
 # texi2html xref map files
-# FIXME: duplicated in stepake/texinfo-vars.make make/doc-i18n-root-vars.make
 XREF_MAPS_DIR = $(top-build-dir)/$(outdir)/xref-maps
+ifneq ($(ISOLANG),)
+XREF_MAPS_FILES += $(TEXI_FILES:%.texi=$(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map) \
+ $(TELY_FILES:%.tely=$(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map)
+else
 XREF_MAPS_FILES += $(TEXI_FILES:%.texi=$(XREF_MAPS_DIR)/%.xref-map) \
  $(TELY_FILES:%.tely=$(XREF_MAPS_DIR)/%.xref-map)
+endif
 XREF_MAP_FLAGS += -I $(outdir) -I $(src-dir) $(DOCUMENTATION_INCLUDES)
 
 ###########

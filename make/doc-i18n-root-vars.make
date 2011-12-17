@@ -34,12 +34,6 @@ LILYPOND_BOOK_INCLUDES += $(DOCUMENTATION_INCLUDES)
 MAKEINFO_FLAGS += --enable-encoding $(DOCUMENTATION_INCLUDES)
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
-# texi2html xref map files
-# FIXME: duplicated in stepake/texinfo-vars.make make/doc-i18n-root-vars.make
-XREF_MAPS_DIR=$(top-build-dir)/$(outdir)/xref-maps
-XREF_MAPS_FILES=$(TEXINFO_MANUALS:%=$(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map)
-XREF_MAP_FLAGS += -I $(outdir) -I $(src-dir) $(DOCUMENTATION_INCLUDES)
-
 WEB_MANUALS=web
 
 ###########
