@@ -53,8 +53,7 @@ def system (c):
         raise Exception ("failed")
     return
 
-def shorten_string (s):
-    threshold = 15
+def shorten_string (s, threshold = 15):
     if len (s) > 2*threshold:
         s = s[:threshold] + '..' + s[-threshold:]
     return s
