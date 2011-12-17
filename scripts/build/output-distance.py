@@ -376,12 +376,18 @@ class FileLink:
 
         return ''
 
+    def directories (self):
+        return map (os.path.dirname, self.file_names)
+
     def name (self):
         base = os.path.basename (self.file_names[1])
         base = os.path.splitext (base)[0]
         base = hash_to_original_name.get (base, base)
         base = os.path.splitext (base)[0]
         return base
+
+    def prefix (self):
+        return os.path.dirname (os.path.commonprefix (self.file_names))
 
     def extension (self):
         return os.path.splitext (self.file_names[1])[1]
@@ -950,15 +956,24 @@ class ComparisonData:
 
         (changed, below, unchanged) = self.thresholded_results (threshold)
 
+        header_row = '''
+<tr>
+<th>distance</th>
+<th>%(short_dir1)s</th>
+<th>%(short_dir2)s</th>
+</tr>
+'''
 
         table_rows = ''
-        old_prefix = os.path.split (dir1)[1]
+        old_prefix = None
         for link in changed:
+            this_prefix = link.prefix ()
+            if (old_prefix != this_prefix):
+                old_prefix = this_prefix
+                short_dir1 = shorten_string (link.directories ()[0], 30)
+                short_dir2 = shorten_string (link.directories ()[1], 30)
+                table_rows += header_row % locals()
             table_rows += link.html_record_string (dest_dir)
-
-
-        short_dir1 = shorten_string (dir1)
-        short_dir2 = shorten_string (dir2)
 
         summary = ''
         below_count = len (below)
@@ -1006,11 +1021,6 @@ class ComparisonData:
 <hr />
 
 <table rules="rows" border bordercolor="blue">
-<tr>
-<th>distance</th>
-<th>%(short_dir1)s</th>
-<th>%(short_dir2)s</th>
-</tr>
 %(table_rows)s
 </table>
 </body>
