@@ -23,7 +23,7 @@ TEXI2PDF_FLAGS = \
   -I $(outdir) \
   -I $(top-build-dir)/Documentation/$(outconfbase)
 $(outdir)/snippets-big-page.html: TEXI2HTML_FLAGS += -D short_toc
-$(outdir)/snippets/index..html: TEXI2HTML_FLAGS += -D short_toc
+$(outdir)/snippets/index.html: TEXI2HTML_FLAGS += -D short_toc
 
 ### Extra source files
 
