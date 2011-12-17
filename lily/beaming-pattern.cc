@@ -101,7 +101,7 @@ Beaming_pattern::flag_direction (Beaming_options const &options, vsize i) const
     return CENTER;
 
   // If all else fails, point the beamlet away from the important moment.
-  return (infos_[i].rhythmic_importance_ <= infos_[i + 1].rhythmic_importance_)
+  return (infos_[i].rhythmic_importance_ < infos_[i + 1].rhythmic_importance_)
          ? RIGHT : LEFT;
 }
 
@@ -166,6 +166,20 @@ Beaming_pattern::beamify (Beaming_options const &options)
 }
 
 /*
+   Set the tuplet start moment as necessary
+*/
+void
+update_tuplet (Moment start_moment, Rational factor, Moment *tuplet_start_moment)
+{
+  int tuplet_number = (int) factor.den ();
+  if ((tuplet_number > 1) && (tuplet_start_moment->num () < 0))
+    *tuplet_start_moment = start_moment;
+  else if (tuplet_number == 1) 
+    *tuplet_start_moment = Moment (-1, 1); 
+}
+
+
+/*
    Get the group start position, the next group starting position, and the
    next beat starting position, given start_moment, base_moment,
    grouping, and factor
@@ -184,26 +198,26 @@ find_location (SCM grouping, Moment base_moment, Moment start_moment,
 
   while (*next_group_pos < *next_beat_pos)
     {
-      int count = 1;  //default -- 1 base moments in a beam
+      int group_count = 1;  //default -- 1 base moments in a beam
       if (scm_is_pair (grouping))
         {
-          count = scm_to_int (scm_car (grouping));
+          group_count = scm_to_int (scm_car (grouping));
           grouping = scm_cdr (grouping);
         }
 
       // If we have a tuplet, the count should be determined from
       // the maximum tuplet size for beamed tuplets.
-      int tuplet_count = factor.num ();
-      if (tuplet_count > 1)
+      int tuplet_number = factor.den ();
+      if (tuplet_number > 1)
         {
           // We use 1/8 as the base moment for the tuplet because it's
           // the largest beamed value.  If the tuplet is shorter, it's
           // OK, the code still works
-          int test_count = (tuplet_count * Moment (Rational (1, 8)) / base_moment).num ();
-          if (test_count > count) count = test_count;
+          int test_count = ( Moment (Rational (1, 8) / factor ) / base_moment).num ();
+          if (test_count > group_count) group_count = test_count;
         }
       *group_pos = *next_group_pos;
-      *next_group_pos = *group_pos + count * base_moment;
+      *next_group_pos = *group_pos + group_count * base_moment;
     }
 }
 
@@ -213,7 +227,8 @@ Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
   Moment group_pos (0);  // 0 is the start of the first group
   Moment next_group_pos (0);
   Moment next_beat_pos (options.base_moment_);
-  int tuplet_count = 1;
+  Moment tuplet_start_moment (-1, 1);
+  int tuplet_number = 1;
 
   SCM grouping = options.grouping_;
   vsize i = 0;
@@ -226,7 +241,6 @@ Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
   // Mark the importance of stems that start at a beat or a beat group.
   while (i < infos_.size ())
     {
-      tuplet_count = infos_[i].factor_.den ();
       if ((next_beat_pos > next_group_pos)
           || (infos_[i].start_moment_ > next_beat_pos))
         // Find the new group ending point
@@ -238,11 +252,15 @@ Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
       // Work through the end of the beat group or the end of the beam
       while (i < infos_.size () && infos_[i].start_moment_ < next_group_pos)
         {
+          // Set the tuplet start as necessary
+          update_tuplet (infos_[i].start_moment_, infos_[i].factor_, &tuplet_start_moment);
           Moment dt = infos_[i].start_moment_ - group_pos;
           Rational tuplet = infos_[i].factor_;
           Moment tuplet_moment (tuplet);
+          Moment tuplet_dt = infos_[i].start_moment_ - tuplet_start_moment;
+          tuplet_number = tuplet.den ();
           // set the beat end (if not in a tuplet) and increment the next beat
-          if (tuplet_count == 1 && infos_[i].start_moment_ == next_beat_pos)
+          if (tuplet_number == 1 && infos_[i].start_moment_ == next_beat_pos)
             {
               infos_[i].rhythmic_importance_ = -1;
               next_beat_pos += options.base_moment_;
@@ -252,20 +270,22 @@ Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
           // important.  For tuplets, we need to make sure that we use
           // the fraction of the tuplet, instead of the fraction of
           // a beat.
-          Moment ratio = (dt / options.base_moment_ / tuplet_moment);
+          Moment ratio = (tuplet_number == 1) 
+                           ? dt / options.base_moment_ 
+                           : tuplet_dt / Moment (1, 8)  / tuplet_moment;
           if (infos_[i].rhythmic_importance_ >= 0)
             infos_[i].rhythmic_importance_ = (int) ratio.den ();
+
           i++;
         }
 
       if (i < infos_.size () && infos_[i].start_moment_ == next_beat_pos)
         {
-          if (tuplet_count == 1)
+          if (tuplet_number == 1)
             infos_[i].rhythmic_importance_ = -1;
           next_beat_pos += options.base_moment_;
           if (infos_[i].start_moment_ == next_group_pos)
             infos_[i].rhythmic_importance_ = -2;
-          i++;
         }
     }
 }
