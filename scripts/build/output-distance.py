@@ -384,7 +384,7 @@ class FileLink:
         base = os.path.splitext (base)[0]
         base = hash_to_original_name.get (base, base)
         base = os.path.splitext (base)[0]
-        return base
+        return os.path.join (self.prefix (), base)
 
     def prefix (self):
         return os.path.dirname (os.path.commonprefix (self.file_names))
