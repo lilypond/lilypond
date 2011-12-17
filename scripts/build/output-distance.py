@@ -980,7 +980,8 @@ class ComparisonData:
             row = rows[i];
             html = row.innerHTML;
             row.style.display =
-                (html.indexOf(substring + '">') != -1) ? "" : "none";
+                ((html.indexOf('>distance<') != -1) ||
+                 (html.indexOf(substring + '">') != -1)) ? "" : "none";
         }
     }
 // ]]>
