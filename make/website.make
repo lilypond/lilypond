@@ -135,7 +135,7 @@ xref-files = $(MANUALS_BASE:%=$(OUT)/%.xref-map)
 
 check-setup:
 ifeq ($(LILYPOND_WEB_MEDIA_GIT),)
-	echo "Need a $LILYPOND_WEB_MEDIA_GIT environment variable!"
+	echo "Need a LILYPOND_WEB_MEDIA_GIT environment variable!"
 	exit 1
 endif
 
