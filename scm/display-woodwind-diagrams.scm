@@ -29,6 +29,8 @@
 
 ;; Utility functions
 
+(use-modules (ice-9 optargs))
+
 (define (return-1 x) 1.0)
 
 (define (make-spreadsheet parameter-list)
@@ -1822,14 +1824,14 @@
                radius)))
          (assoc-get 'stencils stencil-alist))))
 
-(define-public (print-keys instrument)
-  (format #t "\nPrinting keys for: ~a\n" instrument)
+(define*-public (print-keys instrument #:optional (port (current-output-port)))
+  (format port "\nPrinting keys for: ~a\n" instrument)
   (let ((chosen-instrument (assoc-get instrument woodwind-data-alist)))
     (do	((key-list
 	  (list-all-possible-keys (assoc-get 'keys chosen-instrument))
 	  (cdr key-list)))
 	((null? key-list))
-      (format #t "~a\n   ~a\n" (caar key-list) (cdar key-list)))))
+      (format port "~a\n   ~a\n" (caar key-list) (cdar key-list)))))
 
 (define-public (get-woodwind-key-list instrument)
   (list-all-possible-keys-verbose
@@ -1837,15 +1839,16 @@
       'keys
       (assoc-get instrument woodwind-data-alist))))
 
-(define-public (print-keys-verbose instrument)
-  (format #t "\nPrinting keys in verbose mode for: ~a\n" instrument)
+(define*-public (print-keys-verbose instrument
+				    #:optional (port (current-output-port)))
+  (format port "\nPrinting keys in verbose mode for: ~a\n" instrument)
   (do ((key-list (get-woodwind-key-list instrument)
 		 (cdr key-list)))
       ((null? key-list))
-    (format #t "~a\n" (caar key-list))
+    (format port "~a\n" (caar key-list))
     (for-each
      (lambda (x)
-       (format #t "   possibilities for ~a:\n      ~a\n" (car x) (cdr x)))
+       (format port "   possibilities for ~a:\n      ~a\n" (car x) (cdr x)))
      (cdar key-list))))
 
 (define-markup-command
