@@ -155,7 +155,7 @@ make test
 @end example
 
 If you have a multi-core machine you may want to use the @option{-j}
-option and @var{CPU_COUT} variable, as
+option and @var{CPU_COUNT} variable, as
 described in @ref{Saving time with CPU_COUNT}.
 For a quad-core processor the complete command would be:
 
@@ -222,7 +222,7 @@ out/test-results/index.html
 @end example
 
 For each regression test that differs between the baseline and the
-changed code, a regression test entry will displayed.  Ideally,
+changed code, a regression test entry will be displayed.  Ideally,
 the only changes would be the changes that you were working on.
 If regressions are introduced, they must be fixed before
 committing the code.
@@ -463,7 +463,7 @@ The MusicXML regression tests are found at
 @file{input/regression/musicxml/}.
 
 The output resulting from running these tests
-through @samp{muscxml2ly} followed by @samp{lilypond} is
+through @samp{musicxml2ly} followed by @samp{lilypond} is
 available in the LilyPond documentation:
 
 @example
