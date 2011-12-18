@@ -98,6 +98,34 @@ MANUALS_WEB := web.texi $(WEB_LANGS:%=web.%.texi)
 MANUALS_BASE = $(basename $(MANUALS) $(MANUALS_WEB))
 
 
+#######################
+### Dependency tracking
+
+# Find the file $(1) within the texinfo include dirs and return its path.
+# If not found, i.e. it is a generated file, then the file is ignored.
+find-texi = \
+$(firstword \
+	$(wildcard $(dir $<)$(1)) \
+	$(wildcard $(top-src-dir)/Documentation/$(1)) \
+)
+
+# Recursively scan the file $(1) for @include, search for included files
+# within the texinfo include dirs, and return all dependencies.
+scan-texi = \
+	$(foreach f, $(shell echo | sed -ne "/^@include[[:space:]]/s/@include//p" $(1)), \
+	$(call find-texi,$(f)) \
+	$(call scan-texi,$(call find-texi,$(f))) \
+)
+
+# Find dependencies for the target $@, based on the texinfo source file $<,
+# and write the dependencies to a .dep file.
+DO_TEXI_DEP = ( mkdir -p $(dir $@) && echo ./$@: $(call scan-texi,$<) > $@.dep ) &&
+
+# This is where we import the .dep files so that `make' knows about
+# the various dependencies.
+-include dummy.dep $(wildcard $(OUT)/*.dep) $(wildcard $(OUT)/*/*.dep)
+
+
 ###################
 ### Generated files
 
@@ -174,10 +202,10 @@ $(OUT)/pictures: $(OUT)/website/pictures
 	ln -sf website/pictures $(OUT)/pictures
 
 # Generated itexi files
-$(OUT)/version.itexi: #FIXME: add dependencies
+$(OUT)/version.itexi: $(top-src-dir)/VERSION
 	$(CREATE_VERSION) $(top-src-dir) > $(OUT)/version.itexi
 
-$(OUT)/weblinks.itexi: #FIXME: add dependencies
+$(OUT)/weblinks.itexi: $(top-src-dir)/VERSION
 	$(CREATE_WEBLINKS) $(top-src-dir) > $(OUT)/weblinks.itexi
 
 $(bib-files): $(OUT)/%.itexi: $(top-src-dir)/Documentation/web/%.bib
@@ -211,12 +239,12 @@ $(OUT)/web.%.xref-map: $(top-src-dir)/Documentation/%/web.texi
 	$(DO_TEXI_DEP) $(EXTRACT_TEXI_FILENAMES) --split=node $<
 
 # Build the English website
-$(OUT)/index.html: $(top-src-dir)/Documentation/web.texi
+$(OUT)/index.html: $(top-src-dir)/Documentation/web.texi $(xref-files)
 	$(DO_TEXI_DEP) $(TEXI2HTML) $<
 
 # Build translated websites
 $(eval $(foreach l,$(WEB_LANGS),\
-$(eval $(OUT)/$(l)/index.html: $(top-src-dir)/Documentation/$(l)/web.texi; \
+$(eval $(OUT)/$(l)/index.html: $(top-src-dir)/Documentation/$(l)/web.texi $(xref-files); \
 	$$(DO_TEXI_DEP) $$(TEXI2HTML) --lang="$(l)" $$<; ) \
 ))
 
