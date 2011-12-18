@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 057106293b07b74b00553fe4dc3dfac5c1f3b682
+    Translation of GIT committish: 612f465a01ed6b9bd806f00e450c82f314eafd91
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -22,12 +22,12 @@ LilyPond est conçu pour engendrer, par défaut, des partitions de la
 plus haute qualité.  Cependant, on peut parfois avoir à modifier cette
 mise en forme par défaut.  Celle-ci est réglée par tout un ensemble de
 @qq{leviers et manettes} plus connus sous le terme de @qq{propriétés},
-dont ce chapitre ne cherche pas à faire l'inventaire exhaustif -- vous
-en trouverez un @rlearningnamed{Retouche de partition,apperçu} dans le
-manuel d'initiation.  Le propos est plutôt ici de mettre en évidence les
-différents groupes auxquels s'apparentent ces contrôles, et d'expliquer
-comment trouver le bon levier pour obtenir tel ou tel effet en
-particulier.
+dont ce chapitre ne cherche pas à faire l'inventaire exhaustif -- le
+chapitre @rlearning{Retouche de partition} du manuel d'initiation vous
+en propose un aperçu.  Le propos est plutôt ici de mettre en évidence
+les différents groupes auxquels s'apparentent ces contrôles, et
+d'expliquer comment trouver le bon levier pour obtenir tel ou tel effet
+en particulier.
 
 @cindex Référence des propriétés internes
 
@@ -37,44 +37,18 @@ internes}.  Ce guide répertorie toutes les variables, fonctions et
 autres options que LilyPond met à votre disposition.  Il est consultable
 @c leave the @uref as one long line.
 @uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/user/@/lilypond@/-internals/,en@tie{}ligne},
-au format HTML, mais est également inclus dans la documentation
+au format HTML@tie{}; il est également inclus dans la documentation
 fournie avec le logiciel.
 
 En sous-main, LilyPond se sert du langage Scheme (un dérivé du LISP)
 comme infrastructure.  Modifier les choix de mise en page revient à
 pénétrer dans les entrailles du programme, et de ce fait requiert
 l'emploi du Scheme.  Les fragments de Scheme, dans un fichier
-@file{.ly}, sont introduits par le caractère @emph{hash}, (@code{#},
-improprement surnommé @qq{dièse}).
-@footnote{Le @rextend{Tutoriel Scheme} fournit quelques notions de
-base pour saisir des nombres, des listes, des chaînes de caractères ou
-des symboles, en Scheme.}
-
-Il est quatre domaines dans lesquels on peut modifier les réglages par
-défaut@tie{}:
-
-@itemize @bullet
-@item
-La notation automatique, ce qui revient à modifier la manière dont les
-éléments de notation sont automatiquement créés -- par exemple, les
-règles de ligature.
-
-@item
-L'apparence, qui se rapporte aux objets pris individuellement -- ainsi
-de la direction des hampes, du placement des indications textuelles.
-
-@item
-Les contextes, qui recouvrent la manière dont les évènements musicaux
-sont représentés sous forme de notation -- par exemple, le fait
-d'attribuer un chiffre de mesure distinct à chaque portée.
-
-@item
-La mise en page, autrement dit les marges, l'espacement, la taille du
-papier@tie{}; tous ces facteurs font l'objet des chapitres
-@ref{Généralités en matière d'entrée et sortie} et
-@ref{Gestion de l'espace}.
-@end itemize
-
+@file{.ly}, sont introduits par le caractère @emph{hash} (@code{#}),
+improprement surnommé @qq{dièse}.
+@footnote{Le @rextendnamed{Scheme tutorial,Tutoriel Scheme} fournit
+quelques notions de base pour saisir des nombres, des listes, des
+chaînes de caractères ou des symboles, en Scheme.}
 
 @menu
 * Contextes d'interprétation::
@@ -84,6 +58,7 @@ papier@tie{}; tous ces facteurs font l'objet des chapitres
 * Retouches avancées::
 * Utilisation de fonctions musicales::
 @end menu
+
 
 @node Contextes d'interprétation
 @section Contextes d'interprétation
@@ -98,7 +73,7 @@ Cette section traite des contextes.
 * Modification des greffons de contexte::
 * Modification des réglages par défaut d'un contexte::
 * Définition de nouveaux contextes::
-* Alignement des contextes::
+* Ordonnancement des contextes::
 @end menu
 
 
@@ -111,7 +86,7 @@ Fichiers d'initialisation :
 @file{ly/performer-init.ly}.
 
 Morceaux choisis :
-@rlsr{Contexts and engravers}.
+@rlsrnamed{Contexts and engravers, Contextes et graveurs}.
 
 Référence des propriétés internes :
 @rinternals{Contexts},
@@ -147,6 +122,7 @@ further explanation and with links to the IR.
 
 @c TODO Describe propagation of property values -td
 
+Les contextes sont hiérarchisés :
 
 @menu
 * Score -- le père de tous les contextes::
@@ -159,47 +135,470 @@ further explanation and with links to the IR.
 @unnumberedsubsubsec Score -- le père de tous les contextes
 @translationof Score - the master of all contexts
 
-@untranslated
+Il s'agit en l'occurence du contexte le plus élevé, autrement dit le
+plus important, en matière de notation.  En effet, c'est au niveau de la
+partition -- @emph{score} en anglais -- que se gèrent le temps et la
+tonalité@tie{}; c'est donc là qu'il faut s'assurer que les différents
+éléments, tels les clefs, métriques et armures sont bien répercutés sur
+toutes les portées.
+
+Dès lors que LilyPond rencontre un bloc @code{\score@tie{}@{@dots{}@}}
+ou @code{\layout@tie{}@{@dots{}@}}, se crée implicitement un contexte
+@code{Score}.
 
 
 @node Contextes de haut niveau -- les systèmes
 @unnumberedsubsubsec Contextes de haut niveau -- les systèmes
 @translationof Top-level contexts - staff containers
 
-@untranslated
+De nombreuses partitions sont écrites sur plus d'une portée.  Ces
+portées peuvent être regroupées de différentes manières.
+
+@strong{@emph{StaffGroup}}
+
+Le groupe de portées est attaché par un crochet, et les barres de mesure
+sont d'un seul tenant, de la première à la dernière portée.  Le
+@code{StaffGroup} constitue le regroupement le plus simple.
+
+@strong{@emph{ChoirStaff}}
+
+Ce regroupement est identique au @code{StaffGroup}, à ceci près que les
+barres de mesure ne traversent pas l'espace inter-portées.
+
+@strong{@emph{GrandStaff}}
+
+Le groupe de portées est attaché par une accolade sur la gauche, et les
+barres de mesure sont d'un seul tenant.
+
+@strong{@emph{PianoStaff}}
+
+Ce regroupement est identique au @code{GrandStaff}, à ceci près que le
+nom de l'instrument sera directement attaché au système.
 
 
 @node Contextes de niveau intermédiaire -- les portées
 @unnumberedsubsubsec Contextes de niveau intermédiaire -- les portées
 @translationof Intermediate-level contexts - staves
 
-@untranslated
+@strong{@emph{Staff}}
+
+La portée prend en charge les clefs, barres de mesure, armures et les
+altérations accidentelles.  Un contexte @code{Staff} peut contenir
+plusieurs contextes @code{Voice}.
+
+@strong{@emph{RhythmicStaff}}
+
+De même nature qu'un @code{Staff}, mais destiné à n'imprimer que du
+rythme.  Quelle que soit la hauteur, les notes seront imprimées sur une
+même et unique ligne.
+
+@strong{@emph{TabStaff}}
+
+Ce contexte permet de générer des tablatures.  La mise en forme par
+défaut correspond à une tablature pour guitare, sur six lignes.
+
+@strong{@emph{DrumStaff}}
+
+Contexte dévolu tout spécialement aux parties de percussion@tie{}; il
+peut contenir plusieurs @code{DrumVoice}.
+
+@strong{@emph{VaticanaStaff}}
+
+Identique au contexte @code{Staff}, à ceci près qu'il est tout
+particulièrement adapté au grégorien.
+
+@strong{@emph{MensuralStaff}}
+
+Identique au contexte @code{Staff}, à ceci près qu'il est tout
+particulièrement adapté au style mensural de musique ancienne.
 
 
 @node Contextes de bas niveau -- les voix
 @unnumberedsubsubsec Contextes de bas niveau -- les voix
 @translationof Bottom-level contexts - voices
 
-@untranslated
+Les contextes de niveau @qq{voix} initialisent un certain nombre de
+propriétés et activent les graveurs appropriés.  S'agissant de contextes
+du plus bas niveau, ils ne sauraient contenir d'autre contexte.
+
+@strong{@emph{Voice}}
+
+Correspond à une voix positionnée sur une portée.  Le contexte
+@code{Voice} s'occupe des indications de nuance, des hampes, des
+ligatures, des scripts placés au-dessus ou au-dessous de la portée, des
+différentes liaisons et des silences.  Lorsque plusieurs voix doivent
+cohabiter sur la même portée, il est indispensable de les instancier
+explicitement.
+
+@strong{@emph{VaticanaVoice}}
+
+Fonctionnant comme le contexte @code{Voice}, il est tout
+particulièrement destiné à gérer le grégorien.
+
+@strong{@emph{MensuralVoice}}
+
+Fonctionnant comme le contexte @code{Voice}, il est tout
+particulièrement adapté aux musiques anciennes.
+
+@strong{@emph{Lyrics}}
+
+Correspond à une voix contenant des paroles.  Le contexte @code{Lyrics}
+gère l'impression d'une ligne de paroles.
+
+@strong{@emph{DrumVoice}}
+
+Contexte de voix dévolu à une portée de percussions.
+
+@strong{@emph{FiguredBass}}
+
+Contexte prenant en charge les objets @code{BassFigure} -- la basse
+chiffrée -- créés à partir de ce qui a été saisi en mode
+@code{\figuremode}.
+
+@strong{@emph{TabVoice}}
+
+Contexte de voix dévolu au contexte @code{TabStaff}, il est
+habituellement créé explicitement.
+
+@strong{@emph{CueVoice}}
+
+Contexte de voix utilisé essentiellement dans le cadre de citations
+ajoutées à une portée -- voir @ref{Mise en forme d'une citation}.  Il
+est habituellement créé explicitement.
+
+@strong{@emph{ChordNames}}
+
+Permet d'imprimer des noms d'accord.
+
+@ignore
+TODO
+
+Then the following, which I don't know what to do with:
+
+    * GregorianTranscriptionVoice
+    * GregorianTranscriptionStaff
+
+    * FretBoards
+        Engraves fretboards from chords. Not easy... Not
+documented.
+        There is now some documentation on FretBoards in the NR, under
+         instrument-specific notation -- cds.
+
+    * NoteNames
+
+    * Global
+        Hard coded entry point for LilyPond. Cannot be tuned.
+    * Devnull
+        Silently discards all musical information given to this
+context.
+
+@end ignore
 
 
 @node Création d'un contexte
 @subsection Création d'un contexte
 @translationof Creating contexts
 
-@untranslated
+@c TODO more complete descriptions rather than learning style
+
+Lorsqu'une partition ne comporte qu'une portée avec une seule voix, les
+contextes sont créés automatiquement.  Dès que la structure s'étoffe, il
+devient nécessaire de les créer explicitement, en suivant l'une des
+trois méthodes suivantes@tie{}:
+
+@itemize
+
+@item
+La commande la plus simple à utiliser est @code{\new}@tie{}; c'est aussi
+la plus courte.  Elle se place juste avant une expression musicale et se
+libelle ainsi@tie{}:
+
+@funindex \new
+@cindex nouveau contexte
+@cindex contexte, création
+
+@example
+\new @var{type} @var{expression_musicale}
+@end example
+
+@noindent
+où @var{type} est le nom d'un contexte (par ex. @code{Staff} ou
+@code{Voice}).  Cette commande crée un nouveau contexte et y interprète
+le contenu de l'@var{expression_musicale}.
+
+C'est ce qui se passe lorsqu'une partition comporte plusieurs
+portées@tie{}: chaque partie qui doit apparaître sur une portée
+spécifique est précédée d'un @code{\new@tie{}Staff}.
+
+@lilypond[quote,verbatim,relative=2,ragged-right]
+<<
+  \new Staff { c4 c }
+  \new Staff { d4 d }
+>>
+@end lilypond
+
+La commande @code{\new} vous permet aussi d'attribuer un nom au
+contexte que vous créez.
+
+@example
+\new @var{type} = @var{nom} @var{musique}
+@end example
+Le nom que vous spécifiez ne pourra être utilisé que s'il n'a pas déjà
+été attribué à un autre contexte.
+
+@funindex \context
+@item
+Tout comme @code{\new}, la commande @code{\context} affectera une
+expression musicale à un objet contextuel@tie{}; elle lui attribuera de
+surcroît un nom.  La commande @code{\context} s'emploie de la façon
+suivante@tie{}:
+
+@example
+\context @var{type} = @var{nom} @var{musique}
+@end example
+
+LilyPond va dans un premier temps vérifier l'existence d'un contexte du
+type @var{type} appelé @var{nom}.  En l'absence d'un tel contexte,
+LilyPond crée un nouveau contexte du nom que vous avez spécifié.  Cette
+procédure est tout à fait pertinente lorsque vous faites appel à ce
+contexte particulier par la suite.  Prenons le cas d'un chant@tie{}:
+nous commençons par nommer la ligne mélodique,
+
+@example
+\context Voice = "@b{tenor}" @var{musique}
+@end example
+
+@noindent
+de telle sorte que le texte s'aligne correctement sur les notes@tie{}:
+
+@example
+\new Lyrics \lyricsto "@b{tenor}" @var{paroles}
+@end example
+
+@noindent
+
+L'une des autres utilisations de contextes explicitement nommés consiste
+à fusionner deux expressions musicales dans un même contexte.  Dans
+l'exemple qui suit, notes et articulations sont saisies indépendamment.
+
+@example
+music = @{ c4 c4 @}
+arts = @{ s4-. s4-> @}
+@end example
+
+Elles sont ensuites fusionnées par affectation au même contexte
+@code{Voice}.
+
+@example
+<<
+  \new Staff \context Voice = "A" \music
+  \context Voice = "A" \arts
+>>
+@end example
+@lilypond[quote,ragged-right]
+music = { c4 c4 }
+arts = { s4-. s4-> }
+\relative c'' <<
+  \new Staff \context Voice = "A" \music
+  \context Voice = "A" \arts
+>>
+@end lilypond
+
+Grâce à ce mécanisme, vous pouvez tout à fait générer une version
+@qq{Urtext} (édition originale) et optionnellement ajouter distinctement
+des articulations à ces mêmes notes.
+
+@cindex création de contextes
+
+@item
+Voici une troisième manière de créer un contexte@tie{}:
+
+@example
+\context @var{type} @var{musique}
+@end example
+
+@noindent
+Très comparable à une déclaration @code{\context@tie{}=@tie{}@var{nom}},
+cette méthode permet de s'affranchir du type de contexte.
+
+Cette variante s'utilise lorsque les expression musicales peuvent être
+interprétées à différents niveaux, comme par exemple lorsque intervient
+la commande @code{\applyOutput} -- pour de plus amples détails, voir
+@rextendnamed{Running a function on all layout objects, Application
+d'une fonction à tous les objets de mise en forme}.  En l'absence de
+@code{\context} explicite, LilyPond considère qu'il s'agit de
+@code{Voice}.
+
+@example
+\applyOutput #'@var{contexte} #@var{fonction}   % s'applique à Voice
+@end example
+
+Vous devrez respecter ces formulations si votre fonction doit
+s'interpréter au niveau @code{Score} ou @code{Staff}@tie{}:
+
+@example
+\applyOutput #'Score #@var{fonction}
+\applyOutput #'Staff #@var{fonction}
+@end example
+
+@end itemize
 
 
 @node Conservation d'un contexte
 @subsection Conservation d'un contexte
 @translationof Keeping contexts alive
 
-@untranslated
+@cindex contextes, maintien actif
+@cindex contextes, durée de vie
+
+En règle générale, un contexte disparaît dès qu'il n'y a plus rien à
+faire.  Autrement dit, un contexte @code{Voice} disparaît dès après le
+dernier événement qu'il contient, et un contexte @code{Staff} dès que
+les contextes @code{Voice} qu'il supporte ne contiennent plus rien.
+Ceci peut avoir des conséquences néfastes lorsqu'il est fait référence à
+un contexte alors disparu, comme dans le cas d'un changement de portée
+introduit par la commande @code{\change}, l'association de paroles à
+l'aide de la commande @code{\lyricsto} ou si des événements surviennent
+à nouveau pour ce contexte précédemment actif.
+
+Une exception cependant à cette règle@tie{}: en présence d'un contexte
+@code{Staff} ou dans une construction @code{<<...>>}, un seul des
+contextes @code{Voice} inclus restera actif jusqu'à la fin du contexte
+@code{Staff} ou de la construction @code{<<...>>}, y compris s'il y
+a des @qq{trous}.  Le contexte alors persistant sera le premier
+rencontré dans la construction @code{@{...@}} sans tenir compte des
+éventuels @code{<<...>>} qu'elle pourrait contenir.
+
+Un contexte restera actif dès lors qu'il s'y passera toujours quelque
+chose.  Un contexte @code{Staff} restera actif si l'une des voix qu'il
+supporte est toujours active.  L'un des moyens de s'en assurer
+consiste à ajouter des silences invisibles parallèlement à la musique.
+Vous devrez les ajouter dans tous les contextes @code{Voice} qui doivent
+rester actifs.  Nous vous conseillons, lorsque plusieurs voix
+interviennent de manière sporadique, de toutes les maintenir actives
+plutôt que de vous fier aux exceptions mentionnées plus haut.
+
+Dans l'exemple suivant, les deux voix A et B sont maintenues actives
+jusqu'à la fin du morceau@tie{}:
+
+@lilypond[quote,verbatim]
+musicA = \relative c'' { d4 d d d }
+musicB = \relative c'' { g4 g g g }
+keepVoicesAlive = {
+  <<
+    \new Voice = "A" { s1*5 }  % Keep Voice "A" alive for 5 bars
+    \new Voice = "B" { s1*5 }  % Keep Voice "B" alive for 5 bars
+  >>
+}
+
+music = {
+  \context Voice = "A" {
+    \voiceOneStyle
+    \musicA
+  }
+  \context Voice = "B" {
+    \voiceTwoStyle
+    \musicB
+  }
+  \context Voice = "A" { \musicA }
+  \context Voice = "B" { \musicB }
+  \context Voice = "A" { \musicA }
+}
+
+\score {
+  \new Staff <<
+    \keepVoicesAlive
+    \music
+  >>
+}
+@end lilypond
+
+@cindex paroles, alignement sur une mélodie épisodique
+
+L'exemple suivant illustre la manière d'écrire selon cette méthode une
+mélodie discontinue à laquelle se rattachent des paroles.  Dans la
+réalité, mélodie et accompagnement feraient l'objet de portées séparées.
+
+@lilypond[quote,verbatim]
+melody = \relative c'' { a4 a a a }
+accompaniment = \relative c' { d4 d d d }
+words = \lyricmode { These words fol -- low the mel -- o -- dy }
+\score {
+  <<
+    \new Staff = "music" {
+      <<
+        \new Voice = "melody" {
+          \voiceOne
+          s1*4  % Keep Voice "melody" alive for 4 bars
+        }
+        {
+          \new Voice = "accompaniment" {
+            \voiceTwo
+            \accompaniment
+          }
+          <<
+            \context Voice = "melody" { \melody }
+            \context Voice = "accompaniment" { \accompaniment }
+          >>
+          \context Voice = "accompaniment" { \accompaniment }
+          <<
+            \context Voice = "melody" { \melody }
+            \context Voice = "accompaniment" { \accompaniment }
+          >>
+        }
+      >>
+    }
+    \new Lyrics \with { alignAboveContext = #"music" }
+    \lyricsto "melody" { \words }
+  >>
+}
+@end lilypond
+
+Une autre méthode, qui s'avère plus productive dans nombre de cas,
+consiste à maintenir active la ligne mélodique en y insérant des
+silences invisibles tout au long de l'accompagnement@tie{}:
+
+@lilypond[quote,verbatim]
+melody = \relative c'' {
+  s1  % skip a bar
+  a4 a a a
+  s1  % skip a bar
+  a4 a a a
+}
+accompaniment = \relative c' {
+  d4 d d d
+  d4 d d d
+  d4 d d d
+  d4 d d d
+}
+words = \lyricmode { These words fol -- low the mel -- o -- dy }
+
+\score {
+  <<
+    \new Staff = "music" {
+      <<
+        \new Voice = "melody" {
+          \voiceOne
+          \melody
+        }
+        \new Voice = "accompaniment" {
+          \voiceTwo
+          \accompaniment
+        }
+      >>
+    }
+    \new Lyrics \with { alignAboveContext = #"music" }
+    \lyricsto "melody" { \words }
+  >>
+}
+@end lilypond
 
 
 @node Modification des greffons de contexte
 @subsection Modification des greffons de contexte
 @translationof Modifying context plug-ins
+
+@c TODO Should this be Modifying engravers or Modifying contexts?
 
 Les contextes, tels que @code{Score} ou @code{Staff}, ne contiennent
 pas que des propriétés@tie{}; ils mettent également en œuvre certains
@@ -227,13 +626,12 @@ Référence des propriétés internes @expansion{} Translation @expansion{} Cont
 @end ifnothtml
 répertorie les graveurs mis en œuvre.
 
-
 On peut faire, au moyen de ces graveurs, sa propre @qq{cuisine}, en
 modifiant les contextes à volonté.
 
-Lorsque un contexte est créé, par la commande @code{\new} ou
+Lorsqu'un contexte est créé, par la commande @code{\new} ou
 @code{\context}, on peut y adjoindre un bloc @code{\with} (en anglais
-@q{avec}), dans lequel il est possible d'ajouter (commande
+@qq{avec}), dans lequel il est possible d'ajouter (commande
 @code{\consists}) ou d'enlever (commande @code{\remove}) des
 graveurs@tie{}:
 
@@ -253,7 +651,7 @@ graveurs@tie{}:
 @end example
 
 @noindent
-Ici les points de suspension @dots{} devront être remplacés par les noms
+Ici les points de suspension @dots{} devront être remplacés par le nom
 des graveurs désirés.  Dans l'exemple suivant, on enlève du contexte
 @code{Staff}, la métrique (graveur @code{Time_signature_engraver})
 et la clé (graveur @code{Clef_engraver}).
@@ -322,25 +720,798 @@ En règle générale, l'ordre dans lequel les graveurs sont mentionnés
 importe peu.  Il se peut toutefois qu'un graveur écrive une propriété
 qui sera interprétée par un autre, ou qu'un graveur crée un objet
 graphique qui sera traité par un autre@tie{}; l'ordre d'apparition de
-ces graveurs prendra lors tout son importance.
+ces graveurs prendra alors tout son importance.
 
 Pour information, les ordonnancements suivants sont importants@tie{}:
 le @code{Bar_engraver} devrait toujours être le premier@tie{}; le
 @code{New_fingering_engraver} doit toujours précéder le
 @code{Script_column_engraver}.  Nous vous conseillons, pour les autres,
-de vérifier les évenntuelles dépendances.
+de vérifier les éventuelles dépendances.
 
-@c deprecated node: delete. --fv
+
+
+@node Modification des réglages par défaut d'un contexte
+@subsection Modification des réglages par défaut d'un contexte
+@translationof Changing context default settings
+
+La personnalisation des réglages par défaut d'un contexte, qu'il
+s'agisse de @code{Score}, @code{Staff} ou @code{Voice}, peut se réaliser
+indépendamment de la musique dans un bloc @code{\layout} -- placé dans
+le bloc @code{\score} auquel ces modifications doivent s'appliquer -- au
+moyen de la commande @code{\context}.
+
+Point n'est besoin d'utiliser la commande
+@code{\set@tie{}@var{contexte}} lorsque les réglages par défaut d'un
+contexte sont ainsi modifiés@tie{}:
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+\score {
+  \relative c'' {
+    a4^"Petite police, hampes épaisses, sans métrique" a a a
+    a a a a
+  }
+  \layout {
+    \context {
+      \Staff
+      fontSize = #-4
+      \override Stem #'thickness = #4.0
+      \remove "Time_signature_engraver"
+    }
+  }
+}
+@end lilypond
+
+Le raccourci @code{\Staff} invoque les définitions inhérentes au
+contexte @code{Staff}, de façon à ce qu'elles puissent être modifiées.
+Ces nouvelles spécifications affecteront toutes les portées (tous les
+contextes @code{Staff}) de ce bloc @code{\score}.
+
+Les adaptations peuvent aussi bien se faire au niveau du contexte
+@code{Score} qu'au niveau de tous les contextes @code{Voice}.
+
+Il est possible de stocker des modifications de contexte dans un
+identificateur. Sa définition devra être précédée de l'instruction
+@code{\with}.
+
+@lilypond[quote,verbatim]
+blubb = \with {
+  fontSize = #-4
+  \override Stem #'thickness = #4.0
+  \remove "Time_signature_engraver"
+}
+
+bla = \with {
+  fontSize = #3
+  \override Stem #'thickness = #-2.0
+}
+
+melody = \relative c'' {
+  a4 a a a |
+  a4 a a a |
+}
+
+\score {
+  <<
+    \new Staff <<
+      \melody
+      s1*0^"Small, thicker stems, no time signature"
+    >>
+    \new Staff \bla <<
+      \melody
+      s1*0^"Different"
+    >>
+  >>
+  \layout {
+    \context {
+      \Staff
+      \blubb
+    }
+  }
+}
+@end lilypond
+
+@c TODO: add \with in here.
+
+
+@node Définition de nouveaux contextes
+@subsection Définition de nouveaux contextes
+@translationof Defining new contexts
+
+@cindex contexte, création
+@cindex graveur, affectation à un contexte
+
+@funindex \alias
+@funindex alias
+@funindex \name
+@funindex name
+@funindex \type
+@funindex type
+@funindex \consists
+@funindex consists
+@funindex \accepts
+@funindex accepts
+@funindex \denies
+@funindex denies
+
+Les contextes tels que @code{Staff} ou @code{Voice} sont faits
+de briques de construction empilées.  En combinant divers graveurs,
+il est possible de créer de nouveaux types de contextes.
+
+Dans l'exemple suivant on construit, de zéro, un nouveau contexte très
+semblable à @code{Voice}, mais qui n'imprime que des têtes de notes en
+forme de barre oblique au centre de la portée.  Un tel contexte peut
+servir, par exemple, à indiquer un passage improvisé dans un morceau de
+jazz.
+
+@c KEEP LY
+@lilypond[quote,ragged-right]
+\layout { \context {
+  \name ImproVoice
+  \type "Engraver_group"
+  \consists "Note_heads_engraver"
+  \consists "Rhythmic_column_engraver"
+  \consists "Text_engraver"
+  \consists Pitch_squash_engraver
+  squashedPosition = #0
+  \override NoteHead #'style = #'slash
+  \override Stem #'transparent = ##t
+  \override Flag #'transparent = ##t
+  \alias Voice
+}
+\context { \Staff
+  \accepts "ImproVoice"
+}}
+
+\relative c'' {
+  a4 d8 bes8 \new ImproVoice { c4^"ad lib" c
+   c4 c^"dévêtez-vous" c_"tout en jouant :)" c }
+  a1
+}
+@end lilypond
+
+
+On a rassemblé les réglages dans un bloc @code{\context}, lui-même placé
+dans le bloc @code{\layout}@tie{}:
+
+@example
+\layout @{
+  \context @{
+    @dots{}
+  @}
+@}
+@end example
+
+En lieu et place des points (@dots{}), voici les éléments à
+saisir@tie{}:
+
+Tout d'abord, il convient de donner un nom à notre nouveau
+contexte@tie{}:
+
+@example
+\name ImproVoice
+@end example
+
+Comme il est très semblable à @code{Voice}, nous souhaitons que
+toutes les commandes associées au @code{Voice} déjà existant restent
+valables.  D'où nécessité de la commande @code{\alias}, qui va
+l'associer au contexte @code{Voice}@tie{}:
+
+@example
+\alias Voice
+@end example
+
+Ce contexte doit pouvoir imprimer des notes et des indications
+textuelles@tie{}; on ajoute donc les graveurs appropriés@tie{}:
+
+@example
+\consists Note_heads_engraver
+\consists Text_engraver
+@end example
+
+Cependant, on veut que les notes s'affichent toutes au centre de
+la portée@tie{}:
+
+@example
+\consists Pitch_squash_engraver
+squashedPosition = #0
+@end example
+
+Le graveur @rinternals{Pitch_squash_engraver} intercepte les notes
+créées par le @rinternals{Note_heads_engraver}, et les @qq{écrase} pour
+qu'elles aient toutes la même position verticale, définie par
+@code{squashedPosition}@tie{}: ici il s'agit de la valeur@tie{}@code{0},
+c'est-à-dire la ligne du milieu.
+
+On veut que les notes aient la forme d'une barre oblique, sans
+aucune hampe@tie{}:
+
+@example
+\override NoteHead #'style = #'slash
+\override Stem #'transparent = ##t
+\override Flag #'transparent = ##t
+@end example
+
+Afin que tous ces graveurs puissent travailler de concert, on leur
+adjoint un sous-programme spécial, introduit par la commande
+@code{\type}@tie{}: il s'agit de @code{Engraver_group},
+
+@example
+\type "Engraver_group"
+@end example
+
+Récapitulons@tie{}; on se retrouve avec le bloc suivant@tie{}:
+
+@example
+\context @{
+  \name ImproVoice
+  \type "Engraver_group"
+  \consists "Note_heads_engraver"
+  \consists "Text_engraver"
+  \consists Pitch_squash_engraver
+  squashedPosition = #0
+  \override NoteHead #'style = #'slash
+  \override Stem #'transparent = ##t
+  \override Flag #'transparent = ##t
+  \alias Voice
+@}
+@end example
+
+@funindex \accepts
+
+Ce n'est pas tout.  En effet, on veut intégrer le nouveau contexte
+@code{ImproVoice} dans la hiérarchie des contextes.  Tout comme le
+contexte @code{Voice}, sa place est au sein du contexte @code{Staff}.
+Nous allons donc modifier le contexte @code{Staff},
+au moyen de la commande @code{\accepts}@tie{}:
+
+@example
+\context @{
+  \Staff
+  \accepts ImproVoice
+@}
+@end example
+
+@funindex \denies
+
+Le contraire de @code{\accepts} est @code{\denies}@tie{}; il est parfois
+utile lorsque l'on recycle des définitions de contextes déjà existantes.
+
+Enfin, tout cela doit prendre place dans le bloc @code{\layout},
+comme suit@tie{}:
+
+@example
+\layout @{
+  \context @{
+    \name ImproVoice
+    @dots{}
+  @}
+  \context @{
+    \Staff
+    \accepts "ImproVoice"
+  @}
+@}
+@end example
+
+On peut alors saisir la musique, comme dans l'exemple plus haut@tie{}:
+
+@example
+\relative c'' @{
+  a4 d8 bes8
+  \new ImproVoice @{
+    c4^"ad lib" c
+    c4 c^"dévêtez-vous"
+    c c_"tout en jouant :)"
+  @}
+  a1
+@}
+@end example
+
+
+@node Ordonnancement des contextes
+@subsection Ordonnancement des contextes
+@translationof Context layout order
+
+@cindex contextes, ordonnancement
+
+@funindex \accepts
+@funindex \denies
+
+Les contextes viennent en principe se positionner selon leur ordre
+d'apparition dans le fichier source.  Lorsque plusieurs contextes sont
+imbriqués, le contexte englobant supportera les différents contextes
+mentionnés dans le fichier source, à la stricte condition qu'ils soient
+dûment @qq{agréés}.  Les contextes imbriqués qui ne font pas partie de
+la @qq{liste d'agréments} du contexte englobant se retrouveront en
+dessous de celui-ci au lieu d'y être imbriqués.
+
+La liste des @qq{agréments} d'un contexte se gère à l'aide des
+instructions @code{\accepts} et @code{\denies} -- @code{\accepts} pour
+ajouter un contexte à la liste, et @code{\denies} pour retirer
+l'agrément.  Il est par exemple peu conventionnel que les accords nommés
+apparaissent dans un contexte @code{Staff}@tie{}; autrement dit, le
+contexte @code{ChordNames} ne fait pas partie de la @qq{liste
+d'agréments} du contexte @code{Staff} par défaut.  Néanmoins, et s'il
+devait en être ainsi, vous pourriez le spécifier.
+
+
+@lilypond[verbatim,quote]
+\score {
+  \new Staff {
+    c' d' e' f'
+    \chords { d1:m7 b1:min7.5- }
+  }
+}
+@end lilypond
+
+@lilypond[verbatim,quote]
+\score {
+  \new Staff {
+    c' d' e' f'
+    \chords { d1:m7 b1:min7.5- }
+  }
+  \layout {
+    \context {
+      \Staff
+      \accepts "ChordNames"
+    }
+  }
+}
+@end lilypond
+
+L'instruction @code{\denies} permet, lorsqu'un nouveau contexte reprend
+les définitions d'un contexte existant, d'en ajuster les composantes.
+C'est par exemple le cas du contexte @code{VaticanaStaff}, réplique du
+contexte @code{Staff} au sein duquel le contexte @code{VaticanaVoice} se
+substitue au contexte @code{Voice} dans la @qq{liste d'agrément}.
+
+Gardez à l'esprit que, face à une instruction qui ne s'appliquerait à
+aucun contexte déjà existant, LilyPond créera un nouveau contexte
+implicite.  Ceci peut engendrer une nouvelle portée ou une autre
+partition.
+
+
+@seealso
+Manuel d'utilisation :
+@rprogram{Apparition d’une portée supplémentaire}.
+
+Fichiers d'initialisation :
+@file{ly/engraver-init.ly}.
+
+
+@node En quoi consiste la référence des propriétés internes
+@section En quoi consiste la référence des propriétés internes
+@translationof Explaining the Internals Reference
+
+@menu
+* Navigation dans les références du programme::
+* Interfaces de rendu::
+* Détermination de la propriété d'un objet graphique (grob)::
+* Conventions de nommage::
+@end menu
+
+@node Navigation dans les références du programme
+@subsection Navigation dans les références du programme
+@translationof Navigating the program reference
+
+@c TODO remove this (it's in the LM)
+@c Replace with more factual directions
+
+Comment, par exemple, déplacer le doigté dans le fragment suivant@tie{}?
+
+@lilypond[quote,relative=2,verbatim]
+c-2
+\stemUp
+f
+@end lilypond
+
+Sur la page de la documentation relative aux doigtés, c'est-à-dire
+@ref{Doigtés}, se trouve l'indication suivante@tie{}:
+
+
+@quotation
+@strong{Voir aussi}
+
+Référence des propriétés internes : @rinternals{Fingering}.
+@end quotation
+
+@c  outdated info; probably will delete.
 @ignore
-@n ode Retouches de mise en forme au sein des contextes
-@s ubsection Retouches de mise en forme au sein des contextes
-@t ranslationof Layout tunings within contexts
+This fragment points to two parts of the program reference: a page
+on @code{FingerEvent} and one on @code{Fingering}.
+
+The page on @code{FingerEvent} describes the properties of the music
+expression for the input @code{-2}.  The page contains many links
+forward.  For example, it says
+
+@quotation
+Accepted by: @rinternals{Fingering_engraver},
+@end quotation
+
+@noindent
+That link brings us to the documentation for the Engraver, the
+plug-in, which says
+
+@quotation
+This engraver creates the following layout objects: @rinternals{Fingering}.
+@end quotation
+
+In other words, once the @code{FingerEvent}s are interpreted, the
+@code{Fingering_engraver} plug-in will process them.
+@end ignore
+
+@ignore
+@c  I can't figure out what this is supposed to mean.  -gp
+
+The @code{Fingering_engraver} is also listed to create
+@rinternals{Fingering} objects,
+
+@c  old info?  it doesn't make any sense to me with our current docs.
+This is also the
+second bit of information listed under @b{See also} in the Notation
+manual.
+@end ignore
+
+@ifnothtml
+Ladite référence est disponible au format HTML, ce qui rend la
+navigation bien plus aisée.  Il est possible soit de la lire en ligne,
+soit de la télécharger dans ce format.  La démarche présentée ici sera
+plus difficile à comprendre dans un document au format PDF.
+@end ifnothtml
+
+Suivons le lien @rinternals{Fingering}.  En haut de la nouvelle page,
+on peut lire
+
+@quotation
+Fingering objects are created by: @rinternals{Fingering_engraver} and
+@rinternals{New_fingering_engraver}.
+@end quotation
+
+En d'autres termes, @emph{Les indications de doigtés}
+(@code{Fingering} en anglais) @emph{sont créées par les graveurs
+@rinternals{Fingering_engraver} et @rinternals{New_fingering_engraver}.}
+
+En suivant derechef les liens propres à la référence du programme, on
+suit en fait le cheminement qui aboutit à la création de la
+partition@tie{}:
+
+@itemize
+
+@item @rinternals{Fingering}:
+@rinternals{Fingering} objects are created by:
+@rinternals{Fingering_engraver}
+
+@item @rinternals{Fingering_engraver}:
+Music types accepted: @rinternals{fingering-event}
+
+@item @rinternals{fingering-event}:
+Music event type @code{fingering-event} is in Music expressions named
+@rinternals{FingeringEvent}
+@end itemize
+
+Ce cheminement se produit, bien sûr, en sens inverse@tie{}: nous sommes
+ici partis du résultat, et avons abouti aux évènements (en anglais
+@emph{Events}) engendrés par le fichier d'entrée.  L'inverse est
+également possible@tie{}: on peut partir d'un évènement, et suivre le
+cheminement de LilyPond qui aboutit à la création d'un ou plusieurs
+objets graphiques.
+
+La référence des propriétés internes peut également se parcourir comme
+un document normal. On y trouve des chapitres tels que
+@ifhtml
+@rinternals{Music definitions},
+@end ifhtml
+@ifnothtml
+@code{Music definitions}
+@end ifnothtml
+@rinternals{Translation}, ou encore @rinternals{Backend}.  Chaque
+chapitre recense toutes les définitions employées, et les propriétés
+sujettes à ajustements.
+
+@c -- what about adding a link to the glossary here ? -vv
+La Référence des propriétés internes n'est pas traduite en français --
+notamment du fait qu'elle est en évolution constante, tout comme
+LilyPond.  En revanche, les termes musicaux font l'objet d'un
+@rglosnamed{Top, glossaire} fort utile pour les utilisateurs
+francophones.
+
+
+@node Interfaces de rendu
+@subsection Interfaces de rendu
+@translationof Layout interfaces
+
+@cindex interfaces de rendu
+@cindex rendu, interfaces de
+@cindex objets graphiques
+
+Tous les éléments de notation sont considérés comme des objets
+graphiques (en anglais @emph{Graphical Object}, d'où le diminutif
+@emph{Grob}).  Chaque objet est doté d'un certain nombre de propriétés
+(l'épaisseur du trait, l'orientation, etc.), et lié à d'autres objets.
+Le fonctionnement de ces objets est décrit en détail dans
+@rinternals{grob-interface}.
+
+Prenons l'exemple des doigtés (en anglais @emph{Fingering}).  La page
+@code{Fingering} de la Référence des propriétés internes établit une
+liste de définitions propres à ce type d'objet@tie{}:
+
+@quotation
+@code{padding} (dimension, in staff space):
+
+@code{0.5}
+@end quotation
+
+@noindent
+Ce qui signifie que les doigtés doivent être maintenus à une certaine
+distance (@emph{padding}) des notes@tie{}: 0,5 unités @emph{staff-space}
+(espace de portée).
+
+Chaque objet peut avoir plusieurs attributs, en tant qu'élément
+typographique ou musical.  Ainsi, un doigté (objet @emph{Fingering})
+possède les attributs suivants@tie{}:
+
+
+@itemize
+@item
+Sa taille ne dépend pas de l'espacement horizontal, contrairement aux
+liaisons ou ligatures.
+
+@item
+C'est du texte -- un texte vraiment court, certes.
+
+@item
+Ce texte est imprimé au moyen d'une fonte, contrairement aux liaisons ou
+ligatures.
+
+@item
+Sur l'axe horizontal, le centre de ce symbole doit être aligné avec le
+centre de la note.
+
+@item
+Sur l'axe vertical, le symbole doit être proche de la note et de la
+portée.
+
+@item
+Sur l'axe vertical encore, il doit également s'ordonner avec les
+éventuels autres symboles, ponctuations ou éléments textuels.
+@end itemize
+
+Faire appliquer ces différents attributs est le rôle des
+@emph{interfaces}, que l'on trouve en bas de la page
+@rinternals{Fingering}.
+
+@quotation
+This object supports the following interfaces:
+@rinternals{item-interface},
+@rinternals{self-alignment-interface},
+@rinternals{side-position-interface}, @rinternals{text-interface},
+@rinternals{text-script-interface}, @rinternals{font-interface},
+@rinternals{finger-interface}, and @rinternals{grob-interface}.
+@end quotation
+
+@noindent
+En français,
+
+@quotation
+Cet objet admet les interfaces suivantes@tie{}:
+@end quotation
+
+Suit la liste des interfaces en question, présentées comme autant de
+liens qui conduisent aux pages dédiées à chacune d'entre elles.
+Chaque interface est dotée d'un certain nombre de propriétés, dont
+certaines peuvent être modifiées, et d'autres non (les @emph{Internal
+properties}, ou propriétés internes).
+
+Pour aller encore plus loin, plutôt que de simplement parler de l'objet
+@code{Fingering}, ce qui ne nous avance pas à grand chose, on peut aller
+explorer son âme même, dans les fichiers source de LilyPond (voir
+@rlearning{Autres sources de documentation}), en l'occurence le fichier
+@file{scm/define-grobs.scm}@tie{}:
+
+@example
+(Fingering
+  . ((padding . 0.5)
+     (avoid-slur . around)
+     (slur-padding . 0.2)
+     (staff-padding . 0.5)
+     (self-alignment-X . 0)
+     (self-alignment-Y . 0)
+     (script-priority . 100)
+     (stencil . ,ly:text-interface::print)
+     (direction . ,ly:script-interface::calc-direction)
+     (font-encoding . fetaText)
+     (font-size . -5) 		; don't overlap when next to heads.
+     (meta . ((class . Item)
+     (interfaces . (finger-interface
+                    font-interface
+                    text-script-interface
+                    text-interface
+                    side-position-interface
+                    self-alignment-interface
+                    item-interface))))))
+@end example
+
+@noindent
+@dots{}où l'on découvre que l'objet @code{Fingering} n'est rien de plus
+qu'un amas de variables et de réglages.  La page de la Référence des
+propriétés internes est en fait directement engendrée par cette
+définition.
+
+
+@node Détermination de la propriété d'un objet graphique (grob)
+@subsection Détermination de la propriété d'un objet graphique (grob)
+@translationof Determining the grob property
+
+@c TODO remove this (it's in the LM)
+@c Replace with more factual directions
+
+Nous voulions changer la position du chiffre @b{2} dans le fragment
+suivant@tie{}:
+
+@lilypond[quote,relative=2,verbatim]
+c-2
+\stemUp
+f
+@end lilypond
+
+Dans la mesure où le @b{2} est placé, verticalement, à proximité de la
+note qui lui correspond, nous allons devoir trouver l'interface en
+charge de ce placement, qui se trouve être
+@code{side-position-interface}.  Sur la page de cette interface, on peut
+lire@tie{}:
+
+@quotation
+@code{side-position-interface}
+
+Position a victim object (this one) next to other objects (the
+support).  The property @code{direction} signifies where to put the
+victim object relative to the support (left or right, up or down?)
+@end quotation
+
+@noindent
+Ce qui signifie
+@quotation
+@code{side-position-interface}
+
+Placer l'objet affecté à proximité d'autres objets.  La propriété
+@code{direction} indique où positionner l'objet (à droite ou à gauche,
+en haut ou en bas).
+@end quotation
+
+@cindex padding
+@noindent
+En-dessous de cette description se trouve décrite la variable
+@code{padding}@tie{}:
+
+@quotation
+@table @code
+@item padding
+(dimension, in staff space)
+
+Add this much extra space between objects that are next to each other.
+@end table
+@end quotation
+
+@noindent
+Ce qui signifie
+@quotation
+Ajouter tel espace supplémentaire entre des objets proches les uns des
+autres.
+@end quotation
+
+@noindent
+En augmentant la valeur de @code{padding}, on peut donc éloigner le
+doigté de la note.  La commande suivante insère trois unités d'espace
+vide entre la note et le doigté@tie{}:
+
+@example
+\once \override Voice.Fingering #'padding = #3
+@end example
+
+En ajoutant cette commande avant la création du doigté (de l'objet
+@code{Fingering}), donc avant @code{c2}, on obtient le résultat
+suivant@tie{}:
+
+@lilypond[quote,relative=2,verbatim]
+\once \override Voice.Fingering #'padding = #3
+c-2
+\stemUp
+f
+@end lilypond
+
+Dans le cas présent, le réglage intervient dans le contexte @code{Voice},
+ce qui pouvait également se déduire de la Référence des propriétés
+internes, où la page du graveur @rinternals{Fingering_engraver}
+indique@tie{}:
+
+@quotation
+Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
+@end quotation
+
+@noindent
+Ce qui signifie
+@quotation
+Le graveur Fingering_engraver fait partie des contextes@tie{}: @dots{}
+@rinternals{Voice}
+@end quotation
+
+
+@node Conventions de nommage
+@subsection Conventions de nommage
+@translationof Naming conventions
+
+Afin de s'y retrouver plus aisément et d'éviter les erreurs de frappe,
+voici quelques conventions en matière de nommage@tie{}:
+
+@itemize
+@item fonctions scheme :
+ minuscule-avec-trait-d-union (y compris noms en mot-unique)
+@item fonctions scheme :
+ ly:plus-style-scheme
+@item événements, classes et propriétés musicaux :
+ identique-aux-fonctions-scheme
+@item interfaces d'objet graphique :
+ style-scheme
+@item propriétés d'arrière plan :
+ style-scheme (mais X et Y pour les axes)
+@item contextes (ainsi que MusicExpressions et grobs) :
+ Capitale initiale ou Camélisation (CamelCase)
+@item propriétés de contexte :
+ minusculeSuivieDeCamélisation
+@item graveurs :
+ Capitale_initiale_puis_minuscules_séparées_par_un_souligné
+@end itemize
+
+Les questions que vous devez vous poser sont@tie{}:
+@itemize
+@item Qu'est-ce qui relève des conventions, et qu'est-ce qui relève de
+la règle@tie{}?
+@item Qu'est-ce qui relève des règles du langage sous-jascent, et
+qu'est-ce qui est propre à LilyPond@tie{}?
+@end itemize
+
+
+@node Modification de propriétés
+@section Modification de propriétés
+@translationof Modifying properties
+
+@c TODO change the menu and subsection node names to use
+@c backslash once the new macro to handle the refs
+@c is available.  Need to find and change all refs at
+@c the same time. -td
+
+@menu
+* Vue d'ensemble de la modification des propriétés::
+* La commande de fixation (set)::
+* La commande de dérogation (override)::
+* La commande d'affinage (tweak)::
+* set ou override::
+* Modification de listes associatives::
+@end menu
+
+@node Vue d'ensemble de la modification des propriétés
+@subsection Vue d'ensemble de la modification des propriétés
+@translationof Overview of modifying properties
 
 Chaque contexte est chargé de créer plusieurs types d'objets graphiques.
 Il contient également les réglages nécessaires pour chacun de ces
 objets.  Si l'on modifie ces réglages, les objets n'auront plus la même
 apparence.
 
+Les contextes comportent deux types différents de propriétés@tie{}: des
+propriétés de contexte et des propriétés d'objet graphique.  Les
+propriétés de contexte sont celles qui s'appliqueront globalement au
+contexte en tant que tel@tie{}; elles gèrent la manière dont le contexte
+apparaîtra.  Les propriétés d'objet graphique, par contre, s'appliquent
+à des types particuliers d'objet qui apparaissent dans le contexte en
+question.
+
+Les commandes @code{\set} et @code{\unset} permettent de modifier les
+valeurs des propriétés de contexte.  Les commandes @code{\override} et
+@code{\revert} permettent de modifier les valeurs des propriétés des
+objets graphiques.
+
+@ignore
 La syntaxe employée pour ce faire est
 
 @example
@@ -435,689 +1606,23 @@ Ainsi, par exemple@tie{}:
 \override Stem #'(details beamed-lengths) = #'(4 4 3)
 @end example
 
+@end ignore
 
 @seealso
 Référence des propriétés internes :
+@rinternals{Backend},
+@rinternals{All layout objects},
 @rinternals{OverrideProperty},
 @rinternals{RevertProperty},
-@rinternals{PropertySet},
-@rinternals{Backend},
-@rinternals{All layout objects}.
+@rinternals{PropertySet}.
 
 
 @knownissues
 
 La sous-couche Scheme ne vérifie pas la saisie des propriétés de façon
 très stricte.  Des références cycliques dans des valeurs Scheme peuvent
-de ce fait interrompre, ou faire planter le programme -- ou bien les
+de ce fait interrompre ou faire planter le programme -- ou bien les
 deux.
-@end ignore
-
-@node Modification des réglages par défaut d'un contexte
-@subsection Modification des réglages par défaut d'un contexte
-@translationof Changing context default settings
-
-Les réglages montrés dans les sous-sections
-@ref{La commande de fixation (set)},
-@ref{Modification des greffons de contexte}
-@c et @c r ef{Retouches de mise en forme au sein des contextes}
-peuvent également être saisis indépendamment de la musique dans le bloc
-@code{\layout}, au moyen de la commande @code{\context}@tie{}:
-
-@example
-\layout @{
-  @dots{}
-  \context @{
-    \Staff
-
-    \set fontSize = #-2
-    \override Stem #'thickness = #4.0
-    \remove "Time_signature_engraver"
-  @}
-@}
-@end example
-
-Le raccourci @code{\Staff} invoque les définitions inhérentes au
-contexte @code{Staff}, de façon à ce qu'elles puissent être modifiées.
-
-Les lignes suivantes affecteront toutes les portées (tous les contextes
-@code{Staff}) dans la partition.
-@example
-\set fontSize = #-2
-\override Stem #'thickness = #4.0
-\remove "Time_signature_engraver"
-@end example
-
-@noindent
-Les autres contextes peuvent être modifiés de même manière.
-
-La commande @code{\set}, dans le bloc @code{\layout}, est
-facultative@tie{}; aussi les lignes suivantes produiront-elles le même
-effet.
-
-@example
-\context @{
-  @dots{}
-  fontSize = #-2
-@}
-@end example
-
-
-@knownissues
-
-Il est impossible de stocker des modifications de contexte dans un
-identificateur.
-
-Le raccourci @code{\Staff \RemoveEmptyStaves} détruit tous les réglages
-du contexte @code{\Staff}.  Pour modifier des propriétés de portées
-gouvernées par @code{\Staff \RemoveEmptyStaves}, il faut le faire
-impérativement @strong{après} avoir invoqué @code{\Staff
-\RemoveEmptyStaves}@tie{}:
-
-@example
-\layout @{
-  \context @{
-    \Staff \RemoveEmptyStaves
-
-    \override Stem #'thickness = #4.0
-  @}
-@}
-@end example
-
-
-@node Définition de nouveaux contextes
-@subsection Définition de nouveaux contextes
-@translationof Defining new contexts
-
-Les contextes tels que @code{Staff} ou @code{Voice} sont faits
-de briques de constructions empilées.  En combinant divers graveurs,
-il est possible de créer de nouveaux types de contextes.
-
-Dans l'exemple suivant, on construit, de zéro, un nouveau contexte très
-semblable à @code{Voice}, mais qui n'imprime que des têtes de notes en
-forme de barres obliques au centre de la portée.  Un tel contexte, par
-exemple, peut servir à indiquer un passage improvisé dans un morceau de
-jazz.
-
-@c KEEP LY
-@lilypond[quote,ragged-right]
-\layout { \context {
-  \name ImproVoice
-  \type "Engraver_group"
-  \consists "Note_heads_engraver"
-  \consists "Rhythmic_column_engraver"
-  \consists "Text_engraver"
-  \consists Pitch_squash_engraver
-  squashedPosition = #0
-  \override NoteHead #'style = #'slash
-  \override Stem #'transparent = ##t
-  \override Flag #'transparent = ##t
-  \alias Voice
-}
-\context { \Staff
-  \accepts "ImproVoice"
-}}
-
-\relative c'' {
-  a4 d8 bes8 \new ImproVoice { c4^"ad lib" c
-   c4 c^"dévêtez-vous" c_"tout en jouant :)" c }
-  a1
-}
-@end lilypond
-
-
-On a rassemblé les réglages dans un bloc @code{\context}, lui-même dans
-le bloc @code{\layout}@tie{}:
-
-@example
-\layout @{
-  \context @{
-    @dots{}
-  @}
-@}
-@end example
-
-En lieu et place des points (@dots{}), voici les éléments à
-saisir@tie{}:
-
-@itemize @bullet
-@item Tout d'abord, il convient de donner un nom @code{\name} à notre
-nouveau contexte@tie{}:
-
-@example
-\name ImproVoice
-@end example
-
-@item Comme il est très semblable à @code{Voice}, nous souhaitons que
-toutes les commandes associées au @code{Voice} déjà existant, restent
-valables.  D'où nécessité de la commande @code{\alias}, qui va
-l'associer au contexte @code{Voice}@tie{}:
-
-@example
-\alias Voice
-@end example
-
-@item Ce contexte doit pouvoir imprimer des notes, et des indications
-textuelles@tie{}; on ajoute donc les graveurs appropriés.
-
-@example
-\consists Note_heads_engraver
-\consists Text_engraver
-@end example
-
-@item Cependant, on veut que les notes s'affichent toutes au centre de
-la portée@tie{}:
-
-@example
-\consists Pitch_squash_engraver
-squashedPosition = #0
-@end example
-
-@noindent
-Le graveur @rinternals{Pitch_squash_engraver} intercepte les notes
-créées par @rinternals{Note_heads_engraver}, et les @qq{écrase} pour
-qu'elles aient toutes la même position verticale, définie par
-@code{squashedPosition}@tie{}: ici il s'agit de la valeur@tie{}@code{0},
-c'est-à-dire la ligne du milieu.
-
-@item On veut que les notes aient la forme d'une barre oblique, sans
-aucune hampe@tie{}:
-
-@example
-\override NoteHead #'style = #'slash
-\override Stem #'transparent = ##t
-\override Flag #'transparent = ##t
-@end example
-
-@item Afin que tous ces graveurs puissent travailler de concert, on leur
-adjoint un sous-programme spécial, introduit par la commande
-@code{\type}@tie{}: il s'agit de @code{Engraver_group},
-
-@example
-\type "Engraver_group"
-@end example
-
-@end itemize
-
-Récapitulons -- on se retrouve avec le bloc suivant@tie{}:
-
-@example
-\context @{
-  \name ImproVoice
-  \type "Engraver_group"
-  \consists "Note_heads_engraver"
-  \consists "Text_engraver"
-  \consists Pitch_squash_engraver
-  squashedPosition = #0
-  \override NoteHead #'style = #'slash
-  \override Stem #'transparent = ##t
-  \override Flag #'transparent = ##t
-  \alias Voice
-@}
-@end example
-
-@funindex \accepts
-
-Ce n'est pas tout.  En effet, on veut intégrer le nouveau contexte
-@code{ImproVoice} dans la hiérarchie des contextes.  Tout comme le
-contexte @code{Voice}, sa place est au sein du contexte @code{Staff}.
-Nous allons donc modifier le contexte @code{Staff},
-au moyen de la commande @code{\accepts}@tie{}:
-
-@example
-\context @{
-  \Staff
-  \accepts ImproVoice
-@}
-@end example
-
-@funindex \denies
-
-Le contraire de @code{\accepts} est @code{\denies},
-qui est parfois utile lorsque l'on recycle des définitions de
-contextes déjà existantes.
-
-Enfin, tout cela doit prendre place dans le bloc @code{\layout},
-comme suit@tie{}:
-
-@example
-\layout @{
-  \context @{
-    \name ImproVoice
-    @dots{}
-  @}
-  \context @{
-    \Staff
-    \accepts "ImproVoice"
-  @}
-@}
-@end example
-
-On peut alors saisir la musique, comme dans l'exemple plus haut@tie{}:
-
-@example
-\relative c'' @{
-  a4 d8 bes8
-  \new ImproVoice @{
-    c4^"ad lib" c
-    c4 c^"dévêtez-vous"
-    c c_"tout en jouant :)"
-  @}
-  a1
-@}
-@end example
-
-
-@node Alignement des contextes
-@subsection Alignement des contextes
-@translationof Aligning contexts
-
-
-Il est possible d'aligner verticalement chaque nouveau contexte,
-en-dessous ou au-dessus, par exemple dans le cas de musique vocale
-(@rlearning{Ensemble vocal}) ou d'@emph{ossias}.
-
-@cindex ossia
-
-@findex alignAboveContext
-@findex alignBelowContext
-
-@lilypond[quote,ragged-right]
-ossia = { f4 f f f }
-\score{
-  \relative c' \new Staff = "main" {
-    c4 c c c
-    <<
-      \new Staff \with { alignAboveContext = #"main" } \ossia
-      { d8 f d f d f d f }
-    >>
-  }
-}
-@end lilypond
-
-
-@node En quoi consiste la référence des propriétés internes
-@section En quoi consiste la référence des propriétés internes
-@translationof Explaining the Internals Reference
-
-
-@menu
-* Navigation dans les références du programme::
-* Interfaces de rendu::
-* Détermination de la propriété d'un objet graphique (grob)::
-* Conventions de nommage::
-@end menu
-
-@node Navigation dans les références du programme
-@subsection Navigation dans les références du programme
-@translationof Navigating the program reference
-
-Comment, par exemple, déplacer le doigté dans le fragment suivant@tie{}?
-
-@lilypond[quote,relative=2,verbatim]
-c-2
-\stemUp
-f
-@end lilypond
-
-Sur la page de la documentation relative aux doigtés, c'est-à-dire
-@ref{Doigtés}, se trouve l'indication suivante@tie{}:
-
-
-@seealso
-Référence des propriétés internes :
-@rinternals{Fingering}.
-
-
-@c  outdated info; probably will delete.
-@ignore
-This fragment points to two parts of the program reference: a page
-on @code{FingerEvent} and one on @code{Fingering}.
-
-The page on @code{FingerEvent} describes the properties of the music
-expression for the input @code{-2}.  The page contains many links
-forward.  For example, it says
-
-@quotation
-Accepted by: @rinternals{Fingering_engraver},
-@end quotation
-
-@noindent
-That link brings us to the documentation for the Engraver, the
-plug-in, which says
-
-@quotation
-This engraver creates the following layout objects: @rinternals{Fingering}.
-@end quotation
-
-In other words, once the @code{FingerEvent}s are interpreted, the
-@code{Fingering_engraver} plug-in will process them.
-@end ignore
-
-@ignore
-@c  I can't figure out what this is supposed to mean.  -gp
-
-The @code{Fingering_engraver} is also listed to create
-@rinternals{Fingering} objects,
-
-@c  old info?  it doesn't make any sense to me with our current docs.
-This is also the
-second bit of information listed under @b{See also} in the Notation
-manual.
-@end ignore
-
-@ifnothtml
-Ladite référence est disponible au format HTML, ce qui rend la
-navigation bien plus aisée.  Il est possible soit de la lire en ligne,
-soit de la télécharger dans ce format.  La démarche présentée ici sera
-plus difficile à comprendre dans un document au format PDF.
-@end ifnothtml
-
-Suivons le lien @rinternals{Fingering}.  En haut de la nouvelle page,
-on peut lire
-
-@quotation
-Fingering objects are created by: @rinternals{Fingering_engraver} and
-@rinternals{New_fingering_engraver}.
-@end quotation
-
-En d'autres termes, @emph{Les indications de doigtés}
-(@code{Fingering} en anglais) @emph{sont créées par les graveurs
-@rinternals{Fingering_engraver} et @rinternals{New_fingering_engraver}.}
-
-En suivant derechef les liens propres à la référence du programme, on
-suit en fait le cheminement qui aboutit à la création de la
-partition@tie{}:
-
-@itemize @bullet
-
-@item @rinternals{Fingering}:
-@rinternals{Fingering} objects are created by:
-@rinternals{Fingering_engraver}
-
-@item @rinternals{Fingering_engraver}:
-Music types accepted: @rinternals{fingering-event}
-
-@item @rinternals{fingering-event}:
-Music event type @code{fingering-event} is in Music expressions named
-@rinternals{FingeringEvent}
-@end itemize
-
-Ce cheminement se produit, bien sûr, en sens inverse@tie{}: nous sommes
-ici partis du résultat, et avons abouti aux évènements (en anglais
-@emph{Events}) engendrés par le fichier d'entrée.  L'inverse est
-également possible@tie{}: on peut partir d'un évènement, et suivre le
-cheminement de LilyPond qui aboutit à la création d'un ou plusieurs
-objets graphiques.
-
-La référence des propriétés internes peut également se parcourir comme
-un document normal. On y trouve des chapitres tels que
-@ifhtml
-@rinternals{Music definitions},
-@end ifhtml
-@ifnothtml
-@code{Music definitions}
-@end ifnothtml
-@rinternals{Translation}, ou encore @rinternals{Backend}.  Chaque
-chapitre recense toutes les définitions employées, et les propriétés
-sujettes à ajustements.
-
-@c -- what about adding a link to the glossary here ? -vv
-@ignore
-La Référence du programme n'est pas traduite en français -- notamment du
-fait qu'elle est en évolution constante, tout comme LilyPond.  En
-revanche, les termes musicaux font l'objet d'un
-@commentfairelelien{glossaire} fort utile pour les utilisateurs francophones.
-@end ignore
-
-
-@node Interfaces de rendu
-@subsection Interfaces de rendu
-@translationof Layout interfaces
-
-@cindex interfaces de rendu
-@cindex rendu, interfaces de
-@cindex objets graphiques
-
-Tous les éléments de notation sont considérés comme des objets
-graphiques (en anglais @emph{Graphical Object}, d'où le diminutif
-@emph{Grob}).  Chaque objet est doté d'un certain nombre de propriétés
-(l'épaisseur du trait, l'orientation, etc.), et lié à d'autres objets.
-Le fonctionnement de ces objets est décrit en détail dans
-@rinternals{grob-interface}.
-
-Prenons l'exemple des doigtés (en anglais @emph{Fingering}).  La page
-@code{Fingering} de la Référence des propriétés internes établit une
-liste de définitions propres à ce type d'objet@tie{}:
-
-@quotation
-@code{padding} (dimension, in staff space):
-
-@code{0.5}
-@end quotation
-
-@noindent
-Ce qui signifie que les doigtés doivent être maintenus à une certaine
-distance (@emph{padding}) des notes@tie{}: 0,5 unités @emph{staff-space}
-(espace de portée).
-
-Chaque objet peut avoir plusieurs attributs, en tant qu'élément
-typographique ou musical.  Ainsi, un doigté (objet @emph{Fingering})
-possède les attributs suivants@tie{}:
-
-
-@itemize @bullet
-@item
-Sa taille ne dépend pas de l'espacement horizontal, contrairement aux
-liaisons ou ligatures.
-
-@item
-C'est du texte -- un texte vraiment court, certes.
-
-@item
-Ce texte est imprimé au moyen d'une fonte, contrairement aux liaisons ou
-ligatures.
-
-@item
-Sur l'axe horizontal, le centre de ce symbole doit être aligné avec le
-centre de la note.
-
-@item
-Sur l'axe vertical, le symbole doit être proche de la note et de la
-portée.
-
-@item
-Sur l'axe vertical encore, il doit également s'ordonner avec les
-éventuels autres symboles, ponctuations, ou éléments textuels.
-@end itemize
-
-Faire appliquer ces différents attributs est le rôle des
-@emph{interfaces}, que l'on trouve en bas de la page
-@rinternals{Fingering}.
-
-@quotation
-This object supports the following interfaces:
-@rinternals{item-interface},
-@rinternals{self-alignment-interface},
-@rinternals{side-position-interface}, @rinternals{text-interface},
-@rinternals{text-script-interface}, @rinternals{font-interface},
-@rinternals{finger-interface}, and @rinternals{grob-interface}.
-@end quotation
-
-@noindent
-En français,
-
-@quotation
-Cet objet admet les interfaces suivantes@tie{}:
-@end quotation
-
-Suit la liste des interfaces en question, présentées comme autant de
-liens, qui conduisent sur les pages dédiées à chacune d'entre elles.
-Chaque interface est dotée d'un certain nombre de propriétés, dont
-certaines peuvent être modifiées, et d'autres non (les @emph{Internal
-properties}, ou propriétés internes).
-
-Pour aller encore plus loin, plutôt que de simplement parler de l'objet
-@code{Fingering}, ce qui ne nous avance pas à grand chose, on peut aller
-explorer son âme même, dans les fichiers source de LilyPond (voir
-@rlearning{Autres sources de documentation}), en l'occurence le fichier
-@file{scm/define-grobs.scm}@tie{}:
-
-@example
-(Fingering
-  . ((padding . 0.5)
-     (avoid-slur . around)
-     (slur-padding . 0.2)
-     (staff-padding . 0.5)
-     (self-alignment-X . 0)
-     (self-alignment-Y . 0)
-     (script-priority . 100)
-     (stencil . ,ly:text-interface::print)
-     (direction . ,ly:script-interface::calc-direction)
-     (font-encoding . fetaText)
-     (font-size . -5) 		; don't overlap when next to heads.
-     (meta . ((class . Item)
-     (interfaces . (finger-interface
-                    font-interface
-                    text-script-interface
-                    text-interface
-                    side-position-interface
-                    self-alignment-interface
-                    item-interface))))))
-@end example
-
-@noindent
-@dots{}où l'on découvre que l'objet @code{Fingering} n'est rien de plus
-qu'un amas de variables et de réglages.  La page de la Référence du
-programme est en fait directement engendrée par cette définition.
-
-
-@node Détermination de la propriété d'un objet graphique (grob)
-@subsection Détermination de la propriété d'un objet graphique (grob)
-@translationof Determining the grob property
-
-
-Nous voulions changer la position du chiffre @b{2} dans le fragment
-suivant@tie{}:
-
-@lilypond[quote,relative=2,verbatim]
-c-2
-\stemUp
-f
-@end lilypond
-
-Dans la mesure où le @b{2} est placé, verticalement, à proximité de la
-note qui lui correspond, nous allons devoir trouver l'interface en
-charge de ce placement, qui se trouve être
-@code{side-position-interface}.  Sur la page de cette interface, on peut
-lire@tie{}:
-
-@quotation
-@code{side-position-interface}
-
-Position a victim object (this one) next to other objects (the
-support).  The property @code{direction} signifies where to put the
-victim object relative to the support (left or right, up or down?)
-@end quotation
-
-@noindent
-Ce qui signifie
-@quotation
-@code{side-position-interface}
-
-Placer l'objet affecté à proximité d'autres objets.  La propriété
-@code{direction} indique où placer l'objet (à droite ou à gauche,
-en haut ou en bas).
-@end quotation
-
-@cindex padding
-@noindent
-En-dessous de cette description se trouve décrite la variable
-@code{padding}@tie{}:
-
-@quotation
-@table @code
-@item padding
-(dimension, in staff space)
-
-Add this much extra space between objects that are next to each other.
-@end table
-@end quotation
-
-@noindent
-Ce qui signifie
-@quotation
-Ajouter tel espace supplémentaire entre des objets proches les uns des
-autres.
-@end quotation
-
-@noindent
-En augmentant la valeur de @code{padding}, on peut donc éloigner le
-doigté de la note.  La commande suivante insère trois unités d'espace
-vide entre la note et le doigté@tie{}:
-
-@example
-\once \override Voice.Fingering #'padding = #3
-@end example
-
-En ajoutant cette commande avant la création du doigté (de l'objet
-@code{Fingering}), donc avant @code{c2}, on obtient le résultat
-suivant@tie{}:
-
-@lilypond[quote,relative=2,verbatim]
-\once \override Voice.Fingering #'padding = #3
-c-2
-\stemUp
-f
-@end lilypond
-
-
-Dans le cas présent, le réglage intervient dans le contexte @code{Voice},
-ce qui pouvait également se déduire de la Référence du programme, où la
-page du graveur @rinternals{Fingering_engraver} indique@tie{}:
-
-@quotation
-Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
-@end quotation
-
-@noindent
-Ce qui signifie
-@quotation
-Le graveur Fingering_engraver fait partie des contextes@tie{}: @dots{}
-@rinternals{Voice}
-@end quotation
-
-
-@node Conventions de nommage
-@subsection Conventions de nommage
-@translationof Naming conventions
-
-@untranslated
-
-
-@node Modification de propriétés
-@section Modification de propriétés
-@translationof Modifying properties
-
-@c TODO change the menu and subsection node names to use
-@c backslash once the new macro to handle the refs
-@c is available.  Need to find and change all refs at
-@c the same time. -td
-
-@menu
-* Vue d'ensemble de la modification des propriétés::
-* La commande de fixation (set)::
-* La commande de dérogation (override)::
-* La commande d'affinage (tweak)::
-* set ou override::
-* Modification de listes associatives::
-@end menu
-
-@node Vue d'ensemble de la modification des propriétés
-@subsection Vue d'ensemble de la modification des propriétés
-@translationof Overview of modifying properties
-
-@untranslated
 
 
 @node La commande de fixation (set)
@@ -1125,8 +1630,8 @@ Le graveur Fingering_engraver fait partie des contextes@tie{}: @dots{}
 @translationof The set command
 
 @cindex propriétés
-@funindex \set
 @cindex modifier des propriétés
+@funindex \set
 
 Chaque contexte peut avoir plusieurs @emph{propriétés}, c'est-à-dire
 des variables qu'il inclut.  Ces dernières peuvent être modifiées @qq{à
@@ -1137,40 +1642,55 @@ là le rôle de la commande @code{\set}.
 \set @var{contexte}.@var{propriété} = #@var{valeur}
 @end example
 
-Ainsi@tie{}:
+Dans la mesure où @var{valeur} est constituée d'un objet Scheme, elle
+doit être précédée du caractère@tie{}@code{#}.
+
+Les propriétés des contextes se libellent sous la forme
+@code{minusculeMajuscule}.  Leur rôle consiste principalement à traduire
+la musique en notation@tie{}: par exemple, @code{localKeySignature}
+déterminera quand imprimer une altération accidentelle, et
+@code{measurePosition} quand imprimer une barre de mesure.  La valeur
+des propriétés des contextes peuvent évoluer au fur et à mesure que l'on
+avance dans le morceau -- @code{measurePosition} en est l'illustration
+parfaite.
+
+Ainsi la propriété de contexte @code{skipBars} permet de condenser les
+mesures vides de notes, en des silences multimesures.  Il s'agit d'un
+objet Scheme, auquel on attribue la valeur booléenne @qq{vrai},
+c'est-à-dire la lettre @code{#t} pour @qq{True} en anglais@tie{}:
+
 @lilypond[quote,verbatim,relative=2]
 R1*2
 \set Score.skipBars = ##t
 R1*2
 @end lilypond
 
-Cette commande permet de condenser les mesures vides de notes, en des
-silences multimesures.  Il s'agit d'un objet Scheme, auquel on attribue
-la valeur booléenne @qq{vrai}, c'est-à-dire la lettre @code{#t} pour
-@qq{True} en anglais.
+Si l'argument @var{contexte} n'est pas spécifié, alors la propriété
+cherchera à s'appliquer dans le contexte le plus restreint où elle est
+employée@tie{}: le plus souvent  @code{ChordNames}, @code{Voice} ou
+@code{Lyrics}.
+
+@lilypond[quote,verbatim,relative=2]
+\set Score.autoBeaming = ##f
+<<
+  {
+    e8 e e e
+    \set autoBeaming = ##t
+    e8 e e e
+  } \\ {
+    c8 c c c c8 c c c
+  }
+>>
+@end lilypond
 
 Ce changement étant appliqué @qq{à la volée}, il n'affecte que le second
 groupe de notes.
 
-Si l'argument @var{contexte} n'est pas spécifié, alors la propriété
-cherchera à s'appliquer dans le contexte le plus restreint où elle est
-employée@tie{}: le plus souvent  @code{ChordNames}, @code{Voice}, ou
-@code{Lyrics}.  Dans l'exemple suivant,
-
-@lilypond[quote,verbatim,relative=2]
-c8 c c c
-\set autoBeaming = ##f
-c8 c c c
-@end lilypond
-
-@noindent
-aucun argument @var{contexte} n'a été donné à la commande @code{\set}.
-De ce fait, les ligatures automatiques sont désactivées dans le contexte
-actuel, c'est-à-dire @rinternals{Voice}.  Notez que le contexte le plus
-restreint n'est pas toujours le bon, et peut ne pas contenir la
-propriété qui vous intéresse@tie{}: ainsi, la propriété @code{skipBars},
-évoquée plus haut, ne relève pas du contexte @code{Voice}, et le code
-suivant ne fonctionnera pas.
+Notez que le contexte le plus restreint n'est pas toujours le bon, et
+peut ne pas contenir la propriété qui vous intéresse@tie{}: ainsi, la
+propriété @code{skipBars}, évoquée plus haut, ne relève pas du contexte
+@code{Voice}, mais du contexte @code{Score} -- le code suivant ne
+fonctionnera pas.
 
 @lilypond[quote,verbatim,relative=2]
 R1*2
@@ -1193,31 +1713,24 @@ propriété@tie{}:
 @end example
 
 @noindent
-si et seulement si cette propriété à été définie dans ce @var{contexte}
-précis@tie{}; ainsi,
+si et seulement si cette propriété a été définie dans ce @var{contexte}
+précis.  En d'autres termes, la commande @code{\unset} doit
+impérativement affecter le même contexte que la commande @code{\set}
+d'origine, même en cas d'imbrication.
 
-@example
-\set Staff.autoBeaming = ##f
-@end example
-
-@noindent
-même s'il s'applique à tous les contextes @code{Voice} contenus dans le
-contexte @code{Staff}, ne peut être annulé au niveau @code{Voice}.  Le
-code suivant sera sans effet.
-
-@example
-\unset Voice.autoBeaming
-@end example
-
-@noindent
-En d'autres termes, la commande @code{\unset} doit impérativement être
-accompagnée du même contexte que la commande @code{\set} d'origine.
-Pour annuler l'effet, dans notre exemple, de
-@w{@code{Staff.autoBeaming@tie{}=@tie{}##f}}, il faut donc entrer@tie{}:
-
-@example
-\unset Staff.autoBeaming
-@end example
+@lilypond[quote,verbatim,relative=2]
+\set Score.autoBeaming = ##t
+<<
+  {
+    \unset autoBeaming
+    e8 e e e
+    \unset Score.autoBeaming
+    e8 e e e
+  } \\ {
+    c8 c c c c8 c c c
+  }
+>>
+@end lilypond
 
 Si l'on se trouve dans le contexte le plus restreint, il n'est pas
 obligatoire, là encore, de spécifier le @var{contexte}.  Ainsi, les deux
@@ -1230,8 +1743,9 @@ lignes suivantes sont équivalentes.
 
 @cindex \once
 
-Pour modifier une propriété de façon à ce qu'elle ne s'applique qu'une
-seule fois, il convient d'employer la commande @code{\once}@tie{}:
+Pour modifier une propriété de façon à ce que l'accommodement ne
+s'applique qu'une seule fois, il convient d'adjoindre l'instruction
+@code{\once} à la commande @code{\set}@tie{}:
 
 @lilypond[quote,verbatim,relative=2]
 c4
@@ -1242,8 +1756,8 @@ c4
 
 Ici le changement de taille est annulé aussitôt après la note concernée.
 
-La référence du programme contient une description exhaustive de toutes
-les propriétés contexte par contexte@tie{}: voir
+La référence des propriétés internes contient une description exhaustive
+de toutes les propriétés, contexte par contexte@tie{}: voir
 @ifhtml
 @rinternals{Tunable context properties}.
 @end ifhtml
@@ -1252,27 +1766,139 @@ Translation @expansion{} Tunable context properties.
 @end ifnothtml
 
 
+@seealso
+
+Référence des propriétés internes :
+@rinternals{Tunable context properties}.
+
+
 @node La commande de dérogation (override)
 @subsection La commande de dérogation @code{@bs{}override}
 @translationof The override command
 
+@cindex grob, propriétés
+@cindex objet graphique, propriétés
+@cindex propriétés d'un grob
+@cindex propriétés d'objet graphique
 
-La commande @code{\override} permet de modifier la mise en page
-en détail.  Examinons son utilisation concrètementet dans les détails.
-La syntaxe de cette commande ressemble généralement à@tie{}:
+@funindex \override
+
+La commande @code{\override} permet de modifier la mise en forme des
+objets graphiques. Les descriptions d'objet graphique, dont les noms
+commencent par une majuscule, puis comprennent une ou plusieurs
+majuscules (de style @code{TotoTata}), contiennent les réglages @qq{par
+défaut} pour les objets graphiques.  Ces réglages sont sous forme de
+liste Scheme@tie{}; on peut les consulter dans le fichier
+@file{scm/define-grobs.scm}.
+
+@code{\override} est en fait un raccourci@tie{}:
 
 @example
-\override @var{contexte}.@var{objet} #'@var{propriété} = #@var{valeur}
+\override @var{contexte}.@var{NomObjet} #'@var{propriété} = #@var{valeur}
 @end example
 
-La propriété @var{propriété} de l'objet @var{objet}, appartenant au
-contexte @var{contexte}, se voit ainsi attribuer la valeur @var{valeur}.
+@noindent
+plus ou moins équivalent à
 
+@c  leave this long line -gp
+@example
+\set @var{contexte}.@var{NomObjet}  =
+  #(cons (cons '@var{propriété} @var{valeur})
+         <valeur antérieure de @var{contexte}.@var{NomObjet}>)
+@end example
 
-@c deprecated node. Delete. --fv
-@c @n ode Élaboration d'une retouche
-@c @s ubsection Élaboration d'une retouche
-@c @t ranslationof Constructing a tweak
+La valeur de @var{contexte}.@var{NomObjet} (une liste associative, ou
+@emph{alist}) permet d'initialiser les propriétés des objets un par un.
+Les objets eux-même ont leurs propriétés, dont les noms, dans la
+tradition du langage Scheme, comprennent un trait d'union
+(@code{toto-titi}).  Ces propriétés internes changent constamment au
+cours de la mise en page@tie{}: en fait, la gravure d'une page n'est
+autre que le calcul de toutes ces propriétés au moyen de fonctions de
+rappel.
+
+Nous pouvons donc par exemple accroître l'épaisseur des hampes en jouant
+sur la propriété @code{thickness} de l'objet @code{stem}@tie{}:
+
+@lilypond[quote,verbatim,relative=2]
+c4 c
+\override Voice.Stem #'thickness = #3.0
+c4 c
+@end lilypond
+
+Lorsqu'aucun contexte n'est spécifié dans une clause @code{\override},
+celle-ci s'appliquera au contexte le plus bas@tie{}:
+
+@lilypond[quote,verbatim,relative=2]
+{ \override Staff.Stem #'thickness = #3.0
+  <<
+    {
+      e4 e
+      \override Stem #'thickness = #0.5
+      e4 e
+    } \\ {
+      c4 c c c
+    }
+  >>
+}
+@end lilypond
+
+@cindex annulation d'un override
+@cindex override, annulation des effets
+@funindex \revert
+
+Les effets d'un @code{\override} prennent fin à l'aide de l'instruction
+@code{\revert}@tie{}:
+
+@lilypond[quote,verbatim,relative=2]
+c4
+\override Voice.Stem #'thickness = #3.0
+c4 c
+\revert Voice.Stem #'thickness
+c4
+@end lilypond
+
+Les effets d'un @code{\override} ou d'un @code{\revert} s'appliquent dès
+l'endroit où ils apparaissent, et à tous les objets dans le contexte
+mentionné@tie{}:
+
+@lilypond[quote,verbatim,relative=2]
+{
+  <<
+    {
+      e4
+      \override Staff.Stem #'thickness = #3.0
+      e4 e e
+    } \\ {
+      c4 c c
+      \revert Staff.Stem #'thickness
+      c4
+    }
+  >>
+}
+@end lilypond
+
+@cindex override ponctuel
+@funindex \once
+
+L'instruction @code{\override} doit être précédée d'un @code{\once} dès
+lors que les effets de l'accomodement ne concernent que l'événement qui
+la suit directement@tie{}:
+
+@lilypond[quote,verbatim,relative=2]
+{
+  <<
+    {
+      \override Stem #'thickness = #3.0
+      e4 e e e
+    } \\ {
+      c4
+      \once \override Stem #'thickness = #3.0
+      c4 c c
+    }
+  >>
+}
+@end lilypond
+
 @ignore
 Les commandes permettant de modifier l'apparence de la partition
 ressemblent en général à
@@ -1316,13 +1942,36 @@ propriétés causant des désagréments.
 @end ignore
 
 
+@seealso
+
+Référence des propriétés internes :
+@rinternals{Backend}
+
+
 @node La commande d'affinage (tweak)
 @subsection La commande d'affinage @code{@bs{}tweak}
 @translationof The tweak command
 
-
+@cindex retouche (tweak)
+@cindex affinage (tweak)
+@cindex tweak (retouche, affinage)
 @funindex \tweak
 
+L'utilisation d'un @code{\override} pour modifier les propriétés d'un
+objet graphique affectera toutes les instances de l'objet en question au
+sein du contexte, et ce dès son apparition.  Il peut parfois être
+préférable de n'affecter qu'un seul objet en particulier plutôt que tous
+les objets du contexte.  C'est là rôle de l'instruction @code{\tweak},
+dont la syntaxe est@tie{}:
+
+@example
+\tweak #'@code{objet-propriété} #@code{valeur}
+@end example
+
+La commande @code{\tweak} s'applique à l'objet qui apparait
+immédiatement après @code{valeur}.
+
+@ignore
 Dans certains cas, on peut passer par un raccourci pour arranger les
 objets graphiques.  Lorsqu'un objet est directement engendré par un
 élément distinct du fichier source, on peut utiliser la commande
@@ -1333,10 +1982,14 @@ Dans l'accord suivant, les notes sont modifiées une par une@tie{}:
 @lilypond[relative=2,verbatim,ragged-right]
 <
   c
-  \tweak #'color #red d
+  \tweak #'color #red
+  d
   g
-  \tweak #'duration-log #1  a
->4-\tweak #'padding #10 -.
+  \tweak #'duration-log #1 
+   a
+>4
+-\tweak #'padding #8
+-^
 @end lilypond
 
 Comme on peut le voir, les propriétés sont ici modifiées directement
@@ -1371,59 +2024,125 @@ pourquoi le code suivant ne sera d'aucun effet@tie{}:
 @noindent
 Voir pour plus de détails
 @rextendnamed{Displaying music expressions,Affichage d'expressions musicales}.
+@end ignore
+
+Pour une introduction à la syntaxe et l'utilisation des retouches, voir
+le chapitre @rlearning{Méthodes de retouche}.
+
+Lorsque plusieurs éléments de même nature surviennent au même instant,
+il devient impossible d'utiliser l'instruction @code{\override} pour
+n'en modifier qu'un seul individuellement, d'où l'intérêt de la commande
+@code{\tweak}.  Entre autres éléments qui sont susceptibles de se
+produire au même instant, nous citerons@tie{}:
+
+@c TODO expand to include any further uses of \tweak
+@itemize
+@item les têtes de notes au sein d'un accord,
+@item les signes d'articulation,
+@item les liaisons de prolongation sur des notes d'un accord,
+@item les crochets de nolets démarrant au même instant
+@end itemize
+
+@c TODO add examples of these
+
+Dans l'exemple suivant, l'une des têtes de note de l'accord est
+colorisée, et l'aspect d'une autre est changé.
+
+@lilypond[relative=2,verbatim,quote]
+< c
+  \tweak #'color #red
+  d
+  g
+  \tweak #'duration-log #1
+  a
+> 4
+@end lilypond
+
+L'instruction @code{\tweak} permet aussi de modifier l'aspect d'une
+liaison@tie{}:
+
+@lilypond[verbatim,quote,relative=1]
+c-\tweak #'thickness #5 ( d e f)
+@end lilypond
+
+La commande @code{\tweak} ne sera pleinement fonctionnelle que si elle
+est directement rattachée à l'objet auquel elle doit s'appliquer alors
+que le fichier source est converti en flux musical.  LilyPond peut
+parfois être amené à ajouter d'autres éléments au flux musical lors de
+la phase d'analyse.  C'est la raison pour laquelle, puisque LilyPond
+peut insérer une note dans un accord alos qu'elle n'en fait pas partie
+explicitement, il est impératif d'adopter une construction d'accord
+lorsque l'instruction @code{\tweak} concerne une note isolée@tie{}:
+
+@lilypond[relative=2,verbatim,quote]
+\tweak #'color #red c4
+<\tweak #'color #red c>4
+@end lilypond
+
+La commande @code{\tweak} ne saurait servir à modifier un élément qui ne
+serait pas explicitement mentionné dans le fichier source.  C'est
+notamment le cas des hampes, ligatures ou altérations, dans la mesure où
+elles seront ultérieurement générées et après les têtes de note, plutôt
+qu'au fil des éléments musicaux saisis.  La commande @code{\tweak} ne
+peut non plus servir à modifier clefs ou métriques, puisqu'elles seront
+immanquablement séparées du @code{\tweak} par l'insertion automatique
+d'autres éléments requis pour spécifier le contexte.
+
+Plusieurs commandes @code{\tweak} en enfilade permettent d'affecter un
+même élément de notation@tie{}:
+
+@lilypond[verbatim,quote,relative=1]
+c
+-\tweak #'style #'dashed-line
+-\tweak #'dash-fraction #0.2
+-\tweak #'thickness #3
+-\tweak #'color #red
+ \glissando
+f'
+@end lilypond
+
+Vous pouvez examiner le flux musical généré par une portion de votre
+fichier source, y compris les éléments automatiquement insérés, en
+suivant les indications portées à la rubrique
+@rextendnamed{Displaying music expressions,Affichage d'expressions
+musicales}.  Ceci s'avère tout à fait approprié pour déterminer ce qui
+peut se modifier à l'aide d'un @code{\tweak} ou bien vous aider à
+rectifier votre source de telle sorte que le @code{\tweak} produise ses
+effets.
+
+
+@seealso
+Manuel d'initiation :
+@rlearning{Méthodes de retouche}.
+
+Manuel d'extension :
+@rextendnamed{Displaying music expressions, Affichage d'expressions musicales}.
+
+
+@knownissues
+
+@cindex tweak et identificateur
+La commande @code{\tweak} ne peut s'utiliser dans une variable.
+
+@cindex tweaks et paroles
+La commande @code{\tweak} est inopérante en mode @code{\lyricmode}.
+
+@cindex tweaking control points
+@cindex control points, tweaking
+Lorsqu'il y a plusieurs liaisons de prolongation dans un accord, la
+commande @code{\tweak} ne s'applique qu'à la première.
 
 
 @node set ou override
 @subsection @code{\set} ou @code{\override}
 @translationof set versus override
 
+@c TODO -- This section is probably unnecessary now.
 
+@ignore
 Si les propriétés peuvent être modifiées de deux façons, par les
 commandes @code{\set} et @code{\override}, c'est qu'il y a deux types de
 propriétés.
-
-Les contextes peuvent avoir des propriétés, dont les noms commencent par
-une minuscule puis comprennent une ou plusieurs majuscules (de style
-@code{totoTutu}).  Elles ont surtout trait à la notation des éléments
-musicaux@tie{}: par exemple, @code{localKeySignature} permet de choisir
-s'il faut ou non imprimer une altération, ou @code{measurePosition}
-permet de choisir quand il faut imprimer une barre de mesure.  Ces
-propriétés de contextes sont appelées à changer au long de
-l'interprétation de la partition@tie{}: @code{measurePosition} en est un
-exemple évident.  Ces propriétés doivent être modifiées avec la commande
-@code{\set}.
-
-Il existe un type particulier de propriété@tie{}@tie{}: les descriptions
-d'éléments.  Ces propriétés, dont les noms commencent par une majuscule,
-puis comprennent une ou plusieurs majuscules (de style @code{TotoTata}),
-contiennent les réglages @qq{par défaut} pour les objets graphiques.
-Ces réglages sont sous forme de liste Scheme@tie{}; on peut les
-consulter dans le fichier @file{scm/define-grobs.scm}.
-
-Les descriptions d'éléments doivent être modifiées avec la commande
-@code{\override}.
-
-@code{\override} est en fait un raccourci@tie{}:
-
-@example
-\override @var{contexte}.@var{objet} #'@var{propriété} = #@var{valeur}
-@end example
-
-@noindent
-est plus ou moins l'équivalent de
-
-@c  leave this long line -gp
-@example
-\set @var{contexte}.@var{objet} #'@var{propriété} = #(cons (cons '@var{propriété} @var{valeur}) <valeur précédente de @var{contexte})
-@end example
-
-La valeur de @code{context} (la liste Scheme, ou @emph{alist}) sert à
-initialiser les propriétés des objets un par un.  Les objets eux-même
-ont leurs propriétés, dont les noms, dans la tradition du langage
-Scheme, comprennent un trait d'union (@code{toto-titi}).  Ces propriétés
-internes changent constamment au cours de la mise en page@tie{}: en
-fait, la gravure d'une page n'est autre que le calcul de toutes ces
-propriétés, au moyen de fonctions de rappel.
 
 La propriété @code{fontSize} est une exception@tie{}: c'est un
 raccourci, qui équivaudrait à saisir @w{@code{\override @dots{}
@@ -1431,12 +2150,130 @@ raccourci, qui équivaudrait à saisir @w{@code{\override @dots{}
 s'agit d'une manipulation très courante, une propriété spéciale a été
 créée.  Elle doit être modifiée avec la commande @code{\set}.
 
+@end ignore
+
 
 @node Modification de listes associatives
 @subsection Modification de listes associatives
 @translationof Modifying alists
 
-@untranslated
+Certaines propriétés configurables par l'utilisateur se présentent en
+interne comme étant des listes associatives -- les puristes diront des
+@emph{alists}.  Une @emph{alist} est en fait constituée de plusieurs
+paires de @emph{clés} et @emph{valeurs}@tie{}; sa structure ressemble
+à@tie{}:
+
+@example
+'((@var{clé1} . @var{valeur1})
+  (@var{clé2} . @var{valeur2})
+  (@var{clé3} . @var{valeur3})
+  @dots{})
+@end example
+
+Dans le cas où cette liste représente les propriétés d'un objet
+graphique ou bien l'une des variables du bloc @code{\paper}, chaque clé
+peut être modifiée individuellement sans que cela n'affecte les autres.
+
+Par exemple, pour réduire l'espacement entre deux portées adjacentes
+d'un même système, on utilisera la propriété @code{staff-staff-spacing}
+qui est attachée à l'objet graphique @code{StaffGrouper}.  Cette
+propriété est constituée d'une liste de quatre clés@tie{}:
+@code{basic-distance}, @code{minimum-distance}, @code{padding} et
+@code{stretchability}.  Ses réglages par défaut tels que mentionnés à la
+rubrique @emph{Backend} de la référence des propriétés internes -- voir
+@rinternals{StaffGrouper} -- sont@tie{}:
+
+@example
+'((basic-distance . 9)
+  (minimum-distance . 7)
+  (padding . 1)
+  (stretchability . 5))
+@end example
+
+Afin de rapprocher nos deux portées, il suffit de réduire la valeur
+(@code{9}) de la clé @code{basic-distance} au niveau de celle de la clé
+@code{minimum-distance} (@code{7}).  La modification d'une seule clé
+individuellement peut se réaliser sous la forme d'une @emph{déclaration
+imbriquée}@tie{}:
+
+@lilypond[quote,verbatim]
+% default space between staves
+\new PianoStaff <<
+  \new Staff { \clef treble c''1 }
+  \new Staff { \clef bass   c1   }
+>>
+
+% reduced space between staves
+\new PianoStaff \with {
+  % this is the nested declaration
+  \override StaffGrouper #'staff-staff-spacing #'basic-distance = #7
+} <<
+  \new Staff { \clef treble c''1 }
+  \new Staff { \clef bass   c1   }
+>>
+@end lilypond
+
+Le recours à une déclaration imbriquée touchera la clé indiquée
+(@code{basic-distance} dans l'exemple ci-dessus) sans pour autant
+modifier les autres clés de la propriété considérée.
+
+Considérons maintenant que nous souhaitions que les portées soient le
+plus proche possible les unes des autres, à la limite du chevauchement.
+Il suffirait de mettre les quatre clés à zéro.  Nous pourrions saisir
+quatre déclarations, chacune d'elles touchant une clé.  Nous pouvons
+tout aussi bien redéfinir la propriété en une seule clause, sous la
+forme d'une liste associative@tie{}:
+
+@lilypond[quote,verbatim]
+\new PianoStaff \with {
+  \override StaffGrouper #'staff-staff-spacing =
+    #'((basic-distance . 0)
+       (minimum-distance . 0)
+       (padding . 0)
+       (stretchability . 0))
+} <<
+  \new Staff { \clef treble c''1 }
+  \new Staff { \clef bass   c1   }
+>>
+@end lilypond
+
+N'oubliez pas que dès lors qu'une clé n'apparaît pas dans la liste, elle
+retourne à sa valeur @emph{sauf-mention-contraire}.  Autrement dit, dans
+le cas de @code{staff-staff-spacing} qui nous occupe, toutes les clés
+non mentionnées seront ramenées à zéro -- à l'exception de
+@code{stretchability} qui prend par défaut la valeur de
+@code{basic-distance}.  Les deux assertions suivantes sont donc
+équivalentes.
+
+@example
+\override StaffGrouper #'staff-staff-spacing =
+  #'((basic-distance . 7))
+
+\override StaffGrouper #'staff-staff-spacing =
+  #'((basic-distance . 7)
+     (minimum-distance . 0)
+     (padding . 0)
+     (stretchability . 7))
+@end example
+
+L'une des conséquences, parfois involontaire, de ceci est la supression
+de réglages standards effectués par un fichier d'initialisation chargé à
+chaque compilation de votre fichier source.  Dans l'exemple précédent,
+les réglages standards de @code{padding} et @code{minimum-distance},
+tels que déterminés par @file{scm/define-grobs.scm}, se voient ramenés à
+leur valeur @emph{si-non-définie}@tie{}; autrement dit, les deux clés
+sont mises à zéro.  La définition d'une propriété ou d'une variable sous
+forme de liste associative, quelle qu'en soit la taille, réinitialisera
+toujours les clés non mentionnées à leur valeur @emph{si-non-définie}.
+Si telle n'est pas votre intention, nous vous recommandons alors de
+régler la valeur des clés individuellement par des déclarations
+imbriquées.
+
+@warning{Les déclarations imbriquées ne sont pas fonctionnelles dans le
+cas des listes associatives des propriétés de contexte -- telles
+@code{beamExceptions}, @code{keySignature},
+@code{timeSignatureSettings}, etc.  Ces propriétés ne sont modifiables
+qu'au travers d'une complète redéfinition de leur liste associative.}
 
 
 @node Propriétés et contextes utiles
@@ -1447,7 +2284,6 @@ créée.  Elle doit être modifiée avec la commande @code{\set}.
 @menu
 * Modes de saisie::
 * Direction et positionnement::
-* Ordre des contextes de mise en forme::
 * Distances et unités de mesure::
 * Propriétés des symboles de la portée::
 * Extenseurs et prolongateurs::
@@ -1466,13 +2302,6 @@ créée.  Elle doit être modifiée avec la commande @code{\set}.
 @node Direction et positionnement
 @subsection Direction et positionnement
 @translationof Direction and placement
-
-@untranslated
-
-
-@node Ordre des contextes de mise en forme
-@subsection Ordre des contextes de mise en forme
-@translationof Context layout order
 
 @untranslated
 
@@ -1608,6 +2437,8 @@ créée.  Elle doit être modifiée avec la commande @code{\set}.
 * Détermination directe de @code{X-offset} et @code{Y-offset}::
 * Utilisation de @code{side-position-interface}::
 * Utilisation de @code{self-alignment-interface}::
+* Utilisation de @code{aligned-on-parent}::
+* Utilisation de @code{centered-on-parent}::
 * Utilisation de @code{break-aligned-interface}::
 @end menu
 
@@ -1631,14 +2462,19 @@ créée.  Elle doit être modifiée avec la commande @code{\set}.
 
 @untranslated
 
+@node Utilisation de @code{aligned-on-parent}
+@unnumberedsubsubsec Utilisation de @code{aligned-on-parent}
+@translationof Using the @code{centered-on-parent} procedures
 
-@c @u nnumberedsubsubsec Utilisation des procédures @code{aligned-on-parent}
-
-@unnumberedsubsubsec Utilisation des procédures @code{centered-on-parent}
-@node Utilisation de @code{break-aligned-interface}
 @untranslated
 
+@node Utilisation de @code{centered-on-parent}
+@unnumberedsubsubsec Utilisation de @code{centered-on-parent}
+@translationof Using the @code{centered-on-parent} procedures
 
+@untranslated
+
+@node Utilisation de @code{break-aligned-interface}
 @unnumberedsubsubsec Utilisation de @code{break-aligned-interface}
 @translationof Using the @code{break-alignable-interface}
 

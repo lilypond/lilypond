@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 23790c06f9e9b7f3eeb2af67883dfaa3f8e31ab0
+    Translation of GIT committish: ad154dd57062e5138a8d15615c45ed3a203edc40
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -73,7 +73,7 @@ habituelles d'un certain nombre d'accords.
 @item
 Majeur
 @tab
-Tierce mejeure et quinte juste
+Tierce majeure et quinte juste
 @tab
 @code{5} ou rien
 @tab
@@ -86,7 +86,7 @@ Tierce mejeure et quinte juste
 @item
 Mineur
 @tab
-Tierce minaure et quinte juste
+Tierce mineure et quinte juste
 @tab
 @code{m} ou @code{m5}
 @tab
@@ -140,7 +140,7 @@ Septième majeure
 @tab
 Triton majeur et septième majeure
 @tab
-@code{maj7} or @code{maj}
+@code{maj7} ou @code{maj}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
@@ -318,9 +318,9 @@ Neuvième mineure et onzième juste
 @end lilypond
 
 @item
-Trézième de dominante
+Treizième de dominante
 @tab
-Neuvième de dominante et trézième majeure
+Neuvième de dominante et treizième majeure
 @tab
 @code{13}
 @tab
@@ -331,9 +331,9 @@ Neuvième de dominante et trézième majeure
 @end lilypond
 
 @item
-Trézième de dominante
+Treizième de dominante
 @tab
-Onzième de dominante et trézième majeure
+Onzième de dominante et treizième majeure
 @tab
 @code{13.11}
 @tab
@@ -344,9 +344,9 @@ Onzième de dominante et trézième majeure
 @end lilypond
 
 @item
-Trézième majeure
+Treizième majeure
 @tab
-Onzième majeure et trézième majeure
+Onzième majeure et treizième majeure
 @tab
 @code{maj13.11}
 @tab
@@ -357,9 +357,9 @@ Onzième majeure et trézième majeure
 @end lilypond
 
 @item
-Trézième mineure
+Treizième mineure
 @tab
-Onzièmem mineure et trézième majeure
+Onzième mineure et treizième majeure
 @tab
 @code{m13.11}
 @tab
@@ -385,7 +385,7 @@ Seconde majeure et quinte juste
 @item
 Quarte suspendue
 @tab
-Quarte juste et quqinte juste
+Quarte juste et quinte juste
 @tab
 @code{sus4}
 @tab
@@ -395,6 +395,33 @@ Quarte juste et quqinte juste
 }
 @end lilypond
 
+@item
+Power chord (deux voix)
+@tab
+Quinte juste
+@tab
+@code{1.5}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  \powerChords
+  c1:1.5
+}
+@end lilypond
+
+@item
+Power chord (trois voix)
+@tab
+Quinte juste et octave
+@tab
+@code{1.5.8}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  \powerChords
+  c1:1.5.8
+}
+@end lilypond
 
 @end multitable
 

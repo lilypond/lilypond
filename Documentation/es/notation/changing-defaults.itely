@@ -1324,7 +1324,7 @@ ajustes, se puede alterar la apariencia de los objetos.
 
 Existen dos tipos diferentes de propiedades almacenadas en los
 contextos: las propiedades de contexto y las propiedades de grob.  Las
-prpopiedades de contexto son propiedades que se aplican al contexto
+propiedades de contexto son propiedades que se aplican al contexto
 como un todo y controlan la forma en que el propio contexto se
 imprime.  Por contra, las propiedades de grob se aplican a los tipos
 de grob específicos que se imprimirán dentro del contexto.
