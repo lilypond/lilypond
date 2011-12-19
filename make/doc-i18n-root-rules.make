@@ -53,5 +53,3 @@ $(outdir)/index.$(ISOLANG).html: TEXI2HTML_SPLIT = $(WEB_TEXI2HTML_SPLIT)
 $(outdir)/index.$(ISOLANG).html:
 	DEPTH=$(depth) $(TEXI2HTML) $(TEXI2HTML_FLAGS) $(TEXI2HTML_SPLIT) --output=$(outdir)/ web.texi
 	find $(outdir)/ -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(outdir)/!!g' | xargs $(buildscript-dir)/mass-link --prepend-suffix .$(ISOLANG) hard $(outdir) $(top-build-dir)/Documentation/$(outdir)
-
-.SECONDARY:

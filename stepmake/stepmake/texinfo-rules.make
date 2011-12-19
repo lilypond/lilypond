@@ -84,6 +84,3 @@ $(outdir)/version.%: $(top-src-dir)/VERSION
 
 $(outdir)/weblinks.%: $(top-src-dir)/VERSION
 	$(PYTHON) $(top-src-dir)/scripts/build/create-weblinks-itexi.py > $@
-
-# Keep this empty to prevent make from removing intermediate files.
-.SECONDARY:

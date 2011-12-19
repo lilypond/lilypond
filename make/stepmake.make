@@ -108,6 +108,9 @@ ifeq ($(BUILTINS_REMOVED),)
 endif
 .SUFFIXES:
 
+# Keep this empty to prevent make from removing intermediate files.
+.SECONDARY:
+
 all:
 
 -include $(addprefix $(depth)/make/,$(addsuffix -inclusions.make, $(LOCALSTEPMAKE_TEMPLATES)))

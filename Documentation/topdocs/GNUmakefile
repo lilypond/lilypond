@@ -16,5 +16,3 @@ $(outdir)/NEWS.tely: $(top-src-dir)/Documentation/changes.tely
 ifeq ($(out),www)
 local-WWW-1: $(OUT_TEXI_FILES)
 endif
-
-.SECONDARY:

@@ -371,5 +371,3 @@ update-translation:
 # what's it gonna be, boy...tranlationS-/translation-
 translation-status:
 	PYTHONPATH=$(top-src-dir)/python:$(top-src-dir)/python/auxiliar $(PYTHON) $(top-src-dir)/scripts/auxiliar/translations-status.py
-
-.SECONDARY:
