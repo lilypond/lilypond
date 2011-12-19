@@ -150,9 +150,12 @@ src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
 
 doc-clean: snippets-clean $(tree-share-prefix)/lilypond-force
 
-default: $(config_h) build-dir-setup
+default: $(config_h) build-dir-setup build-scripts
 
 build-dir-setup: $(tree-share-prefix)/lilypond-force
+
+build-scripts:
+	$(MAKE) -C scripts/build
 
 PO_FILES = $(call src-wildcard,$(src-depth)/po/*.po)
 HELP_CATALOGS = $(PO_FILES:po/%.po=%)
