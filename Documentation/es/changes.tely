@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 688f5f1711d8ca07338385a2ae0191b1a8aae315
+    Translation of GIT committish: 34919fec24023b9eab0f1d7e390a0d5221bd8813
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -69,9 +69,75 @@ which scares away people.
 
 @end ignore
 @item
-Las funciones musicales, de eventos y de Scheme se pueden ahora
-definir con argumentos opcionales antes de los argumentos
-obligatorios.
+Las expresiones de Scheme dentro de fragmentos de código de LilyPond
+incrustados (@code{#@{@dots{}#@}}) se ejecutan ahora dentro de la
+cerradura léxica del código de Scheme circundante.  El símbolo
+@code{$} ya no es especial dentro del código de LilyPond incrustado.
+Se puede utilizar de forma incondicional dentro de código de LilyPond
+para su evaluación inmediata, de forma parecida a la forma en que se
+utilizaba anteriormente @code{ly:export}.  Se ha suprimido
+@code{ly:export}.  Como consecuencia, ahora @code{#} está libre para
+diferir la evaluación de su argumento hasta que el analizador
+sintáctico reduzca efectivamente la expresión contenida, reduciendo
+significativamente el potencial de la evaluación prematura.
+
+@item
+Se ha mejorado el soporte de acordes de tipo jazz: se reconocen los
+acordes lidios y alterados; ahora se tratan los separadores entre
+modificadores de acorde de forma independiente de los separadores
+entre acordes invertidos y sus notas de bajo (y por omisión, la barra
+inclinada se usa ahora solamente para el último tipo de separador);
+las notas adicionales ya no van prefijadas por "add" de forma
+predeterminada; y la "m" en los acordes menores se puede personalizar.
+Consulte @ruser{Nombres de acorde personalizados} para más
+información.
+
+@item
+
+@item
+Se ha cambiado el nombre de la instrucción @code{\markuplines} por
+@code{\markuplist} para conseguir una mejor correspondencia con su
+semántica y con la nomenclatura generarl de LilyPond.
+
+@item
+Se ha simplificado considerablemente la interfaz para especificar
+afinaciones en las tablaturas.
+
+@item
+Las barras ahora pueden preservar la inclinación por encima de los
+saltos de línea.
+@lilypond[fragment,quote,relative=2]
+\override Beam #'breakable = ##t
+a8[ b c d e f g \bar "" \break f e d c b a]
+\once \override Beam #'positions = #beam::align-with-broken-parts
+a8[ b c d e f g \bar "" \break f e d c b a]
+\once \override Beam #'positions = #beam::slope-like-broken-parts
+a8[ b c d e f g \bar "" \break f e d c b a]
+@end lilypond
+Para hacerlo, se han hecho obsoletas varias funciones de "callback".
+@itemize
+@item @code{ly:beam::calc-least-squares-positions}
+@item @code{ly:beam::slope-damping}
+@item @code{ly:beam::shift-region-to-valid}
+@end itemize
+Además, @code{ly:beam::quanting} ahora acepta un argumento adicional
+para ayudar a los cálculos sobre los cambios de línea.  Todas estas
+funciones se llaman automáticamente cuando se ajusta el parámetro
+@code{positions}.
+
+@item
+En los argumentos de función, la música, los elementos de marcado y
+las expresiones de Scheme (así como algunas otras entidades
+sintácticas) se han hecho mayormente intercambiables y se diferencian
+solamente mediante la evaluación del predicado respectivo.
+
+@item
+Ahora se pueden definir las funciones musicales (y sus parientes
+cercanos) con argumentos opcionales.
+
+@item
+Para definir instrucciones que se ejecutan solamente por sus efectos
+secundarios, ahora está disponible @code{define-void-function}.
 
 @item
 Hay una instrucción nueva @code{define-event-function} en analogía con
