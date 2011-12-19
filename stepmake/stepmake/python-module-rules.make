@@ -8,7 +8,7 @@ $(outdir)/%.pyc: $(outdir)/%.py
 $(outdir)/%.pyo: $(outdir)/%.py
 	$(PYTHON) -O -c 'import py_compile; py_compile.compile ("$<")'
 
-$(outdir)/%.py: %.py $(config_make)
+$(outdir)/%.py: %.py $(config_make) $(depth)/VERSION
 	cat $< | sed $(sed-atfiles) | sed $(sed-atvariables) > $@
 	chmod 755 $@
 
