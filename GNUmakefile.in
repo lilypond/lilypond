@@ -118,10 +118,26 @@ uninstall-WWW:
 # For both online and offline docs, issue `make doc WEB_TARGETS="offline online"'
 WEB_TARGETS = offline
 
-WWW-post:
+WEB_EXAMPLE_FILES = $(wildcard input/$(outdir)/*.ly) \
+                    $(wildcard input/*/$(outdir)/*.ly) \
+                    $(wildcard input/*/*/$(outdir)/*.ly)
+
+WEB_TRACKED_FILES = $(wildcard $(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}) \
+                    $(wildcard input/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}) \
+                    $(wildcard input/*/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}) \
+                    $(wildcard Documentation/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}) \
+                    $(wildcard Documentation/$(outdir)/*/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php})
+
+WWW-post: $(top-build-dir)/.htaccess $(outdir)/examples.html $(outdir)/offline-root/index.html
+
 # need UTF8 setting in case this is hosted on a website.
+$(top-build-dir)/.htaccess:
 	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(top-build-dir)/.htaccess
+
+$(outdir)/examples.html: $(WEB_EXAMPLE_FILES)
 	$(buildscript-dir)/mutopia-index -o $(outdir)/examples.html input/
+
+$(outdir)/offline-root/index.html: $(WEB_TRACKED_FILES)
 	$(buildscript-dir)/www_post $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) "$(WEB_TARGETS)"
 	find $(outdir)/offline-root -type l | xargs rm -f
 endif # ifeq ($(out),www)
