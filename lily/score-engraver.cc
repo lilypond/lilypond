@@ -155,13 +155,13 @@ Score_engraver::one_time_step (SCM)
   precomputed_recurse_over_translators (context (), STOP_TRANSLATION_TIMESTEP, UP);
   typeset_all ();
 }
-#include <valgrind/valgrind.h>
+
 void
 Score_engraver::announce_grob (Grob_info info)
 {
   Engraver_group::announce_grob (info);
   if (info.start_end () == START)
-    {if (info.grob ()->name () == "StemStub") VALGRIND_PRINTF_BACKTRACE ("foo");
+    {
       pscore_->root_system ()->typeset_grob (info.grob ());
       elems_.push_back (info.grob ());
     }
