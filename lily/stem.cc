@@ -302,7 +302,7 @@ Stem::internal_pure_height (Grob *me, bool calc_beam)
 
   if (!beam)
     return iv;
-  if (!to_boolean (me->get_property ("cross-staff")) && calc_beam)
+  if (calc_beam)
     {
       Interval overshoot;
       Direction dir = get_grob_direction (me);
@@ -315,12 +315,35 @@ Stem::internal_pure_height (Grob *me, bool calc_beam)
       vector<Grob *> my_stems;
       extract_grob_set (beam, "normal-stems", normal_stems);
       for (vsize i = 0; i < normal_stems.size (); i++)
-        if (normal_stems[i] != me && get_grob_direction (normal_stems[i]) == dir)
+        if (get_grob_direction (normal_stems[i]) == dir)
           {
-            heights.push_back (Stem::internal_pure_height (normal_stems[i], false));
+            if (normal_stems[i] != me)
+              heights.push_back (Stem::internal_pure_height (normal_stems[i], false));
+            else
+              heights.push_back (iv);
             my_stems.push_back (normal_stems[i]);
-            iv.unite (heights.back ());
           }
+      //iv.unite (heights.back ());
+      // look for cross staff effects
+      vector<Real> coords;
+      Grob *common = common_refpoint_of_array (my_stems, me, Y_AXIS);
+      Real min_pos = infinity_f;
+      Real max_pos = -infinity_f;
+      for (vsize i = 0; i < my_stems.size (); i++)
+        {
+          coords.push_back (my_stems[i]->pure_relative_y_coordinate (common, 0, INT_MAX));
+          min_pos = min (min_pos, coords[i]);
+          max_pos = max (max_pos, coords[i]);
+        }
+      for (vsize i = 0; i < heights.size (); i++)
+        {
+          heights[i][dir] += dir == DOWN
+                             ? coords[i] - max_pos
+                             : coords[i] - min_pos;
+        }
+
+      for (vsize i = 0; i < heights.size (); i++) iv.unite (heights[i]);
+
       for (vsize i = 0; i < my_stems.size (); i++)
         cache_pure_height (my_stems[i], iv, heights[i]);
       iv.intersect (overshoot);

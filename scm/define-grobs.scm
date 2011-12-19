@@ -1978,6 +1978,14 @@
 	(meta . ((class . Item)
 		 (interfaces . (stem-interface))))))
 
+    (StemStub
+     . (
+        (X-extent . ,stem-stub::width)
+	(extra-spacing-height . ,stem-stub::extra-spacing-height)
+	(Y-extent . ,(ly:make-unpure-pure-container #f stem-stub::pure-height))
+	(meta . ((class . Item)
+		 (interfaces . ())))))
+
     (StemTremolo
      . (
 	(beam-thickness . 0.48) ; staff-space

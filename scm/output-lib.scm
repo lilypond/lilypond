@@ -132,6 +132,33 @@
          (beg (ly:grob-pure-property grob 'stem-begin-position 0 1000)))
     (abs (- (ly:stem::pure-calc-stem-end-position grob 0 2147483646) beg))))
 
+(define (stem-stub::do-calculations grob)
+  (and (ly:grob-property (ly:grob-parent grob X) 'cross-staff)
+       (not (ly:grob-property (ly:grob-parent grob X) 'transparent))))
+
+(define-public (stem-stub::pure-height grob beg end)
+  (if (stem-stub::do-calculations grob)
+      '(0 . 0)
+      '(+inf.0 . -inf.0)))
+
+(define-public (stem-stub::width grob)
+  (if (stem-stub::do-calculations grob)
+      (grob::x-parent-width grob)
+      '(+inf.0 . -inf.0)))
+
+(define-public (stem-stub::extra-spacing-height grob)
+  (if (stem-stub::do-calculations grob)
+      (let* ((dad (ly:grob-parent grob X))
+             (refp (ly:grob-common-refpoint grob dad Y))
+             (stem_ph (ly:grob-pure-height dad refp 0 1000000))
+             (my_ph (ly:grob-pure-height grob refp 0 1000000))
+             ;; only account for distance if stem is on different staff than stub
+             (dist (if (grob::has-interface refp 'hara-kiri-group-spanner-interface)
+                       0
+                       (- (car my_ph) (car stem_ph)))))
+        (if (interval-empty? (interval-intersection stem_ph my_ph)) #f (coord-translate stem_ph dist)))
+      #f))
+
 (define-public (note-head::calc-duration-log grob)
   (min 2
        (ly:duration-log
