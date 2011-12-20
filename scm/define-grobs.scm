@@ -2651,6 +2651,7 @@
    ly:dots::print
    ly:clef::print
    ly:flag::print
+   ly:time-signature::print
    default-flag
    normal-flag
    mensural-flag
