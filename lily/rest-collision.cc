@@ -207,11 +207,12 @@ Rest_collision::calc_positioning_done (SCM smob)
       for (vsize i = 0; i < rests.size (); i++)
         {
           Grob *rcol = rests[i];
-          Direction dir = Note_column::dir (rcol);
-          if (!dir)
-            continue;
-
           Grob *rest = Note_column::get_rest (rcol);
+
+          Direction dir = get_grob_direction (rest);
+          if (!dir)
+            dir = Note_column::dir (rcol);
+
           // Do not compute a translation for pre-positioned rests,
           //  nor count them for the "too many colliding rests" warning
           if (scm_is_number (rest->get_property ("staff-position")))
