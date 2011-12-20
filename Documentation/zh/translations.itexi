@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最近更新 Wed Sep 21 11:44:51 UTC 2011
+@emph{最近更新 Tue Dec 20 15:29:11 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ LilyPond -- 每一个人的五线谱
 @item
 段标题
 @*
-585
+555
 @tab Ben Luo
 @tab 
 @tab 
@@ -47,11 +47,11 @@ LilyPond -- 每一个人的五线谱
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #33ff21">部分地</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+部分地
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -102,7 +102,7 @@ LilyPond --- \TITLE\
 @item
 下载
 @*
-1195
+1211
 @tab Ben Luo
 @tab 
 @tab 
@@ -119,7 +119,7 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">部分地</span>
+<span style="background-color: #2cff20">部分地</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -156,18 +156,18 @@ LilyPond --- \TITLE\
 @item
 社区
 @*
-1910
+2214
 @tab 
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #dfef77">部分 (99 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+部分 (99 %)
 @end ifnothtml
 @tab 
 @tab pre-GDP
