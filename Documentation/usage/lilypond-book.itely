@@ -911,6 +911,19 @@ are harmless and may be ignored.  If you are running @command{latex} in
 twocolumn mode, remember to add @option{-t landscape} to the
 @command{dvips} options.
 
+@knownissues
+The @code{\pageBreak} command will not work within a
+@code{\begin@{lilypond@} @dots{} \end@{lilypond@}} environment.
+
+Many @code{\paper} block variables will also not work within a
+@code{\begin@{lilypond@} @dots{} \end@{lilypond@}} environment.  Use
+@code{\newcommand} with @code{\betweenLilyPondSystem} in the preamble;
+
+@example
+\newcommand@{\betweenLilyPondSystem@}[1]@{\vspace@{36mm@}\linebreak@}
+@end example
+
+
 @subsubheading Texinfo
 
 To produce a Texinfo document (in any output format), follow the normal
