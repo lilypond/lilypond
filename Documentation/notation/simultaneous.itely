@@ -209,6 +209,24 @@ generate multiple staves implicitly:
 
 Here different rhythms cause no problems.
 
+@knownissues
+If notes from two or more voices, with stems in the same direction, are
+placed at the same position on the staff and have no shift (or have the
+same shift specified), the message:
+
+@example
+warning: ignoring too many clashing note columns
+@end example
+
+will appear during compilation.  This message can be suppressed by:
+
+@example
+\override NoteColumn #'ignore-collision = ##t
+@end example
+
+However, this does not only suppress the warning but will prevent any
+collision resolution, so may have unintended results.
+
 
 @node Clusters
 @unnumberedsubsubsec Clusters
