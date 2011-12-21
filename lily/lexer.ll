@@ -86,11 +86,9 @@ bool is_valid_version (string s);
 	yy_push_state (lyric_quote);\
 	yylval.string = new string
 
-#define yylval \
-	(*(YYSTYPE*)lexval_)
+#define yylval (*lexval_)
 
-#define yylloc \
-	(*(YYLTYPE*)lexloc_)
+#define yylloc (*lexloc_)
 
 #define YY_USER_ACTION	add_lexed_char (YYLeng ());
 

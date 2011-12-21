@@ -22,11 +22,9 @@
 
 #define YYDEBUG 1
 #define YYERROR_VERBOSE 1
-#define YYPARSE_PARAM my_lily_parser
-#define YYLEX_PARAM my_lily_parser
-#define PARSER ((Lily_parser *) my_lily_parser)
+#define PARSER parser
 
-#define yyerror PARSER->parser_error
+#define yyerror Lily_parser::parser_error
 
 /* We use custom location type: Input objects */
 #define YYLTYPE Input
@@ -35,6 +33,9 @@
 
 
 %}
+
+%parse-param {Lily_parser *parser}
+%lex-param {Lily_parser *parser}
 
 /* We use SCMs to do strings, because it saves us the trouble of
 deleting them.  Let's hope that a stack overflow doesnt trigger a move
@@ -135,6 +136,12 @@ using namespace std;
 #include "text-interface.hh"
 #include "warn.hh"
 
+void
+Lily_parser::parser_error (Input const *i, Lily_parser *parser, string s)
+{
+	parser->parser_error (*i, s);
+}
+
 #define MYBACKUP(Token, Value, Location)				\
 do									\
 	if (yychar == YYEMPTY)						\
@@ -213,7 +220,7 @@ SCM make_chord_step (int step, Rational alter);
 SCM make_simple_markup (SCM a);
 bool is_duration (int t);
 bool is_regular_identifier (SCM id);
-int yylex (YYSTYPE *s, YYLTYPE *loc, void *v);
+int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
 void set_music_properties (Music *p, SCM a);
 
 %}
@@ -3160,7 +3167,7 @@ Lily_parser::set_yydebug (bool x)
 void
 Lily_parser::do_yyparse ()
 {
-	yyparse ((void*)this);
+	yyparse (this);
 }
 
 
@@ -3258,7 +3265,7 @@ get_next_unique_lyrics_context_id ()
 	return scm_from_locale_string (s);
 }
 
-SCM check_scheme_arg (Lily_parser *my_lily_parser, Input loc,
+SCM check_scheme_arg (Lily_parser *parser, Input loc,
 		      SCM arg, SCM args, SCM pred)
 {
 	args = scm_cons (arg, args);
@@ -3349,12 +3356,11 @@ make_chord_elements (SCM pitch, SCM dur, SCM modification_list)
 }
 
 int
-yylex (YYSTYPE *s, YYLTYPE *loc, void *v)
+yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser)
 {
-	Lily_parser *pars = (Lily_parser*) v;
-	Lily_lexer *lex = pars->lexer_;
+	Lily_lexer *lex = parser->lexer_;
 
-	lex->lexval_ = (void*) s;
+	lex->lexval_ = s;
 	lex->lexloc_ = loc;
 	lex->prepare_for_next_token ();
 	return lex->yylex ();

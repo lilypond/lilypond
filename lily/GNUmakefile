@@ -66,6 +66,7 @@ endif
 $(outdir)/lily-parser.o $(outdir)/parser.o: $(outdir)/parser.hh
 $(outdir)/lily-lexer.o: $(outdir)/parser.hh $(outdir)/FlexLexer.h
 $(outdir)/lexer.o: $(outdir)/parser.hh $(outdir)/version.hh
+$(outdir)/lily-lexer-scheme.o $(outdir)/lily-parser-scheme.o: $(outdir)/parser.hh
 
 ifneq ($(FLEXLEXER_FILE),)
 $(outdir)/FlexLexer.h: $(FLEXLEXER_FILE) $(config_h)

@@ -33,7 +33,6 @@
 class Lily_parser
 {
   DECLARE_SMOBS (Lily_parser);
-  friend int yyparse (void *);
 
   char const *here_str0 () const;
   Simultaneous_music *get_chord (Pitch tonic,
@@ -68,6 +67,8 @@ public:
   SCM parse_string_expression (string ly_code, string filename, int line);
   void parser_error (string);
   void parser_error (Input const &, string);
+  // The following is called as yyerror
+  static void parser_error (Input const *i, Lily_parser *parser, string s);
   void set_yydebug (bool);
 
   SCM make_scope () const;
