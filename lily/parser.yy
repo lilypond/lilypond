@@ -22,7 +22,6 @@
 
 #define YYDEBUG 1
 #define YYERROR_VERBOSE 1
-#define PARSER parser
 
 #define yyerror Lily_parser::parser_error
 
@@ -147,10 +146,10 @@ do									\
 	if (yychar == YYEMPTY)						\
 	{								\
 		if (Token)						\
-			PARSER->lexer_->push_extra_token (Token, Value); \
-		PARSER->lexer_->push_extra_token (BACKUP);		\
+			parser->lexer_->push_extra_token (Token, Value); \
+		parser->lexer_->push_extra_token (BACKUP);		\
 	} else {							\
-		PARSER->parser_error					\
+		parser->parser_error					\
 			(Location, _("Too much lookahead"));		\
 	}								\
 while (0)
@@ -160,11 +159,11 @@ while (0)
 do									\
 	if (yychar == YYEMPTY)						\
 	{								\
-		PARSER->lexer_->push_extra_token (Token, Value);	\
-		PARSER->lexer_->push_extra_token (REPARSE,		\
+		parser->lexer_->push_extra_token (Token, Value);	\
+		parser->lexer_->push_extra_token (REPARSE,		\
 						  Pred);		\
 	} else {							\
-		PARSER->parser_error					\
+		parser->parser_error					\
 			(Location, _("Too much lookahead"));		\
 	}								\
 while (0)
@@ -193,11 +192,11 @@ while (0)
   scm_apply_0 (proc, args)
 /* Syntactic Sugar. */
 #define MAKE_SYNTAX(name, location, ...)	\
-  LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (PARSER->self_scm (), make_input (location) , ##__VA_ARGS__, SCM_UNDEFINED));
+  LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (parser->self_scm (), make_input (location) , ##__VA_ARGS__, SCM_UNDEFINED));
 #define START_MAKE_SYNTAX(name, ...)					\
 	scm_list_n (ly_lily_module_constant (name) , ##__VA_ARGS__, SCM_UNDEFINED)
 #define FINISH_MAKE_SYNTAX(start, location, ...)			\
-	LOWLEVEL_MAKE_SYNTAX (scm_car (start), scm_cons2 (PARSER->self_scm (), make_input (location), scm_append_x (scm_list_2 (scm_cdr (start), scm_list_n (__VA_ARGS__, SCM_UNDEFINED)))))
+	LOWLEVEL_MAKE_SYNTAX (scm_car (start), scm_cons2 (parser->self_scm (), make_input (location), scm_append_x (scm_list_2 (scm_cdr (start), scm_list_n (__VA_ARGS__, SCM_UNDEFINED)))))
 
 SCM get_next_unique_context_id ();
 SCM get_next_unique_lyrics_context_id ();
@@ -552,11 +551,11 @@ prec levels in different prods */
 start_symbol:
 	lilypond
 	| EMBEDDED_LILY {
-		SCM nn = PARSER->lexer_->lookup_identifier ("pitchnames");
-		PARSER->lexer_->push_note_state (alist_to_hashq (nn));
+		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
+		parser->lexer_->push_note_state (alist_to_hashq (nn));
 	} embedded_lilypond {
-		PARSER->lexer_->pop_state ();
-		PARSER->lexer_->set_identifier (ly_symbol2scm ("parseStringResult"), $3);
+		parser->lexer_->pop_state ();
+		parser->lexer_->set_identifier (ly_symbol2scm ("parseStringResult"), $3);
  	}
 	;
 
@@ -566,49 +565,49 @@ lilypond:	/* empty */ { }
 	| lilypond assignment {
 	}
 	| lilypond error {
-		PARSER->error_level_ = 1;
+		parser->error_level_ = 1;
 	}
 	| lilypond INVALID	{
-		PARSER->error_level_ = 1;
+		parser->error_level_ = 1;
 	}
 	;
 
 
 toplevel_expression:
 	lilypond_header {
-		PARSER->lexer_->set_identifier (ly_symbol2scm ("$defaultheader"), $1);
+		parser->lexer_->set_identifier (ly_symbol2scm ("$defaultheader"), $1);
 	}
 	| book_block {
 		Book *book = $1;
-		SCM proc = PARSER->lexer_->lookup_identifier ("toplevel-book-handler");
-		scm_call_2 (proc, PARSER->self_scm (), book->self_scm ());
+		SCM proc = parser->lexer_->lookup_identifier ("toplevel-book-handler");
+		scm_call_2 (proc, parser->self_scm (), book->self_scm ());
 		book->unprotect ();
 	}
 	| bookpart_block {
 		Book *bookpart = $1;
-		SCM proc = PARSER->lexer_->lookup_identifier ("toplevel-bookpart-handler");
-		scm_call_2 (proc, PARSER->self_scm (), bookpart->self_scm ());
+		SCM proc = parser->lexer_->lookup_identifier ("toplevel-bookpart-handler");
+		scm_call_2 (proc, parser->self_scm (), bookpart->self_scm ());
 		bookpart->unprotect ();
 	}
 	| score_block {
 		Score *score = $1;
 
-		SCM proc = PARSER->lexer_->lookup_identifier ("toplevel-score-handler");
-		scm_call_2 (proc, PARSER->self_scm (), score->self_scm ());
+		SCM proc = parser->lexer_->lookup_identifier ("toplevel-score-handler");
+		scm_call_2 (proc, parser->self_scm (), score->self_scm ());
 		score->unprotect ();
 	}
 	| composite_music {
 		Music *music = unsmob_music ($1);
-		SCM proc = PARSER->lexer_->lookup_identifier ("toplevel-music-handler");
-		scm_call_2 (proc, PARSER->self_scm (), music->self_scm ());
+		SCM proc = parser->lexer_->lookup_identifier ("toplevel-music-handler");
+		scm_call_2 (proc, parser->self_scm (), music->self_scm ());
 	}
 	| full_markup {
-		SCM proc = PARSER->lexer_->lookup_identifier ("toplevel-text-handler");
-		scm_call_2 (proc, PARSER->self_scm (), scm_list_1 ($1));
+		SCM proc = parser->lexer_->lookup_identifier ("toplevel-text-handler");
+		scm_call_2 (proc, parser->self_scm (), scm_list_1 ($1));
 	}
 	| full_markup_list {
-		SCM proc = PARSER->lexer_->lookup_identifier ("toplevel-text-handler");
-		scm_call_2 (proc, PARSER->self_scm (), $1);
+		SCM proc = parser->lexer_->lookup_identifier ("toplevel-text-handler");
+		scm_call_2 (proc, parser->self_scm (), $1);
 	}
 	| output_def {
 		SCM id = SCM_EOL;
@@ -621,7 +620,7 @@ toplevel_expression:
 		else if ($1->c_variable ("is-layout") == SCM_BOOL_T)
 			id = ly_symbol2scm ("$defaultlayout");
 
-		PARSER->lexer_->set_identifier (id, od->self_scm ());
+		parser->lexer_->set_identifier (id, od->self_scm ());
 		od->unprotect();
 	}
 	;
@@ -629,7 +628,7 @@ toplevel_expression:
 embedded_scm_bare:
 	SCM_TOKEN
 	{
-		$$ = PARSER->lexer_->eval_scm ($1);
+		$$ = parser->lexer_->eval_scm ($1);
 	}
 	| SCM_IDENTIFIER
 	;
@@ -695,18 +694,18 @@ embedded_lilypond:
 				  scm_cons2 ($1, $2, scm_reverse_x ($3, SCM_EOL)));
 	}
 	| error {
-		PARSER->error_level_ = 1;
+		parser->error_level_ = 1;
 	}
 	| INVALID embedded_lilypond {
-		PARSER->error_level_ = 1;
+		parser->error_level_ = 1;
 	}
 	;
 
 
 lilypond_header_body:
 	{
-		$$ = get_header (PARSER);
-		PARSER->lexer_->add_scope ($$);
+		$$ = get_header (parser);
+		parser->lexer_->add_scope ($$);
 	}
 	| lilypond_header_body assignment  {
 
@@ -715,7 +714,7 @@ lilypond_header_body:
 
 lilypond_header:
 	HEADER '{' lilypond_header_body '}'	{
-		$$ = PARSER->lexer_->remove_scope ();
+		$$ = parser->lexer_->remove_scope ();
 	}
 	;
 
@@ -729,11 +728,11 @@ assignment_id:
 
 assignment:
 	assignment_id '=' identifier_init  {
-	        PARSER->lexer_->set_identifier ($1, $3);
+	        parser->lexer_->set_identifier ($1, $3);
 	}
 	| assignment_id property_path '=' identifier_init {
 		SCM path = scm_cons (scm_string_to_symbol ($1), $2);
-		PARSER->lexer_->set_identifier (path, $4);
+		parser->lexer_->set_identifier (path, $4);
 	;
 /*
  TODO: devise standard for protection in parser.
@@ -827,7 +826,7 @@ context_def_spec_body:
 				td->add_context_mod (scm_car (p));
 			}
 		} else {
-			PARSER->parser_error (@2, _ ("not a context mod"));
+			parser->parser_error (@2, _ ("not a context mod"));
 		}
 	}
 	| context_def_spec_body context_mod {
@@ -847,8 +846,8 @@ context_def_spec_body:
 book_block:
 	BOOK '{' book_body '}' 	{
 		$$ = $3;
-		pop_paper (PARSER);
-		PARSER->lexer_->set_identifier (ly_symbol2scm ("$current-book"), SCM_BOOL_F);
+		pop_paper (parser);
+		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), SCM_BOOL_F);
 	}
 	;
 
@@ -858,50 +857,50 @@ book_block:
 book_body:
 	{
 		$$ = new Book;
-		init_papers (PARSER);
+		init_papers (parser);
 		$$->origin ()->set_spot (@$);
-		$$->paper_ = dynamic_cast<Output_def*> (unsmob_output_def (PARSER->lexer_->lookup_identifier ("$defaultpaper"))->clone ());
+		$$->paper_ = dynamic_cast<Output_def*> (unsmob_output_def (parser->lexer_->lookup_identifier ("$defaultpaper"))->clone ());
 		$$->paper_->unprotect ();
-		push_paper (PARSER, $$->paper_);
-		$$->header_ = PARSER->lexer_->lookup_identifier ("$defaultheader");
-		PARSER->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $$->self_scm ());
-		PARSER->lexer_->set_identifier (ly_symbol2scm ("book-output-suffix"), SCM_BOOL_F);
-		PARSER->lexer_->set_identifier (ly_symbol2scm ("book-filename"), SCM_BOOL_F);
+		push_paper (parser, $$->paper_);
+		$$->header_ = parser->lexer_->lookup_identifier ("$defaultheader");
+		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $$->self_scm ());
+		parser->lexer_->set_identifier (ly_symbol2scm ("book-output-suffix"), SCM_BOOL_F);
+		parser->lexer_->set_identifier (ly_symbol2scm ("book-filename"), SCM_BOOL_F);
 	}
 	| BOOK_IDENTIFIER {
 		$$ = unsmob_book ($1);
 		$$->protect ();
 		$$->origin ()->set_spot (@$);
-		PARSER->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $1);
+		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $1);
 	}
 	| book_body paper_block {
 		$$->paper_ = $2;
 		$2->unprotect ();
-		set_paper (PARSER, $2);
+		set_paper (parser, $2);
 	}
 	| book_body bookpart_block {
 		Book *bookpart = $2;
-		SCM proc = PARSER->lexer_->lookup_identifier ("book-bookpart-handler");
+		SCM proc = parser->lexer_->lookup_identifier ("book-bookpart-handler");
 		scm_call_2 (proc, $$->self_scm (), bookpart->self_scm ());
 		bookpart->unprotect ();
 	}
 	| book_body score_block {
 		Score *score = $2;
-		SCM proc = PARSER->lexer_->lookup_identifier ("book-score-handler");
+		SCM proc = parser->lexer_->lookup_identifier ("book-score-handler");
 		scm_call_2 (proc, $$->self_scm (), score->self_scm ());
 		score->unprotect ();
 	}
 	| book_body composite_music {
 		Music *music = unsmob_music ($2);
-		SCM proc = PARSER->lexer_->lookup_identifier ("book-music-handler");
-		scm_call_3 (proc, PARSER->self_scm (), $$->self_scm (), music->self_scm ());
+		SCM proc = parser->lexer_->lookup_identifier ("book-music-handler");
+		scm_call_3 (proc, parser->self_scm (), $$->self_scm (), music->self_scm ());
 	}
 	| book_body full_markup {
-		SCM proc = PARSER->lexer_->lookup_identifier ("book-text-handler");
+		SCM proc = parser->lexer_->lookup_identifier ("book-text-handler");
 		scm_call_2 (proc, $$->self_scm (), scm_list_1 ($2));
 	}
 	| book_body full_markup_list {
-		SCM proc = PARSER->lexer_->lookup_identifier ("book-text-handler");
+		SCM proc = parser->lexer_->lookup_identifier ("book-text-handler");
 		scm_call_2 (proc, $$->self_scm (), $2);
 	}
 	| book_body lilypond_header {
@@ -918,7 +917,7 @@ book_body:
 bookpart_block:
 	BOOKPART '{' bookpart_body '}' {
 		$$ = $3;
-		PARSER->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), SCM_BOOL_F);
+		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), SCM_BOOL_F);
 	}
 	;
 
@@ -926,13 +925,13 @@ bookpart_body:
 	{
 		$$ = new Book;
 		$$->origin ()->set_spot (@$);
-		PARSER->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $$->self_scm ());
+		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $$->self_scm ());
 	}
 	| BOOK_IDENTIFIER {
 		$$ = unsmob_book ($1);
 		$$->protect ();
 		$$->origin ()->set_spot (@$);
-		PARSER->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $1);
+		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $1);
 	}
 	| bookpart_body paper_block {
 		$$->paper_ = $2;
@@ -940,21 +939,21 @@ bookpart_body:
 	}
 	| bookpart_body score_block {
 		Score *score = $2;
-		SCM proc = PARSER->lexer_->lookup_identifier ("bookpart-score-handler");
+		SCM proc = parser->lexer_->lookup_identifier ("bookpart-score-handler");
 		scm_call_2 (proc, $$->self_scm (), score->self_scm ());
 		score->unprotect ();
 	}
 	| bookpart_body composite_music {
 		Music *music = unsmob_music ($2);
-		SCM proc = PARSER->lexer_->lookup_identifier ("bookpart-music-handler");
-		scm_call_3 (proc, PARSER->self_scm (), $$->self_scm (), music->self_scm ());
+		SCM proc = parser->lexer_->lookup_identifier ("bookpart-music-handler");
+		scm_call_3 (proc, parser->self_scm (), $$->self_scm (), music->self_scm ());
 	}
 	| bookpart_body full_markup {
-		SCM proc = PARSER->lexer_->lookup_identifier ("bookpart-text-handler");
+		SCM proc = parser->lexer_->lookup_identifier ("bookpart-text-handler");
 		scm_call_2 (proc, $$->self_scm (), scm_list_1 ($2));
 	}
 	| bookpart_body full_markup_list {
-		SCM proc = PARSER->lexer_->lookup_identifier ("bookpart-text-handler");
+		SCM proc = parser->lexer_->lookup_identifier ("bookpart-text-handler");
 		scm_call_2 (proc, $$->self_scm (), $2);
 	}
 	| bookpart_body lilypond_header {
@@ -977,7 +976,7 @@ score_body:
 	music {
 		SCM m = $1;
 		SCM scorify = ly_lily_module_constant ("scorify-music");
-		SCM score = scm_call_2 (scorify, m, PARSER->self_scm ());
+		SCM score = scm_call_2 (scorify, m, parser->self_scm ());
 
 		// pass ownernship to C++ again.
 		$$ = unsmob_score (score);
@@ -995,7 +994,7 @@ score_body:
 	| score_body output_def {
 		if ($2->lookup_variable (ly_symbol2scm ("is-paper")) == SCM_BOOL_T)
 		{
-			PARSER->parser_error (@2, _("\\paper cannot be used in \\score, use \\layout instead"));
+			parser->parser_error (@2, _("\\paper cannot be used in \\score, use \\layout instead"));
 
 		}
 		else
@@ -1019,9 +1018,9 @@ paper_block:
 		$$ = $1;
 		if ($$->lookup_variable (ly_symbol2scm ("is-paper")) != SCM_BOOL_T)
 		{
-			PARSER->parser_error (@1, _ ("need \\paper for paper block"));
+			parser->parser_error (@1, _ ("need \\paper for paper block"));
 			$1->unprotect ();
-			$$ = get_paper (PARSER);
+			$$ = get_paper (parser);
 		}
 	}
 	;
@@ -1031,33 +1030,33 @@ output_def:
 	output_def_body '}' {
 		$$ = $1;
 
-		PARSER->lexer_->remove_scope ();
-		PARSER->lexer_->pop_state ();
+		parser->lexer_->remove_scope ();
+		parser->lexer_->pop_state ();
 	}
 	;
 
 output_def_head:
 	PAPER {
-		$$ = get_paper (PARSER);
+		$$ = get_paper (parser);
 		$$->input_origin_ = @$;
-		PARSER->lexer_->add_scope ($$->scope_);
+		parser->lexer_->add_scope ($$->scope_);
 	}
 	| MIDI    {
-		Output_def *p = get_midi (PARSER);
+		Output_def *p = get_midi (parser);
 		$$ = p;
-		PARSER->lexer_->add_scope (p->scope_);
+		parser->lexer_->add_scope (p->scope_);
 	}
 	| LAYOUT 	{
-		Output_def *p = get_layout (PARSER);
+		Output_def *p = get_layout (parser);
 
-		PARSER->lexer_->add_scope (p->scope_);
+		parser->lexer_->add_scope (p->scope_);
 		$$ = p;
 	}
 	;
 
 output_def_head_with_mode_switch:
 	output_def_head {
-		PARSER->lexer_->push_initial_state ();
+		parser->lexer_->push_initial_state ();
 		$$ = $1;
 	}
 	;
@@ -1074,8 +1073,8 @@ output_def_body:
 		o->input_origin_.set_spot (@$);
 		$$ = o;
 		$$->protect ();
-		PARSER->lexer_->remove_scope ();
-		PARSER->lexer_->add_scope (o->scope_);
+		parser->lexer_->remove_scope ();
+		parser->lexer_->add_scope (o->scope_);
 	}
 	| output_def_body assignment  {
 
@@ -1175,9 +1174,9 @@ simple_music:
 	;
 
 context_modification:
-        WITH { PARSER->lexer_->push_initial_state (); } '{' context_mod_list '}'
+        WITH { parser->lexer_->push_initial_state (); } '{' context_mod_list '}'
         {
-                PARSER->lexer_->pop_state ();
+                parser->lexer_->pop_state ();
                 $$ = $4;
         }
         | WITH CONTEXT_MOD_IDENTIFIER
@@ -1193,7 +1192,7 @@ context_modification:
 		if (unsmob_context_mod ($2))
 			$$ = $2;
 		else {
-			PARSER->parser_error (@2, _ ("not a context mod"));
+			parser->parser_error (@2, _ ("not a context mod"));
 			$$ = Context_mod ().smobbed_copy ();
 		}
 	}
@@ -1226,7 +1225,7 @@ context_mod_list:
 		if (md)
 			unsmob_context_mod ($1)->add_context_mods (md->get_mods ());
 		else
-			PARSER->parser_error (@2, _ ("not a context mod"));
+			parser->parser_error (@2, _ ("not a context mod"));
         }
         ;
 
@@ -1285,19 +1284,19 @@ function_arglist_nonbackup:
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist embedded_scm_arg_closed
 	{
-		$$ = check_scheme_arg (PARSER, @4, $4, $3, $2);
+		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed bare_number_closed
 	{
-		$$ = check_scheme_arg (PARSER, @4, $4, $3, $2);
+		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed FRACTION
 	{
-		$$ = check_scheme_arg (PARSER, @4, $4, $3, $2);
+		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed post_event_nofinger
 	{
-		$$ = check_scheme_arg (PARSER, @4, $4, $3, $2);
+		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed '-' UNSIGNED
 	{
@@ -1311,19 +1310,19 @@ function_arglist_nonbackup:
 			if (scm_is_true (scm_call_1 ($2, $$)))
 				$$ = scm_cons ($$, $3);
 			else
-				$$ = check_scheme_arg (PARSER, @4, n, $3, $2);
+				$$ = check_scheme_arg (parser, @4, n, $3, $2);
 		}
 		
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed '-' REAL
 	{
-		$$ = check_scheme_arg (PARSER, @4,
+		$$ = check_scheme_arg (parser, @4,
 				       scm_difference ($5, SCM_UNDEFINED),
 				       $3, $2);
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed '-' NUMBER_IDENTIFIER
 	{
-		$$ = check_scheme_arg (PARSER, @4,
+		$$ = check_scheme_arg (parser, @4,
 				       scm_difference ($5, SCM_UNDEFINED),
 				       $3, $2);
 	}
@@ -1435,7 +1434,7 @@ function_arglist_backup:
 			else {
 				$$ = scm_cons (loc_on_music (@3, $1), $3);
 				MYBACKUP (UNSIGNED, $5, @5);
-				PARSER->lexer_->push_extra_token ('-');
+				parser->lexer_->push_extra_token ('-');
 			}
 		}
 		
@@ -1474,17 +1473,17 @@ function_arglist_backup:
 	}
 	| function_arglist_backup REPARSE embedded_scm_arg_closed
 	{
-		$$ = check_scheme_arg (PARSER, @3,
+		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
 	| function_arglist_backup REPARSE bare_number
 	{
-		$$ = check_scheme_arg (PARSER, @3,
+		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
 	| function_arglist_backup REPARSE fraction
 	{
-		$$ = check_scheme_arg (PARSER, @3,
+		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
 	;
@@ -1498,22 +1497,22 @@ function_arglist_common:
 	function_arglist_bare
 	| EXPECT_SCM function_arglist_optional embedded_scm_arg
 	{
-		$$ = check_scheme_arg (PARSER, @3,
+		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional bare_number
 	{
-		$$ = check_scheme_arg (PARSER, @3,
+		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional fraction
 	{
-		$$ = check_scheme_arg (PARSER, @3,
+		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional post_event_nofinger
 	{
-		$$ = check_scheme_arg (PARSER, @3,
+		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
 	| function_arglist_common_minus
@@ -1532,7 +1531,7 @@ function_arglist_common_lyric:
 		// something looking like a duration or post event
 		// follows, we take the event, otherwise the string).
 		SCM lyric_event = MAKE_SYNTAX ("lyric-event", @3, $3,
-					       PARSER->default_duration_.smobbed_copy ());
+					       parser->default_duration_.smobbed_copy ());
 		if (scm_is_true (scm_call_1 ($1, $3)))
 			if (scm_is_true (scm_call_1 ($1, lyric_event)))
 			{
@@ -1548,14 +1547,14 @@ function_arglist_common_lyric:
 		} else {
 			// This is going to flag a syntax error, we
 			// know the predicate to be false.
-			check_scheme_arg (PARSER, @3,
+			check_scheme_arg (parser, @3,
 					  $3, $2, $1);
 		}
 	}
 	| function_arglist_common_lyric REPARSE lyric_element_arg
 	{
 		// This should never be false
-		$$ = check_scheme_arg (PARSER, @3,
+		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
 	;
@@ -1574,7 +1573,7 @@ function_arglist_common_minus:
 			if (scm_is_true (scm_call_1 ($1, $$)))
 				$$ = scm_cons ($$, $2);
 			else
-				$$ = check_scheme_arg (PARSER, @3, n, $2, $1);
+				$$ = check_scheme_arg (parser, @3, n, $2, $1);
 		}
 		
 	}
@@ -1587,11 +1586,11 @@ function_arglist_common_minus:
 	| EXPECT_SCM function_arglist_closed_optional '-' NUMBER_IDENTIFIER
 	{
 		SCM n = scm_difference ($4, SCM_UNDEFINED);
-		$$ = check_scheme_arg (PARSER, @4, n, $2, $1);
+		$$ = check_scheme_arg (parser, @4, n, $2, $1);
 	}
 	| function_arglist_common_minus REPARSE bare_number
 	{
-		$$ = check_scheme_arg (PARSER, @3, $3, $1, $2);
+		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
 	;
 
@@ -1604,12 +1603,12 @@ function_arglist_closed_common:
 	function_arglist_bare
 	| EXPECT_SCM function_arglist_optional embedded_scm_arg_closed
 	{
-		$$ = check_scheme_arg (PARSER, @3,
+		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional bare_number
 	{
-		$$ = check_scheme_arg (PARSER, @3,
+		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional '-' UNSIGNED
@@ -1624,35 +1623,35 @@ function_arglist_closed_common:
 			if (scm_is_true (scm_call_1 ($1, $$)))
 				$$ = scm_cons ($$, $2);
 			else
-				$$ = check_scheme_arg (PARSER, @3, n, $2, $1);
+				$$ = check_scheme_arg (parser, @3, n, $2, $1);
 		}
 		
 	}
 	| EXPECT_SCM function_arglist_closed_optional '-' REAL
 	{
-		$$ = check_scheme_arg (PARSER, @3,
+		$$ = check_scheme_arg (parser, @3,
 				       scm_difference ($4, SCM_UNDEFINED),
 				       $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional '-' NUMBER_IDENTIFIER
 	{
-		$$ = check_scheme_arg (PARSER, @3,
+		$$ = check_scheme_arg (parser, @3,
 				       scm_difference ($4, SCM_UNDEFINED),
 				       $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional post_event_nofinger
 	{
-		$$ = check_scheme_arg (PARSER, @3,
+		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional fraction
 	{
-		$$ = check_scheme_arg (PARSER, @3,
+		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_optional lyric_element
 	{
-		$$ = check_scheme_arg (PARSER, @3,
+		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
 	;
@@ -1774,7 +1773,7 @@ mode_changed_music:
 		{
 		  $$ = $2;
 		}
-		PARSER->lexer_->pop_state ();
+		parser->lexer_->pop_state ();
 	}
 	| mode_changing_head_with_context optional_context_mod grouped_music_list {
                 Context_mod *ctxmod = unsmob_context_mod ($2);
@@ -1786,82 +1785,82 @@ mode_changed_music:
 		{
 		  $$ = MAKE_SYNTAX ("unrelativable-music", @$, $$);
 		}
-		PARSER->lexer_->pop_state ();
+		parser->lexer_->pop_state ();
 	}
 	;
 
 mode_changing_head:
 	NOTEMODE {
-		SCM nn = PARSER->lexer_->lookup_identifier ("pitchnames");
-		PARSER->lexer_->push_note_state (alist_to_hashq (nn));
+		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
+		parser->lexer_->push_note_state (alist_to_hashq (nn));
 
 		$$ = ly_symbol2scm ("notes");
 	}
 	| DRUMMODE
 		{
-		SCM nn = PARSER->lexer_->lookup_identifier ("drumPitchNames");
-		PARSER->lexer_->push_note_state (alist_to_hashq (nn));
+		SCM nn = parser->lexer_->lookup_identifier ("drumPitchNames");
+		parser->lexer_->push_note_state (alist_to_hashq (nn));
 
 		$$ = ly_symbol2scm ("drums");
 	}
 	| FIGUREMODE {
-		PARSER->lexer_->push_figuredbass_state ();
+		parser->lexer_->push_figuredbass_state ();
 
 		$$ = ly_symbol2scm ("figures");
 	}
 	| CHORDMODE {
-		SCM nn = PARSER->lexer_->lookup_identifier ("chordmodifiers");
-		PARSER->lexer_->chordmodifier_tab_ = alist_to_hashq (nn);
-		nn = PARSER->lexer_->lookup_identifier ("pitchnames");
-		PARSER->lexer_->push_chord_state (alist_to_hashq (nn));
+		SCM nn = parser->lexer_->lookup_identifier ("chordmodifiers");
+		parser->lexer_->chordmodifier_tab_ = alist_to_hashq (nn);
+		nn = parser->lexer_->lookup_identifier ("pitchnames");
+		parser->lexer_->push_chord_state (alist_to_hashq (nn));
 		$$ = ly_symbol2scm ("chords");
 
 	}
 	| LYRICMODE
-		{ PARSER->lexer_->push_lyric_state ();
+		{ parser->lexer_->push_lyric_state ();
 		$$ = ly_symbol2scm ("lyrics");
 	}
 	;
 
 mode_changing_head_with_context:
 	DRUMS {
-		SCM nn = PARSER->lexer_->lookup_identifier ("drumPitchNames");
-		PARSER->lexer_->push_note_state (alist_to_hashq (nn));
+		SCM nn = parser->lexer_->lookup_identifier ("drumPitchNames");
+		parser->lexer_->push_note_state (alist_to_hashq (nn));
 
 		$$ = ly_symbol2scm ("DrumStaff");
 	}
 	| FIGURES {
-		PARSER->lexer_->push_figuredbass_state ();
+		parser->lexer_->push_figuredbass_state ();
 
 		$$ = ly_symbol2scm ("FiguredBass");
 	}
 	| CHORDS {
-		SCM nn = PARSER->lexer_->lookup_identifier ("chordmodifiers");
-		PARSER->lexer_->chordmodifier_tab_ = alist_to_hashq (nn);
-		nn = PARSER->lexer_->lookup_identifier ("pitchnames");
-		PARSER->lexer_->push_chord_state (alist_to_hashq (nn));
+		SCM nn = parser->lexer_->lookup_identifier ("chordmodifiers");
+		parser->lexer_->chordmodifier_tab_ = alist_to_hashq (nn);
+		nn = parser->lexer_->lookup_identifier ("pitchnames");
+		parser->lexer_->push_chord_state (alist_to_hashq (nn));
 		$$ = ly_symbol2scm ("ChordNames");
 	}
 	| LYRICS
-		{ PARSER->lexer_->push_lyric_state ();
+		{ parser->lexer_->push_lyric_state ();
 		$$ = ly_symbol2scm ("Lyrics");
 	}
 	;
 
 new_lyrics:
-	ADDLYRICS { PARSER->lexer_->push_lyric_state (); }
+	ADDLYRICS { parser->lexer_->push_lyric_state (); }
 	/*cont */
 	composite_music {
 	/* Can also use music at the expensive of two S/Rs similar to
            \repeat \alternative */
-		PARSER->lexer_->pop_state ();
+		parser->lexer_->pop_state ();
 
 		$$ = scm_cons ($3, SCM_EOL);
 	}
 	| new_lyrics ADDLYRICS {
-		PARSER->lexer_->push_lyric_state ();
+		parser->lexer_->push_lyric_state ();
 	} composite_music {
-		PARSER->lexer_->pop_state ();
+		parser->lexer_->pop_state ();
 		$$ = scm_cons ($4, $1);
 	}
 	;
@@ -1871,9 +1870,9 @@ re_rhythmed_music:
 		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
 	} %prec COMPOSITE
 	| LYRICSTO simple_string {
-		PARSER->lexer_->push_lyric_state ();
+		parser->lexer_->push_lyric_state ();
 	} music {
-		PARSER->lexer_->pop_state ();
+		parser->lexer_->pop_state ();
 		$$ = MAKE_SYNTAX ("lyric-combine", @$, $2, $4);
 	}
 	;
@@ -1943,7 +1942,7 @@ context_mod:
 	   if (ly_symbol2scm ("consists") != $1)
 	   {
 	     $$ = SCM_EOL;
-             PARSER->parser_error (@1, _ ("only \\consists takes non-string argument."));
+             parser->parser_error (@1, _ ("only \\consists takes non-string argument."));
 	   }
 	   else
 	   {
@@ -1997,7 +1996,7 @@ simple_music_property_def:
 
 music_property_def:
 	simple_music_property_def {
-		$$ = LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("property-operation"), scm_cons2 (PARSER->self_scm (), make_input (@$), $1));
+		$$ = LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("property-operation"), scm_cons2 (parser->self_scm (), make_input (@$), $1));
 	}
 	;
 
@@ -2054,8 +2053,8 @@ event_chord:
 		Input i;
 		i.set_location (@1, @3);
 		$$ = MAKE_SYNTAX ("repetition-chord", i,
-				  PARSER->lexer_->chord_repetition_.last_chord_,
-				  PARSER->lexer_->chord_repetition_.repetition_function_,
+				  parser->lexer_->chord_repetition_.last_chord_,
+				  parser->lexer_->chord_repetition_.repetition_function_,
 				  $2, scm_reverse_x ($3, SCM_EOL));
 	}
 	| MULTI_MEASURE_REST optional_notemode_duration post_events {
@@ -2066,11 +2065,11 @@ event_chord:
 	}
 	| command_element
 	/* note chord elements are memorized into
-	   PARSER->lexer_->chord_repetition_ so that the chord repetition
+	   parser->lexer_->chord_repetition_ so that the chord repetition
 	   mechanism copy them when a chord repetition symbol is found
 	*/
 	| note_chord_element	{
-		PARSER->lexer_->chord_repetition_.last_chord_ = $$;
+		parser->lexer_->chord_repetition_.last_chord_ = $$;
 	}
 	;
 
@@ -2160,7 +2159,7 @@ music_function_chord_body_arglist:
 	function_arglist_bare
 	| EXPECT_SCM music_function_chord_body_arglist embedded_scm_chord_body
 	{
-		$$ = check_scheme_arg (PARSER, @3,
+		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
 	;
@@ -2221,7 +2220,7 @@ command_element:
 		$$ = MAKE_SYNTAX ("voice-separator", @$);
 	}
 	| '|'      {
-		SCM pipe = PARSER->lexer_->lookup_identifier ("pipeSymbol");
+		SCM pipe = parser->lexer_->lookup_identifier ("pipeSymbol");
 
 		Music *m = unsmob_music (pipe);
 		if (m)
@@ -2268,13 +2267,13 @@ post_event_nofinger:
 		}
 	}
 	| HYPHEN {
-		if (!PARSER->lexer_->is_lyric_state ())
-			PARSER->parser_error (@1, _ ("have to be in Lyric mode for lyrics"));
+		if (!parser->lexer_->is_lyric_state ())
+			parser->parser_error (@1, _ ("have to be in Lyric mode for lyrics"));
 		$$ = MY_MAKE_MUSIC ("HyphenEvent", @$)->unprotect ();
 	}
 	| EXTENDER {
-		if (!PARSER->lexer_->is_lyric_state ())
-			PARSER->parser_error (@1, _ ("have to be in Lyric mode for lyrics"));
+		if (!parser->lexer_->is_lyric_state ())
+			parser->parser_error (@1, _ ("have to be in Lyric mode for lyrics"));
 		$$ = MY_MAKE_MUSIC ("ExtenderEvent", @$)->unprotect ();
 	}
 	| script_dir direction_reqd_event {
@@ -2356,7 +2355,7 @@ direction_less_char:
 
 direction_less_event:
 	direction_less_char {
-		SCM predefd = PARSER->lexer_->lookup_identifier_symbol ($1);
+		SCM predefd = parser->lexer_->lookup_identifier_symbol ($1);
 		Music *m = 0;
 		if (unsmob_music (predefd))
 		{
@@ -2385,11 +2384,11 @@ direction_reqd_event:
 		$$ = $1;
 	}
 	| script_abbreviation {
-		SCM s = PARSER->lexer_->lookup_identifier ("dash" + ly_scm2string ($1));
+		SCM s = parser->lexer_->lookup_identifier ("dash" + ly_scm2string ($1));
 		Music *a = MY_MAKE_MUSIC ("ArticulationEvent", @$);
 		if (scm_is_string (s))
 			a->set_property ("articulation-type", s);
-		else PARSER->parser_error (@1, _ ("expecting string as script definition"));
+		else parser->parser_error (@1, _ ("expecting string as script definition"));
 		$$ = a->unprotect ();
 	}
 	;
@@ -2528,12 +2527,12 @@ duration_length:
 
 optional_notemode_duration:
 	{
-		Duration dd = PARSER->default_duration_;
+		Duration dd = parser->default_duration_;
 		$$ = dd.smobbed_copy ();
 	}
 	| multiplied_duration	{
 		$$ = $1;
-		PARSER->default_duration_ = *unsmob_duration ($$);
+		parser->default_duration_ = *unsmob_duration ($$);
 	}
 	;
 
@@ -2541,7 +2540,7 @@ steno_duration:
 	bare_unsigned dots		{
 		int len = 0;
 		if (!is_duration ($1))
-			PARSER->parser_error (@1, _f ("not a duration: %d", $1));
+			parser->parser_error (@1, _f ("not a duration: %d", $1));
 		else
 			len = intlog2 ($1);
 
@@ -2592,7 +2591,7 @@ tremolo_type:
 	}
 	| ':' bare_unsigned {
 		if (!is_duration ($2))
-			PARSER->parser_error (@2, _f ("not a duration: %d", $2));
+			parser->parser_error (@2, _f ("not a duration: %d", $2));
 		$$ = $2;
 	}
 	;
@@ -2710,8 +2709,8 @@ optional_rest:
 
 simple_element:
 	pitch exclamations questions octave_check optional_notemode_duration optional_rest {
-		if (!PARSER->lexer_->is_note_state ())
-			PARSER->parser_error (@1, _ ("have to be in Note mode for notes"));
+		if (!parser->lexer_->is_note_state ())
+			parser->parser_error (@1, _ ("have to be in Note mode for notes"));
 
 		Music *n = 0;
 		if ($6)
@@ -2762,8 +2761,8 @@ simple_chord_elements:
 		$$ = scm_list_1 ($1);
 	}
 	| new_chord {
-                if (!PARSER->lexer_->is_chord_state ())
-                        PARSER->parser_error (@1, _ ("have to be in Chord mode for chords"));
+                if (!parser->lexer_->is_chord_state ())
+                        parser->parser_error (@1, _ ("have to be in Chord mode for chords"));
                 $$ = $1;
 	}
 	| figure_spec optional_notemode_duration {
@@ -2795,7 +2794,7 @@ lyric_element_arg:
 	| lyric_element post_event post_events {
 		SCM lyric_event =
 			MAKE_SYNTAX ("lyric-event", @$, $1,
-				     PARSER->default_duration_.smobbed_copy ());
+				     parser->default_duration_.smobbed_copy ());
 		$$ = MAKE_SYNTAX ("event-chord", @$,
 				  scm_cons2 (lyric_event, $2,
 					     scm_reverse_x ($3, SCM_EOL)));
@@ -2975,10 +2974,10 @@ lyric_markup:
 		$$ = $1;
 	}
 	| LYRIC_MARKUP
-		{ PARSER->lexer_->push_markup_state (); }
+		{ parser->lexer_->push_markup_state (); }
 	markup_top {
 		$$ = $3;
-		PARSER->lexer_->pop_state ();
+		parser->lexer_->pop_state ();
 	}
 	;
 
@@ -2987,10 +2986,10 @@ full_markup_list:
 		$$ = $1;
 	}
 	| MARKUPLIST
-		{ PARSER->lexer_->push_markup_state (); }
+		{ parser->lexer_->push_markup_state (); }
 	markup_list {
 		$$ = $3;
-		PARSER->lexer_->pop_state ();
+		parser->lexer_->pop_state ();
 	}
 	;
 
@@ -2999,10 +2998,10 @@ full_markup:
 		$$ = $1;
 	}
 	| MARKUP
-		{ PARSER->lexer_->push_markup_state (); }
+		{ parser->lexer_->push_markup_state (); }
 	markup_top {
 		$$ = $3;
-		PARSER->lexer_->pop_state ();
+		parser->lexer_->pop_state ();
 	}
 	;
 
@@ -3026,7 +3025,7 @@ markup_scm:
 		else if (Text_interface::is_markup_list ($1))
 			MYBACKUP (MARKUPLIST_IDENTIFIER, $1, @1);
 		else {
-			PARSER->parser_error (@1, _ ("not a markup"));
+			parser->parser_error (@1, _ ("not a markup"));
 			MYBACKUP (MARKUP_IDENTIFIER, scm_string (SCM_EOL), @1);
 		}
 	} BACKUP
@@ -3086,7 +3085,7 @@ markup_command_basic_arguments:
 	  $$ = scm_cons ($3, $2);
 	}
 	| EXPECT_SCM markup_command_list_arguments embedded_scm_closed {
-	  $$ = check_scheme_arg (PARSER, @3, $3, $2, $1);
+	  $$ = check_scheme_arg (parser, @3, $3, $2, $1);
 	}
 	| EXPECT_NO_MORE_ARGS {
 	  $$ = SCM_EOL;
@@ -3129,13 +3128,13 @@ simple_markup:
 		$$ = $1;
 	}
 	| SCORE {
-		SCM nn = PARSER->lexer_->lookup_identifier ("pitchnames");
-		PARSER->lexer_->push_note_state (alist_to_hashq (nn));
+		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
+		parser->lexer_->push_note_state (alist_to_hashq (nn));
 	} '{' score_body '}' {
 		Score * sc = $4;
 		$$ = scm_list_2 (ly_lily_module_constant ("score-markup"), sc->self_scm ());
 		sc->unprotect ();
-		PARSER->lexer_->pop_state ();
+		parser->lexer_->pop_state ();
 	}
 	| MARKUP_FUNCTION markup_command_basic_arguments {
 		$$ = scm_cons ($1, scm_reverse_x ($2, SCM_EOL));
