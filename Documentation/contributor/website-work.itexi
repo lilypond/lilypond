@@ -72,7 +72,7 @@ $HOME/lilypond/trusted-scripts/
 
 To reduce the CPU burden on the shared host (as well as some
 security concerns), the 'Documentation/pictures/' and
-'Documentation/web/ly-examples/' directories are **not** compiled.
+'Documentation/ly-examples/' directories are **not** compiled.
 We will do this ourselves right now.
 
 Go to your lilypond build directory.  make doc.
@@ -82,7 +82,7 @@ Set up some variables (you'll only do this once:)
 @example
 BUILD_DIR=$HOME/lilypond-git
 PICS=$BUILD_DIR/Documentation/pictures/
-EXAMPLES=$BUILD_DIR/Documentation/web/ly-examples/
+EXAMPLES=$BUILD_DIR/Documentation/ly-examples/
 @end example
 
 Copy files over:
@@ -167,7 +167,7 @@ chmod 775 ~graham/lilypond/ -R
 
 To reduce the CPU burden on the shared host (as well as some
 security concerns), the @file{Documentation/pictures/} and
-@file{Documentation/web/ly-examples/} directories are
+@file{Documentation/ly-examples/} directories are
 @strong{not} compiled.  You need to upload them, and if they ever
 change, a user in the @code{lilypond} group must upload them to
 @file{~graham/lilypond/media} on the host.
@@ -183,7 +183,7 @@ script.}
 BUILD_DIR=$HOME/src/build-lilypond
 
 PICS=$BUILD_DIR/Documentation/pictures/out-www/
-EXAMPLES=$BUILD_DIR/Documentation/web/ly-examples/out-www/
+EXAMPLES=$BUILD_DIR/Documentation/ly-examples/out-www/
 
 cd $BUILD_DIR
 rsync -a $PICS graham@lilypond.org:lilypond/media/pictures
