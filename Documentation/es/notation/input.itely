@@ -540,6 +540,7 @@ compositor; ciertas piezas tienen mucha más información.
 @menu
 * Crear títulos cabeceras y pies de página::
 * Cabeceras pies y títulos personalizados::
+* Crear notas al pie::
 * Referencia a números de página::
 * Índice general::
 @end menu
@@ -1058,6 +1059,275 @@ definiéndola como @code{\oddFooterMarkup}:
 Notation Reference:
 @ref{Explicación de los bloques de títulos},
 @ref{Presentación predeterminada de los bloques de título del libro y la partitura}.
+
+@node Crear notas al pie
+@subsection Crear notas al pie
+@translationof Creating footnotes
+
+Se pueden crear dos tipos de notas al pie: automáticas y manuales.
+
+@menu
+* Panorámica de las notas al pie::
+* Notas al pie automáticas::
+* Notas al pie manuales::
+@end menu
+
+@node Panorámica de las notas al pie
+@unnumberedsubsubsec Panorámica de las notas al pie
+@translationof Footnotes overview
+
+Las notas al pie automáticas crean indicadores numéricos
+incrementales; las notas al pie manuales, en cambio, permiten crear un
+indicador personalizado. Se pueden anotar todos los grobs (objetos
+gráficos), elementos @code{\markup} del nivel superior y las notas de
+los acordes.
+
+El orden en que se dibuja cada grob determina el orden en que se crean
+los indicadores (y por tanto las notas al pie) durante la compilación.
+
+@node Notas al pie automáticas
+@unnumberedsubsubsec Notas al pie automáticas
+@translationof Automatic footnotes
+
+De las dos instrucciones utilizadas para crear notas al pie
+automáticas, utilice @code{\autoFootnoteGrob} para los grobs
+individuales (es decir: la cabeza de las notas, plicas, ligaduras de
+expresión, matices dinámicos y elementos de @code{\markup} si se
+utilizan @code{TextScripts}); y @code{\autoFootnote} para anotar las
+notas de un acorde.
+
+Las dos instrucciones aceptan tres argumentos; el @var{Objeto de
+presentación} que anotar, la posición @var{(x . y)} del indicador y un
+elemento de @code{\markup} que aparecerá en la nota, en la parte
+inferior de la página.
+
+La instrucción @code{\autoFootnoteGrob} debe ir @emph{antes} del grob
+al que se adjunta la nota al pie:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \autoFootnoteGrob #'NoteHead #'(0.5 . -2)
+      \markup { The first note }
+    a'4 b8
+    \autoFootnoteGrob #'NoteHead #'(0.5 . 1)
+      \markup { The third note }
+    e c4 d4
+  }
+}
+@end lilypond
+
+Para anotar las notas de un acorde, la instrucción
+@code{\autoFootnote} debe ir @emph{después} de la nota a la que se
+quiere adjuntar la nota al pie como un @code{TextScript}:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    <
+    c-\autoFootnote #'(1 . -1.25) "Here is a C"
+    es-\autoFootnote #'(2 . -0.25) \markup { \italic "An E-flat" }
+    g-\autoFootnote #'(2 . 3) \markup { \bold "This is a G" }
+    >1
+  }
+}
+@end lilypond
+
+@warning{Cuando las notas al pie tienen la misma posición vertical, se
+imprimen en orden de descendencia: cuando más alta es la nota al pie,
+más arriba está en la lista.}
+
+He aquí unos ejemplos de grobs con notas al pie automáticas, que
+muestran también la posición relativa de las notas respecto de la
+línea informativa y la línea de copyright.
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { copyright = \markup { "Copyright 1970" } }
+  \relative c' {
+    \autoFootnoteGrob #'DynamicText #'(-3 . 0)
+      \markup { \bold Forte }
+
+    \autoFootnoteGrob #'Slur #'(0 . 1.5)
+      \markup { A slur }
+    a'4\f(
+
+    \autoFootnoteGrob #'Beam #'(0 . -2)
+      \markup { Beam }
+    b8)[ e]
+
+    \autoFootnoteGrob #'Stem #'(1 . -1)
+      \markup  { \teeny { This is a stem } }
+    c4
+
+    \autoFootnoteGrob #'AccidentalCautionary #'(0 . 0.5)
+      \markup \italic { A cautionary accidental }
+
+    \autoFootnoteGrob #'TextScript #'(0.5 . -0.5)
+      \markup \italic { Slow Down }
+    dis?4_"rit."
+  }
+}
+@end lilypond
+
+Para los elementos @code{\markup} del nivel superior, se requiere el
+uso de la instrucción @code{\auto-footnote}:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \markup { \auto-footnote "A simple tune" \italic "By me" }
+  \relative c' {
+    a'4 b8 e c4 d
+  }
+}
+@end lilypond
+
+
+@node Notas al pie manuales
+@unnumberedsubsubsec Notas al pie manuales
+@translationof Manual footnotes
+
+@funindex \footnote
+@funindex \footnoteGrob
+@cindex notas al pie manuales
+
+Existen dos instrucciones para crear notas al pie manuales;
+@code{\footnote} para elementos de @code{\markup} del nivel superior y
+notas de acordes; y @code{\footnoteGrob} para grobs individuales (y
+elementos de @code{\markup} cuando se usan @code{TextScripts}).
+
+Si se están anotando grobs, la instrucción @code{\footnote} toma
+cuatro argumentos; el @var{objeto de presentación} que se va a anotar,
+la posición @var{(x . y)} del indicador, y dos instrucciones
+@code{\markup}; la primera es el indicador adjunto a la nota o grob, y
+la segunda es la nota al pie, en la parte inferior de la página.
+
+La instrucción @code{\footnoteGrob} debe ir @emph{después} del grob
+que la nota al pie está anotando y adjuntada como un
+@code{TextScript}:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    a'4-\footnoteGrob #'NoteHead #'(0.5 . -2)
+          "1" \markup { \italic "1. The first note" }
+    b8
+    e-\footnoteGrob #'NoteHead #'(0.5 . 1)
+          \markup { \bold "2" } "2. The second note"
+    c4
+    d\p-\footnoteGrob #'DynamicText #'(0.5 . -1) "3" "3. Piano"
+  }
+}
+@end lilypond
+
+Para anotar notas de acordes, la instrucción @code{\footnote} debe ir
+@emph{después} de la nota que se está anotando con una nota al pie, y
+adjuntarse como un @code{TextScript}:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    <
+    c-\footnote #'(1 . -1.25) "1" "1. C"
+    es-\footnote #'(2 . -0.25)
+       \markup { \bold "b" } "b. E-flat"
+    g-\footnote #'(2 . 3) "3" \markup { \italic "iii. G" }
+    >1
+  }
+}
+@end lilypond
+
+@warning {Cuando las notas al pie tienen la misma posición vertical, las
+anotaciones se imprimen en orden de descendencia; cuanto más alta es
+la nota al pie, más arriba está en la lista.}
+
+He aquí algunos ejemplos de grobs anotados manualmente, mostrando
+también la posición relativa de las notas al pie respecto a la línea
+informativa a la de copyright:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \footnoteGrob #'DynamicText #'(-3 . 0)
+      \markup { \teeny 1 }
+      \markup { 1. \bold Forte }
+
+    \footnoteGrob #'Slur #'(0 . 1.5)
+      \markup { \teeny b }
+      \markup { b. A slur }
+    a'4\f(
+
+    \footnoteGrob #'Beam #'(0 . -2)
+      \markup { \teeny 3 }
+      \markup { 3. Beam }
+    b8)[ e]
+
+    \footnoteGrob #'Stem #'(1 . -1)
+      \markup { 4 }
+      \markup  { \bold 4. { This is a stem } }
+    c4
+
+    \footnoteGrob #'AccidentalCautionary #'(0 . 0.5)
+      \markup \concat \teeny { "sharp (v)" }
+      \markup \italic { v. A cautionary accidental }
+
+    \footnoteGrob #'TextScript #'(0.5 . -0.5)
+      \markup \concat \teeny { "a" }
+      \markup \italic { a. Slow Down }
+    dis?4_"rit."
+
+    \breathe
+    \footnoteGrob #'BreathingSign #'(1.5 . -0.25)
+      \markup { \teeny \musicglyph #"rests.4" }
+      \markup { \null }
+  }
+}
+@end lilypond
+
+Para anotar manualmente un elemento @code{\markup} del nivel superior:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \markup { "A simple tune" \footnote "*" \italic "* By me" }
+  \relative c' {
+    a'4 b8 e c4 d4
+  }
+}
+@end lilypond
+
+@seealso
+Manual de aprendizaje:
+@rlearning{Objetos e interfaces}.
+
+Referencia de la notación:
+@ref{Globos de ayuda},
+@ref{Disposición de la página},
+@ref{Indicaciones de texto},
+@ref{Guiones de texto},
+@ref{Títulos y cabeceras}.
+
+Referencia de funcionamiento interno:
+@rinternals{FootnoteEvent},
+@rinternals{FootnoteItem},
+@rinternals{FootnoteSpanner},
+@rinternals{Footnote_engraver}.
+
+@knownissues
+Varias notas al pie en la misma página solo pueden ir apiladas unas
+sobre otras, y no se pueden imprimir en la misma línea.  Las notas al
+pie no se pueden adjuntar a elementos de silencio multicompás
+@code{MultiMeasureRests}, y pueden colisionar con el objeto
+@code{Staff}, objetos de @code{\markup} y otras anotaciones
+@code{footnote}.  Cuando use una cualquiera de las instrucciones
+@code{footnote} se requiere un bloque @code{\paper} que contenga
+@code{footnote-auto-number = ##f}.
 
 
 @node Referencia a números de página
@@ -2068,11 +2338,10 @@ La salida estándar de MIDI es un poco primitiva; de forma opcional, se
 encuentra disponible una salida MIDI mejorada y mucho más realista,
 por medio de @ref{El script Articulate}.
 
-@c TODO Check this
-La salida MIDI reserva un canal por cada pentagrama, y otro para los
-ajustes globales.  Por ello, el archivo MIDI no debe tener más de 15
-pautas (o 14 si no se usa la percusión).  Otros pentagramas permanecen
-en silencio.
+La salida MIDI reserva un canal por cada pentagrama, y reserva
+el canal 10 para la percusión.  Sólo hay 16 canales MIDI por cada
+dispositivo, por lo que si la partitura tiene más de 15 pautas, los
+canales MIDI se reutilizarán.
 
 @menu
 * Crear archivos MIDI::
@@ -2761,7 +3030,8 @@ musical en forma de texto.
 
 @funindex \displayLilyMusic
 La impresión textual de una expresión musical en notación de LilyPond
-puede hacerse con la función musical @code{\displayLilyMusic} pero solamente
+puede hacerse con la función musical @code{\displayLilyMusic}.
+Para ver el resultado, lo más usual es llamar a LilyPond
 mediante la línea de órdenes.  Por ejemplo,
 
 @example
