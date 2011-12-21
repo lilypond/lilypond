@@ -77,6 +77,14 @@ Beam_collision_engraver::finalize ()
     {
       Grob *beam_grob = beams_[i].grob ();
 
+      extract_grob_set (beam_grob, "normal-stems", stems);
+      Interval_t<int> vertical_span;
+      for (vsize j = 0; j < stems.size (); j++)
+        {
+          int vag = Grob::get_vertical_axis_group_index (stems[j]);
+          if (vag >= 0)
+            vertical_span.add_point (vag);
+        }
       Context *beam_context = beams_[i].context ();
 
       Interval_t<int> beam_spanned_rank_ = beam_grob->spanned_rank_interval ();
@@ -88,6 +96,9 @@ Beam_collision_engraver::finalize ()
       for (vsize j = start; j < covered_grobs_.size (); j++)
         {
           Grob *covered_grob = covered_grobs_[j].grob ();
+          int vag = Grob::get_vertical_axis_group_index (covered_grob);
+          if (!vertical_span.contains (vag))
+            continue;
           Context *covered_grob_context = covered_grobs_[j].context ();
 
           Interval_t<int> covered_grob_spanned_rank = covered_grob->spanned_rank_interval ();
