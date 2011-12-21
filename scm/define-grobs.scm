@@ -507,6 +507,7 @@
 	(font-size . 1.5)
 	(stencil . ,ly:text-interface::print)
 	(extra-spacing-height . (0.2 . -0.2))
+	(extra-spacing-width . (-0.5 . 0.5))
 	(word-space . 0.0)
 	(meta . ((class . Item)
 		 (interfaces . (chord-name-interface
