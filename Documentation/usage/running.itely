@@ -152,6 +152,8 @@ on the command-line, and include
 #(use-modules (guile-user))
 @end example
 
+@warning{Windows users must use double quotes instead of single quotes.}
+
 @noindent
 at the top of the @code{.ly} file.
 
@@ -177,7 +179,7 @@ switch off an option, @code{no-} may be prefixed to @var{var}, e.g.
 @noindent
 is the same as
 @example
--dpoint-and-click='#f'
+-dpoint-and-click=#f
 @end example
 
 The following options are supported:
