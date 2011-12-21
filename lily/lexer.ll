@@ -1,4 +1,4 @@
-%{ // -*-Fundamental-*-
+%{ // -*- mode: c++; c-file-style: "linux" -*-
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
@@ -18,6 +18,14 @@
   You should have received a copy of the GNU General Public License
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+/* Mode and indentation are at best a rough approximation based on TAB
+ * formatting (reasonable for compatibility with unspecific editor
+ * modes as Flex modes are hard to find) and need manual correction
+ * frequently.  Without a reasonably dependable way of formatting a
+ * Flex file sensibly, there is little point in trying to fix the
+ * inconsistent state of indentation.
+ */
 
 /*
   backup rules
