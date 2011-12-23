@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
+    Translation of GIT committish: 8329db420f98f9d2f03ee8aec740b7ccf770b0d2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2475,9 +2475,10 @@ répertoriées au chapitre @ref{Mise en forme de la page}.
 @item
 L'insertion de dialogues et d'indications de mise en scène peuvent se
 réaliser à l'aide de @emph{markups}, en suivant les directives fournies
-au chapitre @ref{Texte}.  Les indications de mise en scène peuvent
-s'intercaler entre deux blocs @code{\score} selon les préceptes de la
-rubrique @ref{Texte indépendant}.
+aux chapitres @ref{Notes de bas de page} et @ref{Texte}.  Les
+indications de mise en scène peuvent s'intercaler entre deux blocs
+@code{\score} selon les préceptes de la rubrique
+@ref{Texte indépendant}.
 
 @end itemize
 
@@ -2488,15 +2489,16 @@ Glossaire musicologique :
 @rglosnamed{transposing instrument,instrument transpositeur}.
 
 Manuel de notation :
-@ref{Regroupement de portées},
-@ref{Masquage de portées},
-@ref{Instruments transpositeurs},
+@ref{Ajout de texte},
 @ref{Imbrication de regroupements de portées},
+@ref{Instruments transpositeurs},
+@ref{Masquage de portées},
 @ref{Mise en forme de la page},
+@ref{Notes de bas de page},
+@ref{Regroupement de portées},
 @ref{Séparation des systèmes},
 @ref{Transposition},
-@ref{Écriture de parties séparées},
-@ref{Ajout de texte}.
+@ref{Écriture de parties séparées}.
 
 Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.

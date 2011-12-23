@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: e389a98ed32c929cb091453d9ec2856350cfb300
+    Translation of GIT committish: 8329db420f98f9d2f03ee8aec740b7ccf770b0d2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1090,6 +1090,9 @@ vaguelettes -- voir @ref{Styles de ligne}.
 
 
 @snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{glissandi-can-skip-grobs.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {contemporary-glissando.ly}
