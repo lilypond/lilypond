@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3b8f430efd506ccd6ae8235be0f08468c0da937d
+    Translation of GIT committish: eae48078889d9cd100165deb7c5c0769f954850b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -124,9 +124,9 @@ Pour de plus amples informations à propos du bloc @code{\book}, lisez
 
 @seealso
 Manuel d'initiation :
-@rlearning{Travail sur les fichiers d'entrée},
+@rlearning{La partition est une (unique) expression musicale composée},
 @rlearning{Les expressions musicales en clair},
-@rlearning{La partition est une (unique) expression musicale composée}.
+@rlearning{Travail sur les fichiers d'entrée}.
 
 
 @node Plusieurs partitions dans un même ouvrage
@@ -283,6 +283,9 @@ génèrera
 @node Nom des fichiers de sortie
 @subsection Nom des fichiers de sortie
 @translationof Output file names
+
+@funindex \bookOutputSuffix
+@funindex \bookOutputName
 
 LilyPond vous permet de prendre le contrôle dans la dénomination des
 fichiers que vous voulez générer, quel que soit le moteur de rendu
@@ -519,7 +522,7 @@ Autour d'une accolade, qu'elle soit ouvrant ou fermante ;
 
 @item
 Après chaque commande ou variable, autrement dit tout élément qui
-commence par un @code{\}@tie{};
+commence par un@tie{}@code{\}@tie{};
 
 @item
 Après tout élément qui sera interprété comme une expression Scheme,
@@ -555,6 +558,7 @@ d'information.
 @menu
 * Création de titres et entête ou pied de page::
 * Titrages personnalisés::
+* Notes de bas de page::
 * Référencement des numéros de page::
 * Table des matières::
 @end menu
@@ -712,7 +716,7 @@ bloc @code{\header} principal, et @code{scoreTitleMarkup} pour les blocs
 @lilypond[papersize=a6,quote,verbatim,noragged-right]
 \header {
   % Les champs suivants sont centrés
-  dedication = "Dédice"
+  dedication = "Dédicace"
   title = "Titre"
   subtitle = "Sous-titre"
   subsubtitle = "Sous-sous-titre"
@@ -1095,6 +1099,301 @@ Enfin, nous appliquons le même paramétrage au @code{\oddFooterMarkup}.
 Manuel de notation :
 @ref{Contenu des blocs de titrage},
 @ref{Mise en forme par défaut des titrages}.
+
+
+@node Notes de bas de page
+@subsection Notes de bas de page
+@translationof Creating footnotes
+
+LilyPond dispose de deux méthodes pour créer des notes de bas de page,
+l'une automatisée, et l'autre manuelle.
+
+@menu
+* Considérations générales en matière de note de bas de page::
+* Notes de bas de page automatiques::
+* Notes de bas de page manuelles::
+@end menu
+
+@node Considérations générales en matière de note de bas de page
+@unnumberedsubsubsec Considérations générales en matière de note de bas de page
+@translationof Footnotes overview
+
+Il est parfois judicieux, notamment lorsqu'une annotation ou un
+commentaire gènerait la lecture de la partition, de les reporter en bas
+de page.
+
+Les notes de bas de page automatiques font appel à un compteur
+numérique incrémenté automatiquement@tie{}; les notes de bas de page
+manuelles vous laissent le libre choix de l'appel (l'indicateur).  Tout
+objet graphique, @code{\markup} de haut niveau ou les notes d'un accord
+peuvent faire l'objet d'une annotation.
+
+L'ordre dans lequel les objets seront dessinés détermine l'ordre des
+appels et comment les annotations seront créées lors de la compilation.
+
+
+@node Notes de bas de page automatiques
+@unnumberedsubsubsec Notes de bas de page automatiques
+@translationof Automatic footnotes
+
+@cindex note de bas de page automatique
+@cindex bas de page, note automatique
+
+@funindex \autoFootnote
+@funindex \autoFootnoteGrob
+@funindex \auto-footnote
+
+LilyPond dispose, selon l'objet à référencer, de deux différentes
+commandes pour créer des notes de bas de page automatiques.  La commande
+@code{\autoFootnoteGrob} s'applique aux objets individuels, tels que
+tête de note, hampe, liaison, nuance ou @code{\markup} contenant un
+@code{TextScripts}.  La commande @code{\autoFootnote}, quant à elle,
+permet de référencer l'une des notes d'un accord.
+
+Ces deux commandes requièrent trois arguments@tie{}: l'@var{Objet de
+Rendu} devant être annoté, la position @var{(x@tie{}.@tie{}y)} de
+l'appel de note, et enfin un @code{\markup} contenant l'annotation qui
+apparaîtra en bas de la page.
+
+La commande @code{\autoFootnoteGrob} doit être mentionnée @strong{avant}
+l'objet auquel la note est attachée.
+
+@c KEEP LY
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \autoFootnoteGrob #'NoteHead #'(0.5 . -2)
+      \markup { La première note }
+    a'4 b8
+    \autoFootnoteGrob #'NoteHead #'(0.5 . 1)
+      \markup { La troisième note }
+    e c4 d4
+  }
+}
+@end lilypond
+
+Lorsqu'il s'agit de notes inscrites dans un accord, la commande
+@code{\autoFootnote} doit être mentionnée @strong{après} la note à
+laquelle le @code{TextScript} fait référence.
+
+@c KEEP LY
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    <
+    c-\autoFootnote #'(1 . -1.25) "Voici un do"
+    es-\autoFootnote #'(2 . -0.25) \markup { \italic "Un mi bémol" }
+    g-\autoFootnote #'(2 . 3) \markup { \bold "Ceci est un sol" }
+    >1
+  }
+}
+@end lilypond
+
+@warning{Lorsque plusieurs notes de bas de page se rapportent à un même
+empilement vertical, les notes apparaîtront dans l'ordre vertical des
+appels, autrement dit celui positionné le plus haut en premier, et ainsi
+de suite.}
+
+Voici quelques exemples d'objets annotés automatiquement.  Vous pouvez
+constater l'agencement des annotations correspondantes avec le copyright
+et le pied de page.
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { copyright = \markup { "Copyright 1970" } }
+  \relative c' {
+    \autoFootnoteGrob #'DynamicText #'(-3 . 0)
+      \markup { \bold Forte }
+
+    \autoFootnoteGrob #'Slur #'(0 . 1.5)
+      \markup { A slur }
+    a'4\f(
+
+    \autoFootnoteGrob #'Beam #'(0 . -2)
+      \markup { Beam }
+    b8)[ e]
+
+    \autoFootnoteGrob #'Stem #'(1 . -1)
+      \markup  { \teeny { This is a stem } }
+    c4
+
+    \autoFootnoteGrob #'AccidentalCautionary #'(0 . 0.5)
+      \markup \italic { A cautionary accidental }
+
+    \autoFootnoteGrob #'TextScript #'(0.5 . -0.5)
+      \markup \italic { Slow Down }
+    dis?4_"rit."
+  }
+}
+@end lilypond
+
+Une note de bas de page affectant un @code{\markup} de haut niveau
+s'introduit par la commande @code{\auto-footnote}@tie{}: 
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \markup { \auto-footnote "A simple tune" \italic "By me" }
+  \relative c' {
+    a'4 b8 e c4 d
+  }
+}
+@end lilypond
+
+
+@node Notes de bas de page manuelles
+@unnumberedsubsubsec Notes de bas de page manuelles
+@translationof Manual footnotes
+
+@cindex note de bas de page manuelle
+@cindex bas de page, note manuelle
+
+@funindex \footnote
+@funindex \footnoteGrob
+
+LilyPond dispose, selon l'objet à référencer, de deux différentes
+commandes pour créer des notes de bas de page manuelles@tie{}:  la
+commande @code{\footnote} pour les @code{\markup} de haut niveau ou les
+notes d'un accord, et la commande @code{\footnoteGrob} pour les objets
+individuels ou les @code{\markup} contenant un @code{TextScript}.
+
+S'agissant d'annoter un objet graphique, la commande @code{\footnote}
+requiert quatre arguments@tie{}: l'@var{Objet de Rendu} devant être
+annoté, la position @var{(x@tie{}.@tie{}y)} de l'appel de note, et deux
+@code{\markup} -- le premier contient l'appel qui s'attache à la note
+ou à l'objet, le second contient l'annotation qui est reportée en bas de
+page.
+
+La commande @code{\footnoteGrob} doit être mentionnée @strong{après}
+l'objet auquel l'annotation fait référence, comme s'il s'agissait d'une
+articulation.
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    a'4-\footnoteGrob #'NoteHead #'(0.5 . -2)
+          "1" \markup { \italic "1. The first note" }
+    b8
+    e-\footnoteGrob #'NoteHead #'(0.5 . 1)
+          \markup { \bold "2" } "2. The second note"
+    c4
+    d\p-\footnoteGrob #'DynamicText #'(0.5 . -1) "3" "3. Piano"
+  }
+}
+@end lilypond
+
+S'agissant d'annoter l'une des notes d'un accord, la commande
+@code{\footnote} doit être mentionnée @strong{après} la note à laquelle
+l'annotation fait référence, comme s'il s'agissait d'une articulation.
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    <
+    c-\footnote #'(1 . -1.25) "1" "1. C"
+    es-\footnote #'(2 . -0.25)
+       \markup { \bold "b" } "b. E-flat"
+    g-\footnote #'(2 . 3) "3" \markup { \italic "iii. G" }
+    >1
+  }
+}
+@end lilypond
+
+@warning{Lorsque plusieurs notes de bas de page se rapportent à un même
+empilement vertical, les notes apparaîtront dans l'ordre vertical des
+appels, autrement dit celui positionné le plus haut en premier, et ainsi
+de suite.}
+
+Voici quelques exemples d'objets annotés manuellement.  Vous pouvez
+constater l'agencement des annotations correspondantes avec le copyright
+et le pied de page.
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { copyright = \markup { "Copyright 1970" } }
+  \relative c' {
+    \footnoteGrob #'DynamicText #'(-3 . 0)
+      \markup { \teeny 1 }
+      \markup { 1. \bold Forte }
+
+    \footnoteGrob #'Slur #'(0 . 1.5)
+      \markup { \teeny b }
+      \markup { b. A slur }
+    a'4\f(
+
+    \footnoteGrob #'Beam #'(0 . -2)
+      \markup { \teeny 3 }
+      \markup { 3. Beam }
+    b8)[ e]
+
+    \footnoteGrob #'Stem #'(1 . -1)
+      \markup { 4 }
+      \markup  { \bold 4. { This is a stem } }
+    c4
+
+    \footnoteGrob #'AccidentalCautionary #'(0 . 0.5)
+      \markup \concat \teeny { "sharp (v)" }
+      \markup \italic { v. A cautionary accidental }
+
+    \footnoteGrob #'TextScript #'(0.5 . -0.5)
+      \markup \concat \teeny { "a" }
+      \markup \italic { a. Slow Down }
+    dis?4_"rit."
+
+    \breathe
+    \footnoteGrob #'BreathingSign #'(1.5 . -0.25)
+      \markup { \teeny \musicglyph #"rests.4" }
+      \markup { \null }
+  }
+}
+@end lilypond
+
+L'annotation manuelle d'un @code{\markup} de haut niveau répond à la
+syntaxe suivante@tie{}:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \markup { "A simple tune" \footnote "*" \italic "* By me" }
+  \relative c' {
+    a'4 b8 e c4 d4
+  }
+}
+@end lilypond
+
+@seealso
+Manuel d'initiation :
+@rlearning{Objets et interfaces}.
+
+Manuel de notation :
+@ref{Commentaires textuels},
+@ref{Indications textuelles},
+@ref{Info-bulle},
+@ref{Mise en forme de la page},
+@ref{Titres et entêtes}.
+
+Référence des propriétés internes :
+@rinternals{FootnoteEvent},
+@rinternals{FootnoteItem},
+@rinternals{FootnoteSpanner},
+@rinternals{Footnote_engraver}.
+
+@knownissues
+Un silence multi-mesures ne peut se voir affecter une note de bas de
+page.
+
+Les notes de bas de page ne peuvent que s'empiler l'une au-dessus de
+l'autre@tie{}; elles ne seront jamais présentées à la queue leu leu.
+Les notes de bas de page peuvent générer des chevauchements quand elles
+sont trop nombreuses sur une même page.
+
+Dès lors que vous utilisez une commande de note de bas de page manuelle,
+le bloc @code{\paper} doit contenir la mention
+@w{@code{footnote-auto-number@tie{}=@tie{}##f}}.
 
 
 @node Référencement des numéros de page
