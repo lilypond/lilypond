@@ -133,6 +133,9 @@ enharmonic transcription of one or more pitches,
 @node Chord repetition
 @unnumberedsubsubsec Chord repetition
 
+@cindex Chord, repetiton
+@cindex repetiton, using @code{q}
+
 In order to save typing, a shortcut can be used to repeat the preceding
 chord.  The chord repetition symbol is @code{q}:
 
