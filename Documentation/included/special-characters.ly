@@ -1,6 +1,5 @@
 \version "2.15.17"
 
-#(set-default-paper-size "a4")
 \paper {
   #(include-special-characters)
 }
