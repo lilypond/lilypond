@@ -2940,10 +2940,10 @@ number_factor:
 bare_number:
 	bare_number_closed
 	| UNSIGNED NUMBER_IDENTIFIER	{
-		$$ = scm_product ($1, $2)
+		$$ = scm_product ($1, $2);
 	}
 	| REAL NUMBER_IDENTIFIER	{
-		$$ = scm_product ($1, $2)
+		$$ = scm_product ($1, $2);
 	}
 	;
 
