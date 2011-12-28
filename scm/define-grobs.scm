@@ -1997,9 +1997,16 @@
 	(stencil . ,ly:stem-tremolo::print)
 	(style . ,ly:stem-tremolo::calc-style)
 	(X-extent . ,ly:stem-tremolo::width)
+	(X-offset . ,(ly:make-simple-closure
+		      `(,+
+			,(ly:make-simple-closure
+			  (list ly:self-alignment-interface::centered-on-x-parent))
+			,(ly:make-simple-closure
+			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 	(Y-offset . ,ly:stem-tremolo::calc-y-offset)
 	(meta . ((class . Item)
-		 (interfaces . (stem-tremolo-interface))))))
+		 (interfaces . (self-alignment-interface
+                                stem-tremolo-interface))))))
 
     (StringNumber
      . (
