@@ -40,6 +40,7 @@ struct Self_alignment_interface
 
   DECLARE_SCHEME_CALLBACK (pure_y_aligned_on_self, (SCM element, SCM start, SCM end));
 
+  DECLARE_SCHEME_CALLBACK (centered_on_note_columns, (SCM element));
   DECLARE_SCHEME_CALLBACK (centered_on_x_parent, (SCM element));
   DECLARE_SCHEME_CALLBACK (centered_on_y_parent, (SCM element));
   DECLARE_SCHEME_CALLBACK (x_centered_on_y_parent, (SCM element));
