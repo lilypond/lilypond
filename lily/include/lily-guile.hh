@@ -72,6 +72,7 @@ char *ly_scm2str0 (SCM str);
 
 Real robust_scm2double (SCM, double);
 int robust_scm2int (SCM, int);
+vsize robust_scm2vsize (SCM, vsize);
 Direction robust_scm2dir (SCM, Direction);
 Drul_array<Real> robust_scm2drul (SCM, Drul_array<Real>);
 Drul_array<bool> robust_scm2booldrul (SCM, Drul_array<bool>);

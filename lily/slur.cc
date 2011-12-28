@@ -32,6 +32,7 @@
 #include "note-column.hh"
 #include "output-def.hh"
 #include "spanner.hh"
+#include "skyline-pair.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
 #include "text-interface.hh"
@@ -373,6 +374,29 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   return scm_from_double (offset + avoidance_offset);
 }
 
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, vertical_skylines, 1, 0, "");
+SCM
+Slur::vertical_skylines (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  vector<Box> boxes;
+
+  if (!me)
+    return Skyline_pair (boxes, 0.0, X_AXIS).smobbed_copy ();
+
+  Bezier curve = Slur::get_curve (me);
+  vsize box_count = robust_scm2vsize (me->get_property ("skyline-quantizing"), 10);
+  for (vsize i = 0; i < box_count; i++)
+    {
+      Box b;
+      b.add_point (curve.curve_point (i * 1.0 / box_count));
+      b.add_point (curve.curve_point ((i + 1) * 1.0 / box_count));
+      boxes.push_back (b);
+    }
+
+  return Skyline_pair (boxes, 0.0, X_AXIS).smobbed_copy ();
+}
+
 /*
  * Used by Slur_engraver:: and Phrasing_slur_engraver::
  */
@@ -546,8 +570,10 @@ ADD_INTERFACE (Slur,
                "inspect-index "
                "line-thickness "
                "note-columns "
+               "skyline-quantizing "
                "positions "
                "ratio "
                "thickness "
+               "vertical-skylines "
               );
 
