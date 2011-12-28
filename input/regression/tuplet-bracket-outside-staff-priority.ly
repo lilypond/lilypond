@@ -1,4 +1,4 @@
-\version "2.15.6"
+\version "2.15.24"
 \header {
 
   texidoc = "Tuplet brackets' outside staff priority can be
@@ -7,6 +7,7 @@ set.  Brackets, by default, carry their numbers with them."
 }
 
 \relative c'' {
+  \override TupletBracket #'avoid-scripts = ##f
   % Plain old tuplet
   \times 2/3 { a8 r a }
   % With nothing set, collisions abound both horizontally and

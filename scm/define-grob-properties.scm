@@ -64,6 +64,8 @@ numbered?")
 averaged over staves.")
      (avoid-note-head ,boolean? "If set, the stem of a chord does not
 pass through all note heads, but starts at the last note head.")
+     (avoid-scripts ,boolean? "If set, a tuplet bracket avoids the
+scripts associated with the note heads it encompasses.")
      (avoid-slur ,symbol? "Method of handling slur collisions.
 Choices are @code{inside}, @code{outside}, @code{around}, and
 @code{ignore}.  @code{inside} adjusts the slur if needed to keep the

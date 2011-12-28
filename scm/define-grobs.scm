@@ -2394,6 +2394,7 @@
 
     (TupletBracket
      . (
+	(avoid-scripts . #t)
 	(connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
 	(cross-staff . ,ly:tuplet-bracket::calc-cross-staff)
 	(direction  . ,ly:tuplet-bracket::calc-direction)
