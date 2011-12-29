@@ -3,14 +3,27 @@
 # GUI interface for common LilyPond git repository commands
 # Copyright 2009--2012 by Johannes Schindelin and Carl Sorensen
 #
+package require Tk
 
-set version 0.64
+set version 0.66
 
+proc get_environment_var {var_name default_value} {
+    global env
+    if [catch {set return_value $env($var_name)}] {
+        set return_value $default_value
+    }
+    return $return_value
+}
 # set to 1 to set up for translation, to 0 for other
 set translator 0
 
+# If you have push access, set to 1, or use LILYPOND_GIT_PUSH
+set default_push_access 0
+set push_access [get_environment_var "LILYPOND_GIT_PUSH" $default_push_access]
+
+
 # location of lilypond git
-set lily_dir $env(HOME)/lilypond-git
+set lily_dir [get_environment_var LILYPOND_GIT $env(HOME)/lilypond-git]
 
 if {$translator == 1} {
     set windowTitle \
@@ -18,6 +31,7 @@ if {$translator == 1} {
     set updateButtonText "1. Update translation"
     set initializeButtonText "1. Get translation"
     set originHead "lilypond/translation"
+    set pushHead $originHead
     set rebase 0
 } else {
     set windowTitle \
@@ -25,9 +39,11 @@ if {$translator == 1} {
     set updateButtonText "1. Update source"
     set initializeButtonText "1. Get source"
     set originHead "master"
+    set pushHead "staging"
+    set defaultBranch "dev/local_working"
     set rebase 1
 }
-package require Tk
+
 
 ##  Submits the user data collected using the git config command
 
@@ -118,9 +134,13 @@ set commit_header {}
 
 # Helper functions
 
-if {[file exists $lily_dir]} {
-    cd $lily_dir
+proc add_working_branch {} {
+    global originHead
+    global workingBranch
+    git checkout $originHead
+    git branch -f $workingBranch
 }
+
 
 set abort_dir "./aborted_edits"
 
@@ -214,7 +234,10 @@ proc update_lilypond_with_rebase {} {
 proc update_lilypond {rebase} {
     global lily_dir
     global originHead
+    global pushHead
     global translator
+    global workingBranch
+    global push_access
     . config -cursor watch
     if {![file exists $lily_dir]} {
         write_to_output "Cloning LilyPond (this can take some time) ...\n"
@@ -228,17 +251,26 @@ proc update_lilypond {rebase} {
         git reset --hard origin/$originHead
         git config branch.$originHead.remote origin
         git config branch.$originHead.merge refs/heads/$originHead
+        git checkout $originHead
+        if {$workingBranch != ""} {
+            add_working_branch
+            git checkout $workingBranch
+        }
         .buttons.commitFrame.commit configure -state normal
         .buttons.commitFrame.amend configure -state normal
         .buttons.update configure -text buttonUpdateText
         .buttons.patch configure -state normal
+        if {$push_access && !$translator} {
+            .buttons.push configure -state normal
+        }
         .buttons.panic configure -state normal
         toggle_rebase
     } else {
         write_to_output "Updating LilyPond...\n"
         git fetch origin
         if {$rebase} {
-            git rebase origin/$originHead
+            git rebase origin/$originHead $originHead
+            git rebase origin/$originHead $workingBranch
         } else {
             git merge origin/$originHead
         }
@@ -265,6 +297,33 @@ proc make_patch_from_origin {rebase} {
     git format-patch origin/$originHead
     write_to_output "Done.\n"
     . config -cursor ""
+}
+
+
+proc push_patch_to_staging {} {
+    global workingBranch
+    global pushHead
+    global git_log
+    global push_canceled
+    global log_text
+    global originHead
+
+    git rebase $originHead $workingBranch
+    set staging_sha [exec git rev-parse ]
+    set head_sha [exec git rev-parse $workingBranch]
+    set log_error [catch {exec git --no-pager log {--pretty=format:%h : %an -- %s} --graph $originHead..$workingBranch} log_text]
+    if {$log_error == 0 && $log_text == ""} {
+        tk_messageBox -type ok -message "No changes in repository.  Nothing to push."
+    } else {
+        get_git_log
+        tkwait visibility .gitLogWindow
+        tkwait window .gitLogWindow
+        if {$push_canceled == 0} {
+            git rebase origin/$pushHead $workingBranch~0
+            git push origin HEAD:$pushHead
+            git checkout $workingBranch
+        }
+    }
 }
 
 proc abort_changes {} {
@@ -335,6 +394,59 @@ proc commitMessageCancel {} {
     destroy .commitMessage
 }
 
+proc pushContinue {} {
+  global push_canceled
+  set push_canceled = 0
+  destroy .gitLogWindow
+}
+
+proc pushCancel {} {
+    global push_canceled
+    set push_canceled 1
+    destroy .gitLogWindow
+}
+
+
+# git log output window
+proc get_git_log {} {
+    global log_text
+    toplevel .gitLogWindow
+    frame  .gitLogWindow.messageFrame
+
+
+    text   .gitLogWindow.messageFrame.message_body \
+       -xscrollcommand [list .gitLogWindow.messageFrame.horizontal set] \
+       -yscrollcommand [list .gitLogWindow.messageFrame.vertical set] \
+         -width 60  -height 10 -relief solid -border 2 -wrap none
+    scrollbar .gitLogWindow.messageFrame.horizontal -orient h -command [list .gitLogWindow.messageFrame.message_body xview]
+    scrollbar .gitLogWindow.messageFrame.vertical -orient v -command [list .gitLogWindow.messageFrame.message_body yview]
+
+    frame .gitLogWindow.messageFrame.leftFrame
+    label .gitLogWindow.messageFrame.leftFrame.label \
+        -text "Log of commits in push:"
+    button .gitLogWindow.messageFrame.leftFrame.ok \
+        -text Continue -default active -command pushContinue
+    button .gitLogWindow.messageFrame.leftFrame.cancel -text Cancel -default active \
+        -command pushCancel
+    wm withdraw .gitLogWindow
+    wm title .gitLogWindow "Commits to be pushed"
+
+    pack .gitLogWindow.messageFrame.leftFrame.label
+    pack .gitLogWindow.messageFrame.leftFrame.ok
+    pack .gitLogWindow.messageFrame.leftFrame.cancel
+
+    pack .gitLogWindow.messageFrame.leftFrame -side left
+
+    pack .gitLogWindow.messageFrame.horizontal -side bottom -fill x
+    pack .gitLogWindow.messageFrame.vertical -side right -fill y
+    pack .gitLogWindow.messageFrame.message_body -expand true -anchor nw -fill both
+    pack .gitLogWindow.messageFrame
+
+    wm transient .gitLogWindow .
+    wm deiconify .gitLogWindow
+    .gitLogWindow.messageFrame.message_body insert insert $log_text
+}
+
 
 # Commit message input window
 proc get_commit_message {} {
@@ -396,6 +508,10 @@ button .buttons.update -text $updateButtonText \
     -command update_lilypond_with_rebase
 button .buttons.patch -text "3. Make patch set" \
     -command patch_from_origin
+if {$push_access && !$translator} {
+    button .buttons.push -text "4. Push patch to staging" \
+    -command push_patch_to_staging
+}
 toggle_rebase
 button .buttons.panic -text "Abort changes -- Reset to origin" \
     -command abort_changes -fg Blue -bg Red
@@ -406,6 +522,9 @@ if {![file exists $lily_dir]} {
     .buttons.commitFrame.commit configure -state disabled
     .buttons.commitFrame.amend configure -state disabled
     .buttons.patch configure -state disabled
+    if {$push_access} {
+        .buttons.push configure -state disabled
+    }
     .buttons.panic configure -state disabled
 }
 
@@ -414,6 +533,9 @@ if {![file exists $lily_dir]} {
 pack .buttons.update -side left
 pack .buttons.commitFrame -side left
 pack .buttons.patch -side left
+if {$push_access} {
+    pack .buttons.push -side left
+}
 pack .buttons.spacer -side left
 pack .buttons.panic -side right
 
@@ -436,5 +558,19 @@ pack .output.text -expand true -anchor nw -fill both
 pack .buttons
 pack .output
 
-#grid .buttons -row 2 -column 1
-#grid .output -row 3 -column 1 -sticky "w"
+# set working branch and push branch
+set workingBranch [get_environment_var LILYPOND_BRANCH $defaultBranch]
+
+puts "\nworkingBranch $workingBranch\n"
+
+if {[file exists $lily_dir]} {
+    cd $lily_dir
+    set branchList  [exec git branch]
+    if { $workingBranch != ""} {
+        if {![regexp $workingBranch $branchList]} {
+            add_working_branch
+        }
+        git checkout $workingBranch
+    }
+}
+
