@@ -126,7 +126,6 @@ protected:
   DECLARE_TRANSLATOR_LISTENER (sustain);
   DECLARE_TRANSLATOR_LISTENER (una_corda);
   DECLARE_TRANSLATOR_LISTENER (sostenuto);
-  DECLARE_ACKNOWLEDGER (note_column);
   void stop_translation_timestep ();
   void process_music ();
 
@@ -204,22 +203,6 @@ Piano_pedal_engraver::initialize ()
       info->start_ev_ = 0;
     }
   info_list_[NUM_PEDAL_TYPES].type_ = 0;
-}
-
-/*
-  Urg: Code dup
-  I'm a script
-*/
-void
-Piano_pedal_engraver::acknowledge_note_column (Grob_info info)
-{
-  for (Pedal_info *p = info_list_; p->type_; p++)
-    {
-      if (p->bracket_)
-        add_bound_item (p->bracket_, info.grob ());
-      if (p->finished_bracket_)
-        add_bound_item (p->finished_bracket_, info.grob ());
-    }
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Piano_pedal_engraver, sostenuto);
@@ -364,9 +347,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
       assert (!p->finished_bracket_);
 
       Grob *cmc = unsmob_grob (get_property ("currentMusicalColumn"));
-
-      if (!p->bracket_->get_bound (RIGHT))
-        p->bracket_->set_bound (RIGHT, cmc);
+      p->bracket_->set_bound (RIGHT, cmc);
 
       /*
         Set properties so that the stencil-creating function will
@@ -464,9 +445,7 @@ Piano_pedal_engraver::stop_translation_timestep ()
       if (p->bracket_ && !p->bracket_->get_bound (LEFT))
         {
           Grob *cmc = unsmob_grob (get_property ("currentMusicalColumn"));
-
-          if (!p->bracket_->get_bound (LEFT))
-            p->bracket_->set_bound (LEFT, cmc);
+          p->bracket_->set_bound (LEFT, cmc);
         }
     }
 
@@ -499,8 +478,6 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
       p->finished_bracket_ = 0;
     }
 }
-
-ADD_ACKNOWLEDGER (Piano_pedal_engraver, note_column);
 
 ADD_TRANSLATOR (Piano_pedal_engraver,
                 /* doc */
