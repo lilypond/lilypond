@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ad154dd57062e5138a8d15615c45ed3a203edc40
+    Translation of GIT committish: fa1af0d636d61c607da284d69810f007e008f472
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -966,7 +966,7 @@ caractères qui la composent@tie{}; les autres sont inspirés du langage
 @LaTeX{}.
 
 Les caractères sont ici inclus dans une boîte, de telle sorte que leur
-taille soint mise en évidence, et un léger décalage a été appliqué pour
+taille soit mise en évidence, et un léger décalage a été appliqué pour
 les décoller de l'encadrement.
 
 @lilypond[quote]

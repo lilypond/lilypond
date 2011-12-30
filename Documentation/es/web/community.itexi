@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: cdb17afb97109951b61ce069d36f4084ad08d149
+    Translation of GIT committish: 02fe0c6153548b148121e3fa3974a6b426a3daa0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -43,6 +43,9 @@ de LilyPond.
 @ref{Preste su ayuda}: se solicita su colaboración.
 
 @item
+@ref{Patrocinio}: contribuciones financieras.
+
+@item
 @ref{Desarrollo}: para colaboradores y pilotos de prueba.
 
 @item
@@ -73,6 +76,7 @@ de LilyPond.
 * Ejemplos mínimos::
 * Informes de fallos::
 * Preste su ayuda::
+* Patrocinio::
 * Desarrollo::
 * Autores::
 * Publicaciones::
@@ -522,6 +526,88 @@ que muestren el aspecto que usted cree que debe tener!
 
 @divEnd
 
+
+@node Patrocinio
+@unnumberedsec Patrocinio
+@translationof Sponsoring
+
+@divClass{keep-bullets}
+@divClass{column-left-top}
+@subheading Recompensas
+
+Anteriormente,
+
+@itemize
+@item ciertos usuarios han pagado a cambio de nuevas funcionalidades
+@item algunos desarrolladores han sido contratados para añadir funcionalidades nuevas
+@end itemize
+
+El proyecto LilyPond no organiza estas tareas; ni refrendamos ni
+disuadimos de tales acuerdos.  Cualquier contrato privado entre
+personas individuales es asunto de dichas personas, no nuestro.
+
+@divEnd
+
+@divClass{column-right-top}
+@subheading Guidelines
+
+Cualquier usuario que quiera ofrecer dinero a cambio de un trabajo,
+debería tener en cuenta los siguientes puntos:
+
+@itemize
+@item
+Los desarrolladores de LilyPond pueden anunciar sus servicios en las
+listas de correo de lilypond de vez en cuando.
+
+@item
+Cualquier acuerdo entre personas individuales debiera incluir las
+precauciones normales cuando se hacen negocios: quién paga, cuánto
+paga, qué método se utiliza para pagar, y sobre qué paquete de
+condiciones.  Sugerimos que cualquier ambigüedad o incertidumbre en
+tales cuestiones se resuelvan antes de que dé comienzo cualquier
+trabajo.
+
+@end itemize
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Desarrolladores interesados
+
+A continuación aparece una lista de las personas que han expresado
+interés en recibir recompensas.  Observe que la cantidad de trabajo
+hecha por personas individuales varía bastante a lo largo de los
+años. No garantizamos que esta lista esté actualizada, ni que las
+personas aquí relacionadas tengan cualquier disponibilidad.  El único
+criterio es "Fulanito ha pedido aparecer en esta página".
+
+El examen de la historia del sistema de control de versiones Git es
+una buena manera de determinar quiénes son los desarrolladores más
+activos y experimentados.  Las estadísticas están al día hasta la
+versión @versionDevel{}:
+
+@multitable @columnfractions .3 .3 .3
+@item @uref{http://lilypond.org/~graham/gitstats-all/, historia general}
+@tab @uref{http://lilypond.org/~graham/gitstats-1year/, último año}
+@tab @uref{http://lilypond.org/~graham/gitstats-3months/, últimos tres meses}
+@end multitable
+
+Desarrolladores interesados:
+@table @asis
+@item @email{dak@@gnu.org, David Kastrup}
+Se necesitan donaciones para que yo pueda continuar mi atual trabajo a
+tiempo completo sobre LilyPond.  Me concentro en diseño de interfaces
+de usuario y del programador, coherencia, implementación,
+simplificación, documentación y depuración.
+
+@c Format
+@c @item @email{name@@adress.domain, Name}
+@c area of interest (256 chars max)
+
+@end table
+
+@divEnd
+@divEnd
 
 @node Desarrollo
 @unnumberedsec Desarrollo

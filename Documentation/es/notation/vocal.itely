@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 688f5f1711d8ca07338385a2ae0191b1a8aae315
+    Translation of GIT committish: 746b609d089ec254e41394f0c1b8927b375a3d25
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1139,7 +1139,7 @@ Manual de aprendizaje:
 @rlearning{Conjuntos vocales}.
 
 Referencia de la notación:
-@ref{Alinear los contextos},
+@ref{Orden de disposición de los contextos},
 @ref{Crear contextos}.
 
 @node Colocación horizontal de las sílabas
@@ -2466,11 +2466,11 @@ Para ver detalles acerca de otras propiedades de formateo de las
 páginas, consulte @ref{Disposición de la página}.
 
 @item
-Las notas guía de los diálogos y las instrucciones de escena se pueden
-insertar con elementos de marcado.  Véase @ref{Texto}.  Se pueden
-insertar indicaciones de escena extensas con una sección de marcado
-independiente entre dos bloques @code{\score}.  Véase @ref{Texto
-separado}.
+Se pueden insertar notas guía de diálogos, instrucciones de escena
+y notas al pie, véase @ref{Crear notas al pie} y @ref{Texto}.
+También se pueden añadir indicaciones de escena extensas con una
+sección de elementos de marcado independientes entre dos bloques
+@code{\score}, véase @ref{Texto separado}.
 
 @end itemize
 
@@ -2481,6 +2481,7 @@ Glosario musical:
 @rglos{transposing instrument}.
 
 Referencia de la notación:
+@ref{Crear notas al pie},
 @ref{Agrupar pentagramas},
 @ref{Ocultar pentagramas},
 @ref{Transposición de los instrumentos},

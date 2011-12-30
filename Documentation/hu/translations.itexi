@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Wed Sep 21 11:44:51 UTC 2011
+@emph{Last updated Tue Dec 20 15:29:11 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -285,7 +285,7 @@ partially
 @item
 1 A @command{lilypond} használata
 @*
-3793
+3792
 @tab Team-hu
 @tab 
 @tab 
@@ -312,7 +312,7 @@ partially
 @item
 2 A @command{convert-ly} használata
 @*
-1189
+1209
 @tab Team-hu
 @tab 
 @tab 
@@ -329,7 +329,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially</span>
+<span style="background-color: #33ff21">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -339,7 +339,7 @@ partially
 @item
 3 A @command{lilypond-book} használata
 @*
-4002
+4093
 @tab Team-hu
 @tab 
 @tab 
@@ -356,7 +356,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">partially</span>
+<span style="background-color: #54ff26">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -378,7 +378,7 @@ LilyPond -- kottaszedés mindenkinek
 @item
 Section titles
 @*
-585
+555
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -395,11 +395,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #33ff21">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -459,7 +459,7 @@ partially
 @item
 Letöltés
 @*
-1195
+1211
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -476,7 +476,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -513,24 +513,24 @@ partially
 @item
 Közösség
 @*
-1910
+2214
 @tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #dfef77">partially (99 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially (99 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">partially</span>
+<span style="background-color: #62ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

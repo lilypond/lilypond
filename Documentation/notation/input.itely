@@ -1151,9 +1151,8 @@ position of the indicator and two @code{\markup} commands; the first is
 the indicator attached to the note or grob and the second is the
 footnote at the bottom of the page.
 
-The command @code{\footnoteGrob} must come @emph{after} the grob
-that the footnote footnote is annotating and attached as a
-@code{TextScript}:
+The command @code{\footnoteGrob} must come @emph{after} the grob that
+the footnote is annotating and attached as a @code{TextScript}:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {

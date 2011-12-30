@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
+    Translation of GIT committish: 5a5f2d8e3f73a79e60d9908fbe7bdf5af4afa926
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1092,6 +1092,9 @@ Se pueden crear distintos tipos de glissando.  Para ver más detalles,
 consulte @ref{Estilos de línea}.
 
 @snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{glissandi-can-skip-grobs.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {contemporary-glissando.ly}

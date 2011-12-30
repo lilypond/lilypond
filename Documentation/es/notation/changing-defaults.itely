@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: f0978ed121192fee9bdf2453a325d98693148acf
+Translation of GIT committish: ffb5c20633459831cea21859f3423ea50060d705
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -69,7 +69,7 @@ Esta sección explica qué son los contextos y cómo modificarlos.
 * Modificar los complementos (plug-ins) de contexto::
 * Cambiar los valores por omisión de los contextos::
 * Definir contextos nuevos::
-* Alinear los contextos::
+* Orden de disposición de los contextos::
 @end menu
 
 
@@ -712,27 +712,46 @@ bloque de partitura.
 Se pueden realizar de forma similar modificaciones al contexto
 @code{Score} o a todos los contextos @code{Voice}.
 
-@knownissues
+Los cambios de contexto se pueden poner dentro de una variable y
+aplicarse a una definición de contexto @code{\context} anteponiendo la
+modificación mediante @code{\with}:
 
-No es posible recolectar cambios de contexto dentro de una variable y
-aplicarlos a una definición de @code{\context} por referencia a dicha
-variable.
+@lilypond[quote,verbatim]
+blubb = \with {
+  fontSize = #-4
+  \override Stem #'thickness = #4.0
+  \remove "Time_signature_engraver"
+}
 
-La instrucción @code{\RemoveEmptyStaves} sobreescribe nuestros ajustes
-en curso para el contexto @code{\Staff}.  Si queremos cambiar los
-valores predeterminados para un pentagrama que utilice
-@code{\RemoveEmptyStaves}, debemos hacerlo después de llamar a
-@code{\RemoveEmptyStaves}, o sea
+bla = \with {
+  fontSize = #3
+  \override Stem #'thickness = #-2.0
+}
 
-@example
-\layout @{
-  \context @{
-    \Staff \RemoveEmptyStaves
+melody = \relative c'' {
+  a4 a a a |
+  a4 a a a |
+}
 
-    \override Stem #'thickness = #4.0
-  @}
-@}
-@end example
+\score {
+  <<
+    \new Staff <<
+      \melody
+      s1*0^"Small, thicker stems, no time signature"
+    >>
+    \new Staff \bla <<
+      \melody
+      s1*0^"Different"
+    >>
+  >>
+  \layout {
+    \context {
+      \Staff
+      \blubb
+    }
+  }
+}
+@end lilypond
 
 @c TODO: add \with in here.
 
@@ -926,78 +945,75 @@ puede escribir como
 @end example
 
 
-@node Alinear los contextos
-@subsection Alinear los contextos
-@translationof Aligning contexts
+@node Orden de disposición de los contextos
+@subsection Orden de disposición de los contextos
+@translationof Context layout order
 
-Los contextos nuevos se pueden alinear por encima o por debajo de
-otros contextos existentes.  Esto podría ser de utilidad al preparar
-un pentagrama vocal (@rlearning{Conjuntos vocales}) y en el ossia,
+@cindex contextos, orden de disposición
+@funindex \accepts
+@funindex \denies
 
-@cindex ossia
-@funindex alignAboveContext
-@funindex alignBelowContext
+Los contextos se disponen en un sistema normalmente desde arriba hacia
+abajo en el orden en que se encuentran en el archivo de entrada.
+Cuando los contextos se anidan unos dentro de otros, el contexto
+exterior incluye a los contextos anidados tal y como se especifica en
+el archivo de entrada, siempre y cuando los contextos interiores estén
+incluidos en la lista @qq{accepts} del contexto externo.  Los
+contextos anidados que no está nincluidos en la lista @qq{accepts} del
+contexto externo se recolocan debajo del contexto externo en lugar de
+anidarse dentro de él.
 
-@lilypond[quote,ragged-right]
-ossia = { f4 f f f }
-\score{
-  \relative c' \new Staff = "main" {
-    c4 c c c
-    <<
-      \new Staff \with { alignAboveContext = #"main" } \ossia
-      { d8 f d f d f d f }
-    >>
+La lista @qq{accepts} de un contexto se puede cambiar con las
+instrucciones @code{\accepts} (acepta) y @code{\denies} (niega).
+@code{\accepts} añade un contexto a la lista @qq{accepts} y
+@code{\denies} elimina un contexto de la lista.  Por ejemplo,
+normalmente no sería deseable que los acordes de cifrado americano
+estuvieran anidados dentro de un contexto @code{Staff}, por lo que el
+contexto @code{ChordNames} no se incluye de forma predeterminada
+dentro de la lista @qq{accepts} del contexto @code{Staff}, pero podría
+hacerse si fuera necesario:
+
+@lilypond[verbatim,quote]
+\score {
+  \new Staff {
+    c' d' e' f'
+    \chords { d1:m7 b1:min7.5- }
   }
 }
 @end lilypond
 
-@cindex nested contexts
-@cindex contexts, nested
-
-@funindex \accepts
-@funindex \denies
-
-Los contextos como @code{PianoStaff} pueden llevar dentro otros
-contextos anidados.  Los contextos que se pueden aceptar para su
-anidamiento están definidos por la lista @qq{accepts} (acepta) de un
-contexto.  Los contextos que no están en esta lista se colocan debajo
-del contexto exterior en la partitura impresa.  Por ejemplo, el
-contexto @code{PianoStaff} está definido para que acepte contextos
-@code{Staff} y @code{FiguredBass} de forma predeterminada, pero no un
-contexto @code{Lyrics}, por ejemplo.  Así pues, en la siguiente
-estructura la letra se sitúa debajo del sistema de piano en lugar de
-colocarse entre los dos pentagramas:
-
-@lilypond[verbatim,quote,relative=1]
-\new PianoStaff
-<<
-  \new Staff { e4 d c2 }
-  \addlyrics { Three blind mice }
+@lilypond[verbatim,quote]
+\score {
   \new Staff {
-    \clef "bass"
-    { c,1 }
+    c' d' e' f'
+    \chords { d1:m7 b1:min7.5- }
   }
->>
+  \layout {
+    \context {
+      \Staff
+      \accepts "ChordNames"
+    }
+  }
+}
 @end lilypond
 
-La lista @qq{accepts} de un contexto se puede modificar para que
-incluya contextos anidados adicionales, y así si quisiéramos que la
-letra apareciese entre los dos pentagramas podríamos usar:
+@code{\denies} se usa principalmente cuando un contexto nuevo se está
+basando en otro, pero los anidamientos requeridos difieren.  Por
+ejemplo, el contexto @code{VaticanaStaff} está basado en el contexto
+@code{Staff}, pero con el contexto @code{VaticanaVoice} sustituido por
+el contexto @code{Voice} en la lista @qq{accepts}.
 
-@lilypond[verbatim,quote,relative=1]
-\new PianoStaff \with { \accepts Lyrics }
-<<
-  \new Staff { e4 d c2 }
-  \addlyrics { Three blind mice }
-  \new Staff {
-    \clef "bass"
-    { c,1 }
-  }
->>
-@end lilypond
+Observe que discretamente se crea un contexto de forma implícita si se
+encuentra una instrucción donde no hay un contexto apropiado para
+contenerlo.  Esto puede dar lugar a pentagramas o partituras nuevos no
+esperados.
 
-Lo contrario de @code{\accepts} (acepta) es @code{\denies} (deniega);
-esto suprime un contexto de la lista @qq{accepts}.
+@seealso
+Manual de utilización del programa:
+@rprogram{Aparece un pentagrama de más}.
+
+Archivos instalados:
+@file{ly/engraver-init.ly}.
 
 
 @node Explicación del Manual de referencia de funcionamiento interno
@@ -2012,9 +2028,10 @@ se relacionan en la sección
 @end example
 
 Una forma de acercar los pentagramas entre sí es reducir el valor de
-la clave @code{basic-distance} (@code{9}) para que se corresponda con el valor
-de @code{minimum-distance} (@code{7}).  Para modificar una única clave
-de forma individual, utilice una @emph{declaración anidada}:
+la clave @code{basic-distance} (@code{9}) para que se corresponda con
+el valor de @code{minimum-distance} (@code{7}).  Para modificar una
+única clave de forma individual, utilice una @emph{declaración
+anidada}:
 
 @lilypond[quote,verbatim]
 % default space between staves
@@ -2042,9 +2059,9 @@ propiedad.
 Ahora, supongamos que deseamos que los pentagramas estén tan próximos
 como sea posible sin que se superpongan.  La manera más sencilla de
 hacerlo es establecer las cuatro claves de la lista-A a cero.  Sin
-embargo, no es necesario escribir cuatro declaraciones anidadas,
-una por cada clave.  En lugar de eso, se puede redefinir
-completamente la propiedad con una sola declaración, como una lista-A:
+embargo, no es necesario escribir cuatro declaraciones anidadas, una
+por cada clave.  En lugar de eso, se puede redefinir completamente la
+propiedad con una sola declaración, como una lista-A:
 
 @lilypond[quote,verbatim]
 \new PianoStaff \with {
@@ -2064,8 +2081,8 @@ explícitamente en la definición de la lista-A, será reiniciada a sus
 valores @emph{predeterminados si no se han fijado}.  En el caso de
 @code{staff-staff-spacing}, el valor de cualquier clave no fijada se
 reiniciaría a cero (excepto @code{stretchability}, que toma el valor
-de @code{basic-distance} si no se fija).  Así, las dos declaraciones siguientes
-son equivalentes:
+de @code{basic-distance} si no se fija).  Así, las dos declaraciones
+siguientes son equivalentes:
 
 @example
 \override StaffGrouper #'staff-staff-spacing =
@@ -2079,18 +2096,17 @@ son equivalentes:
 @end example
 
 Una consecuencia de esto (posiblemente no intencionada) es la
-eliminación de cualquier valor estándar que
-se establezca en un archivo de inicio y que se carga cada vez que se
-compila un archivo de entrada.  En el ejemplo anterior, los ajustes
-estándar para @code{padding} y
-@code{minimum-distance} (definidos en @file{scm/define-grobs.scm}) se
-reinician a sus valores predeterminados si no se han fijado (cero para
-las dos claves).  La definición de una propiedad o variable como una
-lista-A (de cualquier tamaño) siempre reinicia todos los valores de
-clave no establecidos a sus valores predeterminados si no se han
-fijado.  Ano ser que este sea el resultado deseado, es más seguro
-actualizar los valores de clave individualmente con una declaración
-anidada.
+eliminación de cualquier valor estándar que se establezca en un
+archivo de inicio y que se carga cada vez que se compila un archivo de
+entrada.  En el ejemplo anterior, los ajustes estándar para
+@code{padding} y @code{minimum-distance} (definidos en
+@file{scm/define-grobs.scm}) se reinician a sus valores
+predeterminados si no se han fijado (cero para las dos claves).  La
+definición de una propiedad o variable como una lista-A (de cualquier
+tamaño) siempre reinicia todos los valores de clave no establecidos a
+sus valores predeterminados si no se han fijado.  Ano ser que este sea
+el resultado deseado, es más seguro actualizar los valores de clave
+individualmente con una declaración anidada.
 
 @warning{Las declaraciones anidadas no funcionan para las listas-A de
 propiedades de contexto (como @code{beamExceptions},
@@ -2107,7 +2123,6 @@ como listas-A.}
 @menu
 * Modos de entrada::
 * Dirección y posición::
-* Orden de disposición de los contextos::
 * Distancias y medidas::
 * Propiedades del símbolo del pentagrama::
 * Objetos de extensión::
@@ -2244,13 +2259,13 @@ dirección de las plicas (como las ligaduras o los acentos).
 @c TODO Add table showing these
 
 Se puede sobreescribir la acción predeterminada mediante el prefijado
-de la articulación por un @emph{indicacor de dirección}.  Están disponibles
-tres indicadores de dirección: @code{^} (que significa @qq{arriba}), @code{_}
-(que significa @qq{abajo}) o @code{-} (que significa @qq{usar la
-dirección predeterminada}).  El indicador de dirección se puede normalmente
-omitir, en cuyo caso se supone el indicador predeterminado
-@code{-}, pero se necesita un indicador de dirección @strong{siempre}
-antes de:
+de la articulación por un @emph{indicacor de dirección}.  Están
+disponibles tres indicadores de dirección: @code{^} (que significa
+@qq{arriba}), @code{_} (que significa @qq{abajo}) o @code{-} (que
+significa @qq{usar la dirección predeterminada}).  El indicador de
+dirección se puede normalmente omitir, en cuyo caso se supone el
+indicador predeterminado @code{-}, pero se necesita un indicador de
+dirección @strong{siempre} antes de:
 
 @itemize
 @item las instrucciones @code{\tweak}
@@ -2277,10 +2292,10 @@ controlada por la propiedad @code{direction}.
 
 El valor de la propiedad @code{direction} se puede establecer al valor
 @code{1}, con el significado de @qq{hacia arriba} o @qq{encima}, o a
-@w{@code{-1}}, con el significado de @qq{hacia abajo} o @qq{debajo}.  Se
-pueden usar los símbolos @code{UP} y @code{DOWN} en sustitución de
-@code{1} y @w{@code{-1}} respectivamente.  La dirección predeterminada se
-puede especificar estableciendo @code{direction} a @code{0} ó a
+@w{@code{-1}}, con el significado de @qq{hacia abajo} o @qq{debajo}.
+Se pueden usar los símbolos @code{UP} y @code{DOWN} en sustitución de
+@code{1} y @w{@code{-1}} respectivamente.  La dirección predeterminada
+se puede especificar estableciendo @code{direction} a @code{0} ó a
 @code{CENTER}.  De forma alternativa, en muchos casos existen
 instrucciones predefinidas para especificar la dirección.  Todas ellas
 son de la forma:
@@ -2295,8 +2310,8 @@ predeterminada}.  Véase @rlearning{Objetos interiores al pentagrama}.
 En alguna que otra ocasión, con el único ejemplo usual del arpegio, el
 valor de la propiedad @code{direction} especifica si el objeto se debe
 colocar a la izquierda o a la derecha del objeto padre.  En este caso
-@w{@code{-1}} ó @code{LEFT} significan @qq{a la izquierda} y @code{1} ó
-@code{RIGHT} significan @qq{a la derecha}.  @code{0} ó @code{CENTER}
+@w{@code{-1}} ó @code{LEFT} significan @qq{a la izquierda} y @code{1}
+ó @code{RIGHT} significan @qq{a la derecha}.  @code{0} ó @code{CENTER}
 significan @qq{utilizar la dirección predeterminada}, como antes.
 
 Estas indicaciones afectan a todas las notas hasta que son canceladas.
@@ -2310,35 +2325,6 @@ c2( c)
 c2( c)
 @end lilypond
 
-
-@node Orden de disposición de los contextos
-@subsection Orden de disposición de los contextos
-@translationof Context layout order
-
-@cindex contextos, orden de disposición
-
-Los contextos se disponen en un sistema normalmente desde arriba hacia
-abajo en el orden en que se encuentran en el archivo de entrada.
-Cuando los contextos se anidan unos dentro de otros, el contexto
-exterior incluye a los contextos anidados tal y como se especifica en
-el archivo de entrada, siempre y cuando los contextos interiores estén
-incluidos en la lista @qq{accepts} del contexto externo.  Los
-contextos anidados que no está nincluidos en la lista @qq{accepts} del
-contexto externo se recolocan debajo del contexto externo en lugar de
-anidarse dentro de él.
-
-Observe que discretamente se crea un contexto de forma implícita si se
-encuentra una instrucción donde no hay un contexto apropiado para
-contenerlo.  Esto puede dar lugar a pentagramas o partituras nuevos no
-esperados.
-
-El orden predeterminado en que los contextos se disponen, así como la
-lista @qq{accepts}, pueden cambiarse; véase @ref{Alinear los
-contextos}.
-
-@seealso
-Manual de utilización del programa:
-@rprogram{Aparece un pentagrama de más}.
 
 @node Distancias y medidas
 @subsection Distancias y medidas
@@ -2762,7 +2748,8 @@ volver transparentes, se pueden pintar de blanco, o se puede
 sobreescribir su propiedad @code{break-visibility}.  Las tres primeras
 se aplican a todos los objetos de presentación; la última sólo a unos
 pocos: los objetos @emph{divisibles}.  El Manual de aprendizaje
-introduce estas cuatro técnicas, véase @rlearning{Visibilidad y color de los objetos}.
+introduce estas cuatro técnicas,
+véase @rlearning{Visibilidad y color de los objetos}.
 
 Hay también algunas otras técnicas que son específicas de ciertos
 objetos de presentación.  Se estudian bajo Consideraciones especiales.
@@ -2855,8 +2842,8 @@ En el ejemplo de arriba, la clave blanca, con un valor @code{layer}
 predeterminado de @code{1}, se dibuja después de las líneas del
 pentagrama (valor @code{layer} predeterminado de @code{0}),
 sobreimpresionándolas.  Para cambiarlo, se debe dar al objeto
-@code{Clef} un valor de @code{layer} más bajo, digamos @w{@code{-1}}, para
-que se dibuje antes:
+@code{Clef} un valor de @code{layer} más bajo, digamos @w{@code{-1}},
+para que se dibuje antes:
 
 @lilypond[quote,verbatim,relative=2]
 \override Staff.Clef #'color = #white
@@ -3612,6 +3599,8 @@ e1
 @subsection Agrupación vertical de objetos gráficos
 @translationof Vertical grouping of grobs
 
+@c TODO Expand this section
+
 Los grobs (objetos gráficos) @code{VerticalAlignment} y
 @code{VerticalAxisGroup} trabajan de manera coordinada.
 @code{VerticalAxisGroup} agrupa distintos grobs como @code{Staff},
@@ -3767,8 +3756,9 @@ de unión.
 No es posible modificar la forma de las ligaduras de unión o de
 expresión cambiando la propiedad @code{control-points} si hay más de
 una en el mismo momento musical, ni siquiera usando la instrucción
-@code{\tweak}.  Sin embargo, se puede sobreescribir la propiedad @code{tie-configuration} de
-@code{TieColumn} para fijar la línea de inicio y la dirección según se requiera.
+@code{\tweak}.  Sin embargo, se puede sobreescribir la propiedad
+@code{tie-configuration} de @code{TieColumn} para fijar la línea de
+inicio y la dirección según se requiera.
 
 @seealso
 Referencia de funcionamiento interno:
@@ -3823,10 +3813,11 @@ donde
 debe devolver @code{#t}.
 
 @item @code{@var{@dots{}música@dots{}}}
-@tab entrada de LilyPond normal, que utiliza @code{$} para
-referenciar argumentos (p.ej. @samp{$arg1}).
+@tab código de entrada normal de LilyPond, que utiliza @code{$} (en los
+lugares en que sólo se permiten construcciones de Lilypond) o @code{#}
+(para usarlo como un valor de Scheme o un argumento de función
+musical) para referenciar argumentos (p.ej. @samp{#arg1}).
 @end multitable
-
 
 Los argumentos @code{parser} y @code{location} son necesarios, y se
 utilizan en algunas situaciones avanzadas como se encuentra descrito
@@ -3840,7 +3831,9 @@ musicales son:
 @example
 boolean?
 cheap-list?  @emph{(utilizar en lugar de }@q{list?}@emph{ para un procesado más rápido)}
+ly:duration?
 ly:music?
+ly:pitch?
 markup?
 number?
 pair?
@@ -3885,7 +3878,7 @@ padText =
      (parser location padding)
      (number?)
    #{
-     \once \override TextScript #'padding = $padding
+     \once \override TextScript #'padding = #padding
    #})
 
 \relative c''' {
@@ -3927,7 +3920,7 @@ tempoPadded =
      (parser location padding tempotext)
      (number? string?)
    #{
-     \once \override Score.MetronomeMark #'padding = $padding
+     \once \override Score.MetronomeMark #'padding = #padding
      \tempo \markup { \bold #tempotext }
    #})
 

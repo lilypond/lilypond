@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 875ee88c8a68b924af0916239e8d081acafc4dfb
+    Translation of GIT committish: 4d63d8b38e82f88212c528fd4c5f72b721b83922
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -552,6 +552,22 @@ discontinuidad para las ligaduras de expresión.  Para ver más
 información acerca de los patrones de discontinuidad complejos,
 consulte los fragmentos de código bajo @ref{Ligaduras de expresión}.
 
+Sobreescriba las propiedades de disposición @var{whiteout} y
+@var{layer} para las ligaduras de unión que colisionen con otros
+objetos del pentagrama.
+
+@lilypond[verbatim,quote,ragged-right,relative=2]
+\override Tie #'layer = #-2
+\override Staff.TimeSignature #'layer = #-1
+\override Staff.KeySignature #'layer = #-1
+\override Staff.TimeSignature #'whiteout = ##t
+\override Staff.KeySignature #'whiteout = ##t
+b2 b~
+\time 3/4
+\key a \major
+b r4
+@end lilypond
+
 @predefined
 @code{\tieUp},
 @code{\tieDown},
@@ -564,7 +580,6 @@ consulte los fragmentos de código bajo @ref{Ligaduras de expresión}.
 @code{\tieSolid}.
 @endpredefined
 
-
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -572,7 +587,6 @@ consulte los fragmentos de código bajo @ref{Ligaduras de expresión}.
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
-
 
 @seealso
 Glosario musical:
@@ -584,6 +598,7 @@ Referencia de la notación:
 @ref{División automática de las notas}.
 
 Fragmentos de código:
+@rlsr{slurs},
 @rlsr{Rhythms}.
 
 Referencia de funcionamiento interno:
@@ -591,7 +606,6 @@ Referencia de funcionamiento interno:
 @rinternals{LaissezVibrerTieColumn},
 @rinternals{TieColumn},
 @rinternals{Tie}.
-
 
 @knownissues
 Un cambio de pentagrama cuando hay una ligadura activa no producirá
@@ -3132,6 +3146,7 @@ Referencia de funcionamiento interno:
 @subsection Asuntos rítmicos especiales
 @translationof Special rhythmic concerns
 
+
 @menu
 * Notas de adorno::
 * Alinear con una cadenza::
@@ -3148,29 +3163,36 @@ Referencia de funcionamiento interno:
 @cindex acciaccatura
 
 @funindex \grace
-@funindex grace
+@funindex \slashedGrace
+@funindex \acciaccatura
+@funindex \appoggiatura
 
-Los mordentes y notas de adorno son ornamentos escritos.
-Se imprimen en un tipo más pequeño y no ocupan ningún
-tiempo lógico en el compás.
+Los mordentes y notas de adorno son ornamentos musicales,
+impresos en un tipo más pequeño y no ocupan ningún
+tiempo lógico adicional en el compás.
 
 @lilypond[quote,relative=2,verbatim]
-c4 \grace c16 c4
-\grace { c16[ d16] } c2
+c4 \grace b16 a4(
+\grace { b16[ c16] } a2)
 @end lilypond
 
-LilyPond también contempla dos tipos especiales de notas de adorno, la
+Hay otros tres tipos posibles de notas de adorno; la
 @emph{acciaccatura} o mordente de una nota (una nota de adorno sin
-medida que se indica mediante una pequeña nota ligada y con el
+medida que se indica mediante una nota ligada y con el
 corchete tachado) y la @emph{appoggiatura}, que toma una fracción fija
-de la nota principal, y se denota como una nota pequeña, ligada, sin
-tachar.
+de la nota principal a la que se adjunta, y que se imprime sin
+tachar.  Es posible escribir una nota de adorno con la plica
+tachada, como la @emph{acciaccatura} pero sin la ligadura, como para
+colocarla entre notas que están ligadas entre sí, utilizando la función
+@code{\slashedGrace}.
 
 @lilypond[quote,relative=2,verbatim]
-\grace c8 b4
 \acciaccatura d8 c4
 \appoggiatura e8 d4
-\acciaccatura { g16[ f] } e4
+\acciaccatura { g16[ f] } e2
+\slashedGrace a,8 g4
+\slashedGrace b16 a4(
+\slashedGrace b8 a2)
 @end lilypond
 
 La colocación de notas de adorno se sincroniza entre los distintos

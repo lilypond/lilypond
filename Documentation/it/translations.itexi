@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Wed Sep 21 11:44:51 UTC 2011
+@emph{Last updated Tue Dec 20 15:29:11 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -182,11 +182,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #9eff30">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -258,7 +258,7 @@ yes
 @item
 1 Eseguire @command{lilypond}
 @*
-3793
+3792
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -275,17 +275,17 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
 2 Aggiornare i file con @command{convert-ly}
 @*
-1189
+1209
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -312,7 +312,7 @@ yes
 @item
 3 Eseguire @command{lilypond-book}
 @*
-4002
+4093
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -329,7 +329,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially</span>
+<span style="background-color: #33ff21">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -339,7 +339,7 @@ partially
 @item
 4 Programmi esterni
 @*
-2180
+2198
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -356,11 +356,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -405,7 +405,7 @@ LilyPond -- Notazione musicale per tutti
 @item
 Section titles
 @*
-585
+555
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -422,11 +422,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #33ff21">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -486,7 +486,7 @@ yes
 @item
 Download
 @*
-1195
+1211
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -540,28 +540,28 @@ yes
 @item
 Comunità
 @*
-1910
+2214
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #dfef77">partially (99 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially (99 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #40fe23">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @end multitable

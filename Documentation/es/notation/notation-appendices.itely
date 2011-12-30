@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 688f5f1711d8ca07338385a2ae0191b1a8aae315
+    Translation of GIT committish: 3c77203e4d07000d4d888df5f5031a3623d43980
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -42,7 +42,7 @@
 @appendixsec Cuadro de nombres de acordes
 @translationof Chord name chart
 
-Las siguientes tablas muestran dos sistemas estándar para imprimir los
+La siguiente tabla muestra dos sistemas estándar para imprimir los
 nombres de los acordes, junto a las notas que representan.
 
 @lilypondfile{chord-names-jazz.ly}

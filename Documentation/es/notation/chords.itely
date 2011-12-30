@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 15fd17726c8142121f58df5f429513eaf51ade7e
+    Translation of GIT committish: 6c5646b7a626dda2307272a7e178c9374243164e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -640,6 +640,23 @@ acorde de séptima mayor. Las opciones predefinidas son
 @code{whiteTriangleMarkup} (triángulo blanco) y
 @code{blackTriangleMarkup} (triángulo negro).
 
+@funindex additionalPitchPrefix
+
+@item additionalPitchPrefix
+
+Cuando el acorde contiene notas añadidas, se pueden prefijar
+opcionalmente por un texto.  Por omisión no hay ningún prefijo, para
+evitar la sobrecarga visual, pero para pequeñas cantidades de notas
+añadidas puede ser visualmente efectivo.
+
+@lilypond[verbatim,quote,ragged-right]
+\new ChordNames {
+  <c e g d'>    % add9
+  \set additionalPitchPrefix = #"add"
+  <c e g d'>    % add9
+}
+@end lilypond
+
 @funindex chordNoteNamer
 
 @item chordNoteNamer
@@ -656,9 +673,40 @@ comportamiento.  Por ejemplo, el bajo se puede imprimir en minúscula.
 @item chordNameSeparator
 
 Las diferentes partes del nombre de un acorde se separan normalmente
-mediante una barra inclinada.  Mediante el ajuste de
+mediante un pequeño espacio en blanco.  Mediante el ajuste de
 @code{chordNameSeparator}, podemos usar cualquier marcado que deseemos
-como separador.
+como separador.  Esto no afecta al separador entre un acorde y la nota
+del bajo: para personalizar eso, utilice @code{slashChordSeparator}.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:7.9- c:7.9-/g
+  \set chordNameSeparator = \markup { "/" }
+  \break
+  c4:7.9- c:7.9-/g
+}
+@end lilypond
+
+@funindex slashChordSeparator
+
+@item slashChordSeparator
+
+Los acordes se pueden tocar sobre una nota del bajo distinta a la
+fundamental.  Se llaman "inversiones" o "acordes de barra inclinada"
+porque la manera predeterminada de efectuar su notación es con una
+barra inclinada entre el acorde y la nota del bajo.  Por tanto, el
+valor de @code{slashChordSeparator} es, por omisión, una barra
+inclinada, pero podemos cambiarlo a cualquier elemento de marcado que
+queramos.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:7.9- c:7.9-/g
+  \set slashChordSeparator = \markup { " over " }
+  \break
+  c4:7.9- c:7.9-/g
+}
+@end lilypond
 
 @funindex chordNameExceptions
 
@@ -670,12 +718,32 @@ elementos presentes en el acorde.  El segundo elemento es un elemento
 de marcado que sigue a la salida de @code{chordRootNamer} para crear
 el nombre del acorde.
 
+@funindex minorChordModifier
+
+@item minorChordModifier
+
+La notación de los acordes menores se suele hacer por medio del sufijo
+@q{m} a la derecha de la letra que indica la fundamental del acorde.
+Sin embargo, otras convenciones dan preferencia a sufijos diferentes,
+como un signo menos.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:min f:min7
+  \set minorChordModifier = \markup { "-" }
+  \break
+  c4:min f:min7
+}
+@end lilypond
+
 @funindex chordPrefixSpacer
+
 @item chordPrefixSpacer
 
-La @q{m} de los acordes menores se imprime por lo general
-inmediatamente a la derecha de la fundamental.  Se puede insertar un
-símbolo separador entre la fundamental y @q{m} estableciendo
+El modificador de los acordes menores tal y como viene determinado por
+@code{minorChordModifier} se imprime por lo general inmediatamente a
+la derecha de la fundamental.  Se puede insertar un símbolo separador
+entre la fundamental y el modificador estableciendo
 @code{chordPrefixSpacer}.  El símbolo separador no se usa cuando el
 acorde está alterado.
 

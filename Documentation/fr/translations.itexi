@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Wed Sep 21 11:44:51 UTC 2011
+@emph{Dernière mise à jour Tue Dec 20 15:29:11 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -363,11 +363,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #9eff30">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @end multitable
@@ -472,7 +472,7 @@ oui
 @item
 1.1 Hauteurs
 @*
-4502
+4530
 @tab Frédéric Chiasson
 @tab Valentin Villenave
 @*
@@ -491,17 +491,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
 1.2 Rythme
 @*
-6256
+6303
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -524,11 +524,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -555,17 +555,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
 1.4 Répétitions et reprises
 @*
-944
+994
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -586,11 +586,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -619,17 +619,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
 1.6 Notation sur la portée
 @*
-2349
+2346
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -648,7 +648,7 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #acff31">partiellement</span>
+<span style="background-color: #40fe23">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -675,11 +675,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -704,11 +704,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -764,11 +764,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -795,11 +795,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -836,7 +836,7 @@ oui
 @item
 2.4 Instruments à cordes frettées
 @*
-2649
+2597
 @tab Matthieu Jacquot
 @tab Jean-Charles Malahieude
 @tab 
@@ -853,7 +853,7 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partiellement</span>
+<span style="background-color: #39ff22">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -913,17 +913,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
 2.7 Notation des accords
 @*
-1855
+2027
 @tab Valentin Villenave
 @tab Jean-Charles Malahieude
 @*
@@ -932,17 +932,17 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partiellement (48 %)</span>
+<span style="background-color: #dfef77">partiellement (44 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement (48 %)
+partiellement (44 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">partiellement</span>
+<span style="background-color: #6fff29">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -998,17 +998,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #a5ff31">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-7685
+8462
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1017,21 +1017,21 @@ Valentin Villenave
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #dfef77">partiellement (97 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement (97 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #39ff22">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1066,7 +1066,7 @@ oui
 @item
 5 Modification des réglages prédéfinis
 @*
-12269
+12171
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1075,27 +1075,27 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partiellement (31 %)</span>
+<span style="background-color: #dfef77">partiellement (47 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement (31 %)
+partiellement (47 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
 A Tables du manuel de notation
 @*
-2022
+2167
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -1104,11 +1104,11 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partiellement (95 %)</span>
+<span style="background-color: #dfef77">partiellement (89 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement (95 %)
+partiellement (89 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -1221,7 +1221,7 @@ oui
 @item
 1 Exécution de @command{lilypond}
 @*
-3793
+3792
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1238,17 +1238,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
 2 Mise à jour avec @command{convert-ly}
 @*
-1189
+1209
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1275,7 +1275,7 @@ oui
 @item
 3 Association musique-texte avec @command{lilypond-book}
 @*
-4002
+4093
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1302,7 +1302,7 @@ oui
 @item
 4 Programmes externes
 @*
-2180
+2198
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1376,7 +1376,7 @@ LilyPond -- la notation musicale pour tous
 @item
 Titre des chapitres
 @*
-585
+555
 @tab John Mandereau
 @tab 
 @tab 
@@ -1461,7 +1461,7 @@ oui
 @item
 Téléchargement
 @*
-1195
+1211
 @tab Jean-Charles Malahieude
 @*
 John Mandereau
@@ -1517,7 +1517,7 @@ oui
 @item
 Communauté
 @*
-1910
+2214
 @tab Jean-Charles Malahieude
 @*
 John Mandereau
@@ -1526,21 +1526,21 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #dfef77">partiellement (99 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement (99 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #40fe23">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @end multitable

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Wed Sep 21 11:44:51 UTC 2011
+@emph{Meest recente update Tue Dec 20 15:29:11 UTC 2011
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -155,7 +155,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">gedeeltelijk</span>
+<span style="background-color: #39ff22">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -177,7 +177,7 @@ LilyPond -- Muzieknotatie voor iedereen
 @item
 Paragraaftitels
 @*
-585
+555
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -194,11 +194,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #33ff21">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+gedeeltelijk
 @end ifnothtml
 @tab na-GDP
 @item
@@ -258,7 +258,7 @@ ja
 @item
 Download
 @*
-1195
+1211
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7ae1e99ff67432c96faf743bc28ac7b90a47a852
+    Translation of GIT committish: fb04880077ab1b4107815ab50b171a97e2fd3772
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1850,11 +1850,11 @@ Así, esto desactivará los becuadros adicionales en un pentagrama:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais2 aes
+    aeses2 aes
   }
   \new Staff \relative c'' {
     \set Staff.extraNatural = ##f
-    ais2 aes
+    aeses2 aes
   }
 >>
 @end lilypond
@@ -1865,11 +1865,11 @@ y esto los desactivará en todos los pentagramas:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais2 aes
+    aeses2 aes
   }
   \new Staff \relative c'' {
     \set Score.extraNatural = ##f
-    ais2 aes
+    aeses2 aes
   }
 >>
 @end lilypond
@@ -1943,12 +1943,12 @@ de la siguiente forma:
 <<
   \new Staff {
     \relative c'' {
-      gis4 ges aes ais
+      gisis4 gis aeses aes
     }
   }
   \new Staff \with { extraNatural = ##f } {
     \relative c'' {
-      gis4 ges aes ais
+      gisis4 gis aeses aes
     }
   }
 >>
@@ -1992,7 +1992,7 @@ continuación presentamos un ejemplo que muestra el formato:
 \score {
   \new Staff {
     \relative c'' {
-      cis4 e d ces
+      cisis4 e d cis
     }
   }
   \layout {
@@ -2012,12 +2012,12 @@ pentagramas de la partitura:
   <<
     \new Staff {
       \relative c'' {
-        gis4 ges aes ais
+        gisis4 gis aeses aes
       }
     }
     \new Staff {
       \relative c'' {
-        gis4 ges aes ais
+        gisis4 gis aeses aes
       }
     }
   >>

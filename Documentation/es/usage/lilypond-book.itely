@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7ae1e99ff67432c96faf743bc28ac7b90a47a852
+    Translation of GIT committish: feb460d0ba95db4081619c8490496d09d4fb118d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -545,16 +545,6 @@ un archivo de MusicXML, que se procesa después por parte de
 En el archivo de entrada, la música se especifica con cualquiera de
 las instrucciones siguientes:
 
-
-\begin@{lilypond@}[las,opciones,van,aquí]
-  EL CÓDIGO DE LILYPOND
-\end@{lilypond@}
-
-\lilypond[las,opciones,van,aquí]@{ EL CÓDIGO DE LILYPOND @}
-
-\lilypondfile[las,opciones,van,aquí]@{@var{archivo}@}
-
-\musicxmlfile[las,opciones,van,aquí]@{@var{archivo}@}
 @example
 <lilypond las opciones van aquí>
   EL CÓDIGO DE LILYPOND
@@ -1108,7 +1098,6 @@ puede variar, debido a los elementos de notación que están pegados al
 margen izquierdo, como los números de compás y el nombre del
 instrumento.  Esta opción acorta todas las líneas y las mueve a la
 derecha en la misma medida.
-
 
 @item -P @var{instrucción}
 @itemx --process=@var{instrucción}

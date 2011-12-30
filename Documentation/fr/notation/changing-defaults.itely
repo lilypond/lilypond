@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 612f465a01ed6b9bd806f00e450c82f314eafd91
+    Translation of GIT committish: 2e9dfc21e1cf4a5fb44ac8b5039c22963b7259f5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2296,45 +2296,640 @@ qu'au travers d'une complète redéfinition de leur liste associative.}
 @subsection Modes de saisie
 @translationof Input modes
 
-@untranslated
+La manière dont sera interprétée la notation contenue dans un fichier
+source dépend du mode affecté à la saisie.
+
+@strong{Mode accords}
+
+Ce mode, activé par la commande @code{\chordmode}, permet d'interpréter
+les saisies comme étant des accords, qui seront imprimés sous forme
+de notes sur une portée -- voir @ref{Notation des accords}.
+
+Le mode accords s'active aussi par la commande @code{\chords}, qui
+créera un contexte @code{ChordNames}.  Les saisies, interprétées comme
+étant des accords, seront alors rendues sous forme nominale dans ce
+contexte @code{ChordNames} -- voir @ref{Impression des noms d'accord}.
+
+@strong{Mode percussions}
+
+Ce mode, activé par la commande @code{\drummode}, permet d'interpréter
+les saisies comme étant de la notation pour percussions -- voir
+@ref{Notation de base pour percussions}.
+
+Le mode percussions s'active aussi par la commande @code{\drums}, qui
+créera un contexte @code{DrumStaff}.  Les saisies, interprétées comme
+étant de la notation pour percussions, seront alors rendues sous
+forme symbolique sur une portée de percussions -- voir
+@ref{Notation de base pour percussions}.
+
+@strong{Mode figures}
+
+Ce mode, activé par la commande @code{\figuremode}, permet d'interpréter
+les saisies comme étant de la basse chiffrée (ou figurée) -- voir
+@ref{Saisie de la basse chiffrée}.
+
+Le mode figures s'active aussi par la commande @code{\figures}, qui
+créera un contexte @code{FiguredBass}.  Les saisies interprétées comme
+étant de la basse chiffrée, seront alors rendues sous forme symbolique
+dans le contexte @code{FiguredBass} -- voir
+@ref{Introduction à la basse chiffrée}.
+
+@strong{Mode frets et tablatures}
+
+Il n'existe pas de mode spécifique pour saisir des symboles de fret ou
+de tablature.
+
+Notes ou accords saisis en mode note puis affectés à un contexte
+@code{TabStaff} seront rendus sous forme de diagramme de tablature --
+voir @ref{Tablatures par défaut}.
+
+Deux options différentes permettent d'obtenir des diagrammes de fret en
+surplomb d'une portée@tie{}: directement à l'aide d'un contexte
+@code{FretBoards} -- voir @ref{Tablatures automatiques} -- ou en
+attachant aux notes des @emph{markups} créés par la commande
+@code{\fret-diagram} -- voir @ref{Tablatures sous forme d'étiquette}.
+
+@strong{Mode paroles}
+
+Ce mode, activé par la commande @code{\lyricmode}, permet d'interpréter
+les saisies comme étant des syllabes, ayant éventuellement une durée, et
+des indications habituelles aux paroles -- voir @ref{Musique vocale}.
+
+Le mode paroles s'active aussi par la commande @code{\addlyrics}, qui
+créera un contexte @code{Lyrics} et ajoutera implicitement une commande
+@code{\lyricsto} afin d'associer les paroles qui suivent à la musique
+précédemment saisie.
+
+@strong{Mode @emph{markup}}
+
+Ce mode, activé par la commande @code{\markup}, permet d'interpréter les
+saisies comme étant des @emph{markups} (annotations ou étiquettes) --
+voir @rusernamed{Text markup commands,Commandes pour le mode markup}.
+
+
+@c silly work-around for texinfo broken-ness
+@c (@strong{Note...} causes a spurious cross-reference in Info)
+@b{Mode notes}
+
+Le mode notes est le mode par défaut dans LilyPond.  Il peut aussi
+s'activer par la commande @code{\notemode}.  Les saisies seront
+interprétées comme étant des hauteurs, durées, @emph{markups}, etc. qui
+seront rendues sous forme de notation musicale sur une portée.
+
+Nul n'est besoin de spécifier le mode notes de manière explicite, hormis
+dans certaines situations particulières, notamment lorsque vous êtes en
+mode paroles, accords, ou tout autre mode, et que vous deviez insérer
+un élément qui ne serait disponible que grâce à la syntaxe du mode
+notes.
+
+Il en va ainsi lorsque, par exemple, vous voulez ajouter une indication
+de nuance au numéro de couplet d'un chant choral@tie{}:
+
+@lilypond[verbatim,relative=2,quote]
+{ c4 c4 c4 c4 }
+\addlyrics {
+  \notemode{\set stanza = \markup{ \dynamic f 1. } }
+  To be sung loudly
+}
+\addlyrics {
+  \notemode{\set stanza = \markup{ \dynamic p 2. } }
+  To be sung quietly
+}
+@end lilypond
 
 
 @node Direction et positionnement
 @subsection Direction et positionnement
 @translationof Direction and placement
 
-@untranslated
+En matière de typographie musicale, l'orientation et le positionnement
+de nombreux éléments est affaire de goût.  Par exemple, les hampes
+peuvent être ascendantes ou descendantes, les paroles, nuances ou autres
+indications d'expression peuvent apparaître au-dessus ou en dessous de
+la portée, les indications textuelles s'alignent tantôt par la gauche,
+tantôt par la droite, ou être centrées.  La plupart de ces choix peuvent
+être laissés à l'appréciation de LilyPond.  Il peut être préférable,
+dans certains cas, d'imposer l'orientation ou le positionnement des
+éléments.
+
+@strong{Indicateurs de position d'une articulation}
+
+Certains positionnements sont opérés par défaut -- toujours au-dessus ou
+toujours en dessous (nuances ou points d'orgue) -- alors que d'autres
+alterneront selon l'orientation des hampes (liaisons ou accents).
+
+@c TODO Add table showing these
+
+Le positionnement par défaut peut être outrepassé à l'aide d'un
+@emph{indicateur de positionnement}, qui vient s'insérer juste avant
+l'articulation.  LilyPond met à votre disposition trois indicateurs de
+positionnement@tie{}: @code{^} (pour @qq{au-dessus}), @code{_} (pour
+@qq{au-dessous}), et @code{-} (pour @qq{appliquer le positionnement par
+défaut}).  L'indicateur de positionnement n'est pas obligatoire@tie{};
+LilyPond considère alors qu'il y a un @code{-}.  Un indicateur de
+positionnement est cependant @strong{obligatoire} dans les cas
+suivants@tie{}:
+
+@itemize
+@item une commande @code{\tweak},
+@item une commande @code{\markup},
+@item une commande @code{\tag},
+@item les indications de corde, par exemple @code{-"corde"},
+@item les indications de doigté, par exemple @w{@code{-1}},
+@item les racourcis d'articulation, par exemple @w{@code{-.}},
+@w{@code{->}} ou @w{@code{--}}.
+@end itemize
+
+Les indicateurs de positionnement n'affectent que la note qui suit@tie{}:
+
+@lilypond[verbatim,quote,relative=2]
+c2( c)
+c2_( c)
+c2( c)
+c2^( c)
+@end lilypond
+
+@strong{La propriété @code{direction}}
+
+Le positionnement ou l'orientation de nombreux objets de rendu est géré
+par la propriété @code{direction}.
+
+La propriété @code{direction} peut prendre la valeur @code{1}, qui
+signifie @qq{ascendant} ou @qq{au-dessus}, ou @w{@code{-1}}, qui
+signifie @qq{descendant} ou @qq{au-dessous}.  Les symboliques @code{UP}
+et @code{DOWN} peuvent remplacer respectivement @code{1} et
+@w{@code{-1}}.  Les valeurs @code{0} ou @code{CENTER} permettent de
+réaffecter à la propriété @code{direction} son comportement par défaut.
+Certaines commandes prédéfinies permettent par ailleurs de spécifier un
+comportement en matière d'orientation ou positionnement@tie{}; elles
+sont de la forme
+
+@noindent
+@code{\xxxUp}, @code{\xxxDown}, @code{\xxxNeutral}
+
+@noindent
+auquel cas @code{\xxxNeutral} signifie @qq{retour au comportement par
+défaut} -- voir @rlearning{Objets inclus dans la portée}.
+
+Dans quelques cas particuliers, comme l'indication d'un @emph{arpeggio},
+la valeur affectée à la propriété @code{direction} déterminera si
+l'objet doit se placer à gauche ou à droite de son parent.  Un
+@w{@code{-1}} ou @code{LEFT} signifiera alors @qq{sur la gauche}, et un
+@code{1} ou @code{RIGHT} @qq{sur la droite}.  Comme de bien entendu, un
+@code{0} ou @code{CENTER} signifiera @qq{appliquer le positionnement par
+défaut}.
+
+@ignore
+These all have side-axis set to #X
+AmbitusAccidental - direction has no effect
+Arpeggio - works
+StanzaNumber - not tried
+TrillPitchAccidental - not tried
+TrillPitchGroup - not tried
+@end ignore
+
+Notez que ces commandes resteront effectives jusqu'à ce qu'elles soient
+annulées.
+
+@lilypond[verbatim,quote,relative=2]
+c2( c)
+\slurDown
+c2( c)
+c2( c)
+\slurNeutral
+c2( c)
+@end lilypond
 
 
 @node Distances et unités de mesure
 @subsection Distances et unités de mesure
 @translationof Distances and measurements
 
-@untranslated
+@cindex distance absolue
+@cindex distance relative
+@cindex distance extensible
+
+@funindex \mm
+@funindex \cm
+@funindex \in
+@funindex \pt
+
+LilyPond considère deux types de distances@tie{}: les distances absolues
+et les distances relatives ou extensibles.
+
+Les distances absolues permettent de spécifier les marges, indentations
+et autres détails de mise en page@tie{}; elles s'expriment par défaut en
+milimètres.  Vous pouvez utiliser d'autres systèmes de mesure, dès lors
+que la quantité est suivie de la mesure@tie{}: @code{\mm}, @code{\cm},
+@code{\in}@tie{}(pouces) ou @code{\pt}@tie{}(points, 1/72,27 pouce).
+Les mesures de mise en page peuvent aussi s'exprimer en unité extensible
+de portée @code{\staff-space} (voir ci-après).  Pour plus d'information
+concernant la mise en page, voir la rubrique
+@ref{Mise en forme de la page}.
+
+Les distances relatives ou extensibles s'expriment toujours en
+@qq{espace de portée} ou, plus rarement, en @qq{demi espace de portée}.
+L'espace de portée correspond à la distance qui sépare deux lignes
+adjacentes d'une portée.  Sa valeur par défaut est déterminée
+globalement par la taille de portée.  Elle peut aussi s'ajuster
+ponctuellement en jouant sur la propriété @code{staff-space} de l'objet
+@code{StaffSymbol}.  Les distances relatives s'ajustent automatiquement
+dès qu'une modification de la taille globale de portée ou bien de la
+propriété @code{staff-space} du @code{StaffSymbol} intervient.
+Cependant, les tailles de fonte ne s'ajusteront automatiquement que si
+la modification touche la taille globale des portées.  La taille globale
+de portée permet ainsi de gérer l'aspect général de la partition --
+voir @ref{Définition de la taille de portée}.
+
+@funindex magstep
+
+Lorsque seulement une portion de partition doit apparaitre dans une
+taille, comme par exemple une portée d'ossia ou une note de bas de page,
+influer sur la taille globale de portée affecterait l'intégralité de la
+partition.  Il convient donc dans ce cas de modifier à la fois la
+propriété @code{staff-space} du @code{StaffSymbol} et la taille des
+fontes.  La fonction Scheme @code{magstep} est tout spécialement chargée
+d'adapter une modification du @code{staff-space} aux fontes.  Pour de
+plus amples informations, reportez-vous à la rubrique
+@rlearning{Longueur et épaisseur des objets}.
+
+
+@seealso
+Manuel d'initiation :
+@rlearning{Longueur et épaisseur des objets}.
+
+Manuel de notation :
+@ref{Définition de la taille de portée},
+@ref{Mise en forme de la page}.
 
 
 @node Propriétés des symboles de la portée
 @subsection Propriétés des symboles de la portée
 @translationof Staff symbol properties
 
-@untranslated
+@cindex ajustement des symboles de portée
+@cindex dessin des symboles de portée
+@cindex symboles de portée, dessin
+
+@c TODO Extend or remove this section.  See also NR 1.6.2 Staff symbol
+@c      Need to think of uses for these properties.  Eg 'line-positions
+@c      is used in a snippet to thicken centre line.
+@c      If retained, add @ref to here in 1.6.2  -td
+
+L'emplacement vertical et le nombre de lignes d'une portée se
+définissent conjointement.  Comme l'illustre l'exemple suivant, le
+positionnement des notes n'est en rien influencé par le positionnement
+des lignes de la portée.
+
+@warning{La propriété @code{'line-positions} écrase la propriété
+@code{'line-count}.  Le nombre de lignes d'une portée est implicitement
+défini par le nombre d'éléments dans la liste des valeurs de
+@code{'line-positions}.}
+
+@lilypond[verbatim,quote,relative=1]
+\new Staff \with {
+  \override StaffSymbol #'line-positions = #'(7 3 0 -4 -6 -7)
+}
+{ a4 e' f b | d1 }
+@end lilypond
+
+La largeur d'une portée, exprimée en espace de portée, peut être figée.
+L'espacement des objets inclus dans cette portée ne sera en rien affecté
+par ce réglage.
+
+@lilypond[verbatim,quote,relative=1]
+\new Staff \with {
+  \override StaffSymbol #'width = #23
+}
+{ a4 e' f b | d1 }
+@end lilypond
 
 
 @node Extenseurs et prolongateurs
 @subsection Extenseurs et prolongateurs
 @translationof Spanners
 
-@untranslated
+De nombreux objets de notation musicale s'étendent sur plusieurs notes,
+voire même sur plusieurs mesures.  Il en va ainsi des liaisons,
+ligatures, crochets de nolet, crochets de reprise, crescendos, trilles
+ou glissandos.  Ces objets, que l'on englobe sous l'appellation
+@qq{d'extenseur}, sont pourvus de propriétés spécifiques destinées à
+contrôler leur apparence et leur comportement.  Un certain nombre de ces
+propriétés sont communes à tous les extenseurs, d'autres n'affectent que
+certains d'entre eux.
+
+Tout extenseur dispose de la @code{spanner-interface}.  Quelques uns,
+tout particulièrement ceux chargés de dessiner une ligne droite entre
+deux objets, disposent aussi de la @code{line-spanner-interface}.
 
 
 @unnumberedsubsubsec Utilisation de @code{spanner-interface}
+@translationof Using the @code{spanner-interface}
+
+Cette interface fournit deux propriétés qui s'appliquent à certains
+extenseurs.
+
+@strong{@i{La propriété @code{minimum-length}}}
+
+La longueur minimale d'un extenseur est déterminée par la propriété
+@code{minimum-length}.  Au plus sa valeur est élevée, au plus
+l'espacement des notes qui le bornent sera grand.  Forcer sa valeur
+restera néanmoins sans effet pour un certain nombre d'extenseurs dont la
+longueur dépend d'autres considérations.  Voici quelques exemples de
+mise en œuvre de cette propriété.
+
+@ignore
+Cette propriété est pleinement fonctionnelle pour @tie{}:
+  Tie (liaison de prolongation)
+  MultiMeasureRest (silence multimesures)
+  Hairpin (soufflet)
+  Slur (liaison d'articulation)
+  PhrasingSlur (liaison de phrasé)
+
+Cette propriété est fonctionnelle en présence d'un @emph{callback}@tie{}:
+  Glissando
+  Beam (ligature)
+
+Cette propriété est sans effet sur@tie{}:
+  LyricSpace
+  LyricHyphen
+  LyricExtender
+  TextSpanner
+  System
+
+@end ignore
+
+@lilypond[verbatim,quote,relative=2]
+a~a
+a
+% increase the length of the tie
+-\tweak #'minimum-length #5
+~a
+@end lilypond
+
+@lilypond[verbatim,quote,relative=2]
+a1
+\compressFullBarRests
+R1*23
+% increase the length of the rest bar
+\once \override MultiMeasureRest #'minimum-length = #20
+R1*23
+a1
+@end lilypond
+
+@lilypond[verbatim,quote,relative=2]
+a \< a a a \!
+% increase the length of the hairpin
+\override Hairpin #'minimum-length = #20
+a \< a a a \!
+@end lilypond
+
+Cette propriété permet aussi de jouer sur l'envergure d'une liaison
+d'articulation ou de phrasé.
+
+@lilypond[verbatim,quote,relative=2]
+a( a)
+a
+-\tweak #'minimum-length #5
+( a)
+
+a\( a\)
+a
+-\tweak #'minimum-length #5
+\( a\)
+@end lilypond
+
+Certains objets requièrent un appel explicite à la procédure
+@code{set-spacing-rods} pour que la propriété @code{minimum-length}
+produise ses effets.  La propriété @code{set-spacing-rods} doit alors
+prendre pour valeur @code{ly:spanner::set-spacing-rods}. Par exemple, la
+longueur minimale d'un glissando ne pourra être forcée tant que la
+propriété @code{springs-and-rods} n'est pas définie@tie{}:
+
+@lilypond[verbatim,quote,relative=1]
+% default
+e \glissando c'
+
+% not effective alone
+\once \override Glissando #'minimum-length = #20
+e, \glissando c'
+
+% effective only when both overrides are present
+\once \override Glissando #'minimum-length = #20
+\once \override Glissando #'springs-and-rods = #ly:spanner::set-spacing-rods
+e, \glissando c'
+@end lilypond
+
+Il en va de même pour l'objet @code{Beam} (ligature)@tie{}:
+
+@lilypond[verbatim,quote,relative=1]
+% not effective alone
+\once \override Beam #'minimum-length = #20
+e8 e e e
+
+% effective only when both overrides are present
+\once \override Beam #'minimum-length = #20
+\once \override Beam #'springs-and-rods = #ly:spanner::set-spacing-rods
+e8 e e e
+@end lilypond
+
+@strong{@i{La propriété @code{to-barline}}}
+
+La seconde propriété fournie par la @code{spanner-interface} est 
+@code{to-barline}.  Elle est activée par défaut, raison pour laquelle
+les soufflets et autres extenseurs finissant sur la première note d'une
+mesure s'arrêtent visuellement au niveau de la barre de mesure qui la
+précède.  Le fait de désactiver la propriété @code{to-barline} aura pour
+effet de prolonger l'extenseur au delà de la barre de mesure et jusqu'à
+la note qui le borne@tie{}:
+
+@lilypond[verbatim,quote,relative=2]
+a \< a a a a \! a a a \break
+\override Hairpin #'to-barline = ##f
+a \< a a a a \! a a a
+@end lilypond
+
+Cette propriété n'est pas opérationnelle pour tous les extenseurs.  Il
+serait en effet quelque peu surprenant de l'activer (lui affecter
+@code{#t}) dans le cas d'une liaison d'articulation ou de phrasé@tie{}!
+
+
 @unnumberedsubsubsec Utilisation de @code{line-spanner-interface}
+@translationof Using the @code{line-spanner-interface}
+
+Un certain nombre d'objets disposent de la propriété
+@code{line-spanner-interface}, entre autres@tie{}:
+
+@itemize
+@item @code{DynamicTextSpanner}
+@item @code{Glissando}
+@item @code{TextSpanner}
+@item @code{TrillSpanner}
+@item @code{VoiceFollower}
+@end itemize
+
+La routine en charge de dessiner le stencil de ces extenseurs est
+@code{ly:line-interface::print}.  Elle va déterminer les deux points
+extrêmes et dessiner entre eux une ligne du style requis.  Bien que la
+localisation des deux bornes de l'extenseur soit calculée à la volée,
+vous pouvez cependant forcer leur ordonnée (coordonnée-Y).  Les
+propriétés que vous devrez ajuster résident au deuxième niveau dans la
+hiérarchie, mais la syntaxe de la commmande @code{\override} nécessaire
+demeure relativement simple@tie{}:
+
+@lilypond[relative=2,quote,verbatim]
+e2 \glissando b
+\once \override Glissando #'(bound-details left Y) = #3
+\once \override Glissando #'(bound-details right Y) = #-2
+e2 \glissando b
+@end lilypond
+
+La propriété @code{Y} est valorisée en unités de @code{staff-space}, la
+ligne médiane de la portée correspondant au point zéro.  Pour le
+glissando qui nous occupe, il s'agit du @code{Y} à l'aplomb
+(coordonnée-X) du centre de la tête de chacune des deux notes, si tant
+est que la ligne doive s'étendre entre ces deux points.
+
+Si le @code{Y} n'est pas défini, sa valeur sera calculée en fonction de
+la position verticale du point d'attachement de l'extenseur.
+
+Dans le cas où l'extenseur est interrompu par un saut de ligne, les
+terminaisons à cet endroit se gèrent grâce aux sous-clés
+@code{left-broken} et @code{right-broken} de @code{bound-details}, comme
+ci-dessous@tie{}:
+
+@lilypond[relative=2,ragged-right,verbatim,quote]
+\override Glissando #'breakable = ##t
+\override Glissando #'(bound-details right-broken Y) = #-3
+c1 \glissando \break
+f1
+@end lilypond
+
+Les sous-propriétés @code{left} et @code{right} du @code{bound-details}
+disposent d'autres clés modifiables de la même manière que
+@code{Y}@tie{}:
+
+@table @code
+@item Y
+Détermine l'ordonnée (coordonnée-Y) de la terminaison, avec un
+décalage en @code{staff-space} par rapport à la ligne médiane de la
+portée.  Il s'agit par défaut du centre de l'objet d'attachement, qui
+est le centre vertical de la tête de note pour un glissando.
+
+En ce qui concerne les extenseurs horizontaux, tels ceux comportant du
+texte ou les trilles, il est fixé à@tie{}@code{0}.
+
+@item attach-dir
+Détermine le début et la fin de la ligne sur l'axe des abscisses,
+relativement à l'objet de rattachement.  Une valeur de @w{@code{-1}} (ou
+@code{LEFT}) aura pour effet de commencer ou terminer la ligne sur la
+gauche de la tête de note de rattachement.
+
+@item X
+Il s'agit de l'abscisse (coordonnée-X) absolue de la terminaison.  Elle
+se calcule à la volée, et son forçage n'apporte rien de plus.
+
+@item stencil
+Les extenseurs linéaires peuvent commencer ou finir par un symbole,
+enregistré dans cette sous-propriété.  Elle est conçue pour un usage
+interne, aussi nous vous conseillons de plutôt recourir à @code{text}.
+
+@item text
+Il s'agit d'un @emph{markup} qui se poursuivra par l'extenseur. C'est la
+sous-propriété utilisée pour ajouter @i{cresc.}, @i{tr} ou autre texte à
+un extenseur horizontal.
+
+@lilypond[quote,ragged-right,relative=2,verbatim]
+\override TextSpanner #'(bound-details left text)
+   = \markup { \small \bold Slower }
+c2\startTextSpan b c a\stopTextSpan
+@end lilypond
+
+@item stencil-align-dir-y
+@item stencil-offset
+Lorsqu'aucune de ces deux sous-propriétés n'est définie, le stencil est
+simplement positionné à l'extrémité, centré sur la ligne telle que
+définie par les sous-propriétés @code{X} et @code{Y}.  L'utilisation de
+@code{stencil-align-dir-y} ou @code{stencil-offset} permettra d'aligner
+le symbole verticalement par rapport au coin de la ligne@tie{}:
+
+@lilypond[relative=1,quote,verbatim]
+\override TextSpanner
+  #'(bound-details left stencil-align-dir-y) = #-2
+\override TextSpanner
+  #'(bound-details right stencil-align-dir-y) = #UP
+
+\override TextSpanner
+  #'(bound-details left text) = #"ggg"
+\override TextSpanner
+  #'(bound-details right text) = #"hhh"
+c4^\startTextSpan c c c \stopTextSpan
+@end lilypond
+
+Vous n'aurez pas manqué de constater qu'une valeur négative place le
+texte @emph{en haut} -- contrairement à ce que l'on serait en droit
+d'attendre.  Ceci est dû au fait que la valeur @w{@code{-1}} ou
+@code{DOWN} signifie @qq{aligner le bord @emph{inférieur} du texte sur
+la ligne d'extension}.  Une valeur égale à@tie{}@code{1} ou @code{UP}
+alignera le sommet du texte sur cette ligne d'extension.
+
+@item arrow
+L'activation de cette sous-propriété (lui affecter @code{#t}) ajoutera
+à l'extenseur une terminaison en flêche.
+
+@item padding
+Cette sous-propriété contrôle l'espace qui doit séparer l'extrémité de
+la ligne et la fin réelle de l'extenseur.  Sans ce @qq{décalage}, le
+trait indiquant un glissando commencerait et finirait au beau milieu de
+chacune des têtes de note.
+
+@end table
+
+La fonction @code{\endSpanners} permet d'interrompre l'extenseur qui
+vient dès la note suivante.  Autrement dit, il ne s'étendra que sur une
+seule note, ou jusqu'à la prochaine barre de mesure si @code{to-barline}
+a été activé et que survient une barre avant la note suivante.
+
+@lilypond[verbatim,quote,ragged-right,relative=2]
+\endSpanners
+c2 \startTextSpan c2 c2
+\endSpanners
+c2 \< c2 c2
+@end lilypond
+
+L'utilisation de @code{\endSpanners} permet de s'affranchir d'insérer un
+@code{\stopTextSpan} pour cloturer un @code{\startTextSpan} ou un
+@code{\!} pour terminer un soufflet.
+
+
+@seealso
+Référence des propriétés internes :
+@rinternals{Glissando},
+@rinternals{line-spanner-interface},
+@rinternals{TextSpanner},
+@rinternals{TrillSpanner},
+@rinternals{VoiceFollower}.
+
+
 @node Visibilité des objets
 @subsection Visibilité des objets
 @translationof Visibility of objects
 
-@untranslated
+@cindex objets, visibilité
+@cindex grobs, visibilité
+@cindex visibilité d'objets
 
+La visibilité des objets de rendu se contrôle de quatre façons
+différentes@tie{}: vous pouvez supprimer leur stencil, les rendre
+transparents, les coloriser en blanc ou bien encore forcer leur
+propriété @code{break-visibility}.  Les trois premières options peuvent
+s'appliquer à tous les objets, la dernière étant réservée aux objets
+@emph{changeables}.  Le Manuel d'initiation contient une introduction à
+ces quatre techniques, à la rubrique
+@rlearning{Visibilité et couleur des objets}.
+
+LilyPond met en œuvre quelques techniques particulières adaptées à
+certains objets@tie{}; elles sont couvertes par une rubrique spécifique.
 
 @menu
 * Suppression des stencils::
@@ -2348,76 +2943,451 @@ qu'au travers d'une complète redéfinition de leur liste associative.}
 @unnumberedsubsubsec Suppression des stencils
 @translationof Removing the stencil
 
-@untranslated
+@cindex stencil, suppression
+
+Tout objet de rendu se voit attribuer une propriété @code{stencil}.
+Elle est par défaut définie par la fonction chargée de dessiner cet
+objet.  Lorsque cette propriété est désactivée de force -- en lui
+attribuant la valeur @code{#f} -- aucune fonction ne sera appelée@tie{};
+l'objet ne sera donc pas dessiné.  Le retour au comportement par défaut
+s'opère à l'aide d'un @code{\revert}.
+
+@lilypond[quote,verbatim,relative=1]
+a1 a
+\override Score.BarLine #'stencil = ##f
+a a
+\revert Score.BarLine #'stencil
+a a a
+@end lilypond
 
 
 @node Transparence des objets
 @unnumberedsubsubsec Transparence des objets
 @translationof Making objects transparent
 
-@untranslated
+@cindex transparent, objet
+
+Tout objet de rendu dispose d'une propriété de transparence, qui est par
+défaut définie à @code{#f}.  Le fait de l'activer rendra l'objet
+transparent tout en préservant la place qu'il occupe.
+
+@lilypond[quote,verbatim,relative=2]
+a4 a
+\once \override NoteHead #'transparent = ##t
+a a
+@end lilypond
 
 
 @node Blanchiment des objets
 @unnumberedsubsubsec Blanchiment des objets
 @translationof Painting objects white
 
-@untranslated
+@cindex objets, couleur
+@cindex couleur d'objet
+@cindex layers
+@cindex calque
+@cindex impression, ordre
+@cindex surimpression d'objets
+@cindex objets, surimpression
+@cindex grobs, superposition
+
+Tout objet de rendu dispose d'une propriété couleur, par défaut définie
+à @code{black} (noir).  Le fait de la forcer à @code{white} (blanc)
+rendra l'objet indistinct du fond blanc.  Néanmoins, lorsque cet objet
+en recouvre d'autres, la couleur de leurs points de jonction dépendra de
+l'ordre dans lequel ils sont dessinés, ce qui peut laisser apparaître
+un fantôme de l'objet blanchi comme ci-dessous@tie{}:
+
+@lilypond[quote,verbatim,relative=2]
+\override Staff.Clef #'color = #white
+a1
+@end lilypond
+
+Cet inconvénient peut être évité en modifiant l'ordre dans lequel les
+objets sont dessinés.  Chaque objet de rendu dispose d'une propriété
+@code{layer} (calque ou niveau) à laquelle est affecté un nombre entier.
+Les objets ayant la plus faible valeur sont dessinés en premier, puis
+les autres, de telle sorte qu'un objet ayant une valeur plus élevée les
+recouvrira.  La plupart des objet ont un @code{layer} valorisé
+à@tie{}@code{1} -- quelques uns, dont @code{StaffSymbol} et
+@code{BarLine}, ont une valeur à@tie{}@code{0}.  L'ordre d'impression
+d'objets ayant une même valeur de @code{layer} est indéterminé.
+
+La clef de l'exemple précédent a par défaut un @code{layer}
+à@tie{}@code{1}@tie{}; elle est donc dessinée après les lignes de la
+portée -- @code{layer} valorisé par défaut à@tie{}@code{0} -- et donc
+les recouvre.  Pour changer cet état de fait, l'objet @code{Clef} doit
+avoir un @code{layer} de valeur inférieure, disons @w{@code{-1}}, pour
+pouvoir être dessiné avant.
+
+@lilypond[quote,verbatim,relative=2]
+\override Staff.Clef #'color = #white
+\override Staff.Clef #'layer = #-1
+a1
+@end lilypond
 
 
 @node Utilisation de break-visibility
 @unnumberedsubsubsec Utilisation de break-visibility
 @translationof Using break-visibility
 
-@untranslated
+@cindex break-visibility
+
+La plupart des objets de rendu ne sont imprimés qu'une seule fois@tie{};
+certains cependant, tels les barres de mesure, clefs, métriques ou
+armures, apparaîtront deux fois lors d'un saut de ligne -- une première
+fois en fin de ligne, puis à nouveau au début de la ligne suivante.  Ces
+objets, que l'on peut traîter de @emph{changeables} (@emph{breakable} en
+anglais) disposent de la propriété @code{break-visibility} spécialement
+chargée de contrôler leur visibilité aux trois endroits où il sont
+susceptibles d'apparaître@tie{}: en début de ligne, en cours de ligne ou
+en fin de ligne -- si tant est qu'un changement s'y produise.
+
+Par exemple, la métrique est imprimée par défaut au début de la première
+ligne, et nulle part ailleurs.  En cas de modification, une nouvelle
+métrique sera imprimée à l'endroit du changement.  Dans le cas où ce
+changement intervient en fin de ligne, la nouvelle métrique s'imprime au
+début de la ligne suivante, et une métrique @qq{de précaution} viendra
+se placer au bout de la ligne précédente.
+
+Ce comportement est géré par la propriété @code{break-visibility}, dont
+vous trouverez une explication à la rubrique
+@rlearning{Visibilité et couleur des objets}.  Cette propriété est
+constituée d'un vecteur de trois boléens qui, dans l'ordre, déterminent
+si l'objet sera imprimé à la fin, en cours, et au début d'une ligne --
+on pourrait aussi dire avant un saut de ligne, là où il n'y a pas de
+saut de ligne, et après un saut de ligne.
+
+Les huit combinaisons possibles sont aussi disponibles sous la forme de
+fonctions prédéfinies, regroupées dans le fichier
+@file{scm/output-lib.scm}.  Le tableau suivant vous les présente@tie{};
+les trois dernières colonnes indiquent l'endroit où l'objet sera visible.
+
+@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t. )}} {apres} {apres} {apres}
+@headitem Forme                      @tab Forme                  @tab Avant @tab Hors    @tab Après
+@headitem fonctionnelle              @tab vectorielle            @tab saut  @tab saut    @tab saut
+
+@item @code{all-visible}             @tab @code{'#(#t #t #t)}    @tab oui    @tab oui    @tab oui
+@item @code{begin-of-line-visible}   @tab @code{'#(#f #f #t)}    @tab non    @tab non    @tab oui
+@item @code{center-visible}          @tab @code{'#(#f #t #f)}    @tab non    @tab oui    @tab non
+@item @code{end-of-line-visible}     @tab @code{'#(#t #f #f)}    @tab oui    @tab non    @tab non
+@item @code{begin-of-line-invisible} @tab @code{'#(#t #t #f)}    @tab oui    @tab oui    @tab non
+@item @code{center-invisible}        @tab @code{'#(#t #f #t)}    @tab oui    @tab non    @tab oui
+@item @code{end-of-line-invisible}   @tab @code{'#(#f #t #t)}    @tab non    @tab oui    @tab oui
+@item @code{all-invisible}           @tab @code{'#(#f #f #f)}    @tab non    @tab non    @tab non
+@end multitable
+
+Les réglages par défaut de la propriété @code{break-visibility}
+diffèrent selon l'objet de rendu.  Le tableau suivant présente, pour la
+plupart des  objets comportant la propriété @code{break-visibility},
+ces réglages par défaut.
+
+@multitable @columnfractions .3 .3 .4
+
+@headitem Objet de rendu   @tab Contexte habituel  @tab Réglage par défaut
+
+@c omit Ambitus as it appears not to be affected by break-visibility -td
+@c @item @code{Ambitus}          @tab as specified   @tab @code{begin-of-line-visible}
+@item @code{BarLine}             @tab @code{Score}          @tab calculé
+@item @code{BarNumber}           @tab @code{Score}          @tab @code{begin-of-line-visible}
+@c omit the following item until it can be explained -td
+@c @item @code{BreakAlignGroup}  @tab @code{Score}          @tab calculé
+@item @code{BreathingSign}       @tab @code{Voice}          @tab @code{begin-of-line-invisible}
+@item @code{Clef}                @tab @code{Staff}          @tab @code{begin-of-line-visible}
+@item @code{Custos}              @tab @code{Staff}          @tab @code{end-of-line-visible}
+@item @code{DoublePercentRepeat} @tab @code{Voice}          @tab @code{begin-of-line-invisible}
+@c omit KeyCancellation until it can be explained -td
+@c @item @code{KeyCancellation}  @tab ??             @tab @code{begin-of-line-invisible}
+@item @code{KeySignature}        @tab @code{Staff}          @tab @code{begin-of-line-visible}
+@c omit LeftEdge until it can be explained -td
+@c @item @code{LeftEdge}         @tab @code{Score}          @tab @code{center-invisible}
+@item @code{OctavateEight}       @tab @code{Staff}          @tab @code{begin-of-line-visible}
+@item @code{RehearsalMark}       @tab @code{Score}          @tab @code{end-of-line-invisible}
+@item @code{TimeSignature}       @tab @code{Staff}          @tab @code{all-visible}
+
+@end multitable
+
+Voici un exemple d'utilisation de la forme vectorielle pour contrôler la
+visibilité des barres de mesure@tie{}:
+
+@lilypond[quote,verbatim,relative=1,ragged-right]
+f4 g a b
+f4 g a b
+% Remove bar line at the end of the current line
+\once \override Score.BarLine #'break-visibility = #'#(#f #t #t)
+\break
+f4 g a b
+f4 g a b
+@end lilypond
+
+Lors d'un forçage de @code{break-visibility} sous une forme vectorielle,
+les trois éléments doivent impérativement être mentionnés.  Ces formes
+vectorielles ne sont d'ailleurs pas prises en charge par tous les objets
+de rendu, et certaines combinaisons peuvent entraîner des erreurs@tie{};
+nous citerons entre autres@tie{}:
+
+@itemize @bullet
+@item Une barre de mesure ne peut s'imprimer en début de ligne.
+@item Un numéro de mesure ne peut apparaître au début de la première
+ligne, à moins d'être différent de@tie{}1.
+@item Clef -- voir ci-après.
+@item Les répétitions en pourcentage sont soit toutes imprimées, soit
+aucune.  Vous devrez utiliser @code{begin-of-line-invisible} pour les
+voir et @code{all-invisible} pour les masquer.
+@item Armure -- voir ci-après.
+@item Indication d'octaviation -- voir ci-après.
+@end itemize
 
 
 @node Considérations spécifiques
 @unnumberedsubsubsec Considérations spécifiques
 @translationof Special considerations
 
-@untranslated
+@strong{@emph{Visibilité après changement explicite}}
+
+@cindex armure, visibilité après changement explicite
+@cindex explicitKeySignatureVisibility
+@cindex clef, visibilité après changement explicite
+@cindex explicitClefVisibility
+
+La propriété @code{break-visibility} contrôle la visibilité des armures
+ou changements de clef en début de ligne uniquement, donc après un saut.
+Elle ne produit aucun effet sur la visibilité d'une armure ou d'une clef
+après un changement explicite de tonalité ou de clef, ni en cours, ni en
+fin de ligne.  Dans l'exemple suivant, l'armure est présente même après
+le passage en si bémol majeur malgré l'activation de
+@code{all-invisible} (@emph{tous invisibles}).
+
+@lilypond[quote,verbatim,relative=1,ragged-right]
+\key g \major
+f4 g a b
+% Try to remove all key signatures
+\override Staff.KeySignature #'break-visibility = #all-invisible
+\key bes \major
+f4 g a b
+\break
+f4 g a b
+f4 g a b
+@end lilypond
+
+La visibilité lors de ces changements explicites d'armure ou de clef est
+géré respectivement par les propriétés
+@code{explicitKeySignatureVisibility} et @code{explicitClefVisibility}.
+Leur fonctionnement est en tout point identique à celui de la propriété
+@code{break-visibility} -- forme vectorielle à trois éléments ou forme
+fonctionnelle comme indiqué ci-avant.  Toutes deux sont attachées au
+contexte @code{Staff} (la portée) et non directement aux objets de
+rendu@tie{}; elles sont de ce fait introduites par une instruction
+@code{\set}.  Leur valeur par défaut est de toujours imprimer les objets
+-- réglage sur @code{all-visible}.  Ces deux propriétés gèrent
+uniquement la visibilité des armures et clefs lors d'un changement
+explicite, et en dehors d'un début de ligne@tie{}; il faudra en pareil
+cas forcer la @code{break-visibility} de ces objets pour les supprimer.
+
+@lilypond[quote,verbatim,relative=1,ragged-right]
+\key g \major
+f4 g a b
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\override Staff.KeySignature #'break-visibility = #all-invisible
+\key bes \major
+f4 g a b \break
+f4 g a b
+f4 g a b
+@end lilypond
+
+@strong{@emph{Visibilité des altérations de précaution}}
+
+L'impression d'altérations de précaution au moment d'un changement
+explicite de tonalité sera annulée dès lors que vous aurez désactivé la
+propriété @code{printKeyCancellation} du contexte @code{Staff}@tie{}:
+
+@lilypond[quote,verbatim,relative=1,ragged-right]
+\key g \major
+f4 g a b
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\set Staff.printKeyCancellation = ##f
+\override Staff.KeySignature #'break-visibility = #all-invisible
+\key bes \major
+f4 g a b \break
+f4 g a b
+f4 g a b
+@end lilypond
+
+Avec de tels réglages particuliers, seules les altérations accidentelles
+premettront d'indiquer le changement de tonalité.
+
+@c TODO Add visibility of cautionary accidentals before notes
+
+@strong{@emph{Barres de mesure automatiques}}
+
+@cindex automaticBars
+@cindex barres de mesure, suppression
+
+La désactivation de la propriété @code{automaticBars}, qui réside dans
+le contexte @code{Score}, permet de s'affranchir d'imprimer
+automatiquement les barres de mesure@tie{}; seules seront imprimées les
+barres explicitées à l'aide de la commande @code{\bar}.  Néanmoins, et
+contrairement à ce qui se passe avec la commande @code{\cadenzaOn}, le
+compteur de numéro de mesure continuera de s'incrémenter.  Les barres
+s'imprimeront à nouveau, au niveau où en est le compteur, dès que la
+propriété @code{automaticBars} sera réactivée.  Gardez à l'esprit que
+les sauts de ligne, lorsque cette propriété est désactivée,  ne peuvent
+intervenir qu'à l'occasion d'un @code{\bar} explicite.
+
+@c TODO Add example
+
+@strong{@emph{Clefs octaviées}}
+
+@cindex octaviation, visibilité de la clef
+@cindex visibilité d'un clef octaviée
+@cindex clef, visibilité de l'octaviation
+
+L'indication d'octaviation d'une clef est produite par l'objet de rendu
+@code{OctavateEight}.  Sa visibilité étant gérée par héritage direct de
+l'objet @code{Clef}, nul n'est besoin de forcer un quelconque
+@code{break-visibility} au niveau des objets @code{OctavateEight} pour
+éliminer une indication d'octaviation lorsque la clef est invisible.
+
+Lors d'un changement explicite de clef, la propriété
+@code{explicitClefVisibility} gère à la fois le symbole de la clef et
+l'indication d'octaviation qui lui est attachée.
+
+
+@seealso
+Manuel d'initiation :
+@rlearning{Visibilité et couleur des objets}
 
 
 @node Styles de ligne
 @subsection Styles de ligne
 @translationof Line styles
 
-@untranslated
+Certaines indications portées à l'attention de l'exécutant -- tels 
+@i{rallentando}, @i{accelerando} et @i{trilles} -- apparaissent sous la
+forme d'un texte qui peut s'étendre sur plusieurs mesures à l'aide d'une
+ligne parfois pointillée ou ondulée.
+
+En matière de dessin du texte et des lignes, ces indications font appel
+aux mêmes routines que le glissando@tie{}; leur comportement peut donc
+être affiné selon les mêmes préceptes, au moyen de la routine
+@code{ly:line-interface::print} qui est tout spécialement chargée de
+dessiner les extenseurs.  Cette routine détermine l'emplacement exact
+des deux points extrêmes de l'extenseur, puis trace une ligne du style
+demandé entre ces deux points.
+
+L'exemple ci-dessous indique les différents styles de ligne disponibles,
+ainsi que la manière de les spécifier.
+
+@lilypond[relative=2,ragged-right,verbatim,quote]
+d2 \glissando d'2
+\once \override Glissando #'style = #'dashed-line
+d,2 \glissando d'2
+\override Glissando #'style = #'dotted-line
+d,2 \glissando d'2
+\override Glissando #'style = #'zigzag
+d,2 \glissando d'2
+\override Glissando #'style = #'trill
+d,2 \glissando d'2
+@end lilypond
+
+Les points d'ancrage de l'extension sont calculés à la volée pour chaque
+objet graphique, mais rien ne vous empêche de les forcer@tie{}:
+
+@c TODO Complete
+@lilypond[relative=2,ragged-right,verbatim,quote]
+e2 \glissando f
+\once \override Glissando #'(bound-details right Y) = #-2
+e2 \glissando f
+@end lilypond
+
+La valeur de @code{Y} est ainsi fixée à @w{@code{-2}} en ce qui concerne
+la borne droite.  Il en irait de même pour la borne gauche en spécifiant
+@code{left} (gauche) au lieu de @code{right} (droite).
+
+En l'absence de réglage du @code{Y}, celui-ci est calculé à partir de
+l'emplacement vertical des points d'attache gauche et droit de
+l'extenseur.
+
+De plus amples informations quant à l'ajustement des extenseurs font
+l'objet de la rubrique @ref{Extenseurs et prolongateurs}.
 
 
 @node Rotation des objets
 @subsection Rotation des objets
 @translationof Rotating objects
 
-@untranslated
-
+Qu'il s'agisse des objets de rendu ou d'éléments textuels sous forme de
+@emph{markup}, vous pouvez les faire pivoter selon vos désirs et à
+partir de n'importe quel point.  La méthode diffère cependant selon ce
+que vous désirez manipuler.
 
 @menu
 * Rotation des objets de mise en forme::
 * Rotation des étiquettes::
 @end menu
 
+
 @node Rotation des objets de mise en forme
 @unnumberedsubsubsec Rotation des objets de mise en forme
 @translationof Rotating layout objects
 
-@untranslated
+Tout objet de rendu disposant de la @code{grob-interface} est
+susceptible de pivoter, grâce à la propriété @code{rotation}.  Celle-ci
+prend en argument une liste de trois éléments@tie{}: l'angle de rotation
+-- dans le sens inverse des aiguilles d'une montre -- ainsi que les
+coordonnées @code{x} et @code{y} du point appartenant à l'objet en
+question et à partir duquel doit s'effectuer cette rotation.  L'angle
+est exprimé en degrés, les coordonnées en espaces de portée.
+
+L'angle et les coordonnées ne peuvent se déterminer que par tâtonnement.
+
+@cindex soufflet penché
+
+Il existe assez peu de situation où faire pivoter un objet de mise en
+forme soit réellement opportun@tie{}; en voici une@tie{}:
+
+@lilypond[quote,verbatim,relative=1]
+g4\< e' d' f\!
+\override Hairpin #'rotation = #'(20 -1 0)
+g,,4\< e' d' f\!
+@end lilypond
 
 
 @node Rotation des étiquettes
 @unnumberedsubsubsec Rotation des étiquettes
 @translationof Rotating markup
 
-@untranslated
+Tout texte faisant l'objet d'un @emph{markup} peut pivoter selon
+n'importe quel angle, à l'aide de la commande @code{\rotate}.  Celle-ci
+prend deux arguments@tie{}: l'angle de rotation exprimé en degrés --
+dans le sens inverse des aiguilles d'une montre -- et le texte à
+basculer.
+@c ne vois comment traduire -jcm
+@ignore
+The extents of the text are not rotated: they take
+their values from the extremes of the x and y coordinates of the
+rotated text.
+@end ignore
+Dans l'exemple ci-dessous, la propriété @code{outside-staff-priority} à
+été fixée à @code{#f} afin de désactiver l'évitement automatique des
+collisions qui pourrait repousser certains textes trop haut.
+
+@c KEEP LY
+@lilypond[quote,verbatim,relative=1]
+\override TextScript #'outside-staff-priority = ##f
+g4^\markup { \rotate #30 "un sol" }
+b^\markup { \rotate #30 "un si" }
+des^\markup { \rotate #30 "un ré bémol" }
+fis^\markup { \rotate #30 "un fa dièse" }
+@end lilypond
 
 
 @node Retouches avancées
 @section Retouches avancées
 @translationof Advanced tweaks
 
-@untranslated
-
+Nous allons voir, au fil des paragraphes qui suivent, différentes
+approches permettant de fignoler l'apparence d'une partition.
 
 @menu
 * Alignement des objets::
@@ -2426,64 +3396,388 @@ qu'au travers d'une complète redéfinition de leur liste associative.}
 * Modification de l'allure des éléments::
 @end menu
 
+@seealso
+Manuel d'initiation :
+@rlearning{Autres sources de documentation},
+@rlearning{Retouche de partition}.
+
+Manuel de notation :
+@ref{En quoi consiste la référence des propriétés internes},
+@ref{Modification de propriétés}.
+
+Fichiers d'initialisation :
+@file{scm/define-grobs.scm}.
+
+Morceaux choisis :
+@rlsrnamed{Tweaks and overrides,Retouches}.
+
+Manuel d'extension :
+@rextend{Interfaces for programmers}.
+
+Référence des propriétés internes :
+@rinternals{All layout objects}.
+
+
 @node Alignement des objets
 @subsection Alignement des objets
 @translationof Aligning objects
 
-@untranslated
+Les objets graphiques disposant des interfaces
+@code{self-alignment-interface} ou @code{side-position-interface}
+peuvent s'aligner par rapport à un objet précédemment positionné, ce de
+différentes manières.  Ces objets sont référencés aux rubriques
+@rinternals{self-alignment-interface} et
+@rinternals{side-position-interface}.
 
+Tous les objets graphiques ont un point de référence, une étendue
+horizontale et une étendue verticale.  L'étendue horizontale est
+représentée par une paire de nombres indiquant l'écart entre le point de
+référence et les bords gauche et droit -- l'écart à gauche étant
+négatif.  L'étendue verticale est représentée par une paire de nombres
+indiquant l'écart entre le point de référence et les bords inférieur et
+supérieur -- l'écart vers le bas étant négatif.
+
+La position d'un objet sur la portée est donnée par la valeur des
+propriétés @code{X-offset} et @code{Y-offset}.  La valeur de
+@code{X-offset} indique l'écart en abscisse (coordonnée X) par rapport
+au point de référence de l'objet parent@tie{}; la valeur de
+@code{Y-offset} indique l'écart par rapport à la ligne médiane de la
+portée.  Les valeurs de @code{X-offset} et @code{Y-offset} peuvent être
+fournies arbitrairement, ou bien être calculé par des procédures
+spécifiques qui détermineront l'alignement par rapport à l'objet parent.
+
+@warning{Nombre d'objets sont affectés par des considérations
+spécifiques en matière de positionnement@tie{}; jouer sur les valeurs de
+@code{X-offset} ou @code{Y-offset} se révélera inefficace en pareil
+cas, même si l'objet dispose de la @code{self-alignment-interface}.
+Fixer arbitrairement les propriétés @code{X-offset} ou @code{Y-offset}
+annihilera alors les effets de la propriété @code{self-alignment}
+correspondante.}
+
+Par exemple, une altération peut se repositionner verticalement grâce à
+son @code{Y-offset}@tie{}; toute modification de son @code{X-offset}
+restera par contre sans effet.
+
+Les indications de repère s'alignent sur des objets de rupture -- tels
+les barres de mesure, clefs, métriques et armures.  Certaines propriétés
+spécifiques -- dépendant de la @code{break-aligned-interface} --
+permettent de gérer le positionnement des indications de repère sur ces
+objets.
 
 @menu
 * Détermination directe de @code{X-offset} et @code{Y-offset}::
 * Utilisation de @code{side-position-interface}::
 * Utilisation de @code{self-alignment-interface}::
-* Utilisation de @code{aligned-on-parent}::
-* Utilisation de @code{centered-on-parent}::
 * Utilisation de @code{break-aligned-interface}::
 @end menu
+
+@seealso
+Manuel d'extension :
+@rextend{Callback functions}.
+
 
 @node Détermination directe de @code{X-offset} et @code{Y-offset}
 @unnumberedsubsubsec Détermination directe de @code{X-offset} et @code{Y-offset}
 @translationof Setting @code{X-offset} and @code{Y-offset} directly
 
-@untranslated
+Vous pouvez fournir, pour de nombreux objets, des valeurs numériques aux
+propriétés @code{X-offset} et @code{Y-offset}.  Voici par exemple une
+note avec indication du doigté tout d'abord avec un positionnement par
+défaut, puis repositionnement par modification successive du
+@code{X-offset} et du @code{Y-offset}.
+
+@lilypond[verbatim,quote,relative=2]
+a-3
+a
+-\tweak #'X-offset #0
+-\tweak #'Y-offset #0
+-3
+a
+-\tweak #'X-offset #-1
+-\tweak #'Y-offset #1
+-3
+@end lilypond
+
+@c TODO write more
 
 
 @node Utilisation de @code{side-position-interface}
 @unnumberedsubsubsec Utilisation de @code{side-position-interface}
 @translationof Using the @code{side-position-interface}
 
-@untranslated
+Un objet disposant de la @code{side-position-interface} peut se voir
+accolé à son voisin de telle sorte que les bords des deux objets se
+touchent.  Un tel objet peut se positionner au-dessus, en dessous, à
+droite ou à gauche de son parent.  Ce parent ne saurait être
+stipulé@tie{}; il est déterminé par l'ordre d'apparition des éléments
+dans le flux des saisies.  La plupart de ces objets ont pour parent une
+tête de note.
+
+Les valeurs des propriétés @code{side-axis} et @code{direction}
+détermineront l'endroit où viendra se positionner l'objet, selon les
+préceptes suivants@tie{}:
+
+@c TODO add an example of each to the table
+
+@multitable @columnfractions .3 .3 .3
+@headitem Propriété         @tab Propriété         @tab Positionnement
+@headitem @code{side-axis}  @tab @code{direction}  @tab
+
+@item     @code{0}          @tab @code{-1}         @tab gauche
+@item     @code{0}          @tab @code{1}          @tab droite
+@item     @code{1}          @tab @code{-1}         @tab en dessous
+@item     @code{1}          @tab @code{1}          @tab au-dessus
+
+@end multitable
+
+Pour un @code{side-axis} à @code{0}, le @code{X-offset} devrait engager
+la procédure @code{ly:side-position-interface::x-aligned-side}.
+Celle-ci renverra la valeur adéquate de @code{X-offset} permettant
+d'accoler l'objet sur la droite ou sur la gauche de son parent, selon la
+valeur de @code{direction}.
+
+Pour un @code{side-axis} à @code{1}, le @code{Y-offset} devrait engager
+la procédure @code{ly:side-position-interface::y-aligned-side}.
+Celle-ci renverra la valeur adéquate de @code{Y-offset} permettant
+d'accoler l'objet au-dessus ou en dessous de son parent, selon la
+valeur de @code{direction}.
+
+@c TODO Add examples
 
 
 @node Utilisation de @code{self-alignment-interface}
 @unnumberedsubsubsec Utilisation de @code{self-alignment-interface}
 @translationof Using the @code{self-alignment-interface}
 
-@untranslated
+@emph{Réalignement d'objets horizontalement}
 
-@node Utilisation de @code{aligned-on-parent}
+L'alignement horizontal d'un objet disposant de la
+@code{self-alignment-interface} dépend de la valeur de sa propriété
+@code{self-alignment-X}, si tant est que la propriété @code{X-offset} de
+cet objet engage la procédure
+@code{ly:self-alignment-interface::x-aligned-on-self}.
+La propriété @code{self-alignment-X} peut contenir un nombre réel,
+l'unité de base étant la moitié de l'étendue horizontale de l'objet.
+Une valeur négative décalera l'objet vers la droite, une valeur positive
+vers la gauche.  La valeur@tie{}@code{0} permet de centrer l'objet sur
+le point de référence de son parent.  Une valeur de@tie{}@w{@code{-1}}
+alignera le bord gauche de l'objet sur le point de référence de son
+parent, et une valeur de@tie{}@code{1} alignera le bord droit de l'objet
+sur le point de référence de son parent.  Les valeurs symboliques
+@code{LEFT}, @code{CENTER} et @code{RIGHT} correspondent respectivement
+à@tie{}@w{@code{-1}}, @code{0} et @code{1}.
+
+En règle générale, la valeur de @code{self-alignment-X} se modifie à
+l'aide d'une commande @code{\override}.  Le recours à la commande
+@code{\tweak} permet de traiter séparément plusieurs annotations
+affectées à une même note@tie{}:
+
+@lilypond[quote,verbatim,relative=1]
+a'
+-\tweak #'self-alignment-X #-1
+^"left-aligned"
+-\tweak #'self-alignment-X #0
+^"center-aligned"
+-\tweak #'self-alignment-X #RIGHT
+^"right-aligned"
+-\tweak #'self-alignment-X #-2.5
+^"aligned further to the right"
+@end lilypond
+
+
+@emph{Réalignement d'objets verticalement}
+
+L'alignement vertical suit le même principe@tie{}: la propriété
+@code{Y-offset} doit alors engager la procédure
+@code{ly:self-alignment-interface::y-aligned-on-self}.  Toutefois, il
+arrive bien souvent que d'autres mécanismes interviennent dans
+l'alignement vertical.  La valeur de @code{Y-offset} n'étant que
+l'une des variables qui seront prises en compte, l'ajustement pour
+certains objets peut se révéler fastidieux.  L'unité de base est
+relativement réduite, puisqu'elle est de la moitié de l'étendue
+verticale de l'objet@tie{}; le nombre à fournir en argument pourrait
+donc être relativement élevé.  Une valeur de@tie{}@w{@code{-1}}
+alignera le bord inférieur de l'objet sur le point de référence de son
+parent, et une valeur de@tie{}@code{1} alignera le bord supérieur de
+l'objet sur le point de référence de son parent.  La
+valeur@tie{}@code{0} permet de centrer l'objet sur le point de référence
+de son parent.  Les valeurs symboliques @code{DOWN}, @code{CENTER} et
+@code{UP} correspondent respectivement à@tie{}@w{@code{-1}}, @code{0} et
+@code{1}.
+
+
+@emph{Réalignement d'objets sur les deux axes}
+
+Définir à la fois @code{X-offset} et @code{Y-offset} permet de réaligner
+un objet sur les deux axes.
+
+Dans l'exemple ci-dessous, nous ajustons l'indication de doigté de telle
+sorte qu'elle se place au plus près de la tête de note.
+
+@lilypond[quote,verbatim,relative=2]
+a
+-\tweak #'self-alignment-X #0.5  % move horizontally left
+-\tweak #'Y-offset #ly:self-alignment-interface::y-aligned-on-self
+-\tweak #'self-alignment-Y #-1  % move vertically up
+-3  % third finger
+@end lilypond
+
+
+@ignore
 @unnumberedsubsubsec Utilisation de @code{aligned-on-parent}
 @translationof Using the @code{centered-on-parent} procedures
 
-@untranslated
+@c Cannot document as they do not seem to operate consistently on all objects -td
+@c TODO investigate further
 
-@node Utilisation de @code{centered-on-parent}
-@unnumberedsubsubsec Utilisation de @code{centered-on-parent}
-@translationof Using the @code{centered-on-parent} procedures
+The @code{aligned-on-parent} procedures are used in the same way
+as the @code{aligned-on-self} procedures, they difference being
+that they permit an object to be aligned with the @emph{edges} of
+the parent rather than the parent's reference point.  The following
+example shows the difference:
 
-@untranslated
+@c TODO Add example
+
+@lilypond[verbatim,quote]
+@end lilypond
+
+@end ignore
+
+
+@ignore
+@c unnumberedsubsubsec Utilisation de @code{centered-on-parent}
+@c translationof Using the @code{centered-on-parent} procedures
+
+@c Cannot document as they do not seem to operate consistently on all objects -td
+@c TODO investigate further
+
+@end ignore
+
+@c TODO The align-interface, BassFigureAlignment and VerticalAlignment
+
 
 @node Utilisation de @code{break-aligned-interface}
 @unnumberedsubsubsec Utilisation de @code{break-aligned-interface}
 @translationof Using the @code{break-alignable-interface}
 
-@untranslated
+@cindex alignement sur un objet
+@cindex break-align-symbols
+
+Indications de répère et numéros de mesure peuvent s'aligner sur des
+objets de notation autres qu'une barre de mesure.  Parmi ces objets,
+nous citerons @code{ambitus}, @code{breathing-sign}, @code{clef},
+@code{custos}, @code{staff-bar}, @code{left-edge},
+@code{key-cancellation}, @code{key-signature}, et @code{time-signature}.
+
+Ces indications et numéros de mesure sont par défaut centrés
+horizontalement au-dessus de l'objet@tie{}:
+
+@lilypond[verbatim,quote,relative=1]
+% The rehearsal mark will be centered above the Clef
+\override Score.RehearsalMark #'break-align-symbols = #'(clef)
+\key a \major
+\clef treble
+\mark "↓"
+e1
+% The rehearsal mark will be centered above the Time Signature
+\override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
+\key a \major
+\clef treble
+\time 3/4
+\mark "↓"
+e2.
+% The rehearsal mark will be centered above the Breath Mark
+\override Score.RehearsalMark #'break-align-symbols = #'(breathing-sign)
+\key a \major
+\clef treble
+\time 4/4
+e1
+\breathe
+\mark "↓"
+@end lilypond
+
+Les différents objets sur lesquels l'alignement pourrait intervenir
+seront regroupés dans une liste.  Si l'un des objets est invisible à
+l'endroit voulu, en raison d'un réglage de @code{break-visibility} ou
+bien par forçage de la visiblité des armures et clefs, le repère ou le
+numéro de mesure viendra s'aligner sur le premier élément de cette liste
+qui soit visible.  Dans le cas où aucun objet de la liste n'est visible,
+l'alignement se fera sur la barre de mesure ou, dans le cas où la barre
+de mesure est invisible, à l'endroit même où la barre prendrait place.
+
+@lilypond[verbatim,quote,relative=1]
+% The rehearsal mark will be centered above the Key Signature
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\key a \major
+\clef treble
+\mark "↓"
+e1
+% The rehearsal mark will be centered above the Clef
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\key a \major
+\clef bass
+\mark "↓"
+gis,,1
+% The rehearsal mark will be centered above the Bar Line
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\set Staff.explicitClefVisibility = #all-invisible
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\key a \major
+\clef treble
+\mark "↓"
+e''1
+@end lilypond
+
+L'alignement d'un repère sur un objet de notation peut se modifier,
+comme l'illustre l'exemple suivant.  Toutefois, si la partition comporte
+plusieurs portées, ce réglage devra apparaître dans chacune des portées.
+
+@lilypond[verbatim,quote,relative=1]
+% The RehearsalMark will be centered above the Key Signature
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+\key a \major
+\clef treble
+\time 4/4
+\mark "↓"
+e1
+% The RehearsalMark will be aligned with the left edge of the Key Signature
+\once \override Score.KeySignature #'break-align-anchor-alignment = #LEFT
+\mark "↓"
+\key a \major
+e1
+% The RehearsalMark will be aligned with the right edge of the Key Signature
+\once \override Score.KeySignature #'break-align-anchor-alignment = #RIGHT
+\key a \major
+\mark "↓"
+e1
+@end lilypond
+
+Le bord gauche d'un repère peut se décaler arbitrairement sur la gauche
+ou la droite.  La valeur est exprimée en espaces de portée.
+
+@lilypond[verbatim,quote,relative=1]
+% The RehearsalMark will be aligned with the left edge of the Key Signature
+% and then shifted right by 3.5 staff-spaces
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+\once \override Score.KeySignature #'break-align-anchor = #3.5
+\key a \major
+\mark "↓"
+e1
+% The RehearsalMark will be aligned with the left edge of the Key Signature
+% and then shifted left by 2 staff-spaces
+\once \override Score.KeySignature #'break-align-anchor = #-2
+\key a \major
+\mark "↓"
+e1
+@end lilypond
 
 
 @node Regroupement vertical d'objets graphiques
 @subsection Regroupement vertical d'objets graphiques
 @translationof Vertical grouping of grobs
+
+@c TODO Expand this section
 
 Les objets @code{VerticalAlignment} et @code{VerticalAxisGroup}
 travaillent de concert.  Comme leurs noms anglais l'indiquent,
@@ -2499,7 +3793,59 @@ l'ensemble de la partition, mais chaque contexte @code{Staff},
 @subsection Modification des stencils
 @translationof Modifying stencils
 
-@untranslated
+Tout objet de rendu dispose d'une propriété @code{stencil} attachée à la
+@code{grob-interface}.  En règle générale, cette propriété référence
+par défaut une fonction spécifique à l'objet et taillée sur mesure pour
+fournir le symbole qui va le représenter dans l'output.  Par exemple,
+le réglage standard de la propriété @code{stencil} de l'objet
+@code{MultiMeasureRest} est @code{ly:multi-measure-rest::print}.
+
+Le symbole standard d'un objet quel qu'il soit peut être remplacé à
+partir du moment où la propriété @code{stencil} référence une procédure
+différente et écrite à cet effet.  Ceci recquiert une bonne maîtrise du
+fonctionnement interne de LilyPond, mais est grandement facilité dans
+bien des cas et permet d'obtenir le résultat escompté.
+
+En effet, rien ne nous interdit, à partir de la propriété
+@code{stencil}, d'appeler la procédure qui génère du texte,
+@code{ly:text-interface::print} en l'occurence, et d'adjoindre à l'objet
+une propriété @code{text} qui contiendra, sous forme de @emph{markup},
+le symbole à dessein.  Grâce à l'extrême flexibilité des @emph{markups},
+vous pourrez parvenir à bien des choses -- voir à ce sujet
+@ref{Éléments graphiques dans du texte formaté}.
+
+C'est la technique employée ici, où l'une des têtes de note est
+remplacée par une croix inscrite dans un cercle@tie{}:
+
+@lilypond[verbatim,quote]
+XinO = {
+  \once \override NoteHead  #'stencil = #ly:text-interface::print
+  \once \override NoteHead #'text = \markup {
+    \combine
+      \halign #-0.7 \draw-circle #0.85 #0.2 ##f
+      \musicglyph #"noteheads.s2cross"
+  }
+}
+\relative c'' {
+  a a \XinO a a
+}
+@end lilypond
+
+Tous les glyphes de la fonte Feta sont accessibles à l'aide de la
+commande de @emph{markup} @code{\musicglyph} -- voir
+@ref{La fonte Feta}.
+
+@c TODO Add inserting eps files or ref to later
+
+@c TODO Add inserting Postscript or ref to later
+
+
+@seealso
+Manuel de notation :
+@ref{Text markup commands},
+@ref{Éléments graphiques dans du texte formaté},
+@ref{La fonte Feta},
+@ref{Mise en forme du texte}.
 
 
 @node Modification de l'allure des éléments
@@ -2510,33 +3856,257 @@ l'ensemble de la partition, mais chaque contexte @code{Staff},
 * Modification des liaisons::
 @end menu
 
+
 @node Modification des liaisons
 @unnumberedsubsubsec Modification des liaisons
 @translationof Modifying ties and slurs
 
-@untranslated
+@cindex liaison, modification
+@cindex Bézier, points de contrôle d'une courbe
+@cindex points de contrôle, courbe de Bézier
+
+Les liaisons, qu'elles soient de prolongation, d'articulation ou de
+phrasé, sont dessinées sous la forme de courbes de Bézier de degré
+trois.  Lorsque l'aspect de la liaison automatiquement calculé n'est pas
+satisfaisant,  il peut être modifié manuellement, en fournissant
+explicitement les quatre points de contrôle qui permettront de définir
+cette courbe.
+
+Quatre points définissent une courbe de Bézier cubique. Les premier et
+quatrième points sont les points de départ et d'arrivée de la
+courbe@tie{}; les deux autres points de contrôle -- P1 et P2 -- en
+détermineront l'allure.  La courbe se trace en partant du point P0, en
+se dirigeant vers P1 et en arrivant au point P3 selon la direction
+@w{P2-P3}.  La courbe est à l'intérieur de l'enveloppe convexe des
+points de contrôle.
+
+Voici par exemple une liaison de prolongation dont l'allure n'est pas
+des plus heureuses, même en optant pour un @code{\tieDown}.
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  { e1~ e }
+\\
+  { r4 <g c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+L'un des moyens d'améliorer cette liaison consiste à modifier
+manuellement ses quatre points de contrôle.
+
+Les coordonnées des points de contrôle sont données en unités d'espace
+de portée.  L'abscisse est relative au point de référence de la note de
+départ de la liaison@tie{}; l'ordonnée est relative à la ligne médiane
+de la portée.  Les différentes coordonnées sont entrées sous la forme
+d'une liste de quatre paires de nombres décimaux (ou nombres réels).
+L'une des manières de procéder consiste à tout d'abord estimer les
+coordonnées des deux extrémités puis, par tâtonnement, déterminer les
+deux points intremédiaires.
+
+Remarque intéressante au sujet des courbes@tie{}: une courbe sera
+symétrique si ses points de contrôle sont symétriques.  L'une des
+propriétés avantageuses des courbes de Bézier est que leur
+transformation -- déplacement, rotation ou échelonnement -- est
+réalisable en simplement corrigeant de manière identique ses points de
+contrôle.
+
+Pour l'exemple qui nous occupe, l'adaptation suivante nous permet
+d'obtenir un résultat plutôt satisfaisant.  Notez bien l'endroit où
+cette adaptation est stipulée@tie{}: juste avant la note de départ de la
+liaison.
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  {
+    \once \override Tie
+      #'control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
+     e1 ~ e
+  }
+\\
+  { r4 <g c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+@knownissues
+Lorsque plusieurs liaisons, quelle qu'en soit la nature, commencent au
+même moment, jouer sur la propriété @code{control-points} est
+impossible, et la commande @code{\tweak} inefficace.  Vous pouvez
+néanmoins influer sur la propriété @code{tie-configuration} de l'objet
+@code{TieColumn} pour déterminer la ligne de départ et l'orientation.
+
+@seealso
+Référence des propriétés internes :
+@rinternals{TieColumn}.
 
 
 @node Utilisation de fonctions musicales
 @section Utilisation de fonctions musicales
 @translationof Using music functions
 
+@c TODO -- add @seealso, etc. to these subsections
+
+Une adaptation ou un affinage qui devient récurrent parce que doit
+s'appliquer à différentes expressions musicales peut faire l'objet d'une
+@emph{fonction musicale}.  Nous ne traîterons ici que des fonctions de
+@emph{subtitution}, dont le but est de substituer une variable en un
+bout de code LilyPond.  D'autres fonctions, plus complexes, sont
+abordées au chapitre @rextendnamed{Music functions,Fonctions musicales}.
+
 @menu
 * Syntaxe d'une fonction de substitution::
 * Exemples de fonction de substitution::
 @end menu
 
+
 @node Syntaxe d'une fonction de substitution
 @subsection Syntaxe d'une fonction de substitution
 @translationof Substitution function syntax
 
-@untranslated
+La rédaction d'une fonction chargée de substituer du code LilyPond à une
+variable est chose relativement aisée.  Une telle fonction est de la forme
+
+@example
+fonction =
+#(define-music-function
+     (parser location @var{arg1} @var{arg2} @dots{})
+     (@var{type1?} @var{type2?} @dots{})
+   #@{
+     @var{@dots{}musique@dots{}}
+   #@})
+@end example
+
+@noindent
+où
+
+@multitable @columnfractions .33 .66
+@item @code{@var{argN}}
+@tab @var{n}ième argument.
+
+@item @code{@var{typeN?}}
+@tab un @emph{type de prédicat} Scheme pour lequel @code{@var{argN}}
+doit renvoyer @code{#t}.
+
+@item @code{@var{@dots{}musique@dots{}}}
+@tab du code LilyPond tout ce qu'il y a de plus ordinaire, avec des
+@code{$} (là où seule une construction LilyPond est autorisée) et des
+@code{#} (lorsqu'il s'agit d'une valeur en Scheme ou d'un argument de
+fonction musicale) pour référencer les arguments (par ex. @samp{#arg1}).
+@end multitable
+
+Les arguments @code{parser} et @code{location} sont obligatoires@tie{};
+ils sont utilisés dans certaines situations évoluées, comme indiqué dans
+le manuel d'extension des fonctionnalités à au chapitre
+@rextendnamed{Music functions,Fonctions musicales}.  Assurez-vous bien
+de ne pas les omettre dans vos fonctions de subtitution.
+
+La liste des types de prédicat est elle aussi obligatoire.  Voici
+quelques uns des types de prédicat les plus utilisés dans les fonctions
+musicales@tie{}:
+
+@example
+boolean?
+cheap-list?  @emph{(au lieu de }@q{list?}@emph{, pour accélérer le traitement)}
+ly:duration?
+ly:music?
+ly:pitch?
+markup?
+number?
+pair?
+string?
+symbol?
+@end example
+
+@noindent
+Une liste plus fournie est disponible à l'annexe
+@ref{Types de prédicats prédéfinis}.  Vous pouvez par ailleurs définir
+vos propres types de prédicat.
+
+
+@seealso
+
+Manuel de notation :
+@ref{Types de prédicats prédéfinis}.
+
+Manuel d'extension :
+@rextendnamed{Music functions, Fonctions musicales}.
+
+Fichiers d'initialisation :
+@file{lily/music-scheme.cc},
+@file{scm/c++.scm},
+@file{scm/lily.scm}.
 
 
 @node Exemples de fonction de substitution
 @subsection Exemples de fonction de substitution
 @translationof Substitution function examples
 
-@untranslated
+La présente rubrique regroupe quelques exemples de fonction
+substitutive.  Le propos est ici d'illustrer les possibilités qu'offrent
+les fonctions de substitution simple.
 
+Dans ce premier exemple, nous définissons une fonction dans le but de
+simplifier le réglage du décalage d'une annotation (un
+@code{TextScript}).
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+#(define-music-function
+     (parser location padding)
+     (number?)
+   #{
+     \once \override TextScript #'padding = #padding
+   #})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+
+Nous pouvons utiliser autre chose que des nombres au sein d'une
+fonction, y compris une expression musicale@tie{}:
+
+@c TODO: use a better example (the music argument is redundant).
+
+@lilypond[quote,verbatim,ragged-right]
+custosNote =
+#(define-music-function
+     (parser location note)
+     (ly:music?)
+   #{
+     \once \override Voice.NoteHead #'stencil =
+       #ly:text-interface::print
+     \once \override Voice.NoteHead #'text =
+       \markup \musicglyph #"custodes.mensural.u0"
+     \once \override Voice.Stem #'stencil = ##f
+     $note
+   #})
+
+\relative c' { c4 d e f \custosNote g }
+@end lilypond
+
+Une fonction de subtitution peut traiter plusieurs argument@tie{}:
+
+@lilypond[quote,verbatim,ragged-right]
+tempoPadded =
+#(define-music-function
+     (parser location padding tempotext)
+     (number? string?)
+   #{
+     \once \override Score.MetronomeMark #'padding = #padding
+     \tempo \markup { \bold #tempotext }
+   #})
+
+\relative c'' {
+  \tempo \markup { "Low tempo" }
+  c4 d e f g1
+  \tempoPadded #4.0 #"High tempo"
+  g4 f e d c1
+}
+@end lilypond
+
+@c TODO: add appropriate @@ref's here.
 
