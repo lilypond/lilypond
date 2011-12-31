@@ -1908,10 +1908,9 @@ c16 c8
 
 @warning{If beams are used to indicate melismata in songs, then
 automatic beaming should be switched off with @code{\autoBeamOff}
-and the beams indicated manually.}
-
-@warning{Using @code{@bs{}partcombine} with @code{@bs{}autoBeamOff} can
-produce unintended results.  See the snippet below for more information.}
+and the beams indicated manually.  Using @code{@bs{}partcombine} with
+@code{@bs{}autoBeamOff} can produce unintended results.  See the
+snippets for more information.}
 
 Beaming patterns that differ from the automatic defaults can be
 created; see @ref{Setting automatic beam behavior}.
@@ -1959,6 +1958,13 @@ Internals Reference:
 @rinternals{BeamForbidEvent},
 @rinternals{beam-interface},
 @rinternals{unbreakable-spanner-interface}.
+
+@knownissues
+The properties of a beam are determined at the @emph{start} of its
+construction and any additional beam-property changes that occur before
+the beam has been completed will not take effect until the @emph{next},
+new beam starts.
+
 
 @node Setting automatic beam behavior
 @unnumberedsubsubsec Setting automatic beam behavior
