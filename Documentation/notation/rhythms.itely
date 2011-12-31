@@ -2747,9 +2747,7 @@ c1 | c | c | c
 c1 | c | c | c
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-the-bar-number-for-the-first-measure.ly}
 
@@ -2762,6 +2760,12 @@ c1 | c | c | c
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-inside-boxes-or-circles.ly}
 
+@cindex bar numbers, with letters
+@cindex bar numbers, with repeats
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{alternative-bar-numbering.ly}
+
 @cindex bar number alignment
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -2770,7 +2774,6 @@ c1 | c | c | c
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {removing-bar-numbers-from-a-score.ly}
 
-
 @seealso
 Snippets:
 @rlsr{Rhythms}.
@@ -2778,7 +2781,6 @@ Snippets:
 Internals Reference:
 @rinternals{BarNumber},
 @rinternals{Bar_number_engraver}.
-
 
 @cindex bar number collision
 @cindex collision, bar number

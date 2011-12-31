@@ -60,6 +60,32 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+Two alternative methods for bar numbering can be set, especially for
+when using repeated music;
+
+@lilypond[fragment,quote,relative=1,noragged-right]
+\relative c'{
+  \set Score.alternativeNumberingStyle = #'numbers
+  \repeat volta 3 { c4 d e f | }
+    \alternative {
+      { c4 d e f | c2 d \break }
+      { f4 g a b | f4 g a b | f2 a | \break }
+      { c4 d e f | c2 d }
+    }
+  c1 \break
+  \set Score.alternativeNumberingStyle = #'numbers-with-letters
+  \repeat volta 3 { c,4 d e f | }
+    \alternative {
+      { c4 d e f | c2 d \break }
+      { f4 g a b | f4 g a b | f2 a | \break }
+      { c4 d e f | c2 d }
+    }
+  c1
+}
+@end lilypond
+
 @item
 Scheme expressions inside of embedded Lilypond (@code{#@{@dots{}#@}})
 are now executed in lexical closure of the surrounding Scheme code.
@@ -172,7 +198,6 @@ LilyPond creates. Possible values are ERROR, WARN, BASIC_PROGRESS, PROGRESS, DEB
   <e-1>
   <e-1>-"left"
 @end lilypond
-
 
 @item
 The alignment of dynamic spanners (hairpins, text crescendo, etc.) is now

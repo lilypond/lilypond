@@ -239,10 +239,10 @@ g1 |
 The @code{measureLength} property is described in @ref{Time
 administration}.
 
-@cindex repeats with ties
-@cindex alternative endings with ties
-@cindex ties in repeats
-@cindex ties in alternative endings
+@cindex repeats, with ties
+@cindex alternative endings, with ties
+@cindex ties, in repeats
+@cindex ties, alternative endings
 @funindex \repeatTie
 
 Ties may be added to a second ending:
@@ -257,7 +257,6 @@ c1
 @end lilypond
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {shortening-volta-brackets.ly}
 
@@ -266,6 +265,12 @@ c1
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-double-repeat-default-for-volte.ly}
+
+@cindex repeats, bar numbers letters
+@cindex repeats, alternative bar numbers
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{alternative-bar-numbering.ly}
 
 @seealso
 Music Glossary:
@@ -286,9 +291,7 @@ Internals Reference:
 @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 
-
 @knownissues
-
 @cindex repeat, ambiguous
 @cindex nested repeat
 @cindex repeat, nested
