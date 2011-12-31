@@ -1134,25 +1134,6 @@ git clone http://github.com/textmate/lilypond.tmbundle.git
 @subsubheading Score, tab and MIDI editors:
 
 @itemize
-@item
-@uref{http://www.rosegardenmusic.com,Rosegarden}, an audio and
-MIDI sequencer, which also has a score editor for single-staff
-editing.
-
-@item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
-a score editor based on the
-@uref{http://www.cairographics.org,Cairo} library, has
-experimental support for exporting to LilyPond.
-
-@item
-@uref{http://www.tuxguitar.com.ar/,TuxGuitar}, a multitrack
-tablature editor and player, includes a score viewer and can
-export to LilyPond.
-
-@item
-@uref{http://www.musescore.org,MuseScore}, a score editor, has
-incomplete LilyPond export but is being actively developed.
 
 @item
 @uref{http://www.canorus.org,Canorus}, a score editor, can also
@@ -1160,14 +1141,38 @@ export to LilyPond, but is still beta-software.  Testers are
 welcome, though.
 
 @item
-@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, a
-realtime monophonic MIDI to LilyPond converter.
+@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,
+NtEd}, a score editor based on the
+@uref{http://www.cairographics.org,Cairo} library, has experimental
+support for exporting to LilyPond.
+
+@item
+@uref{http://www.musescore.org,MuseScore}, a score editor, has
+incomplete LilyPond export but is being actively developed.
 
 @item
 @uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
 NW2LY} is a C# program which converts a
-@uref{http://www.noteworthysoftware.com/, NoteWorthy} song into
+@uref{http://www.noteworthysoftware.com/,NoteWorthy} song into
 LilyPond.
+
+@item
+@uref{https://github.com/ciconia/ripple/blob/master/README.markdown,
+Ripple} is a program that helps create scores and parts, including a
+mode for mixing different musical works together in a single score or
+part.
+
+@item
+@uref{http://www.rosegardenmusic.com,Rosegarden}, an audio and MIDI
+sequencer, which also has a score editor for single-staff editing.
+
+@item
+@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, a
+realtime monophonic MIDI to LilyPond converter.
+
+@item
+@uref{http://www.tuxguitar.com.ar/,TuxGuitar}, a multitrack tablature
+editor and player, includes a score viewer and can export to LilyPond.
 
 @end itemize
 
