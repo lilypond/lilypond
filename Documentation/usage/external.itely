@@ -27,6 +27,17 @@ LilyPond can interact with other programs in various ways.
 @node Point and click
 @section Point and click
 
+Point and click adds links to pdf documents for certain music
+elements.
+
+@menu
+* Enabling point and click::
+* Selective point-and-click::
+@end menu
+
+@node Enabling point and click
+@unnumberedsubsec Enabling point and click
+
 @cindex point and click
 
 Point and click lets you find notes in the input by clicking on them
@@ -42,8 +53,8 @@ follow hyperlinks using the @file{lilypond-invoke-editor} script
 supplied with LilyPond.
 
 For Xpdf on UNIX, the following should be present in
-@file{xpdfrc}@footnote{On UNIX, this file is found either in
-@file{/etc/xpdfrc} or as @file{.xpdfrc} in your home directory.}
+@file{xpdfrc}.  On UNIX, this file is found either in
+@file{/etc/xpdfrc} or as @file{$HOME/.xpdfrc}.
 
 @example
 urlCommand     "lilypond-invoke-editor %s"
@@ -114,6 +125,83 @@ lilypond -dno-point-and-click file.ly
 @warning{You should always turn off point and click in any LilyPond
 files to be distributed to avoid including path information about
 your computer in the .pdf file, which can pose a security risk.}
+
+@node Selective point-and-click
+@unnumberedsubsec Selective point-and-click
+
+For some interactive applications, it may be desirable to only
+include certain point-and-click items.  For example, if somebody
+wanted to create an application which played audio or video
+starting from a particular note, it would be awkward if clicking
+on the note produced the point-and-click location for an
+accidental or slur which occurred over that note.
+
+This may be controlled by indicating which events to include:
+
+@itemize
+@item
+Hard-coded in the @file{.ly} file:
+
+@example
+\pointAndClickTypes #'note-event
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+or
+
+@example
+#(ly:set-option 'point-and-click 'note-event)
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+@item
+Command-line:
+
+@example
+lilypond -dpoint-and-click=note-event   example.ly
+@end example
+
+@end itemize
+
+Multiple events can be included:
+
+@itemize
+@item
+Hard-coded in the @file{.ly} file:
+
+@example
+\pointAndClickTypes #'(note-event dynamic-event)
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+or
+
+@example
+#(ly:set-option 'point-and-click '(note-event dynamic-event))
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+@item
+Command-line:
+
+@smallexample
+lilypond \
+  -e"(ly:set-option 'point-and-click '(note-event dynamic-event))" \
+  example.ly
+@end smallexample
+
+
+@end itemize
+
+
 @node Text editor support
 @section Text editor support
 
