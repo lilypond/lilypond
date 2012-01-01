@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
+    Translation of GIT committish: 0d0a674ba7bfa052e277861427c0a2d7a6d2cdde
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -523,7 +523,7 @@ Los efectos especiales de guitarra se limitan a armónicos y @emph{slides}.
 @cindex trastes, instrumentos con, afinaciones predefinidas
 @cindex predefinidas, afinaciones, para instrumentos de traste
 
-@funindex StringTunings
+@funindex stringTunings
 
 La tablatura en LilyPond calcula automáticamente el traste para cada
 nota, basándose en la cuerda a que está asignada la nota.  Para
@@ -560,17 +560,18 @@ estándar Mi-La-Re-Sol-Si-Mi).  Otras afinaciones predefinidas son
 con Sol Mayor al aire).  Las afinaciones predefinidas están en
 @file{ly/string-tuning-init.ly}.
 
-@funindex contextStringTunings
-@funindex \contextStringTunings
+@funindex stringTuning
+@funindex \stringTuning
 @cindex tablaturas, afinaciones personalizadas
 @cindex personalizadas, afinaciones de cuerdas
 
-Es posible crear cualquier afinación de cuerdas que se desee.  Se
-puede usar la función @code{\contextStringTuning} para definir una
-afinación de cuerdas y establecerla como el valor de
+Es posible crear cualquier afinación de cuerdas que se desee.
+Se puede usar la función @code{\stringTuning} para definir una
+afinación de cuerdas y que puede usarse para
+establecerla como el valor de
 @code{stringTunings} para el contexto actual.
-@code{\contextStringTuning} admite dos argumentos: el símbolo en que
-se almacena la afinación de cuerdas y una construcción de acorde
+
+Su argumento es una construcción de acorde
 que define la altura de las notas de cada cuerda al aire en dicha
 afinación.  La construcción de acorde debe estar en el modo de
 octava absoluto, véase @ref{Escritura de octava absoluta}.
@@ -592,8 +593,7 @@ mynotes = {
     \mynotes
   }
   \new TabStaff {
-    #(define custom-tuning #{ \stringTuning <c' g' d'' a''> #})
-    \set stringTunings = #custom-tuning
+    \set stringTunings = \stringTuning <c' g' d'' a''>
     \mynotes
   }
 >>
@@ -602,17 +602,11 @@ mynotes = {
 La propiedad @code{stringTunings} también se utiliza por parte de
 @code{FretBoards} para calcular los diagramas de posición automáticos.
 
-@funindex makeStringTuning
-@funindex \makeStringTuning
-
 Las afinaciones de cuerdas se utilizan como parte de la clave de
 asociación para los diagramas de posición predefinidos (véase
-@ref{Diagramas predefinidos de trastes}).  Se usa la función
-@code{\makeStringTuning} para crear una afinación sin fijar el valor
-de la propiedad @code{stringTunings} en el contexto actual.  Los
-argumentos de @code{\makeStringTuning} son el símbolo que usar para la
-nueva afinación y una construcción de acorde que se usa para definir
-la afinación.  El ejemplo anterior también se podría haber escrito
+@ref{Diagramas predefinidos de trastes}).
+
+El ejemplo anterior también se podría haber escrito
 como sigue:
 
 @lilypond[quote,verbatim]
@@ -647,35 +641,26 @@ un objeto altura de LilyPond.  Los objetos altura se crean con la
 función de Scheme @code{ly:make-pitch} (véase
 @ref{Funciones de Scheme}).
 
-Se así se desea, puede crearse una afinación de cuerdas como un
-literal de Scheme.  El ejemplo de abajo recrea los ejemplos
-anteriores, pero la afinación no se guarda como un objeto separado:
-
-@lilypond[quote,verbatim]
-mynotes = {
-  c'4 e' g' c'' |
-  e''4 g'' b'' c'''
-}
-
-<<
-  \new Staff {
-    \clef treble
-    \mynotes
-  }
-  \new TabStaff {
-    \set TabStaff.stringTunings = #`(,(ly:make-pitch 1 5 0)
-				     ,(ly:make-pitch 1 1 0)
-				     ,(ly:make-pitch 0 4 0)
-				     ,(ly:make-pitch 0 0 0))
-    \mynotes
-  }
->>
-@end lilypond
+@code{\stringTuning} crea dicho objeto a partir de la entrada de
+acordes.
 
 LilyPond calcula automáticamente el número de líneas dentro del
 @code{TabStaff} y el número de cuerdas dentro de un @code{FretBoard}
 calculado automáticamente como el número de elementos de
 @code{stringTunings}.
+
+Para permitir a todos los contextos TabStaff usar la misma afinación
+personalizada por omisión, podemos usar
+
+@example
+\layout @{
+  \context @{
+    \TabStaff
+    stringTunings = \stringTuning \notemode @{ <c' g' d'' a''> @}
+  @}
+@}
+@end example
+
 
 @cindex moderntab, clave
 @cindex clave moderntab
@@ -1948,24 +1933,23 @@ los trastes para la quinta cuerda:
 @funindex banjo-open-dm-tuning
 @funindex four-string-banjo
 
-En LilyPond se encuentran predefinidas varias afinaciones comunes para
-el banjo: @code{banjo-c-tuning} (sol-Do-Sol-Si-Re),
+Se encuentran predefinidas varias afinaciones comunes para
+el banjo de cinco cuerdas:
+@code{banjo-c-tuning} (sol-Do-Sol-Si-Re),
 @code{banjo-modal-tuning} (sol-Re-Sol-Do-Re),
 @code{banjo-open-d-tuning} (Re Mayor al aire, la-Re-Fa#-La-Re) y
 @code{banjo-open-dm-tuning} (Re menor al aire, la-Re-Fa-La-Re).
 
-Estas afinaciones se pueden convertir a afinaciones para bajo de
+Estas afinaciones se pueden convertir a afinaciones para banjo de
 cuatro cuerdas utilizando la función @code{four-string-banjo}:
 
 @example
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
 @end example
 
-
 @seealso
 Fragmentos de código:
 @rlsr{Fretted strings}.
 
 Archivos de inicio:
-@file{scm/string-tunings-init.scm} contiene las afinaciones
-predefinidas para el banjo.
+@file{ly/string-tunings-init.ly}
