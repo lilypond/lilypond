@@ -278,22 +278,25 @@ b4 c |
 @funindex \once
 @funindex once
 
-Both the @code{\override} and the @code{\set} commands may be
-prefixed by @code{\once}.  This causes the following
-@code{\override} or @code{\set} command to be effective only
-during the current musical moment before the property reverts
-back to its default value.  Using the same example, we can
-change the color of a single note like this:
+Both the @code{\override} and the @code{\set} commands may be prefixed
+by @code{\once}.  This causes the following @code{\override} or
+@code{\set} command to be effective only during the current musical
+moment before the property reverts back to its previous value (this can
+be different from the default if another @code{\override} is still in
+effect).  Using the same example, we can change the color of a single
+note like this:
 
 @cindex color property, example
 @cindex NoteHead, example of overriding
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c4 d
-\once \override NoteHead #'color = #red
+\override NoteHead #'color = #red
 e4 f |
 \once \override NoteHead #'color = #green
-g4 a b c |
+g4 a
+\revert NoteHead #'color
+b c |
 @end lilypond
 
 @strong{\overrideProperty command}
