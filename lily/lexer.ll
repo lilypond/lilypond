@@ -1046,30 +1046,18 @@ is_valid_version (string s)
 	
 
 /*
-  substitute _ and \,
+  substitute _
 */
 string
 lyric_fudge (string s)
 {
-  char *chars = string_copy (s);
+	size_t i=0;
 
-  for (char *p = chars; *p ; p++)
-    {
-      if (*p == '_' && (p == chars || *(p-1) != '\\'))
-	*p = ' ';
-    }
-  
-  s = string (chars);
-  delete[] chars;
-
-  ssize i = 0;	
-  if ((i = s.find ("\\,")) != NPOS)   // change "\," to TeX's "\c "
-    {
-      * (((char*)s.c_str ()) + i + 1) = 'c';
-      s = s.substr (0, i + 2) + " " + s.substr (i - 2);
-    }
-
-  return s;
+	while ((i = s.find ('_', i)) != string::npos)
+	{
+		s[i++] = ' ';
+	}
+	return s;
 }
 
 /*
