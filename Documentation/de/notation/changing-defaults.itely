@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -44,8 +44,8 @@ Intern benutzt LilyPond Scheme (ein LISP-Dialekt), um eine Infrastruktur
 zur Verfügung zu stellen.  Wenn Layoutentscheidungen verändert werden
 sollen, müssen auf die programminternen Prozesse zugegriffen werden,
 wozu Scheme-Code benötigt wird.  Scheme-Abschnitte werden in einer
-LilyPond-Quelldatei mit einer Raute @code{#} begonnen (siehe auch
-@rlearning{Scheme-Übung}).
+LilyPond-Quelldatei mit einer Raute@tie{}@code{#} begonnen.@footnote{@rextend{Scheme-Übung} enthält eine kurze Übung, wie
+man Zahlen, Listen, Zeichenketten und Symbole in Scheme notiert.}
 
 
 @menu
@@ -72,7 +72,7 @@ verändern kann.
 * Umgebungs-Plugins verändern::
 * Die Standardeinstellungen von Kontexten ändern::
 * Neue Kontexte definieren::
-* Kontexte aneinander ausrichten::
+* Reihenfolge des Kontextlayouts::
 @end menu
 
 
@@ -736,28 +736,49 @@ sich auf alle Systeme in dieser Partitur erstrecken sollen.
 Veränderungen können auch für den @code{Score}- oder alle
 @code{Voice}-Kontexte auf gleiche Weise vorgenommen werden.
 
-@knownissues
+Kontextänderungen können in eine Variable geschrieben werden und dann
+einer @code{\context}-Definition zu gewiesen werden, indem man der
+Veränderung ein @code{\with} voranstellt:
 
-Es ist nicht möglich, Kontextänderungen als Variable zu definieren und
-sie dann in der @code{\context}-Definition anzuwenden, indem man die
-Variable aufruft.
+@lilypond[quote,verbatim]
+blubb = \with {
+  fontSize = #-4
+  \override Stem #'thickness = #4.0
+  \remove "Time_signature_engraver"
+}
 
-Der Befehl @code{\Staff \RemoveEmptyStaves} überschreibt die
-aktuellen Einstellungen für @code{Staff}.  Wenn die Einstellungen
-für Systeme verändert werden sollen, die @code{\Staff \RemoveEmptyStaves}
-benutzen, müssen die Veränderungen gemacht werden, nachdem
-@code{\Staff \RemoveEmptyStaves} aufgerufen wurde, etwa:
+bla = \with {
+  fontSize = #3
+  \override Stem #'thickness = #-2.0
+}
 
-@example
-\layout @{
-  \context @{
-    \Staff \RemoveEmptyStaves
+melody = \relative c'' {
+  a4 a a a |
+  a4 a a a |
+}
 
-    \override Stem #'thickness = #4.0
-  @}
-@}
-@end example
+\score {
+  <<
+    \new Staff <<
+      \melody
+      s1*0^"Small, thicker stems, no time signature"
+    >>
+    \new Staff \bla <<
+      \melody
+      s1*0^"Different"
+    >>
+  >>
+  \layout {
+    \context {
+      \Staff
+      \blubb
+    }
+  }
+}
+@end lilypond
 
+ @c TODO: add \with in here.
+ 
 
 @node Neue Kontexte definieren
 @subsection Neue Kontexte definieren
@@ -954,82 +975,75 @@ notiert werden:
 @end example
 
 
-@node Kontexte aneinander ausrichten
-@subsection Kontexte aneinander ausrichten
-@translationof Aligning contexts
+@node Reihenfolge des Kontextlayouts
+@subsection Reihenfolge des Kontextlayouts
+@translationof Context layout order
 
-Neue Kontexte können über oder unter existierenden ausgerichtet
-werden.  Das kann nützlich sein, wenn man eine Chorparitur
-oder Ossia schreiben will:
+@cindex Kontext, Layoutreihenfolge
+@funindex \accepts
+@funindex \denies
 
-@cindex Ossia
+Kontexte werden in einer Systemgruppe normalerweise von oben nach
+unten positioniert in der Reihenfolge, wie sie in der Quelldatei
+auftreten.  Wenn Kontext verschachtelt ewrden, enthält der äußere
+Kontexte geschachtelte innere Kontexte, wie in der Quelldatei
+angegeben, vorausgesetzt, die inneren Kontexte befinden sich auch
+in der @qq{accepts}-Liste.  Geschachtelte Kontexte, die nicht
+in dieser @qq{accepts}-Liste enthalten sind, werden unterhalb
+des äußeren Kontextes neu positioniert, anstatt innerhalb von ihm
+gesetzt zu werden.
 
-@funindex alignAboveContext
-@funindex alignBelowContext
+Die @qq{accepts}-Liste eines Kontextes kann mit dem Befehlen
+@code{\accepts} und @code{\denies} verändert werden.  @code{\accepts} 
+fügt einen Kontext zur @qq{accepts}-Liste, und @code{\denies}
+entfernt einen Kontext aus der Liste.  Akkordbezeichnungen sollen
+beispielsweise normalerweise nicht innerhalb eines @code{Staff}-Kontextes
+geschachtelt werden, sodass der @code{ChordNames}-Kontext nicht
+automatisch in der @qq{accepts}-Liste des @code{Staff}-Kontextes
+geführt ist.  Wenn er aber benötigt wird, kann er hinzugefügt werden:
 
-@lilypond[quote,ragged-right]
-ossia = { f4 f f f }
-\score{
-  \relative c' \new Staff = "main" {
-    c4 c c c
-    <<
-      \new Staff \with { alignAboveContext = #"main" } \ossia
-      { d8 f d f d f d f }
-    >>
+@lilypond[verbatim,quote]
+\score {
+  \new Staff {
+    c' d' e' f'
+    \chords { d1:m7 b1:min7.5- }
   }
 }
 @end lilypond
 
-@cindex verschachtelte Kontexte
-@cindex Kontexte, verschachtelt
-
-@funindex \accepts
-@funindex accepts
-@funindex \denies
-@funindex denies
-
-Kontexte wie @code{PianoStaff} können andere Kontexte innerhalb
-enthalten.  Kontexte, die als innere Kontexte akzeptiert werden,
-werden in einer @qq{accepts}-Liste für den bestimmten Kontext
-definiert.  Kontexte, die sich nicht in dieser Liste finden,
-werden unter den äußeren Kontext gesetzt.  Der
-@code{PianoStaff}-Kontext etwa akzeptiert die Kontexte @code{Staff}
-und @code{FiguredBass} innerhalb, aber beispielsweise keinen
-@code{Lyrics}-(Gesangstext)-Kontext.  In dem folgenden Beispiel
-wird deshalb der Gesangstext unter das gesamte Klaviersystem
-gesetzt, anstatt zwischen die beiden Notensysteme zu kommen:
-
-@lilypond[verbatim,quote,relative=1]
-\new PianoStaff
-<<
-  \new Staff { e4 d c2 }
-  \addlyrics { Three blind mice }
+@lilypond[verbatim,quote]
+\score {
   \new Staff {
-    \clef "bass"
-    { c,1 }
+    c' d' e' f'
+    \chords { d1:m7 b1:min7.5- }
   }
->>
+  \layout {
+    \context {
+      \Staff
+      \accepts "ChordNames"
+    }
+  }
+}
 @end lilypond
 
-Die @qq{accepts}-Liste eines Kontextes kann verändert werden, so
-dass sie weitere innere Kontexte akzeptiert.  Wenn also der
-Gesangstext als Teil eines Klaviersystems gesetzt werden soll,
-müsste man schreiben:
+@code{\denies} wird vorrangig eingesetzt, wenn ein neuer Kontext
+basierend auf einem existierenden erstellt wird, aber sein 
+Schachtelungsverhalten sich unterscheidet.  Der
+@code{VaticanaStaff}-Kontext beispielsweise basiert auf dem
+@code{Staff}-Kontext, hat aber den @code{VaticanaVoice}-Kontext
+anstellt des @code{Voice}-Kontexts in seiner @qq{accepts}-Liste.
 
-@lilypond[verbatim,quote,relative=1]
-\new PianoStaff \with { \accepts Lyrics }
-<<
-  \new Staff { e4 d c2 }
-  \addlyrics { Three blind mice }
-  \new Staff {
-    \clef "bass"
-    { c,1 }
-  }
->>
-@end lilypond
+Zur Erinnerung: ein Kontext wird automatisch erstellt, wenn ein
+Befehl auftritt, der in den aktuellen Kontexten nicht enthalten
+sein kann.  Dass kann zu unerwarteten neuen Systemgruppen oder Partituren
+führen.
 
-Das Gegenteil von @code{\accepts} ist @code{\denies}; es bedeutet,
-dass ein Kontext aus der @code{\accepts}-Liste gestrichen wird.
+@seealso
+Handbuch zur Benutzung:
+@rprogram{Ein zusätzliches System erscheint}.
+
+Installierte Dateien:
+@file{ly/engraver-init.ly}.
 
 
 @node Die Referenz der Programminterna erklärt
@@ -1525,7 +1539,7 @@ wird der @code{\set}-Befehl eingesetzt:
 \set @var{Kontext}.@var{Eigenschaft} = #@var{Wert}
 @end example
 
-@var{Wert} ist ein Scheme-Objekt, weshalb ihm @code{#} vorangestellt
+@var{Wert} ist ein Scheme-Objekt, weshalb ihm@tie{}@code{#} vorangestellt
 werden muss.
 
 Kontexteigenschaften werden üblicherweise mit @code{kleinGroßbuchstabe}
@@ -1801,7 +1815,7 @@ um nur den aktuellen Zeitwert zu verändern:
 
 Viele Eigenschaften können unabhängig von der Art der Daten, die
 sie enthalten, ausgeschaltet werden, indem man sie als @qq{falsch}
-(@code{##f}) definiert.  Dadurch wird diese Eigenschaft von LilyPond
+(@code{#f}) definiert.  Dadurch wird diese Eigenschaft von LilyPond
 ignoriert.  Das ist insbesondere nützlich, wenn man Grob-Eigenschaften
 ausschalten will, die Probleme verursachen.
 @end ignore
@@ -2195,7 +2209,6 @@ nur verändert werden, indem man sie vollständig als Alisten umdefiniert.}
 @menu
 * Eingabe-Modi::
 * Richtung und Platzierung::
-* Reihenfolge des Kontextlayouts::
 * Abstände und Maße::
 * Eigenschaften des Staff-Symbols::
 * Strecker::
@@ -2348,8 +2361,8 @@ benutzen) normalerweise weggelassen werden.  In diesem Fall wird
 @item @code{\markup}-(Textbeschriftungs-)Befehlen
 @item @code{\tag}-Befehlen
 @item Textbeschriftungen in reiner Textform, wie etwa @code{-"string"}
-@item Fingersatzanweisungen: @code{-1}
-@item Abkürzungen von Artikulationen, wie @code{-.}, @code{->}, @code{--}
+@item Fingersatzanweisungen: @w{@code{-1}}
+@item Abkürzungen von Artikulationen, wie @w{@code{-.}}, @w{@code{->}}, @w{@code{--}}
 @end itemize
 
 Ausrichtungsmarkierer haben nur eine Auswirkung auf die nächste Note:
@@ -2369,10 +2382,10 @@ Die Position oder Richtung vieler Layoutobjekte wird von der
 
 Der Wert der @code{direction}-Eigenschaft kann auf den Wert
 @code{1} gesetzt werden, was gleichbedeutend mit @qq{nach oben}
-bzw. @qq{oberhalb} ist, oder auf den Wert @code{-1}, was
+bzw. @qq{oberhalb} ist, oder auf den Wert @w{@code{-1}}, was
 @qq{nach unten} bzw. @qq{unterhalb} bedeutet.  Die Symbole
 @code{UP} und @code{DOWN} können anstelle von @code{1}
-und @code{-1} benutzt werden.  Die Standardausrichtung kann
+und @w{@code{-1}} benutzt werden.  Die Standardausrichtung kann
 angegeben werden, indem @code{direction} auf den Wert
 @code{0} oder @code{CENTER} gesetzt wird.  In vielen Fällen
 bestehen auch vordefinierte Befehle, mit denen die Ausrichtung
@@ -2390,7 +2403,7 @@ In wenigen Fällen, von denen Arpeggio das einzige häufiger
 vorkommende Beispiel darstellt, entscheidet der Wert von
 @code{direction}, ob das Objekt auf der rechten oder linken
 Seite das Ursprungsobjektes ausgegeben wird.  In diesem Fall
-bedeutet @code{-1} oder @code{LEFT} @qq{auf der linken Seite}
+bedeutet @w{@code{-1}} oder @code{LEFT} @qq{auf der linken Seite}
 und @code{1} oder @code{RIGHT} @qq{auf der rechten Seite}.  @code{0}
 oder @code{CENTER} bedeutet @qq{benutze Standardausrichtung}.
 
@@ -2406,36 +2419,6 @@ c2( c)
 \slurNeutral
 c2( c)
 @end lilypond
-
-
-@node Reihenfolge des Kontextlayouts
-@subsection Reihenfolge des Kontextlayouts
-@translationof Context layout order
-
-@cindex Kontexte, Reihenfolge
-
-Kontexte werden normalerweise in einer Notensystemgruppe dargestellt,
-von oben nach unten in der Reihenfolge, in der sie
-in der Eingabedatei auftreten.  Wenn Kontexte verschachtelt sind,
-enthält der äußere Kontext die inneren geschachtelten Kontexte,
-wie in der Eingabedatei angegeben, vorausgesetzt die inneren
-Kontexte befinden sich in der @qq{accepts}-Liste des äußeren
-Kontextes.  Verschachtelte Kontexte, die nicht in dieser Liste
-auftauchen, werden neu unter den äußeren Kontext angeordnet, anstatt
-dass sie innerhalb dieses Kontextes gesetzt werden.
-
-Es ist wichtig zu erinnern, dass ein Kontext implizit erstellt
-werden kann, wenn ein Befehl vorkommt und kein passender Kontext
-zur Verfügung steht, um den Befehl auszuführen.  Dadurch können
-unerwartet neue Systeme oder Partituren erstellt werden.
-
-Die Standardreihenfolge, in der die Kontexte gesetzt werden und
-die @qq{accepts}-Liste können geändert werden, siehe auch
-@ref{Aligning contexts}.
-
-@seealso
-Handbuch zum Lernen
-@rlearning{An extra staff appears}.
 
 
 @node Abstände und Maße
@@ -2753,7 +2736,7 @@ ist sein Wert mit 0 definiert.
 
 @item attach-dir
 Das entscheidet, wo die Linie auf der X-Achse beginnt und endet,
-relativ zum Elternobjekt.  Ein Wert @code{-1} (oder
+relativ zum Elternobjekt.  Ein Wert @w{@code{-1}} (oder
 @code{LEFT}) lässt die Linie an der linken Seite der Noten
 beginnen/enden, mit der sie verknüpft ist.
 
@@ -2805,7 +2788,7 @@ c4^\startTextSpan c c c \stopTextSpan
 
 Dabei sollte beachtet werden, dass negative Werte das Objekt
 nach @emph{oben} verschieben, anders als man erwarten könnte,
-weil der Wert @code{-1} oder @code{DOWN} bedeutet, dass
+weil der Wert @w{@code{-1}} oder @code{DOWN} bedeutet, dass
 die @emph{Unterkante} des Textes mit der Streckerlinie
 ausgerichtet wird.  Ein Wert @code{1} oder @code{UP}
 richtet die Oberkante des Textes mit der Streckerlinie aus.
@@ -2975,7 +2958,7 @@ Im oberen Beispiel wird der weiße Schlüssel, der einen Wert von
 @code{1} für @code{layer} hat, nach den Notenlinien gesetzt
 (die einen Wert von @code{0} für @code{layer} haben) und
 überschneidet sie also.  Um das zu ändern, muss dem @code{Clef}-Objekt
-(Notenschlüssel) ein niedrigerer Wert, etwa @code{-1}, gegeben
+(Notenschlüssel) ein niedrigerer Wert, etwa @w{@code{-1}}, gegeben
 werden, sodass es früher gesetzt wird:
 
 @lilypond[quote,verbatim,relative=2]
@@ -3282,7 +3265,7 @@ e2 \glissando f
 @end lilypond
 
 Der Wert von @code{Y} wird für den rechten Endpunkt auf
-@code{-2} gesetzt.  Die linke Seite kann ähnlich angepasst
+@w{@code{-2}} gesetzt.  Die linke Seite kann ähnlich angepasst
 werden, indem man @code{left} anstelle von @code{right} angibt.
 
 Wenn @code{Y} nicht gesetzt ist, wird der Wert ausgehend von
@@ -3548,12 +3531,12 @@ Zahl zugewiesen werden, in Einheiten der Hälfte der
 X-Gesamtausdehnung des Objekts.  Negative Werte verschieben
 das Objekt nach rechts, positive nach links.  Ein Wert von
 @code{0} zentriert das Objekt auf dem Referenzpunkt des
-Ursprungs, ein Wert von @code{-1} richtet die linke Ecke des
+Ursprungs, ein Wert von @w{@code{-1}} richtet die linke Ecke des
 Objekts am Referenzpunkt des Ursprungsobjektes aus, ein
 Wert von @code{1} richtet die rechte Ecke des Objektes am
 Referenzpunkt des Ursprungsobjektes aus.  Die Symbole
 @code{LEFT}, @code{CENTER} und @code{RIGHT} können anstelle
-von @code{-1, 0, 1} eingesetzt werden.
+von @w{@code{-1}}, @code{0} und @code{1} eingesetzt werden.
 
 Normalerweise würde der @code{\override}-Befehl benutzt werden, um
 die Werte von @code{self-alignment-X} zu verändern, aber der
@@ -3585,14 +3568,14 @@ Berechnung benutzt werden.  Darum ist es kompliziert, den
 Wert für einige Objekte richtig anzupassen.  Die Einheiten
 sind Halbe der vertikalen Ausdehnung des Objektes, welche
 normalerweise recht klein ist, sodass ziemlich große Werte
-erforderlich sein können.  Der Wert @code{-1} richtet die
+erforderlich sein können.  Der Wert @w{@code{-1}} richtet die
 untere Kante des Objekts am Referenzpunkt des Ursprungsobjektes
 aus, der Wert @code{0} richtet die Mitte des Objekts am
 Referenzpunkt des Ursprungsobjektes aus und der Wert @code{1}
 richtet die Oberkante des Objektes am Referenzpunkt des
 Ursprungsobjektes aus.  Die Symbole @code{DOWN}, @code{CENTER}
-und @code{UP} können anstelle von @code{-1, 0, 1} benutzt
-werden.
+und @code{UP} können anstelle von @w{@code{-1}}, @code{0}
+und @code{1} benutzt werden.
 
 @emph{Automatische Ausrichtung in beide Richtungen}
 
@@ -3854,7 +3837,7 @@ lösen würde.
 
 @lilypond[verbatim,quote,relative=1]
 <<
-  { e1 ~ e }
+  { e1~ e }
 \\
   { r4 <g c,> <g c,> <g c,> }
 >>
@@ -3891,10 +3874,10 @@ wird.
   {
   \once \override Tie
     #'control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
-  e1 ~ e1
+  e1~ e1
   }
 \\
-  { r4 <g c,> <g c,> <g c,>4  }
+  { r4 <g c,> <g c,> <g c,>  }
 >>
 @end lilypond
 
@@ -3902,8 +3885,14 @@ wird.
 
 Es ist nicht möglich, die Form von Bögen anhand ihrer
 @code{control-points}-Eigenschaft zu verändern, wenn
-mehr als ein Bogen zum gleichen musikalischen Moment
-auftritt, nicht einmal mit dem @code{\tweak}-Befehl.
+mehrere Binde- oder Legatobögen zum gleichen musikalischen Moment
+auftreten, nicht einmal mit dem @code{\tweak}-Befehl.  Die Eigenschaft
+@code{tie-configuration} von @code{TieColumn} kann jedoch verändert
+werden, sodass Startlinie und Richtung wie benötigt platziert werden.
+
+@seealso
+Referenz der Interna:
+@rinternals{TieColumn}.
 
 
 
@@ -3956,10 +3945,11 @@ wobei
 den Wert @code{#t} ausgibt.
 
 @item @code{@var{@dots{}Noten@dots{}}}
-@tab normale LilyPond-Eingab, wobei @code{$} benutzt wird, um
+@tab normale LilyPond-Eingabe, wobei @code{$} (wenn nur LilyPond-Konstruktionen
+erlaubt sind) oder @code{#} (um es als Scheme-Wert oder Argument einer
+musikalischen Funktionen einzusetzen) benutzt wird, um
 Argumente zu referenzieren (etwa @samp{$Arg1}).
 @end multitable
-
 
 Die @code{parser} und @code{location}-Argumente sind zwingend und
 werden in einigen fortgeschrittenen Situationen benutzt, wie sie
@@ -3975,7 +3965,9 @@ benutzt werden, sind:
 @example
 boolean?
 cheap-list?  @emph{(benutze anstelle von }@q{list?}@emph{ für schnelleres Kompilieren)}
+ly:duration?
 ly:music?
+ly:pitch?
 markup?
 number?
 pair?
@@ -4020,7 +4012,7 @@ padText =
      (parser location padding)
      (number?)
    #{
-     \once \override TextScript #'padding = $padding
+     \once \override TextScript #'padding = #padding
    #})
 
 \relative c''' {
@@ -4063,7 +4055,7 @@ tempoPadded =
      (parser location padding tempotext)
      (number? string?)
    #{
-     \once \override Score.MetronomeMark #'padding = $padding
+     \once \override Score.MetronomeMark #'padding = #padding
      \tempo \markup { \bold #tempotext }
    #})
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1945,11 +1945,11 @@ ausgeschaltet sind:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais2 aes
+    aeses2 aes
   }
   \new Staff \relative c'' {
     \set Staff.extraNatural = ##f
-    ais2 aes
+    aeses2 aes
   }
 >>
 @end lilypond
@@ -1960,11 +1960,11 @@ während das dazu dient, sie in allen Systemen auszuschalten:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais2 aes
+    aeses2 aes
   }
   \new Staff \relative c'' {
     \set Score.extraNatural = ##f
-    ais2 aes
+    aeses2 aes
   }
 >>
 @end lilypond
@@ -2038,11 +2038,11 @@ etwa so:
 <<
   \new Staff
     \relative c'' {
-      gis4 ges aes ais
+      gisis4 gis aeses aes
     }
   \new Staff \with { extraNatural = ##f } {
     \relative c'' {
-      gis ges aes ais
+      gisis4 gis aeses aes
     }
   }
 >>
@@ -2087,7 +2087,7 @@ Funktion anwendet:
 \score {
   \new Staff {
     \relative c'' {
-      cis4 e d ces
+      cisis4 e d cis
     }
   }
   \layout {
@@ -2107,12 +2107,12 @@ Wenn die Veränderung der Eigenschaft sich auf alle Systeme einer
   <<
     \new Staff {
       \relative c'' {
-        gis4 ges aes ais
+        gisis4 gis aeses aes
       }
     }
     \new Staff {
       \relative c'' {
-        gis4 ges aes ais
+        gisis4 gis aeses aes
       }
     }
   >>

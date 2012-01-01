@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -110,7 +110,7 @@ der Tonart und den Versetzungszeichen, die direkt im Notentext
 erscheinen, unterschieden.} wird eingegeben, indem an den
 Notennamen ein @q{is} gehängt wird, ein  @notation{B}-Versetzungszeichen
 durch Anhängen von @q{es}. Logischerweise wird dann ein
- @notation{Doppelkreuz} oder @notation{Doppel-B} durch Anhängen
+@notation{Doppelkreuz} oder @notation{Doppel-B} durch Anhängen
 von @q{isis} oder @q{eses} geschrieben. Diese Syntax
 stammt aus der Tradition der germanischen Sprachen und ist also für
 deutsche Benutzer kein Problem. Es ist aber möglich, die Namen für die
@@ -204,6 +204,11 @@ In der Tonart As-Dur @emph{bekommt} sie ein Versetzungszeichen:
 \key aes \major
 aes4 c b c
 @end lilypond
+
+Wenn das alles sehr verwirrend erscheint, muss man sich nur vorstellen,
+dass man auf einer Klaviatur spielt: Wenn man eine schwarze Taste drücken
+würde, @emph{muss} man auch @w{@code{-is}} oder @w{@code{-es}} an die
+Note anhängen.
 
 Alle diese Versetzungszeichen ausdrücklich zu schreiben, bedeutet vielleicht
 etwas mehr Schreibarbeit, hat aber den großen Vorteil, dass
@@ -1400,7 +1405,7 @@ außerhalb der musikalischen Ausdrücke, meistens wird die
 
 Wenn die Datei übersetzt wird, werden Titel- und Komponisteneinträge
 über der Musik ausgegeben. Mehr Information über die Titelei findet
-sich im Kapitel @ruser{Titel erstellen}.
+sich im Abschnitt @ruser{Titel erstellen}.
 
 
 @node Absolute Notenbezeichnungen

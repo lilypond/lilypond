@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -121,7 +121,7 @@ schönen Notenbild erfreuen!
 {vocal-ensemble-template-with-automatic-piano-reduction.ly}
 
 
-@appendixsubsec SATB mit zugehörigen Kontexten
+@appendixsubsec SATB mit daran ausgerichteten Kontexten
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
