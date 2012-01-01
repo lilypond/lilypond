@@ -35,7 +35,7 @@ der Beginn einer @emph{hijaz}-Improvisation aussehen könnte:
 
   doctitlede = "Arabische Improvisation"
 
-%% Translation of GIT committish: af2292dff32d630f62d69294158452f103f3e393
+%% Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
   texidocfr = "
 Lorsque les improvisations ou @emph{taqasim} sont temporairement libres,
 la métrique peut ne pas apparaître, auquel cas on utilisera un

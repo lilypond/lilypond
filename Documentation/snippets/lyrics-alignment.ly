@@ -33,7 +33,7 @@ und @code{#RIGHT} benutzen.
   doctitlede = "Ausrichtung von Gesangstext"
 
 
-%% Translation of GIT committish: f88e964fea14c10b48787ec9f4b5f8261a23de48
+%% Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
   texidocfr = "
 L'alignement horizontal des paroles peut se gérer à l'aide de la
 propriété @code{self-alignment-X} de l'objet @code{LyricText}.
@@ -43,7 +43,6 @@ les valeurs @code{1} ou @code{RIGHT} un alignement par la droite.
 
 "
   doctitlefr = "Alignement des syllabes"
-
 
   texidoc = "
 Horizontal alignment for lyrics cam be set by overriding the
