@@ -277,30 +277,27 @@ Source_file::get_counts (char const *pos_str0,
   char const *line_start = (char const *)data + line[LEFT];
 
   ssize left = (char const *) pos_str0 - line_start;
+  *byte_offset = left;
+
   string line_begin (line_start, left);
   char const *line_chars = line_begin.c_str ();
 
-  while (left > 0)
+  for (; left > 0; --left, ++line_chars)
     {
-      size_t thislen = utf8_char_len (*line_chars);
+      // Skip UTF-8 continuation bytes.  This is simplistic but
+      // robust, and we warn against non-UTF-8 input in the lexer
+      // already.  In the case of non-UTF-8 or of this function being
+      // called in mid-character, the results are somewhat arbitrary,
+      // but there is no really sane definition anyway.
+      if ((*line_chars & 0xc0) == 0x80)
+	continue;
 
-      if (thislen == 1 && line_chars[0] == '\t')
+      if (*line_chars == '\t')
         (*column) = (*column / 8 + 1) * 8;
       else
         (*column)++;
 
       (*line_char)++;
-
-      /*
-        To have decent output in UTF-8 aware terminals,
-        we must keep track of the number of bytes from
-        the left edge of the terminal.
-      */
-      *byte_offset += thislen;
-
-      /* Advance past this character. */
-      line_chars += thislen;
-      left -= thislen;
     }
 }
 
