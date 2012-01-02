@@ -1017,7 +1017,7 @@ Zeile.
 
 
 @node Die \layout-Umgebung
-@subsection Die @code{ayout}-Umgebung
+@subsection Die @code{\layout}-Umgebung
 @translationof The \layout block
 
 @cindex Partitur, Layout

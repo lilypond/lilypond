@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -656,6 +656,24 @@ Mit dieser Eigenschaft wird das Aussehen der Notation für die
 große Septime (7) bestimmt.  Vordefiniert sind die Optionen
 @code{whiteTriangleMarkup} und @code{blackTriangleMarkup}.
 
+@funindex additionalPitchPrefix
+
+@item additionalPitchPrefix
+
+Wenn die Akkordbezeichnung zusätzliche Tonhöhen enthält, können sie
+optional mit einer Textvorsilbe versehen werden.  Als Standard ist
+keine Vorsilbe eingestellt, sodass die visuelle Einfachheit gewahrt
+bleibt, aber für eine kleine Anzahl zusätzlicher Töne kann diese
+Option effektiv sein.
+
+@lilypond[verbatim,quote,ragged-right]
+\new ChordNames {
+  <c e g d'>    % add9
+  \set additionalPitchPrefix = #"add"
+  <c e g d'>    % add9
+}
+@end lilypond
+
 @funindex chordNoteNamer
 
 @item chordNoteNamer
@@ -673,9 +691,41 @@ verändern und etwa den Basston etwa als Kleinbuchstaben darstellen.
 @item chordNameSeparator
 
 Verschiedene Teile eines Akkordsymboles werden normalerweise
-durch einen Schrägstrich markiert. Indem @code{chordNameSeparator}
-ein anderer Wert zugewiesen wird, kann ein beliebiges Zeichen für
-den Trenner benutzt werden.
+durch eine kleinen Freiraum angezeigt. Indem @code{chordNameSeparator}
+ein Wert zugewiesen wird, kann ein beliebiges Zeichen für
+den Trenner benutzt werden.  Das hat keine Auswirkung auf den
+Trenner zwischen einem Akkord und seiner Bassnote.  Um diesen
+einzustellen muss @code{slashChordSeparator} benutzt werden.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:7.9- c:7.9-/g
+  \set chordNameSeparator = \markup { "/" }
+  \break
+  c4:7.9- c:7.9-/g
+}
+@end lilypond
+
+@funindex slashChordSeparator
+
+@item slashChordSeparator
+
+Akkorde können auch aufbauend auf einer anderen Bassnote als dem
+üblichen Grundton gespielt werden.  Sie werden Umkehrungen genannt,
+sind aber auch als Slash-Akkorde bekannt, weil ihre übliche Notation
+aus dem Akkordsymbol, einem Schrägstrich und dem Basston besteht.
+Deshalb ist der Standardwert von @code{slashChordSeparator} ein
+Schrägstrich, aber jedes andere Beschriftungszeichen kann auch eingestellt
+werden.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:7.9- c:7.9-/g
+  \set slashChordSeparator = \markup { " over " }
+  \break
+  c4:7.9- c:7.9-/g
+}
+@end lilypond
 
 @funindex chordNameExceptions
 
@@ -687,15 +737,32 @@ definieren.  Das zweite Objekt ist eine Beschriftung, die nach
 @code{chordRootNamer} ausgegeben wird, um das Akkordsymbol zu
 erstellen.
 
+@funindex minorChordModifier
+
+@item minorChordModifier
+
+Moll-Akkorde werden oft durch ein nachgestelltes @qq{m} rechts des
+Akkordgrundtons angezeigt.  Manche bevorzugen aber andere Zeichen,
+wie etwa ein Minus-Zeichen.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:min f:min7
+  \set minorChordModifier = \markup { "-" }
+  \break
+  c4:min f:min7
+}
+@end lilypond
+
 @funindex chordPrefixSpacer
 
 @item chordPrefixSpacer
 
-Das @qq{m} für Moll-Akkorde wird normalerweise direkt hinter dem
-Akkordbuchstaben gesetzt. Mit der Eigenschaft @code{chordPrefixSpacer}
-kann ein Abstand(halter) zwischen den Buchstaben und das @qq{m}
-gesetzt werden. Der Abstandhalter wird nicht verwendet, wenn der
-Grundton erhöht oder erniedrigt ist.
+Das Zeichen für Moll-Akkorde, durch @code{minorChordModifier} erstellt,
+wird normalerweise direkt hinter dem Akkordbuchstaben gesetzt. Mit der
+Eigenschaft @code{chordPrefixSpacer} kann ein Abstand(halter) zwischen
+den Buchstaben und das Zeichen gesetzt werden. Der Abstandhalter wird
+nicht verwendet, wenn der Grundton erhöht oder erniedrigt ist.
 
 @end table
 
