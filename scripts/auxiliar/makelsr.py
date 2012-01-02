@@ -73,6 +73,8 @@ elif os.path.isfile("build/out/bin/convert-ly"):
 else:
     conv_path=''
 convert_ly=conv_path+'convert-ly'
+lilypond_bin=conv_path+'lilypond'
+
 print 'using '+convert_ly
 
 unsafe = []
@@ -178,8 +180,7 @@ def copy_ly (srcdir, name, tags):
         os.remove (dest + '~')
     # no need to check snippets from input/new
     if in_dir and in_dir in srcdir:
-        # -V seems to make unsafe snippets fail nicer/sooner
-        e = os.system ("lilypond -V -dno-print-pages -dsafe -o /tmp/lsrtest '%s'" % dest)
+        e = os.system ("%s -dno-print-pages -dsafe -o /tmp/lsrtest '%s'" %(lilypond_bin, dest))
         if e:
             unsafe.append (dest)
 

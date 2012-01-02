@@ -141,11 +141,25 @@ step @strong{VERY SERIOUSLY}.}
 @enumerate
 
 @item
-Make sure that @command{convert-ly} and @command{lilypond} commands in
-current PATH are in a bleeding edge version -- latest release from
-master branch, or even better a fresh snapshot from Git master branch.
+Make sure that @command{convert-ly} and @command{lilypond} are a
+bleeding edge version -- the latest release or even better a fresh
+snapshot from Git master.
 
 @item
+Start by creating a list of updated snippets from your local
+repository.  From the top source directory, run:
+
+@example
+scripts/auxiliar/makelsr.py
+@end example
+
+Commit the changes and make a patch.  Check the patch has nothing
+other than minor changes - in particular changes to the commitish
+for translations.  If all is good and you're confident in what
+you've done, this can be pushed directly to staging.
+
+@item
+Next, download the updated snippets and run makelsr against them.
 From the top source directory, run:
 
 @smallexample
@@ -155,18 +169,40 @@ scripts/auxiliar/makelsr.py lsr-snippets-docs-@var{YYYY-MM-DD}
 @end smallexample
 
 @noindent
-where @var{YYYY-MM-DD} is the current date, e.g. 2009-02-28.
+where @var{YYYY-MM-DD} is the current date, e.g. 2011-12-25.
 
 @item
 Follow the instructions printed on the console to manually check for
-unsafe files.
+unsafe files.  These are:
+
+@example
+Unsafe files printed in lsr-unsafe.txt: CHECK MANUALLY!
+  git add Documentation/snippets/*.ly
+  xargs git diff HEAD < lsr-unsafe.txt
+@end example
+
+First, it's important to check for any added files and add them to
+the files git is tracking.  Run @code{git status} and look
+carefully to see if files have been added.  If so, add them with
+@code{git add}.
+
+As the console says, makelsr creates a list of possibly unsafe
+files in @file{lsr-unsafe.txt} by running @code{lilypond} against each
+snippet using the @code{-dsafe} switch.  This list can be quite
+long.  However, by using the command @code{xargs git diff HEAD < lsr-unsafe.txt}
+git will take that list and check whether any of the snippets are
+different from the snippet already in master.  If any is different
+it must be checked manually VERY CAREFULLY.
 
 @warning{Somebody could sneak a @code{#'(system "rm -rf /")}
 command into our source tree if you do not do this!  Take this
 step @strong{VERY SERIOUSLY}.}
 
+If there is any doubt about any of the files, you are strongly
+advised to run a review on Rietveld.
+
 @item
-Do a git add / commit / push.
+If a Review is not needed, commit the changes and push to staging.
 
 @end enumerate
 
