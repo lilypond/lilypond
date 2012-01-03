@@ -40,19 +40,33 @@ Rest::y_offset_callback (SCM smob)
   Real ss = Staff_symbol_referencer::staff_space (me);
 
   bool position_override = scm_is_number (me->get_property ("staff-position"));
-  Real amount = robust_scm2double (me->get_property ("staff-position"), 0)
-                * 0.5 * ss;
+  Real amount;
 
-  if (line_count % 2)
+  if (position_override)
     {
-      if (duration_log == 0 && line_count > 1)
-        amount += ss;
+      amount =
+        robust_scm2double (me->get_property ("staff-position"), 0) * 0.5 * ss;
+      /*
+        trust the client on good positioning;
+        would be tempting to adjust position of rests longer than a quarter
+        to be properly aligned to staff lines,
+        but custom rest shapes may not need that sort of care.
+      */
     }
   else
-    amount += ss / 2;
+    {
+      amount = 2 * ss * get_grob_direction (me);
 
-  if (!position_override)
-    amount += 2 * ss * get_grob_direction (me);
+      if (line_count % 2 == 0)
+        amount += ss / 2;
+    }
+
+  /*
+    make a semibreve rest hang from the next line,
+    except for a single line staff
+  */
+  if (duration_log == 0 && line_count > 1)
+    amount += ss;
 
   return scm_from_double (amount);
 }
