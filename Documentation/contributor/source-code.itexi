@@ -913,10 +913,18 @@ git clone git://github.com/gperciva/git-cl.git
 @end example
 
 @item
-Add the @file{git-cl/} directory to your PATH, or create a
-symbolic link to the @command{git-cl} and @command{upload.py}
-scripts in one of your PATH directories (such as
-@file{$HOME/bin}).
+Add the @file{git-cl/} directory to your PATH,
+or create a symbolic link to the @command{git-cl}
+and @command{upload.py} scripts in one of your PATH
+directories (such as @file{$HOME/bin}).
+
+In Ubuntu (and Lilydev), you can add directories to PATH
+by adding this line to a hidden file @file{.bashrc},
+located in your home directory:
+
+@example
+PATH=~/type-here-directory-containing-git-cl:"$@{PATH@}"
+@end example
 
 @end enumerate
 
