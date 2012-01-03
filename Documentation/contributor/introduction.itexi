@@ -171,9 +171,9 @@ your patch is put on a countdown, it will be given
 @code{Patch-countdown} status.
 
 @item
-The countdown is a 48-hour period which gives other developers a
-chance to review the patch.  If no significant problems are found,
-your patch will be given @code{Patch-push} status.
+The countdown is a 48-hour period which gives other developers one
+last chance to review the patch.  If no significant problems are
+found, your patch will be given @code{Patch-push} status.
 
 @item
 You may now either push it to the @code{staging} branch, or email
