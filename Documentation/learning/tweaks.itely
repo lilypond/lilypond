@@ -2944,7 +2944,8 @@ rhMusic = \relative c'' {
         c,8~
         % Reposition the c2 to the right of the merged note
         \once \override NoteColumn #'force-hshift = #1.0
-        % Move the c2 out of the main note column so the merge will work
+        % Move the c2 out of the main note column
+        % so the merge will work
         \shiftOnn
         c2
       }
@@ -3305,7 +3306,8 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuation of main voice
       \new Voice {
         \voiceTwo
-        % Move the c2 out of the main note column so the merge will work
+        % Move the c2 out of the main note column
+        % so the merge will work
         c,8~ \shiftOnn c2
       }
       \new Voice {
@@ -3377,7 +3379,8 @@ rhMusic = \relative c'' {
         c,8~
         % Reposition the c2 to the right of the merged note
         \once \override NoteColumn #'force-hshift = #1.0
-        % Move the c2 out of the main note column so the merge will work
+        % Move the c2 out of the main note column
+        % so the merge will work
         \shiftOnn
         c2
       }
@@ -4014,12 +4017,17 @@ being used:
 @item Linux
 
 Navigate to
+@example
 @file{@var{INSTALLDIR}/lilypond/usr/@/share/lilypond/current/}
+@end example
 
 @item MacOS X
 
 Navigate to
+@example
 @file{@var{INSTALLDIR}/LilyPond.app/Contents/@/Resources/share/lilypond/current/}
+@end example
+
 by either @code{cd}-ing into this directory from the
 Terminal, or control-clicking on the LilyPond application and
 selecting @q{Show Package Contents}.
@@ -4027,7 +4035,9 @@ selecting @q{Show Package Contents}.
 @item Windows
 
 Using Windows Explorer, navigate to
+@example
 @file{@var{INSTALLDIR}/LilyPond/usr/@/share/lilypond/current/}
+@end example
 
 @end itemize
 

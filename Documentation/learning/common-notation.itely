@@ -849,7 +849,8 @@ ties with chords.  They must be placed outside the angle brackets.
 
 @lilypond[verbatim,quote,relative=2]
 r4 <c e g>~ <c f a>2 |
-<c e g>8[ <c f a> <c e g> <c f a>] <c e g>\>[ <c f a> <c f a> <c e g>]\! |
+<c e g>8[ <c f a> <c e g> <c f a>]
+  <c e g>8\>[ <c f a> <c f a> <c e g>]\! |
 r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
 @end lilypond
 
