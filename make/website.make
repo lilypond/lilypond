@@ -73,6 +73,7 @@ WEB_BIBS=python $(script-dir)/bib2texi.py
 
 EXAMPLES=$(LILYPOND_WEB_MEDIA_GIT)/ly-examples
 PICTURES=$(LILYPOND_WEB_MEDIA_GIT)/pictures
+PDFS=$(LILYPOND_WEB_MEDIA_GIT)/pdf
 
 SERVER_FILES=$(top-src-dir)/Documentation/web/server
 
@@ -145,6 +146,9 @@ misc-files = $(OUT)/.htaccess \
 picture-src-files := $(notdir $(wildcard $(PICTURES)/*))
 picture-files = $(picture-src-files:%=$(OUT)/website/pictures/%)
 
+pdf-src-files := $(notdir $(wildcard $(PDFS)/*))
+pdf-files = $(pdf-src-files:%=$(OUT)/website/pdf/%)
+
 post-files = $(OUT)/website/index.html
 
 texinfo-files = $(OUT)/index.html $(WEB_LANGS:%=$(OUT)/%/index.html)
@@ -159,7 +163,7 @@ xref-files = $(MANUALS_BASE:%=$(OUT)/%.xref-map)
 
 .PHONY: website website-bibs website-css website-examples website-misc \
         website-pictures website-post website-test website-texinfo \
-        website-version website-xrefs check-setup
+        website-version website-xrefs check-setup website-pdf
 
 check-setup:
 ifeq ($(LILYPOND_WEB_MEDIA_GIT),)
@@ -167,7 +171,7 @@ ifeq ($(LILYPOND_WEB_MEDIA_GIT),)
 	exit 1
 endif
 
-website: check-setup website-post website-examples website-pictures website-css website-misc
+website: check-setup website-post website-examples website-pictures website-css website-misc website-pdf
 
 website-bibs: website-version $(OUT) $(bib-files)
 
@@ -178,6 +182,8 @@ website-examples: $(OUT)/website/ly-examples $(example-files)
 website-misc: $(OUT)/website $(misc-files)
 
 website-pictures: $(OUT)/website/pictures $(OUT)/pictures $(picture-files)
+
+website-pdf: $(OUT)/website/pdf $(pdf-files)
 
 website-post: website-texinfo $(post-files)
 
@@ -195,7 +201,7 @@ website-xrefs: website-version $(OUT) $(xref-files)
 ### Rules
 
 # Directories
-$(OUT) $(OUT)/website $(OUT)/website/css $(OUT)/website/ly-examples $(OUT)/website/pictures: %:
+$(OUT) $(OUT)/website $(OUT)/website/css $(OUT)/website/ly-examples $(OUT)/website/pictures $(OUT)/website/pdf: %:
 	mkdir -p $@
 
 $(OUT)/pictures: $(OUT)/website/pictures
@@ -263,6 +269,9 @@ $(example-files): $(OUT)/website/ly-examples/%: $(EXAMPLES)/%
 	cp $< $@
 
 $(picture-files): $(OUT)/website/pictures/%: $(PICTURES)/%
+	cp $< $@
+
+$(pdf-files): $(OUT)/website/pdf/%: $(PDFS)/%
 	cp $< $@
 
 $(OUT)/website/favicon.ico: $(SERVER_FILES)/favicon.ico

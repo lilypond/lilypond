@@ -65,9 +65,9 @@ Initial setup:
 Create directories:
 
 @example
-$HOME/lilypond/
-$HOME/lilypond/media/
-$HOME/lilypond/trusted-scripts/
+mkdir $HOME/lilypond/
+mkdir $HOME/lilypond/media/
+mkdir $HOME/lilypond/trusted-scripts/
 @end example
 
 To reduce the CPU burden on the shared host (as well as some
@@ -113,6 +113,17 @@ cp $GIT/scripts/build/bib2texi.py $DEST/bib2texi.py
 cp $GIT/Documentation/web/server/lilypond.org.htaccess $DEST/lilypond.org.htaccess
 cp $GIT/Documentation/web/server/website-dir.htaccess $DEST/website-dir.htaccess
 @end smallexample
+
+For a complete build you will need a copy of @code{lilypond-extra} git repository.
+You can checkout a fresh copy easily:
+
+@example
+export LILYPOND_WEB_MEDIA_GIT=$HOME/lilypond-extra
+git clone git://github.com/gperciva/lilypond-extra.git $LILYPOND_WEB_MEDIA_GIT
+@end example
+
+Just note that the example above expects a bash environment. If you are using another shell
+you might need to use a different keyword, other than @code{export}.
 
 Delete your build directory (or maybe just rename your build
 directory to build-old).

@@ -913,7 +913,7 @@ dernière mouture est consultable sur @url{http://lilypond.org}}
 @item
 Han-Wen Nienhuys, @emph{LilyPond, Automated music formatting and
 the Art of Shipping}.  Forum international du logiciel libre 2006
-(FISL7.0) (@uref{http://lilypond.org/web/images/FISL7-slides.pdf,
+(FISL7.0) (@uref{http://lilypond.org/website/pdf/FISL7-slides.pdf,
 PDF 1095k})
 
 @item
@@ -921,14 +921,14 @@ Erik Sandberg, @emph{Séparer le langage source et le système de
 formatage dans GNU LilyPond (Separating input language and formatter in
 GNU LilyPond)}. Thèse de master, université d'Uppsala, Département des
 technologies de l'information, mars@tie{}2006.
-(@uref{http://lilypond.org/web/images/thesis-erik-sandberg.pdf,
+(@uref{http://lilypond.org/website/pdf/thesis-erik-sandberg.pdf,
 PDF 750k})
 
 @item
 Han-Wen Nienhuys et Jan Nieuwenhuizen, @emph{LilyPond, un système de
 gravure musicale automatisée}.  Actes du 14e Colloque d'informatique
 musicale (XIV CIM 2003), Florence, Itale, mai@tie{}2003.
-(@uref{ http://lilypond.org/web/images/xivcim.pdf, PDF 95k})
+(@uref{ http://lilypond.org/website/pdf/xivcim.pdf, PDF 95k})
 
 @end itemize
 
