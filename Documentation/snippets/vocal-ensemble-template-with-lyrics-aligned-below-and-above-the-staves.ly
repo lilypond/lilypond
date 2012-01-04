@@ -102,10 +102,12 @@ bassWords = \lyricmode {
       \new Voice = "sopranos" { \voiceOne << \global \sopMusic >> }
       \new Voice = "altos" { \voiceTwo << \global \altoMusic >> }
     >>
-    \new Lyrics \with { alignAboveContext = #"women" } \lyricsto "sopranos" \sopWords
-    \new Lyrics \with { alignBelowContext = #"women" } \lyricsto "altos" \altoWords
-    % we could remove the line about this with the line below, since we want
-    % the alto lyrics to be below the alto Voice anyway.
+    \new Lyrics \with { alignAboveContext = #"women" }
+      \lyricsto "sopranos" \sopWords
+    \new Lyrics \with { alignBelowContext = #"women" }
+      \lyricsto "altos" \altoWords
+    % we could remove the line about this with the line below, since
+    % we want the alto lyrics to be below the alto Voice anyway.
     % \new Lyrics \lyricsto "altos" \altoWords
 
     \new Staff = "men" <<
@@ -113,8 +115,10 @@ bassWords = \lyricmode {
       \new Voice = "tenors" { \voiceOne << \global \tenorMusic >> }
       \new Voice = "basses" { \voiceTwo << \global \bassMusic >> }
     >>
-    \new Lyrics \with { alignAboveContext = #"men" } \lyricsto "tenors" \tenorWords
-    \new Lyrics \with { alignBelowContext = #"men" } \lyricsto "basses" \bassWords
+    \new Lyrics \with { alignAboveContext = #"men" }
+      \lyricsto "tenors" \tenorWords
+    \new Lyrics \with { alignBelowContext = #"men" }
+      \lyricsto "basses" \bassWords
     % again, we could replace the line above this with the line below.
     % \new Lyrics \lyricsto "basses" \bassWords
   >>
