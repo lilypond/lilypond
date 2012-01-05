@@ -620,6 +620,8 @@ Grob::get_vertical_axis_group (Grob *g)
 {
   if (!g)
     return 0;
+  if (!g->get_parent (Y_AXIS))
+    return 0;
   if (Axis_group_interface::has_interface (g)
       && Align_interface::has_interface (g->get_parent (Y_AXIS)))
     return g;
