@@ -26,24 +26,25 @@ substituted for the music.  The line width and font size definitions for
 the music are adjusted to match the layout of your document.
 
 This is a separate program from @command{lilypond} itself, and is run
-on the command line; for more information, see @ref{Command-line
-usage}.  If you have MacOS 10.3 or 10.4 and you have trouble running
-@code{lilypond-book}, see @rweb{MacOS X}.
+on the command line; for more information, see
+@ref{Command-line usage}.  If you have trouble running
+@code{lilypond-book} on Windows or Mac OS X using the command line, then
+see either @rweb{Windows} or @rweb{MacOS X}.
 
 This procedure may be applied to @LaTeX{}, HTML, Texinfo or DocBook
 documents.
 
 @cindex texinfo
-@cindex latex
+@cindex LaTex
 @cindex texinfo
 @cindex texi
-@cindex html
+@cindex HTML
 @cindex docbook
-@cindex documents, adding music to
-@cindex HTML, music in
-@cindex Texinfo, music in
-@cindex DocBook, music in
-@cindex @LaTeX{}, music in
+@cindex documents, adding music
+@cindex HTML, adding music
+@cindex Texinfo, adding music
+@cindex DocBook, adding music
+@cindex LaTeX, adding music
 
 @menu
 * An example of a musicological document::
