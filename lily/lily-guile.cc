@@ -570,9 +570,9 @@ robust_scm2vsize (SCM k, vsize o)
 {
   if (scm_integer_p (k) == SCM_BOOL_T)
     {
-      o = scm_to_int (k);
-      if (o >= 0)
-        return (vsize) o;
+      int i = scm_to_int (k);
+      if (i >= 0)
+        return (vsize) i;
     }
   return o;
 }
