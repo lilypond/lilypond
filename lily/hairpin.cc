@@ -265,18 +265,19 @@ Hairpin::print (SCM smob)
     }
 
   bool continued = broken[Direction (-grow_dir)];
+  bool continuing = broken[Direction (grow_dir)];
 
   Real starth = 0;
   Real endh = 0;
   if (grow_dir < 0)
     {
-      starth = height;
-      endh = continued ? height / 2 : 0.0;
+      starth = continuing ? 2 * height / 3 : height;
+      endh = continued ? height / 3 : 0.0;
     }
   else
     {
-      starth = continued ? height / 2 : 0.0;
-      endh = height;
+      starth = continued ? height / 3 : 0.0;
+      endh = continuing ? 2 * height / 3 : height;
     }
 
   /*
