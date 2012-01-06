@@ -1331,54 +1331,57 @@ Internals Reference:
 @cindex upbeat
 @cindex partial measure
 @cindex measure, partial
+@cindex measure, pickup
 @cindex pickup measure
-@cindex measure, change length
 
 @funindex measurePosition
 @funindex \partial
 @funindex partial
 
-Partial or pick-up measures, such as an anacrusis or upbeat, are
-entered using the @code{\partial} command, with the syntax
+Partial or pick-up measures, such as an @emph{anacrusis} or an
+@emph{upbeat}, are entered using the @code{\partial} command,
 
 @example
 \partial @var{duration}
 @end example
 
 @noindent
-where @code{@var{duration}} is the rhythmic length of the
-remaining interval of the current measure before the start of the
-next.
+where @code{@var{duration}} is the @emph{remaining} length of the
+partial measure @emph{before} the start of the next full measure.
 
-@lilypond[quote,verbatim,relative=2]
-\partial 4 e4 |
-a2. c,4 |
+@lilypond[quote,verbatim,relative=1]
+\time 3/4
+\partial 8
+e8 | a4 c8 b c4 |
 @end lilypond
 
-The partial measure can be any duration less than the full measure:
+The @var{duration} can be any value less than a full measure:
 
-@lilypond[quote,verbatim,relative=2]
-\partial 8*3 c8 d e |
-a2. c,4 |
+@lilypond[quote,verbatim,relative=1]
+\time 3/4
+\partial 4.
+r4 e8 | a4 c8 b c4 |
 @end lilypond
 
-Internally, @code{\partial @var{duration}} is translated into:
+The @code{\partial @var{duration}} can also be written as;
 
 @example
 \set Timing.measurePosition -@var{duration}
 @end example
 
-For example, @code{\partial 8*3} becomes:
+So @code{\partial 8} becomes:
 
-@example
-\set Timing.measurePosition = #(ly:make-moment -3 8)
-@end example
+@lilypond[quote,verbatim,relative=1]
+\time 3/4
+\set Timing.measurePosition = #(ly:make-moment -1 8)
+e8 | a4 c8 b c4 |
+@end lilypond
 
 The property @code{measurePosition} contains a rational number
 indicating how much of the measure has passed at this point.  Note
 that this is set to a negative number by the @code{\partial} command:
-i.e., @code{\partial 4} is internally translated to @w{@code{-4}}, meaning
-@qq{there is a quarter note left in the measure.}
+i.e., @code{\partial 4} is internally translated to @w{@code{-4}},
+meaning @qq{there is a quarter note left in the measure.}
 
 @seealso
 Music Glossary:
@@ -1394,11 +1397,17 @@ Internal Reference:
 @rinternals{Timing_translator}.
 
 @knownissues
+The @code{\partial} command should be used only at the beginning of a
+piece.  If you use it after the beginning, warnings or problems may
+occur, so use @code{\set Timing.measurePosition} instead.
 
-The @code{\partial} command is intended to be used only at the
-beginning of a piece.  If you use it after the beginning, some
-odd warnings or effects may occur, in this case use
-@code{\set Timing.measurePosition} instead.
+@lilypond[quote,verbatim,relative=1]
+\time 6/8
+\partial 8
+e8 | a4 c8 b[ c b] |
+\set Timing.measurePosition = #(ly:make-moment -1 4)
+r8 e,8 | a4 c8 b[ c b] |
+@end lilypond
 
 @node Unmetered music
 @unnumberedsubsubsec Unmetered music
