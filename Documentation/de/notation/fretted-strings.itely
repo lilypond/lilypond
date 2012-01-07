@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -515,7 +515,7 @@ Slide.
 @cindex Bundinstrumente, Saitenstimmung
 @cindex Tabulatur, Saitenstimmung
 
-@funindex StringTunings
+@funindex stringTunings
 
 LilyPond errechnet automatisch den Bund für eine Note auf Grundlage
 der Saite, zu welcher der Ton zugeordnet ist.  Um das tun zu können,
@@ -553,16 +553,17 @@ in der EADGHE-Stimmung.  Andere vordefinierte Stimmung sind:
 @code{banjo-open-g-tuning}.  Die vordefinierten Stimmungen finden
 sich in @file{scm/string-tuning-init.scm}.
 
-@funindex contextStringTunings
-@funindex \contextStringTunings
+@funindex stringTuning
+@funindex \stringTuning
 @cindex Tabulatur, eigene Saitenstimmung
 @cindex Eigene Saitenstimmung, Tabulatur
 
 Jede beliebige Stimmung kann erstellt werden.  Die Funktion
-@code{\contextStringTuning} kann benutzt werden, um eine Saitenstimmung
+@code{\stringTuning} kann benutzt werden, um eine Saitenstimmung
 zu definieren und als den Wert von @code{stringTunings} für den aktuellen
-Kontext zu bestimmen.  @code{\contextStringTuning} braucht zwei Argumente:
-das Symbol, wo die Saitenstimmung gespeichert werden soll, und eine
+Kontext zu bestimmen.
+
+Als Argument braucht die Funktion eine
 Akkordkonstruktion, die die Tonhöhen jeder Saite der Stimmung angibt.
 Die Akkordkonstruktion muss im absoluten Oktavenmodus angegeben werden,
 siehe @ref{Absolute Oktavenbezeichnung}.  Die Saite mit der höchsten
@@ -584,8 +585,7 @@ mynotes = {
     \mynotes
   }
   \new TabStaff {
-    #(define custom-tuning #{ \stringTuning <c' g' d'' a''> #})
-    \set stringTunings = #custom-tuning
+    \set stringTunings = \stringTuning <c' g' d'' a''>
     \mynotes
   }
 >>
@@ -594,16 +594,10 @@ mynotes = {
 Die @code{stringTunings}-Eigenschaft wird auch von @code{FretBoards}
 benutzt, um automatische Bunddiagramme zu errechnen.
 
-@funindex makeStringTuning
-@funindex \makeStringTuning
-
 Saitensitmmungen werden als Teil des Hash-Schlüsselwertes für
 vordefinierte Bunddiagramme eingesetzt (siehe auch
-@ref{Vordefinierte Bund-Diagramme}.  Die Funktion @code{\makeStringTuning}
-wird benutzt, um eine Stimmung im aktuellen Kontext zu erstellen, ohne die
-@code{stringTunings}-Eigenschaft einzusetzen  Die Argumente von
-@code{\makeStringTuning} sind das Symbol, das für die neue Stimmung
-benutzt werden soll und eine Akkordkonstruktion, die die Stimmung definiert.
+@ref{Vordefinierte Bund-Diagramme}.
+
 Das vorherige Beispiel könnte auch folgenderweise geschrieben werden:
 
 @lilypond[quote,verbatim]
@@ -638,34 +632,23 @@ Tonhöhenobjekt für LilyPond.  Tonhöhenobjekte werden mit der
 Scheme-Funktion +@code{ly:make-pitch} erstellt
 (siehe @ref{Scheme-Funktionen}).
 
-Wenn gewünscht, kann eine Saitenstimmung auch in Scheme-Sprache erstellt
-werden.  Das Beispiel unten bildet das obige Beispiel nach, aber die
-Stimmung wird nicht als eigenes Objekt gespeichert:
-
-@lilypond[quote,verbatim]
-mynotes = {
-  c'4 e' g' c'' |
-  e''4 g'' b'' c'''
-}
-
-<<
-  \new Staff {
-    \clef treble
-    \mynotes
-  }
-  \new TabStaff {
-    \set TabStaff.stringTunings = #`(,(ly:make-pitch 1 5 0)
-				     ,(ly:make-pitch 1 1 0)
-				     ,(ly:make-pitch 0 4 0)
-				     ,(ly:make-pitch 0 0 0))
-    \mynotes
-  }
->>
-@end lilypond
+@code{\stringTuning} erstellt derartige Objekte aus der Akkord-Eingabe.
 
 LilyPond errechnet automatisch die Linienanzahl für die Tabulatur und
 die Zahl der Saiten in dem automatisch erstellten @code{FretBoard}
 (Bunddiagramm) aus der Anzahl der Elemente von @code{stringTunings}.
+
+Um für alle @code{TabStaff}-Kontexte die selbe Standardstimmung zu
+benutzen, kann man benutzen:
+
+@example
+\layout @{
+  \context @{
+    \TabStaff
+    stringTunings = \stringTuning \notemode @{ <c' g' d'' a''> @}
+  @}
+@}
+@end example
 
 @cindex Schlüssel, modern, Tabulatur
 @cindex Tabulatur, moderner Schlüssel
@@ -1134,6 +1117,7 @@ Referenz der Interna:
 @cindex Bunddiagramme
 @cindex Akkord-Diagramme
 @cindex Bunddiagramme, Ukulele
+@cindex Bunddiagramme, Mandoline
 
 @funindex FretBoards
 @funindex stringTunings
@@ -1174,6 +1158,24 @@ myChords = \chordmode { a1 a:m a:aug }
 
 \new FretBoards {
   \set stringTunings = #ukulele-tuning
+  \myChords
+}
+@end lilypond
+
+Bunddiagramme für Mandoline sind in der Datei @file{predefined-mandolin-fretboards.ly}
+enhalten:
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-mandolin-fretboards.ly"
+
+myChords = \chordmode { c1 c:m7.5- c:aug }
+
+\new ChordNames {
+  \myChords
+}
+
+\new FretBoards {
+  \set stringTunings = #mandolin-tuning
   \myChords
 }
 @end lilypond
@@ -1421,7 +1423,8 @@ Notationsreferenz:
 Installierte Dateien:
 @file{ly/predefined-guitar-fretboards.ly},
 @file{ly/predefined-guitar-ninth-fretboards.ly},
-@file{ly/predefined-ukulele-fretboards.ly}.
+@file{ly/predefined-ukulele-fretboards.ly},
+@file{ly/predefined-mandolin-fretboards.ly}.
 
 Schnipsel:
 @rlsr{Fretted strings}.
@@ -1917,13 +1920,13 @@ Saite gesetzt werden:
 @funindex banjo-open-dm-tuning
 @funindex four-string-banjo
 
-Eine Anzahl von üblichen Stimmungen für Banjo sind in LilyPond
+Eine Anzahl von üblichen Stimmungen für fünsaitiges Banjo sind in LilyPond
 vordefiniert:
 @code{banjo-c-tuning} (gCGBD), @code{banjo-modal-tuning} (gDGCD),
 @code{banjo-open-d-tuning} (aDF#AD) und @code{banjo-open-dm-tuning}
 (aDFAD).
 
-Diese Stimmungen können für das viersaitige Banjo angepasst werden,
+Sie können für das viersaitige Banjo angepasst werden,
 indem die @code{four-string-banjo}-Funktion eingesetzt wird:
 
 @example
@@ -1936,4 +1939,4 @@ Schnipsel:
 @rlsr{Fretted strings}.
 
 Installierte Dateien:
-@file{scm/tablature.scm} enthält vordefinierte Banjo-Stimmungen.
+@file{ly/string-tunings-init.ly}.

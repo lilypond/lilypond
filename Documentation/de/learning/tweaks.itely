@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1034,7 +1034,7 @@ wenn sie in einem @code{\override}-Befehl benutzt werden.
 @item Richtung
   @tab Eine gültige Richtungskonstante oder das numerische Äquivalent
   @tab @code{LEFT}, @code{CENTER}, @code{UP},
-       @code{1}, @code{-1}
+       @code{1}, @w{@code{-1}}
 @item Integer
   @tab Eine positive ganze Zahl
   @tab @code{3}, @code{1}
@@ -1053,7 +1053,7 @@ wenn sie in einem @code{\override}-Befehl benutzt werden.
        @code{(ly:make-moment 3 8)}
 @item Zahl
   @tab Eine beliebige positive oder negative Dezimalzahl
-  @tab @code{3.5}, @code{-2.45}
+  @tab @code{3.5}, @w{@code{-2.45}}
 @item Paar (Zahlenpaar)
   @tab Zwei Zahlen getrennt von @qq{Leerzeichen . Leerzeichen}, eingeklammert
   und angeführt von einem Apostroph
@@ -1228,7 +1228,7 @@ Versuchen wir es also, und berücksichtigen wir auch den
 @code{Staff}-Kontext.  Beachten Sie auch, dass Sie @code{#'#}
 vor der öffnenden Klammer schreiben müssen:
 @code{'#} wird benötigt als Teil des Wertes, um einen Vektor zu
-signalisieren, und das erste @code{#} wird benötigt, um
+signalisieren, und das erste@tie{}@code{#} wird benötigt, um
 den Wert in einem @code{\override}-Befehl anzuführen.
 
 @cindex Taktlinie, Beispiel zur Veränderung
@@ -1909,7 +1909,7 @@ a4 g c a
 @end lilypond
 
 Hier werden die Konstanten @code{DOWN} und @code{UP}
-eingesetzt.  Sie haben die Werte @code{-1} bzw. @code{+1}, und
+eingesetzt.  Sie haben die Werte @w{@code{-1}} bzw. @code{+1}, und
 diese numerischen Werte können ebenso benutzt werden.  Auch
 der Wert @code{0} kann in manchen Fällen benutzt werden.  Er
 bedeutet für die Hälse das gleiche wie @code{UP}, für einige
@@ -2101,7 +2101,7 @@ Wenn die Fingersatzbezeichnung zu gedrungen aussieht,
 kann auch die Schriftgröße (@code{font-size}) verringert
 werden.  Der Standardwert kann aus dem
 @code{Fingering}-Objekt in der IR entnommen werden,
-er ist @code{-5}, versuchen wir es also mit @code{-7}.
+er ist @w{@code{-5}}, versuchen wir es also mit @w{@code{-7}}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 \override Fingering #'font-size = #-7
@@ -2675,12 +2675,12 @@ Objekten benutzt werden, die das @code{self-alignment-interface}
 unterstützen.  Das sind üblicherweise Objekte, die Text
 enthalten.  Die möglichen Werte der Eigenschaft sind @code{LEFT},
 @code{RIGHT} oder @code{CENTER}.  Alternativ kann ein
-numerischer Wert zwischen @code{-1} und @code{+1}
-bestimmt werden: @code{-1} heißt linksbündig, @code{+1}
+numerischer Wert zwischen @w{@code{-1}} und @code{+1}
+bestimmt werden: @w{@code{-1}} heißt linksbündig, @code{+1}
 rechtsbündig und Zahlen dazwischen bewegen den Text
 schrittweise von links nach rechts.  Zahlen größer als
 @code{1} können angegeben werden, um den Text
-noch weiter nach links zu bewegen, oder weniger als @code{-1},
+noch weiter nach links zu bewegen, oder weniger als @w{@code{-1}},
 um ihn weiter nach rechts zu schieben.  Eine Änderung
 um @code{1} des Wertes entspricht einer Bewegung um
 die halbe Textbreite.
@@ -3002,7 +3002,7 @@ also die zweite Stimme in der
 @code{<<@{...@} \\ @{...@}>>}-Konstruktion) wird die
 Position auf dem System (@code{staff-position}) auf -4
 für @code{MultiMeasureRest}, in unserem Beispiel muss
-es also bspw. auf die Position @code{-8} gesetzt werden,
+es also bspw. auf die Position @w{@code{-8}} gesetzt werden,
 d.h. vier halbe Notenlinienabstände weiter nach unten:
 
 @cindex MultiMeasureRest, Beispiel zur Veränderung

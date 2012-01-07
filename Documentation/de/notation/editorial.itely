@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -384,10 +384,10 @@ Eine X11-Farbe hat nicht notwendigerweise exakt denselben Farbton wie
 eine ähnlich genannte normale Farbe.
 
 Nicht alle X11-Farben lassen sich am Webbrowser erkennen, d. h. der
-Unterschied etwa zwischen @code{'LimeGreen} und @code{'ForestGreen} wird
+Unterschied etwa zwischen @code{LimeGreen} und @code{ForestGreen} wird
 eventuell nicht dargestellt.  Für die Benutzung im Internet wird
-die Benutzung von einfachen Farben nahegelegt (z. B. @code{#blue},
-@code{#green}, @code{#red}).
+die Benutzung von einfachen Farben nahegelegt (z. B. @code{blue},
+@code{green}, @code{red}).
 
 Noten in Akkorden können nicht mit @code{\override} eingefärbt werden,
 dazu muss @code{\tweak} benutzt werden. Siehe auch @ref{Der tweak-Befehl}.

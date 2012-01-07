@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 04a1f20da162cd0fec86bddbd14f167a695da480
+    Translation of GIT committish: 9ae56888788d74c292e20b735a8f973c64cf1b1d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -173,6 +173,9 @@ en ligne de commande, et ajouter la ligne
 @noindent
 en tête de votre fichier @file{.ly}.
 
+@warning{Les utilisateurs de Windows doivent utiliser des quillements
+doubles @code{"} en lieu et place des guillemets simples @code{'}.}
+@c Match " in previous line to help context-sensitive editors
 
 @item -f,--format=@var{format}
 Détermine le format à produire.  Il peut s'agir de @code{ps}, @code{pdf}
@@ -196,23 +199,22 @@ Ainsi,
 @noindent
 revient au même que
 @example
--dpoint-and-click='#f'
+-dpoint-and-click=#f
 @end example
 
-
-Voici quelques options des plus intéressantes.
+Voici les options disponibles@tie{}:
 
 @cindex help, ligne de commande
 
-@table @samp
+@table @code
+
 @item help
 Lancer @code{lilypond -dhelp} affichera la liste de toutes les options
 @code{-d} disponibles.
 
 
-@cindex paper-size, ligne de commande
-
 @item paper-size
+@cindex paper-size, ligne de commande
 Détermine la taille par défaut du papier, par exemple
 @example
 -dpaper-size=\"letter\"
@@ -225,7 +227,6 @@ Veillez à ne pas oublier d'encadrer la valeur par des guillemets
 
 
 @cindex safe, ligne de commande
-
 @item safe
 Ne pas avoir une confiance aveugle dans le code @file{.ly}.
 
@@ -270,15 +271,16 @@ compilation d'un certain nombre de fragments LilyPond.  L'option
 sécurité, même si elle requiert plus de temps à mettre en place.
 
 
-@cindex format de sortie, définition
-
 @item backend
+@cindex format de sortie, définition
 Détermine le format de sortie à utiliser par le moteur de traitement.
 Les types de @code{format} reconnus sont
+
 @table @code
 @item ps
+
 @cindex PostScript output
- pour du PostScript.
+pour du PostScript.
 
 Les fichiers PostScript incluent les polices TTF, Type1 et OTF, et
 aucune substitution ne sera opérée pour ces fontes.  Si vous utilisez
@@ -289,7 +291,7 @@ taille conséquente.
 @item eps
 @cindex Postscript encapsulé
 @cindex EPS (Encapsulated PostScript)
- pour du PostScript encapsulé.
+pour du PostScript encapsulé.
 
 Chaque page (système) fera l'objet d'un fichier @file{EPS} particulier,
 sans fontes, auquel sera associé un fichier @file{EPS} qui, lui,
@@ -299,7 +301,7 @@ Notez qu'il s'agit du mode que @command{lilypond-book} utilise par défaut.
 
 @item svg
 @cindex SVG (Scalable Vector Graphics)
- pour du SVG (@emph{Scalable Vector Graphics}).
+pour du SVG (@emph{Scalable Vector Graphics}).
 
 Cette option permet de créer un fichier SVG par page, sans incorporation
 des fontes.  Nous vous recommandons d'installer les fontes Century
@@ -342,14 +344,12 @@ dans l'interpréteur de commandes lorsque vous lancez le programme
 vous renvoie simplement la main.  L'option @option{-dgui} vous permettra
 alors de rediriger ces informations dans un fichier journal.
 
-
 @item print-pages
 Génère l'intégralité des pages de la partition.  L'option
 @option{-dno-print-pages} est particulièrement utile lorsqu'utilisée
 conjointement avec l'option @option{-dpreview}.
 
 @end table
-
 
 
 @item -h,--help
@@ -367,7 +367,7 @@ Recopie le champ d'entête dans le fichier @file{RACINE.@var{CHAMP}}.
 Ajoute @var{répertoire} au chemin de recherche pour les inclusions.
 
 Vous pouvez mentionner plusieurs fois l'option @option{-I}, auquel cas
-le la recherche commencera dans le premier répertoire inclus et, si le
+la recherche commencera dans le premier répertoire inclus et, si le
 fichier en question ne s'y trouve pas, les répertoires suivants seront
 examinés l'un après l'autre.
 
@@ -420,15 +420,13 @@ c'est là que les fichiers résultants seront déposés.  Le suffixe adéquat
 sera ajouté (p.ex. @file{.pdf} pour du pdf) dans tous les cas.
 
 
-@cindex PostScript output
-
 @item --ps
+@cindex PostScript output
 Génère du PostScript.
 
 
-@cindex Portable Network Graphics (PNG) output
-
 @item --png
+@cindex Portable Network Graphics (PNG) output
 Génère une image par page, au format PNG@tie{}; ceci sous-entend
 l'utilisation de @option{--ps}.  La résolution de l'image, en DPI, peut
 se régler en ajoutant par exemple
@@ -437,9 +435,8 @@ se régler en ajoutant par exemple
 @end example
 
 
-@cindex Portable Document Format (PDF) output
-
 @item --pdf
+@cindex Portable Document Format (PDF) output
 Génère du PDF.  Ceci sous-entend l'utilisation de @option{--ps}.
 
 

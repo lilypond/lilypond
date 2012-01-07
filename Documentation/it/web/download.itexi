@@ -1,6 +1,6 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 12503a0c383617cd11fa0bba2836af6c0518ecf7
+    Translation of GIT committish: 0112614184685258f1d6dc86230b8d0044dd4cac
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -299,10 +299,14 @@ Si riconoscono il copyright e i marchi di tutti i loghi e le immagini dei prodot
 Per MacOS X 10.4 o superiori, con processore Intel (se hai dei dubbi,
 usa questo).
 
+MacOS X 10.7 Lion non è ancora supportato.
+
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
 Per MacOS X 10.4 o superiori, con processori G3 e G4 (vecchi computer Apple).
+
+MacOS X 10.7 Lion non è ancora supportato.
 
 @end itemize
 
