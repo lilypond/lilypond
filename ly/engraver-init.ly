@@ -71,7 +71,6 @@
   \consists "Ledger_line_engraver"
   \consists "Staff_symbol_engraver"
   \consists "Collision_engraver"
-  \consists "Beam_collision_engraver"
   \consists "Grob_pq_engraver"
   \consists "Rest_collision_engraver"
   \consists "Accidental_engraver"
@@ -411,6 +410,13 @@ a collection of staves, with a bracket in front and spanning bar lines."
        (padding . 0.5))
   \override TextScript #'font-shape = #'italic
   \override DynamicLineSpanner #'Y-offset = #0
+  \override DynamicText #'X-offset =
+  #(ly:make-simple-closure
+    `(,+
+      ,(ly:make-simple-closure
+         (list ly:self-alignment-interface::centered-on-note-columns))
+      ,(ly:make-simple-closure
+        (list ly:self-alignment-interface::x-aligned-on-self))))
 
   \description "Holds a single line of dynamics, which will be
 centered between the staves surrounding this context."
@@ -539,6 +545,7 @@ automatically when an output definition (a @code{\score} or
   \consists "Bar_number_engraver"
   \consists "Parenthesis_engraver"
   \consists "Concurrent_hairpin_engraver"
+  \consists "Beam_collision_engraver"
 
   \defaultchild "Staff"
 

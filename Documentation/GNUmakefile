@@ -23,7 +23,7 @@ TEXI2PDF_FLAGS = \
   -I $(outdir) \
   -I $(top-build-dir)/Documentation/$(outconfbase)
 $(outdir)/snippets-big-page.html: TEXI2HTML_FLAGS += -D short_toc
-$(outdir)/snippets/index..html: TEXI2HTML_FLAGS += -D short_toc
+$(outdir)/snippets/index.html: TEXI2HTML_FLAGS += -D short_toc
 
 ### Extra source files
 
@@ -134,18 +134,6 @@ $(outdir)/essay.texi: \
   $(outdir)/computer-notation.itexi \
   $(outdir)/engravingbib.itexi
 
-$(outdir)/others-did.itexi:
-	BSTINPUTS=$(src-dir)/web/ $(buildscript-dir)/bib2texi \
-		-s $(top-src-dir)/Documentation/lily-bib \
-		-o $(outdir)/others-did.itexi \
-		$(src-dir)/web/others-did.bib
-
-$(outdir)/we-wrote.itexi:
-	BSTINPUTS=$(src-dir)/web/ $(buildscript-dir)/bib2texi \
-		-s $(top-src-dir)/Documentation/lily-bib \
-		-o $(outdir)/we-wrote.itexi \
-		$(src-dir)/web/we-wrote.bib
-
 
 ###########
 ### Targets
@@ -209,10 +197,13 @@ endif
 $(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 
-# cd $(outdir) rule gets bit hairy for --srcdir configure builds
-txt-to-html:
-	$(foreach a, $(README_TOP_FILES), cp $(top-src-dir)/$(a) $(outdir)/$(a).txt && ) true
-	$(PYTHON) $(step-bindir)/text2html.py $(OUT_TXT_FILES)
+txt-to-html: $(OUT_TXT_FILES) $(OUT_TXT_FILES:%.txt=%.html)
+
+$(OUT_TXT_FILES): $(outdir)/%.txt: $(top-src-dir)/%
+	cp -f $< $@
+
+$(OUT_TXT_FILES:%.txt=%.html): $(outdir)/%.html: $(outdir)/%.txt
+	$(PYTHON) $(step-bindir)/text2html.py $<
 
 # Explicitly list the dependencies on generated content
 $(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi $(outdir)/weblinks.itexi

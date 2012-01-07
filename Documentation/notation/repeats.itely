@@ -52,7 +52,7 @@ This is used to write tremolo beams.
 
 This section discusses how to input long (usually multi-measure)
 repeats.  The repeats can take two forms: repeats enclosed between
-repeat signs; or written out repeats, used to input repetitious music.
+repeat signs; or written-out repeats, used to input repetitious music.
 Repeat signs can also be controlled manually.
 
 @menu
@@ -444,18 +444,17 @@ Internals Reference:
 @unnumberedsubsubsec Written-out repeats
 
 @cindex written-out repeats
-@cindex repetitious music
 @cindex repeats, written-out
-@cindex repeat, unfold
-@cindex unfold music
+@cindex repeats, unfold
+@cindex repeats, alternative
 @cindex unfold repeat
-@cindex unfold repeat with alternate endings
-@cindex unfold music with alternate endings
-@cindex alternate ending in written-out repeats
+@cindex unfold repeat, alternate endings
+@cindex alternate repeats
+@cindex alternate endings, repeats
 @funindex unfold
 
-By using the @code{unfold} command, repeats can be used to simplify
-the writing out of repetitious music.  The syntax is
+By using the @code{unfold} command, repeats can be used to simplify the
+writing out of repetitious music.  The syntax is
 
 @example
 \repeat unfold @var{repeatcount} @var{musicexpr}
@@ -484,7 +483,6 @@ is not equivalent to
 @example
 a'4 b c | a'4 b c
 @end example
-
 
 Unfold repeats can be made with alternate endings.
 
@@ -539,21 +537,23 @@ without alternate endings).
 c1
 @end lilypond
 
+Chord constructs can be repeated by the chord repetition symbol
+@code{q}.  See @ref{Chord repetition}.
 
-@warning{If you include @code{@bs{}relative} inside a
-@code{@bs{}repeat} without explicitly instantiating the
-@code{Voice} context, extra (unwanted) staves will appear.  See
-@rprogram{An extra staff appears}.}
-
+@warning{If you include @code{@bs{}relative} inside a @code{@bs{}repeat}
+without explicitly instantiating the @code{Voice} context, extra
+(unwanted) staves will appear.  See @rprogram{An extra staff appears}.}
 
 @seealso
+Notation Reference:
+@ref{Chord repetition}.
+
 Snippets:
 @rlsr{Repeats}.
 
 Internals Reference:
 @rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
-
 
 @node Short repeats
 @subsection Short repeats

@@ -174,8 +174,10 @@ def get_latex_textwidth (source, global_options):
     latex_document = LATEX_INSPECTION_DOCUMENT % {'preamble': preamble}
 
     (handle, tmpfile) = tempfile.mkstemp('.tex')
-    logfile = os.path.splitext (tmpfile)[0] + '.log'
-    logfile = os.path.split (logfile)[1]
+    tmpfileroot = os.path.splitext (tmpfile)[0]
+    tmpfileroot = os.path.split (tmpfileroot)[1]
+    auxfile = tmpfileroot + '.aux'
+    logfile = tmpfileroot + '.log'
 
     tmp_handle = os.fdopen (handle,'w')
     tmp_handle.write (latex_document)
@@ -187,11 +189,13 @@ def get_latex_textwidth (source, global_options):
     proc = subprocess.Popen (cmd,
         universal_newlines=True, shell=True,
         stdout=subprocess.PIPE, stderr=subprocess.PIPE);
+    (parameter_string, error_string) = proc.communicate ()
     if proc.returncode != 0:
         warning (_ ("Unable to auto-detect default page settings:\n%s")
-                 % proc.communicate ()[1]);
+                 % error_string);
     os.unlink (tmpfile)
-    parameter_string = ""
+    if os.path.exists (auxfile):
+        os.unlink (auxfile)
     if os.path.exists (logfile):
         parameter_string = file (logfile).read()
         os.unlink (logfile)

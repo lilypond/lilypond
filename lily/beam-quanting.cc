@@ -283,6 +283,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
           base_lengths_.push_back (y / staff_space_);
           stem_xpositions_.push_back (s->relative_coordinate (common[X_AXIS], X_AXIS) - x_pos[LEFT] + x_span_);
           stem_ypositions_.push_back (s->relative_coordinate (common[Y_AXIS], Y_AXIS) - my_y);
+
           if (is_normal_.back ())
             {
               if (beam_width[LEFT] == -1.0)
@@ -350,6 +351,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
             continue;
 
           b[X_AXIS] += (x_span_ - x_pos[LEFT]);
+          b[Y_AXIS] -= my_y;
           Real width = b[X_AXIS].length ();
           Real width_factor = sqrt (width / staff_space_);
 
@@ -374,7 +376,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
           Interval y;
           y.set_full ();
           y[-stem_dir] = Stem::chord_start_y (*it) + (*it)->relative_coordinate (common[Y_AXIS], Y_AXIS)
-                         - beams[i]->relative_coordinate (common[Y_AXIS], Y_AXIS);
+                         - my_y;
 
           Real factor = parameters_.STEM_COLLISION_FACTOR;
           if (!unsmob_grob (s->get_object ("beam")))

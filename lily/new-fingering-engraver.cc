@@ -63,6 +63,7 @@ class New_fingering_engraver : public Engraver
   vector<Finger_tuple> string_numbers_;
 
   vector<Grob *> heads_;
+  vector<Grob *> accidentals_;
   Grob *stem_;
 
   void position_all ();
@@ -71,6 +72,7 @@ public:
 protected:
   void stop_translation_timestep ();
   DECLARE_ACKNOWLEDGER (rhythmic_head);
+  DECLARE_ACKNOWLEDGER (inline_accidental);
   DECLARE_ACKNOWLEDGER (stem);
   void add_fingering (Grob *, SCM,
                       vector<Finger_tuple> *,
@@ -79,6 +81,12 @@ protected:
   void add_string (Grob *, Stream_event *, Stream_event *);
   void position_scripts (SCM orientations, vector<Finger_tuple> *);
 };
+
+void
+New_fingering_engraver::acknowledge_inline_accidental (Grob_info inf)
+{
+  accidentals_.push_back(inf.grob ());
+}
 
 void
 New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
@@ -106,9 +114,17 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
       else if (ev->in_event_class ("script-event"))
         add_script (inf.grob (), ev, note_ev);
       else if (ev->in_event_class ("string-number-event"))
-        add_fingering (inf.grob (),
-                       ly_symbol2scm ("StringNumber"), &string_numbers_,
-                       ev, note_ev);
+        {    
+          // String numbers are used in calculating harmonics even
+          // when we don't want them displayed.  So don't make space
+          // for them if 'stencil is #f
+          Grob *g = make_item ("StringNumber", ev->self_scm ());
+          if (g->get_property ("stencil") != SCM_BOOL_F)
+            add_fingering (inf.grob (),
+                            ly_symbol2scm ("StringNumber"), &string_numbers_,
+                            ev, note_ev);
+          g->suicide (); // Kill grob created to check stencil
+        }
       else if (ev->in_event_class ("stroke-finger-event"))
         add_fingering (inf.grob (),
                        ly_symbol2scm ("StrokeFinger"), &stroke_fingerings_,
@@ -334,6 +350,10 @@ New_fingering_engraver::position_all ()
     {
       Grob *script = articulations_[i].script_;
 
+      for (vsize j = 0; j < accidentals_.size (); j++)
+        Side_position_interface::add_support (script, accidentals_[j]);
+
+      accidentals_.resize (0);
       for (vsize j = heads_.size (); j--;)
         Side_position_interface::add_support (script, heads_[j]);
 
@@ -352,6 +372,7 @@ New_fingering_engraver::New_fingering_engraver ()
 }
 
 ADD_ACKNOWLEDGER (New_fingering_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER (New_fingering_engraver, inline_accidental);
 ADD_ACKNOWLEDGER (New_fingering_engraver, stem);
 
 ADD_TRANSLATOR (New_fingering_engraver,

@@ -174,8 +174,8 @@ music = {
 %%%%% score.ly
 %%%%% (This is the main file)
 
-
-%\include "piece.ly"             %%% uncomment this line when using a separate file
+%%% uncomment the line below when using a separate file
+%\include "piece.ly"
 #(set-global-staff-size 14)
 \score {
   \new StaffGroup \keepWithTag #'score \music

@@ -492,7 +492,7 @@ the syntax of constructs you want to replace.  For example, if you want
 to write dynamics commands, those are usually attached without direction
 indicator, like @code{c'\pp}.  Here is a way to write arbitrary
 dynamics:
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 dyn=#(define-event-function (parser location arg) (markup?)
          (make-dynamic-script arg))
 \relative c' { c\dyn pfsss }

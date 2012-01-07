@@ -446,7 +446,9 @@ tabFullNotation = {
   \revert TabVoice.Flag #'style
   \revert TabVoice.Stem #'details
   \revert TabVoice.Stem #'transparent
+  \revert TabVoice.Flag #'transparent
   \override TabVoice.Stem #'stencil = #tabvoice::draw-double-stem-for-half-notes
+  \override TabVoice.Stem #'X-extent = #tabvoice::make-double-stem-width-for-half-notes
   \set autoBeaming = ##t
   \revert NoteColumn #'ignore-collision
   % beams, dots

@@ -4,6 +4,7 @@ adjusting-grace-note-spacing.ly
 aligning-bar-numbers.ly
 alternative-breve-note.ly
 automatic-beam-subdivisions.ly
+automatically-change-durations.ly
 avoiding-collisions-with-chord-fingerings.ly
 beam-endings-in-score-context.ly
 beam-grouping-in-7-8-time.ly

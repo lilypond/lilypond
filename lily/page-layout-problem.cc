@@ -385,6 +385,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
   header_padding_ = 0;
   footer_padding_ = 0;
   page_height_ = 100;
+  force_ = 0;
 
   if (page)
     {
@@ -670,16 +671,35 @@ Page_layout_problem::append_prob (Prob *prob, Spring const &spring, Real padding
   elements_.push_back (Element (prob, padding));
 }
 
+/**
+   For ragged-last pages, we usually want to stretch the page so that it
+   is not much more compressed than the previous page.  Here, if ragged is
+   true and you pass a value of fixed_force that !isinf, then I will try
+   to space this page using the given force.  If it does not fit, I will
+   resort to just filling the page (non-raggedly).
+*/
 void
-Page_layout_problem::solve_rod_spring_problem (bool ragged)
+Page_layout_problem::solve_rod_spring_problem (bool ragged, Real fixed_force)
 {
   Simple_spacer spacer;
 
   for (vsize i = 0; i < springs_.size (); ++i)
     spacer.add_spring (springs_[i]);
 
-  spacer.solve (page_height_, ragged);
+  if (ragged && !isinf (fixed_force))
+    {
+      // We need to tell the spacer it isn't ragged.  Otherwise, it will
+      // refuse to stretch.
+      spacer.solve (page_height_, false);
+
+      if (spacer.configuration_length (fixed_force) <= page_height_)
+        spacer.set_force (fixed_force);
+    }
+  else
+    spacer.solve (page_height_, ragged);
+
   solution_ = spacer.spring_positions ();
+  force_ = spacer.force ();
 
   if (!spacer.fits ())
     {
@@ -698,6 +718,12 @@ Page_layout_problem::solve_rod_spring_problem (bool ragged)
             solution_[i] -= (i - 1) * spacing_increment;
         }
     }
+}
+
+Real
+Page_layout_problem::force () const
+{
+  return force_;
 }
 
 // The solution_ vector stores the position of every live VerticalAxisGroup
@@ -784,7 +810,12 @@ Page_layout_problem::find_system_offsets ()
                       if (staff_idx)
                         loose_line_min_distances.push_back (min_offsets[staff_idx - 1] - min_offsets[staff_idx]);
                       else
-                        loose_line_min_distances.push_back (elements_[i].padding - min_offsets[staff_idx]);
+                        {
+                          // A null line to break any staff-affinity from the previous system
+                          loose_line_min_distances.push_back (0.0);
+                          loose_lines.push_back (0);
+                          loose_line_min_distances.push_back (elements_[i].padding - min_offsets[0]);
+                        }
                       loose_lines.push_back (staff);
 
                       distribute_loose_lines (loose_lines, loose_line_min_distances,
@@ -813,12 +844,16 @@ Page_layout_problem::find_system_offsets ()
                       // this is the first line in a system
                       Real min_dist = 0;
                       if (loose_lines.back ())
-                        // distance to the final line in the preceding system,
-                        // including 'system-system-spacing 'padding
-                        min_dist = (Axis_group_interface::minimum_distance (loose_lines.back (),
-                                                                            staff,
-                                                                            Y_AXIS)
-                                    + elements_[i].padding);
+                        {
+                          // distance to the final line in the preceding system,
+                          // including 'system-system-spacing 'padding
+                          min_dist = (Axis_group_interface::minimum_distance (loose_lines.back (),
+                                                                              staff, Y_AXIS)
+                                      + elements_[i].padding);
+                          // A null line to break any staff-affinity for the previous system
+                          loose_line_min_distances.push_back (0.0);
+                          loose_lines.push_back (0);
+                        }
                       else if (!last_title_extent.is_empty ())
                         // distance to the preceding title,
                         //  including 'markup-system-spacing 'padding
@@ -884,16 +919,24 @@ Page_layout_problem::distribute_loose_lines (vector<Grob *> const &loose_lines,
 
   vector<Real> solution = spacer.spring_positions ();
   for (vsize i = 1; i + 1 < solution.size (); ++i)
-    {
-      Real system_offset = scm_to_double (loose_lines[i]->get_property ("system-Y-offset"));
-      loose_lines[i]->translate_axis (first_translation - solution[i] - system_offset, Y_AXIS);
-    }
+    if (loose_lines[i])
+      {
+        Real system_offset = scm_to_double (loose_lines[i]->get_property ("system-Y-offset"));
+        loose_lines[i]->translate_axis (first_translation - solution[i] - system_offset, Y_AXIS);
+      }
+}
+
+SCM
+Page_layout_problem::fixed_force_solution (Real force)
+{
+  solve_rod_spring_problem (true, force);
+  return find_system_offsets ();
 }
 
 SCM
 Page_layout_problem::solution (bool ragged)
 {
-  solve_rod_spring_problem (ragged);
+  solve_rod_spring_problem (ragged, -infinity_f);
   return find_system_offsets ();
 }
 

@@ -7,14 +7,14 @@ $(outdir)/web.texi: $(outdir)/weblinks.itexi
 $(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map $(TRANSLATION_LILY_IMAGES)
 	mkdir -p $(dir $@)
 	mkdir -p $(outdir)/$*
-	DEPTH=$(depth)/../ $(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) --output=$(outdir)/$* $<
+	DEPTH=$(depth)/../ $(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) --output=$(outdir)/$* $< >$*.splittexi.log 2>&1
 	find $(outdir)/$* -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(outdir)/!!g' | xargs $(buildscript-dir)/mass-link --prepend-suffix .$(ISOLANG) hard $(outdir) $(top-build-dir)/Documentation/$(outdir)
 
 $(top-build-dir)/Documentation/$(outdir)/%-big-page.$(ISOLANG).html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map $(TRANSLATION_LILY_IMAGES)
-	DEPTH=$(depth) $(TEXI2HTML) -D bigpage $(TEXI2HTML_FLAGS) --output=$@ $<
+	DEPTH=$(depth) $(TEXI2HTML) -D bigpage $(TEXI2HTML_FLAGS) --output=$@ $< >$*.bigtexi.log 2>&1
 
 $(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi
-	DEPTH=$(depth) $(TEXI2HTML) $(TEXI2HTML_FLAGS) --output=$@ $<
+	DEPTH=$(depth) $(TEXI2HTML) $(TEXI2HTML_FLAGS) --output=$@ $< >$*.texilog 2>&1
 
 $(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf: $(outdir)/%.texi
 	cd $(outdir) && \

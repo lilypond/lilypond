@@ -31,7 +31,7 @@ Stimmen definiert werden, indem eine Variable mit der Funktion
 "
   doctitlede = "Zusätzliche Stimmen um Zusammenstöße zu vermeiden"
 
-%% Translation of GIT committish: 654411c88c0c1e5986f0f443fff8503c3bbd23e0
+%% Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
   texidocfr = "
 Dans certains cas de musique polyphonique complexe, une voix
 supplémentaire peut permettre d'éviter les risques de collision.
@@ -40,7 +40,6 @@ Lorsque quatre voix parallèles ne suffisent pas, la fonction Scheme
 
 "
   doctitlefr = "Ajout de voix pour éviter les collisions"
-
 
   texidoc = "
 In some instances of complex polyphonic music, additional voices are

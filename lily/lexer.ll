@@ -1,4 +1,4 @@
-%{ // -*-Fundamental-*-
+%{ // -*- mode: c++; c-file-style: "linux" -*-
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
@@ -18,6 +18,14 @@
   You should have received a copy of the GNU General Public License
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+/* Mode and indentation are at best a rough approximation based on TAB
+ * formatting (reasonable for compatibility with unspecific editor
+ * modes as Flex modes are hard to find) and need manual correction
+ * frequently.  Without a reasonably dependable way of formatting a
+ * Flex file sensibly, there is little point in trying to fix the
+ * inconsistent state of indentation.
+ */
 
 /*
   backup rules
@@ -86,11 +94,9 @@ bool is_valid_version (string s);
 	yy_push_state (lyric_quote);\
 	yylval.string = new string
 
-#define yylval \
-	(*(YYSTYPE*)lexval_)
+#define yylval (*lexval_)
 
-#define yylloc \
-	(*(YYLTYPE*)lexloc_)
+#define yylloc (*lexloc_)
 
 #define YY_USER_ACTION	add_lexed_char (YYLeng ());
 
@@ -124,6 +130,22 @@ SCM (* scm_parse_error_handler) (void *);
 %x sourcefileline
 %x sourcefilename
 %x version
+
+/* The strategy concerning multibyte characters is to accept them but
+ * call YYText_utf8 for patterns that might contain them, in order to
+ * get a single code path responsible for flagging non-UTF-8 input:
+ * Patterns for accepting only valid UTF-8 without backing up are
+ * really hard to do and complex, and if nice error messages are
+ * wanted, one would need patterns catching the invalid input as well.
+ *
+ * Since editors and operating environments don't necessarily behave
+ * reasonably in the presence of mixed encodings, we flag encoding
+ * errors also in identifiers, comments, and strings where it would be
+ * conceivable to just transparently work with the byte string.  But
+ * the whole point of caring about UTF-8 in here at all is too avoid
+ * stranger errors later when input passes into backends or log files
+ * or console output or error messages.
+ */
 
 A		[a-zA-Z\200-\377]
 AA		{A}|_
@@ -211,12 +233,15 @@ BOM_UTF8	\357\273\277
 	yy_push_state (longcomment);
   }
   %[^{\n\r][^\n\r]*[\n\r]	{
+	  (void) YYText_utf8 ();
   }
   %[^{\n\r]	{ // backup rule
+	  (void) YYText_utf8 ();
   }
   %[\n\r]	{
   }
   %[^{\n\r][^\n\r]*	{
+	  (void) YYText_utf8 ();
   }
   {WHITE}+ 	{
 
@@ -239,7 +264,7 @@ BOM_UTF8	\357\273\277
 	yy_push_state (sourcefileline);
 }
 <version>\"[^"]*\"     { /* got the version number */
-	string s (YYText () + 1);
+	string s (YYText_utf8 () + 1);
 	s = s.substr (0, s.rfind ('\"'));
 
 	yy_pop_state ();
@@ -253,7 +278,7 @@ BOM_UTF8	\357\273\277
 
 }
 <sourcefilename>\"[^"]*\"     {
-	string s (YYText () + 1);
+	string s (YYText_utf8 () + 1);
 	s = s.substr (0, s.rfind ('\"'));
 
 	yy_pop_state ();
@@ -288,9 +313,10 @@ BOM_UTF8	\357\273\277
 }
 <longcomment>{
 	[^\%]* 		{
+		(void) YYText_utf8 ();
 	}
 	\%*[^}%]*		{
-
+		(void) YYText_utf8 ();
 	}
 	"%"+"}"		{
 		yy_pop_state ();
@@ -312,14 +338,14 @@ BOM_UTF8	\357\273\277
 	yy_push_state (incl);
 }
 <incl>\"[^""]*\"   { /* got the include file name */
-	string s (YYText ()+1);
+	string s (YYText_utf8 ()+1);
 	s = s.substr (0, s.rfind ('"'));
 
 	new_input (s, sources_);
 	yy_pop_state ();
 }
 <incl>\\{BLACK}*{WHITE}? { /* got the include identifier */
-	string s = YYText () + 1;
+	string s = YYText_utf8 () + 1;
 	strip_trailing_white (s);
 	if (s.length () && (s[s.length () - 1] == ';'))
 	  s = s.substr (0, s.length () - 1);
@@ -448,11 +474,11 @@ BOM_UTF8	\357\273\277
 
 <notes,figures>{
 	{ALPHAWORD}	{
-		return scan_bare_word (YYText ());
+		return scan_bare_word (YYText_utf8 ());
 	}
 
 	{NOTECOMMAND}	{
-		return scan_escaped_word (YYText () + 1); 
+		return scan_escaped_word (YYText_utf8 () + 1); 
 	}
 	{FRACTION}	{
 		yylval.scm =  scan_fraction (YYText ());
@@ -474,7 +500,7 @@ BOM_UTF8	\357\273\277
 		*yylval.string += to_string (escaped_char (YYText ()[1]));
 	}
 	[^\\""]+	{
-		*yylval.string += YYText ();
+		*yylval.string += YYText_utf8 ();
 	}
 	\"	{
 
@@ -486,7 +512,7 @@ BOM_UTF8	\357\273\277
 		delete sp;
 		return is_lyric_state () ? LYRICS_STRING : STRING;
 	}
-	.	{
+	\\	{
 		*yylval.string += YYText ();
 	}
 }
@@ -509,11 +535,11 @@ BOM_UTF8	\357\273\277
 		return UNSIGNED;
 	}
 	{NOTECOMMAND}	{
-		return scan_escaped_word (YYText () + 1);
+		return scan_escaped_word (YYText_utf8 () + 1);
 	}
 	{LYRICS} {
 		/* ugr. This sux. */
-		string s (YYText ()); 
+		string s (YYText_utf8 ()); 
 		if (s == "__")
 			return yylval.i = EXTENDER;
 		if (s == "--")
@@ -530,15 +556,15 @@ BOM_UTF8	\357\273\277
 		return LYRICS_STRING;
 	}
 	. {
-		return YYText ()[0];
+		return YYText ()[0]; // LYRICS already catches all multibytes.
 	}
 }
 <chords>{
 	{ALPHAWORD}	{
-		return scan_bare_word (YYText ());
+		return scan_bare_word (YYText_utf8 ());
 	}
 	{NOTECOMMAND}	{
-		return scan_escaped_word (YYText () + 1);
+		return scan_escaped_word (YYText_utf8 () + 1);
 	}
 	{FRACTION}	{
 		yylval.scm =  scan_fraction (YYText ());
@@ -569,7 +595,7 @@ BOM_UTF8	\357\273\277
 		return CHORD_CARET;
 	}
 	. {
-		return YYText ()[0];
+		return YYText ()[0]; // ALPHAWORD catches all multibyte.
 	}
 }
 
@@ -579,7 +605,7 @@ BOM_UTF8	\357\273\277
 		return SCORE;
 	}
 	{MARKUPCOMMAND} {
-		string str (YYText () + 1);
+		string str (YYText_utf8 () + 1);
 
                 int token_type = MARKUP_FUNCTION;
 		SCM s = lookup_markup_command (str);
@@ -632,7 +658,7 @@ BOM_UTF8	\357\273\277
 		return YYText ()[0];
 	}
 	[^$#{}\"\\ \t\n\r\f]+ {
-		string s (YYText ()); 
+		string s (YYText_utf8 ()); 
 
 		char c = s[s.length () - 1];
 		/* brace open is for not confusing dumb tools.  */
@@ -645,7 +671,7 @@ BOM_UTF8	\357\273\277
 		return STRING;
 	}
 	.  {
-		return YYText()[0];
+		return YYText()[0];  // Above is catchall for multibyte
 	}
 }
 
@@ -674,10 +700,10 @@ BOM_UTF8	\357\273\277
 
 <INITIAL>{
 	{DASHED_WORD}	{
-		return scan_bare_word (YYText ());
+		return scan_bare_word (YYText_utf8 ());
 	}
 	{DASHED_KEY_WORD}	{
-		return scan_escaped_word (YYText () + 1);
+		return scan_escaped_word (YYText_utf8 () + 1);
 	}
 }
 
@@ -741,10 +767,10 @@ BOM_UTF8	\357\273\277
     }
 }
 
-<*>.		{
-	string msg = _f ("invalid character: `%c'", YYText ()[0]);
+<*>.[\200-\277]*	{
+	string msg = _f ("invalid character: `%s'", YYText_utf8 ());
 	LexerError (msg.c_str ());
-	return YYText ()[0];
+	return '%';  // Better not return half a utf8 character.
 }
 
 %%
@@ -985,6 +1011,113 @@ Lily_lexer::eval_scm (SCM readerdata)
 	return sval;
 }
 
+/* Check for valid UTF-8 that has no overlong or surrogate codes and
+   is in the range 0-0x10ffff */
+
+const char *
+Lily_lexer::YYText_utf8 ()
+{
+	const char * const p =  YYText ();
+	for (int i=0; p[i];) {
+		if ((p[i] & 0xff) < 0x80) {
+			++i;
+			continue;
+		}
+		int oldi = i; // start of character
+		int more = 0; // # of followup bytes, 0 if bad
+		switch (p[i++] & 0xff) {
+			// 0xc0 and 0xc1 are overlong prefixes for
+			// 0x00-0x3f and 0x40-0x7f respectively, bad.
+		case 0xc2:	// 0x80-0xbf
+		case 0xc3:	// 0xc0-0xff
+		case 0xc4:	// 0x100-0x13f
+		case 0xc5:	// 0x140-0x17f
+		case 0xc6:	// 0x180-0x1bf
+		case 0xc7:	// 0x1c0-0x1ff
+		case 0xc8:	// 0x200-0x23f
+		case 0xc9:	// 0x240-0x27f
+		case 0xca:	// 0x280-0x2bf
+		case 0xcb:	// 0x2c0-0x2ff
+		case 0xcc:	// 0x300-0x33f
+		case 0xcd:	// 0x340-0x37f
+		case 0xce:	// 0x380-0x3bf
+		case 0xcf:	// 0x3c0-0x3ff
+		case 0xd0:	// 0x400-0x43f
+		case 0xd1:	// 0x440-0x47f
+		case 0xd2:	// 0x480-0x4bf
+		case 0xd3:	// 0x4c0-0x4ff
+		case 0xd4:	// 0x500-0x53f
+		case 0xd5:	// 0x540-0x57f
+		case 0xd6:	// 0x580-0x5bf
+		case 0xd7:	// 0x5c0-0x5ff
+		case 0xd8:	// 0x600-0x63f
+		case 0xd9:	// 0x640-0x67f
+		case 0xda:	// 0x680-0x6bf
+		case 0xdb:	// 0x6c0-0x6ff
+		case 0xdc:	// 0x700-0x73f
+		case 0xdd:	// 0x740-0x77f
+		case 0xde:	// 0x780-0x7bf
+		case 0xdf:	// 0x7c0-0x7ff
+			more = 1; // 2-byte sequences, 0x80-0x7ff
+			break;
+		case 0xe0:
+			// don't allow overlong sequences for 0-0x7ff
+			if ((p[i] & 0xff) < 0xa0)
+				break;
+		case 0xe1:	// 0x1000-0x1fff
+		case 0xe2:	// 0x2000-0x2fff
+		case 0xe3:	// 0x3000-0x3fff
+		case 0xe4:	// 0x4000-0x4fff
+		case 0xe5:	// 0x5000-0x5fff
+		case 0xe6:	// 0x6000-0x6fff
+		case 0xe7:	// 0x7000-0x7fff
+		case 0xe8:	// 0x8000-0x8fff
+		case 0xe9:	// 0x9000-0x9fff
+		case 0xea:	// 0xa000-0xafff
+		case 0xeb:	// 0xb000-0xbfff
+		case 0xec:	// 0xc000-0xcfff
+			more = 2; // 3-byte sequences, 0x7ff-0xcfff
+			break;
+		case 0xed:	// 0xd000-0xdfff
+			// Don't allow surrogate codes 0xd800-0xdfff
+			if ((p[i] & 0xff) >= 0xa0)
+				break;
+		case 0xee:	// 0xe000-0xefff
+		case 0xef:	// 0xf000-0xffff
+			more = 2; // 3-byte sequences,
+				  // 0xd000-0xd7ff, 0xe000-0xffff
+			break;
+		case 0xf0:
+			// don't allow overlong sequences for 0-0xffff
+			if ((p[i] & 0xff) < 0x90)
+				break;
+		case 0xf1:	// 0x40000-0x7ffff
+		case 0xf2:	// 0x80000-0xbffff
+		case 0xf3:	// 0xc0000-0xfffff
+			more = 3; // 4-byte sequences, 0x10000-0xfffff
+			break;
+		case 0xf4:
+			// don't allow more than 0x10ffff
+			if ((p[i] & 0xff) >= 0x90)
+				break;
+			more = 3; // 4-byte sequence, 0x100000-0x10ffff
+			break;
+		}
+		if (more) {
+			// check that all continuation bytes are valid
+			do {
+				if ((p[i++] & 0xc0) != 0x80)
+					break;
+			} while (--more);
+			if (!more)
+				continue;
+		}
+		Input h = here_input ();
+		h.set (h.get_source_file (), h.start () + oldi, h.start () + i);
+		h.warning (_ ("non-UTF-8 input").c_str ());
+	}
+	return p;
+}
 
 
 /*
@@ -1040,30 +1173,18 @@ is_valid_version (string s)
 	
 
 /*
-  substitute _ and \,
+  substitute _
 */
 string
 lyric_fudge (string s)
 {
-  char *chars = string_copy (s);
+	size_t i=0;
 
-  for (char *p = chars; *p ; p++)
-    {
-      if (*p == '_' && (p == chars || *(p-1) != '\\'))
-	*p = ' ';
-    }
-  
-  s = string (chars);
-  delete[] chars;
-
-  ssize i = 0;	
-  if ((i = s.find ("\\,")) != NPOS)   // change "\," to TeX's "\c "
-    {
-      * (((char*)s.c_str ()) + i + 1) = 'c';
-      s = s.substr (0, i + 2) + " " + s.substr (i - 2);
-    }
-
-  return s;
+	while ((i = s.find ('_', i)) != string::npos)
+	{
+		s[i++] = ' ';
+	}
+	return s;
 }
 
 /*

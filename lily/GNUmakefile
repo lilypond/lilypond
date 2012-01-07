@@ -14,7 +14,6 @@ MODULE_CXXFLAGS= -Wno-pmf-conversions
 HELP2MAN_EXECS = lilypond
 STEPMAKE_TEMPLATES=c c++ executable po help2man
 
-# list parser.hh first: making parser.hh removes parser.cc
 OUT_DIST_FILES=$(addprefix $(outdir)/,parser.hh parser.cc)
 
 include $(depth)/make/stepmake.make
@@ -64,9 +63,12 @@ $(outdir)/lilypond: $(outdir)/libstdc++.a
 endif
 
 # force these: Make can't know these have to be generated in advance
-$(outdir)/lily-parser.o: $(outdir)/parser.hh
+$(outdir)/lily-parser.o $(outdir)/parser.o: $(outdir)/parser.hh
 $(outdir)/lily-lexer.o: $(outdir)/parser.hh $(outdir)/FlexLexer.h
 $(outdir)/lexer.o: $(outdir)/parser.hh $(outdir)/version.hh
+$(outdir)/lily-lexer-scheme.o \
+  $(outdir)/lily-parser-scheme.o \
+  $(outdir)/parse-scm.o: $(outdir)/parser.hh
 
 ifneq ($(FLEXLEXER_FILE),)
 $(outdir)/FlexLexer.h: $(FLEXLEXER_FILE) $(config_h)

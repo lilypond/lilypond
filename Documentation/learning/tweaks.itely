@@ -278,22 +278,25 @@ b4 c |
 @funindex \once
 @funindex once
 
-Both the @code{\override} and the @code{\set} commands may be
-prefixed by @code{\once}.  This causes the following
-@code{\override} or @code{\set} command to be effective only
-during the current musical moment before the property reverts
-back to its default value.  Using the same example, we can
-change the color of a single note like this:
+Both the @code{\override} and the @code{\set} commands may be prefixed
+by @code{\once}.  This causes the following @code{\override} or
+@code{\set} command to be effective only during the current musical
+moment before the property reverts back to its previous value (this can
+be different from the default if another @code{\override} is still in
+effect).  Using the same example, we can change the color of a single
+note like this:
 
 @cindex color property, example
 @cindex NoteHead, example of overriding
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c4 d
-\once \override NoteHead #'color = #red
+\override NoteHead #'color = #red
 e4 f |
 \once \override NoteHead #'color = #green
-g4 a b c |
+g4 a
+\revert NoteHead #'color
+b c |
 @end lilypond
 
 @strong{\overrideProperty command}
@@ -2941,7 +2944,8 @@ rhMusic = \relative c'' {
         c,8~
         % Reposition the c2 to the right of the merged note
         \once \override NoteColumn #'force-hshift = #1.0
-        % Move the c2 out of the main note column so the merge will work
+        % Move the c2 out of the main note column
+        % so the merge will work
         \shiftOnn
         c2
       }
@@ -3302,7 +3306,8 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuation of main voice
       \new Voice {
         \voiceTwo
-        % Move the c2 out of the main note column so the merge will work
+        % Move the c2 out of the main note column
+        % so the merge will work
         c,8~ \shiftOnn c2
       }
       \new Voice {
@@ -3374,7 +3379,8 @@ rhMusic = \relative c'' {
         c,8~
         % Reposition the c2 to the right of the merged note
         \once \override NoteColumn #'force-hshift = #1.0
-        % Move the c2 out of the main note column so the merge will work
+        % Move the c2 out of the main note column
+        % so the merge will work
         \shiftOnn
         c2
       }
@@ -4011,12 +4017,17 @@ being used:
 @item Linux
 
 Navigate to
+@example
 @file{@var{INSTALLDIR}/lilypond/usr/@/share/lilypond/current/}
+@end example
 
 @item MacOS X
 
 Navigate to
+@example
 @file{@var{INSTALLDIR}/LilyPond.app/Contents/@/Resources/share/lilypond/current/}
+@end example
+
 by either @code{cd}-ing into this directory from the
 Terminal, or control-clicking on the LilyPond application and
 selecting @q{Show Package Contents}.
@@ -4024,7 +4035,9 @@ selecting @q{Show Package Contents}.
 @item Windows
 
 Using Windows Explorer, navigate to
+@example
 @file{@var{INSTALLDIR}/LilyPond/usr/@/share/lilypond/current/}
+@end example
 
 @end itemize
 

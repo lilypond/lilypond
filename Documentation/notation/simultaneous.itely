@@ -133,6 +133,9 @@ enharmonic transcription of one or more pitches,
 @node Chord repetition
 @unnumberedsubsubsec Chord repetition
 
+@cindex Chord, repetiton
+@cindex repetiton, using @code{q}
+
 In order to save typing, a shortcut can be used to repeat the preceding
 chord.  The chord repetition symbol is @code{q}:
 
@@ -208,6 +211,28 @@ generate multiple staves implicitly:
 @end lilypond
 
 Here different rhythms cause no problems.
+
+@cindex collisions, clashing note columns
+@cindex collisions, ignoring
+
+@knownissues
+If notes from two or more voices, with stems in the same direction, are
+placed at the same position on the staff and have no shift (or have the
+same shift specified), the message:
+
+@example
+warning: ignoring too many clashing note columns
+@end example
+
+will appear during compilation.  This message can be suppressed by:
+
+@example
+\override NoteColumn #'ignore-collision = ##t
+@end example
+
+However, this not only suppresses the warning but will prevent any
+collision resolution whatsover and may have other unintended effects
+(also see @emph{Known Issues} in @ref{Collision resolution}).
 
 
 @node Clusters
@@ -626,7 +651,6 @@ also be merged:
 >>
 @end lilypond
 
-
 The half note and eighth note at the start of the second measure
 are incorrectly merged because the automatic merge cannot
 successfully complete the merge when three or more notes line up in
@@ -709,7 +733,6 @@ Notes are only merged if they have opposing stem directions (as
 they have, for example, in voices one and two by default or when
 the stems are explicitly set in opposite directions).
 
-
 @predefined
 @code{\mergeDifferentlyDottedOn},
 @code{\mergeDifferentlyDottedOff},
@@ -722,15 +745,12 @@ the stems are explicitly set in opposite directions).
 @code{\shiftOff}.
 @endpredefined
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {additional-voices-to-avoid-collisions.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
-
 
 @seealso
 Music Glossary:
@@ -749,6 +769,18 @@ Internals Reference:
 @rinternals{NoteCollision},
 @rinternals{RestCollision}.
 
+@cindex collisions, ignoring
+
+@knownissues
+Using @code{\override NoteColumn #'ignore-collision = ##t} will cause
+differently headed notes in different voices to merge incorrectly.
+
+@lilypond[quote,relative=1,verbatim]
+\mergeDifferentlyHeadedOn
+<< { c16 a' b a } \\ { c,2 } >>
+\override NoteColumn #'ignore-collision = ##t
+<< { c16 a' b a } \\ { c,2 } >>
+@end lilypond
 
 @ignore
 @knownissues

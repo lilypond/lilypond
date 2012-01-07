@@ -115,10 +115,12 @@ def is_verbose ():
 def stderr_write (s):
     encoded_write (sys.stderr, s)
 
-def print_logmessage (level, s, fullmessage = True):
+def print_logmessage (level, s, fullmessage = True, newline = True):
     if (is_loglevel (level)):
         if fullmessage:
             stderr_write (program_name + ": " + s + '\n')
+        elif newline:
+            stderr_write (s + '\n')
         else:
             stderr_write (s)
 
@@ -131,11 +133,11 @@ def warning (s):
 def basic_progress (s):
     print_logmessage ("BASIC", s);
 
-def progress (s, fullmessage = False):
-    print_logmessage ("PROGRESS", s, fullmessage);
+def progress (s, fullmessage = False, newline = True):
+    print_logmessage ("PROGRESS", s, fullmessage, newline);
 
-def debug_output (s, fullmessage = False):
-    print_logmessage ("DEBUG", s, fullmessage);
+def debug_output (s, fullmessage = False, newline = True):
+    print_logmessage ("DEBUG", s, fullmessage, newline);
 
 
 
@@ -147,11 +149,12 @@ please read 'Setup for MacOS X' in Application Usage.")
         os.system ("open http://python.org/download/")
         sys.exit (2)
 
-# Modified version of the commands.mkarg(x), which always uses
-# double quotes (since Windows can't handle the single quotes:
+# A modified version of the commands.mkarg(x) that always uses
+# double quotes (since Windows can't handle the single quotes)
+# and escapes the characters \, $, ", and ` for unix shells.
 def mkarg(x):
     if os.name == 'nt':
-        return x
+        return ' "%s"' % x
     s = ' "'
     for c in x:
         if c in '\\$"`':
@@ -179,7 +182,7 @@ def subprocess_system (cmd,
     error_log_file = ''
 
     if redirect_output:
-        progress (_ ("Processing %s.ly \n") % log_file)
+        progress (_ ("Processing %s.ly") % log_file)
     else:
         if be_verbose:
             show_progress = 1

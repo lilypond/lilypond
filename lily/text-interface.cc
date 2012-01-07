@@ -33,9 +33,8 @@
 #include "warn.hh"
 
 static void
-replace_special_characters (string *str, SCM props)
+replace_special_characters (string &str, SCM props)
 {
-  vsize i = 0;
   SCM replacement_alist = ly_chain_assoc_get (ly_symbol2scm ("replacement-alist"),
                                               props,
                                               SCM_EOL);
@@ -47,18 +46,21 @@ replace_special_characters (string *str, SCM props)
                         (scm_string_length (scm_caar (s))));
     }
 
-  while (i <= str->size ())
+  for (vsize i = 0; i < str.size (); i++)
     {
+      /* Don't match in mid-UTF-8 */
+      if ((str[i] & 0xc0) == 0x80)
+	continue;
       for (vsize j = max_length + 1; j--;)
         {
-          string dummy = str->substr (i, j);
-          string ligature = robust_scm2string
-                            (ly_assoc_get (ly_string2scm (dummy),
-                                           replacement_alist, SCM_BOOL_F), "");
-          if (ligature != "")
-            str->replace (i, j, ligature);
+	  if (j > str.size () - i)
+	    continue;
+          string dummy = str.substr (i, j);
+          SCM ligature = ly_assoc_get (ly_string2scm (dummy),
+				       replacement_alist, SCM_BOOL_F);
+	  if (scm_is_true (ligature))
+            str.replace (i, j, robust_scm2string (ligature, ""));
         }
-      i += utf8_char_len ((*str)[i]);
     }
 }
 
@@ -75,7 +77,7 @@ Text_interface::interpret_string (SCM layout_smob,
   Output_def *layout = unsmob_output_def (layout_smob);
   Font_metric *fm = select_encoded_font (layout, props);
 
-  replace_special_characters (&str, props);
+  replace_special_characters (str, props);
 
   /*
     We want to filter strings with a music font that pass through

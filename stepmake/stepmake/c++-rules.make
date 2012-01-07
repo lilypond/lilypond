@@ -12,8 +12,13 @@ $(outdir)/%.lo: %.cc
 $(outdir)/%.lo: $(outdir)/%.cc
 	$(DO_LO_DEP) $(CXX) -c $(ALL_CXXFLAGS) $(PIC_FLAGS) -o $@ $<
 
-$(outdir)/%.cc $(outdir)/%.hh: %.yy
-	$(BISON) -d -o $(subst .hh,.cc,$@)  $<
+$(outdir)/%.cc: %.yy
+	$(BISON) -o $@  $<
+
+$(outdir)/%.hh: %.yy
+	$(BISON) -o $(subst .hh,-tmp.cc,$@) -d  $<
+	rm $(subst .hh,-tmp.cc,$@)
+	mv $(subst .hh,-tmp.hh,$@) $@
 
 $(outdir)/%.cc: %.ll
 	$(FLEX) -Cfe -p -p -o$@ $<

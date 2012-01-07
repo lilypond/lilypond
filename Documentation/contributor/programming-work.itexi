@@ -29,7 +29,7 @@ number of stages.  This process, along with the types of routines that
 accomplish the various stages of the process, is described in this section.  A
 more complete description of the LilyPond architecture and internal program
 execution is found in Erik Sandberg's
-@uref{http://lilypond.org/web/images/thesis-erik-sandberg.pdf, master's
+@uref{http://lilypond.org/website/pdf/thesis-erik-sandberg.pdf, master's
 thesis}.
 
 The first stage of LilyPond processing is @emph{parsing}.  In the parsing
@@ -694,7 +694,7 @@ words like stem, beam, crescendo as separately translatable words.
 When translating, it is preferable to put interesting information
 at the end of the message, rather than embedded in the middle.
 This especially applies to frequently used messages, even if this
-would mean sacrificing a bit of eloquency.  This holds for original
+would mean sacrificing a bit of eloquence.  This holds for original
 messages too, of course.
 
 @example
@@ -729,7 +729,7 @@ the console should be:
 @item BASIC_PROGRESS: Warnings, errors and basic progress (success, etc.)
 @item PROGRESS: Warnings, errors and full progress messages
 @item INFO: Warnings, errors, progress and more detailed information (default)
-@item DEBUG: All messages, including vull debug messages (very verbose!)
+@item DEBUG: All messages, including full debug messages (very verbose!)
 @end itemize
 
 The loglevel can either be set with the environment variable
@@ -1193,7 +1193,7 @@ is described below.
 @item Installing graphviz
 
 In order to create the graph of the object relationships, it is
-first necessary to install Graphviz.  graphviz is available for a
+first necessary to install Graphviz.  Graphviz is available for a
 number of different platforms:
 
 @example
@@ -1237,7 +1237,7 @@ The logfile has standard lilypond output, as well as the Graphviz
 output data.  Delete everything from the beginning of the file
 up to but not including the first occurrence of @code{digraph}.
 
-Also, delete the final liypond message about successs from the end
+Also, delete the final lilypond message about success from the end
 of the file.
 
 @item Process the logfile with @code{dot}

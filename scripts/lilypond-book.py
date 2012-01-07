@@ -456,11 +456,9 @@ def do_process_cmd (chunks, input_name, options):
     progress (_ ("Writing snippets..."))
     for snippet in outdated:
         snippet.write_ly()
-    progress ('\n')
 
     if outdated:
         progress (_ ("Processing..."))
-        progress ('\n')
         process_snippets (options.process_cmd, outdated,
                           options.formatter, options.lily_output_dir)
 
@@ -473,8 +471,6 @@ def do_process_cmd (chunks, input_name, options):
             snippet.link_all_output_files (options.lily_output_dir,
                                            output_files,
                                            options.output_dir)
-
-    progress ('\n')
 
 
 ###
@@ -496,7 +492,6 @@ def write_if_updated (file_name, lines):
         new_str = ''.join (lines)
         if oldstr == new_str:
             progress (_ ("%s is up to date.") % file_name)
-            progress ('\n')
 
             # this prevents make from always rerunning lilypond-book:
             # output file must be touched in order to be up to date
@@ -511,7 +506,6 @@ def write_if_updated (file_name, lines):
 
     progress (_ ("Writing `%s'...") % file_name)
     file (file_name, 'w').writelines (lines)
-    progress ('\n')
 
 
 def note_input_file (name, inputs=[]):
@@ -577,7 +571,6 @@ def do_file (input_filename, included=False):
     try:
         progress (_ ("Reading %s...") % input_fullname)
         source = in_handle.read ()
-        progress ('\n')
 
         if not included:
             global_options.formatter.init_default_snippet_options (source)
@@ -588,7 +581,6 @@ def do_file (input_filename, included=False):
 
         # Let the formatter modify the chunks before further processing
         chunks = global_options.formatter.process_chunks (chunks)
-        progress ('\n')
 
         if global_options.filter_cmd:
             write_if_updated (output_filename,
@@ -596,7 +588,6 @@ def do_file (input_filename, included=False):
         elif global_options.process_cmd:
             do_process_cmd (chunks, input_fullname, global_options)
             progress (_ ("Compiling %s...") % output_filename)
-            progress ('\n')
             write_if_updated (output_filename,
                      [s.replacement_text ()
                      for s in chunks])
@@ -605,7 +596,6 @@ def do_file (input_filename, included=False):
             os.chdir (original_dir)
             name = snippet.substring ('filename')
             progress (_ ("Processing include: %s") % name)
-            progress ('\n')
             return do_file (name, included=True)
 
         include_chunks = map (process_include,
@@ -617,7 +607,6 @@ def do_file (input_filename, included=False):
     except BookSnippet.CompileError:
         os.chdir (original_dir)
         progress (_ ("Removing `%s'") % output_filename)
-        progress ('\n')
         raise BookSnippet.CompileError
 
 def do_options ():

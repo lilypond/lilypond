@@ -25,6 +25,7 @@
 #include "input.hh"
 #include "duration.hh"
 #include "pitch.hh"
+#include "parser.hh"
 
 bool busy_parsing ();
 void kill_lexer ();
@@ -56,6 +57,7 @@ private:
   int scan_scm_id (SCM);
   int identifier_type (SCM);
   char escaped_char (char) const;
+  const char * YYText_utf8 ();
 
   Lily_parser *parser_;
   Keyword_table *keytable_;
@@ -65,7 +67,7 @@ private:
 public:
   SCM eval_scm (SCM);
   SCM extra_tokens_;
-  void *lexval_;
+  YYSTYPE *lexval_;
   Input *lexloc_;
   bool is_main_input_;
 

@@ -254,6 +254,8 @@ minimumFret is 0.
 @end lilypond
 
 @funindex \tabChordRepetition
+@cindex Chord, repetiton
+@cindex repetiton, using @code{q}
 
 Chord constructs can be repeated by the chord repetition symbol
 @code{q}. To use this feature in combination with tablature,
@@ -279,7 +281,6 @@ guitar = \relative c' {
   }
 >>
 @end lilypond
-
 
 Ties over a line break are parenthesized by default.  The same holds for
 the second alternative of a repeat.
@@ -423,9 +424,7 @@ ratioHarmonics = {
 }
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {stem-and-beam-behavior-in-tablature.ly}
 
@@ -444,12 +443,13 @@ ratioHarmonics = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
 
-
 @seealso
 Notation Reference:
-@ref{Stems},
+@ref{Chord repetition},
+@ref{Glissando},
 @ref{Harmonics},
-@ref{Glissando}.
+@ref{Stems},
+@ref{Written-out repeats}.
 
 Snippets:
 @rlsr{Fretted strings}.
@@ -460,9 +460,7 @@ Internals Reference:
 @rinternals{TabVoice},
 @rinternals{Beam}.
 
-
 @knownissues
-
 Chords are not handled in a special way, and hence the automatic
 string selector may easily select the same string for two notes in
 a chord.

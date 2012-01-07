@@ -565,6 +565,18 @@ robust_scm2int (SCM k, int o)
   return o;
 }
 
+vsize
+robust_scm2vsize (SCM k, vsize o)
+{
+  if (scm_integer_p (k) == SCM_BOOL_T)
+    {
+      int i = scm_to_int (k);
+      if (i >= 0)
+        return (vsize) i;
+    }
+  return o;
+}
+
 SCM
 ly_rational2scm (Rational r)
 {

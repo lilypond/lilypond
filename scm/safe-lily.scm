@@ -144,6 +144,7 @@
    ly:unit
    ly:usage
    ly:version
+   ly:vsize?
    ly:warning
 
    ;; FIXME: cannot change staff size in --safe-mode

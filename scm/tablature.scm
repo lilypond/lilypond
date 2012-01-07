@@ -78,6 +78,16 @@
 
 ;; if stems are drawn, it is nice to have a double stem for
 ;; (dotted) half notes to distinguish them from quarter notes:
+(define-public (tabvoice::make-double-stem-width-for-half-notes grob)
+  (let ((X-extent (ly:stem::width grob)))
+
+    ;; is the note a (dotted) half note?
+    (if (= 1 (ly:grob-property grob 'duration-log))
+        ;; yes -> return double stem width
+        (cons (car X-extent) (+ 0.5 (* 2 (cdr X-extent))))
+        ;; no -> return simple stem width
+        X-extent)))
+
 (define-public (tabvoice::draw-double-stem-for-half-notes grob)
   (let ((stem (ly:stem::print grob)))
 

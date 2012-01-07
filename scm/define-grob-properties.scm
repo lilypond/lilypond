@@ -64,6 +64,8 @@ numbered?")
 averaged over staves.")
      (avoid-note-head ,boolean? "If set, the stem of a chord does not
 pass through all note heads, but starts at the last note head.")
+     (avoid-scripts ,boolean? "If set, a tuplet bracket avoids the
+scripts associated with the note heads it encompasses.")
      (avoid-slur ,symbol? "Method of handling slur collisions.
 Choices are @code{inside}, @code{outside}, @code{around}, and
 @code{ignore}.  @code{inside} adjusts the slur if needed to keep the
@@ -163,7 +165,7 @@ stick out of its bounds?")
 @code{#t} means visible, @code{#f} means killed.")
      (breakable ,boolean? "Allow breaks here.")
      (broken-bound-padding ,number? "The amount of padding to insert
-around spanner bounds at a line break.")
+when a spanner is broken at a line break.")
 
 ;;
 ;; c
@@ -1098,6 +1100,8 @@ relevant for finding the @code{pure-Y-extent}.")
 
      (side-support-elements ,ly:grob-array? "The side support, an array of
 grobs.")
+     (skyline-quantizing ,ly:vsize? "The number of boxes to break a
+slur into when calculating its skyline.")
      (slur ,ly:grob? "A pointer to a @code{Slur} object.")
      (spacing ,ly:grob? "The spacing spanner governing this section.")
      (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing

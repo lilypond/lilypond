@@ -73,6 +73,7 @@ WEB_BIBS=python $(script-dir)/bib2texi.py
 
 EXAMPLES=$(LILYPOND_WEB_MEDIA_GIT)/ly-examples
 PICTURES=$(LILYPOND_WEB_MEDIA_GIT)/pictures
+PDFS=$(LILYPOND_WEB_MEDIA_GIT)/pdf
 
 SERVER_FILES=$(top-src-dir)/Documentation/web/server
 
@@ -98,6 +99,34 @@ MANUALS_WEB := web.texi $(WEB_LANGS:%=web.%.texi)
 MANUALS_BASE = $(basename $(MANUALS) $(MANUALS_WEB))
 
 
+#######################
+### Dependency tracking
+
+# Find the file $(1) within the texinfo include dirs and return its path.
+# If not found, i.e. it is a generated file, then the file is ignored.
+find-texi = \
+$(firstword \
+	$(wildcard $(dir $<)$(1)) \
+	$(wildcard $(top-src-dir)/Documentation/$(1)) \
+)
+
+# Recursively scan the file $(1) for @include, search for included files
+# within the texinfo include dirs, and return all dependencies.
+scan-texi = \
+	$(foreach f, $(shell echo | sed -ne "/^@include[[:space:]]/s/@include//p" $(1)), \
+	$(call find-texi,$(f)) \
+	$(call scan-texi,$(call find-texi,$(f))) \
+)
+
+# Find dependencies for the target $@, based on the texinfo source file $<,
+# and write the dependencies to a .dep file.
+DO_TEXI_DEP = ( mkdir -p $(dir $@) && echo ./$@: $(call scan-texi,$<) > $@.dep ) &&
+
+# This is where we import the .dep files so that `make' knows about
+# the various dependencies.
+-include dummy.dep $(wildcard $(OUT)/*.dep) $(wildcard $(OUT)/*/*.dep)
+
+
 ###################
 ### Generated files
 
@@ -117,6 +146,9 @@ misc-files = $(OUT)/.htaccess \
 picture-src-files := $(notdir $(wildcard $(PICTURES)/*))
 picture-files = $(picture-src-files:%=$(OUT)/website/pictures/%)
 
+pdf-src-files := $(notdir $(wildcard $(PDFS)/*))
+pdf-files = $(pdf-src-files:%=$(OUT)/website/pdf/%)
+
 post-files = $(OUT)/website/index.html
 
 texinfo-files = $(OUT)/index.html $(WEB_LANGS:%=$(OUT)/%/index.html)
@@ -131,15 +163,15 @@ xref-files = $(MANUALS_BASE:%=$(OUT)/%.xref-map)
 
 .PHONY: website website-bibs website-css website-examples website-misc \
         website-pictures website-post website-test website-texinfo \
-        website-version website-xrefs check-setup
+        website-version website-xrefs check-setup website-pdf
 
 check-setup:
 ifeq ($(LILYPOND_WEB_MEDIA_GIT),)
-	echo "Need a $LILYPOND_WEB_MEDIA_GIT environment variable!"
+	echo "Need a LILYPOND_WEB_MEDIA_GIT environment variable!"
 	exit 1
 endif
 
-website: check-setup website-post website-examples website-pictures website-css website-misc
+website: check-setup website-post website-examples website-pictures website-css website-misc website-pdf
 
 website-bibs: website-version $(OUT) $(bib-files)
 
@@ -150,6 +182,8 @@ website-examples: $(OUT)/website/ly-examples $(example-files)
 website-misc: $(OUT)/website $(misc-files)
 
 website-pictures: $(OUT)/website/pictures $(OUT)/pictures $(picture-files)
+
+website-pdf: $(OUT)/website/pdf $(pdf-files)
 
 website-post: website-texinfo $(post-files)
 
@@ -167,17 +201,17 @@ website-xrefs: website-version $(OUT) $(xref-files)
 ### Rules
 
 # Directories
-$(OUT) $(OUT)/website $(OUT)/website/css $(OUT)/website/ly-examples $(OUT)/website/pictures: %:
+$(OUT) $(OUT)/website $(OUT)/website/css $(OUT)/website/ly-examples $(OUT)/website/pictures $(OUT)/website/pdf: %:
 	mkdir -p $@
 
 $(OUT)/pictures: $(OUT)/website/pictures
 	ln -sf website/pictures $(OUT)/pictures
 
 # Generated itexi files
-$(OUT)/version.itexi: #FIXME: add dependencies
+$(OUT)/version.itexi: $(top-src-dir)/VERSION
 	$(CREATE_VERSION) $(top-src-dir) > $(OUT)/version.itexi
 
-$(OUT)/weblinks.itexi: #FIXME: add dependencies
+$(OUT)/weblinks.itexi: $(top-src-dir)/VERSION
 	$(CREATE_WEBLINKS) $(top-src-dir) > $(OUT)/weblinks.itexi
 
 $(bib-files): $(OUT)/%.itexi: $(top-src-dir)/Documentation/web/%.bib
@@ -211,12 +245,12 @@ $(OUT)/web.%.xref-map: $(top-src-dir)/Documentation/%/web.texi
 	$(DO_TEXI_DEP) $(EXTRACT_TEXI_FILENAMES) --split=node $<
 
 # Build the English website
-$(OUT)/index.html: $(top-src-dir)/Documentation/web.texi
+$(OUT)/index.html: $(top-src-dir)/Documentation/web.texi $(xref-files)
 	$(DO_TEXI_DEP) $(TEXI2HTML) $<
 
 # Build translated websites
 $(eval $(foreach l,$(WEB_LANGS),\
-$(eval $(OUT)/$(l)/index.html: $(top-src-dir)/Documentation/$(l)/web.texi; \
+$(eval $(OUT)/$(l)/index.html: $(top-src-dir)/Documentation/$(l)/web.texi $(xref-files); \
 	$$(DO_TEXI_DEP) $$(TEXI2HTML) --lang="$(l)" $$<; ) \
 ))
 
@@ -235,6 +269,9 @@ $(example-files): $(OUT)/website/ly-examples/%: $(EXAMPLES)/%
 	cp $< $@
 
 $(picture-files): $(OUT)/website/pictures/%: $(PICTURES)/%
+	cp $< $@
+
+$(pdf-files): $(OUT)/website/pdf/%: $(PDFS)/%
 	cp $< $@
 
 $(OUT)/website/favicon.ico: $(SERVER_FILES)/favicon.ico

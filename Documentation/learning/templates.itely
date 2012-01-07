@@ -145,7 +145,8 @@ beautiful printed scores!
 
 @appendixsubsec Transcription of mensural music
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc]
+@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
+@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
 {ancient-notation-template----modern-transcription-of-mensural-music.ly}
 
 @appendixsubsec Gregorian transcription template
@@ -159,7 +160,8 @@ beautiful printed scores!
 
 @appendixsubsec Jazz combo
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc]
+@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
+@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
 {jazz-combo-template.ly}
 
 

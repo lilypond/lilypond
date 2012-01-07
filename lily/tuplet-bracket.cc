@@ -655,6 +655,22 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
                                   number->extent (commony, Y_AXIS)[dir]));
     }
 
+  if (to_boolean (me->get_property ("avoid-scripts")))
+    {
+      extract_grob_set (me, "scripts", scripts);
+      for (vsize i = 0; i < scripts.size (); i++)
+        {
+          if (!scripts[i]->is_live ())
+            continue;
+
+          Interval script_x (scripts[i]->extent (commonx, X_AXIS));
+          Interval script_y (scripts[i]->extent (commony, Y_AXIS));
+
+          points.push_back (Offset (script_x.center () - x0,
+                                    script_y[dir]));
+        }
+    }
+
   *offset = -dir * infinity_f;
   Real factor = (columns.size () > 1) ? 1 / (x1 - x0) : 1.0;
   for (vsize i = 0; i < points.size (); i++)
@@ -768,6 +784,12 @@ Tuplet_bracket::add_column (Grob *me, Item *n)
 }
 
 void
+Tuplet_bracket::add_script (Grob *me, Item *s)
+{
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("scripts"), s);
+}
+
+void
 Tuplet_bracket::add_tuplet_bracket (Grob *me, Grob *bracket)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("tuplets"), bracket);
@@ -812,6 +834,7 @@ ADD_INTERFACE (Tuplet_bracket,
                " @code{edge-text} are printed at the edges.",
 
                /* properties */
+               "avoid-scripts "
                "bracket-flare "
                "bracket-visibility "
                "break-overshoot "

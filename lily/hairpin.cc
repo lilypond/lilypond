@@ -103,7 +103,8 @@ Hairpin::broken_bound_padding (SCM smob)
   if (span_bars[DOWN] != span_bars[UP])
     return scm_from_double (0.0);
 
-  return scm_from_double (0.6);
+  return scm_from_double (robust_scm2double (me->get_property ("bound-padding"), 0.5)
+                          / 2.0);
 }
 
 MAKE_SCHEME_CALLBACK (Hairpin, print, 1);
@@ -164,17 +165,33 @@ Hairpin::print (SCM smob)
   do
     {
       Item *b = bounds[d];
+      Interval e = (Axis_group_interface::has_interface (b)
+                    ? Axis_group_interface::generic_bound_extent (b, common, X_AXIS)
+                    : robust_relative_extent (b, common, X_AXIS));
+
       x_points[d] = b->relative_coordinate (common, X_AXIS);
       if (broken [d])
         {
           if (d == LEFT)
-            x_points[d] = b->extent (common, X_AXIS)[RIGHT];
+            x_points[d] = e[-d];
+          else
+            {
+              Real broken_bound_padding = 0.0;
+              extract_grob_set (me, "concurrent-hairpins", chp);
+              for (vsize i = 0; i < chp.size (); i++)
+                {
+                  Spanner *span_elt = dynamic_cast<Spanner *> (chp[i]);
+                  if (span_elt->get_bound (RIGHT)->break_status_dir () == LEFT)
+                    broken_bound_padding = max (broken_bound_padding,
+                                                robust_scm2double (span_elt->get_property ("broken-bound-padding"), 0.0));
+                }
+              x_points[d] -= d * broken_bound_padding;
+            }
         }
       else
         {
           if (Text_interface::has_interface (b))
             {
-              Interval e = b->extent (common, X_AXIS);
               if (!e.is_empty ())
                 x_points[d] = e[-d] - d * padding;
             }
@@ -200,9 +217,6 @@ Hairpin::print (SCM smob)
                     }
                 }
 
-              Interval e = (Axis_group_interface::has_interface (b)
-                            ? Axis_group_interface::generic_bound_extent (b, common, X_AXIS)
-                            : robust_relative_extent (b, common, X_AXIS));
               if (neighbor_found)
                 {
                   if (Hairpin::has_interface (adjacent))
@@ -220,9 +234,9 @@ Hairpin::print (SCM smob)
                       else
                         x_points[d] = e.center () - d * padding / 3;
                     }
-                  // Our neighbor is a dynamic text spanner, so add the
-                  // same amount of padding as for text dynamics
-                  else
+                  // Our neighbor is a dynamic text spanner.
+                  // If we end on the text, pad as for text dynamics
+                  else if (d == RIGHT)
                     x_points[d] = e[-d] - d * padding;
                 }
               else
@@ -232,30 +246,14 @@ Hairpin::print (SCM smob)
                     x_points[d] = e[-d];
                   else
                     x_points[d] = e[d];
+
+                  if (Item::is_non_musical (b))
+                    x_points[d] -= d * padding;
                 }
             }
         }
     }
   while (flip (&d) != LEFT);
-
-  // here, add padding for barlines that are not at the end of a staff
-  if (Item::is_non_musical (bounds[RIGHT]) && bounds[RIGHT]->break_status_dir () == 0)
-    x_points[RIGHT] -= padding;
-
-  // here, add padding for barlines that are at the end of a staff
-  Real broken_bound_padding = 0.0;
-  if (bounds[RIGHT]->break_status_dir () == -1)
-    {
-      extract_grob_set (me, "concurrent-hairpins", chp);
-      for (vsize i = 0; i < chp.size (); i++)
-        {
-          Spanner *span_elt = dynamic_cast<Spanner *> (chp[i]);
-          if (span_elt->get_bound (RIGHT)->break_status_dir () == -1)
-            broken_bound_padding = max (broken_bound_padding,
-                                         robust_scm2double (span_elt->get_property ("broken-bound-padding"), 0.0));
-        }
-    }
-  x_points[RIGHT] -= broken_bound_padding;
 
   Real width = x_points[RIGHT] - x_points[LEFT];
 

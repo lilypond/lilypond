@@ -1,18 +1,22 @@
-\version "2.14.0"
+\version "2.15.23"
 
 \header {
   texidoc="Lists all possible keys for all instruments in
 woodwind-diagrams.scm"
 }
 
-#(print-keys-verbose 'piccolo)
-#(print-keys-verbose 'flute)
-#(print-keys-verbose 'flute-b-extension)
-#(print-keys-verbose 'oboe)
-#(print-keys-verbose 'clarinet)
-#(print-keys-verbose 'bass-clarinet)
-#(print-keys-verbose 'low-bass-clarinet)
-#(print-keys-verbose 'saxophone)
-#(print-keys-verbose 'baritone-saxophone)
-#(print-keys-verbose 'bassoon)
-#(print-keys-verbose 'contrabassoon)
+#(print-keys-verbose 'piccolo (current-error-port))
+#(print-keys-verbose 'flute (current-error-port))
+#(print-keys-verbose 'flute-b-extension (current-error-port))
+#(print-keys-verbose 'tin-whistle (current-error-port))
+#(print-keys-verbose 'oboe (current-error-port))
+#(print-keys-verbose 'clarinet (current-error-port))
+#(print-keys-verbose 'bass-clarinet (current-error-port))
+#(print-keys-verbose 'low-bass-clarinet (current-error-port))
+#(print-keys-verbose 'saxophone (current-error-port))
+#(print-keys-verbose 'soprano-saxophone (current-error-port))
+#(print-keys-verbose 'alto-saxophone (current-error-port))
+#(print-keys-verbose 'tenor-saxophone (current-error-port))
+#(print-keys-verbose 'baritone-saxophone (current-error-port))
+#(print-keys-verbose 'bassoon (current-error-port))
+#(print-keys-verbose 'contrabassoon (current-error-port))

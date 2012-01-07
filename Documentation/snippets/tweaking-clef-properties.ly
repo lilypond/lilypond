@@ -78,7 +78,7 @@ Eigenschaften manuell setzt.  Auf der ersten Zeile erhalten die manuellen
 Noten, auf der zweiten Zeile nicht.
 "
 
-%% Translation of GIT committish: 099369f020021577e7455eb627b547482af7cd02
+%% Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
   texidocfr = "
 La commande @code{\\clef \"treble_8\"} équivaut à définir @code{clefGlyph},
 @code{clefPosition} -- qui contrôle la position verticale de la clé --

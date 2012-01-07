@@ -551,6 +551,7 @@ messages into errors.")
     (,ly:translator? . "translator")
     (,ly:translator-group? . "translator group")
     (,ly:unpure-pure-container? . "unpure/pure container")
+    (,ly:vsize? . "vsize")
     ))
 
 

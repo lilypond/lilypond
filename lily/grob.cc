@@ -620,6 +620,8 @@ Grob::get_vertical_axis_group (Grob *g)
 {
   if (!g)
     return 0;
+  if (!g->get_parent (Y_AXIS))
+    return 0;
   if (Axis_group_interface::has_interface (g)
       && Align_interface::has_interface (g->get_parent (Y_AXIS)))
     return g;
@@ -659,12 +661,11 @@ Grob::internal_vertical_less (Grob *g1, Grob *g2, bool pure)
 {
   Grob *vag = get_root_vertical_alignment (g1);
   if (!vag)
-    return false;
-  if (!vag)
     {
       g1->programming_error ("grob does not belong to a VerticalAlignment?");
       return false;
     }
+
   Grob *ag1 = get_vertical_axis_group (g1);
   Grob *ag2 = get_vertical_axis_group (g2);
 

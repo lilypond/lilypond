@@ -100,6 +100,27 @@ LY_DEFINE (ly_grob_pure_property, "ly:grob-pure-property",
   return retval;
 }
 
+LY_DEFINE (ly_grob_pure_height, "ly:grob-pure-height",
+           4, 1, 0, (SCM grob, SCM refp, SCM beg, SCM end, SCM val),
+           "Return the pure height of @var{grob} given refpoint @var{refp}."
+           "  If no value is found, return @var{val} or @code{'()}"
+           " if @var{val} is not specified.")
+{
+  Grob *sc = unsmob_grob (grob);
+  Grob *ref = unsmob_grob (refp);
+
+  LY_ASSERT_SMOB (Grob, grob, 1);
+  LY_ASSERT_SMOB (Grob, refp, 2);
+  LY_ASSERT_TYPE (scm_is_integer, beg, 3);
+  LY_ASSERT_TYPE (scm_is_integer, end, 4);
+  if (val == SCM_UNDEFINED)
+    val = SCM_EOL;
+
+  Interval retval = sc->pure_height (ref, scm_to_int (beg), scm_to_int (end));
+
+  return ly_interval2scm (retval);
+}
+
 LY_DEFINE (ly_grob_property, "ly:grob-property",
            2, 1, 0, (SCM grob, SCM sym, SCM val),
            "Return the value for property @var{sym} of @var{grob}."

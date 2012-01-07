@@ -130,7 +130,7 @@ There is a new @code{define-event-function} command in analogy to
 @code{define-music-function} that can be used for defining music
 functions acting as events without requiring a direction specifier
 (@code{-}, @code{^}, or @code{_}) placed before them.
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 dyn=#(define-event-function (parser location arg) (markup?)
          (make-dynamic-script arg))
 \relative c' { c\dyn pfsss }

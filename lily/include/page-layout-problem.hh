@@ -29,8 +29,10 @@ public:
   Page_layout_problem (Paper_book *, SCM page, SCM systems);
 
   SCM solution (bool ragged);
+  SCM fixed_force_solution (Real force);
   void set_header_height (Real);
   void set_footer_height (Real);
+  Real force () const;
   static bool read_spacing_spec (SCM spec, Real *dest, SCM sym);
   static bool is_spaceable (Grob *g);
   static SCM get_details (Grob *g);
@@ -47,7 +49,7 @@ protected:
   void append_system (System *, Spring const &, Real indent, Real padding);
   void append_prob (Prob *, Spring const &, Real padding);
 
-  void solve_rod_spring_problem (bool ragged);
+  void solve_rod_spring_problem (bool ragged, Real fixed_force);
   SCM find_system_offsets ();
   void distribute_loose_lines (vector<Grob *> const &, vector<Real> const &, Real, Real);
 
@@ -91,6 +93,7 @@ protected:
   vector<Spring> springs_;
   vector<Element> elements_;
   vector<Real> solution_;
+  Real force_;
   Skyline bottom_skyline_;
   Real page_height_;
   Real header_height_;

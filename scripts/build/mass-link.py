@@ -61,5 +61,6 @@ def force_link (src,dest):
     if os.path.exists (dest):
         os.system ('rm -f ' + dest)
     link (src, dest)
+    os.utime (dest, None)
 
 map (force_link, sourcefiles, destfiles)

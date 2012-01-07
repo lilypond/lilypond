@@ -84,7 +84,8 @@ global = {
 
   % incipit
   \once \override Score.SystemStartBracket #'transparent = ##t
-  \override Score.SpacingSpanner #'spacing-increment = #1.0 % tight spacing
+   % Set tight spacing
+  \override Score.SpacingSpanner #'spacing-increment = #1.0
   \key f \major
   \time 2/2
   \once \override Staff.TimeSignature #'style = #'neomensural
@@ -100,7 +101,6 @@ global = {
   \bar ""
 
   % main
-  \revert Score.SpacingSpanner #'spacing-increment % CHECK: no effect?
   \cadenzaOff % turn bar lines on again
   \once \override Staff.Clef #'full-size-change = ##t
   \set Staff.forceClef = ##t
@@ -109,7 +109,7 @@ global = {
   \override Voice.NoteHead #'style = #'default
   \override Voice.Rest #'style = #'default
 
-  % FIXME: setting printKeyCancellation back to #t must not
+  % Setting printKeyCancellation back to #t must not
   % occur in the first bar after the incipit.  Dto. for forceClef.
   % Therefore, we need an extra \skip.
   \skip 1*1
@@ -296,17 +296,12 @@ bassusLyrics = \lyricmode {
       % no slurs
       \override Slur #'transparent = ##t
 
-      % Comment in the below "\remove" command to allow line
-      % breaking also at those barlines where a note overlaps
-      % into the next bar.  The command is commented out in this
-      % short example score, but especially for large scores, you
-      % will typically yield better line breaking and thus improve
-      % overall spacing if you comment in the following command.
-      %\remove "Forbid_line_break_engraver"
+      % The command below can be commented out in
+      % short scores, but especially for large scores you
+      % will typically yield better line breaking and improve
+      % overall spacing if you do not comment the command out.
+
+      \remove "Forbid_line_break_engraver"
     }
   }
 }
-
-
-
-

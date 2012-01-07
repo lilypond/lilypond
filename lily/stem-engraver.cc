@@ -68,6 +68,7 @@ Stem_engraver::make_stem (Grob_info gi)
   /* Announce the cause of the head as cause of the stem.  The
      stem needs a rhythmic structure to fit it into a beam.  */
   stem_ = make_item ("Stem", gi.grob ()->self_scm ());
+  (void) make_item ("StemStub", gi.grob ()->self_scm ());
   if (tremolo_ev_)
     {
       /* Stem tremolo is never applied to a note by default,

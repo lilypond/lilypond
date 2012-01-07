@@ -507,6 +507,7 @@
 	(font-size . 1.5)
 	(stencil . ,ly:text-interface::print)
 	(extra-spacing-height . (0.2 . -0.2))
+	(extra-spacing-width . (-0.5 . 0.5))
 	(word-space . 0.0)
 	(meta . ((class . Item)
 		 (interfaces . (chord-name-interface
@@ -1636,6 +1637,7 @@
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(stencil . ,ly:slur::print)
 	(thickness . 1.1)
+	(vertical-skylines . ,ly:slur::vertical-skylines)
 	(Y-extent . ,ly:slur::height)
 	(meta . ((class . Spanner)
 		 (interfaces . (slur-interface))))))
@@ -1793,6 +1795,7 @@
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(stencil . ,ly:slur::print)
 	(thickness . 1.2)
+	(vertical-skylines . ,ly:slur::vertical-skylines)
 	(Y-extent . ,ly:slur::height)
 	(meta . ((class . Spanner)
 		 (interfaces . (slur-interface))))))
@@ -1978,6 +1981,14 @@
 	(meta . ((class . Item)
 		 (interfaces . (stem-interface))))))
 
+    (StemStub
+     . (
+        (X-extent . ,stem-stub::width)
+	(extra-spacing-height . ,stem-stub::extra-spacing-height)
+	(Y-extent . ,(ly:make-unpure-pure-container #f stem-stub::pure-height))
+	(meta . ((class . Item)
+		 (interfaces . ())))))
+
     (StemTremolo
      . (
 	(beam-thickness . 0.48) ; staff-space
@@ -1986,9 +1997,16 @@
 	(stencil . ,ly:stem-tremolo::print)
 	(style . ,ly:stem-tremolo::calc-style)
 	(X-extent . ,ly:stem-tremolo::width)
+	(X-offset . ,(ly:make-simple-closure
+		      `(,+
+			,(ly:make-simple-closure
+			  (list ly:self-alignment-interface::centered-on-x-parent))
+			,(ly:make-simple-closure
+			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 	(Y-offset . ,ly:stem-tremolo::calc-y-offset)
 	(meta . ((class . Item)
-		 (interfaces . (stem-tremolo-interface))))))
+		 (interfaces . (self-alignment-interface
+                                stem-tremolo-interface))))))
 
     (StringNumber
      . (
@@ -2383,6 +2401,7 @@
 
     (TupletBracket
      . (
+	(avoid-scripts . #t)
 	(connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
 	(cross-staff . ,ly:tuplet-bracket::calc-cross-staff)
 	(direction  . ,ly:tuplet-bracket::calc-direction)
@@ -2632,6 +2651,7 @@
    ly:dots::print
    ly:clef::print
    ly:flag::print
+   ly:time-signature::print
    default-flag
    normal-flag
    mensural-flag
