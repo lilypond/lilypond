@@ -306,32 +306,55 @@ check_meshing_chords (Grob *me,
         shift_amount *= 0.75;
     }
 
-  /* If the dotted notes ended up on the left, and there are collisions,
-     tell the Dot_Columnn to avoid the notes on the right.
+  /* If any dotted notes ended up on the left,
+     tell the Dot_Columnn to avoid the note heads on the right.
    */
-  if (full_collide || close_half_collide || distant_half_collide)
+  if (shift_amount < -1e-6
+      && Rhythmic_head::dot_count (head_up))
     {
-      if (shift_amount < -1e-6
-          && Rhythmic_head::dot_count (head_up)
-          && !Rhythmic_head::dot_count (head_down))
+      Grob *d = unsmob_grob (head_up->get_object ("dot"));
+      Grob *parent = d->get_parent (X_AXIS);
+      if (Dot_column::has_interface (parent))
+        Side_position_interface::add_support (parent, head_down);
+    }
+  else if (Rhythmic_head::dot_count (head_down))
+    {
+      Grob *d = unsmob_grob (head_down->get_object ("dot"));
+      Grob *parent = d->get_parent (X_AXIS);
+      if (Dot_column::has_interface (parent))
         {
-          Grob *d = unsmob_grob (head_up->get_object ("dot"));
-          Grob *parent = d->get_parent (X_AXIS);
-          if (Dot_column::has_interface (parent))
-            Side_position_interface::add_support (parent, head_down);
+          Grob *stem = unsmob_grob (head_up->get_object ("stem"));
+          // Loop over all heads on an up-pointing-stem to see if dots
+          // need to clear any heads suspended on its right side.
+          extract_grob_set (stem, "note-heads", heads);
+          for (vsize i = 0; i < heads.size (); i++)
+            Side_position_interface::add_support (parent, heads[i]);
         }
-      else if (Rhythmic_head::dot_count (head_down)
-               && !Rhythmic_head::dot_count (head_up))
+    }
+
+  // In meshed chords with dots on the left, adjust dot direction
+  if (shift_amount > 1e-6
+      && Rhythmic_head::dot_count (head_down))
+    {
+      Grob *dot_down = unsmob_grob (head_down->get_object ("dot"));
+      Grob *col_down = dot_down->get_parent (X_AXIS);
+      Direction dir = UP;
+      if (Rhythmic_head::dot_count (head_up))
         {
-          Grob *d = unsmob_grob (head_down->get_object ("dot"));
-          Grob *parent = d->get_parent (X_AXIS);
-          if (Dot_column::has_interface (parent))
-            {
-              Grob *stem = unsmob_grob (head_up->get_object ("stem"));
-              extract_grob_set (stem, "note-heads", heads);
-              for (vsize i = 0; i < heads.size (); i++)
-                Side_position_interface::add_support (parent, heads[i]);
-            }
+          Grob *dot_up = unsmob_grob (head_up->get_object ("dot"));
+          Grob *col_up = dot_up->get_parent (X_AXIS);
+          if (col_up == col_down) // let the common DotColumn arrange dots
+            dir = CENTER;
+          else // conform to the dot direction on the up-stem chord
+            dir = robust_scm2dir (dot_up->get_property ("direction"), UP);
+        }
+      if (dir != CENTER)
+        {
+          Grob *stem = unsmob_grob (head_down->get_object ("stem"));
+          extract_grob_set (stem, "note-heads", heads);
+          for (vsize i = 0; i < heads.size (); i++)
+            unsmob_grob (heads[i]->get_object ("dot"))
+              ->set_property ("direction", scm_from_int (dir));
         }
     }
 
