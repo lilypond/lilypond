@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 36c53afc9a92d7cea1a98563ef1913e764c56862
+    Translation of GIT committish: d6b6b53d09a0fb8e137e7cfcec39fe22dc7b6872
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -293,7 +293,9 @@ Tanto la instrucción @code{\override} como @code{\set} se pueden
 preceder por @code{\once}.  Esto ocasiona que la siguiente instrucción
 @code{\override} o @code{\set} sea efectiva solamente durante el
 tiempo musical en curso y antes de que la propiedad vuelva a tener
-otra vez su valor predeterminado.  Utilizando el mismo ejemplo,
+otra vez su valor anterior (que puede ser distinto de su valor
+predeterminado si aún se está aplicando otra instrucción
+@code{\override} de sobreescritura).  Utilizando el mismo ejemplo,
 podemos cambiar el color de una sola nota de la siguiente manera:
 
 @cindex color, propiedad, ejemplo
@@ -301,10 +303,12 @@ podemos cambiar el color de una sola nota de la siguiente manera:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c4 d
-\once \override NoteHead #'color = #red
+\override NoteHead #'color = #red
 e4 f |
 \once \override NoteHead #'color = #green
-g4 a b c |
+g4 a
+\revert NoteHead #'color
+b c |
 @end lilypond
 
 @strong{La instrucción \overrideProperty}
@@ -3078,7 +3082,8 @@ rhMusic = \relative c'' {
         c,8~
         % Reposition the c2 to the right of the merged note
         \once \override NoteColumn #'force-hshift = #1.0
-        % Move the c2 out of the main note column so the merge will work
+        % Move the c2 out of the main note column
+        % so the merge will work
         \shiftOnn
         c2
       }
@@ -3447,7 +3452,8 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuation of main voice
       \new Voice {
         \voiceTwo
-        % Move the c2 out of the main note column so the merge will work
+        % Move the c2 out of the main note column
+        % so the merge will work
         c,8~ \shiftOnn c2
       }
       \new Voice {
@@ -3520,7 +3526,8 @@ rhMusic = \relative c'' {
         c,8~
         % Reposition the c2 to the right of the merged note
         \once \override NoteColumn #'force-hshift = #1.0
-        % Move the c2 out of the main note column so the merge will work
+        % Move the c2 out of the main note column
+        % so the merge will work
         \shiftOnn
         c2
       }
@@ -4175,12 +4182,17 @@ qué sistema operativo está utilizando:
 @item Linux
 
 Diríjase a
+@example
 @file{@var{CARPETA_DE_INSTALACIÓN}/lilypond/usr/@/share/lilypond/current/}
+@end example
 
 @item MacOS X
 
 Diríjase a
+@example
 @file{@var{CARPETA_DE_INSTALACIÓN}/LilyPond.app/Contents/@/Resources/share/lilypond/current/}
+@end example
+
 bien haciendo @code{cd} hacia este directorio desde el Terminal, o
 bien manteniendo pulsada la tecla de Control y haciendo click sobre la
 aplicación de LilyPond, y allí eligiendo @q{Mostrar el contenido del
@@ -4189,7 +4201,9 @@ paquete}.
 @item Windows
 
 Mediante el Explorador de Windows, diríjase a
+@example
 @file{@var{CARPETA_DE_INSTALACIÓN}/LilyPond/usr/@/share/lilypond/current/}
+@end example
 
 @end itemize
 
