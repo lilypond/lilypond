@@ -93,8 +93,6 @@ Consulte @ruser{Nombres de acorde personalizados} para más
 información.
 
 @item
-
-@item
 Se ha cambiado el nombre de la instrucción @code{\markuplines} por
 @code{\markuplist} para conseguir una mejor correspondencia con su
 semántica y con la nomenclatura generarl de LilyPond.
