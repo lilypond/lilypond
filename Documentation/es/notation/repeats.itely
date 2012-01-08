@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: f84eab93e732ed2b9aa50436202a28f34243c658
+    Translation of GIT committish: 4269f54b663421ca2c5c2c57baa5d9c49709d6d2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -468,12 +468,13 @@ Referencia de funcionamiento interno:
 @translationof Written-out repeats
 
 @cindex explícitas, repeticiones
-@cindex repetitiva, música
 @cindex repeticiones explícitas
-@cindex repetición desplegada
-@cindex desplegar música
+@cindex repeticiones desplegadas
+@cindex repeticiones alternativas
+@cindex primera y segunda vez, repeticiones
+@cindex repeticiones con primera y segunda vez
 @cindex desplegar repetición
-@cindex repetición desplegada con finales alternativos
+@cindex repeticiones desplegadas con finales alternativos
 @cindex música desplegada con finales alternativos
 @cindex alternativos, finales, en repeticiones explícitas
 @funindex unfold
@@ -564,6 +565,9 @@ Es posible también anidar varias funciones
 c1
 @end lilypond
 
+Las construcciones de acorde se pueden repetir mediante el
+símbolo de repetición de acordes @code{q}.
+Véase @ref{Repetición de acordes}.
 
 @warning{Si pone @code{@bs{}relative} dentro de un bloque
 @code{@bs{}repeat} sin instanciar explícitamente el contexto
@@ -571,6 +575,10 @@ c1
 @rprogram{Aparece un pentagrama de más}.}
 
 @seealso
+Referencia de la notación:
+@ref{Repetición de acordes}.
+
+Snippets:
 Fragmentos de código:
 @rlsr{Repeats}.
 
