@@ -60,7 +60,6 @@
 
   \consists "Font_size_engraver"
   \consists "Separating_line_group_engraver"
-  \consists "Dot_column_engraver"
   \consists "Staff_collecting_engraver"
 
  %% perhaps move to Voice context?
@@ -226,6 +225,7 @@ multiple voices on the same staff."
   \consists "Breathing_sign_engraver"
   \consists "Note_heads_engraver"
   \consists "Dots_engraver"
+  \consists "Dot_column_engraver"
   \consists "Rest_engraver"
   \consists "Tweak_engraver"
   \consists "Footnote_engraver"
