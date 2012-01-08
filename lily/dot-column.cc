@@ -109,6 +109,8 @@ Dot_column::calc_positioning_done (SCM smob)
 
           y.add_point (y1);
           y.add_point (y2);
+
+          stems.insert (s);
         }
       else if (Note_head::has_interface (s))
         y = Interval (-1, 1);
