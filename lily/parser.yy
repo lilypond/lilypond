@@ -1277,7 +1277,7 @@ function_arglist_skip:
 	{
 		$$ = scm_cons ($1, $3);
 	} %prec FUNCTION_ARGLIST
-	| EXPECT_SCM EXPECT_DURATION function_arglist_skip
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip
 	{
 		$$ = scm_cons ($1, $3);
 	} %prec FUNCTION_ARGLIST
