@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: d6315a746c47259f56dc2835347985658d71d0c9
+    Translation of GIT committish: d6b6b53d09a0fb8e137e7cfcec39fe22dc7b6872
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -901,7 +901,6 @@ indicar un acorde es encerrar las notas entre ángulos
 tener la misma duración, y que la duración se escribe después del
 ángulo de cierre.
 
-
 @lilypond[verbatim,quote,relative=2]
 r4 <c e g> <c f a>2
 @end lilypond
@@ -915,13 +914,15 @@ con acordes.  Tan sólo debe recordar que se escriben por fuera de los
 
 @lilypond[verbatim,quote,relative=2]
 r4 <c e g>~ <c f a>2 |
-<c e g>8[ <c f a> <c e g> <c f a>] <c e g>\>[ <c f a> <c f a> <c e g>]\! |
+<c e g>8[ <c f a> <c e g> <c f a>]
+  <c e g>8\>[ <c f a> <c f a> <c e g>]\! |
 r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
 @end lilypond
 
 @seealso
 Referencia de la notación:
 @ruser{Notas en acorde}.
+
 
 @node Polifonía en un solo pentagrama
 @subsection Polifonía en un solo pentagrama

@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 34919fec24023b9eab0f1d7e390a0d5221bd8813
+    Translation of GIT committish: c0922cccef8da774f9f208614c9f6b92cfdc6e3f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -145,7 +145,7 @@ Hay una instrucción nueva @code{define-event-function} en analogía con
 musicales que actúan como eventos sin que se requiera un especificador
 de dirección como (@code{-}, @code{^} o @code{_}) antes de ellos.
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 dyn=#(define-event-function (parser location arg) (markup?)
          (make-dynamic-script arg))
 \relative c' { c\dyn pfsss }
