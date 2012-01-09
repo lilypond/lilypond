@@ -1131,11 +1131,13 @@ class Etf_file:
 
         
         while c and c.number <> endno:
-            thread.append (c)
+            d = c # hack to avoid problem with build/scripts/grand-replace.py
+            thread.append (d)
             c = c.next
 
         if c: 
-            thread.append (c)
+            d = c # hack to avoid problem with build/scripts/grand-replace.py
+            thread.append (d)
         
         return thread
 
