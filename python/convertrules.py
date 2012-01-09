@@ -3356,6 +3356,37 @@ def conv (str):
                   r"\1\\accidentalStyle", str)
     return str
 
+def brace_matcher (n):
+    # poor man's matched brace scanning, gives up
+    # after n+1 levels.  Matches any string with balanced
+    # braces inside; add the outer braces yourself if needed.
+    # Nongreedy.
+    return r"[^{}]*?(?:{"*n+r"[^{}]*?"+r"}[^{}]*?)*?"*n
+
+matchstring = r'"(?:[^"\\]|\\.)*"'
+matcharg = (r"\s+(?:[$#]['`]?\s*(?:[a-zA-Z]\S*|" + matchstring + r"|\("
+            + paren_matcher(20) + r"\))|" + matchstring + r"|\\[a-z_A-Z]+)")
+matchmarkup = (r'(?:\\markup\s*(?:{' + brace_matcher (20) +r'}|' +
+               matchstring + r'|(?:\\[a-z_A-Z][a-z_A-Z-]*(?:' + matcharg +
+               r')*?\s*)*(?:' + matchstring + "|{" + brace_matcher (20) +
+               "}))|" + matchstring + ")")
+
+@rule((2, 15, 25), r"\(auto)?Footnote(Grob)? -> \footnote")
+def conv (str):
+    # The following replacement includes the final markup argument in
+    # the match in order to better avoid touching the equally named
+    # markup function.  The other functions have unique names, so
+    # there is no point in including their last, possibly complex
+    # argument in the match.
+    str = re.sub (r"\\footnote(" + matcharg + (r")(\s*" + matchmarkup)*2 + ")",
+                  r"\\footnote\2\1\3", str)
+    str = re.sub (r"\\footnoteGrob"+("(" + matcharg + ")")*2 + r"(\s*" + matchmarkup + ")",
+                  r"\\footnote\3\2\1", str)
+    str = re.sub (r"\\autoFootnoteGrob" + ("(" + matcharg + ")")*2,
+                  r"\\footnote\2\1", str)
+    str = re.sub (r"\\autoFootnote",
+                  r"\\footnote", str)
+    return str
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
