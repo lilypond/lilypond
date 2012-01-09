@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.15.20
-\version "2.15.20"
+%% Note: this file works from version 2.15.24
+\version "2.15.24"
 
 \header {
   lsrtags = "chords, fretted-strings"
@@ -27,20 +27,9 @@ The syntax is @code{\\bbarre #'fret_number' @{ notes @} }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% %%%%%%%  Cut here ----- Start 'bbarred.ly'
 
-%% PostScript -------------------------------
-pScript= \markup {
-	\with-dimensions #'(0 . 0.8) #'(0 . 2.0)
-	\postscript	#"
-	0.15 setlinewidth
-	/Times-Roman findfont
-	2.0 scalefont
-	setfont
-	(C)show %%change with B if you prefer
-       %(B)show %%change with C if you prefer
-	stroke
-	0.7 -0.5 moveto
-	0.7  1.7 lineto
-	stroke"
+%% C with slash -------------------------------
+cWithSlash = \markup {
+  \combine \roman C \translate #'(0.6 . -0.4) \draw-line #'(0 . 2.0)
 }
 %% Span -----------------------------------
 %% Syntax: \bbarre #"text" { notes } - text = any number of box
@@ -78,7 +67,7 @@ bbarre= #(define-music-function (barre location str music) (string? ly:music?)
                         \once \override TextSpanner #'to-barline = ##f
                         \once \override TextSpanner #'bound-details =  #'((left (Y . 0) (padding . 0.25) (attach-dir . -2)) (right (Y . 0) (padding . 0.25) (attach-dir . 2)))
                         \once  \override TextSpanner #'bound-details #'right #'text = \markup { \draw-line #'( 0 . -.5) }
-                        \once  \override TextSpanner #'bound-details #'left #'text =  \markup { \pScript #str }
+                        \once  \override TextSpanner #'bound-details #'left #'text =  \markup { \cWithSlash #str }
 %% uncomment this line for make full barred
                        % \once  \override TextSpanner #'bound-details #'left #'text =  \markup { "B" #str }
                           #}
