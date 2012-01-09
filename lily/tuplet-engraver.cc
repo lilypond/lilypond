@@ -65,6 +65,8 @@ protected:
 
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (script);
+  DECLARE_ACKNOWLEDGER (finger);
+  DECLARE_ACKNOWLEDGER (string_number);
   DECLARE_TRANSLATOR_LISTENER (tuplet_span);
   virtual void finalize ();
   void start_translation_timestep ();
@@ -220,6 +222,28 @@ Tuplet_engraver::acknowledge_script (Grob_info inf)
 }
 
 void
+Tuplet_engraver::acknowledge_finger (Grob_info inf)
+{
+  for (vsize j = 0; j < tuplets_.size (); j++)
+    if (tuplets_[j].bracket_)
+      {
+        Item *i = dynamic_cast<Item *> (inf.grob ());
+        Tuplet_bracket::add_script (tuplets_[j].bracket_, i);
+      }
+}
+
+void
+Tuplet_engraver::acknowledge_string_number (Grob_info inf)
+{
+  for (vsize j = 0; j < tuplets_.size (); j++)
+    if (tuplets_[j].bracket_)
+      {
+        Item *i = dynamic_cast<Item *> (inf.grob ());
+        Tuplet_bracket::add_script (tuplets_[j].bracket_, i);
+      }
+}
+
+void
 Tuplet_engraver::start_translation_timestep ()
 {
   last_tuplets_.clear ();
@@ -246,6 +270,8 @@ Tuplet_engraver::Tuplet_engraver ()
 
 ADD_ACKNOWLEDGER (Tuplet_engraver, note_column);
 ADD_ACKNOWLEDGER (Tuplet_engraver, script);
+ADD_ACKNOWLEDGER (Tuplet_engraver, finger);
+ADD_ACKNOWLEDGER (Tuplet_engraver, string_number);
 ADD_TRANSLATOR (Tuplet_engraver,
                 /* doc */
                 "Catch tuplet events and generate appropriate bracket.",
