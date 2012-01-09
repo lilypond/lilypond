@@ -2,7 +2,7 @@
 ;;;
 ;;;
 ;;;
-;;; Copyright (C) 2005--2011 Nicolas Sceaux  <nicolas.sceaux@free.fr>
+;;; Copyright (C) 2005--2012 Nicolas Sceaux  <nicolas.sceaux@free.fr>
 ;;;
 
 ;;; - This file defines the procedures used to define display methods for each

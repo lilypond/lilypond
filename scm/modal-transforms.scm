@@ -1,6 +1,6 @@
 ;;; modal-transforms.scm --- Modal transposition, inversion, and retrograde.
 
-;; Copyright (C) 2011 Ellis & Grant, Inc.
+;; Copyright (C) 2011--2012 Ellis & Grant, Inc.
 
 ;; Author: Michael Ellis <michael.f.ellis@gmail.com>
 

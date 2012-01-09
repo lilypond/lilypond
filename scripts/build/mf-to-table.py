@@ -4,7 +4,7 @@
 
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 1997--2011 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+# Copyright (C) 1997--2012 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

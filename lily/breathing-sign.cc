@@ -1,8 +1,8 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1999--2011 Michael Krause
-  Extensions for ancient notation (c) 2003--2011 by Juergen Reuter
+  Copyright (C) 1999--2012 Michael Krause
+  Extensions for ancient notation (c) 2003--2012 by Juergen Reuter
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by

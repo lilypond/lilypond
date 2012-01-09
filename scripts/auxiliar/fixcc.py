@@ -450,7 +450,7 @@ typedef struct _t_ligature
 typedef std::map < AFM_Ligature const *, int > Bar;
 
  /**
- Copyright (C) 1997--2011 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+ Copyright (C) 1997--2012 Han-Wen Nienhuys <hanwen@cs.uu.nl>
  */
  
 /*      ||

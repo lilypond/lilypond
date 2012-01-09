@@ -2571,7 +2571,7 @@ If the given filename is -, musicxml2ly reads from the command line.
 
     p.version = ('''%prog (LilyPond) @TOPLEVEL_VERSION@\n\n'''
 +
-_ ("""Copyright (c) 2005--2011 by
+_ ("""Copyright (c) 2005--2012 by
     Han-Wen Nienhuys <hanwen@xs4all.nl>,
     Jan Nieuwenhuizen <janneke@gnu.org> and
     Reinhold Kainhofer <reinhold@kainhofer.com>

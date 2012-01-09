@@ -19,7 +19,7 @@ Diese Datei stellt eine Einleitung für LilyPond Version
 
 @c `Learning Manual' was born 1999-10-10 with git commit b9abaac...
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2011 bei den Autoren.
+Copyright @copyright{} 1999--2012 bei den Autoren.
 @end macro
  
 @set FDL
