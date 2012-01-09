@@ -170,7 +170,7 @@ Breathing_sign::offset_callback (SCM smob)
   if (staff)
     {
       Interval iv = Staff_symbol::line_span (staff);
-      Real inter = Staff_symbol::staff_space (me) / 2;
+      Real inter = Staff_symbol::staff_space (staff) / 2;
       return scm_from_double (inter * iv[d]);
     }
 
