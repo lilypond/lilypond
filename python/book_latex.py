@@ -125,7 +125,7 @@ Latex_output = {
   \expandafter\preLilyPondExample
 \fi
 \def\lilypondbook{}%%
-\input %(base)s-systems.tex
+\input{%(base)s-systems.tex}
 \ifx\postLilyPondExample \undefined
 \else
   \expandafter\postLilyPondExample
@@ -297,7 +297,7 @@ class BookLatexOutputFormat (BookBase.BookOutputFormat):
     def snippet_output (self, basename, snippet):
         str = ''
         rep = snippet.get_replacements ();
-        rep['base'] = basename
+        rep['base'] = basename.replace ('\\', '/')
         str += self.output_print_filename (basename, snippet)
         if VERBATIM in snippet.option_dict:
             rep['verb'] = snippet.verb_ly ()
