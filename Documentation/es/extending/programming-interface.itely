@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: abf44faa7aff3481efcd8b241c352c6d5080ccd5
+    Translation of GIT committish: 76801e173f3815c1347e5685195059a01676cd75
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -40,41 +40,16 @@ Los bloques de código de LilyPond tienen el siguiente aspecto:
 @end example
 Se pueden usar en cualquier lugar en el que se pueda escribir código
 de Scheme: el lector de Scheme en efecto se modifica para que pueda
-incorporar bloques de código de LilyPond.  Mientras se está leyendo el
-bloque de código de LilyPond, se analiza sintácticamente de forma
-superficial y se sustituye por una llamada al analizador sintáctico de
-LilyPond, que funciona en tiempo de ejecución para que interprete el
-bloque de código de LilyPond.
+incorporar bloques de código de LilyPond y pueda ocuparse de de las
+expresiones de Scheme incrustadas que comienzan por @code{$} y@w{ }@code{#}.
 
-El objeto del análisis superficial es la interpretación de los
-símbolos @code{$} que se pueden usar para aislar expresiones del
-contexto léxico de Scheme que les rodea (como variables de @code{let}
-y parámetros de función).  El @code{$} se puede usar de las maneras
-siguientes:
-
-@table @code
-@item $$
-simplemente pasa un único símbolo @code{$} al analizador de LilyPond.
-@item $@var{forma}
-evalúa la forma Scheme en tiempo de ejecución y la analiza como un
-identificador @code{\forma} en el analizador de LilyPond.  Dependiendo
-del tipo del valor, se puede interpretar como varias entidades
-sintácticas diferentes.
-@item #$@var{forma}
-evalúa la forma de Scheme en tiempo de ejecución y analiza su valor
-como una expresión de Scheme dentro del analizador de LilyPond.
-@item #@var{forma}
-las formas que están dentro de expresiones de Scheme y que comienzan
-por @code{#} se leen y se analizan recursivamente hasta que se
-encuentran símbolos de @code{$}.  Entonces se tratan como sigue:
-@item #@dots{}$@var{variable}
-analiza el valor de la variable dentro de la expresión circundante.
-@item #@dots{}($ @var{forma} @dots{})
-analiza el valor de la forma dentro de la expresión circundante.  Al
-contrario que las @code{$@var{formas}} a nivel de LilyPond,
-necesitamos separar la forma con un espacio en blanco, haciendo que
-@code{$} sea reconocible como un símbolo de Scheme separado.
-@end table
+Extrae el bloque de código de LilyPond y genera una llamada al
+@code{parser} o analizador sintáctico de LilyPond, que corre en tiempo
+de ejecución para interpretar el bloque de código de LilyPond.
+Cualquier expresión de Scheme que se halle incrustada se ejecuta en el
+entorno léxico del bloque de código de LilyPond, de manera que tenemos
+acceso a las variables locales y a los parámetros de función en el
+punto en que se encuentra escrito el bloque de código de LilyPond.
 
 Un bloque de código de LilyPond puede contener cualquier cosa que
 podríamos utilizar en la parte derecha de una asignación.  Además, un
@@ -113,7 +88,7 @@ La forma general de la definición de una función de Scheme es:
 funcion =
 #(define-scheme-function
      (parser location @var{arg1} @var{arg2} @dots{})
-     (@var{type1?} @var{type2?} @dots{})
+     (@var{tipo1?} @var{tipo2?} @dots{})
    @var{cuerpo})
 @end example
 
@@ -123,7 +98,8 @@ donde
 @multitable @columnfractions .33 .66
 @item @code{parser}
 @tab tiene que ser literalmente @code{parser} para dar a los bloques de código
-de LilyPond (@code{#@{}@dots{}@code{#@}}) acceso al analizador sintáctico.
+de LilyPond (@code{#@{}@dots{}@code{#@}}) acceso al analizador
+sintáctico.
 
 @item @code{@var{argN}}
 @tab @var{n}-ésimo argumento
@@ -134,7 +110,7 @@ debe devolver @code{#t}.  Algunos de estos predicados se reconocen de
 forma especial por parte del analizador, véase más abajo.  También
 existe una forma especial @code{(@emph{predicate?} @emph{default})}
 para especificar argumentos opcionales.  Si el argumento actual no
-está presente cuando se llama a la función, el valor predeterminado se
+está presente cuando se ll  ama a la función, el valor predeterminado se
 emplea en sustitución.  Los valores predeterminados se evalúan en
 tiempo de definición (¡incluyendo los bloques de código de LilyPond!),
 de manera que se necesitamos un valor por omisión calculado en tiempo
@@ -155,29 +131,52 @@ función de Scheme. Puede contener bloques de código de LilyPond
 encerrados entre llaves con almohadillas
 (@tie{}@w{@code{#@{@dots{}#@}}}@tie{}), como se describe en
 @ref{Bloques de código de LilyPond}.  Dentro de los bloques de código
-de LilyPond, use el símbolo del dólar @code{$} para hacer referencia a
-argumentos de función (p.ej. @samp{$arg1}) o para iniciar una
+de LilyPond, use el símbolo @code{#} para hacer referencia a
+argumentos de función (p.ej. @samp{#arg1}) o para iniciar una
 expresión en línea de Scheme que contenga argumentos de función
-(p.ej. @w{@samp{$(cons arg1 arg2)}}).  Si la función devuelve una
-expresión musical, se clona y se le da el @code{origin} correcto.
+(p.ej. @w{@samp{#(cons arg1 arg2)}}).  Donde las expresiones de Scheme
+normales que usan @code{#} no funcionan, podríamos necesitar volver a
+expresiones de Scheme inmediatas que usan @code{$}, como por ejemplo
+@samp{$music}.
+
+Si la función devuelve una expresión musical, se clona y se le da el
+@code{origin} correcto.
 @end multitable
 
 @noindent
-Ciertos predicados de tipo se reconocen de forma especial por parte
-del analizador sintáctico y hacen que éste busque los argumentos
-respectivos en la sintaxis de LilyPond en lugar de hacerlo en la
-sintaxis de Scheme.  Actualmente son @code{ly:music?}, @code{markup?},
+Ciertos predicados de tipo se manejan de forma especial por parte del
+analizador sintáctico ya que de otro modo éste no es capaz de
+reconocer los argumentos eficientemente.  Actualmente son
 @code{ly:pitch?} y @code{ly:duration?}.
 
-Si realmente quiere escribir uno de los elementos especiales como
-Scheme en lugar de como una expresión de LilyPond, puede escribirlos
-como una expresión de Scheme que llame a @code{ly:export} en su nivel
-exterior.
+La idoneidad de lpos argumentos para el resto de los predicados viene
+determinada mediante llamadas reales al predicado después de que
+LilyPond ya las ha convertido en una expresión de Scheme.  Como
+consecuencia, el argumento se puede especificar en la sintaxis de
+Scheme si se desea (precedido de @code{#} o como resultado de haber
+llamado a una función de Scheme), pero LilyPond también convierte
+algunas construcciones de LilyPond en Scheme antes de hacer
+efectivamente la comprobación del predicado sobre ellas.  Actualmente
+se encuentran entre ellas la música, los post-eventos, las cadenas
+simples (entrecomilladas o no), los números, los elementos de marcado
+y de listas de marcado, score (partitura), book (libro), bookpart
+(parte de libro), las definiciones de contexto y los bloques de
+definición de salida.
 
-Otros predicados de tipo, entre ellos los que están definidos por el
-usuario hacen que el argumento respectivo sólo se acepte como una
-expresión de Scheme, normalmente precedida de @code{#} o como
-resultado de llamar a una función de Scheme.
+Para ciertos tipos de expresión (como la mayor parte de la música que
+no está encerrada entre llaves) LilyPond necesita más allá de la
+expresión misma para poder determinar su final.  Si tal expresión se
+considerase un argumento opcional mediante la evaluación de su
+predicado, LilyPond no podría recuperarse después de decidir que la
+expresión no se corresponde con el parámetro.  Así, ciertas formas de
+música necesitan ir encerradas entre llaves para que LilyPond pueda
+aceptarlas.  Existen también otras ambigüedades que LilyPond resuelve
+mediante la comprobación con funciones de predicado: ¿es @samp{-3} un
+post-evento de digitación o un nnúmero negativo?  ¿Es @code{"a" 4} en
+el modo de letra una cadena seguida por un número, o un evento de
+letra con la duración @code{4}?  LilyPond lo decide preguntándole a
+los predicados.  Ello significa que un predicado de aspecto benévolo
+como @code{scheme?} es candidato a interpretaciones sorprendentes.
 
 Para ver una lista de los predicados de tipo disponibles, consulte
 @ruser{Predicados de tipo predefinidos}.
@@ -201,13 +200,23 @@ Las funciones de Scheme se pueden llamar casi desde cualquier lugar en
 que puede escribirse una expresión de Scheme que comience con la
 almohadilla@tie{}@code{#}.  Llamamos a una función de Scheme
 escribiendo su nombre precedido de la barra invertida@tie{}@code{\}, y
-seguido por sus argumentos.  El último argumento no puede ser un
-argumento opcional.  Si hay varios argumentos opcionales seguidos, se
-rellenan con valores de izquierda a derecha.  Desde el momento en que
-un argumento opcional no corresponde con la entrada, éste y todos los
-argumentos opcionales inmediatamente siguientes se sustituyen por sus
-valores predeterminados, y la correspondencia continúa con el
-siguiente argumento no opcional.
+seguido por sus argumentos.  Una vez que un argumento opcional no
+corresponde a ningún argumento, LilyPond se salta este argumento y
+todos los que le siguen, sustituyéndolos por su valor por omisión
+especificado, y @q{recupera} el argumento que no correspondía al lugar
+del siguiente argumento obligatorio.  Dado que el argumento recuperado
+necesita ir a algún lugar, los argumentos opcionales no se consideran
+realmente opcionales a no ser que vayan seguidos de un argumento
+obligatorio.
+
+Existe una excepción: si escribimos @code{\default} en el lugar de un
+argumento opcional, este argumento y todos los argumentos opcionales
+que le siguen se saltan y se sustituyen por sus valores
+predeterminados.  Esto funciona incluso si no sigue ningún argumento
+obligatorio porque @code{\default} no necesita recuperarse.  Las
+instrucciones @code{mark} y @code{key} hacen uso de este truco para
+ofrecer su comportamiento predeterminado cuando van seguidas solamente
+por @code{\default}.
 
 Aparte de los lugares en que se requiere un valor de Scheme hay
 ciertos sitios en que se aceptan expresiones de almohadilla @code{#} y
@@ -215,38 +224,60 @@ se evalúan por sus efectos secundarios, pero por lo demás se ignoran.
 Son, mayormente, los lugares en que también sería aceptable colocar
 una asignación.
 
-Hay ciertos lugares especiales en los que un argumento que corresponde
-a @code{ly:music?} tiene que ser un identificador musical o bien una
-expresión musical encerrada dentro de @code{@{}@dots{}@code{@}} o
-@code{<<}@dots{}@code{>>} de forma explícita, de manera que las
-duraciones o post-eventos opcionales que posiblemente le sigan no
-puedan confundirse con argumentos adicionales.  Un sitio obvio es
-antes de un predicado @code{ly:duration?}.  Otro es el último
-argumento de una función de Scheme cuando se utiliza en un lugar en
-que tales partes opcionales podrían, o no, considerarse como parte del
-argumento musical.
+Dado que no es buena idea devolver valores que puedan malinterpretarse
+en algún contexto, debería usar funciones de Scheme normales solo para
+los casos en que siempre se devuelve un valor útil, y usar funciones
+de Scheme vacías (@pxref{Funciones de Scheme vacías}) en caso
+contrario.
 
-En esos casos raros, tenemos que delimitar nuestros argumentos
-musicales de forma adecuada para evitar la confusión por parte de
-LilyPond.
 
 @node Funciones de Scheme vacías
 @subsection Funciones de Scheme vacías
 @translationof Void scheme functions
+@funindex define-void-function
+@funindex \void
 
-A veces, una función se ejecuta solamente por sus efectos colaterales.
-En tal caso, la utilización de una función de Scheme supone que su
-valor no será considerado de la forma usual:
+En ocasiones, un procedimiento se ejecuta con el objeto de llevar a
+cabo alguna acción más que para devolver un valor.  Algunos lenguajes
+de programación (como C y Scheme) usan las funciones para los dos
+conceptos y se limitan a descartar el valor devuelto (usualmente
+haciendo que cualquier expresión pueda actuar como instrucción,
+ignorando el resultado devuelto).  Esto puede parecer inteligente pero
+es propenso a errores: casi todos los compiladores de C de hoy en día
+emiten advertencias cuando se descarta una expresión no vacía.  Para
+muchas funciones que ejecutan una acción, los estándares de Scheme
+declaran que el valor de retorno sea no especificado.  Guile, el
+intérprete de Scheme de LilyPond, tiene un valor único
+@code{*unspecified*} que en tales casos devuelve de forma usual (como
+cuando se usa directamente @code{set!} sobre una variable), pero
+desgraciadamente no de forma consistente.
+
+Definir una función de LilyPond con @code{define-void-function}
+asegura que se devuelve este valor especial, el único valor que
+satisface el predicado @code{void?}.
 
 @example
 noApuntarYPulsar =
-#(define-scheme-function
+#(define-void-function
      (parser location)
      ()
    (ly:set-option 'point-and-click #f))
 ...
 \noApuntarYPulsar   % desactivar la función de apuntar y pulsar
 @end example
+
+Si queremos evaluar una expresión sólo por su efecto colateral y no
+queremos que se interprete ningún valor que pueda devolver, podemos
+hacerlo anteponiendo el prefijo @code{\void}:
+
+@example
+\void #(hashq-set! some-table some-key some-value)
+@end example
+
+De esta forma podemos asegurar que LilyPond no asignará ningún
+significado al valor devuelto, independientemente de dónde lo
+encuentre.  También funciona para funciones musicales como
+@code{\displayMusic}.
 
 @node Funciones musicales
 @section Funciones musicales
@@ -376,7 +407,7 @@ barraManual =
      (parser location principio-final)
      (pair?)
    #@{
-     \once \override Beam #'positions = $principio-final
+     \once \override Beam #'positions = #principio-final
    #@})
 
 \relative c' @{
@@ -394,7 +425,7 @@ manualBeam =
      (parser location beg end)
      (number? number?)
    #{
-     \once \override Beam #'positions = $(cons beg end)
+     \once \override Beam #'positions = #(cons beg end)
    #})
 
 \relative c' {
@@ -416,9 +447,9 @@ AltOn =
      (parser location mag)
      (number?)
    #{
-     \override Stem #'length = $(* 7.0 mag)
+     \override Stem #'length = #(* 7.0 mag)
      \override NoteHead #'font-size =
-       $(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
+       #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
    #})
 
 AltOff = {
@@ -442,9 +473,9 @@ withAlt =
      (parser location mag music)
      (number? ly:music?)
    #{
-     \override Stem #'length = $(* 7.0 mag)
+     \override Stem #'length = #(* 7.0 mag)
      \override NoteHead #'font-size =
-       $(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
+       #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
      $music
      \revert Stem #'length
      \revert NoteHead #'font-size
@@ -495,7 +526,7 @@ lilypond -d display-bar-numbers ARCHIVO.ly
 
 Una función musical debe devolver una expresión musical.  Si quiere
 ejecutar una función exclusivamente por sus efectos secundarios,
-podría ser más sensato usar en su lugar una función de Scheme.  Pero
+debería usar @code{define-void-function}.  Pero
 puede haber casos en los que a veces queremos producir una expresión
 musical, y a veces no (como en el ejemplo anterior).  Devolver una
 expresión musical @code{void} (vacía) por medio de @code{#@{ #@}} lo
@@ -516,9 +547,10 @@ escribir instrucciones de matiz dinámico, éstos se adjuntan
 habitualmente sin indicador de dirección, como @code{c'\pp}.  He aquí
 una forma de escribir indicaciones dinámicas arbitrarias:
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 dyn=#(define-event-function (parser location arg) (markup?)
-(make-dynamic-script arg)) \relative c' { c\dyn pfsss }
+         (make-dynamic-script arg))
+\relative c' { c\dyn pfsss }
 @end lilypond
 
 Podríamos hacer lo mismo usando una función musical, pero entonces
