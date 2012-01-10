@@ -1967,53 +1967,43 @@ The footnote will not be annotated automatically."
 @end lilypond
 The footnote will be annotated automatically."
   (let* ((markup-stencil (interpret-markup layout props mkup))
-         (auto-numbering (ly:output-def-lookup layout
-                                               'footnote-auto-numbering))
          (footnote-hash (gensym "footnote"))
          (stencil-seed 0)
-         (gauge-stencil (if auto-numbering
-                            (interpret-markup
-                              layout
-                              props
-                              ((ly:output-def-lookup
-                                 layout
-                                 'footnote-numbering-function)
-                                stencil-seed))
-                            empty-stencil))
-         (x-ext (if auto-numbering
-                    (ly:stencil-extent gauge-stencil X)
-                    '(0 . 0)))
-	 (y-ext (if auto-numbering
-                    (ly:stencil-extent gauge-stencil Y)
-                    '(0 . 0)))
+         (gauge-stencil (interpret-markup
+                           layout
+                           props
+                           ((ly:output-def-lookup
+                               layout
+                               'footnote-numbering-function)
+                              stencil-seed)))
+         (x-ext (ly:stencil-extent gauge-stencil X))
+	 (y-ext (ly:stencil-extent gauge-stencil Y))
          (footnote-number
-           (if auto-numbering
-             `(delay-stencil-evaluation
-                ,(delay
-                  (ly:stencil-expr
-                    (let* ((table
-                            (ly:output-def-lookup layout
-                                                  'number-footnote-table))
-                           (footnote-stencil (if (list? table)
-		                                 (assoc-get footnote-hash
-                                                            table)
-					         empty-stencil))
-                           (footnote-stencil (if (ly:stencil? footnote-stencil)
-                                                 footnote-stencil
-                                                 (begin
-                                                   (ly:programming-error
+           `(delay-stencil-evaluation
+              ,(delay
+                (ly:stencil-expr
+                  (let* ((table
+                          (ly:output-def-lookup layout
+                                                'number-footnote-table))
+                         (footnote-stencil (if (list? table)
+                                               (assoc-get footnote-hash
+                                                          table)
+                                               empty-stencil))
+                         (footnote-stencil (if (ly:stencil? footnote-stencil)
+                                               footnote-stencil
+                                               (begin
+                                                 (ly:programming-error
 "Cannot find correct footnote for a markup object.")
-                                                   empty-stencil)))
-                           (gap (- (interval-length x-ext)
-			           (interval-length
-                                     (ly:stencil-extent footnote-stencil X))))
-                           (y-trans (- (+ (cdr y-ext)
-                                          raise)
-                                       (cdr (ly:stencil-extent footnote-stencil
-                                                               Y)))))
-		      (ly:stencil-translate footnote-stencil
-                                            (cons gap y-trans))))))
-             '()))
+                                                 empty-stencil)))
+                         (gap (- (interval-length x-ext)
+                                 (interval-length
+                                   (ly:stencil-extent footnote-stencil X))))
+                         (y-trans (- (+ (cdr y-ext)
+                                        raise)
+                                     (cdr (ly:stencil-extent footnote-stencil
+                                                             Y)))))
+                    (ly:stencil-translate footnote-stencil
+                                          (cons gap y-trans)))))))
          (main-stencil (ly:stencil-combine-at-edge
                          markup-stencil
                          X
