@@ -3117,9 +3117,9 @@ Consulte @ref{La tipografía Feta} para ver una lista de los símbolos que se
 pueden imprimir con @code{\musicglyph}.
 
 Para ver formas comunes de trucar la colocación de las letras de
-ensayo, consulte @ref{Indicaciones de texto}.  Para un control más
+ensayo, consulte @ref{Formatear el texto}.  Para un control más
 preciso, consulte @code{break-alignable-interface} en la sección
-@ref{Alinear los contextos}.
+@ref{Alineación de objetos}.
 
 
 @seealso
