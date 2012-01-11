@@ -1,4 +1,4 @@
-\version "2.15.21"
+\version "2.15.25"
 \header {
   texidoc = "This regtest makes sure that footnote numbers are laid out
 in the correct vertical order.
@@ -32,31 +32,31 @@ in the correct vertical order.
         d4 e
         \once \override FootnoteItem #'numbering-assertion-function =
           #(lambda (grob) (make-footnote-numbering-assertion-function 0))
-        < f  a-\autoFootnote #'(1 . -1) \markup { n } c >
+        < f  a-\footnote #'(1 . -1) \markup { n } c >
         \once \override FootnoteSpanner #'numbering-assertion-function =
           #(simultaneous-footnote-numbering-assertion-function 2 4)
-        \autoFootnoteGrob #'Beam #'(1 . 1) \markup { o }
-        \autoFootnoteGrob #'Hairpin #'(1 . 1) \markup { p }
+        \footnote #'(1 . 1) #'Beam \markup { o }
+        \footnote #'(1 . 1) #'Hairpin \markup { p }
         a8\< [ b c d ] a4 b c\f |
         d a b c |\break
         d,4 e
         \once \override FootnoteItem #'numbering-assertion-function =
           #(lambda (grob) (make-footnote-numbering-assertion-function 6))
-        < f  a-\autoFootnote #'(1 . -1) \markup { n } c >
+        < f  a-\footnote #'(1 . -1) \markup { n } c >
         \once \override FootnoteSpanner #'numbering-assertion-function =
           #(simultaneous-footnote-numbering-assertion-function 8 10)
-        \autoFootnoteGrob #'Beam #'(1 . 1) \markup { o }
-        \autoFootnoteGrob #'Hairpin #'(1 . 1) \markup { p }
+        \footnote #'(1 . 1) #'Beam \markup { o }
+        \footnote #'(1 . 1) #'Hairpin \markup { p }
         a8\< [ b c d ] a4 b c |
         d a b c\f |\pageBreak
         d,4 e
         \once \override FootnoteItem #'numbering-assertion-function =
           #(lambda (grob) (make-footnote-numbering-assertion-function 12))
-        < f  a-\autoFootnote #'(1 . -1) \markup { n } c >
+        < f  a-\footnote #'(1 . -1) \markup { n } c >
         \once \override FootnoteSpanner #'numbering-assertion-function =
           #(simultaneous-footnote-numbering-assertion-function 14 16)
-        \autoFootnoteGrob #'Beam #'(1 . 1) \markup { o }
-        \autoFootnoteGrob #'Hairpin #'(1 . 1) \markup { p }
+        \footnote #'(1 . 1) #'Beam \markup { o }
+        \footnote #'(1 . 1) #'Hairpin \markup { p }
         a8\< [ b c d ] a4 b c |
         d a b c\! |\break
       }
@@ -64,31 +64,31 @@ in the correct vertical order.
         d4 e
         \once \override FootnoteItem #'numbering-assertion-function =
           #(lambda (grob) (make-footnote-numbering-assertion-function 1))
-        < f  a-\autoFootnote #'(1 . -1) \markup { n } c >
+        < f  a-\footnote #'(1 . -1) \markup { n } c >
         \once \override FootnoteSpanner #'numbering-assertion-function =
           #(simultaneous-footnote-numbering-assertion-function 3 5)
-        \autoFootnoteGrob #'Beam #'(1 . 1) \markup { o }
-        \autoFootnoteGrob #'Hairpin #'(1 . 1) \markup { p }
+        \footnote #'(1 . 1) #'Beam \markup { o }
+        \footnote #'(1 . 1) #'Hairpin \markup { p }
         a8\< [ b c d ] a4 b c\f |
         d a b c |\break
         d,4 e
         \once \override FootnoteItem #'numbering-assertion-function =
           #(lambda (grob) (make-footnote-numbering-assertion-function 7))
-        < f  a-\autoFootnote #'(1 . -1) \markup { n } c >
+        < f  a-\footnote #'(1 . -1) \markup { n } c >
         \once \override FootnoteSpanner #'numbering-assertion-function =
           #(simultaneous-footnote-numbering-assertion-function 9 11)
-        \autoFootnoteGrob #'Beam #'(1 . 1) \markup { o }
-        \autoFootnoteGrob #'Hairpin #'(1 . 1) \markup { p }
+        \footnote #'(1 . 1) #'Beam \markup { o }
+        \footnote #'(1 . 1) #'Hairpin \markup { p }
         a8\< [ b c d ] a4 b c |
         d a b c\f |\pageBreak
         d,4 e
         \once \override FootnoteItem #'numbering-assertion-function =
           #(lambda (grob) (make-footnote-numbering-assertion-function 13))
-        < f  a-\autoFootnote #'(1 . -1) \markup { n } c >
+        < f  a-\footnote #'(1 . -1) \markup { n } c >
         \once \override FootnoteSpanner #'numbering-assertion-function =
           #(simultaneous-footnote-numbering-assertion-function 15 17)
-        \autoFootnoteGrob #'Beam #'(1 . 1) \markup { o }
-        \autoFootnoteGrob #'Hairpin #'(1 . 1) \markup { p }
+        \footnote #'(1 . 1) #'Beam \markup { o }
+        \footnote #'(1 . 1) #'Hairpin \markup { p }
         a8\< [ b c d ] a4 b c |
         d a b c\! |\break
       }
