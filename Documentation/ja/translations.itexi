@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Tue Dec 20 15:29:11 UTC 2011
+@emph{最終更新日 Wed Jan 11 09:46:15 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -165,7 +165,7 @@ LilyPond --- \TITLE\
 @item
 4 出力を調整する
 @*
-15390
+15413
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -209,7 +209,7 @@ A テンプレート
 @ifhtml
 
 @html
-<span style="background-color: #9eff30">partially</span>
+<span style="background-color: #acff31">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -393,7 +393,7 @@ partially
 @item
 1.4 繰り返し
 @*
-994
+1012
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -410,7 +410,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">partially</span>
+<span style="background-color: #68ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -420,7 +420,7 @@ partially
 @item
 1.5 同時進行する音符
 @*
-2216
+2464
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -437,7 +437,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partially</span>
+<span style="background-color: #97ff2f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -447,7 +447,7 @@ partially
 @item
 1.6 譜の記譜法
 @*
-2346
+2392
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -464,7 +464,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #cdfe36">partially</span>
+<span style="background-color: #fffd3d">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -609,7 +609,7 @@ partially
 @item
 2.3 フレットのある弦楽器
 @*
-2597
+2604
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -636,7 +636,7 @@ partially
 @item
 3 入出力全般
 @*
-8462
+8461
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -810,7 +810,7 @@ LilyPond --- \TITLE\
 @item
 1 @command{lilypond} を実行する
 @*
-3792
+3876
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -827,7 +827,7 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">partially</span>
+<span style="background-color: #b2fe32">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1015,7 +1015,7 @@ Yoshinobu Ishizaki
 @item
 導入部
 @*
-4564
+4591
 @tab Yoshiki Sawada
 @*
 Yoshinobu Ishizaki
@@ -1034,7 +1034,7 @@ Yoshinobu Ishizaki
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #33ff21">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

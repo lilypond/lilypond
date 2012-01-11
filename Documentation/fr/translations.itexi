@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Tue Dec 20 15:29:11 UTC 2011
+@emph{Dernière mise à jour Wed Jan 11 09:46:15 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -313,7 +313,7 @@ oui
 @item
 4 Retouche de partition
 @*
-15390
+15413
 @tab Valentin Villenave
 @*
 Nicolas Klutchnikoff
@@ -363,11 +363,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #33ff21">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @end multitable
@@ -565,7 +565,7 @@ oui
 @item
 1.4 Répétitions et reprises
 @*
-994
+1012
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -586,17 +586,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #33ff21">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
 1.5 Notes simultanées
 @*
-2216
+2464
 @tab Frédéric Chiasson
 @*
 Valentin Villenave
@@ -619,17 +619,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #25fe1f">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
 1.6 Notation sur la portée
 @*
-2346
+2392
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -648,7 +648,7 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">partiellement</span>
+<span style="background-color: #4efe25">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -836,7 +836,7 @@ oui
 @item
 2.4 Instruments à cordes frettées
 @*
-2597
+2604
 @tab Matthieu Jacquot
 @tab Jean-Charles Malahieude
 @tab 
@@ -959,21 +959,21 @@ partiellement
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partiellement (47 %)</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement (47 %)
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1008,7 +1008,7 @@ oui
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-8462
+8461
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1017,21 +1017,21 @@ Valentin Villenave
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partiellement (97 %)</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement (97 %)
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1075,11 +1075,11 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partiellement (47 %)</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement (47 %)
+oui
 @end ifnothtml
 @tab 
 @ifhtml
@@ -1221,7 +1221,7 @@ oui
 @item
 1 Exécution de @command{lilypond}
 @*
-3792
+3876
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1238,11 +1238,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #97ff2f">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1430,7 +1430,7 @@ oui
 @item
 Introduction
 @*
-4564
+4591
 @tab Gauvain Pocentek
 @*
 Jean-Charles Malahieude
@@ -1451,11 +1451,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #2cff20">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1526,21 +1526,21 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partiellement (99 %)</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement (99 %)
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @end multitable

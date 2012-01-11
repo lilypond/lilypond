@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Tue Dec 20 15:29:11 UTC 2011
+@emph{Last updated Wed Jan 11 09:46:15 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -182,11 +182,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #33ff21">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -258,7 +258,7 @@ yes
 @item
 1 Eseguire @command{lilypond}
 @*
-3792
+3876
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -275,11 +275,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #97ff2f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -329,11 +329,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -422,11 +422,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -459,7 +459,7 @@ yes
 @item
 Introduzione
 @*
-4564
+4591
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -476,11 +476,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -547,21 +547,21 @@ Comunità
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (99 %)</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (99 %)
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @end multitable
