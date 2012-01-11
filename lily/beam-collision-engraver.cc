@@ -37,6 +37,7 @@ protected:
   DECLARE_ACKNOWLEDGER (key_signature);
   DECLARE_ACKNOWLEDGER (time_signature);
   DECLARE_ACKNOWLEDGER (beam);
+  DECLARE_ACKNOWLEDGER (flag);
 
   virtual void finalize ();
 
@@ -171,6 +172,12 @@ Beam_collision_engraver::acknowledge_time_signature (Grob_info i)
 }
 
 void
+Beam_collision_engraver::acknowledge_flag (Grob_info i)
+{
+  covered_grobs_.push_back (i);
+}
+
+void
 Beam_collision_engraver::acknowledge_beam (Grob_info i)
 {
   beams_.push_back (i);
@@ -185,6 +192,7 @@ ADD_ACKNOWLEDGER (Beam_collision_engraver, accidental);
 ADD_ACKNOWLEDGER (Beam_collision_engraver, clef);
 ADD_ACKNOWLEDGER (Beam_collision_engraver, key_signature);
 ADD_ACKNOWLEDGER (Beam_collision_engraver, time_signature);
+ADD_ACKNOWLEDGER (Beam_collision_engraver, flag);
 ADD_ACKNOWLEDGER (Beam_collision_engraver, beam);
 
 ADD_TRANSLATOR (Beam_collision_engraver,
