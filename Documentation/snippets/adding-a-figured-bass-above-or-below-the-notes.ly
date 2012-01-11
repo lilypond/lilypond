@@ -15,9 +15,9 @@
 Al escribir un bajo cifrado, podemos situar las cifras encima o debajo
 de las notas del bajo, mediante la definición de la propiedad
 @code{BassFigureAlignmentPositioning #'direction} (exclusivamente
-dentro de un contexto @code{Staff}). Se puede elegir entre @code{UP}
-(o @code{1}, arriba), @code{CENTER} (o @code{0}, centrado) y
-@code{DOWN} (o @w{@code{-1}}, abajo).
+dentro de un contexto @code{Staff}). Se puede elegir entre @code{#UP}
+(o @code{#1}, arriba), @code{#CENTER} (o @code{#0}, centrado) y
+@code{#DOWN} (o @w{@code{#-1}}, abajo).
 
 Esta propiedad se puede cambiar tantas veces como queramos.  Utilice
 @code{\\once \\override} si no quiere que la sobreescritura se aplique

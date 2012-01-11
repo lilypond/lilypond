@@ -15,15 +15,15 @@ propiedad de contexto @code{beatStructure}.  Hay establecidos valores
 de @code{beatStructure} para muchos tipos de compases en
 @file{scm/time-signature-settings.scm}.  Los valores de
 @code{beatStructure} se pueden cambiar o establecer con @code{\\set}.
-Como alternativa, se puede usar la función de Scheme
-@code{set-time-signature} para establecer tanto el compás como la
-estructura de pulsos.  @code{set-time-signature} acepta tres
-argumentos: el número de pulsos, la longitud del pulso y la agrupación
-interna de los pulsos en el compás.  Tanto @code{\\time} como
-@code{set-time-signature} se aplican al contexto @code{Timing}, por lo
-que no restablecen los valores de @code{beatStructure} ni de
-@code{baseMoment} que se establezcan en otros contextos de nivel
-inferior, como @code{Voice}.
+Como alternativa, se puede usar @code{\\time} para establecer tanto el
+compás como la estructura de pulsos.  Para ello, especificamos la
+agrupación interna de los pulsos del compás como una lista de números
+(en la sintaxis de Scheme) antes de la indicación de compás.
+
+@code{\\time} se aplica al contexto @code{Timing}, por lo que no
+restablece los valores de @code{beatStructure} ni de @code{baseMoment}
+que se establezcan en otros contextos de nivel inferior, como
+@code{Voice}.
 
 Si el grabador @code{Measure_grouping_engraver} está incluido en uno
 de los contextos de presentación, se imprimirán signos de agrupación
