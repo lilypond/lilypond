@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 7ae1e99ff67432c96faf743bc28ac7b90a47a852
+    Translation of GIT committish: 4269f54b663421ca2c5c2c57baa5d9c49709d6d2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -137,6 +137,9 @@ Culsters o racimos; véase @ref{Racimos (clusters)}.
 @unnumberedsubsubsec Repetición de acordes
 @translationof Chord repetition
 
+@cindex acordes, repetición de
+@cindex repetición, con @code{q}
+
 Para reducir el tecleo, se puede usar una abreviatura de repetición
 del acorde anterior.  El símbolo de repetición de acordes es @code{q}:
 
@@ -216,6 +219,31 @@ generar varios pentagramas de forma implícita:
 @end lilypond
 
 Aquí no hay problema en tener distintas duraciones.
+
+@cindex colisiones, columnas que chocan
+@cindex colisiones, ignorar
+
+@knownissues
+Si hay notas de dos o más voces en la misma posición del pentagrama,
+con las plicas en la misma dirección,
+y no tienen desplazamiento (o tienen especificado el mismo desplazamiento),
+aparecerá el mensaje
+
+@example
+advertencia: demasiadas columnas de notas que chocan entre sí. Se ignoran
+@end example
+
+durante la compilación.  Este mensaje se puede suprimir mediante
+
+@example
+\override NoteColumn #'ignore-collision = ##t
+@end example
+
+Sin embargo, esto no solamente suprime la advertencia sino que
+puede evitar cualquier resolución de colisiones y puede tener
+otros efectos no deseados
+(consulte también @emph{Problemas conocidos} en
+@ref{Resolución de las colisiones}).
 
 
 @node Racimos (clusters)
@@ -732,7 +760,6 @@ Sólo se combinan las notas si tienen la plica en direcciones opuestas
 predeterminada o cuando las plicas se establecen explícitamente en
 direcciones opuestas).
 
-
 @predefined
 @code{\mergeDifferentlyDottedOn},
 @code{\mergeDifferentlyDottedOff},
@@ -745,15 +772,12 @@ direcciones opuestas).
 @code{\shiftOff}.
 @endpredefined
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {additional-voices-to-avoid-collisions.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
-
 
 @seealso
 Glosario musical:
@@ -772,6 +796,19 @@ Referencia de funcionamiento interno:
 @rinternals{NoteCollision},
 @rinternals{RestCollision}.
 
+@cindex colisiones, ignorar
+
+@knownissues
+El uso de @code{\override NoteColumn #'ignore-collision = ##t} hace
+que las notas con distinta cabeza en voces diferentes se mezclen
+incorrectamente.
+
+@lilypond[quote,relative=1,verbatim]
+\mergeDifferentlyHeadedOn
+<< { c16 a' b a } \\ { c,2 } >>
+\override NoteColumn #'ignore-collision = ##t
+<< { c16 a' b a } \\ { c,2 } >>
+@end lilypond
 
 @ignore
 @knownissues

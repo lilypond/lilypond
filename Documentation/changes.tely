@@ -81,8 +81,6 @@ type of separator); additional pitches are no longer prefixed with
 @ruser{Customizing chord names} for more information.
 
 @item
-
-@item
 The @code{\markuplines} command has been renamed to @code{\markuplist}
 for a better match with its semantics and general Lilypond
 nomenclature.

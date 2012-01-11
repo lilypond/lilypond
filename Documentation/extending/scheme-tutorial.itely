@@ -1053,7 +1053,7 @@ a file.
 lilypond file.ly >display.txt
 @end example
 
-With a combined bit of Lilypond and Scheme magick, you can actually
+With a combined bit of Lilypond and Scheme magic, you can actually
 let Lilypond direct just this output to a file of its own:
 
 @example

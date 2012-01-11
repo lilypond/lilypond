@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Tue Dec 20 15:29:11 UTC 2011
+@emph{Zuletzt aktualisiert am Wed Jan 11 09:46:15 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -409,7 +409,7 @@ ja
 @item
 4 Die Ausgabe verändern
 @*
-15390
+15413
 @tab Till Paala
 @tab 
 @tab 
@@ -453,7 +453,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #9eff30">teilweise</span>
+<span style="background-color: #33ff21">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -627,17 +627,17 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">teilweise</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+ja
 @end ifnothtml
 @tab vor-GDP
 @item
 1.4 Wiederholungszeichen
 @*
-994
+1012
 @tab Till Paala
 @tab 
 @tab 
@@ -654,7 +654,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">teilweise</span>
+<span style="background-color: #4efe25">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -664,7 +664,7 @@ teilweise
 @item
 1.5 Gleichzeitig erscheinende Noten
 @*
-2216
+2464
 @tab Till Paala
 @tab 
 @tab 
@@ -681,7 +681,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">teilweise</span>
+<span style="background-color: #97ff2f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -691,7 +691,7 @@ teilweise
 @item
 1.6 Notation auf Systemen
 @*
-2346
+2392
 @tab Till Paala
 @tab 
 @tab 
@@ -708,7 +708,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #cdfe36">teilweise</span>
+<span style="background-color: #fffd3d">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -735,11 +735,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">teilweise</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+ja
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -880,7 +880,7 @@ ja
 @item
 2.4 Saiteninstrumente mit Bünden
 @*
-2597
+2604
 @tab Till Paala
 @tab 
 @tab 
@@ -897,11 +897,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">teilweise</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+ja
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -978,11 +978,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">teilweise</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+ja
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -1069,7 +1069,7 @@ teilweise
 @item
 3 Allgemeine Eingabe und Ausgabe
 @*
-8462
+8461
 @tab Till Paala
 @tab 
 @tab 
@@ -1140,11 +1140,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">teilweise</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+ja
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -1270,7 +1270,7 @@ ja
 @item
 1 @command{lilypond} starten
 @*
-3792
+3876
 @tab Reinhold Kainhofer
 @*
 Till Paala
@@ -1289,7 +1289,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">teilweise</span>
+<span style="background-color: #b2fe32">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1475,7 +1475,7 @@ ja
 @item
 Einleitung
 @*
-4564
+4591
 @tab Till Paala
 @tab 
 @tab 
@@ -1492,11 +1492,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #2cff20">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item

@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 La alineación horizontal de la letra se puede ajustar sobreescribiendo
 la propiedad @code{self-alignment-X} del objeto @code{LyricText}.
-@w{@code{#-1}} es izquierda, @code{0} es centrado y @code{1} es derecha;
-sin embargo, puede usar también @code{LEFT}, @code{CENTER} y
-@code{RIGHT}.
+@code{#-1} es izquierda, @code{#0} es centrado y @code{#1} es derecha;
+sin embargo, podemos usar también @code{#LEFT}, @code{#CENTER} y
+@code{#RIGHT}.
 
 "
   doctitlees = "Alineación de la letra"

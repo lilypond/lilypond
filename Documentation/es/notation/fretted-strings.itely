@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 0d0a674ba7bfa052e277861427c0a2d7a6d2cdde
+    Translation of GIT committish: 4269f54b663421ca2c5c2c57baa5d9c49709d6d2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -268,6 +268,8 @@ es 0.
 @end lilypond
 
 @funindex \tabChordRepetition
+@cindex acordes, repetición de
+@cindex repetición con @code{q}
 
 Las construcciones de acorde se pueden repetir mediante el símbolo de
 repetición de acordes @code{q}.  Para utilizar esta posibilidad en
@@ -408,7 +410,6 @@ otro armónico debe estar calculado por parte de LilyPond.  Se puede
 conseguir esto indicando el traste en que debe rozar la cuerda el dedo
 de la mano que pisa.
 
-
 @lilypond[verbatim,quote]
 fretHarmonics = {
   \harmonicByFret #5 d16\4
@@ -442,9 +443,7 @@ ratioHarmonics = {
 }
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {stem-and-beam-behavior-in-tablature.ly}
 
@@ -463,9 +462,10 @@ ratioHarmonics = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
 
-
 @seealso
 Referencia de la notación:
+@ref{Repetición de acordes},
+@ref{Repeticiones explícitas},
 @ref{Plicas},
 @ref{Armónicos},
 @ref{Glissando}.
@@ -479,9 +479,7 @@ Referencia de funcionamiento interno:
 @rinternals{TabVoice},
 @rinternals{Beam}.
 
-
 @knownissues
-
 Los acordes no se tratan de una forma especial, y de aquí que el
 selector automático de la cuerda puede elegir fácilmente la misma
 cuerda para dos notas del acorde.

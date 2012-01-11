@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: ccc485525e63f68623bce1c3ca7a2d4fb6e94499
+    Translation of GIT committish: 9605455437b9daaab6b32c110768b338d15a0451
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -140,34 +140,6 @@ Están contempladas las siguientes opciones:
 
 @table @code
 
-@item -e,--evaluate=@var{expresión}
-Evaluar la @var{expresión} de Scheme antes de analizar los archivos
-@file{.ly}.  Se pueden pasar varias opciones @option{-e}, que se
-evaluarán en secuencia.
-
-La expresión se evaluará en el módulo @code{guile-user}, de manera que
-si quiere usar definiciones dentro de @var{expresión}, debe utilizar
-
-@example
-lilypond -e '(define-public a 42)'
-@end example
-
-@noindent
-en la línea de órdenes, e incluir
-
-@example
-#(use-modules (guile-user))
-@end example
-
-@noindent
-al principio del archivo @file{.ly}.
-
-@item -f,--format=@var{formato}
-Formato de la salida.  Como @code{formato} se puede elegir entre
-@code{ps}, @code{pdf} y @code{png}.
-
-Ejemplo: @code{lilypond -fpng @var{archivo}.ly}
-
 @item -d,--define-default=@var{variable}=@var{valor}
 Establece la opción interna del programa @var{variable} al valor de
 Scheme @var{valor}.  Si no se proporciona ningún @var{valor}, se usa
@@ -183,14 +155,15 @@ la @var{variable}, p.ej.:
 @noindent
 es lo mismo que
 @example
--dpoint-and-click='#f'
+-dpoint-and-click=#f
 @end example
 
-A continuación veremos algunas opciones interesantes.
+Están contempladas las siguientes opciones:
 
 @cindex help (ayuda), línea de órdenes
 
-@table @samp
+@table @code
+
 @item help
 La ejecución de @code{lilypond -dhelp} imprimirá todas las opciones
 @option{-d} que están disponibles.
@@ -253,12 +226,16 @@ LilyPond se puedan compilar.  La opción @option{--jail} es una
 alternativa más segura, pero su preparación requiere más trabajo.
 
 @cindex salida, establecer el formato de
+
 @item backend
 el formato de salida que usar para el back-end o extremo final.
 Para el @code{formato} se puede elegir entre
+
 @table @code
 @item ps
+
 @cindex PostScript, salida
+
 para PostScript.
 
 Los archivos PostScript incluyen las tipografías TTF, Type1 y OTF.  No
@@ -267,7 +244,11 @@ conjuntos de caracteres orientales, esto puede dar lugar a archivos
 enormes.
 
 @item eps
- para obtener PostScript encapsulado.  Esto vuelca cada una de las
+
+@cindex Postscript encapsulado
+@cindex EPS (PostScript Encapsulado)
+
+para obtener PostScript encapsulado.  Esto vuelca cada una de las
 páginas/sistemas como un archivo @file{EPS} distinto, sin tipografías,
 y como un solo archivo @file{EPS} encuadernado con todas las
 páginas/sistemas con las tipografías incluidas.
@@ -279,7 +260,7 @@ Este modo se usa de forma predeterminada por parte de
 
 @cindex SVG (Gráficos vectoriales escalables)
 
- para obtener SVG (gráficos vectoriales escalables).
+para obtener SVG (gráficos vectoriales escalables).
 
 Crea un único archivo SVG que contiene toda la salida de música, con
 las tipografías incrustadas.  Se necesita un visor de SVG que
@@ -294,23 +275,34 @@ LilyPond (que normalmente es
 @item scm
 
 @cindex Scheme, volcado de
+@cindex salida, volcado de Scheme
 
  para obtener un volcado de las instrucciones internas de dibujo
 basadas en Scheme, en bruto.
 
 @item null
  no producir una salida impresa; tiene el mismo efecto que @option{-dno-print-pages}.
+
 @end table
 
 Ejemplo: @code{lilypond -dbackend=svg @var{archivo}.ly}
 
 @item preview
+
 @cindex vista previa, línea de órdenes
-Generar un archivo de salida que contenga solamente los títulos de
+
+Esta opción está contemplada por todos los back-ends:
+@code{pdf}, @code{png}, @code{ps}, @code{eps} y @code{svg},
+pero no por @code{scm} y genera un archivo de salida
+que contiene solamente los títulos de
 cabecera y el primer sistema de música.  Si se usan bloques
 @code{\bookpart}, los títulos y el primer sistema de todos los bloques
-@code{\bookpart} aparecerán en la salida.  Los motores @code{ps},
-@code{eps} y @code{svg} contemplan esta opción.
+@code{\bookpart} aparecerán en la salida.
+
+Se genera un archivo adicional en la forma
+@code{myFile.preview.extension}, para evitarlo use las opciones
+adicionales @option{-dprint-pages} ó @option{-dno-print-pages}
+según sus necesidades.
 
 @item gui
 Ejecutar en modo silencioso y redirigir toda la salida a un archivo de
@@ -330,7 +322,38 @@ Generar las páginas completas, el ajuste predeterminado.
 
 @end table
 
+@item -e,--evaluate=@var{expresión}
+Evaluar la @var{expresión} de Scheme antes de analizar los archivos
+@file{.ly}.  Se pueden pasar varias opciones @option{-e}, que se
+evaluarán en secuencia.
 
+La expresión se evaluará en el módulo @code{guile-user}, de manera que
+si quiere usar definiciones dentro de @var{expresión}, debe utilizar
+
+@example
+lilypond -e '(define-public a 42)'
+@end example
+
+@noindent
+en la línea de órdenes, e incluir
+
+@example
+#(use-modules (guile-user))
+@end example
+
+@warning{Los usuarios de Windows deben utilizar comillas dobles en lugar de apóstrofos simples.}
+
+@noindent
+al principio del archivo @file{.ly}.
+
+@cindex output, format
+@cindex format, output
+
+@item -f,--format=@var{format}
+which formats should be written.  Choices for @code{format} are
+@code{ps}, @code{pdf}, and @code{png}.
+
+Example: @code{lilypond -fpng @var{filename}.ly}
 
 @item -h,--help
 Mostrar un resumen de las formas de utilización.
@@ -338,9 +361,14 @@ Mostrar un resumen de las formas de utilización.
 @item -H,--header=@var{CAMPO}
 Volcar un campo de cabecera al archivo @file{NOMBREBASE.@var{CAMPO}}
 
+@item -i,--init=@var{archivo}
+Establecer el archivo de inicio a @var{archivo} (predeterminado:
+@file{init.ly}).
+
 @cindex archivos, búsqueda de
 @cindex búsqueda, ruta de
-@item --include, -I=@var{directorio}
+
+@item -I, --include=@var{directorio}
 Añadir el @var{directorio} a la ruta de búsqueda de archivos de
 entrada.
 
@@ -348,69 +376,7 @@ Se pueden escribir varias opciones -I.  La búsqueda se inicia en el
 primer directorio definido, y si el archivo que se debe incluir no se
 encuentra, la búsqueda continúa en los directorios siguientes.
 
-@item -i,--init=@var{archivo}
-Establecer el archivo de inicio a @var{archivo} (predeterminado:
-@file{init.ly}).
-
-@cindex loglevel
-@cindex registro, nivel de
-@cindex salida prolija, fijar el nivel
-
-@item -l,--loglevel=@var{LEVEL}
-Fijar el grado en que la salida de consola es prolija al nivel
-@var{LEVEL}. Los valores posibles son:
-@table @code
-@item NONE
-Ninguna salida en absoluto, ni siquiera mensajes de error.
-
-@item ERROR
-Solamente mensajes de error, no advertencias o indicaciones de progreso.
-
-@item WARN
-Advertencias y mensajes de error, no de progreso.
-
-@item BASIC_PROGRESS
-Mensajes de progreso básicos (éxito), advertencias y errores.
-
-@item PROGRESS
-Todos los mensajes de progreso, advertencias y errores.
-
-@item INFO (predeterminado)
-Mensajes de progreso, advertencias, errores e información de ejecución
-adicional.
-
-@item DEBUG
-Todos los mensajes posibles, incuida la información de depuración
-prolija.
-@end table
-
-@cindex carpeta, dirigir la salida hacia
-@cindex salida, establecer el nombre del archivo de
-
-@item -o,--output=@var{ARCHIVO} o @var{CARPETA}
-Establecer el nombre del archivo de salida predeterminado a
-@var{ARCHIVO} o, si existe una carpeta con ese nombre, dirigir la
-salida hacia @var{CARPETA}, tomando el nombre de archivo del documento
-de entrada.  Se añade el sufijo correspondiente (por ejemplo,
-@code{.pdf} para PDF) en los dos casos.
-
-@item --ps
-Generar PostScript.
-
-@item --png
-Generar imágenes de las páginas en formato PNG.  Esto implica
-@option{--ps}.  La resolución en PPP de la imagen se puede establecer
-con
-@example
--dresolution=110
-@end example
-
-@cindex PDF (formato de documento portátil), salida de
-
-@item --pdf
-Generar PDF.  Implica @option{--ps}.
-
-
+@cindex chroot, ejecutar dentro de una jaula
 
 @item -j,--jail=@var{usuario},@var{grupo},@var{jaula},@var{directorio}
 Ejecutar @command{lilypond} en una jaula de chroot.
@@ -436,6 +402,7 @@ todo lo que necesita para poder compilar la fuente.  Una configuración
 típica consta de los siguientes elementos:
 
 @table @asis
+
 @item Preparar un sistema de archivos separado
 Se debe crear un sistema de archivos separado para LilyPond, de forma
 que se pueda montar con opciones seguras como @code{noexec},
@@ -473,8 +440,76 @@ perderá inmediatamente), posiblemente usando @command{sudo}.  Es buena
 idea limitar el número de segundos de tiempo de CPU que LilyPond puede
 usar (p.ej., usando @command{ulimit -t}), y, si su sistema operativo
 lo contempla, el tamaño de la memoria que se puede reservar.
+
 @end table
 
+@cindex loglevel
+@cindex registro, nivel de
+@cindex salida prolija, fijar el nivel
+
+@item -l,--loglevel=@var{LEVEL}
+Fijar el grado en que la salida de consola es prolija al nivel
+@var{LEVEL}. Los valores posibles son:
+
+@table @code
+
+@item NONE
+Ninguna salida en absoluto, ni siquiera mensajes de error.
+
+@item ERROR
+Solamente mensajes de error, no advertencias o indicaciones de progreso.
+
+@item WARN
+Advertencias y mensajes de error, no de progreso.
+
+@item BASIC_PROGRESS
+Mensajes de progreso básicos (éxito), advertencias y errores.
+
+@item PROGRESS
+Todos los mensajes de progreso, advertencias y errores.
+
+@item INFO (predeterminado)
+Mensajes de progreso, advertencias, errores e información de ejecución
+adicional.
+
+@item DEBUG
+Todos los mensajes posibles, incuida la información de depuración
+prolija.
+@end table
+
+@cindex carpeta, dirigir la salida hacia
+@cindex salida, establecer el nombre del archivo de
+
+@item -o,--output=@var{ARCHIVO} o @var{CARPETA}
+Establecer el nombre del archivo de salida predeterminado a
+@var{ARCHIVO} o, si existe una carpeta con ese nombre, dirigir la
+salida hacia @var{CARPETA}, tomando el nombre de archivo del documento
+de entrada.  Se añade el sufijo correspondiente (por ejemplo,
+@code{.pdf} para PDF) en los dos casos.
+
+@cindex PS (Postscript), salida
+@cindex Postscript (PS), salida
+@cindex salida, PS (Postscript)
+
+@item --ps
+Generar PostScript.
+
+@cindex PNG (Portable Network Graphics), salida
+@cindex salida, PNG (Portable Network Graphics)
+
+@item --png
+Generar imágenes de las páginas en formato PNG.  Esto implica
+@option{--ps}.  La resolución en PPP de la imagen se puede establecer
+con
+@example
+-dresolution=110
+@end example
+
+@cindex PDF (formato de documento portátil), salida de
+@cindex salida, PDF (formato de documento portátil)
+
+@item --pdf
+Generar PDF.  Implica @option{--ps}.
 
 @item -v,--version
 Mostrar la información de la versión.
@@ -486,7 +521,9 @@ leen, y dar información cronométrica.
 @item -w,--warranty
 Mostrar la garantía con que viene GNU LilyPond (¡no viene con
 @strong{NINGUNA GARANTÍA}!).
+
 @end table
+
 
 @node Variables de entorno
 @unnumberedsubsec Variables de entorno
@@ -579,7 +616,10 @@ Puede usar @code{sed} para crear los archivos de copia necesarios para
 un ejecutable dado:
 
 @example
-for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/; do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done
+for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/;  \
+  do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\&  \
+    cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p  \
+      \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done
 @end example
 
 @end itemize
@@ -620,7 +660,11 @@ cp -L /usr/bin/convert /usr/bin/gs usr/bin
 cp -L /usr/share/fonts/truetype usr/share/fonts
 
 # Ahora la magia de copiar las bibliotecas
-for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh" "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done | sh -s
+for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
+  "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=>  \
+    \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed  \
+      's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/'  \
+        | sed '/.*=>.*/d'; done | sh -s
 
 # Los archivos compartidos para ghostscript...
       cp -L -r /usr/share/ghostscript usr/share
@@ -718,6 +762,7 @@ de comprobar una o dos líneas por encima de la posición indicada.
 
 Se ofrece más información sobre los errores en la sección @ref{Errores
 comunes}.
+
 
 @node Errores comunes
 @section Errores comunes

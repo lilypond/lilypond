@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 5b7a2524c1d3b7e3df53219aafc10bb3f33a7c53
+    Translation of GIT committish: 2160b5e2145aa40ad3c48fa85e20b3853d8562db
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -14,7 +14,6 @@
 @appendix Tutorial de Scheme
 @translationof Scheme tutorial
 
-@funindex #
 @cindex Scheme
 @cindex GUILE
 @cindex Scheme, código en línea
@@ -80,7 +79,15 @@ LilyPond (para conocer la ruta completa a esta carpeta, consulte
 usuarios de Windows pueden seleccionar simplemente @q{Ejecutar} del
 menú Inicio e introducir @q{guile}.
 
-Una vez está funcionando el cajón de arena de Guile, verá un indicador
+Sin embargo, está disponible un cajón de arena de Scheme listo para
+funcionar con todo LilyPond cargado, con esta instrucción de la línea
+de órdenes:
+@example
+lilypond scheme-sandbox
+@end example
+
+@noindent
+Una vez está funcionando el cajón de arena, verá un indicador
 del sistema de Guile:
 
 @lisp
@@ -639,30 +646,80 @@ guile> (cond ((< a b) "a es menor que b")
 @node Sintaxis del Scheme de LilyPond
 @subsection Sintaxis del Scheme de LilyPond
 @translationof LilyPond Scheme syntax
+@funindex $
+@funindex #
 
 El intérprete Guile forma parte de LilyPond, lo que significa que se
 puede incluir Scheme dentro de los archivos de entrada de LilyPond.
-La marca de almohadilla@tie{}@code{#} se utiliza para indicar al analizador
-sintáctico de LilyPond que lo siguiente es un valor de Scheme.
+Existen varios métodos para incluir Scheme dentro de LilyPond.
 
-Una vez el analizador sintáctico se encuentra con un símbolo de
-almohadilla, la entrada se le pasa al intérprete Guile para evaluar la
-expresión de Scheme.  El intérprete continúa procesando la entrada
-hasta que se encuentra con el final de una expresión de Scheme.
+La manera más sencilla es utilizar el símbolo de
+almohadilla@tie{}@code{#} antes de una expresión de Scheme.
 
-Los procedimientos de Scheme se pueden definir dentro de los archivos
-de entrada de LilyPond:
+Ahora bien, el código de entrada de LilyPond se estructura en
+elementos y expresiones, de forma parecida a cómo el lenguaje humano
+se estructura en palabras y frases.  LilyPond tiene un analizador
+léxico que reconoce elementos indivisibles (números literales, cadenas
+de texto, elementos de Scheme, nombres de nota, etc.), y un analizador
+sintáctico que entiende la sintaxis, la @ruser{Gramática de LilyPond}.
+Una vez que sabe que se aplica una regla sintáctica concreta, ejecuta
+las acciones asociadas con ella.
+
+El método del símbolo de almohadilla@tie{}@code{#} para incrustar
+Scheme se adapta de forma natural a este sistema.  Una vez que el
+analizador léxico ve un símbolo de almohadilla, llama al lector de
+Scheme para que lea una expresión de Scheme completa (que puede ser un
+identificador, una expresión encerrada entre paréntesis, o algunas
+otras cosas).  Después de que se ha leído la expresión de Scheme, se
+almacena como el valor de un elemento @code{SCM_TOKEN} de la
+gramática.  Después de que el analizador sintáctico ya sabe cómo hacer
+uso de este elemento, llama a Guila para que evalúe la expresión de
+Scheme.  Dado que el analizador sintáctico suele requerir un poco de
+lectura por delante por parte del analizador léxico para tomar sus
+decisiones de análisis sintáctico, esta separación de lectura y
+evaluación entre los analizadores léxico y sintáctico es justamente lo
+que se necesita para mantener sincronizadas las ejecuciones de
+expresiones de LilyPond y de Scheme.  Por este motivo se debe usar el
+símbolo de almohadilla@tie{}@code{#} para llamar a Scheme siempre que
+sea posible.
+
+Otra forma de llamar al intérprete de Scheme desde lilyPond es el uso
+del símbolo de dólar@tie{}@code{$} en lugar de la almohadilla para
+introducir las expresiondes de Scheme.  En este caso, LilyPond evalúa
+el código justo después de que el analizador léxico lo ha leído.
+Comprueba el tipo resultante de la expresión de Scheme y después
+selecciona un tipo de elemento (uno de los varios elementos
+@code{xxx_IDENTIFIER} dentro de la sintaxis) para él.  Crea una
+@emph{copia} del valor y la usa como valor del elemento.  Si el valor
+de la expresión es vacío (El valor de Guile de @code{*unspecified*}),
+no se pasa nada en absoluto al analizador sintáctico.
+
+Éste es, de hecho, el mismo mecanismo exactamente que LilyPond emplea
+cuando llamamos a cualquier variable o función musical por su nombre,
+como @code{\nombre}, con la única diferencia de que su final viene
+determinado por el analizador léxico de LilyPond sin consultar al
+lector de Scheme, y así solamente se aceptan los nombres de variable
+consistentes con el modo actual de LilyPond.
+
+La acción inmediata de @code{$} puede llevar a alguna que otra
+sorpresa, véase @ref{Variables de entrada y Scheme}.  La utilización
+de @code{#} donde el analizador sintáctico lo contempla es normalmente
+preferible.
+
+Ahora echemos un vistazo a algo de código de Scheme real.  Los
+procedimientos de Scheme se pueden definir dentro de los archivos de
+entrada de LilyPond:
 
 @example
-#(define (average a b c) (/ (+ a b c) 3))
+#(define (media a b c) (/ (+ a b c) 3))
 @end example
 
 Observe que los comentarios de LilyPond (@code{%} y @code{%@{ %@}}) no
 se pueden utilizar dentro del código de Scheme, ni siquiera dentro de
-un archivo de entrada de LilyPond input file, porque es el intérprete
-Guile, y no el analizador sintáctico de LilyPond, el que está
-interpretando la expresión de Scheme.  Los comentarios en el Scheme de
-Guile se introducen como sigue:
+un archivo de entrada de LilyPond, porque es el intérprete Guile, y no
+el analizador léxico de LilyPond, el que está leyendo la expresión de
+Scheme.  Los comentarios en el Scheme de Guile se introducen como
+sigue:
 
 @example
 ; esto es un comentario de una línea
@@ -718,6 +775,18 @@ veintiCuatro = (* 2 doce)
 lo que daría lugar a que el número 24 se almacenase dentro de la
 variable @code{veintiCuatro} de LilyPond (y de Scheme).
 
+La forma usual de referirse a las variables de LilyPond,
+@ref{Sintaxis del Scheme de LilyPond},
+
+es llamarlas usando una barra invertida, es decir
+@code{\veintiCuatro}.  Dado que esto crea una copia para la mayor
+parte de los tipos internos de LilyPond, concretamente las expresiones
+musicales, las funciones musicales no sueln crear copias del material
+que ellas mismas modifican.  Por este motivo, las expresiones
+musicales dadas con @code{#} no deberían, por lo general, contener
+material que no se haya creado partiendo de cero o copiado
+explícitamente en lugar de estar referenciado directamente.
+
 @node Variables de entrada y Scheme
 @subsection Variables de entrada y Scheme
 @translationof Input variables and Scheme
@@ -770,9 +839,6 @@ usando Scheme.  El resultado se importa dentro de un bloque
 @lilypond[verbatim]
 traLaLa = { c'4 d'4 }
 
-%% dummy action to deal with parser lookahead
-#(display "this needs to be here, sorry!")
-
 #(define newLa (map ly:music-deep-copy
   (list traLaLa traLaLa)))
 #(define twice
@@ -783,27 +849,44 @@ traLaLa = { c'4 d'4 }
 
 @c Due to parser lookahead
 
-En este ejemplo, la asignación se produce después de que el analizador
-sintáctico ha verificado que no ocurre nada interesante después de
-@code{traLaLa = @{ ... @}}.  Sin la sentencia muda del ejemplo
-anterior, la definición de @code{newLa} se ejecuta antes de que se
-defina @code{traLaLa}, produciendo un error de sintaxis.
+En realidad, éste es un ejemplo bastante interesante.  La asignación
+solo tiene lugar después de que el analizador sintáctico se ha
+asegurado de que no sigue nada parecido a @code{\addlyrics}, de manera
+que necesita comprobar lo que viene a continuación.  Lee el símbolo
+@code{#} y la expresión de Scheme siguiente @emph{sin} evaluarla, de
+forma que puede proceder a la asignación, y @emph{posteriormente}
+ejecutar el código de Scheme sin problema.
 
 El ejemplo anterior muestra cómo @q{exportar} expresiones musicales
 desde la entrada al intérprete de Scheme.  Lo contrario también es
-posible.  Envolviendo un valor de Scheme en la función
-@code{ly:export}, se interpreta un valor de Scheme como si hubiera
-sido introducido en la sintaxis de LilyPond.  En lugar de definir
-@code{\twice}, el ejemplo anterior podría también haberse escrito como
+posible.  Colocándolo después de @code{$}, un valor de Scheme se
+interpreta como si hubiera sido introducido en la sintaxis de
+LilyPond.  En lugar de definir @code{\twice}, el ejemplo anterior
+podría también haberse escrito como
 
 @example
 ...
 @{ $(make-sequential-music (list newLa)) @}
 @end example
 
-El código de Scheme se evalúa tan pronto como el analizador sintáctico
-lo encuentra.  Para definir código de Scheme dentro de un macro (para
-llamarse más tarde), utilice @ref{Funciones de scheme vacías}, o bien
+Podemos utilizar @code{$} con una expresión de Scheme en cualquier
+lugar en el que usaríamos @code{\@var{nombre}} después de haber
+asignado la expresión de Scheme a una variable @var{nombre}.  Esta
+sustitución se produce dentro del @q{analizador léxico}, de manera que
+LilyPond no llega a darse cuenta de la diferencia.
+
+Sin embargo, existe un inconveniente, el de la medida del tiempo.  Si
+hubiésemos estado usando @code{$} en vez de @code{#} para definir
+@code{newLa} en el ejemplo anterior, la siguiente definición de Scheme
+habría fracasado porque @code{traLaLa} no habría sido definida aún.
+Para ver una explicación de este problema de momento temporal, véase
+@ref{Sintaxis del Scheme de LilyPond}.
+
+En cualquier caso, la evaluación del código de Scheme se produce
+dentro del analizador sintáctico como muy tarde.  Si necesitamos que
+se ejecute en un punto temporal más tardío,
+usaríamos @ref{Funciones de scheme vacías}, o lo almacenaríamos en un
+macro:
 
 @example
 #(define (nopc)
@@ -1042,8 +1125,19 @@ salida a un archivo.
 lilypond archivo.ly >salida.txt
 @end example
 
-Con la aplicación de un poco de formateo, la información anterior es
-fácil de leer,
+Con un poco de magia combinada de LilyPond y Scheme, podemos realmente
+hacer que LilyPond dirija solamente esta salida a su propio archivo:
+
+@example
+@{
+  $(with-output-to-file "display.txt"
+      (lambda () #@{ \displayMusic @{ c'4\f @} #@}))
+@}
+@end example
+
+
+Un poco de reformateo hace a la información anterior más fácil de
+leer:
 
 @example
 (make-music 'SequentialMusic
@@ -1063,6 +1157,12 @@ representa como una expresión @code{EventChord} que contiene un objeto
 cualquier información adicional (en este caso, un evento
 @code{AbsoluteDynamicEvent} con una propiedad @code{"f"} de texto.
 
+@funindex{\void}
+
+@code{\displayMusic} devuelve la música que imprime en la consola, y
+por ello se interpretará al tiempo que se imprime en la consola.  Para
+evitar la interpretación, escriba @code{\void} antes de
+@code{\displayMusic}.
 
 @node Propiedades musicales
 @subsection Propiedades musicales
