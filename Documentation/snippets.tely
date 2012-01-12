@@ -41,15 +41,20 @@ by the authors.
 @include macros.itexi
 
 @ifnothtml
+@macro nodeprefix{PRE}
+@end macro
 @macro lydoctitle{TEXT}
 @unnumberedsec \TEXT\
 @end macro
 @end ifnothtml
 
 @ifhtml
+@macro nodeprefix{PRE}
+@unmacro lydoctitle
 @macro lydoctitle{TEXT}
-@node \TEXT\
-@unnumberedsec \TEXT\
+@node \PRE\: \\TEXT\\
+@unnumberedsec \\TEXT\\
+@end macro
 @end macro
 @end ifhtml
 

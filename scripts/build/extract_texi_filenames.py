@@ -115,7 +115,7 @@ include_re = re.compile (r'@include ((?!../lily-).*?\.i?te(xi|ly))$', re.M)
 whitespaces = re.compile (r'\s+')
 section_translation_re = re.compile ('^@(node|(?:unnumbered|appendix)\
 (?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|\
-(?:major|chap|(?:sub){0,2})heading|lydoctitle|translationof) \
+(?:major|chap|(?:sub){0,2})heading|lydoctitle|translationof|nodeprefix) \
 (.+)$', re.MULTILINE)
 external_node_re = re.compile (r'\s+@c\s+external.*')
 
@@ -225,6 +225,7 @@ def process_sections (filename, lang_suffix, page):
         print 'writing:', p
     f = open (p, 'w')
 
+    node_prefix_title = ''
     this_title = ''
     this_filename = 'index'
     this_anchor = ''
@@ -259,6 +260,9 @@ def process_sections (filename, lang_suffix, page):
                 this_filename = anchor
             elif original_node in initial_map:
                 this_filename = initial_map[original_node][2]
+        elif sec[0] == "nodeprefix":
+            node_prefix_title = remove_texinfo (sec[1])
+            node_prefix_anchor = create_texinfo_anchor (sec[1])
         else:
             # Some pages might not use a node for every section, so
             # treat this case here, too: If we already had a section
@@ -269,6 +273,10 @@ def process_sections (filename, lang_suffix, page):
                 this_title = remove_texinfo (sec[1])
                 this_anchor = create_texinfo_anchor (sec[1])
             had_section = True
+
+            if sec[0] == "lydoctitle" and node_prefix_title:
+                this_title = "%s: %s" % (node_prefix_title, this_title)
+                this_anchor = "%s-%s" % (node_prefix_anchor, this_anchor)
 
             if split == 'custom':
                 # unnumbered nodes use the previously used file name,
