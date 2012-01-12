@@ -925,7 +925,7 @@ a podrobně je vysvětlují.
 
 @seealso
 Příručka k učení se:
-@ref{Hlas obsahuje noty}.
+@ref{Hlasy obsahují noty}.
 
 Doporučení pro notový zápis:
 @ruser{Současně se objevující noty}.
@@ -1392,7 +1392,7 @@ právě vymezené značky:
 Název, skladatel, číslo opusu a podobné údaje se vkládají
 do prostředí @code{\header}. Toto prostředí se nachází mimo
 hudební výrazy, většinou se prostředí
-@code{\header} vkládá přímo do @ref{Číslo verze,,čísla verze}.
+@code{\header} vkládá přímo do čísla verze.
 
 @example
 \version @w{"@version{}"}
