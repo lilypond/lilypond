@@ -3126,7 +3126,7 @@ preciso, consulte @code{break-alignable-interface} en la sección
 Referencia de la notación:
 @ref{La tipografía Feta},
 @ref{Formatear el texto},
-@ref{Alinear los contextos}.
+@ref{Alineación de objetos}.
 
 Archivos de inicio: @file{scm/translation-functions.scm}
 contiene las definiciones de @code{format-mark-numbers} y de
