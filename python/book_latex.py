@@ -3,6 +3,7 @@
 import re
 import tempfile
 import os
+import sys
 import subprocess
 import book_base as BookBase
 from book_snippets import *
@@ -186,13 +187,38 @@ def get_latex_textwidth (source, global_options):
     progress (_ ("Running `%s' on file `%s' to detect default page settings.\n")
               % (global_options.latex_program, tmpfile));
     cmd = '%s %s' % (global_options.latex_program, tmpfile);
-    proc = subprocess.Popen (cmd,
-        universal_newlines=True, shell=True,
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE);
-    (parameter_string, error_string) = proc.communicate ()
-    if proc.returncode != 0:
-        warning (_ ("Unable to auto-detect default page settings:\n%s")
-                 % error_string);
+    ly.debug_output ("Executing: %s\n" % cmd);
+    run_env = os.environ.copy()
+    run_env['LC_ALL:'] = 'C'
+
+    ### unknown why this is necessary
+    universal_newlines = True
+    if sys.platform == 'mingw32':
+        universal_newlines = False
+        ### use os.system to avoid weird sleep() problems on
+        ### GUB's python 2.4.2 on mingw
+        # make file to write to
+        output_dir = tempfile.mkdtemp()
+        output_filename = os.path.join(output_dir, 'output.txt')
+        # call command
+        cmd += " > %s" % output_filename
+        returncode = os.system(cmd)
+        parameter_string = open(output_filename).read()
+        if returncode != 0:
+            warning (_ ("Unable to auto-detect default settings:\n"))
+        # clean up
+        os.remove(output_filename)
+        os.rmdir(output_dir)
+    else:
+        proc = subprocess.Popen (cmd,
+            env=run_env,
+            universal_newlines=universal_newlines,
+            shell=True,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        (parameter_string, error_string) = proc.communicate ()
+        if proc.returncode != 0:
+            warning (_ ("Unable to auto-detect default settings:\n%s")
+                    % error_string)
     os.unlink (tmpfile)
     if os.path.exists (auxfile):
         os.unlink (auxfile)
