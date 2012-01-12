@@ -31,7 +31,7 @@ DOCUMENTATION_INCLUDES = \
   -I $(top-build-dir)/Documentation/$(outdir)
 
 LILYPOND_BOOK_INCLUDES += $(DOCUMENTATION_INCLUDES)
-MAKEINFO_FLAGS += --force --enable-encoding $(DOCUMENTATION_INCLUDES)
+MAKEINFO_FLAGS += --enable-encoding $(DOCUMENTATION_INCLUDES)
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
 # texi2html xref map files

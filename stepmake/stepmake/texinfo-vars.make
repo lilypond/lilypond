@@ -33,7 +33,7 @@ TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 
 DOCUMENTATION_INCLUDES += -I $(top-src-dir)/Documentation
 
-MAKEINFO_FLAGS += --enable-encoding $(DOCUMENTATION_INCLUDES)
+MAKEINFO_FLAGS += --enable-encoding --error-limit=0 $(DOCUMENTATION_INCLUDES)
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
 # texi2html xref map files
@@ -53,7 +53,7 @@ TEXI2HTML_INIT = --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.ini
 TEXI2HTML_SPLIT = --prefix=index --split=section
 
 TEXI2HTML_INCLUDES += --I=$(src-dir) --I=$(outdir) $(DOCUMENTATION_INCLUDES) --I=$(XREF_MAPS_DIR)
-TEXI2HTML_FLAGS += $(TEXI2HTML_INCLUDES) $(TEXI2HTML_INIT) $(TEXI2HTML_LANG)
+TEXI2HTML_FLAGS += --error-limit=0 $(TEXI2HTML_INCLUDES) $(TEXI2HTML_INIT) $(TEXI2HTML_LANG)
 TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 ###########
 
