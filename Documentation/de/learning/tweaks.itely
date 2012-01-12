@@ -511,7 +511,7 @@ Notationsreferenz:
 
 @menu
 * Eigenschaften von Layoutobjekten::
-* Eigenschaften, die Schnittstellen besitzen können::
+* Eigenschaften die Schnittstellen besitzen können::
 * Typen von Eigenschaften::
 @end menu
 
@@ -852,7 +852,7 @@ zu geben, die relevante Information dort zu finden. Die Beispiele werden
 Schritt für Schritt immer weniger Erklärungen beinhalten.
 
 
-@node Eigenschaften, die Schnittstellen besitzen können
+@node Eigenschaften die Schnittstellen besitzen können
 @subsection Eigenschaften, die Schnittstellen besitzen können
 @translationof Properties found in interfaces
 
@@ -1107,7 +1107,7 @@ eingefügt.  Wie verhindern wir, dass sie ausgegeben werden?
 Bevor wir uns hieran machen, sei daran erinnert, dass
 Objekteigenschaften in sogenannten @emph{Schnittstellen}
 -- engl. interface -- gruppiert sind, siehe auch
-@ref{Eigenschaften, die Schnittstellen besitzen können}.  Das dient ganz einfach
+@ref{Eigenschaften die Schnittstellen besitzen können}.  Das dient ganz einfach
 dazu, die Eigenschaften zusammenzufassen, die üblicherweise
 zusammen benötigt werden -- wenn eine davon für ein Objekt
 gilt, dann auch die anderen.  Manche Objekte brauchen die
