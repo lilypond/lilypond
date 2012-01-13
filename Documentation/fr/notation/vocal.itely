@@ -1131,7 +1131,7 @@ Manuel d'initiation :
 @rlearning{Ensemble vocal}.
 
 Manuel de notation :
-@rusernamed{Context layout order, Ordre des contextes de mise en forme},
+@ref{Ordonnancement des contextes},
 @ref{Création d'un contexte}.
 
 
@@ -2262,7 +2262,7 @@ Manuel d'initiation :
 @rlearning{Ensemble vocal}.
 
 Manuel de notation :
-@ref{Ordre des contextes de mise en forme},
+@ref{Ordonnancement des contextes},
 @ref{Regroupement de portées},
 @ref{Têtes de note à forme variable},
 @ref{Polyphonie sur une portée}.
