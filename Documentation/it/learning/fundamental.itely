@@ -861,7 +861,7 @@ ignora quel che non capisci.
 
 Proviamo a scrivere il codice di questa musica da zero.  Come
 vedremo, questo pone alcune difficoltà.  Come abbiamo imparato,
-iniziamo usando il costrutto @code{<< \\  >>} per inserire la musica
+iniziamo usando il costrutto @code{<< \\ >>} per inserire la musica
 della prima battuta in tre voci:
 
 @lilypond[quote,verbatim,ragged-right]
@@ -884,7 +884,7 @@ gambi in su e le voci pari i gambi in giù.  I gambi per le voci 1 e 2 sono
 giusti, ma in questo brano i gambi della voce 3 dovrebbero essere in
 giù.  Possiamo correggere semplicemente omettendo la voce tre e ponendo la
 musica nella voce quattro.  Si può fare aggiungendo semplicemente un altro
-paio di @code {\\}:
+paio di @code{\\}:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \relative c'' {
@@ -990,7 +990,7 @@ di evitare collisioni tra le teste.  Il comando @code{\oneVoice}
 riporta i valori alle normali impostazioni di una singola voce.
 
 Vediamo tramite alcuni semplici esempi quali effetti esattamente
-@code{\oneVoice}, @code{\voiceOne} e @code{voiceTwo} hanno su
+@code{\oneVoice}, @code{\voiceOne} e @code{\voiceTwo} hanno su
 markup, legature di valore, legature di portamento, e dinamica:
 
 @lilypond[quote,ragged-right,verbatim]
