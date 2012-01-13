@@ -7,8 +7,8 @@ de symboles, qu'il s'agisse de formes géométriques (@code{triangle},
 @code{cross}, ou @code{xcircle}) ou basés sur la tradition des graveurs
 américains (avec quelques noms de note latins).
 
-LilyPond dispose de deux raccourcis, @code{\aikenHeads} et
-@code{\sacredHarpHeads}, permettant de reproduire d'anciens recueils de
+LilyPond dispose de deux raccourcis, @code{\\aikenHeads} et
+@code{\\sacredHarpHeads}, permettant de reproduire d'anciens recueils de
 chansons américaines.
 
 L'exemple suivant montre plusieurs manières de profiler les têtes de

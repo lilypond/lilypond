@@ -9,7 +9,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Normalmente están prohibidos los saltos de línea si las barras
 atraviesan las líneas divisorias.  Se puede cambiar este
@@ -30,7 +30,6 @@ werden.
 
 
 %% Translation of GIT committish: 708e0d9c660856b19929736ca18a6f9d68539c60
-
   texidocfr = "
 Il est normalement impensable qu'un saut de ligne tombe au milieu d'une
 ligature.  LilyPond permet néanmoins de l'obtenir.

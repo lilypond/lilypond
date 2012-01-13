@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%%%    Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%%%    Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 
   texidoces = "
 
@@ -35,7 +35,6 @@ La taille et l'épaisseur des diagrammes de doigté pour bois est modifiable
 à souhait.
 
 "
-
   doctitlefr = "Modification de la taille d'un diagramme pour bois"
 
 

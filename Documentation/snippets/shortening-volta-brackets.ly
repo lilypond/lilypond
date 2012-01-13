@@ -9,7 +9,7 @@
 \header {
   lsrtags = "repeats"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 De forma predeterminada, los corchetes de primera y segunda vez se
 trazan encima de los finales alternativos completos, pero es posible
@@ -33,7 +33,7 @@ es ist möglich sie zu verkürzen.  Hierzu muss
 
 %% Translation of GIT committish: a5bde6d51a5c88e952d95ae36c61a5efc22ba441
   texidocfr = "
-Les crochets indiquant les fins alternatives s'étalent tout au long ce
+Les crochets indiquant les fins alternatives s'étalent tout au long de
 celle-ci.  On peut les raccourcir en définissant la propriété
 @code{voltaSpannerDuration}.  Dans l'exemple suivant, le crochet ne se
 prolonge que sur une mesure à 3/4.

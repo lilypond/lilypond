@@ -11,7 +11,7 @@ utilité, aussi vaut-il mieux les désactiver.  Dans le cas où il y aurait
 alternance entre @emph{solo} et @emph{tutti}, il vaut mieux faire appel
 à de la musique polyphonique standard.
 
-Voici trois moyens d'imprimer deux parties sur un même portée : en
+Voici trois moyens d'imprimer deux parties sur une même portée@tie{}: en
 polyphonie normale, avec @code{\\partcombine} sans indication
 supplémentaire, et avec @code{\\partcombine} commentée.
 

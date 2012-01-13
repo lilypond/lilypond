@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 La dirección de las plicas se contola de la misma forma en la
 tablatura que en la notación tradicional. Las barras se pueden
@@ -28,7 +28,6 @@ zeigt.
   doctitlede = "Hals- und Balkenverhalten in einer Tabulatur"
 
 %% Translation of GIT committish: 718fa63a806b2ae307f320e250bc83236e9cd136
-
   texidocfr = "
 La direction des hampes se gère dans les tablatures tout comme en
 notation traditionnelle.  Les ligatures peuvent être mises à l'horizontale

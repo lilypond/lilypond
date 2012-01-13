@@ -9,7 +9,7 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 doctitlees = "Evitar que se impriman becuadros cuando cambia la armadura"
 
 texidoces = "
@@ -40,9 +40,7 @@ toute altération précédente.  Ceci peut être supprimé en réglant à
 @code{Staff}.
 
 "
-
-  doctitlefr = "Suppression des bécarres superflus après un changement de
-tonalité"
+  doctitlefr = "Suppression des bécarres superflus après un changement de tonalité"
 
   texidoc = "
 When the key signature changes, natural signs are automatically printed

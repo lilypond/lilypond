@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 
   texidoces = "
 
@@ -35,7 +35,7 @@ nuevo:
   texidocfr = "
 Les ligatures d'une succession de notes de durée inférieure à la croche
 ne sont pas subdivisées par défaut.  Autrement dit, tous les traits de
-ligature ( deux ou plus) seront continus.  Ce comportement peut être
+ligature (deux ou plus) seront continus.  Ce comportement peut être
 modifié afin de diviser la ligature en sous-groupes grâce à la propriété
 @code{subdivideBeams}.  Lorsqu'elle est activée, les ligatures seront
 subdivisées selon un intervalle défini par @code{baseMoment}@tie{}; il n'y

@@ -1,6 +1,6 @@
 %% Translation of GIT committish: a5bde6d51a5c88e952d95ae36c61a5efc22ba441
   texidocfr = "
-Les crochets indiquant les fins alternatives s'étalent tout au long ce
+Les crochets indiquant les fins alternatives s'étalent tout au long de
 celle-ci.  On peut les raccourcir en définissant la propriété
 @code{voltaSpannerDuration}.  Dans l'exemple suivant, le crochet ne se
 prolonge que sur une mesure à 3/4.

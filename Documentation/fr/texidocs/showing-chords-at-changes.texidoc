@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 
+  texidocfr = "
+Vous pouvez faire ressortir les chiffrages d'accords s'ils ne sont
+imprimés qu'aux changements d'accord ou en début de ligne.
+
+"
+  doctitlefr = "Impression des accords si changement"

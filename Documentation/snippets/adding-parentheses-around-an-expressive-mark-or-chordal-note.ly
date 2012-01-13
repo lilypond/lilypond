@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 La función @code{\\parenthesize} es un truco especial que encierra
 objetos entre paréntesis.  El grob asociado es @code{ParenthesesItem}.

@@ -1,8 +1,7 @@
 %% Translation of GIT committish: ceb0afe7d4d0bdb3d17b9d0bff7936bb2a424d16
   texidocfr = "
-Vous avez besoin de la partition d'une mélodie avec les accords ?
-N'allez pas plus loin !
+Vous avez besoin de la partition d'une mélodie avec les accords@tie{}?
+N'allez pas plus loin@tie{}!
 
 "
-
-doctitlefr = "Mélodie simple et accords"
+  doctitlefr = "Mélodie simple et accords"

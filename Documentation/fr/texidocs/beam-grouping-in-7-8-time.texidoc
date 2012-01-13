@@ -1,5 +1,5 @@
 %% Translation of GIT committish: 548076f550a2b7fb09f1260f0e5e2bb028ad396c
-texidocfr = "
+  texidocfr = "
 Aucune règle de ligature automatique n'est disponible pour une mesure à
 7/8.  Il faudra donc, en pareil cas, définir vous-même les règles de
 regroupement.  Pour, par exemple, ligaturer sur la base de 2/8-3/8-2/8,

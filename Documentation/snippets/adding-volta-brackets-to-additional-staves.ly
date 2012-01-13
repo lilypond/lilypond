@@ -9,7 +9,7 @@
 \header {
   lsrtags = "repeats"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 El grabador @code{Volta_engraver} reside de forma predeterminada
 dentro del contexto de @code{Score}, y los corchetes de la repetición
@@ -36,7 +36,7 @@ das \"Volta multi staff\"-Schnipsel.
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "
 D'ordinaire, le graveur @code{Volta_engraver} réside dans le contexte
-@code{Score} ; les crochets précédant une reprise s'impriment donc
+@code{Score}@tie{}; les crochets précédant une reprise s'impriment donc
 seulement au-dessus de la portée du haut.  On peut ajuster cela en
 déplaçant ce graveur vers les contextes de portée (@code{Staff}) qui
 doivent comporter ces crochets.

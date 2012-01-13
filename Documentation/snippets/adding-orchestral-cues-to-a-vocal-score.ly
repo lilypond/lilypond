@@ -8,7 +8,7 @@
 \version "2.15.20"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 
   texidoces = "
    Este ejemplo muestra una forma de simplificar la adición de muchas
@@ -52,7 +52,6 @@ Abschnitte können zitiert werden, aber sie dürfen sich nicht überlappen.
 
 
 %% Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
-
   texidocfr = "
 Lorsque le nombre d'instruments cités dans la réduction pour piano se
 multiplie, vous pourriez avoir intérêt à créer votre propre fonction

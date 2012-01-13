@@ -9,7 +9,7 @@
 \header {
   lsrtags = "repeats"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Las repeticiones de compases completos de más de dos repeticiones
 pueden llevar un contador si se activa la propiedad adecuada, como se
@@ -31,7 +31,7 @@ Zähler, wenn man die entsprechende Eigenschaft einsetzt:
   texidocfr = "
 Les répétitions de plus de 2 mesures sont surmontées d'un compteur,
 si l'on active la propriété @code{countPercentRepeats} comme le montre
-l'exemple suivant :
+l'exemple suivant@tie{}:
 
 "
   doctitlefr = "Compteur de répétition en pourcent"

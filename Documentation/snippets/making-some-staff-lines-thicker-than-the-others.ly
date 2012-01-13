@@ -9,7 +9,7 @@
 \header {
   lsrtags = "staff-notation, editorial-annotations"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Se puede engrosar una línea del pentagrama con fines pedagógicos
 (p.ej. la tercera línea o la de la clave de Sol).  Esto se puede
@@ -35,7 +35,7 @@ herangezogen.
 %% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 Vous pourriez avoir envie, dans un but pédagogique, de rendre certaines
-lignes d'une portée plus épaisses que les autres, comme la ligne médiane
+lignes d'une portée plus épaisses que les autres, comme la ligne médiane,
 ou bien pour mettre en exergue la ligne portant la clé de sol.  Il
 suffit pour cela d'ajouter une ligne qui sera accolée à celle qui doît
 être mise en évidence, grâce à la propriété @code{line-positions} de

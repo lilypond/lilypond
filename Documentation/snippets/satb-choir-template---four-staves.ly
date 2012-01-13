@@ -9,7 +9,7 @@
 \header {
   lsrtags = "vocal-music, template"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 
   texidoces = "
 Plantilla de coro SATB (en cuatro pentagramas)
@@ -34,7 +34,6 @@ SATB-Chorvorlage auf vier Systemen
 
 
 %% Translation of GIT committish: 092f85605dcea69efff5ef31de4ff100346d6ef8
-
   texidocfr = "
 Modèle pour chœur à quatre voix mixtes, chaque pupitre ayant sa propre
 portée.

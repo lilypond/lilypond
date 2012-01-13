@@ -5,7 +5,7 @@ contexte @code{Staff}.
 
 Des armures inhabituelles peuvent être spécifiées en modifiant
 directement cette propriété. Il s'agit en l'occurence de définir une
-liste :
+liste@tie{}:
 
 @code{\\set Staff.keySignature = #`(((octave . pas) . altération) ((octave
 . pas) . altération) @dots{})}

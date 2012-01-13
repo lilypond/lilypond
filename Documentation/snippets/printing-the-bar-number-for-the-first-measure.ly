@@ -9,7 +9,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 
 De forma predeterminada se suprime el número del primer compás de una
@@ -42,9 +42,9 @@ werden, damit das funktioniert.
 %% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b
   texidocfr = "
 Par défaut, LilyPond n'affiche pas le premier numéro de mesure s'il est
-inférieur à 2. Le fait de définir @code{barNumberVisibility} à
+inférieur à@tie{}2. Le fait de définir @code{barNumberVisibility} à
 @code{all-bar-numbers-visible} vous permettra d'imprimer n'importe quel
-numéro pour la première mesure.  À noter que l'impression d'un numéro
+numéro pour la première mesure.  Notez que l'impression d'un numéro
 de mesure ne peut intervenir que s'il y a une barre.  Aussi, pour
 pouvoir le faire au début d'un morceau, devrez-vous ajouter une barre
 vide avant la première note.

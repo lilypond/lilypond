@@ -7,17 +7,13 @@ objets que des barres de mesure, tels que @code{ambitus},
 @code{time-signature}.
 
 
-
 Par défaut, les indications textuelles sont alignées avec le milieu
-des objets de notation. Bien entendu, vous pouvez modifier les
+des objets de notation.  Bien entendu, vous pouvez modifier les
 propriétés des objets en question pour obtenir un autre
 résultat comme l'illustre la deuxième ligne de l'exemple.  Dans le cas
 de portées multiples, ces réglages doivent être faits pour chacune
 d'entre elles.
 
-
-
 "
-  doctitlefr = "Alignement des indications par rapport à divers objets
-de notation"
+  doctitlefr = "Alignement des indications par rapport à divers objets de notation"
 

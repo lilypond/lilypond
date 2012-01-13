@@ -9,7 +9,7 @@
 \header {
   lsrtags = "simultaneous-notes"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Al utilizar la posibilidad de combinación automática de partes, se
 puede modificar el texto que se imprime para las secciones de solo
@@ -31,7 +31,7 @@ Solo- und Unisono-Stellen ausgegeben wird, geändert werden:
   texidocfr = "
 Lorsque vous regroupez automatiquement des parties, vous pouvez
 modifier le texte qui sera affiché pour les solos et pour les parties à
-l'unisson :
+l'unisson@tie{}:
 
 "
   doctitlefr = "Modification des indications de parties combinées"

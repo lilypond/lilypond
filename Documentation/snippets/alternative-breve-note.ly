@@ -16,9 +16,11 @@ vertikalen Linien an jeder Seite des Notenkopfes benutzt."
 
 
 %% Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
-  texidocfr = "Voici comment obtenir une brève -- aussi appelée note carée --
-flanquée de deux barres verticales, au lieu d'une comme habituellement."
+  texidocfr = "
+Voici comment obtenir une brève -- aussi appelée note carée --
+flanquée de deux barres verticales, au lieu d'une comme habituellement.
 
+"
   doctitlefr = "Brève alternative avec deux barres verticales"
 
   lsrtags = "rhythms,expressive-marks"

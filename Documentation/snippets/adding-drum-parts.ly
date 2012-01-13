@@ -9,7 +9,7 @@
 \header {
   lsrtags = "rhythms, percussion"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Mediante la utilización de las potentes herramientas preconfiguradas
 como la función @code{\\drummode} y el contexto @code{DrumStaff}, la
@@ -27,14 +27,13 @@ de líneas.
   texidocfr = "
 Grâce à la puissance des outils préconfigurés tels que la fonction
 @code{\\drummode} et le contexte @code{DrumStaff}, la saisie de
-parties pour percussions est extrêmement simplifiée : chaque composant
-d'une batterie trouve sa place sur une portée dédiée (avec une clef
-spécifique) et les têtes de note sont spécifiques à chaque élément.
+parties pour percussions est extrêmement simplifiée@tie{}: chaque
+composant d'une batterie trouve sa place sur une portée dédiée (avec une
+clef spécifique) et les têtes de note sont spécifiques à chaque élément.
 Il est également possible d'affecter un symbole particulier à chaque
 élément, tout comme de restreindre le nombre de lignes de la portée.
 
 "
-
   doctitlefr = "Ajout de parties de batterie"
 
 

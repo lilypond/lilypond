@@ -5,7 +5,7 @@ l'instrument d'origine que celle de la partie où elle intervient.  Dans
 l'exemple suivant, tous les instruments sont en tonalité de concert et
 seront repris par un instrument en fa.  Le destinataire de la citation
 peut à son tour transposer à l'aide de la commande @code{\\transpose}.
-En pareil cas, toutes les hauteurs, y compris celle de la citation,
+En pareil cas, toutes les hauteurs, y compris celles de la citation,
 seront transposées.
 
 "

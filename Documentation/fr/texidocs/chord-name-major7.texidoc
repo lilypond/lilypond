@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 
+  texidocfr = "
+La représentation d'un accord de septième majeure se gère par le
+@code{majorSevenSymbol}.
+
+"
+  doctitlefr = "Chiffrage d'un maj7"

@@ -2,7 +2,7 @@
   texidocfr = "
 Les crescendos et decrescendos indiqués textuellement -- tels que
 @emph{cresc.} ou @emph{dim.} -- sont suivis de pointillés qui montrent
-leur étendue.  On peut empêcher l'impression de ces pointillés avec :
+leur étendue.  On peut empêcher l'impression de ces pointillés.
 
 "
   doctitlefr = "Masquage de l'extension des nuances textuelles"

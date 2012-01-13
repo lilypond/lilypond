@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Las reglas de final de barra especificadas en el contexto
 @code{Score} se aplican a todos los pentagramas, pero se pueden
@@ -32,7 +32,7 @@ sich auf alle Systeme aus, können aber auf @code{Staff}- und
 
 %% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
   texidocfr = "
-Les règles de ligatures définies au niveau du contexte @code{Score}
+Les règles de ligature définies au niveau du contexte @code{Score}
 s'appliqueront à toutes les portées.  Il est toutefois possible de
 moduler au niveau @code{Staff} ou @code{Voice}@tie{}:
 

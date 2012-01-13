@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Se puede trazar un símbolo de arpegio entre notas de distintas
 voces que están sobre el mismo pentagrama si el grabador
@@ -32,7 +32,8 @@ System gezogen werden, wenn der @code{Span_arpeggio_engraver} in den
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Affecter le graveur @code{Span_arpeggio_engraver} au contexte de la
-portée (@code{Staff}) permet de distribuer un arpège sur plusieurs voix :
+portée (@code{Staff}) permet de distribuer un arpège sur plusieurs
+voix@tie{}:
 
 "
   doctitlefr = "Arpège distribué sur plusieurs voix"

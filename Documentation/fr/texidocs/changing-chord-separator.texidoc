@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 
+  texidocfr = "
+Le séparateur de termes d'un chiffrage peut adopter n'importe quelle
+forme à l'aide d'un @emph{markup}.
+
+"
+  doctitlefr = "Personnalisation du séparateur d'accords"

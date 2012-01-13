@@ -2,7 +2,7 @@
   texidocfr = "
 Bien qu'allant à l'encontre des usages en matière de gravure, vous
 imprimerez une barre de reprise (@code{|:}) en début de partition si
-vous surchargez la propriété adéquate :
+vous surchargez la propriété adéquate@tie{}:
 
 "
   doctitlefr = "Impression d'une barre de reprise en début de morceau"

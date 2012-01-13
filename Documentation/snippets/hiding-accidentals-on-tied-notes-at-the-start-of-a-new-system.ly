@@ -7,7 +7,7 @@
 %% Note: this file works from version 2.14.0
 \version "2.14.0"
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 
   texidoces = "
 Aquí se muestra la manera de ocultar las alteraciones de las notas
@@ -19,12 +19,13 @@ ligadas al comienzo de un sistema nuevo.
 
 
 %% Translation of GIT committish: 31097723b2b816696ad61696630a80ff17a39557
-  texidocfr = "Cet exemple illustre comment, lorsqu'une note affublée
-  d'une altération accidentelle est prolongée, ne pas répéter cette
-  altération après un saut de ligne.
+  texidocfr = "
+Cet exemple illustre comment, lorsqu'une note affublée d'une altération
+accidentelle est prolongée, ne pas répéter cette altération après un
+saut de ligne.
+
 "
-  doctitlefr = "Non répétition de l'altération après saut de ligne
-  sur liaison de prolongation"
+  doctitlefr = "Non répétition de l'altération après saut de ligne sur liaison de prolongation"
 
 
   lsrtags = "pitches"

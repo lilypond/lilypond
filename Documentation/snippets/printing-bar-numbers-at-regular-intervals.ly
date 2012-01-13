@@ -9,7 +9,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 
 Se pueden imprimir los números de compás a intervalos regulares
@@ -38,7 +38,7 @@ am Ende einer Zeile.
 %% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b
   texidocfr = "
 Vous pouvez imprimer un numéro de mesure à intervalle régulier plutôt
-qu'en tête de chaque ligne seulement, en recourrant à la propriété
+qu'en tête de chaque ligne seulement, en recourant à la propriété
 @code{barNumberVisibility}.  Voici comment afficher le numéro toutes les
 deux mesures sauf en fin de ligne.
 

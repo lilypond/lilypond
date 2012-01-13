@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks, vocal-music"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 El corchete de arpegios @code{arpeggioBracket} se puede usar para
 indicar la división de voces cuando no hay plicas que puedan ofrecer
@@ -38,7 +38,6 @@ Les crochets d'arpegio (@code{arpeggioBracket}) permettent de mettre en
 voit régulièrement dans les partitions pour chœur.
 
 "
-
   doctitlefr = "Utilisation d'un arpeggioBracket pour rendre les
 divisions plus évidentes"
 

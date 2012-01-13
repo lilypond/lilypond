@@ -8,7 +8,7 @@
 \version "2.15.15"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Este ejemplo muestra cómo hacer una transcripción moderna de canto
 gregoriano. El canto gregoriano no tiene compás ni plicas; utiliza
@@ -43,7 +43,7 @@ Länge von Pausen an.
 %% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
   texidocfr = "
 Voici comment vous pourriez transcrire du grégorien.  Pour mémoire, il
-n'y a en grégorien ni de découpage en mesure, ni de hampe ; seules
+n'y a en grégorien ni de découpage en mesure, ni de hampe@tie{}; seules
 sont utilisées des têtes de note blanches ou noires, ainsi que des
 signes spécifiques permettant d'indiquer des silences de différentes durées.
 

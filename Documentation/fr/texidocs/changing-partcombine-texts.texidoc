@@ -2,7 +2,7 @@
   texidocfr = "
 Lorsque vous regroupez automatiquement des parties, vous pouvez
 modifier le texte qui sera affiché pour les solos et pour les parties à
-l'unisson :
+l'unisson@tie{}:
 
 "
   doctitlefr = "Modification des indications de parties combinées"

@@ -9,7 +9,7 @@
 \header {
   lsrtags = "vocal-music, template"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Esta pequeña plantilla muestra una melodía sencilla con letra. Córtela
 y péguela, escriba las notas y luego la letra. Este ejemplo desactiva
@@ -56,7 +56,6 @@ entsprechende Zeile entweder ändern oder auskommentieren.
 
 
 %% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
-
   texidocfr = "
 Ce canevas comporte une simple ligne mélodique agrémentée de paroles.
 Recopiez-le, ajoutez-y d'autres notes et paroles.  Les ligatures

@@ -9,7 +9,7 @@
 \header {
   lsrtags = "rhythms, ancient-notation, tweaks-and-overrides"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   doctitlees = "Estilos de silencios"
   texidoces = "
 Los silencios se pueden imprimir en distintos estilos.

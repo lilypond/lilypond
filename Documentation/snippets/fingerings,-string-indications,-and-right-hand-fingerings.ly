@@ -9,7 +9,7 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 En este ejemplo se combinan las digitaciones de la mano izquierda,
 indicaciones del número de cuerda y digitaciones de la mano
@@ -28,7 +28,6 @@ und Fingersatz für die rechte Hand.
   doctitlede = "Fingersatz Saitennummern und Fingersatz für die rechte Hand"
 
 %% Translation of GIT committish: 40bf2b38d674c43f38058494692d1a0993fad0bd
-
   texidocfr = "
 L'exemple suivant illustre comment combiner des doigtés pour la main
 gauche, des indications de corde et des doigtés pour la main droite.

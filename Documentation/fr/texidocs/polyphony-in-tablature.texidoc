@@ -1,5 +1,4 @@
 %% Translation of GIT committish: ac6297e4fa174ac5759cc450ad085c2fac9ba00b
-
   texidocfr = "
 Une section polyphonique s'obtient dans un @code{TabStaff} de la
 même manière que dans une portée normale.

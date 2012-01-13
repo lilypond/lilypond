@@ -9,7 +9,7 @@
 \header {
   lsrtags = "simultaneous-notes, text"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 
 La herramienta de combinación de partes (instrucción
@@ -65,7 +65,7 @@ utilité, aussi vaut-il mieux les désactiver.  Dans le cas où il y aurait
 alternance entre @emph{solo} et @emph{tutti}, il vaut mieux faire appel
 à de la musique polyphonique standard.
 
-Voici trois moyens d'imprimer deux parties sur un même portée : en
+Voici trois moyens d'imprimer deux parties sur une même portée@tie{}: en
 polyphonie normale, avec @code{\\partcombine} sans indication
 supplémentaire, et avec @code{\\partcombine} commentée.
 

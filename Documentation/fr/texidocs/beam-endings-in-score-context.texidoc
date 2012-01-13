@@ -1,6 +1,6 @@
 %% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
   texidocfr = "
-Les règles de ligatures définies au niveau du contexte @code{Score}
+Les règles de ligature définies au niveau du contexte @code{Score}
 s'appliqueront à toutes les portées.  Il est toutefois possible de
 moduler au niveau @code{Staff} ou @code{Voice}@tie{}:
 

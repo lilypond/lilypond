@@ -9,7 +9,7 @@
 \header {
   lsrtags = "vocal-music, template"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
   Este fragmento de código muestra una forma de preparar un himno cuando
 cada línea comienza con un compás parcial.  También muestra cómo
@@ -40,7 +40,6 @@ Text unter die Noten hinzufügt.
 
 
 %% Translation of GIT committish: 26375d5016d8d180fc914bfd07cf76f4168f2e37
-
   texidocfr = "
 Le code ci-dessous illustre la manière d'agencer un cantique liturgique
 dans lequel chaque ligne débute et se termine par une mesure incomplète.

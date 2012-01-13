@@ -9,7 +9,7 @@
 \header {
   lsrtags = "pitches, staff-notation"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Los pasajes citados tienen en cuenta la transposición de la fuente
 tanto como la del destino.  En este ejemplo, todos los
@@ -41,7 +41,7 @@ l'instrument d'origine que celle de la partie où elle intervient.  Dans
 l'exemple suivant, tous les instruments sont en tonalité de concert et
 seront repris par un instrument en fa.  Le destinataire de la citation
 peut à son tour transposer à l'aide de la commande @code{\\transpose}.
-En pareil cas, toutes les hauteurs, y compris celle de la citation,
+En pareil cas, toutes les hauteurs, y compris celles de la citation,
 seront transposées.
 
 "

@@ -7,9 +7,20 @@
 \version "2.15.20"
 
 \header {
+%% Translation of GIT committish: 
+  texidocfr = "
+L'ajout du graveur @code{Bar_engraver} à un contexte @code{ChordNames}
+permet d'imprimer les barres de mesure entre les chiffrages.
+
+"
+  doctitlefr = "Chiffrages et barres de mesure"
+
   lsrtags = "chords"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+
+
+
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Para añadir indicaciones de línea divisoria dentro del contexto de
 los nombres de acorde @code{ChordNames}, incluya el grabador

@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 
   texidoces = "
 Los objetos de extensión \cresc, \dim y \decresc ahora se pueden
@@ -38,16 +38,15 @@ usw. dagegen normalerweise Textspanner.
 
 
 %% Translation of GIT committish: a06cb0b0d9593ba110e001f2b0f44b8bef084693
-
   texidocfr = "
-Les lignes d'extension des commandes \cresc, \dim et \decresc peuvent
-désormais être personnalisées facilement sous forme d'opérateurs
-postfix.  Soufflets et (de)crescendos peuvent cohabiter.  \< et \>
-produiront par défaut des soufflets, alors que \cresc etc. produiront
-une indication textuelle avec extension.
+Les lignes d'extension des commandes @code{\\cresc}, @code{\\dim} et
+@code{\\decresc} peuvent désormais être personnalisées facilement sous
+forme d'opérateurs postfix.  Soufflets et (de)crescendos peuvent
+cohabiter.  @code{\\<} et @code{\\>} produiront par défaut des
+soufflets, alors que @code{\\cresc} etc. produiront une indication
+textuelle avec extension.
 
 "
-
   doctitlefr = "Extensions de nuance postfix"
 
 

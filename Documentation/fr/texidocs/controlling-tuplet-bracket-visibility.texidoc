@@ -1,8 +1,7 @@
 %% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
-
   texidocfr = "
 Selon la tradition, les crochets indicateurs de nolet sont toujours
-imprimés sauf dans le cas où ils seraient de la même longuer qu'une
+imprimés, sauf dans le cas où ils seraient de la même longueur qu'une
 ligature.  LilyPond permet, au travers de la propriété
 @code{'bracket-visibility}, de contôler précisément leur
 affichage@tie{}: déterminée à @code{#t}, ils seront toujours

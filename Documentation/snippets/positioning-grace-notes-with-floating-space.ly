@@ -9,7 +9,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 
 Al establecer la propiedad @code{'strict-grace-spacing} hacemos que
@@ -42,9 +42,9 @@ Hauptnote gesetzt.
   texidocfr = "
 Lorsque vous activez la propriété @code{'strict-grace-spacing},
 l'espacement des notes d'ornement se fera de manière @qq{élastique}.
-Autrement dit, elles seront décollées de leur note de rattachement :
-LilyPond commence par espacer les notes normales, puis les ornements
-sont placés à la gauche de leur note de rattachement.
+Autrement dit, elles seront décollées de leur note de
+rattachement@tie{}: LilyPond commence par espacer les notes normales,
+puis les ornements sont placés à la gauche de leur note de rattachement.
 
 "
   doctitlefr = "Positionnement des notes d'ornement avec espace flottant"

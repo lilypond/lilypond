@@ -1,7 +1,7 @@
 %% Translation of GIT committish: 96ee692447057131395fe4c1f9fe55805b710aa6
-  texidocfr = "Ajout de doigtés à des tablatures"
-
-  doctitlefr = "
+  texidocfr = "
 L'ajout de doigtés à des tablatures s'obtient en conjuguant des
 @code{\\markup} et des @code{\\finger}.
+
 "
+  doctitlefr = "Ajout de doigtés à des tablatures"

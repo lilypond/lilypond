@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Se puede hacer que los diagramas de posiciones se muestren sólo
 cuando el acorde cambia o al comienzo de una nueva línea.
@@ -33,7 +33,6 @@ Vous pouvez opter pour n'imprimer les diagrammes de fret qu'à l'occasion
 d'un changement d'accord ou de saut de ligne.
 
 "
-
   doctitlefr = "Changement d'accord et diagramme de fret"
 
 

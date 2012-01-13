@@ -9,7 +9,7 @@
 \header {
   lsrtags = "template"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Esta plantilla simple prepara un pentagrama con notas, adecuado para
 un instrumento solista o un fragmento melódico. Córtelo y péguelo en
@@ -51,7 +51,7 @@ eine vollständige Notationsdatei.
 Cet exemple simpliste se compose d'une portée agrémentée de quelques
 notes.  Il convient tout à fait pour un instrument seul ou un
 fragment mélodique.  Recopiez-le dans un nouveau fichier, ajoutez-y
-d'autres notes et c'est pret !
+d'autres notes et c'est pret@tie{}!
 
 "
   doctitlefr = "Portée unique avec quelques notes"

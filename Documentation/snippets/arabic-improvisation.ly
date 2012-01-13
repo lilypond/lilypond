@@ -9,7 +9,7 @@
 \header {
   lsrtags = "world-music"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Para las improvisaciones o @emph{taqasim} que son libres durante unos
 momentos, se puede omitir la indicación de compás y se puede usar
@@ -41,10 +41,9 @@ Lorsque les improvisations ou @emph{taqasim} sont temporairement libres,
 la métrique peut ne pas apparaître, auquel cas on utilisera un
 @code{\\cadenzaOn}.  Les altérations accidentelles devront alors être
 répétées en raison de l'absence de barre de mesure.  Voici comment
-  pourrait débuter un improvisation de @emph{hijaz}.
+pourrait débuter une improvisation de @emph{hijaz}.
 
 "
-
   doctitlefr = "Improvisation en musique arabe"
 
 

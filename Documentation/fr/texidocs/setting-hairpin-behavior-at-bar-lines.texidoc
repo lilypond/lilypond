@@ -5,7 +5,7 @@ commence au bord gauche de la note de départ, et se termine au
 bord droit de la note d'arrivée.  Cependant, si la note d'arrivée
 est sur un premier temps, le soufflet s'arrêtera au niveau de la
 barre de mesure qui la précède.  Ce comportement peut être annulé
-en assignant @emph{faux} (@code{#f}) à la propriété @code{'to-barline} :
+en assignant @emph{faux} (@code{#f}) à la propriété @code{'to-barline}.
 
 "
   doctitlefr = "Soufflets et barres de mesure"

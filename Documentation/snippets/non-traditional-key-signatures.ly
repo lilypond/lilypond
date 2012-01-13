@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   doctitlees = "Armaduras de tonalidad no tradicionales"
   texidoces = "
 
@@ -67,7 +67,7 @@ contexte @code{Staff}.
 
 Des armures inhabituelles peuvent être spécifiées en modifiant
 directement cette propriété. Il s'agit en l'occurence de définir une
-liste :
+liste@tie{}:
 
 @code{\\set Staff.keySignature = #`(((octave . pas) . altération) ((octave
 . pas) . altération) @dots{})}

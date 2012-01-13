@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 
 Las cabezas de nota de notación fácil utilizan la propiedad
@@ -26,14 +26,13 @@ nota que ve.
 
 %% Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
   texidocfr = "
-En mode « easy play », les têtes de note utilisent la propriété
+En mode @qq{easy play}, les têtes de note utilisent la propriété
 @code{note-names} attachée à l'objet @code{NoteHead} pour déterminer ce
 qui apparaîtra dans la tête.  Intervenir sur cette propriété permet
 d'imprimer un chiffre correspondant au degré dans la gamme.
 
 La création d'un graveur dédié permet de traiter toutes les notes.
 "
-
   doctitlefr = "Easy play -- chiffre en lieu et place des lettres"
 
   lsrtags = "pitches"

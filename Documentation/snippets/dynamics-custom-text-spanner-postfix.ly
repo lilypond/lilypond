@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 
   texidoces = "
 Funciones postfijas para la creación de objetos de extensión de texto
@@ -33,13 +33,13 @@ zugewiesen.
 
 
 %% Translation of GIT committish: a6b5eea83ddcdd8e1fd0760db385176ff9b2b1cd
-
   texidocfr = "
 Il s'agit de fonctions postfix pour personnaliser l'extension des
-crescendos textuels.  L'extension devrait débuter sur la première notte
+crescendos textuels.  L'extension devrait débuter sur la première note
 de la mesure.  Il faut utiliser @w{@code{-\mycresc}} -- comme une
 articulation -- sous peine que le départ de l'extension n'apparaisse
 qu'à la note suivante.
+
 "
 
   doctitlefr = "Personnalisation des extenseurs de nuance postfix"

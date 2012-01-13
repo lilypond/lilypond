@@ -9,7 +9,7 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 
   texidoces = "
 El comportamiento predeterminado de la visibilidad de los corchetes de
@@ -25,10 +25,9 @@ corchete solamente si no hay barra).
   doctitlees = "Controlar la visibilidad de los corchetes de grupo especial"
 
 %% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
-
   texidocfr = "
 Selon la tradition, les crochets indicateurs de nolet sont toujours
-imprimés sauf dans le cas où ils seraient de la même longuer qu'une
+imprimés, sauf dans le cas où ils seraient de la même longueur qu'une
 ligature.  LilyPond permet, au travers de la propriété
 @code{'bracket-visibility}, de contôler précisément leur
 affichage@tie{}: déterminée à @code{#t}, ils seront toujours

@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 
+  texidocfr = "
+On peut choisir d'imprimer les altérations et signes plus aussi bien
+avant qu'après les chiffres, en réglant les propriétés
+@code{figuredBassAlterationDirection} et
+@code{figuredBassPlusDirection}.
+
+"
+  doctitlefr = "Emplacement des altération en basse continue"

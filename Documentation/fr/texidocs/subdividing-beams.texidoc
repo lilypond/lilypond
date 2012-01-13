@@ -2,7 +2,7 @@
   texidocfr = "
 Les ligatures d'une succession de notes de durée inférieure à la croche
 ne sont pas subdivisées par défaut.  Autrement dit, tous les traits de
-ligature ( deux ou plus) seront continus.  Ce comportement peut être
+ligature (deux ou plus) seront continus.  Ce comportement peut être
 modifié afin de diviser la ligature en sous-groupes grâce à la propriété
 @code{subdivideBeams}.  Lorsqu'elle est activée, les ligatures seront
 subdivisées selon un intervalle défini par @code{baseMoment}@tie{}; il n'y

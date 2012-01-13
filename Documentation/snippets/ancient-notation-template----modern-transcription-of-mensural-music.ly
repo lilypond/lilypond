@@ -9,7 +9,7 @@
 \header {
   lsrtags = "ancient-notation, template"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Al transcribir música mensural, es útil un «incipit» al compienzo
 de la pieza para indicar la tonalidad y el tempo
@@ -57,7 +57,7 @@ doctitlede = "Vorlage für Alte Notation -- moderne Transkription von Mensuralmu
   texidocfr = "
 Lorsque l'on transcrit de la musique mensurale, un @emph{incipit} permet
 d'indiquer la tonalité et le tempo d'origine.  Si les musiciens sont de
-nos jours habitués aux barres de mesures qui présentent la structure
+nos jours habitués aux barres de mesure qui présentent la structure
 rythmique d'une œuvre, elles n'étaient pas en vigueur à l'époque où ces
 pièces ont été composées, d'autant plus que la @qq{métrique} pouvait
 changer au fil des notes.  Un compromis consiste à imprimer des barres

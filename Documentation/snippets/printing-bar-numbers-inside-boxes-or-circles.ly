@@ -9,7 +9,7 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 
 Los números de compás también se pueden imprimir dentro de rectángulos o de circunferencias.
@@ -30,7 +30,7 @@ Taktnummern können auch in Boxen oder Kreisen gesetzt werden.
 
 %% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b
   texidocfr = "
-Les numéros de mesures peuvent être encadrés ou entourés d'un cercle.
+Les numéros de mesure peuvent être encadrés ou entourés d'un cercle.
 
 "
   doctitlefr = "Inscrire le numéro de mesure dans un cadre ou un cercle"

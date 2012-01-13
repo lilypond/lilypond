@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 No está especificada ninguna agrupación predeterminada automática
 de las barras para el compás de 7/8, de forma que si se requieren
@@ -32,7 +32,7 @@ für 2/8 und 5/8 definiert werden:
 
 
 %% Translation of GIT committish: 548076f550a2b7fb09f1260f0e5e2bb028ad396c
-texidocfr = "
+  texidocfr = "
 Aucune règle de ligature automatique n'est disponible pour une mesure à
 7/8.  Il faudra donc, en pareil cas, définir vous-même les règles de
 regroupement.  Pour, par exemple, ligaturer sur la base de 2/8-3/8-2/8,

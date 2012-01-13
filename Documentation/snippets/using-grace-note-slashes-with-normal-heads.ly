@@ -8,7 +8,7 @@
 \version "2.15.15"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 
 Es posible aplicar la barrita que cruza la barra de las
@@ -26,7 +26,6 @@ Le trait que l'on trouve sur les hampes des acciaccatures peut
 être appliqué dans d'autres situations.
 
 "
-
   doctitlefr = "Utilisation de hampe barrée pour une note normale"
 
   lsrtags = "rhythms"

@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 
+  texidocfr = "
+L'ajout du @code{Volta_engraver} à la bonne portée permet d'imprimer les
+crochets de reprise entre les chiffrages et la portée.
+
+"
+  doctitlefr = "Crochet de reprise sous les chiffrages d'accord"

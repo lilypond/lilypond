@@ -2,7 +2,7 @@
   texidocfr = "
 Les répétitions de plus de 2 mesures sont surmontées d'un compteur,
 si l'on active la propriété @code{countPercentRepeats} comme le montre
-l'exemple suivant :
+l'exemple suivant@tie{}:
 
 "
   doctitlefr = "Compteur de répétition en pourcent"

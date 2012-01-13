@@ -7,9 +7,20 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 
+  texidocfr = "
+Il est possible de créer votre propre modèle de chiffrages en
+réglant la propriété @code{chordNameExceptions}.
+
+"
+  doctitlefr = "Modèles de chiffrage d'accords"
+
   lsrtags = "chords"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+
+
+
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Se puede usar la propiedad @code{chordNameExceptions} para
 almacenar una lista de notaciones espaciales para acordes

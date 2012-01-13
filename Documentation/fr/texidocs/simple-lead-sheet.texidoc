@@ -1,7 +1,7 @@
 %% Translation of GIT committish: 9594a4569164407a146bbc4aad8be3a60a4725cf
   texidocfr = "
 Assembler des noms d'accords, une mélodie et des paroles permet
-d'obtenir la  partition d'un chanson :
+d'obtenir la  partition d'un chanson@tie{}:
 
 "
   doctitlefr = "Chanson simple"

@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Referencia para armónicos sobre cuerdas al aire (armónicos naturales):
 
@@ -23,7 +23,7 @@ Referenz für Flageolett von offenen Saiten:
 
 %% Translation of GIT committish: 40bf2b38d674c43f38058494692d1a0993fad0bd
   texidocfr = "
-Table des harmoniques sur corde à vide (harmoniques naturelles):
+Table des harmoniques sur corde à vide (harmoniques naturelles) :
 
 "
   doctitlefr = "Table des harmoniques sur corde à vide"

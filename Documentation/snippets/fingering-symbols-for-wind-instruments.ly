@@ -9,7 +9,7 @@
 \header {
   lsrtags = "winds"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Se pueden conseguir símbolos especiales combinando glifos existentes,
 lo que es de utilidad para la notación de instrumentos de viento.
@@ -19,7 +19,7 @@ lo que es de utilidad para la notación de instrumentos de viento.
 
 %% Translation of GIT committish: 496c48f1f2e4d345ae3637b2c38ec748a55cda1d
   texidocfr = "
-Des sumboles spécifiques peuvent être obtenus en combinant les glyphes
+Des symboles spécifiques peuvent être obtenus en combinant les glyphes
 disponibles, ce qui est tout à fait indiqué en matière d'instrument à vent.
 
 "

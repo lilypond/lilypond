@@ -10,8 +10,9 @@
 \header {
 %% Translation of GIT committish: 8329db420f98f9d2f03ee8aec740b7ccf770b0d2
   texidocfr = "
-Un glissando peut sauter un objet @code{NoteColumn}."
+Un glissando peut sauter un objet @code{NoteColumn}.
 
+"
   doctitlefr = "Glissando par dessus un objet graphique"
 
   lsrtags = "expressive marks, staff-notation, tweaks-and-overrides"

@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Las abreviaturas se encuentran definidas dentro del archivo
 @file{ly/script-init.ly}, donde las variables @code{dashHat},
@@ -49,7 +49,7 @@ leur valeur par défaut.  Ces valeurs peuvent être modifiées selon vos
 besoins.  Il suffit par exemple, pour affecter au raccourci @w{@code{-+}}
 (@code{dashPlus}) le symbole du trille en lieu et place du @code{+}
 (caractère plus), d'assigner la valeur @code{trill} à la variable
-@code{dashPlus} :
+@code{dashPlus}@tie{}:
 
 "
   doctitlefr = "Modification de la signification des raccourcis pour les signes d'articulation"
