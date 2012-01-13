@@ -1286,10 +1286,10 @@ d,4 r a r
 @end lilypond
 
 La instrucción @code{\cueClef} puede usarse también con un contexto
-@code{CueVoice} explícito si se requiere un cambio de clave, e
-imprimirá una clave del tamaño adecuado para las notas guía.  Después
-puede utilizarse la instrucción @code{\cueClefUnset} para volver a la
-clave original, de nuevo con un signo de clave del tamaño adecuado.
+@code{CueVoice} explícito si se requiere un cambio de clave, e imprime
+una clave del tamaño adecuado para las notas guía.  Después puede
+utilizarse la instrucción @code{\cueClefUnset} para volver a la clave
+original, de nuevo con un signo de clave del tamaño adecuado.
 
 @lilypond[verbatim,noragged-right,relative=1]
 \clef "bass"
@@ -1315,8 +1315,8 @@ d'8^"flute" c d e fis2
 d,,4 r a r
 @end lilypond
 
-En casos de colocación de mayor complejidad de notas guía, por ejemplo
-con transposición o insertando notas guía procedentes de más de una
+En casos de colocación más compleja de notas guía, por ejemplo con
+transposición o insertando notas guía procedentes de más de una
 fuente, pueden usarse las instrucciones @code{\cueDuring} o
 @code{\cueDuringWithClef}.  Son una forma más especializada de
 @code{\quoteDuring}, véase @ref{Citar otras voces} en la sección

@@ -819,7 +819,7 @@ el modo relativo, pero la cita preformateada no presentará el bloque
 @end example
 
 @noindent
-se imprimirá como un bloque preformateado como
+se imprime como un bloque preformateado como
 
 @example
   c4 e2 g4

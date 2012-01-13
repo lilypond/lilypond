@@ -272,8 +272,8 @@ Referencia de funcionamiento interno:
 @funindex \rfz
 @funindex rfz
 
-Las marcas dinámicas de matiz absoluto se especifican usando un
-comando después de una nota: @code{c4\ff}.  Las marcas dinámicas
+Las marcas dinámicas de matiz absoluto se especifican usando una
+instrucción después de una nota: @code{c4\ff}.  Las marcas dinámicas
 disponibles son @code{\ppppp}, @code{\pppp}, @code{\ppp}, @code{\pp},
 @code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff}, @code{\fff},
 @code{\ffff}, @code{\fffff}, @code{\fp}, @code{\sf}, @code{\sff},

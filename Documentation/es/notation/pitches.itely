@@ -664,7 +664,7 @@ modifica.  Las notas posteriores están en relación a la
 
 Compare los dos compases siguientes.  La primera y tercera
 comprobaciones de @code{\octaveCheck} fracasan, pero la segunda es
-correcto.
+correcta.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -752,10 +752,10 @@ no especificamos ninguna tonalidad, las notas se transportan pero no
 se imprime la armadura.
 
 @code{\transpose} distingue entre notas enarmónicas: tanto
-@code{\transpose c cis} como @code{\transpose c des} transportarán un
-semitono hacia arriba.  La primera versión imprimirá sostenidos y las
-notas no se moverán de su lugar en la escala, la segunda imprimirá
-bemoles de la nota siguiente.
+@code{\transpose c cis} como @code{\transpose c des} transportan un
+semitono hacia arriba.  La primera versión imprime sostenidos y las
+notas no se mueven de su lugar en la escala, en cambio la segunda
+imprime bemoles de la nota siguiente.
 
 @lilypond[verbatim,quote]
 music = \relative c' { c d e f }

@@ -165,8 +165,8 @@ Están contempladas las siguientes opciones:
 @table @code
 
 @item help
-La ejecución de @code{lilypond -dhelp} imprimirá todas las opciones
-@option{-d} que están disponibles.
+La ejecución de @code{lilypond -dhelp} imprime todas las opciones
+@option{-d} disponibles.
 
 @cindex paper-size, línea de órdenes
 

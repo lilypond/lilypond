@@ -3040,7 +3040,7 @@ mediante la línea de órdenes.  Por ejemplo,
 @}
 @end example
 
-imprimirá
+imprime lo siguiente:
 
 @example
 @{ a,4 cis e fis g @}
