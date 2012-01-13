@@ -974,20 +974,20 @@ a cuatro ediciones publicadas distintas.  Un examen detenido revela
 que hay una cierta variación aceptable entre los grabados manuales,
 pero también que LilyPond se compara de forma razonablemente buena con
 este rango aceptable.  Aún existen algunos inconvenientes en la salida
-de LilyPond, por ejemplo, parece ser un tanto agresiva en acortar
-algunas de las plicas, así que aún hay lugar para un desarrollo y
+de LilyPond, por ejemplo, parece ser un tanto agresiva acortando
+algunas de las plicas, así que aún hay margen para un desarrollo y
 ajuste fino posteriores.
 
 Por supuesto, la tipografía se basa en el juicio humano sobre la
 apariencia, de manera que las personas no se pueden sustituir por
 completo.  Con todo, gran parte del trabajo tedioso se puede
-automatizar.  Si LilyPond resuelve casi todas las situaciones más
-comunes correctamente, esto ya constituirá una enorme ventaja sobre
-los programas existentes.  Con el transcurso de los años, software se
-puede refinar de forma que realice más y más cosas automáticamente de
-forma que los ajustes manuales sean también cada vez menos necesarios.
-Donde se necesitan ajustes manuales, la estructura de LilyPond está
-diseñada teniendo en mente esa flexibilidad.
+automatizar.  Si LilyPond resuelve correctamente la mayor parte de las
+situaciones más comunes, esto ya sería una enorme ventaja sobre los
+programas existentes.  Con el transcurso de los años, el software se
+puede refinar de forma que realice cada vez más cosas automáticamente,
+de forma que los ajustes manuales sean también cada vez menos
+necesarios.  Donde se necesitan ajustes manuales, la estructura de
+LilyPond está diseñada teniendo en mente esa flexibilidad.
 
 
 @node Construcción del software
