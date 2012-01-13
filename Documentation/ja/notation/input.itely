@@ -547,6 +547,7 @@ foo = @{ c4 d e d @}
 @menu
 * タイトル、ヘッダ、フッタを作成する::
 * カスタム ヘッダ、フッタ、タイトル::
+* Creating footnotes::
 * ページ番号の参照::
 * 目次::
 @end menu
@@ -1060,6 +1061,9 @@ scoreTitleMarkup = \markup @{ \column @{
 @ref{タイトル ブロックの説明},
 @ref{book と score のタイトル ブロックのデフォルト レイアウト}
 
+@node Creating footnotes
+@subsection Creating footnotes
+@untranslated
 
 @ignore
 @node カスタム タイトル
@@ -1327,8 +1331,7 @@ tocAct =
 @menu
 * LilyPond ファイルをインクルードする::
 * 1 つのソースから異なる版を生成する::
-* テキスト エンコーディング::
-@c * LilyPond 記譜法を表示する::
+* Special characters::
 @end menu
 
 
@@ -1731,6 +1734,20 @@ lilypond -dinclude-settings=MY_SETTINGS.ly MY_SCORE.ly
 @ref{LilyPond ファイルをインクルードする}
 
 
+@node Special characters
+@subsection Special characters
+@untranslated
+
+@cindex special characters
+@cindex non-ASCII characters
+
+@menu
+* テキスト エンコーディング::
+* Unicode::
+* ASCII aliases::
+@end menu
+
+
 @node テキスト エンコーディング
 @subsection テキスト エンコーディング
 @translationof Text encoding
@@ -1860,6 +1877,16 @@ Unicode U+03BE の文字を入力します
 @}
 @end example
 
+
+@node Unicode
+@unnumberedsubsubsec Unicode
+@untranslated
+
+@cindex Unicode
+
+@node ASCII aliases
+@unnumberedsubsubsec ASCII aliases
+@untranslated
 
 @node 出力を制御する
 @section 出力を制御する
