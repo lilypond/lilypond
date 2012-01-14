@@ -505,7 +505,7 @@ class TextFileCompareLink (FileCompareLink):
         str = ''
         if oldnew == 1:
             str = '\n'.join ([d.replace ('\n','') for d in self.diff_lines])
-        str = '<font size="-2"><pre>%s</pre></font>' % str
+        str = '<font size="-2"><pre>%s</pre></font>' % cgi.escape (str)
         return str
 
 class LogFileCompareLink (TextFileCompareLink):
@@ -528,7 +528,7 @@ class ProfileFileLink (FileCompareLink):
                 str += '%-8s: %8d (%5.3f)\n' % (k, int (self.results[oldnew][k]),
                                                 self.get_ratio (k))
 
-        return '<pre>%s</pre>' % str
+        return '<pre>%s</pre>' % cgi.escape (str)
 
     def get_ratio (self, key):
         (v1,v2) = (self.results[0].get (key, -1),
