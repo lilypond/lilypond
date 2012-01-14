@@ -842,6 +842,10 @@ class ComparisonData:
             sys.exit(1)
 
         for d in dirs:
+            # don't walk the share folders
+            if d.startswith("share"):
+                continue
+
             d1 = os.path.join (dir1, d)
             d2 = os.path.join (dir2, d)
 
