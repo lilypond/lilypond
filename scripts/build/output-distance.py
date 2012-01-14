@@ -827,7 +827,7 @@ class ComparisonData:
                 re.sub (r'\\sourcefilename "([^"]+)"',
                         note_original, open (sf).read ())
             else:
-                print 'no source for', val
+                print 'no source for', val.file_names[1]
 
     def compare_trees (self, dir1, dir2):
         self.compare_directories (dir1, dir2)
