@@ -887,14 +887,18 @@ class ComparisonData:
                 self.compare_general_files (klasses[ext], f1, f2)
 
     def compare_general_files (self, klass, f1, f2):
+        prefix = os.path.commonprefix ([f1, f2])
         name = os.path.split (f1)[1]
+        name = os.path.join (prefix, name)
 
         file_link = klass (f1, f2)
         self.file_links[name] = file_link
 
     def compare_signature_files (self, f1, f2):
+        prefix = os.path.commonprefix ([f1, f2])
         name = os.path.split (f1)[1]
         name = re.sub ('-[0-9]+.signature', '', name)
+        name = os.path.join (prefix, name)
 
         file_link = None
         try:
