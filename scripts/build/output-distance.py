@@ -947,13 +947,10 @@ class ComparisonData:
         out.write ('%d below threshold\n' % len (below))
         out.write ('%d unchanged\n' % len (unchanged))
 
-    def create_text_result_page (self, dir1, dir2, dest_dir, threshold):
+    def create_text_result_page (self, dest_dir, threshold):
         self.write_text_result_page (dest_dir + '/index.txt', threshold)
 
-    def create_html_result_page (self, dir1, dir2, dest_dir, threshold):
-        dir1 = dir1.replace ('//', '/')
-        dir2 = dir2.replace ('//', '/')
-
+    def create_html_result_page (self, dest_dir, threshold):
         (changed, below, unchanged) = self.thresholded_results (threshold)
 
         header_row = '''
@@ -1049,8 +1046,8 @@ def compare_tree_pairs (tree_pairs, dest_dir, threshold):
         system ('rm -rf %s '% dest_dir)
 
     data.write_changed (dest_dir, threshold)
-    data.create_html_result_page (dir1, dir2, dest_dir, threshold)
-    data.create_text_result_page (dir1, dir2, dest_dir, threshold)
+    data.create_html_result_page (dest_dir, threshold)
+    data.create_text_result_page (dest_dir, threshold)
 
 ################################################################
 # TESTING
