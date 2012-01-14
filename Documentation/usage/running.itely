@@ -319,10 +319,10 @@ on the command-line, and include
 #(use-modules (guile-user))
 @end example
 
-@warning{Windows users must use double quotes instead of single quotes.}
-
 @noindent
 at the top of the @code{.ly} file.
+
+@warning{Windows users must use double quotes instead of single quotes.}
 
 @cindex output, format
 @cindex format, output
