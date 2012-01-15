@@ -209,7 +209,7 @@ def get_texinfo_width_indent (source, global_options):
     cmd = '%s -c -o %s %s' % (global_options.texinfo_program, outfile, tmpfile);
     ly.debug_output ("Executing: %s\n" % cmd);
     run_env = os.environ.copy()
-    run_env['LC_ALL:'] = 'C'
+    run_env['LC_ALL'] = 'C'
 
     ### unknown why this is necessary
     universal_newlines = True
