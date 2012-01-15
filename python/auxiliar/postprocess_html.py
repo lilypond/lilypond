@@ -350,30 +350,36 @@ def process_html_files (package_name = '',
     for prefix, ext_list in pages_dict.items ():
         for lang_ext in ext_list:
             file_name = langdefs.lang_file_name (prefix, lang_ext, '.html')
-            in_f = open (file_name)
-            s = in_f.read()
-            in_f.close()
+            source_time = os.path.getmtime(file_name)
+            dest_time = 0
+            if os.path.exists(name_filter(file_name)):
+                dest_time = os.path.getmtime(name_filter(file_name))
+            if dest_time < source_time:
 
-            s = s.replace ('%', '%%')
-            s = hack_urls (s, prefix, target, bool (int (versiontup[1]) %  2))
-            s = add_header (s, prefix)
+                in_f = open (file_name)
+                s = in_f.read()
+                in_f.close()
 
-            ### add footer
-            if footer_tag_re.search (s) == None:
-                if 'web' in file_name:
-                    s = add_footer (s, footer_tag + web_footer)
-                else:
-                    s = add_footer (s, footer_tag + footer)
+                s = s.replace ('%', '%%')
+                s = hack_urls (s, prefix, target, bool (int (versiontup[1]) %  2))
+                s = add_header (s, prefix)
 
-                available, missing = find_translations (prefix, lang_ext)
-                page_flavors = process_links (s, prefix, lang_ext, file_name, missing, target)
-                # Add menu after stripping: must not have autoselection for language menu.
-                page_flavors = add_menu (page_flavors, prefix, available, target, translation)
-            for k in page_flavors:
-                page_flavors[k][1] = page_flavors[k][1] % subst[page_flavors[k][0]]
-                out_f = open (name_filter (k), 'w')
-                out_f.write (page_flavors[k][1])
-                out_f.close()
+                ### add footer
+                if footer_tag_re.search (s) == None:
+                    if 'web' in file_name:
+                        s = add_footer (s, footer_tag + web_footer)
+                    else:
+                        s = add_footer (s, footer_tag + footer)
+
+                    available, missing = find_translations (prefix, lang_ext)
+                    page_flavors = process_links (s, prefix, lang_ext, file_name, missing, target)
+                    # Add menu after stripping: must not have autoselection for language menu.
+                    page_flavors = add_menu (page_flavors, prefix, available, target, translation)
+                for k in page_flavors:
+                    page_flavors[k][1] = page_flavors[k][1] % subst[page_flavors[k][0]]
+                    out_f = open (name_filter (k), 'w')
+                    out_f.write (page_flavors[k][1])
+                    out_f.close()
         # if the page is translated, a .en.html symlink is necessary for content negotiation
         if target == 'online' and ext_list != ['']:
             os.symlink (os.path.basename (prefix) + '.html', name_filter (prefix + '.en.html'))

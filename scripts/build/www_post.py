@@ -70,10 +70,15 @@ strip_re = re.compile (outdir + '/')
 for t in targets:
     out_root = target_pattern % t
     strip_file_name[t] = lambda s: os.path.join (target_pattern % t, (strip_re.sub ('', s)))
-    os.mkdir (out_root)
-    map (os.mkdir, [os.path.join (out_root, d) for d in dirs])
+    if not os.path.exists (out_root):
+        os.mkdir (out_root)
+    for d in dirs:
+        new_dir = os.path.join (out_root, d)
+        if not os.path.exists (new_dir):
+            os.mkdir (new_dir)
     for f in hardlinked_files:
-        os.link (f, strip_file_name[t] (f))
+        if not os.path.isfile (strip_file_name[t] (f)):
+            os.link (f, strip_file_name[t] (f))
     for l in symlinks:
         p = mirrortree.new_link_path (os.path.normpath (os.readlink (l)), os.path.dirname (l), strip_re)
         dest = strip_file_name[t] (l)
