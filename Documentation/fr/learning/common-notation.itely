@@ -1401,7 +1401,8 @@ en début de fichier, après le numéro de version.
 
 Quand LilyPond traite le fichier, le titre et le compositeur sont
 imprimés au début de la partition.  Vous trouverez plus d'informations
-sur les titres à la section @ruser{Création de titres}.
+sur les titres à la section 
+@ruser{Création de titres et entête ou pied de page}.
 
 
 @node Noms de note absolus
