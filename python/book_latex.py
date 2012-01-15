@@ -189,7 +189,7 @@ def get_latex_textwidth (source, global_options):
     cmd = '%s %s' % (global_options.latex_program, tmpfile);
     ly.debug_output ("Executing: %s\n" % cmd);
     run_env = os.environ.copy()
-    run_env['LC_ALL:'] = 'C'
+    run_env['LC_ALL'] = 'C'
 
     ### unknown why this is necessary
     universal_newlines = True
