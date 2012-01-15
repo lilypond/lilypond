@@ -1,0 +1,239 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@ignore
+    Translation of GIT committish: c19213c8cef68c0f2d8903cff16e0772acc9411a
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.14.0"
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+@node 現代音楽
+@section 現代音楽
+@translationof Contemporary music
+
+20 世紀の始めから、作曲のスタイルとテクニックは大幅に拡張されました。@c
+新しい調和音とリズムの開発、ピッチ スペクトルの拡張、@c
+広範囲な楽器技術の開発が並行して進展し、@c
+音楽記譜法も拡張されました。@c
+このセクションの目的は、@c
+これらの新しい記譜テクニックに関するリファレンスと情報を提供することです。
+
+@menu
+* 現代音楽でのピッチと調和音::
+* 現代音楽のリズムへのアプローチ::
+* グラフィカル記譜法::
+* 現代音楽の楽譜作成技術::
+* 新しい楽器技術::
+* 現代音楽に関する本と楽譜::
+@end menu
+
+
+@node 現代音楽でのピッチと調和音
+@subsection 現代音楽でのピッチと調和音
+@translationof Pitch and harmony in contemporary music
+
+このセクションでは、@c
+現代音楽でのピッチと調和音の記譜に関係する問題をハイライトします。
+
+@menu
+* 現代音楽でのピッチと調和音のためのリファレンス::
+* 微分音記譜法::
+* 現代音楽の調号と和声::
+@end menu
+
+
+@node 現代音楽でのピッチと調和音のためのリファレンス
+@unnumberedsubsubsec 現代音楽でのピッチと調和音のためのリファレンス
+@translationof References for pitch and harmony in contemporary music
+
+@itemize
+@item 標準の 4 分音記譜法は @ref{他の言語での音符名} を参照してください。
+
+@item 非標準の調号は @ref{調号} を参照してください。
+
+@item 現代音楽での臨時記号の表示は @ref{自動臨時記号} を参照してください。
+
+@end itemize
+
+
+@node 微分音記譜法
+@unnumberedsubsubsec 微分音記譜法
+@translationof Microtonal notation
+
+@ignore
+    Discussion of microtones other than quarter-tones,
+    alternative notations (arrows, slash-flats), etc.
+@end ignore
+
+
+@node 現代音楽の調号と和声
+@unnumberedsubsubsec 現代音楽の調号と和声
+@translationof Contemporary key signatures and harmony
+
+@ignore
+    Discussion of contemporary key signatures:
+    non-standard, polytonality, etc.
+@end ignore
+
+
+@node 現代音楽のリズムへのアプローチ
+@subsection 現代音楽のリズムへのアプローチ
+@translationof Contemporary approaches to rhythm
+
+このセクションでは、@c
+現代音楽のリズムの記譜法に関係する問題をハイライトします。
+
+@menu
+* 現代音楽のリズムへのアプローチのためのリファレンス::
+* 現代音楽の連符::
+* 現代音楽の拍子::
+* 多拍子記譜法の拡張::
+* 多拍子記譜法の連桁::
+* 多拍子記譜法の小節線::
+@end menu
+
+
+@node 現代音楽のリズムへのアプローチのためのリファレンス
+@unnumberedsubsubsec 現代音楽のリズムへのアプローチのためのリファレンス
+@translationof References for contemporary approaches to rhythm
+
+@itemize
+@item 複合拍子は @ref{拍子} を参照してください。
+
+@item 基本的な多拍子記譜法 @ref{多拍子記譜法} を参照してください。
+
+@item 羽状の連桁は @ref{羽状の連桁} を参照してください。
+
+@item Mensurstriche 小節線 (譜の間だけの小節線) は @ref{譜をグループ化する}
+を参照してください。
+
+@end itemize
+
+
+@node 現代音楽の連符
+@unnumberedsubsubsec 現代音楽の連符
+@translationof Tuplets in contemporary music
+
+@ignore
+    Extended discussion of modern tuplets, including
+    non-standard ratios, nested tuplets and customising
+    the appearance of tuplets (ratios, note values etc.)
+    Also how to provide an ossia RhythmicStaff to help
+    players break down a complicated tuplet.
+@end ignore
+
+
+@node 現代音楽の拍子
+@unnumberedsubsubsec 現代音楽の拍子
+@translationof Contemporary time signatures
+
+@ignore
+    Extended discussion of compound time signatures
+    including Graham P.'s work; non-standard time
+    signatures such as 7/10, 5/6; alternative
+    notations such as Orff-esque 4/note, placing a
+    single time signature across multiple staves, or
+    placing time signatures at the top of StaffGroups
+    or systems rather than in the stave.
+@end ignore
+
+
+@node 多拍子記譜法の拡張
+@unnumberedsubsubsec 多拍子記譜法の拡張
+@translationof Extended polymetric notation
+
+@ignore
+    Extended examples e.g. different instruments
+    or ensembles with independent tempi
+@end ignore
+
+
+@node 多拍子記譜法の連桁
+@unnumberedsubsubsec 多拍子記譜法の連桁
+@translationof Beams in contemporary music
+
+@ignore
+    Beaming practises, stemlets, Boulez-esque displaying
+    of beamed notes with flags
+@end ignore
+
+
+@node 多拍子記譜法の小節線
+@unnumberedsubsubsec 多拍子記譜法の小節線
+@translationof Bar lines in contemporary music
+
+@ignore
+    Mensurstriche barlines, tick barlines, etc.
+@end ignore
+
+
+@node グラフィカル記譜法
+@subsection グラフィカル記譜法
+@translationof Graphical notation
+
+
+@node 現代音楽の楽譜作成技術
+@subsection 現代音楽の楽譜作成技術
+@translationof Contemporary scoring techniques
+
+
+@node 新しい楽器技術
+@subsection 新しい楽器技術
+@translationof New instrumental techniques
+
+
+@node 現代音楽に関する本と楽譜
+@subsection 現代音楽に関する本と楽譜
+@translationof Further reading and scores of interest
+
+このセクションでは現代音楽記譜法を学ぶ際に有用な本、楽譜例、その他の情報源を@c
+提示します。
+
+@menu
+* 現代音楽記譜法についての本と記事::
+* 楽譜例::
+@end menu
+
+
+@node 現代音楽記譜法についての本と記事
+@unnumberedsubsubsec 現代音楽記譜法についての本と記事
+@translationof Books and articles on contemporary musical notation
+
+@itemize
+@item
+@emph{Music Notation in the Twentieth Century: A Practical Guidebook}
+by Kurt Stone [W. W. Norton, 1980]
+
+@item
+@emph{Music Notation: A Manual of Modern Practice} by Gardner Read
+[Taplinger, 1979]
+
+@item
+@emph{Instrumentation and Orchestration} by Alfred Blatter [Schirmer,
+2nd ed. 1997]
+
+@end itemize
+
+
+@node 楽譜例
+@unnumberedsubsubsec 楽譜例
+@translationof Scores and musical examples
+
+@ignore
+    Rough list of composers whose work could be included
+    (in alphabetical order, perhaps with suggested work):
+
+        Pierre Boulez (Le Marteau Sans Maître?)
+        John Cage (Freeman Etudes?)
+        George Crumb (Black Angels?)
+        Brian Ferneyhough (Transit?  Time & Motion Studies?)
+        Ben Johnston (extended just intonation example)
+        György Ligeti (several, including Hamburg Concerto)
+        Krzysztof Penderecki (Threnody to the Victims of Hiroshima?)
+        Karlheinz Stockhausen (Gruppen?)
+@end ignore

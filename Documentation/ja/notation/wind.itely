@@ -1,0 +1,456 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@ignore
+    Translation of GIT committish: 3b8f430efd506ccd6ae8235be0f08468c0da937d
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.14.0"
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+@node 管楽器
+@section 管楽器
+@translationof Wind instruments
+
+@lilypondfile[quote]{wind-headword.ly}
+
+このセクションでは管楽器の楽譜を記述する際に現れる記譜要素について説明します。
+
+@menu
+* 管楽器で共通の記譜法::
+* バグパイプ::
+* 木管楽器::
+@end menu
+
+@node 管楽器で共通の記譜法
+@subsection 管楽器で共通の記譜法
+@translationof Common notation for wind instruments
+
+このセクションでは多くの管楽器で共通の記譜法について説明します。
+
+@menu
+* 管楽器のためのリファレンス::
+* 運指::
+@end menu
+
+@node 管楽器のためのリファレンス
+@unnumberedsubsubsec 管楽器のためのリファレンス
+@translationof References for wind instruments
+
+@cindex wind instruments (管楽器)
+
+管楽器のための多くの記譜の問題は、ブレスとタンギングに関係します:
+
+@itemize
+@item ブレスは休符や @ref{ブレス記号} によって示すことができます。
+@item レガート奏法は @ref{スラー} で示します。
+@item タンギングの種類 -- レガートからノンレガート、スタッカートまでの範囲 --
+は、通常、アーティキュレーション記号で示し、@c
+スラーと組み合わせる場合もあります。@c
+@ref{アーティキュレーションと装飾} と breathing を参照してください。
+@item フラッター タンギングは、通常、音符の上にトレモロ記号と@c
+テキスト マークアップを配置して示します。@c
+@ref{トレモロの繰り返し} を参照してください。
+@end itemize
+
+他の記譜要素を管楽器に適用することができます:
+
+@itemize
+@item 多くの管楽器は移調楽器です。@ref{楽器の移調} を参照してください。
+@item スライド グリッサンドはトロンボーンの特徴ですが、@c
+他の管楽器でもキーやバルブのグリッサンドを演奏できます。@c
+@ref{グリッサンド} を参照してください。
+@item ハーモニック シリーズ (倍音連鎖) のグリッサンド
+-- これは、全ての金管楽器で可能ですが、フレンチ ホルンでよく使われます --
+は、通常、@ref{装飾小音符} として記述します。
+@item 音符の終わりでのピッチの変化は @ref{Fall と Doit} で説明しています。
+@item キー スラップとバルブ スラップはしばしば @ref{特殊な符頭} の
+@code{cross} スタイルで示します。
+@item 木管楽器は低い音符をオーバーブローして、@c
+ハーモニクスを鳴らすことができます。@c
+これは @code{flageolet} アーティキュレーションによって示します。@c
+@ref{List of articulations} を参照してください。
+@item 金管楽器のミュートは通常、テキスト マークアップで示しますが、@c
+頻繁に変更する場合は、@c
+@code{stopped} アーティキュレーションと @code{open} アーティキュレーションを@c
+使う方が良いでしょう。@c
+@ref{アーティキュレーションと装飾} と @ref{List of articulation} を@c
+参照してください。
+@item ホルンのストップット (閉塞音) は @code{stopped} アーティキュレーションで@c
+示します。@c
+@ref{アーティキュレーションと装飾} を参照してください。
+@end itemize
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing--flageolet-mark-size.ly}
+
+
+@seealso
+記譜法リファレンス:
+@ref{Breath marks},
+@ref{Slurs},
+@ref{Articulations and ornamentations},
+@ref{List of articulations},
+@ref{Tremolo repeats},
+@ref{Instrument transpositions},
+@ref{Glissando},
+@ref{Grace notes},
+@ref{Falls and doits},
+@ref{Special note heads}
+
+コード断片集:
+@rlsr{Winds}
+
+
+@node 運指
+@unnumberedsubsubsec 運指
+@translationof Fingerings
+
+トロンボーン以外の管楽器は各ピッチを鳴らすために@c
+いくつかの指を使う必要があります。@c
+以下でいくつかの運指の例を示します。
+
+木管楽器のダイアグラムを作り出すことができます。@c
+@ref{木管楽器のダイアグラム} で説明します。
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{fingering-symbols-for-wind-instruments.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{recorder-fingering-chart.ly}
+
+@seealso
+
+記譜法リファレンス:
+@ref{木管楽器のダイアグラム}
+
+コード断片集:
+@rlsr{Winds}
+
+
+@node バグパイプ
+@subsection バグパイプ
+@translationof Bagpipes
+
+このセクションではバグパイプで共通の記譜法について説明します。
+
+@menu
+* バグパイプの定義::
+* バグパイプの例::
+@end menu
+
+@node バグパイプの定義
+@unnumberedsubsubsec バグパイプの定義
+@translationof Bagpipe definitions
+
+@cindex bagpipe (バグパイプ)
+@cindex Scottish highland bagpipe (スコティッシュ ハイランド バグパイプ)
+@cindex grace notes (装飾小音符)
+@funindex \taor
+@funindex taor
+@funindex \hideKeySignature
+@funindex hideKeySignature
+@funindex \showKeySignature
+@funindex showKeySignature
+
+LilyPond はスコティッシュ、ハイランド バグパイプ音楽のための特殊な定義を@c
+保持しています。@c
+この定義を使うには、入力ファイルの先頭に以下を付け加えます:
+
+@example
+\include "bagpipe.ly"
+@end example
+
+@noindent
+これにより、バグパイプ音楽で共通の特殊な装飾小音符を@c
+短いコマンドで付け加えられるようになります。@c
+例えば、以下を @code{\taor} と記述することができます:
+
+@example
+\grace @{ \small G32[ d G e] @}
+@end example
+
+さらに、@file{bagpipe.ly} はバグパイプ音符のために、@c
+適切なオクターブのピッチ定義を保持しています。@c
+そのため、@code{\relative} や @code{\transpose} について@c
+配慮する必要はありません。
+
+@lilypond[ragged-right,verbatim,quote,notime]
+\include "bagpipe.ly"
+{ \grg G4 \grg a \grg b \grg c \grg d \grg e \grg f \grA g A }
+@end lilypond
+
+通常、バグパイプ音楽は D メジャーの調を使います
+(実際にはその調ではない場合であってもです)。@c
+しかしながら、使える調は D メジャーだけであるため、@c
+通常は調号を記譜しません。@c
+調号を記譜しないために、楽譜を @code{\hideKeySignature} で始めます。@c
+何らかの理由で調号を記譜したい場合は、@c
+代わりに @code{\showKeySignature} を使います。
+
+現代音楽のなかには、@c
+C と F をフラットにするためクロス フィンガリングを使うものがあります。@c
+これは @code{cflat} や @code{fflat} で示すことができます。@c
+同様に、軽音楽のピブロホ ハイ G (piobaireachd high g) は、@c
+@code{gflat} で示すことができます。
+
+
+@seealso
+@rlsr{Winds}
+
+
+@node バグパイプの例
+@unnumberedsubsubsec バグパイプの例
+@translationof Bagpipe example
+
+@cindex bagpipe example (バグパイプの例)
+@cindex Amazing Grace bagpipe example (アメージング グレースのバグパイプの例)
+
+以下の例は、有名なアメージング グレースをバグパイプ記譜法にしたものです。
+
+@lilypond[verbatim,quote]
+\include "bagpipe.ly"
+\layout {
+  indent = 0.0\cm
+  \context { \Score \remove "Bar_number_engraver" }
+}
+
+\header {
+  title = "Amazing Grace"
+  meter = "Hymn"
+  arranger = "Trad. arr."
+}
+
+{
+  \hideKeySignature
+  \time 3/4
+  \grg \partial 4 a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg e8. f16
+  \dblA A2 \grg A4
+  \grg A2 f8. A16
+  \grg A2 \hdblf f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 e4
+  \thrwd d2.
+  \slurd d2
+  \bar "|."
+}
+@end lilypond
+
+
+@seealso
+@rlsr{Winds}
+
+@node 木管楽器
+@subsection 木管楽器
+@translationof Woodwinds
+
+このセクションでは木管楽器に特有の記譜法について説明します。
+
+@menu
+* 木管楽器のダイアグラム::
+@end menu
+
+@node 木管楽器のダイアグラム
+@subsubsection 木管楽器のダイアグラム
+@translationof Woodwind diagrams
+
+木管楽器のダイアグラムで特定の音符で使用する運指を示すことができ、@c
+以下の楽器のダイアグラムが利用可能です:
+
+@itemize
+@item ピッコロ
+@item フルート
+@item オーボエ
+@item クラリネット
+@item バス クラリネット
+@item サクソフォン
+@item バスーン
+@item コントラバスーン
+@end itemize
+
+@noindent
+木管楽器のダイアグラムはマークアップとして作成します:
+
+
+@lilypond[verbatim,quote,relative=2]
+c1^\markup {
+  \woodwind-diagram #'piccolo #'((lh . (gis))
+                                 (cc . (one three))
+                                 (rh . (ees)))
+}
+@end lilypond
+
+キーはオープン、途中まで閉じる、リング キーを閉じる、または完全に閉じることが@c
+できます:
+
+@c KEEP LY
+@lilypond[verbatim,quote,relative=2]
+\textLengthOn
+c1^\markup {
+  \center-column {
+    "1/4 閉じる"
+    \woodwind-diagram #'flute #'((cc . (one1q))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+
+c1^\markup {
+  \center-column {
+    "1/2閉じる"
+    \woodwind-diagram #'flute #'((cc . (one1h))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+
+c1^\markup {
+  \center-column {
+    "3/4閉じる"
+    \woodwind-diagram #'flute #'((cc . (one3q))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+
+c1^\markup {
+  \center-column {
+    "リング キーを閉じる"
+    \woodwind-diagram #'flute #'((cc . (oneR))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+
+c1^\markup {
+  \center-column {
+    "完全に閉じる"
+    \woodwind-diagram #'flute #'((cc . (oneF two))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+@end lilypond
+
+トリルはグレーで示します:
+
+@lilypond[verbatim,quote,relative=2]
+c1^\markup {
+  \woodwind-diagram #'bass-clarinet
+                    #'((cc . (threeT four))
+                       (lh . ())
+                       (rh . (b fis)))
+}
+@end lilypond
+
+様々なトリルを表示させることができます:
+
+@c KEEP LY
+@lilypond[verbatim,quote,relative=2]
+\textLengthOn
+c1^\markup {
+  \center-column {
+    "1/4 閉じるとリング キーを閉じる"
+    \woodwind-diagram #'flute #'((cc . (one1qTR))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+
+c1^\markup {
+  \center-column {
+    "リング キーを閉じると完全に閉じる"
+    \woodwind-diagram #'flute #'((cc . (oneTR))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+
+c1^\markup {
+  \center-column {
+    "リング キーを閉じるとオープン"
+    \woodwind-diagram #'flute #'((cc . (oneRT))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+
+c1^\markup {
+  \center-column {
+    "オープンと完全に閉じる"
+    \woodwind-diagram #'flute #'((cc . (oneT))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+
+c1^\markup {
+  \center-column {
+    "1/4 閉じると3/4 閉じる"
+    \woodwind-diagram #'flute #'((cc . (one1qT3q))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+@end lilypond
+
+楽器に対して使用できるすべてのキーと設定のリストを@c
+コンソールやログ ファイルに表示させることができますが、@c
+楽譜出力には表示されません:
+
+@lilypond[verbatim,quote]
+
+#(print-keys-verbose 'flute)
+
+@end lilypond
+
+@file{scm/define-woodwind-diagrams.scm} と
+@file{scm/display-woodwind-diagrams.scm} のパターンに従って、@c
+新しいダイアグラムを作成することができます。@c
+しかしながら、これには Scheme を使える必要があり、@c
+すべてのユーザができることではありません。
+
+@predefined
+@endpredefined
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{woodwind-diagrams-listing.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{graphical-and-text-woodwind-diagrams.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing-the-size-of-woodwind-diagrams.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{woodwind-diagrams-key-lists.ly}
+
+@seealso
+
+インストールされているファイル:
+@file{scm/define-woodwind-diagrams.scm},
+@file{scm/display-woodwind-diagrams.scm}
+
+コード断片集: @rlsr{Winds}
+
+内部リファレンス:
+@rinternals{TextScript},
+@rinternals{instrument-specific-markup-interface}

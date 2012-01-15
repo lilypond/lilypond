@@ -1,0 +1,3287 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+
+@ignore
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.14.0"
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+@node 声楽
+@section 声楽
+@translationof Vocal music
+
+@lilypondfile[quote]{vocal-headword.ly}
+
+このセクションでは声楽を譜刻し、歌詞を旋律の音符に揃える方法について説明します。
+
+@menu
+* 声楽で共通の記譜法::
+* 歌詞に特有のテクニック::
+* 歌詞の節::
+* 歌曲::
+* 合唱::
+* オペラと舞台ミュージカル::
+* 聖歌と賛美歌::
+* 古代の声楽::
+
+@end menu
+
+
+@node 声楽で共通の記譜法
+@subsection 声楽で共通の記譜法
+@translationof Common notation for vocal music
+
+このセクションでは声楽の譜刻に共通する問題について説明します。
+
+@menu
+* 声楽のためのリファレンス::
+* 歌詞を入力する::
+* 歌詞を旋律に揃える::
+* 歌詞音節の自動演奏時間::
+* 歌詞音節の手動演奏時間::
+* 複数の歌詞音節を 1 つの音符に割り当てる::
+* 複数の音符を 1 つの歌詞音節に割り当てる::
+* 延長線とハイフン::
+@end menu
+
+
+@node 声楽のためのリファレンス
+@unnumberedsubsubsec 声楽のためのリファレンス
+@translationof References for vocal music
+
+このセクションでは声楽を譜刻する際に発生する記譜法の問題についての@c
+詳細について記述している場所を示します。
+
+@itemize
+
+@item
+たいていの声楽では歌詞として記述されたテキストを用います。@c
+この記譜法についての導入部は @rlearning{簡単な歌曲を作成する} にあります。
+
+@item
+声楽はたいてい歌詞や他のテキスト要素 (配役の名前等) のために@c
+@code{markup} モードの使用を必要とします。@c
+@code{markup} モードの構文は @ref{テキスト マークアップの導入部} で@c
+説明しています。
+
+@item
+声楽譜の最初に @notation{音域} (ambitus) が追加されることがあります。@c
+音域について @ref{音域} で説明しています。
+
+@item
+デフォルトでは強弱記号は譜の下に配置されます。@c
+しかしながら、たいていの合唱の楽譜では、@c
+@ref{合唱のための楽譜レイアウト} で説明しているように、@c
+強弱記号は歌詞を避けるために譜の上に配置されます。
+
+@end itemize
+
+@seealso
+音楽用語集:
+@rglos{ambitus}
+
+学習マニュアル:
+@rlearning{簡単な歌曲を作成する}
+
+記譜法リファレンス:
+@ref{テキスト マークアップの導入部},
+@ref{音域},
+@ref{合唱のための楽譜レイアウト}
+
+コード断片集:
+@rlsr{Vocal music}
+
+@node 歌詞を入力する
+@unnumberedsubsubsec 歌詞を入力する
+@translationof Entering lyrics
+
+@cindex lyrics, entering (歌詞を入力する)
+@cindex entering lyrics (歌詞を入力する)
+@cindex formatting in lyrics (歌詞のフォーマット)
+@cindex lyrics, formatting (歌詞のフォーマット)
+@cindex punctuation in lyrics (歌詞の句読点)
+@cindex lyrics punctuation (歌詞の句読点)
+@cindex spaces in lyrics (歌詞のスペース)
+@cindex quotes in lyrics (歌詞のスペース)
+@funindex \lyricmode
+
+@c TODO should we explain hyphens here
+
+歌詞は @code{\lyricmode} で始めるか
+@code{\addlyrics} または @code{\lyricsto} を用いる@c
+特殊な入力モードで入力されます。@c
+この特殊な入力モードでは、入力 @code{d} はピッチ @notation{D} とは解釈されず、@c
+テキストの 1 文字の歌詞と解釈されます。@c
+言い換えると、歌詞を音符のように入力して、@c
+ピッチではなくテキストとして譜刻します。
+
+例:
+
+@example
+\lyricmode @{ Three4 blind mice,2 three4 blind mice2 @}
+@end example
+
+歌詞の水平方向の配置を指定するための手法は主に 2 つあります
+-- 上記の例のように歌詞の各音節の演奏時間を指定するか、@c
+@code{\addlyrics} または @code{\lyricsto} を用いて@c
+歌詞を自動的に旋律や他のボイスに揃えさせるかのどちらかです。@c
+前者は @ref{歌詞音節の手動演奏時間} で説明します。@c
+後者は @ref{歌詞音節の自動演奏時間} で説明します。
+
+歌詞の単語または音節はアルファベット
+(さらに他のいくつかの文字 -- 以下を読んでください) で始まり、@c
+空白か数字で終わります。@c
+歌詞の音節の頭文字以後の文字は、数字や空白を除く、@c
+任意の文字になります。
+
+数字や空白ではない文字は歌詞の一部と見なされるため、@c
+@code{@}} で終わる単語であっても有効です
+-- このことが以下のミスを引き起こします:
+
+@example
+\lyricmode @{ lah lah lah@}
+@end example
+
+上記の例で、@code{@}} は歌詞の最後の音節に含まれるため、@c
+波括弧 @code{@{} は閉じられず、@c
+入力ファイルはおそらくコンパイルされません。@c
+これを避けるため、波括弧の前後に常に空白を記述すべきです:
+
+@example
+\lyricmode @{ lah lah lah @}
+@end example
+
+@cindex overrides in lyric mode (歌詞モードでのオーバライド)
+@funindex \override in \lyricmode
+
+同様に、歌詞モードではピリオドは前のアルファベットの並びに含まれてしまいます。@c
+このため、@code{\override} コマンドのピリオドの前後に@c
+空白を挿入する必要があります。@c
+以下のように記述しないでください
+
+@example
+\override Score.LyricText #'font-shape = #'italic
+@end example
+
+@noindent
+以下のように記述してください
+
+@example
+\override Score . LyricText #'font-shape = #'italic
+@end example
+
+句読点、アクセントが付いた文字を持つ歌詞、英語以外の言語の文字、@c
+あるいは特殊文字 (ハート記号や引用符等) は、UTF-8 エンコードで保存することで、@c
+直接入力することができます。@c
+さらなる情報は、@ref{Special characters} を参照してください。
+
+@lilypond[quote,verbatim]
+\relative c'' { d8 c16 a bes8 f e' d c4 }
+\addlyrics { „Schad’ um das schö -- ne grü -- ne Band, }
+
+@end lilypond
+
+歌詞モードで通常の引用符を使うことができますが、@c
+引用符の前にバックスラッシュを配置し、@c
+歌詞の音節全体を追加の引用符で囲む必要があります。@c
+例を挙げます:
+
+@lilypond[quote,verbatim]
+\relative c' { \time 3/4 e4 e4. e8 d4 e d c2. }
+\addlyrics { "\"I" am so lone -- "ly,\"" said she }
+@end lilypond
+
+歌詞モードでの単語の開始の完全な定義は複雑です。@c
+歌詞モードでの単語はアルファベット, @code{_}, @code{?}, @code{!},
+
+歌詞モードでの単語の開始の完全な定義は複雑です。@c
+歌詞モードで、単語は以下の文字で始まります:
+アルファベット, @code{_}, @code{?}, @code{!}, @code{:}, @code{'},
+制御文字 @code{^A} から @code{^F}, @code{^Q} から @code{^W}, @code{^Y},
+@code{^^}, 128 以上の ASCII コードの 8 ビット文字,
+バックスラッシュとの組み合わせ @code{\`}, @code{\'}, @code{\"},
+または @code{\^}。
+
+@c " to balance double quotes for not-so-bright context-sensitive editors
+
+歌詞の中で @code{\markup} を用いることで、@c
+歌詞の体裁を様々に制御することができます。@c
+多くのオプションの説明は、@ref{テキストをフォーマットする} を参照してください。
+
+@snippets
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{formatting-lyrics-syllables.ly}
+
+
+@seealso
+学習マニュアル:
+@rlearning{歌曲}
+
+記譜法リファレンス:
+@ref{歌詞音節の自動演奏時間},
+@ref{フォント},
+@ref{テキストをフォーマットする},
+@ref{入力モード},
+@ref{歌詞音節の手動演奏時間},
+@ref{Special characters}
+
+内部リファレンス:
+@rinternals{LyricText}
+
+コード断片集:
+@rlsr{Text}
+
+@node 歌詞を旋律に揃える
+@unnumberedsubsubsec 歌詞を旋律に揃える
+@translationof Aligning lyrics to a melody
+
+@cindex lyrics, aligning to a melody (歌詞を旋律に揃える)
+@cindex @code{associatedVoice}
+@funindex \lyricmode
+@funindex \addlyrics
+@funindex \lyricsto
+
+歌詞はコンテキスト @code{Lyrics} の中で解釈されることで譜刻されます。@c
+@ref{コンテキストの説明} を参照してください。
+
+@example
+\new Lyrics \lyricmode @{ @dots{} @}
+@end example
+
+歌詞は主に 2 つの方法で歌詞に揃えることができます:
+
+@itemize
+
+@item
+@code{\addlyric}, @code{\lyricsto} を用いるか、@c
+プロパティ @code{associatedVoice} を設定することにより、@c
+他のボイスあるいは (特殊な状況ですが) 関連付けされた旋律から@c
+歌詞の音節の演奏時間を取ることで、歌詞を自動的に揃えることができます。@c
+詳細は @ref{歌詞音節の自動演奏時間} を参照してください。
+
+@c KEEP LY
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Staff <<
+    \time 2/4
+    \new Voice = "one" \relative c'' {
+      \voiceOne
+      c4 b8. a16 g4. r8 a4 ( b ) c2
+    }
+    \new Voice = "two" \relative c' {
+      \voiceTwo
+       s2 s4. f8 e4 d c2
+    }
+  >>
+
+% "one" の音符に揃えます
+  \new Lyrics \lyricsto "one" {
+    Life is __ _ love, live __ life.
+  }
+
+% 最初は "one" の音符に揃えて、それから "two" に切り替えます
+  \new Lyrics \lyricsto "one" {
+    No more let
+    \set associatedVoice = "two"  % 切り替える音節の前にセットする必要があります
+    sins and sor -- rows grow.
+  }
+>>
+@end lilypond
+
+歌詞の 1 番は通常の歌詞の入力方法を示しています。
+
+歌詞の 2 番は歌詞を揃えるボイスを切り替える方法を示しています。@c
+この方法は、歌詞の 1 番と 2 番で音符への単語の揃え方が異なり、@c
+単語を揃えるべき音符がすべてボイス コンテキストの中にある場合に有用です。@c
+詳細は @ref{歌詞の節} を参照してください。
+
+@item
+歌詞を @code{¥lyricmode} で入力し、音節の演奏時間を明示的に示すことで、@c
+歌詞を音符とは独立して揃えることができます。
+
+@c KEEP LY
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Voice = "one" \relative c'' {
+    \time 2/4
+    c4 b8. a16 g4. f8 e4 d c2
+  }
+
+% 前で指定された演奏時間 2 を用います
+  \new Lyrics \lyricmode {
+    Joy to the earth!
+  }
+
+% 音符とは異なるリズムをセットするために、演奏時間を明示します
+  \new Lyrics \lyricmode {
+    Life4 is love,2. live4 life.2
+  }
+>>
+@end lilypond
+
+歌詞の 1 番は演奏時間が指定されず、各単語には前の値 2 がされるため、@c
+音符と揃いません。
+
+歌詞の 2 番は音符とは全く独立して単語を揃える方法を示しています。@c
+この方法は、歌詞の 1 番と 2 番で音符への単語の揃え方が異なり、@c
+単語を揃えるべき音符がボイス コンテキストから得られない場合に有用です。@c
+詳細は @ref{歌詞音節の手動演奏時間} を参照してください。@c
+このテクニックは譜の上に会話をセットする場合にも有用です
+-- これの例は @ref{音楽の中での会話} を参照してください。
+
+この方法で入力した音符はデフォルトでは音符に左揃えされますが、@c
+関連付されたボイスが存在する場合はそれを指定することで中央揃えされます。@c
+詳細は @ref{歌詞音節の手動演奏時間} を参照してください。
+
+@end itemize
+
+@seealso
+学習マニュアル:
+@rlearning{歌詞を旋律に揃える}
+
+記譜法リファレンス:
+@ref{コンテキストの説明},
+@ref{歌詞音節の自動演奏時間}.
+@ref{歌詞の節},
+@ref{歌詞音節の手動演奏時間},
+@ref{音楽の中での会話}
+
+内部リファレンス:
+@rinternals{Lyrics}
+
+@node 歌詞音節の自動演奏時間
+@unnumberedsubsubsec 歌詞音節の自動演奏時間
+@translationof Automatic syllable durations
+
+@cindex syllable durations, automatic (歌詞音節の自動演奏時間)
+@cindex lyrics and melodies (歌詞と旋律)
+@cindex @code{associatedVoice}
+@funindex \addlyrics
+@funindex \lyricsto
+
+以下の 3 つの方法で歌詞を旋律の音符に揃えることができます:
+
+@itemize
+
+@item
+@code{¥lyricsto} で旋律を保持しているボイス コンテキストを指定します。
+
+@item
+@code{¥addlyrics} で歌詞を入力して、@c
+それを旋律を保持しているボイス コンテキストの直後に配置します。
+
+@item
+任意のタイミングで @code{associatedVoice} プロパティを設定することで@c
+歌詞の揃えを名前を持つ他のボイス コンテキストに切り替えます。
+
+@end itemize
+
+3 つの方法のいずれでも、単語の音節の間にハイフンを描き、@c
+単語の後ろに延長線を描くことができます。@c
+詳細は @ref{Extender and hyphens} を参照してください。
+
+歌詞を揃える @cod{Voice} コンテキストが @qq{消滅} してはいけません。@c
+さもないと、その後の歌詞は失われてしまいます。@c
+ボイスは何もすることが無くなると消滅する可能性があります
+-- @ref{コンテキストを残しておく} を参照してください。
+
+@subheading @code{\lyricsto} を用いる
+
+@cindex \lyricsto
+@funindex \lyricsto
+
+旋律を保持している名前の付いたボイス コンテキストを
+@code{¥lyricsto} で指定することにより、@c
+歌詞を旋律の下に揃えることができます:
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Voice = "melody" {
+    a4 a a a
+  }
+  \new Lyrics \lyricsto "melody" {
+    These are the words
+  }
+>>
+@end lilypond
+
+@noindent
+これは歌詞を名前の付いた @code{Voice} コンテキストに揃えます
+-- @code{Voice} コンテキストは既に存在している必要があります。@c
+このため、普通は @code{Voice} コンテキストを先に記述して、@c
+その後に @code{Lyrics} コンテキストを記述します。@c
+歌詞自体は @code{¥lyricsto} コマンドの後に記述します。@c
+@code{¥lyricsto} コマンドは自動的に歌詞モードを呼び出すため、@c
+@code{¥lyricmode} の記述は省略できます。@c
+デフォルトでは、歌詞は音符の下に配置されます。@c
+配置場所を変更する方法は @ref{歌詞の垂直方向の配置} を参照してください。
+
+@subheading @code{\addlyrics} を用いる
+
+@cindex \addlyrics
+@funindex \addlyrics
+
+@code{¥addlyrics} コマンドは便利なショートカットで、@c
+もっと複雑な LilyPond 構造を使う歌詞のセットアップの代わりとして@c
+用いることができます。
+
+@example
+@{ MUSIC @}
+\addlyrics @{ LYRICS @}
+@end example
+
+@noindent
+上記は下記と同等です:
+
+@example
+\new Voice = "blah" @{ MUSIC @}
+\new Lyrics \lyricsto "blah" @{ LYRICS @}
+@end example
+
+ここで例を挙げます:
+
+@lilypond[verbatim,quote]
+{
+  \time 3/4
+  \relative c' { c2 e4 g2. }
+  \addlyrics { play the game }
+}
+@end lilypond
+
+@code{¥addlyrics} セクションを追加することで、@c
+歌詞の 2 番、3 番を追加することができます:
+
+
+@lilypond[ragged-right,verbatim,quote]
+{
+  \time 3/4
+  \relative c' { c2 e4 g2. }
+  \addlyrics { play the game }
+  \addlyrics { speel het spel }
+  \addlyrics { joue le jeu }
+}
+@end lilypond
+
+コマンド @code{¥addlyrics} は多声を扱うことはできません。@c
+そのような場合は @code{¥lyricsto} を使うべきです。
+
+@subheading associatedVoice を用いる
+
+@code{associatedVoice} プロパティを設定することで、@c
+歌詞を揃える旋律を変更することができます:
+
+@example
+\set associatedVoice = #"lala"
+@end example
+
+@noindent
+
+プロパティの値 (ここでは "lala" です) は
+@code{Voice} コンテキストの名前になります。@c
+技術的な理由により、@c
+変更を適用する歌詞の音節の前にこの @code{set} コマンドを配置する必要があります。
+
+ここで、使用例を挙げます:
+
+@c KEEP LY
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Staff <<
+    \time 2/4
+    \new Voice = "one" \relative c'' {
+      \voiceOne
+      c4 b8. a16 g4. r8 a4 ( b ) c2
+    }
+    \new Voice = "two" \relative c' {
+      \voiceTwo
+       s2 s4. f8 e8 d4. c2
+    }
+  >>
+% 最初は "one" の音符に揃えます
+% それから "two" に切り替えます
+  \new Lyrics \lyricsto "one" {
+    No more let
+    \set associatedVoice = "two"  % 切り替える音節の前にセットする必要があります
+    sins and sor -- rows grow.
+  }
+>>
+@end lilypond
+
+@seealso
+記譜法リファレンス:
+@ref{延長線とハイフン},
+@ref{コンテキストを残しておく},
+@ref{歌詞の垂直方向の配置}
+
+@node 歌詞音節の手動演奏時間
+@unnumberedsubsubsec 歌詞音節の手動演奏時間
+@translationof Manual syllable durations
+
+複雑な声楽では、@c
+歌詞を音符とは完全に独立させて配置する方が望ましい場合があります。@c
+そのような場合、@code{\lyricsto} や @code{\addlyrics} を用いたり、@c
+@code{associatedVoice} プロパティを設定したりはしません。@c
+歌詞の音節を音符のように
+-- しかしながら、ピッチをテキストに置き換えて --
+入力し、歌詞の各音節の後には演奏時間を明示的に記述します。
+
+デフォルトでは、歌詞の音節は対応する音楽イベントに左揃えされます。@c
+音節の間にハイフンを描くことは普通にできますが、@c
+延長線を描くには関連付されたボイスが存在する必要があります。
+
+ここで、2 つの例を挙げます:
+
+@lilypond[relative=1,verbatim,quote]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    c2 e4 g2 f
+  }
+  \new Lyrics \lyricmode {
+    play1 the4 game4
+  }
+>>
+@end lilypond
+
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff {
+    \relative c'' {
+      c2 c2
+      d1
+    }
+  }
+  \new Lyrics {
+    \lyricmode {
+      I2 like4. my8 cat!1
+    }
+  }
+  \new Staff {
+    \relative c' {
+      c8 c c c c c c c
+      c8 c c c c c c c
+    }
+  }
+>>
+@end lilypond
+
+このテクニックは、譜の上に会話を書く場合に有用です
+-- @ref{音楽の中での会話} を参照してください。
+
+歌詞を音符に中央揃えさせるには、@c
+@code{associatedVoice} に音符を保持しているボイス コンテキストをセットします。@c
+@code{associatedVoice} がセットされると、@c
+2 重ハイフンと 2 重アンダースコアを記述することで、@c
+メリスマにハイフンと延長線を描くことができます。
+
+@lilypond[relative=1,verbatim,quote]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    c2 e4 g f g
+  }
+  \new Lyrics \lyricmode {
+    \set associatedVoice = #"melody"
+    play2 the4 game2. __
+  }
+>>
+@end lilypond
+
+@c TODO see also feature request 707 - show how to do this with manual durations
+
+@seealso
+記譜法リファレンス:
+@ref{音楽の中での会話}
+
+内部リファレンス:
+@rinternals{Lyrics},
+@rinternals{Voice}
+
+
+@node 複数の歌詞音節を 1 つの音符に割り当てる
+@unnumberedsubsubsec 複数の歌詞音節を 1 つの音符に割り当てる
+@translationof Multiple syllables to one note
+
+@funindex _
+@cindex spaces, in lyrics (歌詞の中での空白)
+@cindex quotes, in lyrics (歌詞の中での引用符)
+@cindex ties, in lyrics (歌詞の中でのタイ)
+
+1 つの音符にスペースで区切られた複数の音節を割り当てるには、@c
+そのフレーズを引用符で囲むか、@code{_} 文字を用います。@c
+代替手段として、チルド記号 (@code{~}) を用いて音節をタイで結ぶこともできます。
+
+@lilypond[quote,ragged-right,verbatim]
+{
+  \relative c'' { \autoBeamOff
+    r8 b c fis, fis c' b e, }
+  \addlyrics { Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da }
+  \addlyrics { "Che in" ques -- "ta e in" quel -- l'al -- tr'on -- da }
+  \addlyrics { Che~in ques -- ta~e~in quel -- l'al -- tr'on -- da }
+}
+@end lilypond
+
+
+@seealso
+内部リファレンス:
+@rinternals{LyricCombineMusic}
+
+
+@node 複数の音符を 1 つの歌詞音節に割り当てる
+@unnumberedsubsubsec 複数の音符を 1 つの歌詞音節に割り当てる
+@translationof Multiple notes to one syllable
+
+@cindex melisma (メリスマ)
+@cindex melismata (メリスマ)
+@cindex phrasing, in lyrics (歌詞の中でのフレーズ)
+@funindex \melisma
+@funindex \melismaEnd
+
+しばしば、特に中世の音楽では、1 つの音節を複数の音符で歌います。@c
+そのような歌い方をメリスマ (melismata または @rglos{melisma}) と呼びます。@c
+通常、メリスマの音節はメリスマの最初の音符に左揃えされます。
+
+メリスマが単語の最後ではない音節で発生する場合、@c
+その音節と次の音節をハイフンで結びます。@c
+これは音節の直後に 2 重ハイフン @code{--} を配置することで示します。
+
+メリスマが単語の最後の音節または音節が 1 つしかない単語で発生する場合、@c
+最後の音節からメリスマの最後の音符まで延長線を描きます。@c
+これは単語の直後に 2 重アンダースコア @code{__} を配置することで示します。
+
+メリスマを示す方法は 5 つあります:
+
+@itemize
+
+@item
+タイで結ばれた音符には、自動的にメリスマが作成されます:
+
+@lilypond[quote,relative=2,verbatim]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    f4 g2 ~ |
+    g4 e2 ~ |
+    e8
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ky -- ri -- e __
+  }
+>>
+@end lilypond
+
+@item
+各メリスマの音符にスラーを配置することで、@c
+譜から自動的にメリスマを作成することができます。@c
+これが歌詞を入力する通常の方法です:
+
+@lilypond[quote,relative=2,verbatim]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    f4 g8 ( f e f )
+    e8 ( d e2 )
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ky -- ri -- e __
+  }
+>>
+@end lilypond
+
+@item
+自動連桁を off にして、手動で連桁を付けられた音符はメリスマと見なされます。@c
+@ref{自動連桁の振る舞いを設定する} を参照してください。
+
+@lilypond[quote,relative=2,verbatim]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    \autoBeamOff
+    f4 g8[ f e f]
+    e2.
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ky -- ri -- e
+  }
+>>
+@end lilypond
+
+この例はメリスマに 8 分音符よりも長い音符を含めているため、@c
+明らかに不適切です。
+
+@item
+スラーが付いていない音符でも、@c
+@code{\melisma} と @code{\melismaEnd} で囲まれていればメリスマとして扱われます。
+
+@lilypond[quote,relative=2,verbatim]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    f4 g8
+    \melisma
+    f e f
+    \melismaEnd
+    e2.
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ky -- ri -- e
+  }
+>>
+@end lilypond
+
+この方法では連続する 2 つのメリスマを示すことができない@c
+ということに注意してください。
+
+@item
+メリスマに含まれる余分な各音符に対して@c
+歌詞の中にアンダースコア @code{_} を記述することで、@c
+メリスマを定義することができます。
+
+@lilypond[verbatim, quote, relative=2]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    f4 g8 f e f
+    e8 d e2
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ky -- ri -- _ _ _ e __ _ _
+  }
+>>
+@end lilypond
+
+@end itemize
+
+旋律の中のタイ、スラー、それに手動連桁をメリスマにしないことも可能です。@c
+メリスマにしないためには、@code{melismaBusyProperties} を設定します:
+
+@lilypond[relative=1,verbatim,quote]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    \set melismaBusyProperties = #'()
+    c4 d ( e )
+    g8 [ f ] f4 ~ f
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ky -- ri -- e e -- le -- i -- son
+  }
+>>
+@end lilypond
+
+@code{melismaBusyProperties} に対する設定を変えることで、@c
+メリスマの自動検出にタイ、スラー、それに連桁を@c
+含める / 除外することができます。@c
+@rinternals{Tunable context properties} の @code{melismaBusyProperties}
+を参照してください。
+
+代替手段として、@code{ignoreMelismata} に真をセットすることで@c
+すべてのメリスマを無視することができます。@c
+@ref{リズムが異なる歌詞の節} を参照してください。
+
+@code{melismaBusyProperties} がアクティブになっているパッセージの中で@c
+メリスマを使う必要がある場合、@c
+メリスマに含める各音符に対して歌詞の中にアンダースコアを記述します:
+
+@lilypond[relative=1,verbatim,quote]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    \set melismaBusyProperties = #'()
+    c4 d ( e )
+    g8 [ f ] ~ f4 ~ f
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ky -- ri -- _ e __ _ _ _
+  }
+>>
+@end lilypond
+
+
+@predefined
+
+@code{\autoBeamOff},
+@code{\autoBeamOn},
+@code{\melisma},
+@code{\melismaEnd}
+
+@seealso
+音楽用語集:
+@rglos{melisma}
+
+学習マニュアル:
+@rlearning{歌詞を旋律に揃える}
+
+記譜法リファレンス:
+@ref{歌詞を旋律に揃える},
+@ref{歌詞音節の自動演奏時間},
+@ref{自動連桁の振る舞いを設定する},
+@ref{リズムが異なる歌詞の節}
+
+内部リファレンス:
+@rinternals{Tunable context properties}
+
+@knownissues
+
+メリスマの延長線は自動的には作成されません。@c
+手動で 2 重アンダースコアを記述する必要があります。
+
+
+@node 延長線とハイフン
+@unnumberedsubsubsec 延長線とハイフン
+@translationof Extenders and hyphens
+
+@cindex melisma (メリスマ)
+@cindex extender (延長線)
+
+@c TODO cf Multiple notes to one syllable; should this be merged in?
+
+@c leave this as samp. -gp
+しばしば単語の最後の音節で、@c
+その音節から次の音節まで長い水平の線を描いてメリスマを示すことがあります。@c
+そのような線のことを延長線と呼び、@samp{ __ } で記述します
+(2 重アンダースコアの前後にスペースがあることに注意してください)。
+
+@warning{
+楽譜の中でメリスマは延長線で示され、@c
+延長線は 2 重のアンダースコアとして入力します。@c
+しかしながら、個々の音符をスキップすることで短いメリスマを作ることも可能です。@c
+音符のスキップには単一のアンダースコアを記述します
+-- デフォルトでは、音符のスキップは延長線を作り出しません。
+}
+
+@cindex hyphens (ハイフン)
+
+@c leave this as samp. -gp
+同じ単語の音節間の中央にハイフンを記譜するには、@c
+@samp{ -- } を記述します
+(2 重ハイフンの前後にスペースがあることに注意してください)。@c
+ハイフンは音節の間の中央に配置され、@c
+長さは音節の間のスペースによって調節されます。
+
+密に譜刻された楽譜では、ハイフンが削除されることもあります。@c
+ハイフンが削除されるかどうかを
+@code{LyricHyphen} のプロパティ
+@code{minimum-distance} (2 つの音節の間の最小間隔) と
+@code{minimum-length} (ハイフンを削除するかどうかの閾値) で@c
+制御することができます。
+
+
+@seealso
+内部リファレンス:
+@rinternals{LyricExtender},
+@rinternals{LyricHyphen}
+
+
+@node 歌詞に特有のテクニック
+@subsection 歌詞に特有のテクニック
+@translationof Techniques specific to lyrics
+
+@c TODO this whole section is to be reorganised
+
+@menu
+* 歌詞と変数に取り組む::
+* 歌詞の垂直方向の配置::
+* 歌詞の水平方向の配置::
+* 歌詞と繰り返し::
+* 歌詞のディヴィージ::
+@end menu
+
+
+
+@node 歌詞と変数に取り組む
+@unnumberedsubsubsec 歌詞と変数に取り組む
+@translationof Working with lyrics and variables
+
+@cindex lyrics, using variables (歌詞に変数を用いる)
+
+歌詞を保持する変数を作成することができます。@c
+歌詞は歌詞モードで入力する必要があります:
+
+@lilypond[quote,verbatim]
+musicOne = \relative c'' {
+  c4 b8. a16 g4. f8 e4 d c2
+}
+verseOne = \lyricmode {
+  Joy to the world, the Lord is come.
+}
+\score {
+  <<
+    \new Voice = "one" {
+      \time 2/4
+      \musicOne
+    }
+    \new Lyrics \lyricsto "one" {
+      \verseOne
+    }
+  >>
+}
+@end lilypond
+
+変数が @code{\addlyrics} または @code{\lyricsto} で呼び出される場合、@c
+歌詞に演奏時間を付ける必要はありません。
+
+順序が異なったり、もっと複雑だったりする場合、@c
+最も良い方法は最初に音楽と歌詞を保持する変数を定義して、
+譜と歌詞の階層をセットアップして (歌詞自体は省略します) から、@c
+@code{\context} を用いて歌詞を追加します。@c
+この方法は、@code{\lyricsto} によって参照されるボイスが@c
+常に定義済みであることを保証します。@c
+例を挙げます:
+
+@lilypond[quote,verbatim]
+sopranoMusic = \relative c'' { c4 c c c }
+contraltoMusic = \relative c'' { a4 a a a }
+sopranoWords = \lyricmode { Sop -- ra -- no words }
+contraltoWords = \lyricmode { Con -- tral -- to words }
+
+\score {
+  \new ChoirStaff <<
+    \new Staff {
+      \new Voice = "sopranos" {
+        \sopranoMusic
+      }
+    }
+    \new Lyrics = "sopranos"
+    \new Lyrics = "contraltos"
+    \new Staff {
+      \new Voice = "contraltos" {
+        \contraltoMusic
+      }
+    }
+    \context Lyrics = "sopranos" {
+      \lyricsto "sopranos" {
+        \sopranoWords
+      }
+    }
+    \context Lyrics = "contraltos" {
+      \lyricsto "contraltos" {
+        \contraltoWords
+      }
+    }
+  >>
+}
+@end lilypond
+
+
+@seealso
+記譜法リファレンス:
+@ref{歌詞の垂直方向の配置}
+
+内部リファレンス:
+@rinternals{LyricCombineMusic},
+@rinternals{Lyrics}
+
+
+@node 歌詞の垂直方向の配置
+@unnumberedsubsubsec 歌詞の垂直方向の配置
+@translationof Placing lyrics vertically
+
+@cindex placement of lyrics (歌詞の配置)
+@cindex lyrics, positioning (歌詞を配置する)
+
+音楽の種類によって、歌詞が譜の上、下、あるいは間に配置されることもあります。@c
+歌詞を関連する譜の下に配置することが最も簡単で、@c
+@code{Staff} コンテキストの下に @code{Lyrics} コンテキストを定義するだけで@c
+実現できます:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' { c4 c c c }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here are the words
+      }
+    }
+  >>
+}
+@end lilypond
+
+歌詞を譜の上に配置する方法は 2 つあります。@c
+簡単な (そして好まれる) のは、@c
+上記と同じ構文を用いて歌詞の配置を明示的に指定する方法です:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff = "staff" {
+      \new Voice = "melody" {
+        \relative c'' { c4 c c c }
+      }
+    }
+    \new Lyrics \with { alignAboveContext = "staff" } {
+      \lyricsto "melody" {
+        Here are the words
+      }
+    }
+  >>
+}
+@end lilypond
+
+代替手段として、2 ステップのプロセスを用いることもできます。@c
+最初に、@code{Staff} コンテキストと @code{Voice} コンテキストより先に
+@code{Lyrics} コンテキストを宣言して (内容は記述しません)、@c
+それから参照する @code{Voice} コンテキストの宣言の後に
+@code{\context} を用いて @code{\lyricsto} コマンドを配置します。@c
+以下のようにします:
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Lyrics = "lyrics" \with {
+      % 譜の上に配置する歌詞は以下のオーバライドを行う必要があります
+      \override VerticalAxisGroup #'staff-affinity = #DOWN
+    }
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' { c4 c c c }
+      }
+    }
+    \context Lyrics = "lyrics" {
+      \lyricsto "melody" {
+        Here are the words
+      }
+    }
+  >>
+}
+@end lilypond
+
+別々の譜に配置される 2 つのボイスがある場合、@c
+上記の方法のいずれかを用いて歌詞を譜の間に配置することができます。@c
+ここでは、2 番目の方法を用いる例を挙げます:
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+\score {
+  \new ChoirStaff <<
+    \new Staff {
+      \new Voice = "sopranos" {
+        \relative c'' { c4 c c c }
+      }
+    }
+    \new Lyrics = "sopranos"
+    \new Lyrics = "contraltos" \with {
+      % 譜の上に配置する歌詞は以下のオーバライドを行う必要があります
+      % lyrics above a staff should have this override
+      \override VerticalAxisGroup #'staff-affinity = #DOWN
+    }
+    \new Staff {
+      \new Voice = "contraltos" {
+        \relative c'' { a4 a a a }
+      }
+    }
+    \context Lyrics = "sopranos" {
+      \lyricsto "sopranos" {
+        Sop -- ra -- no words
+      }
+    }
+    \context Lyrics = "contraltos" {
+      \lyricsto "contraltos" {
+        Con -- tral -- to words
+      }
+    }
+  >>
+}
+@end lilypond
+
+他の歌詞と譜の組み合わせは、上記の例に磨きをかけるか、@c
+学習マニュアルの @rlearning{合唱} テンプレートを吟味することによって@c
+作り出すことができます。
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{lyrics-old-spacing-settings.ly}
+
+@seealso
+学習マニュアル:
+@rlearning{合唱}
+
+記譜法リファレンス:
+@ref{コンテキスト レイアウトの順序},
+@ref{コンテキストを作成する}
+
+@node 歌詞の水平方向の配置
+@unnumberedsubsubsec 歌詞の水平方向の配置
+@translationof Placing syllables horizontally
+
+@cindex Spacing lyrics (歌詞の間隔)
+@cindex Lyrics, increasing space between (歌詞の間隔を広げる)
+
+歌詞の間隔を広げるには
+@code{LyricSpace} の @code{minimum-distance} プロパティを設定します。
+
+@lilypond[relative=1,verbatim,quote,ragged-right]
+{
+  c c c c
+  \override Lyrics.LyricSpace #'minimum-distance = #1.0
+  c c c c
+}
+\addlyrics {
+  longtext longtext longtext longtext
+  longtext longtext longtext longtext
+}
+@end lilypond
+
+@noindent
+この変更を楽譜の全ての歌詞に適用するには、@c
+@code{\layout} ブロックの中でプロパティの設定を行います。
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  \relative c' {
+  c c c c
+  c c c c
+  }
+  \addlyrics {
+  longtext longtext longtext longtext
+  longtext longtext longtext longtext
+  }
+  \layout {
+    \context {
+      \Lyrics
+      \override LyricSpace #'minimum-distance = #1.0
+    }
+  }
+}
+@end lilypond
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{lyrics-alignment.ly}
+
+@c TODO: move to LSR -vv
+
+テキスト スクリプトと歌詞がマージンの中に納まることを確認するチェックは@c
+より多くの計算を必要とします。@c
+この機能を無効にすることで、処理をわずかにスピードアップすることができます:
+
+@example
+\override Score.PaperColumn #'keep-inside-line = ##f
+@end example
+
+歌詞が小節線を避けるようにするには、以下を使います:
+
+@example
+\layout @{
+  \context @{
+    \Lyrics
+      \consists "Bar_engraver"
+      \consists "Separating_line_group_engraver"
+      \override BarLine #'transparent = ##t
+  @}
+@}
+@end example
+
+@c TODO Create and add lsr example of lyricMelismaAlignment
+@c It's used like this to center-align all lyric syllables,
+@c even when notes are tied. -td
+
+@ignore
+\layout
+{
+     \context { \Score lyricMelismaAlignment = #0 }
+}
+@end ignore
+
+
+@node 歌詞と繰り返し
+@unnumberedsubsubsec 歌詞と繰り返し
+@translationof Lyrics and repeats
+
+@cindex repeats and lyrics (繰り返しと歌詞)
+@cindex lyrics, repeating (歌詞を繰り返す)
+
+@subheading 1 回の繰り返し
+
+@emph{音楽} の繰り返しは別の場所で説明しています
+-- @ref{繰り返し} を参照してください。@c
+このセクションでは、@c
+歌詞を繰り返しのある音楽に追加する方法について説明します。
+
+繰り返しで歌詞の単語が変わらないのであれば、@c
+歌詞を音楽と同じ繰り返し構造にすることで、音楽に歌詞を付けることができます。
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' {
+          a4 a a a
+          \repeat volta 2 { b4 b b b }
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Not re -- peat -- ed.
+        \repeat volta 2 { Re -- peat -- ed twice. }
+      }
+    }
+  >>
+}
+@end lilypond
+
+繰り返しが展開された場合、歌詞も展開されます。
+
+@lilypond[verbatim,quote]
+\score {
+  \unfoldRepeats {
+    <<
+      \new Staff {
+        \new Voice = "melody" {
+          \relative c'' {
+            a4 a a a
+            \repeat volta 2 { b4 b b b }
+          }
+        }
+      }
+      \new Lyrics {
+        \lyricsto "melody" {
+          Not re -- peat -- ed.
+          \repeat volta 2 { Re -- peat -- ed twice. }
+        }
+      }
+    >>
+  }
+}
+@end lilypond
+
+繰り返しが展開されて、異なる歌詞を持つ場合、@c
+単に歌詞の全ての単語を記述します:
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' {
+          a4 a a a
+          \repeat unfold 2 { b4 b b b }
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Not re -- peat -- ed.
+        The first time words.
+        Sec -- ond time words.
+      }
+    }
+  >>
+}
+@end lilypond
+
+繰り返しの歌詞が異なる場合、@c
+並列に正しくネストされた別々の @code{Lyrics} コンテキストに@c
+各繰り返しの歌詞を入力する必要があります:
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' {
+          a4 a a a
+          \repeat volta 2 { b4 b b b }
+        }
+      }
+    }
+    \new Lyrics \lyricsto "melody" {
+      Not re -- peat -- ed.
+      <<
+	{ The first time words. }
+	\new Lyrics {
+	  \set associatedVoice = "melody"
+	  Sec -- ond time words.
+	}
+      >>
+    }
+  >>
+}
+@end lilypond
+
+同様の方法でさらに歌詞の行を追加することができます:
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "singleVoice" {
+        \relative c'' {
+	  a4 a a a
+	  \repeat volta 3 { b4 b b b }
+          c4 c c c
+	}
+      }
+    }
+    \new Lyrics \lyricsto "singleVoice" {
+      Not re -- peat -- ed.
+      <<
+        { The first time words.	}
+	\new Lyrics {
+	  \set associatedVoice = "singleVoice"
+	  Sec -- ond time words.
+	}
+	\new Lyrics {
+	  \set associatedVoice = "singleVoice"
+	  The third time words.
+	}
+      >>
+      The end sec -- tion.
+    }
+  >>
+}
+@end lilypond
+
+
+@c TODO positioning a common line of lyrics
+
+@subheading 差し替えのある繰り返し
+
+@cindex lyrics, repeats with alternative endings (差し替えのある繰り返しの歌詞)
+@cindex repeating lyrics with alternative endings (差し替えのある繰り返しの歌詞)
+@cindex alternative endings and lyrics (差し替えのある繰り返しと歌詞)
+
+繰り返し部分の歌詞が同じであれば、@c
+歌詞と音楽で同じ構造を使うことができます。
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative c'' {
+          a4 a a a
+          \repeat volta 2 { b4 b }
+          \alternative { { b b } { b c } }
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Not re -- peat -- ed.
+        \repeat volta 2 { Re -- peat -- }
+        \alternative { { ed twice. } { ed twice. } }
+      }
+    }
+  >>
+}
+@end lilypond
+
+@funindex \skip
+@cindex skipping notes in lyrics (歌詞の中で音符をスキップする)
+@cindex lyrics, skipping notes (歌詞の中で音符をスキップする)
+
+しかしながら、繰り返し部分の歌詞が異なる場合、@c
+歌詞に繰り返し構造を用いることはできず、@c
+歌詞を適用しない差し替え部分の音符をスキップするために@c
+手動で @code{\skip} コマンドを挿入する必要があります。
+
+注意: 音符のスキップにアンダースコア @code{_} を使わないでください
+-- アンダースコアはメリスマを意味するため、前の音節が左揃えされてしまいます。
+
+@warning{
+@code{@bs{}skip} コマンドの後に数字を記述する必要があります。@c
+しかしながら、歌詞は @code{\addlyrics} や @code{\lyricsto} で関連付けた@c
+旋律の音符から演奏時間を引き出すため、この数字は無視されます。@c
+各 @code{@bs{}skip} は後に続く数字の値に関係なく、@c
+任意の音価の音符を 1 つスキップします。
+}
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative c'' {
+          \repeat volta 2 { b4 b }
+          \alternative { { b b } { b c } }
+          c4 c
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        The first time words.
+        \repeat unfold 2 { \skip 1 }
+        End here.
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Sec -- ond
+        \repeat unfold 2 { \skip 1 }
+        time words.
+      }
+    }
+  >>
+}
+@end lilypond
+
+@cindex lyrics and tied notes (歌詞とタイで結ばれた音符)
+@funindex \repeatTie
+
+タイが途中で複数の差し替えに分かれる場合、@c
+最初の差し替えの音符がタイで結ばれ、@c
+2 番目以降の差し替えには @code{\repeatTie} が使用されます。@c
+この構造に歌詞が含まれることにより差し替え部分が長くなると、@c
+歌詞を音符に揃えることが困難となり、@c
+差し替え部分に含まれるタイの音符が受け入れがたい結果を発生させるかもしれません。
+
+タイは最初の差し替えまで続くメリスマを作り出しますが、@c
+2 番目以降の差し替えには作りません。@c
+このため、歌詞を正しく揃えるには、@c
+差し替え部分でメリスマの自動作成を無効にして、@c
+手動でスキップを挿入する必要があります。
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative c'' {
+          \set melismaBusyProperties = #'()
+          \repeat volta 2 { b4 b ~}
+          \alternative { { b b } { b \repeatTie c } }
+          \unset melismaBusyProperties
+          c4 c
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        \repeat volta 2 { Here's a __ }
+        \alternative {
+          { \skip 1 verse }
+          { \skip 1 sec }
+        }
+        ond one.
+      }
+    }
+  >>
+}
+@end lilypond
+
+@code{\repeatTie} を含むセクションの周辺で
+@code{\unfoldRepeats} が使われると、@c
+両方のタイプのタイが譜刻されるの避けるために
+@code{\repeatTie} は削除されます。
+
+繰り返される部分の歌詞が異なる場合、@c
+その歌詞の周囲で @code{\repeat} を使うことはできず、@c
+前述のように手動で @code{\skip} コマンドを挿入する必要があります。
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative c'' {
+          \repeat volta 2 { b4 b ~}
+          \alternative { { b b } { b \repeatTie c } }
+          c4 c
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here's a __ verse.
+        \repeat unfold 2 { \skip 1 }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here's one
+        \repeat unfold 2 { \skip 1 }
+        more to sing.
+      }
+    }
+  >>
+}
+@end lilypond
+
+繰り返し部分から差し替え部分に延長線やハイフンを描きたいのであれば、@c
+それらを手動で挿入する必要があります。@c
+差し替え部分から次の部分に延長線やハイフンを描く場合も同様です。
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative c'' {
+          \repeat volta 2 { b4 b ~}
+          \alternative { { b b } { b \repeatTie c } }
+          c4 c
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here's a __ verse.
+        \repeat unfold 2 { \skip 1 }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here's "a_"
+        \skip 1
+        "_" sec -- ond one.
+      }
+    }
+  >>
+}
+@end lilypond
+
+@seealso
+記譜法リファレンス:
+@ref{コンテキストを残しておく},
+@ref{繰り返し}
+
+
+@node 歌詞のディヴィージ
+@unnumberedsubsubsec 歌詞のディヴィージ
+@translationof Divisi lyrics
+
+@cindex divided lyrics (ディヴィージされた歌詞)
+@cindex lyrics, divided (ディヴィージされた歌詞)
+
+ピッチが同じで歌詞とリズムが異なる 2 つのパートがある場合、@c
+一時的にメリスマの自動検出を off にして、@c
+歌詞の中でのメリスマ指示する手法を用いると適切な場合があります:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Voice = "melody" {
+      \relative c' {
+        \set melismaBusyProperties = #'()
+        \slurDown
+        \slurDashed
+        e4 e8 ( e ) c4 c |
+        \unset melismaBusyProperties
+        c
+      }
+    }
+    \new Lyrics \lyricsto "melody" {
+      They shall not o -- ver -- come
+    }
+    \new Lyrics \lyricsto "melody" {
+      We will _
+    }
+  >>
+}
+@end lilypond
+
+2 つのパートの音楽と歌詞の両方が異なる場合、@c
+2 つの名前付きボイス コンテキストを作成して、@c
+それぞれに歌詞を付属させることで、@c
+異なる音楽と歌詞として表示させた方が良いかもしれません:
+
+@lilypond[verbatim,ragged-right,quote]
+\score {
+  <<
+    \new Voice = "melody" {
+      \relative c' {
+        <<
+          {
+            \voiceOne
+            e4 e8 e
+          }
+          \new Voice = "splitpart" {
+            \voiceTwo
+            c4 c
+          }
+        >>
+        \oneVoice
+        c4 c |
+        c
+      }
+    }
+    \new Lyrics \lyricsto "melody" {
+      They shall not o -- ver -- come
+    }
+    \new Lyrics \lyricsto "splitpart" {
+      We will
+    }
+  >>
+}
+@end lilypond
+
+
+@node 歌詞の節
+@subsection 歌詞の節
+@translationof Stanzas
+
+@menu
+* 歌詞の節番号を追加する::
+* 歌詞の節に強弱記号を追加する::
+* 歌詞の節に歌手の名前を追加する::
+* リズムが異なる歌詞の節::
+* 歌詞の節を楽譜の終わりに譜刻する::
+* 歌詞の節を楽譜の終わりに複数の列で譜刻する::
+@end menu
+
+
+@node 歌詞の節番号を追加する
+@unnumberedsubsubsec 歌詞の節番号を追加する
+@translationof Adding stanza numbers
+
+@cindex stanza number (歌詞番号)
+
+@code{stanza} を設定することにより、歌詞の節番号を追加することができます。@c
+例を挙げます:
+
+@lilypond[quote,ragged-right,verbatim,relative=2]
+\new Voice {
+  \time 3/4 g2 e4 a2 f4 g2.
+} \addlyrics {
+  \set stanza = #"1. "
+  Hi, my name is Bert.
+} \addlyrics {
+  \set stanza = #"2. "
+  Oh, ché -- ri, je t'aime
+}
+@end lilypond
+
+
+@noindent
+これらの番号は歌詞の前に配置されます。
+
+@c TODO Create and add snippet to show how two lines of a
+@c stanza can be grouped together, along these lines:
+@c (might need improving a bit) -td
+
+@ignore
+leftbrace = \markup { \override #'(font-encoding . fetaBraces) \lookup
+#"brace105" }
+
+stanzaOneOne = {
+  \set stanza = \markup { "1. " \leftbrace }
+  \lyricmode { Child, you're mine and I love you.
+    Lend thine ear to what I say.
+
+  }
+}
+
+stanzaOneThree =  {
+%  \set stanza = \markup { "   "}
+  \lyricmode { Child, I have no great -- er joy
+    Than to have you walk in truth.
+
+  }
+}
+
+\new Voice {
+  \repeat volta 2 { c'8 c' c' c' c' c' c'4
+                    c'8 c' c' c' c' c' c'4   }
+}  \addlyrics { \stanzaOneOne }
+   \addlyrics { \stanzaOneThree }
+
+@end ignore
+
+@node 歌詞の節に強弱記号を追加する
+@unnumberedsubsubsec 歌詞の節に強弱記号を追加する
+@translationof Adding dynamics marks to stanzas
+
+歌詞の前に強弱記号を配置することによって、@c
+歌詞の音の大きさの違いを示すことができます。@c
+LilyPond では、@c
+歌詞の前に配置されるものはすべて @code{StanzaNumber} オブジェクトに@c
+格納します -- 強弱記号も同じです。@c
+技術的な理由により、歌詞の設定を @code{\lyricmode} の外で行う必要があります:
+
+@lilypond[quote,ragged-right,verbatim]
+text = {
+  \set stanza = \markup { \dynamic "ff" "1. " }
+  \lyricmode {
+    Big bang
+  }
+}
+
+<<
+  \new Voice = "tune" {
+    \time 3/4
+    g'4 c'2
+  }
+\new Lyrics \lyricsto "tune" \text
+>>
+@end lilypond
+
+@node 歌詞の節に歌手の名前を追加する
+@unnumberedsubsubsec 歌詞の節に歌手の名前を追加する
+@translationof Adding singers' names to stanzas
+
+@cindex singer name (歌手名)
+@cindex name of singer (歌手の名前)
+
+歌手の名前を追加することもできます。@c
+歌手の名前は、楽器名と同様に、行の先頭に譜刻されます。@c
+@code{vocalName} を設定することにより、歌手名を作成します。@c
+@code{shortVocalName} として短縮名を入力することができます。
+
+@lilypond[ragged-right,quote,verbatim,relative=2]
+\new Voice {
+  \time 3/4 g2 e4 a2 f4 g2.
+} \addlyrics {
+  \set vocalName = #"Bert "
+  Hi, my name is Bert.
+} \addlyrics {
+  \set vocalName = #"Ernie "
+  Oh, ché -- ri, je t'aime
+}
+@end lilypond
+
+@node リズムが異なる歌詞の節
+@unnumberedsubsubsec リズムが異なる歌詞の節
+@translationof Stanzas with different rhythms
+
+しばしば、@c
+1 つの歌で歌詞の節によって歌詞を旋律に配置する仕方が若干異なる場合があります。@c
+そのような変化も @code{\lyricsto} で対応することができます。
+
+@subsubheading メリスマを無視する
+
+歌詞のある節ではメリスマになっているものが、@c
+他の節では複数の音節に分かれている場合があります。@c
+これを実現するには、複数音節に分かれるボイスはメリスマを無視するようにします。@c
+これは Lyrics コンテキストの中で @code{ignoreMelismata} を設定します。
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \relative c' \new Voice = "lahlah" {
+    \set Staff.autoBeaming = ##f
+    c4
+    \slurDotted
+    f8.[( g16])
+    a4
+  }
+  \new Lyrics \lyricsto "lahlah" {
+    more slow -- ly
+  }
+  \new Lyrics \lyricsto "lahlah" {
+    go
+    \set ignoreMelismata = ##t
+    fas -- ter
+    \unset ignoreMelismata
+    still
+  }
+>>
+@end lilypond
+
+@knownissues
+たいていの @code{\set} コマンドとは異なり、@c
+@code{\set ignoreMelismata} は前に @code{\once} があると機能しません。@c
+メリスマを無視させる歌詞の範囲を
+@code{\set} と @code{\unset} で囲む必要があります。
+
+@subsubheading 装飾小音符に音節を割り当てる
+
+@cindex grace notes and lyrics (装飾小音符と歌詞)
+@cindex lyrics on grace notes (装飾小音符の歌詞)
+
+デフォルトでは、@code{\lyricsto} を用いても装飾小音符 (つまり、@code{\grace})
+には音節は割り当てられません。@c
+しかしながら、この振る舞いを変更することができます:
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \new Voice = melody \relative c' {
+    f4 \appoggiatura a32 b4
+    \grace { f16[ a16] } b2
+    \afterGrace b2 { f16[ a16] }
+    \appoggiatura a32 b4
+    \acciaccatura a8 b4
+  }
+  \new Lyrics
+  \lyricsto melody {
+    normal
+    \set includeGraceNotes = ##t
+    case,
+    gra -- ce case,
+    after -- grace case,
+    \set ignoreMelismata = ##t
+    app. case,
+    acc. case.
+  }
+>>
+@end lilypond
+
+@knownissues
+@code{associatedVoice} と同様に、@c
+@code{includeGraceNotes} は少なくとも装飾小音符に割り当てる音節よりも前に@c
+設定する必要があります。@c
+装飾小音符が音楽の始めにある場合は、@c
+@code{\with} または @code{\context} ブロックを使うことを検討してください:
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \new Voice = melody \relative c' {
+    \grace { c16[( d e f] }
+    g1) f
+  }
+  \new Lyrics \with { includeGraceNotes = ##t }
+  \lyricsto melody {
+    Ah __ fa
+  }
+>>
+@end lilypond
+
+@subsubheading 代替の旋律に切り替える
+
+@cindex associatedVoice
+@cindex alternative melody, switching to (代替の旋律に切り替える)
+
+音楽への歌詞の割り当て方をもっと複雑に変化させることができます。@c
+@code{associatedVoice} プロパティを設定することで、@c
+歌詞の中で歌詞を割り当てる旋律を変更することができます:
+
+@c KEEP LY
+@lilypond[verbatim,quote]
+<<
+  \relative c' \new Voice = "lahlah" {
+    \set Staff.autoBeaming = ##f
+    c4
+    <<
+      \new Voice = "alternative" {
+        \voiceOne
+        \times 2/3 {
+          % show associations clearly.
+          \override NoteColumn #'force-hshift = #-3
+          f8 f g
+        }
+      }
+      {
+        \voiceTwo
+        f8.[ g16]
+        \oneVoice
+      } >>
+    a8( b) c
+  }
+  \new Lyrics \lyricsto "lahlah" {
+    Ju -- ras -- sic Park
+  }
+  \new Lyrics \lyricsto "lahlah" {
+    % トリック: associatedVoice を 1 音節早く設定する必要があります!
+    \set associatedVoice = "alternative" % "ran" に適用されます
+    Ty --
+    ran --
+    no --
+    \set associatedVoice = "lahlah" % "rus" に適用されます
+    sau -- rus Rex
+  } >>
+@end lilypond
+
+@noindent
+歌詞の 1 番のテキストは通常の方法で旋律 @q{lahlah} に割り当てられます。@c
+しかしながら、@c
+歌詞の 2 番は最初は @code{lahlah} コンテキストに割り当てられていますが、@c
+音節 @q{ran} から @q{sau} までの割り当てが旋律 @code{alternative} に@c
+切り替わります:
+
+@example
+\set associatedVoice = "alternative" % "ran" に適用されます
+Ty --
+ran --
+no --
+\set associatedVoice = "lahlah" % "rus" に適用されます
+sau -- rus Rex
+@end example
+
+@noindent
+ここで、@c
+@code{alternative} は 3 連符を保持している @code{Voice} コンテキストの名前です。
+
+@code{\set associatedVoice} コマンドの配置に注意してください
+-- 1 音節早く出現していますが、これで正しく機能します。
+
+@warning{
+@code{\set associatedVoice} コマンドは、@c
+割り当てが新しいボイスに切り替わる音節の前に配置する必要があります。@c
+言い換えると、ボイスの変更は予想よりも 1 音節遅く発生します。@c
+これは技術的な理由によるものであり、バグではありません。
+}
+
+
+@node 歌詞の節を楽譜の終わりに譜刻する
+@unnumberedsubsubsec 歌詞の節を楽譜の終わりに譜刻する
+@translationof Printing stanzas at the end
+
+しばしば、歌詞の 1 番を音楽にセットして、@c
+残りを詩の形式で楽譜の終わりに追加する方が適切な場合があります。@c
+これは、2 番以降を score ブロックの外の @code{\markup} セクションに@c
+追加することで実現できます。@c
+@code{\markup} で 2 つの方法で改行していることに注意してください。
+
+@lilypond[ragged-right,verbatim,quote]
+melody = \relative c' {
+e d c d | e e e e |
+d d e d | c1 |
+}
+
+text = \lyricmode {
+\set stanza = #"1." Ma- ry had a lit- tle lamb,
+its fleece was white as snow.
+}
+
+\score{ <<
+  \new Voice = "one" { \melody }
+  \new Lyrics \lyricsto "one" \text
+>>
+  \layout { }
+}
+\markup { \column{
+  \line{ Verse 2. }
+  \line{ All the children laughed and played }
+  \line{ To see a lamb at school. }
+  }
+}
+\markup{
+  \wordwrap-string #"
+  Verse 3.
+
+  Mary took it home again,
+
+  It was against the rule."
+}
+@end lilypond
+
+
+@node 歌詞の節を楽譜の終わりに複数の列で譜刻する
+@unnumberedsubsubsec 歌詞の節を楽譜の終わりに複数の列で譜刻する
+@translationof Printing stanzas at the end in multiple columns
+
+歌詞の節が多い場合、ページを複数の列に分けて歌詞を譜刻することがあります。@c
+しばしば、歌詞番号を列の外側に置くこともあります。@c
+以下の例は、LilyPond でそのような出力を作り出す方法を示しています。
+
+@c KEEP LY
+@lilypond[ragged-right,quote,verbatim]
+melody = \relative c' {
+  c c c c | d d d d
+}
+
+text = \lyricmode {
+  \set stanza = #"1." This is verse one.
+  It has two lines.
+}
+
+\score {
+  <<
+    \new Voice = "one" { \melody }
+    \new Lyrics \lyricsto "one" \text
+  >>
+  \layout { }
+}
+
+\markup {
+  \fill-line {
+    \hspace #0.1 % この列を左マージンから離します
+        % ページが過密な場合はこの設定を削除します
+    \column {
+      \line { \bold "2."
+        \column {
+          "This is verse two."
+          "It has two lines."
+        }
+      }
+      \hspace #0.1 % 次の歌詞との間に垂直方向のスペースを入れます
+      \line { \bold "3."
+        \column {
+          "This is verse three."
+          "It has two lines."
+        }
+      }
+    }
+    \hspace #0.1  % 列の間に水平方向のスペースを入れます
+        % 列が近すぎる場合は、適切な間隔になるまで
+        % 空白 (" ") を追加します
+    \column {
+      \line { \bold "4."
+        \column {
+          "This is verse four."
+          "It has two lines."
+        }
+      }
+      \hspace #0.1 % 次の歌詞との間に垂直方向のスペースを入れます
+      \line { \bold "5."
+        \column {
+          "This is verse five."
+          "It has two lines."
+        }
+      }
+    }
+  \hspace #0.1 % 右マージンに追加のスペースを加えます
+      % ページが過密な場合はこの設定を削除します
+  }
+}
+@end lilypond
+
+
+@seealso
+内部リファレンス:
+@rinternals{LyricText},
+@rinternals{StanzaNumber}
+
+
+@node 歌曲
+@subsection 歌曲
+@translationof Songs
+
+@menu
+* 歌曲のためのリファレンス::
+* リード譜::
+@end menu
+
+@node 歌曲のためのリファレンス
+@unnumberedsubsubsec 歌曲のためのリファレンス
+@translationof References for songs
+
+通常、歌曲は 3 つの譜に記譜され、@c
+上の譜を歌の旋律、下の 2 つの譜をピアノ伴奏とします。@c
+歌詞の 1 番は旋律の譜の直下に譜刻されます。@c
+歌詞の節が少しであれば 2 番以降を 1 番の下に譜刻することができます。@c
+しかしながら、歌詞の節が多くて収容し難い場合は、@c
+2 番以降の歌詞を楽譜の後に独立したテキストとして譜刻します。
+
+歌曲を記述するのに必要とされる記譜要素はすべて別の場所で説明しています:
+
+@itemize
+
+@item
+譜レイアウトを構築する際は、@ref{譜を表示する} を参照してください。
+
+@item
+ピアノ譜を記述する際は、@ref{キーボードと他の複数譜の楽器} を参照してください。
+
+@item
+旋律に沿って歌詞を記述する際は、@ref{声楽で共通の記譜法} を参照してください。
+
+@item
+歌詞を配置する際は、@ref{歌詞の垂直方向の配置} を参照してください。
+
+@item
+歌詞の節を入力する際は、@ref{歌詞の節} を参照してください。
+
+@item
+しばしば、歌曲は譜の上にコード ネームを付けて譜刻されます。@c
+これは、@ref{和音を表示する} で説明しています。
+
+@item
+ギター伴奏や他のフレット楽器による伴奏の和音のフレット ダイアグラムを@c
+譜刻する際は、@ref{フレットのある弦楽器で共通の記譜法} の
+@qq{フレット ダイアグラム マークアップ} を参照してください。
+
+@end itemize
+
+@seealso
+学習マニュアル:
+@rlearning{歌曲}
+
+記譜法リファレンス:
+@ref{声楽で共通の記譜法},
+@ref{和音を表示する},
+@ref{譜を表示する},
+@ref{キーボードと他の複数譜の楽器},
+@ref{歌詞の垂直方向の配置},
+@ref{歌詞の節}
+
+コード断片集:
+@rlsr{Vocal music}
+
+
+@node リード譜
+@unnumberedsubsubsec リード譜
+@translationof Lead sheets
+
+ボーカル パートと @q{和音モード} を組み合わせることによって、@c
+リード譜を譜刻することができます。@c
+和音モードの構文についての説明は @ref{和音記譜法} にあります。
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{simple-lead-sheet.ly}
+
+@seealso
+記譜法リファレンス:
+@ref{和音記譜法}
+
+
+@node 合唱
+@subsection 合唱
+@translationof Choral
+
+@cindex anthems (賛美歌)
+@cindex part songs (パート ソング)
+@cindex oratorio (聖譚曲)
+@cindex SATB (S: ソプラノ、A: アルト、T: テナー、B: バス)
+
+このセクションでは、合唱との関連が最も強い記譜法について説明します。@c
+合唱には、賛美歌、パート ソング、聖譚曲等が含まれます。
+
+@menu
+* 合唱のためのリファレンス::
+* 合唱のための楽譜レイアウト::
+* ボイスの分割::
+@end menu
+
+@node 合唱のためのリファレンス
+@unnumberedsubsubsec 合唱のためのリファレンス
+@translationof References for choral
+
+通常、合唱は @code{ChoirStaff} グループ内の 2, 3,
+あるいは 4 つの譜に記譜します。@c
+伴奏が必要であれば、合唱譜の下に @code{PianoStaff} グループを配置します。@c
+@emph{アカペラ} であれば、普通は伴奏譜のサイズを小さくします。@c
+各ボーカル パートの音符は @code{Voice} コンテキストの中に配置し、@c
+各譜は単一のボーカル パート (つまり、1 つの @code{Voice})
+あるいはボーカル パートのペア (つまり、2 つの @code{Voice})
+を受け持ちます。
+
+歌詞は @code{Lyrics} コンテキストの中に配置します。@c
+各歌詞は対応するの譜の下に配置するか、
+あるいは譜が 2 パートを保持している場合は 1 つを譜の上、@c
+
+合唱に共通するいくつかのトピックスは別の場所で説明しています:
+
+@itemize
+
+@item
+SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜の導入部は@c
+学習マニュアルにあります。@c
+@rlearning{4 パート SATB ボーカル譜} を参照してください。
+
+@item
+学習マニュアルには、@c
+様々なスタイルの合唱に適したいくつかのテンプレートもあります。@c
+@rlearning{合唱} を参照してください。
+
+@item
+@code{ChoirStaff} と @code{PianoStaff} についての情報は、@c
+@ref{譜をグループ化する} を参照してください。
+
+@item
+セイクリッド ハープや動揺の記譜法で用いられるシェイプ符頭について、@c
+@ref{シェイプ符頭} で説明しています。
+
+@item
+2 つのボーカル パートが 1 つの譜を共有する場合、@c
+上のパートの符幹、タイ、スラー等は上向きになり、@c
+下のパートは下向きになります。@c
+これを実現するには、@code{\voiceOne} と @code{\voiceTwo} を用います。@c
+@ref{単一譜の多声} を参照してください。
+
+@end itemize
+
+@predefined
+@code{\oneVoice},
+@code{\voiceOne},
+@code{\voiceTwo}
+
+@seealso
+学習マニュアル:
+@rlearning{4 パート SATB ボーカル譜},
+@rlearning{合唱}
+
+記譜法リファレンス:
+@ref{コンテキスト レイアウトの順序},
+@ref{譜をグループ化する},
+@ref{シェイプ符頭},
+@ref{単一譜の多声}
+
+コード断片集:
+@rlsr{Vocal music}
+
+内部リファレンス:
+@rinternals{ChoirStaff},
+@rinternals{Lyrics},
+@rinternals{PianoStaff}
+
+@node 合唱のための楽譜レイアウト
+@unnumberedsubsubsec 合唱のための楽譜レイアウト
+@translationof Score layouts for choral
+
+通常、4 つの譜を保持している合唱のシステムは、@c
+ピアノ伴奏があっても無くても、@c
+ページ毎に 2 つ配置されます。@c
+ページのサイズによっては、@c
+これを実現するためにいくつかのデフォルト設定を変更する@c
+必要があるかもしれません。@c
+以下の設定を考慮する必要があります:
+
+@itemize
+
+@item
+グローバル譜サイズを変更することで、@c
+楽譜の要素全体のサイズを変更することができます。@c
+@ref{譜サイズを設定する} を参照してください。
+
+@item
+システム、譜、それに歌詞の間隔はすべて独立して調節することができます。@c
+@ref{垂直方向のスペース} を参照してください。
+
+@item
+垂直方向のレイアウト変数の値を表示することで、@c
+垂直方向のスペースを調節する手助けとすることができます。@c
+少ないページに音楽を収めるための方法として、@c
+レイアウト変数の表示と他の事柄を @ref{音楽を少ないページに収める} で@c
+説明しています。
+
+@item
+ページ毎のシステム数を 1 から 2 に変更した場合、@c
+そのことを示すために@c
+慣例として 2 つのシステムの間にシステム セパレータを配置します。@c
+@ref{Separating systems} を参照してください。
+
+@item
+他のページ フォーマット プロパティについての詳細は
+@ref{ページ レイアウト} を参照してください。
+
+@end itemize
+
+
+強弱記号はデフォルトでは譜の下に配置されます。@c
+しかしながら、合唱では歌詞を避けるために、@c
+普通は強弱記号を譜の上に配置します。@c
+あらかじめ定義されているコマンド @code{\dynamicUp} は
+1 つの @code{Voice} コンテキストの強弱記号の配置を譜の上にします。@c
+@code{Voice} コンテキストが複数ある場合、@c
+このコマンドを各コンテキスト内に配置する必要があります。@c
+代替手段として、強弱記号のプロパティを変更することで、
+楽譜全体ですべての強弱記号を対応する譜の上に配置させることができます。@c
+以下に方法を示します:
+
+@lilypond[verbatim,quote]
+\score {
+  \new ChoirStaff <<
+    \new Staff {
+      \new Voice {
+        \relative c'' { g4\f g g g }
+      }
+    }
+    \new Staff {
+      \new Voice {
+        \relative c' { d4 d d\p d }
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      \override DynamicText #'direction = #UP
+      \override DynamicLineSpanner #'direction = #UP
+    }
+  }
+}
+@end lilypond
+
+@predefined
+@code{\dynamicUp}, @code{\dynamicDown}, @code{\dynamicNeutral}
+
+@seealso
+記譜法リファレンス:
+@ref{スペースを変更する},
+@ref{スペースを表示する},
+@ref{音楽を少ないページに収める},
+@ref{ページ レイアウト},
+@ref{楽譜レイアウト},
+@ref{Separating systems},
+@ref{譜サイズを設定する},
+@ref{改行/改ページのために追加のボイスを使用する},
+@ref{垂直方向のスペース}
+
+内部リファレンス:
+@rinternals{VerticalAxisGroup},
+@rinternals{StaffGrouper}
+
+
+@node ボイスの分割
+@unnumberedsubsubsec ボイスの分割
+@translationof Divided voices
+
+@cindex voices, divided (ボイスの分割)
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{using-arpeggiobracket-to-make-divisi-more-visible.ly}
+
+@seealso
+記譜法リファレンス:
+@ref{直線の発想記号}
+
+
+@node オペラと舞台ミュージカル
+@subsection オペラと舞台ミュージカル
+@translationof Opera and stage musicals
+
+通常、オペラや舞台ミュージカルの音楽、歌詞、それに会話は、@c
+以下の形式の 1 つまたは複数により構築されます:
+
+@itemize
+
+@item
+A @emph{指揮譜} はフル オーケストラとボーカル パート、台詞がある場合は@c
+台詞の合図を保持します。
+
+@item
+@emph{オーケストラ パート} はオーケストラやバンドの個々の楽器の音楽を@c
+保持します。
+
+@item
+@emph{ボーカル譜} は全てのボーカル パートとピアノ伴奏を保持します。@c
+通常、伴奏はオーケストラの縮小版であり、@c
+しばしばオーケストラのオリジナルの楽器名が示されます。@c
+ボーカル譜に舞台指示や台詞の合図が含まれることもあります。
+
+@item
+@emph{ボーカル ブック} はボーカル パートだけを保持します
+(伴奏はありません)。@c
+台詞の合図が含まれることもあります。
+
+@item
+@emph{台詞} はミュージカルの台詞と歌詞を保持します。@c
+普通は、舞台指示が含まれます。@c
+LilyPond で台詞を譜刻することはできますが、台詞には音楽が無いため、@c
+他の手段を用いる方が好ましいかもしれません。
+
+@end itemize
+
+オペラや舞台ミュージカルに共通するスタイルの楽譜を作り出すのに@c
+必要なトピックスをカバーしているLilyPond ドキュメントのセクションを@c
+以下のリファレンスで示します。@c
+その後のセクションでオペラや舞台ミュージカルの譜刻に特有の@c
+テクニックをカバーします。
+
+@menu
+* オペラや舞台ミュージカルのためのリファレンス::
+* 役名::
+* 合図::
+* Spoken music::
+* 音楽の中での会話::
+@end menu
+
+@node オペラや舞台ミュージカルのためのリファレンス
+@unnumberedsubsubsec オペラや舞台ミュージカルのためのリファレンス
+@translationof References for opera and stage musicals
+
+@itemize
+
+@item
+指揮譜は多くのグループ化された譜と歌詞を保持します。@c
+譜をグループ化する方法は @ref{譜をグループ化する} で説明しています。@c
+譜のグループをネストする方法は @ref{ネストされた譜グループ} を参照してください。
+
+@item
+指揮譜とボーカル譜では、空の譜の譜刻を抑制することがあります。@c
+そのような @qq{Frenched score} を作成する方法は
+@ref{譜を隠す} を参照してください。
+
+@item
+オーケストラ パートを記述する方法は
+@ref{パートを記述する} でカバーしています。@c
+オーケストラの楽器編成によっては、@c
+専門的な記譜法の他のセクションも関係するかもしれません。@c
+多くの楽器は移調楽器です -- @ref{楽器の移調} を参照してください。
+
+@item
+ページのシステム数をページ毎に変える場合、@c
+慣習的にシステムの間にシステム分離記号を配置します。@c
+@ref{Separating systems} を参照してください。
+
+@item
+他のページ フォーマット プロパティの詳細は
+@ref{ページ レイアウト} を参照してください。
+
+@item
+台詞の合図、舞台指示、それに脚注を挿入することができます
+-- @ref{Creating footnotes} と @ref{テキスト} を参照してください。@c
+2 つの @code{\score} の間に独立したセクションとして詳細な舞台指示を@c
+追加することもできます -- @ref{独立したテキスト} を参照してください。
+
+@end itemize
+
+@seealso
+音楽用語集:
+@rglos{Frenched score},
+@rglos{Frenched staves},
+@rglos{transposing instrument}
+
+記譜法リファレンス:
+@ref{Creating footnotes},
+@ref{譜をグループ化する},
+@ref{譜を隠す},
+@ref{楽器の移調},
+@ref{ネストされた譜グループ},
+@ref{ページ レイアウト},
+@ref{Separating systems},
+@ref{移調},
+@ref{パートを記述する},
+@ref{テキストを記述する}
+
+コード断片集:
+@rlsr{Vocal music}
+
+
+@node 役名
+@unnumberedsubsubsec 役名
+@translationof Character names
+
+@cindex character names (役名)
+@cindex names, character (役名)
+
+通常、1 つの役に割り当てられている譜には左側に役名を示します:
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new Staff {
+      \set Staff.vocalName = \markup \smallCaps Kaspar
+      \set Staff.shortVocalName = \markup \smallCaps Kas.
+      \relative c' {
+        \clef "G_8"
+        c4 c c c
+        \break
+        c4 c c c
+      }
+    }
+    \new Staff {
+      \set Staff.vocalName = \markup \smallCaps Melchior
+      \set Staff.shortVocalName = \markup \smallCaps Mel
+      \clef "bass"
+      \relative c' {
+        a4 a a a
+        a4 a a a
+      }
+    }
+  >>
+}
+@end lilypond
+
+複数の役が 1 つの譜を共有する場合、@c
+それぞれの役に適用されるセクションの開始時に、その役名を譜の上に譜刻します。
+これは、マークアップで実現できます。@c
+しばしば、この目的のために専用のフォントを用います。
+
+@lilypond[quote,verbatim,relative=1]
+\clef "G_8"
+c4^\markup \fontsize #1 \smallCaps Kaspar
+c c c
+\clef "bass"
+a4^\markup \fontsize #1 \smallCaps Melchior
+a a a
+\clef "G_8"
+c4^\markup \fontsize #1 \smallCaps Kaspar
+c c c
+@end lilypond
+
+役の入れ替えが頻繁にある場合、@c
+最上位階層でそれぞれの役に対して @qq{楽器} 定義をセットアップして、@c
+役の入れ替えを @code{\instrumentSwitch} を用いて示す方が簡単かもしれません。
+
+@lilypond[quote,verbatim]
+\addInstrumentDefinition #"kaspar"
+  #`((instrumentTransposition . ,(ly:make-pitch -1 0 0))
+     (shortInstrumentName . "Kas.")
+     (clefGlyph . "clefs.G")
+     (clefOctavation . -7)
+     (middleCPosition . 1)
+     (clefPosition . -2)
+     (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Kaspar"))
+     (midiInstrument . "voice oohs"))
+
+\addInstrumentDefinition #"melchior"
+  #`((instrumentTransposition . ,(ly:make-pitch 0 0 0))
+     (shortInstrumentName . "Mel.")
+     (clefGlyph . "clefs.F")
+     (clefOctavation . 0)
+     (middleCPosition . 6)
+     (clefPosition . 2)
+     (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Melchior"))
+     (midiInstrument . "voice aahs"))
+
+\relative c' {
+  \instrumentSwitch "kaspar"
+  c4 c c c
+  \instrumentSwitch "melchior"
+  a4 a a a
+  \instrumentSwitch "kaspar"
+  c4 c c c
+}
+@end lilypond
+
+@seealso
+記譜法リファレンス:
+@ref{楽器名},
+@ref{Scheme functions},
+@ref{テキスト},
+@ref{Text markup commands}
+
+LilyPond の拡張:
+@rextend{Markup construction in Scheme}
+
+@node 合図
+@unnumberedsubsubsec 合図
+@translationof Musical cues
+
+@cindex musical cues (合図)
+@cindex cues, musical (合図)
+
+入りの直前にある他のパートの音楽を示すため、@c
+合図をボーカル譜、ボーカル ブック、それにオーケストラ パートに@c
+挿入することができます。@c
+さらに、合図はボーカル譜のピアノ伴奏にもしばしば挿入され、@c
+どのオーケストラ楽器が演奏されるのかを示します。@c
+これはフルの指揮譜を使用できない場合に、指揮者の助けとなります。
+
+合図を挿入する基本的な仕組みはメインのテキストで完全に説明しています
+-- @ref{他のボイスを引用する} と @ref{テキストをフォーマットする} を@c
+参照してください。@c
+しかしながら、多くの合図を挿入する必要がある場合
+-- 例えば、ボーカル譜のピアノ伴奏に楽器名を入れる場合、@c
+楽器名を合図音符の直前に注意深く配置する必要があります。@c
+以下の例は、これを実現する方法を示しています。
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+flute = \relative c'' {
+  s4 s4 e g
+}
+\addQuote "flute" { \flute }
+
+pianoRH = \relative c'' {
+  c4. g8
+  % 合図音符の楽器名を、合図音符の直前、かつ譜の上に配置します
+  s1*0^\markup { \right-align { \tiny "Flute" } }
+  \cueDuring "flute" #UP { g4 bes4 }
+}
+pianoLH = \relative c { c4 <c' e> e, <g c> }
+
+\score {
+  \new PianoStaff <<
+    \new Staff {
+      \pianoRH
+    }
+    \new Staff {
+      \clef "bass"
+      \pianoLH
+    }
+  >>
+}
+@end lilypond
+
+移調楽器が引用される場合、@c
+その楽器の合図音符が自動的に変換されるよう、@c
+楽器パートでキーを指定しておく必要があります。@c
+以下の例は B-フラットのクラリネットの移調を示しています。@c
+この例では合図音符は譜の下方に配置されるため、@c
+@code{\cueDuring} の中で @code{DOWN} を指定し
+(これにより、符幹が下向きになります)、@c
+楽器名を譜の下に配置しています。@c
+ピアノの右手のボイスを明示的に宣言していることにも注意してください。@c
+これは、この例の合図音符は最初の小節の先頭から始まるため、@c
+明示的に宣言しないとピアノの右手のボイス全体が
+@code{CueVoice} コンテキストの中に配置されてしまうからです。
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+clarinet = \relative c' {
+  \transposition bes
+  fis4 d d c
+}
+\addQuote "clarinet" { \clarinet }
+
+pianoRH = \relative c'' {
+  \transposition c'
+  % 合図音符の楽器名を譜の下に配置します
+  s1*0_\markup { \right-align { \tiny "Clar." } }
+  \cueDuring "clarinet" #DOWN { c4. g8 }
+  g4 bes4
+}
+pianoLH = \relative c { c4 <c' e> e, <g c> }
+
+\score {
+  <<
+    \new PianoStaff <<
+      \new Staff {
+        \new Voice {
+          \pianoRH
+        }
+      }
+      \new Staff {
+        \clef "bass"
+        \pianoLH
+      }
+    >>
+  >>
+}
+@end lilypond
+
+上記の 2 例から、ボーカル譜に多くの合図を挿入することは退屈な作業で、@c
+入力ファイルでピアノ パートの音符が不明瞭になることは明白です。@c
+しかしながら、以下のコード断片で示すように、@c
+タイピングを減らして、ピアノの音符を明瞭にする音楽関数を定義することが可能です。
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{adding-orchestral-cues-to-a-vocal-score.ly}
+
+@seealso
+音楽用語集:
+@rglos{cue-notes}
+
+記譜法リファレンス:
+@ref{オブジェクトを揃える},
+@ref{向きと配置},
+@ref{合図音符をフォーマットする},
+@ref{他のボイスを引用する},
+@ref{音楽関数を使用する}
+
+コード断片集:
+@rlsr{Vocal music}
+
+内部リファレンス:
+@rinternals{InstrumentSwitch},
+@rinternals{CueVoice}
+
+@knownissues
+@code{\cueDuring} は自動的に @code{CueVoice} コンテキストを挿入し、@c
+すべての合図音符がこのコンテキストの中に配置されます。@c
+このことは、この方法では 1 つの合図音符の途中には@c
+他の合図音符を挿入することはできないということを意味します。@c
+これを行うには、@c
+別々の @code{CueVoice} コンテキストを明示的に宣言して、@c
+合図音符の抽出と挿入に @code{\quoteDuring} を用います。
+
+@c 未訳
+@node Spoken music
+@unnumberedsubsubsec Spoken music
+@translationof Spoken music
+
+@cindex parlato
+@cindex Sprechgesang
+
+@q{parlato} や @q{Sprechgesang} などのエフェクトは、@c
+演者にピッチを持たずに、しかしながらリズムを持ちながら話すことを要求します。@c
+これは、@ref{特殊な符頭} で示すように、×の符頭で記譜します。
+
+@c TODO add "marking-notes-on-spoken-parts" snippet -vv
+@c add "showing the rhythm of a melody" snip
+@c add "one staff-line notation"
+@c add "improvisation" ref
+@c add "lyrics independents of notes" ref
+
+@node 音楽の中での会話
+@unnumberedsubsubsec 音楽の中での会話
+@translationof Dialogue over music
+
+通常、音楽の中での会話は譜の上にイタリック体で譜刻され、@c
+各フレーズの開始は特定の音楽イベントに紐付けられます。
+
+短いフレーズであれば、単純なマークアップ接尾辞を用います。
+
+@lilypond[quote,verbatim,relative=2]
+a4^\markup { \smallCaps { Alex - } \italic { He's gone } } a a a
+a4 a a^\markup { \smallCaps { Bethan - } \italic Where? } a
+a4 a a a
+@end lilypond
+
+長いフレーズの場合は、@c
+フレーズをきちんと収められるよう楽譜を拡張する必要があるかもしれません。
+LilyPond はこれを完全に自動的に行う機能を備えておらず、@c
+ページをレイアウトするために何らかの手作業が必要です。
+
+密に詰め込まれた長い会話を持つフレーズやパッセージでは、@c
+Lyrics コンテキストを用いると良い結果を得られます。@c
+この Lryics コンテキストをボイスに関連付けすべきではなく、@c
+代わりに会話の各セクションの演奏時間を明示的に指定します。@c
+会話にずれがある場合、@c
+会話から最後の言葉を分離させて、それぞれに演奏時間を割り当てることで、@c
+下の音楽に対してスムーズに配置されます。
+
+会話が複数行に広がる場合、手動で @code{\break} を挿入して、@c
+右マージンが不足しないよう会話の配置を調節する必要があります。@c
+各行の最終小節に配置される最後の単語も上記と同様に分離させる必要があります。
+
+ここで、これまで述べてきたことを行う例を挙げます:
+
+@c This should be a snippet, but it can't be as it needs to be
+@c manually adjusted to suit the imposed line length.  -td
+
+@lilypond[quote,verbatim,ragged-right]
+music = \relative c'' {
+  \repeat unfold 3 { a4 a a a }
+}
+
+dialogue = \lyricmode {
+  \markup {
+    \fontsize #1 \upright \smallCaps Abe:
+    "Say this over measures one and"
+  }4*7
+  "two"4 |
+  \break
+  "and this over measure"4*3
+  "three"4 |
+}
+
+\score {
+  <<
+    \new Lyrics \with {
+      \override LyricText #'font-shape = #'italic
+      \override LyricText #'self-alignment-X = #LEFT
+    }
+    { \dialogue }
+    \new Staff {
+      \new Voice { \music }
+    }
+  >>
+}
+@end lilypond
+
+@c TODO show use of \column to produce dialogue on two lines
+
+@seealso
+記譜法リファレンス:
+@ref{歌詞音節の手動演奏時間},
+@ref{テキスト}
+
+内部リファレンス:
+@rinternals{LyricText}
+
+
+@node 聖歌と賛美歌
+@subsection 聖歌と賛美歌
+@translationof Chants psalms and hymns
+
+@cindex chants (詠唱)
+@cindex psalms (聖歌)
+@cindex hymns (賛美歌)
+@cindex religious music (宗教音楽)
+
+通常、詠唱、聖歌、それに賛美歌の音楽と言葉は@c
+特定の教会で確立されたフォーマットに従います。@c
+教会毎にフォーマットが異なりますが、@c
+発生する譜刻の問題は概して共通していて、このセクションでカバーします。
+
+@menu
+* 聖歌と賛美歌のためのリファレンス::
+* 聖歌を設定する::
+* 賛美歌を配置する::
+* 賛美歌での部分小節::
+@end menu
+
+@node 聖歌と賛美歌のためのリファレンス
+@unnumberedsubsubsec 聖歌と賛美歌のためのリファレンス
+@translationof References for chants and psalms
+
+グレゴリオ聖歌を様々なスタイルの古代記譜法で譜刻する方法を
+@ref{Ancient notation} で説明しています。
+
+@seealso
+記譜法リファレンス:
+@ref{Ancient notation}
+
+コード断片集:
+@rlsr{Vocal music}
+
+
+@node 聖歌を設定する
+@unnumberedsubsubsec 聖歌を設定する
+@translationof Setting a chant
+
+現代の聖歌のための設定では、@c
+種々の古代記譜法の要素を加えた現代の記譜法を用います。@c
+考慮すべき要素や手法のいくつかを以下で示します。
+
+聖歌ではしばしば、符幹の無い 4 分音符でピッチを示します。@c
+リズムは単語の音声リズムから取ります。
+
+@lilypond[verbatim,quote]
+stemOff = { \override Staff.Stem #'transparent = ##t }
+
+\relative c' {
+  \stemOff
+  a'4 b c2 |
+}
+
+@end lilypond
+
+聖歌ではしばしば小節線を省略したり、@c
+短い小節線や点線の小節線を用いて音楽の一時停止を示したりします。@c
+譜の小節線をすべて省略するには、小節線エングラーバを完全に削除します:
+
+@lilypond[verbatim,quote]
+\score {
+  \new StaffGroup <<
+    \new Staff {
+      \relative c'' {
+        a4 b c2 |
+        a4 b c2 |
+        a4 b c2 |
+      }
+    }
+    \new Staff {
+      \relative c'' {
+        a4 b c2 |
+        a4 b c2 |
+        a4 b c2 |
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove Bar_engraver
+    }
+  }
+}
+@end lilypond
+
+譜毎に小節線を削除することもできます:
+
+@lilypond[verbatim, quote]
+\score {
+  \new ChoirStaff <<
+    \new Staff
+    \with { \remove Bar_engraver } {
+      \relative c'' {
+        a4 b c2 |
+        a4 b c2 |
+        a4 b c2 |
+      }
+    }
+    \new Staff {
+      \relative c'' {
+        a4 b c2 |
+        a4 b c2 |
+        a4 b c2 |
+      }
+    }
+  >>
+}
+@end lilypond
+
+譜の一部の小節線だけを削除するには、@c
+その部分を即興 (カデンツァ) として扱います。@c
+小節線を削除する範囲が長い場合、@c
+改行位置を示すためにダミーの小節線 @code{\bar ""} を挿入する必要が@c
+あるかもしれません。
+
+@lilypond[verbatim,quote,relative=2]
+a4 b c2 |
+\cadenzaOn
+a4 b c2
+a4 b c2
+\bar ""
+a4 b c2
+a4 b c2
+\cadenzaOff
+a4 b c2 |
+a4 b c2 |
+@end lilypond
+
+小節線を変更することによって、聖歌の休止や一時停止を示すことができます。
+
+@lilypond[verbatim, quote,relative=2]
+a4
+\cadenzaOn
+b c2
+a4 b c2
+\bar "'"
+a4 b c2
+a4 b c2
+\bar ":"
+a4 b c2
+\bar "dashed"
+a4 b c2
+\bar "||"
+@end lilypond
+
+現代の記譜法を用いながらも、@c
+休止や一時停止にグレゴリオ聖歌で用いられる記譜法を用いる場合もあります。@c
+これには @code{\breathe} 記号を変更して使います:
+
+@lilypond[verbatim,quote]
+divisioMinima = {
+  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-minima
+  \once \override BreathingSign  #'Y-offset = #0
+  \breathe
+}
+divisioMaior = {
+  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maior
+  \once \override BreathingSign  #'Y-offset = #0
+  \breathe
+}
+divisioMaxima = {
+  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maxima
+  \once \override BreathingSign  #'Y-offset = #0
+  \breathe
+}
+finalis = {
+  \once \override BreathingSign  #'stencil = #ly:breathing-sign::finalis
+  \once \override BreathingSign  #'Y-offset = #0
+  \breathe
+}
+
+\score {
+  \relative c'' {
+    g2 a4 g
+    \divisioMinima
+    g2 a4 g
+    \divisioMaior
+    g2 a4 g
+    \divisioMaxima
+    g2 a4 g
+    \finalis
+  }
+  \layout {
+    \context {
+      \Staff
+      \remove Bar_engraver
+    }
+  }
+}
+@end lilypond
+
+聖歌は通常、拍子記号を省略し、しばしば音部記号も省略します。
+
+@lilypond[verbatim,quote]
+\score {
+  \new Staff {
+    \relative c'' {
+      a4 b c2 |
+      a4 b c2 |
+      a4 b c2 |
+    }
+  }
+  \layout {
+    \context {
+      \Staff
+      \remove Bar_engraver
+      \remove Time_signature_engraver
+      \remove Clef_engraver
+    }
+  }
+}
+@end lilypond
+
+通常、英国教会の伝統的な聖歌は @emph{シングル} -- 7 小節の音楽 -- か、@c
+@emph{ダブル} -- 7 小節の音楽を 2 組 -- のどちらかです。@c
+歌詞の各節が半分に分けられるのに対応して、@c
+7 小節の各グループは半分に分けられ、通常は 2 重小節線で区切られます。@c
+使われる音符は全音符と半音符だけです。@c
+半分に分けられたグループの最初の小節は常に全音符の和音を保持します。@c
+これが @qq{主要音} です。@c
+通常、聖歌はページの中央に配置されます。
+
+@c KEEP LY
+@lilypond[verbatim,quote]
+SopranoMusic = \relative g' {
+  g1 | c2 b | a1 | \bar "||"
+  a1 | d2 c | c b | c1 | \bar "||"
+}
+
+AltoMusic = \relative c' {
+  e1 | g2 g | f1 |
+  f1 | f2 e | d d | e1 |
+}
+
+TenorMusic = \relative a {
+  c1 | c2 c | c1 |
+  d1 | g,2 g | g g | g1 |
+}
+
+BassMusic =  \relative c {
+  c1 | e2 e | f1 |
+  d1 | b2 c | g' g | c,1 |
+}
+
+global = {
+  \time 2/2
+}
+
+% マークアップを使って聖歌をページの中央に配置します
+\markup {
+  \fill-line {
+    \score {  % 中央揃え
+      <<
+        \new ChoirStaff <<
+          \new Staff <<
+            \global
+            \clef "treble"
+            \new Voice = "Soprano" <<
+              \voiceOne
+              \SopranoMusic
+            >>
+            \new Voice = "Alto" <<
+              \voiceTwo
+              \AltoMusic
+            >>
+          >>
+          \new Staff <<
+            \clef "bass"
+            \global
+            \new Voice = "Tenor" <<
+              \voiceOne
+              \TenorMusic
+            >>
+            \new Voice = "Bass" <<
+              \voiceTwo
+              \BassMusic
+            >>
+          >>
+        >>
+      >>
+      \layout {
+        \context {
+          \Score
+          \override SpacingSpanner
+          #'base-shortest-duration = #(ly:make-moment 1 2)
+        }
+        \context {
+          \Staff
+          \remove "Time_signature_engraver"
+        }
+      }
+    }  % score の終わり
+  }
+}  % markup の終わり
+@end lilypond
+
+このような聖歌を設定するための他のアプローチを以下の最初のコード断片で示します。
+
+@snippets
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{chant-or-psalms-notation.ly}
+
+雅歌や他の典礼書の設定はもっと自由度が高く、@c
+古代音楽の記譜要素を使うかもしれません。@c
+しばしば単語を譜の下に音符に揃えて配置します。@c
+そのような場合、音符の間隔を音符の演奏時間ではなく、音節に合わせます。
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+
+@seealso
+学習マニュアル:
+@rlearning{オブジェクトの可視性と色},
+@rlearning{合唱}
+
+記譜法リファレンス:
+@ref{Ancient notation},
+@ref{小節線},
+@ref{コンテキストのプラグインを変更する},
+@ref{Typesetting Gregorian chant},
+@ref{無韻律の音楽},
+@ref{オブジェクトの可視性}
+
+
+@node 賛美歌を配置する
+@unnumberedsubsubsec 賛美歌を配置する
+@translationof Pointing a psalm
+
+通常、英国教会の聖歌の歌詞は曲とは別に楽譜の下の中央に譜刻されます。
+
+シングルの聖歌 (7 小節) は歌詞の節毎に繰り返されます。@c
+ダブルの聖歌 (14 小節) は歌詞の節のペア毎に繰り返されます。@c
+歌詞をどのように聖歌に当てはめるかを示すために記号が挿入されます。@c
+歌詞の各節は 2 つに分割されます。@c
+通常、この分割を示すためにコロンが用いられます。@c
+これは楽譜の 2 重小節線に対応します。@c
+コロンの前にある歌詞は楽譜の最初の 3 小節で歌われ、@c
+コロンの後にある歌詞は次の 4 小節で歌われます。
+
+楽譜の小節線に対応して、歌詞に単線の小節線
+(あるいはカンマを逆さまにしたような記号) が挿入されます。@c
+マークアップ モードでは、@c
+小節線を小節チェック記号 @code{|} で挿入することができます。
+
+@lilypond[verbatim,quote]
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line { O come let us sing | unto the | Lord : let }
+        \line { us heartily rejoice in the | strength of | our }
+        \line { sal- | -vation. }
+      }
+    }
+  }
+}
+@end lilypond
+
+@code{fetaMusic} フォントの図柄を必要とする記号があるかもしれません。@c
+詳細は @ref{Fonts} を参照してください。
+
+@lilypond[verbatim,quote]
+tick = \markup {
+  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+}
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line { O come let us sing \tick unto the \tick Lord : let }
+        \line {
+          us heartily rejoice in the \tick strength of \tick our
+        }
+        \line { sal \tick vation. }
+      }
+    }
+  }
+}
+@end lilypond
+
+1 小節に 1 つの全音符が配置されている場合、@c
+その小節に対応する歌詞は音読のリズムで朗読されます。@c
+1 小節に 2 つの音符が配置されている場合、@c
+普通はそれに対応する歌詞には 1 つまたは 2 つの音節しかありません。@c
+3 以上の音節がある場合、@c
+普通は音符が変わる場所を示すためにドット (中黒) が挿入されます。
+
+@lilypond[verbatim,quote]
+dot = \markup {
+  \raise #0.7 \musicglyph #"dots.dot"
+}
+tick = \markup {
+  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+}
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line {
+          O come let us sing \tick unto \dot the \tick Lord : let
+        }
+        \line {
+          us heartily rejoice in the \tick strength of \tick our
+        }
+        \line { sal \tick vation. }
+      }
+    }
+  }
+}
+@end lilypond
+
+聖歌の中には朗読セクションの終わりを示すために@c
+カンマの代わりにアスタリスクを用いて、@c
+強調したり長く伸ばしたりする音節をボールド体で示すものがあります。@c
+
+@lilypond[verbatim,quote]
+dot = \markup {
+  \raise #0.7 \musicglyph #"dots.dot"
+}
+tick = \markup {
+  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+}
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line { Today if ye will hear his voice * }
+        \line {
+          \concat { \bold hard en }
+          | not your | hearts : as in the pro-
+        }
+        \line { vocation * and as in the \bold day of tempt- | }
+        \line { -ation | in the | wilderness. }
+      }
+    }
+  }
+}
+@end lilypond
+
+また、強調する音節の上にアクセント記号を配置する聖歌もあります。
+
+@lilypond[verbatim,quote]
+tick = \markup {
+  \raise #2 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+}
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line {
+          O come let us \concat {
+            si \combine \tick ng
+          }
+          | unto the | Lord : let
+        }
+        \line {
+          us heartily \concat {
+            rejo \combine \tick ice
+          }
+          in the | strength of | our
+        }
+        \line { sal- | -vation. }
+      }
+    }
+  }
+}
+@end lilypond
+
+マークアップを使用してテキストを中央に配置し、@c
+テキスト行をいくつかの列に配列する方法は、@c
+@ref{テキストをフォーマットする} で説明しています。
+
+これらの要素のほとんどをテンプレートの歌詞で示しています。@c
+@rlearning{合唱} の中の @qq{賛美歌} を参照してください。
+
+@seealso
+学習マニュアル:
+@rlearning{合唱}
+
+記譜法リファレンス:
+@ref{Fonts},
+@ref{テキストをフォーマットする}
+
+
+@node 賛美歌での部分小節
+@unnumberedsubsubsec 賛美歌での部分小節
+@translationof Partial measures in hymn tunes
+
+しばしば、賛美歌は各行の始めと終わりを部分小節として、@c
+楽譜の各行がテキストの各行にうまく対応させます。@c
+これを行うには音楽の始めに @code{\partial} コマンドを配置して、@c
+各行の終わりに @code{\bar "|"} または @code{\bar "||"} を配置する必要が@c
+あります。
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{hymn-template.ly}
+
+
+@node 古代の声楽
+@subsection 古代の声楽
+@translationof Ancient vocal music
+
+古代の声楽がサポートされます。@c
+@ref{Ancient notation} で説明しています。
+
+@c TODO
+
+@c Add "Printing both the ancient and the modern clef in vocal music" snippet,
+@c and "Transcription of Ancient music with incipit" snippet. -vv
+
+@seealso
+記譜法リファレンス:
+@ref{Ancient notation}

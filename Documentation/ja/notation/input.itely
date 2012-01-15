@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: b3e632849e6cc825c77eca4287c619d23e7f5057
+    Translation of GIT committish: 788ce4594c66c5db1bdbb915a684df96d8a29fde
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -442,9 +442,10 @@ book は
         @{ c'4 d' e'2 @}
       @}
     @}
+    \layout @{ @}
   @}
-	\layout @{ @}
-	\header @{ @}
+  \paper @{ @}
+  \header @{ @}
 @}
 @end example
 
@@ -547,7 +548,7 @@ foo = @{ c4 d e d @}
 @menu
 * タイトル、ヘッダ、フッタを作成する::
 * カスタム ヘッダ、フッタ、タイトル::
-* Creating footnotes::
+* 脚注を作成する::
 * ページ番号の参照::
 * 目次::
 @end menu
@@ -555,7 +556,7 @@ foo = @{ c4 d e d @}
 
 @node タイトル、ヘッダ、フッタを作成する
 @subsection タイトル、ヘッダ、フッタを作成する
-@translationof Creating titles, headers, and footers
+@translationof Creating titles headers and footers
 
 @menu
 * タイトル ブロックの説明::
@@ -1061,9 +1062,282 @@ scoreTitleMarkup = \markup @{ \column @{
 @ref{タイトル ブロックの説明},
 @ref{book と score のタイトル ブロックのデフォルト レイアウト}
 
-@node Creating footnotes
-@subsection Creating footnotes
-@untranslated
+
+@node 脚注を作成する
+@subsection 脚注を作成する
+@translationof Creating footnotes
+
+作成できる脚注には 2 つのタイプがあります。@c
+自動脚注と手動脚注です。
+
+@menu
+* 脚注の概要::
+* 自動脚注::
+* 手動脚注::
+@end menu
+
+@node 脚注の概要
+@unnumberedsubsubsec 脚注の概要
+@translationof Footnotes overview
+
+自動脚注は繰り上がっていく数字の脚注を作り出し、@c
+手動脚注は脚注の印をカスタマイズすることができます。@c
+すべてのグラフィカル オブジェクト、最上位の @code{\markup}、@c
+それに和音に脚注を付けることができます。
+
+各グラフィカル オブジェクトに付けられた脚注の順番は、
+そのグラフィカル オブジェクトが描かれる順番によって決定されます。@c
+このため、脚注はコンパイルの最中に作成されます。
+
+
+@node 自動脚注
+@unnumberedsubsubsec 自動脚注
+@translationof Automatic footnotes
+
+自動脚注を作成するために 2 つのコマンドがあります。@c
+個々のグラフィカル オブジェクト
+(例えば、符頭、符幹、スラー、強弱記号、@c
+それに @code{TextScripts} の @code{\markup})
+に脚注を付ける場合は @code{\autoFootnoteGrob} を使用し、@c
+和音に脚注を付ける場合は @code{\autoFootnote} を使用してください。
+
+2 つのコマンドはどちらも 3 つの引数を取ります:
+脚注を付ける @var{レイアウト オブジェクト}、@c
+脚注の位置 @var{(x . y)}、@c
+それにページ下部の脚注に表示される @code{\markup} です。
+
+コマンド @code{\autoFootnoteGrob} は脚注を付けるグラフィカル オブジェクトの
+@emph{前に} 配置する必要があります:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \autoFootnoteGrob #'NoteHead #'(0.5 . -2)
+      \markup { The first note }
+    a'4 b8
+    \autoFootnoteGrob #'NoteHead #'(0.5 . 1)
+      \markup { The third note }
+    e c4 d4
+  }
+}
+@end lilypond
+
+和音に脚注を付ける場合、@c
+@code{\autoFootnote} を脚注を付ける音符の @emph{後に}
+@code{TextScript} として配置する必要があります:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    <
+    c-\autoFootnote #'(1 . -1.25) "Here is a C"
+    es-\autoFootnote #'(2 . -0.25) \markup { \italic "An E-flat" }
+    g-\autoFootnote #'(2 . 3) \markup { \bold "This is a G" }
+    >1
+  }
+}
+@end lilypond
+
+@warning {
+脚注の垂直方向の位置が同じになる場合、下方向に並べられます。@c
+高い位置にある脚注は、リストでも上に来ます。
+}
+
+ここで、グラフィカル オブジェクトに自動脚注を付ける例をいくつか挙げ、@c
+脚注とタグラインやコピーライトとの位置関係を示します。
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { copyright = \markup { "Copyright 1970" } }
+  \relative c' {
+    \autoFootnoteGrob #'DynamicText #'(-3 . 0)
+      \markup { \bold Forte }
+
+    \autoFootnoteGrob #'Slur #'(0 . 1.5)
+      \markup { A slur }
+    a'4\f(
+
+    \autoFootnoteGrob #'Beam #'(0 . -2)
+      \markup { Beam }
+    b8)[ e]
+
+    \autoFootnoteGrob #'Stem #'(1 . -1)
+      \markup  { \teeny { This is a stem } }
+    c4
+
+    \autoFootnoteGrob #'AccidentalCautionary #'(0 . 0.5)
+      \markup \italic { A cautionary accidental }
+
+    \autoFootnoteGrob #'TextScript #'(0.5 . -0.5)
+      \markup \italic { Slow Down }
+    dis?4_"rit."
+  }
+}
+@end lilypond
+
+最上位の @code{\markup} に脚注を付ける場合、@c
+@code{\auto-footnote} コマンドを使う必要があります:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \markup { \auto-footnote "A simple tune" \italic "By me" }
+  \relative c' {
+    a'4 b8 e c4 d
+  }
+}
+@end lilypond
+
+
+@node 手動脚注
+@unnumberedsubsubsec 手動脚注
+@translationof Manual footnotes
+
+@funindex \footnote
+@funindex \footnoteGrob
+@cindex footnotes, manual (手動脚注)
+
+手動脚注を作成するために 2 つのコマンドがあります。@c
+最上位の @code{\markup} と和音にに脚注を付ける場合は
+@code{\footnote} を使用し、@c
+個々のグラフィカル オブジェクト
+(それに @code{TextScripts} の @code{\markup})
+に脚注を付ける場合は @code{\footnoteGrob} を使用てください。
+
+グラフィカル オブジェクトに脚注を付ける場合、@c
+@code{\footnote} コマンドは 4 つの引数を取ります:
+脚注を付ける @var{レイアウト オブジェクト}、@c
+脚注の位置 @var{(x . y)}、@c
+それに 2 つの @code{\markup} コマンドです。@c
+2 つの @code{\markup} コマンドのうち、@c
+最初のコマンドは音符やグラフィカル オブジェクトに付ける脚注の印で、@c
+次のコマンドはページ下部の脚注です。
+
+コマンド @code{\footnoteGrob} を脚注を付けるグラフィカル オブジェクトの
+@emph{後に} @code{TextScript} として配置する必要があります:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    a'4-\footnoteGrob #'NoteHead #'(0.5 . -2)
+          "1" \markup { \italic "1. The first note" }
+    b8
+    e-\footnoteGrob #'NoteHead #'(0.5 . 1)
+          \markup { \bold "2" } "2. The second note"
+    c4
+    d\p-\footnoteGrob #'DynamicText #'(0.5 . -1) "3" "3. Piano"
+  }
+}
+@end lilypond
+
+和音に脚注を付ける場合、@c
+@code{\footnote} を脚注を付ける音符の @emph{後に}
+@code{TextScript} として配置する必要があります:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    <
+    c-\footnote #'(1 . -1.25) "1" "1. C"
+    es-\footnote #'(2 . -0.25)
+       \markup { \bold "b" } "b. E-flat"
+    g-\footnote #'(2 . 3) "3" \markup { \italic "iii. G" }
+    >1
+  }
+}
+@end lilypond
+
+@warning {
+脚注の垂直方向の位置が同じになる場合、下方向に並べられます。@c
+高い位置にある脚注は、リストでも上に来ます。
+}
+
+ここで、グラフィカル オブジェクトに手動脚注を付ける例をいくつか挙げ、@c
+脚注とタグラインやコピーライトとの位置関係を示します。
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \footnoteGrob #'DynamicText #'(-3 . 0)
+      \markup { \teeny 1 }
+      \markup { 1. \bold Forte }
+
+    \footnoteGrob #'Slur #'(0 . 1.5)
+      \markup { \teeny b }
+      \markup { b. A slur }
+    a'4\f(
+
+    \footnoteGrob #'Beam #'(0 . -2)
+      \markup { \teeny 3 }
+      \markup { 3. Beam }
+    b8)[ e]
+
+    \footnoteGrob #'Stem #'(1 . -1)
+      \markup { 4 }
+      \markup  { \bold 4. { This is a stem } }
+    c4
+
+    \footnoteGrob #'AccidentalCautionary #'(0 . 0.5)
+      \markup \concat \teeny { "sharp (v)" }
+      \markup \italic { v. A cautionary accidental }
+
+    \footnoteGrob #'TextScript #'(0.5 . -0.5)
+      \markup \concat \teeny { "a" }
+      \markup \italic { a. Slow Down }
+    dis?4_"rit."
+
+    \breathe
+    \footnoteGrob #'BreathingSign #'(1.5 . -0.25)
+      \markup { \teeny \musicglyph #"rests.4" }
+      \markup { \null }
+  }
+}
+@end lilypond
+
+最上位の @code{\markup} に脚注を付ける場合、下記のようにします:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \markup { "A simple tune" \footnote "*" \italic "* By me" }
+  \relative c' {
+    a'4 b8 e c4 d4
+  }
+}
+@end lilypond
+
+@seealso
+学習マニュアル:
+@rlearning{オブジェクトとインタフェイス}
+
+記譜法リファレンス:
+@ref{バルーン ヘルプ},
+@ref{ページ レウアウト},
+@ref{テキスト マーク},
+@ref{テキスト スクリプト},
+@ref{タイトルとヘッダ}
+
+内部リファレンス:
+@rinternals{FootnoteEvent},
+@rinternals{FootnoteItem},
+@rinternals{FootnoteSpanner},
+@rinternals{Footnote_engraver}
+
+@knownissues
+同じページにある複数の脚注は上下にしか配置できません。@c
+ある脚注が他の脚注の上に配置され、同じ行に配置することはできません。@c
+@code{MultiMeasureRests} に脚注を付けることはできず、@c
+@code{Staff}、@code{\markup} オブジェクト、それに他の @code{footnote} と@c
+衝突する可能性があります。@c
+手動の @code{footnote} コマンドを使う場合、@c
+containing @code{footnote-auto-number = ##f} を保持している
+@code{\paper} ブロックが必要です。
+
 
 @ignore
 @node カスタム タイトル
@@ -1331,7 +1605,7 @@ tocAct =
 @menu
 * LilyPond ファイルをインクルードする::
 * 1 つのソースから異なる版を生成する::
-* Special characters::
+* 特殊文字::
 @end menu
 
 
@@ -1392,7 +1666,7 @@ DOS/Windows ではバックスラッシュ \ を使用します) によって@c
 すべてメイン ファイルを保持しているディレクトリからの相対参照で@c
 指定しなければなりません
 -- インクルード ファイルを保持しているディレクトリからではありません。@c
-しかしながら、この振る舞いは、オプション @code{-drelative-includes} を@c
+しかしながら、この振る舞いは、オプション @option{-drelative-includes} を@c
 コマンド ラインで渡すことによって
 (あるいは、メイン入力ファイルの先頭に
 @code{#(ly:set-option 'relative-includes #t)} を付け加えることによって)
@@ -1471,8 +1745,9 @@ LilyPond が使用するパスとファイルのリストを表示します。@c
 いくつかの方法が用意されています。@c
 長い音楽や注記のセクションをさまざまなやり方で組み合わせる場合には、@c
 おそらく変数が最も役に立つでしょう。@c
-一方、差し替え用の短い音楽セクションの中から 1 つを選択する場合には、@c
-タグが役に立ちます。@c
+差し替え用の短い音楽セクションの中から 1 つを選択する場合にはタグが役に立ち、@c
+楽曲の一部をいろいろな箇所で組み合わせることもできます。
+
 どのような方法をとるにしても、楽譜構造から音楽表記を分離しておくと、@c
 音楽表記に手を触れずに楽譜構造を変更することが簡単に行えます。
 
@@ -1552,9 +1827,12 @@ allLyrics = \lyricmode {King of glo -- ry }
 @funindex \tag
 @funindex \keepWithTag
 @funindex \removeWithTag
+@funindex \pushToTag
+@funindex \appendToTag
 @cindex tag (タグ)
 @cindex keep tagged music (タグの付いた音楽を保持する)
 @cindex remove tagged music (タグの付いた音楽を排除する)
+@cindex splice into tagged music (タグの付いた音楽を組み合わせる)
 
 @code{\tag #'@var{partA}} コマンドは音楽表記に
 @var{partA} という名前を付けます。@c
@@ -1680,6 +1958,30 @@ music = \relative c'' {
 なぜなら、最初のフィルタはあるタグ名以外を持つセクションを排除し、@c
 2 番目のフィルタがそのタグ名を持つセクションを排除するからです。
 
+既存の音楽表記のある特定の場所にいくつか音を組み込みたいことがあります。@c
+@code{\pushToTag} と @code{\appendToTag} を使って、@c
+既存の音楽構造の @code{要素} の前または後に素材を追加することができます。@c
+すべての音楽構造が @code{要素} を持つわけではありませんが、@c
+連続するか同時進行する音楽構造はまず間違いなく @code{要素} を持ちます:
+
+@lilypond[verbatim,quote]
+test = { \tag #'here { \tag #'here <<c''>> } }
+
+{
+  \pushToTag #'here c'
+  \pushToTag #'here e'
+  \pushToTag #'here g' \test
+  \appendToTag #'here c'
+  \appendToTag #'here e'
+  \appendToTag #'here g' \test
+}
+@end lilypond
+
+どちらのコマンドもタグ、組み込む素材、それにタグ付けされた音楽表記を
+取り、タグが出現するたびに素材を組み込みます。@c
+これらのコマンドは変更するものを全てコピーするので、@c
+オリジナルの @code{\test} が元の意味を保持し続けることを保証します。
+
 
 @seealso
 学習マニュアル:
@@ -1701,7 +2003,6 @@ than one tagged section at the same place.
 
 複数のタグ付きセクションからを生成した場合、@c
 同じ場所にある複数の休符はマージされません。
-
 @end ignore
 
 
@@ -1734,27 +2035,25 @@ lilypond -dinclude-settings=MY_SETTINGS.ly MY_SCORE.ly
 @ref{LilyPond ファイルをインクルードする}
 
 
-@node Special characters
-@subsection Special characters
-@untranslated
+@node 特殊文字
+@subsection 特殊文字
+@translationof Special characters
 
-@cindex special characters
-@cindex non-ASCII characters
+@cindex special characters (特殊文字)
+@cindex non-ASCII characters (非 ASCII 文字)
 
 @menu
 * テキスト エンコーディング::
 * Unicode::
-* ASCII aliases::
+* ASCII エイリアス::
 @end menu
 
 
 @node テキスト エンコーディング
-@subsection テキスト エンコーディング
+@unnumberedsubsubsec テキスト エンコーディング
 @translationof Text encoding
 
-@cindex Unicode
 @cindex UTF-8
-@cindex non-ASCII characters (非 ASCII 文字)
 
 LilyPond は Unicode 協会と ISO/IEC 10646 によって定義された@c
 文字レパートリを使用します。@c
@@ -1824,6 +2123,13 @@ portuguese = \lyricmode {
 \addlyrics { \portuguese }
 @end lilypond
 
+
+@node Unicode
+@unnumberedsubsubsec Unicode
+@translationof Unicode
+
+@cindex Unicode (ユニコード)
+
 単一の文字 -- その文字に対する Unicode コード ポイントを知っているが、@c
 使用しているエディタではその文字を使用できない -- を入力するには、@c
 @code{\markup} ブロック内部で @code{\char ##xhhhh} あるいは
@@ -1878,15 +2184,61 @@ Unicode U+03BE の文字を入力します
 @end example
 
 
-@node Unicode
-@unnumberedsubsubsec Unicode
-@untranslated
+@node ASCII エイリアス
+@unnumberedsubsubsec ASCII エイリアス
+@translationof ASCII aliases
 
-@cindex Unicode
+特殊文字の ASCII エイリアスのリストを含めることができます:
 
-@node ASCII aliases
-@unnumberedsubsubsec ASCII aliases
-@untranslated
+@c KEEP LY
+@lilypond[quote,verbatim]
+\paper {
+  #(include-special-characters)
+}
+
+\markup "&flqq; &ndash; &OE;uvre incomplète&hellip; &frqq;"
+
+\score {
+  \new Staff { \repeat unfold 9 a'4 }
+  \addlyrics {
+    This is al -- so wor -- kin'~in ly -- rics: &ndash;_&OE;&hellip;
+  }
+}
+
+\markup \column {
+  "特殊文字への置換を無効にすることができます:"
+  "&ndash; &OE; &hellip;"
+  \override #'(replacement-alist . ()) "&ndash; &OE; &hellip;"
+}
+@end lilypond
+
+また、エイリアスを作ることもできます。@c
+グローバルに作るか:
+
+@lilypond[quote,verbatim]
+\paper {
+  #(add-text-replacements!
+    '(("100" . "hundred")
+      ("dpi" . "dots per inch")))
+}
+\markup "A 100 dpi."
+@end lilypond
+
+ローカルで作ります:
+
+@lilypond[quote,verbatim]
+\markup \replace #'(("100" . "hundred")
+                    ("dpi" . "dots per inch")) "A 100 dpi."
+@end lilypond
+
+@seealso
+記譜法リファレンス:
+@ref{List of special characters}
+
+インストールされているファイル:
+@file{ly/text-replacements.ly}
+
+
 
 @node 出力を制御する
 @section 出力を制御する
@@ -1929,7 +2281,7 @@ Unicode U+03BE の文字を入力します
 更に多くの切り抜き範囲を定義することができます。
 
 この機能を使用するには、@c
-LilyPond を @code{-dclip-systems} を付けて呼び出す必要があります。@c
+LilyPond を @option{-dclip-systems} を付けて呼び出す必要があります。@c
 切り抜きは EPS ファイルとして出力され、@c
 更にフォーマットが指定されている場合には PDF や PNG に変換されます。
 
@@ -2028,9 +2380,9 @@ ZIP ファイルをダウンロードして、伸張します。@c
 @code{lilyfonts} ディレクトリを @file{@var{SHARE_DIR}/lilypond/current} に@c
 コピーします
 -- 更なる情報は、@rlearning{その他の情報源} を参照してください。@c
-既存の @code{fonts} ディレクトリを @code{fonts_orig} に変更して、@c
-@code{lilyfonts} ディレクトリを @code{fonts} に変更します。@c
-Feta フォントに戻すには、@code{fonts_orig} を @code{fonts} に変更します。
+既存の @code{fonts} ディレクトリを @code{fonts_orig} にリネームして、@c
+@code{lilyfonts} ディレクトリを @code{fonts} にリネームします。@c
+Feta フォントに戻すには、@code{fonts_orig} を @code{fonts} に戻します。
 
 @seealso
 学習マニュアル: @rlearning{その他の情報源}
@@ -2038,6 +2390,8 @@ Feta フォントに戻すには、@code{fonts_orig} を @code{fonts} に変更�
 @knownissues
 
 Gonville では @q{古代の音楽} を記譜することはできません。@c
+Gonville フォント ファミリーでは、@c
+これからリリースされる LilyPond の新しい図柄は提供されないかもしれません。@c
 ライセンス条件等を含む Gonville の更なる情報は、@c
 製作者の Web サイトを参照してください。
 
@@ -2064,12 +2418,10 @@ MIDI 出力を聴いたときに際立ちます。
 オプションで @ref{奏法スクリプト} を用いることにより、@c
 強化されたリアルな MIDI 出力を得ることができます。
 
-@c TODO Check this
-MIDI 出力はそれぞれの譜とグローバル設定に対して 1 つずつチャンネルを@c
-割り当てます。@c
-そのため、MIDI ファイルに持たせる譜の数は 15 まで
-(ドラムを使用しない場合は 14 まで) にするべきです。@c
-それを越えた譜は演奏されません。
+MIDI 出力は譜毎に 1 つのチャンネルを割り当て、@c
+ドラムのためにチャンネル 10 を予約します。@c
+デバイス 1 つにつき MIDI チャンネルは 16 しかないため、@c
+楽譜が 16 以上の譜を保持している場合、MIDI チャンネルは再利用されます。
 
 @menu
 * MIDI ファイルを作り出す::
@@ -2777,9 +3129,9 @@ LilyPond は音楽情報をテキストとして表示することができま�
 
 @funindex \displayLilyMusic
 
-音楽関数 @code{\displayLilyMusic} でLilyPond 記譜法で書かれた音楽表記を@c
-表示することが可能ですが、@c
-コマンド ラインを使っている場合にのみ可能です。@c
+LilyPond 記譜法で書かれた音楽表記を@c
+音楽関数 @code{\displayLilyMusic} で表示することが可能です。@c
+出力を見るには、通常、コマンド ラインで LilyPond を実行します。@c
 例えば、
 
 @example
@@ -2801,6 +3153,22 @@ LilyPond は音楽情報をテキストとして表示することができま�
 
 @example
 lilypond file.ly >display.txt
+@end example
+
+@funindex \void
+
+LilyPond は音楽表記を表示するだけでなく、それを解釈します
+(なぜなら、@code{\displayLilyMusic} は追加で音楽表記を表示するために@c
+返すだけだからです)。@c
+既存の音楽に @code{\displayLilyMusic} を挿入するだけで@c
+その音楽の情報を得るられるので便利です。@c
+本当に LilyPond に音楽を解釈させたくないのであれば、@c
+@code{\void} を使ってその音楽を無視させます:
+
+@example
+@{
+  \void \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
+@}
 @end example
 
 
