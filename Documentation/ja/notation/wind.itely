@@ -78,7 +78,7 @@
 頻繁に変更する場合は、@c
 @code{stopped} アーティキュレーションと @code{open} アーティキュレーションを@c
 使う方が良いでしょう。@c
-@ref{アーティキュレーションと装飾} と @ref{List of articulation} を@c
+@ref{アーティキュレーションと装飾} と @ref{List of articulations} を@c
 参照してください。
 @item ホルンのストップット (閉塞音) は @code{stopped} アーティキュレーションで@c
 示します。@c
