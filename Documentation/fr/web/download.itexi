@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: ca62336a8f9ccb00fe4d81bcb8c88ad40ef9e2ae
+    Translation of GIT committish: dd13d5c1a769cb35dd0bec930c4000a7b6e82bcc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -309,11 +309,15 @@ protégés par le droit d’auteur.
 Pour MacOS X 10.4 ou supérieur tournant sur un processeur Intel (dans le
 doute, prenez celui-ci).
 
+MacOS C 10.7 lion n'est à ce jour pas supporté.
+
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
 Pour MacOS X 10.4 ou supérieur tournant sur un processeur G3 ou G4
 (anciens ordinateurs Apple).
+
+MacOS C 10.7 lion n'est à ce jour pas supporté.
 
 @end itemize
 
