@@ -436,12 +436,13 @@ EOF
 	    done
 	done
 
-	
+	rm -f GNUmakefile
 	cat <<EOF > GNUmakefile
 depth = .
 include config\$(if \$(conf),-\$(conf),).make
 include \$(configure-srcdir)/GNUmakefile.in
 EOF
+	chmod 444 GNUmakefile
 	AC_SUBST(VPATH)
     fi
 ])

@@ -14,9 +14,11 @@ error = ly.error
 # Helper functions
 ########################################################################
 
-def find_file (name, include_path, raise_error=True):
-    for i in include_path:
+def find_file (name, include_path, working_dir=None, raise_error=True):
+    current_path = working_dir or os.getcwd();
+    for i in [current_path] + include_path:
         full = os.path.join (i, name)
+        full = os.path.normpath (os.path.join (current_path, full))
         if os.path.exists (full):
             return full
 
@@ -149,7 +151,8 @@ class BookOutputFormat:
         return []
 
     def input_fullname (self, input_filename):
-        return find_file (input_filename, self.global_options.include_path)
+        return find_file (input_filename, self.global_options.include_path,
+            self.global_options.original_dir)
 
     def adjust_snippet_command (self, cmd):
         return cmd

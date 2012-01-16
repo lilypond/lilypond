@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.17"
+@c \version "2.15.25"
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
 
@@ -1139,15 +1139,15 @@ appels et comment les annotations seront créées lors de la compilation.
 @cindex note de bas de page automatique
 @cindex bas de page, note automatique
 
-@funindex \autoFootnote
-@funindex \autoFootnoteGrob
+@funindex \footnote
+@funindex \footnoteGrob
 @funindex \auto-footnote
 
 LilyPond dispose, selon l'objet à référencer, de deux différentes
 commandes pour créer des notes de bas de page automatiques.  La commande
-@code{\autoFootnoteGrob} s'applique aux objets individuels, tels que
+@code{\footnoteGrob} s'applique aux objets individuels, tels que
 tête de note, hampe, liaison, nuance ou @code{\markup} contenant un
-@code{TextScripts}.  La commande @code{\autoFootnote}, quant à elle,
+@code{TextScripts}.  La commande @code{\footnote}, quant à elle,
 permet de référencer l'une des notes d'un accord.
 
 Ces deux commandes requièrent trois arguments@tie{}: l'@var{Objet de
@@ -1155,7 +1155,7 @@ Rendu} devant être annoté, la position @var{(x@tie{}.@tie{}y)} de
 l'appel de note, et enfin un @code{\markup} contenant l'annotation qui
 apparaîtra en bas de la page.
 
-La commande @code{\autoFootnoteGrob} doit être mentionnée @strong{avant}
+La commande @code{\footnoteGrob} doit être mentionnée @strong{avant}
 l'objet auquel la note est attachée.
 
 @c KEEP LY
@@ -1163,10 +1163,10 @@ l'objet auquel la note est attachée.
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \autoFootnoteGrob #'NoteHead #'(0.5 . -2)
+    \footnote #'(0.5 . -2) #'NoteHead
       \markup { La première note }
     a'4 b8
-    \autoFootnoteGrob #'NoteHead #'(0.5 . 1)
+    \footnote #'(0.5 . 1) #'NoteHead
       \markup { La troisième note }
     e c4 d4
   }
@@ -1174,7 +1174,7 @@ l'objet auquel la note est attachée.
 @end lilypond
 
 Lorsqu'il s'agit de notes inscrites dans un accord, la commande
-@code{\autoFootnote} doit être mentionnée @strong{après} la note à
+@code{\footnote} doit être mentionnée @strong{après} la note à
 laquelle le @code{TextScript} fait référence.
 
 @c KEEP LY
@@ -1183,9 +1183,9 @@ laquelle le @code{TextScript} fait référence.
   \header { tagline = ##f }
   \relative c' {
     <
-    c-\autoFootnote #'(1 . -1.25) "Voici un do"
-    es-\autoFootnote #'(2 . -0.25) \markup { \italic "Un mi bémol" }
-    g-\autoFootnote #'(2 . 3) \markup { \bold "Ceci est un sol" }
+    c-\footnote #'(1 . -1.25) "Voici un do"
+    es-\footnote #'(2 . -0.25) \markup { \italic "Un mi bémol" }
+    g-\footnote #'(2 . 3) \markup { \bold "Ceci est un sol" }
     >1
   }
 }
@@ -1204,25 +1204,25 @@ et le pied de page.
 \book {
   \header { copyright = \markup { "Copyright 1970" } }
   \relative c' {
-    \autoFootnoteGrob #'DynamicText #'(-3 . 0)
+    \footnote #'(-3 . 0) #'DynamicText
       \markup { \bold Forte }
 
-    \autoFootnoteGrob #'Slur #'(0 . 1.5)
+    \footnote #'(0 . 1.5) #'Slur
       \markup { A slur }
     a'4\f(
 
-    \autoFootnoteGrob #'Beam #'(0 . -2)
+    \footnote #'(0 . -2) #'Beam
       \markup { Beam }
     b8)[ e]
 
-    \autoFootnoteGrob #'Stem #'(1 . -1)
+    \footnote #'(1 . -1) #'Stem
       \markup  { \teeny { This is a stem } }
     c4
 
-    \autoFootnoteGrob #'AccidentalCautionary #'(0 . 0.5)
+    \footnote #'(0 . 0.5) #'AccidentalCautionary
       \markup \italic { A cautionary accidental }
 
-    \autoFootnoteGrob #'TextScript #'(0.5 . -0.5)
+    \footnote #'(0.5 . -0.5) #'TextScript
       \markup \italic { Slow Down }
     dis?4_"rit."
   }
@@ -1274,13 +1274,13 @@ articulation.
 \book {
   \header { tagline = ##f }
   \relative c' {
-    a'4-\footnoteGrob #'NoteHead #'(0.5 . -2)
-          "1" \markup { \italic "1. The first note" }
+    a'4-\footnote
+          "1" #'(0.5 . -2) #'NoteHead \markup { \italic "1. The first note" }
     b8
-    e-\footnoteGrob #'NoteHead #'(0.5 . 1)
-          \markup { \bold "2" } "2. The second note"
+    e-\footnote
+          \markup { \bold "2" } #'(0.5 . 1) #'NoteHead "2. The second note"
     c4
-    d\p-\footnoteGrob #'DynamicText #'(0.5 . -1) "3" "3. Piano"
+    d\p-\footnote "3" #'(0.5 . -1) #'DynamicText "3. Piano"
   }
 }
 @end lilypond
@@ -1294,10 +1294,10 @@ l'annotation fait référence, comme s'il s'agissait d'une articulation.
   \header { tagline = ##f }
   \relative c' {
     <
-    c-\footnote #'(1 . -1.25) "1" "1. C"
-    es-\footnote #'(2 . -0.25)
-       \markup { \bold "b" } "b. E-flat"
-    g-\footnote #'(2 . 3) "3" \markup { \italic "iii. G" }
+    c-\footnote "1" #'(1 . -1.25) "1. C"
+    es-\footnote
+       \markup { \bold "b" } #'(2 . -0.25) "b. E-flat"
+    g-\footnote "3" #'(2 . 3) \markup { \italic "iii. G" }
     >1
   }
 }
@@ -1316,37 +1316,37 @@ et le pied de page.
 \book {
   \header { copyright = \markup { "Copyright 1970" } }
   \relative c' {
-    \footnoteGrob #'DynamicText #'(-3 . 0)
-      \markup { \teeny 1 }
+    \footnote
+      \markup { \teeny 1 } #'(-3 . 0) #'DynamicText
       \markup { 1. \bold Forte }
 
-    \footnoteGrob #'Slur #'(0 . 1.5)
-      \markup { \teeny b }
+    \footnote
+      \markup { \teeny b } #'(0 . 1.5) #'Slur
       \markup { b. A slur }
     a'4\f(
 
-    \footnoteGrob #'Beam #'(0 . -2)
-      \markup { \teeny 3 }
+    \footnote
+      \markup { \teeny 3 } #'(0 . -2) #'Beam
       \markup { 3. Beam }
     b8)[ e]
 
-    \footnoteGrob #'Stem #'(1 . -1)
-      \markup { 4 }
+    \footnote
+      \markup { 4 } #'(1 . -1) #'Stem
       \markup  { \bold 4. { This is a stem } }
     c4
 
-    \footnoteGrob #'AccidentalCautionary #'(0 . 0.5)
-      \markup \concat \teeny { "sharp (v)" }
+    \footnote
+      \markup \concat \teeny { "sharp (v)" } #'(0 . 0.5) #'AccidentalCautionary
       \markup \italic { v. A cautionary accidental }
 
-    \footnoteGrob #'TextScript #'(0.5 . -0.5)
-      \markup \concat \teeny { "a" }
+    \footnote
+      \markup \concat \teeny { "a" } #'(0.5 . -0.5) #'TextScript
       \markup \italic { a. Slow Down }
     dis?4_"rit."
 
     \breathe
-    \footnoteGrob #'BreathingSign #'(1.5 . -0.25)
-      \markup { \teeny \musicglyph #"rests.4" }
+    \footnote
+      \markup { \teeny \musicglyph #"rests.4" } #'(1.5 . -0.25) #'BreathingSign
       \markup { \null }
   }
 }

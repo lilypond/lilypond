@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.17"
+@c \version "2.15.25"
 
 @node Entrada y salida generales
 @chapter Entrada y salida generales
@@ -1090,10 +1090,10 @@ los indicadores (y por tanto las notas al pie) durante la compilación.
 @translationof Automatic footnotes
 
 De las dos instrucciones utilizadas para crear notas al pie
-automáticas, utilice @code{\autoFootnoteGrob} para los grobs
+automáticas, utilice @code{\footnoteGrob} para los grobs
 individuales (es decir: la cabeza de las notas, plicas, ligaduras de
 expresión, matices dinámicos y elementos de @code{\markup} si se
-utilizan @code{TextScripts}); y @code{\autoFootnote} para anotar las
+utilizan @code{TextScripts}); y @code{\footnote} para anotar las
 notas de un acorde.
 
 Las dos instrucciones aceptan tres argumentos; el @var{Objeto de
@@ -1101,17 +1101,17 @@ presentación} que anotar, la posición @var{(x . y)} del indicador y un
 elemento de @code{\markup} que aparecerá en la nota, en la parte
 inferior de la página.
 
-La instrucción @code{\autoFootnoteGrob} debe ir @emph{antes} del grob
+La instrucción @code{\footnoteGrob} debe ir @emph{antes} del grob
 al que se adjunta la nota al pie:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \autoFootnoteGrob #'NoteHead #'(0.5 . -2)
+    \footnote #'(0.5 . -2) #'NoteHead
       \markup { The first note }
     a'4 b8
-    \autoFootnoteGrob #'NoteHead #'(0.5 . 1)
+    \footnote #'(0.5 . 1) #'NoteHead
       \markup { The third note }
     e c4 d4
   }
@@ -1119,7 +1119,7 @@ al que se adjunta la nota al pie:
 @end lilypond
 
 Para anotar las notas de un acorde, la instrucción
-@code{\autoFootnote} debe ir @emph{después} de la nota a la que se
+@code{\footnote} debe ir @emph{después} de la nota a la que se
 quiere adjuntar la nota al pie como un @code{TextScript}:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
@@ -1127,9 +1127,9 @@ quiere adjuntar la nota al pie como un @code{TextScript}:
   \header { tagline = ##f }
   \relative c' {
     <
-    c-\autoFootnote #'(1 . -1.25) "Here is a C"
-    es-\autoFootnote #'(2 . -0.25) \markup { \italic "An E-flat" }
-    g-\autoFootnote #'(2 . 3) \markup { \bold "This is a G" }
+    c-\footnote #'(1 . -1.25) "Here is a C"
+    es-\footnote #'(2 . -0.25) \markup { \italic "An E-flat" }
+    g-\footnote #'(2 . 3) \markup { \bold "This is a G" }
     >1
   }
 }
@@ -1147,25 +1147,25 @@ línea informativa y la línea de copyright.
 \book {
   \header { copyright = \markup { "Copyright 1970" } }
   \relative c' {
-    \autoFootnoteGrob #'DynamicText #'(-3 . 0)
+    \footnote #'(-3 . 0) #'DynamicText
       \markup { \bold Forte }
 
-    \autoFootnoteGrob #'Slur #'(0 . 1.5)
+    \footnote #'(0 . 1.5) #'Slur
       \markup { A slur }
     a'4\f(
 
-    \autoFootnoteGrob #'Beam #'(0 . -2)
+    \footnote #'(0 . -2) #'Beam
       \markup { Beam }
     b8)[ e]
 
-    \autoFootnoteGrob #'Stem #'(1 . -1)
+    \footnote #'(1 . -1) #'Stem
       \markup  { \teeny { This is a stem } }
     c4
 
-    \autoFootnoteGrob #'AccidentalCautionary #'(0 . 0.5)
+    \footnote #'(0 . 0.5) #'AccidentalCautionary
       \markup \italic { A cautionary accidental }
 
-    \autoFootnoteGrob #'TextScript #'(0.5 . -0.5)
+    \footnote #'(0.5 . -0.5) #'TextScript
       \markup \italic { Slow Down }
     dis?4_"rit."
   }
@@ -1213,13 +1213,13 @@ que la nota al pie está anotando y adjuntada como un
 \book {
   \header { tagline = ##f }
   \relative c' {
-    a'4-\footnoteGrob #'NoteHead #'(0.5 . -2)
-          "1" \markup { \italic "1. The first note" }
+    a'4-\footnote
+          "1" #'(0.5 . -2) #'NoteHead \markup { \italic "1. The first note" }
     b8
-    e-\footnoteGrob #'NoteHead #'(0.5 . 1)
-          \markup { \bold "2" } "2. The second note"
+    e-\footnote
+          \markup { \bold "2" } #'(0.5 . 1) #'NoteHead "2. The second note"
     c4
-    d\p-\footnoteGrob #'DynamicText #'(0.5 . -1) "3" "3. Piano"
+    d\p-\footnote "3" #'(0.5 . -1) #'DynamicText "3. Piano"
   }
 }
 @end lilypond
@@ -1233,10 +1233,10 @@ adjuntarse como un @code{TextScript}:
   \header { tagline = ##f }
   \relative c' {
     <
-    c-\footnote #'(1 . -1.25) "1" "1. C"
-    es-\footnote #'(2 . -0.25)
-       \markup { \bold "b" } "b. E-flat"
-    g-\footnote #'(2 . 3) "3" \markup { \italic "iii. G" }
+    c-\footnote "1" #'(1 . -1.25) "1. C"
+    es-\footnote
+       \markup { \bold "b" } #'(2 . -0.25) "b. E-flat"
+    g-\footnote "3" #'(2 . 3) \markup { \italic "iii. G" }
     >1
   }
 }
@@ -1254,37 +1254,37 @@ informativa a la de copyright:
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \footnoteGrob #'DynamicText #'(-3 . 0)
-      \markup { \teeny 1 }
+    \footnote
+      \markup { \teeny 1 } #'(-3 . 0) #'DynamicText
       \markup { 1. \bold Forte }
 
-    \footnoteGrob #'Slur #'(0 . 1.5)
-      \markup { \teeny b }
+    \footnote
+      \markup { \teeny b } #'(0 . 1.5) #'Slur
       \markup { b. A slur }
     a'4\f(
 
-    \footnoteGrob #'Beam #'(0 . -2)
-      \markup { \teeny 3 }
+    \footnote
+      \markup { \teeny 3 } #'(0 . -2) #'Beam
       \markup { 3. Beam }
     b8)[ e]
 
-    \footnoteGrob #'Stem #'(1 . -1)
-      \markup { 4 }
+    \footnote
+      \markup { 4 } #'(1 . -1) #'Stem
       \markup  { \bold 4. { This is a stem } }
     c4
 
-    \footnoteGrob #'AccidentalCautionary #'(0 . 0.5)
-      \markup \concat \teeny { "sharp (v)" }
+    \footnote
+      \markup \concat \teeny { "sharp (v)" } #'(0 . 0.5) #'AccidentalCautionary
       \markup \italic { v. A cautionary accidental }
 
-    \footnoteGrob #'TextScript #'(0.5 . -0.5)
-      \markup \concat \teeny { "a" }
+    \footnote
+      \markup \concat \teeny { "a" } #'(0.5 . -0.5) #'TextScript
       \markup \italic { a. Slow Down }
     dis?4_"rit."
 
     \breathe
-    \footnoteGrob #'BreathingSign #'(1.5 . -0.25)
-      \markup { \teeny \musicglyph #"rests.4" }
+    \footnote
+      \markup { \teeny \musicglyph #"rests.4" } #'(1.5 . -0.25) #'BreathingSign
       \markup { \null }
   }
 }
