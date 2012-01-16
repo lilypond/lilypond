@@ -1040,18 +1040,13 @@ indicator and so footnotes are created during compilation.
 @node Automatic footnotes
 @unnumberedsubsubsec Automatic footnotes
 
-Of the two commands used to create automatic footnotes, use
-@code{\footnoteGrob} for individual grobs (i.e. note heads, stems,
-slurs, dynamics and @code{\markup} when using @code{TextScripts});
-and @code{\footnote} for annotating chorded notes.
-
-Both commands take three arguments; the @var{Layout Object} to be
+Automatic footnotes take three arguments; the @var{Layout Object} to be
 annotated, the @var{(x . y)} position of the indicator and a
 @code{\markup} that will appear in the footnote at the bottom of the
 page.
 
-The command @code{\footnoteGrob} must come @emph{before} the grob
-that the footnote is being attached to:
+The command @code{\footnote} must come @emph{before} the grob that the
+footnote is being attached to:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -1067,9 +1062,8 @@ that the footnote is being attached to:
 }
 @end lilypond
 
-To annotate chorded notes, the @code{\footnote} must come
-@emph{after} the note to which the footnote is being attached as a
-@code{TextScript}:
+To annotate chorded notes, the @code{\footnote} must come @emph{after}
+he note to which the footnote is being attached as a @code{TextScript}:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -1088,8 +1082,8 @@ To annotate chorded notes, the @code{\footnote} must come
 are printed in order of descendancy; the higher the footnote, the
 higher up in the list.}
 
-Here are some examples of automatically footnoted grobs, also showing
-the relative position of the footnotes to the tagline and copyright.
+Here are some more examples of footnoted grobs, also showing the
+relative position of the footnotes to the tagline and copyright.
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -1137,22 +1131,16 @@ required:
 @node Manual footnotes
 @unnumberedsubsubsec Manual footnotes
 
-@funindex \footnote
-@funindex \footnoteGrob
 @cindex footnotes, manual
 
-There are two commands used to create manual footnotes; @code{\footnote}
-for top-level @code{\markup} and chorded notes; and @code{\footnoteGrob}
-for individual grobs (and @code{\markup} when using @code{TextScripts}).
+Manual footnotes takes four arguments; the @var{Layout Object} to be
+annotated, the @var{(x . y)} position of the indicator and two
+@code{\markup} commands; the first is the indicator attached to the note
+or grob and the second is the footnote at the bottom of the page.
 
-When annotating grobs, the @code{\footnote} command takes four
-arguments; the @var{Layout Object} to be annotated, the @var{(x . y)}
-position of the indicator and two @code{\markup} commands; the first is
-the indicator attached to the note or grob and the second is the
-footnote at the bottom of the page.
-
-The command @code{\footnoteGrob} must come @emph{after} the grob that
-the footnote is annotating and attached as a @code{TextScript}:
+Like automatic footnotes, manual @code{\footnote} commands must come
+@emph{after} the grob that the footnote is annotating and attached as a
+@code{TextScript}:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -1169,9 +1157,7 @@ the footnote is annotating and attached as a @code{TextScript}:
 }
 @end lilypond
 
-To annotate chorded notes, the @code{\footnote} must come @emph{after}
-the note that the footnote is annotating and attached as a
-@code{TextScript}:
+To annotate chorded notes with manual footnotes:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -1218,7 +1204,8 @@ the relative position of the footnotes to the tagline and copyright
     c4
 
     \footnote
-      \markup \concat \teeny { "sharp (v)" } #'(0 . 0.5) #'AccidentalCautionary
+      \markup \concat \teeny { "sharp (v)" }
+          #'(0 . 0.5) #'AccidentalCautionary
       \markup \italic { v. A cautionary accidental }
 
     \footnote
@@ -1228,7 +1215,8 @@ the relative position of the footnotes to the tagline and copyright
 
     \breathe
     \footnote
-      \markup { \teeny \musicglyph #"rests.4" } #'(1.5 . -0.25) #'BreathingSign
+      \markup { \teeny \musicglyph #"rests.4" }
+          #'(1.5 . -0.25) #'BreathingSign
       \markup { \null }
   }
 }
