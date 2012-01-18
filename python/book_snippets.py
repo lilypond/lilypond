@@ -329,6 +329,8 @@ class IncludeSnippet (Snippet):
 class LilypondSnippet (Snippet):
     def __init__ (self, type, match, formatter, line_number, global_options):
         Snippet.__init__ (self, type, match, formatter, line_number, global_options)
+        self.filename = ''
+        self.ext = '.ly'
         os = match.group ('options')
         self.parse_snippet_options (os, self.type)
 
@@ -651,7 +653,10 @@ printing diff against existing file." % filename)
     def additional_files_to_consider (self, base, full):
         return []
     def additional_files_required (self, base, full):
-        return []
+        result = [];
+        if self.ext != '.ly':
+            result.append (base + self.ext)
+        return result
 
 
     def all_output_files (self, output_dir, output_dir_files):
@@ -803,7 +808,6 @@ class LilypondFileSnippet (LilypondSnippet):
     def __init__ (self, type, match, formatter, line_number, global_options):
         LilypondSnippet.__init__ (self, type, match, formatter, line_number, global_options)
         self.filename = self.substring ('filename')
-        self.ext = os.path.splitext (os.path.basename (self.filename))[1]
         self.contents = file (BookBase.find_file (self.filename,
             global_options.include_path, global_options.original_dir)).read ()
 
@@ -838,6 +842,7 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
         LilypondFileSnippet.__init__ (self, type, match, formatter, line_number, global_options)
         self.compressed = False
         self.converted_ly = None
+        self.ext = os.path.splitext (os.path.basename (self.filename))[1]
         self.musicxml_options_dict = {
 	    'verbose': '--verbose',
 	    'lxml': '--lxml',
@@ -880,14 +885,6 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
         name = self.filename
         return ('\\sourcefilename \"%s\"\n\\sourcefileline 0\n%s'
                 % (name, self.converted_ly))
-
-    def additional_files_required (self, base, full):
-        result = [];
-        if self.compressed:
-            result.append (base + '.mxl')
-        else:
-            result.append (base + '.xml')
-        return result
 
     def write_ly (self):
         base = self.basename ()
