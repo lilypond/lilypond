@@ -2189,6 +2189,11 @@ The default beaming rules can be found in
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {subdividing-beams.ly}
 
+@cindex beamlets, orienting
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{strict-beat-beaming.ly}
+
 @cindex measure groupings
 @cindex beats, grouping
 @cindex grouping beats

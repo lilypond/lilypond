@@ -476,6 +476,8 @@ verse.  Use in @code{Lyrics} context.")
 on the left side of the next note.  Overrides automatic beaming.  The
 value is only used once, and then it is erased.")
      (stemRightBeamCount ,integer? "See @code{stemLeftBeamCount}.")
+     (strictBeatBeaming ,boolean? "Should partial beams reflect the
+beat structure even if it causes flags to hang out?")
      (stringNumberOrientations ,list? "See
 @code{fingeringOrientations}.")
      (stringOneTopmost ,boolean? "Whether the first string is
