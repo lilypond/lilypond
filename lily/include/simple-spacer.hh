@@ -30,8 +30,6 @@ class Simple_spacer
 public:
   Simple_spacer ();
 
-  bool minimal_;
-
   void solve (Real line_len, bool ragged);
   void add_rod (int l, int r, Real dist);
   void add_spring (Spring const &);
@@ -42,14 +40,12 @@ public:
 
   void set_force (Real force);
   Real force () const;
-  Real line_len () const;
   Real force_penalty (bool ragged) const;
   bool fits () const;
 
   DECLARE_SIMPLE_SMOBS (Simple_spacer);
 
 private:
-
   Real expand_line ();
   Real compress_line ();
   Real rod_force (int l, int r, Real dist);
@@ -60,6 +56,12 @@ private:
   bool ragged_;
   bool fits_;
 };
+
+/* returns a vector of dimensions breaks.size () * breaks.size () */
+vector<Real> get_line_forces (vector<Grob *> const &columns,
+                              Real line_len,
+                              Real indent,
+                              bool ragged);
 
 Column_x_positions get_line_configuration (vector<Grob *> const &columns,
                                            Real line_len,
