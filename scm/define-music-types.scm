@@ -331,6 +331,7 @@ Note the explicit font switch.")
 
     (NoteEvent
      . ((description . "A note.")
+	(iterator-ctor . ,ly:rhythmic-music-iterator::constructor)
 	(types . (general-music event note-event rhythmic-event
 		  melodic-event))
 	))
@@ -483,6 +484,7 @@ Syntax: @code{\\unset @var{context}.@var{prop}}")
      . ((description . "A Rest.
 
 Syntax: @code{r4} for a quarter rest.")
+	(iterator-ctor . ,ly:rhythmic-music-iterator::constructor)
 	(types . (general-music event rhythmic-event rest-event))
 	))
 
