@@ -1,0 +1,249 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@ignore
+    Translation of GIT committish: 7a046582ce0730883f973c3ae56f2abe6c3262dc
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.14.0"
+
+@c Translators: Jean-Charles Malahieude
+@c Translation checkers:
+
+
+@node Musique contemporaine
+@section Musique contemporaine
+@translationof Contemporary music
+
+L'aube du XXe siècle a vu bourgeonner nombre de techniques et de styles
+de composition.  Qu'il s'agisse des nouveaux développements autour de
+l'harmonie et du rythme, de l'expansion du spectre des hauteurs et de
+l'évolution de nombreuses techniques instrumentales,  tous ces
+différents phénomènes ont participé à l'évolution de la notation
+musicale.  Les paragraphes qui suivent sont là pour vous proposer des
+références et informations quant à ces nouvelles techniques de notation.
+
+@menu
+* Hauteur et harmonie en musique contemporaine::
+* Approches du rythme en musique contemporaine::
+* Notation graphique::
+* Techniques de partition contemporaine::
+* Nouvelles techniques instrumentales::
+* Informations complémentaires et exemples pertinents::
+@end menu
+
+
+@node Hauteur et harmonie en musique contemporaine
+@subsection Hauteur et harmonie en musique contemporaine
+@translationof Pitch and harmony in contemporary music
+
+Intéressons-nous tout d'abord à ce qui relève de la notation des
+hauteurs et à l'harmonie en musique contemporaine.
+
+@menu
+* Généralités en matière de hauteur et d'harmonie::
+* Notation microtonale::
+* Armures contemporaines et harmonie::
+@end menu
+
+
+@node Généralités en matière de hauteur et d'harmonie
+@unnumberedsubsubsec Généralités en matière de hauteur et d'harmonie
+@translationof References for pitch and harmony in contemporary music
+
+@itemize
+@item La notation habituelle des quarts de tons est abordée à la
+rubrique @ref{Nom des notes dans d'autres langues}.
+
+@item Les tonalités inhabituelles sont abordées à la rubrique
+@ref{Armure}.
+
+@item Les pratiques contemporaines en matière d'altération sont
+abordées à la rubrique @ref{Altérations accidentelles automatiques}.
+
+@end itemize
+
+
+@node Notation microtonale
+@unnumberedsubsubsec Notation microtonale
+@translationof Microtonal notation
+
+@ignore
+    Discussion of microtones other than quarter-tones,
+    alternative notations (arrows, slash-flats), etc.
+@end ignore
+
+
+@node Armures contemporaines et harmonie
+@unnumberedsubsubsec Armures contemporaines et harmonie
+@translationof Contemporary key signatures and harmony
+
+@ignore
+    Discussion of contemporary key signatures:
+    non-standard, polytonality, etc.
+@end ignore
+
+
+@node Approches du rythme en musique contemporaine
+@subsection Approches du rythme en musique contemporaine
+@translationof Contemporary approaches to rhythm
+
+Abordons à présent certaines particularités de la notation du rythme en
+musique contemporaine.
+
+@menu
+* Généralités sur le rythme en musique contemporaine::
+* Nolets et musique contemporaine::
+* Métriques contemporaines::
+* Notation polymétrique étendue::
+* Ligatures et musique contemporaine::
+* Barres de mesure et musique contemporaine::
+@end menu
+
+
+@node Généralités sur le rythme en musique contemporaine
+@unnumberedsubsubsec Généralités sur le rythme en musique contemporaine
+@translationof References for contemporary approaches to rhythm
+
+@itemize
+@item Les métrique composites sont abordées à la rubrique
+@ref{Métrique}.
+
+@item Les bases de la polymétrie sont abordées à la rubrique
+@ref{Notation polymétrique}.
+
+@item Certaines particularités en matière de ligature sont abordées à la
+rubrique @ref{Liens de croches en soufflet}.
+
+@item Les lignes de mensuration (barres de mesures uniquement entre les
+portées) sont abordées à la rubrique @ref{Regroupement de portées}.
+
+@end itemize
+
+
+@node Nolets et musique contemporaine
+@unnumberedsubsubsec Nolets et musique contemporaine
+@translationof Tuplets in contemporary music
+
+@ignore
+    Extended discussion of modern tuplets, including
+    non-standard ratios, nested tuplets and customising
+    the appearance of tuplets (ratios, note values etc.)
+    Also how to provide an ossia RhythmicStaff to help
+    players break down a complicated tuplet.
+@end ignore
+
+
+@node Métriques contemporaines
+@unnumberedsubsubsec Métriques contemporaines
+@translationof Contemporary time signatures
+
+@ignore
+    Extended discussion of compound time signatures
+    including Graham P.'s work; non-standard time
+    signatures such as 7/10, 5/6; alternative
+    notations such as Orff-esque 4/note, placing a
+    single time signature across multiple staves, or
+    placing time signatures at the top of StaffGroups
+    or systems rather than in the stave.
+@end ignore
+
+
+@node Notation polymétrique étendue
+@unnumberedsubsubsec Notation polymétrique étendue
+@translationof Extended polymetric notation
+
+@ignore
+    Extended examples e.g. different instruments
+    or ensembles with independent tempi
+@end ignore
+
+
+@node Ligatures et musique contemporaine
+@unnumberedsubsubsec Ligatures et musique contemporaine
+@translationof Beams in contemporary music
+
+@ignore
+    Beaming practises, stemlets, Boulez-esque displaying
+    of beamed notes with flags
+@end ignore
+
+
+@node Barres de mesure et musique contemporaine
+@unnumberedsubsubsec Barres de mesure et musique contemporaine
+@translationof Bar lines in contemporary music
+
+@ignore
+    Mensurstriche barlines, tick barlines, etc.
+@end ignore
+
+
+@node Notation graphique
+@subsection Notation graphique
+@translationof Graphical notation
+
+
+@node Techniques de partition contemporaine
+@subsection Techniques de partition contemporaine
+@translationof Contemporary scoring techniques
+
+
+@node Nouvelles techniques instrumentales
+@subsection Nouvelles techniques instrumentales
+@translationof New instrumental techniques
+
+
+@node Informations complémentaires et exemples pertinents
+@subsection Informations complémentaires et exemples pertinents
+@translationof Further reading and scores of interest
+
+Vous trouverez ici une sélection d'ouvrages de référence, d'exemples et
+autres ressources qui vous permettront d'étudier plus avant la notation
+contemporaine.
+
+@menu
+* Ouvrages et articles sur la notation en musique contemporaine::
+* Partitions et exemples::
+@end menu
+
+
+@node Ouvrages et articles sur la notation en musique contemporaine
+@unnumberedsubsubsec Ouvrages et articles sur la notation en musique contemporaine
+@translationof Books and articles on contemporary musical notation
+
+@itemize
+@item
+@emph{Music Notation in the Twentieth Century: A Practical Guidebook}
+par Kurt Stone [W. W. Norton, 1980]
+
+@item
+@emph{Music Notation: A Manual of Modern Practice} par Gardner Read
+[Taplinger, 1979]
+
+@item
+@emph{Instrumentation and Orchestration} par Alfred Blatter [Schirmer,
+2de ed. 1997]
+
+@end itemize
+
+
+@node Partitions et exemples
+@unnumberedsubsubsec Partitions et exemples
+@translationof Scores and musical examples
+
+@ignore
+    Rough list of composers whose work could be included
+    (in alphabetical order, perhaps with suggested work):
+
+        Pierre Boulez (Le Marteau Sans Maître?)
+        John Cage (Freeman Etudes?)
+        George Crumb (Black Angels?)
+        Brian Ferneyhough (Transit?  Time & Motion Studies?)
+        Ben Johnston (extended just intonation example)
+        György Ligeti (several, including Hamburg Concerto)
+        Krzysztof Penderecki (Threnody to the Victims of Hiroshima?)
+        Karlheinz Stockhausen (Gruppen?)
+@end ignore
+

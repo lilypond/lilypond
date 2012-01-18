@@ -1,7 +1,7 @@
-%% Translation of GIT committish: e1a149d0cc60b02e86209387958f4028567dd366
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
-Le fonction @code{@bs{}autoBeamOff} dans le cadre d'un
-@code{@bs{}partcombine} agit de façon bien particulière@tie{}; c'est
+La fonction @code{\\autoBeamOff} dans le cadre d'un
+@code{\\partcombine} agit de façon bien particulière@tie{}; c'est
 pourquoi il vaut mieux tout d'abord recourir à
 
 @example
@@ -12,20 +12,20 @@ pourquoi il vaut mieux tout d'abord recourir à
 pour désactiver les ligatures automatiques pour l'ensemble de la portée
 concernée.
 
-L'instruction @code{\partcombine} fonctionne apparament sur la base de
+L'instruction @code{\\partcombine} fonctionne apparament sur la base de
 trois voix@tie{}: solo hampes montantes, solo hampes descendantes et
 ensemble hampes montantes.
 
-Lorsque @code{\autoBeamOff} apparaît dans le premier argument de la
+Lorsque @code{\\autoBeamOff} apparaît dans le premier argument de la
 combinaison, il s'applique à la voix active à ce moment précis, qu'il
 s'agisse du solo hampes montantes ou du combiné hampes montantes.
 Lorsqu'elle est introduite dans le second argument, la commande
-@code{\autoBeamOff} s'appliquera au solo hampes descendantes.
+@code{\\autoBeamOff} s'appliquera au solo hampes descendantes.
 
-Vous devrez donc, afin que @code{\autoBeamOff} soit pleinement
-opérationnel dans le cadre d'un @code{\partcombine}, l'introduire aux
+Vous devrez donc, afin que @code{\\autoBeamOff} soit pleinement
+opérationnel dans le cadre d'un @code{\\partcombine}, l'introduire aux
 @strong{trois} niveaux.
 
 "
-doctitlefr = "Partcombine et autoBeamOff"
+  doctitlefr = "Partcombine et autoBeamOff"
 

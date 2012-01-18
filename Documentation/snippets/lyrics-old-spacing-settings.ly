@@ -29,7 +29,6 @@ que vous aurez réglé certaines propriétés des contextes @code{Lyric} et
 @code{Staff}.
 
 "
-
   doctitlefr = "Espacement des paroles selon les pratiques de la version 2.12"
 
 

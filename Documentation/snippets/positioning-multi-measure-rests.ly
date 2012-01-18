@@ -8,7 +8,7 @@
 \version "2.15.14"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
  doctitlees = "Posicionar los silencios multicompás"
  texidoces = "
 A diferencia de los silencios normales, no existe una instrucción
@@ -42,7 +42,8 @@ rattachant à une note, il n'en va pas de même pour un silence
 multi-mesures.  Néanmoins, et uniquement dans le cadre de musique
 polyphonique, les silences multi-mesures sont positionnés différemment
 selon qu'ils appartiennent à une voix au numéro pair ou impair.  Le
-positionnement des silences multi-mesures peut se contrôler ainsi :
+positionnement des silences multi-mesures peut se contrôler ainsi@tie{}:
+
 "
   doctitlefr = "Positionnement des silences multi-mesures"
 

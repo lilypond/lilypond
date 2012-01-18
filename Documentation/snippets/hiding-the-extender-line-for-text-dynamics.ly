@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Los cambios de dinámica con estilo de texto (como cresc. y dim.)
 se imprimen con una línea intermitente que muestra su alcance.
@@ -32,7 +32,7 @@ unterdrückt werden:
   texidocfr = "
 Les crescendos et decrescendos indiqués textuellement -- tels que
 @emph{cresc.} ou @emph{dim.} -- sont suivis de pointillés qui montrent
-leur étendue.  On peut empêcher l'impression de ces pointillés avec :
+leur étendue.  On peut empêcher l'impression de ces pointillés.
 
 "
   doctitlefr = "Masquage de l'extension des nuances textuelles"

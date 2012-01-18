@@ -885,7 +885,7 @@ Para ver una explicación de este problema de momento temporal, véase
 En cualquier caso, la evaluación del código de Scheme se produce
 dentro del analizador sintáctico como muy tarde.  Si necesitamos que
 se ejecute en un punto temporal más tardío,
-usaríamos @ref{Funciones de scheme vacías}, o lo almacenaríamos en un
+usaríamos @ref{Funciones de Scheme vacías}, o lo almacenaríamos en un
 macro:
 
 @example

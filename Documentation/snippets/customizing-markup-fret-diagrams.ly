@@ -9,7 +9,7 @@
 \header {
   lsrtags = "fretted-strings, tweaks-and-overrides"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Se pueden establecer las propiedades de los diagramas de
 posiciones a través de @code{'fret-diagram-details}.  Para los
@@ -31,13 +31,12 @@ Beschriftung vorgenommen werden.
   doctitlede = "Anpassung von Beschriftungs-Bunddiagrammen"
 
 %% Translation of GIT committish: ac6297e4fa174ac5759cc450ad085c2fac9ba00b
-
   texidocfr = "
 Les propriétés d'un diagramme de fret sont modifiables grâce au
 @code{'fret-diagram-details}.  Lorsqu'ils sont générés sous forme
 de @code{\\markup}, rien n'empêche de les modifier en jouant sur les
 réglages de l'objet @code{Voice.TextScript} ou bien directement sur
-le @qq{markup}.
+le @emph{markup}.
 
 "
   doctitlefr = "Personnalisation des diagrammes de fret"

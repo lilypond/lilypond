@@ -1,0 +1,1287 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@ignore
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.14.0"
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+@node 和音記譜法
+@section 和音記譜法
+@translationof Chord notation
+
+@lilypondfile[quote]{chords-headword.ly}
+
+和音を通常の音符として入力したり、和音モードで入力したりすることができ、@c
+様々な従来のヨーロッパの和音命名規則を用いて表示することができます。@c
+和音ネームと通奏低音記譜を表示させることもできます。
+
+@menu
+* 和音モード::
+* 和音を表示する::
+* 通奏低音::
+@end menu
+
+
+@node 和音モード
+@subsection 和音モード
+@translationof Chord mode
+
+@cindex chord chords (和音)
+
+和音モードでは、和音のピッチではなく、@c
+和音構造の指示子を用いてコードを入力します。
+
+@menu
+* 和音モードの概要::
+* 一般的な和音::
+* 和音の拡張と変形::
+@end menu
+
+@node 和音モードの概要
+@unnumberedsubsubsec 和音モードの概要
+@translationof Chord mode overview
+
+@cindex chord names (コード ネーム)
+@cindex chord mode (和音モード)
+
+和音を @ref{和音の音符} で説明しているように、@c
+同時進行する音として入力することができます。
+
+和音を @qq{和音モード} で入力することもできます。
+和音モードは、ピッチではなく、@c
+従来のヨーロッパ音楽での和音構造に焦点を当てた入力モードです。@c
+これは、コード ネームを使うことに慣れているユーザにとって、@c
+和音を記述するのに便利な機能です。@c
+他の入力モードについて更なる情報は、@ref{入力モード} を参照してください。
+
+@lilypond[verbatim,quote,ragged-right]
+\chordmode { c1 g a g c }
+@end lilypond
+
+和音モードを用いて入力される和音は音楽要素であり、@c
+同時進行する音として入力される和音と同様に移調させることができます。@c
+@code{\chordmode} は絶対モードであり、@c
+@code{\chordmode} ブロックでは @code{\relative} は効果を持ちません。@c
+しかしながら、@code{\chordmode} での絶対ピッチは音符モードよりも
+1 オクターブ高くなります。
+
+一連の音楽の中で、和音モードと音符モードを切り替えることができます:
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+<c e g>2 <g b d>
+\chordmode { c2 f }
+<c e g>2 <g' b d>
+\chordmode { f2 g }
+@end lilypond
+
+
+@seealso
+音楽用語集:
+@rglos{chord}
+
+記譜法リファレンス:
+@ref{Chorded notes},
+@ref{Input modes}
+
+コード断片集:
+@rlsr{Chords}
+
+
+@knownissues
+
+あらかじめ定義されているアーティキュレーションと装飾の短縮形を@c
+和音モードで使うことはできません。@c
+@ref{アーティキュレーションと装飾} を参照してください。
+
+一連の音楽の中で和音モードと音符モードが混じっていて、@c
+和音モードから始まる場合、@c
+音符モードは新たに @code{Staff} コンテキストを作成します:
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+\chordmode { c2 f }
+<c e g>2 <g' b d>
+@end lilypond
+
+@noindent
+これを避けるには、@code{staff} コンテキストを明示的に作成します:
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+\new Staff {
+  \chordmode { c2 f }
+  <c e g>2  <g' b d>
+}
+@end lilypond
+
+@node 一般的な和音
+@unnumberedsubsubsec 一般的な和音
+@translationof Common chords
+
+@cindex triads (三和音、トライアド)
+@cindex seventh chords (七の和音、セブンス コード)
+@cindex root of chord (和音の根音)
+@cindex modifiers, in chords (和音での修飾子)
+@cindex chord quality (コード クオリティー)
+
+長三和音 (メジャー トライアド) を入力するには、@c
+根音とオプションで演奏時間を示します:
+
+@lilypond[verbatim,quote,ragged-right]
+\chordmode { c2 f4 g }
+@end lilypond
+
+短三和音、増三和音、それに減三和音
+(マイナー、オーグメンテッド、ディミニッシュト トライアド)
+は、演奏時間の後に @code{:} とクオリティー修飾子を配置することにより@c
+入力します:
+
+@lilypond[verbatim,quote,ragged-right]
+\chordmode { c2:m f4:aug g:dim }
+@end lilypond
+
+七の和音 (セブンス コード) を作成することができます:
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode { c1:7 c:m7 c:maj7 c:dim7 c:aug7 }
+@end lilypond
+
+@funindex aug
+@funindex dim
+@funindex maj
+@funindex m
+
+以下に示す表は、三和音と七の和音に付けられるクオリティー修飾子を@c
+示しています。@c
+和音に付けくわえられる第 7 音は短 7 度またはフラットの 7 度で、@c
+基本となる七の和音は属七の和音となります。@c
+すべての変化は属七の和音からの変化です。@c
+修飾子の使い方についてのより完全な表は @ref{Common chord modifiers}
+にあります。
+
+@c @table @code
+@multitable @columnfractions .2 .4 .3
+
+@item
+@b{修飾子}
+@tab
+@b{動作}
+@tab
+@b{例}
+
+@item
+無し
+@tab
+デフォルトの動作で、長三和音を作り出します。
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1
+}
+@end lilypond
+
+@item
+m, m7
+@tab
+短和音。この修飾子は第 3 音を下げます。
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1:m c:m7
+}
+@end lilypond
+
+
+@item
+dim, dim7
+@tab
+減和音。この修飾子は 3 度と 5 度 (と存在する場合は 7 度) の音を下げます。
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1:dim c:dim7
+}
+@end lilypond
+
+@item
+aug
+@tab
+増和音。この修飾子は第 5 音を上げます。
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1:aug
+}
+@end lilypond
+
+@item
+maj, maj7
+@tab
+長七和音。この修飾子は第 7 音を上げます。@c
+@code{maj} の後の @code{7} はオプションです。@c
+長三和音を作り出す時にこの修飾子は @b{使いません}。
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1:maj c:maj7
+}
+@end lilypond
+
+@end multitable
+
+
+@seealso
+記譜法リファレンス:
+@ref{Common chord modifiers},
+@ref{和音の拡張と変形}
+
+コード断片集:
+@rlsr{Chords}
+
+
+@knownissues
+和音に付けるクオリティー修飾子は 1 つだけ
+-- 通常は和音の最も高い音に対して --
+にしてください。@c
+複数のクオリティー修飾子を持つ和音は、エラーや警告無しで構文解析されますが、@c
+結果は予測できません。@c
+1 つのクオリティー修飾子では実現できない和音は、@c
+個々のピッチに分解してください
+-- @ref{和音の拡張と変形} で説明しています。
+
+
+@node 和音の拡張と変形
+@unnumberedsubsubsec 和音の拡張と変形
+@translationof Extended and altered chords
+
+@cindex extended chords (和音の拡張)
+@cindex altered chords (和音の変形)
+
+和音モードで様々な複雑さの和音構造を作ることができます。@c
+修飾子文字列を使って和音を拡張したり、和音の音を追加 / 削除したり、@c
+和音の音を上げ / 下げしたり、低音を付け加えたり、@c
+転回を作り出したりすることができます。
+
+@code{:} のすぐ後にくる数字は和音の拡張となります。@c
+和音は、根音から指定された数に達するまで 3 度毎に音を@c
+付け加えることによって構成されます。@c
+和音の拡張として付け加えられる第 7 音は短 7 度またはフラットの 7 度@c
+であることに注意してください。@c
+拡張で指定された音が 3 度毎の音ではない場合 (例えば 6)、@c
+拡張を超えない範囲で 3 度毎に音が付け加えられ、@c
+最後に拡張の音が付け加えられます。@c
+拡張で取り得る最大値は 13 です。@c
+それよりも大きな値は 13 と解釈されます。
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode {
+  c1:2 c:3 c:4 c:5
+  c1:6 c:7 c:8 c:9
+  c1:10 c:11 c:12 c:13
+  c1:14
+}
+@end lilypond
+
+@noindent
+@code{c:5} と @code{c} はどちらも
+C の長三和音を作り出すということに注意してください。
+
+第 11 音が第 13 音と組み合わされると響きが良くないため、@c
+@code{:13} 和音から第 11 音は削除されます
+(明示的に第 11 音が付け加えられない限りは)。
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode {
+  c1:13 c:13.11 c:m13
+}
+@end lilypond
+
+@cindex additions, in chords (和音への音の追加)
+
+個々の音を和音に付けくわえることができます。@c
+追加は拡張の後にドット (@code{.}) を前置して記述します。@c
+和音に付けくわえられる第 7 音は、長 7 度ではなく、@c
+短 7 度またはフラットの 7 度です。
+
+@lilypond[quote,verbatim]
+\chordmode {
+  c1:5.6 c:3.7.8 c:3.6.13
+}
+@end lilypond
+
+追加する音の高さは望みの高さにすることができます。
+
+@lilypond[quote,verbatim]
+\chordmode {
+  c4:5.15 c:5.20 c:5.25 c:5.30
+}
+@end lilypond
+
+@cindex chord steps, altering (和音の音を変化させる)
+
+和音の音は、数字の後ろに @code{+} または@code{-] を置くことで@c
+変化させることができます。@c
+和音構造の一部として自動的に含まれる音を変化させるには、@c
+その音を追加して変化させます。
+
+@lilypond[quote,verbatim]
+\chordmode {
+  c1:7+ c:5+.3- c:3-.5-.7-
+}
+@end lilypond
+
+@cindex removals, in chords (和音の音の削除)
+
+@funindex ^
+
+和音に音を追加できるだけでなく、@c
+@code{^} を前置させた修飾子文字列で音を削除することができます。@c
+複数の音を削除する場合は、@c
+最初の @code{^} の後に削除する音を @code{.} で区切って記述します。
+
+@lilypond[quote,verbatim]
+\chordmode {
+  c1^3 c:7^5 c:9^3 c:9^3.5 c:13.11^3.7
+}
+@end lilypond
+
+@funindex sus
+
+修飾子 @code{sus} を修飾子文字列に付け加えることにより、@c
+サスペンド コードを作り出すことができます。@c
+これは和音から第 3 音を削除します。@c
+さらに @code{sus} の後に @code{2} または @code{4} を付け加えると、@c
+和音に第 2 音または第 4 音が追加されます。@c
+@code{sus} は @code{^3} と等価であり、@c
+@code{sus4} は @code{.4^3} と等価です。
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode {
+  c1:sus c:sus2 c:sus4 c:5.4^3
+}
+@end lilypond
+
+@funindex /
+@cindex chord inversions (和音の転回)
+@cindex bass note, for chords (和音に対する低音)
+
+転回 (根音ではないピッチを和音の下に配置します) と低音の追加は、@c
+和音の後に @code{/}@var{pitch} を記述することで指定できます。
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode {
+  c1 c/g c/f
+}
+@end lilypond
+
+@funindex /+
+
+転回として音を移動させる代わりに、@c
+@code{/+}@var{pitch} を用いて和音に低音を付け加えることができます。
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode {
+  c1 c/g c/+g
+}
+@end lilypond
+
+様々な標準和音を作り出すために使用される和音修飾子を
+@ref{Common chord modifiers} で示しています。
+
+
+@seealso
+記譜法リファレンス:
+@ref{Common chord modifiers}
+
+コード断片集:
+@rlsr{Chords}
+
+
+@knownissues
+
+和音で各音を 1 度だけ使うことができます。@c
+以下の例では、最後の @code{5+} が解釈されるため、@c
+増和音が作り出されます。
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode { c1:5.5-.5+ }
+@end lilypond
+
+第二転回和音を作り出すには、低音を追加するしかありません。@c
+最初の転回 (2 つ目の和音) を第二転回和音にするには、@c
+和音の根音を変える必要があります。
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode {
+  c'1: c':/g e:6-3-^5 e:m6-^5
+}
+@end lilypond
+
+@node 和音を表示する
+@subsection 和音を表示する
+@translationof Displaying chords
+
+譜に音符を表示させるという標準の表示に加えて、@c
+コード ネームを表示させることができます。
+
+@menu
+* コード ネームを譜刻する::
+* コード ネームをカスタマイズする::
+@end menu
+
+@node コード ネームを譜刻する
+@unnumberedsubsubsec コード ネームを譜刻する
+@translationof Printing chord names
+
+@cindex printing chord names (コード ネームを譜刻する)
+@cindex chord names (コード ネーム)
+@cindex chords (コード、和音)
+
+コード ネームは @code{ChordNames} コンテキストに譜刻されます:
+
+@lilypond[verbatim,quote,ragged-right]
+\new ChordNames {
+  \chordmode {
+    c2 f4. g8
+  }
+}
+@end lilypond
+
+和音は同時進行する音符としてか、@c
+和音モードを使用することで入力することができます。@c
+転回や低音の追加が無い限り入力モードに関係なく、@c
+和音と同じコード ネームが表示されます:
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  \new ChordNames {
+    <c e g>2  <f bes c>
+    <f c' e g>1
+    \chordmode {
+      c2 f:sus4 c1:/f
+    }
+  }
+  {
+    <c e g>2  <f bes c>
+    <f, c' e g>1
+    \chordmode {
+      c2 f:sus4 c1:/f
+    }
+  }
+>>
+@end lilypond
+
+@cindex no chord symbol (無和音記号)
+@cindex N.C. symbol (N.C. 記号)
+@cindex indicating No Chord in ChordNames (ChordNames で無和音を記述する)
+
+@code{ChordNames} コンテキストに休符が渡されると、@c
+@code{noChordSymbol} マークアップが表示されます。
+
+@lilypond[verbatim, quote, relative=1]
+<<
+  \new ChordNames \chordmode {
+    c1
+    r1
+    g1
+    c1
+  }
+  \chordmode {
+    c1
+    r1
+    g1
+    c1
+  }
+>>
+@end lilypond
+
+@funindex{\chords}
+
+@code{\chords @{ ... @}} は @code{\new ChordNames @{ \chordmode @{ ... @} @}}
+の短縮形です。
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c2 f4.:m g8:maj7
+}
+@end lilypond
+
+@lilypond[verbatim,quote,ragged-right]
+\new ChordNames {
+  \chordmode {
+    c2 f4.:m g8:maj7
+  }
+}
+@end lilypond
+
+@snippets
+
+@c Keep index entries with following snippet
+@cindex chords, suppressing repeated (和音の繰り返しを抑制する)
+@funindex chordChanges
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{showing-chords-at-changes.ly}
+
+@c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+@c {adding-bar-lines-to-chordnames-context.ly}
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{simple-lead-sheet.ly}
+
+
+@seealso
+音楽用語集:
+@rglos{chord}
+
+記譜法リファレンス:
+@ref{音楽を並列に記述する}
+
+コード断片集:
+@rlsr{Chords}
+
+内部リファレンス:
+@rinternals{ChordNames},
+@rinternals{ChordName},
+@rinternals{Chord_name_engraver},
+@rinternals{Volta_engraver},
+@rinternals{Bar_engraver}
+
+
+@knownissues
+
+同時進行する音として和音を入力している場合、@c
+転回や低音の追加を含む和音のコード ネームは正しく表示されません。
+
+
+@node コード ネームをカスタマイズする
+@unnumberedsubsubsec コード ネームをカスタマイズする
+@translationof Customizing chord names (コード ネームをカスタマイズする)
+
+@cindex customizing chord names (コード ネームをカスタマイズする)
+
+和音の命名規則は 1 つではありません。@c
+流儀が異なれば、同じ和音に対して異なるコード ネームを使います。@c
+コード ネームで表示される記号にも違いがあります。@c
+コード ネームで表示される名前と記号をカスタマイズすることができます。
+
+@cindex jazz chords (ジャズ コード)
+@cindex chords, jazz (ジャズ コード)
+
+基本となるコード ネーム命名規則はジャズ音楽用のものです。@c
+これは Klaus Ignatzek によって提唱されたものです
+(@ressay{Literature list} を参照してください)。@c
+コード ネーム命名規則を変更することができます。@c
+以下で説明する変更方法を用いてジャズ コード命名規則を改造することができます。@c
+Ignatzek のジャズ コードと変形コードを @ref{Chord name chart} の表で@c
+示しています。
+
+@c TODO --  Change this so we don't have a non-verbatim example.
+@c  Make short example in docs, then move longer example to
+@c  appendix, where the length of the snippet won't matter.
+
+命名規則の変更に加えて、@c
+根音の音符名の言語を変更することができます。@c
+あらかじめ定義されているコマンド @code{\germanChords},
+@code{\semiGermanChords}, @code{\italianChords}
+それに @code{\frenchChords} が言語を設定します。
+これらのコマンドの効果を以下に示します:
+
+@lilypondfile[ragged-right]{chord-names-languages.ly}
+
+
+@funindex chordNameLowercaseMinor
+
+ドイツ歌集では短和音を@c
+接尾辞 @var{m} を伴わない小文字で記述する場合があります。@c
+これは @code{chordNameLowercaseMinor} プロパティを設定することで実現できます:
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  \set chordNameLowercaseMinor = ##t
+  c2 d:m e:m f
+}
+@end lilypond
+
+既存の設定では望みの出力を得られない場合、@c
+コード ネームの表示を以下のプロパティを通じて調整することができます。
+
+@table @code
+
+@funindex chordRootNamer
+
+@item chordRootNamer
+
+通常、コード ネームは根音の文字にオプションの変化を付けて表示されます。@c
+この関数がピッチから文字に変換します。@c
+新しい関数をこのプロパティにセットすることで特殊な音符名
+(例えば、B コードを表すドイツ語の @q{H}) を作り出すことができます。
+
+@funindex majorSevenSymbol
+
+@item majorSevenSymbol
+
+このプロパティは @code{chordRootNamer} の出力に続けて@c
+長七和音を示すために使用されるマークアップ オブジェクトを保持します。@c
+あらかじめ定義されている選択肢は
+@code{whiteTriangleMarkup} と @code{blackTriangleMarkup} です。
+
+@funindex additionalPitchPrefix
+
+@item additionalPitchPrefix
+
+コード ネームが追加のピッチを保持している場合、@c
+追加ピッチの前にテキストを付けることができます。@c
+見た目が雑然となることを避けるため、@c
+デフォルトでは追加ピッチの前にテキストは付きません。@c
+しかしながら、追加ピッチが少数の場合はテキストを付けると効果的です。
+
+@lilypond[verbatim,quote,ragged-right]
+\new ChordNames {
+  <c e g d'>    % add9
+  \set additionalPitchPrefix = #"add"
+  <c e g d'>    % add9
+}
+@end lilypond
+
+@funindex chordNoteNamer
+
+@item chordNoteNamer
+
+コード ネームが根音以外の追加ピッチを保持している場合 (例えば追加の低音)、@c
+この関数が追加ピッチを譜刻するのにを用いられます。@c
+デフォルトでは、ピッチは @code{chordRootNamer} を用いて譜刻されます。@c
+@code{chordNoteNamer} にカスタマイズした関数をセットすることで、@c
+この振る舞いを変えることができます。@c
+例えば、低音を小文字で譜刻させることができます。
+
+@funindex chordNameSeparator
+
+@item chordNameSeparator
+
+通常、コード ネームはパート毎に小さなスペースで区切られます。@c
+@code{chordNameSeparator} を設定することにより、@c
+区切りをお望みのマークアップに変更することができます。@c
+これはコード ネームと低音名の間の区切りには影響を与えません
+-- この区切りをカスタマイズする場合は、@code{slashChordSeparator} を設定します。
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:7.9- c:7.9-/g
+  \set chordNameSeparator = \markup { "/" }
+  \break
+  c4:7.9- c:7.9-/g
+}
+@end lilypond
+
+@funindex slashChordSeparator
+
+@item slashChordSeparator
+
+和音に通常の根音とは異なる低音を持たせることができます。@c
+これは @qq{転回} と呼ばれ、@c
+デフォルトの記譜法では主和音と低音符の間をシュラッシュで区切るため@c
+スラッシュ @qq{スラッシュ コード} とも呼ばれます。@c
+@code{slashChordSeparator} のデフォルト値はスラッシュですが、@c
+お望みのマークアップに変更することができます。
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:7.9- c:7.9-/g
+  \set slashChordSeparator = \markup { " over " }
+  \break
+  c4:7.9- c:7.9-/g
+}
+@end lilypond
+
+@funindex chordNameExceptions
+
+@item chordNameExceptions
+
+このプロパティはペアのリストです。@c
+各ペアの最初の要素は和音の中に存在する音を指定するピッチのセットです。@c
+次の要素は、最初の要素で指定された和音のコード ネームを作り出すために、@c
+@code{chordRootNamer} の出力の後に記譜されるマークアップです。
+
+@funindex minorChordModifier
+
+@item minorChordModifier
+
+短和音は和音の根音の右側に接尾辞 @q{m} を配置することによって@c
+記述されることが多いです。@c
+しかしながら、マイナス記号等の他の接尾辞を使う場合もあります。
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:min f:min7
+  \set minorChordModifier = \markup { "-" }
+  \break
+  c4:min f:min7
+}
+@end lilypond
+
+@funindex chordPrefixSpacer
+
+@item chordPrefixSpacer
+
+通常、@code{minorChordModifier} で指定される短和音の修飾子は@c
+和音の根音のすぐ右に譜刻されます。@c
+@code{chordPrefixSpacer} を設定することにより、@c
+根音と修飾子の間にスペースを置くことができます。@c
+根音が変化した場合、このスペースは配置されません。
+
+@end table
+
+
+@predefined
+@funindex major seven symbols
+@code{\whiteTriangleMarkup},
+@code{\blackTriangleMarkup},
+@funindex \germanChords
+@code{\germanChords},
+@funindex \semiGermanChords
+@code{\semiGermanChords},
+@funindex \italianChords
+@code{\italianChords},
+@funindex \frenchChords
+@code{\frenchChords}
+@endpredefined
+
+
+@snippets
+
+@cindex exceptions, chord names.
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{chord-name-exceptions.ly}
+
+@c TODO - tweak snippet to use \blackTriangleMarkup as well
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{chord-name-major7.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adding-bar-lines-to-chordnames-context.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{volta-below-chords.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing-chord-separator.ly}
+
+
+@seealso
+記譜法リファレンス:
+@ref{Chord name chart},
+@ref{Common chord modifiers}
+
+楽譜譜刻の自動化についてのエッセー:
+@ressay{Literature list}
+
+インストールされているファイル:
+@file{scm/chords-ignatzek.scm},
+@file{scm/chord-entry.scm},
+@file{ly/chord-modifier-init.ly}
+
+コード断片集:
+@rlsr{Chords}
+
+@c 内部リファレンス:
+@c @r internals{}.
+
+
+@knownissues
+
+コード ネームは、和音に含まれるピッチと
+@code{\chordmode} で入力される和音構造についての情報の両方から決定されます。@c
+和音の入力手段として同時進行するピッチを用いた場合、@c
+転回や低音により予期しないコード ネームとなります。
+
+@lilypond[quote,ragged-right,verbatim]
+myChords = \relative c' {
+  \chordmode { c1 c/g c/f }
+  <c e g>1 <g c e> <f c' e g>
+}
+<<
+  \new ChordNames { \myChords }
+  \new Staff { \myChords }
+>>
+@end lilypond
+
+
+@node 通奏低音
+@subsection 通奏低音
+@translationof Figured bass
+
+@lilypondfile[quote]{figured-bass-headword.ly}
+
+通奏低音を譜刻することができます。
+
+@menu
+* 通奏低音の導入部::
+* 通奏低音を入力する::
+* 通奏低音を表示する::
+@end menu
+
+@node 通奏低音の導入部
+@unnumberedsubsubsec 通奏低音の導入部
+@translationof Introduction to figured bass
+
+@cindex Basso continuo
+@cindex Thorough bass
+@cindex Figured bass (通奏低音)
+@cindex Bass, thorough
+@cindex Bass, figured (通奏低音)
+
+@c TODO: musicological blurb about FB
+
+
+LilyPond は通奏低音
+(figured bass -- thorough bass や basso continuo とも呼ばれます)
+をサポートします:
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Voice { \clef bass dis4 c d ais g fis}
+  \new FiguredBass {
+    \figuremode {
+      < 6 >4 < 7\+ >8 < 6+ [_!] >
+      < 6 >4 <6 5 [3+] >
+      < _ >4 < 6 5/>4
+    }
+  }
+>>
+@end lilypond
+
+通奏低音のサポートには 2 つのパートがあります:
+1 つは入力モード @code{\figuremode} で、@c
+通奏低音の入力を受け入れます。@c
+もう 1 つはコンテキスト @code{FiguredBass} で、@c
+@code{BassFigure} オブジェクトの表示を扱います。@c
+@code{Staff} でも通奏低音を表示させることができます。
+
+@code{\figures@{ ... @}} は
+@code{\new FiguredBass @{ \figuremode @{ ... @} @}} の短縮記譜法です。
+
+通奏低音のサポートの外見は和音サポートに似ていますが、@c
+もっとシンプルです。@c
+@code{\figuremode} モードは通奏低音を保持し、@c
+@code{FiguredBass} コンテキストははそれらを入力されたとおりに@c
+譜刻するだけです。@c
+ピッチへの変換は行いません。
+
+@ignore
+Figures are created as markup texts.  Any of the standard markup
+properties can be used to modify the display of figures.  For
+example, the vertical spacing of the figures may be set with
+@code{baseline-skip}.
+@end ignore
+
+
+@seealso
+音楽用語集:
+@rglos{figured bass}
+
+コード断片集:
+@rlsr{Chords}
+
+
+@node 通奏低音を入力する
+@unnumberedsubsubsec 通奏低音を入力する
+@translationof Entering figured bass
+
+
+@code{\figuremode} は入力モードを通奏低音モードに切り替えるのに用いられます。@c
+他の入力モードについての更なる情報は @ref{入力モード} で見つかります。
+
+通奏低音モードでは、通奏低音のグループを @code{<} と @code{>} で囲みます。@c
+演奏時間は @code{>} の後に入力します。
+
+@lilypond[verbatim,quote,ragged-right]
+\new FiguredBass {
+  \figuremode {
+    <6 4>2
+  }
+}
+@end lilypond
+
+通奏低音にナチュラル記号を含む臨時記号を付け加えることができます:
+
+@lilypond[verbatim,quote,ragged-right]
+\figures {
+  <7! 6+ 4-> <5++> <3-->
+}
+@end lilypond
+
+増音と減音を記述することができます:
+
+@lilypond[verbatim,quote,ragged-right]
+\figures {
+  <6\+ 5/> <7/>
+}
+@end lilypond
+
+通奏低音にバックスラッシュを付けることができます
+( 通常、6 度上げるのに用いられます):
+
+@lilypond[verbatim,quote,ragged-right]
+\figures {
+  <6> <6\\>
+}
+@end lilypond
+
+通奏低音に垂直方向のスペースや囲みを含ませることができます:
+
+@lilypond[verbatim,quote,ragged-right]
+\figures {
+  <[12 _!] 8 [6  4]>
+}
+@end lilypond
+
+通奏低音として任意のテキスト マークアップを挿入することができます:
+
+@lilypond[verbatim,quote,ragged-right]
+\figures {
+  <\markup { \tiny \number 6 \super (1) } 5>
+}
+@end lilypond
+
+@c NOTE: We need to include notes any time we use extenders to
+@c avoid extraneous staff creation due to Staff.use... in
+@c \bassFigureExtendersOn
+
+継続線で通奏低音の繰り返しを示すことができます:
+
+@lilypond[verbatim,quote,ragged-right]
+<<
+  {
+    \clef bass
+    e4 d c b,
+    e4 d c b,
+  }
+  \figures {
+    \bassFigureExtendersOn
+    <6 4>4 <6 3> <7 3> <7 3>
+    \bassFigureExtendersOff
+    <6 4>4 <6 3> <7 3> <7 3>
+  }
+>>
+@end lilypond
+
+@noindent
+以下の例のように、@c
+継続線は明示的に停止されない限り連続する通奏低音に置き換わります。
+
+@lilypond[verbatim,quote,ragged-right]
+<<
+  \figures {
+    \bassFigureExtendersOn
+    <6 4>4 <6 4> <6\! 4\!> <6 4>
+  }
+  {
+    \clef bass
+    d4 d c c
+  }
+>>
+@end lilypond
+
+以下の表は利用可能な通奏低音の修飾子を要約しています。
+
+@multitable @columnfractions .1 .5 .4
+
+@item
+@b{修飾子}
+@tab
+@b{用途}
+@tab
+@b{例}
+
+@item
++, -, !
+@tab
+臨時記号
+@tab
+@lilypond[line-width=4\cm]
+\figures {
+  <7! 6+ 4-> <5++> <3-->
+}
+@end lilypond
+
+@item
+\+, /
+@tab
+増音と減音
+@tab
+@lilypond[line-width=4\cm]
+\figures {
+  <6\+ 5/> <7/>
+}
+@end lilypond
+
+@item
+\\
+@tab
+音を 6 度上げる
+@tab
+@lilypond[line-width=4\cm]
+\figures {
+  <6\\>
+}
+@end lilypond
+
+@item
+\!
+@tab
+継続線を終わらせる
+@tab
+@lilypond[line-width=4\cm]
+<<
+  \figures {
+    \bassFigureExtendersOn
+    <6 4> <6 4> <6\! 4\!> <6 4>
+  }
+  {
+    \clef bass
+    d d c c
+  }
+>>
+@end lilypond
+
+@end multitable
+
+
+@predefined
+@cindex figured bass extender lines (通奏低音の継続線)
+@code{\bassFigureExtendersOn},
+@code{\bassFigureExtendersOff}
+@endpredefined
+
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing-the-positions-of-figured-bass-alterations.ly}
+
+
+@seealso
+@c Music Glossary:
+@c @rglos{}.
+@c
+@c Learning Manual:
+@c @rlearning{}.
+@c
+@c Notation Reference:
+@c @ref{}.
+@c
+@c Application Usage:
+@c @rprogram{}.
+@c
+@c Installed Files:
+@c @file{}.
+@c
+コード断片集:
+@rlsr{Chords}
+
+内部リファレンス:
+@rinternals{BassFigure},
+@rinternals{BassFigureAlignment},
+@rinternals{BassFigureLine},
+@rinternals{BassFigureBracket},
+@rinternals{BassFigureContinuation},
+@rinternals{FiguredBass}
+
+
+@c @knownissues
+
+
+@node 通奏低音を表示する
+@unnumberedsubsubsec 通奏低音を表示する
+@translationof Displaying figured bass
+
+@code{FiguredBass} コンテキストを用いて通奏低音を表示させることができます。@c
+たいていの譜コンテキストでも表示させることができます。
+
+@code{FiguredBass} コンテキストに表示させる場合、@c
+通奏低音の垂直方向の位置は譜上にある音符の位置とは無関係です。
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \relative c'' {
+    c4 c'8 r8 c,4 c'
+  }
+  \new FiguredBass {
+    \figuremode {
+      <4>4 <10 6>8 s8
+      <6 4>4 <6 4>
+    }
+  }
+>>
+@end lilypond
+
+@noindent
+上記の例では、余分な (空の) 譜が作成されるのを避けるために、@c
+@code{FiguredBass} コンテキストを明示的に作成する必要があります。
+
+
+通奏低音を直接 @code{Staff} コンテキストに付け加えることもできます。@c
+この場合、通奏低音の垂直方向の位置は自動的に調節されます。
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \new Staff = myStaff
+  \figuremode {
+    <4>4 <10 6>8 s8
+    <6 4>4 <6 4>
+  }
+  %% Put notes on same Staff as figures
+  \context Staff = myStaff
+  {
+    \clef bass
+    c4 c'8 r8 c4 c'
+  }
+>>
+@end lilypond
+
+
+通奏低音を @code{Staff} コンテキストに追加した場合、@c
+譜の上にも下にも表示される可能性があります。
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \new Staff = myStaff
+  \figuremode {
+    <4>4 <10 6>8 s8
+    \bassFigureStaffAlignmentDown
+    <6 4>4 <6 4>
+  }
+  %% Put notes on same Staff as figures
+  \context Staff = myStaff
+  {
+    \clef bass
+    c4 c'8 r8 c4 c'
+  }
+>>
+@end lilypond
+
+
+@predefined
+@cindex figured bass alignment (通奏低音の垂直揃えのベース)
+@code{\bassFigureStaffAlignmentDown},
+@code{\bassFigureStaffAlignmentUp},
+@code{\bassFigureStaffAlignmentNeutral}
+@endpredefined
+
+
+@c @snippets
+
+
+@seealso
+@c Music Glossary:
+@c @rglos{}.
+@c
+@c Learning Manual:
+@c @rlearning{}.
+@c
+@c Notation Reference:
+@c @ref{}.
+@c
+@c Application Usage:
+@c @rprogram{}.
+@c
+@c Installed Files:
+@c @file{}.
+@c
+コード断片集:
+@rlsr{Chords}
+
+内部リファレンス:
+@rinternals{BassFigure},
+@rinternals{BassFigureAlignment},
+@rinternals{BassFigureLine},
+@rinternals{BassFigureBracket},
+@rinternals{BassFigureContinuation},
+@rinternals{FiguredBass}
+
+
+@knownissues
+
+継続線が正しく機能することを保証するために、@c
+通奏低音のリズムをバス パートに合わせた方が安全です。
+
+@c KEEP LY
+@lilypond[verbatim,ragged-right,quote]
+<<
+  {
+    \clef bass
+    \repeat unfold 4 { f16. g32 } f8. es16 d8 es
+  }
+  \figures {
+    \bassFigureExtendersOn
+    % バスと同じリズムなので、継続線は正しく機能します
+    \repeat unfold 4 { <6 4->16. <6 4->32 }
+    <5>8. r16 <6>8 <6\! 5->
+  }
+>>
+<<
+  {
+    \clef bass
+    \repeat unfold 4 { f16. g32 } f8. es16 d8 es
+  }
+  \figures {
+    \bassFigureExtendersOn
+    % タイミングは同じですが、継続線は正しく機能しません
+    <6 4->4 <6 4->4
+    <5>8. r16 <6>8 <6\! 5->
+  }
+>>
+@end lilypond
+
+@c 保留
+継続線を用いた場合、@c
+通奏低音内での位置が異なる同じ番号の通奏低音が隣接すると、@c
+位置が反転する可能性があります。
+(訳者: 2 つ目の音符の通奏低音で 4 と 5 が入れ替わる例を示したいのだと@c
+思いますが、うまくいっていないようです。@c
+解決の例もコマンドの位置が違うと思います。)
+
+@ignore
+When using extender lines, adjacent figures with the same number in
+a different figure location can cause the figure positions to invert.
+@end ignore
+
+@lilypond[verbatim,ragged-right,quote,relative=1]
+<<
+  { fis4 g g, e' }
+  \figures {
+    \bassFigureExtendersOn
+    <6 5>4 <5\! 4> < 5 _!> <6>
+  }
+>>
+@end lilypond
+
+この問題を回避するには、継続線を始める通奏低音の後で継続線を On にして、@c
+継続線の終わりで Off にします。
+
+@ignore
+To avoid this problem, simply turn on extenders after the figure that
+begins the extender line and turn them off at the end of the extender line.
+@end ignore
+
+@lilypond[verbatim,ragged-right,quote,relative=1]
+<<
+  { fis4 g g, e' }
+  \figures {
+    <6 5>4 <5 4>
+    \bassFigureExtendersOn
+    < 5 _!>4 <6>
+    \bassFigureExtendersOff
+  }
+>>
+@end lilypond

@@ -9,7 +9,7 @@
 \header {
   lsrtags = "pitches, staff-notation, tweaks-and-overrides"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   doctitlees = "Trucaje de las propiedades de clave"
   texidoces = "
 La instrucción @code{\\clef \"treble_8\"} equivale a un ajuste de
@@ -89,18 +89,18 @@ réglage manuel de ces propriétés.
 
 
 Modifier le glyphe, la position de la clef ou son octaviation ne
-changera pas la position des notes ; il faut pour y parvenir modifier
-aussi la position du do médium.  Le positionnement est relatif à la
-ligne médiane, un nombre positif faisant monter, chaque ligne ou
-interligne comptant pour 1.  La valeur de @code{clefOctavation} devrait
-être de 7, -7, 15 ou -15, bien que rien ne vous empêche de lui affecter
-une autre valeur.
+changera pas la position des notes@tie{}; il faut pour y parvenir
+modifier aussi la position du do médium.  Le positionnement est relatif
+à la ligne médiane, un nombre positif faisant monter, chaque ligne ou
+interligne comptant pour@tie{}1.  La valeur de @code{clefOctavation}
+devrait être de 7, -7, 15 ou -15, bien que rien ne vous empêche de lui
+affecter une autre valeur.
 
 
 Lorsqu'un changement de clef intervient en même temps qu'un saut de
 ligne, la nouvelle clef est imprimée à la fois en fin de ligne et au
-début de la suivante.  Vous pouvez toujours supprimer cette « clef de
-précaution » en affectant la valeur @code{end-of-line-invisible} à la
+début de la suivante.  Vous pouvez toujours supprimer cette @qq{clef de
+précaution} en affectant la valeur @code{end-of-line-invisible} à la
 propriété @code{explicitClefVisibility} du contexte @code{Staff}.  Le
 comportement par défaut sera réactivé par
 @w{@code{\\unset@tie{}Staff.explicitClefVisibility}}.
@@ -108,7 +108,7 @@ comportement par défaut sera réactivé par
 
 Les exemples qui suivent illustrent les différentes possibilités de
 définir ces propriétés manuellement.  Sur la première ligne, la
-position relative des notes par rapport aux clefs sont préservées, ce
+position relative des notes par rapport aux clefs est préservée, ce
 qui n'est pas le cas pour la deuxième ligne.
 
 "

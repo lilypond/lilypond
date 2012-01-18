@@ -1,11 +1,11 @@
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Les citations tiennent compte de la transposition, aussi bien celle de
 l'instrument d'origine que celle de la partie où elle intervient.  Dans
 l'exemple suivant, tous les instruments sont en tonalité de concert et
 seront repris par un instrument en fa.  Le destinataire de la citation
 peut à son tour transposer à l'aide de la commande @code{\\transpose}.
-En pareil cas, toutes les hauteurs, y compris celle de la citation,
+En pareil cas, toutes les hauteurs, y compris celles de la citation,
 seront transposées.
 
 "

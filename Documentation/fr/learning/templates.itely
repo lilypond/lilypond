@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e389a98ed32c929cb091453d9ec2856350cfb300
+    Translation of GIT committish: 1dea8bf1d7182f3d1a1c70bb2010f4585f56b3e6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -153,7 +153,8 @@ de lancer LilyPond, et d'aprécier le résultat.
 
 @appendixsubsec Transcription de musique mensurale
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc]
+@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
+@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
 {ancient-notation-template----modern-transcription-of-mensural-music.ly}
 
 @appendixsubsec Transcription du grégorien
@@ -169,6 +170,7 @@ de lancer LilyPond, et d'aprécier le résultat.
 @appendixsubsec Symboles de jazz
 @translationof Jazz combo
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc]
+@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
+@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
 {jazz-combo-template.ly}
 

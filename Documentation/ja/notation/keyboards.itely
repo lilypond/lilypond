@@ -114,7 +114,7 @@
 @end itemize
 
 @c @snippets
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@c @lilypondfile[verbatim,quote,texidoc,doctitle]
 @c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
 @c http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
 
@@ -463,7 +463,7 @@
 @end lilypond
 
 @snippets
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 
@@ -616,7 +616,7 @@ d\sustainOff\sustainOn g, c2
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {accordion-discant-symbols.ly}
 
 

@@ -288,8 +288,8 @@ c4 \times 4/5 { f8 e f \times 2/3 { e[ f g] } } f4
 記譜法リファレンス:
 @ref{時間管理},
 @ref{演奏時間を変更する},
-@ref{The tweak command},
-@ref{複合拍子記譜法}
+@ref{tweak コマンド},
+@ref{多拍子記譜法}
 
 コード断片集:
 @rlsrnamed{Rhythms,リズム}
@@ -377,15 +377,15 @@ b16*4 c4
 }
 @end lilypond
 
-このコマンドの応用例の 1 つは複合拍子表記での使用です。@c
-@ref{複合拍子記譜法} を参照してください。
+このコマンドの応用例の 1 つは多拍子記譜法での使用です。@c
+@ref{多拍子記譜法} を参照してください。
 
 
 @seealso
 記譜法リファレンス:
 @ref{連符},
 @ref{不可視の休符},
-@ref{複合拍子記譜法}
+@ref{多拍子記譜法}
 
 コード断片集:
 @rlsrnamed{Rhythms,リズム}
@@ -995,7 +995,7 @@ R1^"right"
 * メトロノーム記号::
 * 上拍::
 * 無韻律の音楽::
-* 複合拍子記譜法::
+* 多拍子記譜法::
 * 自動音符分割::
 * 旋律のリズムを示す::
 @end menu
@@ -1498,7 +1498,7 @@ d4 e d c
 これらの定義済みコマンドは、@c
 たとえ @code{Voice} コンテキストの 1 つの中に配置したとしても、@c
 楽譜のすべての譜に影響を与えるということに注意してください。@c
-これを変更するには、@ref{複合拍子記譜法} で示されているように、@c
+これを変更するには、@ref{多拍子記譜法} で示されているように、@c
 @code{Timing_translator} を @code{Score} コンテキストから
 @code{Staff} コンテキストに移動させます。
 
@@ -1556,19 +1556,19 @@ LilyPond は改行と改ページを小節線の箇所にのみ挿入します�
 @end example
 
 
-@node 複合拍子記譜法
-@unnumberedsubsubsec 複合拍子記譜法
+@node 多拍子記譜法
+@unnumberedsubsubsec 多拍子記譜法
 @translationof Polymetric notation
 
 @c This section necessarily uses \set
 @c This is acceptable  -td
 
 @cindex double time signatures (2 重拍子)
-@cindex signatures, polymetric (複合韻律)
-@cindex time signatures, polymetric (複合拍子)
+@cindex signatures, polymetric (多拍子)
+@cindex time signatures, polymetric (多拍子)
 @cindex time signatures, double (2 重拍子)
-@cindex polymetric signatures (複合韻律)
-@cindex meter, polymetric (複合韻律拍)
+@cindex polymetric signatures (多拍子)
+@cindex meter, polymetric (多拍子)
 
 @funindex timeSignatureFraction
 @funindex \scaleDurations

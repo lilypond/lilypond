@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 1baa2adf57c84e8d50e6907416eadb93e2e2eb5c
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 L'outil de combinaison de parties (la commande @code{\\partcombine})
 permet d'avoir deux parties différentes sur une même portée.  LilyPond
@@ -11,7 +11,7 @@ utilité, aussi vaut-il mieux les désactiver.  Dans le cas où il y aurait
 alternance entre @emph{solo} et @emph{tutti}, il vaut mieux faire appel
 à de la musique polyphonique standard.
 
-Voici trois moyens d'imprimer deux parties sur un même portée : en
+Voici trois moyens d'imprimer deux parties sur une même portée@tie{}: en
 polyphonie normale, avec @code{\\partcombine} sans indication
 supplémentaire, et avec @code{\\partcombine} commentée.
 

@@ -7,7 +7,7 @@
 %% Note: this file works from version 2.14.0
 \version "2.14.0"
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 
   texidoces = "
 Es posible ajustar la separación en las indicaciones de tesitura.
@@ -17,10 +17,10 @@ Es posible ajustar la separación en las indicaciones de tesitura.
   doctitlees = "Modificación de la separación en las indicaciones de tesitura"
 
 %% Translation of GIT committish: 31097723b2b816696ad61696630a80ff17a39557
-  texidocfr = "L'affichage d'un @emph{ambitus} peut s'affiner pour
-  répondre à vos préférences en matière d'esthétique.
+  texidocfr = "
+L'affichage d'un @emph{ambitus} peut s'affiner pour répondre à vos
+préférences en matière d'esthétique.
 "
-
   doctitlefr = "Réglage de l'affichage d'un ambitus"
 
 

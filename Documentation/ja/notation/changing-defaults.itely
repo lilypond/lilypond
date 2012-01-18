@@ -678,7 +678,7 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 @code{Staff} コンテキストへ異動させることにより、@c
 楽譜の各譜に独自の拍子記号を持たせることが可能になります。
 
-@cindex polymetric scores (複合拍子楽譜)
+@cindex polymetric scores (多拍子の楽譜)
 @cindex Time signatures, multiple (複数の拍子記号)
 
 @lilypond[quote,relative=1,ragged-right,verbatim,fragment]

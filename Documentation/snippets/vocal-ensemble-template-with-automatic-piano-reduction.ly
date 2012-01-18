@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 
 Esta plantilla añade una reducción de piano automática a la partitura
@@ -55,7 +55,7 @@ tenorMusic), verändert sich auch der Klavierauszug entsprechend.
   texidocfr = "
 Ce canevas ajoute une réduction pour piano à une partition standard pour
 chœur à quatre voix mixtes.  Ceci illustre l'un des avantages de
-LilyPond : une expression musicale peut être réutilisée sans effort.
+LilyPond@tie{}: une expression musicale peut être réutilisée sans effort.
 Toute modification apportée à l'une des voix, mettons @code{tenorMusique},
 sera automatiquement reportée dans la réduction pour piano.
 

@@ -51,14 +51,14 @@ Copyright @copyright{} 1999--2012 a szerzők.
 @menu
 * A lilypond használata:: A kottaszedő alkalmazás futtatása.
 * A convert-ly használata:: Bemeneti fájlok frissítése.
-* A lilypond-book használata:: Szöveg és zene integrációja.
-* Külső programok:: A LilyPond és más programok együttműködése.
-* Hasznos tanácsok:: Célravezető tippek.
+* lilypond-book:: Szöveg és zene integrációja.
+* External programs:: A LilyPond és más programok együttműködése.
+* Suggestions for writing files:: Célravezető tippek.
 
 Függelék
 
 * GNU Free Documentation License:: E dokumentum licence.
-* LilyPond tárgymutató::
+* LilyPond index:: LilyPond tárgymutató.
 @end menu
 
 @docMain

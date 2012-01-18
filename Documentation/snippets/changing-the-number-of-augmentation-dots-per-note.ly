@@ -7,7 +7,7 @@
 %% Note: this file works from version 2.14.0
 \version "2.14.0"
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 
   texidoces = "
 Este código muestra cómo cambiar la cantidad de puntillos de una nota.
@@ -18,8 +18,8 @@ Este código muestra cómo cambiar la cantidad de puntillos de una nota.
 
 
 %% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
-
-  texidocfr = "Voici comment modifier le nombre de points d'augmentation
+  texidocfr = "
+Voici comment modifier le nombre de points d'augmentation
 affectés à une note en particulier.
 
 "

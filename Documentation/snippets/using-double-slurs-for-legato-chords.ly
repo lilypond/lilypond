@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Algunos compositores escriben dos ligaduras cuando quieren acordes
 legato.  Esto se puede conseguir estableciendo @code{doubleSlurs}.
@@ -29,8 +29,8 @@ werden.  Das kann mit der Eigenschaft @code{doubleSlurs} erreicht werden.
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Certains auteurs utilisent deux liaisons lorsqu'ils veulent
-lier des accords. Dans LilyPond, il faut pour cela activer
-la propriété @code{doubleSlurs} :
+lier des accords.  Dans LilyPond, il faut pour cela activer
+la propriété @code{doubleSlurs}.
 
 "
   doctitlefr = "Accords et double liaison d'articulation"

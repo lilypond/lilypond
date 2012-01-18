@@ -384,7 +384,7 @@ die dem Kontext gegeben wurde.
 Diese Variante wird bei musikalischen Ausdrücken benutzt, die auf
 verschiedenen Ebenen interpretiert werden können.  Beispielsweise
 der @code{\applyOutput}-Befehl (siehe
-@ref{Eine Funktion auf alle Layout-Objekte anwenden}).  Ohne einen
+@rextend{Eine Funktion auf alle Layout-Objekte anwenden}).  Ohne einen
 expliziten @code{\context} wird die Ausgabe normalerweise einem
 @code{Voice}-Kontext zugewiesen:
 
@@ -1988,7 +1988,7 @@ f'
 Der Strom der musikalischen Ereignisse (engl. music stream), der aus
 dem Quelltext erstellt wird, und zu dem auch die automatisch eingefügten
 Elemente gehören, kann betrachtet werden, siehe
-@ref{Musikalische Funktionen darstellen}.  Das kann nützlich sein,
+@rextend{Musikalische Funktionen darstellen}.  Das kann nützlich sein,
 wenn man herausfinden will, was mit dem @code{\tweak}-Befehl
 verändert werden kann.
 
@@ -3286,12 +3286,12 @@ werden, aber die Methode, mit der die Änderung vorgenommen
 werden muss, unterscheidet sich je nach Objekt.
 
 @menu
-* Drehen von Objekten::
+* Drehen von Layout-Objekten::
 * Textbeschriftung drehen::
 @end menu
 
-@node Drehen von Objekten
-@unnumberedsubsubsec Drehen von Objekten
+@node Drehen von Layout-Objekten
+@unnumberedsubsubsec Drehen von Layout-Objekten
 @translationof Rotating layout objects
 
 @cindex Drehen von Objekten
@@ -3372,13 +3372,15 @@ Handbuch zum Lernen:
 Notationsreferenz:
 @ref{Die Referenz der Programminterna erklärt},
 @ref{Eigenschaften verändern},
-@ref{Schnittstellen für Programmierer}.
 
 Installierte Dateien:
 @file{scm/define-grobs.scm}.
 
 Schnipsel:
 @rlsr{Tweaks and overrides}.
+
+Erweitern:
+@rextend{Schnittstellen für Programmierer}.
 
 Referenz der Interna:
 @rinternals{All layout objects}.
@@ -3912,7 +3914,7 @@ beschrieben in @rextend{Musikalische Funktionen}.
 
 @menu
 * Syntax der Ersetzungsfunktion::
-* Beispiele der Ersetzungsfunktion::
+* Beispiele der Ersetzungsfunktionen::
 @end menu
 
 @node Syntax der Ersetzungsfunktion

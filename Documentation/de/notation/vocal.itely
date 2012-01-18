@@ -1117,7 +1117,7 @@ Handbuch zum Lernen:
 @rlearning{Vokalensemble}.
 
 Notation Reference:
-@ref{Kontexte aneinander ausrichten},
+@ref{Reihenfolge des Kontextlayouts},
 @ref{Kontexte erstellen}.
 
 
@@ -3270,7 +3270,7 @@ tick = \markup {
 
 Der Einsatz von Beschriftung, um den Text zu zentrieren und die
 Zeilen in Spalten zu formatieren, findet sich in
-@ref{}.
+@ref{Text formatieren}.
 
 Die meisten dieser Elemente werden in einem der beiden Strophen
 der @qq{Psalm}-Vorlage demonstriert, siehe

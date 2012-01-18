@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Les règles de ligature par mesure sont gérées par la propriété
 @code{beatStructure}.  Ses valeurs par défaut sont répertoriées, par
@@ -13,12 +13,14 @@ regroupement des pulsations dans la mesure.   @code{\\time} et
 @code{beatStructure} ou @code{baseMoment} lorsque qu'elles sont
 modifiées dans un contexte de niveau inférieur comme @code{Voice} par
 exemple.
+
 Si l'on fait appel au @code{Measure_grouping_engraver}, la fonction
 @code{set-time-signature} créera aussi des symboles
 @code{MeasureGrouping}.  Ces symboles aident à la lecture des œuvres
 modernes à la rythmique complexe.  Dans l'exemple qui suit, la mesure à
 9/8 est divisée en 2, 2, 2 et 3, alors que la mesure à 5/8 répond aux
-règles par défaut contenues dans le fichier @w{@code{scm/@/beam@/-settings@/.scm}}.
+règles par défaut contenues dans le fichier
+@w{@code{scm/@/beam@/-settings@/.scm}}.
 
 "
   doctitlefr = "Signes de direction, signes de sous-groupe"

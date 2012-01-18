@@ -9,7 +9,7 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
  doctitlees = "Cambiar la forma de los silencios multicompás"
  texidoces = "
 Si hay diez compases de silencio o menos, se imprime en el pentagrama
@@ -34,11 +34,11 @@ setzt:
 
 
 %% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685
-texidocfr = "
+  texidocfr = "
 Dans le cas où ce silence dure moins de dix mesures, LilyPond imprime sur
-la portée des @qq{ silences d'église } -- @emph{Kirchenpause} en
+la portée des @qq{silences d'église} -- @emph{Kirchenpause} en
 allemand -- et qui sont une simple suite de rectangles.  La propriété
-@code{expand-limit} permet d'obtenir un silence unique :
+@code{expand-limit} permet d'obtenir un silence unique@tie{}:
 
 "
   doctitlefr = "Modifier l'apparence d'un silence multi-mesures"

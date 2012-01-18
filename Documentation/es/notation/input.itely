@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 14c4ea2e2fb9cf26c79f5003d8f56c3696573552
+    Translation of GIT committish: 08560a1b8076630c4fc6cb9b902614d8b74fd6fc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3040,7 +3040,7 @@ mediante la línea de órdenes.  Por ejemplo,
 @}
 @end example
 
-imprimirá
+imprime lo siguiente:
 
 @example
 @{ a,4 cis e fis g @}

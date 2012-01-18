@@ -7,9 +7,22 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 
+  texidocfr = "
+On peut choisir d'imprimer les altérations et signes plus aussi bien
+avant qu'après les chiffres, en réglant les propriétés
+@code{figuredBassAlterationDirection} et
+@code{figuredBassPlusDirection}.
+
+"
+  doctitlefr = "Emplacement des altération en basse continue"
+
   lsrtags = "chords"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+
+
+
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Las alteraciones y los signos «más» pueden aparecer antes o
 después de los números, según el valor de las propiedades

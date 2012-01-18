@@ -111,7 +111,7 @@ nombre, haga
 convert-ly miarchivo.ly > minuevoarchivo.ly
 @end example
 
-El programa imprimirá una relación de los números de versión para los
+El programa imprime una relación de los números de versión para los
 que se han hecho conversiones.  Si no se imprime ningún número de
 versión, el archivo ya está actualizado.
 
@@ -128,13 +128,11 @@ ventana del terminal del sistema, que se encuentra por lo general bajo
 @section Opciones de la línea de órdenes para @command{convert-ly}
 @translationof Command line options for convert-ly
 
-
 En general, el programa se invoca de la manera siguiente:
 
 @example
 convert-ly [@var{opción}]@dots{} @var{archivo}@dots{}
 @end example
-
 
 Se pueden dar las siguientes opciones:
 

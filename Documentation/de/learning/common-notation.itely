@@ -1387,7 +1387,7 @@ Benutzung der eben definierten Bezeichner:
 Titel, Komponist, Opusnummern und ähnliche Information werden in
 einer @code{\header}-Umgebung eingefügt. Diese Umgebung befindet sich
 außerhalb der musikalischen Ausdrücke, meistens wird die
-@code{\header}-Umgebung direkt nach der @ref{Versionsnummer} eingefügt.
+@code{\header}-Umgebung direkt nach der Versionsnummer eingefügt.
 
 @example
 \version @w{"@version{}"}

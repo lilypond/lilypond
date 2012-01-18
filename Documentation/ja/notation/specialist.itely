@@ -20,16 +20,16 @@
 について説明します。
 
 @menu
-* Vocal music::
+* 声楽::
 * キーボードと他の複数譜の楽器::
 * フレットの無い弦楽器::
 * フレットのある弦楽器::
-* Percussion::
-* Wind instruments::
-* Chord notation::
-* Contemporary music::
+* 打楽器::
+* 管楽器::
+* 和音記譜法::
+* 現代音楽::
 * Ancient notation::
-* World music::
+* 世界の音楽::
 @end menu
 
 @include notation/vocal.itely

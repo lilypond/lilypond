@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Para añadir digitaciones a las tablaturas, utilice una combinación de
 @code{\\markup} y @code{\\finger}.
@@ -18,12 +18,12 @@ Para añadir digitaciones a las tablaturas, utilice una combinación de
 
 
 %% Translation of GIT committish: 96ee692447057131395fe4c1f9fe55805b710aa6
-  texidocfr = "Ajout de doigtés à des tablatures"
-
-  doctitlefr = "
+  texidocfr = "
 L'ajout de doigtés à des tablatures s'obtient en conjuguant des
 @code{\\markup} et des @code{\\finger}.
+
 "
+  doctitlefr = "Ajout de doigtés à des tablatures"
 
   lsrtags = "fretted-strings"
   texidoc = "

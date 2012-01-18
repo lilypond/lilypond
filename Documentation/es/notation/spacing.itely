@@ -138,7 +138,7 @@ los encabezamientos, pies y títulos.
 
 La función @code{set-paper-size} se estudia en la sección siguiente,
 @ref{Tamaño del papel y escalado automático}.  Las variables de
-@code{\paper} variables que se ocupan de la disposición de la página
+@code{\paper} que se ocupan de la disposición de la página
 se estudian en secciones posteriores.  Las definiciones de elementos
 de marcado que se encargan de los encabezamientos, pies y títulos se
 estudian en @ref{Cabeceras pies y títulos personalizados}.
@@ -149,8 +149,8 @@ bloque @code{\layout} están relacionadas en @ref{El bloque \layout}.
 
 Excepto cuando se especifica lo contrario, todas las variables de
 @code{\paper} que corresponden a distancias sobre la página se miden
-en milímetros, a no ser que se especifiquen unas unidades diferentes
-por parte del usuario.  Por ejemplo, la declaración siguiente
+en milímetros, a no ser que el usuario especifique unas unidades
+diferentes.  Por ejemplo, la declaración siguiente
 establece el margen superior @code{top-margin} a diez milímetros:
 
 @example

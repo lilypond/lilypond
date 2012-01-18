@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Se puede modificar el texto empleado para los crescendos y
 decrescendos modificando las propiedades de contexto
@@ -41,7 +41,7 @@ und @code{'dotted-line}.
   texidocfr = "
 Le texte par défaut des crescendos et decrescendos se change en
 modifiant les propriétés de contexte @code{crescendoText} et
-@code{decrescendoText}. L'aspect de la ligne d'extension est fonction
+@code{decrescendoText}.  L'aspect de la ligne d'extension est fonction
 de la propriété @code{'style} du @code{DynamicTextSpanner}.  Sa valeur
 par défaut est @code{'hairpin}, mais d'autres valeurs sont disponibles,
 comme @code{'line}, @code{'dashed-line} et @code{'dotted-line}.

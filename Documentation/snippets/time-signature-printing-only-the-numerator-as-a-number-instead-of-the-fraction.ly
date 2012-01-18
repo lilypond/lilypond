@@ -9,7 +9,7 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 
 A veces, la indicación de compás no debe imprimir la fracción completa
@@ -25,14 +25,13 @@ se puede revertir el cambio.  Para aplicar el estilo de un dígito
   doctitlees = "Indicación de compás imprimiendo sólo el numerador (en lugar de la fracción)"
 
 %% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
-
   texidocfr = "
 La métrique est parfois indiquée non pas par une fraction (p.ex. 7/4)
 mais simplement par son numérateur (7 dans ce cas).  L'instruction
 @code{\\override Staff.TimeSignature #'style = #'single-digit} permet de
 déroger au style par défaut de manière permanente -- un @code{\\revert
 Staff.TimeSignature #'style} d'annuler ces modifications.  Lorsque cette
-métrique sous le forme d'une seul chiffre ne se présente qu'une seule
+métrique sous la forme d'une seul chiffre ne se présente qu'une seule
 fois, il suffit de faire précéder l'instruction @code{\\override} d'un
 simple @code{\\once}.
 

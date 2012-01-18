@@ -9,7 +9,7 @@
 \header {
   lsrtags = "rhythms"
 
-%%   Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%%   Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 
   texidoces = "
 
@@ -80,8 +80,8 @@ doctitlede = "Partcombine und autoBeamOff"
 
 %% Translation of GIT committish: e1a149d0cc60b02e86209387958f4028567dd366
   texidocfr = "
-Le fonction @code{@bs{}autoBeamOff} dans le cadre d'un
-@code{@bs{}partcombine} agit de façon bien particulière@tie{}; c'est
+La fonction @code{\\autoBeamOff} dans le cadre d'un
+@code{\\partcombine} agit de façon bien particulière@tie{}; c'est
 pourquoi il vaut mieux tout d'abord recourir à
 
 @example
@@ -107,7 +107,7 @@ opérationnel dans le cadre d'un @code{\\partcombine}, l'introduire aux
 @strong{trois} niveaux.
 
 "
-doctitlefr = "Partcombine et autoBeamOff"
+  doctitlefr = "Partcombine et autoBeamOff"
 
 
   texidoc = "

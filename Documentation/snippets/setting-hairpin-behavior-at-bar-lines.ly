@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Si la nota que da fin a un regulador cae sobre la primera parte de
 un compás, el regulador se detiene en la línea divisoria
@@ -36,7 +36,7 @@ commence au bord gauche de la note de départ, et se termine au
 bord droit de la note d'arrivée.  Cependant, si la note d'arrivée
 est sur un premier temps, le soufflet s'arrêtera au niveau de la
 barre de mesure qui la précède.  Ce comportement peut être annulé
-en assignant @emph{faux} (@code{#f}) à la propriété @code{'to-barline} :
+en assignant @emph{faux} (@code{#f}) à la propriété @code{'to-barline}.
 
 "
   doctitlefr = "Soufflets et barres de mesure"

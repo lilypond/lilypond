@@ -9,7 +9,7 @@
 \header {
   lsrtags = "pitches, text"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 
 Internamente, @code{\\ottava} establece las propiedades
@@ -41,10 +41,9 @@ En interne, la fonction @code{\\ottava} détermine les
 propriétés @code{ottavation} (p.ex. en @code{\"8va\"} ou @code{\"8vb\"})
 et @code{centralCPosition}.  Vous pouvez modifier le texte d'une marque
 d'octaviation en définissant @code{ottavation} après avoir fait appel
-à @code{ottava} :
+à @code{ottava}@tie{}:
 
 "
-
   doctitlefr = "Texte des marques d'octaviation"
 
 

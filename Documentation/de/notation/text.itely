@@ -347,7 +347,7 @@ ausgegeben.
 
 Eine @code{\markup}-Umgebung kann auch für sich alleine existieren,
 außerhalb einer @code{\score}-Umgebung, als ein Ausdruck auf der
-höchsten Ebene.  Diese Syntax ist beschrieben in @ref{Dateistruktur}.
+höchsten Ebene.  Diese Syntax ist beschrieben in @ref{Die Dateistruktur}.
 
 @c KEEP LY
 @lilypond[verbatim,quote]

@@ -545,7 +545,7 @@ klassischer Musik: @notation{koma} (1/9 eines Ganztons),
 @notation{artık ikili} (12/9 oder 13/9 eines Ganztons).
 
 Es bietet sich an, die normalen westlichen Noten auf dem Notensystem zu
-benutzen (also c, d, e @dots) angrereichert mit besonderen Versetzungszeichen,
+benutzen (also c, d, e @dots{}) angrereichert mit besonderen Versetzungszeichen,
 die die Noten um 1/9, 4/9, 5/9 und 8/9 eines Ganztons erhöhen oder
 erniedrigen.  Diese Versetzungszeichen sind definiert in der Datei
 @file{makam.ly}.

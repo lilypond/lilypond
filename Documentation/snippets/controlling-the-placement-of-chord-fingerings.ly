@@ -9,7 +9,7 @@
 \header {
   lsrtags = "editorial-annotations, chords, keyboards, fretted-strings"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Se puede controlar con precisión la colocación de los números de
 digitación.  Para que se tenga en cuenta la orientación de las
@@ -30,11 +30,12 @@ Die Position von Fingersatzzahlen kann exakt kontrolliert werden.
   doctitlede = "Position von Fingersatz in Akkorden kontrollieren"
 
 %% Translation of GIT committish: ac6297e4fa174ac5759cc450ad085c2fac9ba00b
-
   texidocfr = "
 Le positionnement des doigtés peut être contrôlé de manière très précise.
 Afin que l'orientation soit prise en compte, il est nécessaire d'utiliser
-une syntaxe d'accord @code{< >}, même s'il ne s'agit que d'une seule note.
+une syntaxe d'accord @code{<@tie{}>}, même s'il ne s'agit que d'une
+seule note.
+
 "
   doctitlefr = "Contrôler la position des doigtés dans un accord"
 

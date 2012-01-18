@@ -9,7 +9,7 @@
 \header {
   lsrtags = "vocal-music, chords, template"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Esta plantilla facilita la preparación de una canción con melodía,
 letra y acordes.
@@ -43,7 +43,7 @@ Text und Akkorden schreiben.
 
 %% Translation of GIT committish: ceb0afe7d4d0bdb3d17b9d0bff7936bb2a424d16
   texidocfr = "
-Ce cannevas comporte tous les éléments d'une chanson : la mélodie,
+Ce cannevas comporte tous les éléments d'une chanson@tie{}: la mélodie,
 les paroles, les accords.
 
 "

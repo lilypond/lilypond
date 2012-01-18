@@ -7,7 +7,7 @@
 %% Note: this file works from version 2.14.0
 \version "2.14.0"
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 
   texidoces = "
 
@@ -20,12 +20,12 @@ y segunda vez, que se pueden ajustar utilizando
   doctitlees = "Establecer el tipo de repetición doble predeterminado para la primera y segunda vez"
 
 %% Translation of GIT committish: 158658dc75b6f6553e77ff53119ac802eb91f50c
-  texidocfr = "LilyPond dispose de trois styles de barre différents
-pour indiquer une succession de reprises.  Vous devez opter pour un
-  style par défaut, à l'aide de la propriété @code{doubleRepeatType}.
+  texidocfr = "
+LilyPond dispose de trois styles de barre différents pour indiquer une
+succession de reprises.  Vous devez opter pour un style par défaut, à
+l'aide de la propriété @code{doubleRepeatType}.
 
 "
-
   doctitlefr = "Succession de reprise et style de barre par défaut"
 
 

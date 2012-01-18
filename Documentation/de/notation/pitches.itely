@@ -886,7 +886,7 @@ music = \relative c' { c d e f }
 
 @seealso
 Notationsreferenz:
-@ref{Modale Transformationen},
+@ref{Modale Transformierungen},
 @ref{Krebs},
 @ref{Transposition}.
 
@@ -920,8 +920,8 @@ ersetllt werden, indem man @ref{Automatic note splitting} aktiviert.
 
 @seealso
 Notationsreferenz:
-@ref{Modale Transformationen},
-@ref{Umgekehrung},
+@ref{Modale Transformierungen},
+@ref{Umkehrung},
 @ref{Transposition}.
 
 

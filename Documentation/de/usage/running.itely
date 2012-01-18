@@ -62,7 +62,7 @@ Internet, wenn Sie mit der Kommandozeile nicht vertraut sind.
 
 @menu
 * lilypond aufrufen::
-* Optionen von lilypond auf der Kommandozeile::
+* Optionen auf der Kommandozeile für lilypond::
 * Umgebungsvariablen::
 * LilyPond in chroot-Kerker::
 @end menu

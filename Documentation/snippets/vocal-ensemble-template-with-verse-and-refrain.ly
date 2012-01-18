@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 
   texidoces = "
 Esta plantilla crea una partitura que comienza con una estrofa para
@@ -44,13 +44,13 @@ Stück zu definieren.
   doctitlede = "Sologesang und zweistimmiger Refrain"
 
 %% Translation of GIT committish: 26375d5016d8d180fc914bfd07cf76f4168f2e37
-
   texidocfr = "
 Ce canevas illustre la manière d'agencer une œuvre vocale où le couplet
 est chanté en solo et le refrain à deux voix.  Vous noterez le recours
 aux silences invisibles dans la variable @code{\\global}@tie{}; ils
 permettent de positionner les changements de métrique et autres éléments
 communs à toutes les parties et pour l'intégralité du morceau.
+
 "
   doctitlefr = "Ensemble vocal avec couplet et refrain"
 

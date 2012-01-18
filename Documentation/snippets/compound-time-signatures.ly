@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
  doctitlees = "Indicaciones de compases compuestos"
  texidoces = "
 Las indicaciones de compás poco frecuentes como @qq{5/8} se pueden
@@ -41,8 +41,8 @@ Bebalkung angepasst wird.
 Des métriques telles que @qq{5/8} peuvent s'interpréter sous une forme
 décomposée --- @qq{3/8 + 2/8} par exemple --- qui combine plusieurs
 métriques.  LilyPond est capable de rendre ce type de notation, plus
-  facile à lire et à interpréter, en imprimant cette métrique composite
-  et en adaptant les règles de ligature automatique en conséquence.
+facile à lire et à interpréter, en imprimant cette métrique composite
+et en adaptant les règles de ligature automatique en conséquence.
 
 "
   doctitlefr = "Métrique décomposée"

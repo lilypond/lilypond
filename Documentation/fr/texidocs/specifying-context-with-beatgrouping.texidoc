@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 708e0d9c660856b19929736ca18a6f9d68539c60
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Le fait de spécifier un contexte à @code{beatGrouping} permet d'en
 limiter les effets.  Par voie de conséquence, il sera possible
 d'outrepasser les règles définies à un niveau supérieur.  La commande
 @code{\\set} destinée à en modifier les valeurs doit se placer après la
-commande @code{\\time} :
+commande @code{\\time}.
 
 "
   doctitlefr = "Spécification du contexte auquel s'appliquera beatGrouping"

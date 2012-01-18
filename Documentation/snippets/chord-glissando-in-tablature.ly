@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 
   texidoces = "
 Los deslizamientos para acordes se pueden indicar tanto en el contexto
@@ -31,7 +31,6 @@ Akkorde und einzelne Noten funktioniert.
 
 
 %% Translation of GIT committish: 40bf2b38d674c43f38058494692d1a0993fad0bd
-
   texidocfr = "
 Un glissando sur des accords s'indique dans un @code{TabStaff} de la
 même manière que dans un @code{Staff}, à ceci près que nous aurons
@@ -39,7 +38,6 @@ besoin des numéros de corde afin de déterminer correctement les frets
 d'arrivée.
 
 "
-
   doctitlefr = "Glissando d'accords et tablature"
 
 

@@ -366,7 +366,7 @@ información, consulte @ref{Barras de compás}.}
 
 Se puede usar la propiedad @code{repeatCommands} para controlar la
 disposición de las repeticiones.  Su valor es una lista de Scheme de
-comandos de repetición.
+instrucciones de repetición.
 
 @table @code
 @item start-repeat
@@ -382,7 +382,6 @@ c1
 En la práctica habitual del grabado no se imprimen signos de
 repetición al principio de la pieza.
 
-
 @item @code{end-repeat}
 Imprimir una barra de compás @code{:|}
 
@@ -396,7 +395,7 @@ c1
 @item (volta @var{number}) ... (volta #f)
 Crear una nueva casilla de repetición con el número que se especifica.
 El corchete de vez se debe terminar de forma explícita, pues en caso
-contrario no se imprimirá.
+contrario no se imprime.
 
 @lilypond[verbatim,quote,relative=2]
 f4 g a b

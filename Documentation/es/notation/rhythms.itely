@@ -59,11 +59,11 @@ Las duraciones se designan mediante números y puntos. Las duraciones
 se introducen como sus valores recíprocos respecto de la redonda.  Por
 ejemplo, una negra se escribe usando un @code{4} (puesto que es 1/4 de
 redonda), mientras que una blanca se escribe con un @code{2} (por ser
-1/2 de redonda).  Para notas mayores de la redonda se deben usar los
-comandos @code{\longa} (que es una breve doble) y @code{\breve}. Se
-pueden especificar duraciones tan cortas como la garrapatea (con el
-número 128).  Son posibles valores más cortos, pero sólo como notas
-unidas por una barra.
+1/2 de redonda).  Para notas mayores de la redonda se deben usar las
+instrucciones @code{\longa} (que es una breve doble) y
+@code{\breve}. Se pueden especificar duraciones tan cortas como la
+garrapatea (con el número 128).  Son posibles valores más cortos, pero
+sólo como notas unidas por una barra.
 
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,verbatim,relative=2]
@@ -213,11 +213,11 @@ multiplicando todas las duraciones por una fracción:
 @end example
 
 @noindent
-La duración de @code{@var{música}} se multiplicará por la
-fracción.  El denominador de la fracción se imprimirá sobre las notas,
-opcionalmente con un corchete.  El grupo especial más común es el
-tresillo, en el que 3 notas tienen el valor de 2, por tanto las notas
-duran 2/3 de su valor escrito
+La duración de @code{@var{música}} se multiplica por la fracción.  El
+denominador de la fracción se imprime sobre las notas, opcionalmente
+con un corchete.  El grupo especial más común es el tresillo, en el
+que 3 notas tienen el valor de 2, por tanto las notas duran 2/3 de su
+valor escrito:
 
 @lilypond[quote,verbatim,relative=2]
 a2 \times 2/3 { b4 b b }
@@ -2294,13 +2294,13 @@ Referencia de funcionamiento interno:
 
 
 @knownissues
-Si una partitura termina mientras una barra automática no ha terminado
-aún todavía está aceptando notas, esta última barra no se imprimirá en
-absoluto.  Lo mismo sirve para las voces polifónicas, introducidas con
+Si una partitura termina mientras una barra de corchea automática no
+ha terminado y aún acepta notas, esta última barra no se imprime en
+absoluto.  Lo mismo sirve para las voces polifónicas introducidas con
 @code{<< @dots{} \\ @dots{} >>}.  Si una voz polifónica termina
-mientras una barra automática está aún aceptando notas, no se imprime.
-El rodeo para estos problemas es aplicar el barrado
-manual a la última barra de la voz o partitura.
+mientras una barra de corchea automática aún admite notas, no se
+imprime.  El rodeo para estos problemas es aplicar el barrado manual a
+la última barra de la voz o partitura.
 
 De forma predeterminada, el traductor @code{Timing} recibe el nombre
 del contexto @code{Score} como alias.  Esto significa que el
@@ -2968,8 +2968,8 @@ por ejemplo:
 @end verbatim
 
 @noindent
-imprimirá una advertencia si el @code{currentBarNumber} (número del
-compás actual) no es 123 cuando se procesa.
+imprime una advertencia si el @code{currentBarNumber} (número del
+compás actual) no es el 123 en el momento de la compilación.
 
 
 @seealso
@@ -3117,16 +3117,16 @@ Consulte @ref{La tipografía Feta} para ver una lista de los símbolos que se
 pueden imprimir con @code{\musicglyph}.
 
 Para ver formas comunes de trucar la colocación de las letras de
-ensayo, consulte @ref{Indicaciones de texto}.  Para un control más
+ensayo, consulte @ref{Formatear el texto}.  Para un control más
 preciso, consulte @code{break-alignable-interface} en la sección
-@ref{Alinear los contextos}.
+@ref{Alineación de objetos}.
 
 
 @seealso
 Referencia de la notación:
 @ref{La tipografía Feta},
 @ref{Formatear el texto},
-@ref{Alinear los contextos}.
+@ref{Alineación de objetos}.
 
 Archivos de inicio: @file{scm/translation-functions.scm}
 contiene las definiciones de @code{format-mark-numbers} y de

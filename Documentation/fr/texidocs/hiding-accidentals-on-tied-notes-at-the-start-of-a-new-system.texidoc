@@ -1,8 +1,9 @@
-%% Translation of GIT committish: 31097723b2b816696ad61696630a80ff17a39557
-  texidocfr = "Cet exemple illustre comment, lorsqu'une note affublée
-  d'une altération accidentelle est prolongée, ne pas répéter cette
-  altération après un saut de ligne.
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+  texidocfr = "
+Cet exemple illustre comment, lorsqu'une note affublée d'une altération
+accidentelle est prolongée, ne pas répéter cette altération après un
+saut de ligne.
+
 "
-  doctitlefr = "Non répétition de l'altération après saut de ligne
-  sur liaison de prolongation"
+  doctitlefr = "Non répétition de l'altération après saut de ligne sur liaison de prolongation"
 

@@ -9,7 +9,7 @@
 \header {
   lsrtags = "staff-notation, ancient-notation, contexts-and-engravers, tweaks-and-overrides"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 La disposición «mensurstriche» en que las líneas divisorias no
 están dibujadas sobre los pentagramas, sino entre ellos, se puede
@@ -36,8 +36,8 @@ Systemen werden mit der @code{transparent}-Eigenschaft ausgelöscht.
   texidocfr = "
 En musique mensurale, les barres de mesure ne traversent pas les
 portées.  Pour obtenir ce résultat avec un @code{StaffGroup} plutôt
-qu'en utilisant un @code{ChoirStaff}, il faudra rendre « transparentes »
-les portions de barre qui recouvrent les portées.
+qu'en utilisant un @code{ChoirStaff}, il faudra rendre 
+@qq{transparentes} les portions de barre qui recouvrent les portées.
 
 "
   doctitlefr = "Présentation à l'ancienne (barres de mesure entre les portées)"

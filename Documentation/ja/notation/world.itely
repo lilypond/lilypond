@@ -1,0 +1,596 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@ignore
+    Translation of GIT committish: bb8aa1aed52c49e6e3de8c6c70a876598b11b4a8
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.14.0"
+
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+
+@node 世界の音楽
+@section 世界の音楽
+@translationof World music
+
+このセクションの目的は、@c
+西洋音楽の慣習とは異なる音楽に関する記譜の問題をハイライトすることです。
+
+@menu
+* 非西洋音楽の一般的な記譜法::
+* アラブ音楽::
+* トルコの伝統音楽::
+@end menu
+
+
+@node 非西洋音楽の一般的な記譜法
+@subsection 非西洋音楽の一般的な記譜法
+@translationof Common notation for non-Western music
+
+このセクションでは、西洋のクラシック音楽の様式には属さない楽譜を入力し、@c
+譜刻する方法を説明します。
+
+@menu
+* 記譜法とチューニング システムを拡張する::
+@end menu
+
+
+@node 記譜法とチューニング システムを拡張する
+@unnumberedsubsubsec 記譜法とチューニング システムを拡張する
+@translationof Extending notation and tuning systems
+
+標準的なクラシック音楽の記譜法
+(@notation{Common Practice Period} -- 16-19世紀のヨーロッパ音楽 -- の記譜法)
+は全ての種類の音楽で使われるもので、@c
+西洋の @q{クラシック} 音楽に限定されるものではありません。@c
+この記譜法は @ref{ピッチを記述する} で説明されていて、@c
+様々な音符名が @ref{他の言語での音符名} で説明されています。
+
+しかしながら、非西洋音楽の多く
+(それに西洋のフォーク ミュージックと伝統音楽のいくつか)
+は、異なるあるいは拡張されたチューニングシステムを採用していて、@c
+標準的なクラシック音楽の記譜法とは容易に適合しません。
+
+ピッチの違いを潜在させながら、標準の記譜法を用いる場合もあります。@c
+例えば、@notation{アラブ音楽} は、@c
+標準の半音 (訳者: シャープとフラット) と四分音 (訳者: シャープとフラットの半分)
+を用いて、@c
+精密なピッチの変化をコンテキストに決定させながら記譜します。@c
+一般的にはイタリアの音符名が使われますが、@c
+初期ファイル @file{arabic.ly} は、@c
+標準の記譜法を拡張するアラブ音楽に適したマクロと定義のセットを提供します。@c
+詳細は、@ref{アラブ音楽} を参照してください。
+
+@cindex tuning, non-Western (非西洋音楽のチューニング)
+
+他のタイプの音楽は、拡張されたあるいは固有の記譜法を必要とします。@c
+例えば、@notation{トルコの伝統音楽} やオスマントルコの音楽は、@c
+全音の 1/9 をベースとする音程を持つ @notation{マカーム} と呼ばれる旋律様式を@c
+採用しています。@c
+標準の西洋音楽の音符を使いますが、@c
+ファイル @file{makam.ly} で定義されている@c
+トルコ音楽に固有の特殊な臨時記号が用いられます。@c
+トルコの伝統音楽とマカームについての詳細は
+@ref{トルコの伝統音楽} を参照してください。
+
+@file{arabic.ly} や @file{makam.ly} 等の初期ファイルの保存場所については、@c
+@rlearning{その他の情報源} を参照してください。
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{makam-example.ly}
+
+@seealso
+音楽用語集:
+@rglos{Common Practice Period},
+@rglos{makamlar}
+
+学習マニュアル:
+@rlearning{その他の情報源}
+
+記譜法リファレンス:
+@ref{ピッチを記述する},
+@ref{他の言語での音符名},
+@ref{アラブ音楽},
+@ref{トルコの伝統音楽}
+
+
+@node アラブ音楽
+@subsection アラブ音楽
+@translationof Arabic music
+
+このセクションでは、アラブ音楽の記譜に関する問題をハイライトします。
+
+@menu
+* アラブ音楽のためのリファレンス::
+* アラブ音楽での音符名::
+* アラブ音楽での調号::
+* アラブ音楽での拍子::
+* アラブ音楽の例::
+* アラブ音楽のための更なる知識::
+@end menu
+
+
+@node アラブ音楽のためのリファレンス
+@unnumberedsubsubsec アラブ音楽のためのリファレンス
+@translationof References for Arabic music
+
+@cindex Arabic music
+@cindex medium intervals
+@cindex maqam
+@cindex maqams
+
+アラブ音楽は主に口伝えで伝えられてきました。@c
+音楽を記述するときは、演奏者が多くを即興することを前提とした@c
+スケッチ形式で記されます。@c
+アラブ音楽を伝え、保護するために、@c
+いくつかのバリエーションを持つ西洋音楽記譜法を採用することが増えています。
+
+和音の記述や独立したパートのような西洋音楽記譜法の要素のいくつかは、@c
+伝統的なアラブ音楽を記譜するのに必要としません。@c
+しかしながら、それとは異なる問題があります。@c
+例えば、西洋音楽で用いられる半音と全音に加えて、@c
+半音や全音の間にある中間音程を示す必要があります。@c
+さらに、多くのマカーム (旋法)
+-- アラブ音楽のパート --
+を示す必要があります。
+
+一般的に、アラブ音楽の記譜法は微分音要素を正確に示そうとはしません。
+
+アラブ音楽に関係する問題のいくつかは他の場所でカバーされています:
+
+@itemize
+@item 音符名と臨時記号 (四分音を含む) を用意する方法は、@c
+@ref{非西洋音楽の一般的な記譜法} で説明しています。
+
+@item 追加の調号を用意する方法は、@ref{調号} で説明しています。
+
+@item 複雑な拍子は、@ref{手動連桁} で説明されているように、@c
+音符を手動でグループ化することを必要とするかもしれません。
+
+@item 自由なリズムの即興 -- @notation{タクシーム} -- は、@c
+@ref{無韻律の音楽} で説明されているように小節線を省略します。
+
+@end itemize
+
+
+@seealso
+記譜法リファレンス:
+@ref{非西洋音楽の一般的な記譜法},
+@ref{調号},
+@ref{手動連桁}
+
+コード断片集:
+@rlsr{World music}
+
+
+@node アラブ音楽での音符名
+@unnumberedsubsubsec アラブ音楽での音符名
+@translationof Arabic note names
+
+
+@cindex Arabic note names (アラブ音楽での音符名)
+
+伝統的なアラブ音楽の音符名は非常に長く、@c
+音楽を記述するという目的には適さないため、使いません。@c
+アラブ音楽の教育では英語の音符名は馴染まれておらず、@c
+イタリア語あるいはソルフェージュ音符名 (@code{do, re, mi, fa, sol, la, si}) が@c
+用いられます。@c
+修飾子 (臨時記号) も用いられます。@c
+イタリア語の音符名と臨時記号は、@ref{他の言語での音符名} で説明しています。@c
+非西洋音楽の記譜に標準的なクラシック音楽の記譜法を用いる方法は、@c
+@ref{非西洋音楽の一般的な記譜法} で説明しています。
+
+例えば、アラブ音楽の @notation{マカーム ラースト} を記譜することができます:
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+\relative do' {
+  do re misb fa sol la sisb do sisb la sol fa misb re do
+}
+@end lilypond
+
+
+@cindex Arabic semi-flat symbol (アラブ音楽での半フラット記号)
+@cindex Semi-flat symbol appearance (半フラット記号の見た目)
+
+半フラットの記号は、アラブ音楽の記譜法で用いられる記号と一致しません。@c
+特殊なアラブ音楽の半フラット記号を用いることが重要である場合は、@c
+半フラットの音符の前に @file{arabic.ly} で定義されている @code{\dwn} を@c
+配置します。@c
+この方法では、調号の中の半フラット記号の見た目を変えることはできません。
+
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+\relative do' {
+  \set Staff.extraNatural = ##f
+  dod dob dosd \dwn dob dobsb dodsd do do
+}
+@end lilypond
+
+
+@seealso
+記譜法リファレンス:
+@ref{他の言語での音符名},
+@ref{非西洋音楽の一般的な記譜法}
+
+コード断片集:
+@rlsr{World music}
+
+
+@node アラブ音楽での調号
+@unnumberedsubsubsec アラブ音楽での調号
+@translationof Arabic key signatures
+
+@cindex Arabic key signatures (アラブ音楽での調号)
+
+マイナーとメジャーの調号に加えて、@c
+以下の調号が @file{arabic.ly} で定義されています:
+@notation{bayati}, @notation{rast}, @notation{sikah}, @notation{iraq},
+それに @notation{kurd} です。@c
+これらの調号は、一般的に用いられる多くのマカームではなく、@c
+少数のマカームを定義します。
+
+一般的に、マカームはそのマカーム グループあるいは隣のグループの調号を使用し、@c
+楽曲全体にさまざまな臨時記号が付けられます。
+
+例として、マカーム muhayer の調号を示します:
+
+@example
+\key re \bayati
+@end example
+
+@noindent
+ここで、@var{re} が muhayer マカームの終止音であり、@c
+@var{bayati} がそのグループでの基本となるマカームの名前です。
+
+調号がグループを表していますが、@c
+一般にタイトルはより具体的なマカームを示します。@c
+そのため、上記の例ではマカーム muhayer の名前がタイトルとして表示されます。
+
+以下の表で示すように同じ bayati グループに属する他のマカーム
+(bayati, hussaini, saba, それに ushaq) も同じ方法で示すことができます。@c
+それらがその bayati グループのすべてのバリエーションです。@c
+それらは基本的な特質は変わらない兄弟関係にあり、@c
+基本となるマカーム (この場合は bayati) とは上方のテトラコードが異なっていたり、@c
+詳細の一部分が異なっています。
+
+同じグループの他のマカーム (nawa) は bayati を移調したもので、@c
+表では移調をマカームの後ろに括弧書きで、@c
+基本となるマカームからの移調として記載しています。@c
+アラブ音楽のマカームの移調は、アラブ音楽の楽器の性質により、@c
+制限されています。@c
+nawa は以下のように示すことができます:
+
+@example
+\key sol \bayati
+@end example
+
+アラブ音楽では、bayati のような用語が複数の意味を持ちます
+-- マカーム グループを示し、そのグループで最も重要なマカームであり、@c
+基本となるマカームでもあります。
+
+ここで、一般的なマカームの調号をマッピングしたグループを示します:
+
+@multitable @columnfractions 0.1 0.1 0.1 0.6
+@headitem マカーム グループ
+  @tab 調
+  @tab 終止音
+  @tab グループの他のマカーム (終止音)
+@item ajam
+  @tab major
+  @tab sib
+  @tab jaharka (fa)
+@item bayati
+  @tab bayati
+  @tab re
+  @tab hussaini, muhayer, saba, ushaq, nawa (sol)
+@item hijaz
+  @tab kurd
+  @tab re
+  @tab shahnaz, shad arban (sol), hijazkar (do)
+@item iraq
+  @tab iraq
+  @tab sisb
+  @tab -
+@item kurd
+  @tab kurd
+  @tab re
+  @tab hijazkar kurd (do)
+@item nahawand
+  @tab minor
+  @tab do
+  @tab busalik (re), farah faza (sol)
+@item nakriz
+  @tab minor
+  @tab do
+  @tab nawa athar, hisar (re)
+@item rast
+  @tab rast
+  @tab do
+  @tab mahur, yakah (sol)
+@item sikah
+  @tab sikah
+  @tab misb
+  @tab huzam
+@end multitable
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{non-traditional-key-signatures.ly}
+
+
+@seealso
+音楽用語集:
+@rglos{maqam},
+@rglos{bayati},
+@rglos{rast},
+@rglos{sikah},
+@rglos{iraq},
+@rglos{kurd}
+
+記譜法リファレンス:
+@ref{Key signature}
+
+学習マニュアル:
+@rlearning{臨時記号と調号}
+
+内部リファレンス:
+@rinternals{KeySignature}
+
+コード断片集:
+@rlsr{World music},
+@rlsr{Pitches}
+
+
+@node アラブ音楽での拍子
+@unnumberedsubsubsec アラブ音楽での拍子
+@translationof Arabic time signatures
+
+@cindex Arabic time signatures (アラブ音楽での拍子記号)
+@cindex Semai form (セマーイー形式)
+@cindex taqasim (タクシーム)
+
+アラブ音楽とトルコ音楽の伝統的な形式
+-- @notation{セマーイー} (@notation{Semai}) など --
+は 10/8 のような通常とは異なる拍子を使います。@c
+このことは、@c
+音符の自動グループ化は拍で音符をグループ化する既存の楽譜とは大きく異なり、@c
+自動連桁機能の調節で対応することが困難ということを意味します。@c
+代替手段として、自動連桁機能を off にして、@c
+手動で音符に連桁を付けることになります。@c
+既存の楽譜に合わせることが必要でない場合であっても、@c
+自動連桁機能の振る舞いを調整し、複合拍子を用いることが望ましいかもしれません。
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{arabic-improvisation.ly}
+
+
+@seealso
+音楽用語集:
+@rglos{semai},
+@rglos{taqasim}
+
+記譜法リファレンス:
+@ref{手動連桁},
+@ref{自動連桁},
+@ref{無韻律の音楽},
+@ref{自動臨時記号},
+@ref{自動連桁の振る舞いを設定する},
+@ref{拍子}
+
+コード断片集:
+@rlsr{World music}
+
+
+@node アラブ音楽の例
+@unnumberedsubsubsec アラブ音楽の例
+@translationof Arabic music example
+
+@cindex Arabic music example (アラブ音楽の例)
+@cindex Arabic music template (アラブ音楽のテンプレート)
+@cindex Template Arabic music (アラブ音楽のテンプレート)
+
+
+ここで、トルコの @notation{セマーイー} (@notation{Semai}) の始めの部分を使った@c
+テンプレートを挙げます。@c
+アラブ音楽教育では、@notation{セマーイー} はアラブ音楽の記譜の特色のいくつか
+-- このセクションで説明した中間的な音程や通常では使用しない旋法等 --
+を説明するためにお馴染みのものです。
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+\score {
+  \relative re' {
+    \set Staff.extraNatural = ##f
+    \set Staff.autoBeaming = ##f
+    \key re \bayati
+    \time 10/8
+
+    re4 re'8 re16 [misb re do] sisb [la sisb do] re4 r8
+    re16 [misb do re] sisb [do] la [sisb sol8] la [sisb] do [re] misb
+    fa4 fa16 [misb] misb8. [re16] re8 [misb] re  [do] sisb
+    do4 sisb8 misb16 [re do sisb] la [do sisb la] la4 r8
+  }
+  \header {
+    title = "Semai Muhayer"
+    composer = "Jamil Bek"
+  }
+}
+@end lilypond
+
+
+@seealso
+コード断片集:
+@rlsr{World music}
+
+
+@node アラブ音楽のための更なる知識
+@unnumberedsubsubsec アラブ音楽のための更なる知識
+@translationof Further reading for Arabic music
+
+@enumerate
+
+@item
+Habib Hassan Touma 著 @emph{The music of the Arabs} [Amadeus Press, 1996]
+にはマカームについての説明と、それらのグループ化手法についての説明があります。
+
+マカームについて説明している様々な Web サイトもあり、@c
+それらの中には音源による例を提供しているものもあります:
+
+@itemize @bullet
+@item
+@uref{http://www.maqamworld.com/}
+@item
+@uref{http://www.turath.org/}
+@end itemize
+
+マカームのグループ化手法の詳細にはいくつかのバリエーションがありますが、@c
+マカームをグループ化する基準
+-- 下方のテトラ コードの共通性や移調に関連付けられます --
+は一致しています。
+
+@item
+特定のマカームに対してどのように調号を指定するかについては、@c
+一貫していません
+-- 同じテキスト内でさえも一貫していないことがあります。@c
+しかしながら、マカーム毎に調号を指定するのではなく、@c
+グループ毎に調号を指定するのが一般的です。
+
+以下の著者による @dfn{ウード} (アラブ音楽のリュート) の教本には、@c
+主なトルコ音楽とアラブ音楽の作曲についての説明があります。
+
+
+@itemize @bullet
+@item
+Charbel Rouhana
+@item
+George Farah
+@item
+Ibrahim Ali Darwish Al-masri
+@end itemize
+@end enumerate
+
+
+@node トルコの伝統音楽
+@subsection トルコの伝統音楽
+@translationof Turkish classical music
+
+このセクションではトルコの伝統音楽記譜に関係する問題をハイライトします。
+
+@menu
+* トルコの伝統音楽のためのリファレンス::
+* トルコ音楽の音符名::
+@end menu
+
+
+@node トルコの伝統音楽のためのリファレンス
+@unnumberedsubsubsec トルコの伝統音楽のためのリファレンス
+@translationof References for Turkish classical music
+
+@cindex Turkish music (トルコ音楽)
+@cindex Ottoman music (オスマン音楽)
+@cindex comma intervals (コンマ音程)
+@cindex makam (マカーム)
+@cindex makamlar (マカーム)
+
+トルコの伝統音楽はオスマン帝国時代
+-- ヨーロッパでクラシック音楽が開発されたのとほぼ同時期 --
+に発展し、
+それ自体の作曲形式、理論それに演奏スタイルを持つ、@c
+活発で西洋音楽とは別個の流儀を持つ音楽として
+20 世紀そして 21 世紀へと受け継がれてきました。@c
+際立った特徴の 1 つは全音階を 9 等分した @q{コンマ} をベースとする@c
+微分音を使用することであり、@c
+微分音から
+@notation{マカーム} (@notation{makam}、複数形は @notation{makamlar}) と@c
+呼ばれる旋律形式が構築されます。
+
+トルコの伝統音楽に関する問題のいくつかは他の場所でカバーされています:
+
+@itemize
+@item 特殊な音符名と臨時記号について、@c
+@ref{非西洋音楽の一般的な記譜法} で説明しています。
+
+@end itemize
+
+
+@node トルコ音楽の音符名
+@unnumberedsubsubsec トルコ音楽の音符名
+@translationof Turkish note names
+
+@cindex Turkish note names (トルコ音楽の音符名)
+@cindex makam (マカーム)
+@cindex makamlar (マカーム)
+
+トルコの伝統音楽におけるピッチは固有の名前を持ちます。@c
+全音階の 1/9 をベースとしているため、@c
+西洋音楽の音階と旋法とは全く異なる音程のセットを採用しています:
+@notation{koma} (全音階の 1/9),
+@notation{eksik bakiye} (3/9), @notation{bakiye} (4/9),
+@notation{kücük mücenneb} (5/9), @notation{büyük mücenneb} (8/9),
+@notation{tanîni} (全音階) それに
+@notation{artık ikili} (12/9 または 13/9) です。
+
+現代の記譜法の観点から見ると、@c
+西洋音楽標準の譜の音符 (ド、レ、ミ @dots{}) に@c
+音符を全音階の 1/9, 4/9, 5/9, 8/9 上げ下げする特殊な臨時記号を@c
+組み合わせて使うと便利です。@c
+これらの臨時記号はファイル @file{makam.ly} で定義されています。
+
+以下の表は下記をリストアップしています:
+@itemize
+@item
+特殊な臨時記号の名前
+@item
+音符に後ろに付ける臨時記号の接尾辞
+@item
+全音階の分数で表すピッチの変化量
+@end itemize
+
+@quotation
+@multitable {@b{büyük mücenneb (sharp)}} {@b{suffix}} {@b{pitch alteration}}
+@headitem 臨時記号名
+  @tab 接尾辞 @tab ピッチの変化量
+
+@item büyük mücenneb (シャープ)
+  @tab -bm @tab +8/9
+@item kücük mücenneb (シャープ)
+  @tab -k @tab +5/9
+@item bakiye (シャープ)
+  @tab -b @tab +4/9
+@item koma (シャープ)
+  @tab -c @tab +1/9
+
+@item koma (フラット)
+  @tab -fc @tab -1/9
+@item bakiye (フラット)
+  @tab -fb @tab -4/9
+@item kücük mücenneb (フラット)
+  @tab -fk @tab -5/9
+@item büyük mücenneb (フラット)
+  @tab -fbm @tab -8/9
+@end multitable
+@end quotation
+
+@c ここから
+非西洋音楽の記譜法についてのもっと一般的な説明は、@c
+@ref{非西洋音楽の一般的な記譜法} を参照してください。
+
+@seealso
+音楽用語集:
+@rglos{makam},
+@rglos{makamlar}
+
+記譜法リファレンス:
+@ref{非西洋音楽の一般的な記譜法}

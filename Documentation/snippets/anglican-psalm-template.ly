@@ -9,7 +9,7 @@
 \header {
   lsrtags = "vocal-music, template"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Esta plantilla muestra una forma de preparar un cántico salmódico
 anglicano.  También muestra cómo se pueden añadir estrofas adicionales
@@ -41,7 +41,6 @@ Möglichkeiten darzustellen.
 
 
 %% Translation of GIT committish: 092f85605dcea69efff5ef31de4ff100346d6ef8
-
   texidocfr = "
 Cet exemple illustre la manière de présenter un cantique tel qu'on le
 trouve dans l'église anglicane.  Vous noterez comment sont ajoutés les

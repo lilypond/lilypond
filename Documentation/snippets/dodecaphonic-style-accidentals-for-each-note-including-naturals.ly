@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   doctitlees = "Alteraciones de estilo dodecafónico para todas las notas incluidas las naturales"
   texidoces = "
 En las obras de principios del s.XX, empezando por Schoenberg, Berg y
@@ -39,7 +39,7 @@ notación.
 
 %% Translation of GIT committish: 58a29969da425eaf424946f4119e601545fb7a7e
   texidocfr = "
-Au début du XXème siècle, Schoenberg, Berg et Webern -- la « Seconde »
+Au début du XXe siècle, Schoenberg, Berg et Webern -- la « Seconde »
 école de Vienne -- imaginèrent de donner une importance comparable aux
 douze notes de la gamme chromatique, et éviter ainsi toute tonalité.
 Pour ce faire, ces compositions font apparaître une altération à chaque

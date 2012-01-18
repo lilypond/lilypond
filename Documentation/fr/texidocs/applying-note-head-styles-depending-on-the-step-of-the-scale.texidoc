@@ -1,4 +1,4 @@
-%% Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 La propriété @code{shapeNoteStyles} permet d'affecter un profil
 particulier à chaque degré de la gamme -- à partir de l'armure ou
@@ -7,8 +7,8 @@ de symboles, qu'il s'agisse de formes géométriques (@code{triangle},
 @code{cross}, ou @code{xcircle}) ou basés sur la tradition des graveurs
 américains (avec quelques noms de note latins).
 
-LilyPond dispose de deux raccourcis, @code{\aikenHeads} et
-@code{\sacredHarpHeads}, permettant de reproduire d'anciens recueils de
+LilyPond dispose de deux raccourcis, @code{\\aikenHeads} et
+@code{\\sacredHarpHeads}, permettant de reproduire d'anciens recueils de
 chansons américaines.
 
 L'exemple suivant montre plusieurs manières de profiler les têtes de

@@ -9,7 +9,7 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 
   texidoces = "
 
@@ -23,14 +23,11 @@ superior en las distintas alineaciones.
   doctitlees = "Modificar la orientación de los trastes"
 
 %% Translation of GIT committish: 40bf2b38d674c43f38058494692d1a0993fad0bd
-
   texidocfr = "
 Les diagrammes de fret peuvent s'orienter de trois manières différentes.
 Ils s'aligneront par défaut sur la corde du haut ou le sommet du fret.
 
-
 "
-
   doctitlefr = "Orientation des diagrammes de fret"
 
 

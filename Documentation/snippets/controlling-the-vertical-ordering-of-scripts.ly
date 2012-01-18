@@ -9,7 +9,7 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 El orden vertical que ocupan las inscripciones gráficas está
 controlado con la propiedad @code{'script-priority}. Cuanto más
@@ -44,14 +44,14 @@ anhand ihres Auftretens in der Quelldatei entschieden.
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Les symboles s'ordonnent verticalement suivant la propriété
-@code{script-priority}. Plus sa valeur numérique est faible, plus le
+@code{script-priority}.  Plus sa valeur numérique est faible, plus le
 symbole sera proche de la note. Dans l'exemple suivant, l'objet
 @code{TextScript} -- le dièse -- a d'abord la propriété la
-plus basse, et il est donc placé plus près de la note ; ensuite c'est
-l'objet @code{Script} -- le mordant -- qui a la propriété la plus basse,
-et il se place alors sous le dièse.  Lorsque deux objets ont la même
-priorité, c'est l'ordre dans lequel ils sont indiqués qui détermine
-lequel sera placé en premier.
+plus basse, et il est donc placé plus près de la note@tie{}; ensuite
+c'est l'objet @code{Script} -- le mordant -- qui a la propriété la plus
+basse, et il se place alors sous le dièse.  Lorsque deux objets ont la
+même priorité, c'est l'ordre dans lequel ils sont indiqués qui
+détermine lequel sera placé en premier.
 
 "
   doctitlefr = "Contrôle de l'ordre vertical des articulations et ornements"

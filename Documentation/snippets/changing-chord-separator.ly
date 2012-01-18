@@ -7,9 +7,20 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 
+  texidocfr = "
+Le séparateur de termes d'un chiffrage peut adopter n'importe quelle
+forme à l'aide d'un @emph{markup}.
+
+"
+  doctitlefr = "Personnalisation du séparateur d'accords"
+
   lsrtags = "chords"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+
+
+
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Se puede establecer el separador entre las distintas partes del
 nombre de un acorde para que sea cualquier elemento de marcado.

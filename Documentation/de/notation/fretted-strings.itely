@@ -713,7 +713,7 @@ Darstellungsarten: normal, knapp und ausführlich.  Die drei
 Arten erzeugen die gleiche Ausgabe, aber mit jeweils mehr oder
 weniger Einzelheiten.  Einzelheiten zur Syntax der unterschiedlichen
 Beschriftungsbefehle, mit denen die Bunddiagramme definiert werden,
-findet sich in @ref{Beschriftung für einzelne Instrumente}.
+findet sich in @ref{Instrument Specific Markup}.
 
 Die Standard-Bunddiagrammbeschriftung beinhaltet die Saitennummer
 und die Bundnummer für jeden Punkt, der notiert werden soll.
@@ -1099,7 +1099,7 @@ Schnittstelle gehören dem @code{Voice.TextScript}-Kontext an.
 
 @seealso
 Notationsreferenz:
-@ref{Beschriftung für einzelne Instrumente}.
+@ref{Instrument Specific Markup}.
 
 Schnipsel:
 @rlsr{Fretted strings}.

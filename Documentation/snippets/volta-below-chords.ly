@@ -7,9 +7,20 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 
+  texidocfr = "
+L'ajout du @code{Volta_engraver} à la bonne portée permet d'imprimer les
+crochets de reprise entre les chiffrages et la portée.
+
+"
+  doctitlefr = "Crochet de reprise sous les chiffrages d'accord"
+
   lsrtags = "repeats, staff-notation, chords"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+
+
+
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Mediante la adición del grabador @code{Volta_engraver} al
 pentagrama pertinente, se pueden poner los corchetes de primera y

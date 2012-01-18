@@ -8,7 +8,7 @@
 \version "2.15.19"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 La agrupación de pulsos dentro de un compás está controlada por la
 propiedad de contexto @code{beatStructure}.  Hay establecidos valores
@@ -70,12 +70,14 @@ regroupement des pulsations dans la mesure.   @code{\\time} et
 @code{beatStructure} ou @code{baseMoment} lorsque qu'elles sont
 modifiées dans un contexte de niveau inférieur comme @code{Voice} par
 exemple.
+
 Si l'on fait appel au @code{Measure_grouping_engraver}, la fonction
 @code{set-time-signature} créera aussi des symboles
 @code{MeasureGrouping}.  Ces symboles aident à la lecture des œuvres
 modernes à la rythmique complexe.  Dans l'exemple qui suit, la mesure à
 9/8 est divisée en 2, 2, 2 et 3, alors que la mesure à 5/8 répond aux
-règles par défaut contenues dans le fichier @w{@code{scm/@/beam@/-settings@/.scm}}.
+règles par défaut contenues dans le fichier
+@w{@code{scm/@/beam@/-settings@/.scm}}.
 
 "
   doctitlefr = "Signes de direction signes de sous-groupe"

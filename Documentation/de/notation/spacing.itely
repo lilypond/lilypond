@@ -373,7 +373,7 @@ werden, und nicht innerhalb der @code{\paper}-Umgebung.  Siehe auch
 
 @menu
 * Struktur der Alisten für flexible vertikale Abstände::
-* Liste der flexiblen vertikalen Abstandsvariblen in \paper::
+* Liste der flexiblen vertikalen Abstandsvariablen in \paper::
 @end menu
 
 
@@ -1759,7 +1759,7 @@ innerhalb von Gruppen gesetzt wird.
 
 @menu
 * Flexible vertikale Abstände in Systemgruppen::
-* Explizite Positionierung von Systemen und Systemgruppen::
+* Explizite Positionierung von Systemen::
 * Vermeidung von vertikalen Zusammenstößen::
 @end menu
 
@@ -3633,7 +3633,7 @@ auf eine ganze @code{\score}-Umgebung aus.
 
 @seealso
 Notationsreferenz:
-@ref{Seitenformatierung},
+@ref{Seitenlayout},
 @ref{Horizontale Abstände verändern}.
 
 Schnipsel:

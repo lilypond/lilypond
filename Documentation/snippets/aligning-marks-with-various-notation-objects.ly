@@ -9,7 +9,7 @@
 \header {
   lsrtags = "text"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Si están especificadas, las marcas de texto se pueden alinear con
 objetos de notación distintos a las líneas divisorias.  Entre estos
@@ -52,19 +52,15 @@ objets que des barres de mesure, tels que @code{ambitus},
 @code{time-signature}.
 
 
-
 Par défaut, les indications textuelles sont alignées avec le milieu
-des objets de notation. Bien entendu, vous pouvez modifier les
+des objets de notation.  Bien entendu, vous pouvez modifier les
 propriétés des objets en question pour obtenir un autre
 résultat comme l'illustre la deuxième ligne de l'exemple.  Dans le cas
 de portées multiples, ces réglages doivent être faits pour chacune
 d'entre elles.
 
-
-
 "
-  doctitlefr = "Alignement des indications par rapport à divers objets
-de notation"
+  doctitlefr = "Alignement des indications par rapport à divers objets de notation"
 
 
   texidoc = "

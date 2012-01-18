@@ -1,5 +1,4 @@
-%% Translation of GIT committish: 5b980ee07bba23d3633de1d371fb2926f164e295
-
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Il est possible de rapetisser le cercle d'un @code{\\flageolet} grâce
 à une fonction Scheme.

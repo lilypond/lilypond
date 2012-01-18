@@ -159,8 +159,10 @@ A nagyobb kottapéldákat ki lehet emelni külön fájlba, majd beilleszteni
 
 @page
 
-@node Integrating music and text
-@section Integrating music and text
+@node Zene és szöveg integrációja
+@section Zene és szöveg integrációja
+@translationof Integrating music and text
+@untranslated
 
 Here we explain how to integrate LilyPond with various output formats.
 
@@ -173,6 +175,7 @@ Here we explain how to integrate LilyPond with various output formats.
 
 @node LaTeX
 @subsection @LaTeX{}
+@untranslated
 
 @LaTeX{} is the de-facto standard for publishing layouts in the exact
 sciences.  It is built on top of the @TeX{} typesetting engine,
@@ -375,6 +378,7 @@ other details to know when processing @LaTeX{} documents, see
 
 @node Texinfo
 @subsection Texinfo
+@untranslated
 
 Texinfo is the standard format for documentation of the GNU project.  An
 example of a Texinfo document is this manual.  The HTML, PDF, and Info
@@ -443,6 +447,7 @@ in-line image.  It always gets a paragraph of its own.
 
 @node HTML
 @subsection HTML
+@untranslated
 
 Music is entered using
 
@@ -486,6 +491,7 @@ of lilypond.
 
 @node DocBook
 @subsection DocBook
+@untranslated
 
 For inserting LilyPond snippets it is good to keep the conformity of our
 DocBook document, thus allowing us to use DocBook editors, validation
@@ -554,8 +560,10 @@ stylesheets, however, it is possible that you have to make some
 customization for it.
 
 
-@node Music fragment options
-@section Music fragment options
+@node Kottapéldák paraméterei
+@section Kottapéldák paraméterei
+@translationof Music fragment options
+@untranslated
 
 In the following, a @q{LilyPond command} refers to any command described
 in the previous sections which is handled by @command{lilypond-book} to
@@ -763,8 +771,10 @@ directory part of the file path is stripped.
 @end table
 
 
-@node Invoking lilypond-book
-@section Invoking @command{lilypond-book}
+@node A lilypond-book futtatása
+@section A @command{lilypond-book} futtatása
+@translationof Invoking lilypond-book
+@untranslated
 
 @command{lilypond-book} produces a file with one of the following
 extensions: @file{.tex}, @file{.texi}, @file{.html} or @file{.xml},
@@ -951,8 +961,10 @@ are ignored.
 Only the first @code{\score} of a LilyPond block is processed.
 
 
-@node Filename extensions
-@section Filename extensions
+@node Fájlkiterjesztések
+@section Fájlkiterjesztések
+@translationof Filename extensions
+@untranslated
 
 You can use any filename extension for the input file, but if you do not
 use the recommended extension for a particular format you may need to
@@ -986,8 +998,10 @@ directory, you must use @code{--output} option to make
 message like @qq{Output would overwrite input file}.
 
 
-@node lilypond-book templates
-@section lilypond-book templates
+@node lilypond-book sablonok
+@section lilypond-book sablonok
+@translationof lilypond-book templates
+@untranslated
 
 These templates are for use with @code{lilypond-book}.  If you're not familiar
 with this program, please refer to
@@ -1133,8 +1147,10 @@ unterst__tzt werden.
 @end verbatim
 
 
-@node Sharing the table of contents
-@section Sharing the table of contents
+@node Közös tartalomjegyzék
+@section Közös tartalomjegyzék
+@translationof Sharing the table of contents
+@untranslated
 
 These functions already exist in the OrchestralLily package:
 
@@ -1239,8 +1255,10 @@ where @code{\includescore} is defined as:
 @end smallexample
 
 
-@node Alternate methods of mixing text and music
-@section Alternative methods of mixing text and music
+@node További módszerek zene és szöveg kombinálására
+@section További módszerek zene és szöveg kombinálására
+@translationof Alternate methods of mixing text and music
+@untranslated
 
 Other means of mixing text and music (without
 @command{lilypond-book}) are discussed in

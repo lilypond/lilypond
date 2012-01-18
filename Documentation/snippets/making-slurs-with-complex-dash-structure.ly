@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 
 Las ligaduras de expresión se pueden construir con patrones de
@@ -72,7 +72,7 @@ droite de la liaison).  Chaque @code{segment-discontinu} se composera
 selon la liste @code{(t-début t-fin segment-style segment-taille)}.
 La portion de liaison allant de @code{t-début} à @code{t-fin} aura un
 trait @code{segment-style} de longueur @code{segment-taille}.
-@code{segment-taille} est exprimé en espace de portée ; un
+@code{segment-taille} est exprimé en espace de portée@tie{}; un
 @code{segment-style} à 1 donnera un trait plein.
 
 "

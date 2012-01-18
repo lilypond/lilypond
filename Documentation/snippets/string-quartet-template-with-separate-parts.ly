@@ -9,7 +9,7 @@
 \header {
   lsrtags = "unfretted-strings, template"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 El fragmento de código @qq{Plantilla de cuarteto de cuerda} produce un
 resultado satisfactorio para el cuarteto, pero ¿y si tenemos que
@@ -93,15 +93,15 @@ sentir, une partie séparée par instrument.  Par ailleurs, cet exemple
 illustre l'utilisation de la fonction @code{\\tag} dans le but
 d'extraire des parties séparées.
 
-Il vous faudra découper ce canevas en plusieurs fichiers séparés ; leur
-nom respectif est indiqué en commentaire : @file{piece.ly} comporte tout
-ce qui a trait à la musique, les autres fichiers -- @file{score.ly},
-@file{vn1.ly}, @file{vn2.ly}, @file{vla.ly}, et @file{vlc.ly} -- vous
-permettront d'obtenir les parties selon le pupitre.
-
+Il vous faudra découper ce canevas en plusieurs fichiers séparés@tie{};
+leur nom respectif est indiqué en commentaire@tie{}: @file{piece.ly}
+comporte tout ce qui a trait à la musique, les autres fichiers --
+@file{score.ly}, @file{vn1.ly}, @file{vn2.ly}, @file{vla.ly}, et
+@file{vlc.ly} -- vous permettront d'obtenir les parties selon le
+pupitre.
 
 N'oubliez pas de supprimer les commentaires superflus des fichiers
-individualisés !
+individualisés@tie{}!
 
 "
   doctitlefr = "Quatuor à cordes avec parties séparées"

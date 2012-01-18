@@ -9,7 +9,7 @@
 \header {
   lsrtags = "repeats"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 También se pueden imprimir símbolos de porcentaje sueltos.
 
@@ -29,7 +29,7 @@ erreicht, indem man eine Ganztaktpause notiert und ihre Ausgabeform
 %% Translation of GIT committish: a5bde6d51a5c88e952d95ae36c61a5efc22ba441
   texidocfr = "
 Des symboles de pourcentage isolés peuvent aussi être obtenus, au
-moyen d'un silence multi-mesures dont on modifie l'aspect :
+moyen d'un silence multi-mesures dont on modifie l'aspect@tie{}:
 
 "
   doctitlefr = "Répétition en pourcent isolée"

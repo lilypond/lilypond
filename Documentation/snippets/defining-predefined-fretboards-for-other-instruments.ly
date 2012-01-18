@@ -8,7 +8,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 
 Se pueden añadir diagramas de posiciones predefinidas para
@@ -47,7 +47,6 @@ enthalten.  Das soll in der Zukunft verbessert werden.
   doctitlede = "Eigene vordefinierte Bunddiagramme für andere Instrumente erstellen"
 
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
-
   texidocfr = "
 La liste des diagrammes standards prédéfinis pour la guitare peut être
 augmentée d'autres définitions spécifiques à d'autres instruments.
@@ -55,8 +54,9 @@ Voici comment définir un nouvel accordage ainsi que quelques diagrammes
 prédéfinis pour le @qq{cuatro vénézuélien}.
 
 Cet exemple illustre aussi la manière d'ajouter des doigtés aux
-accords ; ils serviront de référence pour la boucle d'accord et seront
-indiqués dans les diagrammes et le @code{TabStaff}, mais pas dans la musique.
+accords@tie{}; ils serviront de référence pour la boucle d'accord et
+seront indiqués dans les diagrammes et le @code{TabStaff}, mais pas dans
+la musique.
 
 Ces diagrammes ne peuvent pas être transposés, dans la mesure où ils
 contiennent des informations sur les cordes.  Ceci est amené à évoluer.

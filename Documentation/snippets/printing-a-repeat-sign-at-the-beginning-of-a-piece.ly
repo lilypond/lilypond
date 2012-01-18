@@ -9,7 +9,7 @@
 \header {
   lsrtags = "repeats, tweaks-and-overrides"
 
-%% Translation of GIT committish: 8b93de6ce951b7b14bc7818f31019524295b990f
+%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Se puede imprimir una línea divisoria de la forma @code{|:} al
 principio de la pieza, sobreescribiendo la propiedad correspondiente:
@@ -30,7 +30,7 @@ man die entsprechende Eigenschaft verändert:
   texidocfr = "
 Bien qu'allant à l'encontre des usages en matière de gravure, vous
 imprimerez une barre de reprise (@code{|:}) en début de partition si
-vous surchargez la propriété adéquate :
+vous surchargez la propriété adéquate@tie{}:
 
 "
   doctitlefr = "Impression d'une barre de reprise en début de morceau"

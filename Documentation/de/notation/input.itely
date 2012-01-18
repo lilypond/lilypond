@@ -119,7 +119,7 @@ also @file{fandangoforelephants.pdf}.
 Zu weiteren Einzelheiten zu @code{\book}-Umgebungen siehe
 @ref{Mehrere Partituren in einem Buch},
 @ref{Mehrere Ausgabedateien aus einer Eingabedatei} und
-@ref{Dateistruktur}.
+@ref{Die Dateistruktur}.
 
 
 @seealso
@@ -131,7 +131,7 @@ Handbuch zum Lernen:
 Notationsreferenz:
 @ref{Mehrere Partituren in einem Buch},
 @ref{Mehrere Ausgabedateien aus einer Eingabedatei} und
-@ref{Dateistruktur}.
+@ref{Die Dateistruktur}.
 
 
 @node Mehrere Partituren in einem Buch
@@ -246,7 +246,7 @@ wollen, können Sie mehrere @code{\book}-Umgebungen hinzufügen, wobei
 jede Umgebung eine neue Ausgabedatei produziert.  Wenn Sie keine
 @code{\book}-Umgebung in der Eingabedatei angeben, wird die Datei von
 LilyPond implizit als eine große @code{\book}-Umgebung behandelt, siehe
-auch @ref{Dateistruktur}.
+auch @ref{Die Dateistruktur}.
 
 Wenn man mehrere Dateien aus einer einzigen Eingabedatei erstellt, stellt
 LilyPond sicher, dass keine der Ausgabedateien der vorhandenen
@@ -1766,7 +1766,7 @@ Das Standardausgabeformat für gedruckte Partituren ist PDF (Portable
 Document Forma) und PS (PostScript).  SVG (Scalable Vector
 Graphics), EPS (Encapsulated PostScript) und PNG (Portable
 Network Graphics) gibt es auch als Ausgabeformate über die
-Kommandozeile.  Siehe @rprogram{Optionen von lilypond auf der Kommandozeile}.
+Kommandozeile.  Siehe @rprogram{Optionen auf der Kommandozeile für lilypond}.
 
 
 @node Die Notationsschriftart verändern
