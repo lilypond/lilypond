@@ -18,7 +18,7 @@ TELY_FILES = $(call src-wildcard,*.tely)
 DOCBOOK_FILES = $(call src-wildcard,*.lyxml)
 
 OUT_HTML_FILES = ${HTML_FILES:%.html=$(outdir)/%.html}
-OUT_HTMLY_FILES = ${HTML_FILES:%.htmly=$(outdir)/%.html}
+OUT_HTMLY_FILES = ${HTMLY_FILES:%.htmly=$(outdir)/%.html}
 OUT_XML_FILES = ${XML_FILES:%.xml=$(outdir)/%.html}
 # If we have pdflatex, create the pdf, otherwise only the .tex file!
 ifeq (,$(findstring dblatex,$(MISSING_OPTIONAL)))
