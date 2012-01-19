@@ -943,7 +943,7 @@ Se puede usar cualquiera de las siguientes instrucciones con
 
 @node Lista de caracteres especiales
 @appendixsec Lista de caracteres especiales
-@translationof Lista de caracteres especiales
+@translationof List of special characters
 
 Se pueden usar las siguientes referencias a carcteres especiales; para
 ver más detalles, consulte @ref{Alias de ASCII}.

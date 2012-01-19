@@ -184,7 +184,7 @@ convert-ly --from=... --to=... -s
 
 @node Problemas con convert-ly
 @section Problemas con @code{convert-ly}
-@translationof Problems with convert-ly
+@translationof Problems running convert-ly
 
 Al ejecutar convert-ly en una ventana del Símbolo del Sistema bajo
 Windows sobre un archivo que tiene espacios en el nombre o en la ruta,

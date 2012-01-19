@@ -449,7 +449,7 @@ producidas en LilyPond a partir de la version estable anterior.
 
 @node Extender
 @unnumberedsec Extender
-@translationof Extend
+@translationof Extending
 
 @divClass{column-left-top}
 @subheading Expansión de LilyPond
