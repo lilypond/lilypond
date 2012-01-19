@@ -558,7 +558,7 @@ A következő részlet a megjegyzések használatára mutat példát:
 
 @node Hogyan olvassuk a dokumentációt?
 @section Hogyan olvassuk a dokumentációt?
-@translationof How to read the manual
+@translationof How to read the manuals
 
 @menu
 * Kapcsos zárójelek elhagyása::
@@ -568,7 +568,7 @@ A következő részlet a megjegyzések használatára mutat példát:
 
 @node Kapcsos zárójelek elhagyása
 @subsection Kapcsos zárójelek elhagyása
-@translationof Omitting braces
+@translationof Omitted material
 
 @cindex hogyan olvassuk a kézikönyvet
 @cindex kézikönyv
