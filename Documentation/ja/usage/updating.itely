@@ -183,7 +183,7 @@ convert-ly --from=... --to=... -s
 
 @node convert-ly の問題点
 @section @code{convert-ly} の問題点
-@translationof Problems with convert-ly
+@translationof Problems running convert-ly
 
 Windows の @q{コマンド プロンプト} ウィンドウから@c
 スペースを含むファイル名やパスを持つファイルに対して@c

@@ -4298,6 +4298,8 @@ Scheme 言語とこれらのファイルを理解するには、十分な知識�
 @subsection 処理に時間のかかる調整を避ける
 @translationof Avoiding tweaks with slower processing
 
+@untranslated
+
 LilyPond は入力ファイルの処理中に追加のチェックを行うことができます。@c
 これらのチェックは実行時間を伸ばしますが、適切な結果を得るのに必要とされる@c
 手動調整を減らすかもしれません。@c

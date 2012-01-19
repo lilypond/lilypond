@@ -440,7 +440,7 @@ LilyPond を使う理由については、@ref{導入部} に書かれていま�
 
 @divClass{column-right-bottom}
 
-@docLinks{拡張, extend,
+@docLinks{拡張, extending,
   @rextendnamed{Top,拡張},
   @manualStableExtendingSplit,
   @manualStableExtendingBig, 200 KB,
