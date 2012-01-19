@@ -1477,7 +1477,7 @@ où @code{\includescore} est défini ainsi@tie{}:
 
 @node Autres méthodes d'association texte-musique
 @section Autres méthodes d'association texte-musique
-@translationof Alternative methods of mixing text and music
+@translationof Alternate methods of mixing text and music
 
 D'autres moyens de mélanger musique et texte sans recourir à
 @command{lilypond-book} sont abordés au chapitre

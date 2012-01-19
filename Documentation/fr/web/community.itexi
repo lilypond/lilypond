@@ -22,7 +22,6 @@
 
 @divClass{column-center-top}
 @subheading Échanger avec la communauté
-@translationof Interacting with the community
 
 @itemize
 
@@ -41,7 +40,6 @@ LilyPond.
 
 @divClass{column-left-bottom}
 @subheading Rendre LilyPond encore meilleur
-@translationof Making LilyPond better
 
 @itemize
 
@@ -64,7 +62,6 @@ aujourd'hui.
 
 @divClass{column-right-bottom}
 @subheading Divers
-@translationof Miscellaneous
 
 @itemize
 
@@ -102,7 +99,6 @@ nous.
 
 @divClass{column-left-bottom}
 @subheading Discuter entre utilisateurs et demander de l'aide
-@translationof Discussions and Help
 
 @subsubheading Liste de diffusion des utilisateurs : @code{lilypond-user@@gnu.org}
 
@@ -561,7 +557,6 @@ aide à voir ce que vous désirez obtenir.
 @divClass{keep-bullets}
 @divClass{column-left-top}
 @subheading Primes
-@translationof Bounties
 
 Il fut un temps où
 
@@ -579,7 +574,6 @@ intervenir entre personnes privées ne saurait nous impliquer.
 
 @divClass{column-right-top}
 @subheading Principes généraux
-@translationof Guidelines
 
 Tout utilisateur désireux de rétribuer un travail doit avoir à l'esprit
 les points suivants@tie{}:
@@ -602,7 +596,6 @@ entamés.
 
 @divClass{column-center-bottom}
 @subheading Développeurs intéressés
-@translationof Interested developers
 
 Vous trouverez ci-dessous une liste des personnes ayant exprimé leur
 intérêt pour une rémunération.  Notez bien que la somme de travail varie

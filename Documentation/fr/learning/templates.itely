@@ -85,7 +85,7 @@ de lancer LilyPond, et d'aprécier le résultat.
 @appendixsec Quatuor à cordes
 @translationof String quartet
 
-@appendixsubsec Quatuor à cordes
+@appendixsubsec Quatuor à cordes simple
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-simple.ly}
@@ -100,7 +100,7 @@ de lancer LilyPond, et d'aprécier le résultat.
 @appendixsec Ensemble vocal
 @translationof Vocal ensembles
 
-@appendixsubsec Partition pour chœur à quatre voix mixtes
+@appendixsubsec Partition pour chœur SATB à quatre voix mixtes
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template.ly}
