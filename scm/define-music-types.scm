@@ -133,6 +133,7 @@ Syntax: @var{note}@code{\\breathe}")
     (ClusterNoteEvent
      . ((description . "A note that is part of a cluster.")
 	;; not a note-event, to ensure that Note_heads_engraver doesn't eat it.
+	(iterator-ctor . ,ly:rhythmic-music-iterator::constructor)
 	(types . (general-music cluster-note-event melodic-event
 		  rhythmic-event event))
 	))
@@ -287,6 +288,7 @@ Syntax: @code{\\lyricsto} @var{voicename} @var{lyrics}")
     (LyricEvent
      . ((description . "A lyric syllable.  Must be entered in lyrics mode,
 i.e., @code{\\lyrics @{ twinkle4 twinkle4 @} }.")
+	(iterator-ctor . ,ly:rhythmic-music-iterator::constructor)
 	(types . (general-music rhythmic-event lyric-event event))
 	))
 
@@ -528,6 +530,7 @@ Syntax: @code{\\simultaneous @{ @dots{} @}} or @code{<< @dots{} >>}")
 print anything.
 
 Syntax: @code{s4} for a skip equivalent to a quarter rest.")
+	(iterator-ctor . ,ly:rhythmic-music-iterator::constructor)
 	(types . (general-music event rhythmic-event skip-event))
 	))
 

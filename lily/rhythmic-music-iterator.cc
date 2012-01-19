@@ -28,9 +28,14 @@
 #include "warn.hh"
 
 Rhythmic_music_iterator::Rhythmic_music_iterator ()
-  : Simple_music_iterator ()
 {
-  last_processed_mom_ = -1;
+}
+
+void
+Rhythmic_music_iterator::construct_children ()
+{
+  Simple_music_iterator::construct_children ();
+  descend_to_bottom_context ();
 }
 
 void
@@ -41,14 +46,34 @@ Rhythmic_music_iterator::process (Moment m)
 
       descend_to_bottom_context ();
 
+      Context *c = get_outlet ();
       Stream_event *ev = get_music ()->to_event ();
       SCM arts = ev->get_property ("articulations");
-      Context *c = get_outlet ();
       
       if (scm_is_pair (arts))
 	{
-	  ev->set_property ("articulations", SCM_EOL);
+	  // There is no point in broadcasting articulations like
+	  // harmonic events that nobody listens to.  Those work
+	  // exclusively as articulations.
+	  SCM listened = SCM_EOL;
+	  SCM unlistened = SCM_EOL;
+	  for (; scm_is_pair (arts); arts = scm_cdr (arts))
+	    {
+	      if (scm_is_true
+		  (scm_call_2
+		   (ly_lily_module_constant ("any"),
+		    ly_lily_module_constant ("ly:is-listened-event-class"),
+		    scm_call_1
+		    (ly_lily_module_constant ("ly:make-event-class"),
+		     unsmob_stream_event (scm_car (arts))
+		     ->get_property ("class")))))
+		listened = scm_cons (scm_car (arts), listened);
+	      else
+		unlistened = scm_cons (scm_car (arts), unlistened);
+	    }
+	  ev->set_property ("articulations", scm_reverse_x (unlistened, SCM_EOL));
 	  c->event_source ()->broadcast (ev);
+	  arts = scm_reverse_x (listened, SCM_EOL);
 	  for (; scm_is_pair (arts); arts = scm_cdr (arts))
 	    c->event_source ()->broadcast (unsmob_stream_event (scm_car (arts)));
 	}

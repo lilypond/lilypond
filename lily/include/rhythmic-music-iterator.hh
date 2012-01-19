@@ -23,21 +23,21 @@
 #include "simple-music-iterator.hh"
 
 /*
-  Iterator for atomic music objects: events are generated at the
-  beginning and at the end of the music.
+  Iterator for rhythmic music events that are not enclosed by EventChord
 */
 class Rhythmic_music_iterator : public Simple_music_iterator
 {
 protected:
   DECLARE_CLASSNAME (Rhythmic_music_iterator);
-  //Moment last_processed_mom_;
 
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   Rhythmic_music_iterator ();
+  Rhythmic_music_iterator (Rhythmic_music_iterator const &);
+
+protected:
   virtual void process (Moment);
-  //virtual bool ok ()const;
-  //virtual Moment pending_moment ()const;
+  virtual void construct_children ();
 };
 
 #endif /* RHYTHMIC_MUSIC_ITERATOR_HH */
