@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 7a046582ce0730883f973c3ae56f2abe6c3262dc
+    Translation of GIT committish: 972ef8e72c21b905cf5bd3b983686dbc38560505
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -255,7 +255,6 @@ c1
 @end lilypond
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {shortening-volta-brackets.ly}
 
@@ -264,6 +263,13 @@ c1
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-double-repeat-default-for-volte.ly}
+
+@cindex reprises et numéros de mesure
+@cindex numéro de mesure et reprise
+@cindex mesure, numérotation et reprises
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{alternative-bar-numbering.ly}
 
 
 @seealso
@@ -287,7 +293,6 @@ Référence des propriétés internes :
 
 
 @knownissues
-
 @cindex reprises ambigües
 @cindex reprises imbriquées
 @cindex imbrication de reprises

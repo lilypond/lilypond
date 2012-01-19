@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 957ee70b1613ce33157486a1372827e7c1c9274f
+    Translation of GIT committish: 972ef8e72c21b905cf5bd3b983686dbc38560505
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1145,10 +1145,10 @@ appels et comment les annotations seront créées lors de la compilation.
 
 LilyPond dispose, selon l'objet à référencer, de deux différentes
 commandes pour créer des notes de bas de page automatiques.  La commande
-@code{\footnoteGrob} s'applique aux objets individuels, tels que
-tête de note, hampe, liaison, nuance ou @code{\markup} contenant un
-@code{TextScripts}.  La commande @code{\footnote}, quant à elle,
-permet de référencer l'une des notes d'un accord.
+@code{\footnoteGrob} s'applique aux objets individuels, tels que tête de
+note, hampe, liaison, nuance ou @code{\markup} contenant un
+@code{TextScripts}.  La commande @code{\footnote}, quant à elle, permet
+de référencer l'une des notes d'un accord. 
 
 Ces deux commandes requièrent trois arguments@tie{}: l'@var{Objet de
 Rendu} devant être annoté, la position @var{(x@tie{}.@tie{}y)} de
@@ -1174,8 +1174,8 @@ l'objet auquel la note est attachée.
 @end lilypond
 
 Lorsqu'il s'agit de notes inscrites dans un accord, la commande
-@code{\footnote} doit être mentionnée @strong{après} la note à
-laquelle le @code{TextScript} fait référence.
+@code{\footnote} doit être mentionnée @strong{après} la note à laquelle
+le @code{TextScript} fait référence.
 
 @c KEEP LY
 @lilypond[verbatim,quote,ragged-right,papersize=a8]

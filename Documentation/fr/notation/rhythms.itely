@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: fa1af0d636d61c607da284d69810f007e008f472
+    Translation of GIT committish: 972ef8e72c21b905cf5bd3b983686dbc38560505
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2860,7 +2860,6 @@ c1 | c | c | c
 
 
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-the-bar-number-for-the-first-measure.ly}
 
@@ -2872,6 +2871,13 @@ c1 | c | c | c
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-inside-boxes-or-circles.ly}
+
+@cindex reprises et numéros de mesure
+@cindex numéro de mesure et reprise
+@cindex mesure, numérotation et reprises
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{alternative-bar-numbering.ly}
 
 @cindex alignement du numéro de mesure
 @cindex numéro de mesure, alignement
@@ -2892,10 +2898,9 @@ Référence des propriétés internes :
 @rinternals{Bar_number_engraver}.
 
 
+@knownissues
 @cindex numéro de mesure et collision
 @cindex collision et numéro de mesure
-
-@knownissues
 Les numéros de mesure peuvent entrer en collision avec les crochets d'un
 @rinternals{StaffGroup}.  La propriété @code{padding} -- décalage
 -- de l'objet @rinternals{BarNumber} permet alors d'ajuster leur
