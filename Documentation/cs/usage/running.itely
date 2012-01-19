@@ -67,7 +67,7 @@ Internet, wenn Sie mit der Kommandozeile nicht vertraut sind.
 @end menu
 
 @node Vyvolání lilypond
-@subsection Vyvolání @command{lilypond}
+@unnumberedsubsec Vyvolání @command{lilypond}
 @translationof Invoking lilypond
 
 @cindex @command{lilypond} aufrufen
@@ -140,7 +140,7 @@ haben.
 
 
 @node Volby v příkazovém řádku pro lilypond
-@subsection Volby v příkazovém řádku pro @command{lilypond}
+@unnumberedsubsec Volby v příkazovém řádku pro @command{lilypond}
 @translationof Command line options for lilypond
 
 Die folgenden Kommandozeilenoptionen werden von @command{lilypond} unterstützt:
@@ -467,7 +467,7 @@ Zeigt die Garantiebedingungen an, unter denen GNU LilyPond steht. (Es besteht
 
 
 @node Proměnné prostředí
-@subsection Proměnné prostředí
+@unnumberedsubsec Proměnné prostředí
 @translationof Environment variables
 
 @cindex LANG

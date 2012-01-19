@@ -4473,6 +4473,8 @@ interessante Dateien:
 @subsection Vyhnutí se ladění s pomalejším překladem
 @translationof Avoiding tweaks with slower processing
 
+@untranslated
+
 LilyPond kann einige zusätzliche Tests durchführen, während
 die Noten gesetzt werden.  Dadurch braucht das Programm länger,
 um den Notensatz zu produzieren, aber üblicherweise werden
