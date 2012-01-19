@@ -122,11 +122,12 @@ WEB_EXAMPLE_FILES = $(wildcard input/$(outdir)/*.ly) \
                     $(wildcard input/*/$(outdir)/*.ly) \
                     $(wildcard input/*/*/$(outdir)/*.ly)
 
-WEB_TRACKED_FILES = $(wildcard $(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}) \
-                    $(wildcard input/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}) \
-                    $(wildcard input/*/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}) \
-                    $(wildcard Documentation/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}) \
-                    $(wildcard Documentation/$(outdir)/*/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php})
+WEB_TRACKED_FILES = $(filter-out $(outdir)/index.html, \
+                    $(shell bash -O nullglob -c "echo $(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}")) \
+                    $(shell bash -O nullglob -c "echo input/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \
+                    $(shell bash -O nullglob -c "echo input/*/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \
+                    $(shell bash -O nullglob -c "echo Documentation/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \
+                    $(shell bash -O nullglob -c "echo Documentation/$(outdir)/*/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}")
 
 WWW-post: $(top-build-dir)/.htaccess $(outdir)/examples.html $(outdir)/offline-root/index.html
 
