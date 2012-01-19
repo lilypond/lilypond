@@ -68,7 +68,7 @@ Internet, wenn Sie mit der Kommandozeile nicht vertraut sind.
 @end menu
 
 @node lilypond aufrufen
-@subsection @command{lilypond} aufrufen
+@unnumberedsubsec @command{lilypond} aufrufen
 @translationof Invoking lilypond
 
 @cindex @command{lilypond} aufrufen
@@ -141,7 +141,7 @@ haben.
 
 
 @node Optionen auf der Kommandozeile für lilypond
-@subsection Optionen auf der Kommandozeile für @command{lilypond}
+@unnumberedsubsec Optionen auf der Kommandozeile für @command{lilypond}
 @translationof Command line options for lilypond
 
 Die folgenden Kommandozeilenoptionen werden von @command{lilypond} unterstützt:
@@ -468,7 +468,7 @@ Zeigt die Garantiebedingungen an, unter denen GNU LilyPond steht. (Es besteht
 
 
 @node Umgebungsvariablen
-@subsection Umgebungsvariablen
+@unnumberedsubsec Umgebungsvariablen
 @translationof Environment variables
 
 @cindex LANG

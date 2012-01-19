@@ -93,7 +93,7 @@ schönen Notenbild erfreuen!
 @appendixsec Streichquartett
 @translationof String quartet
 
-@appendixsubsec Streichquartett
+@appendixsubsec Einfaches Streichquartett
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-simple.ly}
