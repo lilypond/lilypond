@@ -10,7 +10,7 @@
 
 %{
 
-For maintenance reasons, we don't excercise the entire markup command set.
+For maintenance reasons, we don't exercise the entire markup command set.
 
 %}
 

@@ -4,7 +4,7 @@
 {
 
   texidoc = "
-Nested fill-lines should work properly.  In this example, both occurences
+Nested fill-lines should work properly.  In this example, both occurrences
 of FOO should be centered.
 
 "

@@ -3,7 +3,7 @@
   texidoc = "Rests avoid notes.  Each rest is moved in the direction
 of the stems in its voice.  Rests may overlap other rests in voices
 with the same stem direction, in which case a warning is given, but
-is supressed if the rest has a pitch."
+is suppressed if the rest has a pitch."
 
 }
 

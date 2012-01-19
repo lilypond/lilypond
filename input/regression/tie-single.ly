@@ -11,7 +11,7 @@
 @item short ties are vertically centered in the space, as well those
 that otherwise don't fit in a space
 
-@item extremely short ties are put over the noteheads, instead of inbetween.
+@item extremely short ties are put over the noteheads, instead of between.
  
 @end itemize
 "

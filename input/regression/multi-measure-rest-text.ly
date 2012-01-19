@@ -6,7 +6,7 @@
 Texts may be added to the multi-measure rests.
 
 By setting the appropriate @code{spacing-procedure}, we can make
-measures stretch to accomodate wide texts.
+measures stretch to accommodate wide texts.
 
 "
 
