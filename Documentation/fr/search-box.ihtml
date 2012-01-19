@@ -1,18 +1,26 @@
 <!--
-    Translation of GIT committish: 02cc634b92fdce39d054ce787dcaa7c0338a11b0
+    Translation of GIT committish: a278b3a9015f156998816868f09929a4c07d698c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 -->
 
+<!--
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
 <form action="http://google.com/search"
       method="get"
       name="search"
-      onSubmit="search.q.value='site:lilypond.org +v2.14 '
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.15 '
 		+ search.brute_query.value"
-      onMouseMove="search.q.value='site:lilypond.org +v2.14 '
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.15 '
 		   + search.brute_query.value"
-      onKeyUp="search.q.value='site:lilypond.org +v2.14 '
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.15 '
 	       + search.brute_query.value">
   <input type="hidden" name="btnG" value="Recherche sur Google">
   <input type="text" name="brute_query" onfocus="this.value=''" value="Rechercher">
