@@ -8,6 +8,14 @@
 \version "2.15.24"
 
 \header {
+%% Translation of GIT committish:
+  texidocfr = "
+Deux méthodes alternatives vous permettent de gérer la numérotation ds
+mesures en cas de reprises.
+
+"
+  doctitlefr = "Numérotation des mesures et alternatives"
+
   lsrtags = "editorial-annotations, staff-notation, tweaks-and-overrides"
   texidoc = "Two alternative methods for bar numbering can be set,
   especially for when using repeated music."
