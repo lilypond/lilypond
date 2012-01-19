@@ -11210,7 +11210,7 @@ msgstr "Inhaltsverzeichnis"
 #~ msgstr "Dudelsack"
 
 #~ msgid "Bagpipe definitions"
-#~ msgstr "Dudelsack-Defintionen"
+#~ msgstr "Dudelsack-Definitionen"
 
 #~ msgid "Bagpipe example"
 #~ msgstr "Dudelsack-Beispiele"

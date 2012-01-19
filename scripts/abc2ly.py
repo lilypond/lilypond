@@ -695,7 +695,7 @@ def try_parse_header_line (ln, state):
         if g == 'K': # KEY
             a = check_clef(a)
             if a:
-                m = re.match ('^([^ \t]*) *([^ ]*)( *)(.*)$', a) # seperate clef info
+                m = re.match ('^([^ \t]*) *([^ ]*)( *)(.*)$', a) # separate clef info
                 if m:
                     # there may or may not be a space
                     # between the key letter and the mode
@@ -929,7 +929,7 @@ def try_parse_articulation (str, state):
 
 
 
-    # s7m2 input doesnt care about spaces
+    # s7m2 input doesn't care about spaces
     if re.match('[ \t]*\(', str):
         str = str.lstrip ()
 

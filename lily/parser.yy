@@ -46,7 +46,7 @@
 %lex-param {Lily_parser *parser}
 
 /* We use SCMs to do strings, because it saves us the trouble of
-deleting them.  Let's hope that a stack overflow doesnt trigger a move
+deleting them.  Let's hope that a stack overflow doesn't trigger a move
 of the parse stack onto the heap. */
 
 %left PREC_BOT
