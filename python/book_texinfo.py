@@ -114,7 +114,7 @@ TexInfo_output = {
 
     OUTPUTIMAGE: r'''@noindent
 @ifinfo
-@image{%(info_image_path)s,,,%(alt)s,%(ext)s}
+@image{%(info_image_path)s,,,%(alt)s,}
 @end ifinfo
 @html
 <p>
@@ -313,19 +313,17 @@ class BookTexinfoOutputFormat (BookBase.BookOutputFormat):
     def output_info (self, basename, snippet):
         str = ''
         rep = snippet.get_replacements ();
+        rep['base'] = basename
+        rep['filename'] = os.path.basename (snippet.filename)
+        rep['ext'] = snippet.ext
         for image in snippet.get_images ():
             rep1 = copy.copy (rep)
-            (rep1['base'], rep1['ext']) = os.path.splitext (image)
+            rep1['base'] = os.path.splitext (image)[0]
             rep1['image'] = image
-
-            # URG, makeinfo implicitly prepends dot to extension.
-            # Specifying no extension is most robust.
-            rep1['ext'] = ''
             rep1['alt'] = snippet.option_dict[ALT]
             rep1['info_image_path'] = os.path.join (self.global_options.info_images_dir, rep1['base'])
             str += self.output[OUTPUTIMAGE] % rep1
 
-        rep['base'] = basename
         str += self.output[OUTPUT] % rep
         return str
 
