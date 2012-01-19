@@ -153,7 +153,7 @@ for file in html_files:
         lang = ''
         # possibly necessary for automatic language selection
         file_symlink = file.replace(".html", ".en.html")
-        if (not (os.path.exists(file_symlink))):
+        if not os.path.lexists (file_symlink):
             os.symlink (file, file_symlink)
     elif (len(file_split) == 3):
         # it's a translation
