@@ -290,8 +290,7 @@ Music::to_event () const
       for (; scm_is_pair (art_mus); art_mus = scm_cdr (art_mus))
         {
           Music *m = unsmob_music (scm_car (art_mus));
-          SCM ev = m ? m->to_event ()->unprotect () : scm_car (art_mus);
-          art_ev = scm_cons (ev, art_ev);
+          art_ev = scm_cons (m->to_event ()->unprotect (), art_ev);
         }
       e->set_property ("articulations", scm_reverse_x (art_ev, SCM_EOL));
     }

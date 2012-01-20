@@ -265,6 +265,7 @@ Quote_iterator::process (Moment m)
 
                   Pitch diff = pitch_interval (qp, mp);
                   ev = ev->clone ();
+		  ev->make_transposable ();
 
                   transpose_mutable (ev->get_property_alist (true), diff);
                   transposed_musics_ = scm_cons (ev->unprotect (), transposed_musics_);
