@@ -85,7 +85,7 @@ LilyPond e goderti dei belli spartiti!
 @appendixsec Quartetto d'archi
 @translationof String quartet
 
-@appendixsubsec Quartetto d'archi
+@appendixsubsec Quartetto d'archi semplice
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-simple.ly}
