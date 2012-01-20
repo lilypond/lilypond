@@ -136,37 +136,8 @@ expression."
 ;;; post events
 ;;;
 
-(define post-event?
-  (make-music-type-predicate
-    'AbsoluteDynamicEvent
-    'ArpeggioEvent
-    'ArticulationEvent
-    'BeamEvent
-    'BeamForbidEvent
-    'BendAfterEvent
-    'CrescendoEvent
-    'DecrescendoEvent
-    'EpisemaEvent
-    'ExtenderEvent
-    'FingeringEvent
-    'GlissandoEvent
-    'HarmonicEvent
-    'HyphenEvent
-    'MultiMeasureTextEvent
-    'NoteGroupingEvent
-    'PhrasingSlurEvent
-    'SlurEvent
-    'SostenutoEvent
-    'StringNumberEvent
-    'StrokeFingerEvent
-    'SustainEvent
-    'TextScriptEvent
-    'TextSpanEvent
-    'TieEvent
-    'TremoloEvent
-    'TrillSpanEvent
-    'TupletSpanEvent
-    'UnaCordaEvent))
+(define (post-event? m)
+  (music-is-of-type? m 'post-event))
 
 (define* (event-direction->lily-string event #:optional (required #t))
   (let ((direction (ly:music-property event 'direction)))

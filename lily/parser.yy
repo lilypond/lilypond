@@ -3226,9 +3226,7 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		unsmob_music (*destination)->
 			set_property ("origin", make_input (last_input_));
 
-		bool is_event = scm_memq (ly_symbol2scm ("event"), mus->get_property ("types"))
-			!= SCM_BOOL_F;
-
+		bool is_event = mus->is_mus_type ("post-event");
 		mus->unprotect ();
 		return is_event ? EVENT_IDENTIFIER : MUSIC_IDENTIFIER;
 	} else if (unsmob_pitch (sid)) {

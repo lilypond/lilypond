@@ -80,7 +80,7 @@ LY_DEFINE (ly_event_p, "ly:event?",
 {
   if (Music *m = unsmob_music (obj))
     {
-      return scm_from_bool (m->is_mus_type ("event"));
+      return scm_from_bool (m->is_mus_type ("post-event"));
     }
   return SCM_BOOL_F;
 }
