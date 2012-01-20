@@ -392,7 +392,7 @@ def conv (str):
     return str
 
 
-@rule ((1, 3, 93), _ ('change property definiton case (eg. onevoice -> oneVoice)'))
+@rule ((1, 3, 93), _ ('change property definition case (eg. onevoice -> oneVoice)'))
 def conv (str):
     # Ugh, but meaning of \stemup changed too
     # maybe we should do \stemup -> \stemUp\slurUp\tieUp ?
