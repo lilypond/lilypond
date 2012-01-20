@@ -24,11 +24,11 @@ endif
 	touch $@
 
 # Copy files while tracking their dependencies.
-$(outdir)/%.texi: $(src-dir)/%.texi
+$(outdir)/%.texi: %.texi
 	mkdir -p $(dir $@)
 	$(DO_TEXI_DEP) cp -f $< $@
 
-$(outdir)/%.itexi: $(src-dir)/%.itexi
+$(outdir)/%.itexi: %.itexi
 	mkdir -p $(dir $@)
 	$(DO_TEXI_DEP) cp -f $< $@
 
