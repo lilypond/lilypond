@@ -9,9 +9,9 @@ import lilylib
 _ = lilylib._
 
 
-NOT_SMART = "\n" + _ ("Not smart enough to convert %s")
-UPDATE_MANUALLY = _ ("Please refer to the manual for details, and update manually.")
-FROM_TO = _ ( "%s has been replaced by %s")
+NOT_SMART = "\n" + _ ("Not smart enough to convert %s.") + "\n"
+UPDATE_MANUALLY = _ ("Please refer to the manual for details, and update manually.") + "\n"
+FROM_TO = _ ("%s has been replaced by %s") + "\n"
 
 
 class FatalConversionError:
@@ -49,20 +49,15 @@ def rule (version, message):
 @rule ((0, 1, 9), _ ('\\header { key = concat + with + operator }'))
 def conv(str):
     if re.search ('\\\\multi', str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "\\multi")
-        stderr_write ('\n')
     return str
 
 
 @rule ((0, 1, 19), _ ('deprecated %s') % '\\octave')
 def conv (str):
     if re.search ('\\\\octave', str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "\\octave")
-        stderr_write ('\n')
         stderr_write (UPDATE_MANUALLY)
-        stderr_write ('\n')
     #   raise FatalConversionError ()
     return str
 
@@ -99,9 +94,7 @@ def conv (str):
 @rule ((1, 0, 2), _ ('\\header { key = concat + with + operator }'))
 def conv(str):
     if re.search ('\\\\header', str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % _ ("new \\header format"))
-        stderr_write ('\n')
     return str
 
 
@@ -128,9 +121,7 @@ def conv(str):
 @rule ((1, 0, 6), 'foo = \\translator {\\type .. } ->\\translator {\\type ..; foo; }')
 def conv(str):
     if re.search ('[a-zA-Z]+ = *\\translator',str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % _ ("\\translator syntax"))
-        stderr_write ('\n')
     #   raise FatalConversionError ()
     return str
 
@@ -184,9 +175,7 @@ def conv(str):
 @rule ((1, 0, 18), _ ('\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative'))
 def conv(str):
     if re.search ('\\\\repeat',str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "\\repeat")
-        stderr_write ('\n')
     #   raise FatalConversionError ()
     return str
 
@@ -290,9 +279,7 @@ def conv (str):
 @rule ((1, 3, 23), _ ('deprecate %s ') % '\\repetitions')
 def conv(str):
     if re.search ('\\\\repetitions',str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "\\repetitions")
-        stderr_write ('\n')
     #   raise FatalConversionError ()
     return str
 
@@ -315,9 +302,7 @@ def conv (str):
     str = re.sub ("\\\\musicalpitch *{([0-9 -]+)}",
                   "\\\\musicalpitch #'(\\1)", str)
     if re.search ('\\\\notenames',str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % _ ("new \\notenames format"))
-        stderr_write ('\n')
     return str
 
 
@@ -333,9 +318,7 @@ def conv (str):
 @rule ((1, 3, 41), '[:16 c4 d4 ] -> \\repeat "tremolo" 2 { c16 d16 }')
 def conv (str):
     if re.search ('\\[:',str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % _ ("new tremolo format"))
-        stderr_write ('\n')
     return str
 
 
@@ -354,9 +337,7 @@ def conv (str):
 @rule ((1, 3, 58), 'noteHeadStyle value: string -> symbol')
 def conv (str):
     if re.search ('\\\\keysignature', str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % '\\keysignature')
-        stderr_write ('\n')
     return str
 
 
@@ -453,9 +434,7 @@ def conv (str):
 def conv (str):
     str = re.sub ('ChordNames*', 'ChordNames', str)
     if re.search ('\\\\textscript "[^"]* *"[^"]*"', str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % _ ("new \\textscript markup text"))
-        stderr_write ('\n')
 
     str = re.sub ('\\textscript +("[^"]*")', '\\textscript #\\1', str)
     return str
@@ -725,8 +704,8 @@ def conv (str):
 def conv (str):
     if re.search (r'\addlyrics',str) \
            and re.search ('automaticMelismata', str)  == None:
-        stderr_write ('\n')
-        stderr_write (NOT_SMART % "automaticMelismata; turned on by default since 1.5.67.")
+        stderr_write (NOT_SMART % "automaticMelismata")
+        stderr_write (_ ("automaticMelismata is turned on by default since 1.5.67."))
         stderr_write ('\n')
         raise FatalConversionError ()
     return str
@@ -963,13 +942,10 @@ def conv(str):
 @rule ((1, 7, 19), _ ("remove %s") % "GraceContext")
 def conv(str):
     if re.search( r'\\GraceContext', str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "GraceContext")
         stderr_write (FROM_TO \
                           % ("GraceContext", "#(add-to-grace-init .. )"))
-        stderr_write ('\n')
         stderr_write (UPDATE_MANUALLY)
-        stderr_write ('\n')
         raise FatalConversionError ()
 
     str = re.sub ('HaraKiriStaffContext', 'RemoveEmptyStaffContext', str)
@@ -1001,11 +977,8 @@ def conv(str):
 @rule ((1, 7, 24), _ ("cluster syntax"))
 def conv(str):
     if re.search( r'-(start|stop)Cluster', str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % _ ("cluster syntax"))
-        stderr_write ('\n')
         stderr_write (UPDATE_MANUALLY)
-        stderr_write ('\n')
 
         raise FatalConversionError ()
     return str
@@ -1286,11 +1259,8 @@ def conv (str):
 @rule ((1, 9, 1), _ ("Remove - before articulation"))
 def conv (str):
     if re.search ("font-style",str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "font-style")
-        stderr_write ('\n')
         stderr_write (UPDATE_MANUALLY)
-        stderr_write ('\n')
 
         raise FatalConversionError ()
 
@@ -1328,11 +1298,8 @@ def conv (str):
                   'acciaccatura', str)
 
     if re.search ("context-spec-music", str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "context-spec-music")
-        stderr_write ('\n')
         stderr_write (UPDATE_MANUALLY)
-        stderr_write ('\n')
 
         raise FatalConversionError ()
 
@@ -1383,20 +1350,15 @@ def conv (str):
 @rule ((1, 9, 6), _ ('deprecate %s') % 'ly:get-font')
 def conv (str):
     if re.search ("ly:get-font", str) :
-        stderr_write ('\n')
-        stderr_write (NOT_SMART % "(ly:-get-font")
-        stderr_write ('\n')
+        stderr_write (NOT_SMART % "ly:get-font")
         stderr_write (FROM_TO \
                           % ("(ly:paper-get-font (ly:grob-get-paper foo) .. )",
                              "(ly:paper-get-font (ly:grob-get-paper foo) .. )"))
         stderr_write (UPDATE_MANUALLY)
-        stderr_write ('\n')
         raise FatalConversionError ()
 
     if re.search ("\\pitch *#", str) :
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "\\pitch")
-        stderr_write ('\n')
         stderr_write (_ ("Use Scheme code to construct arbitrary note events."))
         stderr_write ('\n')
 
@@ -1439,9 +1401,7 @@ as a substitution text.""") % (m.group (1), m.group (2)) )
 
     if re.search ("ly:(make-pitch|pitch-alteration)", str) \
            or re.search ("keySignature", str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "pitches")
-        stderr_write ('\n')
         stderr_write (
             _ ("""The alteration field of Scheme pitches was multiplied by 2
 to support quarter tone accidentals.  You must update the following constructs manually:
@@ -1456,13 +1416,9 @@ to support quarter tone accidentals.  You must update the following constructs m
 @rule ((1, 9, 8), "dash-length -> dash-fraction")
 def conv (str):
     if re.search ("dash-length",str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "dash-length")
-        stderr_write ('\n')
         stderr_write (FROM_TO % ("dash-length", "dash-fraction"))
-        stderr_write ('\n')
         stderr_write (UPDATE_MANUALLY)
-        stderr_write ('\n')
         raise FatalConversionError ()
     return str
 
@@ -1601,11 +1557,8 @@ def conv (str):
 def conv (str):
 
     if re.search (r'\\partcombine', str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "\\partcombine")
-        stderr_write ('\n')
         stderr_write (UPDATE_MANUALLY)
-        stderr_write ('\n')
         raise FatalConversionError ()
 
     # this rule doesn't really work,
@@ -1774,11 +1727,8 @@ def conv (str):
     str = re.sub (r'ly:get-broken-into', 'ly:spanner-broken-into', str)
     str = re.sub (r'Melisma_engraver', 'Melisma_translator', str)
     if re.search ("ly:get-paper-variable", str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "ly:paper-get-variable")
-        stderr_write ('\n')
-        stderr_write (_ ('use %s') % '(ly:paper-lookup (ly:grob-paper ))')
-        stderr_write ('\n')
+        stderr_write (_ ('Use %s\n') % '(ly:paper-lookup (ly:grob-paper ))')
         raise FatalConversionError ()
 
     str = re.sub (r'\\defaultAccidentals', "#(set-accidental-style 'default)", str)
@@ -1915,11 +1865,8 @@ def conv (str):
 @rule ((2, 3, 2), '\\FooContext -> \\Foo')
 def conv (str):
     if re.search ('textheight', str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "textheight")
-        stderr_write ('\n')
         stderr_write (UPDATE_MANUALLY)
-        stderr_write ('\n')
         stderr_write (
 _ ("""Page layout has been changed, using paper size and margins.
 textheight is no longer used.
@@ -2143,9 +2090,7 @@ def conv (str):
         if encoding == 'latin1':
             return match.group (2)
 
-        stderr_write ('\n')
         stderr_write (NOT_SMART % ("\\encoding: %s" % encoding))
-        stderr_write ('\n')
         stderr_write (_ ("LilyPond source must be UTF-8"))
         stderr_write ('\n')
         if encoding == 'TeX':
@@ -2189,16 +2134,12 @@ def conv (str):
 @rule ((2, 5, 17), _ ('remove %s') % 'ly:stencil-set-extent!')
 def conv (str):
     if re.search ("ly:stencil-set-extent!", str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "ly:stencil-set-extent!")
-        stderr_write ('\n')
-        stderr_write ('use (set! VAR (ly:make-stencil (ly:stencil-expr VAR) X-EXT Y-EXT))\n')
+        stderr_write (_ ('Use %s\n') % '(set! VAR (ly:make-stencil (ly:stencil-expr VAR) X-EXT Y-EXT))')
         raise FatalConversionError ()
     if re.search ("ly:stencil-align-to!", str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "ly:stencil-align-to!")
-        stderr_write ('\n')
-        stderr_write ('use (set! VAR (ly:stencil-aligned-to VAR AXIS DIR))\n')
+        stderr_write (_ ('Use %s\n') % '(set! VAR (ly:stencil-aligned-to VAR AXIS DIR))')
         raise FatalConversionError ()
     return str
 
@@ -2213,15 +2154,12 @@ def conv (str):
 def conv (str):
     if re.search ("(override-|revert-)auto-beam-setting", str)\
        or re.search ("autoBeamSettings", str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % _ ("auto beam settings"))
-        stderr_write ('\n')
         stderr_write (_ ('''
 Auto beam settings must now specify each interesting moment in a measure
 explicitly; 1/4 is no longer multiplied to cover moments 1/2 and 3/4 too.
 '''))
         stderr_write (UPDATE_MANUALLY)
-        stderr_write ('\n')
         raise FatalConversionError ()
     return str
 
@@ -2331,6 +2269,7 @@ def conv (str):
         stderr_write (NOT_SMART % "space-function")
     if re.search ('verticalAlignmentChildCallback', str):
         stderr_write (_ ('verticalAlignmentChildCallback has been deprecated'))
+        stderr_write ('\n')
     return str
 
 
@@ -2648,7 +2587,7 @@ def conv (str):
                   str)
 
     if re.search ('edge-text', str):
-        stderr_write (NOT_SMART % _ ("edge-text settings for TextSpanner."))
+        stderr_write (NOT_SMART % _ ("edge-text settings for TextSpanner"))
         stderr_write (_ ("Use\n\n%s") %
                           "\t\\override TextSpanner #'bound-details #'right #'text = <right-text>\n"
                           "\t\\override TextSpanner #'bound-details #'left #'text = <left-text>\n")
@@ -2681,7 +2620,7 @@ def conv (str):
 
     str = re.sub (r"(\\once)?\s*\\override\s*([a-zA-Z]+\s*[.]\s*)?TextSpanner\s*#'edge-height\s*=\s*#'\(\s*([0-9.-]+)\s+[.]\s+([0-9.-]+)\s*\)", sub_edge_height, str)
     if re.search (r"#'forced-distance", str):
-        stderr_write (NOT_SMART % ("VerticalAlignment #'forced-distance.\n"))
+        stderr_write (NOT_SMART % "VerticalAlignment #'forced-distance")
         stderr_write (_ ("Use the `alignment-offsets' sub-property of\n"))
         stderr_write (_ ("NonMusicalPaperColumn #'line-break-system-details\n"))
         stderr_write (_ ("to set fixed distances between staves.\n"))
@@ -2702,7 +2641,7 @@ def conv (str):
                   r"scripts.caesura.curved", str)
 
     if re.search ('dash-fraction', str):
-        stderr_write (NOT_SMART % _ ("all settings related to dashed lines.\n"))
+        stderr_write (NOT_SMART % _ ("all settings related to dashed lines"))
         stderr_write (_ ("Use \\override ... #'style = #'line for solid lines and\n"))
         stderr_write (_ ("\t\\override ... #'style = #'dashed-line for dashed lines."))
     return str
@@ -2745,7 +2684,8 @@ fret diagram properties moved to fret-diagram-details."))
 def conv (str):
     ## warning 1/2: metronomeMarkFormatter uses text markup as second argument
     if re.search ('metronomeMarkFormatter', str):
-        stderr_write (NOT_SMART % _ ("metronomeMarkFormatter got an additional text argument.\n"))
+        stderr_write (NOT_SMART % "metronomeMarkFormatter")
+        stderr_write (_ ("metronomeMarkFormatter got an additional text argument.\n"))
         stderr_write (_ ("The function assigned to Score.metronomeMarkFunction now uses the signature\n%s") %
                           "\t(format-metronome-markup text dur count context)\n")
 
@@ -2764,9 +2704,8 @@ def conv (str):
                 'orientation']
     for prop in fret_props:
       if re.search (prop, str):
-          stderr_write (NOT_SMART %
-            prop + " in fret-diagram properties. Use fret-diagram-details.")
-          stderr_write ('\n')
+          stderr_write (NOT_SMART % (_ ("%s in fret-diagram properties") % prop))
+          stderr_write (_ ('Use %s\n') % "fret-diagram-details")
     return str
 
 @rule ((2, 11, 51), "\\octave -> \\octaveCheck, \\arpeggioUp -> \\arpeggioArrowUp,\n\
@@ -2809,9 +2748,10 @@ def conv (str):
 def conv (str):
     str = re.sub (r"#\(set-octavation (-*[0-9]+)\)", r"\\ottava #\1", str)
     if re.search ('put-adjacent', str):
-        stderr_write (NOT_SMART % _ ("\\put-adjacent argument order.\n"))
+        stderr_write (NOT_SMART % _ ("\\put-adjacent argument order"))
         stderr_write (_ ("Axis and direction now come before markups:\n"))
         stderr_write (_ ("\\put-adjacent axis dir markup markup."))
+        stderr_write ("\n")
     return str
 
 @rule ((2, 11, 57), "\\center-align -> \\center-column, \\hcenter -> \\center-align")
@@ -2841,15 +2781,13 @@ InnerStaffGroup -> StaffGroup, InnerChoirStaff -> ChoirStaff")
 def conv (str):
     str = re.sub (r'systemSeparatorMarkup', r'system-separator-markup', str)
     if re.search (r'\\InnerStaffGroup', str):
-        stderr_write ("\n")
-        stderr_write (NOT_SMART % _("re-definition of InnerStaffGroup.\n"))
-        stderr_write (FROM_TO % ("InnerStaffGroup", "StaffGroup.\n"))
+        stderr_write (NOT_SMART % _("re-definition of InnerStaffGroup"))
+        stderr_write (FROM_TO % ("InnerStaffGroup", "StaffGroup"))
         stderr_write (UPDATE_MANUALLY)
         raise FatalConversionError ()
     if re.search (r'\\InnerChoirStaff', str):
-        stderr_write ("\n")
-        stderr_write (NOT_SMART % _("re-definition of InnerChoirStaff.\n"))
-        stderr_write (FROM_TO % ("InnerChoirStaff", "ChoirStaff.\n"))
+        stderr_write (NOT_SMART % _("re-definition of InnerChoirStaff"))
+        stderr_write (FROM_TO % ("InnerChoirStaff", "ChoirStaff"))
         stderr_write (UPDATE_MANUALLY)
         raise FatalConversionError ()
     else:
@@ -2862,15 +2800,13 @@ def conv (str):
        _ ("bump version for release"))
 def conv(str):
     if re.search(r'\\addChordShape', str):
-        stderr_write ("\n")
-        stderr_write (NOT_SMART % _("stringTuning must be added to \
-addChordShape call.\n"))
+        stderr_write (NOT_SMART % "addChordShape")
+        stderr_write (_ ("stringTuning must be added to addChordShape call.\n"))
         stderr_write (UPDATE_MANUALLY)
         raise FatalConversionError ()
     if re.search (r'\\chord-shape', str):
-        stderr_write ("\n")
-        stderr_write (NOT_SMART % _("stringTuning must be added to \
-chord-shape call.\n"))
+        stderr_write (NOT_SMART % "chord-shape")
+        stderr_write (_ ("stringTuning must be added to chord-shape call.\n"))
         stderr_write (UPDATE_MANUALLY)
         raise FatalConversionError ()
     return str
@@ -2879,8 +2815,8 @@ chord-shape call.\n"))
     _ ("Remove oldaddlyrics"))
 def conv(str):
     if re.search(r'\\oldaddlyrics', str):
-        stderr_write ("\n")
-        stderr_write (NOT_SMART % _("oldaddlyrics is no longer supported. \n \
+        stderr_write (NOT_SMART % "oldaddlyrics")
+        stderr_write (_ ("oldaddlyrics is no longer supported. \n \
         Use addlyrics or lyrsicsto instead.\n"))
         stderr_write (UPDATE_MANUALLY)
         raise FatalConversionError ()
@@ -2890,8 +2826,8 @@ def conv(str):
 MIDI 47: orchestral strings -> orchestral harp"))
 def conv(str):
     if re.search(r'\set Staff.keySignature', str):
-        stderr_write ("\n")
-        stderr_write (NOT_SMART % _("The alist for Staff.keySignature is no \
+        stderr_write (NOT_SMART % "Staff.keySignature")
+        stderr_write (_ ("The alist for Staff.keySignature is no \
 longer in reversed order.\n"))
     str = str.replace('"orchestral strings"', '"orchestral harp"')
     return str
@@ -2902,14 +2838,14 @@ ly:hairpin::after-line-breaking -> ly:spanner::kill-zero-spanned-time\n\
 Dash parameters for slurs and ties are now in dash-definition"))
 def conv(str):
     if re.search(r'\\bar\s*"\."', str):
-        stderr_write ("\n")
-        stderr_write (NOT_SMART % _("\\bar \".\" now produces a thick barline.\n"))
+        stderr_write (NOT_SMART % "\\bar \".\"")
+        stderr_write (_ ("\\bar \".\" now produces a thick barline.\n"))
         stderr_write (UPDATE_MANUALLY)
     str = re.sub (r'ly:hairpin::after-line-breaking', r'ly:spanner::kill-zero-spanned-time', str)
     if re.search("(Slur|Tie)\w+#\'dash-fraction", str) \
         or re.search("(Slur|Tie)\w+#\'dash-period", str):
-        stderr_write ("\n")
-        stderr_write (NOT_SMART % _("Dash parameters for slurs and ties are now in \'dash-details.\n"))
+        stderr_write (NOT_SMART % "dash-fraction, dash-period")
+        stderr_write (_ ("Dash parameters for slurs and ties are now in \'dash-details.\n"))
         stderr_write (UPDATE_MANUALLY)
     return str
 
@@ -2927,26 +2863,27 @@ Explicit dynamics context definition from `Piano centered dynamics'\n\
 template replaced by new `Dynamics' context."))
 def conv(str):
     if re.search("override-auto-beam-setting", str):
-        stderr_write ("\n")
-        stderr_write (NOT_SMART % _("override-auto-beam-setting.\n\
+        stderr_write (NOT_SMART % "override-auto-beam-setting")
+        stderr_write (_ (" \
    Autobeam settings are now overriden with \\overrideBeamSettings.\n"))
         stderr_write (UPDATE_MANUALLY)
     if re.search("revert-auto-beam-setting", str):
-        stderr_write ("\n")
-        stderr_write (NOT_SMART % _("override-auto-beam-setting.\n\
+        stderr_write (NOT_SMART % "override-auto-beam-setting")
+        stderr_write (_ (" \
    Autobeam settings are now reverted with \\revertBeamSettings.\n"))
         stderr_write (UPDATE_MANUALLY)
     str = re.sub(r"\\set\s+beatGrouping", r"\\setBeatGrouping", str)
     if re.search(r"\w+\s*.\s*beatGrouping", str):
-        stderr_write (NOT_SMART % _("beatGrouping. \n\
+        stderr_write (NOT_SMART % "beatGrouping")
+        stderr_write (_ (" \
    beatGrouping with a specified context must now be accomplished with\n\
    \\overrideBeamSettings.\n"))
         stderr_write (UPDATE_MANUALLY)
     if re.search(r'alignment-offsets', str):
-        stderr_write("\n")
-        stderr_write(NOT_SMART % _("alignment-offsets has been changed to alignment-distances: \
+        stderr_write (NOT_SMART % "alignment-offsets")
+        stderr_write (_ ("alignment-offsets has been changed to alignment-distances: \
 you must now specify the distances between staves rather than the offset of staves.\n"))
-        stderr_write(UPDATE_MANUALLY)
+        stderr_write (UPDATE_MANUALLY)
     str = re.sub ('ly:(system-start-text::print|note-head::brew-ez-stencil|ambitus::print)',
                   '\\1', str)
     str = re.sub ('(\\bBeam\\s+#\')(?=thickness\\b)', '\\1beam-', str)
@@ -2985,9 +2922,9 @@ def conv(str):
                   str)
 
     if re.search(r"VerticalAxisGroup\s*#\s*'minimum-Y-extent", str):
-        stderr_write("\n")
-        stderr_write(NOT_SMART % _("minimum-Y-extent; vertical spacing no longer depends on the Y-extent of a VerticalAxisGroup.\n"))
-        stderr_write(UPDATE_MANUALLY)
+        stderr_write (NOT_SMART % "minimum-Y-extent")
+        stderr_write (_ ("Vertical spacing no longer depends on the Y-extent of a VerticalAxisGroup.\n"))
+        stderr_write (UPDATE_MANUALLY)
 
     return str
 
@@ -3037,25 +2974,25 @@ def conv(str):
     str = re.sub (r'"accordion\.acc([a-zA-Z]+)"',
                   sub_acc, str)
     if re.search(r'overrideBeamSettings', str):
-        stderr_write("\n")
-        stderr_write(NOT_SMART % _("\\overrideBeamSettings.  Use \\set beamExceptions or \\overrideTimeSignatureSettings.\n"))
-        stderr_write(UPDATE_MANUALLY)
+        stderr_write (NOT_SMART % "\\overrideBeamSettings")
+        stderr_write (_ ("Use \\set beamExceptions or \\overrideTimeSignatureSettings.\n"))
+        stderr_write (UPDATE_MANUALLY)
     if re.search(r'revertBeamSettings', str):
-        stderr_write("\n")
-        stderr_write(NOT_SMART % _("\\revertBeamSettings. Use \\set beamExceptions or \\revertTimeSignatureSettings.\n"))
-        stderr_write(UPDATE_MANUALLY)
+        stderr_write (NOT_SMART % "\\revertBeamSettings")
+        stderr_write (_ ("Use \\set beamExceptions or \\revertTimeSignatureSettings.\n"))
+        stderr_write (UPDATE_MANUALLY)
     if re.search(r'beamSettings', str):
-        stderr_write("\n")
-        stderr_write(NOT_SMART % _("beamSettings. Use baseMoment, beatStructure, and beamExceptions.\n"))
-        stderr_write(UPDATE_MANUALLY)
+        stderr_write (NOT_SMART % "beamSettings")
+        stderr_write (_ ("Use baseMoment, beatStructure, and beamExceptions.\n"))
+        stderr_write (UPDATE_MANUALLY)
     if re.search(r'beatLength', str):
-        stderr_write("\n")
-        stderr_write(NOT_SMART % _("beatLength. Use baseMoment and beatStructure.\n"))
-        stderr_write(UPDATE_MANUALLY)
+        stderr_write (NOT_SMART % "beatLength")
+        stderr_write (_ ("Use baseMoment and beatStructure.\n"))
+        stderr_write (UPDATE_MANUALLY)
     if re.search(r'setBeatGrouping', str):
-        stderr_write("\n")
-        stderr_write(NOT_SMART % _("setbeatGrouping. Use baseMoment and beatStructure.\n"))
-        stderr_write(UPDATE_MANUALLY)
+        stderr_write (NOT_SMART % "setbeatGrouping")
+        stderr_write (_ ("Use baseMoment and beatStructure.\n"))
+        stderr_write (UPDATE_MANUALLY)
     return str
 
 @rule ((2, 13, 31),
@@ -3063,9 +3000,9 @@ def conv(str):
 Deprecate negative dash-period for hidden lines: use #'style = #'none instead."))
 def conv(str):
     if re.search(r'woodwind-diagram', str):
-        stderr_write("\n")
-        stderr_write(NOT_SMART % _("woodwind-diagrams.  Move size, thickness, and graphic to properties.  Argument should be just the key list.\n"))
-        stderr_write(UPDATE_MANUALLY)
+        stderr_write (NOT_SMART % "woodwind-diagrams")
+        stderr_write (_ ("Move size, thickness, and graphic to properties.  Argument should be just the key list.\n"))
+        stderr_write (UPDATE_MANUALLY)
     str = re.sub (r"dash-period\s+=\s*#\s*-[0-9.]+",
                   r"style = #'none",
                   str);
@@ -3109,15 +3046,13 @@ def conv(str):
     _ ("Remove \\paper variables head-separation and foot-separation."))
 def conv(str):
     if re.search (r'head-separation', str):
-        stderr_write("\n")
-        stderr_write(NOT_SMART % ("head-separation.\n"))
-        stderr_write(_ ("Adjust settings for top-system-spacing instead.\n"))
+        stderr_write (NOT_SMART % "head-separation")
+        stderr_write (_ ("Adjust settings for top-system-spacing instead.\n"))
         stderr_write (UPDATE_MANUALLY)
     if re.search (r'foot-separation', str):
-        stderr_write("\n")
-        stderr_write(NOT_SMART % ("foot-separation.\n"))
-        stderr_write(_ ("Adjust settings for last-bottom-spacing instead.\n"))
-        stderr_write(UPDATE_MANUALLY);
+        stderr_write (NOT_SMART % "foot-separation")
+        stderr_write (_ ("Adjust settings for last-bottom-spacing instead.\n"))
+        stderr_write (UPDATE_MANUALLY);
 
     return str
 
@@ -3128,8 +3063,7 @@ def conv(str):
     str = re.sub (r'\(space\s+\.\s+([0-9]*\.?[0-9]*)\)', r'(basic-distance . \1)', str)
     str = re.sub (r"#'space\s+=\s+#?([0-9]*\.?[0-9]*)", r"#'basic-distance = #\1", str)
     if re.search (r'HarmonicParenthesesItem', str):
-        stderr_write ("\n")
-        stderr_write (NOT_SMART % ("HarmonicParenthesesItem.\n"))
+        stderr_write (NOT_SMART % "HarmonicParenthesesItem")
         stderr_write (_ ("HarmonicParenthesesItem has been eliminated.\n"))
         stderr_write (_ ("Harmonic parentheses are part of the TabNoteHead grob.\n"))
         stderr_write (UPDATE_MANUALLY);
@@ -3177,13 +3111,17 @@ def conv(str):
     str = re.sub (r"ukulele-(tenor|baritone)-tuning", r"\1-ukulele-tuning", str)
 
     if re.search (r"[^-]page-top-space", str):
-        stderr_write (NOT_SMART % "page-top-space.  " + UPDATE_MANUALLY)
+        stderr_write (NOT_SMART % "page-top-space")
+        stderr_write (UPDATE_MANUALLY)
     if re.search (r"[^-]between-system-(space|padding)", str):
-        stderr_write (NOT_SMART % "between-system-space, -padding.  " + UPDATE_MANUALLY)
+        stderr_write (NOT_SMART % "between-system-space, -padding")
+        stderr_write (UPDATE_MANUALLY)
     if re.search (r"[^-](before|between|after)-title-space", str):
-        stderr_write (NOT_SMART % "-title-space.  " + UPDATE_MANUALLY)
+        stderr_write (NOT_SMART % "before-, between-, after-title-space")
+        stderr_write (UPDATE_MANUALLY)
     if re.search (r"\\name\s", str):
-        stderr_write("\n" + _("Vertical spacing changes might affect user-defined contexts.  ") + UPDATE_MANUALLY)
+        stderr_write ("\n" + _("Vertical spacing changes might affect user-defined contexts.") + "\n")
+        stderr_write (UPDATE_MANUALLY)
 
     return str
 
@@ -3203,8 +3141,8 @@ def conv(str):
     _ ("Woodwind diagrams: Changes to the clarinet diagram."))
 def conv(str):
     if re.search (r'\\woodwind-diagram\s*#[^#]*clarinet\s', str):
-        stderr_write ("\n")
-        stderr_write (NOT_SMART % _("woodwind-diagrams.  Clarinet fingering changed to reflect actual anatomy of instrument.\n"))
+        stderr_write (NOT_SMART % "woodwind-diagrams")
+        stderr_write (_ ("Clarinet fingering changed to reflect actual anatomy of instrument.\n"))
         stderr_write (UPDATE_MANUALLY)
     return str
 
@@ -3217,8 +3155,8 @@ def conv (str):
     _ ("Handling of non-automatic footnotes."))
 def conv(str):
     if re.search (r'\\footnote', str):
-        stderr_write ("\n")
-        stderr_write (NOT_SMART % _("If you are using non-automatic footnotes, make sure to set footnote-auto-numbering = ##f in the paper block.\n"))
+        stderr_write (NOT_SMART % "\\footnote")
+        stderr_write (_ ("If you are using non-automatic footnotes, make sure to set footnote-auto-numbering = ##f in the paper block.\n"))
         stderr_write (UPDATE_MANUALLY)
     return str
 
@@ -3226,8 +3164,7 @@ def conv(str):
        _ ("Change in internal property for MultiMeasureRest"))
 def conv (str):
     if re.search (r'use-breve-rest',str):
-        stderr_write ("\n")
-        stderr_write (NOT_SMART % "use-breve-rest.\n")
+        stderr_write (NOT_SMART % "use-breve-rest")
         stderr_write (_ ("This internal property has been replaced by round-up-to-longer-rest, round-up-exceptions and usable-duration-logs.\n"))
         stderr_write (UPDATE_MANUALLY)
     return str
@@ -3268,8 +3205,8 @@ def conv (str):
     str = re.sub (r"\\markuplines", r"\\markuplist", str)
     str = re.sub (r"@funindex markuplines", r"@funindex markuplist", str)
     if re.search (r'consistent-broken-slope', str):
-        stderr_write ("\n")
-        stderr_write (NOT_SMART % _("consistent-broken-slope, which is now handled through the positions callback.\n"))
+        stderr_write (NOT_SMART % "consistent-broken-slope")
+        stderr_write (_ ("consistent-broken-slope is now handled through the positions callback.\n"))
         stderr_write (_ ("input/regression/beam-broken-classic.ly shows how broken beams are now handled.\n"))
         stderr_write (UPDATE_MANUALLY)
     return str
@@ -3329,9 +3266,7 @@ def conv (str):
     str = re.sub (r"#\(markup\*(?=\s)", r"$(markup", str)
     str = re.sub ("#\("+paren_matcher (25)+"\)", export_puller, str)
     if re.search (r"\(ly:export\s+", str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "ly:export")
-        stderr_write ('\n')
     return str
 
 @rule ((2, 15, 19), r"$(set-time-signature ...) -> \time")
@@ -3341,9 +3276,7 @@ def conv (str):
     str = re.sub (r"\$\(set-time-signature\s+([0-9]+)\s+([0-9]+)\s+(" +
                   paren_matcher (5) + r")\)", r"\\time #\3 \1/\2", str)
     if re.search (r"\(set-time-signature\s+", str):
-        stderr_write ('\n')
         stderr_write (NOT_SMART % "set-time-signature")
-        stderr_write ('\n')
     return str
 
 @rule ((2, 15, 20), r"$(set-accidental-style ...) -> \accidentalStyle")
