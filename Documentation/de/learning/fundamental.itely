@@ -1743,7 +1743,7 @@ Alle Engraver haben zusammengesetzte Bezeichnung, die aus
 den (englischen) Wörtern ihrer Funktionsweise bestehen.  Nur
 das erste Wort hat einen Großbuchstaben, und die restlichen
 Wörter werden mit einem Unterstrich angefügt.  Ein
-@code{Staff_symbol_engraver}  verantwortet also die Erstellung
+@code{Staff_symbol_engraver} verantwortet also die Erstellung
 der Notenlinien, ein @code{Clef_engraver} entscheidet über die
 Art der Notenschlüssel und setzt die entsprechenden Symbole; damit
 wird gleichzeitig die Referenztonhöhe auf dem Notensystem festgelegt.
@@ -1778,7 +1778,7 @@ abzuleiten.
 @item Rest_engraver
   @tab Erstellt Pausen.
 @item Staff_symbol_engraver
-  @tab Ersetllt die (standardmäßig) fünf Notenlinien des Systems.
+  @tab Erstellt die (standardmäßig) fünf Notenlinien des Systems.
 @item Stem_engraver
   @tab Erstellt die Notenhälse und Tremolos mit einem Hals.
 @item Time_signature_engraver
@@ -2018,9 +2018,9 @@ eingegeben werden kann.
 @cindex Kontexteigenschaft, setzen mit \with
 
 Die Standardwerte von Kontexteigenschaften können zu dem Zeitpunkt
-definiert werden, an welchem der Kontext erstellt wird. Manchmal
+definiert werden, an welchem der Kontext erstellt wird.  Manchmal
 ist das eine saubere Weise, eine Eigenschaft zu bestimmen, die für
-die gesamte Partitur erhalten bleichen soll.  Wenn ein Kontext mit
+die gesamte Partitur erhalten bleiben soll.  Wenn ein Kontext mit
 einem @code{\new}-Befehl erstellt wird, können in einer
 direkt folgenden @code{\with @{ .. @}}-Umgebung die Eigenschaften
 bestimmt werden.  Wenn also die zusätzlichen
