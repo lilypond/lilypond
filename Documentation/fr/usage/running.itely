@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 9ae56888788d74c292e20b735a8f973c64cf1b1d
+    Translation of GIT committish: 0fcca9bfd579bbda8ef0842baa5cd57b8ba718e2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -150,40 +150,6 @@ Voici les différentes options disponibles à la ligne de commande@tie{}:
 
 @table @code
 
-@item -e,--evaluate=@var{expr}
-Évalue l'expression Scheme @var{expr} avant d'analyser tout fichier
-@file{.ly}.  Lorsque vous spécifiez l'option @option{-e} à plusieurs
-reprises, l'évaluation sera faite en séquence.
-
-Dans la mesure où l'expression est évaluée par le module
-@code{guile-user}, vous devrez, dès lors que @var{expr} utilise des
-définitions, spécifier
-
-@example
-lilypond -e '(define-public a 42)'
-@end example
-
-@noindent
-en ligne de commande, et ajouter la ligne
-
-@example
-#(use-modules (guile-user))
-@end example
-
-@noindent
-en tête de votre fichier @file{.ly}.
-
-@warning{Les utilisateurs de Windows doivent utiliser des quillements
-doubles @code{"} en lieu et place des guillemets simples @code{'}.}
-@c Match " in previous line to help context-sensitive editors
-
-@item -f,--format=@var{format}
-Détermine le format à produire.  Il peut s'agir de @code{ps}, @code{pdf}
-ou @code{png}.
-
-Exemple : @code{lilypond -fpng @var{monfichier}.ly}
-
-
 @item -d,--define-default=@var{var}=@var{val}
 Affecte la valeur Scheme @var{val} à l'option interne @var{var} du
 programme.  En l'absence de @var{val}, le programme utilisera @var{#t}.
@@ -191,6 +157,7 @@ Préfixer @var{var} d'un @code{no-} vous permet de désactiver une option.
 Ainsi,
 
 @cindex point and click, ligne de commande
+@cindex pointer-cliquer, ligne de commande
 
 @example
 -dno-point-and-click
@@ -213,8 +180,8 @@ Lancer @code{lilypond -dhelp} affichera la liste de toutes les options
 @code{-d} disponibles.
 
 
-@item paper-size
 @cindex paper-size, ligne de commande
+@item paper-size
 Détermine la taille par défaut du papier, par exemple
 @example
 -dpaper-size=\"letter\"
@@ -267,12 +234,12 @@ que mémoire.
 
 Notez bien que l'utilisation du mode sécuritaire empêchera aussi la
 compilation d'un certain nombre de fragments LilyPond.  L'option
-@option{--jail} est dans ce cas une excellente alternative en terme de
+@code{--jail} est dans ce cas une excellente alternative en terme de
 sécurité, même si elle requiert plus de temps à mettre en place.
 
 
-@item backend
 @cindex format de sortie, définition
+@item backend
 Détermine le format de sortie à utiliser par le moteur de traitement.
 Les types de @code{format} reconnus sont
 
@@ -332,6 +299,10 @@ titrage et premier système de chacun des @code{\bookpart}.  Cette
 option fonctionne pour les moteurs de traitement @code{ps}, @code{eps}
 et @code{svg}.
 
+Sera automatiquement généré un fichier additionnel, de la forme
+@file{monFichier.preview.extension}.  Pour l'éviter, utilisez
+conjointement l'une des options @option{-dprint-pages} ou
+@option{-dno-print-pages} selon vos besoins.
 
 @item gui
 Travaille silencieusement, et redirige tout le verbiage dans un fichier
@@ -352,6 +323,45 @@ conjointement avec l'option @option{-dpreview}.
 @end table
 
 
+@cindex Scheme, évaluation d'expression
+@cindex expression Scheme, évaluation
+@item -e,--evaluate=@var{expr}
+Évalue l'expression Scheme @var{expr} avant d'analyser tout fichier
+@file{.ly}.  Lorsque vous spécifiez l'option @option{-e} à plusieurs
+reprises, l'évaluation sera faite en séquence.
+
+Dans la mesure où l'expression est évaluée par le module
+@code{guile-user}, vous devrez, dès lors que @var{expr} utilise des
+définitions, spécifier
+
+@example
+lilypond -e '(define-public a 42)'
+@end example
+
+@noindent
+en ligne de commande, et ajouter la ligne
+
+@example
+#(use-modules (guile-user))
+@end example
+
+@noindent
+en tête de votre fichier @file{.ly}.
+
+@warning{Les utilisateurs de Windows doivent utiliser des quillements
+doubles @code{"} en lieu et place des guillemets simples @code{'}.}
+@c Match " in previous line to help context-sensitive editors
+
+
+@cindex sortie, format
+@cindex format de sortie
+@item -f,--format=@var{format}
+Détermine le format à produire.  Il peut s'agir de @code{ps}, @code{pdf}
+ou @code{png}.
+
+Exemple : @code{lilypond -fpng @var{monfichier}.ly}
+
+
 @item -h,--help
 Affiche un résumé des commandes.
 
@@ -360,9 +370,14 @@ Affiche un résumé des commandes.
 Recopie le champ d'entête dans le fichier @file{RACINE.@var{CHAMP}}.
 
 
-@item --include, -I=@var{répertoire}
+@item -i,--init=@var{fichier}
+Définit @var{fichier} (par défaut @file{init.ly}) en tant que fichier
+d'initialisation.
+
+
 @cindex recherche de fichier
-@cindex search path
+@cindex chemin de recherche
+@item -I,--include=@var{répertoire}
 
 Ajoute @var{répertoire} au chemin de recherche pour les inclusions.
 
@@ -372,17 +387,79 @@ fichier en question ne s'y trouve pas, les répertoires suivants seront
 examinés l'un après l'autre.
 
 
-@item -i,--init=@var{fichier}
-Définit @var{fichier} (par défaut @file{init.ly}) en tant que fichier
-d'initialisation.
+@cindex chroot jail, fonctionnement
+@item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}
+Lance @command{lilypond} dans un environnement protégé.
+
+L'option @option{--jail} est une alternative qui offre plus de
+flexibilité que l'option @option{--safe} lorsque LilyPond est installé
+sur un serveur web ou traite des fichiers externes.
+
+L'option @option{--jail} va détourner la racine de @command{lilypond}
+sur @var{jail} juste avant d'effectuer la compilation à proprement
+parler.  L'utilisateur et le groupe sont modifiés en conséquence, et le
+répertoire en cours devient @var{dir}.  Ces réglages assurent -- du
+moins en théorie -- l'impossibilité de s'échapper de la cellule.  Notez
+cependant que, pour que l'option @option{--jail} soit fonctionnelle,
+@command{lilypond} doit être lancé en tant qu'administrateur -- ce qui
+se réalise aisément à l'aide de la commande @command{sudo}.
+
+La création d'un environnement sécurisé requiert quelques précautions
+dans la mesure où LilyPond doit disposer de tout ce dont il a besoin
+pour compiler le fichier source @strong{à l'intérieur de la cellule}.
+L'ermitage, avant d'être viable, requiert donc les étapes
+suivantes@tie{}:
+
+@table @asis
+
+@item Création d'un système de fichiers indépendant
+L'intérêt d'un système de fichiers dédié à LilyPond réside dans le fait
+qu'on peut le brider à l'aide des options @code{noexec},@code{nodev} et
+@code{nosuid}.  Il sera de fait impossible de lancer des exécutables ou
+d'écrire sur un périphérique à partir de LilyPond.  Si vous n'avez pas
+l'intention de créer un tel système sur une partition séparée, vous
+pouvez avoir recours à un pseudo-périphérique (@emph{loop device}) monté
+à partir d'un simple fichier de taille raisonnable.  D'autre part, le
+recours à un système de fichiers indépendant permet de limiter l'espace
+dévolu à LilyPond.
+
+@item Création d'un utilisateur spécifique
+L'utilisation de LilyPond au sein de la cellule devrait être réservé à
+un utilisateur aux droits restreints.  Il faudra donc créer un
+utilisateur et un groupe spécifiques -- disons
+@w{@code{lily}/@code{lily}} -- qui n'aura accès en écriture qu'à un
+unique répertoire déterminé par la valeur de @var{dir}.
+
+@item Agencement des lieux
+LilyPond a besoin d'un certain nombre de fichiers pour pouvoir tourner
+correctement.  Ces fichiers devront donc tous se retrouver dans
+l'environnement protégé, distribués selon la même arborescence que dans
+le système d'origine.  Ainsi l'intégralité de l'installation de LilyPond
+(en principe @file{/usr/share/lilypond}) doit y être dupliquée.
+
+En cas de problème, lancer LilyPond en utilisant @command{strace}
+devrait vous permettre de déterminer quels fichiers manquent à l'appel.
+
+@item Lancement de LilyPond
+Dans un environnement protégé monté avec l'option @code{noexec}, il
+est impossible de lancer un quelconque programme extérieur.  LilyPond ne
+saurait donc avoir recours à un moteur de traitement qui le mettrait
+dans cette situation.  Comme nous l'avons vu plus haut, LilyPond sera
+lancé avec les privilèges de l'administrateur -- privilèges qu'il perdra
+aussitôt --, ce qui peut nécessiter le recours à la commande
+@code{sudo}.  Il est par ailleurs judicieux de limiter le temps
+processeur aloué à LilyPond -- grâce à @command{ulimit@tie{}-t} par
+exemple -- ainsi que, si votre système le permet, la taille de la
+mémoire.
+@end table
 
 
-@item -l,--loglevel=@var{DEGRÉ}
 @cindex loglevel
 @cindex verbosité, définir le degré de
-
+@item -l,--loglevel=@var{DEGRÉ}
 Règle le niveau de verbosité des messages console à @var{DEGRÉ}.  Les
 différentes valeurs sont@tie{}:
+
 @table @code
 @item NONE
 Aucun verbiage, même pas les messages d'erreur.
@@ -407,26 +484,29 @@ d'autres informations quant à l'exécution.
 
 @item DEBUG
 Tout ce qui peut être affiché, y compris le verbiage utile au débogage.
+
 @end table
 
 
-@item -o,--output=@var{FICHIER} ou @var{RÉP}
 @cindex répertoire de destination
 @cindex fichier de destination
-
+@item -o,--output=@var{FICHIER} ou @var{RÉPERTOIRE}
 Détermine le nom par défaut du fichier résultant à @var{FICHIER}@tie{};
-lorsque l'argument @var{RÉP} correspond à un répertoire déjà existant,
-c'est là que les fichiers résultants seront déposés.  Le suffixe adéquat
-sera ajouté (p.ex. @file{.pdf} pour du pdf) dans tous les cas.
+lorsque l'argument @var{RÉPERTOIRE} correspond à un répertoire déjà
+existant, c'est là que les fichiers résultants seront déposés.  Le
+suffixe adéquat sera ajouté (p.ex. @file{.pdf} pour du pdf) dans tous
+les cas.
 
 
+@cindex PostScript, output
+@cindex PS (PostScript), output
 @item --ps
-@cindex PostScript output
 Génère du PostScript.
 
 
 @item --png
-@cindex Portable Network Graphics (PNG) output
+@cindex Portable Network Graphics (PNG), output
+@cindex PNG (Portable Network Graphics), output
 Génère une image par page, au format PNG@tie{}; ceci sous-entend
 l'utilisation de @option{--ps}.  La résolution de l'image, en DPI, peut
 se régler en ajoutant par exemple
@@ -436,73 +516,9 @@ se régler en ajoutant par exemple
 
 
 @item --pdf
-@cindex Portable Document Format (PDF) output
+@cindex Portable Document Format (PDF), output
+@cindex PDF (Portable Document Format), output
 Génère du PDF.  Ceci sous-entend l'utilisation de @option{--ps}.
-
-
-@item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}
-Lance @command{lilypond} dans un environnement protégé.
-
-L'option @option{--jail} est une alternative qui offre plus de
-flexibilité que l'option @option{--safe} lorsque LilyPond est installé
-sur un serveur web ou traite des fichiers externes.
-
-L'option @option{--jail} va détourner la racine de @command{lilypond}
-sur @code{jail} juste avant d'effectuer la compilation à proprement
-parler.  L'utilisateur et le groupe sont modifiés en conséquence, et le
-répertoire en cours devient @code{dir}.  Ces réglages assurent -- du
-moins en théorie -- l'impossibilité de s'échapper de la cellule.  Notez
-cependant que, pour que l'option @option{--jail} soit fonctionnelle,
-@code{lilypond} doit être lancé en tant qu'administrateur -- ce qui se
-réalise aisément à l'aide de la commande @command{sudo}.
-
-La création d'un environnement sécurisé requiert quelques précautions
-dans la mesure où LilyPond doit disposer de tout ce dont il a besoin
-pour compiler le fichier source @strong{à l'intérieur de la cellule}.
-L'ermitage, avant d'être viable, requiert donc les étapes
-suivantes@tie{}:
-
-@table @asis
-@item Création d'un système de fichiers indépendant
-L'intérêt d'un système de fichiers dédié à LilyPond réside dans le fait
-qu'on peut le brider à l'aide des options @option{noexec},
-@option{nodev} et @option{nosuid}.  Il sera de fait impossible de lancer
-des exécutables ou d'écrire sur un périphérique à partir de LilyPond.
-Si vous n'avez pas l'intention de créer un tel système sur une partition
-séparée, vous pouvez avoir recours à un pseudo-périphérique (@emph{loop
-device}) monté à partir d'un simple fichier de taille raisonnable.
-D'autre part, le recours à un système de fichiers indépendant permet de
-limiter l'espace dévolu à LilyPond.
-
-@item Création d'un utilisateur spécifique
-L'utilisation de LilyPond au sein de la cellule devrait être réservé à
-un utilisateur aux droits restreints.  Il faudra donc créer un
-utilisateur et un groupe spécifiques -- disons @code{lily}/@code{lily}
--- qui n'aura accès en écriture qu'à un unique répertoire déterminé par
-la valeur de @var{dir}.
-
-@item Agencement des lieux
-LilyPond a besoin d'un certain nombre de fichiers pour pouvoir tourner
-correctement.  Ces fichiers devront donc tous se retrouver dans
-l'environnement protégé, distribués selon la même arborescence que dans
-le système d'origine.  Ainsi l'intégralité de l'installation de LilyPond
-(en principe @file{/usr/share/lilypond}) doit y être dupliquée.
-
-En cas de problème, lancer LilyPond en utilisant @code{strace} devrait
-vous permettre de déterminer quels fichiers manquent à l'appel.
-
-@item Lancement de LilyPond
-Dans un environnement protégé monté avec l'option @option{noexec}, il
-est impossible de lancer un quelconque programme extérieur.  LilyPond ne
-saurait donc avoir recours à un moteur de traitement qui le mettrait
-dans cette situation.  Comme nous l'avons vu plus haut, LilyPond sera
-lancé avec les privilèges de l'administrateur -- privilèges qu'il perdra
-aussitôt --, ce qui peut nécessiter le recours à la commande
-@code{sudo}.  Il est par ailleurs judicieux de limiter le temps
-processeur aloué à LilyPond -- grâce à @command{ulimit@tie{}-t} par
-exemple -- ainsi que, si votre système le permet, la taille de la
-mémoire.
-@end table
 
 
 @item -v,--version
@@ -529,6 +545,7 @@ est livré @strong{SANS GARANTIE}@tie{}!
 
 @command{lilypond} reconnaît les variables d'environnement
 suivantes@tie{}:
+
 @table @code
 @item LILYPOND_DATADIR
 Cette variable spécifie le répertoire où seront recherchés par défaut
@@ -571,7 +588,7 @@ nécessiteront l'utilisation de @code{sudo} autant que de besoin.
 @item Installation des paquetages nécessaires@tie{}: LilyPond, GhostScript et
 ImageMagick.
 
-@item Création de l'utilisateur @code{lily}:
+@item Création de l'utilisateur @code{lily} :
 
 @example
 adduser lily
@@ -757,7 +774,7 @@ test.ly:2:19: erreur: n'est pas une durée: 5
 
 Notez que ces coordonnées constituent l'approximation au mieux par
 LilyPond dans le code ayant déclenché l'avertissement ou l'erreur.  En
-règle générale, erreurs et avertissement surviennent lorsque LilyPond
+règle générale, erreurs et avertissements surviennent lorsque LilyPond
 rencontre quelque chose d'inattendu.  Lorsque la ligne indiquée ne vous
 semble pas comporter d'élément litigieux, remontez de quelques lignes
 dans votre code.
@@ -775,7 +792,6 @@ qu'elles ne soient pas évidentes ni facilement localisables.  Nous
 espérons que ces explications vous aideront à les résoudre plus
 facilement.
 
-
 @menu
 * La musique déborde de la page::
 * Apparition d'une portée supplémentaire::
@@ -784,6 +800,7 @@ facilement.
 * Message d'erreur FT_Get_Glyph_Name::
 * staff-affinities devraient aller en ordre décroissant::
 @end menu
+
 
 @node La musique déborde de la page
 @unnumberedsubsec La musique déborde de la page
@@ -825,7 +842,7 @@ que les contextes soient automatiquement créés rend bien des services,
 et c'est d'ailleurs le cas pour la majorité des exemples contenus dans
 les manuels de LilyPond.  Cependant, la création implicite d'un contexte
 peut aboutir à l'apparition d'une portée @qq{parasite}.  On s'attend par
-exemple, en lisant le code qui suit, à ce que toutes les têtes de notes
+exemple, en lisant le code qui suit, à ce que toutes les têtes de note
 soient en rouge, alors que le résultat nous présente deux portées et que
 les notes, placées sur la portée inférieure, restent en noir.
 
@@ -855,15 +872,19 @@ va créer deux blocs @code{\relative} qui, chacun à leur tour, créeront
 implicitement un bloc @code{Staff} assorti d'un bloc @code{Voice}.
 
 @lilypond[quote,verbatim]
-\repeat unfold 2 \relative { c d e f }
+\repeat unfold 2 {
+  \relative c' { c4 d e f }
+}
 @end lilypond
 
 La manière adéquate de procéder consiste à inverser les commandes
 @code{\repeat} et @code{\relative}, comme ceci@tie{}:
 
 @lilypond[quote,verbatim]
-\relative {
-  \repeat unfold 2 { c d e f }
+\new Voice {
+  \repeat unfold 2 {
+    \relative c' { c4 d e f }
+  }
 }
 @end lilypond
 
@@ -878,7 +899,7 @@ formaté.  Cela se produit notamment lors d'un défaut de parité de
 bornages ou de guillemets.
 
 L'erreur la plus courante est la simple omission d'une accolade
-fermante (@code{@}} à la fin du bloc @code{Score}.  La solution est
+fermante (@code{@}}) à la fin du bloc @code{Score}.  La solution est
 évidente en pareil cas@tie{}: il suffit de vérifier que le bloc
 @code{Score} est bien clôturé.  La structure des fichiers LilyPond est
 abordée plus en détails au chapitre
@@ -886,6 +907,14 @@ abordée plus en détails au chapitre
 laquelle nous vous invitons à utiliser un éditeur de texte qui prenne en
 charge le contrôle de parité des parenthèses, crochets et accolades afin
 de vous éviter de telles erreurs.
+
+Autre erreur courante, l'absence d'espace entre la dernière syllabe et
+l'accolade (@code{@}}) clôturant un bloc de paroles.  Lorsqu'il n'y a
+pas séparation, l'accolade est considérée comme faisant partie
+intégrante de la syllabe.  C'est la raison pour laquelle nous vous
+invitons à insérer une espace avant et après @strong{chaque} accolade.
+D'autres informations à ce sujets sont mentionnées au chapitre
+@ruser{Saisie des paroles}.
 
 Lorsqu'il s'agit d'un guillemet fermant (@code{"}) omis, le message
 d'erreur devrait vous indiquer un numéro de ligne avoisinant.  L'erreur
@@ -933,6 +962,6 @@ portée, à l'aide de l'instruction
 @end example
 
 @noindent
-que vous insérerez dès sa création.  Pouur plus d'information,
+que vous insérerez dès sa création.  Pour plus d'information,
 reportez-vous à la rubrique
 @ruser{Espacement des lignes rattachées à des portées}.
