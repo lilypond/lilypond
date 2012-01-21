@@ -39,6 +39,8 @@ import convertrules
 lilypond_version_re_str = '\\\\version *\"([0-9.]+)"'
 lilypond_version_re = re.compile (lilypond_version_re_str)
 
+lilypond_version_strict_re_str = '\\\\version *\"([0-9]+[.][0-9]+[.][0-9]+)"'
+lilypond_version_strict_re = re.compile (lilypond_version_strict_re_str)
 
 help_summary = (
 _ ('''Update LilyPond input to newer version.  By default, update from the
@@ -206,9 +208,12 @@ string."""
 
 
 def guess_lilypond_version (input):
-    m = lilypond_version_re.search (input)
+    m = lilypond_version_strict_re.search (input)
     if m:
         return m.group (1)
+    m = lilypond_version_re.search (input)
+    if m:
+        raise InvalidVersion (m.group (1))
     else:
         return ''
 
