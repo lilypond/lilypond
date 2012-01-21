@@ -113,14 +113,13 @@ Dot_column::calc_positioning_done (SCM smob)
           stems.insert (s);
         }
       else if (Note_head::has_interface (s))
-        y = Interval (-1, 1);
+        y = Interval (-1.1, 1.1);
       else
         {
           programming_error ("unknown grob in dot col support");
           continue;
         }
 
-      y *= 2 / ss;
       y += Staff_symbol_referencer::get_position (s);
 
       Box b (s->extent (commonx, X_AXIS), y);
