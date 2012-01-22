@@ -2146,7 +2146,12 @@ chord_body_element:
 	}
 	| music_function_chord_body
 	{
-		if (!unsmob_music ($$)->is_mus_type ("rhythmic-event")) {
+		Music *m = unsmob_music ($1);
+
+		while (m && m->is_mus_type ("music-wrapper-music"))
+			m = unsmob_music (m->get_property ("element"));
+
+		if (!(m && m->is_mus_type ("rhythmic-event"))) {
 			parser->parser_error (@$, _ ("not a rhythmic event"));
 			$$ = SCM_UNDEFINED;
 		}
