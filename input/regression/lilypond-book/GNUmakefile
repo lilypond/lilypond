@@ -16,6 +16,13 @@ EXTRA_DIST_FILES += $(call src-wildcard,*.ily)
 EXTRA_DIST_FILES += $(call src-wildcard,*.tely)
 EXTRA_DIST_FILES += $(call src-wildcard,*.itely)
 
+OUT_TEXI_FILES += ${TEXI_FILES:%.texi=$(outdir)/%.info}
+OUT_TEXI_FILES += ${TEXI_FILES:%.texi=$(outdir)/%.pdf}
+OUT_TEXINFO_FILES += ${TEXINFO_FILES:%.texinfo=$(outdir)/%.info}
+OUT_TEXINFO_FILES += ${TEXINFO_FILES:%.texinfo=$(outdir)/%.pdf}
+OUT_TELY_FILES += ${TELY_FILES:%.tely=$(outdir)/%.info}
+OUT_TELY_FILES += ${TELY_FILES:%.tely=$(outdir)/%.pdf}
+
 XML_FILES = $(filter-out include%,$(call src-wildcard,*.xml))
 
 local-test: $(OUT_FILES)

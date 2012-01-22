@@ -102,18 +102,19 @@ for opt in options:
     else:
         raise Exception ('unknown option: ' + o)
 
-texi_file_re = re.compile ('.*\.i?te(ly|xi)$')
-html_file_re = re.compile ('.*\.i?htm(l)?$')
-xml_file_re = re.compile ('.*\.i?(xm|mx)l$')
-tex_file_re = re.compile ('.*\.i?(la)?tex$')
+html_file_re = re.compile ('.*\.i?html?$')
+info_file_re = re.compile ('.*\.info$')
 pdf_file_re = re.compile ('.*\.i?pdf$')
+tex_file_re = re.compile ('.*\.i?(la)?tex$')
+texi_file_re = re.compile ('.*\.i?te(ly|xi|xinfo)$')
+xml_file_re = re.compile ('.*\.i?(xm|mx)l$')
 
 def name2line (n):
     if texi_file_re.match (n):
         # We have a texi include file, simply include it:
         s = r"@include %s" % os.path.basename (n)
-    elif (html_file_re.match (n) or pdf_file_re.match (n) or
-          tex_file_re.match (n)):
+    elif (html_file_re.match (n) or info_file_re.match (n)
+          or pdf_file_re.match (n) or tex_file_re.match (n)):
         s = r"""
 @ifhtml
 @html
