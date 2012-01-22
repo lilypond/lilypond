@@ -2037,8 +2037,9 @@ scalar_closed:
 event_chord:
 	simple_element post_events {
 		// Let the rhythmic music iterator sort this mess out.
-		unsmob_music ($1)->set_property ("articulations",
-						 scm_reverse_x ($2, SCM_EOL));
+		if (scm_is_pair ($2))
+			unsmob_music ($1)->set_property ("articulations",
+							 scm_reverse_x ($2, SCM_EOL));
 	}
 	| simple_chord_elements post_events	{
 		SCM elts = ly_append2 ($1, scm_reverse_x ($2, SCM_EOL));
@@ -2764,8 +2765,9 @@ lyric_element_arg:
 	lyric_element
 	| lyric_element multiplied_duration post_events {
 		$$ = MAKE_SYNTAX ("lyric-event", @$, $1, $2);
-		unsmob_music ($$)->set_property
-			("articulations", scm_reverse_x ($3, SCM_EOL));
+		if (scm_is_pair ($3))
+			unsmob_music ($$)->set_property
+				("articulations", scm_reverse_x ($3, SCM_EOL));
 	}
 	| lyric_element post_event post_events {
 		$$ = MAKE_SYNTAX ("lyric-event", @$, $1,
@@ -2775,8 +2777,9 @@ lyric_element_arg:
 	}
 	| LYRIC_ELEMENT optional_notemode_duration post_events {
 		$$ = MAKE_SYNTAX ("lyric-event", @$, $1, $2);
-		unsmob_music ($$)->set_property
-			("articulations", scm_reverse_x ($3, SCM_EOL));
+		if (scm_is_pair ($3))
+			unsmob_music ($$)->set_property
+				("articulations", scm_reverse_x ($3, SCM_EOL));
 	}
 	;
 
@@ -2784,8 +2787,9 @@ lyric_element_arg:
 lyric_element_music:
 	lyric_element optional_notemode_duration post_events {
 		$$ = MAKE_SYNTAX ("lyric-event", @$, $1, $2);
-		unsmob_music ($$)->set_property
-			("articulations", scm_reverse_x ($3, SCM_EOL));
+		if (scm_is_pair ($3))
+			unsmob_music ($$)->set_property
+				("articulations", scm_reverse_x ($3, SCM_EOL));
 	}
 	;
 
