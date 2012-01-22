@@ -3,9 +3,9 @@
 @settitle MusicXML inside texinfo
 
 @node Top
-@top MusicMXL in texinfo
+@top MusicXML in texinfo
 
-MusicXML included in texinfo
+A MusicXML file included in texinfo with options (language=deutsch, absolute, no-beaming):
 @musicxmlfile[language=deutsch,absolute,no-beaming]{include.xml}
 
 

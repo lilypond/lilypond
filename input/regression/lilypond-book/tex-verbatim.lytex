@@ -9,10 +9,14 @@ This file should not contain (and produce) any lilypond images!
 Snippets inside a verbatim environment or a comment are not run through
 lilypond, but left as is.
 
+You should see the begin/end lilypond commands in all three of the below tests.
+
 % TODO: These do not yet work, as \verb is explicitly disabled in lilypond-book for now!
 % \verb|\lilypond[fragment]{c' d' e'}|
 %
 % and
+
+The verbatim environment does not confuse lilypond-book:
 
 \begin{verbatim}
 \begin{lilypond}
@@ -20,9 +24,6 @@ c d e
 \end{lilypond}
 \end{verbatim}
 
-
-As you can see, the begin/end lilypond commands inside
-do not confuse lilypond-book.
 
 % TODO: These do not yet work, as \verb is explicitly disabled in lilypond-book for now!
 % \verb|\begin{lilypond}[fragment]c d e\end{lilypond}|

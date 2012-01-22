@@ -4,8 +4,9 @@
 
 \begin{document}
 
-\section{A coment on the first line of the file}
+\section{A comment on the first line of the file}
 
+The source file for this document contains a comment on the first line.
 This should not confuse the auto-detection of lilypond-book...
 
 \begin{lilypond}

@@ -1,4 +1,4 @@
 \documentclass{article}
 \begin{document}
-Adding Lilypond code inline: \lilypond[relative=2]{ d g ceses }
+Adding LilyPond code inline: \lilypond[relative=2]{ d g ceses }
 \end{document}
