@@ -697,6 +697,7 @@ printing diff against existing file." % filename)
 
         map (consider_file, [base + '.tex',
                              base + '.eps',
+                             base + '.pdf',
                              base + '.texidoc',
                              base + '.doctitle',
                              base + '-systems.texi',

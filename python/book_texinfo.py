@@ -330,15 +330,15 @@ class BookTexinfoOutputFormat (BookBase.BookOutputFormat):
         return str
 
     def snippet_output (self, basename, snippet):
-        str = self.output_print_filename (basename, snippet)
+        str = ''
         base = basename
         if DOCTITLE in snippet.option_dict:
             doctitle = base + '.doctitle'
             translated_doctitle = doctitle + self.document_language
             if os.path.exists (translated_doctitle):
-                str += '@lydoctitle %s\n\n' % open (translated_doctitle).read ()
+                str += '\n@lydoctitle %s\n\n' % open (translated_doctitle).read ()
             elif os.path.exists (doctitle):
-                str += '@lydoctitle %s\n\n' % open (doctitle).read ()
+                str += '\n@lydoctitle %s\n\n' % open (doctitle).read ()
         if TEXIDOC in snippet.option_dict:
             texidoc = base + '.texidoc'
             translated_texidoc = texidoc + self.document_language
@@ -346,6 +346,7 @@ class BookTexinfoOutputFormat (BookBase.BookOutputFormat):
                 str += '@include %(translated_texidoc)s\n\n' % vars ()
             elif os.path.exists (texidoc):
                 str += '@include %(texidoc)s\n\n' % vars ()
+        str += self.output_print_filename (basename, snippet)
 
         substr = ''
         rep = snippet.get_replacements ();
