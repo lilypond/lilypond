@@ -132,7 +132,8 @@ Latex_output = {
 \fi
 }''',
 
-    PRINTFILENAME: '''\\texttt{%(filename)s}
+    PRINTFILENAME: r'''\texttt{%(filename)s}
+\linebreak
 ''',
 
     QUOTE: r'''\begin{quote}
@@ -298,7 +299,10 @@ class BookLatexOutputFormat (BookBase.BookOutputFormat):
         str = ''
         rep = snippet.get_replacements ();
         rep['base'] = basename.replace ('\\', '/')
-        str += self.output_print_filename (basename, snippet)
+        rep['filename'] = os.path.basename (snippet.filename).replace ('\\', '/')
+        rep['ext'] = snippet.ext
+        if PRINTFILENAME in snippet.option_dict:
+            str += self.output[PRINTFILENAME] % rep
         if VERBATIM in snippet.option_dict:
             rep['verb'] = snippet.verb_ly ()
             str += self.output[VERBATIM] % rep
