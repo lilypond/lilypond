@@ -93,7 +93,7 @@ not!
 @appendixsec Smyčcový kvartet
 @translationof String quartet
 
-@appendixsubsec Smyčcový kvartet
+@appendixsubsec Jednoduchá smyčcový kvartet
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-simple.ly}

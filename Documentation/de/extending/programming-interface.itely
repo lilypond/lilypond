@@ -51,7 +51,7 @@ Eingabedatei maßgeblich vereinfachen können.
 
 @node Syntax der musikalischen Funktionen
 @subsection Syntax der musikalischen Funktionen
-@translationof Music function syntax
+@translationof Music function definitions
 
 Die allgemeine Form von musikalischen Funktionen ist:
 
@@ -260,7 +260,7 @@ aufgerufen werden.
 
 @node Leere Funktionen
 @subsection Leere Funktionen
-@translationof Void functions
+@translationof Void music functions
 
 Eine musikalische Funktion muss einen musikalischen Ausdruck
 ausgeben, aber in manchen Fällen müssen Funktionen erstellt werden,

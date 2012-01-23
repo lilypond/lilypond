@@ -1497,7 +1497,7 @@ Podemos verificar que esta función musical funciona correctamente:
 
 @c @nod e Trucos con Scheme
 @c @sectio n Trucos con Scheme
-@translationof Tweaking with Scheme
+@c @transl ationof Tweaking with Scheme
 
 Hemos visto cómo la salida de LilyPond se puede modificar
 profundamente usando instrucciones como @code{\override TextScript

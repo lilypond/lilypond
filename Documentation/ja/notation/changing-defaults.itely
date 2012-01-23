@@ -973,7 +973,7 @@ squashedPosition = #0
 
 @node コンテキストを揃える
 @subsection コンテキストを揃える
-@translationof Aligning contexts
+@translationof Context layout order
 
 新しいコンテキストを既存のコンテキストの上または下に揃えることができます。@c
 これはボーカル譜 (@rlearning{合唱}) を組む場合やオッシアで役に立ちます。
@@ -3996,11 +3996,11 @@ function =
 @ignore
 共通の変数タイプについては @ref{共通の引数タイプ} で記述されています。@c
 変数タイプについてのもっと完全な記述は
-@rextend{Music function syntax} にあります。
+@rextend{Music function definitions} にあります。
 @end ignore
 
 引数 @code{parser} と @code{location} を省略することはできず、@c
-@rextend{Music function syntax} で記述されている高度な状況で@c
+@rextend{Music function definitions} で記述されている高度な状況で@c
 使用されることがあります。
 置換関数において、必ずこれらの引数を記述してください。
 
@@ -4030,7 +4030,7 @@ symbol?
 @ref{Predefined type predicates}
 
 拡張:
-@rextend{Music function syntax}
+@rextend{Music function definitions}
 
 インストールされているファイル:
 @file{lily/music-scheme.cc},
@@ -4050,7 +4050,7 @@ symbol?
 以下の入力タイプを音楽関数で変数として使用することができます。@c
 このリストは完全なものではありません。@c
 取り得る変数タイプについての更なる情報は、
-@rextend{Music function syntax} にあります。
+@rextend{Music function definitions} にあります。
 
 @multitable @columnfractions .33 .66
 @headitem 入力タイプ          @tab @var{vari-type?} での記述方法
@@ -4065,7 +4065,7 @@ symbol?
 @seealso
 
 LilyPond の拡張:
-@rextend {Music function syntax}
+@rextend{Music function definitions}
 
 インストール済みファイル:
 @file{lily/music-scheme.cc},

@@ -455,7 +455,7 @@ Eigenschaften in LilyPond seit der vorigen stabilen Version.
 
 @node Erweitert
 @unnumberedsec Erweitert
-@translationof Extend
+@translationof Extending
 
 @divClass{column-left-top}
 @subheading Erweitern Sie LilyPond
@@ -466,7 +466,7 @@ Dieses Handbuch erklärt, wie man Erweiterungen für LilyPond schreibt.
 
 @divClass{column-right-bottom}
 
-@docLinks{Erweitert, extend,
+@docLinks{Erweitert, extending,
   @rextendnamed{Top,Erweitert},
   @manualStableExtendingSplit-de,
   @manualStableExtendingBig-de, 200 KB,

@@ -569,7 +569,7 @@ zur Verfügung gestellt.
 
 @node Titel erstellen
 @subsection Titel erstellen
-@translationof Creating titles
+@translationof Creating titles headers and footers
 
 Überschriften können für jede @code{\score}-Umgebung erstellt werden, sowohl
 für die gesamte Datei (oder eine @code{\book}-Umgebung) als auch für
@@ -1498,7 +1498,7 @@ Notationsreferenz:
 
 
 @node Zeichenkodierung
-@subsection Zeichenkodierung
+@unnumberedsubsubsec Zeichenkodierung
 @translationof Text encoding
 
 @cindex Unicode

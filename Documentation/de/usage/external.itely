@@ -555,7 +555,7 @@ automatisiert geschieht.
 @end menu
 
 @node Viele Zitate aus einer langen Partitur
-@subsection Viele Zitate aus einer langen Partitur
+@unnumberedsubsec Viele Zitate aus einer langen Partitur
 @translationof Many quotes from a large score
 
 Wenn aus einer großen Partitur viele kleine Fragmente eingefügt
@@ -564,7 +564,7 @@ Siehe @ruser{Notationsfragmente extrahieren}.
 
 
 @node LilyPond-Noten in OpenOffice.org integrieren
-@subsection LilyPond-Noten in OpenOffice.org integrieren
+@unnumberedsubsec LilyPond-Noten in OpenOffice.org integrieren
 @translationof Inserting LilyPond output into OpenOffice.org
 
 @cindex OpenOffice.org
@@ -574,7 +574,7 @@ Musik im LilyPond-Format kann in OpenOffice.org eingefügt werden mittels
 
 
 @node LilyPond-Noten in andere Programme integrieren
-@subsection LilyPond-Noten in andere Programme integrieren
+@unnumberedsubsec LilyPond-Noten in andere Programme integrieren
 @translationof Inserting LilyPond output into other programs
 
 Um die Ausgabe von LilyPond in anderen Programmen einzufügen,

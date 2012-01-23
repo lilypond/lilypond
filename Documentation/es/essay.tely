@@ -65,6 +65,7 @@ Copyright @copyright{} 2002--2012 por los autores.
 
 @node Índice de LilyPond
 @appendix Índice de LilyPond
+@translationof LilyPond index
 
 @printindex cp
 

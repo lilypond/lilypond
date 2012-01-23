@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 04a1f20da162cd0fec86bddbd14f167a695da480
+    Translation of GIT committish: 0fcca9bfd579bbda8ef0842baa5cd57b8ba718e2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,24 +32,24 @@ pour correspondre à la mise en forme de votre document.
 
 @command{lilypond-book} est un script indépendant de @command{lilypond}
 et se lance en ligne de commande -- pour plus de précisions, consultez
-@ref{Utilisation en ligne de commande}.  Si vous utilisez MacOS 10.3 ou
-10.4 et rencontrez quelque difficulté avec @code{lilypond-book},
-référez-vous à @rwebnamed{MacOS X,cette page}.
+@ref{Utilisation en ligne de commande}.  Si vous utilisez MacOS ou
+Windows et rencontrez quelque difficulté avec @code{lilypond-book},
+référez-vous à @rweb{MacOS X} ou @rweb{Windows}.
 
 @command{lilypond-book} s'applique aux documents @LaTeX{}, HTML, Texinfo
 et DocBook.
 
 @cindex texinfo
-@cindex latex
+@cindex LaTex
 @cindex texinfo
 @cindex texi
-@cindex html
+@cindex HTML
 @cindex docbook
 @cindex documents, ajout de musique
 @cindex HTML, musique et
 @cindex Texinfo, musique et
 @cindex DocBook, musique et
-@cindex @LaTeX{}, musique et
+@cindex LaTeX, musique et
 
 
 @menu
@@ -999,6 +999,18 @@ des fontes, que vous pouvez ignorer sans scrupule.@*
 Si vous utilisez @command{latex} en mode colonnage, n'oubliez pas
 d'ajouter @option{-t@tie{}landscape} aux options de @command{dvips}.
 
+@knownissues
+La commande @code{\pageBreak} est inopérante dans un environnement
+@code{\begin@{lilypond@} @dots{} \end@{lilypond@}}.
+
+Il en va de même pour un certain nombre de variables appartenant au bloc
+@code{\paper}.  Utilisez, entre autres, un @code{\newcommand} avec la
+macrocommande @code{\betweenLilyPondSystem} dans le préambule.
+
+@example
+\newcommand@{\betweenLilyPondSystem@}[1]@{\vspace@{36mm@}\linebreak@}
+@end example
+
 
 @subsubheading Texinfo
 @translationof Texinfo
@@ -1477,7 +1489,7 @@ où @code{\includescore} est défini ainsi@tie{}:
 
 @node Autres méthodes d'association texte-musique
 @section Autres méthodes d'association texte-musique
-@translationof Alternative methods of mixing text and music
+@translationof Alternate methods of mixing text and music
 
 D'autres moyens de mélanger musique et texte sans recourir à
 @command{lilypond-book} sont abordés au chapitre

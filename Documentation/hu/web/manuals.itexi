@@ -428,7 +428,7 @@ az előző stabil verzió óta.
 
 @node Bővítés
 @unnumberedsec Bővítés
-@translationof Extend
+@translationof Extending
 
 @divClass{column-left-top}
 @subheading A LilyPond bővítése

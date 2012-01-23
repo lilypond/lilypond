@@ -451,7 +451,7 @@ vlastností v LilyPondu od předchozí stálé verze.
 
 @node Rozšíření
 @unnumberedsec Rozšíření
-@translationof Extend
+@translationof Extending
 
 @divClass{column-left-top}
 @subheading Rozšiřte LilyPond
@@ -462,7 +462,7 @@ V této knize se vysvětluje, jak se pro LilyPond píší rozšíření.
 
 @divClass{column-right-bottom}
 
-@docLinks{Rozšíření, extend,
+@docLinks{Rozšíření, extending,
   @rextendnamed{Top,Rozšíření},
   @manualStableExtendingSplit-cs,
   @manualStableExtendingBig-cs, 200 KB,

@@ -85,7 +85,7 @@ unas hermosas partituras impresas!
 @appendixsec Cuarteto de cuerda
 @translationof String quartet
 
-@appendixsubsec Cuarteto de cuerda
+@appendixsubsec Cuarteto de cuerda simple
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-simple.ly}

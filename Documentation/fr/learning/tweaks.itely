@@ -2012,7 +2012,7 @@ par défaut donnée dans la RPI à la page de l'objet
 
 @node Objets hors de la portée
 @subsection Objets hors de la portée
-@translationof Outside staff objects
+@translationof Outside-staff objects
 
 Les objets extérieurs à la portée sont placés automatiquement de façon à
 éviter les collisions.  Les objets avec la plus petite valeur de la

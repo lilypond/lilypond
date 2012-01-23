@@ -622,7 +622,6 @@ téléchargement}.
 
 @divClass{column-center-top}
 @subheading Licence logicielle
-@translationof GPL
 
 GNU LilyPond est distribué selon la
 @ref{GPL,Licence Publique Générale GNU GPL}.  Pour une introduction à
