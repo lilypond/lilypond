@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 9605455437b9daaab6b32c110768b338d15a0451
+    Translation of GIT committish: 4d7896a2aefae4abbaee484f874ed0678d2e9be3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -341,10 +341,10 @@ en la línea de órdenes, e incluir
 #(use-modules (guile-user))
 @end example
 
-@warning{Los usuarios de Windows deben utilizar comillas dobles en lugar de apóstrofos simples.}
-
 @noindent
 al principio del archivo @file{.ly}.
+
+@warning{Los usuarios de Windows deben utilizar comillas dobles en lugar de apóstrofos simples.}
 
 @cindex output, format
 @cindex format, output
