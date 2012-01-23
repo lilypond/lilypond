@@ -254,8 +254,8 @@ minimumFret is 0.
 @end lilypond
 
 @funindex \tabChordRepetition
-@cindex Chord, repetiton
-@cindex repetiton, using @code{q}
+@cindex Chord, repetition
+@cindex repetition, using @code{q}
 
 Chord constructs can be repeated by the chord repetition symbol
 @code{q}. To use this feature in combination with tablature,
