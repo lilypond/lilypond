@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4d63d8b38e82f88212c528fd4c5f72b721b83922
+    Translation of GIT committish: 53ab418e0bb8f272082db295b38a1dbb2ccfca65
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2843,9 +2843,7 @@ c1 | c | c | c
 c1 | c | c | c
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-the-bar-number-for-the-first-measure.ly}
 
@@ -2858,6 +2856,12 @@ c1 | c | c | c
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-inside-boxes-or-circles.ly}
 
+@cindex compás, número, con letras
+@cindex compás, número, con repeticiones
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{alternative-bar-numbering.ly}
+
 @cindex compás, número, alineación
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -2866,7 +2870,6 @@ c1 | c | c | c
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {removing-bar-numbers-from-a-score.ly}
 
-
 @seealso
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -2874,7 +2877,6 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{BarNumber},
 @rinternals{Bar_number_engraver}.
-
 
 @cindex número de compás, colisión
 @cindex colisión del número de compás

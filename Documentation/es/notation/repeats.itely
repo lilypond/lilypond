@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4269f54b663421ca2c5c2c57baa5d9c49709d6d2
+    Translation of GIT committish: 53ab418e0bb8f272082db295b38a1dbb2ccfca65
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -251,10 +251,10 @@ g1 |
 La propiedad @code{measureLength} se describe en @ref{Gestión del
 tiempo}.
 
-@cindex repeticiones con ligaduras
-@cindex primera y segunda vez con ligaduras
-@cindex ligaduras en las repeticiones
-@cindex ligaduras en primera y segunda vez
+@cindex repeticiones, con ligaduras
+@cindex primera y segunda vez, con ligaduras
+@cindex ligaduras, en repeticiones
+@cindex ligaduras, en primera y segunda vez
 @funindex \repeatTie
 
 Se pueden añadir ligaduras de unión al segundo final:
@@ -269,7 +269,6 @@ c1
 @end lilypond
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {shortening-volta-brackets.ly}
 
@@ -278,6 +277,12 @@ c1
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-double-repeat-default-for-volte.ly}
+
+@cindex repeticiones, letras y números de compás
+@cindex repeticiones, números de compás de primera y segunda vez
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{alternative-bar-numbering.ly}
 
 @seealso
 Glosario musical:
@@ -298,9 +303,7 @@ Referencia de funcionamiento interno:
 @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 
-
 @knownissues
-
 @cindex repetición ambigua
 @cindex anidada, repetición
 @cindex repetición anidada
