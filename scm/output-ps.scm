@@ -77,6 +77,12 @@
      "false")
    radius thick))
 
+(define (start-enclosing-id-node s)
+  "")
+
+(define (end-enclosing-id-node)
+  "")
+
 (define (dashed-line thick on off dx dy phase)
   (ly:format "~4f ~4f ~4f [ ~4f ~4f ] ~4f draw_dashed_line"
    dx
