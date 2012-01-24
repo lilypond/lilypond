@@ -655,12 +655,15 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
                                   number->extent (commony, Y_AXIS)[dir]));
     }
 
-  if (to_boolean (me->get_property ("avoid-scripts")))
+  if (to_boolean (me->get_property ("avoid-scripts"))
+      && !scm_is_number (me->get_property ("outside-staff-priority")))
     {
       extract_grob_set (me, "scripts", scripts);
       for (vsize i = 0; i < scripts.size (); i++)
         {
           if (!scripts[i]->is_live ())
+            continue;
+          if (scm_is_number (scripts[i]->get_property ("outside-staff-priority")))
             continue;
 
           Interval script_x (scripts[i]->extent (commonx, X_AXIS));

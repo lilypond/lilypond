@@ -33,6 +33,7 @@ public:
   DECLARE_GROB_INTERFACE ();
   static bool ugly_hack (Grob *);
   static void set_position (Grob *, Real);
+  static void pure_set_position (Grob *, Real);
   DECLARE_SCHEME_CALLBACK (callback, (SCM element));
 
   /**
@@ -46,12 +47,19 @@ public:
   static bool on_staff_line (Grob *, int);
   static int line_count (Grob *);
   static Real get_position (Grob *);
+  static Real pure_get_position (Grob *);
   static Real staff_radius (Grob *);
   static int get_rounded_position (Grob *);
+  static int pure_get_rounded_position (Grob *);
   static Interval extent_in_staff (Grob *);
+
+private:
+  static void internal_set_position (Grob *, Real, bool);
+  static Real internal_get_position (Grob *, bool);
 };
 
 int compare_position (Grob *const &, Grob *const &);
 bool position_less (Grob *const &, Grob *const &);
+bool pure_position_less (Grob *const &, Grob *const &);
 #endif /* STAFF_SYMBOL_REFERENCER_HH */
 

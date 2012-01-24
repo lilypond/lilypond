@@ -2,11 +2,43 @@
 @c This file is part of lilypond-web.texi and community.itexi
 
 @c when you add a new item, consider moving the lowest item(s)
-@c into news-old.itexi.
+@c into news.itexi.
 
 @c keep two blank lines between news entries
 
 @c used for news about the upcoming release; see CG 10.2
+
+
+@newsItem
+@subsubheading LilyPond 2.15.27 released!  @emph{Jan 24, 2012}
+
+We are happy to announce the release of LilyPond 2.15.27.  This
+release contains the usual number of bugfixes.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.  Please
+note that due to a few Critical bugs, this is not the next release
+candidate.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading The LilyPond Report #23. @emph{Jan 20, 2012}
+
+The @emph{LilyPond Report} is back, with developer
+David Kastrup as a new editor!  This issue features
+an exposé on some of the new, handy commands
+recently added to LilyPond, as well as an interview
+with LilyPond contributor and composer Mike Solomon.
+
+Come
+@uref{http://news.lilynet.net/?The-LilyPond-Report-23, read
+LilyPond Report 23} now; comments and contributions are
++warmly encouraged!
+
+@newsEnd
+
 
 @newsItem
 @subsubheading LilyPond 2.15.26 released!  @emph{Jan 16, 2012}
@@ -48,186 +80,6 @@ It is strongly recommended that normal users do @strong{not} use
 this release, and instead use the stable 2.14 version.  Please
 note that due to a few Critical bugs, this is not the next release
 candidate.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.15.22 released!  @emph{Dec 15, 2011}
-
-We are happy to announce the release of LilyPond 2.15.22.  This
-release contains the usual number of bugfixes.
-
-It is strongly recommended that normal users do @strong{not} use
-this release, and instead use the stable 2.14 version.  Please
-note that due to a few Critical bugs, this is not the next release
-candidate.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.15.21 released!  @emph{Dec 6, 2011}
-
-We are happy to announce the release of LilyPond 2.15.21.  This
-release contains the usual number of bugfixes.
-
-It is strongly recommended that normal users do @strong{not} use
-this release, and instead use the stable 2.14 version.  Please
-note that due to a few Critical bugs, this is not the next release
-candidate.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.15.20 released!  @emph{Nov 24, 2011}
-
-We are happy to announce the release of LilyPond 2.15.20.  This
-release contains the usual number of bugfixes.
-
-It is strongly recommended that normal users do @strong{not} use
-this release, and instead use the stable 2.14 version.  Please
-note that due to a few Critical bugs, this is not the next release
-candidate.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.15.19 released!  @emph{Nov 18, 2011}
-
-We are happy to announce the release of LilyPond 2.15.19.  This
-release contains the usual number of bugfixes.
-
-It is strongly recommended that normal users do @strong{not} use
-this release, and instead use the stable 2.14 version.  Please
-note that due to a few Critical bugs, this is not the next release
-candidate.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.15.18 released!  @emph{Nov 12, 2011}
-
-We are happy to announce the release of LilyPond 2.15.18.  This
-release contains the usual number of bugfixes.
-
-It is strongly recommended that normal users do @strong{not} use
-this release, and instead use the stable 2.14 version.  Please
-note that due to a few Critical bugs, this is not the next release
-candidate.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.15.17 released!  @emph{Nov 10, 2011}
-
-We are happy to announce the release of LilyPond 2.15.17.  This
-release contains the usual number of bugfixes.
-
-It is strongly recommended that normal users do @strong{not} use
-this release, and instead use the stable 2.14 version.  Please
-note that due to a few Critical bugs, this is not the next release
-candidate.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.15.16 released!  @emph{October 28, 2011}
-
-We are happy to announce the release of LilyPond 2.15.16.  This
-release contains the usual number of bugfixes.
-
-It is strongly recommended that normal users do @strong{not} use
-this release, and instead use the stable 2.14 version.  Please
-note that due to a few Critical bugs, this is not the next release
-candidate.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.15.15 released!  @emph{October 24, 2011}
-
-We are happy to announce the release of LilyPond 2.15.15.  This
-release contains the usual number of bugfixes.
-
-It is strongly recommended that normal users do @strong{not} use
-this release, and instead use the stable 2.14 version.  Please
-note that due to a few Critical bugs, this is not the next release
-candidate.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.15.14 released!  @emph{October 7, 2011}
-
-We are happy to announce the release of LilyPond 2.15.14.  This
-release contains the usual number of bugfixes.
-
-It is strongly recommended that normal users do @strong{not} use
-this release, and instead use the stable 2.14 version.  Please
-note that due to a few Critical bugs, this is not the next release
-candidate.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.15.13 released!  @emph{September 27, 2011}
-
-We are happy to announce the release of LilyPond 2.15.13.  This
-release contains the usual number of bugfixes.
-
-It is strongly recommended that normal users do @strong{not} use
-this release, and instead use the stable 2.14 version.  Please
-note that due to a few Critical bugs, this is not the next release
-candidate.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading Release candidate 2 cancelled @emph{Sep 23, 2011}
-
-The release countdown is cancelled due to the discovery of a
-Critical regression.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading Release candidate 2 of 2.16 - LilyPond 2.15.12 released!  @emph{Sep 20, 2011}
-
-LilyPond 2.15.12 is out; this is the second release candidate of
-the upcoming 2.16 stable release.  All users are invited to
-experiment with this version.  New features since 2.14.2 are
-listed in the @qq{Changes} manual on the website section about
-@ref{Development}.
-
-There are no known Critical issues with this release.  If no
-Critical bugs are found, then the official 2.16.0 release will be
-on 27 Sep 2011.  If you discover any problems, please send us
-@ref{Bug reports}.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.15.11 released!  @emph{September 11, 2011}
-
-We are happy to announce the release of LilyPond 2.15.11.  This
-release contains the usual number of bugfixes.
-
-It is strongly recommended that normal users do @strong{not} use
-this release, and instead use the stable 2.14 version.  Please
-note that due to the possibility of a few Critical bugs, this is
-not the next release candidate.
 
 @newsEnd
 

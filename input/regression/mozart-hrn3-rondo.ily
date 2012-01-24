@@ -130,7 +130,7 @@ rondo = \relative c' {
   fis[ g gis]
   a[ bes b]\!
 
-  %% EB does the slur in the Rondo differently from the 1st adn 2nd time.
+  %% EB does the slur in the Rondo differently from the 1st and 2nd time.
   %% why. Should check with MS.
   <<
     \rondotheme

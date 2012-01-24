@@ -1,7 +1,7 @@
 \header {
 
-  texidoc = "in collisions, the stems of outer voice are added to the
-  dot support of the inner voices."
+  texidoc = "in collisions, the dots of outer voices avoid
+  stems and flags of the inner voices."
 
 }
 
@@ -13,6 +13,6 @@
   \key e \major \time 3/4
   \relative c'' {
     << { dis4.  } \\
-       { fis,4 } \\ { b4 } >>
+       { fis,4 } \\ { b8 } >>
   }
 }

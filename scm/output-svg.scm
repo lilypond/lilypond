@@ -70,6 +70,12 @@
   "c = close"
   (format #f "</~S>\n" entity))
 
+(define (start-enclosing-id-node s)
+  (string-append "<g id=\"" s "\">\n"))
+
+(define (end-enclosing-id-node)
+  "</g>\n")
+
 (define-public (comment s)
   (string-append "<!-- " s " -->\n"))
 

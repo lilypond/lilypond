@@ -75,12 +75,26 @@ Staff_symbol_referencer::line_thickness (Grob *me)
 Real
 Staff_symbol_referencer::get_position (Grob *me)
 {
+  return internal_get_position (me, false);
+}
+
+Real
+Staff_symbol_referencer::pure_get_position (Grob *me)
+{
+  return internal_get_position (me, true);
+}
+
+Real
+Staff_symbol_referencer::internal_get_position (Grob *me, bool pure)
+{
   Real p = 0.0;
   Grob *st = get_staff_symbol (me);
   Grob *c = st ? me->common_refpoint (st, Y_AXIS) : 0;
   if (st && c)
     {
-      Real y = me->relative_coordinate (c, Y_AXIS)
+      Real y = (pure
+                ? me->pure_relative_y_coordinate (c, 0, INT_MAX)
+                : me->relative_coordinate (c, Y_AXIS))
                - st->relative_coordinate (c, Y_AXIS);
       Real space = Staff_symbol::staff_space (st);
       p = (space == 0) ? 0 : 2.0 * y / space;
@@ -111,6 +125,12 @@ int
 Staff_symbol_referencer::get_rounded_position (Grob *me)
 {
   return int (rint (get_position (me)));
+}
+
+int
+Staff_symbol_referencer::pure_get_rounded_position (Grob *me)
+{
+  return int (rint (pure_get_position (me)));
 }
 
 MAKE_SCHEME_CALLBACK (Staff_symbol_referencer, callback, 1);
@@ -145,11 +165,23 @@ will be extracted from staff-position */
 void
 Staff_symbol_referencer::set_position (Grob *me, Real p)
 {
+  internal_set_position (me, p, false);
+}
+
+void
+Staff_symbol_referencer::pure_set_position (Grob *me, Real p)
+{
+  internal_set_position (me, p, true);
+}
+
+void
+Staff_symbol_referencer::internal_set_position (Grob *me, Real p, bool pure)
+{
   Grob *st = get_staff_symbol (me);
   Real oldpos = 0.0;
   if (st && me->common_refpoint (st, Y_AXIS))
     {
-      oldpos = get_position (me);
+      oldpos = pure ? pure_get_position (me) : get_position (me);
     }
 
   Real ss = Staff_symbol_referencer::staff_space (me);
@@ -175,6 +207,13 @@ position_less (Grob *const &a, Grob *const &b)
 {
   return Staff_symbol_referencer::get_position (a)
          < Staff_symbol_referencer::get_position (b);
+}
+
+bool
+pure_position_less (Grob *const &a, Grob *const &b)
+{
+  return Staff_symbol_referencer::pure_get_position (a)
+         < Staff_symbol_referencer::pure_get_position (b);
 }
 
 ADD_INTERFACE (Staff_symbol_referencer,

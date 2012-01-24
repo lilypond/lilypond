@@ -381,5 +381,5 @@ def process_html_files (package_name = '',
                     out_f.write (page_flavors[k][1])
                     out_f.close()
         # if the page is translated, a .en.html symlink is necessary for content negotiation
-        if target == 'online' and ext_list != ['']:
+        if target == 'online' and ext_list != [''] and not os.path.lexists (name_filter (prefix + '.en.html')):
             os.symlink (os.path.basename (prefix) + '.html', name_filter (prefix + '.en.html'))

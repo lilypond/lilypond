@@ -505,7 +505,7 @@ class TextFileCompareLink (FileCompareLink):
         str = ''
         if oldnew == 1:
             str = '\n'.join ([d.replace ('\n','') for d in self.diff_lines])
-        str = '<font size="-2"><pre>%s</pre></font>' % str
+        str = '<font size="-2"><pre>%s</pre></font>' % cgi.escape (str)
         return str
 
 class LogFileCompareLink (TextFileCompareLink):
@@ -528,7 +528,7 @@ class ProfileFileLink (FileCompareLink):
                 str += '%-8s: %8d (%5.3f)\n' % (k, int (self.results[oldnew][k]),
                                                 self.get_ratio (k))
 
-        return '<pre>%s</pre>' % str
+        return '<pre>%s</pre>' % cgi.escape (str)
 
     def get_ratio (self, key):
         (v1,v2) = (self.results[0].get (key, -1),
@@ -827,7 +827,7 @@ class ComparisonData:
                 re.sub (r'\\sourcefilename "([^"]+)"',
                         note_original, open (sf).read ())
             else:
-                print 'no source for', val
+                print 'no source for', val.file_names[1]
 
     def compare_trees (self, dir1, dir2):
         self.compare_directories (dir1, dir2)
@@ -842,6 +842,10 @@ class ComparisonData:
             sys.exit(1)
 
         for d in dirs:
+            # don't walk the share folders
+            if d.startswith("share"):
+                continue
+
             d1 = os.path.join (dir1, d)
             d2 = os.path.join (dir2, d)
 
@@ -887,14 +891,18 @@ class ComparisonData:
                 self.compare_general_files (klasses[ext], f1, f2)
 
     def compare_general_files (self, klass, f1, f2):
+        prefix = os.path.commonprefix ([f1, f2])
         name = os.path.split (f1)[1]
+        name = os.path.join (prefix, name)
 
         file_link = klass (f1, f2)
         self.file_links[name] = file_link
 
     def compare_signature_files (self, f1, f2):
+        prefix = os.path.commonprefix ([f1, f2])
         name = os.path.split (f1)[1]
         name = re.sub ('-[0-9]+.signature', '', name)
+        name = os.path.join (prefix, name)
 
         file_link = None
         try:
@@ -947,13 +955,10 @@ class ComparisonData:
         out.write ('%d below threshold\n' % len (below))
         out.write ('%d unchanged\n' % len (unchanged))
 
-    def create_text_result_page (self, dir1, dir2, dest_dir, threshold):
+    def create_text_result_page (self, dest_dir, threshold):
         self.write_text_result_page (dest_dir + '/index.txt', threshold)
 
-    def create_html_result_page (self, dir1, dir2, dest_dir, threshold):
-        dir1 = dir1.replace ('//', '/')
-        dir2 = dir2.replace ('//', '/')
-
+    def create_html_result_page (self, dest_dir, threshold):
         (changed, below, unchanged) = self.thresholded_results (threshold)
 
         header_row = '''
@@ -1049,8 +1054,8 @@ def compare_tree_pairs (tree_pairs, dest_dir, threshold):
         system ('rm -rf %s '% dest_dir)
 
     data.write_changed (dest_dir, threshold)
-    data.create_html_result_page (dir1, dir2, dest_dir, threshold)
-    data.create_text_result_page (dir1, dir2, dest_dir, threshold)
+    data.create_html_result_page (dest_dir, threshold)
+    data.create_text_result_page (dest_dir, threshold)
 
 ################################################################
 # TESTING

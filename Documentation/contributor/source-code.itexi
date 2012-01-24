@@ -111,6 +111,7 @@ multiple projects concurrently.
 
 @menu
 * Setting up::
+* Git for the impatient::
 * Downloading remote branches::
 @end menu
 
@@ -206,6 +207,19 @@ change the default editor to @command{nano}, enter:
 git config --global core.editor @var{nano}
 @end example
 
+Finally, and in some ways most importantly, let's make sure that
+we know what branch we're on.  If you're not using lilydev, add
+this to your @file{~/.bashrc}:
+
+@verbatim
+export PS1="\u@\h \w\$(__git_ps1)$ "
+@end verbatim
+
+If you are not using lilydev, you may need to install the
+additional @code{git-completion} package, but it is definitely
+worth it.
+
+
 @subsubheading Technical details
 
 Git stores the information entered with
@@ -243,6 +257,269 @@ However, since different repository-specific options are
 recommended for different development tasks, it is best to avoid
 setting any now.  Specific recommendations will be mentioned later
 in this manual.
+
+
+@node Git for the impatient
+@subsection Git for the impatient
+
+@advanced{The intent of this subsection is to get you working on lilypond as
+soon as possible.  If you want to learn about git, go read
+@ref{Other Git documentation}.
+@*
+Also, these instructions are designed to eliminate the most common
+problems we have found in using git.  If you already know git and
+have a different way of working, great!  Feel free to ignore the
+advice in this subsection.}
+
+
+Ok, so you've been using @command{lily-git.tcl} for a while, but
+it's time to take the next step.  Since our review process delays
+patches by 60-120 hours, and you want to be able to work on other
+stuff while your previous work is getting reviewed, you're going
+to use @strong{branches}.
+
+You can think of a branch as being a separate copy of the source
+code.  But don't worry about it.
+
+@subsubheading Start work: make a new branch
+
+Let's pretend you want to add a section to the Contributor's Guide
+about using branches.
+
+Start by updating the repository, then making a new branch.  Call
+the branch anything you want as long as the name starts with
+@code{dev/}.  Branch names that don't begin with @code{dev/} are
+reserved for special things in lilypond.
+
+@example
+git checkout master
+git pull -r origin master
+git branch dev/cg
+@end example
+
+@subsubheading Switch to that branch
+
+Nothing has happened to the files yet.  Let's change into the new
+branch.  You can think of this as @qq{loading a file}, although in
+this case it's really @qq{loading a directory and subdirectories
+full of files}.
+
+@example
+git checkout dev/cg
+@end example
+
+Your prompt now shows you that you're on the other branch:
+
+@example
+gperciva@@lilydev:~/lilypond-git (dev/cg)$ 
+@end example
+
+To be able to manage multiple lilypond issues at once, you'll need to switch
+branches.  You should have each lilypond issue on a separate branch.
+Switching branches is easy:
+
+@example
+git checkout master
+git checkout origin/staging
+git checkout origin/release/unstable
+git checkout dev/cg
+@end example
+
+Branches that begin with @code{origin/} are part of the remote repository,
+rather than your local repository, so when you check them out you get a 
+temporary local branch.  You should never make changes directly on a
+branch beginning with @code{origin/}.  You get changes into the remote
+repository by making them in local branches, and then pushing them to
+@code{origin/staging} as described below. 
+
+@subsubheading Make your changes
+
+Edit files, then commit them.
+
+@example
+git commit -a
+@end example
+
+
+Remember how I said that switching to a branch was like
+@qq{loading a directory}?  Well, you've just @qq{saved a
+directory}, so that you can @qq{load} it later.
+
+@advanced{If you have used @command{cvs} or @command{svn}, you may
+be very confused: those programs use @qq{commit} to mean
+@qq{upload my changes to the shared source repository}.
+Unfortunately, just to be different, @w{@command{git commit}}
+means @qq{save my changes to the files}.}
+
+When you create a new file, you need to add it to git, then commit it:
+
+@example
+git add input/regression/avoid-crash-on-condition.ly
+git commit -a
+@end example
+
+
+Edit more files.  Commit them again.  Edit yet more files, commit
+them again.  Go eat dinner.  Switch to @code{master} so you can
+play with the latest changes from other developers.  Switch back
+to your branch and edit some more.  Commit those changes.
+
+At this stage, don't worry about how many commits you have.
+
+
+@subsubheading Save commits to external files
+
+Branches are nerve-wracking until you get used to them.  You can
+save your hard work as individual @file{.patch} files.  Be sure to
+commit your chages first.
+
+@example
+git commit -a
+git format-patch master
+@end example
+
+I personally have between 4 and 20 of those files saved in a
+special folder at any point in time.  Git experts might laugh as
+that behavior, but I feel a @emph{lot} better knowing that I've
+got those backups.
+
+
+@subsubheading Prepare your branch for review
+
+After committing, you can update your branch with the latest master:
+
+@example
+git commit -a
+git checkout master
+git pull -r origin master
+git checkout dev/cg
+git rebase master
+@end example
+
+
+Due to the speed of lilypond development, sometimes
+@code{master} has changed so much that your branch can no
+longer be applied to it.  In that happens, you will have a merge
+conflict.  Stop for a moment to either cry or have a stiff drink,
+then proceed to @ref{Merge conflicts}.
+
+
+@subsubheading Upload your branch
+
+Finally, you're finished your changes.  Time to upload for review.
+Make sure that you're on your branch, then upload:
+
+@example
+git checkout dev/cg
+git-cl upload master
+@end example
+
+
+@subsubheading Wait for reviews
+
+While you're waiting for a countdown and reviews, go back to
+master, make a @code{dev/doc-beams} branch, and start adding doc
+suggestions from issue 12345 from the tracker.  Or make a
+@code{dev/page-breaks} and fix bug in page breaking.  Or whatever.
+Don't worry, your @code{dev/cg} is safe.
+
+
+@subsubheading Combining commits (optional unless you have broken commits)
+
+Does the history of your branch look good?
+
+@example
+gitk
+@end example
+
+If you have a lot of commits on your branch, you might want to
+combine some of them.  Alternately, you may like your commits, but
+want to edit the commit messages.
+
+@example
+git rebase -i master
+@end example
+
+Follow instructions on the screen.
+
+@warning{This step gives you the power to completely lose your
+work.  Make a backup of your commits by saving them to
+@file{.patch} files before playing with this.  If you do lose
+your work, don't despair.  You can get it back by using @code{git reflog}.
+The use of @code{git reflog} is not covered here.}
+
+@warning{If any of the commits on your branch represent partial work that will
+not pass @var{make && make doc}, you @strong{must} squash these 
+commits into a working commit.  Otherwise, your push will break staging
+and will not be able to be merged to master.  In general, you will
+be safer to have one commit per push.}
+
+
+@subsubheading Push to staging
+
+When you've got the coveted @code{Patch-push} status, time to
+prepare your upload:
+
+@example
+git fetch
+git rebase origin/staging dev/cg~0
+gitk HEAD 
+@end example
+
+@warning{Do not skip the @command{gitk} step; a quick 5-second
+check of the visual history can save a great deal of frustration
+later on.  You should see a set of your commits that are ahead of
+@code{origin/staging}, with no label for the top commit -- only a
+SHA1 id.}
+
+@warning{If @code{origin/staging} and @code{origin/master} are the
+same commit, your branch (@code{dev/cg} in the example) will also
+be at the top of the @code{gitk} tree.  This is normal.}
+
+If everything looks good, push it:
+
+@example
+git push origin HEAD:staging
+@end example
+
+Then change back to your working branch:
+
+@example
+git checkout dev/cg
+@end example
+
+@warning{It is a best practice to avoid rebasing any of your branches
+to @code{origin/staging}.  If @code{origin/staging} is broken, it
+will be deleted and rebuilt.  If you have rebased one of your branches
+to @code{origin/staging}, the broken commits can end up in your branch.
+The commands given above do the rebase on a temporary branch, and avoid
+changing your working branch.}
+
+
+@subsubheading Delete your branch (safe)
+
+After a few hours, if there's nothing wrong with your branch, it
+should be automatically moved to @code{origin/master}.  Update,
+then try removing your branch:
+
+@example
+git checkout master
+git pull -r origin master
+git branch -d dev/cg
+@end example
+
+The last command will fail if the contents of @code{dev/cg} are
+not present in @code{origin/master}.
+
+
+@subsubheading Delete your branch (UNSAFE)
+
+@c don't give explicit commands here -- this is too dangerous to copy and paste
+Sometimes everything goes wrong.  If you want to remove a branch even though 
+it will cause your work to be lost (that is, if the contents of @code{dev/cg}
+are @strong{not} present in master), follow the instructions in @qq{Delete
+your branch (safe)}, but replace the @code{-d} on the final line with 
+a @code{-D}.
 
 
 @node Downloading remote branches
@@ -1099,6 +1376,7 @@ several Git branches of LilyPond source code is presented.
 
 
 @menu
+* Merge conflicts::
 * Advanced Git concepts::
 * Resolving conflicts::
 * Reverting all local changes::
@@ -1110,6 +1388,13 @@ several Git branches of LilyPond source code is presented.
 * Commit access::
 * Pushing to staging::
 @end menu
+
+
+@node Merge conflicts
+@subsection Merge conflicts
+
+To be filled in later, and/or moved to a different section.  I
+just wanted to make sure that I had a stub ready somewhere.
 
 
 @node Advanced Git concepts
@@ -2101,5 +2386,10 @@ More in-depth tutorials: @uref{http://git-scm.com/documentation}
 
 @item
 Book about git: @uref{http://progit.org/,Pro Git}
+
+@item
+Github help: @uref{http://help.github.com/}
+(very highly recommended by Graham)
+
 @end itemize
 

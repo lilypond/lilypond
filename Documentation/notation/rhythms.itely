@@ -525,7 +525,7 @@ c2 ~ c
 
 Dash pattern definitions for ties have the same structure as dash
 pattern definitions for slurs. For more information about complex dash
-patterns, see @rlsr{slurs}.
+patterns, see @ref{Slurs}.
 
 Override @var{whiteout} and @var{layer} layout properties for ties that
 collide with other objects in a staff.
@@ -572,7 +572,7 @@ Notation Reference:
 @ref{Automatic note splitting}.
 
 Snippets:
-@rlsr{slurs},
+@rlsr{Expressive marks},
 @rlsr{Rhythms}.
 
 Internals Reference:

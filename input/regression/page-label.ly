@@ -2,7 +2,7 @@
 
 \header {
   texidoc = "Page labels may be placed inside music or at top-level,
-and refered to in markups."
+and referred to in markups."
 }
 
 #(set-default-paper-size "a6")

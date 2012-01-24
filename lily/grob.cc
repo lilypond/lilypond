@@ -170,6 +170,17 @@ Grob::get_print_stencil () const
             = *unsmob_stencil (scm_call_1 (ly_lily_module_constant ("stencil-whiteout"),
                                            retval.smobbed_copy ()));
         }
+
+      SCM id = get_property ("id");
+      if (scm_is_string (id))
+        {
+          SCM expr = scm_list_3 (ly_symbol2scm ("id"),
+                                 id,
+                                 retval.expr ());
+
+          retval = Stencil (retval.extent_box (), expr);
+        }
+
     }
 
   return retval;
@@ -784,6 +795,7 @@ ADD_INTERFACE (Grob,
                "cause "
                "color "
                "cross-staff "
+               "id "
                "extra-X-extent "
                "extra-Y-extent "
                "extra-offset "

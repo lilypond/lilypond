@@ -74,6 +74,16 @@ interpret_stencil_expression (SCM expr,
 
           return;
         }
+      else if (head == ly_symbol2scm ("id"))
+        {
+          SCM id = scm_cadr (expr);
+
+          (*func) (func_arg, scm_list_2 (ly_symbol2scm ("start-enclosing-id-node"), id));
+          interpret_stencil_expression (scm_caddr (expr), func, func_arg, o);
+          (*func) (func_arg, scm_list_1 (ly_symbol2scm ("end-enclosing-id-node")));
+
+          return;
+        }
       else if (head == ly_symbol2scm ("rotate-stencil"))
         {
           SCM args = scm_cadr (expr);

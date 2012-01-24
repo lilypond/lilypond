@@ -6,6 +6,7 @@ $(outdir)/%.ly:  %.midi
 $(outdir)/%.midi: %.ly $(LILYPOND_BINARY)
 	touch $(foreach f, $(HEADER_FIELDS), $(outdir)/$*.$f)
 	$(LILYPOND_BINARY) $(HEADER_FIELDS:%=-H %) -o $(outdir) $<
+	cp $< $(outdir)
 
 $(outdir)/%-midi.ly: $(outdir)/%.midi $(MIDI2LY)
 	(echo '\header {'; for f in $(HEADER_FIELDS); do echo -n $$f'="'; cat $(outdir)/$*.$$f; echo '"'; done; echo '}') > $(outdir)/$*.header

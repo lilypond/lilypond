@@ -30,12 +30,13 @@ public:
   Stream_event ();
   VIRTUAL_COPY_CONSTRUCTOR (Stream_event, Stream_event);
 
-  Stream_event (SCM event_class, SCM mutable_props = SCM_EOL);
+  Stream_event (SCM event_class, SCM immutable_props = SCM_EOL);
   Stream_event (SCM class_name, Input *);
 
   Input *origin () const;
   void set_spot (Input *i);
   bool internal_in_event_class (SCM class_name);
+  void make_transposable ();
 
   virtual SCM copy_mutable_properties () const;
 

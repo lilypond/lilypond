@@ -34,6 +34,7 @@ defined in the output modules (@file{output-*.scm})."
     ellipse
     embedded-ps
     embedded-svg
+    end-enclosing-id-node
     glyph-string
     grob-cause
     named-glyph
@@ -52,6 +53,7 @@ defined in the output modules (@file{output-*.scm})."
     setcolor
     setrotation
     setscale
+    start-enclosing-id-node
     text
     unknown
     url-link
@@ -69,6 +71,7 @@ are used internally in @file{lily/@/stencil-interpret.cc}."
     combine-stencil
     delay-stencil-evaluation
     footnote
+    id
     rotate-stencil
     scale-stencil
     translate-stencil

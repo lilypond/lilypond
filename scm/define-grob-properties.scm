@@ -483,6 +483,13 @@ left and one to the right of this grob.")
 ;;
 ;; i
 ;;
+     (id ,string? "An id string for the grob.  Depending on the typestting
+backend being used, this id will be assigned to a group containing all of
+the stencils that comprise a given grob.  For example, in the svg backend,
+the string will be assigned to the @code{id} attribute of a group (<g>)
+that encloses the stencils that comprise the grob.  In the Postscript
+backend, as there is no way to group items, the setting of the id property
+will have no effect.")
      (ignore-collision ,boolean? "If set, don't do note collision
 resolution on this @code{NoteColumn}.")
      (implicit ,boolean? "Is this an implicit bass figure?")

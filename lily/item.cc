@@ -128,15 +128,6 @@ Item::find_broken_piece (System *l) const
 }
 
 Item *
-Item::maybe_find_prebroken_piece (Item *g, Direction d)
-{
-  Item *ret = g->find_prebroken_piece (d);
-  if (ret)
-    return ret;
-  return g;
-}
-
-Item *
 Item::find_prebroken_piece (Direction d) const
 {
   Item *me = (Item *) (this);

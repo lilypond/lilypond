@@ -69,9 +69,6 @@ Span_bar_engraver::process_acknowledged ()
 {
   if (make_spanbar_)
     {
-      Grob *vag = Grob::get_root_vertical_alignment (bars_[0]);
-      if (vag)
-        vector_sort (bars_, Grob::pure_vertical_less);
       spanbar_ = make_item ("SpanBar", SCM_EOL);
 
       spanbar_->set_parent (bars_[0], X_AXIS);

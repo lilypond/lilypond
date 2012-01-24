@@ -1,5 +1,5 @@
 \header {
-  texidoc = "Excercise all output functions"
+  texidoc = "Exercise all output functions"
 }
 
 \version "2.14.0"

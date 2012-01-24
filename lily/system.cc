@@ -23,7 +23,6 @@
 #include "all-font-metrics.hh"
 #include "axis-group-interface.hh"
 #include "break-align-interface.hh"
-#include "column-description.hh"
 #include "grob-array.hh"
 #include "hara-kiri-group-spanner.hh"
 #include "international.hh"
@@ -781,82 +780,6 @@ System::get_neighboring_staff (Direction dir, Grob *vertical_axis_group, Interva
     }
 
   return 0;
-}
-
-vector<Simple_spacer>
-System::get_simple_spacers (Real line_len, Real indent, bool ragged)
-{
-  if (!simple_spacers_.size ())
-    gen_simple_spacers (line_len, indent, ragged);
-
-  return simple_spacers_;
-}
-
-void
-System::gen_simple_spacers (Real line_len, Real indent, bool ragged)
-{
-  vector<vsize> breaks;
-  vector<Grob *> non_loose;
-  vector<Column_description> cols;
-  SCM force_break = ly_symbol2scm ("force");
-  vector<Grob *> columns = used_columns ();
-
-  for (vsize i = 0; i < columns.size (); i++)
-    if (!Paper_column::is_loose (columns[i])
-        || Paper_column::is_breakable (columns[i]))
-      non_loose.push_back (columns[i]);
-
-  breaks.clear ();
-  breaks.push_back (0);
-  cols.push_back (Column_description ());
-  for (vsize i = 1; i + 1 < non_loose.size (); i++)
-    {
-      if (Paper_column::is_breakable (non_loose[i]))
-        breaks.push_back (cols.size ());
-
-      cols.push_back (Column_description::get_column_description (non_loose, i, false));
-    }
-  breaks.push_back (cols.size ());
-  simple_spacers_.resize (breaks.size () * breaks.size (), Simple_spacer ());
-
-  for (vsize b = 0; b + 1 < breaks.size (); b++)
-    {
-      cols[breaks[b]] = Column_description::get_column_description (non_loose, breaks[b], true);
-      vsize st = breaks[b];
-
-      for (vsize c = b + 1; c < breaks.size (); c++)
-        {
-          vsize end = breaks[c];
-          Simple_spacer spacer;
-
-          for (vsize i = breaks[b]; i < end - 1; i++)
-            spacer.add_spring (cols[i].spring_);
-          spacer.add_spring (cols[end - 1].end_spring_);
-
-          for (vsize i = breaks[b]; i < end; i++)
-            {
-              for (vsize r = 0; r < cols[i].rods_.size (); r++)
-                if (cols[i].rods_[r].r_ < end)
-                  spacer.add_rod (i - st, cols[i].rods_[r].r_ - st, cols[i].rods_[r].dist_);
-              for (vsize r = 0; r < cols[i].end_rods_.size (); r++)
-                if (cols[i].end_rods_[r].r_ == end)
-                  spacer.add_rod (i - st, end - st, cols[i].end_rods_[r].dist_);
-              if (!cols[i].keep_inside_line_.is_empty ())
-                {
-                  spacer.add_rod (i - st, end - st, cols[i].keep_inside_line_[RIGHT]);
-                  spacer.add_rod (0, i - st, -cols[i].keep_inside_line_[LEFT]);
-                }
-            }
-          spacer.solve ((b == 0) ? line_len - indent : line_len, ragged);
-          spacer.minimal_ = c == b + 1;
-          simple_spacers_[b * breaks.size () + c] = spacer;
-
-          if (!spacer.fits ()
-              || (end < cols.size ()
-                  && cols[end].break_permission_ == force_break))
-            break;
-        }
-    }
 }
 
 Interval

@@ -109,16 +109,17 @@ Dot_column::calc_positioning_done (SCM smob)
 
           y.add_point (y1);
           y.add_point (y2);
+
+          stems.insert (s);
         }
       else if (Note_head::has_interface (s))
-        y = Interval (-1, 1);
+        y = Interval (-1.1, 1.1);
       else
         {
           programming_error ("unknown grob in dot col support");
           continue;
         }
 
-      y *= 2 / ss;
       y += Staff_symbol_referencer::get_position (s);
 
       Box b (s->extent (commonx, X_AXIS), y);
@@ -143,7 +144,14 @@ Dot_column::calc_positioning_done (SCM smob)
         }
     }
 
-  vector_sort (dots, position_less);
+  /*
+    The use of pure_position_less and pure_get_rounded_position below
+    are due to the fact that this callback is called before line breaking
+    occurs.  Because dots' actual Y posiitons may be linked to that of
+    beams (dots are attached to rests, which are shifted to avoid beams),
+    we instead must use their pure Y positions.
+  */
+  vector_sort (dots, pure_position_less);
   for (vsize i = dots.size (); i--;)
     {
       if (!dots[i]->is_live ())
@@ -170,7 +178,7 @@ Dot_column::calc_positioning_done (SCM smob)
           dp.x_extent_ = note->extent (commonx, X_AXIS);
         }
 
-      int p = Staff_symbol_referencer::get_rounded_position (dp.dot_);
+      int p = Staff_symbol_referencer::pure_get_rounded_position (dp.dot_);
 
       /* icky, since this should go via a Staff_symbol_referencer
          offset callback but adding a dot overwrites Y-offset. */
@@ -191,7 +199,7 @@ Dot_column::calc_positioning_done (SCM smob)
       /*
         Junkme?
        */
-      Staff_symbol_referencer::set_position (i->second.dot_, i->first);
+      Staff_symbol_referencer::pure_set_position (i->second.dot_, i->first);
     }
 
   me->translate_axis (cfg.x_offset () - me->relative_coordinate (commonx, X_AXIS),

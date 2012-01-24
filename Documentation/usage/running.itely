@@ -278,7 +278,7 @@ an output file containing the titles and the first system of music.  If
 @code{\bookpart} blocks are used, the titles and first system of every
 @code{\bookpart} will appear in the output.
 
-An additional file in the form @code{myFile.preview.extensio} is
+An additional file in the form @code{myFile.preview.extension} is
 generated, to avoid this use the additional @option{-dprint-pages} or
 @option{-dno-print-pages} options according to your requirements.
 
@@ -298,7 +298,7 @@ useful in combination with @option{-dpreview}.
 @end table
 
 @cindex Scheme, expression evaluation
-@cindex expression evalusation, Scheme
+@cindex expression evaluation, Scheme
 
 @item -e,--evaluate=@var{expr}
 Evaluate the Scheme @var{expr} before parsing any @file{.ly} files.
@@ -396,22 +396,21 @@ be a single directory writable by this user, which should be passed in
 LilyPond needs to read a number of files while running.  All these files
 are to be copied into the jail, under the same path they appear in the
 real root filesystem.  The entire content of the LilyPond installation
-(e.g., @file{/usr/share/lilypond})
-should be copied.
+(e.g., @file{/usr/share/lilypond}) should be copied.
 
 If problems arise, the simplest way to trace them down is to run
 LilyPond using @command{strace}, which will allow you to determine which
 files are missing.
 
 @item Running LilyPond
-In a jail mounted with @code{noexec} it is impossible to execute any external
-program.  Therefore LilyPond must be run with a backend that does not
-require any such program.  As we already mentioned, it must be also run
-with superuser privileges (which, of course, it will lose immediately),
-possibly using @command{sudo}.  It is a good idea to limit the number of
-seconds of CPU time LilyPond can use (e.g., using @command{ulimit
--t}), and, if your operating system supports it, the amount of memory
-that can be allocated.
+In a jail mounted with @code{noexec} it is impossible to execute any
+external program.  Therefore LilyPond must be run with a backend that
+does not require any such program.  As we already mentioned, it must be
+also run with superuser privileges (which, of course, it will lose
+immediately), possibly using @command{sudo}.  It is a good idea to limit
+the number of seconds of CPU time LilyPond can use (e.g., using
+@command{ulimit@tie{}-t}), and, if your operating system supports it,
+the amount of memory that can be allocated.
 
 @end table
 
@@ -542,8 +541,8 @@ adduser lily
 @end example
 
 @noindent
-This will create a new group for the @code{lily} user as well, and a home folder,
-@code{/home/lily}
+This will create a new group for the @code{lily} user as well, and a
+home folder, @code{/home/lily}
 
 @item In the home folder of the @code{lily} user create a file to use as a
 separate filesystem:
@@ -691,9 +690,8 @@ send a bug-report.
 @end table
 
 @cindex errors, message format
-If warnings and errors can
-be linked to some part of the input file, then error messages have the
-following form
+If warnings and errors can be linked to some part of the input file,
+then error messages have the following form
 
 @example
 @var{filename}:@var{lineno}:@var{columnno}: @var{message}

@@ -22,7 +22,8 @@
 #include "ly-smobs.icc"
 #include "context.hh"
 #include "input.hh"
-#include "input.hh"
+#include "music.hh"
+#include "pitch.hh"
 
 /* TODO: Rename Stream_event -> Event */
 
@@ -31,11 +32,10 @@ Stream_event::Stream_event ()
 {
 }
 
-Stream_event::Stream_event (SCM event_class, SCM mutable_props)
+Stream_event::Stream_event (SCM event_class, SCM immutable_props)
   : Prob (ly_symbol2scm ("Stream_event"),
-          scm_list_1 (scm_cons (ly_symbol2scm ("class"), event_class)))
+          scm_acons (ly_symbol2scm ("class"), event_class, immutable_props))
 {
-  mutable_property_alist_ = mutable_props;
 }
 
 Stream_event::Stream_event (SCM class_name, Input *origin)
@@ -75,6 +75,29 @@ Stream_event::internal_in_event_class (SCM class_name)
 
 MAKE_SCHEME_CALLBACK (Stream_event, undump, 1);
 MAKE_SCHEME_CALLBACK (Stream_event, dump, 1);
+
+void
+Stream_event::make_transposable ()
+{
+  /* This is in preparation for transposing stuff
+     that may be defined in the immutable part */
+
+  for (SCM s = immutable_property_alist_; scm_is_pair (s); s = scm_cdr (s))
+    {
+      SCM entry = scm_car (s);
+      SCM prop = scm_car (entry);
+      SCM val = scm_cdr (entry);
+
+      if ((unsmob_pitch (val)
+	   || (prop == ly_symbol2scm ("element") && unsmob_music (val))
+	   || (prop == ly_symbol2scm ("elements") && scm_is_pair (val))
+	   || (prop == ly_symbol2scm ("pitch-alist") && scm_is_pair (val)))
+	  && scm_is_false (scm_assq (prop, mutable_property_alist_)))
+	mutable_property_alist_ =
+	  scm_acons (prop, ly_music_deep_copy (val), mutable_property_alist_);
+    }
+}
+
 
 SCM
 Stream_event::dump (SCM self)
