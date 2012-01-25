@@ -1063,7 +1063,7 @@ footnote is being attached to:
 @end lilypond
 
 To annotate chorded notes, the @code{\footnote} must come @emph{after}
-he note to which the footnote is being attached as a @code{TextScript}:
+the note to which the footnote is being attached as a @code{TextScript}:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
