@@ -214,7 +214,7 @@
      (lambda (music)
        (cond
         ;; true lyrics
-        ((music-name? music 'EventChord)
+        ((music-name? music '(EventChord LyricEvent))
          (let ((lyric-event (find-child-named music 'LyricEvent)))
            (push! (make-lyrics
                         #:text (ly:music-property lyric-event 'text)
@@ -374,7 +374,21 @@
                                                          (append (score-notes-note/rest-list last-result)
                                                                  (list rest-spec)))
                    (add! (make-score-notes #:note/rest-list (list rest-spec)) result-list))))))
-         #f)
+	 (filter
+	  (lambda (m)
+	    (not (music-name? m '(RestEvent
+				  NoteEvent
+				  LyricEvent
+				  MultiMeasureRestEvent))))
+	  (ly:music-property music 'elements)))
+	((music-name? music '(RestEvent
+			      NoteEvent
+			      LyricEvent
+			      MultiMeasureRestEvent))
+	 (make-music 'EventChord
+		     'elements
+		     (cons music
+			   (ly:music-property music 'articulations))))
         ;; autobeaming change
         ((music-property? music 'autoBeaming)
          (set! autobeaming (property-value music))
@@ -384,10 +398,12 @@
          (let ((change (if (property-value music) 1 -1)))
            (set! in-slur (+ in-slur change))
            (if last-note-spec
-               (set-note-joined! last-note-spec (+ (note-joined last-note-spec) change)))))
+               (set-note-joined! last-note-spec (+ (note-joined last-note-spec) change))))
+	 #t)
         ;; tempo change
         ((music-property? music 'tempoWholesPerMinute)
-         (set! *tempo-compression* (ly:moment-div *default-tempo* (property-value music))))
+         (set! *tempo-compression* (ly:moment-div *default-tempo* (property-value music)))
+	 #t)
         ;; breathe
         ((music-name? music 'BreathingEvent)
          (if last-note-spec
@@ -396,7 +412,8 @@
                                                #:origin (ly:music-property music 'origin))))
                (set-note-duration! last-note-spec (* note-duration (*breathe-shortage*)))
                (add! (make-score-notes #:note/rest-list (list rest-spec)) result-list))
-             (warning music "\\\\breathe without previous note known")))
+             (warning music "\\\\breathe without previous note known"))
+	 #t)
         ;; anything else
         (else
          #f))))

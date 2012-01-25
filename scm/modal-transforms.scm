@@ -126,7 +126,7 @@ LilyPond scheme pitches, e.g. @code{(ly:make-pitch 0 2 0)}
       (change-pitches element converter)))))
 
 
-(define (extract-pitch-sequence music)
+(define (make-scale music)
   "Recurse through @var{music}, extracting pitches.
 Returns a list of pitch objects, e.g
 @code{'((ly:make-pitch 0 2 0) (ly:make-pitch 0 4 0) ... )}
@@ -140,20 +140,15 @@ Typically used to construct a scale for input to transposer-factory
 
     (cond
      ((ly:pitch? pitch)
-      pitch)
+      (list pitch))
 
      ((pair? elements)
-      (map
-       (lambda (x) (extract-pitch-sequence x))
+      (append-map
+       (lambda (x) (make-scale x))
        elements))
 
      ((ly:music? element)
-      (extract-pitch-sequence element)))))
-
-(define (make-scale music)
-  "Convenience wrapper for extract-pitch-sequence."
-  (map car (extract-pitch-sequence music)))
-
+      (make-scale element)))))
 
 (define (make-extended-scale music)
   "Extend scale given by @var{music} by 5 octaves up and down."

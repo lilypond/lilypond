@@ -319,11 +319,11 @@ We mention it here for completeness, but for details see
 @funindex \tweak
 @funindex tweak
 
-The final tweaking command which is available is @code{\tweak}.
-This should be used to change the properties of objects which
-occur at the same musical moment, such as the notes within a
-chord.  Using @code{\override} would affect all the notes
-within a chord, whereas @code{\tweak} affects just the following
+The final tweaking command which is available is @code{\tweak}.  This
+should be used when several objects occur at the same musical moment,
+but you only want to change the properties of selected ones, such as a
+single note within a chord.  Using @code{\override} would affect all the
+notes within a chord, whereas @code{\tweak} affects just the following
 item in the input stream.
 
 Here's an example.  Suppose we wish to change the size of the
@@ -352,11 +352,7 @@ on the immediately following item in the input stream.  However,
 it is effective only on objects which are created directly from
 the input stream, essentially note heads and articulations;
 objects such as stems and accidentals are created later and
-cannot be tweaked in this way.  Furthermore, when it is applied
-to note heads these @emph{must} be within a chord, i.e., within
-single angle brackets, so to tweak a single note the @code{\tweak}
-command must be placed inside single angle brackets with the
-note.
+cannot be tweaked in this way.
 
 So to return to our example, the size of the middle note of
 a chord would be changed in this way:
@@ -394,8 +390,10 @@ a4^"Black"
 @end lilypond
 
 @noindent
-Note that the @code{\tweak} command must be preceded by an
-articulation mark as if it were an articulation itself.
+Note that the @code{\tweak} command must be preceded by an articulation
+mark since the tweaked expression needs to be applied as an articulation
+itself.  In case of multiple direction overrides (@code{^} or @code{_}),
+the leftmost override wins since it is applied last.
 
 @cindex tuplets, nested
 @cindex triplets, nested
@@ -3638,7 +3636,7 @@ VerseOne = \lyrics {
 }
 
 VerseTwo = \lyricmode {
-  O | \emphasize Christ, \normal whose voice the | wa -- ters heard,
+  O | \once \emphasize Christ, whose voice the | wa -- ters heard,
 }
 
 VerseThree = \lyricmode {
@@ -3686,19 +3684,17 @@ the parts with all the @code{#()}.  This is explained in
 @lilypond[quote,verbatim,ragged-right]
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #{ \markup { \hspace #0
+               \translate #'(5 . 0)
+               \line { \dynamic "mp"
+                       \text \italic "dolce" } }
+  #})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #{ ^\markup \bold \box #string #})
 
 \relative c'' {
   \tempo 4=50
@@ -3723,19 +3719,17 @@ the @code{#()} somewhat ugly.  Let's hide them in another file:
 %%% save this to a file called "definitions.ily"
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #@{ \markup @{ \hspace #0
+               \translate #'(5 . 0)
+               \line @{ \dynamic "mp"
+                       \text \italic "dolce" @} @}
+  #@})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #@{ ^\markup \bold \box #string #@})
 @end example
 
 We will refer to this file using the @code{\include} command near
@@ -3763,19 +3757,17 @@ Now let's modify our music (let's save this file as @file{music.ly}).
 @lilypond[quote,ragged-right]
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #{ \markup { \hspace #0
+               \translate #'(5 . 0)
+               \line { \dynamic "mp"
+                       \text \italic "dolce" } }
+  #})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #{ ^\markup \bold \box #string #})
 
 \relative c'' {
   \tempo 4=50
@@ -3800,19 +3792,17 @@ with this:
 %%%  definitions.ily
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #@{ \markup @{ \hspace #0
+               \translate #'(5 . 0)
+               \line @{ \dynamic "mp"
+                       \text \italic "dolce" @} @}
+  #@})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #@{ ^\markup \bold \box #string #@})
 
 \layout@{
   \context @{
@@ -3835,19 +3825,17 @@ inst =
 @lilypond[quote,ragged-right]
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #{ \markup { \hspace #0
+               \translate #'(5 . 0)
+               \line { \dynamic "mp"
+                       \text \italic "dolce" } }
+  #})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #{ ^\markup \bold \box #string #})
 
 \layout{
   \context {
@@ -3888,19 +3876,17 @@ overall size of the output.
 %%%  definitions.ily
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #@{ \markup @{ \hspace #0
+               \translate #'(5 . 0)
+               \line @{ \dynamic "mp"
+                       \text \italic "dolce" @} @}
+  #@})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #@{ ^\markup \bold \box #string #@})
 
 #(set-global-staff-size 23)
 
@@ -3924,19 +3910,17 @@ inst =
 @lilypond[quote,ragged-right]
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #{ \markup { \hspace #0
+               \translate #'(5 . 0)
+               \line { \dynamic "mp"
+                       \text \italic "dolce" } }
+  #})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #{ ^\markup \bold \box #string #})
 
 #(set-global-staff-size 23)
 

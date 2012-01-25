@@ -123,8 +123,8 @@ arg2)}}).  Where normal Scheme expressions using @code{#} don't do the
 trick, you might need to revert to immediate Scheme expressions using
 @code{$}, for example as @samp{$music}.
 
-If your function returns a music expression, it is cloned and given the
-correct @code{origin}.
+If your function returns a music expression, it is given a useful value
+of @code{origin}.
 @end multitable
 
 @noindent
@@ -154,8 +154,9 @@ ambiguities that Lilypond sorts out by checking with predicate
 functions: is @samp{-3} a fingering postevent or a negative number?  Is
 @code{"a" 4} in lyric mode a string followed by a number, or a lyric
 event of duration @code{4}?  Lilypond decides by asking the predicates.
-That means that a lenient predicate like @code{scheme?} might be good
-for surprising interpretations.
+That means that you should avoid permissive predicates like
+@code{scheme?} if you have a particular use in mind instead of a general
+purpose function.
 
 For a list of available predefined type predicates, see
 @ruser{Predefined type predicates}.
@@ -299,33 +300,31 @@ Installed Files:
 
 @node Music function usage
 @subsection Music function usage
-Music functions may currently be used in three places.  Depending on
+Music functions may currently be used in several places.  Depending on
 where they are used, restrictions apply in order to be able to parse
 them unambiguously.  The result a music function returns must be
 compatible with the context in which it is called.
 
 @itemize
 @item
-At top level in a music expression.  There are no special restrictions
-on the argument list.
+At top level in a music expression.  No restriction apply here.
 
 @item
 As a post-event, explicitly started with a direction indicator (one of
-@code{-}, @code{^}, @w{and @code{_}}).  All trailing arguments of the
-music function with the predicate @code{ly:music?} will get parsed also
-as post-events (if the last argument is a scheme function, this will
-hold for trailing @code{ly:music?} arguments of the scheme function
-instead).  Note that returning a post-event will be acceptable for music
-functions called as normal music, leading to a result roughly equivalent
-to
+@code{-}, @code{^}, @w{and @code{_}}).  Note that returning a post-event
+will be acceptable for music functions called as normal music, leading
+to a result roughly equivalent to
 @example
 s 1*0-\fun
 @end example
 
+In this case, you can't use an @emph{open} music expression as the last
+argument, one that would end with a music expression able to accept
+additional postevents.
+
 @item
-As a chord constituent.  All trailing arguments of the music function
-with the predicate @code{ly:music?} will get parsed also as chord
-constituents.
+As a chord constituent.  The returned expression must be of
+@code{rhythmic-event} type, most likely a @code{NoteEvent}.
 @end itemize
 
 @noindent
@@ -1152,6 +1151,14 @@ my-callback = #(lambda (grob)
 @node Inline Scheme code
 @section Inline Scheme code
 
+TODO: the example for this section is ill-chosen since
+@example
+F = -\tweak #'font-size #-3 -\flageolet
+@end example
+(note the @samp{-} marking it as a post event) will actually work fine
+for the stated purpose.  Until this section gets a rewrite, let's
+pretend we don't know.
+
 The main disadvantage of @code{\tweak} is its syntactical
 inflexibility.  For example, the following produces a syntax error.
 
@@ -1164,10 +1171,6 @@ F = \tweak #'font-size #-3 -\flageolet
 @end example
 
 @noindent
-In other words, @code{\tweak} doesn't behave like an articulation
-regarding the syntax; in particular, it can't be attached with
-@code{^} and @code{_}.
-
 Using Scheme, this problem can be avoided.  The route to the
 result is given in @ref{Adding articulation to notes (example)},
 especially how to use @code{\displayMusic} as a helping guide.

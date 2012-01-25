@@ -159,7 +159,9 @@ If it unsets the property, return @code{#f}."
 (define-public (music-elements music)
   "Return list of all @var{music}'s top-level children."
   (let ((elt (ly:music-property music 'element))
-        (elts (ly:music-property music 'elements)))
+        (elts (append
+	       (ly:music-property music 'articulations)
+	       (ly:music-property music 'elements))))
     (if (not (null? elt))
         (cons elt elts)
         elts)))
@@ -182,12 +184,17 @@ If it unsets the property, return @code{#f}."
 (define-public (process-music music function)
   "Process all nodes of @var{music} (including @var{music}) in the DFS order.
 Apply @var{function} on each of the nodes.  If @var{function} applied on a
-node returns @code{#t}, don't process the node's subtree."
+node returns @code{#t}, don't process the node's subtree.
+
+If a non-boolean is returned, it is considered the material to recurse."
   (define (process-music queue)
     (if (not (null? queue))
         (let* ((elt (car queue))
                (stop (function elt)))
-          (process-music (if stop
-                             (cdr queue)
-                             (append (music-elements elt) (cdr queue)))))))
+          (process-music (if (boolean? stop)
+			     (if stop
+				 (cdr queue)
+				 (append (music-elements elt) (cdr queue)))
+			     ((if (cheap-list? stop) append cons)
+			      stop (cdr queue)))))))
   (process-music (list music)))

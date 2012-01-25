@@ -293,13 +293,11 @@ endSpanners =
 #(define-music-function (parser location music) (ly:music?)
    (_i "Terminate the next spanner prematurely after exactly one note
 without the need of a specific end spanner.")
-   (if (eq? (ly:music-property music 'name) 'EventChord)
-       (let* ((elts (ly:music-property music 'elements))
-	      (start-span-evs (filter (lambda (ev)
-					(and (music-has-type ev 'span-event)
-					     (equal? (ly:music-property ev 'span-direction)
-						     START)))
-				      elts))
+   (if (memq (ly:music-property music 'name) '(EventChord NoteEvent))
+       (let* ((start-span-evs (filter (lambda (ev)
+					(equal? (ly:music-property ev 'span-direction)
+						START))
+				      (extract-typed-music music 'span-event)))
 	      (stop-span-evs
 	       (map (lambda (m)
 		      (let ((c (music-clone m)))
@@ -314,7 +312,7 @@ without the need of a specific end spanner.")
 	 total)
 
        (begin
-	 (ly:input-message location (_ "argument endSpanners is not an EventChord: ~a" music))
+	 (ly:input-message location (_ "argument endSpanners is not an EventChord: ~a") music)
 	 music)))
 
 
@@ -325,16 +323,13 @@ featherDurations=
    (let ((orig-duration (ly:music-length argument))
 	 (multiplier (ly:make-moment 1 1)))
 
-     (music-map
+     (for-each
       (lambda (mus)
-	(if (and (eq? (ly:music-property mus 'name) 'EventChord)
-		 (< 0 (ly:moment-main-denominator (ly:music-length mus))))
+	(if (< 0 (ly:moment-main-denominator (ly:music-length mus)))
 	    (begin
 	      (ly:music-compress mus multiplier)
-	      (set! multiplier (ly:moment-mul factor multiplier))))
-	mus)
-      argument)
-
+	      (set! multiplier (ly:moment-mul factor multiplier)))))
+      (extract-named-music argument '(EventChord NoteEvent RestEvent SkipEvent)))
      (ly:music-compress
       argument
       (ly:moment-div orig-duration (ly:music-length argument)))
@@ -846,13 +841,9 @@ pitchedTrill =
    (_i "Print a trill with @var{main-note} as the main note of the trill and
 print @var{secondary-note} as a stemless note head in parentheses.")
    (let* ((get-notes (lambda (ev-chord)
-                       (filter
-                        (lambda (m) (eq? 'NoteEvent (ly:music-property m 'name)))
-                        (ly:music-property ev-chord 'elements))))
+		       (extract-named-music ev-chord 'NoteEvent)))
           (sec-note-events (get-notes secondary-note))
-          (trill-events (filter (lambda (m) (music-has-type m 'trill-span-event))
-                                (ly:music-property main-note 'elements))))
-
+          (trill-events (extract-named-music main-note 'TrillSpanEvent)))
      (if (pair? sec-note-events)
          (begin
            (let* ((trill-pitch (ly:music-property (car sec-note-events) 'pitch))
