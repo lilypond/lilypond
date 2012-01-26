@@ -6644,7 +6644,10 @@ DK: rallentando,
 S: rallentando,
 FI: rallerdando, hidastuen.
 
-[Italian] A performance indication, abbreviated @notation{rall.}
+[Italian: @q{slowing down}]
+
+Slackening in speed, more gradual than @ref{ritardando}.  Abbreviated
+to @notation{rall.}
 
 @seealso
 @ref{ritardando}.
@@ -6770,11 +6773,13 @@ DK: ritardando,
 S: ritardando,
 FI: ritardando, hidastuen,
 
-Gradually slackening in speed.  Mostly abbreviated to @notation{rit.} or
-@notation{ritard}.
+[Italian: @q{lagging}]
+
+Gradual slowing down, more pronounced than @ref{rallentando}.  Mostly
+abbreviated to @notation{rit.} or @notation{ritard}.
 
 @seealso
-No cross-references.
+@ref{rallentando}.
 
 
 @node ritenuto
