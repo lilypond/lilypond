@@ -62,6 +62,13 @@ which scares away people.
 @end ignore
 
 @item
+Flags are now treated as separate objects rather than as stem parts.
+@lilypond[fragment,quote,relative=2]
+\override Flag #'color = #red
+g8
+@end lilypond
+
+@item
 Two alternative methods for bar numbering can be set, especially for
 when using repeated music;
 
@@ -235,7 +242,7 @@ c4_\< c c^\> c c1_\p
 @item
 Appoggiaturas and acciaccaturas now also work inside a slur, not only inside
 a phrasing slur. Also, a function @code{\slashedGrace} was added that does
-does not use a slur from the acciaccatura note.
+not use a slur from the acciaccatura note.
 @lilypond[fragment,quote,relative=2]
 c4( \appoggiatura e8 d4 \acciaccatura e8 d4 \slashedGrace e8 c4)
 @end lilypond
