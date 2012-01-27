@@ -2149,8 +2149,10 @@ chord_body_element:
 	{
 		Music *m = unsmob_music ($1);
 
-		while (m && m->is_mus_type ("music-wrapper-music"))
-			m = unsmob_music (m->get_property ("element"));
+		while (m && m->is_mus_type ("music-wrapper-music")) {
+			$$ = m->get_property ("element");
+			m = unsmob_music ($$);
+		}
 
 		if (!(m && m->is_mus_type ("rhythmic-event"))) {
 			parser->parser_error (@$, _ ("not a rhythmic event"));
