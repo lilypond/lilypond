@@ -432,28 +432,6 @@ Otherwise, return #f."
 				   'NoteEvent 'ClusterNoteEvent 'RestEvent
 				   'SkipEvent 'LyricEvent)
 				  elements)))
-    (if ((make-music-type-predicate 'StaffSpanEvent 'BreathingEvent) (car elements))
-	;; first, a special case: StaffSpanEvent (\startStaff, \stopStaff)
-	;; and BreathingEvent (\breathe)
-	(music->lily-string (car elements) parser)
-	(if (and (not (null? simple-elements))
-		 (null? (cdr simple-elements))
-		 ;; a non-empty articulation list is only possible with
-		 ;; chord entry.
-		 (null? (ly:music-property (car simple-elements) 'articulations))
-		 ;; same for simple_element with \tweak
-		 (null? (ly:music-property (car simple-elements) 'tweaks)))
-	    ;; simple_element : note | figure | rest | mmrest | lyric_element | skip
-	    (let* ((simple-element (car simple-elements))
-		   (duration (duration->lily-string
-			      (ly:music-property simple-element 'duration)
-			      #:remember #t)))
-	      (format #f "~a~a~{~a~^ ~}"
-		      (music->lily-string simple-element parser)
-		      duration
-		      (map-in-order (lambda (music)
-				      (music->lily-string music parser))
-				    (filter post-event? elements))))
 	    (let ((chord-elements (filter (make-music-type-predicate
 					   'NoteEvent 'ClusterNoteEvent 'BassFigureEvent)
 					  elements))
@@ -474,7 +452,7 @@ Otherwise, return #f."
 		  ;; command_element
 		  (format #f "~{~a~^ ~}" (map-in-order (lambda (music)
 						       (music->lily-string music parser))
-						     elements))))))))
+						     elements))))))
 
 (define-display-method MultiMeasureRestMusic (mmrest parser)
   (let* ((dur (ly:music-property mmrest 'duration))

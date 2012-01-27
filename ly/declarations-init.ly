@@ -60,13 +60,13 @@ center = #0
 %% try \once \override Score.Beam #'breakable = ##t
 
 %% rather name \newline, \pageBreak ?
-break = #(make-event-chord (list (make-music 'LineBreakEvent 'break-permission 'force)))
-noBreak = #(make-event-chord (list (make-music 'LineBreakEvent 'break-permission '())))
+break = #(make-music 'LineBreakEvent 'break-permission 'force)
+noBreak = #(make-music 'LineBreakEvent 'break-permission '())
 %% \pageBreak, \noPageBreak, \pageTurn, \noPageTurn, \allowPageTurn are defined
 %% as music functions
 
-stopStaff = #(make-event-chord (list (make-span-event 'StaffSpanEvent STOP)))
-startStaff = #(make-event-chord (list (make-span-event 'StaffSpanEvent START)))
+stopStaff = #(make-span-event 'StaffSpanEvent STOP)
+startStaff = #(make-span-event 'StaffSpanEvent START)
 
 
 %
