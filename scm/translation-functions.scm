@@ -326,6 +326,7 @@ if no string-number is present."
 	  #t
 	  (map (lambda (specced-fret)
 		 (or (eq? 0 specced-fret)
+                     (eq? 0 fret)
 		     (>= maximum-stretch (abs (- fret specced-fret)))))
 	       specified-frets))))
 
@@ -333,7 +334,7 @@ if no string-number is present."
       "Can @var{pitch} be played on @var{string}, given already placed
 notes?"
       (let* ((fret (calc-fret pitch string tuning)))
-	(and (>= fret minimum-fret)
+	(and (or (eq? fret 0) (>= fret minimum-fret))
 	     (close-enough fret))))
 
     (define (open-string string pitch)
