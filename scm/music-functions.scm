@@ -255,7 +255,9 @@ properly."
   (define (first-note-duration music)
     "Finds the duration of the first NoteEvent by searching depth-first
 through MUSIC."
-    (if (memq 'note-event (ly:music-property music 'types))
+    ;; NoteEvent or a non-expanded chord-repetition
+    ;; We just take anything that actually sports an announced duration.
+    (if (ly:duration? (ly:music-property music 'duration))
 	(ly:music-property music 'duration)
 	(let loop ((elts (if (ly:music? (ly:music-property music 'element))
 			     (list (ly:music-property music 'element))
@@ -276,7 +278,7 @@ through MUSIC."
     (set! (ly:music-property r 'repeat-count) (max times 1))
     (set! (ly:music-property r 'elements) talts)
     (if (and (equal? name "tremolo")
-	     (pair? (extract-named-music main 'NoteEvent)))
+	     (pair? (extract-named-music main '(EventChord NoteEvent))))
 	;; This works for single-note and multi-note tremolos!
 	(let* ((children (if (music-is-of-type? main 'sequential-music)
 			     ;; \repeat tremolo n { ... }
@@ -576,6 +578,65 @@ inside of and outside of chord construct."
   "Is @var{m} a separator?"
   (let ((ts (ly:music-property m 'types)))
     (memq 'separator ts)))
+
+;;; expanding repeat chords
+(define-public (copy-repeat-chord original-chord repeat-chord duration
+				  event-types)
+  "Copies all events in @var{event-types} (be sure to include
+@code{rhythmic-events}) from @var{original-chord} over to
+@var{repeat-chord} with their articulations filtered as well.  Any
+duration is replaced with the specified @var{duration}."
+  ;; First remove everything from event-types that can already be
+  ;; found in the repeated chord.  We don't need to look for
+  ;; articulations on individual events since they can't actually get
+  ;; into a repeat chord given its input syntax.
+  (for-each (lambda (e)
+	      (for-each (lambda (x)
+			  (set! event-types (delq x event-types)))
+			(ly:music-property e 'types)))
+	    (ly:music-property repeat-chord 'elements))
+  ;; now treat the elements
+  (set! (ly:music-property repeat-chord 'elements)
+	(append!
+	 (filter-map
+	  (lambda (m)
+	    (and (any (lambda (t) (music-is-of-type? m t)) event-types)
+		 (begin
+		   (set! m (ly:music-deep-copy m))
+		   (if (pair? (ly:music-property m 'articulations))
+		       (set! (ly:music-property m 'articulations)
+			     (filter
+			      (lambda (a)
+				(any (lambda (t) (music-is-of-type? a t))
+				     event-types))
+			      (ly:music-property m 'articulations))))
+		   (if (ly:duration? (ly:music-property m 'duration))
+		       (set! (ly:music-property m 'duration) duration))
+		   m)))
+	  (ly:music-property original-chord 'elements))
+	 (ly:music-property repeat-chord 'elements))))
+
+(define-public (expand-repeat-chords! event-types music)
+  "Walks through @var{music} and fills repeated chords (notable by
+having a duration in @code{duration}) with the notes from their
+respective predecessor chord."
+  (let loop ((music music) (last-chord #f))
+    (if (music-is-of-type? music 'event-chord)
+	(let ((chord-repeat (ly:music-property music 'duration)))
+	  (cond
+	   ((not (ly:duration? chord-repeat))
+	    music)
+	   (last-chord
+	    (set! (ly:music-property music 'duration) '())
+	    (copy-repeat-chord last-chord music chord-repeat event-types)
+	    music)
+	   (else
+	    (ly:music-warning music (_ "Bad chord repetition"))
+	    #f)))
+	(let ((elt (ly:music-property music 'element)))
+	  (fold loop (if (ly:music? elt) (loop elt last-chord) last-chord)
+		(ly:music-property music 'elements)))))
+  music)
 
 ;;; splitting chords into voices.
 (define (voicify-list lst number)
@@ -1037,6 +1098,10 @@ then revert skipTypesetting."
 
 (define-public toplevel-music-functions
   (list
+   (lambda (music parser) (expand-repeat-chords!
+			   (cons 'rhythmic-event
+				 (ly:parser-lookup parser '$chord-repeat-events))
+			   music))
    (lambda (music parser) (voicify-music music))
    (lambda (x parser) (music-map music-check-error x))
    (lambda (x parser) (music-map precompute-music-length x))

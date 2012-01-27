@@ -1019,14 +1019,6 @@ styledNoteHeads =
    (_i "Set @var{heads} in @var{music} to @var{style}.")
    (style-note-heads heads style music))
 
-
-
-tabChordRepetition =
-#(define-music-function (parser location) ()
-   (_i "Include the string information in a chord repetition.")
-   (ly:parser-set-repetition-function parser tab-repeat-chord)
-   (make-music 'SequentialMusic 'void #t))
-
 tag =
 #(define-music-function (parser location tag arg) (symbol? ly:music?)
 

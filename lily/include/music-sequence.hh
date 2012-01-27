@@ -29,11 +29,11 @@ struct Music_sequence
 public:
   DECLARE_SCHEME_CALLBACK (cumulative_length_callback, (SCM));
   DECLARE_SCHEME_CALLBACK (maximum_length_callback, (SCM));
+  DECLARE_SCHEME_CALLBACK (event_chord_length_callback, (SCM));
   DECLARE_SCHEME_CALLBACK (minimum_start_callback, (SCM));
   DECLARE_SCHEME_CALLBACK (first_start_callback, (SCM));
   DECLARE_SCHEME_CALLBACK (simultaneous_relative_callback, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (event_chord_relative_callback, (SCM, SCM));
-  DECLARE_SCHEME_CALLBACK (repeated_chord_relative_callback, (SCM, SCM));
 
   Pitch do_relative_octave (Pitch p, bool b);
 

@@ -202,7 +202,7 @@ An alternative syntax is @var{note}@code{\\decr} @dots{}
     (EventChord
      . ((description . "Internally used to group a set of events.")
 	(iterator-ctor . ,ly:event-chord-iterator::constructor)
-	(length-callback . ,ly:music-sequence::maximum-length-callback)
+	(length-callback . ,ly:music-sequence::event-chord-length-callback)
 	(to-relative-callback .
 	 ,ly:music-sequence::event-chord-relative-callback)
 	(types . (general-music event-chord simultaneous-music))
@@ -456,15 +456,6 @@ Syntax: @code{\\unset @var{context}.@var{prop}}")
 	(length-callback . ,ly:music-wrapper::length-callback)
 	(start-callback . ,ly:music-wrapper::start-callback)
 	(types . (music-wrapper-music general-music relative-octave-music))
-	))
-
-    (RepeatedChord
-     . ((description . "A chord repetition")
-	(to-relative-callback . ,ly:music-sequence::repeated-chord-relative-callback)
-	(iterator-ctor . ,ly:music-wrapper-iterator::constructor)
-	(start-callback . ,ly:music-wrapper::start-callback)
-	(length-callback . ,ly:music-wrapper::length-callback)
-	(types . (general-music music-wrapper-music))
 	))
 
     (RepeatedMusic

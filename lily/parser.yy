@@ -2054,8 +2054,6 @@ event_chord:
 		Input i;
 		i.set_location (@1, @3);
 		$$ = MAKE_SYNTAX ("repetition-chord", i,
-				  parser->lexer_->chord_repetition_.last_chord_,
-				  parser->lexer_->chord_repetition_.repetition_function_,
 				  $2, scm_reverse_x ($3, SCM_EOL));
 	}
 	| MULTI_MEASURE_REST optional_notemode_duration post_events {
@@ -2065,13 +2063,7 @@ event_chord:
 				  scm_reverse_x ($3, SCM_EOL));
 	}
 	| command_element
-	/* note chord elements are memorized into
-	   parser->lexer_->chord_repetition_ so that the chord repetition
-	   mechanism copy them when a chord repetition symbol is found
-	*/
-	| note_chord_element	{
-		parser->lexer_->chord_repetition_.last_chord_ = $$;
-	}
+	| note_chord_element
 	;
 
 
