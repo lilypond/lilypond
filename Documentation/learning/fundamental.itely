@@ -920,6 +920,9 @@ to see how to correct this, so we shall leave this problem until a
 later section --- see the @code{force-hshift} property in
 @ref{Fixing overlapping notation}.
 
+@warning{Lyrics, spanners (such as slurs, ties, hairpins etc.) cannot be
+created @q{across} voices.}
+
 
 @seealso
 Notation Reference: @ruser{Multiple voices}.

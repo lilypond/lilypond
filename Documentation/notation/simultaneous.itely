@@ -465,6 +465,9 @@ upstems, and the even-numbered voices are given downstems:
 >>
 @end lilypond
 
+@warning{Lyrics, spanners (such as slurs, ties, hairpins etc.) cannot be
+created @q{across} voices.}
+
 @strong{@i{Identical rhythms}}
 
 In the special case that we want to typeset parallel pieces of music
@@ -491,6 +494,8 @@ music do not have the same rhythm.
 @code{\oneVoice}.
 @endpredefined
 
+Snippets:
+@rlsr{Simultaneous notes}.
 
 @seealso
 Learning Manual:
@@ -501,9 +506,6 @@ Notation Reference:
 @ref{Percussion staves},
 @ref{Invisible rests},
 @ref{Stems}.
-
-Snippets:
-@rlsr{Simultaneous notes}.
 
 
 @node Voice styles
