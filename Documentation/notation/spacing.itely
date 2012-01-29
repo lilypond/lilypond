@@ -370,6 +370,9 @@ The titles (from the @code{\header} block) are treated as a
 system, so @code{ragged-bottom} and @code{ragged-last-bottom} will
 add space between the titles and the first system of the score.
 
+Explicitly defined paper-sizes will override any user-defined top or
+bottom margin settings.
+
 
 @node Flexible vertical spacing \paper variables
 @subsection Flexible vertical spacing @code{\paper} variables
@@ -671,6 +674,11 @@ Notation Reference:
 
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
+
+@knownissues
+
+Explicitly defined paper-sizes will override any user-defined left or
+right margin settings.
 
 
 @node \paper variables for two-sided mode
