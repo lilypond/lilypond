@@ -864,11 +864,6 @@ and duration-log @var{log}."
   (let* ((event (event-cause grob))
 	 (digit (ly:event-property event 'digit)))
 
-    (if (> digit 5)
-	(ly:input-message (ly:event-property event 'origin)
-			  "Warning: Fingering notation for finger number ~a"
-			  digit))
-
     (number->string digit 10)))
 
 (define-public (string-number::calc-text grob)
