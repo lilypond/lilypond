@@ -1,0 +1,10 @@
+%% Translation of GIT committish: COMMITTISH
+  texidocit = "
+Secondo le norme tipografiche standard, un segno di bequadro viene
+inserito prima di un diesis o di un bemolle se un'alterazione
+precedente sulla stessa nota deve essere cancellata.  Per cambiare
+questo comportamento si imposta la proprietà @code{extraNatural} su
+@code{f} (falso) nel contesto @code{Staff}.
+
+"
+  doctitleit = "Impedire l'inserimento automatico dei bequadri supplementari"

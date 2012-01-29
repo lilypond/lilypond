@@ -1,0 +1,8 @@
+%% Translation of GIT committish: COMMITTISH
+  texidocit = "
+Se si aggiunge l'incisore @code{Ambitus_engraver} al contesto @code{Staff} viene
+creato un solo ambitus per il rigo, anche nel caso di righi che hanno più
+voci.
+
+"
+  doctitleit = "Ambitus su più voci"

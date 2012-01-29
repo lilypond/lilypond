@@ -1,0 +1,25 @@
+%% Translation of GIT committish: COMMITTISH
+  texidocit = "
+Questo esempio usa del codice Scheme per imporre delle modifiche
+enarmoniche alle note che permettano di avere il numero minimo di
+alterazioni.  In questo caso si applica la seguente regola:
+
+Le doppie alterazioni devono essere eliminate
+
+
+Si diesis -> Do
+
+
+Mi diesis -> Fa
+
+
+Do bemolle -> Si
+
+
+Fa bemolle -> Mi
+
+
+In questo modo vengono scelti i suoni enarmonici più semplici.
+
+"
+  doctitleit = "Trasposizione delle altezze con numero minimo di alterazioni"

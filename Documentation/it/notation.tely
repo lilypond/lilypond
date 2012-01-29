@@ -1,0 +1,127 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+@ignore
+    Translation of GIT committish: 1c846b2c2348b4e0ca4a3c2e8fb267047ba2d203
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@setfilename lilypond-notation.info
+@settitle Guida alla Notazione di LilyPond
+@documentencoding UTF-8
+@documentlanguage it
+@afourpaper
+
+@macro manualIntro
+Questo manuale costituisce la guida di riferimento per tutti gli aspetti
+relativi alla notazione musicale in LilyPond versione @version{}.  Si
+presuppone che il lettore conosca il materiale esposto nel
+@rlearningnamed{Top,Manuale di Apprendimento}.
+@end macro
+
+@c `Notation Reference' was born 1999-10-11 with git commit 940dda0...
+@macro copyrightDeclare
+Copyright @copyright{} 1999--2011 degli autori.
+@end macro
+
+
+@set FDL
+@include macros.itexi
+
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
+@omfdescription Notation Reference of the LilyPond music engraving system
+@omftype user manual
+@omfcategory Applications|Publishing
+@omflanguage Italian
+@end ignore
+
+@c Translators: Federico Bruni
+@c Translation checkers: Luca Rossetto Casel
+
+@lilyTitlePage{Guida alla Notazione}
+
+
+@ifnottex
+
+@c Keep english titles of file not yet translated -- fb
+@menu
+* Notazione musicale::          Notazione usata in quasi tutti i progetti.
+* Specialist notation::         Notazione usata solo in contesti specifici. @c Notazione specialistica
+* General input and output::    Informazioni generali su input e output. @c Input e output
+* Spacing issues::              Impaginazione della musica sul foglio. @c Gestione dello spazio
+* Changing defaults::           Aggiustamento dell'output. @c Modifica delle impostazioni predefinite
+
+Appendici
+
+* Notation manual tables::    Tabelle e diagrammi. @c Tabelle del manuale di notazione
+* Cheat sheet::                    Sommario della sintassi di LilyPond.
+* Grammatica di LilyPond::         Diagramma della sintassi per l'analizzatore sintattico di LilyPond.
+* GNU Free Documentation License:: Licenza di questo documento.
+* Indice dei comandi di LilyPond::
+* Indice di LilyPond::
+@end menu
+
+@docMain
+@end ifnottex
+
+@contents
+
+@allowcodebreaks false
+
+@include notation/notation.itely
+@include notation/specialist.itely
+
+@include notation/input.itely
+@include notation/spacing.itely
+
+@include notation/changing-defaults.itely
+
+
+@include notation/notation-appendices.itely
+@include notation/cheatsheet.itely
+
+
+
+@node Grammatica di LilyPond
+@appendix Grammatica di LilyPond
+@translationof LilyPond grammar
+
+Questa appendice contiene una descrizione della grammatica di LilyPond, come
+generata dall'analizzatore sintattico.
+
+@verbatiminclude ly-grammar.txt
+
+
+@include fdl.itexi
+
+
+@node Indice dei comandi di LilyPond
+@appendix Indice dei comandi di LilyPond
+@translationof LilyPond command index
+
+Questo indice elenca tutti i comandi e le parole chiave di LilyPond
+con dei collegamenti alle sezioni del manuale che descrivono il
+loro uso.  Ogni collegamento è composto da due parti.  La prima parte
+porta al punto esatto del manuale in cui compaiono il comando o la
+parola chiave; la seconda parte porta all'inizio della sezione del
+manuale in cui compaiono il comando o la parola.
+
+@printindex ky
+
+@node Indice di LilyPond
+@appendix Indice di LilyPond
+@translationof LilyPond index
+
+Oltre a tutti i comandi e le parole chiave di LilyPond, questo indice
+elenca i termini musicali e le espressioni che si riferiscono a ognuno di
+essi, corredati di collegamenti alle relative sezioni del manuale.  Ogni
+collegamento è composto da due parti.  La prima parte porta al punto esatto
+del manuale in cui compare l'argomento; la seconda parte porta all'inizio
+della sezione del manuale in cui l'argomento è trattato.
+
+@printindex cp
+
+@bye

@@ -1,0 +1,7 @@
+%% Translation of GIT committish: COMMITTISH
+  texidocit = "
+L'ambitus può essere specificato per voce. In tal caso occorre
+spostarlo manualmente per evitare collisioni.
+
+"
+  doctitleit = "Un ambitus per voce"
