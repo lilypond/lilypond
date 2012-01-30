@@ -24,7 +24,7 @@ nota que ve.
 
   doctitlees = "Números como notas de notación fácil"
 
-%% Translation of GIT committish: COMMITTISH
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
   texidocit = "
 Le teste di nota con nome della nota usano la proprietà @code{note-names}
 dell'oggetto @code{NoteHead} per determinare cosa appaia

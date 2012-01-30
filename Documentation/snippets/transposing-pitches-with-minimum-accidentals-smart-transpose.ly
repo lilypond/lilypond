@@ -7,7 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: COMMITTISH
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
   texidocit = "
 Questo esempio usa del codice Scheme per imporre delle modifiche
 enarmoniche alle note che permettano di avere il numero minimo di
@@ -34,6 +34,7 @@ In questo modo vengono scelti i suoni enarmonici più semplici.
   doctitleit = "Trasposizione delle altezze con numero minimo di alterazioni"
 
   lsrtags = "pitches"
+
 
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98

@@ -7,7 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: COMMITTISH
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
   texidocit = "
 La proprietà @code{shapeNoteStyles} può essere usata per definire vari
 stili di teste di nota per ogni grado della scala (definita dall'armatura
@@ -30,6 +30,7 @@ teste.
   doctitleit = "Applicazione degli stili delle teste di nota in base al grado della scala"
 
   lsrtags = "pitches, editorial-annotations"
+
 
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98

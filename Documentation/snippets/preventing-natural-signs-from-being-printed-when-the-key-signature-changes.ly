@@ -7,7 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: COMMITTISH
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
   texidocit = "
 Quando l'armatura di chiave cambia, vengono inseriti automaticamente i
 segni di bequadro per annulare le alterazioni di precedenti armature.  Si
@@ -18,6 +18,7 @@ può evitare questo comportamento impostando su @code{f} (falso) la proprietà
   doctitleit = "Impedire l'inserimento dei segni di bequadro quando cambia l'armatura di chiave"
 
   lsrtags = "pitches"
+
 
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98

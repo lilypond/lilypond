@@ -21,6 +21,7 @@ forme à l'aide d'un @emph{markup}.
 
 
 
+
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Se puede establecer el separador entre las distintas partes del

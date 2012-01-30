@@ -7,7 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: COMMITTISH
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
   texidocit = "
 Il comando @code{\\clef \"treble_8\"} equivale a impostare
 @code{clefGlyph}, @code{clefPosition} (che regola la posizione
@@ -44,6 +44,7 @@ linea non lo fanno.
   doctitleit = "Modifiche manuali della proprietà della chiave"
 
   lsrtags = "pitches, staff-notation, tweaks-and-overrides"
+
 
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98

@@ -37,7 +37,7 @@ exátona:
 "
 
 
-%% Translation of GIT committish: COMMITTISH
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
   texidocit = "
 Il comando @code{\\key} comunemente usato imposta la proprietà
 @code{keySignature}, che fa parte del contesto @code{Staff}.

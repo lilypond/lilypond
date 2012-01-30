@@ -18,7 +18,7 @@ ligadas al comienzo de un sistema nuevo.
   doctitlees = "Ocultar las alteraciones sobre notas ligadas al principio de un sistema nuevo"
 
 
-%% Translation of GIT committish: COMMITTISH
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
   texidocit = "
 Questo frammento mostra come nascondere le alterazioni delle note con
 legatura di valore all'inizio di un nuovo sistema
