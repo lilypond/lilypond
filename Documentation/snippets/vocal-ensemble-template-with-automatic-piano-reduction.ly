@@ -51,7 +51,7 @@ tenorMusic), verändert sich auch der Klavierauszug entsprechend.
 "
 
 
-%% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Ce canevas ajoute une réduction pour piano à une partition standard pour
 chœur à quatre voix mixtes.  Ceci illustre l'un des avantages de

@@ -29,7 +29,7 @@ werden.
 
 
 
-%% Translation of GIT committish: 708e0d9c660856b19929736ca18a6f9d68539c60
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Il est normalement impensable qu'un saut de ligne tombe au milieu d'une
 ligature.  LilyPond permet néanmoins de l'obtenir.

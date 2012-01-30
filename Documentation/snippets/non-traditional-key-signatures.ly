@@ -37,6 +37,31 @@ exátona:
 "
 
 
+%% Translation of GIT committish: COMMITTISH
+  texidocit = "
+Il comando @code{\\key} comunemente usato imposta la proprietà
+@code{keySignature}, che fa parte del contesto @code{Staff}.
+
+Per creare armature di chiave non standard, tale proprietà va
+impostata esplicitamente.  Il formato di questo comando è
+una lista:
+
+@code{\\set Staff.keySignature = #`(((ottava . grado) . alterazione) ((ottava
+. grado) . alterazione) ...)} dove, per ogni elemento della lista,
+@code{ottava} indica l'ottava (0@tie{}è l'ottava dal Do@tie{}centrale
+al Si precedente), @code{grado} indica la nota all'interno
+dell'ottava (0@tie{}significa@tie{}Do e 6@tie{}significa@tie{}Si) e @code{alterazione}
+può essere @code{,SHARP ,FLAT ,DOUBLE-SHARP} etc.  (Si noti la virgola iniziale.)
+
+Altrimenti, usando, per ogni elemento della lista, il formato breve
+@code{(grado . alterazione)}, ciò indica che la stessa alterazione deve
+essere presente in tutte le ottave.
+
+Ecco un esempio di una possibile armatura per generare una scala
+a tono intero:
+"
+  doctitleit = "Armature di chiave non tradizionali"
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   doctitlede = "Untypische Tonarten"
   texidocde = "
@@ -60,7 +85,7 @@ für alle Oktaven gelten.
 Hier ein Beispiel einer möglichen Tonart für eine Ganztonleiter:
 "
 
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 La commande @code{\\key} détermine la propriété @code{keySignature} d'un
 contexte @code{Staff}.

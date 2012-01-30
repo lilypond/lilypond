@@ -7,7 +7,34 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: COMMITTISH
+  texidocit = "
+Questo esempio usa del codice Scheme per imporre delle modifiche
+enarmoniche alle note che permettano di avere il numero minimo di
+alterazioni.  In questo caso si applica la seguente regola:
+
+Le doppie alterazioni devono essere eliminate
+
+
+Si diesis -> Do
+
+
+Mi diesis -> Fa
+
+
+Do bemolle -> Si
+
+
+Fa bemolle -> Mi
+
+
+In questo modo vengono scelti i suoni enarmonici più semplici.
+
+"
+  doctitleit = "Trasposizione delle altezze con numero minimo di alterazioni"
+
   lsrtags = "pitches"
+
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 doctitlees = "Transportar música con el menor número de alteraciones"
@@ -71,7 +98,7 @@ Variante gewählt.
 "
 
 
-%% Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Cet exemple, grâce à un peu de code Scheme, donne la priorité aux
 enharmoniques afin de limiter le nombre d'altérations supplémentaires.

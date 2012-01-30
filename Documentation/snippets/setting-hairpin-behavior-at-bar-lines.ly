@@ -29,7 +29,7 @@ beendet.  Dieses Verhalten kann auch mit der Eigenschaft
 "
   doctitlede = "Das Verhalten von Crescendo-Klammern an Taktlinien beeinflussen"
 
-%% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 En principe, un soufflet -- (de)crescendo imprimé sous forme graphique --
 commence au bord gauche de la note de départ, et se termine au

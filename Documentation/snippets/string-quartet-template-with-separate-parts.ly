@@ -85,7 +85,7 @@ zugewiesen, auf den zurückgegriffen werden kann.
   doctitlede = "Vorlage für Streichquartett mit einzelnen Stimmen"
 
 
-%% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Grâce à ce canevas, vous pouvez obtenir une partition d'excellente
 facture pour quatuor à cordes mais aussi, si le besoin s'en faisait

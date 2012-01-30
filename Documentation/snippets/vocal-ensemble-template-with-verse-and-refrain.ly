@@ -43,7 +43,7 @@ Stück zu definieren.
 "
   doctitlede = "Sologesang und zweistimmiger Refrain"
 
-%% Translation of GIT committish: 26375d5016d8d180fc914bfd07cf76f4168f2e37
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Ce canevas illustre la manière d'agencer une œuvre vocale où le couplet
 est chanté en solo et le refrain à deux voix.  Vous noterez le recours

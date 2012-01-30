@@ -51,7 +51,7 @@ Abschnitte können zitiert werden, aber sie dürfen sich nicht überlappen.
   doctitlede = "Orchesterstichnoten zu einem Klavierauszug hinzufügen"
 
 
-%% Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Lorsque le nombre d'instruments cités dans la réduction pour piano se
 multiplie, vous pourriez avoir intérêt à créer votre propre fonction

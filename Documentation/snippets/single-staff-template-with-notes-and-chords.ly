@@ -41,7 +41,7 @@ das richtige Beispiel für Sie!
   doctitlede = "Vorlage für eine Notenzeile mit Akkorden"
 
 
-%% Translation of GIT committish: ceb0afe7d4d0bdb3d17b9d0bff7936bb2a424d16
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Vous avez besoin de la partition d'une mélodie avec les accords@tie{}?
 N'allez pas plus loin@tie{}!

@@ -55,7 +55,7 @@ der @code{set-time-signature}-Funktion als das dritte Argument mitgegeben:
 
 
 
-%% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Les règles de ligature par mesure sont gérées par la propriété
 @code{beatStructure}.  Ses valeurs par défaut sont répertoriées, par

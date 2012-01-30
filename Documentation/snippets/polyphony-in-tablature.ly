@@ -26,7 +26,7 @@ normalen Notensystem erstellt werden.
 "
   doctitlede = "Polyphonie in einer Tabulatur"
 
-%% Translation of GIT committish: ac6297e4fa174ac5759cc450ad085c2fac9ba00b
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Une section polyphonique s'obtient dans un @code{TabStaff} de la
 même manière que dans une portée normale.

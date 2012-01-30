@@ -7,7 +7,16 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: COMMITTISH
+  texidocit = "
+L'ambitus può essere specificato per voce. In tal caso occorre
+spostarlo manualmente per evitare collisioni.
+
+"
+  doctitleit = "Un ambitus per voce"
+
   lsrtags = "pitches, staff-notation, vocal-music"
+
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   doctitlees = "Añadir un ámbito por voz"

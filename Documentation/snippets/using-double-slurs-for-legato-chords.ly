@@ -26,7 +26,7 @@ werden.  Das kann mit der Eigenschaft @code{doubleSlurs} erreicht werden.
 "
   doctitlede = "Doppelte Bögen für Legato-Akkorde benutzen"
 
-%% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Certains auteurs utilisent deux liaisons lorsqu'ils veulent
 lier des accords.  Dans LilyPond, il faut pour cela activer

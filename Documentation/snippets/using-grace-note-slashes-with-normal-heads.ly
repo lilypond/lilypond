@@ -20,7 +20,7 @@ acciaccaturas, en otras situaciones.
 
 
 
-%% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Le trait que l'on trouve sur les hampes des acciaccatures peut
 être appliqué dans d'autres situations.

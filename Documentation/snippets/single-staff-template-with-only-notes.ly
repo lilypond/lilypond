@@ -46,7 +46,7 @@ eine vollständige Notationsdatei.
   doctitlede = "Vorlage für ein Notensystem"
 
 
-%% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Cet exemple simpliste se compose d'une portée agrémentée de quelques
 notes.  Il convient tout à fait pour un instrument seul ou un

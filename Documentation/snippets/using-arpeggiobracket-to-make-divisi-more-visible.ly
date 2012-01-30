@@ -31,7 +31,7 @@ man oft in Chormusik.
   doctitlede = "Arpeggio-Klammern benutzen um geteilte Stimmen besser sichtbar zu machen"
 
 
-%% Translation of GIT committish: c1d5bb448321d688185e0c6b798575d4c325ae80
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Les crochets d'arpegio (@code{arpeggioBracket}) permettent de mettre en
 évidence les divisions d'un pupitre en l'absence de hampe, comme on le

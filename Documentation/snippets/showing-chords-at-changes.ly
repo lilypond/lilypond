@@ -7,7 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Vous pouvez faire ressortir les chiffrages d'accords s'ils ne sont
 imprimés qu'aux changements d'accord ou en début de ligne.
@@ -16,6 +16,7 @@ imprimés qu'aux changements d'accord ou en début de ligne.
   doctitlefr = "Impression des accords si changement"
 
   lsrtags = "chords"
+
 
 
 

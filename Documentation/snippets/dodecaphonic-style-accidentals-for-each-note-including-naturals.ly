@@ -37,7 +37,7 @@ notación.
  "
   doctitlede = "Versetzungszeichen für jede Note im Stil der Zwölftonmusik"
 
-%% Translation of GIT committish: 58a29969da425eaf424946f4119e601545fb7a7e
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Au début du XXe siècle, Schoenberg, Berg et Webern -- la « Seconde »
 école de Vienne -- imaginèrent de donner une importance comparable aux

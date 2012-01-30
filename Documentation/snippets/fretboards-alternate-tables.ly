@@ -47,7 +47,7 @@ wird mit der Eigenschaft @code{\\predefinedDiagramTable} ausgewählt.
   doctitlede = "Alternative Bunddiagrammtabellen"
 
 
-%% Translation of GIT committish: 40bf2b38d674c43f38058494692d1a0993fad0bd
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Vous pouvez tout à fait créer des tables de diagrammes de fret
 supplémentaires, notamment dans l'optique d'un fret alternatif pour un

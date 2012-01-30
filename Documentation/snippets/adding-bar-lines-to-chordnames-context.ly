@@ -7,7 +7,7 @@
 \version "2.15.20"
 
 \header {
-%% Translation of GIT committish: 
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 L'ajout du graveur @code{Bar_engraver} à un contexte @code{ChordNames}
 permet d'imprimer les barres de mesure entre les chiffrages.
@@ -16,6 +16,7 @@ permet d'imprimer les barres de mesure entre les chiffrages.
   doctitlefr = "Chiffrages et barres de mesure"
 
   lsrtags = "chords"
+
 
 
 

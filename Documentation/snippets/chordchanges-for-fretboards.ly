@@ -27,7 +27,7 @@ wenn der Akkord sich ändert oder eine neue Zeile anfängt.
 
   doctitlede = "Akkordänderungen für Bunddiagramme"
 
-%% Translation of GIT committish: 40bf2b38d674c43f38058494692d1a0993fad0bd
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Vous pouvez opter pour n'imprimer les diagrammes de fret qu'à l'occasion
 d'un changement d'accord ou de saut de ligne.

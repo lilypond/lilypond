@@ -25,7 +25,7 @@ Ein Liedblatt besteht aus Akkordbezeichnungen, einer Melodie und dem Liedtext:
 "
   doctitlede = "Ein einfaches Liedblatt"
 
-%% Translation of GIT committish: 9594a4569164407a146bbc4aad8be3a60a4725cf
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Assembler des noms d'accords, une mélodie et des paroles permet
 d'obtenir la  partition d'un chanson@tie{}:

@@ -41,7 +41,7 @@ Text und Akkorden schreiben.
   doctitlede = "Vorlage für eine Notenzeile mit Noten Text und Akkorden"
 
 
-%% Translation of GIT committish: ceb0afe7d4d0bdb3d17b9d0bff7936bb2a424d16
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Ce cannevas comporte tous les éléments d'une chanson@tie{}: la mélodie,
 les paroles, les accords.

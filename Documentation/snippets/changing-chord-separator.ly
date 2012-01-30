@@ -7,7 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Le séparateur de termes d'un chiffrage peut adopter n'importe quelle
 forme à l'aide d'un @emph{markup}.
@@ -16,6 +16,7 @@ forme à l'aide d'un @emph{markup}.
   doctitlefr = "Personnalisation du séparateur d'accords"
 
   lsrtags = "chords"
+
 
 
 

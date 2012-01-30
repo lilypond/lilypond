@@ -7,7 +7,44 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: COMMITTISH
+  texidocit = "
+Il comando @code{\\clef \"treble_8\"} equivale a impostare
+@code{clefGlyph}, @code{clefPosition} (che regola la posizione
+verticale della chiave), @code{middleCPosition} e
+@code{clefOctavation}. Viene stampata una chiave quando cambia una
+di queste proprietà, eccetto @code{middleCPosition}.
+
+
+La modifica del glifo, della posizione della chiave o
+dell'ottavazione non è sufficiente per cambiare la posizione delle
+note che seguono sul rigo: bisogna anche specificare la posizione
+del Do centrale (middle C). I parametri di posizione sono relativi
+alla linea centrale del rigo, con i numeri positivi che indicano
+la parte superiore: ogni linea e spazio valgono uno.  Il valore
+@code{clefOctavation} di norma è impostato su 7, -7, 15
+o -15, ma altri valori sono considerati validi.
+
+
+Quando un cambio di chiave avviene in corrispondenza di un'interruzione di
+linea, di norma il simbolo della nuova chiave viene inserito sia alla fine
+del rigo precedente sia all'inizio di quello successivo.  Se la
+chiave di avvertimento a fine rigo non fosse necessaria,
+può essere nascosta impostando la proprietà @code{explicitClefVisibility}
+del contesto @code{Staff} su @code{end-of-line-invisible}. Il comportamento
+predefinito può essere ripristinato con @code{\\unset Staff.explicitClefVisibility}.
+
+Gli esempi seguenti mostrano le possibilità date dall'impostazione
+manuale di tali proprietà. Sulla prima linea le modifiche manuali preservano
+il posizionamento relativo standard di chiavi e note, mentre sulla seconda
+linea non lo fanno.
+
+
+"
+  doctitleit = "Modifiche manuali della proprietà della chiave"
+
   lsrtags = "pitches, staff-notation, tweaks-and-overrides"
+
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   doctitlees = "Trucaje de las propiedades de clave"
@@ -78,7 +115,7 @@ Eigenschaften manuell setzt.  Auf der ersten Zeile erhalten die manuellen
 Noten, auf der zweiten Zeile nicht.
 "
 
-%% Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 La commande @code{\\clef \"treble_8\"} équivaut à définir @code{clefGlyph},
 @code{clefPosition} -- qui contrôle la position verticale de la clé --
