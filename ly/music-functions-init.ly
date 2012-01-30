@@ -692,7 +692,9 @@ Example:
 ")
    (let* ((voices (apply circular-list (make-list (length voice-ids) (list))))
 	  (current-voices voices)
-	  (current-sequence (list)))
+	  (current-sequence (list))
+	  (original music)
+	  (wrapper #f))
      ;;
      ;; utilities
      (define (push-music m)
@@ -718,6 +720,16 @@ Example:
 		       (let ((origins (remove not (map music-origin
 						       (ly:music-property music 'elements)))))
 			 (and (not (null? origins)) (car origins)))))))
+     (while (music-is-of-type? music 'music-wrapper-music)
+	    (set! wrapper music)
+	    (set! music (ly:music-property wrapper 'element)))
+     (if wrapper
+	 (set! (ly:music-property wrapper 'element)
+				  (make-music 'SequentialMusic
+					      'origin location))
+	 (set! original
+	       (make-music 'SequentialMusic
+			   'origin location)))
      ;;
      ;; first, split the music and fill in voices
      ;; We flatten direct layers of SequentialMusic since they are
@@ -758,9 +770,12 @@ Example:
      ;; bind voice identifiers to the voices
      (for-each (lambda (voice-id voice)
 	    (ly:parser-define! parser voice-id
-			       (make-music 'SequentialMusic
-					   'origin location
-					   'elements voice)))
+			       (let ((v (ly:music-deep-copy original)))
+				 (set! (ly:music-property
+					(car (extract-named-music
+					      v 'SequentialMusic))
+					'elements) voice)
+				 v)))
 	  voice-ids voices)))
 
 parenthesize =
