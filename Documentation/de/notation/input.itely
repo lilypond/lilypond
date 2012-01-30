@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: ac3dd3ad38528113d97f6a8a7b81751c328f1c36
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -25,6 +25,7 @@ Notation mit LilyPond und weniger direkte Fragen der Notation.
 * Arbeiten an Eingabe-Dateien::
 * Ausgabe kontrollieren::
 * MIDI-Ausgabe::
+* Musikalische Information extrahieren::
 @end menu
 
 
@@ -449,9 +450,10 @@ beinhaltet, wird übersetzt zu
         @{ c'4 d' e'2 @}
       @}
     @}
+    \layout @{ @}
   @}
-	\layout @{ @}
-	\header @{ @}
+  \paper @{ @}	
+  \header @{ @}
 @}
 @end example
 
@@ -533,7 +535,7 @@ nach jedem Befehl oder jeder Variable, also jeder Einheit, die mit
 @code{\} beginnt,
 @item
 nach jeder Einheit, die als Scheme-Ausdruck interpretiert werden,
-also alle Einheiten, die mit @code{#} beginnen.
+also alle Einheiten, die mit@tie{}@code{#} beginnen.
 @item
 Alle Einheiten von Scheme-Ausdrücken müssen mit Leerzeichen getrennt
 werden,
@@ -560,315 +562,799 @@ des Komponisten, teilweise wird auch noch sehr viel mehr Information
 zur Verfügung gestellt.
 
 @menu
-* Titel erstellen::
+* Titel Kopf und Fußzeilen erstellen::
 * Eigene Kopf und Fußzeilen sowie Titel::
+* Fußnoten erstellen::
 * Verweis auf die Seitenzahlen::
 * Inhaltsverzeichnis::
 @end menu
 
 
-@node Titel erstellen
-@subsection Titel erstellen
+@node Titel Kopf und Fußzeilen erstellen
+@subsection Titel, Kopf- und Fußzeilen erstellen
 @translationof Creating titles headers and footers
 
-Überschriften können für jede @code{\score}-Umgebung erstellt werden, sowohl
-für die gesamte Datei (oder eine @code{\book}-Umgebung) als auch für
-einzelne Buchabschnitte (innerhalb einer @code{\bookpart}-Umgebung).
+@menu
+* Wie funktioniert die Titel-Umgebung?::
+* Standardlayout von book und Partitur Titelumgebungen::
+* Standardlayout von Kopf und Fußzeilen::
+@end menu
 
-Der Inhalt der Titelei wird aus der @code{\header}-Umgebung übernommen.  Die
-@code{\header}-Umgebung eines Buches unterstützt folgende Felder:
 
-@table @code
-@funindex dedication
-@item dedication
-Die Widmung der Noten, wird auf oben auf der ersten Seite gesetzt.
+@node Wie funktioniert die Titel-Umgebung?
+@unnumberedsubsubsec Wie funktioniert die Titel-Umgebung?
+@translationof Title blocks explained
 
-@funindex title
-@item title
-Die Überschrift der Noten, wird unter der Widmung zentriert gesetzt.
+@c TODO: figure out how \bookpart titles work
 
-@funindex subtitle
-@item subtitle
-Untertitel, zentriert unter der Überschrift.
+Es gibt zwei Arten von Titelumgebungen: die Hauptumgebung, die über
+der ersten @code{\score}-Umgebung innerhalb eines @qq{book} notiert
+wird, und individuelle Titelumgebungen, die innerhalb von
+@code{\score} auftreten können.  Textfelder für beide Typen werden
+in der @code{\header}-Umgebung eingegeben.
 
-@funindex subsubtitle
-@item subsubtitle
-Unteruntertitel, zentriert unter dem Untertitel.
+Wenn in dem @qq{book} nur eine einzelne Partitur vorkommt,
+kann die @code{\header}-Umgebung innheralb oder außerhalb der
+@code{\score}-Umgebung geschrieben werden.
 
-@funindex poet
-@item poet
-Name des Dichters, linksbündig unter dem Unteruntertitel.
+@warning{Denken Sie daran, dass zuerst ein musikalischer Ausdruck
+notiert werden muss, wenn Sie eine @bs{}@code{header}-Umgebung innheralb
+einer @bs{}@code{score}-Umgebung verwenden wollen.}
 
-@funindex instrument
-@item instrument
-Bezeichnung des Instruments, zentriert unter dem Unteruntertitel.
-Auch oben auf der Seite zentriert (andere als erste Seite).
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\header {
+  title = "SUITE I."
+  composer = "J. S. Bach."
+}
 
-@funindex composer
-@item composer
-Name des Komponisten, rechtsbündig unter dem Unteruntertitel.
+\score {
+  \new Staff \relative g, {
+    \clef bass
+    \key g \major
+    \repeat unfold 2 { g16( d' b') a b d, b' d, } |
+    \repeat unfold 2 { g,16( e' c') b c e, c' e, } |
+  }
+  \header {
+    piece = "Prélude."
+  }
+}
 
-@funindex meter
-@item meter
-Metrum, linksbündig unter dem Dichter.
+\score {
+  \new Staff \relative b {
+    \clef bass
+    \key g \major
+    \partial 16 b16 |
+    <g, d' b'~>4 b'16 a( g fis) g( d e fis) g( a b c) |
+    d16( b g fis) g( e d c) b(c d e) fis( g a b) |
+  }
+  \header {
+    piece = "Allemande."
+  }
+}
+@end lilypond
 
-@funindex arranger
-@item arranger
-Name des Bearbeiters/Arrangeurs, rechtsbündig unter dem Komponisten.
+Textfelder der Haupttitelumgebung können in allen @code{\score}-Umgebungen
+gesetzt oder manuell unterdrückt werden:
 
-@funindex piece
-@item piece
-Bezeichnung des Stückes, linksbündig unter dem Metrum.
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    print-all-headers = ##t
+  }
+  \header {
+    title = "DAS WOHLTEMPERIRTE CLAVIER"
+    subtitle = "TEIL I"
+    % Do not display the tagline for this book
+    tagline = ##f
+  }
+  \markup { \vspace #1 }
+  \score {
+    \new PianoStaff <<
+      \new Staff { s1 }
+      \new Staff { \clef "bass" s1 }
+    >>
+    \header {
+      title = "PRAELUDIUM I"
+      opus = "BWV 846"
+      % Do not display the subtitle for this score
+      subtitle = ##f
+    }
+  }
+  \score {
+    \new PianoStaff <<
+      \new Staff { s1 }
+      \new Staff { \clef "bass" s1 }
+    >>
+    \header {
+      title = "FUGA I"
+      subsubtitle = "A 4 VOCI"
+      opus = "BWV 846"
+      % Do not display the subtitle for this score
+      subtitle = ##f
+    }
+  }
+}
+@end lilypond
 
-@funindex opus
-@item opus
-Bezeichnung des Opus, rechtsbündig unter dem Bearbeiter.
+@seealso
+Notationsreferenz:
+@ref{Die Dateistruktur},
+@ref{Angepasstes Layout für Titelumgebungen}.
 
-@cindex Seitenumbruch, erzwingen
+
+@node Standardlayout von book und Partitur Titelumgebungen
+@unnumberedsubsubsec Standardlayout von @code{book}- und Partitur-Titelumgebungen
+@translationof Default layout of book and score title blocks
+
+Layout und Formatierung der Titelfelder wird durch zwei
+@code{\paper}-Variablen kontrolliert: @code{bookTitleMarkup} für
+die Hauptumgebung und @code{scoreTitleMarkup} für einzelne
+@code{\header}-Umgebungen innerhalb von einer @code{\score}-Umgebung.
+
+@lilypond[papersize=a6,quote,verbatim,noragged-right]
+\header {
+  % The following fields are centered
+  dedication = "Dedication"
+  title = "Title"
+  subtitle = "Subtitle"
+  subsubtitle = "Subsubtitle"
+  instrument = "Instrument"
+
+  % The following fields are left-aligned on the left side
+  poet = "Poet"
+  meter = "Meter"
+
+  % The following fields are right-aligned on the right side
+  composer = "Composer"
+  arranger = "Arranger"
+}
+
+\score {
+  { s1 }
+  \header {
+    % The following fields are placed at opposite ends of the same line
+    piece = "Piece"
+    opus = "Opus"
+  }
+}
+@end lilypond
+
+@c Is the bit about \null markups true? -mp
+
+Textfelder, die in einer @code{\header}-Umgebung nicht benutzt werden,
+werden durch @code{\null}-Textbeschriftung ersetzt, sodass sie keinen
+leeren Platz belegen.
+
+Die Standardeinstellungen von @code{scoreTitleMarkup} platzieren
+die Felder @code{piece} (Stück) und @code{opus} zu den gegenüberliegenden
+Seiten der selben Zeile.
+
 @funindex breakbefore
 
-@item breakbefore
-Hiermit beginnt der Titel auf einer neuen Seite. (Kann die Werte
-##t (wahr) oder ##f (falsch) haben.)
+Mit der Variable @code{breakbefore} innerhalb einer @code{\header}-Umgebung,
+die für sich auch eine @code{\score}-Umgebung darstellt, kann man
+die Hauptüberschriften auf der ersten Seite allein ausgeben, sodass die
+Noten (in der @code{score}-Umgebung definiert) erst auf der folgenden
+Seite beginnen.
 
-@funindex copyright
-@item copyright
-Anzeige eines Copyright, zentriert unten auf der ersten Seite.  Um das
-Copyright-Symbol zu notieren, siehe @ref{Zeichenkodierung}.
-
-@funindex tagline
-@item tagline
-Zentriert unten auf der letzten Seite.  Enthält standardmäßig: @qq{Music
-engraving by LilyPond (@var{version})---www.lilypond.org}
-
-@end table
-
-Hier eine Demonstration der möglichen Felder.  Beliebige
-Formatierungsbefehle für Textbeschriftung können in der Titelei
-eingesetzt werden.  Siehe hierzu auch @ref{Text formatieren}.
-
-@c KEEP LY
-@lilypond[quote,verbatim,line-width=11.0\cm]
-\paper {
-  line-width = 9.0\cm
-  paper-height = 10.0\cm
-}
-
+@lilypond[papersize=a8landscape,verbatim,noragged-right]
 \book {
   \header {
-    dedication = "mir gewidmet"
-    title = \markup \center-column { "Titel erste Zeile" "Titel zweite Zeile, länger" }
-    subtitle = "Untertitel"
-    subsubtitle = #(string-append "Unteruntertitel LilyPond-Version "
-(lilypond-version))
-    poet = "Dichter"
-    composer =  \markup \center-column { "Komponist" \small "(1847-1973)" }
-    texttranslator = "Übersetzer"
-    meter = \markup { \teeny "m" \tiny "e" \normalsize "t" \large "r" \huge
-"um" }
-    arranger = \markup { \fontsize #8.5 "Be" \fontsize #2.5 "ar" \fontsize
-#-2.5 "be" \fontsize #-5.3 "i" \fontsize #7.5 "ter" }
-    instrument = \markup \bold \italic "Instrument"
-    piece = "Stück"
-  }
-
-  \score {
-    { c'1 }
-    \header {
-      piece = "Stück zwei"
-      opus = "Opus1"
-    }
-  }
-  \markup {
-      und jetzt...
+    title = "This is my Title"
+    subtitle = "This is my Subtitle"
+    copyright = "This is the bottom of the first page"
   }
   \score {
-    { c'1 }
+    \repeat unfold 4 { e'' e'' e'' e'' }
     \header {
-      piece = "Stück2"
-      opus = "Opus2"
+      piece = "This is the Music"
+      breakbefore = ##t
     }
   }
 }
 @end lilypond
 
-Wie schon oben gezeigt, können mehrfache @code{\header}-Umgebungen
-eingesetzt werden.  Wenn das gleiche Feld in mehreren
-Umgebungen, wird die letzte vorkommende
-Version benutzt.  Hier ein kurzes Beispiel:
+@seealso
+Handbuch zum Lernen:
+@rlearning{Wie eine LilyPond-Eingabe-Datei funktioniert},
 
-@example
-\header @{
-  composer = "Komponist"
-@}
-\header @{
-  piece = "Stück"
-@}
-\score @{
-  \new Staff @{ c'4 @}
-  \header @{
-    piece = "Neues Stück"  % überschreibt die die vorige Definition
-  @}
-@}
-@end example
+Notationsreferenz:
+@ref{Die Dateistruktur}.
 
-Wenn @code{\header} innerhalb der @code{\score}-Umgebung definiert wird,
-wird normalerweise nur die Information von @code{piece} und @code{opus}
-ausgegeben.  Musikalische Ausdrücke innerhalb von @code{\score} müssen
-vor @code{\header} gesetzt werden.
+Installierte Dateien:
+@file{ly/titling-init.ly}.
 
-@lilypond[quote,verbatim,line-width=11.0\cm]
-\score {
-  { c'4 }
+
+@node Standardlayout von Kopf und Fußzeilen
+@unnumberedsubsubsec Standardlayout von Kopf- und Fußzeilen
+@translationof Default layout of headers and footers
+
+@emph{Kopf-} und @emph{Fußzeilen} sind Textzeilen, die ganz oben
+und ganz unten auf der Seite stehen, unabhängig vom Textbereich eines
+Buches.  Sie können mit folgenden @code{\paper}-Variablen kontrolliert
+werden:
+
+@itemize
+@item @code{oddHeaderMarkup}
+@item @code{evenHeaderMarkup}
+@item @code{oddFooterMarkup}
+@item @code{evenFooterMarkup}
+@end itemize
+
+Diese Beschriftungsvariablen können nur auf Textfelder einer
+Haupttitelumgebung (eine @code{\header}-Umgebung auf höchster Ebene, die
+sich auf alle @code{\score}-Umgebungen einer Datei bezieht)
+zugreifen und sind definiert in der Datei @file{ly/titling-init.ly}.  In
+den Standardeinstellungen
+
+@itemize
+
+@item
+werden Seitenzahlen automatisch ganz oben links (wenn gerade) oder ganz
+oben rechts (wenn ungerade) gesetzt, beginnend mit der zweiten Seite.
+
+@item
+wird das @code{instrument}-Textfeld auf jeder Seite zentriert, beginnend
+mit der zweiten Seite.
+
+@item
+wird der @code{copyright}-Text unten auf der ersten Zeite zentriert.
+
+@item
+wird der Inhalt von @code{tagline} unten auf der letzten Seite zentriert
+und unterhalb des @code{copyright}-Texts, wenn es sich nur um eine Seite
+handelt.
+
+@end itemize
+
+@lilypond[papersize=a8landscape]
+\book {
+  \score {
+    \relative c' {
+      c4 d e f
+    }
+  }
+}
+@end lilypond
+
+Die Standardeinstellung von @code{tagline} kann verändert werden,
+indem man ein @code{tagline}-Feld in die @code{\header}-Umgebung auf
+höchster Ebene schreibt.
+
+@lilypond[papersize=a8landscape,verbatim]
+\book {
   \header {
-    title = "title"  % not printed
-    piece = "piece"
-    opus = "opus"
+    tagline = "... music notation for Everyone"
+  }
+  \score {
+    \relative c' {
+      c4 d e f
+    }
   }
 }
 @end lilypond
 
-@funindex print-all-headers
-
-@noindent
-Dieses Verhalten kann verändert werden (sodass alle Angaben aus der
-Überschrift gesetzt werden, wenn sich @code{\header} innerhalb von
-@code{\score} befindet), indem man schreibt:
-
-@example
-\paper@{
-  print-all-headers = ##t
-@}
-@end example
-
-@cindex Copyright
-@cindex Tagline
-
-Die Standardfußzeile ist leer mit Ausnahme der ersten Seite, auf der
-das @code{copyright}-Feld aus der @code{\header}-Umgebung eingefügt wird,
-und die letzte Seite, auf der das @code{tagline}-Feld eingefügt wird.
-Der Standardinhalt von @code{tagline} ist @qq{Music engraving by
-LilyPond (@var{version})---www.lilypond.org}.  Gut gesetzte Noten werben sehr effektiv
-für LilyPond, darum bitten wir darum, diese Zeile stehen zu lassen,
-wenn es möglich ist.
-
-Ein Titelfeld kann vollständig entfernt werden, indem es auf
-falsch gesetzt wird:
-
-@example
-\header @{
-  tagline = ##f
-  composer = ##f
-@}
-@end example
+Um die @emph{tagline} ganz zu entfernen, wird ihr Inhalb als @code{##f}
+(falsch) definiert.
 
 
 @node Eigene Kopf und Fußzeilen sowie Titel
 @subsection Eigene Kopf- und Fußzeilen sowie Titel
 @translationof Custom headers footers and titles
 
-Kompliziertere Anpassungen können vorgenommen werden, indem die
-folgenden Variablen innerhalb der @code{\paper}-Umgebung geändert
-werden.  Die Init-Datei @file{../ly/titling-init.ly} enthält das
-Standardverhalten.
+@c TODO: somewhere put a link to header spacing info
+@c       (you'll have to explain it more in NR 4).
 
-@table @code
-
-@funindex bookTitleMarkup
-
-@item bookTitleMarkup
-Das ist die Überschrift, die für das gesamte Dokument gilt.  Üblicherweise
-wird hier der Komponist und die Überschrift des Werkes genannt.
-
-@funindex scoreTitleMarkup
-
-@item scoreTitleMarkup
-Das ist die Überschrift, die vor jede @code{\score}-Umgebung gesetzt wird.
-Üblicherweise wird hier etwa die Bezeichnung eines Satzes notiert
-(im @code{piece}-Feld).
-
-@funindex oddHeaderMarkup
-
-@item oddHeaderMarkup
-Das ist der Seitenkopf für ungerade Seiten.
-
-@funindex evenHeaderMarkup
-
-@item evenHeaderMarkup
-Das ist der Seitenkopf für gerade Seiten.  Wenn undefiniert, wird der
-ungerade Seitenkopf eingesetzt.
-
-Standardmäßig werden die Kopfzeilen so definiert, dass die Seitennummer
-sich außen befindet und das Instrument zentriert gesetzt wird.
-
-@funindex oddFooterMarkup
-
-@item oddFooterMarkup
-Das ist die Fußzeile für ungerade Seiten.
-
-@funindex evenFooterMarkup
-
-@item evenFooterMarkup
-Das ist die Fußzeile für gerade Seiten.  Wenn undefiniert, wird die
-ungerade Fußzeile eingesetzt.
-
-Standardmäßig wird in der Fußzeile auf der ersten Seite das Copyright
-und auf der letzten Seite die Tag-Zeile gesetzt.
-
-@end table
+@menu
+* Angepasste Textformatierung für Titelumgebungen::
+* Angepasstes Layout für Titelumgebungen::
+* Angepasstes Layout für Kopf und Fußzeilen::
+@end menu
 
 
-@funindex \paper
-@cindex Kopfzeile
-@cindex Fußzeile
-@cindex Seitenlayout
-@cindex Layout der Seite
-@cindex Titel
-@cindex Überschriften
+@node Angepasste Textformatierung für Titelumgebungen
+@unnumberedsubsubsec Angepasste Textformatierung für Titelumgebungen
+@translationof Custom text formatting for title blocks
 
-Die folgende Definition setzt die Überschrift linksbündig und
-den Komponisten rechtsbündig auf einer einzelnen Zeile:
+Standard-@code{\markup}-Befehle können eingesetzt werden, um jeglichen
+Text in Titeln, Kopf- und Fußzeilen innerhalb der @code{\header}-Umgebung
+zu verändern.
+
+@lilypond[quote,verbatim,noragged-right]
+\score {
+  { s1 }
+  \header {
+    piece = \markup { \fontsize #4 \bold "PRAELUDIUM I" }
+    subtitle = \markup { \italic "(Excerpt)" }
+  }
+}
+@end lilypond
+
+@seealso
+Notationsreferenz:
+@ref{Text formatieren}.
+
+
+@node Angepasstes Layout für Titelumgebungen
+@unnumberedsubsubsec Angepasstes Layout für Titelumgebungen
+@translationof Custom layout for title blocks
+
+@code{\markup}-Befehle in der @code{\header}-Umgebung sind sinnvoll
+für einfaches Formatieren von Text, aber sie gewähren keine genaue
+Kontrolle über die Positionierung von Titeln.  Um die Positionierung
+von Titeltextfeldern vorzunehmen, eignen sich beide oder eine von
+folgenden Variablen (die man in der @code{\paper}-Umgebung einsetzen muss):
+
+@itemize
+@item @code{bookTitleMarkup}
+@item @code{scoreTitleMarkup}
+@end itemize
+
+Diese Beschriftungsvariablen sind behandelt in
+@ref{Standardlayout von book und Partitur Titelumgebungen}.
+
+Die Standardeinstellungen von @code{scoreTitleMarkup}, wie in der
+Datei @file{ly/titling-init.ly} definiert, sind:
 
 @example
-\paper @{
-  bookTitleMarkup = \markup @{
-   \fill-line @{
-     \fromproperty #'header:title
-     \fromproperty #'header:composer
-   @}
+scoreTitleMarkup = \markup @{ \column @{
+  \on-the-fly #print-all-headers @{ \bookTitleMarkup \hspace #1 @}
+  \fill-line @{
+    \fromproperty #'header:piece
+    \fromproperty #'header:opus
   @}
+@}
 @}
 @end example
 
-Kopf- und Fußzeile werden mit den Funktionen @code{make-header} und
-@code{make-footer} erstellt, welche in @code{\paper} definiert werden.
-Die Standardimplementationen finden sich in @file{ly/paper-defaults-init.ly} und
-@file{ly/titling-init.ly}.
+Dadurch werden die Textfelder @code{piece} (Stück) und @code{opus}
+an den gegenüberliegenden Enden der gleichen Zeile platziert:
 
-Dieses Beispiel zentriert die Seitenzahlen unten auf jeder Seite:
+@lilypond[quote,verbatim,noragged-right]
+\score {
+  { s1 }
+  \header {
+    piece = "PRAELUDIUM I"
+    opus = "BWV 846"
+  }
+}
+@end lilypond
 
-@example
-\paper @{
-  print-page-number = ##t
-  print-first-page-number = ##t
-  oddHeaderMarkup = \markup \fill-line @{ " " @}
-  evenHeaderMarkup = \markup \fill-line @{ " " @}
-  oddFooterMarkup = \markup @{
-    \fill-line @{
-      \bold \fontsize #3
-      \on-the-fly #print-page-number-check-first
-      \fromproperty #'page:page-number-string
-    @}
-  @}
-  evenFooterMarkup = \markup @{
-    \fill-line @{
-      \bold \fontsize #3
-      \on-the-fly #print-page-number-check-first
-      \fromproperty #'page:page-number-string
-    @}
-  @}
-@}
-@end example
+Das folgende Beispiel verändert die Einstellungen von
+@code{scoreTitleMarkup}, sodass das Textfeld @code{piece}
+zentriert wird und in fetter, größerer Schrift erscheint.
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    indent = 0\mm
+    scoreTitleMarkup = \markup {
+      \fill-line {
+        \null
+        \fontsize #4 \bold \fromproperty #'header:piece
+        \fromproperty #'header:opus
+      }
+    }
+  }
+  \header { tagline = ##f }
+  \score {
+    { s1 }
+    \header {
+      piece = "PRAELUDIUM I"
+      opus = "BWV 846"
+    }
+  }
+}
+@end lilypond
+
+Textfelder, die normalerweise nur im Haupttitel ausgegeben werden,
+können auch in die Titel einzelner Partituren aufgenommen werden,
+indem man @code{print-all-headers} in die @code{\paper}-Umgebung einfügt.
+Ein Nachteil dieser Methode ist, dass Textfelder, die tatsächlich nur
+im Haupttitel erscheinen sollen, manuell für jede Partitur unterdrückt
+werden müssen.  Siehe auch @ref{Wie funktioniert die Titel-Umgebung?}.
+
+Um das zu vermeiden, kann das gewünschte Feld zur Definition von
+@code{scoreTitleMarkup} hinzugefügt werden.  Im folgenden Beispiel
+wird das Komponistenfeld (@code{composer}) (normalerweise mit
+@code{bookTitleMarkup} assoziiert) zu @code{scoreTitleMarkup}
+hinzugefügt, sodass jede Partitur einen eigenen Komponisten haben kann.
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    indent = 0\mm
+    scoreTitleMarkup = \markup {
+      \fill-line {
+        \null
+        \fontsize #4 \bold \fromproperty #'header:piece
+        \fromproperty #'header:composer
+      }
+    }
+  }
+  \header { tagline = ##f }
+  \score {
+    { s1 }
+    \header {
+      piece = "MENUET"
+      composer = "Christian Petzold"
+    }
+  }
+  \score {
+    { s1 }
+    \header {
+      piece = "RONDEAU"
+      composer = "François Couperin"
+    }
+  }
+}
+@end lilypond
+
+Es ist auch möglich, eigene Textfelder zu erstellen und dann auf sie
+in der Beschriftungsdefinition zu verweisen:
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    indent = 0\mm
+    scoreTitleMarkup = \markup {
+      \fill-line {
+        \null
+        \override #`(direction . ,UP) {
+          \dir-column {
+            \center-align \fontsize #-1 \bold
+              \fromproperty #'header:mycustomtext %% User-defined field
+            \center-align \fontsize #4 \bold
+              \fromproperty #'header:piece
+          }
+        }
+        \fromproperty #'header:opus
+      }
+    }
+  }
+  \header { tagline = ##f }
+  \score {
+    { s1 }
+    \header {
+      piece = "FUGA I"
+      mycustomtext = "A 4 VOCI" %% User-defined field
+      opus = "BWV 846"
+    }
+  }
+}
+@end lilypond
+
+@seealso
+Notationsreferenz:
+@ref{Wie funktioniert die Titel-Umgebung?}.
+
+
+@node Angepasstes Layout für Kopf und Fußzeilen
+@unnumberedsubsubsec Angepasstes Layout für Kopf- und Fußzeilen
+@translationof Custom layout for headers and footers
+
+@c can make-header and make-footer be removed from
+@c paper-defaults-init.ly? -mp
+
+@code{\markup}-Befehle in der @code{\header}-Umgebung sind nützlich
+um einfachen Text zu formatieren, erlauben aber keine Kontrolle
+über die Positionierung von Kopf- und Fußzeilen.  Um die Positionierung
+der Textfelder zu ändern, eignen sich beide oder eine von
+folgenden Variablen (die man in der @code{\paper}-Umgebung einsetzen muss):
+
+@itemize
+@item @code{oddHeaderMarkup}
+@item @code{evenHeaderMarkup}
+@item @code{oddFooterMarkup}
+@item @code{evenFooterMarkup}
+@end itemize
+
+Das folgende Beispiel zentriert die Seitenzahlen unten auf jeder Seite.
+Zuerst werden die Standardeinstellungen von @code{oddHeaderMarkup} und
+@code{evenHeaderMarkup} entfernt, indem sie als @qq{Null}-Beschriftung
+definiert werden.  Dann wird @code{oddFooterMarkup} mit zentrierter
+Seitennummer neu definiert.  Schließlich erhält @code{evenFooterMarkup} 
+die selbe Layoutdefinition wie @code{\oddFooterMarkup}:
+
+@lilypond[papersize=a8,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    print-page-number = ##t
+    print-first-page-number = ##t
+    oddHeaderMarkup = \markup \null
+    evenHeaderMarkup = \markup \null
+    oddFooterMarkup = \markup {
+      \fill-line {
+        \on-the-fly #print-page-number-check-first
+        \fromproperty #'page:page-number-string
+      }
+    }
+    evenFooterMarkup = \oddFooterMarkup
+  }
+  \score {
+    \new Staff { s1 \break s1 \break s1 }
+  }
+}
+@end lilypond
+
+@seealso
+Notationsreferenz:
+@ref{Wie funktioniert die Titel-Umgebung?},
+@ref{Standardlayout von book und Partitur Titelumgebungen}.
+
+
+@node Fußnoten erstellen
+@subsection Fußnoten erstellen
+@translationof Creating footnotes
+
+Zwei Arten an Fußnoten können erstellt werden: automatische und
+manuelle Fußnoten.
+
+@menu
+* Übersicht über Fußnoten::
+* Automatische Fußnoten::
+* Manuelle Fußnoten::
+@end menu
+
+@node Übersicht über Fußnoten
+@unnumberedsubsubsec Übersicht über Fußnoten
+@translationof Footnotes overview
+
+Automatische Fußnoten erstellen aufsteigende Zahlenverweise, während
+mit manuellen Fußnoten eigene angepasste Verweise erstellt werden
+können.  Alle Grobs, @code{\markup}-Beschriftung auf höchster Ebene
+und zu Akkord zusammengefasste Noten können mit Fußnoten versehen werden.
+
+Die Reihenfolge, in welcher ein Grob erstellt wird, bestimmt die
+Reihenfolge der Nummerierung automatischer Fußnoten.
+
+
+@node Automatische Fußnoten
+@unnumberedsubsubsec Automatische Fußnoten
+@translationof Automatic footnotes
+
+@cindex Fußnoten, automatisch
+
+Es gibt zwei Befehle, um autmatische Fußnoten zu erstellen: 
+@code{\autoFootnoteGrob} für einzelne Grobs (etwa Notenköpfe,
+Hälse, Bögen, Dynamik (auch @code{\markup} wenn @code{TextScripts}-Dynamik
+aktiv ist) sowie @code{\autoFootnote} für Akkordnoten.
+
+Beide Befehle haben drei Argumente: das @var{Layoutobjekt}, das die
+Anmerkung erhalten soll, die @var{(x . y)}-Position des Indikators und
+eine @code{\markup}-Beschriftung, die den Inhalt der Fußnote enthält.
+
+Der Befehl @code{\autoFootnoteGrob} muss @emph{vor} dem Grob geschrieben
+werden, auf den sie sich bezieht.
+
+@c KEEP LY
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \autoFootnoteGrob #'NoteHead #'(0.5 . -2)
+      \markup { Die erste Note }
+    a'4 b8
+    \autoFootnoteGrob #'NoteHead #'(0.5 . 1)
+      \markup { Die dritte Note }
+    e c4 d4
+  }
+}
+@end lilypond
+
+Bei Noten in Akkorden muss der Befehl @code{\autoFootnote} @emph{nach}
+der Note, auf der sie sich bezieht, stehen:
+
+@c KEEP LY
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    <
+    c-\autoFootnote #'(1 . -1.25) "Hier ein C"
+    es-\autoFootnote #'(2 . -0.25) \markup { \italic "Ein Ex" }
+    g-\autoFootnote #'(2 . 3) \markup { \bold "Das ist ein G" }
+    >1
+  }
+}
+@end lilypond
+
+@warning {Wenn Fußnoten die selbe vertikale Position haben, werden
+sie von oben nach unten nummeriert.}
+
+Hier noch einige Beispiele von Grobs, die mit automatischen Fußnoten
+versehen sind, wobei auch die Position des Fußnotentextes relativ zu
+Tagline und Copyright gezeigt wird.
+
+@c KEEP LY
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { copyright = \markup { "Copyright 1970" } }
+  \relative c' {
+    \autoFootnoteGrob #'DynamicText #'(-3 . 0)
+      \markup { \bold Forte }
+
+    \autoFootnoteGrob #'Slur #'(0 . 1.5)
+      \markup { Ein Bogen }
+    a'4\f(
+
+    \autoFootnoteGrob #'Beam #'(0 . -2)
+      \markup { Balken }
+    b8)[ e]
+
+    \autoFootnoteGrob #'Stem #'(1 . -1)
+      \markup  { \teeny { Das ist ein Hals } }
+    c4
+
+    \autoFootnoteGrob #'AccidentalCautionary #'(0 . 0.5)
+      \markup \italic { Ein Warnungsversetzungszeichen }
+
+    \autoFootnoteGrob #'TextScript #'(0.5 . -0.5)
+      \markup \italic { Langsamer hier }
+    dis?4_"rit."
+  }
+}
+@end lilypond
+
+Für eine @code{\markup}-Beschriftung auf oberster Ebene braucht man
+den Befehl @code{\auto-footnote}:
+
+@c KEEP LY
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \markup { \auto-footnote "Eine einfache Melodie" \italic "Von mir" }
+  \relative c' {
+    a'4 b8 e c4 d
+  }
+}
+@end lilypond
+
+
+@node Manuelle Fußnoten
+@unnumberedsubsubsec Manuelle Fußnoten
+@translationof Manual footnotes
+
+@funindex \footnote
+@funindex \footnoteGrob
+@cindex Fußnoten, manuell
+
+Mit zwei Befehlen können manuelle Fußnoten erstellt werden: @code{\footnote}
+für @code{\markup}-Beschriftung auf höchster Ebene und Noten in
+Akkorden sowie @code{\footnoteGrob} für einzelne Grobs (inklusive
+@code{\markup} wenn @code{TextScripts} benutzt wird).
+
+Wenn Fußnoten an Grobs angehänt werden, braucht der
+@code{\footnote}-Befehl vier Argumente: das @var{Layoutobjekt}, das
+die Anmerkung erhält, die @var{(x . y)}-Position des Indikators
+und zwei @code{\markup}-Befehle - der erste ist das Symbol, das
+als Indikator an den Grob gehängt wird, der zweite der Inhalt
+der Fußnote.
+
+Der Befehl @code{\footnoteGrob} muss @emph{nach} dem Grob
+kommen, an den die Fußnote gehängt wird und als @code{TextScript}
+geschrieben werden:
+
+@c KEEP LY
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    a'4-\footnoteGrob #'NoteHead #'(0.5 . -2)
+          "1" \markup { \italic "1. Die erste Note" }
+    b8
+    e-\footnoteGrob #'NoteHead #'(0.5 . 1)
+          \markup { \bold "2" } "2. Die zweite Note"
+    c4
+    d\p-\footnoteGrob #'DynamicText #'(0.5 . -1) "3" "3. Piano"
+  }
+}
+@end lilypond
+
+Fußnoten für Akkordnoten müssen @emph{nach} der Note, auf die sie sich
+beziehen, mit dem Befehl @code{\footnote} als @code{TextScript}
+notiert werden:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    <
+    c-\footnote #'(1 . -1.25) "1" "1. C"
+    es-\footnote #'(2 . -0.25)
+       \markup { \bold "b" } "b. E-flat"
+    g-\footnote #'(2 . 3) "3" \markup { \italic "iii. G" }
+    >1
+  }
+}
+@end lilypond
+
+@warning {Wenn Fußnoten die selbe vertikale Position haben, werden
+sie von oben nach unten nummeriert.}
+
+Hier einige Beispiele manueller Fußnoten, die auch die relative
+Position der Fußnotentexte zu Tagline und Copyright anzeigen:
+
+@c KEEP LY
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \footnoteGrob #'DynamicText #'(-3 . 0)
+      \markup { \teeny 1 }
+      \markup { 1. \bold Forte }
+
+    \footnoteGrob #'Slur #'(0 . 1.5)
+      \markup { \teeny b }
+      \markup { b. Ein Bogen }
+    a'4\f(
+
+    \footnoteGrob #'Beam #'(0 . -2)
+      \markup { \teeny 3 }
+      \markup { 3. Balken }
+    b8)[ e]
+
+    \footnoteGrob #'Stem #'(1 . -1)
+      \markup { 4 }
+      \markup  { \bold 4. { Das ist ein Hals } }
+    c4
+
+    \footnoteGrob #'AccidentalCautionary #'(0 . 0.5)
+      \markup \concat \teeny { "sharp (v)" }
+      \markup \italic { v. Ein Warnungsversetzungszeichen }
+
+    \footnoteGrob #'TextScript #'(0.5 . -0.5)
+      \markup \concat \teeny { "a" }
+      \markup \italic { a. Langsamer hier }
+    dis?4_"rit."
+
+    \breathe
+    \footnoteGrob #'BreathingSign #'(1.5 . -0.25)
+      \markup { \teeny \musicglyph #"rests.4" }
+      \markup { \null }
+  }
+}
+@end lilypond
+
+Eine @code{\markup}-Beschriftung der höchsten Ebene wird wie folgt
+annotiert:
+@c KEEP LY
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \markup { "Eine einfache Melodie" \footnote "*" \italic "* Von mir" }
+  \relative c' {
+    a'4 b8 e c4 d4
+  }
+}
+@end lilypond
+
+@seealso
+Handbuch zum Lernen:
+@rlearning{Objekte und Schnittstellen}.
+
+Notationsreferenz:
+@ref{Erklärungen in Ballonform},
+@ref{Seitenlayout},
+@ref{Textartige Zeichen},
+@ref{Textarten},
+@ref{Titel}.
+
+Referenz der Interna:
+@rinternals{FootnoteEvent},
+@rinternals{FootnoteItem},
+@rinternals{FootnoteSpanner},
+@rinternals{Footnote_engraver}.
+
+@knownissues
+Mehrere Fußnoten auf einer Seite können ausschließlich übereinander
+gedruckt werden und nicht auf der gleiche Zeile gesetzt werden.
+Fußnoten können nicht an @code{MultiMeasureRests} (mehrtaktige Pause)
+angehängt werden und können mit @code{Staff}-(Notensystem)-,
+@code{\markup}-(Beschriftungs)-Objekten und anderen Fußnoten
+zusammenstoßen.  Wenn man den manuellen Fußnotenbefehl einsetzt,
+braucht man in der @code{\paper}-Umgebung den Eintrag
+@code{footnote-auto-number = ##f}.
 
 
 @node Verweis auf die Seitenzahlen
@@ -883,7 +1369,7 @@ Verweis wird mit dem Befehl @code{\page-ref} gefordert (innerhalb
 von @code{\markup}).
 
 @c KEEP LY
-@lilypond[verbatim,line-width=11.0\cm]
+@lilypond[verbatim]
 \header { tagline = ##f }
 \book {
   \label #'ErstePartitur
@@ -894,7 +1380,6 @@ von @code{\markup}).
       c'1
     }
   }
-
   \markup { Die erste Partitur fängt auf
             Seite \page-ref #'ErstePartitur "0" "?" an.}
   \markup { Zeichen A befindet sich auf Seite
@@ -1082,8 +1567,7 @@ Installierte Dateien:
 @menu
 * LilyPond-Dateien einfügen::
 * Verschiedene Editionen aus einer Quelldatei::
-* Zeichenkodierung::
-* LilyPond-Notation anzeigen::
+* Sonderzeichen::
 @end menu
 
 
@@ -1147,7 +1631,7 @@ werden erst interpretiert, wenn sie sich in der Hauptdatei befinden,
 sodass die Pfadangaben hier nicht relativ zur eingebundenen Datei,
 sondern relativ zur Hauptdatei gesetzt werden müssen.  Dieses Verhalten
 kann jedoch auch verändert werden, indem man lilypond die Option
-@code{-drelative-includes} auf der Kommandozeile zuweist (oder indem
+@option{-drelative-includes} auf der Kommandozeile zuweist (oder indem
 man den Befehl @code{#(ly:set-option 'relative-includes #t)} an den
 Beginn der Quelldatei schreibt).  Mit @code{relative-includes} wird
 der Pfad jedes @code{\include}-Befehls als relativ zu der Datei angenommen,
@@ -1193,7 +1677,7 @@ im Abschnitt @rlearning{Mehr Information} besprochen.
 Diese Dateien können verändert werden, aber Änderungen gehen verloren,
 wenn eine neue LilyPond-Version installiert wird.
 
-Eine einfache Beispiele, die die Benutzung von @code{\include} demonstrieren,
+Einige einfache Beispiele, die die Benutzung von @code{\include} demonstrieren,
 sind dargestellt in
 @rlearning{Partituren und Stimmen}.
 
@@ -1203,7 +1687,6 @@ Handbuch zum Lernen:
 @rlearning{Partituren und Stimmen}.
 
 @knownissues
-
 Wenn eine Datei eingebunden wird, deren Name einer Datei aus
 dem Installationsverzeichnis von LilyPond entspricht, wird die
 installierte Datei anstelle der eigenen verwendet.
@@ -1219,7 +1702,10 @@ Variablen werden am besten eingesetzt, wenn es darum geht, längere
 Notenpassagen und/oder Anmerkungen/Textmarken miteinander auf
 verschiedene Weise zu kombinieren.  Tag-Marken dagegen werden am
 besten eingesetzt, wenn eine von mehreren kurzen alternativen
-Notenabschnitten ausgewählt werden soll.  Egal welche Methode am
+Notenabschnitten ausgewählt werden soll und können auch eingesetzt
+werden, um Musikabschnitte an unterschiedlichen Stellen zusammenzufügen.  
+
+Egal welche Methode am
 Ende eingesetzt wird: Es erleichtert die Arbeit in jedem Fall, wenn
 die eigentlichen Noten und die Struktur der Partitur voneinander
 getrennt notiert werden -- so kann die Struktur geändert werden,
@@ -1302,13 +1788,17 @@ werden, die dann eingebunden werden, siehe @ref{LilyPond-Dateien einfügen}.
 @cindex Marke
 @cindex markierte Noten entfernen
 @cindex markierte Noten behalten
+@cindex in markierte Noten einfügen
 
 @funindex \tag
 @funindex \keepWithTag
 @funindex \removeWithTag
+@funindex \pushToTag
+@funindex \appendToTag
 @funindex tag
 @funindex keepWithTag
 @funindex removeWithTag
+
 
 Der @code{\tag #'@var{TeilA}}-Befehl markiert einen musikalischen
 Ausdruck mit der Bezeichnung @var{TeilA}.  Ausdrücke, die auf diese
@@ -1443,6 +1933,30 @@ werden, weil der erste Befehl alle markierten Abschnitt außer dem
 im Befehl genannten wegfiltert und der zweite Befehl dann auch diesen
 eben genannten zusätzlich entfernt.
 
+Manchmal will man Noten an einem bestimmen Platz in existierenden
+Noten einfügen.  Dafür kann entweder @code{\pushToTag} oder
+@code{\appendToTag} benutzt werden, um Material hinter bzw. vor den
+Elementen (@code{elements}) der existierenden Noten einzufügen.  Nicht
+alle musikalischen Konstruktionen haben Elemente, aber sequentielle und
+simultane Noten sind ziemlich gute Kandidaten:
+
+@lilypond[verbatim,quote]
+test = { \tag #'here { \tag #'here <<c''>> } }
+
+{
+  \pushToTag #'here c'
+  \pushToTag #'here e'
+  \pushToTag #'here g' \test
+  \appendToTag #'here c'
+  \appendToTag #'here e'
+  \appendToTag #'here g' \test
+}
+@end lilypond
+
+Beide Befehle erhalten einen Tag, das Material, das bei jedem Auftreten
+des Tags eingefügt werden soll und den Ausdruck, der mit dem Tag versehen
+ist.  Der Befehl stellt sicher, dass alle Änderungen kopiert werden, sodass
+das ursprüngliche @code{\test} seine Bedeutung behält.
 
 @seealso
 Handbuch zum Lernen:
@@ -1497,13 +2011,26 @@ Notationsreferenz:
 @ref{LilyPond-Dateien einfügen}.
 
 
+@node Sonderzeichen
+@subsection sonderzeichen
+@translationof Special characters
+
+@cindex Sonderzeichen
+@cindex Nicht-ASCII-Zeichen
+
+@menu
+* Zeichenkodierung::
+* Unicode::
+* ASCII-Aliase::
+@end menu
+
+
 @node Zeichenkodierung
 @unnumberedsubsubsec Zeichenkodierung
 @translationof Text encoding
 
-@cindex Unicode
+
 @cindex UTF-8
-@cindex Nicht-ASCII-Zeichen
 
 LilyPond benutzt alle Zeichen, die durch das Unicode-Konsortium
 und ISO/IEC 10646 definiert sind.  Hiermit wird den Zeichen
@@ -1566,6 +2093,13 @@ portuguese = \lyricmode {
 \addlyrics { \portuguese }
 @end lilypond
 
+
+@node Unicode
+@unnumberedsubsubsec Unicode
+@translationof Unicode
+
+@cindex Unicode
+
 Um einen einzelnen Buchstaben zu notieren, für den die Unicode-Ziffernfolge
 bekannt ist, der aber nicht auf der Tastatur zu finden ist, kann
 der Befehl @code{\char ##xhhhh} oder @code{\char #dddd} innerhalb einer
@@ -1600,7 +2134,7 @@ im Gesangstext und als normaler Text außerhalb der Partitur.
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
 }
-\markup { "Copyright 2008--2012" \char ##x00A9 }
+\markup { "Copyright 2008--2011" \char ##x00A9 }
 @end lilypond
 
 @cindex Copyright-Zeichen
@@ -1614,38 +2148,59 @@ Um das Copyright-Zeichen zu notieren, kann folgender Code eingesetzt werden:
 @end example
 
 
-@node LilyPond-Notation anzeigen
-@subsection LilyPond-Notation anzeigen
-@translationof Displaying LilyPond notation
+@node ASCII-Aliase
+@unnumberedsubsubsec ASCII-Aliase
+@translationof ASCII aliases
 
-@funindex \displayLilyMusic
+Eine Liste von ASCII-Befehlen für Sonderzeichen kann
+eingefügt werden:
 
-Ein musikalischer Ausdruck in LilyPond-Notation kann mit der Funktion
-@code{\displayLilyMusic} angezeigt werden.  Der Code
+@lilypond[quote,verbatim]
+\paper {
+  #(include-special-characters)
+}
 
-@example
-@{
-  \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
-@}
-@end example
+\markup "&flqq; &ndash; &OE;uvre incomplète&hellip; &frqq;"
+
+\score {
+  \new Staff { \repeat unfold 9 a'4 }
+  \addlyrics {
+    This is al -- so wor -- kin'~in ly -- rics: &ndash;_&OE;&hellip;
+  }
+}
+
+\markup \column {
+  "The replacement can be disabled:"
+  "&ndash; &OE; &hellip;"
+  \override #'(replacement-alist . ()) "&ndash; &OE; &hellip;"
+}
+@end lilypond
+
+Man kann auch eigen Aliase erstellen, entweder global:
+
+@lilypond[quote,verbatim]
+\paper {
+  #(add-text-replacements!
+    '(("100" . "hundred")
+      ("dpi" . "dots per inch")))
+}
+\markup "A 100 dpi."
+@end lilypond
 
 @noindent
-etwa wird ausgeben:
+oder lokal:
 
-@example
-@{ a,4 cis e fis g @}
-@end example
+@lilypond[quote,verbatim]
+\markup \replace #'(("100" . "hundred")
+                    ("dpi" . "dots per inch")) "A 100 dpi."
+@end lilypond
 
-Normalerweise werden diese Zeilen zusammen mit allen anderen
-Kompilations-Nachrichten auf der Kommandozeile ausgegeben.
-Um sie separat zu speichern und das Ergebnis von @code{\displayLilyMusic}
-weiterzubenutzen,
-kann die Ausgabe mit folgendem Befehl in eine Datei umgeleitet werden:
+@seealso
+Notationsreferenz:
+@ref{Liste der Sonderzeichen}.
 
-@example
-lilypond file.ly >display.txt
-@end example
-
+Installierte Dateien:
+@file{ly/text-replacements.ly}.
 
 
 @node Ausgabe kontrollieren
@@ -1692,7 +2247,7 @@ Weitere Bereiche, die ausgeschnitten werden sollen, können definiert
 werden, indem mehrere derartige Paare definiert werden.
 
 Um diese Funktion auch nutzen zu können, muss LilyPond mit dem
-Parameter @code{-dclip-systems} aufgerufen werden.  Die Schnipsel
+Parameter @option{-dclip-systems} aufgerufen werden.  Die Schnipsel
 werden als EPS ausgegeben und dann zu PDF und PNG konvertiert, wenn
 diese Formate auch als Parameter angegeben werden.
 
@@ -1807,7 +2362,9 @@ Handbuch zum Lernen: @rlearning{Mehr Information}.
 
 @knownissues
 
-Gonville kann nicht verwendet werden, um Alte Notation zu setzen.
+Gonville kann nicht verwendet werden, um Alte Notation zu setzen und es
+ist wahrscheinlich, dass neuere Glyphen in späteren Versionen von
+LilyPond nicht in Gonville enthalten sein werden.
 Bitte lesen Sie die Webseite des Autoren zu mehr Information hierzu
 und zu anderen Einzelheiten, wie auch der Lizenz von Gonville.
 
@@ -1835,11 +2392,10 @@ Normale MIDI-Ausgabe ist etwas roh; optional kann eine verbesserte und
 realistischere MIDI-Ausgabe mit einem @ref{Artikuliere-Skript}
 erzeugt werden.
 
-Die MIDI-Ausgabe benötigt einen Kanal für jedes System und einen für
-globale Einstellungen.  Darum sollte die Quelldatei für eine MIDI-Datei
-nicht mehr als 15 Systeme (oder 14 wenn kein Schlagzeug benützt wird)
-besitzen.  Jedes weitere System bleibt stumm.
-
+Die MIDI-Ausgabe benötigt einen Kanal für jedes System und reserviert
+Kanala 10 für Schlagzeug.  Es gibt nur 16 MIDI-Kanäle pro Gerät,
+sodass MIDI-Kanäle mehrfach benutzt werden, wenn eine Partitur mehr
+als 15 Notensysteme hat.
 
 @menu
 * MIDI-Dateien erstellen::
@@ -2125,6 +2681,10 @@ verändert alle Wiederholungen in ausgeschriebene Noten.
 }
 \bar "|."
 @end lilypond
+
+In Parituren mit mehreren Stimmen funktioniert das Ausschreiben der
+Wiederholungen im MIDI nur richtig, wenn @emph{jede} Stimme vollständig
+notierte Wiederholungsanweisungen enthält.
 
 Wenn eine Partitur mit diesem @code{\unfoldRepeats}-Befehl erstellt
 wird, ist er notwendig,
@@ -2457,3 +3017,125 @@ Triller ausgeführt werden.
 
 Articulate verkürzt Akkorde und manche Musik (besonders Orgelmusik)
 kann schlechter klingen.
+
+
+
+@node Musikalische Information extrahieren
+@section Musikalische Information extrahieren
+@translationof Extracting musical information
+
+Neben graphischer Ausgabe und MIDI kann LilyPond auch die musikalische
+Information als Text anzeigen:
+
+@menu
+* LilyPond-Notation anzeigen::
+* Musikalische Scheme-Ausdrücke anzeigen::
+* Musikalische Ereignisse in einer Datei speichern::
+@end menu
+
+@node LilyPond-Notation anzeigen
+@subsection LilyPond-Notation anzeigen
+@translationof Displaying LilyPond notation
+
+@funindex \displayLilyMusic
+
+Mit der musikalischen Funktion @code{\displayLilyMusic} kann
+man einen musikalischen Ausdruck anzeigen.  Um die Ausgabe zu
+sehen, wird LilyPond üblicherweise auf der Kommandozeile
+aufgerufen.  Beispielsweise
+
+@example
+@{
+  \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
+@}
+@end example
+
+@noindent
+zeigt an:
+
+@example
+@{ a,4 cis e fis g @}
+@end example
+
+Standardmäßig gibt LilyPond diese Nachrichten auf die Kommandozeile
+aus, zusammen mit all den anderen LilyPond-Nachrichten über die
+Kompilation.  Um die Nachrichten zu speichern, kann man die Ausgabe
+in eine Datei umleiten:
+
+@example
+lilypond file.ly >display.txt
+@end example
+
+@funindex \void
+
+LilyPond zeit nicht nur die musikalischen Ausdrücke an, sondern
+interpretiert sie auch (weil @code{\displayLilyMusic} sie an das
+Programm zurückgibt, zusätzlich zur Anzeige).  Das ist sehr
+praktisch, denn man kann einfach @code{\displayLilyMusic}
+in vorhandene Noten einfügen, um Informationen darüber zu erhalten.
+Wenn Sie nicht wollen, dass LilyPond die angezeigten
+musikalischen Ausdrücke auch interpretiert, muss @code{\void}
+eingesetzt werden, damit der Ausdruck für die Interpretation ignoriert wird:
+
+@example
+@{
+  \void \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
+@}
+@end example
+
+
+@node Musikalische Scheme-Ausdrücke anzeigen
+@subsection Musikalische Scheme-Ausdrücke anzeigen
+@translationof Displaying scheme music expressions
+
+Siehe @rextend{Musikalische Funktionen darstellen}.
+
+
+@node Musikalische Ereignisse in einer Datei speichern
+@subsection Musikalische Ereignisse in einer Datei speichern
+@translationof Saving music events to a file
+
+Musikereignisse können in einer Datei Notensystem für Notensystem
+gespeichert werden, indem eine Datei in die Paritur eingefügt
+wird:
+
+@example
+\include "event-listener.ly"
+@end example
+
+Das erstellt Dateien mit der Bezeichnung @file{DATEINAME-SYSTEMNAME.notes} oder
+@file{DATEINAME-unnamed-staff.notes} für jedes Notensystem.
+Wenn mehrere Systeme ohne Bezeichnung auftreten, werden die
+Ereignisse aller Notensysteme zusammen in der selben Datei
+gemischt.  Die Ausgabe sieht folgendermaßen aus:
+
+@example
+0.000   note     57       4   p-c 2 12
+0.000   dynamic  f
+0.250   note     62       4   p-c 7 12
+0.500   note     66       8   p-c 9 12
+0.625   note     69       8   p-c 14 12
+0.750   rest     4
+0.750   breathe
+@end example
+
+Die Syntax ist eine durch Tabulatoren getrennte Zeile mit zwei
+festen Zellen, gefolgt von optionalen Parametern.
+
+@example
+@var{time}  @var{type}  @var{...params...}
+@end example
+
+Diese Information kann einfach ein ein anderes Programm wie
+etwa ein Python-Skript eingelsen werden und kann nützlich für
+Forscher sein, die musikalische Analyse- oder Wiedergabeexperimente
+mit LilyPond machen wollen.
+
+@knownissues
+
+Nicht alle musikalischen Ereignisse werden von
+@file{event-listener.ly} unterstützt.  Es handelt sich eher um ein
+gut gemachtes @qq{proof of concept}.  Wenn Ereignisse, die Sie
+brauchen, nicht in enthalten sind, können Sie @file{event-listener.ly} 
+in Ihr LilyPond-Verzeichnis kopieren und die Datei verändern,
+sodass sie die benötigte Information ausgibt.
