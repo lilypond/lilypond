@@ -429,7 +429,8 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
   grouping_->add_stem (now - beam_start_moment_ + beam_start_location_,
                        durlog - 2,
                        Stem::is_invisible (stem),
-                       stem_duration->factor ());
+                       stem_duration->factor (),
+                       (stem->get_property ("tuplet-start") == SCM_BOOL_T));
   stems_->push_back (stem);
   last_add_mom_ = now;
   extend_mom_ = max (extend_mom_, now) + get_event_length (ev, now);

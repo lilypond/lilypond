@@ -1133,6 +1133,7 @@ ADD_INTERFACE (Stem,
                "stemlet-length "
                "thickness "
                "tremolo-flag "
+               "tuplet-start "
               );
 
 /****************************************************************/
