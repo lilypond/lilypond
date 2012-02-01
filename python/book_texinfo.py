@@ -201,7 +201,7 @@ def get_texinfo_width_indent (source, global_options):
     tmp_handle.close ()
 
     # Work around a texi2pdf bug: if LANG=C is not given, a broken regexp is
-    # used to detect relative/absolute pathes, so the absolute path is not
+    # used to detect relative/absolute paths, so the absolute path is not
     # detected as such and this command fails:
     progress (_ ("Running texi2pdf on file %s to detect default page settings.\n") % tmpfile);
 

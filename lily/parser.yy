@@ -46,7 +46,7 @@
 %lex-param {Lily_parser *parser}
 
 /* We use SCMs to do strings, because it saves us the trouble of
-deleting them.  Let's hope that a stack overflow doesnt trigger a move
+deleting them.  Let's hope that a stack overflow doesn't trigger a move
 of the parse stack onto the heap. */
 
 %left PREC_BOT
@@ -201,7 +201,7 @@ while (0)
   scm_apply_0 (proc, args)
 /* Syntactic Sugar. */
 #define MAKE_SYNTAX(name, location, ...)	\
-  LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (parser->self_scm (), make_input (location) , ##__VA_ARGS__, SCM_UNDEFINED));
+  LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (parser->self_scm (), make_input (location) , ##__VA_ARGS__, SCM_UNDEFINED))
 #define START_MAKE_SYNTAX(name, ...)					\
 	scm_list_n (ly_lily_module_constant (name) , ##__VA_ARGS__, SCM_UNDEFINED)
 #define FINISH_MAKE_SYNTAX(start, location, ...)			\
@@ -468,7 +468,6 @@ If we give names, Bison complains.
 %type <scm> embedded_scm_bare
 %type <scm> embedded_scm_bare_arg
 %type <scm> embedded_scm_closed
-%type <scm> embedded_scm_chord_body
 %type <scm> event_function_event
 %type <scm> figure_list
 %type <scm> figure_spec
@@ -513,7 +512,6 @@ If we give names, Bison complains.
 %type <scm> multiplied_duration
 %type <scm> music_function_event
 %type <scm> music_function_chord_body
-%type <scm> music_function_chord_body_arglist
 %type <scm> new_chord
 %type <scm> new_lyrics
 %type <scm> number_expression
@@ -776,16 +774,7 @@ identifier_init:
 		$$ = $1;
 	}
 	| music  {
-		/* Hack: Create event-chord around standalone events.
-		   Prevents the identifier from being interpreted as a post-event. */
-		Music *mus = unsmob_music ($1);
-		bool is_event = mus &&
-			(scm_memq (ly_symbol2scm ("event"), mus->get_property ("types"))
-				!= SCM_BOOL_F);
-		if (!is_event)
-			$$ = $1;
-		else
-			$$ = MAKE_SYNTAX ("event-chord", @$, scm_list_1 ($1));
+		$$ = $1;
 	}
 	| post_event_nofinger {
 		$$ = $1;
@@ -2046,10 +2035,13 @@ scalar_closed:
 
 
 event_chord:
-	/* TODO: Create a special case that avoids the creation of
-	   EventChords around simple_elements that have no post_events?
-	 */
-	simple_chord_elements post_events	{
+	simple_element post_events {
+		// Let the rhythmic music iterator sort this mess out.
+		if (scm_is_pair ($2))
+			unsmob_music ($1)->set_property ("articulations",
+							 scm_reverse_x ($2, SCM_EOL));
+	}
+	| simple_chord_elements post_events	{
 		SCM elts = ly_append2 ($1, scm_reverse_x ($2, SCM_EOL));
 
 		Input i;
@@ -2111,7 +2103,8 @@ chord_body:
 chord_body_elements:
 	/* empty */ 		{ $$ = SCM_EOL; }
 	| chord_body_elements chord_body_element {
-		$$ = scm_cons ($2, $1);
+		if (!SCM_UNBNDP ($2))
+			$$ = scm_cons ($2, $1);
 	}
 	;
 
@@ -2153,43 +2146,24 @@ chord_body_element:
 		$$ = n->unprotect ();
 	}
 	| music_function_chord_body
-	;
-
-/* We can't accept a music argument, not even a closed one,
- * immediately before chord_body_elements, otherwise a function \fun
- * with a signature of two music arguments can't be sorted out
- * properly in a construct like
- * <\fun { c } \fun { c } c>
- * The second call could be interpreted either as a chord constituent
- * or a music expression.
- */
-
-music_function_chord_body_arglist:
-	function_arglist_bare
-	| EXPECT_SCM music_function_chord_body_arglist embedded_scm_chord_body
 	{
-		$$ = check_scheme_arg (parser, @3,
-				       $3, $2, $1);
-	}
-	;
+		Music *m = unsmob_music ($1);
 
-embedded_scm_chord_body:
-	embedded_scm_bare_arg
-	| SCM_FUNCTION music_function_chord_body_arglist {
-		$$ = MAKE_SYNTAX ("music-function", @$,
-					 $1, $2);
+		while (m && m->is_mus_type ("music-wrapper-music")) {
+			$$ = m->get_property ("element");
+			m = unsmob_music ($$);
+		}
+
+		if (!(m && m->is_mus_type ("rhythmic-event"))) {
+			parser->parser_error (@$, _ ("not a rhythmic event"));
+			$$ = SCM_UNDEFINED;
+		}
 	}
-	| bare_number
-	| fraction
-	| lyric_element
-	| chord_body_element
 	;
 
 music_function_chord_body:
-	MUSIC_FUNCTION music_function_chord_body_arglist {
-		$$ = MAKE_SYNTAX ("music-function", @$,
-					 $1, $2);
-	}
+	music_function_call
+	| MUSIC_IDENTIFIER
 	;
 
 // Event functions may only take closed arglists, otherwise it would
@@ -2766,10 +2740,7 @@ simple_element:
 	;
 
 simple_chord_elements:
-	simple_element	{
-		$$ = scm_list_1 ($1);
-	}
-	| new_chord {
+	new_chord {
                 if (!parser->lexer_->is_chord_state ())
                         parser->parser_error (@1, _ ("have to be in Chord mode for chords"));
                 $$ = $1;
@@ -2795,35 +2766,32 @@ lyric_element:
 lyric_element_arg:
 	lyric_element
 	| lyric_element multiplied_duration post_events {
-		SCM lyric_event = MAKE_SYNTAX ("lyric-event", @$, $1, $2);
-		$$ = MAKE_SYNTAX ("event-chord", @$,
-				  scm_cons (lyric_event,
-					    scm_reverse_x ($3, SCM_EOL)));
+		$$ = MAKE_SYNTAX ("lyric-event", @$, $1, $2);
+		if (scm_is_pair ($3))
+			unsmob_music ($$)->set_property
+				("articulations", scm_reverse_x ($3, SCM_EOL));
 	}
 	| lyric_element post_event post_events {
-		SCM lyric_event =
-			MAKE_SYNTAX ("lyric-event", @$, $1,
-				     parser->default_duration_.smobbed_copy ());
-		$$ = MAKE_SYNTAX ("event-chord", @$,
-				  scm_cons2 (lyric_event, $2,
-					     scm_reverse_x ($3, SCM_EOL)));
-					     
+		$$ = MAKE_SYNTAX ("lyric-event", @$, $1,
+				  parser->default_duration_.smobbed_copy ());
+		unsmob_music ($$)->set_property
+			("articulations", scm_cons ($2, scm_reverse_x ($3, SCM_EOL)));
 	}
 	| LYRIC_ELEMENT optional_notemode_duration post_events {
-		SCM lyric_event = MAKE_SYNTAX ("lyric-event", @$, $1, $2);
-		$$ = MAKE_SYNTAX ("event-chord", @$,
-				  scm_cons (lyric_event,
-					    scm_reverse_x ($3, SCM_EOL)));
+		$$ = MAKE_SYNTAX ("lyric-event", @$, $1, $2);
+		if (scm_is_pair ($3))
+			unsmob_music ($$)->set_property
+				("articulations", scm_reverse_x ($3, SCM_EOL));
 	}
 	;
 
 
 lyric_element_music:
 	lyric_element optional_notemode_duration post_events {
-		SCM lyric_event = MAKE_SYNTAX ("lyric-event", @$, $1, $2);
-		$$ = MAKE_SYNTAX ("event-chord", @$,
-				  scm_cons (lyric_event,
-					    scm_reverse_x ($3, SCM_EOL)));
+		$$ = MAKE_SYNTAX ("lyric-event", @$, $1, $2);
+		if (scm_is_pair ($3))
+			unsmob_music ($$)->set_property
+				("articulations", scm_reverse_x ($3, SCM_EOL));
 	}
 	;
 
@@ -3226,9 +3194,7 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		unsmob_music (*destination)->
 			set_property ("origin", make_input (last_input_));
 
-		bool is_event = scm_memq (ly_symbol2scm ("event"), mus->get_property ("types"))
-			!= SCM_BOOL_F;
-
+		bool is_event = mus->is_mus_type ("post-event");
 		mus->unprotect ();
 		return is_event ? EVENT_IDENTIFIER : MUSIC_IDENTIFIER;
 	} else if (unsmob_pitch (sid)) {

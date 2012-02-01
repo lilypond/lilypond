@@ -161,6 +161,7 @@ Music::generic_to_relative_octave (Pitch last)
   if (Music *m = unsmob_music (elt))
     last = m->to_relative_octave (last);
 
+  (void) music_list_to_relative (get_property ("articulations"), last, true);
   last = music_list_to_relative (get_property ("elements"), last, false);
   return last;
 }

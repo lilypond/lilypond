@@ -1,4 +1,4 @@
-\version "2.15.27"
+\version "2.15.28"
 
 \header {
   texidoc = "
@@ -6,6 +6,10 @@ Beamlets can be set to point in the direction of the beat to which they
 belong.  The first beam avoids sticking out flags (the default);
 the second beam strictly follows the beat.
 "
+
+  doctitle = "Strict beat beaming"
+
+  lsrtags = "rhythms"
 }
 
 

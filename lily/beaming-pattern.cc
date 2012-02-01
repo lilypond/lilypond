@@ -99,6 +99,15 @@ Beaming_pattern::flag_direction (Beaming_options const &options, vsize i) const
 
   if (count <= left_count && count <= right_count)
     return CENTER;
+  else if (!options.strict_beat_beaming_)
+    {
+      // Try to avoid sticking-out flags as much as possible by pointing
+      // my flags at the neighbor with the most flags.
+      if (right_count > left_count)
+        return RIGHT;
+      else if (left_count > right_count)
+        return LEFT;
+    }
 
   // If all else fails, point the beamlet away from the important moment.
   return (infos_[i].rhythmic_importance_ < infos_[i + 1].rhythmic_importance_)
@@ -174,8 +183,8 @@ update_tuplet (Moment start_moment, Rational factor, Moment *tuplet_start_moment
   int tuplet_number = (int) factor.den ();
   if ((tuplet_number > 1) && (tuplet_start_moment->num () < 0))
     *tuplet_start_moment = start_moment;
-  else if (tuplet_number == 1) 
-    *tuplet_start_moment = Moment (-1, 1); 
+  else if (tuplet_number == 1)
+    *tuplet_start_moment = Moment (-1, 1);
 }
 
 
@@ -270,8 +279,8 @@ Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
           // important.  For tuplets, we need to make sure that we use
           // the fraction of the tuplet, instead of the fraction of
           // a beat.
-          Moment ratio = (tuplet_number == 1) 
-                           ? dt / options.base_moment_ 
+          Moment ratio = (tuplet_number == 1)
+                           ? dt / options.base_moment_
                            : tuplet_dt / Moment (1, 8)  / tuplet_moment;
           if (infos_[i].rhythmic_importance_ >= 0)
             infos_[i].rhythmic_importance_ = (int) ratio.den ();
@@ -389,6 +398,7 @@ Beaming_options::from_context (Context *context)
 {
   grouping_ = context->get_property ("beatStructure");
   subdivide_beams_ = to_boolean (context->get_property ("subdivideBeams"));
+  strict_beat_beaming_ = to_boolean (context->get_property ("strictBeatBeaming"));
   base_moment_ = robust_scm2moment (context->get_property ("baseMoment"),
                                     Moment (1, 4));
   measure_length_ = robust_scm2moment (context->get_property ("measureLength"),
@@ -399,4 +409,5 @@ Beaming_options::Beaming_options ()
 {
   grouping_ = SCM_EOL;
   subdivide_beams_ = false;
+  strict_beat_beaming_ = false;
 }

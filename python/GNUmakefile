@@ -21,3 +21,5 @@ INSTALLATION_OUT_FILES1=$(OUT_PY_MODULES) $(OUT_PYC_MODULES)
 $(outdir)/midi.lo: $(outdir)/config.hh
 
 default: $(outdir)/relocate-preamble.py
+
+$(outdir)/relocate-preamble.py: $(depth)/VERSION

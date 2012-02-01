@@ -3,7 +3,7 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.60)
 
-# Bootstrap the init proces.
+# Bootstrap the init process.
 AC_INIT
 
 # Bootstrap StepMake configure

@@ -108,7 +108,9 @@ expression."
 (define*-public (duration->lily-string ly-duration #:key (prev-duration (*previous-duration*))
 			(force-duration (*force-duration*))
 			(time-factor-numerator (*time-factor-numerator*))
-			(time-factor-denominator (*time-factor-denominator*)))
+			(time-factor-denominator (*time-factor-denominator*))
+			remember)
+  (if remember (*previous-duration* ly-duration))
   (let ((log2	 (ly:duration-log ly-duration))
 	(dots	 (ly:duration-dot-count ly-duration))
 	(num+den (ly:duration-factor ly-duration)))
@@ -136,37 +138,8 @@ expression."
 ;;; post events
 ;;;
 
-(define post-event?
-  (make-music-type-predicate
-    'AbsoluteDynamicEvent
-    'ArpeggioEvent
-    'ArticulationEvent
-    'BeamEvent
-    'BeamForbidEvent
-    'BendAfterEvent
-    'CrescendoEvent
-    'DecrescendoEvent
-    'EpisemaEvent
-    'ExtenderEvent
-    'FingeringEvent
-    'GlissandoEvent
-    'HarmonicEvent
-    'HyphenEvent
-    'MultiMeasureTextEvent
-    'NoteGroupingEvent
-    'PhrasingSlurEvent
-    'SlurEvent
-    'SostenutoEvent
-    'StringNumberEvent
-    'StrokeFingerEvent
-    'SustainEvent
-    'TextScriptEvent
-    'TextSpanEvent
-    'TieEvent
-    'TremoloEvent
-    'TrillSpanEvent
-    'TupletSpanEvent
-    'UnaCordaEvent))
+(define (post-event? m)
+  (music-is-of-type? m 'post-event))
 
 (define* (event-direction->lily-string event #:optional (required #t))
   (let ((direction (ly:music-property event 'direction)))
@@ -281,24 +254,22 @@ expression."
     (and (with-music-match (?start (music
 				    'SequentialMusic
 				    elements ((music
-					       'EventChord
-					       elements ((music
-							  'SkipEvent
-							  duration (ly:make-duration 0 0 0 1))
-							 (music
-							  'SlurEvent
-							  span-direction START))))))
-	   #t)
-	  (with-music-match (?stop (music
-				    'SequentialMusic
-				    elements ((music
-					       'EventChord
-					       elements ((music
-							  'SkipEvent
-							  duration (ly:make-duration 0 0 0 1))
-							 (music
-							  'SlurEvent
-							  span-direction STOP))))))
+					       'SkipEvent
+					       duration (ly:make-duration 0 0 0 1)
+					       articulations
+					       ((music
+						 'SlurEvent
+						 span-direction START))))))
+	    #t)
+	 (with-music-match (?stop (music
+				   'SequentialMusic
+				   elements ((music
+					      'SkipEvent
+					      duration (ly:make-duration 0 0 0 1)
+					      articulations
+					      ((music
+						'SlurEvent
+						span-direction STOP))))))
 	    (format #f "\\appoggiatura ~a" (music->lily-string ?music parser))))))
 
 
@@ -316,13 +287,12 @@ expression."
     (and (with-music-match (?start (music
 				    'SequentialMusic
 				    elements ((music
-					       'EventChord
-					       elements ((music
-							  'SkipEvent
-							  duration (ly:make-duration 0 0 0 1))
-							 (music
-							  'SlurEvent
-							  span-direction START)))
+					       'SkipEvent
+					       duration (ly:make-duration 0 0 0 1)
+					       articulations
+					       ((music
+						 'SlurEvent
+						 span-direction START)))
 					      (music
 					       'ContextSpeccedMusic
 					       element (music
@@ -339,14 +309,14 @@ expression."
 						       'RevertProperty
 						       grob-property-path '(stroke-style)
 						       symbol 'Flag))
+
 					     (music
-					      'EventChord
-					      elements ((music
-							 'SkipEvent
-							 duration (ly:make-duration 0 0 0 1))
-							(music
-							 'SlurEvent
-							 span-direction STOP))))))
+					      'SkipEvent
+					      duration (ly:make-duration 0 0 0 1)
+					      articulations
+					      ((music
+						'SlurEvent
+						span-direction STOP))))))
 	   (format #f "\\acciaccatura ~a" (music->lily-string ?music parser))))))
 
 (define-extra-display-method GraceMusic (expr parser)
@@ -375,12 +345,16 @@ expression."
 				  (*max-element-number-before-break*))))
 	(elements (ly:music-property seq 'elements))
 	(chord? (make-music-type-predicate 'EventChord))
+	(note-or-chord? (make-music-type-predicate 'EventChord 'NoteEvent
+						   'LyricEvent 'RestEvent
+						   'ClusterNoteEvent))
 	(cluster? (make-music-type-predicate 'ClusterNoteEvent))
 	(note? (make-music-type-predicate 'NoteEvent)))
     (format #f "~a~a{~v%~v_~{~a~^ ~}~v%~v_}"
 	    (if (any (lambda (e)
-		       (and (chord? e)
-			    (any cluster? (ly:music-property e 'elements))))
+		       (or (cluster? e)
+			   (and (chord? e)
+				(any cluster? (ly:music-property e 'elements)))))
 		     elements)
 		"\\makeClusters "
 		"")
@@ -395,15 +369,17 @@ expression."
 		       "\\figuremode ")
 		      ((any (lambda (chord)
 			      (any (make-music-type-predicate 'LyricEvent)
-				   (ly:music-property chord 'elements)))
-			    (filter chord? elements))
+				   (cons chord
+					 (ly:music-property chord 'elements))))
+			    (filter note-or-chord? elements))
 		       "\\lyricmode ")
 		      ((any (lambda (chord)
 			      (any (lambda (event)
 				     (and (note? event)
 					  (not (null? (ly:music-property event 'drum-type)))))
-				   (ly:music-property chord 'elements)))
-			    (filter chord? elements))
+				   (cons chord
+					 (ly:music-property chord 'elements))))
+			    (filter note-or-chord? elements))
 		       "\\drummode ")
 		      (else ;; TODO: other modes?
 		       ""))
@@ -454,58 +430,29 @@ Otherwise, return #f."
   (let* ((elements (ly:music-property chord 'elements))
 	 (simple-elements (filter (make-music-type-predicate
 				   'NoteEvent 'ClusterNoteEvent 'RestEvent
-				   'MultiMeasureRestEvent 'SkipEvent 'LyricEvent)
+				   'SkipEvent 'LyricEvent)
 				  elements)))
-    (if ((make-music-type-predicate 'StaffSpanEvent 'BreathingEvent) (car elements))
-	;; first, a special case: StaffSpanEvent (\startStaff, \stopStaff)
-	;; and BreathingEvent (\breathe)
-	(music->lily-string (car elements) parser)
-	(if (and (not (null? simple-elements))
-		 (null? (cdr simple-elements))
-		 ;; special case: if this simple_element has any post_events in
-		 ;; its 'articulations list, it should be interpreted instead
-		 ;; as a note_chord_element to prevent spurious output, e.g.,
-		 ;; \displayLilyMusic < c-1\4 >8 -> c-1\48
-		 (null? (filter post-event?
-				(ly:music-property (car simple-elements) 'articulations)))
-		 ;; same for simple_element with \tweak
-		 (null? (ly:music-property (car simple-elements) 'tweaks)))
-	    ;; simple_element : note | figure | rest | mmrest | lyric_element | skip
-	    (let* ((simple-element (car simple-elements))
-		   (duration (ly:music-property simple-element 'duration))
-		   (lily-string (format #f "~a~a~a~{~a~^ ~}"
-					(music->lily-string simple-element parser)
-					(duration->lily-string duration)
-					(if (and ((make-music-type-predicate 'RestEvent) simple-element)
-						 (ly:pitch? (ly:music-property simple-element 'pitch)))
-					    "\\rest"
-					    "")
-					(map-in-order (lambda (music)
-							(music->lily-string music parser))
-						      (filter post-event? elements)))))
-	      (*previous-duration* duration)
-	      lily-string)
 	    (let ((chord-elements (filter (make-music-type-predicate
 					   'NoteEvent 'ClusterNoteEvent 'BassFigureEvent)
 					  elements))
 		  (post-events (filter post-event? elements)))
 	      (if (not (null? chord-elements))
 		  ;; note_chord_element : '<' (notepitch | drumpitch)* '>" duration post_events
-		  (let ((lily-string (format #f "< ~{~a ~}>~a~{~a~^ ~}"
-					     (map-in-order (lambda (music)
-							     (music->lily-string music parser))
-							   chord-elements)
-					     (duration->lily-string (ly:music-property (car chord-elements)
-										       'duration))
-					     (map-in-order (lambda (music)
-							     (music->lily-string music parser))
-							   post-events))))
-		    (*previous-duration* (ly:music-property (car chord-elements) 'duration))
-		    lily-string)
+		  (let* ((duration (duration->lily-string
+				    (ly:music-property (car chord-elements) 'duration)
+				    #:remember #t)))
+		    (format #f "< ~{~a ~}>~a~{~a~^ ~}"
+			    (map-in-order (lambda (music)
+					    (music->lily-string music parser))
+					  chord-elements)
+			    duration
+			    (map-in-order (lambda (music)
+					    (music->lily-string music parser))
+					  post-events)))
 		  ;; command_element
 		  (format #f "~{~a~^ ~}" (map-in-order (lambda (music)
 						       (music->lily-string music parser))
-						     elements))))))))
+						     elements))))))
 
 (define-display-method MultiMeasureRestMusic (mmrest parser)
   (let* ((dur (ly:music-property mmrest 'duration))
@@ -528,7 +475,7 @@ Otherwise, return #f."
 ;;;
 
 (define (simple-note->lily-string event parser)
-  (format #f "~a~a~a~a~{~a~}" ; pitchname octave !? octave-check articulations
+  (format #f "~a~a~a~a~a~a~{~a~}" ; pitchname octave !? octave-check duration optional_rest articulations
 	  (note-name->lily-string (ly:music-property event 'pitch) parser)
 	  (octave->lily-string (ly:music-property event 'pitch))
 	  (let ((forced (ly:music-property event 'force-accidental))
@@ -548,6 +495,10 @@ Otherwise, return #f."
 					(make-string (1- (* -1 octave-check)) #\,))
 				       (else "")))
 		""))
+	  (duration->lily-string (ly:music-property event 'duration)
+				 #:remember #t)
+	  (if ((make-music-type-predicate 'RestEvent) event)
+	      "\\rest" "")
 	  (map-in-order (lambda (event)
 			  (music->lily-string event parser))
 			(ly:music-property event 'articulations))))
@@ -556,7 +507,9 @@ Otherwise, return #f."
   (cond ((not (null? (ly:music-property note 'pitch))) ;; note
 	 (simple-note->lily-string note parser))
 	((not (null? (ly:music-property note 'drum-type))) ;; drum
-	 (format #f "~a" (ly:music-property note 'drum-type)))
+	 (format #f "~a~a" (ly:music-property note 'drum-type)
+		 (duration->lily-string (ly:music-property note 'duration)
+					#:remember #t)))
 	(else ;; unknown?
 	 "")))
 
@@ -566,13 +519,16 @@ Otherwise, return #f."
 (define-display-method RestEvent (rest parser)
   (if (not (null? (ly:music-property rest 'pitch)))
       (simple-note->lily-string rest parser)
-      "r"))
+      (string-append "r" (duration->lily-string (ly:music-property rest 'duration)
+						#:remember #t))))
 
 (define-display-method MultiMeasureRestEvent (rest parser)
-  "R")
+  (string-append "R" (duration->lily-string (ly:music-property rest 'duration)
+					    #:remember #t)))
 
 (define-display-method SkipEvent (rest parser)
-  "s")
+  (string-append "s" (duration->lily-string (ly:music-property rest 'duration)
+					    #:remember #t)))
 
 (define-display-method RepeatedChord (chord parser)
   (music->lily-string (ly:music-property chord 'element) parser))
@@ -644,18 +600,21 @@ Otherwise, return #f."
 	    (if (null? bracket-stop) "" "]"))))
 
 (define-display-method LyricEvent (lyric parser)
-  (let ((text (ly:music-property lyric 'text)))
-    (if (or (string? text)
-	    (eqv? (first text) simple-markup))
-	;; a string or a simple markup
-	(let ((string (if (string? text)
-			  text
-			  (second text))))
-	  (if (string-match "(\"| |[0-9])" string)
-	      ;; TODO check exactly in which cases double quotes should be used
-	      (format #f "~s" string)
-	      string))
-	(markup->lily-string text))))
+  (format "~a~{~a~^ ~}"
+	  (let ((text (ly:music-property lyric 'text)))
+	    (if (or (string? text)
+		    (eqv? (first text) simple-markup))
+		;; a string or a simple markup
+		(let ((string (if (string? text)
+				  text
+				  (second text))))
+		  (if (string-match "(\"| |[0-9])" string)
+		      ;; TODO check exactly in which cases double quotes should be used
+		      (format #f "~s" string)
+		      string))
+		(markup->lily-string text)))
+	  (map-in-order (lambda (m) (music->lily-string m parser))
+			(ly:music-property lyric 'articulations))))
 
 (define-display-method BreathingEvent (event parser)
   "\\breathe")

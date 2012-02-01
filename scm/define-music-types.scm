@@ -29,7 +29,7 @@
 Syntax: @var{note}@code{\\x}, where @code{\\x} is a dynamic mark like
 @code{\\ppp} or @code{\\sfz}.  A complete list is in file
 @file{ly/@/dynamic-scripts-init.ly}.")
-	(types . (general-music event dynamic-event absolute-dynamic-event))
+	(types . (general-music post-event event dynamic-event absolute-dynamic-event))
 	))
 
     (AlternativeEvent
@@ -64,7 +64,7 @@ context, and 3.@tie{}the context where @var{func} is called.")
      . ((description . "Make an arpeggio on this note.
 
 Syntax: @w{@var{note}@code{-\\arpeggio}}")
-	(types . (general-music arpeggio-event event))
+	(types . (general-music post-event arpeggio-event event))
 	))
 
     ;; todo: use articulation-event for slur as well.
@@ -77,7 +77,7 @@ Syntax: @var{note}@code{x}@code{y}, where @code{x} is a direction
 (no direction specified), and where @code{y} is an articulation
 (such as @w{@code{-.}}, @w{@code{->}}, @code{\\tenuto}, @code{\\downbow}).
 See the Notation Reference for details.")
-	(types . (general-music event articulation-event script-event))
+	(types . (general-music post-event event articulation-event script-event))
 	))
 
     (AutoChangeMusic
@@ -105,22 +105,22 @@ the start of the measure.")
      . ((description . "Start or stop a beam.
 
 Syntax for manual control: @code{c8-[ c c-] c8}")
-	(types . (general-music event beam-event span-event))
+	(types . (general-music post-event event beam-event span-event))
 	))
 
     (BeamForbidEvent
      . ((description . "Specify that a note may not auto-beamed.")
-	(types . (general-music event beam-forbid-event))
+	(types . (general-music post-event event beam-forbid-event))
 	))
 
     (BreakDynamicSpanEvent
      . ((description . "End an alignment spanner for dynamics here.")
-	(types . (general-music break-span-event break-dynamic-span-event event))
+	(types . (general-music post-event break-span-event break-dynamic-span-event event))
 	))
 
     (BendAfterEvent
      . ((description . "A drop/@/fall/@/doit jazz articulation.")
-	(types . (general-music bend-after-event event))))
+	(types . (general-music post-event bend-after-event event))))
 
     (BreathingEvent
      . ((description . "Create a @q{breath mark} or @q{comma}.
@@ -133,6 +133,7 @@ Syntax: @var{note}@code{\\breathe}")
     (ClusterNoteEvent
      . ((description . "A note that is part of a cluster.")
 	;; not a note-event, to ensure that Note_heads_engraver doesn't eat it.
+	(iterator-ctor . ,ly:rhythmic-music-iterator::constructor)
 	(types . (general-music cluster-note-event melodic-event
 		  rhythmic-event event))
 	))
@@ -168,7 +169,7 @@ Syntax: @var{note}@code{\\<} @dots{} @var{note}@code{\\!}
 
 An alternative syntax is @var{note}@code{\\cr} @dots{}
 @var{note}@code{\\endcr}.")
-	(types . (general-music span-event span-dynamic-event crescendo-event
+	(types . (general-music post-event span-event span-dynamic-event crescendo-event
 		  event))
 	))
 
@@ -179,7 +180,7 @@ Syntax: @var{note}@code{\\>} @dots{} @var{note}@code{\\!}
 
 An alternative syntax is @var{note}@code{\\decr} @dots{}
 @var{note}@code{\\enddecr}.")
-	(types . (general-music span-event span-dynamic-event decrescendo-event
+	(types . (general-music post-event span-event span-dynamic-event decrescendo-event
 		  event))
 	))
 
@@ -190,7 +191,7 @@ An alternative syntax is @var{note}@code{\\decr} @dots{}
 
     (EpisemaEvent
      . ((description . "Begin or end an episema.")
-	(types . (general-music span-event event episema-event))
+	(types . (general-music post-event span-event event episema-event))
 	))
 
     (Event
@@ -209,12 +210,12 @@ An alternative syntax is @var{note}@code{\\decr} @dots{}
 
     (ExtenderEvent
      . ((description . "Extend lyrics.")
-	(types . (general-music extender-event event))
+	(types . (general-music post-event extender-event event))
 	))
 
     (FingeringEvent
      . ((description . "Specify what finger to use for this note.")
-	(types . (general-music fingering-event event))
+	(types . (general-music post-event fingering-event event))
 	))
 
     (FootnoteEvent
@@ -224,7 +225,7 @@ An alternative syntax is @var{note}@code{\\decr} @dots{}
 
     (GlissandoEvent
      . ((description . "Start a glissando on this note.")
-	(types . (general-music glissando-event event))
+	(types . (general-music post-event glissando-event event))
 	))
 
     (GraceMusic
@@ -237,12 +238,12 @@ An alternative syntax is @var{note}@code{\\decr} @dots{}
 
     (HarmonicEvent
      . ((description . "Mark a note as harmonic.")
-	(types . (general-music event harmonic-event))
+	(types . (general-music post-event event harmonic-event))
 	))
 
     (HyphenEvent
      . ((description . "A hyphen between lyric syllables.")
-	(types . (general-music hyphen-event event))
+	(types . (general-music post-event hyphen-event event))
 	))
 
     (KeyChangeEvent
@@ -262,7 +263,7 @@ Syntax: @code{\\key} @var{name} @var{scale}")
      . ((description . "Don't damp this chord.
 
 Syntax: @var{note}@code{\\laissezVibrer}")
-	(types . (general-music event laissez-vibrer-event))
+	(types . (general-music post-event event laissez-vibrer-event))
 	))
 
     (LigatureEvent
@@ -287,6 +288,7 @@ Syntax: @code{\\lyricsto} @var{voicename} @var{lyrics}")
     (LyricEvent
      . ((description . "A lyric syllable.  Must be entered in lyrics mode,
 i.e., @code{\\lyrics @{ twinkle4 twinkle4 @} }.")
+	(iterator-ctor . ,ly:rhythmic-music-iterator::constructor)
 	(types . (general-music rhythmic-event lyric-event event))
 	))
 
@@ -321,7 +323,7 @@ Syntax: @code{R2.*4} for 4 measures in 3/4 time.")
 Syntax: @code{R-\\markup @{ \\roman \"bla\" @}}
 
 Note the explicit font switch.")
-	(types . (general-music event multi-measure-text-event))
+	(types . (general-music post-event event multi-measure-text-event))
 	))
 
     (Music
@@ -331,13 +333,14 @@ Note the explicit font switch.")
 
     (NoteEvent
      . ((description . "A note.")
+	(iterator-ctor . ,ly:rhythmic-music-iterator::constructor)
 	(types . (general-music event note-event rhythmic-event
 		  melodic-event))
 	))
 
     (NoteGroupingEvent
      . ((description . "Start or stop grouping brackets.")
-	(types . (general-music event note-grouping-event))
+	(types . (general-music post-event event note-grouping-event))
 	))
 
     (OttavaMusic
@@ -412,7 +415,7 @@ goes down).")
 
 Syntax: @var{note}@code{\\(} and @var{note}@code{\\)}")
         (spanner-id . "")
-	(types . (general-music span-event event phrasing-slur-event))
+	(types . (general-music post-event span-event event phrasing-slur-event))
 	))
 
     (PropertySet
@@ -476,13 +479,14 @@ Syntax: @code{\\unset @var{context}.@var{prop}}")
 
     (RepeatTieEvent
      . ((description . "Ties for starting a second volta bracket.")
-	(types . (general-music event repeat-tie-event))
+	(types . (general-music post-event event repeat-tie-event))
 	))
 
     (RestEvent
      . ((description . "A Rest.
 
 Syntax: @code{r4} for a quarter rest.")
+	(iterator-ctor . ,ly:rhythmic-music-iterator::constructor)
 	(types . (general-music event rhythmic-event rest-event))
 	))
 
@@ -526,6 +530,7 @@ Syntax: @code{\\simultaneous @{ @dots{} @}} or @code{<< @dots{} >>}")
 print anything.
 
 Syntax: @code{s4} for a skip equivalent to a quarter rest.")
+	(iterator-ctor . ,ly:rhythmic-music-iterator::constructor)
 	(types . (general-music event rhythmic-event skip-event))
 	))
 
@@ -544,7 +549,7 @@ Syntax: @code{\\skip} @var{duration}")
 
 Syntax: @var{note}@code{(} and @var{note}@code{)}")
         (spanner-id . "")
-	(types . (general-music span-event event slur-event))
+	(types . (general-music post-event span-event event slur-event))
 	))
 
     (SoloOneEvent
@@ -561,7 +566,7 @@ Syntax: @var{note}@code{(} and @var{note}@code{)}")
 
     (SostenutoEvent
      . ((description . "Depress or release sostenuto pedal.")
-	(types . (general-music event pedal-event sostenuto-event))
+	(types . (general-music post-event event pedal-event sostenuto-event))
 	))
 
     (SpacingSectionEvent
@@ -583,19 +588,19 @@ different time than stopped.")
      . ((description . "Specify on which string to play this note.
 
 Syntax: @code{\\@var{number}}")
-	(types . (general-music string-number-event event))
+	(types . (general-music post-event string-number-event event))
 	))
 
     (StrokeFingerEvent
      . ((description . "Specify with which finger to pluck a string.
 
 Syntax: @code{\\rightHandFinger @var{text}}")
-	(types . (general-music stroke-finger-event event))
+	(types . (general-music post-event stroke-finger-event event))
 	))
 
     (SustainEvent
      . ((description . "Depress or release sustain pedal.")
-	(types . (general-music event pedal-event sustain-event))
+	(types . (general-music post-event event pedal-event sustain-event))
 	))
 
     (TempoChangeEvent
@@ -605,20 +610,20 @@ Syntax: @code{\\rightHandFinger @var{text}}")
 
     (TextScriptEvent
      . ((description . "Print text.")
-	(types . (general-music script-event text-script-event event))
+	(types . (general-music post-event script-event text-script-event event))
 	))
 
     (TextSpanEvent
      . ((description . "Start a text spanner, for example, an
 octavation.")
-	(types . (general-music span-event event text-span-event))
+	(types . (general-music post-event span-event event text-span-event))
 	))
 
     (TieEvent
      . ((description . "A tie.
 
 Syntax: @w{@var{note}@code{-~}}")
-	(types . (general-music tie-event event))
+	(types . (general-music post-event tie-event event))
 	))
 
     (TimeScaledMusic
@@ -651,7 +656,7 @@ Syntax: @code{\\times @var{fraction} @var{music}}, e.g.,
 
     (TremoloEvent
      . ((description . "Unmeasured tremolo.")
-	(types . (general-music event tremolo-event))
+	(types . (general-music post-event event tremolo-event))
 	))
 
     (TremoloRepeatedMusic
@@ -670,18 +675,18 @@ Syntax: @code{\\times @var{fraction} @var{music}}, e.g.,
 
     (TrillSpanEvent
      . ((description . "Start a trill spanner.")
-	(types . (general-music span-event event trill-span-event))
+	(types . (general-music post-event span-event event trill-span-event))
 	))
 
     (TupletSpanEvent
      . ((description . "Used internally to signal where tuplet
 brackets start and stop.")
-	(types . (tuplet-span-event span-event event general-music))
+	(types . (tuplet-span-event span-event event general-music post-event))
        ))
 
     (UnaCordaEvent
      . ((description . "Depress or release una-corda pedal.")
-	(types . (general-music event pedal-event una-corda-event))
+	(types . (general-music post-event event pedal-event una-corda-event))
 	))
 
     (UnfoldedRepeatedMusic
