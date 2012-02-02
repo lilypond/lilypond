@@ -779,6 +779,7 @@ context."
   \remove "Note_heads_engraver"
   \remove "Fingering_engraver"
   \remove "New_fingering_engraver"
+  \remove "Pitched_trill_engraver"
 
   \description "Context for drawing notes in a Tab staff."
 
