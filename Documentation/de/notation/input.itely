@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.15.17"
+@c \version "2.15.25"
 
 @c Translators: Till Paala
 
@@ -1116,15 +1116,15 @@ Reihenfolge der Nummerierung automatischer Fußnoten.
 @cindex Fußnoten, automatisch
 
 Es gibt zwei Befehle, um autmatische Fußnoten zu erstellen: 
-@code{\autoFootnoteGrob} für einzelne Grobs (etwa Notenköpfe,
+@code{\footnoteGrob} für einzelne Grobs (etwa Notenköpfe,
 Hälse, Bögen, Dynamik (auch @code{\markup} wenn @code{TextScripts}-Dynamik
-aktiv ist) sowie @code{\autoFootnote} für Akkordnoten.
+aktiv ist) sowie @code{\footnote} für Akkordnoten.
 
 Beide Befehle haben drei Argumente: das @var{Layoutobjekt}, das die
 Anmerkung erhalten soll, die @var{(x . y)}-Position des Indikators und
 eine @code{\markup}-Beschriftung, die den Inhalt der Fußnote enthält.
 
-Der Befehl @code{\autoFootnoteGrob} muss @emph{vor} dem Grob geschrieben
+Der Befehl @code{\footnoteGrob} muss @emph{vor} dem Grob geschrieben
 werden, auf den sie sich bezieht.
 
 @c KEEP LY
@@ -1132,17 +1132,17 @@ werden, auf den sie sich bezieht.
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \autoFootnoteGrob #'NoteHead #'(0.5 . -2)
+    \footnote #'(0.5 . -2) #'NoteHead
       \markup { Die erste Note }
     a'4 b8
-    \autoFootnoteGrob #'NoteHead #'(0.5 . 1)
+    \footnote #'(0.5 . 1) #'NoteHead
       \markup { Die dritte Note }
     e c4 d4
   }
 }
 @end lilypond
 
-Bei Noten in Akkorden muss der Befehl @code{\autoFootnote} @emph{nach}
+Bei Noten in Akkorden muss der Befehl @code{\footnote} @emph{nach}
 der Note, auf der sie sich bezieht, stehen:
 
 @c KEEP LY
@@ -1151,9 +1151,9 @@ der Note, auf der sie sich bezieht, stehen:
   \header { tagline = ##f }
   \relative c' {
     <
-    c-\autoFootnote #'(1 . -1.25) "Hier ein C"
-    es-\autoFootnote #'(2 . -0.25) \markup { \italic "Ein Ex" }
-    g-\autoFootnote #'(2 . 3) \markup { \bold "Das ist ein G" }
+    c-\footnote #'(1 . -1.25) "Hier ein C"
+    es-\footnote #'(2 . -0.25) \markup { \italic "Ein Ex" }
+    g-\footnote #'(2 . 3) \markup { \bold "Das ist ein G" }
     >1
   }
 }
@@ -1171,25 +1171,25 @@ Tagline und Copyright gezeigt wird.
 \book {
   \header { copyright = \markup { "Copyright 1970" } }
   \relative c' {
-    \autoFootnoteGrob #'DynamicText #'(-3 . 0)
+    \footnote #'(-3 . 0) #'DynamicText
       \markup { \bold Forte }
 
-    \autoFootnoteGrob #'Slur #'(0 . 1.5)
+    \footnote #'(0 . 1.5) #'Slur
       \markup { Ein Bogen }
     a'4\f(
 
-    \autoFootnoteGrob #'Beam #'(0 . -2)
+    \footnote #'(0 . -2) #'Beam
       \markup { Balken }
     b8)[ e]
 
-    \autoFootnoteGrob #'Stem #'(1 . -1)
+    \footnote #'(1 . -1) #'Stem
       \markup  { \teeny { Das ist ein Hals } }
     c4
 
-    \autoFootnoteGrob #'AccidentalCautionary #'(0 . 0.5)
+    \footnote #'(0 . 0.5) #'AccidentalCautionary
       \markup \italic { Ein Warnungsversetzungszeichen }
 
-    \autoFootnoteGrob #'TextScript #'(0.5 . -0.5)
+    \footnote #'(0.5 . -0.5) #'TextScript
       \markup \italic { Langsamer hier }
     dis?4_"rit."
   }
@@ -1240,13 +1240,13 @@ geschrieben werden:
 \book {
   \header { tagline = ##f }
   \relative c' {
-    a'4-\footnoteGrob #'NoteHead #'(0.5 . -2)
-          "1" \markup { \italic "1. Die erste Note" }
+    a'4-\footnote
+          "1" #'(0.5 . -2) #'NoteHead \markup { \italic "1. Die erste Note" }
     b8
-    e-\footnoteGrob #'NoteHead #'(0.5 . 1)
-          \markup { \bold "2" } "2. Die zweite Note"
+    e-\footnote
+          \markup { \bold "2" } #'(0.5 . 1) #'NoteHead "2. Die zweite Note"
     c4
-    d\p-\footnoteGrob #'DynamicText #'(0.5 . -1) "3" "3. Piano"
+    d\p-\footnote "3" #'(0.5 . -1) #'DynamicText "3. Piano"
   }
 }
 @end lilypond
@@ -1260,10 +1260,10 @@ notiert werden:
   \header { tagline = ##f }
   \relative c' {
     <
-    c-\footnote #'(1 . -1.25) "1" "1. C"
-    es-\footnote #'(2 . -0.25)
-       \markup { \bold "b" } "b. E-flat"
-    g-\footnote #'(2 . 3) "3" \markup { \italic "iii. G" }
+    c-\footnote "1" #'(1 . -1.25) "1. C"
+    es-\footnote
+       \markup { \bold "b" } #'(2 . -0.25) "b. E-flat"
+    g-\footnote "3" #'(2 . 3) \markup { \italic "iii. G" }
     >1
   }
 }
@@ -1280,37 +1280,37 @@ Position der Fußnotentexte zu Tagline und Copyright anzeigen:
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \footnoteGrob #'DynamicText #'(-3 . 0)
-      \markup { \teeny 1 }
+    \footnote
+      \markup { \teeny 1 } #'(-3 . 0) #'DynamicText
       \markup { 1. \bold Forte }
 
-    \footnoteGrob #'Slur #'(0 . 1.5)
-      \markup { \teeny b }
+    \footnote
+      \markup { \teeny b } #'(0 . 1.5) #'Slur
       \markup { b. Ein Bogen }
     a'4\f(
 
-    \footnoteGrob #'Beam #'(0 . -2)
-      \markup { \teeny 3 }
+    \footnote
+      \markup { \teeny 3 } #'(0 . -2) #'Beam
       \markup { 3. Balken }
     b8)[ e]
 
-    \footnoteGrob #'Stem #'(1 . -1)
-      \markup { 4 }
+    \footnote
+      \markup { 4 } #'(1 . -1) #'Stem
       \markup  { \bold 4. { Das ist ein Hals } }
     c4
 
-    \footnoteGrob #'AccidentalCautionary #'(0 . 0.5)
-      \markup \concat \teeny { "sharp (v)" }
+    \footnote
+      \markup \concat \teeny { "sharp (v)" } #'(0 . 0.5) #'AccidentalCautionary
       \markup \italic { v. Ein Warnungsversetzungszeichen }
 
-    \footnoteGrob #'TextScript #'(0.5 . -0.5)
-      \markup \concat \teeny { "a" }
+    \footnote
+      \markup \concat \teeny { "a" } #'(0.5 . -0.5) #'TextScript
       \markup \italic { a. Langsamer hier }
     dis?4_"rit."
 
     \breathe
-    \footnoteGrob #'BreathingSign #'(1.5 . -0.25)
-      \markup { \teeny \musicglyph #"rests.4" }
+    \footnote
+      \markup { \teeny \musicglyph #"rests.4" } #'(1.5 . -0.25) #'BreathingSign
       \markup { \null }
   }
 }
