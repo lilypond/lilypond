@@ -490,6 +490,7 @@ messages into errors.")
     (,cheap-list? . "list")
     (,fraction? . "fraction, as pair")
     (,grob-list? . "list of grobs")
+    (,index? . "non-negative integer")
     ;; this is built on cheap-list
     (,list-or-symbol? . "list or symbol")
     (,markup? . "markup")
@@ -551,7 +552,6 @@ messages into errors.")
     (,ly:translator? . "translator")
     (,ly:translator-group? . "translator group")
     (,ly:unpure-pure-container? . "unpure/pure container")
-    (,ly:vsize? . "vsize")
     ))
 
 

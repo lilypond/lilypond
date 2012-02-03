@@ -114,18 +114,6 @@ LY_DEFINE (ly_dir_p, "ly:dir?",
   return SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_vsize_p, "ly:vsize?",
-           1, 0, 0, (SCM s),
-           "Is @var{s} a vsize?")
-{
-  if (scm_is_integer (s))
-    {
-      int i = scm_to_int (s);
-      return i >= 0 ? SCM_BOOL_T : SCM_BOOL_F;
-    }
-  return SCM_BOOL_F;
-}
-
 LY_DEFINE (ly_assoc_get, "ly:assoc-get",
            2, 2, 0,
            (SCM key, SCM alist, SCM default_value, SCM strict_checking),
