@@ -7,7 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 On peut choisir d'imprimer les altérations et signes plus aussi bien
 avant qu'après les chiffres, en réglant les propriétés
@@ -18,6 +18,8 @@ avant qu'après les chiffres, en réglant les propriétés
   doctitlefr = "Emplacement des altération en basse continue"
 
   lsrtags = "chords"
+
+
 
 
 

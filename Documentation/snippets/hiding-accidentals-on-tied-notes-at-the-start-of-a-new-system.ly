@@ -18,7 +18,16 @@ ligadas al comienzo de un sistema nuevo.
   doctitlees = "Ocultar las alteraciones sobre notas ligadas al principio de un sistema nuevo"
 
 
-%% Translation of GIT committish: 31097723b2b816696ad61696630a80ff17a39557
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
+  texidocit = "
+Questo frammento mostra come nascondere le alterazioni delle note con
+legatura di valore all'inizio di un nuovo sistema
+
+"
+  doctitleit = "Nascondere le alterazioni delle note con legatura di valore
+  all'inizio di un nuovo sistema"
+
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Cet exemple illustre comment, lorsqu'une note affublée d'une altération
 accidentelle est prolongée, ne pas répéter cette altération après un

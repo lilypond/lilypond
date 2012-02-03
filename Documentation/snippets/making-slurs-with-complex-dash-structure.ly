@@ -57,7 +57,7 @@ gesetzt.
   doctitlede = "Legatobögen mit kompliziertem Strichelmuster
   definieren"
 
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Grâce à la propriété @code{dash-definition}, une liaison d'articulation
 peut être formée de traits discontinus variables.

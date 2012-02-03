@@ -48,7 +48,7 @@ Copyright @copyright{} 1999--2012 por los autores.
 @menu
 * Notación musical::                Notación que se utiliza en casi todos los proyectos.
 * Notación especializada::          Notación que sólo se usa para cometidos específicos.
-* Entrada y salida generales::      Información teneral sobre la entrada y la salida de LilyPond.
+* Entrada y salida generales::      Información general sobre la entrada y la salida de LilyPond.
 * Problemas de espaciado::          Presentación del resultado en papel.
 * Cambiar los valores por omisión:: Ajuste fino del resultado.
 

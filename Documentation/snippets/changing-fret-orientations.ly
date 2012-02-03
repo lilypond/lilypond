@@ -22,7 +22,7 @@ superior en las distintas alineaciones.
 
   doctitlees = "Modificar la orientación de los trastes"
 
-%% Translation of GIT committish: 40bf2b38d674c43f38058494692d1a0993fad0bd
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Les diagrammes de fret peuvent s'orienter de trois manières différentes.
 Ils s'aligneront par défaut sur la corde du haut ou le sommet du fret.

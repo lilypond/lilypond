@@ -33,7 +33,7 @@ das \"Volta multi staff\"-Schnipsel.
 "
   doctitlede = "Volta-Klammern zu zusätzlichen Systemen hinzufügen"
 
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 D'ordinaire, le graveur @code{Volta_engraver} réside dans le contexte
 @code{Score}@tie{}; les crochets précédant une reprise s'impriment donc

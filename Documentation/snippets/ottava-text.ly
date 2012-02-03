@@ -7,7 +7,19 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
+  texidocit = "
+Internamente, @code{\\ottava} imposta le proprietà @code{ottavation} (ad
+esempio, su @code{8va} o @code{8vb}) e @code{middleCPosition}.  Per
+sovrascrivere il testo della parentesi, occorre specificare @code{ottavation}
+dopo il comando @code{\\ottava}.
+
+"
+  doctitleit = "Testo dell'ottava"
+
   lsrtags = "pitches, text"
+
+
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -35,7 +47,7 @@ und @code{middleCPosition}.  Um den Text der Oktavierungsklammer zu
 
 doctitlede = "Ottava-Text"
 
-%% Translation of GIT committish: 58a29969da425eaf424946f4119e601545fb7a7e
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 En interne, la fonction @code{\\ottava} détermine les
 propriétés @code{ottavation} (p.ex. en @code{\"8va\"} ou @code{\"8vb\"})

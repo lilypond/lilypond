@@ -26,7 +26,7 @@ man die entsprechende Eigenschaft verändert:
 "
   doctitlede = "Ein Wiederholungszeichen zu Beginn eines Stückes ausgeben"
 
-%% Translation of GIT committish: a5bde6d51a5c88e952d95ae36c61a5efc22ba441
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Bien qu'allant à l'encontre des usages en matière de gravure, vous
 imprimerez une barre de reprise (@code{|:}) en début de partition si

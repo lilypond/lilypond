@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2aeac5e3815effa47427dad86d6be811c7b0d8a2
+    Translation of GIT committish: c46be1b7c0e190478a16035db5aad453f31e9d02
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -29,8 +29,20 @@ maneras.
 @node Apuntar y pulsar
 @section Apuntar y pulsar
 @translationof Point and click
-@cindex apuntar y pulsar
 
+Point and click adds links to pdf documents for certain music
+elements.
+
+@menu
+* Habilitar la opción de apuntar y pulsar::
+* Apuntar y pulsar selectivo::
+@end menu
+
+@node Habilitar la opción de apuntar y pulsar
+@unnumberedsubsec Habilitar la opción de apuntar y pulsar
+@translationof Enabling point and click
+
+@cindex apuntar y pulsar
 
 «Point and click» (apuntar y pulsar con el ratón) le da la posibilidad
 de localizar notas del código de entrada pulsando sobre ellas dentro
@@ -42,13 +54,13 @@ al archivo PDF. Estos hiper-enlaces se envían al navegador de web, que
 a su vez abre un editor de texto con el cursor situado en el lugar
 correcto.
 
-Para conseguir que esta cadena funcione, tendrá que configurar el
-visor de PDF de forma que siga los hiper-enlaces usando el guión
+Para conseguir que esta cadena funcione, tiene que configurar el visor
+de PDF de forma que siga los enlaces usando el guión
 @file{lilypond-invoke-editor} proporcionado con LilyPond.
 
 Para Xpdf sobre Unix, lo siguiente debe estar presente en
-@file{xpdfrc}@footnote{En Unix, este archivo se encuentra o bien en
-@file{/etc/xpdfrc} o como @file{.xpdfrc} en su directorio personal.}
+@file{xpdfrc}.  En Unix, este archivo se encuentra o bien en
+@file{/etc/xpdfrc} o como @file{$HOME/.xpdfrc}.
 
 @example
 urlCommand     "lilypond-invoke-editor %s"
@@ -89,8 +101,7 @@ emacsclient --no-wait +%(línea)s:%(columna)s %(archivo)s
 @end example
 
 @noindent
-para @code{LYEDITOR} equivale a la invocación estándar de
-emacsclient.
+para @code{LYEDITOR} equivale a la invocación estándar de emacsclient.
 
 
 @cindex archivo de salida, tamaño del
@@ -125,7 +136,81 @@ evitar incluir información de rutas de archivo relativas a su equipo
 dentro del archivo .pdf, lo que puede plantear un problema de
 seguridad.}
 
+@node Apuntar y pulsar selectivo
+@unnumberedsubsec Apuntar y pulsar selectivo
+@translationof Selective point-and-click
 
+Para ciertas aplicaciones interactivas podría ser deseable incluir
+solamente ciertos elementos dentro de la función de apuntar y pulsar.
+Por ejemplo, si alguien quisiera crear una aplicación que reprodujese
+audio o vídeo empezando por una nota concreta, sería incómodo que la
+pulsación sobre la nota produjese las coordenadas de apuntar y pulsar
+de una alteración accidental o de una ligadura de expresión que
+estuviese sobre dicha nota.
+
+Esto se puede controlar indicando qué eventos incluir:
+
+@itemize
+@item
+Codificado de forma fija dentro del archivo @file{.ly}:
+
+@example
+\pointAndClickTypes #'note-event
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+o bien
+
+@example
+#(ly:set-option 'point-and-click 'note-event)
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+@item
+Línea de órdenes:
+
+@example
+lilypond -dpoint-and-click=note-event   example.ly
+@end example
+
+@end itemize
+
+Se pueden incluir varios eventos:
+
+@itemize
+@item
+Codificado de forma fija dentro del archivo @file{.ly}:
+
+@example
+\pointAndClickTypes #'(note-event dynamic-event)
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+o bien
+
+@example
+#(ly:set-option 'point-and-click '(note-event dynamic-event))
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+@item
+Línea de órdenes:
+
+@smallexample
+lilypond \
+  -e"(ly:set-option 'point-and-click '(note-event dynamic-event))" \
+  example.ly
+@end smallexample
+
+@end itemize
 
 @node Apoyo respecto de los editores de texto
 @section Apoyo respecto de los editores de texto

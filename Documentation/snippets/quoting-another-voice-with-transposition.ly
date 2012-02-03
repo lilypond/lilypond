@@ -34,7 +34,7 @@ in diesem Fall werden alle Noten (auch die zitierten) transponiert.
 "
   doctitlede = "Eine Stimme mit Transposition zitieren"
 
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Les citations tiennent compte de la transposition, aussi bien celle de
 l'instrument d'origine que celle de la partie où elle intervient.  Dans

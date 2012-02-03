@@ -78,7 +78,7 @@ wenn man es mit @code{\\partcombine} verwendet, muss @code{\\autoBeamOff}
 "
 doctitlede = "Partcombine und autoBeamOff"
 
-%% Translation of GIT committish: e1a149d0cc60b02e86209387958f4028567dd366
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 La fonction @code{\\autoBeamOff} dans le cadre d'un
 @code{\\partcombine} agit de façon bien particulière@tie{}; c'est

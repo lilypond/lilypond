@@ -27,7 +27,7 @@ Zähler, wenn man die entsprechende Eigenschaft einsetzt:
 "
   doctitlede = "Prozent-Wiederholungen zählen"
 
-%% Translation of GIT committish: a5bde6d51a5c88e952d95ae36c61a5efc22ba441
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Les répétitions de plus de 2 mesures sont surmontées d'un compteur,
 si l'on active la propriété @code{countPercentRepeats} comme le montre

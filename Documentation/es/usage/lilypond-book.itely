@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: feb460d0ba95db4081619c8490496d09d4fb118d
+    Translation of GIT committish: 0cc0c4fb20b70e717db7e8f43cbb0c1878cd8395
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -30,24 +30,24 @@ que coincidan con los ajustes de su documento.
 
 Es un programa distinto a @command{lilypond} propiamente dicho, y se
 ejecuta sobre la línea de órdenes; para ver más información, consulte
-@ref{Utilización desde la línea de órdenes}.  Si tiene MacOS 10.3 o
-10.4 y experimenta algún problema al ejecutar @code{lilypond-book},
-consulte @rweb{MacOS X}.
+@ref{Utilización desde la línea de órdenes}.  Si experimenta algún
+problema al ejecutar @code{lilypond-book} sobre Windows o Mac OS X
+utilizando la línea de órdenes, consulte @rweb{Windows} o @rweb{MacOS X}.
 
 Este procedimiento se puede aplicar a documentos de @LaTeX{}, HTML,
 Texinfo o DocBook.
 
 @cindex texinfo
-@cindex latex
+@cindex LaTex
 @cindex texinfo
 @cindex texi
-@cindex html
+@cindex HTML
 @cindex docbook
 @cindex documentos, insertar música en
-@cindex HTML, música dentro de
-@cindex Texinfo, música dentro de
-@cindex DocBook, música dentro de
-@cindex @LaTeX{}, música dentro de
+@cindex HTML, insertar música en
+@cindex Texinfo, insertar música en
+@cindex DocBook, insertar música en
+@cindex LaTeX, insertar música en
 
 @menu
 * Un ejemplo de documento musicológico::
@@ -967,6 +967,19 @@ La ejecución de @command{dvips} puede dar como resultado algunas
 advertencias sobre las fuentes tipográficas; son inocuas y se pueden
 ignorar.  Si está ejecutando @command{latex} en modo de dos columnas,
 recuerde añadir @option{-t landscape} a las opciones de @command{dvips}.
+
+@knownissues
+La instrucción @code{\pageBreak} no funciona dentro de un entorno
+@code{\begin@{lilypond@} @dots{} \end@{lilypond@}}.
+
+Muchas variables del bloque @code{\paper} tampoco funcionan dentro de
+un entorno @code{\begin@{lilypond@} @dots{} \end@{lilypond@}}.  Use
+@code{\newcommand} con @code{\betweenLilyPondSystem} en el preámbulo:
+
+@example
+\newcommand@{\betweenLilyPondSystem@}[1]@{\vspace@{36mm@}\linebreak@}
+@end example
+
 
 @subsubheading Texinfo
 

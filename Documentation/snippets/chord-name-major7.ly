@@ -7,7 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 La représentation d'un accord de septième majeure se gère par le
 @code{majorSevenSymbol}.
@@ -16,6 +16,8 @@ La représentation d'un accord de septième majeure se gère par le
   doctitlefr = "Chiffrage d'un maj7"
 
   lsrtags = "chords"
+
+
 
 
 

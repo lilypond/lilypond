@@ -711,11 +711,11 @@ Handbücher finden sich auf @url{http://lilypond.org}.}
 @docLinkPdf{Lernen,learning,@manualDevelLearningPdf-de}
 
 @item
-@docLinkSplit{Glossar,music-glossary,@manualDevelGlossarySplit-de}
+@docLinkSplit{Glossar,music-glossary,@manualDevelGlossarySplit}
 @tab
-@docLinkBig{Glossar,music-glossary,@manualDevelGlossaryBig-de}
+@docLinkBig{Glossar,music-glossary,@manualDevelGlossaryBig}
 @tab
-@docLinkPdf{Glossar,music-glossary,@manualDevelGlossaryPdf-de}
+@docLinkPdf{Glossar,music-glossary,@manualDevelGlossaryPdf}
 
 @item
 @docLinkSplit{Aufsatz,essay,@manualDevelEssaySplit-de}
@@ -741,11 +741,11 @@ Handbücher finden sich auf @url{http://lilypond.org}.}
 @docLinkPdf{Benutzung,usage,@manualDevelUsagePdf-de}
 
 @item
-@docLinkSplit{Schnipsel,snippets,@manualDevelSnippetsSplit-de}
+@docLinkSplit{Schnipsel,snippets,@manualDevelSnippetsSplit}
 @tab
-@docLinkBig{Schnipsel,snippets,@manualDevelSnippetsBig-de}
+@docLinkBig{Schnipsel,snippets,@manualDevelSnippetsBig}
 @tab
-@docLinkPdf{Schnipsel,snippets,@manualDevelSnippetsPdf-de}
+@docLinkPdf{Schnipsel,snippets,@manualDevelSnippetsPdf}
 
 
 @headitem Seltenere Handbücher
@@ -758,11 +758,11 @@ Handbücher finden sich auf @url{http://lilypond.org}.}
 @docLinkPdf{Webseite,web,@manualDevelWebPdf-de}
 
 @item
-@docLinkSplit{Veränderungen,changes,@manualDevelChangesSplit-de}
+@docLinkSplit{Veränderungen,changes,@manualDevelChangesSplit}
 @tab
-@docLinkBig{Veränderungen,changes,@manualDevelChangesBig-de}
+@docLinkBig{Veränderungen,changes,@manualDevelChangesBig}
 @tab
-@docLinkPdf{Veränderungen,changes,@manualDevelChangesPdf-de}
+@docLinkPdf{Veränderungen,changes,@manualDevelChangesPdf}
 
 @item
 @docLinkSplit{Erweitern,extending,@manualDevelExtendingSplit-de}
@@ -772,11 +772,11 @@ Handbücher finden sich auf @url{http://lilypond.org}.}
 @docLinkPdf{Erweitern,extending,@manualDevelExtendingPdf-de}
 
 @item
-@docLinkSplit{Interna,internals,@manualDevelInternalsSplit-de}
+@docLinkSplit{Interna,internals,@manualDevelInternalsSplit}
 @tab
-@docLinkBig{Interna,internals,@manualDevelInternalsBig-de}
+@docLinkBig{Interna,internals,@manualDevelInternalsBig}
 @tab
-@docLinkPdf{Interna,internals,@manualDevelInternalsPdf-de}
+@docLinkPdf{Interna,internals,@manualDevelInternalsPdf}
 
 @ifset web_version
 @headitem Zum Herunterladen

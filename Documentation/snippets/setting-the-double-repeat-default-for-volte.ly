@@ -19,7 +19,7 @@ y segunda vez, que se pueden ajustar utilizando
 
   doctitlees = "Establecer el tipo de repetición doble predeterminado para la primera y segunda vez"
 
-%% Translation of GIT committish: 158658dc75b6f6553e77ff53119ac802eb91f50c
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 LilyPond dispose de trois styles de barre différents pour indiquer une
 succession de reprises.  Vous devez opter pour un style par défaut, à

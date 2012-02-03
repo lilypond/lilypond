@@ -55,7 +55,7 @@ entsprechende Zeile entweder ändern oder auskommentieren.
   doctitlede = "Vorlage für ein Notensystem mit Noten und Gesangstext"
 
 
-%% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Ce canevas comporte une simple ligne mélodique agrémentée de paroles.
 Recopiez-le, ajoutez-y d'autres notes et paroles.  Les ligatures

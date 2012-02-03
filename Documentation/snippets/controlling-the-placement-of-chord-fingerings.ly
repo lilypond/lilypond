@@ -29,7 +29,7 @@ Die Position von Fingersatzzahlen kann exakt kontrolliert werden.
 "
   doctitlede = "Position von Fingersatz in Akkorden kontrollieren"
 
-%% Translation of GIT committish: ac6297e4fa174ac5759cc450ad085c2fac9ba00b
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Le positionnement des doigtés peut être contrôlé de manière très précise.
 Afin que l'orientation soit prise en compte, il est nécessaire d'utiliser

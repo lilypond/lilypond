@@ -30,7 +30,7 @@ sich auf alle Systeme aus, können aber auf @code{Staff}- und
 
 
 
-%% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Les règles de ligature définies au niveau du contexte @code{Score}
 s'appliqueront à toutes les portées.  Il est toutefois possible de

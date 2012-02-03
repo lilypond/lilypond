@@ -17,7 +17,7 @@ Este código muestra cómo cambiar la cantidad de puntillos de una nota.
   doctitlees = "Modificar el número de puntillos de una nota"
 
 
-%% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Voici comment modifier le nombre de points d'augmentation
 affectés à une note en particulier.

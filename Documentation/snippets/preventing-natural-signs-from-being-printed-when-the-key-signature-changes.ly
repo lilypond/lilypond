@@ -7,7 +7,19 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
+  texidocit = "
+Quando l'armatura di chiave cambia, vengono inseriti automaticamente i
+segni di bequadro per annulare le alterazioni di precedenti armature.  Si
+può evitare questo comportamento impostando su @code{f} (falso) la proprietà
+@code{printKeyCancellation} nel contesto @code{Staff}.
+
+"
+  doctitleit = "Impedire l'inserimento dei segni di bequadro quando cambia l'armatura di chiave"
+
   lsrtags = "pitches"
+
+
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 doctitlees = "Evitar que se impriman becuadros cuando cambia la armadura"
@@ -32,7 +44,7 @@ verhindert werden, indem die @code{printKeyCancellation}-Eigenschaft
 im @code{Staff}-Kontext auf \"false\" gesetzt wird.
 "
 
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Après un changement de tonalité, un bécarre est imprimé pour annuler
 toute altération précédente.  Ceci peut être supprimé en réglant à

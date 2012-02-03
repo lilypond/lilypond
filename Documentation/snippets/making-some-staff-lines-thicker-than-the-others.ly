@@ -32,7 +32,7 @@ herangezogen.
 "
   doctitlede = "Eine Linie des Notensystems dicker als die anderen machen"
 
-%% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Vous pourriez avoir envie, dans un but pédagogique, de rendre certaines
 lignes d'une portée plus épaisses que les autres, comme la ligne médiane,

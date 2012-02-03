@@ -52,7 +52,7 @@ kombinieren: Standardpolyphonie, @code{\\partcombine} ohne Text und
 "
   doctitlede = "Zwei Stimmen auf einem System kombinieren"
 
-%% Translation of GIT committish: 1baa2adf57c84e8d50e6907416eadb93e2e2eb5c
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 L'outil de combinaison de parties (la commande @code{\\partcombine})
 permet d'avoir deux parties différentes sur une même portée.  LilyPond

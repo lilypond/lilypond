@@ -37,7 +37,7 @@ usw. dagegen normalerweise Textspanner.
 
 
 
-%% Translation of GIT committish: a06cb0b0d9593ba110e001f2b0f44b8bef084693
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Les lignes d'extension des commandes @code{\\cresc}, @code{\\dim} et
 @code{\\decresc} peuvent désormais être personnalisées facilement sous

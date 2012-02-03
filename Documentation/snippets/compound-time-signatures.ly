@@ -36,7 +36,7 @@ Bebalkung angepasst wird.
 
 
 
-%% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Des métriques telles que @qq{5/8} peuvent s'interpréter sous une forme
 décomposée --- @qq{3/8 + 2/8} par exemple --- qui combine plusieurs

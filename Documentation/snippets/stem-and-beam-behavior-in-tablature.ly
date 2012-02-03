@@ -27,7 +27,7 @@ zeigt.
 "
   doctitlede = "Hals- und Balkenverhalten in einer Tabulatur"
 
-%% Translation of GIT committish: 718fa63a806b2ae307f320e250bc83236e9cd136
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 La direction des hampes se gère dans les tablatures tout comme en
 notation traditionnelle.  Les ligatures peuvent être mises à l'horizontale

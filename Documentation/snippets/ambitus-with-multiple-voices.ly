@@ -7,7 +7,18 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
+  texidocit = "
+Se si aggiunge l'incisore @code{Ambitus_engraver} al contesto @code{Staff} viene
+creato un solo ambitus per il rigo, anche nel caso di righi che hanno più
+voci.
+
+"
+  doctitleit = "Ambitus su più voci"
+
   lsrtags = "pitches, vocal-music"
+
+
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   doctitlees = "Ámbitos con varias voces"

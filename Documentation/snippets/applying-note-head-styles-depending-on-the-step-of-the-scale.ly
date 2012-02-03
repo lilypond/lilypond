@@ -7,7 +7,31 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
+  texidocit = "
+La proprietà @code{shapeNoteStyles} può essere usata per definire vari
+stili di teste di nota per ogni grado della scala (definita dall'armatura
+di chiave o dalla proprietà @code{tonic}). Questa proprietà richiede un
+insieme di simboli, che può essere puramente arbitrario (sono permesse
+espressioni geometriche come @code{triangle}, @code{cross} e @code{xcircle})
+o basato sull'antica tradizione tipografica americana (sono consentiti
+anche alcuni nomi di nota latini).
+
+Detto questo, per imitare gli antichi canzionieri americani, ci sono vari
+stili predefiniti disponibili attraverso dei comodi comandi come
+@code{\\aikenHeads} o @code{\\sacredHarpHeads}.
+
+Questo esempio mostra modi diversi di ottenere teste di nota di varie
+forme e illustra la possibilità di trasporre una melodia senza
+perdere la corrispondenza tra le funzioni armoniche e gli stili delle
+teste.
+
+"
+  doctitleit = "Applicazione degli stili delle teste di nota in base al grado della scala"
+
   lsrtags = "pitches, editorial-annotations"
+
+
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   doctitlees = "Aplicar estilos de cabeza según la nota de la escala"
@@ -56,7 +80,7 @@ harmonischen Funktionen und dem Notenstil verloren geht.
 
 "
 
-%% Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 La propriété @code{shapeNoteStyles} permet d'affecter un profil
 particulier à chaque degré de la gamme -- à partir de l'armure ou

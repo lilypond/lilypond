@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -27,12 +27,14 @@
 * Notenkopfstile::
 * Textbeschriftungsbefehle::
 * Textbeschriftungslistenbefehle::
+* Liste der Sonderzeichen::
 * Liste der Artikulationszeichen::
 * Schlagzeugnoten::
 * Technisches Glossar::
 * Alle Kontexteigenschaften::
 * Eigenschaften des Layouts::
 * Erhältliche Musikfunktionen::
+* Bezeichner zur Kontextveränderung::
 * Vordefinierte Typprädikate::
 * Scheme-Funktionen::
 @end menu
@@ -443,6 +445,10 @@ Die folgende Tabelle zeigt vordefinierte Bunddiagramme für Ukulele.
 
 @lilypondfile{display-predefined-ukulele-fretboards.ly}
 
+Die folgende Tabelle zeigt die vordefinierten Bunddiagramme für Mandoline.
+
+@lilypondfile{display-predefined-mandolin-fretboards.ly}
+
 
 @node MIDI-Instrumente
 @appendixsec MIDI-Instrumente
@@ -638,6 +644,7 @@ zu (bspw. @code{g^\markup @{
 * Klammerspitzen-Glyphen::
 * Pedal-Glyphen::
 * Akkordeon-Glyphen::
+* Bogen-Glyphen::
 * Vaticana-Glyphen::
 * Medicaea-Glyphen::
 * Hufnagel-Glyphen::
@@ -824,6 +831,18 @@ zu (bspw. @code{g^\markup @{
 @end lilypond
 
 
+@node Bogen-Glyphen
+@unnumberedsubsec Bogen-Glyphen
+@translationof Tie glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #ties
+@end lilypond
+
+
+
 @node Vaticana-Glyphen
 @unnumberedsubsec Vaticana-Glyphen
 @translationof Vaticana glyphs
@@ -931,6 +950,25 @@ Folgende Befehle können mit dem Befehl @code{\markuplist} zusammen
 benutzt werden:
 
 @include markup-list-commands.tely
+
+
+@node Liste der Sonderzeichen
++@appendixsec Liste der Sonderzeichen
+@translationof List of special characters
+
+Folgende Sonderezeichen-Bezeichnungen können benutzt werden,
+zu mehr Details siehe @ref{ASCII-Aliase}.
+
+die HTML-Synatx wird benutzt und die meisten der Bezeichnungen sind
+die gleichen wie für HTML.  Der Rest ist durch @LaTeX{} inspiriert.
+
+Die Charakter haben einen Rahmen, sodass ihre Größe sichtbar ist.
+Etwas Verschiebung wurde zwischen Zeichen und Rahmen zur besseren
+Lesbarkeit eingefügt.
+
+@lilypond[quote]
+\include "special-characters.ly"
+@end lilypond
 
 
 @node Liste der Artikulationszeichen
@@ -1154,7 +1192,7 @@ eine Schriftfamilie (engl. typeface).
 @seealso
 Notationsreferenz:
 @ref{Fonts},
-@ref{Text encoding}.
+@ref{Sonderzeichen}.
 
 
 @node grob
@@ -1417,6 +1455,16 @@ Referenz der Interna:
 @translationof Available music functions
 
 @include identifiers.tely
+
+
+@node Bezeichner zur Kontextveränderung
+@appendixsec Bezeichner zur Kontextveränderung
+@translationof Context modification identifiers
+
+Folgende Befehle sind definiert, umd Kontextveränderungen innerhalb
+von @code{\layout} oder @code{\with} vorzunehmen:
+
+@include context-mod-identifiers.tely
 
 
 @node Vordefinierte Typprädikate

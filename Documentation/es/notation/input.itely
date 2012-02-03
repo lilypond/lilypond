@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 08560a1b8076630c4fc6cb9b902614d8b74fd6fc
+    Translation of GIT committish: 69618c55ab79b032a109ba9f347831ede1048abc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1089,19 +1089,12 @@ los indicadores (y por tanto las notas al pie) durante la compilación.
 @unnumberedsubsubsec Notas al pie automáticas
 @translationof Automatic footnotes
 
-De las dos instrucciones utilizadas para crear notas al pie
-automáticas, utilice @code{\footnoteGrob} para los grobs
-individuales (es decir: la cabeza de las notas, plicas, ligaduras de
-expresión, matices dinámicos y elementos de @code{\markup} si se
-utilizan @code{TextScripts}); y @code{\footnote} para anotar las
-notas de un acorde.
-
-Las dos instrucciones aceptan tres argumentos; el @var{Objeto de
+Las notas al pie automáticas aceptan tres argumentos; el @var{Objeto de
 presentación} que anotar, la posición @var{(x . y)} del indicador y un
 elemento de @code{\markup} que aparecerá en la nota, en la parte
 inferior de la página.
 
-La instrucción @code{\footnoteGrob} debe ir @emph{antes} del grob
+La instrucción @code{\footnote} debe ir @emph{antes} del grob
 al que se adjunta la nota al pie:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
@@ -1139,7 +1132,7 @@ quiere adjuntar la nota al pie como un @code{TextScript}:
 imprimen en orden de descendencia: cuando más alta es la nota al pie,
 más arriba está en la lista.}
 
-He aquí unos ejemplos de grobs con notas al pie automáticas, que
+He aquí unos ejemplos más de grobs con notas al pie, que
 muestran también la posición relativa de las notas respecto de la
 línea informativa y la línea de copyright.
 
@@ -1190,22 +1183,16 @@ uso de la instrucción @code{\auto-footnote}:
 @unnumberedsubsubsec Notas al pie manuales
 @translationof Manual footnotes
 
-@funindex \footnote
-@funindex \footnoteGrob
 @cindex notas al pie manuales
 
-Existen dos instrucciones para crear notas al pie manuales;
-@code{\footnote} para elementos de @code{\markup} del nivel superior y
-notas de acordes; y @code{\footnoteGrob} para grobs individuales (y
-elementos de @code{\markup} cuando se usan @code{TextScripts}).
-
-Si se están anotando grobs, la instrucción @code{\footnote} toma
-cuatro argumentos; el @var{objeto de presentación} que se va a anotar,
+Las notas al pie manuales toman cuatro argumentos;
+el @var{objeto de presentación} que se va a anotar,
 la posición @var{(x . y)} del indicador, y dos instrucciones
 @code{\markup}; la primera es el indicador adjunto a la nota o grob, y
 la segunda es la nota al pie, en la parte inferior de la página.
 
-La instrucción @code{\footnoteGrob} debe ir @emph{después} del grob
+Como las notas al pie automáticas, las instrucciones
+@code{\footnote} manuales deben ir @emph{después} del grob
 que la nota al pie está anotando y adjuntada como un
 @code{TextScript}:
 
@@ -1224,9 +1211,7 @@ que la nota al pie está anotando y adjuntada como un
 }
 @end lilypond
 
-Para anotar notas de acordes, la instrucción @code{\footnote} debe ir
-@emph{después} de la nota que se está anotando con una nota al pie, y
-adjuntarse como un @code{TextScript}:
+Para anotar notas de acordes con notas al pie manuales:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -1274,7 +1259,8 @@ informativa a la de copyright:
     c4
 
     \footnote
-      \markup \concat \teeny { "sharp (v)" } #'(0 . 0.5) #'AccidentalCautionary
+      \markup \concat \teeny { "sharp (v)" }
+          #'(0 . 0.5) #'AccidentalCautionary
       \markup \italic { v. A cautionary accidental }
 
     \footnote
@@ -1284,7 +1270,8 @@ informativa a la de copyright:
 
     \breathe
     \footnote
-      \markup { \teeny \musicglyph #"rests.4" } #'(1.5 . -0.25) #'BreathingSign
+      \markup { \teeny \musicglyph #"rests.4" }
+          #'(1.5 . -0.25) #'BreathingSign
       \markup { \null }
   }
 }

@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 6646c71a5309b40a4594db67b5426c6f3786f372
+    Translation of GIT committish: 53ab418e0bb8f272082db295b38a1dbb2ccfca65
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -68,6 +68,32 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+Se puede elegir entre dos métodos de numeración de compases, en
+especial para cuando se emplean repeticiones:
+
+@lilypond[fragment,quote,relative=1,noragged-right]
+\relative c'{
+  \set Score.alternativeNumberingStyle = #'numbers
+  \repeat volta 3 { c4 d e f | }
+    \alternative {
+      { c4 d e f | c2 d \break }
+      { f4 g a b | f4 g a b | f2 a | \break }
+      { c4 d e f | c2 d }
+    }
+  c1 \break
+  \set Score.alternativeNumberingStyle = #'numbers-with-letters
+  \repeat volta 3 { c,4 d e f | }
+    \alternative {
+      { c4 d e f | c2 d \break }
+      { f4 g a b | f4 g a b | f2 a | \break }
+      { c4 d e f | c2 d }
+    }
+  c1
+}
+@end lilypond
+
 @item
 Las expresiones de Scheme dentro de fragmentos de código de LilyPond
 incrustados (@code{#@{@dots{}#@}}) se ejecutan ahora dentro de la
@@ -196,7 +222,6 @@ propiedad al valor previo.
   <e-1>
   <e-1>-"left"
 @end lilypond
-
 
 @item
 La alineación de los elementos de matiz dinámico extensos

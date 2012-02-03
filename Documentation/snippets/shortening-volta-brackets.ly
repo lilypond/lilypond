@@ -31,7 +31,7 @@ es ist möglich sie zu verkürzen.  Hierzu muss
 "
   doctitlede = "Volta-Klammern verkürzen"
 
-%% Translation of GIT committish: a5bde6d51a5c88e952d95ae36c61a5efc22ba441
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Les crochets indiquant les fins alternatives s'étalent tout au long de
 celle-ci.  On peut les raccourcir en définissant la propriété

@@ -24,7 +24,19 @@ nota que ve.
 
   doctitlees = "Números como notas de notación fácil"
 
-%% Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
+  texidocit = "
+Le teste di nota con nome della nota usano la proprietà @code{note-names}
+dell'oggetto @code{NoteHead} per determinare cosa appaia
+all'interno della testa.  È possibile sovrascrivere questa proprietà
+e mostrare numeri che corrispondano ai gradi della scala.
+
+Si può creare un semplice incisore che faccia questo per oggni
+oggetto testa di nota che incontra.
+"
+  doctitleit = "Numeri dentro le teste di nota"
+
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 En mode @qq{easy play}, les têtes de note utilisent la propriété
 @code{note-names} attachée à l'objet @code{NoteHead} pour déterminer ce

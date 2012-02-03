@@ -30,7 +30,7 @@ Beschriftung vorgenommen werden.
 "
   doctitlede = "Anpassung von Beschriftungs-Bunddiagrammen"
 
-%% Translation of GIT committish: ac6297e4fa174ac5759cc450ad085c2fac9ba00b
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Les propriétés d'un diagramme de fret sont modifiables grâce au
 @code{'fret-diagram-details}.  Lorsqu'ils sont générés sous forme

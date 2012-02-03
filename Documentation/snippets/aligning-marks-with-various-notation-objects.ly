@@ -43,7 +43,7 @@ diese Einstellung für alle Systeme gemacht werden.
 
   doctitlede = "Zeichen an verschiedenen Notationsobjekten ausrichten"
 
-%% Translation of GIT committish: 548ef200973bd3d46ea75c5498461d9e5f168334
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Les indications textuelles peuvent s'aligner par rapport à d'autres
 objets que des barres de mesure, tels que @code{ambitus},

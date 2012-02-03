@@ -24,7 +24,7 @@ se puede revertir el cambio.  Para aplicar el estilo de un dígito
 "
   doctitlees = "Indicación de compás imprimiendo sólo el numerador (en lugar de la fracción)"
 
-%% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 La métrique est parfois indiquée non pas par une fraction (p.ex. 7/4)
 mais simplement par son numérateur (7 dans ce cas).  L'instruction
