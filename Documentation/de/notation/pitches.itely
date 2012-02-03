@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -272,6 +272,9 @@ Intervall enthält.
 }
 @end lilypond
 
+Eine Konsequenz dieser Regeln ist, dass die erste Note innerhalb von
+@code{@w{\relative f}} auf die selbe Art interpretiert wird als wenn
+sie im absoluten Tonhöhenmodus geschrieben worden wäre.
 
 @seealso
 Musikgossar:
@@ -418,7 +421,6 @@ cis1~ cis~
 \break
 cis
 @end lilypond
-
 
 @snippets
 
@@ -855,6 +857,11 @@ Um auch im relativen Modus transponieren
 zu können, muss ein @code{\relative} innerhalb des
 @code{\tranpose} zusätzlich gesetzt werden.
 
+Dreifache Versetzungszeichen werden nicht ausgegeben, wenn
+@code{\transpose} benutzt wird.  Eine enharmonisch
+entsprechende Tonhöhe wird anstatt dessen gesetzt (z. B.
+Des anstelle von e-dreifach-b).
+
 
 @node Umkehrung
 @unnumberedsubsubsec Umkehrung
@@ -1193,20 +1200,23 @@ c2 c
 
 Weitere unterstützte Schlüssel sind beschrieben in @ref{Mensurale Schlüssel},
 @ref{Gregorianische Schlüssel}, @ref{Standardtabulaturen} und
-@ref{Angepasste Tabulaturen}.
+@ref{Angepasste Tabulaturen}.  Zur Benutzung unterschiedlicher Schlüssel
+bei Stichnoten siehe die Funktionen @code{\cueClef} und
+@code{\cueDuringWithClef} in 
+
 
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
-
 @seealso
 Notationsreferenz:
 @ref{Mensurale Schlüssel},
 @ref{Gregorianische Schlüssel}
 @ref{Standardtabulaturen},
-@ref{Angepasste Tabulaturen}.
+@ref{Angepasste Tabulaturen},
+@ref{Stichnoten formatieren}.
 
 Schnipsel:
 @rlsr{Pitches}.
@@ -1578,7 +1588,7 @@ in beiden Systemen benutzt werden soll:
 \new PianoStaff @{
   <<
     \context Staff = "up" @{
-      %%% change the next line as desired:
+      %%% nächste Zeile wie gewünscht ändern:
       \accidentalStyle #'Score "default"
       \musicA
     @}
@@ -1739,11 +1749,10 @@ musicB = {
 Dieser Stil orientiert sich an den üblichen Regeln für
 das 20. Jahrhundert.  Hierbei werden einige zusätzliche
 Auflösungszeichen ausgelassen, die traditionell für
-Versetzungszeichen benutzt wurden, welche die Richtung
-des vorherigen Versetzungszeichens verringern oder
-umkehren.  Die gleichen Versetzungszeichen
+ein Kreuz nach einem Doppelkreuz und ein b nach einem
+Doppel-b gesetzt werden.  Die gleichen Versetzungszeichen
 wie im Standardstil werden gesetzt, allerdings mit zwei
-Ausnahmen, die Uneindeutigkeiten verhindern sollen: nach
+Zusätzen, die Uneindeutigkeiten verhindern sollen: nach
 vorübergehenden Versetzungszeichen werden Auflösungszeichen
 auch im folgenden Takt gesetzt (für Noten innerhalb der
 selben Oktave) und im gleichen Takt für Noten in

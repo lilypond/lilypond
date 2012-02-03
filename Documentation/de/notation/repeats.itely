@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -485,6 +485,21 @@ wobei @code{@var{musikAusdr}} ein musikalischer Ausdruck ist und
 c1
 @end lilypond
 
+In einigen Fällen, insbesondere in einer @code{\relative}-Umgebung,
+bedeutet die Funktion @code{\repeat unfold} nicht das gleiche wie
+die ausgeschriebenen Noten mehrere Male.  Beispielsweise ist
+
+@example
+\repeat unfold 2 @{ a'4 b c @}
+@end example
+
+@noindent
+nicht das Selbe wie
+
+@example
+a'4 b c | a'4 b c
+@end example
+
 Repititive Wiederholungen können auch mit mehreren Klammern
 notiert werden:
 
@@ -512,9 +527,9 @@ ergeben.
 c1
 @end lilypond
 
-Wenn es mehr Alternativen als Wiederholungen gibt, werden die
+Wenn es mehr Alternativen als Wiederholungen gibt, wird nur die
 ersten Alternativen ausgegeben und die restlichen Alternativen
-ignoriert.
+ignoriert und nicht gesetzt.
 
 @lilypond[verbatim,quote,relative=2]
 \repeat unfold 2 { c4 d e f }
