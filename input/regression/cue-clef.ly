@@ -2,7 +2,7 @@
 
 \header {
   texidoc = "Clefs for cue notes: Print a cue clef at the begin of the cue
-notes and a cancelling clef after the cue notes."
+notes and a canceling clef after the cue notes."
 }
 
 vI = \relative c'' { \clef "treble" \repeat unfold 16 g4 }

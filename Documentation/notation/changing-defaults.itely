@@ -2309,7 +2309,7 @@ TrillPitchAccidental - not tried
 TrillPitchGroup - not tried
 @end ignore
 
-These indications affect all notes until they are cancelled.
+These indications affect all notes until they are canceled.
 
 @lilypond[verbatim,quote,relative=2]
 c2( c)
@@ -3707,7 +3707,7 @@ Scheme function instead of a literal (i.e. a number or pair).
 
 For certain grobs, the @code{Y-extent} is based on the @code{stencil}
 property, overriding the stencil property of one of these will
-require and additional @code{Y-extent} override with an unpure-pure
+require an additional @code{Y-extent} override with an unpure-pure
 container.  When a function overrides a @code{Y-offset} and/or
 @code{Y-extent} it is assumed that this will trigger line breaking
 calculations too early during compilation.  So the function is not
@@ -3733,7 +3733,7 @@ An unpure-pure container is constructed as follows;
 
 where @code{f0} is a function taking @var{n} arguments (@var{n >= 1})
 and the first argument must always be the grob.  This is the function
-that gives the actual result.  @var{f1} is the function being labelled
+that gives the actual result.  @var{f1} is the function being labeled
 as @q{pure} that takes @var{n + 2} arguments.  Again, the first argument
 must always still be the grob but the second and third are @q{start}
 and @q{end} arguments.
@@ -3791,7 +3791,7 @@ Usually for simple calculations nearly-identical functions for both the
 @q{unpure} and @q{pure} parts can be used, by only changing the number
 of arguments passed to, and the scope of, the function.
 
-@warning{If a function is labelled as @q{pure} and it turns out not to
+@warning{If a function is labeled as @q{pure} and it turns out not to
 be, the results can be unexpected.}
 
 

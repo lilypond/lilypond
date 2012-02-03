@@ -1373,14 +1373,14 @@ as a context."
 				   `(Staff ,(make-accidental-rule 'same-octave 0))
 				   '()
 				   context))
-      ;; accidentals from one voice do NOT get cancelled in other voices
+      ;; accidentals from one voice do NOT get canceled in other voices
       ((equal? style 'voice)
        (set-accidentals-properties #t
 				   `(Voice ,(make-accidental-rule 'same-octave 0))
 				   '()
 				   context))
       ;; accidentals as suggested by Kurt Stone, Music Notation in the 20th century.
-      ;; This includes all the default accidentals, but accidentals also needs cancelling
+      ;; This includes all the default accidentals, but accidentals also needs canceling
       ;; in other octaves and in the next measure.
       ((equal? style 'modern)
        (set-accidentals-properties #f
@@ -1445,7 +1445,7 @@ as a context."
 				   context))
       ;; Multivoice accidentals to be read both by musicians playing one voice
       ;; and musicians playing all voices.
-      ;; Accidentals are typeset for each voice, but they ARE cancelled across voices.
+      ;; Accidentals are typeset for each voice, but they ARE canceled across voices.
       ((equal? style 'modern-voice)
        (set-accidentals-properties  #f
 				    `(Voice ,(make-accidental-rule 'same-octave 0)
@@ -1468,7 +1468,7 @@ as a context."
 					   ,(make-accidental-rule 'same-octave 1))
 				   context))
       ;; stone's suggestions for accidentals on grand staff.
-      ;; Accidentals are cancelled across the staves in the same grand staff as well
+      ;; Accidentals are canceled across the staves in the same grand staff as well
       ((equal? style 'piano)
        (set-accidentals-properties #f
 				   `(Staff ,(make-accidental-rule 'same-octave 0)

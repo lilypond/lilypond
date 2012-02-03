@@ -121,7 +121,7 @@ Dynamic_engraver::listen_span_dynamic (Stream_event *ev)
 
   /* Cancel any ongoing crescendo, either explicitly by \! or
      implicitly by a new crescendo. Also avoid warning if cresc is
-     cancelled both implicitly and explicitly. */
+     canceled both implicitly and explicitly. */
   if ((d == STOP || current_cresc_ev_) && !accepted_spanevents_drul_[STOP])
     ASSIGN_EVENT_ONCE (accepted_spanevents_drul_[STOP], ev);
 }
