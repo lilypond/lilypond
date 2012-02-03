@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 788ce4594c66c5db1bdbb915a684df96d8a29fde
+    Translation of GIT committish: 15b6acf13d25ad60cc07d1f7871aa8ebf15fc4c5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1094,19 +1094,12 @@ scoreTitleMarkup = \markup @{ \column @{
 @unnumberedsubsubsec 自動脚注
 @translationof Automatic footnotes
 
-自動脚注を作成するために 2 つのコマンドがあります。@c
-個々のグラフィカル オブジェクト
-(例えば、符頭、符幹、スラー、強弱記号、@c
-それに @code{TextScripts} の @code{\markup})
-に脚注を付ける場合は @code{\footnoteGrob} を使用し、@c
-和音に脚注を付ける場合は @code{\footnote} を使用してください。
-
-2 つのコマンドはどちらも 3 つの引数を取ります:
+自動脚注は 3 つの引数を取ります:
 脚注を付ける @var{レイアウト オブジェクト}、@c
 脚注の位置 @var{(x . y)}、@c
 それにページ下部の脚注に表示される @code{\markup} です。
 
-コマンド @code{\footnoteGrob} は脚注を付けるグラフィカル オブジェクトの
+コマンド @code{\footnote} は脚注を付けるグラフィカル オブジェクトの
 @emph{前に} 配置する必要があります:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
@@ -1145,8 +1138,8 @@ scoreTitleMarkup = \markup @{ \column @{
 高い位置にある脚注は、リストでも上に来ます。
 }
 
-ここで、グラフィカル オブジェクトに自動脚注を付ける例をいくつか挙げ、@c
-脚注とタグラインやコピーライトとの位置関係を示します。
+ここで、グラフィカル オブジェクト動脚注を付ける例をいくつか挙げ、@c
+さらに脚注とタグラインやコピーライトとの位置関係を示します。
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -1195,19 +1188,7 @@ scoreTitleMarkup = \markup @{ \column @{
 @unnumberedsubsubsec 手動脚注
 @translationof Manual footnotes
 
-@funindex \footnote
-@funindex \footnoteGrob
-@cindex footnotes, manual (手動脚注)
-
-手動脚注を作成するために 2 つのコマンドがあります。@c
-最上位の @code{\markup} と和音にに脚注を付ける場合は
-@code{\footnote} を使用し、@c
-個々のグラフィカル オブジェクト
-(それに @code{TextScripts} の @code{\markup})
-に脚注を付ける場合は @code{\footnoteGrob} を使用てください。
-
-グラフィカル オブジェクトに脚注を付ける場合、@c
-@code{\footnote} コマンドは 4 つの引数を取ります:
+手動脚注は 4 つの引数を取ります:
 脚注を付ける @var{レイアウト オブジェクト}、@c
 脚注の位置 @var{(x . y)}、@c
 それに 2 つの @code{\markup} コマンドです。@c
@@ -1215,7 +1196,8 @@ scoreTitleMarkup = \markup @{ \column @{
 最初のコマンドは音符やグラフィカル オブジェクトに付ける脚注の印で、@c
 次のコマンドはページ下部の脚注です。
 
-コマンド @code{\footnoteGrob} を脚注を付けるグラフィカル オブジェクトの
+自動脚注と同様に、手動脚注 @code{\footnote} コマンドは@c
+脚注を付けるグラフィカル オブジェクトの
 @emph{後に} @code{TextScript} として配置する必要があります:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
@@ -1233,9 +1215,7 @@ scoreTitleMarkup = \markup @{ \column @{
 }
 @end lilypond
 
-和音に脚注を付ける場合、@c
-@code{\footnote} を脚注を付ける音符の @emph{後に}
-@code{TextScript} として配置する必要があります:
+和音に手動脚注を付ける場合、以下のようにします:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -1283,7 +1263,8 @@ scoreTitleMarkup = \markup @{ \column @{
     c4
 
     \footnote
-      \markup \concat \teeny { "sharp (v)" } #'(0 . 0.5) #'AccidentalCautionary
+      \markup \concat \teeny { "sharp (v)" }
+          #'(0 . 0.5) #'AccidentalCautionary
       \markup \italic { v. A cautionary accidental }
 
     \footnote
@@ -1293,7 +1274,8 @@ scoreTitleMarkup = \markup @{ \column @{
 
     \breathe
     \footnote
-      \markup { \teeny \musicglyph #"rests.4" } #'(1.5 . -0.25) #'BreathingSign
+      \markup { \teeny \musicglyph #"rests.4" }
+          #'(1.5 . -0.25) #'BreathingSign
       \markup { \null }
   }
 }
