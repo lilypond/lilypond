@@ -187,12 +187,12 @@ get_help_string ()
   return help;
 }
 
-LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (),
-           "Print @code{ly:set-option} usage.")
+LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 1, 0, (SCM port),
+           "Print @code{ly:set-option} usage.  Optional @var{port} argument"
+	   "for the destination defaults to current output port.")
 {
-  string help = get_help_string ();
-  puts (help.c_str ());
-  fflush (stdout);
+  SCM str = scm_from_locale_string (get_help_string ().c_str ());
+  scm_write_line (str, port);
 
   return SCM_UNSPECIFIED;
 }
