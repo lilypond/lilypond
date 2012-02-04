@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 2e9dfc21e1cf4a5fb44ac8b5039c22963b7259f5
+    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1073,7 +1073,7 @@ partition.
 
 @seealso
 Manuel d'utilisation :
-@rprogram{Apparition d’une portée supplémentaire}.
+@rprogram{Apparition d'une portée supplémentaire}.
 
 Fichiers d'initialisation :
 @file{ly/engraver-init.ly}.
@@ -3465,10 +3465,10 @@ permettent de gérer le positionnement des indications de repère sur ces
 objets.
 
 @menu
-* Détermination directe de @code{X-offset} et @code{Y-offset}::
-* Utilisation de @code{side-position-interface}::
-* Utilisation de @code{self-alignment-interface}::
-* Utilisation de @code{break-aligned-interface}::
+* Détermination directe de X-offset et Y-offset::
+* Utilisation de side-position-interface::
+* Utilisation de self-alignment-interface::
+* Utilisation de break-aligned-interface::
 @end menu
 
 @seealso
@@ -3476,9 +3476,9 @@ Manuel d'extension :
 @rextend{Callback functions}.
 
 
-@node Détermination directe de @code{X-offset} et @code{Y-offset}
+@node Détermination directe de X-offset et Y-offset
 @unnumberedsubsubsec Détermination directe de @code{X-offset} et @code{Y-offset}
-@translationof Setting @code{X-offset} and @code{Y-offset} directly
+@translationof Setting X-offset and Y-offset directly
 
 Vous pouvez fournir, pour de nombreux objets, des valeurs numériques aux
 propriétés @code{X-offset} et @code{Y-offset}.  Voici par exemple une
@@ -3501,9 +3501,9 @@ a
 @c TODO write more
 
 
-@node Utilisation de @code{side-position-interface}
+@node Utilisation de side-position-interface
 @unnumberedsubsubsec Utilisation de @code{side-position-interface}
-@translationof Using the @code{side-position-interface}
+@translationof Using the side-position-interface
 
 Un objet disposant de la @code{side-position-interface} peut se voir
 accolé à son voisin de telle sorte que les bords des deux objets se
@@ -3545,9 +3545,9 @@ valeur de @code{direction}.
 @c TODO Add examples
 
 
-@node Utilisation de @code{self-alignment-interface}
+@node Utilisation de self-alignment-interface
 @unnumberedsubsubsec Utilisation de @code{self-alignment-interface}
-@translationof Using the @code{self-alignment-interface}
+@translationof Using the self-alignment-interface
 
 @emph{Réalignement d'objets horizontalement}
 
@@ -3625,7 +3625,6 @@ a
 
 @ignore
 @unnumberedsubsubsec Utilisation de @code{aligned-on-parent}
-@translationof Using the @code{centered-on-parent} procedures
 
 @c Cannot document as they do not seem to operate consistently on all objects -td
 @c TODO investigate further
@@ -3646,7 +3645,6 @@ example shows the difference:
 
 @ignore
 @c unnumberedsubsubsec Utilisation de @code{centered-on-parent}
-@c translationof Using the @code{centered-on-parent} procedures
 
 @c Cannot document as they do not seem to operate consistently on all objects -td
 @c TODO investigate further
@@ -3656,9 +3654,9 @@ example shows the difference:
 @c TODO The align-interface, BassFigureAlignment and VerticalAlignment
 
 
-@node Utilisation de @code{break-aligned-interface}
+@node Utilisation de break-aligned-interface
 @unnumberedsubsubsec Utilisation de @code{break-aligned-interface}
-@translationof Using the @code{break-alignable-interface}
+@translationof Using the break-alignable-interface
 
 @cindex alignement sur un objet
 @cindex break-align-symbols

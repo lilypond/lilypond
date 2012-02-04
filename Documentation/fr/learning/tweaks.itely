@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 1dea8bf1d7182f3d1a1c70bb2010f4585f56b3e6
+    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -23,7 +23,7 @@ théoriquement de modifier chaque élément de votre partition.
 
 @menu
 * Retouches élémentaires::
-* Le manuel des références internes::
+* Le manuel de référence des propriétés internes::
 * Apparence des objets::
 * Positionnement des objets::
 * Collisions d'objets::
@@ -485,8 +485,8 @@ Manuel de notation :
 @ruser{La commande d'affinage (@emph{tweak})}.
 
 
-@node Le manuel des références internes
-@section Le manuel des références internes
+@node Le manuel de référence des propriétés internes
+@section Le manuel de référence des propriétés internes
 @translationof The Internals Reference manual
 
 @cindex Références internes

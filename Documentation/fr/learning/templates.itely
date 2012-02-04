@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 1dea8bf1d7182f3d1a1c70bb2010f4585f56b3e6
+    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -100,7 +100,7 @@ de lancer LilyPond, et d'aprécier le résultat.
 @appendixsec Ensemble vocal
 @translationof Vocal ensembles
 
-@appendixsubsec Partition pour chœur SATB à quatre voix mixtes
+@appendixsubsec Partition pour chœur à quatre voix mixtes
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template.ly}
@@ -115,7 +115,7 @@ de lancer LilyPond, et d'aprécier le résultat.
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
-@appendixsubsec Partition pour chœur SATB, sur quatre portées
+@appendixsubsec Chœur à quatre voix mixtes sur quatre portées
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {satb-choir-template---four-staves.ly}

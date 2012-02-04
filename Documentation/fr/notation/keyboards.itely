@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 23790c06f9e9b7f3eeb2af67883dfaa3f8e31ab0
+    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -266,7 +266,7 @@ Manuel de notation :
 @ref{Conservation d'un contexte}.
 
 Morceaux choisis :
-@rlsr{Keyboards}.
+@rlsrnamed{Keyboards,Claviers}.
 
 Référence des propriétés internes :
 @rinternals{Beam},
@@ -636,7 +636,7 @@ pour exécuter un morceau.
 
 @seealso
 Morceaux choisis :
-@rlsr{Keyboards}.
+@rlsr{Keyboards, Claviers}.
 
 
 @node Harpe
@@ -670,7 +670,7 @@ d'autres chapitres, telles que@tie{}:
 
 @item Les harmoniques naturelles sont présentées dans @ref{Harmoniques}.
 
-@item For directional arpeggios and non-arpeggios, see @ref{Arpèges}.
+@item L'interprétation des arpeggios est abrodée dans @ref{Arpèges}.
 
 @end itemize
 
