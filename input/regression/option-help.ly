@@ -5,5 +5,5 @@
   previous releases."
 }
 
-#(ly:option-usage)
+#(ly:option-usage (current-error-port))
 
