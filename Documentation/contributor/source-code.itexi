@@ -112,6 +112,7 @@ multiple projects concurrently.
 @menu
 * Setting up::
 * Git for the impatient::
+* Other repositories::
 * Downloading remote branches::
 @end menu
 
@@ -522,9 +523,35 @@ your branch (safe)}, but replace the @code{-d} on the final line with
 a @code{-D}.
 
 
+@node Other repositories
+@subsection Other repositories
+
+There is a separate repository for general administrative scripts,
+as well as pictures and media files for the website.  People
+interested in working on the website should download this
+repository, and set their @code{$LILYPOND_WEB_MEDIA_GIT}
+environment variable to point to that repository.
+
+@example
+@uref{https://github.com/gperciva/lilypond-extra}
+@end example
+
+To configure an environment variable in bash (the default for most
+Linux distributions),
+
+@example
+export LILYPOND_WEB_MEDIA_GIT=$HOME/dir/of/lilypond-extra/
+@end example
+
+
+There are a few other repositories floating around, which will
+hopefully be documented in the near future.
+
+
 @node Downloading remote branches
 @subsection Downloading remote branches
 
+@warning{contains obsolete + misleading info}
 
 @menu
 * Organization of remote branches::
@@ -588,6 +615,8 @@ only be used as a last resort.
 
 @node Downloading individual branches
 @unnumberedsubsubsec Downloading individual branches
+
+@warning{obsolete, should be deleted!}
 
 
 Once you have initialized an empty Git repository on your system
