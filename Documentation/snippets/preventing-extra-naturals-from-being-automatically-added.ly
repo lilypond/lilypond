@@ -22,6 +22,7 @@ questo comportamento si imposta la proprietà @code{extraNatural} su
 
 
 
+
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 doctitlees = "Evitar que se añadan becuadros adicionales automáticamente"
 

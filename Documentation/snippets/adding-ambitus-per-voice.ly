@@ -19,6 +19,7 @@ spostarlo manualmente per evitare collisioni.
 
 
 
+
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   doctitlees = "Añadir un ámbito por voz"
   texidoces = "

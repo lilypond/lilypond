@@ -24,6 +24,7 @@ avant qu'après les chiffres, en réglant les propriétés
 
 
 
+
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Las alteraciones y los signos «más» pueden aparecer antes o

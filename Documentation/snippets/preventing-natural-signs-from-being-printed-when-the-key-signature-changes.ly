@@ -21,6 +21,7 @@ può evitare questo comportamento impostando su @code{f} (falso) la proprietà
 
 
 
+
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 doctitlees = "Evitar que se impriman becuadros cuando cambia la armadura"
 

@@ -22,6 +22,7 @@ imprimés qu'aux changements d'accord ou en début de ligne.
 
 
 
+
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Se pueden imprimir los acordes exclusivamente al comienzo de las

@@ -22,6 +22,7 @@ permet d'imprimer les barres de mesure entre les chiffrages.
 
 
 
+
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
 Para añadir indicaciones de línea divisoria dentro del contexto de
