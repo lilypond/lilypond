@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 972ef8e72c21b905cf5bd3b983686dbc38560505
+    Translation of GIT committish: c737bb801e1d401b31104fe18dfab81f5d43dc80
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -602,8 +602,8 @@ Manuel de notation :
 @ref{Découpage automatique des notes}.
 
 Morceaux choisis :
-@rlsrnamed{slurs,Liaisons},
-@rlsrnamed{Rhythms,Rythme}.
+@rlsrnamed{Expressive marks, Signes d'interprétation},
+@rlsrnamed{Rhythms, Rythme}.
 
 Référence des propriétés internes :
 @rinternals{LaissezVibrerTie},
@@ -2292,6 +2292,11 @@ Les règles de ligature par défaut sont répertoriées dans le fichier
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {subdividing-beams.ly}
+
+@cindex sous-ligature, orientation
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{strict-beat-beaming.ly}
 
 @cindex groupement de mesures
 @cindex groupement de pulsations

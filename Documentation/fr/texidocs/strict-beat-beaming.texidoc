@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 
+  texidocfr = "
+Une sous-ligature tronquée peut pointer en direction de la pulsation à
+laquelle elle se rattache.  Dans l'exemple suivant, la première ligature
+évite toute troncature (comportement par défaut), alors que la deuxième
+respecte rigoureusement la pulsation.
+
+"
+
+  doctitlefr = "Ligature à la pulsation"
