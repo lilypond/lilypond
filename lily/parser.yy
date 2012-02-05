@@ -404,6 +404,7 @@ If we give names, Bison complains.
 %type <scm> music
 %type <scm> music_bare
 %type <scm> music_arg
+%type <scm> music_assign
 %type <scm> complex_music
 %type <scm> complex_music_prefix
 %type <scm> mode_changed_music
@@ -507,6 +508,7 @@ If we give names, Bison complains.
 %type <scm> markup_head_1_list
 %type <scm> markup_list
 %type <scm> markup_top
+%type <scm> maybe_notemode_duration
 %type <scm> mode_changing_head
 %type <scm> mode_changing_head_with_context
 %type <scm> multiplied_duration
@@ -773,7 +775,7 @@ identifier_init:
 	| context_def_spec_block {
 		$$ = $1;
 	}
-	| music  {
+	| music_assign  {
 		$$ = $1;
 	}
 	| post_event_nofinger {
@@ -1126,14 +1128,28 @@ braced_music_list:
 	}
 	;
 
-music:	simple_music
+music:	music_arg
 	| lyric_element_music
-	| composite_music %prec COMPOSITE
 	;
 
 music_arg:
 	simple_music
+	{
+		if (unsmob_pitch ($1)) {
+			Music *n = MY_MAKE_MUSIC ("NoteEvent", @1);
+			n->set_property ("pitch", $1);
+			n->set_property ("duration",
+					 parser->default_duration_.smobbed_copy ());
+			$$ = n->unprotect ();
+		}
+	}
 	| composite_music %prec COMPOSITE
+	;
+
+music_assign:
+	simple_music
+	| composite_music %prec COMPOSITE
+	| lyric_element_music
 	;
 
 repeated_music:
@@ -2037,9 +2053,17 @@ scalar_closed:
 event_chord:
 	simple_element post_events {
 		// Let the rhythmic music iterator sort this mess out.
-		if (scm_is_pair ($2))
-			unsmob_music ($1)->set_property ("articulations",
+		if (scm_is_pair ($2)) {
+			if (unsmob_pitch ($1)) {
+				Music *n = MY_MAKE_MUSIC ("NoteEvent", @1);
+				n->set_property ("pitch", $1);
+				n->set_property ("duration",
+						 parser->default_duration_.smobbed_copy ());
+				$$ = n->unprotect ();
+			}
+			unsmob_music ($$)->set_property ("articulations",
 							 scm_reverse_x ($2, SCM_EOL));
+		}
 	}
 	| simple_chord_elements post_events	{
 		SCM elts = ly_append2 ($1, scm_reverse_x ($2, SCM_EOL));
@@ -2500,14 +2524,22 @@ duration_length:
 	}
 	;
 
-optional_notemode_duration:
+maybe_notemode_duration:
 	{
-		Duration dd = parser->default_duration_;
-		$$ = dd.smobbed_copy ();
+		$$ = SCM_UNDEFINED;
 	}
 	| multiplied_duration	{
 		$$ = $1;
 		parser->default_duration_ = *unsmob_duration ($$);
+	}
+;
+
+
+optional_notemode_duration:
+	maybe_notemode_duration
+	{
+		if (SCM_UNBNDP ($$))
+			$$ = parser->default_duration_.smobbed_copy ();
 	}
 	;
 
@@ -2683,31 +2715,37 @@ optional_rest:
 	;
 
 simple_element:
-	pitch exclamations questions octave_check optional_notemode_duration optional_rest {
+	pitch exclamations questions octave_check maybe_notemode_duration optional_rest {
 		if (!parser->lexer_->is_note_state ())
 			parser->parser_error (@1, _ ("have to be in Note mode for notes"));
-
-		Music *n = 0;
-		if ($6)
-			n = MY_MAKE_MUSIC ("RestEvent", @$);
-		else
-			n = MY_MAKE_MUSIC ("NoteEvent", @$);
-
-		n->set_property ("pitch", $1);
-		n->set_property ("duration", $5);
-
-		if (scm_is_number ($4))
+		if ($2 || $3 || scm_is_number ($4) || !SCM_UNBNDP ($5) || $6)
 		{
-			int q = scm_to_int ($4);
-			n->set_property ("absolute-octave", scm_from_int (q-1));
+			Music *n = 0;
+			if ($6)
+				n = MY_MAKE_MUSIC ("RestEvent", @$);
+			else
+				n = MY_MAKE_MUSIC ("NoteEvent", @$);
+			
+			n->set_property ("pitch", $1);
+			if (SCM_UNBNDP ($5))
+				n->set_property ("duration",
+						 parser->default_duration_.smobbed_copy ());
+			else
+				n->set_property ("duration", $5);
+			
+			if (scm_is_number ($4))
+			{
+				int q = scm_to_int ($4);
+				n->set_property ("absolute-octave", scm_from_int (q-1));
+			}
+			
+			if ($3 % 2)
+				n->set_property ("cautionary", SCM_BOOL_T);
+			if ($2 % 2 || $3 % 2)
+				n->set_property ("force-accidental", SCM_BOOL_T);
+			
+			$$ = n->unprotect ();
 		}
-
-		if ($3 % 2)
-			n->set_property ("cautionary", SCM_BOOL_T);
-		if ($2 % 2 || $3 % 2)
-			n->set_property ("force-accidental", SCM_BOOL_T);
-
-		$$ = n->unprotect ();
 	}
 	| DRUM_PITCH optional_notemode_duration {
 		Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
