@@ -120,8 +120,14 @@ Ambitus_engraver::stop_translation_timestep ()
        * may then oversee a clef that is defined in a staff context if
        * we are in a voice context; middleCPosition would then be
        * assumed to be 0.
+
+       * Don't use middleCPosition as this may be thwarted by a cue
+       * starting here.  middleCOffset is not affected by cue clefs.
        */
-      start_c0_ = robust_scm2int (get_property ("middleCPosition"), 0);
+      int clef_pos = robust_scm2int (get_property ("middleCClefPosition"), 0);
+      int offset = robust_scm2int (get_property ("middleCOffset"), 0);
+
+      start_c0_ = clef_pos + offset;
       start_key_sig_ = get_property ("keySignature");
 
       is_typeset_ = true;
@@ -231,7 +237,8 @@ ADD_TRANSLATOR (Ambitus_engraver,
 
                 /* read */
                 "keySignature "
-                "middleCPosition ",
+                "middleCClefPosition "
+		"middleCOffset ",
 
                 /* write */
                 ""
