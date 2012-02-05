@@ -95,6 +95,7 @@ protected:
   vector<Real> solution_;
   Real force_;
   Skyline bottom_skyline_;
+  Real bottom_loose_baseline_;
   Real page_height_;
   Real header_height_;
   Real footer_height_;

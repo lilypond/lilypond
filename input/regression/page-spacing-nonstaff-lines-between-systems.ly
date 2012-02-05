@@ -3,11 +3,11 @@
 \header {
   texidoc = "The vertical spacing engine is not confused by a
 non-staff line below a system followed by a loose line above the
-next system."
+next system.  Systems are spaced far enough that loose lines
+are not interleaved, even if gaps would allow interleaving."
 }
 
 \paper {
-  indent = 0
   ragged-right = ##t
 }
 

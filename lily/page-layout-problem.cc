@@ -380,6 +380,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
   : bottom_skyline_ (DOWN)
 {
   Prob *page = unsmob_prob (page_scm);
+  bottom_loose_baseline_ = 0;
   header_height_ = 0;
   footer_height_ = 0;
   header_padding_ = 0;
@@ -596,12 +597,17 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
     {
       if (is_spaceable (elts[i]))
         {
-          // We don't add a spring for the first staff, since
-          // we are only adding springs _between_ staves here.
           if (!found_spaceable_staff)
             {
+              // Ensure space for any loose lines above this system
+              if (i > 0)
+                springs_.back ().ensure_min_distance (bottom_loose_baseline_
+                                                      - minimum_offsets_with_min_dist[i]
+                                                      + padding);
               found_spaceable_staff = true;
               last_spaceable_staff = i;
+              // We don't add a spring for the first staff, since
+              // we are only adding springs _between_ staves here.
               continue;
             }
 
@@ -628,6 +634,11 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
           last_spaceable_staff = i;
         }
     }
+
+  bottom_loose_baseline_ = found_spaceable_staff
+                           ? ( minimum_offsets_with_min_dist[last_spaceable_staff]
+                               - minimum_offsets_with_min_dist.back ())
+                           : 0;
 
   // Corner case: there was only one staff, and it wasn't spaceable.
   // Mark it spaceable, because we do not allow non-spaceable staves
