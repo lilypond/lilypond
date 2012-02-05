@@ -7,36 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
-  texidocit = "
-Questo esempio usa del codice Scheme per imporre delle modifiche
-enarmoniche alle note che permettano di avere il numero minimo di
-alterazioni.  In questo caso si applica la seguente regola:
-
-Le doppie alterazioni devono essere eliminate
-
-
-Si diesis -> Do
-
-
-Mi diesis -> Fa
-
-
-Do bemolle -> Si
-
-
-Fa bemolle -> Mi
-
-
-In questo modo vengono scelti i suoni enarmonici più semplici.
-
-"
-  doctitleit = "Trasposizione delle altezze con numero minimo di alterazioni"
-
   lsrtags = "pitches"
-
-
-
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 doctitlees = "Transportar música con el menor número de alteraciones"
@@ -69,6 +40,32 @@ naturales.
 
 "
 
+
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
+  texidocit = "
+Questo esempio usa del codice Scheme per imporre delle modifiche
+enarmoniche alle note che permettano di avere il numero minimo di
+alterazioni.  In questo caso si applica la seguente regola:
+
+Le doppie alterazioni devono essere eliminate
+
+
+Si diesis -> Do
+
+
+Mi diesis -> Fa
+
+
+Do bemolle -> Si
+
+
+Fa bemolle -> Mi
+
+
+In questo modo vengono scelti i suoni enarmonici più semplici.
+
+"
+  doctitleit = "Trasposizione delle altezze con numero minimo di alterazioni"
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   doctitlede = "Noten mit minimaler Anzahl an Versetzungszeichen transponieren."

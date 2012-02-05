@@ -7,21 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Vous pouvez faire ressortir les chiffrages d'accords s'ils ne sont
-imprimés qu'aux changements d'accord ou en début de ligne.
-
-"
-  doctitlefr = "Impression des accords si changement"
-
   lsrtags = "chords"
-
-
-
-
-
-
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -39,6 +25,14 @@ und bei Akkordwechseln angezeigt werden.
 
 "
   doctitlede = "Akkordsymbole bei Wechsel anzeigen"
+
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+  texidocfr = "
+Vous pouvez faire ressortir les chiffrages d'accords s'ils ne sont
+imprimés qu'aux changements d'accord ou en début de ligne.
+
+"
+  doctitlefr = "Impression des accords si changement"
 
   texidoc = "
 Chord names can be displayed only at the start of lines and when the
