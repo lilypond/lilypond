@@ -21,8 +21,7 @@
 (define-public (ly:all-stencil-commands)
   "Return the list of stencil commands that can be
 defined in the output modules (@file{output-*.scm})."
-  '(beam
-    bezier-sandwich
+  '(bezier-sandwich
     blank
     bracket
     char
