@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1253,12 +1253,6 @@ Notensysteme können eingerichtet werden, indem man den
 
 @snippets
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-the-time-signature-without-affecting-the-beaming.ly}
-
-@cindex compound time signatures
-@cindex time signature, compound
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
@@ -1422,7 +1416,7 @@ Die Eigenschaft @code{measurePosition} (Takt-Position) enthält
 eine rationale Zahl,
 die anzeigt, wie groß der Abstand zum Taktanfang ist. Deshalb ist
 sie eine negative Zahl; @code{\partial 4} wird also intern übersetzt
-zu @code{-4} was soviel bedeutet wie: @qq{Eine Viertel bleibt übrig vom ganzen Takt.}
+zu @w{@code{-4}} was soviel bedeutet wie: @qq{Eine Viertel bleibt übrig vom ganzen Takt.}
 
 @seealso
 Glossar:
@@ -1590,32 +1584,27 @@ ein seltsamer Fehler auftreten kann.
 @funindex \times
 @funindex times
 
-Polymetrische Notation ist unterstützt, entweder direkt, oder
+Polymetrische Notation ist direkt unterstützt, oder
 indem man das sichtbare Taktart-Symbol verändert und zusätzlich
 die Notendauern skaliert.
 
-@strong{@i{Systeme mit unterschiedlichen Taktarten, gleiche
-Taktlänge}}
+@subsubheading Unterschiedliche Taktarten mit gleicher Taktlänge
 
-Diese Art der Notation kann erstellt werden, indem für jedes
-System eine identische Taktart eingestellt wird, aber manuell
-für jeden Takt durch Einstellung von @code{timeSignatureFraction}
-auf den gewünschten Bruch geändert und dann die Länge der
-Noten entsprechenden skaliert wird, siehe auch @ref{Taktangabe}.
-Die Skalierung geschieht mit dem Befehl
-@code{\scaleDurations}, der auf ähnliche Weise wie @code{\times}
-benutzt wird, aber keine Klammer über den Noten ausgibt. Siehe
-auch @ref{Tondauern skalieren}.
+Für jedes System wird eine gemeinsame Taktart gesetzt und dann
+die Einstellung von @code{timeSignatureFraction} auf den gewünschten
+Bruch geändert.  Mit dem Befehl @code{\scaleDurations} werden
+die Dauern der Noten auf jedem System dann auf die gemeinsame
+Taktart skaliert.  Siehe auch @ref{Tondauern skalieren}.
 
 @cindex Bebalkung in polymetrischer Notation
 @cindex Polymetrische Notation und Balken
 @cindex Balken in polymetrischer Notation
 
-In diesem Beispiel werden Noten mit den Taktarten 3/4, 9/8 und
-10/8 parallel benutzt.  Im zweiten System werden die gezeigten
-Dauern mit 2/3 multipliziert, da 2/3x9/8=3/4, und im dritten
+In folgendem Beispiel werden Noten mit den Taktarten 3/4, 9/8 und
+10/8 parallel notiert.  Im zweiten System werden die gezeigten
+Dauern mit 2/3 multipliziert, da 2/3 x 9/8 = 3/4, und im dritten
 System werden die gezeigten Dauern mit 3/5 multipliziert, da
-3/5x10/8=3/4.  Oft wird es nötig sein, Balken manuell zu setzen,
+3/5 x 10/8 = 3/4.  Oft wird es nötig sein, Balken manuell zu setzen,
 weil die Skalierung sich auch auf die automatische Bebalkung
 auswirkt.
 
@@ -1624,7 +1613,7 @@ auswirkt.
   \new Staff {
     \time 3/4
     c4 c c |
-    c c c |
+    c4 c c |
   }
   \new Staff {
     \time 3/4
@@ -1638,14 +1627,14 @@ auswirkt.
     \scaleDurations #'(3 . 5) {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
-      c4. c4. \times 2/3 { c8[ c c] } c4
+      c4. c. \times 2/3 { c8[ c c] } c4
     }
   }
 >>
 @end lilypond
 
-@strong{@i{Systeme mit unterschiedlichen Taktarten, unterschiedliche
-Taktlänge}}
+@subsubheading Unterschiedlichen Taktarten mit unterschiedlicher
+Taktlänge
 
 Jedes System kann auch eine eigene unabhängige Taktart erhalten.
 Dazu muss der @code{Timing_translator} und der
@@ -1690,6 +1679,46 @@ verschoben werden.
 >>
 @end lilypond
 
+@funindex \compoundMeter
+@cindex Zusammengesetzte Taktarten
+@cindex Taktarten, zusammengesetzt
+
+@subsubheading Zusammengesetzte Taktarten
+
+Taktarten aus mehreren Teilen werden mit der Funktion 
+@code{\compoundMeter} erstellt.  Die Syntax ist folgende:
+
+@example
+\compoundMeter #'@code{(Liste aus Listen)}
+@end example
+
+Die einfachste Konstruktion ist eine einzige Liste, wobei die letzte
+Zahl den Nenner des Bruches darstellt, während die vorherkommenden
+Zahlen die Zähler sind.
+
+@lilypond[quote,verbatim]
+\relative c' {
+  \compoundMeter #'((2 2 2 8))
+  \repeat unfold 6 c8 \repeat unfold 12 c16
+}
+@end lilypond
+
+Kompliziertere Taktarten können durch zusätzliche Listen erstellt
+werden (von Klammern abgegrenzt).  Automatische Balken werden
+entsprechend der Werte angepasst.
+
+@lilypond[quote,verbatim]
+\relative c' {
+  \compoundMeter #'((1 4) (3 8))
+  \repeat unfold 5 c8 \repeat unfold 10 c16
+}
+
+\relative c' {
+  \compoundMeter #'((1 2 3 8) (3 4))
+  \repeat unfold 12 c8
+}
+@end lilypond
+
 @seealso
 Glossar:
 @rglos{polymetric},
@@ -1698,6 +1727,8 @@ Glossar:
 
 Notationsreferenz:
 @ref{Taktangabe},
+@ref{Automatische Balken},
+@ref{Manuelle Balken},
 @ref{Tondauern skalieren}.
 
 Schnipsel:
@@ -2113,7 +2144,7 @@ c16 c c |
 @code{beamExceptions} ist eine Aliste mit einem Schlüssel der Regeltypen
 (rule-type) und einem Wert der Bebalkungsregeln (beaming-rules).
 
-Im Moment ist der einzige mögliche rule-type @code{#'end} für ein
+Im Moment ist der einzige mögliche rule-type @code{'end} für ein
 Balkenende.
 
 Beaming-rules ist eine Scheme-Aliste (oder eine paarige Liste), die
@@ -3132,7 +3163,9 @@ Referenz der Interna:
 @translationof Grace notes
 
 @funindex \grace
-@funindex grace
+@funindex \slashedGrace
+@funindex \acciaccatura
+@funindex \appoggiature
 
 @cindex Verzierungen
 @cindex Ziernoten
@@ -3145,22 +3178,26 @@ Ornamente.  Sie werden in einer kleineren Schriftgröße gesetzt und nehmen
 keine logische Zeit im Takt ein.
 
 @lilypond[quote,relative=2,verbatim]
-c4 \grace c16 c4
-\grace { c16[ d16] } c2
+c4 \grace b16 a4(
+\grace { b16[ c16] } a2)
 @end lilypond
 
-LilyPond hat auch Unterstützung für zwei besondere Verzierungen,
-den Vorschlag (engl. acciaccatura) und den Vorhalt (engl appogiatura).
- Der Vorschlag wird durch eine verkleinerte Note mit Schrägstrich
-und Bogen notiert.  Der Vorhalt dagegen ist eine Verzierung, die
-einen bestimmten Notenwert der Hauptnote für sich beansprucht.
-Er wird als verkleinerte Note ohne Schrägstrich notiert.
+Es gibt drei Arten von Verzierungen:
+den Vorschlag (engl. acciaccatura), eine angebundene Verzierungsnote
+mit einem Schrägstrich durch den Hals, und den Vorhalt (engl. appogiatura),
+welcher den Wert der Hauptnote um seinen eigenen Wert verkürzt und
+ohne Schrägstrich notiert wird.  Man kann einen Vorschlag auch mit
+Schrägstrich durch den Hals, aber ohne Legatobogen notieren.  Diese
+Verzierung wird mit dem Befehl @code{\slashedGrace} notiert und wird
+zwischen Noten notiert, die selber einen Legatobogen haben.
 
 @lilypond[quote,relative=2,verbatim]
-\grace c8 b4
 \acciaccatura d8 c4
 \appoggiatura e8 d4
-\acciaccatura { g16[ f] } e4
+\acciaccatura { g16[ f] } e2
+\slashedGrace a,8 g4
+\slashedGrace b16 a4(
+\slashedGrace b8 a2)
 @end lilypond
 
 Die Position von Verzierungen ist zwischen Notensystemen
