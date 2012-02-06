@@ -426,8 +426,8 @@ in @var{grob}."
 (define-safe-public (make-voice-props-set n)
   (make-sequential-music
    (append
-    (map (lambda (x) (make-grob-property-set x 'direction
-					     (if (odd? n) -1 1)))
+    (map (lambda (x) (make-grob-property-override x 'direction
+						  (if (odd? n) -1 1)))
 	 direction-polyphonic-grobs)
     (list
      (make-property-set 'graceSettings
@@ -447,8 +447,8 @@ in @var{grob}."
 			  (Voice Fingering font-size -8)
 			  (Voice StringNumber font-size -8)))
 
-     (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))
-     (make-grob-property-set 'MultiMeasureRest 'staff-position (if (odd? n) -4 4))))))
+     (make-grob-property-override 'NoteColumn 'horizontal-shift (quotient n 2))
+     (make-grob-property-override 'MultiMeasureRest 'staff-position (if (odd? n) -4 4))))))
 
 (define-safe-public (make-voice-props-revert)
   (make-sequential-music
