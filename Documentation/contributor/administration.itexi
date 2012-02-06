@@ -8,6 +8,7 @@ don't fit anywhere else.
 @menu
 * Meta-policy for this document::
 * Meisters::
+* Patchy::
 * Administrative mailing list::
 * Grand Organization Project (GOP)::
 * Grand LilyPond Input Syntax Standardization (GLISS)::
@@ -121,6 +122,107 @@ completed patches through our process.
 Currently: Carl
 
 @end itemize
+
+@node Patchy
+@section Patchy
+
+@subheading Introduction
+
+Patchy is a set of Python scripts written by Graham to automate
+two administrative tasks:
+
+@itemize
+@item
+checking that patches compile
+
+@item
+trying to ensure that git master is not corrupted by non-compiling
+patches.
+
+@end itemize
+
+Checking that patches compile is the job of @code{test-patches.py},
+whilst @code{lilypond-patchy-staging.py} tests patches in staging
+before pushing them to master.
+
+@subheading Installing patchy
+
+To install patchy, you should run do the following:
+
+@enumerate
+@item
+Create a new user on your box - use this solely to run patchy.  It
+is recommended that this should not be an administrator. New
+users are created from System; Administration; Users and Groups.
+
+@item
+Get the patchy scripts from
+@example
+https://github.com/gperciva/lilypond-extra/
+@end example
+Patchy is in the @code{patches} directory.
+
+@item
+Put the scripts in a sensible place on your system
+
+@item
+Create a new git repository with
+@example
+git clone git://git.sv.gnu.org/lilypond.git
+@end example
+This will create a directory called lilypond with the repo in it.
+Make sure it's where you want it and name it lilypond-git
+(assuming you want to follow the standard naming conventions).
+
+@item
+Create an environment variable called LILYPOND_GIT and make it
+equal to the location of your new git repo.  You can do this by
+editing .profile and adding the line:
+@example
+export LILYPOND_GIT=~/lilypond-git
+@end example
+and logging out and in.
+
+@item
+Edit lilypond-patchy-config-DEFAULT to provide working directories
+for your build directory, your results directory, compiler options
+and notification method.  If you don't want to use email
+notification, then delete everything after @code{smtp_command:}.
+Save this as lilypond-patchy-config.
+
+@item
+Ensure that your new user has git push access.  Follow the
+instructions in the CG at @ref{Commit access}.  Do not set
+password protection for the key - if you do you will not be able
+to run patchy unattended.
+
+@end enumerate
+
+@subheading lilypond-patchy-staging.py
+
+lilypond-patchy-staging.py is run with
+@example
+python lilypond-patchy-staging.py
+@end example
+Not much appears to happen except you can see a lot of CPU gets
+used if you open System Monitor. There's not much point running
+patch-merge unless there something in staging to be merged to
+master.
+
+The script fetches the current patches in staging and runs
+@code{make}, @code{make test} and @code{make doc} to ensure that all of
+these complete error-free. If you have set patchy up to use email,
+it emails its results to you.  If you haven't, then you can view
+them in a logfile.  It also merges staging into master.
+
+@subheading test-patches.py
+test-patches prepares a regtest comparison for a human to quickly
+glance at, to determine if the patch is ready for a review.  If
+the patch passes test-patches, it should be reviewed by relevant
+developers, and if it passes this, it can be considered for
+countdown (see @ref{Commits and patches}) and pushing to staging
+(see @ref{Pushing to staging}).
+
 
 @node Administrative mailing list
 @section Administrative mailing list
