@@ -23,7 +23,6 @@
 defined in the output modules (@file{output-*.scm})."
   '(bezier-sandwich
     blank
-    bracket
     char
     circle
     dashed-line
