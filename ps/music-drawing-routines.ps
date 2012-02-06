@@ -171,14 +171,6 @@ bind def
 	grestore
 } bind def
 
-/draw_dot % radius x y draw_dot
-{
-	rmoveto
-	currentpoint
-	3 2 roll
-	0 360 arc closepath stroke_and_fill
-} bind def
-
 /draw_circle % filled? radius thickness draw_circle
 {
 	setlinewidth	% f? r

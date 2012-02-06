@@ -34,20 +34,6 @@ using namespace std;
 #include "lily-guile.hh"
 
 Stencil
-Lookup::dot (Offset p, Real radius)
-{
-  SCM at = (scm_list_n (ly_symbol2scm ("dot"),
-                        scm_from_double (p[X_AXIS]),
-                        scm_from_double (p[Y_AXIS]),
-                        scm_from_double (radius),
-                        SCM_UNDEFINED));
-  Box box;
-  box.add_point (p - Offset (radius, radius));
-  box.add_point (p + Offset (radius, radius));
-  return Stencil (box, at);
-}
-
-Stencil
 Lookup::beam (Real slope, Real width, Real thick, Real blot)
 {
   Box b;
@@ -135,6 +121,16 @@ Stencil
 Lookup::blank (Box b)
 {
   return Stencil (b, scm_from_locale_string (""));
+}
+
+Stencil
+Lookup::circle (Real rad, Real thick, bool filled)
+{
+  Box b (Interval (-rad, rad), Interval (-rad, rad));
+  return Stencil (b, scm_list_4 (ly_symbol2scm ("circle"),
+                                 scm_from_double (rad),
+                                 scm_from_double (thick),
+                                 scm_from_bool (filled)));
 }
 
 Stencil
@@ -254,7 +250,11 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
   if (points.size () == 0)
     return Stencil ();
   if (points.size () == 1)
-    return dot (points[0], 0.5 * blotdiameter);
+    {
+      Stencil circ = circle (0.5 * blotdiameter, 0, true);
+      circ.translate (points[0]);
+      return circ;
+    }
   if (points.size () == 2)
     return Line_interface::make_line (blotdiameter, points[0], points[1]);
 

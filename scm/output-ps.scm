@@ -92,9 +92,6 @@
    off
    phase))
 
-(define (dot x y radius)
-  (ly:format " ~4l draw_dot" (list radius x y)))
-
 (define (draw-line thick x1 y1 x2 y2)
   (ly:format "~4f ~4f ~4f ~4f ~4f draw_line"
 	  (- x2 x1) (- y2 y1)
