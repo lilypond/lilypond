@@ -1581,13 +1581,16 @@ Entries that conform with the current key signature are not invalidated."
 	 (ly:music-property (car evs) 'pitch))))
 
 (define-public (duration-of-note event-chord)
-  (let ((evs (filter (lambda (x)
-		       (music-has-type x 'rhythmic-event))
-		     (cons event-chord
-			   (ly:music-property event-chord 'elements)))))
-
-    (and (pair? evs)
-	 (ly:music-property (car evs) 'duration))))
+  (cond
+   ((pair? event-chord)
+    (or (duration-of-note (car event-chord))
+	(duration-of-note (cdr event-chord))))
+   ((ly:music? event-chord)
+    (let ((dur (ly:music-property event-chord 'duration)))
+      (if (ly:duration? dur)
+	  dur
+	  (duration-of-note (ly:music-property event-chord 'elements)))))
+   (else #f)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
