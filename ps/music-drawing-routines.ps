@@ -138,18 +138,6 @@ bind def
 	} ifelse
 } bind def
 
-/draw_repeat_slash % x-width width height draw_repeat_slash
-{
-	2 index % duplicate x-width
-	1 setlinecap
-	1 setlinejoin
-	
-	  0  rlineto % x-width 0
-	     rlineto % width height
-	neg 0 rlineto % -x-width 0
-	closepath fill
-} bind def
-
 /draw_circle % filled? radius thickness draw_circle
 {
 	setlinewidth	% f? r

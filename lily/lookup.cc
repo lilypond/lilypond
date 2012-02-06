@@ -490,21 +490,32 @@ Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve, Real thickness)
 Stencil
 Lookup::repeat_slash (Real w, Real s, Real t)
 {
-#if 0 /*  TODO */
-  vector<Offset> points;
-  Real blotdiameter = 0.0;
 
-  Offset p1 (0, 0);
-  Offset p2 (w, w * s);
+  Real x_width = sqrt ((t * t) + ((t / s) * (t / s)));
+  Real height = w * s;
 
-  return Lookup::round_filled_polygon (points, blotdiameter);
-#endif
+  SCM controls = scm_list_n (ly_symbol2scm ("moveto"),
+                             scm_from_double (0),
+                             scm_from_double (0),
+                             ly_symbol2scm ("rlineto"),
+                             scm_from_double (x_width),
+                             scm_from_double (0),
+                             ly_symbol2scm ("rlineto"),
+                             scm_from_double (w),
+                             scm_from_double (height),
+                             ly_symbol2scm ("rlineto"),
+                             scm_from_double (-x_width),
+                             scm_from_double (0),
+                             ly_symbol2scm ("closepath"),
+                             SCM_UNDEFINED);
 
-  SCM wid = scm_from_double (w);
-  SCM sl = scm_from_double (s);
-  SCM thick = scm_from_double (t);
-  SCM slashnodot = scm_list_n (ly_symbol2scm ("repeat-slash"),
-                               wid, sl, thick, SCM_UNDEFINED);
+  SCM slashnodot = scm_list_n (ly_symbol2scm ("path"),
+                               scm_from_double (0),
+                               ly_quote_scm (controls),
+                               ly_quote_scm (ly_symbol2scm ("round")),
+                               ly_quote_scm (ly_symbol2scm ("round")),
+                               SCM_BOOL_T,
+                               SCM_UNDEFINED);
 
   Box b (Interval (0, w + sqrt (sqr (t / s) + sqr (t))),
          Interval (0, w * s));

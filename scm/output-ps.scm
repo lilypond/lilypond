@@ -201,16 +201,6 @@
 	     (- (/ (length points) 2) 1)
 	     blot-diameter))
 
-(define (repeat-slash width slope beam-thickness)
-  (define (euclidean-length x y)
-    (sqrt (+ (* x x) (* y y))))
-
-  (let ((x-width (euclidean-length beam-thickness (/ beam-thickness slope)))
-	(height (* width slope)))
-    (ly:format "~4l draw_repeat_slash"
-	     (list x-width width height))))
-
-
 (define (round-filled-box left right bottom top blotdiam)
   (let* ((halfblot (/ blotdiam 2))
 	 (x (- halfblot left))

@@ -39,7 +39,6 @@ defined in the output modules (@file{output-*.scm})."
     partial-ellipse
     placebox
     polygon
-    repeat-slash
     resetcolor
     resetrotation
     resetscale
