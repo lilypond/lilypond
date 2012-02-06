@@ -503,26 +503,6 @@
 (define (no-origin)
   "")
 
-(define (oval x-radius y-radius thick is-filled)
-  (let ((x-max x-radius)
-	(x-min (- x-radius))
-	(y-max y-radius)
-	(y-min (- y-radius)))
-    (entity
-      'path ""
-      '(stroke-linejoin . "round")
-      '(stroke-linecap . "round")
-      `(fill . ,(if is-filled "currentColor" "none"))
-      `(stroke . "currentColor")
-      `(stroke-width . ,thick)
-      `(d . ,(ly:format "M~4f ~4fC~4f ~4f ~4f ~4f ~4f ~4fS~4f ~4f ~4f ~4fz"
-			x-max 0
-			x-max y-max
-			x-min y-max
-			x-min 0
-			x-max y-min
-			x-max 0)))))
-
 (define* (path thick commands #:optional (cap 'round) (join 'round) (fill? #f))
   (define (convert-path-exps exps)
     (if (pair? exps)

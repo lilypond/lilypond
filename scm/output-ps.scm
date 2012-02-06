@@ -195,14 +195,6 @@
 (define (no-origin)
   "")
 
-(define (oval x-radius y-radius thick fill)
-  (ly:format
-   "~a ~4f ~4f ~4f draw_oval"
-   (if fill
-     "true"
-     "false")
-   x-radius y-radius thick))
-
 (define (placebox x y s)
   (if (not (string-null? s))
       (ly:format "~4f ~4f moveto ~a\n" x y s)

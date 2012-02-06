@@ -197,12 +197,20 @@ y@tie{}radius @code{y-radius}, and thickness @var{thickness} with fill
 defined by @code{fill}."
   (let*
       ((x-out-radius (+ x-radius (/ thickness 2.0)))
-       (y-out-radius (+ y-radius (/ thickness 2.0))) )
-
+       (y-out-radius (+ y-radius (/ thickness 2.0)))
+       (x-max x-radius)
+       (x-min (- x-radius))
+       (y-max y-radius)
+       (y-min (- y-radius))
+       (commands `(,(list 'moveto x-max 0)
+                   ,(list 'curveto x-max y-max x-min y-max x-min 0)
+                   ,(list 'curveto x-min y-min x-max y-min x-max 0)
+                   ,(list 'closepath)))
+       (command-list (fold-right append '() commands)))
   (ly:make-stencil
-   (list 'oval x-radius y-radius thickness fill)
-   (cons (- x-out-radius) x-out-radius)
-   (cons (- y-out-radius) y-out-radius))))
+    `(path ,thickness `(,@',command-list) 'round 'round ,fill)
+    (cons (- x-out-radius) x-out-radius)
+    (cons (- y-out-radius) y-out-radius))))
 
 (define-public
   (make-partial-ellipse-stencil
@@ -394,7 +402,6 @@ respectively."
 			 (append prepend-origin (list 'closepath))
 			 prepend-origin))
 	 (command-list (fold-right append '() final-path)))
-
   (ly:make-stencil
     `(path ,thickness
 	   `(,@',command-list)

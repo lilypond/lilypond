@@ -35,7 +35,6 @@ defined in the output modules (@file{output-*.scm})."
     grob-cause
     named-glyph
     no-origin
-    oval
     page-link
     path
     partial-ellipse
