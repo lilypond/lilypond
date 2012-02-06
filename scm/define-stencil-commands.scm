@@ -26,7 +26,6 @@ defined in the output modules (@file{output-*.scm})."
     char
     circle
     dashed-line
-    dashed-slur
     dot
     draw-line
     ellipse

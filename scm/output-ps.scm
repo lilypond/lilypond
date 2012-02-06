@@ -92,15 +92,6 @@
    off
    phase))
 
-;; what the heck is this interface ?
-(define (dashed-slur thick on off l)
-  (ly:format "~l ~4f [ ~4f ~4f ] 0 draw_dashed_slur"
-	  (let ((control-points (append (cddr l) (list (car l) (cadr l)))))
-	    (map number-pair->string4 control-points))
-	  thick
-	  on
-	  off))
-
 (define (dot x y radius)
   (ly:format " ~4l draw_dot" (list radius x y)))
 

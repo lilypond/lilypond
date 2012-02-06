@@ -280,21 +280,6 @@ bind def
 	[] 0 setdash % reset dash pattern
 } bind def
 
-/draw_dashed_slur % controls thickness dash
-{
-gsave
-	currentpoint translate
-	1 setlinecap
-	1 setlinejoin
-	setdash
-	setlinewidth
-	8 2 roll
-	moveto
-	curveto
-	stroke
-grestore
-} bind def
-
 /print_glyphs % w dx dy glyph print_glyphs
 {
 	{
