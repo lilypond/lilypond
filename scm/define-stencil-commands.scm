@@ -52,7 +52,6 @@ defined in the output modules (@file{output-*.scm})."
     unknown
     url-link
     utf-8-string
-    zigzag-line
     ))
 
 ;; TODO:
