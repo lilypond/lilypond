@@ -528,10 +528,9 @@ fret-diagram overall parameters."
                   (+ (* size end-string-coordinate) half-thickness)))
               (x-extent (cons (car box-lower-left) (car box-upper-right)))
               (y-extent (cons (cdr box-lower-left) (cdr box-upper-right))))
-         (ly:make-stencil
-           (list 'bezier-sandwich
-                 `(quote ,bezier-list)
-                 (* size bezier-thick))
+         (make-bezier-sandwich-stencil
+           bezier-list
+           (* size bezier-thick)
            x-extent
            y-extent)))
 

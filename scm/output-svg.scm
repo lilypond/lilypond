@@ -329,18 +329,6 @@
 ;;; stencil outputters
 ;;;
 
-(define (bezier-sandwich lst thick)
-  (let* ((first (list-tail lst 4))
-	 (second (list-head lst 4)))
-    (entity 'path ""
-	    '(stroke-linejoin . "round")
-	    '(stroke-linecap . "round")
-	    '(stroke . "currentColor")
-	    '(fill . "currentColor")
-	    `(stroke-width . ,thick)
-	    `(d . ,(string-append (svg-bezier first #f)
-				  (svg-bezier second #t))))))
-
 (define (char font i)
   (dispatch
    `(fontify ,font ,(entity 'tspan (char->entity (integer->char i))))))

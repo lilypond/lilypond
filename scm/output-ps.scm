@@ -58,12 +58,6 @@
 ;;; Lily output interface, PostScript implementation --- cleanup and docme
 ;;;
 
-;; two beziers
-(define (bezier-sandwich lst thick)
-  (ly:format "~l ~4f draw_bezier_sandwich"
-	     (map number-pair->string4 lst)
-	  thick))
-
 (define (char font i)
   (ly:format "~a (\\~a) show"
    (ps-font-command font)

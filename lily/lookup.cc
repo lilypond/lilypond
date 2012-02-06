@@ -449,22 +449,32 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick,
 Stencil
 Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve, Real thickness)
 {
-  /*
-    Need the weird order b.o. the way PS want its arguments
-  */
-  SCM list = SCM_EOL;
-  list = scm_cons (ly_offset2scm (bottom_curve.control_[3]), list);
-  list = scm_cons (ly_offset2scm (bottom_curve.control_[0]), list);
-  list = scm_cons (ly_offset2scm (bottom_curve.control_[1]), list);
-  list = scm_cons (ly_offset2scm (bottom_curve.control_[2]), list);
-  list = scm_cons (ly_offset2scm (top_curve.control_[0]), list);
-  list = scm_cons (ly_offset2scm (top_curve.control_[3]), list);
-  list = scm_cons (ly_offset2scm (top_curve.control_[2]), list);
-  list = scm_cons (ly_offset2scm (top_curve.control_[1]), list);
+  SCM commands  = scm_list_n (ly_symbol2scm ("moveto"),
+                              scm_from_double (top_curve.control_[0][X_AXIS]),
+                              scm_from_double (top_curve.control_[0][Y_AXIS]),
+                              ly_symbol2scm ("curveto"),
+                              scm_from_double (top_curve.control_[1][X_AXIS]),
+                              scm_from_double (top_curve.control_[1][Y_AXIS]),
+                              scm_from_double (top_curve.control_[2][X_AXIS]),
+                              scm_from_double (top_curve.control_[2][Y_AXIS]),
+                              scm_from_double (top_curve.control_[3][X_AXIS]),
+                              scm_from_double (top_curve.control_[3][Y_AXIS]),
+                              ly_symbol2scm ("curveto"),
+                              scm_from_double (bottom_curve.control_[2][X_AXIS]),
+                              scm_from_double (bottom_curve.control_[2][Y_AXIS]),
+                              scm_from_double (bottom_curve.control_[1][X_AXIS]),
+                              scm_from_double (bottom_curve.control_[1][Y_AXIS]),
+                              scm_from_double (bottom_curve.control_[0][X_AXIS]),
+                              scm_from_double (bottom_curve.control_[0][Y_AXIS]),
+                              ly_symbol2scm ("closepath"),
+                              SCM_UNDEFINED);
 
-  SCM horizontal_bend = scm_list_n (ly_symbol2scm ("bezier-sandwich"),
-                                    ly_quote_scm (list),
+  SCM horizontal_bend = scm_list_n (ly_symbol2scm ("path"),
                                     scm_from_double (thickness),
+                                    ly_quote_scm (commands),
+                                    ly_quote_scm (ly_symbol2scm ("round")),
+                                    ly_quote_scm (ly_symbol2scm ("round")),
+                                    SCM_BOOL_T,
                                     SCM_UNDEFINED);
 
   Interval x_extent = top_curve.extent (X_AXIS);

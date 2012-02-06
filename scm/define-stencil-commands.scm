@@ -21,8 +21,7 @@
 (define-public (ly:all-stencil-commands)
   "Return the list of stencil commands that can be
 defined in the output modules (@file{output-*.scm})."
-  '(bezier-sandwich
-    blank
+  '(blank
     char
     circle
     dashed-line
