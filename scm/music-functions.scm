@@ -313,7 +313,8 @@ if durations in @var{music} vary, allowing slash beats and double-percent
 beats to be distinguished."
   (let* ((durs (map (lambda (elt)
 		      (duration-of-note elt))
-		    (extract-named-music music '(EventChord NoteEvent))))
+		    (extract-named-music music '(EventChord NoteEvent
+						 RestEvent SkipEvent))))
 	 (first-dur (car durs)))
 
     (if (every (lambda (d) (equal? d first-dur)) durs)
