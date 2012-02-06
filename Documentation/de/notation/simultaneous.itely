@@ -847,7 +847,7 @@ sie nur als eine Stimme gesetzt werden.  Die Richtung von Hälsen und
 Bögen werden automatisch gewählt, abhängig davon ob es eine
 Solo-Stelle oder Unisono ist.  In polyphonen Situationen erhält
 die erste Stimme (mit dem Kontext @code{one}) immer Hälse nach oben,
-die zweite Stimme (mit dem Kontext @code{two])
+die zweite Stimme (mit dem Kontext @code{two})
 Hälse nach unten.  An Solo-Stellen werden die Stimmen mit
 @qq{Solo} bzw. @qq{Solo II} bezeichnet.  Die Unisono-Stellen
 (@notation{a due}) werden mit dem Text @qq{a2} gekennzeichnet.
