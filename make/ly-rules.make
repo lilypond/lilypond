@@ -9,9 +9,10 @@ $(outdir)/%.latex: %.doc $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
 
 
 # This allows -j make option while making sure only one lilypond-book instance
-# is running at the same time
+# is running at the same time, using GNU make's order-only prerequisites so
+# as to not create superficial dependencies between unrelated manuals.
 define CHAIN_RULE
-$(i)
+| $(i)
 $(i): 
 endef
 
