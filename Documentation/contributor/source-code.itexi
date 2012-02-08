@@ -1875,7 +1875,7 @@ If @command{git@tie{}pull@tie{}--verbose} succeeds, the output
 will include a @q{From} line that shows @q{ssh} as the protocol:
 
 @example
-From ssh://@var{user}@@git.sv.gnu.org/srv/git/lilypond
+From ssh://git.sv.gnu.org/srv/git/lilypond
 @end example
 
 If the protocol shown is not @q{ssh}, check that you configured
