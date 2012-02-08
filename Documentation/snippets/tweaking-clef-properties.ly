@@ -7,45 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
-  texidocit = "
-Il comando @code{\\clef \"treble_8\"} equivale a impostare
-@code{clefGlyph}, @code{clefPosition} (che regola la posizione
-verticale della chiave), @code{middleCPosition} e
-@code{clefOctavation}. Viene stampata una chiave quando cambia una
-di queste proprietà, eccetto @code{middleCPosition}.
-
-
-La modifica del glifo, della posizione della chiave o
-dell'ottavazione non è sufficiente per cambiare la posizione delle
-note che seguono sul rigo: bisogna anche specificare la posizione
-del Do centrale (middle C). I parametri di posizione sono relativi
-alla linea centrale del rigo, con i numeri positivi che indicano
-la parte superiore: ogni linea e spazio valgono uno.  Il valore
-@code{clefOctavation} di norma è impostato su 7, -7, 15
-o -15, ma altri valori sono considerati validi.
-
-
-Quando un cambio di chiave avviene in corrispondenza di un'interruzione di
-linea, di norma il simbolo della nuova chiave viene inserito sia alla fine
-del rigo precedente sia all'inizio di quello successivo.  Se la
-chiave di avvertimento a fine rigo non fosse necessaria,
-può essere nascosta impostando la proprietà @code{explicitClefVisibility}
-del contesto @code{Staff} su @code{end-of-line-invisible}. Il comportamento
-predefinito può essere ripristinato con @code{\\unset Staff.explicitClefVisibility}.
-
-Gli esempi seguenti mostrano le possibilità date dall'impostazione
-manuale di tali proprietà. Sulla prima linea le modifiche manuali preservano
-il posizionamento relativo standard di chiavi e note, mentre sulla seconda
-linea non lo fanno.
-
-
-"
-  doctitleit = "Modifiche manuali della proprietà della chiave"
-
   lsrtags = "pitches, staff-notation, tweaks-and-overrides"
-
-
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   doctitlees = "Trucaje de las propiedades de clave"
@@ -82,6 +44,42 @@ cambios manuales preservan el posicionamiento relativo estándar de
 las claves y las notas, pero no lo hacen en la segunda línea.
 "
 
+
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
+  texidocit = "
+Il comando @code{\\clef \"treble_8\"} equivale a impostare
+@code{clefGlyph}, @code{clefPosition} (che regola la posizione
+verticale della chiave), @code{middleCPosition} e
+@code{clefOctavation}. Viene stampata una chiave quando cambia una
+di queste proprietà, eccetto @code{middleCPosition}.
+
+
+La modifica del glifo, della posizione della chiave o
+dell'ottavazione non è sufficiente per cambiare la posizione delle
+note che seguono sul rigo: bisogna anche specificare la posizione
+del Do centrale (middle C). I parametri di posizione sono relativi
+alla linea centrale del rigo, con i numeri positivi che indicano
+la parte superiore: ogni linea e spazio valgono uno.  Il valore
+@code{clefOctavation} di norma è impostato su 7, -7, 15
+o -15, ma altri valori sono considerati validi.
+
+
+Quando un cambio di chiave avviene in corrispondenza di un'interruzione di
+linea, di norma il simbolo della nuova chiave viene inserito sia alla fine
+del rigo precedente sia all'inizio di quello successivo.  Se la
+chiave di avvertimento a fine rigo non fosse necessaria,
+può essere nascosta impostando la proprietà @code{explicitClefVisibility}
+del contesto @code{Staff} su @code{end-of-line-invisible}. Il comportamento
+predefinito può essere ripristinato con @code{\\unset Staff.explicitClefVisibility}.
+
+Gli esempi seguenti mostrano le possibilità date dall'impostazione
+manuale di tali proprietà. Sulla prima linea le modifiche manuali preservano
+il posizionamento relativo standard di chiavi e note, mentre sulla seconda
+linea non lo fanno.
+
+
+"
+  doctitleit = "Modifiche manuali della proprietà della chiave"
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   doctitlede = "Eigenschaften des Schlüssels optimieren"

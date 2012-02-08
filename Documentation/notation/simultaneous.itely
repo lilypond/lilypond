@@ -156,15 +156,59 @@ a chord so it is possible to repeat the most recent chord even if
 other non-chorded notes or rests have been added since.
 
 @lilypond[verbatim,quote,relative=2]
-<a c e>1 c4 q2 r8 q8
+<a c e>1 c'4 q2 r8 q8 |
+q2 c, |
 @end lilypond
 
 However, the chord repetition symbol does not retain any dynamics,
-articulation or ornamentation within, or attached to the previous chord.
+articulation or ornamentation within, or attached to, the previous
+chord.
 
 @lilypond[verbatim,quote,relative=2]
-<a-. c\prall e>1\sfz c4 q2 r8 q8
+<a-. c\prall e>1\sfz c'4 q2 r8 q8 |
+q2 c, |
 @end lilypond
+
+To have some of them retained, the @code{\chordRepeats} function can be
+be called explicitly with an extra argument specifying a list of
+@var{event types} to keep unless events of that type are already
+present on the @code{q} chord itself.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \chordRepeats #'(articulation-event)
+  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  q2 c, |
+}
+@end lilypond
+
+Here using @code{\chordRepeats} inside of a @code{\relative} construction
+produces unexpected results: once chord events have been expanded, they
+are indistinguishable from having been entered as regular chords, making
+@code{\relative} assign an octave based on their current context.
+
+Since nested instances of @code{\relative} don't affect one another,
+another @code{\relative} inside of @code{\chordRepeats} can be used for
+establishing the octave relations before expanding the repeat chords.
+In that case, the whole content of the inner @code{\relative} does not
+affect the outer one; hence the different octave entry of the final note
+in this example.
+
+@c Without \new Voice, implicit voice creation does the dumbest thing.
+@lilypond[verbatim,quote]
+\new Voice
+\relative c'' {
+  \chordRepeats #'(articulation-event)
+  \relative c''
+  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  q2 c |
+}
+@end lilypond
+
+Interactions with @code{\relative} occur only with explicit calls of
+@code{\chordRepeats}: the implicit expansion at the start of typesetting
+is done at a time where all instances of @code{\relative} have already
+been processed.
 
 @seealso
 Notation Reference:
@@ -465,6 +509,9 @@ upstems, and the even-numbered voices are given downstems:
 >>
 @end lilypond
 
+@warning{Lyrics, spanners (such as slurs, ties, hairpins etc.) cannot be
+created @q{across} voices.}
+
 @strong{@i{Identical rhythms}}
 
 In the special case that we want to typeset parallel pieces of music
@@ -491,6 +538,8 @@ music do not have the same rhythm.
 @code{\oneVoice}.
 @endpredefined
 
+Snippets:
+@rlsr{Simultaneous notes}.
 
 @seealso
 Learning Manual:
@@ -501,9 +550,6 @@ Notation Reference:
 @ref{Percussion staves},
 @ref{Invisible rests},
 @ref{Stems}.
-
-Snippets:
-@rlsr{Simultaneous notes}.
 
 
 @node Voice styles

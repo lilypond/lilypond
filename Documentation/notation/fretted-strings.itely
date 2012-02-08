@@ -253,31 +253,34 @@ minimumFret is 0.
 >>
 @end lilypond
 
-@funindex \tabChordRepetition
+@funindex \tabChordRepeats
+@funindex \chordRepeats
 @cindex Chord, repetition
 @cindex repetition, using @code{q}
 
 Chord constructs can be repeated by the chord repetition symbol
-@code{q}. To use this feature in combination with tablature,
-@code{\tabChordRepetition} is provided.  It preserves the string
-information explicitly given within chord constructs so repeated chords
-get identical tablature representations.
+@code{q}.  In combination with tabulatures, its behavior of removing
+string and finger numbers alongside with other events is cumbersome, so
+you'll want to run
+@example
+\chordRepeats #'(string-number-event fingering-event)
+@end example
+explicitly on music expressions in tabulature using @ref{Chord
+repetition}.  This particular command is so common that it is available
+as @code{\tabChordRepeats}.
 
 @lilypond[quote,verbatim]
-\tabChordRepetition
-
 guitar = \relative c' {
-  r8 <gis\4 cis\3 b\2>~ q4 q8~ q q4
+  r8 <gis-6 cis-6 b-0>~ q4 q8~ q q4
 }
 
 \new StaffGroup <<
   \new Staff {
     \clef "treble_8"
-    \override Voice.StringNumber #'transparent = ##t
     \guitar
   }
   \new TabStaff {
-    \guitar
+    \tabChordRepeats \guitar
   }
 >>
 @end lilypond
@@ -374,9 +377,9 @@ pitches:
 
 @lilypond[verbatim,quote]
 firstHarmonic = {
-  <d'\4\harmonic>4
-  <g'\3\harmonic>4
-  <b'\2\harmonic>2
+  d'4\4\harmonic
+  g'4\3\harmonic
+  b'2\2\harmonic
 }
 \score {
   <<
@@ -386,8 +389,9 @@ firstHarmonic = {
 }
 @end lilypond
 
-Note that the command @code{\harmonic} must always be defined
-inside a chord construct. It only makes sense for open-string harmonics
+Note that the command @code{\harmonic} must always be attached to single
+notes (possibly inside of a chord) instead of whole chords.
+It only makes sense for open-string harmonics
 in the 12th fret. All other harmonics should be calculated by LilyPond.
 This can be achieved by indicating the fret where a finger of the
 fretting hand should touch a string.

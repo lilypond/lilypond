@@ -399,6 +399,10 @@ BOM_UTF8	\357\273\277
 	yylval.scm = scm_from_locale_string (s);
 	return RESTNAME;
 }
+<chords,notes,figures>q	{
+	return CHORD_REPETITION;
+}
+
 <chords,notes,figures>R		{
 	return MULTI_MEASURE_REST;
 }
@@ -948,11 +952,7 @@ Lily_lexer::scan_bare_word (string str)
 		    yylval.scm = scm_cdr (handle);
 		    return CHORD_MODIFIER;
 		}
-		if ((chord_repetition_.repetition_symbol_ != SCM_EOL)
-		    && to_boolean (scm_equal_p (chord_repetition_.repetition_symbol_, sym)))
-			return CHORD_REPETITION;
 	}
-
 	yylval.scm = ly_string2scm (str);
 	return STRING;
 }

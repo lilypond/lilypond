@@ -7,7 +7,7 @@
 
 ifeq ($(WEBSITE_ONLY_BUILD),1)
   ### for lilypond.org
-  TOP_SRC_DIR=$(HOME)/lilypond/lilypond-git
+  TOP_SRC_DIR=$(LILYPOND_GIT)
   TRUSTED_DIR=$(HOME)/lilypond/trusted-scripts
   top-src-dir=$(TOP_SRC_DIR)
   depth=.
@@ -16,7 +16,8 @@ ifeq ($(WEBSITE_ONLY_BUILD),1)
   texi2html-init-file=$(trusted-dir)/lilypond-texi2html.init
   top-htaccess=$(trusted-dir)/lilypond.org.htaccess
   dir-htaccess=$(trusted-dir)/website-dir.htaccess
-  TEXI2HTML_PROGRAM=$(HOME)/usr/bin/texi2html
+  # grab it from PATH
+  TEXI2HTML_PROGRAM=texi2html
   PYTHON=python
   PYTHONPATH=$(TRUSTED_DIR)
 else

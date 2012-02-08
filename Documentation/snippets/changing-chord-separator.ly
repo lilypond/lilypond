@@ -7,20 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Le séparateur de termes d'un chiffrage peut adopter n'importe quelle
-forme à l'aide d'un @emph{markup}.
-
-"
-  doctitlefr = "Personnalisation du séparateur d'accords"
-
   lsrtags = "chords"
-
-
-
-
-
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -38,6 +25,14 @@ beliebiger Text sein.
 
 "
   doctitlede = "Akkordsymboltrenner verändern"
+
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+  texidocfr = "
+Le séparateur de termes d'un chiffrage peut adopter n'importe quelle
+forme à l'aide d'un @emph{markup}.
+
+"
+  doctitlefr = "Personnalisation du séparateur d'accords"
 
   texidoc = "
 The separator between different parts of a chord name can be set to any

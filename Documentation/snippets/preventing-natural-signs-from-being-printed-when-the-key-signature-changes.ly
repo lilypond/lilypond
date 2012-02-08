@@ -7,19 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
-  texidocit = "
-Quando l'armatura di chiave cambia, vengono inseriti automaticamente i
-segni di bequadro per annulare le alterazioni di precedenti armature.  Si
-può evitare questo comportamento impostando su @code{f} (falso) la proprietà
-@code{printKeyCancellation} nel contesto @code{Staff}.
-
-"
-  doctitleit = "Impedire l'inserimento dei segni di bequadro quando cambia l'armatura di chiave"
-
   lsrtags = "pitches"
-
-
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 doctitlees = "Evitar que se impriman becuadros cuando cambia la armadura"
@@ -33,6 +21,16 @@ propiedad @code{printKeyCancellation} del contexto @code{Staff}.
 
 "
 
+
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
+  texidocit = "
+Quando l'armatura di chiave cambia, vengono inseriti automaticamente i
+segni di bequadro per annulare le alterazioni di precedenti armature.  Si
+può evitare questo comportamento impostando su @code{f} (falso) la proprietà
+@code{printKeyCancellation} nel contesto @code{Staff}.
+
+"
+  doctitleit = "Impedire l'inserimento dei segni di bequadro quando cambia l'armatura di chiave"
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 doctitlede = "Auflösungzeichen nicht setzen wenn die Tonart wechselt"

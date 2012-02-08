@@ -223,7 +223,7 @@ static Music *make_music_with_input (SCM name, Input where);
 SCM check_scheme_arg (Lily_parser *parser, Input loc,
 		      SCM arg, SCM args, SCM pred);
 SCM loc_on_music (Input loc, SCM arg);
-SCM make_chord_elements (SCM pitch, SCM dur, SCM modification_list);
+SCM make_chord_elements (Input loc, SCM pitch, SCM dur, SCM modification_list);
 SCM make_chord_step (int step, Rational alter);
 SCM make_simple_markup (SCM a);
 bool is_duration (int t);
@@ -2054,8 +2054,6 @@ event_chord:
 		Input i;
 		i.set_location (@1, @3);
 		$$ = MAKE_SYNTAX ("repetition-chord", i,
-				  parser->lexer_->chord_repetition_.last_chord_,
-				  parser->lexer_->chord_repetition_.repetition_function_,
 				  $2, scm_reverse_x ($3, SCM_EOL));
 	}
 	| MULTI_MEASURE_REST optional_notemode_duration post_events {
@@ -2065,13 +2063,7 @@ event_chord:
 				  scm_reverse_x ($3, SCM_EOL));
 	}
 	| command_element
-	/* note chord elements are memorized into
-	   parser->lexer_->chord_repetition_ so that the chord repetition
-	   mechanism copy them when a chord repetition symbol is found
-	*/
-	| note_chord_element	{
-		parser->lexer_->chord_repetition_.last_chord_ = $$;
-	}
+	| note_chord_element
 	;
 
 
@@ -2797,11 +2789,11 @@ lyric_element_music:
 
 new_chord:
 	steno_tonic_pitch optional_notemode_duration   {
-		$$ = make_chord_elements ($1, $2, SCM_EOL);
+		$$ = make_chord_elements (@$, $1, $2, SCM_EOL);
 	}
 	| steno_tonic_pitch optional_notemode_duration chord_separator chord_items {
 		SCM its = scm_reverse_x ($4, SCM_EOL);
-		$$ = make_chord_elements ($1, $2, scm_cons ($3, its));
+		$$ = make_chord_elements (@$, $1, $2, scm_cons ($3, its));
 	}
 	;
 
@@ -3323,10 +3315,15 @@ make_chord_step (int step, Rational alter)
 
 
 SCM
-make_chord_elements (SCM pitch, SCM dur, SCM modification_list)
+make_chord_elements (Input loc, SCM pitch, SCM dur, SCM modification_list)
 {
 	SCM chord_ctor = ly_lily_module_constant ("construct-chord-elements");
-	return scm_call_3 (chord_ctor, pitch, dur, modification_list);
+	SCM res = scm_call_3 (chord_ctor, pitch, dur, modification_list);
+	for (SCM s = res; scm_is_pair (s); s = scm_cdr (s))
+	{
+		unsmob_music (scm_car (s))->set_spot (loc);
+	}
+	return res;
 }
 
 int

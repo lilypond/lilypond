@@ -27,8 +27,7 @@
 
 (define-public (fraction? x)
   (and (pair? x)
-       (integer? (car x)) (integer? (cdr x))
-       (>= (car x) 0) (>= (cdr x) 0)))
+       (index? (car x)) (index? (cdr x))))
 
 (define-public (number-or-grob? x)
   (or (ly:grob? x) (number? x)))
@@ -38,6 +37,9 @@
 
 (define-public (number-list? x)
   (and (list? x) (every number? x)))
+
+(define-public (index? x)
+  (and (integer? x) (>= x 0)))
 
 (define-public (moment-pair? x)
   (and (pair? x)

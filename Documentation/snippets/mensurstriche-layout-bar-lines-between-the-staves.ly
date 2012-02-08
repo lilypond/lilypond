@@ -36,7 +36,7 @@ Systemen werden mit der @code{transparent}-Eigenschaft ausgelöscht.
   texidocfr = "
 En musique mensurale, les barres de mesure ne traversent pas les
 portées.  Pour obtenir ce résultat avec un @code{StaffGroup} plutôt
-qu'en utilisant un @code{ChoirStaff}, il faudra rendre 
+qu'en utilisant un @code{ChoirStaff}, il faudra rendre
 @qq{transparentes} les portions de barre qui recouvrent les portées.
 
 "

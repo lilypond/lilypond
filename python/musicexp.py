@@ -1793,7 +1793,7 @@ class StaffGroup:
         if self.spanbar == "no":
             printer.dump ("\\override SpanBar #'transparent = ##t")
         brack = {"brace": "SystemStartBrace",
-                 "none": "f",
+                 "none": "SystemStartBar",
                  "line": "SystemStartSquare"}.get (self.symbol, None)
         if brack:
             printer.dump ("systemStartDelimiter = #'%s" % brack)

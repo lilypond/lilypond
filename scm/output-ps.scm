@@ -58,12 +58,6 @@
 ;;; Lily output interface, PostScript implementation --- cleanup and docme
 ;;;
 
-;; two beziers
-(define (bezier-sandwich lst thick)
-  (ly:format "~l ~4f draw_bezier_sandwich"
-	     (map number-pair->string4 lst)
-	  thick))
-
 (define (char font i)
   (ly:format "~a (\\~a) show"
    (ps-font-command font)
@@ -91,18 +85,6 @@
    on
    off
    phase))
-
-;; what the heck is this interface ?
-(define (dashed-slur thick on off l)
-  (ly:format "~l ~4f [ ~4f ~4f ] 0 draw_dashed_slur"
-	  (let ((control-points (append (cddr l) (list (car l) (cadr l)))))
-	    (map number-pair->string4 control-points))
-	  thick
-	  on
-	  off))
-
-(define (dot x y radius)
-  (ly:format " ~4l draw_dot" (list radius x y)))
 
 (define (draw-line thick x1 y1 x2 y2)
   (ly:format "~4f ~4f ~4f ~4f ~4f draw_line"
@@ -207,14 +189,6 @@
 (define (no-origin)
   "")
 
-(define (oval x-radius y-radius thick fill)
-  (ly:format
-   "~a ~4f ~4f ~4f draw_oval"
-   (if fill
-     "true"
-     "false")
-   x-radius y-radius thick))
-
 (define (placebox x y s)
   (if (not (string-null? s))
       (ly:format "~4f ~4f moveto ~a\n" x y s)
@@ -226,16 +200,6 @@
 	     points
 	     (- (/ (length points) 2) 1)
 	     blot-diameter))
-
-(define (repeat-slash width slope beam-thickness)
-  (define (euclidean-length x y)
-    (sqrt (+ (* x x) (* y y))))
-
-  (let ((x-width (euclidean-length beam-thickness (/ beam-thickness slope)))
-	(height (* width slope)))
-    (ly:format "~4l draw_repeat_slash"
-	     (list x-width width height))))
-
 
 (define (round-filled-box left right bottom top blotdiam)
   (let* ((halfblot (/ blotdiam 2))

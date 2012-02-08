@@ -419,8 +419,7 @@ Otherwise, return #f."
 ;;;
 
 (define-display-method EventChord (chord parser)
-  ;; event_chord : simple_element post_events
-  ;;		   | command_element
+  ;; event_chord : command_element
   ;;		   | note_chord_element
 
   ;; TODO : tagged post_events
@@ -428,41 +427,45 @@ Otherwise, return #f."
   ;; tagged_post_event: '-' \tag embedded_scm post_event
 
   (let* ((elements (ly:music-property chord 'elements))
-	 (simple-elements (filter (make-music-type-predicate
-				   'NoteEvent 'ClusterNoteEvent 'RestEvent
-				   'SkipEvent 'LyricEvent)
-				  elements)))
-	    (let ((chord-elements (filter (make-music-type-predicate
-					   'NoteEvent 'ClusterNoteEvent 'BassFigureEvent)
-					  elements))
-		  (post-events (filter post-event? elements)))
-	      (if (not (null? chord-elements))
-		  ;; note_chord_element : '<' (notepitch | drumpitch)* '>" duration post_events
-		  (let* ((duration (duration->lily-string
-				    (ly:music-property (car chord-elements) 'duration)
-				    #:remember #t)))
-		    (format #f "< ~{~a ~}>~a~{~a~^ ~}"
-			    (map-in-order (lambda (music)
-					    (music->lily-string music parser))
-					  chord-elements)
-			    duration
-			    (map-in-order (lambda (music)
-					    (music->lily-string music parser))
-					  post-events)))
-		  ;; command_element
-		  (format #f "~{~a~^ ~}" (map-in-order (lambda (music)
-						       (music->lily-string music parser))
-						     elements))))))
-
-(define-display-method MultiMeasureRestMusic (mmrest parser)
-  (let* ((dur (ly:music-property mmrest 'duration))
-	 (ly (format #f "R~a~{~a~^ ~}"
-		     (duration->lily-string dur)
+	 (chord-elements (filter (lambda (m)
+				    (music-is-of-type? m 'rhythmic-event))
+				 elements))
+	 (post-events (filter post-event? elements))
+	 (chord-repeat (ly:music-property chord 'duration)))
+    (cond ((ly:duration? chord-repeat)
+	   (let ((duration (duration->lily-string chord-repeat #:remember #t)))
+	     (format #f "q~a~{~a~^ ~}"
+		     duration
 		     (map-in-order (lambda (music)
 				     (music->lily-string music parser))
-				   (ly:music-property mmrest 'articulations)))))
-    (*previous-duration* dur)
-    ly))
+				   post-events))))
+	  ((pair? chord-elements)
+	   ;; note_chord_element : '<' (notepitch | drumpitch)* '>" duration post_events
+	   (let ((duration (duration->lily-string (ly:music-property
+						   (car chord-elements)
+						   'duration) #:remember #t)))
+	     ;; Format duration first so that it does not appear on chord elements
+	     (format #f "< ~{~a ~}>~a~{~a~^ ~}"
+		     (map-in-order (lambda (music)
+				     (music->lily-string music parser))
+				   chord-elements)
+		     duration
+		     (map-in-order (lambda (music)
+				     (music->lily-string music parser))
+				   post-events))))
+	  (else
+	   ;; command_element
+	   (format #f "~{~a~^ ~}" (map-in-order (lambda (music)
+						  (music->lily-string music parser))
+						elements))))))
+
+(define-display-method MultiMeasureRestMusic (mmrest parser)
+  (format #f "R~a~{~a~^ ~}"
+	  (duration->lily-string (ly:music-property mmrest 'duration)
+				 #:remember #t)
+	  (map-in-order (lambda (music)
+			  (music->lily-string music parser))
+			(ly:music-property mmrest 'articulations))))
 
 (define-display-method SkipMusic (skip parser)
   (format #f "\\skip ~a" (duration->lily-string (ly:music-property skip 'duration) #:force-duration #t)))

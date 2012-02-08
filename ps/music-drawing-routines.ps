@@ -138,47 +138,6 @@ bind def
 	} ifelse
 } bind def
 
-/draw_repeat_slash % x-width width height draw_repeat_slash
-{
-	2 index % duplicate x-width
-	1 setlinecap
-	1 setlinejoin
-	
-	  0  rlineto % x-width 0
-	     rlineto % width height
-	neg 0 rlineto % -x-width 0
-	closepath fill
-} bind def
-
-% this is for drawing slurs and barre-indicators.
-/draw_bezier_sandwich  % x5 y5 x6 y6 x7 y7
-                       % x4 y4
-                       % x1 y1 x2 y2 x3 y3
-                       % x0 y0
-                       % linewidth draw_bezier_sandwich
-{
-	gsave
-	currentpoint translate
-        % round ending and round beginning
-        1 setlinejoin 1 setlinecap
-	setlinewidth
-	moveto
-	curveto
-	lineto
-	curveto
-	closepath
-	stroke_and_fill
-	grestore
-} bind def
-
-/draw_dot % radius x y draw_dot
-{
-	rmoveto
-	currentpoint
-	3 2 roll
-	0 360 arc closepath stroke_and_fill
-} bind def
-
 /draw_circle % filled? radius thickness draw_circle
 {
 	setlinewidth	% f? r
@@ -189,20 +148,6 @@ bind def
 		{ stroke_and_fill }
 		{ stroke }
 	ifelse
-} bind def
-
-/draw_oval % filled? x-radius y-radius thickness draw_ellipse
-{
-  setlinewidth % f? x-r y-r
-  /yrad exch def
-  /xrad exch def
-  xrad 0 rmoveto
-  0 yrad -2 xrad mul dup yrad exch 0 rcurveto
-  0 yrad neg dup 2 xrad mul dup 3 1 roll 0 rcurveto
-  closepath
-      { stroke_and_fill}
-      { stroke }
-  ifelse
 } bind def
 
 /draw_ellipse % filled? x-radius y-radius thickness draw_ellipse
@@ -278,21 +223,6 @@ bind def
 	rlineto
 	stroke
 	[] 0 setdash % reset dash pattern
-} bind def
-
-/draw_dashed_slur % controls thickness dash
-{
-gsave
-	currentpoint translate
-	1 setlinecap
-	1 setlinejoin
-	setdash
-	setlinewidth
-	8 2 roll
-	moveto
-	curveto
-	stroke
-grestore
 } bind def
 
 /print_glyphs % w dx dy glyph print_glyphs

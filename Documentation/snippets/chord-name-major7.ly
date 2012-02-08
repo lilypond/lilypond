@@ -7,20 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-La représentation d'un accord de septième majeure se gère par le
-@code{majorSevenSymbol}.
-
-"
-  doctitlefr = "Chiffrage d'un maj7"
-
   lsrtags = "chords"
-
-
-
-
-
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -40,6 +27,14 @@ Das Aussehen des großen Septakkords kann mit @code{majorSevenSymbol} verändert
   doctitlede = "Akkordbezeichnung maj7"
 
 
+
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+  texidocfr = "
+La représentation d'un accord de septième majeure se gère par le
+@code{majorSevenSymbol}.
+
+"
+  doctitlefr = "Chiffrage d'un maj7"
 
   texidoc = "
 The layout of the major 7 can be tuned with @code{majorSevenSymbol}.

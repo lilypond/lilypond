@@ -104,7 +104,7 @@ more closely are numerous: music functions previously worked differently
 when used inside or outside of chords.  Now they are the same, including
 all the possibilities of argument parsing.  You can now use music
 variables inside of chords: a construct like
-@lilypond[quote,ragged-right]
+@lilypond[verbatim,quote,ragged-right]
 tonic=fis'
 { <\tonic \transpose c g \tonic> }
 @end lilypond
@@ -113,10 +113,19 @@ would have been unthinkable previously.  You can use
 @code{#@{@dots{}#@}} for constructing chord constituents.  Music
 functions inside of chords are no longer specially treated and thus
 accept the same arguments as outside of chords.  @code{\tweak} now works
-on single notes without needing to wrap them in a chord.  String number
-indications like @code{\1} can be used on single notes.  If you need to
-suppress them in some context, override their @code{stencil} with
-@code{##f}.
+on single notes without needing to wrap them in a chord.  In theory, it
+can also work on command events and lyrics now.  Since that was not
+possible before, it depends on luck on a case-by-case basis whether the
+tweak internals are already receiving the necessary information.  Users
+are asked to report those cases where they find @code{\tweak} not
+working according to reasonable expectations.
+
+@item
+As one consequence, it was possible to reimplement the repetitive chord
+entry aid @code{q}.  Repeated chords are now replaced right before
+interpreting a music expression.  In case the user wants to retain
+some events of the original chord, he can run the repeat chord
+replacement function @code{\chordRepeats} manually.
 
 @item
 Scheme expressions inside of embedded Lilypond (@code{#@{@dots{}#@}})
@@ -184,7 +193,7 @@ For defining commands executed only for their side-effects,
 @item
 There is a new @code{define-event-function} command in analogy to
 @code{define-music-function} that can be used for defining music
-functions acting as events without requiring a direction specifier
+functions acting as post events without requiring a direction specifier
 (@code{-}, @code{^}, or @code{_}) placed before them.
 @lilypond[quote,verbatim,ragged-right]
 dyn=#(define-event-function (parser location arg) (markup?)

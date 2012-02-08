@@ -329,18 +329,6 @@
 ;;; stencil outputters
 ;;;
 
-(define (bezier-sandwich lst thick)
-  (let* ((first (list-tail lst 4))
-	 (second (list-head lst 4)))
-    (entity 'path ""
-	    '(stroke-linejoin . "round")
-	    '(stroke-linecap . "round")
-	    '(stroke . "currentColor")
-	    '(fill . "currentColor")
-	    `(stroke-width . ,thick)
-	    `(d . ,(string-append (svg-bezier first #f)
-				  (svg-bezier second #t))))))
-
 (define (char font i)
   (dispatch
    `(fontify ,font ,(entity 'tspan (char->entity (integer->char i))))))
@@ -503,26 +491,6 @@
 (define (no-origin)
   "")
 
-(define (oval x-radius y-radius thick is-filled)
-  (let ((x-max x-radius)
-	(x-min (- x-radius))
-	(y-max y-radius)
-	(y-min (- y-radius)))
-    (entity
-      'path ""
-      '(stroke-linejoin . "round")
-      '(stroke-linecap . "round")
-      `(fill . ,(if is-filled "currentColor" "none"))
-      `(stroke . "currentColor")
-      `(stroke-width . ,thick)
-      `(d . ,(ly:format "M~4f ~4fC~4f ~4f ~4f ~4f ~4f ~4fS~4f ~4f ~4f ~4fz"
-			x-max 0
-			x-max y-max
-			x-min y-max
-			x-min 0
-			x-max y-min
-			x-max 0)))))
-
 (define* (path thick commands #:optional (cap 'round) (join 'round) (fill? #f))
   (define (convert-path-exps exps)
     (if (pair? exps)
@@ -603,17 +571,6 @@
     '(stroke . "currentColor")
     `(points . ,(string-join
 		  (map offset->point (ly:list->offsets '() coords))))))
-
-(define (repeat-slash width slope thickness)
-  (define (euclidean-length x y)
-    (sqrt (+ (* x x) (* y y))))
-  (let* ((x-width (euclidean-length thickness (/ thickness slope)))
-	 (height (* width slope)))
-    (entity
-      'path ""
-      '(fill . "currentColor")
-      `(d . ,(ly:format "M0 0l~4f 0 ~4f ~4f ~4f 0z"
-			x-width width (- height) (- x-width))))))
 
 (define (resetcolor)
   "</g>\n")

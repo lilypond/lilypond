@@ -7,20 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-L'ajout du @code{Volta_engraver} à la bonne portée permet d'imprimer les
-crochets de reprise entre les chiffrages et la portée.
-
-"
-  doctitlefr = "Crochet de reprise sous les chiffrages d'accord"
-
   lsrtags = "repeats, staff-notation, chords"
-
-
-
-
-
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -41,6 +28,14 @@ werden.
 
 "
   doctitlede = "Wiederholungs-(Volta-)Klammern unterhalb der Akkordsymbole"
+
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+  texidocfr = "
+L'ajout du @code{Volta_engraver} à la bonne portée permet d'imprimer les
+crochets de reprise entre les chiffrages et la portée.
+
+"
+  doctitlefr = "Crochet de reprise sous les chiffrages d'accord"
 
   texidoc = "
 By adding the @code{Volta_engraver} to the relevant staff, volte can be

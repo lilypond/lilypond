@@ -2,8 +2,10 @@
 
 \header {
   texidoc = "In a TabStaff, the chord repetition function needs
-to save the string information. This is handled by
-@code{\\tabChordRepetition}."
+to save the string information.  The obsolete function
+@code{\\tabChordRepetition} establishes this setting score-wide.
+Nowadays, you would rather use just @code{\\tabChordRepeat} on the
+music in the tabstaff, not affecting other contexts."
 }
 
 \tabChordRepetition

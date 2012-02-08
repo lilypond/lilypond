@@ -7,19 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
-  texidocit = "
-Internamente, @code{\\ottava} imposta le proprietà @code{ottavation} (ad
-esempio, su @code{8va} o @code{8vb}) e @code{middleCPosition}.  Per
-sovrascrivere il testo della parentesi, occorre specificare @code{ottavation}
-dopo il comando @code{\\ottava}.
-
-"
-  doctitleit = "Testo dell'ottava"
-
   lsrtags = "pitches, text"
-
-
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -34,6 +22,16 @@ ajuste @code{ottavation} después de invocar la instrucción
 
   doctitlees = "Texto de octava alta y baja"
 
+
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
+  texidocit = "
+Internamente, @code{\\ottava} imposta le proprietà @code{ottavation} (ad
+esempio, su @code{8va} o @code{8vb}) e @code{middleCPosition}.  Per
+sovrascrivere il testo della parentesi, occorre specificare @code{ottavation}
+dopo il comando @code{\\ottava}.
+
+"
+  doctitleit = "Testo dell'ottava"
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "

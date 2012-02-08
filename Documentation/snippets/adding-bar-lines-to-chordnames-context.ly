@@ -4,23 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.20"
+\version "2.15.25"
 
 \header {
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-L'ajout du graveur @code{Bar_engraver} à un contexte @code{ChordNames}
-permet d'imprimer les barres de mesure entre les chiffrages.
-
-"
-  doctitlefr = "Chiffrages et barres de mesure"
-
   lsrtags = "chords"
-
-
-
-
-
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -39,6 +26,14 @@ Um Taktstriche in einem @code{ChordNames}-Kontext anzeigen zu lassen, muss der
 
 "
   doctitlede = "Tatkstriche in einen ChordNames-Kontext hinzufügen"
+
+%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+  texidocfr = "
+L'ajout du graveur @code{Bar_engraver} à un contexte @code{ChordNames}
+permet d'imprimer les barres de mesure entre les chiffrages.
+
+"
+  doctitlefr = "Chiffrages et barres de mesure"
 
   texidoc = "
 To add bar line indications in the @code{ChordNames} context, add the

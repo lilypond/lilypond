@@ -21,15 +21,10 @@
 (define-public (ly:all-stencil-commands)
   "Return the list of stencil commands that can be
 defined in the output modules (@file{output-*.scm})."
-  '(beam
-    bezier-sandwich
-    blank
-    bracket
+  '(blank
     char
     circle
     dashed-line
-    dashed-slur
-    dot
     draw-line
     ellipse
     embedded-ps
@@ -39,13 +34,11 @@ defined in the output modules (@file{output-*.scm})."
     grob-cause
     named-glyph
     no-origin
-    oval
     page-link
     path
     partial-ellipse
     placebox
     polygon
-    repeat-slash
     resetcolor
     resetrotation
     resetscale
@@ -58,7 +51,6 @@ defined in the output modules (@file{output-*.scm})."
     unknown
     url-link
     utf-8-string
-    zigzag-line
     ))
 
 ;; TODO:

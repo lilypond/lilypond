@@ -70,7 +70,7 @@ stderr of this run."
 \test ##[ \skip 2.*3/4 #]		% SkipMusic
 \test ##[ < c\1 e\3 >4.*3/4-. #]	% EventChord, NoteEvent, StringNumberEvent, ArticulationEvent
 \test ##[ < c-1\4 >8 #]
-\test "NOT A BUG" ##[ { < c e g c' > q8-. } #] % RepeatedChord
+\test ##[ { < c e g c' >4 q8-. } #] % RepeatedChord
 
 %% tags
 \test ##[ { \tag #'foo { c4 d } } #]

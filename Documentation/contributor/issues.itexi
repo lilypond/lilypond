@@ -672,7 +672,7 @@ Performance: performance issue.
 
 If you particularly want to add a label not in the list, go
 ahead, but this is not recommended, except when an issue is marked
-as fixed.  In this case it should be labelled fixed_mm_MM_ss,
+as fixed.  In this case it should be labeled fixed_mm_MM_ss,
 where mm is major version, MM minor version and ss current
 release.
 

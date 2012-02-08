@@ -176,7 +176,8 @@ Hairpin::print (SCM smob)
             x_points[d] = e[-d];
           else
             {
-              Real broken_bound_padding = 0.0;
+              Real broken_bound_padding
+                = robust_scm2double (me->get_property ("broken-bound-padding"), 0.0);
               extract_grob_set (me, "concurrent-hairpins", chp);
               for (vsize i = 0; i < chp.size (); i++)
                 {

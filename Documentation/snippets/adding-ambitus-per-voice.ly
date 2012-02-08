@@ -7,17 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
-  texidocit = "
-L'ambitus può essere specificato per voce. In tal caso occorre
-spostarlo manualmente per evitare collisioni.
-
-"
-  doctitleit = "Un ambitus per voce"
-
   lsrtags = "pitches, staff-notation, vocal-music"
-
-
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   doctitlees = "Añadir un ámbito por voz"
@@ -26,6 +16,14 @@ Se puede añadir un ámbito por cada voz. En este caso, el ámbito se
 debe desplazar manualmente para evitar colisiones.
 
 "
+
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
+  texidocit = "
+L'ambitus può essere specificato per voce. In tal caso occorre
+spostarlo manualmente per evitare collisioni.
+
+"
+  doctitleit = "Un ambitus per voce"
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "

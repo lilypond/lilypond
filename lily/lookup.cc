@@ -34,20 +34,6 @@ using namespace std;
 #include "lily-guile.hh"
 
 Stencil
-Lookup::dot (Offset p, Real radius)
-{
-  SCM at = (scm_list_n (ly_symbol2scm ("dot"),
-                        scm_from_double (p[X_AXIS]),
-                        scm_from_double (p[Y_AXIS]),
-                        scm_from_double (radius),
-                        SCM_UNDEFINED));
-  Box box;
-  box.add_point (p - Offset (radius, radius));
-  box.add_point (p + Offset (radius, radius));
-  return Stencil (box, at);
-}
-
-Stencil
 Lookup::beam (Real slope, Real width, Real thick, Real blot)
 {
   Box b;
@@ -135,6 +121,16 @@ Stencil
 Lookup::blank (Box b)
 {
   return Stencil (b, scm_from_locale_string (""));
+}
+
+Stencil
+Lookup::circle (Real rad, Real thick, bool filled)
+{
+  Box b (Interval (-rad, rad), Interval (-rad, rad));
+  return Stencil (b, scm_list_4 (ly_symbol2scm ("circle"),
+                                 scm_from_double (rad),
+                                 scm_from_double (thick),
+                                 scm_from_bool (filled)));
 }
 
 Stencil
@@ -254,7 +250,11 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
   if (points.size () == 0)
     return Stencil ();
   if (points.size () == 1)
-    return dot (points[0], 0.5 * blotdiameter);
+    {
+      Stencil circ = circle (0.5 * blotdiameter, 0, true);
+      circ.translate (points[0]);
+      return circ;
+    }
   if (points.size () == 2)
     return Line_interface::make_line (blotdiameter, points[0], points[1]);
 
@@ -449,22 +449,32 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick,
 Stencil
 Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve, Real thickness)
 {
-  /*
-    Need the weird order b.o. the way PS want its arguments
-  */
-  SCM list = SCM_EOL;
-  list = scm_cons (ly_offset2scm (bottom_curve.control_[3]), list);
-  list = scm_cons (ly_offset2scm (bottom_curve.control_[0]), list);
-  list = scm_cons (ly_offset2scm (bottom_curve.control_[1]), list);
-  list = scm_cons (ly_offset2scm (bottom_curve.control_[2]), list);
-  list = scm_cons (ly_offset2scm (top_curve.control_[0]), list);
-  list = scm_cons (ly_offset2scm (top_curve.control_[3]), list);
-  list = scm_cons (ly_offset2scm (top_curve.control_[2]), list);
-  list = scm_cons (ly_offset2scm (top_curve.control_[1]), list);
+  SCM commands  = scm_list_n (ly_symbol2scm ("moveto"),
+                              scm_from_double (top_curve.control_[0][X_AXIS]),
+                              scm_from_double (top_curve.control_[0][Y_AXIS]),
+                              ly_symbol2scm ("curveto"),
+                              scm_from_double (top_curve.control_[1][X_AXIS]),
+                              scm_from_double (top_curve.control_[1][Y_AXIS]),
+                              scm_from_double (top_curve.control_[2][X_AXIS]),
+                              scm_from_double (top_curve.control_[2][Y_AXIS]),
+                              scm_from_double (top_curve.control_[3][X_AXIS]),
+                              scm_from_double (top_curve.control_[3][Y_AXIS]),
+                              ly_symbol2scm ("curveto"),
+                              scm_from_double (bottom_curve.control_[2][X_AXIS]),
+                              scm_from_double (bottom_curve.control_[2][Y_AXIS]),
+                              scm_from_double (bottom_curve.control_[1][X_AXIS]),
+                              scm_from_double (bottom_curve.control_[1][Y_AXIS]),
+                              scm_from_double (bottom_curve.control_[0][X_AXIS]),
+                              scm_from_double (bottom_curve.control_[0][Y_AXIS]),
+                              ly_symbol2scm ("closepath"),
+                              SCM_UNDEFINED);
 
-  SCM horizontal_bend = scm_list_n (ly_symbol2scm ("bezier-sandwich"),
-                                    ly_quote_scm (list),
+  SCM horizontal_bend = scm_list_n (ly_symbol2scm ("path"),
                                     scm_from_double (thickness),
+                                    ly_quote_scm (commands),
+                                    ly_quote_scm (ly_symbol2scm ("round")),
+                                    ly_quote_scm (ly_symbol2scm ("round")),
+                                    SCM_BOOL_T,
                                     SCM_UNDEFINED);
 
   Interval x_extent = top_curve.extent (X_AXIS);
@@ -480,21 +490,32 @@ Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve, Real thickness)
 Stencil
 Lookup::repeat_slash (Real w, Real s, Real t)
 {
-#if 0 /*  TODO */
-  vector<Offset> points;
-  Real blotdiameter = 0.0;
 
-  Offset p1 (0, 0);
-  Offset p2 (w, w * s);
+  Real x_width = sqrt ((t * t) + ((t / s) * (t / s)));
+  Real height = w * s;
 
-  return Lookup::round_filled_polygon (points, blotdiameter);
-#endif
+  SCM controls = scm_list_n (ly_symbol2scm ("moveto"),
+                             scm_from_double (0),
+                             scm_from_double (0),
+                             ly_symbol2scm ("rlineto"),
+                             scm_from_double (x_width),
+                             scm_from_double (0),
+                             ly_symbol2scm ("rlineto"),
+                             scm_from_double (w),
+                             scm_from_double (height),
+                             ly_symbol2scm ("rlineto"),
+                             scm_from_double (-x_width),
+                             scm_from_double (0),
+                             ly_symbol2scm ("closepath"),
+                             SCM_UNDEFINED);
 
-  SCM wid = scm_from_double (w);
-  SCM sl = scm_from_double (s);
-  SCM thick = scm_from_double (t);
-  SCM slashnodot = scm_list_n (ly_symbol2scm ("repeat-slash"),
-                               wid, sl, thick, SCM_UNDEFINED);
+  SCM slashnodot = scm_list_n (ly_symbol2scm ("path"),
+                               scm_from_double (0),
+                               ly_quote_scm (controls),
+                               ly_quote_scm (ly_symbol2scm ("round")),
+                               ly_quote_scm (ly_symbol2scm ("round")),
+                               SCM_BOOL_T,
+                               SCM_UNDEFINED);
 
   Box b (Interval (0, w + sqrt (sqr (t / s) + sqr (t))),
          Interval (0, w * s));

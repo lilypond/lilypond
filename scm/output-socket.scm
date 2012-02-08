@@ -48,16 +48,6 @@
 ;;; stencil commands
 ;;;
 
-(define (bezier-sandwich lst thick)
-  (format #f "bezier_sandwich ~a [~a]"
-	  thick
-	  (string-append
-	    (string-join (map
-			   (lambda (x)
-			     (format #f "(~a,~a)" (car x) (cdr x)))
-			   lst)
-			 ","))))
-
 (define (draw-line thick x1 y1 x2 y2)
   (format #f "drawline ~a ~a ~a ~a ~a"
 	  thick x1 y2 x2 y2))

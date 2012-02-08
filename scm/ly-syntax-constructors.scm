@@ -158,10 +158,10 @@ into a @code{MultiMeasureTextEvent}."
 	      'duration duration
 	      'origin location))
 
-(define-ly-syntax (repetition-chord parser location previous-chord repetition-function duration articulations)
-  (make-music 'RepeatedChord
-	      'original-chord previous-chord
-	      'element (repetition-function previous-chord location duration articulations)
+(define-ly-syntax (repetition-chord parser location duration articulations)
+  (make-music 'EventChord
+	      'duration duration
+	      'elements articulations
 	      'origin location))
 
 (define-ly-syntax-simple (context-specification type id ops create-new mus)

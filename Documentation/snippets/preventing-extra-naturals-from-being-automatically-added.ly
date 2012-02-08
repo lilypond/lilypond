@@ -7,20 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
-  texidocit = "
-Secondo le norme tipografiche standard, un segno di bequadro viene
-inserito prima di un diesis o di un bemolle se un'alterazione
-precedente sulla stessa nota deve essere cancellata.  Per cambiare
-questo comportamento si imposta la proprietà @code{extraNatural} su
-@code{f} (falso) nel contesto @code{Staff}.
-
-"
-  doctitleit = "Impedire l'inserimento automatico dei bequadri supplementari"
-
   lsrtags = "pitches"
-
-
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 doctitlees = "Evitar que se añadan becuadros adicionales automáticamente"
@@ -35,6 +22,17 @@ dentro del contexto de @code{Staff}.
 
 "
 
+
+%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
+  texidocit = "
+Secondo le norme tipografiche standard, un segno di bequadro viene
+inserito prima di un diesis o di un bemolle se un'alterazione
+precedente sulla stessa nota deve essere cancellata.  Per cambiare
+questo comportamento si imposta la proprietà @code{extraNatural} su
+@code{f} (falso) nel contesto @code{Staff}.
+
+"
+  doctitleit = "Impedire l'inserimento automatico dei bequadri supplementari"
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   doctitlede = "Verhindern, dass zusätzliche Auflösungszeichen automatisch

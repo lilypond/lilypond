@@ -1736,7 +1736,7 @@ is specified, no error message is produced, but the expected
 action will not take place.  For example, the
 @code{instrumentName} clearly lives in the @code{Staff} context, since
 it is the staff that is to be named.
-In this example the first staff is labelled, but not the second,
+In this example the first staff is labeled, but not the second,
 because we omitted the context name.
 
 @lilypond[quote,verbatim,ragged-right]

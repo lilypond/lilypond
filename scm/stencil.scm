@@ -15,6 +15,30 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+(define (make-bezier-sandwich-stencil coords thick xext yext)
+  (let* ((command-list `(moveto
+                         ,(car (list-ref coords 3))
+                         ,(cdr (list-ref coords 3))
+                         curveto
+                         ,(car (list-ref coords 0))
+                         ,(cdr (list-ref coords 0))
+                         ,(car (list-ref coords 1))
+                         ,(cdr (list-ref coords 1))
+                         ,(car (list-ref coords 2))
+                         ,(cdr (list-ref coords 2))
+                         curveto
+                         ,(car (list-ref coords 4))
+                         ,(cdr (list-ref coords 4))
+                         ,(car (list-ref coords 5))
+                         ,(cdr (list-ref coords 5))
+                         ,(car (list-ref coords 6))
+                         ,(cdr (list-ref coords 6))
+                         closepath)))
+  (ly:make-stencil
+    `(path ,thick `(,@' ,command-list) 'round 'round #t)
+    xext
+    yext)))
+
 (define-public (stack-stencils axis dir padding stils)
   "Stack stencils @var{stils} in direction @var{axis}, @var{dir}, using
 @var{padding}."
@@ -128,26 +152,25 @@ the more angular the shape of the parenthesis."
 	 (lower-inner-control-point
 	  (cons inner-control-x lower-control-y)))
 
-    (ly:make-stencil
-     (list 'bezier-sandwich
-	   `(quote ,(list
-		     ;; Step 4: curve through inner control points
-		     ;; to lower end point.
-		     upper-inner-control-point
-		     lower-inner-control-point
-		     lower-end-point
-		     ;; Step 3: move to upper end point.
-		     upper-end-point
-		     ;; Step 2: curve through outer control points
-		     ;; to upper end point.
-		     lower-outer-control-point
-		     upper-outer-control-point
-		     upper-end-point
-		     ;; Step 1: move to lower end point.
-		     lower-end-point))
-	   line-width)
-     (interval-widen x-extent (/ line-width 2))
-     (interval-widen y-extent (/ line-width 2)))))
+    (make-bezier-sandwich-stencil
+      (list
+	     ;; Step 4: curve through inner control points
+	     ;; to lower end point.
+	     upper-inner-control-point
+	     lower-inner-control-point
+	     lower-end-point
+	     ;; Step 3: move to upper end point.
+	     upper-end-point
+	     ;; Step 2: curve through outer control points
+	     ;; to upper end point.
+	     lower-outer-control-point
+	     upper-outer-control-point
+	     upper-end-point
+	     ;; Step 1: move to lower end point.
+	     lower-end-point)
+      line-width
+      (interval-widen x-extent (/ line-width 2))
+      (interval-widen y-extent (/ line-width 2)))))
 
 (define-public (parenthesize-stencil
 		stencil half-thickness width angularity padding)
@@ -197,12 +220,20 @@ y@tie{}radius @code{y-radius}, and thickness @var{thickness} with fill
 defined by @code{fill}."
   (let*
       ((x-out-radius (+ x-radius (/ thickness 2.0)))
-       (y-out-radius (+ y-radius (/ thickness 2.0))) )
-
+       (y-out-radius (+ y-radius (/ thickness 2.0)))
+       (x-max x-radius)
+       (x-min (- x-radius))
+       (y-max y-radius)
+       (y-min (- y-radius))
+       (commands `(,(list 'moveto x-max 0)
+                   ,(list 'curveto x-max y-max x-min y-max x-min 0)
+                   ,(list 'curveto x-min y-min x-max y-min x-max 0)
+                   ,(list 'closepath)))
+       (command-list (fold-right append '() commands)))
   (ly:make-stencil
-   (list 'oval x-radius y-radius thickness fill)
-   (cons (- x-out-radius) x-out-radius)
-   (cons (- y-out-radius) y-out-radius))))
+    `(path ,thickness `(,@',command-list) 'round 'round ,fill)
+    (cons (- x-out-radius) x-out-radius)
+    (cons (- y-out-radius) y-out-radius))))
 
 (define-public
   (make-partial-ellipse-stencil
@@ -394,7 +425,6 @@ respectively."
 			 (append prepend-origin (list 'closepath))
 			 prepend-origin))
 	 (command-list (fold-right append '() final-path)))
-
   (ly:make-stencil
     `(path ,thickness
 	   `(,@',command-list)

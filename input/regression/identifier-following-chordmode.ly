@@ -12,7 +12,7 @@ modifier."
 myDisplayMusic =
 #(define-music-function (parser location music)
  (ly:music?)
- (display-scheme-music music)
+ (display-scheme-music music (current-error-port))
  (make-music 'SequentialMusic 'void #t))
 
 \myDisplayMusic \chordmode { c }

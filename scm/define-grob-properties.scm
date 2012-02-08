@@ -1107,7 +1107,7 @@ relevant for finding the @code{pure-Y-extent}.")
 
      (side-support-elements ,ly:grob-array? "The side support, an array of
 grobs.")
-     (skyline-quantizing ,ly:vsize? "The number of boxes to break a
+     (skyline-quantizing ,index? "The number of boxes to break a
 slur into when calculating its skyline.")
      (slur ,ly:grob? "A pointer to a @code{Slur} object.")
      (spacing ,ly:grob? "The spacing spanner governing this section.")
