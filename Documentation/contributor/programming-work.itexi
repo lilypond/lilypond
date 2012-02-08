@@ -1567,6 +1567,9 @@ Iterators are routines written in C++ that process music expressions
 and sent the music events to the appropriate engravers and/or
 performers.
 
+See a short example discussing iterators and their duties in
+@ref{Articulations on EventChord}.
+
 
 @node Engraver tutorial
 @section Engraver tutorial
@@ -2248,6 +2251,7 @@ would become zero as items are moved to other homes.
 * Spacing algorithms::
 * Info from Han-Wen email::
 * Music functions and GUILE debugging::
+* Articulations on EventChord::
 @end menu
 
 @node Spacing algorithms
@@ -2653,3 +2657,30 @@ The breakpoint failing may have to do with the call sequence.  See
 @file{parser.yy}, run_music_function().  The function is called directly from
 C++, without going through the GUILE evaluator, so I think that is why
 there is no debugger trap.
+
+@node Articulations on EventChord
+@subsection Articulations on EventChord
+
+From David Kastrup's email
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/2012-02/msg00189.html}:
+
+LilyPond's typesetting does not act on music expressions and music
+events.  It acts exclusively on stream events.  It is the act of
+iterators to convert a music expression into a sequence of stream events
+played in time order.
+
+The EventChord iterator is pretty simple: it just takes its "elements"
+field when its time comes up, turns every member into a StreamEvent and
+plays that through the typesetting process.  The parser currently
+appends all postevents belonging to a chord at the end of "elements",
+and thus they get played at the same point of time as the elements of
+the chord.  Due to this design, you can add per-chord articulations or
+postevents or even assemble chords with a common stem by using parallel
+music providing additional notes/events: the typesetter does not see a
+chord structure or postevents belonging to a chord, it just sees a
+number of events occuring at the same point of time in a Voice context.
+
+So all one needs to do is let the EventChord iterator play articulations
+after elements, and then adding to articulations in EventChord is
+equivalent to adding them to elements (except in cases where the order
+of events matters).
