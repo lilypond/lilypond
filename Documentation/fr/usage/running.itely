@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 0fcca9bfd579bbda8ef0842baa5cd57b8ba718e2
+    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -13,7 +13,7 @@
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers:
 
-@node Exécution de LilyPond
+@node Exécution de lilypond
 @chapter Exécution de @command{lilypond}
 @translationof Running lilyPond
 
@@ -923,7 +923,7 @@ indiquée.
 @c Match quote character "
 
 @node Message d'erreur Unbound variable %
-@unnumberedsubsec Message d'erreur « Unbound variable % »
+@unnumberedsubsec Message d'erreur Unbound variable %
 @translationof Error message Unbound variable %
 
 Ce message d'erreur, qu'il apparaisse sur le terminal ou en fin de
@@ -937,7 +937,7 @@ les commentaires s'introduisent par un point-virgule (@code{;}).
 
 
 @node Message d'erreur FT_Get_Glyph_Name
-@unnumberedsubsec Message d'erreur « FT_Get_Glyph_Name »
+@unnumberedsubsec Message d'erreur FT_Get_Glyph_Name
 @translationof Error message FT_Get_Glyph_Name
 
 Ce message d'erreur, qu'il apparaisse sur le terminal ou en fin de

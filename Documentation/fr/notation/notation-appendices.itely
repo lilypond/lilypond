@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: fa1af0d636d61c607da284d69810f007e008f472
+    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -25,15 +25,15 @@
 * Liste des couleurs::
 * La fonte Feta::
 * Styles de tête de note::
-* Text markup commands::
-* Text markup list commands::
+* Commandes pour markup::
+* Commandes pour liste de markups::
 * Liste des caractères spéciaux::
 * Liste des signes d'articulation::
 * Notes utilisées en percussion::
 * Glossaire technique::
 * Liste des propriétés de contexte::
 * Propriétés de mise en forme::
-* Fonctions musicales::
+* Fonctions musicales prédéfinies::
 * Identificateurs de modification de contexte::
 * Types de prédicats prédéfinis::
 * Fonctions Scheme::
@@ -934,8 +934,8 @@ Voici les différents styles de tête de note disponibles.
 @lilypondfile[noindent]{note-head-style.ly}
 
 
-@node Text markup commands
-@appendixsec Text markup commands
+@node Commandes pour markup
+@appendixsec Commandes pour markup
 @translationof Text markup commands
 
 Les commandes suivantes peuvent être utilisées dans un bloc
@@ -944,8 +944,8 @@ Les commandes suivantes peuvent être utilisées dans un bloc
 @include markup-commands.tely
 
 
-@node Text markup list commands
-@appendixsec Text markup list commands
+@node Commandes pour liste de markups
+@appendixsec Commandes pour liste de markups
 @translationof Text markup list commands
 
 Les commandes suivantes peuvent être utilisées dans un
@@ -1127,8 +1127,8 @@ attacher à une note (p.ex. @code{c\accent})@tie{}:
 @include layout-properties.tely
 
 
-@node Fonctions musicales
-@appendixsec Fonctions musicales
+@node Fonctions musicales prédéfinies
+@appendixsec Fonctions musicales prédéfinies
 @translationof Available music functions
 
 @include identifiers.tely

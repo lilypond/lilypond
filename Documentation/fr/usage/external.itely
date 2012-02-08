@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 0fcca9bfd579bbda8ef0842baa5cd57b8ba718e2
+    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -338,7 +338,7 @@ ces programmes.
 
 
 @node Utilisation de midi2ly
-@subsection Utilisation de @command{midi2ly}
+@subsection Utilisation de @code{midi2ly}
 @translationof Invoking midi2ly
 
 @cindex MIDI
@@ -429,7 +429,7 @@ ajoutez une indication de phrasé ou de pédale.
 
 
 @node Utilisation de musicxml2ly
-@subsection Utilisation de @command{musicxml2ly}
+@subsection Utilisation de @code{musicxml2ly}
 @translationof Invoking musicxml2ly
 
 @cindex MusicXML
@@ -504,7 +504,7 @@ Le fichier d'entrée est un fichier MusicXML zippé.
 
 
 @node Utilisation d'abc2ly
-@subsection Utilisation de @command{abc2ly}
+@subsection Utilisation de @code{abc2ly}
 @translationof Invoking abc2ly
 
 @warning{Ce programme ne bénéficie d'aucune maintenance.  Il est
@@ -579,7 +579,7 @@ ABC synchronise paroles et musique en début de ligne@tie{};
 
 
 @node Utilisation d'etf2ly
-@subsection Utilisation de @command{etf2ly}
+@subsection Utilisation de @code{etf2ly}
 @translationof Invoking etf2ly
 
 @warning{Ce programme ne bénéficie d'aucune maintenance.  Il est

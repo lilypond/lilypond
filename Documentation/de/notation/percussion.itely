@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -107,11 +107,10 @@ gesetzt Werden.  Auch andere Schlüssel können benutzt werden.
 
 @lilypond[quote,ragged-right,verbatim]
 \drums {
-  \clef treble
-  hh4 hh hh hh
-  \break
   \clef percussion
   bd4 bd bd bd
+  \clef treble
+  hh4 hh hh hh
 }
 @end lilypond
 
@@ -140,7 +139,7 @@ Achtel werden mit zwei Balken gezeigt (und der dritte ist der eigentliche
 Balken), und Trommelwirbel mit kürzeren Werten als Achtelnoten
 haben einen Balken zusätzlich zu den eigentlichen Balken der Noten.
 Dieses Verhalten wird mit der Tremolonotation erreicht, wie in
-@ref{Tremolo-Wiederholung} gezeigt.  Hier ein Beispiel kleinerer Wirbel:
+@ref{Tremolo-Wiederholung} gezeigt.
 
 @lilypond[quote,verbatim]
 \drums {
@@ -152,21 +151,28 @@ Dieses Verhalten wird mit der Tremolonotation erreicht, wie in
 }
 @end lilypond
 
-Benutzung der Stöcke kann angezeigt werden durch @code{^"R"} oder
-@code{^"L"} nach jeder Note. Die @code{staff-padding}-Eigenschaft
+Benutzung der Stöcke kann angezeigt werden, indem eine Beschriftung
+durch @code{"R"} oder @code{"L"} über oder unter der Note angefügt wird,
+Näheres in @ref{Richtung und Platzierung}.  Die @code{staff-padding}-Eigenschaft
 kann verändert werden, um eine Orientierung an einer gemeinsamen
 Linie zu ermöglichen.
 
 @lilypond[quote,verbatim]
 \drums {
   \repeat unfold 2 {
-    sn16 ^"L" sn^"R" sn^"L" sn^"L" sn^"R" sn^"L"  sn^"R" sn^"R"
+    sn16^"L" sn^"R" sn^"L" sn^"L" sn^"R" sn^"L" sn^"R" sn^"R"
+    \stemUp
+    sn16_"L" sn_"R" sn_"L" sn_"L" sn_"R" sn_"L" sn_"R" sn_"R"
   }
 }
 @end lilypond
 
 
 @seealso
+
+Notationsreferenz:
+@ref{Tremolo-Wiederholung}.
+
 Schnipsel:
 @rlsr{Percussion}.
 

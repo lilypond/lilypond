@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-   Translation of GIT committish: ada15837e81a658a807d004b18877ba67a136fa3
+   Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -13,7 +13,7 @@
 @c Translation checkers: Jean-Yves Baudais, Valentin Villenave, John Mandereau, Jean-Charles Malahieude
 
 @node Suggestions pour la saisie de fichiers LilyPond
-@chapter Suggestions pour la saisie de fichiers
+@chapter Suggestions pour la saisie de fichiers LilyPond
 @translationof Suggestions for writing files
 
 Maintenant vous êtes prêt à travailler sur de plus gros fichiers
@@ -271,7 +271,7 @@ d'un @rwebnamed{Exemples minimaux,exemple minimaliste}.
 
 
 @node De la commande make et des fichiers Makefile
-@section De la commande @command{make} et des fichiers @code{Makefile}
+@section De la commande make et des fichiers Makefile
 @translationof Make and Makefiles
 
 @cindex makefiles

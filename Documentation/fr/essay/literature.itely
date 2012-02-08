@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 5f722f1688eff7436789f8ca011205bdb16c04b7
+    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -99,11 +99,11 @@ de notation.
 @c Better left untranslated -vv
 
 @ignore
-@subheading University of Colorado Engraving music bibliography
+@subheading Université du Colorado
 
 @include colorado.itexi
 
-@subheading Notation informatique
+@subheading Notation informatisée
 
 @include computer-notation.itexi
 

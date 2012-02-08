@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 972ef8e72c21b905cf5bd3b983686dbc38560505
+    Translation of GIT committish: 3875d98e9a2a3f0953b46e2726fdc4c7fb43c14f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -665,7 +665,7 @@ manuellement@tie{}:
   \header {
     title = "DAS WOHLTEMPERIRTE CLAVIER"
     subtitle = "TEIL I"
-    % Pas de pied en dernière page pour ce livret
+    % Pas de mention spéciale pour cet ouvrage
     tagline = ##f
   }
   \markup { \vspace #1 }
@@ -722,11 +722,11 @@ bloc @code{\header} principal, et @code{scoreTitleMarkup} pour les blocs
   subsubtitle = "Sous-sous-titre"
   instrument = "Instrument"
 
-  % Les champs suivants sont alignés sur le bord gauche
+  % Les champs suivants sont alignés par la gauche
   poet = "Librettiste"
   meter = "Tempo"
 
-  % Les champs suivants sont alignés sur le bord droit
+  % Les champs suivants sont alignés par la droite
   composer = "Compositeur"
   arranger = "Arrangeur"
 }
@@ -1140,22 +1140,14 @@ appels et comment les annotations seront créées lors de la compilation.
 @cindex bas de page, note automatique
 
 @funindex \footnote
-@funindex \footnoteGrob
-@funindex \auto-footnote
 
-LilyPond dispose, selon l'objet à référencer, de deux différentes
-commandes pour créer des notes de bas de page automatiques.  La commande
-@code{\footnoteGrob} s'applique aux objets individuels, tels que tête de
-note, hampe, liaison, nuance ou @code{\markup} contenant un
-@code{TextScripts}.  La commande @code{\footnote}, quant à elle, permet
-de référencer l'une des notes d'un accord. 
+La commande @code{\footnote} permet de générer automatiquement des notes
+de bas de page.  Elle requiert trois arguments@tie{}: l'@var{Objet de
+Rendu} auquel s'applique le commentaire rapporté en bas de page, la
+position @var{(x@tie{}.@tie{}y)} de l'appel de note, et enfin un
+@code{\markup} contenant l'annotation qui apparaîtra en bas de la page.
 
-Ces deux commandes requièrent trois arguments@tie{}: l'@var{Objet de
-Rendu} devant être annoté, la position @var{(x@tie{}.@tie{}y)} de
-l'appel de note, et enfin un @code{\markup} contenant l'annotation qui
-apparaîtra en bas de la page.
-
-La commande @code{\footnoteGrob} doit être mentionnée @strong{avant}
+La commande @code{\footnote} doit être mentionnée @strong{avant}
 l'objet auquel la note est attachée.
 
 @c KEEP LY
@@ -1253,22 +1245,16 @@ s'introduit par la commande @code{\auto-footnote}@tie{}:
 @funindex \footnote
 @funindex \footnoteGrob
 
-LilyPond dispose, selon l'objet à référencer, de deux différentes
-commandes pour créer des notes de bas de page manuelles@tie{}:  la
-commande @code{\footnote} pour les @code{\markup} de haut niveau ou les
-notes d'un accord, et la commande @code{\footnoteGrob} pour les objets
-individuels ou les @code{\markup} contenant un @code{TextScript}.
+LilyPond permet aussi de créer des notes de bas de page manuelles@tie{}:
+la commande @code{\footnote} prend alors quatre arguments@tie{}:
+l'@var{Objet de Rendu} devant être annoté, la position
+@var{(x@tie{}.@tie{}y)} de l'appel de note, et deux @code{\markup} -- le
+premier contient l'appel qui s'attache à la note ou à l'objet référencé,
+le second contient l'annotation qui est reportée en bas de page.
 
-S'agissant d'annoter un objet graphique, la commande @code{\footnote}
-requiert quatre arguments@tie{}: l'@var{Objet de Rendu} devant être
-annoté, la position @var{(x@tie{}.@tie{}y)} de l'appel de note, et deux
-@code{\markup} -- le premier contient l'appel qui s'attache à la note
-ou à l'objet, le second contient l'annotation qui est reportée en bas de
-page.
-
-La commande @code{\footnoteGrob} doit être mentionnée @strong{après}
-l'objet auquel l'annotation fait référence, comme s'il s'agissait d'une
-articulation.
+Tout comme dans le cas d'une note de bas de page automatique, la commande
+@code{\footnote} doit être mentionnée @strong{après} l'objet auquel
+l'annotation fait référence, comme s'il s'agissait d'une articulation.
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -1314,7 +1300,7 @@ et le pied de page.
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
-  \header { copyright = \markup { "Copyright 1970" } }
+  \header { tagline = ##f }
   \relative c' {
     \footnote
       \markup { \teeny 1 } #'(-3 . 0) #'DynamicText
@@ -1336,7 +1322,8 @@ et le pied de page.
     c4
 
     \footnote
-      \markup \concat \teeny { "sharp (v)" } #'(0 . 0.5) #'AccidentalCautionary
+      \markup \concat \teeny { "sharp (v)" }
+          #'(0 . 0.5) #'AccidentalCautionary
       \markup \italic { v. A cautionary accidental }
 
     \footnote
@@ -1346,7 +1333,8 @@ et le pied de page.
 
     \breathe
     \footnote
-      \markup { \teeny \musicglyph #"rests.4" } #'(1.5 . -0.25) #'BreathingSign
+      \markup { \teeny \musicglyph #"rests.4" }
+          #'(1.5 . -0.25) #'BreathingSign
       \markup { \null }
   }
 }

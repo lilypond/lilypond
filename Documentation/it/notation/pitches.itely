@@ -602,7 +602,7 @@ Questa sezione tratta il modo di modificare le altezze delle note.
 * Trasposizione::
 * Inversione::
 * Retrogradazione::
-* Trasformazioni modali::
+* Trasposizioni modali::
 @end menu
 
 @node Controlli di ottava
@@ -1052,7 +1052,7 @@ Questa sezione tratta il modo di modificare l'aspetto delle altezze delle note.
 * Chiave::
 * Armatura di chiave::
 * Segni di ottavazione::
-* Trasposizioni strumentali::
+* Trasporto strumentale::
 * Alterazioni automatiche::
 * Ambitus::
 @end menu
