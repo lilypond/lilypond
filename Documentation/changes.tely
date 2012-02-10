@@ -62,6 +62,21 @@ which scares away people.
 @end ignore
 
 @item
+Lilypond's stencil commands have been simplified to allow for less code
+duplication and better height approximations of graphical objects.  The
+following stencil commands have been eliminated:
+@itemize
+@item @code{beam}
+@item @code{bezier-sandwich}
+@item @code{bracket}
+@item @code{dashed-slur}
+@item @code{dot}
+@item @code{oval}
+@item @code{repeat-slash}
+@item @code{zigzag-line}
+@end itemize
+
+@item
 Flags are now treated as separate objects rather than as stem parts.
 @lilypond[fragment,quote,relative=2]
 \override Flag #'color = #red
