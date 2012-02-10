@@ -41,6 +41,7 @@
 */
 
 #include "tuplet-bracket.hh"
+#include "axis-group-interface.hh"
 #include "line-interface.hh"
 #include "beam.hh"
 #include "warn.hh"
@@ -203,8 +204,9 @@ Tuplet_bracket::calc_x_positions (SCM smob)
   Direction d = LEFT;
   do
     {
-      x_span[d] = robust_relative_extent (bounds[d], commonx, X_AXIS)[d];
-
+      x_span[d] = bounds[d]->break_status_dir ()
+                  ? Axis_group_interface::generic_bound_extent (bounds[d], commonx, X_AXIS)[d]
+                  : robust_relative_extent (bounds[d], commonx, X_AXIS)[d];
       if (connect_to_other[d])
         {
           Interval overshoot (robust_scm2drul (me->get_property ("break-overshoot"),
@@ -213,8 +215,9 @@ Tuplet_bracket::calc_x_positions (SCM smob)
           if (d == RIGHT)
             x_span[d] += d * overshoot[d];
           else
-            x_span[d] = robust_relative_extent (bounds[d],
-                                                commonx, X_AXIS)[RIGHT]
+            x_span[d] = (bounds[d]->break_status_dir ()
+                  ? Axis_group_interface::generic_bound_extent (bounds[d], commonx, X_AXIS)[-d]
+                  : robust_relative_extent (bounds[d], commonx, X_AXIS)[-d])
                         - overshoot[LEFT];
         }
 

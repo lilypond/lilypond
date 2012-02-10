@@ -1417,6 +1417,7 @@
 	(allow-loose-spacing . #t)
 	(axes . (,X))
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
+	(bound-alignment-interfaces . (break-alignment-interface))
 	(full-measure-extra-space . 1.0)
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
 	;;		      (stencil . ,ly:paper-column::print)
