@@ -169,7 +169,8 @@ nomenclature.
 
 @item
 The interface for specifying string tunings in tablature has been
-simplified considerably.
+simplified considerably and employs the scheme function
+@code{\stringTuning} for most purposes.
 
 @item
 Beams can now have their slopes preserved over line breaks.
@@ -192,10 +193,11 @@ to help calculations over line breaks.  All of these functions are now
 automatically called when setting the @code{positions} parameter.
 
 @item
-In function arguments music, markups and Scheme expressions (as well
-as several other syntactic entities) have become mostly
-interchangeable and are told apart only by evaluating the respective
-predicate.
+In function arguments music, markups and Scheme expressions (as well as
+several other syntactic entities) have become mostly interchangeable and
+are told apart only by evaluating the respective predicate.  In several
+cases, the predicate is consulted by the parser, like when deciding
+whether to interpret @code{-3} as a number or a fingering event.
 
 @item
 Music functions (and their close relatives) can now be defined with
@@ -233,8 +235,10 @@ syntax.
 
 @item
 The construct @code{#@{ @dots{} #@}} can now be used not just for
-constructing sequential music lists, but also for single music events,
-void music expressions, post events, markups (mostly freeing users from
+constructing sequential music lists, but also for pitches (distinguished
+from single note events by the absence of a duration or other
+information that can't be part of a pitch), single music events, void
+music expressions, post events, markups (mostly freeing users from
 having to use the @code{markup} macro), markup lists, number
 expressions, context definitions and modifications, and a few other
 things.  If it encloses nothing or only a single music event, it no
@@ -242,11 +246,17 @@ longer returns a sequential music list but rather a void music
 expression or just the music event itself, respectively.
 
 @item
+Pitches can be used on the right side of assignments.  They are
+distinguished from single note events by the absence of a duration by
+the absence of a duration or other information that can't be part of a
+pitch.
+
+@item
 New command-line option @option{--loglevel=@var{level}} to control how much output
 LilyPond creates. Possible values are ERROR, WARN, BASIC_PROGRESS, PROGRESS, DEBUG.
 
 @item
-@code{\set \once} now correctly resets the property value to the previous value.
+@code{\once \set} now correctly resets the property value to the previous value.
 @lilypond[fragment,quote,relative=2]
   \set fingeringOrientations = #'(left)
   <e-1>4
