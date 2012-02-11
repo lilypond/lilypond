@@ -195,7 +195,7 @@ endif
 ### Rules
 
 $(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi
-	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
+	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<"  "$*.makeinfo.log"
 
 txt-to-html: $(OUT_TXT_FILES) $(OUT_TXT_FILES:%.txt=%.html)
 
@@ -231,11 +231,11 @@ endif
 # Ugh, using '%' twice not possible
 $(outdir)/notation/notation.xml: $(outdir)/notation.texi
 	mkdir -p $(dir $@)
-	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$(dir $@) --docbook $<
+	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$(dir $@) --docbook $<"  "$*.makeinfoxml.log"
 
 $(outdir)/internals/internals.xml: $(outdir)/internals.texi
 	mkdir -p $(dir $@)
-	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$(dir $@) --docbook $<
+	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$(dir $@) --docbook $<"  "$*.makeinfoxml.log"
 
 $(outdir)/learning.texi $(outdir)/notation.texi: $(OUT_PDF_IMAGES)
 
