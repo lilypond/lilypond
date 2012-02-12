@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 6b39c0b8d7500da65ec6f0ad3dda9e67b244453e
+    Translation of GIT committish: ecf0a44d785db3038035927bd2405269d8668801
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -104,7 +104,7 @@ durées.  Pour de plus amples détails, consultez
 \new RhythmicStaff { c4 d e f }
 @end lilypond
 
-Un @code{TabStaff} crée une portée de tablature correpondant aux six
+Un @code{TabStaff} crée une portée de tablature correspondant aux six
 cordes d'une guitare standard.  Pour de plus amples détails, consultez
 @ref{Tablatures par défaut}.
 
@@ -178,7 +178,7 @@ Référence des propriétés internes :
 
 LilyPond dispose de différents contextes permettant de regrouper des
 portées individuelles et d'obtenir ainsi des @qq{systèmes}.  Chacun de
-ces contextes définira le style de regoupement, avec son signe
+ces contextes définira le style de regroupement, avec son signe
 particulier en début de portée et ses règles de gestion des barres de
 mesure.
 
@@ -527,7 +527,7 @@ L'emplacement des lignes supplémentaires est réglable@tie{}:
 
 Vous pouvez faire apparaître des lignes supplémentaires additionnelles
 au-dessus ou en dessous des têtes de note selon le positionnement
-relatif aux autres notes, qu'elles aient ou non elles-même des lignes
+relatif aux autres notes, qu'elles aient ou non elles-mêmes des lignes
 supplémentaires.
 
 @lilypond[verbatim,quote,relative=2]
@@ -623,7 +623,7 @@ plus.  Afin que cette ossia se place au-dessus de la portée à laquelle
 elle se réfère, étant par ailleurs dépourvue de métrique et de clef, et
 d'une taille légèrement inférieure, vous devrez avoir recours à quelques
 retouches.  Le manuel d'initiation aborde une technique particulière
-pour obternir ce résultat au chapitre
+pour obtenir ce résultat au chapitre
 @rlearning{Expressions musicales imbriquées}.
 
 L'exemple qui suit utilise, pour aligner la portée d'ossia, la propriété
@@ -652,7 +652,7 @@ lorsqu'il y a un nombre restreint d'ossias.
 
 Dans le cas où de nombreux et courts fragments d'ossia affecteraient
 une même portée, il est judicieux de créer un contexte @code{Staff} vide
-auquel sera attribué un @emph{identificateur}. Il suffira alors, pour
+auquel sera attribué un @emph{identifiant}. Il suffira alors, pour
 entamer un fragment d'ossia, de @emph{faire appel} à ce contexte grâce
 aux commandes @code{\startStaff} et @code{\stopStaff}.  Vous vous
 rendrez compte à l'utilisation des avantages que procure cette façon de
@@ -876,8 +876,8 @@ Référence des propriétés internes :
 
 Supprimer le @code{Staff_symbol_engraver} aura pour effet de masquer les
 barres de mesure.  Forcer leur visibilité peut entraîner des problèmes
-de formattage.  En pareil cas il vaut mieux, au lieu de supprimer le
-graveur, recourrir aux dérogations suivantes@tie{}:
+de formatage.  En pareil cas il vaut mieux, au lieu de supprimer le
+graveur, recourir aux dérogations suivantes@tie{}:
 
 @example
 \override StaffSymbol #'stencil = ##f
@@ -893,7 +893,7 @@ l'instruction @code{\Staff \RemoveEmptyStaves}, consultez
 @subsection Écriture de parties séparées
 @translationof Writing parts
 
-Nous allons voir au fil des lignes qui suivent, comment insérer des
+Nous allons voir, au fil des lignes qui suivent, comment insérer des
 indications de tempo ou des noms d'instrument dans une partition.  Nous
 aborderons aussi la citation d'autres voix, et comment la mettre en
 forme.
@@ -929,7 +929,7 @@ chacune des portées, qu'il s'agisse d'un contexte @code{Staff},
 @end lilypond
 
 Le recours à la commande @code{\markup} permet de construire des noms
-d'instruments particuliers, tels que
+d'instrument particuliers, tels que
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
@@ -1004,7 +1004,7 @@ reportez-vous au chapitre @ref{Variables d'indentation et de décalage}.
 
 @cindex noms d'instrument, autres contextes
 
-Des noms d'instruments peuvent s'utiliser dans d'autres contextes, tels
+Des noms d'instrument peuvent s'utiliser dans d'autres contextes, tels
 que @code{ChordNames} ou @code{FiguredBass}, dès lors qu'on leur adjoint
 le graveur @code{Instrument_name_engraver}.  Pour de plus amples
 informations sur la manière d'activer ou désactiver un graveur, voir
@@ -1040,12 +1040,12 @@ la première portée@tie{}:
 @funindex \instrumentSwitch
 @funindex instrumentSwitch
 
-Lorsqu'un musicien doît changer d'instrument -- piccolo et flûte, basson
+Lorsqu'un musicien doit changer d'instrument -- piccolo et flûte, basson
 et contrebasson --, la commande @code{\addInstrumentDefinition},
 couplée à l'instruction @code{\instrumentSwitch} permet de spécifier en
 détail les modifications intervenant lors du changement.  La commande
 @code{\addInstrumentDefinition} prend deux arguments@tie{}: une chaîne
-de caractères qui servira d'identificateur, et une liste d'associations
+de caractères qui servira d'identifiant, et une liste d'association
 de valeurs aux propriétés de ce nouvel instrument.  Ces définitions
 devront être déclarées avant tout autre élément musical.  L'instruction
 @code{\instrumentSwitch} se placera dans la musique au moment de la
@@ -1316,7 +1316,7 @@ d,,4 r a r
 @end lilypond
 
 Notez que les deux instructions @code{\cueClef} et @code{\cueClefUnset}
-sont disponibles si nécessaiare en dehors d'un @code{CueVoice}.
+sont disponibles si nécessaire en dehors d'un @code{CueVoice}.
 
 @lilypond[verbatim,noragged-right,relative=1]
 \clef "bass"
@@ -1458,7 +1458,7 @@ bassoonNotes = \relative c {
 
 L'instruction @code{\cueDuring}, à l'instar de la commande
 @code{\quoteDuring}, tient compte des instruments transpositeurs.  La
-citation s'effectue aux hauteurs correspondant à l'intrument où elles
+citation s'effectue aux hauteurs correspondant à l'instrument où elles
 apparaissent.  
 
 L'instruction @code{\transposedCueDuring} est particulièrement adaptée
