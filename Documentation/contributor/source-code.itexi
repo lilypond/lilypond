@@ -526,6 +526,17 @@ a @code{-D}.
 @node Other repositories
 @subsection Other repositories
 
+We have a few other code repositories.
+
+@menu
+* lilypond-extra::
+* Grand Unified Builder (GUB)::
+* yet more repositories::
+@end menu
+
+@node lilypond-extra
+@unnumberedsubsubsec lilypond-extra
+
 There is a separate repository for general administrative scripts,
 as well as pictures and media files for the website.  People
 interested in working on the website should download this
@@ -543,6 +554,25 @@ Linux distributions),
 export LILYPOND_WEB_MEDIA_GIT=$HOME/dir/of/lilypond-extra/
 @end example
 
+@node Grand Unified Builder (GUB)
+@unnumberedsubsubsec Grand Unified Builder (GUB)
+
+Another item of interest might be the Grand Unified Builder, our
+cross-platform building tool.  Since it is used by projects as
+well, it is not stored in our gub repository.  For more info, see
+@uref{http://lilypond.org/gub}.
+
+There are two locations for this repository, which will hopefully
+be kept up-to-date with each other:
+
+@example
+@uref{http://github.com/janneke/gub}
+@uref{http://github.com/gperciva/gub}
+@end example
+
+
+@node yet more repositories
+@unnumberedsubsubsec yet more repositories
 
 There are a few other repositories floating around, which will
 hopefully be documented in the near future.
@@ -731,12 +761,6 @@ branch.
 The branches are kept for archival reasons.
 
 @end itemize
-
-Another item of interest might be the Grand Unified Builder, our
-cross-platform building tool.  Since it is used by projects as
-well, it is not stored in our gub repository.  For more info, see
-@uref{http://lilypond.org/gub}.  The git location is
-@uref{http://github.com/janneke/gub}.
 
 
 @node Basic Git procedures
