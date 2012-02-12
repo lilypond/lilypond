@@ -772,6 +772,9 @@ branch.
 @item @code{stable/XYZ}:
 The branches are kept for archival reasons.
 
+@item @code{archive/XYZ}:
+The branches are kept for archival reasons.
+
 @end itemize
 
 

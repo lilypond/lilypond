@@ -58,6 +58,8 @@ Contributors using Linux or FreeBSD may also use Lilydev, but if
 they prefer their own development environment, they should read
 @rcontrib{Working with source code}, and @rcontrib{Compiling}.
 
+Begin by reading @rcontrib{Summary for experienced developers}.
+
 @itemize
 @item
 Documentation: for large changes, see
