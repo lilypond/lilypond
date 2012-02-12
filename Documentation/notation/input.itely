@@ -1041,7 +1041,7 @@ indicator and so footnotes are created during compilation.
 @unnumberedsubsubsec Automatic footnotes
 
 Automatic footnotes take three arguments; the @var{Layout Object} to be
-annotated, the @var{(x . y)} position of the indicator and a
+annotated, the @samp{(x . y)} position of the indicator and a
 @code{\markup} that will appear in the footnote at the bottom of the
 page.
 
@@ -1134,7 +1134,7 @@ required:
 @cindex footnotes, manual
 
 Manual footnotes takes four arguments; the @var{Layout Object} to be
-annotated, the @var{(x . y)} position of the indicator and two
+annotated, the @samp{(x . y)} position of the indicator and two
 @code{\markup} commands; the first is the indicator attached to the note
 or grob and the second is the footnote at the bottom of the page.
 

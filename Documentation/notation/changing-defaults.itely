@@ -3711,8 +3711,8 @@ require an additional @code{Y-extent} override with an unpure-pure
 container.  When a function overrides a @code{Y-offset} and/or
 @code{Y-extent} it is assumed that this will trigger line breaking
 calculations too early during compilation.  So the function is not
-evaluated at all (usually returning a value of @var{0} or
-@var{'(0 . 0)}) which can result in collisions.  A @q{pure} function
+evaluated at all (usually returning a value of @samp{0} or
+@samp{'(0 . 0)}) which can result in collisions.  A @q{pure} function
 will not affect properties, objects or grob suicides and therefore will
 always have its Y-axis-related evaluated correctly.
 
