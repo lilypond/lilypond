@@ -531,6 +531,7 @@ We have a few other code repositories.
 @menu
 * lilypond-extra::
 * Grand Unified Builder (GUB)::
+* lilypad::
 * yet more repositories::
 @end menu
 
@@ -568,6 +569,17 @@ be kept up-to-date with each other:
 @example
 @uref{http://github.com/janneke/gub}
 @uref{http://github.com/gperciva/gub}
+@end example
+
+
+@node lilypad
+@unnumberedsubsubsec lilypad
+
+Our binary releases on MacOS X and Windows contain a lightweight
+text editor.  This code is here:
+
+@example
+https://github.com/gperciva/lilypad
 @end example
 
 
