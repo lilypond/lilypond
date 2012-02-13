@@ -80,7 +80,6 @@ Staff_symbol::print (SCM smob)
   Stencil m;
 
   vector<Real> line_positions = Staff_symbol::line_positions (me);
-  int line_count = line_positions.size ();
 
   Stencil line
     = Lookup::horizontal_line (span_points
@@ -88,10 +87,13 @@ Staff_symbol::print (SCM smob)
                                t);
 
   Real space = staff_space (me);
-  for (int i = 0; i < line_count; i++)
+  for (vector<Real>::const_iterator i = line_positions.begin (),
+         e = line_positions.end ();
+       i != e;
+       ++i)
     {
       Stencil b (line);
-      b.translate_axis (line_positions[i] * 0.5 * space, Y_AXIS);
+      b.translate_axis (*i * 0.5 * space, Y_AXIS);
       m.add_stencil (b);
     }
   return m.smobbed_copy ();
@@ -137,17 +139,18 @@ Staff_symbol::ledger_positions (Grob *me, int pos)
   if (line_positions.empty ())
     return values;
 
-  int line_count = line_positions.size ();
-
   // find the staff line nearest to note position
   Real nearest_line = line_positions[0];
   Real line_dist = abs (line_positions[0] - pos);
-  for (int i = 1; i < line_count; i++)
+  for (vector<Real>::const_iterator i = line_positions.begin (),
+         e = line_positions.end ();
+       i != e;
+       ++i)
     {
-      if (abs (line_positions[i] - pos) < line_dist)
+      if (abs (*i - pos) < line_dist)
         {
-          nearest_line = line_positions[i];
-          line_dist = abs (line_positions[i] - pos);
+          nearest_line = *i;
+          line_dist = abs (*i - pos);
         }
     }
 
@@ -303,7 +306,7 @@ Staff_symbol::height (SCM smob)
 }
 
 bool
-Staff_symbol::on_line (Grob *me, int pos)
+Staff_symbol::on_line (Grob *me, int pos, bool allow_ledger)
 {
   SCM line_positions = me->get_property ("line-positions");
   if (scm_is_pair (line_positions))
@@ -321,15 +324,27 @@ Staff_symbol::on_line (Grob *me, int pos)
             min_line = current_line;
 
         }
-      if (pos < min_line)
-        return (( (int) (rint (pos - min_line)) % 2) == 0);
-      if (pos > max_line)
-        return (( (int) (rint (pos - max_line)) % 2) == 0);
+
+      if (allow_ledger)
+        {
+          if (pos < min_line)
+            return (( (int) (rint (pos - min_line)) % 2) == 0);
+          if (pos > max_line)
+            return (( (int) (rint (pos - max_line)) % 2) == 0);
+        }
 
       return false;
     }
   else
-    return ((abs (pos + line_count (me)) % 2) == 1);
+    {
+      int const line_cnt = line_count (me);
+      bool result = abs (pos + line_cnt) % 2 == 1;
+      if (result && !allow_ledger)
+        {
+          result = -line_cnt < pos && pos < line_cnt;
+        }
+      return result;
+    }
 }
 
 Interval
