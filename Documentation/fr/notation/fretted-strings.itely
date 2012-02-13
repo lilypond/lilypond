@@ -265,7 +265,7 @@ correspond aux cordes à vide.
 @cindex répétition, utilisation de @code{q}
 
 La répétition d'une construction en accord s'indique par un @code{q} --
-voir @ref{Répétition d’accords}.  Cette fonctionnalité, bien
+voir @ref{Répétition d'accords}.  Cette fonctionnalité, bien
 qu'opérationnelle en mode tablature, supprime entre autres les numéros
 de corde et doigtés.  Il vous faudra donc préalablement recourir
 explicitement à l'instruction
