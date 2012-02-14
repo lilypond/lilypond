@@ -10,6 +10,7 @@
 * Finding the cause of a regression::
 * Memory and coverage tests::
 * MusicXML tests::
+* Grand Regression Test Checking::
 @end menu
 
 
@@ -470,3 +471,46 @@ available in the LilyPond documentation:
 @uref{http://lilypond.org/doc/latest/input/regression/musicxml/collated-files}
 @end example
 
+
+@node Grand Regression Test Checking
+@section Grand Regression Test Checking
+
+@subheading What is this all about?
+
+Regression tests (usually abbreviated "regtests") is a collection
+of @file{.ly} files used to check whether LilyPond is working correctly.
+Example: before version 2.15.12 breve noteheads had incorrect width,
+which resulted in collisions with other objects.  After the issue was fixed,
+a small @file{.ly} file demonstrating the problem was added to the regression
+tests as a proof that the fix works.  If someone will accidentally break
+breve width again, we will notice this in the output of that regression test.
+
+We are asking you to help us by checking a regtest or two from time to time.
+You don't need programming skills to do this, not even LilyPond skills -
+just basic music notation knowledge; checking one regtest takes less than
+a minute.  Simply go here:
+
+@example
+@uref{http://www.holmessoft.co.uk/homepage/private/regtests/}
+@end example
+
+@subheading Some tips on checking regtests
+
+@subsubheading Description text
+
+The description should be clear even for a music beginner.
+If there are any special terms used in the description,
+they all should be explained in our @rglosnamed{Top, Music Glossary}
+or @rinternalsnamed{Top, Internals Reference}.
+Vague descriptions (like "behaves well", "looks reasonable") shouldn't be used.
+
+@ignore
+@subsubheading Is regtest straightforward and systematic?
+
+Unfortunately some regtests are written poorly.  A good regtest should be
+straightforward: it should be obvious what it checks and how.  Also, it
+usually shouldn't check everything at once.  For example it's a bad idea to test
+accidental placement by constucting one huge chord with many suspended notes
+and loads of accidentals.  It's better to divide such problem into a series
+of clearly separated cases.
+@end ignore
