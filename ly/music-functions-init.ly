@@ -315,7 +315,12 @@ without the need of a specific end spanner.")
 	 (ly:input-message location (_ "argument endSpanners is not an EventChord: ~a") music)
 	 music)))
 
-
+eventChords =
+#(define-music-function (parser location music) (ly:music?)
+   (_i "Compatibility function wrapping @code{EventChord} around
+isolated rhythmic events occuring since version 2.15.28, after
+expanding repeat chords @samp{q}.")
+   (event-chord-wrap! music parser))
 
 featherDurations=
 #(define-music-function (parser location factor argument) (ly:moment? ly:music?)

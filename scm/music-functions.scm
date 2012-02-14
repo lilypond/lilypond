@@ -1650,6 +1650,34 @@ recursing into matches themselves."
 	 (any (lambda (t) (music-is-of-type? m t)) type))
        (lambda (m) (music-is-of-type? m type)))))
 
+(define*-public (event-chord-wrap! music #:optional parser)
+  "Wrap isolated rhythmic events and non-postevent events in
+@var{music} inside of an @code{EventChord}.  If the optional
+@var{parser} argument is given, chord repeats @samp{q} are expanded
+using the default settings.  Otherwise, you need to cater for them
+yourself."
+  (map-some-music
+   (lambda (m)
+     (cond ((music-is-of-type? m 'event-chord)
+	    (if (pair? (ly:music-property m 'articulations))
+		(begin
+		  (set! (ly:music-property m 'elements)
+			(append (ly:music-property m 'elements)
+				(ly:music-property m 'articulations)))
+		  (set! (ly:music-property m 'articulations) '())))
+	    m)
+	   ((music-is-of-type? m 'rhythmic-event)
+	    (let ((arts (ly:music-property m 'articulations)))
+	      (if (pair? arts)
+		  (set! (ly:music-property m 'articulations) '()))
+	      (make-event-chord (cons m arts))))
+	   (else #f)))
+   (if parser
+       (expand-repeat-chords!
+	(cons 'rhythmic-event
+	      (ly:parser-lookup parser '$chord-repeat-events))
+	music)
+       music)))
 
 (define-public (event-chord-notes event-chord)
   "Return a list of all notes from @var{event-chord}."
