@@ -1594,35 +1594,62 @@ Entries that conform with the current key signature are not invalidated."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define-public (map-some-music map? music)
+  "Walk through @var{music}, transform all elements calling @var{map?}
+and only recurse if this returns @code{#f}."
+  (let loop ((music music))
+    (or (map? music)
+	(let ((elt (ly:music-property music 'element))
+	      (elts (ly:music-property music 'elements))
+	      (arts (ly:music-property music 'articulations)))
+	  (if (ly:music? elt)
+	      (set! (ly:music-property music 'element)
+		    (loop elt)))
+	  (if (pair? elts)
+	      (set! (ly:music-property music 'elements)
+		    (map loop elts)))
+	  (if (pair? arts)
+	      (set! (ly:music-property music 'articulations)
+		    (map loop arts)))
+	  music))))
+
+(define-public (extract-music music pred?)
+  "Return a flat list of all music matching @var{pred?} inside of
+@var{music}, not recursing into matches themselves."
+  (reverse!
+   (let loop ((music music) (res '()))
+     (if (pred? music)
+	 (cons music res)
+	 (fold loop
+	       (fold loop
+		     (let ((elt (ly:music-property music 'element)))
+		       (if (null? elt)
+			   res
+			   (loop elt res)))
+		     (ly:music-property music 'elements))
+	       (ly:music-property music 'articulations))))))
+
 (define-public (extract-named-music music music-name)
-  "Return a flat list of all music named @var{music-name} from @var{music}."
-  (if (not (list? music-name))
-      (set! music-name (list music-name)))
-  (if (ly:music? music)
-      (if (memq (ly:music-property music 'name) music-name)
-	  (list music)
-	  (let ((arts (ly:music-property music 'articulations)))
-	    (append-map!
-	     (lambda (x) (extract-named-music x music-name))
-	     (if (pair? arts)
-		 arts
-		 (cons (ly:music-property music 'element)
-		       (ly:music-property music 'elements))))))
-      '()))
+  "Return a flat list of all music named @var{music-name} (either a
+single event symbol or a list of alternatives) inside of @var{music},
+not recursing into matches themselves."
+  (extract-music
+   music
+   (if (cheap-list? music-name)
+       (lambda (m) (memq (ly:music-property m 'name) music-name))
+       (lambda (m) (eq? (ly:music-property m 'name) music-name)))))
 
 (define-public (extract-typed-music music type)
-  "Return a flat list of all music with @var{type} from @var{music}."
-  (if (ly:music? music)
-      (if (music-is-of-type? music type)
-	  (list music)
-	  (let ((arts (ly:music-property music 'articulations)))
-	    (append-map!
-	     (lambda (x) (extract-typed-music x type))
-	     (if (pair? arts)
-		 arts
-		 (cons (ly:music-property music 'element)
-		       (ly:music-property music 'elements))))))
-      '()))
+  "Return a flat list of all music with @var{type} (either a single
+type symbol or a list of alternatives) inside of @var{music}, not
+recursing into matches themselves."
+  (extract-music
+   music
+   (if (cheap-list? type)
+       (lambda (m)
+	 (any (lambda (t) (music-is-of-type? m t)) type))
+       (lambda (m) (music-is-of-type? m type)))))
+
 
 (define-public (event-chord-notes event-chord)
   "Return a list of all notes from @var{event-chord}."
