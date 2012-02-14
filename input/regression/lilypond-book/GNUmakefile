@@ -28,7 +28,7 @@ XML_FILES = $(filter-out include%,$(call src-wildcard,*.xml))
 local-test: $(OUT_FILES)
 
 $(outdir)/collated-files.list: $(OUT_FILES)
-	echo $(sort $(OUT_FILES)) > $@
+	echo $(sort $(filter-out %.xml,$(OUT_FILES))) > $@
 
 $(outdir)/suffix-texi.texi: suffix-texi.texi $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET) $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
 	LILYPOND_VERSION=$(TOPLEVEL_VERSION) $(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BOOK_PROCESS) $(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) $(LILYPOND_BOOK_FLAGS) --redirect-lilypond-output $<
