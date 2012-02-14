@@ -21,9 +21,9 @@ help LilyPond.
 
 @helpusNeed
 
-@helpusTasks
+@helpusSimple
 
-@helpusProjects
+@helpusAdvanced
 
 
 @node Overview of work flow
