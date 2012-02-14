@@ -390,20 +390,23 @@ quite often 4 lines are enough to demonstrate the problem!
 @node Bug reports
 @unnumberedsec Bug reports
 
+
+@divClass{heading-center}
+If you have input that results in a crash or wrong output,
+then that is a bug.
+@divEnd
+
 @divClass{column-center-top}
 @subheading Step 1: Known bugs
 
-If you have input that results in a crash or an erroneous output,
-then that is a bug.  There is a list of current bugs on our google
-bug tracker,
+We may already know about this bug.  Check here:
 
 @example
 @uref{http://code.google.com/p/lilypond/issues/list}
 @end example
 
-@warning{Please @strong{DO NOT} add bug reports directly to the
-bug tracker.  Once an issue has been added to the tracker, feel
-free to add more information to that report.}
+@warning{Please @strong{DO NOT} add bug reports to the
+bug tracker yourself.}
 
 @divEnd
 
@@ -411,12 +414,12 @@ free to add more information to that report.}
 @divClass{column-left-bottom}
 @subheading Step 2: Creating a bug report
 
-If you have discovered a bug which is not listed, please help us
-by creating a bug report.
+If you have discovered a bug which is not listed,
+please help us by creating a bug report.
 
-@warning{We only accept bug reports in the form of
-@ref{Tiny examples}.  We have very limited resources to deal with
-bug reports, so any non-minimal example will be rejected.  Almost
+@warning{We only accept reports in the form of
+@ref{Tiny examples}.  We have very limited resources,
+so any non-minimal example will be rejected.  Almost
 every bug can be demonstrated in four notes or less!}
 
 Here is an example of a good bug report:
@@ -473,13 +476,14 @@ report.
 @divClass{column-center-bottom}
 @subheading Step 4: Wait for a response
 
-Once your bug has been sent to the list, our Bug Squad will
-examine the report.  Please allow up to 4 days, as we have a
-limited number of volunteers for this task.  They may ask you for
-more information, or may add the report to the tracker and let you
-know what the issue number is.
+Once your bug report has been sent to the list, our Bug Squad will
+examine it; they may ask you for more information.  You will be notified
+when the report will be added to the bug tracker. Please allow up to 4 days,
+as we have a limited number of volunteers for this task.
 
-You may mark the bug so that you automatically receive emails when
+Once a bug has been added to the tracker, you can comment it to add
+more information about it.
+You may also mark the bug so that you automatically receive emails when
 any activity on the bug occurs.  This requires you have a google
 account.
 @divEnd
