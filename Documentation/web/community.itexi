@@ -506,13 +506,13 @@ demonstrate what you think it should look like!
 
 @divClass{column-left-top}
 @divClass{keep-bullets}
-@helpusTasks
+@helpusSimple
 
 @divEnd
 @divEnd
 
 @divClass{column-right-top}
-@helpusProjects
+@helpusAdvanced
 
 @divEnd
 

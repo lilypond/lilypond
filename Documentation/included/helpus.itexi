@@ -16,10 +16,10 @@ of spending time on those simple tasks.
 @end macro
 
 
-@macro helpusTasks
+@macro helpusSimple
 @subheading Simple tasks
 
-No source code or compiling required!
+@strong{No programming skills} required!
 
 @itemize
 @item
@@ -45,6 +45,10 @@ testing new features.  Please contribute to these discussions!
 
 @end itemize
 
+@end macro
+
+
+@macro helpusAdvanced
 @subheading Advanced tasks
 
 These jobs generally require that you have the source code and can
@@ -82,7 +86,7 @@ Frogs, and read @rcontrib{Programming work}.
 
 @end macro
 
-
+@ignore
 @macro helpusProjects
 @subheading Projects
 
@@ -135,4 +139,5 @@ with larger tasks in the future.
 
 @end macro
 
+@end ignore
 
