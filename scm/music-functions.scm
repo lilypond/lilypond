@@ -62,8 +62,9 @@ First it recurses over the children, then the function is applied to
 @var{music}."
   (let ((es (ly:music-property music 'elements))
 	(e (ly:music-property music 'element)))
-    (set! (ly:music-property music 'elements)
-	  (map (lambda (y) (music-map function y)) es))
+    (if (pair? es)
+	(set! (ly:music-property music 'elements)
+	      (map (lambda (y) (music-map function y)) es)))
     (if (ly:music? e)
 	(set! (ly:music-property music 'element)
 	      (music-map function  e)))
@@ -311,8 +312,7 @@ through MUSIC."
 calculate the number of slashes based on the durations.  Returns @code{0}
 if durations in @var{music} vary, allowing slash beats and double-percent
 beats to be distinguished."
-  (let* ((durs (map (lambda (elt)
-		      (duration-of-note elt))
+  (let* ((durs (map duration-of-note
 		    (extract-named-music music '(EventChord NoteEvent
 						 RestEvent SkipEvent))))
 	 (first-dur (car durs)))
