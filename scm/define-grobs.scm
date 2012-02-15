@@ -970,6 +970,7 @@
 				   (padding . 0.5)
 				      ))
 			  ))
+	(cross-staff . ,ly:line-spanner::calc-cross-staff)
 	(gap . 0.5)
 	(left-bound-info . ,ly:line-spanner::calc-left-bound-info)
 	(normalized-endpoints . ,ly:spanner::calc-normalized-endpoints)

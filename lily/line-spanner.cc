@@ -38,6 +38,7 @@ class Line_spanner
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_left_bound_info, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_left_bound_info_and_text, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_right_bound_info, (SCM));
@@ -198,6 +199,22 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
     }
 
   return details;
+}
+
+MAKE_SCHEME_CALLBACK (Line_spanner, calc_cross_staff, 1);
+SCM
+Line_spanner::calc_cross_staff (SCM smob)
+{
+  Spanner *me = unsmob_spanner (smob);
+  if (!me)
+    return SCM_BOOL_F;
+
+  if (to_boolean (me->get_bound (LEFT)->get_property ("non-musical"))
+      || to_boolean (me->get_bound (RIGHT)->get_property ("non-musical")))
+    return SCM_BOOL_F;
+
+  return scm_from_bool (Staff_symbol_referencer::get_staff_symbol (me->get_bound (LEFT))
+                        != Staff_symbol_referencer::get_staff_symbol (me->get_bound (RIGHT)));
 }
 
 MAKE_SCHEME_CALLBACK (Line_spanner, calc_right_bound_info, 1);
