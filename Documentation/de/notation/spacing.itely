@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -952,7 +952,7 @@ auf der rechten Seite mit Seite 1 beginnen.
 
 Die relative Gewichtung von (vertikalem) Abstand auf der Seite und
 (horizontalem) Abstand innerhalb der Zeilen.  Hohe Werte gewichten
-die vertikalen Abstände mehr.  Standard: @code{#10}.
+die vertikalen Abstände mehr.  Standard: @code{10}.
 
 @item print-all-headers
 @funindex print-all-headers
@@ -960,7 +960,7 @@ die vertikalen Abstände mehr.  Standard: @code{#10}.
 Wenn wahr, werden alle Einträge des Titelfeldes (@code{\header}-Umgebung)
 für jede Partitur (@code{\score}) ausgegeben.  Normalerweise wird nur die
 Satzbezeichnung und die Opuszahl (@code{piece} und @code{opus})
-ausgegeben.  Standard: @code{##f}.
+ausgegeben.  Standard: @code{#f}.
 
 @item system-separator-markup
 @funindex system-separator-markup
@@ -1385,7 +1385,7 @@ zwischen Partituren und Textbeschriftungen.
 Es gibt auch vertikale Gegenstücke zu den Variablen
 @code{ragged-right} und @code{ragged-last}:
 @code{ragged-bottom} und @code{ragged-last-bottom}.  Wenn diese
-Variablen auf @code{##t} (wahr) gesetzt werden, werden im ersten
+Variablen auf @code{#t} (wahr) gesetzt werden, werden im ersten
 Fall die Notensysteme auf allen Seiten eng nach oben orientiert
 gesetzt werden.  Im zweiten Fall bezieht sich dies nur auf die
 letzte Seite.
@@ -1512,7 +1512,7 @@ Doppelstrich), wird der Befehl nach diesem Taktstrich gesetzt.
 Der @code{Page_turn_engraver} liest die Kontexteigenschaft
 @code{minimumPageTurnLength} um zu erkennen, wie lang eine Stelle
 frei von Noten sein muss, damit ein Seitenumbruch in Frage kommt.  Der
-Standardwert hierfür ist @code{#(ly:make-moment 1 1)}.  Wenn Sie
+Standardwert hierfür ist @code{(ly:make-moment 1 1)}.  Wenn Sie
 Seitenumbrüche zum Umblättern ausschalten wollen, können Sie
 einen sehr großen Wert angeben.
 
@@ -1845,7 +1845,7 @@ Abstände eingestellt werden sollen.  Dabei ist allerdings zu beachten, dass
 @code{@var{Element1}} befindet; beispielsweise
 @code{nonstaff-relatedstaff-spacing} (Nicht-Notensystem-verwandtesNotensystem)
 misst von dem Nicht-Notensystem nach oben, wenn @code{staff-affinity}
-(Richtung, an der sich ein System ausrichtet) auf @code{#UP} (nach oben)
+(Richtung, an der sich ein System ausrichtet) auf @code{UP} (nach oben)
 eingestellt ist.
 
 Jeder Abstand wird zwischen den @emph{Referenzpunkten} der zwei Objekten
@@ -2767,7 +2767,7 @@ Weise bestimmt: in jedem Takt wird die kürzeste Note bestimmt.  Die
 häufigste kürzeste Note wird dann als Grundlage für die Platzverteilung
 der Noten herangezogen, mit der Bedingung, dass diese kürzeste
 Note immer ein Achtel oder kürzer sein soll.  Die kürzeste Dauer
-wird ausgegeben, wenn @code{lilypond} mit der Option @code{--verbose}
+wird ausgegeben, wenn @code{lilypond} mit der Option @option{--verbose}
 aufgerufen wird.
 
 Diese Dauern können aber auch angepasst werden.  Wenn Sie die Eigenschaft
@@ -3140,10 +3140,10 @@ Die Eigenschaft @code{proportionalNotationDuration} braucht ein Argument,
 welches die Referenzdauer ist, anhand welcher alle Noten platziert werden.
 Hier wird die LilyPond Scheme-Funktion @code{make-moment} eingesetzt.  Sie
 braucht zwei Argumente: einen Zähler und einen Nenner, die einen Bruch einer
-Ganzen darstellen.  Die Funktion @code{#(ly:make-moment 1 20)} ergibt also
+Ganzen darstellen.  Die Funktion @code{(ly:make-moment 1 20)} ergibt also
 eine Referenzdauer von einer Zwanzigstel.  Genauso gut können etwa die Dauern
-@code{#(ly:make-moment 1 16)}, @code{#(ly:make-moment 1 8)} oder
-@code{#(ly:make-moment 3 97)} eingesetzt werden.
+@code{(ly:make-moment 1 16)}, @code{(ly:make-moment 1 8)} oder
+@code{(ly:make-moment 3 97)} eingesetzt werden.
 
 Die richtige Referenzdauer, mit der eine vernünftige Verteilung der Noten
 proportional möglich ist, muss durch Ausprobieren herausgefunden werden.

@@ -2575,7 +2575,7 @@ Instrument in der Orchesterfassung den Abschnitt spielt.  Das hilft
 dem Dirigenten, wenn man keine große Partitur parat hat.
 
 Der grundlegende Mechanismus, um Stichnoten einzufügen, findet sich in
-@ref{Stichnoten} und @ref{Stichnoten formatieren}.  Aber wenn man viele
+@ref{Andere Stimmen zitieren} und @ref{Stichnoten formatieren}.  Aber wenn man viele
 Stichnoten etwa in einen Klavierauszug einfügen will, um dem Dirigenten
 zu helfen, muss man sehr sorgfältig mit der Positionierung der
 Instrumentenbezeichnungen sein.  Im folgenden Beispiel gibt es dazu
@@ -2670,11 +2670,11 @@ Glossar:
 @rglos{cue-notes}.
 
 Notationsreferenz:
-@ref{Aligning objects},
-@ref{Direction and placement},
-@ref{Formatting cue notes},
-@ref{Quoting other voices},
-@ref{Using music functions}.
+@ref{Objekte ausrichten},
+@ref{Richtung und Platzierung},
+@ref{Stichnoten formatieren},
+@ref{Andere Stimmen zitieren},
+@ref{Musikfunktionen benutzen}.
 
 Schnipsel:
 @rlsr{Vocal music}.
