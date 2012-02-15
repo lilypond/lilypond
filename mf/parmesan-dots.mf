@@ -35,24 +35,29 @@ fet_beginchar ("duration dot", "dotvaticana");
 	set_char_box (0, dot_diam#, .5 dot_diam#, .5 dot_diam#);
 fet_endchar;
 
+
 %%%%%%%%%%%%%
 %%%
 %%% Code for Kievan Music Notation
 %%%
 %%%%%%%%%%%%%
 
+
 save kievan_dot_diam;
 kievan_dot_diam# := staff_space# - stafflinethickness#;
 define_whole_pixels (kievan_dot_diam);
 
+
 fet_beginchar ("kievan augmentation dot", "dotkievan");
-	% pars for superellipse are right, top, left, bottom
-	fill superellipse((kievan_dot_diam, 0),
-			  (kievan_dot_diam / 2, kievan_dot_diam / 2),
-			  (0, 0),
-			  (kievan_dot_diam / 2, -kievan_dot_diam / 2),
+	% parameters for superellipse are right, top, left, bottom
+	fill superellipse ((kievan_dot_diam, 0),
+			   (kievan_dot_diam / 2, kievan_dot_diam / 2),
+			   (0, 0),
+			   (kievan_dot_diam / 2, -kievan_dot_diam / 2),
 			   0.51);
-	set_char_box (0, kievan_dot_diam#, 0.5 kievan_dot_diam#, 0.5 kievan_dot_diam#);
+
+	set_char_box (0, kievan_dot_diam#,
+		      0.5 kievan_dot_diam#, 0.5 kievan_dot_diam#);
 fet_endchar;
 
 fet_endgroup ("dots");

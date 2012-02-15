@@ -1700,6 +1700,7 @@ fet_beginchar ("Hufnagel do/fa clef", "hufnagel.do.fa_change");
 	draw_hufnagel_do_fa_clef ((0, 0), .8);
 fet_endchar;
 
+
 %%%%%%%%
 %%
 %% Medieval East-Slavic (Kievan) Notation clefs
@@ -1712,15 +1713,20 @@ def draw_kievan_do_clef =
 	z2 = (1.063 staff_space, -0.122 staff_space);
 	z3 = (1.467 staff_space, -1.621 staff_space);
 	z4 = (1.002 staff_space, -2.253 staff_space);
+
 	y5 = y3;
 	x4 - x5 = x3 - x4;
+
 	z6 = (0.917 staff_space, -0.383 staff_space);
 	z7 = (0.012 staff_space, -0.448 staff_space);
 	z8 = (0, -0.167 staff_space);
 	z9 = (0.057 staff_space, 0.464 staff_space);
 	z10 = (0.994 staff_space, 0.387 staff_space);
 	z11 = (1.023 staff_space, 0.554 staff_space);
-	fill z1 .. z2{down} .. z3
+
+	fill z1
+	     .. z2{down}
+	     .. z3
 	     & z3 -- z4
 	     & z4 -- z5
 	     & z5 .. {up}z6
@@ -1729,14 +1735,18 @@ def draw_kievan_do_clef =
 	     & z9 .. {right}z10
 	     & z10 .. z11
 	     & z11 -- cycle;
-	set_char_box (0, 1.5 staff_space#, 2.25 staff_space#, 0.55 staff_space#);
+
+	set_char_box (0, 1.5 staff_space#,
+		      2.25 staff_space#, 0.55 staff_space#);
 enddef;
 
+
 fet_beginchar ("kievan tsefaut clef", "kievan.do");
-	% this draws the Tse-Fa-Ut clef
-	% it is a variant alto clef that always occurs on the third line of the staff
+	% This draws the Tse-Fa-Ut clef; it is a variant alto clef that
+	% always occurs on the third line of the staff.
 	draw_kievan_do_clef;
 fet_endchar;
+
 
 fet_beginchar ("mensural c clef", "kievan.do_change");
 	% This is the same thing as a do clef?
