@@ -400,7 +400,7 @@ fet_endchar;
 %%%%%%%%%%%%%%%
 
 
-fet_beginchar ("kievan sharp", "kievan1");
+fet_beginchar ("Kievan sharp", "kievan1");
 	% This draws the sharp.
 	% It never occurs in Synodal music and
 	% can only be found in some early manuscripts.
@@ -440,7 +440,7 @@ fet_beginchar ("kievan sharp", "kievan1");
 fet_endchar;
 
 
-fet_beginchar ("kievan flat", "kievanM1");
+fet_beginchar ("Kievan flat", "kievanM1");
 	% This draws the flat sign.
 	% In Synodal music, the flat only occurs on the high B
 	% but it may be used elsewhere in early manuscripts.
@@ -469,21 +469,16 @@ fet_beginchar ("kievan flat", "kievanM1");
 	     .. z3
 	     .. z4{down}
 	     .. z5
-	     & z5 -- cycle;
-	fill z5 -- z6
-	     & z6 -- z7
-	     & z7 -- z11
-	     & z11 -- z12
-	     & z12 -- z13
-	     & z13 -- cycle;
-	fill z7{up}
+	     -- z6
+	     -- z7{up}
 	     .. z8
 	     .. {dir 23}z9
 	     & z9
 	     .. z10{dir -135}
 	     .. {down}z11
-	     & z11
-	     -- cycle;
+	     -- z12
+	     -- z13
+	     & cycle;
 
 	set_char_box (0, 1.0 staff_space#,
 		      1.0 staff_space#, 1.8 staff_space#);

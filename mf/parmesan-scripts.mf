@@ -271,7 +271,6 @@ fet_beginchar ("Kievan end of piece (slash)", "barline.kievan");
 	z7 - z6 = (.5 staff_space, -.2 staff_space);
 	.4 [z6, z7] = 7/6 [z2, z1];
 
-	pickup pencircle scaled blot_diameter;
 	penpos1 (hair, 0);
 	penpos2 (hair, 0);
 	penpos3 (hair, -90);
@@ -285,7 +284,9 @@ fet_beginchar ("Kievan end of piece (slash)", "barline.kievan");
 	penstroke z1e
 		  -- z2e;
 
-	fill simple_serif (z3l, z3r, 90){1.5 right}
+	fill z3l
+	     -- z2l{z2 - z1}
+	     .. z3r{right}
 	     .. z4r
 	     .. z5r
 	     .. z6r
@@ -293,7 +294,7 @@ fet_beginchar ("Kievan end of piece (slash)", "barline.kievan");
 	     .. {left}z6l
 	     .. z5l
 	     .. z4l
-	     .. cycle;
+	     .. {left}cycle;
 fet_endchar;
 
 fet_endgroup ("scripts");

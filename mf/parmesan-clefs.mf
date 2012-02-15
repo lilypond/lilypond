@@ -1727,28 +1727,33 @@ def draw_kievan_do_clef =
 	fill z1
 	     .. z2{down}
 	     .. z3
-	     & z3 -- z4
-	     & z4 -- z5
-	     & z5 .. {up}z6
-	     & z6{left} .. z7
-	     & z7 .. z8{up} .. z9
-	     & z9 .. {right}z10
-	     & z10 .. z11
-	     & z11 -- cycle;
+	     -- z4
+	     -- z5
+	     .. {up}z6
+	     & z6{left}
+	     .. z7
+	     & z7
+	     .. z8{up}
+	     .. z9
+	     & z9
+	     .. {right}z10
+	     & z10
+	     .. z11
+	     -- cycle;
 
 	set_char_box (0, 1.5 staff_space#,
 		      2.25 staff_space#, 0.55 staff_space#);
 enddef;
 
 
-fet_beginchar ("kievan tsefaut clef", "kievan.do");
+fet_beginchar ("Kievan tsefaut clef", "kievan.do");
 	% This draws the Tse-Fa-Ut clef; it is a variant alto clef that
 	% always occurs on the third line of the staff.
 	draw_kievan_do_clef;
 fet_endchar;
 
 
-fet_beginchar ("mensural c clef", "kievan.do_change");
+fet_beginchar ("Kievan tsefaut clef", "kievan.do_change");
 	% This is the same thing as a do clef?
 	draw_kievan_do_clef;
 fet_endchar;

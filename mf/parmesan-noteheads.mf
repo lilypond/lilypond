@@ -1790,7 +1790,7 @@ fet_endchar;
 %%%%%%%%%%%%
 
 
-fet_beginchar ("kievan final note", "sM2kievan");
+fet_beginchar ("Kievan final note", "sM2kievan");
 	% This draws the Final Note.
 	% It is the last note of a piece of music
 	% equivalent to having a whole note and fermata in CMN.
@@ -1807,8 +1807,9 @@ fet_beginchar ("kievan final note", "sM2kievan");
 	path p;
 	p := (0, blank_space)
 	     -- (0, staff_space - blank_space)
-	     -- (note_width, staff_space - blank_space)
-	     -- (note_width, blank_space)
+	     -- (note_width + 0.5 vert_bar_thickness,
+		 staff_space - blank_space)
+	     -- (note_width + 0.5 vert_bar_thickness, blank_space)
 	     -- cycle;
 	fill p;
 	fill p reflectedabout ((0, 0), (1, 0));
@@ -1823,7 +1824,7 @@ fet_beginchar ("kievan final note", "sM2kievan");
 fet_endchar;
 
 
-fet_beginchar ("kievan recitative mark", "sM1kievan");
+fet_beginchar ("Kievan recitative mark", "sM1kievan");
 	inner_width# := 4 * staff_space#;
 	vert_bar_thickness# := 2 * stafflinethickness#;
 	vert_bar_height# := staff_space# - stafflinethickness#;
@@ -1833,11 +1834,11 @@ fet_beginchar ("kievan recitative mark", "sM1kievan");
 	define_blacker_pixels (vert_bar_thickness);
 
 	path p;
-	p := (3 * vert_bar_thickness, blank_space)
-	     -- (3 * vert_bar_thickness, vert_bar_height - blank_space)
-	     -- (3 * vert_bar_thickness + inner_width,
+	p := (2.5 * vert_bar_thickness, blank_space)
+	     -- (2.5 * vert_bar_thickness, vert_bar_height - blank_space)
+	     -- (3.5 * vert_bar_thickness + inner_width,
 		 vert_bar_height - blank_space)
-	     -- (3 * vert_bar_thickness + inner_width, blank_space)
+	     -- (3.5 * vert_bar_thickness + inner_width, blank_space)
 	     -- cycle;
 	fill p;
 	fill p reflectedabout ((0, 0), (1, 0));
@@ -1896,11 +1897,17 @@ fet_beginchar ("Kievan quarter note down", "d2kievan");
 	fill z1{dir 8.6}
 	     .. z2
 	     .. z3
-	     & z3 .. z4 .. z5
-	     & z5 -- z6
-	     & z6 .. z7 .. z8
-	     & z8{left} .. z9
-	     & z9 .. z10 ... {dir 75}cycle;
+	     & z3
+	     .. z4
+	     .. z5
+	     -- z6
+	     .. z7
+	     .. z8
+	     & z8{left}
+	     .. z9
+	     & z9
+	     .. z10
+	     ... {dir 75}cycle;
 
 	set_char_box (0, 1.02 staff_space#,
 		      2.50 staff_space#, 0.40 staff_space#);
@@ -1922,11 +1929,17 @@ fet_beginchar ("Kievan quarter note up", "u2kievan");
 	fill z1{dir -6.9}
 	     .. z2
 	     .. z3
-	     & z3 .. z4 .. z5
-	     & z5 -- z6
-	     & z6 .. z7 .. z8
-	     & z8{left} .. z9
-	     & z9 .. z10 ... {dir -76.9}cycle;
+	     & z3
+	     .. z4
+	     .. z5
+	     -- z6
+	     .. z7
+	     .. z8
+	     & z8{left}
+	     .. z9
+	     & z9
+	     .. z10
+	     ... {dir -76.9}cycle;
 
 	set_char_box (0, 1.02 staff_space#,
 		      0.40 staff_space#, 2.6 staff_space#);
@@ -1952,13 +1965,17 @@ fet_beginchar ("Kievan half note (line position)", "s1kievan");
 	fill z1
 	     .. z2{down}
 	     .. z3
-	     & z3 -- z4
-	     & z4 .. z5{up} .. z6
-	     & z6 .. z7{left} .. z8
-	     & z8 -- z9
-	     & z9 .. {right}z10
-	     & z10{up} .. z11
-	     & z11 -- cycle;
+	     -- z4
+	     .. z5{up}
+	     .. z6
+	     & z6
+	     .. z7{left}
+	     .. z8
+	     -- z9
+	     .. {right}z10
+	     & z10{up}
+	     .. z11
+	     -- cycle;
 
 	set_char_box (0, 1.06 staff_space#,
 		      1.6 staff_space#, 1.0 staff_space#);
@@ -1985,13 +2002,18 @@ fet_beginchar ("Kievan half note (space position)", "sr1kievan");
 	fill z1
 	     .. z2{down}
 	     .. z3
-	     & z3 -- z4
-	     & z4 .. z5{up} .. z6
-	     & z6 .. z7{left} .. z8
-	     & z8 -- z9
-	     & z9 .. z10{right}
-	     & z10 .. z11 .. z12
-	     & z12 -- cycle;
+	     -- z4
+	     .. z5{up}
+	     .. z6
+	     & z6
+	     .. z7{left}
+	     .. z8
+	     -- z9
+	     .. z10{right}
+	     & z10
+	     .. z11
+	     .. z12
+	     -- cycle;
 
 	set_char_box (0, 1.1 staff_space#,
 		      1.0 staff_space#, 1.4 staff_space#);
@@ -2018,15 +2040,22 @@ fet_beginchar ("Kievan eighth note (down)", "d3kievan");
 
 	fill z1{right}
 	     .. z2
-	     & z2 -- z3
-	     & z3{right} .. z4
-	     & z4 .. z5{down} .. z6
-	     & z6 -- z7
-	     & z7 .. z8{up} .. z9
-	     & z9 .. {left}z10
-	     & z10{dir 78.7} .. z11
-	     & z11 .. {left}z12
-	     & z12{dir 78.7} .. {dir 62}cycle;
+	     -- z3{right}
+	     .. z4
+	     & z4
+	     .. z5{down}
+	     .. z6
+	     -- z7
+	     .. z8{up}
+	     .. z9
+	     & z9
+	     .. {left}z10
+	     & z10{dir 78.7}
+	     .. z11
+	     & z11
+	     .. {left}z12
+	     & z12{dir 78.7}
+	     .. {dir 62}cycle;
 
 	set_char_box (0, 1.25 staff_space#,
 		      3.0 staff_space#, 0.5 staff_space#);
@@ -2052,11 +2081,17 @@ fet_beginchar ("Kievan eighth note (up)", "u3kievan");
 	fill z1{dir -6.9}
 	     .. z2
 	     .. z3
-	     & z3 .. z4 .. z5
-	     & z5 -- z6
-	     & z6 .. z7 .. z8
-	     & z8{left} .. z9
-	     & z9 .. z10 ... {dir -76.9}cycle;
+	     & z3
+	     .. z4
+	     .. z5
+	     -- z6
+	     .. z7
+	     .. z8
+	     & z8{left}
+	     .. z9
+	     & z9
+	     .. z10
+	     ... {dir -76.9}cycle;
 
 	% now, draw the stem
 	z11 = (0.033 staff_space, 2.823 staff_space);
@@ -2069,9 +2104,12 @@ fet_beginchar ("Kievan eighth note (up)", "u3kievan");
 
 	fill z11
 	     -- z12
-	     & z12 .. z13{down} .. z14
-	     & z14 -- z15
-	     & z15 .. z16 .. z17{up} .. cycle;
+	     .. z13{down}
+	     .. z14
+	     -- z15
+	     .. z16
+	     .. z17{up}
+	     .. cycle;
 
 	set_char_box (0, 1.0 staff_space#,
 		      0.4 staff_space#, 2.9 staff_space#);

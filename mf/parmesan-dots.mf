@@ -48,7 +48,7 @@ kievan_dot_diam# := staff_space# - stafflinethickness#;
 define_whole_pixels (kievan_dot_diam);
 
 
-fet_beginchar ("kievan augmentation dot", "dotkievan");
+fet_beginchar ("Kievan augmentation dot", "dotkievan");
 	% parameters for superellipse are right, top, left, bottom
 	fill superellipse ((kievan_dot_diam, 0),
 			   (kievan_dot_diam / 2, kievan_dot_diam / 2),
