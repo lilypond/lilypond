@@ -535,7 +535,7 @@ AC_DEFUN(STEPMAKE_GETTEXT, [
 
 
 AC_DEFUN(STEPMAKE_GUILE, [
-    STEPMAKE_PATH_PROG(GUILE, guile, $1)
+    STEPMAKE_PATH_PROG(GUILE, guile guile1, $1)
 ])
 
 
@@ -577,7 +577,7 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     test -n "$target_alias" && target_guile_config=$target_alias-guile-config
     test -n "$host_alias" && host_guile_config=$host_alias-guile-config
     AC_MSG_CHECKING([for guile-config])
-    for guile_config in $GUILE_CONFIG $target_guile_config $host_guile_config $build_guile_config guile-config; do
+    for guile_config in $GUILE_CONFIG $target_guile_config $host_guile_config $build_guile_config guile-config guile1-config; do
 	AC_MSG_RESULT([$guile_config])
 	if ! $guile_config --version > /dev/null 2>&1 ; then
 	    AC_MSG_WARN([cannot execute $guile_config])
@@ -590,7 +590,7 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     done
     STEPMAKE_OPTIONAL_REQUIRED(GUILE_CONFIG, $guile_config, $1)
     if test $? -ne 0; then
-        STEPMAKE_ADD_ENTRY($1, 'guile-config (guile-devel, guile-dev or libguile-dev package)')
+        STEPMAKE_ADD_ENTRY($1, 'guile-config (guile-devel, guile-dev or libguile-dev package) or guile1-config (guile1-devel package)')
     fi 
 
     STEPMAKE_CHECK_SEARCH_RESULT(GUILE_CONFIG)
