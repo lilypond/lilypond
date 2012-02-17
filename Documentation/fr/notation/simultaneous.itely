@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 7a046582ce0730883f973c3ae56f2abe6c3262dc
+    Translation of GIT committish: ecf0a44d785db3038035927bd2405269d8668801
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -171,7 +171,8 @@ l'utiliser même après une succession de notes individuelles et de
 silences@tie{}:
 
 @lilypond[verbatim,quote,relative=2]
-<a c e>1 c4 q2 r8 q8
+<a c e>1 c'4 q2 r8 q8 |
+q2 c, |
 @end lilypond
 
 Le symbole de répétition d'accord ne prend en charge que les hauteurs,
@@ -179,8 +180,53 @@ en aucun cas les nuances, articulations ou ornementations, qu'elles
 aient été attachées aux notes le composant ou à l'ensemble.
 
 @lilypond[verbatim,quote,relative=2]
-<a-. c\prall e>1\sfz c4 q2 r8 q8
+<a-. c\prall e>1\sfz c4 q2 r8 q8 |
+q2 c, |
 @end lilypond
+
+Le seul moyen de les reproduire consiste à utiliser explicitement la
+fonction @code{\chordRepeats}, en lui adjoignant un argument
+supplémentaire qui recense les @var{types d'événement} à répéter et qui
+seraient absents de l'accord construit par un @code{q}.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \chordRepeats #'(articulation-event)
+  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  q2 c, |
+}
+@end lilypond
+
+Comme vous pouvez le constater, l'utilisation de @code{\chordRepeats} au
+sein d'un bloc @code{\relative} ne produit pas le résultat
+escompté@tie{}: les événements de l'accord expansés sont identiques à la
+saisie traditionnelle d'un accord, ce qui a pour conséquence que l'octave
+affectée par @code{\relative} repose sur le contexte en cours.
+
+Dans la mesure où l'imbrication de clauses @code{\relative} n'est pas
+source d'interférence, l'ajout d'un @code{\relative} à ce qui sera
+concerné par l'instruction @code{\chordRepeats} permet d'établir une
+relation d'octave entre les accords dès avant leur expansion.  Dans le
+cas présent, l'intégralité du bloc @code{\relative} intérieur n'affecte
+en rien ce qui l'entoure, ce qui explique la spécification d'octave
+attachée à la dernière note.
+
+@c Without \new Voice, implicit voice creation does the dumbest thing.
+@lilypond[verbatim,quote]
+\new Voice
+\relative c'' {
+  \chordRepeats #'(articulation-event)
+  \relative c''
+  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  q2 c |
+}
+@end lilypond
+
+Les interactions avec @code{\relative} ne se produisent que lors d'un
+appel explicite de @code{\chordRepeats}@tie{}: l'expansion implicite en
+début de saisie intervient à un moment où toutes les instances de
+@code{\relative} ont déjà été interprétées.
+
 
 @seealso
 Manuel de notation :
@@ -280,7 +326,7 @@ séquence d'accords, comme
 
 Des notes ordinaires et des clusters peuvent cohabiter sur une même
 portée, y compris simultanément -- en pareil cas, rien ne sera fait
-pour tenter d'empécher les chevauchements entre notes et clusters.
+pour tenter d'empêcher les chevauchements entre notes et clusters.
 
 
 @seealso
@@ -423,7 +469,7 @@ permettent d'obtenir des réglages différents pour chacune des voix.
 Une construction de la forme @code{<< @{...@} \\ @{...@} >>}, dans
 laquelle plusieurs expressions sont séparées par des doubles obliques
 inversées, se comporte différemment de celle sans séparateur@tie{}:
-@strong{tous} les membres de cette contruction seront assignés à de
+@strong{tous} les membres de cette construction seront assignés à de
 nouveaux contextes de voix.  Ces contextes de voix, créés implicitement,
 portent les noms @code{"1"}, @code{"2"}, etc.  Dans chacun de ces
 contextes, le positionnement des liaisons, la direction des hampes, etc.
@@ -500,6 +546,9 @@ vont vers le haut, celles des voix paires vers le bas@tie{}:
   { g'2  }  % 6: third-lowest
 >>
 @end lilypond
+
+@warning{Paroles et objets étendus (liaisons, soufflets etc.) ne peuvent
+passer d'une voix à l'autre.}
 
 @strong{@i{Identité rythmique}}
 
@@ -608,7 +657,7 @@ Morceaux choisis :
 @cindex multiples voix
 @cindex voix multiples
 @cindex polyphonie
-@cindex décélage de voix
+@cindex décalage de voix
 @cindex voix, décalage
 @cindex silences, décalage automatique
 
@@ -676,7 +725,7 @@ première mesure ont bien fusionné@tie{}:
 @end lilypond
 
 De même, vous pouvez fusionner les têtes de notes pointées et
-non-pointées comme au troisième temps de la première mesure@tie{}:
+non pointées comme au troisième temps de la première mesure@tie{}:
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -749,9 +798,9 @@ l'ordre vertical des voix tel qu'il apparaîtra sur la portée.}
 \new Staff \relative c'' {
   %% saisie abrégée
   <<
-    { f2  }  % 1: extrème haute
+    { f2  }  % 1: extrême haute
     \\
-    { g,2 }  % 2: extrème basse
+    { g,2 }  % 2: extrême basse
     \\
     { d'2 }  % 3: intermédiaire haute
     \\
@@ -769,7 +818,7 @@ l'ordre vertical des voix tel qu'il apparaîtra sur la portée.}
 
 Les commandes @code{\shiftOnn} et @code{\shiftOnnn} sont des niveaux
 supplémentaires de décalage qui peuvent s'adopter temporairement dans
-certaines situations compexes -- voir @rlearning{Exemple concret}.
+certaines situations complexes -- voir @rlearning{Exemple concret}.
 
 Les têtes de notes ne fusionneront que dans la mesure où leur hampe sont
 opposées -- implicitement parce qu'appartenant aux voix une ou deux, ou
@@ -866,7 +915,7 @@ Voici la syntaxe qui permet de combiner des parties@tie{}:
 
 L'exemple suivant illustre les fonctionnalités élémentaires du
 combinateur de parties@tie{}: positionner les parties sur une portée,
-gérer la direction des hampes et de la polyphonie.  Les identificateurs
+gérer la direction des hampes et de la polyphonie.  Les identifiants
 sont les mêmes pour la combinaison et les parties séparées.
 
 @lilypond[quote,verbatim]

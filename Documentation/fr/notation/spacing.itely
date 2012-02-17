@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: cae974b11cfb20d65a0cfbaed0f1d4c0a3e589fe
+    Translation of GIT committish: ecf0a44d785db3038035927bd2405269d8668801
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -309,12 +309,12 @@ de papier utilisé.  Notez bien que le simple fait d'affecter une valeur
 l'étalonnage automatique, bien que spécifier une largeur de papier
 @emph{(@code{paper-width})} peut influencer d'autres valeurs -- mais
 c'est une autre histoire dont nous parlerons plus tard et qui n'a rien à
-voir avec la mise à l'echelle.
+voir avec la mise à l'échelle.
 
 L'adaptation automatique affecte les dimensionnements verticaux
 @code{top-margin} et @code{bottom-margin} -- voir 
 @ref{Variables d'espacement vertical fixe} --, ainsi que les
-dimmensionnements horizontaux @code{left-margin}, @code{right-margin},
+dimensionnements horizontaux @code{left-margin}, @code{right-margin},
 @code{inner-margin}, @code{outer-margin}, @code{binding-offset},
 @code{indent} et @code{short-indent} -- voir
 @ref{Variables d'espacement horizontal}.
@@ -340,7 +340,7 @@ Fichiers d'initialisation :
 @subsection Variables d'espacement vertical fixe
 @translationof Fixed vertical spacing @code{\paper} variables
 
-@warning{Certains dimmensionnements attachés au bloc @code{@bs{}paper}
+@warning{Certains dimensionnements attachés au bloc @code{@bs{}paper}
 sont automatiquement ajustés selon le format du papier, ce qui peut
 conduire à un résultat inattendu --
 voir @ref{Adaptation automatique au format}.}
@@ -354,7 +354,7 @@ Les valeurs par défaut (avant étalonnage) sont définies dans le fichier
 
 La hauteur de la feuille.  Il s'agit par défaut de la dimension du
 papier utilisé.  Notez bien que cette variable n'affectera pas
-l'ajustement automatique d'un certain nombre de dimmensionnements
+l'ajustement automatique d'un certain nombre de dimensionnements
 verticaux.
 
 @item top-margin
@@ -410,6 +410,9 @@ Les titrages (contenus dans le bloc @code{\header@{@}}) sont considérés
 comme des systèmes à part entière@tie{}; ils seront donc affectés par
 @code{ragged-bottom} et @code{ragged-last-bottom}, qui éventuellement
 ajouteront de l'espace avant le premier système de la partition.
+
+La définition explicite d'un format de papier annulera tout réglage des
+marges haute et basse.
 
 
 @node Variables d'espacement vertical fluctuant
@@ -621,7 +624,7 @@ Morceaux choisis :
 @subsection Variables d'espacement horizontal
 @translationof Horizontal spacing \paper variables
 
-@warning{Certains dimmensionnements attachés au bloc @code{@bs{}paper}
+@warning{Certains dimensionnements attachés au bloc @code{@bs{}paper}
 sont automatiquement ajustés selon le format du papier, ce qui peut
 conduire à un résultat inattendu --
 voir @ref{Adaptation automatique au format}.}
@@ -704,7 +707,7 @@ l'addition de ces trois éléments ne dépassera pas la largeur du papier
 (@code{paper-width}).  La valeur par défaut est@tie{}@code{#t}.  Dans
 le cas d'une incohérence, un message d'avertissement est émis et les
 trois variables -- marges et longueur de ligne -- rétablies à leur
-valeur par défaut (ajustées selon le fromat du papier).
+valeur par défaut (ajustées selon le format du papier).
 
 @item ragged-right
 @funindex ragged-right
@@ -731,6 +734,11 @@ Manuel de notation :
 
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
+
+@knownissues
+
+La définition explicite d'un format de papier annulera tout réglage des
+marges gauche et droite.
 
 
 @node Variables spécifiques pour l'impression recto-verso
@@ -1116,7 +1124,7 @@ différents contextes, et
 
 @item
 les variables normalement attachées au bloc @code{\paper} qui
-affacteront la mise en forme de la partition.
+affecteront la mise en forme de la partition.
 
 @end itemize
 
@@ -1136,11 +1144,11 @@ du bloc @code{\paper} que l'on peut retrouver dans un bloc
 
 @item
 @code{indent} et @code{short-indent}
-(see @ref{Variables d'indentation et de décalage})
+(voir @ref{Variables d'indentation et de décalage})
 
 @item
 @code{system-count}
-(see @ref{Variables de gestion des sauts de ligne})
+(voir @ref{Variables de gestion des sauts de ligne})
 
 @end itemize
 
@@ -1399,7 +1407,7 @@ Le commutateur @code{ragged-last} est équivalent à @code{ragged-right},
 L'utilisation conjointe de @code{\break} et de blancs dans une section
 @code{\repeat} vous permettra de positionner des sauts de ligne à
 intervalle régulier.  Par exemple, les 28 mesures de ce qui suit, si
-'lon est à 4/4, seront coupées toutes les quatre mesures, pas
+l'on est à 4/4, seront coupées toutes les quatre mesures, pas
 ailleurs@tie{}:
 
 @example

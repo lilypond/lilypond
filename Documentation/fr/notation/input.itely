@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3875d98e9a2a3f0953b46e2726fdc4c7fb43c14f
+    Translation of GIT committish: ecf0a44d785db3038035927bd2405269d8668801
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -268,7 +268,7 @@ Ainsi, le fichier @file{huitminiatures.ly} qui contiendrait
 @}
 @end example
 
-génèrera
+générera
 
 @itemize
 @item
@@ -471,7 +471,7 @@ toto = @{ c4 d e d @}
 @end example
 
 Vous pourrez la réutiliser plus loin dans votre fichier en saisissant
-simplement @code{\toto}.  Le nom des indentificateurs ne doit être
+simplement @code{\toto}.  Le nom des identificateurs ne doit être
 formés que de caractères alphabétiques -- sans chiffre ni caractère
 souligné ou tiret.
 
@@ -607,7 +607,7 @@ imprimés.
 
 @funindex print-all-headers
 @noindent
-Vous pouvez modifer ce comportement et imprimer tous les champs d'un
+Vous pouvez modifier ce comportement et imprimer tous les champs d'un
 bloc @code{\header} défini dans un bloc @code{\score} en ajoutant
 
 @example
@@ -790,7 +790,7 @@ Fichiers d'initialisation :
 @translationof Default layout of headers and footers
 
 Les entête et pied -- @emph{headers} et @emph{footers} -- sont des
-lignes de textes qui apparaîssent en haut et en bas de chaque page,
+lignes de textes qui apparaissent en haut et en bas de chaque page,
 indépendamment du texte de l'ouvrage.  Ils sont contrôlés par les
 variables suivantes, attachées au bloc @code{\paper}@tie{}:
 
@@ -1119,7 +1119,7 @@ l'une automatisée, et l'autre manuelle.
 @translationof Footnotes overview
 
 Il est parfois judicieux, notamment lorsqu'une annotation ou un
-commentaire gènerait la lecture de la partition, de les reporter en bas
+commentaire gênerait la lecture de la partition, de les reporter en bas
 de page.
 
 Les notes de bas de page automatiques font appel à un compteur
@@ -1144,7 +1144,7 @@ appels et comment les annotations seront créées lors de la compilation.
 La commande @code{\footnote} permet de générer automatiquement des notes
 de bas de page.  Elle requiert trois arguments@tie{}: l'@var{Objet de
 Rendu} auquel s'applique le commentaire rapporté en bas de page, la
-position @var{(x@tie{}.@tie{}y)} de l'appel de note, et enfin un
+position @samp{(x@tie{}.@tie{}y)} de l'appel de note, et enfin un
 @code{\markup} contenant l'annotation qui apparaîtra en bas de la page.
 
 La commande @code{\footnote} doit être mentionnée @strong{avant}
@@ -1248,9 +1248,10 @@ s'introduit par la commande @code{\auto-footnote}@tie{}:
 LilyPond permet aussi de créer des notes de bas de page manuelles@tie{}:
 la commande @code{\footnote} prend alors quatre arguments@tie{}:
 l'@var{Objet de Rendu} devant être annoté, la position
-@var{(x@tie{}.@tie{}y)} de l'appel de note, et deux @code{\markup} -- le
-premier contient l'appel qui s'attache à la note ou à l'objet référencé,
-le second contient l'annotation qui est reportée en bas de page.
+@samp{(x@tie{}.@tie{}y)} de l'appel de note, et deux @code{\markup} --
+le premier contient l'appel qui s'attache à la note ou à l'objet
+référencé, le second contient l'annotation qui est reportée en bas de
+page.
 
 Tout comme dans le cas d'une note de bas de page automatique, la commande
 @code{\footnote} doit être mentionnée @strong{après} l'objet auquel
@@ -1371,7 +1372,7 @@ Référence des propriétés internes :
 @rinternals{Footnote_engraver}.
 
 @knownissues
-Un silence multi-mesures ne peut se voir affecter une note de bas de
+Un silence multimesures ne peut se voir affecter une note de bas de
 page.
 
 Les notes de bas de page ne peuvent que s'empiler l'une au-dessus de
@@ -1601,7 +1602,7 @@ Fichiers d'initialisation :
 @cindex inclusion de fichiers
 
 Lorsqu'un projet prend de l'importance en volume, il est judicieux de le
-scinder en plusieurs fichiers, auxquels vous fereez référence avec un
+scinder en plusieurs fichiers, auxquels vous ferez référence avec un
 simple
 
 @example
@@ -1643,7 +1644,7 @@ répertoire courant, vous devrez mentionner
 ... etc.
 @end example
 
-Les fichiers à inclure peuvent eux-même contenir des instructions
+Les fichiers à inclure peuvent eux-mêmes contenir des instructions
 @code{\include}.  Ces instructions @code{\include} de second niveau ne
 pourront, par défaut, être interprétées qu'une fois intégrées dans le
 fichier principal@tie{}; leur argument doit donc comporter le chemin
@@ -1659,7 +1660,7 @@ défaut dans une future version de LilyPond.
 
 Vous pouvez inclure des fichiers dont vous spécifierez le chemin d'accès
 sur la ligne de commande au moment de lancer la compilation. L'appel à
-ces fichiers ne mentionnerra alors que leur nom.  Par exemple, si vous
+ces fichiers ne mentionnera alors que leur nom.  Par exemple, si vous
 voulez compiler avec cette méthode le fichier @file{principal.ly} qui
 inclut des fichiers situés dans le sous-répertoire @file{parties},
 placez vous dans le répertoire contenant @file{principal.ly}, puis tapez
@@ -1716,7 +1717,7 @@ LilyPond aura préséance.
 
 Plusieurs méthodes permettent de générer différentes versions d'une
 partition à partir d'une même source.  Les variables -- ou
-idendificateurs -- sont sûrement le moyen le plus simple de combiner de
+identificateurs -- sont sûrement le moyen le plus simple de combiner de
 différente manière des passages relativement longs, alors que les
 balises permettront de sélectionner de courts fragments selon leur
 utilisation.
@@ -1960,7 +1961,7 @@ test = { \tag #'here { \tag #'here <<c''>> } }
 }
 @end lilypond
 
-Ces deux instructions sont afféctées d'une balise, le matériau à
+Ces deux instructions sont affectées d'une balise, le matériau à
 raccorder à chaque instance de la balise, et l'expression balisée.
 Ces instructions prennent soin de recopier tout ce qui doit être
 modifié, de telle sorte que l'expression @code{\test} originale conserve
@@ -1996,7 +1997,7 @@ si vous imprimez une partition avec les deux sections balisées.
 @cindex include-settings
 
 Vous pouvez regrouper dans un fichier indépendant vos réglages
-personnels que vous incluerez au besoin@tie{}:
+personnels que vous inclurez au besoin@tie{}:
 
 @example
 lilypond -dinclude-settings=MES_REGLAGES.ly MA_PARTITION.ly
@@ -2008,7 +2009,7 @@ particulières.  Selon le fichier de réglages que vous mentionnerez, vous
 obtiendrez facilement différentes éditions à partir d'une même source
 quelle qu'elle soit.
 
-Ceete technique peut s'utiliser en combinaison avec des feuilles de
+Cette technique peut s'utiliser en combinaison avec des feuilles de
 styles, comme indiqué au chapitre @rlearning{Feuilles de style}.
 
 @seealso
@@ -2063,7 +2064,7 @@ consiste à utiliser un éditeur supportant l'unicode et à enregistrer vos
 fichier en UTF-8.  C'est le cas pour la plupart des éditeurs actuels,
 que ce soit vim, Emacs, jEdit et GEdit.  Tous les systèmes Windows
 postérieurs à NT utilisent Unicode en natif@tie{}; même Notepad est
-capable d'éditer et sauvegarder un fichie en UTF-8 -- sans parler de
+capable d'éditer et sauvegarder un fichier en UTF-8 -- sans parler de
 l'excellente alternative qu'est BabelPad.
 
 La compilation d'un fichier LilyPond comportant des caractères non ASCII
@@ -2074,7 +2075,7 @@ l'erreur
 FT_Get_Glyph_Name () erreur : invalid argument
 @end example
 
-Voici un exemple utilisant du texte en cyrilique, en hébreux et en
+Voici un exemple utilisant du texte en cyrillique, en hébreux et en
 portugais.
 
 @lilypond[quote]
@@ -2111,7 +2112,7 @@ portuguese = \lyricmode {
 
 Lorsque vous avez besoin d'un caractère dont vous connaissez le point de
 code mais que votre éditeur ne permet pas de saisir directement, vous
-pouvez utitliser les instructions @code{\char@tie{}##xhhhh} ou
+pouvez utiliser les instructions @code{\char@tie{}##xhhhh} ou
 @code{\char@tie{}#dddd} au sein d'un bloc @code{\markup} -- @code{hhhh}
 et @code{dddd} correspondant respectivement à la valeur hexadécimale ou
 décimale.  Même s'il est inutile de saisir les zéros superflus, il est
@@ -2164,7 +2165,7 @@ la manière suivante@tie{}:
 @translationof ASCII aliases
 
 Dès lors que vous aurez inclus la liste de leur équivalent ASCII,
-LilyPond reconnaitra un certain nombre de caractères spéciaux@tie{}:
+LilyPond reconnaîtra un certain nombre de caractères spéciaux@tie{}:
 
 @lilypond[quote,verbatim]
 \paper {
@@ -2253,7 +2254,7 @@ la mesure 5@tie{}; le @code{7@tie{}3@tie{}4} signifie quant à lui que
 l'on s'arrête à la mesure 7, après la durée de trois noires.
 
 Rien ne vous empêche d'extraire plusieurs fragments, dès lors que vous
-définissez dans la liste d'autres paires d'emplacements ryhtmiques.
+définissez dans la liste d'autres paires d'emplacements rythmiques.
 
 Cette fonctionnalité n'est toutefois effective que lorsque vous lancez
 LilyPond avec l'option @w{@code{-dclip-systems}}.  Les @qq{coupures}
@@ -2390,7 +2391,7 @@ un logiciel capable de traduire ces séries de notes en sons réels.
 
 Vous pouvez convertir vos partition en fichier MIDI de manière à
 entendre ce que vous avez saisi.  Ceci vous permet de contrôler aisément
-ce que vous avez saisi@tie{}: octaves et altérations erronées heuteront
+ce que vous avez saisi@tie{}: octaves et altérations erronées heurteront
 votre oreille avertie grâce au MIDI.
 
 Le fichier MIDI généré par LilyPond est relativement brut.  Vous pouvez
@@ -2416,7 +2417,7 @@ comportera plus de quinze portées verra le même canal réutilisé.
 @subsection Création de fichiers MIDI
 @translationof Creating MIDI files
 
-LilyPond génèrera un fichier MIDI dès que vous ajouterez un bloc
+LilyPond générera un fichier MIDI dès que vous ajouterez un bloc
 @code{\midi} à la structure de votre partition, comme ici@tie{}:
 
 @example
@@ -2484,7 +2485,7 @@ lilypond … -dmidi-extension=midi fichierLily.ly
 @funindex Staff.midiInstrument
 
 L'instrument MIDI affecté à un canal particulier est déterminé par la
-propiété @code{Staff.midiInstrument}.  Vous pouvez choisr l'un des
+propriété @code{Staff.midiInstrument}.  Vous pouvez choisir l'un des
 instruments répertoriés à l'annexe @ref{Instruments MIDI}.
 
 @example
@@ -2567,7 +2568,7 @@ imprimée.
 @end example
 
 Ici, le tempo est fixé à 72 noires à la minute.  Spécifier un tempo de
-la sorte ne permet pas de doner une valeur pour une note pointée.  Vous
+la sorte ne permet pas de donner une valeur pour une note pointée.  Vous
 devrez, en pareil cas, subdiviser la note pointée en durée plus courte.
 Par exemple, indiquer 90 à la noire pointée est équivalent à spécifier
 270 croches à la minute@tie{}:
@@ -2600,7 +2601,7 @@ suffit d'insérer les lignes suivantes dans votre bloc
 @}
 @end example
 
-LilyPond ne génèrera de sortie MIDI que si vous incluez un bloc
+LilyPond ne générera de sortie MIDI que si vous incluez un bloc
 @code{\midi} dans la structure de la partition, initialisée par la
 commande @code{\score}.
 
@@ -2656,7 +2657,7 @@ les accords nommés ;
 le rythme en tant que durée de note, y compris les nolets ;
 
 @item
-les tremolos, exceptés ceux utilisant la syntaxe
+les trémolos, exceptés ceux utilisant la syntaxe
 @qq{@code{:}[@var{nombre}]}@tie{};
 
 @item
@@ -2695,7 +2696,7 @@ suivant, sauf à utiliser @ref{Le script Articulate}@tie{}:
 
 @itemize
 @item
-le rythme indiqué sous forme d'annotation (p.ex. @emph{swing})@tie{};
+le rythme indiqué sous forme d'annotation (par ex. @emph{swing})@tie{};
 
 @item
 les changements de tempo indiqués sous forme d'annotation (sans
@@ -2708,10 +2709,10 @@ les staccatos et autres articulations ou ornementations@tie{};
 les liaisons d'articulation et de prhasé@tie{};
 
 @item
-les crescendos ou decrescendos sur une sele note@tie{};
+les crescendos ou decrescendos sur une seule note@tie{};
 
 @item
-les tremolos indiqués par la syntaxe @qq{@code{:}[@var{nombre}]}@tie{};
+les trémolos indiqués par la syntaxe @qq{@code{:}[@var{nombre}]}@tie{};
 
 @item
 la basse chiffrée
@@ -2828,8 +2829,8 @@ et demande d'utiliser la fonction par défaut dans les autre cas.
 Si vous étiez amené à devoir modifier l'intégralité du jeu des
 correspondances, nous vous conseillons d'utiliser la procédure
 @command{default-dynamic-absolute-volume} contenue dans le fichier
-@file{../scm/midi.scm} ansi que la table d'association comme base.  Le
-dernier exemple de cette partie illustre la manière de procéder.
+@file{../scm/midi.scm} ainsi que la table d'association comme base.
+Le dernier exemple de cette partie illustre la manière de procéder.
 
 
 @unnumberedsubsubsec Amplitude du volume en MIDI
@@ -2952,7 +2953,7 @@ procédure Scheme @code{instrumentEqualizer} au sein du contexte
 instrument MIDI et renverra une paire de fractions correspondant au
 minimum et maximum de volume alloué à cet instrument.  Cette
 substitution fonctionne selon le même principe que celui que nous avons
-vu en dédut de chapitre avec @code{dynamicAbsoluteVolumeFunction}.
+vu en début de chapitre avec @code{dynamicAbsoluteVolumeFunction}.
 L'égaliseur par défaut, @notation{default-instrument-equalizer}, est
 défini dans le fichier @file{../scm/midi.scm}@tie{}; son analyse vous
 aidera à construire votre propre procédure.
@@ -3058,7 +3059,7 @@ D'autres percussions, bien que n'émettant qu'un seul son et inclus dans
 le standard @emph{general MIDI}, comme le tom mélodique ou le tambour
 taiko, ne sont pas attachés au canal@tie{}10.  Ces instruments doivent
 donc être saisi dans un contexte @code{Staff}, en utilisant la hauteur
-appropiée.
+appropriée.
 
 De nombreux instruments de la famille des percussions, les castagnettes
 par exemple,  n'existent pas dans le standard @emph{general MIDI}.
@@ -3070,7 +3071,7 @@ son le plus proche dans la banque standard.
 @knownissues
 
 Le standard @emph{general MIDI} ne dispose pas du @emph{rim shot}@tie{};
-LilyPond lui subtitue un @emph{sidestick}.
+LilyPond lui substitue un @emph{sidestick}.
 
 
 @node Le script Articulate
@@ -3139,7 +3140,7 @@ l'information musicale sous forme textuelle.
 @funindex \displayLilyMusic
 
 La fonction musicale @code{\displayLilyMusic} permet d'afficher en
-notation LilyPond une expression musicale.  Le réultat défilera dans le
+notation LilyPond une expression musicale.  Le résultat défilera dans le
 terminal après avoir lancé LilyPond en ligne de commande.  Par exemple,
 
 @example
@@ -3204,7 +3205,7 @@ spécifique@tie{}:
 Pour chaque portée que comporte votre partition, vous obtiendrez un
 fichier @file{NOMFICHIER-PORTÉENOMMÉE.notes} ou
 @file{NOMFICHIER-unnamed-staff.notes}.  Notez bien que si plusieurs
-portées ne sont pas explicitement nomées, tous leurs événements seront
+portées ne sont pas explicitement nommées, tous leurs événements seront
 regroupés et mélangés dans le même fichier.  Le résultat ressemblera à
 ceci@tie{}:
 
@@ -3226,7 +3227,7 @@ nombre de paramètres optionnels.
 @var{temps}  @var{type}  @var{...paramètres...}
 @end example
 
-Ces informations peuvent faire l'objet d'un retraîtement par d'autres
+Ces informations peuvent faire l'objet d'un retraitement par d'autres
 programmes, comme des scripts python, aux fins de recherche en analyse
 musicologique ou des expériences à partir du rendu de LilyPond.
 
@@ -3236,6 +3237,6 @@ musicologique ou des expériences à partir du rendu de LilyPond.
 Tous les événements ne sont pas pris en charge par
 @file{event-listener.ly}.  Il s'agit en premier lieu d'une
 démonstration, un @qq{proof of concept} du potentiel de LilyPond.  Si
-certains des éléments que vous cherchez à obtenir n'apparaîssent pas,
-recopiez le fichier @file{event-listener.ly} dans votre répoertoire et
+certains des éléments que vous cherchez à obtenir n'apparaissent pas,
+recopiez le fichier @file{event-listener.ly} dans votre répertoire et
 modifiez-le de telle sorte qu'il travaille selon vos attentes.

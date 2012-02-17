@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @ignore
-    Translation of GIT committish: 859441f67926c267b711a655ab35a4a434e6521a
+    Translation of GIT committish: 70f44b888f365e1f27f7f54c3b1b2cb552a18bd4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -70,7 +70,7 @@ aujourd'hui.
 nous.
 
 @item
-@ref{Archives} : archives des dépèches.
+@ref{Archives} : archives des dépêches.
 
 @end itemize
 @divEnd
@@ -127,7 +127,7 @@ poster sur lilypond-user à l'aide de gmane}
 @subsubheading LilyPond Snippet Repository
 
 Le LilyPond Snippet Repository regroupe des exemples de situations
-particulières auxquelles ont été confontés les utilisateurs de LilyPond.
+particulières auxquelles ont été confrontés les utilisateurs de LilyPond.
 Ils sont librement réutilisables dans vos propres travaux.  N'hésitez
 pas à apporter votre concours à cette banque de trucs et astuces@tie{}!
 
@@ -235,7 +235,7 @@ archive3}
 
 C'est sur cette liste que se tiennent la plupart des discussions ayant
 trait au développement.  C'est aussi à cette liste que doivent être
-adressés les patches.
+adressés les patchs.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
@@ -414,7 +414,7 @@ légion -- quatre lignes suffisent bien souvent à indiquer le problème.
 @divClass{column-center-top}
 @subheading Étape 1 : Le bogue est-il déjà recensé ?
 
-Si votre saisie entraine un crash ou une sortie erronée, c'est un bogue.
+Si votre saisie entraîne un crash ou une sortie erronée, c'est un bogue.
 Un recensement des bogues non encore résolus est disponible sur notre
 @emph{google bug tracker}@tie{}; suivez le lien
 
@@ -424,7 +424,7 @@ Un recensement des bogues non encore résolus est disponible sur notre
 
 @warning{Nous vous remercions de ne pas ajouter directement de
 signalement sur le traceur de bogues.  Vous pourrez toujours, une fois
-qu'il aura été duement répertorié, y apporter vos commentaires et
+qu'il aura été dûment répertorié, y apporter vos commentaires et
 compléments d'information.}
 
 @divEnd
@@ -433,14 +433,14 @@ compléments d'information.}
 @divClass{column-left-bottom}
 @subheading Étape 2 : Génération d'un signalement de bogue
 
-Lorsque le disfonctionnement que vous avez repéré n'est pas répertorié,
+Lorsque le dysfonctionnement que vous avez repéré n'est pas répertorié,
 faites-le nous savoir en créant un signalement de bogue.
 
 @warning{Nous n'acceptons les signalements de bogue que s'ils sont
 rédigés sous la forme d'@ref{Exemples minimaux}.  Nous ne disposons
 pas de suffisamment de ressources pour traiter les rapports de bogue,
 aussi tout exemple non minimaliste sera rejeté.  Dans la plupart des
-cas, seules quelques notes suffisent à démontrer le disfonctionnement.}
+cas, seules quelques notes suffisent à démontrer le dysfonctionnement.}
 
 Voici ce à quoi devrait ressembler tout signalement de bogue@tie{}:
 
@@ -474,7 +474,7 @@ Si vous êtes déjà inscrit à la liste de diffusion
 courriel comme à l'accoutumée.
 
 @item
-Si vous néavez pas souscrit à la liste de diffusion, vous pouvez
+Si vous n'avez pas souscrit à la liste de diffusion, vous pouvez
 cependant transmettre votre rapport de bogue au travers de
 @uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
 l'interface gmane de lilypond.bugs}.
@@ -510,7 +510,7 @@ liste francophone}@tie{}; nous nous chargerons de transmettre un rapport
 Une fois le message reçu, nos @qq{exterminateurs de bogues} analyseront
 votre rapport et vous demanderont peut-être des informations
 supplémentaires avant de l'ajouter au traceur.  Dans la mesure où
-l'équipe est réduite, merci de leur laisser une bonne journée avant
+l'équipe est réduite, merci de leur laisser quelques jours avant
 qu'ils ne vous transmettent le numéro de référence de votre signalement
 une fois qu'il aura été ajouté à la base.
 
@@ -587,7 +587,7 @@ sur les différentes listes de diffusion.
 Tout entendement entre personnes privées requiert les mêmes précautions
 de base que n'importe quelle transaction@tie{}: qui paye, combien, par
 quel moyen et dans quelles conditions.  Nous vous invitons à lever tout
-doute ou ambiguïté à ce sojet, avant même que les travaux soient
+doute ou ambiguïté à ce sujet, avant même que les travaux soient
 entamés.
 
 @end itemize
@@ -603,8 +603,8 @@ selon les gens et dans le temps.  Nous ne saurions garantir que cette
 liste soit à jour, ni les capacités des intéressés.  Le seul critère est
 @qq{XYZ a demandé à être mentionné sur cette page}.
 
-Un apperçu de l'historique des sources de LilyPond peut vous aider à
-dtéerminer l'activité et l'expérience des développeurs.  Les
+Un aperçu de l'historique des sources de LilyPond peut vous aider à
+déterminer l'activité et l'expérience des développeurs.  Les
 statistiques s'arrêtent à la version @versionDevel{}.
 
 @multitable @columnfractions .3 .3 .3
@@ -615,7 +615,7 @@ statistiques s'arrêtent à la version @versionDevel{}.
 
 Développeurs intéressés@tie{}:
 @table @asis
-@item @email{dak@@gnu.org, David Kastrup (contacter en anglais)}
+@item @email{dak@@gnu.org, David Kastrup (le contacter en anglais)}
 Vos contributions me permettront de continuer mon activité à temps plein
 sur LilyPond.  Je me concentre sur la modélisation des interfaces entre
 l'utilisateur et le programme -- cohérence, implémentation,
@@ -657,9 +657,9 @@ lecture des @ref{Manuels,manuels pour la version stable}.}
 
 Il existe deux jeux de version pour LilyPond@tie{} des versions stables
 et des versions instables de développement.  Les versions stables
-comportent, en versionnage @qq{mineur}, un numéro pair (p.ex. 2.8, 2.10,
-ou 2.12).  Les versions de développement, quant à elles, comportent un
-versionnage @qq{mineur} impair (p.ex. 2.7, 2.9 ou 2.11).
+comportent, en versionnage @qq{mineur}, un numéro pair (par ex. 2.8,
+2.10, ou 2.12).  Les versions de développement, quant à elles,
+comportent un versionnage @qq{mineur} impair (par ex. 2.7, 2.9 ou 2.11).
 
 @divEnd
 

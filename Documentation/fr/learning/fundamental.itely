@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 72012c900e38247806dcc32c01e162f02c63287b
+    Translation of GIT committish: 27477ca707bc97de3c401e41e16c4fbb7fa51c18
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -113,7 +113,7 @@ comme un raccourci de
 @end example
 
 En d'autres termes, si le code n'est constitué que d'une expression
-musicale simple, LilyPond interprètera le fichier tout comme si cette
+musicale simple, LilyPond interprétera le fichier tout comme si cette
 expression était incluse dans les commandes de notre premier exemple.
 
 @cindex contextes implicites
@@ -235,7 +235,7 @@ Pour plus de détail à ce sujet, consultez
 @ruser{Plusieurs partitions dans un même ouvrage}.
 
 @cindex variables
-@cindex identificateurs
+@cindex identifiants
 
 Un autre raccourci pratique est la possibilité de définir
 des variables, également appelées @qq{identificateurs} -- voir
@@ -489,9 +489,9 @@ qui est le comportement par défaut.
 
 
 @seealso
-Les ossia apparaissent souvent sans clef ni métrique, et dans une taille
-plus petite.  Ceci requiert des commandes dont nous n'avons pas encore
-parlé.  Voir @ref{Taille des objets} et @ruser{Portées d'ossia}.
+Les ossias apparaissent souvent sans clef ni métrique, et dans une
+taille plus petite.  Ceci requiert des commandes dont nous n'avons pas
+encore parlé.  Voir @ref{Taille des objets} et @ruser{Portées d'ossia}.
 
 
 @node Non-imbrication des crochets et liaisons
@@ -609,7 +609,7 @@ musique.  S'il n'est pas déclaré explicitement, il sera créé
 automatiquement comme nous l'avons vu au début de ce chapitre.  Certains
 instruments, le hautbois par exemple, ne peuvent jouer qu'une seule note
 à la fois.  On dit en pareil cas qu'il s'agit de musique monophonique,
-et nous n'aurons alors besoin que d'une seule voix.  Les intruments qui,
+et nous n'aurons alors besoin que d'une seule voix.  Les instruments qui,
 comme le piano, peuvent émettre plusieurs sons en même temps, nécessitent
 de recourir à plusieurs voix pour gérer efficacement l'alignement des
 notes et rythmes différents.
@@ -646,7 +646,7 @@ sur la même portée, consiste à saisir chacune des voix séquentiellement
 doubles chevrons gauche/droite, @code{<<...>>}.  Les fragments
 devront être séparés par une double oblique inversée, @code{\\}, pour
 les affecter à des voix séparées.  Dans le cas contraire, les notes
-seraient toutes affectées à une même voix, ce qui pourait générer des
+seraient toutes affectées à une même voix, ce qui pourrait générer des
 erreurs.  Cette manière de procéder est tout à fait indiquée dans le cas
 d'une pièce ne comportant que quelques courts passages de polyphonie.
 
@@ -719,7 +719,7 @@ notes en dehors de la construction @code{<<...>>} -- que nous
 appellerons @emph{construction simultanée}.  Les liaisons, de
 prolongation ou non, ne peuvent relier des notes que si elles
 appartiennent à la même voix@tie{}; elles ne peuvent ni pénétrer une
-contruction simultanée, ni en sortir.  Inversement, les voix parallèles
+construction simultanée, ni en sortir.  Inversement, les voix parallèles
 issues de constructions simultanées apparaissant sur une même portée
 appartiennent à la même voix.  Les autres propriétés liées au contexte
 de voix  s'appliquent tout au long des constructions simultanées.
@@ -814,7 +814,7 @@ Pour finir, analysons le principe d'utilisation des voix dans une pièce
 complexe.  Nous allons nous concentrer sur les deux premières mesures du
 second des Deux nocturnes, opus 32 de Chopin.  Cet exemple nous servira
 à plusieurs reprises, y compris dans le chapitre suivant, pour illustrer
-certaines techniques de notation.  Aussi, ne prétez pas trop d'attention
+certaines techniques de notation.  Aussi, ne prêtez pas trop d'attention
 à ce qui pour l'instant pourrait vous paraître vraiment mystérieux dans
 le code, et intéressons-nous uniquement à ce qui concerne la musique et
 les voix -- ce qui est plus compliqué sera décortiqué plus tard.
@@ -951,6 +951,9 @@ pas encore tout à fait prêts pour voir comment corriger cela, aussi nous
 examinerons ce problème dans un autre chapitre (voir la propriété
 @code{force-hshift} dans @ref{Correction des collisions d'objets}).
 
+@warning{Paroles et objets étendus (liaisons, soufflets etc.) ne peuvent
+passer d'une voix à l'autre.}
+
 
 @seealso
 Manuel de notation :
@@ -1056,7 +1059,7 @@ annotations, liaisons de prolongation ou de phrasé, et sur les nuances.
 @end lilypond
 
 Voyons à présent trois différentes façons d'exprimer un passage
-polyhonique, à partir d'un exemple de la section précédente.  Chacune
+polyphonique, à partir d'un exemple de la section précédente.  Chacune
 d'elles aura ses avantages selon les circonstances.
 
 Une expression séquentielle qui apparaît en premier dans un @code{<< >>}
@@ -1460,7 +1463,7 @@ et peuvent être ignorés.  Mais lorsqu'il s'agit de morceaux plus amples
 les créer explicitement pour être sûr d'obtenir toutes les portées
 nécessaires, et dans le bon ordre.  Enfin, pour des morceaux impliquant
 une notation spéciale, modifier les contextes ou en créer de nouveaux
-devient extrêment utile.
+devient extrêmement utile.
 
 En plus des contextes @code{Score}, @code{Staff} et @code{Voice} sont
 disponibles d'autres contextes intermédiaires entre les niveaux
@@ -1491,7 +1494,7 @@ Manuel de notation :
 @cindex contextes, création de
 
 Il en va des contextes comme de toute hiérarchie@tie{}: il faut un
-sommet -- le contexte @code{Score} en l'occurence.  La commande
+sommet -- le contexte @code{Score} en l'occurrence.  La commande
 @code{\score} est chargée de le créer, mais pour des partitions simples,
 il le sera automatiquement.  Le bloc @code{\score} contient donc une
 expression musicale unique ainsi que la définition des supports à
@@ -1756,15 +1759,15 @@ communément utilisées.
 @end multitable
 
 @noindent
-où un boléen correspond soit à vrai (@code{#t} pour @emph{True} en
+où un booléen correspond soit à vrai (@code{#t} pour @emph{True} en
 anglais) ou faux (@code{#f} pour @emph{False} en anglais), un entier est
 un nombre entier positif, un réel est un nombre décimal positif ou
 négatif, et texte correspond à une suite de caractères encadrée par des
 apostrophes doubles.  Attention à la présence des signes dièse
 (@code{#}) dans deux cas particuliers@tie{}: ils sont partie intégrante
-des valeurs boléennes et précèdent les @code{t} ou @code{f}, mais
+des valeurs booléennes et précèdent les @code{t} ou @code{f}, mais
 doivent aussi précéder @emph{valeur} dans le libellé de la commande
-@code{\set}. Il faudra donc, dans le cas d'une valeur boléenne, ne pas
+@code{\set}. Il faudra donc, dans le cas d'une valeur booléenne, ne pas
 oublier de saisir deux signes dièse -- par exemple @code{##t}.
 
 @cindex propriétés et contextes
@@ -1802,7 +1805,7 @@ sera pas interprétée.  Il ne s'agit pas d'une erreur, aucun message
 d'erreur ne sera ni émis ni enregistré.
 
 De la même manière, une faute d'orthographe dans le nom de la propriété
-ne génèrera aucun message d'erreur et l'action escomptée ne se produira
+ne générera aucun message d'erreur et l'action escomptée ne se produira
 pas.  Vous pourriez déterminer par la commande @code{\set} n'importe
 quelle @qq{propriété}, même fictive, à partir de n'importe quel nom et
 dans n'importe lequel des contextes disponibles.  Mais tant que ce nom
@@ -2050,7 +2053,7 @@ pratique est dans quelques cas fort utile.
 @translationof Changing a single context
 
 Nous utilisons, pour supprimer un graveur d'un contexte, la commande
-@code{\with} dès la création dudit contexte, comme nous l'avons vu dans
+@code{\with} dès la création du-dit contexte, comme nous l'avons vu dans
 la section précédente.
 
 Illustrons notre propos en reprenant un exemple du chapitre précédent,
@@ -2531,7 +2534,7 @@ de chacune d'elles.  Toutes les voix devraient être @code{\voiceOne},
 ce qui est la position par défaut@tie{}; il nous faudra donc éliminer
 toutes les commandes @code{\voiceXXX}.  Les ténors auront besoin d'une
 clé spécifique.  Enfin, nous n'avons pas encore abordé la façon dont les
-paroles sont présentées dans le modèle@tie{}; nous procèderons donc
+paroles sont présentées dans le modèle@tie{}; nous procéderons donc
 comme nous en avons l'habitude.  Il faudra aussi ajouter un nom à chaque
 portée.
 
@@ -2756,7 +2759,7 @@ lower = \relative c, {
 @cindex squelettes, création
 
 Après avoir acquis une certaine dextérité dans l'écriture de code
-LilyPond, vous devez vous sentir suffisament prêt à vous lancer dans
+LilyPond, vous devez vous sentir suffisamment prêt à vous lancer dans
 la création d'une partition à partir de zéro, autrement dit en ne
 partant pas d'un exemple.  Vous pourrez ainsi vous construire vos
 propres patrons selon le type de musique que vous affectionnez plus
@@ -2909,7 +2912,7 @@ place la métrique et l'armure de chaque portée grâce à notre variable
 @cindex espacement des portées
 @cindex portées, espacement
 
-Cette partition pour orgue est préesque parfaite.  Rest juste ce petit
+Cette partition pour orgue est presque parfaite.  Reste juste ce petit
 défaut qui ne se remarque pas lorsque l'on considère un seul
 système@tie{}: la distance qui sépare la portée de pédalier de celle de
 la main gauche devrait être plus ou moins égale à celle qui sépare les
@@ -2918,7 +2921,7 @@ deux mains.  En fait, la distance entre les deux portées d'un
 adopter le même comportement.
 
 @cindex sous-propriétés
-@cindex propriétéset sous-propriétés
+@cindex propriétés et sous-propriétés
 @cindex graphical objects
 @cindex objets graphiques
 @cindex grobs

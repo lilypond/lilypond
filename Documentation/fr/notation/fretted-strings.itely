@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: af01b3b78afa2e7c3c60e7280ee0b6382135bd35
+    Translation of GIT committish: ecf0a44d785db3038035927bd2405269d8668801
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -38,7 +38,7 @@ instruments à cordes frettées.
 @translationof Common notation for fretted strings
 
 Nous allons aborder, dans les paragraphes qui suivent, les
-particularités communes aux différnets instruments à cordes frettées.
+particularités communes aux différents instruments à cordes frettées.
 
 @menu
 * Références en matière de cordes frettées::
@@ -258,31 +258,35 @@ correspond aux cordes à vide.
 >>
 @end lilypond
 
-@funindex \tabChordRepetition
+@funindex \tabChordRepeats
+@funindex \chordRepeats
+
 @cindex accord, répétition
 @cindex répétition, utilisation de @code{q}
 
-La répétition d'une construction en accord s'indique par un @code{q}.
-Cette fonctionnalité est opérationnelle en mode tablature dès lors que
-vous aurez préalablement fait appel à la commande
-@code{\tabChordRepetition}.  Les numéros de corde indiqués dans votre
-accord seront alors préservés et reproduits à chaque répétition.
+La répétition d'une construction en accord s'indique par un @code{q} --
+voir @ref{Répétition d'accords}.  Cette fonctionnalité, bien
+qu'opérationnelle en mode tablature, supprime entre autres les numéros
+de corde et doigtés.  Il vous faudra donc préalablement recourir
+explicitement à l'instruction
+@example
+\chordRepeats #'(string-number-event fingering-event)
+@end example
+si vous utilisez la répétition d'accords dans vos tablatures.  Cette
+instruction est abrégée en @code{\tabChordRepeats}.
 
 @lilypond[quote,verbatim]
-\tabChordRepetition
-
 guitar = \relative c' {
-  r8 <gis\4 cis\3 b\2>~ q4 q8~ q q4
+  r8 <gis-6 cis-6 b-0>~ q4 q8~ q q4
 }
 
 \new StaffGroup <<
   \new Staff {
     \clef "treble_8"
-    \override Voice.StringNumber #'transparent = ##t
     \guitar
   }
   \new TabStaff {
-    \guitar
+    \tabChordRepeats \guitar
   }
 >>
 @end lilypond
@@ -380,9 +384,9 @@ peuvent être ajoutés aux tablatures.
 
 @lilypond[verbatim,quote]
 firstHarmonic = {
-  <d'\4\harmonic>4
-  <g'\3\harmonic>4
-  <b'\2\harmonic>2
+  d'4\4\harmonic
+  g'4\3\harmonic
+  b'2\2\harmonic
 }
 \score {
   <<
@@ -392,11 +396,12 @@ firstHarmonic = {
 }
 @end lilypond
 
-Vous noterez que la commande @code{\harmonic} intervient toujours dans
-une construction d'accord.  Ceci ne fonctionne donc que pour une
-harmonique au douzième fret d'une corde à vide.  Toute autre harmonique
-devrait être définie directement par LilyPond.  Vous pouvez l'y aider en
-indiquant la case où le doigt viendrait se placer sur le manche.
+Vous noterez que la commande @code{\harmonic} s'attache toujours à une
+note unique (parfois contenue dans un accord) et non à l'ensemble d'un
+accord.  Ceci ne fonctionne donc que pour une harmonique au douzième
+fret d'une corde à vide.  Toute autre harmonique devrait être définie
+directement par LilyPond.  Vous pouvez l'y aider en indiquant la case où
+le doigt viendrait se placer sur le manche.
 
 @lilypond[verbatim,quote]
 fretHarmonics = {
@@ -1637,7 +1642,7 @@ chansons, où l'on ne trouve que des accords au-dessus des paroles.  Dans
 la mesure où LilyPond est un éditeur de partitions, il n'est pas l'outil
 optimal pour des documents sans partition.  Une meilleure alternative
 serait de recourir à un traitement de texte, un éditeur de texte ou,
-pour les utilisateurs experimentés, un logiciel typographique tel que
+pour les utilisateurs expérimentés, un logiciel typographique tel que
 GuitarTex.
 
 @menu
@@ -1696,7 +1701,7 @@ détaillés grâce à des indications textuelles.
 }
 @end lilypond
 
-Les notes étouffées, ou @notation{notes fantômes}, se recontrent aussi
+Les notes étouffées, ou @notation{notes fantômes}, se rencontrent aussi
 bien sur une portée normale que dans une tablature@tie{}:
 
 @lilypond[quote,ragged-right,verbatim]

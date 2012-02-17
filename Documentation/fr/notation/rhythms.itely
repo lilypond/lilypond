@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: c737bb801e1d401b31104fe18dfab81f5d43dc80
+    Translation of GIT committish: ecf0a44d785db3038035927bd2405269d8668801
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1388,7 +1388,7 @@ Référence des propriétés internes :
 @cindex anacrouse
 @cindex levée
 @cindex mesure incomplète
-@cindex mesure, changement de longueur
+@cindex incomplète, mesure
 
 @funindex measurePosition
 @funindex \partial
@@ -1403,33 +1403,37 @@ commande est
 @end example
 
 @noindent
-où @code{@var{durée}} correspond à la valeur rythmique devant être
-ajoutée avant la première mesure complète@tie{}:
+où @var{durée} correspond à la valeur rythmique @strong{restante}
+dans la mesure et @strong{avant} la première mesure complète@tie{}:
 
-@lilypond[quote,verbatim,relative=2]
-\partial 4 e4 |
-a2. c,4 |
+@lilypond[quote,verbatim,relative=1]
+\time 3/4
+\partial 8
+e8 | a4 c8 b c4 |
 @end lilypond
 
-Une mesure incomplète peut être de n'importe quelle longueur inférieure
+La @var{durée} peut être de n'importe quelle longueur inférieure
 à la mesure complète@tie{}:
 
-@lilypond[quote,verbatim,relative=2]
-\partial 8*3 c8 d e |
-a2. c,4 |
+@lilypond[quote,verbatim,relative=1]
+\time 3/4
+\partial 4.
+r4 e8 | a4 c8 b c4 |
 @end lilypond
 
-Le programme traduit cette commande @code{\partial @var{durée}} en
+Cette commande @code{\partial @var{durée}} peut aussi s'écrire@tie{}:
 
 @example
 \set Timing.measurePosition = -@var{durée}
 @end example
 
-Par exemple, @code{\partial 8*3} est traduit en@tie{}:
+De fait, @code{\partial 8*3} équivaut à@tie{}:
 
-@example
-\set Timing.measurePosition = #(ly:make-moment -3 8)
-@end example
+@lilypond[quote,verbatim,relative=1]
+\time 3/4
+\set Timing.measurePosition = #(ly:make-moment -1 8)
+e8 | a4 c8 b c4 |
+@end lilypond
 
 La propriété @code{measurePosition} contient un nombre rationnel qui
 indique, à ce point précis, où l'on en est de la mesure.  Notez qu'il
@@ -1455,8 +1459,16 @@ Références des propriétés internes :
 
 @code{\partial} n'est destiné à être utilisé qu'en début de pièce.
 Si on l'utilise ailleurs qu'au début, des messages d'erreurs peuvent
-s'afficher.  Utilisez plutôt @code{\set@tie{}Timing.measurePosition} en
-pareil cas.
+s'afficher, voire des problèmes inopinés surgir.  Utilisez plutôt
+@code{\set@tie{}Timing.measurePosition} en pareil cas.
+
+@lilypond[quote,verbatim,relative=1]
+\time 6/8
+\partial 8
+e8 | a4 c8 b[ c b] |
+\set Timing.measurePosition = #(ly:make-moment -1 4)
+r8 e,8 | a4 c8 b[ c b] |
+@end lilypond
 
 
 @node Musique sans métrique
@@ -1507,7 +1519,7 @@ d4 e d c
 @cindex cadence et ligature
 @cindex musique non mesurée et ligature
 
-L'instruction @code{\cadenzaOn} désative les ligatures
+L'instruction @code{\cadenzaOn} désactive les ligatures
 automatiques@tie{}; elles seront réactivées après un @code{\cadenzaOff}.
 Toutes les ligatures devront donc être indiquées de manière explicite
 tout au long de la cadence -- voir @ref{Barres de ligature manuelles}).
@@ -1767,7 +1779,7 @@ Références des propriétés internes :
 
 @knownissues
 
-L'utilisation de métriques différentes en parallèle entraine un
+L'utilisation de métriques différentes en parallèle entraîne un
 alignement vertical.  De ce fait, les barres de mesure ont tendance à
 fausser l'espacement régulier entre les différentes portées.
 
@@ -1981,9 +1993,8 @@ c16 c8
 
 @warning{Si des ligatures sont utilisées dans les paroles d'une chanson
 (pour indiquer des mélismes), les ligatures automatiques doivent être
-désactivées, avec @code{\autoBeamOff}, et indiquées manuellement.}
-
-@warning{L'utilisation conjointe de @code{@bs{}partcombine} et de
+désactivées, avec @code{\autoBeamOff}, et indiquées manuellement.@*
+L'utilisation conjointe de @code{@bs{}partcombine} et de
 @code{@bs{}autoBeamOff} peut produire des résultats quelque peu
 surprenants@tie{}; ceci fait l'objet d'un exemple particulier à la
 rubrique morceaux choisis.}
@@ -2039,6 +2050,12 @@ Références des propriétés internes :
 @rinternals{BeamForbidEvent},
 @rinternals{beam-interface},
 @rinternals{unbreakable-spanner-interface}.
+
+@knownissues
+Les propriétés d'un ligature sont déterminées @strong{dès le début} de
+sa construction@tie{}; toute adaptation qui interviendrait avant sa
+terminaison ne sera prise en compte qu'à l'occasion de la
+@strong{prochaine} ligature.
 
 
 @node Définition des règles de ligature automatique
@@ -2191,7 +2208,7 @@ regroupement à effectuer, en unité de type de ligature.
 
 @warning{La propriété @code{beamExceptions} doit contenir absolument
 @strong{toutes} les exceptions.  Il n'est en effet pas possible d'en
-ajouter, modifier ou suprimer @emph{a posteriori}.  Cela peut paraître
+ajouter, modifier ou supprimer @emph{a posteriori}.  Cela peut paraître
 fastidieux, mais toutes les règles de ligature devraient être appréciées
 avant de les spécifier.}
 
@@ -2221,7 +2238,7 @@ De nombreuses règles de ligature automatique comportent une clé
 @code{beamExceptions}.  Par exemple, s'il n'y a que des croches dans une
 mesure à 4/4, celles-ci seront réparties en deux groupes.  Le fait de ne
 pas réinitialiser @code{beamExceptions} lors d'un aménagement de la
-pulsation -- l'élément @code{beatStructure} -- empèchera l'application
+pulsation -- l'élément @code{beatStructure} -- empêchera l'application
 de cette dérogation.
 
 @lilypond[quote,verbatim,relative=2]
@@ -2425,7 +2442,7 @@ c8 c\noBeam c c
 @end lilypond
 
 Notes d'ornement et normales font l'objet d'un traitement distinct.  Il
-est dont possible de ligaturer ou non des notes d'ornement sans géner ce
+est dont possible de ligaturer ou non des notes d'ornement sans gêner ce
 qui est en place au niveau de la notation normale.
 
 @lilypond[quote,verbatim,relative=2]
@@ -3106,7 +3123,7 @@ définis.  Un @code{\markup} peut néanmoins s'utiliser en argument.
 @funindex \musicglyph
 @funindex musicglyph
 
-Un @code{\mark} peut contenir un glype musical tel que le signe
+Un @code{\mark} peut contenir un glyphe musical tel que le signe
 @emph{segno}.
 
 @lilypond[quote,verbatim,relative=1]
@@ -3325,7 +3342,7 @@ Référence des propriétés internes :
 @cindex note d'ornement, synchronisation
 @cindex synchronisation des notes d'ornement
 
-Un groupe de notes ligaturées consituant une @emph{acciaccatura}
+Un groupe de notes ligaturées constituant une @emph{acciaccatura}
 apparaîtra comme une @emph{appoggiatura}, c'est-à-dire sans trait.
 
 @c TODO Add link to LSR snippet to add slash when available

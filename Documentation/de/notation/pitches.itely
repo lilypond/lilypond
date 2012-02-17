@@ -1408,7 +1408,7 @@ Fall muss die Tonart des transponierenden Instruments
 gekennzeichnet werden, weil sonst die MIDI-Ausgabe
 und Stichnoten in anderen Stimmen falsche Tonhöhen
 produzieren.  Mehr Information zu Stichnoten in
-@ref{Stichnoten}.
+@ref{Andere Stimmen zitieren}.
 
 @example
 \transposition @var{Tonhöhe}
@@ -1482,7 +1482,7 @@ Glossar:
 @rglos{transposing instrument}.
 
 Notationsreferenz:
-@ref{Stichnoten},
+@ref{Andere Stimmen zitieren},
 @ref{Transposition}.
 
 Schnipsel:
