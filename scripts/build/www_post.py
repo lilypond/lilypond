@@ -43,6 +43,14 @@ dirs, symlinks, files = mirrortree.walk_tree (
         '|'.join ([l.code for l in langdefs.LANGUAGES]) + '))(/|$)',
     find_files = r'.*?\.(?:midi|html|pdf|png|jpe?g|txt|i?ly|signature|css|zip|js|..\.idx|php)$|VERSION',
     exclude_files = r'lily-[0-9a-f]+.*\.(pdf|txt)')
+# extra files: info and tex output from lilypond-book regtests
+extra_files = mirrortree.walk_tree (
+    tree_roots = ['input/regression/lilypond-book'],
+    process_dirs = outdir,
+    exclude_dirs = r'(^|/)(out|out-test)(/|$)',
+    find_files = r'.+\.(info|tex)$',
+    exclude_files = r'lily-[0-9a-f]+.*\.tex')[2]
+files.extend(extra_files)
 
 # actual mirrorring stuff
 html_files = []
