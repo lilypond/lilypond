@@ -200,7 +200,15 @@ An alternative syntax is @var{note}@code{\\decr} @dots{}
 	))
 
     (EventChord
-     . ((description . "Internally used to group a set of events.")
+     . ((description . "Explicitly entered chords.
+
+When iterated, @code{elements} are converted to events at the current
+timestep, followed by any @code{articulations}.  Per-chord postevents
+attached by the parser just follow any rhythmic events in
+@code{elements} instead of utilizing @code{articulations}.
+
+An unexpanded chord repetition @samp{q} is recognizable by having its
+duration stored in @code{duration}.")
 	(iterator-ctor . ,ly:event-chord-iterator::constructor)
 	(length-callback . ,ly:music-sequence::event-chord-length-callback)
 	(to-relative-callback .
@@ -332,7 +340,12 @@ Note the explicit font switch.")
 	))
 
     (NoteEvent
-     . ((description . "A note.")
+     . ((description . "A note.
+
+Outside of chords, any events in @code{articulations} with a listener
+are broadcast like chord articulations, the others are retained.
+
+For iteration inside of chords, @xref{EventChord}.")
 	(iterator-ctor . ,ly:rhythmic-music-iterator::constructor)
 	(types . (general-music event note-event rhythmic-event
 		  melodic-event))

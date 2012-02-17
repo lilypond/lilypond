@@ -559,6 +559,7 @@ automatically when an output definition (a @code{\score} or
   \accepts "PetrucciStaff"
   \accepts "StaffGroup"
   \accepts "DrumStaff"
+  \accepts "KievanStaff"
   \accepts "Lyrics"
   \accepts "ChordNames"
   \accepts "GrandStaff"
@@ -567,7 +568,6 @@ automatically when an output definition (a @code{\score} or
   \accepts "Devnull"
   \accepts "NoteNames"
   \accepts "FiguredBass"
-
 
   noteToFretFunction = #determine-frets
   predefinedDiagramTable = ##f
@@ -1112,6 +1112,54 @@ accommodated for typesetting a piece in Petrucci style."
                              ,neo-modern-accidental-rule)
   autoCautionaries = #'()
   printKeyCancellation = ##f
+}
+
+\context {
+ \Voice
+ \name "KievanVoice"
+ \alias "Voice"
+ \description "Same as @code{Voice} context, except that it is
+accommodated for typesetting a piece in Kievan style."
+
+% \override Stem #'stencil = ##f
+
+ %% Set glyph styles.
+ \override NoteHead #'style = #'kievan
+ \override Rest #'style = #'mensural
+ \override Accidental #'glyph-name-alist = #alteration-kievan-glyph-name-alist
+ \override Dots #'style = #'kievan
+ \override Slur #'stencil = ##f
+
+ %% There are beams in Kievan notation, but they are invoked manually
+ autoBeaming = ##f
+ \override Beam #'beam-thickness = #0.32
+ \override Beam #'length-fraction = #0.62
+}
+
+\context {
+ \Staff
+ \name "KievanStaff"
+ \alias "Staff"
+ \denies "Voice"
+ \defaultchild "KievanVoice"
+ \accepts "KievanVoice"
+ \description "Same as @code{Staff} context, except that it is
+accommodated for typesetting a piece in Kievan style."
+
+ %% Choose Kievan tsefaut clef
+ clefGlyph = #"clefs.kievan.do"
+ middleCClefPosition = #0
+ middleCPosition = #0
+ clefPosition = #0
+ clefOctavation = #0
+
+ %% Accidentals are valid only once (if the following note is different)
+ extraNatural = ##f
+ autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave 0)
+                            ,neo-modern-accidental-rule)
+ autoCautionaries = #'()
+ printKeyCancellation = ##f
+
 }
 
 %% Keep the old definitions in here for compatibility (they erase previous

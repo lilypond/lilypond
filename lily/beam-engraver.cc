@@ -291,7 +291,8 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   beam_info_->add_stem (stem_location,
                         max (durlog - 2, 0),
                         Stem::is_invisible (stem),
-                        stem_duration->factor ());
+                        stem_duration->factor (),
+                        (stem->get_property ("tuplet-start") == SCM_BOOL_T));
   Beam::add_stem (beam_, stem);
 }
 

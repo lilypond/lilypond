@@ -40,10 +40,11 @@ Beam_rhythmic_element::Beam_rhythmic_element ()
   beam_count_drul_[RIGHT] = 0;
   invisible_ = false;
   factor_ = Rational (1);
-
+  tuplet_start_ = false;
 }
 
-Beam_rhythmic_element::Beam_rhythmic_element (Moment m, int i, bool inv, Rational factor)
+Beam_rhythmic_element::Beam_rhythmic_element (Moment m, int i, bool inv, 
+  Rational factor, bool tuplet_start)
 {
   start_moment_ = m;
   rhythmic_importance_ = 0;
@@ -51,6 +52,7 @@ Beam_rhythmic_element::Beam_rhythmic_element (Moment m, int i, bool inv, Rationa
   beam_count_drul_[RIGHT] = i;
   invisible_ = inv;
   factor_ = factor;
+  tuplet_start_ = tuplet_start;
 }
 
 void
@@ -269,10 +271,15 @@ Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
           Moment tuplet_dt = infos_[i].start_moment_ - tuplet_start_moment;
           tuplet_number = tuplet.den ();
           // set the beat end (if not in a tuplet) and increment the next beat
-          if (tuplet_number == 1 && infos_[i].start_moment_ == next_beat_pos)
+          if (infos_[i].start_moment_ == next_beat_pos)
             {
-              infos_[i].rhythmic_importance_ = -1;
-              next_beat_pos += options.base_moment_;
+              if (tuplet_number == 1)
+                {
+                  infos_[i].rhythmic_importance_ = -1;
+                  next_beat_pos += options.base_moment_;
+                }
+              if (infos_[i].tuplet_start_)
+                infos_[i].rhythmic_importance_ = -1;
             }
           // The rhythmic importance of a stem between beats depends on its fraction
           // of a beat: those stems with a lower denominator are deemed more
@@ -326,9 +333,9 @@ Beaming_pattern::unbeam_invisible_stems ()
 }
 
 void
-Beaming_pattern::add_stem (Moment m, int b, bool invisible, Rational factor)
+Beaming_pattern::add_stem (Moment m, int b, bool invisible, Rational factor, bool tuplet_start)
 {
-  infos_.push_back (Beam_rhythmic_element (m, b, invisible, factor));
+  infos_.push_back (Beam_rhythmic_element (m, b, invisible, factor, tuplet_start));
 }
 
 Beaming_pattern::Beaming_pattern ()
@@ -369,6 +376,12 @@ Beaming_pattern::factor (int i) const
   return infos_.at (i).factor_;
 }
 
+bool
+Beaming_pattern::tuplet_start (int i) const
+{
+  return infos_.at (i).tuplet_start_;
+}
+
 /*
     Split a beaming pattern at index i and return a new
     Beaming_pattern containing the removed elements
@@ -386,7 +399,8 @@ Beaming_pattern::split_pattern (int i)
       new_pattern->add_stem (start_moment (j),
                              count,
                              invisibility (j),
-                             factor (j));
+                             factor (j),
+                             tuplet_start (j));
     }
   for (vsize j = i + 1; j < infos_.size ();)
     infos_.pop_back ();

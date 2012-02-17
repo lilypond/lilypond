@@ -159,12 +159,13 @@ If it unsets the property, return @code{#f}."
 (define-public (music-elements music)
   "Return list of all @var{music}'s top-level children."
   (let ((elt (ly:music-property music 'element))
-        (elts (append
-	       (ly:music-property music 'articulations)
-	       (ly:music-property music 'elements))))
-    (if (not (null? elt))
-        (cons elt elts)
-        elts)))
+        (elts (ly:music-property music 'elements))
+	(arts (ly:music-property music 'articulations)))
+    (if (pair? arts)
+	(set! elts (append elts arts)))
+    (if (null? elt)
+	elts
+        (cons elt elts))))
 
 (define-public (find-child music predicate)
   "Find the first node in @var{music} that satisfies @var{predicate}."

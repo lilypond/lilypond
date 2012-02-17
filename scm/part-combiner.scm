@@ -149,7 +149,7 @@ Voice-state objects
 
     (define (active<? a b)
       (cond ((symbol<? (car a) (car b)) #t)
-	    ((symbol<? (car b) (car b)) #f)
+	    ((symbol<? (car b) (car a)) #f)
 	    (else (< (cdr a) (cdr b)))))
 
     (define (analyse-span-event active ev)

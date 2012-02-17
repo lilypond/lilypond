@@ -393,4 +393,95 @@ fet_beginchar ("Hufnagel Flat" , "hufnagelM1");
 fet_endchar;
 
 
+%%%%%%%%%%%%%%%
+%%%
+%%% Glyphs for Kievan Music Notation
+%%%
+%%%%%%%%%%%%%%%
+
+
+fet_beginchar ("Kievan sharp", "kievan1");
+	% This draws the sharp.
+	% It never occurs in Synodal music and
+	% can only be found in some early manuscripts.
+
+	z1 = (0.579 staff_space, 1.459 staff_space);
+	z2 = (1.414 staff_space, -0.904 staff_space);
+	z3 = (0.187 staff_space, 0.904 staff_space);
+
+	x2 - x1 = x4 - x3;
+	y1 - y2 = y3 - y4;
+
+	z5 = (1.296 staff_space, 1.613 staff_space);
+	z6 = (0.090 staff_space, -0.864 staff_space);
+	z7 = (1.532 staff_space, 0.892 staff_space);
+
+	x5 - x6 = x7 - x8;
+	y5 - y6 = y7 - y8;
+
+	pickup pensquare xscaled 0.167staff_space
+			 yscaled 0.167staff_space
+			 rotated -69.2;
+	draw z1{dir -69.2}
+	     .. {dir -74.1}z2;
+	draw z3{dir -69.2}
+	     .. {dir -74.1}z4;
+
+	pickup pensquare xscaled 0.167staff_space
+			 yscaled 0.167staff_space
+			 rotated -114.6;
+	draw z5{dir -114.6}
+	     ... {dir -125.0}z6;
+	draw z7{dir -114.6}
+	     ... {dir -125.0}z8;
+
+	set_char_box (0, 1.6 staff_space#,
+		      1.6 staff_space#, 1.6 staff_space#);
+fet_endchar;
+
+
+fet_beginchar ("Kievan flat", "kievanM1");
+	% This draws the flat sign.
+	% In Synodal music, the flat only occurs on the high B
+	% but it may be used elsewhere in early manuscripts.
+
+	z1 = (0.452 staff_space, 1.772 staff_space);
+	z2 = (0.481 staff_space, 1.735 staff_space);
+	z3 = (0.464 staff_space, 1.626 staff_space);
+	z4 = (0.249 staff_space, 0.322 staff_space);
+	z5 = (0.432 staff_space, -0.762 staff_space);
+	z6 = (0.611 staff_space, -0.583 staff_space);
+	z7 = (0.611 staff_space, 0.224 staff_space);
+	z8 = (0.652 staff_space, 0.513 staff_space);
+	z9 = (0.900 staff_space, 0.684 staff_space);
+	z10 = (0.872 staff_space, 0.640 staff_space);
+	z11 = (0.811 staff_space, 0.359 staff_space);
+	z12 = (0.811 staff_space, -0.587 staff_space);
+	z13 = (0.338 staff_space, -1.063 staff_space);
+	z14 = (0.016 staff_space, 0.196 staff_space);
+	z15 = (0.204 staff_space, 1.316 staff_space);
+
+	fill z13
+	     .. z14{up}
+	     .. z15{dir 70.8}
+	     .. z1{dir 4.9}
+	     .. z2
+	     .. z3
+	     .. z4{down}
+	     .. z5
+	     -- z6
+	     -- z7{up}
+	     .. z8
+	     .. {dir 23}z9
+	     & z9
+	     .. z10{dir -135}
+	     .. {down}z11
+	     -- z12
+	     -- z13
+	     & cycle;
+
+	set_char_box (0, 1.0 staff_space#,
+		      1.0 staff_space#, 1.8 staff_space#);
+fet_endchar;
+
 fet_endgroup ("accidentals");

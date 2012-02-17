@@ -1,5 +1,5 @@
 \documentclass{article}
 \begin{document}
-Including Lilypond file with options (quote and noindent):
+Including a LilyPond file with options (quote and noindent):
 \lilypondfile[quote,noindent]{include2.ly}
 \end{document}

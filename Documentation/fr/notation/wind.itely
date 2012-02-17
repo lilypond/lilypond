@@ -434,15 +434,12 @@ c1^\markup {
 }
 @end lilypond
 
-Bien que cela ne produise pas de notation, vous pouvez obtenir à l'écran
-ou dans un fichier de journalisation la liste de toutes les possibilités
-pour un instrument donné, en utilisant dans un fichier
-
-@lilypond[verbatim,quote]
-
-#(print-keys-verbose 'flute)
-
-@end lilypond
+Bien que cela ne produise pas de notation, vous pouvez obtenir la liste
+de toutes les possibilités pour un instrument donné, en utilisant dans
+un fichier les instructions
+@code{#(print-keys-verbose@tie{}'@var{vent})} -- affichage à l'écran --
+@code{#(print-keys-verbose@tie{}'@var{vent}@tie{}(current-error-port))}
+-- génération d'un fichier de journalisation.
 
 De nouveaux diagrammes sont réalisables, en suivant les directives
 contenues dans les fichiers @file{scm/define-woodwind-diagrams.scm} et

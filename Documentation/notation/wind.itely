@@ -393,14 +393,10 @@ c1^\markup {
 @end lilypond
 
 The list of all possible keys and settings for a given instrument
-can be displayed on the console or in the log file, although they
-will not show up in the music output:
-
-@lilypond[verbatim,quote]
-
-#(print-keys-verbose 'flute)
-
-@end lilypond
+can be displayed on the console using
+@code{#(print-keys-verbose 'flute)} or in the log file using
+@code{#(print-keys-verbose 'flute (current-error-port))}, although
+they will not show up in the music output.
 
 New diagrams can be created by following the patterns in
 @file{scm/define-woodwind-diagrams.scm} and

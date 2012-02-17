@@ -636,6 +636,7 @@ see @ref{Formatting text}.
 * Neomensural glyphs::
 * Petrucci glyphs::
 * Solesmes glyphs::
+* Kievan Notation glyphs::
 @end menu
 
 
@@ -878,6 +879,14 @@ see @ref{Formatting text}.
             \doc-chars #solesmes
 @end lilypond
 
+@node Kievan Notation glyphs
+@unnumberedsubsec Kievan Notation glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplist \override-lines #'(word-space . 4)
+	     \doc-chars #kievan
+@end lilypond
 
 @node Note head styles
 @appendixsec Note head styles

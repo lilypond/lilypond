@@ -397,15 +397,10 @@ c1^\markup {
 @end lilypond
 
 La lista de todas las tonalidades y ajustes posibles para un
-instrumento dado, se pueden relacionar sobre la consola o en el
-archivo de registro de salida, aunque no se pueden mostrar en la
-salida de música impresa:
-
-@lilypond[verbatim,quote]
-
-#(print-keys-verbose 'flute)
-
-@end lilypond
+instrumento dado se puede imprimir en la consola usando
+@code{#(print-keys-verbose 'flute)} o en el archivo de registro
+usando @code{#(print-keys-verbose 'flute (current-error-port))},
+aunque no se pueden mostrar en la salida de música impresa.
 
 Se pueden crear diagramas nuevos siguiendo los patrones que están en
 @file{scm/define-woodwind-diagrams.scm} y en

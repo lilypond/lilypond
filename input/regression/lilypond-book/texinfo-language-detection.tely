@@ -8,6 +8,11 @@
 @node Top
 @top Texinfo language detection
 
+@macro lydoctitle {TEXT}
+@need 600
+@emph{\TEXT\}
+@end macro
+
 The texidoc of the following snippet should be "translated":
 @lilypondfile[printfilename,texidoc,doctitle]{include3.ily}
 

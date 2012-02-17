@@ -41,13 +41,15 @@ class Stem_engraver : public Engraver
   vector <Grob *> maybe_flags_;
   Stream_event *rhythmic_ev_;
   Stream_event *tremolo_ev_;
+  bool tuplet_start_;
 
   TRANSLATOR_DECLARATIONS (Stem_engraver);
 
 protected:
-  void make_stem (Grob_info);
+  void make_stem (Grob_info, bool);
 
   DECLARE_TRANSLATOR_LISTENER (tremolo);
+  DECLARE_TRANSLATOR_LISTENER (tuplet_span);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   void stop_translation_timestep ();
   void finalize ();
@@ -60,14 +62,17 @@ Stem_engraver::Stem_engraver ()
   stem_ = 0;
   tremolo_ = 0;
   rhythmic_ev_ = 0;
+  tuplet_start_ = false;
 }
 
 void
-Stem_engraver::make_stem (Grob_info gi)
+Stem_engraver::make_stem (Grob_info gi, bool tuplet_start)
 {
   /* Announce the cause of the head as cause of the stem.  The
      stem needs a rhythmic structure to fit it into a beam.  */
   stem_ = make_item ("Stem", gi.grob ()->self_scm ());
+  if (tuplet_start)
+    stem_->set_property ("tuplet-start", SCM_BOOL_T);
   (void) make_item ("StemStub", gi.grob ()->self_scm ());
   if (tremolo_ev_)
     {
@@ -134,7 +139,8 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
     return;
 
   if (!stem_)
-    make_stem (gi);
+      make_stem (gi, tuplet_start_);
+      
 
   int ds = Stem::duration_log (stem_);
   int dc = d->duration_log ();
@@ -170,6 +176,8 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
       stem_->set_object ("flag", flag->self_scm ());
       maybe_flags_.push_back (flag);
     }
+  if (tuplet_start_) 
+    stem_->set_property ("tuplet-start", SCM_BOOL_T);
 }
 
 void
@@ -210,7 +218,22 @@ Stem_engraver::stop_translation_timestep ()
         }
       stem_ = 0;
     }
+  tuplet_start_ = false;
   tremolo_ev_ = 0;
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Stem_engraver, tuplet_span);
+void
+Stem_engraver::listen_tuplet_span (Stream_event *ev)
+{
+  Direction dir = to_dir (ev->get_property ("span-direction"));
+  if (dir == START)
+    {
+      // set stem property if stem already exists
+      if (stem_)
+        stem_->set_property ("tuplet-start", SCM_BOOL_T);
+      tuplet_start_ = true;  // stash the value for use in later creation 
+    }
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Stem_engraver, tremolo);

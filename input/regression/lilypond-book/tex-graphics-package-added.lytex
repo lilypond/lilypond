@@ -2,7 +2,7 @@
 
 \begin{document}
 
-\section{Lilypond-book should add the graphicx package}
+\section{LilyPond-book should add the graphicx package}
 
 If a latex file does not yet include the graphicx package, it is added by
 lilypond-book.

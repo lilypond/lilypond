@@ -49,11 +49,11 @@ Event_chord_iterator::process (Moment m)
           Music *mus = unsmob_music (scm_car (s));
           report_event (mus);
         }
-      for (SCM s = get_music ()->get_property ("events");
+      for (SCM s = get_music ()->get_property ("articulations");
            scm_is_pair (s); s = scm_cdr (s))
         {
-          Stream_event *ev = unsmob_stream_event (scm_car (s));
-          get_outlet ()->event_source ()->broadcast (ev);
+          Music *mus = unsmob_music (scm_car (s));
+          report_event (mus);
         }
     }
   Simple_music_iterator::process (m);

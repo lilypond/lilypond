@@ -78,6 +78,8 @@
 % * accidentals for trills and turns
 
 % CHANGELOG
+%  * David Kastrup: basic 2.15.28 compatibility by using event-chord-wrap!
+%    This should really be done by rewriting the code more thoroughly.
 %  * From Iain Nicol: appoggiatura timings were out; add staccatissimo; fix
 %    trillSpanner endpoints.
 %  * Also handle Breathing events (by throwing them away).  This isn't ideal;
@@ -87,7 +89,7 @@
 %  * Add Mordents (reported by Patrick Karl)
 %
 
-\version "2.14.0"
+\version "2.15.30"
 
 #(use-modules (ice-9 debug))
 #(use-modules (scm display-lily))
@@ -581,6 +583,7 @@ articulate = #(define-music-function (parser location music)
 	       "Adjust times of note to add tenuto, staccato and
                 normal articulations.
 		"
+	       (set! music (event-chord-wrap! music parser))
 	       (music-map ac:articulate-chord music)
 	       )
 
@@ -590,8 +593,10 @@ articulate = #(define-music-function (parser location music)
 afterGrace =
 #(define-music-function
   (parser location main grace)
-  (ly:music? ly:music?)p
+  (ly:music? ly:music?)
 
+  (set! main (event-chord-wrap! main parser))
+  (set! grace (event-chord-wrap! grace parser))
   (let*
    ((main-length (ly:music-length main))
     (grace-orig-length (ly:music-length grace))
@@ -616,6 +621,8 @@ afterGrace =
 appoggiatura =
 #(define-music-function (parser location grace main)
   (ly:music? ly:music?)
+  (set! grace (event-chord-wrap! grace parser))
+  (set! main (event-chord-wrap! main parser))
   (let* ((maindur (ly:music-length main))
 	 (grace-orig-len (ly:music-length grace))
 	 (main-orig-len (ly:music-length main))

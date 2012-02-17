@@ -4,32 +4,41 @@
 
 \section{Snippet options}
 
-Fragment:
+This document shows the effect of various snippet options.
+
+The fragment option:
+
 \begin{lilypond}[fragment]
-c d e %\score
+c' d' e' %\score
 \end{lilypond}
 
-This shows the verbatim option:
+The verbatim option:
+
 \begin{lilypond}[fragment,verbatim]
 c' d' e'
 \end{lilypond}
 
-printfilename:
+The printfilename option:
+
 \lilypondfile[printfilename]{include.ly}
 
-staffsize:
+The staffsize option:
+
 \begin{lilypond}[staffsize=7,fragment]
 \context Voice <<c' e' g'>>
 \end{lilypond}
 \lilypond[fragment,staffsize=7]{\context Voice <<c' es' g'>>}
 
-relative:
+The relative option:
+
 \lilypond[relative=1]{ c4 f b e }
 
-quote:
-\lilypond[quote,fragment]{\relative c' c1 }
+The quote option:
 
-fragment, quote, staffsize=26, verbatim:
+\lilypond[quote,fragment]{\relative c' c1 d4 c d e}
+
+Combining fragment, quote, staffsize=26, and verbatim options:
+
 \begin{lilypond}[fragment,quote,staffsize=26,verbatim]
   c'4 f16
 \end{lilypond}

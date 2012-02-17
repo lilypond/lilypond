@@ -12,27 +12,47 @@
   indent = 0.0
 }
 
+mus = {
+  r2
+  b\rest
+  c'\rest d'\rest e'\rest f'\rest g'\rest a'\rest b'\rest
+  c''\rest d''\rest e''\rest f''\rest g''\rest a''\rest b''\rest
+  r1
+  b\rest
+  c'\rest d'\rest e'\rest f'\rest g'\rest a'\rest b'\rest
+  c''\rest d''\rest e''\rest f''\rest g''\rest a''\rest b''\rest
+  r\breve
+  b\rest
+  c'\rest d'\rest e'\rest f'\rest g'\rest a'\rest b'\rest
+  c''\rest d''\rest e''\rest f''\rest g''\rest a''\rest b''\rest
+  r\longa
+  b\rest
+  c'\rest d'\rest e'\rest f'\rest g'\rest a'\rest b'\rest
+  c''\rest d''\rest e''\rest f''\rest g''\rest a''\rest b''\rest
+  <<
+    { r2 r2 r1 r\breve r\longa }
+    \\
+    { r2 r2 r1 r\breve r\longa }
+  >>
+}
+
 \new StaffGroup <<
   \new Staff {
-    r2
-    g'2\rest
-    r1
-    g'1\rest
+    \mus
   }
 
   \new Staff {
     \override Staff.StaffSymbol #'line-positions = #'(-4 -2 0 2)
-    r2
-    g'2\rest
-    r1
-    g'1\rest
+    \mus
   }
 
   \new Staff {
     \override Staff.StaffSymbol #'line-count = #4
-    r2
-    g'2\rest
-    r1
-    g'1\rest
+    \mus
+  }
+
+  \new Staff {
+    \override Staff.StaffSymbol #'line-positions = #'(-4 -2 1 5)
+    \mus
   }
 >>

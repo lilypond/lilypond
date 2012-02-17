@@ -1,16 +1,39 @@
 \documentclass[a4paper, 12pt]{article}
 
-\begin{document}
 \twocolumn
+\begin{document}
 
 \section{A latex file with two columns}
 
-In this example, the width auto-detection shall detect the two columns
-and produce snippets that have the smaller width for a column!
+In this example, the width autodetection should detect the two-column
+settings in the preamble of the document and produce snippets that
+have the width of a column.
 
 \begin{lilypond}
 \score{
-  \relative c'{c d e f g a b c | c d e f g a b c | c d e f g a b c}
+  \relative c'{c d e f g a b c | c, d e f g a b c | c, d e f g a b c}
+}
+\end{lilypond}
+
+Wraping at the end of a column is similar to wraping at the end of a
+page.
+
+Text text text text text text text text text text text text text text
+text text text text text text text text text text text text text text
+text text text text text text text text text text text text text text
+text text text text text text text text text text text text text text
+text text text text text text text text text text text text text text
+text text text text text text text text text text text text text text
+text.
+
+Text text text text text text text text text text text text text text
+text text text text text text text text text text text text text text
+text text text text text text text text text text text text text text
+text.
+
+\begin{lilypond}
+\score{
+  \relative c'{c d e f g a b c | c, d e f g a b c | c, d e f g a b c}
 }
 \end{lilypond}
 
