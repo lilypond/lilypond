@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 7cd8c1d1e389edc26c26b7eba8358578329f5881
+    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -415,120 +415,137 @@ turned on with a @code{\paper} option.
 @unnumberedsubsubsec 譜シンボル
 @translationof Staff symbol
 
-@cindex adjusting staff symbol (譜シンボルを調節する)
-@cindex drawing staff symbol (譜シンボルを描く)
-@cindex staff symbol, setting of (譜シンボルを設定する)
-@cindex staff symbol, drawing (譜シンボルを描く)
-@cindex stop staff lines (譜線の譜刻を停止する)
-@cindex start staff lines (譜線の譜刻を開始する)
-@cindex staff lines, amount of (譜線の本数)
-@cindex staff lines, number of (譜線の本数)
-@cindex staff line, thickness of (譜線の太さ)
-@cindex amount of staff lines (譜線の本数)
-@cindex thickness of staff lines (譜線の太さ)
-@cindex ledger lines, setting (加線を設定する)
-@cindex setting of ledger lines (加線の設定)
-@cindex spacing of ledger lines (加線の間隔)
-@cindex number of staff lines (譜線の本数)
-
-譜の線は @code{StaffSymbol} グラフィカル オブジェクトに属します。@c
-@code{StaffSymbol} プロパティを変更して、譜の見た目を変えることができます。@c
-しかしながら、変更は譜を作成する前に行う必要があります。
-
-譜線の本数を変えることもできます。音部記号の位置とミドル C の位置を、@c
-新しい譜にフィットさせるために、変更する必要があるかもしれません。@c
-具体例は、@ref{音部記号} にあるコード断片集セクションを参照してください。
-
-@lilypond[verbatim,quote,relative=2]
-\new Staff \with {
-  \override StaffSymbol #'line-count = #3
-}
-{ d4 d d d }
-@end lilypond
-
-譜線の太さを変えることができます。加線 (訳者注: ledger line, 譜の上下に@c
-突き出た符頭と符幹に付けられる短い譜線) と符幹の太さも影響を受けます。@c
-なぜなら、それらの太さは譜線の太さに基づいているからです。
-
-@lilypond[verbatim,quote,relative=1]
-\new Staff \with {
-  \override StaffSymbol #'thickness = #3
-}
-{ e4 d c b }
-@end lilypond
-
-加線の太さを譜線の太さから独立して設定することができます。@c
-以下の例では、2 つの数は譜線の太さと譜線の間隔に掛けられる因子です。@c
-2 つを足し合わせて加線の太さになります。
-
-@lilypond[verbatim,quote,relative=1]
-\new Staff \with {
-  \override StaffSymbol #'ledger-line-thickness = #'(1 . 0.2)
-}
-{ e4 d c b }
-@end lilypond
-
-譜線の間隔を変えることができます。この設定は加線の間隔にも影響を与えます。
-
-@lilypond[verbatim,quote,relative=1]
-\new Staff \with {
-  \override StaffSymbol #'staff-space = #1.5
-}
-{ a4 b c d }
-@end lilypond
-
-@code{StaffSymbol} のプロパティについて更に詳細な説明が
-@rinternals{staff-symbol-interface} に記述されています。
-
-@cindex stopping a staff (譜の停止)
-@cindex starting a staff (譜の開始)
-@cindex staff, starting (譜の開始)
-@cindex staff, stopping (譜の停止)
+@cindex staff symbol (譜シンボル)
+@cindex staff lines, stopping and starting (譜線を停止、開始する)
+@cindex staff lines, modifying (譜線を変更する)
+@cindex ledger lines (加線)
+@cindex ledger lines, internal (内部の加線)
+@cindex ledger lines, modifying (加線を変更する)
 
 @funindex \startStaff
 @funindex startStaff
 @funindex \stopStaff
 @funindex stopStaff
 
-楽譜の途中で譜プロパティに変更を加えるには、@c
-@code{\stopStaff} と @code{\startStaff} の間で行います。
+@code{\stopStaff} コマンドと @code{\startStaff} コマンドを使って、@c
+楽譜内の任意の場所で譜線を停止あるいは (再) 開始させることができます。
 
 @lilypond[verbatim,quote,relative=2]
-c2 c
-\stopStaff
-\override Staff.StaffSymbol #'line-count = #2
-\startStaff
-b2 b
-\stopStaff
-\revert Staff.StaffSymbol #'line-count
-\startStaff
-a2 a
+\stopStaff f4 d \startStaff g, e
+f'4 d \stopStaff g, e
+f'4 d \startStaff g, e
 @end lilypond
-
-@noindent
-一般的に言うと、@code{\stopStaff} と @code{\startStaff} を用いることで、@c
-楽譜の途中で譜を停止あるいは再開することができます。
-
-@lilypond[verbatim,quote,relative=2]
-c4 b a2
-\stopStaff
-b4 c d2
-\startStaff
-e4 d c2
-@end lilypond
-
-
++
 @predefined
 @code{\startStaff},
 @code{\stopStaff}
 @endpredefined
 
+@code{StaffSymbol} グラフィカル オブジェクト (加線を含む) に属する譜の線は@c
+@code{StaffSymbol} プロパティを用いて変更することができます。@c
+しかしながら、変更は譜が (再) 開始する前に行う必要があります。
+
+譜線の本数を変更することができます:
+
+@lilypond[verbatim,quote,relative=2]
+f4 d \stopStaff
+\override Staff.StaffSymbol #'line-count = #2
+\startStaff g, e |
+
+f'4 d \stopStaff
+\revert Staff.StaffSymbol #'line-count
+\startStaff g, e |
+@end lilypond
+
+各譜線の位置を変更することもできます。@c
+値の単位は譜線の間隔の @emph{半分} で、@c
+新しい位置は通常の中央線からの相対位置です。@c
+1 つの値に対して 1 本の譜線が譜刻されるので、@c
+1 つのオーバライドで譜線の位置と本数を変更することができます。
+
+@lilypond[verbatim,quote,relative=2]
+f4 d \stopStaff
+\override Staff.StaffSymbol #'line-positions = #'(1 3 5 -1 -3)
+\startStaff g, e |
+f'4 d \stopStaff
+\override Staff.StaffSymbol #'line-positions = #'(8 6.5 -6 -8 -0.5)
+\startStaff g, e
+@end lilypond
+
+新しい譜線に対応して、@c
+音部記号とミドル C の位置を調節する必要があるかもしれません。@c
+@ref{音部記号} を参照してください。
+
+譜線の太さを変えることができます。@c
+デフォルトでは、加線 (訳者注: ledger line, 譜の上下に突き出た符頭と符幹に@c
+付けられる短い譜線) と符幹の太さも影響を受けます。@c
+
+@lilypond[verbatim,quote,relative=2]
+\new Staff \with {
+  \override StaffSymbol #'thickness = #3
+}
+{ f4 d g, e }
+@end lilypond
+
+しかしながら、加線の太さを譜線の太さから独立して設定することができます。@c
+2 つの値は譜線の太さと譜線の間隔に掛け算され、@c
+それらを加算した値が加線の太さになります。
+
+@lilypond[verbatim,quote,relative=2]
+\new Staff \with {
+  \override StaffSymbol #'thickness = #2
+  \override StaffSymbol #'ledger-line-thickness = #'(0.5 . 0.4)
+}
+{ f'4 a, a,, f }
+@end lilypond
+
+加線の垂直方向の位置を変更することができます:
+
+@lilypond[verbatim,quote,relative=2]
+\new Staff \with {
+  \override StaffSymbol #'ledger-positions = #'(-3 -2 -1 2 5 6)
+}
+{ f'4 a, a,, f }
+@end lilypond
+
+符頭の位置と加線を持つ他の符頭との関係に応じて、@c
+符頭の上または下に追加の加線を配置することできます。
+
+@lilypond[verbatim,quote,relative=2]
+\new Staff \with {
+  \override StaffSymbol #'ledger-extra = #4
+}
+{ f'4 a, d, f, }
+@end lilypond
+
+譜の内部に加線を表示させることもできます。@c
+この場合、譜線のカスタマイズが必要です。@c
+以下の例は明示的に @code{legder-position} をセットしない場合とした場合の@c
+加線のデフォルト位置を示しています。@c
+以下の例で、@code{StaffSymbol} 全体に対する @code{\override} を元に戻すには@c
+@code{\stopStaff} を行う必要があります。
+
+@lilypond[fragment,quote,relative=1]
+\override Staff.StaffSymbol #'line-positions =   #'(-8 0 2 4)
+d4 e f g
+\stopStaff
+\startStaff
+\override Staff.StaffSymbol #'ledger-positions = #'(-8 -6 (-4 -2) 0)
+d4 e f g
+@end lilypond
+
+譜線の間隔を変えることができます。この設定は加線の間隔にも影響を与えます。
+
+@lilypond[verbatim,quote,relative=2]
+\new Staff \with {
+  \override StaffSymbol #'staff-space = #1.5
+}
+{ f'4 d, g, e, }
+@end lilypond
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-some-staff-lines-thicker-than-the-others.ly}
-
 
 @seealso
 音楽用語集:
@@ -972,42 +989,48 @@ d4 g e c
 行の譜に対して使用されます。
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
-\set Staff.instrumentName = #"Violin "
-\set Staff.shortInstrumentName = #"Vln "
-c4.. g'16 c4.. g'16
-\break
-c1
+\new Staff \with {
+  instrumentName = #"Violin "
+  shortInstrumentName = #"Vln. "
+}
+{ c4.. g'16 c4.. g'16 \break | c1 }
 @end lilypond
 
-マークアップ モードを用いて、より複雑な楽器名を作成することができます:
+@cindex instrument names, complex (複雑な楽器名)
+
+@code{\markup} を用いて、より複雑な楽器名を作成することができます:
 
 @lilypond[verbatim,quote,relative=2]
-\set Staff.instrumentName = \markup {
-  \column { "Clarinetti"
-            \line { "in B" \smaller \flat } } }
-c4 c,16 d e f g2
+\new Staff \with {
+  instrumentName = \markup {
+    \column { "Clarinetti"
+      \line { "in B" \smaller \flat }
+    }
+  }
+}
+{ c4 c,16 d e f g2 }
 @end lilypond
 
 @cindex instrument names, centering (楽器名を中央揃えする)
 
-2 つ以上の譜コンテキストが一緒になってグループ化されている場合、@c
+2 つ以上の譜コンテキストがグループ化されている場合、@c
 デフォルトでは楽器名と短縮楽器名は中央揃えされます。@c
 複数行にわたる楽器名を中央揃えするには、@c
 @code{\center-column} を用いる必要があります:
 
 @lilypond[verbatim,quote,indent=1.5\cm,relative=2]
 <<
-  \new Staff {
-    \set Staff.instrumentName = #"Flute"
-    f2 g4 f
+  \new Staff \with {
+    instrumentName = #"Flute"
   }
-  \new Staff {
-    \set Staff.instrumentName = \markup \center-column {
-      Clarinet
+  { f2 g4 f }
+  \new Staff \with {
+    instrumentName = \markup {
+      \center-column { "Clarinet" }
       \line { "in B" \smaller \flat }
     }
-    c4 b c2
   }
+  { c4 b c2 }
 >>
 @end lilypond
 
@@ -1016,29 +1039,35 @@ c4 c,16 d e f g2
 
 しかしながら、楽器名が長い場合、@code{indent} 設定と @code{short-indent}
 設定の値を増やさない限り、譜グループの中にある楽器名は中央揃えされません。@c
-これらの設定についての詳細は @ref{\paper variables for shifts and indents}
+これらの設定についての詳細は @ref{シフトとインデントのための \paper 変数}
 を参照してください。
 
 @lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  <<
+    \new Staff \with {
+      instrumentName = #"Alto Flute in G"
+      shortInstrumentName = #"Flt."
+    }
+    {
+      f2 g4 f \break
+      g4 f g2
+    }
+    \new Staff \with {
+      instrumentName = #"Clarinet"
+      shortInstrumentName = #"Clar."
+    }
+    {
+      c,4 b c2 \break
+      c2 b4 c
+    }
+  >>
+}
+
 \layout {
   indent = 3.0\cm
   short-indent = 1.5\cm
 }
-
-\relative c'' <<
-  \new Staff {
-    \set Staff.instrumentName = #"Alto Flute in G"
-    \set Staff.shortInstrumentName = #"Fl."
-    f2 g4 f \break
-    g4 f g2
-  }
-  \new Staff {
-    \set Staff.instrumentName = #"Clarinet"
-    \set Staff.shortInstrumentName = #"Clar."
-    c,4 b c2 \break
-    c2 b4 c
-  }
->>
 @end lilypond
 
 @cindex instrument names, adding to other contexts (楽器名を他のコンテキストに付け加える)
@@ -1046,24 +1075,28 @@ c4 c,16 d e f g2
 楽器名を他のコンテキスト (@code{ChordNames} や @code{FiguredBass} など)
 に付け加えるには、
 そのコンテキストに @code{Instrument_name_engraver} を追加する必要があります。@c
-詳細は @ref{Modifying context plug-ins} を参照してください。
+詳細は @ref{コンテキストのプラグインを変更する} を参照してください。
 
 @cindex instrument names, changing (楽器名を変更する)
 @cindex changing instrument names (楽器名を変更する)
 
-楽曲の途中で楽器名を変更することもできます。@c
-しかしながら、@code{instrumentName} は最初の行の譜にしか表示されないため、@c
-楽曲の途中では表示されないことを思い出してください:
+楽曲の途中で @code{shortInstrumentName} を変更することもできます。@c
+しかしながら、@code{instrumentName} は最初のインスタンスが譜刻され、@c
+楽曲の途中での変更は無視されます:
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
-\set Staff.instrumentName = #"First"
-\set Staff.shortInstrumentName = #"one"
-c1 c c c \break
-c1 c c c \break
-\set Staff.instrumentName = #"Second"
-\set Staff.shortInstrumentName = #"two"
-c1 c c c \break
-c1 c c c \break
+\new Staff \with {
+  instrumentName = #"Flute"
+  shortInstrumentName = #"Flt."
+}
+{
+  c1 c c c \break
+  c1 c c c \break
+  \set Staff.instrumentName = #"Clarinet"
+  \set Staff.shortInstrumentName = #"Clt."
+  c1 c c c \break
+  c1 c c c \break
+}
 @end lilypond
 
 @cindex instrument switch (楽器を切り換える)
@@ -1125,10 +1158,9 @@ c1 c c c \break
 @unnumberedsubsubsec 他のボイスを引用する
 @translationof Quoting other voices
 
-@cindex cues (演奏指示)
-@cindex quoting other voices (他のボイスを引用する)
-@c 未訳
-@cindex fragments (楽譜の一部分)
+@cindex quote, voices (ボイスの引用)
+@cindex voices, quoting (ボイスを引用する)
+@cindex fragments, quoting (楽曲の断片を引用する)
 @cindex cue notes (演奏指示音符)
 
 @funindex \addQuote
@@ -1138,105 +1170,87 @@ c1 c c c \break
 @funindex \transposition
 @funindex transposition
 
-あるボイスが他のボイスの音楽の一部を兼ねることはごく一般的なことです。@c
-例えば、第 1 バイオリンと第2バイオリンは、音楽のあるパッセージの間、@c
-同じ音符を演奏することがあるかもしれません。@c
-LilyPond では、あるボイスに他のボイスを @emph{引用} させることによって@c
-実現されます。@c
-再入力する必要はありません。
+あるボイスが他のボイスと同じ音符を演奏することはごく一般的なことです。@c
+例えば、第 1 バイオリンと第2バイオリンがあるパッセージで同じフレーズを@c
+演奏することがあります。@c
+これは、ボイスに他のボイスを @emph{引用} させることで実現でき、@c
+第 2 ボイスの音楽全体を再入力する必要はありません。
 
-パートを引用するには、@code{\addQuote} コマンドを用いて引用する部分を@c
-初期化する必要があります。@c
-このコマンドは最上位のスコープで使用しなければなりません。@c
-1 番目の引数は識別文字列であり、2 番目の引数は音楽表記です:
-
-@example
-flute = \relative c'' @{
-  a4 gis g gis
-@}
-\addQuote "flute" @{ \flute @}
-@end example
+最上位レベルのスコープで用いる @code{\addQuote} コマンドは@c
+一部を引用することができる音楽を定義します。
 
 @code{\quoteDuring} コマンドを用いて、引用を開始する位置を示します。@c
 このコマンドは 2 つの引数をとります:
 @code{\addQuote} で定義した引用するボイスの名前と、@c
-引用部分の演奏時間を示す音楽表記
--- 通常、これは空白休符か複数小節にわたる休符 -- です。@c
-引用されるボイスの音楽から該当部分の音楽
-(アーティキュレーション、強弱記号、マークアップ等を含みます)
-が音楽表記に挿入されます:
+引用部分の演奏時間を示す音楽表記です。
 
 @lilypond[verbatim,quote]
-flute = \relative c'' {
-  a4 gis g->\f gis^\markup{quoted}
+fluteNotes = \relative c'' {
+  a4 gis g gis | b4^"quoted" r8 ais\p a4( f)
 }
-\addQuote "flute" { \flute }
 
-\relative c' {
-  c4 cis \quoteDuring #"flute" { s2 }
+oboeNotes = \relative c'' {
+  c4 cis c b \quoteDuring #"flute" { s1 }
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\score {
+  <<
+    \new Staff \with { instrumentName = "Flute" } \fluteNotes
+    \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
 }
 @end lilypond
 
-@code{\quoteDuring} で使用される音楽表記に空白休符や複数小節休符以外のものが@c
-含まれている場合、多声部になります。@c
-これは望まない結果であることがしばしばあります:
+@code{\quoteDuring} で使用される音楽表記が空白休符や複数小節休符ではなく@c
+音符を保持している場合、@c
+引用は多声となり、予期しない結果となる可能性があります。
 
 @lilypond[verbatim,quote]
-flute = \relative c'' {
-  a4 gis g->\f gis^\markup{quoted}
+fluteNotes = \relative c'' {
+  a4 gis g gis | b4^"quoted" r8 ais\p a4( f)
 }
-\addQuote "flute" { \flute }
 
-\relative c' {
-  c4 cis \quoteDuring #"flute" { s2 }
+oboeNotes = \relative c'' {
+  c4 cis c b \quoteDuring #"flute" { e4 r8 ais b4 a }
 }
+
+\addQuote "flute" { \fluteNotes }
+
+\score {
+  <<
+    \new Staff \with { instrumentName = "Flute" } \fluteNotes
+    \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
 @end lilypond
 
-@code{\transposition} が使用される場合、@c
-引用機能はソースとターゲット両方の楽器の楽器移調設定を考慮します。@c
-@code{\transposition} についての詳細は @ref{楽器の移調} を@c
-参照してください。
+@code{\quoteDuring} コマンドは引用されるパートと引用するパート両方の
+@code{\transposition} を使用して、@c
+引用されるパートと同じ響きのピッチに変換して、@c
+引用するパートの音符を作り出します。
 
 @lilypond[verbatim,quote]
-clarinet = \relative c'' {
+clarinetNotes = \relative c'' {
   \transposition bes
-  a4 gis g gis
+  \key d \major
+  b4 ais a ais | cis4^"quoted" r8 bis\p b4( f)
 }
-\addQuote "clarinet" { \clarinet }
 
-\relative c' {
-  c4 cis \quoteDuring #"clarinet" { s2 }
+oboeNotes = \relative c'' {
+  c4 cis c b \quoteDuring #"clarinet" { s1 }
 }
-@end lilypond
 
-引用部分に固有名のタグを付けて、@c
-引用部分をさまざまな形で処理することができます。@c
-この手法についての詳細は @ref{Using tags} を参照してください。
+\addQuote "clarinet" { \clarinetNotes }
 
-@code{quotedEventTypes} プロパティを変更することで、@c
-オリジナル ボイスからどのオブジェクトを引用するか調節することもできます。@c
-デフォルトで、このプロパティの値は @code{#'(StreamEvent)} であり、@c
-すべてを引用します。@c
-例えば、この値を @code{#'(note-event rest-event tie-event)} に変更すると、@c
-LilyPond は音符、休符それにタイを引用し、@c
-アーティキュレーション、マーックアップあるいは強弱記号は引用しません。
 
-@lilypond[verbatim,quote]
-clarinet = \relative c'' {
-  a4 gis g->\f gis^\markup{quoted}
-}
-\addQuote "clarinet" { \clarinet }
-
-\relative c' {
-  \set Score.quotedEventTypes = #'(note-event rest-event tie-event)
-  c4 cis \quoteDuring #"clarinet" { s2 }
+\score {
+  <<
+    \new Staff \with { instrumentName = "Clarinet" } \clarinetNotes
+    \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
 }
 @end lilypond
-
-@snippets
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{quoting-another-voice-with-transposition.ly}
 
 @cindex note-event
 @cindex articulation-event
@@ -1246,8 +1260,37 @@ clarinet = \relative c'' {
 @funindex quotedEventTypes
 @funindex quotedCueEventTypes
 
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{quoting-another-voice.ly}
+デフォルトでは引用される音楽はすべてのアーティキュレーション、強弱記号、@c
+マークアップ等を含んでいます。@c
+@code{quotedEventTypes} コンテキスト プロパティを用いることで、@c
+引用される音楽から引用するオブジェクトを選択することが可能です。
+
+@lilypond[verbatim,quote]
+fluteNotes = \relative c'' {
+  a2 g2 |
+  b4\<^"quoted" r8 ais a4\f( c->)
+ }
+
+oboeNotes = \relative c'' {
+  c2. b4 |
+  \quoteDuring #"flute" { s1 }
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\score {
+  <<
+    \set Score.quotedEventTypes = #'(note-event articulation-event
+                                     crescendo-event rest-event
+                                     slur-event dynamic-event)
+    \new Staff \with { instrumentName = "Flute" } \fluteNotes
+    \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
+}
+@end lilypond
+
+引用にもタグを付けることができます。@c
+@ref{タグを使用する} を参照してください。
 
 @seealso
 記譜法リファレンス:
@@ -1258,50 +1301,118 @@ clarinet = \relative c'' {
 @rlsr{Staff notation}
 
 内部リファレンス:
++@rinternals{Music classes},
 @rinternals{QuoteMusic},
 @rinternals{Voice}
 
+インストールされているファイル:
+@file{scm/define-event-classes.scm}
 
 @knownissues
 
 @code{\addQuote} 中にある最初の @code{Voice} の内容だけが引用されます。@c
-そのため、@code{@var{music}} には他の Voice に切り替わる @code{\new} や
-@code{\context Voice} を含めることはできません。
-
-装飾小音符を引用しようとしてもうまくいかず、@c
+そのため、音楽表記が @code{\new} や @code{\context Voice} を含んでいても、@c
+それらの内容は引用されません。@c
+装飾小音符の引用はサポートされておらず、@c
 LilyPond がクラッシュする可能性さえあります。
-
 ネストされた連符を引用しようとしてもうまくいきません。
-
-以前のバージョンの LilyPond (2.11 よりも前) では、@code{addQuote} はすべて@c
-小文字 -- @code{addquote} -- で記述されていました。
 
 
 @node 合図音符をフォーマットする
 @unnumberedsubsubsec 合図音符をフォーマットする
 @translationof Formatting cue notes
 
-@cindex cues (合図)
 @cindex cue notes (合図音符)
-@cindex cue notes, formatting (合図音符をフォーマットする)
-@c 未訳
 @cindex fragments (楽譜の一部分)
-@cindex quoting other voices (他のボイスを引用する)
-@cindex cues, formatting (合図をフォーマットする)
+@cindex cue notes, formatting (合図音符をフォーマットする)
+@cindex formatting, cue notes (合図音符をフォーマットする)
+@cindex voices, quoting(ボイスを引用する)
 
 @funindex \cueDuring
 @funindex cueDuring
+@funindex \cueClef
+@funindex cueClef
+@funindex \cueDuringWithClef
+@funindex cueDuringWithClef
 @funindex \quoteDuring
 @funindex quoteDuring
 
-前のセクションでは、引用を作成する方法について説明しました。@c
-@code{\cueDuring} コマンドは @code{\quoteDuring} コマンドの@c
-より特殊な形であり、あるパートに合図音符を挿入する場合に有用です。@c
+@cindex notes, smaller (小さな音符)
+@cindex smaller notes (小さな音符)
+@cindex CueVoice
+
+合図音符をフォーマットする最も簡単な方法は、@c
+パートの中で明示的に @code{CueVoice} コンテキストを作成することです。
+
+@lilypond[verbatim,relative=1]
+R1
+<<
+  { e2\rest r4. e8 }
+  \new CueVoice {
+    \stemUp d'8^"flute" c d e fis2
+  }
+>>
+d,4 r a r
+@end lilypond
+
+音部記号の変更が必要で、合図音符に適切なサイズの音部記号を譜刻する場合、@c
+@code{\cueClef} コマンドは明示的な @code{CueVoice} コンテキストと共に@c
+用いられます。@c
+その後、@code{\cueClefUnset} コマンドを用いて、@c
+オリジナルの音部記号 -- 再度、適切なサイズにされた -- に戻すことができます。
+
+@lilypond[verbatim,noragged-right,relative=1]
+\clef "bass"
+R1
+<<
+  { e2\rest r4. \cueClefUnset e,8 }
+  \new CueVoice {
+    \cueClef "treble" \stemUp d''8^"flute" c d e fis2
+  }
+>>
+d,,4 r a r
+@end lilypond
+
+必要があれば、@code{CueVoice} 無しで
+@code{\cueClef} コマンドと @code{\cueClefUnset} コマンドを用いることもできます。
+
+@lilypond[verbatim,noragged-right,relative=1]
+\clef "bass"
+R1
+\cueClef "treble"
+d'8^"flute" c d e fis2
+\cueClefUnset
+d,,4 r a r
+@end lilypond
+
+もっと複雑な合図音符
+-- 例えば、移調を含んでいる、複数の音楽ソースからの合図音符を挿入する --
+の場合、@c
+@code{\cueDuring} コマンドや @code{\cueDuringWithClef} コマンドを@c
+用いることができます。@c
+これらのコマンドは @code{\quoteDuring} を特殊化したものです。@c
+@code{\quoteDuring} については、@c
+前のセクションの @ref{他のボイスを引用する} を参照してください。
+
 構文は以下の通りです:
 
 @example
-\cueDuring #@var{partname} #@var{voice} @var{music}
+\cueDuring #@var{quotename} #@var{direction} #@var{music}
 @end example
+
+と
+
+@example
+\cueDuringWithClef #@var{quotename} #@var{direction} #@var{clef} #@var{music}
+@end example
+
+@code{@var{quotename}} に対応する小節の音楽は
+@code{CueVoice} コンテキストとして追加されて
+@code{@var{music}} と同時進行して、@c
+多声になります。@c
+@code{@var{direction}} は引数 @code{UP} または @code{DOWN} を取り、@c
+それぞれ第 1 及び第 2 ボイスと調和して、@c
+合図音符が他のボイスに対してどのように譜刻されるかを決定します。
 
 このコマンドは @code{@var{partname}} の該当する小節から音符と休符だけを
 @code{CueVoice} にコピーします。@c
@@ -1312,35 +1423,43 @@ LilyPond がクラッシュする可能性さえあります。
 @code{UP} は第 1 ボイスに相当し、@code{DOWN} は第 2 ボイスに相当します。
 
 @lilypond[verbatim,quote]
-oboe = \relative c'' {
-  r2 r8 d16(\f f e g f a)
-  g8 g16 g g2.
+fluteNotes = \relative c'' {
+  r2. c4 | d8 c d e fis2 | g2 d |
 }
-\addQuote "oboe" { \oboe }
 
-\new Voice \relative c'' {
-  \cueDuring #"oboe" #UP { R1 }
+oboeNotes = \relative c'' {
+  R1
+  s1*0^\markup { \tiny "flute" }
+  \cueDuring #"flute" #UP { R1 }
   g2 c,
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\new Staff {
+  \oboeNotes
 }
 @end lilypond
 
 @noindent
-上の例で、@code{Voice} コンテキストは明示的に宣言されている必要があります。@c
-さもなければ、音楽表記全体が @code{CueVoice} コンテキストに属してしまいます。
 
 @code{instrumentCueName} プロパティを設定することによって、@c
 @code{\cueDuring} で音楽のどの側面を引用するか調節することができます。@c
-このプロパティのデフォルト値は @code{#'(note-event rest-event
-tie-event beam-event tuplet-span-event)} であり、音符、休符、タイ、連桁@c
+このプロパティのデフォルト値は @code{'(note-event rest-event
+tie-event beam-event tuplet-span-event)} であり、音符、休符、タイ、連桁、@c
 それに連符だけが引用され、アーティキュレーション、強弱記号、マークアップ等は@c
 引用されません。
 
+@warning{以下の例のように @code{Voice} が @code{\cueDuring} で始まる場合、@c
+@code{Voice} を明示的に宣言する必要があります。@c
+そうしないと音楽表記全体が @code{CueVoice} コンテキストに属してしまいます。}
+
 @lilypond[verbatim,quote]
-oboe = \relative c'' {
+oboeNotes = \relative c'' {
   r2 r8 d16(\f f e g f a)
   g8 g16 g g2.
 }
-\addQuote "oboe" { \oboe }
+\addQuote "oboe" { \oboeNotes }
 
 \new Voice \relative c'' {
   \set Score.quotedCueEventTypes = #'(note-event rest-event tie-event
@@ -1352,14 +1471,15 @@ oboe = \relative c'' {
 @end lilypond
 
 マークアップを使用して引用される楽器の名前を表示することができます。@c
-また、合図音符が音部変更を必要とする場合、@c
-合図音符の終わりで元の音部に戻す必要があります。
+また、合図音符が音部変更を必要とする場合、手動で変更することができますが、@c
+合図音符の終わりで手動で元の音部に戻す必要があります。
 
 @lilypond[verbatim,quote]
-flute = \relative c'' {
+fluteNotes = \relative c'' {
   r2. c4 d8 c d e fis2 g2 d2
 }
-bassoon = \relative c {
+
+bassoonNotes = \relative c {
   \clef bass
   R1
   \clef treble
@@ -1368,34 +1488,99 @@ bassoon = \relative c {
   \clef bass
   g4. b8 d2
 }
-\addQuote "flute" { \flute }
+
+\addQuote "flute" { \fluteNotes }
+
 \new Staff {
-  \bassoon
+  \bassoonNotes
 }
 @end lilypond
 
-@cindex removing cues (合図を削除する)
+あるいはまた、代わりに @code{\cueDuringWithClef} 関数を用いることができます。@c
+このコマンドは追加の引数で音部の変更を指定して、@c
+合図音符に音部記号を譜刻しますが、@c
+合図音部が終了したところで元の音部記号を自動的に譜刻します。
+
+@lilypond[verbatim,quote]
+fluteNotes = \relative c'' {
+  r2. c4 d8 c d e fis2 g2 d2
+}
+
+bassoonNotes = \relative c {
+  \clef bass
+  R1
+  s1*0^\markup { \tiny "flute" }
+  \cueDuringWithClef #"flute" #UP #"treble" { R1 }
+  g4. b8 d2
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\new Staff {
+  \bassoonNotes
+}
+@end lilypond
+
+@funindex \transposedCueDuring
+@funindex transposedCueDuring
+
+@code{\quoteDuring} と同様に、@code{\cueDuring} は楽器の移調を考慮します。@c
+合図音符は合図を受け取る楽器のピッチで作り出され、@c
+ソース楽器の同じ響きのピッチになります。
+
+合図音符を移調させるには @code{\transposedCueDuring} を使用します。@c
+このコマンドはコンサート ミドル C の音を表すピッチを (絶対モードで) 指定する@c
+追加の引数を取ります。@c
+これは、全く別の場所で登録された楽器から合図を取る場合に有用です。
+
+@lilypond[verbatim,quote]
+piccoloNotes = \relative c''' {
+  \clef "treble^8"
+  R1
+  c8 c c e g2
+  c4 g g2
+}
+
+bassClarinetNotes = \relative c' {
+  \key d \major
+  \transposition bes,
+  d4 r a r
+  \transposedCueDuring #"piccolo" #UP d { R1 }
+  d4 r a r
+}
+
+\addQuote "piccolo" { \piccoloNotes }
+
+<<
+  \new Staff \piccoloNotes
+  \new Staff \bassClarinetNotes
+>>
+@end lilypond
+
 @cindex removing cue notes (合図音符を削除する)
 @cindex cue notes, removing (合図音符を削除する)
 
 @funindex \killCues
 @funindex killCues
+@funindex \addInstrumentDefinition
+@funindex addInstrumentDefinition
 
 @code{\killCues} コマンドは音楽表記から合図音符を削除します。@c
-これにより、同じ音楽表記を使って合図を持つ楽器パートと総譜を作り出すことが@c
+これにより、同じ音楽表記を使って合図を持つ楽器パートと楽譜を作り出すことが@c
 可能です。@c
 @code{\killCues} コマンドは @code{\cueDuring} によって引用された@c
 音符とイベントだけを削除します。@c
 合図に関連する他のマークアップ
 -- 音部変更と引用元の楽器を識別するラベルなど --
-にはタグを付けて総譜に含めるかどうかを選択することができます。@c
-@ref{Using tags} を参照してください。
+にはタグを付けて楽譜に含めるかどうかを選択することができます。@c
+@ref{タブを使用する} を参照してください。
 
 @lilypond[verbatim,quote]
-flute = \relative c'' {
+fluteNotes = \relative c'' {
   r2. c4 d8 c d e fis2 g2 d2
 }
-bassoon = \relative c {
+
+bassoonNotes = \relative c {
   \clef bass
   R1
   \tag #'part {
@@ -1406,17 +1591,19 @@ bassoon = \relative c {
   \tag #'part \clef bass
   g4. b8 d2
 }
-\addQuote "flute" { \flute }
+
+\addQuote "flute" { \fluteNotes }
 
 \new Staff {
-  \bassoon
+  \bassoonNotes
 }
+
 \new StaffGroup <<
   \new Staff {
-    \flute
+    \fluteNotes
   }
   \new Staff {
-    \removeWithTag #'part { \killCues { \bassoon } }
+    \removeWithTag #'part { \killCues { \bassoonNotes } }
   }
 >>
 @end lilypond
@@ -1426,68 +1613,14 @@ bassoon = \relative c {
 @code{\addInstrumentDefinition} についての説明は
 @ref{楽器名} を参照してください。
 
-@funindex \transposedCueDuring
-@funindex transposedCueDuring
-
-@code{\quoteDuring} と同様に、@code{\cueDuring} は楽器の移調を考慮します。@c
-合図音符は、合図を受け取る楽器のピッチで作り出されます。
-
-合図音符を移調させるには @code{\transposedCueDuring} を使用します。@c
-このコマンドはコンサート ミドル C の音を表すピッチを (絶対モードで) 指定する@c
-追加の引数を取ります。
-
-@lilypond[verbatim,quote]
-piccolo = \relative c''' {
-  \clef "treble^8"
-  R1
-  c8 c c e g2
-  c4 g g2
-}
-bassClarinet = \relative c' {
-  \key d \major
-  \transposition bes,
-  d4 r a r
-  \transposedCueDuring #"piccolo" #UP d { R1 }
-  d4 r a r
-}
-
-\addQuote "piccolo" { \piccolo }
-
-<<
-  \new Staff \piccolo
-  \new Staff \bassClarinet
->>
-@end lilypond
-
-@cindex notes, smaller
-@cindex smaller notes
-
-小さなサイズの音符が必要な場合、@c
-@code{CueVoice} コンテキストを明示的に作成することがあります。@c
-例えば、本来の演奏とは異なる音符列をオリジナル ボイスの上または下に@c
-セットする場合に適しています。
-
-@lilypond[verbatim,relative=2]
-\time 12/8
-\key ees \major
-g4 ees8 f4 g8
-\stemDown
-<<
-  { d4. bes4 c8 }
-  \new CueVoice
-  { g'4. f4 ees8 }
->>
-\stemUp
-d2. d2.
-@end lilypond
-
-
 @seealso
 記譜法リファレンス:
+@ref{他のボイスを引用する},
 @ref{楽器の移調},
 @ref{楽器名},
-@ref{Musical cues},
-@ref{Using tags}
+@ref{音部記号},
+@ref{合図},
+@ref{タグを使用する}
 
 コード断片集:
 @rlsr{Staff notation}
@@ -1496,8 +1629,9 @@ d2. d2.
 @rinternals{CueVoice},
 @rinternals{Voice}
 
-
 @knownissues
 
 @code{\cueDuring} を使用した場合、@code{Voice} コンテキストと @code{CueVoice}
-コンテキストの間で休符の衝突が発生する可能性があります。
+コンテキストの間で休符の衝突が発生する可能性があります。@c
+@code{\cueDuringWithClef} や @code{\transposedCueDuring} を使用する場合、@c
+追加で必要となる引数は引用と向きの後に配置する必要があります。

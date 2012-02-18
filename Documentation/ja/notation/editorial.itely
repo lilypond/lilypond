@@ -1,9 +1,10 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 192439e23bf243634b52f77dd7b084cac7a8d48c
+    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  See TRANSLATION for details.
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.14.0"
@@ -408,10 +409,10 @@ X11 カラーは必ずしも同様の名前を持つノーマル カラーと@c
 まったく同じとなるわけではありません。
 
 すべての X11 カラーが Web ブラウザで見分けられるわけではありません。@c
-つまり、ある Web ブラウザは @code{'LineGreen} と @code{'ForestGreen} を@c
+つまり、ある Web ブラウザは @code{LineGreen} と @code{ForestGreen} を@c
 同じ色で表示するかもしれません。@c
 Web 向けでは、ノーマル カラーを使用することを推奨します
-(つまり、@code{#blue}, @code{#green}, @code{#red})。
+(つまり、@code{blue}, @code{green}, @code{red})。
 
 和音の中にある音符には @code{\override} で色を付けることはできません。@c
 @code{\override} の代わりに @code{\tweak} を使用してください
