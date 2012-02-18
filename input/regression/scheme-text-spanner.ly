@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.31"
 
 \header {
   texidoc = "Use @code{define-event-class}, scheme engraver methods,
@@ -119,64 +119,58 @@ schemeTextSpannerEngraver =
          (finished '())
          (current-event '())
          (event-drul '(() . ())))
-     (list (cons 'listeners
-                 (list (cons 'scheme-text-span-event
-                             (lambda (engraver event)
-                               (if (= START (ly:event-property event 'span-direction))
-                                   (set-car! event-drul event)
-                                   (set-cdr! event-drul event))))))
-           (cons 'acknowledgers
-                 (list (cons 'note-column-interface
-                             (lambda (engraver grob source-engraver)
-                               (if (ly:spanner? span)
-                                   (begin
-                                     (ly:pointer-group-interface::add-grob span 'note-columns grob)
-                                     (add-bound-item span grob)))
-                               (if (ly:spanner? finished)
-                                   (begin
-                                     (ly:pointer-group-interface::add-grob finished 'note-columns grob)
-                                     (add-bound-item finished grob)))))))
-           (cons 'process-music
-                 (lambda (trans)
-                   (if (ly:stream-event? (cdr event-drul))
-                       (if (null? span)
-                           (ly:warning "You're trying to end a scheme text spanner but you haven't started one.")
-                           (begin (set! finished span)
-                                  (ly:engraver-announce-end-grob trans finished current-event)
-                                  (set! span '())
-                                  (set! current-event '())
-                                  (set-cdr! event-drul '()))))
-                   (if (ly:stream-event? (car event-drul))
-                       (begin (set! current-event (car event-drul))
-                              (set! span (ly:engraver-make-grob trans 'SchemeTextSpanner current-event))
-                              (set-axis! span Y)
-                              (set-car! event-drul '())))))
-           (cons 'stop-translation-timestep
-                 (lambda (trans)
-                   (if (and (ly:spanner? span)
-                            (null? (ly:spanner-bound span LEFT)))
-                       (set! (ly:spanner-bound span LEFT)
-                             (ly:context-property context 'currentMusicalColumn)))
-                   (if (ly:spanner? finished)
-                       (begin
-                         (if (null? (ly:spanner-bound finished RIGHT))
-                             (set! (ly:spanner-bound finished RIGHT)
-                                   (ly:context-property context 'currentMusicalColumn)))
-                         (set! finished '())
-                         (set! event-drul '(() . ()))))))
-           (cons 'finalize
-                 (lambda (trans)
-                   (if (ly:spanner? finished)
-                       (begin
-                         (if (null? (ly:spanner-bound finished RIGHT))
-                             (set! (ly:spanner-bound finished RIGHT)
-                                   (ly:context-property context 'currentMusicalColumn)))
-                         (set! finished '())))
-                   (if (ly:spanner? span)
-                       (begin
-                         (ly:warning "I think there's a dangling scheme text spanner :-(")
-                         (ly:grob-suicide! span)
-                         (set! span '()))))))))
+     (make-engraver
+      (listeners ((scheme-text-span-event engraver event)
+		  (if (= START (ly:event-property event 'span-direction))
+		      (set-car! event-drul event)
+		      (set-cdr! event-drul event))))
+      (acknowledgers ((note-column-interface engraver grob source-engraver)
+		      (if (ly:spanner? span)
+			  (begin
+			    (ly:pointer-group-interface::add-grob span 'note-columns grob)
+			    (add-bound-item span grob)))
+		      (if (ly:spanner? finished)
+			  (begin
+			    (ly:pointer-group-interface::add-grob finished 'note-columns grob)
+			    (add-bound-item finished grob)))))
+      ((process-music trans)
+       (if (ly:stream-event? (cdr event-drul))
+	   (if (null? span)
+	       (ly:warning "You're trying to end a scheme text spanner but you haven't started one.")
+	       (begin (set! finished span)
+		      (ly:engraver-announce-end-grob trans finished current-event)
+		      (set! span '())
+		      (set! current-event '())
+		      (set-cdr! event-drul '()))))
+       (if (ly:stream-event? (car event-drul))
+	   (begin (set! current-event (car event-drul))
+		  (set! span (ly:engraver-make-grob trans 'SchemeTextSpanner current-event))
+		  (set-axis! span Y)
+		  (set-car! event-drul '()))))
+      ((stop-translation-timestep trans)
+       (if (and (ly:spanner? span)
+		(null? (ly:spanner-bound span LEFT)))
+	   (set! (ly:spanner-bound span LEFT)
+		 (ly:context-property context 'currentMusicalColumn)))
+       (if (ly:spanner? finished)
+	   (begin
+	     (if (null? (ly:spanner-bound finished RIGHT))
+		 (set! (ly:spanner-bound finished RIGHT)
+		       (ly:context-property context 'currentMusicalColumn)))
+	     (set! finished '())
+	     (set! event-drul '(() . ())))))
+      ((finalize trans)
+       (if (ly:spanner? finished)
+	   (begin
+	     (if (null? (ly:spanner-bound finished RIGHT))
+		 (set! (ly:spanner-bound finished RIGHT)
+		       (ly:context-property context 'currentMusicalColumn)))
+	     (set! finished '())))
+       (if (ly:spanner? span)
+	   (begin
+	     (ly:warning "I think there's a dangling scheme text spanner :-(")
+	     (ly:grob-suicide! span)
+	     (set! span '())))))))
 
 schemeTextSpannerStart =
 #(make-span-event 'SchemeTextSpanEvent START)
