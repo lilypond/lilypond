@@ -349,7 +349,7 @@ example orchestral scores.
 
 If set to false, systems will spread vertically down the last
 page.  Pieces that amply fill two pages or more should have this
-set to true.  It also affects the last page of book parts, i.e.
+set to false.  It also affects the last page of book parts, i.e.
 parts of a book created with @code{\bookpart} blocks.
 
 @end table
