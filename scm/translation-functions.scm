@@ -658,3 +658,39 @@ only ~a fret labels provided")
   (= 0 (modulo count n)))
 
 (define-public (all-repeat-counts-visible count context) #t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; make-engraver helper macro
+
+(defmacro-public make-engraver forms
+  "Helper macro for creating Scheme engravers.
+
+The usual form for an engraver is an association list (or alist)
+mapping symbols to either anonymous functions or to another such
+alist.
+
+@code{make-engraver} accepts forms where the first element is either
+an argument list starting with the respective symbol, followed by the
+function body (comparable to the way @code{define} is used for
+defining functions), or a single symbol followed by subordinate forms
+in the same manner.  You can also just make an alist pair
+literally (the @samp{car} is quoted automatically) as long as the
+unevaluated @samp{cdr} is not a pair.  This is useful if you already
+have defined your engraver functions separately.
+
+Symbols mapping to a function would be @code{initialize},
+@code{start-translation-timestep}, @code{process-music},
+@code{process-acknowledged}, @code{stop-translation-timestep}, and
+@code{finalize}.  Symbols mapping to another alist specified in the
+same manner are @code{listeners} with the subordinate symbols being
+event classes, and @code{acknowledgers} and @code{end-acknowledgers}
+with the subordinate symbols being interfaces."
+  (let loop ((forms forms))
+    (if (pair? forms)
+	`(list
+	  ,@(map (lambda (form)
+		   (if (pair? (car form))
+		       `(cons ',(caar form) (lambda ,(cdar form) ,@(cdr form)))
+		       `(cons ',(car form) ,(loop (cdr form)))))
+		 forms))
+	forms)))
