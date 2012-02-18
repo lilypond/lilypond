@@ -1,9 +1,10 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fe4f33aca60ea7c58bc9196eac43b4acca1d4437
+    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  See TRANSLATION for details.
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.14.0"
@@ -248,10 +249,10 @@ g1 |
 
 @code{measureLength} プロパティについての説明は @ref{時間管理} にあります。
 
-@cindex repeats with ties (タイを持つ繰り返し)
-@cindex alternative endings with ties (タイを持つ繰り返しの入れ替え部分)
-@cindex ties in repeats (繰り返しの中にあるタイ)
-@cindex ties in alternative endings (繰り返しの入れ替え部分の中にあるタイ)
+@cindex repeats, with ties (タイを持つ繰り返し)
+@cindex alternative endings, with ties (タイを持つ繰り返しの入れ替え部分)
+@cindex ties, in repeats (繰り返しの中にあるタイ)
+@cindex ties, alternative endings (繰り返しの入れ替え部分でのタイ)
 @funindex \repeatTie
 
 繰り返しの 2 回目の部分にタイを付け加えることもできます:
@@ -276,6 +277,12 @@ c1
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-double-repeat-default-for-volte.ly}
 
+@cindex repeats, bar numbers letters (繰り返しでの小節番号)
+@cindex repeats, alternative bar numbers (入れ替え部分での小節番号)
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{alternative-bar-numbering.ly}
+
 @seealso
 音楽用語集:
 @rglos{repeat},
@@ -294,7 +301,6 @@ c1
 @rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}
-
 
 @knownissues
 
@@ -459,14 +465,13 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @translationof Written-out repeats
 
 @cindex written-out repeats (繰り返しを描き出す)
-@cindex repetitious music (反復の多い音楽)
 @cindex repeats, written-out (繰り返しを描き出す)
-@cindex repeat, unfold (繰り返しを展開する)
-@cindex unfold music (音楽を展開する)
+@cindex repeats, unfold (繰り返しを展開する)
+@cindex repeats, alternative (繰り返しの入れ替え)
 @cindex unfold repeat (繰り返しを展開する)
-@cindex unfold repeat with alternate endings (入れ替え部分のある繰り返しを展開する)
-@cindex unfold music with alternate endings (入れ替え部分のある音楽を展開する)
-@cindex alternate ending in written-out repeats (描き出される繰り返しの中にある入れ替え部分)
+@cindex unfold repeat, with alternate endings (入れ替え部分のある繰り返しを展開する)
+@cindex alternate repeats (入れ替えのある繰り返し)
+@cindex alternate endings, repeats (繰り返しを入れ替えて終わる)
 @funindex unfold
 
 @code{unfold} コマンドを用いることにより、@c
@@ -485,6 +490,20 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 c1
 @end lilypond
 
+いくつかのケースでは、特に @code{\relative} コンテキストの中では、@c
+@code{\repeat unfold} 関数は音楽表記を複数回記述したものと同じにはなりません。@c
+例えば、
+
+@example
+\repeat unfold 2 @{ a'4 b c @}
+@end example
+
+これは以下と等価ではありません。
+
+@example
+a'4 b c | a'4 b c
+@end example
+
 入れ替え部分がある繰り返しを展開することもできます。@c
 
 @lilypond[verbatim,quote,relative=2]
@@ -497,7 +516,8 @@ c1
 @end lilypond
 
 繰り返し回数が入れ替え部分の数よりも多い場合、@c
-最初の入れ替え部分が複数回使用して、入れ替え数と繰り返し回数を合わせます。
+最初の入れ替え部分だけが適用されます。@c
+残りの入れ替えは無視されて譜刻されません。
 
 @lilypond[verbatim,quote,relative=2]
 \repeat unfold 4 { c4 d e f }
@@ -535,6 +555,9 @@ c1
 c1
 @end lilypond
 
+和音構造は和音の繰り返し記号 @code{q} で繰り返すことができます。@c
+@ref{和音の繰り返し} を参照してください。
+
 @warning{@code{Voice} コンテキストを明示的にインスタンス化せずに@c
 @code{@bs{}relative} を @code{@bs{}repeat} の中に配置すると、@c
 余計な譜が表示されます。@c
@@ -542,6 +565,9 @@ c1
 
 
 @seealso
+記譜法リファレンス:
+@ref{和音の繰り返し}
+
 コード断片集:
 @rlsr{Repeats}
 
@@ -591,6 +617,10 @@ c1
 1 小節よりも短いパターンはスラッシュで置き換えられます。
 
 @lilypond[verbatim,quote,relative=2]
+\repeat percent 4 { c128 d e f }
+\repeat percent 4 { c64 d e f }
+\repeat percent 5 { c32 d e f }
+\repeat percent 4 { c16 d e f }
 \repeat percent 4 { c8 d }
 \repeat percent 4 { c4 }
 \repeat percent 2 { c2 }
@@ -599,12 +629,21 @@ c1
 1 または 2 小節のパターンはパーセントのような記号で置き換えられます。
 
 @lilypond[verbatim,quote,relative=2]
-\repeat percent 3 { c4 d e f }
-\repeat percent 4 { c2 d }
+\repeat percent 2 { c4 d e f }
+\repeat percent 2 { c2 d }
+\repeat percent 2 { c1 }
 @end lilypond
 
 @lilypond[verbatim,quote,relative=2]
 \repeat percent 3 { c4 d e f | c2 g' }
+@end lilypond
+
+1 小節よりも短いけれども異なる演奏時間が含まれるパターンは@c
+2 重線のパーセント記号を用います。
+
+@lilypond[verbatim,quote,relative=2]
+\repeat percent 4 { c8. <d f>16 }
+\repeat percent 2 { \times 2/3 { r8 c d } e4 }
 @end lilypond
 
 @snippets
@@ -618,7 +657,6 @@ c1
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {isolated-percent-repeats.ly}
 
-
 @seealso
 音楽用語集:
 @rglos{percent repeat},
@@ -629,23 +667,17 @@ c1
 
 内部リファレンス:
 @rinternals{RepeatSlash},
+@rinternals{RepeatSlashEvent},
+@rinternals{DoubleRepeatSlash},
 @rinternals{PercentRepeat},
+@rinternals{PercentRepeatCounter},
+@rinternals{PercentRepeatedMusic},
+@rinternals{Percent_repeat_engraver},
+@rinternals{DoublePercentEvent},
 @rinternals{DoublePercentRepeat},
 @rinternals{DoublePercentRepeatCounter},
-@rinternals{PercentRepeatCounter},
-@rinternals{PercentRepeatedMusic}
-
-
-@knownissues
-
-パーセント繰り返しは 3 種類だけサポートされます:
-単一の拍を表す単線のスラッシュ (繰り返される音符の演奏時間とは関係ありません)、@c
-1 小節を表す単線の付点スラッシュ、@c
-それに 2 小節を表す 2 重線の付点スラッシュ
--- これは小節線の上に譜刻されます -- です。@c
-16 分音符やそれよりも短い音符から成る単一拍の繰り返しを表す多重線スラッシュや、@c
-さまざまな演奏時間の音符から成る単一拍の繰り返しを表す
-2 重線の付点スラッシュはサポートされません。
+@rinternals{Double_percent_repeat_engraver},
+@rinternals{Slash_repeat_engraver}
 
 
 @node トレモロの繰り返し
