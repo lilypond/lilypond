@@ -2147,17 +2147,31 @@ if @code{beamExceptions} is not reset.
 \repeat unfold 8 {c8}
 @end lilypond
 
-In a similar fashion, eighth notes in 3/4 time are beamed as a full
-measure by default.  To beam eighth notes in 3/4 time on the beat,
-reset @code{beamExceptions}.
+In traditional engraving, eighth notes can have special beaming rules.
+A measure consisting of only eighth notes can be beamed in one.  This rule is
+controlled by the context property @code{beamWholeMeasure}:
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
-% by default we beam in (3) due to beamExceptions
-\repeat unfold 6 {a8} |
-% This will beam (1 1 1) due to beatLength
-\set Timing.beamExceptions = #'()
-\repeat unfold 6 {a8}
+% By default we beam in one
+\repeat unfold 6 { a8 }
+% We can avoid beaming in one
+\set Timing.beamWholeMeasure = ##f
+\repeat unfold 6 { a8 }
+@end lilypond
+
+In some engraving from the Romantic and Classical periods,
+a half-measure of eighth notes can be beamed
+together even though this violates the general rule (see Gould, p. 153).
+This behavior is controlled by the context property @code{beamHalfMeasure}:
+
+@lilypond[quote,verbatim,relative=2]
+\time 3/4
+% By default we avoid half-measure beams
+r4. a8 a a |
+% We can allow half-measure beams
+\set Timing.beamHalfMeasure = ##t
+r4. a8 a a |
 @end lilypond
 
 @i{@strong{How automatic beaming works}}
