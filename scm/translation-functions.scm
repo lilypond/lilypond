@@ -686,7 +686,7 @@ same manner are @code{listeners} with the subordinate symbols being
 event classes, and @code{acknowledgers} and @code{end-acknowledgers}
 with the subordinate symbols being interfaces."
   (let loop ((forms forms))
-    (if (pair? forms)
+    (if (cheap-list? forms)
 	`(list
 	  ,@(map (lambda (form)
 		   (if (pair? (car form))
