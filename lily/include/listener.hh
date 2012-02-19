@@ -67,6 +67,7 @@ typedef struct
 {
   void (*listen_callback) (void *, SCM);
   void (*mark_callback) (void *);
+  bool (*equal_callback) (void *, void *);
 } Listener_function_table;
 
 class Listener
@@ -81,7 +82,9 @@ public:
   void listen (SCM ev) const;
 
   bool operator == (Listener const &other) const
-  { return target_ == other.target_ && type_ == other.type_; }
+  { return type_ == other.type_
+      && (*type_->equal_callback)((void *) target_, (void *) other.target_ );
+  }
 
   DECLARE_SIMPLE_SMOBS (Listener);
 };
@@ -100,12 +103,18 @@ cl :: method ## _mark (void *self)                      \
   cl *s = (cl *)self;                                   \
   scm_gc_mark (s->self_scm ());                         \
 }                                                       \
+bool                                                    \
+cl :: method ## _is_equal (void *a, void *b)            \
+{                                                       \
+  return a == b;                                        \
+}                                                       \
 Listener                                                \
 cl :: method ## _listener () const                      \
 {                                                       \
   static Listener_function_table callbacks;             \
   callbacks.listen_callback = &cl::method ## _callback; \
   callbacks.mark_callback = &cl::method ## _mark;       \
+  callbacks.equal_callback = &cl::method ## _is_equal;  \
   return Listener (this, &callbacks);                   \
 }
 
@@ -115,6 +124,7 @@ cl :: method ## _listener () const                      \
   inline void name (SCM);                               \
   static void name ## _callback (void *self, SCM ev);   \
   static void name ## _mark (void *self);               \
+  static bool name ## _is_equal (void *a, void *b);	\
   Listener name ## _listener () const
 
 #endif /* LISTENER_HH */
