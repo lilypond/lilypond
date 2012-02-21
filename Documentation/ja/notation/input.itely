@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 15b6acf13d25ad60cc07d1f7871aa8ebf15fc4c5
+    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1096,7 +1096,7 @@ scoreTitleMarkup = \markup @{ \column @{
 
 自動脚注は 3 つの引数を取ります:
 脚注を付ける @var{レイアウト オブジェクト}、@c
-脚注の位置 @var{(x . y)}、@c
+脚注の位置 @samp{(x . y)}、@c
 それにページ下部の脚注に表示される @code{\markup} です。
 
 コマンド @code{\footnote} は脚注を付けるグラフィカル オブジェクトの
@@ -1190,7 +1190,7 @@ scoreTitleMarkup = \markup @{ \column @{
 
 手動脚注は 4 つの引数を取ります:
 脚注を付ける @var{レイアウト オブジェクト}、@c
-脚注の位置 @var{(x . y)}、@c
+脚注の位置 @samp{(x . y)}、@c
 それに 2 つの @code{\markup} コマンドです。@c
 2 つの @code{\markup} コマンドのうち、@c
 最初のコマンドは音符やグラフィカル オブジェクトに付ける脚注の印で、@c

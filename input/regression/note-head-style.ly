@@ -98,6 +98,13 @@ pattern = <<
   \override Staff.NoteHead  #'style = #'slash
   s1*0^\markup { "slash" }
   \pattern
+
+  \break
+
+  \override Staff.NoteHead  #'style = #'kievan
+  s1*0^\markup { "kievan" }
+  \pattern
+
 }
 
 

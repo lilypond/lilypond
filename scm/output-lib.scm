@@ -159,10 +159,16 @@
         (if (interval-empty? (interval-intersection stem_ph my_ph)) #f (coord-translate stem_ph dist)))
       #f))
 
+;; FIXME: NEED TO FIND A BETTER WAY TO HANDLE KIEVAN NOTATION
 (define-public (note-head::calc-duration-log grob)
-  (min 2
-       (ly:duration-log
-	(ly:event-property (event-cause grob) 'duration))))
+  (let ((style (ly:grob-property grob 'style)))
+    (if (and (symbol? style) (string-match "kievan*" (symbol->string style)))
+      (min 3
+        (ly:duration-log
+	(ly:event-property (event-cause grob) 'duration)))
+      (min 2
+	(ly:duration-log
+	(ly:event-property (event-cause grob) 'duration))))))
 
 (define-public (dots::calc-dot-count grob)
   (ly:duration-dot-count
@@ -226,6 +232,8 @@ and duration-log @var{log}."
 	 (string-append (number->string log) "petrucci")))
     ((neomensural)
      (string-append (number->string log) (symbol->string style)))
+    ((kievan)
+     (string-append (number->string log) "kievan"))
     (else
      (if (string-match "vaticana*|hufnagel*|medicaea*" (symbol->string style))
 	 (symbol->string style)
@@ -233,9 +241,10 @@ and duration-log @var{log}."
 			(symbol->string style))))))
 
 (define-public (note-head::calc-glyph-name grob)
-  (let ((style (ly:grob-property grob 'style))
-	(log (min 2 (ly:grob-property grob 'duration-log))))
-
+  (let* ((style (ly:grob-property grob 'style))
+	 (log (if (string-match "kievan*" (symbol->string style))
+		  (min 3 (ly:grob-property grob 'duration-log))
+		  (min 2 (ly:grob-property grob 'duration-log)))))
     (select-head-glyph style log)))
 
 (define-public (note-head::brew-ez-stencil grob)
@@ -388,7 +397,10 @@ and duration-log @var{log}."
     ("S|:" . ("S" . "|:"))
     (".S|:" . ("|" . "S|:"))
     (":|S|:" . (":|" . "S|:"))
-    (":|S.|:" . (":|S" . "|:"))))
+    (":|S.|:" . (":|S" . "|:"))
+
+    ;; ancient bar lines
+    ("kievan" . ("kievan" . ""))))
 
 (define-public (bar-line::calc-glyph-name grob)
   (let* ((glyph (ly:grob-property grob 'glyph))
@@ -678,6 +690,9 @@ and duration-log @var{log}."
     (0 . "accidentals.vaticana0")
     (1/2 . "accidentals.mensural1")))
 
+(define-public alteration-kievan-glyph-name-alist
+ '((-1/2 . "accidentals.kievanM1")
+   (1/2 . "accidentals.kievan1")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; * Pitch Trill Heads

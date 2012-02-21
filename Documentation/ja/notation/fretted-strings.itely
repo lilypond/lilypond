@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 3ef893f1fe182e9f6cf5841cbff0706789bd3361
+    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -253,32 +253,38 @@ symbols = {
 >>
 @end lilypond
 
-@funindex \tabChordRepetition
+@funindex \tabChordRepeats
+@funindex \chordRepeats
+@cindex Chord, repetition (和音の繰り返し)
+@cindex repetition, using @code{q} (@code{q} を用いた繰り返し)
 
 和音繰り返し記号 @code{q} を使って和音構造を繰り返すことができます。@c
-この機能をタブ譜で用いるには、@code{\tabChordRepetition} を使います。@c
-これは和音構造の中で明示的に指定された弦情報を保存するので、@c
-繰り返される和音は同じタブ譜表示となります。
+この機能をタブ譜で用いる場合、弦の削除や運指番号等のイベントがやっかいです。@c
+そのため、@ref{和音の繰り返し} を用いたタブ譜の音楽表記で@c
+以下を明示的に実行したいと思うでしょう:
+@example
+\chordRepeats #'(string-number-event fingering-event)
+@end example
+このコマンドは共通するものなので、@c
+@code{\tabChordRepeats} でも用いることができます。
 
 @lilypond[quote,verbatim]
 \tabChordRepetition
 
 guitar = \relative c' {
-  r8 <gis\4 cis\3 b\2>~ q4 q8~ q q4
+  r8 <gis-6 cis-6 b-0>~ q4 q8~ q q4
 }
 
 \new StaffGroup <<
   \new Staff {
     \clef "treble_8"
-    \override Voice.StringNumber #'transparent = ##t
     \guitar
   }
   \new TabStaff {
-    \guitar
+    \tabChordRepeats \guitar
   }
 >>
 @end lilypond
-
 
 デフォルトでは、改行されるタイには括弧が付けられます。@c
 繰り返しの差し替え部分でも同様です。
@@ -371,9 +377,9 @@ ties = \relative c' {
 
 @lilypond[verbatim,quote]
 firstHarmonic = {
-  <d'\4\harmonic>4
-  <g'\3\harmonic>4
-  <b'\2\harmonic>2
+  d'4\4\harmonic
+  g'4\3\harmonic
+  b'2\2\harmonic
 }
 \score {
   <<
@@ -383,8 +389,8 @@ firstHarmonic = {
 }
 @end lilypond
 
-コマンド @code{\harmonic} は常に和音構造の中に配置しなければならない@c
-ということに注意してください。@c
+コマンド @code{\harmonic} は常に和音ではなく単一の音符
+(和音の中にあることもあり得ます) にくっつける必要があります。@c
 12 フレットの開放弦ハーモニクス (ナチュラル ハーモニクス) でのみ@c
 意味をなします。@c
 他の全てのハーモニクスは LilyPond によって算出されます。@c
@@ -424,7 +430,6 @@ ratioHarmonics = {
 }
 @end lilypond
 
-
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -445,12 +450,14 @@ ratioHarmonics = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
 
-
 @seealso
 記譜法リファレンス:
-@ref{符幹},
-@ref{ハーモニクス},
+@ref{和音の繰り返し},
 @ref{グリッサンド}
+@ref{ハーモニクス},
+@ref{符幹},
+@ref{繰り返しを描き出す}
+
 
 コード断片集:
 @rlsr{Fretted strings}
@@ -460,7 +467,6 @@ ratioHarmonics = {
 @rinternals{TabStaff},
 @rinternals{TabVoice},
 @rinternals{Beam}
-
 
 @knownissues
 
@@ -551,7 +557,7 @@ LilyPond は、あらかじめ定義されたチューニングに対して、@c
 @cindex custom string tunings (カスタム弦チューニング)
 
 望みに応じて任意の弦チューニングを作成することができます。@c
-@code{\stringTuning} 関数を用いて、弦チューニングを定義し、@c
+@code{\stringTuning} 関数を用いて弦チューニングを定義し、@c
 カレント コンテキストの @code{stringTunings} としてセットすることができます。
 
 @code{\stringTuning} の引数は、@c

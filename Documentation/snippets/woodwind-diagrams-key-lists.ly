@@ -50,20 +50,25 @@ sous forme de musique.
 The snippet below produces a list of all possible keys and key
 settings for woodwind diagrams as defined in
 @file{scm/define-woodwind-diagrams.scm}.  The list will be displayed
-on the console and in the log file, but not in the music.
+in the log file, but not in the music.  If output to the console
+is wanted, omit the @code{(current-error-port)} from the commands.
 "
   doctitle = "Woodwind diagrams key lists"
 } % begin verbatim
 
 
-#(print-keys-verbose 'piccolo)
-#(print-keys-verbose 'flute)
-#(print-keys-verbose 'flute-b-extension)
-#(print-keys-verbose 'oboe)
-#(print-keys-verbose 'clarinet)
-#(print-keys-verbose 'bass-clarinet)
-#(print-keys-verbose 'low-bass-clarinet)
-#(print-keys-verbose 'saxophone)
-#(print-keys-verbose 'baritone-saxophone)
-#(print-keys-verbose 'bassoon)
-#(print-keys-verbose 'contrabassoon)
+#(print-keys-verbose 'piccolo (current-error-port))
+#(print-keys-verbose 'flute (current-error-port))
+#(print-keys-verbose 'flute-b-extension (current-error-port))
+#(print-keys-verbose 'tin-whistle (current-error-port))
+#(print-keys-verbose 'oboe (current-error-port))
+#(print-keys-verbose 'clarinet (current-error-port))
+#(print-keys-verbose 'bass-clarinet (current-error-port))
+#(print-keys-verbose 'low-bass-clarinet (current-error-port))
+#(print-keys-verbose 'saxophone (current-error-port))
+#(print-keys-verbose 'soprano-saxophone (current-error-port))
+#(print-keys-verbose 'alto-saxophone (current-error-port))
+#(print-keys-verbose 'tenor-saxophone (current-error-port))
+#(print-keys-verbose 'baritone-saxophone (current-error-port))
+#(print-keys-verbose 'bassoon (current-error-port))
+#(print-keys-verbose 'contrabassoon (current-error-port))

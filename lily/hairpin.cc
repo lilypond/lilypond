@@ -165,9 +165,9 @@ Hairpin::print (SCM smob)
   do
     {
       Item *b = bounds[d];
-      Interval e = (Axis_group_interface::has_interface (b)
-                    ? Axis_group_interface::generic_bound_extent (b, common, X_AXIS)
-                    : robust_relative_extent (b, common, X_AXIS));
+      Interval e = (Paper_column::has_interface (b) && b->break_status_dir ())
+                   ? Axis_group_interface::generic_bound_extent (b, common, X_AXIS)
+                   : robust_relative_extent (b, common, X_AXIS);
 
       x_points[d] = b->relative_coordinate (common, X_AXIS);
       if (broken [d])

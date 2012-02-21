@@ -411,15 +411,11 @@ c1^\markup {
 }
 @end lilypond
 
-楽器に対して使用できるすべてのキーと設定のリストを@c
-コンソールやログ ファイルに表示させることができますが、@c
-楽譜出力には表示されません:
-
-@lilypond[verbatim,quote]
-
-#(print-keys-verbose 'flute)
-
-@end lilypond
+楽器に対して使用できるすべてのキーと設定のリストを表示させることができます。@c
+コンソールに表示させるには @code{#(print-keys-verbose 'flute)} を用い、@c
+ログ ファイルに表示させるには
+@code{#(print-keys-verbose 'flute (current-error-port))} を用います。@c
+楽譜出力に表示させることはできません。
 
 @file{scm/define-woodwind-diagrams.scm} と
 @file{scm/display-woodwind-diagrams.scm} のパターンに従って、@c

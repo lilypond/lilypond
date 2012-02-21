@@ -17,6 +17,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "axis-group-interface.hh"
 #include "text-interface.hh"
 #include "spanner.hh"
 #include "font-interface.hh"
@@ -114,7 +115,7 @@ Ottava_bracket::print (SCM smob)
 
       if (broken[d])
         {
-          span_points[d] = b->extent (common, X_AXIS)[RIGHT];
+          span_points[d] = Axis_group_interface::generic_bound_extent (b, common, X_AXIS)[RIGHT];
           shorten[d] = 0.;
         }
 

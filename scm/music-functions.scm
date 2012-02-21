@@ -62,8 +62,9 @@ First it recurses over the children, then the function is applied to
 @var{music}."
   (let ((es (ly:music-property music 'elements))
 	(e (ly:music-property music 'element)))
-    (set! (ly:music-property music 'elements)
-	  (map (lambda (y) (music-map function y)) es))
+    (if (pair? es)
+	(set! (ly:music-property music 'elements)
+	      (map (lambda (y) (music-map function y)) es)))
     (if (ly:music? e)
 	(set! (ly:music-property music 'element)
 	      (music-map function  e)))
@@ -311,8 +312,7 @@ through MUSIC."
 calculate the number of slashes based on the durations.  Returns @code{0}
 if durations in @var{music} vary, allowing slash beats and double-percent
 beats to be distinguished."
-  (let* ((durs (map (lambda (elt)
-		      (duration-of-note elt))
+  (let* ((durs (map duration-of-note
 		    (extract-named-music music '(EventChord NoteEvent
 						 RestEvent SkipEvent))))
 	 (first-dur (car durs)))
@@ -426,8 +426,8 @@ in @var{grob}."
 (define-safe-public (make-voice-props-set n)
   (make-sequential-music
    (append
-    (map (lambda (x) (make-grob-property-set x 'direction
-					     (if (odd? n) -1 1)))
+    (map (lambda (x) (make-grob-property-override x 'direction
+						  (if (odd? n) -1 1)))
 	 direction-polyphonic-grobs)
     (list
      (make-property-set 'graceSettings
@@ -447,8 +447,8 @@ in @var{grob}."
 			  (Voice Fingering font-size -8)
 			  (Voice StringNumber font-size -8)))
 
-     (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))
-     (make-grob-property-set 'MultiMeasureRest 'staff-position (if (odd? n) -4 4))))))
+     (make-grob-property-override 'NoteColumn 'horizontal-shift (quotient n 2))
+     (make-grob-property-override 'MultiMeasureRest 'staff-position (if (odd? n) -4 4))))))
 
 (define-safe-public (make-voice-props-revert)
   (make-sequential-music
@@ -1594,35 +1594,90 @@ Entries that conform with the current key signature are not invalidated."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define-public (map-some-music map? music)
+  "Walk through @var{music}, transform all elements calling @var{map?}
+and only recurse if this returns @code{#f}."
+  (let loop ((music music))
+    (or (map? music)
+	(let ((elt (ly:music-property music 'element))
+	      (elts (ly:music-property music 'elements))
+	      (arts (ly:music-property music 'articulations)))
+	  (if (ly:music? elt)
+	      (set! (ly:music-property music 'element)
+		    (loop elt)))
+	  (if (pair? elts)
+	      (set! (ly:music-property music 'elements)
+		    (map loop elts)))
+	  (if (pair? arts)
+	      (set! (ly:music-property music 'articulations)
+		    (map loop arts)))
+	  music))))
+
+(define-public (extract-music music pred?)
+  "Return a flat list of all music matching @var{pred?} inside of
+@var{music}, not recursing into matches themselves."
+  (reverse!
+   (let loop ((music music) (res '()))
+     (if (pred? music)
+	 (cons music res)
+	 (fold loop
+	       (fold loop
+		     (let ((elt (ly:music-property music 'element)))
+		       (if (null? elt)
+			   res
+			   (loop elt res)))
+		     (ly:music-property music 'elements))
+	       (ly:music-property music 'articulations))))))
+
 (define-public (extract-named-music music music-name)
-  "Return a flat list of all music named @var{music-name} from @var{music}."
-  (if (not (list? music-name))
-      (set! music-name (list music-name)))
-  (if (ly:music? music)
-      (if (memq (ly:music-property music 'name) music-name)
-	  (list music)
-	  (let ((arts (ly:music-property music 'articulations)))
-	    (append-map!
-	     (lambda (x) (extract-named-music x music-name))
-	     (if (pair? arts)
-		 arts
-		 (cons (ly:music-property music 'element)
-		       (ly:music-property music 'elements))))))
-      '()))
+  "Return a flat list of all music named @var{music-name} (either a
+single event symbol or a list of alternatives) inside of @var{music},
+not recursing into matches themselves."
+  (extract-music
+   music
+   (if (cheap-list? music-name)
+       (lambda (m) (memq (ly:music-property m 'name) music-name))
+       (lambda (m) (eq? (ly:music-property m 'name) music-name)))))
 
 (define-public (extract-typed-music music type)
-  "Return a flat list of all music with @var{type} from @var{music}."
-  (if (ly:music? music)
-      (if (music-is-of-type? music type)
-	  (list music)
-	  (let ((arts (ly:music-property music 'articulations)))
-	    (append-map!
-	     (lambda (x) (extract-typed-music x type))
-	     (if (pair? arts)
-		 arts
-		 (cons (ly:music-property music 'element)
-		       (ly:music-property music 'elements))))))
-      '()))
+  "Return a flat list of all music with @var{type} (either a single
+type symbol or a list of alternatives) inside of @var{music}, not
+recursing into matches themselves."
+  (extract-music
+   music
+   (if (cheap-list? type)
+       (lambda (m)
+	 (any (lambda (t) (music-is-of-type? m t)) type))
+       (lambda (m) (music-is-of-type? m type)))))
+
+(define*-public (event-chord-wrap! music #:optional parser)
+  "Wrap isolated rhythmic events and non-postevent events in
+@var{music} inside of an @code{EventChord}.  If the optional
+@var{parser} argument is given, chord repeats @samp{q} are expanded
+using the default settings.  Otherwise, you need to cater for them
+yourself."
+  (map-some-music
+   (lambda (m)
+     (cond ((music-is-of-type? m 'event-chord)
+	    (if (pair? (ly:music-property m 'articulations))
+		(begin
+		  (set! (ly:music-property m 'elements)
+			(append (ly:music-property m 'elements)
+				(ly:music-property m 'articulations)))
+		  (set! (ly:music-property m 'articulations) '())))
+	    m)
+	   ((music-is-of-type? m 'rhythmic-event)
+	    (let ((arts (ly:music-property m 'articulations)))
+	      (if (pair? arts)
+		  (set! (ly:music-property m 'articulations) '()))
+	      (make-event-chord (cons m arts))))
+	   (else #f)))
+   (if parser
+       (expand-repeat-chords!
+	(cons 'rhythmic-event
+	      (ly:parser-lookup parser '$chord-repeat-events))
+	music)
+       music)))
 
 (define-public (event-chord-notes event-chord)
   "Return a list of all notes from @var{event-chord}."

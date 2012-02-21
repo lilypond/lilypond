@@ -64,7 +64,8 @@ internal_print (Grob *me, string *font_char)
   if (style == "mensural"
       || style == "neomensural"
       || style == "petrucci"
-      || style == "baroque")
+      || style == "baroque"
+      || style == "kievan")
     {
       if (!Staff_symbol_referencer::on_line
           (me,

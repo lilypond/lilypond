@@ -7,6 +7,7 @@ miscellaneous development tasks.
 
 @menu
 * Introduction to issues::
+* Bug Squad overview::
 * Bug Squad setup::
 * Bug Squad checklists::
 * Issue classification::
@@ -38,6 +39,35 @@ that a developer's fix actually resolves the problem.
 New volunteers for the Bug Squad should contact the
 @ref{Meisters, Bug Meister}.
 
+@node Bug Squad overview
+@section Bug Squad overview
+
+The Bug Squad are volunteers who progress issue tracking using the
+Google Issue tracker at
+
+@example
+@uref{http://code.google.com/p/lilypond/issues/list}
+@end example
+
+Bug Squad members have 2 primary responsiblities:
+
+@enumerate
+
+@item
+Monitoring the LilyPond Bugs mailing list and adding to the
+tracker any new issues reported there.
+
+@item
+Verifying issues that are claimed fixed by a developer, to ensure
+that the fix works, and is actually in the code base.
+
+@end enumerate
+
+It's also part of the Bug Squad's responsibility to check that
+the Regression Tests don't show up any problems in the latest
+release.  The Bug Meister currently does this.
+
+All of this is explained in more detail in the following sections.
 
 @node Bug Squad setup
 @section Bug Squad setup
@@ -158,10 +188,10 @@ the currently-active Bug Squad member(s) can handle the message.
 @example
 Monday:    Ralph
 Tuesday:   Eluze
-Wednesday: Brett
+Wednesday: Marek
 Thursday:  Colin Hall (disambiguation here)
 Friday:    Marek
-Saturday:  Brett
+Saturday:  James
 Sunday:    Phil
 @end example
 
@@ -312,19 +342,28 @@ After @strong{every release} (both stable and unstable):
 @itemize
 
 @item
-Issues to verify: try to reproduce the bug with the latest
-officially released version (not one you've built yourself from
-source); if the bug is no longer there, mark the
-issue @qq{Verified} (i.e. @qq{the fix has been verified to work}).
-
-The list of items to verify is here:
+Issues to verify: go to
 
 @example
 @uref{http://code.google.com/p/lilypond/issues/list?can=7}
 @end example
 
-You can also generate this list by selecting @qq{Issues to verify}
-from the drop-down list next to the search box.
+(You can also generate this list by selecting
+@qq{Issues to verify} from the drop-down list next to the search
+box.)
+
+You should see a list of Issues that have been claimed fixed by a
+developer.  If the developer has done their job properly, the
+Issue should have a tag @qq{Fixed_mm_MM_ss}, where mm is
+the major version, MM the minor version and ss the current
+release.  This will help you work out which you can verify - do
+not verify any Issues where the claimed fixed build is not yet
+released.  Work your way through these as follows:
+
+If the Issue refers to a bug, try to reproduce the bug with the latest
+officially released version (not one you've built yourself from
+source); if the bug is no longer there, mark the
+issue @qq{Verified} (i.e. @qq{the fix has been verified to work}).
 
 Quite a few of these will be issues tracking patches.  @strong{You
 do not have to prove these patches work - simply that they have
@@ -345,13 +384,25 @@ finding these is to enter the committish at the following address:
 @uref{http://philholmes.net/lilypond/git/}
 @end example
 
+The Issue tracker also requires that any issues labelled as
+@qq{Duplicate} are also verified.  Check that the linked issue is
+a duplicate and verify the issue.
+
 A few (approximately 10%) of the fixed issues relate to the
 build system or fundamental architecture changes; there is no way
 for you to verify these.  Leave those issues alone; somebody else
 will handle them.
 
 @item
-Regression test comparison: if anything has changed suspiciously,
+The official regression test comparison is online at:
+
+@c NOTE: leave this here.  In this case, it's worth duplicating
+@c       the link.  -gp
+@example
+@uref{http://lilypond.org/test/}
+@end example
+
+If anything has changed suspiciously,
 ask if it was deliberate.  If the text output from LilyPond (the
 logfile) changes, the differences will be displayed with a +
 before text added to the logfile and - before any text removed
@@ -361,14 +412,6 @@ There is one test designed to produce output every time the
 regtests are created. @code{test-output-distance.ly} creates
 randomly spaced notes and will always have different output if the
 regtest checker is working.
-
-The official comparison is online, at:
-
-@c NOTE: leave this here.  In this case, it's worth duplicating
-@c       the link.  -gp
-@example
-@uref{http://lilypond.org/test/}
-@end example
 
 More information is available from in
 @ref{Precompiled regression tests}.
@@ -481,8 +524,9 @@ The issue's Type should be the first relevant item in this list.
 
 @item
 Type-Critical: normally a regression
-against a previous stable version or a regression against a fix
-developed for this version. This does not apply where the
+against the current stable version or the previous stable version.
+Alternatively, a regression against a fix developed for the
+current version. This does not apply where the
 @qq{regression} occurred because a feature was removed
 deliberately - this is not a bug.
 
@@ -518,6 +562,10 @@ scripts.  Mostly used for convert-ly, lilypond-book, etc.
 Type-Enhancement: a feature request for the core program.  The
 distinction between enhancement and defect isn't extremely clear;
 when in doubt, mark it as enhancement.
+
+@item
+Type-Patch: tracking a patch on Rietveld.  Bug squad should not
+need to use this label.
 
 @item
 Type-Other: anything else.
@@ -576,10 +624,11 @@ be downgraded from Priority-Critical by one of the programmers.
 
 Issues that only affect specific operating systems.
 
-@subheading Patch (optional)
+@subheading Patch label (optional)
 
-Normal Bug Squad members should not add or modify Patch issues;
-leave them to the Patch Meister.
+Normal Bug Squad members should not add or modify Patch issues
+except to verify them; for all other Patch work, leave them to the
+Patch Meister.
 
 @itemize
 
@@ -606,6 +655,12 @@ If the patch is updated, the category should be changed to
 (for developers who are very confident about their patch).
 
 @item
+Patch-countdown: final call for any patch problems
+
+@item
+Patch-push: patch has passed the countdown and should be pushed.
+
+@item
 Patch-abandoned: the author has not responded to review comments
 for a few months.
 
@@ -618,11 +673,11 @@ Other labels:
 @itemize
 
 @item
-Regression: it used to work intentionally in an earlier
-stable release.  If the earlier output was accidental (i.e. we
-didn't try to stop a collision, but it just so happened that two
-grobs didn't collide), then breaking it does not count as a
-regression.
+Regression: it used to work intentionally in the current
+stable release or the previous stable release.  If the earlier
+output was accidental (i.e. we didn't try to stop a collision,
+but it just so happened that two grobs didn't collide), then
+breaking it does not count as a regression.
 
 To help decide whether the change is a regression, please adopt
 the following process:
@@ -672,7 +727,7 @@ Performance: performance issue.
 
 If you particularly want to add a label not in the list, go
 ahead, but this is not recommended, except when an issue is marked
-as fixed.  In this case it should be labeled fixed_mm_MM_ss,
+as fixed.  In this case it should be labeled Fixed_mm_MM_ss,
 where mm is major version, MM minor version and ss current
 release.
 
@@ -699,7 +754,7 @@ have been added.
 @item
 Add the issue and classify it according to the guidelines in
 @ref{Issue classification}.  In particular, the item should have
-@code{Status}, @code{Type-}, and @code{Priority-} labels.
+@code{Status} and @code{Type-} labels.
 
 Include output with the first applicable method:
 
@@ -732,7 +787,10 @@ lilypond --png bug.ly
 @item
 Images created as @file{bug.png} may be trimmed to a minimum size
 by using the @code{trimtagline.sh} script, which can be found at
+
+@smallexample
 @uref{https://raw.github.com/gperciva/lilypond-extra/master/bug-squad/trimtagline.sh}
+@end smallexample
 
 @example
 trimtagline.sh bug.ly

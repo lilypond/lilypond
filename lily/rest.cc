@@ -46,6 +46,13 @@ Rest::y_offset_callback (SCM smob)
     {
       amount =
         robust_scm2double (me->get_property ("staff-position"), 0) * 0.5 * ss;
+
+      /*
+        semibreve rests were always positioned one off
+      */
+      if (duration_log == 0)
+        amount += ss;
+
       /*
         trust the client on good positioning;
         would be tempting to adjust position of rests longer than a quarter
@@ -55,18 +62,24 @@ Rest::y_offset_callback (SCM smob)
     }
   else
     {
-      amount = 2 * ss * get_grob_direction (me);
+      int pos = 4 * get_grob_direction (me);
 
-      if (line_count % 2 == 0)
-        amount += ss / 2;
+      /*
+        make a semibreve rest hang from the next line,
+        except for a single line staff;
+        assume the next line being integer steps away
+      */
+      if (duration_log == 0 && line_count > 1)
+        ++pos;
+
+      /*
+        make sure rest is aligned to a staff line
+      */
+      while (!Staff_symbol_referencer::on_line (me, pos))
+        ++pos;
+
+      amount = ss * 0.5 * pos;
     }
-
-  /*
-    make a semibreve rest hang from the next line,
-    except for a single line staff
-  */
-  if (duration_log == 0 && line_count > 1)
-    amount += ss;
 
   return scm_from_double (amount);
 }
@@ -91,22 +104,22 @@ Rest::calc_cross_staff (SCM smob)
   make this function easily usable in C++
 */
 string
-Rest::glyph_name (Grob *me, int balltype, string style, bool try_ledgers)
+Rest::glyph_name (Grob *me, int durlog, string style, bool try_ledgers)
 {
   bool is_ledgered = false;
-  if (try_ledgers && (balltype == -1 || balltype == 0 || balltype == 1))
+  if (try_ledgers && (durlog == -1 || durlog == 0 || durlog == 1))
     {
-      Real rad = Staff_symbol_referencer::staff_radius (me) * 2.0;
-      Real pos = Staff_symbol_referencer::get_position (me);
+      int const pos = int (Staff_symbol_referencer::get_position (me));
 
       /*
-        Figure out when the rest is far enough outside the staff. This
-        could bemore generic, but hey, we understand this even after
-        dinner.
+	half rests need ledger if not lying on a staff line,
+	whole rests need ledger if not hanging from a staff line,
+	breve rests need ledger if neither lying on nor hanging from a staff line
       */
-      is_ledgered |= (balltype == -1) && (pos <= -rad - 3 || pos >= +rad + 1);
-      is_ledgered |= (balltype == 0) && (pos >= +rad + 2 || pos < -rad);
-      is_ledgered |= (balltype == 1) && (pos <= -rad - 2 || pos > +rad);
+      if (-1 <= durlog && durlog <= 1)
+        is_ledgered = !Staff_symbol_referencer::on_staff_line (me, pos)
+	  && !(durlog == -1
+	       && Staff_symbol_referencer::on_staff_line (me, pos + 2));
     }
 
   string actual_style (style.c_str ());
@@ -126,11 +139,11 @@ Rest::glyph_name (Grob *me, int balltype, string style, bool try_ledgers)
         There are no 32th/64th/128th mensural/neomensural rests.  In
         these cases, revert back to default style.
       */
-      if (balltype > 4)
+      if (durlog > 4)
         actual_style = "";
     }
 
-  if ((style == "classical") && (balltype != 2))
+  if ((style == "classical") && (durlog != 2))
     {
       /*
         classical style: revert back to default style for any rest other
@@ -148,7 +161,7 @@ Rest::glyph_name (Grob *me, int balltype, string style, bool try_ledgers)
       actual_style = "";
     }
 
-  return ("rests." + to_string (balltype) + (is_ledgered ? "o" : "")
+  return ("rests." + to_string (durlog) + (is_ledgered ? "o" : "")
           + actual_style);
 }
 
@@ -156,16 +169,16 @@ MAKE_SCHEME_CALLBACK (Rest, print, 1);
 SCM
 Rest::brew_internal_stencil (Grob *me, bool ledgered)
 {
-  SCM balltype_scm = me->get_property ("duration-log");
-  if (!scm_is_number (balltype_scm))
+  SCM durlog_scm = me->get_property ("duration-log");
+  if (!scm_is_number (durlog_scm))
     return Stencil ().smobbed_copy ();
 
-  int balltype = scm_to_int (balltype_scm);
+  int durlog = scm_to_int (durlog_scm);
 
   string style = robust_symbol2string (me->get_property ("style"), "default");
 
   Font_metric *fm = Font_interface::get_default_font (me);
-  string font_char = glyph_name (me, balltype, style, ledgered);
+  string font_char = glyph_name (me, durlog, style, ledgered);
   Stencil out = fm->find_by_name (font_char);
   if (out.is_empty ())
     me->warning (_f ("rest `%s' not found", font_char.c_str ()));
@@ -250,4 +263,3 @@ ADD_INTERFACE (Rest,
                "minimum-distance "
                "style "
               );
-

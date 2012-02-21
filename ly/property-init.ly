@@ -247,6 +247,7 @@ hideNotes = {
   \override Flag #'transparent = ##t
   \override Beam #'transparent = ##t
   \override Accidental #'transparent = ##t
+  \override Rest #'transparent = ##t
 }
 unHideNotes = {
   \revert Accidental #'transparent
@@ -256,6 +257,7 @@ unHideNotes = {
   \revert NoteHead #'transparent
   \revert NoteHead #'no-ledgers
   \revert Dots #'transparent
+  \revert Rest #'transparent
 }
 
 

@@ -426,7 +426,8 @@ Otherwise, return #f."
   ;; post_events : ( post_event | tagged_post_event )*
   ;; tagged_post_event: '-' \tag embedded_scm post_event
 
-  (let* ((elements (ly:music-property chord 'elements))
+  (let* ((elements (append (ly:music-property chord 'elements)
+			   (ly:music-property chord 'articulations)))
 	 (chord-elements (filter (lambda (m)
 				    (music-is-of-type? m 'rhythmic-event))
 				 elements))

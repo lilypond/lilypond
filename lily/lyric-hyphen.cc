@@ -19,6 +19,7 @@
 
 #include "lyric-hyphen.hh"
 
+#include "axis-group-interface.hh"
 #include "lookup.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
@@ -47,10 +48,11 @@ Lyric_hyphen::print (SCM smob)
 
   Interval span_points;
   Direction d = LEFT;
-  Drul_array<bool> broken;
   do
     {
-      Interval iv = bounds[d]->extent (common, X_AXIS);
+      Interval iv = bounds[d]->break_status_dir ()
+                    ? Axis_group_interface::generic_bound_extent (bounds[d], common, X_AXIS)
+                    : robust_relative_extent (bounds[d], common, X_AXIS);
 
       span_points[d] = iv.is_empty ()
                        ? bounds[d]->relative_coordinate (common, X_AXIS)

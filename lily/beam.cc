@@ -37,6 +37,7 @@
 
 #include "beam.hh"
 
+#include "axis-group-interface.hh"
 #include "align-interface.hh"
 #include "beam-scoring-problem.hh"
 #include "beaming-pattern.hh"
@@ -483,8 +484,8 @@ Beam::calc_beam_segments (SCM smob)
                       && me->get_bound (event_dir)->break_status_dir ())
                     {
                       current.horizontal_[event_dir]
-                        = (robust_relative_extent (me->get_bound (event_dir),
-                                                   commonx, X_AXIS)[RIGHT]
+                        = (Axis_group_interface::generic_bound_extent (me->get_bound (event_dir),
+                                                                       commonx, X_AXIS)[RIGHT]
                            + event_dir * break_overshoot[event_dir]);
                     }
                   else
