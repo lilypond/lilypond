@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
+    Translation of GIT committish: fc1ca638e0b5f66858b9b7a073ceefc1eccb3ed2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3361,6 +3361,7 @@ Aussehen des Notenbildes zu polieren.
 * Vertikale Gruppierung der grafischen Objekte („grob“s)::
 * stencils verändern::
 * Formen verändern::
+* Reine und unreine Container::
 @end menu
 
 
@@ -3786,8 +3787,6 @@ Alle Schriftzeichen in der feta-Schriftart können
 mit dem @code{\musicglyph}-Befehl erreicht werden.
 Siehe auch @ref{Die Feta-Schriftart}.
 
-
-
 @seealso
 Notationsreferenz:
 @ref{Graphische Notation innerhalb einer Textbeschriftung},
@@ -3896,6 +3895,120 @@ werden, sodass Startlinie und Richtung wie benötigt platziert werden.
 Referenz der Interna:
 @rinternals{TieColumn}.
 
+
+@cindex Scheme, reine Container
+@cindex Scheme, unreine Container
+@cindex reine Container, Scheme
+@cindex unreine Container, Scheme
+@cindex horizontale Platzierung, verändern
+
+@node Reine und unreine Container
+@subsection Reine und unreine Container
+@translationof Unpure-pure containers
+
+Unreine und reine Container (engl. unpure/pure containers) sind
+nützlich, wenn man die Berechnungen der Platzierungen für die
+@emph{Y-Achse} verändern will, insbesondere für @code{Y-offset}
+und @code{Y-extent}.  Mit diesen Containern kann die Veränderung
+durch eine Scheme-Funktion anstelle einer direkten Zahl oder eines
+Paares vorgenommen werden.
+
+Für bestimmte Grobs basiert die Eigenschaft @code{Y-extent} auf
+der @code{stencil}-Eigenschaft.  Wenn diese mit @code{\override}
+verändert werden soll, braucht man eine zusätzliche Veränderung
+von @code{Y-extent} mit einem unreinen-reinen Container.  Wenn eine
+Funktion @code{Y-offset} und/oder @code{Y-extent} verändert, wird
+angenommen, dass dadurch Zeilenumbruchsberechnungen zu früh während
+der Kompilation aufgerufen werden.  Die Funktion wird also überhaupt
+nicht ausgewertet (und gibt also normalerweise den Wert @samp{0} oder
+@samp{'(0 . 0)} zurück), wodurch sich Zusammenstöße ergeben können.
+Eine @qq{saubere} Funktion beeinflusst keine Eigeschaften, Objekte
+oder Grob-Suizide, weshalb ihre Werte, die sich auf @code{Y-axis}
+beziehen, richtig berechnet werden.
+
+Es gibt zuzeit etwa 30 Funktionen, die schon als @qq{sauber} erachtet
+werden, und unsaubere-saubere Container sind eine Möglichkeit, auch
+Funktionen, die sich nicht auf dieser Liste befinden, als @qq{sauber}
+zu markieren.  Die @qq{saubere} Funktion wird ausgewertet, @emph{bevor}
+Seitenumbruch stattfindet, sodass die horizontale Platzierung
+@qq{rechtzeitig} stattfindet.  Die @qq{unsaubere} Funktion wird dann
+@emph{nach} dem Seitenumbruch ausgewertet.
+
+@warning{Da es schwierig ist, immer sicher zu sein, welche Funktionen sich
+auf dieser Liste befinden, wird empfohlen, dass die selbsterstellten
+@qq{sauberen} Funktionen nicht die Grobs @code{Beam} oder @code{VerticalAlignment}
+einsetzen.}
+
+Ein unsauberer-sauberer Container wird wie folgend erstellt:
+
+@code{(ly:make-unpure-pure-container f0 f1)}
+
+wobei @code{f0} eine Fuktion ist, die @var{n} Arguments braucht
+(@var{n >= 1}) und deren erstes Argument immer der Grob sein muss.
+Das ist die Funktion, die das eigentliche Resultat ausgibt.  @var{f1}
+ist die Funktion, die als @qq{sauber} bezeichnet wird, und braucht @var{n + 2}
+Argumente.  Wiederum muss das erste Argument immer der Grob sein, aber
+das erste und zweite Argument sind @qq{Beginn-} und @qq{Endeargumente}.
+
+
+
+@var{start} (Beginn) und @var{end} (Ende) sind absichtlich
+nur Platzhalter, die nur für die Strecker gelten (etwa @code{Hairpin} oder
+@code{Beam}), die unterschiedliche Höhenberechnungen je nach beginnender und
+endender Note ausgeben können.
+
+Der Rest sind andere Argumente für die erste Funktion (es können auch
+Null sein, wenn @var{n = 1}).
+
+Die Ergebnisse der zweiten Funktion werden als Näherungswert des benötigten
+Wertes benutzt, welche dann von der ersten Funktion eingesetzt wird,
+um den wirklichen Wert auszugeben, mit dem dann sehr viel später im
+Layoutprozess die Platzierung justiert werden soll.
+
+@lilypond[verbatim,quote,ragged-right]
+#(define (square-line-circle-space grob)
+(let* ((pitch (ly:event-property (ly:grob-property grob 'cause) 'pitch))
+      (notename (ly:pitch-notename pitch)))
+ (if (= 0 (modulo notename 2))
+     (make-circle-stencil 0.5 0.0 #t)
+     (make-filled-box-stencil '(0 . 1.0)
+                              '(-0.5 . 0.5)))))
+
+squareLineCircleSpace = {
+  \override NoteHead #'stencil = #square-line-circle-space
+}
+
+smartSquareLineCircleSpace = {
+  \squareLineCircleSpace
+  \override NoteHead #'Y-extent =
+   #(ly:make-unpure-pure-container
+      ly:grob::stencil-height
+      (lambda (grob start end) (ly:grob::stencil-height grob)))
+}
+
+\new Voice \with { \remove "Stem_engraver" }
+\relative c'' {
+  \squareLineCircleSpace
+  cis4 ces cisis c
+  \smartSquareLineCircleSpace
+  cis4 ces cisis c
+}
+@end lilypond
+
+Im ersten Takt weiß die Layoutmaschine ohne den unsauberen-sauberen
+Container nicht die Breite des Notenkopfes und lässt ihn deshalb mit
+den Versetzungszeichen zusammenstoßen.  Im zweiten Takt, mit
+unreinen-reinen Containern, weiß die Layoutmaschine die Breite
+des Notenkopfes und vermeidet den Zusammenstoßf, indem die Zeile
+entsprechend verlängert wird.
+
+Normalerweise können für eine einfache Berechnungen fast identische
+Funktionen für den @qq{unsauberen} und @qq{sauberen} Teil benutzt
+werden, indem nur die Zahl der Argumente und die Reichweite der
+Funktion verändert wird.
+
+@warning{Wenn eine Funktion als @qq{sauber} bezeichnet ist und das aber
+nicht ist, können unerwartete Ergebnisse auftreten.}
 
 
 @node Musikfunktionen benutzen
