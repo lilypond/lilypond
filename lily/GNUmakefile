@@ -86,9 +86,3 @@ $(outdir)/relocate.o: $(outdir)/version.hh
 $(outdir)/warn-scheme.o: $(outdir)/version.hh
 
 local-po: $(outdir)/parser.cc
-
-# ugh.  For --srcdir builds, these must exist to satisfy their broken
-# lexer.dep and parser.dep file entries.
-ifneq ($(configure-srcdir),.)
-.PRECIOUS: $(outdir)/lexer.cc $(outdir)/parser.cc
-endif

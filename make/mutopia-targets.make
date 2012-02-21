@@ -1,8 +1,5 @@
 .PHONY: download mutopia png ps scores tar
 
-.PRECIOUS: $(outdir)/%.ps $(outdir)/%-book.ps
-.PRECIOUS: $(outdir)-letter/%.ps
-
 
 all:
 
