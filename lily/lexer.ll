@@ -834,10 +834,20 @@ Lily_lexer::push_note_state (SCM tab)
 void
 Lily_lexer::pop_state ()
 {
+	bool extra = (YYSTATE == extratoken);
+
+	if (extra)
+		yy_pop_state ();
+
 	if (YYSTATE == notes || YYSTATE == chords)
 		pitchname_tab_stack_ = scm_cdr (pitchname_tab_stack_);
 
 	yy_pop_state ();
+
+	if (extra) {
+		hidden_state_ = YYSTATE;
+		yy_push_state (extratoken);
+	}
 }
 
 int
