@@ -4101,12 +4101,12 @@ Noten (in der Datei @file{music.ly}).
 
 @lilypond[quote,ragged-right]
 mpdolce =
-#(make-dynamic-script
-  #@{ \markup @{ \hspace #0
+ #(make-dynamic-script
+  #{ \markup { \hspace #0
                \translate #'(5 . 0)
-               \line @{ \dynamic "mp"
-                       \text \italic "dolce" @} @}
-  #@})
+               \line { \dynamic "mp"
+                       \text \italic "dolce" } }
+  #})
 
 inst =
 #(define-music-function
