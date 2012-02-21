@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
+    Translation of GIT committish: fc1ca638e0b5f66858b9b7a073ceefc1eccb3ed2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -310,9 +310,11 @@ b4 c |
 @funindex once
 
 Sowohl der @code{\override}-Befehl als auch der @code{\set}-Befehl können mit
-dem Präfix @code{\once} (@emph{einmal}) versehen werden. Dadurch wird
+dem Präfix @code{\once} (@emph{einmal}) versehen werden.  Dadurch wird
 der folgende @code{\override}- oder @code{\set}-Befehl nur für den aktuellen
-Musik-Moment wirksam, bevor sich wieder der Standard einstellt. Am gleichen
+Musik-Moment wirksam, bevor sich wieder der vorherige Zustand herstellt
+(dieser kann sich vom Standard unterscheiden, wenn etwa noch ein anderer
+@code{\override}-Befehl aktiv ist).  Am gleichen
 Beispiel demonstriert, kann damit die Farbe eines einzelnen Notenkopfes
 geändert werden:
 
@@ -323,10 +325,12 @@ geändert werden:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c4 d
-\once \override NoteHead #'color = #red
+\override NoteHead #'color = #red
 e4 f |
 \once \override NoteHead #'color = #green
-g4 a b c |
+g4 a
+\revert NoteHead #'color
+b c |
 @end lilypond
 
 
@@ -339,7 +343,7 @@ g4 a b c |
 
 Es gibt eine andere Form des @code{override}-Befehls,
 @code{\overrideProperty} (überschreibe Eigenschaft),
-welcher ab und zu benötigt wird. Es wird hier nur der
+welcher ab und zu benötigt wird.  Es wird hier nur der
 Vollständigkeit halber erwähnt, sein Einsatz wird demonstriert
 in @rextend{Schwierige Korrekturen}.
 @c Maybe explain in a later iteration  -td
@@ -352,16 +356,17 @@ in @rextend{Schwierige Korrekturen}.
 @funindex tweak
 
 Der letzte Optimierungsbefehl in LilyPond ist @code{\tweak}
-(engl. optimieren). Er wird eingesetzt um Eigenschaften
-von Objekten zu verändern, die zum selben Musik-Moment
-auftreten, wie etwa die Noten eines Akkordes. Ein
+(engl. optimieren).  Er wird eingesetzt um Eigenschaften
+nur eines Objektes von mehreren Objekten zu verändern,
+die zum selben Musik-Moment
+auftreten, wie etwa die Noten eines Akkordes.  Ein
 @code{\override} würde alle Noten des Akkords beeinflussen,
 während mit @code{\tweak} nur das nächste Objekt der
 Eingabe geändert wird.
 
 Hier ein Beispiel. Angenommen, die Größe des mittleren
 Notenkopfes (ein E) in einem C-Dur-Akkord soll geändert
-werden. Schauen wir zuerst, was wir mit
+werden.  Schauen wir zuerst, was wir mit
 @code{\once \override} erhalten:
 
 @cindex Schriftgröße, Beispiel
@@ -376,23 +381,18 @@ werden. Schauen wir zuerst, was wir mit
 @end lilypond
 
 Wie man sehen kann, beeinflusst @code{override} @emph{alle}
-Notenköpfe des Akkordes. Das liegt daran, dass alle die Noten
+Notenköpfe des Akkordes.  Das liegt daran, dass alle die Noten
 eines Akkordes zum selben Musik-Moment auftreten und
 die Funktion von @code{\once} ist es, die Optimierung auf
 an allen Objekten auszuführen, die zum selben Musik-Moment
 auftreten wie der @code{\override}-Befehl.
 
 Der @code{\tweak}-Befehl funktioniert anders. Er bezieht sich
-auf das direkt folgende Element in der Eingabe-Datei. Es wirkt
+auf das direkt folgende Element in der Eingabe-Datei.  Es wirkt
 aber auch nur mit Objekten, die direkt von der Eingabe kreiert
 werden, insbesondere Notenköpfe und Artikulationszeichen.
 Objekte wie etwa Hälse oder Versetzungszeichen werden erst
 später erstellt und lassen sich nicht auf diese Weise ändern.
-Zusätzlich @emph{müssen} sich etwa Notenköpfe innerhalb
-eines Akkordes befinden, d. h. sie müssen von einfachen spitzen
-Klammern umschlossen sein. Um also eine einzelne Note
-mit @code{\tweak} zu verändern, muss der Befehl innerhalb
-der spitzen Klammern zusammen mit der Note eingegeben werden.
 
 Um also zu unserem Beispiel zurückzukommen, könnte man die
 mittlere Note eines Akkordes auf diese Weise ändern:
@@ -432,9 +432,11 @@ a4^"Black"
 @end lilypond
 
 @noindent
-Beachten Sie, dass dem @code{\tweak}-Befehl ein Artikulationsmodifikator
-vorangestellt werden muss, ganz als ob er selbst ein Artikulationszeichen
-wäre.
+Beachten Sie, dass ein Artikulationsmodifikator vor dem @code{\tweak}-Befehl
+geschrieben werden muss, weil auch der @code{\tweak}-Ausdruck als
+Artikulation angefügt wird.  Im Falle von mehreren Richtungsmodifikatoren
+(@code{^} or @code{_}) gilt der Modifikator links außen, weil er als
+letzter angefügt wird.
 
 @cindex Triolen, geschachtelt
 @cindex N-tolen, geschachtelt
@@ -634,7 +636,7 @@ Sie sollten folgendes finden:
 @end example
 
 Das sieht ganz danach aus, als ob damit die Dicke geändert
-werden kann. Es bedeutet, dass der Wert von
+werden kann.  Es bedeutet, dass der Wert von
 @code{thickness} einfach eine Zahl (@emph{number}) ist,
 dass der Standardwert 1.2 ist, und dass die Einheit
 für die Dicke eine andere Eigenschaft mit der
@@ -642,18 +644,17 @@ Bezeichnung @code{line-thickness} ist.
 
 Wie schon früher gesagt, gibt es wenig bis gar keine Erklärungen
 in der IR, aber wir haben schon genug Informationen, um
-zu versuchen, die Dicke eines Legatobogens zu ändern. Die
-Bezeichnung des Layout-Objekts ist offensichtlich
-@code{Slur} und die Bezeichnung der Eigenschaft, die geändert
-werden soll
-@code{thickness}. Der neue Wert sollte etwas mehr als 1.2 sein,
+zu versuchen, die Dicke eines Legatobogens zu ändern.  Die
+Bezeichnung des Layout-Objekts ist offensichtlich @code{Slur}
+und die Bezeichnung der Eigenschaft, die geändert werden soll
+@code{thickness}.  Der neue Wert sollte etwas mehr als 1.2 sein,
 denn der Bogen soll ja dicker werden.
 
 Den benötigten @code{\override}-Befehl können wir jetzt einfach
 konstruieren, indem wir die Werte für die Bezeichnungen in den
-Modellbefehl einfügen und den Kontext auslassen. Setzen wir
+Modellbefehl einfügen und den Kontext auslassen.  Setzen wir
 einmal einen sehr großen Wert für die Dicke um zu sehen, ob der
-Befehl auch funktioniert. Also:
+Befehl auch funktioniert.  Also:
 
 @example
 \override Slur #'thickness = #5.0
@@ -3250,7 +3251,8 @@ rhMusic = \relative c'' {
         c,8~
         % Reposition the c2 to the right of the merged note
         \once \override NoteColumn #'force-hshift = #1.0
-        % Move the c2 out of the main note column so the merge will work
+        % Move the c2 out of the main note column
+        % so the merge will work
         \shiftOnn
         c2
       }
@@ -3699,7 +3701,8 @@ rhMusic = \relative c'' {
         c,8~
         % Reposition the c2 to the right of the merged note
         \once \override NoteColumn #'force-hshift = #1.0
-        % Move the c2 out of the main note column so the merge will work
+        % Move the c2 out of the main note column
+        % so the merge will work
         \shiftOnn
         c2
       }
@@ -3975,7 +3978,7 @@ VerseOne = \lyrics {
 }
 
 VerseTwo = \lyricmode {
-  O | \emphasize Christ, \normal whose voice the | wa -- ters heard,
+  O | \once \emphasize Christ, whose voice the | wa -- ters heard,
 }
 
 VerseThree = \lyricmode {
@@ -4024,20 +4027,18 @@ erklärt in @ref{Fortgeschrittene Optimierungen mit Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce =
-#(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+ #(make-dynamic-script
+  #{ \markup { \hspace #0
+               \translate #'(5 . 0)
+               \line { \dynamic "mp"
+                       \text \italic "dolce" } }
+  #})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+    #{ ^\markup \bold \box #string #})
 
 \relative c'' {
   \tempo 4=50
@@ -4062,20 +4063,18 @@ wir sie also:
 @example
 %%% in Datei "definitions.ily" speichern
 mpdolce =
-#(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+ #(make-dynamic-script
+  #@{ \markup @{ \hspace #0
+               \translate #'(5 . 0)
+               \line @{ \dynamic "mp"
+                       \text \italic "dolce" @} @}
+  #@})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+	#@{ ^\markup \bold \box #string #@})
 @end example
 
 Diese Datei wir mit dem @code{\include}-Befehl ziemlich weit oben
@@ -4103,19 +4102,17 @@ Noten (in der Datei @file{music.ly}).
 @lilypond[quote,ragged-right]
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #@{ \markup @{ \hspace #0
+               \translate #'(5 . 0)
+               \line @{ \dynamic "mp"
+                       \text \italic "dolce" @} @}
+  #@})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #{ ^\markup \bold \box #string #})
 
 \relative c'' {
   \tempo 4=50
@@ -4141,19 +4138,17 @@ wir also in @qq{4/4}.
 %%%  definitions.ily
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #@{ \markup @{ \hspace #0
+               \translate #'(5 . 0)
+               \line @{ \dynamic "mp"
+                       \text \italic "dolce" @} @}
+  #@})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #@{ ^\markup \bold \box #string #@})
 
 \layout@{
   \context @{
@@ -4176,19 +4171,17 @@ inst =
 @lilypond[quote,ragged-right]
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #{ \markup { \hspace #0
+               \translate #'(5 . 0)
+               \line { \dynamic "mp"
+                       \text \italic "dolce" } }
+  #})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #{ ^\markup \bold \box #string #})
 
 \layout{
   \context {
@@ -4228,19 +4221,17 @@ global geändert.
 %%%  definitions.ily
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #@{ \markup @{ \hspace #0
+               \translate #'(5 . 0)
+               \line @{ \dynamic "mp"
+                       \text \italic "dolce" @} @}
+  #@})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #@{ ^\markup \bold \box #string #@})
 
 #(set-global-staff-size 23)
 
@@ -4264,19 +4255,17 @@ inst =
 @lilypond[quote,ragged-right]
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #{ \markup { \hspace #0
+               \translate #'(5 . 0)
+               \line { \dynamic "mp"
+                       \text \italic "dolce" } }
+  #})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #{ ^\markup \bold \box #string #})
 
 #(set-global-staff-size 23)
 
@@ -4361,12 +4350,17 @@ benutzen:
 @item Linux
 
 Wechseln Sie in das Verzeichnis
+@example
 @file{@var{INSTALL_VERZ}/lilypond/usr/@/share/lilypond/current/}
+@end example
 
 @item MacOS X
 
 Wechseln Sie in das Verzeichnis
+@example
 @file{@var{INSTALL_VERZ}/LilyPond.app/Contents/@/Resources/share/lilypond/current/}
+@end example
+
 indem Sie entweder mit dem Befehl @code{cd} vom Terminal aus
 in das Verzeichnis wechseln, oder mit Control-Klick auf das
 LilyPond-Programmsymbol gehen und @qq{Show Package Contents}
@@ -4375,7 +4369,9 @@ auswählen.
 @item Windows
 
 Wechseln Sie mit dem Windows Explorer ins Verzeichnis
+@example
 @file{@var{INSTALL_VERZ}/LilyPond/usr/@/share/lilypond/current/}
+@end example
 
 @end itemize
 
