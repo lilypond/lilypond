@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
+    Translation of GIT committish: fc1ca638e0b5f66858b9b7a073ceefc1eccb3ed2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -259,34 +259,41 @@ beträgt 0.
 >>
 @end lilypond
 
-@funindex \tabChordRepetition
+@funindex \tabChordRepeats
+@funindex \chordRepeats
+@cindex Akkorde, Wiederholung
+@cindex Wiederholung mit @code{q}
 
 Akkord-Konstruktionen können mit dem Akkord-Wiederholungssymbol @code{q}
-wiederholt werden.  Um diese Eigenschaft in einer Tabulatur benutzen
-zu können, gibt es den Befehl @code{\tabChordRepetition}.  Er speichert
-die Saiteninformationen, die innerhalb von Akkord-Konstruktionen gegeben
-werden, sodass wiederholte Akkorde identische Darstellungen erhalten.
+wiederholt werden.  In Verbindung mit Tabulaturen verhält sich diese
+Wiederholung jedoch seltsam, weil sie Saiten- und Fingerzahlen entfernt.
+Darum sollte man
+
+@example
+\chordRepeats #'(string-number-event fingering-event)
+@end example
+
+explizit für musikalische Ausdrücke in Tabulaturen aufrufen, wenn
+Akkordwiederholungen gewünscht sind.  Der Befehl ist so wichtig,
+dass er durch @code{\tabChordRepeats} zur Verfügung gestellt wird.
 
 @lilypond[quote,verbatim]
-\tabChordRepetition
 
+@end lilypond
 guitar = \relative c' {
-  r8 <gis\4 cis\3 b\2>~ q4 q8~ q q4
+  r8 <gis-6 cis-6 b-0>~ q4 q8~ q q4
 }
 
 \new StaffGroup <<
   \new Staff {
     \clef "treble_8"
-    \override Voice.StringNumber #'transparent = ##t
     \guitar
   }
   \new TabStaff {
-    \guitar
+    \tabChordRepeats \guitar
   }
 >>
-@end lilypond
-
-Bindestriche über einen Zeilenumbruch werden normalerweise in Klammern
+Bindestriche über einen Zeilenumbruch werden standardmäßig in Klammern
 gesetzt.  Das gilt auch für die zweite Klammer einer Wiederholung.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -381,9 +388,9 @@ werden:
 
 @lilypond[verbatim,quote]
 firstHarmonic = {
-  <d'\4\harmonic>4
-  <g'\3\harmonic>4
-  <b'\2\harmonic>2
+  d'4\4\harmonic
+  g'4\3\harmonic
+  b'2\2\harmonic
 }
 \score {
   <<
@@ -393,8 +400,9 @@ firstHarmonic = {
 }
 @end lilypond
 
-Dabei ist zu beachten, dass der Befehl @code{\harmonic} immer innerhalb
-einer Akkordkonstruktion notiert werden muss.  Flageolett ist nur sinnvoll
+Dabei ist zu beachten, dass der Befehl @code{\harmonic} immer an
+einzelne Noten angehängt werden muss (die sich auch innerhalb
+eines Akkordes befinden können).  Flageolett ist nur sinnvoll
 für offene Saiten im 12. Bund.  Alle anderen Flageolett-Töne sollten von
 LilyPond errechnet werden.  Das wird erreicht, indem man den Bund angibt,
 wo der Finger der Greifhand die Saite berühren soll.
@@ -456,6 +464,8 @@ ratioHarmonics = {
 @seealso
 Notationsreferenz:
 @ref{Hälse},
+@ref{Akkord-Wiederholungen},
+@ref{Ausgeschriebene Wiederholungen}
 @ref{Flageolett},
 @ref{Glissando}.
 
@@ -468,9 +478,7 @@ Referenz der Interna:
 @rinternals{TabVoice},
 @rinternals{Beam}.
 
-
 @knownissues
-
 Akkorde werden nicht gesondert behandelt, sodass die Saitenauswahlfunktion
 eventuell die selbe Saite für zwei Töne eines Akkordes auswählen kann.
 
