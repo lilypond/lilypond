@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 02fe0c6153548b148121e3fa3974a6b426a3daa0
+    Translation of GIT committish: 6ce46963fdcd6f6a1faaba5c57b221385a167a2b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -483,7 +483,7 @@ Para evitarlo, escriba:
 @subheading Paso 4: Esperar respuesta
 
 Una vez que su fallo se ha enviado a la lista, nuestro Escuadrón de
-Fallos examinará el informe.  Déles un tiempo de unas 24 horas, pues
+Fallos examinará el informe.  Déles un tiempo de unos 4 días, pues
 disponemos de un número limitado de voluntarios para esta tarea.
 Puede que le pidan más información, o que añadan el informe al sistema
 de seguimiento y le comuniquen qué número se ha asignado al problema.
