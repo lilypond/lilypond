@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
+    Translation of GIT committish: fc1ca638e0b5f66858b9b7a073ceefc1eccb3ed2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -563,6 +563,22 @@ die gleiche Struktur wie die Definition für Legatobögen.  Zu
 weiterer Information zu komplizierten Strichelungsmustern, siehe
 die Schnipsel im Abschnitt @ref{Legatobögen}.
 
+Durch Veränderung der Eigenschaften @var{whiteout} (weiß malen) und
+@var{layer} (Ebene) kann verhindert werden, dass Bindebögen mit anderen
+Objekten im Notensystem zusammenstoßen.
+
+@lilypond[verbatim,quote,ragged-right,relative=2]
+\override Tie #'layer = #-2
+\override Staff.TimeSignature #'layer = #-1
+\override Staff.KeySignature #'layer = #-1
+\override Staff.TimeSignature #'whiteout = ##t
+\override Staff.KeySignature #'whiteout = ##t
+b2 b~
+\time 3/4
+\key a \major
+b r4
+@end lilypond
+
 @predefined
 @code{\tieUp},
 @code{\tieDown},
@@ -593,6 +609,7 @@ Notationsreferenz:
 @ref{Automatische Aufteilung von Noten}.
 
 Schnipsel:
+@rlsr{Expressive marks},
 @rlsr{Rhythms}.
 
 Referenz der Interna:
@@ -1378,7 +1395,7 @@ Referenz der Interna:
 @cindex Takte verkürzen
 @cindex partieller Takt
 @cindex halber Takt
-@cindex Taktlänge ändern
+@cindex Teiltakt
 
 @funindex measurePosition
 @funindex \partial
@@ -1392,31 +1409,44 @@ Befehl @code{\partial} notiert, dessen Syntax lautet:
 @end example
 
 @noindent
-wobei @var{Dauer} die rhythmische Länger der Noten darstellt,
-die vor dem ersten vollständigen Takt gesetzt werden sollen:
+wobei @code{@var{Dauer}} die Länger der Noten darstellt,
+bevor der nächste vollständige Takt beginnt:
 
-@lilypond[quote,verbatim,relative=2]
-\partial 4 e4 |
-a2. c,4 |
+@lilypond[quote,verbatim,relative=1]
+\time 3/4
+\partial 8
+e8 | a4 c8 b c4 |
 @end lilypond
 
-Intern wird @code{\partial @var{Dauer}} übersetzt nach:
+Die @var{Dauer} kan ein beliebiger Wert kleiner als der vollständige
+Takt sein.
+
+@lilypond[quote,verbatim,relative=1]
+\time 3/4
+\partial 4.
+r4 e8 | a4 c8 b c4 |
+@end lilypond
+
+@code{\partial @var{Dauer}} kann auch folgendermaßen geschrieben werden:
 
 @example
 \set Timing.measurePosition -@var{Länge der Dauer}
 @end example
 
-Zum Beispiel wird aus @code{\partial 8*3}:
+So wird etwa aus @code{\partial 8}:
 
-@example
-\set Timing.measurePosition = #(ly:make-moment -3 8)
-@end example
+@lilypond[quote,verbatim,relative=1]
+\time 3/4
+\set Timing.measurePosition = #(ly:make-moment -1 8)
+e8 | a4 c8 b c4 |
+@end lilypond
 
 Die Eigenschaft @code{measurePosition} (Takt-Position) enthält
 eine rationale Zahl,
 die anzeigt, wie groß der Abstand zum Taktanfang ist. Deshalb ist
 sie eine negative Zahl; @code{\partial 4} wird also intern übersetzt
-zu @w{@code{-4}} was soviel bedeutet wie: @qq{Eine Viertel bleibt übrig vom ganzen Takt.}
+zu @w{@code{-4}} was soviel bedeutet wie:
+@qq{Eine Viertel bleibt übrig vom ganzen Takt.}
 
 @seealso
 Glossar:
@@ -1443,11 +1473,18 @@ Referenz der Interna:
 @cindex Seitenumbrüche in nicht metrischer Musik
 
 @knownissues
-
 @code{\partial} ist nur für den Anfang eines Stückes vorgesehen. Wenn der
-Befehl innerhalb eines Stückes verwendet wird, können seltsame Warnungen
+Befehl nach dem Anfang verwendet wird, können Warnungen oder Probleme
 auftreten.  In solchem Fall sollten Sie @code{\set Timing.measurePosition}
 benutzen.
+
+@lilypond[quote,verbatim,relative=1]
+\time 6/8
+\partial 8
+e8 | a4 c8 b[ c b] |
+\set Timing.measurePosition = #(ly:make-moment -1 4)
+r8 e,8 | a4 c8 b[ c b] |
+@end lilypond
 
 
 @node Musik ohne Metrum
@@ -1963,11 +2000,10 @@ c16 c8
 
 @warning{Wenn Balken eingesetzt werden, um Melismen in Gesang zu notieren,
 sollte die automatische Bebalkung mit @code{\autoBeamOff} ausgeschaltet
-werden und die Balken manuell notiert werden.}
-
-@warning{Wenn @code{@bs{}partcombine} mit @code{@bs{}autoBeamOff} benutzt
-wird, können ungewünschte Resultate auftreten.  Siehe die Schnipsel unten
-für mehr Information.}
+werden und die Balken manuell notiert werden.  Die Benutzung von
+@code{@bs{}partcombine} zusammen mit @code{@bs{}autoBeamOff} kann zu
+unbeabsichtigten Ergebnissen führen.  Siehe die Schnipsel für mehr
+Information.}
 
 Balkenmuster, die sich von den automatisch erstellen unterscheiden,
 können erstellt werden, siehe @ref{Einstellung von automatischen Balken}.
@@ -2019,6 +2055,13 @@ Referenz der Interna:
 @rinternals{BeamForbidEvent},
 @rinternals{beam-interface},
 @rinternals{unbreakable-spanner-interface}.
+
+@knownissues
+Die Eigenschaften eines Balkens werden am @emph{Beginn} seiner
+Konstruktion bestimmt.  Alle zusätzlichen Änderungen der
+Balkeneigenschaften, die auftreten, bevor der Balken zuende
+ist, werden nicht ausgewertet, bevor nicht der @emph{nächste}
+Balken beginnt.
 
 
 @node Einstellung von automatischen Balken
@@ -2270,6 +2313,11 @@ Die Standardbebalkungsregeln finden sich in der Datei
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {subdividing-beams.ly}
 
+@cindex Bebalkung nach Taktschlag
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{strict-beat-beaming.ly}
+
 @cindex Taktgruppen
 @cindex Schlaggruppen
 @cindex Taktschläge gruppieren
@@ -2299,7 +2347,6 @@ Referenz der Interna:
 @rinternals{Beam},
 @rinternals{BeamForbidEvent},
 @rinternals{beam-interface}.
-
 
 @knownissues
 Wenn eine Partitur endet, während ein automatischer Balken noch
@@ -2436,7 +2483,6 @@ g16 a]
 @end lilypond
 
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {flat-flags-and-beam-nibs.ly}
 
@@ -2520,7 +2566,6 @@ Snippets:
 @rlsr{Rhythms}.
 
 @knownissues
-
 Der @code{\featherDurations}-Befehl funktioniert nur mit kurzen
 Notenabschnitten, und wenn die Zahlen in den Brüchen klein
 sind.
@@ -2865,6 +2910,12 @@ c1 | c | c | c
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-at-regular-intervals.ly}
+
+@cindex Taktzahlen mit Buchstaben
+@cindex Taktzahlen in Wiederholungen
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{alternative-bar-numbering.ly}
 
 @cindex Ausrichtung von Taktlinien
 @cindex Taktlinien, Ausrichtung

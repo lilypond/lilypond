@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
+    Translation of GIT committish: fc1ca638e0b5f66858b9b7a073ceefc1eccb3ed2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -349,6 +349,9 @@ behandelt, sodass @code{ragged-bottom} und @code{ragged-last-bottom} auch
 zusätzlichen Abstand zwischen den Titel und dem ersten System einer
 Paritur einfügt.
 
+Explizit definierte Papierformate überschreiben alle vom Benutzer erstellte
+Randeinstellung für die Ränder oben und unten.
+
 
 @node Vertikale \paper-Variablen mit flexiblen Abständen
 @unnumberedsubsubsec Vertikale @code{\paper}-Variablen mit flexiblen Abständen
@@ -664,6 +667,10 @@ Notationsreferenz:
 
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly}.
+
+@knownissues
+Explizit definierte Papierformate überschreiben alle vom Benutzer erstellte
+Randeinstellung für die Ränder oben und unten.
 
 
 @node \paper-Variablen für zweiseitigen Satz

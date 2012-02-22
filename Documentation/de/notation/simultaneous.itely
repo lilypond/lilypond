@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
+    Translation of GIT committish: fc1ca638e0b5f66858b9b7a073ceefc1eccb3ed2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -141,6 +141,9 @@ Cluster, siehe @ref{Cluster}.
 @unnumberedsubsubsec Akkord-Wiederholungen
 @translationof Chord repetition
 
+@cindex Akkorde, Wiederholung
+@cindex Wiederholung mit @code{q}
+
 Um Schreibarbeit zu ersparen, kann ein Zeichen benutzt werden, um den
 vorhergehenden Akkord zu wiederholen.  Das Symbol hierzu ist @code{q}:
 
@@ -157,12 +160,67 @@ Akkordes wiederholgt werden.
 <a c e>1\p^"text" q2\<( q8)[-| q8.]\! q16-1-2-3 q8\prall
 @end lilypond
 
+Das Akkordwiederholungssymbol erinnert sich an das letzte Vorkommen
+eines Akkordes, sodass man den letzten Akkord wiederholen kann, auch
+wenn in der Zwischenzeit nicht-Akkord-Noten oder -Pause auftetreten
+sind.
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 c'4 q2 r8 q8 |
+q2 c, |
+@end lilypond
+
 Das Akkord-Wiederholungssymbol behält keine Dynamikzeichen, Artikulationen
 oder Ornamente, die in oder an den vorhergehenden Akkord gehängt waren.
 
 @lilypond[verbatim,quote,relative=2]
-<a-. c\prall e>1\sfz c4 q2 r8 q8
+<a-. c\prall e>1\sfz c'4 q2 r8 q8 |
+q2 c, |
 @end lilypond
+
+Damit auch diese Zeichen erhalten bleiben, kann die Funktion @code{\chordRepeats}
+explizit mit einem zusätzlichen Argument aufgerufen werden, um
+eine Liste an Ereignistypen (engl. event) zu spezifizieren, die mit
+wiederholt werden, es sei denn, der gleiche Ereignistyp wird selber mit
+dem @code{q} verwendet:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \chordRepeats #'(articulation-event)
+  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  q2 c, |
+}
+@end lilypond
+
+Die Benutzung von @code{\chordRepeats} innerhalb einer @code{\relative}-Konstruktion
+führt zu unerwarteten Ergebnissen:  Nachdem die Akkordereignisse einmal
+erweitert sind, können sie nicht mehr von normal eingegebenen Akkorden
+unterschieden werden.  Dadurch fügt @code{\relative} einen Oktavsprung
+entsprechend des aktuellen Kontexts ein.
+
+Weil geschachtelte @code{\relative}-Umgebungen sich nicht gegenseitig
+beeinflussen, kann man eine zusätzliche @code{\relative}-Umgebung
+innerhalb von  @code{\chordRepeats} benutzen, um die Oktavbeziehungen
+darzustellen, bevor die wiederholten Akkorde eingesetzt werden.  In diesem
+Fall beeinflusst der gesamte Inhalt der inneren @code{\relative}-Umgebung
+nicht die äußere. Daraus ergibt sich die unterschiedliche Oktave der
+letzten Note in diesem Beispiel:
+
+@c Without \new Voice, implicit voice creation does the dumbest thing.
+@lilypond[verbatim,quote]
+\new Voice
+\relative c'' {
+  \chordRepeats #'(articulation-event)
+  \relative c''
+  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  q2 c |
+}
+@end lilypond
+
+Derartige Probleme mit @code{\relative} treten nur auf, wenn @code{\chordRepeats}
+explizit aufgerufen wird: die Verarbeitung von einfachem @code{q} wird
+erst vorgenommen, wenn alle @code{\relative}-Umgebungen schon verarbeitet
+sind.
 
 @seealso
 Notationsreferenz:
@@ -214,6 +272,29 @@ mehrere Systeme erstellt:
 
 In diesem Fall stellt der unterschiedliche Rhythmus kein Problem dar.
 
+@cindex Zusammenstöße, kollidierende Notenkolumnen
+@cindex Zusammenstöße, ignorieren
+
+@knownissues
+Wenn Noten zweier oder mehrerer Stimmen mit Hälsen in die gleiche Richtung
+an der selben Position auf dem System gesetzt werden und keinen Versatz
+durch @code{shift} aufweisen (oder den gleichen Versatz besitzen), erscheint
+die Nachricht
+
+@example
+Warnung: zu viele kollidierende Notenspalten werden ignoriert
+@end example
+
+@noindent
+während der Kompilation.  Diese Nachricht kann unterdrückt werden durch
+
+@example
+\override NoteColumn #'ignore-collision = ##t
+@end example
+
+Das unterdrückt jedoch nicht nur die Warnungen, sondern schaltet auch
+die Auflösung von Zusammenstößen ab und kann also zu unbeabsichtigten
+Resultaten führen. (Siehe auch @ref{Auflösung von Zusammenstößen}.)
 
 @node Cluster
 @unnumberedsubsubsec Cluster
@@ -457,6 +538,9 @@ Hälse nach oben, die graden Stimmen Hälse nach unten:
   { g'2  }  % 6: third-lowest
 >>
 @end lilypond
+
+@warning{Gesangstext und Strecker (etwa Bögen, Bindebögen, Crescendoklammern
+usw.) können nicht zwischen zwei Stimmen erstellt werden.}
 
 @strong{@i{Identische Rhythmen}}
 
@@ -775,6 +859,18 @@ Referenz der Interna:
 @rinternals{NoteColumn},
 @rinternals{NoteCollision},
 @rinternals{RestCollision}.
+
+@knownissues
+Die Benutzung von @code{\override NoteColumn #'ignore-collision = ##t}
+führt dazu, dass Noten mit unterschiedlichen Köpfen in unterschiedlichen
+Stimmen falsch verschmolzen werden.
+
+@lilypond[quote,relative=1,verbatim]
+\mergeDifferentlyHeadedOn
+<< { c16 a' b a } \\ { c,2 } >>
+\override NoteColumn #'ignore-collision = ##t
+<< { c16 a' b a } \\ { c,2 } >>
+@end lilypond
 
 @ignore
 @knownissues
