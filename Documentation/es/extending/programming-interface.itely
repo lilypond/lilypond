@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: 76801e173f3815c1347e5685195059a01676cd75
+    Translation of GIT committish: 1f0a00b69403290b7fc7527b9ab100f95533f954
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -139,8 +139,8 @@ normales que usan @code{#} no funcionan, podríamos necesitar volver a
 expresiones de Scheme inmediatas que usan @code{$}, como por ejemplo
 @samp{$music}.
 
-Si la función devuelve una expresión musical, se clona y se le da el
-@code{origin} correcto.
+Si nuestra función devuelve una expresión musical, recibe un valor
+@code{origin} útil.
 @end multitable
 
 @noindent
@@ -175,8 +175,9 @@ mediante la comprobación con funciones de predicado: ¿es @samp{-3} un
 post-evento de digitación o un nnúmero negativo?  ¿Es @code{"a" 4} en
 el modo de letra una cadena seguida por un número, o un evento de
 letra con la duración @code{4}?  LilyPond lo decide preguntándole a
-los predicados.  Ello significa que un predicado de aspecto benévolo
-como @code{scheme?} es candidato a interpretaciones sorprendentes.
+los predicados.  Ello significa que un debemos evitar los
+predicados permisivos como @code{scheme?} si tenemos en mente
+un uso particular en vez de una función de uso general.
 
 Para ver una lista de los predicados de tipo disponibles, consulte
 @ruser{Predicados de tipo predefinidos}.
@@ -339,7 +340,7 @@ Archivos de inicio:
 @subsection Uso de las funciones musicales
 @translationof Music function usage
 
-Las funciones musicales se pueden actualmente utilizar en tres
+Las funciones musicales se pueden actualmente utilizar en varios
 lugares.  Dependiendo de dónde se usan, son de aplicación ciertas
 restricciones para que sea posible su análisis sintáctico de forma
 no ambigua.  El resultado que devuelve una función musical debe ser
@@ -347,17 +348,13 @@ compatible con el contexto desde el que se la llama.
 
 @itemize
 @item
-En el nivel superior dentro de una expresión musical.  No existen
-especiales restricciones sobre la lista de argumentos.
+En el nivel superior dentro de una expresión musical.  Aquí
+no se aplica ninguna restricción.
 
 @item
 Como un post-evento, que comienza explícitamente con un indicador de
-dirección (a elegir entre @code{-}, @code{^} @w{y @code{_}}).  Todos
-los argumentos añadidos al final de la función musical con el
-predicado @code{ly:music?} se analizan sintácticamente también como
-post-eventos (si el último argumento es una función de Scheme, éste
-contendrá en su lugar los argumentos @code{ly:music?} del final de la
-función de Scheme).  Observe que se puede aceptar la devolución de un
+dirección (a elegir entre @code{-}, @code{^} @w{y @code{_}}).
+Observe que se puede aceptar la devolución de un
 post-evento por parte de las funciones musicales que se llaman como
 música normal, lo que lleva a un resultado aproximadamente equivalente
 a
@@ -365,10 +362,13 @@ a
 s 1*0-\fun
 @end example
 
+En este caso, no podemos usar una expresión musical @emph{abierta}
+como último argumento, que terminaría en una expresión musical
+capaz de aceptar post-eventos adicionales.
+
 @item
-Como componente de un acordes.  Todos los argumentos añadidos al final
-de la función musical con el predicado @code{ly:music?} se analizarán
-sintácticamente también como componentes de acorde.
+Como componente de un acorde.  La expresión devuelta debe ser
+del tipo @code{rhythmic-event}, probablemente un @code{NoteEvent}.
 @end itemize
 
 @noindent
@@ -1272,10 +1272,6 @@ F = \tweak #'font-size #-3 -\flageolet
 @end example
 
 @noindent
-En otras palabras, @code{\tweak} no se comporta como una articulación
-en cuando a la sintaxis; concretamente, no se puede adjuntar con
-@code{^} y @code{_}.
-
 Usando Scheme, se puede dar un rodeo a este problema.  La ruta hacia
 el resultado se da en @ref{Añadir articulaciones a las notas
 (ejemplo)}, especialmente cómo usar @code{\displayMusic} como guía de

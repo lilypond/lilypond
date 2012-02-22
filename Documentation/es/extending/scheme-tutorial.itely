@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2160b5e2145aa40ad3c48fa85e20b3853d8562db
+    Translation of GIT committish: 1f0a00b69403290b7fc7527b9ab100f95533f954
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -947,7 +947,7 @@ tiene una propiedad @code{thickness} (grosor), mientras que
 @subheading Desplazamientos
 
 Los desplazamientos bidimensionales (coordenadas X e Y) se almacenan
-como @code{parejas}.  El @code{car} del desplazamiento es la
+como @emph{parejas}.  El @code{car} del desplazamiento es la
 coordenada X, y el @code{cdr} es la coordenada Y.
 
 @example
@@ -961,6 +961,16 @@ espacio de pentagrama a la derecha, y dos espacios hacia arriba.
 
 Los procedimientos para trabajar con desplazamientos están en
 @file{scm/lily-library.scm}.
+
+@subheading Fractions
+
+Fractions as used by LilyPond are again stored as @emph{pairs}, this
+time of unsigned integers.  While Scheme can represent rational numbers
+as a native type, musically @samp{2/4} and @samp{1/2} are not the same,
+and we need to be able to distinguish between them.  Similarly there are
+no negative @q{fractions} in LilyPond's mind.  So @code{2/4} in LilyPond
+means @code{(2 . 4)} in Scheme, and @code{#2/4} in LilyPond means
+@code{1/2} in Scheme.
 
 @subheading Dimensiones
 
@@ -1102,18 +1112,16 @@ imprime lo siguiente:
   'SequentialMusic
   'elements
   (list (make-music
-          'EventChord
-          'elements
+          'NoteEvent
+          'articulations
           (list (make-music
-                  'NoteEvent
-                  'duration
-                  (ly:make-duration 2 0 1 1)
-                  'pitch
-                  (ly:make-pitch 0 0 0))
-                (make-music
                   'AbsoluteDynamicEvent
                   'text
-                  "f")))))
+                  "f"))
+          'duration
+          (ly:make-duration 2 0 1 1)
+          'pitch
+          (ly:make-pitch 0 0 0))))
 @end example
 
 De forma predeterminada, LilyPond imprime estos mensajes sobre la
@@ -1141,24 +1149,25 @@ leer:
 
 @example
 (make-music 'SequentialMusic
-  'elements (list (make-music 'EventChord
-                    'elements (list (make-music 'NoteEvent
-                                      'duration (ly:make-duration 2 0 1 1)
-                                      'pitch (ly:make-pitch 0 0 0))
-                                    (make-music 'AbsoluteDynamicEvent
-                                      'text "f")))))
+  'elements (list
+	     (make-music 'NoteEvent
+               'articulations (list
+			       (make-music 'AbsoluteDynamicEvent
+				 'text
+				 "f"))
+	       'duration (ly:make-duration 2 0 1 1)
+	       'pitch    (ly:make-pitch 0 0 0))))
 @end example
 
 Una secuencia musical @code{@{ ... @}} tiene el nombre
 @code{SequentialMusic}, y sus expresiones internas se almacenan coma
 una lista dentro de su propiedad @code{'elements}.  Una nota se
-representa como una expresión @code{EventChord} que contiene un objeto
-@code{NoteEvent} (que almacena las propiedades de duración y altura) y
-cualquier información adicional (en este caso, un evento
-@code{AbsoluteDynamicEvent} con una propiedad @code{"f"} de texto.
+representa como un objeto @code{NoteEvent} (que almacena las
+propiedades de duración y altura) con información adjunta (en este
+caso, un evento @code{AbsoluteDynamicEvent} con una propiedad
+@code{"f"} de texto) almacenada en su propiedad @code{articulations}.
 
 @funindex{\void}
-
 @code{\displayMusic} devuelve la música que imprime en la consola, y
 por ello se interpretará al tiempo que se imprime en la consola.  Para
 evitar la interpretación, escriba @code{\void} antes de
@@ -1172,11 +1181,25 @@ evitar la interpretación, escriba @code{\void} antes de
 @c @emph{context} properties, and @emph{layout} properties.  These
 @c are potentially confusing.
 
-El objeto @code{NoteEvent} es el primer objeto de la propiedad
-@code{'elements} de @code{someNote}.
+Veamos un ejemplo:
 
 @example
 someNote = c'
+\displayMusic \someNote
+===>
+(make-music
+  'NoteEvent
+  'duration
+  (ly:make-duration 2 0 1 1)
+  'pitch
+  (ly:make-pitch 0 0 0))
+@end example
+
+The @code{NoteEvent} object is the representation of @code{someNote}.
+Straightforward.  How about putting c' in a chord?
+
+@example
+someNote = <c'>
 \displayMusic \someNote
 ===>
 (make-music
@@ -1189,6 +1212,9 @@ someNote = c'
           'pitch
           (ly:make-pitch 0 0 0))))
 @end example
+
+Ahora el objeto @code{NoteEvent} es el primer objeto
+de la propiedad @code{'elements} de @code{someNote}.
 
 La función @code{display-scheme-music} es la función que se usa por
 parte de @code{\displayMusic} para imprimir la representación de
@@ -1236,7 +1262,7 @@ d'
 @translationof Doubling a note with slurs (example)
 
 Supongamos que queremos crear una función que convierte una entrada
-como @code{a} en @code{a( a)}.  Comenzamos examinando la
+como @code{a} en @code{@{ a( a) @}}.  Comenzamos examinando la
 representación interna de la música con la que queremos terminar.
 
 @example
@@ -1246,71 +1272,68 @@ representación interna de la música con la que queremos terminar.
   'SequentialMusic
   'elements
   (list (make-music
-          'EventChord
-          'elements
+          'NoteEvent
+          'articulations
           (list (make-music
-                  'NoteEvent
-                  'duration
-                  (ly:make-duration 2 0 1 1)
-                  'pitch
-                  (ly:make-pitch 0 5 0))
-                (make-music
                   'SlurEvent
                   'span-direction
-                  -1)))
+                  -1))
+          'duration
+          (ly:make-duration 2 0 1 1)
+          'pitch
+          (ly:make-pitch 0 5 0))
         (make-music
-          'EventChord
-          'elements
+          'NoteEvent
+          'articulations
           (list (make-music
-                  'NoteEvent
-                  'duration
-                  (ly:make-duration 2 0 1 1)
-                  'pitch
-                  (ly:make-pitch 0 5 0))
-                (make-music
                   'SlurEvent
                   'span-direction
-                  1)))))
+                  1))
+          'duration
+          (ly:make-duration 2 0 1 1)
+          'pitch
+          (ly:make-pitch 0 5 0))))
 @end example
 
-Las malas noticias son que las expresiones @code{SlurEvent} se deben
-añadir @q{dentro} de la nota (o para ser más exactos, dentro de la
-expresión @code{EventChord}).
+La mala noticia es que las expresiones @code{SlurEvent} se deben
+añadir @q{dentro} de la nota (dentro de la
+propiedad @code{articulations}).
 
 Ahora examinamos la entrada,
 
 @example
+\displayMusic a'
+===>
 (make-music
-  'SequentialMusic
-  'elements
-  (list (make-music
-          'EventChord
-          'elements
-          (list (make-music
-                  'NoteEvent
-                  'duration
-                  (ly:make-duration 2 0 1 1)
-                  'pitch
-                  (ly:make-pitch 0 5 0))))))
+  'NoteEvent
+  'duration
+  (ly:make-duration 2 0 1 1)
+  'pitch
+  (ly:make-pitch 0 5 0))))
 @end example
 
 Así pues, en nuestra función, tenemos que clonar esta expresión (de
 forma que tengamos dos notas para construir la secuencia), añadir
-@code{SlurEvent} a la propiedad @code{'elements} de cada una de
+@code{SlurEvent} a la propiedad @code{'articulations} de cada una de
 ellas, y por último hacer una secuencia @code{SequentialMusic} con los
-dos @code{EventChords}.
+dos @code{EventChords}.  Para añadir a una propiedad, es útil saber
+que una propiedad no establecida se lee como @code{'()}, la lista
+vacía, así que no se requiere ninguna comprobación especial antes de
+que pongamos otro elemento delante de la propiedad
+@code{articulations}.
+
 
 @example
 doubleSlur = #(define-music-function (parser location note) (ly:music?)
          "Return: @{ note ( note ) @}.
-         `note' is supposed to be an EventChord."
+         `note' is supposed to be a single note."
          (let ((note2 (ly:music-deep-copy note)))
-           (set! (ly:music-property note 'elements)
+           (set! (ly:music-property note 'articulations)
                  (cons (make-music 'SlurEvent 'span-direction -1)
-                       (ly:music-property note 'elements)))
-           (set! (ly:music-property note2 'elements)
+                       (ly:music-property note 'articulations)))
+           (set! (ly:music-property note2 'articulations)
                  (cons (make-music 'SlurEvent 'span-direction 1)
-                       (ly:music-property note2 'elements)))
+                       (ly:music-property note2 'articulations)))
            (make-music 'SequentialMusic 'elements (list note note2))))
 @end example
 
@@ -1322,7 +1345,11 @@ doubleSlur = #(define-music-function (parser location note) (ly:music?)
 La manera fácil de añadir articulación a las notas es mezclar dos
 expresiones musicales en un solo contexto, como se explica en
 @ruser{Crear contextos}.  Sin embargo, supongamos que queremos
-escribir una función musical que lo haga.
+escribir una función musical que lo haga.  Esto tiene la ventaja
+adicional de que podemos usar esa función musical para añadir una
+articulación (como una instrucción de digitación) a una nota única
+dentro de un acorde, lo cual no es posible si nos limitamos a mezclar
+fragmentos de música independientes.
 
 Una @code{$variable} dentro de la notación @code{#@{...#@}} es como
 una @code{\variable} normal en la notación clásica de LilyPond.
@@ -1349,61 +1376,54 @@ Scheme.  Empezamos examinando nuestra entrada y la salida deseada,
 \displayMusic c4
 ===>
 (make-music
-  'EventChord
-  'elements
-  (list (make-music
-          'NoteEvent
-          'duration
-          (ly:make-duration 2 0 1 1)
-          'pitch
-          (ly:make-pitch -1 0 0))))
+  'NoteEvent
+  'duration
+  (ly:make-duration 2 0 1 1)
+  'pitch
+  (ly:make-pitch -1 0 0))))
 =====
 %  desired output
 \displayMusic c4->
 ===>
 (make-music
-  'EventChord
-  'elements
+  'NoteEvent
+  'articulations
   (list (make-music
-          'NoteEvent
-          'duration
-          (ly:make-duration 2 0 1 1)
-          'pitch
-          (ly:make-pitch -1 0 0))
-        (make-music
           'ArticulationEvent
           'articulation-type
-          "marcato")))
+          "accent"))
+  'duration
+  (ly:make-duration 2 0 1 1)
+  'pitch
+  (ly:make-pitch -1 0 0))
 @end example
 
 Vemos que una nota (@code{c4}) se representa como una expresión
-@code{EventChord}, con una expresión @code{NoteEvent} en su lista de
-elementos.  Para añadir una articulación de marcato, se debe añadir
-una expresión @code{ArticulationEvent} a la propiedad elements de la
-expresión @code{EventChord}.
+@code{NoteEvent}.  Para añadir una articulación de acento, se debe
+añadir una expresión @code{ArticulationEvent} a la propiedad
+@code{articulations} de la expresión @code{NoteEvent}.
 
 Para construir esta función, empezamos con
 
 @example
-(define (add-marcato event-chord)
-  "Add a marcato ArticulationEvent to the elements of `event-chord',
-  which is supposed to be an EventChord expression."
-  (let ((result-event-chord (ly:music-deep-copy event-chord)))
-    (set! (ly:music-property result-event-chord 'elements)
-          (cons (make-music 'ArticulationEvent
-                  'articulation-type "marcato")
-                (ly:music-property result-event-chord 'elements)))
-    result-event-chord))
+(define (add-accent note-event)
+  "Add an accent ArticulationEvent to the articulations of `note-event',
+  which is supposed to be a NoteEvent expression."
+  (set! (ly:music-property note-event 'articulations)
+        (cons (make-music 'ArticulationEvent
+                'articulation-type "accent")
+              (ly:music-property note-event 'articulations)))
+  note-event)
 @end example
 
 La primera línea es la forma de definir una función en Scheme: el
-nombre de la función es @code{add-marcato}, y tiene una variable
-llamada @code{event-chord}.  En Scheme, el tipo de variable suele
+nombre de la función es @code{add-accent}, y tiene una variable
+llamada @code{note-event}.  En Scheme, el tipo de variable suele
 quedar claro a partir de su nombre (¡esto también es una buena
 práctica en otros lenguajes de programación!)
 
 @example
-"Add a marcato..."
+"Add an accent..."
 @end example
 
 @noindent
@@ -1411,83 +1431,100 @@ es una descripción de lo que hace la función.  No es estrictamente
 necesaria, pero de igual forma que los nombres claros de variable, es
 una buena práctica.
 
+Se preguntará porqué modificamos el evento de nota directamente en
+lugar de trabajar sobre una copia (se puede usar
+@code{ly:music-deep-copy} para ello).  La razón es un contrato
+silencioso: se permite que las funciones musicales modifiquen sus
+argumentos; o bien se generan partiendo de cero (como la entrada del
+usuario) o están ya copiadas (referenciar una variable de música con
+@samp{\name} o la música procedente de expresiones de Scheme
+inmediatas @samp{$(@dots{})} proporcionan una copia).  Dado que sería
+ineficiente crear copias innecesarias, el valor devuelto de una
+función musical @emph{no} se copia.  Así pues, para cumplir dicho
+contrato, no debemos usar ningún argumento más de una vez, y
+devolverlo cuenta como una vez.
+
+En un ejemplo anterior, hemos construido música mediante la repetición
+de un argumento musical dado.  En tal caso, al menos una repetidión
+tuvo que ser una copia de sí misma.  Si no lo fuese, podrían ocurrir
+cosas muy extrañas.  Por ejemplo, si usamos @code{\relative} o
+@code{\transpose} sobre la música resultante que contiene los mismos
+elementos varias veces, estarían sujetos varias veces a la
+relativización o al transporte.  Si los asignamos a una variable de
+música, se rompe el curso porque hacer referencia a @samp{\name}
+creará de nuevo una copia que no retiene la identidad de los elementos
+repetidos.
+
+Ahora bien, aun cuando la función anterior no es una función musical,
+se usará normalmente dentro de funciones musicales.  Así pues, tiene
+sentido obedecer el mismo convenio que usamos para las funciones
+musicales: la entrada puede modificarse para producir la salida, y el
+código que llama es responsable de crear las copias si aún necesita el
+propio argumento sin modificar.  Si observamos las propias funciones
+de LilyPond como @code{music-map}, veremos que se atienen a los mismos
+principios.
+
+¿En qué punto nos encontramos?  Ahora tenemos un @code{note-event} que
+podemos modificar, no a causa de la utilización de
+@code{ly:music-deep-copy} sino por una explicación muy desarrollada.
+Añadimos el acento a su propiedad de lista @code{'articulations}.
+
 @example
-(let ((result-event-chord (ly:music-deep-copy event-chord)))
+(set! place new-value)
 @end example
 
-Se usa @code{let} para declarar las variables locales.  Aquí usamos
-una variable local, llamada @code{result-event-chord}, a la que le
-damos el valor @code{(ly:music-deep-copy event-chord)}.
-@code{ly:music-deep-copy} es una función específica de LilyPond, como
-todas las funciones que comienzan por @code{ly:}.  Se usa para hacer
-una copia de una expresión musical.  Aquí, copiamos @code{event-chord}
-(el parámetro de la función).  Recuerde que nuestro propósito es
-añadir un marcato a una expresión @code{EventChord}.  Es mejor no
-modificar el @code{EventChord} que se ha dado como argumento, porque
-podría utilizarse en algún otro lugar.
-
-Ahora tenemos un @code{result-event-chord}, que es una expresión
-@code{NoteEventChord} y es una copia de @code{event-chord}.  Añadimos
-el marcato a su propiedad de la lista de @code{'elements}.
+Aquí, lo que queremos establecer (el @q{place}) es la propiedad
+@code{'articulations} de la expresión @code{note-event}.
 
 @example
-(set! lugar valor-nuevo)
+(ly:music-property note-event 'articulations)
 @end example
 
-Aquí, lo que queremos establecer (el @q{lugar}) es la propiedad
-@code{'elements} de la expresión @code{result-event-chord}.
-
-@example
-(ly:music-property result-event-chord 'elements)
-@end example
-
-@code{ly:music-property} es la función que se usa para acceder a las
-propiedades musicales (los @code{'elements}, @code{'duration},
-@code{'pitch}, etc, que vimos en la salida de @code{\displayMusic}
-anterior).  El nuevo valor es la antigua propiedad @code{'elements},
-con un elemento adicional: la expresión @code{ArticulationEvent}, que
-copiamos a partir de la salida de @code{\displayMusic},
+@code{ly:music-property} es la función ustilizada para acceder a las
+propiedades musicales (las @code{'articulations}, @code{'duration},
+@code{'pitch}, etc, que vemos arriba en la salida de
+@code{\displayMusic}).  El nuevo valor es la antigua propiedad
+@code{'articulations}, con un elemento adicional: la expresión
+@code{ArticulationEvent}, que copiamos a partir de la salida de
+@code{\displayMusic},
 
 @example
 (cons (make-music 'ArticulationEvent
-        'articulation-type "marcato")
-      (ly:music-property result-event-chord 'elements))
+        'articulation-type "accent")
+      (ly:music-property result-event-chord 'articulations))
 @end example
 
-@code{cons} se usa para añadir un elemento a una lista sin modificar
-la lista original.  Esto es lo que queremos: la misma lista que antes,
-más la expresión @code{ArticulationEvent} nueva.  El orden dentro de
-la propiedad @code{'elements} no es importante aquí.
+Se usa @code{cons} para añadir un elemento a la parte delantera de una
+lista sin modificar la lista original.  Esto es lo que queremos: la
+misma lista de antes, más la nueva expresión @code{ArticulationEvent}.
+El orden dentro de la propiedad @code{'articulations} no tiene
+importancia aquí.
 
-Finalmente, una vez hemos añadido la articulación marcato a su
-propiedad @code{elements}, podemos devolver @code{result-event-chord},
-de ahí la última línea de la función.
+Finalmente, una vez hemos añadido la articulación de acento a su
+propiedad @code{articulations}, podemos devolver @code{note-event}, de
+aquí la última línea de la función.
 
-Ahora transformamos la función @code{add-marcato} en una función
-musical:
+Ahora transformamos la función @code{add-accent} en una función
+musical (es cuestión de un poco de aderezo sintáctico y una
+declaración del tipo de su único argumento @q{real}).
 
 @example
-addMarcato = #(define-music-function (parser location event-chord)
+addAccent = #(define-music-function (parser location note-event)
                                      (ly:music?)
-    "Add a marcato ArticulationEvent to the elements of `event-chord',
-    which is supposed to be an EventChord expression."
-    (let ((result-event-chord (ly:music-deep-copy event-chord)))
-      (set! (ly:music-property result-event-chord 'elements)
-            (cons (make-music 'ArticulationEvent
-                    'articulation-type "marcato")
-                  (ly:music-property result-event-chord 'elements)))
-      result-event-chord))
+  "Add an accent ArticulationEvent to the articulations of `note-event',
+  which is supposed to be a NoteEvent expression."
+  (set! (ly:music-property note-event 'articulations)
+        (cons (make-music 'ArticulationEvent
+                'articulation-type "accent")
+              (ly:music-property note-event 'articulations)))
+  note-event)
 @end example
 
 Podemos verificar que esta función musical funciona correctamente:
 
 @example
-\displayMusic \addMarcato c4
+\displayMusic \addAccent c4
 @end example
-
-
-
-
 
 
 @ignore
