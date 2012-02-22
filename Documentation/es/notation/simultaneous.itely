@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 1dea8bf1d7182f3d1a1c70bb2010f4585f56b3e6
+    Translation of GIT committish: 940309ad0e403897f556c8253e69708121b91765
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -161,7 +161,8 @@ por lo que es posible repetir el acorde más reciente
 incluso si se han escrito en medio otras notas que no están en un acorde, o silencios.
 
 @lilypond[verbatim,quote,relative=2]
-<a c e>1 c4 q2 r8 q8
+<a c e>1 c'4 q2 r8 q8 |
+q2 c, |
 @end lilypond
 
 Sin embargo, el símbolo de repetición de acordes no retiene los
@@ -169,11 +170,55 @@ matices dinámicos, las articulaciones ni los ornamentos que
 contiene o que están adosados al acorde  anterior.
 
 @lilypond[verbatim,quote,relative=2]
-<a-. c\prall e>1\sfz c4 q2 r8 q8
+<a-. c\prall e>1\sfz c'4 q2 r8 q8 |
+q2 c, |
 @end lilypond
 
+Para poder retener algunos de ellos, se puede llamar explícitamente a
+la función @code{\chordRepeats} con un argumento adicional que
+especifique una lista de @var{tipos de evento} que conservar, a no ser
+que los eventos de ese tipo ya estén presentes en el propio acorde
+@code{q}.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \chordRepeats #'(articulation-event)
+  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  q2 c, |
+}
+@end lilypond
+
+Aquí, el uso de @code{\chordRepeats} dentro de una construcción
+@code{\relative} produce un resultado inseperado: una vez se han
+expandido los eventos de acorde, no pueden distinguirse de aquellos
+introducidos como acordes normales, haciendo que @code{\relative}
+asigne una octava basada en su contexto actual.
+
+Dado que las instancias anidadas de @code{\relative} no se afectan
+mutuamente, se puede usar otra instrucción @code{\relative} dentro de
+@code{\chordRepeats} para establecer las relaciones de octava antes de
+expandir los acordes repetidos.  En tal caso, todo el contenido de la
+instrucción @code{\relative} interior no afecta a la exterior; de aquí
+la distinta escritura de octava en la última nota de este ejemplo.
+
+@c Without \new Voice, implicit voice creation does the dumbest thing.
+@lilypond[verbatim,quote]
+\new Voice
+\relative c'' {
+  \chordRepeats #'(articulation-event)
+  \relative c''
+  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  q2 c |
+}
+@end lilypond
+
+Las interacciones con @code{\relative} se producen solamente con las
+llamadas explícitas de @code{\chordRepeats}: la expansión implícita al
+comienzo del proceso de tipografiado se hace en un momento en que
+todas las instancias de @code{\relative} ya se han procesado.
+
 @seealso
-Notation Reference:
+Referencia de la notación:
 @ref{Notación de acordes},
 @ref{Articulaciones y ornamentos}.
 
@@ -484,6 +529,9 @@ hacia arriba, y las de numeración par reciben plicas hacia abajo:
 >>
 @end lilypond
 
+@warning{No se pueden crear letras ni elementos de extensión
+(como ligaduras, reguladores, etc.) que se crucen de una voz a otra.}
+
 @strong{@i{Duraciones idénticas}}
 
 En el caso especial en que queremos tipografiar fragmentos de música
@@ -511,6 +559,8 @@ fragmentos de música no tienen las mismas duraciones exactas.
 @code{\oneVoice}.
 @endpredefined
 
+Fragmentos de código:
+@rlsr{Simultaneous notes}.
 
 @seealso
 Manual de aprendizaje:
@@ -521,9 +571,6 @@ Referencia de la notación:
 @ref{Pautas de percusión},
 @ref{Silencios invisibles},
 @ref{Plicas}.
-
-Fragmentos de código:
-@rlsr{Simultaneous notes}.
 
 
 @node Estilos de voz

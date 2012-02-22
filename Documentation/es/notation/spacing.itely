@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: ffb5c20633459831cea21859f3423ea50060d705
+    Translation of GIT committish: 17ca0c2843f39775c3a9632e132b62dceba19a69
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -396,6 +396,10 @@ sistemas, así pues @code{ragged-bottom} y @code{ragged-last-bottom}
 aumentan la separación entre los títulos y el primer sistema de la
 partitura.
 
+Los tamaños de papel definidos explícitamente
+sobreescriben cualquier ajuste de los márgenes
+superior o inferior definidos por el usuario.
+
 
 @node Variables de espaciado de \paper verticales flexibles
 @subsection Variables de espaciado de @code{\paper} verticales flexibles
@@ -725,6 +729,12 @@ Referencia de la notación:
 
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
+
+@knownissues
+
+Los tamaños de papel definidos explícitamente
+sobreescriben cualquier ajuste de los márgenes
+izquierdo o derecho definidos por el usuario.
 
 
 @node Variables de \paper para el modo de doble cara
