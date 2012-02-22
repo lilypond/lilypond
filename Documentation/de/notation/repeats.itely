@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
+    Translation of GIT committish: fc1ca638e0b5f66858b9b7a073ceefc1eccb3ed2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -271,6 +271,12 @@ c1
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-double-repeat-default-for-volte.ly}
 
+@cindex Wiederholungen, Taktnummer mit Buchstaben
+@cindex Wiederholungen, alternative Taktnummerierung
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{alternative-bar-numbering.ly}
+
 @seealso
 Glossar:
 @rglos{repeat},
@@ -291,7 +297,6 @@ Referenz der Interna:
 @rinternals{UnfoldedRepeatedMusic}.
 
 @knownissues
-
 @cindex verschachtelte Wiederholung
 @cindex Wiederholung, verschachtelt
 @cindex Wiederholung und Zählzeit
@@ -500,7 +505,7 @@ nicht das Selbe wie
 a'4 b c | a'4 b c
 @end example
 
-Repititive Wiederholungen können auch mit mehreren Klammern
+Repititive Wiederholungen können auch mit mehreren Alternativeklammern
 notiert werden:
 
 @lilypond[verbatim,quote,relative=2]
@@ -541,7 +546,7 @@ ignoriert und nicht gesetzt.
 c1
 @end lilypond
 
-Es ist auch möglich, mehrere @code{unfold}-Wiederholungen (allerdings
+Es ist auch möglich, mehrere @code{unfold}-Wiederholungen (mit oder
 ohne Alternativen) ineinander zu verschachteln:
 
 @lilypond[verbatim,quote,relative=2]
@@ -555,12 +560,20 @@ ohne Alternativen) ineinander zu verschachteln:
 c1
 @end lilypond
 
+Akkordkonstruktionen können mit dem Akkordwiederholungssymbol @code{q}
+wiederholt werden.  Siehe @ref{Akkord-Wiederholungen}.
+
 @warning{Wenn man @code{@bs{}relative} innerhalb von @code{@bs{}repeat}
 notiert, ohne den @code{Voice}-Kontext explizit zu beginnen, erscheinen
 zusätzliche (ungewollte) Systeme.  Sie auch @rprogram{Ein zusätzliches System erscheint}.}
 
-
 @seealso
+Notationsreferenz:
+@ref{Akkord-Wiederholungen}.
+
+Benutzerhandbuch:
+@rprogram{Ein zusätzliches System erscheint}.
+
 Schnipsel:
 @rlsr{Repeats}.
 

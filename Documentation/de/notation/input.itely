@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
+    Translation of GIT committish: fc1ca638e0b5f66858b9b7a073ceefc1eccb3ed2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1115,17 +1115,12 @@ Reihenfolge der Nummerierung automatischer Fußnoten.
 
 @cindex Fußnoten, automatisch
 
-Es gibt zwei Befehle, um autmatische Fußnoten zu erstellen: 
-@code{\footnoteGrob} für einzelne Grobs (etwa Notenköpfe,
-Hälse, Bögen, Dynamik (auch @code{\markup} wenn @code{TextScripts}-Dynamik
-aktiv ist) sowie @code{\footnote} für Akkordnoten.
-
-Beide Befehle haben drei Argumente: das @var{Layoutobjekt}, das die
+Automatische Fußnoten brauchen drei Argumente: das @var{Layoutobjekt}, das die
 Anmerkung erhalten soll, die @var{(x . y)}-Position des Indikators und
 eine @code{\markup}-Beschriftung, die den Inhalt der Fußnote enthält.
 
-Der Befehl @code{\footnoteGrob} muss @emph{vor} dem Grob geschrieben
-werden, auf den sie sich bezieht.
+Der Befehl @code{\footnote} muss @emph{vor} dem Grob geschrieben
+werden, auf den sich die Fußnote bezieht.
 
 @c KEEP LY
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
@@ -1143,7 +1138,8 @@ werden, auf den sie sich bezieht.
 @end lilypond
 
 Bei Noten in Akkorden muss der Befehl @code{\footnote} @emph{nach}
-der Note, auf der sie sich bezieht, stehen:
+der Note, auf der sie sich bezieht, in Form eines @code{TextScript}
+stehen:
 
 @c KEEP LY
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
@@ -1152,7 +1148,7 @@ der Note, auf der sie sich bezieht, stehen:
   \relative c' {
     <
     c-\footnote #'(1 . -1.25) "Hier ein C"
-    es-\footnote #'(2 . -0.25) \markup { \italic "Ein Ex" }
+    es-\footnote #'(2 . -0.25) \markup { \italic "Ein Es" }
     g-\footnote #'(2 . 3) \markup { \bold "Das ist ein G" }
     >1
   }
@@ -1162,7 +1158,7 @@ der Note, auf der sie sich bezieht, stehen:
 @warning {Wenn Fußnoten die selbe vertikale Position haben, werden
 sie von oben nach unten nummeriert.}
 
-Hier noch einige Beispiele von Grobs, die mit automatischen Fußnoten
+Hier noch einige Beispiele von Grobs, die mit Fußnoten
 versehen sind, wobei auch die Position des Fußnotentextes relativ zu
 Tagline und Copyright gezeigt wird.
 
@@ -1215,25 +1211,17 @@ den Befehl @code{\auto-footnote}:
 @unnumberedsubsubsec Manuelle Fußnoten
 @translationof Manual footnotes
 
-@funindex \footnote
-@funindex \footnoteGrob
 @cindex Fußnoten, manuell
 
-Mit zwei Befehlen können manuelle Fußnoten erstellt werden: @code{\footnote}
-für @code{\markup}-Beschriftung auf höchster Ebene und Noten in
-Akkorden sowie @code{\footnoteGrob} für einzelne Grobs (inklusive
-@code{\markup} wenn @code{TextScripts} benutzt wird).
+Manuell erstellte Fußnoten brauchen vier Argumente: das @var{Layoutobjekt},
+das die Anmerkung erhalten soll, die @var{(x . y)}-Position des
+Indikators und zwei @code{\markup}-Beschriftungen; die erste ist der
+Indikator, der an die Note oder den Grob gehängt wird, die zweite
+der Inhalt der Fußnote unten auf der Seite.
 
-Wenn Fußnoten an Grobs angehänt werden, braucht der
-@code{\footnote}-Befehl vier Argumente: das @var{Layoutobjekt}, das
-die Anmerkung erhält, die @var{(x . y)}-Position des Indikators
-und zwei @code{\markup}-Befehle - der erste ist das Symbol, das
-als Indikator an den Grob gehängt wird, der zweite der Inhalt
-der Fußnote.
-
-Der Befehl @code{\footnoteGrob} muss @emph{nach} dem Grob
-kommen, an den die Fußnote gehängt wird und als @code{TextScript}
-geschrieben werden:
+Wie auch bei automatischen Fußnoten muss der Befehl @code{\footnote}
+@emph{nach} dem Grob kommen, an den die Fußnote gehängt wird und als
+@code{TextScript} geschrieben werden:
 
 @c KEEP LY
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
@@ -1251,9 +1239,7 @@ geschrieben werden:
 }
 @end lilypond
 
-Fußnoten für Akkordnoten müssen @emph{nach} der Note, auf die sie sich
-beziehen, mit dem Befehl @code{\footnote} als @code{TextScript}
-notiert werden:
+Fußnoten für Akkordnoten werden wie folgt notiert:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -2134,7 +2120,7 @@ im Gesangstext und als normaler Text außerhalb der Partitur.
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
 }
-\markup { "Copyright 2008--2011" \char ##x00A9 }
+\markup { "Copyright 2008--2012" \char ##x00A9 }
 @end lilypond
 
 @cindex Copyright-Zeichen
