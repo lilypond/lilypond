@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 53ab418e0bb8f272082db295b38a1dbb2ccfca65
+    Translation of GIT committish: 6e87cd2d1ed7028500bbcf1fe7e454d0127e31f8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -70,6 +70,30 @@ which scares away people.
 @end ignore
 
 @item
+Se han simplificado las instrucciones de los sellos de elementos
+gráficos para permitir una menor duplicación de código y mejores
+aproximaciones de altura de los objetos gráficos.  Se han eliminado
+las siguientes instrucciones de sello:
+@itemize
+@item @code{beam}
+@item @code{bezier-sandwich}
+@item @code{bracket}
+@item @code{dashed-slur}
+@item @code{dot}
+@item @code{oval}
+@item @code{repeat-slash}
+@item @code{zigzag-line}
+@end itemize
+
+@item
+Ahora se tratan los corchetes como objetos diferenciados y no como
+parte de la plica.
+@lilypond[fragment,quote,relative=2]
+\override Flag #'color = #red
+g8
+@end lilypond
+
+@item
 Se puede elegir entre dos métodos de numeración de compases, en
 especial para cuando se emplean repeticiones:
 
@@ -93,6 +117,54 @@ especial para cuando se emplean repeticiones:
   c1
 }
 @end lilypond
+
+@item
+Lo que sigue es un cambio fundamental en la representación que
+LilyPond hace de la música: los eventos de duración como
+@code{LyricEvent} y @code{NoteEvent} ya no se encuentran envueltos
+dentro de elementos @code{EventChord} a no ser que se hayan escrito
+realmente como parte de un acorde.  Si manipulamos expresiones
+musicales en Scheme, el nuevo comportamiento puede necesitar cambios
+en nuestro código.  Las llamadas a la función musical
+@code{\eventChords} o a la función de Scheme @code{event-chord-wrap!}
+convierten a la representación anterior; la utilización de una
+cualquiera de ellas puede ser la vía más sencilla para mantener
+operativo el código tradicional.
+
+Las ventajas de hacer que la entrada y la música tengan una más
+estrecha correspondencia son numerosas: las funciones musicales
+fundionaban anteriormente de forma distinta si se utilizaban dentro o
+fuera de los acordes.  Ahora son lo mismo, incluidas todas las
+posibilidades del análisis sintáctico de los argumentos.  Ahora
+podemos usar variables musicales dentro de los acordes: una
+construcción como
+@lilypond[verbatim,quote,ragged-right]
+tonic=fis'
+{ <\tonic \transpose c g \tonic> }
+@end lilypond
+@noindent
+
+habría sido impensable con anterioridad.  Podemos usar
+@code{#@{@dots{}#@}} para construir los componentes de un acorde.  Las
+funciones musicales dentro de los acordes ya no se manejan de ninguna
+forma especial y por tanto aceptan los mismos argumentos que fuera de
+los acordes.  La instrucción @code{\tweak} funciona ahora sobre notas
+individuales sin necesidad de envolverlas entre ángulos de acorde.  En
+teoría, también puede funcionar sobre eventos y sobre la letra de las
+canciones.  Dado que antes no era posible, depende de la suerte caso
+por caso si las interioridades del código de los trucos están
+recibiendo ya la información necesaria.  Se solicita a los usuarios
+que informen de aquellos casos en que se observe que la instrucción
+@code{\tweak} no funciona según lo que razonablemente se espera de
+ella.
+
+@item
+Como consecuencia, era posible reimplementar la abreviatura de
+repetición de acordes @code{q}.  Los acordes repetidos ahora se
+sustituyen justo antes de interpretar la expresión musical.  En caso
+de que el usuario quiera retener ciertos eventos del acorde original,
+puede ejecutar manualmente la función de sustitución de repetición de
+acordes @code{\chordRepeats}.
 
 @item
 Las expresiones de Scheme dentro de fragmentos de código de LilyPond
@@ -121,11 +193,12 @@ información.
 @item
 Se ha cambiado el nombre de la instrucción @code{\markuplines} por
 @code{\markuplist} para conseguir una mejor correspondencia con su
-semántica y con la nomenclatura generarl de LilyPond.
+semántica y con la nomenclatura general de LilyPond.
 
 @item
 Se ha simplificado considerablemente la interfaz para especificar
-afinaciones en las tablaturas.
+afinaciones en las tablaturas y se emplea la función de Scheme
+@code{\stringTuning} para la mayor parte de los propósitos.
 
 @item
 Las barras ahora pueden preservar la inclinación por encima de los
@@ -153,7 +226,10 @@ funciones se llaman automáticamente cuando se ajusta el parámetro
 En los argumentos de función, la música, los elementos de marcado y
 las expresiones de Scheme (así como algunas otras entidades
 sintácticas) se han hecho mayormente intercambiables y se diferencian
-solamente mediante la evaluación del predicado respectivo.
+solamente mediante la evaluación del predicado respectivo.  En ciertos
+casos, el analizador sintáctico consulta este predicado, como cuando
+se decide si interpretar @code{-3} como un número o como un evento de
+digitación.
 
 @item
 Ahora se pueden definir las funciones musicales (y sus parientes
@@ -166,7 +242,7 @@ secundarios, ahora está disponible @code{define-void-function}.
 @item
 Hay una instrucción nueva @code{define-event-function} en analogía con
 @code{define-music-function} que se puede usar para definir funciones
-musicales que actúan como eventos sin que se requiera un especificador
+musicales que actúan como post-eventos sin que se requiera un especificador
 de dirección como (@code{-}, @code{^} o @code{_}) antes de ellos.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -194,8 +270,10 @@ argumentos en la sintaxis de LilyPond.
 
 @item
 Ahora se puede utilizar la construcción @code{#@{ @dots{} #@}} no solo
-para crear listas secuenciales de música, sino también para eventos
-musicales únicos, expresiones musicales vacías, post-eventos,
+para crear listas secuenciales de música, sino también para alturas
+(que se distinguen de los eventos de nota sencillos por la ausencia de
+duración u otra información que no puede formar parte de una altura),
+eventos musicales únicos, expresiones musicales vacías, post-eventos,
 elementos de marcado (sobre todo para liberar a los usuarios de la
 necesidad de usar la macro @code{markup}), listas de marcado,
 expresiones numéricas, definiciones y modificaciones de contextos y
@@ -205,6 +283,12 @@ expresión musical vacía o simplemente el propio evento musical,
 respectivamente.
 
 @item
+Se pueden usar alturas en la parte derecha de las asignaciones.  Las
+alturas se diferencian de los eventos de una sola nota en que no
+tienen duración ni otras informaciones que no pueden formar parte de
+una altura.
+
+@item
 Nueva opción de la línea de órdenes @option{--loglevel=@var{level}}
 para controlar el volumen de datos que LilyPond produce en la salida.
 Los valores posibles son ERROR (errores), WARN (advertencias),
@@ -212,7 +296,7 @@ BASIC_PROGRESS (progreso básico), PROGRESS (progreso) y DEBUG
 (depuración).
 
 @item
-@code{\set \once} ahora reinicia correctamente el valor de la
+@code{\once \set} ahora reinicia correctamente el valor de la
 propiedad al valor previo.
 
 @lilypond[fragment,quote,relative=2]
