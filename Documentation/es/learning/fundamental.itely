@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: fb04880077ab1b4107815ab50b171a97e2fd3772
+    Translation of GIT committish: 8770c579a7808f995af125482ad450709855a2fd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -962,6 +962,8 @@ estamos preparados para ver cómo corregir esto, así que dejaremos este
 problema aparcado hasta una sección posterior (véase la propiedad
 @code{force-hshift} en @ref{Arreglar notación con superposiciones}).
 
+@warning{No se pueden crear letras ni objetos de extensión
+(como ligaduras, reguladores, etc.) @q{entre} voces distintas.}
 
 @seealso
 Referencia de la notación:
