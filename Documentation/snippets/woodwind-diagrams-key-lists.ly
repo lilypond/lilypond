@@ -15,9 +15,10 @@
 El fragmento de código que aparece a continuación produce una lista de
 todas las llaves y disposiciones de llave posibles para los diagramas
 de posiciones de instrumentos de viento madera, tal y como están
-definidos en @file{scm/define-woodwind-diagrams.scm}.  La lista se
-presenta en la consola y en el archivo de registro de salida, pero no
-en la salida de música.
+definidos en @file{scm/define-woodwind-diagrams.scm}.  La lista se en
+el archivo de registro de salida, pero no en la salida de música.  Si
+se desa una salida por la consola, omita el
+@code{(current-error-port)} de las instrucciones.
 
 "
 
