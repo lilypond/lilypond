@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: ffb5c20633459831cea21859f3423ea50060d705
+Translation of GIT committish: 18cfd801fa7fcd698e924f3b530862714f3e3013
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3222,6 +3222,7 @@ ajustes finos a la apariencia de la partitura impresa.
 * Agrupación vertical de objetos gráficos::
 * Modificación de los sellos::
 * Modificación de las formas::
+* Contenedores unpure-pure::
 @end menu
 
 
@@ -3763,6 +3764,116 @@ inicio y la dirección según se requiera.
 @seealso
 Referencia de funcionamiento interno:
 @rinternals{TieColumn}.
+
+@cindex Scheme, contenedores puros
+@cindex Scheme, contenedores no-puros
+@cindex puros, contenedores de Scheme
+@cindex no-puros: contenedores de Scheme
+@cindex horizontal, sobreescribir el espaciado
+
+@node Contenedores unpure-pure
+@subsection Contenedores unpure-pure
+@translationof Unpure-pure containers
+
+Los contenedores @q{unpure-pure} (pura y no pura) son útiles para la
+sobreescritura de los cálculos del espaciado en el @emph{eje Y}
+(concretamente @code{Y-offset} e @code{Y-extent}) con una función de
+Scheme en lugar de un literal, es decir, un número o una pareja de
+números.
+
+Para ciertos objetos gráficos, las dimensiones @code{Y-extent} están
+basadas en la propiedad @code{stencil}, la sobreescritura de la
+propiedad de sello de éstos requiere una sobreescritura adicional de
+@code{Y-extent} con un contenedor unpure-pure.  Cuando una función
+sobreescribe una dimensión @code{Y-offset} y/o @code{Y-extent} se
+supone que esto dispara los cálculos de los saltos de línea
+prematuramente durante la compilación.  Así pues, la función no se
+evalúa en absoluto (devolviendo por lo general un valor de @samp{0} o
+@samp{'(0 . 0)}) lo que puede dar lugar a colisiones.  Una función
+@q{pura} no afecta a las propiedades, objetos o suicidios de grobs, y
+por ello siempre ven sus valores relacionados con el eje Y evaluados
+correctamente.
+
+Actualmente hay unas treinta funciones que ya se consideran @q{puras}
+y los contenedores Unpure-pure son una manera de establecer funciones
+que no están en esta lista como @q{puras}.  La función @q{pura} se
+evalúa @emph{antes} de cualquier salto de línea y así el espaciado
+horizontal se puede ajustar @q{a tiempo}.  La función @q{impura} se
+evalúa entonces @emph{después} del salto de línea.
+
+@warning{Dado que es difícil saber siempre qué funciones están en esta
+lista, recomendamos que cualquier función @q{pura} que estemos creando
+no utilice los grobs @code{Beam} o @code{VerticalAlignment}.}
+
+Un contenedor @q{unpure-pure} se contruye de la manera siguiente:
+
+@code{(ly:make-unpure-pure-container f0 f1)}
+
+donde @code{f0} es una función que toma @var{n} argumentos (@var{n >=
+1}) y el primer argumento siempre debe ser el grob.  Ésta es la
+función que da el resultado real.  @var{f1} es la función que se
+etiqueta como @q{pura} que toma @var{n + 2} argumentos.  De nuevo, el
+primer argumento debe ser siempre el grob pero los argumentos segundo
+y tercero son argumentos de @q{inicio} y de @q{final}.
+
+@var{inicio} y @var{final} son, a todos los efectos, valores mudos que
+sólo tienen importancia para los @code{objetos de extensión} (o sea:
+@code{Hairpin}, regulador, o @code{Beam}, barra), que pueden devolver
+distintas estimaciones de altura basadas en una columna de inicio y
+una de final.
+
+El resto son los otros argumentos para la primera función (que puede
+no ser ninguno si @var{n = 1}).
+
+El resultado de la segunda función se usa como una aproximación del
+valor necesario, que se usa entonces por la primera función para
+obtener el valor real que se usa a continuación para el ajuste de
+precisión mucho más tardío durante el proceso de espaciado.
+
+@lilypond[verbatim,quote,ragged-right]
+#(define (square-line-circle-space grob)
+(let* ((pitch (ly:event-property (ly:grob-property grob 'cause) 'pitch))
+      (notename (ly:pitch-notename pitch)))
+ (if (= 0 (modulo notename 2))
+     (make-circle-stencil 0.5 0.0 #t)
+     (make-filled-box-stencil '(0 . 1.0)
+                              '(-0.5 . 0.5)))))
+
+squareLineCircleSpace = {
+  \override NoteHead #'stencil = #square-line-circle-space
+}
+
+smartSquareLineCircleSpace = {
+  \squareLineCircleSpace
+  \override NoteHead #'Y-extent =
+   #(ly:make-unpure-pure-container
+      ly:grob::stencil-height
+      (lambda (grob start end) (ly:grob::stencil-height grob)))
+}
+
+\new Voice \with { \remove "Stem_engraver" }
+\relative c'' {
+  \squareLineCircleSpace
+  cis4 ces cisis c
+  \smartSquareLineCircleSpace
+  cis4 ces cisis c
+}
+@end lilypond
+
+En el primer compás, sin el contenedor @emph{unpure-pure}, el motor de
+espaciado no conoce la anchura de la cabeza de la nota y permite que
+colisione con las alteraciones accidentales.  En el segundo compás, el
+motor de espaciado conoce la anchura de las cabezas de las notas y
+evita la colisión mediante el alargamiento de la línea en la medida
+adecuada.
+
+Normalmente, para cálculos simples se pueden usar funciones casi
+idénticas tanto para las partes @q{no pura} y @q{pura}, simplemente
+cambiando el número de argumentos que se pasan a, y el ámbito de, la
+función.
+
+@warning{Si una función está caracterizada como @q{pura} y resulta que
+no lo es, el resultado puede ser inesperado.}
 
 
 @node Uso de las funciones musicales

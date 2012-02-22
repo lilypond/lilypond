@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 69618c55ab79b032a109ba9f347831ede1048abc
+    Translation of GIT committish: 18cfd801fa7fcd698e924f3b530862714f3e3013
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1090,7 +1090,7 @@ los indicadores (y por tanto las notas al pie) durante la compilación.
 @translationof Automatic footnotes
 
 Las notas al pie automáticas aceptan tres argumentos; el @var{Objeto de
-presentación} que anotar, la posición @var{(x . y)} del indicador y un
+presentación} que anotar, la posición @samp{(x . y)} del indicador y un
 elemento de @code{\markup} que aparecerá en la nota, en la parte
 inferior de la página.
 
@@ -1187,7 +1187,7 @@ uso de la instrucción @code{\auto-footnote}:
 
 Las notas al pie manuales toman cuatro argumentos;
 el @var{objeto de presentación} que se va a anotar,
-la posición @var{(x . y)} del indicador, y dos instrucciones
+la posición @samp{(x . y)} del indicador, y dos instrucciones
 @code{\markup}; la primera es el indicador adjunto a la nota o grob, y
 la segunda es la nota al pie, en la parte inferior de la página.
 
