@@ -252,9 +252,8 @@ expression or just the music event itself, respectively.
 
 @item
 Pitches can be used on the right side of assignments.  They are
-distinguished from single note events by the absence of a duration by
-the absence of a duration or other information that can't be part of a
-pitch.
+distinguished from single note events by the absence of a duration or
+other information that can't be part of a pitch.
 
 @item
 New command-line option @option{--loglevel=@var{level}} to control how much output
