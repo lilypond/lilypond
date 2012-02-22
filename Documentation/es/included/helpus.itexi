@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 66e5185e494d29c40ec25d5f71326836204cd680
+    Translation of GIT committish: b948cd133c780173f1a0b10378091ac9b4ad119b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -73,6 +73,8 @@ Lilydev, pero si prefieren tener su propio entorno de desarrollo,
 deberían leer
 @rcontribnamed{Working with source code,Trabajar con el código fuente}
 y @rcontribnamed{Compiling,Compilación}.
+
+Comience leyendo @rcontrib{Summary for experienced developers}.
 
 @itemize
 @item
