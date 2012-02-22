@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 9630731c95c8e1c64dc3588d8b37edce83dc9fa0
+    Translation of GIT committish: 940309ad0e403897f556c8253e69708121b91765
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -267,33 +267,34 @@ es 0.
 >>
 @end lilypond
 
-@funindex \tabChordRepetition
+@funindex \tabChordRepeats
+@funindex \chordRepeats
 @cindex acordes, repetición de
 @cindex repetición con @code{q}
 
 Las construcciones de acorde se pueden repetir mediante el símbolo de
-repetición de acordes @code{q}.  Para utilizar esta posibilidad en
-combinación con la tablatura, se proporciona
-@code{\tabChordRepetition}, que preserva la información de cuerdas
-dada explícitamente dentro de las construcciones de acorde, de forma
-que los acordes repetidos den lugar a representaciones de tablatura
-idénticas.
+repetición de acordes @code{q}.  En combinación con las tablaturas, su
+comportamiento de eliminar números de cuerda y de dedos junto a otros
+eventos es fastidioso, por lo que quizá quiera ejecutar
+@example
+\chordRepeats #'(string-number-event fingering-event)
+@end example
+explícitamente sobre expresiones musicales en las tablaturas que
+utilicen @ref{Repetición de acordes}.  Esta instrucción en particular
+es tan común que está disponible como @code{\tabChordRepeats}.
 
 @lilypond[quote,verbatim]
-\tabChordRepetition
-
 guitar = \relative c' {
-  r8 <gis\4 cis\3 b\2>~ q4 q8~ q q4
+  r8 <gis-6 cis-6 b-0>~ q4 q8~ q q4
 }
 
 \new StaffGroup <<
   \new Staff {
     \clef "treble_8"
-    \override Voice.StringNumber #'transparent = ##t
     \guitar
   }
   \new TabStaff {
-    \guitar
+    \tabChordRepeats \guitar
   }
 >>
 @end lilypond
@@ -391,9 +392,9 @@ como sus alturas de sonido:
 
 @lilypond[verbatim,quote]
 firstHarmonic = {
-  <d'\4\harmonic>4
-  <g'\3\harmonic>4
-  <b'\2\harmonic>2
+  d'4\4\harmonic
+  g'4\3\harmonic
+  b'2\2\harmonic
 }
 \score {
   <<
@@ -403,12 +404,12 @@ firstHarmonic = {
 }
 @end lilypond
 
-Observe que la instrucción @code{\harmonic} se debe situar siempre
-dentro de una construcción de acorde. Sólo tiene sentido para
-armónicos sobre una cuerda abierta en el duodécimo traste.  Cualquier
-otro armónico debe estar calculado por parte de LilyPond.  Se puede
-conseguir esto indicando el traste en que debe rozar la cuerda el dedo
-de la mano que pisa.
+Observe que la instrucción @code{\harmonic} se debe adjuntar siempre a
+notas individuales (posiblemente dentro de un acorde) en lugar de a
+acordes completos. Sólo tiene sentido para armónicos sobre una cuerda
+abierta en el duodécimo traste.  Cualquier otro armónico debe estar
+calculado por parte de LilyPond.  Se puede conseguir esto indicando el
+traste en que debe rozar la cuerda el dedo de la mano que pisa.
 
 @lilypond[verbatim,quote]
 fretHarmonics = {

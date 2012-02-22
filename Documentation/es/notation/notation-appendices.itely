@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 3c77203e4d07000d4d888df5f5031a3623d43980
+    Translation of GIT committish: 18dda6b2f5fbea91a174b60eb22bbb73591b9b64
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -648,6 +648,7 @@ consulte @ref{Formatear el texto}.
 * Glifos de neomensural::
 * Glifos de Petrucci::
 * Glifos de Solesmes::
+* Glifos de la notación del canto kievano::
 @end menu
 
 
@@ -913,6 +914,15 @@ consulte @ref{Formatear el texto}.
             \doc-chars #solesmes
 @end lilypond
 
+@node Glifos de la notación del canto kievano
+@unnumberedsubsec Glifos de la notación del canto kievano
+@translationof Kievan Notation glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplist \override-lines #'(word-space . 4)
+	     \doc-chars #kievan
+@end lilypond
 
 @node Estilos de cabezas de nota
 @appendixsec Estilos de cabezas de nota
