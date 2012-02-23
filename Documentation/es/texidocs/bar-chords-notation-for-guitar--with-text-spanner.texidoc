@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+  texidoces = "
+He aquí cómo imprimir acordes con cejilla o con media cejilla (quite
+la marca de comentario de la línea adecuada para seleccionar uno de
+ellos).
+
+La sintaxis es @code{\\bbarre #\"@var{número de traste}\" @{ notas @} }.
+
+"
+  doctitlees = "Notación de acordes de cejilla para guitarra (con elemento de extensión de texto)"
