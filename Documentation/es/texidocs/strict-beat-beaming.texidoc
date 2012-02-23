@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+  texidoces = "
+Se puede hacer que las barras secundarias apunten en la dirección del
+pulso o fracción a que pertenecen.  La primera barra evita los
+corchetes sueltos (que es el comportamiento predeterminado); la
+segunda barra sigue el pulso o fracción estrictamente.
+
+"
+  doctitlees = "Barras que se atienen al pulso estrictamente"
