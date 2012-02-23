@@ -278,8 +278,6 @@ Akkordwiederholungen gewünscht sind.  Der Befehl ist so wichtig,
 dass er durch @code{\tabChordRepeats} zur Verfügung gestellt wird.
 
 @lilypond[quote,verbatim]
-
-@end lilypond
 guitar = \relative c' {
   r8 <gis-6 cis-6 b-0>~ q4 q8~ q q4
 }
@@ -293,6 +291,8 @@ guitar = \relative c' {
     \tabChordRepeats \guitar
   }
 >>
+@end lilypond
+
 Bindestriche über einen Zeilenumbruch werden standardmäßig in Klammern
 gesetzt.  Das gilt auch für die zweite Klammer einer Wiederholung.
 
