@@ -9,7 +9,7 @@ appropriate line for to select either one).
 
 The syntax is @code{\\bbarre #\"@var{fret number}\" @{ notes @} }.
 "
-  doctitle = "Bar chords notation for Guitar ( with Text Spanner)"
+  doctitle = "Bar chords notation for Guitar (with Text Spanner)"
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

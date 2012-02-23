@@ -36,7 +36,7 @@ document séparé, @rinternalsnamed{Top,la référence des propriétés
 internes}.  Ce guide répertorie toutes les variables, fonctions et
 autres options que LilyPond met à votre disposition.  Il est consultable
 @c leave the @uref as one long line.
-@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/user/@/lilypond@/-internals/,en@tie{}ligne},
+@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,en@tie{}ligne},
 au format HTML@tie{}; il est également inclus dans la documentation
 fournie avec le logiciel.
 
