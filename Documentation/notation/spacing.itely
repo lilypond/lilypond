@@ -468,6 +468,10 @@ collisions.
 
 @end itemize
 
+For multi-page scores with a ragged bottom on the last page, the last
+page uses the same spacing as the preceding page, provided there is
+enough space for that.
+
 Specific methods for modifying alists are discussed in
 @ref{Modifying alists}.  The following example demonstrates the
 two ways these alists can be modified.  The first declaration
