@@ -35,7 +35,7 @@ LilyPond はデフォルトで最高品質の出力を提供できるよう設�
 このマニュアルは利用可能なすべての変数、関数、それにオプションを@c
 リストアップしています。@c
 これは HTML ドキュメントとして記述されていて、@c
-@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/user/@/lilypond@/-internals/,オンライン}
+@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,オンライン}
 で入手可能であり、@c
 LilyPond ドキュメント パッケージにも含まれています。
 
