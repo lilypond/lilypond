@@ -7,6 +7,14 @@
 %% Note: this file works from version 2.14.0
 \version "2.14.0"
 \header {
+%% Translation of GIT committish: 8ce3514638c8b32b917b5b10ec5350d400249072
+  texidoces = "
+Este código muestra cómo usar la forma alternativa de la breve con dos
+líneas verticales a los lados de la cabeza, en lugar de una sola
+línea.
+
+"
+  doctitlees = "Cabeza de breve alternativa con dobles líneas verticales"
 %% Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
 
 

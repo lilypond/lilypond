@@ -8,6 +8,19 @@
 \version "2.14.0"
 
 \header {
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+  texidoces = "
+El motor de espaciado vertical cambió en la versión 2.14.  Esto puede
+hacer que se altere el espaciado de la letra de las canciones.  Es
+posible fijar propiedades para los contextos @code{Lyric} y
+@code{Staff} de forma que el motor de espaciado se comporte como lo
+hacía en la versión 2.12.
+
+"
+
+  doctitlees = "Conseguir el espaciado de la letra de la versión 2.12
+  en versiones más recientes"
+
 %% Translation of GIT committish: 27b1197f3bae8512c14d946752cd3e40e7c76016
   doctitlede = "Textverteilung wie in Version 2.12 für neuere Versionen"
 
