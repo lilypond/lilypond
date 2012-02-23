@@ -4,23 +4,30 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.15.24
-\version "2.15.24"
+%% Note: this file works from version 2.15.30
+\version "2.15.30"
 
 \header {
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+  texidoces = "
+He aquí cómo imprimir acordes con cejilla o con media cejilla (quite
+la marca de comentario de la línea adecuada para seleccionar uno de
+ellos).
+
+La sintaxis es @code{\\bbarre #\"@var{número de traste}\" @{ notas @} }.
+
+"
+  doctitlees = "Notación de acordes de cejilla para guitarra (con elemento de extensión de texto)"
+
   lsrtags = "chords, fretted-strings"
 
   texidoc = "
 Here is how to print bar chords, or half-bar chords (just uncomment the
 appropriate line for to select either one).
 
-The syntax is @code{\\bbarre #'fret_number' @{ notes @} }
-
-
-
-
+The syntax is @code{\\bbarre #\"@var{fret number}\" @{ notes @} }.
 "
-  doctitle = "Bar chords notation for Guitar ( with Text Spanner)"
+  doctitle = "Bar chords notation for Guitar (with Text Spanner)"
 } % begin verbatim
 
 
@@ -33,45 +40,39 @@ cWithSlash = \markup {
 }
 %% Span -----------------------------------
 %% Syntax: \bbarre #"text" { notes } - text = any number of box
-bbarre= #(define-music-function (barre location str music) (string? ly:music?)
-           (let ((spanned-music
-                   (let ((first-element #f)
-                         (last-element #f)
-                         (first-found? #f))
-                     (music-map (lambda (m)
-                                  (if (eqv? (ly:music-property m 'name) 'EventChord)
-                                      (begin
-                                        (if (not first-found?)
-                                            (begin
-                                              (set! first-found? #t)
-                                              (set! first-element m)))
-                                        (set! last-element m)))
-                                  m)
-                                music)
-                     (if first-found?
-                         (begin
-                           (set! (ly:music-property first-element 'elements)
-                                 (cons (make-music 'TextSpanEvent 'span-direction -1)
-                                       (ly:music-property first-element 'elements)))
-                           (set! (ly:music-property last-element 'elements)
-                                 (cons (make-music 'TextSpanEvent 'span-direction 1)
-                                       (ly:music-property last-element 'elements)))))
-                     music)))
-             (make-music 'SequentialMusic
-               'origin location
-               'elements (list #{
-			\once \override TextSpanner #'font-size = #-2
-			\once \override TextSpanner #'font-shape = #'upright
-			\once \override TextSpanner #'staff-padding = #3
-			\once \override TextSpanner #'style = #'line
-                        \once \override TextSpanner #'to-barline = ##f
-                        \once \override TextSpanner #'bound-details =  #'((left (Y . 0) (padding . 0.25) (attach-dir . -2)) (right (Y . 0) (padding . 0.25) (attach-dir . 2)))
-                        \once  \override TextSpanner #'bound-details #'right #'text = \markup { \draw-line #'( 0 . -.5) }
-                        \once  \override TextSpanner #'bound-details #'left #'text =  \markup { \cWithSlash #str }
+bbarre =
+#(define-music-function (barre location str music) (string? ly:music?)
+   (let ((elts (extract-named-music music '(NoteEvent EventChord))))
+     (if (pair? elts)
+         (let ((first-element (first elts))
+               (last-element (last elts)))
+           (set! (ly:music-property first-element 'articulations)
+                 (cons (make-music 'TextSpanEvent 'span-direction -1)
+                       (ly:music-property first-element 'articulations)))
+           (set! (ly:music-property last-element 'articulations)
+                 (cons (make-music 'TextSpanEvent 'span-direction 1)
+                       (ly:music-property last-element 'articulations))))))
+   #{
+       \once \override TextSpanner #'font-size = #-2
+       \once \override TextSpanner #'font-shape = #'upright
+       \once \override TextSpanner #'staff-padding = #3
+       \once \override TextSpanner #'style = #'line
+       \once \override TextSpanner #'to-barline = ##f
+       \once \override TextSpanner #'bound-details =
+            #`((left
+                (text . ,#{ \markup { \draw-line #'( 0 . -.5) } #})
+                (Y . 0)
+                (padding . 0.25)
+                (attach-dir . -2))
+               (right
+                (text . ,#{ \markup { \cWithSlash #str } #})
+                (Y . 0)
+                (padding . 0.25)
+                (attach-dir . 2)))
 %% uncomment this line for make full barred
-                       % \once  \override TextSpanner #'bound-details #'left #'text =  \markup { "B" #str }
-                          #}
-    spanned-music))))
+       % \once  \override TextSpanner #'bound-details #'left #'text =  \markup { "B" #str }
+       $music
+   #})
 
 %% %%%%%%%  Cut here ----- End 'bbarred.ly'
 %% Copy and change the last line for full barred. Rename in 'fbarred.ly'
