@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish:  fc1ca638e0b5f66858b9b7a073ceefc1eccb3ed2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -553,6 +553,12 @@ der St. James Church in Manhattan am 8. Mai 2009  von Frederick
 Renz und seinem Ensemble @uref{http://www.earlymusicny.org/,
 Early Music New York} (Notensatz von Nicolas Sceaux).
 
+@item
+Mussorgskijs @emph{Bilder einer Ausstellung}, neu orchestriert und
+dirigiert von @uref{http://www.aurelienbello.com/,Aurélien Bello}
+mit der @uref{http://www.junge-philharmonie-brandenburg.de/,Jungen Philharmonie Brandenburg}
+am 10. Oktober 2011 und als Wiederholung am 15.--16. April 2012.
+
 @end itemize
 @divEnd
 
@@ -574,7 +580,7 @@ die beste Werbung für LilyPond.
 @item
 @uref{http://etudeapp.com, Etude}, @qq{Notensatz unter Drogen} ist
 eine iPhone-App, die Klaviermusik, gesetzt mit LilyPond, anzeigt.  Hinzu
-gehören viele Stücke von Mutopia.  Die App enthält auch eine virtualle
+gehören viele Stücke von Mutopia.  Die App enthält auch eine virtuelle
 Klaviatur, die anzeigt, welche Tasten gedrückt werden müssen, um
 Anfängern beim Notenlesen zu helfen.
 
@@ -976,8 +982,8 @@ mit einem Backslash eingegeben.
 @imageFloat{text-input-1-annotate-de,png,center}
 @imageFloat{text-input-1-output,png,center}
 
-Versetzungszeichen werden durch verschiedene Endungen hinzugefügt: @code{-is}
-nach der Note setzt ein Kreuz, @code{-es} dagegen ein b (-- das sind die deutschen
+Versetzungszeichen werden durch verschiedene Endungen hinzugefügt: @w{@code{-is}}
+nach der Note setzt ein Kreuz, @w{@code{-es}} dagegen ein b (-- das sind die deutschen
 Endungen, Endungen in anderen Sprachen sind auch möglich). LilyPond entscheidet selber, wo 
 es die Versetzungszeichen platziert.
 
@@ -1204,16 +1210,13 @@ git clone http://github.com/textmate/lilypond.tmbundle.git
 
 @itemize
 @item
-@item
-@uref{http://www.rosegardenmusic.com,Rosegarden}, ein Audio- und MIDI-Sequenzierer,
-der auch einen Noteneditor für einzelne Systeme unterstützt.
+@uref{http://canorus.org,Canorus} kann nach LilyPond exportieren, ist allerdings noch im Beta-Stadium.  Testpersonen sind willkommen.
 
 @item
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
 auf der @uref{http://cairographics.org, Cairo}-Bibliothek basierend,
 hat experimentelle Unterstützung für LilyPond-Export.
 
-@item
 @uref{http://www.tuxguitar.com.ar/,TuxGuitar}, ein Tabulator-Editor und
 -Spieler, stellt neben Tabulatur auch eine Partiturvorschau zur
 Verfügung und kann nach LilyPond exportieren.
@@ -1223,11 +1226,30 @@ Verfügung und kann nach LilyPond exportieren.
 wird aber aktiv entwickelt.
 
 @item
-@uref{http://canorus.org,Canorus} kann nach LilyPond exportieren, ist allerdings noch im Beta-Stadium.  Testpersonen sind willkommen.
+@uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
+NW2LY} ist ein C#-Programm, das
+@uref{http://www.noteworthysoftware.com/,NoteWorthy}-Lieder nach LilyPond
+konvertieren kann.
+
+@item
+@uref{https://github.com/ciconia/ripple/blob/master/README.markdown,
+Ripple} ist ein Programm, mit dem man Partituren und Stimmen erstellen
+kann.  Es enthält auch einen Modus, in dem man unterschiedliche
+musikalische Werke untereinander mischen und zu einer Partitur oder
+einer Stimme zusammenfügen kann.
+
+@item
+@uref{http://www.rosegardenmusic.com,Rosegarden}, ein Audio- und MIDI-Sequenzierer,
+der auch einen Noteneditor für einzelne Systeme unterstützt.
 
 @item
 @uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor},
 ein monophoner Echtzeitkonverter von MIDI nach LilyPond.
+
+@item
+@uref{http://www.tuxguitar.com.ar/,TuxGuitar}, ein Tabulatureditor
+mit mehrfachen Spuren und Spieler, enthält eine Vorschau der Noten
+und kann nach LilyPond exportieren.
 
 @end itemize
 
