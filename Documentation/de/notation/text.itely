@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: fc1ca638e0b5f66858b9b7a073ceefc1eccb3ed2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -457,9 +457,9 @@ eingeklammert werden.
 
 Anders als Text in Anführungsstrichen können sich in einer
 Textbeschriftungsumgebung (@code{\markup}) geschachtelte Ausdrücke
-oder weitere Textbefehle befinden, eingeführt mit einem Backslash
-(@code{\}).  Derartige Befehle beziehen sich nur auf den ersten
-der folgenden Ausdrücke.
+oder weitere Textbefehle befinden, eingeführt mit einem
+Backslash@tie{}(@code{\}).  Derartige Befehle beziehen sich nur auf
+den ersten der folgenden Ausdrücke.
 
 @lilypond[quote,verbatim,relative=2]
 a1-\markup intenso
@@ -483,7 +483,7 @@ c
 Eine @code{\markup}-Umgebung kann auch Text in
 Anführungszeichen beinhalten.  Derartige Zeichenketten werden als
 ein Textausdruck angesehen, und darum werden innerhalb von ihnen
-Befehle oder Sonderzeichen (wie @code{\} oder @code{#}) so
+Befehle oder Sonderzeichen (wie @code{\} oder@tie{}@code{#}) so
 ausgegeben, wie sie eingeben werden.  Doppelte Anführungsstriche
 können gesetzt werden, indem man ihnen einen Backslash voranstellt.
 
@@ -1190,7 +1190,6 @@ Referenz der Interna:
 Installierte Dateien:
 @file{scm/define-markup-commands.scm},
 @file{scm/stencil.scm}.
-
 
 
 @node Musikalische Notation innerhalb einer Textbeschriftung
