@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: fc1ca638e0b5f66858b9b7a073ceefc1eccb3ed2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -180,7 +180,7 @@ Punkte, Gesangstext mit Akzenten, verschiedene lateinische und nicht-lateinische
 Zeichen sowie auch etwa Sonderzeichen (wie ein Herz-Symbol) könn direkt in
 die Notationsdatei geschrieben werden.  Es muss dabei sichergestell werden, dass
 die Datei in der UTF-8-Kodierung gespeichert wird.  Zu mehr Information siehe
-@ref{Zeichenkodierung}.
+@ref{Sonderzeichen}.
 
 @lilypond[quote,verbatim]
 \relative c'' { d8 c16 a bes8 f e' d c4 }
@@ -213,7 +213,6 @@ hierzu @ref{Text formatieren}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
 
-
 @seealso
 Handbuch zum Lernen:
 @rlearning{Lieder}.
@@ -224,14 +223,13 @@ Notationsreferenz:
 @ref{Eingabe-Modi},
 @ref{Manuelle Silbendauern},
 @ref{Text formatieren},
-@ref{Zeichenkodierung}.
+@ref{Sonderzeichen}.
 
 Referenz der Interna:
 @rinternals{LyricText}.
 
 Schnipsel:
 @rlsr{Text}
-
 
 
 @node Text an einer Melodie ausrichten
@@ -660,7 +658,7 @@ ein Unterstrich (@code{_}) für jede Note notiert wird, die
 
 Wenn ein Melisma an einer Silbe auftritt, die nicht die letzte eines
 Wortes ist, wird diese Silbe mit der folgenden durch wiederholte Trennstriche
-verbunden.  Dies wird notiert, indem man zwei Trennstriche (@code{--})
+verbunden.  Dies wird notiert, indem man zwei Trennstriche (@w{@code{--}})
 nach der Silbe notiert.
 
 Wenn ein Melisma an der letzten Silbe eines Wortes auftritt, wird eine
@@ -2433,7 +2431,7 @@ Zu Einzelheiten der Seitenformatierung siehe
 
 @item
 Stichworte der Dialoge und Regieanweisungen können mit Textbeschriftungen
-eingefügt werden.  Siehe @ref{Text}.  Ausführliche Regieanweisungen können
+eingefügt werden.  Siehe @ref{Fußnoten erstellen}.  Ausführliche Regieanweisungen können
 mit Abschnitten von alleinstehenden Textbeschriftungen zwischen zwei
 @code{\score}-Umgebungen gesetzt werden. Siehe @ref{Separater Text}.
 
@@ -2454,7 +2452,8 @@ Notationsreferenz:
 @ref{Systeme trennen},
 @ref{Transposition},
 @ref{Orchesterstimmen erstellen},
-@ref{Text eingeben}.
+@ref{Text eingeben}
+@ref{Fußnoten erstellen}.
 
 Schnipsel:
 @rlsr{Vocal music}.
@@ -2613,7 +2612,7 @@ Wenn ein transponierendes Instrument zitiert wird, sollte die
 Orchsterstimme die Tonart angeben, damit die Transposition der
 Stichnoten automatisch geschehen kann.  Das Beispiel unten zeigt,
 wie man das vornimmt.  Die Noten im Beipiel sind sehr tief auf
-dem System, sodass @code{#DOWN} (nach unten) im @code{\cueDuring}
+dem System, sodass @code{DOWN} (nach unten) im @code{\cueDuring}
 definiert ist, damit die Hälse nach unten zeigen.  Die
 Instrumentbezeichnung wird auch unter dem System platziert.  Auch
 die Stimme für die rechte Hand des Klaviers ist explizit definiert.
