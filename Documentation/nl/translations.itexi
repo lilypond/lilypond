@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Wed Jan 11 09:46:15 UTC 2012
+@emph{Meest recente update Fri Feb 24 11:51:46 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -138,7 +138,7 @@ ja
 @item
 3 Fundamentele concepten
 @*
-11139
+11152
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -194,7 +194,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">gedeeltelijk</span>
+<span style="background-color: #39ff22">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -231,7 +231,7 @@ ja
 @item
 Inleiding
 @*
-4591
+4618
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -248,7 +248,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">gedeeltelijk</span>
+<span style="background-color: #33ff21">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
