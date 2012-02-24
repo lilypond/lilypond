@@ -117,9 +117,11 @@ include $(configure-srcdir)/GNUmakefile.in
 
 The variable @code{depth} is used throughout the make system to
 track how far down the directory structure the make is.  The first
-include sets lots of variables but doesn't "do" anything.  The
-second runs the file @file{GNUmakefile.in} from the top level
-source directory.
+include sets lots of variables but doesn't "do" anything.  Default
+values for these variables are automatically detected at the
+./configure step, which creates the file @file{config.make}.
+The second include runs the file @file{GNUmakefile.in} from
+the top level source directory.
 
 This sets another load of variables, and then includes (i.e.
 immediately runs) @file{stepmake.make} from the @file{make}
@@ -956,6 +958,7 @@ described to some extent at
 @end example
 
 The file @file{lily-bib.bst} also has fairly extensive commenting.
+
 
 @node Website build
 @section Website build
