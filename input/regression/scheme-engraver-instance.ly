@@ -8,7 +8,7 @@
 
 }
 
-\version "2.14.0"
+\version "2.15.31"
 
 \layout {
   \context {
@@ -19,14 +19,14 @@
          (set! instance-counter (1+ instance-counter))
          (let ((instance-id instance-counter)
                (private-note-counter 0))
-           `((listeners
-              (note-event
-               . ,(lambda (engraver event)
-                    (set! private-note-counter (1+ private-note-counter))
-                    (let ((text (ly:engraver-make-grob engraver 'TextScript event)))
-                      (ly:grob-set-property! text 'text
-                                             (format #f "~a.~a" instance-id
-                                                     private-note-counter))))))))))
+	   (make-engraver
+	    (listeners
+              ((note-event engraver event)
+	       (set! private-note-counter (1+ private-note-counter))
+	       (let ((text (ly:engraver-make-grob engraver 'TextScript event)))
+		 (ly:grob-set-property! text 'text
+					(format #f "~a.~a" instance-id
+						private-note-counter)))))))))
   }
 }
 

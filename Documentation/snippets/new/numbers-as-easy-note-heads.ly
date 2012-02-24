@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.31"
 
 \header {
   lsrtags = "pitches"
@@ -15,21 +15,19 @@ object it sees.
 }
 
 #(define Ez_numbers_engraver
-   (list
-    (cons 'acknowledgers
-          (list
-           (cons 'note-head-interface
-                 (lambda (engraver grob source-engraver)
-                   (let* ((context (ly:translator-context engraver))
-                          (tonic-pitch (ly:context-property context 'tonic))
-                          (tonic-name (ly:pitch-notename tonic-pitch))
-                          (grob-pitch
-                           (ly:event-property (event-cause grob) 'pitch))
-                          (grob-name (ly:pitch-notename grob-pitch))
-                          (delta (modulo (- grob-name tonic-name) 7))
-                          (note-names
-                           (make-vector 7 (number->string (1+ delta)))))
-                     (ly:grob-set-property! grob 'note-names note-names))))))))
+   (make-engraver
+    (acknowledgers
+     ((note-head-interface engraver grob source-engraver)
+      (let* ((context (ly:translator-context engraver))
+	     (tonic-pitch (ly:context-property context 'tonic))
+	     (tonic-name (ly:pitch-notename tonic-pitch))
+	     (grob-pitch
+	      (ly:event-property (event-cause grob) 'pitch))
+	     (grob-name (ly:pitch-notename grob-pitch))
+	     (delta (modulo (- grob-name tonic-name) 7))
+	     (note-names
+	      (make-vector 7 (number->string (1+ delta)))))
+	(ly:grob-set-property! grob 'note-names note-names))))))
 
 #(set-global-staff-size 26)
 

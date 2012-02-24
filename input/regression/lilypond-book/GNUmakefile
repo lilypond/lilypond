@@ -33,5 +33,12 @@ $(outdir)/collated-files.list: $(OUT_FILES)
 $(outdir)/suffix-texi.texi: suffix-texi.texi $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET) $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
 	LILYPOND_VERSION=$(TOPLEVEL_VERSION) $(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BOOK_PROCESS) $(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) $(LILYPOND_BOOK_FLAGS) --redirect-lilypond-output $<
 
+# Due to automatic language detection the standard rule using the script
+# extract_texi_filenames would create .es.xref-map for these files. The
+# following rule is to circumvent this for the purpose of the build. For
+# the regression tests the .xref-map files are empty and not used anyway.
+$(XREF_MAPS_DIR)/texinfo-include-language-detection.xref-map $(XREF_MAPS_DIR)/texinfo-language-detection.xref-map: %:
+	touch $@
+
 # Prevent parallel lilypond-book instances for this subdir
 .NOTPARALLEL:

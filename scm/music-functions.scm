@@ -426,6 +426,33 @@ in @var{grob}."
 (define-safe-public (make-voice-props-set n)
   (make-sequential-music
    (append
+    (map (lambda (x) (make-grob-property-set x 'direction
+						  (if (odd? n) -1 1)))
+	 direction-polyphonic-grobs)
+    (list
+     (make-property-set 'graceSettings
+			;; TODO: take this from voicedGraceSettings or similar.
+			'((Voice Stem font-size -3)
+			  (Voice Flag font-size -3)
+			  (Voice NoteHead font-size -3)
+			  (Voice TabNoteHead font-size -4)
+			  (Voice Dots font-size -3)
+			  (Voice Stem length-fraction 0.8)
+			  (Voice Stem no-stem-extend #t)
+			  (Voice Beam beam-thickness 0.384)
+			  (Voice Beam length-fraction 0.8)
+			  (Voice Accidental font-size -4)
+			  (Voice AccidentalCautionary font-size -4)
+			  (Voice Script font-size -3)
+			  (Voice Fingering font-size -8)
+			  (Voice StringNumber font-size -8)))
+
+     (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))
+     (make-grob-property-set 'MultiMeasureRest 'staff-position (if (odd? n) -4 4))))))
+
+(define-safe-public (make-voice-props-override n)
+  (make-sequential-music
+   (append
     (map (lambda (x) (make-grob-property-override x 'direction
 						  (if (odd? n) -1 1)))
 	 direction-polyphonic-grobs)
@@ -954,7 +981,7 @@ set to the @code{location} parameter."
 		      (if (null? clef)
 		          (make-music 'Music)
 		          (make-cue-clef-set clef))
-		      (context-spec-music (make-voice-props-set cue-voice) 'CueVoice "cue")
+		      (context-spec-music (make-voice-props-override cue-voice) 'CueVoice "cue")
 		      quote-music
 		      (context-spec-music (make-voice-props-revert) 'CueVoice "cue")
 		      (if (null? clef)
@@ -963,7 +990,7 @@ set to the @code{location} parameter."
 	      (set! main-music
 		    (make-sequential-music
 		     (list
-		      (make-voice-props-set main-voice)
+		      (make-voice-props-override main-voice)
 		      main-music
 		      (make-voice-props-revert))))
 	      (set! (ly:music-property quote-music 'element) main-music)))

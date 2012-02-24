@@ -163,8 +163,6 @@ $(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts
 ALL_FONTS = $(FETA_FONTS)
 PFB_FILES = $(ALL_FONTS:%=$(outdir)/%.pfb)
 
-.PRECIOUS: $(PFB_FILES)
-
 
 # Make tfm files first, log files last,
 # so that normally log files aren't made twice

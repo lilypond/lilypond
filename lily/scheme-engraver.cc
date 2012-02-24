@@ -186,10 +186,19 @@ void mark_listen_closure (void *target)
   scm_gc_mark ((SCM)target);
 }
 
+static
+bool equal_listen_closure (void *a, void *b)
+{
+  SCM target_a = (SCM) a;
+  SCM target_b = (SCM) b;
+
+  return ly_is_equal (target_a, target_b);
+}
+
 Listener_function_table listen_closure
 =
 {
-  call_listen_closure, mark_listen_closure
+  call_listen_closure, mark_listen_closure, equal_listen_closure
 };
 
 /* static */

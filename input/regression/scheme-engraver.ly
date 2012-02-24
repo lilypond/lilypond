@@ -5,68 +5,49 @@
 
 }
 
-\version "2.14.0"
+\version "2.15.31"
 
 \layout {
   \context {
     \Voice
     \consists
-    #(list
-      (cons 'initialize
-       (lambda (trans)
-	(display (list "initialize"
-		  (ly:context-current-moment
-		   (ly:translator-context trans)) "\n") (current-error-port))))
-      (cons 'start-translation-timestep
-       (lambda (trans)
-	(display (list "start-trans"
-		  (ly:context-current-moment
-		   (ly:translator-context trans)) "\n") (current-error-port))))
-      (cons 'listeners
-       (list
-	(cons 'rest-event (lambda (engraver event)
-			   (let*
-			    ((x (ly:engraver-make-grob engraver 'TextScript event)))
-			    (display (list "caught event" event "\ncreate:\n" x "\n") (current-error-port))
-			    (ly:grob-set-property! x 'text "hi"))
-			   ))
-       ))
-      (cons 'acknowledgers
-       (list
-	(cons 'note-head-interface
-	 (lambda (engraver grob source-engraver)
-	  (display (list "saw head: " grob " coming from " source-engraver) (current-error-port))
-	  ))
-	))
-      (cons 'end-acknowledgers
-       (list
-	(cons 'beam-interface
-	 (lambda (engraver grob source-engraver)
-	  (display (list "saw end of beam: " grob " coming from " source-engraver) (current-error-port))
-	  ))
-	))
-      (cons 'process-music
-       (lambda (trans)
-	(display (list "process-music"
-		  (ly:context-current-moment
-		   (ly:translator-context trans)) "\n") (current-error-port))))
-      (cons 'process-acknowledged
-       (lambda (trans)
-	(display (list "process-acknowledged"
-		  (ly:context-current-moment
-		   (ly:translator-context trans)) "\n") (current-error-port))))
-      (cons 'stop-translation-timestep
-       (lambda (trans)
-	(display (list "stop-trans"
-		  (ly:context-current-moment
-		   (ly:translator-context trans)) "\n") (current-error-port))))
-      (cons 'finalize
-       (lambda (trans)
-	(display (list "finalize"
-		  (ly:context-current-moment
-		   (ly:translator-context trans)) "\n") (current-error-port))))
-    )
-
+    #(make-engraver
+      ((initialize trans)
+       (display (list "initialize"
+		      (ly:context-current-moment
+		       (ly:translator-context trans)) "\n") (current-error-port)))
+      ((start-translation-timestep trans)
+       (display (list "start-trans"
+		      (ly:context-current-moment
+		       (ly:translator-context trans)) "\n") (current-error-port)))
+      (listeners
+       ((rest-event engraver event)
+	(let*
+	    ((x (ly:engraver-make-grob engraver 'TextScript event)))
+	  (display (list "caught event" event "\ncreate:\n" x "\n") (current-error-port))
+	  (ly:grob-set-property! x 'text "hi"))))
+      (acknowledgers
+       ((note-head-interface engraver grob source-engraver)
+	(display (list "saw head: " grob " coming from " source-engraver) (current-error-port))))
+      (end-acknowledgers
+       ((beam-interface engraver grob source-engraver)
+	(display (list "saw end of beam: " grob " coming from " source-engraver) (current-error-port))))
+      ((process-music trans)
+       (display (list "process-music"
+		      (ly:context-current-moment
+		       (ly:translator-context trans)) "\n") (current-error-port)))
+      ((process-acknowledged trans)
+       (display (list "process-acknowledged"
+		      (ly:context-current-moment
+		       (ly:translator-context trans)) "\n") (current-error-port)))
+      ((stop-translation-timestep trans)
+       (display (list "stop-trans"
+		      (ly:context-current-moment
+		       (ly:translator-context trans)) "\n") (current-error-port)))
+      ((finalize trans)
+       (display (list "finalize"
+		      (ly:context-current-moment
+		       (ly:translator-context trans)) "\n") (current-error-port))))
 		}}
 
 

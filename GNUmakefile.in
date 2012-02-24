@@ -128,6 +128,8 @@ WEB_TRACKED_FILES = $(filter-out $(outdir)/index.html, \
                     $(shell bash -O nullglob -c "echo $(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}")) \
                     $(shell bash -O nullglob -c "echo input/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \
                     $(shell bash -O nullglob -c "echo input/*/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \
+                    $(shell bash -O nullglob -c "echo input/*/*/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \
+                    $(shell bash -O nullglob -c "echo input/regression/lilypond-book/$(outdir)/*.{info,tex}") \
                     $(shell bash -O nullglob -c "echo Documentation/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \
                     $(shell bash -O nullglob -c "echo Documentation/$(outdir)/*/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}")
 
