@@ -292,7 +292,9 @@ Context_def::get_translator_names (SCM user_mod) const
       if (ly_symbol2scm ("consists") == tag)
         l1 = scm_cons (arg, l1);
       else if (ly_symbol2scm ("remove") == tag
-               && get_translator (arg))
+               && (scm_is_pair (arg)
+		   || ly_is_procedure (arg)
+		   || get_translator (arg)))
         l1 = scm_delete_x (arg, l1);
     }
 

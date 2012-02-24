@@ -31,14 +31,8 @@ DOCUMENTATION_INCLUDES = \
   -I $(top-build-dir)/Documentation/$(outdir)
 
 LILYPOND_BOOK_INCLUDES += $(DOCUMENTATION_INCLUDES)
-MAKEINFO_FLAGS += --force --enable-encoding $(DOCUMENTATION_INCLUDES)
+MAKEINFO_FLAGS += --enable-encoding $(DOCUMENTATION_INCLUDES)
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
-
-# texi2html xref map files
-# FIXME: duplicated in stepake/texinfo-vars.make make/doc-i18n-root-vars.make
-XREF_MAPS_DIR=$(top-build-dir)/$(outdir)/xref-maps
-XREF_MAPS_FILES=$(TEXINFO_MANUALS:%=$(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map)
-XREF_MAP_FLAGS += -I $(outdir) -I $(src-dir) $(DOCUMENTATION_INCLUDES)
 
 WEB_MANUALS=web
 
@@ -59,12 +53,8 @@ TEXI2HTML_FLAGS += $(TEXI2HTML_INCLUDES) $(TEXI2HTML_LANG) $(TEXI2HTML_INIT)
 TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 ###########
 
-TEXI2PDF_FLAGS += --batch $(DOCUMENTATION_INCLUDES)
+TEXI2PDF_FLAGS +=  $(DOCUMENTATION_INCLUDES)
 TEXI2PDF_FLAGS += -I $(LYS_OUTPUT_DIR)
-
-ifdef QUIET_BUILD
-TEXI2PDF_FLAGS += -q
-endif
 
 DOCUMENTATION_LOCALE_TARGET = $(outdir)/doc-po
 TRANSLATION_LILY_IMAGES = $(outdir)/translation-lily-images

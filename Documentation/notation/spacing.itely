@@ -349,7 +349,7 @@ example orchestral scores.
 
 If set to false, systems will spread vertically down the last
 page.  Pieces that amply fill two pages or more should have this
-set to true.  It also affects the last page of book parts, i.e.
+set to false.  It also affects the last page of book parts, i.e.
 parts of a book created with @code{\bookpart} blocks.
 
 @end table
@@ -467,6 +467,10 @@ largest of:
 collisions.
 
 @end itemize
+
+For multi-page scores with a ragged bottom on the last page, the last
+page uses the same spacing as the preceding page, provided there is
+enough space for that.
 
 Specific methods for modifying alists are discussed in
 @ref{Modifying alists}.  The following example demonstrates the

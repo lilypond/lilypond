@@ -23,7 +23,7 @@ $(outdir)/%.tex:  %.tex
 $(outdir)/%.tex:  %.latex
 	$(LILYPOND_BOOK_COMMAND) --pdf -o $(outdir) $<
 
-# Add the tex => pdf rule only if we have dblatex
+# Add the tex => pdf rule only if we have pdflatex
 ifeq (,$(findstring pdflatex,$(MISSING_OPTIONAL)))
 $(outdir)/%.pdf:  $(outdir)/%.tex
 	cd $(outdir) && $(PDFLATEX) $(notdir $<)

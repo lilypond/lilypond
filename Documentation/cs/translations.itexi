@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Naposledy obnoveno Wed Jan 11 09:46:15 UTC 2012
+@emph{Naposledy obnoveno Fri Feb 24 11:51:47 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -138,7 +138,7 @@ ano
 @item
 3 Základní pojmy
 @*
-11139
+11152
 @tab Pavel Fric
 @tab 
 @tab 
@@ -165,24 +165,24 @@ ano
 @item
 4 Ladění výstupu
 @*
-15413
+15415
 @tab Pavel Fric
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ano</span>
+<span style="background-color: #dfef77">částečně (98 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-ano
+částečně (98 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">částečně</span>
+<span style="background-color: #39ff22">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -285,7 +285,7 @@ ano
 @item
 Úvod
 @*
-4591
+4618
 @tab Pavel Fric
 @tab 
 @tab 
@@ -383,7 +383,7 @@ Společenství
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">částečně</span>
+<span style="background-color: #76fe2a">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml

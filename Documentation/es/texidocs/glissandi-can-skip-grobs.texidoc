@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+%% Translation of GIT committish: ea0b270e14781707ab52683acddf9302bbe337f3
   texidoces = "
 Los objetos gráficos de columna de nota (los grobs @code{NoteColumn})
 pueden ser sobrepasados por los glissandos.

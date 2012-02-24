@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.31"
 
 \header {
   lsrtags = "text, tweaks-and-overrides, contexts-and-engravers"
@@ -17,29 +17,23 @@ been shifted via @code{force-hshift}.
 #(define (Text_align_engraver ctx)
   (let ((scripts '())
         (note-column #f))
-
-    `((acknowledgers
-       (note-column-interface
-        . ,(lambda (trans grob source)
-             ;; cache NoteColumn in this Voice context
-             (set! note-column grob)))
-
-       (text-script-interface
-        . ,(lambda (trans grob source)
-             ;; whenever a TextScript is acknowledged,
-             ;; add it to `scripts' list
-             (set! scripts (cons grob scripts)))))
-
-      (stop-translation-timestep
-       . ,(lambda (trans)
-            ;; if any TextScript grobs exist,
-            ;; set NoteColumn as X-parent
-            (and (pair? scripts)
-                 (for-each (lambda (script)
-                             (set! (ly:grob-parent script X) note-column))
-                           scripts))
-            ;; clear scripts ready for next timestep
-            (set! scripts '()))))))
+    (make-engraver
+     (acknowledgers
+      ((note-column-interface trans grob source)
+       ;; cache NoteColumn in this Voice context
+       (set! note-column grob))
+      ((text-script-interface trans grob source)
+       ;; whenever a TextScript is acknowledged,
+       ;; add it to `scripts' list
+       (set! scripts (cons grob scripts))))
+     ((stop-translation-timestep trans)
+      ;; if any TextScript grobs exist,
+      ;; set NoteColumn as X-parent
+      (for-each (lambda (script)
+		  (set! (ly:grob-parent script X) note-column))
+		scripts)
+      ;; clear scripts ready for next timestep
+      (set! scripts '())))))
 
 \layout {
   \context {

@@ -32,7 +32,7 @@
 
 
 
-\version "2.15.0"
+\version "2.15.31"
 
 %%%% Helper functions
 
@@ -205,21 +205,19 @@ optionally outputs to the console as well."
 \layout {
   \context {
   \Voice
-  \consists #(list
-              (cons 'listeners
-                    (list
-                     (cons 'tempo-change-event format-tempo)
-                     (cons 'rest-event format-rest)
-                     (cons 'note-event format-note)
-                     (cons 'articulation-event format-articulation)
-                     (cons 'text-script-event format-text)
-                     (cons 'slur-event format-slur)
-                     (cons 'breathing-event format-breathe)
-                     (cons 'dynamic-event format-dynamic)
-                     (cons 'crescendo-event format-cresc)
-                     (cons 'decrescendo-event format-decresc)
-                     (cons 'text-span-event format-textspan)
-                     (cons 'tie-event format-tie)
-                     )))
+  \consists #(make-engraver
+              (listeners
+	       (tempo-change-event . format-tempo)
+	       (rest-event . format-rest)
+	       (note-event . format-note)
+	       (articulation-event . format-articulation)
+	       (text-script-event . format-text)
+	       (slur-event . format-slur)
+	       (breathing-event . format-breathe)
+	       (dynamic-event . format-dynamic)
+	       (crescendo-event . format-cresc)
+	       (decrescendo-event . format-decresc)
+	       (text-span-event . format-textspan)
+	       (tie-event . format-tie)))
   }
 }
