@@ -1574,7 +1574,7 @@ bassClarinetNotes = \relative c' {
 合図に関連する他のマークアップ
 -- 音部変更と引用元の楽器を識別するラベルなど --
 にはタグを付けて楽譜に含めるかどうかを選択することができます。@c
-@ref{タブを使用する} を参照してください。
+@ref{タグを使用する} を参照してください。
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative c'' {
