@@ -1223,6 +1223,7 @@ oboeNotes = \relative c'' {
     \new Staff \with { instrumentName = "Flute" } \fluteNotes
     \new Staff \with { instrumentName = "Oboe" } \oboeNotes
   >>
+}
 @end lilypond
 
 @code{\quoteDuring} コマンドは引用されるパートと引用するパート両方の
