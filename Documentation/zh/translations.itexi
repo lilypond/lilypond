@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最近更新 Wed Jan 11 09:46:15 UTC 2012
+@emph{最近更新 Fri Feb 24 11:51:47 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -47,7 +47,7 @@ LilyPond -- 每一个人的五线谱
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">部分地</span>
+<span style="background-color: #39ff22">部分地</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -84,7 +84,7 @@ LilyPond --- \TITLE\
 @item
 简介
 @*
-4591
+4618
 @tab 
 @tab 
 @tab 
