@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ecf0a44d785db3038035927bd2405269d8668801
+    Translation of GIT committish: 67e5286be2fdc1cd6d90dfc233663c284ced8ca8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -386,7 +386,7 @@ conseillons d'activer cette variable.
 La désactivation de cette variable permet de répartir verticalement les
 systèmes de la dernière page d'une partition.  La valeur par défaut
 est@tie{}@code{#t}.  Nous vous conseillons, lorsque des pièces couvrent
-deux pages ou plus, d'activer cette variable.@*
+deux pages ou plus, de désactiver cette variable.@*
 Notez bien que la variable @code{ragged-last-bottom} affecte aussi la
 dernière page de chacune des parties -- créées à l'aide d'un bloc
 @code{\bookpart} -- d'un même ouvrage.
@@ -512,6 +512,9 @@ maximum de
 chevauchements.
 
 @end itemize
+
+Cependant, lorsque la partition fait plusieurs pages, la dernière page
+reprendra dans la mesure du possible l'espacement de la page précédente.
 
 Les manières de modifier des listes associatives font l'objet d'un
 @rusernamed{Modification de listes associatives, chapitre spécifique}.
