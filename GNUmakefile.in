@@ -133,14 +133,11 @@ WEB_TRACKED_FILES = $(filter-out $(outdir)/index.html, \
                     $(shell bash -O nullglob -c "echo Documentation/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \
                     $(shell bash -O nullglob -c "echo Documentation/$(outdir)/*/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}")
 
-WWW-post: $(top-build-dir)/.htaccess $(outdir)/examples.html $(WEB_ROOT_FILES)
+WWW-post: $(top-build-dir)/.htaccess $(WEB_ROOT_FILES)
 
 # need UTF8 setting in case this is hosted on a website.
 $(top-build-dir)/.htaccess:
 	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(top-build-dir)/.htaccess
-
-$(outdir)/examples.html: $(WEB_EXAMPLE_FILES)
-	$(buildscript-dir)/mutopia-index -o $(outdir)/examples.html input/
 
 $(outdir)/offline-root/index.html: $(WEB_TRACKED_FILES)
 	$(buildscript-dir)/www_post $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) offline
