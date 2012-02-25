@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 72ffce252ed4be33c47b925ff2d79428a9367056
+    Translation of GIT committish: 68bf74649158e6088ff0e6c2ba746cd99dc12c97
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -27,6 +27,8 @@ consacrer leur temps à des travaux plus ardus.
 
 @macro helpusTasks
 @subheading Tâches simples
+
+Aucun besoin de fouiller dans le code ni de compiler.
 
 @itemize
 @item
@@ -58,48 +60,47 @@ Vous aussi, prenez part à ces discussions@tie{}!
 @end itemize
 
 
-@subheading Tâches intermédiaires
+@subheading Tâches ardues
 
-@warning{Ces travaux demandent en général de disposer des
-fichiers source du logiciel et de la documentation, mais
-n'exigent pas un environnement de développement complet. Voir
-@rcontribnamed{Starting with Git,Débuter avec Git}.}
+Ces travaux demandent en général de disposer du code source et d'être en
+mesure de compiler LilyPond. 
+
+ Voir 
+@rcontribnamed{Starting with Git,Débuter avec Git} et
+@rcontribnamed{Compiling LilyPond,Compiler LilyPond}.
+@*@*
+@warning{Nous engageons les contributeurs utilisant Windows ou
+MacOS@tie{}X à utiliser une machine virtuelle pour faire tourner
+@emph{Lilydev} -- voir @rcontribnamed{Quick start,Démarrage rapide} --
+plutôt que leur propre environnement de développement.}
+
+Les contributeurs utilisant Linux ou FreeBSD peuvent eux aussi utiliser
+Lilydev.  Nous leur conseillons cependant, s'ils préfèrent leur propre
+environnement de développement, la lecture des rubriques
+@rcontribnamed{Working with source code,Travailler sur le code source}
+et @rcontribnamed{Compiling,Compiler}.
+
+Nous vous recommandons de lire tout d'abord la rubrique
+@rcontrib{Summary for experienced developers}.
 
 @itemize
 @item
 Documentation@tie{}: voir
-@rcontribnamed{Documentation work,Travailler sur la documentation} et
-@rcontribnamed{Building documentation without compiling,Générer la documentation sans compiler}.
+@rcontribnamed{Documentation work,Travailler sur la documentation}.
 
 @item
-Site web@tie{}: le site web est compilé par le même code source
-que le reste de la documentation.  Reportez-vous aux
-informations sur la documentation, ainsi qu'au chapitre
+Site web@tie{}: le site web est compilé à partir du même code source
+que le reste de la documentation.  Reportez-vous aux informations sur la
+documentation, ainsi qu'au chapitre
 @rcontribnamed{Website work,Travailler sur le site internet}.
 
 @item
 Traductions@tie{}: voir
-@rcontribnamed{Translating the documentation,Traduire la documentation} et
-@rcontribnamed{Translating the website,Traduire le site internet}.
+@rcontribnamed{Translating the documentation,Traduire la documentation}
+et @rcontribnamed{Translating the website,Traduire le site internet}.
 
-@end itemize
-
-
-@subheading Tâches ardues
-
-@warning{Ces travaux demandent en général de disposer du code
-source et d'être en mesure de compiler LilyPond.  Voir
-@rcontribnamed{Starting with Git,Débuter avec Git} et
-@rcontribnamed{Compiling LilyPond,Compiler LilyPond}.
-@*@*
-Nous engageons les nouveaux contributeurs utilisant Windows à utiliser
-une machine virtuelle pour faire tourner @emph{lilydev}.  Voir
-@rcontrib{Lilydev}.
-}
-
-@itemize
 @item
-Corriger des bogues et ajouter de nouvelles fonctionnalités@tie{}:
+Correction de bogue et ajout de nouvelles fonctionnalités@tie{}:
 la voie recommandée est de se joindre aux @qq{Frogs}, et de lire
 @rcontrib{Programming work}.
 
@@ -124,10 +125,9 @@ décidé de s'impliquer dans le développement de leur logiciel préféré.
 Ils corrigent des bogues, implémentent de nouvelles fonctionnalités ou
 documentent le code source.  Il y a beaucoup à faire, mais le plus
 important est que chacun peut ainsi en apprendre beaucoup
-sur LilyPond, les logiciels libres, la programmation@dots{} et
-s'amuser@tie{}! L'aventure vous tente@tie{}? Alors une seule chose à
+sur LilyPond, les logiciels libres, la programmation@dots{} et y prendre
+plaisir@tie{}! L'aventure vous tente@tie{}? Alors une seule chose à
 faire@tie{}: @emph{Rejoignez les Frogs@tie{}!}
-
 
 
 @subsubheading Projet GLISS de stabilisation de la syntaxe
@@ -136,7 +136,7 @@ Page web@tie{}:
 @rcontrib{Grand LilyPond Input Syntax Standardization (GLISS)}
 
 Le @qq{GLISS} (@emph{Grand LilyPond Input Syntax Standardization})
-est destiné à stabiliser la syntaxe (en-dehors des ajustements)
+est destiné à stabiliser la syntaxe (en dehors des ajustements)
 en vue de la version 3.0 de LilyPond.  Les utilisateurs adoptant
 cette version bénéficieront, pour les partitions dépourvues
 d'ajustements, d'une syntaxe stable à long terme.
@@ -160,7 +160,7 @@ plonger dans le code source@tie{}!  Nous devons aussi documenter
 le savoir des développeurs actuels afin qu'il ne se perde pas.
 
 Comme son nom ne l'indique pas, le GOP n'a pas pour propos
-d'ajouter de nouvelles fonctionnalités considérables ni de
+d'ajouter de nouvelles fonctionnalités révolutionnaires ni de
 repenser complètement quoi que ce soit.  L'objectif est plutôt de
 nous donner une base bien plus stable pour pouvoir entreprendre
 de grands travaux à l'avenir.
