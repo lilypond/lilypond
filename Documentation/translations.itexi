@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Fri Feb 24 11:51:46 UTC 2012
+@emph{Last updated Sat Feb 25 23:32:38 UTC 2012
 }
 @multitable @columnfractions  0.5 0.5
 
@@ -108,11 +108,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -588,11 +588,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -876,11 +876,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -1632,11 +1632,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -1908,11 +1908,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -2158,11 +2158,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -2421,11 +2421,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -2868,11 +2868,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -3461,11 +3461,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -3644,11 +3644,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -3816,11 +3816,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -3988,11 +3988,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -4162,11 +4162,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -4462,11 +4462,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -4773,11 +4773,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -5289,11 +5289,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -5582,11 +5582,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @item
 2.6 Wind instruments
@@ -5609,11 +5609,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -5688,11 +5688,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Federico Bruni
 @*
@@ -6251,11 +6251,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -6412,11 +6412,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -6535,7 +6535,7 @@ up to date
 @item
 4 Spacing issues
 @*
-(11112)
+(11141)
 @tab Till Paala
 @*
 
@@ -6553,11 +6553,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -6694,11 +6694,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -6751,22 +6751,22 @@ Gilles Thibault
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (99 %)</span>
+<span style="background-color: #1fff1f">translated</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (99 %)
+translated
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Federico Bruni
 @*
@@ -6892,11 +6892,11 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (84 %)</span>
+<span style="background-color: #dfef77">partially translated (89 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (84 %)
+partially translated (89 %)
 @end ifnothtml
 @*
 
@@ -8809,11 +8809,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -9315,11 +9315,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -9581,11 +9581,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -9854,11 +9854,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -10396,11 +10396,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
