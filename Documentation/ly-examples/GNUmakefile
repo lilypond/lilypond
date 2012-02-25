@@ -14,7 +14,7 @@ all: $(OUT_PNG_FILES) $(OUT_SMALL_PNG_FILES)
 endif
 
 $(outdir)/%.png: %.ly
-	$(LILYPOND_PREVIEW) -o $(outdir) $<
+	$(buildscript-dir)/run-and-check "$(LILYPOND_PREVIEW) -o $(outdir) $<" "$*.preview.log"
 	mv $(outdir)/$*.preview.png $@
 
 $(outdir)/%-small.png: $(outdir)/%.png
