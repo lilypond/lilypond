@@ -60,10 +60,10 @@ endif
 
 ifneq ($(ISOLANG),)
 $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map
-	$(buildscript-dir)/extract_texi_filenames $(XREF_MAP_FLAGS) -o $(XREF_MAPS_DIR) --master-map-file=$(XREF_MAPS_DIR)/$*.xref-map $<
+	$(buildscript-dir)/extract_texi_filenames $(XREF_MAP_FLAGS) -q -o $(XREF_MAPS_DIR) --master-map-file=$(XREF_MAPS_DIR)/$*.xref-map $<
 else
 $(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi
-	$(buildscript-dir)/extract_texi_filenames $(XREF_MAP_FLAGS) -o $(XREF_MAPS_DIR) $<
+	$(buildscript-dir)/extract_texi_filenames $(XREF_MAP_FLAGS) -q -o $(XREF_MAPS_DIR) $<
 endif
 
 $(outdir)/%.info: %.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi
