@@ -299,6 +299,31 @@ Download the latest snippet tarball, extract it, and run
 @option{--to=@var{version}} to ensure snippets are updated to the
 correct stable version.
 
+Make sure you use @code{convert-ly} from the latest available release to gain
+all advantages from the latest converting-rules-updates.
+
+Example:
+
+@itemize
+
+@item
+LSR-version: 2.12.2
+
+@item
+intended LSR-update to 2.14.2
+
+@item
+latest release 2.15.30
+
+@end itemize
+
+Use @code{convert-ly} from 2.15.30 and the following terminal
+command for all files:
+
+@example
+convert-ly -e -t2.14.2 *.ly
+@end example
+
 @item
 Copy relevant snippets (i.e., snippets whose version is equal to or less
 than the new version of LilyPond) from
