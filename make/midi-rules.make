@@ -5,7 +5,7 @@ $(outdir)/%.ly:  %.midi
 
 $(outdir)/%.midi: %.ly $(LILYPOND_BINARY)
 	touch $(foreach f, $(HEADER_FIELDS), $(outdir)/$*.$f)
-	$(LILYPOND_BINARY) $(HEADER_FIELDS:%=-H %) -o $(outdir) $<
+	$(buildscript-dir)/run-and-check "$(LILYPOND_BINARY) $(HEADER_FIELDS:%=-H %) -o $(outdir) $<" "$*.log"
 	cp $< $(outdir)
 
 $(outdir)/%-midi.ly: $(outdir)/%.midi $(MIDI2LY)
