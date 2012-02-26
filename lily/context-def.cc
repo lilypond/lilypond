@@ -349,3 +349,6 @@ Context_def::to_alist () const
   return ell;
 }
 
+#include "ly-smobs.icc"
+
+IMPLEMENT_TYPE_P (Context_def, "ly:context-def?");
