@@ -23,6 +23,7 @@
 #include "context-def.hh"
 
 #include "context.hh"
+#include "context-mod.hh"
 #include "international.hh"
 #include "output-def.hh"
 #include "translator.hh"
@@ -83,6 +84,7 @@ Context_def::~Context_def ()
 #include "ly-smobs.icc"
 IMPLEMENT_SMOBS (Context_def);
 IMPLEMENT_DEFAULT_EQUAL_P (Context_def);
+IMPLEMENT_TYPE_P (Context_def, "ly:context-def?");
 
 int
 Context_def::print_smob (SCM smob, SCM port, scm_print_state *)
@@ -349,6 +351,65 @@ Context_def::to_alist () const
   return ell;
 }
 
-#include "ly-smobs.icc"
+SCM
+Context_def::lookup (SCM sym) const
+{
+  if (scm_is_eq (ly_symbol2scm ("default-child"), sym))
+    return default_child_;
+  else if (scm_is_eq (ly_symbol2scm ("consists"), sym))
+    return get_translator_names (SCM_EOL);
+  else if (scm_is_eq (ly_symbol2scm ("description"), sym))
+    return description_;
+  else if (scm_is_eq (ly_symbol2scm ("aliases"), sym))
+    return context_aliases_;
+  else if (scm_is_eq (ly_symbol2scm ("accepts"), sym))
+    return get_accepted (SCM_EOL);
+  else if (scm_is_eq (ly_symbol2scm ("property-ops"), sym))
+    return property_ops_;
+  else if (scm_is_eq (ly_symbol2scm ("context-name"), sym))
+    return context_name_;
+  else if (scm_is_eq (ly_symbol2scm ("group-type"), sym))
+    return translator_group_type_;
+  return SCM_UNDEFINED;
+}
 
-IMPLEMENT_TYPE_P (Context_def, "ly:context-def?");
+LY_DEFINE (ly_context_def_lookup, "ly:context-def-lookup",
+	   2, 1, 0, (SCM def, SCM sym, SCM val),
+           "Return the value of @var{sym} in output definition @var{def}"
+           " (e.g., @code{\\paper}).  If no value is found, return"
+           " @var{val} or @code{'()} if @var{val} is undefined.")
+{
+  LY_ASSERT_SMOB (Context_def, def, 1);
+  Context_def *cd = unsmob_context_def (def);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
+
+  SCM res = cd->lookup (sym);
+
+  scm_remember_upto_here_1 (def);
+
+  if (SCM_UNBNDP (res))
+    res = SCM_EOL;
+
+  if (scm_is_null (res) && !SCM_UNBNDP (val))
+    return val;
+
+  return res;
+}
+
+LY_DEFINE (ly_context_def_modify, "ly:context-def-modify",
+	   2, 0, 0, (SCM def, SCM mod),
+	   "Return the result of applying the context-mod @var{mod} to"
+	   " the context definition @var{def}.  Does not change @var{def}.")
+{
+  LY_ASSERT_SMOB (Context_def, def, 1);
+  LY_ASSERT_SMOB (Context_mod, mod, 2);
+
+  Context_def *cd = unsmob_context_def (def)->clone ();
+
+  for (SCM s = unsmob_context_mod (mod)->get_mods ();
+       scm_is_pair (s);
+       s = scm_cdr (s))
+    cd->add_context_mod (scm_car (s));
+
+  return cd->unprotect ();
+}

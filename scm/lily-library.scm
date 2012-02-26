@@ -257,6 +257,71 @@ bookoutput function"
                      parser
 		     music))
 
+(define-public (context-defs-from-music parser output-def music)
+  (let ((bottom 'Voice) (warn #t))
+    (define (get-bottom sym)
+      (or
+       (let ((def (ly:output-def-lookup output-def sym #f)))
+	(and def
+	     (let ((def-child (ly:context-def-lookup def 'default-child #f)))
+	       (and def-child
+		    (get-bottom def-child)))))
+       sym))
+    (let loop ((m music) (mods #f))
+      ;; The parser turns all sets, overrides etc into something
+      ;; wrapped in ContextSpeccedMusic.  If we ever get a set,
+      ;; override etc that is not wrapped in ContextSpeccedMusic, the
+      ;; user has created it in Scheme himself without providing the
+      ;; required wrapping.  In that case, using #f in the place of a
+      ;; context modification results in a reasonably recognizable
+      ;; error.
+      (if (music-is-of-type? m 'layout-instruction-event)
+	  (ly:add-context-mod
+	   mods
+	   (case (ly:music-property m 'name)
+	     ((PropertySet)
+	      (list 'assign
+		    (ly:music-property m 'symbol)
+		    (ly:music-property m 'value)))
+	     ((PropertyUnset)
+	      (list 'unset
+		    (ly:music-property m 'symbol)))
+	     ((OverrideProperty)
+	      (list 'push
+		    (ly:music-property m 'symbol)
+		    (ly:music-property m 'grob-value)
+		    (ly:music-property m 'grob-property-path)))
+	     ((RevertProperty)
+	      (list 'pop
+		    (ly:music-property m 'symbol)
+		    (ly:music-property m 'grob-property-path)))))
+	  (case (ly:music-property m 'name)
+	    ((SequentialMusic SimultaneousMusic)
+	     (fold loop mods (ly:music-property m 'elements)))
+	    ((ContextSpeccedMusic)
+	     (let ((sym (ly:music-property m 'context-type)))
+	       (if (eq? sym 'Bottom)
+		   (set! sym bottom)
+		   (set! bottom (get-bottom sym)))
+	       (let ((def (ly:output-def-lookup output-def sym)))
+		 (if (ly:context-def? def)
+		     (ly:output-def-set-variable!
+		      output-def sym
+		      (ly:context-def-modify
+		       def
+		       (loop (ly:music-property m 'element)
+			     (ly:make-context-mod))))
+		     (ly:music-warning
+		      music
+		      (ly:format (_ "Cannot find context-def \\~a") sym))))))
+	    (else (if (and warn (ly:duration? (ly:music-property m 'duration)))
+		      (begin
+			(ly:music-warning
+			 music
+			 (_ "Music unsuitable for output-def"))
+			(set! warn #f))))))
+      mods)))
+
 
 ;;;;;;;;;;;;;;;;
 ;; alist
