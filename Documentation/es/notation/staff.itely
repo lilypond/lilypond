@@ -347,7 +347,7 @@ Referencia de funcionamiento interno:
 
 @cindex separación de sistemas, marca de
 
-Si el número de sistemas por p´agina varía de una página a otra, es
+Si el número de sistemas por página varía de una página a otra, es
 costumbre separar los sistemas colocando una marca separadora entre
 ellos.  De forma predeterminada, el separador de sistemas es nulo,
 pero se puede activar con una opción de @code{\paper}.
