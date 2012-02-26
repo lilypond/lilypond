@@ -7,7 +7,7 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+%% Translation of GIT committish: ea0b270e14781707ab52683acddf9302bbe337f3
   texidoces = "
 Es posible usar el modo de marcado para dar formato a sílabas
 individuales dentro de la letra.

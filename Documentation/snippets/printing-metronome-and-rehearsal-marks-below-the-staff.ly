@@ -32,7 +32,7 @@ von @code{MetronomeMark} oder @code{RehearsalMark} entsprechend verändert werde
 "
   doctitlede = "Metronom- und Übungszeichen unter das System setzen"
 
-%% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
+%% Translation of GIT committish: af3df3b7c6e062635bdccb739be41962969806a0
   texidocfr = "
 Les indications de tempo et les marques de repère s'impriment par défaut
 au-dessus de la portée.  Le fait de régler en conséquence la propriété
