@@ -35,12 +35,12 @@ weggelassen werden kann.
 "
   doctitlede = "Bunddiagramme anpassen"
 
-%% Translation of GIT committish: 40bf2b38d674c43f38058494692d1a0993fad0bd
+%% Translation of GIT committish: af01b3b78afa2e7c3c60e7280ee0b6382135bd35
   texidocfr = "
 Les propriétés d'un diagramme de fret sont définies par les
-@code{fret-diagram-details}.  En matière de diagramme FretBoards, les
+@code{'fret-diagram-details}.  En matière de diagramme de fret, les
 adaptations s'appliquent à l'objet @code{FretBoards.FretBoard}.  Un
-@code{FretBoard} est comparable à un @code{Voice}@tie{}: il s'agit
+@code{FretBoards} est comparable à un @code{Voice}@tie{}: il s'agit
 d'un contexte du plus bas niveau, et il n'est donc pas primordial de
 l'instancier de manière explicite pour adapter ses propriétés.
 

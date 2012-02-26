@@ -9,7 +9,7 @@
 \header {
   lsrtags = "text"
 
-%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
+%% Translation of GIT committish: ea0b270e14781707ab52683acddf9302bbe337f3
   texidoces = "
 Aunque normalmente las marcas de ensayo textuales sólo se imprimen
 sobre el pentagrama superior, también se pueden imprimir en otro
