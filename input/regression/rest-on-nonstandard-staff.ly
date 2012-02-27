@@ -55,4 +55,9 @@ mus = {
     \override Staff.StaffSymbol #'line-positions = #'(-4 -2 1 5)
     \mus
   }
+
+  \new Staff {
+    \stopStaff
+    \mus
+  }
 >>
