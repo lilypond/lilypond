@@ -85,7 +85,12 @@ Once the sandbox is running, you will receive a guile prompt:
 guile>
 @end lisp
 
-You can enter Scheme expressions at this prompt to experiment with Scheme.
+You can enter Scheme expressions at this prompt to experiment with
+Scheme.  If you want to be able to use the GNU readline library for
+nicer editing of the Scheme command line, check the file
+@file{ly/scheme-sandbox.ly} for more information.  If you already have
+enabled the readline library for your interactive Guile sessions outside
+of LilyPond, this should work in the sandbox as well.
 
 @node Scheme variables
 @subsection Scheme variables
