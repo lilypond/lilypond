@@ -984,8 +984,8 @@ a context modification duplicating their effect.")
 	      ((OverrideProperty)
 	       (list 'push
 		     (ly:music-property m 'symbol)
-		     (ly:music-property m 'grob-property-path)
-		     (ly:music-property m 'grob-value)))
+		     (ly:music-property m 'grob-value)
+		     (ly:music-property m 'grob-property-path)))
 	      ((RevertProperty)
 	       (list 'pop
 		     (ly:music-property m 'symbol)
