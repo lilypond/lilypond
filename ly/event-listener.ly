@@ -36,14 +36,12 @@
 
 %%%% Helper functions
 
-#(define (filename-from-staffname engraver)
+#(define (filename-from-staffname context)
    "Constructs a filename in the form
 @file{@var{original_filename}-@var{staff_instrument_name}.notes} if the
 staff has an instrument name.  If the staff has no instrument
 name, it uses "unnamed-staff" for that part of the filename."
-   (let* ((inst-name (ly:context-property
-                      (ly:translator-context engraver)
-                      'instrumentName)))
+   (let* ((inst-name (ly:context-property context 'instrumentName)))
      (string-concatenate (list
                           (substring (object->string (command-line))
                            ;; filename without .ly part
@@ -79,12 +77,11 @@ after beat?  etc.)."
                         (ly:moment-grace-numerator moment)
                         (ly:moment-grace-denominator moment))))))
 
-#(define (make-output-string-line engraver values)
+#(define (make-output-string-line context values)
    "Constructs a tab-separated string beginning with the
-score time (derived from the engraver) and then adding all the
+score time (derived from the context) and then adding all the
 values.  The string ends with a newline."
-   (let* ((context (ly:translator-context engraver))
-          (moment (ly:context-current-moment context)))
+   (let* ((moment (ly:context-current-moment context)))
     (string-append
      (string-join
        (append
@@ -96,16 +93,19 @@ values.  The string ends with a newline."
      "\n")))
 
 
-#(define (print-line engraver . values)
+#(define (print-line context . values)
    "Prints the list of values (plus the score time) to a file, and
-optionally outputs to the console as well."
-   (let* ((p (open-file (filename-from-staffname engraver) "a")))
+optionally outputs to the console as well.  context may be specified
+as an engraver for convenience."
+   (if (ly:translator? context)
+       (set! context (ly:translator-context context)))
+   (let* ((p (open-file (filename-from-staffname context) "a")))
      ;; for regtest comparison
     (if (defined? 'EVENT_LISTENER_CONSOLE_OUTPUT)
      (ly:progress
-      (make-output-string-line engraver values)))
+      (make-output-string-line context values)))
     (display
-     (make-output-string-line engraver values)
+     (make-output-string-line context values)
      p)
     (close p)))
 
