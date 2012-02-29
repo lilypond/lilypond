@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.15.32"
 
 \header {
   lsrtags = "contexts-and-engravers, midi"
@@ -92,10 +92,7 @@ two MIDI channels are created, each with a different
       \Voice
       \consists "Staff_performer"
     }
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
-    }
+    \tempo 2 = 72
   }
 }
 

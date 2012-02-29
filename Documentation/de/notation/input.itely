@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.15.25"
+@c \version "2.15.32"
 
 @c Translators: Till Paala
 
@@ -2521,10 +2521,7 @@ gesetzt wird:
 \score @{
   @var{...Noten...}
   \midi @{
-    \context @{
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 4)
-    @}
+    \tempo 4 = 72
   @}
 @}
 @end example
@@ -2849,10 +2846,7 @@ diese Einstellung korrekt funktioniert.
   >>
   \layout {}
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
-    }
+    \tempo 2 = 72
   }
 }
 @end lilypond
@@ -2923,10 +2917,7 @@ Lautstärkewerte, die denen des vorigen Beispiels entsprechen.
   >>
   \layout { }
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
-    }
+    \tempo 2 = 72
   }
 }
 @end lilypond

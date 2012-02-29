@@ -1,4 +1,4 @@
-\version "2.15.18"
+\version "2.15.32"
 
 forcedLastBreak =  { \break }
 
@@ -187,10 +187,7 @@ smallerPaper = \layout {
     \layout { }
 
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 40 4)
-      }
+    \tempo 4 = 40
     }
 
 

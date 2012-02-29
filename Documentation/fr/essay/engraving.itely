@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.32"
 
 @c Translators: Jean-Charles Malahieude, John Mandereau, Gauvain Pocentek
 
@@ -1653,10 +1653,7 @@ constructions@dots{}
     >> }
   >>
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 60 8)
-    }
+    \tempo 8 = 60
   }
   \layout {
     \context {

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.25"
+@c \version "2.15.32"
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
 
@@ -2559,10 +2559,7 @@ imprimée.
 \score @{
   @var{...musique...}
   \midi @{
-    \context @{
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 4)
-    @}
+    \tempo 4 = 72
   @}
 @}
 @end example
@@ -2929,10 +2926,7 @@ indication de nuance.
   >>
   \layout {}
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
-    }
+    \tempo 2 = 72
   }
 }
 @end lilypond
@@ -3001,10 +2995,7 @@ flûte et de la clarinette -- au même niveau que dans le précédent.
   >>
   \layout { }
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
-    }
+    \tempo 2 = 72
   }
 }
 @end lilypond

@@ -8,7 +8,7 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 
 }
 
-\version "2.15.20"
+\version "2.15.32"
 
 ignoreMelisma =	\set ignoreMelismata = ##t
 ignoreMelismaOff = \unset ignoreMelismata 
@@ -158,10 +158,7 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
       }
       
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 70 4)
-      }
+    \tempo 4 = 70
     }
 
 

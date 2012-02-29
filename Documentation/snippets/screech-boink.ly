@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.14.0
-\version "2.14.0"
+\version "2.15.32"
 \header {
   lsrtags = "headwords"
   texidoc = "Random complex notation"
@@ -66,10 +66,7 @@
     }
   >>
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 60 8)
-    }
+    \tempo 8 = 60
   }
   \layout {
     ragged-right = ##t

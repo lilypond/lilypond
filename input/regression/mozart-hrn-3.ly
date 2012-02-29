@@ -48,7 +48,7 @@ virtuoso that taught in Geneva.
 "
 }
 
-\version "2.15.20"
+\version "2.15.32"
 
 \include "mozart-hrn3-defs.ily"
 \include "mozart-hrn3-allegro.ily"
@@ -70,10 +70,7 @@ virtuoso that taught in Geneva.
     }
 
     \midi {
-      \context {
-        \Score
-        tempoWholesPerMinute = #(ly:make-moment 90 4)
-      }
+      \tempo 4 = 90
     }
   }
 
@@ -85,10 +82,7 @@ virtuoso that taught in Geneva.
     }
 
     \midi {
-      \context {
-        \Score
-        tempoWholesPerMinute = #(ly:make-moment 70 4)
-      }
+      \tempo 4 = 70
     }
 
     \layout { }
@@ -103,10 +97,7 @@ virtuoso that taught in Geneva.
     }
 
     \midi {
-      \context {
-        \Score
-        tempoWholesPerMinute = #(ly:make-moment 100 4)
-      }
+      \tempo 4 = 100
     }
 
     \layout { }

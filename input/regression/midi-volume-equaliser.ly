@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.32"
 \header {
   texidoc = "@cindex Midi Volume Equaliser
 The full orchestra plays a note, where groups stop one after
@@ -124,10 +124,7 @@ violoncello =  \relative c' {
   >>
 
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 60 1)
-    }
+    \tempo 1 = 60
   }
 }
 

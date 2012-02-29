@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.32"
 \include "example-header.ily"
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -140,9 +140,6 @@ lowerVoiceTwo = \relative c, {
     }
   }
   %{\midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 120 4)
-    }
+    \tempo 4 = 120
   }%}
 }

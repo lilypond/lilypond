@@ -27,7 +27,7 @@ been lowered
 
 }
 
-\version "2.15.20"
+\version "2.15.32"
 manuscriptBreak = { \break }
 
 
@@ -180,10 +180,7 @@ pianoLH =  \relative c'' \repeat volta 2 {
 	    }
 	}
 	\midi {
-	  \context {
-	    \Score
-	    tempoWholesPerMinute = #(ly:make-moment 70 4)
-	  }
+	  \tempo 4 = 70
 	}
     }
 }
