@@ -1,19 +1,19 @@
-\version "2.15.31"
+\version "2.15.32"
 
 \header {
   texidoc = "
-@code{\\layout-from} can interpret property-setting music for changing
-context definitions inside of layout definitions like @code{\\layout}
-or @code{\\midi}.
+Inside of output definitions like @code{\\layout} or @code{\\midi},
+music is harvested for layout definitions in order to turn them
+into context modifications.
 "
 }
 
 \score {
   \relative c' { cis cis cis cis }
   \layout {
-    \layout-from { \accidentalStyle "dodecaphonic" }
+    \accidentalStyle "dodecaphonic"
   }
   \midi {
-    \layout-from { \tempo 4 = 240 }
+    \tempo 4 = 240
   }
 }
