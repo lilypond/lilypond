@@ -1640,21 +1640,41 @@ and only recurse if this returns @code{#f}."
 		    (map loop arts)))
 	  music))))
 
+(define-public (for-some-music stop? music)
+  "Walk through @var{music}, process all elements calling @var{stop?}
+and only recurse if this returns @code{#f}."
+  (let loop ((music music))
+    (if (not (stop? music))
+	(let ((elt (ly:music-property music 'element)))
+	  (if (ly:music? elt)
+	      (loop elt))
+	  (for-each loop (ly:music-property music 'elements))
+	  (for-each loop (ly:music-property music 'articulations))))))
+
+(define-public (fold-some-music pred? proc init music)
+  "This works recursively on music like @code{fold} does on a list,
+calling @samp{(@var{pred?} music)} on every music element.  If
+@code{#f} is returned for an element, it is processed recursively
+with the same initial value of @samp{previous}, otherwise
+@samp{(@var{proc} music previous)} replaces @samp{previous}
+and no recursion happens.
+The top @var{music} is processed using @var{init} for @samp{previous}."
+  (let loop ((music music) (previous init))
+    (if (pred? music)
+	(proc music previous)
+	(fold loop
+	      (fold loop
+		    (let ((elt (ly:music-property music 'element)))
+		      (if (null? elt)
+			  previous
+			  (loop elt previous)))
+		    (ly:music-property music 'elements))
+	      (ly:music-property music 'articulations)))))
+
 (define-public (extract-music music pred?)
   "Return a flat list of all music matching @var{pred?} inside of
 @var{music}, not recursing into matches themselves."
-  (reverse!
-   (let loop ((music music) (res '()))
-     (if (pred? music)
-	 (cons music res)
-	 (fold loop
-	       (fold loop
-		     (let ((elt (ly:music-property music 'element)))
-		       (if (null? elt)
-			   res
-			   (loop elt res)))
-		     (ly:music-property music 'elements))
-	       (ly:music-property music 'articulations))))))
+  (reverse! (fold-some-music pred? cons '() music)))
 
 (define-public (extract-named-music music music-name)
   "Return a flat list of all music named @var{music-name} (either a
