@@ -273,13 +273,15 @@ Example: @code{lilypond -dbackend=svg @var{filename}.ly}
 @cindex preview, command line
 
 This option is supported by all backends; @code{pdf}, @code{png},
-@code{ps}, @code{eps} and @code{svg}, but not @code{scm} and generates
-an output file containing the titles and the first system of music.  If
-@code{\bookpart} blocks are used, the titles and first system of every
-@code{\bookpart} will appear in the output.
+@code{ps}, @code{eps} and @code{svg}, but not @code{scm}.  It generates
+an output file, in the form @code{myFile.preview.extension}, containing
+the titles and the first system of music.  If @code{\book} or
+@code{\bookpart} blocks are used, the titles of @code{\book},
+@code{\bookpart} or @code{\score} will appear in the output, including
+the first system of every @code{\score} block if the @code{\paper}
+variable @code{print-all-headers} is set to @code{#t}.
 
-An additional file in the form @code{myFile.preview.extension} is
-generated, to avoid this use the additional @option{-dprint-pages} or
+To suppress the usual output, use the @option{-dprint-pages} or
 @option{-dno-print-pages} options according to your requirements.
 
 @item gui
