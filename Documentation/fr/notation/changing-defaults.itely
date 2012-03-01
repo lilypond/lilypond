@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
+    Translation of GIT committish: 4b87c3a98a6ac4fa426ad0ed3b0fc0532db44063
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -135,7 +135,7 @@ Les contextes sont hiérarchisés :
 @unnumberedsubsubsec Score -- le père de tous les contextes
 @translationof Score - the master of all contexts
 
-Il s'agit en l'occurence du contexte le plus élevé, autrement dit le
+Il s'agit en l'occurrence du contexte le plus élevé, autrement dit le
 plus important, en matière de notation.  En effet, c'est au niveau de la
 partition -- @emph{score} en anglais -- que se gèrent le temps et la
 tonalité@tie{}; c'est donc là qu'il faut s'assurer que les différents
@@ -386,7 +386,7 @@ music = @{ c4 c4 @}
 arts = @{ s4-. s4-> @}
 @end example
 
-Elles sont ensuites fusionnées par affectation au même contexte
+Elles sont ensuite fusionnées par affectation au même contexte
 @code{Voice}.
 
 @example
@@ -1305,7 +1305,7 @@ properties}, ou propriétés internes).
 Pour aller encore plus loin, plutôt que de simplement parler de l'objet
 @code{Fingering}, ce qui ne nous avance pas à grand chose, on peut aller
 explorer son âme même, dans les fichiers source de LilyPond (voir
-@rlearning{Autres sources de documentation}), en l'occurence le fichier
+@rlearning{Autres sources de documentation}), en l'occurrence le fichier
 @file{scm/define-grobs.scm}@tie{}:
 
 @example
@@ -1380,7 +1380,7 @@ en haut ou en bas).
 
 @cindex padding
 @noindent
-En-dessous de cette description se trouve décrite la variable
+En dessous de cette description se trouve décrite la variable
 @code{padding}@tie{}:
 
 @quotation
@@ -1466,7 +1466,7 @@ Les questions que vous devez vous poser sont@tie{}:
 @itemize
 @item Qu'est-ce qui relève des conventions, et qu'est-ce qui relève de
 la règle@tie{}?
-@item Qu'est-ce qui relève des règles du langage sous-jascent, et
+@item Qu'est-ce qui relève des règles du langage sous-jacent, et
 qu'est-ce qui est propre à LilyPond@tie{}?
 @end itemize
 
@@ -1700,7 +1700,7 @@ R1*2
 
 Les contextes s'organisent de façon hiérarchique@tie{}: aussi, lorsqu'un
 contexte de niveau supérieur est spécifié (par exemple @code{Staff}), la
-propriété sera modifée dans tous les contextes inférieurs (tous les
+propriété sera modifiée dans tous les contextes inférieurs (tous les
 contextes @code{Voice}, par exemple) qu'il contient.
 
 @funindex \unset
@@ -1809,7 +1809,7 @@ plus ou moins équivalent à
 
 La valeur de @var{contexte}.@var{NomObjet} (une liste associative, ou
 @emph{alist}) permet d'initialiser les propriétés des objets un par un.
-Les objets eux-même ont leurs propriétés, dont les noms, dans la
+Les objets eux-mêmes ont leurs propriétés, dont les noms, dans la
 tradition du langage Scheme, comprennent un trait d'union
 (@code{toto-titi}).  Ces propriétés internes changent constamment au
 cours de la mise en page@tie{}: en fait, la gravure d'une page n'est
@@ -1881,7 +1881,7 @@ mentionné@tie{}:
 @funindex \once
 
 L'instruction @code{\override} doit être précédée d'un @code{\once} dès
-lors que les effets de l'accomodement ne concernent que l'événement qui
+lors que les effets de l'accommodement ne concernent que l'événement qui
 la suit directement@tie{}:
 
 @lilypond[quote,verbatim,relative=2]
@@ -1968,7 +1968,7 @@ dont la syntaxe est@tie{}:
 \tweak #'@code{objet-propriété} #@code{valeur}
 @end example
 
-La commande @code{\tweak} s'applique à l'objet qui apparait
+La commande @code{\tweak} s'applique à l'objet qui apparaît
 immédiatement après @code{valeur}.
 
 @ignore
@@ -2070,7 +2070,7 @@ est directement rattachée à l'objet auquel elle doit s'appliquer alors
 que le fichier source est converti en flux musical.  LilyPond peut
 parfois être amené à ajouter d'autres éléments au flux musical lors de
 la phase d'analyse.  C'est la raison pour laquelle, puisque LilyPond
-peut insérer une note dans un accord alos qu'elle n'en fait pas partie
+peut insérer une note dans un accord alors qu'elle n'en fait pas partie
 explicitement, il est impératif d'adopter une construction d'accord
 lorsque l'instruction @code{\tweak} concerne une note isolée@tie{}:
 
@@ -2256,7 +2256,7 @@ non mentionnées seront ramenées à zéro -- à l'exception de
      (stretchability . 7))
 @end example
 
-L'une des conséquences, parfois involontaire, de ceci est la supression
+L'une des conséquences, parfois involontaire, de ceci est la suppression
 de réglages standards effectués par un fichier d'initialisation chargé à
 chaque compilation de votre fichier source.  Dans l'exemple précédent,
 les réglages standards de @code{padding} et @code{minimum-distance},
@@ -2436,7 +2436,7 @@ suivants@tie{}:
 @item une commande @code{\tag},
 @item les indications de corde, par exemple @code{-"corde"},
 @item les indications de doigté, par exemple @w{@code{-1}},
-@item les racourcis d'articulation, par exemple @w{@code{-.}},
+@item les raccourcis d'articulation, par exemple @w{@code{-.}},
 @w{@code{->}} ou @w{@code{--}}.
 @end itemize
 
@@ -2519,7 +2519,7 @@ et les distances relatives ou extensibles.
 
 Les distances absolues permettent de spécifier les marges, indentations
 et autres détails de mise en page@tie{}; elles s'expriment par défaut en
-milimètres.  Vous pouvez utiliser d'autres systèmes de mesure, dès lors
+millimètres.  Vous pouvez utiliser d'autres systèmes de mesure, dès lors
 que la quantité est suivie de la mesure@tie{}: @code{\mm}, @code{\cm},
 @code{\in}@tie{}(pouces) ou @code{\pt}@tie{}(points, 1/72,27 pouce).
 Les mesures de mise en page peuvent aussi s'exprimer en unité extensible
@@ -2543,7 +2543,7 @@ voir @ref{Définition de la taille de portée}.
 
 @funindex magstep
 
-Lorsque seulement une portion de partition doit apparaitre dans une
+Lorsque seulement une portion de partition doit apparaître dans une
 taille, comme par exemple une portée d'ossia ou une note de bas de page,
 influer sur la taille globale de portée affecterait l'intégralité de la
 partition.  Il convient donc dans ce cas de modifier à la fois la
@@ -2774,7 +2774,7 @@ extrêmes et dessiner entre eux une ligne du style requis.  Bien que la
 localisation des deux bornes de l'extenseur soit calculée à la volée,
 vous pouvez cependant forcer leur ordonnée (coordonnée-Y).  Les
 propriétés que vous devrez ajuster résident au deuxième niveau dans la
-hiérarchie, mais la syntaxe de la commmande @code{\override} nécessaire
+hiérarchie, mais la syntaxe de la commande @code{\override} nécessaire
 demeure relativement simple@tie{}:
 
 @lilypond[relative=2,quote,verbatim]
@@ -2875,7 +2875,7 @@ alignera le sommet du texte sur cette ligne d'extension.
 
 @item arrow
 L'activation de cette sous-propriété (lui affecter @code{#t}) ajoutera
-à l'extenseur une terminaison en flêche.
+à l'extenseur une terminaison en flèche.
 
 @item padding
 Cette sous-propriété contrôle l'espace qui doit séparer l'extrémité de
@@ -2898,7 +2898,7 @@ c2 \< c2 c2
 @end lilypond
 
 L'utilisation de @code{\endSpanners} permet de s'affranchir d'insérer un
-@code{\stopTextSpan} pour cloturer un @code{\startTextSpan} ou un
+@code{\stopTextSpan} pour clôturer un @code{\startTextSpan} ou un
 @code{\!} pour terminer un soufflet.
 
 
@@ -3037,7 +3037,7 @@ La plupart des objets de rendu ne sont imprimés qu'une seule fois@tie{};
 certains cependant, tels les barres de mesure, clefs, métriques ou
 armures, apparaîtront deux fois lors d'un saut de ligne -- une première
 fois en fin de ligne, puis à nouveau au début de la ligne suivante.  Ces
-objets, que l'on peut traîter de @emph{changeables} (@emph{breakable} en
+objets, que l'on peut traiter de @emph{changeables} (@emph{breakable} en
 anglais) disposent de la propriété @code{break-visibility} spécialement
 chargée de contrôler leur visibilité aux trois endroits où il sont
 susceptibles d'apparaître@tie{}: en début de ligne, en cours de ligne ou
@@ -3053,7 +3053,7 @@ se placer au bout de la ligne précédente.
 Ce comportement est géré par la propriété @code{break-visibility}, dont
 vous trouverez une explication à la rubrique
 @rlearning{Visibilité et couleur des objets}.  Cette propriété est
-constituée d'un vecteur de trois boléens qui, dans l'ordre, déterminent
+constituée d'un vecteur de trois booléens qui, dans l'ordre, déterminent
 si l'objet sera imprimé à la fin, en cours, et au début d'une ligne --
 on pourrait aussi dire avant un saut de ligne, là où il n'y a pas de
 saut de ligne, et après un saut de ligne.
@@ -3214,7 +3214,7 @@ f4 g a b
 @end lilypond
 
 Avec de tels réglages particuliers, seules les altérations accidentelles
-premettront d'indiquer le changement de tonalité.
+permettront d'indiquer le changement de tonalité.
 
 @c TODO Add visibility of cautionary accidentals before notes
 
@@ -3394,6 +3394,7 @@ approches permettant de fignoler l'apparence d'une partition.
 * Regroupement vertical d'objets graphiques::
 * Modification des stencils::
 * Modification de l'allure des éléments::
+* Conteneurs requalifiants::
 @end menu
 
 @seealso
@@ -3661,7 +3662,7 @@ example shows the difference:
 @cindex alignement sur un objet
 @cindex break-align-symbols
 
-Indications de répère et numéros de mesure peuvent s'aligner sur des
+Indications de repère et numéros de mesure peuvent s'aligner sur des
 objets de notation autres qu'une barre de mesure.  Parmi ces objets,
 nous citerons @code{ambitus}, @code{breathing-sign}, @code{clef},
 @code{custos}, @code{staff-bar}, @code{left-edge},
@@ -3697,7 +3698,7 @@ e1
 Les différents objets sur lesquels l'alignement pourrait intervenir
 seront regroupés dans une liste.  Si l'un des objets est invisible à
 l'endroit voulu, en raison d'un réglage de @code{break-visibility} ou
-bien par forçage de la visiblité des armures et clefs, le repère ou le
+bien par forçage de la visibilité des armures et clefs, le repère ou le
 numéro de mesure viendra s'aligner sur le premier élément de cette liste
 qui soit visible.  Dans le cas où aucun objet de la liste n'est visible,
 l'alignement se fera sur la barre de mesure ou, dans le cas où la barre
@@ -3800,13 +3801,13 @@ le réglage standard de la propriété @code{stencil} de l'objet
 
 Le symbole standard d'un objet quel qu'il soit peut être remplacé à
 partir du moment où la propriété @code{stencil} référence une procédure
-différente et écrite à cet effet.  Ceci recquiert une bonne maîtrise du
+différente et écrite à cet effet.  Ceci requiert une bonne maîtrise du
 fonctionnement interne de LilyPond, mais est grandement facilité dans
 bien des cas et permet d'obtenir le résultat escompté.
 
 En effet, rien ne nous interdit, à partir de la propriété
 @code{stencil}, d'appeler la procédure qui génère du texte,
-@code{ly:text-interface::print} en l'occurence, et d'adjoindre à l'objet
+@code{ly:text-interface::print} en l'occurrence, et d'adjoindre à l'objet
 une propriété @code{text} qui contiendra, sous forme de @emph{markup},
 le symbole à dessein.  Grâce à l'extrême flexibilité des @emph{markups},
 vous pourrez parvenir à bien des choses -- voir à ce sujet
@@ -3899,7 +3900,7 @@ de la portée.  Les différentes coordonnées sont entrées sous la forme
 d'une liste de quatre paires de nombres décimaux (ou nombres réels).
 L'une des manières de procéder consiste à tout d'abord estimer les
 coordonnées des deux extrémités puis, par tâtonnement, déterminer les
-deux points intremédiaires.
+deux points intermédiaires.
 
 Remarque intéressante au sujet des courbes@tie{}: une courbe sera
 symétrique si ses points de contrôle sont symétriques.  L'une des
@@ -3937,6 +3938,117 @@ Référence des propriétés internes :
 @rinternals{TieColumn}.
 
 
+@node Conteneurs requalifiants
+@subsection Conteneurs requalifiants
+@translationof Unpure-pure containers
+
+@cindex Scheme, pure containers
+@cindex Scheme, unpure containers
+@cindex pure containers, Scheme
+@cindex unpure containers, Scheme
+@cindex espacement horizontal, affinage
+
+Les conteneurs requalifiants permettent de faciliter le calcul des
+espacements en cas de modification du @emph{Y-axis} -- plus
+particulièrement les composantes @code{Y-offset} et @code{Y-extent} -- à
+l'aide d'une fonction scheme en lieu et place de valeurs.
+
+L'envergure verticale (@code{Y-extent}) de certains objets dépend de la
+propriété @code{stencil}@tie{}; jouer sur leur stencil requiert alors une
+intervention supplémentaire au niveau du @code{Y-extent} à l'aide d'un
+conteneur transitoire.  Lorsqu'une fonction affecte un @code{Y-offset} ou
+un @code{Y-extent}, cela déclenche la détermination des sauts de ligne
+de manière anticipée dans la séquence des traitements.  Il en résulte
+que cette opération n'est en fait pas exécutée@tie{}; elle renvoie
+habituellement @code{0} ou @code{'(0 . 0)}, ce qui peut engendrer des
+collisions.  Une fonction @qq{pure} évitera d'avorter la construction
+des propriétés ou objets, qui de ce fait verront leurs arguments liés à
+la verticalité (@code{Y-axis}) correctement évalués.
+
+Il existe actuellement une trentaine de fonctions que l'on peut
+qualifier de @qq{pures}.  Le recours à un conteneur transitoire permet
+de requalifier une fonction de telle sorte qu'elle soit reconnue comme
+@qq{pure} et soit donc évaluée @strong{avant} détermination des sauts de
+ligne -- l'espacement horizontal sera de fait ajusté en temps et en heure.
+La fonction @qq{impure} sera ensuite évaluée @strong{après} le
+positionnement des sauts de ligne.
+
+@warning{Il n'est pas toujours facile d'avoir l'assurance qu'une
+fonction soit qualifiée de @qq{pure}@tie{}; aussi nous vous recommandons
+d'éviter d'utiliser les objets @code{Beam} or @code{VerticalAlignment}
+lorsque vous désirez en créer une.}
+
+Un conteneur requalifiant se construit selon la syntaxe
+
+@code{(ly:make-unpure-pure-container f0 f1)}
+
+où @code{f0} est une fonction prenant @var{n} arguments (@var{n >= 1}),
+le premier devant être l'objet en question@tie{}; il s'agit de la
+fonction dont le résultat sera réutilisé.  @var{f1} est la fonction qui
+sera qualifiée de @qq{pure}.  Elle prend @var{n + 2} arguments, le
+premier devant être lui aussi l'objet en question, et les second et
+troisième étant respectivement les @qq{point de départ} (@var{start}) et
+@qq{point d'arrivée} (@var{end}).
+
+@var{start} et @var{end} sont dans tous les cas des valeurs fictives qui
+trouveront leur utilité dans le cas d'objets de type @code{Spanner},
+tels les soufflets (@code{Hairpin}) ou barres de ligature (@code{Beam}),
+en retournant les différentes estimations de hauteur basées sur leurs
+début et fin d'extension.
+
+Viennent ensuite les autres arguments de la fonction initiale @code{f0}
+-- autrement dit aucun si @var{n = 1}.
+
+Les résultats de la deuxième fonction (@code{f1}) permettent une
+approximation des valeurs qui seront ensuite utilisées par la fonction
+initiale aux fins d'ajustement lors des phases ultérieures d'espacement.
+
+@lilypond[verbatim,quote,ragged-right]
+#(define (square-line-circle-space grob)
+(let* ((pitch (ly:event-property (ly:grob-property grob 'cause) 'pitch))
+      (notename (ly:pitch-notename pitch)))
+ (if (= 0 (modulo notename 2))
+     (make-circle-stencil 0.5 0.0 #t)
+     (make-filled-box-stencil '(0 . 1.0)
+                              '(-0.5 . 0.5)))))
+
+squareLineCircleSpace = {
+  \override NoteHead #'stencil = #square-line-circle-space
+}
+
+smartSquareLineCircleSpace = {
+  \squareLineCircleSpace
+  \override NoteHead #'Y-extent =
+   #(ly:make-unpure-pure-container
+      ly:grob::stencil-height
+      (lambda (grob start end) (ly:grob::stencil-height grob)))
+}
+
+\new Voice \with { \remove "Stem_engraver" }
+\relative c'' {
+  \squareLineCircleSpace
+  cis4 ces cisis c
+  \smartSquareLineCircleSpace
+  cis4 ces cisis c
+}
+@end lilypond
+
+La première mesure de l'exemple ci-dessus ne fait pas appel à un
+conteneur requalifiant@tie{}; le moteur d'espacement n'a donc aucune
+connaissance de la largeur des têtes de note et ne peut empêcher
+qu'elles chevauchent les altérations.  Dans la deuxième mesure, par
+contre, le recours à un conteneur requalifiant informe le moteur
+d'espacement de la largeur des têtes de note@tie{}; les collisions sont
+alors évitées du fait de l'espace réservé à chacune des têtes.
+
+Lorsqu'il s'agit de calculs simples, les fonctions, tant pour la partie
+@qq{pure} que pour la partie @qq{impure}, peuvent être identiques au
+détail près du nombre d'arguments utilisés ou du domaine d'intervention.
+
+@warning{Le fait de qualifier une fonction de @qq{pure} alors qu'elle ne
+l'est pas peut générer des résultats imprévisibles.}
+
+
 @node Utilisation de fonctions musicales
 @section Utilisation de fonctions musicales
 @translationof Using music functions
@@ -3945,8 +4057,8 @@ Référence des propriétés internes :
 
 Une adaptation ou un affinage qui devient récurrent parce que doit
 s'appliquer à différentes expressions musicales peut faire l'objet d'une
-@emph{fonction musicale}.  Nous ne traîterons ici que des fonctions de
-@emph{subtitution}, dont le but est de substituer une variable en un
+@emph{fonction musicale}.  Nous ne traiterons ici que des fonctions de
+@emph{substitution}, dont le but est de substituer une variable en un
 bout de code LilyPond.  D'autres fonctions, plus complexes, sont
 abordées au chapitre @rextendnamed{Music functions,Fonctions musicales}.
 
@@ -3995,7 +4107,7 @@ Les arguments @code{parser} et @code{location} sont obligatoires@tie{};
 ils sont utilisés dans certaines situations évoluées, comme indiqué dans
 le manuel d'extension des fonctionnalités à au chapitre
 @rextendnamed{Music functions,Fonctions musicales}.  Assurez-vous bien
-de ne pas les omettre dans vos fonctions de subtitution.
+de ne pas les omettre dans vos fonctions de substitution.
 
 La liste des types de prédicat est elle aussi obligatoire.  Voici
 quelques uns des types de prédicat les plus utilisés dans les fonctions
@@ -4086,7 +4198,7 @@ custosNote =
 \relative c' { c4 d e f \custosNote g }
 @end lilypond
 
-Une fonction de subtitution peut traiter plusieurs argument@tie{}:
+Une fonction de substitution peut traiter plusieurs argument@tie{}:
 
 @lilypond[quote,verbatim,ragged-right]
 tempoPadded =

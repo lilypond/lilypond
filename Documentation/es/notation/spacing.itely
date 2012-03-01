@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 17ca0c2843f39775c3a9632e132b62dceba19a69
+    Translation of GIT committish: 61edc58d607808615f5df61a0164b4bef4d1cfd5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -373,7 +373,7 @@ tres sistemas por página, como por ejemplo las partituras orquestales.
 
 Si se establece al valor falso, los sistemas se reparten verticalmente
 hasta abajo de la última página.  Las piezas que llenan sobradamente
-dos o más páginas deben tener este valor fijado a verdadero.  También
+dos o más páginas deben tener este valor fijado a falso.  También
 afecta a la última página de las partes de libro, es decir, partes de
 un libro creadas con bloques @code{\bookpart}.
 
@@ -503,6 +503,11 @@ resultante es la mayor de:
 para eliminar las colisiones.
 
 @end itemize
+
+Para partituras de varias páginas con la parte inferior
+no justificada en la última página, ésta usará el mismo
+espaciado que la página anterior
+siempre y cuando haya espacio suficiente para ello.
 
 Los métodos específicos para la modificación de las listas-A se
 estudian en @ref{Modificación de las listas-A}.  El siguiente ejemplo

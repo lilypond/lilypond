@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Fri Feb 24 11:51:46 UTC 2012
+@emph{Last updated Sat Feb 25 23:32:38 UTC 2012
 }
 @multitable @columnfractions  0.5 0.5
 
@@ -2421,11 +2421,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -3411,11 +3411,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #d587ff"></span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+
 @end ifnothtml
 @tab Yoshiki Sawada
 @*
@@ -3461,11 +3461,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -3517,6 +3517,7 @@ Jean-Charles Malahieude
 @end ifnothtml
 @*
 
+@end ifnothtml
 @ifhtml
 
 @html
@@ -3551,11 +3552,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #68ff28">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Federico Bruni
 @*
@@ -3568,6 +3569,54 @@ up to date
 @end ifhtml
 @ifnothtml
 Luca Rossetto Casel
+@end ifnothtml
+@tab Francisco Vila
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
+@tab Valentin Villenave
+@*
+Jean-Charles Malahieude
+@*
+
+@ifhtml
+
+@html
+<small>Jean-Charles Malahieude</small>
+@end html
+@end ifhtml
+@ifnothtml
+Jean-Charles Malahieude
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<small>John Mandereau</small>
+@end html
+@end ifhtml
+@ifnothtml
+John Mandereau
 @end ifnothtml
 @*
 
@@ -3617,11 +3666,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @item
 1.3 Expressive marks
@@ -3644,11 +3693,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -3816,11 +3865,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -3872,6 +3921,7 @@ John Mandereau
 @end ifnothtml
 @*
 
+@end ifnothtml
 @ifhtml
 
 @html
@@ -3888,7 +3938,7 @@ John Mandereau
 @end html
 @end ifhtml
 @ifnothtml
-translated
+not translated
 @end ifnothtml
 @*
 
@@ -3938,13 +3988,13 @@ not translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #d587ff"></span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+
 @end ifnothtml
-@tab Yoshiki Sawada
+@tab Francisco Vila
 @*
 
 @ifhtml
@@ -3977,26 +4027,27 @@ up to date
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">translated</span>
+<small>Jean-Charles Malahieude</small>
 @end html
 @end ifhtml
 @ifnothtml
-translated
+Jean-Charles Malahieude
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
 
+@end ifnothtml
 @ifhtml
 
 @html
@@ -4038,11 +4089,11 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<small>John Mandereau</small>
+<small>Luca Rossetto Casel</small>
 @end html
 @end ifhtml
 @ifnothtml
-John Mandereau
+Luca Rossetto Casel
 @end ifnothtml
 @*
 
@@ -4058,11 +4109,11 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">translated</span>
+<span style="background-color: #d0f0f8">not translated</span>
 @end html
 @end ifhtml
 @ifnothtml
-translated
+not translated
 @end ifnothtml
 @*
 
@@ -4151,26 +4202,27 @@ partially up to date
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">translated</span>
+<small>John Mandereau</small>
 @end html
 @end ifhtml
 @ifnothtml
-translated
+John Mandereau
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<small></small>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
 
+@end ifnothtml
 @ifhtml
 
 @html
@@ -4219,11 +4271,11 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">translated</span>
+<span style="background-color: #d0f0f8">not translated</span>
 @end html
 @end ifhtml
 @ifnothtml
-translated
+not translated
 @end ifnothtml
 @*
 
@@ -4248,6 +4300,11 @@ up to date
 @ifnothtml
 Luca Rossetto Casel
 @end ifnothtml
+@item
+2.6 Wind instruments
+@*
+(319)
+@tab Till Paala
 @*
 
 @ifhtml
@@ -4273,13 +4330,13 @@ not translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #d587ff"></span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+
 @end ifnothtml
-@tab Yoshiki Sawada
+@tab Francisco Vila
 @*
 
 @ifhtml
@@ -4312,11 +4369,11 @@ up to date
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">translated</span>
+<small>Jean-Charles Malahieude</small>
 @end html
 @end ifhtml
 @ifnothtml
-translated
+Jean-Charles Malahieude
 @end ifnothtml
 @*
 
@@ -4329,9 +4386,17 @@ translated
 @ifnothtml
 up to date
 @end ifnothtml
-@tab Francisco Vila
 @*
 
+@ifhtml
+
+@html
+<small></small>
+@end html
+@end ifhtml
+@ifnothtml
+
+@end ifnothtml
 @ifhtml
 
 @html
@@ -4340,17 +4405,6 @@ up to date
 @end ifhtml
 @ifnothtml
 translated
-@end ifnothtml
-@*
-
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">up to date</span>
-@end html
-@end ifhtml
-@ifnothtml
-up to date
 @end ifnothtml
 @tab Jean-Charles Malahieude
 @*
@@ -4435,11 +4489,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @item
 1.8 Text
@@ -4462,11 +4516,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -4773,11 +4827,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -5289,11 +5343,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -5582,11 +5636,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @item
 2.6 Wind instruments
@@ -5609,11 +5663,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -5688,11 +5742,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Federico Bruni
 @*
@@ -5774,22 +5828,8 @@ partially up to date
 @end html
 @end ifhtml
 @ifnothtml
-translated
+
 @end ifnothtml
-@*
-
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">up to date</span>
-@end html
-@end ifhtml
-@ifnothtml
-up to date
-@end ifnothtml
-@tab Francisco Vila
-@*
-
 @ifhtml
 
 @html
@@ -6535,7 +6575,7 @@ up to date
 @item
 4 Spacing issues
 @*
-(11112)
+(11141)
 @tab Till Paala
 @*
 
@@ -6694,11 +6734,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -6751,22 +6791,22 @@ Gilles Thibault
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (99 %)</span>
+<span style="background-color: #1fff1f">translated</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (99 %)
+translated
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Federico Bruni
 @*
@@ -6892,11 +6932,11 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (84 %)</span>
+<span style="background-color: #dfef77">partially translated (89 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (84 %)
+partially translated (89 %)
 @end ifnothtml
 @*
 
@@ -8809,11 +8849,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -9315,11 +9355,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -10396,11 +10436,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d587ff"></span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*

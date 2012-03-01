@@ -8,7 +8,7 @@
 \version "2.15.24"
 
 \header {
-%% Translation of GIT committish: ea0b270e14781707ab52683acddf9302bbe337f3
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
 
   texidoces = "
 Se pueden seleccionar dos métodos alternativos para la numeración de

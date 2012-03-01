@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
+    Translation of GIT committish: 68bf74649158e6088ff0e6c2ba746cd99dc12c97
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -658,6 +658,7 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 * Glyphes de style néomensural::
 * Glyphes de style Petrucci::
 * Glyphes de style Solesmes::
+* Glyphes de style Kievan::
 @end menu
 
 
@@ -924,6 +925,17 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
             \doc-chars #solesmes
 @end lilypond
 
+
+@node Glyphes de style Kievan
+@unnumberedsubsec Glyphes de style Kievan
+@translationof Kievan Notation glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplist \override-lines #'(word-space . 4)
+	     \doc-chars #kievan
+@end lilypond
+ 
 
 @node Styles de tête de note
 @appendixsec Styles de tête de note
