@@ -1139,7 +1139,7 @@ annotated, the @samp{(x . y)} position of the indicator and two
 or grob and the second is the footnote at the bottom of the page.
 
 Like automatic footnotes, manual @code{\footnote} commands must come
-@emph{after} the grob that the footnote is annotating and attached as a
+@emph{before} the grob that the footnote is annotating and attached as a
 @code{TextScript}:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
