@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Sat Feb 25 23:32:38 UTC 2012
+@emph{Zuletzt aktualisiert am Thu Mar  1 13:47:50 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -583,7 +583,7 @@ ja
 @item
 1.2 Rhythmus
 @*
-6287
+6327
 @tab Till Paala
 @tab 
 @tab 
