@@ -3706,14 +3706,12 @@ inst =
 }
 @end lilypond
 
-There are some problems with overlapping output; we'll fix those using
-the techniques in @ref{Moving objects}.  But let's also
-do something about the @code{mpdolce} and @code{inst}
-definitions.  They produce the output we desire, but we might want
-to use them in another piece.  We could simply copy-and-paste them
-at the top of every file, but that's an annoyance.  It also leaves
-those definitions in our input files, and I personally find all
-the @code{#()} somewhat ugly.  Let's hide them in another file:
+Let's do something about the @code{mpdolce} and @code{inst} definitions.
+They produce the output we desire, but we might want to use them in
+another piece.  We could simply copy-and-paste them at the top of every
+file, but that's an annoyance.  It also leaves those definitions in our
+input files, and I personally find all the @code{#()} somewhat ugly.
+Let's hide them in another file:
 
 @example
 %%% save this to a file called "definitions.ily"
