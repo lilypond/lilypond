@@ -2371,15 +2371,10 @@ indication to be printed:
 @end example
 
 In this example the tempo is set to 72 quarter note
-beats per minute.  This kind of tempo specification cannot take
-a dotted note length as an argument.  If one is required, break
-the dotted note into smaller units.  For example, a tempo of 90
-dotted quarter notes per minute can be specified as 270 eighth
-notes per minute:
-
-@example
-tempoWholesPerMinute = #(ly:make-moment 270 8)
-@end example
+beats per minute.  @code{\tempo} is actually a music command for
+setting properties during the interpretation of music: in the
+context of output definitions like a @code{\midi} block, as a matter of
+courtesy those are reinterpreted as if they were context modifications.
 
 @cindex MIDI context definitions
 
@@ -2626,9 +2621,9 @@ volume is limited to the range 0.2 - 0.5.
   >>
   \layout {}
   \midi {
+    \tempo 2 = 72
     \context {
       \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
       midiMinimumVolume = #0.2
       midiMaximumVolume = #0.5
     }

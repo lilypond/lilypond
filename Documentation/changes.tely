@@ -62,6 +62,17 @@ which scares away people.
 @end ignore
 
 @item
+Use of @code{\tempo} specifications in @code{\midi} blocks (removed in
+2.9.16 in favor of explicit @code{tempoWholesPerMinute} settings) has
+seen a revival: now any kind of property-setting music is turned into
+context definitions within of output specifications, allowing for
+declarations like
+@example
+\layout @{ \accidentalStyle modern @}
+\midi @{ \tempo 4. = 66 @}
+@end example
+
+@item
 The LilyPond G clef has been redesigned - upper loop is now more balanced,
 bottom crook sticks out less and the "spine" (main vertical line) is more
 evenly curved. The old and new versions can be compared by looking at the
