@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -138,7 +138,7 @@ Die Konvertierung direkt am Original vornehmen, sodass es direkt verändert wird
 Stellt die Versionsnummer ein, ab welcher die Konvertierung begonnen werden
 soll.  Wenn die Option nicht benutzt wird, rät @command{convert-ly} die Versionsnummer
 anhand des @code{\version}-Eintrags in der Datei.  Beispielsweise
-@code{--from=2.10.25}
+@option{--from=2.10.25}
 
 @item -n,--no-version
 Normalerweise fügt @command{convert-ly} einen @code{\version}-Eintrag
@@ -149,10 +149,16 @@ Zeige alle bekannten Konversionen und beende.
 
 @item --to=@var{bis-Versionsnummer}
 Die Zielversion der Konversion setzen.  Standard ist die letzte mögliche
-Version, die das Programm beherrscht.  Beispielsweise @code{--to=2.12.2}
+Version, die das Programm beherrscht.  Beispielsweise @option{--to=2.12.2}
 
 @item -h, --help
 Zeigt Hilfe zur Benutzung.
+
+@item -l @var{Logstufe}, --loglevel=@var{Logstufe}
+Passt die Ausführlichkeit der Ausgabe entsprechend @var{Logstufe} an.
+Mögliche Werte sind @code{NONE}, @code{ERROR}, @code{WARNING},
+@code{PROGRESS} (Standard) und @code{DEBUG}.
+
 @end table
 
 Um LilyPond-Schnipsel in texinfo-Dateien zu aktualisieren, kann
