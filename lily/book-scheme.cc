@@ -156,6 +156,19 @@ LY_DEFINE (ly_book_header, "ly:book-header",
   return b->header_ ? b->header_ : SCM_BOOL_F;
 }
 
+LY_DEFINE (ly_book_set_header_x, "ly:book-set-header!",
+           2, 0, 0, (SCM book, SCM module),
+           "Set the book header.")
+{
+  LY_ASSERT_SMOB (Book, book, 1);
+  SCM_ASSERT_TYPE (ly_is_module (module), module, SCM_ARG2, __FUNCTION__,
+                   "module");
+
+  Book *b = unsmob_book (book);
+  b->header_ = (module);
+  return SCM_UNSPECIFIED;
+}
+
 LY_DEFINE (ly_book_scores, "ly:book-scores",
            1, 0, 0, (SCM book),
            "Return scores in @var{book}.")
