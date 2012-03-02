@@ -447,8 +447,8 @@ tabFullNotation = {
   \revert TabVoice.Stem #'no-stem-extend
   \revert TabVoice.Flag #'style
   \revert TabVoice.Stem #'details
-  \revert TabVoice.Stem #'transparent
-  \revert TabVoice.Flag #'transparent
+  \revert TabVoice.Stem #'stencil
+  \revert TabVoice.Flag #'stencil
   \override TabVoice.Stem #'stencil = #tabvoice::draw-double-stem-for-half-notes
   \override TabVoice.Stem #'X-extent = #tabvoice::make-double-stem-width-for-half-notes
   \set autoBeaming = ##t
@@ -468,15 +468,15 @@ tabFullNotation = {
   \revert TabVoice.TupletBracket #'stencil
   \revert TabVoice.TupletNumber #'stencil
   % dynamic signs
-  \revert TabVoice.DynamicText #'transparent
+  \revert TabVoice.DynamicText #'stencil
   \revert TabVoice.DynamicTextSpanner #'stencil
   \revert TabVoice.DynamicTextSpanner #'stencil
-  \revert TabVoice.Hairpin #'transparent
+  \revert TabVoice.Hairpin #'stencil
   % rests
   \revert TabVoice.Rest #'stencil
   \revert TabVoice.MultiMeasureRest #'stencil
-  \revert TabVoice.MultiMeasureRestNumber #'transparent
-  \revert TabVoice.MultiMeasureRestText #'transparent
+  \revert TabVoice.MultiMeasureRestNumber #'stencil
+  \revert TabVoice.MultiMeasureRestText #'stencil
   % markups etc.
   \revert TabVoice.Glissando #'stencil
   \revert TabVoice.Script #'stencil
