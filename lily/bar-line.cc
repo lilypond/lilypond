@@ -287,7 +287,11 @@ Bar_line::compound_barline (Grob *me, string str, Interval const &extent,
   else if (str == "'")
     m = tick_bar_line (me, extent.at (UP), rounded);
   else if (str == "kievan")
+   {
+    me->set_property ("layer", scm_from_int (1));
     m.add_stencil (Font_interface::get_default_font (me)->find_by_name ("scripts.barline.kievan"));
+    m = *unsmob_stencil (scm_call_1 (ly_lily_module_constant ("stencil-whiteout"), m.smobbed_copy ()));
+   }
   return m;
 }
 

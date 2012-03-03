@@ -254,16 +254,16 @@ fet_beginchar ("Kievan end of piece (slash)", "barline.kievan");
 	save hair_thickness, thick_thickness, width, depth, height, padding;
 	hair# = 1.9 linethickness#;
 	thick# = 6.0 linethickness#;
-	width = .8 staff_space;
+	width# = 1.0 staff_space#;
 	height# + depth# = 4 staff_space#;
-	depth# = height# + hair# / 2;
-	padding = .2 staff_space;
+	depth# = height# + hair#;
+	padding# = .2 staff_space#;
 
-	set_char_box (0, 0, depth#, height#);
-	define_pixels (hair, thick);
+	set_char_box (0, width# + 3 padding#, depth#, height# + staff_space#);
+	define_pixels (hair, thick, width, padding, depth, height);
 
-	x1r - x2l = width;
-	y1 - y3r = d + h + linethickness / 2;
+	x7r - x2l = width;
+	y1 - y3r = depth + height + linethickness / 2;
 	z3 = z2;
 	z4 = .5 [z1, z2]
 	   = (width / 2 + padding, hair / 8);
