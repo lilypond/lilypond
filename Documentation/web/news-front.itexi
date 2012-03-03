@@ -10,6 +10,20 @@
 
 
 @newsItem
+@subsubheading LilyPond 2.15.32 released!  @emph{Mar 03, 2012}
+
+We are happy to announce the release of LilyPond 2.15.32.  This
+release contains the usual number of bugfixes.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.  Please
+note that due to a few Critical bugs, this is not the next release
+candidate.
+
+@newsEnd
+
+
+@newsItem
 @subsubheading LilyPond 2.15.31 released!  @emph{Feb 29, 2012}
 
 We are happy to announce the release of LilyPond 2.15.31.  This
