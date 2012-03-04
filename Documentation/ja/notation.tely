@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 45329bd378eedfebca34c746fff9e53b46cf2fe5
+    Translation of GIT committish: dadabdfc4537ef85adb9159d46eda5a0ff180835
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -21,7 +21,7 @@
 
 @c `Notation Reference' was born 1999-10-11 with git commit 940dda0...
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2009 by 著作者一同
+Copyright @copyright{} 1999--2012 by 著作者一同
 @end macro
 
 

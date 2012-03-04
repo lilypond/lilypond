@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 1f655fba7d94feb67f846785f47ab6fb20dc2e59
+    Translation of GIT committish: dadabdfc4537ef85adb9159d46eda5a0ff180835
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -148,6 +148,9 @@ a4 b c4. b8 a4. b4.. c8.
 
 
 @snippets
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{alternative-breve-note.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
@@ -532,8 +535,23 @@ c2 ~ c
 @end lilypond
 
 タイの破線パターン定義の構造は、スラーの破線パターン定義と同じです。@c
-複雑な破線パターンについての更なる情報は @ref{Slurs} にある@c
-コード断片集を参照してください。
+複雑な破線パターンについての更なる情報は @ref{Slurs} を参照してください。
+
+譜の中で他のオブジェクトと衝突するタイに対しては、@c
+@var{whiteout} レイアウト プロパティと @var{layer} レイアウト プロパティを@c
+オーバライドしてください。
+
+@lilypond[verbatim,quote,ragged-right,relative=2]
+\override Tie #'layer = #-2
+\override Staff.TimeSignature #'layer = #-1
+\override Staff.KeySignature #'layer = #-1
+\override Staff.TimeSignature #'whiteout = ##t
+\override Staff.KeySignature #'whiteout = ##t
+b2 b~
+\time 3/4
+\key a \major
+b r4
+@end lilypond
 
 @predefined
 @code{\tieUp},
@@ -567,6 +585,7 @@ c2 ~ c
 @ref{自動音符分割}
 
 コード断片集:
+@rlsr{Expressive marks},
 @rlsrnamed{Rhythms,リズム}
 
 内部リファレンス:
@@ -574,7 +593,6 @@ c2 ~ c
 @rinternals{LaissezVibrerTieColumn},
 @rinternals{TieColumn},
 @rinternals{Tie}
-
 
 @knownissues
 
@@ -1114,7 +1132,7 @@ c c c c
 
 @item
 @code{@var{beamExceptions}}, 指定された拍子でそれぞれの拍で終了しない@c
-連桁のルールを保持する配列リスト。@c
+連桁の規則を保持する配列リスト。@c
 @ref{自動連桁の振る舞いを設定する} に説明があります。
 @end enumerate
 
@@ -1223,12 +1241,6 @@ c c c c
 
 
 @snippets
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-the-time-signature-without-affecting-the-beaming.ly}
-
-@cindex compound time signatures
-@cindex time signature, compound
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
@@ -1353,16 +1365,15 @@ d4 g e c
 @cindex upbeat (上拍)
 @cindex partial measure (部分小節)
 @cindex measure, partial (部分小節)
+@cindex measure, pickup (ピックアップ小節)
 @cindex pickup measure (ピックアップ小節)
-@cindex measure, change length (小節の長さの変更)
 
 @funindex measurePosition
 @funindex \partial
 @funindex partial
 
-弱拍や上拍などのような部分小節またはピックアップ小節は、@c
-@code{\partial} コマンドを使って入力します。@c
-以下の構文を使用します:
+@emph{弱拍} や @emph{上拍} などのような部分小節またはピックアップ小節は、@c
+@code{\partial} コマンドを使って入力します:@c
 
 @example
 \partial @var{duration}
@@ -1371,45 +1382,41 @@ d4 g e c
 @noindent
 @code{duration} は、最初の完全な長さを持つ小節の前に置かれる小節の長さです:
 
-@lilypond[quote,verbatim,relative=2]
-\partial 4 e4 |
-a2. c,4 |
+@lilypond[quote,verbatim,relative=1]
+\time 3/4
+\partial 8
+e8 | a4 c8 b c4 |
 @end lilypond
 
-部分小節は、完全な長さを持つ小節よりも短い演奏時間なら、@c
-どのような長さでも持つことができます:
+@var{duration} は、完全な長さを持つ小節より短い演奏時間であれば、@c
+任意の値を取ることができます:
 
-@lilypond[quote,verbatim,relative=2]
-\partial 4 e4 |
-a2. c,4 |
+@lilypond[quote,verbatim,relative=1]
+\time 3/4
+\partial 4.
+r4 e8 | a4 c8 b c4 |
 @end lilypond
 
-部分小節は 1 小節よりも短い任意の演奏時間にすることができます:
-
-@lilypond[quote,verbatim,relative=2]
-\partial 8*3 c8 d e |
-a2. c,4 |
-@end lilypond
-
-内部的には、@code{\partial @var{duration}} は以下のように翻訳されます:
+@code{\partial @var{duration}} を以下のように記述することもできます:
 
 @example
 \set Timing.measurePosition -@var{duration}
 @end example
 
-例えば、@code{\partial 8*3} は以下のようになります:
+この場合、@code{\partial 8} は以下のようになります:
 
-@example
-\set Timing.measurePosition = #(ly:make-moment -3 8)
-@end example
+@lilypond[quote,verbatim,relative=1]
+\time 3/4
+\set Timing.measurePosition = #(ly:make-moment -1 8)
+e8 | a4 c8 b c4 |
+@end lilypond
 
 プロパティ @code{measurePosition} は、@c
 ある時点でその小節はどれくらい演奏済みになっているかを示す有理数を保持します。@c
 このプロパティは @code{\partial} によって負の数にセットされるということに@c
 注意してください:
-すなわち、@code{\partial 4} は内部的に @code{-4} に翻訳され、@c
+すなわち、@code{\partial 4} は内部的に @w{@code{-4}} に翻訳され、@c
 @qq{その小節には 4 分音符が残っている} という意味になります。
-
 
 @seealso
 音楽用語集:
@@ -1426,12 +1433,20 @@ a2. c,4 |
 
 
 @knownissues
-
-@code{\partial} コマンドは楽曲の開始時で使用されることだけを@c
-意図したものです。@c
+@code{\partial} コマンドは楽曲の開始時でのみ使用すべきです。@c
 楽曲の途中でこのコマンドを使用した場合、@c
-奇妙な警告がいくつか発生するかもしれません。@c
-曲の途中では @code{\set Timing.measurePosition} を使用してください。
+警告や問題が発生する可能性があります。@c
+曲の途中では @code{\partial} の代わりに
+@code{\set Timing.measurePosition} を使用してください。
+
+@lilypond[quote,verbatim,relative=1]
+\time 6/8
+\partial 8
+e8 | a4 c8 b[ c b] |
+\set Timing.measurePosition = #(ly:make-moment -1 4)
+r8 e,8 | a4 c8 b[ c b] |
+@end lilypond
+
 
 @node 無韻律の音楽
 @unnumberedsubsubsec 無韻律の音楽
@@ -1476,10 +1491,10 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
-@cindex beaming in cadenzas (カデンツァでの連桁)
-@cindex beaming in unmetered music (無韻律の音楽での連桁)
-@cindex cadenza, beaming in (カデンツァでの連桁)
-@cindex unmetered music, beaming in (無韻律の音楽での連桁)
+@cindex beams, in cadenzas (カデンツァでの連桁)
+@cindex beams, in unmetered music (無韻律の音楽での連桁)
+@cindex cadenza, with beams (カデンツァでの連桁)
+@cindex unmetered music, with beams (無韻律の音楽での連桁)
 
 自動連桁は @code{\cadenzaOn} で off になり、@c
 @code{\cadenzaOff} で on になります。@c
@@ -1576,44 +1591,42 @@ LilyPond は改行と改ページを小節線の箇所にのみ挿入します�
 @funindex \times
 @funindex times
 
+多拍子記譜法がサポートされます。
 複合拍子記譜法がサポートされます。@c
 明示的な複合拍子と、拍子指定を変更して音符の演奏時間を@c
 伸縮することによる複合拍子のどちらもです。
 
 
-@strong{@i{それぞれの譜は異なる拍子を持ち、小節の長さは等価である場合}}
+@subsubheading それぞれの譜は異なる拍子を持ち、小節の長さは等価である場合
 
-この記譜を作成するには、各譜に共通の拍子をセットし、@c
-@code{timeSignatureFraction} に望みの分数をセットすることによって記号を@c
-手動で置き換え、各譜の演奏時間を伸縮させて共通の拍子に合わせます
--- @ref{拍子} を参照してください。@c
-演奏時間の伸縮は @code{\scaleDurations} で行います。@c
-このコマンドの使用方法は @code{\times} と同じですが、連符囲みを@c
-作成しません -- @ref{演奏時間を変更する} を参照してください。
+各譜共通の拍子記号をセットして、@c
+@code{timeSignatureFraction} にお望みの分数をセットします。@c
+それから、@code{\scaleDurations} 関数を用いて共通の拍子記号に対する
+各譜の音符の演奏時間を伸縮させます。
 
-@cindex beaming in polymetric music (複合拍子音楽での連桁)
-@cindex beaming in polymetric meter (複合拍での連桁)
+@cindex beams, with polymetric meters (多拍子での連桁)
+@cindex polymetric meters, with beams (多拍子での連桁)
 
-この例では、3/4, 9/8 それに 10/8 の拍子を持つ音楽が並列に並べられています。@c
-2 番目の譜では、演奏時間に 2/3 が掛けられ、それによって 2/3 * 9/8 = 3/4 と@c
-なっています。@c
-3 番目の譜では、演奏時間に 3/5 が掛けられ、それによって 3/5 * 10/8 = 3/4 と@c
-なっています。@c
-演奏時間の伸縮は自動連桁の規則に影響を与えるため、しばしば手動で連桁を@c
-挿入することが必要になります。
+以下の例では、拍子記号 3/4, 9/8, それに 10/8 の音楽が並列しています。@c
+2 番目の譜では示された演奏時間に 2/3 が掛けられ
+(なぜなら、2/3 * 9/8 = 3/4 だからです)、@c
+3 番目の譜では示された演奏時間に 3/5 が掛けられます
+(なぜなら、3/5 * 10/8 = 3/4 だからです)。@c
+演奏時間の伸縮は自動連桁の規則に影響を与えるため、@c
+手動で連桁を付ける必要があるかもしれません。
 
 @lilypond[quote,verbatim]
 \relative c' <<
   \new Staff {
     \time 3/4
     c4 c c |
-    c c c |
+    c4 c c |
   }
   \new Staff {
     \time 3/4
     \set Staff.timeSignatureFraction = #'(9 . 8)
     \scaleDurations #'(2 . 3)
-    \repeat unfold 6 { c8[ c c] }
+      \repeat unfold 6 { c8[ c c] }
   }
   \new Staff {
     \time 3/4
@@ -1621,14 +1634,14 @@ LilyPond は改行と改ページを小節線の箇所にのみ挿入します�
     \scaleDurations #'(3 . 5) {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
-      c4. c4. \times 2/3 { c8[ c c] } c4
+      c4. c \times 2/3 { c8[ c c] } c4
     }
   }
 >>
 @end lilypond
 
 
-@strong{@i{それぞれの譜は異なる拍子を持ち、小節の長さは等価ではない場合}}
+@subsubheading それぞれの譜は異なる拍子を持ち、小節の長さは等価ではない場合
 
 @code{Timing_translator} と @code{Default_bar_line_engraver} を
 @code{Staff} コンテキストに移すことによって、@c
@@ -1673,6 +1686,44 @@ LilyPond は改行と改ページを小節線の箇所にのみ挿入します�
 >>
 @end lilypond
 
+@funindex \compoundMeter
+@cindex compound time signatures (複合拍子記号)
+@cindex time signature, compound
+
+@subsubheading 複合拍子記号
+
+複合拍子記号は @code{\compoundMeter} を用いて作成します。@c
+構文は以下の通りです:
+
+@example
+\compoundMeter #'@code{(list of lists)}
+@end example
+
+最も簡単な構成は単一のリストであり、@c
+リストの @emph{最後の} 数字が拍子記号の分母になります。
+
+@lilypond[quote,verbatim]
+\relative c' {
+  \compoundMeter #'((2 2 2 8))
+  \repeat unfold 6 c8 \repeat unfold 12 c16
+}
+@end lilypond
+
+リストを追加することでより複雑な拍子を構築することができます。@c
+また、この関数で指定された値に基づいて自動連桁の設定は調節されます。
+
+@lilypond[quote,verbatim]
+\relative c' {
+  \compoundMeter #'((1 4) (3 8))
+  \repeat unfold 5 c8 \repeat unfold 10 c16
+}
+
+\relative c' {
+  \compoundMeter #'((1 2 3 8) (3 4))
+  \repeat unfold 12 c8
+}
+@end lilypond
+
 @seealso
 音楽用語集:
 @rglos{polymetric},
@@ -1680,6 +1731,8 @@ LilyPond は改行と改ページを小節線の箇所にのみ挿入します�
 @rglos{meter}
 
 記譜法リファレンス:
+@ref{自動連桁},
+@ref{手動連桁},
 @ref{拍子},
 @ref{演奏時間を変更する}
 
@@ -1694,7 +1747,6 @@ LilyPond は改行と改ページを小節線の箇所にのみ挿入します�
 
 
 @knownissues
-
 異なる拍子を持つ譜が並列に並べられている場合、@c
 同時に起こる音符の水平方向の位置は同じになります。@c
 しかしながら、それぞれの譜の小節線により、@c
@@ -1707,27 +1759,36 @@ LilyPond は改行と改ページを小節線の箇所にのみ挿入します�
 
 @cindex notes, splitting (音符を分割する)
 @cindex splitting notes (音符を分割する)
+@cindex rests, splitting (休符を分割する)
+@cindex splitting rests (休符を分割する)
 
 @funindex Note_heads_engraver
 @funindex Completion_heads_engraver
+@funindex Completion_rest_engraver
 
 小節線をまたがる長い音符を自動的にタイで結ばれた音符に変換することができます。@c
-これを行うには、@code{Note_heads_engraver} を
-@code{Completion_heads_engraver} で置き換えます。@c
-以下の例では、小節線をまたがる音符が分割され、タイで結ばれています。
+これを行うには、@code{Note_heads_engraver} を @code{Completion_heads_engraver}
+で置き換えます。@c
+同様に、小節線をまたがる長い休符を自動的に分割することができます。
+これを行うには、@code{Rest_engraver} を @code{Completion_rest_engraver}
+で置き換えます。@c
+以下の例では、小節線をまたがる音符と休符は分割され、@c
+音符はされにタイで結ばれています。
 
 @lilypond[quote,verbatim,relative=1]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
+  \remove "Rest_engraver"
+  \consists "Completion_rest_engraver"
 }
 
-{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 }
+{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2 }
 @end lilypond
 
-このエングラーバは進行中の音符をすべて小節線のところで分割して、@c
-タイを挿入します。@c
-このエングラーバの用途の 1 つに複雑な楽譜のデバッグがあります:
+これらのエングラーバは進行中の音符と休符をすべて小節線のところで分割して、@c
+音符に対してはタイを挿入します。@c
+これらのエングラーバの用途の 1 つに複雑な楽譜のデバッグがあります:
 何小節かで音符がきちんと満たされていない場合、@c
 このエングラーバで挿入されたタイが、それぞれの小節の狂いを示します。
 
@@ -1745,6 +1806,8 @@ LilyPond は改行と改ページを小節線の箇所にのみ挿入します�
 内部リファレンス:
 @rinternals{Note_heads_engraver},
 @rinternals{Completion_heads_engraver},
+@rinternals{Rest_engraver},
+@rinternals{Completion_rest_engraver},
 @rinternals{Forbid_line_break_engraver}
 
 
@@ -1865,8 +1928,7 @@ LilyPond は改行と改ページを小節線の箇所にのみ挿入します�
 
 @cindex beams, manual (手動連桁)
 @cindex manual beams (手動連桁)
-@cindex beams, setting rules for (連桁の規則を設定する)
-@cindex beams, custom rules for (連桁のためのカスタム規則)
+@cindex beams, customizing rules (連桁の規則をカスタマイズする)
 
 @funindex \autoBeamOn
 @funindex autoBeamOn
@@ -1896,33 +1958,32 @@ c4 c8 c8. c16 c8.
 c16 c8
 @end lilypond
 
-@cindex melismata, beams (メリスマと連桁)
-@cindex beams and melismata (連桁とメリスマ)
+@cindex melismata, with beams (メリスマの連桁)
+@cindex beams, with melismata (メリスマの連桁)
 
-@warning{歌曲の中でメリスマを表すために連桁を使用する場合、
-@code{\autoBeamOff} で自動連桁を off にして、手動で連桁を示すべきです。}
-
-@warning{@code{@bs{}partcombine} を @code{@bs{}autoBeamOff} と一緒に@c
+@warning{歌曲の中でメリスマを表すために連桁を使用する場合、@c
+@code{\autoBeamOff} で自動連桁を off にして、手動で連桁を示すべきです。@c
+@code{@bs{}partcombine} を @code{@bs{}autoBeamOff} と一緒に@c
 用いると予期しない結果になる可能性があります。@c
-詳細は以下のコード断片を参照してください。}
+詳細はコード断片集を参照してください。}
 
 自動的に挿入されるデフォルトの連桁とは異なるパターンの連桁を@c
 作成することができます
 -- @ref{自動連桁の振る舞いを設定する} を参照してください。
-
 
 @predefined
 @code{\autoBeamOff},
 @code{\autoBeamOn}
 @endpredefined
 
+@cindex beams, line breaks (連桁と改行)
+@cindex line breaks, beams (改行と連桁)
+@c 未訳
+@cindex beams, with knee gap
+@cindex knee gap, with beams
+@funindex breakable
 
 @snippets
-
-@cindex line breaks and beams (改行と連桁)
-@cindex beams and line breaks (連桁と改行)
-
-@funindex breakable
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beams-across-line-breaks.ly}
@@ -1930,13 +1991,11 @@ c16 c8
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@cindex \partcombine and \autoBeamOff (\partcombine と \autoBeamOff)
-@cindex \autoBeamOff and \partcombine (\autoBeamOff と \partcombine)
-
+@cindex beams, \partcombine with \autoBeamOff (連桁と \autoBeamOff を伴う \partcombine)
+@cindex voices, \partcombine with \autoBeamOff (ボイスと \autoBeamOff を伴う \partcombine)
 
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}
-
 
 @seealso
 記譜法リファレンス:
@@ -1958,22 +2017,18 @@ c16 c8
 @rinternals{beam-interface},
 @rinternals{unbreakable-spanner-interface}
 
-
 @knownissues
-
-連桁は他のボイスの中にある符頭や臨時記号と衝突する可能性があります。
+連桁のプロパティは連桁構築の開始時に決定され、@c
+その後から連桁の完了までの間に追加された連桁プロパティの変更は
+@emph{次の} 連桁から影響を与えます。
 
 
 @node 自動連桁の振る舞いを設定する
 @unnumberedsubsubsec 自動連桁の振る舞いを設定する
 @translationof Setting automatic beam behavior
 
-
-@cindex automatic beams, tuning (自動連桁を調整する)
-@cindex tuning automatic beaming (自動連桁を調整する)
-@cindex automatic beam generation (自動連桁生成)
-@cindex autobeam (自動連桁)
-@cindex lyrics and beaming (歌詞と連桁)
++@cindex beams, with lyrics (連桁と歌詞)
++@cindex lyrics, with beams (歌詞と連桁)
 
 @funindex autoBeaming
 @funindex baseMoment
@@ -2086,7 +2141,7 @@ c16 c c |
 @code{beamExceptions} は規則タイプのキーと連桁規則の値を持つ配列リストです。
 
 現時点で、利用可能な唯一の規則タイプの値は、@c
-連桁の終わりのための @code{#'end} です。
+連桁の終わりのための @code{'end} です。
 
 連桁規則は、連桁タイプとその連桁タイプの最短演奏時間の音符を保持する連桁に@c
 適用されるグループ化の仕方を示す Scheme 配列リスト (あるいはペアのリスト) です。
@@ -2125,7 +2180,7 @@ c16 c c |
 \repeat unfold 6 { a8 }
 @end lilypond
 
-ある拍子のデフォルトの自動連桁設定は @file{scm/beam-settings.scm}
+ある拍子に対するデフォルトの自動連桁設定は @file{scm/beam-settings.scm}
 の中で決定されます。@c
 ある拍子に対する自動連桁のデフォルト設定を変更する方法は
 @ref{拍子} で説明しています。
@@ -2196,9 +2251,8 @@ c16 c c |
 
 @end itemize
 
-上記の規則で、連桁タイプは連桁でグループ化された音符の最短演奏時間です。
+上記の規則で、@emph{連桁タイプ} は連桁でグループ化された音符の最短演奏時間です。
 
-参考として、@c
 デフォルトの連桁規則は @file{scm/time-signature-settings.scm} の中にあります。
 
 @snippets
@@ -2208,6 +2262,12 @@ c16 c c |
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {subdividing-beams.ly}
 
+@c 未訳
+@cindex beamlets, orienting
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{strict-beat-beaming.ly}
+
 @cindex measure groupings (小節をグループ化する)
 @cindex beats, grouping (拍をグループ化する)
 @cindex grouping beats (拍をグループ化する)
@@ -2216,8 +2276,8 @@ c16 c c |
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {conducting-signs,-measure-grouping-signs.ly}
 
-@cindex beam, last in score (楽譜の最後の連桁)
-@cindex beam, last in polyphonic voice (多声ボイスの最後の連桁)
+@cindex beam, endings in a score (楽譜の終わりでの連桁)
+@cindex beam, endings with multiple voices (複数のボイスの終わりでの連桁)
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
@@ -2245,6 +2305,50 @@ c16 c c |
 その最後の連桁はまったく譜刻されません。@c
 ボイスや楽譜の最後の連桁には手動で連桁を付けることにより、@c
 これらの問題を回避できます。
+
+デフォルトでは、@code{Timing} コンテキストは @code{Score} コンテキストに@c
+エイリアスされています。@c
+このことは、ある譜で拍子の設定を行うと、@c
+他の譜での連桁の付け方にも影響を与えると言うことを意味します。@c
+このため、後で出てくる譜で拍子の設定を行うと、@c
+前にある譜でセットしたカスタム連桁はリセットされます。@c
+この問題を回避する方法の 1 つは、拍子の設定は 1 つの譜でしか行わないことです。
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff {
+    \time 3/4
+    \set Timing.baseMoment = #(ly:make-moment 1 8)
+    \set Timing.beatStructure = #'(1 5)
+    \repeat unfold 6 { a8 }
+  }
+  \new Staff {
+    \repeat unfold 6 { a8 }
+  }
+>>
+@end lilypond
+
+拍子に対するデフォルトの連桁設定を変更することで、@c
+常にお望みの連桁を使うこともできます。@c
+ある拍子に対する自動連桁設定を変更する方法は @ref{拍子} で説明しています。
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff {
+    \overrideTimeSignatureSettings
+      #'(3 . 4)         % timeSignatureFraction
+      #'(1 . 8)         % baseMomentFraction
+      #'(1 5)           % beatStructure
+      #'()		% beamExceptions
+    \time 3/4
+    \repeat unfold 6 { a8 }
+  }
+  \new Staff {
+    \time 3/4
+    \repeat unfold 6 { a8 }
+  }
+>>
+@end lilypond
 
 
 @node 手動連桁
@@ -2745,13 +2849,19 @@ c1 | c | c | c
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-at-regular-intervals.ly}
 
-@cindex measure number, format
-@cindex bar number, format
+@cindex measure number, format (小節番号のフォーマット)
+@cindex bar number, format (小節番号のフォーマット)
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-inside-boxes-or-circles.ly}
 
-@cindex bar number alignment
+@cindex bar numbers, with letters (文字付きの小節番号)
+@cindex bar numbers, with repeats (繰り返しの小節番号)
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{alternative-bar-numbering.ly}
+
+@cindex bar number alignment (小節番号を揃える)
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {aligning-bar-numbers.ly}
@@ -3040,16 +3150,27 @@ c1
 @cindex acciaccatura (アッチャカトゥーラ)
 
 @funindex \grace
-@funindex grace
+@funindex \slashedGrace
+@funindex \acciaccatura
+@funindex \appoggiatura
 
-装飾小音符は楽譜に書き出される装飾音です。@c
-装飾小音符は小さなフォントで譜刻され、@c
-小節の中では論理的な時間を持ちません。
+装飾小音符は装飾の音であり、小さなフォントで表示され、@c
+論理的には演奏時間を持ちません。
 
 @lilypond[quote,relative=2,verbatim]
-c4 \grace c16 c4
-\grace { c16[ d16] } c2
+c4 \grace b16 a4(
+\grace { b16[ c16] } a2)
 @end lilypond
+
+装飾音符には他にも 3 つのタイプがあります。@c
+@emph{acciaccatura} (長さを持たない装飾小音符で、@c
+スラーでつなげられるスラッシュ付きの符幹を持つ音符) と、
+@emph{appoggiatura} (一定の比率で主音符から演奏時間を取り、@c
+スラッシュを持たない音符)
+スラーで結ばれた主音符の間に装飾小音符を配置するために、@c
+@code{\slashedGrace} 関数を用いて、
+@emph{acciaccatura} のようにスラッシュ付きの符幹を持つが@c
+スラーは付かない装飾小音符を譜刻することもできます。
 
 Lilypond はさらに 2 つ特殊なタイプの装飾小音符をサポートします:
 @emph{acciaccatura} (長さを持たない装飾小音符で、@c
@@ -3058,10 +3179,12 @@ Lilypond はさらに 2 つ特殊なタイプの装飾小音符をサポート�
 スラッシュを持たない小さな音符で譜刻されます) です。
 
 @lilypond[quote,relative=2,verbatim]
-\grace c8 b4
 \acciaccatura d8 c4
 \appoggiatura e8 d4
-\acciaccatura { g16[ f] } e4
+\acciaccatura { g16[ f] } e2
+\slashedGrace a,8 g4
+\slashedGrace b16 a4(
+\slashedGrace b8 a2)
 @end lilypond
 
 装飾小音符の配置は他の譜と同期されます。@c
@@ -3229,9 +3352,60 @@ c1 \afterGrace d1 { c16[ d] } c1
 >>
 @end lilypond
 
+ボイス コンテキストの中で装飾送音符を記述すると、@c
+ボイスの譜刻に混乱を招きます。@c
+これを克服するには、装飾小音符のセクションを変数に入れます。
+
+@lilypond[quote,verbatim]
+accMusic = {
+  \acciaccatura { f8 } e8 r8 \acciaccatura { f8 } e8 r4
+}
+
+\new Staff {
+  <<
+    \new Voice {
+      \relative c'' {
+        r8 r8 \voiceOne \accMusic \oneVoice r8 |
+        r8 \voiceOne r8 \accMusic \oneVoice r8 |
+      }
+    }
+    \new Voice {
+      \relative c' {
+        s8 s8 \voiceTwo \accMusic \oneVoice s8 |
+        s8 \voiceTwo r8 \accMusic \oneVoice s8 |
+      }
+    }
+  >>
+}
+@end lilypond
+
 装飾小音符セクションはシーケンシャルな音楽表記の中でのみ使用すべきです。@c
 装飾小音符セクションのネスト、並置はサポートされておらず、@c
 クラッシュや他のエラーを引き起こすかもしれません。
+
+MIDI 出力において装飾小音符はそれぞれ 1/4 の実演奏時間を持ちます。@c
+一連の装飾小音符の演奏時間が前の音符の演奏時間よりも長い場合、@c
+@qq{@code{Going back in MIDI time}} エラーになります。@c
+エラーを避けるには、装飾小音符の演奏時間を短くします。@c
+例えば:
+
+@example
+\acciaccatura @{ c'8[ d' e' f' g'] @}
+@end example
+
+を以下のようにします:
+
+@example
+\acciaccatura @{ c'16[ d' e' f' g'] @}
+@end example
+
+あるいは、明示的に演奏時間を変更します:
+
+@example
+\acciaccatura @{ \scaleDurations #' (1 . 2) @{ c'8[ d' e' f' g'] @} @}
+@end example
+
+@ref{演奏時間を変更する} を参照してください。
 
 
 @node カデンツァに揃える
