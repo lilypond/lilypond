@@ -405,8 +405,9 @@ We may already know about this bug.  Check here:
 @uref{http://code.google.com/p/lilypond/issues/list}
 @end example
 
-@warning{Please @strong{DO NOT} add bug reports to the
-bug tracker yourself.}
+@warning{Please @strong{DO NOT} add bug reports directly to the
+bug tracker.  Once an issue has been added to the tracker, feel
+free to add more information to that report.}
 
 @divEnd
 
