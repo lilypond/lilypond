@@ -1313,8 +1313,9 @@ def parse_file (fn):
     select_voice('default', '')
     global lineno
     lineno = 0
-    sys.stderr.write ("Line ... ")
-    sys.stderr.flush ()
+    if not global_options.quiet:
+        sys.stderr.write ("Line ... ")
+        sys.stderr.flush ()
     __main__.state = state_list[current_voice_idx]
 
     for ln in ls:
@@ -1360,7 +1361,8 @@ def parse_file (fn):
 
 
 def identify():
-    sys.stderr.write ("%s from LilyPond %s\n" % (program_name, version))
+    if not global_options.quiet:
+        sys.stderr.write ("%s from LilyPond %s\n" % (program_name, version))
 
 authors = """
 Written by Han-Wen Nienhuys <hanwen@xs4all.nl>, Laura Conrad
@@ -1381,16 +1383,21 @@ def get_option_parser ():
     p.add_option("--version",
                  action="version",
                  help=_ ("show version number and exit"))
-
     p.add_option("-h", "--help",
                  action="help",
                  help=_ ("show this help and exit"))
-    p.add_option ('-o', '--output', metavar='FILE',
-                  help=_ ("write output to FILE"),
-                  action='store')
-    p.add_option ('-s', '--strict', help=_ ("be strict about success"),
-                  action='store_true')
-    p.add_option ('-b', '--beams', help=_ ("preserve ABC's notion of beams"), action="store_true")
+    p.add_option ("-o", "--output", metavar='FILE',
+                  action="store",
+                  help=_ ("write output to FILE"))
+    p.add_option ("-s", "--strict",
+                  action="store_true",
+                  help=_ ("be strict about success"))
+    p.add_option ('-b', '--beams',
+                  action="store_true",
+                  help=_ ("preserve ABC's notion of beams"))
+    p.add_option ('-q', '--quiet',
+                  action="store_true",
+                  help=_ ("suppress progress messages"))
     p.add_option_group ('',
                         description=(
             _ ('Report bugs via %s')
@@ -1410,12 +1417,14 @@ for f in files:
     if f == '-':
         f = ''
 
-    sys.stderr.write ('Parsing `%s\'...\n' % f)
+    if not global_options.quiet:
+        sys.stderr.write ('Parsing `%s\'...\n' % f)
     parse_file (f)
 
     if not global_options.output:
         global_options.output = os.path.basename (os.path.splitext (f)[0]) + ".ly"
-    sys.stderr.write ('lilypond output to: `%s\'...' % global_options.output)
+    if not global_options.quiet:
+        sys.stderr.write ('lilypond output to: `%s\'...' % global_options.output)
     outf = open (global_options.output, 'w')
 
 # don't substitute @VERSION@. We want this to reflect
@@ -1428,4 +1437,5 @@ for f in files:
     dump_voices (outf)
     dump_score (outf)
     dump_lyrics (outf)
-    sys.stderr.write ('\n')
+    if not global_options.quiet:
+        sys.stderr.write ('\n')
