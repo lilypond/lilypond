@@ -10,6 +10,22 @@
 
 
 @newsItem
+@subsubheading The LilyPond Report #24. @emph{Mar 5, 2012}
+
+A new issue of the @emph{LilyPond Report} is now
+available for reading; topics include a request for funding,
+an article about exciting new features in LilyPond grammar,
+and an overview of LilyPond-based web applications.
+
+Come
+@uref{http://news.lilynet.net/?The-LilyPond-Report-24, read
+LilyPond Report 24} now; comments and contributions are
+warmly encouraged!
+
+@newsEnd
+
+
+@newsItem
 @subsubheading LilyPond 2.15.32 released!  @emph{Mar 03, 2012}
 
 We are happy to announce the release of LilyPond 2.15.32.  This
@@ -52,6 +68,3 @@ on 02 March 2012.  If you discover any problems, please send us
 @ref{Bug reports}.
 
 @newsEnd
-
-
-
