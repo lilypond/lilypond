@@ -48,6 +48,9 @@ discussing LilyPond.
 @ref{Development}: for contributors and testers.
 
 @item
+@ref{GSoC}: list of projects for Google Summer of Code.
+
+@item
 @ref{Authors}: the people who made LilyPond what it is today.
 
 @end itemize
@@ -77,6 +80,7 @@ discussing LilyPond.
 * Help us::
 * Sponsoring::
 * Development::
+* GSoC::
 * Authors::
 * Publications::
 * Old news::
@@ -856,6 +860,201 @@ manuals can be found at @url{http://lilypond.org}}
 @end multitable
 
 @divEnd
+@divEnd
+
+
+
+
+@node GSoC
+@unnumberedsec GSoC
+
+@divClass{column-center-top}
+@subheading What is Google Summer of Code?
+
+Quoting
+@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012, GSoC website},
+@qq{Google Summer of Code is a global program that offers students
+stipends to write code for open source projects.  Google has worked
+with the open source community to identify and fund exciting projects
+for the upcoming summer.}
+
+The LilyPond Team decided that this is an excellent opportunity to find
+new contributors, encourage students already participating in LilyPond
+development to become more involved, and - last but not least - write some
+great code for the benefit of all!
+
+In addition to getting paid for your work, you'll gain experience in
+software development, which many of previous GSoC students describe as
+@emph{invaluable} (and you'll get a t-shirt, too!).
+
+If you have any questions, read
+@uref{http://www.google-melange.com/gsoc/document/show/gsoc_program/google/gsoc2012/faqs, GSoC FAQ}
+or contact us at @code{lilypond-devel@@gnu.org}.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Our Ideas List
+
+Below is a list of projects suggested for GSoC students.  If you don't
+see a project that suits you, feel free to contact us and suggest your own!
+It's also possible to scale down a project if you feel it's too big.
+
+We require that every student has basic @code{git} knowledge, and
+recommend that everyone applying for projects other than the last one
+have basic music notation knowledge.
+
+@subheading Grace notes
+
+Fix problems with synchronization of grace notes,
+together with all underlying architecture (see
+@uref{http://code.google.com/p/lilypond/issues/detail?id=34, issue 34 in our tracker}).
+Grace notes are confusing to LilyPond's timing because they're like
+going back in time.  This causes weird effects, especially when one staff
+has a grace note and the other doesn't.
+
+@strong{Difficulty:} medium
+
+@strong{Requirements:} C++, MIDI
+
+@strong{Recommended:} familiarity with LilyPond internals
+
+@strong{Mentor(s):} Mike Solomon, Carl Sorensen
+
+@subheading MusicXML
+
+Adding comprehensive MusicXML export and improving import,
+together with tests checking that it works. Depending on time available,
+implement some or all of the following:
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Handle basic musical content export like the MIDI export (i.e. using
+dedicated exporter classes, derived from the translator class)
+
+@item
+Build the XML tree of the basic musical content,
+add a connection from music event to XML tag
+
+@item
+Let all LilyPond engravers do their job
+
+@item
+add ability to link each output object
+(basically each stencil / group of stencils) to the music cause
+(and thus to the XML tag in the XML tree)
+
+@item
+Add a XML output backend, which can then add the layout information
+for each output object to the XML tags
+
+@end itemize
+@divEnd
+
+The goal will be considered achieved when a (previously chosen) score could be
+imported from MusicXML and exported back with no unintentional loss of data.
+
+@strong{Difficulty:} medium
+
+@strong{Requirements:} MusicXML, Python, basic LilyPond knowledge
+
+@strong{Mentor(s):} Reinhold Kainhofer, Mike Solomon
+
+familiarity with other scorewriters (for cross-testing) would be a nice bonus.
+
+@subheading Improve slurs and ties
+
+The default shape of slur and tie curves is often unsatisfactory.
+Ties on enharmonic notes @code{@{ cis'~ des' @}} are not supported,
+ties "broken" by clef or staff change aren't supported well.
+The project includes collecting and sorting examples of bad output,
+deciding on the intended output and writing the actual code.
+
+@strong{Difficulty:} hard
+
+@strong{Requirements:} C++, experience with writing heuristics
+
+@strong{Recommended knowledge:} LilyPond knowledge, aesthetic sense
+
+@strong{Mentor(s):} Mike Solomon
+
+@subheading Adding special variant of font glyphs
+Adding on-staff-line, between-staff-line, shorter and narrower variants
+of some glyphs, for example accidentals, together with a generic
+infrasctucture to support them.  An example is ancient notation breve notehead
+coming in two variants, with smaller and bigger hole.
+
+@strong{Difficulty:} easy
+
+@strong{Requirements:} MetaFont, C++, good eye for details
+
+@strong{Recommended knowledge:} basic LilyPond knowledge
+
+@strong{Mentor(s):} Werner Lemberg
+
+@subheading Improve beaming
+
+Default positioning of regular, cross-staff, broken and kneed beams
+should be improved.  Beaming should depend on context and neighbor notes (see
+@uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf, section 2.2 here}).
+If possible, reduce beaming computation time.
+
+@strong{Difficulty:} medium
+
+@strong{Requirements:} C++, experience with writing heuristics
+
+@strong{Recommended knowledge:} aesthetic sense
+
+@strong{Mentor(s):} Mike Solomon, Carl Sorensen
+
+@subheading Better tablature support
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+non-monotonic string tunings, like Ukulele
+
+@item
+create tablature input mode (currently musical information is entered
+in western-common-music-notation-terms, i.e. @qq{a quarter f sharp note}
+and then converted to tablature) for transcribing medieval lute tablature
+
+@item
+implement modern tablature features, such as bends, pull-off, hammer-on
+
+@item
+if a fretboard shape is defined for a given chord, use this information when
+displaying the chord on the staff (and not just display a default chord shape)
+
+@end itemize
+@divEnd
+
+@strong{Difficulty:} easy
+
+@strong{Requirements:} C++
+
+@strong{Recommended knowledge:} tablature notation familiarity
+
+@strong{Mentor(s):} Carl Sorensen
+
+@subheading Clean up various compilation warnings
+
+Clean up compiler warnings, static code analysis, and valgrind warnings.
+Automatic code analysis tools (warnings in @code{g++} and @code{clang})
+and analysis tools like valgrind memory leak detection and callgrind code
+profilers provide valuable information about possible flaws in C++ code.
+Cleaning these warnings would allow us to automatically reject any patch
+which introduced extra warnings.
+
+@strong{Difficulty:} medium
+
+@strong{Requirements:} C++
+
+@strong{Mentor(s):} Joe Neeman, Reinhold Kainhofer
+
 @divEnd
 
 

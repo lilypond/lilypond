@@ -1513,7 +1513,7 @@ sub generate_ly_toc_entries($$$$$)
 	  'introduction' => [2, 2, 2, 2, 3, 3, 4, 4],
 	  'download' => [2, 2, 2, 3, 3, 4],
 	  'manuals' => [1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4],
-	  'community' => [1, 1, 1, 2, 2, 2, 3, 3],
+	  'community' => [1, 1, 1, 2, 2, 2, 2, 3, 3, 3],
 	  );
       my $addColor = "colorDefault";
       while (($top_section, $color_indices) = each %color_maps) {
