@@ -254,11 +254,11 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_bre
   min_systems_per_page_ = max (0, robust_scm2int (pb->paper_->c_variable ("min-systems-per-page"), 0));
   orphan_penalty_ = robust_scm2int (pb->paper_->c_variable ("orphan-penalty"), 100000);
 
-  Stencil *footnote_separator = Page_layout_problem::get_footnote_separator_stencil (pb->paper_);
+  Stencil footnote_separator = Page_layout_problem::get_footnote_separator_stencil (pb->paper_);
 
-  if (footnote_separator)
+  if (!footnote_separator.is_empty ())
     {
-      Interval separator_extent = footnote_separator->extent (Y_AXIS);
+      Interval separator_extent = footnote_separator.extent (Y_AXIS);
       Real separator_span = separator_extent.length ();
 
       footnote_separator_stencil_height_ = separator_span;
@@ -574,14 +574,14 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool las
   p->set_property ("lines", paper_systems);
   p->set_property ("configuration", configuration);
 
-  Stencil *foot = unsmob_stencil (p->get_property ("foot-stencil"));
+  Stencil *foot_p = unsmob_stencil (p->get_property ("foot-stencil"));
+  Stencil foot = foot_p ? *foot_p : Stencil ();
 
   SCM footnotes = Page_layout_problem::get_footnotes_from_lines (systems);
 
-  Page_layout_problem::add_footnotes_to_footer (footnotes, foot, book_);
+  foot = Page_layout_problem::add_footnotes_to_footer (footnotes, foot, book_);
 
-  if (foot)
-    p->set_property ("foot-stencil", foot->smobbed_copy ());
+  p->set_property ("foot-stencil", foot.smobbed_copy ());
   scm_apply_1 (page_stencil, page, SCM_EOL);
 
   return page;
