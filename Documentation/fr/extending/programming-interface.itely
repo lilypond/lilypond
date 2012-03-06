@@ -1,57 +1,117 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
+    Translation of GIT committish: 3c62ac104645533873bba800f7b0f371089f535a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.15.18"
 
-@c Translators: Valentin Villenave
-@c Translation checkers: Gilles Thibault, Jean-Charles Malahieude
+@c Translators: Valentin Villenave, Jean-Charles Malahieude
+@c Translation checkers: Gilles Thibault
 
-
-@node Interfaces pour les programmeurs
-@chapter Interfaces pour les programmeurs
+@node Interfaces pour programmeurs
+@chapter Interfaces pour programmeurs
 @translationof Interfaces for programmers
+
+Advanced tweaks may be performed by using Scheme.  If you are
+not familiar with Scheme, you may wish to read our
+@ref{Tutoriel Scheme}.
+
+@menu
+* Blocs de code Lilypond::
+* Fonctions Scheme::
+* Fonctions musicales::
+* Fonctions événementielles::
+* Fonctions pour markups::
+* Contextes pour programmeurs::
+* Fonctions de rappel::
+* Code Scheme intégré::
+* Retouches complexes::
+@end menu
+
+@node Blocs de code Lilypond
+@section Blocs de code Lilypond
+@translationof Lilypond code blocks
+
+@untranslated
+
+
+@node Fonctions Scheme
+@section Fonctions Scheme
+@translationof Scheme functions
+
+@cindex Scheme, fonctions (syntaxe LilyPond)
 
 @untranslated
 
 
 @menu
-* Fonctions musicales::
-* Interfaces de programmation::
-* Construction de fonctions complexes::
-* Interface de programmation des marqueurs de texte::
-* Contextes pour programmeurs::
-* Utilisation de procédures Scheme en tant que propriétés::
-* Utilisation de code Scheme au lieu de \"tweak\"::
-* Retouches complexes::
+* Définition de fonctions Scheme::
+* Utilisation de fonctions Scheme::
+* Fonctions Scheme fantômes::
 @end menu
+
+@node Définition de fonctions Scheme
+@subsection Définition de fonctions Scheme
+@translationof Scheme function definitions
+
+@funindex define-scheme-function
+
+@untranslated
+
+
+@node Utilisation de fonctions Scheme
+@subsection Utilisation de fonctions Scheme
+@translationof Scheme function usage
+
+@untranslated
+
+
+@node Fonctions Scheme fantômes
+@subsection Fonctions Scheme fantômes
+@translationof Void scheme functions
+@funindex define-void-function
+@funindex \void
+
+@untranslated
+
 
 @node Fonctions musicales
 @section Fonctions musicales
 @translationof Music functions
 
+@cindex musicale, fonction
+
+@untranslated
+
+@menu
+* Définition de fonctions musicales::
+* Utilisation de fonctions musicales::
+* Fonctions de substitution simple::
+* Fonctions de substitution intermédiaires::
+* De l'usage des mathématiques dans les fonctions::
+* Fonctions dépourvues d'argument::
+* Fonctions musicales fantômes::
+@end menu
+
+
+@node Définition de fonctions musicales
+@subsection Définition de fonctions musicales
+@translationof Music function definitions
+
+@cindex defining music functions
+@funindex define-music-function
+
 @untranslated
 
 
-@menu
-* Aperçu des fonctions musicales::
-* Fonctions de substitution simple::
-* Fonctions de substitution par paire::
-* De l'usage des mathématiques dans les fonctions::
-* Fonctions fantômes::
-* Fonctions dépourvues d'argument::
-* Liste des fonctions musicales prédéfinies::
-@end menu
-
-@node Aperçu des fonctions musicales
-@subsection Aperçu des fonctions musicales
-@translationof Overview of music functions
+@node Utilisation de fonctions musicales
+@subsection Utilisation de fonctions musicales
+@translationof Music function usage
 
 @untranslated
 
@@ -63,9 +123,9 @@
 @untranslated
 
 
-@node Fonctions de substitution par paire
-@subsection Fonctions de substitution par paire
-@translationof Paired substitution functions
+@node Fonctions de substitution intermédiaires
+@subsection Fonctions de substitution intermédiaires
+@translationof Intermediate substitution functions
 
 @untranslated
 
@@ -77,13 +137,6 @@
 @untranslated
 
 
-@node Fonctions musicales fantômes
-@subsection Fonctions musicales fantômes
-@translationof Void music functions
-
-@untranslated
-
-
 @node Fonctions dépourvues d'argument
 @subsection Fonctions dépourvues d'argument
 @translationof Functions without arguments
@@ -91,119 +144,97 @@
 @untranslated
 
 
-@node Liste des fonctions musicales prédéfinies
-@subsection Liste des fonctions musicales prédéfinies
-@translationof Overview of available music functions
+@node Fonctions musicales fantômes
+@subsection Fonctions musicales fantômes
+@translationof Void music functions
 
 @untranslated
 
 
-@include identifiers.tely
-@node Interfaces de programmation
-@section Interfaces de programmation
-@translationof Programmer interfaces
+@node Fonctions événementielles
+@section Fonctions événementielles
+@translationof Event functions
+
+@funindex define-event-function
+@cindex event functions
 
 @untranslated
 
+
+@node Fonctions pour markups
+@section Fonctions pour @emph{markups}
+@translationof Markup functions
+
+@untranslated
 
 @menu
-* Variables d'entrée et Scheme::
-* Représentation interne de la musique::
+* Construction d'un markup en Scheme::
+* Fonctionnement interne des markups::
+* Définition d'une nouvelle commande de markup::
+* Définition d'une nouvelle commande de liste de markups::
 @end menu
 
-@node Variables d'entrée et Scheme
-@subsection Variables d'entrée et Scheme
-@translationof Input variables and Scheme
 
-@untranslated
-
-
-@node Représentation interne de la musique
-@subsection Représentation interne de la musique
-@translationof Internal music representation
-
-@untranslated
-
-
-@node Construction de fonctions complexes
-@section Construction de fonctions complexes
-@translationof Building complicated functions
-
-@untranslated
-
-
-@menu
-* Affichage d'expressions musicales::
-* Propriétés de la musique::
-* Exemple : redoubler une note avec liaison::
-* Exemple : ajouter une articulation à plusieurs notes::
-@end menu
-
-@node Affichage d'expressions musicales
-@subsection Affichage d'expressions musicales
-@translationof Displaying music expressions
-
-@untranslated
-
-
-@node Propriétés de la musique
-@subsection Propriétés de la musique
-@translationof Music properties
-
-@untranslated
-
-
-@node Exemple : redoubler une note avec liaison
-@subsection Exemple : redoubler une note avec liaison
-@translationof Doubling a note with slurs (example)
-
-@untranslated
-
-
-@node Exemple : ajouter une articulation à plusieurs notes
-@subsection Exemple : ajouter une articulation à plusieurs notes
-@translationof Adding articulation to notes (example)
-
-@untranslated
-
-
-@node Interface de programmation des marqueurs de texte
-@section Interface de programmation des marqueurs de texte
-@translationof Markup programmer interface
-
-@untranslated
-
-
-@menu
-* Construction Scheme d'un marqueur::
-* Fonctionnement interne des marqueurs::
-* Définition d'une nouvelle commande de marqueur::
-* Définition d'une nouvelle commande de liste de marqueurs::
-@end menu
-
-@node Construction Scheme d'un marqueur
-@subsection Construction Scheme d'un marqueur
+@node Construction d'un markup en Scheme
+@subsection Construction d'un @emph{markup} en Scheme
 @translationof Markup construction in Scheme
 
+@cindex defining markup commands
+
 @untranslated
 
 
-@node Fonctionnement interne des marqueurs
-@subsection Fonctionnement interne des marqueurs
+@node Fonctionnement interne des markups
+@subsection Fonctionnement interne des @emph{markups}
 @translationof How markups work internally
 
 @untranslated
 
 
-@node Définition d'une nouvelle commande de marqueur
-@subsection Définition d'une nouvelle commande de marqueur
+@node Définition d'une nouvelle commande de markup
+@subsection Définition d'une nouvelle commande de @emph{markup}
 @translationof New markup command definition
 
 @untranslated
 
+@menu
+* Syntaxe d'une commande markup::
+* Attribution de propriétés::
+* Exemple commenté::
+* Adaptation d'une commande incorporée::
+@end menu
 
-@node Définition d'une nouvelle commande de liste de marqueurs
-@subsection Définition d'une nouvelle commande de liste de marqueurs
+
+@node Syntaxe d'une commande markup
+@unnumberedsubsubsec Syntaxe d'une commande @emph{markup}
+@translationof Markup command definition syntax
+
+@untranslated
+
+
+@node Attribution de propriétés
+@unnumberedsubsubsec Attribution de propriétés
+@translationof On properties
+
+@untranslated
+
+
+@node Exemple commenté
+@unnumberedsubsubsec Exemple commenté
+@translationof A complete example
+
+@untranslated
+
+
+@node Adaptation d'une commande incorporée
+@unnumberedsubsubsec Adaptation d'une commande incorporée
+@translationof Adapting builtin commands
+
+@untranslated
+
+
+@node Définition d'une nouvelle commande de liste de markups
+@subsection Définition d'une nouvelle commande de liste de @emph{markups}
 @translationof New markup list command definition
 
 @untranslated
@@ -214,16 +245,18 @@
 @translationof Contexts for programmers
 
 @untranslated
-
-
 @menu
 * Évaluation d'un contexte::
 * Application d'une fonction à tous les objets de mise en forme::
 @end menu
 
+
 @node Évaluation d'un contexte
 @subsection Évaluation d'un contexte
 @translationof Context evaluation
+
+@cindex calling code during interpreting
+@funindex \applyContext
 
 @untranslated
 
@@ -232,24 +265,31 @@
 @subsection Application d'une fonction à tous les objets de mise en forme
 @translationof Running a function on all layout objects
 
-@untranslated
 
-
-@node Utilisation de procédures Scheme en tant que propriétés
-@section Utilisation de procédures Scheme en tant que propriétés
-@translationof Scheme procedures as properties
+@cindex calling code on layout objects
+@funindex \applyOutput
 
 @untranslated
 
 
-@menu
-* Utilisation de code Scheme au lieu de \"tweak\"::
-* Retouches complexes::
-@end menu
+@node Fonctions de rappel
+@section Fonctions de rappel
+@translationof Callback functions
 
-@node Utilisation de code Scheme au lieu de \"tweak\"
-@section Utilisation de code Scheme au lieu de @code{\tweak}
-@translationof Using Scheme code instead of tweak
+@untranslated
+
+
+@node Code Scheme intégré
+@section Code Scheme intégré
+@translationof Inline Scheme code
+
+TODO: the example for this section is ill-chosen since
+@example
+F = -\tweak #'font-size #-3 -\flageolet
+@end example
+(note the @samp{-} marking it as a post event) will actually work fine
+for the stated purpose.  Until this section gets a rewrite, let's
+pretend we don't know.
 
 L'inconvénient principal de la commande @code{\tweak} est la rigidité de
 sa syntaxe.  Par exemple, le code suivant produit une erreur.
@@ -269,7 +309,7 @@ symboles @samp{^} ou @samp{_}.
 
 C'est en se servant du langage Scheme que l'on peut résoudre ce
 problème.  Dans cet exemple, on a recours aux méthodes décrites dans
-@ref{Exemple : ajouter une articulation à plusieurs notes}, en
+@ref{Ajout d'articulation à des notes (exemple)}, en
 particulier quant à l'emploi de @code{\displayMusic}.
 
 @example
@@ -301,22 +341,20 @@ finale de @samp{m} lui-même.
 
 Certains réglages sont plus délicats que d'autres.
 
-@itemize @bullet
-
-
+@itemize
 @item
-L'un d'entre eux est l'apparence des objets dits @qq{spanner}, qui
-s'étendent horizontalement, tels que les liaisons.  Si, en principe, un
-seul de ces objets est créé à la fois et peut donc être modifié de façon
-habituelle, lorsque ces objets doivent enjamber un changement de ligne,
-ils sont dupliqués au début du ou des systèmes suivants.  Comme ces
-objets sont des clones de l'objet d'origine, ils en héritent toutes les
-propriétés, y compris les éventuelles commandes @code{\override}.
-
+L'un d'entre eux est l'apparence des objets dits @qq{extenseurs}
+(@emph{spanner}), qui s'étendent horizontalement, tels que les liaisons.
+Si, en principe, un seul de ces objets est créé à la fois et peut donc
+être modifié de façon habituelle, lorsque ces objets doivent enjamber un
+changement de ligne, ils sont dupliqués au début du ou des systèmes
+suivants.  Comme ces objets sont des clones de l'objet d'origine, ils en
+héritent toutes les propriétés, y compris les éventuelles commandes
+@code{\override}.
 
 En d'autres termes, une commande @code{\override} affecte toujours les
-deux extrémités d'un objet @q{spanner}.  Pour ne modifier que la partie
-précédant ou suivant le changement de ligne, il faut intervenir
+deux extrémités d'un objet @emph{spanner}.  Pour ne modifier que la
+partie précédant ou suivant le changement de ligne, il faut intervenir
 directement dans le processus de mise en page.
 La fonction de rappel @code{after-line-breaking} contient toute
 l'opération Scheme effectuée lorsque les sauts de lignes ont été
@@ -326,16 +364,17 @@ systèmes différents.
 Dans l'exemple suivant, on définit une nouvelle opération nommée
 @code{my-callback}.  Cette opération
 
-@itemize @bullet
+@itemize
 @item
 détermine si l'objet a été divisé à l'occasion d'un changement de ligne
 @item
-si oui, recherche les différents morceaux de l'objet
+dans l'affirmative, recherche les différents morceaux de l'objet
 @item
 vérifie si l'objet considéré est bien la deuxième moitié d'un objet
 divisé
 @item
-si oui, applique un espacement supplémentaire (@code{extra-offset}).
+dans l'affirmative, applique un espacement supplémentaire
+(@code{extra-offset}).
 @end itemize
 
 On ajoute cette procédure à l'objet @rinternals{Tie} (liaison de tenue),
@@ -345,49 +384,59 @@ rehaussé.
 @c KEEP LY
 @lilypond[quote,verbatim,ragged-right]
 #(define (my-callback grob)
-  (let* (
-         ; l'objet a-t-il été divisé ?
-         (orig (ly:grob-original grob))
+   (let* (
+          ;; l'objet a-t-il été divisé ?
+          (orig (ly:grob-original grob))
 
-         ; si oui, rechercher les morceaux frères (siblings)
-         (siblings (if (ly:grob? orig)
-                     (ly:spanner-broken-into orig) '() )))
+          ;; si oui, rechercher les morceaux frères (siblings)
+          (siblings (if (ly:grob? orig)
+                        (ly:spanner-broken-into orig)
+                        '())))
 
-   (if (and (>= (length siblings) 2)
-             (eq? (car (last-pair siblings)) grob))
-     (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
+     (if (and (>= (length siblings) 2)
+              (eq? (car (last-pair siblings)) grob))
+         (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
 
 \relative c'' {
   \override Tie #'after-line-breaking =
   #my-callback
-  c1 ~ \break c2 ~ c
+  c1 ~ \break
+  c2 ~ c
 }
 @end lilypond
 
 @noindent
 Lorsque cette astuce va être appliquée, notre nouvelle fonction de
 rappel @code{after-line-breaking} devra également appeler celle
-d'origine (@code{after-line-breaking}), si elle existe.
-Ainsi, pour l'utiliser dans le cas d'un crescendo (objet
-@code{Hairpin}), il faudra appeler également
-@code{ly:spanner::kill-zero-spanned-time}.
+d'origine (@code{after-line-breaking}), si elle existe.  Ainsi, pour
+l'utiliser dans le cas d'un crescendo (objet @code{Hairpin}), il faudra
+également appeler @code{ly:spanner::kill-zero-spanned-time}.
 
 
-@item Pour des raisons d'ordre technique, certains objets ne peuvent
-être modifiés par @code{\override}.  Parmi ceux-là, les objets
+@item
+Pour des raisons d'ordre technique, certains objets ne peuvent être
+modifiés par @code{\override}.  Parmi ceux-là, les objets
 @code{NonMusicalPaperColumn} et @code{PaperColumn}.  La commande
 @code{\overrideProperty} sert à les modifier, de façon similaire à
-@code{\once \override}, mais avec une syntaxe différente@tie{}:
+@code{\once \override} mais avec une syntaxe différente@tie{}:
 
 @example
 \overrideProperty
 #"Score.NonMusicalPaperColumn"  % Nom de l'objet
 #'line-break-system-details     % Nom de la propriété
-#'((next-padding . 20))         % valeur
+#'((next-padding . 20))         % Valeur
 @end example
 
-Notez cependant que la commande @code{\override} peut tout de même être
+Notez toutefois que la commande @code{\override} peut tout de même être
 appliquée à @code{NonMusicalPaperColumn} et @code{PaperColumn} dans un
 bloc @code{\context}.
 
 @end itemize
+
+
+@node Interfaces LilyPond Scheme
+@chapter Interfaces LilyPond Scheme
+@translationof LilyPond Scheme interfaces
+
+@untranslated
+
