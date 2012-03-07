@@ -864,6 +864,8 @@ book_body:
 		push_paper (parser, $$->paper_);
 		$$->header_ = parser->lexer_->lookup_identifier ("$defaultheader");
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $$->self_scm ());
+		parser->lexer_->set_identifier (ly_symbol2scm ("book-output-suffix"), SCM_BOOL_F);
+		parser->lexer_->set_identifier (ly_symbol2scm ("book-filename"), SCM_BOOL_F);
 	}
 	| BOOK_IDENTIFIER {
 		$$ = unsmob_book ($1);

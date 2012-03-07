@@ -186,13 +186,13 @@ bendAfter =
 bookOutputName =
 #(define-void-function (parser location newfilename) (string?)
    (_i "Direct output for the current book block to @var{newfilename}.")
-   (set! (paper-variable parser #f 'output-filename) newfilename))
+   (set! book-filename newfilename))
 
 bookOutputSuffix =
 #(define-void-function (parser location newsuffix) (string?)
    (_i "Set the output filename suffix for the current book block to
 @var{newsuffix}.")
-   (set! (paper-variable parser #f 'output-suffix) newsuffix))
+   (set! book-output-suffix newsuffix))
 
 %% \breathe is defined as a music function rather than an event identifier to
 %% ensure it gets useful input location information: as an event identifier,
@@ -990,8 +990,8 @@ a context modification duplicating their effect.")
 	      ((OverrideProperty)
 	       (list 'push
 		     (ly:music-property m 'symbol)
-		     (ly:music-property m 'grob-value)
-		     (ly:music-property m 'grob-property-path)))
+		     (ly:music-property m 'grob-property-path)
+		     (ly:music-property m 'grob-value)))
 	      ((RevertProperty)
 	       (list 'pop
 		     (ly:music-property m 'symbol)

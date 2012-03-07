@@ -44,7 +44,7 @@ die gesamte Gruppe.  Die Möglichkeiten der Anfangsklammer sind: @code{SystemSta
 "
   doctitlede = "Systeme schachteln"
 
-%% Translation of GIT committish: af3df3b7c6e062635bdccb739be41962969806a0
+%% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 La propriété @code{systemStartDelimiterHierarchy} permet de créer des
 regroupements imbriqués complexes.  La commande

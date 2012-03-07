@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -31,24 +31,24 @@ werden dabei Ihrem Dokument angepasst.
 
 @command{lilypond-book} ist ein eigenständiges Programm und wird
 üblicherweise von der Kommandozeile aufgerufen. Nähere Informationen
-hierzu finden sich in @ref{Benutzung auf der Kommandozeile}.  Wenn Sie MacOS 10.3
-oder 10.4 benutzen und Probleme mit @code{lilypond-book} haben, lesen
-Sie @rweb{MacOS X}.
+hierzu finden sich in @ref{Benutzung auf der Kommandozeile}.  Wenn Sie
+MacOS oder Windows benutzen und Probleme mit @code{lilypond-book} haben,
+lesen Sie @rweb{MacOS X} bzw. @rweb{Windows} .
 
 Dieses Vorgehen kann bei @LaTeX{}, HTML, Texinfo oder DocBook Dokumenten
 angewendet werden.
 
 @cindex texinfo
-@cindex latex
+@cindex LaTeX
 @cindex texinfo
 @cindex texi
-@cindex html
+@cindex HTML
 @cindex docbook
-@cindex Dokument, Noten einfügen in
-@cindex HTML, Noten in
-@cindex Texinfo, Noten in
-@cindex DocBook, Noten in
-@cindex @LaTeX{}, Noten in
+@cindex Dokument, Noten einfügen
+@cindex HTML, Noten hinzufügen
+@cindex Texinfo, Noten hinzufügen
+@cindex DocBook, Noten hinzufügen
+@cindex LaTeX, Noten in
 
 
 @menu
@@ -139,8 +139,9 @@ xpdf lilybook
 
 Die Ausführung von @command{lilypond-book} und @command{latex} erzeugt
 zahlreiche temporäre Dateien, die das Arbeitsverzeichnis unnötig
-vollstopfen würden. Daher empfiehlt sich die Benutzung der @code{--output=@var{dir}}
-Option, wodurch die Dateien im Unterverzeichnis @file{dir} erzeugt werden.
+vollstopfen würden. Daher empfiehlt sich die Benutzung der
+@option{--output=@var{dir}}-Option, wodurch die Dateien im
+Unterverzeichnis @file{dir} erzeugt werden.
 
 Das Endresultat des obigen @LaTeX{}-Beispiels ist im nächsten Abschnitt
 zu sehen.@footnote{Da dieses Handbuch mit Texinfo erzeugt wurde,
@@ -218,28 +219,46 @@ Siehe die @uref{http://@/www@/.ctan@/.org/@/tex@/-archive/@/info/@/lshort/@/germ
 @emph{@LaTeX{}2e-Kurzbeschreibung}} für eine Einführung in die
 Benutzung von @LaTeX{}.
 
-Musikbeispiele können eingegeben werden als
+@code{lilypond-book} stellt folgende Befehle und Umgebungen zu Verfügung,
+um Noten in @LaTeX{}-Dateien einzufügen:
+
+@itemize
+
+@item
+den @code{\lilypond@{...@}}-Befehl, womit man direkt kurze
+LilyPond-Codeabschnitte schreiben kann
+
+@item
+die @code{\begin@{lilypond@}...\end@{lilypond@}}-Umgebung, mit der
+man längere LilyPond-Codeabschnitt direkt schreiben kann
+
+@item
+den @code{\lilypondfile@{...@}}-Befehl um eine LilyPond-Datei
+einzufügen
+
+@item
+den @code{\musicxmlfile@{...@}}-Befehl um eine MusicXML-Datei
+einzufügen, die dann von @code{musicxml2ly} und @code{lilypond}
+bearbeitet wird.
+
+@end itemize
+
+In der Eingabedatei werden Noten mit beliebigen der folgenden
+Befehle angegeben:
 
 @example
 \begin@{lilypond@}[Optionen,kommen,hierhin]
   IHR LILYPOND-QUELLCODE
 \end@{lilypond@}
-@end example
 
-@noindent
-oder
+\lilypond[Optionen,kommen,hier]@{ IHR LILYPOND-QUELLCODE @}
 
-@example
 \lilypondfile[Optionen,kommen,hier]@{@var{Dateiname}@}
+
+\musicxmlfile[Optionen,kommen,hier]@{@var{Dateiname}@}
 @end example
 
 @noindent
-oder
-
-@example
-\lilypond@{ IHR LILYPOND-QUELLCODE @}
-@end example
-
 Zusätzlich kann mit @code{\lilypondversion} die benutzte Versionsnummer
 von LilyPond angezeigt werden.  Der Aufruf von @command{lilypond-book}
 liefert eine Datei, die dann mit @LaTeX{} weiter verarbeitet werden kann.
@@ -404,8 +423,6 @@ Verfügung. Für eine Liste dieser Optionen und andere hilfreiche Details zur
 Verarbeitung von @LaTeX{}-Dokumenten, siehe @ref{lilypond-book aufrufen}.
 
 
-
-
 @node Texinfo
 @subsection Texinfo
 @translationof Texinfo
@@ -414,26 +431,43 @@ Texinfo ist das Standard-Dokumentationsformat des GNU Projekts. Ein Beispiel
 für ein Dokument im Texinfo Format ist dieses Handbuch, wobei die HTML-, PDF- und
 Info-Versionen alle aus demselben Texinfo Dokument erzeugt werden.
 
-In der Eingabedatei wir Musik eingegeben als
+@code{lilypond-book} stellt die folgenden Befehle und Umgebungen
+zur Verfügung, im Noten in Texinfo-Dateien einzufügen:
+
+@itemize
+
+@item
+den @code{\lilypond@{...@}}-Befehl, womit man direkt kurze
+LilyPond-Codeabschnitte schreiben kann
+
+@item
+die @code{\begin@{lilypond@}...\end@{lilypond@}}-Umgebung, mit der
+man längere LilyPond-Codeabschnitt direkt schreiben kann
+
+@item
+den @code{\lilypondfile@{...@}}-Befehl um eine LilyPond-Datei
+einzufügen
+
+@item
+den @code{\musicxmlfile@{...@}}-Befehl um eine MusicXML-Datei
+einzufügen, die dann von @code{musicxml2ly} und @code{lilypond}
+bearbeitet wird.
+
+@end itemize
+
+In der Eingabedatei werden Noten mit folgenden Befehlen eingegeben:
 
 @example
 @@lilypond[Optionen,kommen,hier]
   IHR LILYPOND-QUELLCODE
 @@end lilypond
-@end example
 
-@noindent
-oder
-
-@example
 @@lilypond[Optionen,kommen,hier]@{ IHR LILYPOND-QUELLCODE @}
-@end example
 
-@noindent
-oder
-
-@example
 @@lilypondfile[Optionen,kommen,hier]@{@var{Dateiname}@}
+
+@@musicxmlfile[Optionen,kommen,hier]@{@var{Dateiname}@}
+
 @end example
 
 Zusätzlich kann mit @code{@@lilypondversion} die aktuelle Versionsnummer
@@ -480,7 +514,46 @@ im Fließtext, sondern setzt sie immer in einen eigenen Absatz.
 @subsection HTML
 @translationof HTML
 
-Noten werden eingegeben als
+@code{lilypond-book} stellt folgende Befehle und Umgebungen zur Noteneingabe
+in HTML-Dateien zur Verfügung:
+
+@itemize
+
+@item
+den @code{<lilypond ... />}-Befehl, womit man direkt kurze
+LilyPond-Codeabschnitte schreiben kann
+
+@item
+die @code{<lilyond>...</lilypond>}-Umgebung, mit der
+man längere LilyPond-Codeabschnitt direkt schreiben kann
+
+
+@item
+den @code{<lilypondfile>...</lilypondfile>}-Befehl um eine LilyPond-Datei
+einzufügen
+
+@item
+den @code{<musicxmlfile>...</musicxmlfile>}-Befehl um eine MusicXML-Datei
+einzufügen, die dann von @code{musicxml2ly} und @code{lilypond}
+bearbeitet wird.
+
+@end itemize
+
+In der Eingabedatei werden Noten mit folgenden Befehlen eingegeben:
+
+@example
+<lilypond Optionen hier>
+  IHR LILYPOND-QUELLCODE
+</lilypond>
+
+<lilypond Optionen hier: IHR LILYPOND-QUELLCODE />
+
+<lilypond-Datei Optionen hier>@var{Dateiname}</lilypondfile>
+
+<musicxml-Datei Optionen hier>@var{Dateiname}</musicxmlfile>
+@end example
+
+Man kann beispielsweise schreiben
 
 @example
 <lilypond fragment relative=2>
@@ -508,6 +581,9 @@ Um Dateien mit Musik einzubinden, kann folgendermaßen vorgegangen werden:
 @example
 <lilypondfile @var{Option1} @var{Option2} ...>@var{Dateiname}</lilypondfile>
 @end example
+
+@code{<musicxmlfile>} hat die gleiche Syntax wie @code{<lilypondfile>},
+aber fügt anstelle der LilyPond-Datei eine MusicXML-Datei ein.
 
 Eine Liste der Optionen, die man mit @code{lilypond} oder @code{lilypondfile}
 benutzen kann, siehe @ref{Die Musikfragment-Optionen}
@@ -614,12 +690,9 @@ Setzt die Höhe einer Notenzeile auf @var{ht}, angegeben in Punkten.
 @item ragged-right
 Erzeugt Notenzeilen im Flattersatz mit natürlichem Abstand der Noten. In
 anderen Worten: @code{ragged-right = ##t} wird in das Musikfragment
-eingefügt. Dies ist die Standardeinstellung für den
-@code{\lilypond@{@}}-Befehl,
-wenn die Option @code{line-width} nicht angegeben wird.
-Ebenso ist dies die Standardeinstellung für die @code{lilypond}-Umgebung,
-wenn die Option @code{fragment}, aber keine Zeilenlänge
-explizit angegeben ist.
+eingefügt. Einzeilige Fragmentschnipsel werden standardmäßig immer
+im Flattersatz gesetzt, außer @code{noragged-right} wird explizit
+angegeben.
 
 @item noragged-right
 Streckt Musikfragmente mit nur einer Notenzeile auf die volle Breite,
@@ -764,7 +837,8 @@ Kommandozeilenoption @option{--header=@/texidoc} für eine Datei
 @file{foo.texidoc} ausgegeben. Die @code{texidoc} Option veranlasst
 @code{lilypond-book}, den Inhalt dieser @file{.texidoc} Dateien innerhalb
 eines Dokumentationsblocks direkt vor dem Musikfragment in das aktuelle
-Dokument einzufügen.
+Dokument einzufügen (aber außerhalb der @code{example}-Umgebung, die durch
+die Option @code{quote} hervorgerufen wird).
 
 Enthält also die Datei @file{foo.ly} etwa den LilyPond-Code
 
@@ -888,8 +962,20 @@ Der Aufruf von @command{dvips} kann einige Warnungen über fehlende
 Schriftarten ausgeben. Auch dies ist in Ordnung und kann ignoriert werden.
 
 Wenn Sie in der @LaTeX{}-Datei das Papierformat auf Querformat eingestellt
-haben, vergessen Sie nicht die @code{-t landscape}-Option beim
+haben, vergessen Sie nicht die @option{-t landscape}-Option beim
 Aufruf von @command{dvips}.
+
+@knownissues
+Der Befehl @code{\pageBreak} funktioniert nicht innerhalb einer
+@code{\begin@{lilypond@} @dots{} \end@{lilypond@}}-Umgebung.
+
+Auch viele Variablen der @code{\paper}-Umgebung funktionieren nicht
+innerhalb einer @code{\begin@{lilypond@} @dots{} \end@{lilypond@}}-Umgebung.
+Benutzen Sie @code{\newcommand} mit @code{\betweenLilyPondSystem}:
+
+@example
+\newcommand@{\betweenLilyPondSystem@}[1]@{\vspace@{36mm@}\linebreak@}
+@end example
 
 
 @subsubheading Texinfo
@@ -949,8 +1035,16 @@ auch in allen Include-Pfaden nach bereits erstellten Grafiken für die
 Musikfragmente. Wird das aktuelle Fragment gefunden und hat sich seit der
 letzten Erstellung nicht geändert, wird es nicht erneut erzeugt. Bei manchen
 der Programme zur Weiterverarbeitung wie etwa @command{makeinfo} oder
-@command{latex} muss dieselbe @code{-I @var{Pfad}} Option angegeben werden,
+@command{latex} muss dieselbe @option{-I @var{Pfad}} Option angegeben werden,
 damit das entsprechende Programm die Grafiken ebenso findet.
+
+@item -l @var{Logstufe}
+@itemx --loglevel=@var{Logstufe}
+Passt die Ausführlichkeit der Ausgabe entsprechend @var{Logstufe} an.
+Mögliche Werte sind @code{NONE}, @code{ERROR}, @code{WARNING},
+@code{PROGRESS} (Standard) und @code{DEBUG}.  Wenn diese Option nicht
+genutzt wird und die Umgebungsvariable @code{LILYPOND_BOOK_LOGLEVEL}
+definiert ist, wird ihr Wert als Logstufe eingesetzt.
 
 @item -o @var{Verzeichnis}
 @itemx --output=@var{Verzeichnis}
@@ -979,10 +1073,17 @@ Grafiken.
 
 @itemx --lily-output-dir=@var{Verzeichnis}
 Schreibt @file{lily-XXX} Dateien nach @var{Verzeichnis} und erzeugt
-im mit @code{--output} angegebenen Verzeichnis Verknüpfungen darauf.
+im mit @option{--output} angegebenen Verzeichnis Verknüpfungen darauf.
 Diese Option ist nützlich, um Zeit zu sparen, wenn Dokumente in
 verschiedenen Verzeichnissen viele identische Musikfragmente
 enthalten.
+
+@itemx --lily-loglevel=@var{Logstufe}
+Passt die Ausführlichkeit der Ausgabe entsprechend @var{Logstufe} an.
+Mögliche Werte sind @code{NONE}, @code{ERROR}, @code{WARNING},
+@code{PROGRESS} (Standard) und @code{DEBUG}.  Wenn diese Option nicht
+genutzt wird und die Umgebungsvariable @code{LILYPOND_LOGLEVEL}
+definiert ist, wird ihr Wert als Logstufe eingesetzt.
 
 @itemx --info-images-dir=@var{Verzeichnis}
 Formatiert die Texinfo-Ausgabe dergestalt, dass Info in @var{Verzeichnis}
@@ -1005,19 +1106,29 @@ wie etwa Taktzahlen und Bezeichnungen der Instrumente. Diese Option
 verkürzt die Notenzeile und verschiebt sie um denselben Betrag nach
 rechts.
 
-
 @item -P @var{Befehl}
 @itemx --process=@var{Befehl}
 Verarbeitet LilyPond-Fragmente mit @var{Befehl} anstelle des
-Standardbefehls @code{lilypond}. @code{--filter} und @code{--process}
-können nicht mit dieser Option benutzt werden.
+Standardbefehls @code{lilypond}. @option{--filter} und @option{--process}
+können mit @code{lilypond-book} nicht gleichzeitig benutzt werden.
 
 @item --pdf
 Erzeugt PDF-Dateien mit PDF@LaTeX{}.
 
+@item --redirect-lilypond-output
+Standardmäßig wird die Ausgabe auf der Kommandozeile ausgegeben.
+Diese Option leitet die Ausgabe in eine Log-Datei im selben Verzeichnis
+wie die Quelldatei um.
+
+@itemx --use-source-file-names
+Schreibe Schnipsel-Ausgabedateien mit den gleichen Basisnamen wie die
+Quelldateien.  Diese Option funktioniert mit Schnipseln, die mit
+@code{lilypondfile} eingfügt wurden und auch nur, wenn die Verzeichnisse
+@option{--output-dir} und @option{--lily-output-dir} unterschiedlich sind.
+
 @item -V
 @itemx --verbose
-Gibt ausführliche informative Meldungen aus.
+Gibt ausführliche informative Meldungen aus.  Äquivalent zu @option{--loglevel=DEBUG}.
 
 @item -v
 @itemx --version
@@ -1064,7 +1175,7 @@ Eingabedatei:
 
 Wird dieselbe Erweiterung für die Eingabedatei wie für die Ausgabedatei
 benutzt und befindet sich die Eingabedatei im aktuellen Arbeitsverzeichnis
-von @command{lilypond-book}, muss die @code{--output} Option für
+von @command{lilypond-book}, muss die @option{--output} Option für
 @command{lilypond-book} benutzt werden. Anderenfalls würde
 @command{lilypond-book} ja die Eingabedatei überschreiben, weshalb das
 Programm in diesem Fall mit einer Fehlermeldung wie @qq{Fehler: Ausgabe

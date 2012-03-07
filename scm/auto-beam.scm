@@ -16,9 +16,9 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;  Determine whether an auto beam should be extended to the right
-;;  of the current stem.   In general, we start anywhere except on
-;;  the last note of a beat. We end according to the follwing rules,
-;;  in order of decreasing priority:
+;;  of the current stem.  We start anywhere except on the last note
+;;  of a beat.  We end according to the follwing rules, in order
+;;  of decreasing priority:
 ;;
 ;;  1. end <type>
 ;;  2. end <greater type>
@@ -61,12 +61,6 @@
   (define (beat-end? moment beat-structure)
     (pair? (member moment beat-structure)))  ;; member returns a list if found, not #t
 
-  (define (use-special-3-4-rules? fraction base-moment exceptions)
-    "Should we use special 3/4 time signature beaming rules?"
-     (and (equal? fraction '(3 . 4))
-          (equal? base-moment (ly:make-moment 1 4))
-          (null? (assoc-get '(1 . 8) exceptions '()))))
-
   ;; Start of actual auto-beam test routine
   ;;
   ;;
@@ -85,8 +79,6 @@
                                           '())
                                beaming<?))
              (function (if (= dir START) 'begin 'end))
-             (beam-whole-measure (get 'beamWholeMeasure #t))
-             (beam-half-measure (get 'beamHalfMeasure #f))
              (type (moment->fraction test-beam))
              (non-grace (ly:make-moment
                           (ly:moment-main-numerator measure-pos)
@@ -114,35 +106,17 @@
                                   exception-grouping 0 grouping-moment)))
 
 	(if (= dir START)
-            ;; Start rules -- start anywhere unless 3/4 with default rules
-            ;; #t if beam is to start
-            (or (not (use-special-3-4-rules?
-                       time-signature-fraction
-                       base-moment
-                       exceptions)) ;; start anywhere if not default 3/4
+            ;; Start rules
+            (or (not (equal? time-signature-fraction '(3 . 4))) ;; start anywhere if not 3/4
                 (= (ly:moment-main-numerator pos) 0) ;; start at beginning of measure
-		(and beam-half-measure
-                     (equal? type '(1 . 8))
-                     (equal? pos (ly:make-moment 3 8))) ;; start at mid-measure if 1/8 note beam
-                (beat-end? pos beat-endings)  ;; start if at start of beat
+		(not (null? exception-grouping)) ;; don't use special rules if exception
+		(beat-end? pos beat-endings)  ;; are we at start of beat?
 		(and (not (equal? test-beam base-moment)) ;; is beat split?
                      (not (beat-end? (ly:moment-add pos test-beam)
                                      beat-endings))))  ;; will this note end the beat
-            ;; End rules -- #t if beam is to end
+            ;; End rules
             (or (= (ly:moment-main-numerator pos) 0) ;; end at measure beginning
-                (if (use-special-3-4-rules?
-                      time-signature-fraction
-                      base-moment
-                      exceptions)
-                    ;; special rule for default 3/4 beaming
-                    (if (and (equal? type '(1 . 8))
-                             (or beam-whole-measure
-                                 (and beam-half-measure
-                                      (not (equal? pos (ly:make-moment 3 8))))))
-                        #f
-                        (beat-end? pos beat-endings))
-                    ;; rules for all other cases -- check for applicable exception
-                    (if (null? exception-grouping)
-                        (beat-end? pos beat-endings) ;; no exception, so check beat ending
-                        (member pos exception-moments)))))))) ;; check exception rule
+                (if (null? exception-grouping)
+                    (beat-end? pos beat-endings) ;; no exception, so check beat ending
+                    (member pos exception-moments))))))) ;; check exception rule
 

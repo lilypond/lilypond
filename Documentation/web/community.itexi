@@ -515,13 +515,13 @@ demonstrate what you think it should look like!
 
 @divClass{column-left-top}
 @divClass{keep-bullets}
-@helpusSimple
+@helpusTasks
 
 @divEnd
 @divEnd
 
 @divClass{column-right-top}
-@helpusAdvanced
+@helpusProjects
 
 @divEnd
 
@@ -555,7 +555,7 @@ in mind the following points:
 
 @itemize
 @item
-LilyPond developers may advertise their services on the lilypond
+LilyPond developers may advertise their services on the lilypnod
 email lists from time to time.
 
 @item

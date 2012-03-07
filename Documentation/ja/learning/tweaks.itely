@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: b5a7328d19ebb2e40c3fbb7f1715b6023dc8329d
+    Translation of GIT committish: dadabdfc4537ef85adb9159d46eda5a0ff180835
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -304,10 +304,12 @@ b4 c |
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c4 d
-\once \override NoteHead #'color = #red
+\override NoteHead #'color = #red
 e4 f |
 \once \override NoteHead #'color = #green
-g4 a b c |
+g4 a
+\revert NoteHead #'color
+b c |
 @end lilypond
 
 @strong{\overrideProperty コマンド}
@@ -331,9 +333,10 @@ g4 a b c |
 @funindex tweak
 
 利用可能な最後の調整コマンドは @code{\tweak} です。@c
-これは同じタイミングで起こるオブジェクト
--- 和音の中にある音符などのように --
-のプロパティを変更するために使用されます。@c
+これは同じ音楽タイミングで発生するいくつかのオブジェクトのうち、@c
+1 つのオブジェクトだけを選択してプロパティを変更したい場合に@c
+使用します
+-- 例えば、和音の中にある 1 つの音符のプロパティを変更する場合です。@c
 @code{\override} コマンドを使用すると和音の中にあるすべての音符に@c
 影響を与えます。@c
 一方、@code{\tweak} は入力ストリームの中でその @code{\tweak} の@c
@@ -365,12 +368,6 @@ C メジャー コードの中にある真ん中の音符 (ミドル E) の符�
 -- 本質的に符頭とアーティキュレーション -- にだけ効果を持ちます。@c
 符幹や臨時記号などのオブジェクトは後で作成されるため、@c
 この方法では調整できません。@c
-さらに、@code{\tweak} が符頭に適用される場合、@c
-それらは和音の内部になければ @emph{なりません}
--- つまり、単一山括弧 @code{< .. >} の内部です。@c
-そのため、単一の音符 (和音ではない音符) を調整するには、@c
-@code{\tweak} コマンドはその音符とともに@c
-単一の山括弧で囲わなければなりません。
 
 それでは例に戻り、この方法で和音の真ん中の音符のサイズを変更します:
 
@@ -408,9 +405,12 @@ a4^"Black"
 @end lilypond
 
 @noindent
-@code{\tweak} コマンドは、まるでそれがアーティキュレーションの@c
-一部であるかのように、アーティキュレーション マークの前に@c
-置かれなければならないということに注意してください。
+@code{\tweak} コマンドはアーティキュレーション マークの前に配置する@c
+必要があることに注意してください。@c
+なぜなら、調整された表記がアーティキュレーションとして適用される必要がある@c
+ためです。@c
+複数の向き記号 (@code{^} または @code{_}) で上書きした場合、@c
+最後に適用される左端の記号が勝ち残ります。
 
 @cindex tuplets, nested (ネストされた連符)
 @cindex triplets, nested (ネストされた 3 連符)
@@ -979,7 +979,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
   @tab 有効な向きを表す定数またはそれと等価な数値 (-1 から 1 までの小数が@c
 許可されます)
   @tab @code{LEFT}, @code{CENTER}, @code{UP},
-       @code{1}, @code{-1}
+       @code{1}, @w{@code{-1}}
 @item Integer
   @tab 正の整数
   @tab @code{3}, @code{1}
@@ -997,7 +997,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
        @code{(ly:make-moment 3 8)}
 @item Number
   @tab 正または負の小数
-  @tab @code{3.5}, @code{-2.45}
+  @tab @code{3.5}, @w{@code{-2.45}}
 @item (数の) Pair
   @tab @q{スペース . スペース} で区切られ、前にアポストロフィが付いた括弧で@c
 囲まれた 2 つの数値
@@ -1814,7 +1814,7 @@ a4 g c a |
 @end lilypond
 
 ここで定数 @code{DOWN} と @code{UP} を使っています。@c
-これらはそれぞれ値 @code{-1} と @code{+1} を持ち、定数の代わりに@c
+これらはそれぞれ値 @w{@code{-1}} と @code{+1} を持ち、定数の代わりに@c
 それらの数値を使うこともできまはす。@c
 さらに値 @code{0} を使う場合もあります。@c
 この値は符幹では @code{UP} を意味するものとして扱われますが、@c
@@ -1999,7 +1999,7 @@ LilyPond はこれらの制約を受け取り、
 運指法記号が少し込み合っているように見える場合は、@c
 @code{font-size} でサイズを下げることができます。@c
 デフォルト値は内部リファレンスの @code{Fingering} オブジェクトのページから
-@code{-5} であることがわかるので、@code{-7} にセットしてみましょう:
+@w{@code{-5}} であることがわかるので、@w{@code{-7}} にセットしてみましょう:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 \override Fingering #'font-size = #-7
@@ -2035,21 +2035,28 @@ LilyPond はこれらの制約を受け取り、
 @code{#f} にセットされていて、譜外部オブジェクトが作成されたときに@c
 その譜外部オブジェクトの @code{outside-staff-priority} に適当な数値が@c
 セットされます。@c
-以下の表はデフォルトで @code{Staff} コンテキストまたは
-@code{Voice} コンテキストの中に配置される@c
-いくつかの一般的な譜外部オブジェクトのデフォルトの
+以下の表はいくつかの一般的な譜外部オブジェクトのデフォルトの
 @code{outside-staff-priority} 値を示しています。
 
 @multitable @columnfractions .3 .3 .3
 @headitem レイアウト オブジェクト
   @tab 優先度
   @tab 以下のオブジェクトの配置を制御する:
-@item @code{MultiMeasureRestText}
-  @tab @code{450}
-  @tab 全休符上のテキスト
+@item @code{RehearsalMark}
+  @tab @code{1500}
+  @tab リハーサル記号
+@item @code{MetronomeMark}
+  @tab @code{1000}
+  @tab メトロノーム記号
+@item @code{VoltaBracketSpanner}
+  @tab @code{600}
+  @tab Volta (番号付きのリピート) の囲み
 @item @code{TextScript}
   @tab @code{450}
   @tab マークアップ テキスト
+@item @code{MultiMeasureRestText}
+  @tab @code{450}
+  @tab 全休符上のテキスト
 @item @code{OttavaBracket}
   @tab @code{400}
   @tab オッターバ (オクターブを上下させる記号) の囲み
@@ -2059,9 +2066,9 @@ LilyPond はこれらの制約を受け取り、
 @item @code{DynamicLineSpanner}
   @tab @code{250}
   @tab すべての強弱記号
-@item @code{VoltaBracketSpanner}
+@item @code{BarNumber}
   @tab @code{100}
-  @tab Volta (番号付きのリピート) の囲み
+  @tab 小節番号
 @item @code{TrillSpanner}
   @tab @code{50}
   @tab トリル記号
@@ -2119,26 +2126,6 @@ c,4 c c c |
 @cindex tweaking rehearsal mark placement (リハーサル記号の配置を調節する)
 @cindex rehearsal marks, tweaking placement (リハーサル記号の配置を調節する)
 
-小節番号、メトロノーム記号、リハーサル記号は示されていないということに@c
-注意してください。@c
-デフォルトでは、それらは @code{Score} コンテキストの中で作成され、@c
-それらの @code{outside-staff-priority} は @code{Staff} コンテキストの中で@c
-作成されるレイアウト オブジェクトとは異なり無視されます。@c
-小節番号、メトロノーム記号あるいはリハーサル記号を@c
-それらの @code{outside-staff-priority} に従って配置したいのなら、@c
-@code{Score} コンテキストからそれぞれ @code{Bar_number_engraver},
-@code{Metronome_mark_engraver}, @code{Mark_engraver} を削除して最上位の
-@code{Staff} コンテキストに置く必要があります。@c
-そうした場合、それらの記号には@c
-以下のデフォルトの @code{outside-staff-priority} 値が与えられます:
-
-@multitable @columnfractions .3 .3
-@headitem レイアウト オブジェクト @tab 優先度
-@item @code{RehearsalMark}        @tab @code{1500}
-@item @code{MetronomeMark}        @tab @code{1000}
-@item @code{BarNumber}            @tab @code{ 100}
-@end multitable
-
 @code{outside-staff-priority} のデフォルト値による配置が@c
 あなたの望みに合わない場合、いずれかのオブジェクトの優先度を@c
 オーバライドすることになるかもしれません。@c
@@ -2151,6 +2138,7 @@ c,4 c c c |
 @cindex TextSpanner, example of overriding (TextSpanner をオーバライドする例)
 @cindex bound-details property, example (bound-details プロパティの例)
 
+@c KEEP LY
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % 以降のテキスト スパナの詳細を設定します
 \override TextSpanner #'(bound-details left text)
@@ -2175,6 +2163,12 @@ c4\ff c \stopTextSpan |
 \ottava #0
 c,4 c c c |
 @end lilypond
+
+これらのオブジェクトのいくつか
+-- 特に、小節番号、メトロノーム記号、それにリハーサル記号 --
+はデフォルトでは @code{Score} コンテキストの中にあるため、@c
+それらのプロパティをオーバライドする場合は適切なコンテキストを@c
+指定する必要があることに注意してください。
 
 @cindex slurs and outside-staff-priority (スラーと outside-staff-priority)
 @cindex slurs and articulations (スラーとアーティキュレーション)
@@ -2545,13 +2539,13 @@ LilyPond がレイアウト オブジェクトを配置するときに使用す�
 オブジェクトすべてに対して使用することができます。@c
 一般に、テキストを保持するオブジェクトです。@c
 値は @code{Left}, @code{RIGHT}, @code{CENTER} です。@c
-代替手段として、@code{-1} から @code{+1} までの数値を@c
+代替手段として、@w{@code{-1}} から @code{+1} までの数値を@c
 指定することもできます。@c
 @code{-1} は左揃えであり、@code{+1} は右揃え、@c
 その間の数値は左揃えから右揃えへのテキストを移動させます
 (訳者: @code{-0.5} であれば、左揃えと中央揃えの中間ということ)。@c
 @code{1} よりも大きな数値を指定することでテキストをさらに左へ、@c
-@code{-1} よりも小さな数値を指定することでテキストを@c
+@w{@code{-1}} よりも小さな数値を指定することでテキストを@c
 さらに右へ移動させることができます。@c
 この値を @code{1} 増減することによる移動量はそのテキストの長さの半分です。
 
@@ -2854,7 +2848,7 @@ LilyPond がそれと衝突するかもしれない音符を突き止めるの�
 @code{MultiMeasureRest} の @code{staff-position} は @code{-4} に@c
 セットされています。@c
 そのため、そのプロパティを、例えば半譜スペース 4 つ分押し下げるには、@c
-@code{-8} に変更する必要があります。
+@w{@code{-8}} に変更する必要があります。
 
 @cindex MultiMeasureRest, example of overriding (MultiMeasureRest をオーバライドする例)
 @cindex staff-position property, example (staff-position プロパティの例)
@@ -2936,20 +2930,25 @@ r4
 \acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
-さらに、Chopin の 前奏曲 Op 28 No. 2 の左手の譜の開始部分から取った@c
-例を挙げます。@c
-連桁が上部にある音符と衝突しています:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
-  \clef "bass"
-  << { b,8 ais, b, g, } \\ { e,8 g e, g } >>
-  << { b,8 ais, b, g, } \\ { e,8 g e, g } >>
+  \time 4/2
+  <<
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
+  <<
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+ >>
 }
 @end lilypond
 
 @noindent
-これは、譜の中央線から 2 譜スペース上の位置にある連桁の両端を、例えば、3
+これは、譜の中央線から 1.81 譜スペース上の位置にある連桁の両端を、例えば、1
 に手動で上げることによって解決することができます:
 
 @cindex Beam, example of overriding (Beam をオーバライドする例)
@@ -2957,21 +2956,27 @@ r4
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
-  \clef "bass"
+  \time 4/2
   <<
-    \override Beam #'positions = #'(3 . 3)
-    { b,8 ais, b, g, }
-  \\
-    { e,8 g e, g }
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    {
+      \override Beam #'positions = #'(-1 . -1)
+      e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g''
+    }
   >>
-  << { b,8 ais, b, g, } \\ { e,8 g e, g } >>
+  <<
+    { c'1 ~ c'2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
 }
 @end lilypond
 
 @noindent
-オーバライドの効果は継続して 2 番目のブロックのボイス 1 にも@c
-適用されていますが、ボイス 2 の連桁にはまったく適用されていないということに@c
-注意してください。
+オーバライドの効果は継続して第 2 小節のボイス 1 の 8 分音符にも@c
+適用されていますが、@c
+ボイス 2 の連桁にはまったく適用されていないということに注意してください。
 
 @subheading force-hshift プロパティ
 
@@ -3071,7 +3076,8 @@ rhMusic = \relative c'' {
         c,8~
         % マージされる音符の右にある c2 を再配置します
         \once \override NoteColumn #'force-hshift = #1.0
-        % c2 をメインの音符列から外したため、マージが機能します
+        % c2 をメインの音符列から外したため、
+        % マージが機能します
         \shiftOnn
         c2
       }
@@ -3452,7 +3458,8 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % メイン ボイスの続き
       \new Voice {
         \voiceTwo
-        % c2 をメインの音符列から外したため、マージが機能します
+        % c2 をメインの音符列から外したため、
+        % マージが機能します
         c,8~ \shiftOnn c2
       }
       \new Voice {
@@ -3584,7 +3591,6 @@ lhMusic = \relative c' {
 * 調整のために変数を使用する::
 * スタイル シート::
 * その他の情報源::
-* 処理に時間のかかる調整を避ける::
 * Scheme を用いた高度な調整::
 @end menu
 
@@ -3797,7 +3803,7 @@ VerseOne = \lyrics {
 }
 
 VerseTwo = \lyricmode {
-  O | \emphasize Christ, \normal whose voice the | wa -- ters heard,
+  O | \once \emphasize Christ, whose voice the | wa -- ters heard,
 }
 
 VerseThree = \lyricmode {
@@ -3846,19 +3852,17 @@ LilyPond が作り出す出力にはさまざまな変更を加えることが�
 @lilypond[quote,verbatim,ragged-right]
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #{ \markup { \hspace #0
+               \translate #'(5 . 0)
+               \line { \dynamic "mp"
+                       \text \italic "dolce" } }
+  #})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #{ ^\markup \bold \box #string #})
 
 \relative c'' {
   \tempo 4=50
@@ -3886,19 +3890,17 @@ inst =
 %%% これを "definitions.ily" というファイル名で保存してください
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #@{ \markup @{ \hspace #0
+               \translate #'(5 . 0)
+               \line @{ \dynamic "mp"
+                       \text \italic "dolce" @} @}
+  #@})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #@{ ^\markup \bold \box #string #@})
 @end example
 
 音楽ファイルの先頭付近で @code{\include} コマンドを使ってこのファイルを@c
@@ -3927,19 +3929,17 @@ inst =
 @lilypond[quote,ragged-right]
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #{ \markup { \hspace #0
+               \translate #'(5 . 0)
+               \line { \dynamic "mp"
+                       \text \italic "dolce" } }
+  #})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #{ ^\markup \bold \box #string #})
 
 \relative c'' {
   \tempo 4=50
@@ -3966,19 +3966,17 @@ inst =
 %%%  definitions.ily
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #@{ \markup @{ \hspace #0
+               \translate #'(5 . 0)
+               \line @{ \dynamic "mp"
+                       \text \italic "dolce" @} @}
+  #@})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #@{ ^\markup \bold \box #string #@})
 
 \layout@{
   \context @{
@@ -4001,19 +3999,17 @@ inst =
 @lilypond[quote,ragged-right]
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #{ \markup { \hspace #0
+               \translate #'(5 . 0)
+               \line { \dynamic "mp"
+                       \text \italic "dolce" } }
+  #})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #{ ^\markup \bold \box #string #})
 
 \layout{
   \context {
@@ -4055,19 +4051,17 @@ inst =
 %%%  definitions.ily
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #@{ \markup @{ \hspace #0
+               \translate #'(5 . 0)
+               \line @{ \dynamic "mp"
+                       \text \italic "dolce" @} @}
+  #@})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #@{ ^\markup \bold \box #string #@})
 
 #(set-global-staff-size 23)
 
@@ -4091,19 +4085,17 @@ inst =
 @lilypond[quote,ragged-right]
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #{ \markup { \hspace #0
+               \translate #'(5 . 0)
+               \line { \dynamic "mp"
+                       \text \italic "dolce" } }
+  #})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #{ ^\markup \bold \box #string #})
 
 #(set-global-staff-size 23)
 
@@ -4188,11 +4180,16 @@ LilyPond の内部ファイルを調べることによって@c
 @itemize @bullet
 @item Linux
 
-@file{@var{INSTALLDIR}/lilypond/usr/share/lilypond/current/} に進んでください
+@example
+@file{@var{INSTALLDIR}/lilypond/usr/share/lilypond/current/}
+@end example
+に進んでください
 
 @item MacOS X
 
+@example
 @file{@var{INSTALLDIR}/LilyPond.app/Contents/Resources/share/lilypond/current/}
+@end example
 に進んでください。@c
 ターミナルからこのディレクトリへ @code{cd} で移動するか、@c
 LilyPond アプリケーション上でコントロール クリックして
@@ -4200,8 +4197,10 @@ LilyPond アプリケーション上でコントロール クリックして
 
 @item Windows
 
-@file{@var{INSTALLDIR}/LilyPond/usr/share/lilypond/current/} に@c
-進んでください。Windows Explorer を使います。
+@example
+@file{@var{INSTALLDIR}/LilyPond/usr/share/lilypond/current/}
+@end example
+に進んでください。Windows Explorer を使います。
 
 @end itemize
 
@@ -4292,43 +4291,6 @@ Scheme 言語とこれらのファイルを理解するには、十分な知識�
 @item @file{scm/script.scm}
   @tab アーティキュレーションのデフォルト設定
 @end multitable
-
-
-@node 処理に時間のかかる調整を避ける
-@subsection 処理に時間のかかる調整を避ける
-@translationof Avoiding tweaks with slower processing
-
-@untranslated
-
-LilyPond は入力ファイルの処理中に追加のチェックを行うことができます。@c
-これらのチェックは実行時間を伸ばしますが、適切な結果を得るのに必要とされる@c
-手動調整を減らすかもしれません。@c
-テキスト スクリプトや歌詞の一部が余白まではみ出す場合、これらのチェックは@c
-楽譜のその行を縮めてマージンの内側に収まるようにします。
-
-すべての状況下で有効にするには、以下のように、音楽の中の行ではなく
-@code{Score} の @code{\with} ブロックの中に@c
-これらのチェックのオーバライドを置くことによって、@c
-動作可能な状態にする必要があります:
-
-@example
-\score @{
-  @{ @dots{}notes@dots{} @}
-  \layout @{
-    \context @{
-      \Score
-      % テキスト スクリプトと歌詞が紙面のマージン内に納まることを保証します
-      \override PaperColumn #'keep-inside-line = ##t
-      \override NonMusicalPaperColumn #'keep-inside-line = ##t
-    @}
-  @}
-@}
-@end example
-
-しかしながら、@code{keep-inside-line} は処理時間を伸ばすため、@c
-最終バージョンを作るまでは有効化しないことをお勧めします。@c
-この機能を用いると、手動で @code{\break} コマンドを入力しなくても@c
-テキストがページの右端からはみ出すことを防げます。
 
 
 @node Scheme を用いた高度な調整

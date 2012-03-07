@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -153,36 +153,6 @@ Die folgenden Kommandozeilenoptionen werden von @command{lilypond} unterstützt:
 
 @table @code
 
-@item -e,--evaluate=@var{expr}
-Wertet den Scheme-Ausdruck @var{expr} aus, bevor die @file{.ly} Dateien
-gelesen und interpretiert werden.
-Die @code{-e} Option kann auch mehrfach angegeben werden, die Ausdrücke
-werden nacheinander ausgewertet.
-
-Da der Ausdruck im @code{guile-user} Modul ausgewertet wird, ist bei der
-Definitionen innerhalb von @var{expr} folgendes Vorgehen nötig. An der
-Kommandozeile wird z.B. @code{a} im @code{guile-user} Modul definiert:
-
-@example
-lilypond -e '(define-public a 42)'
-@end example
-
-@noindent
-Am Beginn der @file{.ly}-Datei muss dann das @code{guile-user} Modul noch geladen werden, bevor die Definition von @var{a} verfügbar ist:
-
-@example
-#(use-modules (guile-user))
-@end example
-
-
-@item -f,--format=@var{Format}
-Bestimmt das Ausgabeformat. Mögliche Werte von @var{Format} sind
-@code{svg}, @code{ps}, @code{pdf} und @code{png}.
-
-Beispiel: @code{lilypond -fpng @var{Dateiname}.ly}
-
-
-
 @item -d,--define-default=@var{Variable}=@var{Wert}
 Damit wird die interne Programmoption @var{Variable} auf den Scheme-Wert
 @var{Wert} gesetzt. Wird kein @var{Wert} angegeben, so wird @var{#t} benutzt.
@@ -198,17 +168,18 @@ Um eine Option auszuschalten, kann der Präfix @code{no-} dem Namen
 @noindent
 dasselbe wie
 @example
--dpoint-and-click='#f'
+-dpoint-and-click=#f
 @end example
 
-Hier sind ein paar interessante Optionen:
+Folgende Optionen werden unterstützt:
 
 @cindex Hilfe, Kommandozeile
 
-@table @samp
+@table @code
+
 @item help
-Die Ausführung von @code{lilypond -dhelp} zeigt alle verfügbaren @code{-d}
-Optionen.
+Die Ausführung von @code{lilypond -dhelp} zeigt alle verfügbaren
+@option{-d}-Optionen.
 
 @cindex Papierformat, Kommandozeile
 
@@ -229,8 +200,8 @@ Die Zeichenkette, die das Format angibt, muss in Anführungszeichen mit Backslas
 Vertraut der @file{.ly} Datei nicht.
 
 Wenn LilyPond über einen Webserver verfügbar gemacht wird, @b{MUSS} unbedingt
-eine die Optionen @code{--safe} oder @code{--jail} angegeben werden.
-Die @code{--safe} Option verhindert, dass in der @file{.ly}-Datei angegebener
+eine die Optionen @option{--safe} oder @option{--jail} angegeben werden.
+Die @option{--safe} Option verhindert, dass in der @file{.ly}-Datei angegebener
 Scheme-Code das System gefährden kann, wie etwa in folgendem Beispiel:
 
 @quotation
@@ -242,7 +213,7 @@ Scheme-Code das System gefährden kann, wie etwa in folgendem Beispiel:
 @end verbatim
 @end quotation
 
-Mit der @code{-dsafe} Option werden alle Scheme-Ausdrücke einem speziellen
+Mit der @option{-dsafe} Option werden alle Scheme-Ausdrücke einem speziellen
 sicheren Modus ausgewertet. Dieser Modus ist vom GUILE @file{safe-r5rs} Modul
 abgeleitet und fügt noch zahlreiche weitere erlaubte Funktionen der
 LilyPond Programm-Schnittstelle hinzu. Diese Funktionen sind in
@@ -253,7 +224,7 @@ Zusätzliche verbietet der sichere Modus auch @code{\include} Befehle.
 Im sicheren Modus ist es nicht möglich, LilyPond-Variablen nach Scheme
 zu exportieren.
 
-@code{-dsafe} erkennt jedoch @emph{KEINE} Überbeanspruchung der verfügbaren
+@option{-dsafe} erkennt jedoch @emph{KEINE} Überbeanspruchung der verfügbaren
 Ressourcen. In diesem Modus ist es also trotzdem möglich, dass LilyPond in einer
 Endlosschleife hängt, z.B. wenn zyklische Datenstrukturen an das Backend
 übergeben werden. Wenn LilyPond also auf einem öffentlich zugänglichen
@@ -261,7 +232,7 @@ Webserver verfügbar gemacht wird, sollte der Prozess sowohl in der CPU-
 als auch in der Speichernutzung limitiert werden.
 
 Der sichere Modus verhindert auch, dass zahlreiche nützliche
-Musikfragmente von LilyPond verarbeitet werden. Die @code{--jail} Option ist
+Musikfragmente von LilyPond verarbeitet werden. Die @option{--jail}-Option ist
 eine sicherere Alternative, benötigt allerdings auch mehr Aufwand zur
 Einrichtung.
 
@@ -311,13 +282,11 @@ Betrachtungsprogrammen kompatibel sein.
 @cindex Scheme-dump
 
 @item scm
-gibt die rohen Scheme-basierenden Zeichenbefehle aus, wie sie intern von
-LilyPond benutzt werden.
-
-@cindex Scheme dump
+gibt die rohen Scheme-basierenden Zeichenbefehle aus (@qq{Scheme-dump}),
+wie sie intern von LilyPond benutzt werden.
 
 @item null
-Keine Partitur wird ausgegeben, hat gleichen Effekt wie @code{-dno-print-pages}.
+Keine Partitur wird ausgegeben, hat gleichen Effekt wie @option{-dno-print-pages}.
 
 @end table
 
@@ -326,18 +295,66 @@ Beispiel: @code{lilypond -dbackend=svg @var{Dateiname}.ly}
 @cindex Vorschau
 
 @item preview
-Erzeugt eine Ausgabedatei, die nur die Titelzeilen und das erste System
+Unterstützt von allen Backendes: @code{pdf}, @code{png}, @code{ps},
+@code{eps} und @code{svg} aber nicht @code{scm} und erzeugt eine
+Ausgabedatei, die nur die Titelzeilen und das erste System
 enthält.  Wenn @code{\bookpart}-Umgebungen benutzt werden, erscheinen die
 Titel und ersten Systeme jedes @code{\bookpart}-Abschnitts in der Datei.
-Die Backends @code{ps}, @code{eps} und @code{svg} unterstützen diese Option.
+
+Zusätzlich wird eine Datei in der Form @code{meineDatei.preview.Endung}
+erstellt, um das zu vermeiden, können die zusätzlichen Optionen
+@option{-dprint-pages} oder @option{-dno-print-pages} je nach gewünschtem
+Ergebnis gewählt werden.
+
+@item gui
+Stiller Durchlauf, alle Ausgabe wird in eine Log-Datei umgeleitet.
+
+Bemerkung für Windows-Benutzer:  Standardmäßig schreibt @code{lilypond.exe}
+alle Fortschrittinformation in die Kommandozeile, während
+@code{lilypond-windows.exe} keine Fortschrittinformation angibt und
+sofort die Eingabeaufforderung anzeigt.  Die Option @option{-dgui} kann
+in diesem Fall eingesetzt werden, um die Ausgabe in eine Log-Datei umzuleiten.
 
 @item print-pages
-Erzeugt vollständige Seiten (Standardeinstellung).  @code{-dno-print-pages}
-ist in Verbindung mit @code{-dpreview} nützlich.
+Erzeugt vollständige Seiten (Standardeinstellung).  @option{-dno-print-pages}
+ist in Verbindung mit @option{-dpreview} nützlich.
 
 @end table
 
+@cindex Scheme, Auswertung von Ausdrücken
+@cindex Auswertung von Ausdrücken, Scheme
 
+@item -e,--evaluate=@var{expr}
+Wertet den Scheme-Ausdruck @var{expr} aus, bevor die @file{.ly} Dateien
+gelesen und interpretiert werden.
+Die @code{-e} Option kann auch mehrfach angegeben werden, die Ausdrücke
+werden nacheinander ausgewertet.
+
+Da der Ausdruck im @code{guile-user} Modul ausgewertet wird, ist bei der
+Definitionen innerhalb von @var{expr} folgendes Vorgehen nötig. An der
+Kommandozeile wird z.B. @code{a} im @code{guile-user} Modul definiert:
+
+@example
+lilypond -e '(define-public a 42)'
+@end example
+
+@noindent
+Am Beginn der @file{.ly}-Datei muss dann das @code{guile-user} Modul noch geladen werden, bevor die Definition von @var{a} verfügbar ist:
+
+@example
+#(use-modules (guile-user))
+@end example
+
+@warning{Windows-Benutzer müssen doppelte anstelle der einfachen
+Anführungsstriche einsetzen.}
+
+@cindex Ausgabeformat
+
+@item -f,--format=@var{Format}
+Bestimmt das Ausgabeformat. Mögliche Werte von @var{Format} sind
+@code{svg}, @code{ps}, @code{pdf} und @code{png}.
+
+Beispiel: @code{lilypond -fpng @var{Dateiname}.ly}
 
 @item -h,--help
 Zeigt eine Zusammenfassung der Programmbenutzung und der Optionen.
@@ -346,7 +363,11 @@ Zeigt eine Zusammenfassung der Programmbenutzung und der Optionen.
 Gibt den Inhalt eines Feldes aus dem @code{\header}-Block in die Datei
 @file{Dateiname.@var{FELD}} aus.
 
-@item --include, -I=@var{Verzeichnis}
+@item -i,--init=@var{Initialisierungsdatei}
+Benutzt @var{Initialisierungsdatei} zur gesamten Programminitialisierung. Der
+Standardwert ist @file{init.ly}.
+
+@item -I, --include=@var{Verzeichnis}
 Fügt @var{Verzeichnis} zur Liste der Suchpfade hinzu.
 
 @cindex Dateisuche
@@ -356,46 +377,13 @@ Mehrere -I-Optionen können angegeben werden.  Die Suche beginnt mit dem
 ersten definierten Verzeichnis und setzt in den weiteren Verzeichnissen
 fort, wenn die gesuchte Datei nicht in dem Verzeichnis gefunden wird.
 
-@item -i,--init=@var{Initialisierungsdatei}
-Benutzt @var{Initialisierungsdatei} zur gesamten Programminitialisierung. Der
-Standardwert ist @file{init.ly}.
-
-@cindex Verzeichnis, Ausgabe speichern in
-@cindex Ausgabedateiname
-
-@item -o,--output=@var{DATEI}
-Schreibt das Ergebnis der Verarbeitung mit LilyPond in die Ausgabedatei
-@var{DATEI}.  Wenn ein Verzeichnis mit dem Namen existiert, werden die Ausgabedateien
-in dieses Verzeichnis gespeichert, wobei der Dateiname der Eingabedatei
-benutzt wird.  Die entsprechende Dateinamenserweiterung wird angehängt (z.B.
-@code{.pdf} für pdf).
-
-@cindex PostScript-Ausgabe
-
-@item --ps
-Erzeugt PostScript.
-
-@cindex PNG-Ausgabe
-@cindex Portable Network Graphics (PNG)
-
-@item --png
-Erzeugt eine Grafik-Datei im PNG-Format von jeder Seite. Diese Option
-impliziert auch @code{--ps}. Die Auflösung in DPI der Grafik kann festgelegt
-werden durch
-@example
--dresolution=110
-@end example
-
-@cindex PDF-Ausgabe
-@cindex Portable Document Format (PDF)
-
-@item --pdf
-Erzeugt PDF-Dateien. Dies impliziert @code{--ps}.
+@cindex Kerker, Programm ausführen
+@cindex Jail, Programm ausführen
 
 @item -j,--jail=@var{Benutzer},@var{Gruppe},@var{Jail-Verzeichnis},@var{Arbeitsverzeichnis}
 Führt @command{lilypond} in einem chroot-Jail aus.
 
-Die @code{--jail} Option ist eine flexiblere Alternative zu @code{--safe}, wenn
+Die @option{--jail} Option ist eine flexiblere Alternative zu @option{--safe}, wenn
 LilyPond über das Internet verfügbar gemacht wird oder LilyPond-Quelldateien
 von Dritten automatisch verarbeitet werden.
 
@@ -405,7 +393,7 @@ tatsächliche Kompilierung der @file{.ly}-Datei beginnt. Der Benutzer und die Gr
 werden auf die angegebenen Werte gesetzt und das aktuelle Arbeitsverzeichnis
 wird ebenfalls auf den angegebenen Wert @var{Arbeitsverzeichnis} gesetzt.
 Diese Einstellungen garantieren (zumindest in der Theorie), dass es nicht
-möglich ist, aus dem Jail auszubrechen. Damit @code{--jail} funktioniert, muss
+möglich ist, aus dem Jail auszubrechen. Damit @option{--jail} funktioniert, muss
 @command{lilypond} allerdings als root ausgeführt werden, was normalerweise
 auf sichere Art mit dem Kommando @command{sudo} erreicht werden kann.
 
@@ -415,6 +403,7 @@ Jail-Verzeichnisses} finden muss. Ein typisches Setup besteht aus folgenden
 Punkten:
 
 @table @asis
+
 @item Erstellung eines getrennten Dateisystems
 Ein eigenes Dateisystem muss für LilyPond erstellt werden, sodass es mit
 sicheren Einstellungen wie @code{noexec}, @code{nodev} und @code{nosuid}
@@ -451,8 +440,75 @@ sofort wieder abgibt), beispielsweise mittels @command{sudo}. Außerdem
 ist es eine gute Idee, die LilyPond zur Verfügung stehende CPU-Zeit zu
 limitieren (z. B. mit @command{ulimit -t}) und -- falls das Betriebssystem
 dies unterstützt -- auch den zur Verfügung stehenden Hauptspeicher.
+
 @end table
 
+@cindex Logstufe
+@cindex Ausgabe, Ausführlichkeit
+
+@item -l,--loglevel=@var{Logstufe}
+Passt die Ausführlichkeit der Ausgabe auf der Kommandozeile entsprechend
+@var{Logstufe} an.  Mögliche Werte sind:
+
+@table @code
+
+@item NONE
+Keine Ausgabe, nicht einmal Fehlermeldungen.
+
+@item ERROR
+Nur Fehlermeldungen, keine Warnungen oder Fortschrittsmeldungen.
+
+@item WARN
+Warnungen und Fehlermeldungen, keine Fortschrittsmeldungen.
+
+@item BASIC_PROGRESS
+Grundlegende Fortschrittsmeldungen (Erfolg), Warnungen und Fehler.
+
+@item PROGRESS
+Alle Fortschrittsmeldungen, Warnungen und Fehler.
+
+@item INFO (Standard)
+Fortschrittmeldungen, Warnungen, Fehlermeldungen und weiter
+Information über die Ausführung.
+
+@item DEBUG
+Alle möglichen Meldungen, die auch mit der Fehlersuche (Debug) zu tun
+haben können.
+
+@end table
+
+@cindex Verzeichnis, Ausgabe speichern in
+@cindex Ausgabedateiname
+@cindex Dateiname der Ausgabe bestimmen
+
+@item -o,--output=@var{DATEI} oder @var{ORDNER}
+Schreibt das Ergebnis der Verarbeitung mit LilyPond in die Ausgabedatei
+@var{DATEI}.  Wenn ein Verzeichnis mit dem Namen existiert, werden die Ausgabedateien
+in dieses Verzeichnis gespeichert, wobei der Dateiname der Eingabedatei
+benutzt wird.  Die entsprechende Dateinamenserweiterung wird angehängt (z.B.
+@code{.pdf} für pdf).
+
+@cindex PostScript-Ausgabe
+
+@item --ps
+Erzeugt PostScript.
+
+@cindex PNG-Ausgabe
+@cindex Portable Network Graphics (PNG)
+
+@item --png
+Erzeugt eine Grafik-Datei im PNG-Format von jeder Seite. Diese Option
+impliziert auch @code{--ps}. Die Auflösung in DPI der Grafik kann festgelegt
+werden durch
+@example
+-dresolution=110
+@end example
+
+@cindex PDF-Ausgabe
+@cindex Portable Document Format (PDF)
+
+@item --pdf
+Erzeugt PDF-Dateien. Dies impliziert @code{--ps}.
 
 @item -v,--version
 Gibt die Versionsnummer aus.
@@ -464,6 +520,7 @@ aller gelesenen Dateien sowie Informationen über die Laufzeit.
 @item -w,--warranty
 Zeigt die Garantiebedingungen an, unter denen GNU LilyPond steht. (Es besteht
 @strong{KEINERLEI GARANTIE}!)
+
 @end table
 
 
@@ -472,6 +529,7 @@ Zeigt die Garantiebedingungen an, unter denen GNU LilyPond steht. (Es besteht
 @translationof Environment variables
 
 @cindex LANG
+@cindex LILYPOND_LOGLEVEL
 @cindex LILYPOND_DATADIR
 @cindex Variablen, Umgebungs-
 @cindex Umgebungsvariablen
@@ -485,6 +543,11 @@ Unterverzeichnisse @file{ly/}, @file{ps/}, @file{tex/}, etc. beinhalten.
 
 @item LANG
 Gibt die Sprache an, in der Warnungen und Fehlermeldungen ausgegeben werden.
+
+@item LILYPOND_LOGLEVEL
+Die standardmäßige Logstufe.  Wenn LilyPond ohne eine explizite
+Logstufe aufterufen wird (d. h. die Kommandozeilenoption @option{--loglevel}
+nicht eingesetzt wird), wird dieser Wert benutzt.
 
 @item LILYPOND_GC_YIELD
 Eine Variable (von 1 bis 100), die die Speicherverwaltung regelt.  Bei
@@ -651,7 +714,7 @@ die Schriftarten nicht korrekt installiert.
 @cindex Scheme Fehler
 Fehler, die während der Ausführung von Scheme-Code auftreten, werden
 vom Scheme-Interpreter aufgefangen und an der Kommandozeile ausgegeben.
-Wenn Sie LilyPond mit der @code{--verbose} Option (auch @code{-V})
+Wenn Sie LilyPond mit der @option{--verbose} Option (auch @code{-V})
 ausführen, wird der sogenannte @q{Call trace} ausgegeben, der die
 aufgerufenen Funktionen zur Zeit des Fehlers angibt.
 
@@ -667,6 +730,7 @@ Ausgabe davon beeinträchtigt wird.
 Dies bezeichnet einen ernsten Programmierfehler, der das Programm
 zum Absturz gebracht hat.  Solche Fehler werden als kritisch angesehen.
 Falls daher einer auftritt, senden Sie bitte einen Bug-Report!
+
 @end table
 
 @cindex Fehlermeldung, Format

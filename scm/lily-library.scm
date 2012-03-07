@@ -157,31 +157,31 @@
   (ly:make-score music))
 
 
-(define (get-current-filename parser book)
+(define (get-current-filename parser)
   "return any suffix value for output filename allowing for settings by
 calls to bookOutputName function"
-  (let ((book-filename (paper-variable parser book 'output-filename)))
+  (let ((book-filename (ly:parser-lookup parser 'book-filename)))
     (if (not book-filename)
 	(ly:parser-output-name parser)
 	book-filename)))
 
-(define (get-current-suffix parser book)
+(define (get-current-suffix parser)
   "return any suffix value for output filename allowing for settings by calls to
 bookoutput function"
-  (let ((book-output-suffix (paper-variable parser book 'output-suffix)))
+  (let ((book-output-suffix (ly:parser-lookup parser 'book-output-suffix)))
     (if (not (string? book-output-suffix))
 	(ly:parser-lookup parser 'output-suffix)
 	book-output-suffix)))
 
 (define-public current-outfile-name #f)  ; for use by regression tests
 
-(define (get-outfile-name parser book)
+(define (get-outfile-name parser)
   "return current filename for generating backend output files"
   ;; user can now override the base file name, so we have to use
   ;; the file-name concatenated with any potential output-suffix value
   ;; as the key to out internal a-list
-  (let* ((base-name (get-current-filename parser book))
-	 (output-suffix (get-current-suffix parser book))
+  (let* ((base-name (get-current-filename parser))
+	 (output-suffix (get-current-suffix parser))
 	 (alist-key (format #f "~a~a" base-name output-suffix))
 	 (counter-alist (ly:parser-lookup parser 'counter-alist))
 	 (output-count (assoc-get alist-key counter-alist 0))
@@ -209,7 +209,7 @@ bookoutput function"
 (define (print-book-with parser book process-procedure)
   (let* ((paper (ly:parser-lookup parser '$defaultpaper))
 	 (layout (ly:parser-lookup parser '$defaultlayout))
-	 (outfile-name (get-outfile-name parser book)))
+	 (outfile-name (get-outfile-name parser)))
     (process-procedure book paper layout outfile-name)))
 
 (define-public (print-book-with-defaults parser book)
@@ -229,24 +229,6 @@ bookoutput function"
 	        (ly:parser-lookup parser '$current-book) score))
       (else
           ((ly:parser-lookup parser 'toplevel-score-handler) parser score))))
-
-(define-public paper-variable
-  (let
-      ((get-papers
-	(lambda (parser book)
-	  (append (if (and book (ly:output-def? (ly:book-paper book)))
-		      (list (ly:book-paper book))
-		      '())
-	          (ly:parser-lookup parser '$papers)
-		  (list (ly:parser-lookup parser '$defaultpaper))))))
-    (make-procedure-with-setter
-     (lambda (parser book symbol)
-       (any (lambda (p) (ly:output-def-lookup p symbol #f))
-	    (get-papers parser book)))
-     (lambda (parser book symbol value)
-       (ly:output-def-set-variable!
-	(car (get-papers parser book))
-	symbol value)))))
 
 (define-public (add-text parser text)
   (add-score parser (list text)))

@@ -16,8 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Thu Mar  1 13:47:50 UTC 2012
-}
+@emph{Last updated Thu Mar  1 13:47:50 UTC 2012}
 @multitable @columnfractions  0.5 0.5
 
 @headitem

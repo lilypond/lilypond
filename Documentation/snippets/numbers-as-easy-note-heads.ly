@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.15.31
-\version "2.15.31"
+%% Note: this file works from version 2.14.0
+\version "2.14.0"
 
 \header {
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
@@ -62,19 +62,21 @@ object it sees.
 
 
 #(define Ez_numbers_engraver
-   (make-engraver
-    (acknowledgers
-     ((note-head-interface engraver grob source-engraver)
-      (let* ((context (ly:translator-context engraver))
-	     (tonic-pitch (ly:context-property context 'tonic))
-	     (tonic-name (ly:pitch-notename tonic-pitch))
-	     (grob-pitch
-	      (ly:event-property (event-cause grob) 'pitch))
-	     (grob-name (ly:pitch-notename grob-pitch))
-	     (delta (modulo (- grob-name tonic-name) 7))
-	     (note-names
-	      (make-vector 7 (number->string (1+ delta)))))
-	(ly:grob-set-property! grob 'note-names note-names))))))
+   (list
+    (cons 'acknowledgers
+          (list
+           (cons 'note-head-interface
+                 (lambda (engraver grob source-engraver)
+                   (let* ((context (ly:translator-context engraver))
+                          (tonic-pitch (ly:context-property context 'tonic))
+                          (tonic-name (ly:pitch-notename tonic-pitch))
+                          (grob-pitch
+                           (ly:event-property (event-cause grob) 'pitch))
+                          (grob-name (ly:pitch-notename grob-pitch))
+                          (delta (modulo (- grob-name tonic-name) 7))
+                          (note-names
+                           (make-vector 7 (number->string (1+ delta)))))
+                     (ly:grob-set-property! grob 'note-names note-names))))))))
 
 #(set-global-staff-size 26)
 

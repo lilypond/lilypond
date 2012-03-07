@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 2c3bd5e85d39155e3e6804f9818722bef483056d
+    Translation of GIT committish: dadabdfc4537ef85adb9159d46eda5a0ff180835
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -260,6 +260,9 @@ B の後の F ダブル フラットは B よりも下に配置されます。@c
 }
 @end lilypond
 
+これらの規則から導き出される結論の 1 つは、@c
+@code{@w{\relative f}} ブロックの中の最初の音符は絶対ピッチ モードで記述された@c
+音符と全く同様に解釈されるということです。
 
 @seealso
 音楽用語集:
@@ -827,12 +830,14 @@ musicInBflat = @{ e4 @dots{} @}
 
 @knownissues
 
-相対変換は
-@code{\transpose}, @code{\chordmode}, @code{\transpose} の引数である@c
-音楽表記の中にある @code{\relative} セクションには影響を及ぼしません。@c
+相対変換コマンドはその引数の中にある @code{\transpose}, @code{\chordmode},
+あるいは @code{\relative} セクションには影響を及ぼしません。@c
 移調された音楽の中で相対モードを使用するには、@c
 @code{\transpose} の中に @code{\relative} を置く必要があります。
 
+@code{\transpose} を使用している場合、3 重の臨時記号は表示されません。@c
+代わりに @q{異名等価の} ピッチが表示されます
+(例えば e の 3 重フラットの代わりに d フラットが表示されます)。
 
 @node 転回
 @unnumberedsubsubsec 転回
@@ -1212,8 +1217,11 @@ c2 c
 @end lilypond
 
 特殊な音部記号については @ref{Mensural clefs},
-@ref{Gregorian clefs}, @ref{Default tablatures}, それに @ref{Custom
-tablatures} で説明します。
+@ref{Gregorian clefs}, @ref{デフォルトのタブ譜}, それに @ref{カスタム タブ譜}
+で説明します。@c
+楽譜の中で合図音符を使用するときに音部記号を変更する場合は、@c
+@ref{合図音符をフォーマットする} の @code{\cueClef} 関数と
+@code{\cueDuringWithClef} 関数を参照してください。
 
 @snippets
 
@@ -1225,8 +1233,9 @@ tablatures} で説明します。
 記譜法リファレンス:
 @ref{Mensural clefs},
 @ref{Gregorian clefs},
-@ref{Default tablatures},
-@ref{Custom tablatures}
+@ref{デフォルトのタブ譜},
+@ref{カスタム タブ譜},
+@ref{合図音符をフォーマットする}
 
 コード断片集:
 @rlsrnamed{Pitches,ピッチ}
@@ -1538,7 +1547,7 @@ LilyPond はどの臨時記号スタイルを使用するのかを指定する�
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1620,7 +1629,7 @@ musicB = {
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1692,7 +1701,7 @@ musicB = {
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1742,14 +1751,19 @@ musicB = {
 
 @funindex modern
 
+@c ここから L221
 この規則は 20 世紀の一般的な臨時記号の付け方と一致します:
-この規則の臨時記号の付け方は、あいまいさを避けるための 2 つの例外
- -- 一時的な臨時記号が使われると、@c
+この規則はいくつかの余分なナチュラル記号を省略します
+-- 伝統的にダブル シャープの後のシャープに前置されるナチュラル記号と、@c
+ダブル フラットの後のフラットに前置されるナチュラル記号を省略します。@c
+
+@code{modern} 規則の臨時記号の付け方は @code{default} とほぼ同じですが、@c
+あいまいさを避けるための 2 つの規則が追加されます
+ -- 一時的な臨時記号が使われると、
 その後の小節で (同じオクターブにある音符に対して) キャンセル記号が@c
 譜刻され、@c
-臨時記号が使われたのと同じ小節では他のオクターブにある音符にも@c
-キャンセル記号が譜刻されます --
-を除いて、@code{default} と同じです。@c
+臨時記号が使われた小節では他のオクターブにある音符にもキャンセル記号が@c
+譜刻されます。@c
 そのため、上部譜の第 2 小節の中にある @code{b} と @code{c} の前には@c
 ナチュラルが付けられています:
 
@@ -1757,7 +1771,7 @@ musicB = {
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1821,7 +1835,7 @@ musicB = {
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1889,7 +1903,7 @@ musicB = {
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -1951,7 +1965,7 @@ musicB = {
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2017,7 +2031,7 @@ musicB = {
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2076,7 +2090,7 @@ musicB = {
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2140,7 +2154,7 @@ musicB = {
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2197,7 +2211,7 @@ musicB = {
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2257,7 +2271,7 @@ musicB = {
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2314,7 +2328,7 @@ musicB = {
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2376,7 +2390,7 @@ musicB = {
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2439,7 +2453,7 @@ musicB = {
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2500,7 +2514,7 @@ musicB = {
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2554,14 +2568,12 @@ musicB = {
 臨時記号はまったく保持されません
 -- そのため、調号に対応しながら、前にある音楽とは無関係に@c
 すべての臨時記号が譜刻されます。@c
-@code{dodecaphonic} とは異なり、@c
-この規則ではナチュラルが譜刻されることはありません。
 
 @lilypond[quote]
 musicA = {
   <<
     \relative c' {
-      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis'8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
@@ -2604,12 +2616,6 @@ musicB = {
 }
 @end lilypond
 @end table
-
-@snippets
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
-
 
 @seealso
 コード断片集:

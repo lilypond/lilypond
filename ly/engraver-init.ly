@@ -614,9 +614,6 @@ automatically when an output definition (a @code{\score} or
   beatStructure = #'(1 1 1 1)
   beamExceptions = #'((end . (((1 . 8) . (4 4))
                               ((1 . 12) . (3 3 3 3)))))
-  beamWholeMeasure = ##t
-  beamHalfMeasure = ##f
-
   autoBeaming = ##t
   autoBeamCheck = #default-auto-beam-check
 
@@ -1124,6 +1121,8 @@ accommodated for typesetting a piece in Petrucci style."
  \description "Same as @code{Voice} context, except that it is
 accommodated for typesetting a piece in Kievan style."
 
+% \override Stem #'stencil = ##f
+
  %% Set glyph styles.
  \override NoteHead #'style = #'kievan
  \override Rest #'style = #'mensural
@@ -1146,8 +1145,6 @@ accommodated for typesetting a piece in Kievan style."
  \accepts "KievanVoice"
  \description "Same as @code{Staff} context, except that it is
 accommodated for typesetting a piece in Kievan style."
-
- \remove "Time_signature_engraver"
 
  %% Choose Kievan tsefaut clef
  clefGlyph = #"clefs.kievan.do"

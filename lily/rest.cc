@@ -26,7 +26,6 @@
 #include "output-def.hh"
 #include "paper-score.hh"
 #include "staff-symbol-referencer.hh"
-#include "staff-symbol.hh"
 #include "stencil.hh"
 #include "grob.hh"
 
@@ -49,7 +48,7 @@ Rest::y_offset_callback (SCM smob)
         robust_scm2double (me->get_property ("staff-position"), 0) * 0.5 * ss;
 
       /*
-        semibreve rests are positioned one staff line off
+        semibreve rests were always positioned one off
       */
       if (duration_log == 0)
         amount += ss;
@@ -67,25 +66,17 @@ Rest::y_offset_callback (SCM smob)
 
       /*
         make a semibreve rest hang from the next line,
-        except for a single line staff
+        except for a single line staff;
+        assume the next line being integer steps away
       */
       if (duration_log == 0 && line_count > 1)
-        pos += 2;
+        ++pos;
 
       /*
         make sure rest is aligned to a staff line
       */
-      if (Grob *staff = Staff_symbol_referencer::get_staff_symbol(me))
-        {
-          std::vector<Real> linepos = Staff_symbol::line_positions (staff);
-          std::sort(linepos.begin(), linepos.end());
-          std::vector<Real>::const_iterator it
-            = std::lower_bound(linepos.begin(), linepos.end(), pos);
-          if (it != linepos.end())
-            {
-              pos = (int)ceil(*it);
-            }
-        }
+      while (!Staff_symbol_referencer::on_line (me, pos))
+        ++pos;
 
       amount = ss * 0.5 * pos;
     }
@@ -121,14 +112,14 @@ Rest::glyph_name (Grob *me, int durlog, string style, bool try_ledgers)
       int const pos = int (Staff_symbol_referencer::get_position (me));
 
       /*
-        half rests need ledger if not lying on a staff line,
-        whole rests need ledger if not hanging from a staff line,
-        breve rests need ledger if neither lying on nor hanging from a staff line
+	half rests need ledger if not lying on a staff line,
+	whole rests need ledger if not hanging from a staff line,
+	breve rests need ledger if neither lying on nor hanging from a staff line
       */
       if (-1 <= durlog && durlog <= 1)
         is_ledgered = !Staff_symbol_referencer::on_staff_line (me, pos)
-          && !(durlog == -1
-               && Staff_symbol_referencer::on_staff_line (me, pos + 2));
+	  && !(durlog == -1
+	       && Staff_symbol_referencer::on_staff_line (me, pos + 2));
     }
 
   string actual_style (style.c_str ());

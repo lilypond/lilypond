@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -30,6 +30,18 @@ LilyPond kann mit anderen Programmen auf verschiedene Weise interagieren.
 @node Point and click
 @section Point and click
 
+Poind and click fügt Verlinkung für bestimmte Notationselemente
+in die PDF-Dokumente ein.
+
+@menu
+* Point and click aktivieren::
+* Selektives point-and-click::
+@end menu
+
+@node Point and click aktivieren
+@unnumberedsubsec Point and click aktivieren
+@translationof Enabling point and click
+
 @cindex point and click
 
 Point and click erlaubt es, die Noten in der Eingabedatei schnell
@@ -46,9 +58,8 @@ PDF-Programm dazu anweisen, Hyperlinks zu folgen, indem das Skript
 wird.
 
 Für Xpdf unter UNIX sollte folgende Zeile in der Datei
-@file{xpdfrc}@footnote{Unter UNIX findet man diese Datei
-entweder in @file{/etc/xpdfrc} oder als @file{.xpdfrc} im
-home-Verzeichnis.} stehen:
+@file{xpdfrc}. Unter UNIX findet man diese Datei
+entweder in @file{/etc/xpdfrc} oder als @file{$HOME/.xpdfrc}:
 
 @example
 urlCommand     "lilypond-invoke-editor %s"
@@ -118,6 +129,84 @@ lilypond -dno-point-and-click file.ly
 @warning{Sie sollten immer point and click ausschalten, wenn Sie LilyPond-Dateien
 verteilen wollen, damit keine Informationen über Ihre Dateistrukturen in den
 Dateien gespeichert werden, was ein Sicherheitsrisiko darstellen könnte.}
+
+
+@node Selektives point-and-click
+@unnumberedsubsec Selektives point-and-click
+@translationof Selective point-and-click
+
+Für einige interaktive Anwendungen kann es von Vorteil sein, nur
+einige Elemente mit Point and click zu aktivieren.  Wenn man
+beispielsweise eine Anwendung erstellen will, die Audio oder Video
+beginnend von einer angeklickten Note abspielt, würde es unpraktisch
+sein, wenn die Point-and-click-Zeiger Information eines Bogens oder
+Versetzungszeichen, die gleichzeitig mit der Note erscheinen,
+darstellen würden.
+
+Man kann dieses Verhalten erreichen, indem man angibt, welche
+Ereignisse aufgenommen werden sollen:
+
+@itemize
+@item
+Direkt in der @file{.ly}-Datei:
+
+@example
+\pointAndClickTypes #'note-event
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+oder
+
+@example
+#(ly:set-option 'point-and-click 'note-event)
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+@item
+Auf der Kommandozeile:
+
+@example
+lilypond -dpoint-and-click=note-event   example.ly
+@end example
+
+@end itemize
+
+Auch mehrere Ereignisse können eingebunden werden:
+
+@itemize
+@item
+Direkt in der @file{.ly}-Datei:
+
+@example
+\pointAndClickTypes #'(note-event dynamic-event)
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+oder
+
+@example
+#(ly:set-option 'point-and-click '(note-event dynamic-event))
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+@item
+Auf der Kommandozeile:
+
+@smallexample
+lilypond \
+  -e"(ly:set-option 'point-and-click '(note-event dynamic-event))" \
+  example.ly
+@end smallexample
+
+@end itemize
 
 
 @node Unterstützung von Texteditoren
@@ -256,7 +345,7 @@ aufgenommen und dann in eine @file{.ly}-Datei konvertiert werden.
 Allerdings sind Musikinterpretationen von Menschen (aus gutem Grund!)
 rhythmisch nicht exakt genug um die Konvertierung von MIDI nach LY
 trivial zu gestalten. Wenn @command{midi2ly} mit Quantisierung
-(@code{-s} und @code{-d} Kommandozeilenoptionen) aufgerufen wird,
+(@option{-s} und @option{-d} Kommandozeilenoptionen) aufgerufen wird,
 versucht es diese Unschärfen im Zeitablauf zu korrigieren, ist
 allerdings nicht sonderlich gut darin. Daher können wir diese Technik
 leider nicht für die Konvertierung von MIDI-Aufnahmen empfehlen.
@@ -363,6 +452,11 @@ Zeigt eine Zusammenfassung der Programmbenutzung und der Optionen.
 @item -l, --language=SPRACHE
 Benutzt SPRACHE für die Notenbezeichnungen, etwa "deutsch" für deutsche
 Notenbezeichnungen.
+
+@item --loglevel=@var{Logstufe}
+Passt die Ausführlichkeit der Ausgabe entsprechend @var{Logstufe} an.
+Mögliche Werte sind @code{NONE},
+@code{ERROR}, @code{WARNING}, @code{PROGRESS} (Standard) und @code{DEBUG}.
 
 @item --lxml
 Benutzt das lxml.etree Python-Paket für die Verarbeitung von XML (benötigt weniger Speicher und Rechenleistung)

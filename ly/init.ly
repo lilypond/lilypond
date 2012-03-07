@@ -19,6 +19,8 @@
 #(define expect-error #f)
 #(define output-empty-score-list #f)
 #(define output-suffix #f)
+#(define book-filename #f)
+#(define book-output-suffix #f)
 #(use-modules (scm clip-region))
 
 $(if (ly:get-option 'include-settings)

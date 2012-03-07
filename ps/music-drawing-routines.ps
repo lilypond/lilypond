@@ -98,20 +98,15 @@ bind def
         dup
 	0.0 gt {
 		setlinewidth % w h x y
+		0 setlinecap
+		1 setlinejoin
+
 		rmoveto % w h
-		2 copy 0 ne exch 0 ne and
-		{
-		    0 setlinecap
-		    1 setlinejoin
-		    currentpoint % w h x1 y1
-		    4 2 roll % x1 y1 w h
-		    4 copy
-		    rectfill
-		    rectstroke
-		} {
-		    1 setlinecap
-		    rlineto stroke
-		} ifelse
+		currentpoint % w h x1 y1
+		4 2 roll % x1 y1 w h
+		4 copy
+		rectfill
+		rectstroke
 	} {
 		pop % w h x y
 		rmoveto % w h
