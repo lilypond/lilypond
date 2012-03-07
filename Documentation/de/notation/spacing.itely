@@ -2844,7 +2844,7 @@ dehnbare Abstände (padding) eingesetzt werden, kann benutzt
 werden, um zusätzlichen Platz in eine Partitur einzufügen.
 
 @example
- \once \override Score.SeparationItem #'padding = #10
+ \override Score.NonMusicalPaperColumn #'padding = #10
 @end example
 
 Es gibt derzeit keine Möglichkeit, den Platz zu verringern.
