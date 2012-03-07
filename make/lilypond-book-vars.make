@@ -4,7 +4,7 @@ LILYPOND_BOOK_COMMAND = LILYPOND_VERSION=$(TOPLEVEL_VERSION) \
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) \
 	--process='$(LILYPOND_BOOK_PROCESS) \
 	$(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir) \
-	$(LILYPOND_BOOK_FLAGS)
+	 --redirect-lilypond-output $(LILYPOND_BOOK_FLAGS)
 
 HTML_FILES = $(call src-wildcard,*.html)
 HTMLY_FILES = $(call src-wildcard,*.htmly)

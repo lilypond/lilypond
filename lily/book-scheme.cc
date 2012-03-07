@@ -177,3 +177,7 @@ LY_DEFINE (ly_book_scores, "ly:book-scores",
   Book *b = unsmob_book (book);
   return b->scores_;
 }
+
+#include "ly-smobs.icc"
+
+IMPLEMENT_TYPE_P (Book, "ly:book?");

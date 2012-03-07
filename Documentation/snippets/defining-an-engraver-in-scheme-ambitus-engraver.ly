@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.14.0
-\version "2.14.0"
+%% Note: this file works from version 2.15.31
+\version "2.15.31"
 
 \header {
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
@@ -42,10 +42,6 @@ Esto es básicamente una reescritura en Scheme del código de
 %%% Grob utilities
 %%%
 %%% These are literal rewrites of some C++ methods used by the ambitus engraver.
-#(define (ly:event::in-event-class event class-name)
-   "Check if @var{event} the given class.
-Rewrite of @code{Stream_event::internal_in_event_class} from @file{lily/stream-event.cc}."
-   (memq class-name (ly:make-event-class (ly:event-property event 'class))))
 
 #(define (ly:separation-item::add-conditional-item grob grob-item)
    "Add @var{grob-item} to the array of conditional elements of @var{grob}.
@@ -209,7 +205,7 @@ position of middle C and key signature from @var{translator}'s context."
    ;; Get the event that caused the note-grob creation
    ;; and check that it is a note-event.
    (let ((note-event (ly:grob-property note-grob 'cause)))
-     (if (ly:event::in-event-class note-event 'note-event)
+     (if (ly:in-event-class? note-event 'note-event)
          ;; get the pitch from the note event
          (let ((pitch (ly:event-property note-event 'pitch)))
            ;; if this pitch is lower than the current ambitus lower
@@ -313,23 +309,24 @@ position of middle C and key signature from @var{translator}'s context."
    (lambda (context)
      (let ((ambitus #f))
        ;; when music is processed: make the ambitus object, if not already built
-       `((process-music . ,(lambda (translator)
-                             (if (not ambitus)
-                                 (set! ambitus (make-ambitus translator)))))
-         ;; set the ambitus clef and key signature state
-         (stop-translation-timestep . ,(lambda (translator)
-                                         (if ambitus
-                                             (initialize-ambitus-state ambitus translator))))
-         ;; when a note-head grob is built, update the ambitus notes
-         (acknowledgers
-          (note-head-interface . ,(lambda (engraver grob source-engraver)
-                                    (if ambitus
-                                        (update-ambitus-notes ambitus grob)))))
-         ;; finally, typeset the ambitus according to its upper and lower notes
-         ;; (if any).
-         (finalize . ,(lambda (translator)
-                        (if ambitus
-                            (typeset-ambitus ambitus translator))))))))
+       (make-engraver
+	((process-music translator)
+	 (if (not ambitus)
+	     (set! ambitus (make-ambitus translator))))
+	;; set the ambitus clef and key signature state
+	((stop-translation-timestep translator)
+	 (if ambitus
+	     (initialize-ambitus-state ambitus translator)))
+	;; when a note-head grob is built, update the ambitus notes
+	(acknowledgers
+          ((note-head-interface engraver grob source-engraver)
+	   (if ambitus
+	       (update-ambitus-notes ambitus grob))))
+	;; finally, typeset the ambitus according to its upper and lower notes
+	;; (if any).
+	((finalize translator)
+	 (if ambitus
+	     (typeset-ambitus ambitus translator)))))))
 
 %%%
 %%% Example

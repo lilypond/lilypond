@@ -64,6 +64,7 @@
 ;;;       NOTE: numerator is kept in beam-type because of
 ;;;             tuplets, e.g. (2 . 24) = (2 . 3) * (1 . 8)
 ;;;             for eighth-note triplets.
+;;;
 
 (define-public default-time-signature-settings
   '(
@@ -82,14 +83,15 @@
              ((beamExceptions . ((end .  (((1 . 32) . (8 8 8 8 8 8))))))))
 
     ;; in 3 4 time:
-    ;;   use defaults, but combine all beats into a unit if possible
+    ;;   use defaults -- no entries necessary
     ;;
-    ;;   set all beams to end on beats, but 1 8 to beam entire measure
-    ;;   in order to avoid beaming every beam type for the entire measure, we set
-    ;;   triplets back to every beat.
+    ;;   Whole measure beaming is controlled by context property
+    ;;   beamWholeMeasure
+    ;;   Half measure beaming is controlled by context property
+    ;;   beamHalfMeasure
+
     ((3 . 4) .
-             ((beamExceptions . ((end . (((1 . 8) . (6))            ;1/8 note whole measure
-                                         ((1 . 12) . (3 3 3)))))))) ;Anything shorter by beat
+             ((beamExceptions . ())))
 
     ;; in 3 8  time:
     ;;   beam entire measure together
@@ -232,7 +234,6 @@ for @var{time-signature} from @var{time-signature-settings}."
   "Like the C++ code that executes \\override, but without type
 checking."
   (begin
-     (revert-property-setting context property setting)
      (ly:context-set-property!
        context
        property
@@ -263,7 +264,7 @@ a fresh copy of the list-head is made."
 
   ;; body of revert-property-setting
   (let ((current-value (ly:context-property context property)))
-    (if (> (entry-count current-value setting) 1)
+    (if (> (entry-count current-value setting) 0)
         (ly:context-set-property!
           context
           property
