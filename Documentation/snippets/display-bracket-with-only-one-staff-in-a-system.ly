@@ -40,7 +40,7 @@ wie das zweite Beispiel zeigt.
 "
   doctitlede = "Klammer anzeigen wenn nur ein System gesetzt wird"
 
-%% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
+%% Translation of GIT committish: af3df3b7c6e062635bdccb739be41962969806a0
   texidocfr = "
 Lorsque, dans des regoupements de type @code{ChoirStaff} ou
 @code{StaffGroup}, une seule portée est active, aucune indication n'est

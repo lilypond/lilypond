@@ -7,15 +7,15 @@
 \version "2.14.0"
 
 \header {
-%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+  lsrtags = "text, vocal-music"
+
+%% Translation of GIT committish: ea0b270e14781707ab52683acddf9302bbe337f3
   texidoces = "
 Es posible usar el modo de marcado para dar formato a sílabas
 individuales dentro de la letra.
 
 "
   doctitlees = "Dar formato a sílabas de la letra"
-
-  lsrtags = "text, vocal-music"
 
 %%%    Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
   texidocde = "
@@ -24,6 +24,7 @@ zu formatieren.
 
 "
   doctitlede = "Silben im Gesangstext formatieren"
+
 %%  Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
   texidocfr = "
 Le mode markup permet d'individualiser la mise en forme de certaines syllabes.

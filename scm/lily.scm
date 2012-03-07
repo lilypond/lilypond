@@ -510,8 +510,10 @@ messages into errors.")
     ))
 
 (define-public lilypond-exported-predicates
-  `((,ly:box? . "box")
+  `((,ly:book? . "book")
+    (,ly:box? . "box")
     (,ly:context? . "context")
+    (,ly:context-def? . "context definition")
     (,ly:context-mod? . "context modification")
     (,ly:dimension? . "dimension, in staff space")
     (,ly:dir? . "direction")
