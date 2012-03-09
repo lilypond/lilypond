@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.25"
+@c \version "2.15.32"
 
 @node General input and output
 @chapter General input and output
@@ -1139,7 +1139,7 @@ annotated, the @samp{(x . y)} position of the indicator and two
 or grob and the second is the footnote at the bottom of the page.
 
 Like automatic footnotes, manual @code{\footnote} commands must come
-@emph{after} the grob that the footnote is annotating and attached as a
+@emph{before} the grob that the footnote is annotating and attached as a
 @code{TextScript}:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
@@ -2365,24 +2365,16 @@ indication to be printed:
 \score @{
   @var{...music...}
   \midi @{
-    \context @{
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 4)
-    @}
+    \tempo 4 = 72
   @}
 @}
 @end example
 
 In this example the tempo is set to 72 quarter note
-beats per minute.  This kind of tempo specification cannot take
-a dotted note length as an argument.  If one is required, break
-the dotted note into smaller units.  For example, a tempo of 90
-dotted quarter notes per minute can be specified as 270 eighth
-notes per minute:
-
-@example
-tempoWholesPerMinute = #(ly:make-moment 270 8)
-@end example
+beats per minute.  @code{\tempo} is actually a music command for
+setting properties during the interpretation of music: in the
+context of output definitions like a @code{\midi} block, as a matter of
+courtesy those are reinterpreted as if they were context modifications.
 
 @cindex MIDI context definitions
 
@@ -2629,9 +2621,9 @@ volume is limited to the range 0.2 - 0.5.
   >>
   \layout {}
   \midi {
+    \tempo 2 = 72
     \context {
       \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
       midiMinimumVolume = #0.2
       midiMaximumVolume = #0.5
     }
@@ -2681,10 +2673,7 @@ correctly.
   >>
   \layout {}
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
-    }
+    \tempo 2 = 72
   }
 }
 @end lilypond
@@ -2750,10 +2739,7 @@ to the same values as the previous example.
   >>
   \layout { }
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
-    }
+    \tempo 2 = 72
   }
 }
 @end lilypond

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.25"
+@c \version "2.15.32"
 
 
 @c Translators: Yoshiki Sawada
@@ -2571,10 +2571,7 @@ MIDI ファイルの初期テンポを設定します:
 \score @{
   @var{...music...}
   \midi @{
-    \context @{
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 4)
-    @}
+    \tempo 4 = 72
   @}
 @}
 @end example
@@ -2907,10 +2904,7 @@ MIDI 出力の品質を著しく高めることができます。
   >>
   \layout {}
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
-    }
+    \tempo 2 = 72
   }
 }
 @end lilypond
@@ -2977,10 +2971,7 @@ MIDI 最小/最大ボリューム プロパティが設定されていない場�
   >>
   \layout { }
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
-    }
+    \tempo 2 = 72
   }
 }
 @end lilypond

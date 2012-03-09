@@ -812,8 +812,8 @@ context."
                                 (beamed-extreme-minimum-free-lengths 0 0)
                                 (stem-shorten 0 0))
   %% after all, the stubs of the stems may still be visible, so ...
-  \override Stem #'transparent = ##t
-  \override Flag #'transparent = ##t
+  \override Stem #'stencil = ##f
+  \override Flag #'stencil = ##f
   %% automatic beams should be suppressed for similar reasons ...
   autoBeaming = ##f
   %% remove beams, dots and rests ...
@@ -822,8 +822,8 @@ context."
   \override Dots #'stencil = ##f
   \override Rest #'stencil = ##f
   \override MultiMeasureRest #'stencil = ##f
-  \override MultiMeasureRestNumber #'transparent = ##t
-  \override MultiMeasureRestText #'transparent = ##t
+  \override MultiMeasureRestNumber #'stencil = ##f
+  \override MultiMeasureRestText #'stencil = ##f
   %% ... all kinds of ties/slurs
   \override Tie  #'stencil = ##f
   \override RepeatTie #'stencil = ##f
@@ -836,10 +836,10 @@ context."
   %% ... and all kinds of markups, spanners etc.
   \override TupletBracket #'stencil = ##f
   \override TupletNumber #'stencil = ##f
-  \override DynamicText #'transparent = ##t
+  \override DynamicText #'stencil = ##f
   \override DynamicTextSpanner #'stencil = ##f
   \override TextSpanner #'stencil = ##f
-  \override Hairpin #'transparent = ##t
+  \override Hairpin #'stencil = ##f
   \override Script #'stencil = ##f
   \override TextScript #'stencil = ##f
   \override Glissando #'stencil = #glissando::draw-tab-glissando

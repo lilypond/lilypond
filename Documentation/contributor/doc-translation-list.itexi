@@ -59,7 +59,7 @@ procedures}.
 355   notation.tely
 91    notation/notation.itely -- Musical notation
 4530  notation/pitches.itely
-6287  notation/rhythms.itely
+6327  notation/rhythms.itely
 1726  notation/expressive.itely
 1011  notation/repeats.itely
 2640  notation/simultaneous.itely
@@ -77,12 +77,12 @@ procedures}.
 4752  notation/ancient.itely
 8385  notation/input.itely -- Input syntax
 2164  notation/non-music.itely -- Non-musical notation
-11112 notation/spacing.itely -- Spacing issues
+11141 notation/spacing.itely -- Spacing issues
 12669 notation/changing-defaults.itely -- Changing defaults
 5187  notation/programming-interface.itely -- Interfaces for programmers
 2173  notation/notation-appendices.itely -- Notation manual tables
 252   notation/cheatsheet.itely -- Cheat sheet
-78885 total
+78954 total
 
 -6- Rest of Application Usage
 4137  usage/lilypond-book.itely -- LilyPond-book

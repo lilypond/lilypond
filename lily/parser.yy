@@ -1080,6 +1080,10 @@ output_def_body:
 	| output_def_body context_def_spec_block	{
 		assign_context_def ($$, $2);
 	}
+	| output_def_body music_arg {
+		SCM proc = parser->lexer_->lookup_identifier ("output-def-music-handler");
+		scm_call_3 (proc, parser->self_scm (), $1->self_scm (), $2);
+	}
 	| output_def_body error {
 
 	}

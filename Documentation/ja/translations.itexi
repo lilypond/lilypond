@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Fri Feb 24 11:51:47 UTC 2012
+@emph{最終更新日 Thu Mar  1 13:47:50 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -339,7 +339,7 @@ partially
 @item
 1.2 リズム
 @*
-6287
+6327
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -356,7 +356,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">partially</span>
+<span style="background-color: #6fff29">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -680,11 +680,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -825,7 +825,7 @@ partially
 @item
 4 スペースの問題
 @*
-11112
+11141
 @tab Yoshiki Sawada
 @tab 
 @tab 

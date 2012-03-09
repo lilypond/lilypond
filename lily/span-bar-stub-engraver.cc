@@ -17,7 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <map>
 #include <algorithm>
 
 #include "align-interface.hh"
@@ -30,7 +29,19 @@
 #include "engraver.hh"
 
 /*
-  Note that span bar stubs exist for pure height calculations ONLY.
+  The Span_bar_stub_engraver creates SpanBarStub grobs in the contexts
+  that a grouping context contains.  For example, if a PianoStaff contains
+  two Staffs, a Dynamics, and a Lyrics, SpanBarStubs will be created in
+  all contexts that do not have bar lines (Dynamics and Lyrics).
+
+  We only want to create these SpanBarStubs in contexts that the SpanBar
+  traverses.  However, Contexts do not contain layout information and it
+  is thus difficult to know if they will eventually be above or below other
+  Contexts.  To determine this we use the VerticalAxisGroup created in the
+  Context.  We relate VerticalAxisGroups to Contexts in the variable
+  axis_groups_ and weed out unused contexts after each translation timestep.
+
+  Note that SpanBarStubs exist for pure height calculations ONLY.
   They should never be visually present on the page and should never
   be engraved in contexts where BarLines are engraved.
 */
@@ -38,7 +49,7 @@
 class Span_bar_stub_engraver : public Engraver
 {
   vector<Grob *> spanbars_;
-  map<Grob *, Context *> axis_groups_;
+  SCM axis_groups_;
 
 public:
   TRANSLATOR_DECLARATIONS (Span_bar_stub_engraver);
@@ -46,10 +57,19 @@ protected:
   DECLARE_ACKNOWLEDGER (span_bar);
   DECLARE_ACKNOWLEDGER (hara_kiri_group_spanner);
   void process_acknowledged ();
+  void stop_translation_timestep ();
+  virtual void derived_mark () const;
 };
 
 Span_bar_stub_engraver::Span_bar_stub_engraver ()
 {
+  axis_groups_ = SCM_EOL;
+}
+
+void
+Span_bar_stub_engraver::derived_mark () const
+{
+  scm_gc_mark (axis_groups_);
 }
 
 void
@@ -61,7 +81,7 @@ Span_bar_stub_engraver::acknowledge_span_bar (Grob_info i)
 void
 Span_bar_stub_engraver::acknowledge_hara_kiri_group_spanner (Grob_info i)
 {
-  axis_groups_[i.grob ()] = i.context ();
+  axis_groups_ = scm_cons (scm_cons (i.grob ()->self_scm (), i.context ()->self_scm ()), axis_groups_);
 }
 
 void
@@ -70,11 +90,14 @@ Span_bar_stub_engraver::process_acknowledged ()
   if (!spanbars_.size ())
     return;
 
-  Grob *vertical_alignment = Grob::get_root_vertical_alignment ((*axis_groups_.begin ()).first);
+  if (!scm_is_pair (axis_groups_))
+    {
+      programming_error ("At least one vertical axis group needs to be created in the first time step.");
+      return;
+    }
+  Grob *vertical_alignment = Grob::get_root_vertical_alignment (unsmob_grob (scm_caar (axis_groups_)));
   if (!vertical_alignment) // we are at the beginning of a score, so no need for stubs
     return;
-
-  extract_grob_set (vertical_alignment, "elements", elts);
 
   for (vsize i = 0; i < spanbars_.size (); i++)
     {
@@ -89,8 +112,16 @@ Span_bar_stub_engraver::process_acknowledged ()
       vector<Context *> affected_contexts;
       vector<Grob *> y_parents;
       vector<bool> keep_extent;
-      for (vsize j = 0; j < elts.size (); j++)
+      for (SCM s = axis_groups_; scm_is_pair (s); s = scm_cdr (s))
         {
+          Context *c = unsmob_context (scm_cdar (s));
+          Grob *g = unsmob_grob (scm_caar (s));
+          if (!c || !g)
+            continue;
+          if (c->is_removable ())
+            continue;
+
+          vsize j = Grob::get_vertical_axis_group_index (g);
           if (j > bar_axis_indices[0]
               && j < bar_axis_indices.back ()
               && find (bar_axis_indices.begin (), bar_axis_indices.end (), j) == bar_axis_indices.end ())
@@ -101,19 +132,16 @@ Span_bar_stub_engraver::process_acknowledged ()
                   break;
 
               k--;
-              keep_extent.push_back (to_boolean (bars[k]->get_property ("allow-span-bar")));
 
-              Context *c = axis_groups_[elts[j]];
               if (c && c->get_parent_context ())
                 {
-                  y_parents.push_back (elts[j]);
+                  keep_extent.push_back (to_boolean (bars[k]->get_property ("allow-span-bar")));
+                  y_parents.push_back (g);
                   affected_contexts.push_back (c);
                 }
             }
         }
-      reverse (affected_contexts); // from bottom to top
-      reverse (y_parents); // from bottom to top
-      reverse (keep_extent); // from bottom to top
+
       for (vsize j = 0; j < affected_contexts.size (); j++)
         {
           Item *it = new Item (updated_grob_properties (affected_contexts[j], ly_symbol2scm ("SpanBarStub")));
@@ -122,10 +150,29 @@ Span_bar_stub_engraver::process_acknowledged ()
           gi.rerouting_daddy_context_ = affected_contexts[j];
           announce_grob (gi);
           if (!keep_extent[j])
-            it->suicide ();//it->set_property ("Y-extent", ly_interval2scm (Interval (infinity_f, -infinity_f)));
+            it->suicide ();
         }
     }
+
   spanbars_.clear ();
+}
+
+// removes all unused contexts
+void
+Span_bar_stub_engraver::stop_translation_timestep ()
+{
+  SCM axis_groups = SCM_EOL;
+  for (SCM s = axis_groups_; scm_is_pair (s); s = scm_cdr (s))
+    {
+      Context *c = unsmob_context (scm_cdar (s));
+      Grob *g = unsmob_grob (scm_caar (s));
+      if (!c || !g)
+        continue;
+      if (c->is_removable ())
+        continue;
+      axis_groups = scm_cons (scm_car (s), axis_groups);
+    }
+  axis_groups_ = axis_groups;
 }
 
 #include "translator.icc"

@@ -56,6 +56,7 @@ public:
   SCM get_translator_names (SCM) const;
   SCM get_translator_group_type () const { return translator_group_type_; }
   void set_acceptor (SCM accepts, bool add);
+  SCM lookup (SCM sym) const;
 
   VIRTUAL_COPY_CONSTRUCTOR (Context_def, Context_def);
 

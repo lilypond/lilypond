@@ -3320,6 +3320,33 @@ def conv (str):
     str = re.sub (r"\\autoFootnote",
                   r"\\footnote", str)
     return str
+
+@rule((2, 15, 32), r"tempoWholesPerMinute -> \tempo")
+def conv (str):
+    def sub_tempo (m):
+        num = int (m.group (1))
+        den = int (m.group (2))
+
+        if (den & (den - 1)) != 0 :
+            return m.group (0)
+
+        # Don't try dotted forms if they result in less than 30 bpm.
+        # It is not actually relevant to get this right since this
+        # only occurs in non-printing situations
+        if den >= 16 and (num % 7) == 0 and num >= 210 :
+            return r"\tempo %d.. = %d" % (den/4, num/7)
+
+        if den >= 8 and (num % 3) == 0 and num >= 90 :
+            return r"\tempo %d. = %d" % (den/2, num/3)
+
+        return r"\tempo %d = %d" % (den, num)
+
+    str = re.sub (r"\\context\s*@?\{\s*\\Score\s+tempoWholesPerMinute\s*=\s*" +
+                  r"#\(ly:make-moment\s+([0-9]+)\s+([0-9]+)\)\s*@?\}",
+                  sub_tempo, str)
+    return str
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

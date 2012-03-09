@@ -59,9 +59,7 @@ Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int star
   if (scm_is_number (align))
     {
       Interval ext (me->maybe_pure_extent (me, a, pure, start, end));
-      if (ext.is_empty ())
-        programming_error ("cannot align on self: empty element");
-      else
+      if (!ext.is_empty ())
         return scm_from_double (- ext.linear_combination (scm_to_double (align)));
     }
   return scm_from_double (0.0);

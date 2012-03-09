@@ -928,7 +928,7 @@ AC_DEFUN(STEPMAKE_PATH_PROG, [
     AC_CHECK_PROGS($1, $2, no)
     STEPMAKE_OPTIONAL_REQUIRED($1, $2, $3)
     if test $? -eq 0; then
-	AC_PATH_PROG($1, $2)
+	AC_PATH_PROGS($1, $2)
 	if test -n "$4"; then
 	    STEPMAKE_CHECK_VERSION($1, $3, $4)
 	fi

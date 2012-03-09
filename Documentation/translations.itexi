@@ -16,8 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sat Feb 25 23:32:38 UTC 2012
-}
+@emph{Last updated Thu Mar  1 13:47:50 UTC 2012}
 @multitable @columnfractions  0.5 0.5
 
 @headitem
@@ -26,7 +25,7 @@ LilyPond Changes
 @item
 Section titles
 @*
-(1105)
+(1154)
 @tab Francisco Vila
 @*
 
@@ -44,11 +43,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @item
 LilyPond --- \TITLE\
@@ -3443,7 +3442,7 @@ partially up to date
 @item
 1.2 Rhythms
 @*
-(6287)
+(6327)
 @tab Till Paala
 @*
 
@@ -3617,7 +3616,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">partially up to date</span>
+<span style="background-color: #6fff29">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml

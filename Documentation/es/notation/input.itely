@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.25"
+@c \version "2.15.32"
 
 @node Entrada y salida generales
 @chapter Entrada y salida generales
@@ -2489,10 +2489,7 @@ indicación de tempo:
 \score @{
   @var{...música...}
   \midi @{
-    \context @{
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 4)
-    @}
+    \tempo 4 = 72
   @}
 @}
 @end example
@@ -2811,10 +2808,7 @@ cada instrumento para que esto funcione correctamente.
   >>
   \layout {}
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
-    }
+    \tempo 2 = 72
   }
 }
 @end lilypond
@@ -2882,10 +2876,7 @@ del clarinete a los mismos valores que el ejemplo anterior.
   >>
   \layout { }
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
-    }
+    \tempo 2 = 72
   }
 }
 @end lilypond

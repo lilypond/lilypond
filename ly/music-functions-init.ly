@@ -374,37 +374,43 @@ in the format of @code{all-grob-descriptions}.")
 	 descriptions)))
 
 harmonicByFret = #(define-music-function (parser location fret music) (number? ly:music?)
-  (_i "Convert @var{music} into harmonics; the resulting notes resemble
-harmonics played on a fretted instrument by touching the strings above @var{fret}.")
-  (let* ((fret (number->string fret))
-         (pitch (fret->pitch fret)))
-        (make-sequential-music
-         (list
-          #{
-            \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label fret)
-          #}
-          (make-harmonic
-            (calc-harmonic-pitch pitch music))
-          #{
-            \revert TabNoteHead #'stencil
-          #}))))
+  (_i "Convert @var{music} into mixed harmonics; the resulting notes resemble
+harmonics played on a fretted instrument by touching the strings at @var{fret}.")
+  #{
+    \set harmonicDots = ##t
+    \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label (number->string fret))
+    \override NoteHead #'Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height
+                                       (lambda (grob start end)
+                                               (ly:grob::stencil-height grob)))
+    \override NoteHead #'stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
+                                            (ly:note-head::print grob))
+    $(make-harmonic
+       (calc-harmonic-pitch (fret->pitch (number->string fret)) music))
+    \unset harmonicDots
+    \revert TabNoteHead #'stencil
+    \revert NoteHead #'Y-extent
+    \revert NoteHead #'stencil
+  #})
 
 harmonicByRatio = #(define-music-function (parser location ratio music) (number? ly:music?)
-    (_i "Convert @var{music} into harmonics; the resulting notes resemble
-harmonics played on a fretted instrument by touching the strings above the point
+    (_i "Convert @var{music} into mixed harmonics; the resulting notes resemble
+harmonics played on a fretted instrument by touching the strings at the point
 given through @var{ratio}.")
-  (let ((pitch (ratio->pitch ratio))
-        (fret (ratio->fret ratio)))
-       (make-sequential-music
-        (list
-         #{
-           \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label fret)
-         #}
-         (make-harmonic
-           (calc-harmonic-pitch pitch music))
-         #{
-            \revert TabNoteHead #'stencil
-         #}))))
+  #{
+    \set harmonicDots = ##t
+    \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label (ratio->fret ratio))
+    \override NoteHead #'Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height
+                                       (lambda (grob start end)
+                                               (ly:grob::stencil-height grob)))
+    \override NoteHead #'stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
+                                            (ly:note-head::print grob))
+    $(make-harmonic
+      (calc-harmonic-pitch (ratio->pitch ratio) music))
+    \unset harmonicDots
+    \revert TabNoteHead #'stencil
+    \revert NoteHead #'Y-extent
+    \revert NoteHead #'stencil
+  #})
 
 instrumentSwitch =
 #(define-music-function

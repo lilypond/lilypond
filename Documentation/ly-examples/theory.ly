@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.32"
 \include "example-header.ily"
 
 #(ly:set-option 'point-and-click #f)
@@ -54,9 +54,6 @@ bassFigures = \figuremode {
   >>
   \layout {}
   %{\midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 120 4)
-    }
+    \tempo 4 = 120
   }%}
 }

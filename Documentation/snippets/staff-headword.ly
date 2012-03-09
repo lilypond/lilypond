@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.14.0
-\version "2.14.0"
+\version "2.15.32"
 \include "catalan.ly"
 #(set-global-staff-size 15)
 \paper{
@@ -125,10 +125,7 @@ lower = \relative do {
     >>
   >>
   \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 4)
-    }
+    \tempo 4 = 72
   }
 }
 

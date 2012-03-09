@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualizado en Fri Feb 24 11:51:47 UTC 2012
+@emph{Actualizado en Thu Mar  1 13:47:50 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ Registro de cambios de LilyPond
 @item
 Títulos de sección
 @*
-1105
+1154
 @tab Francisco Vila
 @tab 
 @tab 
@@ -47,11 +47,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #2cff20">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -645,7 +645,7 @@ sí
 @item
 1.2 Duraciones
 @*
-6287
+6327
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1158,7 +1158,7 @@ sí
 @item
 4 Problemas de espaciado
 @*
-11112
+11141
 @tab Francisco Vila
 @tab 
 @tab 

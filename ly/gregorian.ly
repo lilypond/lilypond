@@ -3,7 +3,7 @@
   $Id$
 %}
 
-\version "2.15.10"
+\version "2.15.30"
 
 %
 % Declare memorable shortcuts for special unicode characters
@@ -22,28 +22,18 @@ iij = \lyricmode { iĳ }
 % Given some music that represents lyrics, add a prefix to the first
 % lyric event.
 %
-% TODO: Robustify this function.  For example, this function works
-% correctly for "\versus { some lyrics }", but it barfs with a wrong type
-% argument error for e.g. "\versus some lyrics".
-%
 #(define (add-prefix-to-lyrics prefix music)
-   (make-music
-    'SequentialMusic
-    'elements (append
-	       (cons
-		(let* ((elems (car (ly:music-property music 'elements)))
-		       (props (ly:music-mutable-properties elems))
-		       (events (filter (lambda (x)
-					 (equal? (car x) 'elements))
-				       props))
-		       (first-evt (cadar events))
-		       (first-syllable (ly:prob-property first-evt 'text))
-		       (first-duration (ly:prob-property first-evt 'duration)))
-		  (make-music
-		   'LyricEvent
-		   'duration first-duration
-		   'text (string-append prefix first-syllable)))
-		(cdr (ly:music-property music 'elements))))))
+   (let ((found? #f))
+     (map-some-music
+      (lambda (m)
+	(if found? m
+	    (and (music-is-of-type? m 'lyric-event)
+		 (begin
+		   (set! (ly:music-property m 'text)
+			 (string-append prefix (ly:music-property m 'text)))
+		   (set! found? #t)
+		   m))))
+      music)))
 
 % Add unicode 2123 (versicle) as prefix to lyrics.
 versus =

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Fri Feb 24 11:51:46 UTC 2012
+@emph{Dernière mise à jour Thu Mar  1 13:47:50 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -501,7 +501,7 @@ oui
 @item
 1.2 Rythme
 @*
-6287
+6327
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -913,11 +913,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1066,7 +1066,7 @@ oui
 @item
 4 Gestion de l'espace
 @*
-11112
+11141
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -1104,21 +1104,21 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partiellement (99 %)</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement (99 %)
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1133,11 +1133,11 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partiellement (84 %)</span>
+<span style="background-color: #dfef77">partiellement (89 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement (84 %)
+partiellement (89 %)
 @end ifnothtml
 @tab 
 @ifhtml
