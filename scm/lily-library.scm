@@ -257,6 +257,48 @@ bookoutput function"
                      parser
 		     music))
 
+(define-public (context-mod-from-music parser music)
+  (let ((warn #t) (mods (ly:make-context-mod)))
+    (let loop ((m music) (context #f))
+      (if (music-is-of-type? m 'layout-instruction-event)
+	  (let ((symbol (cons context (ly:music-property m 'symbol))))
+	    (ly:add-context-mod
+	     mods
+	     (case (ly:music-property m 'name)
+	       ((PropertySet)
+		(list 'assign
+		      symbol
+		      (ly:music-property m 'value)))
+	       ((PropertyUnset)
+		(list 'unset symbol))
+	       ((OverrideProperty)
+		(cons* 'push
+		       symbol
+		       (ly:music-property m 'grob-value)
+		       (ly:music-property m 'grob-property-path)))
+	       ((RevertProperty)
+		(cons* 'pop
+		       symbol
+		       (ly:music-property m 'grob-property-path))))))
+	  (case (ly:music-property m 'name)
+	    ((ApplyContext)
+	     (ly:add-context-mod mods
+				 (list 'apply
+				       (ly:music-property m 'procedure))))
+	    ((SequentialMusic SimultaneousMusic)
+	     (fold loop context (ly:music-property m 'elements)))
+	    ((ContextSpeccedMusic)
+	     (loop (ly:music-property m 'element)
+		   (ly:music-property m 'context-type)))
+	    (else (if (and warn (ly:duration? (ly:music-property m 'duration)))
+		      (begin
+			(ly:music-warning
+			 music
+			 (_ "Music unsuitable for context-mod"))
+			(set! warn #f))))))
+      context)
+    mods))
+
 (define-public (context-defs-from-music parser output-def music)
   (let ((bottom 'Voice) (warn #t))
     (define (get-bottom sym)

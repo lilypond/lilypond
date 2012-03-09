@@ -459,6 +459,8 @@ If we give names, Bison complains.
 %type <scm> context_def_spec_block
 %type <scm> context_def_spec_body
 %type <scm> context_mod
+%type <scm> context_mod_arg
+%type <scm> context_mod_embedded
 %type <scm> context_mod_list
 %type <scm> context_prop_spec
 %type <scm> direction_less_char
@@ -808,6 +810,27 @@ context_def_spec_block:
 	}
 	;
 
+context_mod_arg:
+	embedded_scm
+	| composite_music
+	;
+
+context_mod_embedded:
+	context_mod_arg
+	{
+		if (unsmob_music ($1)) {
+			SCM proc = parser->lexer_->lookup_identifier ("context-mod-music-handler");
+			$1 = scm_call_2 (proc, parser->self_scm (), $1);
+		}
+		if (unsmob_context_mod ($1))
+			$$ = $1;
+		else {
+			parser->parser_error (@1, _ ("not a context mod"));
+		}
+	}
+	;
+
+
 context_def_spec_body:
 	/**/ {
 		$$ = Context_def::make_scm ();
@@ -817,22 +840,17 @@ context_def_spec_body:
 		$$ = $1;
 		unsmob_context_def ($$)->origin ()->set_spot (@$);
 	}
-	| context_def_spec_body embedded_scm {
-		if (Context_mod *cm = unsmob_context_mod ($2)) {
-			SCM p = cm->get_mods ();
-			Context_def*td = unsmob_context_def ($$);
-
-			for (; scm_is_pair (p); p = scm_cdr (p)) {
-				td->add_context_mod (scm_car (p));
-			}
-		} else {
-			parser->parser_error (@2, _ ("not a context mod"));
-		}
-	}
 	| context_def_spec_body context_mod {
 		unsmob_context_def ($$)->add_context_mod ($2);
 	}
 	| context_def_spec_body context_modification {
+                Context_def *td = unsmob_context_def ($$);
+                SCM new_mods = unsmob_context_mod ($2)->get_mods ();
+                for (SCM m = new_mods; scm_is_pair (m); m = scm_cdr (m)) {
+                    td->add_context_mod (scm_car (m));
+                }
+	}
+	| context_def_spec_body context_mod_embedded {
                 Context_def *td = unsmob_context_def ($$);
                 SCM new_mods = unsmob_context_mod ($2)->get_mods ();
                 for (SCM m = new_mods; scm_is_pair (m); m = scm_cdr (m)) {
@@ -1236,12 +1254,9 @@ context_mod_list:
                  if (md)
                      unsmob_context_mod ($1)->add_context_mods (md->get_mods ());
         }
-	| context_mod_list embedded_scm {
-		Context_mod *md = unsmob_context_mod ($2);
-		if (md)
-			unsmob_context_mod ($1)->add_context_mods (md->get_mods ());
-		else
-			parser->parser_error (@2, _ ("not a context mod"));
+	| context_mod_list context_mod_embedded {
+		unsmob_context_mod ($1)->add_context_mods
+			(unsmob_context_mod ($2)->get_mods ());
         }
         ;
 
