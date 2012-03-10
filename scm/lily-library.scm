@@ -287,14 +287,14 @@ bookoutput function"
 	      (list 'unset
 		    (ly:music-property m 'symbol)))
 	     ((OverrideProperty)
-	      (list 'push
-		    (ly:music-property m 'symbol)
-		    (ly:music-property m 'grob-value)
-		    (ly:music-property m 'grob-property-path)))
+	      (cons* 'push
+		     (ly:music-property m 'symbol)
+		     (ly:music-property m 'grob-value)
+		     (ly:music-property m 'grob-property-path)))
 	     ((RevertProperty)
-	      (list 'pop
-		    (ly:music-property m 'symbol)
-		    (ly:music-property m 'grob-property-path)))))
+	      (cons* 'pop
+		     (ly:music-property m 'symbol)
+		     (ly:music-property m 'grob-property-path)))))
 	  (case (ly:music-property m 'name)
 	    ((SequentialMusic SimultaneousMusic)
 	     (fold loop mods (ly:music-property m 'elements)))
