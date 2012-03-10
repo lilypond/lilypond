@@ -166,10 +166,15 @@
     ("c1" . (cons (* 648 mm) (* 917 mm)))
     ("c0" . (cons (* 917 mm) (* 1297 mm)))
     ;; Below are North American paper sizes
+    ("junior-legal" . (cons (* 8.0 in) (* 5.0 in)))
     ("legal" . (cons (* 8.5 in) (* 14.0 in)))
     ("letter" . (cons (* 8.5 in) (* 11.0 in)))
     ;; Ledger (17x11) is a 90 degree rotation of Tabloid
+    ("17x11" . (cons (* 17.0 in) (* 11.0 in)))
+    ("ledger" . (cons (* 17.0 in) (* 11.0 in)))
+    ;; Tabloid (11x17)
     ("11x17" . (cons (* 11.0 in) (* 17.0 in)))
+    ("tabloid" . (cons (* 11.0 in) (* 17.0 in)))
     ;; government-letter by IEEE Printer Working Group, for children's writing
     ("government-letter" . (cons (* 8 in) (* 10.5 in)))
     ("government-legal" . (cons (* 8.5 in) (* 13.0 in)))
