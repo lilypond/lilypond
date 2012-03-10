@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: ecf0a44d785db3038035927bd2405269d8668801
+    Translation of GIT committish: ac59b908fe5dc229cbf7b19f176a23debe7c2e09
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,8 +10,8 @@
 @c \version "2.15.18"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
-@c Translation checkers: Valentin Villenave, Jean-Charles Malahieude,
-@c François Martin, Xavier Scheuer
+@c Translation checkers: Valentin Villenave, François Martin,
+@c Xavier Scheuer
 
 @node Rythme
 @section Rythme
@@ -2252,17 +2252,34 @@ de cette dérogation.
 \repeat unfold 8 {c8}
 @end lilypond
 
-De la même manière, les croches d'une mesure à 3/4 sont par défaut
-ligaturées sur la mesure entière.  Réinitialiser @code{beamExceptions}
-vous permettra alors de ligaturer les croches sur la base du temps.
+Dans les traditions de la gravure, les croches obéissent à des règles
+particulières de ligature.  Lorsqu'une mesure ne comporte que des
+croches, elle peuvent faire l'objet d'une ligature unique.  Ce
+comportement se contrôle à l'aide de la propriété de contexte
+@code{beamWholeMeasure}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
-% by default we beam in (3) due to beamExceptions
-\repeat unfold 6 {a8} |
-% This will beam (1 1 1) due to beatLength
-\set Timing.beamExceptions = #'()
-\repeat unfold 6 {a8}
+% By default we beam in one
+\repeat unfold 6 { a8 }
+% We can avoid beaming in one
+\set Timing.beamWholeMeasure = ##f
+\repeat unfold 6 { a8 }
+@end lilypond
+
+Certaines partitions de la période romantique ou classique font
+apparaître des ligatures sur la moitié de la mesure, ce qui va à
+l'encontre de la règle établie -- comme le fait remarquer Gould à la
+page@tie{}153 de son ouvrage.  La reproduction d'un tel comportement se
+contrôle à l'aide de la propriété de contexte @code{beamHalfMeasure}.
+
+@lilypond[quote,verbatim,relative=2]
+\time 3/4
+% By default we avoid half-measure beams
+r4. a8 a a |
+% We can allow half-measure beams
+\set Timing.beamHalfMeasure = ##t
+r4. a8 a a |
 @end lilypond
 
 @i{@strong{Principes de la ligature automatique}}
