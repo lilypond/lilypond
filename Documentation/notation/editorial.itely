@@ -248,13 +248,14 @@ b
 c
 @end lilypond
 
-Notation objects which are attached to invisible notes are still
-visible.
+Note heads, stems, and flags, and rests are invisible.  Beams
+are invisible if they start on a hidden note.  Objects that are
+attached to invisible notes are still visible.
 
 @lilypond[verbatim,quote,relative=2]
-c4( d)
+e8(\p f g a)--
 \hideNotes
-e4(\p f)--
+e8(\p f g a)--
 @end lilypond
 
 
