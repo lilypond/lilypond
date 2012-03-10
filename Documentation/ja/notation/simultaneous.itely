@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 673cef312bbefe407f87a1c2e041980bc61396c6
+    Translation of GIT committish: 3c62ac104645533873bba800f7b0f371089f535a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -137,6 +137,9 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 @unnumberedsubsubsec 和音の繰り返し
 @translationof Chord repetition
 
+@cindex Chord, repetition (和音の繰り返し)
+@cindex repetition, using @code{q} (@code{q} を用いた繰り返し)
+
 入力の手間を省くために、前の和音を繰り返すための短縮記法があります。@c
 和音を繰り返すためのシンボルは @code{q} です:
 
@@ -157,15 +160,61 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 和音を繰り返すことができます。
 
 @lilypond[verbatim,quote,relative=2]
-<a c e>1 c4 q2 r8 q8
+<a c e>1 c'4 q2 r8 q8 |
+q2 c, |
 @end lilypond
 
-しかしながら、和音繰り返しのシンボルは前の和音の強弱記号、@c
-アーティキュレーション、あるいは装飾を持ち越しません。
+しかしながら、和音繰り返しのシンボルは前の和音の中にある、あるいは付属している@c
+強弱記号、アーティキュレーション、あるいは装飾を持ち越しません。
 
 @lilypond[verbatim,quote,relative=2]
-<a-. c\prall e>1\sfz c4 q2 r8 q8
+<a-. c\prall e>1\sfz c'4 q2 r8 q8 |
+q2 c, |
 @end lilypond
+
+それらのイベントを持ち越すには、@code{\chordRepeats} 関数を明示的に呼び出し、@c
+引数に持ち越す @var{イベント タイプ} を指定するリストを持たせます。@c
+これにより持ち越されるイベントはすでに和音 @code{q} に存在しているものだけです。
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \chordRepeats #'(articulation-event)
+  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  q2 c, |
+}
+@end lilypond
+
+上記の例では @code{\chordRepeats} を @code{\relative} 構造の内部で使用する@c
+ことで予期しない結果になっています:
+@code{\chordRepeats} の和音イベントが展開されると、@c
+通常どおりに入力された和音と区別が付かず、@c
+@code{\relative} はカレントのコンテキストに基づいて音程を割り当てます。
+
+ネストされた @code{\relative} のインスタンスは内外のインスタンスに@c
+影響を与えないので、@c
+@code{\chordRepeats} の内側に @code{\relative} を配置することで@c
+@code{\chordRepeats} の和音を展開する前に音程を確定させることができます。@c
+今回のケースでは、内側にある @code{\relative} の内容は@c
+外側にある @code{\relative} の影響を受けないので、@c
+繰り返しの和音は前の和音の音程を維持しています。@c
+また、内側の @code{\relative} は外側の @code{\relative} に影響を与えないので、@c
+最後の音符のオクターブ入力が変化します。
+
+@c Without \new Voice, implicit voice creation does the dumbest thing.
+@lilypond[verbatim,quote]
+\new Voice
+\relative c'' {
+  \chordRepeats #'(articulation-event)
+  \relative c''
+  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  q2 c |
+}
+@end lilypond
+
+@code{\chordRepeats} は明示的に呼び出された場合にのみ
+@code{\relative} と相互作用します:
+暗黙的な繰り返し和音の展開はすべての @code{\relative} インスタンスが@c
+処理されてから行われます。
 
 @seealso
 記譜法リファレンス:
@@ -213,6 +262,30 @@ a << {a4 b g}  {d4 g c,} >>
 @end lilypond
 
 ここでは、リズムが異なっていても問題ありません。
+
+@cindex collisions, clashing note columns (音符列の衝突)
+@cindex collisions, ignoring (衝突を無視する)
+
+@knownissues
+譜の同じ場所で、同じ向きの符幹を持つ複数のボイスから音符がシフトされずに
+(あるいは同じシフトで) 配置された場合、@c
+コンパイル中に以下のメッセージが表示されます:
+
+@example
+warning: ignoring too many clashing note columns
+@end example
+
+
+以下でこのメッセージを表示させなくすることができます:
+
+@example
+\override NoteColumn #'ignore-collision = ##t
+@end example
+
+しかしながら、これは警告を非表示にするだけでなく、@c
+衝突解決に関するすべてのメッセージを非表示にして、@c
+他にも意図しない影響を与える可能性があります
+(@ref{衝突の解決} の @emph{既知の問題} も参照してください)。
 
 
 @node クラスタ
@@ -314,7 +387,7 @@ a << {a4 b g}  {d4 g c,} >>
 
 @noindent
 ここでは、ボイスは明示的にインスタンス化されていて、名前を与えられています。@c
-@code{\voiceOne} ... @code{\voiceFour} コマンドはボイスをセット アップし、@c
+@code{\voiceOne} @dots{} @code{\voiceFour} コマンドはボイスをセット アップし、@c
 それにより、1 番目と 3 番目のボイスは上向きの符幹を持ち、2 番目と 4 番目の@c
 ボイスは下向きの符幹を持ち、3 番目と 4 番目のボイスの符頭は水平方向にずれて、@c
 それぞれのボイスの中の休符は衝突を避けるために自動的に移動させられます。@c
@@ -392,7 +465,7 @@ a << {a4 b g}  {d4 g c,} >>
 一時ボイスが作成され、それから消去されることが問題にならない場合に、@c
 この構文を使用することができます。@c
 暗黙的に作成されるボイスには、それらがコードの中で現れる順番に従って、@c
-@code{\voiceOne} ... @code{\voiceFour} コマンドと同じ設定が与えられます。
+@code{\voiceOne} @dots{} @code{\voiceFour} コマンドと同じ設定が与えられます。
 
 以下の例では、真ん中のボイスは上向きの符幹を持ちます。@c
 そのため、それを 3 番目に置いて、望みどおりに上向きの符幹を持つボイス 3 に@c
@@ -450,6 +523,9 @@ etc.
 >>
 @end lilypond
 
+@warning{歌詞、スパナ (スラー、タイ、強弱のヘアピン等) はボイスを @q{跨ぐ}
+ことはできません。}
+
 @strong{@i{同一のリズム}}
 
 同じリズムを持ち、並行して進行する音楽を譜刻するという特殊なケースでは、@c
@@ -477,6 +553,8 @@ etc.
 @code{\oneVoice}
 @endpredefined
 
+コード断片集:
+@rlsr{Simultaneous notes}
 
 @seealso
 学習マニュアル:
@@ -484,12 +562,9 @@ etc.
 @rlearning{ボイスを明示的にインスタンス化する}
 
 記譜法リファレンス:
-@ref{Percussion staves},
+@ref{打楽器の譜},
 @ref{不可視の休符},
-@ref{Stems}
-
-コード断片集:
-@rlsr{Simultaneous notes}
+@ref{符幹}
 
 
 @node ボイス スタイル
@@ -636,7 +711,6 @@ etc.
 >>
 @end lilypond
 
-
 第 2 小節の最初の版音符と 8 分音符は正しくマージされていません。@c
 なぜなら 3 つ以上の音符が同じ列に並ぶ場合、@c
 自動マージは正しく機能できないからです。@c
@@ -718,8 +792,6 @@ etc.
 明示的に符幹の向きが反対になるよう指定されている場合)
 にのみマージされます。
 
-
-
 @predefined
 @code{\mergeDifferentlyDottedOn},
 @code{\mergeDifferentlyDottedOff},
@@ -732,15 +804,12 @@ etc.
 @code{\shiftOff}
 @endpredefined
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {additional-voices-to-avoid-collisions.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
-
 
 @seealso
 音楽用語集:
@@ -759,6 +828,18 @@ etc.
 @rinternals{NoteCollision},
 @rinternals{RestCollision}
 
+@cindex collisions, ignoring (衝突を無視する)
+
+@knownissues
+@code{\override NoteColumn #'ignore-collision = ##t} を使うと@c
+異なるボイスにある符頭が異なる音符を不適切にマージします。
+
+@lilypond[quote,relative=1,verbatim]
+\mergeDifferentlyHeadedOn
+<< { c16 a' b a } \\ { c,2 } >>
+\override NoteColumn #'ignore-collision = ##t
+<< { c16 a' b a } \\ { c,2 } >>
+@end lilypond
 
 @ignore
 @knownissues
@@ -791,40 +872,41 @@ are at the same time differently dotted are not clear.
 @funindex \partcombine
 @funindex partcombine
 
-自動パート結合は 1 つの譜上にある 2 つのパートを 1 つに結合するために@c
-使用されます。@c
-これはオーケストラ譜を譜刻することを目的としています。@c
-ある範囲で 2 つのパートが同一である場合、1 つだけが譜刻されます。@c
-2 つのパートが異なる箇所では別々のボイスとして譜刻され、@c
-符幹の向きは自動的にセットされます。@c
-さらに、デフォルトで、ソロ パートと @notation{二重奏 (due)} パートが識別され、@c
-デフォルトでマークを付けられます。
+自動パート結合は 2 つのパートに分かれた音楽を単一の譜にマージします。@c
+これはオーケストラ譜を譜刻する時に特に有用です。@c
+ある範囲で 2 つのパートの音楽が同一である場合、@c
+1 つの @code{Voice} だけが譜刻されます。@c
+2 つのパートが異なる箇所では第 2 @code{Voice} が譜刻されます。@c
+この場合、符幹の向きはそれぞれ上と下ににセットされ、@c
+さらにソロ パートと @notation{二重奏 (due)} パートが識別されて@c
+適切なマークが付けられます。
 
-パート結合の構文は以下の通りです:
+自動パート結合の構文は以下の通りです:
 
 @example
 \partcombine @var{musicexpr1} @var{musicexpr2}
 @end example
 
-以下の例はパート結合の基本的な機能を示しています:
-パートを 1 つの譜に配置し、符幹の向きと多声をセットします。@c
-個々のパートと結合譜で同じ変数が使用されています。
+以下の例は自動パート結合の基本的な機能を示しています:
+2 つのパートを単一の譜に多声部として配置し@c
+、それぞれの符幹の向きをセットしています。@c
+個々のパート譜と結合譜で同じ変数が使用されています。
 
 @lilypond[quote,verbatim]
 instrumentOne = \relative c' {
-  c4 d e f
-  R1
-  d'4 c b a
-  b4 g2 f4
-  e1
+  c4 d e f |
+  R1 |
+  d'4 c b a |
+  b4 g2 f4 |
+  e1 |
 }
 
 instrumentTwo = \relative g' {
-  R1
-  g4 a b c
-  d c b a
-  g f( e) d
-  e1
+  R1 |
+  g4 a b c |
+  d4 c b a |
+  g4 f( e) d |
+  e1 |
 }
 
 <<
@@ -834,9 +916,8 @@ instrumentTwo = \relative g' {
 >>
 @end lilypond
 
-第 3 小節の音符は、両方のパートで指定されているにもかかわらず、@c
-1 パート分だけ譜刻されています。@c
-符幹、スラーそれにタイの向きは、ソロなのかあるいは斉奏なのかによって、@c
+両パートの第 3 小節の音符は同じなので、片方の音符だけが譜刻されています。@c
+符幹、スラー、それにタイの向きは、ソロなのかあるいは斉奏なのかによって、@c
 自動的に設定されます。@c
 多声が必要になる場合、第 1 パート (@code{one} と呼ばれるコンテキストを持ちます)
 は常に上向きの符幹を持ち、@c
@@ -847,11 +928,11 @@ instrumentTwo = \relative g' {
 斉奏 (@notation{二重奏}) パートには、デフォルトで、テキスト @qq{a2} という@c
 マークが付けられます。
 
-@code{\partcombine} の引数は 2 つとも @code{Voice} コンテキストとして@c
+@code{\partcombine} の 2 つの引数は別個の @code{Voice} コンテキストとして@c
 解釈されます。@c
-相対オクターブを用いる場合、@code{\relative} を両方の音楽表記に@c
-対して指定すべきです。@c
-すなわち、
+そのため、相対オクターブを用いる場合、両方のパートで @code{\relative} を@c
+記述すべきです。@c
+すなわち、以下のように記述します:
 
 @example
 \partcombine
@@ -863,56 +944,65 @@ instrumentTwo = \relative g' {
 @code{\partcombine} の外側にある @code{\relative} セクションは @var{musicexpr1}
 と @var{musicexpr2} のピッチには影響を与えません。
 
-プロの楽譜では、@c
-1, 2 の音符が同時進行していて容易にユニゾンとして譜刻できる場合であっても、
-長い間ボイスが分かれていることがしばしばあります。@c
-@c その場合、音符を結合させて和音にしたり、@c
-@c ボイスの 1 つをソロとして見せることは望ましくありません
-@c 未訳
-Combining notes into a chord, or showing one voice as solo
-is therefore not ideal as the @code{\partcombine} function considers
-each note separately.
-そのため、以下のコマンドで @code{\partcombine} 関数を@c
+@funindex \partcombineChords
+@funindex partcombineChords
+@funindex \partcombineApart
+@funindex partcombineApart
+@funindex \partcombineUnisono
+@funindex partcombineUnisono
+@funindex \partcombineSoloI
+@funindex partcombineSoloI
+@funindex \partcombineSoloII
+@funindex partcombineSoloII
+@funindex \partcombineAutomatic
+@funindex partcombineAutomatic
+
+プロの楽譜では長いパッセージで、@c
+2 つのボイスの音符のいくつかが同じでユニゾンとして譜刻できる場合であっても、@c
+ボイスを分けて譜刻することがあります。
+ですから、音符を和音に組み合わせることと、1 つのボイスをソロとして表示すること@c
+は等価ではありません。@c
+なぜなら、@code{\partcombine} 関数は各音符を個々に考慮するからです。
+このような場合、@code{\partcombine} 関数を以下のコマンドで@c
 オーバライドすることができます:
+
+@code{...Once} で終わるコマンドは、コマンドの次に来る音符だけに適用されます。
 
 @itemize
 @item
-@code{\partcombineApart}, @code{\partcombineApartOnce}:
-音符を結合させて和音やユニゾンにすることができる場合であっても、@c
-音符を 2 つの別個のボイスに分けて譜刻します。
+@code{\partcombineApart} と @code{\partcombineApartOnce} は@c
+音符を 2 つの別個のボイスとして譜刻します
+-- たとえ和音やユニゾンにできる場合であっても分けて譜刻します。
 
 @item
-@code{\partcombineChords}, @code{\partcombineChordsOnce}:
-音符を結合させて、和音として譜刻します。
+@code{\partcombineChords} と @code{\partcombineChordsOnce} は@c
+音符を組み合わせて、和音として譜刻します。
 
 @item
-@code{\partcombineUnisono}, @code{\partcombineUnisonoOnce}:
-2 つのボイスをユニゾンとして譜刻します。
+@code{\partcombineUnisono} と @code{\partcombineUnisonoOnce} は@c
+音符を組み合わせて、@qq{ユニゾン} として譜刻します。
 
 @item
-@code{\partcombineSoloI}, @code{\partcombineSoloIOnce}:
-ボイス 1 だけを譜刻して、ソロのマークを付けます。
+@code{\partcombineSoloI} と @code{\partcombineSoloIOnce} は@c
+ボイス 1 だけを譜刻して、@qq{Solo} のマークを付けます。
 
 @item
-@code{\partcombineSoloII}, @code{\partcombineSoloIIOnce}:
-ボイス 2 だけを譜刻して、ソロのマークを付けます。
+@code{\partcombineSoloII} と @code{\partcombineSoloIIOnce} は@c
+ボイス 2 だけを譜刻して、@qq{Solo} のマークを付けます。
 
 @item
-@code{\partcombineAutomatic}, @code{\partcombineAutomaticOnce}:
-上記の特殊コマンドの効果を終わらせ、デフォルトのパート結合機能に戻します。
-
+@code{\partcombineAutomatic} と @code{\partcombineAutomaticOnce}は@c
+上記のコマンドの効果を終わらせ、標準の @code{\partcombine} に戻します。
 @end itemize
-
-終わりが @code{...Once} のコマンドはすべて、その後の音符にのみ適用されます。
 
 @lilypond[quote,verbatim]
 instrumentOne = \relative c' {
   \partcombineApart c2^"apart" e |
-  \partcombineAutomatic e^"auto" e |
-  \partcombineChords e'^"chord" e |
-  \partcombineAutomatic c^"auto" c |
-  \partcombineApart c^"apart" \partcombineChordsOnce e^"chord once" |
-  c c |
+  \partcombineAutomatic e2^"auto" e |
+  \partcombineChords e'2^"chord" e |
+  \partcombineAutomatic c2^"auto" c |
+  \partcombineApart c2^"apart" \partcombineChordsOnce e^"chord once" |
+  c2 c |
 }
 instrumentTwo = \relative c' {
   c2 c |
@@ -929,7 +1019,6 @@ instrumentTwo = \relative c' {
   \new Staff { \partcombine \instrumentOne \instrumentTwo }
 >>
 @end lilypond
-
 
 @snippets
 
@@ -955,38 +1044,43 @@ instrumentTwo = \relative c' {
 @rinternals{PartCombineMusic},
 @rinternals{Voice}
 
-
 @knownissues
 
-@code{\partcombine} が受け取れるボイスは 2 つだけです。
+すべての @code{\partcombine...} はボイスを 2 つだけ受け取ることができ、@c
+歌詞を処理するようには設計されていません。@c
+ボイスに歌詞が付けられている場合、パート結合は処理を停止します。
 
-When @code{printPartCombineTexts} is set, if the two voices play
-the same notes on and off, the part combiner may typeset @code{a2}
-more than once in a measure.
+@code{\partcombine} 関数を @code{\times} ブロックや @code{\relative} ブロック@c
+の中に置くことはできません。
 
-@code{\partcombine} を @code{\times} の中に置くことはできません。
+@code{printPartCombineTexts} がセットされていて、ある小節で 2 つのボイスの@c
+音符が同じである場合、@c
+パート結合はその小節で @code{a2} を複数譜刻する可能性があります。
 
-@code{\partcombine} を @code{\relative} の中に置くことはできません。
+@code{\partcombine} は @code{Voice} の中の音符の開始だけを検知します。@c
+例えば、ある @code{Voice} でパート結合を開始した時に、@c
+他の @code{Voice} で音符がすでに開始しているかどうかを知ることはできません。@c
+このことは @qq{Solo} や @qq{Unison} が不適切に譜刻されるといった@c
+予期しない問題を引き起こす可能性があります
 
-内部的には、@code{\partcombine} は 2 つの引数を @code{Voice} として解釈し、@c
-2 つのパートを結合することができるかどうかを決定します。@c
-2 つのパートが異なる演奏時間を持つ場合、@c
-それらを結合させることはできず、@c
-それぞれに @code{one}, @code{two} という名前が与えられます。@c
-@c 未訳
-Consequently, if the arguments switch to
-differently named @rinternals{Voice} contexts, the events in those will
-be ignored.
-同様に、パート結合は歌詞に対して機能するようには設計されていません。@c
-ボイスの 1 つが、歌詞を持つために明示的に名前を付けられた場合、@c
-パート結合は機能しなくなります。
+@code{\partcombine} はすべてのスパナ (スラー、タイ、強弱のヘアピン等) を@c
+同じ @code{Voice} で維持します。@c
+そのため、異なる @code{Voice} で始まる / 終わるスパナは@c
+不適切にの譜刻されたり、全く譜刻されなかったりする可能性があります。
 
-@code{\partcombine} は @code{\partcombine} の開始後の音符だけを観察します。@c
-その前に開始した音符が演奏中であるかどうかを検出することはできません。@c
-これはさまざまな問題を引き起こします。
+@code{\partcombine} 関数が 2 つのパートを組み合わせることができない場合
+(すなわち、2 つのボイスの演奏時間が異なる場合)、@c
+内部的に 2 つのボイスにカスタム名を付与します:
+それぞれ @code{one} と @code{two} です。@c
+このことは、異なる名前を付けられた @code{Voice} への @qq{切り替え}
+があった場合、@c
+その @code{Voice} のイベントは無視されることを意味します。
+
+@ref{デフォルトのタブ譜} のタブ譜や @ref{自動連桁} の @emph{音符} に対して@c
+@code{\partcombine} を使う場合は、@c
+それぞれの @emph{既知の問題と警告} も参照してください。
 
 
-@c ここから L954
 @node 音楽を並列に記述する
 @unnumberedsubsubsec 音楽を並列に記述する
 @translationof Writing music in parallel
