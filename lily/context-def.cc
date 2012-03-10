@@ -326,7 +326,7 @@ Context_def::make_scm ()
 void
 Context_def::apply_default_property_operations (Context *tg)
 {
-  apply_property_operations (tg, property_ops_);
+  apply_property_operations (tg, scm_reverse (property_ops_));
 }
 
 SCM

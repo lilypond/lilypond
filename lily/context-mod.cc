@@ -45,7 +45,7 @@ Context_mod::print_smob (SCM smob, SCM port, scm_print_state *)
   Context_mod *me = (Context_mod *) SCM_CELL_WORD_1 (smob);
 
   scm_puts ("#<Context_mod ", port);
-  scm_display (me->mods_, port);
+  scm_display (me->get_mods (), port);
   scm_puts (">", port);
   return 1;
 }
@@ -57,7 +57,6 @@ Context_mod::mark_smob (SCM smob)
 
   Context_mod *me = (Context_mod *) SCM_CELL_WORD_1 (smob);
 
-  scm_gc_mark (me->mods_);
   return me->mods_;
 }
 

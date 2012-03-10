@@ -318,7 +318,7 @@ Context::path_to_acceptable_context (SCM name) const
   // The 'accepts elements in definition_mods_ is a list of ('accepts string),
   // but the Context_def expects to see elements of the form ('accepts symbol).
   SCM accepts = SCM_EOL;
-  for (SCM s = scm_reverse (definition_mods_); scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = definition_mods_; scm_is_pair (s); s = scm_cdr (s))
     if (scm_caar (s) == ly_symbol2scm ("accepts"))
       {
         SCM elt = scm_list_2 (scm_caar (s), scm_string_to_symbol (scm_cadar (s)));
@@ -327,7 +327,7 @@ Context::path_to_acceptable_context (SCM name) const
 
   return unsmob_context_def (definition_)->path_to_acceptable_context (name,
          get_output_def (),
-         accepts);
+	 scm_reverse_x (accepts, SCM_EOL));
 
 }
 

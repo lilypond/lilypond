@@ -225,8 +225,7 @@ execute_pushpop_property (Context *context,
 void
 apply_property_operations (Context *tg, SCM pre_init_ops)
 {
-  SCM correct_order = scm_reverse (pre_init_ops);
-  for (SCM s = correct_order; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = pre_init_ops; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
       SCM type = scm_car (entry);
