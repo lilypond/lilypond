@@ -1001,12 +1001,14 @@ a context modification duplicating their effect.")
 	      (ly:add-context-mod mods
 				  (list 'apply
 					(ly:music-property m 'procedure))))
-	     ((SequentialMusic SimultaneousMusic)
-	      (for-each musicop (ly:music-property m 'elements)))
 	     ((ContextSpeccedMusic)
 	      (if (or (not ctx)
 		      (eq? ctx (ly:music-property m 'context-type)))
-		  (musicop (ly:music-property m 'element)))))))
+		  (musicop (ly:music-property m 'element))))
+	     (else
+	      (let ((callback (ly:music-property m 'elements-callback)))
+		(if (procedure? callback)
+		    (for-each musicop (callback m))))))))
      (musicop music)
      mods))
 

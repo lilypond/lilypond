@@ -285,17 +285,19 @@ bookoutput function"
 	     (ly:add-context-mod mods
 				 (list 'apply
 				       (ly:music-property m 'procedure))))
-	    ((SequentialMusic SimultaneousMusic)
-	     (fold loop context (ly:music-property m 'elements)))
 	    ((ContextSpeccedMusic)
 	     (loop (ly:music-property m 'element)
 		   (ly:music-property m 'context-type)))
-	    (else (if (and warn (ly:duration? (ly:music-property m 'duration)))
-		      (begin
-			(ly:music-warning
-			 music
-			 (_ "Music unsuitable for context-mod"))
-			(set! warn #f))))))
+	    (else
+	     (let ((callback (ly:music-property m 'elements-callback)))
+	       (if (procedure? callback)
+		   (fold loop context (callback m))
+		   (if (and warn (ly:duration? (ly:music-property m 'duration)))
+		       (begin
+			 (ly:music-warning
+			  music
+			  (_ "Music unsuitable for context-mod"))
+			 (set! warn #f))))))))
       context)
     mods))
 
@@ -338,8 +340,6 @@ bookoutput function"
 		     (ly:music-property m 'symbol)
 		     (ly:music-property m 'grob-property-path)))))
 	  (case (ly:music-property m 'name)
-	    ((SequentialMusic SimultaneousMusic)
-	     (fold loop mods (ly:music-property m 'elements)))
 	    ((ApplyContext)
 	     (ly:add-context-mod mods
 				 (list 'apply
@@ -360,12 +360,16 @@ bookoutput function"
 		     (ly:music-warning
 		      music
 		      (ly:format (_ "Cannot find context-def \\~a") sym))))))
-	    (else (if (and warn (ly:duration? (ly:music-property m 'duration)))
-		      (begin
-			(ly:music-warning
-			 music
-			 (_ "Music unsuitable for output-def"))
-			(set! warn #f))))))
+	    (else
+	     (let ((callback (ly:music-property m 'elements-callback)))
+	       (if (procedure? callback)
+		   (fold loop mods (callback m))
+		   (if (and warn (ly:duration? (ly:music-property m 'duration)))
+		       (begin
+			 (ly:music-warning
+			  music
+			  (_ "Music unsuitable for output-def"))
+			 (set! warn #f))))))))
       mods)))
 
 
