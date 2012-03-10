@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
+    Translation of GIT committish: f66e6785e42f181199f6cf357434f60baba1e149
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -883,7 +883,7 @@ d'autres sont des valeurs à attribuer aux propriétés, comme
 @code{italic}.  À ne pas confondre avec les chaînes de caractères
 libres, qui se présentent comme @code{"un texte libre"}@tie{}; pour plus
 de détails sur les symboles et les chaînes de caractères, voir le
-@rextendnamed{Scheme tutorial,Tutoriel Scheme}.
+@rextend{Tutoriel Scheme}.
 
 Ainsi, la commande @code{\override} pour mettre les paroles en italique
 est@tie{}:
@@ -950,7 +950,7 @@ autour du point qui sépare le nom de contexte du nom d'objet.}
 
 @seealso
 Manuel d'extension :
-@rextendnamed{Scheme tutorial,Tutoriel Scheme}.
+@rextend{Tutoriel Scheme}.
 
 
 @node Types de propriétés
@@ -1021,7 +1021,7 @@ précédés par apostrophe-hash, @code{'#}
 
 @seealso
 Manuel d'extension :
-@rextendnamed{Scheme tutorial,Tutoriel Scheme}.
+@rextend{Tutoriel Scheme}.
 
 
 @node Apparence des objets
@@ -4278,7 +4278,7 @@ requièrent la connaissance du langage Scheme.  Les utilisateurs qui
 souhaiteraient comprendre le fonctionnement de ces fichiers de
 configuration doivent être avertis que des connaissances techniques
 substantielles et beaucoup de temps sont nécessaires (voir le
-@rextendnamed{Scheme tutorial,Tutoriel Scheme}).
+@rextend{Tutoriel Scheme}).
 
 Si c'est votre cas, les fichiers Scheme les plus utiles à connaître
 sont@tie{}:
@@ -4316,7 +4316,7 @@ Le code écrit dans le langage de programmation Scheme peut être
 intégré directement dans le processus interne de LilyPond.  Bien sûr,
 il faut pour cela connaître un minimum de programmation en langage
 Scheme.  Pour des explications complètes là-dessus, consultez le
-@rextendnamed{Scheme tutorial,Tutoriel Scheme}.
+@rextend{Tutoriel Scheme}.
 
 En guise d'illustration -- et ce n'est qu'une possibilité parmi tant
 d'autres -- nous allons attribuer à une propriété non pas une valeur

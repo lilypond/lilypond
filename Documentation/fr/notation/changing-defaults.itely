@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 4b87c3a98a6ac4fa426ad0ed3b0fc0532db44063
+    Translation of GIT committish: f66e6785e42f181199f6cf357434f60baba1e149
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -46,9 +46,9 @@ pénétrer dans les entrailles du programme, et de ce fait requiert
 l'emploi du Scheme.  Les fragments de Scheme, dans un fichier
 @file{.ly}, sont introduits par le caractère @emph{hash} (@code{#}),
 improprement surnommé @qq{dièse}.
-@footnote{Le @rextendnamed{Scheme tutorial,Tutoriel Scheme} fournit
-quelques notions de base pour saisir des nombres, des listes, des
-chaînes de caractères ou des symboles, en Scheme.}
+@footnote{Le @rextend{Tutoriel Scheme} fournit quelques notions de base
+pour saisir des nombres, des listes, des chaînes de caractères ou des
+symboles, en Scheme.}
 
 @menu
 * Contextes d'interprétation::
