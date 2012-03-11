@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 2613eed0a13ce118cb11f83057d9d79fc6973a4e
+    Translation of GIT committish: cf90af135bc70b57f69fd3e09a9b29814c6358e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -104,6 +104,7 @@ LilyPond は、@c
 @unnumberedsec 特徴
 @translationof Features
 
+@divClass{column-center-top}
 
 @subheading 優美
 @subsubheading すぐれた伝統的な譜刻
@@ -152,8 +153,6 @@ LilyPond は ASCII 入力を受け付けます。@c
 
 @subsubheading 楽譜と文章の混合
 @c Mix music and text
-
-@imageFloat{lilypond-book,png,right}
 
 画像のカット＆ペーストをせずに、
 楽譜の断片をテキストに入れることができます。@c
@@ -321,22 +320,25 @@ LilyPond はタブ譜をサポートします。@c
 @newsItem
 @subsubheading Schenker Graphs
 
-Standard output can be modified heavily. Here someone has created
-an impressive Schenkerian analysis.
+標準出力に様々な変更を加えることができます。@c
+@uref{http://www.linuxjournal.com/article/8364 , Linux Journal}
+に掲載された Kris Schaffer が作成したみごとな Schenkerian 分析を@c
+示します。
 
 @exampleImage{bach-schenker}
 @newsEnd
 
 @newsItem
-@subsubheading Vocal Music
+@subsubheading 声楽
 
-Lilypond is excellent for vocal music of all kinds, from sacred
-hymns to opera. Here is a medieval motet with slightly unusual
-requirements. The tenor voice is written in a different meter
-than the others, but must line up as if it were in the same meter.
-Lilypond handles this most elegantly. Note also the incipits with
-Vaticana style clefs, the slashed stems indicating plicated notes,
-and the ligature braces above certain groups of notes.
+LilyPond は聖歌からオペラまですべての種類の声楽に対して卓越した@c
+性能を発揮します。@c
+少し変わった要求をする中世のモテットを示します。@c
+テナー ボイスの拍子は他と異なりますが、@c
+同じ拍子であるかのように揃っています。@c
+Lilypond はこれをすっきりと処理します
+ヴァチカン様式の音部記号、ゆらぎのある音符を表すスラッシュ付きの@c
+符幹、ある特定の音符グループ上の連結線ににも注目してください。
 
 @exampleImage{aucun-snippet}
 @newsEnd
@@ -543,9 +545,13 @@ LilyPond で生成された楽譜は、世界中の演奏で使用されてい�
 @itemize
 
 @item
-@emph{Affaire Étrangère}, an opera by Valentin Villenave, with
-libretto by Lewis Trondheim, premiered February 1, 2009, by
-@uref{http://www.orchestre-montpellier.com/, L'Opéra Montpellier}.
+@emph{Affaire étrangère}, an opera by
+@uref{http://valentin.villenave.net/,Valentin Villenave}
+to a French libretto by
+@uref{http://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis
+Trondheim}, premiered February 1, 2009 at
+@uref{http://www.orchestre-montpellier.com/, L'Opéra National de
+Montpellier}, France.
 
 @item
 @uref{http://www.mercurybaroque.org/02/02109.aspx, Mercury Baroque}'s
@@ -558,6 +564,12 @@ Instrumental excerpts from Rameau's @emph{Hippolyte et Aricie} at
 St. James's Church in Manhattan, May 8, 2009, by Frederick Renz
 and his ensemble @uref{http://www.earlymusicny.org/, Early Music
 New York} (engraving by Nicolas Sceaux).
+
+@item
+Mussorgsky's @emph{Pictures at an exhibition}, re-orchestrated and
+conducted by @uref{http://www.aurelienbello.com/,Aurélien Bello} with
+the @uref{http://www.junge-philharmonie-brandenburg.de/,Junge Philharmonie Brandenburg}
+on Oct 10 2011 and again on Apr 15-16 2012.
 
 @end itemize
 @divEnd
@@ -625,6 +637,18 @@ LilyPond を試してみる決心がついたのなら、@c
 
 @divClass{keep-bullets}
 @itemize
+
+@item
+April 2011
+
+@uref{http://www.linux-magazine.com,Linux Magazine} publishes an
+article titled
+@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+Projects on the Move}.  It is an introductory article on MuseScore,
+LilyPond and Chordii.  Author Carla Schroder states @qq{LilyPond is
+driven from the command line, but don’t let the lack of a GUI scare
+you away; LilyPond is user-friendly and easy to learn}, and provides
+a hands-on example.
 
 @item
 May 2010
@@ -940,8 +964,8 @@ LilyPond は @emph{コンパイル} システムです:
 @imageFloat{text-input-1-output,png,center}
 
 臨時記号は違う名前で入力します。@c
-シャープには @code{-is} を、フラットには @code{-es} を付けます
-(これらは、オランダ語の音符名で、他の言語用もあります)。@c
+シャープには @w{@code{-is}} を、フラットには @w{@code{-es}} を@c
+付けます (これらは、オランダ語の音符名で、他の言語用もあります)。@c
 LilyPondがどこに臨時記号を付けるかを判断します。
 
 @imageFloat{text-input-2-annotate,png,center}
@@ -1165,22 +1189,21 @@ git clone http://github.com/textmate/lilypond.tmbundle.git
 @subheading LilyPond コードをエクスポートできるプログラム
 
 
-@subsubheading Score, tab and MIDI editors:
+@subsubheading 楽譜、タブ、MIDI エディタ:
 
 @itemize
-@item
-@uref{http://www.rosegardenmusic.com,Rosegarden}:
-オーディオ・MIDI シーケンサであり、単一譜を扱える楽譜エディタでもあります。
 
 @item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}:
+
+@uref{http://www.canorus.org,Canorus}:
+楽譜エディタで、LilyPond コードをエクスポートできが、まだベータ版です。@c
+テスターを歓迎しています。
+
+@item
+@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,
+NtEd}:
 @uref{http://www.cairographics.org,Cairo} ライブラリをベースにした@c
 楽譜エディタで、試験的に LilyPond へのエクスポートをサポートしています。
-
-@item
-@uref{http://www.tuxguitar.com.ar/,TuxGuitar}:
-マルチトラックなタブ譜のエディタ・プレイヤで、楽譜ビューアを持ち、@c
-LilyPond コードのエクスポートが可能です。
 
 @item
 @uref{http://www.musescore.org,MuseScore}:
@@ -1188,19 +1211,29 @@ LilyPond コードのエクスポートが可能です。
 活発に開発が行われています。
 
 @item
-@uref{http://www.canorus.org,Canorus}:
-楽譜エディタで、LilyPond コードをエクスポートできが、まだベータ版です。@c
-テスターを歓迎しています。
+@uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
+NW2LY}:
+@uref{http://www.noteworthysoftware.com/,NoteWorthy} の曲を
+LilyPond に変換する C# プログラムです。
+
+@item
+@uref{https://github.com/ciconia/ripple/blob/master/README.markdown,
+Ripple}:
+総譜とパート譜の作成を支援するプログラムで、異なる楽譜ソースから@c
+総譜やパート譜を作成するモードがあります。
+
+@item
+@uref{http://www.rosegardenmusic.com,Rosegarden}:
+オーディオ・MIDI シーケンサであり、単一譜を扱える楽譜エディタでもあります。
 
 @item
 @uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}:
-リアルタイムにモノラル MIDI を LilyPond に変換します。
+リアルタイムに単声の MIDI を LilyPond に変換します。
 
 @item
-@uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
-NW2LY}:
-@uref{http://www.noteworthysoftware.com/, NoteWorthy} の曲を
-LilyPond に変換する C# プログラムです。
+@uref{http://www.tuxguitar.com.ar/,TuxGuitar}:
+マルチトラックなタブ譜のエディタ・プレイヤで、楽譜ビューアを持ち、@c
+LilyPond コードのエクスポートが可能です。
 
 @end itemize
 

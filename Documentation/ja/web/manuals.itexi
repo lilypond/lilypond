@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+    Translation of GIT committish: cf90af135bc70b57f69fd3e09a9b29814c6358e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -115,14 +115,19 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 
 @itemize
 
+@item @ref{すべて}:
+圧縮したアーカイブとして提供する以前と現在の安定バージョンの@c
+ドキュメント。
+
 @item @ref{翻訳済み}:
 非英語圏の読者のための翻訳状況。
 
-@item @ref{すべて}:
-ダウンロード可能なバージョンと古いマニュアル。
+@item
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}:
+ユーザが作成した例、ヒント、それに TIPS。
 
 @item @ref{Development}:
-開発バージョンのためのマニュアル。
+不安定な開発バージョンのマニュアル。
 
 @item @ref{FDL}:
 これらのマニュアルは GNU Free Documentation License に基づいて@c
@@ -287,8 +292,8 @@ LilyPond 記譜法を他のプログラムと統合する方法について説�
 @docLinks{使用方法, usage,
   @rprogramnamed{Top,使用方法},
   @manualStableUsageSplit-ja,
-  @manualStableUsageBig-ja, 300 KB,
-  @manualStableUsagePdf, 400 KB}
+  @manualStableUsageBig-ja, 400 KB,
+  @manualStableUsagePdf, 600 KB}
 
 @divEnd
 
