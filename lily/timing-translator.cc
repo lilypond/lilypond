@@ -46,20 +46,35 @@ Timing_translator::stop_translation_timestep ()
 void
 Timing_translator::initialize ()
 {
-  context ()->add_alias (ly_symbol2scm ("Timing"));
-  context ()->set_property ("currentBarNumber", scm_from_int (1));
-  context ()->set_property ("internalBarNumber", scm_from_int (1));
+  Context *timing = unsmob_context (scm_call_2 (ly_lily_module_constant ("ly:context-find"),
+						context ()->self_scm (),
+						ly_symbol2scm ("Timing")));
+  if (timing != context ())
+    {
+      context ()->add_alias (ly_symbol2scm ("Timing"));
+
+      if (!timing) {
+	programming_error ("Can't find Timing context template");
+	timing = context ();
+      }
+  }
+
+  SCM barnumber = timing->get_property ("currentBarNumber");
+  if (!scm_is_integer (barnumber))
+    barnumber = scm_from_int (1);
+  context ()->set_property ("currentBarNumber", barnumber);
+  context ()->set_property ("internalBarNumber", barnumber);
 
   context ()->set_property ("timeSignatureFraction",
-                            scm_cons (scm_from_int (4), scm_from_int (4)));
+			    timing->get_property ("timeSignatureFraction"));
   /*
     Do not init measurePosition; this should be done from global
     context.
   */
   context ()->set_property ("measureLength",
-                            Moment (Rational (1)).smobbed_copy ());
+                            timing->get_property ("measureLength"));
   context ()->set_property ("baseMoment",
-                            Moment (Rational (1, 4)).smobbed_copy ());
+                            timing->get_property ("baseMoment"));
 }
 
 Rational
@@ -144,10 +159,12 @@ ADD_TRANSLATOR (Timing_translator,
                 "",
 
                 /* read */
-                "internalBarNumber "
+		"baseMoment "
                 "currentBarNumber "
+                "internalBarNumber "
                 "measureLength "
-                "measurePosition ",
+                "measurePosition "
+		"timeSignatureFraction ",
 
                 /* write */
                 "baseMoment "
