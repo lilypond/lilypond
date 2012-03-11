@@ -76,7 +76,6 @@ in @ref{Collision resolution}.
 
 @end itemize
 
-
 @seealso
 Notation Reference:
 @ref{Fingering instructions},
@@ -127,7 +126,6 @@ in the code:
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
-
 
 @seealso
 Notation Reference:
@@ -487,6 +485,7 @@ melodia = \partcombine { e4 g g g } { e4 e e e }
 
 Guitar special effects are limited to harmonics and slides.
 
+
 @node Custom tablatures
 @unnumberedsubsubsec Custom tablatures
 
@@ -667,7 +666,7 @@ Notation Reference:
 @ref{Scheme functions}.
 
 Installed Files:
-@file{ly/string-tuning-init.ly}
+@file{ly/string-tuning-init.ly},
 @file{scm/tablature.scm}.
 
 Snippets:
@@ -680,6 +679,7 @@ Internals Reference:
 Automatic tablature calculations do not work properly in most
 cases for instruments where string pitches do not vary
 monotonically with string number, such as ukuleles.
+
 
 @node Fret diagram markups
 @unnumberedsubsubsec Fret diagram markups
@@ -1091,7 +1091,6 @@ Internals Reference:
 @node Predefined fret diagrams
 @unnumberedsubsubsec Predefined fret diagrams
 
-
 @cindex fret diagrams
 @cindex fret diagrams, ukulele
 @cindex fret diagrams, mandolin
@@ -1385,7 +1384,6 @@ the interface properties belong to @code{FretBoards.FretBoard}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretboards-alternate-tables.ly}
 
-
 @seealso
 Notation Reference:
 @ref{Custom tablatures},
@@ -1553,7 +1551,6 @@ diagram, the interface properties belong to
 @code{\predefinedFretboardsOn}.
 @endpredefined
 
-
 @seealso
 Notation Reference:
 @ref{Custom tablatures}.
@@ -1612,7 +1609,6 @@ short, for example @code{RH},
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
-
 @seealso
 Snippets:
 @rlsr{Fretted strings}.
@@ -1657,7 +1653,6 @@ g16\startTextSpan
 b16 e g e b g\stopTextSpan
 e16 b g d
 @end lilypond
-
 
 @seealso
 Notation Reference:
@@ -1880,8 +1875,8 @@ These may be converted to four-string tunings using the
 @end example
 
 @seealso
+Installed Files:
+@file{ly/string-tunings-init.ly}.
+
 Snippets:
 @rlsr{Fretted strings}.
-
-Installed Files:
-@file{ly/string-tunings-init.ly}

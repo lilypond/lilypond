@@ -428,7 +428,6 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-a-repeat-sign-at-the-beginning-of-a-piece.ly}
 
-
 @seealso
 Notation Reference:
 @ref{Bar lines},
@@ -557,6 +556,7 @@ Snippets:
 Internals Reference:
 @rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
+
 
 @node Short repeats
 @subsection Short repeats
@@ -723,11 +723,9 @@ c: c:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-tremolos.ly}
 
-
 @seealso
 Snippets:
 @rlsr{Repeats}.
 
 @cindex tremolo, cross-staff
 @cindex cross-staff tremolo
-

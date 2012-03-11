@@ -504,7 +504,6 @@ after the entire command.
 
 @end itemize
 
-
 @seealso
 Learning Manual:
 @rlearning{How LilyPond input files work}.
@@ -710,6 +709,7 @@ Notation Reference:
 
 Installed Files:
 @file{ly/titling-init.ly}.
+
 
 @node Default layout of headers and footers
 @unnumberedsubsubsec Default layout of headers and footers
@@ -1013,6 +1013,7 @@ same layout by defining it as @code{\oddFooterMarkup}:
 Notation Reference:
 @ref{Title blocks explained},
 @ref{Default layout of book and score title blocks}.
+
 
 @node Creating footnotes
 @subsection Creating footnotes
@@ -1428,10 +1429,9 @@ Dots can be added to fill the line between an item and its page number:
 }
 @end lilypond
 
-
 @seealso
-Init files: @file{../ly/toc-init.ly}.
-
+Installed Files:
+@file{ly/toc-init.ly}.
 
 @predefined
 @funindex \table-of-contents
@@ -1814,18 +1814,17 @@ Notation Reference:
 @ref{Automatic part combining},
 @ref{Including LilyPond files}.
 
-
 @ignore
 @c This warning is more general than this placement implies.
 @c Rests are not merged whether or not they come from tagged sections.
 @c Should be deleted?  -td
 
 @knownissues
-
 Multiple rests are not merged if you create a score with more
 than one tagged section at the same place.
 
 @end ignore
+
 
 @node Using global settings
 @unnumberedsubsubsec Using global settings
@@ -1853,6 +1852,7 @@ Learning Manual:
 
 Notation Reference:
 @ref{Including LilyPond files}.
+
 
 @node Special characters
 @subsection Special characters
@@ -2042,7 +2042,6 @@ Installed Files:
 @file{ly/text-replacements.ly}.
 
 
-
 @node Controlling output
 @section Controlling output
 
@@ -2179,7 +2178,8 @@ existing @code{fonts} directory to @code{fonts_orig} and the
 reverse the process.
 
 @seealso
-Learning Manual: @rlearning{Other sources of information}.
+Learning Manual:
+@rlearning{Other sources of information}.
 
 @knownissues
 Gonville cannot be used to typeset @q{Ancient Music} notation and it is

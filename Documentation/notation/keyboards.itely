@@ -137,6 +137,7 @@ Internals Reference:
 Snippets:
 @rlsr{Keyboards}.
 
+
 @node Changing staff manually
 @unnumberedsubsubsec Changing staff manually
 
@@ -324,7 +325,6 @@ key signature in the lower staff:
 >>
 @end lilypond
 
-
 @seealso
 Notation Reference:
 @ref{Changing staff manually}.
@@ -337,7 +337,6 @@ Internals Reference:
 
 
 @knownissues
-
 @cindex chords, splitting across staves with \autochange
 
 The staff switches may not end up in optimal places.  For high
@@ -345,6 +344,7 @@ quality output, staff switches should be specified manually.
 
 Chords will not be split across the staves; they will be assigned to a
 staff based on the first note named in the chord construct.
+
 
 @node Staff-change lines
 @unnumberedsubsubsec Staff-change lines
@@ -390,7 +390,6 @@ notes can be printed automatically:
 @code{\showStaffSwitch},
 @code{\hideStaffSwitch}.
 @endpredefined
-
 
 @seealso
 Snippets:
@@ -453,7 +452,6 @@ Chords that cross staves may be produced:
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
-
 
 @seealso
 Snippets:
@@ -600,7 +598,6 @@ come into use to simplify the performance instructions.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {accordion-discant-symbols.ly}
 
-
 @seealso
 Snippets:
 @rlsr{Keyboards}.
@@ -643,6 +640,7 @@ Notation Reference:
 @ref{Glissando},
 @ref{Arpeggio},
 @ref{Harmonics}.
+
 
 @node Harp pedals
 @unnumberedsubsubsec Harp pedals

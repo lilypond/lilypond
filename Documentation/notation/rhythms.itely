@@ -148,7 +148,6 @@ the staff; see @ref{Direction and placement}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{breve},
@@ -174,9 +173,7 @@ Internals Reference:
 @rinternals{Dots},
 @rinternals{DotColumn}.
 
-
 @knownissues
-
 @c Deliberately duplicated in Durations and Rests.  -gp
 There is no fundamental limit to rest durations (both in terms of
 longest and shortest), but the number of glyphs is limited:
@@ -271,7 +268,6 @@ see @ref{Scaling durations}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{triplet},
@@ -294,7 +290,6 @@ Internals Reference:
 @rinternals{TupletBracket},
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
-
 
 @cindex grace notes within tuplet brackets
 
@@ -374,7 +369,6 @@ and expanded:
 
 One application of this command is in polymetric
 notation, see @ref{Polymetric notation}.
-
 
 @seealso
 Notation Reference:
@@ -664,7 +658,6 @@ a4\rest d4\rest
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {rest-styles.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{breve},
@@ -680,9 +673,7 @@ Snippets:
 Internals Reference:
 @rinternals{Rest}.
 
-
 @knownissues
-
 @c Deliberately duplicated in Durations and Rests.  -gp
 There is no fundamental limit to rest durations (both in terms of
 longest and shortest), but the number of glyphs is limited: there
@@ -763,7 +754,6 @@ any kind.
 % This is valid input, but does nothing
 \skip 1 \skip1 \skip 1
 @end lilypond
-
 
 @seealso
 Learning Manual:
@@ -941,7 +931,6 @@ setting, resulting bar-check warnings may not be displayed.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-markup.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{multi-measure rest}.
@@ -960,7 +949,6 @@ Internals Reference:
 @rinternals{MultiMeasureRestNumber},
 @rinternals{MultiMeasureRestText}.
 
-
 @cindex fingerings and multi-measure rests
 @cindex multi-measure rests and fingerings
 
@@ -978,6 +966,7 @@ into a single multi-measure rest.
 @cindex rest, collisions of
 
 Multi-measure rests do not take part in rest collisions.
+
 
 @node Displaying rhythms
 @subsection Displaying rhythms
@@ -1214,7 +1203,6 @@ for different staves by moving the @code{Timing_translator} and the
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{time signature}
@@ -1229,6 +1217,7 @@ Snippets:
 Internals Reference:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator}.
+
 
 @node Metronome marks
 @unnumberedsubsubsec Metronome marks
@@ -1304,7 +1293,6 @@ d4 g e c
 {creating-metronome-marks-in-markup-mode.ly}
 
 For more details, see @ref{Formatting text}.
-
 
 @seealso
 Music Glossary:
@@ -1409,6 +1397,7 @@ e8 | a4 c8 b[ c b] |
 r8 e,8 | a4 c8 b[ c b] |
 @end lilypond
 
+
 @node Unmetered music
 @unnumberedsubsubsec Unmetered music
 
@@ -1480,7 +1469,6 @@ shown in @ref{Polymetric notation}.
 @code{\cadenzaOff}.
 @endpredefined
 
-
 @seealso
 Music Glossary:
 @rglos{cadenza}.
@@ -1493,7 +1481,6 @@ Notation Reference:
 Snippets:
 @rlsr{Rhythms}.
 
-
 @cindex cadenza line breaks
 @cindex cadenza page breaks
 @cindex unmetered music, line breaks
@@ -1505,7 +1492,6 @@ Snippets:
 @cindex page breaks in unmetered music
 
 @knownissues
-
 LilyPond will insert line breaks and page breaks only at a
 bar line.  Unless the unmetered music ends before the end of the
 staff line, you will need to insert invisible bar lines with
@@ -1700,13 +1686,13 @@ Internals Reference:
 @rinternals{Default_bar_line_engraver},
 @rinternals{Staff}.
 
-
 @knownissues
 When using different time signatures in parallel, notes at the same
 moment will be placed at the same horizontal location.  However, the bar
 lines in the different staves will cause the note spacing to be less
 regular in each of the individual staves than would be normal without
 the different time signatures.
+
 
 @node Automatic note splitting
 @unnumberedsubsubsec Automatic note splitting
@@ -1744,7 +1730,6 @@ inserts ties for notes.  One of its uses is to debug complex scores: if
 the measures are not entirely filled, then the ties show exactly how
 much each measure is off.
 
-
 @seealso
 Music Glossary:
 @rglos{tie}
@@ -1763,9 +1748,7 @@ Internals Reference:
 @rinternals{Completion_rest_engraver},
 @rinternals{Forbid_line_break_engraver}.
 
-
 @knownissues
-
 Not all durations (especially those containing tuplets) can be
 represented exactly with normal notes and dots, but the
 @code{Completion_heads_engraver} will not insert tuplets.
@@ -1848,7 +1831,6 @@ be done with the @code{Pitch_squash_engraver} and
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {guitar-strum-rhythms.ly}
-
 
 @seealso
 Snippets:
@@ -2237,7 +2219,6 @@ The default beaming rules can be found in
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
 
-
 @seealso
 Installed Files:
 @file{scm/beam-settings.scm}.
@@ -2250,7 +2231,6 @@ Internals Reference:
 @rinternals{Beam},
 @rinternals{BeamForbidEvent},
 @rinternals{beam-interface}.
-
 
 @knownissues
 If a score ends while an automatic beam has not been ended and is
@@ -2305,6 +2285,7 @@ beaming settings for a time signature are described in
   }
 >>
 @end lilypond
+
 
 @node Manual beams
 @unnumberedsubsubsec Manual beams
@@ -2390,7 +2371,6 @@ g16 a]
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {flat-flags-and-beam-nibs.ly}
 
-
 @seealso
 Notation Reference:
 @ref{Direction and placement},
@@ -2458,7 +2438,6 @@ the last four 32nd notes are at a constant tempo.
 The spacing in the printed output represents the
 note durations only approximately, but the MIDI output is exact.
 
-
 @predefined
 @code{\featherDurations}.
 @endpredefined
@@ -2467,16 +2446,13 @@ note durations only approximately, but the MIDI output is exact.
 Snippets:
 @rlsr{Rhythms}.
 
-
 @knownissues
-
 The @code{\featherDurations} command only works with very short
 music snippets, and when numbers in the fraction are small.
 
 
 @node Bars
 @subsection Bars
-
 
 @menu
 * Bar lines::
@@ -2717,7 +2693,6 @@ The default bar type used for automatically inserted bar lines is
 @code{"|"}.  This may be changed at any time with
 @samp{\set Timing.defaultBarType = @var{bartype}}.
 
-
 @seealso
 Notation Reference:
 @ref{Line breaking},
@@ -2904,7 +2879,6 @@ example,
 will print a warning if the @code{currentBarNumber} is not 123
 when it is processed.
 
-
 @seealso
 Snippets:
 @rlsr{Rhythms}.
@@ -3048,6 +3022,10 @@ For common tweaks to the positioning of rehearsal marks, see
 @ref{Formatting text}.  For more precise control, see
 @code{break-alignable-interface} in @ref{Aligning objects}.
 
+The file @file{scm/translation-functions.scm} contains
+the definitions of @code{format-mark-numbers} and
+@code{format-mark-letters}.  They can be used as inspiration for
+other formatting functions.
 
 @seealso
 Notation Reference:
@@ -3056,10 +3034,7 @@ Notation Reference:
 @ref{Aligning objects}.
 
 Installed Files:
-@file{scm/translation-functions.scm} contains
-the definitions of @code{format-mark-numbers} and
-@code{format-mark-letters}.  They can be used as inspiration for
-other formatting functions.
+@file{scm/translation-functions.scm}.
 
 Snippets:
 @rlsr{Rhythms}.
@@ -3220,7 +3195,6 @@ direction is overridden and then reverted.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {positioning-grace-notes-with-floating-space.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{grace notes},
@@ -3228,6 +3202,7 @@ Music Glossary:
 @rglos{appoggiatura}.
 
 Notation Reference:
+@ref{Scaling durations},
 @ref{Manual beams}.
 
 Installed Files:
@@ -3244,7 +3219,6 @@ Internals Reference:
 
 
 @knownissues
-
 @cindex acciaccatura, multi-note
 @cindex multi-note acciaccatura
 @cindex grace-note synchronization
@@ -3371,7 +3345,6 @@ MyCadenza = \relative c' {
 >>
 @end lilypond
 
-
 @seealso
 Music Glossary:
 @rglos{cadenza}.
@@ -3456,7 +3429,6 @@ duration of n/m of a whole note.  For example,
 @code{ly:make-moment 7 16} is the duration of seven sixteenths
 notes.
 
-
 @seealso
 Notation Reference:
 @ref{Bar numbers},
@@ -3468,4 +3440,3 @@ Snippets:
 Internals Reference:
 @rinternals{Timing_translator},
 @rinternals{Score}.
-

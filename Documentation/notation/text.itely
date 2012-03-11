@@ -98,7 +98,6 @@ articulations, see @rlearning{Placement of objects}.
 @code{\textLengthOff}.
 @endpredefined
 
-
 @seealso
 Learning Manual:
 @rlearning{Placement of objects}.
@@ -114,12 +113,10 @@ Snippets:
 Internals Reference:
 @rinternals{TextScript}.
 
-
 @cindex text outside margin
 @cindex margin, text running over
 @cindex text, keeping inside margin
 @cindex lyrics, keeping inside margin
-
 
 @knownissues
 Checking to make sure that text scripts and lyrics are within the
@@ -283,7 +280,6 @@ c  c
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
-
 @seealso
 Notation Reference:
 @ref{Rehearsal marks},
@@ -361,7 +357,6 @@ requires, are described in @ref{Multi-page markup}.
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
-
 
 @seealso
 Notation Reference:
@@ -482,7 +477,6 @@ allegro = \markup { \bold \large Allegro }
 An exhaustive list of @code{\markup}-specific commands can be found in
 @ref{Text markup commands}.
 
-
 @seealso
 Notation Reference:
 @ref{Text markup commands}.
@@ -492,7 +486,6 @@ Snippets:
 
 Installed Files:
 @file{scm/markup.scm}.
-
 
 @knownissues
 Syntax errors for markup mode can be confusing.
@@ -671,7 +664,6 @@ Defining custom font sets is also possible, as explained in
 @code{\larger}.
 @endpredefined
 
-
 @seealso
 Notation Reference:
 @ref{Font},
@@ -679,14 +671,14 @@ Notation Reference:
 @ref{Manual repeat marks},
 @ref{Fonts}.
 
+Installed Files:
+@file{scm/define-markup-commands.scm}.
+
 Snippets:
 @rlsr{Text}.
 
 Internals Reference:
 @rinternals{TextScript}.
-
-Installed Files:
-@file{scm/define-markup-commands.scm}.
 
 @knownissues
 Using the font sizing commands @code{\teeny}, @code{\tiny},
@@ -933,7 +925,6 @@ as shown in the following example.
 An exhaustive list of text alignment commands can be found in
 @ref{Align}.
 
-
 @seealso
 Learning Manual:
 @rlearning{Moving objects}.
@@ -942,14 +933,14 @@ Notation Reference:
 @ref{Align},
 @ref{Text marks}.
 
+Installed Files:
+@file{scm/define-markup-commands.scm}.
+
 Snippets:
 @rlsr{Text}.
 
 Internals Reference:
 @rinternals{TextScript}.
-
-Installed Files:
-@file{scm/define-markup-commands.scm}.
 
 
 @node Graphic notation inside markup
@@ -1117,22 +1108,21 @@ c
 An exhaustive list of graphics-specific commands can be found in
 @ref{Graphic}.
 
-
 @seealso
 Notation Reference:
 @ref{Graphic},
 @ref{Editorial annotations},
 @ref{Align}.
 
+Installed Files:
+@file{scm/define-markup-commands.scm},
+@file{scm/stencil.scm}.
+
 Snippets:
 @rlsr{Text}.
 
 Internals Reference:
 @rinternals{TextScript}.
-
-Installed Files:
-@file{scm/define-markup-commands.scm},
-@file{scm/stencil.scm}.
 
 
 @node Music notation inside markup
@@ -1250,23 +1240,22 @@ c d e f
 An exhaustive list of music notation related commands can be found in
 @ref{Music}.
 
-
 @seealso
 Notation Reference:
 @ref{Music},
 @ref{The Feta font},
 @ref{Fonts explained}.
 
+Installed Files:
+@file{scm/define-markup-commands.scm},
+@file{scm/fret-diagrams.scm},
+@file{scm/harp-pedals.scm}.
+
 Snippets:
 @rlsr{Text}.
 
 Internals Reference:
 @rinternals{TextScript}.
-
-Installed Files:
-@file{scm/define-markup-commands.scm},
-@file{scm/fret-diagrams.scm},
-@file{scm/harp-pedals.scm}.
 
 
 @node Multi-page markup
@@ -1315,23 +1304,21 @@ a list of markup lists.
 An exhaustive list of markup list commands can be found in
 @ref{Text markup list commands}.
 
-
 @seealso
 Notation Reference:
-@ref{Text markup list commands},
+@ref{Text markup list commands}.
 
-Snippets:
-@rlsr{Text}.
-
-Extending:
+Extending LilyPond:
 @rextend{New markup list command definition}.
-
-Internals Reference:
-@rinternals{TextScript}.
 
 Installed Files:
 @file{scm/define-markup-commands.scm}.
 
+Snippets:
+@rlsr{Text}.
+
+Internals Reference:
+@rinternals{TextScript}.
 
 @funindex \markuplist
 @funindex markuplist
@@ -1450,7 +1437,6 @@ Although it is easy to switch between preconfigured fonts, it is also
 possible to use other fonts, as explained in the following sections:
 @ref{Single entry fonts} and @ref{Entire document fonts}.
 
-
 @seealso
 Notation Reference:
 @ref{The Feta font},
@@ -1490,7 +1476,6 @@ operating system:
 @example
 lilypond -dshow-available-fonts x
 @end example
-
 
 @seealso
 Notation Reference:
@@ -1538,7 +1523,6 @@ explanation of fonts, see @ref{Fonts explained}.
 
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
-
 
 @seealso
 Notation Reference:

@@ -116,7 +116,6 @@ notate modern Gregorian chant.  It does not show bar lines.
 New single staff contexts may be defined.  For details, see
 @ref{Defining new contexts}.
 
-
 @seealso
 Music Glossary:
 @rglos{staff},
@@ -249,7 +248,6 @@ New staff group contexts may be defined.  For details, see
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{brace},
@@ -318,7 +316,6 @@ New nested staff group contexts can be defined.  For details, see
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {nesting-staves.ly}
 
-
 @seealso
 Notation Reference:
 @ref{Grouping staves},
@@ -335,6 +332,7 @@ Internals Reference:
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
+
 
 @node Separating systems
 @unnumberedsubsubsec Separating systems
@@ -697,7 +695,6 @@ break.  For more information about
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{ossia},
@@ -807,7 +804,6 @@ hide empty staves in ancient music contexts.  Similarly,
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {removing-the-first-empty-line.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{Frenched staff}.
@@ -834,9 +830,7 @@ Internals Reference:
 @rinternals{VerticalAxisGroup},
 @rinternals{Staff_symbol_engraver}.
 
-
 @knownissues
-
 Removing @code{Staff_symbol_engraver} also hides bar lines.  If
 bar line visibility is forced, formatting errors may occur.  In
 this case, use the following overrides instead of removing the
@@ -850,6 +844,7 @@ engraver:
 For the Known issues and warnings associated with
 @code{\Staff \RemoveEmptyStaves} see
 @ref{Changing context default settings}.
+
 
 @node Writing parts
 @subsection Writing parts
@@ -1027,7 +1022,6 @@ expression to declare the instrument switch:
 }
 @end lilypond
 
-
 @seealso
 Notation Reference:
 @ref{\paper variables for shifts and indents},
@@ -1185,6 +1179,9 @@ Notation Reference:
 @ref{Instrument transpositions},
 @ref{Using tags}.
 
+Installed Files:
+@file{scm/define-event-classes.scm}.
+
 Snippets:
 @rlsr{Staff notation}.
 
@@ -1192,10 +1189,6 @@ Internals Reference:
 @rinternals{Music classes},
 @rinternals{QuoteMusic},
 @rinternals{Voice}.
-
-Installed Files:
-@file{scm/define-event-classes.scm}.
-
 
 @knownissues
 Only the contents of the first @code{Voice} occurring in an
@@ -1491,7 +1484,6 @@ Alternatively, Clef changes and instrument labels can be
 collected into an instrument definition for repeated use, using
 @code{\addInstrumentDefinition} described in @ref{Instrument names}.
 
-
 @seealso
 Notation Reference:
 @ref{Quoting other voices},
@@ -1508,9 +1500,7 @@ Internals Reference:
 @rinternals{CueVoice},
 @rinternals{Voice}.
 
-
 @knownissues
-
 Collisions can occur with rests, when using @code{\cueDuring},
 between @code{Voice} and @code{CueVoice} contexts.  When using
 @code{\cueDuringWithClef} or @code{\transposedCueDuring} the extra

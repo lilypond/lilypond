@@ -75,7 +75,6 @@ Chord mode and note mode can be mixed in sequential music:
 \chordmode { f2 g }
 @end lilypond
 
-
 @seealso
 Music Glossary:
 @rglos{chord}.
@@ -87,9 +86,7 @@ Notation Reference:
 Snippets:
 @rlsr{Chords}.
 
-
 @knownissues
-
 Predefined shorthands for articulations and ornaments cannot be used
 on notes in chord mode, see @ref{Articulations and ornamentations}.
 
@@ -111,6 +108,7 @@ To avoid this behavior, explicitly create the @code{Staff} context:
   <c e g>2  <g' b d>
 }
 @end lilypond
+
 
 @node Common chords
 @unnumberedsubsubsec Common chords
@@ -229,7 +227,6 @@ to create a major triad.
 
 @end multitable
 
-
 @seealso
 Notation Reference:
 @ref{Common chord modifiers},
@@ -237,7 +234,6 @@ Notation Reference:
 
 Snippets:
 @rlsr{Chords}.
-
 
 @knownissues
 Only one quality modifier should be used per chord, typically on the
@@ -383,7 +379,6 @@ Chord modifiers that can be used to produce a variety of
 standard chords are shown in
 @ref{Common chord modifiers}.
 
-
 @seealso
 Notation Reference:
 @ref{Common chord modifiers}.
@@ -391,9 +386,7 @@ Notation Reference:
 Snippets:
 @rlsr{Chords}.
 
-
 @knownissues
-
 Each step can only be present in a chord once.  The following
 simply produces the augmented chord, since @code{5+} is
 interpreted last.
@@ -411,6 +404,7 @@ the chord.
   c'1: c':/g e:6-3-^5 e:m6-^5
 }
 @end lilypond
+
 
 @node Displaying chords
 @subsection Displaying chords
@@ -521,7 +515,6 @@ Rests passed to a @code{ChordNames} context will cause the
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{chord}.
@@ -539,9 +532,7 @@ Internals Reference:
 @rinternals{Volta_engraver},
 @rinternals{Bar_engraver}.
 
-
 @knownissues
-
 Chords containing inversions or altered bass notes are not named
 properly if entered using simultaneous music.
 
@@ -756,7 +747,6 @@ used when the root is altered.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
-
 @seealso
 Notation Reference:
 @ref{Chord name chart},
@@ -773,12 +763,7 @@ Installed Files:
 Snippets:
 @rlsr{Chords}.
 
-@c Internals Reference:
-@c @r internals{}.
-
-
 @knownissues
-
 Chord names are determined from both the pitches that are present
 in the chord and the information on the chord structure that may
 have been entered in @code{\chordmode}.  If the simultaneous pitches
@@ -860,7 +845,6 @@ properties can be used to modify the display of figures.  For
 example, the vertical spacing of the figures may be set with
 @code{baseline-skip}.
 @end ignore
-
 
 @seealso
 Music Glossary:
@@ -1045,23 +1029,7 @@ End of continuation line
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
-
 @seealso
-@c Music Glossary:
-@c @rglos{}.
-@c
-@c Learning Manual:
-@c @rlearning{}.
-@c
-@c Notation Reference:
-@c @ref{}.
-@c
-@c Application Usage:
-@c @rprogram{}.
-@c
-@c Installed Files:
-@c @file{}.
-@c
 Snippets:
 @rlsr{Chords}.
 
@@ -1072,9 +1040,6 @@ Internals Reference:
 @rinternals{BassFigureBracket},
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
-
-
-@c @knownissues
 
 
 @node Displaying figured bass
@@ -1146,7 +1111,6 @@ or below the staff.
 >>
 @end lilypond
 
-
 @predefined
 @cindex figured bass alignment
 @code{\bassFigureStaffAlignmentDown},
@@ -1154,26 +1118,7 @@ or below the staff.
 @code{\bassFigureStaffAlignmentNeutral}.
 @endpredefined
 
-
-@c @snippets
-
-
 @seealso
-@c Music Glossary:
-@c @rglos{}.
-@c
-@c Learning Manual:
-@c @rlearning{}.
-@c
-@c Notation Reference:
-@c @ref{}.
-@c
-@c Application Usage:
-@c @rprogram{}.
-@c
-@c Installed Files:
-@c @file{}.
-@c
 Snippets:
 @rlsr{Chords}.
 
@@ -1185,9 +1130,7 @@ Internals Reference:
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
 
-
 @knownissues
-
 To ensure that continuation lines work properly, it is
 safest to use the same rhythm in the figure line as in
 the bass line.
@@ -1246,4 +1189,3 @@ begins the extender line and turn them off at the end of the extender line.
   }
 >>
 @end lilypond
-

@@ -48,7 +48,6 @@ discussed in @ref{Showing melody rhythms}, and
 
 @end itemize
 
-
 @seealso
 Notation Reference:
 @ref{Showing melody rhythms},
@@ -111,14 +110,13 @@ be set explicitly.  Other clefs may be used as well.
 There are a few issues concerning MIDI support for percussion
 instruments; for details please see @ref{Percussion in MIDI}.
 
-
 @seealso
 Notation Reference:
 @ref{Percussion in MIDI},
 @ref{Percussion notes}.
 
-File:
-@file{ly/drumpitch-init.ly}
+Installed Files:
+@file{ly/drumpitch-init.ly}.
 
 Snippets:
 @rlsr{Percussion}.
@@ -159,9 +157,7 @@ may be overridden to achieve a pleasing baseline.
 }
 @end lilypond
 
-
 @seealso
-
 Notation Reference:
 @ref{Tremolo repeats}.
 
@@ -175,7 +171,6 @@ Snippets:
 Certain pitched percussion instruments (e.g. xylophone,
 vibraphone, and timpani) are written using normal staves.
 This is covered in other sections of the manual.
-
 
 @seealso
 @c TODO: possibly link to an alternate section of NR 3.5, if
@@ -579,7 +574,6 @@ drumsB = {
 }
 @end lilypond
 
-
 @seealso
 Snippets:
 @rlsr{Percussion}.
@@ -623,7 +617,6 @@ However, the default @code{\drummode} does not include the
 @noindent
 Also note that you must add chords (@code{< >} brackets)
 around each @code{\parenthesize} statement.
-
 
 @seealso
 Snippets:
