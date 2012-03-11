@@ -3229,10 +3229,10 @@ are special properties to be found in the @code{break-aligned-interface}
 for positioning rehearsal marks on such objects.
 
 @seealso
-Internals Reference:
+Notation Reference:
 @ref{Using the break-alignable-interface}.
 
-Exending LilyPond:
+Extending LilyPond:
 @rextend{Callback functions}.
 
 @menu
