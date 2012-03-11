@@ -302,15 +302,29 @@ bookoutput function"
     mods))
 
 (define-public (context-defs-from-music parser output-def music)
-  (let ((bottom 'Voice) (warn #t))
-    (define (get-bottom sym)
-      (or
-       (let ((def (ly:output-def-lookup output-def sym #f)))
-	(and def
-	     (let ((def-child (ly:context-def-lookup def 'default-child #f)))
-	       (and def-child
-		    (get-bottom def-child)))))
-       sym))
+  (define (get-defs name)
+    ;; Get all context definition symbols matching the given context
+    ;; name.  Maybe this should be done in C++, or use
+    ;; ly:output-description (at some cost in consing).
+    (let ((defs '()))
+      (if (eq? name 'Bottom)
+	  (module-for-each
+	   (lambda (sym var)
+	     (let ((cdef (variable-ref var)))
+	       (if (and (ly:context-def? cdef)
+			(null? (ly:context-def-lookup cdef 'accepts)))
+		   (set! defs (cons sym defs)))))
+	   (ly:output-def-scope output-def))
+	  (module-for-each
+	   (lambda (sym var)
+	     (let ((cdef (variable-ref var)))
+	       (if (and (ly:context-def? cdef)
+			(or (eq? name (ly:context-def-lookup cdef 'context-name))
+			    (memq name (ly:context-def-lookup cdef 'aliases))))
+		   (set! defs (cons sym defs)))))
+	   (ly:output-def-scope output-def)))
+      defs))
+  (let ((warn #t))
     (let loop ((m music) (mods #f))
       ;; The parser turns all sets, overrides etc into something
       ;; wrapped in ContextSpeccedMusic.  If we ever get a set,
@@ -345,21 +359,22 @@ bookoutput function"
 				 (list 'apply
 				       (ly:music-property m 'procedure))))
 	    ((ContextSpeccedMusic)
-	     (let ((sym (ly:music-property m 'context-type)))
-	       (if (eq? sym 'Bottom)
-		   (set! sym bottom)
-		   (set! bottom (get-bottom sym)))
-	       (let ((def (ly:output-def-lookup output-def sym)))
-		 (if (ly:context-def? def)
-		     (ly:output-def-set-variable!
-		      output-def sym
-		      (ly:context-def-modify
-		       def
-		       (loop (ly:music-property m 'element)
-			     (ly:make-context-mod))))
-		     (ly:music-warning
-		      music
-		      (ly:format (_ "Cannot find context-def \\~a") sym))))))
+	     (let ((defs (get-defs (ly:music-property m 'context-type)))
+		   (mods (loop (ly:music-property m 'element)
+			       (ly:make-context-mod))))
+	       (if (null? defs)
+		   (ly:music-warning
+		    music
+		    (ly:format (_ "Cannot find context-def \\~a")
+			       (ly:music-property m 'context-type)))
+		   (for-each
+		    (lambda (sym)
+		      (ly:output-def-set-variable!
+		       output-def sym
+		       (ly:context-def-modify
+			(ly:output-def-lookup output-def sym)
+			mods)))
+		    defs))))
 	    (else
 	     (let ((callback (ly:music-property m 'elements-callback)))
 	       (if (procedure? callback)
