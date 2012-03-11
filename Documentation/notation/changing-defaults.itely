@@ -2263,31 +2263,30 @@ c2^( c)
 
 @strong{The direction property}
 
-The position or direction of many layout objects is controlled
-by the @code{direction} property.
+The position or direction of many layout objects is controlled by the
+@code{direction} property.
 
-The value of the @code{direction} property may be
-set to @code{1}, meaning @qq{up} or @qq{above}, or to @w{@code{-1}},
-meaning @qq{down} or @qq{below}.  The symbols @code{UP} and
-@code{DOWN} may be used instead of @code{1} and @w{@code{-1}}
-respectively.  The default direction may be specified by setting
-@code{direction} to @code{0} or @code{CENTER}.  Alternatively,
-in many cases predefined commands
-exist to specify the direction.  These are all of the form
+The value of the @code{direction} property may be set to @code{1},
+meaning @qq{up} or @qq{above}, or to @w{@code{-1}}, meaning @qq{down} or
+@qq{below}.  The symbols @code{UP} and @code{DOWN} may be used instead
+of @code{1} and @w{@code{-1}} respectively.  The default direction may
+be specified by setting @code{direction} to @code{0} or @code{CENTER}.
+Alternatively, in many cases predefined commands exist to specify the
+direction.  These are of the form
+
+@example
+@code{\xxxUp}, @code{\xxxDown} or @code{\xxxNeutral}
+@end example
 
 @noindent
-@code{\xxxUp}, @code{xxxDown}, @code{xxxNeutral}
-
-@noindent
-where @code{xxxNeutral} means @qq{use the default direction}.
+where @code{\xxxNeutral} means @qq{use the default} direction.
 See @rlearning{Within-staff objects}.
 
-In a few cases, arpeggio being the only common example, the value
-of the @code{direction} property specifies whether the object
-is to be placed to the right or left of the parent object.  In
-this case @w{@code{-1}} or @code{LEFT} means @qq{to the left} and
-@code{1} or @code{RIGHT} means @qq{to the right}.  @code{0}
-or @code{CENTER} means @qq{use the default} direction, as before.
+In a few cases, arpeggio for example, the value of the @code{direction}
+property can specify whether the object is to be placed to the right or
+left of the parent.  In this case @w{@code{-1}} or @code{LEFT} means
+@qq{to the left} and @code{1} or @code{RIGHT} means @qq{to the right}.
+@code{0} or @code{CENTER} means @qq{use the default} direction.
 
 @ignore
 These all have side-axis set to #X
@@ -2308,6 +2307,17 @@ c2( c)
 \slurNeutral
 c2( c)
 @end lilypond
+
+In polyphonic music, it is generally better to specify an explicit
+@code{voice} than change an object's direction.  For more information.
+See @ref{Multiple voices}.
+
+@seealso
+Learning Manual:
+@rlearning{Within-staff objects}.
+
+Notation Reference:
+@ref{Multiple voices}.
 
 
 @node Distances and measurements
