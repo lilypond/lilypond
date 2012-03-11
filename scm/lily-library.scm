@@ -302,28 +302,6 @@ bookoutput function"
     mods))
 
 (define-public (context-defs-from-music parser output-def music)
-  (define (get-defs name)
-    ;; Get all context definition symbols matching the given context
-    ;; name.  Maybe this should be done in C++, or use
-    ;; ly:output-description (at some cost in consing).
-    (let ((defs '()))
-      (if (eq? name 'Bottom)
-	  (module-for-each
-	   (lambda (sym var)
-	     (let ((cdef (variable-ref var)))
-	       (if (and (ly:context-def? cdef)
-			(null? (ly:context-def-lookup cdef 'accepts)))
-		   (set! defs (cons sym defs)))))
-	   (ly:output-def-scope output-def))
-	  (module-for-each
-	   (lambda (sym var)
-	     (let ((cdef (variable-ref var)))
-	       (if (and (ly:context-def? cdef)
-			(or (eq? name (ly:context-def-lookup cdef 'context-name))
-			    (memq name (ly:context-def-lookup cdef 'aliases))))
-		   (set! defs (cons sym defs)))))
-	   (ly:output-def-scope output-def)))
-      defs))
   (let ((warn #t))
     (let loop ((m music) (mods #f))
       ;; The parser turns all sets, overrides etc into something
@@ -359,21 +337,22 @@ bookoutput function"
 				 (list 'apply
 				       (ly:music-property m 'procedure))))
 	    ((ContextSpeccedMusic)
-	     (let ((defs (get-defs (ly:music-property m 'context-type)))
-		   (mods (loop (ly:music-property m 'element)
-			       (ly:make-context-mod))))
+	     ;; Use let* here to let defs catch up with modifications
+	     ;; to the context defs made in the recursion
+	     (let* ((mods (loop (ly:music-property m 'element)
+				(ly:make-context-mod)))
+		    (defs (ly:output-find-context-def
+			   output-def (ly:music-property m 'context-type))))
 	       (if (null? defs)
 		   (ly:music-warning
 		    music
 		    (ly:format (_ "Cannot find context-def \\~a")
 			       (ly:music-property m 'context-type)))
 		   (for-each
-		    (lambda (sym)
+		    (lambda (entry)
 		      (ly:output-def-set-variable!
-		       output-def sym
-		       (ly:context-def-modify
-			(ly:output-def-lookup output-def sym)
-			mods)))
+		       output-def (car entry)
+		       (ly:context-def-modify (cdr entry) mods)))
 		    defs))))
 	    (else
 	     (let ((callback (ly:music-property m 'elements-callback)))
