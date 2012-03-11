@@ -374,6 +374,18 @@ Context_def::lookup (SCM sym) const
   return SCM_UNDEFINED;
 }
 
+bool
+Context_def::is_alias (SCM sym) const
+{
+  if (scm_is_eq (sym, ly_symbol2scm ("Bottom")))
+    return !scm_is_pair (get_accepted (SCM_EOL));
+
+  if (scm_is_eq (sym, get_context_name ()))
+    return true;
+
+  return scm_is_true (scm_c_memq (sym, context_aliases_));
+}
+
 LY_DEFINE (ly_context_def_lookup, "ly:context-def-lookup",
 	   2, 1, 0, (SCM def, SCM sym, SCM val),
            "Return the value of @var{sym} in output definition @var{def}"
