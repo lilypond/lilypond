@@ -491,7 +491,7 @@ just basic music notation knowledge; checking one regtest takes less than
 a minute.  Simply go here:
 
 @example
-@uref{http://www.holmessoft.co.uk/homepage/private/regtests/}
+@uref{http://www.philholmes.net/lilypond/regtests/}
 @end example
 
 @subheading Some tips on checking regtests
