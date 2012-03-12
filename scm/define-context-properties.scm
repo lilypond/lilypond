@@ -441,6 +441,8 @@ is set.")
      (restCompletionBusy ,boolean? "Signal whether a completion-rest is active.")
      (restNumberThreshold ,number? "If a multimeasure rest has more
 measures than this, a number is printed.")
+     (restrainOpenStrings ,boolean? "Exclude open strings from the
+automatic fret calculator.")
 
      (searchForVoice ,boolean? "Signal whether a search should be made
 of all contexts in the context hierarchy for a voice to provide rhythms

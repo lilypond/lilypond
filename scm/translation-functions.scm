@@ -276,6 +276,10 @@ dot placement entries."
 along with @var{minimum-fret}, @var{maximum-stretch}, and
 @var{tuning}.  Returns a list of @code{(string fret finger) lists."
 
+
+    (define restrain-open-strings (ly:context-property context
+						       'restrainOpenStrings
+					               #f))
     (define specified-frets '())
     (define free-strings (iota (length tuning) 1))
 
@@ -326,7 +330,8 @@ if no string-number is present."
 	  #t
 	  (map (lambda (specced-fret)
 		 (or (eq? 0 specced-fret)
-                     (eq? 0 fret)
+		     (and (not restrain-open-strings)
+		     (eq? 0 fret))
 		     (>= maximum-stretch (abs (- fret specced-fret)))))
 	       specified-frets))))
 
@@ -334,7 +339,9 @@ if no string-number is present."
       "Can @var{pitch} be played on @var{string}, given already placed
 notes?"
       (let* ((fret (calc-fret pitch string tuning)))
-	(and (or (eq? fret 0) (>= fret minimum-fret))
+	(and (or (and (not restrain-open-strings)
+		      (eq? fret 0))
+		 (>= fret minimum-fret))
 	     (close-enough fret))))
 
     (define (open-string string pitch)

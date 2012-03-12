@@ -46,6 +46,7 @@
 
   predefinedDiagramTable = #default-fret-table
   handleNegativeFrets = #'recalculate
+  restrainOpenStrings = ##f
 }
 
 \context {
@@ -892,6 +893,8 @@ contexts and handles the line spacing, the tablature clef etc. properly."
   clefPosition = #0
   %% Change string if note results in negative fret number
   handleNegativeFrets = #'recalculate
+  %% Allow open strings even if minimumFret is set
+  restrainOpenStrings = ##f
 }
 
 \context {
