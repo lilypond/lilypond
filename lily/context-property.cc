@@ -247,6 +247,8 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
         }
       else if (type == ly_symbol2scm ("assign"))
         tg->set_property (scm_car (entry), scm_cadr (entry));
+      else if (type == ly_symbol2scm ("apply"))
+	scm_apply_1 (scm_car (entry), tg->self_scm (), scm_cdr (entry));
     }
 }
 

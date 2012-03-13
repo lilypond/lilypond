@@ -146,7 +146,8 @@ Context_def::add_context_mod (SCM mod)
   else if (ly_symbol2scm ("pop") == tag
            || ly_symbol2scm ("push") == tag
            || ly_symbol2scm ("assign") == tag
-           || ly_symbol2scm ("unset") == tag)
+           || ly_symbol2scm ("unset") == tag
+	   || ly_symbol2scm ("apply") == tag)
     property_ops_ = scm_cons (mod, property_ops_);
   else if (ly_symbol2scm ("alias") == tag)
     context_aliases_ = scm_cons (sym, context_aliases_);

@@ -997,6 +997,10 @@ a context modification duplicating their effect.")
 		      (ly:music-property m 'symbol)
 		      (ly:music-property m 'grob-property-path)))))
 	   (case (ly:music-property m 'name)
+	     ((ApplyContext)
+	      (ly:add-context-mod mods
+				  (list 'apply
+					(ly:music-property m 'procedure))))
 	     ((SequentialMusic SimultaneousMusic)
 	      (for-each musicop (ly:music-property m 'elements)))
 	     ((ContextSpeccedMusic)

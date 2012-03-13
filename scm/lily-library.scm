@@ -298,6 +298,10 @@ bookoutput function"
 	  (case (ly:music-property m 'name)
 	    ((SequentialMusic SimultaneousMusic)
 	     (fold loop mods (ly:music-property m 'elements)))
+	    ((ApplyContext)
+	     (ly:add-context-mod mods
+				 (list 'apply
+				       (ly:music-property m 'procedure))))
 	    ((ContextSpeccedMusic)
 	     (let ((sym (ly:music-property m 'context-type)))
 	       (if (eq? sym 'Bottom)
