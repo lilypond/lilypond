@@ -427,7 +427,7 @@ ENDHEADER
 sub get_bboxes ($)
 {
     execute_command 1, ("mpost", "-mem=mf2pt1", "-progname=mpost",
-                        "\\mode:=localfont; mag:=$mag; bpppix $bpppix; input $mffile");
+                        "\\mode:=localfont; mag:=$mag; bpppix $bpppix; nonstopmode; input $mffile");
     opendir (CURDIR, ".") || die "${progname}: $! ($filedir)\n";
     @charfiles = sort
                    { ($a=~ /\.(\d+)$/)[0] <=> ($b=~ /\.(\d+)$/)[0] }
