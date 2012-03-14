@@ -3369,6 +3369,16 @@ assignment will force a layout with 10 systems.
 @end example
 
 @item
+Force the number of pages.  For example, the following
+assignment will force a layout with 2 pages.
+
+@example
+\paper @{
+  page-count = #2
+@}
+@end example
+
+@item
 Avoid (or reduce) objects that increase the vertical size of a
 system.  For example, volta repeats (or alternate repeats) require
 extra space.  If these repeats are spread over two systems, they
