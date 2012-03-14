@@ -56,12 +56,34 @@ check_meshing_chords (Grob *me,
   Grob *head_up = Note_column::first_head (clash_up);
   Grob *head_down = Note_column::first_head (clash_down);
 
-  vector<int> ups = Stem::note_head_positions (Note_column::get_stem (clash_up));
-  vector<int> dps = Stem::note_head_positions (Note_column::get_stem (clash_down));
+  /* Staff-positions of all noteheads on each stem */
+  vector<int> ups = Stem::note_head_positions (stems[UP]);
+  vector<int> dps = Stem::note_head_positions (stems[DOWN]);
 
   /* Too far apart to collide. */
   if (ups[0] > dps.back () + 1)
     return;
+
+  /* If the chords just 'touch' their extreme noteheads,
+     then we can align their stems.
+  */
+  bool touch = false;
+  if (ups[0] >= dps.back ()
+      && (dps.size () < 2 || ups[0] >= dps[dps.size () - 2] + 2)
+      && (ups.size () < 2 || ups[1] >= dps.back () + 2))
+    touch = true;
+
+  /* Filter out the 'o's in this configuration, since they're no
+   * part in the collision.
+   *
+   *  |
+   * x|o
+   * x|o
+   * x
+   *
+   */
+  ups = Stem::note_head_positions (stems[UP], true);
+  dps = Stem::note_head_positions (stems[DOWN], true);
 
   /* Merge heads if the notes lie the same line, or if the "stem-up-note" is
      above the "stem-down-note". */
@@ -118,16 +140,6 @@ check_meshing_chords (Grob *me,
    *
    */
 
-  /* TODO: filter out the 'o's in this configuration, since they're no
-   * part in the collision.
-   *
-   *  |
-   * x|o
-   * x|o
-   * x
-   *
-   */
-
   bool close_half_collide = false;
   bool distant_half_collide = false;
   bool full_collide = false;
@@ -162,16 +174,6 @@ check_meshing_chords (Grob *me,
 
   full_collide = full_collide || (close_half_collide
                                   && distant_half_collide);
-
-  /* If the only collision is in the extreme noteheads,
-     then their stems can line up and the chords just 'touch'.
-     A half collision with the next note along the chord prevents touching.
-  */
-  bool touch = false;
-  if (ups[0] >= dps.back ()
-      && (dps.size () < 2 || ups[0] >= dps[dps.size () - 2] + 2)
-      && (ups.size () < 2 || ups[1] >= dps.back () + 2))
-    touch = true;
 
   /* Determine which chord goes on the left, and which goes right.
      Up-stem usually goes on the right, but if chords just 'touch' we can put
@@ -525,12 +527,12 @@ Note_collision_interface::automatic_shift (Grob *me,
   while ((flip (&d)) != UP);
 
   /*
-    do horizontal shifts of each direction
-
-    |
-    x||
-    x||
-    x|
+   * do horizontal shifts of each direction
+   *
+   *  |
+   * x||
+   *  x||
+   *   x|
   */
 
   do
