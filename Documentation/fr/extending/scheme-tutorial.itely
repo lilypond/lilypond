@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3c62ac104645533873bba800f7b0f371089f535a
+    Translation of GIT committish: 8c7bd1b47a9a147c8ce1329e7f80e7ca282e5d15
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -17,9 +17,9 @@
 
 @cindex Scheme
 @cindex GUILE
-@cindex Scheme, in-line code
-@cindex accessing Scheme
-@cindex evaluating Scheme
+@cindex Scheme, inclusion de code
+@cindex accéder à Scheme
+@cindex évaluation Scheme
 @cindex LISP
 
 LilyPond recourt abondamment au langage de programmation Scheme, tant au
@@ -34,7 +34,7 @@ Guile@tie{}; celle-ci se base sur le standard Scheme @qq{R5RS}.  Si
 votre but est d'apprendre Scheme au travers de LilyPond, sachez que
 l'utilisation d'une autre implémentation ou d'un autre standard pourrait
 être source de désagrément.  Vous trouverez plus d'information sur
-guile à la page @uref{http://www.gnu.org/software/guile/}@tie{}; le
+GUILE à la page @uref{http://www.gnu.org/software/guile/}@tie{}; le
 standard Scheme @qq{R5RS} est quant à lui disponible à la page
 @uref{http://www.schemers.org/Documents/Standards/R5RS/}.
 
@@ -68,7 +68,7 @@ verrons comment ce langage peut s'intégrer à un fichier LilyPond.
 @subsection Le bac à sable de Scheme
 @translationof Scheme sandbox
 
-L'installation de LilyPond comprend l'implémentation Guile de Scheme.
+L'installation de LilyPond comprend l'implémentation GUILE de Scheme.
 La plupart des systèmes disposent d'un @qq{bac à sable} Scheme pour
 effectuer des tests@tie{}; vous y accéderez en tapant @qq{guile} dans
 un terminal.  Certains systèmes, notamment Windows, nécessitent d'avoir
@@ -92,7 +92,7 @@ guile>
 @end lisp
 
 Vous pouvez dès à présent saisir des expressions Scheme pour vous
-exercer.  Si vous souhaitez pourvoir utiliser la bibliothèque GNU
+exercer.  Si vous souhaitez pouvoir utiliser la bibliothèque GNU
 @code{readline}, qui offre une ligne de commande plus élaborée,
 consultez les informations contenues dans le fichier
 @file{ly/scheme-sandbox.ly}.  La bibliothèque @var{readline}, dans la
@@ -192,7 +192,7 @@ informatiques@tie{}:
 "ceci est une chaîne"
 @end example
 
-Une chaîne peut s'étendre su plusieurs lignes@tie{}:
+Une chaîne peut s'étendre sur plusieurs lignes@tie{}:
 
 @example
 "ceci
@@ -219,7 +219,7 @@ d'une oblique inverse.  La chaîne @code{\a dit "b"} se saisit donc
 
 @end table
 
-Il existe bien d'autres types de donnée Scheme, dont nous ne parlerons
+Il existe bien d'autres types de données Scheme, dont nous ne parlerons
 pas ici.  Vous en trouverez une liste exhaustive dans le guide de
 référence de Guile, à la page
 @uref{http://www.gnu.org/software/guile/manual/html_node/Simple-Data-Types.html}.
@@ -808,7 +808,7 @@ La façon habituelle de faire référence à une variable LilyPond consiste
 internes de LilyPond y compris les expressions musicales, aura pour
 effet d'en recopier la valeur, les fonctions musicales n'ont pas pour
 habitude de créer une copie du matériau qu'elles vont modifier.  De
-fait, une expression musicale introduite par @code{#} de devrait pas
+fait, une expression musicale introduite par @code{#} ne devrait pas
 contenir de matériau inexistant auparavant ou bien littéralement
 recopié, mais plutôt une référence explicite.
 
@@ -1091,8 +1091,7 @@ L'information réelle d'une expression musicale est enregistrée sous
 forme de propriétés.  Par exemple, un @rinternals{NoteEvent} dispose des
 propriétés @code{pitch} et @code{duration}, respectivement chargées de
 stocker la hauteur et la durée de cette note.  Les différentes
-propriétés sont répertoriées à la rubrique 
-@rinternalsnamed{Music properties,Music properties}
+propriétés sont répertoriées à la rubrique @rinternals{Music properties}
 de la référence des propriétés internes.
 
 Une expression composite est un objet musical dont les propriétés
