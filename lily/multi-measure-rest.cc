@@ -205,16 +205,20 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
       return s;
     }
 
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-
   Font_metric *musfont = Font_interface::get_default_font (me);
   int mdl = calc_measure_duration_log (me, true);
 
   if (measure_count == 1)
     {
-      Stencil s = musfont->find_by_name (Rest::glyph_name (me, mdl, "", true));
       if (mdl == 0 && me->get_property ("staff-position") == SCM_EOL)
-        s.translate_axis (staff_space, Y_AXIS);
+	{
+	  if (Staff_symbol_referencer::on_staff_line (me, 2))
+	    me->set_property ("staff-position", scm_from_int (2));
+	  else if (Staff_symbol_referencer::on_staff_line (me, 3))
+	    me->set_property ("staff-position", scm_from_int (3));
+	}
+
+      Stencil s = musfont->find_by_name (Rest::glyph_name (me, mdl, "", true));
 
       s.translate_axis ((space - s.extent (X_AXIS).length ()) / 2, X_AXIS);
       return s;
