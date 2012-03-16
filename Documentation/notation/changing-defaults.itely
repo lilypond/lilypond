@@ -564,12 +564,11 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
 
 @c TODO Should this be Modifying engravers or Modifying contexts?
 
-Notation contexts (like @code{Score} and @code{Staff}) not only
-store properties,
-they also contain plug-ins called @q{engravers} that create notation
-elements.  For example, the @code{Voice} context contains a
+Notation contexts (like @code{Score} and @code{Staff}) not only store
+properties, they also contain plug-ins called @q{engravers} that create
+notation elements.  For example, the @code{Voice} context contains a
 @code{Note_heads_engraver} and the @code{Staff} context contains a
-@code{Key_signature_engraver}.
+@code{Key_engraver}.
 
 For a full a description of each plug-in, see
 @ifhtml
