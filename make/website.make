@@ -29,6 +29,8 @@ else
   include $(config_make)
 endif
 
+include $(top-src-dir)/VERSION
+
 ################################################################
 #The 4 lines below present an option to force make website to run
 # quietly only when it is run as make -s website.  However, we've
@@ -52,7 +54,7 @@ OUT=out-website
 
 WEB_LANGS := $(shell MAKEWEB=1 $(PYTHON) $(top-src-dir)/python/langdefs.py)
 
-TEXI2HTML=ONLY_WEB=1 TOP_SRC_DIR=$(top-src-dir) DEPTH=$(depth) PERL_UNICODE=SD \
+TEXI2HTML=ONLY_WEB_VERSION=v$(MAJOR_VERSION).$(MINOR_VERSION) TOP_SRC_DIR=$(top-src-dir) DEPTH=$(depth) PERL_UNICODE=SD \
 	$(TEXI2HTML_PROGRAM) -D web_version --prefix=index --split=section \
 		--init-file=$(texi2html-init-file) \
 		--I=$(dir $<) \
