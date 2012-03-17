@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
+    Translation of GIT committish: 1ac60f7a65210612bcb5a6e508fee4986d8c2701
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -333,7 +333,7 @@ b c |
 Il existe une autre forme de commande @code{\override},
 @code{\overrideProperty}, qui est parfois utile.  Nous la mentionnons
 ici par souci d'exhaustivité@tie{}; pour le détail, voir
-@rextendnamed{Difficult tweaks,Retouches complexes}.
+@rextend{Retouches complexes}.
 
 @c Maybe explain in a later iteration  -td
 
@@ -679,7 +679,7 @@ niveau, qu'il est activé sans ambiguïté par le fait que l'on est
 en train de saisir des notes, on peut ici ne pas le mentionner.
 
 
-@subheading Redéfinition pour une seule occurence
+@subheading Redéfinition pour une seule occurrence
 
 @cindex dérogation pour une seule fois
 @cindex usage unique, dérogation à
@@ -883,7 +883,7 @@ d'autres sont des valeurs à attribuer aux propriétés, comme
 @code{italic}.  À ne pas confondre avec les chaînes de caractères
 libres, qui se présentent comme @code{"un texte libre"}@tie{}; pour plus
 de détails sur les symboles et les chaînes de caractères, voir le
-@rextendnamed{Scheme tutorial,Tutoriel Scheme}.
+@rextend{Tutoriel Scheme}.
 
 Ainsi, la commande @code{\override} pour mettre les paroles en italique
 est@tie{}:
@@ -950,7 +950,7 @@ autour du point qui sépare le nom de contexte du nom d'objet.}
 
 @seealso
 Manuel d'extension :
-@rextendnamed{Scheme tutorial,Tutoriel Scheme}.
+@rextend{Tutoriel Scheme}.
 
 
 @node Types de propriétés
@@ -989,7 +989,7 @@ la commande @code{\override}.
   @tab @code{3}, @code{1}
 @item Liste
   @tab Plusieurs valeurs séparées par une espace, encadrées par des
-parenthèses et prédédées par une apostrophe
+parenthèses et précédées par une apostrophe
   @tab @code{'(left-edge staff-bar)}, @code{'(1)},
        @code{'(1.0 0.25 0.5)}
 @item Markup (ou étiquette)
@@ -1021,7 +1021,7 @@ précédés par apostrophe-hash, @code{'#}
 
 @seealso
 Manuel d'extension :
-@rextendnamed{Scheme tutorial,Tutoriel Scheme}.
+@rextend{Tutoriel Scheme}.
 
 
 @node Apparence des objets
@@ -1128,7 +1128,7 @@ bon contexte@tie{}:
 Cette fois, les barres de mesure ont disparu.
 
 Vous remarquerez que l'affectation de la valeur @code{#f} à la propriété
-@code{stencil} déclechera une erreur dès lors que l'objet en question se
+@code{stencil} déclenchera une erreur dès lors que l'objet en question se
 doit d'avoir des dimensions pour les nécessités du traitement.  Ce sera
 le cas, par exemple, si vous effacez le @code{stencil} d'un objet
 @code{NoteHead}.  Il vaut mieux, en pareil cas, utiliser la fonction
@@ -1150,7 +1150,7 @@ zero@tie{}:
 
 La RPI mentionne, à la page sur @code{BarLine}, que la propriété
 @code{break-visibility} attend comme argument un vecteur de trois
-boléens.  Ceux-ci indiquent respectivement si les barres de mesure
+booléens.  Ceux-ci indiquent respectivement si les barres de mesure
 doivent être imprimées ou non à la fin de la ligne, à l'intérieur de la
 ligne et au début de la ligne.  Dans notre cas, nous voulons que toutes
 les barres soient supprimées, si bien que la valeur dont nous avons
@@ -1184,7 +1184,7 @@ de mesure.
 @cindex transparence
 
 La RPI mentionne, à la page sur @code{grob-interface}, que la propriété
-@code{transparent} attend comme argument un boléen.  Il faudrait donc
+@code{transparent} attend comme argument un booléen.  Il faudrait donc
 mettre @code{#t} pour rendre l'objet transparent.  Dans cet exemple,
 essayons de rendre transparente la métrique (@emph{time signature} en
 anglais) plutôt que les barres de mesure.  Pour cela, il nous faut
@@ -2037,7 +2037,7 @@ instants musicaux différents.  C'est la raison pour laquelle modifier le
 @code{outside-staff-priority} du @emph{grob} sous-jacent n'aura aucun
 effet.  C'est par exemple le cas lorsque vous modifiez l'alignement d'un
 objet @code{Hairpin} à l'aide de @code{outside-staff-priority}@tie{};
-puique le soufflet est associé à un objet @code{DynamicLineSpanner},
+puisque le soufflet est associé à un objet @code{DynamicLineSpanner},
 c'est sur celui-ci que doit porter l'effet de
 @code{outside-staff-priority}.  L'instruction dérogatoire se place au
 début du bandeau qui constitue une ligne de base susceptible de contenir
@@ -3770,7 +3770,7 @@ et les utilisons comme ci-après -- quoique on choisirait sans doute pour
 les variables des noms plus courts pour simplifier la frappe.  Par
 ailleurs, le fait de recourir à une variable ne nous expose plus à
 l'oubli des espaces entourant les points lorsqu'explicités au beau
-milieu d'un bloc @code{\lyriqcmode}@tie{}!
+milieu d'un bloc @code{\lyricmode}@tie{}!
 
 @cindex LyricText, exemple de dérogation
 @cindex font-shape, exemple d'utilisation de la propriété
@@ -3872,9 +3872,7 @@ inst =
 }
 @end lilypond
 
-Il y a quelques problèmes de chevauchement@tie{}; nous allons arranger
-cela en utilisant les techniques de @ref{Déplacement d'objets}.  On peut
-aussi faire quelque chose pour les définitions de @code{mpdolce}
+On peut faire quelque chose pour les définitions de @code{mpdolce}
 et @code{inst}.  Elles produisent le résultat que nous désirons,
 mais nous pourrions aussi vouloir les utiliser dans une autre pièce.
 Il suffirait de les copier et coller au début de chaque
@@ -4278,7 +4276,7 @@ requièrent la connaissance du langage Scheme.  Les utilisateurs qui
 souhaiteraient comprendre le fonctionnement de ces fichiers de
 configuration doivent être avertis que des connaissances techniques
 substantielles et beaucoup de temps sont nécessaires (voir le
-@rextendnamed{Scheme tutorial,Tutoriel Scheme}).
+@rextend{Tutoriel Scheme}).
 
 Si c'est votre cas, les fichiers Scheme les plus utiles à connaître
 sont@tie{}:
@@ -4287,7 +4285,7 @@ sont@tie{}:
 @headitem Nom de fichier
   @tab Contenu
 @item @file{scm/auto-beam.scm}
-  @tab Régles par défaut des ligatures subalternes
+  @tab Règles par défaut des ligatures subalternes
 @item @file{scm/define-grobs.scm}
   @tab Réglages par défaut des propriétés de @emph{grobs}
 @item @file{scm/define-markup-commands.scm}
@@ -4316,7 +4314,7 @@ Le code écrit dans le langage de programmation Scheme peut être
 intégré directement dans le processus interne de LilyPond.  Bien sûr,
 il faut pour cela connaître un minimum de programmation en langage
 Scheme.  Pour des explications complètes là-dessus, consultez le
-@rextendnamed{Scheme tutorial,Tutoriel Scheme}.
+@rextend{Tutoriel Scheme}.
 
 En guise d'illustration -- et ce n'est qu'une possibilité parmi tant
 d'autres -- nous allons attribuer à une propriété non pas une valeur
@@ -4327,7 +4325,7 @@ procédure.  Dans cet exemple, nous colorons les têtes de notes en
 fonction de leur position sur la portée.
 
 
-@cindex x11-color, exemple d'utilisaation de la fonction
+@cindex x11-color, exemple d'utilisation de la fonction
 @cindex NoteHead, exemple de dérogation
 @cindex color, détermination de la propriété par une procédure Scheme
 
@@ -4354,7 +4352,6 @@ fonction de leur position sur la portée.
 }
 @end lilypond
 
-Vous trouverez dans @rextendnamed{Callback functions,les fonctions
-callback} d'autres exemples d'utilisation de ces interfaces
-programmables.
+Vous trouverez dans @rextend{Fonctions de rappel} d'autres exemples
+d'utilisation de ces interfaces programmables.
 

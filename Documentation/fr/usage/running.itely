@@ -1,7 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-
 @ignore
-    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
+    Translation of GIT committish: 321993f3a277f69471fcacbb6afc12857faa4e8c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -293,16 +292,18 @@ Exemple : @code{lilypond -dbackend=svg @var{monfichier}.ly}
 
 @item preview
 @cindex preview, ligne de commande
-Génère un fichier comprenant le titrage et le premier système.  S'il
-existe plusieurs sections @code{\bookpart}, ce fichier contiendra les
-titrage et premier système de chacun des @code{\bookpart}.  Cette
-option fonctionne pour les moteurs de traitement @code{ps}, @code{eps}
-et @code{svg}.
 
-Sera automatiquement généré un fichier additionnel, de la forme
-@file{monFichier.preview.extension}.  Pour l'éviter, utilisez
-conjointement l'une des options @option{-dprint-pages} ou
-@option{-dno-print-pages} selon vos besoins.
+Cette option, disponible dans tous les formats de sortie imprimables --
+@code{pdf}, @code{png}, @code{ps}, @code{eps} et @code{svg} -- génère
+un fichier de la forme @code{monFichier.preview.extension} comprenant le
+titrage et le premier système.  S'il existe plusieurs sections
+@code{\book}, @code{\bookpart}, ce fichier contiendra les titrage et
+premier système de chacun des @code{\book}, @code{\bookpart} et
+@code{\score}, dès lors que la variable @code{print-all-headers} du bloc
+@code{\paper} est activée.
+
+Pour l'éviter, utilisez conjointement l'une des options
+@option{-dprint-pages} ou @option{-dno-print-pages} selon vos besoins.
 
 @item gui
 Travaille silencieusement, et redirige tout le verbiage dans un fichier

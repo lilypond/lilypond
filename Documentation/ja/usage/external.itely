@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+    Translation of GIT committish: 3c62ac104645533873bba800f7b0f371089f535a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -28,10 +28,20 @@ LilyPond は様々な方法で他のプログラムと連携することがで�
 * 独立した include::
 @end menu
 
-
 @node ポイント＆クリック
 @section ポイント＆クリック
 @translationof Point and click
+
+ポイント＆クリックは PDF ドキュメントに音楽要素へのリンクを追加します。
+
+@menu
+* ポイント＆クリックを有効にする::
+* 選択的なポイント＆クリック::
+@end menu
+
+@node ポイント＆クリックを有効にする
+@unnumberedsubsec ポイント＆クリックを有効にする
+@translationof Enabling point and click
 
 @cindex point and click (ポイント＆クリック)
 
@@ -52,6 +62,10 @@ UNIX の Xpdf では、@c
 @file{xpdfrc}@footnote{UNIXでは、このファイルは @file{/etc/xpdfrc} か@c
 ホーム ディレクトリの中の @file{.xpdfrc} としてのどちらかです。}
 の中に以下の記述が必要です:
+
+以下の記述が @file{xpdfrc} の中に存在している必要があります。
+UNIX において、このファイルは @file{/etc/xpdfrc} の中または
+@file{$HOME/.xpdfrc} として存在します。
 
 @example
 urlCommand     "lilypond-invoke-editor %s"
@@ -120,6 +134,81 @@ lilypond -dno-point-and-click file.ly
 .pdf ファイルにあなたのコンピュータの Path 情報が含まれないようにすべきです。@c
 配布する .pdf ファイルに Path 情報が含まれていると@c
 セキュリティ リスクとなります。}
+
+@c ここから L47
+@node 選択的なポイント＆クリック
+@unnumberedsubsec 選択的なポイント＆クリック
+
+インタラクティブなアプリケーションでは、@c
+ある特定のポイント＆クリック要素だけを含むことが望ましい場合もあります。@c
+例えば、誰かがある特定の音符から演奏を開始できるアプリケーションを作りたいと@c
+思った場合、@c
+音符をクリックした場合にその音符の上にある臨時記号やスラーの@c
+ポイント＆クリックが開いてしまったのでは不便です。
+
+どのイベントをポイント＆クリックに含めるか指定することで、これを制御できます:
+
+@itemize
+@item
+@file{.ly} ファイルにハード コードする:
+
+@example
+\pointAndClickTypes #'note-event
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+あるいは
+
+@example
+#(ly:set-option 'point-and-click 'note-event)
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+@item
+コマンド ラインで指定する:
+
+@example
+lilypond -dpoint-and-click=note-event   example.ly
+@end example
+
+@end itemize
+
+複数のイベントを含めることができます:
+
+@itemize
+@item
+@file{.ly} ファイルにハード コードする:
+
+@example
+\pointAndClickTypes #'(note-event dynamic-event)
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+あるいは
+
+@example
+#(ly:set-option 'point-and-click '(note-event dynamic-event))
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+@item
+コマンド ラインで指定する:
+
+@smallexample
+lilypond \
+  -e"(ly:set-option 'point-and-click '(note-event dynamic-event))" \
+  example.ly
+@end smallexample
+
+@end itemize
 
 
 @node テキスト エディタ サポート
@@ -261,7 +350,7 @@ MIDI ファイル フォーマットは音楽を他のプログラムにエク�
 それを @file{.ly} ファイルに変換することが可能です。@c
 しかしながら、人間の演奏者のリズムは LilyPond コンバータにかけられる
 MIDI を作り出せるほど正確ではありません。@c
-量子化オプション (@code{-s} と @code{-d} オプション) を指定して
+量子化オプション (@option{-s} と @option{-d} オプション) を指定して
 @command{midi2ly} を呼び出すと、リズムの誤りを訂正しようとしますが、@c
 十分機能するとは言えません。@c
 このため、人間の演奏で生成された MIDI ファイルを @command{midi2ly} で@c
@@ -368,6 +457,11 @@ musicxml2ly [@var{option}]@dots{} @var{xml-file}
 @item -l, --language=LANG
 ピッチ名に LANG を使用します。@c
 例えば、ピッチ名にドイツ語を使用するには 'deutsch' を指定します。
+
+@item --loglevel=@var{loglevel}
+出力の饒舌さを @var{loglevel} にセットします。@c
+取り得る値は @code{NONE}, @code{ERROR}, @code{WARNING},
+@code{PROGRESS} (デフォルト), それに @code{DEBUG} です。
 
 @item --lxml
 XML 解析に lxml.etree Python パッケージを使用します。@c
@@ -589,14 +683,21 @@ the following options
 @{ c1 @}
 @end example
 
-
-@file{EPS} を作り出すには、以下のようにします:
+有用な画像ファイルを作り出すには、以下のようにします:
 
 @example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts   myfile.ly
+EPS
 
-@file{PNG}:
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts myfile.ly
+
+PNG
+
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
+
+透過 PNG
+
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts \
+  -dpixmap-format=pngalpha --png myfile.ly
 @end example
 
 

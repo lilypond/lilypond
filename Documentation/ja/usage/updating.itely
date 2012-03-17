@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+    Translation of GIT committish: 3c62ac104645533873bba800f7b0f371089f535a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -139,15 +139,14 @@ convert-ly [@var{option}]@dots{} @var{filename}@dots{}
 
 @table @code
 @item -e,--edit
-Apply the conversions direct to the input file, modifying it
-in-place.
+入力ファイルに直接変換を適用して、それをその場で変更します。
 
 @item -f,--from=@var{from-patchlevel}
 変換元のバージョンをセットします。@c
 これがセットされていない場合、@c
 @command{convert-ly} は入力ファイルの中にある
 @code{version} 文字列を基に推測します。@c
-例: @code{--from=2.10.25}
+例: @option{--from=2.10.25}
 
 @item -n,--no-version
 通常、@command{convert-ly} は @code{\version} インジケータを@c
@@ -160,10 +159,16 @@ in-place.
 @item --to=@var{to-patchlevel}
 変換先のバージョンをセットします。@c
 デフォルトは利用可能な最新バージョンです。@c
-例: @code{--to=2.12.2}
+例: @option{--to=2.12.2}
 
 @item -h, --help
 使用方法についてのヘルプを表示します。
+
+@item -l @var{loglevel}, --loglevel=@var{loglevel}
+出力の饒舌さを @var{loglevel} にセットします。@c
+取り得る値は @code{NONE}, @code{ERROR}, @code{WARNING},
+@code{PROGRESS} (デフォルト), それに @code{DEBUG} です。
+
 @end table
 
 texinfo ファイルの中にある LilyPond 断片を更新するには@c

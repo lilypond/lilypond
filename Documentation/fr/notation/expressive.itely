@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 8329db420f98f9d2f03ee8aec740b7ccf770b0d2
+    Translation of GIT committish: 1ac60f7a65210612bcb5a6e508fee4986d8c2701
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -163,12 +163,12 @@ propriétés de ces objets sont abordées plus en détail au chapitre
 @rinternals{Script}.
 
 Une articulation peut se rattacher aussi bien à un silence qu'à une
-note, mais @strong{pas à un silence multi-mesures}.  Il existe cependant
+note, mais @strong{pas à un silence multimesures}.  Il existe cependant
 un cas particulier@tie{}: le point d'orgue -- ou point d'arrêt --
 attaché à un silence valant l'intégralité de la mesure.  LilyPond
 dispose à cet effet de la commande @code{\fermataMarkup}, qui créera un
 objet @code{MultiMeasureRestText} rattaché à ce @qq{silence
-multi-mesures}.
+multimesures}.
 
 @lilypond[verbatim,quote,relative=2]
 \override Script #'color = #red
@@ -212,7 +212,7 @@ Manuel de notation :
 @ref{Liste des signes d'articulation},
 @ref{Trilles}.
 
-Fichiers installés :
+Fichiers d'initialisation :
 @file{scm/script.scm}.
 
 Morceaux choisis :
@@ -410,8 +410,8 @@ Pour créer des indications de nuance qui restent alignées
 avec les nuances habituelles, reportez-vous au chapitre
 @ref{Personnalisation des indications de nuance}.
 
-@cindex dynamics, vertical positioning
-@cindex vertical positioning of dynamics
+@cindex nuances, positionnement vertical
+@cindex vertical, positionnement des nuances
 
 @funindex DynamicLineSpanner
 
@@ -577,7 +577,7 @@ caractères @code{f,m,p,r,s} et @code{z}, et que les marques de nuance
 possèdent des propriétés particulières et prédéfinies quant à leur
 police.  Aussi, lorsque vous créez du texte en pareille situation, nous
 vous recommandons d'utiliser @code{\normal-text} pour annuler ces
-propriétés.  L'intérêt majeur de recourrir à la fonction
+propriétés.  L'intérêt majeur de recourir à la fonction
 @code{make-dynamic-script} plutôt qu'à un simple @emph{markup} réside
 dans l'assurance que ces objets personnalisés et les soufflets seront
 alignés lorsqu'attachés à une même note.
@@ -602,10 +602,10 @@ mfEspressDynamic = #(make-dynamic-script mfEspress)
 }
 @end lilypond
 
-La constrution d'une indication de nuance personnalisée peut aussi se
+La construction d'une indication de nuance personnalisée peut aussi se
 faire en langage Scheme@tie{}; voir
-@rextendnamed{Markup construction in Scheme,Construction Scheme d'un marqueur}
-pour en connaître les modalités.
+@rextend{Construction d'un markup en Scheme} pour en connaître les
+modalités.
 
 @lilypond[verbatim,quote]
 moltoF = #(make-dynamic-script
@@ -632,7 +632,7 @@ Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.
 
 Manuel d'extension :
-@rextendnamed{Markup construction in Scheme,Construction Scheme d'un marqueur}.
+@rextend{Construction d'un markup en Scheme}.
 
 
 @node Signes d'interprétation sous forme de courbe
@@ -663,7 +663,7 @@ Une liaison d'articulation indique que les notes doivent être jouées
 liées, ou @emph{legato}.  Ces liaisons s'indiquent au moyen de
 parenthèses.
 
-@warning{Lorsque la musique est polyphonique, la liaison doît se
+@warning{Lorsque la musique est polyphonique, la liaison doit se
 terminer dans la voix où elle a été entamée.}
 
 @lilypond[verbatim,quote,relative=2]
@@ -949,7 +949,6 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{PhrasingSlur}.
-
 
 
 @node Signes de respiration
@@ -1273,7 +1272,7 @@ c2\stopTrillSpan r2
 @end lilypond
 
 Lorsqu'un saut de ligne intervient alors qu'une prolongation de trille
-est présente, l'indication de trille et sa prolongation sont rappellées
+est présente, l'indication de trille et sa prolongation sont rappelées
 sur la première note de la nouvelle ligne@tie{}:
 
 @lilypond[ragged-right,verbatim,quote,relative=2]

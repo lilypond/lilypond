@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 9a65042d49324f2e3dff18c4b0858def81232eea
+    Translation of GIT committish: cf90af135bc70b57f69fd3e09a9b29814c6358e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,74 +11,77 @@
 @c \version "2.14.0"
 
 @c Translators: Yoshiki Sawada
-@c Translation status: post-GDP
 
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node lilypond-book
-@chapter @command{lilypond-book}: Integrating text and music
+@chapter @command{lilypond-book} を実行する
 @translationof lilypond-book
 
-@untranslated
+ドキュメントに楽譜の画像を追加したければ、他のタイプの画像を追加する@c
+のと同じ方法で追加することができます。@c
+ドキュメントとは別に画像を作成して、PostScript 出力や PNG 画像@c
+として保存して、@LaTeX{} や HTML ドキュメントに組み込みます。
 
-If you want to add pictures of music to a document, you can simply do it
-the way you would do with other types of pictures.  The pictures are
-created separately, yielding PostScript output or PNG images, and those
-are included into a @LaTeX{} or HTML document.
+@command{lilypond-book} はこの処理を自動で行うための手段です:
+このプログラムはドキュメントから楽譜のコード断片を抽出して、@c
+それらに対して @command{lilypond} を実行して、楽譜のコード断片を@c
+画像で置き換えたドキュメントを出力します。@c
+楽譜の線の太さやフォント サイズはドキュメントのレイアウトに調和@c
+するよう調節されます。
 
-@command{lilypond-book} provides a way to automate this process: This
-program extracts snippets of music from your document, runs
-@command{lilypond} on them, and outputs the document with pictures
-substituted for the music.  The line width and font size definitions for
-the music are adjusted to match the layout of your document.
+@command{lilypond-book} は @command{lilypond} とは別のプログラムであり、@c
+コマンド ラインで実行されます。@c
+更なる情報は @ref{Command-line usage} を参照してください。@c
+Windows や Mac OS X のコマンド ラインを用いて @code{lilypond-book} を@c
+実行しようとした際に問題があるようなら、@rweb{Windows} や @rweb{MacOS X}
+を参照してください。
 
-This is a separate program from @command{lilypond} itself, and is run
-on the command line; for more information, see @ref{コマンド ラインの使用方法}.  If you have MacOS 10.3 or 10.4 and you have trouble running
-@code{lilypond-book}, see FIXME FIXME @c @ref{MacOS X のためのセットアップ}.
-
-This procedure may be applied to @LaTeX{}, HTML, Texinfo or DocBook
-documents.
+この処理は @LaTeX{}, HTML, Texinfo, または DocBook のドキュメントに@c
+適用することができます。
 
 @cindex texinfo
-@cindex latex
+@cindex LaTex
 @cindex texinfo
 @cindex texi
-@cindex html
+@cindex HTML
 @cindex docbook
-@cindex documents, adding music to
-@cindex HTML, music in
-@cindex Texinfo, music in
-@cindex DocBook, music in
-@cindex @LaTeX{}, music in
+@cindex documents, adding music (ドキュメントに楽譜を追加する)
+@cindex HTML, adding music (HTML に楽譜を追加する)
+@cindex Texinfo, adding music (Texinfo に楽譜を追加する)
+@cindex DocBook, adding music (DocBook に楽譜を追加する)
+@cindex LaTeX, adding music (LaTeX に楽譜を追加する)
 
 @menu
-* An example of a musicological document::
-* Integrating music and text::
-* Music fragment options::
-* Invoking lilypond-book::
-* Filename extensions::
-* Alternate methods of mixing text and music::
+* 音楽学のドキュメントの例::
+* 楽譜とテキストを統合する::
+* 楽譜断片オプション::
+* lilypond-book を呼び出す::
+* ファイル拡張子::
+* lilypond-book テンプレート::
+* 目次を共有する::
+* テキストと楽譜を組み合わせる他の方法::
 @end menu
 
 
-@node An example of a musicological document
-@section An example of a musicological document
+@node 音楽学のドキュメントの例
+@section 音楽学のドキュメントの例
 @translationof An example of a musicological document
 
-@untranslated
+@cindex musicology (音楽学)
+テキストのなかには楽譜の例を保持しているものがあります。@c
+そのようなテキストには、音楽学の専門書、歌集、このドキュメントのような@c
+マニュアルがあります。@c
+そのようなテキストを手作業で作成することができます
+-- PostScript 画像をワープロにインポートするといったようにです。@c
+しかしながら、HTML, @LaTeX{}, Texinfo, それに DocBook ドキュメント@c
+の場合は、作業量を減らすための自動処理を利用することができます。
 
-@cindex musicology
-Some texts contain music examples.  These texts are musicological
-treatises, songbooks, or manuals like this.  Such texts can be made by
-hand, simply by importing a PostScript figure into the word processor.
-However, there is an automated procedure to reduce the amount of work
-involved in HTML, @LaTeX{}, Texinfo and DocBook documents.
+@code{lilypond-book} と呼ばれるスクリプトは楽譜の断片を抽出して、@c
+それらをフォーマットして、得られた楽譜をドキュメントに戻します。@c
+@LaTeX{} に対するちょっとした使用例を示します。@c
+この例には説明文も含まれていますので、それ以上コメントすることはしません。
 
-A script called @code{lilypond-book} will extract the music fragments,
-format them, and put back the resulting notation.  Here we show a small
-example for use with @LaTeX{}.  The example also contains explanatory
-text, so we will not comment on it further.
-
-@subheading Input
+@subheading 入力
 
 @quotation
 @verbatim
@@ -86,8 +89,9 @@ text, so we will not comment on it further.
 
 \begin{document}
 
-Documents for \verb+lilypond-book+ may freely mix music and text.
-For example,
+\verb+lilypond-book+ のドキュメントでは自由に楽譜とテキストを
+組み合わせることができます。
+例えば、以下のように:
 
 \begin{lilypond}
 \relative c' {
@@ -95,28 +99,28 @@ For example,
 }
 \end{lilypond}
 
-Options are put in brackets.
+オプションは角括弧の中に配置します。
 
 \begin{lilypond}[fragment,quote,staffsize=26,verbatim]
   c'4 f16
 \end{lilypond}
 
-Larger examples can be put into a separate file, and introduced with
-\verb+\lilypondfile+.
+大きな楽譜例は別のファイルに配置して、\verb+\lilypondfile+ で
+インポートすることができます。
 
 \lilypondfile[quote,noindent]{screech-boink.ly}
 
-(If needed, replace screech-boink.ly by any .ly file you put in the same
-directory as this file.)
+(必要があれば、@file{screech-boink.ly} をこのファイルと同じディレクトリ
+にある任意の @file{.ly} に置き換えてください。)
 
 \end{document}
 @end verbatim
 @end quotation
 
-@subheading Processing
+@subheading 処理
 
-Save the code above to a file called @file{lilybook.lytex}, then in a
-terminal run
+上記のコードを @file{lilybook.lytex} というファイル名で保存して、@c
+ターミナルで以下を実行します:
 
 @c keep space after @version{} so TeX doesn't choke
 @example
@@ -129,24 +133,27 @@ cd out
 pdflatex lilybook
 @emph{..lots of stuff deleted..}
 xpdf lilybook
-@emph{(replace @command{xpdf} by your favorite PDF viewer)}
+@emph{(@command{xpdf} をお好みの PDF ビューアに置き換えてください)}
 @end example
 
-Running @command{lilypond-book} and @command{latex} creates a lot of
-temporary files, which would clutter up the working directory.  To
-remedy this, use the @code{--output=@var{dir}} option.  It will create
-the files in a separate subdirectory @file{dir}.
+@command{lilypond-book} と @command{latex} を実行すると多くの一時@c
+ファイルが作成されて、作業ディレクトリを散らかします。@c
+散らかされることを防ぐには @option{--output=@var{dir}} オプションを@c
+使います。@c
+このオプションを指定すると、一時ファイルはサブディレクトリ @file{dir}
+に作成されます。
 
-Finally the result of the @LaTeX{} example shown above.@footnote{This
-tutorial is processed with Texinfo, so the example gives slightly
-different results in layout.}  This finishes the tutorial section.
+以下に上記の @LaTeX{} 例の結果を示します。@footnote{このチュートリアルは
+Texinfo で処理されるため、上記の例とはレイアウトが少し異なります。}@c
+これでこのチュートリアル セクションを終わります。
 
 @page
 
-@subheading Output
+@subheading 出力
 
-Documents for @command{lilypond-book} may freely mix music and text.
-For example,
+@command{lilypond-book} のドキュメントでは自由に楽譜とテキストを
+組み合わせることができます。
+例えば、以下のように:
 
 @lilypond
 \relative c' {
@@ -154,27 +161,39 @@ For example,
 }
 @end lilypond
 
-Options are put in brackets.
+オプションは角括弧の中に配置します。
 
 @lilypond[fragment,quote,staffsize=26,verbatim]
 c'4 f16
 @end lilypond
 
-Larger examples can be put into a separate file, and introduced with
-@code{\lilypondfile}.
+大きな楽譜例は別のファイルに配置して、@code{\lilypondfile} で
+インポートすることができます。
 
 @lilypondfile[quote,noindent]{screech-boink.ly}
 
+デフォルトあるいはカスタムの @code{tagline} が必要であれば、
+楽譜コード断片全体を @code{\book @{ @}} 構造で囲んでください。
+
+@lilypond[papersize=a8,verbatim]
+\book{
+  \header{
+    title = "A scale in LilyPond"
+  }
+
+  \relative c' {
+    c d e f g a b c
+  }
+}
+@end lilypond
 
 @page
 
-@node Integrating music and text
-@section Integrating music and text
+@node 楽譜とテキストを統合する
+@section 楽譜とテキストを統合する
 @translationof Integrating music and text
 
-@untranslated
-
-Here we explain how to integrate LilyPond with various output formats.
+LilyPond をさまざまな出力フォーマットと統合する方法を説明します。
 
 @menu
 * LaTeX::
@@ -187,45 +206,60 @@ Here we explain how to integrate LilyPond with various output formats.
 @subsection @LaTeX{}
 @translationof LaTeX
 
-@untranslated
+@LaTeX{} は物理学や化学等の出版のデファクト スタンダードです。@c
+@LaTeX{} は @TeX{} 植字エンジン上に構築され、最高品位の活版印刷術を@c
+提供します。
 
-@LaTeX{} is the de-facto standard for publishing layouts in the exact
-sciences.  It is built on top of the @TeX{} typesetting engine,
-providing the best typography available anywhere.
-
-See
+@LaTeX{} の使い方についての概要は
 @uref{http://@/www@/.ctan@/.org/@/tex@/-archive/@/info/@/lshort/@/english/,
-@emph{The Not So Short Introduction to @LaTeX{}}} for an overview on how
-to use @LaTeX{}.
+@emph{The Not So Short Introduction to @LaTeX{}}} を参照してください。
 
-Music is entered using
+@code{lilypond-book} は楽譜を @LaTeX{} ファイルに組み込むために以下の@c
+コマンドと環境を提供します:
+
+@itemize
+
+@item
+@code{\lilypond@{...@}} コマンド: ここに直接短い lilypond コードを入力する@c
+ことができます
+
+@item
+@code{\begin@{lilypond@}...\end@{lilypond@}} 環境: ここに長い lilypond
+コードを入力することができます
+
+@item
+@code{\lilypondfile@{...@}} コマンド: このコマンドで lilypond ファイルを@c
+挿入することができます
+
+@item
+@code{\musicxmlfile@{...@}} コマンド: このコマンドで MusicXML ファイルを@c
+挿入することができます。@c
+挿入されたファイルは @code{musicxml2ly} と @code{lilypond} で処理されます
+
+@end itemize
+
+入力ファイルの中では、楽譜は以下のコマンドのいずれかで特定されます:
 
 @example
 \begin@{lilypond@}[options,go,here]
   YOUR LILYPOND CODE
 \end@{lilypond@}
-@end example
 
-@noindent
-or
+\lilypond[options,go,here]@{ YOUR LILYPOND CODE @}
 
-@example
 \lilypondfile[options,go,here]@{@var{filename}@}
+
+\musicxmlfile[options,go,here]@{@var{filename}@}
 @end example
+
 
 @noindent
-or
 
-@example
-\lilypond@{ YOUR LILYPOND CODE @}
-@end example
+さらに、@code{\lilypondversion} は lilypond のバージョン番号を表示します。@c
+@command{lilypond-book} を実行して得られたファイルを更に @LaTeX{} で@c
+処理することができます。
 
-Additionally, @code{\lilypondversion} displays the current version
-of lilypond.
-Running @command{lilypond-book} yields a file that can be further
-processed with @LaTeX{}.
-
-We show some examples here.  The @code{lilypond} environment
+例をいくつか挙げます。以下の @code{lilypond} 環境
 
 @example
 \begin@{lilypond@}[quote,fragment,staffsize=26]
@@ -234,52 +268,58 @@ We show some examples here.  The @code{lilypond} environment
 @end example
 
 @noindent
-produces
+これは以下を作り出します
 
 @lilypond[quote,fragment,staffsize=26]
 c' d' e' f' g'2 g'2
 @end lilypond
 
-The short version
+以下の短いバージョン
 
 @example
 \lilypond[quote,fragment,staffsize=11]@{<c' e' g'>@}
 @end example
 
 @noindent
-produces
+これは以下を作り出します
 
 @lilypond[quote,fragment,staffsize=11]{<c' e' g'>}
 
 @noindent
-Currently, you cannot include @code{@{} or @code{@}} within
-@code{\lilypond@{@}}, so this command is only useful with the
-@code{fragment} option.
+今のところ @code{\lilypond@{@}} の中で @code{@{} や @code{@}} を@c
+記述することはできないため、このコマンドは @code{fragment} オプション@c
+を指定した場合にのみ機能します。
 
-The default line width of the music will be adjusted by examining the
-commands in the document preamble, the part of the document before
-@code{\begin@{document@}}.  The @command{lilypond-book} command sends
-these to @LaTeX{} to find out how wide the text is.  The line width for
-the music fragments is then adjusted to the text width.  Note that this
-heuristic algorithm can fail easily; in such cases it is necessary to
-use the @code{line-width} music fragment option.
+楽譜のデフォルトの行幅は、ドキュメント前文
+-- @code{\begin@{document@}} より前の部分 --
+のコマンドを検証することにより調節されます。@c
+@command{lilypond-book} コマンドはそれらのコマンドを @LaTeX{} に送って@c
+テキストの幅を調べます。@c
+その後、楽譜断片の行幅はそのテキスト幅に調節されます。@c
+試行錯誤なアルゴリズムは容易に失敗する可能性があります
+-- そのような場合、@code{line-width} 楽譜断片オプションを使用する必要が@c
+あります。
 
-@cindex titling and lilypond-book
-@cindex \header in @LaTeX{} documents
+@cindex titling and lilypond-book (タイトルと lilypond-book)
+@cindex \header in @LaTeX{} documents (@LaTeX{} ドキュメントの中にある \header)
 
-Each snippet will call the following macros if they have been defined by
-the user:
+以下のマクロがユーザによって定義されている場合、各楽譜断片はそれらの@c
+マクロを呼び出します:
 
 @itemize @bullet
-@item @code{\preLilyPondExample} called before the music,
+@item @code{\preLilyPondExample} は楽譜断片の処理が始まる前に@c
+呼び出されます。
 
-@item @code{\postLilyPondExample} called after the music,
+@item @code{\postLilyPondExample} は楽譜断片の処理が終わった後に@c
+呼び出されます。
 
-@item @code{\betweenLilyPondSystem[1]} is called between systems if
-@code{lilypond-book} has split the snippet into several PostScript
-files.  It must be defined as taking one parameter and will be
-passed the number of files already included in this snippet.
-The default is to simply insert a @code{\linebreak}.
+@item @code{\betweenLilyPondSystem[1]} は、@code{lilypond-book} が@c
+楽譜断片をいくつかの PostScript ファイルに分けて出力する場合に、@c
+ある段と次の段の間で呼び出されます。@c
+このマクロはパラメータを 1 つ取るように定義する必要があり、@c
+何段数目の処理が終わったらマクロが動作を始めるかを指定する@c
+数を渡します。@c
+デフォルトでは @code{\linebreak} を挿入するだけです。
 @end itemize
 
 @ignore
@@ -314,16 +354,17 @@ kpsewhich feta20.tex
 
 @snippets
 
+@c 未訳
+@c 楽譜要素 (タイやスラー等) を～～かのように
+@c 表示することが有用な場合があります。@c
 Sometimes it is useful to display music elements (such as ties and slurs)
-as if they continued after the end of the fragment.  This can be done by
-breaking the staff and suppressing inclusion of the rest of the LilyPond
-output.
+as if they continued after the end of the fragment.
+これは譜を改行して、残りの LilyPond 出力を抑制することで実現できます。
 
-In @LaTeX{}, define @code{\betweenLilyPondSystem} in such a way that
-inclusion of other systems is terminated once the required number of
-systems are included.  Since @code{\betweenLilyPondSystem} is first
-called @emph{after} the first system, including only the first system
-is trivial.
+@LaTeX{} の中で @code{\betweenLilyPondSystem} を定義して、必要な楽譜段数@c
+が出力された後の出力を抹消するようにします。@c
+@code{\betweenLilyPondSystem} が最初に呼び出されるのは @emph{最初の} 段@c
+が処理された後なので、最初の段だけを残すことは簡単です。
 
 @example
 \def\betweenLilyPondSystem#1@{\endinput@}
@@ -333,39 +374,43 @@ is trivial.
 \end@{lilypond@}
 @end example
 
-If a greater number of systems is requested, a @TeX{} conditional must
-be used before the @code{\endinput}.  In this example, replace @q{2} by
-the number of systems you want in the output,
+必要とする段数が多い場合、@code{\endinput} の前で @TeX{} 条件分岐を使う@c
+必要があります。@c
+以下の例で、@q{2} を必要とする段数に置き換えてください。
 
 @example
 \def\betweenLilyPondSystem#1@{
-    \ifnum##1<2\else\endinput\fi
+    \ifnum#1<2\else\expandafter\endinput\fi
 @}
 @end example
 
-Remember that the definition of @code{\betweenLilyPondSystem} is
-effective until @TeX{} quits the current group (such as the @LaTeX{}
-environment) or is overridden by another definition (which is, in
-most cases, for the rest of the document).  To reset your
-definition, write
+@noindent
+(@code{\endinput} は入力ファイルの処理をすぐに停止するため、@c
+@code{\endinput} の呼び出しを @code{\fi} 実行後まで遅らせるために
+@code{\expandafter} を記述する必要があります。@c
+これにより @code{\if}-@code{\fi} 節がバランスします。)
+
+@code{\betweenLilyPondSystem} の定義は @TeX{} がカレントのグループ
+(@LaTeX{} 環境等) を終了するか、他の定義で上書きされる
+(これは大抵の場合、ドキュメントの残りの部分に対する定義です)
+まで効果を持つということを覚えておいてください。@c
+定義をリセットするには、@LaTeX{} に以下を記述します:
 
 @example
 \let\betweenLilyPondSystem\undefined
 @end example
 
-@noindent
-in your @LaTeX{} source.
-
-This may be simplified by defining a @TeX{} macro
+これを簡単にするには、以下の @TeX{} マクロを定義して、
 
 @example
 \def\onlyFirstNSystems#1@{
-    \def\betweenLilyPondSystem##1@{\ifnum##1<#1\else\endinput\fi@}
+    \def\betweenLilyPondSystem##1@{%
+      \ifnum##1<#1\else\expandafter\endinput\fi@}
 @}
 @end example
 
 @noindent
-and then saying only how many systems you want before each fragment,
+各楽譜断片の前に必要な段数を指定します。
 
 @example
 \onlyFirstNSystems@{3@}
@@ -376,53 +421,67 @@ and then saying only how many systems you want before each fragment,
 
 
 @seealso
-There are specific @command{lilypond-book} command line options and
-other details to know when processing @LaTeX{} documents, see
-@ref{Invoking lilypond-book}.
+@LaTeX{} ドキュメント専用の @command{lilypond-book} コマンド
+オプションがあり、他にも知っておくべき細かなことがあります。@c
+@ref{Invoking lilypond-book} を参照してください。
 
 
 @node Texinfo
 @subsection Texinfo
 @translationof Texinfo
 
-@untranslated
+Texinfo は GNU プロジェクトのドキュメントのデフォルト フォーマットです。@c
+Texinfo ドキュメントの例の 1 つはこのマニュアルです。@c
+このマニュアルの HTML, PDF, それに Info 形式は Texinfo ドキュメントから@c
+生成されています。
 
-Texinfo is the standard format for documentation of the GNU project.  An
-example of a Texinfo document is this manual.  The HTML, PDF, and Info
-versions of the manual are made from the Texinfo document.
+@code{lilypond-book} は楽譜を Texinfo ファイルに組み込むために以下の@c
+コマンドと環境を提供します:
 
-In the input file, music is specified with
+@itemize
+
+@item
+@code{@@lilypond@{...@}} コマンド: ここに直接短い lilypond コードを@c
+入力することができます
+
+@item
+@code{@@lilypond...@@end lilypond} 環境: ここに長い lilypond
+コードを入力することができます
+
+@item
+@code{@@lilypondfile@{...@}} コマンド: このコマンドで lilypond
+ファイルを挿入することができます
+
+@item
+@code{@@musicxmlfile@{...@}} コマンド: このコマンドで MusicXML ファイルを@c
+挿入することができます。@c
+挿入されたファイルは @code{musicxml2ly} と @code{lilypond} で処理されます
+
+@end itemize
+
+入力ファイルの中では、楽譜は以下のコマンドのいずれかで特定されます:
 
 @example
 @@lilypond[options,go,here]
   YOUR LILYPOND CODE
 @@end lilypond
-@end example
 
-@noindent
-or
-
-@example
 @@lilypond[options,go,here]@{ YOUR LILYPOND CODE @}
-@end example
 
-@noindent
-or
-
-@example
 @@lilypondfile[options,go,here]@{@var{filename}@}
+
+@@musicxmlfile[options,go,here]@{@var{filename}@}
 @end example
 
-Additionally, @code{@@lilypondversion} displays the current version
-of lilypond.
+さらに、@code{@@lilypondversion} は lilypond のバージョン番号を表示します。
 
-When @command{lilypond-book} is run on it, this results in a Texinfo
-file (with extension @file{.texi}) containing @code{@@image} tags for
-HTML, Info and printed output.  @command{lilypond-book} generates images
-of the music in EPS and PDF formats for use in the printed output, and
-in PNG format for use in HTML and Info output.
+@command{lilypond-book} を実行して得られる Texinfo ファイル
+(拡張子は @file{.texi} です) は HTML, Info, それに表示出力用の
+@code{@@image} タグを保持しています。@c
+@command{lilypond-book} は表示出力に対しては EPS と PDF 形式の楽譜を@c
+生成して、HTML と Info 出力に対しては PNG 形式の楽譜を生成します。
 
-We show two simple examples here.  A @code{lilypond} environment
+2 つの簡単な例を挙げます。以下の @code{lilypond} 環境
 
 @example
 @@lilypond[fragment]
@@ -431,96 +490,137 @@ c' d' e' f' g'2 g'
 @end example
 
 @noindent
-produces
+これは以下を作り出します
 
 @lilypond[fragment]
 c' d' e' f' g'2 g'
 @end lilypond
 
-The short version
+以下の短いバージョン
 
 @example
 @@lilypond[fragment,staffsize=11]@{<c' e' g'>@}
 @end example
 
 @noindent
-produces
+これは以下を作り出します
 
 @lilypond[fragment,staffsize=11]{<c' e' g'>}
 
-Contrary to @LaTeX{}, @code{@@lilypond@{...@}} does not generate an
-in-line image.  It always gets a paragraph of its own.
+@LaTeX{} とは対照的に、@code{@@lilypond@{...@}} はインライン画像を@c
+生成しません。@c
+生成される画像は常に 1 つの段落を構成します。
 
 
 @node HTML
 @subsection HTML
 @translationof HTML
 
-@untranslated
+@code{lilypond-book} は楽譜を HTML ファイルに組み込むために以下の@c
+コマンドと環境を提供します:
 
-Music is entered using
+@itemize
 
+@item
+@code{<lilypond ... />} コマンド: ここに直接短い lilypond コードを入力する@c
+ことができます
+
+@item
+@code{<lilyond>...</lilypond>} 環境: ここに長い lilypond
+コードを入力することができます
+
+@item
+@code{<lilypondfile>...</lilypondfile>} コマンド: このコマンドで
+lilypond ファイルを挿入することができます
+
+@item
+@code{<musicxmlfile>...</musicxmlfile>} コマンド: このコマンドで
+MusicXML ファイルを挿入することができます。@c
+挿入されたファイルは @code{musicxml2ly} と @code{lilypond} で処理されます
+
+@end itemize
+
+入力ファイルの中では、楽譜は以下のコマンドのいずれかで特定されます:
+
+@example
+<lilypond options go here>
+  YOUR LILYPOND CODE
+</lilypond>
+
+<lilypond options go here: YOUR LILYPOND CODE />
+
+<lilypondfile options go here>@var{filename}</lilypondfile>
+
+<musicxmlfile options go here>@var{filename}</musicxmlfile>
+@end example
+
+記述例を挙げます:
 @example
 <lilypond fragment relative=2>
 \key c \minor c4 es g2
 </lilypond>
 @end example
+
 @noindent
-@command{lilypond-book} then produces an HTML file with appropriate image
-tags for the music fragments:
+上記のコードから @command{lilypond-book} は楽譜断片に対する適切な@c
+画像タグを持つ HTML ファイルを作り出します:
 
 @lilypond[fragment,relative=2]
 \key c \minor c4 es g2
 @end lilypond
 
-For inline pictures, use @code{<lilypond ... />}, where the options
-are separated by a colon from the music, for example
+インライン画像を得るには、@code{<lilypond ... />} を使います。@c
+以下のように、コロン @code{:} でオプションと楽譜コードを区切ります:
 
 @example
 Some music in <lilypond relative=2: a b c/> a line of text.
 @end example
 
-
-To include separate files, say
+HTML ファイルとは別に記述した lilypond ファイルを組み込むには@c
+以下のようにします:
 
 @example
 <lilypondfile @var{option1} @var{option2} ...>@var{filename}</lilypondfile>
 @end example
 
-Additionally, @code{<lilypondversion/>} displays the current version
-of lilypond.
+@code{<musicxmlfile>} は @code{<lilypondfile>} と同じ構文を使い、@c
+LilyPond ファイルではなく MusicXML ファイルを参照します。
+
+@code{lilypond} タグや @code{lilypondfile} タグで使用するオプションの@c
+リストは、@ref{Music fragment options} を参照してください。
+
+さらに、@code{<lilypondversion/>} は lilypond のバージョン番号を表示します。
 
 
-@cindex titling in HTML
-@cindex preview image
-@cindex thumbnail
+@cindex titling in HTML (HTML のタイトル)
+@cindex preview image (プレビュー画像)
+@cindex thumbnail (サムネイル)
 
 @node DocBook
 @subsection DocBook
 @translationof DocBook
 
-@untranslated
-
-For inserting LilyPond snippets it is good to keep the conformity of our
-DocBook document, thus allowing us to use DocBook editors, validation
-etc. So we don't use custom tags, only specify a convention based on the
-standard DocBook elements.
+LilyPond 断片を組み込む場合、DocBook ドキュメントとの適合を保つべきです。@c
+そうすることで、DocBook のエディタや検証機能等を使うことができます。@c
+そのため、カスタム タグは使わず、標準 DocBook 要素に基づく約束ごとだけを@c
+使います。
 
 @subheading Common conventions
 
-For inserting all type of snippets we use the @code{mediaobject} and
-@code{inlinemediaobject} element, so our snippets can be formatted
-inline or not inline.  The snippet formatting options are always
-provided in the @code{role} property of the innermost element (see in
-next sections).  Tags are chosen to allow DocBook editors format the
-content gracefully.  The DocBook files to be processed with
-@command{lilypond-book} should have the extension @file{.lyxml}.
+楽譜断片をインラインあるいはインラインではなく挿入するために、@c
+@code{mediaobject} 要素と @code{inlinemediaobject} 要素を使います。@c
+楽譜断片フォーマット オプションは常に最も内側の要素の @code{role}
+プロパティの中に配置します (次のセクションを参照してください)。@c
+タグは DocBook エディタがコンテンツをきれいにフォーマットすることを@c
+可能にします。@c
+@command{lilypond-book} で処理する DocBook ファイルの拡張子は
+@file{.lyxml} にするべきです。
 
-@subheading Including a LilyPond file
+@subheading LilyPond ファイルを組み込む
 
-This is the most simple case.  We must use the @file{.ly} extension for
-the included file, and insert it as a standard @code{imageobject}, with
-the following structure:
+これが最も簡単な方法です。@c
+組み込むファイルの拡張子は @file{.ly} にして、それを以下に示す構造で@c
+標準の @code{imageobject} として挿入する必要があります:
 
 @example
 <mediaobject>
@@ -530,15 +630,15 @@ the following structure:
 </mediaobject>
 @end example
 
-Note that you can use @code{mediaobject} or @code{inlinemediaobject}
-as the outermost element as you wish.
+必要に応じて、最も外側の要素に @code{mediaobject} または
+@code{inlinemediaobject} を使うことができるということに注意してください。
 
-@subheading Including LilyPond code
+@subheading LilyPond コードを組み込む
 
-Including LilyPond code is possible by using a @code{programlisting},
-where the language is set to @code{lilypond} with the following
-structure:
-
+@code{programlisting} を用いることで、LilyPond コードを@c
+組み込むことができます。@c
+以下の構造を用いて、@code{programlisting} の言語には @code{lilypond} を@c
+セットします:
 @example
 <inlinemediaobject>
   <textobject>
@@ -552,139 +652,145 @@ structure:
 </inlinemediaobject>
 @end example
 
-As you can see, the outermost element is a @code{mediaobject} or
-@code{inlinemediaobject}, and there is a @code{textobject} containing
-the @code{programlisting} inside.
+最も外側の要素は @code{mediaobject} または @code{inlinemediaobject} であり、@c
+その中に @code{programlisting} を保持する @code{textobject} がありことが@c
+見て取れます。
 
-@subheading Processing the DocBook document
+@subheading DocBook ドキュメントを処理する
 
-Running @command{lilypond-book} on our @file{.lyxml} file will create a
-valid DocBook document to be further processed with @file{.xml}
-extension.  If you use
-@uref{http://@/dblatex@/.sourceforge@/.net@/,dblatex}, it will create a
-PDF file from this document automatically.  For HTML (HTML Help,
-JavaHelp etc.) generation you can use the official DocBook XSL
-stylesheets, however, it is possible that you have to make some
-customization for it.
+@file{.lyxml} ファイルに対して @command{lilypond-book} を実行すると、@c
+拡張子が @file{.xml} の有効な DocBook ドキュメントが作成され、@c
+それを更に処理にかけることがでいます。@c
+@uref{http://@/dblatex@/.sourceforge@/.net@/,dblatex} を使うと、@c
+このドキュメントから自動的に PDF ファイルを作成することがでいます。@c
+公式 DocBook スタイルシートを用いることで HTML (HTML ヘルプ、JavaHelp 等)
+を生成することが可能ですが、カスタマイズが必要かもしれません。
 
 
-@node Music fragment options
-@section Music fragment options
+@node 楽譜断片オプション
+@section 楽譜断片オプション
 @translationof Music fragment options
 
-@untranslated
+以下では、@q{LilyPond コマンド} は、これまでのセクションで説明した@c
+楽譜断片を作り出すために @command{lilypond-book} によって処理される@c
+任意のコマンドを意味します。@c
+シンプルにするために、@LaTeX{} 構文の LilyPond コマンドだけを示します。
 
-In the following, a @q{LilyPond command} refers to any command described
-in the previous sections which is handled by @command{lilypond-book} to
-produce a music snippet.  For simplicity, LilyPond commands are only
-shown in @LaTeX{} syntax.
+オプション文字列は左から右の順で解析されるということに注意してください。@c
+あるオプションを複数指定した場合、最後のオプションが有効となります。
 
-Note that the option string is parsed from left to right; if an option
-occurs multiple times, the last one is taken.
-
-The following options are available for LilyPond commands:
+LilyPond コマンドで以下のオプションを使うことができます:
 
 @table @code
 @item staffsize=@var{ht}
-Set staff size to @var{ht}, which is measured in points.
+譜サイズを @var{ht} にセットします。単位はポイントです。
 
 @item ragged-right
-Produce ragged-right lines with natural spacing, i.e.,
-@code{ragged-right = ##t} is added to the LilyPond snippet.  This is the
-default for the @code{\lilypond@{@}} command if no @code{line-width}
-option is present.  It is also the default for the @code{lilypond}
-environment if the @code{fragment} option is set, and no line width is
-explicitly specified.
+デフォルトの間隔を用いるため、行の右端が揃いません。@c
+つまり、LilyPond コード断片に @code{ragged-right = ##t} を追加します。@c
+明示的に @code{noragged-right} を指定しない限り、@c
+1 行の楽譜断片はデフォルトでは常に ragged-right で譜刻されます。
 
 @item noragged-right
-For single-line snippets, allow the staff length to be stretched to
-equal that of the line width, i.e., @code{ragged-right = ##f} is
-added to the LilyPond snippet.
+楽譜断片が 1 行の場合に、譜の長さを行幅まで広げます。@c
+つまり、LilyPond コード断片に @code{ragged-right = ##f} を追加します。
 
 @item line-width
 @itemx line-width=@var{size}\@var{unit}
-Set line width to @var{size}, using @var{unit} as units.  @var{unit} is
-one of the following strings: @code{cm}, @code{mm}, @code{in}, or
-@code{pt}.  This option affects LilyPond output (this is, the staff
-length of the music snippet), not the text layout.
+行幅を @var{size} にセットします。@var{unit} は単位です。@c
+@var{unit} は以下の文字列のどれかです: @code{cm}, @code{mm}, @code{in},
+あるいは @code{pt}。@c
+このオプションは LilyPond 出力 (つまり、楽譜断片の譜の幅に) に影響を@c
+与えますが、テキスト レイアウトには影響を与えません。
 
-If used without an argument, set line width to a default value (as
-computed with a heuristic algorithm).
+引数無しで使用した場合、行幅はデフォルト値にセットされます
+(試行錯誤的なアルゴリズムで算出される値です)。
 
-If no @code{line-width} option is given, @command{lilypond-book} tries to
-guess a default for @code{lilypond} environments which don't use the
-@code{ragged-right} option.
+@code{line-width} オプションが指定されなかった場合、@c
+@command{lilypond-book} は @code{ragged-right} オプションを使用しない
+@code{lilypond} 環境のデフォルトを推測しようと試みます。
+
+@item papersize=@var{string}
+@var{string} は @file{scm/paper.scm} で定義されている紙面サイズ
+-- つまり、@code{a5}, @code{quarto}, @code{11x17} 等 -- です。
+
+@file{scm/paper.scm} で定義されていない値は無視され、警告が発せられ、@c
+楽譜断片はデフォルトの @code{a4} サイズで譜刻されます。
 
 @item notime
-Do not print the time signature, and turns off the timing (time signature,
-bar lines) in the score.
+拍子記号と小節線を譜刻しません。
 
 @item fragment
-Make @command{lilypond-book} add some boilerplate code so that you can
-simply enter, say,
+@command{lilypond-book} が常用コードを追加するので、@code{\layout},
+@code{\score} 等を入力する必要がなく、単に以下のように入力できます:
 
 @example
 c'4
 @end example
 
-@noindent
-without @code{\layout}, @code{\score}, etc.
-
 @item nofragment
-Do not add additional code to complete LilyPond code in music snippets.
-Since this is the default, @code{nofragment} is redundant normally.
+楽譜断片の LilyPond コードに補完コードを追加しません。@c
+これがデフォルトなので、通常、@code{nofragment} は不要です。
 
 @item indent=@var{size}\@var{unit}
-Set indentation of the first music system to @var{size}, using
-@var{unit} as units. @var{unit} is one of the following strings:
-@code{cm}, @code{mm}, @code{in}, or @code{pt}.  This option affects
-LilyPond, not the text layout.
+楽譜の最初の段のインデントを @var{size} にセットします。@c
+@var{unit} は単位です。@c
+@var{unit} は以下の文字列のどれかです: @code{cm}, @code{mm}, @code{in},
+あるいは @code{pt}。@c
+このオプションは LilyPond に影響を与えますが、テキスト レイアウトには@c
+影響を与えません。
 
 @item noindent
-Set indentation of the first music system to zero.  This option affects
-LilyPond, not the text layout.  Since no indentation is the default,
-@code{noindent} is redundant normally.
+楽譜の最初の段のインデントを 0 にセットします。@c
+このオプションは LilyPond に影響を与えますが、テキスト レイアウトには@c
+影響を与えません。@c
+これがデフォルトなので、通常、@code{noindent} は不要です。
 
 @item quote
-Reduce line length of a music snippet by @math{2*0.4}@dmn{in} and put
-the output into a quotation block.  The value @q{0.4@dmn{in}} can be
-controlled with the @code{exampleindent} option.
+楽譜の両端に @math{0.4}@dmn{in} のインデントを挿入して、引用ブロックで@c
+囲みます。@c
+値 @q{0.4@dmn{in}} は @code{exampleindent} オプションで制御することが@c
+できます。
 
 @item exampleindent
-Set the amount by which the @code{quote} option indents a music snippet.
+@code{quote} オプションが楽譜断片に挿入するインデントの量をセットします。
 
 @item relative
 @itemx relative=@var{n}
-Use relative octave mode.  By default, notes are specified relative to
-middle@tie{}C.  The optional integer argument specifies the octave of
-the starting note, where the default @code{1} is middle C.
-@code{relative} option only works when @code{fragment} option is set,
-so @code{fragment} is automatically implied by @code{relative},
-regardless of the presence of any @code{(no)fragment} option in the
-source.
+相対オクターブ モードを使用します。@c
+デフォルトでは、音符はミドル@tie{}C との相対関係で指定します。@c
+オプションで指定する整数の引数は開始音符のオクターブを指定します
+-- デフォルトの @code{1} はミドル@tie{}C です。@c
+@code{relative} オプションは @code{fragment} オプションがセットされている@c
+場合にのみ機能するため、@code{relative} オプションがセットされるとソース@c
+の中の @code{(no)fragment} オプション有無にかかわらず @code{fragment} が@c
+自動的、暗黙的にセットされます。
 @end table
 
-LilyPond also uses @command{lilypond-book} to produce its own
-documentation.  To do that, some more obscure music fragment options are
-available.
+LilyPond もそれ自体のドキュメントを作り出すのに @command{lilypond-book}
+を使います。@c
+LilyPond のドキュメントを作るために、さらに細かな楽譜断片オプションが@c
+用意されています。
 
 @table @code
 @item verbatim
-The argument of a LilyPond command is copied to the output file and
-enclosed in a verbatim block, followed by any text given with the
-@code{intertext} option (not implemented yet); then the actual music is
-displayed.  This option does not work well with @code{\lilypond@{@}} if
-it is part of a paragraph.
+LilyPond コマンドの引数をそのまま出力ファイルにコピーして、ブロックで@c
+囲み、その後に @code{intertext} オプションで与えられた任意のテキストが@c
+続きます (@code{intertext} オプションはまだ実装されていません)。@c
+それから実際の楽譜が表示されます。@c
+段落の一部となっている @code{\lilypond@{@}} でこのオプションを指定@c
+しても機能しません。
 
-If @code{verbatim} is used in a @code{lilypondfile} command, it is
-possible to enclose verbatim only a part of the source file.  If the
-source file contain a comment containing @samp{begin verbatim} (without
-quotes), quoting the source in the verbatim block will start after the
-last occurrence of such a comment; similarly, quoting the source verbatim
-will stop just before the first occurrence of a comment containing
-@samp{end verbatim}, if there is any.  In the following source file
-example, the music will be interpreted in relative mode, but the
-verbatim quote will not show the @code{relative} block, i.e.
+@code{lilypondfile} コマンドで @code{verbatim} を使用した場合、ソース
+ファイルの一部だけをそのままコピーして囲むことができます。@c
+ソース ファイルが @samp{begin verbatim} (引用符を除く) という文字列を@c
+含むコメントを保持している場合、最後の @samp{begin verbatim} より後の@c
+ソースが引用されます。@c
+同様に、@samp{end verbatim} を含むコメントがあれば、ソースの引用は@c
+最初の @samp{end verbatim} の前で終了します。@c
+以下のソース ファイル例で、楽譜コードは相対モードで解釈されますが、@c
+ソースの引用に @code{relative} ブロックは表示されません。@c
+つまり、
 
 @example
 \relative c' @{ % begin verbatim
@@ -694,7 +800,7 @@ verbatim quote will not show the @code{relative} block, i.e.
 @end example
 
 @noindent
-will be printed with a verbatim block like
+上記のソースは以下のように引用されます。
 
 @example
   c4 e2 g4
@@ -702,25 +808,27 @@ will be printed with a verbatim block like
 @end example
 
 @noindent
-If you would like to translate comments and variable names in verbatim
-output but not in the sources, you may set the environment variable
-@code{LYDOC_LOCALEDIR} to a directory path; the directory should
-contain a tree of @file{.mo} message catalogs with @code{lilypond-doc}
-as a domain.
+ソースの引用の中にあるコメントと変数名を翻訳したけれども、ソース自体の@c
+中にあるコメントと変数名は翻訳したくない場合、環境変数
+@code{LYDOC_LOCALEDIR} をディレクトリ パスにセットします
+-- セットしたディレクトリはドメインに @code{lilypond-doc} を指定した@c
+@file{.mo} メッセージ カタログのツリーを保持する必要があります。
 
 @item addversion
-(Only for Texinfo output.)  Prepend line @code{\version
-@@w@{"@@version@{@}"@}} to @code{verbatim} output.
+(Texinfo 出力専用です) @code{verbatim} 出力の先頭に @code{\version
+@@w@{"@@version@{@}"@}} という行を追加します。
 
 @item texidoc
-(Only for Texinfo output.)  If @command{lilypond} is called with the
-@option{--header=@/texidoc} option, and the file to be processed is
-called @file{foo.ly}, it creates a file @file{foo.texidoc} if there
-is a @code{texidoc} field in the @code{\header}.  The @code{texidoc}
-option makes @command{lilypond-book} include such files, adding its
-contents as a documentation block right before the music snippet.
+(Texinfo 出力専用です) 入力ファイル @file{foo.ly} に対して
+@option{--header=@/texidoc} オプションを指定して @command{lilypond}
+を呼び出した場合、入力ファイルの @code{\header} に @code{texidoc}
+フィールドがあればファイル @file{foo.texidoc} が作成されます。@c
+@code{texidoc} オプションは @command{lilypond-book} にそのようなファイル@c
+をインクルードさせ、その内容を楽譜断片の直前
+(ただし、@code{quote} オプションによって生成される @code{example} 環境の@c
+外側) にドキュメントとして追加させます。
 
-Assuming the file @file{foo.ly} contains
+ファイル @file{foo.ly} は以下を保持していて、
 
 @example
 \header @{
@@ -730,94 +838,96 @@ Assuming the file @file{foo.ly} contains
 @end example
 
 @noindent
-and we have this in our Texinfo document @file{test.texinfo}
+Texinfo ドキュメント @file{test.texinfo} に以下の記述があると仮定すると、
 
 @example
 @@lilypondfile[texidoc]@{foo.ly@}
 @end example
 
 @noindent
-the following command line gives the expected result
+以下のコマンドで期待した結果を得られます。
 
 @example
 lilypond-book --pdf --process="lilypond \
   -dbackend=eps --header=texidoc" test.texinfo
 @end example
 
-Most LilyPond test documents (in the @file{input} directory of the
-distribution) are small @file{.ly} files which look exactly like this.
+たいていの LilyPond テスト ドキュメント (配布ソースの @file{input}
+ディレクトリにあります) はこのような形の小さな @file{.ly} ファイルです。
 
-For localization purpose, if the Texinfo document contains
-@code{@@documentlanguage @var{LANG}} and @file{foo.ly} header
-contains a @code{texidoc@var{LANG}} field, and if @command{lilypond}
-is called with @option{--header=@/texidoc@var{LANG}}, then
-@file{foo.texidoc@var{LANG}} will be included instead of
-@file{foo.texidoc}.
+ローカライズするために Texinfo ドキュメントが
+@code{@@documentlanguage @var{LANG}} 保持していて、@file{foo.ly} のヘッダ@c
+が @code{texidoc@var{LANG}} フィールドを保持している場合、@c
+@option{--header=@/texidoc@var{LANG}} を付けて @command{lilypond} を@c
+呼び出すと、@file{foo.texidoc} の代わりに @file{foo.texidoc@var{LANG}}
+がインクルードされます。
 
 @item doctitle
-(Only for Texinfo output.) This option works similarly to
-@code{texidoc} option: if @command{lilypond} is called with the
-@option{--header=@/doctitle} option, and the file to be processed is
-called @file{foo.ly} and contains a @code{doctitle} field in the
-@code{\header}, it creates a file @file{foo.doctitle}.  When
-@code{doctitle} option is used, the contents of @file{foo.doctitle},
-which should be a single line of @var{text}, is inserted in the
-Texinfo document as @code{@@lydoctitle @var{text}}.
-@code{@@lydoctitle} should be a macro defined in the Texinfo document.
-The same remark about @code{texidoc} processing with localized
-languages also applies to @code{doctitle}.
+(Texinfo 出力専用です) このオプションは @code{texidoc} オプションと同じ@c
+ような働きをします: @code{\header} に @code{doctitle} フィールドを持つ@c
+入力ファイル @file{foo.ly} に対して @option{--header=@/doctitle}
+オプションを指定して @command{lilypond} を呼び出した場合、@c
+@file{foo.doctitle} が生成されます。@c
+@code{doctitle} オプションを使用した場合、@file{foo.doctitle} の内容
+-- 1 行のテキスト @var{text} である必要があります -- は Texinfo
+ドキュメントに @code{@@lydoctitle @var{text}} として挿入されます。@c
+@code{@@lydoctitle} は Texinfo ドキュメントの中で定義されたマクロである@c
+必要があります。@c
+あとはローカライズされた言語に対する @code{texidoc} 処理と同じ説明@c
+になります。
 
 @item nogettext
-(Only for Texinfo output.) Do not translate comments and variable
-names in the snippet quoted verbatim.
+(Texinfo 出力専用です) 楽譜ソース引用の中にあるコメントと変数名を翻訳@c
+しません。
 
 @item printfilename
-If a LilyPond input file is included with @code{\lilypondfile}, print
-the file name right before the music snippet.  For HTML output, this
-is a link.  Only the base name of the file is printed, i.e. the
-directory part of the file path is stripped.
+@code{\lilypondfile} で LilyPond 入力ファイルをインクルードした場合、@c
+楽譜断片の直前にインクルードしたファイルの名前を表示します。@c
+HTML 出力では、これはリンクになります。@c
+ファイルのベース名だけが表示されます -- つまり、ファイル パスの@c
+ディレクトリ部分は取り除かれます。
 
 @end table
 
 
-@node Invoking lilypond-book
-@section Invoking @command{lilypond-book}
+@node lilypond-book を呼び出す
+@section @command{lilypond-book} を呼び出す
 @translationof Invoking lilypond-book
 
-@untranslated
+@command{lilypond-book} は出力形式に応じて以下の拡張子の 1 つを持つ@c
+ファイルを生成します: @file{.tex}, @file{.texi}, @file{.html}, あるいは
+@file{.xml}。@c
+@file{.tex}, @file{.texi}, それに @file{.xml} のファイルは更なる処理を@c
+必要とします。
 
-@command{lilypond-book} produces a file with one of the following
-extensions: @file{.tex}, @file{.texi}, @file{.html} or @file{.xml},
-depending on the output format.  All of @file{.tex}, @file{.texi} and
-@file{.xml} files need further processing.
-
-@subheading Format-specific instructions
+@subheading 各出力形式に特有の説明
 
 @subsubheading @LaTeX{}
 
-There are two ways of processing your @LaTeX{} document for printing or
-publishing: getting a PDF file directly with PDF@LaTeX{}, or getting a
-PostScript file with @LaTeX{} via a DVI to PostScript translator like
-@command{dvips}.  The first way is simpler and recommended@footnote{Note
-that PDF@LaTeX{} and @LaTeX{} may not be both usable to compile any
-@LaTeX{} document, that is why we explain the two ways.}, and whichever
-way you use, you can easily convert between PostScript and PDF with
-tools, like @command{ps2pdf} and @command{pdf2ps} included in
-Ghostscript package.
+印刷や公開のために @LaTeX{} ドキュメントを処理する方法は 2 つあります:
+PDF@LaTeX{} を用いて直接 PDF ファイルを得ることができ、@command{dvips}
+のような PostScript への変換プログラムを用いて DVI 経由で PostScript
+ファイルを得ることができます。@c
+1 つ目の方法は簡単で、お勧めです@footnote{PDF@LaTeX{} と @LaTeX{} の@c
+どちらもすべての @LaTeX{} ドキュメントをコンパイルできるとは限らない@c
+ことに注意してください。これが 2 つ目の方法を説明する理由です。}。@c
+どのような方法を採るにせよ、Ghostscript パッケージに含まれる
+@command{ps2pdf} と @command{pdf2ps} のようなツールを用いて PostScript
+と PDF 間の変換は容易に行うことができます。
 
-To produce a PDF file through PDF@LaTeX{}, use
+PDF@LaTeX{} を用いて PDF ファイルを作り出すには、以下のようにします:
 
 @example
-lilypond-book --pdf yourfile.pdftex
+lilypond-book --pdf yourfile.lytex
 pdflatex yourfile.tex
 @end example
 
-@cindex outline fonts
-@cindex type1 fonts
+@cindex outline fonts (アウトライン フォント)
+@cindex type1 fonts (type1 フォント)
 @cindex dvips
-@cindex invoking dvips
-To produce PDF output via @LaTeX{}/@command{dvips}/@command{ps2pdf}, you
-should do
+@cindex invoking dvips (dvips を呼び出す)
+@LaTeX{}/@command{dvips}/@command{ps2pdf} 経由で PDF ファイルを作り出す@c
+には、以下のようにします:
 
 @example
 lilypond-book yourfile.lytex
@@ -827,53 +937,71 @@ ps2pdf yourfile.ps
 @end example
 
 @noindent
-The @file{.dvi} file created by this process will not contain
- note heads.  This is normal; if you follow the instructions, they
-will be included in the @file{.ps} and @file{.pdf} files.
+このプロセスで作成される @file{.dvi} ファイルは符頭を保持していません。@c
+それで通常です -- 以下の手順に従うと、@file{.ps} ファイルや @file{.pdf}
+ファイルには符頭が含まれます。
 
-Running @command{dvips} may produce some warnings about fonts; these
-are harmless and may be ignored.  If you are running @command{latex} in
-twocolumn mode, remember to add @code{-t landscape} to the
-@command{dvips} options.
+@command{dvips} を実行するとフォントに関する警告が発せられます:
+それらは無害で無視できます。@c
+@command{latex} を 2 列モードで実行するのであれば、忘れずに
+@command{dvips} のオプションに @option{-t landscape} を付け加えてください。
+
+@knownissues
+@code{\pageBreak} コマンドは @code{\begin@{lilypond@} @dots{}
+\end@{lilypond@}} 環境の中では機能しません。
+
+多くの @code{\paper} ブロック変数も @code{\begin@{lilypond@} @dots{}
+\end@{lilypond@}} 環境の中では機能しません。@c
+ドキュメント前文の中で @code{\betweenLilyPondSystem} を持つ
+@code{\newcommand} を使ってください。
+
+@example
+\newcommand@{\betweenLilyPondSystem@}[1]@{\vspace@{36mm@}\linebreak@}
+@end example
+
 
 @subsubheading Texinfo
 
-To produce a Texinfo document (in any output format), follow the normal
-procedures for Texinfo; this is, either call @command{texi2pdf} or
-@command{texi2dvi} or @command{makeinfo}, depending on the output format
-you want to create.
+(任意の出力形式の) Texinfo ドキュメントを作り出すには、Texinfo の通常の@c
+手順を踏みます。@c
+つまり、作り出そうとしている出力形式に応じて @command{texi2pdf} か
+@command{texi2dvi} のどちらかを呼び出します。
 @ifinfo
-@xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, and @ref{Creating an Info File, , , texinfo, GNU Texinfo}.
+@xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, and @ref{Creating
+an Info File, , , texinfo, GNU Texinfo}.
 @end ifinfo
 @ifnotinfo
-See the documentation of Texinfo for further details.
+詳細は Texinfo のドキュメントを参照してください。
 @end ifnotinfo
 
 
-@subheading Command line options
+@subheading コマンド ライン オプション
 
-@command{lilypond-book} accepts the following command line options:
+@command{lilypond-book} は以下のコマンド ライン オプションを受け付けます:
 
 @table @code
 @item -f @var{format}
 @itemx --format=@var{format}
-Specify the document type to process: @code{html}, @code{latex},
-@code{texi} (the default) or @code{docbook}.  If this option is missing,
-@command{lilypond-book} tries to detect the format automatically, see
-@ref{Filename extensions}. Currently, @code{texi} is the same as
-@code{texi-html}.
+処理するドキュメントのタイプを指定します:  @code{html}, @code{latex},
+@code{texi} (デフォルト), あるいは @code{docbook} です。@c
+このオプションが無い場合、@command{lilypond-book} は形式を自動的に@c
+検出しようとします -- @ref{Filename extensions} を参照してください。@c
+今のところ、@code{texi} は @code{texi-html} と同じです。
 
 @c This complicated detail is not implemented, comment it out -jm
 @ignore
-The @code{texi} document type produces a Texinfo file with music
-fragments in the printed output only.  For getting images in the HTML
-version, the format @code{texi-html} must be used instead.
+@code{texi} ドキュメント タイプを指定すると、楽譜断片を持つ Texinfo
+ファイルだけが作り出されます。@c
+HTML バージョンで使う画像を得るには、@code{texi-html} を指定する必要が@c
+あります。
 @end ignore
 
 @item -F @var{filter}
 @itemx --filter=@var{filter}
-Pipe snippets through @var{filter}.  @code{lilypond-book} will
-not --filter and --process at the same time.  For example,
+楽譜ソース断片を @var{filter} に通します。@c
+@code{lilypond-book} は @option{--filter} と @option{--process}
+を一度に実行することはしません。@c
+例を挙げます:
 
 @example
 lilypond-book --filter='convert-ly --from=2.0.0 -' my-book.tely
@@ -881,23 +1009,34 @@ lilypond-book --filter='convert-ly --from=2.0.0 -' my-book.tely
 
 @item -h
 @itemx --help
-Print a short help message.
+短いヘルプ メッセージを表示します。
 
 @item -I @var{dir}
 @itemx --include=@var{dir}
-Add @var{dir} to the include path.  @command{lilypond-book} also looks
-for already compiled snippets in the include path, and does not write
-them back to the output directory, so in some cases it is necessary to
-invoke further processing commands such as @command{makeinfo} or
-@command{latex} with the same @code{-I @var{dir}} options.
+インクルード パスに @var{dir} を追加します。@c
+@command{lilypond-book} はインクルード パスの中でコンパイル済みの楽譜断片@c
+を見つけると、それらを出力ディレクトリに書き出しません。@c
+そのため、@command{lilypond-book} を呼び出してから更に @command{makeinfo}
+や @command{latex} 等のコマンドを同じ @option{-I @var{dir}} オプションを@c
+付けて呼び出す必要がある場合があります。
+
+@item -l @var{loglevel}
+@itemx --loglevel=@var{loglevel}
+出力の饒舌さを @var{loglevel} にセットします。@c
+取り得る値は @code{NONE}, @code{ERROR}, @code{WARNING}, @code{PROGRESS}
+(デフォルト), それに @code{DEBUG} です。@c
+このオプションを使わなかった場合、環境変数 @code{LILYPOND_BOOK_LOGLEVEL}
+がセットされ、その値が loglevel として使われます。
 
 @item -o @var{dir}
 @itemx --output=@var{dir}
-Place generated files in directory @var{dir}.  Running
-@command{lilypond-book} generates lots of small files that LilyPond will
-process.  To avoid all that garbage in the source directory, use the
-@option{--output} command line option, and change to that directory
-before running @command{latex} or @command{makeinfo}.
+生成されるファイルをディレクトリ @var{dir} に保存します。@c
+@command{lilypond-book} を実行すると LilyPond が処理するための多くの小さな@c
+ファイルが生成されます。@c
+そのようなゴミがソース ディレクトリに混入することを防ぐには、@c
+@option{--output} コマンド ライン オプションを使用して出力ディレクトリを@c
+変更して、@command{latex} や @command{makeinfo} を実行する前にその@c
+ディレクトリに移動します。
 
 @example
 lilypond-book --output=out yourfile.lytex
@@ -906,81 +1045,106 @@ cd out
 @end example
 
 @itemx --skip-lily-check
-Do not fail if no lilypond output is found.  It is used for LilyPond
-Info documentation without images.
+lilypond 出力が見つからなくても処理を終了しません。@c
+画像を持たない LilyPond Info ドキュメントを作成するために使います。
 
 @itemx --skip-png-check
-Do not fail if no PNG images are found for EPS files.  It is used for
-LilyPond Info documentation without images.
+EPS ファイルを作成するための PNG 画像が見つからなくても処理を終了しません。@c
+画像を持たない LilyPond Info ドキュメントを作成するために使います。
 
 @itemx --lily-output-dir=@var{dir}
-Write lily-XXX files to directory @var{dir}, link into @code{--output}
-directory.  Use this option to save building time for documents in
-different directories which share a lot of identical snippets.
+lily-XXX ファイルをディレクトリ @var{dir} に書き出し、@option{--output}
+ディレクトリにリンクさせます。@c
+このオプションは別々のディレクトリの中にあり、多くの楽譜断片を共有する@c
+ドキュメントをビルドする時間を節約するために使います。
+
+@itemx --lily-loglevel=@var{loglevel}
+呼び出された @command{lilypond} の出力の饒舌さを @var{loglevel} にセット@c
+します。@c
+取り得る値は @code{NONE}, @code{ERROR}, @code{WARNING},
+@code{BASIC_PROGRESS}, @code{PROGRESS}, @code{INFO} (デフォルト),
+それに @code{DEBUG} です。@c
+このオプションを使わなかった場合、環境変数 @code{LILYPOND_LOGLEVEL}
+がセットされ、その値が loglevel として使われます。
 
 @itemx --info-images-dir=@var{dir}
-Format Texinfo output so that Info will look for images of music in
-@var{dir}.
+Texinfo 出力をフォーマットして、Info が @var{dir} の中にある楽譜画像を@c
+探すようにします。
 
 @itemx --latex-program=@var{prog}
-Run executable @command{prog} instead of @command{latex}.  This is
-useful if your document is processed with @command{xelatex}, for
-example.
+@command{latex} の代わりに実行可能な @command{prog} を実行します。@c
+これは、例えばドキュメントを @command{xelatex} で処理する場合に有用です。
 
 @itemx --left-padding=@var{amount}
-Pad EPS boxes by this much. @var{amount} is measured in millimeters,
-and is 3.0 by default.  This option should be used if the lines of
-music stick out of the right margin.
+EPS ボックスのパディングを指定します。@c
+@var{amount} の単位はミリメートルで、デフォルト値は 3.0 です。@c
+このオプションは楽譜が右マージンに食い込む場合に使います。
 
 The width of a tightly clipped system can vary, due to notation
 elements that stick into the left margin, such as bar numbers and
 instrument names.  This option will shorten each line and move each
 line to the right by the same amount.
 
-
 @item -P @var{command}
 @itemx --process=@var{command}
-Process LilyPond snippets using @var{command}.  The default command is
-@code{lilypond}.  @code{lilypond-book} will not @code{--filter} and
-@code{--process} at the same time.
+LilyPond コード断片を @var{command} を用いて処理します。@c
+デフォルトのコマンドは @code{lilypond} です。@c
+@code{lilypond-book} は @option{--filter} と @option{--process}
+を一度に実行することはしません。
 
 @item --pdf
-Create PDF files for use with PDF@LaTeX{}.
+PDF@LaTeX{} で PDF ファイルを作成します。
+
+@item --redirect-lilypond-output
+デフォルトでは、出力はターミナルに表示されます。@c
+このオプションは全ての出力をソース ファイルと同じディレクトリにあるログ
+ファイルにリダイレクトします。
+
+@itemx --use-source-file-names
+楽譜断片出力ファイルにソース ファイルと同じベース名を付けます。@c
+このオプションは @code{lilypondfile} でインクルードされた楽譜断片に@c
+対してのみ、更に @option{--output-dir} オプションと
+@option{--lily-output-dir} オプションで指定されたディレクトリが異なる@c
+場合にのみ機能します。
 
 @item -V
 @itemx --verbose
-Be verbose.
+出力を饒舌にします。@c
+これは @code{--loglevel=DEBUG} と等価です。
 
 @item -v
 @itemx --version
-Print version information.
+バージョン情報を表示します。
 @end table
+
+
 
 @knownissues
 
-The Texinfo command @code{@@pagesizes} is not interpreted.  Similarly,
-@LaTeX{} commands that change margins and line widths after the preamble
-are ignored.
+Texinfo コマンド @code{@@pagesizes} は解釈されません。@c
+同様に、ドキュメント前文以降にあるマージンと行幅を変更する @LaTeX{}
+コマンドも無視されます。
 
-Only the first @code{\score} of a LilyPond block is processed.
+LilyPond ブロックの最初の @code{\score} だけが処理されます。
 
 
-@node Filename extensions
-@section Filename extensions
+@node ファイル拡張子
+@section ファイル拡張子
 @translationof Filename extensions
 
-@untranslated
-
-You can use any filename extension for the input file, but if you do not
-use the recommended extension for a particular format you may need to
-manually specify the output format; for details, see @ref{Invoking lilypond-book}.  Otherwise, @command{lilypond-book} automatically
-selects the output format based on the input filename's extension.
+入力ファイルに対して任意のファイル拡張子を使うことができます。@c
+しかしながら、ある形式のファイルに対して推奨する拡張子を使わなかった場合、@c
+手動で出力形式を指定する必要があるかもしれません
+-- 詳細は @ref{Invoking lilypond-book} を参照してください。@c
+推奨する拡張子を使えば、@command{lilypond-book} はその拡張子に基づいて@c
+自動的に出力形式を選択します。
 
 @quotation
 @multitable @columnfractions .2 .5
-@item @strong{extension} @tab @strong{output format}
+@item @strong{拡張子} @tab @strong{出力形式}
 @item
 @item @file{.html} @tab HTML
+@item @file{.htmly} @tab HTML
 @item @file{.itely} @tab Texinfo
 @item @file{.latex} @tab @LaTeX{}
 @item @file{.lytex} @tab @LaTeX{}
@@ -993,85 +1157,271 @@ selects the output format based on the input filename's extension.
 @end multitable
 @end quotation
 
-If you use the same filename extension for the input file than the
-extension @command{lilypond-book} uses for the output file, and if the
-input file is in the same directory as @command{lilypond-book} working
-directory, you must use @code{--output} option to make
-@command{lilypond-book} running, otherwise it will exit with an error
-message like @qq{Output would overwrite input file}.
+入力ファイルの拡張子を @command{lilypond-book} が出力ファイルに付ける@c
+拡張子と同じで、入力ファイルが @command{lilypond-book} の作業ディレクトリ@c
+に置かれている場合、@option{--output} オプションを使って
+@command{lilypond-book} を実行する必要があります。@c
+そうしないと、@qq{Output would overwrite input file} のようなエラー
+メッセージが表示されて、終了します。
 
+@node lilypond-book テンプレート
+@section lilypond-book テンプレート
+@translationof lilypond-book templates
 
-@node Alternate methods of mixing text and music
-@section Alternative methods of mixing text and music
-@translationof Alternate methods of mixing text and music
+以下に示すテンプレートは @code{lilypond-book} で使います。@c
+@code{lilypond-book} に馴染みが無いのであれば、@ref{lilypond-book} を@c
+読んで下さい。
 
-@untranslated
+@subsection LaTeX
 
-This section shows methods to integrate text and music, different than
-the automated method with @command{lilypond-book}.
-
-@menu
-* Many quotes from a large score::
-* Inserting LilyPond output into OpenOffice.org::
-* Inserting LilyPond output into other programs::
-@end menu
-
-@node Many quotes from a large score
-@unnumberedsubsec Many quotes from a large score
-@translationof Many quotes from a large score
-
-@untranslated
-
-If you need to quote many fragments from a large score, you can also use
-the clip systems feature, see @ruser{Extracting fragments of music}.
-
-
-@node Inserting LilyPond output into OpenOffice.org
-@unnumberedsubsec Inserting LilyPond output into OpenOffice.org
-@translationof Inserting LilyPond output into OpenOffice.org
-
-@untranslated
-
-@cindex OpenOffice.org
-
-LilyPond notation can be added to OpenOffice.org with
-@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}.
-
-
-@node Inserting LilyPond output into other programs
-@unnumberedsubsec Inserting LilyPond output into other programs
-@translationof Inserting LilyPond output into other programs
-
-@untranslated
-
-To insert LilyPond output in other programs, use @code{lilypond}
-instead of @code{lilypond-book}.  Each example must be created
-individually and added to the document; consult the documentation for
-that program.  Most programs will be able to insert LilyPond output in
-@file{PNG}, @file{EPS}, or @file{PDF} formats.
-
-To reduce the white space around your LilyPond score, use
-the following options
+LilyPond 断片を LaTex ドキュメントに組み込むことができます。
 
 @example
-\paper@{
-  indent=0\mm
-  line-width=120\mm
-  oddFooterMarkup=##f
-  oddHeaderMarkup=##f
-  bookTitleMarkup = ##f
-  scoreTitleMarkup = ##f
+\documentclass[]@{article@}
+
+\begin@{document@}
+
+通常の LaTeX テキスト。
+
+\begin@{lilypond@}
+\relative c'' @{
+  a4 b c d
 @}
+\end@{lilypond@}
 
-@{ c1 @}
+次の LaTeX テキスト。オプションは角括弧の中に入れます。
+
+\begin@{lilypond@}[fragment,relative=2,quote,staffsize=26,verbatim]
+d4 c b a
+\end@{lilypond@}
+\end@{document@}
 @end example
 
-To produce a useful @file{EPS} file, use
+@subsection Texinfo
+
+LilyPond 断片を Texinfo に組み込むことができます。@c
+実際、このマニュアル全体が Texinfo で記述されています。
 
 @example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts   myfile.ly
+\input texinfo @c -*-texinfo-*-
+@@node Top
+@@top
+@translationof Top
 
-@file{PNG}:
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
+Texinfo テキスト
+
+@@lilypond
+\relative c' @{
+  a4 b c d
+@}
+@@end lilypond
+
+次の Texinfo テキスト。オプションは角括弧の中に入れます。
+
+@@lilypond[verbatim,fragment,ragged-right]
+d4 c b a
+@@end lilypond
+
+@@bye
 @end example
 
+
+@subsection html
+
+@example
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- header_tag -->
+<HTML>
+<body>
+
+<p>
+
+以下のように、lilypond-book 用のドキュメントには自由に楽譜と
+テキストを組み合わせることができます。
+<lilypond>
+\relative c'' @{
+  a4 b c d
+@}
+</lilypond>
+</p>
+
+<p>
+次の lilypond コードにはオプションをつけます
+
+<lilypond fragment quote staffsize=26 verbatim>
+a4 b c d
+</lilypond>
+</p>
+
+</body>
+</html>
+
+
+@end example
+
+@subsection xelatex
+
+@verbatim
+\documentclass{article}
+\usepackage{ifxetex}
+\ifxetex
+%xetex specific stuff
+\usepackage{xunicode,fontspec,xltxtra}
+\setmainfont[Numbers=OldStyle]{Times New Roman}
+\setsansfont{Arial}
+\else
+%This can be empty if you are not going to use pdftex
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}%Times
+\usepackage{helvet}%Helvetica
+\fi
+%Here you can insert all packages that pdftex also understands
+\usepackage[ngerman,finnish,english]{babel}
+\usepackage{graphicx}
+
+\begin{document}
+\title{A short document with LilyPond and xelatex}
+\maketitle
+
+Normal \textbf{font} commands inside the \emph{text} work,
+because they \textsf{are supported by \LaTeX{} and XeteX.}
+If you want to use specific commands like \verb+\XeTeX+, you
+should include them again in a \verb+\ifxetex+ environment.
+You can use this to print the \ifxetex \XeTeX{} command \else
+XeTeX command \fi which is not known to normal \LaTeX .
+
+In normal text you can easily use LilyPond commands, like this:
+
+\begin{lilypond}
+{a2 b c'8 c' c' c'}
+\end{lilypond}
+
+\noindent
+and so on.
+
+The fonts of snippets set with LilyPond will have to be set from
+inside
+of the snippet.  For this you should read the AU on how to use
+lilypond-book.
+
+\selectlanguage{ngerman}
+Auch Umlaute funktionieren ohne die \LaTeX -Befehle, wie auch alle
+anderen
+seltsamen Zeichen: __ ______, wenn sie von der Schriftart
+unterst__tzt werden.
+\end{document}
+@end verbatim
+
+
+@node 目次を共有する
+@section 目次を共有する
+@translationof Sharing the table of contents
+
+この機能はすでに OrchestralLily パッケージで用意されています:
+
+@example
+@url{http://repo.or.cz/w/orchestrallily.git}
+@end example
+
+より自由度の高いテキスト処理をするために、lilypond から目次をエクスポート@c
+して、@LaTeX{} に読み込ませる方法を好むユーザもいるかもしれません。
+
+@subsubheading LilyPond から目次をエクスポートする
+
+以下のコードは、複数の楽章を 1 つのファイルに出力するものと仮定しています。
+
+@smallexample
+#(define (oly:create-toc-file layout pages)
+  (let* ((label-table (ly:output-def-lookup layout 'label-page-table)))
+    (if (not (null? label-table))
+      (let* ((format-line (lambda (toc-item)
+             (let* ((label (car toc-item))
+                    (text  (caddr toc-item))
+                    (label-page (and (list? label-table)
+                                     (assoc label label-table)))
+                    (page (and label-page (cdr label-page))))
+               (format #f "~a, section, 1, @{~a@}, ~a" page text label))))
+             (formatted-toc-items (map format-line (toc-items)))
+             (whole-string (string-join formatted-toc-items ",\n"))
+             (output-name (ly:parser-output-name parser))
+             (outfilename (format "~a.toc" output-name))
+             (outfile (open-output-file outfilename)))
+        (if (output-port? outfile)
+            (display whole-string outfile)
+            (ly:warning (_ "Unable to open output file ~a for the TOC information") outfilename))
+        (close-output-port outfile)))))
+
+\paper @{
+  #(define (page-post-process layout pages) (oly:create-toc-file layout pages))
+@}
+@end smallexample
+
+@subsubheading LaTeX に目次をインポートする
+
+LaTeX ファイルのヘッダ中に以下を記述します:
+
+@c no, this doesn't require the smallexample, but since the other
+@c two blocks on this page use it, I figured I might as well
+@c user it here as well, for consistency. -gp
+@smallexample
+\usepackage@{pdfpages@}
+\includescore@{nameofthescore@}
+@end smallexample
+
+@noindent
+ここで、@code{\includescore} は以下のように定義されています:
+
+@smallexample
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \includescore@{PossibleExtension@}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Read in the TOC entries for a PDF file from the corresponding .toc file.
+% This requires some heave latex tweaking, since reading in things from a file
+% and inserting it into the arguments of a macro is not (easily) possible
+
+% Solution by Patrick Fimml on #latex on April 18, 2009:
+% \readfile@{filename@}@{\variable@}
+% reads in the contents of the file into \variable (undefined if file
+% doesn't exist)
+\newread\readfile@@f
+\def\readfile@@line#1@{%
+@{\catcode`\^^M=10\global\read\readfile@@f to \readfile@@tmp@}%
+\edef\do@{\noexpand\g@@addto@@macro@{\noexpand#1@}@{\readfile@@tmp@}@}\do%
+\ifeof\readfile@@f\else%
+\readfile@@line@{#1@}%
+\fi%
+@}
+\def\readfile#1#2@{%
+\openin\readfile@@f=#1 %
+\ifeof\readfile@@f%
+\typeout@{No TOC file #1 available!@}%
+\else%
+\gdef#2@{@}%
+\readfile@@line@{#2@}%
+\fi
+\closein\readfile@@f%
+@}%
+
+
+\newcommand@{\includescore@}[1]@{
+\def\oly@@fname@{\oly@@basename\@@ifmtarg@{#1@}@{@}@{_#1@}@}
+\let\oly@@addtotoc\undefined
+\readfile@{\oly@@xxxxxxxxx@}@{\oly@@addtotoc@}
+\ifx\oly@@addtotoc\undefined
+\includepdf[pages=-]@{\oly@@fname@}
+\else
+\edef\includeit@{\noexpand\includepdf[pages=-,addtotoc=@{\oly@@addtotoc@}]
+@{\oly@@fname@}@}\includeit
+\fi
+@}
+@end smallexample
+
+
+@node テキストと楽譜を組み合わせる他の方法
+@section テキストと楽譜を組み合わせる他の方法
+@translationof Alternative methods of mixing text and music
+
+@command{lilypond-book} を使わずにテキストと楽譜を組み合わせる方法を
+@ref{LilyPond output in other programs} で説明しています。.

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 4b87c3a98a6ac4fa426ad0ed3b0fc0532db44063
+    Translation of GIT committish: 9034fc53a974a6d006157ebcf52f091a85be30f5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -46,9 +46,9 @@ pénétrer dans les entrailles du programme, et de ce fait requiert
 l'emploi du Scheme.  Les fragments de Scheme, dans un fichier
 @file{.ly}, sont introduits par le caractère @emph{hash} (@code{#}),
 improprement surnommé @qq{dièse}.
-@footnote{Le @rextendnamed{Scheme tutorial,Tutoriel Scheme} fournit
-quelques notions de base pour saisir des nombres, des listes, des
-chaînes de caractères ou des symboles, en Scheme.}
+@footnote{Le @rextend{Tutoriel Scheme} fournit quelques notions de base
+pour saisir des nombres, des listes, des chaînes de caractères ou des
+symboles, en Scheme.}
 
 @menu
 * Contextes d'interprétation::
@@ -424,10 +424,9 @@ cette méthode permet de s'affranchir du type de contexte.
 Cette variante s'utilise lorsque les expression musicales peuvent être
 interprétées à différents niveaux, comme par exemple lorsque intervient
 la commande @code{\applyOutput} -- pour de plus amples détails, voir
-@rextendnamed{Running a function on all layout objects, Application
-d'une fonction à tous les objets de mise en forme}.  En l'absence de
-@code{\context} explicite, LilyPond considère qu'il s'agit de
-@code{Voice}.
+@rextend{Application d'une fonction à tous les objets de mise en forme}.
+En l'absence de @code{\context} explicite, LilyPond considère qu'il
+s'agit de @code{Voice}.
 
 @example
 \applyOutput #'@var{contexte} #@var{fonction}   % s'applique à Voice
@@ -607,8 +606,8 @@ sous-programmes (@emph{plug-ins} pour employer le terme consacré) nommés
 Ces sous-programmes sont chargés de créer les différents éléments de
 notation@tie{}: on trouve ainsi dans le contexte @code{Voice} un graveur
 @code{Note_heads_engraver}, chargé des têtes de notes et, dans le
-contexte @code{Staff}, un graveur @code{Key_signature_engraver}, chargé
-de l'armure.
+contexte @code{Staff}, un graveur @code{Key_engraver}, chargé de
+l'armure.
 
 Vous trouverez une description exhaustive de chaque graveur dans
 @ifhtml
@@ -2023,7 +2022,7 @@ pourquoi le code suivant ne sera d'aucun effet@tie{}:
 
 @noindent
 Voir pour plus de détails
-@rextendnamed{Displaying music expressions,Affichage d'expressions musicales}.
+@rextend{Affichage d'expressions musicales}.
 @end ignore
 
 Pour une introduction à la syntaxe et l'utilisation des retouches, voir
@@ -2104,11 +2103,10 @@ f'
 Vous pouvez examiner le flux musical généré par une portion de votre
 fichier source, y compris les éléments automatiquement insérés, en
 suivant les indications portées à la rubrique
-@rextendnamed{Displaying music expressions,Affichage d'expressions
-musicales}.  Ceci s'avère tout à fait approprié pour déterminer ce qui
-peut se modifier à l'aide d'un @code{\tweak} ou bien vous aider à
-rectifier votre source de telle sorte que le @code{\tweak} produise ses
-effets.
+@rextend{Affichage d'expressions musicales}.  Ceci s'avère tout à fait
+approprié pour déterminer ce qui peut se modifier à l'aide d'un
+@code{\tweak} ou bien vous aider à rectifier votre source de telle sorte
+que le @code{\tweak} produise ses effets.
 
 
 @seealso
@@ -2116,7 +2114,7 @@ Manuel d'initiation :
 @rlearning{Méthodes de retouche}.
 
 Manuel d'extension :
-@rextendnamed{Displaying music expressions, Affichage d'expressions musicales}.
+@rextend{Affichage d'expressions musicales}.
 
 
 @knownissues
@@ -3413,7 +3411,7 @@ Morceaux choisis :
 @rlsrnamed{Tweaks and overrides,Retouches}.
 
 Manuel d'extension :
-@rextend{Interfaces for programmers}.
+@rextend{Interfaces pour programmeurs}.
 
 Référence des propriétés internes :
 @rinternals{All layout objects}.
@@ -3474,7 +3472,7 @@ objets.
 
 @seealso
 Manuel d'extension :
-@rextend{Callback functions}.
+@rextend{Fonctions de rappel}.
 
 
 @node Détermination directe de X-offset et Y-offset
@@ -4060,7 +4058,7 @@ s'appliquer à différentes expressions musicales peut faire l'objet d'une
 @emph{fonction musicale}.  Nous ne traiterons ici que des fonctions de
 @emph{substitution}, dont le but est de substituer une variable en un
 bout de code LilyPond.  D'autres fonctions, plus complexes, sont
-abordées au chapitre @rextendnamed{Music functions,Fonctions musicales}.
+abordées au chapitre @rextend{Fonctions musicales}.
 
 @menu
 * Syntaxe d'une fonction de substitution::
@@ -4106,8 +4104,8 @@ fonction musicale) pour référencer les arguments (par ex. @samp{#arg1}).
 Les arguments @code{parser} et @code{location} sont obligatoires@tie{};
 ils sont utilisés dans certaines situations évoluées, comme indiqué dans
 le manuel d'extension des fonctionnalités à au chapitre
-@rextendnamed{Music functions,Fonctions musicales}.  Assurez-vous bien
-de ne pas les omettre dans vos fonctions de substitution.
+@rextend{Fonctions musicales}.  Assurez-vous bien de ne pas les omettre
+dans vos fonctions de substitution.
 
 La liste des types de prédicat est elle aussi obligatoire.  Voici
 quelques uns des types de prédicat les plus utilisés dans les fonctions
@@ -4138,7 +4136,7 @@ Manuel de notation :
 @ref{Types de prédicats prédéfinis}.
 
 Manuel d'extension :
-@rextendnamed{Music functions, Fonctions musicales}.
+@rextend{Fonctions musicales}.
 
 Fichiers d'initialisation :
 @file{lily/music-scheme.cc},

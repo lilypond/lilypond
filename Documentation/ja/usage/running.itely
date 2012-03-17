@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 42ae342ba877dc8f26cabb5cc3937a6d3cdb4066
+    Translation of GIT committish: f66e6785e42f181199f6cf357434f60baba1e149
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -62,7 +62,7 @@ OS のコマンド ラインの使用方法についての説明は@c
 * lilypond を呼び出す::
 * lilypond のコマンド ライン オプション::
 * 環境変数::
-* LilyPond in chroot jail::
+* chroot jail 環境で LilyPond を実行する::
 @end menu
 
 @node lilypond を呼び出す
@@ -79,7 +79,7 @@ lilypond [@var{option}]@dots{} @var{file}@dots{}
 
 拡張子を持たないファイル名で呼び出された場合、@c
 @file{.ly} が最初に試されます。@c
-sudin から入力を読み込む場合には、@c
+stdin から入力を読み込む場合には、@c
 @var{file} に対してダッシュ (@code{-}) を使用します。
 
 @file{filename.ly} が処理されると、@c
@@ -87,7 +87,8 @@ lilypond は出力として @file{filename.ps} と @file{filename.pdf} を作り
 いくつかのファイルを指定することもできます。@c
 その場合、それらのファイルは個々に処理されます。@c
 @footnote{GUILE のステータスは @code{.ly} 処理後にリセットされません。@c
-そのため、Scheme 内部からいかなるシステム デフォルトも変更しないよう注意してください。}
+そのため、Scheme 内部からいかなるシステム デフォルトも変更しないよう@c
+注意してください。}
 
 @file{filename.ly} が複数の @code{\score} を含んでいる場合、@c
 2 つ目以降の score は
@@ -142,35 +143,6 @@ lilypond は出力として @file{filename.ps} と @file{filename.pdf} を作り
 
 @table @code
 
-@item -e,--evaluate=@var{expr}
-@file{.ly} ファイルを解析する前に Scheme @var{expr} を評価します。@c
-複数の @code{-e} オプションが与えられた場合、それらは順番に評価されます。
-
-表記は @code{guile-user} モジュールの中で評価されます。@c
-そのため、@var{expr} の中で定義を使いたいのならば、@c
-@code{.ly} ファイルに以下をインクルードして:
-
-@example
-#(use-modules (guile-user))
-@end example
-
-@noindent
-コマンド ラインで以下を使用します:
-
-@example
-lilypond -e '(define-public a 42)'
-@end example
-
-
-
-@item -f,--format=@var{format}
-フォーマットを指定します。@c
-@code{format} には @code{svg}, @code{ps}, @code{pdf}, @code{png} を選択します。
-
-例: @code{lilypond -fpng @var{filename}.ly}
-
-
-
 @item -d,--define-default=@var{var}=@var{val}
 これは内部プログラム オプション @var{var} に
 Scheme 値 @var{val} をセットします。@c
@@ -187,18 +159,20 @@ Scheme 値 @var{val} をセットします。@c
 @noindent
 は
 @example
--dpoint-and-click='#f'
+-dpoint-and-click=#f
 @end example
 と同じです。
 
-ここで興味深いオプションをいくつか挙げます。
+以下のオプションがサポートされます:
 
-@table @samp
+@cindex help, command line (コマンド ライン ヘルプ)
+
+@table @code
 @item help
 @code{lilypond -dhelp} を実行すると@c
-使用可能な @code{-d} オプションがすべて表示されます。
+使用可能な @option{-d} オプションがすべて表示されます。
 
-@cindex paper-size, command line (コマンドラインで paper-size を指定する)
+@cindex paper-size, command line (コマンド ラインで paper-size を指定する)
 
 @item paper-size
 このオプションはデフォルトの用紙サイズをセットします。
@@ -215,9 +189,9 @@ Scheme 値 @var{val} をセットします。@c
 @code{.ly} 入力を信用してはいけません。
 
 Web サーバを通じて LilyPond フォーマットが利用可能な場合、@c
-@code{--safe} オプションか @code{--jail} オプションの@c
-どちらかを@b{渡さなければなりません}。@c
-@code{--safe} オプションは@c
+@option{--safe} オプションか @option{--jail} オプションの@c
+どちらかを @b{渡さなければなりません}。@c
+@option{--safe} オプションは@c
 以下のようなインライン Scheme コードが大混乱をもたらすことを防ぎます:
 
 @quotation
@@ -232,7 +206,7 @@ Web サーバを通じて LilyPond フォーマットが利用可能な場合、
 訳者: #(system "rm -rf /") はルート ディレクトリ以下を削除し、@c
 export (ly:gulp-file "/etc/passwd") はパスワード ファイルをエクスポートします。
 
-@code{-dsafe} オプションはインライン Scheme 表記を@c
+@option{-dsafe} オプションはインライン Scheme 表記を@c
 特別なセーフ モジュールの中で評価します。@c
 このセーフ モジュールは GUILE @file{safe-r5rs} モジュールから派生したものですが、@c
 LilyPond API 関数をいくつか追加しています。@c
@@ -243,32 +217,39 @@ LilyPond API 関数をいくつか追加しています。@c
 
 セーフ モードでは、LilyPond 変数を Scheme にインポートすることはできません。
 
-@code{-dsafe} はリソースの乱用を検出@emph{しません}。@c
+@option{-dsafe} はリソースの乱用を検出 @emph{しません}。@c
 例えば循環データ構造体をバックエンドに食わせることで、@c
 プログラムをハングさせることは可能です。@c
 そのため、パブリックにアクセス可能な Web サーバ上で LilyPond を使用する場合、@c
 そのプロセスの CPU とメモリの両方の使用は制限されるべきです。
 
 セーフ モードは多くの有用な LilyPond 断片がコンパイルされることを妨げます。@c
-@code{--jail} はより安全な代替オプションですが、@c
+@option{--jail} はより安全な代替オプションですが、@c
 セット アップにより多くの作業を必要とします。
 
 @cindex output format, setting (出力フォーマットを設定する)
+
 @item backend
 バックエンドに対して使用する出力フォーマットを指定します。@c
 @code{format} の選択肢には以下があります:
+
 @table @code
 @item ps
-@cindex PostScript output (PostScript 出力)
- PostScript
 
- Postscript ファイルは TTF, Type1, OTF フォントを含んでいます。@c
+@cindex PostScript output (PostScript 出力)
+PostScript
+
+Postscript ファイルは TTF, Type1, それに OTF フォントを含んでいます。@c
 これらのフォントのサブセット化
 (訳者: フォント セットを使用するフォントに限定すること) は行われません。@c
 東洋の文字セットを使用する場合、巨大なファイルになる可能性があります。
 
 @item eps
- 縮約された PostScript (EPS)。@c
+
+@cindex Postscript, encapsulated (EPS)
+@cindex EPS (Encapsulated PostScript) (EPS)
+
+縮約された PostScript (EPS)。@c
 これは各ページ (システム) を@c
 フォントを持たない個別の @file{EPS} ファイルとして吐き出し、@c
 フォントを含めたすべてのページ (システム) を持つ
@@ -277,40 +258,103 @@ LilyPond API 関数をいくつか追加しています。@c
 このモードは @command{lilypond-book} でデフォルトで使用されます。
 
 @item svg
+
 @cindex SVG (Scalable Vector Graphics)
- SVG (Scalable Vector Graphics)。@c
-これは各ページを@c
-フォントを埋め込まれた個別の @file{SVG} ファイルとして吐き出します。@c
-埋め込みフォントをサポートする SVG ビューアか@c
-埋め込みフォントを OTF フォントに置き換える機能を持つ SVG ビューアが必要になります。@c
-UNIX では、@c
-@uref{http://www.inkscape.org,Inkscape} (バージョン 0.42 以降) を@c
-使うことになるかもしれません。@c
-使用前に、OTF フォントを LilyPond ディレクトリ
+
+SVG (Scalable Vector Graphics)。@c
+これは各ページを埋め込みフォントをフォントを持たない個別の
+@file{SVG} ファイルとして吐き出します。@c
+最適な描画を得るために、LilyPond インストールに含まれている
+Century Schoolbook フォントをインストールすることをお勧めします。@c
+UNIX では、単に LilyPond ディレクトリ
 (一般には @file{/usr/share/lilypond/VERSION/fonts/otf/}) から
-@file{~/.fonts/} にコピーしてください。
+@file{~/.fonts/} にコピーするだけです。@c
+SVG 出力は SVG エディタやユーザ エージョントと互換性があります。
+
 @item scm
+
 @cindex Scheme dump (Scheme ダンプ)
- 生データ -- 内部 Scheme ベース描画コマンド -- を吐き出します。
+@cindex output, Scheme dump (Scheme ダンプ出力)
+
+生データ -- 内部 Scheme ベース描画コマンド -- を吐き出します。
 
 @item null
- 譜刻された楽譜を出力しません。@c
-@code{-dno-print-pages} と同じ効果を持ちます。
+譜刻された楽譜を出力しません。@c
+@option{-dno-print-pages} と同じ効果を持ちます。
+
 @end table
 
 例: @code{lilypond -dbackend=svg @var{filename}.ly}
 
 @item preview
-タイトルとファイル システム情報を保持している出力ファイルを生成します。
+
+@cindex preview, command line (コマンド ライン プレビュー)
+
+このオプションはすべてのバックエンド
+-- @code{scm} を除く @code{pdf}, @code{png}, +@code{ps}, @code{eps},
+それに @code{svg} --
+でサポートされます。@c
+生成される出力は @code{ファイル名.preview.拡張子} という形式のファイル名で、@c
+タイトルと楽譜の最初の段を保持します。@c
+@code{\book} ブロックまたは @code{\bookpart} ブロックが使われている場合、@c
+出力には各 @code{\book} または @code{\bookpart} のタイトルが譜刻され、@c
+@code{\paper} の変数 @code{print-all-headers} が @code{#t} に@c
+セットされている場合は各 @code{\score} ブロックの最初の段も譜刻されます。
+
+通常の出力を抑制するには、必要に応じて @option{-dprint-pages} または
+@option{-dno-print-pages} オプションを使用してください。
+
+@item gui
+コマンド ラインに何も出力せず、@c
+すべての出力をログ ファイルにリダイレクトします。
++
+Windows ユーザへの注意: デフォルトで、@code{lilypond.exe} は@c
+すべての進捗情報をコマンド ウィンドウに出力しますが、@c
+@code{lilypond-windows.exe} は出力しません。@c
+出力をログ ファイルにリダイレクトさせるには、@c
+@option{-dgui} オプションをを使います。
+
 @item print-pages
 
 すべてのページを生成します。@c
-デフォルトです。@code{-dno-print-pages} は
-@code{-dpreview} と組み合わせて使うと有用です。
+デフォルトです。@option{-dno-print-pages} は
+@option{-dpreview} と組み合わせて使うと有用です。
 
 @end table
 
+@cindex Scheme, expression evaluation (Scheme 表記の評価)
+@cindex expression evaluation, Scheme (Scheme 表記の評価)
 
+@item -e,--evaluate=@var{expr}
+@file{.ly} ファイルを解析する前に Scheme @var{expr} を評価します。@c
+複数の @code{-e} オプションが与えられた場合、それらは順番に評価されます。
+
+Scheme 表記は @code{guile-user} モジュールの中で評価されます。@c
+そのため、@var{expr} の中で定義を使いたいのならば、@c
+コマンド ラインで以下を使用して、
+
+@example
+lilypond -e '(define-public a 42)'
+@end example
+
+@noindent
+@code{.ly} ファイルの先頭に以下を含めます:
+
+@example
+#(use-modules (guile-user))
+@end example
+
+@warning{Windows ユーザはシングル クォートではなく、@c
+ダブル クォートを使う必要があります。}
+
+@cindex output, format (出力のフォーマット)
+@cindex format, output (出力のフォーマット)
+
+@item -f,--format=@var{format}
+フォーマットを指定します。@c
+@code{format} の選択肢は @code{ps}, @code{pdf}, それに @code{png} です。
+
+例: @code{lilypond -fpng @var{filename}.ly}
 
 @item -h,--help
 使用方法の要約を表示します。
@@ -318,43 +362,29 @@ UNIX では、@c
 @item -H,--header=@var{FIELD}
 ヘッダ フィールドをファイル @file{BASENAME.@var{FIELD}} に吐き出します。
 
-@item --include, -I=@var{directory}
-@var{directory} を入力ファイルのサーチ パスに追加します。
-@cindex file searching (ファイル検索)
-@cindex search path (サーチ パス)
-
 @item -i,--init=@var{file}
 init ファイルとして @var{file} をセットします (デフォルト: @file{init.ly})。
 
-@item -o,--output=@var{FILE}
-デフォルトの出力ファイルとして @var{FILE} をセットします。@c
-適切な接尾辞が追加されます (つまり、pdf ならば拡張子 @code{.pdf} が追加されます)。
+@cindex file searching (ファイル サーチ)
+@cindex search path (サーチ パス)
 
-@item --ps
-PostScript を生成します。
+@item --include, -I=@var{directory}
+@var{directory} を入力ファイルのサーチ パスに追加します。
 
-@item --png
-各ページの図を PNG フォーマットで生成します。@c
-これは内部で @code{--ps} を使用します。@c
-画像の DPI 解像度は以下のようにセットします:
-@example
--dresolution=110
-@end example
+複数の -I オプションを与えることができます。@c
+検索は最初に指定されたディレクトリから開始され、@c
+入力ファイルが見つからない場合は次に指定されたディレクトリを検索します。
 
-@item --pdf
-PDF を生成します。@c
-これは内部で @code{--ps} を使用します。
-
-
+@cindex chroot jail, running inside (chroot jail 内部で実行する)
 
 @item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}
 @command{lilypond} を chroot jail 環境で実行します。@c
 (訳者: chroot jail 環境とはセキュリティのために@c
 カレント プロセスに対してルート ディレクトリの位置を変更すること。)
 
-@code{--jail} オプションは、@c
-Web サーバを通じて LilyPond 譜刻を実行するときや
-LilyPond が外部から提供されたソースを実行するときに、@c
+@option{--jail} オプションは、@c
+Web サーバを通じての LilyPond 譜刻を提供する時や
+LilyPond が外部から提供されたソースを実行する時に、@c
 @code{--safe} よりも自由度の高い代替手段を提供します。
 
 @code{--jail} オプションはコンパイル プロセスの開始直前に
@@ -386,8 +416,9 @@ LilyPond が許可されたディスク容量以上には書き込めないと�
 
 @item 専用のユーザをセットアップする
 jail 内部で LilyPond を実行する際、@c
-低い権限を持つ専用のユーザとグループ (仮に @code{lily}/@code{lily} とします) で@c
-行うべきです。@c
+低い権限を持つ専用のユーザとグループ
+(仮に @code{lily}/@code{lily} とします)
+で行うべきです。@c
 このユーザが書き込み可能なディレクトリが 1 つだけ存在すべきであり、@c
 それを @var{dir} に渡します。
 
@@ -418,6 +449,69 @@ LilyPond が使用可能な CPU 時間を数秒に制限する
 割り当て可能なメモリ容量を制限するというのも良いアイディアです。
 @end table
 
+@cindex loglevel (ログレベル)
+@cindex output, verbosity (出力の饒舌さ)
+
+@item -l,--loglevel=@var{LEVEL}
+コンソール出力の饒舌さを @var{LEVEL} にセットします。@c
+取り得る値は以下の通りです:
+
+@table @code
+
+@item NONE
+何も出力しません。エラー メッセージさえも出力しません。
+
+@item ERROR
+エラー メッセージだけを出力します。警告や進捗メッセージは出力しません。
+
+@item WARN
+警告とエラー メッセージを出力し、進捗メッセージは出力しません。
+
+@item BASIC_PROGRESS
+基本的な進捗メッセージ (成功メッセージ)、警告、それにエラー メッセージを@c
+出力します。
+
+@item PROGRESS
+しべての進捗メッセージ、警告とエラー メッセージを出力します。
+
+@item INFO (デフォルト)
+進捗メッセージ、警告、エラーそれに追加の実行情報を出力します。
+
+@item DEBUG
+饒舌なデバッグ出力を含む、出力可能なメッセージをすべて出力します。
+
+@end table
+
+@cindex directory, redirect output (出力をディレクトリにリダイレクトする)
+@cindex output, setting filename (出力のファイル名を設定する)
+@cindex output, directory (出力ディレクトリ)
+
+@item -o,--output=@var{FILE} or @var{FOLDER}
+デフォルトの出力ファイルとして @var{FILE} をセットします。@c
+セットした名前のフォルダが存在する場合、そのフォルダに出力されます。@c
+適切な接尾辞が追加されます
+(つまり、pdf ならば拡張子 @code{.pdf} が追加されます)。
+
+@item --ps
+PostScript を生成します。
+
+@cindex PNG (Portable Network Graphics), output (PNG 出力)
+@cindex output, PNG (Portable Network Graphics) (PNG 出力)
+
+@item --png
+各ページの図を PNG フォーマットで生成します。@c
+これは内部で @code{--ps} を使用します。@c
+画像の DPI 解像度は以下のようにセットします:
+@example
+-dresolution=110
+@end example
+
+@cindex PDF (Portable Document Format), output (PDF 出力)
+@cindex output, PDF (Portable Document Format) (PDF 出力)
+
+@item --pdf
+PDF を生成します。@c
+これは内部で @code{--ps} を使用します。
 
 @item -v,--version
 バージョン情報を表示します。
@@ -430,6 +524,7 @@ LilyPond が使用可能な CPU 時間を数秒に制限する
 GNU LilyPond の保証責任を表示します。@c
 (GNU LilyPond には@strong{保証責任はありません}！)
 @end table
+
 
 @node 環境変数
 @unnumberedsubsec 環境変数
@@ -449,7 +544,18 @@ GNU LilyPond の保証責任を表示します。@c
 @item LANG
 これは警告メッセージの言語を選択します。
 
+@item LILYPOND_LOGLEVEL
+デフォルトのログレベル。@c
+明示的にログレベルが指定されずに LilyPond が呼び出された場合
+(すなわち @option{--loglevel} コマンド ライン オプションが@c
+指定されなかった場合)、@c
+この値が使用されます。
+
 @item LILYPOND_GC_YIELD
+メモリ管理を調節する変数 (単位はパーセント) です。@c
+大きな値は LilyPond に多くのメモリ使用を許し、@c
+小さな値だと CPU 使用時間が長くなります。@c
+デフォルト値は @code{70} です。
 この変数を使ってメモリ使用量とパフォーマンスを調節することができます。@c
 これはメモリ管理の振る舞いを調整するパーセント値です。@c
 高い値にするとプログラムはより多くのメモリを使用し、@c
@@ -458,40 +564,44 @@ GNU LilyPond の保証責任を表示します。@c
 
 @end table
 
-@c 未訳
-@node LilyPond in chroot jail
-@unnumberedsubsec LilyPond in chroot jail
+@node chroot jail 環境で LilyPond を実行する
+@unnumberedsubsec chroot jail 環境で LilyPond を実行する
+@translationof LilyPond in chroot jail
 
-Setting up the server to run LilyPond in a chroot jail is a complicated
-task.  The steps are listed below.  Examples in the steps are from
-Ubuntu Linux, and may require the use of @code{sudo} as appropriate.
+LilyPond を chroot jail 環境で実行させるようサーバをセットアップすることは@c
+複雑な作業です。@c
+以下にステップをリスト アップします。@c
+各ステップの中にある例は Ubuntu Linux 用であり、@c
+@code{sudo} の使用が必要となるかもしれません。
 
 @itemize
 
-@item Install the necessary packages: LilyPond, GhostScript, and ImageMagick.
+@item 必要なパッケージをインストールします:
+LilyPond, GhostScript, それに ImageMagick。
 
-@item Create a new user by the name of @code{lily}:
+@item @code{lily} という名前のユーザを作成します:
 
 @example
 adduser lily
 @end example
 
 @noindent
-This will create a new group for the @code{lily} user as well, and a home folder,
-@code{/home/lily}
+このコマンドはユーザ @code{lily} のためにホーム フォルダ (@code{/home/lily})
+と新しいグループも作成します。
 
-@item In the home folder of the @code{lily} user create a file to use as a
-separate filesystem:
+@item ユーザ @code{lily} のホーム フォルダで、@c
+独立したファイルシステムとして使用するファイルを作成します:
 
 @example
 dd if=/dev/zero of=/home/lily/loopfile bs=1k count= 200000
 @end example
 
 @noindent
-This example creates a 200MB file for use as the jail filesystem.
+このコマンドは jail ファイルシステムとして使用する
+200MB のファイルを作成します。
 
-@item Create a loop device, make a file system and mount it, then create
-a folder that can be written by the @code{lily} user:
+@item ループ デバイスを作成し、ファイルシステムを作ってそれをマウントし、@c
+それからユーザ @code{lily} が書き込めるフォルダを作成します:
 
 @example
 mkdir /mnt/lilyloop
@@ -502,14 +612,13 @@ mkdir /mnt/lilyloop/lilyhome
 chown lily /mnt/lilyloop/lilyhome
 @end example
 
-@item In the configuration of the servers, the JAIL will be @code{/mnt/lilyloop}
-and the DIR will be @code{/lilyhome}.
+@item サーバのコンフィグレーションで、JAIL は @code{/mnt/lilyloop} となり、@c
+DIR は @code{/lilyhome} となります。
 
-@item Create a big directory tree in the jail by copying the necessary files, as
-shown in the sample script below.
+@item 以下に示すサンプル スクリプトのように必要なファイルをコピーして
+jail の中に大きなディレクトリ ツリーを作成します。
 
-You can use @code{sed} to create the necessary copy commands for a given
-executable:
+@code{sed} を使うことで必要な実行形式ファイルをコピーすることができます:
 
 @example
 for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/;  \
@@ -520,7 +629,7 @@ for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/;  \
 
 @end itemize
 
-@subheading Example script for 32-bit Ubuntu 8.04
+@subheading 32-bit Ubuntu 8.04 用のスクリプト例
 
 @example
 #!/bin/sh
@@ -613,7 +722,9 @@ Warning は通常、入力ファイルに何か問題があることを示して
 @cindex Scheme error (Scheme エラー)
 Scheme コードの実行中に発生するこのエラーは
 Scheme インタプリタによって引き起こされます。@c
-冗長オプション (@code{-V} または @code{--verbose}) 付きで実行している場合、@c
+冗長オプション
+(@option{-V} または @option{--verbose})
+付きで実行している場合、@c
 問題となっている関数呼び出しの呼び出し追跡が表示されます。
 
 @item Programming error
@@ -795,16 +906,13 @@ LilyPond マニュアルのほとんどの例はこの手法を用いていま�
 @unnumberedsubsec エラー メッセージ Unbound variable %
 @translationof Error message Unbound variable %
 
-@emph{Scheme} 形式のコメントではなく @emph{LilyPond} 形式のコメント@c
-を持つ Scheme ルーチンが呼び出されると、@c
-コンソール出力やログ ファイルの最後にエラー メッセージ
-@qq{Unbound variable %} が @qq{GUILE signalled an error ...}
-と共に表示されます。@c
+このエラー メッセージは、@emph{Scheme} 形式ではなく @emph{LilyPond} 形式の@c
+コメントを含む Scheme ルーチンが呼び出されるたびに、@c
+コンソール出力またはログ ファイルの最後に表示されます。
 
 LilyPond 形式のコメントはパーセント記号 (@code{%}) で始まり、@c
 Scheme ルーチンの中で使うことはできません。@c
 Scheme 形式のコメントはセミコロン (@code{;}) で始まります。
-
 
 @node エラー メッセージ FT_Get_Glyph_Name
 @unnumberedsubsec エラー メッセージ FT_Get_Glyph_Name
@@ -833,5 +941,5 @@ UTF-8 エンコードで保存されていない場合、@c
 @end example
 
 @noindent
-詳細は @ruser{Flexible vertical spacing within systems} の中の
-@qq{Spacing of non-staff lines} を参照してください。
+詳細は @ruser{システム内部の可変な垂直方向のスペース} の
+@qq{譜ではない行のスペース} を参照してください。

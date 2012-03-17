@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 2613eed0a13ce118cb11f83057d9d79fc6973a4e
+    Translation of GIT committish: cf90af135bc70b57f69fd3e09a9b29814c6358e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -211,6 +211,14 @@ sh lilypond-@versionStable{}-OS-TYPE.sh
 uninstall-lilypond
 @end example
 
+@subsubheading ヘルプを表示する
+
+シェルで、以下を入力してください:
+
+@example
+sh lilypond-@versionStable{}-OS-TYPE.sh --help
+@end example
+
 @divEnd
 
 
@@ -233,28 +241,28 @@ uninstall-lilypond
 
 @item
 @sourceimage{logo-fedora,,,}
-@uref{https://admin.fedoraproject.org/pkgdb/packages/name/lilypond,
-Fedora: LilyPond 2.12.0}
+@uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
+Fedora: LilyPond 2.14.1}
 
 @item
 @sourceimage{logo-ubuntu,,,}
-@uref{https://launchpad.net/ubuntu/+source/lilypond,
-Ubuntu: LilyPond 2.12.1}
+@uref{http://packages.ubuntu.com/search?keywords=lilypond,
+Ubuntu: LilyPond 2.12.3}
 
 @item
 @sourceimage{logo-slackware,,,}
 @uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.12.1}
+Slackware: LilyPond 2.14.1}
 
 @item
 @sourceimage{logo-debian,,,}
 @uref{http://packages.debian.org/search?keywords=lilypond,
-Debian: LilyPond 2.10.33}
+Debian: LilyPond 2.12.3}
 
 @item
 @sourceimage{logo-suse,,,}
-@uref{http://opensuse.org/?fixme=urg-no-lilypond-package-page,
-openSUSE: LilyPond 2.10.33}
+@uref{http://software.opensuse.org/search?baseproject=openSUSE%3A11.2&p=1&q=lilypond,
+openSUSE: LilyPond 2.12.3}
 
 @end itemize
 
@@ -293,12 +301,16 @@ openSUSE: LilyPond 2.10.33}
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Intel チップの MacOS X 10.4 以上用 (迷っているのなら、こちらを使ってください)
+Intel CPU の MacOS X 10.4 以上用 (迷っているのなら、こちらを使ってください)
+
+MacOS X 10.7 Lion はまだサポートしていません。
 
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
 G3 と G4 CPU の MacOS X 10.4 以上用 (古い Apple コンピュータ)
+
+MacOS X 10.7 Lion はまだサポートしていません。
 
 @end itemize
 
@@ -512,7 +524,7 @@ LilyPond 実行可能のファイルを保持しているフォルダを、@c
 [@var{既存の Path}];@var{DIR}\LilyPond\usr\bin
 @end example
 
-@warning{@var{DIR} は、一般には @code{C:\Program Files} です。}
+@warning{@var{DIR} は、一般には @code{C:@bs{}Program Files} です。}
 
 @noindent
 @qq{OK} ボタンをクリックしてウィンドウを閉じます。

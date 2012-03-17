@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-27 13:12+0100\n"
-"PO-Revision-Date: 2012-02-01 20:10+0100\n"
+"PO-Revision-Date: 2012-03-10 15:17+0100\n"
 "Last-Translator: Jean-Charles Malahieude <lilyfan-AT-orange-DOT-fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "Language: \n"
@@ -355,12 +355,12 @@ msgstr "Scheme et les variables"
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
 msgid "Scheme simple data types"
-msgstr "Types de données simples"
+msgstr "Types de données Scheme simples"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
 msgid "Scheme compound data types"
-msgstr "Types de données composites"
+msgstr "Types de données Scheme composites"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
 msgid "Pairs"
@@ -390,7 +390,7 @@ msgstr "Scheme et les procédures"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
 msgid "Defining procedures"
-msgstr "Définition d'une procédure"
+msgstr "Définition de procédures"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
 msgid "Predicates"
@@ -421,7 +421,7 @@ msgstr "Scheme et LilyPond"
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
 msgid "LilyPond Scheme syntax"
-msgstr "Syntaxe Scheme dans du code LilyPond"
+msgstr "Syntaxe Scheme dans LilyPond"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
@@ -431,7 +431,7 @@ msgstr "Variables LilyPond"
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
 msgid "Input variables and Scheme"
-msgstr "Variables d'entrée et Scheme"
+msgstr "Saisie de variables et Scheme"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
@@ -441,23 +441,23 @@ msgstr "Propriétés des objets"
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
 msgid "LilyPond compound variables"
-msgstr "LilyPond et les variables composites"
+msgstr "Variables LilyPond composites"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
 msgid "Offsets"
-msgstr "Offsets"
+msgstr "Décalages (@emph{Offsets})"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
 msgid "Extents"
-msgstr "Extents"
+msgstr "Étendues (@emph{extents})"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
 msgid "Property alists"
-msgstr "Propriétés et alist"
+msgstr "Propriétés en @emph{alists}"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
 msgid "Alist chains"
-msgstr "Caînes et alist"
+msgstr "Chaînes d'@emph{alist}"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
@@ -477,17 +477,17 @@ msgstr "Affichage d'expressions musicales"
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
 msgid "Music properties"
-msgstr "Propriétés de la musique"
+msgstr "Propriétés musicales"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
 msgid "Doubling a note with slurs (example)"
-msgstr "Exemple : redoubler une note avec liaison"
+msgstr "Doubler d'une note avec liaison (exemple)"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
 msgid "Adding articulation to notes (example)"
-msgstr "Exemple : ajouter une articulation à plusieurs notes"
+msgstr "Ajout d'articulation à des notes (exemple)"
 
 #. Documentation/extending/programming-interface.itely:377 (variable)
 msgid "manualBeam"
@@ -510,7 +510,7 @@ msgstr "avecAlt"
 #. @node in Documentation/extending/programming-interface.itely
 #. @chapter in Documentation/extending/programming-interface.itely
 msgid "Interfaces for programmers"
-msgstr "Interfaces pour les programmeurs"
+msgstr "Interfaces pour programmeurs"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
@@ -587,47 +587,47 @@ msgstr "Fonctions événementielles"
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
 msgid "Markup functions"
-msgstr "Fonctions « Markup »"
+msgstr "Fonctions pour @emph{markups}"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
 msgid "Markup construction in Scheme"
-msgstr "Construction Scheme d'un marqueur"
+msgstr "Construction d'un @emph{markup} en Scheme"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
 msgid "How markups work internally"
-msgstr "Fonctionnement interne des marqueurs"
+msgstr "Fonctionnement interne des @emph{markups}"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
 msgid "New markup command definition"
-msgstr "Définition d'une nouvelle commande de marqueur"
+msgstr "Définition d'une nouvelle commande de @emph{markup}"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @unnumberedsubsubsec in Documentation/extending/programming-interface.itely
 msgid "Markup command definition syntax"
-msgstr "Syntaxe de définition d'une commande de marqueur"
+msgstr "Syntaxe d'une commande @emph{markup}"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @unnumberedsubsubsec in Documentation/extending/programming-interface.itely
 msgid "On properties"
-msgstr "Les propriétés « On »"
+msgstr "Attribution de propriétés"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @unnumberedsubsubsec in Documentation/extending/programming-interface.itely
 msgid "A complete example"
-msgstr "Exemple exhaustif"
+msgstr "Exemple commenté"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @unnumberedsubsubsec in Documentation/extending/programming-interface.itely
 msgid "Adapting builtin commands"
-msgstr "Adaptation des commandes préétablies"
+msgstr "Adaptation d'une commande incorporée"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
 msgid "New markup list command definition"
-msgstr "Définition d'une nouvelle commande de liste de marqueurs"
+msgstr "Définition d'une nouvelle commande de liste de @emph{markups}"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
@@ -647,12 +647,12 @@ msgstr "Application d'une fonction à tous les objets de mise en forme"
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
 msgid "Callback functions"
-msgstr "Fonctions « callback »"
+msgstr "Fonctions de rappel"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
 msgid "Inline Scheme code"
-msgstr "Code Scheme au sein d'un fichier LilyPond"
+msgstr "Code Scheme intégré"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
@@ -662,7 +662,7 @@ msgstr "Retouches complexes"
 #. @node in Documentation/extending/programming-interface.itely
 #. @chapter in Documentation/extending/programming-interface.itely
 msgid "LilyPond Scheme interfaces"
-msgstr "Interfaces entre LilyPond et Scheme"
+msgstr "Interfaces LilyPond Scheme"
 
 #. Documentation/learning/tutorial.itely:210 (comment)
 msgid "set the starting point to middle C"

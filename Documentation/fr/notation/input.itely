@@ -1,7 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-
 @ignore
-    Translation of GIT committish: 68bf74649158e6088ff0e6c2ba746cd99dc12c97
+    Translation of GIT committish: 1ac60f7a65210612bcb5a6e508fee4986d8c2701
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -374,7 +373,7 @@ supérieur, s'appliqueront à l'intégralité de l'ouvrage.  Si l'une de ces
 expression apparaît à plusieurs reprises, la dernière aura préséance.
 
 @item
-Une expression scheme pure, telle que
+Une expression Scheme pure, telle que
 @w{@code{#(set-default-paper-size@tie{}"a7"@tie{}'landscape)}} ou
 @w{@code{#(ly:set-option@tie{}'point-and-click@tie{}#f)}}.
 
@@ -1254,8 +1253,9 @@ référencé, le second contient l'annotation qui est reportée en bas de
 page.
 
 Tout comme dans le cas d'une note de bas de page automatique, la commande
-@code{\footnote} doit être mentionnée @strong{après} l'objet auquel
-l'annotation fait référence, comme s'il s'agissait d'une articulation.
+@code{\footnote} doit être mentionnée comme s'il s'agissait d'une
+articulation, donc @strong{avant} l'objet auquel l'annotation fait
+référence.
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -1416,7 +1416,7 @@ numéro de page grâce à la commande de @emph{markup} @code{\page-ref}.
 L'instruction @code{\page-ref} prend trois arguments@tie{}:
 @enumerate
 @item
-le point de référence, sous la forme d'un symbole scheme, comme par
+le point de référence, sous la forme d'un symbole Scheme, comme par
 exemple @code{#'firstScore},
 
 @item
@@ -3119,7 +3119,7 @@ l'information musicale sous forme textuelle.
 
 @menu
 * Affichage de notation au format LilyPond::
-* Affichage de la musique sous forme d'expression scheme::
+* Affichage de la musique sous forme d'expression Scheme::
 * Enregistrement d'événements musicaux dans un fichier::
 @end menu
 
@@ -3173,11 +3173,11 @@ des informations, l'interprétation de cette expression peut toutefois
 @end example
 
 
-@node Affichage de la musique sous forme d'expression scheme
-@subsection Affichage de la musique sous forme d'expression scheme
+@node Affichage de la musique sous forme d'expression Scheme
+@subsection Affichage de la musique sous forme d'expression Scheme
 @translationof Displaying scheme music expressions
 
-Voir @rextend{Displaying music expressions}.
+Voir @rextend{Affichage d'expressions musicales}.
 
 
 @node Enregistrement d'événements musicaux dans un fichier

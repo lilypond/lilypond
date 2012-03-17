@@ -1,7 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-
 @ignore
-    Translation of GIT committish: 8329db420f98f9d2f03ee8aec740b7ccf770b0d2
+    Translation of GIT committish: 1ac60f7a65210612bcb5a6e508fee4986d8c2701
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,7 +10,7 @@
 @c \version "2.14.0"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
-@c Translation checkers: Jean-Charles Malahieude, Jean-Jacques Gerbaud
+@c Translation checkers: Jean-Jacques Gerbaud
 
 @node Musique vocale
 @section Musique vocale
@@ -228,7 +227,7 @@ Manuel de notation :
 @ref{Durée explicite des syllabes},
 @ref{Fontes},
 @ref{Mise en forme du texte},
-@rusernamed{Input modes,Modes de saisie}.
+@ref{Modes de saisie}.
 
 Référence des propriétés internes :
 @rinternals{LyricText}.
@@ -392,8 +391,7 @@ syllabe.  Ceci fait l'objet de la rubrique
 Le contexte @code{Voice} contenant la mélodie sur laquelle les paroles
 vont s'aligner doit rester actif, au risque de voir la suite du texte
 disparaître.  Ceci peut se produire lorsqu'il y a des moments où l'on ne
-chante pas.  La rubrique @rusernamed{Keeping contexts alive,
-Conservation d’un contexte} vous indiquera
+chante pas.  La rubrique @ref{Conservation d'un contexte} vous indiquera
 comment maintenir un contexte actif.
 
 
@@ -1416,7 +1414,7 @@ paroles sont différentes.  Des instructions @code{\skip} devront venir
 s'insérer dans les paroles pour @qq{sauter} les notes des alternatives
 qui ne les concernent pas.
 
-N'utilisez pas de simple caratère souligné pour sauter une note.
+N'utilisez pas de simple caractère souligné pour sauter une note.
 N'oubliez pas qu'un caractère souligné indique un mélisme@tie{}; la
 syllabe précédente sera donc alignée à gauche.
 
@@ -1974,7 +1972,7 @@ Vous en trouverez un exemple ci-dessous@tie{}; notez également les deux
 méthodes différentes employées pour indiquer les sauts de ligne,
 entre les couplets (@emph{verses} en anglais) 2 et 3.
 
-@c KEEPLY
+@c KEEP LY
 @lilypond[ragged-right,verbatim,quote]
 melody = \relative c'' {
   \time 2/4
@@ -2019,7 +2017,7 @@ sur plusieurs colonnes.  L'exemple suivant vous montre comment procéder
 pour que le numéro du couplet soit en retrait à gauche, comme c'est
 traditionnellement le cas.
 
-@c KEEPLY
+@c KEEP LY
 @lilypond[ragged-right,quote,verbatim]
 melody = \relative c'' {
   \time 2/4
@@ -2106,7 +2104,7 @@ Une chanson se présente la plupart du temps sous la forme de trois
 portées@tie{}: une pour la mélodie surmontant un système pianistique
 pour l'accompagnement@tie{}; les paroles du premier couplet s'accolent
 sous la mélodie.  S'il n'y a que deux ou trois couplets, et que cela
-n'est pas génant au niveau de l'aspect général, tous peuvent prendre
+n'est pas gênant au niveau de l'aspect général, tous peuvent prendre
 place entre la mélodie et l'accompagnement.  Dans le cas contraire, le
 premier couplet sera imprimé sous la mélodie et les suivants après la
 partition, sous forme de blocs de texte indépendants.
@@ -2416,7 +2414,7 @@ Une @emph{partition de choriste} qui ne comprend que les parties vocales
 
 @item
 Un @emph{livret} contenant l'intégralité des dialogues et le texte des
-passsages chantés.  On y trouve aussi très souvent les indications de
+passages chantés.  On y trouve aussi très souvent les indications de
 mise en scène.  Bien que LilyPond soit capable de @qq{typographier} un
 livret, n'oubliez pas qu'il n'y a dans ce cas pas de musique, et que
 d'autres outils pourraient être mieux appropriés.
@@ -2602,7 +2600,7 @@ Manuel de notation :
 @ref{Text markup commands}.
 
 Manuel d'extension des fonctionnalités :
-@rextendnamed{Markup construction in Scheme,Construction d'un markup en Scheme}.
+@rextend{Construction d'un markup en Scheme}.
 
 
 @node Citation-repère
@@ -2616,7 +2614,7 @@ Manuel d'extension des fonctionnalités :
 Les citations d'instruments insérées dans les parties vocales, les
 partitions de chœur ou les partitions d'un pupitre permettent d'indiquer
 ce qui se passe ailleurs juste avant une entrée.  On les retrouve
-souvent dans la réduction pour piano, ce qui fournit au chef de choœur
+souvent dans la réduction pour piano, ce qui fournit au chef de chœur
 de précieuses indications sur qui joue quoi, lorsqu'il ne dispose pas
 d'un conducteur en bonne et due forme.
 
@@ -2660,7 +2658,7 @@ faudra mentionner sa tonalité dans sa définition, afin que ses hauteurs
 soient automatiquement converties dans la réplique.  Ceci est illustré
 par l'exemple ci-dessous, dans lequel il est fait appel à une clarinette
 en si bémol.  Dans la mesure où les notes citées se trouvent vers le bas
-de la portée, nous affrectons un @code{DOWN} à la commande
+de la portée, nous affectons un @code{DOWN} à la commande
 @code{\cueDuring}, de telle sorte que les hampes aillent vers le bas et
 que le nom de l'instrument cité soit en dessous de la portée.  Vous
 noterez que la voix contenant la main droite du piano est explicitement
@@ -2889,7 +2887,7 @@ méthode consacrée pour les mettre en œuvre.
 
 Les cantiques utilisent souvent des noires dépourvues de hampe pour
 indiquer les hauteurs@tie{}; le rythme de la mélodie est donné par le
-rythme et l'accentuation des paroles elles-même.
+rythme et l'accentuation des paroles elles-mêmes.
 
 @lilypond[verbatim,quote]
 stemOff = { \override Staff.Stem #'transparent = ##t }
@@ -3173,7 +3171,7 @@ Manuel de notation :
 @ref{Notations anciennes},
 @ref{Barres de mesure},
 @ref{Modification des greffons de contexte},
-@c r e f{Typesetting Gregorian chant}, ***A VENIR
+@ref{Typographie du chant grégorien},
 @ref{Musique sans métrique},
 @ref{Visibilité des objets}.
 
@@ -3217,7 +3215,7 @@ mesure.
 
 Vous pourriez tout à fait utiliser d'autres symboles disponibles au
 travers des glyphes de la fonte @code{fetaMusic} -- voir le chapitre
-@ref{Fontes} pour plus de détatils.
+@ref{Fontes} pour plus de détails.
 
 @lilypond[verbatim,quote]
 tick = \markup {
@@ -3361,7 +3359,7 @@ chaque ligne.
 @translationof Ancient vocal music
 
 LilyPond prend en charge la musique vocale ancienne.  Elle est abordée
-en détails au chapite @ref{Notations anciennes}.
+en détails au chapitre @ref{Notations anciennes}.
 
 @c TODO
 
