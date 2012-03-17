@@ -550,8 +550,8 @@ almacenan propiedades, también contienen «plug-ins» o complementos
 llamados @q{grabadores} que crean elementos de notación.  Por ejemplo,
 el contexto @code{Voice} contiene un grabador
 @code{Note_heads_engraver} que crea las cabezas de nota y el contexto
-@code{Staff} contiene un grabador @code{Key_signature_engraver} que
-crea la indicación de compás.
+@code{Staff} contiene un grabador @code{Key_engraver} que
+crea la armadura.
 
 Para ver una descripción completa de todos y cada uno de los
 complementos, consulte
