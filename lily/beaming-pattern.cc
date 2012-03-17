@@ -43,7 +43,7 @@ Beam_rhythmic_element::Beam_rhythmic_element ()
   tuplet_start_ = false;
 }
 
-Beam_rhythmic_element::Beam_rhythmic_element (Moment m, int i, bool inv, 
+Beam_rhythmic_element::Beam_rhythmic_element (Moment m, int i, bool inv,
   Rational factor, bool tuplet_start)
 {
   start_moment_ = m;
@@ -352,11 +352,12 @@ Beaming_pattern::start_moment (int i) const
 Moment
 Beaming_pattern::end_moment (int i) const
 {
-  Duration *dur = new Duration (2 + max (beamlet_count (i, LEFT),
-                                         beamlet_count (i, RIGHT)),
-                                0);
+  Duration dur (2 + max (beamlet_count (i, LEFT),
+                         beamlet_count (i, RIGHT)),
+                0);
 
-  return infos_.at (i).start_moment_ + dur->get_length ();
+  return infos_.at (i).start_moment_
+    + infos_.at(i).factor_ * dur.get_length ();
 }
 
 bool
