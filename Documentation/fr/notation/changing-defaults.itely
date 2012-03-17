@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 1ac60f7a65210612bcb5a6e508fee4986d8c2701
+    Translation of GIT committish: 9034fc53a974a6d006157ebcf52f091a85be30f5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -606,8 +606,8 @@ sous-programmes (@emph{plug-ins} pour employer le terme consacré) nommés
 Ces sous-programmes sont chargés de créer les différents éléments de
 notation@tie{}: on trouve ainsi dans le contexte @code{Voice} un graveur
 @code{Note_heads_engraver}, chargé des têtes de notes et, dans le
-contexte @code{Staff}, un graveur @code{Key_signature_engraver}, chargé
-de l'armure.
+contexte @code{Staff}, un graveur @code{Key_engraver}, chargé de
+l'armure.
 
 Vous trouverez une description exhaustive de chaque graveur dans
 @ifhtml
