@@ -2857,26 +2857,26 @@ was left looking like this:
   <<
     { c2 aes4. bes8 }
     \\
-    { aes2 f4 fes }
+    { <ees, c>2 des }
     \\
-    {
-      \voiceFour
-      <ees c>2 des
-    }
+    \\
+    { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
 }
 @end lilypond
 
 @noindent
-The lower two notes of the first chord (i.e, those in the third voice)
-should not be shifted away from the note column of the higher two
-notes.  To correct this we set @code{force-hshift}, which is a
-property of @code{NoteColumn}, of these notes to zero.  The lower note
-of the second chord is best placed just to the right of the higher
-notes.  We achieve this by setting @code{force-hshift} of this note to
-0.5, ie half a note head's width to the right of the note column of
-the higher notes.
+The inner note of the first chord (i.e. the A-flat in the fourth
+Voice) need not be shifted away from the note column of the higher
+note.  To correct this we set @code{force-hshift}, which is a property
+of @code{NoteColumn}, of this note to zero.
+
+In the second chord we prefer the F to line up with the A and the
+lowest note to be positioned slightly right to avoid a collision of
+stems.  We achieve this by setting @code{force-hshift} in the
+@code{NoteColumn} of the low D-flat to move it to the right by half
+a staff-space.
 
 Here's the final result:
 
@@ -2889,14 +2889,16 @@ Here's the final result:
   <<
     { c2 aes4. bes8 }
     \\
-    { aes2 f4 fes }
-    \\
     {
-      \voiceFour
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
+      <ees, c>2
       \once \override NoteColumn #'force-hshift = #0.5
       des2
+    }
+    \\
+    \\
+    {
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |

@@ -87,7 +87,6 @@ octave.
 }
 @end lilypond
 
-
 @seealso
 Music Glossary:
 @rglos{Pitch names}.
@@ -274,7 +273,6 @@ Snippets:
 Internals Reference:
 @rinternals{RelativeOctaveMusic}.
 
-
 @cindex relative octave entry and transposition
 @cindex transposition and relative octave entry
 
@@ -285,13 +283,11 @@ Internals Reference:
 @funindex \relative
 @funindex relative
 
-
 @c DEPRECATED
 If no @code{@var{startpitch}} is specified for @code{\relative},
 then@tie{}@code{c'} is assumed.  However, this is a deprecated
 option and may disappear in future versions, so its use is
 discouraged.
-
 
 
 @node Accidentals
@@ -424,16 +420,13 @@ Internals Reference:
 @rinternals{AccidentalCautionary},
 @rinternals{accidental-interface}.
 
-
 @cindex accidental, quarter-tone
 @cindex quarter-tone accidental
 
 @knownissues
-
 There are no generally accepted standards for denoting
 quarter-tone accidentals, so LilyPond's symbol does not conform to
 any standard.
-
 
 
 @node Note names in other languages
@@ -573,7 +566,6 @@ Western classical music, also referred to as
 pitches and tuning systems are also supported: see
 @ref{Common notation for non-Western music}.
 
-
 @seealso
 Music Glossary:
 @rglos{Pitch names},
@@ -665,7 +657,6 @@ checks fail, but the second one does not fail.
   f
 }
 @end lilypond
-
 
 @seealso
 Snippets:
@@ -790,7 +781,6 @@ see @ref{Instrument transpositions}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
-
 @seealso
 Notation Reference:
 @ref{Instrument transpositions},
@@ -805,7 +795,6 @@ Snippets:
 Internals Reference:
 @rinternals{TransposedMusic}.
 
-
 @funindex \transpose
 @funindex transpose
 @funindex \chordmode
@@ -814,7 +803,6 @@ Internals Reference:
 @funindex relative
 
 @knownissues
-
 The relative conversion will not affect @code{\transpose},
 @code{\chordmode} or @code{\relative} sections in its argument.  To use
 relative mode within transposed music, an additional @code{\relative}
@@ -1266,7 +1254,6 @@ fis
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{church mode},
@@ -1322,7 +1309,6 @@ a2 b
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {ottava-text.ly}
-
 
 @seealso
 Music Glossary:
@@ -1418,7 +1404,6 @@ R1
 \transposition bes
 c2 g
 @end lilypond
-
 
 @seealso
 Music Glossary:
@@ -2548,14 +2533,12 @@ Internals Reference:
 @rinternals{AccidentalPlacement},
 @rinternals{accidental-suggestion-interface}.
 
-
 @cindex accidentals and simultaneous notes
 @cindex simultaneous notes and accidentals
 @cindex accidentals in chords
 @cindex chords, accidentals in
 
 @knownissues
-
 Simultaneous notes are not considered in the automatic
 determination of accidentals; only previous notes and the key
 signature are considered.  Forcing accidentals with@tie{}@code{!}
@@ -2605,6 +2588,7 @@ forget = #(define-music-function (parser location music) (ly:music?) #{
 }
 @end lilypond
 
+
 @node Ambitus
 @unnumberedsubsubsec Ambitus
 
@@ -2649,7 +2633,6 @@ printed if they are not part of the key signature.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-ambitus-gap.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{ambitus}.
@@ -2667,9 +2650,7 @@ Internals Reference:
 @rinternals{AmbitusNoteHead},
 @rinternals{ambitus-interface}.
 
-
 @knownissues
-
 There is no collision handling in the case of multiple per-voice
 ambitus.
 
@@ -2827,7 +2808,6 @@ font, see @ref{Setting the staff size}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {numbers-as-easy-note-heads.ly}
 
-
 @seealso
 Notation Reference:
 @ref{Setting the staff size}.
@@ -2949,7 +2929,6 @@ a2 b c d \break
 
 To see all note head styles, see @ref{Note head styles}.
 
-
 @seealso
 Snippets:
 @rlsr{Pitches}.
@@ -2995,12 +2974,10 @@ rhythm.  Such note heads can be created:
 }
 @end lilypond
 
-
 @predefined
 @code{\improvisationOn},
 @code{\improvisationOff}.
 @endpredefined
-
 
 @seealso
 Snippets:

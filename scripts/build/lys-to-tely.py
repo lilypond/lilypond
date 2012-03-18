@@ -163,11 +163,9 @@ if files:
     s = "\n".join (map (name2line, files))
     s = template.replace (include_snippets, s, 1)
     f = "%s/%s" % (dir, name)
-    sys.stderr.write ("%s: writing %s..." % (program_name, f))
     h = open (f, "w")
     h.write (s)
     h.close ()
-    sys.stderr.write ('\n')
 else:
     # not Unix philosophy, but hey, at least we notice when
     # we don't distribute any .ly files.

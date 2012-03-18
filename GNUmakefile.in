@@ -120,10 +120,6 @@ WEB_TARGETS = offline
 
 WEB_ROOT_FILES = $(WEB_TARGETS:%=$(outdir)/%-root/index.html)
 
-WEB_EXAMPLE_FILES = $(wildcard input/$(outdir)/*.ly) \
-                    $(wildcard input/*/$(outdir)/*.ly) \
-                    $(wildcard input/*/*/$(outdir)/*.ly)
-
 WEB_TRACKED_FILES = $(filter-out $(outdir)/index.html, \
                     $(shell bash -O nullglob -c "echo $(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}")) \
                     $(shell bash -O nullglob -c "echo input/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \

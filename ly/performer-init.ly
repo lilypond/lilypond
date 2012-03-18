@@ -160,6 +160,23 @@
   \consists "Time_signature_performer"
   \consists "Control_track_performer"
   \consists "Tempo_performer"
+
+  \alias "Timing"
+
+  %% An alias for Timing is established by the Timing_translator in
+  %% whatever context it is initialized, and the timing variables are
+  %% then copied from wherever Timing had been previously established.
+  %% The alias at Score level provides a target for initializing
+  %% Timing variables in layout definitions before any
+  %% Timing_translator has been run.
+
+  timeSignatureFraction = #'(4 . 4)
+
+%% These defaults should be the same as the rules established in
+%%   scm/time-signature-settings.scm for 4/4 time
+  measureLength = #(ly:make-moment 4 4)
+  baseMoment = #(ly:make-moment 1  4)
+
   \consists "Timing_translator"
 
   \defaultchild "Staff"

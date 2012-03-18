@@ -91,6 +91,8 @@ LY_DEFINE (ly_output_description, "ly:output-description",
 	   1, 0, 0, (SCM output_def),
 	   "Return the description of translators in @var{output-def}.")
 {
+  LY_ASSERT_SMOB (Output_def, output_def, 1);
+
   Output_def *id = unsmob_output_def (output_def);
 
   SCM al = ly_module_2_alist (id->scope_);
@@ -104,6 +106,31 @@ LY_DEFINE (ly_output_description, "ly:output-description",
     }
   return ell;
 }
+
+LY_DEFINE (ly_output_find_context_def, "ly:output-find-context-def",
+	   1, 1, 0, (SCM output_def, SCM context_name),
+	   "Return an alist of all context defs (matching @var{context-name}"
+	   "if given) in @var{output-def}.")
+{
+  LY_ASSERT_SMOB (Output_def, output_def, 1);
+  if (!SCM_UNBNDP (context_name))
+    LY_ASSERT_TYPE (ly_is_symbol, context_name, 2);
+
+  Output_def *id = unsmob_output_def (output_def);
+
+  SCM al = ly_module_2_alist (id->scope_);
+  SCM ell = SCM_EOL;
+  for (SCM s = al; scm_is_pair (s); s = scm_cdr (s))
+    {
+      SCM p = scm_car (s);
+      Context_def *td = unsmob_context_def (scm_cdr (p));
+      if (td && scm_is_eq (scm_car (p), td->get_context_name ())
+	  && (SCM_UNBNDP (context_name) || td->is_alias (context_name)))
+	ell = scm_cons (p, ell);
+    }
+  return ell;
+}
+
 
 LY_DEFINE (ly_output_def_p, "ly:output-def?",
 	   1, 0, 0, (SCM def),

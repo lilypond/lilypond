@@ -988,21 +988,27 @@ a context modification duplicating their effect.")
 	       (list 'unset
 		     (ly:music-property m 'symbol)))
 	      ((OverrideProperty)
-	       (list 'push
-		     (ly:music-property m 'symbol)
-		     (ly:music-property m 'grob-value)
-		     (ly:music-property m 'grob-property-path)))
+	       (cons* 'push
+		      (ly:music-property m 'symbol)
+		      (ly:music-property m 'grob-value)
+		      (ly:music-property m 'grob-property-path)))
 	      ((RevertProperty)
-	       (list 'pop
-		     (ly:music-property m 'symbol)
-		     (ly:music-property m 'grob-property-path)))))
+	       (cons* 'pop
+		      (ly:music-property m 'symbol)
+		      (ly:music-property m 'grob-property-path)))))
 	   (case (ly:music-property m 'name)
-	     ((SequentialMusic SimultaneousMusic)
-	      (for-each musicop (ly:music-property m 'elements)))
+	     ((ApplyContext)
+	      (ly:add-context-mod mods
+				  (list 'apply
+					(ly:music-property m 'procedure))))
 	     ((ContextSpeccedMusic)
 	      (if (or (not ctx)
 		      (eq? ctx (ly:music-property m 'context-type)))
-		  (musicop (ly:music-property m 'element)))))))
+		  (musicop (ly:music-property m 'element))))
+	     (else
+	      (let ((callback (ly:music-property m 'elements-callback)))
+		(if (procedure? callback)
+		    (for-each musicop (callback m))))))))
      (musicop music)
      mods))
 

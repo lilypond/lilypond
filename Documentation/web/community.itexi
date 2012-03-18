@@ -883,13 +883,9 @@ new contributors, encourage students already participating in LilyPond
 development to become more involved, and - last but not least - write some
 great code for the benefit of all!
 
-In addition to getting paid for your work, you'll gain experience in
-software development, which many of previous GSoC students describe as
-@emph{invaluable} (and you'll get a t-shirt, too!).
-
-If you have any questions, read
-@uref{http://www.google-melange.com/gsoc/document/show/gsoc_program/google/gsoc2012/faqs, GSoC FAQ}
-or contact us at @code{lilypond-devel@@gnu.org}.
+We are participating in GSoC as a part of GNU Project.  See
+@uref{http://www.gnu.org/software/soc-projects/guidelines.html, GNU GSoC webpage}
+for information on how to participate.
 
 @divEnd
 
@@ -897,7 +893,7 @@ or contact us at @code{lilypond-devel@@gnu.org}.
 @subheading Our Ideas List
 
 Below is a list of projects suggested for GSoC students.  If you don't
-see a project that suits you, feel free to contact us and suggest your own!
+see a project that suits you, feel free to suggest your own!
 It's also possible to scale down a project if you feel it's too big.
 
 We require that every student has basic @code{git} knowledge, and

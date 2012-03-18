@@ -365,7 +365,6 @@ Snippets:
 @rlsr{Spacing}.
 
 @knownissues
-
 The titles (from the @code{\header} block) are treated as a
 system, so @code{ragged-bottom} and @code{ragged-last-bottom} will
 add space between the titles and the first system of the score.
@@ -680,7 +679,6 @@ Installed Files:
 @file{ly/paper-defaults-init.ly}.
 
 @knownissues
-
 Explicitly defined paper-sizes will override any user-defined left or
 right margin settings.
 
@@ -991,7 +989,6 @@ sensible default, for example:
 
 @end table
 
-
 @seealso
 Installed Files:
 @file{ly/titling-init.ly}.
@@ -999,9 +996,7 @@ Installed Files:
 Snippets:
 @rlsr{Spacing}.
 
-
 @knownissues
-
 The default page header puts the page number and the @code{instrument}
 field from the @code{\header} block on a line.
 
@@ -1077,7 +1072,6 @@ Here is an example @code{\layout} block:
   @}
 @}
 @end example
-
 
 @seealso
 Notation Reference:
@@ -1180,7 +1174,6 @@ These fonts are available in any sizes.  The context property
 @rinternals{StaffSymbol}) can be used to tune the size for individual
 staves.  The sizes of individual staves are relative to the global size.
 
-
 @seealso
 Notation Reference:
 @ref{Selecting notation font size}.
@@ -1188,9 +1181,7 @@ Notation Reference:
 Snippets:
 @rlsr{Spacing}.
 
-
 @knownissues
-
 @code{layout-set-staff-size} does not change the distance between the
 staff lines.
 
@@ -1329,7 +1320,6 @@ complicated.  More details are available in
 @code{\noBreak}.
 @endpredefined
 
-
 @seealso
 Notation Reference:
 @ref{\paper variables for line breaking}.
@@ -1414,7 +1404,6 @@ book parts.
 @code{\noPageBreak}.
 @endpredefined
 
-
 @seealso
 Notation Reference:
 @ref{\paper variables for page breaking}.
@@ -1432,7 +1421,6 @@ The @code{ly:optimal-breaking} function is LilyPond's default method of
 determining page breaks.  It attempts to find a page breaking that minimizes
 cramping and stretching, both horizontally and vertically.  Unlike
 @code{ly:page-turn-breaking}, it has no concept of page turns.
-
 
 @seealso
 Snippets:
@@ -1504,7 +1492,6 @@ The page turning commands, @code{\pageTurn}, @code{\noPageTurn} and
 @code{\allowPageTurn}, may also be used at top-level, between scores and
 top-level markups.
 
-
 @predefined
 @funindex \pageTurn
 @code{\pageTurn},
@@ -1514,14 +1501,11 @@ top-level markups.
 @code{\allowPageTurn}.
 @endpredefined
 
-
 @seealso
 Snippets:
 @rlsr{Spacing}.
 
-
 @knownissues
-
 There should only be one @code{Page_turn_engraver} in a score.  If there is more
 than one, they will interfere with each other.
 
@@ -1542,7 +1526,6 @@ too slow or memory demanding, or a lot of texts.  It is enabled using:
   page-breaking = #ly:minimal-breaking
 @}
 @end example
-
 
 @seealso
 Snippets:
@@ -1594,7 +1577,6 @@ music = \relative c'' { c8 c c c }
   }
 }
 @end lilypond
-
 
 @seealso
 Snippets:
@@ -1681,7 +1663,6 @@ music = \relative c'' { c4 c c c }
   >>
 }
 @end lilypond
-
 
 @seealso
 Notation Reference:
@@ -2043,14 +2024,14 @@ Notation Reference:
 @ref{Flexible vertical spacing \paper variables},
 @ref{Modifying alists}.
 
+Installed Files:
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
+
 Internals Reference:
 @rinternals{Contexts},
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
-
-Installed Files:
-@file{ly/engraver-init.ly},
-@file{scm/define-grobs.scm}.
 
 
 @node Spacing of ungrouped staves
@@ -2252,7 +2233,6 @@ able to stretch much more than usual:
   \new Staff { c'1 }
 >>
 @end lilypond
-
 
 @seealso
 Installed Files:
@@ -2497,7 +2477,6 @@ to print staves or systems on top of one another.  Reasonable values
 passed to these different settings will avoid this.
 @end itemize
 
-
 @seealso
 Snippets:
 @rlsr{Spacing}.
@@ -2581,7 +2560,6 @@ c,,4^"Text"
 c4
 c''2
 @end lilypond
-
 
 @seealso
 Snippets:
@@ -2691,8 +2669,10 @@ once with exaggerated corrections:
 
 Proportional notation is supported; see @ref{Proportional notation}.
 
-
 @seealso
+Essay on automated music engraving:
+@ressay{Optical spacing}.
+
 Snippets:
 @rlsr{Spacing}.
 
@@ -2702,15 +2682,11 @@ Internals Reference:
 @rinternals{StaffSpacing},
 @rinternals{NonMusicalPaperColumn}.
 
-Essay on automated music engraving:
-@ressay{Optical spacing}.
-
-
 @knownissues
-
 There is no convenient mechanism to manually override spacing.  The
 following work-around may be used to insert extra space into a score,
 adjusting the padding value as necessary.
+
 @example
  \override Score.NonMusicalPaperColumn #'padding = #10
 @end example
@@ -2740,7 +2716,6 @@ c16[ c c8]
 The @code{\newSpacingSection} command creates a new
 @code{SpacingSpanner} object, and hence new @code{\override}s
 may be used in that location.
-
 
 @seealso
 Snippets:
@@ -2833,7 +2808,6 @@ regard for clefs, bar lines, and grace notes,
 \new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
 @end lilypond
 
-
 @seealso
 Snippets:
 @rlsr{Spacing}.
@@ -2886,7 +2860,6 @@ paragraph, the last line simply takes its natural horizontal length.
   ragged-last = ##t
 @}
 @end example
-
 
 @seealso
 Snippets:
@@ -3274,7 +3247,6 @@ mark both rhythmic start- and stop-points, and allow spanning elements
 to break across systems and pages.  See the respective parts of the manual
 for these related settings.
 
-
 @seealso
 Notation Reference:
 @ref{New spacing area}.
@@ -3349,7 +3321,6 @@ of @code{a6} paper in landscape orientation.  The pairs
 (@var{a},@var{b}) are intervals, where @var{a} is the lower
 edge and @var{b} the upper edge of the interval.
 
-
 @seealso
 Notation Reference:
 @ref{Setting the staff size}.
@@ -3394,6 +3365,16 @@ assignment will force a layout with 10 systems.
 @example
 \paper @{
   system-count = #10
+@}
+@end example
+
+@item
+Force the number of pages.  For example, the following
+assignment will force a layout with 2 pages.
+
+@example
+\paper @{
+  page-count = #2
 @}
 @end example
 
@@ -3458,7 +3439,6 @@ dynamically, so it must always be placed in a @code{\context}
 block so that it applies to the whole score.
 
 @end itemize
-
 
 @seealso
 Notation Reference:

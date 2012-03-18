@@ -761,9 +761,6 @@ Variable @code{twice} importiert:
 @lilypond[verbatim]
 traLaLa = { c'4 d'4 }
 
-%% dummy action to deal with parser lookahead
-#(display "this needs to be here, sorry!")
-
 #(define newLa (map ly:music-deep-copy
   (list traLaLa traLaLa)))
 #(define twice

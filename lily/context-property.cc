@@ -225,29 +225,37 @@ execute_pushpop_property (Context *context,
 void
 apply_property_operations (Context *tg, SCM pre_init_ops)
 {
-  SCM correct_order = scm_reverse (pre_init_ops);
-  for (SCM s = correct_order; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = pre_init_ops; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
       SCM type = scm_car (entry);
       entry = scm_cdr (entry);
+      if (!scm_is_pair (entry))
+	continue;
+      SCM context_prop = scm_car (entry);
+      if (scm_is_pair (context_prop)) {
+	if (tg->is_alias (scm_car (context_prop)))
+	  context_prop = scm_cdr (context_prop);
+	else
+	  continue;
+      }
 
       if (type == ly_symbol2scm ("push"))
         {
-          SCM context_prop = scm_car (entry);
           SCM val = scm_cadr (entry);
           SCM grob_prop_path = scm_cddr (entry);
           sloppy_general_pushpop_property (tg, context_prop, grob_prop_path, val);
         }
       else if (type == ly_symbol2scm ("pop"))
         {
-          SCM context_prop = scm_car (entry);
           SCM val = SCM_UNDEFINED;
           SCM grob_prop_path = scm_cdr (entry);
           sloppy_general_pushpop_property (tg, context_prop, grob_prop_path, val);
         }
       else if (type == ly_symbol2scm ("assign"))
-        tg->set_property (scm_car (entry), scm_cadr (entry));
+        tg->set_property (context_prop, scm_cadr (entry));
+      else if (type == ly_symbol2scm ("apply"))
+	scm_apply_1 (context_prop, tg->self_scm (), scm_cdr (entry));
     }
 }
 

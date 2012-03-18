@@ -672,8 +672,11 @@ used to encode three or more voices by adding more back-slash
 separators.
 
 The Voice contexts bear the names @code{"1"}, @code{"2"}, etc.
-In each of these contexts, the vertical direction of slurs,
-stems, ties, dynamics etc., is set appropriately.
+The first contexts set the @emph{outer} voices, the highest
+voice in context @code{"1"} and the lowest voice in context
+@code{"2"}.  The inner voices go in contexts @code{"3"} and
+@code{"4"}.  In each of these contexts, the vertical direction
+of slurs, stems, ties, dynamics etc., is set appropriately.
 
 @lilypond[quote,verbatim]
 \new Staff \relative c' {
@@ -797,15 +800,18 @@ later sections.
   <<  % Voice one
     { c2 aes4. bes8 }
   \\  % Voice two
-    { aes2 f4 fes }
+    {
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'ignore-collision = ##t
+      <ees, c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
+    }
   \\  % No voice three
   \\  % Voice four
     {
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
-      \once \override NoteColumn #'force-hshift = #0.5
-      des2
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |
@@ -845,16 +851,17 @@ not understand.
     }
   \\  % Voice two
     { \voiceTwoStyle
-      aes2 f4 fes
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'ignore-collision = ##t
+      <ees, c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
     }
   \\  % No Voice three (we want stems down)
   \\  % Voice four
     { \voiceThreeStyle
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
-      \once \override NoteColumn #'force-hshift = #0.5
-      des2
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |
@@ -871,7 +878,7 @@ enter the music of the first bar in three voices:
 \new Staff \relative c'' {
   \key aes \major
   <<
-    { c2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des }
+    { c2 aes4. bes8 } \\ { <ees, c>2 des } \\ { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
 }
@@ -896,27 +903,24 @@ adding another pair of @code{\\}.
   <<  % Voice one
     { c2 aes4. bes8 }
   \\  % Voice two
-    { aes2 f4 fes }
+    { <ees, c>2 des }
   \\  % Omit Voice three
   \\  % Voice four
-    { <ees c>2 des }
+    { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
 }
 @end lilypond
 
 @noindent
-We see that this fixes the stem direction, but exposes a problem
-sometimes encountered with multiple voices -- the stems of the notes
-in one voice can collide with the note heads in other voices.  In
-laying out the notes, LilyPond allows the notes or chords from two
-voices to occupy the same vertical note column provided the stems are
-in opposite directions, but the notes from the third and fourth voices
-are displaced, if necessary, to avoid the note heads colliding.  This
-usually works well, but in this example the notes of the lowest voice
-are clearly not well placed by default.  LilyPond provides several ways
-to adjust the horizontal placing of notes.  We are not quite ready yet
-to see how to correct this, so we shall leave this problem until a
+We see that this fixes the stem direction, but the horizontal
+placement of notes is not what we want.  LilyPond shifts the
+inner notes when they or their stems would collide with outer
+voices, but this is not appropriate for piano music.  In other
+situations, the shifts LilyPond applies might fail to clear
+the collisions.  LilyPond provides several ways to adjust the
+horizontal placing of notes.  We are not quite ready yet to see
+how to correct this, so we shall leave this problem until a
 later section --- see the @code{force-hshift} property in
 @ref{Fixing overlapping notation}.
 

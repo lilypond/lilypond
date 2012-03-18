@@ -257,16 +257,52 @@ bookoutput function"
                      parser
 		     music))
 
+(define-public (context-mod-from-music parser music)
+  (let ((warn #t) (mods (ly:make-context-mod)))
+    (let loop ((m music) (context #f))
+      (if (music-is-of-type? m 'layout-instruction-event)
+	  (let ((symbol (cons context (ly:music-property m 'symbol))))
+	    (ly:add-context-mod
+	     mods
+	     (case (ly:music-property m 'name)
+	       ((PropertySet)
+		(list 'assign
+		      symbol
+		      (ly:music-property m 'value)))
+	       ((PropertyUnset)
+		(list 'unset symbol))
+	       ((OverrideProperty)
+		(cons* 'push
+		       symbol
+		       (ly:music-property m 'grob-value)
+		       (ly:music-property m 'grob-property-path)))
+	       ((RevertProperty)
+		(cons* 'pop
+		       symbol
+		       (ly:music-property m 'grob-property-path))))))
+	  (case (ly:music-property m 'name)
+	    ((ApplyContext)
+	     (ly:add-context-mod mods
+				 (list 'apply
+				       (ly:music-property m 'procedure))))
+	    ((ContextSpeccedMusic)
+	     (loop (ly:music-property m 'element)
+		   (ly:music-property m 'context-type)))
+	    (else
+	     (let ((callback (ly:music-property m 'elements-callback)))
+	       (if (procedure? callback)
+		   (fold loop context (callback m))
+		   (if (and warn (ly:duration? (ly:music-property m 'duration)))
+		       (begin
+			 (ly:music-warning
+			  music
+			  (_ "Music unsuitable for context-mod"))
+			 (set! warn #f))))))))
+      context)
+    mods))
+
 (define-public (context-defs-from-music parser output-def music)
-  (let ((bottom 'Voice) (warn #t))
-    (define (get-bottom sym)
-      (or
-       (let ((def (ly:output-def-lookup output-def sym #f)))
-	(and def
-	     (let ((def-child (ly:context-def-lookup def 'default-child #f)))
-	       (and def-child
-		    (get-bottom def-child)))))
-       sym))
+  (let ((warn #t))
     (let loop ((m music) (mods #f))
       ;; The parser turns all sets, overrides etc into something
       ;; wrapped in ContextSpeccedMusic.  If we ever get a set,
@@ -287,39 +323,47 @@ bookoutput function"
 	      (list 'unset
 		    (ly:music-property m 'symbol)))
 	     ((OverrideProperty)
-	      (list 'push
-		    (ly:music-property m 'symbol)
-		    (ly:music-property m 'grob-value)
-		    (ly:music-property m 'grob-property-path)))
+	      (cons* 'push
+		     (ly:music-property m 'symbol)
+		     (ly:music-property m 'grob-value)
+		     (ly:music-property m 'grob-property-path)))
 	     ((RevertProperty)
-	      (list 'pop
-		    (ly:music-property m 'symbol)
-		    (ly:music-property m 'grob-property-path)))))
+	      (cons* 'pop
+		     (ly:music-property m 'symbol)
+		     (ly:music-property m 'grob-property-path)))))
 	  (case (ly:music-property m 'name)
-	    ((SequentialMusic SimultaneousMusic)
-	     (fold loop mods (ly:music-property m 'elements)))
+	    ((ApplyContext)
+	     (ly:add-context-mod mods
+				 (list 'apply
+				       (ly:music-property m 'procedure))))
 	    ((ContextSpeccedMusic)
-	     (let ((sym (ly:music-property m 'context-type)))
-	       (if (eq? sym 'Bottom)
-		   (set! sym bottom)
-		   (set! bottom (get-bottom sym)))
-	       (let ((def (ly:output-def-lookup output-def sym)))
-		 (if (ly:context-def? def)
-		     (ly:output-def-set-variable!
-		      output-def sym
-		      (ly:context-def-modify
-		       def
-		       (loop (ly:music-property m 'element)
-			     (ly:make-context-mod))))
-		     (ly:music-warning
-		      music
-		      (ly:format (_ "Cannot find context-def \\~a") sym))))))
-	    (else (if (and warn (ly:duration? (ly:music-property m 'duration)))
-		      (begin
-			(ly:music-warning
-			 music
-			 (_ "Music unsuitable for output-def"))
-			(set! warn #f))))))
+	     ;; Use let* here to let defs catch up with modifications
+	     ;; to the context defs made in the recursion
+	     (let* ((mods (loop (ly:music-property m 'element)
+				(ly:make-context-mod)))
+		    (defs (ly:output-find-context-def
+			   output-def (ly:music-property m 'context-type))))
+	       (if (null? defs)
+		   (ly:music-warning
+		    music
+		    (ly:format (_ "Cannot find context-def \\~a")
+			       (ly:music-property m 'context-type)))
+		   (for-each
+		    (lambda (entry)
+		      (ly:output-def-set-variable!
+		       output-def (car entry)
+		       (ly:context-def-modify (cdr entry) mods)))
+		    defs))))
+	    (else
+	     (let ((callback (ly:music-property m 'elements-callback)))
+	       (if (procedure? callback)
+		   (fold loop mods (callback m))
+		   (if (and warn (ly:duration? (ly:music-property m 'duration)))
+		       (begin
+			 (ly:music-warning
+			  music
+			  (_ "Music unsuitable for output-def"))
+			 (set! warn #f))))))))
       mods)))
 
 

@@ -280,8 +280,7 @@ $(outdir)/ly-grammar.txt: $(top-src-dir)/lily/parser.yy
 # compilation during install, which is a bad thing (tm).
 
 $(outdir)/internals.texi: $(LILYPOND_BINARY)
-	cd $(outdir) && $(LILYPOND_BINARY) --verbose $(top-src-dir)/ly/generate-documentation
-
+	cd $(outdir) && $(buildscript-dir)/run-and-check "$(LILYPOND_BINARY) --verbose $(top-src-dir)/ly/generate-documentation" "generate-documentation.log"
 
 ###############################################
 #  Documentation and translations maintenance #

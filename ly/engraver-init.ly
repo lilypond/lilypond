@@ -46,6 +46,7 @@
 
   predefinedDiagramTable = #default-fret-table
   handleNegativeFrets = #'recalculate
+  restrainOpenStrings = ##f
 }
 
 \context {
@@ -527,7 +528,14 @@ automatically when an output definition (a @code{\score} or
   \consists "Repeat_acknowledge_engraver"
   \consists "Staff_collecting_engraver"
 
-  %% move the alias along with the engraver.
+  \alias "Timing"
+
+  %% An alias for Timing is established by the Timing_translator in
+  %% whatever context it is initialized, and the timing variables are
+  %% then copied from wherever Timing had been previously established.
+  %% The alias at Score level provides a target for initializing
+  %% Timing variables in layout definitions before any
+  %% Timing_translator has been run.
 
   % timing translator must come BEFORE bar number engraver
   \consists "Timing_translator"
@@ -892,6 +900,8 @@ contexts and handles the line spacing, the tablature clef etc. properly."
   clefPosition = #0
   %% Change string if note results in negative fret number
   handleNegativeFrets = #'recalculate
+  %% Allow open strings even if minimumFret is set
+  restrainOpenStrings = ##f
 }
 
 \context {

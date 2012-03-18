@@ -146,7 +146,8 @@ Context_def::add_context_mod (SCM mod)
   else if (ly_symbol2scm ("pop") == tag
            || ly_symbol2scm ("push") == tag
            || ly_symbol2scm ("assign") == tag
-           || ly_symbol2scm ("unset") == tag)
+           || ly_symbol2scm ("unset") == tag
+	   || ly_symbol2scm ("apply") == tag)
     property_ops_ = scm_cons (mod, property_ops_);
   else if (ly_symbol2scm ("alias") == tag)
     context_aliases_ = scm_cons (sym, context_aliases_);
@@ -326,7 +327,7 @@ Context_def::make_scm ()
 void
 Context_def::apply_default_property_operations (Context *tg)
 {
-  apply_property_operations (tg, property_ops_);
+  apply_property_operations (tg, scm_reverse (property_ops_));
 }
 
 SCM
@@ -371,6 +372,18 @@ Context_def::lookup (SCM sym) const
   else if (scm_is_eq (ly_symbol2scm ("group-type"), sym))
     return translator_group_type_;
   return SCM_UNDEFINED;
+}
+
+bool
+Context_def::is_alias (SCM sym) const
+{
+  if (scm_is_eq (sym, ly_symbol2scm ("Bottom")))
+    return !scm_is_pair (get_accepted (SCM_EOL));
+
+  if (scm_is_eq (sym, get_context_name ()))
+    return true;
+
+  return scm_is_true (scm_c_memq (sym, context_aliases_));
 }
 
 LY_DEFINE (ly_context_def_lookup, "ly:context-def-lookup",

@@ -37,14 +37,15 @@
 
 usage () {
     cat <<EOF >&2
-Usage: $0 MANUAL SECTION
 
+Usage: $0 MANUAL SECTION
 e.g. $0 notation rhythms
+
 EOF
     exit "$1"
 }
 
-if [ "$1" == '-h' ] || [ "$1" == '--help' ]; then
+if [ "$1" = '-h' ] || [ "$1" = '--help' ]; then
     usage 0
 fi
 
@@ -57,6 +58,13 @@ else
     cd ../..
     LILYPOND_GIT="`pwd`"
     echo "\$LILYPOND_GIT was not set; auto-detected source tree at $LILYPOND_GIT"
+fi
+
+if [ -n "$BROWSER" ]; then
+    echo "Using browser from \$BROWSER: $BROWSER"
+else
+    echo "\$BROWSER not set; using firefox as default"
+    BROWSER="firefox"
 fi
 
 if test ! -e "$LILYPOND_GIT/DEDICATION"; then
@@ -105,6 +113,7 @@ fi
 cp "$LILYPOND_GIT/Documentation/common-macros.itexi" "$OUTPUT_DIR/common-macros.itexi"
 cp "$LILYPOND_GIT/Documentation/macros.itexi" "$DOC_DIR/macros.itexi"
 cp "$DOC_DIR/version.itexi" "$OUTPUT_DIR/version.itexi"
+cp -r "$LILYPOND_GIT/Documentation/pictures/" "$OUTPUT_DIR/out/pictures"
 
 if test -e "$OUTPUT_DIR/$SECTION.html"; then
     rm "$OUTPUT_DIR/$SECTION.html"
@@ -145,19 +154,19 @@ if test -f "$OUTPUT_DIR/out/$SECTION.texi"; then
         "$OUTPUT_DIR/$SECTION.texi"
 fi
 
+echo "Displaying output in $BROWSER; close browser window when done."
+
+$BROWSER $OUTPUT_DIR/out/$SECTION.html
+
 cat <<EOF
 
-The $SECTION section of the $MANUAL manual should now be viewable at
-
-  $OUTPUT_DIR/out/$SECTION.html
-
-If you want to keep the generated docs around for a while, answer
-'n' to the next question.  If you only needed them to quickly check
-something, view them now and then answer 'y' when you're done.
+If you want to avoid recompiling the snippets on the next 
+invocation with '$MANUAL $SECTION', answer 'n' to the next question.
 
 EOF
 
-read -p "rm -rf $OUTPUT_DIR ? (y/n): "
+echo "Delete temp files? [y/n]"
+read REPLY;
 if [ "$REPLY" = "y" ]; then
     echo "deleting files"
     rm -rf "$OUTPUT_DIR"

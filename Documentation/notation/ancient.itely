@@ -83,7 +83,6 @@ Notation Reference:
 @node Overview of the supported styles
 @subsection Overview of the supported styles
 
-
 Three styles are available for typesetting Gregorian chant:
 
 @itemize
@@ -339,11 +338,11 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 Music Glossary:
 @rglos{custos}.
 
-Internals Reference:
-@rinternals{Custos}.
-
 Snippets:
 @rlsr{Ancient notation}.
+
+Internals Reference:
+@rinternals{Custos}.
 
 
 @node Figured bass support
@@ -407,7 +406,6 @@ entering the chant, as the following excerpt demonstrates:
   >>
 }
 @end lilypond
-
 
 @seealso
 Music Glossary:
@@ -530,7 +528,6 @@ Music Glossary:
 
 Notation Reference:
 @ref{Clef}.
-
 
 @knownissues
 The mensural g clef is mapped to the Petrucci g clef.
@@ -749,12 +746,10 @@ There is no particular flag style for neo-mensural or Petrucci notation.
 @c music, the default flag style should be used.
 There are no flags in Gregorian chant notation.
 
-
 @seealso
 Music Glossary:
 @rglos{mensural notation},
 @rglos{flag}.
-
 
 @knownissues
 The attachment of ancient flags to stems is slightly off.
@@ -806,7 +801,6 @@ Notation Reference:
 
 Snippets:
 @rlsr{Ancient notation}.
-
 
 @knownissues
 The glyph for the maxima rest in mensural style is actually a perfect
@@ -897,7 +891,6 @@ ficta = { \once \set suggestAccidentals = ##t }
   }
 }
 @end lilypond
-
 
 @seealso
 Internals Reference:
@@ -1015,6 +1008,7 @@ Notation Reference:
 Horizontal spacing of ligatures is poor.
 Accidentals may collide with previous notes.
 
+
 @node Typesetting Gregorian chant
 @subsection Typesetting Gregorian chant
 
@@ -1043,6 +1037,7 @@ Music Glossary:
 Notation Reference:
 @ref{White mensural ligatures},
 @ref{Ligatures}.
+
 
 @node Gregorian chant contexts
 @unnumberedsubsubsec Gregorian chant contexts
@@ -1220,7 +1215,6 @@ hufnagel style combined do/fa clef
 @end lilypond
 @end multitable
 
-
 @seealso
 Music Glossary:
 @rglos{clef}.
@@ -1268,7 +1262,6 @@ The style for accidentals and key signatures is controlled by the
 
 @code{\override Staff.Accidental #'glyph-name-alist =
 #alteration-mensural-glyph-name-alist}
-
 
 @seealso
 Music Glossary:
@@ -1369,7 +1362,7 @@ Notation Reference:
 @ref{Breath marks}.
 
 Installed Files:
-@file{gregorian.ly}.
+@file{ly/gregorian.ly}.
 
 
 @node Gregorian articulation signs
@@ -1398,7 +1391,6 @@ specifically designed for use with notation in
 }
 @end lilypond
 
-
 @seealso
 Notation Reference:
 @ref{Articulations and ornamentations}.
@@ -1413,7 +1405,6 @@ Internals Reference:
 @rinternals{Script},
 @rinternals{ScriptEvent},
 @rinternals{Script_engraver}.
-
 
 @knownissues
 Some articulations are vertically placed too closely to the
@@ -1441,7 +1432,6 @@ note that you can say @code{\augmentum @{a g@}} as a shortcut for
   }
 }
 @end lilypond
-
 
 @seealso
 Notation Reference:
@@ -2404,7 +2394,6 @@ Notation Reference:
 @ref{White mensural ligatures},
 @ref{Ligatures}.
 
-
 @knownissues
 When an @code{\augmentum} dot appears at the end of the last staff
 within a ligature, it is sometimes vertically placed wrong.  As a
@@ -2453,7 +2442,6 @@ same source.
 @c use snippet Transcription-of-ancient-music-with-incipit
 TBC
 
-
 @c @seealso
 @c ... and reference to other sections ...
 
@@ -2477,7 +2465,6 @@ orientation aids that bar lines give.
 @c outside the StaffGroup.
 @c from lsr and -user
 @c TBC
-
 
 @c @seealso
 @c ... and reference to other sections ...
@@ -2702,4 +2689,3 @@ TBC
 
 @c @seealso
 @c ... and reference to other sections ...
-

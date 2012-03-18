@@ -130,7 +130,6 @@ that use fonts.  These are the ones supporting the
 @code{\huge}.
 @endpredefined
 
-
 @seealso
 Snippets:
 @rlsr{Editorial annotations}.
@@ -198,7 +197,6 @@ staff, see @ref{Direction and placement}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {avoiding-collisions-with-chord-fingerings.ly}
 
-
 @seealso
 Notation Reference:
 @ref{Direction and placement}.
@@ -248,13 +246,14 @@ b
 c
 @end lilypond
 
-Notation objects which are attached to invisible notes are still
-visible.
+Note heads, stems, and flags, and rests are invisible.  Beams
+are invisible if they start on a hidden note.  Objects that are
+attached to invisible notes are still visible.
 
 @lilypond[verbatim,quote,relative=2]
-c4( d)
+e8(\p f g a)--
 \hideNotes
-e4(\p f)--
+e8(\p f g a)--
 @end lilypond
 
 
@@ -262,7 +261,6 @@ e4(\p f)--
 @code{\hideNotes},
 @code{\unHideNotes}.
 @endpredefined
-
 
 @seealso
 Learning Manual:
@@ -365,7 +363,6 @@ gis8 a
 gis4 a
 @end lilypond
 
-
 @seealso
 Notation Reference:
 @ref{List of colors}, @ref{The
@@ -373,7 +370,6 @@ tweak command}.
 
 Snippets:
 @rlsr{Editorial annotations}.
-
 
 @cindex x11 color
 @cindex colored notes in chords
@@ -390,7 +386,6 @@ Not all X11 colors are distinguishable in a web browser, i.e.,
 a web browser might not display a difference between @code{LimeGreen}
 and @code{ForestGreen}.  For web use normal colors are recommended
 (i.e., @code{blue}, @code{green}, @code{red}).
-
 
 Notes in a chord cannot be colored with @code{\override}; use
 @code{\tweak} instead, see @ref{The tweak command}.
@@ -425,7 +420,6 @@ c2-\parenthesize -. d
 c2 \parenthesize r
 @end lilypond
 
-
 @seealso
 Snippets:
 @rlsr{Editorial annotations}.
@@ -435,9 +429,7 @@ Internals Reference:
 @rinternals{ParenthesesItem},
 @rinternals{parentheses-interface}.
 
-
 @knownissues
-
 Parenthesizing a chord prints parentheses around each individual
 note, instead of a single large parenthesis around the entire
 chord.
@@ -480,7 +472,6 @@ Stems may be manually placed to point up or down; see
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
-
 
 @seealso
 Notation Reference:
@@ -563,12 +554,10 @@ altered:
 }
 @end lilypond
 
-
 @predefined
 @code{\balloonLengthOn},
 @code{\balloonLengthOff}.
 @endpredefined
-
 
 @seealso
 Snippets:
@@ -636,7 +625,6 @@ lines.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {grid-lines--changing-their-appearance.ly}
 
-
 @seealso
 Snippets:
 @rlsr{Editorial annotations}.
@@ -701,7 +689,6 @@ Analysis brackets may be nested.
 }
 @end lilypond
 
-
 @seealso
 Snippets:
 @rlsr{Editorial annotations}.
@@ -711,4 +698,3 @@ Internals Reference:
 @rinternals{HorizontalBracket},
 @rinternals{horizontal-bracket-interface},
 @rinternals{Staff}.
-

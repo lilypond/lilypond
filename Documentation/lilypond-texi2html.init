@@ -1424,11 +1424,10 @@ sub lilypond_external_href($$$)
     $href = &$default_external_href($node, $node_id, $node_xhtml_id, lc_last($file));
     $href = remove_unneeded_anchor($href);
 
-    # TODO: very yucky, but will be fixed in issue 1004
     if ($web_manual) {
-      my $only_web = $ENV{ONLY_WEB};
-      if ($only_web) {
-        $href = "../../doc/v2.13/Documentation/web/".$href;
+      my $only_web_version = $ENV{ONLY_WEB_VERSION};
+      if ($only_web_version) {
+        $href = "../../doc/".$only_web_version."/Documentation/web/".$href;
       }
     }
 

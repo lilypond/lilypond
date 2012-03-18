@@ -831,7 +831,8 @@ def dump_track (track, n):
                 if vl:
                     s += '  \\voice' + vl + '\n'
                 else:
-                    warning (_ ('found more than 5 voices on a staff, expect bad output'))
+                    if not global_options.quiet:
+                        warning (_ ('found more than 5 voices on a staff, expect bad output'))
             s += '  ' + dump_voice (voice, skip)
             s += '}\n\n'
             v += 1
@@ -1027,7 +1028,8 @@ def convert_midi (in_file, out_file):
 }
 '''
 
-    progress (_ ("%s output to `%s'...") % ('LY', out_file))
+    if not global_options.quiet:
+        progress (_ ("%s output to `%s'...") % ('LY', out_file))
 
     if out_file == '-':
         handle = sys.stdout
@@ -1050,27 +1052,30 @@ def get_option_parser ():
            metavar=_ ('DUR'),
            help=_ ('quantise note durations on DUR'))
     p.add_option ('-D', '--debug',
-                  action='store_true',
-                  help=_ ('debug printing'))
+           action='store_true',
+           help=_ ('debug printing'))
     p.add_option ('-e', '--explicit-durations',
            action='store_true',
            help=_ ('print explicit durations'))
     p.add_option('-h', '--help',
-                 action='help',
-                 help=_ ('show this help and exit'))
+           action='help',
+           help=_ ('show this help and exit'))
     p.add_option('-i', '--include-header',
-                 help=_ ('prepend FILE to output'),
-                 action='append',
-                 default=[],
-                 metavar=_ ('FILE'))
+           help=_ ('prepend FILE to output'),
+           action='append',
+           default=[],
+           metavar=_ ('FILE'))
     p.add_option('-k', '--key', help=_ ('set key: ALT=+sharps|-flats; MINOR=1'),
-          metavar=_ ('ALT[:MINOR]'),
-          default=None),
+           metavar=_ ('ALT[:MINOR]'),
+           default=None),
     p.add_option ('-o', '--output', help=_ ('write output to FILE'),
            metavar=_ ('FILE'),
            action='store')
     p.add_option ('-p', '--preview', help=_ ('preview of first 4 bars'),
            action='store_true')
+    p.add_option ('-q', '--quiet',
+           action="store_true",
+           help=_ ("suppress progress messages and warnings about excess voices"))
     p.add_option ('-s', '--start-quant',help= _ ('quantise note starts on DUR'),
            metavar=_ ('DUR'))
     p.add_option ('-S', '--skip',
@@ -1083,15 +1088,13 @@ def get_option_parser ():
            help=_ ('allow tuplet durations DUR*NUM/DEN'),
            default=[])
     p.add_option ('-V', '--verbose', help=_ ('be verbose'),
-           action='store_true'
-           ),
+           action='store_true')
     p.version = 'midi2ly (LilyPond) @TOPLEVEL_VERSION@'
     p.add_option ('--version',
                  action='version',
                  help=_ ('show version number and exit'))
     p.add_option ('-w', '--warranty', help=_ ('show warranty and copyright'),
-           action='store_true',
-           ),
+           action='store_true',)
     p.add_option ('-x', '--text-lyrics', help=_ ('treat every text as a lyric'),
            action='store_true')
 

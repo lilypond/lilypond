@@ -481,7 +481,6 @@ items such as text scripts, text spanners, and piano pedal marks.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-text-and-spanner-styles-for-text-dynamics.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{al niente},
@@ -608,7 +607,6 @@ moltoF = #(make-dynamic-script
 Font settings in markup mode are described in
 @ref{Selecting font and font size}.
 
-
 @seealso
 Notation Reference:
 @ref{Formatting text},
@@ -616,12 +614,11 @@ Notation Reference:
 @ref{What goes into the MIDI output?},
 @ref{Controlling MIDI dynamics}.
 
-Snippets:
-@rlsr{Expressive marks}.
-
-Extend:
+Extending LilyPond:
 @rextend{Markup construction in Scheme}.
 
+Snippets:
+@rlsr{Expressive marks}.
 
 
 @node Expressive marks as curves
@@ -770,7 +767,6 @@ g4( e c2)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-slurs-with-complex-dash-structure.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{slur}.
@@ -911,7 +907,6 @@ complex dash patterns, see the snippets under @ref{Slurs}.
 @code{\phrasingSlurSolid}.
 @endpredefined
 
-
 @seealso
 Learning Manual:
 @rlearning{On the un-nestedness of brackets and ties}.
@@ -963,7 +958,6 @@ divisiones, are supported.  For details, see @ref{Divisiones}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {inserting-a-caesura.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{caesura}.
@@ -1012,7 +1006,6 @@ command is @emph{required} when writing falls and doits.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adjusting-the-shape-of-falls-and-doits.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{fall},
@@ -1060,7 +1053,6 @@ Different styles of glissandi can be created.  For details, see
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {contemporary-glissando.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{glissando}.
@@ -1074,9 +1066,7 @@ Snippets:
 Internals Reference:
 @rinternals{Glissando}.
 
-
 @knownissues
-
 Printing text over the line (such as @notation{gliss.}) is not
 supported.
 
@@ -1177,7 +1167,6 @@ information, see @ref{Ties}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{arpeggio}.
@@ -1194,9 +1183,7 @@ Internals Reference:
 @rinternals{Slur},
 @rinternals{PianoStaff}.
 
-
 @knownissues
-
 @cindex cross-staff parenthesis-style arpeggio
 @cindex arpeggio, parenthesis-style, cross-staff
 @cindex arpeggio, cross-staff parenthesis-style
@@ -1307,7 +1294,6 @@ eis4\startTrillSpan fis!
 eis4\stopTrillSpan
 @end lilypond
 
-
 @predefined
 @code{\startTrillSpan},
 @code{\stopTrillSpan}.
@@ -1326,4 +1312,3 @@ Snippets:
 
 Internals Reference:
 @rinternals{TrillSpanner}.
-

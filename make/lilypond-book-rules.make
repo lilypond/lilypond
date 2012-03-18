@@ -26,7 +26,7 @@ $(outdir)/%.tex:  %.latex
 # Add the tex => pdf rule only if we have pdflatex
 ifeq (,$(findstring pdflatex,$(MISSING_OPTIONAL)))
 $(outdir)/%.pdf:  $(outdir)/%.tex
-	cd $(outdir) && $(PDFLATEX) $(notdir $<)
+	cd $(outdir) && $(buildscript-dir)/run-and-check "$(PDFLATEX) -halt-on-error $(notdir $<)" "$*.pdflatex.log"
 endif
 
 ############## Texinfo ######################

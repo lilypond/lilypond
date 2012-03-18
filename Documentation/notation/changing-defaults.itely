@@ -67,7 +67,6 @@ This section describes what contexts are, and how to modify them.
 * Context layout order::
 @end menu
 
-
 @seealso
 Learning Manual:
 @rlearning{Contexts and engravers}.
@@ -565,12 +564,11 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
 
 @c TODO Should this be Modifying engravers or Modifying contexts?
 
-Notation contexts (like @code{Score} and @code{Staff}) not only
-store properties,
-they also contain plug-ins called @q{engravers} that create notation
-elements.  For example, the @code{Voice} context contains a
+Notation contexts (like @code{Score} and @code{Staff}) not only store
+properties, they also contain plug-ins called @q{engravers} that create
+notation elements.  For example, the @code{Voice} context contains a
 @code{Note_heads_engraver} and the @code{Staff} context contains a
-@code{Key_signature_engraver}.
+@code{Key_engraver}.
 
 For a full a description of each plug-in, see
 @ifhtml
@@ -1010,17 +1008,15 @@ is encountered when there is no suitable context available to
 contain it.  This can give rise to unexpected new staves or scores.
 
 @seealso
-Usage Manual:
+Application Usage:
 @rprogram{An extra staff appears}.
 
 Installed Files:
 @file{ly/engraver-init.ly}.
 
 
-
 @node Explaining the Internals Reference
 @section Explaining the Internals Reference
-
 
 @menu
 * Navigating the program reference::
@@ -1474,20 +1470,17 @@ such as
 @end ignore
 
 @seealso
-Internals:
+Internals Reference:
 @rinternals{Backend},
 @rinternals{All layout objects},
 @rinternals{OverrideProperty},
 @rinternals{RevertProperty},
 @rinternals{PropertySet}.
 
-
 @knownissues
-
 The back-end is not very strict in type-checking object properties.
 Cyclic references in Scheme values for properties can cause hangs
 or crashes, or both.
-
 
 
 @node The set command
@@ -1624,11 +1617,8 @@ Translation @expansion{} Tunable context properties.
 @end ifnothtml
 
 @seealso
-
 Internals Reference:
-
 @rinternals{Tunable context properties}.
-
 
 @cindex grob properties
 @cindex properties, grob
@@ -1792,9 +1782,9 @@ and the program reference.
 @end ignore
 
 @seealso
-
 Internals Reference:
 @rinternals{Backend}
+
 
 @node The tweak command
 @subsection The @code{\tweak} command
@@ -1956,18 +1946,16 @@ determining what may be modified by a @code{\tweak} command, or
 in determining how to adjust the input to make a @code{\tweak}
 apply.
 
-
 @seealso
 Learning Manual:
 @rlearning{Tweaking methods}.
 
-Extending:
+Extending LilyPond:
 @rextend{Displaying music expressions}.
 
-
 @knownissues
-
 @cindex tweaks in a variable
+
 The @code{\tweak} command cannot be used inside a variable.
 
 @cindex tweaks in lyrics
@@ -1978,6 +1966,7 @@ The @code{\tweak} commands cannot be used in @code{\lyricmode}.
 
 The @code{\tweak} command will apply to only the first of several
 generated ties in a chord.
+
 
 @node set versus override
 @subsection @code{\set} vs. @code{\override}
@@ -2274,31 +2263,30 @@ c2^( c)
 
 @strong{The direction property}
 
-The position or direction of many layout objects is controlled
-by the @code{direction} property.
+The position or direction of many layout objects is controlled by the
+@code{direction} property.
 
-The value of the @code{direction} property may be
-set to @code{1}, meaning @qq{up} or @qq{above}, or to @w{@code{-1}},
-meaning @qq{down} or @qq{below}.  The symbols @code{UP} and
-@code{DOWN} may be used instead of @code{1} and @w{@code{-1}}
-respectively.  The default direction may be specified by setting
-@code{direction} to @code{0} or @code{CENTER}.  Alternatively,
-in many cases predefined commands
-exist to specify the direction.  These are all of the form
+The value of the @code{direction} property may be set to @code{1},
+meaning @qq{up} or @qq{above}, or to @w{@code{-1}}, meaning @qq{down} or
+@qq{below}.  The symbols @code{UP} and @code{DOWN} may be used instead
+of @code{1} and @w{@code{-1}} respectively.  The default direction may
+be specified by setting @code{direction} to @code{0} or @code{CENTER}.
+Alternatively, in many cases predefined commands exist to specify the
+direction.  These are of the form
+
+@example
+@code{\xxxUp}, @code{\xxxDown} or @code{\xxxNeutral}
+@end example
 
 @noindent
-@code{\xxxUp}, @code{xxxDown}, @code{xxxNeutral}
-
-@noindent
-where @code{xxxNeutral} means @qq{use the default direction}.
+where @code{\xxxNeutral} means @qq{use the default} direction.
 See @rlearning{Within-staff objects}.
 
-In a few cases, arpeggio being the only common example, the value
-of the @code{direction} property specifies whether the object
-is to be placed to the right or left of the parent object.  In
-this case @w{@code{-1}} or @code{LEFT} means @qq{to the left} and
-@code{1} or @code{RIGHT} means @qq{to the right}.  @code{0}
-or @code{CENTER} means @qq{use the default} direction, as before.
+In a few cases, arpeggio for example, the value of the @code{direction}
+property can specify whether the object is to be placed to the right or
+left of the parent.  In this case @w{@code{-1}} or @code{LEFT} means
+@qq{to the left} and @code{1} or @code{RIGHT} means @qq{to the right}.
+@code{0} or @code{CENTER} means @qq{use the default} direction.
 
 @ignore
 These all have side-axis set to #X
@@ -2319,6 +2307,17 @@ c2( c)
 \slurNeutral
 c2( c)
 @end lilypond
+
+In polyphonic music, it is generally better to specify an explicit
+@code{voice} than change an object's direction.  For more information.
+See @ref{Multiple voices}.
+
+@seealso
+Learning Manual:
+@rlearning{Within-staff objects}.
+
+Notation Reference:
+@ref{Multiple voices}.
 
 
 @node Distances and measurements
@@ -2368,7 +2367,6 @@ the fonts.  A Scheme function, @code{magstep}, is available to
 convert from a font size change to the equivalent change in
 @code{staff-space}.  For an explanation and an example of its use,
 see @rlearning{Length and thickness of objects}.
-
 
 @seealso
 Learning Manual:
@@ -2704,7 +2702,6 @@ c2 \< c2 c2
 When using @code{\endSpanners} it is not necessary to close
 \startTextSpan with \stopTextSpan, nor is it necessary to close
 hairpins with @code{\!}.
-
 
 @seealso
 Internals Reference:
@@ -3047,10 +3044,9 @@ For explicit clef changes, the @code{explicitClefVisibility}
 property controls both the clef symbol and any octavation symbol
 associated with it.
 
-
 @seealso
 Learning Manual:
-@rlearning{Visibility and color of objects}
+@rlearning{Visibility and color of objects}.
 
 
 @node Line styles
@@ -3180,7 +3176,6 @@ appearance of the printed score.
 * Unpure-pure containers::
 @end menu
 
-
 @seealso
 Learning Manual:
 @rlearning{Tweaking output},
@@ -3190,14 +3185,14 @@ Notation Reference:
 @ref{Explaining the Internals Reference},
 @ref{Modifying properties}.
 
+Extending LilyPond:
+@rextend{Interfaces for programmers}.
+
 Installed Files:
 @file{scm/define-grobs.scm}.
 
 Snippets:
 @rlsr{Tweaks and overrides}.
-
-Extending:
-@rextend{Interfaces for programmers}.
 
 Internals Reference:
 @rinternals{All layout objects}.
@@ -3243,7 +3238,10 @@ are special properties to be found in the @code{break-aligned-interface}
 for positioning rehearsal marks on such objects.
 
 @seealso
-@ref{Using the break-alignable-interface},
+Notation Reference:
+@ref{Using the break-alignable-interface}.
+
+Extending LilyPond:
 @rextend{Callback functions}.
 
 @menu
@@ -3593,7 +3591,6 @@ Any of the glyphs in the feta Font can be supplied to the
 
 @c TODO Add inserting Postscript or ref to later
 
-
 @seealso
 Notation Reference:
 @ref{Graphic notation inside markup},
@@ -3697,6 +3694,7 @@ Internals Reference:
 @cindex pure containers, Scheme
 @cindex unpure containers, Scheme
 @cindex horizontal spacing, overriding
+
 
 @node Unpure-pure containers
 @subsection Unpure-pure containers
@@ -3872,13 +3870,11 @@ For a list of available type predicates, see
 @ref{Predefined type predicates}.  User-defined type predicates
 are also allowed.
 
-
 @seealso
-
 Notation Reference:
 @ref{Predefined type predicates}.
 
-Extending:
+Extending Lilypond:
 @rextend{Music functions}.
 
 Installed Files:

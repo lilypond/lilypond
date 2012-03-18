@@ -91,6 +91,7 @@ Notation Reference:
 Snippets:
 @rlsr{Vocal music}.
 
+
 @node Entering lyrics
 @unnumberedsubsubsec Entering lyrics
 
@@ -224,7 +225,8 @@ Internals Reference:
 @rinternals{LyricText}.
 
 Snippets:
-@rlsr{Text}
+@rlsr{Text}.
+
 
 @node Aligning lyrics to a melody
 @unnumberedsubsubsec Aligning lyrics to a melody
@@ -339,7 +341,7 @@ Learning Manual:
 
 Notation Reference:
 @ref{Contexts explained},
-@ref{Automatic syllable durations}.
+@ref{Automatic syllable durations},
 @ref{Stanzas},
 @ref{Manual syllable durations},
 @ref{Dialogue over music},
@@ -347,6 +349,7 @@ Notation Reference:
 
 Internals Reference:
 @rinternals{Lyrics}.
+
 
 @node Automatic syllable durations
 @unnumberedsubsubsec Automatic syllable durations
@@ -513,6 +516,7 @@ Notation Reference:
 @ref{Keeping contexts alive},
 @ref{Placing lyrics vertically}.
 
+
 @node Manual syllable durations
 @unnumberedsubsubsec Manual syllable durations
 
@@ -620,7 +624,6 @@ the tilde symbol (@code{~}) to get a lyric tie.
   \addlyrics { Che~in ques -- ta~e~in quel -- l'al -- tr'on -- da }
 }
 @end lilypond
-
 
 @seealso
 Internals Reference:
@@ -827,7 +830,6 @@ Internals Reference:
 @rinternals{Tunable context properties}.
 
 @knownissues
-
 Extender lines under melismata are not created automatically; they
 must be inserted manually with a double underscore.
 
@@ -867,7 +869,6 @@ happens can be controlled with the @code{minimum-distance} (minimum
 distance between two syllables) and the @code{minimum-length}
 (threshold below which hyphens are removed) properties of
 @code{LyricHyphen}.
-
 
 @seealso
 Internals Reference:
@@ -961,7 +962,6 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
   >>
 }
 @end lilypond
-
 
 @seealso
 Notation Reference:
@@ -1101,6 +1101,7 @@ Learning Manual:
 Notation Reference:
 @ref{Context layout order},
 @ref{Creating contexts}.
+
 
 @node Placing syllables horizontally
 @unnumberedsubsubsec Placing syllables horizontally
@@ -2087,6 +2088,7 @@ Notation Reference:
 Snippets:
 @rlsr{Vocal music}.
 
+
 @node Lead sheets
 @unnumberedsubsubsec Lead sheets
 
@@ -2187,6 +2189,7 @@ Internals Reference:
 @rinternals{ChoirStaff},
 @rinternals{Lyrics},
 @rinternals{PianoStaff}.
+
 
 @node Score layouts for choral
 @unnumberedsubsubsec Score layouts for choral
@@ -2498,6 +2501,7 @@ Notation Reference:
 
 Extending LilyPond:
 @rextend{Markup construction in Scheme}.
+
 
 @node Musical cues
 @unnumberedsubsubsec Musical cues

@@ -115,6 +115,7 @@ repeatTie = #(make-music 'RepeatTieEvent)
 #(define bookpart-text-handler ly:book-add-score!)
 #(define bookpart-music-handler collect-book-music-for-book)
 #(define output-def-music-handler context-defs-from-music)
+#(define context-mod-music-handler context-mod-from-music)
 
 \include "predefined-fretboards-init.ly"
 \include "string-tunings-init.ly"

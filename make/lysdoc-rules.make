@@ -3,7 +3,6 @@
 # Split it up into 10 300-element chunks, and one chunk containing the rest
 # if we have more than 3000 elements.
 $(outdir)/collated-files.list: $(COLLATED_FILES)
-	echo "(Re-)Generating $@"
 	@echo $(wordlist    1, 299,$^)>$@
 	@echo $(wordlist  300, 599,$^)>>$@
 	@echo $(wordlist  600, 899,$^)>>$@

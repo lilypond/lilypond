@@ -270,16 +270,11 @@ Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
           Moment tuplet_moment (tuplet);
           Moment tuplet_dt = infos_[i].start_moment_ - tuplet_start_moment;
           tuplet_number = tuplet.den ();
-          // set the beat end (if not in a tuplet) and increment the next beat
+          // set the beat end and increment the next beat
           if (infos_[i].start_moment_ == next_beat_pos)
             {
-              if (tuplet_number == 1)
-                {
-                  infos_[i].rhythmic_importance_ = -1;
-                  next_beat_pos += options.base_moment_;
-                }
-              if (infos_[i].tuplet_start_)
-                infos_[i].rhythmic_importance_ = -1;
+              infos_[i].rhythmic_importance_ = -1;
+              next_beat_pos += options.base_moment_;
             }
           // The rhythmic importance of a stem between beats depends on its fraction
           // of a beat: those stems with a lower denominator are deemed more

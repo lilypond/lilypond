@@ -162,7 +162,7 @@ Administration; Users and Groups.
 @item
 Get the patchy scripts from
 @example
-https://github.com/gperciva/lilypond-extra/
+@uref{https://github.com/gperciva/lilypond-extra/}
 @end example
 Patchy is in the @file{patches/} directory.
 

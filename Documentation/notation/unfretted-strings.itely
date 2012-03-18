@@ -65,7 +65,6 @@ added, see @ref{Arpeggio}.
 
 @end itemize
 
-
 @seealso
 Learning Manual:
 @rlearning{String quartet}.
@@ -119,7 +118,6 @@ a2^\markup { \small "sul A" }
 @code{\upbow},
 @code{\open}.
 @endpredefined
-
 
 @seealso
 Notation Reference:
@@ -188,7 +186,6 @@ dots are required.
 @warning{@code{@bs{}harmonic} @strong{must} be placed inside a
 chord construct even if there is only a single note.  Normally
 @code{@bs{}harmonicsOn} would be used in this situation.}
-
 
 @seealso
 Music Glossary:

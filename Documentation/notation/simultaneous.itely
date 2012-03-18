@@ -130,6 +130,7 @@ enharmonic transcription of one or more pitches,
 
 @end itemize
 
+
 @node Chord repetition
 @unnumberedsubsubsec Chord repetition
 
@@ -301,7 +302,6 @@ Ordinary notes and clusters can be put together in the same staff,
 even simultaneously.  In such a case no attempt is made to
 automatically avoid collisions between ordinary notes and clusters.
 
-
 @seealso
 Music Glossary:
 @rglos{cluster}.
@@ -314,9 +314,7 @@ Internals Reference:
 @rinternals{ClusterSpannerBeacon},
 @rinternals{Cluster_spanner_engraver}.
 
-
 @knownissues
-
 Clusters look good only if they span at least two chords; otherwise
 they appear too narrow.
 
@@ -326,6 +324,7 @@ the durations of the defining chords.  Separate clusters need a
 separating rest between them.
 
 Clusters do not produce MIDI output.
+
 
 @node Multiple voices
 @subsection Multiple voices
@@ -538,9 +537,6 @@ music do not have the same rhythm.
 @code{\oneVoice}.
 @endpredefined
 
-Snippets:
-@rlsr{Simultaneous notes}.
-
 @seealso
 Learning Manual:
 @rlearning{Voices contain music},
@@ -550,6 +546,9 @@ Notation Reference:
 @ref{Percussion staves},
 @ref{Invisible rests},
 @ref{Stems}.
+
+Snippets:
+@rlsr{Simultaneous notes}.
 
 
 @node Voice styles
@@ -590,7 +589,6 @@ standard presentation.
 @code{\voiceFourStyle},
 @code{\voiceNeutralStyle}.
 @endpredefined
-
 
 @seealso
 Learning Manual:
@@ -835,6 +833,7 @@ The requirements for successfully merging different note heads that
 are at the same time differently dotted are not clear.
 @end ignore
 
+
 @node Automatic part combining
 @unnumberedsubsubsec Automatic part combining
 
@@ -1001,7 +1000,6 @@ instrumentTwo = \relative c' {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
 
-
 @seealso
 Music Glossary:
 @rglos{a due},
@@ -1018,7 +1016,6 @@ Internals Reference:
 @rinternals{Voice}.
 
 @knownissues
-
 All @code{\partcombine...} functions can only accept two voices and are
 not designed to work with lyrics; such that when one of the voices is
 explicitly named in order to attach lyrics to it, the partcombiner will
@@ -1162,7 +1159,6 @@ global = {
   >>
 }
 @end lilypond
-
 
 @seealso
 Learning Manual:

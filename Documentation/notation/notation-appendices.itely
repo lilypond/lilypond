@@ -1149,7 +1149,6 @@ character, or a combination of two characters formating a ligature.
 A set of glyphs with a single style and shape comprise a font, and
 a set of fonts covering several styles and sizes comprise a typeface.
 
-
 @seealso
 Notation Reference:
 @ref{Fonts},
@@ -1199,6 +1198,7 @@ In apparent contradiction to the name, they can be changed using
 @seealso
 Notation Reference:
 @ref{mutable}.
+
 
 @node interface
 @unnumberedsubsec interface
@@ -1258,6 +1258,7 @@ computations are stored in mutable properties.
 @seealso
 Notation Reference:
 @ref{immutable}.
+
 
 @node output-def
 @unnumberedsubsec output-def
