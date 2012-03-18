@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: 2c5ba46300cf1d3996045fb5d6153306474b042c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -604,7 +604,7 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
 プロパティを保存するだけなく、@c
 @q{エングラーバ} と呼ばれる記譜要素を作成するプラグインを保持します。@c
 例えば、@code{Voice} コンテキストは @code{Note_head_engraver} を保持し、@c
-@code{Staff} コンテキストは @code{Key_signature_engraver} を保持します。
+@code{Staff} コンテキストは @code{Key_engraver} を保持します。
 
 各プラグインについての説明は、
 @ifhtml
