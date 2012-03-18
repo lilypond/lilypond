@@ -485,7 +485,9 @@ a small @file{.ly} file demonstrating the problem was added to the regression
 tests as a proof that the fix works.  If someone will accidentally break
 breve width again, we will notice this in the output of that regression test.
 
-We are asking you to help us by checking a regtest or two from time to time.
+@subheading How can I help?
+
+We ask you to help us by checking one or two regtests from time to time.
 You don't need programming skills to do this, not even LilyPond skills -
 just basic music notation knowledge; checking one regtest takes less than
 a minute.  Simply go here:
@@ -505,6 +507,7 @@ or @rinternalsnamed{Top, Internals Reference}.
 Vague descriptions (like "behaves well", "looks reasonable") shouldn't be used.
 
 @ignore
+this may be useful for advanced regtest checking
 @subsubheading Is regtest straightforward and systematic?
 
 Unfortunately some regtests are written poorly.  A good regtest should be

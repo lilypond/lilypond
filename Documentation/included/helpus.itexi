@@ -30,6 +30,11 @@ Bug reporting: help users create proper @rweb{Bug reports}, and/or
 join the Bug Squad to organize @rcontrib{Issues}.
 
 @item
+@rcontrib{Grand Regression Test Checking}: verify that LilyPond works correctly
+by examining output of test snippets.  Checking one snippet takes less
+than a minute!
+
+@item
 Documentation: small changes can be proposed by following the
 guidelines for @rcontrib{Documentation suggestions}.
 
