@@ -53,7 +53,8 @@ if you are unfamiliar with the command-line.
 
 @menu
 * Invoking lilypond::
-* Command line options for lilypond::
+* Basic command line options for lilypond::
+* Advanced command line options for LilyPond::
 * Environment variables::
 * LilyPond in chroot jail::
 @end menu
@@ -121,8 +122,8 @@ options, or if the syntax is different.  Note that these are shell
 commands and have nothing to do with lilypond.
 
 
-@node Command line options for lilypond
-@unnumberedsubsec Command line options for @command{lilypond}
+@node Basic command line options for lilypond
+@unnumberedsubsec Basic command line options for @command{lilypond}
 
 @cindex Invoking @command{lilypond}
 @cindex command line options for @command{lilypond}
@@ -134,170 +135,7 @@ The following options are supported:
 @table @code
 
 @item -d,--define-default=@var{var}=@var{val}
-This sets the internal program option @var{var} to the Scheme value
-@var{val}.  If @var{val} is not supplied, then @var{#t} is used.  To
-switch off an option, @code{no-} may be prefixed to @var{var}, e.g.
-
-@cindex point and click, command line
-
-@example
--dno-point-and-click
-@end example
-
-@noindent
-is the same as
-@example
--dpoint-and-click=#f
-@end example
-
-The following options are supported:
-
-@cindex help, command line
-
-@table @code
-
-@item help
-Running @code{lilypond -dhelp} will print all of the @option{-d} options
-available.
-
-@cindex paper-size, command line
-
-@item paper-size
-This option sets the default paper-size,
-@example
--dpaper-size=\"letter\"
-@end example
-
-@noindent
-Note that the string must be enclosed in escaped quotes ( @code{\"} ).
-@c Match " in previous line to help context-sensitive editors
-
-@cindex safe, command line
-
-@item safe
-Do not trust the @code{.ly} input.
-
-When LilyPond formatting is available through a web server, either the
-@option{--safe} or the @option{--jail} option @b{MUST} be passed.  The
-@option{--safe} option will prevent inline Scheme code from wreaking
-havoc, for example
-
-@quotation
-@verbatim
-#(system "rm -rf /")
-{
-  c4^$(ly:gulp-file "/etc/passwd")
-}
-@end verbatim
-@end quotation
-
-The @option{-dsafe} option works by evaluating in-line Scheme
-expressions in a special safe module.  This safe module is derived from
-GUILE @file{safe-r5rs} module, but adds a number of functions of the
-LilyPond API.  These functions are listed in @file{scm/safe-lily.scm}.
-
-In addition, safe mode disallows @code{\include} directives and
-disables the use of backslashes in @TeX{} strings.
-
-In safe mode, it is not possible to import LilyPond variables into
-Scheme.
-
-@option{-dsafe} does @emph{not} detect resource overuse.  It is still
-possible to make the program hang indefinitely, for example by feeding
-cyclic data structures into the backend.  Therefore, if using LilyPond
-on a publicly accessible webserver, the process should be limited in
-both CPU and memory usage.
-
-Safe mode will prevent many useful LilyPond snippets from being
-compiled.  The @option{--jail} is a more secure alternative, but
-requires more work to set up.
-
-@cindex output format, setting
-
-@item backend
-the output format to use for the backend.  Choices for @code{format}
-are:
-
-@table @code
-@item ps
-
-@cindex PostScript output
-
-for PostScript.
-
-Postscript files include TTF, Type1 and OTF fonts.  No subsetting of
-these fonts is done.  When using oriental character sets, this can lead
-to huge files.
-
-@item eps
-
-@cindex Postscript, encapsulated
-@cindex EPS (Encapsulated PostScript)
-
-for encapsulated PostScript.  This dumps every page (system) as a
-separate @file{EPS} file, without fonts, and as one collated @file{EPS}
-file with all pages (systems) including fonts.
-
-This mode is used by default by @command{lilypond-book}.
-
-@item svg
-
-@cindex SVG (Scalable Vector Graphics)
-
-for SVG (Scalable Vector Graphics).
-
-This creates a single SVG file, without embedded fonts, for every page
-of output.  It is recommended to install the Century Schoolbook fonts,
-included with your LilyPond installation, for optimal rendering.  Under
-UNIX, simply copy these fonts from the LilyPond directory (typically
-@file{/usr/share/lilypond/VERSION/fonts/otf/}) to @file{~/.fonts/}.  The
-SVG output should be compatible with any SVG editor or user agent.
-
-@item scm
-
-@cindex Scheme dump
-@cindex output, Scheme dump
-
-for a dump of the raw, internal Scheme-based drawing commands.
-
-@item null
-do not output a printed score; has the same effect as
-@option{-dno-print-pages}.
-
-@end table
-
-Example: @code{lilypond -dbackend=svg @var{filename}.ly}
-
-@item preview
-
-@cindex preview, command line
-
-This option is supported by all backends; @code{pdf}, @code{png},
-@code{ps}, @code{eps} and @code{svg}, but not @code{scm}.  It generates
-an output file, in the form @code{myFile.preview.extension}, containing
-the titles and the first system of music.  If @code{\book} or
-@code{\bookpart} blocks are used, the titles of @code{\book},
-@code{\bookpart} or @code{\score} will appear in the output, including
-the first system of every @code{\score} block if the @code{\paper}
-variable @code{print-all-headers} is set to @code{#t}.
-
-To suppress the usual output, use the @option{-dprint-pages} or
-@option{-dno-print-pages} options according to your requirements.
-
-@item gui
-Runs silently and redirect all output to a log file.
-
-Note to Windows users: By default @code{lilypond.exe} outputs all
-progress information to the command window, @code{lilypond-windows.exe}
-does not and returns a prompt, with no progress information, immediately
-at the command line.  The @option{-dgui} option can be used in this case
-to redirect output to a log file.
-
-@item print-pages
-Generate the full pages, the default.  @option{-dno-print-pages} is
-useful in combination with @option{-dpreview}.
-
-@end table
+See @ref{Advanced command line options for LilyPond}.
 
 @cindex Scheme, expression evaluation
 @cindex expression evaluation, Scheme
@@ -360,22 +198,22 @@ search will continue in subsequent directories.
 Run @command{lilypond} in a chroot jail.
 
 The @option{--jail} option provides a more flexible alternative to
-@option{--safe} when LilyPond formatting is available through a web
-server or whenever LilyPond executes externally provided
-sources.
+@option{-dsafe}, when LilyPond formatting is being provided via a web
+server, or whenever LilyPond executes commands sent by external sources
+(see @ref{Advanced command line options for LilyPond}).
 
-The @option{--jail} option works by changing the root of
-@command{lilypond} to @var{jail} just before starting the actual
-compilation process.  The user and group are then changed to match those
-provided, and the current directory is changed to @var{dir}.  This setup
-guarantees that it is not possible (at least in theory) to escape from
-the jail.  Note that for @option{--jail} to work @command{lilypond} must
-be run as root, which is usually accomplished in a safe way using
-@command{sudo}.
+It works by changing the root of @command{lilypond} to @var{jail} just
+before starting the actual compilation process.  The user and group are
+then changed to match those provided, and the current directory is
+changed to @var{dir}.  This setup guarantees that it is not possible (at
+least in theory) to escape from the jail.  Note that for @option{--jail}
+to work, @command{lilypond} must be run as root, which is usually
+accomplished in a safe way using @command{sudo}.
 
-Setting up a jail is a slightly delicate matter, as we must be sure that
-LilyPond is able to find whatever it needs to compile the source
-@emph{inside the jail}.  A typical setup comprises the following items:
+Setting up a jail can be a relatively complex matter, as we must be sure
+that LilyPond is able to find whatever it needs to compile the source
+@emph{inside} the jail itself.  A typical chroot jail will comprise the
+following steps:
 
 @table @asis
 
@@ -407,13 +245,13 @@ files are missing.
 @item Running LilyPond
 In a jail mounted with @code{noexec} it is impossible to execute any
 external program.  Therefore LilyPond must be run with a backend that
-does not require any such program.  As we already mentioned, it must be
-also run with superuser privileges (which, of course, it will lose
-immediately), possibly using @command{sudo}.  It is a good idea to limit
-the number of seconds of CPU time LilyPond can use (e.g., using
+does not require any such program.  As we have already mentioned, it
+must be run with superuser privileges (which, of course, it will lose
+immediately), possibly using @command{sudo}.  It is also good practice
+to limit the number of seconds of CPU time LilyPond can use (e.g., using
 @command{ulimit@tie{}-t}), and, if your operating system supports it,
-the amount of memory that can be allocated.
-
+the amount of memory that can be allocated.  Also see
+@ref{LilyPond in chroot jail}.
 @end table
 
 @cindex loglevel
@@ -495,9 +333,362 @@ Show the warranty with which GNU LilyPond comes.  (It comes with
 @end table
 
 
+@node Advanced command line options for LilyPond
+@unnumberedsubsec Advanced command line options for LilyPond
+
+@table @code
+
+@item -d@var{[option-name]}=@var{[value]},--define-default=@var{[option-name]}=@var{[value]}
+This sets the equivalent internal Scheme function to @var{value}.  If a
+@var{value} is not supplied, then the default value is used.  The prefix
+@code{no-} may be added to @var{option-name} to switch @q{off} an
+option, e.g.
+
+@cindex point and click, command line
+
+@example
+-dpoint-and-click=#f
+@end example
+
+@noindent
+is the same as
+@example
+-dno-point-and-click
+@end example
+@end table
+
+@noindent The following are supported along with their respective
+default values:
+
+@multitable @columnfractions .33 .16 .51
+@item @strong{Symbol}
+@tab @strong{Value}
+@tab @strong{Explanation/Options}
+
+@item @code{anti-alias-factor}
+@tab @code{1}
+@tab Render at higher resolution (using given factor) and scale down
+result to prevent @q{jaggies} in @code{PNG} images.
+
+@item @code{aux-files}
+@tab @code{#t}
+@tab Create @code{.tex}, @code{.texi}, @code{.count} files in the
+@code{EPS} backend.
+
+@item @code{backend}
+@tab @code{'ps}
+@tab Select backend.  Postscript files (default) include @code{TTF},
+@code{Type1} and @code{OTF} fonts.  No subsetting of these fonts is
+done.  Using @q{oriental} character sets can lead to very large files.
+
+@item
+@tab @code{'eps}
+@tab Encapsulated PostScript.  This dumps every page (system) as a
+separate @file{EPS} file, without fonts, and as one collated @file{EPS}
+file with all pages (systems) including fonts.  Used as default by
+@command{lilypond-book}.
+
+@item
+@tab @code{'null}
+@tab Do not output a printed score; has the same effect as
+@code{-dno-print-pages}.
+
+@item
+@tab @code{'svg}
+@tab Scalable Vector Graphics.  This creates a single @code{SVG} file,
+without embedded fonts, for every page of output.  It is recommended to
+install the Century Schoolbook fonts, included with your LilyPond
+installation, for optimal rendering.  Under UNIX, simply copy these
+fonts from the LilyPond directory (typically
+@file{/usr/share/lilypond/VERSION/fonts/otf/}) to @file{~/.fonts/}.  The
+@code{SVG} output should be compatible with any SVG editor or user
+agent. There is also an option @code{svg-woff} (below) for use of woff
+font files in the SVG backend.
+
+@item
+@tab @code{'scm}
+@tab Dump of the raw, internal Scheme-based drawing commands.
+
+@item @code{check-internal-types}
+@tab @code{#f}
+@tab Check every property assignment for types.
+
+@item @code{clip-systems}
+@tab @code{#f}
+@tab Generate cut-out snippets of a score.
+
+@item @code{datadir}
+@tab
+@tab Prefix for data files (read-only).
+
+@item @code{debug-gc}
+@tab @code{#f}
+@tab Dump memory debugging statistics.
+
+@item @code{debug-gc-assert-parsed-dead}
+@tab @code{#f}
+@tab For memory debugging: Ensure that all references to parsed objects
+are dead. This is an internal option, and is switched on automatically
+for @code{`-ddebug-gc'}.
+
+@item @code{debug-lexer}
+@tab @code{#f}
+@tab Debug the flex lexer.
+
+@item @code{debug-page-breaking-scoring}
+@tab @code{#f}
+@tab Dump scores for many different page breaking configurations.
+
+@item @code{debug-parser}
+@tab @code{#f}
+@tab Debug the bison parser.
+
+@item @code{debug-property-callbacks}
+@tab @code{#f}
+@tab Debug cyclic callback chains.
+
+@item @code{debug-skylines}
+@tab @code{#f}
+@tab Debug skylines.
+
+@item @code{delete-intermediate-files}
+@tab @code{#t}
+@tab Delete the unusable, intermediate @code{.ps} files created during
+compilation.
+
+@item @code{dump-cpu-profile}
+@tab @code{#f}
+@tab Dump timing information (system-dependent).
+
+@item @code{dump-profile}
+@tab @code{#f}
+@tab Dump memory and time information for each file.
+
+@item @code{dump-signatures}
+@tab @code{#f}
+@tab Dump output signatures of each system. Used for regression testing.
+
+@item @code{eps-box-padding}
+@tab @code{#f}
+@tab Pad left edge of the output EPS bounding box by the given amount
+(in mm).
+
+@item @code{gs-load-fonts}
+@tab @code{#f}
+@tab Load fonts via Ghostscript.
+
+@item @code{gs-load-lily-fonts}
+@tab @code{#f}
+@tab Load only the LilyPond fonts via Ghostscript.
+
+@item @code{gui}
+@tab @code{#f}
+@tab Runs silently and redirect all output to a log file.
+@end multitable
+
+@noindent
+@strong{Note to Windows users:} By default @code{lilypond.exe} outputs
+all progress information to the command window,
+@code{lilypond-windows.exe} does not and returns a prompt, with no
+progress information, immediately at the command line.  The
+@option{-dgui} option can be used in this case to redirect output to a
+log file.
+
+@multitable @columnfractions .33 .16 .51
+@item @code{help}
+@tab @code{#f}
+@tab Show this help.
+
+@item @code{include-book-title-preview}
+@tab @code{#t}
+@tab Include book titles in preview images.
+
+@item @code{include-eps-fonts}
+@tab @code{#t}
+@tab Include fonts in separate-system EPS files.
+
+@item @code{include-settings}
+@tab @code{#f}
+@tab Include file for global settings, this is included before the score
+is processed.
+
+@item @code{job-count}
+@tab @code{#f}
+@tab Process in parallel, using the given number of jobs.
+
+@item @code{log-file}
+@tab @code{#f [file]}
+@tab If string @code{FOO} is given as a second argument,
+redirect output to the log file @code{FOO.log}.
+
+@item @code{max-markup-depth}
+@tab @code{1024}
+@tab Maximum depth for the markup tree. If a markup has more levels,
+assume it will not terminate on its own, print a warning and return a
+null markup instead.
+
+@item @code{midi-extension}
+@tab @code{"midi"}
+@tab Set the default file extension for MIDI output file to given
+string.
+
+@item @code{music-strings-to-paths}
+@tab @code{#f}
+@tab Convert text strings to paths when glyphs belong to a music font.
+
+@item @code{old-relative}
+@tab @code{#f}
+@tab Make @code{\relative} mode for simultaneous music work similar to
+chord syntax.
+
+@item @code{paper-size}
+@tab @code{\"a4\"}
+@tab Set default paper size.  Note the string must be enclosed in
+escaped double quotes.
+
+@item @code{pixmap-format}
+@tab @code{png16m}
+@tab Set GhostScript's output format for pixel images.
+
+@item @code{point-and-click}
+@tab @code{#f}
+@tab Add @q{point & click} links to @code{PDF} output. See
+@ref{Point and click}.
+
+@item @code{preview}
+@tab @code{#f}
+@tab Create preview images in addition to normal output.
+@end multitable
+
+@noindent
+This option is supported by all backends; @code{pdf}, @code{png},
+@code{ps}, @code{eps} and @code{svg}, but not @code{scm}.  It generates
+an output file, in the form @code{myFile.preview.extension}, containing
+the titles and the first system of music.  If @code{\book} or
+@code{\bookpart} blocks are used, the titles of @code{\book},
+@code{\bookpart} or @code{\score} will appear in the output, including
+the first system of every @code{\score} block if the @code{\paper}
+variable @code{print-all-headers} is set to @code{#t}.
+
+To suppress the usual output, use the @option{-dprint-pages} or
+@option{-dno-print-pages} options according to your requirements.
+
+@multitable @columnfractions .33 .16 .51
+@item @code{print-pages}
+@tab @code{#t}
+@tab Generate full pages, the default.  @option{-dno-print-pages} is
+useful in combination with @option{-dpreview}.
+
+@item @code{profile-property-accesses}
+@tab @code{#f}
+@tab Keep statistics of @code{get_property()} function calls.
+
+@item @code{protected-scheme-parsing}
+@tab @code{#t}
+@tab Continue when errors in inline scheme are caught in the parser. If
+set to @code{#f}, halt on errors and print a stack trace.
+
+@item @code{read-file-list}
+@tab @code{#f [file]}
+@tab Specify name of a file which contains a list of input files to be
+processed.
+
+@item @code{relative-includes}
+@tab @code{#f}
+@tab When processing an @code{\include} command, look for the included
+file relative to the current file (instead of the root file).
+
+@item @code{resolution}
+@tab @code{101}
+@tab Set resolution for generating @code{PNG} pixmaps to given value (in
+dpi).
+
+@item @code{safe}
+@tab @code{#f}
+@tab Do not trust the @code{.ly} input.
+@end multitable
+
+@noindent
+When LilyPond formatting is available through a web server, either the
+@option{--safe} or the @option{--jail} option @b{MUST} be passed.  The
+@option{--safe} option will prevent inline Scheme code from wreaking
+havoc, e.g,
+
+@quotation
+@verbatim
+#(system "rm -rf /")
+{
+  c4^$(ly:gulp-file "/etc/passwd")
+}
+@end verbatim
+@end quotation
+
+The @option{-dsafe} option works by evaluating in-line Scheme
+expressions in a special safe module.  This is derived from GUILE
+@file{safe-r5rs} module, but also adds a number of functions of the
+LilyPond API which are listed in @file{scm/safe-lily.scm}.
+
+In addition, safe mode disallows @code{\include} directives and
+disables the use of backslashes in @TeX{} strings.  It is also not
+possible to import LilyPond variables into Scheme while in safe mode.
+
+@option{-dsafe} does @emph{not} detect resource overuse, so it is still
+possible to make the program hang indefinitely, for example by feeding
+cyclic data structures into the backend.  Therefore, if using LilyPond
+on a publicly accessible webserver, the process should be limited in
+both CPU and memory usage.
+
+Safe mode will prevent many useful LilyPond snippets from being
+compiled.
+
+The @option{--jail} is an even more secure alternative, but requires
+more work to set up. See @ref{Basic command line options for lilypond}.
+
+@multitable @columnfractions .33 .16 .51
+@item @code{separate-log-files}
+@tab @code{#f}
+@tab For input files @code{FILE1.ly}, @code{FILE2.ly}, etc. output log
+data to files @code{FILE1.log}, @code{FILE2.log}, ...
+
+@item @code{show-available-fonts}
+@tab @code{#f}
+@tab List available font names.
+
+@item @code{strict-infinity-checking}
+@tab @code{#f}
+@tab Force a crash on encountering @code{Inf} and @code{NaN} floating
+point exceptions.
+
+@item @code{strip-output-dir}
+@tab @code{#t}
+@tab Don't use directories from input files while constructing output
+file names.
+
+@item @code{svg-woff}
+@tab @code{#f}
+@tab Use woff font files in SVG backend.
+
+@item @code{trace-memory-frequency}
+@tab @code{#f}
+@tab Record Scheme cell usage this many times per second.  Dump the
+results to @code{FILE.stacks} and @code{FILE.graph}.
+
+@item @code{trace-scheme-coverage}
+@tab @code{#f}
+@tab Record coverage of Scheme files in @code{FILE.cov}.
+
+@item @code{verbose}
+@tab @code{#f}
+@tab Verbose output, i.e. loglevel at DEBUG (read-only).
+
+@item @code{warning-as-error}
+@tab @code{#f}
+@tab Change all warning and @q{programming error} messages into errors.
+@end multitable
+
+
 @node Environment variables
 @unnumberedsubsec Environment variables
-
 
 @cindex LANG
 @cindex LILYPOND_DATADIR
@@ -513,8 +704,8 @@ subdirectories called @file{ly/}, @file{ps/}, @file{tex/}, etc.
 This selects the language for the warning messages.
 
 @item LILYPOND_LOGLEVEL
-The default loglevel. If LilyPond is called without an explicit loglevel (i.e.
-no @option{--loglevel} command line option), this value is used.
+The default loglevel. If LilyPond is called without an explicit loglevel
+(i.e. no @option{--loglevel} command line option), this value is used.
 
 @item LILYPOND_GC_YIELD
 A variable, as a percentage, that tunes memory management
