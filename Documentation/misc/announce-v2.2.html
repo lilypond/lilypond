@@ -1,5 +1,5 @@
 <!--
-    Translation of GIT committish: <FILL-IN-HEAD-COMMITTISH>  
+    Translation of GIT committish: <FILL-IN-HEAD-COMMITTISH>
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  Refer to `UPDATE A TRANSLATION'
@@ -97,12 +97,12 @@ images.
 contain them. This will take into account transposition of source and target
 instrument. For example,
 
-     <pre class="verbatim">     
+     <pre class="verbatim">
      \addquote clarinet \notes\relative c' {
        \transposition bes
        fis4 fis fis fis
      }
-     
+
      \score {
          \notes \relative c'' {
              c8 d8 \quote 2 oboe es8 gis
@@ -117,7 +117,7 @@ E-flat alto saxophone is specified as
      <pre class="example">            \transposition es'
      </pre>
 
-     <li>The naming of exported Scheme functions now follows Scheme conventions. 
+     <li>The naming of exported Scheme functions now follows Scheme conventions.
 Changes be applied to Scheme files with
 
      <pre class="example">                  convert-ly -e -n --from=2.1.24 --to=2.1.26 *.scm
@@ -149,7 +149,7 @@ automatically deduced from the <code>stringTunings</code> property.
 the following table lists the differences:
 
      <pre class="example">                (old)                           (new)
-          
+
           \property A.B = #C                \set A.B = #C
           \property A.B \unset              \unset A.B
           \property A.B \set #C = #D        \override A.B #C = #D
@@ -178,7 +178,7 @@ hide tweaks at higher context levels.
 
      <li>Melismata in lyrics are also properly handled  in the MIDI output.
 
-     <li>The lilypond-book script has been rewritten. 
+     <li>The lilypond-book script has been rewritten.
 It is shorter, cleaner and faster.  The special construct
 <code>mbinclude</code> has been removed, plain <code>@include</code> or
 <code>\input</code> can be used now.
@@ -224,7 +224,7 @@ two markup commands are equivalent:
 to instrument names.   They can be set by defining <code>vocalName</code>
 and <code>vocNam</code>.
 
-     <li>Safe mode has been reinstated for lilypond. 
+     <li>Safe mode has been reinstated for lilypond.
 When lilypond is invoked with <code>--safe-mode</code>, TeX and
 PostScript file output is disallowed, and lilypond-bin is invoked with
 <code>--safe-mode</code>, the user's Guile expressions are evaluated in a
@@ -244,7 +244,7 @@ sizes.
 
      <li>Improved robustness when  layout properties are accidentally removed.
 
-     <li>A  more cleanly constructed part combiner has been installed. 
+     <li>A  more cleanly constructed part combiner has been installed.
 It is more robust and less buggy. The part-combiner can be used with
      <pre class="example">            \partcombine <var>mus1</var> <var>mus2</var>
      </pre>
@@ -307,10 +307,10 @@ octave should be.  In the following example,
      </pre>
 
      <p class="noindent">the d will generate a warning, because a d&rdquo; is
-expected, but a d' is found. 
+expected, but a d' is found.
 <!-- @code adds ` ', very confusing. -->
 
-     <li>There is a new mechanism for putting lyrics to melodies. 
+     <li>There is a new mechanism for putting lyrics to melodies.
 With this mechanism, <code>Lyrics</code> lines can be put melodies
 individually, allowing for different melismatic sections in every
 <code>Lyrics</code>. See <span class="file">input/regression/lyric-combine-new.ly</span>.
@@ -376,7 +376,7 @@ updated. For example, after reading
      <p class="noindent">the definition of <code>ScoreContext</code> is updated to include the changed
 setting.
 
-     <li>The weight of the stafflines is now heavier at smaller staff sizes. 
+     <li>The weight of the stafflines is now heavier at smaller staff sizes.
 The font has been modified to match this look: at smaller sizes, the
 font is heavier and the note heads are more rounded.
 
@@ -398,4 +398,3 @@ sizes.
      <li>The placement of accidentals on chords and ledgered notes is improved.
 
 </ul>
-

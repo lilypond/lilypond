@@ -1,4 +1,4 @@
-Keywords: midi notation music typesetting gnu font engraving 
+Keywords: midi notation music typesetting gnu font engraving
 Subject: GNU LilyPond 1.0 released - The Music Typesetter
 
 GNU LilyPond - The Music Typesetter
@@ -13,13 +13,13 @@ performances to a MIDI file.
 
 WHAT'S NEW SINCE VERSION 0.1?
 
-* LilyPond now includes a completely new music font: the Feta font.  
+* LilyPond now includes a completely new music font: the Feta font.
   We were quite disappointed with available music fonts, so we rolled
   our own.  We did our best to copy the best symbol designs available,
   and we think that we've succeeded in doing so.  We're proud of the
   result, and we hope you agree, so go check it out!
 
-* More elegant output due to 
+* More elegant output due to
 
 	* more sophisticated beam/slur formatting
 	* better spacing
@@ -99,4 +99,3 @@ Sources for this project are on
 More detailed info and examples can be found on the webpage at
 
 	http://www.cs.uu.nl/~hanwen/lilypond/index.html
-

@@ -21,7 +21,7 @@
 	downslur/downstem.
 
 	* lily/quote-iterator.cc (process): use <= for comparisons. Fixes
-	quote problem if for last note of quoted sequence. 
+	quote problem if for last note of quoted sequence.
 
 	* input/regression/part-combine-text.ly (comm): add expect strings.
 
@@ -49,15 +49,15 @@
 
 	* input/regression/accidentals.ly (Module): remove from regtest.
 
-	* lily/parser.yy (Prefix_composite_music): 
+	* lily/parser.yy (Prefix_composite_music):
 	oops. Chords should be unrelativable, not bass figures untransposable.
 
 	* VERSION: 2.3.26 released.
-	
-	* lily/completion-note-heads-engraver.cc (try_music): only return
-	something when is_first_ is true. Fixes lyrics with completion_heads. 
 
-	* make/lilypond-vars.make: add scripts/out/ to PATH, to find ps2png. 
+	* lily/completion-note-heads-engraver.cc (try_music): only return
+	something when is_first_ is true. Fixes lyrics with completion_heads.
+
+	* make/lilypond-vars.make: add scripts/out/ to PATH, to find ps2png.
 
 	* scm/lily.scm (ly:system): new function. Catches uninstalled
 	ps2png.
@@ -84,7 +84,7 @@
 	extent, since the stencil is translated later on.
 
 	* lily/ledger-line-spanner.cc (print): swap linear_combination
-	arguments, effectively shortens ledger line. 
+	arguments, effectively shortens ledger line.
 
 	* Documentation/user/GNUmakefile
 	($(outdir)/lilypond/lilypond.html): use find to remove files.
@@ -99,10 +99,10 @@
 2004-10-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/notation.itely (Automatic note splitting):
-	note about lyrics. 
+	note about lyrics.
 
 	* Documentation/user/converters.itely (Invoking convert-ly): note
-	about version numbers. 
+	about version numbers.
 
 	* scripts/abc2ly.py (dump_score): revise lyric dumping
 
@@ -154,7 +154,7 @@
 	(classic_lilypond_book_compatibility): Take key/value pair as
 	parameter.
 	Return key/value pair.
-	(compose_ly): Rewritten, taking the snippet type as third parameter. 
+	(compose_ly): Rewritten, taking the snippet type as third parameter.
 	The default values are now set more sensible, and a `linewidth'
 	option is no longer overwritten under some circumstances.
 
@@ -197,7 +197,7 @@
 2004-10-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* VERSION: 2.3.24
-	
+
 	* scm/define-context-properties.scm
 	(all-user-translation-properties): add verticallySpacedContexts.
 
@@ -225,10 +225,10 @@
 2004-10-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* input/mutopia/F.Schubert/morgenlied.ly (pianoLH): tune
-	minimumVerticalExtent tweaks. 
- 
+	minimumVerticalExtent tweaks.
+
 	* mf/feta-schrift.mf: include size of thumb appendix in
-	bbox. Fixes: c-thumb-notehead.ly  
+	bbox. Fixes: c-thumb-notehead.ly
 
 	* THANKS: add Meisters to the Development team.
 
@@ -243,7 +243,7 @@
 	* stepmake/stepmake/texinfo-vars.make (MAKEINFO): add
 	--enable-encoding
 
-	* Documentation/user/lilypond.tely: add -*- coding: latin-1 -*- everywhere. 
+	* Documentation/user/lilypond.tely: add -*- coding: latin-1 -*- everywhere.
 
 	* Documentation/user/changing-defaults.itely (Text encoding):
 	change to latin1.
@@ -275,7 +275,7 @@
 
 	* Documentation/user/tutorial.itely (A lead sheet): use \chords
 	for tutoring chord names.
- 
+
 	* Documentation/user/lilypond.tely: remove @authors.
 
 2004-10-23  Werner Lemberg  <wl@gnu.org>
@@ -379,7 +379,7 @@
 	* elisp/lilypond-init.el (auto-mode-alist): Add .ily to
 	auto-mode-alist.
 
-	* input/test/engraver-example.ily: 
+	* input/test/engraver-example.ily:
 	* input/regression/allfontstyle.ily: Rename, update users.
 
 2004-10-16  Graham Percival  <gperlist@shaw.ca>
@@ -480,7 +480,7 @@
 	* VERSION (MY_PATCH_LEVEL): release 2.3.22
 
 	* scm/part-combiner.scm (determine-split-list): reinstate
-	playing+resting case. 
+	playing+resting case.
 
 	* Documentation/user/invoking.itely (Reporting bugs): rename.
 
@@ -491,7 +491,7 @@
 
 	* lily/phrasing-slur-engraver.cc (acknowledge_grob): do something
 	with normal slurs too.
-	
+
 	* lily/slur-scoring.cc (move_away_from_staffline): new function.
 	(get_base_attachments): move away attachment point for breaks
 	similar to attachment points on slurs (staffline collision, and
@@ -501,10 +501,10 @@
 	force twice.
 
 	* lily/simple-spacer.cc (LY_DEFINE): if line too long in ragged
-	mode, return #f.	
+	mode, return #f.
 
 	* scm/page-layout.scm (ly:optimal-page-breaks): set force = 0.0
-	for last page if raggedlast. 
+	for last page if raggedlast.
 
 	* lily/parser.yy (Prefix_composite_music): untransposable is for
 	FiguredBass, not ChordNames
@@ -528,7 +528,7 @@
 	function. Define dimension-variables explicitly in \paper too.
 	This allows overriding linewidth inside \score { \paper { } }
 	blocks
- 
+
 	* scm/framework-tex.scm (convert-to-ps): invoke dvips with -t
 	landscape.
 	(header): add landscape and papersize options.
@@ -542,7 +542,7 @@
 	* scm/titling.scm (default-score-title): remove caps for piece.
 
 	* VERSION: 2.3.21 released.
-	
+
 	* lily/include/slur-scoring.hh (struct Slur_score_state): new file
 
 	* lily/include/slur-configuration.hh (class Slur_configuration):
@@ -554,7 +554,7 @@
 	* lily/slur-scoring.cc (Slur_score_state): change static functions
 	to methods of Slur_score_state.
 
-	* lily/bezier-bow.cc (Message): 
+	* lily/bezier-bow.cc (Message):
 
 	* flower/include/interval-set.hh (Message): new file.
 
@@ -591,7 +591,7 @@
 2004-10-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/framework-tex.scm (convert-to-dvi): set extra_mem_top to 1M.
- 
+
 2004-10-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/slur-scoring.cc (struct Slur_score_state): add
@@ -620,7 +620,7 @@
 
 	* lily/lyric-extender.cc (print): don't take common refpoint of
 	null object if right_text isn't there.
- 
+
 	* lily/slur-scoring.cc (struct Slur_score_state): new
 	struct. Collect scoring function arguments.
 	(struct Slur_score_state): add musical_dy_
@@ -642,13 +642,13 @@
 	measure-length. This fixes spacing-whole-rest.ly
 
 	* VERSION (PACKAGE_NAME): release 2.3.20
-	
+
 	* input/regression/quote-transposition.ly: update example
 
 	* scm/define-music-properties.scm (all-music-properties): change
 	meaning of instrumentTransposition.  It is now the pitch played
 	that sounds as middle C. This means that instrumentTransposition
-	can be \transposed. 
+	can be \transposed.
 	Fixes: transpose-quote.ly
 
 	* lily/parser.yy (command_element): reverse setting of
@@ -662,7 +662,7 @@
 
 	* lily/music.cc (transpose): fold Event::transpose() in.
 
-	* lily/event.cc: remove Transpose. 
+	* lily/event.cc: remove Transpose.
 
 	* lily/recording-group-engraver.cc: cleanup.
 
@@ -671,7 +671,7 @@
 	* make/lilypond.fedora.spec.in: rename file.
 
 	* lily/lily-lexer.cc (mark_smob): don't use ly_cdr() for getting
-	to-be-marked objects. Use SCM_CELL_WORD_1 instead. 
+	to-be-marked objects. Use SCM_CELL_WORD_1 instead.
 
 	* Documentation/user/changing-defaults.itely (Changing context
 	properties on the fly): typo.
@@ -719,7 +719,7 @@
 
 	* lily/slur.cc (outside_slur_callback): epsilon-delta management
 	for slur edges. Fixes: progerror-no-bezier-intersection.ly
- 
+
 	* scm/framework-tex.scm (dump-page): put stencil height in dumped
 	page.
 
@@ -748,7 +748,7 @@
 
 2004-09-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* stepmake/stepmake/texinfo-rules.make: 
+	* stepmake/stepmake/texinfo-rules.make:
 	* Documentation/GNUmakefile: --srcdir build fixes.
 
 	* input/test/coriolan-margin.ly: Put papersize settings in \bookpaper.
@@ -849,7 +849,7 @@
 	next property.
 
 	* lily/lyric-engraver.cc: remove get_current_rest().
-	
+
 2004-09-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/regression/lyric-extender.ly: Fix and add test.
@@ -903,7 +903,7 @@
 	start to note-column.
 
 	* lily/hairpin.cc (print): check text-interface, to attach to
-	dynamic texts.  
+	dynamic texts.
 
 	* lily/include/text-item.hh (class Text_interface): rename
 	Text_item -> Text_interface
@@ -927,9 +927,9 @@
 
 	* lily/beam-concave.cc (calc_concaveness): take absolute value of
 	dy for scaling. This fixes various downbeams.
-	
 
-	* lily/beam-quanting.cc (best_quant_score_idx): 
+
+	* lily/beam-quanting.cc (best_quant_score_idx):
 
 2004-09-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
@@ -992,9 +992,9 @@
 	* input/test/mensural-ligatures.ly (voice): move linethickness
 	settings to bookpaper.
 
-	* lily/simple-spacer.cc (Module): use force to stretch to 
+	* lily/simple-spacer.cc (Module): use force to stretch to
 	line length as force measure for ragged spacing.
-	
+
 	* lily/lily-parser.cc (get_paper): don't set parent for \paper
 	blocks in the parser. This eliminates ordering dependency for
 	\bookpaper and \paper
@@ -1004,10 +1004,10 @@
 	* lily/includable-lexer.cc (new_input): elucidate message.
 
 	* VERSION: 2.3.18 released.
-	
+
 2004-09-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* input/mutopia/E.Satie/petite-ouverture-a-danser.ly: 
+	* input/mutopia/E.Satie/petite-ouverture-a-danser.ly:
 	* input/mutopia/R.Schumann/romanze-op28-2.ly:
 	* input/mutopia/F.Schubert/standchen.ly: Remove obsolete
 	#'Slur.attachment setting.
@@ -1021,7 +1021,7 @@
 
 	* scm/page-layout.scm (ly:optimal-page-breaks): use non-ragged
 	layout to determine force.
-	
+
 2004-09-18  Werner Lemberg  <wl@gnu.org>
 
 	* ly/engraver-init.ly <Score> [quotedEventTypes]: Add tuplets and
@@ -1043,7 +1043,7 @@
 	slur touching.
 
 	* lily/parser.yy (direction_less_char): soft code \< \> \! \( \) (
-	) 
+	)
 
 	* input/regression/tie.ly (texidoc): cleanup.
 
@@ -1051,7 +1051,7 @@
 	and ~
 
 	* lily/slur-scoring.cc (score_extra_encompass): check if extra
-	objects are on boundary column. 
+	objects are on boundary column.
 
 	* lily/main.cc (parse_argv): process --tex too.
 
@@ -1175,7 +1175,7 @@
 	* scripts/convert-ly.py (conv): change Both to Neutral in property
 	settings.
 
-	* ly/engraver-init.ly: increase extent of Staff. 
+	* ly/engraver-init.ly: increase extent of Staff.
 
 2004-09-13  Graham Percival  <gperlist@shaw.ca>
 
@@ -1207,7 +1207,7 @@
 	document them.
 
 	* scm/page-layout.scm (ly:optimal-page-breaks): use new parameters
- 	to get sane spaces for titles.
+	to get sane spaces for titles.
 
 	* ly/book-paper-defaults.ly: new parameters aftertitlespace,
 	beforetitlespace, betweentitlespace.
@@ -1225,7 +1225,7 @@
 	* input/tutorial/brahms*.ly: remove.
 
 	* input/*: update all .ly files.
-	 
+
 	* ly/a4-init.ly (vsize): remove papersize init files.
 
 	* scripts/convert-ly.py (conv): add conversion.
@@ -1240,7 +1240,7 @@
 
 	* scm/page-layout.scm (ly:optimal-page-breaks): add
 	betweensystempadding also to fixed distance for the spring.
- 
+
 	* scm/define-grobs.scm (all-grob-descriptions): fix order of
 	key-cancellation.
 
@@ -1252,7 +1252,7 @@
 	measures how concave beams are that are not caught by 1.
 
 	This fixes: morgenlied.ly and input/regression/beam-concave.ly
-	
+
 	* lily/new-fingering-engraver.cc (stop_translation_timestep): new
 	property: add-stem-support
 
@@ -1308,7 +1308,7 @@
 	that voice-2 plays solo, and voice-1 has an mmrest that starts
 	earlier. In that case, we switch to voice-2, so we catch the
 	mmrest of voice-2. This fixes: partcombine-rest.ly.
- 
+
 2004-09-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/define-grob-properties.scm (all-internal-grob-properties):
@@ -1323,7 +1323,7 @@
 	* Documentation/user/notation.itely: small fixes to docs.
 
 2004-09-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
-	
+
 	* VERSION (PACKAGE_NAME): release 2.3.15
 
 	* make/lilypond.redhat.spec.in (Requires): bump requirement for
@@ -1360,9 +1360,9 @@
 
 	* Documentation/user/changing-defaults.itely (Paper size): doc
 	landscape
-	
 
-	* scm/framework-ps.scm (eps-header): bugfixes. 
+
+	* scm/framework-ps.scm (eps-header): bugfixes.
 
 	* scm/titling.scm (default-score-title): remove opus from the
 	\score title.
@@ -1422,7 +1422,7 @@
 2004-09-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/define-grobs.scm (all-grob-descriptions): unset
-	threshold. This fixes morgenlied. 
+	threshold. This fixes morgenlied.
 
 	* scm/page-layout.scm (ly:optimal-page-breaks): whoops. Thinko in
 	rod calculation.
@@ -1479,11 +1479,11 @@
 	* lily/simple-spacer.cc (LY_DEFINE): return something sensible for
 	0 springs
 
-	* lily/system.cc (post_processing): 
+	* lily/system.cc (post_processing):
 
 	* scm/page-layout.scm (ly:optimal-page-breaks): implement uniform
 	density for vertical spacing by means of force penalty.
-	
+
 	* scm/paper.scm (paper-set-staff-size): add betweensystemspace as
 	dimension-variables
 
@@ -1582,15 +1582,15 @@
 	* input/regression/slur-extreme.ly: new file.
 
 	* ly/engraver-init.ly (Score): set bassStaffProperties to \clef
-	bass. Obviates \clef bass in the bass staff, when using \autochange 
+	bass. Obviates \clef bass in the bass staff, when using \autochange
 
 	* lily/auto-change-iterator.cc (construct_children): instantiate
 	up/down Staff, create Voice on up staff initially. Obviates
-	explicit instantiation of up/down contexts for \autochange. 
+	explicit instantiation of up/down contexts for \autochange.
 
 	* lily/slur-quanting.cc (get_bezier): new functionality, blow up
 	slur depending on extents of note heads.
-	
+
 2004-08-28  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/tutorial.itely: minor editing.
@@ -1617,7 +1617,7 @@
 
 	* Documentation/user/point-and-click.texi (Point and click): new file.
 	put point & click in appendix.
-	
+
 	* Documentation/user/changing-defaults.itely (Vertical spacing):
 	corrections
 
@@ -1675,16 +1675,16 @@
 	* input/regression/phrasing-slur-slur-avoid.ly: new file.
 
 	* lily/ottava-bracket.cc (print): always start from right edge of
-	a broken bound. This fixes ottava-clef.ps 
+	a broken bound. This fixes ottava-clef.ps
 
 2004-08-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* input/regression/slur-script-inside.ly: new file.
 
 	* lily/new-slur.cc (outside_slur_callback): new function, to make
-	scripts avoid slurs 
+	scripts avoid slurs
 
-	* lily/slur-engraver.cc (finalize): 
+	* lily/slur-engraver.cc (finalize):
 
 	* lily/script-interface.cc: add inside-slur property.
 
@@ -1708,11 +1708,11 @@
 
 	* lily/slur-quanting.cc (score_extra_encompass): make score depend
 	on distance. This fixes slur-tenuto.ly and slur-tie.ly
- 
+
 	* flower/include/interval.hh (T>): add distance() function
 
 	* lily/ottava-bracket.cc (print): add dots to extent. Fixes
-	octaviation-dot.ly 
+	octaviation-dot.ly
 
 	* lily/context-scheme.cc: ly_context_grob_definition: new function.
 
@@ -1722,7 +1722,7 @@
 
 2004-08-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
-	* input/regression/slur-double.ly: new file. 
+	* input/regression/slur-double.ly: new file.
 
 	* lily/slur-engraver.cc: add doubleSlurs property
 
@@ -1763,19 +1763,19 @@
 2004-08-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/slur-engraver.cc (class Slur_engraver): simplify: remove
-	nested slurs. 
+	nested slurs.
 
 	* scripts/convert-ly.py (lilypond_version_re_str): handle
 	\version "bar" % "foo"
 
 	* lily/completion-note-heads-engraver.cc (process_music): set
 	duration-log before announcing object.
-	
+
 	* lily/staff-symbol.cc (print): subtract thickness from staff line
 	length
 
 	* lily/parser.yy (book_body): disallow { ..music.. } inside \book
-	
+
 2004-08-21  Carl Sorensen  <carldsorensen@comcast.net>
 
 	* scm/stencil.scm: remove fontify-text and fontify-text-white
@@ -1801,7 +1801,7 @@
 
 2004-08-19  Carl Sorensen  <carldsorensen@comcast.net>
 
-	* scm/fret-diagrams.scm: Eliminate use of fontify-text; make 
+	* scm/fret-diagrams.scm: Eliminate use of fontify-text; make
 	font calls for diagrams based on paper and props
 
 2004-08-19  Graham Percival <gperlist@shaw.ca>
@@ -1827,8 +1827,8 @@
 
 2004-08-18  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
-	* scm/framework-tex.scm (output-preview-framework) 
-	(output-classic-framework): 
+	* scm/framework-tex.scm (output-preview-framework)
+	(output-classic-framework):
 	* scm/framework-ps.scm (output-preview-framework):
 	s/ly:paper-book-lines/ly:paper-book-systems/g
 
@@ -1872,7 +1872,7 @@
 
 	* scm/define-markup-commands.scm (box): add box-padding and
 	thickness props for the box command.
- 
+
 	* Documentation/user/changing-defaults.itely (Text encoding):
 	elucidate use of \encoding for \header strings.
 
@@ -1977,7 +1977,7 @@
 
 2004-08-08  Carl Sorensen  <carldsorensen@comcast.net>
 
-	* scm/fret-diagrams.scm : change sans-serif font encoding from 
+	* scm/fret-diagrams.scm : change sans-serif font encoding from
 	TeX-text to ec (uses ecss fonts instead of cmss fonts)
 
 	* scm/define-grob-interfaces.scm (fret-diagram-interface): add
@@ -2024,7 +2024,7 @@
 
 	* lily/text-spanner.cc (print): only take linear_combination of
 	nonempty interval.
-	
+
 
 2004-08-02  Pedro Kroger  <kroeger@pedrokroeger.net>
 
@@ -2041,7 +2041,7 @@
 	* lily/lily-parser.cc (parse_string): don't overwrite keytable_.
 
 	* lily/slur-quanting.cc (enumerate_attachments): apply center on
-	stem-X in more cases. 
+	stem-X in more cases.
 
 	* lily/stem.cc (dim_callback): solve todo.
 
@@ -2064,7 +2064,7 @@
 	* Documentation/user/GNUmakefile: fix symlinks.
 
 	* VERSION: 2.3.10 released.
-	
+
 	* input/test/lyrics-skip-notes.ly: remove
 
 	* input/test/stem-cross-staff.ly (noFlag): fold into manual
@@ -2089,10 +2089,10 @@
 	* input/regression/lyric-hyphen-retain.ly: move to regression.
 
 	* input/regression/harmonic.ly: fold into manual
-	
+
 	* input/test/{hshift,move-accidentals,crescendi,feathered-beam,
 	stem-length,chord-names-no-inversions}.ly: remove
-	
+
 	* input/test/tie-cross-voice.ly: move to regression.
 
 	* Documentation/user/notation.itely (Running trills): new node.
@@ -2110,7 +2110,7 @@
 	* input/test/time.ly: remove
 
 	* input/test/trill.ly: remove
-	
+
 	* input/test/time-signature-double.ly: fold into manual
 
 	* input/test/separate-staccato.ly: remove
@@ -2120,7 +2120,7 @@
 	* input/test/script-priority.ly: fold into manual.
 
 	* input/test/scheme-interactions.ly: remove.
-	
+
 	* input/test/unfold-all-repeats.ly (mel),
 	input/test/repeat.ly,input/test/repeat-shorter-bracket.ly,
 	input/test/polymetric-differing-notes.ly input/test/polymetric.ly:
@@ -2131,13 +2131,13 @@
 	* input/regression/markup-score.ly: move from input/test/
 
 	* input/test/lyrics-melisma-faster.ly: fold into manual
-	
+
 	* input/test/lyrics-melisma-variants.ly: fold into manual
 
-	* Documentation/user/notation.itely (Popular music): new node. 
+	* Documentation/user/notation.itely (Popular music): new node.
 
 	* input/test/gourlay.ly: remove
-	
+
 	* input/test/improv.ly: fold into manual.
 
 	* input/test/figured-bass-alternate.ly (fl): remove
@@ -2151,7 +2151,7 @@
 	grob into a child context.
 
 	* lily/dynamic-engraver.cc (acknowledge_grob): add accidentals to
-	
+
 2004-07-31  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/define-markup-commands.scm (postscript): new markup command
@@ -2194,7 +2194,7 @@
 	spurious flag not found warning for 128th rest.
 
 	* input/regression/rest-dot-position.ly: new file.
-	
+
 	* input/test/rest-dot-positions.ly: remove
 
 	* lily/staff-symbol-referencer.cc (get_position): emergency
@@ -2204,7 +2204,7 @@
 
 	* scm/define-markup-commands.scm (score): remove debugging code.
 
-	* input/test/incipit.ly (violin): remove. 
+	* input/test/incipit.ly (violin): remove.
 
 	* lily/system-start-delimiter.cc (print): only draw system
 	delimiter to staves that reach up to left bound of the delimiter.
@@ -2216,7 +2216,7 @@
 	* input/no-notation/dynamic-absolute-volume.ly: move from test/.
 
 	* input/test/drarn*: remove
-	
+
 	* input/test/count-systems.ly: remove.
 
 	* lily/bar-line.cc (compound_barline): fix : for staff without
@@ -2232,7 +2232,7 @@
 
 	* input/test/*.ly: clean up directory: move examples into manual
 	or regtest.
-	
+
 
 	* stepmake/stepmake/metafont-rules.make ($(outdir)/%.log): add
 	mode as well. This fixes resolution errors.
@@ -2262,12 +2262,12 @@
 2004-07-30  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/changing-defaults.itely (Horizontal spacing):
-	Correct the documentation of the spacing parameters. 
+	Correct the documentation of the spacing parameters.
 
-	* Documentation/user/tutorial.itely (Integrating text and music), 
+	* Documentation/user/tutorial.itely (Integrating text and music),
 	Documentation/user/lilypond-book.itely (Integrating LaTeX and
 	music): Document that you need to add the map file ec-mftrace.map
-	in the dvips command. 	
+	in the dvips command.
 
 2004-07-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
@@ -2291,7 +2291,7 @@
 
 	* lily/modified-font-metric.cc (text_dimension): support coding
 	scheme ""
-	
+
 2004-07-28  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/tie-engraver.cc (stop_translation_timestep): remember tie
@@ -2315,7 +2315,7 @@
 2004-07-27  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* input/regression/{stanza-number,volta-multi-staff}.ly: fix docs.
- 
+
 2004-07-26  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/include/lily-guile.hh (scm_is_int): compat glue.
@@ -2365,7 +2365,7 @@
 
 	* scripts/lilypond-latex.py (run_dvips): remove -bin everywhere.
 
-	* lily/GNUmakefile (NAME): create lilypond, not lilypond-bin 
+	* lily/GNUmakefile (NAME): create lilypond, not lilypond-bin
 
 	* scripts/lilypond-latex.py: move from lilypond.py
 
@@ -2388,12 +2388,12 @@
 	* scm/framework-ps.scm (convert-to-pdf): new function. Call
 	ps2pdf.
 	(output-preview-framework): new function. Generate a preview .ps
-	
+
 
 2004-07-23  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* VERSION: release 2.3.8
-	
+
 	* lily/note-head.cc: remove ledger line handling.
 
 	* lily/ambitus.cc (print): strip away accidental / note head code,
@@ -2402,7 +2402,7 @@
 	* lily/ambitus-engraver.cc (create_ambitus): change name to
 	AmbitusLine. Create AmbitusAccidental and AmbitusNoteHead for
 	other ambitus parts.
-	(create_ambitus): group grobs in Ambitus grouping object. 
+	(create_ambitus): group grobs in Ambitus grouping object.
 
 	* lily/include/pitch-interval.hh (Pitch>): new file.
 
@@ -2434,7 +2434,7 @@
 
 	* lily/slur-quanting.cc (score_extra_encompass): add  break ;
 	(score_extra_encompass): process scripts at edges too, by checking
-	control points directly. 
+	control points directly.
 
 2004-07-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
@@ -2525,11 +2525,11 @@
 
 	* input/mutopia/W.A.Mozart/mozart-hrn-3.ly:
 	remove texttagline.
-	
+
 	* lily/new-slur.cc: cleanup, split in functions.
 
 	* lily/parser.yy (chord_body_element): allow octave-check = inside
-	chord body. 
+	chord body.
 
 	* lily/new-slur.cc (score_encompass): variable head-distance penalty.
 
@@ -2540,7 +2540,7 @@
 
 	* lily/new-slur.cc (print): use debug-slur-quanting paper var.
 
-	* input/regression/font-postscript.ly: invoke afm2tfm. 
+	* input/regression/font-postscript.ly: invoke afm2tfm.
 
 2004-07-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
@@ -2573,7 +2573,7 @@
 	* scripts/lilypond-book.py (compose_ly): make fragment mandatory
 	for fragment snippets. This fixes inclusion of toplevel-music
 	examples (such as new-slur.ly)
- 
+
 2004-07-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/lilypond-book.py: Remove second import of stat.
@@ -2593,7 +2593,7 @@
 
 	* buildscripts/bib2html.py (stat): fail if bibtex fails.
 
-	* make/stepmake.make: use usescons for using scons. 
+	* make/stepmake.make: use usescons for using scons.
 
 2004-07-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
@@ -2603,9 +2603,9 @@
 2004-07-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* make/mutopia-vars.make ($(addprefix $(outdir)/,$(LYM4_FILES):
-	bypass dvi. 
+	bypass dvi.
 
-	* input/regression/font-postscript.ly: new file. 
+	* input/regression/font-postscript.ly: new file.
 
 	* scm/framework-ps.scm (load-fonts): load pfb files too.
 
@@ -2644,9 +2644,9 @@
 
 	* SConstruct: Further development.
 
-	* input/test/SConscript: 
-	* input/template/SConscript: 
-	* input/regression/SConscript: 
+	* input/test/SConscript:
+	* input/template/SConscript:
+	* input/regression/SConscript:
 	* Documentation/bibliography/SConscript:
 	* Documentation/bibliography/index.html.in: New file.
 
@@ -2655,8 +2655,8 @@
 
 	* buildscripts/builder.py: Add new builders.
 
-	* make/stepmake.make: 
-	* stepmake/stepmake/*.make: 
+	* make/stepmake.make:
+	* stepmake/stepmake/*.make:
 	* configure.in:
 	* lily/*:
 	* flower*: Use config.hh (Was config.h).
@@ -2667,7 +2667,7 @@
 2004-07-15  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/new-slur.cc (score_slopes): strong sloping score only when
-	stems point in same dir. 
+	stems point in same dir.
 
 2004-07-14  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
@@ -2694,7 +2694,7 @@
 
 2004-07-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
-	* lily/staff-symbol-referencer.cc (on_staffline): bugfix 
+	* lily/staff-symbol-referencer.cc (on_staffline): bugfix
 
 	* lily/scm-hash.cc (get): SCM_MAKINUM is deprecated. Use
 	scm_from_int instead.
@@ -2722,7 +2722,7 @@
 
 	* buildscripts/builder.py: Add LilyPond, Abc2ly and MF builders.
 
-	* input/SConscript: 
+	* input/SConscript:
 	* Documentation/user/SConscript: New file.
 
 2004-07-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
@@ -2758,29 +2758,29 @@
 	* elisp/lilypond-mode.el,
 	* elisp/lilypond-what-beat.el: Added LilyPond-what-beat function to
 	count beats between last measure stop | and point in emacs.
-	
+
 2004-07-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* tex/GNUmakefile (TEX_FILES): don't dist
-	music-drawing-routines.ps, latin1.enc 
+	music-drawing-routines.ps, latin1.enc
 
 	* scripts/lilypond.py (include_path): remove --no-lily, --no-ps ,
 	--no-pdf, --pdftex
 	(copyright): add --latex option
 	(ic_p.make_include_option): use direct PS as default.
 
-	* scm/beam.scm (check-slope-callbacks): check sign of slope. 
+	* scm/beam.scm (check-slope-callbacks): check sign of slope.
 
 	* input/regression/beam-concave.ly (rossFourBeams): add cases from
 	Ross
 
 	* scm/script.scm (default-script-alist): marcato should follow
 	into staff
-	
+
 2004-07-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* buildscripts/builder.py:
-	
+
 	* Documentation/SConscript (outdir): New file.  Add *list.ly
 	dependencies.  Fixes PDF doc build.
 
@@ -2851,7 +2851,7 @@
 	* buildscripts/guile-gnome.sh (OPT): only compile pango if not
 	installed.
 
-	* tex/latin1.enc: new file, from a2ps. 
+	* tex/latin1.enc: new file, from a2ps.
 
 2004-07-06  Heikki Junes  <hjunes@cc.hut.fi>
 
@@ -2935,19 +2935,19 @@
 
 	* lily/axis-group-engraver.cc (process_acknowledged_grobs): catch
 	cyclic parents when two axis-group-engravers are
-	present. Fixes: crash-axis-group-engraver.ly. 
-	
+	present. Fixes: crash-axis-group-engraver.ly.
+
 	* input/test/volta-chord-names.ly: new file.
 
 	* scm/define-context-properties.scm
 	(all-user-translation-properties): change voltaOnThisStaff
-	definition. 
+	definition.
 
 	* lily/volta-engraver.cc (stop_translation_timestep): set bounds
 	if necessary.
 
 	* lily/volta-bracket.cc (print): handle volta brackets without
-	bars. 
+	bars.
 
 2004-07-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
@@ -2973,7 +2973,7 @@
 
 	* scm/output-ps.scm:  added white-text
 
-	* scm/lily.scm (ly:all-stencil-expressions): Added white-text to 
+	* scm/lily.scm (ly:all-stencil-expressions): Added white-text to
 	list of stencil expressions
 
 	* scm/stencil.scm: Added fontify-text-white
@@ -3002,7 +3002,7 @@
 2004-06-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* VERSION: 2.3.5 released.
-	
+
 	* lily/my-lily-parser.cc (parse_string): switch module too.
 
 2004-06-24  Jan Nieuwenhuizen  <janneke@gnu.org>
@@ -3020,7 +3020,7 @@
 
 2004-06-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* scm/output-gnome.scm: 
+	* scm/output-gnome.scm:
 	* buildscripts/guile-gnome.sh: Update wrt fixed GUILE CVS.
 
 	* debian/: Apply Debian patch (Anthony Fok).
@@ -3062,7 +3062,7 @@
 	* scm/output-tex.scm (scm): Remove define-origin from exports list.
 	(define-origin): Remove.
 
-	* scm/output-gnome.scm (define-origin): 
+	* scm/output-gnome.scm (define-origin):
 
 	* scm/lily.scm (ly:all-output-backend-commands): Remove
 	define-origin.  Add grob-cause.
@@ -3116,7 +3116,7 @@
 	* Documentation/user/programming-interface.itely (Using LilyPond
 	syntax inside Scheme): documentation for #{ ... #} syntax.
 
-2004-06-19  Heikki Junes  <hjunes@cc.hut.fi> 
+2004-06-19  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/index.html.in: use black thin <hr>.
 
@@ -3159,7 +3159,7 @@
 
 2004-06-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* lily/pangofc-afm-decoder.cc (pango_fc_afm_get_glyph) 
+	* lily/pangofc-afm-decoder.cc (pango_fc_afm_get_glyph)
 	(pango_fc_afm_get_charset): Update iaw Pango CVS update.
 
 	* buildscripts/guile-gnome.sh: Add pango to recipe.  Resolve
@@ -3167,7 +3167,7 @@
 
 2004-06-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* lily/lily-guile.cc: 
+	* lily/lily-guile.cc:
 	* lily/pangofc-afm-decoder.cc:
 	* lily/include/pangofc-afm-decoder.hh: Use #if HAVE_* iso #ifdef.
 	Fixes build without Pango CVS.  Use "pangofc-afm-decoder.hh".
@@ -3186,7 +3186,7 @@
 
 	* scm/framework-gnome.scm: Add pango decoders.
 
-	* lily/include/pangofc-afm-decoder.hh: 
+	* lily/include/pangofc-afm-decoder.hh:
 	* lily/pangofc-afm-decoder.cc: New file.
 
 	* lily/lily-guile.cc (ly:pango-add-afm-decoder): New function.
@@ -3330,9 +3330,9 @@
 
 	* lily/include/paper-book.hh: doc class.
 
-	* lily/paper-book.cc (c_ragged_page_breaks): remove functions. 
+	* lily/paper-book.cc (c_ragged_page_breaks): remove functions.
 
-	* scm/page-layout.scm (plain-footer): add tagline/copyright. 
+	* scm/page-layout.scm (plain-footer): add tagline/copyright.
 	(plain-header): add instrument-name.
 	(default-page-make-stencil): bugfixes.
 
@@ -3342,7 +3342,7 @@
 	interactions with Page
 
 	* scm/page-layout.scm (ly:optimal-page-breaks): move back breaking
-	here, 
+	here,
 	(default-page-make-stencil): new function
 	(default-page-music-height): new function
 	(page-headfoot): new function
@@ -3362,7 +3362,7 @@
 2004-06-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* input/mutopia/W.A.Mozart/mozart-hrn3-rondo.ly (rondo):
-	octavation compatibility fixes. Backportme. 
+	octavation compatibility fixes. Backportme.
 
 	* scm/page-breaking.scm (ly:optimal-page-breaks): allow overfull
 	pages.
@@ -3394,7 +3394,7 @@
 	index entries
 
 	* scm/page-breaking.scm (ly:optimal-page-breaks): new
-	file. Rewrite function. 
+	file. Rewrite function.
 
 	* lily/paper-book.cc (pages): new interface: page-breaking returns
 	list of line-list.
@@ -3444,7 +3444,7 @@
 
 	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): remove
 	override of Beam::position-callbacks. Why would grace beams not be
-	quantized? Fixes: weird-stem-size-grace. 
+	quantized? Fixes: weird-stem-size-grace.
 
 	* lily/new-lyric-combine-music-iterator.cc (find_voice): issue
 	warning only once. Backportme.
@@ -3488,22 +3488,22 @@
 	* lily/paper-line.cc (Paper_line): construct from Stencil
 	directly. No futzing with the dimensions.
 
-	* lily/include/paper-line.hh (class Paper_line): 
+	* lily/include/paper-line.hh (class Paper_line):
 
 	* lily/stencil.cc (interpret_stencil_expression): combine-stencil
 	takes arbitrary number of arguments.
 
-	* input/test/markup-score.ly (tuning): simplify example. 
+	* input/test/markup-score.ly (tuning): simplify example.
 
 2004-05-31  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
-	* lily/score.cc (LY_DEFINE): ly:score-embedded-format, new function. 
+	* lily/score.cc (LY_DEFINE): ly:score-embedded-format, new function.
 
 	* scm/define-markup-commands.scm (score): define score-markup
 
 	* lily/parser.yy (markup): use score-markup.
 
-	* lily/score.cc: add ly:score? 
+	* lily/score.cc: add ly:score?
 
 2004-05-30  Carl Sorensen <carl_sorensen@byu.edu>
 
@@ -3578,7 +3578,7 @@
 	framework-tex.scm
 
 	* scm/framework-tex.scm (dump-line): new file. High level
-	interface for output (pages, systems, header). 
+	interface for output (pages, systems, header).
 
 	* lily/include/page.hh (class Page): add is_last_ field.
 
@@ -3597,7 +3597,7 @@
 	* lily/main.cc (parse_argv): don't set extension for output.
 
 	* lily/clef-engraver.cc (create_clef): remove
-	Staff_symbol_referencer::set_position() call. 
+	Staff_symbol_referencer::set_position() call.
 
 2004-05-30  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
@@ -3661,7 +3661,7 @@
 
 2004-05-27  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
-	* lily/include/book-paper-def.hh: derive from Output_def 
+	* lily/include/book-paper-def.hh: derive from Output_def
 
 	* lily/include/paper-def.hh: move all functionality out of class.
 	Junk header.
@@ -3669,7 +3669,7 @@
 	* lily/include/music-output-def.hh: rename Music_output_def to
 	Output_def.
 
-	* input/wilhelmus.ly: only set space for Paper formatting. 
+	* input/wilhelmus.ly: only set space for Paper formatting.
 
 	* lily/include/midi-def.hh: remove file, remove class.
 	Move functions to Music-output-def.
@@ -3680,7 +3680,7 @@
 
 	\context {
 	  \Staff
-	  .. 
+	  ..
 	  }
 
 
@@ -3704,7 +3704,7 @@
 
 	* lily/parser.yy (book_body): set default bookpaper.
 
-	* scm/output-tex.scm (header): kludge: hard code linewidth. 
+	* scm/output-tex.scm (header): kludge: hard code linewidth.
 
 	* lily/my-lily-parser.cc (My_lily_parser): don't delete lexer.
 
@@ -3762,7 +3762,7 @@
 
 	* lily/book-paper-def.cc (Book_paper_def): add copy ctor.
 
-	* lily/parser.yy (book_paper_head): \bookpaper {} 
+	* lily/parser.yy (book_paper_head): \bookpaper {}
 
 	* python/midi.c: remove config.h
 
@@ -3804,13 +3804,13 @@
 	\acciaccatura \grace \partcombine \autochange \applycontext
 	\applyoutput and \breathe are now defined here thanks to it.
 
-	* lily/parser.yy: 
+	* lily/parser.yy:
 	* lily/my-lily-lexer.cc: \addlyrics \appoggiatura \acciaccatura
 	\grace \partcombine \autochange \applycontext \applyoutput and
 	\breathe keywords removed from the parser.
 
-	* lily/parser.yy: 
-	* lily/music-function.cc (ly_make_music_function): 
+	* lily/parser.yy:
+	* lily/music-function.cc (ly_make_music_function):
 	* lily/lexer.ll (music_function_type): added a case for 0-arg
 	music functions.
 
@@ -3829,7 +3829,7 @@
 
 2004-05-14  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
-	* lily/parser.yy (My_lily_lexer): bugfix; op should be tag.  
+	* lily/parser.yy (My_lily_lexer): bugfix; op should be tag.
 
 2004-05-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
@@ -3873,7 +3873,7 @@
 
 	* VERSION: release 2.3.1
 
-	* mf/feta-klef.mf: 
+	* mf/feta-klef.mf:
 	* mf/feta-bolletjes.mf: Oops.  Comment-out canvast test code.
 
 	* Documentation/user/programming-interface.itely: Use @emph (was:
@@ -3966,7 +3966,7 @@
 
 	* lily/parser.yy (Generic_prefix_music_scm): add more
 	music_function symbols.
-	(Prefix_composite_music): change \apply to music-function   
+	(Prefix_composite_music): change \apply to music-function
 
 	* lily/include/music-function.hh: rename to music-function
 
@@ -3977,7 +3977,7 @@
 	* input/regression/music-head.ly (texidoc): new file.
 
 	* lily/parser.yy (Generic_prefix_music): allow generic
-	music-transformation functions.	
+	music-transformation functions.
 
 	* lily/include/music-head.hh (is_music_head): new file.
 
@@ -4001,7 +4001,7 @@
 	of this is that improperly written spanner handling will result in
 	invalid spanner bounds.
 	(announce_grob): add to elems_ from here
-	(typeset_grob): comment out.  
+	(typeset_grob): comment out.
 
 	* lily/include/engraver.hh (make_spanner): new calling interface
 	for make_{item,spanner}. This obviates most calls to
@@ -4099,7 +4099,7 @@
 
 	* lily/my-lily-parser.cc (distill_inname): Remove.
 
-	* flower/include/file-name.hh: 
+	* flower/include/file-name.hh:
 	* flower/file-name.cc: New file.  Update users.
 
 	* flower/file-path.cc [CYGWIN]: Junk testing code.  Remove Path.
@@ -4295,7 +4295,7 @@
 
 	* lily/include/lily-guile.hh: is_x -> ly_c_X_p naming.
 
-	* lily/lexer.ll: change is_string -> ly_c_string_p 
+	* lily/lexer.ll: change is_string -> ly_c_string_p
 
 	* input/mutopia/J.S.Bach/wtk1-fugue2.ly (bassdux): use \book.
 
@@ -4315,13 +4315,13 @@
 
 	* lily/include/translator.hh (class Translator): make
 	daddy_context_ protected.
-	(class Translator): clean up. 
+	(class Translator): clean up.
 
 	* lily/include/context.hh (class Context): make daddy_context_
 	private.
 
 	* lily/lyric-engraver.cc (get_voice_to_lyrics): recursively go
-	higher for finding Voice. (backportme)	
+	higher for finding Voice. (backportme)
 
 	* lily/include/context.hh (class Context): remove
 	find_context_below() as a method.
@@ -4355,7 +4355,7 @@
 	* ly/declarations-init.ly: run convert-ly
 
 	* lily/my-lily-parser.cc (LY_DEFINE): move parse-file function
-	from input-file-results. Remove input-file-results.* 
+	from input-file-results. Remove input-file-results.*
 
 2004-04-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
@@ -4402,7 +4402,7 @@
 	* lily/ly-module.cc (ly_make_anonymous_module): don't protect
 	anonymous modules globally. Let's hope they get GCd
 
-	* scripts/lilypond.py (run_dvips): add sauter-mftrace.map 
+	* scripts/lilypond.py (run_dvips): add sauter-mftrace.map
 
 2004-04-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
@@ -4450,7 +4450,7 @@
 	* scm/font.scm (add-cmr-fonts): caps is eccc, ecsc is slanted caps.
 
 	* scm/output-ps.scm (text): split string into spaces, use moveto
-	for setting space. 
+	for setting space.
 
 2004-04-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
@@ -4472,7 +4472,7 @@
 
 2004-04-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* lily/paper-book.cc (classic_output): 
+	* lily/paper-book.cc (classic_output):
 	* tex/lilyponddefs.tex (lybox): Add height, and proper raising.
 	Fixes classic output.
 	(lilypondstart):
@@ -4506,11 +4506,11 @@
 	* lily/paper-outputter.cc (output_header): Uniquify list of fonts
 	passed to define-fonts.
 
-	* lily/paper-column.cc: 
+	* lily/paper-column.cc:
 	* lily/system.cc (get_line):
-	* ly/property-init.ly (newpage): 
+	* ly/property-init.ly (newpage):
 	* scm/define-grob-properties.scm:
-	* scm/output-ps.scm: 
+	* scm/output-ps.scm:
 	* scm/output-tex.scm: Remove between-system-string kludge.
 
 	* scm/output-ps.scm (define-fonts, font-command,
@@ -4534,7 +4534,7 @@
 
 	* lily/parser.yy: Handle \book.
 
-	* lily/include/book.hh: 
+	* lily/include/book.hh:
 	* lily/book.cc: New file.
 
 2004-04-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
@@ -4570,7 +4570,7 @@
 2004-04-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scripts/convert-ly.py: limited old-style markup convert. (Thanks
-	to Erik Sandberg) 
+	to Erik Sandberg)
 
 	* lily/font-metric.cc (LY_DEFINE): new function, return fontName.
 
@@ -4611,7 +4611,7 @@
 
 	* lily/paper-def.cc (find_scaled_font): change to inputencoding.
 
-	* mf/cmr.enc: new file, without hi-bit ascii info. 
+	* mf/cmr.enc: new file, without hi-bit ascii info.
 
 	* lily/bezier-bow.cc (slur_shape): make indent dependent on
 	width. This removes the 'hook' at the end of a long slur.
@@ -4631,7 +4631,7 @@
 	* buildscripts/mf-to-table.py (parse_logfile): remove spaces from
 	encoding field.
 
-	* lily/stencil-scheme.cc: remove ly:fontify-atom 
+	* lily/stencil-scheme.cc: remove ly:fontify-atom
 
 	* ly/portuges.ly (pitchnames): new file.
 
@@ -4663,7 +4663,7 @@
 
 	* mf/feta-autometric.mf: take encoding argument
 
-	* lily/afm.cc (read_afm_file): bugfix, read global info too. 
+	* lily/afm.cc (read_afm_file): bugfix, read global info too.
 
 	* lily/my-lily-lexer.cc (set_identifier): remove gh_scm2newstr
 	use.
@@ -4692,7 +4692,7 @@
 	* lily/tfm.cc (name_to_index): new function, use encoding_table_.
 
 	* lily/scaled-font-metric.cc (text_dimension): init
-	coding_{permutation,table}_ too 
+	coding_{permutation,table}_ too
 	(LY_DEFINE): ly:font-encoding, new function return
 
 	* lily/paper-def.cc (find_scaled_font): take input coding from
@@ -4713,7 +4713,7 @@
 
 2004-04-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* lily/kpath.cc (kpathsea_gulp_file_to_string): 
+	* lily/kpath.cc (kpathsea_gulp_file_to_string):
 	(ly:kpathsea-gulp-file): New function.
 
 	* scm/encoding.scm (read-encoding-file): Use it.
@@ -4775,7 +4775,7 @@
 
 	* po/fr.po: update. (backportme).
 
-	* po/nl.po: update. (backportme). 
+	* po/nl.po: update. (backportme).
 
 	* mf/feta-beugel.mf: document why design size is not fixed.
 
@@ -4874,4 +4874,3 @@
 2004-04-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* VERSION (PACKAGE_NAME): release 2.2.0
-
