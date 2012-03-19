@@ -503,7 +503,7 @@ avoided.
 A full list of new features is given in:
 
 @example
-@uref{http://lilypond.org/doc/v2.13/Documentation/changes/index.html}
+@uref{http://lilypond.org/doc/v2.14/Documentation/changes/index.html}
 @end example
 
 Happy music typesetting!  LilyPond 2.14 was brought to you by...
@@ -1543,7 +1543,7 @@ now 2.12.2, and the next development version has begun with
 
 A new stable release of LilyPond is available.
 @*
-@uref{announce-v2.12,Announcement},
+@miscLink{announce-v2.12,Announcement},
 @ref{Changes},
 @ref{Download}.
 @newsEnd
@@ -1592,7 +1592,7 @@ documentation and translations.
 
 
 @newsItem
-@subsubheading LilyPond 2.11.62 &ndash; Release Candidate.  @emph{October 11, 2008}
+@subsubheading LilyPond 2.11.62 -- Release Candidate.  @emph{October 11, 2008}
 
 LilyPond 2.11.62 is available. This is is one of the last releases
 before 2.12, so testing it is encouraged. In addition to a bugfix
@@ -2070,11 +2070,9 @@ This has lots of bugfixes.
 
 
 @newsItem
-@subsubheading &Uuml;bersetzung der Dokumentation - @emph{10. April 2007}
-Die Kapitel 1-5 (der Abschnitt für Anf&auml;nger) des
-LilyPond-Benutzerhandbuchs
-sind auf deutsch &uuml;bersetzt &mdash; sie sind erh&auml;ltlich f&uuml;r
-die @ref{Changes}
+@subsubheading Übersetzung der Dokumentation - @emph{10. April 2007}
+Die Kapitel 1-5 (der Abschnitt für Anfänger) des LilyPond-Benutzerhandbuchs
+sind auf deutsch übersetzt --- sie sind erhältlich für die @ref{Changes}
 online und @ref{Old downloads}.
 @newsEnd
 
@@ -2100,11 +2098,13 @@ This release has some documentation updates.
 
 
 @newsItem
-@subsubheading Traduction de la documentation en fran&ccedil;ais - @emph{25 f&eacute;vrier 2007}
-Les chapitres 1 &agrave; 4 et 6 du manuel de l'utilisateur sont
-d&eacute;sormais traduits, et disponibles en ligne &mdash; @uref{@@DOC@@v2.10/Documentation/user/lilypond/index.fr.html,version
-2.10}, @uref{@@DOC@@v2.11/Documentation/user/lilypond/index.fr.html,version
-2.11}.  Les traductions sont &eacute;galement incluses dans la @uref{install,documentation t&eacute;l&eacute;chargeable}.
+@subsubheading Traduction de la documentation en français - @emph{25 février 2007}
+Les chapitres 1 à 4 et 6 du manuel de l'utilisateur sont désormais traduits, et
+disponibles en ligne ---
+@uref{/doc/v2.10/Documentation/user/lilypond/index.fr.html,version 2.10},
+@uref{/doc/v2.11/Documentation/user/lilypond/index.fr.html,version 2.11}.  Les
+traductions sont également incluses dans la
+@uref{install,documentation téléchargeable}.
 @newsEnd
 
 
@@ -2268,7 +2268,7 @@ and part-combining.
 
 @newsItem
 @subsubheading LilyPond 2.11.9 and 2.10.9 available - @emph{January 3, 2007}
-This release has a couple of bugfixes, and &mdash;in 2.11.9&mdash
+This release has a couple of bugfixes, and ---in 2.11.9---
 further improvements in the regression test suite
 @*
 @bugfixes{2_11_9,},
@@ -2289,7 +2289,7 @@ New! Improved! With even more bugfixes!
 
 @newsItem
 @subsubheading @code{lilypond.org} auf deutsch - @emph{31. Dezember 2006}
-Die LilyPond-Webseiten sind jetzt auch auf deutsch &uuml;bersetzt!
+Die LilyPond-Webseiten sind jetzt auch auf deutsch übersetzt!
 @newsEnd
 
 
@@ -2389,11 +2389,11 @@ From now on, our GUB binary builds include support for Linux/PPC.  (@ref{Old dow
 
 
 @newsItem
-@subsubheading Traduction du tutoriel en fran&ccedil;ais.  @emph{December 13, 2006}
-Fruit du travail d'une &eacute;quipe de traducteurs, le tutoriel en
-fran&ccedil;ais est maintenant disponible en ligne. @uref{@@DOC@@v2.10/Documentation/user/lilypond/Tutorial.fr.html,Version
-2.10}, @uref{@@DOC@@v2.11/Documentation/user/lilypond/Tutorial.fr.html,Version
-2.11}.
+@subsubheading Traduction du tutoriel en français.  @emph{December 13, 2006}
+Fruit du travail d'une équipe de traducteurs, le tutoriel en français est
+maintenant disponible en ligne.
+@uref{/doc/v2.10/Documentation/user/lilypond/Tutorial.fr.html,Version 2.10},
+@uref{/doc/v2.11/Documentation/user/lilypond/Tutorial.fr.html,Version 2.11}.
 @newsEnd
 
 
@@ -2443,7 +2443,8 @@ This release has improved support for vertical spacing.  (@ref{Changes}, @ref{Ol
 
 @newsItem
 @subsubheading LilyPond 2.10.0 available - @emph{November 11, 2006}
-A new stable release of LilyPond is available.  (@uref{announce-v2.10.html,Announcement}, @ref{Changes}, @ref{Old downloads})
+A new stable release of LilyPond is available.
+(@miscLink{announce-v2.10,Announcement}, @ref{Changes}, @ref{Old downloads})
 @newsEnd
 
 
@@ -2741,7 +2742,7 @@ speedup over the emulated PowerPC binaries.  (@ref{Old downloads})
 
 @newsItem
 @subsubheading LilyPond 2.8.0 is out! - @emph{March 22, 2006}
-Version 2.8 is here! Read the @uref{announce-v2.8.html,release
+Version 2.8 is here! Read the @miscLink{announce-v2.8,release
 announcement}.  (@ref{Changes}, @ref{Old downloads})
 @newsEnd
 
@@ -2939,8 +2940,8 @@ in-depth but hands-on feature article with crisp LilyPond
 graphics.
 @*
 Author Kris Shaffer remarks
-&ldquo;GNU LilyPond generates beautiful graphics that make commercial
-alternatives seem second-rate.&rdquo;
+@qq{GNU LilyPond generates beautiful graphics that make commercial
+alternatives seem second-rate.}
 This article is now available @uref{http://www.linuxjournal.com/article/8583,on-line}.
 @newsEnd
 
@@ -3194,9 +3195,9 @@ release. (@ref{Changes},
 
 
 @newsItem
-@subsubheading Traduction fran&ccedil;aise du site - @emph{September 03, 2005}
+@subsubheading Traduction française du site - @emph{September 03, 2005}
 Grâce à @uref{about/thanks#website,l'équipe des traducteurs},
-de nombreuses pages du site sont maintenant disponibles en fran&ccedil;ais,
+de nombreuses pages du site sont maintenant disponibles en français,
 notamment l'@uref{about/automated-engraving/index.fr.html,essai sur
 la gravure musicale}.
 @newsEnd
@@ -3225,8 +3226,7 @@ LilyPond's first appearance in mainstream printed press.
 @subsubheading LilyPond 2.7.7 is out - @emph{August 22, 2005}
 This release has a rewriting of tie formatting which was sponsored by
 Bertalan Fodor, Jay Hamilton, Kieren MacMillan, Steve Doonan, Trevor
-Baca, and Vicente Solsona
-Dell&aacute;. (@ref{Changes},
+Baca, and Vicente Solsona Dellá. (@ref{Changes},
 @ref{Old downloads})
 @newsEnd
 
@@ -3304,7 +3304,7 @@ installs in a snap on Windows, MacOS X, and any version of Linux (x86).
 @strong{Get up and running in minutes!} Pango text formatting lets you
 print @strong{Unicode } lyrics in your favorite script and font.  Create
 @strong{SVG} files, and edit them in Inkscape.
-(@uref{announce-v2.6.html,Announcement}, @ref{Old downloads}, @ref{Changes})
+(@miscLink{announce-v2.6,Announcement}, @ref{Old downloads}, @ref{Changes})
 @newsEnd
 
 
@@ -3750,7 +3750,7 @@ the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/C
 
 @newsItem
 @subsubheading October 31, 2004
-LilyPond 2.4.0 was just @uref{announce-v2.4.html,released!}
+LilyPond 2.4.0 was just @miscLink{announce-v2.4,released!}
 This new stable version has support for page-layout,
 completely rewritten slur formatting and many other
 improvements. Read about them in the @ref{Changes}
@@ -4219,7 +4219,7 @@ LilyPond 2.2.0 is out!  This new stable version has
 completely revamped support for for orchestral score
 formatting, cue notes, font size management, lyric formatting,
 drum notation/playback and document integration. Read about it in
-the @uref{announce-v2.2.html,announcement} or skip to the
+the @miscLink{announce-v2.2,announcement} or skip to the
 @ref{Old downloads}.
 @newsEnd
 
@@ -4579,27 +4579,25 @@ More information in the
 
 @newsItem
 @subsubheading January 4, 2004
-LilyPond 2.1.6 continues to
-improve the layout of  lyrics.  More
+LilyPond 2.1.6 continues to improve the layout of  lyrics.  More
 information in the
-@uref{@@DOC@@v2.1/Documentation/topdocs/out-www/NEWS.html,release
+@uref{/doc/v2.1/Documentation/topdocs/out-www/NEWS.html,release
 notes} and download @uref{install/#2.1,here}.
 @newsEnd
 
 
 @newsItem
 @subsubheading January 2, 2004
-in LilyPond 2.1.5, the lyric
-alignment is completely revamped, and now matches my Edition
-Peters version of the Schubert song S&auml;ngers Morgen.  More
-information in the
-@ref{Changes} and download @uref{install/#2.1,here}.
+In LilyPond 2.1.5, the lyric alignment is completely revamped,
+and now matches my Edition Peters version of the Schubert song
+Sängers Morgen.  More information in the @ref{Changes} and
+download @uref{install/#2.1,here}.
 @newsEnd
 
 
 @newsItem
 @subsubheading December 30, 2003
-LilyPond 2.1.4 is released. Font shapes and linethickness
+LilyPond 2.1.4 is released. Font shapes and line thickness
 are now truly different for different staff sizes, thus lending
 an engraved look to scores printed in smaller type too. See the
 @ref{Changes} and download @uref{install/#2.1,here}.
@@ -4701,7 +4699,7 @@ Lopez-Lezcano!
 LilyPond 2.0.0 is released. The
 focus of this release is cleanups of the syntax: entering music is
 now much easier and more efficient. Read the announcement
-@uref{announce-v2.0.html,here}, or go to the
+@miscLink{announce-v2.0,here}, or go to the
 @uref{install/#2.0,download page} directly.
 @newsEnd
 
@@ -4884,4 +4882,3 @@ unique faculties.
 1.7.29 - release candidate 4 has been released.  Packages for
 Red Hat, Debian, Cygwin are @uref{install/,available}.
 @newsEnd
-
