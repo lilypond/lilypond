@@ -181,6 +181,10 @@ UNTRANSLATED NODE: IGNORE ME
   @end macro
 @end ifset
 
+@macro miscLink{MISC-FILE,MISC-TEXT}
+@uref{http://www.lilypond.org/website/misc/\MISC-FILE\,\MISC-TEXT\}
+@end macro
+
 @macro spanClass {CLASS}
 @html
 <span class="\CLASS\">
