@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 940309ad0e403897f556c8253e69708121b91765
+    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -30,6 +30,7 @@ exclusivos de los instrumentos de cuerda con trastes.
 * Banjo::
 @end menu
 
+
 @node Notación común para cuerdas con trastes
 @subsection Notación común para cuerdas con trastes
 @translationof Common notation for fretted strings
@@ -47,6 +48,7 @@ instrumentos de cuerda con trastes.
 * Diagramas de traste automáticos::
 * Digitaciones de la mano derecha::
 @end menu
+
 
 @node Referencias para cuerdas con trastes
 @unnumberedsubsubsec Referencias para cuerdas con trastes
@@ -82,7 +84,6 @@ Las instrucciones para el manejo de varias voces se encuentran en
 @ref{Armónicos}.
 
 @end itemize
-
 
 @seealso
 Referencia de la notación:
@@ -136,7 +137,6 @@ estos elementos en el código:
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
-
 
 @seealso
 Referencia de la notación:
@@ -687,7 +687,7 @@ Referencia de la notación:
 @ref{Funciones de Scheme}.
 
 Archivos instalados:
-@file{ly/string-tuning-init.ly}
+@file{ly/string-tuning-init.ly},
 @file{scm/tablature.scm}.
 
 Fragmentos de código:
@@ -1428,7 +1428,6 @@ predefinido, las propiedades de interface pertenecen a
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretboards-alternate-tables.ly}
 
-
 @seealso
 Referencia de la notación:
 @ref{Tablaturas personalizadas},
@@ -1600,7 +1599,6 @@ interface @code{fret-diagram-interface}.  Los detalles están en
 @code{\predefinedFretboardsOn}.
 @endpredefined
 
-
 @seealso
 Referencia de la notación:
 @ref{Tablaturas personalizadas}.
@@ -1661,7 +1659,6 @@ corto, como por ejemplo @code{RH}:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
-
 @seealso
 Fragmentos de código:
 @rlsr{Fretted strings}.
@@ -1711,7 +1708,6 @@ g16\startTextSpan
 b16 e g e b g\stopTextSpan
 e16 b g d
 @end lilypond
-
 
 @seealso
 Referencia de la notación:
@@ -1896,6 +1892,7 @@ Fragmentos de código:
 * Tablaturas de banjo::
 @end menu
 
+
 @node Tablaturas de banjo
 @unnumberedsubsubsec Tablaturas de banjo
 @translationof Banjo tablatures
@@ -1947,8 +1944,8 @@ cuatro cuerdas utilizando la función @code{four-string-banjo}:
 @end example
 
 @seealso
-Fragmentos de código:
-@rlsr{Fretted strings}.
-
 Archivos de inicio:
 @file{ly/string-tunings-init.ly}
+
+Fragmentos de código:
+@rlsr{Fretted strings}.
