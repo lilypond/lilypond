@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 5a5f2d8e3f73a79e60d9908fbe7bdf5af4afa926
+    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -38,6 +38,7 @@ métodos para crear las nuevas marcas dinámicas.
 * Matices dinámicos::
 * Indicaciones dinámicas contemporáneas::
 @end menu
+
 
 @node Articulaciones y ornamentos
 @unnumberedsubsubsec Articulaciones y ornamentos
@@ -499,7 +500,6 @@ texto e indicaciones de pedal de piano.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-text-and-spanner-styles-for-text-dynamics.ly}
 
-
 @seealso
 Glosario musical:
 @rglos{al niente},
@@ -629,7 +629,6 @@ moltoF = #(make-dynamic-script
 Los ajustes para las fuentes tipográficas en el modo de marcado se
 describen en @ref{Seleccionar la tipografía y su tamaño}.
 
-
 @seealso
 Referencia de la notación:
 @ref{Formatear el texto},
@@ -637,11 +636,12 @@ Referencia de la notación:
 @ref{¿Qué sale por el MIDI?},
 @ref{Control de los matices en el MIDI}.
 
+Extender LilyPond:
+@rextend{Construcción del marcado en Scheme}.
+
 Fragmentos de código:
 @rlsr{Expressive marks}.
 
-Extender LilyPond:
-@rextend{Construcción del marcado en Scheme}.
 
 @node Expresiones como curvas
 @subsection Expresiones como curvas
@@ -657,6 +657,7 @@ elevaciones de tono.
 * Marcas de respiración::
 * Caídas y elevaciones::
 @end menu
+
 
 @node Ligaduras de expresión
 @unnumberedsubsubsec Ligaduras de expresión
@@ -797,7 +798,6 @@ g4( e c2)
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-slurs-with-complex-dash-structure.ly}
-
 
 @seealso
 Glosario musical:
@@ -946,7 +946,6 @@ de discontinuidad complejos, consulte los fragmentos de código bajo
 @code{\phrasingSlurSolid}.
 @endpredefined
 
-
 @seealso
 Manual de aprendizaje:
 @rlearning{Acerca de la no anidabilidad de llaves y ligaduras}.
@@ -998,7 +997,6 @@ detalles, consulte @ref{Divisiones}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {inserting-a-caesura.ly}
 
-
 @seealso
 Glosario musical:
 @rglos{caesura}.
@@ -1013,6 +1011,7 @@ Referencia de funcionamiento interno:
 @rinternals{BreathingEvent},
 @rinternals{BreathingSign},
 @rinternals{Breathing_sign_engraver}.
+
 
 @node Caídas y elevaciones
 @unnumberedsubsubsec Caídas y elevaciones
@@ -1049,7 +1048,6 @@ al escribir caídas y elevaciones.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adjusting-the-shape-of-falls-and-doits.ly}
 
-
 @seealso
 Glosario musical:
 @rglos{fall},
@@ -1071,6 +1069,7 @@ siguen un camino lineal: glissandi, arpegios y trinos.
 * Arpegio::
 * Trinos::
 @end menu
+
 
 @node Glissando
 @unnumberedsubsubsec Glissando
@@ -1099,7 +1098,6 @@ consulte @ref{Estilos de línea}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {contemporary-glissando.ly}
 
-
 @seealso
 Glosario musical:
 @rglos{glissando}.
@@ -1113,9 +1111,7 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{Glissando}.
 
-
 @knownissues
-
 La impresión de texto sobre la línea (como @notation{gliss.}) no está
 contemplada.
 
@@ -1218,7 +1214,6 @@ Los acordes arpegiados se pueden desarrollar explícitamente utilizando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
 
-
 @seealso
 Glosario musical:
 @rglos{arpeggio}.
@@ -1235,9 +1230,7 @@ Referencia de funcionamiento interno:
 @rinternals{Slur},
 @rinternals{PianoStaff}.
 
-
 @knownissues
-
 @cindex pentagrama cruzado, arpegios con paréntesis
 @cindex arpegio de pentagrama cruzado con paréntesis
 @cindex arpegio con paréntesis de pentagrama cruzado
@@ -1247,6 +1240,7 @@ No es posible mezclar arpegios conectados y no conectados en un
 
 El corchete de los arpegios de paréntesis no funciona para los
 arpegios de pentagrama cruzado.
+
 
 @node Trinos
 @unnumberedsubsubsec Trinos
@@ -1354,7 +1348,6 @@ eis4\stopTrillSpan
 @code{\startTrillSpan},
 @code{\stopTrillSpan}.
 @endpredefined
-
 
 @seealso
 Glosario musical:
