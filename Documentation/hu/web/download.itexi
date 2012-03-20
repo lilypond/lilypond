@@ -249,10 +249,14 @@ Minden logó és termékábrázolás szerzői joggal védett.
 @downloadStableDarwinNormal
 Intel processzorokra (ha bizonytalan vagy afelől, hogy melyiket töltsd le, ezt válaszd)
 
+A grafikus felület nem működik Mac OS X 10.7 Lion alatt! Ha a grafikus felületet szeretnéd használni, töltsd le a legújabb @ref{Fejlesztés, fejlesztői verziót}!
+
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
-G3 és G4 processzorokra (régi Apple gépekben találhatóak)
+PowerPC processzorokra (régi Apple gépekben találhatóak)
+
+Csak 2006 előtti Apple gépeken fut!
 
 @end itemize
 
