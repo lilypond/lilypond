@@ -557,7 +557,7 @@ estándar Mi-La-Re-Sol-Si-Mi).  Otras afinaciones predefinidas son
 @code{guitar-open-g-tuning} (Sol Mayor al aire, Re-Sol-Re-Sol-Si-Re),
 @code{mandolin-tuning} (mandolina) y @code{banjo-open-g-tuning} (banjo
 con Sol Mayor al aire).  Las afinaciones predefinidas están en
-@file{ly/string-tuning-init.ly}.
+@file{ly/string-tunings-init.ly}.
 
 @funindex stringTuning
 @funindex \stringTuning
@@ -687,7 +687,7 @@ Referencia de la notación:
 @ref{Funciones de Scheme}.
 
 Archivos instalados:
-@file{ly/string-tuning-init.ly},
+@file{ly/string-tunings-init.ly},
 @file{scm/tablature.scm}.
 
 Fragmentos de código:

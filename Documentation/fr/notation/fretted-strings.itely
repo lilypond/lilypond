@@ -547,7 +547,7 @@ l'accordage standard d'une guitare@tie{}: mi la ré sol si mi (EADGBE).
 D'autres accordages prédéfinis sont disponibles@tie{}:
 @code{guitar-open-g-tuning}, @code{mandolin-tuning} et
 @code{banjo-open-g-tuning}.  Les accordages prédéfinis sont répertoriés
-dans le fichier @file{ly/string-tuning-init.ly}.
+dans le fichier @file{ly/string-tunings-init.ly}.
 
 @cindex accordage personnalisé
 
@@ -672,7 +672,7 @@ Manuel de notation :
 @ref{Fonctions Scheme}.
 
 Fichiers d'initialisation :
-@file{ly/string-tuning-init.ly},
+@file{ly/string-tunings-init.ly},
 @file{scm/tablature.scm}.
 
 Morceaux choisis :
@@ -1906,4 +1906,4 @@ Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
 
 Fichiers d'initialisation :
-@file{scm/string-tunings-init.scm}.
+@file{ly/string-tunings-init.ly}.

@@ -540,7 +540,7 @@ The default string tuning is @code{guitar-tuning}, which
 is the standard EADGBE tuning.  Some other predefined tunings are
 @code{guitar-open-g-tuning}, @code{mandolin-tuning} and
 @code{banjo-open-g-tuning}.  The predefined string tunings
-are found in @file{ly/string-tuning-init.ly}.
+are found in @file{ly/string-tunings-init.ly}.
 
 @funindex stringTuning
 @funindex \stringTuning
@@ -666,7 +666,7 @@ Notation Reference:
 @ref{Scheme functions}.
 
 Installed Files:
-@file{ly/string-tuning-init.ly},
+@file{ly/string-tunings-init.ly},
 @file{scm/tablature.scm}.
 
 Snippets:

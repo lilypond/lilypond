@@ -559,7 +559,7 @@ Die Standardstimmung ist die Gitarrenstimmung (@code{guitar-tuning})
 in der EADGHE-Stimmung.  Andere vordefinierte Stimmung sind:
 @code{guitar-open-g-tuning}, @code{mandolin-tuning} und
 @code{banjo-open-g-tuning}.  Die vordefinierten Stimmungen finden
-sich in @file{scm/string-tuning-init.scm}.
+sich in @file{ly/string-tunings-init.ly}.
 
 @funindex stringTuning
 @funindex \stringTuning
@@ -685,7 +685,7 @@ Notationsreferenz:
 @ref{Scheme-Funktionen}.
 
 Installierte Dateien:
-@file{ly/string-tuning-init.ly}
+@file{ly/string-tunings-init.ly}
 @file{scm/tablature.scm}.
 
 Schnipsel:
