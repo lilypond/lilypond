@@ -433,15 +433,13 @@ c1^\markup {
 @end lilypond
 
 Die Liste aller möglichen Löcher und Einstellungen eines bestimmten
-Instruments kann auf der Kommandozeile oder in einer Log-Datei
-angezeigt werden, auch wenn man sie nicht in der Notenausgabe anzeigen
-lassen kann:
+Instruments kann auf der Kommandozeile mit dem Befehl
+@code{#(print-keys-verbose 'flute)} oder in einer Log-Datei
+mit @code{#(print-keys-verbose 'flute (current-error-port))}
+angezeigt werden; durch diese Befehle wird der Notensatz nicht
+verändert.
 
-@lilypond[verbatim,quote]
 
-#(print-keys-verbose 'flute)
-
-@end lilypond
 
 Neue Diagramme können erstellt werden, indem man die Muster in den Datei
 @file{scm/define-woodwind-diagrams.scm} und

@@ -3,8 +3,11 @@
   texidocde="
 Dieses Schnipsel erzeugt eine Liste aller möglichen Löcher und Locheinstellungen
 für Holzbläserdiagramme, wie sie in der Datei
-@file{scm/define-woodwind-diagrams.scm} definiert sind.  Die Liste wird auf
-der Kommandozeile und in der Log-Datei angezeigt, nicht in den Noten.
+@file{scm/define-woodwind-diagrams.scm} definiert sind.  Die Liste wird
+in der Log-Datei angezeigt, nicht in den Noten.  Wenn Ausgabe auf der Kommandozeile
+gewünscht ist, muss  @code{(current-error-port)} von den Befehlen weggelassen
+werden.
+
 "
   doctitlede = "Liste der Löcher für Holzbläserdiagramme"
 
