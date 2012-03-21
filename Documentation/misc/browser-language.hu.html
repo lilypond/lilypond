@@ -1,0 +1,242 @@
+<!--
+    Translation of GIT committish: 15edeaaf2e91dc94cb0e8bc00d954e158936c064
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  Refer to `UPDATE A TRANSLATION'
+    in README for details.
+!-->
+
+<h1>Az automatikus nyelvválasztás használata</h1>
+
+<P>
+Ahhoz, hogy a honlap az anyanyelveden jelenjen meg, be kell állítanod alapértelmezett nyelvként a böngésződben.
+Ehhez keresd meg a böngésző beállításai között a nyelvek listáját. A beállítás konkrét módja böngészőfüggő.
+</P>
+
+<dl>
+<dt><strong>
+<a name="mozilla" id="mozilla">Mozilla</a>
+/
+<a name="netscape" id="netscape">Netscape 4.x</a>
+ és későbbi
+verziók</strong></dt>
+<dd>
+<pre>
+   Edit -&gt; Preferences -&gt; Navigartor -&gt; Languages
+
+</pre>
+Megjegyzés: Netscape 4.x esetén csak a felkínált nyelvek közül lehet
+választani. Néhányan jeleztek, hogy problémák merültek fel,
+amikor kézzel gépelték be a nyelvet.
+</dd>
+<dt><strong>
+<a name="mozillafirefox" id="mozillafirefox">Mozilla
+Firefox</a>
+</strong></dt>
+<dd>
+0.9-es verzió és annál újabb:<br>
+Linux:
+<pre>
+	Edit -&gt; Preferences -&gt; General -&gt; Languages
+
+</pre>
+Windows:
+<pre>
+	Tools -&gt; Options -&gt; General -&gt; Languages
+</pre>
+<br>
+1.5-ös verzió és annál újabb:<br>
+Linux:
+<pre>
+
+     Edit -&gt; Preferences -&gt; Advanced -&gt; General -&gt; Edit Languages
+</pre>
+Windows:
+<pre>
+     Tools -&gt; Options -&gt; Advanced -&gt; General -&gt; Edit Languages
+
+</pre>
+A régebbi verziókban az <kbd>about:config</kbd> oldalon kell megváltoztatni a
+<kbd>intl.accept_languages</kbd> értékét.
+</dd>
+<dt><strong>
+<a name="ie" id="ie">Internet
+Explorer</a>
+</strong></dt>
+<dd>Windowson:
+<pre>
+     Tools vagy View vagy Extras -&gt; Internet Options -&gt; (General) Languages
+
+</pre>
+</dd>
+<dd>MacOS-en:
+<pre>
+   Edit -&gt; Preferences -&gt; Web Browser -&gt; Language/Fonts
+</pre>
+</dd>
+<dt><strong>
+<a name="pie" id="pie">Pocket Internet Explorer</a>
+
+</strong></dt>
+<dd>
+<pre>
+ Hozd létre az <q>AcceptLanguage</q> registry kulcsot a
+ HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\International\
+ kulcs alatt <q>hu; q=1.0, en; q=0.5</q> értékkel (az idézőjelek nélkül).
+</pre>
+</dd>
+<dt><strong>
+<a name="opera" id="opera">Opera</a>
+</strong></dt>
+
+<dd>A legtöbb verzióban:
+<pre>
+     File -&gt; Preferences -&gt; Languages
+</pre>
+</dd>
+<dd>Linux/*BSD 5.x és 6.x verziók:
+<pre>
+     File -&gt; Preferences -&gt; Document -&gt; Languages
+
+</pre>
+</dd>
+<dd>A Nokia 770 böngészője:
+A /home/user/.opera/opera.ini fájl [Adv User Prefs] szekciójához add hozzá a
+következő sort:
+<pre>
+ HTTP Accept Language=hu;q=1.0,en;q=0.5
+</pre>
+</dd>
+<dt><strong>
+<a name="galeon" id="galeon">Galeon</a>
+</strong></dt>
+<dd>
+<pre>
+     Settings -&gt; Preferences -&gt; Rendering -&gt; Languages
+
+</pre>
+</dd>
+<dt><strong>
+<a name="epiphany" id="epiphany">Epiphany</a>
+</strong></dt>
+<dd>
+<pre>
+ Edit -&gt; Preferences -&gt; Language -&gt; Languages
+</pre>
+
+</dd>
+<dt><strong>
+<a name="konqueror" id="konqueror">Konqueror</a>
+</strong></dt>
+<dd>
+  Ha csak egy nyelvet akarsz beállítani, azt elegendő a KDE Control Centerben
+  kiválasztani (amint a <a href="http://bugs.debian.org/358459">#358459</a>
+  számú hibát kijavítják).
+  <br>
+  Ha több nyelvet akarsz beállítani, vagy a fenti hibát akarod megkerülni, jelenleg a
+  <kbd>~/.kde/share/config/kio_httprc</kbd> fájlba kell az alábbihoz
+  hasonló sort beírni:
+
+<pre>
+     Language=hu;q=1.0, en;q=0.5
+</pre>
+</dd>
+<dt><strong>
+<a name="lynx" id="lynx">lynx</a>
+</strong></dt>
+<dd>Állítsd be a <kbd>preferred_language</kbd> változót a <kbd>.lynxrc</kbd>
+fájlban, vagy nyomd le az 'O' billentyűt a lynxben.
+<p>Például a következő sor kerülhet a <kbd>.lynxrc</kbd>-be:</p>
+
+<pre>
+preferred_language=hu; q=1.0, en; q=0.5
+</pre>
+</dd>
+<dt><strong>
+<a name="w3" id="w3">W3</a>
+</strong> (emacs alapú
+böngésző)</dt>
+<dd>
+<pre>(setq url-mime-language-string "preferred_language=hu; q=1.0, en;
+q=0.5")</pre>
+vagy a testreszabó csomag használatával (URL p4.0pre.14 verziót feltételezve):
+<pre>Hypermedia -&gt; URL -&gt; Mime -&gt; Mime Language String...</pre>
+
+</dd>
+<dt><strong>
+<a name="icab" id="icab">iCab</a>
+</strong></dt>
+<dd>
+<pre>
+     Edit -&gt; Preferences -&gt; Browser -&gt; Fonts,Languages
+</pre>
+</dd>
+
+<dt><strong>
+<a name="w3m" id="w3m">W3M</a>
+</strong></dt>
+<dd>
+<pre>
+     Options (o) -&gt; Other Behavior -&gt; Accept-Language
+</pre>
+</dd>
+<dt><strong>
+<a name="safari" id="safari">Safari</a>
+
+</strong></dt>
+<dd>A Safari a MacOS X rendszerbeállításaiból állapítja meg a preferált
+nyelvet:
+<pre>
+    System preferences -&gt; International -&gt; Language
+</pre>
+</dd>
+<dt><strong>
+<a name="elinks" id="elinks">ELinks</a>
+</strong></dt>
+<dd>A felület nyelvét a
+<pre>
+
+    Setup -&gt; Language
+</pre>
+menüpontban állíthatod be. Ezzel együtt beállítódik a weboldalak kívánt
+nyelve is. Megváltoztathatod ezt az alapbeállítást az accepted languages
+HTTP-változó kézi beállításával a
+<pre>
+    Setup -&gt; Options manager -&gt; Protocols -&gt; HTTP
+</pre>
+menüpontban.
+
+</dd>
+<dt><strong>
+<a name="netscape3" id="netscape3">Netscape
+3.x</a>
+</strong></dt>
+<dd>Add hozzá a
+<pre>
+     *httpAcceptLanguage: [a nyelv kódja]
+</pre>
+sort a Netscape app-defaults fájljához vagy a <kbd>~/.Xresources</kbd>-hez.
+</dd>
+<dt><strong>
+<a name="ibrowse" id="ibrowse">IBrowse</a>
+
+</strong></dt>
+<dd>Menj a Preferences-be, aztán Settings, azután Network. Az "Accept
+language" alatt valószínűleg egy "*" látszik alapból. Ha a "Locale" gombra
+kattintasz, a kívánt nyelv állítódik be. Ha mégsem így lenne, gépeld be. Azután
+nyomj "OK"-t.
+</dd>
+<dt><strong>
+<a name="voyager" id="voyager">Voyager</a>
+</strong></dt>
+<dd>Menj a Settings-be, aztán a Languages-be. Megadhatod kézzel, vagy kattints
+a "Get from locale"-ra. Nyomj "OK"-t, ha kész.
+</dd>
+</dl>
+
+<BR>
+Az oldal szövege a <A HREF="http://www.debian.org/intro/cn">Debian megfelelő oldaláról</A> lett kimásolva, és így a következő jogvédelem alatt áll:
+<br>
+Copyright &copy; 1997-2009
+ <a href="http://www.spi-inc.org/">SPI</a>; Lásd a <a href="../license" rel="copyright">licencfeltételeket</a><br>
+  Debian is a registered trademark of Software in the Public Interest, Inc.

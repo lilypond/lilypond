@@ -67,8 +67,8 @@ footer_tag = '<!-- footer_tag -->'
 footer_tag_re = re.compile (footer_tag)
 
 lang_available = _doc ("Other languages: %s.")
-browser_lang = _doc ('About <A HREF="%s">automatic language selection</A>.')
-browser_language_url = "/web/about/browser-language"
+browser_lang = _doc ('About <a href="%s">automatic language selection</a>.')
+browser_language_url = "http://www.lilypond.org/website/misc/browser-language"
 
 LANGUAGES_TEMPLATE = '''
 <p id="languages">
@@ -292,10 +292,7 @@ def add_menu (page_flavors, prefix, available, target, translation):
             if language_menu != '':
                 language_menu += ', '
             language_menu += '<a href="%s">%s</a>' % (lang_file, t (lang.name))
-        if target == 'offline':
-            browser_language = ''
-        elif target == 'online':
-            browser_language = t (browser_lang) % browser_language_url
+        browser_language = t (browser_lang) % browser_language_url
         if language_menu:
             language_available = t (lang_available) % language_menu
             languages = LANGUAGES_TEMPLATE % vars ()
