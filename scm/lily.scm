@@ -845,6 +845,8 @@ PIDs or the number of the process."
         (dump-profile "lily-run-total" '(0 0) (profile-measurements)))
     failed))
 
+(define-public lilypond-declarations '())
+
 (define (lilypond-file handler file-name)
   (catch 'ly-file-failed
          (lambda () (ly:parse-file file-name))

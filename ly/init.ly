@@ -6,8 +6,41 @@
 
 \version "2.15.18"
 
-\include "declarations-init.ly"
+#(if (not (pair? lilypond-declarations))
+     (ly:parser-include-string parser
+			       "\\include \"declarations-init.ly\""))
 
+%% We need to save the variables of the current module along with
+%% their values: functions defined in the module might refer to the
+%% variables
+
+#(if lilypond-declarations
+     (if (pair? lilypond-declarations)
+	 (begin
+	   (for-each
+	    (lambda (p)
+	      (let ((var (cadr p))
+		    (val (cddr p)))
+		(variable-set! var
+			       (if (ly:output-def? val)
+				   (ly:output-def-clone val)
+				   val))
+		(module-add! (current-module) (car p) var)))
+	    lilypond-declarations)
+	   (note-names-language parser default-language))
+	 (module-for-each
+	  (lambda (s v)
+	    (let ((val (variable-ref v)))
+	      (if (not (ly:lily-parser? val))
+		  (set! lilypond-declarations
+			(cons
+			 (cons*
+			  s v
+			  (if (ly:output-def? val)
+			      (ly:output-def-clone val)
+			      val))
+			 lilypond-declarations)))))
+	  (current-module))))
 
 #(ly:set-option 'old-relative #f)
 #(define toplevel-scores (list))
@@ -19,7 +52,12 @@
 #(define expect-error #f)
 #(define output-empty-score-list #f)
 #(define output-suffix #f)
+#(hash-clear! default-fret-table)
+#(hash-clear! chord-shape-table)
+#(hash-clear! musicQuotes)
+
 #(use-modules (scm clip-region))
+#(use-modules (srfi srfi-1))
 
 $(if (ly:get-option 'include-settings)
   (ly:parser-include-string parser
