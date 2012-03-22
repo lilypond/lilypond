@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: f715a8eb30eb26b770b3888c1dcbbea00699e4eb
+Translation of GIT committish: b63f205feabebfd5ed39fdaa57308c4b08eb70b3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -72,7 +72,6 @@ Esta sección explica qué son los contextos y cómo modificarlos.
 * Orden de disposición de los contextos::
 @end menu
 
-
 @seealso
 Manual de aprendizaje:
 @rlearning{Contextos y grabadores}.
@@ -102,6 +101,7 @@ Los contextos se disponen de forma jerárquica:
 * Contextos del nivel más bajo. Voces::
 @end menu
 
+
 @node Score. El contexto maestro
 @unnumberedsubsubsec Score. El contexto maestro
 @translationof Score - the master of all contexts
@@ -115,6 +115,7 @@ armaduras están siempre alineados entre los distintos pentagramas.
 Se crea implícitamente una instancia del contexto Score cuando se
 procesa un bloque @code{\score @{@dots{}@}} o @code{\layout
 @{@dots{}@}}.
+
 
 @node Contextos del nivel superior. Contenedores de pentagramas
 @unnumberedsubsubsec Contextos del nivel superior: contenedores de pentagramas
@@ -143,6 +144,7 @@ se conectan verticalmente.
 
 Igual que @code{GrandStaff}, pero contempla la posibilidad de poner el
 nombre del instrumento a la izquierda del sistema.
+
 
 @node Contextos de nivel intermedio. Pentagramas
 @unnumberedsubsubsec Contextos de nivel intermedio. Pentagramas
@@ -381,6 +383,7 @@ Para que se interprete dentro de los niveles de @code{Score} o
 @end example
 
 @end itemize
+
 
 @node Mantener vivos los contextos
 @subsection Mantener vivos los contextos
@@ -659,7 +662,6 @@ compás independiente.
 @end lilypond
 
 @knownissues
-
 Normalmente, el orden en que se especifican los grabadores no tiene
 importancia, pero en algunos casos especiales sí la tiene, por ejemplo
 donde un grabador escribe una propiedad y otro la lee, o donde un
@@ -672,6 +674,7 @@ Las siguientes ordenaciones son importantes: el grabador de compases
 de digitaciones @code{New_fingering_engraver} debe ir antes del
 grabador @code{Script_column_engraver} de columnas de inscripciones.
 Podría haber otros que tengan dependencias de ordenación.
+
 
 @node Cambiar los valores por omisión de los contextos
 @subsection Cambiar los valores por omisión de los contextos
@@ -1020,7 +1023,6 @@ Archivos instalados:
 @section Explicación del Manual de referencia de funcionamiento interno
 @translationof Explaining the Internals Reference
 
-
 @menu
 * Navegar por la referencia del programa::
 * Interfaces de la presentación::
@@ -1315,6 +1317,7 @@ Preguntas aún sin respuesta
 @end itemize
 @end ignore
 
+
 @node Modificar las propiedades
 @section Modificar las propiedades
 @translationof Modifying properties
@@ -1457,9 +1460,7 @@ Referencia de funcionamiento interno:
 @rinternals{RevertProperty},
 @rinternals{PropertySet}.
 
-
 @knownissues
-
 El «back-end» o motor de salida no es muy estricto en la comprobación
 de tipos de las propiedades de objetos.  Las referencias cíclicas en
 valores Scheme de propiedades pueden producir cuelgues o salidas
@@ -1606,14 +1607,13 @@ usuario.
 @end ifnothtml
 
 @seealso
-
 Referencia de funcionamiento interno:
 @rinternals{Tunable context properties}.
-
 
 @cindex grob, propiedades de
 @cindex propiedades de grob
 @funindex \override
+
 
 @node La instrucción override
 @subsection La instrucción @code{\override}
@@ -1780,9 +1780,9 @@ manual de notación y en la referencia de funcionamiento interno.
 @end ignore
 
 @seealso
-
 Referencia de funcionamiento interno:
 @rinternals{Backend}
+
 
 @node La instrucción tweak
 @subsection La instrucción @code{\tweak}
@@ -1946,7 +1946,6 @@ puede examinarse, véase @rextend{Presentación de las expresiones musicales}.
 Esto puede ser de utilidad en la determinación de lo que
 puede modificarse por medio de una instrucción @code{\tweak}.
 
-
 @seealso
 Manual de aprendizaje:
 @rlearning{Métodos de trucaje}.
@@ -1954,9 +1953,7 @@ Manual de aprendizaje:
 Manual de extensión:
 @rextend{Presentación de las expresiones musicales}.
 
-
 @knownissues
-
 @cindex trucos en una variable
 La instrucción @code{\tweak} no se puede usar dentro de una variable.
 
@@ -1969,6 +1966,7 @@ Las instrucciones @code{\tweak} no se pueden usar dentro del modo
 
 La instrucción @code{\tweak} solamente se aplica a la primera de
 varias ligaduras generadas dentro de un acorde.
+
 
 @node set frente a override
 @subsection @code{\set} frente a @code{\override}
@@ -2131,6 +2129,7 @@ como listas-A.}
 * Rotación de objetos::
 @end menu
 
+
 @node Modos de entrada
 @subsection Modos de entrada
 @translationof Input modes
@@ -2235,7 +2234,6 @@ interpretar dichas indicaciones:
 @end lilypond
 
 
-
 @node Dirección y posición
 @subsection Dirección y posición
 @translationof Direction and placement
@@ -2300,19 +2298,20 @@ se puede especificar estableciendo @code{direction} a @code{0} ó a
 instrucciones predefinidas para especificar la dirección.  Todas ellas
 son de la forma:
 
-@noindent
-@code{\xxxUp}, @code{xxxDown}, @code{xxxNeutral}
+@example
+@code{\xxxUp}, @code{\xxxDown} o @code{\xxxNeutral}
+@end example
 
 @noindent
-donde @code{xxxNeutral} significa @qq{utilizar la dirección
+donde @code{\xxxNeutral} significa @qq{utilizar la dirección
 predeterminada}.  Véase @rlearning{Objetos interiores al pentagrama}.
 
-En alguna que otra ocasión, con el único ejemplo usual del arpegio, el
-valor de la propiedad @code{direction} especifica si el objeto se debe
+En alguna que otra ocasión como en el arpegio, el
+valor de la propiedad @code{direction} puede especificar si el objeto se debe
 colocar a la izquierda o a la derecha del objeto padre.  En este caso
 @w{@code{-1}} ó @code{LEFT} significan @qq{a la izquierda} y @code{1}
 ó @code{RIGHT} significan @qq{a la derecha}.  @code{0} ó @code{CENTER}
-significan @qq{utilizar la dirección predeterminada}, como antes.
+significan @qq{utilizar la dirección predeterminada}.
 
 Estas indicaciones afectan a todas las notas hasta que son canceladas.
 
@@ -2324,6 +2323,17 @@ c2( c)
 \slurNeutral
 c2( c)
 @end lilypond
+
+En música polifónica, en general es mejor especificar una voz explícita
+que cambiar la dirección de un objeto.  Para ver más información,
+véase @ref{Varias voces}.
+
+@seealso
+Manual de aprendizaje:
+@rlearning{Objetos interiores al pentagrama}.
+
+Referencia de la notación:
+@ref{Varias voces}.
 
 
 @node Distancias y medidas
@@ -2378,7 +2388,6 @@ nuestra disposición una función de Scheme, @code{magstep}, para
 convertir de un cambio en el tamaño de la fuente al cambio equivalente
 en @code{staff-space}.  Para ver una explicación y un ejemplo de su
 utilización, consulte @rlearning{Longitud y grosor de los objetos}.
-
 
 @seealso
 Manual de aprendizaje:
@@ -2724,7 +2733,6 @@ c2 \< c2 c2
 Si se usa @code{\endSpanners} no es necesario cerrar \startTextSpan
 con \stopTextSpan, ni cerrar los reguladores con @code{\!}.
 
-
 @seealso
 Referencia de funcionamiento interno:
 @rinternals{TextSpanner},
@@ -2783,6 +2791,7 @@ a a
 a a a
 @end lilypond
 
+
 @node Hacer transparentes los objetos
 @unnumberedsubsubsec Hacer transparentes los objetos
 @translationof Making objects transparent
@@ -2799,6 +2808,7 @@ a4 a
 \once \override NoteHead #'transparent = ##t
 a a
 @end lilypond
+
 
 @node Pintar los objetos de blanco
 @unnumberedsubsubsec Pintar los objetos de blanco
@@ -2850,6 +2860,7 @@ para que se dibuje antes:
 \override Staff.Clef #'layer = #-1
 a1
 @end lilypond
+
 
 @node Uso de break-visibility (visibilidad en el salto)
 @unnumberedsubsubsec Uso de break-visibility (visibilidad en el salto)
@@ -2966,6 +2977,7 @@ imprimirlas y all-invisible para suprimirlas.
 @item Armadura: véase más abajo
 @item OctavateEight: véase más abajo
 @end itemize
+
 
 @node Consideraciones especiales
 @unnumberedsubsubsec Consideraciones especiales
@@ -3084,7 +3096,6 @@ Para los cambios de clave explícitos, la propiedad
 @code{explicitClefVisibility} controla tanto el símbolo de clave como
 el símbolo de octava asociado.
 
-
 @seealso
 Manual de aprendizaje:
 @rlearning{Visibilidad y color de los objetos}
@@ -3188,6 +3199,7 @@ g4\< e' d' f\!
 g,,4\< e' d' f\!
 @end lilypond
 
+
 @node Rotación de elementos de marcado
 @unnumberedsubsubsec Rotación de elementos de marcado
 @translationof Rotating markup
@@ -3210,6 +3222,7 @@ des^\markup { \rotate #30 "a D-Flat" }
 fis^\markup { \rotate #30 "an F-Sharp" }
 @end lilypond
 
+
 @node Trucos avanzados
 @section Trucos avanzados
 @translationof Advanced tweaks
@@ -3225,7 +3238,6 @@ ajustes finos a la apariencia de la partitura impresa.
 * Contenedores unpure-pure::
 @end menu
 
-
 @seealso
 Manual de aprendizaje:
 @rlearning{Trucar la salida},
@@ -3235,15 +3247,14 @@ Referencia de la notación:
 @ref{Explicación del Manual de referencia de funcionamiento interno},
 @ref{Modificar las propiedades}.
 
+Manual de extensión:
+@rextend{Interfaces para programadores}.
 
 Archivos de inicio:
 @file{scm/define-grobs.scm}.
 
 Fragmentos de código:
 @rlsr{Tweaks and overrides}.
-
-Extender:
-@rextend{Interfaces para programadores}.
 
 Referencia de funcionamiento interno:
 @rinternals{All layout objects}.
@@ -3298,7 +3309,10 @@ propiedades especiales que se encuentran en
 de ensayo sobre dichos objetos.
 
 @seealso
-@ref{Uso del break-alignable-interface},
+Referencia de la notación:
+@ref{Uso del break-alignable-interface}.
+
+Manual de extensión:
 @rextend{Funciones de callback}.
 
 @menu
@@ -3307,6 +3321,7 @@ de ensayo sobre dichos objetos.
 * Uso del self-alignment-interface::
 * Uso del break-alignable-interface::
 @end menu
+
 
 @node Establecer directamente X-offset e Y-offset
 @unnumberedsubsubsec Establecer directamente @code{X-offset} y @code{Y-offset}
@@ -3330,6 +3345,7 @@ a
 @end lilypond
 
 @c TODO write more
+
 
 @node Uso del side-position-interface
 @unnumberedsubsubsec Uso del @code{side-position-interface}
@@ -3372,6 +3388,7 @@ situar el objeto encima o debajo del padre de acuerdo con el valor de
 @code{direction}.
 
 @c TODO Add examples
+
 
 @node Uso del self-alignment-interface
 @unnumberedsubsubsec Uso del @code{self-alignment-interface}
@@ -3661,7 +3678,6 @@ a la instrucción de marcado @code{\musicglyph}: véase @ref{La tipografía Feta
 
 @c TODO Add inserting Postscript or ref to later
 
-
 @seealso
 Referencia de la notación:
 @ref{Notación gráfica dentro de elementos de marcado},
@@ -3677,6 +3693,7 @@ Referencia de la notación:
 @menu
 * Modificación de ligaduras de unión y de expresión::
 @end menu
+
 
 @node Modificación de ligaduras de unión y de expresión
 @unnumberedsubsubsec Modificación de ligaduras de unión y de expresión
@@ -3770,6 +3787,7 @@ Referencia de funcionamiento interno:
 @cindex puros, contenedores de Scheme
 @cindex no-puros: contenedores de Scheme
 @cindex horizontal, sobreescribir el espaciado
+
 
 @node Contenedores unpure-pure
 @subsection Contenedores unpure-pure
@@ -3895,6 +3913,7 @@ de entrada de LilyPond.  Se describen otras funciones más complejas en
 * Ejemplos de funciones de sustitución::
 @end menu
 
+
 @node Sintaxis de las funciones de sustitución
 @subsection Sintaxis de las funciones de sustitución
 @translationof Substitution function syntax
@@ -3957,9 +3976,7 @@ Para ver una lista de los predicados de tipo disponibles, consulte
 @ref{Predicados de tipo predefinidos}.  También se permiten los
 predicados de tipo definidos por el usuario.
 
-
 @seealso
-
 Referencia de la notación:
 @ref{Predicados de tipo predefinidos}.
 

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: bbd4df5bd5cec42e9b3b23eb6bdfa7123a1b2413
+    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -91,7 +91,6 @@ baja la altura una octava.
 }
 @end lilypond
 
-
 @seealso
 Glosario musical:
 @rglos{Pitch names}.
@@ -120,7 +119,6 @@ innecesario indicar octava alguna.  Es más, en el modo absoluto puede
 ser difícil encontrar un error aislado, mientras que en el modo
 relativo un solo fallo hace que el resto de la pieza esté una octava
 más alta o más baja de lo que debería.
-
 
 @example
 \relative @var{altura_inicial} @var{expresión_musical}
@@ -153,7 +151,6 @@ modo de octava absoluta, y se recomienda que sea un Do (una octava de
 @code{c}).
 
 @end itemize
-
 
 Aquí podemos ver el modo relativo en acción:
 
@@ -291,7 +288,6 @@ Referencia de funcionamiento interno:
 @funindex \relative
 @funindex relative
 
-
 @c DEPRECATED
 Si no se especifica ninguna @code{@var{altura_inicial}} para
 @code{\relative}, entonces se supone que es@tie{}@code{c'}.  Sin
@@ -359,8 +355,6 @@ continuación presentamos una serie de DOs cada vez más agudos:
 ceseh1 ces ceh c cih cis cisih
 @end lilypond
 
-
-
 @cindex alteración recordatoria
 @cindex alteración de precaución
 @cindex alteración con paréntesis
@@ -396,9 +390,7 @@ cis1~ cis~
 cis
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
 {hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
@@ -431,12 +423,10 @@ Referencia de funcionamiento interno:
 @rinternals{AccidentalCautionary},
 @rinternals{accidental-interface}.
 
-
 @cindex alteración de cuartos de tono
 @cindex cuartos de tono, alteraciones
 
 @knownissues
-
 No existen estándares reconocidos ampliamente para denotar
 los bemoles de tres cuartos, de manera que los símbolos de LilyPond
 no se ajustan a ningún estándar.
@@ -582,7 +572,6 @@ de la práctica común}.  Sin embargo, también están contempladas las
 alturas y los sistemas de afinación alternativos: véase @ref{Notación
 común para músicas no occidentales}.
 
-
 @seealso
 Glosario musical:
 @rglos{Pitch names},
@@ -679,7 +668,6 @@ correcta.
   f
 }
 @end lilypond
-
 
 @seealso
 Fragmentos de código:
@@ -796,12 +784,9 @@ musicaEnSiBemol = @{ e4 @dots{} @}
 Para ver más información sobre instrumentos transpositores, consulte
 @ref{Transposición de los instrumentos}.
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
-
 
 @seealso
 Referencia de la notación:
@@ -825,7 +810,6 @@ Referencia de funcionamiento interno:
 @funindex relative
 
 @knownissues
-
 La conversión relativa no afecta a las secciones @code{\transpose},
 @code{\chordmode} ni @code{\relative} dentro de su argumento.  Para
 usar el modo relativo dentro de música transportada, se debe colocar
@@ -1073,7 +1057,6 @@ notas.
 @unnumberedsubsubsec Clave
 @translationof Clef
 
-
 @cindex Sol, clave de
 @cindex Do, clave de
 @cindex Fa, clave de
@@ -1187,7 +1170,6 @@ consulte las funciones @code{\cueClef} y @code{\cueDuringWithClef}
 en la sección @ref{Formateo de las notas guía}.
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
@@ -1283,15 +1265,12 @@ f
 fis
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
-
 
 @seealso
 Glosario musical:
@@ -1344,12 +1323,9 @@ a2 b
 a2 b
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {ottava-text.ly}
-
 
 @seealso
 Glosario musical:
@@ -1446,7 +1422,6 @@ R1
 \transposition bes
 c2 g
 @end lilypond
-
 
 @seealso
 Glosario musical:
@@ -1566,7 +1541,6 @@ dos pentagramas.
 @}
 @end example
 
-
 @c don't use verbatim in this table.
 @table @code
 @item default (predeterminado)
@@ -1654,7 +1628,6 @@ distintos.  Si el pentagrama va a utilizarse por parte de un solo
 músico (p.ej., un director, o en una partitura de piano), entonces se
 deben usar en su lugar los estilos @code{modern} o
 @code{modern-cautionary}.
-
 
 @lilypond[quote]
 musicA = {
@@ -2079,7 +2052,6 @@ musicB = {
 }
 @end lilypond
 
-
 @item neo-modern
 
 @cindex neo-moderno, estilo de alteraciones
@@ -2195,7 +2167,6 @@ musicB = {
   >>
 }
 @end lilypond
-
 
 @item neo-modern-voice
 
@@ -2436,7 +2407,6 @@ musicB = {
 }
 @end lilypond
 
-
 @item no-reset (no restablecer)
 
 @cindex alteraciones no restablecer, estilo de
@@ -2568,14 +2538,12 @@ Referencia de funcionamiento interno:
 @rinternals{AccidentalPlacement},
 @rinternals{accidental-suggestion-interface}.
 
-
 @cindex alteraciones y notas simultáneas
 @cindex simultáneas, notas y alteraciones
 @cindex alteraciones en acordes
 @cindex acordes, alteraciones dentro de
 
 @knownissues
-
 Las notas simultáneas no se tienen en cuenta para la
 determinación automática de las alteraciones accidentales;
 sólo se consideran las notas anteriores y la armadura de
@@ -2583,7 +2551,6 @@ la tonalidad.  Puede ser necesario forzar las alteraciones
 accidentales con with@tie{}@code{!} o@tie{}@code{?} cuando
 la misma nota, con el mismo nombre, ocurre simultáneamente
 con distintas alteraciones, como en @samp{<f! fis!>}.
-
 
 La cancelación de precaución de alteraciones se hace mirando el
 compás previo.  Sin embargo, en el bloque @code{\alternative} que
@@ -2664,9 +2631,7 @@ tonalidad.
 }
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-ambitus-per-voice.ly}
 
@@ -2675,7 +2640,6 @@ tonalidad.
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-ambitus-gap.ly}
-
 
 @seealso
 Glosario musical:
@@ -2694,9 +2658,7 @@ Referencia de funcionamiento interno:
 @rinternals{AmbitusNoteHead},
 @rinternals{ambitus-interface}.
 
-
 @knownissues
-
 No se efectúa un tratamiento de las posibles colisiones en caso de
 varias indicaciones de ámbito simultáneas en distintas voces.
 
@@ -2850,18 +2812,14 @@ fuente más grande, véase @ref{Establecer el tamaño del pentagrama}.
 }
 @end lilypond
 
-
 @predefined
 @code{\easyHeadsOn},
 @code{\easyHeadsOff}.
 @endpredefined
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {numbers-as-easy-note-heads.ly}
-
 
 @seealso
 Referencia de la notación:
@@ -2967,7 +2925,6 @@ a2 b c d \break
 
 @end lilypond
 
-
 @predefined
 @code{\aikenHeads},
 @code{\aikenHeadsMinor},
@@ -2981,15 +2938,12 @@ a2 b c d \break
 @code{\walkerHeadsMinor}.
 @endpredefined
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 Para ver todos los estilos de formas de cabeza de nota, consulte
 @ref{Estilos de cabezas de nota}.
-
 
 @seealso
 Fragmentos de código:
@@ -3037,12 +2991,10 @@ pero con el ritmo especificado.  Estas cabezas de nota se crean así:
 }
 @end lilypond
 
-
 @predefined
 @code{\improvisationOn},
 @code{\improvisationOff}.
 @endpredefined
-
 
 @seealso
 Fragmentos de código:
