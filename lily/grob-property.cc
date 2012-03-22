@@ -36,8 +36,8 @@ print_property_callback_stack ()
 }
 #endif
 
-static SCM modification_callback = SCM_EOL;
-static SCM cache_callback = SCM_EOL;
+static Protected_scm modification_callback = SCM_EOL;
+static Protected_scm cache_callback = SCM_EOL;
 
 /*
 FIXME: this should use ly:set-option interface instead.

@@ -37,18 +37,18 @@
 
 (define (add-cluster graph node-id cluster-name)
   (let* ((cs (clusters graph))
-	 (cluster (assq cluster-name cs))
+	 (cluster (assoc cluster-name cs))
 	 (already-in-cluster (if cluster
 				 (cdr cluster)
 				 '())))
-    (set-clusters! graph (assq-set! cs
+    (set-clusters! graph (assoc-set! cs
 				    cluster-name
 				    (cons node-id already-in-cluster)))))
 
 (define (add-node graph label . cluster-name)
   (let* ((ns (nodes graph))
          (id (length ns)))
-    (set-nodes! graph (assq-set! ns id label))
+    (set-nodes! graph (assv-set! ns id label))
     (if (and (not (null? cluster-name))
 	     (string? (car cluster-name)))
 	(add-cluster graph id (car cluster-name)))
