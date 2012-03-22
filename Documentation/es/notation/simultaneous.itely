@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 940309ad0e403897f556c8253e69708121b91765
+    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -132,6 +132,7 @@ la transcripción enarmónica de una o más notas,
 Culsters o racimos; véase @ref{Racimos (clusters)}.
 
 @end itemize
+
 
 @node Repetición de acordes
 @unnumberedsubsubsec Repetición de acordes
@@ -301,7 +302,6 @@ otros efectos no deseados
 @funindex \makeClusters
 @funindex makeClusters
 
-
 Un «cluster» o racimo indica que se deben tocar simultáneamente un
 conjunto de notas consecutivas.  Se escriben aplicando la función
 @code{\makeClusters} a una secuencia de acordes, p.ej.:
@@ -313,7 +313,6 @@ conjunto de notas consecutivas.  Se escriben aplicando la función
 Se pueden mezclar en el mismo pentagrama notas normales y clusters,
 incluso al mismo tiempo.  En tal caso, no se hace ningún intento de
 evitar automáticamente las colisiones entre clusters y notas normales.
-
 
 @seealso
 Glosario musical:
@@ -327,9 +326,7 @@ Referencia de funcionamiento interno:
 @rinternals{ClusterSpannerBeacon},
 @rinternals{Cluster_spanner_engraver}.
 
-
 @knownissues
-
 Los clusters sólo tienen un buen aspecto cuando abarcan un mínimo de
 dos acordes.  En caso contrario aparecerán excesivamente estrechos.
 
@@ -339,6 +336,7 @@ determinada por la duración de los acordes que lo definen.  Los
 racimos separados necesitan silencios de separación entre ellos.
 
 Los clusters no producen ninguna salida MIDI.
+
 
 @node Varias voces
 @subsection Varias voces
@@ -491,7 +489,6 @@ En todas las partituras excepto las más simples, se recomienda crear
 contextos @code{Voice} explícitos como aparece explicado en
 @rlearning{Contextos y grabadores} y en @rlearning{Voces explícitas}.
 
-
 @strong{@i{Orden de las voces}}
 
 Al escribir varias voces en el archivo de entrada,
@@ -550,7 +547,6 @@ simultánea, dentro de una voz creada explícitamente:
 Este método conduce a barrados extraños y advertencias si los
 fragmentos de música no tienen las mismas duraciones exactas.
 
-
 @predefined
 @code{\voiceOne},
 @code{\voiceTwo},
@@ -558,9 +554,6 @@ fragmentos de música no tienen las mismas duraciones exactas.
 @code{\voiceFour},
 @code{\oneVoice}.
 @endpredefined
-
-Fragmentos de código:
-@rlsr{Simultaneous notes}.
 
 @seealso
 Manual de aprendizaje:
@@ -571,6 +564,9 @@ Referencia de la notación:
 @ref{Pautas de percusión},
 @ref{Silencios invisibles},
 @ref{Plicas}.
+
+Fragmentos de código:
+@rlsr{Simultaneous notes}.
 
 
 @node Estilos de voz
@@ -604,7 +600,6 @@ identificarlas fácilmente:
 Para recuperar la presentación normal se utiliza la instrucción
 @code{\voiceNeutralStyle}.
 
-
 @predefined
 @code{\voiceOneStyle},
 @code{\voiceTwoStyle},
@@ -612,7 +607,6 @@ Para recuperar la presentación normal se utiliza la instrucción
 @code{\voiceFourStyle},
 @code{\voiceNeutralStyle}.
 @endpredefined
-
 
 @seealso
 Manual de aprendizaje:
@@ -654,7 +648,6 @@ Fragmentos de código:
 @funindex \mergeDifferentlyHeadedOff
 @funindex mergeDifferentlyHeadedOff
 
-
 Las cabezas de notas que están en diferentes voces y tienen la misma
 altura, la misma forma de cabeza, y dirección opuesta de la plica, se
 combinan automáticamente, pero las que tienen cabezas distintas o la
@@ -663,7 +656,6 @@ encuentran en el lado opuesto de una plica en otra voz se desplazan
 verticalmente.  El ejemplo siguiente muestra tres circunstancias
 distintas, sobre los pulsos 1 y 3 en el primer compás y sobre el pulso
 1 del segundo compás, donde la combinación automática falla.
-
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -864,6 +856,7 @@ Los requisitos para combinar con éxito cabezas de nota distintas que
 tienen también distinto puntillo, no están claros.
 @end ignore
 
+
 @node Combinación automática de las partes
 @unnumberedsubsubsec Combinación automática de las partes
 @translationof Automatic part combining
@@ -1028,7 +1021,6 @@ instrumentTwo = \relative c' {
 >>
 @end lilypond
 
-
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1036,7 +1028,6 @@ instrumentTwo = \relative c' {
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
-
 
 @seealso
 Glosario musical:
@@ -1053,9 +1044,7 @@ Referencia de funcionamiento interno:
 @rinternals{PartCombineMusic},
 @rinternals{Voice}.
 
-
 @knownissues
-
 Toas las funciones @code{\partcombine} admiten exclusivamente dos voces
 y no están diseñadas para funcionar con la letra de las canciones;
 de manera que cuando una de las voces recibe explícitamente un
@@ -1210,7 +1199,6 @@ global = {
   >>
 }
 @end lilypond
-
 
 @seealso
 Manual de aprendizaje:
