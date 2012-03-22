@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: b948cd133c780173f1a0b10378091ac9b4ad119b
+    Translation of GIT committish: 0942948dca35950b6e9cd3529ada31c38360e184
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -26,10 +26,10 @@ esos trabajos sencillos.
 @end macro
 
 
-@macro helpusTasks
+@macro helpusSimple
 @subheading Tareas sencillas
 
-¡No son necesarios el código fuente ni la compilación!
+¡No se requiere @strong{ningún conocimiento de programación}!
 
 @itemize
 @item
@@ -40,6 +40,13 @@ sus colegas usuarios.
 Informar de fallos: ayude a los usuarios a crear @ref{Informes de
 fallos} adecuados, y/o apúntese al Escuadrón de Fallos para
 la organización de los @rcontribnamed{Issues,Problemas}.
+
+@item
+@rcontrib{Grand Regression Test Checking} (la Magna Comprobación de
+las Pruebas de Regresión): verificar que LilyPond funciona
+correctamente examinando el resultado a la salida de los fragmentos de
+código de prueba.  ¡Se tarda menos de un minuto en comprobar un
+fragmento de código!
 
 @item
 Documentación: se pueden proponer cambios pequeños siguiendo las
@@ -58,6 +65,9 @@ prueba de nuevas funcionalidades.  ¡Contribuya a estas discusiones!
 
 @end itemize
 
+@end macro
+
+@macro helpusAdvanced
 @subheading Tareas de nivel avanzado
 
 En general, estos trabajos requieren que usted tenga el
@@ -101,7 +111,7 @@ comenzar es unirse a los cazadores de bugs, los Frogs, y leer
 
 @end macro
 
-
+@ignore
 @macro helpusProjects
 @subheading Proyectos
 
@@ -158,4 +168,5 @@ el futuro.
 
 @end macro
 
+@end ignore
 
