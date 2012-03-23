@@ -38,7 +38,7 @@ vlnone = \new Staff {
   a4\f d fis8-. a-. r4
   d16(\downbow cis b a) g4 \breathe e8\p( g) fis4 |
 
-  e4\< g8 fis g4-_\mp\>
+  e4\< \glissando g8 fis g4-_\mp\>
     \st "III"
     b8-_\startTextSpan a-_\stopTextSpan
     b4\p\<( d8 cis) d4(-. fis8-.^"II" e-.^"II")

@@ -151,6 +151,10 @@ as an engraver for convenience."
    (print-line engraver
                "breathe"))
 
+#(define (format-glissando engraver event)
+   (print-line engraver
+               "gliss"))
+
 #(define (format-tie engraver event)
    (print-line engraver
                "tie"))
@@ -218,6 +222,7 @@ as an engraver for convenience."
 	       (crescendo-event . format-cresc)
 	       (decrescendo-event . format-decresc)
 	       (text-span-event . format-textspan)
+	       (glissando-event . format-glissando)
 	       (tie-event . format-tie)))
   }
 }
