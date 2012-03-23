@@ -1879,7 +1879,8 @@
     (SpanBarStub
      . (
         (X-extent . ,grob::x-parent-width)
-	(Y-extent . ,(ly:make-unpure-pure-container #f ly:axis-group-interface::pure-height))
+	(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height)
+	(Y-extent . #f)
 	(meta . ((class . Item)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
 				      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))

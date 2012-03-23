@@ -434,7 +434,7 @@ and duration-log @var{log}."
       (cons -0.1 0.1)))
 
 (define-public (pure-from-neighbor-interface::extra-spacing-height grob)
-  (let* ((height (ly:grob::stencil-height grob))
+  (let* ((height (ly:grob-pure-height grob grob 0 10000000))
          (from-neighbors (interval-union
                             height
                             (ly:axis-group-interface::pure-height
