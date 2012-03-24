@@ -9,9 +9,6 @@
 #(whitelist-grob 'NoteHead)
 #(whitelist-grob 'Stem)
 #(whitelist-grob 'Flag)
-#(whitelist-grob "NoteHead")
-#(whitelist-grob "Stem")
-#(whitelist-grob "Flag")
 
 #(for-each whitelist-symbol '(stencil style duration-log
 			      stem-attachment end-position staff-position
