@@ -322,7 +322,7 @@ test-baseline-create:
 local-check: test
 	rm -rf $(RESULT_DIR)
 	mkdir -p $(RESULT_DIR)
-	$(buildscript-dir)/output-distance --create-images --output-dir $(RESULT_DIR) \
+	$(buildscript-dir)/output-distance --local-datadir --create-images --output-dir $(RESULT_DIR) \
 		input/regression/out-test-baseline input/regression/out-test \
 		input/regression/midi/out-test-baseline input/regression/midi/out-test 
 	@find input ly -name '*.ly' -print |grep -v 'out.*/' | xargs grep '\\version' -L | grep -v "standard input" |sed 's/^/**** Missing version: /g'
