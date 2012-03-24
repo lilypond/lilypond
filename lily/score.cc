@@ -127,21 +127,19 @@ Score::book_rendering (Output_def *layoutbook,
   if (error_found_)
     return SCM_EOL;
 
-  SCM scaled_bookdef = SCM_EOL;
   Real scale = 1.0;
 
   if (layoutbook && layoutbook->c_variable ("is-paper") == SCM_BOOL_T)
     scale = scm_to_double (layoutbook->c_variable ("output-scale"));
 
   SCM outputs = SCM_EOL;
-  SCM *tail = &outputs;
 
   int outdef_count = defs_.size ();
 
   for (int i = 0; !i || i < outdef_count; i++)
     {
       Output_def *def = outdef_count ? defs_[i] : default_def;
-      SCM scaled = SCM_EOL;
+      SCM scaled = def->self_scm ();
 
       if (def->c_variable ("is-layout") == SCM_BOOL_T)
         {
@@ -152,20 +150,18 @@ Score::book_rendering (Output_def *layoutbook,
         }
 
       /* TODO: fix or junk --no-layout.  */
-      SCM context = ly_run_translator (music_, def->self_scm ());
+      SCM context = ly_run_translator (music_, scaled);
       if (dynamic_cast<Global_context *> (unsmob_context (context)))
         {
           SCM s = ly_format_output (context);
 
-          *tail = scm_cons (s, SCM_EOL);
-          tail = SCM_CDRLOC (*tail);
+          outputs = scm_cons (s, outputs);
         }
 
       scm_remember_upto_here_1 (scaled);
     }
 
-  scm_remember_upto_here_1 (scaled_bookdef);
-  return outputs;
+  return scm_reverse_x (outputs, SCM_EOL);
 }
 
 void
