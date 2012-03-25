@@ -206,7 +206,7 @@ System::get_broken_system_grobs ()
   SCM ret = SCM_EOL;
   for (vsize i = 0; i < broken_intos_.size (); i++)
     ret = scm_cons (broken_intos_[i]->self_scm (), ret);
-  return scm_reverse (ret);
+  return scm_reverse_x (ret, SCM_EOL);
 }
 
 SCM

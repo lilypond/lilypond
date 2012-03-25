@@ -81,5 +81,5 @@ articulation_list (vector<Stream_event *> note_events,
                                 articulations);
     }
 
-  return (scm_reverse (articulations));
+  return scm_reverse_x (articulations, SCM_EOL);
 }

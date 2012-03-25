@@ -466,7 +466,7 @@ Page_breaking::systems ()
           pb->unprotect ();
         }
     }
-  return scm_append (scm_reverse (ret));
+  return scm_append (scm_reverse_x (ret, SCM_EOL));
 }
 
 SCM
@@ -552,7 +552,7 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool las
 {
   // Create a stencil for each system.
   SCM paper_systems = SCM_EOL;
-  for (SCM s = scm_reverse (systems); scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = systems; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM paper_system = scm_car (s);
       if (Grob *g = unsmob_grob (scm_car (s)))
@@ -563,6 +563,7 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool las
 
       paper_systems = scm_cons (paper_system, paper_systems);
     }
+  paper_systems = scm_reverse_x (paper_systems, SCM_EOL);
 
   // Create the page and draw it.
   SCM page = make_page (page_num, last);

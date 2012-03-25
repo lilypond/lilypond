@@ -108,7 +108,7 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines)
         programming_error ("Systems on a page must be a prob or grob.");
     }
 
-  return scm_reverse (out);
+  return scm_reverse_x (out, SCM_EOL);
 }
 
 /*

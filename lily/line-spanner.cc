@@ -75,8 +75,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
                                 ? ly_symbol2scm ("left-broken")
                                 : ly_symbol2scm ("right-broken"), bound_details, SCM_EOL);
 
-      for (SCM s = scm_reverse (extra); scm_is_pair (s); s = scm_cdr (s))
-        details = scm_cons (scm_car (s), details);
+      details = scm_append (scm_list_2 (extra, details));
     }
 
   if (details == SCM_BOOL_F)
