@@ -19,8 +19,8 @@
 #(define (whitelist-symbol sym)
   (set! sym-whitelist (cons sym sym-whitelist)))
 
-#(define (whitelist-grob str)
-  (set! grob-whitelist (cons str grob-whitelist)))
+#(define (whitelist-grob sym)
+  (set! grob-whitelist (cons sym grob-whitelist)))
 
 #(define graph (make-empty-graph (ly:parser-output-name parser)))
 

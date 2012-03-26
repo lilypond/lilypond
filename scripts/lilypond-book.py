@@ -96,13 +96,12 @@ def exit (i):
     else:
         sys.exit (i)
 
-def identify ():
-    ly.encoded_write (sys.stdout, '%s (GNU LilyPond) %s\n' % (ly.program_name, ly.program_version))
-
 progress = ly.progress
 warning = ly.warning
 error = ly.error
 
+def identify ():
+    progress('%s (GNU LilyPond) %s' % (ly.program_name, ly.program_version))
 
 def warranty ():
     identify ()

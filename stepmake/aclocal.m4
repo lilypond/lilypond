@@ -417,9 +417,22 @@ EOF
 	    exit 2
 	fi
 
+	abssrcdir="`cd $srcdir; pwd`"
+	absbuilddir="`pwd`"
 	for d in 2 3 4 ; do
 	    for mf in `cd $srcdir ; find . -maxdepth $d -mindepth $d -name GNUmakefile`; do
-		mkdir -p $(dirname $mf)
+		case "$abssrcdir" in
+		    "$absbuilddir"/*)
+# source is below build directory, always copy
+			;;
+		    *)
+			case "$abssrcdir/${mf#./}" in
+			    "$absbuilddir"/*)
+# find descended into build directory, don't copy
+				continue
+			esac
+		esac
+		mkdir -p ${mf%/*}
 	        cat <<EOF | $PYTHON -  > $mf
 print 'depth=' + ('../' * ( $d-1 ) )
 print 'include \$(depth)/config\$(if \$(conf),-\$(conf),).make'
@@ -428,7 +441,18 @@ print 'MODULE_INCLUDES += \$(src-dir)/\$(outbase)'
 EOF
 	    done
 	    for mf in `cd $srcdir ; find . -maxdepth $d -mindepth $d -name '*.make' | grep -v config.make `; do
-		mkdir -p $(dirname $mf)
+		case "$abssrcdir" in
+		    "$absbuilddir"/*)
+# source is below build directory, always copy
+			;;
+		    *)
+			case "$abssrcdir/${mf#./}" in
+			    "$absbuilddir"/*)
+# find descended into build directory, don't copy
+				continue
+			esac
+		esac
+		mkdir -p ${mf%/*}
 	        cat <<EOF | $PYTHON -  > $mf
 print 'include \$(depth)/config\$(if \$(conf),-\$(conf),).make'
 print 'include \$(configure-srcdir)/$mf'

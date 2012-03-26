@@ -1,11 +1,15 @@
 \version "2.14.0"
+\paper { ragged-right = ##t }
 
 \header {
   texidoc = "When a tie is broken, the spacing engine must consider the
-accidental after the line break, to prevent a collision from occurring."
+accidental after the line break.  The second and third lines should have
+the same note spacing."
 }
 
-{ \key g \major gis''1~ \break gis''4
-\repeat unfold 43 {d4 \noBreak} }
+{ \key bes \major r1 \break
+  eses''4 r2 eses''4~ \break
+  eses''4 r2 f''4
+}
 
 

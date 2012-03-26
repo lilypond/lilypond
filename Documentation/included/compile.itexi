@@ -605,7 +605,6 @@ Edit/compile cycle:
 make [-j@var{X}]                  @emph{## needed if editing outside}
                             @emph{##   Documentation/, but useful anyway}
                             @emph{##   for finding Texinfo errors.}
-touch Documentation/*te??   @emph{## bug workaround}
 make [-j@var{X} CPU_COUNT=@var{X}] doc  @emph{## usually faster than initial build.}
 @end example
 
@@ -654,6 +653,17 @@ on their own with:
 @example
 make LANGS='' doc
 @end example
+
+@noindent Similarly, it is possible to compile a subset of the
+translated documentation by specifying their language codes on the
+command line.  For example, the French and German translations are
+compiled with:
+
+@example
+make LANGS='de fr' doc
+@end example
+
+@noindent Note that this will also compile the English version.
 
 Compilation of documentation in Info format with images can be
 done separately by issuing:
@@ -704,6 +714,18 @@ touch Documentation/*te??
 However, this will rebuild all of the manuals
 indiscriminately---it is more efficient to @command{touch} only
 the affected files.
+
+@noindent
+Another typical issue when switching branches between master and
+lilypond/translation is the appearance/disappearance of translated
+versions of some manuals.  If you see such a warning from make:
+
+@example
+No rule to make target `X', needed by `Y'
+@end example
+
+@noindent
+Your best bet is to delete the file Y.dep and to try again.
 
 @node Building a single document
 @unnumberedsubsubsec Building a single document

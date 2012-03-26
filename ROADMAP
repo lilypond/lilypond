@@ -26,7 +26,6 @@ LilyPond's source files.
 |   |-- notation/        Notation Reference
 |   |-- usage/           Usage
 |   |-- web/             The website
-|   |   `-- ly-examples/ .ly files for the "Examples" page
 |   |
 |   |
 |   |   TRANSLATED MANUALS:
@@ -36,6 +35,7 @@ LilyPond's source files.
 |   |          * individual chapters for each manual
 |   |       2) a texidocs/ directory for snippet translations
 |   |
+|   |-- cs/              Czech
 |   |-- de/              German
 |   |-- es/              Spanish
 |   |-- fr/              French
@@ -43,6 +43,7 @@ LilyPond's source files.
 |   |-- it/              Italian
 |   |-- ja/              Japanese
 |   |-- nl/              Dutch
+|   |-- zh/              Chinese
 |   |
 |   |
 |   |   MISCELLANEOUS DOC STUFF:
@@ -50,6 +51,7 @@ LilyPond's source files.
 |   |-- css/             CSS files for HTML docs
 |   |-- included/        .ly files used in the manuals
 |   |-- logo/            Web logo and "note" icon
+|   |-- ly-examples/     .ly files for the "Examples" webpage
 |   |-- misc/            Old announcements, ChangeLogs and NEWS
 |   |-- pictures/        Images used (eps/jpg/png/svg)
 |   |   `-- pdf/         (pdf)
@@ -95,6 +97,8 @@ LilyPond's source files.
 |-- input/
 |   `-- regression/      .ly regression tests
 |       |-- abc2ly/      .abc regression tests
+|       |-- lilypond-book/  lilypond-book regression tests
+|       |-- midi/        midi2ly regression tests
 |       `-- musicxml/    .xml and .itexi regression tests
 |
 |

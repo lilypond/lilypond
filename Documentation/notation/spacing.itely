@@ -191,70 +191,80 @@ Installed Files:
 @funindex \paper
 
 @menu
-* Setting paper size::
+* Setting the paper size::
 * Automatic scaling to paper size::
 @end menu
 
 
-@node Setting paper size
-@unnumberedsubsubsec Setting paper size
+@node Setting the paper size
+@unnumberedsubsubsec Setting the paper size
 
-Two functions are available for changing the paper size:
-@code{set-default-paper-size} and @code{set-paper-size}.
-@code{set-default-paper-size} must be placed in the toplevel
-scope, and @code{set-paper-size} must be placed in a @code{\paper}
-block:
+@q{A4} is the default value when no explicit paper size is set. However,
+there are two functions that can be used to change it
+@code{set-default-paper-size},
 
 @example
-#(set-default-paper-size "a4")
+#(set-default-paper-size "quarto")
 @end example
+
+which must always be placed at the toplevel scope. and
+@code{set-paper-size},
 
 @example
 \paper @{
-  #(set-paper-size "a4")
+  #(set-paper-size "tabloid")
 @}
 @end example
 
-@noindent
-In the toplevel scope, the @code{set-default-paper-size} function
-can safely be called anywhere before the first @code{\paper}
-block.  Within a @code{\paper} block, the safest place to call
-@code{set-paper-size} is at the top, above the list of variable
-declarations.  The reasons for this are discussed in
-@ref{Automatic scaling to paper size}.
+which must always be placed in a @code{\paper} block.
 
-@code{set-default-paper-size} sets the size of all pages, whereas
-@code{set-paper-size} only sets the size of the pages that the
-@code{\paper} block applies to.  For example, if the @code{\paper}
-block is at the top of the file, then it will apply the paper size
-to all pages.  If the @code{\paper} block is inside a
+If the @code{set-default-paper-size} function is used in the toplevel
+scope, it must come before the any @code{\paper} block.
+@code{set-default-paper-size} sets the paper size for all pages,
+whereas @code{set-paper-size} only sets the paper size for the pages
+that the @code{\paper} block applies to.  For example, if the
+@code{\paper} block is at the top of the file, then it will apply the
+paper size to all pages.  If the @code{\paper} block is inside a
 @code{\book}, then the paper size will only apply to that book.
 
-Common paper sizes are available, including @code{a4},
-@code{letter}, @code{legal}, and @code{11x17} (also known as
-tabloid).  Many more paper sizes are supported by default.  For
-details, see @file{scm/paper.scm}, and search for the
-definition of @code{paper-alist}.
+When the @code{set-paper-size} function is used, it must be
+placed @emph{before} any other functions used within the same
+@code{\paper} block.  See @ref{Automatic scaling to paper size}.
 
-@c TODO add a new appendix for paper sizes (auto-generated) -pm
+Paper sizes are defined in @file{scm/paper.scm}, and while it is
+possible to add custom sizes, they will be overwritten on subsequent
+software updates.
 
-@warning{The default paper size is @code{a4}.}
+@c An appendix entry exists for paper sizes but is not auto-generated
 
-Extra sizes may be added by editing the definition of
-@code{paper-alist} in the initialization file
-@file{scm/paper.scm}, however they will be overridden on a
-subsequent install.
+The following command can be used in the file to add a custom paper size
+which can then be used with @code{set-default-paper-size} or
+@code{set-paper-size} as appropriate,
 
-@cindex orientation
-@cindex landscape
+@example
+#(set! paper-alist (cons '("my size" . (cons (* 15 in) (* 3 in))) paper-alist))
 
-If the symbol @code{'landscape} is supplied as an argument to
-@code{set-default-paper-size}, pages will be rotated by 90
-degrees, and wider line widths will be set accordingly.
+\paper @{
+  #(set-paper-size "my size")
+@}
+@end example
+
+The units @code{in} (inches), @code{cm} (centimeters) and @code{mm}
+(millimeters) can all be used.
+
+@cindex paper size, orientation
+@cindex page, orientation
+@cindex paper size, landscape
+
+If the symbol @code{'landscape} is added to the paper size function,
+pages will be rotated by 90 degrees, and wider line widths will be set
+accordingly.
 
 @example
 #(set-default-paper-size "a6" 'landscape)
 @end example
+
+The music output will @emph{not} be rotated, just the paper size.
 
 @seealso
 Notation Reference:
@@ -277,7 +287,7 @@ that the automatic scaling is not triggered by setting the
 @code{paper-width} can influence other values (this is separate
 from scaling and is discussed below).  The
 @code{set-default-paper-size} and @code{set-paper-size} functions
-are described in @ref{Setting paper size}.
+are described in @ref{Setting the paper size}.
 
 The vertical dimensions affected by automatic scaling are
 @code{top-margin} and @code{bottom-margin} (see

@@ -128,6 +128,11 @@
   ;; don't use decimals.
   ;; ISO 216 has a tolerance of +- 2mm
 
+  ;; TODO Autogenerate the following list so it appears under the
+  ;; 'Predefined paper sizes' node in notation-appendices.itely
+  ;; currently the list below has been copied and formatted manually.
+  ;; Therefore, please add any new entries to the *itely file as well.
+
   '(("a10" . (cons (* 26 mm) (* 37 mm)))
     ("a9" . (cons (* 37 mm) (* 52 mm)))
     ("a8" . (cons (* 52 mm) (* 74 mm)))

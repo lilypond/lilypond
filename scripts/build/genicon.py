@@ -15,7 +15,7 @@ os.chdir(dir)
 def system (c):
     print c
     if os.system (c):
-        raise 'barf'
+        raise Exception('The command exited with nonzero exit status!')
 
 outputs = []
 for sz in [48,32,16] :

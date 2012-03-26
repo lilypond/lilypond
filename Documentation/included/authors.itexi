@@ -164,15 +164,20 @@ Core developer, Schemer extraordinaire
 
 @c use commas not colons
 
+Aleksandr Andreev,
 Sven Axelsson,
+Peter Chubb,
 Karin Hoethker,
 Mark Hohl,
 Justin Ohmie,
+Benkő Pál,
 Julien Rioux,
 Patrick Schmidt,
 Adam Spiers,
 Heikki Taurainen,
-Piers Titus van der Torren
+Piers Titus van der Torren,
+Jan-Peter Voigt,
+Janek Warchol
 
 @c no comma for last entry
 
@@ -207,9 +212,11 @@ Stefan Weil
 @macro bugsquadCurrent
 
 Colin Campbell,
+Eluze,
 Phil Holmes,
-Derek Klinge,
-Dmytro O. Redchuk
+Marek Klein,
+Ralph Palmer,
+James Lowe
 
 @c no comma for last entry
 
@@ -234,6 +241,7 @@ Phil Holmes
 
 @c use commas not colons
 
+Jean-Charles Malahieude,
 Till Paala,
 Yoshiki Sawada
 
@@ -382,9 +390,11 @@ Rune Zedeler
 
 @c use commas not colons
 James E. Bailey,
+Derek Klinge,
 Urs Liska,
 Kieren MacMillan,
-Ralph Palmer
+Ralph Palmer,
+Dmytro O. Redchuk
 
 @c no comma for last entry
 @end macro

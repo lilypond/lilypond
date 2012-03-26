@@ -27,7 +27,7 @@ import time
 
 def read_log_file (fn):
     str = open (fn).read ()
-    str = re.sub ('\n', '', str)
+    str = re.sub ('[\n\r]', '', str)
     str = re.sub ('[\t ]+', ' ', str)
 
     deps = []
@@ -61,14 +61,20 @@ def parse_logfile (fn):
         }
     group = ''
 
-    for l in autolines:
+    for i, l in enumerate(autolines):
         tags = l.split ('@:')
         if tags[0] == 'group':
             group = tags[1]
         elif tags[0] == 'puorg':
             group = ''
         elif tags[0] == 'char':
-            name = tags[9]
+            try:
+                name = tags[9]
+            except IndexError:
+                print 'Error in mf-to-table while processing file', fn
+                print 'Index 9 >', len(tags)-1, 'on line', i
+                print l
+                raise
 
             if group:
                 name = group + '.' + name

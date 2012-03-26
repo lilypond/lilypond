@@ -1,4 +1,3 @@
-
 \version "2.14.0"
 
 \header{
@@ -8,8 +7,6 @@
 
 
 \relative c'{
-  \override Beam #'skip-quanting = ##t
   \stemUp
   f'4  f8[ f]  f16[ f]  f32[ f]  f64[ f]  f128[ f] 
 }
-

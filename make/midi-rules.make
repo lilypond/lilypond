@@ -9,7 +9,7 @@ $(outdir)/%.midi: %.ly $(LILYPOND_BINARY)
 	cp $< $(outdir)
 
 $(outdir)/%-midi.ly: $(outdir)/%.midi $(MIDI2LY)
-	(echo '\header {'; for f in $(HEADER_FIELDS); do echo -n $$f'="'; cat $(outdir)/$*.$$f; echo '"'; done; echo '}') > $(outdir)/$*.header
+	(echo '\header {'; for f in $(HEADER_FIELDS); do printf $$f'="'; cat $(outdir)/$*.$$f; echo '"'; done; echo '}') > $(outdir)/$*.header
 	$(PYTHON) $(MIDI2LY) $(shell cat $(outdir)/$*.options) --quiet --include-header=$(outdir)/$*.header -o $(outdir) $<
 
 $(outdir)/%.diff: %.ly $(outdir)/%-midi.ly

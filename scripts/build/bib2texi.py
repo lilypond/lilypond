@@ -69,14 +69,20 @@ cmd = "TEXMFOUTPUT=%s bibtex %s %s" % (tmpdir, quiet_flag, tmpfile)
 
 if (show_output):
     sys.stdout.write ("Running bibtex on %s\n" % files)
+    sys.stdout.write (cmd)
 #And invoke it
 stat = os.system (cmd)
 if stat <> 0:
-    sys.exit(1)
+    sys.stderr.write ("Bibtex exited with nonzero exit status!")
+    sys.exit (1)
 
 #TODO: do tex -> itexi on output
-# Following 2 lines copy tmpfile.bbl to the desired output file
+# Following lines copy tmpfile.bbl to the desired output file
 bbl = open (tmpfile + '.bbl').read ()
+
+if bbl.strip () == '':
+    sys.stderr.write ("Bibtex generated an empty file!")
+    sys.exit (1)
 
 open (output, 'w').write  (bbl)
 

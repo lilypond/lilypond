@@ -394,7 +394,7 @@
 	 ((string= articname "mordent")
 	  (loop (cons 1 1) newelements tail (cons 'mordent actions)))
 	 ((string= articname "prall")
-	  (loop (cons 1 1) newelements tail (cons 'trill actions)))
+	  (loop (cons 1 1) newelements tail (cons 'prall actions)))
 	 ((string= articname "trill")
 	  (loop (cons 1 1) newelements tail (cons 'trill actions)))
 	 ((string= articname "turn")
@@ -516,27 +516,77 @@
        ((trill)
 	 (ac:trill music))
 
+       ((prall)
+	; A pralltriller symbol can either mean an inverted mordent
+	; or a half-shake -- a short, two twiddle trill.
+	; We implement as a half-shake.
+	(let*
+	 ((totallength (ly:music-length music))
+	  (newlen (ly:moment-sub totallength (ly:make-moment 3 32)))
+	  (newdur (ly:make-duration
+		   0 0
+		   (ly:moment-main-numerator newlen)
+		   (ly:moment-main-denominator newlen)))
+	  (gracedur (ly:make-duration 5 0 1 1))
+	  (gracenote (ly:music-deep-copy music))
+	  (abovenote (ly:music-deep-copy music))
+	  (mainnote (ly:music-deep-copy music))
+	  (prall (make-sequential-music (list gracenote abovenote)))
+	)
+	  (music-map (lambda (n)
+	   (if (eq? 'NoteEvent (ly:music-property n 'name))
+            (set! (ly:music-property n 'duration) gracedur))
+		      n)
+	   abovenote)
+	  (music-map (lambda (n)
+	   (if (eq? 'NoteEvent (ly:music-property n 'name))
+            (set! (ly:music-property n 'duration) gracedur))
+		      n)
+	   gracenote)
+	  (music-map (lambda (n)
+	   (if (eq? 'NoteEvent (ly:music-property n 'name))
+            (set! (ly:music-property n 'duration) newdur))
+		      n)
+	   mainnote)
+
+	  (map (lambda (y) (ac:up y))
+	   (filter
+	    (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
+	    (ly:music-property abovenote 'elements)))
+	  (make-sequential-music (list abovenote gracenote abovenote mainnote))))
+
        ((mordent)
 	(let*
-	 ((dur (ly:music-property
+	 ((totaldur (ly:music-property
 		(car (ly:music-property music 'elements)) 'duration))
-	  (factor (ly:duration-factor dur))
+	  (dur (ly:duration-length totaldur))
+	  (newlen (ly:moment-sub dur (ly:make-moment 2 32)))
+	  (newdur (ly:make-duration
+		0 0
+		   (ly:moment-main-numerator newlen)
+		   (ly:moment-main-denominator newlen)))
 	  (gracenote (ly:music-deep-copy music))
-	  (mainnote (ly:music-deep-copy music))
 	  (belownote (ly:music-deep-copy music))
+	  (mainnote (ly:music-deep-copy music))
 	  (mordent (make-sequential-music (list gracenote belownote)))
-)
+	)
 	 (begin
 	  (music-map (lambda (n)
 	   (if (eq? 'NoteEvent (ly:music-property n 'name))
-	    (set! (ly:music-property n 'duration)(ly:make-duration 3 0 1 1)))
+	    (set! (ly:music-property n 'duration)
+	     (ly:make-duration 5 0 1 1)))
 		      n)
 	   mordent)
+	  (music-map (lambda (n)
+	   (if (eq? 'NoteEvent (ly:music-property n 'name))
+            (set! (ly:music-property n 'duration) newdur))
+		      n)
+	   mainnote)
 	  (map (lambda (y) (ac:down y))
 	   (filter
 	    (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
 	    (ly:music-property belownote 'elements)))
-	  (make-sequential-music (list (make-grace-music mordent) mainnote)))))
+	  (make-sequential-music (list mordent mainnote)))))
        ((turn)
 	(let*
 	 ((dur (ly:music-property

@@ -236,18 +236,23 @@ Stem::extremal_heads (Grob *me)
   return exthead;
 }
 
-/* The positions, in ascending order.  */
+/* The staff positions, in ascending order.
+ * If FILTER, include the main column of noteheads only */
 vector<int>
-Stem::note_head_positions (Grob *me)
+Stem::note_head_positions (Grob *me, bool filter)
 {
   vector<int> ps;
   extract_grob_set (me, "note-heads", heads);
+  Grob *xref = common_refpoint_of_array (heads, me, X_AXIS);
 
   for (vsize i = heads.size (); i--;)
     {
       Grob *n = heads[i];
-      int p = Staff_symbol_referencer::get_rounded_position (n);
+      if (filter
+          && n->relative_coordinate (xref, X_AXIS) != 0.0)
+        continue;
 
+      int p = Staff_symbol_referencer::get_rounded_position (n);
       ps.push_back (p);
     }
 

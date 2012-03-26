@@ -116,7 +116,7 @@ they've had some initial review on the Frog list, pesters the
 @w{@code{-devel}} community into actually reviewing said patches, and
 finally pushes the patches once they're accepted.  This person is
 @emph{not} responsible for training new programmers, because that
-would be far too much work -- he job is @qq{only} to guide
+would be far too much work -- his/her job is @qq{only} to guide
 completed patches through our process.
 
 Currently: Carl
@@ -150,11 +150,11 @@ changes to the regtests.
 
 @subheading Installing patchy
 
-To install patchy, you should run do the following:
+To install patchy, you should do the following:
 
 @enumerate
 @item
-Create a new user on your box to to run patchy; this is a security
+Create a new user on your box to run patchy; this is a security
 step for your own protection.  It is recommended that this should
 not be an administrator.  New users are created from System;
 Administration; Users and Groups.
@@ -214,7 +214,7 @@ python lilypond-patchy-staging.py
 @end example
 Not much appears to happen except you can see a lot of CPU gets
 used if you open System Monitor. There's not much point running
-@code{lilypond-patchy-staging.py} unless there something in
+@code{lilypond-patchy-staging.py} unless there is something in
 staging to be merged to master, however, if there's nothing in
 staging then the script won't waste resources by compiling
 anything.
@@ -241,7 +241,7 @@ pushing to staging (see @ref{Pushing to staging}).
 @node Administrative mailing list
 @section Administrative mailing list
 
-An mailing list for administrative issues is maintained at
+A mailing list for administrative issues is maintained at
 @code{lilypond-hackers@@gnu.org}.
 
 This list is intended to be used for discussions that should be kept
@@ -265,7 +265,7 @@ GOP has two goals:
 
 @itemize
 @item
-Clarify the various development tasks by writing down the polices
+Clarify the various development tasks by writing down the policies
 and techniques and/or simplifying the tasks directly.
 
 @item
@@ -331,7 +331,7 @@ work on the really hard stuff... like rewriting the grace note
 code.
 
 Having 1 more normal user answering emails on lilypond-user won't
-have a dramatic trick-up affect all by himself, of course. But if
+have a dramatic @q{trickle-up} effect all by itself, of course. But if
 we had 8 users volunteering to answer emails, 6 users starting to
 write documentation, and 2 users editing LSR... well, that would
 free up a lot of current bug-fixing-capable contributors to focus
@@ -344,7 +344,7 @@ many new helpers will provide a great moral boost!
 
 Although GOP is a short-term project, the main goal is to train
 more people to handle ongoing jobs. The more people doing these
-jobs, the ligher the work will be, and the more we can get done
+jobs, the lighter the work will be, and the more we can get done
 with lilypond!
 
 Also, it would be nice if we had at least one "replacement" /

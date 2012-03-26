@@ -97,9 +97,9 @@ Pure_from_neighbor_engraver::finalize ()
   int pos[2] = { -1, 0};
   for (vsize i = 0; i < pure_relevants_.size (); i++)
     {
-      if (pos[1] < (int) need_pure_heights_from_neighbors.size ()
-          && (pure_relevants_[i]->spanned_rank_interval ()[LEFT]
-              > need_pure_heights_from_neighbors[pos[1]][0]->spanned_rank_interval ()[LEFT]))
+      while (pos[1] < (int) need_pure_heights_from_neighbors.size ()
+             && (pure_relevants_[i]->spanned_rank_interval ()[LEFT]
+                 > need_pure_heights_from_neighbors[pos[1]][0]->spanned_rank_interval ()[LEFT]))
         {
           pos[0] = pos[1];
           pos[1]++;
