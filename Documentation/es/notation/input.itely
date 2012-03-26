@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 18cfd801fa7fcd698e924f3b530862714f3e3013
+    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -203,7 +203,6 @@ principio del archivo.
 @}
 @end example
 
-
 @funindex \bookpart
 
 Se pueden agrupar distintas piezas de música en partes de un libro
@@ -229,6 +228,7 @@ como el libro propiamente dicho, mediante la especificación del bloque
   @dots{}
 @}
 @end example
+
 
 @node Varios archivos de salida a partir de uno de entrada
 @subsection Varios archivos de salida a partir de uno de entrada
@@ -278,6 +278,7 @@ en el archivo fuente @file{eightminiatures.ly}, produce
 @item
 @file{eightminiatures-2.pdf}.
 @end itemize
+
 
 @node Nombres de los archivos de salida
 @subsection Nombres de los archivos de salida
@@ -349,6 +350,7 @@ El código anterior produce los siguientes archivos de salida:
 @item
 @file{Nocturne.pdf}.
 @end itemize
+
 
 @node Estructura del archivo
 @subsection Estructura del archivo
@@ -741,6 +743,7 @@ Referencia de la notación:
 Archivos de inicio:
 @file{ly/titling-init.ly}.
 
+
 @node Disposición predeterminada de las cabeceras y pies de página
 @unnumberedsubsubsec Disposición predeterminada de las cabeceras y pies de página
 @translationof Default layout of headers and footers
@@ -1056,9 +1059,10 @@ definiéndola como @code{\oddFooterMarkup}:
 @end lilypond
 
 @seealso
-Notation Reference:
+Referencia de la notación:
 @ref{Explicación de los bloques de títulos},
 @ref{Presentación predeterminada de los bloques de título del libro y la partitura}.
+
 
 @node Crear notas al pie
 @subsection Crear notas al pie
@@ -1072,6 +1076,7 @@ Se pueden crear dos tipos de notas al pie: automáticas y manuales.
 * Notas al pie manuales::
 @end menu
 
+
 @node Panorámica de las notas al pie
 @unnumberedsubsubsec Panorámica de las notas al pie
 @translationof Footnotes overview
@@ -1084,6 +1089,7 @@ los acordes.
 
 El orden en que se dibuja cada grob determina el orden en que se crean
 los indicadores (y por tanto las notas al pie) durante la compilación.
+
 
 @node Notas al pie automáticas
 @unnumberedsubsubsec Notas al pie automáticas
@@ -1192,7 +1198,7 @@ la posición @samp{(x . y)} del indicador, y dos instrucciones
 la segunda es la nota al pie, en la parte inferior de la página.
 
 Como las notas al pie automáticas, las instrucciones
-@code{\footnote} manuales deben ir @emph{después} del grob
+@code{\footnote} manuales deben ir @emph{antes} del grob
 que la nota al pie está anotando y adjuntada como un
 @code{TextScript}:
 
@@ -1361,7 +1367,6 @@ para decidir estas dimensiones.  Si el libro tiene entre 10 y 99
 páginas, el medidor puede ser "00", es decir, un número de dos
 dígitos.
 
-
 @predefined
 @funindex \label
 @code{\label},
@@ -1493,11 +1498,9 @@ Se pueden añadir puntos de relleno entre un elemento y su número de página:
 }
 @end lilypond
 
-
 @seealso
 Archivos de inicio:
-@file{../ly/toc-init.ly}.
-
+@file{ly/toc-init.ly}.
 
 @predefined
 @funindex \table-of-contents
@@ -1625,7 +1628,6 @@ instalar una nueva versión de LilyPond.
 Pueden verse ejemplos sencillos sobre el uso de @code{\include} en
 @rlearning{Partituras y particellas}.
 
-
 @seealso
 Manual de aprendizaje:
 @rlearning{Otras fuentes de información},
@@ -1652,7 +1654,6 @@ distintos trozos.
 Cualquiera que sea el método utilizado, la separación de la notación
 de la estructura de la partitura hará que sea más fácil cambiar la
 estructura dejando intacta la notación.
-
 
 @menu
 * Uso de las variables::
@@ -1897,15 +1898,12 @@ Referencia de la notación:
 @ref{Combinación automática de las partes},
 @ref{Inclusión de archivos de LilyPond}.
 
-
 @ignore
 @c This warning is more general than this placement implies.
 @c Rests are not merged whether or not they come from tagged sections.
 @c Should be deleted?  -td
 
-
 @knownissues
-
 Multiple rests are not merged if you create a score with more
 than one tagged section at the same place.
 
@@ -1939,6 +1937,7 @@ Manual de aprendizaje:
 
 Referencia de la notación:
 @ref{Inclusión de archivos de LilyPond}.
+
 
 @node Caracteres especiales
 @subsection Caracteres especiales
@@ -2046,7 +2045,6 @@ caracteres que da el punto de código en hexadecimal para cualquier
 carácter en el portal del Consorcio Unicode,
 @uref{http://www.unicode.org/}.
 
-
 Por ejemplo, tanto @code{\char ##x03BE} como @code{\char #958}
 insertan el carácter Unicode U+03BE, que tiene el nombre Unicode
 @qq{Letra griega Xi pequeña}.
@@ -2138,7 +2136,6 @@ Archivos instalados:
 @file{ly/text-replacements.ly}.
 
 
-
 @node Controlar la salida
 @section Controlar la salida
 @translationof Controlling output
@@ -2149,6 +2146,7 @@ Archivos instalados:
 * Formatos de salida alternativos::
 * Sustituir la tipografía de la notación::
 @end menu
+
 
 @node Extracción de fragmentos de música
 @subsection Extracción de fragmentos de música
@@ -2237,6 +2235,7 @@ c8 d b bes a g c2
 
 En música polifónica, @code{Score.skipTypesetting} afecta a todas las
 voces y pentagramas, ahorrando más tiempo incluso.
+
 
 @node Formatos de salida alternativos
 @subsection Formatos de salida alternativos
@@ -2339,6 +2338,7 @@ canales MIDI se reutilizarán.
 * Percusión en MIDI::
 * El script Articulate::
 @end menu
+
 
 @node Crear archivos MIDI
 @subsection Crear archivos MIDI
@@ -2495,15 +2495,10 @@ indicación de tempo:
 @end example
 
 En este ejemplo, el tempo se establece a 72 pulsos de negra por
-minuto.  Esta clase de especificación de tempo no puede tomar como
-argumento una figura con puntillo.  Si necesitamos una figura con
-puntillo, dividimos la nota con puntillo en figuras más pequeñas.  Por
-ejemplo, un tempo de 90 negras con puntillo por minuto se puede
-especificar como 270 corcheas por minuto:
-
-@example
-tempoWholesPerMinute = #(ly:make-moment 270 8)
-@end example
+minuto.  @code{\tempo} is actually a music command for
+setting properties during the interpretation of music: in the
+context of output definitions like a @code{\midi} block, as a matter of
+courtesy those are reinterpreted as if they were context modifications.
 
 @cindex MIDI, definiciones de contexto
 
@@ -2535,6 +2530,7 @@ dentro de un bloque de partitura definido con una instrucción
   \midi @{ @}
 @}
 @end example
+
 
 @node ¿Qué sale por el MIDI?
 @subsection ¿Qué sale por el MIDI?
@@ -2757,9 +2753,9 @@ general MIDI está limitado al intervalo desde 0.2 hasta 0.5.
   >>
   \layout {}
   \midi {
+    \tempo 2 = 72
     \context {
       \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
       midiMinimumVolume = #0.2
       midiMaximumVolume = #0.5
     }
@@ -2946,6 +2942,7 @@ Debido a que el estándar General MIDI no contiene golpes de aro
 (@emph{rim shots}), para este propósito se utiliza en su lugar el
 golpe lateral de baqueta (@emph{sidestick}).
 
+
 @node El script Articulate
 @subsection El script Articulate
 @translationof The Articulate script
@@ -3001,6 +2998,7 @@ musical en forma de texto.
 * Impresión de las expresiones musicales de Scheme::
 * Guardar los eventos musicales en un archivo::
 @end menu
+
 
 @node Impresión del código de notación de LilyPond
 @subsection Displaying LilyPond notation
@@ -3083,9 +3081,7 @@ como guiones de Python, y pueden ser muy útiles para aquellos
 investigadores que desean realizar un análisis musical o hacer
 experimientos de reproducción con LilyPond.
 
-
 @knownissues
-
 No todos los eventos musicales de lilypond están contemplados por
 @file{event-listener.ly}.  Se pretende que sea una @qq{prueba de
 concepto} bien realizada.  Si algunos eventos que quiere ver no

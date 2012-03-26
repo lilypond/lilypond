@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 61edc58d607808615f5df61a0164b4bef4d1cfd5
+    Translation of GIT committish: d11dbf277719c0179c5520154c925839d969a535
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -390,7 +390,6 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 @knownissues
-
 Los títulos (extraídos del bloque @code{\header}) se tratan como
 sistemas, así pues @code{ragged-bottom} y @code{ragged-last-bottom}
 aumentan la separación entre los títulos y el primer sistema de la
@@ -736,7 +735,6 @@ Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
 
 @knownissues
-
 Los tamaños de papel definidos explícitamente
 sobreescriben cualquier ajuste de los márgenes
 izquierdo o derecho definidos por el usuario.
@@ -786,7 +784,6 @@ oculta nada a causa de la encuadernación.  Si el tamaño del papel se
 modifica, el valor predeterminado de esta dimensión se escala de
 acuerdo con ello.  Solamente funciona con @code{two-sided} fijado al
 valor verdadero.
-
 
 @end table
 
@@ -1067,7 +1064,6 @@ adecuado, por ejemplo:
 
 @end table
 
-
 @seealso
 Archivos de inicio:
 @file{ly/titling-init.ly}.
@@ -1075,9 +1071,7 @@ Archivos de inicio:
 Fragmentos de código:
 @rlsr{Spacing}.
 
-
 @knownissues
-
 El encabezamiento de página predeterminado pone el número de página y
 el campo @code{instrument} del bloque @code{\header} sobre la misma
 línea.
@@ -1158,7 +1152,6 @@ He aquí un ejemplo de un bloque @code{\layout}:
   @}
 @}
 @end example
-
 
 @seealso
 Referencia de la notación:
@@ -1267,7 +1260,6 @@ de contexto @code{fontSize} y la propiedad de disposición
 afinar el tamaño de los pentagramas individuales.  Los tamaños de
 pentagrama individuales están en relación al tamaño global.
 
-
 @seealso
 Referencia de la notación:
 @ref{Seleccionar el tamaño de la tipografía para la notación}.
@@ -1275,9 +1267,7 @@ Referencia de la notación:
 Fragmentos de código:
 @rlsr{Spacing}.
 
-
 @knownissues
-
 @code{layout-set-staff-size} no cambia la distancia entre las líneas
 del pentagrama.
 
@@ -1387,8 +1377,6 @@ afecta sólo a la última línea de la pieza.
 @}
 @end example
 
-
-
 @cindex saltos de línea normales
 @cindex música de cuatro compases por línea
 
@@ -1415,14 +1403,12 @@ se estiren para que encajen en las páginas durante una segunda
 ejecución del proceso de formateo.  Esta posibilidad es bastante
 novedosa y difícil.  Hay más detalles disponibles en @rlsr{Spacing}.
 
-
 @predefined
 @funindex \break
 @code{\break},
 @funindex \noBreak
 @code{\noBreak}.
 @endpredefined
-
 
 @seealso
 Referencia de la notación:
@@ -1507,14 +1493,12 @@ partes del libro.
 @}
 @end example
 
-
 @predefined
 @funindex \pageBreak
 @code{\pageBreak},
 @funindex \noPageBreak
 @code{\noPageBreak}.
 @endpredefined
-
 
 @seealso
 Referencia de la notación:
@@ -1536,7 +1520,6 @@ división de páginas que haga mínimos el apretujamiento y la
 distensión, tanto horizontal como verticalmente.  A diferencia de
 @code{ly:page-turn-breaking}, no tiene un concepto de los pasos de
 página.
-
 
 @seealso
 Fragmentos de código:
@@ -1619,7 +1602,6 @@ Las instrucciones de paso de página, @code{\pageTurn},
 el nivel más elevado del código, entre las partituras y los elementos
 de marcado del nivel superior.
 
-
 @predefined
 @funindex \pageTurn
 @code{\pageTurn},
@@ -1629,14 +1611,11 @@ de marcado del nivel superior.
 @code{\allowPageTurn}.
 @endpredefined
 
-
 @seealso
 Fragmentos de código:
 @rlsr{Spacing}.
 
-
 @knownissues
-
 Sólo debería haber un grabador @code{Page_turn_engraver} dentro de una
 partitura.  Si hay más de uno, se interferirán entre sí.
 
@@ -1659,7 +1638,6 @@ de memoria, o con una gran cantidad de textos.  Se habilita utilizando:
   page-breaking = #ly:minimal-breaking
 @}
 @end example
-
 
 @seealso
 Fragmentos de código:
@@ -1714,7 +1692,6 @@ music = \relative c'' { c8 c c c }
   }
 }
 @end lilypond
-
 
 @seealso
 Fragmentos de código:
@@ -1806,7 +1783,6 @@ music = \relative c'' { c4 c c c }
   >>
 }
 @end lilypond
-
 
 @seealso
 Referencia de la notación:
@@ -2074,7 +2050,6 @@ los tipos específicos de líneas que no son pautas están relacionadas
 en las descripciones de contexto correspondientes en
 @rinternals{Contexts}.
 
-
 @subsubheading Propiedades del grob @code{VerticalAxisGroup}
 
 Las propiedades de @code{VerticalAxisGroup} se suelen ajustar con una
@@ -2156,7 +2131,6 @@ una cantidad de relleno mínima entre una línea de @code{Lyrics} y la
 pauta a la que no pertenece.
 @end table
 
-
 @subsubheading Propiedades del grob @code{StaffGrouper}
 
 Las propiedades de @code{StaffGrouper} se suelen ajustar con una
@@ -2187,14 +2161,15 @@ Referencia de la notación:
 @ref{Variables de espaciado de \paper verticales flexibles},
 @ref{Modificación de las listas-A}.
 
+Archivos de inicio:
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
+
 Referencia de funcionamiento interno:
 @rinternals{Contexts},
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
 
-Archivos de inicio:
-@file{ly/engraver-init.ly},
-@file{scm/define-grobs.scm}.
 
 
 @node Espaciado de pautas no agrupadas
@@ -2403,7 +2378,6 @@ la línea de letra es capaz de ampliarse mucho más de lo que es usual:
   \new Staff { c'1 }
 >>
 @end lilypond
-
 
 @seealso
 Archivos de inicio:
@@ -2660,7 +2634,6 @@ pentagramas o sistemas unos encima de otros.  Esto se evitaría pasando
 a los diferentes ajustes unos valores razonables.
 @end itemize
 
-
 @seealso
 Fragmentos de código:
 @rlsr{Spacing}.
@@ -2747,7 +2720,6 @@ c,,4^"Text"
 c4
 c''2
 @end lilypond
-
 
 @seealso
 Fragmentos de código:
@@ -2837,7 +2809,6 @@ semicorcheas al ejemplo anterior, irían seguidas por medio ACB:
 c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 @end lilypond
 
-
 En el @emph{Ensayo sobre grabado musical automatizado},
 se explicó que las
 direcciones de las plicas influyen en el espaciado
@@ -2864,8 +2835,10 @@ con los valores predeterminados y otra con correcciones exageradas:
 Está contemplada la notación proporcional; consulte
 @ref{Notación proporcional}.
 
-
 @seealso
+Ensayo sobre grabado musical automatizado:
+@ressay{Espaciado óptico}.
+
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -2875,12 +2848,7 @@ Referencia de funcionamiento interno:
 @rinternals{StaffSpacing},
 @rinternals{NonMusicalPaperColumn}.
 
-Ensayo sobre grabado musical automatizado:
-@ressay{Espaciado óptico}.
-
-
 @knownissues
-
 No existe ningún mecanismo conveniente para sobreescribir el espaciado
 manualmente.  Se puede usar el siguiente rodeo para insertar espacio
 adicional en una partitura, ajustando el valor del relleno en la
@@ -2916,7 +2884,6 @@ c16[ c c8]
 La instrucción @code{\newSpacingSection} crea un nuevo objeto
 @code{SpacingSpanner}, y de ahí que se puedan usar nuevas
 instrucciones de sobreescritura @code{\override} en dicho punto.
-
 
 @seealso
 Fragmentos de código:
@@ -2966,9 +2933,7 @@ que @code{ly:make-moment} construye una duración, por lo que @code{1
 }
 @end lilypond
 
-
 @snippets
-
 De forma predeterminada, el espaciado en los grupos de valoración
 especial depende de varios factores ajenos a la duración (como
 alteraciones, cambios de clave, etc.).  Para pasar por alto estos
@@ -3009,7 +2974,6 @@ sin tener en cuenta las claves, líneas divisorias ni notas de adorno:
 \new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
 @end lilypond
 
-
 @seealso
 Fragmentos de código:
 @rlsr{Spacing}.
@@ -3045,7 +3009,6 @@ comprobar qué tan apretado es el espaciado natural.
 El valor normal predeterminado es falso, pero si la partitura
 tiene un solo sistema, el valor predeterminado es verdadero.
 
-
 @cindex diseño de página
 @cindex página, disposición de la
 @cindex vertical, espaciado
@@ -3067,7 +3030,6 @@ ocupa su longitud horizontal natural.
   ragged-last = ##t
 @}
 @end example
-
 
 @seealso
 Fragmentos de código:
@@ -3308,7 +3270,6 @@ soluciona.
 }
 @end lilypond
 
-
 Pero si observamos con mucho cuidado podremos ver que las notas de la
 segunda mitad del 9-illo están espaciadas de forma ligeramente más
 ancha que las de la primera mitad del 9-illo.  Para asegurar una
@@ -3386,7 +3347,6 @@ siguiente muestra que hay una pequeña cantidad de espacio
   c'1
 }
 @end lilypond
-
 
 Esta cantidad de espacio preliminar es la misma ya sea después de
 una indicación de compás, una armadura o una clave.  El grabador
@@ -3477,7 +3437,6 @@ puntos de comienzo como de final, y permiten que los elementos de
 extensión se dividan entre los sistemas y las páginas.  Consulte las
 partes respectivas del manual para ver estos ajustes relacionados.
 
-
 @seealso
 Referencia de la notación:
 @ref{Área de espaciado nueva}.
@@ -3526,7 +3485,6 @@ página, establezca @code{annotate-spacing} en el bloque @code{\paper}:
 }
 @end lilypond
 
-
 @noindent
 Todas las dimensiones de disposición se muestran en espacios de
 pentagrama, independientemente de las unidades especificadas en los
@@ -3554,7 +3512,6 @@ En este caso, un @code{staff-space} equivale aproximadamente a
 @code{a6} en orientación apaisada.  Las parejas (@var{a},@var{b}) son
 intervalos, donde @var{a} es el límite inferior y @var{b} es el límite
 superior del intervalo.
-
 
 @seealso
 Referencia de la notación:
@@ -3605,6 +3562,16 @@ disposición con 10 sistemas.
 @example
 \paper @{
   system-count = #10
+@}
+@end example
+
+@item
+Forzar el número de páginas.  Por ejemplo, la asignación
+siguiente fuerza una disposición con dos páginas.
+
+@example
+\paper @{
+  page-count = #2
 @}
 @end example
 
@@ -3672,7 +3639,6 @@ bloque @code{\context} de forma que se aplique a la partitura
 completa.
 
 @end itemize
-
 
 @seealso
 Referencia de la notación:

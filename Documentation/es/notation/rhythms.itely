@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d9d8de32b213adfcaf4ff318d79c2872e470578d
+    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -141,7 +141,6 @@ líneas del pentagrama, excepto en situaciones de polifonía. Se pueden
 situar los puntillos manualmente encima o debajo de las líneas de la
 pauta; véase @ref{Dirección y posición}.
 
-
 @predefined
 @code{\autoBeamOn},
 @code{\autoBeamOff},
@@ -150,15 +149,12 @@ pauta; véase @ref{Dirección y posición}.
 @code{\dotsNeutral}.
 @endpredefined
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {alternative-breve-note.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
-
 
 @seealso
 Glosario musical:
@@ -185,9 +181,7 @@ Referencia de funcionamiento interno:
 @rinternals{Dots},
 @rinternals{DotColumn}.
 
-
 @knownissues
-
 @c Deliberately duplicated in Durations and Rests.  -gp
 No existe un límite fundamental para las duraciones de los silencios
 (tanto para el más largo como para el más corto), pero el numero de
@@ -249,16 +243,13 @@ mismo instante musical se debe hacer con @code{\tweak}.
 Para modificar la duración de las notas sin imprimir un corchete de
 grupo especial, véase @ref{Escalar las duraciones}.
 
-
 @predefined
 @code{\tupletUp},
 @code{\tupletDown},
 @code{\tupletNeutral}.
 @endpredefined
 
-
 @snippets
-
 @cindex grupos especiales, formato de
 @cindex tresillos, formato de
 
@@ -284,7 +275,6 @@ grupo especial, véase @ref{Escalar las duraciones}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
-
 @seealso
 Glosario musical:
 @rglos{triplet},
@@ -307,7 +297,6 @@ Referencia de funcionamiento interno:
 @rinternals{TupletBracket},
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
-
 
 @cindex adorno, notas de, dentro de corchetes de grupo especial
 
@@ -388,10 +377,8 @@ se puede comprimir y expandir la música:
 }
 @end lilypond
 
-
 Una aplicación de esta instrucción se encuentra en la notación
 polimétrica, véase @ref{Notación polimétrica}.
-
 
 @seealso
 Referencia de la notación:
@@ -581,7 +568,6 @@ b r4
 @endpredefined
 
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-ties-with-arpeggios.ly}
 
@@ -691,10 +677,8 @@ a4\rest d4\rest
 @end lilypond
 
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {rest-styles.ly}
-
 
 @seealso
 Glosario musical:
@@ -711,9 +695,7 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{Rest}.
 
-
 @knownissues
-
 @c Deliberately duplicated in Durations and Rests.  -gp
 No existe un límite fundamental respecto de las duraciones de los
 silencios (tanto para el más corto como para el más largo), pero el
@@ -797,7 +779,6 @@ salida, de ninguna clase.
 % This is valid input, but does nothing
 \skip 1 \skip1 \skip 1
 @end lilypond
-
 
 @seealso
 Manual de aprendizaje:
@@ -897,7 +878,6 @@ r1 | R1*17 | R1*4 |
 R2.*2 |
 @end lilypond
 
-
 @cindex texto sobre un silencio multicompás
 @cindex multicompás, silencio, adjuntar texto
 @cindex inscripción sobre un silencio multicompás
@@ -941,7 +921,6 @@ Cuando un silencio multicompás sigue inmediatamente al establecimiento
 de un compás parcial con @code{\partial}, es posible que no se emitan
 las advertencias correspondientes de comprobación de compás.
 
-
 @funindex \textLengthOn
 @funindex textLengthOn
 @funindex \textLengthOff
@@ -961,9 +940,7 @@ las advertencias correspondientes de comprobación de compás.
 @code{\expandFullBarRests}.
 @endpredefined
 
-
 @snippets
-
 @cindex eclesiásticos, silencios
 @cindex silencios eclesiásticos
 @cindex kirchenpausen
@@ -979,7 +956,6 @@ las advertencias correspondientes de comprobación de compás.
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-markup.ly}
-
 
 @seealso
 Glosario musical:
@@ -1180,7 +1156,6 @@ antes de la llamada a @code{\overrideTimeSignatureSettings}:
 }
 @end lilypond
 
-
 @cindex compás, propiedades, restaurar los valores predeterminados
 @cindex restaurar las propiedades predeterminadas del tipo de compás
 @funindex \revertTimeSignatureSettings
@@ -1254,11 +1229,9 @@ moviendo el @code{Timing_translator} y el
 @code{\defaultTimeSignature}.
 @endpredefined
 
-
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
-
 
 @seealso
 Glosario musical:
@@ -1338,9 +1311,7 @@ entrada:
 d4 g e c
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-metronome-and-rehearsal-marks-below-the-staff.ly}
 
@@ -1353,7 +1324,6 @@ d4 g e c
 {creating-metronome-marks-in-markup-mode.ly}
 
 Para ver más detalles, consulte @ref{Formatear el texto}.
-
 
 @seealso
 Glosario musical:
@@ -1435,7 +1405,6 @@ que se establece a un número negativo por parte de la instrucción
 @code{\partial}: es decir, @code{\partial 4} se traduce internamente a
 @w{@code{-4}}, con el significado de @qq{queda un valor de negra en este
 compás}.
-
 
 @seealso
 Glosario musical:
@@ -1537,7 +1506,6 @@ pautas de la partitura, aunque aparezcan en un solo contexto
 @code{\cadenzaOff}.
 @endpredefined
 
-
 @seealso
 Glosario musical:
 @rglos{cadenza}.
@@ -1561,7 +1529,6 @@ Fragmentos de código:
 @cindex página, saltos de, en música sin medida
 
 @knownissues
-
 LilyPond inserta saltos de línea y de página solamente en las barras
 de compás.  A menos que la música sin compasear acabe antes del final
 de la línea del pentagrama, tendrá que insertar barras de compás
@@ -1759,9 +1726,7 @@ Referencia de funcionamiento interno:
 @rinternals{Default_bar_line_engraver},
 @rinternals{Staff}.
 
-
 @knownissues
-
 Al usar distintos compases en paralelo, las notas que están en el
 mismo instante de tiempo se colocan en la misma posición horizontal.
 Sin embargo, las barras de compás en los distintos pentagramas harán
@@ -1808,7 +1773,6 @@ Uno de sus usos es depurar partituras complejas:
 si los compases no están completos, las ligaduras mostrarán
 exactamente cuánto le falta a cada compás.
 
-
 @seealso
 Glosario musical:
 @rglos{tie}
@@ -1827,9 +1791,7 @@ Referencia de funcionamiento interno:
 @rinternals{Completion_rest_engraver},
 @rinternals{Forbid_line_break_engraver}.
 
-
 @knownissues
-
 No todas las duraciones (sobre todo las que contienen grupos
 especiales) se pueden representar exactamente con notas normales y
 puntillos, pero el grabador @code{Completion_heads_engraver} nunca
@@ -1903,18 +1865,14 @@ rasgueado.  Esto se puede hacer con el grabador
 >>
 @end lilypond
 
-
 @predefined
 @code{\improvisationOn},
 @code{\improvisationOff}.
 @endpredefined
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {guitar-strum-rhythms.ly}
-
 
 @seealso
 Fragmentos de código:
@@ -2224,18 +2182,32 @@ ajuste @code{beatStructure} si no se reinicia @code{beamExceptions}.
 \repeat unfold 8 {c8}
 @end lilypond
 
-De un modo similar, las corcheas en compás de 3/4 se unen como un
-compás completo, de forma predeterminada.  Para unir las corcheas
-mediante barras sobre los pulsos en un compás de 3/4, reinicie
-@code{beamExceptions}.
+En el grabado de partituras tradicional, las corcheas pueden tener
+reglas de barrado especiales.  Un compás que contiene solamente
+corcheas puede llevar una sola barra.  Esta regla está controlada por
+la propiedad de contexto @code{beamWholeMeasure}:
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
-% by default we beam in (3) due to beamExceptions
-\repeat unfold 6 {a8} |
-% This will beam (1 1 1) due to beatLength
-\set Timing.beamExceptions = #'()
-\repeat unfold 6 {a8}
+% By default we beam in one
+\repeat unfold 6 { a8 }
+% We can avoid beaming in one
+\set Timing.beamWholeMeasure = ##f
+\repeat unfold 6 { a8 }
+@end lilypond
+
+En algunas ediciones de los períodos clásico y romántico, medio compás
+de corcheas se pueden unid mediante una barra incluso aunque ello
+viole la regla general (véase Gould, pág. 153).  Este comportamiento
+está controlado por la propiedad de contexto @code{beamHalfMeasure}:
+
+@lilypond[quote,verbatim,relative=2]
+\time 3/4
+% By default we avoid half-measure beams
+r4. a8 a a |
+% We can allow half-measure beams
+\set Timing.beamHalfMeasure = ##t
+r4. a8 a a |
 @end lilypond
 
 @i{@strong{Cómo funciona el barrado automático}}
@@ -2277,7 +2249,6 @@ Las reglas de barrado predefinidas están
 en el archivo @file{scm/time-signature-settings.scm}.
 
 @snippets
-
 @cindex barras, subdivisión
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -2302,7 +2273,6 @@ en el archivo @file{scm/time-signature-settings.scm}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
 
-
 @seealso
 Archivos de inicio:
 @file{scm/beam-settings.scm}.
@@ -2315,7 +2285,6 @@ Referencia de funcionamiento interno:
 @rinternals{Beam},
 @rinternals{BeamForbidEvent},
 @rinternals{beam-interface}.
-
 
 @knownissues
 Si una partitura termina mientras una barra de corchea automática no
@@ -2450,17 +2419,13 @@ f16
 g16 a]
 @end lilypond
 
-
 @predefined
 @code{\noBeam}.
 @endpredefined
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {flat-flags-and-beam-nibs.ly}
-
 
 @seealso
 Referencia de la notación:
@@ -2531,7 +2496,6 @@ mientras que las últimas cuatro fusas están a un tempo constante.
 El espaciado en la salida impresa representa las duraciones de las
 notas de una forma sólo aproximada, pero la salida MIDI es exacta.
 
-
 @predefined
 @code{\featherDurations}.
 @endpredefined
@@ -2540,9 +2504,7 @@ notas de una forma sólo aproximada, pero la salida MIDI es exacta.
 Fragmentos de código:
 @rlsr{Rhythms}.
 
-
 @knownissues
-
 La instrucción @code{\featherDurations} sólo funciona con fragmentos
 musicales muy breves, y cuando los números de la fracción son
 pequeños.
@@ -2759,7 +2721,6 @@ c4 c c c \break
 c1
 @end lilypond
 
-
 En las partituras con muchos pentagramas, una instrucción @code{\bar}
 en uno de ellos se aplica automáticamente a todos los demás.  Las
 líneas resultantes se conectan entre los distintos pentagramas de un
@@ -2779,12 +2740,10 @@ líneas resultantes se conectan entre los distintos pentagramas de un
 >>
 @end lilypond
 
-
 @cindex predeterminada, línea divisoria, cambiar
 @cindex línea divisoria predeterminada, cambiar
 
 @snippets
-
 @funindex whichBar
 @funindex defaultBarType
 @funindex \bar
@@ -2801,13 +2760,11 @@ insertadas automáticamente es @code{"|"}.  Se puede cambiar en
 cualquier momento con
 @samp{\set Timing.defaultBarType = @var{tipo de barra}}.
 
-
 @seealso
 Referencia de la notación:
 @ref{Saltos de línea},
 @ref{Repeticiones},
 @ref{Agrupar pentagramas}.
-
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -2997,7 +2954,6 @@ por ejemplo:
 imprime una advertencia si el @code{currentBarNumber} (número del
 compás actual) no es el 123 en el momento de la compilación.
 
-
 @seealso
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -3147,6 +3103,10 @@ ensayo, consulte @ref{Formatear el texto}.  Para un control más
 preciso, consulte @code{break-alignable-interface} en la sección
 @ref{Alineación de objetos}.
 
+El archivo @file{scm/translation-functions.scm} contiene las
+definiciones de @code{format-mark-numbers} y de
+@code{format-mark-letters}.  Se pueden utilizar como inspiración para
+escribir otras funciones de formateo.
 
 @seealso
 Referencia de la notación:
@@ -3154,10 +3114,8 @@ Referencia de la notación:
 @ref{Formatear el texto},
 @ref{Alineación de objetos}.
 
-Archivos de inicio: @file{scm/translation-functions.scm}
-contiene las definiciones de @code{format-mark-numbers} y de
-@code{format-mark-letters}.  Se pueden usar como inspiración para
-escribir otras funciones de formateo.
+Archivos de inicio:
+@file{scm/translation-functions.scm}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -3171,7 +3129,6 @@ Referencia de funcionamiento interno:
 @node Asuntos rítmicos especiales
 @subsection Asuntos rítmicos especiales
 @translationof Special rhythmic concerns
-
 
 @menu
 * Notas de adorno::
@@ -3305,12 +3262,9 @@ adorno se sobreescribe y luego se revierte.
 }
 @end lilypond
 
-
 @cindex plica cruzada
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {using-grace-note-slashes-with-normal-heads.ly}
 
@@ -3323,7 +3277,6 @@ adorno se sobreescribe y luego se revierte.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {positioning-grace-notes-with-floating-space.ly}
 
-
 @seealso
 Glosario musical:
 @rglos{grace notes},
@@ -3331,6 +3284,7 @@ Glosario musical:
 @rglos{appoggiatura}.
 
 Referencia de la notación:
+@ref{Escalar las duraciones},
 @ref{Barras manuales}.
 
 Archivos de inicio:
@@ -3345,9 +3299,7 @@ Referencia de funcionamiento interno:
 @rinternals{Grace_engraver},
 @rinternals{Grace_spacing_engraver}.
 
-
 @knownissues
-
 @cindex acciaccatura de varias notas
 @cindex adorno, sincronización de notas de
 
@@ -3478,7 +3430,6 @@ MyCadenza = \relative c' {
 >>
 @end lilypond
 
-
 @seealso
 Glosario musical:
 @rglos{cadenza}.
@@ -3563,7 +3514,6 @@ Como lo ilustra el ejemplo, @code{ly:make-moment n m} construye una
 duración de la fracción n/m de una redonda.  Por ejemplo,
 @code{ly:make-moment 1 8} es una duración de una corchea y
 @code{ly:make-moment 7 16} es la duración de siete semicorcheas.
-
 
 @seealso
 Referencia de la notación:

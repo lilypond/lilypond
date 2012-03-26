@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: 36c53afc9a92d7cea1a98563ef1913e764c56862
+    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -255,9 +255,7 @@ Referencia de la notación:
 @ref{Ligaduras mensurales blancas},
 @ref{Ligaduras de neumas cuadrados gregorianos}.
 
-
 @knownissues
-
 Las ligaduras necesitan un espaciado especial que aún no se ha
 desarrollado.  Como consecuencia, la mayor parte del tiempo existe una
 separación excesiva entre las ligaduras, y a menudo los cortes de
@@ -346,11 +344,11 @@ fragmento:
 Glosario musical:
 @rglos{custos}.
 
-Referencia de funcionamiento interno:
-@rinternals{Custos}.
-
 Fragmentos de código:
 @rlsr{Ancient notation}.
+
+Referencia de funcionamiento interno:
+@rinternals{Custos}.
 
 
 @node Soporte para bajo cifrado
@@ -419,10 +417,10 @@ escribir el canto, como lo demuestra el siguiente fragmento:
 }
 @end lilypond
 
-
 @seealso
 Glosario musical:
 @rglos{mensural notation}.
+
 
 @node Claves de la música mensural
 @unnumberedsubsubsec Claves de la música mensural
@@ -545,9 +543,7 @@ Glosario musical:
 Referencia de la notación:
 @ref{Clave}.
 
-
 @knownissues
-
 La clave de Sol mensural está asignada a la clave de Sol de Petrucci.
 
 
@@ -776,15 +772,12 @@ No existe un estilo particular de corchete para la notación neo-mensural ni Pet
 @c music, the default flag style should be used.
 No existen corchetes en la notación del canto gregoriano.
 
-
 @seealso
 Glosario musical:
 @rglos{mensural notation},
 @rglos{flag}.
 
-
 @knownissues
-
 La unión de los corchetes antiguos a las plicas está ligeramente
 desviada.
 @c due to a change in early 2.3.x.
@@ -838,7 +831,6 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Ancient notation}.
-
 
 @knownissues
 El glifo para el silencio de máxima en el estilo mensural es en
@@ -936,7 +928,6 @@ ficta = { \once \set suggestAccidentals = ##t }
   }
 }
 @end lilypond
-
 
 @seealso
 Referencia de funcionamiento interno:
@@ -1056,8 +1047,8 @@ Referencia de la notación:
 
 @knownissues
 El espaciado horizontal de las ligaduras es pobre.
-
 Las alteraciones accidentales pueden colisionar con las notas previas.
+
 
 @node Tipografiado del canto gregoriano
 @subsection Tipografiado del canto gregoriano
@@ -1130,7 +1121,6 @@ como lo demuestra el siguiente fragmento:
 
 @c @seealso
 @c TODO: nothing here yet ...
-
 
 
 @node Claves de canto gregoriano
@@ -1273,7 +1263,6 @@ Clave combinada de Do y Fa, estilo hufnagel
 @end lilypond
 @end multitable
 
-
 @seealso
 Glosario musical:
 @rglos{clef}.
@@ -1323,7 +1312,6 @@ respectivamente; p.ej.:
 
 @code{\override Staff.Accidental #'glyph-name-alist =
 #alteration-mensural-glyph-name-alist}
-
 
 @seealso
 Glosario musical:
@@ -1426,7 +1414,7 @@ Referencia de la notación:
 @ref{Marcas de respiración}.
 
 Archivos de inicio:
-@file{gregorian.ly}.
+@file{ly/gregorian.ly}.
 
 
 @node Articulaciones del canto gregoriano
@@ -1456,7 +1444,6 @@ notación en el estilo de la @emph{Editio Vaticana}.
 }
 @end lilypond
 
-
 @seealso
 Referencia de la notación:
 @ref{Articulaciones y ornamentos}.
@@ -1471,7 +1458,6 @@ Referencia de funcionamiento interno:
 @rinternals{Script},
 @rinternals{ScriptEvent},
 @rinternals{Script_engraver}.
-
 
 @knownissues
 Ciertas articulaciones se colocan demasiado cerca verticalmente de las
@@ -1501,7 +1487,6 @@ de @code{\augmentum a \augmentum g}.
   }
 }
 @end lilypond
-
 
 @seealso
 Referencia de la notación:
@@ -2428,7 +2413,6 @@ Están contemplados los siguientes prefijos de cabeza:
 @code{\linea}.
 @endpredefined
 
-
 Se pueden acumular los prefijos de cabeza, aunque con ciertas
 restricciones.  Por ejemplo, se pueden aplicar @code{\descendens} o
 @code{\ascendens} a una cabeza, pero no los dos a la misma cabeza.
@@ -2453,7 +2437,6 @@ Referencia de la notación:
 @ref{Ligaduras de neumas cuadrados gregorianos},
 @ref{Ligaduras mensurales blancas},
 @ref{Ligaduras}.
-
 
 @knownissues
 Cuando aparece un punto de @code{\augmentum} al final de la última
@@ -2502,7 +2485,6 @@ polifónica;
 @translationof Incipits
 
 Continuará...
-
 
 @c @seealso
 @c ... and reference to other sections ...

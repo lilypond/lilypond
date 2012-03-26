@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 6c5646b7a626dda2307272a7e178c9374243164e
+    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -27,6 +27,7 @@ Además se puede imprimir notación de bajo cifrado.
 * Bajo cifrado::
 @end menu
 
+
 @node Modo de acordes
 @subsection Modo de acordes
 @translationof Chord mode
@@ -42,6 +43,7 @@ notas.
 * Acordes más usuales::
 * Acordes extendidos y alterados::
 @end menu
+
 
 @node Panorámica del modo de acordes
 @unnumberedsubsubsec Panorámica del modo de acordes
@@ -85,7 +87,6 @@ secuencial:
 \chordmode { f2 g }
 @end lilypond
 
-
 @seealso
 Glosario musical:
 @rglos{chord}.
@@ -97,9 +98,7 @@ Referencia de la notación:
 Fragmentos de código:
 @rlsr{Chords}.
 
-
 @knownissues
-
 No se pueden usar las abreviaturas predefinidas de articulaciones y
 adornos sobre notas dentro del modo de acordes; véase
 @ref{Articulaciones y ornamentos}.
@@ -123,6 +122,7 @@ contexto de @code{Staff}:
   <c e g>2  <g' b d>
 }
 @end lilypond
+
 
 @node Acordes más usuales
 @unnumberedsubsubsec Acordes más usuales
@@ -243,7 +243,6 @@ modificador para crear una tríada mayor.
 
 @end multitable
 
-
 @seealso
 Referencia de la notación:
 @ref{Modificadores de acorde más usuales},
@@ -259,6 +258,7 @@ analizan sin producir errores ni advertencias, pero el resultado es
 impredecible.  Los acordes que no se pueden conseguir con un solo
 modificador se deben alterar en sus notas individuales como se
 describe en @ref{Acordes extendidos y alterados}.
+
 
 @node Acordes extendidos y alterados
 @unnumberedsubsubsec Acordes extendidos y alterados
@@ -396,7 +396,6 @@ de ser movida por efecto de una inversión, mediante el uso de
 Los modificadores de acorde que se pueden utilizar para producir una
 amplia variedad de acordes estándar se muestran en @ref{Modificadores de acorde más usuales}.
 
-
 @seealso
 Referencia de la notación:
 @ref{Modificadores de acorde más usuales}.
@@ -404,9 +403,7 @@ Referencia de la notación:
 Fragmentos de código:
 @rlsr{Chords}.
 
-
 @knownissues
-
 Cada nota sólo puede estar presente en el acorde una sola vez.  Lo que
 sigue produce simplemente el acorde aumentado, porque @code{5+} se
 interpreta en último lugar.
@@ -425,6 +422,7 @@ acorde.
 }
 @end lilypond
 
+
 @node Imprimir los acordes
 @subsection Imprimir los acordes
 @translationof Displaying chords
@@ -436,6 +434,7 @@ estándar como notas sobre un pentagrama.
 * Impresión de los nombres de acorde::
 * Nombres de acorde personalizados::
 @end menu
+
 
 @node Impresión de los nombres de acorde
 @unnumberedsubsubsec Impresión de los nombres de acorde
@@ -539,7 +538,6 @@ Sin Acorde).
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-
 @seealso
 Glosario musical:
 @rglos{chord}.
@@ -557,11 +555,10 @@ Referencia de funcionamiento interno:
 @rinternals{Volta_engraver},
 @rinternals{Bar_engraver}.
 
-
 @knownissues
-
 Los acordes que contienen inversiones o bajos alterados no reciben un
 nombre adecuado si se escriben usando música simultánea.
+
 
 @node Nombres de acorde personalizados
 @unnumberedsubsubsec Nombres de acorde personalizados
@@ -784,7 +781,6 @@ acorde está alterado.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
-
 @seealso
 Referencia de la notación:
 @ref{Cuadro de nombres de acordes},
@@ -801,12 +797,7 @@ Archivos instalados:
 Fragmentos de código:
 @rlsr{Chords}.
 
-@c Internals Reference:
-@c @r internals{}.
-
-
 @knownissues
-
 Los nombres de acorde se determinan a partir de las notas que están
 presentes en el mismo y de la información acerca de la estructura del
 acorde que ha podido ser introducida en @code{\chordmode}.  Si el
@@ -825,6 +816,7 @@ myChords = \relative c' {
 >>
 @end lilypond
 
+
 @node Bajo cifrado
 @subsection Bajo cifrado
 @translationof Figured bass
@@ -838,6 +830,7 @@ Se puede imprimir notación de bajo cifrado.
 * Introducir el bajo cifrado::
 * Imprimir el bajo cifrado::
 @end menu
+
 
 @node Introducción al bajo cifrado
 @unnumberedsubsubsec Introducción al bajo cifrado
@@ -889,7 +882,6 @@ propiedades estándar de marcado se pueden usar para modificar la
 impresión de las cifras.  Por ejemplo, el espaciado vertical de las
 cifras se puede ajustar con @code{baseline-skip}.
 @end ignore
-
 
 @seealso
 Glosario musical:
@@ -1079,7 +1071,6 @@ Fin de línea de continuación
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
-
 @seealso
 Fragmentos de código:
 @rlsr{Chords}.
@@ -1091,9 +1082,6 @@ Referencia de funcionamiento interno:
 @rinternals{BassFigureBracket},
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
-
-
-@c @knownissues
 
 
 @node Imprimir el bajo cifrado
@@ -1175,25 +1163,7 @@ se puede presentar encima o debajo del mismo.
 @code{\bassFigureStaffAlignmentNeutral}.
 @endpredefined
 
-
-@c @snippets
-
 @seealso
-@c Music Glossary:
-@c @rg los{}.
-@c
-@c Learning Manual:
-@c @rle arning{}.
-@c
-@c Notation Reference:
-@c @re f{}.
-@c
-@c Application Usage:
-@c @rpr ogram{}.
-@c
-@c Installed Files:
-@c @fil e{}.
-@c
 Fragmentos de código:
 @rlsr{Chords}.
 
@@ -1205,9 +1175,7 @@ Referencia de funcionamiento interno:
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
 
-
 @knownissues
-
 Para asegurar que las líneas extensoras funcionan adecuadamente, lo
 más seguro es utilizar las mismas duraciones en la línea de cifras y
 en la línea del bajo.

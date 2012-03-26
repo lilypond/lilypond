@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: d747a30573364dd6b6724cfdb18209e3a2d4ee0b
+    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -17,6 +17,7 @@
 @menu
 * Notación común para percusión::
 @end menu
+
 
 @node Notación común para percusión
 @subsection Notación común para percusión
@@ -36,6 +37,7 @@ rítmicos una melodía.
 * Notas fantasma::
 @end menu
 
+
 @node Referencias para percusión
 @unnumberedsubsubsec Referencias para percusión
 @translationof References for percussion
@@ -53,7 +55,6 @@ ritmo; esto se estudia en @ref{Mostrar los ritmos de la melodía} y
 La salida MIDI se trata en una sección aparte; véase @ref{Percusión en MIDI}.
 
 @end itemize
-
 
 @seealso
 Referencia de la notación:
@@ -122,7 +123,6 @@ Hay ciertos detalles respecto a cómo está contemplado el MIDI para los
 instrumentos de percusión; para ver los detalles consulte
 @ref{Percusión en MIDI}.
 
-
 @seealso
 Referencia de la notación:
 @ref{Percusión en MIDI},
@@ -173,9 +173,7 @@ de base satisfactoria.
 }
 @end lilypond
 
-
 @seealso
-
 Referencia de la notación:
 @ref{Repeticiones de trémolo}.
 
@@ -601,7 +599,6 @@ drumsB = {
 }
 @end lilypond
 
-
 @seealso
 Fragmentos de código:
 @rlsr{Percussion}.
@@ -647,7 +644,6 @@ en @ref{Paréntesis}.  Sin embargo, el modo por defecto
 @noindent
 Observe, además, que debe añadir acordes (paréntesis en ángulo @code{<
 >}) alrededor de cada una de las instrucciones @code{\parenthesize}.
-
 
 @seealso
 Fragmentos de código:

@@ -516,13 +516,13 @@ que muestren el aspecto que usted cree que debe tener!
 
 @divClass{column-left-top}
 @divClass{keep-bullets}
-@helpusTasks
+@helpusSimple
 
 @divEnd
 @divEnd
 
 @divClass{column-right-top}
-@helpusProjects
+@helpusAdvanced
 
 @divEnd
 

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 03ad62f748d4acd73dfdd485e2a57d2550d0bc4a
+    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -118,7 +118,6 @@ moderna de canto gregoriano.  No muestra líneas divisorias.
 
 Se pueden definir contextos nuevos de pentagrama único.  Para ver más
 detalles, consulte @ref{Definir contextos nuevos}.
-
 
 @seealso
 Glosario musical:
@@ -240,7 +239,6 @@ Se pueden definir contextos nuevos de grupo de pentagramas.  Para ver
 más detalles, consulte @ref{Definir contextos nuevos}.
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {use-square-bracket-at-the-start-of-a-staff-group.ly}
 
@@ -319,10 +317,8 @@ Se pueden definir nuevos contextos de grupos de pentagramas anidados.
 Para ver más detalles, consulte @ref{Definir contextos nuevos}.
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {nesting-staves.ly}
-
 
 @seealso
 Referencia de la notación:
@@ -340,6 +336,7 @@ Referencia de funcionamiento interno:
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
+
 
 @node Separación de sistemas
 @unnumberedsubsubsec Separación de sistemas
@@ -390,6 +387,7 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Notación de los pentagramas}.
+
 
 @node Modificación de pentagramas sueltos
 @subsection Modificación de pentagramas sueltos
@@ -712,10 +710,8 @@ sobre @code{\RemoveEmptyStaves}, consulte @ref{Ocultar pentagramas}.
 
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
-
 
 @seealso
 Glosario musical:
@@ -827,10 +823,8 @@ los pentagramas vacíos en contextos de música antigua como
 
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {removing-the-first-empty-line.ly}
-
 
 @seealso
 Glosario musical:
@@ -858,9 +852,7 @@ Referencia de funcionamiento interno:
 @rinternals{VerticalAxisGroup},
 @rinternals{Staff_symbol_engraver}.
 
-
 @knownissues
-
 La eliminación del grabador @code{Staff_symbol_engraver} también
 oculta las barras de compás.  Si se fuerza la visibilidad de la barra
 de compás, pueden ocurrir errores de formato visual.  En este caso,
@@ -875,6 +867,7 @@ grabador:
 Para ver los fallos y problemas conocidos, así como las advertencias
 asociadas con @code{\RemoveEmptyStaves}, consulte
 @ref{Cambiar los valores por omisión de los contextos}.
+
 
 @node Escritura de las particellas
 @subsection Escritura de las particellas
@@ -1059,7 +1052,6 @@ musical para declarar el cambio de instrumento:
 }
 @end lilypond
 
-
 @seealso
 Referencia de la notación:
 @ref{Variables de \paper para desplazamientos y sangrados},
@@ -1222,6 +1214,9 @@ Referencia de la notación:
 @ref{Transposición de los instrumentos},
 @ref{Uso de etiquetas}.
 
+Archivos de inicio:
+@file{scm/define-event-classes.scm}.
+
 Fragmentos de código:
 @rlsr{Staff notation}.
 
@@ -1229,10 +1224,6 @@ Referencia de funcionamiento interno:
 @rinternals{Music classes},
 @rinternals{QuoteMusic},
 @rinternals{Voice}.
-
-Archivos de inicio:
-@file{scm/define-event-classes.scm}.
-
 
 @knownissues
 Sólo el contenido de la primera voz de una instrucción
@@ -1544,7 +1535,6 @@ se pueden recolectar dentro de una definición de instrumento para su
 uso repetido, utilizando @code{\addInstrumentDefinition} que se
 descibe en @ref{Nombres de instrumentos}.
 
-
 @seealso
 Referencia de la notación:
 @ref{Citar otras voces},
@@ -1561,9 +1551,7 @@ Referencia de funcionamiento interno:
 @rinternals{CueVoice},
 @rinternals{Voice}.
 
-
 @knownissues
-
 Pueden ocurrir colisiones con los silencios si se usa
 @code{\cueDuring}, entre los contextos de @code{Voice} y de
 @code{CueVoice}.  Al usar @code{\cueDuringWithClef} o

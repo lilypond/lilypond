@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 18dda6b2f5fbea91a174b60eb22bbb73591b9b64
+    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -46,6 +46,7 @@ La siguiente tabla muestra dos sistemas estándar para imprimir los
 nombres de los acordes, junto a las notas que representan.
 
 @lilypondfile{chord-names-jazz.ly}
+
 
 @node Modificadores de acorde más usuales
 @appendixsec Modificadores de acorde más usuales
@@ -422,6 +423,7 @@ Perfect fifth, octave
 
 @end multitable
 
+
 @node Afinaciones de cuerdas predefinidas
 @appendixsec Afinaciones de cuerdas predefinidas
 @translationof Predefined string tunings
@@ -429,6 +431,7 @@ Perfect fifth, octave
 El cuadro de abajo muestra las afinaciones predefinidas de cuerdas.
 
 @lilypondfile{display-predefined-string-tunings.ly}
+
 
 @node Diagramas predefinidos de posiciones
 @appendixsec Diagramas predefinidos de posiciones
@@ -447,6 +450,7 @@ El siguiente cuadro presenta los diagramas de posiciones predefinidas
 para la mandolina.
 
 @lilypondfile{display-predefined-mandolin-fretboards.ly}
+
 
 @node Instrumentos MIDI
 @appendixsec Instrumentos MIDI
@@ -838,6 +842,7 @@ consulte @ref{Formatear el texto}.
             \doc-chars #ties
 @end lilypond
 
+
 @node Glifos de vaticana
 @unnumberedsubsec Glifos de vaticana
 @translationof Vaticana glyphs
@@ -914,6 +919,7 @@ consulte @ref{Formatear el texto}.
             \doc-chars #solesmes
 @end lilypond
 
+
 @node Glifos de la notación del canto kievano
 @unnumberedsubsec Glifos de la notación del canto kievano
 @translationof Kievan Notation glyphs
@@ -923,6 +929,7 @@ consulte @ref{Formatear el texto}.
 \markuplist \override-lines #'(word-space . 4)
 	     \doc-chars #kievan
 @end lilypond
+
 
 @node Estilos de cabezas de nota
 @appendixsec Estilos de cabezas de nota
@@ -1062,6 +1069,7 @@ se pueden adjuntar a las notas (p.ej. @samp{c\accent}).
 \new RhythmicStaff { \scriptStaff #articulations }
 @end lilypond
 
+
 @node Indicaciones de adornos
 @unnumberedsubsec Indicaciones de adornos
 @translationof Ornament scripts
@@ -1070,6 +1078,7 @@ se pueden adjuntar a las notas (p.ej. @samp{c\accent}).
 \include "script-chart.ly"
 \new RhythmicStaff { \scriptStaff #ornaments }
 @end lilypond
+
 
 @node Indicaciones de calderón
 @unnumberedsubsec Indicaciones de calderón
@@ -1080,6 +1089,7 @@ se pueden adjuntar a las notas (p.ej. @samp{c\accent}).
 \new RhythmicStaff { \scriptStaff #fermatas }
 @end lilypond
 
+
 @node Indicaciones específicas de ciertos instrumentos
 @unnumberedsubsec Indicaciones específicas de ciertos instrumentos
 @translationof Instrument-specific scripts
@@ -1089,6 +1099,7 @@ se pueden adjuntar a las notas (p.ej. @samp{c\accent}).
 \new RhythmicStaff { \scriptStaff #instrument-specific }
 @end lilypond
 
+
 @node Indicaciones de repetición
 @unnumberedsubsec Indicaciones de repetición
 @translationof Repeat sign scripts
@@ -1097,6 +1108,7 @@ se pueden adjuntar a las notas (p.ej. @samp{c\accent}).
 \include "script-chart.ly"
 \new RhythmicStaff { \scriptStaff #repeats }
 @end lilypond
+
 
 @node Indicaciones antiguas
 @unnumberedsubsec Indicaciones antiguas
@@ -1144,6 +1156,7 @@ fuente.
 * stencil (sello)::
 @end menu
 
+
 @node alist (lista-A)
 @unnumberedsubsec alist (lista-A)
 @translationof alist
@@ -1160,6 +1173,7 @@ lista-A @w{@qq{type-p-name-alist}} asocia ciertos predicadps de tipo
 forma que se pueda informar de los fallos de comprobación de tipo con
 un mensaje de consola que incluye el nombre del predicado de tipo
 esperado.
+
 
 @node callback
 @unnumberedsubsec callback
@@ -1217,7 +1231,6 @@ una ligadura.  Un conjunto de glifos con un estilo y forma uniformes
 forman una fuente tipográfica, y un conjunto de fuentes tipográficas
 que abarcan varios estilos forman un tipo.
 
-
 @seealso
 Referencia de la notación:
 @ref{Tipografías},
@@ -1270,6 +1283,7 @@ se pueden cambiar utilizando @code{\override} y @code{\revert}.
 @seealso
 Referencia de la notación:
 @ref{mutable}.
+
 
 @node interfaz
 @unnumberedsubsec interfaz
@@ -1335,6 +1349,7 @@ de los cálculos se almacenan en propiedades mutables.
 @seealso
 Referencia de la notación:
 @ref{inmutable}.
+
 
 @node output-def (definición de salida)
 @unnumberedsubsec output-def (definición de salida)
@@ -1466,6 +1481,7 @@ complejos, usados para objetos con identidades.  Si tiene acceso a las
 fuentes de LilyPond sources, encontrará más información en
 @file{lily/includes/smob.hh}.
 
+
 @node stencil (sello)
 @unnumberedsubsec stencil (sello)
 @translationof stenci
@@ -1510,6 +1526,7 @@ Referencia de funcionamiento interno:
 
 @include identifiers.tely
 
+
 @node Identificadores de modificación de contextos
 @appendixsec Identificadores de modificación de contextos
 @translationof Context modification identifiers
@@ -1519,6 +1536,7 @@ para su uso como modificaciones de contexto dentro de un
 bloque @code{\layout} o @code{\with}.
 
 @include context-mod-identifiers.tely
+
 
 @node Predicados de tipo predefinidos
 @appendixsec Predicados de tipo predefinidos

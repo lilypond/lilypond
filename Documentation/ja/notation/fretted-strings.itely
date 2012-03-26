@@ -548,7 +548,7 @@ LilyPond は、あらかじめ定義されたチューニングに対して、@c
 他のあらかじめ定義されたチューニングには、@c
 @code{guitar-open-g-tuning}, @code{mandolin-tuning} それに
 @code{banjo-open-g-tuning} があります。@c
-あらかじめ定義された弦チューニングは @file{ly/string-tuning-init.ly} の中に@c
+あらかじめ定義された弦チューニングは @file{ly/string-tunings-init.ly} の中に@c
 あります。
 
 @funindex stringTunings
@@ -674,7 +674,7 @@ LilyPond は、@code{TabStaff} の行数と自動的に算出される @code{Fre
 @ref{Scheme functions}
 
 インストールされているファイル:
-@file{ly/string-tuning-init.ly}
+@file{ly/string-tunings-init.ly}
 @file{scm/tablature.scm}
 
 コード断片集:

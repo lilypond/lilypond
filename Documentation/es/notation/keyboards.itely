@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
+    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -31,6 +31,7 @@ teclado.
 * Arpa::
 @end menu
 
+
 @node Notación común para instrumentos de teclado
 @subsection Notación común para instrumentos de teclado
 @translationof Common notation for keyboards
@@ -45,6 +46,7 @@ todos los instrumentos de teclado.
 * Líneas de cambio de pentagrama::
 * Plicas de pentagrama cruzado::
 @end menu
+
 
 @node Referencias para teclados
 @unnumberedsubsubsec Referencias para teclados
@@ -142,6 +144,7 @@ Referencia de funcionamiento interno:
 Fragmentos de código:
 @rlsr{Keyboards}.
 
+
 @node Cambiar de pentagrama manualmente
 @unnumberedsubsubsec Cambiar de pentagrama manualmente
 @translationof Changing staff manually
@@ -238,7 +241,6 @@ de extensión de pentagrama cruzado.  Las colisiones resultantes se
 pueden resolver manualmente donde sea necesario, utilizando los
 métodos descritos en la sección
 @rlearning{Arreglar notación con superposiciones}.
-
 
 @seealso
 Manual de aprendizaje:
@@ -341,7 +343,6 @@ en el pentagrama inferior:
 >>
 @end lilypond
 
-
 @seealso
 Referencia de la notación:
 @ref{Cambiar de pentagrama manualmente}.
@@ -352,9 +353,7 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{AutoChangeMusic}.
 
-
 @knownissues
-
 @cindex acordes, división entre pentagramas con \autochange
 
 Los cambios de pentagrama pueden no acabar en lugares óptimos.  Para
@@ -364,6 +363,7 @@ los cambios de pentagrama.
 Los acordes no se dividen entre los pentagramas; se asignan a un
 pentagrama en función de la primera nota nombrada dentro de la
 construcción del acorde.
+
 
 @node Líneas de cambio de pentagrama
 @unnumberedsubsubsec Líneas de cambio de pentagrama
@@ -410,7 +410,6 @@ automáticamente una línea que conecte las notas:
 @code{\showStaffSwitch},
 @code{\hideStaffSwitch}.
 @endpredefined
-
 
 @seealso
 Fragmentos de código:
@@ -476,7 +475,6 @@ Se pueden hacer acordes que cruzan los pentagramas:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
-
 @seealso
 Fragmentos de código:
 @rlsr{Keyboards}.
@@ -495,6 +493,7 @@ relacionados con el piano.
 @menu
 * Pedales de piano::
 @end menu
+
 
 @node Pedales de piano
 @unnumberedsubsubsec Pedales de piano
@@ -612,6 +611,7 @@ Esta sección se ocupa de la notación que es exclusiva del acordeón.
 * Símbolos de Discanto::
 @end menu
 
+
 @node Símbolos de Discanto
 @unnumberedsubsubsec Símbolos de Discanto
 @translationof Discant symbols
@@ -635,7 +635,6 @@ ejecución.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {accordion-discant-symbols.ly}
 
-
 @seealso
 Fragmentos de código:
 @rlsr{Keyboards}.
@@ -651,6 +650,7 @@ Esta sección trata sobre asuntos de notación específicos del arpa.
 * Referencias para notación de arpa::
 * Pedales de arpa::
 @end menu
+
 
 @node Referencias para notación de arpa
 @unnumberedsubsubsec Referencias para notación de arpa
@@ -680,6 +680,7 @@ Referencia de la notación:
 @ref{Glissando},
 @ref{Arpegio},
 @ref{Armónicos}.
+
 
 @node Pedales de arpa
 @unnumberedsubsubsec Pedales de arpa

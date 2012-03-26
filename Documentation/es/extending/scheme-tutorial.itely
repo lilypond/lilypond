@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 1f0a00b69403290b7fc7527b9ab100f95533f954
+    Translation of GIT committish: 1551dd6bf65c0236b9620ee966599f5d811d77d8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -73,7 +73,7 @@ Guile de Scheme.  Sobre casi todos los sistemas puede experimentar en
 una @qq{caja de arena} de Scheme abriendo una ventana del terminal y
 tecleando @q{guile}.  En algunos sistemas, sobre todo en Windows,
 podría necesitar ajustar la variable de entorno @code{GUILE_LOAD_PATH}
-a la carpeta @code{../usr/shr/guile/1.8} dentro de la instalación de
+a la carpeta @code{../usr/share/guile/1.8} dentro de la instalación de
 LilyPond (para conocer la ruta completa a esta carpeta, consulte
 @rlearning{Otras fuentes de información}).  Como alternativa, los
 usuarios de Windows pueden seleccionar simplemente @q{Ejecutar} del
@@ -95,7 +95,12 @@ guile>
 @end lisp
 
 Podemos introducir expresiones de Scheme en este indicador para
-experimentar con Scheme.
+experimentar con Scheme.  Si quiere usar la biblioteca readline de GNU
+para una más cómoda edición de la línea de órdenes de Scheme, consulte
+el archivo @file{ly/scheme-sandbox.ly} para más información.  Si ya ha
+activado la biblioteca readline para las sesiones de Guile
+interactivas fuera de LilyPond, debería funcionar también en el cajón
+de arena.
 
 @node Variables de Scheme
 @subsection Variables de Scheme

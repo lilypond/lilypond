@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 8770c579a7808f995af125482ad450709855a2fd
+    Translation of GIT committish: f1d318170db686e9215c391a448975d5e88fad91
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -714,8 +714,11 @@ usar para codificar tres o más voces mediante la adición de más
 separadores de barra invertida.
 
 Los contextos de voz llevan los nombres de @code{"1"}, @code{"2"},
-etc.  En cada uno de estos contextos, la dirección vertical de las
-ligaduras, plicas, matices dinámicos, etc., se ajusta de la forma
+etc. Los primeros contextos establecen las voces @emph{externas}, la
+voz aguda del contexto @code{"1"} y la voz grave del contexto
+@code{"2"}.  Las voces interiores van en los contextos @code{"3"} y
+@code{"4"}.  En cada uno de estos contextos, la dirección vertical de
+las ligaduras, plicas, matices dinámicos, etc., se ajusta de forma
 correcta.
 
 @lilypond[quote,verbatim]
@@ -839,15 +842,18 @@ las complicaciones se explicarán en secciones posteriores).
   <<  % Voice one
     { c2 aes4. bes8 }
   \\  % Voice two
-    { aes2 f4 fes }
+    {
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'ignore-collision = ##t
+      <ees, c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
+    }
   \\  % No voice three
   \\  % Voice four
     {
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
-      \once \override NoteColumn #'force-hshift = #0.5
-      des2
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |
@@ -886,16 +892,17 @@ entienda.
     }
   \\  % Voice two
     { \voiceTwoStyle
-      aes2 f4 fes
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'ignore-collision = ##t
+      <ees, c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
     }
   \\  % No Voice three (we want stems down)
   \\  % Voice four
     { \voiceThreeStyle
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
-      \once \override NoteColumn #'force-hshift = #0.5
-      des2
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |
@@ -912,7 +919,7 @@ introducir la música del primer compás en tres voces:
 \new Staff \relative c'' {
   \key aes \major
   <<
-    { c2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des }
+    { c2 aes4. bes8 } \\ { <ees, c>2 des } \\ { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
 }
@@ -937,29 +944,25 @@ Esto se hace escribiendo otro par de barras invertidas (@code{\\}).
   <<  % Voice one
     { c2 aes4. bes8 }
   \\  % Voice two
-    { aes2 f4 fes }
+    { <ees, c>2 des }
   \\  % Omit Voice three
   \\  % Voice four
-    { <ees c>2 des }
+    { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
 }
 @end lilypond
 
 @noindent
-Vemos que esto arregla la dirección de la plica, pero presenta un
-problema que se encuentra a veces con varias voces: las plicas de las
-notas en una voz pueden colisionar con las cabezas de otras voces.  Al
-disponer las notas, LilyPond permite que las notas o acordes de dos
-voces ocupen la misma columna vertical de notas teniendo en cuenta que
-las plicas están en direcciones opuestas, pero las notas de la tercera
-y cuarta voces se desplazan si es necesario para evitar la colisión
-entre las cabezas.  Esto funciona bien por lo general, pero en este
-ejemplo claramente las notas de la voz inferior no están bien
-colocadas de forma predeterminada.  LilyPond proporciona diversas
-maneras de ajustar la colocación horizontal de las notas.  Aún no
-estamos preparados para ver cómo corregir esto, así que dejaremos este
-problema aparcado hasta una sección posterior (véase la propiedad
+Vemos que esto arregla la dirección de la plica, pero la colocación
+horizontal de las notas no es la deseada.  LilyPond desplaza las notas
+interiores cuando ellas o sus plicas de otro modo colisionarían con
+las voces exteriores, pero esto no es lo más adecuado para música de
+piano.  En otras situaciones, los desplazamientos que LilyPond aplica
+pueden no eliminar las colisiones.  LilyPond aporta varias formas de
+ajustar la colocación horizontal de las notas.  Aún no estamos
+preparados para ver cómo se corrige esto, por lo que dejaremos el
+problema para una sección posterior (véase la propiedad
 @code{force-hshift} en @ref{Arreglar notación con superposiciones}).
 
 @warning{No se pueden crear letras ni objetos de extensión

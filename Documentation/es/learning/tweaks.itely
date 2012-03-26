@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 1f0a00b69403290b7fc7527b9ab100f95533f954
+    Translation of GIT committish: f1d318170db686e9215c391a448975d5e88fad91
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2995,27 +2995,26 @@ dejamos con este aspecto:
   <<
     { c2 aes4. bes8 }
     \\
-    { aes2 f4 fes }
+    { <ees, c>2 des }
     \\
-    {
-      \voiceFour
-      <ees c>2 des
-    }
+    \\
+    { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
 }
 @end lilypond
 
 @noindent
-Las dos notas inferiores del primer acorde (es decir, las que están en
-al tercera voz) no deberían separarse de la columna de notas de las dos
-notas agudas.  Para corregir esto, establecemos el valor de
-@code{force-hshift} (que es una propiedad de @code{NoteColumn}) de
-esas notas a cero.  La nota más grave del segundo acorde se sitúa
-mejor justo a la derecha de las más agudas.  Lo conseguimos
-estableciendo el valor de @code{force-hshift} de esta nota a 0.5, o
-sea, la anchura de media cabeza de nota a la derecha de la columna de
-las notas agudas.
+Es necesario que la nota interior del primer acorde (el La bemol de la
+cuarta voz) no se aparte de la columna vertical de la nota aguda.
+Para corregirlo, ajustamos a cero el valor para esta nota de
+@code{force-hshift}, que es una propiedad de @code{NoteColumn}.
+
+En el segundo acorde preferimos que el Fa esté alineado con el La y
+que la nota grave se coloque ligeramente a la derecha para evitar una
+colisión de las plicas.  Lo conseguimos ajustando el valor de
+@code{force-hshift} en la @code{NoteColumn} del Re bemol grave para
+moverlo a la derecha medio espacio de pentagrama.
 
 Presentamos a continuación el resultado final:
 
@@ -3028,14 +3027,16 @@ Presentamos a continuación el resultado final:
   <<
     { c2 aes4. bes8 }
     \\
-    { aes2 f4 fes }
-    \\
     {
-      \voiceFour
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
+      <ees, c>2
       \once \override NoteColumn #'force-hshift = #0.5
       des2
+    }
+    \\
+    \\
+    {
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |
@@ -3867,9 +3868,7 @@ inst =
 }
 @end lilypond
 
-Existen varios problemas con la salida que se superpone; los
-arreglaremos utilizando las técnicas descritas en @ref{Mover objetos}.
-Pero también haremos algo respecto a las definiciones @code{mpdolce} e
+Hagamos algo respecto a las definiciones @code{mpdolce} e
 @code{inst}.  Éstas producen la salida que deseamos, pero quizá las
 querríamos utilizar en otra pieza.  Podríamos simplemente copiarlas y
 pegarlas al principio de cada archivo, pero sería bastante molesto.
