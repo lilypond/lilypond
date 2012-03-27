@@ -633,6 +633,10 @@ def do_options ():
     global_options.information = {'program_version': ly.program_version, 'program_name': ly.program_name }
     global_options.original_dir = original_dir
 
+    if global_options.lily_output_dir:
+        global_options.lily_output_dir = os.path.expanduser (global_options.lily_output_dir)
+        global_options.include_path.insert (0, inverse_relpath (original_dir, global_options.lily_output_dir))
+
     if global_options.output_dir:
         global_options.output_dir = os.path.expanduser (global_options.output_dir)
         global_options.include_path.insert (0, inverse_relpath (original_dir, global_options.output_dir))
