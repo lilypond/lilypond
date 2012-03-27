@@ -4,9 +4,9 @@
 #(if (and #t (defined? 'set-debug-cell-accesses!))
   (set-debug-cell-accesses! 5000))
 
-\version "2.15.18"
+\version "2.15.35"
 
-#(if (not (pair? lilypond-declarations))
+#(if (not (ly:undead? lilypond-declarations))
      (ly:parser-include-string parser
 			       "\\include \"declarations-init.ly\""))
 
@@ -15,7 +15,7 @@
 %% variables
 
 #(if lilypond-declarations
-     (if (pair? lilypond-declarations)
+     (if (ly:undead? lilypond-declarations)
 	 (begin
 	   (for-each
 	    (lambda (p)
@@ -26,21 +26,23 @@
 				   (ly:output-def-clone val)
 				   val))
 		(module-add! (current-module) (car p) var)))
-	    lilypond-declarations)
+	    (ly:get-undead lilypond-declarations))
 	   (note-names-language parser default-language))
-	 (module-for-each
-	  (lambda (s v)
-	    (let ((val (variable-ref v)))
-	      (if (not (ly:lily-parser? val))
-		  (set! lilypond-declarations
-			(cons
-			 (cons*
-			  s v
-			  (if (ly:output-def? val)
-			      (ly:output-def-clone val)
-			      val))
-			 lilypond-declarations)))))
-	  (current-module))))
+	 (let ((decl '()))
+	   (module-for-each
+	    (lambda (s v)
+	      (let ((val (variable-ref v)))
+		(if (not (ly:lily-parser? val))
+		    (set! decl
+			  (cons
+			   (cons*
+			    s v
+			    (if (ly:output-def? val)
+				(ly:output-def-clone val)
+				val))
+			   decl)))))
+	    (current-module))
+	   (set! lilypond-declarations (ly:make-undead decl)))))
 
 #(ly:set-option 'old-relative #f)
 #(define toplevel-scores (list))
