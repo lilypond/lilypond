@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 6c6f97dcb49afb3aaa9480eece124d11a6c48975
+    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -72,7 +72,6 @@ aplicación a los instrumentos de viento:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing--flageolet-mark-size.ly}
 
-
 @seealso
 Referencia de la notación:
 @ref{Marcas de respiración},
@@ -112,7 +111,6 @@ de viento madera,como se describe en
 {recorder-fingering-chart.ly}
 
 @seealso
-
 Referencia de la notación:
 @ref{Diagramas de posiciones para viento madera}.
 
@@ -185,7 +183,6 @@ Se puede indicar esto mediante @code{cflat} o @code{fflat}. De forma parecida, e
 sol agudo piobaireachd se puede escribir @code{gflat} cuando aparece en música
 ligera.
 
-
 @seealso
 Fragmentos de código:
 @rlsr{Winds}.
@@ -237,7 +234,6 @@ gaita.
   \bar "|."
 }
 @end lilypond
-
 
 @seealso
 Fragmentos de código:
@@ -425,7 +421,6 @@ usuarios.
 {woodwind-diagrams-key-lists.ly}
 
 @seealso
-
 Archivos de inicio:
 @file{scm/define-woodwind-diagrams.scm},
 @file{scm/display-woodwind-diagrams.scm}.

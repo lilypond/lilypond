@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: d11dbf277719c0179c5520154c925839d969a535
+    Translation of GIT committish: a001627a9609221f05631aaf0366795ce28f8437
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -213,32 +213,27 @@ Archivos instalados:
 @unnumberedsubsubsec Fijar el tamaño del papel
 @translationof Setting paper size
 
-Existen dos funciones para cambiar el tamaño del papel:
-@code{set-default-paper-size} (establecer tamaño de página
-predeterminado) y @code{set-paper-size} (establecer tamaño de página).
-@code{set-default-paper-size} se debe poner en el ámbito del nivel
-superior, y @code{set-paper-size} se debe poner en un bloque
-@code{\paper}:
+@q{A4} es el valor predeterminado si no se establece ningún tamaño de
+página explícitamente.  Sin embargo, existen dos funciones que se
+pueden usar para modificarlo: @code{set-default-paper-size},
 
 @example
-#(set-default-paper-size "a4")
+#(set-default-paper-size "quarto")
 @end example
+
+que siempre se debe colocar en el ámbito superior, y
+@code{set-paper-size},
 
 @example
 \paper @{
-  #(set-paper-size "a4")
+  #(set-paper-size "tabloid")
 @}
 @end example
 
-@noindent
-Dentro del ámbito del nivel jerárquico superior, se puede llamar sin
-riesgo a la función @code{set-default-paper-size} desde cualquier
-lugar antes del primer bloque @code{\paper} block.  Dentro de un
-bloque @code{\paper}, el lugar más seguro para llamar a
-@code{set-paper-size} es al principio, por encima de la lista de
-declaraciones de variables.  Se explican las razones de esto en
-@ref{Escalado automático al tamaño del papel}.
+que se debe colocar siempre dentro de un bloque @code{\paper}.
 
+Si se usa la función @code{set-default-paper-size} en el ámbito
+superior jerárquico, debe ir antes de cualquier bloque @code{\paper}.
 @code{set-default-paper-size} establece el tamaño de todas las
 páginas, mientras que @code{set-paper-size} establece sólo el tamaño
 de las páginas a las que se aplica el bloque @code{\paper}.  Por
@@ -247,31 +242,48 @@ aplica el tamaño de papel a todas las páginas.  Si el bloque
 @code{\paper} está dentro de un bloque @code{\book}, entonces el
 tamaño del papel sólo se aplica a ese libro.
 
-Se encuentran disponibles los tamaños de papel más comunes, entre
-ellos @code{a4}, @code{letter}, @code{legal} y @code{11x17} (conocido
-también como tabloide). Están contemplados muchos más tamaños de papel
-de forma predeterminada.  Para ver más detalles, consulte
-@file{scm/paper.scm} y busque la definición de @code{paper-alist}.
+Cuando se usa la función @code{set-paper-size}, se debe colocar
+@emph{antes} de cualquier otra función que se utilice dentro del mismo
+bloque @code{\paper}.  Véase @ref{Escalado automático al tamaño del
+papel}.
 
-@c TODO add a new appendix for paper sizes (auto-generated) -pm
+Los tamaños de página están definidos en el archivo
+@file{scm/paper.scm}, y aunque es posible añadir tamaños
+personalizados, se sobreescribirán en las actualizaciones del software
+posteriores.
 
-@warning{El tamaño predeterminado del papel es @code{a4}.}
+@c An appendix entry exists for paper sizes but is not auto-generated
 
-Se pueden añadir tamaños adicionales editando la definición de
-@code{paper-alist} en el archivo de inicio @file{scm/paper.scm},
-aunque se sobreescribirán en la siguiente reinstalación del programa.
+Se puede usar la siguiente instrucción en el archivo para añadir un
+tamaño de página personalizado que se puede usar después con
+@code{set-default-paper-size} o con @code{set-paper-size} según
+convenga,
 
-@cindex orientación
-@cindex apaisado
-@cindex horizontal, papel
+@example
+#(set! paper-alist (cons '("mi tamaño" . (cons (* 15 in) (* 3 in))) paper-alist))
 
-Si se añade el símbolo @code{'landscape} (apaisado) como argumento a
-@code{set-default-paper-size}, las páginas se giran 90 grados y se
-establece en consonancia una mayor longitud de las líneas.
+\paper @{
+  #(set-paper-size "mi tamaño")
+@}
+@end example
+
+Se puede usar cualquiera de las unidades @code{in} (pulgadas),
+@code{cm} (centímetros) o @code{mm} (milímetros).
+
+@cindex papel, tamaño, orientación
+@cindex página, orientación de la
+@cindex papel, tamaño, apaisado
+
+Si se añade el símbolo @code{'landscape} a la función del tamaño de la
+página, el papel se gira 90 grados y se establece adecuadamente la
+anchura de las líneas.
 
 @example
 #(set-default-paper-size "a6" 'landscape)
 @end example
+
+La salida de música @emph{no} se gira, solo las dimensiones de la
+página lo hacen.
 
 @seealso
 Referencia de la notación:
