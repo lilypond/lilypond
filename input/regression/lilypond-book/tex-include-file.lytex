@@ -1,17 +1,5 @@
 \documentclass{article}
 \begin{document}
 Including a LilyPond file without any options:
-
 \lilypondfile{include2.ly}
-
-From a subdirectory:
-
-\lilypondfile{include/example.ly}
-
-Within a lilypond block:
-
-\begin{lilypond}
-  \include "include/myvar.ily"
-  \relative c'' { \myVar }
-\end{lilypond}
 \end{document}
