@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最近更新 Thu Mar  1 13:47:50 UTC 2012
+@emph{最近更新 Tue Mar 27 16:52:08 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -156,18 +156,18 @@ LilyPond --- \TITLE\
 @item
 社区
 @*
-2214
+3018
 @tab 
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">部分 (99 %)</span>
+<span style="background-color: #dfef77">部分 (98 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分 (99 %)
+部分 (98 %)
 @end ifnothtml
 @tab 
 @tab pre-GDP

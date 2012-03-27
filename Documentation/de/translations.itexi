@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Thu Mar  1 13:47:50 UTC 2012
+@emph{Zuletzt aktualisiert am Tue Mar 27 16:52:08 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -204,7 +204,7 @@ ja
 @item
 1 Scheme-Übung
 @*
-5990
+6041
 @tab Till Paala
 @tab 
 @tab 
@@ -380,7 +380,7 @@ ja
 @item
 3 Grundbegriffe
 @*
-11152
+11133
 @tab Till Paala
 @*
 Reinhold Kainhofer
@@ -399,17 +399,17 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #25fe1f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
 4 Die Ausgabe verändern
 @*
-15415
+15402
 @tab Till Paala
 @tab 
 @tab 
@@ -583,7 +583,7 @@ ja
 @item
 1.2 Rhythmus
 @*
-6327
+6330
 @tab Till Paala
 @tab 
 @tab 
@@ -610,7 +610,7 @@ ja
 @item
 1.3 Ausdrucksbezeichnungen
 @*
-1726
+1727
 @tab Till Paala
 @tab 
 @tab 
@@ -718,7 +718,7 @@ ja
 @item
 1.7 Anmerkungen
 @*
-931
+949
 @tab Till Paala
 @tab 
 @tab 
@@ -745,7 +745,7 @@ ja
 @item
 1.8 Text
 @*
-2715
+2716
 @tab Till Paala
 @tab 
 @tab 
@@ -762,11 +762,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #25fe1f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -907,7 +907,7 @@ ja
 @item
 2.5 Schlagzeug
 @*
-811
+812
 @tab Till Paala
 @tab 
 @tab 
@@ -934,7 +934,7 @@ ja
 @item
 2.6 Blasinstrumente
 @*
-319
+321
 @tab Till Paala
 @tab 
 @tab 
@@ -961,7 +961,7 @@ ja
 @item
 2.7 Notation von Akkorden
 @*
-2027
+2022
 @tab Till Paala
 @tab 
 @tab 
@@ -1096,7 +1096,7 @@ ja
 @item
 4 Abstände
 @*
-11141
+11221
 @tab Till Paala
 @tab 
 @tab 
@@ -1113,17 +1113,17 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #2cff20">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
 5 Standardeinstellungen verändern
 @*
-12669
+12706
 @tab Till Paala
 @tab 
 @tab 
@@ -1140,17 +1140,17 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #25fe1f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
 A Notationsübersicht
 @*
-2173
+2177
 @tab Till Paala
 @tab 
 @tab 
@@ -1167,11 +1167,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #40fe23">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -1233,11 +1233,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">teilweise</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+ja
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -1270,7 +1270,7 @@ ja
 @item
 1 @command{lilypond} starten
 @*
-3875
+3889
 @tab Reinhold Kainhofer
 @*
 Till Paala
@@ -1289,7 +1289,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #c0ff34">teilweise</span>
+<span style="background-color: #25fe1f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1316,11 +1316,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">teilweise</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+ja
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -1343,11 +1343,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">teilweise</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+ja
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -1362,21 +1362,21 @@ Reinhold Kainhofer
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">teilweise (92 %)</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise (92 %)
+ja
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">teilweise</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+ja
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -1556,28 +1556,28 @@ ja
 @item
 Gemeinschaft
 @*
-2214
+3018
 @tab  Till Paala
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #dfef77">teilweise (99 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise (99 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #83fe2c">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @end multitable
