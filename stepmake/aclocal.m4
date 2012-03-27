@@ -419,7 +419,7 @@ EOF
 
 	abssrcdir="`cd $srcdir; pwd`"
 	absbuilddir="`pwd`"
-	for d in 2 3 4 ; do
+	for d in 2 3 4 5 ; do
 	    for mf in `cd $srcdir ; find . -maxdepth $d -mindepth $d -name GNUmakefile`; do
 		case "$abssrcdir" in
 		    "$absbuilddir"/*)

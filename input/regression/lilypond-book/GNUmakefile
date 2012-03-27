@@ -7,6 +7,8 @@ include $(depth)/make/stepmake.make
 
 TITLE=lilypond-book Test Suite
 
+SUBDIRS=include
+
 COLLATED_FILES = $(OUT_FILES)
 
 EXTRA_DIST_FILES = include.mxl
