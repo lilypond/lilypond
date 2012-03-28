@@ -69,3 +69,34 @@ LY_DEFINE (ly_get_undead, "ly:get-undead",
   LY_ASSERT_SMOB (Undead, undead, 1);
   return Undead::unsmob (undead)->object ();
 }
+
+// '
+// These are not protected since the means of protecting them would be
+// problematic to trigger during the mark pass where the array element
+// references get set.  However, they get set only when in the mark
+// pass when checking for parsed elements that should be dead, and we
+// query and clear them immediately afterwards.  So there should be no
+// way in which the references would have become unprotected in the
+// mean time.
+
+vector<parsed_dead *> parsed_dead::elements;
+
+SCM
+parsed_dead::readout ()
+{
+  SCM result = SCM_EOL;
+  for (vsize i = 0; i < elements.size (); i++) {
+    SCM elt = elements[i]->readout_one ();
+    if (!SCM_UNBNDP (elt))
+      result = scm_cons (elt, result);
+  }
+  return result;
+}
+
+LY_DEFINE (ly_parsed_undead_list_x, "ly:parsed-undead-list!",
+	   0, 0, 0, (),
+	   "Return the list of objects that have been found live"
+	   " that should have been dead, and clear that list.")
+{
+  return parsed_dead::readout ();
+}

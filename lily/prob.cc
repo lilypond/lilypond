@@ -119,7 +119,7 @@ Prob::derived_mark () const
 SCM
 Prob::mark_smob (SCM smob)
 {
-  ASSERT_LIVE_IS_ALLOWED ();
+  ASSERT_LIVE_IS_ALLOWED (smob);
 
   Prob *system = (Prob *) SCM_CELL_WORD_1 (smob);
   scm_gc_mark (system->mutable_property_alist_);

@@ -83,6 +83,6 @@ Musicfunction::mark_smob (SCM s)
 {
   Musicfunction *p = Musicfunction::unsmob (s);
   scm_gc_mark (p->signature_);
-  ASSERT_LIVE_IS_ALLOWED ();
+  ASSERT_LIVE_IS_ALLOWED (s);
   return p->function_;
 }

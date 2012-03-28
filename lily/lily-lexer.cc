@@ -372,7 +372,7 @@ IMPLEMENT_DEFAULT_EQUAL_P (Lily_lexer);
 SCM
 Lily_lexer::mark_smob (SCM s)
 {
-  ASSERT_LIVE_IS_ALLOWED ();
+  ASSERT_LIVE_IS_ALLOWED (s);
 
   Lily_lexer *lexer = (Lily_lexer *) SCM_CELL_WORD_1 (s);
 
