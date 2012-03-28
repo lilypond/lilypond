@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 6ce46963fdcd6f6a1faaba5c57b221385a167a2b
+    Translation of GIT committish: 174bb82f659a90054bb6d337cf8298f3aee33629
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -49,6 +49,10 @@ de LilyPond.
 @ref{Desarrollo}: para colaboradores y pilotos de prueba.
 
 @item
+@ref{GSoC}: lista de proyectos para el Google Summer of Code (Verano
+del Código de Google).
+
+@item
 @ref{Autores}: las personas que han hecho a LilyPond lo que hoy es.
 
 @end itemize
@@ -78,6 +82,7 @@ de LilyPond.
 * Preste su ayuda::
 * Patrocinio::
 * Desarrollo::
+* GSoC::
 * Autores::
 * Publicaciones::
 * Noticias antiguas::
@@ -392,17 +397,19 @@ Muy pocos ejemplos mínimos superan las 10 líneas de código;
 @divEnd
 
 
-
 @node Informes de fallos
 @unnumberedsec Informes de fallos
 @translationof Bug reports
 
+@divClass{heading-center}
+Si tiene un código de entrada que produce una terminación abrupta o
+una salida defectuosa, eso es un bug.
+@divEnd
+
 @divClass{column-center-top}
 @subheading Paso 1: fallos conocidos
 
-Si tiene un código de entrada que produce una terminación abrupta o
-una salida defectuosa, eso es un bug.  Hay una lista de los fallos en
-vigor en nuestro sistema de seguimiento de fallos,
+Probablemente ya estamos al tanto de este bug.  Compruébelo aquí:
 
 @example
 @uref{http://code.google.com/p/lilypond/issues/list}
@@ -422,11 +429,10 @@ informe.}
 Si ha descubierto un fallo que no está en la lista, ayúdenos
 elaborando un informe de fallo.
 
-@warning{Sólo aceptamos informes de fallos en forma de @ref{Ejemplos
-mínimos}.  Disponemos de recursos muy limitados para tratar los
-informes de fallos, por lo que cualquier ejemplo que no sea mínimo va
-a ser rechazado.  ¡Casi todos los bugs se pueden demostrar con cuatro
-notas o menos!}
+@warning{Sólo aceptamos informes en forma de @ref{Ejemplos mínimos}.
+Disponemos de recursos muy limitados, por lo que cualquier ejemplo que
+no sea mínimo va a ser rechazado.  ¡Casi todos los bugs se pueden
+demostrar con cuatro notas o menos!}
 
 He aquí un ejemplo de un buen informe de fallo:
 
@@ -482,15 +488,17 @@ Para evitarlo, escriba:
 @divClass{column-center-bottom}
 @subheading Paso 4: Esperar respuesta
 
-Una vez que su fallo se ha enviado a la lista, nuestro Escuadrón de
-Fallos examinará el informe.  Déles un tiempo de unos 4 días, pues
+Una vez que su informe de fallo se ha enviado a la lista, nuestro
+Escuadrón de Fallos lo examinará el informe.  Quizá le pidan más
+información.  Se le avisará cuando el informe se añada al sistema de
+seguimiento de fallos.  Déles un tiempo de unos 4 días, pues
 disponemos de un número limitado de voluntarios para esta tarea.
-Puede que le pidan más información, o que añadan el informe al sistema
-de seguimiento y le comuniquen qué número se ha asignado al problema.
 
-Puede marcar el bug de forma que reciba mensajes automáticamente
-cuando se produce cualquier actividad sobre él.  Ello requiere que
-usted disponga de una cuenta en Google.
+Una vez que el fallo se ha añadido al sistema de seguimiento, puede
+comentarlo para añadirle más información.  Puede marcar el bug con una
+estrella de forma que reciba mensajes automáticamente cuando se
+produce cualquier actividad sobre él.  Ello requiere que usted
+disponga de una cuenta en Google.
 @divEnd
 
 @divClass{column-center-bottom}
@@ -869,6 +877,216 @@ están en @url{http://lilypond.org}}
 @divEnd
 
 
+
+
+@node GSoC
+@unnumberedsec GSoC
+@translationof GSoC
+
+@divClass{column-center-top}
+@subheading ¿Qué es el Google Summer of Code (Verano del Código de Google)?
+
+Citando a
+@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012, GSoC website},
+@qq{El Verano del Código de Google es un programa global que ofrece a
+estudiantes una ayuda para que escriban código con destino a proyectos
+de fuentes abiertas.  Google ha trabajado con la comunidad de Fuentes
+Abiertas para identificar proyectos interesantes y financiarlos para
+el verano próximo.}
+
+El equipo de LilyPond decidión que ésta era una excelente oportunidad
+para encontrar colaboradores nuevos, animar a los estudiantes que ya
+participan en el desarrollo de LilyPond a que se impliquen aún más, y
+por último (pero no por ello menos importante): ¡escribir buen código
+para beneficio de todos!
+
+Participamos en el GSoC como parte del proyecto GNU.  Consulte
+@uref{http://www.gnu.org/software/soc-projects/guidelines.html, GNU GSoC webpage}
+para ver más información acerca de la amnera de participar.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Nuestra lista de ideas
+
+Más abajo aparece una lista de lo proyectos que se han sugerido para
+los estudiantes del GSoC.  Si no encuentra un proyecto que le venga
+bien, ¡con toda libertad sugiera el suyo!  También es posible reducir
+el tamaño de un proyecto que le parezca demasiado grande.
+
+Requerimos que todos los estudiantes tengan un conocimiento básico de
+@code{git}, y recomendamos que todos los que soliciten participar en
+algún proyecto, excepto el último de la lista, tengan conocimientos
+básicos de notación musical.
+
+@subheading Notas de adorno
+
+Arreglar problemas con la sincronización de las notas de adorno,
+junto a toda la arquitectura subyacente (véase
+@uref{http://code.google.com/p/lilypond/issues/detail?id=34, el problema número 34 de nuestro sistema de seguimiento}).
+Las notas de adorno confunden al sistema de cuenta de tiempo de
+LilyPond porque son como ir hacia atrás en el tiempo.  Esto causa
+efectos extraños, en especial cuando un pentagrama tiene una nota de
+adorno que otro no tiene.
+
+@strong{Dificultad:} media
+
+@strong{Requisitos:} C++, MIDI
+
+@strong{Recomendado:} familiaridad con el funcionamiento interno de LilyPond
+
+@strong{Mentor(es):} Mike Solomon, Carl Sorensen
+
+@subheading MusicXML
+
+Añadir exportación completa de MusicXML y mejora de la importación,
+junto a las pruebas de comprobación de que funciona.  Dependiendo del
+tiempo disponible, implementar algunos o todos los siguientes:
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Manejo de la exportación del contenido musical básico como la
+exportación MIDI (es decir, uso de clases exportadoras dedicadas,
+derivadas de la clase translator)
+
+@item
+Construir el árbol XML del contenido musical básico, y una conexión
+desde el evento musical a la etiqueta XML
+
+@item
+Hacer que todos los grabadores de LilyPond hagan su trabajo
+
+@item
+añadir la posibilidad de enlazar cada objeto de presentación
+(básicamente cada sello o grupo de sellos) a la causa musical (así
+como a la etiqueta XML dentro del árbol XML)
+
+@item
+Añadir un @q{back-end} de salida XML, que puede después añadir la
+información de disposición para cada uno de los objetos de salida a
+las etiquetas del XML
+
+@end itemize
+@divEnd
+
+El objetivo se considerará conseguido cuando una partitura
+(previamente seleccionada) pueda importarse desde el MusicXML y
+exportada de nuevo sin ninguna pérdida de datos no intencionada.
+
+@strong{Dificultad:} media
+
+@strong{Requisitos:} MusicXML, Python, conocimiento básico de LilyPond
+
+@strong{Mentor(es):} Reinhold Kainhofer, Mike Solomon
+
+sería un buen tanto a su favor la familiaridad con otros editores de
+partituras para poder hacer pruebas cruzadas.
+
+@subheading Mejora de las ligaduras de unión y de expresión
+
+A menudo la forma predeterminada de las curvas de ligadura no es
+satisfactoria.  No están contempladas las ligaduras de unión entre
+notas enarmónicas @code{@{ dos'~ reb' @}}, las ligaduras "rotas" por
+una clave o un cambio de pauta no están bien contempladas.  El
+proyecto incluye la recolección y ordenación de ejemmplos de salida
+defectuosa, decidir sobre la salida que se desea tener y escribir el
+código correspondiente.
+
+@strong{Dificultad:} alta
+
+@strong{Requisitos:} C++, experiencia con heurística de la escritura
+
+@strong{Conocimientos recomendados:} LilyPond, sentido estético
+
+@strong{Mentor(es):} Mike Solomon
+
+@subheading Añadir una variante especial de los glifos de fuente tipográfica
+Añadir variantes para algunos glifos, como los signos de alteración,
+para líneas sobre la pauta, entre pautas, acortadas y estrechadas, así
+como una infraestructura genérica para incorporarlos.  Un ejemplo es
+la cabeza de la breve de na notación antigua, que viene en dos
+variantes, con el orificio pequeño y grande.
+
+@strong{Dificultad:} fácil
+
+@strong{Requisitos:} MetaFont, C++, buen ojo para los detalles
+
+@strong{Conocimientos recomendados:} conocimientos básicos de LilyPond
+
+@strong{Mentor(es):} Werner Lemberg
+
+@subheading Mejora del barrado
+
+Debería mejorarse el posicionamiento predeterminado de las barras de
+corchea (y figuras menores) normales, de pentagrama cruzado,
+interrumpidas y en ángulo.  El barrado debería depender del contexto y
+de las notas vecinas (véase
+@uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf, la sección 2.2}).
+Si es posible, reducir el tiempo de cálculo del barrado.
+
+@strong{Dificultad:} media
+
+@strong{Requisitos:} C++, experiencia con heurística de la escritura
+
+@strong{Conocimientos recomendados:} sentido estético
+
+@strong{Mentor(es):} Mike Solomon, Carl Sorensen
+
+@subheading Mejor soporte para la tablatura
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+afinación no monótona de las cuerdas, como en el ukelele
+
+@item
+crear un modo de entrada de tablatura (actualmente la información
+musical se introduce en términos de notación occidental convencional,
+es decir @qq{un Fa sostenido negra} y después se convierte a
+tablatura) para la transcripción de tablatura medieval para laúd
+
+@item
+implementación de funcionalidades de la tablatura moderna, como
+curvaturas de tono, pull-offs y hammer-on
+
+@item
+si está definida la forma de un diagrama de posición para un acorde
+dado, usar esta información cuando se imprime el acorde sobre la pauta
+(y no sólo imprimir la forma predeterminada del acorde)
+
+@end itemize
+@divEnd
+
+@strong{Dificultad:} fácil
+
+@strong{Requisitos:} C++
+
+@strong{Conocimientos recomendados:} familiaridad con la notación de tablatura
+
+@strong{Mentor(es):} Carl Sorensen
+
+@subheading Limpieza de diversas advertencias de compliación
+
+Limpieza de las advertencias de compilación, análisis estático del
+código, y advertencias de valgrind.  Las herramientoas de análisis
+automático del código (advertencias de @code{g++} y @code{clang}) y
+herramientas de análisis como la detección de filtraciones de memoria
+de los perfiladores de código valgrind y callgrind aportan valiosa
+información sobre posibles problemas en el código de C++.  La limpieza
+de estas advertencias nos permitiría rechazar automáticamente
+cualquier parche que introdujese más advertencias de las que hay
+actualmente.
+
+@strong{Dificultad:} media
+
+@strong{Requisitos:} C++
+
+@strong{Mentor(es):} Joe Neeman, Reinhold Kainhofer
+
+@divEnd
 
 
 @node Autores
