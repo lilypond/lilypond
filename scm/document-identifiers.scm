@@ -26,7 +26,7 @@
 	(map symbol->string
 	     (cddr (cadr (procedure-source func)))))
        (doc (procedure-documentation func))
-       (sign (object-property func 'music-function-signature))
+       (sign (ly:music-function-signature music-func))
        (type-names (map (lambda (pred)
 			  (if (pair? pred)
 			      (format #f "[~a]" (type-name (car pred)))
