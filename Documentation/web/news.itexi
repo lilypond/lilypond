@@ -2176,9 +2176,9 @@ This release has some documentation updates.
 @subsubheading Traduction de la documentation en français - @emph{25 février 2007}
 Les chapitres 1 à 4 et 6 du manuel de l'utilisateur sont désormais traduits, et
 disponibles en ligne ---
-@uref{/doc/v2.10/Documentation/user/lilypond/index.fr.html,version 2.10},
-@uref{/doc/v2.11/Documentation/user/lilypond/index.fr.html,version 2.11}.  Les
-traductions sont également incluses dans la
+@uref{http://lilypond.org/doc/v2.10/Documentation/user/lilypond/index.fr.html,version 2.10},
+@uref{http://lilypond.org/doc/v2.11/Documentation/user/lilypond/index.fr.html,version 2.11}.
+Les traductions sont également incluses dans la
 @uref{install,documentation téléchargeable}.
 @newsEnd
 
@@ -2467,8 +2467,8 @@ From now on, our GUB binary builds include support for Linux/PPC.  (@ref{Old dow
 @subsubheading Traduction du tutoriel en français.  @emph{December 13, 2006}
 Fruit du travail d'une équipe de traducteurs, le tutoriel en français est
 maintenant disponible en ligne.
-@uref{/doc/v2.10/Documentation/user/lilypond/Tutorial.fr.html,Version 2.10},
-@uref{/doc/v2.11/Documentation/user/lilypond/Tutorial.fr.html,Version 2.11}.
+@uref{http://lilypond.org/doc/v2.10/Documentation/user/lilypond/Tutorial.fr.html,Version 2.10},
+@uref{http://lilypond.org/doc/v2.11/Documentation/user/lilypond/Tutorial.fr.html,Version 2.11}.
 @newsEnd
 
 
@@ -4656,7 +4656,7 @@ More information in the
 @subsubheading January 4, 2004
 LilyPond 2.1.6 continues to improve the layout of  lyrics.  More
 information in the
-@uref{/doc/v2.1/Documentation/topdocs/out-www/NEWS.html,release
+@uref{http://lilypond.org/doc/v2.1/Documentation/topdocs/out-www/NEWS.html,release
 notes} and download @uref{install/#2.1,here}.
 @newsEnd
 

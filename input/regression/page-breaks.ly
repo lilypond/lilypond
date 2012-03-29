@@ -64,7 +64,7 @@
       }
       \with-url
       %% todo: lilypond.org/music-engraving
-      #"http://lilypond.org/web/"
+      #"http://lilypond.org/"
       \fill-line {
 	"www.lilypond.org"
       }
