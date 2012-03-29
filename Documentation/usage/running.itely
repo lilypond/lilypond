@@ -53,7 +53,7 @@ if you are unfamiliar with the command-line.
 
 @menu
 * Invoking lilypond::
-* Basic command line options for lilypond::
+* Basic command line options for LilyPond::
 * Advanced command line options for LilyPond::
 * Environment variables::
 * LilyPond in chroot jail::
@@ -122,7 +122,7 @@ options, or if the syntax is different.  Note that these are shell
 commands and have nothing to do with lilypond.
 
 
-@node Basic command line options for lilypond
+@node Basic command line options for LilyPond
 @unnumberedsubsec Basic command line options for @command{lilypond}
 
 @cindex Invoking @command{lilypond}
@@ -642,7 +642,7 @@ Safe mode will prevent many useful LilyPond snippets from being
 compiled.
 
 The @option{--jail} is an even more secure alternative, but requires
-more work to set up. See @ref{Basic command line options for lilypond}.
+more work to set up. See @ref{Basic command line options for LilyPond}.
 
 @multitable @columnfractions .33 .16 .51
 @item @code{separate-log-files}
