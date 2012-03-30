@@ -231,14 +231,15 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
       SCM type = scm_car (entry);
       entry = scm_cdr (entry);
       if (!scm_is_pair (entry))
-	continue;
+        continue;
       SCM context_prop = scm_car (entry);
-      if (scm_is_pair (context_prop)) {
-	if (tg->is_alias (scm_car (context_prop)))
-	  context_prop = scm_cdr (context_prop);
-	else
-	  continue;
-      }
+      if (scm_is_pair (context_prop))
+        {
+          if (tg->is_alias (scm_car (context_prop)))
+            context_prop = scm_cdr (context_prop);
+          else
+            continue;
+        }
 
       if (type == ly_symbol2scm ("push"))
         {
@@ -255,7 +256,7 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
       else if (type == ly_symbol2scm ("assign"))
         tg->set_property (context_prop, scm_cadr (entry));
       else if (type == ly_symbol2scm ("apply"))
-	scm_apply_1 (context_prop, tg->self_scm (), scm_cdr (entry));
+        scm_apply_1 (context_prop, tg->self_scm (), scm_cdr (entry));
     }
 }
 

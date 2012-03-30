@@ -583,7 +583,7 @@ Paper_book::systems ()
       SCM system_list = SCM_EOL;
       for (SCM p = bookparts_; scm_is_pair (p); p = scm_cdr (p))
         if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
-	  system_list = scm_cons (pbookpart->systems (), system_list);
+          system_list = scm_cons (pbookpart->systems (), system_list);
       systems_ = scm_append (scm_reverse_x (system_list, SCM_EOL));
     }
   else

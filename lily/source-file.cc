@@ -290,7 +290,7 @@ Source_file::get_counts (char const *pos_str0,
       // called in mid-character, the results are somewhat arbitrary,
       // but there is no really sane definition anyway.
       if ((*line_chars & 0xc0) == 0x80)
-	continue;
+        continue;
 
       if (*line_chars == '\t')
         (*column) = (*column / 8 + 1) * 8;

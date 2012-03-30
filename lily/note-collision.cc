@@ -356,7 +356,7 @@ check_meshing_chords (Grob *me,
           extract_grob_set (stem, "note-heads", heads);
           for (vsize i = 0; i < heads.size (); i++)
             unsmob_grob (heads[i]->get_object ("dot"))
-              ->set_property ("direction", scm_from_int (dir));
+            ->set_property ("direction", scm_from_int (dir));
         }
     }
 

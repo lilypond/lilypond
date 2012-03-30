@@ -47,17 +47,18 @@ void
 Timing_translator::initialize ()
 {
   Context *timing = unsmob_context (scm_call_2 (ly_lily_module_constant ("ly:context-find"),
-						context ()->self_scm (),
-						ly_symbol2scm ("Timing")));
+                                                context ()->self_scm (),
+                                                ly_symbol2scm ("Timing")));
   if (timing != context ())
     {
       context ()->add_alias (ly_symbol2scm ("Timing"));
 
-      if (!timing) {
-	programming_error ("Can't find Timing context template");
-	timing = context ();
-      }
-  }
+      if (!timing)
+        {
+          programming_error ("Can't find Timing context template");
+          timing = context ();
+        }
+    }
 
   SCM barnumber = timing->get_property ("currentBarNumber");
   if (!scm_is_integer (barnumber))
@@ -66,7 +67,7 @@ Timing_translator::initialize ()
   context ()->set_property ("internalBarNumber", barnumber);
 
   context ()->set_property ("timeSignatureFraction",
-			    timing->get_property ("timeSignatureFraction"));
+                            timing->get_property ("timeSignatureFraction"));
   /*
     Do not init measurePosition; this should be done from global
     context.
@@ -159,12 +160,12 @@ ADD_TRANSLATOR (Timing_translator,
                 "",
 
                 /* read */
-		"baseMoment "
+                "baseMoment "
                 "currentBarNumber "
                 "internalBarNumber "
                 "measureLength "
                 "measurePosition "
-		"timeSignatureFraction ",
+                "timeSignatureFraction ",
 
                 /* write */
                 "baseMoment "

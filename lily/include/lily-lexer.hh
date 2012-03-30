@@ -43,7 +43,7 @@ private:
   int scan_scm_id (SCM);
   int identifier_type (SCM);
   char escaped_char (char) const;
-  const char * YYText_utf8 ();
+  const char *YYText_utf8 ();
 
   Lily_parser *parser_;
   Keyword_table *keytable_;

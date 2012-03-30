@@ -529,7 +529,6 @@ get_line_configuration (vector<Grob *> const &columns,
   return ret;
 }
 
-
 #include "ly-smobs.icc"
 
 IMPLEMENT_SIMPLE_SMOBS (Simple_spacer);

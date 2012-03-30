@@ -88,10 +88,11 @@ Music_sequence::event_chord_length_callback (SCM m)
   Music *me = unsmob_music (m);
   Duration *d = unsmob_duration (me->get_property ("duration"));
   // Preset duration is used in chord repetitions.
-  if (d) {
-    Moment mom = d->get_length ();
-    return mom.smobbed_copy ();
-  }
+  if (d)
+    {
+      Moment mom = d->get_length ();
+      return mom.smobbed_copy ();
+    }
   return maximum_length (me->get_property ("elements")).smobbed_copy ();
 }
 

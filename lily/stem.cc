@@ -283,7 +283,7 @@ bool
 Stem::is_normal_stem (Grob *me)
 {
   if (!head_count (me))
-     return false;
+    return false;
 
   extract_grob_set (me, "note-heads", heads);
   SCM style = heads[0]->get_property ("style");

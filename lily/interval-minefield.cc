@@ -38,18 +38,18 @@ Interval_minefield::feasible_placements ()
   return feasible_placements_;
 }
 
-  /*
-    forbidden_intervals_ contains a vector of intervals in which
-    the beam cannot start.  it iterates through these intervals,
-    pushing feasible_placements_ epsilon over or epsilon under a
-    collision.  when this type of change happens, the loop is marked
-    as "dirty" and re-iterated.
+/*
+  forbidden_intervals_ contains a vector of intervals in which
+  the beam cannot start.  it iterates through these intervals,
+  pushing feasible_placements_ epsilon over or epsilon under a
+  collision.  when this type of change happens, the loop is marked
+  as "dirty" and re-iterated.
 
-    TODO: figure out a faster ways that this loop can happen via
-    a better search algorithm.
-  */
+  TODO: figure out a faster ways that this loop can happen via
+  a better search algorithm.
+*/
 void
-Interval_minefield::solve()
+Interval_minefield::solve ()
 {
   Real epsilon = 1.0e-10;
   bool dirty = false;
@@ -71,7 +71,7 @@ Interval_minefield::solve()
                        || feasible_widened.contains (forbidden_intervals_[i][d])
                        || feasible_widened.contains (forbidden_intervals_[i][-d]))
                 {
-                  feasible_placements_[d] = forbidden_intervals_[i][d] + d * (epsilon +  (bulk_ / 2));
+                  feasible_placements_[d] = forbidden_intervals_[i][d] + d * (epsilon + (bulk_ / 2));
                   dirty = true;
                 }
             }
