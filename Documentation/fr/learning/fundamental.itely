@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 27477ca707bc97de3c401e41e16c4fbb7fa51c18
+    Translation of GIT committish: 60c131ebfe64fbc58d77e5ca66f70c60b1f0b8b2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -701,8 +701,12 @@ traiter trois voix ou plus en ajoutant autant de séparateurs @code{\\}
 que de besoin.
 
 Les contextes @code{Voice} portent les noms @code{"1"}, @code{"2"}, etc.
-Pour chacun de ces contextes, le positionnement et l'orientation des
-liaisons, hampes, nuances, etc. est définie automatiquement.
+Les premiers contextes définissent les voix @emph{extrêmes}, la plus
+haute au contexte @code{"1"}, le plus basse au contexte @code{"2"}.  Les
+voix intermédiaires seront affectées aux contextes @code{"3"} et
+@code{"4"}.  Pour chacun de ces contextes, le positionnement et
+l'orientation des liaisons, hampes, nuances, etc. est définie
+automatiquement.
 
 @lilypond[quote,verbatim]
 \new Staff \relative c' {
@@ -823,18 +827,21 @@ les voix -- ce qui est plus compliqué sera décortiqué plus tard.
 @lilypond[quote,ragged-right]
 \new Staff \relative c'' {
   \key aes \major
-  << % Voice one
+  <<  % Voice one
     { c2 aes4. bes8 }
-  \\ % Voice two
-    { aes2 f4 fes }
-  \\ % No voice three
-  \\ % Voice four
+  \\  % Voice two
     {
       % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
+      \once \override NoteColumn #'ignore-collision = ##t
+      <ees, c>2
       \once \override NoteColumn #'force-hshift = #0.5
       des2
+    }
+  \\  % No voice three
+  \\  % Voice four
+    {
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |
@@ -866,22 +873,23 @@ tard sur le code que vous ne comprendriez pas.
 \new Staff \relative c'' {
   \key aes \major
   <<
-    { % Voice one
+    {  % Voice one
       \voiceOneStyle
       c2 aes4. bes8
     }
   \\  % Voice two
     { \voiceTwoStyle
-      aes2 f4 fes
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'ignore-collision = ##t
+      <ees, c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
     }
   \\  % No Voice three (we want stems down)
   \\  % Voice four
     { \voiceThreeStyle
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
-      \once \override NoteColumn #'force-hshift = #0.5
-      des2
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |
@@ -898,9 +906,9 @@ voix@tie{}:
 \new Staff \relative c'' {
   \key aes \major
   <<
-    { c2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des2 }
-  >>
-  <c ees aes c>1
+    { c2 aes4. bes8 } \\ { <ees, c>2 des } \\ { aes'2 f4 fes }
+  >> |
+  <c ees aes c>1 |
 }
 @end lilypond
 
@@ -922,13 +930,13 @@ supplémentaire@tie{}:
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \relative c'' {
   \key aes \major
-  << % Voice one
+  <<  % Voice one
     { c2 aes4. bes8 }
-  \\ % Voice two
-    { aes2 f4 fes   }
-  \\ % Omit Voice three
-  \\ % Voice four
-    { <ees c>2 des2 }
+  \\  % Voice two
+    { <ees, c>2 des }
+  \\  % Omit Voice three
+  \\  % Voice four
+    { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
 }
@@ -936,16 +944,12 @@ supplémentaire@tie{}:
 
 @noindent
 Cette manipulation nous permet de régler la direction des hampes, mais
-elle engendre un problème que l'on rencontre parfois avec de multiples
-voix, à savoir que les hampes d'une voix peuvent chevaucher les têtes de
-note des autres voix.  En matière de mise en forme des notes, LilyPond
-tolère que des notes ou accords appartenant à deux voix se retrouvent
-dans le même empilement de notes (@emph{note column} en anglais) si tant
-est que ces hampes vont dans des directions opposées@tie{}; néanmoins les
-notes des troisième et quatrième voix seront décalées si nécessaire pour
-éviter que les têtes ne se chevauchent.  Cela marche plutôt bien mais,
-dans notre exemple, les notes de la voix la plus basse ne sont vraiment
-pas correctement placées.  LilyPond met à notre disposition plusieurs
+le positionnement horizontal des notes n'est pas satisfaisant.  LilyPond
+décale les notes des voix intermédiaires lorsque leur tête ou leur hampe
+viendrait à chevaucher celles des voix extrêmes.  Bien entendu, ce n'est
+pas souhaitable dans le cas d'une partition pour piano.  Dans d'autres
+situations, les décalages que LilyPond applique peuvent ne pas éviter
+certaines collisions.  LilyPond met à notre disposition plusieurs
 moyens d'ajuster le positionnement horizontal des notes.  Nous ne sommes
 pas encore tout à fait prêts pour voir comment corriger cela, aussi nous
 examinerons ce problème dans un autre chapitre (voir la propriété
