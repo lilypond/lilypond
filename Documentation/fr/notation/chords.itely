@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 7a046582ce0730883f973c3ae56f2abe6c3262dc
+    Translation of GIT committish: 8afb2adf0bab372f845ff3eae30e1e950b5c63ca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -87,7 +87,6 @@ séquence musicale@tie{}:
 \chordmode { f2 g }
 @end lilypond
 
-
 @seealso
 Glossaire musicologique :
 @rglosnamed{chord,Accord}.
@@ -99,10 +98,8 @@ Manuel de notation :
 Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
 
-
 @knownissues
-
-Les racourcis d'articulation ou d'ornementation ne sont pas disponibles
+Les raccourcis d'articulation ou d'ornementation ne sont pas disponibles
 en mode accord -- voir @ref{Articulations et ornements}.
 
 Lorsque vous mélangez mode accords et mode notes dans une séquence
@@ -245,7 +242,6 @@ sert pas à créer une triade majeure.
 
 @end multitable
 
-
 @seealso
 Manuel de notation :
 @ref{Extension et altération d'accords},
@@ -253,7 +249,6 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
-
 
 @knownissues
 Un accord ne devrait comporter qu'un seul modificateur de qualité.  La
@@ -398,7 +393,6 @@ supérieure sera supprimée.  Pour l'éviter, utilisez la syntaxe
 Une table étendue des modificateurs et de leur utilisation est à
 l'annexe @ref{Modificateurs d'accord usuels}.
 
-
 @seealso
 Manuel de notation :
 @ref{Modificateurs d'accord usuels}.
@@ -406,9 +400,7 @@ Manuel de notation :
 Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
 
-
 @knownissues
-
 Aucun nom de note ne peut être indiqué deux fois dans un accord.  Ainsi,
 dans l'accord suivant, seule la quinte augmentée est prise en compte,
 parce qu'elle est indiquée en dernier@tie{}:
@@ -433,12 +425,13 @@ l'accord.
 @translationof Displaying chords
 
 Les accords peuvent se présenter aussi bien sous forme nominative que
-ceomme un empliement de notes sur une portée.
+comme un empilement de notes sur une portée.
 
 @menu
 * Impression des noms d'accord::
 * Personnalisation des noms d'accord::
 @end menu
+
 
 @node Impression des noms d'accord
 @unnumberedsubsubsec Impression des noms d'accord
@@ -507,7 +500,7 @@ l'impression d'un @emph{markup} @code{noChordSymbol}.
 
 @funindex \chords
 
-@code{\chords @{ ... @}} est un racourci de
+@code{\chords @{ ... @}} est un raccourci de
 @code{\new ChordNames @{ \chordmode @{ ... @} @}}.
 
 @lilypond[verbatim,quote,ragged-right]
@@ -539,7 +532,6 @@ l'impression d'un @emph{markup} @code{noChordSymbol}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-
 @seealso
 Glossaire musicologique :
 @rglosnamed{chord,Accord}.
@@ -556,7 +548,6 @@ Référence des propriétés internes :
 @rinternals{Chord_name_engraver},
 @rinternals{Volta_engraver},
 @rinternals{Bar_engraver}.
-
 
 @knownissues
 Un accord contenant un renversement ou dont la basse est changée ne sera
@@ -587,7 +578,6 @@ alternatif de chiffrage jazz qui a été élaboré grâce à ces même
 propriétés.  Les deux notations, Ignatzek et alternative, sont illustrés
 à l'annexe @ref{Table des noms d'accord}.
 
-
 @c TODO --  Change this so we don't have a non-verbatim example.
 @c  Make short example in docs, then move longer example to
 @c  appendix, where the length of the snippet won't matter.
@@ -599,7 +589,6 @@ permettent de définir la langue, comme vous pouvez le constater@tie{}:
 
 @lilypondfile[ragged-right]
 {chord-names-languages.ly}
-
 
 @funindex chordNameLowercaseMinor
 Nombre de carnets de chant allemands indiquent un accord mineur par
@@ -736,7 +725,6 @@ néant si la fondamentale est altérée.
 
 @end table
 
-
 @predefined
 @funindex symboles de septième majeure
 @code{\whiteTriangleMarkup},
@@ -750,7 +738,6 @@ néant si la fondamentale est altérée.
 @funindex \frenchChords
 @code{\frenchChords}.
 @endpredefined
-
 
 
 @snippets
@@ -774,7 +761,6 @@ néant si la fondamentale est altérée.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
-
 @seealso
 Manuel de notation :
 @ref{Table des noms d'accord},
@@ -791,12 +777,7 @@ Fichiers d'initialisation :
 Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
 
-@c Référence des propriétés internes :
-@c @r internals{}.
-
-
 @knownissues
-
 Les chiffrages d'accords ne sont déterminés que par la succession des
 hauteurs de notes.  En d'autres termes, les accords inversés ne sont pas
 reconnus, ni les notes ajoutées à la basse.  C'est pourquoi les accords
@@ -874,7 +855,7 @@ sous forme chiffrée.  Le contexte @code{FiguredBass} s'occupera ensuite
 de gérer les objets @code{BassFigure}.  La basse chiffrée pourra être
 attachée à un contexte @code{Staff}.
 
-L'expression @code{\figures@{ ... @}} constitue une racourci à
+L'expression @code{\figures@{ ... @}} constitue une raccourci à
 @code{\new FiguredBass @{ \figuremode @{ ... @} @}}.
 
 Bien que la gestion de la basse chiffrée ressemble beaucoup à celle
@@ -893,10 +874,10 @@ déterminé par la propriété @code{baseline-skip}.
 
 
 @seealso
-Music Glossary:
+Glossaire musicologique :
 @rglosnamed{figured bass, basse chifrée}.
 
-Morceeaux choisis :
+Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
 
 
@@ -1068,18 +1049,15 @@ Terminaison d'une prolongation
 
 @end multitable
 
-
 @predefined
 @cindex basse chiffrée, lignes d'extension
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}.
 @endpredefined
 
-
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
-
 
 @seealso
 Morceaux choisis :
@@ -1163,14 +1141,12 @@ positionner au-dessus ou en dessous de la portée.
 >>
 @end lilypond
 
-
 @predefined
 @cindex basse chiffrée, alignement
 @code{\bassFigureStaffAlignmentDown},
 @code{\bassFigureStaffAlignmentUp},
 @code{\bassFigureStaffAlignmentNeutral}.
 @endpredefined
-
 
 @seealso
 Morceaux choisis :
@@ -1183,7 +1159,6 @@ Référence des propriétés internes :
 @rinternals{BassFigureBracket},
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
-
 
 @knownissues
 Les lignes de prolongation seront correctes dès lors que notes et

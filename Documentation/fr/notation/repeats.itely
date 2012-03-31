@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
+    Translation of GIT committish: 8afb2adf0bab372f845ff3eae30e1e950b5c63ca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -52,6 +52,7 @@ Ce type permet de réaliser des trémolos sous forme de liens de croches.
 * Répétition d'un long passage::
 * Autres types de répétition::
 @end menu
+
 
 @node Répétition d'un long passage
 @subsection Répétition d'un long passage
@@ -271,7 +272,6 @@ c1
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
 
-
 @seealso
 Glossaire musicologique :
 @rglosnamed{repeat,répétition},
@@ -290,7 +290,6 @@ Référence des propriétés internes :
 @rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
-
 
 @knownissues
 @cindex reprises ambigües
@@ -419,12 +418,9 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 }
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-a-repeat-sign-at-the-beginning-of-a-piece.ly}
-
 
 @seealso
 Manuel de notation :
@@ -544,7 +540,6 @@ Une construction en accord peut se répéter à l'aide du symbole @code{q}
 génèrera une portée supplémentaire -- voir
 @rprogram{Apparition d'une portée supplémentaire}.}
 
-
 @seealso
 Manuel de notation :
 @ref{Répétition d'accords}.
@@ -571,6 +566,7 @@ trémolos.
 * Répétitions en trémolo::
 @end menu
 
+
 @node Répétitions de mesure
 @unnumberedsubsubsec Répétitions de mesure
 @translationof Percent repeats
@@ -593,7 +589,6 @@ En voici la syntaxe@tie{}:
 @example
 \repeat percent @var{nombre} @var{expression_musicale}
 @end example
-
 
 Les séquences inférieures à une mesure sont remplacées par une barre
 oblique.
@@ -630,7 +625,6 @@ différentes sont remplacées par un double symbole de pourcentage.
 @end lilypond
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {percent-repeat-counter.ly}
 
@@ -639,7 +633,6 @@ différentes sont remplacées par un double symbole de pourcentage.
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {isolated-percent-repeats.ly}
-
 
 @seealso
 Glossaire musicologique :
@@ -711,7 +704,6 @@ faudra alors laisser sans accolades@tie{}:
 \repeat tremolo 4 c'16
 @end lilypond
 
-
 @cindex trémolo, indication de
 
 @funindex tremoloFlags
@@ -730,10 +722,8 @@ c: c:
 @end lilypond
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-tremolos.ly}
-
 
 @seealso
 Morceaux choisis :

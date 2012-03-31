@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 68bf74649158e6088ff0e6c2ba746cd99dc12c97
+    Translation of GIT committish: 8afb2adf0bab372f845ff3eae30e1e950b5c63ca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -40,6 +40,7 @@ montrer le rythme d'une mélodie.
 * Notes fantômes::
 @end menu
 
+
 @node Références en matière de notation pour percussions
 @unnumberedsubsubsec Références en matière de notation pour percussions
 @translationof References for percussion
@@ -57,7 +58,6 @@ rubriques @ref{Gravure de lignes rythmiques} et
 dédiée@tie{}: @ref{MIDI et percussions}.
 
 @end itemize
-
 
 @seealso
 Manuel de notation :
@@ -125,7 +125,6 @@ leur prise en charge au niveau de la génération de fichiers MIDI@tie{};
 de plus amples informations sont disponibles à la rubrique
 @ref{MIDI et percussions}.
 
-
 @seealso
 Manuel de notation :
 @ref{MIDI et percussions},
@@ -179,9 +178,7 @@ base satisfaisante.
 }
 @end lilypond
 
-
 @seealso
-
 Manuel de notation :
 @ref{Direction et positionnement},
 @ref{Répétitions en trémolo}.
@@ -198,7 +195,6 @@ Certains instruments à percussion émettent des hauteurs, comme le
 xylophone, le vibraphone ou les timbales@tie{}; ils utilisent donc des
 portées classiques.  Cette possibilité est abordée dans d'autres parties
 du manuel.
-
 
 @seealso
 @c TODO: possibly link to an alternate section of NR 3.5, if
@@ -430,7 +426,6 @@ down = \drummode { bd4 sn bd toml8 toml }
 >>
 @end lilypond
 
-
 @snippets
 
 @c TODO: MOVE ALL THESE TO LSR!  -gp
@@ -609,7 +604,6 @@ drumsB = {
 }
 @end lilypond
 
-
 @seealso
 Morceaux choisis :
 @rlsr{Percussion}.
@@ -655,7 +649,6 @@ signes.
 @noindent
 Notez que les commandes @code{\parenthesize} obligent à ajouter des
 accords -- sous la forme @code{< >} -- autour de chaque élément.
-
 
 @seealso
 Morceaux choisis :

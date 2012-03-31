@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: fa1af0d636d61c607da284d69810f007e008f472
+    Translation of GIT committish: 8afb2adf0bab372f845ff3eae30e1e950b5c63ca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,7 +32,6 @@
 * Typographie du chant grégorien::
 * Réédition de musique ancienne::
 @end menu
-
 
 La gestion par LilyPond des formes de notation ancienne inclut des
 fonctionnalités spécifiques à la notation mensurale et au chant
@@ -66,7 +65,6 @@ concepts sont spécifiques à la notation ancienne.
 @item @ref{Divisions},
 @item @ref{Ligatures}.
 @end itemize
-
 
 @seealso
 Glossaire musicologique :
@@ -249,10 +247,10 @@ le graveur de ligature qui convient -- voir les rubriques
 ce sujet. 
 
 @seealso
-Music Glossary:
+Glossaire musicologique :
 @rglos{ligature}.
 
-Notation Reference:
+Manuel de notation :
 @ref{Ligatures mensurales},
 @ref{Neumes et ligatures grégoriennes}.
 
@@ -423,7 +421,6 @@ lancer dans la saisie de votre chant comme ci-après@tie{}:
 }
 @end lilypond
 
-
 @seealso
 Glossaire musicologique :
 @rglos{mensural notation}.
@@ -559,7 +556,6 @@ Glossaire musicologique :
 Manuel de notation :
 @ref{Clefs}.
 
-
 @knownissues
 La clé de sol mensurale est calquée sur celle de Petrucci.
 
@@ -631,7 +627,6 @@ de certaines éditions du XVIe siècle.
 
 Voici les différences entre les styles :
 
-
 @lilypond[ragged-right,fragment,relative=1,quote]
 {
   \textLengthOn
@@ -659,14 +654,12 @@ Voici les différences entre les styles :
 La rubrique @ref{Métrique} expose les principes généraux sur
 l'utilisation des indications de métrique. 
 
-
 @seealso
 Glossaire musicologique :
 @rglos{mensural notation}.
 
 Manuel de notation :
 @ref{Métrique}.
-
 
 @knownissues
 Les équivalences de durées de note ne sont pas modifiées par un
@@ -750,7 +743,6 @@ a'\longa
 La rubrique @ref{Têtes de note} présente tous les styles de notes
 disponibles.
 
-
 @seealso
 Glossaire musicologique :
 @rglos{mensural notation},
@@ -790,12 +782,10 @@ Il n'existe pas de crochet spécifique au style néo-mensural.
 
 Les crochets n'existent pas en notation grégorienne.
 
-
 @seealso
 Glossaire musicologique :
 @rglos{mensural notation},
 @rglos{flag}.
-
 
 @knownissues
 Les crochets anciens s'attachent aux hampes avec un léger décalage.
@@ -840,7 +830,6 @@ Les styles @code{mensural} et @code{neomensural} ne disposent pas des
 huitième et seizième de soupir@tie{}; LilyPond utilise dans de tels cas
 le style par défaut.
 
-
 @seealso
 Glossaire musicologique :
 @rglos{mensural notation}.
@@ -850,7 +839,6 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Ancient notation,Notations anciennes}.
-
 
 @knownissues
 En style mensural, LilyPond utilise pour un silence correspondant à une
@@ -951,7 +939,6 @@ ficta = { \once \set suggestAccidentals = ##t }
   }
 }
 @end lilypond
-
 
 @seealso
 Référence des propriétés internes :
@@ -1137,7 +1124,6 @@ lancer dans la saisie de votre chant, comme ci-dessous@tie{}:
 }
 @end lilypond
 
-
 @c @seealso
 @c TODO: nothing here yet ...
 
@@ -1280,7 +1266,6 @@ Clé combinée ut/fa, style historique Hufnagel
 @end lilypond
 @end multitable
 
-
 @seealso
 Glossaire musicologique :
 @rglos{clef}.
@@ -1329,7 +1314,6 @@ et @code{KeySignature}, comme ceci@tie{}:
 
 @code{\override Staff.Accidental #'glyph-name-alist =
 #alteration-mensural-glyph-name-alist}
-
 
 @seealso
 Glossaire musicologique :
@@ -1407,7 +1391,6 @@ pourquoi @file{gregorian-init.ly} définit aussi @code{\virgula} et
 }
 @end lilypond
 
-
 @predefined
 @funindex \virgula
 @code{\virgula},
@@ -1461,7 +1444,6 @@ spécifiquement destinées au style des éditions vaticanes.
 }
 @end lilypond
 
-
 @seealso
 Manuel de notation :
 @ref{Articulations et ornements}.
@@ -1476,7 +1458,6 @@ Référence des propriétés internes :
 @rinternals{Script},
 @rinternals{ScriptEvent},
 @rinternals{Script_engraver}.
-
 
 @knownissues
 Certaines articulations sont verticalement trop proches de leurs têtes
@@ -1505,7 +1486,6 @@ c} ou @code{\augmentum @{\virga c@}}.  Par ailleurs, l'expression
   }
 }
 @end lilypond
-
 
 @seealso
 Manuel de notation :
@@ -1696,7 +1676,6 @@ LilyPond}
 @c Because it's just used to typeset plain notes without
 @c a staff for demonstration purposes rather than something
 @c special of Gregorian chant notation.  --jr
-
 
 @item
 @b{Punctum}
@@ -2408,7 +2387,6 @@ LilyPond}
 
 @end multitable
 
-
 @predefined
 LilyPond dispose des préfixes suivants :
 @funindex \virga
@@ -2459,7 +2437,6 @@ Glossaire musicologique :
 Manuel de notation :
 @ref{Ligatures mensurales},
 @ref{Ligatures}.
-
 
 @knownissues
 Lorsqu'un @code{\augmentum} apparaît dans une ligature en fin de
@@ -2513,11 +2490,11 @@ une édition en notation moderne à partir d'une même source.
 @c use snippet Transcription-of-ancient-music-with-incipit
 @emph{En cours de rédaction}
 
-
 @seealso
 @c ... and reference to other sections ...
 Morceaux choisis:
 @rlsrnamed{Ancient notation,Notations anciennes}.
+
 
 @node Mise en forme de la musique mensurale
 @unnumberedsubsubsec Mise en forme de la musique mensurale
@@ -2530,7 +2507,6 @@ rythmique de l'original -- par exemple sans couper une syncope par
 l'apparition d'une barre -- tout en procurant l'aide que peuvent
 constituer les barres de mesure.
 
-
 @lilypondfile[verbatim,quote,texidoc]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
@@ -2539,7 +2515,6 @@ constituer les barres de mesure.
 @c outside the StaffGroup.
 @c from lsr and -user
 @c TBC
-
 
 @c @seealso
 @c ... and reference to other sections ...
@@ -2763,7 +2738,6 @@ spirLyr = \lyricmode {
 
 
 @c TBC
-
 
 @c @seealso
 @c ... and reference to other sections ...

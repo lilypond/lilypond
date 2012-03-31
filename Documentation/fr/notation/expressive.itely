@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 1ac60f7a65210612bcb5a6e508fee4986d8c2701
+    Translation of GIT committish: 8afb2adf0bab372f845ff3eae30e1e950b5c63ca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -42,6 +42,7 @@ et aborderons la manière de générer vos propres signes.
 * Nuances::
 * Personnalisation des indications de nuance::
 @end menu
+
 
 @node Articulations et ornements
 @unnumberedsubsubsec Articulations et ornements
@@ -155,7 +156,7 @@ c4->  c-.  c2-_
 
 Même si LilyPond place automatiquement ces symboles, selon les règles
 contenues dans le fichier @file{scm/script.scm}, il est possible de
-l'obliger à les positionner au-dessus ou en-dessous de la note, comme
+l'obliger à les positionner au-dessus ou en dessous de la note, comme
 indiqué au chapitre @ref{Direction et positionnement}.
 
 Les articulations sont des objets de type @code{script}@tie{}; les
@@ -415,7 +416,6 @@ avec les nuances habituelles, reportez-vous au chapitre
 
 @funindex DynamicLineSpanner
 
-
 Le positionnement vertical des nuances est géré par le
 @rinternals{DynamicLineSpanner}.
 @funindex \dynamicUp
@@ -461,7 +461,6 @@ avec ou sans extenseur, ainsi que les indications de pédale.
 @code{\dimHairpin}.
 @endpredefined
 
-
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -484,7 +483,6 @@ avec ou sans extenseur, ainsi que les indications de pédale.
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-text-and-spanner-styles-for-text-dynamics.ly}
-
 
 @seealso
 Glossaire musicologique :
@@ -620,7 +618,6 @@ moltoF = #(make-dynamic-script
 L'utilisation des fontes en mode @emph{markup} est abordée au chapitre
 @ref{Sélection de la fonte et de la taille}.
 
-
 @seealso
 Manuel de notation :
 @ref{Mise en forme du texte},
@@ -651,6 +648,7 @@ et sauts.
 * Signes de respiration::
 * Chutes et sauts::
 @end menu
+
 
 @node Liaisons d'articulation
 @unnumberedsubsubsec Liaisons d'articulation
@@ -762,11 +760,8 @@ c4( e g2)
 g4( e c2)
 @end lilypond
 
-
-
 @funindex \slurUp
 @funindex slurUp
-
 
 @predefined
 @code{\slurUp},
@@ -780,7 +775,6 @@ g4( e c2)
 @code{\slurSolid}.
 @endpredefined
 
-
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -791,7 +785,6 @@ g4( e c2)
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-slurs-with-complex-dash-structure.ly}
-
 
 @seealso
 Glossaire musicologique :
@@ -935,7 +928,6 @@ détails, référez-vous aux morceaux choisis de la section
 @code{\phrasingSlurSolid}.
 @endpredefined
 
-
 @seealso
 Manuel d'initiation :
 @rlearning{Non-imbrication des crochets et liaisons}.
@@ -980,7 +972,6 @@ LilyPond gère les @emph{divisiones}, signes utilisés en notation
 ancienne pour indiquer les respirations.  Pour de plus amples détails,
 voir @ref{Divisions}.
 
-
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -990,7 +981,6 @@ voir @ref{Divisions}.
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {inserting-a-caesura.ly}
-
 
 @seealso
 Glossaire musicologique :
@@ -1035,12 +1025,10 @@ c2-\bendAfter #-8
 Lorsque vous saisissez des chutes ou des sauts, @strong{n'oubliez pas}
 le tiret (@code{-}) qui précède la commande @code{\bendAfter}.
 
-
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adjusting-the-shape-of-falls-and-doits.ly}
-
 
 @seealso
 Glossaire musical :
@@ -1066,6 +1054,7 @@ d'aspect linéaire, tels les glissandos, arpèges et trilles.
 * Trilles::
 @end menu
 
+
 @node Glissando
 @unnumberedsubsubsec Glissando
 @translationof Glissando
@@ -1087,7 +1076,6 @@ c2\glissando c,
 Un glissando est indiqué graphiquement, par une ligne ou des
 vaguelettes -- voir @ref{Styles de ligne}.
 
-
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1095,7 +1083,6 @@ vaguelettes -- voir @ref{Styles de ligne}.
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {contemporary-glissando.ly}
-
 
 @seealso
 Glossaire musicologique :
@@ -1110,9 +1097,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{Glissando}.
 
-
 @knownissues
-
 Il n'est pas possible d'imprimer un texte (tel que @notation{gliss.})
 le long de la ligne de glissando.
 
@@ -1192,7 +1177,6 @@ Un arpège peut parfois s'écrire de manière explicite, à l'aide de
 liaisons de tenue.  Pour plus d'information, voir
 @ref{Liaisons de prolongation}.
 
-
 @predefined
 @code{\arpeggio},
 @code{\arpeggioArrowUp},
@@ -1202,7 +1186,6 @@ liaisons de tenue.  Pour plus d'information, voir
 @code{\arpeggioParenthesis}
 @code{\arpeggioParenthesisDashed}.
 @endpredefined
-
 
 @snippets
 
@@ -1214,7 +1197,6 @@ liaisons de tenue.  Pour plus d'information, voir
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
-
 
 @seealso
 Glossaire musicologique :
@@ -1232,9 +1214,7 @@ Référence des propriétés internes :
 @rinternals{Slur},
 @rinternals{PianoStaff}.
 
-
 @knownissues
-
 @cindex arpège, style parenthèse
 
 Il est impossible de mêler au même instant, dans un contexte
@@ -1260,7 +1240,6 @@ forme de parenthèse.
 
 Les trilles brefs s'indiquent comme n'importe quelle ponctuation, avec
 un simple @code{\trill}@tie{}; voir @ref{Articulations et ornements}.
-
 
 Les trilles plus longs sont délimités par @code{\startTrillSpan} et
 @code{\stopTrillSpan}@tie{}:
@@ -1344,12 +1323,10 @@ eis4\startTrillSpan fis!
 eis4\stopTrillSpan
 @end lilypond
 
-
 @predefined
 @code{\startTrillSpan},
 @code{\stopTrillSpan}.
 @endpredefined
-
 
 @seealso
 Glossaire musicologique :
