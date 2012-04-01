@@ -18,4 +18,4 @@ $(outdir)/%.png: %.ly
 	mv $(outdir)/$*.preview.png $@
 
 $(outdir)/%-small.png: $(outdir)/%.png
-	pngtopnm $< | pnmscale -w=600 | pnmtopng > $@
+	pngtopnm $< | pnmscale -w=600 | pnmtopng > $@ 2> /dev/null
