@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 1ac60f7a65210612bcb5a6e508fee4986d8c2701
+    Translation of GIT committish: 24370ed49745de7a9dd734ae5e6066b365054904
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,6 +32,7 @@ chapitres qui leur sont dédiés.  C'est le cas de la
 * Fontes::
 @end menu
 
+
 @node Ajout de texte
 @subsection Ajout de texte
 @translationof Writing text
@@ -51,6 +52,7 @@ d'informations, voir @ref{Codage du texte}.}
 * Indications textuelles::
 * Texte indépendant::
 @end menu
+
 
 @node Commentaires textuels
 @unnumberedsubsubsec Commentaires textuels
@@ -108,7 +110,6 @@ textuelles et articulations, reportez-vous au chapitre
 @code{\textLengthOff}.
 @endpredefined
 
-
 @seealso
 Manuel d'initiation :
 @rlearning{Positionnement des objets}.
@@ -124,15 +125,12 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{TextScript}.
 
-
 @cindex texte hors marges
 @cindex marges, texte qui dépasse
 @cindex texte, maintien dans les marges
 @cindex texte, maintien dans les marges
 
-
 @knownissues
-
 S'assurer que tous les éléments textuels et les paroles respectent
 les marges du document requiert des calculs relativement lourds@tie{};
 vous pouvez toutefois vous en affranchir en ajoutant
@@ -191,18 +189,13 @@ Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
 @funindex \textSpannerNeutral
 @funindex textSpannerNeutral
 
-
 @predefined
 @code{\textSpannerUp},
 @code{\textSpannerDown},
 @code{\textSpannerNeutral}.
 @endpredefined
 
-@knownissues
-LilyPond ne peut traiter qu'un seul extenseur à la fois par voix.
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {dynamics-text-spanner-postfix.ly}
 
@@ -221,6 +214,9 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{TextSpanner}.
+
+@knownissues
+LilyPond ne peut traiter qu'un seul extenseur à la fois par voix.
 
 
 @node Indications textuelles
@@ -292,9 +288,7 @@ c1 c
 c  c
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-at-the-end-of-a-line.ly}
 
@@ -303,7 +297,6 @@ c  c
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
-
 
 @seealso
 Manuel de notation :
@@ -368,7 +361,6 @@ de générer des ouvrages complets uniquement grâce à LilyPond.  Cette
 fonctionnalité, ainsi que la syntaxe appropriée, est abordée plus en
 détail au chapitre @ref{Texte avec sauts de page}.
 
-
 @funindex \markup
 @funindex markup
 @funindex \markuplist
@@ -379,12 +371,9 @@ détail au chapitre @ref{Texte avec sauts de page}.
 @code{\markuplist}.
 @endpredefined
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
-
 
 @seealso
 Manuel de notation :
@@ -415,6 +404,7 @@ forme du texte à l'aide de la syntaxe propre au mode @code{\markup}.
 * Notation musicale dans du texte formaté::
 * Texte avec sauts de page::
 @end menu
+
 
 @node Introduction au formatage de texte
 @unnumberedsubsubsec Introduction au formatage de texte
@@ -515,20 +505,17 @@ Pour une liste des différentes commandes spécifiques au mode
 @code{\markup}, consultez l'annexe @ref{Text markup commands} (en
 anglais).
 
-
 @seealso
 Manuel de notation :
 @ref{Text markup commands}.
 
-Morceaux choisis :
-@rlsrnamed{Text,Texte}.
-
 Fichiers d'initialisation :
 @file{scm/markup.scm}.
 
+Morceaux choisis :
+@rlsrnamed{Text,Texte}.
 
 @knownissues
-
 Les erreurs de syntaxe en mode @emph{markup} sont peu explicites.
 
 
@@ -701,7 +688,6 @@ Pour savoir comment personnaliser des fontes, reportez-vous au chapitre
 @funindex \larger
 @funindex larger
 
-
 @predefined
 @code{\teeny},
 @code{\tiny},
@@ -713,7 +699,6 @@ Pour savoir comment personnaliser des fontes, reportez-vous au chapitre
 @code{\larger}.
 @endpredefined
 
-
 @seealso
 Manuel de notation :
 @ref{Font},
@@ -721,14 +706,14 @@ Manuel de notation :
 @ref{Indications de reprise manuelles},
 @ref{Fontes}.
 
+Fichiers d'initialisation :
+@file{scm/define-markup-commands.scm}.
+
 Morceaux choisis :
 @rlsrnamed{Text,Texte}.
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
-
-Fichiers d'initialisation :
-@file{scm/define-markup-commands.scm}.
 
 @knownissues
 Le recours aux commandes @code{\teeny}, @code{\tiny},@code{\small},
@@ -983,7 +968,6 @@ le montre l'exemple suivant@tie{}:
 Une liste des différentes commandes permettant d'aligner du texte en
 mode @emph{markup} est disponible à l'annexe @ref{Align}.
 
-
 @seealso
 Manuel d'initiation :
 @rlearning{Déplacement d'objets}.
@@ -992,14 +976,14 @@ Manuel de notation :
 @ref{Align},
 @ref{Indications textuelles}.
 
+Fichiers d'initialisation :
+@file{scm/define-markup-commands.scm}.
+
 Morceaux choisis :
 @rlsrnamed{Text,Texte}.
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
-
-Fichiers d'initialisation :
-@file{scm/define-markup-commands.scm}.
 
 
 @node Éléments graphiques dans du texte formaté
@@ -1009,7 +993,7 @@ Fichiers d'initialisation :
 @cindex graphisme, tracé
 @cindex tracé d'objets graphiques
 @cindex graphiques, tracé d'objets
-@cindex embedding graphic objects
+@cindex intégration d'objet graphique
 @cindex objets graphiques, tracé
 
 Vous pouvez, grâce aux mode @emph{markup}, ajouter divers objets
@@ -1171,22 +1155,21 @@ c
 L'annexe @ref{Graphic} répertorie les différentes commandes en matière
 de graphisme.
 
-
 @seealso
 Manuel de notation :
 @ref{Graphic},
 @ref{Annotations éditoriales},
 @ref{Align}.
 
+Fichiers d'initialisation :
+@file{scm/define-markup-commands.scm},
+@file{scm/stencil.scm}.
+
 Morceaux choisis :
 @rlsrnamed{Text,Texte}.
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
-
-Fichiers d'initialisation :
-@file{scm/define-markup-commands.scm},
-@file{scm/stencil.scm}.
 
 
 @node Notation musicale dans du texte formaté
@@ -1306,23 +1289,22 @@ c d e f
 Les différentes commandes @emph{markup} relatives à la notation musicale
 sont répertoriées à l'annexe @ref{Music}.
 
-
 @seealso
 Manuel de notation :
 @ref{Music},
 @ref{La fonte Feta},
 @ref{Tout savoir sur les fontes}.
 
+Fichiers d'initialisation :
+@file{scm/define-markup-commands.scm},
+@file{scm/fret-diagrams.scm},
+@file{scm/harp-pedals.scm}.
+
 Morceaux choisis :
 @rlsrnamed{Text,Texte}.
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
-
-Fichiers d'initialisation :
-@file{scm/define-markup-commands.scm},
-@file{scm/fret-diagrams.scm},
-@file{scm/harp-pedals.scm}.
 
 
 @node Texte avec sauts de page
@@ -1375,30 +1357,28 @@ d'une liste d'étiquettes.
 Les différentes commandes permettant de générer des listes de lignes
 se trouve dans l'annexe @ref{Text markup list commands}.
 
-
-@seealso
-Manuel de notation :
-@ref{Text markup list commands},
-
-Morceaux choisis :
-@rlsrnamed{Text,Texte}.
-
-Manuel d'extension :
-@rextend{Définition d'une nouvelle commande de liste de markups}.
-
-Référence des propriétés internes :
-@rinternals{TextScript}.
-
-Fichiers d'initialisation :
-@file{scm/define-markup-commands.scm}.
-
-
 @funindex \markuplist
 @funindex markuplist
 
 @predefined
 @code{\markuplist}.
 @endpredefined
+
+@seealso
+Manuel de notation :
+@ref{Text markup list commands},
+
+Manuel d'extension :
+@rextend{Définition d'une nouvelle commande de liste de markups}.
+
+Fichiers d'initialisation :
+@file{scm/define-markup-commands.scm}.
+
+Morceaux choisis :
+@rlsrnamed{Text,Texte}.
+
+Référence des propriétés internes :
+@rinternals{TextScript}.
 
 
 @node Fontes
@@ -1414,6 +1394,7 @@ partition.
 * Attribution d'une fonte en particulier::
 * Choix des fontes par défaut::
 @end menu
+
 
 @node Tout savoir sur les fontes
 @unnumberedsubsubsec Tout savoir sur les fontes
@@ -1522,7 +1503,6 @@ deux prochaines parties@tie{}:
 @ref{Attribution d'une fonte en particulier}
 et @ref{Choix des fontes par défaut}.
 
-
 @seealso
 Manuel de notation :
 @ref{La fonte Feta},
@@ -1564,7 +1544,6 @@ lilypond -dshow-available-fonts toto
 @end example
 @noindent
 (quel qu'il soit, le dernier argument est obligatoire).
-
 
 @seealso
 Manuel de notation :
@@ -1614,7 +1593,6 @@ d'explications sur les fontes, relisez @ref{Tout savoir sur les fontes}.
 
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
-
 
 @seealso
 Manuel de notation :

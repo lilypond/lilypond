@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: a42aaa559b71ce5776795fa11a7e1df9110d85b7
+    Translation of GIT committish: 24370ed49745de7a9dd734ae5e6066b365054904
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -45,6 +45,7 @@ fichier source au clavier de l'ordinateur.
 * Altérations::
 * Nom des notes dans d'autres langues::
 @end menu
+
 
 @node Hauteurs avec octave absolue
 @unnumberedsubsubsec Hauteurs avec octave absolue
@@ -92,7 +93,6 @@ chaque@tie{}@code{,} baisse la note d'une octave.
 }
 @end lilypond
 
-
 @seealso
 Glossaire musicologique :
 @rglosnamed{Pitch names,Noms des notes}.
@@ -120,7 +120,6 @@ une note à la mauvaise octave@tie{}; ce genre d'erreur est difficile à
 retrouver.  Le mode d'écriture en octave relative prévient ces erreurs
 dans la mesure où elles deviennent beaucoup plus évidentes@tie{}: une
 seule erreur décale le reste de la pièce à une mauvaise octave.
-
 
 @example
 \relative @var{hauteur_de_référence} @var{expression_musicale}
@@ -234,7 +233,6 @@ bloc @code{\transpose}.
 }
 @end lilypond
 
-
 @cindex accords et octave relative
 @cindex octave relative et accords
 
@@ -276,7 +274,6 @@ et la quinte diminuée de seulement six demi-tons.
 L'une des conséquences de toutes ces règles est que la première note
 rencontrée dans un fragment balisé par @code{@w{\relative f}} sera
 interprétée tout comme si elle avait été saisie en mode absolu.
-
 
 @seealso
 Glossaire musicologique :
@@ -355,7 +352,6 @@ ceseh1 ces ceh c cih cis cisih
 
 Les micro-intervalles sont aussi exportés dans le fichier MIDI.
 
-
 @cindex altération de précaution
 @cindex altération entre parenthèses
 @cindex précaution, altération de
@@ -388,15 +384,12 @@ cis1 ~ cis ~
 cis
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
 {hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
 @lilypondfile[verbatim,quote,texidoc, doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
-
 
 @seealso
 Glossaire musicologique :
@@ -424,16 +417,13 @@ Références des propriétés internes :
 @rinternals{AccidentalCautionary},
 @rinternals{accidental-interface}.
 
-
 @cindex accidentel, quart de ton
 @cindex quart de ton
 
 @knownissues
-
 Il n'y a pas de standard universellement accepté pour noter le bémol et
 demi (qui abaisse la hauteur trois quarts de ton), le symbole de
 LilyPond n'est donc conforme à aucun standard.
-
 
 
 @node Nom des notes dans d'autres langues
@@ -534,7 +524,6 @@ linguistiques, seules ces formes abrégées ont été définies.
 a2 as e es a ases e eses
 @end lilypond
 
-
 @cindex microtonalités
 @cindex demi-dièse
 @cindex demi-bémol
@@ -575,7 +564,6 @@ musique classique occidentale au tempérament égal -- le concept de
 charge d'autres systèmes de notation, comme indiqué au chapitre
 @ref{Noms des notes et altérations non-occidentaux}.
 
-
 @seealso
 Glossaire musicologique :
 @rglosnamed{Pitch names,Nom des notes},
@@ -605,6 +593,7 @@ Cette partie traite de la manière de modifier les hauteurs de note.
 * Transformations modales::
 @end menu
 
+
 @node Vérifications d'octave
 @unnumberedsubsubsec Vérifications d'octave
 @translationof Octave checks
@@ -617,7 +606,6 @@ Cette partie traite de la manière de modifier les hauteurs de note.
 @funindex \octaveCheck
 @funindex octaveCheck
 @funindex controlpitch
-
 
 Les tests d'octave rendent la correction d'erreurs d'octave plus facile
 dans le mode d'octave @code{relative} -- un@tie{}@code{,} ou
@@ -644,7 +632,7 @@ imprimée, ayant pour syntaxe
 @code{@var{hauteur_référence}} étant spécifiée en mode absolu.  Cette
 commande vérifie que l'intervalle entre la note qui précède et
 @code{@var{hauteur_référence}} est inférieur à la quinte comme il se
-doît en mode relatif.  Dans le cas contraire, un message sera émis et la
+doit en mode relatif.  Dans le cas contraire, un message sera émis et la
 note précédente ne sera pas modifiée.  Les notes suivantes seront, par
 contre, positionnées relativement à @code{@var{hauteur_référence}}.
 
@@ -672,7 +660,6 @@ Dans les deux mesures qui suivent, les premier et troisième
   f
 }
 @end lilypond
-
 
 @seealso
 Morceaux choisis :
@@ -785,12 +772,9 @@ musiqueEnSiBemol = @{ e4 @dots{} @}
 Pour plus d'information à ce sujet, consultez
 @ref{Instruments transpositeurs}.
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
-
 
 @seealso
 Manuel de notation :
@@ -806,7 +790,6 @@ Morceaux choisis :
 Référence des propriété internes :
 @rinternals{TransposedMusic}.
 
-
 @funindex \transpose
 @funindex transpose
 @funindex \chordmode
@@ -815,7 +798,6 @@ Référence des propriété internes :
 @funindex relative
 
 @knownissues
-
 Si vous voulez utiliser en même temps @code{\transpose} et
 @code{\relative}, vous devez mettre @code{\transpose} en dehors de
 @code{\relative}, puisque @code{\relative} n'aura aucun effet sur la
@@ -870,7 +852,7 @@ Manuel de notation :
 @funindex \retrograde
 @funindex retrograde
 
-Une expression musicale peut se renverser et se presenter sous forme
+Une expression musicale peut se renverser et se présenter sous forme
 rétrograde@tie{}:
 
 @lilypond[verbatim,quote]
@@ -1053,6 +1035,7 @@ hauteurs.
 * Ambitus::
 @end menu
 
+
 @node Clefs
 @unnumberedsubsubsec Clefs
 @translationof Clef
@@ -1113,8 +1096,8 @@ c2 c
 @cindex transposition et clef
 @cindex clef et transposition
 @cindex octave et clef
-@cindex chorale, clef de tenor
-@cindex tenor, clef
+@cindex chorale, clef de ténor
+@cindex ténor, clef
 
 En ajoutant @code{_8} ou @code{^8} au nom de la clé, celle-ci est
 transposée à l'octave respectivement inférieure ou supérieure, et
@@ -1139,26 +1122,22 @@ c2 c
 @end lilypond
 
 Il existe d'autres clefs, destinées à un usage particulier.  Voir à ce
-sujet @ref{Notations anciennes}
-@c r ef{Mensural clefs}, @c r ef{Gregorian clefs},
-@ref{Tablatures par défaut} et @ref{Tablatures personnalisées}.  La
-nécessité de recourir à d'autres clefs dans le cas où la partition
-comprend des petites notes est abordée au chapitre 
+sujet @ref{Notations anciennes}, @ref{Clefs anciennes},
+@ref{Clefs grégoriennes}, @ref{Tablatures par défaut} et @ref{Tablatures
+personnalisées}.  La nécessité de recourir à d'autres clefs dans le cas
+où la partition comprend des petites notes est abordée au chapitre
 @ref{Mise en forme d'une citation} -- voir les fonctions @code{\cueClef}
 et @code{\cueDuringWithClef}.
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
-
 
 @seealso
 Manuel de notation :
 @ref{Notations anciennes},
-@c r ef{Mensural clefs},
-@c r ef{Gregorian clefs},
+@ref{Clefs anciennes},
+@ref{Clefs grégoriennes},
 @ref{Mise en forme d'une citation},
 @ref{Tablatures par défaut},
 @ref{Tablatures personnalisées}.
@@ -1247,15 +1226,12 @@ f
 fis
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
-
 
 @seealso
 Glossaire musicologique :
@@ -1311,10 +1287,8 @@ a2 b
 @end lilypond
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {ottava-text.ly}
-
 
 @seealso
 Glossaire musicologique :
@@ -1410,7 +1384,6 @@ R1
 c2 g
 @end lilypond
 
-
 @seealso
 Glossaire musicologique :
 @rglosnamed{concert pitch,tonalité de concert},
@@ -1439,7 +1412,6 @@ Morceaux choisis :
 @funindex voice
 @funindex default
 
-
 LilyPond dispose d'une fonction chargée de regrouper les règles suivant
 lesquelles s'impriment les altérations.  Elle s'invoque de la manière
 suivante@tie{}:
@@ -1463,7 +1435,7 @@ utiliser, pour que toutes les portées d'un même système -- contexte
 \accidentalStyle #'StaffGroup "voice"
 @end example
 
-Nous vous présentons ci-après les différentes régles d'altération prises
+Nous vous présentons ci-après les différentes règles d'altération prises
 en charge.  Pour les besoins de la démonstration, nous partirons de
 l'exemple suivant@tie{}:
 
@@ -1675,11 +1647,11 @@ musicB = {
 @funindex modern
 
 Cette règle est la plus courante au XXe siècle.  Certains bécarres ne
-sont pas imprimés, comme il était d'usage lorsqu'une note dièsée suit
+sont pas imprimés, comme il était d'usage lorsqu'une note diésée suit
 cette même note flanquée d'un double dièse, ou bien un bémol un double
 bémol.  Le style @code{modern} suit la même règle que le style
 @code{default}, avec deux additions afin de lever les ambiguités@tie{}:
-lorsqu'une note non-altérée apparaît à une octave différente, ou bien
+lorsqu'une note non altérée apparaît à une octave différente, ou bien
 dans la mesure suivante, des bécarres de précaution sont ajoutés.  Dans
 l'exemple suivant, notez ainsi les deux bécarres dans la deuxième mesure
 de la main droite.
@@ -1798,7 +1770,7 @@ musicB = {
 @cindex @emph{modern}, style d'altération
 @cindex style d'altération @emph{modern}
 @cindex altérations multivoix
-@cindex modern accidental style
+@cindex style d'altération @emph{modern accidental}
 @cindex voix multiples et altérations
 @cindex multivoix, altérations
 
@@ -1863,11 +1835,11 @@ musicB = {
 @item modern-voice-cautionary
 
 @cindex altération de précaution style @emph{modern voice}
-@cindex @emph{modern voice}, styme d'altération de précaution
+@cindex @emph{modern voice}, style d'altération de précaution
 
 @funindex modern-voice-cautionary
 
-Cette régle est similaire à la précédente, mais les altérations de
+Cette règle est similaire à la précédente, mais les altérations de
 précaution (celles que n'aurait pas ajoutées @code{voice}), sont
 imprimées de façon particulière.  On retrouve donc toutes les
 altérations qu'imprimerait @code{default}, mais certaines sont
@@ -2047,7 +2019,7 @@ musicB = {
 @funindex neo-modern
 
 Cette règle suit les pratiques de la musique contemporaine@tie{}: les
-altérations accidentelles apparaîssent comme dans le style
+altérations accidentelles apparaissent comme dans le style
 @code{modern}, à ceci près qu'elles sont répétées dans la même mesure --
 sauf si elles concernent deux notes consécutives.
 
@@ -2160,7 +2132,6 @@ musicB = {
 @cindex @emph{neo-modern-voice}, style d'altération
 @cindex style d'altération @emph{neo-modern-voice}
 @cindex altérations multivoix
-@cindex neo-modern-voice accidental style
 @cindex voix multiples et altérations
 @cindex multivoix, altérations
 
@@ -2513,7 +2484,6 @@ musicB = {
 @end lilypond
 @end table
 
-
 @seealso
 Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.
@@ -2534,9 +2504,7 @@ Référence des propriétés internes :
 @cindex altérations et accords
 @cindex accords et altérations
 
-
 @knownissues
-
 Les notes simultanées sont considérées comme des évènements séquentiels.
 Ceci implique que, dans un accord, les altérations accidentelles
 seront imprimées comme si les notes de l'accord apparaissaient l'une
@@ -2623,9 +2591,7 @@ ajoutées.
 }
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-ambitus-per-voice.ly}
 
@@ -2634,7 +2600,6 @@ ajoutées.
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-ambitus-gap.ly}
-
 
 @seealso
 Glossaire musicologique :
@@ -2653,9 +2618,7 @@ Référence des propriétés internes :
 @rinternals{AmbitusNoteHead},
 @rinternals{ambitus-interface}.
 
-
 @knownissues
-
 LilyPond ne gère pas les collisions entre plusieurs @emph{ambitus}
 présents sur une même portée.
 
@@ -2673,6 +2636,7 @@ note.
 * Têtes de note à forme variable::
 * Improvisation::
 @end menu
+
 
 @node Têtes de note spécifiques
 @unnumberedsubsubsec Têtes de note spécifiques
@@ -2731,14 +2695,12 @@ Vous pouvez utiliser, en lieu et place de @code{\xNote},
 @code{\xNotesOn} et @code{\xNotesOff}, les commandes
 @code{\deadNote}, @code{\deadNotesOn} et @code{\deadNotesOff}.
 
-
 Il existe un raccourci pour les notes en losange qui indiquent les
 harmoniques des cordes@tie{}:
 
 @lilypond[verbatim,quote,relative=2]
 <c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic>
 @end lilypond
-
 
 @predefined
 @code{\harmonic},
@@ -2747,15 +2709,14 @@ harmoniques des cordes@tie{}:
 @code{\xNote}.
 @endpredefined
 
-
 @seealso
-Morceaux choisis :
-@rlsrnamed{Pitches,Hauteurs}.
-
 Manuel de notation :
 @ref{Styles de tête de note},
 @ref{Notes en accords},
 @ref{Indication des harmoniques et notes étouffées}.
+
+Morceaux choisis :
+@rlsrnamed{Pitches,Hauteurs}.
 
 Référence des propriétés internes :
 @rinternals{note-event},
@@ -2797,18 +2758,14 @@ Voir à ce propos @ref{Définition de la taille de portée}.
 }
 @end lilypond
 
-
 @predefined
 @code{\easyHeadsOn},
 @code{\easyHeadsOff}.
 @endpredefined
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {numbers-as-easy-note-heads.ly}
-
 
 @seealso
 Manuel de notation :
@@ -2904,8 +2861,6 @@ a2 b c d \break
 a2 b c d \break
 @end lilypond
 
-
-
 @predefined
 @code{\aikenHeads},
 @code{\aikenHeadsMinor},
@@ -2919,22 +2874,19 @@ a2 b c d \break
 @code{\walkerHeadsMinor}.
 @endpredefined
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 Pour une liste exhaustive des styles de tête de note, consultez
 @ref{Styles de tête de note}.
 
-
 @seealso
-Morceaux choisis :
-@rlsrnamed{Pitches,Hauteurs}.
-
 Manuel de notation :
 @ref{Styles de tête de note}.
+
+Morceaux choisis :
+@rlsrnamed{Pitches,Hauteurs}.
 
 Référence des propriétés internes :
 @rinternals{note-event},
@@ -2976,12 +2928,10 @@ créées ainsi@tie{}:
 }
 @end lilypond
 
-
 @predefined
 @code{\improvisationOn},
 @code{\improvisationOff}.
 @endpredefined
-
 
 @seealso
 Morceaux choisis :
@@ -2991,5 +2941,4 @@ Référence des propriétés internes :
 @rinternals{Pitch_squash_engraver},
 @rinternals{Voice},
 @rinternals{RhythmicStaff}.
-
 

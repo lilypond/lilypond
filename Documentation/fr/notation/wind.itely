@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 68bf74649158e6088ff0e6c2ba746cd99dc12c97
+    Translation of GIT committish: 24370ed49745de7a9dd734ae5e6066b365054904
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 @c \version "2.14.0"
 
-@c Translators: Valentin Villenave, Jean-Charles Malahieuse
+@c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
 @node Instruments à vent
@@ -28,6 +28,7 @@ notation pour instruments à vent.
 * Bois::
 @end menu
 
+
 @node Vue d'ensemble des instruments à vent
 @subsection Vue d'ensemble des instruments à vent
 @translationof Common notation for wind instruments
@@ -39,6 +40,7 @@ instruments à vent.
 * Références en matière d'instruments à vent::
 * Doigtés pour vents::
 @end menu
+
 
 @node Références en matière d'instruments à vent
 @unnumberedsubsubsec Références en matière d'instruments à vent
@@ -77,13 +79,13 @@ vent@tie{}:
 @ref{Instruments transpositeurs}.
 
 @item Les glissandos sont l'une des caractéristiques du trombone à
-coulisse, bien que d'autres instruments puisssent y parvenir en jouant
+coulisse, bien que d'autres instruments puissent y parvenir en jouant
 sur les pistons ou des clés@tie{}; consulter @ref{Glissando}.
 
 @item Des glissandos harmoniques sont réalisables par les cuivres.  Ils
 sont traditionnellement indiqués par des @ref{Notes d'ornement}.
 
-@item Les inflections en fin de note sont abordées au chapitre
+@item Les inflexions en fin de note sont abordées au chapitre
 @ref{Chutes et sauts}.
 
 @item Les @qq{bruitages} de clé ou de piston s'indiquent souvent par le
@@ -93,9 +95,9 @@ style @code{cross} ou des @ref{Têtes de note spécifiques}.
 registre.  On les indique avec un @code{flageolet} -- voir
 @ref{Liste des signes d'articulation}.
 
-@item En ce qui concerne les cuivres, la sourdine s'indique en pricipe
+@item En ce qui concerne les cuivres, la sourdine s'indique en principe
 par une étiquette textuelle.  Cependant, lorsque les changements sont
-nombreux et rapides, il est d'usage de recourrir aux articulations
+nombreux et rapides, il est d'usage de recourir aux articulations
 @code{stopped} et @code{open}. Pour de plus amples détails, voir
 @ref{Articulations et ornements} et
 @ref{Liste des signes d'articulation}.
@@ -105,10 +107,8 @@ Voir le chapitre @ref{Articulations et ornements}.
 @end itemize
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing--flageolet-mark-size.ly}
-
 
 @seealso
 Manuel de notation :
@@ -121,7 +121,7 @@ Manuel de notation :
 @ref{Glissando},
 @ref{Notes d'ornement},
 @ref{Chutes et sauts},
-@ref{Têtes de note spécifiques},
+@ref{Têtes de note spécifiques}.
 
 Morceaux choisis :
 @rlsrnamed{Winds,Vents}.
@@ -133,13 +133,12 @@ Morceaux choisis :
 
 Tout instrument à vent, hormis le trombone à coulisse, fait appel à
 plusieurs doigts pour produire un son.  Les exemples ci-dessous vous
-donnent un apperçu de différentes manières d'indiquer des doigtés.
+donnent un aperçu de différentes manières d'indiquer des doigtés.
 
 La gestion des diagrammes de doigté spécifiques aux bois est abordée
 plus en profondeur au chapitre @ref{Diagrammes pour bois}.
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingering-symbols-for-wind-instruments.ly}
 
@@ -147,11 +146,10 @@ plus en profondeur au chapitre @ref{Diagrammes pour bois}.
 {recorder-fingering-chart.ly}
 
 @seealso
-
 Manuel de notation :
 @ref{Diagrammes pour bois}.
 
-Snippets:
+Morceaux choisis :
 @rlsrnamed{Winds,Vents}.
 
 
@@ -165,6 +163,7 @@ Voici quelques informations spécifiques à la cornemuse.
 * Définitions pour la cornemuse::
 * Exemple pour la cornemuse::
 @end menu
+
 
 @node Définitions pour la cornemuse
 @unnumberedsubsubsec Définitions pour la cornemuse
@@ -222,8 +221,8 @@ Lorsqu'on joue des œuvres moins cérémonieuses que pour une parade
 ou un défilé, peut survenir un sol aigu, au doux nom de
 @qq{piobaireachd}, et que l'on indiquera par @code{gflat}.
 
-
 @seealso
+Morceaux choisis :
 @rlsrnamed{Winds,Vents}.
 
 
@@ -274,8 +273,8 @@ Et voici en guise d'exemple, à quoi ressemble le chant populaire
 }
 @end lilypond
 
-
 @seealso
+Morceaux choisis :
 @rlsrnamed{Winds,Vents}
 
 
@@ -288,6 +287,7 @@ Nous allons ici nous intéresser aux spécificités de la section des bois.
 @menu
 * Diagrammes pour bois::
 @end menu
+
 
 @node Diagrammes pour bois
 @subsubsection Diagrammes pour bois
@@ -446,7 +446,6 @@ contenues dans les fichiers @file{scm/define-woodwind-diagrams.scm} et
 @file{scm/display-woodwind-diagrams.scm}.  Ceci requiert toutefois la
 maîtrise du langage Scheme.
 
-
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {woodwind-diagrams-listing.ly}
@@ -461,7 +460,6 @@ maîtrise du langage Scheme.
 {woodwind-diagrams-key-lists.ly}
 
 @seealso
-
 Fichiers d'initialisation :
 @file{scm/define-woodwind-diagrams.scm},
 @file{scm/display-woodwind-diagrams.scm}.
