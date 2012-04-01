@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 9034fc53a974a6d006157ebcf52f091a85be30f5
+    Translation of GIT committish: 65264f1ec906b40c1b281e360d4860f7a6eb8138
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -76,7 +76,6 @@ Cette section traite des contextes.
 * Ordonnancement des contextes::
 @end menu
 
-
 @seealso
 Manuel d'initiation :
 @rlearning{Contextes et graveurs}.
@@ -130,6 +129,7 @@ Les contextes sont hiérarchisés :
 * Contextes de niveau intermédiaire -- les portées::
 * Contextes de bas niveau -- les voix::
 @end menu
+
 
 @node Score -- le père de tous les contextes
 @unnumberedsubsubsec Score -- le père de tous les contextes
@@ -869,7 +869,6 @@ jazz.
 }
 @end lilypond
 
-
 On a rassemblé les réglages dans un bloc @code{\context}, lui-même placé
 dans le bloc @code{\layout}@tie{}:
 
@@ -1033,7 +1032,6 @@ contexte @code{ChordNames} ne fait pas partie de la @qq{liste
 d'agréments} du contexte @code{Staff} par défaut.  Néanmoins, et s'il
 devait en être ainsi, vous pourriez le spécifier.
 
-
 @lilypond[verbatim,quote]
 \score {
   \new Staff {
@@ -1069,7 +1067,6 @@ aucun contexte déjà existant, LilyPond créera un nouveau contexte
 implicite.  Ceci peut engendrer une nouvelle portée ou une autre
 partition.
 
-
 @seealso
 Manuel d'utilisation :
 @rprogram{Apparition d'une portée supplémentaire}.
@@ -1089,6 +1086,7 @@ Fichiers d'initialisation :
 * Conventions de nommage::
 @end menu
 
+
 @node Navigation dans les références du programme
 @subsection Navigation dans les références du programme
 @translationof Navigating the program reference
@@ -1106,7 +1104,6 @@ f
 
 Sur la page de la documentation relative aux doigtés, c'est-à-dire
 @ref{Doigtés}, se trouve l'indication suivante@tie{}:
-
 
 @quotation
 @strong{Voir aussi}
@@ -1248,7 +1245,6 @@ distance (@emph{padding}) des notes@tie{}: 0,5 unités @emph{staff-space}
 Chaque objet peut avoir plusieurs attributs, en tant qu'élément
 typographique ou musical.  Ainsi, un doigté (objet @emph{Fingering})
 possède les attributs suivants@tie{}:
-
 
 @itemize
 @item
@@ -1488,6 +1484,7 @@ qu'est-ce qui est propre à LilyPond@tie{}?
 * Modification de listes associatives::
 @end menu
 
+
 @node Vue d'ensemble de la modification des propriétés
 @subsection Vue d'ensemble de la modification des propriétés
 @translationof Overview of modifying properties
@@ -1537,7 +1534,6 @@ signifie qu'elles sont 1,3 fois plus épaisses que les lignes de la
 portée).  Dans la mesure où nous avons indiqué @code{Staff} comme
 contexte, ce réglage ne s'appliquera qu'à la portée courante@tie{}; les
 autres portées demeureront intactes.
-
 
 @lilypond[quote,verbatim,relative=2,fragment]
 c4
@@ -1615,9 +1611,7 @@ Référence des propriétés internes :
 @rinternals{RevertProperty},
 @rinternals{PropertySet}.
 
-
 @knownissues
-
 La sous-couche Scheme ne vérifie pas la saisie des propriétés de façon
 très stricte.  Des références cycliques dans des valeurs Scheme peuvent
 de ce fait interrompre ou faire planter le programme -- ou bien les
@@ -1766,7 +1760,6 @@ Translation @expansion{} Tunable context properties.
 
 
 @seealso
-
 Référence des propriétés internes :
 @rinternals{Tunable context properties}.
 
@@ -1940,9 +1933,7 @@ propriétés causant des désagréments.
 
 @end ignore
 
-
 @seealso
-
 Référence des propriétés internes :
 @rinternals{Backend}
 
@@ -2108,7 +2099,6 @@ approprié pour déterminer ce qui peut se modifier à l'aide d'un
 @code{\tweak} ou bien vous aider à rectifier votre source de telle sorte
 que le @code{\tweak} produise ses effets.
 
-
 @seealso
 Manuel d'initiation :
 @rlearning{Méthodes de retouche}.
@@ -2116,17 +2106,15 @@ Manuel d'initiation :
 Manuel d'extension :
 @rextend{Affichage d'expressions musicales}.
 
-
 @knownissues
-
 @cindex tweak et identificateur
 La commande @code{\tweak} ne peut s'utiliser dans une variable.
 
 @cindex tweaks et paroles
 La commande @code{\tweak} est inopérante en mode @code{\lyricmode}.
 
-@cindex tweaking control points
-@cindex control points, tweaking
+@cindex tweak et points de contrôle
+@cindex points de contrôle et tweak
 Lorsqu'il y a plusieurs liaisons de prolongation dans un accord, la
 commande @code{\tweak} ne s'applique qu'à la première.
 
@@ -2278,7 +2266,6 @@ qu'au travers d'une complète redéfinition de leur liste associative.}
 @section Propriétés et contextes utiles
 @translationof Useful concepts and properties
 
-
 @menu
 * Modes de saisie::
 * Direction et positionnement::
@@ -2289,6 +2276,7 @@ qu'au travers d'une complète redéfinition de leur liste associative.}
 * Styles de ligne::
 * Rotation des objets::
 @end menu
+
 
 @node Modes de saisie
 @subsection Modes de saisie
@@ -2449,8 +2437,8 @@ c2^( c)
 
 @strong{La propriété @code{direction}}
 
-Le positionnement ou l'orientation de nombreux objets de rendu est géré
-par la propriété @code{direction}.
+Le positionnement ou l'orientation de nombreux objets de rendu sont
+gérés par la propriété @code{direction}.
 
 La propriété @code{direction} peut prendre la valeur @code{1}, qui
 signifie @qq{ascendant} ou @qq{au-dessus}, ou @w{@code{-1}}, qui
@@ -2462,8 +2450,9 @@ Certaines commandes prédéfinies permettent par ailleurs de spécifier un
 comportement en matière d'orientation ou positionnement@tie{}; elles
 sont de la forme
 
-@noindent
-@code{\xxxUp}, @code{\xxxDown}, @code{\xxxNeutral}
+@example
+@code{\xxxUp}, @code{\xxxDown} et @code{\xxxNeutral}
+@end example
 
 @noindent
 auquel cas @code{\xxxNeutral} signifie @qq{retour au comportement par
@@ -2497,6 +2486,18 @@ c2( c)
 \slurNeutral
 c2( c)
 @end lilypond
+
+En matière de musique polyphonique, il est souvent plus judicieux
+d'utiliser des contextes @code{Voice} explicites que de modifier
+l'orientation des objets.  Pour de plus amples informations, voir
+@ref{Plusieurs voix}.
+
+@seealso
+Manuel d'initiation :
+@rlearning{Objets inclus dans la portée}.
+
+Manuel de notation :
+@ref{Plusieurs voix}.
 
 
 @node Distances et unités de mesure
@@ -2899,7 +2900,6 @@ L'utilisation de @code{\endSpanners} permet de s'affranchir d'insérer un
 @code{\stopTextSpan} pour clôturer un @code{\startTextSpan} ou un
 @code{\!} pour terminer un soufflet.
 
-
 @seealso
 Référence des propriétés internes :
 @rinternals{Glissando},
@@ -2936,6 +2936,7 @@ certains objets@tie{}; elles sont couvertes par une rubrique spécifique.
 * Utilisation de break-visibility::
 * Considérations spécifiques::
 @end menu
+
 
 @node Suppression des stencils
 @unnumberedsubsubsec Suppression des stencils
@@ -3250,7 +3251,6 @@ Lors d'un changement explicite de clef, la propriété
 @code{explicitClefVisibility} gère à la fois le symbole de la clef et
 l'indication d'octaviation qui lui est attachée.
 
-
 @seealso
 Manuel d'initiation :
 @rlearning{Visibilité et couleur des objets}
@@ -3404,14 +3404,14 @@ Manuel de notation :
 @ref{En quoi consiste la référence des propriétés internes},
 @ref{Modification de propriétés}.
 
+Manuel d'extension :
+@rextend{Interfaces pour programmeurs}.
+
 Fichiers d'initialisation :
 @file{scm/define-grobs.scm}.
 
 Morceaux choisis :
 @rlsrnamed{Tweaks and overrides,Retouches}.
-
-Manuel d'extension :
-@rextend{Interfaces pour programmeurs}.
 
 Référence des propriétés internes :
 @rinternals{All layout objects}.
@@ -3471,6 +3471,9 @@ objets.
 @end menu
 
 @seealso
+Manuel de notation :
+@ref{Utilisation de break-aligned-interface}.
+
 Manuel d'extension :
 @rextend{Fonctions de rappel}.
 
@@ -3836,7 +3839,6 @@ commande de @emph{markup} @code{\musicglyph} -- voir
 
 @c TODO Add inserting Postscript or ref to later
 
-
 @seealso
 Manuel de notation :
 @ref{Text markup commands},
@@ -4129,9 +4131,7 @@ Une liste plus fournie est disponible à l'annexe
 @ref{Types de prédicats prédéfinis}.  Vous pouvez par ailleurs définir
 vos propres types de prédicat.
 
-
 @seealso
-
 Manuel de notation :
 @ref{Types de prédicats prédéfinis}.
 

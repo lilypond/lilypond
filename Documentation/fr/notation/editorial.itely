@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: e389a98ed32c929cb091453d9ec2856350cfb300
+    Translation of GIT committish: 65264f1ec906b40c1b281e360d4860f7a6eb8138
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -42,11 +42,12 @@ l'intérieur même de la portée.
 * Hampes::
 @end menu
 
+
 @node Indication de la taille de fonte musicale
 @unnumberedsubsubsec Indication de la taille de fonte musicale
 @translationof Selecting notation font size
 
-@cindex selection de la taille (notation)
+@cindex sélection de la taille (notation)
 @cindex notes, taille
 @cindex taille des notes
 @cindex têtes de note
@@ -66,7 +67,6 @@ l'intérieur même de la portée.
 @funindex small
 @funindex tiny
 @funindex teeny
-
 
 Le plus sûr moyen de régler la taille de la police, quel que soit le
 contexte, consiste à définir la propriété @code{fontSize}.
@@ -129,7 +129,6 @@ La propriété @code{font-size} ne peut intervenir que pour les objets
 qui utilisent des polices, autrement dit ceux qui disposent de
 l'interface de rendu @code{font-interface}.
 
-
 @predefined
 @code{\teeny},
 @code{\tiny},
@@ -138,7 +137,6 @@ l'interface de rendu @code{font-interface}.
 @code{\large},
 @code{\huge}.
 @endpredefined
-
 
 @seealso
 Morceaux choisis :
@@ -210,7 +208,6 @@ la portée -- voir @ref{Direction et positionnement} à ce sujet.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {avoiding-collisions-with-chord-fingerings.ly}
 
-
 @seealso
 Manuel de notation :
 @ref{Direction et positionnement}.
@@ -260,21 +257,21 @@ b
 c
 @end lilypond
 
+Têtes de note, hampes, crochets et silences sont invisibles.  Une
+ligature sera invisible si elle démarre sur une note invisible.
 Les objets de notation attachés à une note invisible ne seront pas
 masqués pour autant.
 
 @lilypond[verbatim,quote,relative=2]
-c4( d)
+e8(\p f g a)--
 \hideNotes
-e4(\p f)--
+e8(\p f g a)--
 @end lilypond
-
 
 @predefined
 @code{\hideNotes},
 @code{\unHideNotes}.
 @endpredefined
-
 
 @seealso
 Manuel d'initiation :
@@ -382,7 +379,6 @@ gis8 a
 gis4 a
 @end lilypond
 
-
 @seealso
 Manuel de notation :
 @ref{Liste des couleurs},
@@ -390,7 +386,6 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
-
 
 @cindex x11, couleur
 @cindex couleur, notes d'un accord
@@ -405,14 +400,12 @@ normale ayant un nom similaire.
 
 Les couleurs de X11 ne sont pas toutes perceptibles dans un navigateur
 internet.  Aussi nous vous recommandons, dans le cadre d'une
-présentation multimedia, d'utiliser des couleurs de base @code{blue},
+présentation multimédia, d'utiliser des couleurs de base @code{blue},
 @code{green}, @code{red} -- bleu, vert, rouge.
 
-
 Vous ne pouvez pas coloriser des notes à l'intérieur d'un accord avec
-@code{\override}.  Si besoin est, utilisez @code{\tweak}.
-Pour plus de détails, consultez
-@ref{La commande d'affinage (tweak)}.
+@code{\override}.  Si besoin est, utilisez @code{\tweak}.  Pour plus de
+détails, consultez @ref{La commande d'affinage (tweak)}.
 
 
 @node Parenthèses
@@ -447,7 +440,6 @@ c2-\parenthesize -. d
 c2 \parenthesize r
 @end lilypond
 
-
 @seealso
 Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
@@ -457,9 +449,7 @@ Référence des propriétés internes :
 @rinternals{ParenthesesItem},
 @rinternals{parentheses-interface}.
 
-
 @knownissues
-
 Lorsqu'un accord est mis entre parenthèses, celles-ci s'appliquent
 individuellement à chacune des notes le composant, alors qu'on
 attendrait une seule paire de parenthèses encadrant tout l'accord.
@@ -473,6 +463,10 @@ attendrait une seule paire de parenthèses encadrant tout l'accord.
 @cindex hampes invisibles
 @cindex visibilité des hampes
 @cindex masquage des hampes
+@cindex hampe, orientation
+@cindex hampe montante
+@cindex hampe descendante
+@cindex hampe neutre
 
 @funindex \stemUp
 @funindex stemUp
@@ -480,10 +474,6 @@ attendrait une seule paire de parenthèses encadrant tout l'accord.
 @funindex stemDown
 @funindex \stemNeutral
 @funindex stemNeutral
-@cindex stem, direction
-@cindex stem, up
-@cindex stem, down
-@cindex stem, neutral
 
 Dès qu'une note est rencontrée, un objet @code{Stem} se crée
 automatiquement.  Pour les rondes et les silences, ils sont aussi
@@ -492,13 +482,11 @@ créés, mais en mode invisible.
 L'orientation des hampes peut être définie manuellement -- voir
 @ref{Direction et positionnement} à ce sujet.
 
-
 @predefined
 @code{\stemUp},
 @code{\stemDown},
 @code{\stemNeutral}.
 @endpredefined
-
 
 @snippets
 
@@ -531,6 +519,7 @@ la portée par des éléments qui lui seront externes.
 * Quadrillage temporel::
 * Crochets d'analyse::
 @end menu
+
 
 @node Info-bulle
 @unnumberedsubsubsec Info-bulle
@@ -592,12 +581,10 @@ gérer ainsi@tie{}:
 }
 @end lilypond
 
-
 @predefined
 @code{\balloonLengthOn},
 @code{\balloonLengthOff}.
 @endpredefined
-
 
 @seealso
 Morceaux choisis :
@@ -667,7 +654,6 @@ spécifie quant à elle l'espace de temps entre chaque ligne.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {grid-lines--changing-their-appearance.ly}
 
-
 @seealso
 Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
@@ -728,7 +714,6 @@ Les crochets d'analyses sont susceptibles d'être imbriqués@tie{}:
   d4\stopGroup\stopGroup
 }
 @end lilypond
-
 
 @seealso
 Morceaux choisis :
