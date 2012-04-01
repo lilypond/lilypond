@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 67e5286be2fdc1cd6d90dfc233663c284ced8ca8
+    Translation of GIT committish: 94eb97bda0580fb220485626f618251043abebc7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -135,7 +135,7 @@ dans un bloc @code{\paper}@tie{}:
 @itemize
 
 @item
-la fonction scheme @code{set-paper-size},
+la fonction Scheme @code{set-paper-size},
 
 @item
 des variables propres au bloc @code{\paper} qui viendront adapter la
@@ -223,60 +223,76 @@ Fichiers d'initialisation :
 
 @node Format du papier
 @unnumberedsubsubsec Format du papier
-@translationof Setting paper size
+@translationof Setting the paper size
 
-Le format du papier est déterminé par deux fonctions différentes@tie{}:
-@code{set-default-paper-size} et @code{set-paper-size}.
-@code{set-default-paper-size} se place en tête de fichier, alors que
+LilyPond génère par défaut, et en l'absence de mention explicite d'un
+format de papier, un fichier imprimable au format@tie{}A4.  Vous pouvez
+cependant utiliser un autre format à l'aide des deux fonctions
+@code{set-default-paper-size},
+alors que
 @code{set-paper-size} se place à l'intérieur d'un bloc
 @code{\paper}@tie{}:
 
 @example
-#(set-default-paper-size "a4")
+#(set-default-paper-size "quarto")
 @end example
+
+qui se place en début de fichier, ou @code{set-paper-size},
 
 @example
 \paper @{
-  #(set-paper-size "a4")
+  #(set-paper-size "tabloid")
 @}
 @end example
+
+qui s'inscrit au sein d'un bloc @code{\paper}.
+
 
 @noindent
 La seule restriction à l'utilisation isolée de la fonction
 @code{set-default-paper-size} est qu'elle doit intervenir avant le
-premier bloc @code{\paper}.  À l'intérieur d'un bloc @code{\paper}, il
-vaut mieux utiliser la fonction @code{set-paper-size} avant toute autre
-variable.  Les raisons à ceci sont abordées dans la rubrique
-@ref{Adaptation automatique au format}.
+premier bloc @code{\paper}.  @code{set-default-paper-size} fixe le
+format pour toutes les pages, alors que @code{set-paper-size} détermine
+le format des feuilles rattachées à un bloc @code{\paper} particulier.
+Ainsi, lorsque le bloc @code{\paper} se trouve en tête de fichier, le
+format du papier s'appliquera à toutes les pages@tie{}; si @code{\paper}
+apparaît dans un bloc @code{\book}, la taille ne s'appliquera qu'au
+@emph{book} en question.
 
-@code{set-default-paper-size} fixe le format pour toutes les pages,
-alors que @code{set-paper-size} détermine le format des feuilles
-rattachées à un bloc @code{\paper} particulier.  Ainsi, lorsque le bloc
-@code{\paper} se trouve en tête de fichier, le format du papier
-s'appliquera à toutes les pages@tie{}; si @code{\paper} apparaît dans un
-bloc @code{\book}, la taille ne s'appliquera qu'au @emph{book} en
-question.
+À l'intérieur d'un bloc @code{\paper}, la fonction @code{set-paper-size}
+doit intervenir avant toute autre variable.  Les raisons à ceci sont
+abordées dans la rubrique @ref{Adaptation automatique au format}.
 
-Les formats @code{a4}, @code{letter}, @code{legal} et @code{11x17} (ou
-tabloïd) sont couramment utilisés pour les éditions musicales.  Bien
-d'autres formats sont disponibles et sont répertoriés à la rubrique
-@code{paper-alist} du fichier d'initialisation @file{scm/paper.scm}.
+Différents formats de papier sont définis dans le fichier
+@file{scm/paper.scm}.  Bien que vous puissiez y ajouter votre propre
+format, sachez cependant que celui-ci est écrasé à chaque mise à jour de
+LilyPond.
 
-@c TODO add a new appendix for paper sizes (auto-generated) -pm
+@c An appendix entry exists for paper sizes but is not auto-generated
 
-@warning{Par défaut, le papier est au format A4 (codé @code{a4}).}
+La commande suivante, inscrite dans votre fichier, vous permettra
+d'ajouter votre format personnalisé à ceux déjà connus, puis d'y faire
+appel à l'aide des fonctions @code{set-default-paper-size} et
+@code{set-paper-size}@tie{}:
 
-Rien ne vous empêche d'ajouter un format de papier inhabituel à la
-rubrique @code{paper-alist} du fichier @file{scm/paper.scm}.  Sachez
-cependant que celui-ci est écrasé à chaque mise à jour de LilyPond.
+@example
+#(set! paper-alist (cons '("mon format" . (cons (* 15 in) (* 3 in))) paper-alist))
 
-@cindex orientation
-@cindex landscape
+\paper @{
+  #(set-paper-size "mon format")
+@}
+@end example
+ 
+Les unités peuvent s'exprimer aussi bien en @code{in} (pouces), qu'en
+@code{cm} (centimètres) ou en @code{mm} (millimètres).
+
+@cindex papier, orientation
+@cindex landscape, papier
 @cindex paysage, papier
 @cindex à l'italienne, papier
 
 Le fait d'ajouter l'argument @code{'landscape} à l'instruction
-@code{set-default-paper-size} permet d'obtenir une présentation à
+stipulant le format du papier, permet d'obtenir une présentation à
 l'italienne -- ou paysage si vous préférez -- et donc des lignes plus
 longues.
 
@@ -284,10 +300,12 @@ longues.
 #(set-default-paper-size "a6" 'landscape)
 @end example
 
+C'est bien la feuille qui sera basculée, et non la musique.
 
 @seealso
 Manuel de notation :
-@ref{Adaptation automatique au format}.
+@ref{Adaptation automatique au format},
+@ref{Formats de papier prédéfinis}.
 
 Fichiers d'initialisation :
 @file{scm/paper.scm}.
@@ -297,7 +315,7 @@ Fichiers d'initialisation :
 @unnumberedsubsubsec Adaptation automatique au format
 @translationof Automatic scaling to paper size
 
-Toute modification du format de papier à l'aide des fonctions scheme
+Toute modification du format de papier à l'aide des fonctions Scheme
 @code{set-default-paper-size} ou @code{set-paper-size}, que nous avons
 vues à la rubrique @ref{Format du papier}, se traduira automatiquement
 par l'ajustement d'un certain nombre de variables attachées au bloc
@@ -393,7 +411,6 @@ dernière page de chacune des parties -- créées à l'aide d'un bloc
 
 @end table
 
-
 @seealso
 Manuel de notation :
 @ref{Adaptation automatique au format}.
@@ -405,7 +422,6 @@ Morceaux choisis :
 @rlsrnamed{Spacing, Espacements}.
 
 @knownissues
-
 Les titrages (contenus dans le bloc @code{\header@{@}}) sont considérés
 comme des systèmes à part entière@tie{}; ils seront donc affectés par
 @code{ragged-bottom} et @code{ragged-last-bottom}, qui éventuellement
@@ -432,11 +448,11 @@ attachées à des objets graphiques (@emph{grobs}) qui, elles, se
 définissent au niveau du bloc @code{\score} -- voir à ce sujet
 @ref{Espacement vertical au sein d'un système}.
 
-
 @menu
 * Structure des variables d'espacement vertical fluctuant::
 * Liste des variables d'espacement vertical fluctuant::
 @end menu
+
 
 @node Structure des variables d'espacement vertical fluctuant
 @unnumberedsubsubsec Structure des variables d'espacement vertical fluctuant
@@ -446,7 +462,6 @@ Chacune de ces variables attachées au bloc @code{\paper} est constituée
 d'une liste associative @emph{(alist)} à quatre @i{clés}@tie{}:
 
 @itemize
-
 
 @item
 @code{basic-distance} @emph{(distance de base)} -- la grandeur d'espace
@@ -611,7 +626,6 @@ page.
 
 @end table
 
-
 @seealso
 Manuel de notation :
 @ref{Espacement vertical au sein d'un système}.
@@ -739,7 +753,6 @@ Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
 
 @knownissues
-
 La définition explicite d'un format de papier annulera tout réglage des
 marges gauche et droite.
 
@@ -974,6 +987,7 @@ Manuel de notation :
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
 
+
 @node Variables de gestion des numéros de page
 @unnumberedsubsubsec Variables de gestion des numéros de page
 @translationof @code{\paper} variables for page numbering
@@ -1073,7 +1087,6 @@ courant@tie{}:
 
 @end table
 
-
 @seealso
 Fichiers d'initialisation :
 @file{ly/titling-init.ly}.
@@ -1081,9 +1094,7 @@ Fichiers d'initialisation :
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
-
 @knownissues
-
 L'entête par défaut, formé d'une seule ligne, est constitué du numéro de
 page et du champ @code{instrument} contenu dans le bloc @code{\header}.
 
@@ -1119,7 +1130,7 @@ Sont susceptibles d'apparaître dans un bloc @code{\layout}@tie{}:
 
 @itemize
 @item
-la fonction scheme @code{layout-set-staff-size},
+la fonction Scheme @code{layout-set-staff-size},
 
 @item
 dans des blocs @code{\context}, les  modifications apportées aux
@@ -1171,7 +1182,6 @@ Voici un exemple de bloc @code{\layout} :
   @}
 @}
 @end example
-
 
 @seealso
 Manuel de notation :
@@ -1282,7 +1292,6 @@ contexte @code{fontSize} ainsi que la propriété de mise en forme
 individuellement la taille de chaque portée.  La taille de chacune des
 portées est relative à la taille globale.
 
-
 @seealso
 Manuel de notation :
 @ref{Indication de la taille de fonte musicale}.
@@ -1290,9 +1299,7 @@ Manuel de notation :
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
-
 @knownissues
-
 @code{layout-set-staff-size} ne modifie en rien l'espacement entre les
 lignes d'une portée.
 
@@ -1402,8 +1409,6 @@ Le commutateur @code{ragged-last} est équivalent à @code{ragged-right},
 @}
 @end example
 
-
-
 @cindex sauts de ligne réguliers
 @cindex portée à quatre mesures
 
@@ -1441,7 +1446,6 @@ complicated.  More details are available in
 @funindex \noBreak
 @code{\noBreak}.
 @endpredefined
-
 
 @seealso
 Manuel de notation :
@@ -1526,14 +1530,12 @@ sections.
 @}
 @end example
 
-
 @predefined
 @funindex \pageBreak
 @code{\pageBreak},
 @funindex \noPageBreak
 @code{\noPageBreak}.
 @endpredefined
-
 
 @seealso
 Manuel de notation :
@@ -1554,7 +1556,6 @@ la fonction @code{ly:optimal-breaking}.  Celle-ci tend à trouver une
 rupture qui évite d'obtenir à la fois une page trop dense ou exagérément
 aérée.  Contrairement à la fonction @code{ly:page-turn-breaking}, elle
 n'a aucune notion de ce qu'est une @qq{tourne}.
-
 
 @seealso
 Morceaux choisis :
@@ -1634,7 +1635,6 @@ Les commandes de tourne -- @code{\pageTurn}, @code{\noPageTurn} et
 @code{\allowPageTurn} -- peuvent s'utiliser à des niveaux supérieurs,
 entre des blocs @code{\score} ou des @emph{markups} de haut niveau.
 
-
 @predefined
 @funindex \pageTurn
 @code{\pageTurn},
@@ -1644,14 +1644,11 @@ entre des blocs @code{\score} ou des @emph{markups} de haut niveau.
 @code{\allowPageTurn}.
 @endpredefined
 
-
 @seealso
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
-
 @knownissues
-
 Une partition ne devrait contenir qu'une seule instance du
 @code{Page_turn_engraver}, au risque de se contredire les uns les autres.
 
@@ -1676,7 +1673,6 @@ beaucoup de texte.  Il suffit de la mentionner au sein du bloc
   page-breaking = #ly:minimal-breaking
 @}
 @end example
-
 
 @seealso
 Morceaux choisis :
@@ -1732,7 +1728,6 @@ musique = \relative c'' { c8 c c c }
   }
 }
 @end lilypond
-
 
 @seealso
 Morceaux choisis :
@@ -1825,7 +1820,6 @@ music = \relative c'' { c4 c c c }
 }
 @end lilypond
 
-
 @seealso
 Manuel de notation :
 @ref{Espacement vertical}.
@@ -1851,6 +1845,7 @@ système.
 * Positionnement explicite des portées et systèmes::
 * Résolution des collisions verticales::
 @end menu
+
 
 @node Espacement vertical au sein d'un système
 @subsection Espacement vertical au sein d'un système
@@ -2175,7 +2170,6 @@ regroupement a été ajustée au niveau de son propre
 @code{VerticalAxisGroup}, cette dernière aura préséance.
 @end table
 
-
 @seealso
 Fichiers d'initialisation :
 @file{ly/engraver-init.ly},
@@ -2252,7 +2246,6 @@ sein de regroupements.
   \new Staff { \clef bass g2 r | }
 >>
 @end lilypond
-
 
 @seealso
 Fichiers d'initialisation :
@@ -2394,7 +2387,6 @@ Vous noterez que la valeur élevée attribuée à la clé
   \new Staff { c'1 }
 >>
 @end lilypond
-
 
 @seealso
 Fichiers d'initialisation :
@@ -2649,7 +2641,6 @@ quant aux différentes valeurs que vous affectez à ces réglages.
 
 @end itemize
 
-
 @seealso
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
@@ -2735,7 +2726,6 @@ c4
 c''2
 @end lilypond
 
-
 @seealso
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
@@ -2755,6 +2745,7 @@ Morceaux choisis :
 * Longueur de ligne::
 * Notation proportionnelle::
 @end menu
+
 
 @node Généralités sur l'espacement horizontal
 @subsection Généralités sur l'espacement horizontal
@@ -2824,7 +2815,6 @@ demie largeur de tête@tie{}:
 c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 @end lilypond
 
-
 Dans notre @emph{Essai sur la gravure musicale automatisée}, nous avons
 vu comment la direction des hampes peut influencer l'espacement -- voir 
 @ressay{Espacement}.  Ceci est contrôlé par la propriété
@@ -2849,10 +2839,12 @@ les réglages par défaut, puis avec des corrections forcées.
 L'espacement spécifique à la notation proportionnelle fait l'objet d'une 
 @rusernamed{Notation proportionnelle,rubrique dédiée}.
 
-
 @seealso
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+
+Essai sur la gravure musicale automatisée :
+@ressay{Espacement}.
 
 Référence des propriétés internes :
 @rinternals{SpacingSpanner},
@@ -2860,12 +2852,7 @@ Référence des propriétés internes :
 @rinternals{StaffSpacing},
 @rinternals{NonMusicalPaperColumn}.
 
-Essai sur la gravure musicale automatisée :
-@ressay{Espacement}.
-
-
 @knownissues
-
 Il n'existe pas de mécanisme simple et efficace qui permette de
 forcer manuellement l'espacement.  La solution ci-dessous permet
 cependant @qq{d'aérer} artificiellement une partition@tie{}; il vous
@@ -2903,7 +2890,6 @@ c16[ c c8]
 La commande @code{\newSpacingSection} crée un nouvel objet
 @code{SpacingSpanner}, ce qui permet d'appliquer de nouveaux
 @code{\override}s à partir de ce point.
-
 
 @seealso
 Morceaux choisis :
@@ -2955,9 +2941,7 @@ resserrée.  En effet, @code{ly:make-moment} construit une durée@tie{}:
 }
 @end lilypond
 
-
 @snippets
-
 L'espacement au sein d'un nolet dépend par défaut d'un certain nombre de
 facteurs qui ne sont pas liés à la durée (altération, changement de
 clef, etc.).  @w{@code{Score.SpacingSpanner #'uniform-stretching}}
@@ -2999,7 +2983,6 @@ d'ornement qui pourraient apparaître@tie{}:
 \override Score.SpacingSpanner #'strict-note-spacing = ##t
 \new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
 @end lilypond
-
 
 @seealso
 Morceaux choisis :
@@ -3057,7 +3040,6 @@ paragraphe de texte, la dernière ligne s'arrête au dernier caractère.
   ragged-last = ##t
 @}
 @end example
-
 
 @seealso
 Morceaux choisis :
@@ -3154,7 +3136,6 @@ la mesure occupent maintenant exactement le même espace horizontal.
 Nous pourrions donc y insérer, au-dessus ou au-dessous, une indication
 temporelle ou autre graphisme.
 
-
 @code{proportionalNotationDuration} est une propriété attachée au
 contexte @code{Score}.  Rappelez-vous que vous pouvez régler les
 propriétés d'un contexte à trois différents endroits de votre
@@ -3166,7 +3147,7 @@ contexte.
 
 La propriété @code{proportionalNotationDuration} prend en unique
 argument la durée de référence qui servira de base pour espacer toute la
-musique.  La fonction scheme @code{make-moment} intégrée à LilyPond
+musique.  La fonction Scheme @code{make-moment} intégrée à LilyPond
 prend deux arguments@tie{}: un numérateur et un dénominateur qui
 représentent une fraction de ronde.  L'appel de
 @w{@code{(ly:make-moment 1 20)}} produit donc une durée de référence
@@ -3361,7 +3342,6 @@ comportement en cours de partition, et recourir alors à l'instruction
 @code{\newSpacingSection} -- pour de plus amples détails, voir la
 rubrique @ref{Changement d'espacement en cours de partition}.
 
-
 Intéressons-nous maintenant au @code{Separating_line_group_engraver},
 qui est désactivé pour la plupart des partitions en notation
 proportionnelle.  Voici ce qui apparaît dans une partition
@@ -3470,7 +3450,6 @@ d'ornement, d'étendre les indications de nolet afin d'indiquer de façon
 l'occasion d'un saut de ligne ou de page.  Nous vous renvoyons aux
 différentes rubriques associées du manuel pour chacun de ces réglages.
 
-
 @seealso
 Manuel de notation :
 @ref{Changement d'espacement en cours de partition}.
@@ -3498,6 +3477,7 @@ rubrique @ref{Mise en évidence de l'espacement}.
 * Mise en évidence de l'espacement::
 * Modification de l'espacement::
 @end menu
+
 
 @node Mise en évidence de l'espacement
 @subsection Mise en évidence de l'espacement
@@ -3548,7 +3528,6 @@ hauteur d'une feuille au format A6 à l'italienne.  Les paires
 @code{(@var{a},@var{b})} sont des intervalles, @var{a} en étant
 l'extrémité inférieure et @var{b} l'extrémité supérieure.
 
-
 @seealso
 Manuel de notation :
 @ref{Définition de la taille de portée}.
@@ -3596,6 +3575,16 @@ l'instruction suivante le force à 10.
 @example
 \paper @{
   system-count = #10
+@}
+@end example
+
+@item
+Forcer le nombre de pages.  L'instruction suivante forcera la musique à
+se répartir sur deux pages.
+
+@example
+\paper @{
+  page-count = #2
 @}
 @end example
 
@@ -3662,7 +3651,6 @@ s'applique à l'intégralité de la partition.
 
 @end itemize
 
-
 @seealso
 Manuel de notation :
 @ref{Mise en forme de la page},
@@ -3670,5 +3658,4 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
-
 
