@@ -15,7 +15,7 @@ The following snippet is preceded by a comment that would start a lilypond
 environment
 
 %%\begin{lilypond}
-\begin{lilypond}[11pt,fragment]
+\begin{lilypond}[staffsize=11,fragment]
 \context Voice <<c' e' g'>>
 \end{lilypond}
 
