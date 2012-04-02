@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 5f722f1688eff7436789f8ca011205bdb16c04b7
+    Translation of GIT committish: c8d018351dac201da482291ad1f14f3771a1a679
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,6 +32,7 @@ Ce chapitre traite des objectifs et de l'architecture de LilyPond.
 * Démonstration par l'exemple:: LilyPond à l'œuvre
 * Comparatif (BWV 861)::
 @end menu
+
 
 @node L'histoire de LilyPond
 @section L'histoire de LilyPond
@@ -149,6 +150,7 @@ Henle no 666, @copyright{}2000@tie{}:
 @page
 @end iftex
 
+
 @node La gravure en détails
 @section La gravure en détails
 @translationof Engraving details
@@ -214,6 +216,7 @@ quoi LilyPond devait porter ses efforts.
 * Tailles::                       Considérations sur la taille des portées
 * La raison de tous ces efforts:: Pourquoi s'attacher aux détails
 @end menu
+
 
 @node Fontes et polices
 @unnumberedsubsec Fontes et polices
@@ -306,6 +309,7 @@ forme de losange.  La barre de notre bémol est comme brossée, le haut
 évidents à reconnaître à distance du fait que leurs barres transversales
 n'ont pas la même pente et que les verticales sont plus épaisses.
 
+
 @node Espacement
 @unnumberedsubsec Espacement
 @translationof Optical spacing
@@ -313,14 +317,13 @@ n'ont pas la même pente et que les verticales sont plus épaisses.
 Si l'on considère l'espacement, sa répartition devrait refléter la durée
 des notes.  Néanmoins, et comme nous l'avons vu plus haut avec la suite
 de Bach, la plupart des éditions modernes se basent sur des durées à la
-précision mathématique, ce qui entraine un effet des plus monotones.
+précision mathématique, ce qui entraîne un effet des plus monotones.
 Dans l'exemple qui suit, le même motif est imprimé deux fois@tie{}: la
 première en appliquant un espacement chronométrique, la seconde avec
 quelques corrections.  Quelle version remporte vos suffrages@tie{}?
 
 @cindex optique et espacement
 @cindex espacement et effet d'optique
-
 
 @lilypond
 \paper {
@@ -537,6 +540,7 @@ global = {
 @end lilypond
 @end ignore
 
+
 @node La raison de tous ces efforts
 @unnumberedsubsec La raison de tous ces efforts
 @translationof Why work so hard?
@@ -637,7 +641,7 @@ qui finalement ne les couvrirait pas tous.
 @end ifnottex
 @end quotation
 
-@emph{Règles de formatages définies par l'exemple. Image tirée de
+@emph{Règles de formatage définies par l'exemple. Image tirée de
 l'ouvrage de Ted Ross @qq{The Art of Music Engraving}}
 
 Plutôt que d'écrire une foultitude de règles qui embrasserait tous les
@@ -649,7 +653,7 @@ terme de moins bonne qualité, et nous opterons pour celle étant la moins
 mauvaise.
 
 Voici, à titre d'exemple, trois configurations possibles pour le tracé
-d'une liaison@tie{}; Lilypond leur attribue individuellement une @qq{note
+d'une liaison@tie{}; LilyPond leur attribue individuellement une @qq{note
 de laideur}.  Le premier essai se voit attribuer 15,39@tie{}points
 notamment pour l'effleurement de la tête de note.
 
@@ -793,6 +797,7 @@ par la version la plus récente de LilyPond (@version{}).
 Sans être un clone de l'édition de référence, cette sortie est plus
 proche d'une qualité de publication que les précédentes.
 
+
 @node Règles de formatage
 @unnumberedsubsec Règles de formatage
 @translationof Getting things right
@@ -916,7 +921,7 @@ Beams}, que nous avons décidé de laisser de côté pour cet exemple.
 en résulte une lecture peu évidente lorsque les voix supérieure et
 inférieure de croisent temporairement@tie{}:
 
-@c KEEPLY
+@c KEEP LY
 @lilypond
 collide = \once \override NoteColumn #'force-hshift = #0
 
@@ -1084,7 +1089,7 @@ expressions sont intégrées dans une séquence@tie{}:
 
 @noindent
 Ceci constitue une nouvelle expression, qui peut être à son tour
-combinée avec une autre expression simultanée (en l'occurence une
+combinée avec une autre expression simultanée (en l'occurrence une
 blanche) à l'aide de @code{<<}, @code{\\} et @code{>>}@tie{}:
 
 @example
@@ -1478,9 +1483,9 @@ vers le haut (ou la droite) pour le second.
 }
 @end lilypond
 
-@cindex score formatting
-@cindex formatting a score
-@cindex formatting rules
+@cindex partition, formatage
+@cindex formatage d'une partition
+@cindex formatage, règles de
 
 @noindent
 Le processus de mise en forme d'une partition consiste à lire et

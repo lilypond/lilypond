@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 746b609d089ec254e41394f0c1b8927b375a3d25
+    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -223,10 +223,8 @@ ver una explicación de muchas de las opciones, consulte
 @ref{Formatear el texto}.
 
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
-
 
 @seealso
 Manual de aprendizaje:
@@ -244,7 +242,7 @@ Referencia de funcionamiento interno:
 @rinternals{LyricText}.
 
 Fragmentos de código:
-@rlsr{Text}
+@rlsr{Text}.
 
 @node Alineación de la letra a una melodía
 @unnumberedsubsubsec Alineación de la letra a una melodía
@@ -652,7 +650,6 @@ texto.
 }
 @end lilypond
 
-
 @seealso
 Referencia de funcionamiento interno:
 @rinternals{LyricCombineMusic}.
@@ -863,7 +860,6 @@ Referencia de funcionamiento interno:
 @rinternals{Tunable context properties}.
 
 @knownissues
-
 No se crean automáticamente líneas extensoras bajo los melismas; se
 deben insertar manualmente con un doble guión bajo.
 
@@ -904,7 +900,6 @@ guiones.  Se puede controlar si esto ocurre o no, mediante las
 propiedades @code{minimum-distance} (distancia mínima entre las dos
 sílabas) y la @code{minimum-length} (umbral por debajo del cual se
 suprimen los guiones) de @code{LyricHyphen}.
-
 
 @seealso
 Referencia de funcionamiento interno:
@@ -1000,7 +995,6 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
   >>
 }
 @end lilypond
-
 
 @seealso
 Referencia de la notación:
@@ -2079,7 +2073,6 @@ text = \lyricmode {
   }
 }
 @end lilypond
-
 
 @seealso
 Referencia de funcionamiento interno:

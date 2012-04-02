@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 1ac60f7a65210612bcb5a6e508fee4986d8c2701
+    Translation of GIT committish: 24370ed49745de7a9dd734ae5e6066b365054904
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -51,6 +51,7 @@ particuliers en terme de musique vocale.
 * Plusieurs notes pour une même syllabe::
 * Traits d'union et de prolongation::
 @end menu
+
 
 @node Références en matière de musique vocale
 @unnumberedsubsubsec Références en matière de musique vocale
@@ -212,10 +213,8 @@ mode @code{\markup}, utilisable y compris au sein du mode
 chapitre @ref{Mise en forme du texte}.
 
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
-
 
 @seealso
 Manuel d'initiation :
@@ -326,7 +325,7 @@ explicitement leur durée à chaque syllabe.
 @end lilypond
 
 La première ligne de paroles ne s'aligne pas vraiment sur les notes
-parce qu'aucune durée n'a été spécifiée.  En fait, Lilypond adopte la
+parce qu'aucune durée n'a été spécifiée.  En fait, LilyPond adopte la
 dernière durée mentionnée, un@tie{}2, et l'applique à chaque mot.
 
 La deuxième ligne illustre la manière d'aligner des paroles sans tenir
@@ -635,7 +634,6 @@ mettre entre guillemets, soit utiliser le caractère souligné
 }
 @end lilypond
 
-
 @seealso
 Référence des propriétés internes :
 @rinternals{LyricCombineMusic}.
@@ -821,9 +819,7 @@ par un simple caractère souligné pour chaque note à inclure@tie{}:
 >>
 @end lilypond
 
-
 @predefined
-
 @code{\autoBeamOff},
 @code{\autoBeamOn},
 @code{\melisma},
@@ -848,7 +844,6 @@ Référence des propriétés internes :
 @rinternals{Tunable context properties}.
 
 @knownissues
-
 Certains mélismes ne sont pas détectés automatiquement@tie{}; vous devrez
 alors prolonger vous-même les syllabes concernées à l'aide d'un double
 caractère souligné.
@@ -889,7 +884,6 @@ imprimés.  Cet inconvénient peut être contrôlé par les propriétés
 et @code{minimum-length}, seuil en deçà duquel il n'y a pas de trait
 d'union, toutes deux attachées à l'objet @code{LyricHyphen}.
 
-
 @seealso
 Référence des propriétés internes :
 @rinternals{LyricExtender},
@@ -909,6 +903,7 @@ Référence des propriétés internes :
 * Paroles et reprises::
 * Paroles alternatives::
 @end menu
+
 
 @node Travail avec des paroles et variables
 @unnumberedsubsubsec Travail avec des paroles et variables
@@ -986,7 +981,6 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
   >>
 }
 @end lilypond
-
 
 @seealso
 Manuel de notation :
@@ -1123,7 +1117,6 @@ d'initiation.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {lyrics-old-spacing-settings.ly}
 
-
 @seealso
 Manuel d'initiation :
 @rlearning{Ensemble vocal}.
@@ -1229,6 +1222,7 @@ de mesure, il faut ajouter
 La répétition de @i{fragments musicaux} est abordée de manière détaillée
 dans un @rusernamed{Répétitions et reprises,chapitre spécifique}.  Nous
 nous intéresserons ici aux moyens d'ajouter des paroles à des reprises.
+
 
 @subheading Reprises simples
 @c VO: Simple repeats
@@ -1569,7 +1563,6 @@ doivent être insérées manuellement@tie{}:
   >>
 }
 @end lilypond
-
 
 @seealso
 Manuel de notation :
@@ -2080,7 +2073,6 @@ text = \lyricmode {
 }
 @end lilypond
 
-
 @seealso
 Référence des propriétés internes :
 @rinternals{LyricText},
@@ -2095,6 +2087,7 @@ Référence des propriétés internes :
 * Références en matière de chanson::
 * Feuille de chant::
 @end menu
+
 
 @node Références en matière de chanson
 @unnumberedsubsubsec Références en matière de chanson
@@ -2174,7 +2167,6 @@ chapitre @ref{Notation des accords}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-
 @seealso
 Manuel de notation :
 @ref{Notation des accords}.
@@ -2199,6 +2191,7 @@ partie de chœur.
 * Mise en forme d'une partition chorale::
 * Division de voix::
 @end menu
+
 
 @node Références en matière de chorale
 @unnumberedsubsubsec Références en matière de chorale
@@ -2434,6 +2427,7 @@ opératique et scénique.
 * Musique parlée::
 * Dialogue et musique::
 @end menu
+
 
 @node Références en matière d'opéra et musique de scène
 @unnumberedsubsubsec Références en matière d'opéra et musique de scène
@@ -2861,6 +2855,7 @@ l'obédience.
 * Mesure incomplète et musique liturgique::
 @end menu
 
+
 @node Références en matière de chant liturgique
 @unnumberedsubsubsec Références en matière de chant liturgique
 @translationof References for chants and psalms
@@ -2896,7 +2891,6 @@ stemOff = { \override Staff.Stem #'transparent = ##t }
   \stemOff
   a'4 b c2 |
 }
-
 @end lilypond
 
 Les barres de mesure sont absentes dans la plupart des cas@tie{}; celles
@@ -3149,7 +3143,6 @@ D'autres approches d'une telle mise en forme font l'objet du premier des
 exemples qui suivent.
 
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {chant-or-psalms-notation.ly}
 
@@ -3365,7 +3358,6 @@ en détails au chapitre @ref{Notations anciennes}.
 
 @c Add "Printing both the ancient and the modern clef in vocal music" snippet,
 @c and "Transcription of Ancient music with incipit" snippet. -vv
-
 
 @seealso
 Manuel de notation :

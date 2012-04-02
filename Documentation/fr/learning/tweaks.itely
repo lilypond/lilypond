@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 1ac60f7a65210612bcb5a6e508fee4986d8c2701
+    Translation of GIT committish: 60c131ebfe64fbc58d77e5ca66f70c60b1f0b8b2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2999,26 +2999,27 @@ nous avions laissé dans cet état@tie{}:
   <<
     { c2 aes4. bes8 }
     \\
-    { aes2 f4 fes }
+    { <ees, c>2 des }
     \\
-    {
-      \voiceFour
-      <ees c>2 des
-    }
+    \\
+    { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
 }
 @end lilypond
 
 @noindent
-Les deux plus basses notes du premier accord (c'est-à-dire celles de la
-troisième voix) ne devraient pas être décalées de l'empilement des deux
-plus hautes notes.  Pour y remédier, nous réglons le @code{force-hshift}
--- qui est une propriété de @code{NoteColumn} -- de ces notes sur zéro.
-Ensuite, la note la plus basse du second accord serait mieux à droite
-des notes plus hautes.  Pour cela, nous réglons le @code{force-hshift}
-de cette note sur 0,5 -- c'est-à-dire la moitié de la largeur d'une tête
-de note vers la droite de la colonne des notes plus hautes.
+La note intermédiaire du premier accord, le la bémol à la quatrième
+voix, doit rester dans le même empilement avec la note haute.  Pour y
+remédier, nous réglons le @code{force-hshift} -- qui est une propriété
+de @code{NoteColumn} -- de cette note sur zéro.
+
+Quant au second accord, il serait préférable que le fa s'aligne avec le
+la et que la note la plus basse se positionne un peu plus sur la droite
+pour éviter que les hampes se chevauchent.  Pour cela, nous réglons le
+@code{force-hshift} au niveau du @code{NoteColumn} du ré bémol de telle
+sorte qu'il se déplace de la moitié d'un espace de portée vers la
+droite.
 
 Et voici le résultat final :
 
@@ -3031,14 +3032,16 @@ Et voici le résultat final :
   <<
     { c2 aes4. bes8 }
     \\
-    { aes2 f4 fes }
-    \\
     {
-      \voiceFour
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
+      <ees, c>2
       \once \override NoteColumn #'force-hshift = #0.5
       des2
+    }
+    \\
+    \\
+    {
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |

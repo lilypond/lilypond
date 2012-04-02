@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 68bf74649158e6088ff0e6c2ba746cd99dc12c97
+    Translation of GIT committish: 94eb97bda0580fb220485626f618251043abebc7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -21,6 +21,7 @@
 * Modificateurs d'accord usuels::
 * Accordages prédéfinis::
 * Diagrammes d'accord prédéfinis::
+* Formats de papier prédéfinis::
 * Instruments MIDI::
 * Liste des couleurs::
 * La fonte Feta::
@@ -454,6 +455,258 @@ mandoline.
 @lilypondfile{display-predefined-mandolin-fretboards.ly}
 
 
+@node Formats de papier prédéfinis
+@appendixsec Formats de papier prédéfinis
+@translationof Predefined paper sizes
+
+Les formats de page sont définis dans le fichier@file{scm/paper.scm}.
+
+@noindent
+@strong{La série A @qq{ISO 216}}
+@table @code
+@item "a10"
+(26 x 37 mm)
+@item "a9"
+(37 x 52 mm)
+@item "a8"
+(52 x 74 mm)
+@item "a7"
+(74 x 105 mm)
+@item "a6"
+(105 x 148 mm)
+@item "a5"
+(148 x 210 mm)
+@item "a4"
+(210 x 297 mm)
+@item "a3"
+(297 x 420 mm)
+@item "a2"
+(420 x 594 mm)
+@item "a1"
+(594 x 841 mm)
+@item "a0"
+(841 x 1189 mm)
+@end table
+
+@noindent
+@strong{La série B @qq{ISO 216}}
+@table @code
+@item "b10"
+(31 x 44 mm)
+@item "b9"
+(44 x 62 mm)
+@item "b8"
+(62 x 88 mm)
+@item "b7"
+(88 x 125 mm)
+@item "b6"
+(125 x 176 mm)
+@item "b5"
+(176 x 250 mm)
+@item "b4"
+(250 x 353 mm)
+@item "b3"
+(353 x 500 mm)
+@item "b2"
+(500 x 707 mm)
+@item "b1"
+(707 x 1000 mm)
+@item "b0"
+(1000 x 1414 mm)
+@end table
+
+@noindent
+@strong{Deux tailles étendues, définies par la @qq{DIN 476}}
+@table @code
+@item "4a0"
+(1682 x 2378 mm)
+@item "2a0"
+(1189 x 1682 mm)
+@end table
+
+@noindent
+@strong{La série C standard @qq{ISO 269}}
+@table @code
+@item "c10"
+(28 x 40 mm)
+@item "c9"
+(40 x 57 mm)
+@item "c8"
+(57 x 81 mm)
+@item "c7"
+(81 x 114 mm)
+@item "c6"
+(114 x 162 mm)
+@item "c5"
+(162 x 229 mm)
+@item "c4"
+(229 x 324 mm)
+@item "c3"
+(324 x 458 mm)
+@item "c2"
+(458 x 648 mm)
+@item "c1"
+(648 x 917 mm)
+@item "c0"
+(917 x 1297 mm)
+@end table
+
+@noindent
+@strong{Formats nord américains}
+@table @code
+@item "junior-legal"
+(8.0 x 5.0 in)
+@item "legal"
+(8.5 x 14.0 in)
+@item "ledger"
+(17.0 x 11.0 in)
+@item "letter"
+(8.5 x 11.0 in)
+@item "tabloid"
+(11.0 x 17.0 in)
+@item "11x17"
+(11.0 x 17.0 in)
+@item "17x11"
+(17.0 x 11.0 in)
+@end table
+
+@noindent
+@strong{Government-letter, défini par le @emph{IEEE Printer Working
+Group}, à l'usage des enfants}
+@table @code
+@item "government-letter"
+(8 x 10.5 in)
+@item "government-legal"
+(8.5 x 13.0 in)
+@item "philippine-legal"
+(8.5 x 13.0 in)
+@end table
+
+@noindent
+@strong{Formats ANSI}
+@table @code
+@item "ansi a"
+(8.5 x 11.0 in)
+@item "ansi b"
+(17.0 x 11.0 in)
+@item "ansi c"
+(17.0 x 22.0 in)
+@item "ansi d"
+(22.0 x 34.0 in)
+@item "ansi e"
+(34.0 x 44.0 in)
+@item "engineering f"
+(28.0 x 40.0 in)
+@end table
+
+@noindent
+@strong{Formats nord américains pour l'architecture}
+@table @code
+@item "arch a"
+(9.0 x 12.0 in)
+@item "arch b"
+(12.0 x 18.0 in)
+@item "arch c"
+(18.0 x 24.0 in)
+@item "arch d"
+(24.0 x 36.0 in)
+@item "arch e"
+(36.0 x 48.0 in)
+@item "arch e1"
+(30.0 x 42.0 in)
+@end table
+
+@noindent
+@strong{Formats anciens, toujours en viguer dans le Royaume Uni}
+@table @code
+@item "statement"
+(5.5 x 8.5 in)
+@item "half letter"
+(5.5 x 8.5 in)
+@item "quarto"
+(8.0 x 10.0 in)
+@item "octavo"
+(6.75 x 10.5 in)
+@item "executive"
+(7.25 x 10.5 in)
+@item "monarch"
+(7.25 x 10.5 in)
+@item "foolscap"
+(8.27 x 13.0 in)
+@item "folio"
+(8.27 x 13.0 in)
+@item "super-b"
+(13.0 x 19.0 in)
+@item "post"
+(15.5 x 19.5 in)
+@item "crown"
+(15.0 x 20.0 in)
+@item "large post"
+(16.5 x 21.0 in)
+@item "demy"
+(17.5 x 22.5 in)
+@item "medium"
+(18.0 x 23.0 in)
+@item "broadsheet"
+(18.0 x 24.0 in)
+@item "royal"
+(20.0 x 25.0 in)
+@item "elephant"
+(23.0 x 28.0 in)
+@item "double demy"
+(22.5 x 35.0 in)
+@item "quad demy"
+(35.0 x 45.0 in)
+@item "atlas"
+(26.0 x 34.0 in)
+@item "imperial"
+(22.0 x 30.0 in)
+@item "antiquarian"
+(31.0 x 53.0 in)
+@end table
+
+@noindent
+@strong{Formats de base PA4}
+@table @code
+@item "pa0"
+(840 x 1120 mm)
+@item "pa1"
+(560 x 840 mm)
+@item "pa2"
+(420 x 560 mm)
+@item "pa3"
+(280 x 420 mm)
+@item "pa4"
+(210 x 280 mm)
+@item "pa5"
+(140 x 210 mm)
+@item "pa6"
+(105 x 140 mm)
+@item "pa7"
+(70 x 105 mm)
+@item "pa8"
+(52 x 70 mm)
+@item "pa9"
+(35 x 52 mm)
+@item "pa10"
+(26 x 35 mm)
+@end table
+
+@noindent
+@strong{Format utilisé en Asie du Sudest et en Australie}
+@table @code
+@item "f4"
+(210 x 330 mm)
+@end table
+
+@noindent
+@strong{Format spécifique aux courts exemples @code{@@lilypond} de la
+documentation, basé sur un A8 à l'italienne.}
+@table @code
+@item "a8landscape"
+(74 x 52 mm)
+@end table
+
 @node Instruments MIDI
 @appendixsec Instruments MIDI
 @translationof MIDI instruments
@@ -631,7 +884,6 @@ Emmentaler qui peuvent s'inclure directement dans un objet
 comme dans @w{@code{g^\markup @{\musicglyph #"scripts.segno" @}}} ou
 @w{@code{\markup @{\musicglyph #"five"@}}}.  Pour de plus amples
 informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
-
 
 @menu
 * Glyphes de clef::
@@ -1030,7 +1282,6 @@ attacher à une note (p.ex. @code{c\accent})@tie{}:
 @c Custom percussion staves (for "halfopen" -- not yet funindexed)
 @c References for wind instruments (for "open"/"stopped" -- not yet funindexed)
 
-
 @menu
 * Scripts d'articulation::
 * Scripts d'ornement::
@@ -1050,6 +1301,7 @@ attacher à une note (p.ex. @code{c\accent})@tie{}:
 \new RhythmicStaff { \scriptStaff #articulations }
 @end lilypond
 
+
 @node Scripts d'ornement
 @unnumberedsubsec Scripts d'ornement
 @translationof Ornament scripts
@@ -1058,6 +1310,7 @@ attacher à une note (p.ex. @code{c\accent})@tie{}:
 \include "script-chart.ly"
 \new RhythmicStaff { \scriptStaff #ornaments }
 @end lilypond
+
 
 @node Scripts de point d'orgue et point d'arrêt
 @unnumberedsubsec Scripts de point d'orgue et point d'arrêt
@@ -1068,6 +1321,7 @@ attacher à une note (p.ex. @code{c\accent})@tie{}:
 \new RhythmicStaff { \scriptStaff #fermatas }
 @end lilypond
 
+
 @node Scripts spécifiques à certains instruments
 @unnumberedsubsec Scripts spécifiques à certains instruments
 @translationof Instrument-specific scripts
@@ -1077,6 +1331,7 @@ attacher à une note (p.ex. @code{c\accent})@tie{}:
 \new RhythmicStaff { \scriptStaff #instrument-specific }
 @end lilypond
 
+
 @node Scripts de reprise et de répétition
 @unnumberedsubsec Scripts de reprise et de répétition
 @translationof Repeat sign scripts
@@ -1085,6 +1340,7 @@ attacher à une note (p.ex. @code{c\accent})@tie{}:
 \include "script-chart.ly"
 \new RhythmicStaff { \scriptStaff #repeats }
 @end lilypond
+
 
 @node Scripts pour musique ancienne
 @unnumberedsubsec Scripts pour musique ancienne
@@ -1102,7 +1358,6 @@ attacher à une note (p.ex. @code{c\accent})@tie{}:
 @translationof Percussion notes
 
 @lilypondfile[quote]{percussion-chart.ly}
-
 
 
 @node Glossaire technique

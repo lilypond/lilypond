@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: ecf0a44d785db3038035927bd2405269d8668801
+    Translation of GIT committish: 8afb2adf0bab372f845ff3eae30e1e950b5c63ca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -33,6 +33,7 @@ instruments à cordes frettées.
 * Banjo::
 @end menu
 
+
 @node Vue d'ensemble des cordes frettées
 @subsection Vue d'ensemble des cordes frettées
 @translationof Common notation for fretted strings
@@ -50,6 +51,7 @@ particularités communes aux différents instruments à cordes frettées.
 * Tablatures automatiques::
 * Doigtés pour la main droite::
 @end menu
+
 
 @node Références en matière de cordes frettées
 @unnumberedsubsubsec Références en matière de cordes frettées
@@ -82,7 +84,6 @@ chapitre @ref{Résolution des collisions}.
 @ref{Harmoniques}.
 
 @end itemize
-
 
 @seealso
 Manuel de notation :
@@ -135,7 +136,6 @@ lequel ils apparaissent dans le code@tie{}:
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
-
 
 @seealso
 Manuel de notation :
@@ -238,7 +238,6 @@ laquelle la position est la moins élevée et qui donne un numéro de case
 supérieur ou égal à la valeur de la propriété @code{minimumFret}.  La
 valeur par défaut de cette propriété est fixée à@tie{}0, ce qui
 correspond aux cordes à vide.
-
 
 @lilypond[quote,ragged-right,verbatim]
 \new StaffGroup <<
@@ -435,7 +434,6 @@ ratioHarmonics = {
 }
 @end lilypond
 
-
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {stem-and-beam-behavior-in-tablature.ly}
@@ -455,7 +453,6 @@ ratioHarmonics = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
 
-
 @seealso
 Manuel de notation :
 @ref{Hampes},
@@ -472,7 +469,6 @@ Référence des propriétés internes :
 @rinternals{TabStaff},
 @rinternals{TabVoice},
 @rinternals{Beam}.
-
 
 @knownissues
 Les accords ne subissent aucun traitement particulier@tie{}; de ce fait,
@@ -512,7 +508,7 @@ harmoniques et aux glissandi.
 @cindex cordes frettés et accordages prédéfinis
 @cindex accordages prédéfinis et cordes frettées
 
-@funindex StringTunings
+@funindex stringTunings
 
 Sous LilyPond, la case correspondant à une note jouée sur une corde
 donnée est calculée automatiquement.  Pour ce faire, l'accordage doit
@@ -551,8 +547,8 @@ dans le fichier @file{ly/string-tunings-init.ly}.
 
 @cindex accordage personnalisé
 
-@funindex stringTunings
-@funindex \stringTunings
+@funindex stringTuning
+@funindex \stringTuning
 
 LilyPond vous permet de créer n'importe quel accordage.  L'accordage du
 contexte en cours se détermine à l'aide de la fonction
@@ -566,7 +562,6 @@ Les hauteurs fournies s'expriment impérativement en mode absolu -- voir
 Nous pouvons ainsi définir par exemple l'accordage d'un instrument à
 quatre cordes accordées do sol ré la, et en anglais@tie{}:
 @code{a''}, @code{d''}, @code{g'}, et @code{c'}@tie{}:
-
 
 @lilypond[quote,verbatim]
 mynotes = {
@@ -587,7 +582,7 @@ mynotes = {
 >>
 @end lilypond
 
-La propriété @code{stringTuning} permet aussi au @code{FretBoards} de
+La propriété @code{stringTunings} permet aussi au @code{FretBoards} de
 calculer automatiquement les diagrammes de frets.
 
 L'accordage fait partie de la clé permettant d'identifier les 
@@ -663,7 +658,6 @@ LilyPond dispose d'une clef de tablature moderne.
 @end lilypond
 
 Cette clef moderne prend en charge les tablatures de quatre à sept cordes.
-
 
 @seealso
 Manuel de notation :
@@ -1081,13 +1075,11 @@ un diagramme d'accord, les propriétés de l'interface dépendent de
 @code{Voice.TextScript}.
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-fret-orientations.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {customizing-markup-fret-diagrams.ly}
-
 
 @seealso
 Manuel de notation :
@@ -1379,7 +1371,6 @@ d'accord donné, les propriétés de l'interface dépendent de
 @code{FretBoards.FretBoard}.
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {customizing-fretboard-fret-diagrams.ly}
 
@@ -1391,7 +1382,6 @@ d'accord donné, les propriétés de l'interface dépendent de
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretboards-alternate-tables.ly}
-
 
 @seealso
 Manuel de notation :
@@ -1552,12 +1542,10 @@ l'interface @code{fret-diagram-interface}.  Pour un diagramme
 d'accord @code{FretBoards} donné, les propriétés de l'interface
 dépendent de @code{FretBoards.FretBoard}.
 
-
 @predefined
 @code{\predefinedFretboardsOff},
 @code{\predefinedFretboardsOn}.
 @endpredefined
-
 
 @seealso
 Manuel de notation :
@@ -1611,15 +1599,12 @@ même @code{MD}@tie{}:
 #(define MD rightHandFinger)
 @end example
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {placement-of-right-hand-fingerings.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingerings,-string-indications,-and-right-hand-fingerings.ly}
-
 
 @seealso
 Morceaux choisis :
@@ -1651,6 +1636,7 @@ GuitarTex.
 * Indication de power chord::
 @end menu
 
+
 @node Indication de la position et du barré
 @unnumberedsubsubsec Indication de la position et du barré
 @translationof Indicating position and barring
@@ -1669,7 +1655,6 @@ g16\startTextSpan
 b16 e g e b g\stopTextSpan
 e16 b g d
 @end lilypond
-
 
 @seealso
 Manuel de notation :
@@ -1750,14 +1735,13 @@ ce style de jeu en affectant un profil spécifique aux têtes de note.
 }
 @end lilypond
 
-
 @seealso
-Morceaux choisis :
-@rlsrnamed{Fretted strings, Cordes frettées}.
-
 Manuel de notation :
 @ref{Têtes de note spécifiques},
 @ref{Têtes de note}.
+
+Morceaux choisis :
+@rlsrnamed{Fretted strings, Cordes frettées}.
 
 
 @node Indication de power chord
@@ -1831,7 +1815,6 @@ mixedChords = \chordmode {
 }
 @end lilypond
 
-
 @seealso
 Glossaire musicologique :
 @rglos{power chord}.
@@ -1851,6 +1834,7 @@ Morceaux choisis :
 @menu
 * Tablatures pour banjo::
 @end menu
+
 
 @node Tablatures pour banjo
 @unnumberedsubsubsec Tablatures pour banjo
@@ -1900,10 +1884,10 @@ moyen de la fonction @code{four-string-banjo}@tie{}:
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
 @end example
 
-
 @seealso
+Fichiers d'initialisation :
+@file{ly/string-tunings-init.ly}.
+
 Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
 
-Fichiers d'initialisation :
-@file{ly/string-tunings-init.ly}.

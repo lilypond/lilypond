@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 1ac60f7a65210612bcb5a6e508fee4986d8c2701
+    Translation of GIT committish: 8afb2adf0bab372f845ff3eae30e1e950b5c63ca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -19,7 +19,6 @@ Nous n'allons pas, dans ce chapitre, parler directement de notation,
 mais plutôt du contenu des fichiers source et du résultat produit par
 LilyPond.
 
-
 @menu
 * Agencement du code::
 * Titres et entêtes::
@@ -28,6 +27,7 @@ LilyPond.
 * Sortie MIDI::
 * Extraction d'informations musicales::
 @end menu
+
 
 @node Agencement du code
 @section Agencement du code
@@ -539,7 +539,6 @@ contenir, comme dans
 @w{@code{\override Score . LyricText #'font-size = #5}}.
 
 @end itemize
-
 
 @seealso
 Manuel d'initiation :
@@ -1113,6 +1112,7 @@ l'une automatisée, et l'autre manuelle.
 * Notes de bas de page manuelles::
 @end menu
 
+
 @node Considérations générales en matière de note de bas de page
 @unnumberedsubsubsec Considérations générales en matière de note de bas de page
 @translationof Footnotes overview
@@ -1434,7 +1434,6 @@ déterminé, LilyPond doit connaître les dimensions de ce @emph{markup}.
 Vous pouvez, lorsque l'ouvrage contiendra plus de dix pages, stipuler un
 emporte-pièce sur deux caractères -- soit @code{"00"}.
 
-
 @predefined
 @funindex \label
 @code{\label},
@@ -1570,18 +1569,16 @@ pointillée@tie{}:
 }
 @end lilypond
 
-
-@seealso
-Fichiers d'initialisation :
-@file{../ly/toc-init.ly}.
-
-
 @predefined
 @funindex \table-of-contents
 @code{\table-of-contents},
 @funindex \tocItem
 @code{\tocItem}.
 @endpredefined
+
+@seealso
+Fichiers d'initialisation :
+@file{../ly/toc-init.ly}.
 
 
 @node Travail sur des fichiers texte
@@ -1593,6 +1590,7 @@ Fichiers d'initialisation :
 * Différentes éditions à partir d'une même source::
 * Caractères spéciaux::
 @end menu
+
 
 @node Insertion de fichiers LilyPond
 @subsection Insertion de fichiers LilyPond
@@ -1698,12 +1696,10 @@ nouvelle version de LilyPond.
 Vous trouverez quelques exemples simples d'utilisation de la commande
 @code{\include} au chapitre @rlearning{Conducteurs et parties}.
 
-
 @seealso
 Manuel d'initiation :
 @rlearning{Autres sources de documentation},
 @rlearning{Conducteurs et parties}.
-
 
 @knownissues
 Lorsque vous incluez un fichier qui porte le même nom que l'un des
@@ -1732,6 +1728,7 @@ compose.
 * Utilisation de balises::
 * Globalisation des réglages::
 @end menu
+
 
 @node Utilisation de variables
 @unnumberedsubsubsec Utilisation de variables
@@ -1967,7 +1964,6 @@ Ces instructions prennent soin de recopier tout ce qui doit être
 modifié, de telle sorte que l'expression @code{\test} originale conserve
 tout son sens.
  
-
 @seealso
 Manuel d'initiation :
 @rlearning{Organisation du code source avec des variables}.
@@ -1983,7 +1979,6 @@ Manuel de notation :
 @c Should be deleted?  -td
 
 @knownissues
-
 Lorsqu'elles comportent des silences, ceux-ci ne seront pas fusionnés
 si vous imprimez une partition avec les deux sections balisées.
 
@@ -2225,6 +2220,7 @@ Fichiers d'initialisation :
 * Changement des fontes musicales::
 @end menu
 
+
 @node Extraction de fragments musicaux
 @subsection Extraction de fragments musicaux
 @translationof Extracting fragments of music
@@ -2363,13 +2359,11 @@ répertoire @code{fonts} qui s'y trouve en @code{fonts_orig}, puis le
 répertoire @code{lilyfonts} en @code{fonts}.  Il vous suffira, pour
 retrouver la fonte Feta, de renommer @code{fonts_orig} en @code{fonts}.
 
-
 @seealso
 Manuel d'initiation :
 @rlearning{Autres sources de documentation}.
 
 @knownissues
-
 Gonville ne permet pas de générer de la notation ancienne, et certains
 glyphes ajoutés depuis lors aux jeux de caractères en soient absent.
 Consultez le site de l'auteur pour de plus amples informations ainsi
@@ -2505,14 +2499,11 @@ Lorsque l'instrument choisi ne correspond pas exactement à l'une des
 dénominations consacrées, LilyPond le replacera par un piano de concert
 (@code{"acoustic grand"}).
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-midi-output-to-one-channel-per-voice.ly}
 
 @knownissues
-
 @c In 2.11 the following no longer seems to be a problem -td
 @ignore
 Un (de)crescendo non terminé ne sera pas correctement rendu en MIDI --
@@ -3060,7 +3051,6 @@ son le plus proche dans la banque standard.
 @c TODO Expand with examples, and any other issues
 
 @knownissues
-
 Le standard @emph{general MIDI} ne dispose pas du @emph{rim shot}@tie{};
 LilyPond lui substitue un @emph{sidestick}.
 
@@ -3104,7 +3094,6 @@ illustré ci-dessus permettra le rendu d'un certain nombre
 d'articulations tels les trilles.
 
 @knownissues
-
 Dans la mesure où la script @code{articulate} tend à raccourcir les
 accords, certaines musiques, notamment pour l'orgue, paraîtront de moins
 bonne qualité.
@@ -3222,9 +3211,7 @@ Ces informations peuvent faire l'objet d'un retraitement par d'autres
 programmes, comme des scripts python, aux fins de recherche en analyse
 musicologique ou des expériences à partir du rendu de LilyPond.
 
-
 @knownissues
-
 Tous les événements ne sont pas pris en charge par
 @file{event-listener.ly}.  Il s'agit en premier lieu d'une
 démonstration, un @qq{proof of concept} du potentiel de LilyPond.  Si

@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 68bf74649158e6088ff0e6c2ba746cd99dc12c97
+    Translation of GIT committish: c8d018351dac201da482291ad1f14f3771a1a679
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -25,7 +25,7 @@ consacrer leur temps à des travaux plus ardus.
 @end macro
 
 
-@macro helpusTasks
+@macro helpusSimple
 @subheading Tâches simples
 
 Aucun besoin de fouiller dans le code ni de compiler.
@@ -40,6 +40,12 @@ Les rapports de bogue@tie{}: aider les utilisateurs à rédiger
 correctement et traduire leurs @rwebnamed{Signalement de bogue,
 signalements de bogue}, puis aider l'équipe des correcteurs à traiter
 ces @rcontribnamed{Issues,problèmes}.
+
+@item
+@rcontribnamed{Grand Regression Test Checking, Vérification des test de
+régression}@tie{}: vérifier que LilyPond fournit un travail toujours
+exemplaire au fil des versions. Contrôler un échantillon spécifique
+prend moins d'une minute@tie{}!
 
 @item
 Documentation@tie{}: il est possible de proposer des modifications,
@@ -59,7 +65,9 @@ Vous aussi, prenez part à ces discussions@tie{}!
 
 @end itemize
 
+@end macro
 
+@macro helpusAdvanced
 @subheading Tâches ardues
 
 Ces travaux demandent en général de disposer du code source et d'être en
@@ -108,7 +116,7 @@ la voie recommandée est de se joindre aux @qq{Frogs}, et de lire
 
 @end macro
 
-
+@ignore
 @macro helpusProjects
 @subheading Projets
 
@@ -167,4 +175,4 @@ de grands travaux à l'avenir.
 
 @end macro
 
-
+@end ignore

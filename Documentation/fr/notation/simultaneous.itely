@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: ecf0a44d785db3038035927bd2405269d8668801
+    Translation of GIT committish: 8afb2adf0bab372f845ff3eae30e1e950b5c63ca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -101,7 +101,6 @@ positionnent relativement à la précédente.
 
 Pour plus d'information à propos des accords, voir
 @ref{Notation des accords}.
-
 
 @seealso
 Glossaire musicologique :
@@ -227,7 +226,6 @@ appel explicite de @code{\chordRepeats}@tie{}: l'expansion implicite en
 début de saisie intervient à un moment où toutes les instances de
 @code{\relative} ont déjà été interprétées.
 
-
 @seealso
 Manuel de notation :
 @ref{Articulations et ornements},
@@ -328,7 +326,6 @@ Des notes ordinaires et des clusters peuvent cohabiter sur une même
 portée, y compris simultanément -- en pareil cas, rien ne sera fait
 pour tenter d'empêcher les chevauchements entre notes et clusters.
 
-
 @seealso
 Glossaire musicologique :
 @rglos{cluster}.
@@ -342,7 +339,6 @@ Référence des propriétés internes :
 @rinternals{Cluster_spanner_engraver}.
 
 @knownissues
-
 L'apparence d'un cluster sera extrêmement resserrée s'il ne comporte au
 moins deux accords.
 
@@ -569,7 +565,6 @@ Prenez garde que les différents éléments doivent impérativement avoir la
 même structure rythmique, sous peine de ligature aléatoire et de
 messages d'avertissement.
 
-
 @predefined
 @code{\voiceOne},
 @code{\voiceTwo},
@@ -577,7 +572,6 @@ messages d'avertissement.
 @code{\voiceFour},
 @code{\oneVoice}.
 @endpredefined
-
 
 @seealso
 Manuel d'initiation :
@@ -626,7 +620,6 @@ permet de les identifier plus facilement@tie{}:
 La commande @code{\voiceNeutralStyle} permet de revenir à la
 présentation normale.
 
-
 @predefined
 @code{\voiceOneStyle},
 @code{\voiceTwoStyle},
@@ -634,7 +627,6 @@ présentation normale.
 @code{\voiceFourStyle},
 @code{\voiceNeutralStyle}.
 @endpredefined
-
 
 @seealso
 Manuel d'initiation :
@@ -824,7 +816,6 @@ Les têtes de notes ne fusionneront que dans la mesure où leur hampe sont
 opposées -- implicitement parce qu'appartenant aux voix une ou deux, ou
 bien explicitement.
 
-
 @predefined
 @code{\mergeDifferentlyDottedOn},
 @code{\mergeDifferentlyDottedOff},
@@ -837,15 +828,12 @@ bien explicitement.
 @code{\shiftOff}.
 @endpredefined
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {additional-voices-to-avoid-collisions.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
-
 
 @seealso
 Glossaire musicologique :
@@ -863,7 +851,6 @@ Référence des propriétés internes :
 @rinternals{NoteColumn},
 @rinternals{NoteCollision},
 @rinternals{RestCollision}.
-
 
 @cindex collisions, ignorer
 
@@ -1047,15 +1034,12 @@ instrumentTwo = \relative c' {
 >>
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {combining-two-parts-on-the-same-staff.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
-
 
 @seealso
 Glossaire musicologique :
@@ -1072,9 +1056,7 @@ Référence des propriétés internes :
 @rinternals{PartCombineMusic},
 @rinternals{Voice}.
 
-
 @knownissues
-
 Les différentes commandes @code{\partcombine...} ne prennent en charge
 que deux voix.  De la même manière, le combinateur n'est pas conçu pour
 travailler avec des paroles@tie{}; il s'arrête dès qu'il est
@@ -1211,7 +1193,6 @@ global = {
   >>
 }
 @end lilypond
-
 
 @seealso
 Manuel d'initiation :

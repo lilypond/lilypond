@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2055f35c47a045a50a01ff4dba8524322cfc3b48
+    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -73,7 +73,6 @@ Hay una plantilla para cuarteto de cuerda en @rlearning{Cuarteto de cuerda}.  Ot
 
 @end itemize
 
-
 @seealso
 Manual de aprendizaje:
 @rlearning{Cuarteto de cuerda}.
@@ -131,7 +130,6 @@ a2^\markup { \small "sul A" }
 @code{\upbow},
 @code{\open}.
 @endpredefined
-
 
 @seealso
 Referencia de la notación:
@@ -204,7 +202,6 @@ activar si se necesitan los puntillos.
 @warning{@code{@bs{}harmonic} @strong{se debe} colocar dentro de una
 construcción de acorde incluso si solamente hay una nota.  Normalmente
 se usaría @code{@bs{}harmonicsOn} en esta situación.}
-
 
 @seealso
 Glosario musical:

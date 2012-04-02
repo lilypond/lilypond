@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualizado en Thu Mar  1 13:47:50 UTC 2012
+@emph{Actualizado en Tue Mar 27 16:52:08 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ Registro de cambios de LilyPond
 @item
 Títulos de sección
 @*
-1154
+1209
 @tab Francisco Vila
 @tab 
 @tab 
@@ -47,11 +47,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -270,7 +270,7 @@ sí
 @item
 A Tutorial de Scheme
 @*
-5990
+6041
 @tab Francisco Vila
 @tab 
 @tab 
@@ -444,7 +444,7 @@ sí
 @item
 3 Conceptos fundamentales
 @*
-11152
+11133
 @tab Francisco Vila
 @tab 
 @tab 
@@ -471,7 +471,7 @@ sí
 @item
 4 Trucar la salida
 @*
-15415
+15402
 @tab Francisco Vila
 @tab 
 @tab 
@@ -645,7 +645,7 @@ sí
 @item
 1.2 Duraciones
 @*
-6327
+6330
 @tab Francisco Vila
 @tab 
 @tab 
@@ -672,7 +672,7 @@ sí
 @item
 1.3 Expresiones
 @*
-1726
+1727
 @tab Francisco Vila
 @tab 
 @tab 
@@ -780,7 +780,7 @@ sí
 @item
 1.7 Anotaciones editoriales
 @*
-931
+949
 @tab Francisco Vila
 @tab 
 @tab 
@@ -807,7 +807,7 @@ sí
 @item
 1.8 Texto
 @*
-2715
+2716
 @tab Francisco Vila
 @tab 
 @tab 
@@ -969,7 +969,7 @@ sí
 @item
 2.5 Percusión
 @*
-811
+812
 @tab Francisco Vila
 @tab 
 @tab 
@@ -996,7 +996,7 @@ sí
 @item
 2.6 Instrumentos de viento
 @*
-319
+321
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1023,7 +1023,7 @@ sí
 @item
 2.7 Notación de acordes
 @*
-2027
+2022
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1158,7 +1158,7 @@ sí
 @item
 4 Problemas de espaciado
 @*
-11141
+11221
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1185,7 +1185,7 @@ sí
 @item
 5 Cambiar los valores por omisión
 @*
-12669
+12706
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1212,7 +1212,7 @@ sí
 @item
 A Tablas del manual sobre notación
 @*
-2173
+2177
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1332,7 +1332,7 @@ sí
 @item
 1 Ejecutar LilyPond
 @*
-3875
+3889
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1614,28 +1614,28 @@ sí
 @item
 Comunidad
 @*
-2214
+3018
 @tab Francisco Vila
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #dfef77">parcialmente (99 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente (99 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #83fe2c">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @end multitable

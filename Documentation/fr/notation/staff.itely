@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: ecf0a44d785db3038035927bd2405269d8668801
+    Translation of GIT committish: 24370ed49745de7a9dd734ae5e6066b365054904
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -58,7 +58,7 @@ Nous allons voir ici comment créer des portées et comment les regrouper.
 @cindex batterie, portée
 @cindex percussion, portée
 @cindex portée, transcription de grégorien
-@cindex portée rhytmique
+@cindex portée rythmique
 @cindex portée de tablature
 @cindex tablature
 
@@ -112,7 +112,7 @@ cordes d'une guitare standard.  Pour de plus amples détails, consultez
 \new TabStaff { c4 d e f }
 @end lilypond
 
-Lilypond dispose aussi de deux contextes dédiés à la musique
+LilyPond dispose aussi de deux contextes dédiés à la musique
 ancienne@tie{}: @code{MensuralStaff} et @code{VaticanaStaff}.  Ils sont
 abordés plus en détails au chapitre @ref{Contextes prédéfinis}.
 
@@ -127,7 +127,6 @@ de mesure.
 Vous pourrez toujours définir d'autres contextes de portée selon vos
 besoins, en suivant les indications fournies au chapitre
 @ref{Définition de nouveaux contextes}.
-
 
 @seealso
 Glossaire musicologique :
@@ -224,7 +223,7 @@ accolade sur la gauche, et les barres de mesure sont d'un seul tenant.
 >>
 @end lilypond
 
-Le contexte @code{PianoStaff} est indentique au @code{GrandStaff}, sauf
+Le contexte @code{PianoStaff} est identique au @code{GrandStaff}, sauf
 qu'il gère automatiquement l'affichage du nom d'instrument -- voir
 @ref{Noms d'instrument} pour plus de détails.
 
@@ -246,9 +245,7 @@ doit quant à lui être spécifié de manière explicite.
 Vous pouvez aussi créer vos propres contextes de regroupement, comme
 l'explique @ref{Définition de nouveaux contextes}.
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {use-square-bracket-at-the-start-of-a-staff-group.ly}
 
@@ -262,7 +259,6 @@ l'explique @ref{Définition de nouveaux contextes}.
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
-
 
 @seealso
 Glossaire musicologique :
@@ -324,12 +320,9 @@ délimiteur, en plus de celui du niveau supérieur.
 Vous pouvez aussi créer vos propres contextes d'imbrication, comme
 l'explique @ref{Définition de nouveaux contextes}.
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {nesting-staves.ly}
-
 
 @seealso
 Manuel de notation :
@@ -409,7 +402,6 @@ Cette section explique le réglage de la gravure de chaque portée,
 comme la taille de portée ou le nombre de lignes@tie{}; sont aussi
 décrits la suspension et la reprise de portées, ainsi que les portées
 d'@emph{ossia}.
-
 
 @menu
 * Symbole de la portée::
@@ -564,17 +556,14 @@ lignes supplémentaires.
 { f'4 d, g, e, }
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-some-staff-lines-thicker-than-the-others.ly}
-
 
 @seealso
 Glossaire musicologique :
 @rglosnamed{line,ligne},
-@rglosnamed{ledger line,ligne suplémentaire},
+@rglosnamed{ledger line,ligne supplémentaire},
 @rglosnamed{staff,portée}.
 
 Manuel de notation :
@@ -690,7 +679,6 @@ procéder, bien plus que dans l'exemple suivant.
 >>
 @end lilypond
 
-
 Vous pourriez aussi recourir à la commande
 @code{\Staff \RemoveEmptyStaves} pour créer votre portée d'ossia.
 Cependant, cette méthode reste limitée à l'apparition de ces ossias en
@@ -728,12 +716,9 @@ début de ligne.  Pour plus d'information au sujet de la commande
 }
 @end lilypond
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
-
 
 @seealso
 Glossaire musicologique :
@@ -768,7 +753,6 @@ Référence des propriétés internes :
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
 @funindex stopStaff
-
 
 Désactiver le graveur @code{Staff_symbol_engraver} dans un contexte
 @code{Staff} permet de masquer des lignes.  La commande
@@ -832,19 +816,15 @@ portées vides dans les contextes de musique ancienne.  Pour des
 contextes @code{RhythmicStaff}, il faudra utiliser
 @code{\RhythmicStaff \RemoveEmptyStaves}.
 
-
 @predefined
 @code{\Staff \RemoveEmptyStaves},
 @code{\VaticanaStaff \RemoveEmptyStaves},
 @code{\RhythmicStaff \RemoveEmptyStaves}.
 @endpredefined
 
-
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {removing-the-first-empty-line.ly}
-
 
 @seealso
 Glossaire musicologique :
@@ -871,9 +851,7 @@ Référence des propriétés internes :
 @rinternals{VerticalAxisGroup},
 @rinternals{Staff_symbol_engraver}.
 
-
 @knownissues
-
 Supprimer le @code{Staff_symbol_engraver} aura pour effet de masquer les
 barres de mesure.  Forcer leur visibilité peut entraîner des problèmes
 de formatage.  En pareil cas il vaut mieux, au lieu de supprimer le
@@ -947,7 +925,8 @@ d'instrument particuliers, tels que
 Lorsque plusieurs contextes de portée sont regroupés, les noms
 d'instrument, que ce soit sous leur forme développée ou abrégée, sont
 par défaut centrés.  Si l'un d'entre eux est libellé sur plusieurs
-lignes, il faudra recourrir à l'instruction @code{\center-column}@tie{}:
+lignes, il faudra reccourrir à l'instruction
+@code{\center-column}@tie{}:
 
 @lilypond[verbatim,quote,indent=1.5\cm,relative=2]
 <<
@@ -1074,7 +1053,6 @@ subtitution@tie{}:
   c,1 ~ | c1
 }
 @end lilypond
-
 
 @seealso
 Manuel de notation :
@@ -1230,12 +1208,13 @@ Les citations peuvent être @qq{balisées} par un nom particulier afin de
 les utiliser de différentes manières.  Pour de plus amples détails à ce
 propos, consultez le chapitre @ref{Utilisation de balises}.
 
-
-
 @seealso
 Manuel de notation :
 @ref{Instruments transpositeurs},
 @ref{Utilisation de balises}.
+
+Fichiers d'initialisation :
+@file{scm/define-event-classes.scm}.
 
 Morceaux choisis :
 @rlsrnamed{Staff notation, Notation sur la portée}.
@@ -1245,12 +1224,7 @@ Référence des propriétés internes :
 @rinternals{QuoteMusic},
 @rinternals{Voice}.
 
-Fichiers d'initiallisation :
-@file{scm/define-event-classes.scm}.
-
-
 @knownissues
-
 Seul le contenu de la première @code{Voice} rencontrée dans la
 partie marquée d'une commande @code{\addQuote} pourra être retenu.  Par
 voie de conséquence, @code{@var{musique}} ne saurait comprendre de
@@ -1298,7 +1272,7 @@ R1
 d,4 r a r
 @end lilypond
 
-L'instruction @code{\cuecClef}, utilisée conjointement à un contexte
+L'instruction @code{\cueClef}, utilisée conjointement à un contexte
 @code{CueVoice} explicite permet d'indiquer la clef, dans une taille
 réduite, propre à la voix citée.  Le retour à la clef d'origine
 s'effectue à l'aide de l'instruction @code{\cueClefUnset}.
@@ -1352,7 +1326,6 @@ petites notes initialise une polyphonie temporaire pour la portée
 concernée.  L'argument @code{@var{position}} détermine si ces petites
 notes seront attachées à la première ou à la seconde voix -- @code{UP}
 pour la première, @code{DOWN} pour la seconde.
-
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative c'' {
@@ -1548,7 +1521,6 @@ joue et un changement de clef, ces éléments peuvent se regrouper à
 l'aide de la commande @code{\addInstrumentDefinition}.  Pour plus
 d'information, reportez-vous au chapitre @ref{Noms d'instrument}.
 
-
 @seealso
 Manuel de notation :
 @ref{Citation d'autres voix},
@@ -1565,9 +1537,7 @@ Référence des propriétés internes :
 @rinternals{CueVoice},
 @rinternals{Voice}.
 
-
 @knownissues
-
 La commande @code{\cueDuring} ne sait pas gérer les collisions de
 silence entre les contextes @code{Voice} et @code{CueVoice}.
 

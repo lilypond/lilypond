@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Thu Mar  1 13:47:50 UTC 2012
+@emph{Last updated Tue Mar 27 16:52:08 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -138,7 +138,7 @@ yes
 @item
 3 Concetti fondamentali
 @*
-11152
+11133
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -155,11 +155,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -378,7 +378,7 @@ yes
 @item
 1 Eseguire @command{lilypond}
 @*
-3875
+3889
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -660,28 +660,28 @@ yes
 @item
 Comunità
 @*
-2214
+3018
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #dfef77">partially (99 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially (99 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #83fe2c">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @end multitable

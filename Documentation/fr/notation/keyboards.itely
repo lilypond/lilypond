@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
+    Translation of GIT committish: 8afb2adf0bab372f845ff3eae30e1e950b5c63ca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -33,6 +33,7 @@ multiples concerne aussi des instruments qui en sont dépourvus.
 * Harpe::
 @end menu
 
+
 @node Vue d'ensemble des claviers
 @subsection Vue d'ensemble des claviers
 @translationof Common notation for keyboards
@@ -48,14 +49,11 @@ de notation pour la plupart des instrument à cordes multiples.
 * Hampes et changements de portée::
 @end menu
 
+
 @node Généralités sur les instruments à clavier
 @unnumberedsubsubsec Généralités sur les instruments à clavier
 @translationof References for keyboards
 
-@c untranslated
-@c ifnothtml
-@c englishref
-@c end ifnothtml
 @cindex piano, système pour
 @cindex portées pour piano
 @cindex portées pour instrument à clavier
@@ -135,7 +133,6 @@ qui passent d'une voix à l'autre, comme le montre
 
 @end itemize
 
-
 @seealso
 Manuel d'initiation :
 @rlearning{Exemple concret},
@@ -153,11 +150,11 @@ Manuel de notation :
 @ref{Arpèges},
 @ref{Répétitions en trémolo}.
 
-Référence des propriétés internes :
-@rinternals{PianoStaff}.
-
 Morceaux choisis :
 @rlsrnamed{Keyboards, Claviers}.
+
+Référence des propriétés internes :
+@rinternals{PianoStaff}.
 
 
 @node Changement de portée manuel
@@ -254,7 +251,6 @@ ou extenseurs affectés à des notes incluses dans un changement de
 portée.  Lorsque des collisions surviennent en pareil cas, il vous
 faudra les résoudre, en suivant les directives du chapitre
 @rlearning{Correction des collisions d'objets}.
-
 
 @seealso
 Manuel d'initiation :
@@ -353,7 +349,6 @@ portée inférieure@tie{}:
 >>
 @end lilypond
 
-
 @seealso
 Manuel de notation :
 @ref{Changement de portée manuel}.
@@ -414,12 +409,10 @@ commande @code{\showStaffSwitch}@tie{}:
 >>
 @end lilypond
 
-
 @predefined
 @code{\showStaffSwitch},
 @code{\hideStaffSwitch}.
 @endpredefined
-
 
 @seealso
 Morceaux choisis :
@@ -479,7 +472,6 @@ celle de l'autre portée.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
-
 @seealso
 Morceaux choisis :
 @rlsrnamed{Keyboards, Claviers}.
@@ -497,6 +489,7 @@ Ce chapitre traîte des aspects de la notation directement liés au piano.
 @menu
 * Pédales de piano::
 @end menu
+
 
 @node Pédales de piano
 @unnumberedsubsubsec Pédales de piano
@@ -525,7 +518,6 @@ Ce chapitre traîte des aspects de la notation directement liés au piano.
 @funindex unaCorda
 @funindex \treCorde
 @funindex treCorde
-
 
 Le piano possède deux pédales, parfois trois, permettant de modifier
 l'émission du son@tie{}: une pédale de @notation{tenue}
@@ -610,6 +602,7 @@ Référence des propriétés internes :
 * Symboles de jeux::
 @end menu
 
+
 @node Symboles de jeux
 @unnumberedsubsubsec Symboles de jeux
 @translationof Discant symbols
@@ -629,10 +622,8 @@ de symbole a fini par voir le jour afin de faciliter les instructions
 pour exécuter un morceau.
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {accordion-discant-symbols.ly}
-
 
 @seealso
 Morceaux choisis :

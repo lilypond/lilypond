@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 6cdba57f41aacc76397ab921972d91345990c770
+    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -110,7 +110,6 @@ objetos}.
 @code{\textLengthOff}.
 @endpredefined
 
-
 @seealso
 Manual de aprendizaje:
 @rlearning{Colocación de los objetos}.
@@ -131,7 +130,6 @@ Referencia de funcionamiento interno:
 @cindex margen, texto fuera del
 @cindex texto, mantener dentro del margen
 @cindex letra, mantener dentro del margen
-
 
 @knownissues
 La comprobación necesaria para asegurar que las inscripciones de texto
@@ -201,7 +199,6 @@ LilyPond sólo puede manejar un objeto de extensión de texto por cada
 voz.
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {dynamics-text-spanner-postfix.ly}
 
@@ -291,7 +288,6 @@ c  c
 
 
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-at-the-end-of-a-line.ly}
 
@@ -300,7 +296,6 @@ c  c
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
-
 
 @seealso
 Referencia de la notación:
@@ -377,10 +372,8 @@ requiere se describen en @ref{Elementos de marcado de varias páginas}.
 
 
 @snippets
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
-
 
 @seealso
 Referencia de la notación:
@@ -504,7 +497,6 @@ allegro = \markup { \bold \large Allegro }
 Se puede encontrar una lista exhaustiva de las instrucciones
 específicas de @code{\markup} en @ref{Text markup commands}.
 
-
 @seealso
 Referencia de la notación:
 @ref{Text markup commands}.
@@ -514,7 +506,6 @@ Fragmentos de código:
 
 Archivos de inicio:
 @file{scm/markup.scm}.
-
 
 @knownissues
 Los errores de sintaxis para el modo de marcado a menudo producen
@@ -703,7 +694,6 @@ como se explica en @ref{Tipografías}.
 @code{\larger}.
 @endpredefined
 
-
 @seealso
 Referencia de la notación:
 @ref{Font},
@@ -711,14 +701,14 @@ Referencia de la notación:
 @ref{Marcas de repetición manual},
 @ref{Tipografías}.
 
+Archivos de inicio:
+@file{scm/define-markup-commands.scm}.
+
 Fragmentos de código:
 @rlsr{Text}.
 
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
-
-Archivos de inicio:
-@file{scm/define-markup-commands.scm}.
 
 @knownissues
 La utilización de las instrucciones de tamaño de texto
@@ -972,7 +962,6 @@ la izquierda o justificados, como se muestra en el ejemplo siguiente.
 Hay una lista exhaustiva de instrucciones de alineación de texto en
 @ref{Align}.
 
-
 @seealso
 Manual de aprendizaje:
 @rlearning{Mover objetos}.
@@ -981,14 +970,14 @@ Referencia de la notación:
 @ref{Align},
 @ref{Indicaciones de texto}.
 
+Archivos de inicio:
+@file{scm/define-markup-commands.scm}.
+
 Fragmentos de código:
 @rlsr{Text}.
 
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
-
-Archivos de inicio:
-@file{scm/define-markup-commands.scm}.
 
 
 @node Notación gráfica dentro de elementos de marcado
@@ -1159,21 +1148,20 @@ c
 Hay una lista exhaustiva de instrucciones específicas de gráficos en
 @ref{Graphic}.
 
-
 @seealso
 Referencia de la notación:
 @ref{Graphic},
 @ref{Anotaciones editoriales}.
+
+Archivos de inicio:
+@file{scm/define-markup-commands.scm},
+@file{scm/stencil.scm}.
 
 Fragmentos de código:
 @rlsr{Text}.
 
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
-
-Archivos de inicio:
-@file{scm/define-markup-commands.scm},
-@file{scm/stencil.scm}.
 
 
 @node Notación musical dentro de elementos de marcado
@@ -1294,23 +1282,22 @@ c d e f
 Hay una lista exhaustiva de instrucciones relacionadas con la notación
 musical en @ref{Music}.
 
-
 @seealso
 Referencia de la notación:
 @ref{Music},
 @ref{La tipografía Feta},
 @ref{Explicación de las fuentes tipográficas}.
 
+Archivos de inicio:
+@file{scm/define-markup-commands.scm},
+@file{scm/fret-diagrams.scm},
+@file{scm/harp-pedals.scm}.
+
 Fragmentos de código:
 @rlsr{Text}.
 
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
-
-Archivos de inicio:
-@file{scm/define-markup-commands.scm},
-@file{scm/fret-diagrams.scm},
-@file{scm/harp-pedals.scm}.
 
 
 @node Elementos de marcado de varias páginas
@@ -1361,23 +1348,21 @@ o una lista de listas de marcado.
 Hay una lista exhaustiva de las instrucciones de lista de marcado en
 @ref{Text markup list commands}.
 
-
 @seealso
 Referencia de la notación:
 @ref{Text markup list commands}.
 
-Fragmentos de código:
-@rlsr{Text}.
+Archivos de inicio:
+@file{scm/define-markup-commands.scm}.
 
 Manual de extensión:
 @rextend{New markup list command definition}.
 
+Fragmentos de código:
+@rlsr{Text}.
+
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
-
-Archivos de inicio:
-@file{scm/define-markup-commands.scm}.
-
 
 @funindex \markuplist
 @funindex markuplist
@@ -1505,7 +1490,6 @@ preconfiguradas, también es posible usar otras fuentes, como se
 explica en las siguientes secciones: @ref{Fuentes de un solo elemento} y
 @ref{Fuentes tipográficas del documento completo}.
 
-
 @seealso
 Referencia de la notación:
 @ref{La tipografía Feta},
@@ -1547,7 +1531,6 @@ disponibles en el sistema operativo:
 @example
 lilypond -dshow-available-fonts x
 @end example
-
 
 @seealso
 Referencia de la notación:
@@ -1597,7 +1580,6 @@ sobre las fuentes tipográficas, consulte @ref{Explicación de las fuentes tipog
 
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
-
 
 @seealso
 Referencia de la notación:

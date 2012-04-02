@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: f3768208f242fbf03bb49d185dfa3db4c0fb46f7
+    Translation of GIT committish: 2f2de8ba82a8032b9c48aa6d9defe5b29abf81be
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -293,15 +293,18 @@ Ejemplo: @code{lilypond -dbackend=svg @var{archivo}.ly}
 
 Esta opción está contemplada por todos los back-ends:
 @code{pdf}, @code{png}, @code{ps}, @code{eps} y @code{svg},
-pero no por @code{scm} y genera un archivo de salida
+pero no por @code{scm}.  Genera un archivo de salida,
+de la forma @code{miArchivo.preview.extensión},
 que contiene solamente los títulos de
 cabecera y el primer sistema de música.  Si se usan bloques
-@code{\bookpart}, los títulos y el primer sistema de todos los bloques
-@code{\bookpart} aparecerán en la salida.
+@code{\book} o @code{\bookpart}, aparecerán en la salida
+los títulos de @code{\book}, @code{\bookpart} y @code{\score},
+incluido el primer sistema de cada bloque @code{\score}
+si la variable de @code{\paper} @code{print-all-headers}
+está establecida al valor verdadero (@code{#t}).
 
-Se genera un archivo adicional en la forma
-@code{myFile.preview.extensión}, para evitarlo use las opciones
-adicionales @option{-dprint-pages} ó @option{-dno-print-pages}
+Para suprimir la salida usual, use las opciones adicionales
+@option{-dprint-pages} ó @option{-dno-print-pages}
 según sus necesidades.
 
 @item gui
