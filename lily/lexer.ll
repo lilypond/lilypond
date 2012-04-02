@@ -890,9 +890,9 @@ Lily_lexer::scan_scm_id (SCM sid)
 	{
 		int funtype = SCM_FUNCTION;
 
-		yylval.scm = get_music_function_transform (sid);
+		yylval.scm = sid;
 
-		SCM s = scm_object_property (yylval.scm, ly_symbol2scm ("music-function-signature"));
+		SCM s = get_music_function_signature (sid);
 		SCM cs = scm_car (s);
 
 		if (scm_is_pair (cs))

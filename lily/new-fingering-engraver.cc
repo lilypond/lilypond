@@ -85,7 +85,7 @@ protected:
 void
 New_fingering_engraver::acknowledge_inline_accidental (Grob_info inf)
 {
-  accidentals_.push_back(inf.grob ());
+  accidentals_.push_back (inf.grob ());
 }
 
 void
@@ -114,15 +114,15 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
       else if (ev->in_event_class ("script-event"))
         add_script (inf.grob (), ev, note_ev);
       else if (ev->in_event_class ("string-number-event"))
-        {    
+        {
           // String numbers are used in calculating harmonics even
           // when we don't want them displayed.  So don't make space
           // for them if 'stencil is #f
           Grob *g = make_item ("StringNumber", ev->self_scm ());
           if (g->get_property ("stencil") != SCM_BOOL_F)
             add_fingering (inf.grob (),
-                            ly_symbol2scm ("StringNumber"), &string_numbers_,
-                            ev, note_ev);
+                           ly_symbol2scm ("StringNumber"), &string_numbers_,
+                           ev, note_ev);
           g->suicide (); // Kill grob created to check stencil
         }
       else if (ev->in_event_class ("stroke-finger-event"))

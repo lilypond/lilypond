@@ -183,16 +183,16 @@ Slur_engraver::process_music ()
         {
           if (id == robust_scm2string (slurs_[j]->get_property ("spanner-id"), ""))
             {
-	      // We end only one slur unless several ones have been
-	      // caused by the same event, like with double slurs.
+              // We end only one slur unless several ones have been
+              // caused by the same event, like with double slurs.
               if (!ended || scm_is_eq (starter,
-				       slurs_[j]->get_property ("cause")))
-		{
-		  ended = true;
-		  starter = slurs_[j]->get_property ("cause");
-		  end_slurs_.push_back (slurs_[j]);
-		  slurs_.erase (slurs_.begin () + j);
-		}
+                                       slurs_[j]->get_property ("cause")))
+                {
+                  ended = true;
+                  starter = slurs_[j]->get_property ("cause");
+                  end_slurs_.push_back (slurs_[j]);
+                  slurs_.erase (slurs_.begin () + j);
+                }
             }
         }
       if (!ended)
@@ -222,21 +222,21 @@ Slur_engraver::process_music ()
       Stream_event *ev = start_events_[i];
       string id = robust_scm2string (ev->get_property ("spanner-id"), "");
 
-          Grob *slur = make_spanner ("Slur", ev->self_scm ());
-          Direction updown = to_dir (ev->get_property ("direction"));
-          slur->set_property ("spanner-id", ly_string2scm (id));
-          if (updown)
-            set_grob_direction (slur, updown);
-          slurs_.push_back (slur);
+      Grob *slur = make_spanner ("Slur", ev->self_scm ());
+      Direction updown = to_dir (ev->get_property ("direction"));
+      slur->set_property ("spanner-id", ly_string2scm (id));
+      if (updown)
+        set_grob_direction (slur, updown);
+      slurs_.push_back (slur);
 
-          if (to_boolean (get_property ("doubleSlurs")))
-            {
-              set_grob_direction (slur, DOWN);
-              slur = make_spanner ("Slur", ev->self_scm ());
-              slur->set_property ("spanner-id", ly_string2scm (id));
-              set_grob_direction (slur, UP);
-              slurs_.push_back (slur);
-            }
+      if (to_boolean (get_property ("doubleSlurs")))
+        {
+          set_grob_direction (slur, DOWN);
+          slur = make_spanner ("Slur", ev->self_scm ());
+          slur->set_property ("spanner-id", ly_string2scm (id));
+          set_grob_direction (slur, UP);
+          slurs_.push_back (slur);
+        }
     }
   set_melisma (slurs_.size ());
 }

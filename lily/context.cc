@@ -327,7 +327,7 @@ Context::path_to_acceptable_context (SCM name) const
 
   return unsmob_context_def (definition_)->path_to_acceptable_context (name,
          get_output_def (),
-	 scm_reverse_x (accepts, SCM_EOL));
+         scm_reverse_x (accepts, SCM_EOL));
 
 }
 

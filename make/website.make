@@ -141,10 +141,8 @@ css-files = $(css-src-files:%=$(OUT)/website/css/%)
 example-src-files := $(notdir $(wildcard $(EXAMPLES)/*))
 example-files = $(example-src-files:%=$(OUT)/website/ly-examples/%)
 
-misc-files = $(OUT)/.htaccess \
-             $(OUT)/website/.htaccess \
-             $(OUT)/website/favicon.ico \
-             $(OUT)/website/robots.txt
+misc-src-files := $(filter-out GNUmakefile,$(notdir $(wildcard $(top-src-dir)/Documentation/misc/*)))
+misc-files += $(misc-src-files:%=$(OUT)/website/misc/%)
 
 picture-src-files := $(notdir $(wildcard $(PICTURES)/*))
 picture-files = $(picture-src-files:%=$(OUT)/website/pictures/%)
@@ -153,6 +151,11 @@ pdf-src-files := $(notdir $(wildcard $(PDFS)/*))
 pdf-files = $(pdf-src-files:%=$(OUT)/website/pdf/%)
 
 post-files = $(OUT)/website/index.html
+
+root-files = $(OUT)/.htaccess \
+             $(OUT)/website/.htaccess \
+             $(OUT)/website/favicon.ico \
+             $(OUT)/website/robots.txt
 
 texinfo-files = $(OUT)/index.html $(WEB_LANGS:%=$(OUT)/%/index.html)
 
@@ -182,7 +185,7 @@ website-css: $(OUT)/website/css $(css-files)
 
 website-examples: $(OUT)/website/ly-examples $(example-files)
 
-website-misc: $(OUT)/website $(misc-files)
+website-misc: $(OUT)/website $(OUT)/website/misc $(misc-files) $(root-files)
 
 website-pictures: $(OUT)/website/pictures $(OUT)/pictures $(picture-files)
 
@@ -204,7 +207,7 @@ website-xrefs: website-version $(OUT) $(xref-files)
 ### Rules
 
 # Directories
-$(OUT) $(OUT)/website $(OUT)/website/css $(OUT)/website/ly-examples $(OUT)/website/pictures $(OUT)/website/pdf: %:
+$(OUT) $(OUT)/website $(OUT)/website/css $(OUT)/website/ly-examples $(OUT)/website/misc $(OUT)/website/pdf $(OUT)/website/pictures: %:
 	mkdir -p $@
 
 $(OUT)/pictures: $(OUT)/website/pictures
@@ -269,6 +272,9 @@ $(css-files): $(OUT)/website/css/%: $(top-src-dir)/Documentation/css/%
 	cp $< $@
 
 $(example-files): $(OUT)/website/ly-examples/%: $(EXAMPLES)/%
+	cp $< $@
+
+$(misc-files): $(OUT)/website/misc/%: $(top-src-dir)/Documentation/misc/%
 	cp $< $@
 
 $(picture-files): $(OUT)/website/pictures/%: $(PICTURES)/%

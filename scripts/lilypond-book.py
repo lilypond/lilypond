@@ -608,6 +608,22 @@ def do_file (input_filename, included=False):
         progress (_ ("Removing `%s'") % output_filename)
         raise BookSnippet.CompileError
 
+def inverse_relpath (path, relpath):
+    """Given two paths, the second relative to the first,
+    return the first path relative to the second."""
+    if os.path.isabs (relpath):
+        return os.path.abspath (path)
+    relparts = ['']
+    parts = os.path.normpath (path).split (os.path.sep)
+    for part in os.path.normpath (relpath).split (os.path.sep):
+        if part == '..':
+            relparts.append (parts[-1])
+            parts.pop ()
+        else:
+            relparts.append ('..')
+            parts.append (part)
+    return os.path.sep.join (relparts[::-1])
+
 def do_options ():
     global global_options
 
@@ -616,6 +632,14 @@ def do_options ():
 
     global_options.information = {'program_version': ly.program_version, 'program_name': ly.program_name }
     global_options.original_dir = original_dir
+
+    if global_options.lily_output_dir:
+        global_options.lily_output_dir = os.path.expanduser (global_options.lily_output_dir)
+        global_options.include_path.insert (0, inverse_relpath (original_dir, global_options.lily_output_dir))
+
+    if global_options.output_dir:
+        global_options.output_dir = os.path.expanduser (global_options.output_dir)
+        global_options.include_path.insert (0, inverse_relpath (original_dir, global_options.output_dir))
 
     # Load the python packages (containing e.g. custom formatter classes)
     # passed on the command line

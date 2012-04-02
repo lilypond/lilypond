@@ -217,8 +217,8 @@ Self_alignment_interface::avoid_colliding_grobs (Grob *me, Axis a, Real offset)
                       : LEFT;
 
   return scm_from_double ((pos[col_dir] - (iv.length () / 2)
-                          + col_dir
-                          * robust_scm2double (me->get_property ("collision-padding"), 0.0)));
+                           + col_dir
+                           * robust_scm2double (me->get_property ("collision-padding"), 0.0)));
 }
 
 void

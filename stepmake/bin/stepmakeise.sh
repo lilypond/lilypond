@@ -34,7 +34,7 @@ if [ -r stepmake ]; then
 		exit 1
 	fi
 	echo "Stepmake found"
-	echo -n "Checking version..."
+	printf "Checking version..."
 	VERSION=$MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL
 	# urg
 	version=$VERSION
@@ -49,7 +49,7 @@ fi
 
 if [ true ]; then
 	# urg
-	echo -n "Checking latest..."
+	printf "Checking latest..."
 	if [ ! -r $reldir ]; then
 		echo "$name: huh 2?"
 		exit 1
@@ -64,7 +64,7 @@ if [ true ]; then
 	    echo "relax, StepMake is up to date"
 	    exit 0
 	fi
-	echo -n "Updating StepMake..."
+	printf "Updating StepMake..."
 	(set +x; rm -rf stepmake; tar xzf $reldir/stepmake-$LATEST.tar.gz; mv stepmake-$LATEST stepmake)
 	echo "ok"
 fi
@@ -84,7 +84,7 @@ for i in $files; do
 	fi
 done
 
-echo -n "Stepmakeising..."
+printf "Stepmakeising..."
 for i in $files; do
 	cp -prv stepmake/$i .
 done

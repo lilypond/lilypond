@@ -19,11 +19,11 @@
 1.5.22.hwn1
 ===========
 
-* Dashed slur bugfix. 
+* Dashed slur bugfix.
 
 * GUILE 1.4 compatibility.
 
- 
+
 
 1.5.22
 ======
@@ -81,7 +81,7 @@ abc2ly fixes:
 ==========
 
 * etf2ly robustness fixes
- 
+
 * Rewrote outputting backend. Now uses GUILE modules.
 
 * Line breaking bugfix.
@@ -161,7 +161,7 @@ clefs      name characters have in default text fonts.  Luckily, textrace
 
 * Remove C++ version of midi2ly
 
-* Inline Grob::parent_l (Axis), String::String() speedup 2 % 
+* Inline Grob::parent_l (Axis), String::String() speedup 2 %
 
 * First try at Sketch (sketch.sourceforge.net) output.
 
@@ -304,7 +304,7 @@ music property.
 * Bugfixes: add-html-footer.py and @MAILADDRESS@.
 
 * Some website related fixes (thanks Tiggr).
- 
+
 * Ugly hack in add-html-footer for disabling tutorial and refman links
 in sidebar.
 
@@ -356,7 +356,7 @@ work with -O2 yet.
 add Translator::{name,description}
 
 * Junk STL implementation of Scheme_hash_table in favor of GUILE
-hashtables with automatic resizing. 
+hashtables with automatic resizing.
 
 
 1.5.12.jcn2
@@ -453,8 +453,8 @@ and spacing not necessary in font-locking.
 where @WEB-TITLE@ is not defined.
 
 * Bugfix: stepmake: don't go building executables all over the place,
-if NAME is set in environment.  Some cleanups. 
- 
+if NAME is set in environment.  Some cleanups.
+
 * add-html-footer.py: remove href to self.  Substitute @at-variables@
 defined in html comments.  Any occurrence of
 
@@ -473,11 +473,11 @@ in the same html page with `bar'.
 ==========
 
 * Optimizations:
-  - speed up Rational::operator+= 
+  - speed up Rational::operator+=
   - speed up Rational::compare ()
-  - don't store origins if point-and-click not set. 
+  - don't store origins if point-and-click not set.
 
-* \figures input mode:  \figures { <4 6+> <3- 5>2. } 
+* \figures input mode:  \figures { <4 6+> <3- 5>2. }
 
 * Obscure bugfix: call kpsewhich with --format for mfplain.
 
@@ -549,7 +549,7 @@ spacing that much.
 
 1.5.6.jcn2
 =========
- 
+
 * Use Cygwin included Python; drop Windows Python and workarounds.
 
 * Include make/lilypond.mandrake.spec (unchecked!) and README.mandrake.
@@ -561,7 +561,7 @@ missing from 1.5.5 distribution.
 
 * Add short crescendo bug to input/bugs.
 
-* Update and bit more verbose download instructions in INSTALL, 
+* Update and bit more verbose download instructions in INSTALL,
 fix some links on ftp.lilypond.org.
 
 
@@ -582,7 +582,7 @@ Changes were made to
   - Simple_spacer, New_spacing_spanner: only look at non-loose columns.
 
   - Line_of_score: set horizontal positions for loose columns.
- 
+
 1.5.6
 =====
 
@@ -605,7 +605,7 @@ Changes were made to
 
 * added enhanced mensural minima/fusa noteheads (30 degrees rhomb
   style); the former 45 degrees quadratic shapes are now available
-  under notehead style "neo_mensural"; [WARNING: FONT UPDATE] 
+  under notehead style "neo_mensural"; [WARNING: FONT UPDATE]
 
 * minor ancient font corrections (in particular, enhanced set_char_box()
   arguments).
@@ -651,7 +651,7 @@ Changes were made to
 
 * New_spacing_spanner: revised spacing generation.
 
-* Default neutral direction set to down. 
+* Default neutral direction set to down.
 
 * Junk hash table  from flowerlib
 
@@ -794,7 +794,7 @@ the note before a grace
 and stopGraceMusic
   - various engraver fixes to deal with the fact that the
 main-time-moment may remain the same during several steps.
-  - Change column creation logic in score-engraver. 
+  - Change column creation logic in score-engraver.
 
 * Bugfix: don't crash when \name not set in \translator block.
 
@@ -812,7 +812,7 @@ them (thanks to Juergen Reuter)
 
 1.4.4.jcn3
 ==========
-  
+
 TODO: look at other filledbox'es (stafflines and barlines don't match up).
 
 * Testing code off by default.  On: -e "(define ps-testing 1)" -fps
@@ -826,4 +826,3 @@ output for real testing.
  - Stems reach to top (or bottom) of beam.
  - Beam uses correct stem thickness (only right beams, left TODO).
  - testing code in effect: only outlines are drawn.
-

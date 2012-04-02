@@ -1,0 +1,400 @@
+<!--
+    Translation of GIT committish: <FILL-IN-HEAD-COMMITTISH>
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  Refer to `UPDATE A TRANSLATION'
+    in README for details.
+!-->
+
+<title>LilyPond version 2.2 released</title>
+<pre>
+
+Dear music enthusiasts,
+
+
+LilyPond is a program for making beautiful music notation.  It is
+free/open source software, and is available for all popular operating
+systems. It runs on most Unix flavors --including Linux and MacOS X-- and MS
+Windows. Use it for your music too!
+
+
+
+LilyPond version 2.2 was released today!
+
+This release has completely revamped support for for orchestral score
+formatting, cue notes, font size management, lyric formatting, drum
+notation/playback and document integration.
+
+In addition, it has numerous syntax simplifications, proper support
+for 8va brackets, and a completely updated manual.
+
+Go and grab it at
+
+  http://lilypond.org
+
+
+A big thank-you goes out to our contributors:
+
+David Bobroff, Edward Sanford Sutton, Heikki Junes, and Nicolas
+Sceaux.
+
+Also thanks to our bug-hunters:
+
+Alexandre Beneteau, Andrew McNabb, Atte Andre Jensen , Bertalan Fodor,
+Bruce McIntyre, Dave Symonds, David Bobroff, Darius, Delma Avers, Doug
+Linhardt, Eric Wurbel, Erik Sandberg, Ferenc Wagner, Hans Forbrich,
+John Williams, José Luis Cruz, Juergen Reuter, Kieren Richard
+MacMillan, Laurent Martelli, Mats Bengtsson, Matthias Kilian, Nancho
+Alvarez, Nick Busigin, Nicolas Sceaux , Olivier Guery, Patrick
+Atamaniuk, Paul Scott, Pawel D, Pedro Kroger, Ray McKinney, Reuben
+Thomas, Rob V, Stef Epardaud, Thomas Willhalm, Thomas Scharkowski, Tom
+Bäckström, Werner Lemberg, and Will Oram.
+
+
+
+Happy music printing,
+
+
+
+
+Han-Wen Nienhuys & Jan Nieuwenhuizen
+(core development team)
+
+</pre>
+
+
+<h2 class="unnumbered">New features in 2.2</h2>
+
+     <ul>
+<li>Setting <code>raggedlast = ##t</code> in the <code>\paper</code> block
+causes the last line to be set flush-left instead of justified.
+
+     <li>The <code>Timing_engraver</code> now sets the <code>Timing</code> alias on
+its containing context automatically.
+
+     <li>The code for font selection has been rewritten. In addition to
+existing font selection properties, the property <code>font-encoding</code>
+has been added, which makes the switch between normal <code>text</code> and
+other encodings like <code>braces</code>, <code>music</code> and <code>math</code>.
+
+     <li>The pmx2ly script has been removed from the distribution.
+
+     <li>Pedal brackets will now run to the last bar of a piece if they are not
+explicitly ended.
+
+     <li>Context definitions now use the word <code>\context</code> instead of <code>\translator</code>.
+
+     <li>Property functions may be used as an argument to <code>set!</code>,
+for example
+
+     <pre class="example">            (set! (ly:grob-property grob 'beam) ... )
+     </pre>
+
+     <li>In anticipation of Emacs 21.4 or 22.1, the info documentation contains
+images.
+
+     <li>Cue notes can be quoted directly from the parts that
+contain them. This will take into account transposition of source and target
+instrument. For example,
+
+     <pre class="verbatim">
+     \addquote clarinet \notes\relative c' {
+       \transposition bes
+       fis4 fis fis fis
+     }
+
+     \score {
+         \notes \relative c'' {
+             c8 d8 \quote 2 oboe es8 gis
+         }
+     }
+</pre>
+
+     <li>The transposition of an instrument can be specified using the
+<code>\transposition</code> command.  An
+E-flat alto saxophone is specified as
+
+     <pre class="example">            \transposition es'
+     </pre>
+
+     <li>The naming of exported Scheme functions now follows Scheme conventions.
+Changes be applied to Scheme files with
+
+     <pre class="example">                  convert-ly -e -n --from=2.1.24 --to=2.1.26 *.scm
+     </pre>
+
+     <li>Notes can  be excluded from auto-beaming, by  marking them with
+<code>\noBeam</code>
+     <pre class="example">            c8 c \noBeam c c
+     </pre>
+
+     <p class="noindent">will print two separate eighth notes, and two beamed notes.
+
+     <li>Translators and contexts have been split. The result of this
+internal cleanup is that <code>Score</code> no longer is the top context;
+<code>Score</code> is contained in the <code>Global</code> context. Consequently,
+it is possible to tweak <code>Score</code> as follows:
+
+     <pre class="example">            \context Score \with {
+              ...
+            }
+     </pre>
+
+     <li>The number of staff lines  in Tablature notation is now
+automatically deduced from the <code>stringTunings</code> property.
+
+     <li>The program reference has been cleaned up and revised.
+
+     <li>The syntax for setting properties has been simplified:
+the following table lists the differences:
+
+     <pre class="example">                (old)                           (new)
+
+          \property A.B = #C                \set A.B = #C
+          \property A.B \unset              \unset A.B
+          \property A.B \set #C = #D        \override A.B #C = #D
+          \property A.B \override #C = #D   (removed)
+          \property A.B \revert #C          \revert A.B #C
+     </pre>
+
+     <p>Furthermore, if <code>A</code> is left out, the bottommost context is used
+by default.  In other words, it is no longer necessary to explicitly
+mention <code>Voice</code>, <code>Lyrics</code> or <code>ChordNames</code>.
+
+     <p>Old:
+
+     <pre class="example">             \property Voice.autoBeaming = ##f
+             \property Staff.TimeSignature \set #'style = #'C
+     </pre>
+
+     <p>New:
+
+     <pre class="example">             \set autoBeaming = ##f
+             \override Staff.TimeSignature #'style = #'C
+     </pre>
+
+     <li>Tweaks  made with <code>\override</code> and <code>\revert</code> no longer
+hide tweaks at higher context levels.
+
+     <li>Melismata in lyrics are also properly handled  in the MIDI output.
+
+     <li>The lilypond-book script has been rewritten.
+It is shorter, cleaner and faster.  The special construct
+<code>mbinclude</code> has been removed, plain <code>@include</code> or
+<code>\input</code> can be used now.
+
+     <p>It now supports running convert-ly on the lilypond snippets,
+     <pre class="example">              lilypond-book --filter='convert-ly --from=2.0.0' my-book.tely
+     </pre>
+
+     <li>The <code>LyricsVoice</code> context has been removed. Lyrics should only
+be constructed in <code>Lyrics</code>.
+
+     <li>The <code>Thread</code> context has been removed. Note heads and rests
+are now constructed at <code>Voice</code> level.
+
+     <li>Harmonic notes can now be entered as
+
+     <pre class="example">             &lt;c' g''\harmonic&gt;
+     </pre>
+
+     <li>Drum notation is now supported  as a regular feature:
+percussion may be entered in <code>\drums</code> mode, and printed or
+performed in a <code>DrumStaff</code> context:
+
+     <pre class="example">            \score {
+              \drums \new DrumStaff { hihat4 cowbell8 }
+            }
+     </pre>
+
+     <li>The automatic staff changer was internally rewritten. As a
+result, the syntax has been simplified as well:
+
+     <pre class="example">            \autochange <var>the-music</var>
+     </pre>
+
+     <li>The ergonomic syntax of <code>\markup</code> now has an equivalent in
+Scheme. The <code>markup*</code> macro creates such objects; the following
+two markup commands are equivalent:
+     <pre class="example">           f4^#(markup* #:raise 0.2 #:bold "hi")
+           f4^\markup { \raise #0.2 \bold hi  }
+     </pre>
+
+     <li>Voice names, for vocal lines, have been added. They are similar
+to instrument names.   They can be set by defining <code>vocalName</code>
+and <code>vocNam</code>.
+
+     <li>Safe mode has been reinstated for lilypond.
+When lilypond is invoked with <code>--safe-mode</code>, TeX and
+PostScript file output is disallowed, and lilypond-bin is invoked with
+<code>--safe-mode</code>, the user's Guile expressions are evaluated in a
+safe environment and file inclusion is not allowed.
+
+     <p>Warning: this does not protect against denial-of-service attacks using
+Guile, TeX or PostScript.
+
+     <p>(This feature is still experimental.)
+
+     <li>There is now a Scheme macro for defining markup
+commands. Special mark-up commands can be defined in user-files too.
+
+     <li>Many fixes for dimension scaling have been made,
+resulting in correct results for scores that mix staves in different
+sizes.
+
+     <li>Improved robustness when  layout properties are accidentally removed.
+
+     <li>A  more cleanly constructed part combiner has been installed.
+It is more robust and less buggy. The part-combiner can be used with
+     <pre class="example">            \partcombine <var>mus1</var> <var>mus2</var>
+     </pre>
+
+     <p class="noindent">See <span class="file">input/regression/new-part-combine.ly</span> for an example.
+
+     <li>Formatting of rehearsal marks has been improved. The <code>\mark</code>
+command now only does automatic incrementing for marks specified as
+integer. For example, <code>\mark #1</code> will print an A in the default
+style.  See <span class="file">input/regression/rehearsal-mark-letter.ly</span>,
+<span class="file">input/regression/rehearsal-mark-number.ly</span>.
+
+     <li>Formatting of ottava brackets has been much improved.
+
+     <li>Objects in the output can now be documented: the following fragment
+ boxes the note head, and adds the text &ldquo;heads or tails?&rdquo; three
+spaces below the box.
+
+     <pre class="example">                 \context Voice \applyoutput #(add-balloon-text
+                                             'NoteHead "heads, or tails?"
+                                             '(0 . -3))
+
+
+                 c8
+     </pre>
+
+     <li>Default staff sizes are now scalable. There are two new mechanisms for
+setting staff sizes. Both are demonstrated in this fragment:
+
+     <pre class="example">            #(set-global-staff-size 15)
+            \paper {
+              #(paper-set-staff-size (* 15 pt))
+            }
+     </pre>
+
+     <p class="noindent">Both have the same effect on the global layout of a piece. Similarly,
+the paper size may be changed as follows
+
+     <pre class="example">            #(set-default-paper-size "a4")
+            \paper {
+              #(set-paper-size "a4")
+            }
+     </pre>
+
+     <li>Warnings for bar check errors are more cleverly printed.  This
+makes <code>barCheckSynchronize</code> superfluous, so it is now switched
+off by default.
+
+     <p>Warning: this will cause problems in scores that use bar checks to
+shorten measures.
+
+     <li>The black note head was made a little rounder, which causes a less
+ frantic graphic impression.
+
+     <li>A more concise syntax for checking octaves was introduced. A note may
+be followed by <code>=</code><var>quotes</var> which indicates what its absolute
+octave should be.  In the following example,
+
+     <pre class="example">            \relative c'' { c='' b=' d,='' }
+     </pre>
+
+     <p class="noindent">the d will generate a warning, because a d&rdquo; is
+expected, but a d' is found.
+<!-- @code adds ` ', very confusing. -->
+
+     <li>There is a new mechanism for putting lyrics to melodies.
+With this mechanism, <code>Lyrics</code> lines can be put melodies
+individually, allowing for different melismatic sections in every
+<code>Lyrics</code>. See <span class="file">input/regression/lyric-combine-new.ly</span>.
+
+     <li>Bar lines may now be dotted.
+
+     <li>The documentation now has links to a wiki, where everyone can
+add personal comments to the manual.
+
+     <li>Contexts may now be changed locally for an isolated music
+expression. For example,
+
+     <pre class="example">            \new Voice \with {
+               \consists "Pitch_squash_engraver"
+            } {
+              c'4
+            }
+     </pre>
+
+     <li>The syntax for changing staffs has changed. The keyword
+<code>\change</code> should now be used, e.g.
+
+     <pre class="example">            \change Staff = up
+     </pre>
+
+     <li>Features of spanner contexts, like <code>Staff</code>, can now be changed
+  using <code>\set</code>, eg.
+
+     <pre class="example">            \new Staff {
+                 \override Staff.StaffSymbol #'line-count = #4
+                 c'4
+            }
+     </pre>
+
+     <p class="noindent">puts a quarter note C on a staff with 4 lines.
+
+     <li>Multi measure rests are now truly centered between the
+clefs/barlines of the staff, their position is independent of symbols
+on the other staffs.
+
+     <li>Collision resolution for dots in chords has been improved greatly.
+
+     <li>Spacing following barlines was improved for widely stretched lines.
+
+     <li>Lyric hyphens and extenders now conform to standard typesetting
+practice.
+
+     <li>Lyrics are now aligned under note heads conforming to engraving
+standards. The responsible code has been rewritten, and is drastically
+simpler from the previous version. To aid this rewrite, the syntactic
+function of the extender line ( __ ) has been changed: it is now
+attached to the lyric syllable.
+
+     <li>When redefining a context, the associated identifier is also
+updated. For example, after reading
+
+     <pre class="example">           \translator {
+                  \ScoreContext
+                  autoBeaming = ##f
+           }
+     </pre>
+
+     <p class="noindent">the definition of <code>ScoreContext</code> is updated to include the changed
+setting.
+
+     <li>The weight of the stafflines is now heavier at smaller staff sizes.
+The font has been modified to match this look: at smaller sizes, the
+font is heavier and the note heads are more rounded.
+
+     <li>Processing scores is now done while parsing the file. New
+Scheme functions give more flexibility: for example, it is now possible
+interpret a score, collecting synchronized musical events in a list, and
+manipulate that information using inline Scheme. For an example, see
+<span class="file">input/no-notation/recording.ly</span>.
+
+     <li>Font sizes can now truly be scaled continuously: the  <code>font-size</code>
+is similar to the old <code>font-relative-size</code>, but may be set to
+fractional values; the closest design size will be scaled to achieve
+the desired size. As a side-effect, there are now no longer
+limitations in using smaller fonts (eg. grace notes) at small staff
+sizes.
+
+     <li>Stem tips are now also engraved with rounded corners.
+
+     <li>The placement of accidentals on chords and ledgered notes is improved.
+
+</ul>

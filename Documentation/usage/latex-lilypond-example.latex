@@ -52,12 +52,12 @@ c' e' g'
 \end{verbatim}
 
 This C major
-%%\begin{lilypond}[staffsize=11\pt,fragment]
-\begin{lilypond}[11pt,fragment]
+%%\begin{lilypond}[staffsize=11,fragment]
+\begin{lilypond}[staffsize=11,fragment]
 \context Voice <<c' e' g'>>
 \end{lilypond}
 and C minor
-\lilypond[fragment,11pt]{\context Voice <<c' es' g'>>}  chords are floating inside the text.
+\lilypond[fragment,staffsize=11]{\context Voice <<c' es' g'>>}  chords are floating inside the text.
 
 \subsection{verb and verbatim}
 
@@ -126,30 +126,30 @@ is not necessary when you want the music in a paragraph on its own.
 Itemize environment:
 \begin{itemize}
 \item
-\lilypond[11pt,fragment]{ c'} do
+\lilypond[staffsize=11,fragment]{ c'} do
 \item
-\lilypond[11pt,fragment]{d'} re
+\lilypond[staffsize=11,fragment]{d'} re
 \item
-\lilypond[11pt,fragment]{e'} mi
+\lilypond[staffsize=11,fragment]{e'} mi
 \item
-\lilypond[11pt,fragment]{f'} fa
+\lilypond[staffsize=11,fragment]{f'} fa
 \item
-\lilypond[11pt,fragment]{g'} sol
+\lilypond[staffsize=11,fragment]{g'} sol
 \end{itemize}
 
 Tables\footnote{ and footnote:
-\lilypond[11pt,fragment]{c' e' g'} }:
+\lilypond[staffsize=11,fragment]{c' e' g'} }:
 \marginpar{ Yes, even as marginpar
-\lilypond[11pt,fragment]{c' d' e'} }
+\lilypond[staffsize=11,fragment]{c' d' e'} }
 
 \begin{tabular}{|l|l|r|}
 \hline
 \em Notes & \em Name \\
 \hline
-\lilypond[11pt,fragment,filename="cdur"]{\context Voice <<c' e' g'>>} & major \\
-\lilypond[11pt,fragment]{\context Voice <<c' es' g'>>} & minor \\
-\lilypond[11pt,fragment]{\context Voice <<c' es' ges'>>} & diminished \\
-\lilypond[11pt,fragment]{\context Voice <<c' e' gis'>>} & augmented \\
+\lilypond[staffsize=11,fragment,filename="cdur"]{\context Voice <<c' e' g'>>} & major \\
+\lilypond[staffsize=11,fragment]{\context Voice <<c' es' g'>>} & minor \\
+\lilypond[staffsize=11,fragment]{\context Voice <<c' es' ges'>>} & diminished \\
+\lilypond[staffsize=11,fragment]{\context Voice <<c' e' gis'>>} & augmented \\
 \hline
 \end{tabular}
 

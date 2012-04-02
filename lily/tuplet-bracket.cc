@@ -216,8 +216,8 @@ Tuplet_bracket::calc_x_positions (SCM smob)
             x_span[d] += d * overshoot[d];
           else
             x_span[d] = (bounds[d]->break_status_dir ()
-                  ? Axis_group_interface::generic_bound_extent (bounds[d], commonx, X_AXIS)[-d]
-                  : robust_relative_extent (bounds[d], commonx, X_AXIS)[-d])
+                         ? Axis_group_interface::generic_bound_extent (bounds[d], commonx, X_AXIS)[-d]
+                         : robust_relative_extent (bounds[d], commonx, X_AXIS)[-d])
                         - overshoot[LEFT];
         }
 

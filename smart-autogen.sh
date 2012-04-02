@@ -13,6 +13,5 @@ fi
 
 set -e
 ${srcdir}/autogen.sh "$@"
-echo -n $AUTOGEN_INPUT_CHECKSUM > $CHECKSUM_FILE 
-
+printf "%s" $AUTOGEN_INPUT_CHECKSUM > $CHECKSUM_FILE
 

@@ -1,0 +1,214 @@
+<!--
+    Translation of GIT committish: <FILL-IN-HEAD-COMMITTISH>
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  Refer to `UPDATE A TRANSLATION'
+    in README for details.
+!-->
+
+
+<pre>
+Subject: LilyPond 2.0  - make beautiful music prints
+
+
+Dear music enthousiasts,
+
+
+LilyPond version 2.0 was released today. LilyPond is an automated
+music notation system: it is used to make gorgeous sheet music.  It is
+libre software ("open source"), and available for most Unix flavors,
+including Linux and MacOS X, and MS Windows.
+
+Use it for your music too!
+
+For this version, we have dramatically simplified many parts of the
+syntax, making it easier to use than ever before.  Other improvements
+include quarter-tone accidentals, and conditional inclusion of music
+fragments. With version 2.0, we have a solid platform for working on
+notation and typography features for coming versions.
+
+Downloads, examples and documentation are available from the website,
+
+	http://lilypond.org
+
+A big thank-you goes out to our hackers and bughunters: Mats
+Bengtsson, Heikki Junes, Juergen Reuter, Antonio Palama, Benjamin
+Milde, Daniel Berjon Diez, David Bobroff, David Rayleigh Arnold, Erik
+Ronstroem, Fabio dos Santos, Fodor Bertalan, Frederic Bron, Graham
+Percival, Ian Bailey-Mortimer, John Williams, Josza Marton, Marco
+Caliari, Matthieu Amiguet, Michael Welsh Duggan, Patrick Atamaniuk,
+Paul Scott, Pedro Kroeger, Peter Lutek, Richard Schoeller, Thorkil
+Wolvendans, and Werner Trobin
+
+
+Happy music printing,
+
+
+
+Han-Wen Nienhuys & Jan Nieuwenhuizen
+(core development team)
+</pre>
+
+
+<h2>New features in 2.0 since 1.8</h2>
+
+     <ul>
+
+     <li>Crescendos can now be drawn dotted or dashed.
+
+     <li>Quarter tones are now supported. They are entered by suffixing
+<code>ih</code> for a half-sharp and <code>eh</code> for a half-flat. Hence, the
+following is an ascending list of pitches:
+
+     <pre class="example">            ceses ceseh ces ceh c cih cis cisih cisis
+          </pre>
+
+     <li>The following constructs have been removed from the syntax:
+
+     <pre class="example">            \duration #SCHEME-DURATION
+            \pitch #SCHEME-PITCH
+            \outputproperty <var>func</var> <var>symbol</var> = <var>value</var>
+          </pre>
+
+     <p>For <code>\outputproperty</code>, the following may be substituted:
+
+     <pre class="example">             \applyoutput #(outputproperty-compatibility <var>func</var>
+                            <var>symbol</var> <var>value</var>)
+          </pre>
+
+     </p><li>Clefs may now be transposed arbitrarily, for example
+
+     <pre class="example">            \clef "G_8"
+            \clef "G_15"
+            \clef "G_9"
+          </pre>
+
+     <li>The syntax for chords and simultaneous music have changed.
+Chords are entered as
+
+     <pre class="example">             &lt;<var>pitches</var>&gt;
+          </pre>
+
+     <p>while simultaneous music is entered as
+
+     <pre class="example">             &lt;&lt;<var>..music list..</var>&gt;&gt;
+          </pre>
+
+     <p>In effect, the meanings of both have been swapped relative to their 1.8
+definition.  The syntax for lists in <code>\markup</code> has changed
+alongside, but figured bass mode was not  changed, i.e.:
+
+     <pre class="example">            \markup { \center &lt;<var>..list of markups..</var>&gt; }
+            \figure { &lt;<var>figures</var>&gt; }
+          </pre>
+
+     <p>As chords the more often used than simultaneous music, this change will
+save keystrokes.
+
+     </p><li>Each music expression can now be tagged, to make different printed
+versions from the same music expression.  In the following example,
+we see two versions of a piece of music, one for the full score, and
+one with cue notes for the instrumental part:
+
+     <pre class="example">          &lt;&lt; \tag #'part &lt;&lt;
+            { c4 f2 g4 }      % in the part, we have cue-notes
+            \\ R1 &gt;&gt;
+            \tag #'score R1  % in the score: only a rest
+          &gt;&gt;
+          </pre>
+
+     <p>The same can be applied to articulations, texts, etc.: they are
+made by prepending
+
+     <pre class="example">                  -\tag #<var>your-tags</var>
+          </pre>
+
+     <p>to an articulation, for example,
+
+     <pre class="example">                  c4-\tag #'with-fingerings -4 -\tag #'with-strings \6
+          </pre>
+
+     <p>This defines a note, which has a conditional fingering and a
+string-number indication.
+
+     </p><li>The settings for chord-fingering are more flexible. You can specify a
+list where fingerings may be placed, eg.
+
+     <pre class="example">            \property Voice.fingeringOrientations = #'(left down)
+          </pre>
+
+     <p>This will put the fingering for the lowest note below the chord, and the
+rest to the left.
+
+     </p><li>The script previously known as <code>ly2dvi</code> has been renamed to
+<code>lilypond</code>. The binary itself is now installed as
+<code>lilypond-bin</code>.
+
+     <li>Markup text (ie. general text formatting) may now be used for lyrics too.
+
+     <li>Two new commands for grace notes have been added, <code>\acciaccatura</code>
+and <code>\appoggiatura</code>,
+
+     <pre class="example">            \appoggiatura f8 e4
+            \acciaccatura g8 f4
+          </pre>
+
+     <p>Both reflect the traditional meanings of acciaccatura and appogiatura,
+and both insert insert a slur from the first grace note to the main
+note.
+
+     </p><li>Layout options for grace notes are now stored in a context property,
+and may now be set separately from musical content.
+
+     <li>The <code>\new</code> command will create a context with a unique
+name automatically. Hence, for multi-staff scores, it is no longer
+necessary to invent arbitrary context names. For example, a two-staff
+score may be created by
+
+     <pre class="example">            \simultaneous {
+              \new Staff { <var>notes for 1st staff</var> }
+              \new Staff { <var>notes for 2nd staff</var> }
+            }
+          </pre>
+
+     <li>Octave checks make octave errors easier to correct.
+The syntax is
+
+     <pre class="example">            \octave <var>pitch</var>
+          </pre>
+
+     <p>This checks that <var>pitch</var> (without octave) yields <var>pitch</var> (with
+octave) in \relative mode. If not, a warning is printed, and the
+octave is corrected.
+
+     </p><li>All articulations must now be entered postfix. For example,
+
+     <pre class="example">            c8[( d8])
+          </pre>
+
+     <p>is a pair of beamed slurred eighth notes.
+
+     </p><li>The definition of <code>\relative</code> has been simplified.  Octaves are
+now always propagated in the order that music is entered. In the
+following example,
+
+     <pre class="example">            PRE
+            \repeat "unfold" 3  BODY \alternative { ALT1 ALT2 }
+            POST
+          </pre>
+
+     <p>the octave of BODY is based on PRE, the starting octave of ALT1 on
+BODY, the starting octave of ALT2 on ALT1, and the starting octave of
+POST on ALT2.
+
+     <p>The same mechanism is used for all other music expressions, except the
+chord. Backwards compatibility is retained through a special program option,
+which is set through
+
+     <pre class="example">            #(ly:set-option 'old-relative)
+          </pre>
+
+     </p><li>Windows users can double click a <code>.ly</code> file to process and view
+it automagically through the new <code>lily-wins</code> frontend.
+
+</ul>

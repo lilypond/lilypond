@@ -126,7 +126,7 @@ fi
 
 index_file=$index_dir/index.html
 rm -f $index_file
-echo -n "$name: Writing index: $index_file..."
+printf "%s: Writing index: %s..." "$name" "$index_file"
 
 # head
 cat >> $index_file <<EOF

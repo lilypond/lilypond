@@ -59,7 +59,7 @@ Dispatcher::print_smob (SCM s, SCM p, scm_print_state *)
   Dispatcher *me = (Dispatcher *) SCM_CELL_WORD_1 (s);
   scm_puts ("#<Dispatcher ", p);
   scm_write (scm_call_1 (ly_lily_module_constant ("hash-table->alist"),
-			 me->listeners_), p);
+                         me->listeners_), p);
   scm_puts (">", p);
   return 1;
 }

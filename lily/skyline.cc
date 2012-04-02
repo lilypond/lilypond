@@ -661,9 +661,9 @@ IMPLEMENT_TYPE_P (Skyline, "ly:skyline?");
 IMPLEMENT_DEFAULT_EQUAL_P (Skyline);
 
 SCM
-Skyline::mark_smob (SCM)
+Skyline::mark_smob (SCM s)
 {
-  ASSERT_LIVE_IS_ALLOWED ();
+  ASSERT_LIVE_IS_ALLOWED (s);
   return SCM_EOL;
 }
 

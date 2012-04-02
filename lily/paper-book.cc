@@ -580,10 +580,11 @@ Paper_book::systems ()
   systems_ = SCM_EOL;
   if (scm_is_pair (bookparts_))
     {
+      SCM system_list = SCM_EOL;
       for (SCM p = bookparts_; scm_is_pair (p); p = scm_cdr (p))
         if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
-          systems_ = scm_append_x (scm_list_2 (systems_,
-                                               pbookpart->systems ()));
+          system_list = scm_cons (pbookpart->systems (), system_list);
+      systems_ = scm_append (scm_reverse_x (system_list, SCM_EOL));
     }
   else
     {
@@ -596,15 +597,14 @@ Paper_book::systems ()
               SCM system_list
                 = scm_vector_to_list (pscore->get_paper_systems ());
 
-              system_list = scm_reverse (system_list);
-              systems_ = scm_append (scm_list_2 (system_list, systems_));
+              systems_ = scm_reverse_x (system_list, systems_);
             }
           else
             {
               systems_ = scm_cons (scm_car (s), systems_);
             }
         }
-      systems_ = scm_reverse (systems_);
+      systems_ = scm_reverse_x (systems_, SCM_EOL);
 
       /* backwards compatibility for the old page breaker */
       int i = 0;

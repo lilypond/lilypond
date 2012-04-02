@@ -88,7 +88,7 @@ Staff_symbol::print (SCM smob)
 
   Real space = staff_space (me);
   for (vector<Real>::const_iterator i = line_positions.begin (),
-         e = line_positions.end ();
+       e = line_positions.end ();
        i != e;
        ++i)
     {
@@ -143,7 +143,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos)
   Real nearest_line = line_positions[0];
   Real line_dist = abs (line_positions[0] - pos);
   for (vector<Real>::const_iterator i = line_positions.begin (),
-         e = line_positions.end ();
+       e = line_positions.end ();
        i != e;
        ++i)
     {

@@ -153,7 +153,7 @@ $(outdir)/emmentaler-brace.otf\
  $(outdir)/emmentaler-brace.woff: $(BRACES:%=$(outdir)/feta-braces-%.pfb)
 
 $(outdir)/emmentaler-brace.fontname:
-	echo -n 'emmentaler-brace' > $@
+	printf 'emmentaler-brace' > $@
 $(outdir)/emmentaler-brace.subfonts:
 	echo $(subst .mf,,$(call src-wildcard,feta-braces-[a-z].mf)) > $@
 

@@ -13,7 +13,16 @@ LY_DEFINE (ly_music_function_extract, "ly:music-function-extract", 1, 0, 0,
 {
   LY_ASSERT_TYPE (is_music_function, x, 1);
 
-  return SCM_CELL_OBJECT_1 (x);
+  return get_music_function_transform (x);
+}
+
+LY_DEFINE (ly_music_function_signature, "ly:music-function-signature", 1, 0, 0,
+	   (SCM x),
+	   "Return the function signature inside@tie{}@var{x}.")
+{
+  LY_ASSERT_TYPE (is_music_function, x, 1);
+
+  return get_music_function_signature (x);
 }
 
 LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
@@ -41,4 +50,3 @@ LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
 
   return make_music_function (signature, func);
 }
-

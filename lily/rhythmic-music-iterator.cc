@@ -49,36 +49,36 @@ Rhythmic_music_iterator::process (Moment m)
       Context *c = get_outlet ();
       Stream_event *ev = get_music ()->to_event ();
       SCM arts = ev->get_property ("articulations");
-      
+
       if (scm_is_pair (arts))
-	{
-	  // There is no point in broadcasting articulations like
-	  // harmonic events that nobody listens to.  Those work
-	  // exclusively as articulations.
-	  SCM listened = SCM_EOL;
-	  SCM unlistened = SCM_EOL;
-	  for (; scm_is_pair (arts); arts = scm_cdr (arts))
-	    {
-	      if (scm_is_true
-		  (scm_call_2
-		   (ly_lily_module_constant ("any"),
-		    ly_lily_module_constant ("ly:is-listened-event-class"),
-		    scm_call_1
-		    (ly_lily_module_constant ("ly:make-event-class"),
-		     unsmob_stream_event (scm_car (arts))
-		     ->get_property ("class")))))
-		listened = scm_cons (scm_car (arts), listened);
-	      else
-		unlistened = scm_cons (scm_car (arts), unlistened);
-	    }
-	  ev->set_property ("articulations", scm_reverse_x (unlistened, SCM_EOL));
-	  c->event_source ()->broadcast (ev);
-	  arts = scm_reverse_x (listened, SCM_EOL);
-	  for (; scm_is_pair (arts); arts = scm_cdr (arts))
-	    c->event_source ()->broadcast (unsmob_stream_event (scm_car (arts)));
-	}
+        {
+          // There is no point in broadcasting articulations like
+          // harmonic events that nobody listens to.  Those work
+          // exclusively as articulations.
+          SCM listened = SCM_EOL;
+          SCM unlistened = SCM_EOL;
+          for (; scm_is_pair (arts); arts = scm_cdr (arts))
+            {
+              if (scm_is_true
+                  (scm_call_2
+                   (ly_lily_module_constant ("any"),
+                    ly_lily_module_constant ("ly:is-listened-event-class"),
+                    scm_call_1
+                    (ly_lily_module_constant ("ly:make-event-class"),
+                     unsmob_stream_event (scm_car (arts))
+                     ->get_property ("class")))))
+                listened = scm_cons (scm_car (arts), listened);
+              else
+                unlistened = scm_cons (scm_car (arts), unlistened);
+            }
+          ev->set_property ("articulations", scm_reverse_x (unlistened, SCM_EOL));
+          c->event_source ()->broadcast (ev);
+          arts = scm_reverse_x (listened, SCM_EOL);
+          for (; scm_is_pair (arts); arts = scm_cdr (arts))
+            c->event_source ()->broadcast (unsmob_stream_event (scm_car (arts)));
+        }
       else
-	c->event_source ()->broadcast (ev);
+        c->event_source ()->broadcast (ev);
 
       ev->unprotect ();
     }

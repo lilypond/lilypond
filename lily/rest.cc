@@ -45,8 +45,8 @@ Rest::y_offset_callback (SCM smob)
 
   if (position_override)
     {
-      amount =
-        robust_scm2double (me->get_property ("staff-position"), 0) * 0.5 * ss;
+      amount
+        = robust_scm2double (me->get_property ("staff-position"), 0) * 0.5 * ss;
 
       /*
         semibreve rests are positioned one staff line off
@@ -75,15 +75,15 @@ Rest::y_offset_callback (SCM smob)
       /*
         make sure rest is aligned to a staff line
       */
-      if (Grob *staff = Staff_symbol_referencer::get_staff_symbol(me))
+      if (Grob *staff = Staff_symbol_referencer::get_staff_symbol (me))
         {
           std::vector<Real> linepos = Staff_symbol::line_positions (staff);
-          std::sort(linepos.begin(), linepos.end());
+          std::sort (linepos.begin (), linepos.end ());
           std::vector<Real>::const_iterator it
-            = std::lower_bound(linepos.begin(), linepos.end(), pos);
-          if (it != linepos.end())
+            = std::lower_bound (linepos.begin (), linepos.end (), pos);
+          if (it != linepos.end ())
             {
-              pos = (int)ceil(*it);
+              pos = (int)ceil (*it);
             }
         }
 
@@ -127,8 +127,8 @@ Rest::glyph_name (Grob *me, int durlog, string style, bool try_ledgers)
       */
       if (-1 <= durlog && durlog <= 1)
         is_ledgered = !Staff_symbol_referencer::on_staff_line (me, pos)
-          && !(durlog == -1
-               && Staff_symbol_referencer::on_staff_line (me, pos + 2));
+                      && !(durlog == -1
+                           && Staff_symbol_referencer::on_staff_line (me, pos + 2));
     }
 
   string actual_style (style.c_str ());

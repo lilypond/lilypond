@@ -198,7 +198,7 @@ Key_engraver::read_event (Stream_event const *r)
         r->origin ()->warning ("Incomplete keyAlterationOrder for key signature");
     }
 
-  context ()->set_property ("keySignature", scm_reverse (accs));
+  context ()->set_property ("keySignature", scm_reverse_x (accs, SCM_EOL));
   context ()->set_property ("tonic",
                             r->get_property ("tonic"));
 }

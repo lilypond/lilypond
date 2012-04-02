@@ -238,7 +238,7 @@ ADD_TRANSLATOR (Ambitus_engraver,
                 /* read */
                 "keySignature "
                 "middleCClefPosition "
-		"middleCOffset ",
+                "middleCOffset ",
 
                 /* write */
                 ""

@@ -287,7 +287,7 @@ Bar_line::compound_barline (Grob *me, string str, Interval const &extent,
   else if (str == "'")
     m = tick_bar_line (me, extent.at (UP), rounded);
   else if (str == "kievan")
-    m.add_stencil (Font_interface::get_default_font (me)->find_by_name("scripts.barline.kievan"));
+    m.add_stencil (Font_interface::get_default_font (me)->find_by_name ("scripts.barline.kievan"));
   return m;
 }
 

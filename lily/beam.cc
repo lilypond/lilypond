@@ -1238,8 +1238,15 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
       || !Beam::normal_stem_count (beam))
     return scm_from_double (0.0);
 
+  Grob *common_y = rest->common_refpoint (beam, Y_AXIS);
+
   Drul_array<Real> pos (robust_scm2drul (beam->get_property ("positions"),
                                          Drul_array<Real> (0, 0)));
+
+  Direction dir = LEFT;
+  do
+    pos[dir] += beam->relative_coordinate (common_y, Y_AXIS);
+  while (flip (&dir) != LEFT);
 
   Real staff_space = Staff_symbol_referencer::staff_space (rest);
 
@@ -1273,7 +1280,6 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
                             + (beam_count - 1) * beam_translation;
   Real beam_y = stem_y - d * height_of_my_beams;
 
-  Grob *common_y = rest->common_refpoint (beam, Y_AXIS);
 
   Interval rest_extent = rest->extent (rest, Y_AXIS);
   rest_extent.translate (offset + rest->get_parent (Y_AXIS)->relative_coordinate (common_y, Y_AXIS));
@@ -1316,7 +1322,8 @@ Beam::pure_rest_collision_callback (SCM smob,
     return scm_from_double (amount);
   Grob *beam = unsmob_grob (stem->get_object ("beam"));
   if (!beam
-      || !Beam::normal_stem_count (beam))
+      || !Beam::normal_stem_count (beam)
+      || !is_direction (beam->get_property_data ("direction")))
     return scm_from_double (amount);
 
   Real ss = Staff_symbol_referencer::staff_space (me);

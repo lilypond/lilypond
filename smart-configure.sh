@@ -16,8 +16,5 @@ fi
 
 set -e
 $srcdir/configure "$@"
-echo -n $CONFIGURE_CHECKSUM > $CONFIGURE_CHECKSUM_FILE
-
-
-
+printf "%s" $CONFIGURE_CHECKSUM > $CONFIGURE_CHECKSUM_FILE
 

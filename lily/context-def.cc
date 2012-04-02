@@ -100,7 +100,7 @@ Context_def::print_smob (SCM smob, SCM port, scm_print_state *)
 SCM
 Context_def::mark_smob (SCM smob)
 {
-  ASSERT_LIVE_IS_ALLOWED ();
+  ASSERT_LIVE_IS_ALLOWED (smob);
 
   Context_def *me = (Context_def *) SCM_CELL_WORD_1 (smob);
 
@@ -147,7 +147,7 @@ Context_def::add_context_mod (SCM mod)
            || ly_symbol2scm ("push") == tag
            || ly_symbol2scm ("assign") == tag
            || ly_symbol2scm ("unset") == tag
-	   || ly_symbol2scm ("apply") == tag)
+           || ly_symbol2scm ("apply") == tag)
     property_ops_ = scm_cons (mod, property_ops_);
   else if (ly_symbol2scm ("alias") == tag)
     context_aliases_ = scm_cons (sym, context_aliases_);
@@ -296,8 +296,8 @@ Context_def::get_translator_names (SCM user_mod) const
         l1 = scm_cons (arg, l1);
       else if (ly_symbol2scm ("remove") == tag
                && (scm_is_pair (arg)
-		   || ly_is_procedure (arg)
-		   || get_translator (arg)))
+                   || ly_is_procedure (arg)
+                   || get_translator (arg)))
         l1 = scm_delete_x (arg, l1);
     }
 
@@ -387,7 +387,7 @@ Context_def::is_alias (SCM sym) const
 }
 
 LY_DEFINE (ly_context_def_lookup, "ly:context-def-lookup",
-	   2, 1, 0, (SCM def, SCM sym, SCM val),
+           2, 1, 0, (SCM def, SCM sym, SCM val),
            "Return the value of @var{sym} in output definition @var{def}"
            " (e.g., @code{\\paper}).  If no value is found, return"
            " @var{val} or @code{'()} if @var{val} is undefined.")
@@ -410,9 +410,9 @@ LY_DEFINE (ly_context_def_lookup, "ly:context-def-lookup",
 }
 
 LY_DEFINE (ly_context_def_modify, "ly:context-def-modify",
-	   2, 0, 0, (SCM def, SCM mod),
-	   "Return the result of applying the context-mod @var{mod} to"
-	   " the context definition @var{def}.  Does not change @var{def}.")
+           2, 0, 0, (SCM def, SCM mod),
+           "Return the result of applying the context-mod @var{mod} to"
+           " the context definition @var{def}.  Does not change @var{def}.")
 {
   LY_ASSERT_SMOB (Context_def, def, 1);
   LY_ASSERT_SMOB (Context_mod, mod, 2);

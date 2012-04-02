@@ -1,10 +1,9 @@
-
 This file documents changes in version 0.0
 
 august 1
 
 VERSION 0.1.0
-	
+
 	- bf: output tempo to track 0 too
 	- bf: don't forget to copy id_str_, so moved  into Music
 
@@ -18,13 +17,13 @@ pl 78.jcn1
 *****
 july 31
 pl 78
-	- bf: Midi_instrument 
+	- bf: Midi_instrument
 	- added  enable/disable defaults to help.
-	- incredibly ugly NAME_MEMBERS(); bug. Immediately changed to 
+	- incredibly ugly NAME_MEMBERS(); bug. Immediately changed to
 DECLARE_MY_RUNTIME_TYPEINFO;
-	- \stem -1 -> \stem \down in input	
+	- \stem -1 -> \stem \down in input
 	- bf: slurchar index
-	- configure warnings 
+	- configure warnings
 	- preliminary stuff for multiarch building
 	- #!/usr/bin/perl fixes (AO)
 	- some Makefile cleanups: now faster.
@@ -34,17 +33,17 @@ pl 77.jcn2
 
 ******
 july 29
-pl 77	
-	- some fixes for internal compiler errors 
+pl 77
+	- some fixes for internal compiler errors
 derive from Pointer_list with default dtor gives error with -O2
 	- .ini -> .ly
-	- lyrics fix 
+	- lyrics fix
 	- Performer beautification: got rid of set_track(), midi_output()
 	- pseudo RTTI for midi-items
-	- bf: Performer*::print() 
+	- bf: Performer*::print()
 	- links.pod
 	- Voice_element -> Request_chord
-	- fixed flex problems: stdin input works again 
+	- fixed flex problems: stdin input works again
 	- Documentation/Rules.make, make-website via make
 	- spacing: now add basicspace
 
@@ -61,7 +60,7 @@ pl 76
 	- allowal of breaks handled cleanly
 	- junked Subtle_reqs, junked Request_iterator. Request
 	iteration now by Voice_element_iterator
-	- Piano_bar, Piano_bar_engraver, Span_score_bar_engraver, 
+	- Piano_bar, Piano_bar_engraver, Span_score_bar_engraver,
 	Span_score_bar
 	- Swallow_performer
 	- removed  Staff_engravers, grouping into Line_group_engraver
@@ -97,7 +96,7 @@ pl 74pre.jcn1
 
 pl 72pre.jcn1
 	- naming fixes; some iter*() explicitations
-        - removed acceptor.hh
+	- removed acceptor.hh
 	- *performer*: second draft of midi (audio/...)
 
 *******
@@ -116,12 +115,12 @@ pl 73pre
 	- some refs doco.
 	- move Input_engraver into Paper_def
 	- junk Interpreter
-	- naming: Request_engraver -> Engraver, 
+	- naming: Request_engraver -> Engraver,
 	- Music_iterator::next() -> process_and_next()
 	- junk Voice_engravers
 	- Span_bar, Span_bar_engraver
 	- Vertical_align_engraver
-	
+
 *******
 july 2
 pl 72pre
@@ -143,7 +142,7 @@ july 1
 pl 71pre
 	- nested \melodic and \lyric constructs
 	- init id's, Input_register aliases.
-	- bf: notehead x-swap 
+	- bf: notehead x-swap
 	- bf: auto-keys.
 	- bf: first clef
 	- junked \init_end; construct
@@ -178,7 +177,7 @@ pl 69pre
 	- bf: scripts
 	- reg termination
 	- centered bars
-	- bf: init of Tie::dir_i_ 
+	- bf: init of Tie::dir_i_
 	- bf: Staff_side depends on staff_sym_
 	- bf: Script::do_substitute_dependency() now implemented
 	- more print info (also in output)
@@ -218,12 +217,12 @@ pl 68pre
 	  * align key/Meters/bar across staffs
 	  * junked Staff, Staff_column, Staff_walker, Complex_walker,
 	    Request_column Pulk_voice, Pulk_voices, Walker_registers,
-	    Voice_element, 
+	    Voice_element,
 	    Input_score, Input_staff, Input_music and a lot of
 	    parserjunk.
 	  * mudela: lots of structure changes : now much simpler
 	  * generation of pre/postbreak items now in Score_elem with deps.
-	
+
 	- bf: make_patch explanation
 	- bf: make install TeX stuff
 	- mudela: . mandatory for REALs
@@ -269,7 +268,7 @@ pl 66
 	- bf: broken slur
 	- bf: accidental dims
 	- bf: measure bar width
-	
+
 
 ******
 may 26
@@ -288,14 +287,14 @@ pl 65
 	  * delete unbroken spanners
 	  * added a break_processing round.
 	  * Super_elem
-	- junk Complex_staff, 
+	- junk Complex_staff,
 	- clean {lily}?proto.hh
 	- Element_group
 	- Score_elem now as virtual base class everywhere
 	- naming: Staff_elem -> Score_elem
 	- bf: make in toplevel dir
 	- bf: broken tie y-pos
-	- bf: sharing 4th, 8th and 16th noteheads 
+	- bf: sharing 4th, 8th and 16th noteheads
 	- bf: overlapping chords. <\multivoice c d >
 
 pl 64.wl
@@ -319,7 +318,7 @@ pl 64
 	- toplevel Makefile dep from make/Toplevel.make.in
 	- make_website: add version footer
 	- make_website: bf dist *.txt
-	- bf: fix loose bars : 	\meter 4/4; c1.  
+	- bf: fix loose bars: \meter 4/4; c1.
 	- Staff_elem -> Score_elem
 	- bf <cis cis>
 	- vbrace lookup
@@ -358,10 +357,10 @@ pl 61.jcn2
 	- bf: zero denominator
 
 **********
-may 14 
+may 14
 pl 62
-	- make clean bf: remove lex & yacc files too 
-	- added kludge in case measure too long 
+	- make clean bf: remove lex & yacc files too
+	- added kludge in case measure too long
 	- added kludge in case of unconnected columns.
 	- kludged columns get error marker
 	- kludged lines get error marker
@@ -375,7 +374,7 @@ pl 60.jcn1
 	- mi2mu handles non-quantified rests, try mi2mu -b wtk-i/fugue2.midi
 
 
-	
+
 **********
 pl 61
 	- scales.ly bugfix: dimensions default to ((0,0), (0,0))
@@ -401,11 +400,11 @@ pl 60.mb
 pl 57.jcn4
 	- mi2mu handles rests (quantified only)
 	- fixed configure buglet
-        - "!date" Fri May  2 02:18:12 MET DST 1997
+	- "!date" Fri May  2 02:18:12 MET DST 1997
 
 pl 60
 	- Request_register::get_feature(), tie direction, Slur direction
-	- lilypond output is now directly texable. 
+	- lilypond output is now directly texable.
 	- make_website checks return status
 
 *******
@@ -422,15 +421,15 @@ pl 58.jcn1
 	- bf: toccata-fuga-E.ly
 
 pl 57.jcn4
- 	- mi2mu handles rests (quantified only)
- 	- fixed configure buglet
-        - "!date" Fri May  2 02:18:12 MET DST 1997
- 
+	- mi2mu handles rests (quantified only)
+	- fixed configure buglet
+	- "!date" Fri May  2 02:18:12 MET DST 1997
+
 pl 58
 	- lexer cleanup
 	- national chars in lyrics
 	- \stem 2; bf
-	- long comments: %{ %} 
+	- long comments: %{ %}
 	- *.ini mode bf
 	- bf: partial may be everywhere
 	- bf: meterchange not at start of measure
@@ -440,7 +439,7 @@ pl 58
 pl 57.jcn3
 	- dank je schat, voor wtk-i
 	- mi2mu tries to handle rests
-        - "!date" Thu May  1 02:34:04 MET DST 1997
+	- "!date" Thu May  1 02:34:04 MET DST 1997
 	- maak je het niet te laat schat?
 	  XXXX HWN
 
@@ -456,9 +455,9 @@ pl 57
 	- bugfix init  of Text_item::pos_i_
 
 pl 56.jcn1
- 	- toccata-fuga-in-E.ly, excerpts with real-life collisions
- 	- \{l,r}{b,f}{toe,heel} --- using cmsy fonts...
- 	- pedal.ly 
+	- toccata-fuga-in-E.ly, excerpts with real-life collisions
+	- \{l,r}{b,f}{toe,heel} --- using cmsy fonts...
+	- pedal.ly
 
 pl 55.jcn1
 	- mi2mu man page
@@ -476,7 +475,7 @@ pl 56.mb:
 ******
 pl 56
 	- Massive Rest/Stem/Collision/Note_column rewrite: resolve
-notehead/rest ambiguities and bugs. eg, [c8 r8 c8] 
+notehead/rest ambiguities and bugs. eg, [c8 r8 c8]
 
 pl 54.jcn1
 	- standchen.ly: repeats; lyricii to end
@@ -493,10 +492,10 @@ pl 55
 ******
 pl 54
 	- bugfix Colhpos.cc::OK assert fail.
-	- Inclusion of MusixTeX MF files, 
+	- Inclusion of MusixTeX MF files,
 	- detection of MF dir
 pl 53.hwn
-	- stacked lyrics 
+	- stacked lyrics
 	- configure/make buglets.
 ******
 pl 53
@@ -505,7 +504,7 @@ pl 53
 	- added AUTHORS.pod
 	- convert-mudela auto from guess
 	- include -> \include
-	- change order of opening parse/init file 
+	- change order of opening parse/init file
 	- Pulk_voice, Pulk_voices
 	- Request_column
 	- revised request-from-voice extraction. Now much faster
@@ -515,7 +514,7 @@ april 17
 pl 52
 	- Buildroot RPM
 	- tex-prefix and tex-dir sep'd (here you are jan)
- 	- convert-mudela framework
+	- convert-mudela framework
 	- Collision_register, Collision
 	- \hshift 1; input
 	- Features changed
@@ -545,14 +544,14 @@ pl 49.jcn1
 Bugfix
 	- configure[.in], make/Configure_variables.make.in c++ (=doze fix)
 	- "configure; make" ok for doze, win32 target may be removed now
-	- win32/gcc 2.7.2 compile fixes -- why does this all compile 
-	    (without warnings, why can-t i even trigger warnings) under 
-	    linux/gcc-2.7.2.1?  it's quite a tedious job fixing this 
+	- win32/gcc 2.7.2 compile fixes -- why does this all compile
+	    (without warnings, why can-t i even trigger warnings) under
+	    linux/gcc-2.7.2.1?  it's quite a tedious job fixing this
 	    shit _on doze_ all the time.
 	    * fixed #includes global-regs.cc, staff-info.cc, staff.cc
 	    * key.hh:Key() -> Octave_key()
 	    * added missing lily/include/input.hh: Input( Input const& )
-	
+
 pl 49
 	- lsm template
 	- clef in cadenza mode.
@@ -607,7 +606,7 @@ pl 44.jcn1
 	    * keywords "\lyric" "\melodic" introduced, e.g.:
 		melody = \melodic { c c | g g }
 	    * removed level of indirection:
-	        - staff initialisable with music identifier list: 
+	        - staff initialisable with music identifier list:
 	            \staff{ global melody }
 	        - \score and staffs alike
 	- gnu standard(?) help texts
@@ -638,7 +637,7 @@ pl 44
 ******
 pl 43
 	- transposition.
-	- $variable&@name 
+	- $variable&@name
 	- warnings if incorrect mode
 	- missing scsii measure
 	- declaration used check.
@@ -646,7 +645,7 @@ pl 43
 
 pl 42.jcn4
 	- lily writes midi meter/key changes from requests
-	- mi2mu: 
+	- mi2mu:
 	  + write mudela 0.1
 	  + write bar change requests
 	  + more tunable quantisation
@@ -656,7 +655,7 @@ Examples
 	- new mi2mu of bach's wtk pre1/fugue1
 
 pl 42.3 (jcn version)
-        - oeps, branched source tree
+	- oeps, branched source tree
 
 pl 42.hwn3
 	- const naming change (T const <-> const T)
@@ -669,10 +668,10 @@ pl 42.3
 	    * keyword "music" dropped for horizontal music
 	    * keywords "\lyric" " introduced, e.g.:
 		melody = \melodic { c c | g g }
-	    * staff initialisable with music identifier: 
-	    	\staff{ melody }
+	    * staff initialisable with music identifier:
+		\staff{ melody }
 	    * chords: < c e >
-	    * octavate ''c`` 
+	    * octavate ''c``
 	    * \meter{ 2/4 }
 	    * \octave{ ''`` }
 	 - configure sets CXX (to c++, commonly)
@@ -704,10 +703,10 @@ pl 41.hwn2
 	- detect TeX directory
 
 pl 41.hwn1
- 	- cygnus configure,
- 	- updated versioning 
- 	- install.pod
-  
+	- cygnus configure,
+	- updated versioning
+	- install.pod
+
 pl 41.jn1
 Bugfix
 	- doze compile
@@ -767,12 +766,12 @@ pl 39-3
 	- all of the above
 	- m2m renamed to mi2mu
 	- better line breaking in mi2mu
-	- (somewhat broken) progress indicator for mi2mu 
+	- (somewhat broken) progress indicator for mi2mu
 	- mi2mu output === lily input (in names and durations,
 	  always assuming voices > 1 though)
 
 Bugfix
-	- midi: note on/off only once per pitch per track 
+	- midi: note on/off only once per pitch per track
 	  (sending all note-on events introduces cool mi2mu feature)
 	- make clean removes deps too
 	- mi2mu notename/accidental/octave, and key fixed
@@ -812,7 +811,7 @@ pl 39
 	    * small lily lib
 	    * lilypond-x.x.x/.version for toplevel lily version
 	    * lilypond-x.x.x/<module>/.version for <module> version (eg: flower)
-	    * versioning using additional optional MY_PATCH_LEVEL 
+	    * versioning using additional optional MY_PATCH_LEVEL
 		for easy make_patch
 
 	- bin/cptogen
@@ -824,7 +823,7 @@ Bugfix
 	- small fixes, make, dist, configure
 
 pl 38-5
-	- all of the below, e.g. new filenames and new makefile 
+	- all of the below, e.g. new filenames and new makefile
 	  structure patches merged
 ******
 pl 38
@@ -916,7 +915,7 @@ pl pre33-2
 
 Bugfix
 	- midi pitch
-	
+
 Features
 	- Jan's patches, see below
 Bugfix
@@ -928,7 +927,7 @@ pl pre33-1 (JCN)
 	- midi output using pitches iso notename
 Examples
 	- added midi output (some midi output files broken?)
-	- all melodic fixed (except for error.ly:-) 
+	- all melodic fixed (except for error.ly:-)
 	- midi.ly
 Bugfix
 	- midiwalker line break
@@ -946,11 +945,11 @@ Features
 	- simple plet notation (JCN)
 	- lyrics centred, but no fully suppored? (JCN)
 Internal
-	- Midi_stream 
+	- Midi_stream
 	- Mididef
 	- Midi_item, Midi_pitch, Midi_duration
 	- Midi_chunk, Midi_header, Midi_track
-	- preparations for midi output 
+	- preparations for midi output
 	- no exit upon context error (JCN)
 	- converted some "warnings" to errors; no output (JCN)
 Bugfix:
@@ -1016,7 +1015,7 @@ Bugfix
 	- script junking (2x)
 	- empty files
 	- beam::center (plet position!)
-	
+
 pl 29
 	- multiplatform Makefile (JN)
 	- context errors: bugfixes (JN)
@@ -1033,7 +1032,7 @@ Bugfix
 	- cleaned dependencies for broken spanners
 	- stupid typo in Staff_elem::post_processing()
 	- init of hpos in PCol::PCol
-	- Word_wrap::solve() bug 
+	- Word_wrap::solve() bug
 *******
 pl 27
 	- preliminary WIN32 support (JN)
@@ -1049,7 +1048,7 @@ Examples
 
 pl pre27
 
-Features	
+Features
 	- option --init
 	- last_duration_mode: default_duration is last duration entered
 	(\duration{\last})
@@ -1073,7 +1072,7 @@ Internal:
 	- Voice_group_registers, Voice_registers, *_register
 	- Complex_staff
 *******
- Jan 27 '97 
+Jan 27 '97
 pl 25
 	- other clefs added, keys typeset properly (MB)
 
@@ -1094,7 +1093,7 @@ pl 23:
 Internal changes:
 	- scrapped VPATH
 	- Make dependencies per .o
-	- Split Input_* parsing steps to enable marking	
+	- Split Input_* parsing steps to enable marking
 Bugfixes:
 	- unconnected columns
 
@@ -1122,8 +1121,8 @@ Internal changes:
 	- dependencies for Staff_elem's
 
 *******
-Dec 23 
-pl 20: 
+Dec 23
+pl 20:
 	- updated doco to .pod
 	- include files from .ly
 Internal changes:
@@ -1164,7 +1163,7 @@ pl 14
 	- Input_{score/staff}
 
 *******
-Dec  2 
+Dec  2
 pl 13
 	- Horizontal/Vertical music
 	- Input_commands

@@ -642,6 +642,10 @@ messages into errors.")
           (ly:set-option 'debug-gc-assert-parsed-dead #t)
           (gc)
           (ly:set-option 'debug-gc-assert-parsed-dead #f)
+	  (for-each
+	   (lambda (x)
+	     (ly:programming-error "Parsed object should be dead: ~a" x))
+	   (ly:parsed-undead-list!))
           (set! stats (gc-live-object-stats))
           (ly:progress "Dumping live object statistics.\n")
           (dump-live-object-stats outfile)))
@@ -832,6 +836,10 @@ PIDs or the number of the process."
          (ly:set-option 'debug-gc-assert-parsed-dead #t)
          (gc)
          (ly:set-option 'debug-gc-assert-parsed-dead #f)
+	 (for-each
+	  (lambda (x)
+	    (ly:programming-error "Parsed object should be dead: ~a" x))
+	  (ly:parsed-undead-list!))
          (if (ly:get-option 'debug-gc)
              (dump-gc-protects)
              (ly:reset-all-fonts))
@@ -844,6 +852,8 @@ PIDs or the number of the process."
     (if (ly:get-option 'dump-profile)
         (dump-profile "lily-run-total" '(0 0) (profile-measurements)))
     failed))
+
+(define-public lilypond-declarations '())
 
 (define (lilypond-file handler file-name)
   (catch 'ly-file-failed

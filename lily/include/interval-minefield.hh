@@ -27,13 +27,13 @@
 
 class Interval_minefield
 {
-public :
+public:
   Interval_minefield (Interval, Real);
   void add_forbidden_interval (Interval forbidden);
   Interval feasible_placements ();
   void solve ();
 
-private :
+private:
   vector<Interval> forbidden_intervals_;
   Interval feasible_placements_;
   Real bulk_;

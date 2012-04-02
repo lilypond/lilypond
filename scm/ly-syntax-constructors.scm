@@ -50,10 +50,11 @@
 ;; we don't call the function but rather return the general
 ;; fallback.
 (define-ly-syntax (music-function parser loc fun args . rest)
-  (let* ((sig (object-property fun 'music-function-signature))
+  (let* ((sig (ly:music-function-signature fun))
 	 (pred (if (pair? (car sig)) (caar sig) (car sig)))
 	 (good (proper-list? args))
-	 (m (and good (apply fun parser loc (reverse! args rest)))))
+	 (m (and good (apply (ly:music-function-extract fun)
+			     parser loc (reverse! args rest)))))
     (if (and good (pred m))
 	(begin
 	  (if (ly:music? m)

@@ -111,10 +111,10 @@ def addLangExt(filename, lang, ext):
     return text
 
 def makeFooter (filename, currentLang):
-    # TODO: add link to automatic language selection?
-    # still need to include this page in the new webpages somewhere
     footer = '''<p id="languages">
 %(other)s: %(lst)s.
+<br>
+%(browser_language)s
 </p>
 '''
     def link (lang):
@@ -124,6 +124,9 @@ def makeFooter (filename, currentLang):
         return str % locals ()
     lst = ', '.join ([link (lang) for lang in langs if lang != currentLang])
     other = _ ('Other languages', currentLang)
+    browser_lang = _ ('About <a href="%s">automatic language selection</a>.', currentLang)
+    browser_language_url = "http://www.lilypond.org/website/misc/browser-language"
+    browser_language = browser_lang % browser_language_url
     return footer % locals ()
 
 def getLocalHref(line):

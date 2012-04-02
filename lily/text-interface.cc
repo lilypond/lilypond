@@ -50,15 +50,15 @@ replace_special_characters (string &str, SCM props)
     {
       /* Don't match in mid-UTF-8 */
       if ((str[i] & 0xc0) == 0x80)
-	continue;
+        continue;
       for (vsize j = max_length + 1; j--;)
         {
-	  if (j > str.size () - i)
-	    continue;
+          if (j > str.size () - i)
+            continue;
           string dummy = str.substr (i, j);
           SCM ligature = ly_assoc_get (ly_string2scm (dummy),
-				       replacement_alist, SCM_BOOL_F);
-	  if (scm_is_true (ligature))
+                                       replacement_alist, SCM_BOOL_F);
+          if (scm_is_true (ligature))
             str.replace (i, j, robust_scm2string (ligature, ""));
         }
     }

@@ -82,8 +82,9 @@ public:
   void listen (SCM ev) const;
 
   bool operator == (Listener const &other) const
-  { return type_ == other.type_
-      && (*type_->equal_callback)((void *) target_, (void *) other.target_ );
+  {
+    return type_ == other.type_
+           && (*type_->equal_callback) ((void *) target_, (void *) other.target_);
   }
 
   DECLARE_SIMPLE_SMOBS (Listener);
@@ -124,7 +125,7 @@ cl :: method ## _listener () const                      \
   inline void name (SCM);                               \
   static void name ## _callback (void *self, SCM ev);   \
   static void name ## _mark (void *self);               \
-  static bool name ## _is_equal (void *a, void *b);	\
+  static bool name ## _is_equal (void *a, void *b);     \
   Listener name ## _listener () const
 
 #endif /* LISTENER_HH */

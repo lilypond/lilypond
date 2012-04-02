@@ -7,15 +7,15 @@
 Itemize environment:
 \begin{itemize}
 \item
-\lilypond[11pt,fragment]{ c'} do
+\lilypond[staffsize=11,fragment]{ c'} do
 \item
-\lilypond[11pt,fragment]{d'} re
+\lilypond[staffsize=11,fragment]{d'} re
 \item
-\lilypond[11pt,fragment]{e'} mi
+\lilypond[staffsize=11,fragment]{e'} mi
 \item
-\lilypond[11pt,fragment]{f'} fa
+\lilypond[staffsize=11,fragment]{f'} fa
 \item
-\lilypond[11pt,fragment]{g'} sol
+\lilypond[staffsize=11,fragment]{g'} sol
 \end{itemize}
 
 \end{document}

@@ -139,8 +139,7 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
     return;
 
   if (!stem_)
-      make_stem (gi, tuplet_start_);
-      
+    make_stem (gi, tuplet_start_);
 
   int ds = Stem::duration_log (stem_);
   int dc = d->duration_log ();
@@ -176,7 +175,7 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
       stem_->set_object ("flag", flag->self_scm ());
       maybe_flags_.push_back (flag);
     }
-  if (tuplet_start_) 
+  if (tuplet_start_)
     stem_->set_property ("tuplet-start", SCM_BOOL_T);
 }
 
@@ -232,7 +231,7 @@ Stem_engraver::listen_tuplet_span (Stream_event *ev)
       // set stem property if stem already exists
       if (stem_)
         stem_->set_property ("tuplet-start", SCM_BOOL_T);
-      tuplet_start_ = true;  // stash the value for use in later creation 
+      tuplet_start_ = true;  // stash the value for use in later creation
     }
 }
 
