@@ -195,10 +195,11 @@ NoteHead X,Y: NoteColumn
     (format #f "~&")))
 
 #(define (display-ancestry grob)
-   (format (current-error-port)
-      "~3&~a~2%~a~&"
-      (make-string 36 #\-)
-      (format-ancestry (get-ancestry grob) 0)))
+   (display
+    (string-append
+     (format #f "~3&~a~2%" (make-string 36 #\-))
+     (format-ancestry (get-ancestry grob) 0)
+     (format #f "~2&"))))
 
 \relative c' {
   \once \override NoteHead #'before-line-breaking = #display-ancestry
