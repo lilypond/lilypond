@@ -10,6 +10,23 @@
 
 
 @newsItem
+@subsubheading Release candidate 4 of 2.16 - LilyPond 2.15.36 released!  @emph{April 6, 2012}
+
+LilyPond 2.15.36 is out; this is the fourth release candidate of
+the upcoming 2.16 stable release.  All users are invited to
+experiment with this version.  New features since 2.14.2 are
+listed in the @qq{Changes} manual on the website section about
+@ref{Development}.
+
+There are no known Critical issues with this release.  If no
+Critical bugs are found, then the official 2.16.0 release will be
+on 20 April 2012.  If you discover any problems, please send us
+@ref{Bug reports}.
+
+@newsEnd
+
+
+@newsItem
 @subsubheading The LilyPond Report #25. @emph{Apr 1st, 2012}
 
 The @emph{LilyPond Report} is back, with a rather unusual
