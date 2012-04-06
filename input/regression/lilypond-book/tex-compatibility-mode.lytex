@@ -5,6 +5,6 @@
 
 A snippet with a deprecated option, triggering compatibility mode:
 
-\lilypond[staffsize=11,fragment]{c' e' g'}
+\lilypond[11pt,fragment]{c' e' g'}
 
 \end{document}
