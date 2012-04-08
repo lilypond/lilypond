@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "staff-notation"
+  lsrtags = "real-music, staff-notation"
 
   texidoc = "
 The @code{\\markup} command is quite versatile.  In this snippet, it
@@ -16,6 +16,7 @@ contains a @code{\\score} block instead of texts or marks.
 "
   doctitle = "Inserting score fragments above a staff as markups"
 } % begin verbatim
+
 
 tuning = \markup {
   \score {

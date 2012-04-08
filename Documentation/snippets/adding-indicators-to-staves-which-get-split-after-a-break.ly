@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.25"
+\version "2.14.2"
 
 \header {
-  lsrtags = "staff-notation, vocal-music"
+  lsrtags = "vocal-music, symbols-and-glyphs, staff-notation"
 
   texidoc = "
 This snippet defines the @code{\\splitStaffBarLine} command, which adds

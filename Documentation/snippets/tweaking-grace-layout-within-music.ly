@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.25"
+\version "2.15.32"
 
 \header {
-  lsrtags = "rhythms, tweaks-and-overrides"
+  lsrtags = "tweaks-and-overrides, rhythms"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -61,6 +61,7 @@ up, and changes the default note heads to crosses.
 "
   doctitle = "Tweaking grace layout within music"
 } % begin verbatim
+
 
 \relative c'' {
   \new Staff {

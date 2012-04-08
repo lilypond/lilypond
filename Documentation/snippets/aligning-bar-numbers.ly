@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "rhythms"
@@ -57,6 +57,7 @@ positioned directly over the bar line or left-aligned to the bar line.
 "
   doctitle = "Aligning bar numbers"
 } % begin verbatim
+
 
 \relative c' {
   \set Score.currentBarNumber = #111

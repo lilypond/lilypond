@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "simultaneous-notes, tweaks-and-overrides"
@@ -49,6 +49,7 @@ are staff spaces.
 "
   doctitle = "Forcing horizontal shift of notes"
 } % begin verbatim
+
 
 \relative c' <<
   {

@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.25"
+\version "2.15.32"
 
 \header {
-  lsrtags = "expressive-marks, text"
+  lsrtags = "text, really-cool, expressive-marks, scheme-language"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -28,6 +28,7 @@ normally printed, using some Scheme code.
 "
   doctitle = "Center text below hairpin dynamics"
 } % begin verbatim
+
 
 hairpinWithCenteredText =
 #(define-music-function (parser location text) (markup?)

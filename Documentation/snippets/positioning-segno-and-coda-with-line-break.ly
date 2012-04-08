@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "repeats, breaks"
+  lsrtags = "repeats, workaround, breaks, symbols-and-glyphs"
 
   texidoc = "
 If you want to place an exiting segno sign and add text like @qq{D.S.
@@ -19,6 +19,7 @@ line.
 "
   doctitle = "Positioning segno and coda (with line break)"
 } % begin verbatim
+
 
 {
   \clef treble

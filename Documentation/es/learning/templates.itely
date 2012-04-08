@@ -75,11 +75,6 @@ unas hermosas partituras impresas!
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
 
-@appendixsubsec Piano con dinámicas centradas
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-with-centered-dynamics.ly}
-
 
 @node Cuarteto de cuerda
 @appendixsec Cuarteto de cuerda

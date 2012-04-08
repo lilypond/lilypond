@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "vocal-music, template"
+  lsrtags = "template, vocal-music"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -27,6 +27,7 @@ strofe come testo separato sotto la musica.
 
 "
   doctitleit = "Modello per inno"
+
 %%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
   texidocde = "
@@ -57,6 +58,7 @@ verses as stand-alone text under the music.
 "
   doctitle = "Hymn template"
 } % begin verbatim
+
 
 Timeline = {
   \time 4/4

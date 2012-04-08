@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "text, titles"
+  lsrtags = "text, really-simple, titles, scheme-language"
 
   texidoc = "
 By putting the output of
@@ -19,6 +19,7 @@ By putting the output of
 "
   doctitle = "Outputting the version number"
 } % begin verbatim
+
 
 \score {
   \new Lyrics {

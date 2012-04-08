@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.25"
+\version "2.15.32"
 
 \header {
   lsrtags = "text"
@@ -16,6 +16,7 @@ Text that can spread over pages is entered with the
 "
   doctitle = "Markup lines"
 } % begin verbatim
+
 
 #(set-default-paper-size "a6")
 

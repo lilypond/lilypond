@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.25"
+\version "2.15.32"
 
 \header {
-  lsrtags = "editorial-annotations, tweaks-and-overrides"
+  lsrtags = "editorial-annotations, tweaks-and-overrides, scheme-language"
 
   texidoc = "
 The @code{print-function} can be overridden to draw a box around an
@@ -16,6 +16,7 @@ arbitrary grob.
 "
   doctitle = "Drawing boxes around grobs"
 } % begin verbatim
+
 
 \relative c'' {
   \override TextScript #'stencil =

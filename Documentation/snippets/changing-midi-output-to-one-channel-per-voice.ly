@@ -7,7 +7,7 @@
 \version "2.15.32"
 
 \header {
-  lsrtags = "contexts-and-engravers, midi"
+  lsrtags = "real-music, contexts-and-engravers, midi"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -60,6 +60,7 @@ two MIDI channels are created, each with a different
 "
   doctitle = "Changing MIDI output to one channel per voice"
 } % begin verbatim
+
 
 \score {
   \new Staff <<

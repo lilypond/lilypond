@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "tweaks-and-overrides, spacing"
@@ -17,6 +17,7 @@ the note that occurs at the same time. This may cause collisions.
 "
   doctitle = "Proportional strict notespacing"
 } % begin verbatim
+
 
 \relative c'' <<
   \override Score.SpacingSpanner #'strict-note-spacing = ##t

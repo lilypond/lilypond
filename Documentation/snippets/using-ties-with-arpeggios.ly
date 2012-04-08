@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "rhythms"
@@ -55,6 +55,7 @@ can also be used for ordinary consecutive notes.
 "
   doctitle = "Using ties with arpeggios"
 } % begin verbatim
+
 
 \relative c' {
   \set tieWaitForNote = ##t

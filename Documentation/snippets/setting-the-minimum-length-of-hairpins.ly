@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "expressive-marks"
@@ -44,6 +44,7 @@ If hairpins are too short, they can be lengthened by modifying the
 "
   doctitle = "Setting the minimum length of hairpins"
 } % begin verbatim
+
 
 \relative c'' {
   c4\< c\! d\> e\!

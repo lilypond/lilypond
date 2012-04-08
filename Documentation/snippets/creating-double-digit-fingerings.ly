@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, staff-notation, editorial-annotations, tweaks-and-overrides"
+  lsrtags = "editorial-annotations, staff-notation, tweaks-and-overrides, expressive-marks, scheme-language"
 
   texidoc = "
 By default you cannot make double-digit fingering notation (i.e.
@@ -18,6 +18,7 @@ This snippet shows two methods of creating fingerings larger than 9.
 "
   doctitle = "Creating double-digit fingerings"
 } % begin verbatim
+
 
 ten =
 #(make-music 'FingeringEvent

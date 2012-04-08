@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "unfretted-strings, template"
+  lsrtags = "preparing-parts, template, unfretted-strings"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -124,6 +124,7 @@ Do not forget to remove specified comments when using separate files!
 "
   doctitle = "String quartet template with separate parts"
 } % begin verbatim
+
 
 %%%%% piece.ly
 %%%%% (This is the global definitions file)

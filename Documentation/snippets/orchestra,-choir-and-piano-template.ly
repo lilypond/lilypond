@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "pitches, staff-notation, vocal-music, template"
+  lsrtags = "template, vocal-music, pitches, staff-notation"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -67,6 +67,7 @@ music for transposing instruments at concert pitch.
 "
   doctitle = "Orchestra choir and piano template"
 } % begin verbatim
+
 
 #(set-global-staff-size 17)
 \paper {

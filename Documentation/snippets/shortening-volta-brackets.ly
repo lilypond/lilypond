@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "repeats"
@@ -51,6 +51,7 @@ lasts one measure, which is a duration of 3/4.
 "
   doctitle = "Shortening volta brackets"
 } % begin verbatim
+
 
 \relative c'' {
   \time 3/4

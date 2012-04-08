@@ -1105,7 +1105,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{lyrics-old-spacing-settings.ly}
+{obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
 @seealso
 学習マニュアル:

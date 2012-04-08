@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "chords"
@@ -41,6 +41,7 @@ chord changes.
 "
   doctitle = "Showing chords at changes"
 } % begin verbatim
+
 
 harmonies = \chordmode {
   c1:m c:m \break c:m c:m d

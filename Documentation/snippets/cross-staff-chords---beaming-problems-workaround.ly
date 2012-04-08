@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "chords, keyboards, tweaks-and-overrides"
+  lsrtags = "keyboards, workaround, chords, tweaks-and-overrides"
 
   texidoc = "
 Sometimes it is better to use stems from the upper staff for creating
@@ -21,6 +21,7 @@ between staves using @code{\\override Staff.Beam #'collision-voice-only
 "
   doctitle = "Cross-staff chords - beaming problems workaround"
 } % begin verbatim
+
 
 \new PianoStaff <<
   \new Staff = up
@@ -37,6 +38,7 @@ between staves using @code{\\override Staff.Beam #'collision-voice-only
           e e e }
         { s4
           \change Staff = "bottom"
+          \override NoteColumn #'ignore-collision = ##t
           c, c c
         }
       >>

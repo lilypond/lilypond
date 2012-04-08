@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "rhythms"
@@ -44,6 +44,7 @@ change the tempo in MIDI output.
 "
   doctitle = "Creating metronome marks in markup mode"
 } % begin verbatim
+
 
 \relative c' {
   \tempo \markup {

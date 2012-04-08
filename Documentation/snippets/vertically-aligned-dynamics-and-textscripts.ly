@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, spacing"
+  lsrtags = "workaround, tweaks-and-overrides, spacing"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -67,6 +67,7 @@ The same idea is used to align the text scripts along their baseline.
 "
   doctitle = "Vertically aligned dynamics and textscripts"
 } % begin verbatim
+
 
 music = \relative c' {
   a'2\p b\f

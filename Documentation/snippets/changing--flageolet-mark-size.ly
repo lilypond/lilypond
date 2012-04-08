@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, unfretted-strings"
+  lsrtags = "specific-notation, symbols-and-glyphs, unfretted-strings, expressive-marks, scheme-language"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -42,6 +42,7 @@ function.
 "
   doctitle = "Changing \\flageolet mark size"
 } % begin verbatim
+
 
 smallFlageolet =
 #(let ((m (make-articulation "flageolet")))

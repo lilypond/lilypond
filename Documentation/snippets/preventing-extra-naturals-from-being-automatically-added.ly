@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "pitches"
+  lsrtags = "pitches, automatic-notation"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 doctitlees = "Evitar que se añadan becuadros adicionales automáticamente"
@@ -66,6 +66,7 @@ note needs to be canceled.  To change this behavior, set the
 "
   doctitle = "Preventing extra naturals from being automatically added"
 } % begin verbatim
+
 
 \relative c'' {
   aeses4 aes ais a

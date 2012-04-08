@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "vocal-music"
@@ -29,6 +29,7 @@ omitted.  The behaviour can be overridden with the
 "
   doctitle = "Forcing hyphens to be shown"
 } % begin verbatim
+
 
 \relative c'' {
   c32 c c c

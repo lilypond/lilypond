@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "repeats, tweaks-and-overrides"
@@ -43,6 +43,7 @@ overriding the relevant property:
 "
   doctitle = "Printing a repeat sign at the beginning of a piece"
 } % begin verbatim
+
 
 \relative c'' {
   \once \override Score.BreakAlignment #'break-align-orders =

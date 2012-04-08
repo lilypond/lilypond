@@ -100,9 +100,9 @@ Le opzioni vengono specificate tra parentesi quadre.
 Se l'esempio è più grande, è possibile metterlo in un file separato e inserirlo
 con \verb+\lilypondfile+.
 
-\lilypondfile[quote,noindent]{screech-boink.ly}
+\lilypondfile[quote,noindent]{screech-and-boink.ly}
 
-(Se vuoi provare, sostituisci @file{screech-boink.ly} con qualsiasi file @file{.ly}
+(Se vuoi provare, sostituisci @file{screech-and-boink.ly} con qualsiasi file @file{.ly}
 che si trovi nella stessa directory di questo file.)
 
 \end{document}
@@ -160,7 +160,7 @@ c'4 f16
 Se l'esempio è più grande, è possibile riportarlo in un file a parte e inserirlo
 con \verb+\lilypondfile+.
 
-@lilypondfile[quote,noindent]{screech-boink.ly}
+@lilypondfile[quote,noindent]{screech-and-boink.ly}
 
 Perché sia visibile la @code{tagline}, predefinita o personalizzata, l'intero
 frammento deve essere compreso in un costrutto @code{\book @{ @}}.

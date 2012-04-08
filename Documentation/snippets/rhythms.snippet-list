@@ -13,7 +13,6 @@ changing-beam-knee-gap.ly
 changing-form-of-multi-measure-rests.ly
 changing-the-number-of-augmentation-dots-per-note.ly
 changing-the-tempo-without-a-metronome-mark.ly
-changing-the-time-signature-without-affecting-the-beaming.ly
 changing-the-tuplet-number.ly
 changing-time-signatures-inside-a-polymetric-section-using--scaledurations.ly
 chant-or-psalms-notation.ly
@@ -27,7 +26,6 @@ entering-several-tuplets-using-only-one--times-command.ly
 flat-flags-and-beam-nibs.ly
 forcing-rehearsal-marks-to-start-from-a-given-letter-or-number.ly
 generating-custom-flags.ly
-grouping-beats.ly
 guitar-strum-rhythms.ly
 heavily-customized-polymetric-time-signatures.ly
 making-an-object-invisible-with-the-transparent-property.ly

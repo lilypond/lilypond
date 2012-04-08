@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "rhythms, tweaks-and-overrides"
+  lsrtags = "tweaks-and-overrides, connecting-notes, rhythms"
 
   texidoc = "
 Beam positions may be controlled manually, by overriding the
@@ -19,6 +19,7 @@ Beam positions may be controlled manually, by overriding the
 "
   doctitle = "Manually controlling beam positions"
 } % begin verbatim
+
 
 \relative c' {
   \time 2/4

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "repeats, tweaks-and-overrides"
@@ -42,6 +42,7 @@ the context property @code{repeatCountVisibility}.
 "
   doctitle = "Percent repeat count visibility"
 } % begin verbatim
+
 
 \relative c'' {
   \set countPercentRepeats = ##t

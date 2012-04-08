@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "simultaneous-notes"
@@ -44,6 +44,7 @@ the solo and unison sections may be changed:
 "
   doctitle = "Changing partcombine texts"
 } % begin verbatim
+
 
 \new Staff <<
   \set Staff.soloText = #"girl"

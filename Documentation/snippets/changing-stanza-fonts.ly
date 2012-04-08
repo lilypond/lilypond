@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "vocal-music"
+  lsrtags = "vocal-music, really-simple"
 
   texidoc = "
 Fonts can be changed independently for each stanza, including the font

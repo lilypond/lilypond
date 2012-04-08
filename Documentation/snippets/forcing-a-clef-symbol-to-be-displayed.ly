@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "pitches"
@@ -19,6 +19,7 @@ Staff.forceClef = ##t}.
 "
   doctitle = "Forcing a clef symbol to be displayed"
 } % begin verbatim
+
 
 \relative c' {
   \clef treble

@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "editorial-annotations, fretted-strings"
+  lsrtags = "editorial-annotations, fretted-strings, really-simple"
 
   texidoc = "
 Fingering instructions can be entered using a simple syntax.
@@ -15,6 +15,7 @@ Fingering instructions can be entered using a simple syntax.
 "
   doctitle = "Adding fingerings to a score"
 } % begin verbatim
+
 
 \relative c'' {
   c4-1 d-2 f-4 e-3

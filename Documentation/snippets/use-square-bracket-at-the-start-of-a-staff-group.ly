@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "staff-notation, contexts-and-engravers"
+  lsrtags = "contexts-and-engravers, staff-notation"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -47,6 +47,7 @@ context.
 "
   doctitle = "Use square bracket at the start of a staff group"
 } % begin verbatim
+
 
 \score {
   \new StaffGroup { <<

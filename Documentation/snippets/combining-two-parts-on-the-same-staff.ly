@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "simultaneous-notes, text"
+  lsrtags = "syntax-and-expressions, text, simultaneous-notes"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -93,6 +93,7 @@ staff: standard polyphony, @code{\\partcombine} without texts, and
 "
   doctitle = "Combining two parts on the same staff"
 } % begin verbatim
+
 
 musicUp = \relative c'' {
   \time 4/4

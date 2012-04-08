@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, text"
+  lsrtags = "workaround, text, expressive-marks"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -44,6 +44,7 @@ commands such as @code{\\dynamicUp} or @code{\\dynamicDown}.
 "
   doctitle = "Creating \"real\" parenthesized dynamics"
 } % begin verbatim
+
 
 parenF = #(make-dynamic-script (markup #:line (#:normal-text #:italic
            #:fontsize 2 "(" #:hspace -0.8 #:dynamic "f" #:normal-text

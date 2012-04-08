@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "rhythms, vocal-music"
+  lsrtags = "vocal-music, really-simple, rhythms"
 
   texidoc = "
 The @code{s} syntax for skips is only available in note mode and chord
@@ -17,6 +17,7 @@ mode. In other situations, for example, when entering lyrics, using the
 "
   doctitle = "Skips in lyric mode"
 } % begin verbatim
+
 
 <<
   \relative c'' { a1 | a }

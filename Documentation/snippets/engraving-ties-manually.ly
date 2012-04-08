@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "rhythms"
@@ -53,6 +53,7 @@ second number indicates the direction (1 = up, -1 = down).
 "
   doctitle = "Engraving ties manually"
 } % begin verbatim
+
 
 \relative c' {
   <c e g>2~ <c e g>

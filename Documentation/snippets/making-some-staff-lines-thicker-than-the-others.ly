@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "staff-notation, editorial-annotations"
+  lsrtags = "editorial-annotations, workaround, really-cool, staff-notation"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -55,6 +55,7 @@ emphasized, using the @code{line-positions} property of the
 "
   doctitle = "Making some staff lines thicker than the others"
 } % begin verbatim
+
 
 {
   \override Staff.StaffSymbol #'line-positions = #'(-4 -2 -0.2 0 0.2 2 4)

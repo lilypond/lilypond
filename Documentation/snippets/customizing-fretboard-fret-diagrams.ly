@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.25"
+\version "2.14.2"
 
 \header {
   lsrtags = "fretted-strings, tweaks-and-overrides"
@@ -58,6 +58,7 @@ can be omitted in property overrides.
 "
   doctitle = "Customizing fretboard fret diagrams"
 } % begin verbatim
+
 
 \include "predefined-guitar-fretboards.ly"
 \storePredefinedDiagram #default-fret-table \chordmode { c' }

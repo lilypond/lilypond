@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "pitches, editorial-annotations"
+  lsrtags = "editorial-annotations, pitches"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   doctitlees = "Aplicar estilos de cabeza según la nota de la escala"
@@ -118,6 +118,7 @@ correspondence between harmonic functions and note head styles.
 "
   doctitle = "Applying note head styles depending on the step of the scale"
 } % begin verbatim
+
 
 fragment = {
   \key c \major

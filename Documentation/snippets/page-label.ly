@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "spacing"
@@ -16,6 +16,7 @@ in markups.
 "
   doctitle = "Page label"
 } % begin verbatim
+
 
 #(set-default-paper-size "a6")
 

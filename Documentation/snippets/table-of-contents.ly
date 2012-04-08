@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.25"
+\version "2.15.32"
 
 \header {
   lsrtags = "paper-and-layout"
@@ -17,6 +17,7 @@ A table of contents is included using @code{\\markuplist
 "
   doctitle = "Table of contents"
 } % begin verbatim
+
 
 #(set-default-paper-size "a6")
 

@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, ancient-notation"
+  lsrtags = "ancient-notation, expressive-marks"
 
   texidoc = "
 This short vertical line placed above the note is commonly used in
@@ -18,6 +18,7 @@ demonstrates how to achieve such a notation.
 "
   doctitle = "Vertical line as a baroque articulation mark"
 } % begin verbatim
+
 
 upline =
 #(let ((m (make-articulation "stopped")))

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "text"
@@ -82,6 +82,7 @@ be done for all the staves).
 "
   doctitle = "Aligning marks with various notation objects"
 } % begin verbatim
+
 
 \relative c' {
   e1
