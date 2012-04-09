@@ -583,7 +583,7 @@ debe ir encerrada entre comillas dobles.
 
 @item @code{pixmap-format}
 @tab @code{png16m}
-@tab Fijar el formato de salida de GhostScript para las imágenes de píxeles.
+@tab Fijar el formato de salida de Ghostscript para las imágenes de píxeles.
 
 @item @code{point-and-click}
 @tab @code{#f}
@@ -777,7 +777,7 @@ corresponda.
 
 @itemize
 
-@item Instale los paquetes necesarios: LilyPond, GhostScript e ImageMagick.
+@item Instale los paquetes necesarios: LilyPond, Ghostscript e ImageMagick.
 
 @item Cree un usuario nuevo con el nombre de @code{lily}:
 

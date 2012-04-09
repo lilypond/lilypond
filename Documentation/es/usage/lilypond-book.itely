@@ -934,7 +934,7 @@ sencilla y es la que se recomienda@footnote{Observe que PDF@LaTeX{} y
 @LaTeX{}, y es por lo que explicamos las dos formas.}, y cualquiera
 que sea el método que utilice, podrá convertir fácilmente entre
 PostScript y PDF con herramientas como @command{ps2pdf} y
-@command{pdf2ps} que vienen incluidas con GhostScript.
+@command{pdf2ps} que vienen incluidas con Ghostscript.
 
 Para producir un archivo PDF por medio de PDF@LaTeX{}, utilice
 
