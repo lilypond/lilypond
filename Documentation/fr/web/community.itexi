@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @ignore
-    Translation of GIT committish: 16ac0db39d8cca1de68ce79154386764172aca10
+    Translation of GIT committish: 24f9636ac779b4c0de197f60bf4f922c16be5ec4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -967,7 +967,7 @@ le numéro 34 de notre traceur}).  Les notes d'ornement perturbent
 LilyPond dans sa gestion du temps, dans la mesure où elles correspondent
 quelque peu à un retour en arrière.  Ceci entraîne des effets
 indésirables tout particulièrement lorsqu'elles interviennent dans une
-portées seulement.
+portée seulement.
 
 @strong{Difficulté :} moyenne
 
@@ -981,16 +981,16 @@ portées seulement.
 @subheading MusicXML
 
 Ajout d'une fonctionnalité d'export au format MusiXML et amélioration de
-l'import, tout en fournissant des tests de performance.  Selon la
-disponibilité temporelle, ceci pourrait se restreindre à@tie{}:
+l'import, tout en fournissant des tests de performance.  Selon le temps
+imparti, ceci pourrait se restreindre à@tie{}:
 
 @divClass{keep-bullets}
 @itemize
 
 @item
-L'exportation d'un minimum d'information musicale telle que cela se
+L'exportation d'un minimum d'informations musicales tel que cela se
 pratique déjà au niveau du MIDI, autrement dit à l'aide de classes
-d'exportateur dérivée de la classe @emph{translator}@tie{};
+d'exportateurs dérivées de la classe @emph{translator}@tie{};
 
 @item
 Construction de l'arborescence XML d'après le contenu musical de base, et
@@ -1001,7 +1001,7 @@ Faire en sorte que tous les graveurs LilyPond restent pleinement
 opérationnels@tie{};
 
 @item
-Ajout d'une capacité de lier tout objet de rendu -- autrement fit chaque
+Ajout d'une capacité de lier tout objet de rendu -- autrement dit chaque
 stencil ou groupe de stencils -- à l'élément musical qui en est la
 cause et, par voie de conséquence, à la balise correspondante dans
 l'arborescence XML@tie{};
@@ -1069,9 +1069,9 @@ l'autre.
 Le positionnement des ligatures, qu'elles soient rectilignes, passent
 d'une portée à l'autre, discontinues ou coudées, n'est pas optimal.
 Une ligature devrait dépendre du contexte et des notes adjacentes (voir
-@uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf,
+@uref{http://icking-music-archive.org/lists/sottisier/sottigra.pdf,
 la section 2.2 de cet article}).  Dans la mesure du possible, raccourcir
-le temps de calcul des ligatures.
+le temps de calcul nécessaire à la génération des ligatures.
 
 @strong{Difficulté :} moyenne
 
@@ -1094,7 +1094,7 @@ Accordages non monotoniques, tel le Ukulele ;
 Création d'un mode de saisie spécifique -- pour l'instant, l'information
 musicale est saisie en notation occidentale moderne, comme @qq{un fa
 dièse noire}, puis convertie en tablature -- pour faciliter la
-transcription de tablatures de luth médiéval@tie{};
+transcription de tablatures médiévales pour luth@tie{};
 
 @item
 Implémentation de fonctionnalités de tablatures modernes, tels les
@@ -1124,7 +1124,7 @@ statique, ainsi que les messages de @emph{valgrind}.  Les outils
 d'analyse automatique du code (messages en @code{g++} ou @code{clang})
 ainsi que les outils d'analyse comme @emph{valgrind} pour les
 éventuelles fuites de mémoire ou @emph{callgrind} pour le profilage du
-code fournissent des informations précieuses quant à d'éventuelles
+code, fournissent des informations précieuses quant à d'éventuelles
 faiblesses du code C++.  Faire le ménage dans tous ces messages nous
 permettrait de rejeter tout patch qui introduirait des messages
 superflus.
