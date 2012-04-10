@@ -22,13 +22,14 @@
 #include "music.hh"
 #include "ly-smobs.icc"
 
-class Musicfunction {
+class Musicfunction
+{
   DECLARE_SIMPLE_SMOBS (Musicfunction);
   SCM signature_;
   SCM function_;
 public:
   Musicfunction (SCM signature, SCM function):
-    signature_(signature), function_(function) { }
+    signature_ (signature), function_ (function) { }
   SCM get_function () { return function_; }
   SCM get_signature () { return signature_; }
 };

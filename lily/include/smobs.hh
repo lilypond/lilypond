@@ -153,10 +153,12 @@ void protect_smob (SCM smob, SCM *prot_cons);
 void unprotect_smob (SCM smob, SCM *prot_cons);
 
 extern bool parsed_objects_should_be_dead;
-class parsed_dead {
+class parsed_dead
+{
   static vector<parsed_dead *> elements;
   SCM data;
-  SCM readout_one () {
+  SCM readout_one ()
+  {
     SCM res = data;
     data = SCM_UNDEFINED;
     return res;
@@ -171,11 +173,11 @@ public:
 };
 
 #ifndef NDEBUG
-#define ASSERT_LIVE_IS_ALLOWED(arg)					\
-  do {									\
-    static parsed_dead pass_here;					\
-    if (parsed_objects_should_be_dead)					\
-      pass_here.checkin (arg);						\
+#define ASSERT_LIVE_IS_ALLOWED(arg)                                     \
+  do {                                                                  \
+    static parsed_dead pass_here;                                       \
+    if (parsed_objects_should_be_dead)                                  \
+      pass_here.checkin (arg);                                          \
   } while (0)
 #else
 #define ASSERT_LIVE_IS_ALLOWED(arg) do { } \
