@@ -29,13 +29,10 @@ de la portée.
 
   texidoc = "
 This snippet shows how to bring the lyrics line closer to the staff.
-[This behaviour is no longer used from version 2.13 onwards.]
 
 "
   doctitle = "Adjusting lyrics vertical spacing"
 } % begin verbatim
-
-
 
 % Default layout:
 <<

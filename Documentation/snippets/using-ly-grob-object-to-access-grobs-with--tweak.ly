@@ -78,8 +78,6 @@ Example console output:
   doctitle = "Using ly:grob-object to access grobs with \\tweak"
 } % begin verbatim
 
-
-
 #(define (notehead-get-accidental notehead)
    ;; notehead is grob
    (ly:grob-object notehead 'accidental-grob))
@@ -103,9 +101,9 @@ Example console output:
    (let ((accidental (notehead-get-accidental notehead))
          (arpeggio (notehead-get-arpeggio notehead))
          (stem (notehead-get-stem notehead)))
-     (format #t "~2&~a\n" (make-string 20 #\-))
+     (format (current-error-port) "~2&~a\n" (make-string 20 #\-))
      (for-each
-      (lambda (x) (format #t "~a\n" x))
+      (lambda (x) (format (current-error-port) "~a\n" x))
       (list accidental arpeggio stem))))
 
 \relative c' {
