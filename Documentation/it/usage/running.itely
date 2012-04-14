@@ -338,6 +338,8 @@ con @strong{NESSUNA GARANZIA}!)
 @unnumberedsubsec Opzioni avanzate della linea di comando per @command{lilypond}
 @translationof Advanced command line options for LilyPond
 
+@table @code
+
 @item -d@var{[nome-opzione]}=@var{[valore]},--define-default=@var{[nome-opzione]}=@var{[valore]}
 Imposta l'equivalente funzione interna di Scheme su @var{valore}.  Se non
 viene specificato un @var{valore}, viene usato il valore predefinito.  Per disabilitare
