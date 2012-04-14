@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 02fe0c6153548b148121e3fa3974a6b426a3daa0
+    Translation of GIT committish: af50298395325eb7c1c4adfa667555d26af9299e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -49,6 +49,9 @@ quando si discute di LilyPond.
 @ref{Sviluppo}: per i collaboratori e i tester.
 
 @item
+@ref{GSoC}: lista di progetti per il Google Summer of Code.
+
+@item
 @ref{Autori}: le persone che hanno reso LilyPond quello che è oggi.
 
 @end itemize
@@ -65,6 +68,9 @@ quando si discute di LilyPond.
 @item
 @ref{Notizie vecchie}: un archivio.
 
+@item
+@ref{Attic}: annunci e changelog delle versioni precedenti.
+
 @end itemize
 @divEnd
 
@@ -78,9 +84,11 @@ quando si discute di LilyPond.
 * Aiutaci::
 * Sponsor::
 * Sviluppo::
+* GSoC::
 * Autori::
 * Pubblicazioni::
 * Notizie vecchie::
+* Soffitta::
 @end menu
 @divEnd
 
@@ -294,15 +302,15 @@ possono comprenderlo e aiutarti.
 
 @item
 Un esempio minimo dimostra che hai tentato di risolvere il problema
-da solo.  Quando le persone inviano grandi porzioni di input, sembra
-che non si preoccupino che noi li possiamo aiutare o no.
+da solo.  Quando le persone inviano grandi porzioni di codice, sembra
+che non si preoccupino che li possiamo aiutare o no.
 
 @item
 Creare un esempio minimo ti aiuta a capire cosa sta
 succedendo.  Molte segnalazioni di un falso problema possono essere
 evitate se si prova a creare un esempio minimo; se non riesci a ricreare
 un @qq{bug} in un esempio minimo, allora probabilmente il problema è
-una comprensione di LilyPond insufficiente, non un vero bug!
+una conoscenza di LilyPond insufficiente, non un vero bug!
 
 @end itemize
 @divEnd
@@ -322,7 +330,7 @@ Includi il numero di versione nel comando @code{\version}.
 @item
 Crea un esempio piccolo!  Gli esempi che riguardano la spaziatura o la
 formattazione di pagina potrebbero richiedere molte battute, ma la maggior
-parte dei problemi può essere ricreata in meno di una sola battuta.
+parte dei problemi può essere riprodotta con meno di una battuta.
 
 @item
 Durante la preparazione di un esempio, cerca di commentare @w{(@code{%}
@@ -331,11 +339,11 @@ commentare una porzione di codice riuscendo a mantenere chiara l'idea principale
 allora elimina il materiale commentato!
 
 @item
-Evita di usare note, tonalità o segni di tempo complicati a meno che
+Evita di usare note, tonalità o segni di tempo complessi a meno che
 il malfunzionamento non riguardi proprio il comportamento di questi elementi.
 
 @item
-Non usare i comandi @code{\override} o @code{\set} a meno che il malfunzionamento
+Non usare i comandi @code{\override} o @code{\set}, a meno che il malfunzionamento
 non riguardi questi comandi in particolare.
 
 @item
@@ -369,7 +377,7 @@ Il codice seguente è un esempio minimo?
 @}
 @end example
 
-Non è così grande, ma un vero esempio minimo è il seguente:
+Non è poi così grande, ma un vero esempio minimo è il seguente:
 
 @example
 \version "2.14.1"
@@ -380,7 +388,7 @@ Non è così grande, ma un vero esempio minimo è il seguente:
 @end example
 
 Sono pochi gli esempi minimi che superano 10 righe di codice -
-spesso 4 righe sono sufficienti per spiegare il problema!
+spesso 4 righe sono sufficienti per illustrare il problema!
 
 @divEnd
 
@@ -389,12 +397,15 @@ spesso 4 righe sono sufficienti per spiegare il problema!
 @unnumberedsec Segnalazione bug
 @translationof Bug reports
 
+@divClass{heading-center}
+Se hai un codice di input che produce un crash o un output sbagliato,
+allora si tratta di un bug.
+@divEnd
+
 @divClass{column-center-top}
 @subheading Passo 1: Bug noti
 
-Se hai un codice di input che produce un crash o un output sbagliato,
-allora si tratta di un bug.  Sul nostro bug tracker su google c'è una
-lista dei bug aperti,
+Potremmo già essere a conoscenza di questo bug.  Controlla qui:
 
 @example
 @uref{http://code.google.com/p/lilypond/issues/list}
@@ -410,13 +421,12 @@ pure maggiori informazioni nella segnalazione.}
 @divClass{column-left-bottom}
 @subheading Passo 2: Creare una segnalazione bug
 
-Se hai scoperto un bug che non è elencato, puoi aiutarci creando
+Se hai scoperto un bug che non è ancora stato riportato, puoi aiutarci creando
 una segnalazione bug.
 
 @warning{Accettiamo segnalazioni bug esclusivamente nella forma di @ref{Esempi
-minimi}.  Abbiamo risorse molto limitate da dedicare alle segnalazioni
-bug, quindi qualsiasi esempio non minimo sarà scartato.  Quasi
-ogni bug può essere dimostrato con quattro note o meno!}
+minimi}.  Abbiamo risorse molto limitate, quindi qualsiasi esempio non minimo
+sarà scartato.  Quasi ogni bug può essere dimostrato con quattro note o meno!}
 
 Ecco un esempio di una valida segnalazione bug:
 
@@ -471,15 +481,15 @@ Per evitarlo, aggiungi
 @divClass{column-center-bottom}
 @subheading Passo 4: Attendi una risposta
 
-Una volta che il bug è stato inviato alla lista, la nostra Squadra Bug esaminerà
-la segnalazione.  Una risposta può richiedere fino a 24 ore, perché abbiamo
-un numero limitato di volontari per questo compito.  Potrebbero chiederti maggiori
-informazioni, oppure aggiungere la segnalazione al tracker e comunicartene il
-numero di riferimento.
+Una volta che la segnalazione bug è stata inviata alla lista, la nostra Squadra
+Bug la esaminerà e forse ti chiederà maggiori informazioni.  Verrai avvisato
+quando la segnalazione viene aggiunta al bug tracker.  Una risposta può richiedere
+fino a 4 giorni, perché abbiamo un numero limitato di volontari per questo compito.
 
-Puoi contrassegnare il bug in modo da ricevere automaticamente delle email
-ogni volta capiti un'attività relativa al bug.  Per fare questo occorre
-avere un account google.
+Una volta che un bug è stato aggiunto al tracker, puoi commentarlo per aggiungere
+informazioni a riguardo.  Puoi anche contrassegnare il bug in modo da ricevere
+automaticamente delle email ogni volta capiti un'attività relativa al bug.  Per
+fare questo occorre avere un account google.
 @divEnd
 
 @divClass{column-center-bottom}
@@ -505,13 +515,13 @@ mostrino come dovrebbe apparire secondo te!
 
 @divClass{column-left-top}
 @divClass{keep-bullets}
-@helpusTasks
+@helpusSimple
 
 @divEnd
 @divEnd
 
 @divClass{column-right-top}
-@helpusProjects
+@helpusAdvanced
 
 @divEnd
 
@@ -545,7 +555,7 @@ tenere a mente i seguenti punti:
 
 @itemize
 @item
-Gli sviluppatori di LilyPond ogni tanto pubblicizzano i propri servizi sulle
+Gli sviluppatori di LilyPond talvolta pubblicizzano i propri servizi sulle
 liste email di lilypond.
 
 @item
@@ -622,10 +632,9 @@ di usare il @ref{Download, download per la versione stabile}, e leggere i
 @subheading Numeri di versione
 
 LilyPond viene distribuito in due versioni: la versione stabile e quella
-di sviluppo o instabile.  Le versioni stabili hanno un numero pari
-per numero di versione @q{minore} (e.g., 2.8, 2.10, 2.12).
-Le versioni di sviluppo hanno un numero dispari per numero di versione
-@q{minore} (e.g., 2.7, 2.9, 2.11).
+di sviluppo o instabile.  Le versioni stabili hanno un numero di versione
+@q{minore} pari (per esempio 2.8, 2.10, 2.12).  Le versioni di sviluppo
+hanno un numero di versione @q{minore} dispari (per esempio 2.7, 2.9, 2.11).
 
 @divEnd
 
@@ -852,6 +861,203 @@ manuali sono reperibili su @url{http://lilypond.org}}
 @divEnd
 
 
+@node GSoC
+@unnumberedsec GSoC
+@translationof GSoC
+
+@divClass{column-center-top}
+@subheading Che cos'è il Google Summer of Code?
+
+Citando il
+@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012, sito del GSoC},
+@qq{Google Summer of Code è un programma globale che offre stipendi agli
+studenti per scrivere codice per progetti open source.  Google ha collaborato
+con la comunità open source per identificare e finanziare dei progetti
+interessanti per la prossima estate.}
+
+Il team di LilyPond ha deciso che si tratta di un'ottima opportunità per trovare
+nuovi collaboratori, stimolare gli studenti che già partecipano allo sviluppo di
+LilyPond ad essere più coinvolti, e infine - per ultimo ma non meno importante -
+scrivere del buon codice per il bene di tutti!
+
+Partecipiamo al GSoC come membri del Progetto GNU.  Si veda
+@uref{http://www.gnu.org/software/soc-projects/guidelines.html, la pagina GNU su GSoC}
+per informazioni su come partecipare.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading La nostra lista delle idee
+
+Ecco una lista di progetti che suggeriamo per gli studenti del GSoC.  Se nessuno
+dei progetti che vedi è adatto a te, puoi suggerirne uno tuo!
+È anche possibile ridimensionare un progetto se pensi che sia troppo impegnativo.
+
+È necessario che ogni studente abbia una conoscenza di base di @code{git} e
+consigliamo che chiunque faccia domanda per uno qualsiasi di questi progetti,
+eccetto l'ultimo, abbia una conoscenza di base della notazione musicale.
+
+@subheading Abbellimenti
+
+Correggere i problemi di sincronizzazione degli abbellimenti,
+insieme a tutta l'architettura sottostante (si veda il
+@uref{http://code.google.com/p/lilypond/issues/detail?id=34, numero 34 del nostro tracker}).
+Gli abbellimenti confondono il tempo di LilyPond perché è come se portassero
+indietro il tempo.  Questo causa strani effetti, specialmente quando un rigo
+ha un abbellimento e l'altro non ce l'ha.
+
+@strong{Difficoltà:} media
+
+@strong{Requisiti:} C++, MIDI
+
+@strong{Consigliato:} familiarità col funzionamento interno di LilyPond
+
+@strong{Mentore/i:} Mike Solomon, Carl Sorensen
+
+@subheading MusicXML
+
+Aggiungere un'esportazione a MusicXML completa e migliorare l'importazione,
+insieme a dei test che verifichino il funzionamento.  A seconda del tempo a
+disposizione, implementare alcune o tutte le seguenti funzionalità:
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Gestire l'esportazione del contenuto musicale principale come l'esportazione
+MIDI (ovvero usando classi dedicate dell'esportatore, derivate dalla classe
+del traduttore)
+
+@item
+Costruire l'albero XML del contenuto musicale di base,
+aggiungere un collegamento dall'evento musicale al tag XML
+
+@item
+Far sì che tutti gli incisori di LilyPond facciano il loro lavoro
+
+@item
+aggiungere la capacità di collegare ogni oggetto dell'output
+(in pratica ogni stampo (stencil) / gruppo di stampi) alla sua causa musicale
+(e quindi al tag XML nell'albero XML)
+
+@item
+Aggiungere un backend di outoput XML, che possa aggiungere le informazioni di
+formattazione per ogni oggetto di output ai tag XML
+
+@end itemize
+@divEnd
+
+L'obiettivo sarà considerato raggiunto quando una partitura (scelta precedentemente)
+può essere importata da MusicXML e riesportata senza una perdita di dati
+indesiderata.
+
+@strong{Difficoltà:} media
+
+@strong{Requisiti:} MusicXML, Python, conoscenza di base di LilyPond
+
+@strong{Mentore/i:} Reinhold Kainhofer, Mike Solomon
+
+è auspicabile una certa familiarità con altri software di notazione musicale (a
+fine comparativo).
+
+@subheading Migliorare le legature di portamento e di valore
+
+La forma predefinita delle curve delle legature di portamento e di valore è spesso
+non soddisfacente.  Non sono supportate né le legature di valore su note
+enarmoniche @code{@{ cis'~ des' @}} né le legature di valore "spezzate" da
+una chiave o da un cambio di rigo.  Il progetto include la raccolta e la classificazione
+di esempi di output scadente, la decisione sull'output desiderato e la scrittura
+del codice vero e proprio.
+
+@strong{Difficoltà:} difficile
+
+@strong{Requisiti:} C++, esperienza con la scrittura di euristica
+
+@strong{Conoscenze consigliate:} conoscenza di LilyPond, senso estetico
+
+@strong{Mentore/i:} Mike Solomon
+
+@subheading Aggiungere una variante speciale dei glifi dei tipi di carattere
+Aggiungere varianti sulla linea del rigo, tra le linee dei righi, più corte e
+più strette di alcuni glifi, come ad esempio le alterazioni, insieme a un'infrastruttura
+generica per supportarle.  Un esempio è la testa della nota breve nella notazione
+antica che ha due varianti, con un buco più piccolo e più grande.
+
+@strong{Difficoltà:} facile
+
+@strong{Requisiti:} MetaFont, C++, buon occhio per il dettaglio
+
+@strong{Conoscenze consigliate:} conoscenza di base di LilyPond
+
+@strong{Mentore/i:} Werner Lemberg
+
+@subheading Migliorare la disposizione delle travature
+
+Il posizionamento predefinito delle travature normali, tra i righi, spezzate e angolari
+deve essere migliorato.  La disposizione delle travature deve dipendere dal contesto
+e dalle note vicine (si veda la
+@uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf, sezione 2.2 qui}).
+Se possibile, ridurre il tempo di elaborazione della disposizione delle travature.
+
+@strong{Difficoltà:} media
+
+@strong{Requisiti:} C++, esperienza con la scrittura di euristiche
+
+@strong{Conoscenze consigliate:} senso estetico
+
+@strong{Mentore/i:} Mike Solomon, Carl Sorensen
+
+@subheading Miglior supporto all'intavolatura
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+accordature non monotoniche, come l'Ukulele
+
+@item
+creare una modalità di input per l'intavolatura (attualmente l'informazione
+musicale viene inserita secondo i termini della notazione musicale occidentale,
+ovvero @qq{una nota Fa# di un quarto} e poi convertita in intavolatura) per
+trascrivere l'intavolatura del liuto medievale
+
+@item
+implementare funzionalità dell'intavolatura moderna, come la piegatura (bending),
+lo strappato e il martellato (hammer-on e pull-off)
+
+@item
+se si definisce una forma sulla tastiera per un certo accordo, questa informazione
+deve essere usata quando si mostra l'accordo sul rigo (invece di mostrare soltanto
+la forma predefinita dell'accordo)
+
+@end itemize
+@divEnd
+
+@strong{Difficoltà:} facile
+
+@strong{Requisiti:} C++
+
+@strong{Conoscenze consigliate:} familiarità con l'intavolatura
+
+@strong{Mentore/i:} Carl Sorensen
+
+@subheading Semplificare vari avvisi durante la compilazione
+
+Semplificare gli avvisi del compilatore e di valgrind e l'analisi del codice statico.
+Strumenti di analisi automatica del codice (avvisi in @code{g++} e @code{clang})
+e strumenti di analisi come il rilevamento di perdite di memoria di valgrind e
+i profilatori di codice di callgrind forniscono informazioni utili per individuare
+possibili errori nel codice C++.
+Pulire questi avvisi ci permetterebbe di rifiutare automaticamente qualsiasi
+patch che introduca avvisi ulteriori.
+
+@strong{Difficoltà:} media
+
+@strong{Requisiti:} C++
+
+@strong{Mentore/i:} Joe Neeman, Reinhold Kainhofer
+
+@divEnd
 
 
 @node Autori
@@ -957,7 +1163,6 @@ manuali sono reperibili su @url{http://lilypond.org}}
 
 
 @divClass{column-center-bottom}
-
 @subheading Cosa altri hanno fatto con LilyPond
 
 @divClass{keep-bullets}
@@ -973,6 +1178,57 @@ manuali sono reperibili su @url{http://lilypond.org}}
 @unnumberedsec Notizie vecchie
 @translationof Old news
 
+@divClass{heading-center}
+@warning{Molti dei vecchi annunci e changelog si possono trovare
+in @ref{Soffitta}}
+@divEnd
+
 @include web/news-front.itexi
 
 @include web/news.itexi
+
+
+@node Soffitta
+@unnumberedsec Soffitta
+@translationof Attic
+
+@divClass{column-center-top}
+@subheading Annunci
+
+Annunci e notizie ordinati per versione:
+@miscLink{announce-v2.12,v2.12},
+@miscLink{announce-v2.12.de,v2.12 (German)},
+@miscLink{announce-v2.12.es,v2.12 (Spanish)},
+@miscLink{announce-v2.12.fr,v2.12 (French)},
+@miscLink{announce-v2.10,v2.10},
+@miscLink{announce-v2.8,v2.8},
+@miscLink{announce-v2.6,v2.6},
+@miscLink{announce-v2.4,v2.4},
+@miscLink{announce-v2.2,v2.2},
+@miscLink{announce-v2.0,v2.0},
+@miscLink{NEWS-1.4,v1.4},
+@miscLink{NEWS-1.2,v1.2 (1)},
+@miscLink{ANNOUNCE-1.2,v1.2 (2)},
+@miscLink{ANNOUNCE-1.0,v1.0},
+@miscLink{ANNOUNCE-0.1,v0.1}
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Changelog
+
+Changelog ordinati per versione:
+@miscLink{ChangeLog-2.10,v2.10},
+@miscLink{ChangeLog-2.3,v2.3},
+@miscLink{ChangeLog-2.1,v2.1},
+@miscLink{ChangeLog-1.5,v1.5 (1)},
+@miscLink{CHANGES-1.5,v1.5 (2)},
+@miscLink{CHANGES-1.4,v1.4},
+@miscLink{CHANGES-1.3,v1.3},
+@miscLink{CHANGES-1.2,v1.2},
+@miscLink{CHANGES-1.1,v1.1},
+@miscLink{CHANGES-1.0,v1.0},
+@miscLink{CHANGES-0.1,v0.1},
+@miscLink{CHANGES-0.0,v0.0}
+
+@divEnd

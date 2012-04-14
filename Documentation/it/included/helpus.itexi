@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 66e5185e494d29c40ec25d5f71326836204cd680
+    Translation of GIT committish: 0942948dca35950b6e9cd3529ada31c38360e184
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -24,10 +24,10 @@ complessi, invece di impiegare il tempo in quelli semplici.
 @end macro
 
 
-@macro helpusTasks
+@macro helpusSimple
 @subheading Compiti semplici
 
-Non è richiesto compilare o lavorare sul codice sorgente!
+@strong{Non è necessario} saper programmare!
 
 @itemize
 @item
@@ -36,6 +36,11 @@ Supporto nelle mailing list: rispondi alle domande degli utenti.
 @item
 Segnalazione bug: aiuta gli utenti a creare una @rweb{Segnalazione bug}
 corretta e/o entra nel Bug Squad per l'organizzazione dei @rcontribnamed{Issues, Problemi}.
+
+@item
+@rcontrib{Grand Regression Test Checking}: verifica che LilyPond funzioni
+correttamente esaminando l'output dei test.  Controllare un frammento di codice
+richiede meno di un minuto!
 
 @item
 Documentazione: puoi proporre piccole modifiche seguendo le linee
@@ -52,7 +57,9 @@ delle opinioni sulla documentazione, possibili cambiamenti di sintassi
 e il test di nuove funzionalità.  Contribuisci a queste discussioni!
 
 @end itemize
+@end macro
 
+@macro HelpusAdvanced
 @subheading Compiti avanzati
 
 Questi compiti di solito richiedono il codice sorgente e la capacità di
@@ -66,6 +73,9 @@ Anche i collaboratori che usano Linux o FreeBSD possono usare Lilydev, ma se
 preferiscono il proprio ambiente di sviluppo, devono leggere
 @rcontribnamed{Working with source code,Lavorare col codice sorgente} e
 @rcontribnamed{Compiling,Compilare}.
+
+Si consiglia di iniziare con la lettura
+del @rcontribnamed{Summary for experienced developers,Sommario per programmatori esperti}.
 
 @itemize
 @item
@@ -89,7 +99,7 @@ ai Frogs e leggere @rcontribnamed{Programming work,Lavori di programmazione}.
 
 @end macro
 
-
+@ignore
 @macro helpusProjects
 @subheading Progetti
 
@@ -141,5 +151,5 @@ delle fondamenta più stabili in modo da poter andare avanti con compiti più
 grandi in futuro.
 
 @end macro
-
+@end ignore
 
