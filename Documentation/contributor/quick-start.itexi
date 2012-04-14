@@ -3,206 +3,232 @@
 @node Quick start
 @chapter Quick start
 
-Want to submit a patch for LilyPond?  Great!  This chapter is
-designed to let you do this as quickly and easily as possible.
-
-It is not possible to compile LilyPond on Windows, and extremely
-difficulty to compile it on MacOS X.  We have therefore made a
-@q{remix} of Ubuntu which includes all necessary dependencies to
-compile both LilyPond and the documentation.  This can be run
-inside a virtual machine without disturbing your main operating
-system.  The full name is @qq{Ubuntu LilyPond Developer Remix},
-but we refer to it as @qq{lilydev} for short.
-
-@advanced{experienced developers may prefer to use their own
-development environment.  It may be instructive to skim over these
-instructions, but be aware that this chapter is intended for
-helpful users who may have never created a patch before.}
+Want to submit a patch for LilyPond?  Great!  Never created a patch
+before? Never compiled software before? No problem!  This chapter is
+for you and will help you do this as quickly and easily as possible.
 
 @menu
-* Lilydev::
-* Using lily-git::
-* Compiling with lilydev::
+* LilyDev::
+* lily-git::
+* Compiling with LilyDev::
 * Now start work!::
 @end menu
 
-@node Lilydev
-@section Lilydev
+@node LilyDev
+@section LilyDev
 
-This section discusses how to install and use the Ubuntu LilyPond
-Development Remix.
+There is a disk image of a @q{remix} of Ubuntu Linux available for
+download which includes all the necessary software and tools to compile
+both LilyPond and the documentation.  Called the
+@qq{Ubuntu LilyPond Developer Remix}, but known simply as @qq{LilyDev}
+for short.  Although it is not possible to compile LilyPond on Windows
+and extremely difficult on MacOS, LilyDev can be installed and run
+inside a @q{virtual machine} on any of these operating systems without
+disturbing your main operating system.  The LilyDev disk image can also
+be burnt to a DVD and installed like any other Ubuntu Linux
+distribution.
+
+Most virtualization software can be used but we recommend VirtualBox as
+it is available for all major operating systems and is easy to install
+& configure.
+
+If you are not familiar with Linux, it may be beneficial to read a
+couple of @qq{introduction to Ubuntu} web pages.
+
+Some contributors have recommended a free PDF:
+
+@example
+@uref{http://www.ubuntupocketguide.com/}
+@end example
+
+For those interested, the LilyDev remix is currently based on a 32bit
+version of 10.04 LTS Ubuntu (Lucid Lynx).
+
+@warning{Apart from installing and configuring LilyDev in VirtualBox,
+the rest of the chapter on assumes that you are comfortable using the
+command-line.  While this chapter is intended for users who may have
+never created a patch or compiled software before, experienced
+developers (who prefer to use their own development environment) may
+still find it instructive to skim over this section.}
 
 @menu
-* Installing lilydev::
-* Configuring lilydev in virtualbox::
-* Using lilydev::
+* Where to get LilyDev::
+* Installing LilyDev in VirtualBox::
+* Configuring LilyDev in VirtualBox::
 @end menu
 
-@node Installing lilydev
-@subsection Installing lilydev
+
+@node Where to get LilyDev
+@unnumberedsubsec Where to get LilyDev
+
+Download the Ubuntu LilyPond Developer Remix CD image file
+(approximately 1 GB) from here:
+
+@smallexample
+@uref{http://www.philholmes.net/lilypond/LilyDev/ubuntu-LilyDev-remix-2.6.iso}
+@end smallexample
+
+Some advanced users might want this file too:
+@smallexample
+@uref{http://www.philholmes.net/lilypond/LilyDev/ubuntu-LilyDev-remix-2.6.iso.md5}
+@end smallexample
+(If you don't recognize what this file is, then you don't need it.)
+
+
+@node Installing LilyDev in VirtualBox
+@unnumberedsubsec Installing LilyDev in VirtualBox
+
+This section discusses how to install and use LilyDev with VirtualBox.
+
+@warning{If you already know how to install a virtual machine using a
+disc image inside VirtualBox (or your own virtualization software) then
+you can skip this section and go straight to @ref{lily-git}.}
 
 @enumerate
 @item
-Install some virtualization software.
-
-Any virtualization tool can be used, but we recommend VirtualBox:
+Download Virtualbox from here:
 
 @example
 @uref{http://@/www.virtualbox.org/@/wiki/@/Downloads}
 @end example
 
-In virtualization terminology, your main operating system is the
-@strong{host}, while lilydev is the @strong{guest}.
+@warning{In virtualization terminology, the operating system where
+Virtualbox is installed, is the known as the @strong{host}.  LilyDev
+will be installed @q{inside} Virtualbox as a @strong{guest}.}
 
 @item
-Download the Ubuntu LilyPond Developer Remix disk image (approximately
-1 GB) from here:
+Start the VirtualBox software and click @q{New} to create a new
+@qq{virtual machine}.
+
+The @q{New Virtual Machine Wizard} will walk you through setting up your
+guest virtual machine.  Choose an appropriate name for your LilyDev
+installation and select the @q{Linux} operating system.  When selecting
+the @q{version} use @q{Ubuntu} if available (but not the @q{64 bit}
+option).  If you do not have that specific option choose @q{Linux 2.6}
+(again do not choose any option that has 64 bit next to it).
+
+@item
+Select the amount of RAM you will allow the LilyDev guest to use from
+your host operating system when it is running.  If possible, use at
+least 700 MB of RAM; the more RAM you can spare from your host the
+better, although LilyDev will currently use no more than 4 GB (4096 MB)
+even if you are able to assign more.
+
+@item
+For your @q{Virtual Hard Disk}, leave the @q{Create new hard disk}
+option checked, use the default @q{VDI} and
+@qq{Dynamically allocated} options for the virtual hard drive.  A
+complete compile of everything (code, docs, regression tests) can reach
+10 GB so size your virtual disk and its location accordingly.
+
+@item
+Verify the summary details and click @q{Create}, when you are satisfied.
+Your new guest will be displayed in the Virtualbox window.  Click the
+@q{Start} button and the @q{First Run Wizard} will prompt you for
+the installation media.  Click the browse icon and locate the LilyDev
+disk image and click through the wizard to start the installation
+process.
+
+@item
+When the LilyDev disk image boots, it shows a prompt:
 
 @example
-@uref{http://www.philholmes.net/lilypond/lilydev/ubuntu-lilydev-remix-2.6.iso}
+ISOLINUX @code{boot:}
 @end example
 
-@item
-Create a new @qq{virtual machine} inside your virtualization
-software.
-
-If possible, use at least 700 MB of RAM (1GB would be better) for
-the virtual machine, and use @qq{dynamically expanding storage}
-for the virtual hard drive.  A complete compile of everything
-(code, docs, regression tests) can reach 10 GB.
-
-@item
-Install @file{ubuntu-lilydev-remix-2.6.iso} as the @strong{guest}
-operating system on your virtualized system.
-
-@enumerate
-
-@item
-When @file{ubuntu-lilydev-remix-2.6.iso} boots, it shows an
-ISOLINUX @code{boot:} prompt.  Type:
-
-@example
-install
-@end example
+Hit the Return key (or wait 30 seconds) and then when the installer
+screen loads, using the arrow keys select
+@q{Install - start the installer directly} to begin the install process
+of LilyDev on your virtual hard disk.  The Ubuntu software will walk you
+through the complete installation process.
 
 @item
 At the @qq{Prepare disk space} stage, do not be afraid to select
 @qq{Erase and use the entire disk}, since this refers to your
 @strong{@emph{virtual disk}}, not your machine's actual hard
-drive.
+disk.
 
 @item
-When prompted to remove the installation CD, go to
-@clicksequence{Devices @click{} CD/DVD Devices} and de-select
-@file{ubuntu-lilydev-remix-2.6.iso}.
+Click through the rest of the wizard, filling in any appropriate details
+when asked and wait for the install to complete.
 
-@end enumerate
-
-@advanced{
-The latest version of lilydev is based on Ubuntu 10.04.1; if you
-encounter any difficulties installing it, search for one of the
-many tutorials for installing that particular version of Ubuntu as
-a guest operating system.
-}
+@warning{This will take anywhere from 10 minutes to up to an hour
+depending on the speed of your computer and if Ubuntu detects you are
+connected to the internet and needs to download any additional
+security updates or patches, although these updates are not required to
+compile LilyPond and it is possible to skip the additional downloads to
+speed up the install process.}
 
 @item
-Do any extra configuration for your virtualization software.
-
-There are additional instructions for VirtualBox in
-@ref{Configuring lilydev in virtualbox}.
-
-If you use other virtualization software, then follow the normal
-procedures for your virtualization software with Ubuntu as the
-client.
+When prompted by the Ubuntu installer wizard, restart the virtual
+machine and then when prompted to @q{eject the CD} by virtual box, just
+click inside the virtual machine window and hit the return key to
+reboot the virtual machine.  It will not try to restart the installer
+but start the virtual machine proper. LilyDev is now installed and
+running!
 
 @end enumerate
 
 @knownissues
-
 Not all hardware is supported in all virtualization tools.  In
-particular, some contributors have reported problems with USB
-devices, for example USB network adapters.  If you have problems
-with network connection (for example internet connection in the
-host system is lost when you launch virtual system), try installing
-and running Lilydev with your computer's built-in network adapter
-used to connect to the network.
-If you would like to investigate further, then look for
-help for your virtualization tool using your normal OS as the
-@qq{host} and Ubuntu as the @qq{client}.
+particular, some contributors have reported problems with USB network
+adapters.  If you have problems with network connection (for example
+Internet connection in the host system is lost when you launch virtual
+system), try installing and running LilyDev with your computer's
+built-in network adapter used to connect to the network.  Refer to the
+help documentation that comes with your virtualization software.
 
 
-@node Configuring lilydev in virtualbox
-@subsection Configuring lilydev in virtualbox
+@node Configuring LilyDev in VirtualBox
+@unnumberedsubsec Configuring LilyDev in VirtualBox
 
-VirtualBox has extra @qq{guest additions} which can make the
-virtualization easier to use (full-screen, easy file sharing
-between host and guest operating systems, shared clipboards, etc).
+VirtualBox has extra @q{guest additions} which although are not
+necessary to use LilyDev or compile Lilypond, do provide some additional
+features to your Virtual Machine to make it easier to work with.  Such
+as being able to dynamically resize the LilyDev window, allow seamless
+interaction with your mouse pointer on both the host and guest and let
+you copy/paste between your host and guest if needed.
 
 @enumerate
 
 @item
-In @emph{VirtualBox}, select @clicksequence{Devices @click{}
-Install Guest Additions...}.
+Select the @q{Devices} menu from the virtual machine window and choose
+@q{Install Guest Additions...}.  This will automount a CD which will
+prompt you to autorun it.  Click OK and follow the instructions.  It is
+recommended to reboot the guest when the installation is complete.
+
+Other virtualization software will also have their own @q{guest}
+additions, follow the normal procedures for your virtualization software
+with Ubuntu as the client.
 
 @item
-In @emph{Ubuntu}, select @clicksequence{Places @click{}
-VBOXADDITIONS_}.  A file-system window will open.
+Restart Ubuntu to complete the installation of the guest additions.
 
-@item
-Double-click on the @file{autorun.sh} file, then select @qq{Run in
-Terminal}, and enter your password when prompted.
+@advanced{If you do any kernel upgrades, you may need to reinstall
+the additional software.  Just follow the step above again and reboot
+when the reinstallation is complete.}
 
-@item
-Once the script is finished, @qq{eject} the virtual CD, and then
-go to @clicksequence{Devices @click{} CD/DVD Devices} and
-de-select @file{VBoxGuestAdditions.iso}.
-
-@item
-Restart Ubuntu to complete the installation.
-
-@advanced{If you do any kernel upgrades, you may need to re-run
-these VBOXADDITIONS instructions.}
 @end enumerate
 
-Some other steps may be helpful:
+@noindent
+Other items that may be helpful:
 
 @itemize
+
 @item
 In the settings for the virtual machine, set the network to
-Bridged mode to allow you to access shared folders on your Windows
-host.
+Bridged mode to allow you to access shared folders when using Windows
+hosts.
 
 @item
 Set up any additional features, such as @q{Shared Folders} between
-your main operating system and ubuntu.  This is distinct from the
-networked share folders in Windows.  Consult external
-documentation for this step.
+your main operating system and Ubuntu.  This is distinct from the
+networked share folders in Windows.  Consult the external
+documentation for this.
 
 Some longtime contributors have reported that @q{shared folders}
 are rarely useful and not worth the fuss, particularly since files
 can be shared over a network instead.
-
-@end itemize
-
-
-@node Using lilydev
-@subsection Using lilydev
-
-If you are not familiar with Linux, it may be beneficial to read a
-couple of @qq{introduction to Ubuntu} webpages.
-
-@itemize
-@item
-One particular change from Windows and MacOS X is that most
-software should be installed with your @qq{package manager}; this
-vastly simplifies the process of installing and configuring
-software.  Go to @clicksequence{Applications @click{} Ubuntu
-Software Center}.
-
-@item
-The rest of this manual assumes that you are using the
-command-line; double-click on the @q{Terminal} icon on the
-desktop.
 
 @item
 Pasting into a terminal is done with @code{Ctrl+Shift+v}.
@@ -216,32 +242,56 @@ Right-click allows you to edit a file with gedit.  We recommend
 using gedit.
 
 @item
-Some contributors have recommended a free pdf:
-
-@example
-@uref{http://www.ubuntupocketguide.com/}
-@end example
+One particular change from Windows and MacOS X is that most
+software should be installed with your @qq{package manager}; this
+vastly simplifies the process of installing and configuring
+software.  Go to @clicksequence{Applications @click{} Ubuntu
+Software Center}.
 
 @end itemize
 
 
-@node Using lily-git
-@section Using lily-git
+@node lily-git
+@section lily-git
 
-@command{lily-git.tcl} is a graphical tool to help you access and
-share changes to the lilypond source code.
+The @q{LilyPond Contributor's Git Interface} (otherwise known as
+@command{lily-git.tcl}) is a simple-to-use GUI to help you download and
+update the LilyPond source code as well as an aid to making software
+patches.
 
 @menu
-* Install and configuration of lily-git.tcl::
-* Daily use of lily-git.tcl::
+* Where to get lily-git::
+* Configuring lily-git and downloading the source code::
+* How to use lily-git::
 @end menu
 
-@node Install and configuration of lily-git.tcl
-@unnumberedsubsec Install and configuration of @command{lily-git.tcl}
+@node Where to get lily-git
+@unnumberedsubsec Where to get lily-git
+
+Depending on your development environment, lily-git may already be
+installed on your computer.
+
+@itemize
+@item
+If you are using LilyDev (see @ref{LilyDev}) then lily-git is already
+installed and ready to run.
+
+@item
+For those not using LilyDev then lily-git can be obtained by downloading
+the software directly. See @ref{Manually installing lily-git.tcl}.
+
+@item
+Finally, lily-git is always part of the LilyPond source code and is
+located in @file{~/lilypond-git/scripts/auxillar/lily-git.tcl}.
+
+@end itemize
+
+
+@node Configuring lily-git and downloading the source code
+@unnumberedsubsec Configuring lily-git and downloading the source code
 
 @warning{The rest of this manual assumes that you are using the
-command-line; double-click on the @q{Terminal} icon on the
-desktop.}
+command-line within a terminal.}
 
 @enumerate
 @item
@@ -251,35 +301,50 @@ Type (or copy&paste) into the Terminal:
 lily-git.tcl
 @end example
 
+@noindent
+You will be prompted to enter your name and your email address.  This
+information is used only to identify and label any patches you create.
+This information can be edited if required later.  See
+@ref{Configuring Git}.  Click on the @emph{Submit} button to update
+lily-git with this information.
+
 @item
 Click on the @qq{Get source} button.
 
-This will create a directory called @file{lilypond-git/} within
-your home directory, and will download the source code into that
-directory (around 150@tie{}Mb).  When the process is finished, the
-@qq{Command output} window will display @qq{Done}, and the button
-label will change to say @qq{Update source}.
+A directory called @file{lilypond-git/} is now created within
+your home directory and the complete source code will start to be
+downloaded into it.
 
-@warning{Some contributors have reported that nothing happens at
-this step.  If this occurs, then try again in a few minutes -- we
-suspect that this is an intermittant network problem.  If the
+@warning{Be patient! The complete source is around 150@tie{}Mb.}
+
+@noindent
+When the source code has been downloaded, the @qq{Command output} window
+in lily-git will update and display @qq{Done} on the very last line.
+The button label will change to say @qq{Update source}.
+
+@warning{Some contributors have reported that occasionally nothing
+happens at this step at all.  If this occurs, then try again in a few
+minutes -- it could be an intermittant network problem.  If the
 problem persists, please ask for help.}
 
 @item
-Navigate to the @file{lilypond-git/} directory to view the source
-files.
+Close the lily-git GUI and navigate to the @file{lilypond-git/}
+directory to view and edit the source files.
 
 @end enumerate
 
-You should now progress to @ref{Compiling with lilydev}.
+@noindent
+If this is the first time you have compiled LilyPond then please go
+to @ref{Compiling with LilyDev} before reading on.
+
+
+@node How to use lily-git
+@unnumberedsubsec How to use lily-git
 
 @warning{Throughout the rest of this manual, most command-line
 input should be entered from @file{~/lilypond-git/}.  This is
-referred to as the @emph{top source directory}.}
-
-
-@node Daily use of lily-git.tcl
-@unnumberedsubsec Daily use of @command{lily-git.tcl}
+known as the @emph{top source directory} and is often referred to as
+@var{$LILYPOND_GIT}}.
 
 @warning{Only work on one set of changes at once.  Do not start
 work on any new changes until your first set has been accepted.}
@@ -385,12 +450,12 @@ current state of the remote repository (at @code{git.sv.gnu.org}).
 
 
 
-@node Compiling with lilydev
-@section Compiling with lilydev
+@node Compiling with LilyDev
+@section Compiling with LilyDev
 
-Lilydev is our @q{remix} of Ubuntu which contains all the
+LilyDev is our @q{remix} of Ubuntu which contains all the
 necessary dependencies to do lilypond development; for more
-information, see @rcontrib{Lilydev}.
+information, see @rcontrib{LilyDev}.
 
 @subsubheading Preparing the build
 
@@ -448,7 +513,7 @@ firefox ~/lilypond-git/build/out-www/offline-root/index.html
 
 @subsubheading Installing
 
-Don't.  There is no reason to install lilypond within lilydev.
+Don't.  There is no reason to install lilypond within LilyDev.
 All development work can (and should) stay within the
 @file{$HOME/lilypond-git/} directory, and any personal composition
 or typesetting work should be done with an official GUB release.
@@ -468,7 +533,7 @@ workarounds in @ref{Generating documentation}.
 @node Now start work!
 @section Now start work!
 
-Lilydev users may now skip to the chapter which is aimed at
+LilyDev users may now skip to the chapter which is aimed at
 their intended contributions:
 
 @itemize

@@ -394,7 +394,7 @@ We often receive reports of typos and minor text updates to the
 documentation. It would be great if somebody could create
 properly-formatted patches for these corrections.
 
-Technical requirements: ability to run @ref{Lilydev}.
+Technical requirements: ability to run @ref{LilyDev}.
 
 @item LSR editor:
 LSR contains many useful examples of lilypond, but some snippets
@@ -411,7 +411,7 @@ chapters 1 and 2 (or be willing to read the docs to find out).
 often find them in Ponds of Lilies) and new feature implementors.
 
 Technical requirements: development environment (such as
-@ref{Lilydev}), ability to read+write scheme and/or C++ code.
+@ref{LilyDev}), ability to read+write scheme and/or C++ code.
 
 @end itemize
 
@@ -958,11 +958,11 @@ area}, reason to move this to a different type.
 @item
 anything which stops contributors from helping out (e.g.
 lily-git.tcl not working, source tree(s) not being available,
-lilydev being unable to compile git master, inaccurate
+LilyDev being unable to compile git master, inaccurate
 instructions in the Contributor's Guide 2 Quick start).
 
 To limit this scope of this point, we will assume that the
-contributor is using the latest lilydev and has read the relevant
+contributor is using the latest LilyDev and has read the relevant
 part(s) of the Contributor's Guide.  Problems in other chapters of
 the CG are not sufficient to qualify as Type-Critical.
 

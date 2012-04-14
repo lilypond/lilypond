@@ -5,7 +5,7 @@
 @chapter Working with source code
 
 @warning{New contributors should read @ref{Quick start}, and in
-particular @ref{Using lily-git}, instead of this chapter.}
+particular @ref{lily-git}, instead of this chapter.}
 
 Advanced contributors will find this material quite useful,
 particularly if they are working on major new features.
@@ -29,7 +29,7 @@ contributors.  If you are comfortable with the command-line, then
 skip ahead to @ref{Starting with Git}.
 
 @warning{These instructions are only for people who are @emph{not}
-using @ref{Lilydev}.}
+using @ref{LilyDev}.}
 
 @c there's some duplication in this section with stuff covered in
 @c Quick Start, but moving it into a macro inside included/ would
@@ -96,7 +96,7 @@ files.
 input should be entered from @file{~/lilypond-git/}.  This is
 referred to as the @emph{top source directory}.}
 
-Further instructions are in @ref{Daily use of lily-git.tcl}.
+Further instructions are in @ref{How to use lily-git}.
 
 
 @node Starting with Git
@@ -209,14 +209,14 @@ git config --global core.editor @var{nano}
 @end example
 
 Finally, and in some ways most importantly, let's make sure that
-we know what branch we're on.  If you're not using lilydev, add
+we know what branch we're on.  If you're not using LilyDev, add
 this to your @file{~/.bashrc}:
 
 @verbatim
 export PS1="\u@\h \w\$(__git_ps1)$ "
 @end verbatim
 
-If you are not using lilydev, you may need to install the
+If you are not using LilyDev, you may need to install the
 additional @code{git-completion} package, but it is definitely
 worth it.
 
@@ -312,7 +312,7 @@ git checkout dev/cg
 Your prompt now shows you that you're on the other branch:
 
 @example
-gperciva@@lilydev:~/lilypond-git (dev/cg)$ 
+gperciva@@LilyDev:~/lilypond-git (dev/cg)$
 @end example
 
 To be able to manage multiple lilypond issues at once, you'll need to switch
@@ -1263,7 +1263,7 @@ or create a symbolic link to the @command{git-cl}
 and @command{upload.py} scripts in one of your PATH
 directories (such as @file{$HOME/bin}).
 
-In Ubuntu (and Lilydev), you can add directories to PATH
+In Ubuntu (and LilyDev), you can add directories to PATH
 by adding this line to a hidden file @file{.bashrc},
 located in your home directory:
 
@@ -2083,7 +2083,7 @@ later on.  You should see that @code{staging} is only ahead of
 @section Git on Windows
 
 @warning{We heavily recommend that development be done with our
-virtual machine @ref{Lilydev}.}
+virtual machine @ref{LilyDev}.}
 
 @c Some of this may duplicate stuff in other sections
 @c But it is probably best for windows users to have it all together
