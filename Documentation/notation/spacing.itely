@@ -233,7 +233,8 @@ placed @emph{before} any other functions used within the same
 
 Paper sizes are defined in @file{scm/paper.scm}, and while it is
 possible to add custom sizes, they will be overwritten on subsequent
-software updates.
+software updates.  The available paper sizes are listed in
+@ref{Predefined paper sizes}.
 
 @c An appendix entry exists for paper sizes but is not auto-generated
 
@@ -268,7 +269,8 @@ The music output will @emph{not} be rotated, just the paper size.
 
 @seealso
 Notation Reference:
-@ref{Automatic scaling to paper size}.
+@ref{Automatic scaling to paper size},
+@ref{Predefined paper sizes}.
 
 Installed Files:
 @file{scm/paper.scm}.
