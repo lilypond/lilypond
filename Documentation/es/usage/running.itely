@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7465f4b1291f38bed8ee81e3922eb685f7e909ad
+    Translation of GIT committish: c610645cc9a77cba1a2798280965db142d649ac5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -130,7 +130,7 @@ del shell y que no tienen nada que ver con lilypond.
 
 
 @node Opciones básicas de la línea de órdenes para LilyPond
-@unnumberedsubsec Opciones básicas de la línea de órdenes para @command{lilypond}
+@unnumberedsubsec Opciones básicas de la línea de órdenes para LilyPond
 @translationof Basic command line options for LilyPond
 
 @cindex invocación de @command{lilypond}
