@@ -77,19 +77,13 @@ void
 Dispatcher::dispatch (SCM sev)
 {
   Stream_event *ev = unsmob_stream_event (sev);
-  SCM class_symbol = ev->get_property ("class");
-  if (!scm_is_symbol (class_symbol))
+  SCM class_list = ev->get_property ("class");
+  if (!scm_is_pair (class_list))
     {
-      warning (_ ("Event class should be a symbol"));
+      ev->origin ()->warning (_ ("Event class should be a list"));
       return;
     }
 
-  SCM class_list = scm_call_1 (ly_lily_module_constant ("ly:make-event-class"), class_symbol);
-  if (!scm_is_pair (class_list))
-    {
-      ev->origin ()->warning (_f ("Unknown event class %s", ly_symbol2string (class_symbol).c_str ()));
-      return;
-    }
 #if 0
   bool sent = false;
 #endif
@@ -176,15 +170,7 @@ Dispatcher::dispatch (SCM sev)
 bool
 Dispatcher::is_listened (Stream_event *ev)
 {
-  SCM class_symbol = ev->get_property ("class");
-  if (!scm_is_symbol (class_symbol))
-    {
-      warning (_ ("Event class should be a symbol"));
-      return false;
-    }
-
-  for (SCM cl = scm_call_1 (ly_lily_module_constant ("ly:make-event-class"), class_symbol);
-       scm_is_pair (cl); cl = scm_cdr (cl))
+  for (SCM cl = ev->get_property ("class"); scm_is_pair (cl); cl = scm_cdr (cl))
     {
       SCM list = scm_hashq_ref (listeners_, scm_car (cl), SCM_EOL);
       if (scm_is_pair (list))

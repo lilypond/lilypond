@@ -279,7 +279,9 @@ Music::to_event () const
   if (!internal_is_music_type (class_name))
     programming_error ("Not a music type");
 
-  Stream_event *e = new Stream_event (class_name, mutable_property_alist_);
+  Stream_event *e = new Stream_event
+    (scm_call_1 (ly_lily_module_constant ("ly:make-event-class"), class_name),
+     mutable_property_alist_);
   Moment length = get_length ();
   if (length.to_bool ())
     e->set_property ("length", length.smobbed_copy ());

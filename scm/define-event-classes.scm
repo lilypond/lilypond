@@ -96,7 +96,7 @@
 
 (define-public (ly:in-event-class? ev cl)
   "Does event @var{ev} belong to event class @var{cl}?"
-  (memq cl (ly:make-event-class (ly:event-property ev 'class))))
+  (memq cl (ly:event-property ev 'class)))
 
 ;; does this exist in guile already?
 (define (map-tree f t)

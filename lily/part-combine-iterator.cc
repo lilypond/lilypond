@@ -223,7 +223,9 @@ Part_combine_iterator::kill_mmrest (int in)
 
   if (!mmrest_event_)
     {
-      mmrest_event_ = new Stream_event (ly_symbol2scm ("multi-measure-rest-event"));
+      mmrest_event_ = new Stream_event
+	(scm_call_1 (ly_lily_module_constant ("ly:make-event-class"),
+		     ly_symbol2scm ("multi-measure-rest-event")));
       mmrest_event_->set_property ("duration", SCM_EOL);
       mmrest_event_->unprotect ();
     }
@@ -256,7 +258,9 @@ Part_combine_iterator::unisono (bool silent)
         {
           if (!unisono_event_)
             {
-              unisono_event_ = new Stream_event (ly_symbol2scm ("unisono-event"));
+              unisono_event_ = new Stream_event
+		(scm_call_1 (ly_lily_module_constant ("ly:make-event-class"),
+			     ly_symbol2scm ("unisono-event")));
               unisono_event_->unprotect ();
             }
 
@@ -286,7 +290,9 @@ Part_combine_iterator::solo1 ()
         {
           if (!solo_one_event_)
             {
-              solo_one_event_ = new Stream_event (ly_symbol2scm ("solo-one-event"));
+              solo_one_event_ = new Stream_event
+		(scm_call_1 (ly_lily_module_constant ("ly:make-event-class"),
+			     ly_symbol2scm ("solo-one-event")));
               solo_one_event_->unprotect ();
             }
 
@@ -311,7 +317,9 @@ Part_combine_iterator::solo2 ()
         {
           if (!solo_two_event_)
             {
-              solo_two_event_ = new Stream_event (ly_symbol2scm ("solo-two-event"));
+              solo_two_event_ = new Stream_event
+		(scm_call_1 (ly_lily_module_constant ("ly:make-event-class"),
+			     ly_symbol2scm ("solo-two-event")));
               solo_two_event_->unprotect ();
             }
 

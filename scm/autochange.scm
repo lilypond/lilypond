@@ -11,7 +11,7 @@
 	       (evs (map car (cdar event-list)))
 	       (now (car now-tun))
 	       (notes (filter (lambda (x)
-				(equal? (ly:event-property  x 'class) 'note-event))
+				(ly:in-event-class? x 'note-event))
 			      evs))
 	       (pitch (if (pair? notes)
 			  (ly:event-property (car notes) 'pitch)
