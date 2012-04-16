@@ -41,6 +41,8 @@ def exit_with_usage (n=0):
     sys.stderr.write (USAGE)
     sys.exit (n)
 
+TAGS = []
+
 if len (sys.argv) >= 2:
     in_dir = sys.argv[1]
     if not (os.path.isdir (in_dir)):
@@ -50,10 +52,9 @@ if len (sys.argv) >= 2:
         exit_with_usage (2)
     if not (os.path.isdir (DEST) and os.path.isdir (NEW_LYS)):
         exit_with_usage (3)
+    TAGS = os.listdir (in_dir)
 else:
     in_dir = ''
-
-TAGS = os.listdir (in_dir)
 
 # which convert-ly to use
 if os.path.isfile("out/bin/convert-ly"):
