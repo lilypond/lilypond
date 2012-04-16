@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "chords"
@@ -19,6 +19,7 @@ extender attributed to that number right before the number.
 "
   doctitle = "Manually break figured bass extenders for only some numbers"
 } % begin verbatim
+
 
 bassfigures = \figuremode {
   \set useBassFigureExtenders = ##t

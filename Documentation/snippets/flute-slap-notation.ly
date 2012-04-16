@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "winds"
+  lsrtags = "winds, contemporary-notation"
 
   texidoc = "
 It is possible to indicate special articulation techniques such as a
@@ -17,6 +17,7 @@ glyph.
 "
   doctitle = "Flute slap notation"
 } % begin verbatim
+
 
 slap =
 #(define-music-function (parser location music) (ly:music?)

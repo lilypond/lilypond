@@ -1152,7 +1152,6 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 #. @rglos in Documentation/cs/learning/common-notation.itely
-#. Documentation/snippets/piano-template-with-centered-dynamics.ly:82 (variable)
 msgid "dynamics"
 msgstr ""
 
@@ -1429,7 +1428,6 @@ msgstr ""
 #. Documentation/snippets/jazz-combo-template.ly:253 (context id)
 #. Documentation/snippets/piano-template-simple.ly:49 (variable)
 #. Documentation/snippets/piano-template-simple.ly:68 (context id)
-#. Documentation/snippets/piano-template-with-centered-dynamics.ly:72 (variable)
 #. Documentation/snippets/piano-template-with-centered-lyrics.ly:59 (variable)
 #. Documentation/snippets/piano-template-with-centered-lyrics.ly:81 (context id)
 #. Documentation/snippets/piano-template-with-melody-and-lyrics.ly:71 (variable)
@@ -1457,7 +1455,6 @@ msgstr ""
 #. Documentation/snippets/jazz-combo-template.ly:254 (context id)
 #. Documentation/snippets/piano-template-simple.ly:57 (variable)
 #. Documentation/snippets/piano-template-simple.ly:69 (context id)
-#. Documentation/snippets/piano-template-with-centered-dynamics.ly:77 (variable)
 #. Documentation/snippets/piano-template-with-centered-lyrics.ly:67 (variable)
 #. Documentation/snippets/piano-template-with-centered-lyrics.ly:83 (context id)
 #. Documentation/snippets/piano-template-with-melody-and-lyrics.ly:79 (variable)
@@ -1673,9 +1670,8 @@ msgstr ""
 #. Documentation/snippets/hymn-template.ly:89 (variable)
 #. Documentation/snippets/incipit.ly:73 (variable)
 #. Documentation/snippets/jazz-combo-template.ly:106 (variable)
-#. Documentation/snippets/lyrics-old-spacing-settings.ly:48 (variable)
+#. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:48 (variable)
 #. Documentation/snippets/mensurstriche-layout-bar-lines-between-the-staves.ly:56 (variable)
-#. Documentation/snippets/piano-template-with-centered-dynamics.ly:67 (variable)
 #. Documentation/snippets/printing-music-with-different-time-signatures.ly:36 (variable)
 #. Documentation/snippets/satb-choir-template---four-staves.ly:52 (variable)
 #. Documentation/snippets/string-quartet-template-simple.ly:61 (variable)
@@ -1979,7 +1975,7 @@ msgstr ""
 #. Documentation/learning/fundamental.itely:2580 (variable)
 #. Documentation/notation/input.itely:1603 (variable)
 #. Documentation/cs/learning/fundamental.itely:2807 (variable)
-#. Documentation/snippets/lyrics-old-spacing-settings.ly:59 (variable)
+#. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:59 (variable)
 #. Documentation/snippets/vocal-ensemble-template.ly:96 (variable)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:98 (variable)
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:78 (variable)
@@ -1997,7 +1993,7 @@ msgstr ""
 #. Documentation/learning/fundamental.itely:2585 (variable)
 #. Documentation/notation/input.itely:1604 (variable)
 #. Documentation/cs/learning/fundamental.itely:2812 (variable)
-#. Documentation/snippets/lyrics-old-spacing-settings.ly:65 (variable)
+#. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:65 (variable)
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:93 (variable)
 #. Documentation/snippets/vocal-ensemble-template.ly:103 (variable)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:105 (variable)
@@ -2016,7 +2012,7 @@ msgstr ""
 #. Documentation/learning/fundamental.itely:2590 (variable)
 #. Documentation/notation/input.itely:1605 (variable)
 #. Documentation/cs/learning/fundamental.itely:2817 (variable)
-#. Documentation/snippets/lyrics-old-spacing-settings.ly:70 (variable)
+#. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:70 (variable)
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:101 (variable)
 #. Documentation/snippets/vocal-ensemble-template.ly:110 (variable)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:112 (variable)
@@ -2041,7 +2037,7 @@ msgstr ""
 #. Documentation/learning/fundamental.itely:2615 (context id)
 #. Documentation/cs/learning/fundamental.itely:2840 (context id)
 #. Documentation/cs/learning/fundamental.itely:2842 (context id)
-#. Documentation/snippets/lyrics-old-spacing-settings.ly:83 (context id)
+#. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:83 (context id)
 #. Documentation/snippets/vocal-ensemble-template.ly:124 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:127 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:102 (context id)
@@ -2052,7 +2048,7 @@ msgstr ""
 #. Documentation/learning/fundamental.itely:2625 (context id)
 #. Documentation/cs/learning/fundamental.itely:2850 (context id)
 #. Documentation/cs/learning/fundamental.itely:2852 (context id)
-#. Documentation/snippets/lyrics-old-spacing-settings.ly:87 (context id)
+#. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:87 (context id)
 #. Documentation/snippets/vocal-ensemble-template.ly:128 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:128 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:103 (context id)
@@ -2063,7 +2059,7 @@ msgstr ""
 #. Documentation/learning/fundamental.itely:2635 (context id)
 #. Documentation/cs/learning/fundamental.itely:2860 (context id)
 #. Documentation/cs/learning/fundamental.itely:2862 (context id)
-#. Documentation/snippets/lyrics-old-spacing-settings.ly:96 (context id)
+#. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:96 (context id)
 #. Documentation/snippets/vocal-ensemble-template.ly:140 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:138 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:115 (context id)
@@ -2074,7 +2070,7 @@ msgstr ""
 #. Documentation/learning/fundamental.itely:2645 (context id)
 #. Documentation/cs/learning/fundamental.itely:2870 (context id)
 #. Documentation/cs/learning/fundamental.itely:2872 (context id)
-#. Documentation/snippets/lyrics-old-spacing-settings.ly:100 (context id)
+#. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:100 (context id)
 #. Documentation/snippets/vocal-ensemble-template.ly:144 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:139 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:116 (context id)
@@ -5293,7 +5289,7 @@ msgstr ""
 #. Documentation/notation/changing-defaults.itely:491 (variable)
 #. Documentation/notation/changing-defaults.itely:540 (variable)
 #. Documentation/snippets/adding-orchestral-cues-to-a-vocal-score.ly:117 (variable)
-#. Documentation/snippets/lyrics-old-spacing-settings.ly:75 (variable)
+#. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:75 (variable)
 msgid "words"
 msgstr ""
 
@@ -8325,13 +8321,13 @@ msgstr ""
 
 #. Documentation/snippets/cross-staff-tremolos.ly:47 (context id)
 #. Documentation/snippets/jazz-combo-template.ly:273 (variable)
-#. Documentation/snippets/screech-boink.ly:18 (context id)
+#. Documentation/snippets/screech-and-boink.ly:18 (context id)
 msgid "up"
 msgstr ""
 
 #. Documentation/snippets/cross-staff-tremolos.ly:52 (context id)
 #. Documentation/snippets/jazz-combo-template.ly:279 (variable)
-#. Documentation/snippets/screech-boink.ly:48 (context id)
+#. Documentation/snippets/screech-and-boink.ly:48 (context id)
 msgid "down"
 msgstr ""
 
@@ -9865,26 +9861,26 @@ msgstr ""
 msgid "fermataLong"
 msgstr ""
 
-#. Documentation/snippets/lyrics-old-spacing-settings.ly:53 (variable)
+#. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:53 (variable)
 #. Documentation/snippets/vocal-ensemble-template.ly:89 (variable)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:91 (variable)
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:71 (variable)
 msgid "sopMusic"
 msgstr ""
 
-#. Documentation/snippets/lyrics-old-spacing-settings.ly:54 (comment)
-#. Documentation/snippets/lyrics-old-spacing-settings.ly:60 (comment)
+#. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:54 (comment)
+#. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:60 (comment)
 msgid "VERSE ONE"
 msgstr ""
 
-#. Documentation/snippets/lyrics-old-spacing-settings.ly:82 (context id)
+#. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:82 (context id)
 #. Documentation/snippets/vocal-ensemble-template.ly:123 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:126 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:101 (context id)
 msgid "women"
 msgstr ""
 
-#. Documentation/snippets/lyrics-old-spacing-settings.ly:94 (context id)
+#. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:94 (context id)
 #. Documentation/snippets/vocal-ensemble-template.ly:138 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:136 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:113 (context id)
@@ -10117,10 +10113,6 @@ msgstr ""
 
 #. Documentation/snippets/permitting-line-breaks-within-beamed-tuplets.ly:65 (comment)
 msgid "Insert a manual line break within a tuplet"
-msgstr ""
-
-#. Documentation/snippets/piano-template-with-centered-dynamics.ly:86 (variable)
-msgid "pedal"
 msgstr ""
 
 #. Documentation/snippets/pitches-headword.ly:27 (comment)

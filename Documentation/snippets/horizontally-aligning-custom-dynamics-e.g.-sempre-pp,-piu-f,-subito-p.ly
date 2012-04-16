@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, tweaks-and-overrides"
+  lsrtags = "correction-wanted, version-specific, tweaks-and-overrides, expressive-marks"
 
   texidoc = "
 Some dynamic expressions involve additional text, like @qq{sempre pp}.
@@ -51,6 +51,7 @@ not at the center of pp.
 "
   doctitle = "Horizontally aligning custom dynamics (e.g. \"sempre pp\" \"piu f\" \"subito p\")"
 } % begin verbatim
+
 
 \header { title = "Horizontally aligning custom dynamics" }
 

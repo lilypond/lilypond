@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "rhythms"
+  lsrtags = "version-specific, rhythms"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
  doctitlees = "Permitir saltos de línea dentro de grupos especiales con barra"
@@ -49,6 +49,7 @@ tuplets have to be beamed manually.
 "
   doctitle = "Permitting line breaks within beamed tuplets"
 } % begin verbatim
+
 
 \layout {
   \context {

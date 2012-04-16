@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "pitches"
@@ -18,6 +18,7 @@ and line of the stave equal to one semitone.
 "
   doctitle = "Changing the interval of lines on the stave"
 } % begin verbatim
+
 
 scale = \relative c' {
   a4 ais b c

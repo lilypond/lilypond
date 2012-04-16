@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "expressive-marks"
@@ -68,6 +68,7 @@ the default + symbol, assign the value @code{trill} to the variable
 "
   doctitle = "Modifying default values for articulation shorthand notation"
 } % begin verbatim
+
 
 \relative c'' { c1-+ }
 

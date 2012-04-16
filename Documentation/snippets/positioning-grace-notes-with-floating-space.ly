@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "rhythms"
@@ -58,6 +58,7 @@ the) graces are put left of the musical columns for the main notes.
 "
   doctitle = "Positioning grace notes with floating space"
 } % begin verbatim
+
 
 \relative c'' {
   <<

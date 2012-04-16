@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "rhythms, simultaneous-notes, tweaks-and-overrides"
+  lsrtags = "simultaneous-notes, tweaks-and-overrides, rhythms"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -30,6 +30,7 @@ the right.  This behaviour can be over-ridden by using the
 "
   doctitle = "Moving dotted notes in polyphony"
 } % begin verbatim
+
 
 \new Staff \relative c' <<
   { f2. f4

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "expressive-marks"
@@ -47,6 +47,7 @@ notation) by setting the @code{circled-tip} property of the
 "
   doctitle = "Printing hairpins using al niente notation"
 } % begin verbatim
+
 
 \relative c'' {
   \override Hairpin #'circled-tip = ##t

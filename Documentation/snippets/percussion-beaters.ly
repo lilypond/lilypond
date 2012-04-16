@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "percussion"
@@ -18,6 +18,7 @@ demonstrated in this example.
 "
   doctitle = "Percussion beaters"
 } % begin verbatim
+
 
 stick = \markup {
   \with-dimensions #'(0 . 5) #'(0 . 5)

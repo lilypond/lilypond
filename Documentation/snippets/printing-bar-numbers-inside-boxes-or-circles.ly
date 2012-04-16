@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "rhythms, tweaks-and-overrides"
+  lsrtags = "tweaks-and-overrides, rhythms"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -41,6 +41,7 @@ Bar numbers can also be printed inside boxes or circles.
 "
   doctitle = "Printing bar numbers inside boxes or circles"
 } % begin verbatim
+
 
 \relative c' {
   % Prevent bar numbers at the end of a line and permit them elsewhere

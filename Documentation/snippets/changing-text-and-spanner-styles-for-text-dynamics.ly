@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, tweaks-and-overrides"
+  lsrtags = "tweaks-and-overrides, expressive-marks"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -63,6 +63,7 @@ is @code{'dashed-line}, and other possible values include @code{'line},
 "
   doctitle = "Changing text and spanner styles for text dynamics"
 } % begin verbatim
+
 
 \relative c'' {
   \set crescendoText = \markup { \italic { cresc. poco } }

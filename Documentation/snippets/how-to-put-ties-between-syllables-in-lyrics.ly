@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "text, vocal-music"
+  lsrtags = "specific-notation, vocal-music, text, symbols-and-glyphs"
 
   texidoc = "
 This can be achieved by separating those syllables by tildes.
@@ -15,6 +15,7 @@ This can be achieved by separating those syllables by tildes.
 "
   doctitle = "How to put ties between syllables in lyrics"
 } % begin verbatim
+
 
 \lyrics {
   wa~o~a

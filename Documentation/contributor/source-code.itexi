@@ -1683,10 +1683,10 @@ git am @var{patch}
 
 Patches created without @code{git@tie{}format-patch} can be
 applied in two steps.  The first step is to apply the patch to the
-working tree:
+working tree and the index:
 
 @example
-git apply @var{patch}
+git apply --index @var{patch}
 @end example
 
 @noindent
@@ -1694,9 +1694,16 @@ The second step is to commit the changes and give credit to the
 author of the patch.  This can be done with the following command:
 
 @example
-git commit -a --author="@var{John Smith} <@var{john@@example.com}>"
+git commit --author="@var{John Smith} <@var{john@@example.com}>"
 @end example
 
+Please note that using the @code{--index} option for patching is quite
+important here and @emph{cannot} reliably be replaced by using the
+@code{-a} option when committing: that would only commit files from the
+working tree that are already registered with git, so every file that
+the patch actually @emph{adds}, like a regtest for a fixed bug, would
+get lost.  For the same reason, you should not use the git-independent
+@samp{patch} program for applying patches.
 
 @node Sending and receiving patches via email
 @subsection Sending and receiving patches via email

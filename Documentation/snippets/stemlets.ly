@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "rhythms"
+  lsrtags = "contemporary-notation, rhythms"
 
   texidoc = "
 In some notational conventions beams are allowed to extend over rests.
@@ -29,6 +29,7 @@ the different notations.
 "
   doctitle = "Stemlets"
 } % begin verbatim
+
 
 \paper { ragged-right = ##f }
 

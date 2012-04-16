@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "pitches, vocal-music"
+  lsrtags = "vocal-music, pitches"
 
   texidoc = "
 Ambitus indicate pitch ranges for voices.
@@ -19,6 +19,7 @@ Accidentals only show up if they are not part of the key signature.
 "
   doctitle = "Ambitus"
 } % begin verbatim
+
 
 \layout {
   \context {

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "pitches, tweaks-and-overrides"
@@ -27,6 +27,7 @@ initial clef.  This can be overridden with @code{full-size-change}.
 "
   doctitle = "Keep change clefs full sized"
 } % begin verbatim
+
 
 \relative c' {
   \clef "treble"

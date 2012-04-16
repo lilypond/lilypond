@@ -75,11 +75,6 @@ de lancer LilyPond, et d'aprécier le résultat.
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
 
-@appendixsubsec Piano et nuances entre les portées
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-with-centered-dynamics.ly}
-
 
 @node Quatuor à cordes
 @appendixsec Quatuor à cordes

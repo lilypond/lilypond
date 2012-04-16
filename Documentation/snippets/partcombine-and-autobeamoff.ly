@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "rhythms"
@@ -146,6 +146,7 @@ with @code{\\partcombine}, it will be necessary to use three calls to
 "
   doctitle = "Partcombine and autoBeamOff"
 } % begin verbatim
+
 
 {
   %\set Staff.autoBeaming = ##f % turns off all autobeaming

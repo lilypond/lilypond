@@ -72,11 +72,6 @@ beautiful printed scores!
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
 
-@appendixsubsec Piano centered dynamics
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-with-centered-dynamics.ly}
-
 
 @node String quartet
 @appendixsec String quartet

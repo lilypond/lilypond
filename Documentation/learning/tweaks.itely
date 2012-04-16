@@ -214,9 +214,10 @@ level contexts, i.e., @code{Voice}, @code{ChordNames} or
 examples.  We shall see later when it must be specified.
 
 Later sections deal comprehensively with properties and their
-values, but to illustrate the format and use of these commands
-we shall use just a few simple properties and values which are
-easily understood.
+values, see @ref{Types of properties}.  But in this section we shall 
+use just a few simple properties and values which are easily
+understood in order to illustrate the format and use of these
+commands.
 
 For now, don't worry about the @code{#'}, which must precede the
 layout property, and the@tie{}@code{#}, which must precede the value.

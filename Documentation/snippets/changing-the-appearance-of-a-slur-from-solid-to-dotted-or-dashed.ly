@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, editorial-annotations"
+  lsrtags = "editorial-annotations, really-simple, connecting-notes, expressive-marks"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -23,6 +23,7 @@ The appearance of slurs may be changed from solid to dotted or dashed.
 "
   doctitle = "Changing the appearance of a slur from solid to dotted or dashed"
 } % begin verbatim
+
 
 \relative c' {
   c4( d e c)

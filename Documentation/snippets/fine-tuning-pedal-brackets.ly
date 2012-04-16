@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "keyboards, tweaks-and-overrides"
@@ -15,6 +15,7 @@ The appearance of pedal brackets may be altered in different ways.
 "
   doctitle = "Fine-tuning pedal brackets"
 } % begin verbatim
+
 
 \paper { ragged-right = ##f }
 \relative c'' {

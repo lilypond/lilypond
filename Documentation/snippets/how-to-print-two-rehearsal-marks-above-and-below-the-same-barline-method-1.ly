@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, staff-notation, editorial-annotations, tweaks-and-overrides"
+  lsrtags = "editorial-annotations, staff-notation, tweaks-and-overrides, expressive-marks"
 
   texidoc = "
 This method prints two 'rehearsal marks', one on top of the other. It
@@ -35,6 +35,7 @@ box of the mark from its original value.
 "
   doctitle = "How to print two rehearsal marks above and below the same barline (method 1)"
 } % begin verbatim
+
 
 \relative c'{
     c d e f |

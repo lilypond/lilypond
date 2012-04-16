@@ -20,12 +20,13 @@
 #include "smobs.hh"
 #include "ly-smobs.icc"
 
-class Undead {
+class Undead
+{
   DECLARE_SIMPLE_SMOBS (Undead);
   SCM object_;
 public:
   SCM object () { return object_; }
-  Undead (SCM object = SCM_UNDEFINED) : object_(object) { };
+  Undead (SCM object = SCM_UNDEFINED) : object_ (object) { };
 };
 
 SCM
@@ -40,8 +41,8 @@ Undead::mark_smob (SCM s)
 
 int
 Undead::print_smob (SCM undead,
-		    SCM port,
-		    scm_print_state *)
+                    SCM port,
+                    scm_print_state *)
 {
   scm_puts ("#<Undead ", port);
   scm_display (Undead::unsmob (undead)->object (), port);
@@ -54,17 +55,17 @@ IMPLEMENT_DEFAULT_EQUAL_P (Undead);
 IMPLEMENT_TYPE_P (Undead, "ly:undead?")
 
 LY_DEFINE (ly_make_undead, "ly:make-undead",
-	   1, 0, 0, (SCM object),
-	   "This packages @var{object} in a manner that keeps it from"
-	   " triggering \"Parsed object should be dead\" messages.")
+           1, 0, 0, (SCM object),
+           "This packages @var{object} in a manner that keeps it from"
+           " triggering \"Parsed object should be dead\" messages.")
 {
   Undead undead (object);
   return undead.smobbed_copy ();
 }
 
 LY_DEFINE (ly_get_undead, "ly:get-undead",
-	   1, 0, 0, (SCM undead),
-	   "Get back object from @var{undead}.")
+           1, 0, 0, (SCM undead),
+           "Get back object from @var{undead}.")
 {
   LY_ASSERT_SMOB (Undead, undead, 1);
   return Undead::unsmob (undead)->object ();
@@ -85,18 +86,19 @@ SCM
 parsed_dead::readout ()
 {
   SCM result = SCM_EOL;
-  for (vsize i = 0; i < elements.size (); i++) {
-    SCM elt = elements[i]->readout_one ();
-    if (!SCM_UNBNDP (elt))
-      result = scm_cons (elt, result);
-  }
+  for (vsize i = 0; i < elements.size (); i++)
+    {
+      SCM elt = elements[i]->readout_one ();
+      if (!SCM_UNBNDP (elt))
+        result = scm_cons (elt, result);
+    }
   return result;
 }
 
 LY_DEFINE (ly_parsed_undead_list_x, "ly:parsed-undead-list!",
-	   0, 0, 0, (),
-	   "Return the list of objects that have been found live"
-	   " that should have been dead, and clear that list.")
+           0, 0, 0, (),
+           "Return the list of objects that have been found live"
+           " that should have been dead, and clear that list.")
 {
   return parsed_dead::readout ();
 }

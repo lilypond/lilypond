@@ -79,11 +79,6 @@
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
 
-@appendixsubsec 強弱記号が中央に配置されたピアノ譜
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-with-centered-dynamics.ly}
-
 
 @node 弦楽四重奏
 @appendixsec 弦楽四重奏

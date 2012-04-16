@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "rhythms, repeats"
+  lsrtags = "repeats, rhythms"
 
   texidoc = "
 If a tremolo's total duration is less than a quarter-note, or exactly a
@@ -24,6 +24,7 @@ the @code{'gap} property.
 "
   doctitle = "Engraving tremolos with floating beams"
 } % begin verbatim
+
 
 \relative c'' {
   \repeat tremolo 8 { a32 f }

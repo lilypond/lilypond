@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "rhythms, fretted-strings"
+  lsrtags = "fretted-strings, rhythms"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -44,6 +44,7 @@ melody notes, chord names and fret diagrams.
 "
   doctitle = "Guitar strum rhythms"
 } % begin verbatim
+
 
 \include "predefined-guitar-fretboards.ly"
 <<

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "chords"
@@ -39,6 +39,7 @@ When put together, chord names, a melody, and lyrics form a lead sheet:
 "
   doctitle = "Simple lead sheet"
 } % begin verbatim
+
 
 <<
   \chords { c2 g:sus4 f e }

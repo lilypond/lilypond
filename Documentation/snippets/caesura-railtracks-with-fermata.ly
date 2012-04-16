@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, tweaks-and-overrides"
+  lsrtags = "symbols-and-glyphs, tweaks-and-overrides, expressive-marks"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -27,6 +27,7 @@ pleasing combination of railtracks and fermata.
 "
   doctitle = "Caesura (\"railtracks\") with fermata"
 } % begin verbatim
+
 
 \relative c'' {
   c2.

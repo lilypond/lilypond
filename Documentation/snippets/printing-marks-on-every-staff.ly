@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "text"
@@ -44,6 +44,7 @@ they may also be printed on every staff.
 "
   doctitle = "Printing marks on every staff"
 } % begin verbatim
+
 
 \score {
   <<

@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "text, vocal-music"
+  lsrtags = "vocal-music, text"
 
 %% Translation of GIT committish: ea0b270e14781707ab52683acddf9302bbe337f3
   texidoces = "

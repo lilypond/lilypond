@@ -1280,7 +1280,6 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
                             + (beam_count - 1) * beam_translation;
   Real beam_y = stem_y - d * height_of_my_beams;
 
-
   Interval rest_extent = rest->extent (rest, Y_AXIS);
   rest_extent.translate (offset + rest->get_parent (Y_AXIS)->relative_coordinate (common_y, Y_AXIS));
 

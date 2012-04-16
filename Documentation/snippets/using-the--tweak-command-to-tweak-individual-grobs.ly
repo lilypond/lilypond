@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides"
+  lsrtags = "tweaks-and-overrides, really-simple"
 
   texidoc = "
 With the @code{\\tweak} command, every grob can be tuned directly.
@@ -16,6 +16,7 @@ Here are some examples of available tweaks.
 "
   doctitle = "Using the \\tweak command to tweak individual grobs"
 } % begin verbatim
+
 
 \relative c' {
   \time 2/4

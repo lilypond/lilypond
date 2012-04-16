@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "chords, ancient-notation, contexts-and-engravers"
+  lsrtags = "ancient-notation, contexts-and-engravers, chords"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -45,19 +45,20 @@ whole score.
   doctitle = "Adding a figured bass above or below the notes"
 } % begin verbatim
 
+
 bass = {
   \clef bass
   g4 b, c d
   e d8 c d2
 }
 continuo = \figuremode {
-  <_>4 <6>8
-  \once \override Staff.BassFigureAlignmentPositioning #'direction = #CENTER
-  <5/>8 <_>4
+  <_>4 <6>4 <5/>4
   \override Staff.BassFigureAlignmentPositioning #'direction = #UP
-  <_+>4 <6>
+  %\bassFigureStaffAlignmentUp
+  < _+ >4 <6>
   \set Staff.useBassFigureExtenders = ##t
   \override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
+  %\bassFigureStaffAlignmentDown
   <4>4. <4>8 <_+>4
 }
 \score {

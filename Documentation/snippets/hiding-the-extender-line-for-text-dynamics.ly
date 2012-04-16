@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.25"
+\version "2.14.2"
 
 \header {
   lsrtags = "expressive-marks"
@@ -46,6 +46,7 @@ following way:
 "
   doctitle = "Hiding the extender line for text dynamics"
 } % begin verbatim
+
 
 \relative c'' {
   \override DynamicTextSpanner #'style = #'none

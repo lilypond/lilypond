@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "expressive-marks"
@@ -46,6 +46,7 @@ text.
 "
   doctitle = "Changing the breath mark symbol"
 } % begin verbatim
+
 
 \relative c'' {
   c2

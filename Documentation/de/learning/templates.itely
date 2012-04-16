@@ -83,12 +83,6 @@ schönen Notenbild erfreuen!
 {piano-template-with-centered-lyrics.ly}
 
 
-@appendixsubsec Klavier mit zentrierten Lautstärkebezeichnungen
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-with-centered-dynamics.ly}
-
-
 @node Streichquartett
 @appendixsec Streichquartett
 @translationof String quartet

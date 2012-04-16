@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "staff-notation"
+  lsrtags = "specific-notation, staff-notation"
 
   texidoc = "
 The number of lines in a staff may changed by overriding the
@@ -19,6 +19,7 @@ The number of lines in a staff may changed by overriding the
 "
   doctitle = "Changing the number of lines in a staff"
 } % begin verbatim
+
 
 upper = \relative c'' {
   c4 d e f

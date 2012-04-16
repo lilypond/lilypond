@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "chords"
+  lsrtags = "specific-notation, chords"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -42,6 +42,7 @@ special notations for specific chords.
 "
   doctitle = "Chord name exceptions"
 } % begin verbatim
+
 
 % modify maj9 and 6(add9)
 % Exception music is chords with markups

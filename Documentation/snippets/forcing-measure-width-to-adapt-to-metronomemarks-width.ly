@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "staff-notation"
+  lsrtags = "workaround, staff-notation"
 
   texidoc = "
 By default, metronome marks do not influence horizontal spacing.  This
@@ -19,6 +19,7 @@ through a simple override, as shown in the second half of the example.
 "
   doctitle = "Forcing measure width to adapt to MetronomeMark's width"
 } % begin verbatim
+
 
 example = {
   \tempo "Allegro"

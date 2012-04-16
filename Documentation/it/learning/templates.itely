@@ -75,11 +75,6 @@ LilyPond e goderti dei belli spartiti!
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
 
-@appendixsubsec Pianoforte con dinamiche al centro
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-with-centered-dynamics.ly}
-
 
 @node Quartetto d'archi
 @appendixsec Quartetto d'archi

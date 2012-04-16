@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "simultaneous-notes, chords, keyboards"
+  lsrtags = "specific-notation, keyboards, simultaneous-notes, really-cool, contemporary-notation, chords"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -24,6 +24,7 @@ played.
 "
   doctitle = "Clusters"
 } % begin verbatim
+
 
 fragment = \relative c' {
   c4 f <e d'>4

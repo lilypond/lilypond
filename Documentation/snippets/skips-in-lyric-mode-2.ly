@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "rhythms, vocal-music"
+  lsrtags = "vocal-music, really-simple, rhythms"
 
   texidoc = "
 Although @code{s} skips cannot be used in @code{\\lyricmode} (it is
@@ -17,6 +17,7 @@ or underscores (@code{_}) are available.So for example:
 "
   doctitle = "Skips in lyric mode (2)"
 } % begin verbatim
+
 
 <<
   \relative c'' { a4 b c d }

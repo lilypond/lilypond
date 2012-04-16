@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "staff-notation, tweaks-and-overrides"
@@ -69,6 +69,7 @@ property has to be set, as shown on the second system in the example.
 "
   doctitle = "Display bracket with only one staff in a system"
 } % begin verbatim
+
 
 \markup \left-column {
   \score {

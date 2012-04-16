@@ -55,20 +55,12 @@ In virtualization terminology, your main operating system is the
 @strong{host}, while lilydev is the @strong{guest}.
 
 @item
-Download the Ubuntu LilyPond Developer Remix disk image:
-(approximately 1 GB)
+Download the Ubuntu LilyPond Developer Remix disk image (approximately
+1 GB) from here:
 
 @example
-@uref{http://www.et.byu.edu/~sorensen/ubuntu-lilydev-remix-1.1.iso}
+@uref{http://www.philholmes.net/lilypond/lilydev/ubuntu-lilydev-remix-2.6.iso}
 @end example
-
-@advanced{Some users might want these files, but if you don't
-recognize what they are, then you don't want them:
-@*
-@uref{http://www.et.byu.edu/~sorensen/ubuntu-lilydev-remix-1.1.iso.md5}
-@c @*
-@c @uref{http://files.lilynet.net/ubuntu-lilydev-remix-1.0.iso.torrent}
-}
 
 @item
 Create a new @qq{virtual machine} inside your virtualization
@@ -80,13 +72,13 @@ for the virtual hard drive.  A complete compile of everything
 (code, docs, regression tests) can reach 10 GB.
 
 @item
-Install @file{ubuntu-lilydev-remix-1.1.iso} as the @strong{guest}
+Install @file{ubuntu-lilydev-remix-2.6.iso} as the @strong{guest}
 operating system on your virtualized system.
 
 @enumerate
 
 @item
-When @file{ubuntu-lilydev-remix-1.1.iso} boots, it shows an
+When @file{ubuntu-lilydev-remix-2.6.iso} boots, it shows an
 ISOLINUX @code{boot:} prompt.  Type:
 
 @example
@@ -102,7 +94,7 @@ drive.
 @item
 When prompted to remove the installation CD, go to
 @clicksequence{Devices @click{} CD/DVD Devices} and de-select
-@file{ubuntu-lilydev-remix-1.1.iso}.
+@file{ubuntu-lilydev-remix-2.6.iso}.
 
 @end enumerate
 
