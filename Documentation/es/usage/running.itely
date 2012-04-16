@@ -131,7 +131,7 @@ del shell y que no tienen nada que ver con lilypond.
 
 @node Opciones básicas de la línea de órdenes para LilyPond
 @unnumberedsubsec Opciones básicas de la línea de órdenes para @command{lilypond}
-@translationof Command line options for lilypond
+@translationof Basic command line options for LilyPond
 
 @cindex invocación de @command{lilypond}
 @cindex opciones de la línea de órdenes para @command{lilypond}

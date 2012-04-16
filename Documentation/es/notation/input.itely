@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
+    Translation of GIT committish: c610645cc9a77cba1a2798280965db142d649ac5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2252,7 +2252,7 @@ el formato de documento portátil (PDF) y PostScript (PS).  Los
 formatos de salida Gráficos de vector escalables (SVG), PostScript
 encapsulado (EPS) y Gráficos de red portátiles (PNG) también están
 disponibles a través de opciones de la línea de órdenes, véase
-@rprogram{Opciones de la línea de órdenes para lilypond}.
+@rprogram{Opciones básicas de la línea de órdenes para LilyPond}.
 
 
 @node Sustituir la tipografía de la notación

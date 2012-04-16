@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: a001627a9609221f05631aaf0366795ce28f8437
+    Translation of GIT committish: 312f7ebc83ec9fb8cbbddfcf78b65a8502c16ab2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -250,7 +250,8 @@ papel}.
 Los tamaños de página están definidos en el archivo
 @file{scm/paper.scm}, y aunque es posible añadir tamaños
 personalizados, se sobreescribirán en las actualizaciones del software
-posteriores.
+posteriores.  La lista de todos los tamaños de papel disponibles
+está en @ref{Tamaños de página predefinidos}.
 
 @c An appendix entry exists for paper sizes but is not auto-generated
 
@@ -287,7 +288,8 @@ página lo hacen.
 
 @seealso
 Referencia de la notación:
-@ref{Escalado automático al tamaño del papel}.
+@ref{Escalado automático al tamaño del papel},
+@ref{Tamaños de página predefinidos}.
 
 Archivos instalados:
 @file{scm/paper.scm}.
