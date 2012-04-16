@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: d6315a746c47259f56dc2835347985658d71d0c9
+    Translation of GIT committish: b6731e900a2037112364ad328b8e3b2f7bcd1eb0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -517,6 +517,12 @@ Brani strumentali dall' @emph{Hippolyte et Aricie} di Rameau presso
 la St. James's Church a Manhattan, 8 Maggio 2009, di Frederick Renz
 e il suo complesso @uref{http://www.earlymusicny.org/, Early Music
 New York} (spartiti realizzati da Nicolas Sceaux).
+
+@item
+@emph{Pictures at an exhibition} di Mussorgsky, riorchestrata e diretta
+da @uref{http://www.aurelienbello.com/,Aurélien Bello} con
+la @uref{http://www.junge-philharmonie-brandenburg.de/,Junge Philharmonie Brandenburg}
+il 10 Ottobre 2011 e di nuovo il 15-16 Aprile 2012.
 
 @end itemize
 @divEnd
@@ -1136,8 +1142,9 @@ git clone http://github.com/textmate/lilypond.tmbundle.git
 @itemize
 
 @item
-@uref{http://www.rosegardenmusic.com,Rosegarden}, un sequencer audio
-e MIDI, che ha anche un editor per le partiture con un solo rigo.
+@uref{http://www.canorus.org,Canorus}, un editor di partiture, può anche
+esportare in formato LilyPond, ma è un software ancora in beta.  Gli utenti
+che vogliono provarlo sono benvenuti.
 
 @item
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
@@ -1146,28 +1153,33 @@ un editor di partiture basato sulla libreria
 l'esportazione in formato LilyPond.
 
 @item
-@uref{http://www.tuxguitar.com.ar/,TuxGuitar}, un editor e riproduttore multitraccia
-per tablatura, include un visualizzatore della partitura e può esportare
-in formato LilyPond.
-
-@item
 @uref{http://www.musescore.org,MuseScore}, un editor di partiture, ha un'esportazione
 in formato LilyPond incompleta ma è in attivo sviluppo.
 
 @item
-@uref{http://www.canorus.org,Canorus}, un editor di partiture, può anche
-esportare in formato LilyPond, ma è un software ancora in beta.  Gli utenti
-che vogliono provarlo sono benvenuti.
+@uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
+NW2LY} è un programma scritto in C# che converte una canzone di
+@uref{http://www.noteworthysoftware.com/,NoteWorthy} in formato
+LilyPond.
+
+@item
+@uref{https://github.com/ciconia/ripple/blob/master/README.markdown,
+Ripple} è un programma che aiuta a creare partiture e parti; include un
+modo per mischiare insieme opere musicali diverse in una singola partitura
+o parte.
+
+@item
+@uref{http://www.rosegardenmusic.com,Rosegarden}, un sequencer audio
+e MIDI, che ha anche un editor per le partiture con un solo rigo.
 
 @item
 @uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, un convertitore
 realtime monofonico da MIDI a LilyPond.
 
 @item
-@uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
-NW2LY} è un programma scritto in C# che converte una canzone di
-@uref{http://www.noteworthysoftware.com/, NoteWorthy} in formato
-LilyPond.
+@uref{http://www.tuxguitar.com.ar/,TuxGuitar}, un editor e riproduttore
+multitraccia per tablatura, include un visualizzatore della partitura e può
+esportare in formato LilyPond.
 
 @end itemize
 

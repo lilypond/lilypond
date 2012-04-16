@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-   Translation of GIT committish: bbd4df5bd5cec42e9b3b23eb6bdfa7123a1b2413
+   Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -87,7 +87,6 @@ un'ottava; ogni@tie{}@code{,} abbassa l'altezza di un'ottava.
   d,,4 d, d c
 }
 @end lilypond
-
 
 @seealso
 Glossario musicale:
@@ -275,7 +274,6 @@ Frammenti di codice:
 Guida al funzionamento interno:
 @rinternals{RelativeOctaveMusic}.
 
-
 @cindex ottava relativa e trasposizione
 @cindex trasposizione e ottava relativa
 
@@ -286,13 +284,11 @@ Guida al funzionamento interno:
 @funindex \relative
 @funindex relative
 
-
 @c DEPRECATED
 Se non viene specificata una @code{@var{altezza_di_riferimento}} per @code{\relative},
 allora si assume che corrisponda a @tie{}@code{c'}.  Tuttavia, questa è un'opzione
 deprecata e potrebbe essere tolta nelle future versioni; il
 suo impiego è quindi sconsigliato.
-
 
 
 @node Alterazioni
@@ -426,16 +422,13 @@ Guida al funzionamento interno:
 @rinternals{AccidentalCautionary},
 @rinternals{accidental-interface}.
 
-
 @cindex alterazione, quarto di tono
 @cindex alterazione di un quarto di tono
 
 @knownissues
-
 Poiché non esistono standard universalmente accettati per indicare
 le alterazioni di quarto di tono, il simbolo impiegato da LilyPond
 non si riferisce ad alcuno standard.
-
 
 
 @node Nomi delle note in altre lingue
@@ -575,7 +568,6 @@ alla musica classica occidentale, nota anche come
 anche altezze e sistemi di accordatura alternativi: si veda
 @ref{Common notation for non-Western music}.
 
-
 @seealso
 Glossario musicale:
 @rglosnamed{Pitch names,Nomi delle altezze},
@@ -669,7 +661,6 @@ falliscono, mentre il secondo non fallisce.
   f
 }
 @end lilypond
-
 
 @seealso
 Frammenti di codice:
@@ -795,7 +786,6 @@ si veda @ref{Instrument transpositions}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
-
 @seealso
 Guida alla notazione:
 @ref{Instrument transpositions},
@@ -810,7 +800,6 @@ Frammenti di codice:
 Guida al funzionamento interno:
 @rinternals{TransposedMusic}.
 
-
 @funindex \transpose
 @funindex transpose
 @funindex \chordmode
@@ -819,7 +808,6 @@ Guida al funzionamento interno:
 @funindex relative
 
 @knownissues
-
 La conversione relativa non avrà effetto sulle sezioni @code{\transpose},
 @code{\chordmode} e @code{\relative} comprese all'interno di un
 blocco @code{\relative}.  Per usare la modalità relativa all'interno
@@ -1277,7 +1265,6 @@ fis
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
-
 @seealso
 Glossario musicale:
 @rglos{church mode},
@@ -1334,7 +1321,6 @@ a2 b
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {ottava-text.ly}
-
 
 @seealso
 Glossario musicale:
@@ -1429,7 +1415,6 @@ R1
 \transposition bes
 c2 g
 @end lilypond
-
 
 @seealso
 Glossario musicale:
@@ -2547,14 +2532,12 @@ Guida al funzionamento interno:
 @rinternals{AccidentalPlacement},
 @rinternals{accidental-suggestion-interface}.
 
-
 @cindex alterazioni e note simultanee
 @cindex note simultanee e alterazioni
 @cindex alterazioni negli accordi
 @cindex accordi, alterazioni in
 
 @knownissues
-
 Le note simultanee non vengono considerate nell'individuazione
 automatica delle alterazioni; vengono prese come riferimento solo
 le note precedenti e l'armatura di chiave.  Se la stessa nota
@@ -2604,6 +2587,7 @@ forget = #(define-music-function (parser location music) (ly:music?) #{
 }
 @end lilypond
 
+
 @node Ambitus
 @unnumberedsubsubsec Ambitus
 @translationof Ambitus
@@ -2651,7 +2635,6 @@ di chiave.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-ambitus-gap.ly}
 
-
 @seealso
 Glossario musicale:
 @rglos{ambitus}.
@@ -2669,9 +2652,7 @@ Guida al funzionamento interno:
 @rinternals{AmbitusNoteHead},
 @rinternals{ambitus-interface}.
 
-
 @knownissues
-
 Le collisioni non vengono gestite in presenza di un ambitus multiplo su
 più di una voce.
 
@@ -2832,7 +2813,6 @@ proposito si veda @ref{Setting the staff size}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {numbers-as-easy-note-heads.ly}
 
-
 @seealso
 Guida alla notazione:
 @ref{Setting the staff size}.
@@ -2955,7 +2935,6 @@ a2 b c d \break
 
 La lista completa di tutti gli stili delle teste si trova in @ref{Note head styles}.
 
-
 @seealso
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
@@ -3002,12 +2981,10 @@ indicato.  Si possono creare queste teste:
 }
 @end lilypond
 
-
 @predefined
 @code{\improvisationOn},
 @code{\improvisationOff}.
 @endpredefined
-
 
 @seealso
 Frammenti di codice:

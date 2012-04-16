@@ -2145,8 +2145,8 @@ The default output formats for the printed score are Portable
 Document Format (PDF) and PostScript (PS).  Scalable Vector
 Graphics (SVG), Encapsulated PostScript (EPS) and Portable
 Network Graphics (PNG) output formats are also available through
-command line options, see @rprogram{Command line options for
-lilypond}.
+command line options, see
+@rprogram{Basic command line options for LilyPond}.
 
 
 @node Replacing the notation font

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 321993f3a277f69471fcacbb6afc12857faa4e8c
+    Translation of GIT committish: c610645cc9a77cba1a2798280965db142d649ac5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -61,7 +61,8 @@ nombreuses documentations que vous pourrez trouver sur ce sujet.
 
 @menu
 * Lancement de lilypond::
-* Options en ligne de commande pour lilypond::
+* Options basiques de lilypond::
+* Options avancées de lilypond::
 * Variables d'environnement::
 * Exécution de LilyPond en mode protégé::
 @end menu
@@ -135,9 +136,9 @@ Notez bien qu'il s'agit ici de commandes internes à l'interpréteur et
 qui n'ont rien à voir avec LilyPond.
 
 
-@node Options en ligne de commande pour lilypond
-@unnumberedsubsec Options en ligne de commande pour @command{lilypond}
-@translationof Command line options for lilypond
+@node Options basiques de lilypond
+@unnumberedsubsec Options basiques de @command{lilypond}
+@translationof Basic command line options for LilyPond
 
 @cindex lancement de @command{lilypond}
 @cindex ligne de commande, options pour @command{lilypond}
@@ -145,184 +146,12 @@ qui n'ont rien à voir avec LilyPond.
 @cindex switches
 @cindex commutateurs
 
-Voici les différentes options disponibles à la ligne de commande@tie{}:
+Différentes options sont disponibles en ligne de commande@tie{}:
 
 @table @code
 
-@item -d,--define-default=@var{var}=@var{val}
-Affecte la valeur Scheme @var{val} à l'option interne @var{var} du
-programme.  En l'absence de @var{val}, le programme utilisera @var{#t}.
-Préfixer @var{var} d'un @code{no-} vous permet de désactiver une option.
-Ainsi,
-
-@cindex point and click, ligne de commande
-@cindex pointer-cliquer, ligne de commande
-
-@example
--dno-point-and-click
-@end example
-
-@noindent
-revient au même que
-@example
--dpoint-and-click=#f
-@end example
-
-Voici les options disponibles@tie{}:
-
-@cindex help, ligne de commande
-
-@table @code
-
-@item help
-Lancer @code{lilypond -dhelp} affichera la liste de toutes les options
-@code{-d} disponibles.
-
-
-@cindex paper-size, ligne de commande
-@item paper-size
-Détermine la taille par défaut du papier, par exemple
-@example
--dpaper-size=\"letter\"
-@end example
-
-@noindent
-Veillez à ne pas oublier d'encadrer la valeur par des guillemets
-échappés ( @code{\"} ).
-@c Match " in previous line to help context-sensitive editors
-
-
-@cindex safe, ligne de commande
-@item safe
-Ne pas avoir une confiance aveugle dans le code @file{.ly}.
-
-Lorsque LilyPond est accessible au travers d'un serveur web, il est
-@strong{impératif} d'utiliser les options @option{--safe} ou
-@option{--jail}.  L'option @option{--safe} aura pour effet d'empêcher
-tout code Scheme inclus de mettre en péril votre installation grâce à
-quelque chose du style
-
-@quotation
-@verbatim
-#(system "rm -rf /")
-{
-  c4^$(ly:gulp-file "/etc/passwd")
-}
-@end verbatim
-@end quotation
-
-L'option @code{-dsafe} forcera l'évaluation, au fil de l'eau et par un
-module sécurisé, des expressions Scheme contenues dans le fichier
-source.  Ce module sécuritaire, dérivé du module GUILE @file{safe-r5rs},
-ajoute un certain nombre de fonctions -- listées dans
-@file{scm/safe-lily.scm} -- à l'API de LilyPond.
-
-De plus, le mode @emph{safe} ne permet ni l'utilisation de directives
-@code{\include} ni le recours aux obliques inversées (@emph{backslash})
-dans les chaînes @TeX{}.
-
-L'import de variables LilyPond dans du code Scheme n'est pas possible
-en mode sécuritaire.
-
-L'option @code{-dsafe} @strong{ne détecte pas} l'utilisation abusive des
-ressources.  Il est donc possible que le programme finisse par rester
-sans réponse si on lui envoie une boucle sans fin.  C'est la raison pour
-laquelle nous recommandons, lorsque LilyPond tourne sur un serveur
-accessible au public, d'en limiter aussi bien les ressources processeur
-que mémoire.
-
-Notez bien que l'utilisation du mode sécuritaire empêchera aussi la
-compilation d'un certain nombre de fragments LilyPond.  L'option
-@code{--jail} est dans ce cas une excellente alternative en terme de
-sécurité, même si elle requiert plus de temps à mettre en place.
-
-
-@cindex format de sortie, définition
-@item backend
-Détermine le format de sortie à utiliser par le moteur de traitement.
-Les types de @code{format} reconnus sont
-
-@table @code
-@item ps
-
-@cindex PostScript output
-pour du PostScript.
-
-Les fichiers PostScript incluent les polices TTF, Type1 et OTF, et
-aucune substitution ne sera opérée pour ces fontes.  Si vous utilisez
-des caractères orientaux, le fichier aura vite fait d'atteindre une
-taille conséquente.
-
-
-@item eps
-@cindex Postscript encapsulé
-@cindex EPS (Encapsulated PostScript)
-pour du PostScript encapsulé.
-
-Chaque page (système) fera l'objet d'un fichier @file{EPS} particulier,
-sans fontes, auquel sera associé un fichier @file{EPS} qui, lui,
-contiendra toutes les pages (systèmes) et les fontes.
-
-Notez qu'il s'agit du mode que @command{lilypond-book} utilise par défaut.
-
-@item svg
-@cindex SVG (Scalable Vector Graphics)
-pour du SVG (@emph{Scalable Vector Graphics}).
-
-Cette option permet de créer un fichier SVG par page, sans incorporation
-des fontes.  Nous vous recommandons d'installer les fontes Century
-Schoolbook comprises dans le paquetage LilyPond afin d'obtenir le
-meilleur rendu possible.  Sous UNIX, il suffit de les recopier, à partir
-du répertoire @file{/usr/share/lilypond/VERSION/fonts/otf/}, dans
-@file{~/.fonts/}.  Les fichiers SVG alors générés devraient être
-lisibles par votre éditeur SVG habituel.
-
-@item scm
-@cindex Scheme dump
-pour une recopie brute des commandes Scheme internes de formatage.
-
-@item null
-permet de ne pas générer de partition imprimable.  Cette option est
-équivalente à @code{-dno-print-pages}.
-
-@end table
-
-Exemple : @code{lilypond -dbackend=svg @var{monfichier}.ly}
-
-
-@item preview
-@cindex preview, ligne de commande
-
-Cette option, disponible dans tous les formats de sortie imprimables --
-@code{pdf}, @code{png}, @code{ps}, @code{eps} et @code{svg} -- génère
-un fichier de la forme @code{monFichier.preview.extension} comprenant le
-titrage et le premier système.  S'il existe plusieurs sections
-@code{\book}, @code{\bookpart}, ce fichier contiendra les titrage et
-premier système de chacun des @code{\book}, @code{\bookpart} et
-@code{\score}, dès lors que la variable @code{print-all-headers} du bloc
-@code{\paper} est activée.
-
-Pour l'éviter, utilisez conjointement l'une des options
-@option{-dprint-pages} ou @option{-dno-print-pages} selon vos besoins.
-
-@item gui
-Travaille silencieusement, et redirige tout le verbiage dans un fichier
-journal.
-
-Note à l'attention des utilisateurs de Windows@tie{}: toutes les
-informations concernant le traitement apparaissent au fur et à mesure
-dans l'interpréteur de commandes lorsque vous lancez le programme
-@code{lilypond.exe}, à l'inverse de @w{@code{lilypond-windows.exe}} qui
-vous renvoie simplement la main.  L'option @option{-dgui} vous permettra
-alors de rediriger ces informations dans un fichier journal.
-
-@item print-pages
-Génère l'intégralité des pages de la partition.  L'option
-@option{-dno-print-pages} est particulièrement utile lorsqu'utilisée
-conjointement avec l'option @option{-dpreview}.
-
-@end table
-
+@item -d,--define-default=@var{variable}=@var{valeur}
+Voir @ref{Options avancées de lilypond}.
 
 @cindex Scheme, évaluation d'expression
 @cindex expression Scheme, évaluation
@@ -349,10 +178,9 @@ en ligne de commande, et ajouter la ligne
 @noindent
 en tête de votre fichier @file{.ly}.
 
-@warning{Les utilisateurs de Windows doivent utiliser des quillements
+@warning{Les utilisateurs de Windows doivent utiliser des guillemets
 doubles @code{"} en lieu et place des guillemets simples @code{'}.}
-@c Match " in previous line to help context-sensitive editors
-
+@c Match " in context-sensitive editors
 
 @cindex sortie, format
 @cindex format de sortie
@@ -362,24 +190,19 @@ ou @code{png}.
 
 Exemple : @code{lilypond -fpng @var{monfichier}.ly}
 
-
 @item -h,--help
 Affiche un résumé des commandes.
 
-
 @item -H,--header=@var{CHAMP}
 Recopie le champ d'entête dans le fichier @file{RACINE.@var{CHAMP}}.
-
 
 @item -i,--init=@var{fichier}
 Définit @var{fichier} (par défaut @file{init.ly}) en tant que fichier
 d'initialisation.
 
-
 @cindex recherche de fichier
 @cindex chemin de recherche
 @item -I,--include=@var{répertoire}
-
 Ajoute @var{répertoire} au chemin de recherche pour les inclusions.
 
 Vous pouvez mentionner plusieurs fois l'option @option{-I}, auquel cas
@@ -387,14 +210,14 @@ la recherche commencera dans le premier répertoire inclus et, si le
 fichier en question ne s'y trouve pas, les répertoires suivants seront
 examinés l'un après l'autre.
 
-
 @cindex chroot jail, fonctionnement
 @item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}
 Lance @command{lilypond} dans un environnement protégé.
 
 L'option @option{--jail} est une alternative qui offre plus de
 flexibilité que l'option @option{--safe} lorsque LilyPond est installé
-sur un serveur web ou traite des fichiers externes.
+sur un serveur web ou traite des fichiers externes -- voir
+@ref{Options avancées de lilypond}.
 
 L'option @option{--jail} va détourner la racine de @command{lilypond}
 sur @var{jail} juste avant d'effectuer la compilation à proprement
@@ -415,7 +238,7 @@ suivantes@tie{}:
 
 @item Création d'un système de fichiers indépendant
 L'intérêt d'un système de fichiers dédié à LilyPond réside dans le fait
-qu'on peut le brider à l'aide des options @code{noexec},@code{nodev} et
+qu'on peut le brider à l'aide des options @code{noexec}, @code{nodev} et
 @code{nosuid}.  Il sera de fait impossible de lancer des exécutables ou
 d'écrire sur un périphérique à partir de LilyPond.  Si vous n'avez pas
 l'intention de créer un tel système sur une partition séparée, vous
@@ -449,11 +272,10 @@ dans cette situation.  Comme nous l'avons vu plus haut, LilyPond sera
 lancé avec les privilèges de l'administrateur -- privilèges qu'il perdra
 aussitôt --, ce qui peut nécessiter le recours à la commande
 @code{sudo}.  Il est par ailleurs judicieux de limiter le temps
-processeur aloué à LilyPond -- grâce à @command{ulimit@tie{}-t} par
+processeur alloué à LilyPond -- grâce à @command{ulimit@tie{}-t} par
 exemple -- ainsi que, si votre système le permet, la taille de la
-mémoire.
+mémoire. Voir aussi @ref{Exécution de LilyPond en mode protégé}.
 @end table
-
 
 @cindex loglevel
 @cindex verbosité, définir le degré de
@@ -488,26 +310,24 @@ Tout ce qui peut être affiché, y compris le verbiage utile au débogage.
 
 @end table
 
-
+@cindex redirection
 @cindex répertoire de destination
 @cindex fichier de destination
 @item -o,--output=@var{FICHIER} ou @var{RÉPERTOIRE}
 Détermine le nom par défaut du fichier résultant à @var{FICHIER}@tie{};
 lorsque l'argument @var{RÉPERTOIRE} correspond à un répertoire déjà
 existant, c'est là que les fichiers résultants seront déposés.  Le
-suffixe adéquat sera ajouté (p.ex. @file{.pdf} pour du pdf) dans tous
+suffixe adéquat sera ajouté (par ex. @code{.pdf} pour du pdf) dans tous
 les cas.
-
 
 @cindex PostScript, output
 @cindex PS (PostScript), output
 @item --ps
 Génère du PostScript.
 
-
-@item --png
 @cindex Portable Network Graphics (PNG), output
 @cindex PNG (Portable Network Graphics), output
+@item --png
 Génère une image par page, au format PNG@tie{}; ceci sous-entend
 l'utilisation de @option{--ps}.  La résolution de l'image, en DPI, peut
 se régler en ajoutant par exemple
@@ -515,26 +335,408 @@ se régler en ajoutant par exemple
 -dresolution=110
 @end example
 
-
-@item --pdf
 @cindex Portable Document Format (PDF), output
 @cindex PDF (Portable Document Format), output
+@item --pdf
 Génère du PDF.  Ceci sous-entend l'utilisation de @option{--ps}.
-
 
 @item -v,--version
 Affiche le numéro de version.
-
 
 @item -V,--verbose
 Active le mode verbeux@tie{}: affichage de l'intégralité du chemin
 d'accès de chaque fichier, et information des temps de traitement.
 
-
 @item -w,--warranty
-Affiche les informations de garantie appliquables à GNU LilyPond -- il
+Affiche les informations de garantie applicables à GNU LilyPond -- il
 est livré @strong{SANS GARANTIE}@tie{}!
+
 @end table
+
+
+@node Options avancées de lilypond
+@unnumberedsubsec Options avancées de @command{lilypond}
+@translationof Advanced command line options for LilyPond
+
+@table @code
+
+@item -d@var{[nom-option]}=@var{[valeur]},--define-default=@var{[nom-option]}=@var{[valeur]}
+Affecte la valeur Scheme @var{valeur} à l'option interne @var{nom-option} du
+programme.  En l'absence de @var{valeur}, le programme utilisera @var{#t}.
+Préfixer @var{nom-option} d'un @code{no-} vous permet de désactiver une option.
+Ainsi,
+
+@cindex point and click, ligne de commande
+@cindex pointer-cliquer, ligne de commande
+
+@example
+-dno-point-and-click
+@end example
+
+@noindent
+revient au même que
+@example
+-dpoint-and-click=#f
+@end example
+@end table
+
+@noindent Voici les différentes options disponibles, ainsi que leur
+valeur par défaut.
+
+@multitable @columnfractions .33 .16 .51
+@item @strong{Symbole}
+@tab @strong{Valeur}
+@tab @strong{Observations}
+
+
+@item @code{anti-alias-factor}
+@tab @code{1}
+@tab Adopte une résolution supérieure (selon le facteur donné),puis
+réduit au niveau du résultat afin d'éviter les @qq{distorsions} des
+images @code{PNG}.
+
+@item @code{aux-files}
+@tab @code{#t}
+@tab Génère les fichiers @code{.tex}, @code{.texi} et @code{.count}
+pour le moteur de rendu @code{EPS}.
+
+@item @code{backend}
+@tab @code{'ps}
+@tab Détermine le format de sortie à utiliser par le moteur de
+traitement.  Les fichiers PostScript (format par défaut) incluent les
+fontes @code{TTF}, @code{Type1} et @code{OTF}, et aucune substitution ne
+sera opérée pour ces fontes.  Si vous utilisez des jeux de caractères
+orientaux, le fichier aura vite fait d'atteindre une taille conséquente.
+
+@item
+@tab @code{'eps}
+@tab Génère du PostScript encapsulé.  Chaque page (système) fera l'objet
+d'un fichier @file{EPS} particulier, sans fontes, auquel sera associé un
+fichier @file{EPS} qui, lui, contiendra toutes les pages (systèmes) et
+les fontes.  Notez qu'il s'agit du mode que @command{lilypond-book}
+utilise par défaut.
+
+@item
+@tab @code{'null}
+@tab Ne génère aucun fichier imprimable.  Cette option est équivalente à
+@code{-dno-print-pages}.
+
+@item
+@tab @code{'svg}
+@tab Génère du@emph{Scalable Vector Graphics}.  Cette option permet de
+créer un fichier @code{SVG} par page, sans incorporation des fontes.
+Nous vous recommandons d'installer les fontes Century Schoolbook
+comprises dans le paquetage LilyPond afin d'obtenir le meilleur rendu
+possible. Sous UNIX, il suffit de les recopier, à partir du répertoire
+@file{/usr/share/lilypond/VERSION/fonts/otf/}, dans @file{~/.fonts/}.
+Les fichiers @code{SVG} alors générés devraient être lisibles par votre
+éditeur SVG habituel.  L'option @code{svg-woff} -- voir ci-après --
+permet d'utiliser les fontes @code{woff} avec le moteur @code{SVG}.
+
+@item
+@tab @code{'scm}
+@tab Recopie littéralement les commandes Scheme internes de formatage.
+
+@item @code{check-internal-types}
+@tab @code{#f}
+@tab Vérifie qu'à chaque propriété est bien affecté un type.
+
+@item @code{clip-systems}
+@tab @code{#f}
+@tab Génère des typons à partir d'une partition.
+
+@item @code{datadir}
+@tab
+@tab Détermine le préfixe des fichiers de données (lecture seule).
+
+@item @code{debug-gc}
+@tab @code{#f}
+@tab Génère une copie brute de la mémoire, aux fins de débogage.
+
+@item @code{debug-gc-assert-parsed-dead}
+@tab @code{#f}
+@tab Pour débogage de la mémoire@tie{}: s'assure que toute référence à
+des objets analysés est effacée.  Il s'agit d'une option interne qui
+est automatiquement activée par l'option @code{`-ddebug-gc'}.
+
+@item @code{debug-lexer}
+@tab @code{#f}
+@tab Débogage de l'analyseur lexical @emph{flex}.
+
+@item @code{debug-page-breaking-scoring}
+@tab @code{#f}
+@tab Purge les calculs des configurations de saut de page.
+
+@item @code{debug-parser}
+@tab @code{#f}
+@tab Débogage de l'analyseur @emph{bison}.
+
+@item @code{debug-property-callbacks}
+@tab @code{#f}
+@tab Débogage des chaînes de @emph{callback} cycliques.
+
+@item @code{debug-skylines}
+@tab @code{#f}
+@tab Débogage des lignes d'horizon.
+
+@item @code{delete-intermediate-files}
+@tab @code{#t}
+@tab Supprime les fichiers @code{.ps} inutiles crées lors de la
+compilation.
+
+@item @code{dump-cpu-profile}
+@tab @code{#f}
+@tab Génère une copie brute des informations de timing (dépend du
+système).
+
+@item @code{dump-profile}
+@tab @code{#f}
+@tab Génère une copie brute de la mémoire et des temps de traitement
+pour chaque fichier.
+
+@item @code{dump-signatures}
+@tab @code{#f}
+@tab Génère une copie des signatures de chaque système.  Cette option
+est utilisée pour les tests de régression.
+
+@item @code{eps-box-padding}
+@tab @code{#f}
+@tab Décale le bord gauche du typon EPS d'une valeur donnée en
+millimètres.
+
+@item @code{gs-load-fonts}
+@tab @code{#f}
+@tab Charge les fontes grâce à Ghostscript.
+
+@item @code{gs-load-lily-fonts}
+@tab @code{#f}
+@tab Limites les fontes chargées par Ghostscript aux seules fontes
+LilyPond.
+
+@item @code{gui}
+@tab @code{#f}
+@tab Travaille silencieusement, et redirige tout le verbiage dans un
+fichier journal.
+@end multitable
+
+@noindent
+@strong{Note à l'attention des utilisateurs de Windows@tie{}:}  toutes
+les informations concernant le traitement apparaissent au fur et à
+mesure dans l'interpréteur de commandes lorsque vous lancez le programme
+@code{lilypond.exe}, à l'inverse de @w{@code{lilypond-windows.exe}} qui
+vous renvoie simplement la main.  L'option @option{-dgui} vous permettra
+alors de rediriger ces informations dans un fichier journal.
+
+@multitable @columnfractions .33 .16 .51
+@item @code{help}
+@tab @code{#f}
+@tab Affiche cette aide.
+
+@item @code{include-book-title-preview}
+@tab @code{#t}
+@tab Inclut les titres de l'ouvrage dans les images de prévisualisation.
+
+@item @code{include-eps-fonts}
+@tab @code{#t}
+@tab Inclut les fontes dans chaque fichier EPS contenant un système.
+
+@item @code{include-settings}
+@tab @code{#f}
+@tab Inclut un fichier contenant les réglages globaux.  Ce fichier sera
+inclus avant traitement de la partition.
+
+@item @code{job-count}
+@tab @code{#f}
+@tab Traite plusieurs fichiers en parallèle, selon le nombre de
+@emph{jobs}.
+
+@item @code{log-file}
+@tab @code{#f [fichier]}
+@tab Fournir @code{TOTO} en second argument redirigera la sortie dans le
+fichier journal @code{TOTO.log}.
+
+@item @code{max-markup-depth}
+@tab @code{1024}
+@tab Profondeur maximale de l'arborescence de @emph{markups}.  Si un
+@emph{markup} était plus profond, part du principe qu'on aboutira pas,
+émet un avertissement et renvoie alors un @emph{markup} vide.
+
+@item @code{midi-extension}
+@tab @code{"midi"}
+@tab Détermine l'extension par défaut des fichiers MIDI, selon la chaîne
+donnée en argument.
+
+@item @code{music-strings-to-paths}
+@tab @code{#f}
+@tab Convertit les chaînes textuelles en chemins lorsque les glyphes
+font partie d'une fonte musicale.
+
+@item @code{old-relative}
+@tab @code{#f}
+@tab Affecte au mode @code{\relative} le même comportement pour de la
+musique simultanée que celui d'une syntaxe d'accords.
+
+@cindex paper-size, ligne de commande
+@item @code{paper-size}
+@tab @code{\"a4\"}
+@tab Détermine la taille par défaut du papier.  Veillez à ne pas oublier
+d'encadrer la valeur par des guillemets échappés (@code{\"}).
+@c Match " in context-sensitive editors
+
+@item @code{pixmap-format}
+@tab @code{png16m}
+@tab Détermine le format de sortie en images pixélisées pour
+Ghostscript.
+
+@item @code{point-and-click}
+@tab @code{#f}
+@tab Ajoute les liens @qq{point & click} à la sortie @code{PDF}.  Voir
+@ref{Pointer-cliquer}.
+
+@cindex format de sortie, définition
+@cindex preview, ligne de commande
+@item @code{preview}
+@tab @code{#f}
+@tab Génère une prévisualisation en plus de la sortie normale.
+@end multitable
+
+@noindent
+Cette option, disponible dans tous les formats de sortie imprimables --
+@code{pdf}, @code{png}, @code{ps}, @code{eps} et @code{svg} -- génère
+un fichier de la forme @code{monFichier.preview.extension} comprenant le
+titrage et le premier système.  S'il existe plusieurs sections
+@code{\book}, @code{\bookpart}, ce fichier contiendra les titrage et
+premier système de chacun des @code{\book}, @code{\bookpart} et
+@code{\score}, dès lors que la variable @code{print-all-headers} du bloc
+@code{\paper} est activée.
+
+Pour l'éviter, utilisez conjointement l'une des options
+@option{-dprint-pages} ou @option{-dno-print-pages} selon vos besoins.
+
+@multitable @columnfractions .33 .16 .51
+@item @code{print-pages}
+@tab @code{#t}
+@tab Génère l'intégralité des pages de la partition.  L'option
+@option{-dno-print-pages} est particulièrement utile lorsqu'utilisée
+conjointement avec l'option @option{-dpreview}.
+
+@item @code{profile-property-accesses}
+@tab @code{#f}
+@tab Enregistre des statistiques des appels à la fonction
+@code{get_property()}.
+
+@item @code{protected-scheme-parsing}
+@tab @code{#t}
+@tab Continue en dépit des erreurs que l'analyseur syntaxique
+détecterait dans du code Scheme inclus.  Lorsque basculé sur @code{#f},
+stoppe le traitement s'il y a erreur et affiche une trace de la pile.
+
+@item @code{read-file-list}
+@tab @code{#f [fichier]}
+@tab Spécifie un fichier listant les différents fichier sources à
+traiter.
+
+@item @code{relative-includes}
+@tab @code{#f}
+@tab Face à une instruction @code{\include}, recherche les fichiers à
+inclure relativement à l'endroit où se trouve le fichier en cours de
+traitement plutôt que par rapport au fichier maître.
+
+@item @code{resolution}
+@tab @code{101}
+@tab Détermine, en @code{dpi}, la résolution des pixmaps @code{PNG} à
+générer selon la valeur donnée.
+
+@item @code{safe}
+@tab @code{#f}
+@tab Ne pas avoir une confiance aveugle dans le code @file{.ly}.
+@end multitable
+
+@noindent
+Lorsque LilyPond est accessible au travers d'un serveur web, il est
+@strong{impératif} d'utiliser les options @option{--safe} ou
+@option{--jail}.  L'option @option{--safe} aura pour effet d'empêcher
+tout code Scheme inclus de mettre en péril votre installation grâce à
+quelque chose du style
+
+@quotation
+@verbatim
+#(system "rm -rf /")
+{
+  c4^$(ly:gulp-file "/etc/passwd")
+}
+@end verbatim
+@end quotation
+
+L'option @code{-dsafe} forcera l'évaluation, au fil de l'eau et par un
+module sécurisé, des expressions Scheme contenues dans le fichier
+source.  Ce module sécuritaire, dérivé du module GUILE @file{safe-r5rs},
+ajoute un certain nombre de fonctions -- listées dans
+@file{scm/safe-lily.scm} -- à l'API de LilyPond.
+
+De plus, le mode @emph{safe} ne permet ni l'utilisation de directives
+@code{\include} ni le recours aux obliques inversées (@emph{backslash})
+dans les chaînes @TeX{}.  L'import de variables LilyPond dans du code
+Scheme n'est pas possible en mode sécuritaire.
+
+L'option @code{-dsafe} @strong{ne détecte pas} l'utilisation abusive des
+ressources.  Il est donc possible que le programme finisse par rester
+sans réponse si on lui envoie une boucle sans fin.  C'est la raison pour
+laquelle nous recommandons, lorsque LilyPond tourne sur un serveur
+accessible au public, d'en limiter aussi bien les ressources processeur
+que mémoire.
+
+Notez bien que l'utilisation du mode sécuritaire empêchera aussi la
+compilation d'un certain nombre de fragments LilyPond.  L'option
+@code{--jail} est dans ce cas une excellente alternative en terme de
+sécurité, même si elle requiert plus de temps à mettre en place -- voir
+@ref{Options basiques de lilypond}.
+
+@multitable @columnfractions .33 .16 .51
+@item @code{separate-log-files}
+@tab @code{#f}
+@tab Pour les fichiers @code{FICHIER1.ly}, @code{FICHIER2.ly} etc.
+enregistre le déroulement dans les journaux @code{FICHIER1.log},
+@code{FICHIER2.log}@dots{}
+
+@item @code{show-available-fonts}
+@tab @code{#f}
+@tab Liste le nom des fontes disponibles.
+
+@item @code{strict-infinity-checking}
+@tab @code{#f}
+@tab Force le crash en présence des points d'exception de virgule
+flottante @code{Inf} ou @code{NaN} -- infini ou non-nombre.
+
+@item @code{strip-output-dir}
+@tab @code{#t}
+@tab Supprime, lors du nommage des fichiers résultant, la partie
+correspondant au répertoire des fichiers sources.
+
+@item @code{svg-woff}
+@tab @code{#f}
+@tab Utilise, avec le moteur SVG, les fontes @code{woff}.
+
+@item @code{trace-memory-frequency}
+@tab @code{#f}
+@tab Enregistre l'utilisation de la cellule Scheme plusieurs fois par
+seconde, dans les fichiers @code{FICHIER.stacks} et
+@code{FICHIER.graph}.
+
+@item @code{trace-scheme-coverage}
+@tab @code{#f}
+@tab Enregistre la couverture des fichiers Scheme dans @code{FILE.cov}.
+
+@item @code{verbose}
+@tab @code{#f}
+@tab Passe en mode verbeux, ce qui correspond à un niveau de
+journalisation @code{DEBUG} (lecture seule).
+
+@item @code{warning-as-error}
+@tab @code{#f}
+@tab Considère tous les messages d'avertissement et @qq{erreur de
+programmation} comme étant de véritables erreurs.
+@end multitable
 
 
 @node Variables d'environnement
@@ -586,7 +788,7 @@ nécessiteront l'utilisation de @code{sudo} autant que de besoin.
 
 @itemize
 
-@item Installation des paquetages nécessaires@tie{}: LilyPond, GhostScript et
+@item Installation des paquetages nécessaires@tie{}: LilyPond, Ghostscript et
 ImageMagick.
 
 @item Création de l'utilisateur @code{lily} :
@@ -678,7 +880,7 @@ cp -L /bin/sh /bin/rm bin
 cp -L /usr/bin/convert /usr/bin/gs usr/bin
 cp -L /usr/share/fonts/truetype usr/share/fonts
 
-# la formule magique de recopie des biblothèques
+# la formule magique de recopie des bibliothèques
 for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
   "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=>  \
     \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed  \
@@ -826,7 +1028,7 @@ Une erreur de durée sera bien plus facilement localisable si vous
 positionnez régulièrement des contrôles de barre de mesure -- voir
 @ruser{Vérification des limites et numéros de mesure}.
 
-Si vous tenez absolument à enchainer de tels débordements, vous devrez
+Si vous tenez absolument à enchaîner de tels débordements, vous devrez
 insérer des barres de mesure invisibles là où vous souhaitez positionner
 un saut de ligne.  Consultez le chapitre @ruser{Barres de mesure} pour
 plus de détails.
@@ -867,7 +1069,7 @@ ces notes en rouge@tie{}:
 @end lilypond
 
 Autre exemple : la présence d'une commande @code{\relative} à
-l'intérieur d'une section @code{\repeat} génèrera obligatoirement une
+l'intérieur d'une section @code{\repeat} générera obligatoirement une
 portée intempestive.  Cela tient au fait que la commande @code{\repeat}
 va créer deux blocs @code{\relative} qui, chacun à leur tour, créeront
 implicitement un bloc @code{Staff} assorti d'un bloc @code{Voice}.
