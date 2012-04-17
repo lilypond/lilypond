@@ -233,7 +233,8 @@ transpose_mutable (SCM alist, Pitch delta)
           if (Music *m = unsmob_music (val))
             m->transpose (delta);
         }
-      else if (prop == ly_symbol2scm ("elements"))
+      else if (prop == ly_symbol2scm ("elements")
+	       || prop == ly_symbol2scm ("articulations"))
         transpose_music_list (val, delta);
       else if (prop == ly_symbol2scm ("pitch-alist")
                && scm_is_pair (val))
