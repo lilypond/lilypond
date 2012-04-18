@@ -59,20 +59,35 @@
     (Announcement . (AnnounceNewContext))
     ))
 
+(define-public (event-class-cons class parent classlist)
+  (let ((lineage (assq parent classlist)))
+    (if (not lineage)
+	(begin
+	  (if (not (null? parent))
+	      (ly:warning (_ "unknown parent class `~a'") parent))
+	  (set! lineage '())))
+    (if (symbol? class)
+	(acons class lineage classlist)
+	(fold (lambda (elt alist)
+		(acons elt lineage alist))
+	      classlist class))))
+
+(define all-event-classes
+  (fold (lambda (elt classlist)
+	  (event-class-cons (cdr elt) (car elt) classlist))
+	'() event-classes))
+
 ;; Maps event-class to a list of ancestors (inclusive)
-(define ancestor-lookup (make-hash-table 11))
+(define-public ancestor-lookup
+  (let ((h (make-hash-table (length all-event-classes))))
+    (for-each (lambda (ent) (hashq-set! h (car ent) ent))
+	      all-event-classes)
+    h))
+
 
 ;; Each class will be defined as
 ;; (class parent grandparent .. )
 ;; so that (eq? (cdr class) parent) holds.
-(for-each
- (lambda (rel)
-   (for-each
-    (lambda (type)
-      (hashq-set! ancestor-lookup type
-		  (cons type (hashq-ref ancestor-lookup (car rel) '()))))
-    (cdr rel)))
- event-classes)
 
 (define-public (define-event-class leaf heritage)
   (cond
