@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: 32b9cd030a1917570346e9b9ea267fe409156b2f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -327,7 +327,7 @@ ein bis zwei Notensystemgruppen pro Seite haben, etwa Orchesterpartituren.
 
 Wenn auf falsch gesetzt, werden die Systeme vertikal auf der letzten Seite
 verteilt.  Bei Stücken, die grob zwei oder mehr Seiten füllen, sollten es auf
-wahr gesetzt werden.  Hiermit wird auch die letzte Seite von Teilen eines
+falsch (@code{false}) gesetzt werden.  Hiermit wird auch die letzte Seite von Teilen eines
 @code{\book}, die mit @code{\bookpart} erstellt sind, beeinflusst.
 
 @end table
@@ -450,6 +450,10 @@ resultierende Abstand der größte von:
 zu vermeiden.
 
 @end itemize
+
+Bei Partituren über mehrere Seiten mit nicht ausgeglichenem unteren Rand
+greift die letzte Seite auf die gleiche Positionierung zurück wie die
+vorhergehende Seite, vorausgesetzt, dafür ist genügend Platz vorhanden.
 
 Spezifische Methoden, um Alisten zu verändern, werden behandelt in
 @ref{Alisten verändern}.  Das folgende Beispiel demonstriert beide Arten,

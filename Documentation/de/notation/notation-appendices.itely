@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
+    Translation of GIT committish: 32b9cd030a1917570346e9b9ea267fe409156b2f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -652,6 +652,7 @@ zu (bspw. @code{g^\markup @{
 * Neomensural-Glyphen::
 * Petrucci-Glyphen::
 * Solesmes-Glyphen::
+* Glyphen der Kiever Notation::
 @end menu
 
 
@@ -917,6 +918,18 @@ zu (bspw. @code{g^\markup @{
 \include "font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #solesmes
+@end lilypond
+
+
+
+@node Glyphen der Kiever Notation
+@unnumberedsubsec Glyphen der Kiever Notation
+@translationof Kievan Notation glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplist \override-lines #'(word-space . 4)
+	     \doc-chars #kievan
 @end lilypond
 
 
