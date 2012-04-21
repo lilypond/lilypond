@@ -59,17 +59,12 @@ Rhythmic_music_iterator::process (Moment m)
           SCM unlistened = SCM_EOL;
           for (; scm_is_pair (arts); arts = scm_cdr (arts))
             {
-              if (scm_is_true
-                  (scm_call_2
-                   (ly_lily_module_constant ("any"),
-                    ly_lily_module_constant ("ly:is-listened-event-class"),
-                    scm_call_1
-                    (ly_lily_module_constant ("ly:make-event-class"),
-                     unsmob_stream_event (scm_car (arts))
-                     ->get_property ("class")))))
-                listened = scm_cons (scm_car (arts), listened);
+	      SCM art = scm_car (arts);
+
+              if (c->event_source ()->is_listened (unsmob_stream_event (art)))
+                listened = scm_cons (art, listened);
               else
-                unlistened = scm_cons (scm_car (arts), unlistened);
+                unlistened = scm_cons (art, unlistened);
             }
           ev->set_property ("articulations", scm_reverse_x (unlistened, SCM_EOL));
           c->event_source ()->broadcast (ev);
