@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 2c5ba46300cf1d3996045fb5d6153306474b042c
+    Translation of GIT committish: 6647daf0d6c8459d2b52bfc3a2a40bad4672fc7a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -73,15 +73,14 @@ Scheme の要素は、@code{.ly} の中で、@c
 * コンテキストのプラグインを変更する::
 * コンテキストのデフォルト設定を変更する::
 * 新しいコンテキストを定義する::
-* コンテキストを揃える::
+* コンテキストの配置順序::
 @end menu
-
 
 @seealso
 学習マニュアル:
 @rlearning{コンテキストとエングラーバ}
 
-インストール済みファイル:
+インストールされているファイル:
 @file{ly/@/engraver@/-init@/.ly},
 @file{ly/@/performer@/-init@/.ly}
 
@@ -727,8 +726,8 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 @code{Score}, @code{Staff} それに @code{Voice} コンテキストにおいて@c
 デフォルトで使用されるコンテキスト設定は、以下の例で示すように、@c
 @code{\layout} ブロックの中で指定することができます。@c
-@code{\layout} ブロックは、それを適用する @code{\score} ブロックの中で、かつ、@c
-音楽表記の外側に配置する必要があります。
+@code{\layout} ブロックは、それを適用する @code{\score} ブロックの中で、@c
+かつ、音楽表記の外側に配置する必要があります。
 
 以下のような方法でコンテキストのデフォルト値を指定する場合、@c
 @code{\set} コマンドとコンテキストを@c
@@ -759,29 +758,46 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 @code{Score} コンテキストや @code{Voice} コンテキストに@c
 変更を適用することができます。
 
-@knownissues
+コンテキストの変更を変数に格納することができます。@c
+コンテキストの変更に @code{\with} を付けて変数に格納して、その変数を@c
+コンテキスト定義の前に置くことにより、変更をコンテキストに適用することが@c
+できます:
+@lilypond[quote,verbatim]
+blubb = \with {
+  fontSize = #-4
+  \override Stem #'thickness = #4.0
+  \remove "Time_signature_engraver"
+}
 
-変数に加えられたコンテキストの変更を収集すること、それに、@c
-その変数を参照することでそれらの変更を @code{\context} 定義に@c
-適用することはできません。
+bla = \with {
+  fontSize = #3
+  \override Stem #'thickness = #-2.0
+}
 
-@code{\RemoveEmptyStaffContext} はカレントの
-@code{\Staff} 設定を上書きします。@c
-@code{\RemoveEmptyStaffContext} を使用する staff
-のデフォルト設定を変更したいのならば、@c
-@code{\RemoveEmptyStaffContext} を呼び出した後に@c
-変更を加える必要があります。@c
-つまり、以下のようにします:
+melody = \relative c'' {
+  a4 a a a |
+  a4 a a a |
+}
 
-@example
-\layout @{
-  \context @{
-    \RemoveEmptyStaffContext
-
-    \override Stem #'thickness = #4.0
-  @}
-@}
-@end example
+\score {
+  <<
+    \new Staff <<
+      \melody
+      s1*0^"Small, thicker stems, no time signature"
+    >>
+    \new Staff \bla <<
+      \melody
+      s1*0^"Different"
+    >>
+  >>
+  \layout {
+    \context {
+      \Staff
+      \blubb
+    }
+  }
+}
+@end lilypond
 
 @c TODO: add \with in here.
 
@@ -971,81 +987,73 @@ squashedPosition = #0
 @end example
 
 
-@node コンテキストを揃える
-@subsection コンテキストを揃える
+@node コンテキストの配置順序
+@subsection Context layout order
 @translationof Context layout order
 
-新しいコンテキストを既存のコンテキストの上または下に揃えることができます。@c
-これはボーカル譜 (@rlearning{合唱}) を組む場合やオッシアで役に立ちます。
+@cindex contexts, layout order (コンテキストの配置順序)
+@funindex \accepts
+@funindex \denies
 
-@c TODO Better example needed.  Ref LM, and expand on it.
+通常、コンテキストは入力ファイルの中で記述した順に楽譜の段の上から下に@c
+配置されます。@c
+コンテキストがネストされている場合、外側のコンテキストは入力ファイルの@c
+中で指定されたコンテキストを内側に保持して、内側のコンテキストは外側の@c
+コンテキストの @qq{accepts} リストに含まれます。@c
+ネストされたコンテキストのうち外側のコンテキストの @qq{accepts} リスト@c
+に含まれないものは、ネストされずに外側のコンテキストの下に再配置されます。
 
-@cindex ossia (オッシア)
-@funindex alignAboveContext
-@funindex alignBelowContext
+コンテキストの @qq{accepts} リストを @code{\accepts} コマンドと
+@code{\denies} コマンドで変更することができます。@c
+@code{\accepts} はコンテキストを @qq{accepts} リストに追加して、@c
+@code{\denies} は @qq{accepts} リストからコンテキストを削除します。@c
+例えば、通常、コード ネームは @code{Staff} コンテキストの中にネスト@c
+されないため、@code{ChordNames} コンテキストはデフォルトでは @code{Staff}
+コンテキストの @qq{accepts} リストには含まれませんが、リストに含める必要が@c
+あれば含めることができます:
 
-@lilypond[quote,ragged-right]
-ossia = { f4 f f f }
-\score{
-  \relative c' \new Staff = "main" {
-    c4 c c c
-    <<
-      \new Staff \with { alignAboveContext = #"main" } \ossia
-      { d8 f d f d f d f }
-    >>
+@lilypond[verbatim,quote]
+\score {
+  \new Staff {
+    c' d' e' f'
+    \chords { d1:m7 b1:min7.5- }
   }
 }
 @end lilypond
 
-@cindex nested contexts (ネストされたコンテキスト)
-@cindex contexts, nested (ネストされたコンテキスト)
-
-@funindex \accepts
-@funindex \denies
-
-@code{PianoStaff} のようなコンテキストは、@c
-ネスト (入れ子) 構造をとって、@c
-他のコンテキストを内部に保持することができます。@c
-ネスト構造をとることができるコンテキストは、@c
-コンテキストの @qq{accepts} リストによって定義されています。@c
-このリストには存在しないコンテキストは、楽譜が譜刻されるとき、@c
-(@code{PianoStaff} などの) 親コンテキストの下に配置されます。@c
-例えば、@code{PianoStaff} コンテキストは、デフォルトで、@c
-@code{Staff} と @code{FiguredBass} コンテキストを内部に受け入れるよう@c
-定義されていますが、(例えば) @code{Lyrics} コンテキストは受け入れません。@c
-そのため、以下の例では、歌詞は 2 つの譜の間ではなく、@c
-ピアノ譜の下に配置されています:
-
-@lilypond[verbatim,quote,relative=1]
-\new PianoStaff
-<<
-  \new Staff { e4 d c2 }
-  \addlyrics { Three blind mice }
+@lilypond[verbatim,quote]
+\score {
   \new Staff {
-    \clef "bass"
-    { c,1 }
+    c' d' e' f'
+    \chords { d1:m7 b1:min7.5- }
   }
->>
+  \layout {
+    \context {
+      \Staff
+      \accepts "ChordNames"
+    }
+  }
+}
 @end lilypond
 
-コンテキストの @qq{accepts} リストを変更することで、
-ネストされるコンテキストを追加するができます。@c
-ですから、歌詞を 2 つの譜の間に表示させたいのなら、以下のようにします:
+@code{\denies} は主に、他のコンテキストをベースに新しいコンテキストを@c
+作成した時に、中にネストするコンテキストを変更するために用いられます。
 
-@lilypond[verbatim,quote,relative=1]
-\new PianoStaff \with { \accepts Lyrics }
-<<
-  \new Staff { e4 d c2 }
-  \addlyrics { Three blind mice }
-  \new Staff {
-    \clef "bass"
-    { c,1 }
-  }
->>
-@end lilypond
+例えば、@code{VaticanaStaff} コンテキストは @code{Staff} コンテキストを@c
+ベースにしていますが、@qq{accepts} リストでは @code{Voice} コンテキスト@c
+の代わりに @code{VaticanaVoice} コンテキストを保持しています。
 
-@code{\accepts} の反対は @code{\denies} です。@c
-これはコンテキストを @qq{accepts} リストから削除します。
+コンテキストに保持されるべきコマンドが出現して、それを保持するための@c
+適切なコンテキストが存在しない場合、コンテキストが暗黙的に作成される@c
+ということに注意してください。@c
+これは予期しない譜や楽譜を生み出す可能性があります。
+
+@seealso
+アプリケーション使用方法:
+@rprogram{An extra staff appears}
+
+インストールされているファイル:
+@file{ly/engraver-init.ly}
 
 
 @node 内部リファレンスの説明
@@ -1056,7 +1064,7 @@ ossia = { f4 f f f }
 @menu
 * 内部リファレンスを使いこなす::
 * レイアウト インターフェイス::
-* グラフィカル オブジェクトを決定する::
+* グラフィカル オブジェクト プロパティを決定する::
 * 命名規約::
 @end menu
 
@@ -1168,7 +1176,6 @@ Music expressions named @rinternals{FingeringEvent}
 (@rinternals{fingering-event}:
 音楽イベント タイプ @code{fingering-event} は
 @rinternals{FingeringEvent} という名前の音楽表記の中にあります)
-
 @end itemize
 
 このパスは、プログラム内部での情報フローとは逆向きです:
@@ -1319,8 +1326,8 @@ This object supports the following interfaces:
 この定義から直接生成されたに過ぎません。
 
 
-@node グラフィカル オブジェクトを決定する
-@subsection グラフィカル オブジェクトを決定する
+@node グラフィカル オブジェクト プロパティを決定する
+@subsection グラフィカル オブジェクト プロパティを決定する
 @translationof Determining the grob property
 
 @c TODO remove this (it's in the LM)
@@ -1395,6 +1402,7 @@ f
 
 @quotation
 Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
+
 (Fingering_engraver は次のコンテキストの一部です: @dots{} @rinternals{Voice})
 @end quotation
 
@@ -1415,7 +1423,6 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 -- 例: as-scheme-functions
 @item グラフィカル オブジェクト インターフェイス: Scheme スタイルです
 -- 例: scheme-style
-@c 未訳
 @item バックエンド プロパティ: Scheme スタイルです (が、X と Y があります！)
 @item コンテキスト (それに、音楽表記とグラフィカル オブジェクト):
 大文字で始まる単語、あるいはそれらをつなげます
@@ -1729,11 +1736,8 @@ Translation @expansion{} Tunable context properties.
 @end ifnothtml
 
 @seealso
-
 内部リファレンス:
-
 @rinternals{Tunable context properties}
-
 
 @cindex grob properties (グラフィカル オブジェクト プロパティ)
 @cindex properties, grob (グラフィカル オブジェクト プロパティ)
@@ -1902,7 +1906,6 @@ and the program reference.
 @end ignore
 
 @seealso
-
 内部リファレンス:
 @rinternals{Backend}
 
@@ -2071,7 +2074,6 @@ f'
 あるいは、@c
 @code{\tweak} の適用で入力を調整する方法を決定するときに役に立つかもしれません。
 
-
 @seealso
 学習マニュアル:
 @rlearning{調整手段}
@@ -2079,10 +2081,9 @@ f'
 拡張:
 @rextend{Displaying music expressions}
 
-
 @knownissues
-
 @cindex tweaks in a variable (変数の中での調整)
+
 @code{\tweak} コマンドを変数の中で用いることはできません。
 
 @cindex tweaks in lyrics (歌詞の中での調整)
@@ -2099,7 +2100,7 @@ f'
 @subsection @code{\set} 対 @code{\override}
 @translationof set versus override
 
-TODO -- This section is probably unnecessary now.
+@c TODO -- This section is probably unnecessary now.
 
 @ignore
 We have seen two methods of changing properties: @code{\set} and
@@ -2243,7 +2244,6 @@ property (modified with @code{\set}) was created.
 @menu
 * 入力モード::
 * 向きと配置::
-* コンテキスト レイアウトの順序::
 * 距離と距離の単位::
 * 譜記号プロパティ::
 * スパナ::
@@ -2260,14 +2260,14 @@ property (modified with @code{\set}) was created.
 入力ファイルの中に保持されている記譜を解釈する方法は、@c
 カレントの入力モードによって決定されます。
 
-@strong{コード モード}
+@strong{和音モード}
 
 このモードは @code{\chordmode} コマンドで有効になり、@c
 入力はコード記譜法の構文で解釈されるようになります。@c
 @ref{Chord notation} を参照してください。@c
 コードは、譜面上に音符として描画されます。
 
-コード モードは @code{\chords} コマンドでも有効になります。@c
+和音モードは @code{\chords} コマンドでも有効になります。@c
 このコマンドは新たに @code{ChordNames} コンテキストも作成します。@c
 入力はコード記譜法の構文で解釈され、@c
 さらに @code{ChordNames} コンテキストの中にコード ネームとして描画されます。@c
@@ -2462,33 +2462,16 @@ c2( c)
 c2( c)
 @end lilypond
 
-
-@node コンテキスト レイアウトの順序
-@subsection コンテキスト レイアウトの順序
-@translationof Context layout order
-
-@cindex contexts, layout order (コンテキスト レイアウトの順序)
-
-通常、コンテキストは、入力ファイルの中で出現した順番に、@c
-システムの上から下へと配置されます。@c
-コンテキストがネストされている場合、@c
-入力ファイルの中で内側にネストされたコンテキストが@c
-外側のコンテキストの @q{accepts} リストの中に含まれているのなら、@c
-外側のコンテキストの内部に配置されます。@c
-外側のコンテキストの @qq{accepts} リストに含まれていない場合、@c
-外側のコンテキストの内部ではなく、下に再配置されます。
-
-入力ファイルの中で、@c
-出現したコマンドを保持する適当なコンテキストが存在しない場合、@c
-コンテキストが暗黙的に作成されます。@c
-これは、予期しない譜やスコアを生み出す可能性があります。
-
-コンテキストが配置される順序や @qq{accepts} リストは変更することができます。@c
-@ref{コンテキストを揃える} を参照してください。
+多声の音楽では、一般的にオブジェクトの向きを変えるよりも明示的に
+@code{voice} を指定した方が良いです。@c
+更なる情報は、@ref{Multiple voices} を参照してください。
 
 @seealso
-アプリケーション使用方法:
-@rprogram{余計な譜が表示される}
+学習マニュアル:
+@rlearning{Within-staff objects}
+
+記譜法リファレンス:
+@ref{Multiple voices}
 
 
 @node 距離と距離の単位
@@ -2543,7 +2526,6 @@ LilyPond における距離には 2 つのタイプがあります: 絶対距離
 Scheme 関数 @code{magstep} を使用することができます。@c
 この関数の説明と使用例については、@c
 @rlearning{オブジェクトの長さと太さ} を参照してください。
-
 
 @seealso
 学習マニュアル:
@@ -2610,7 +2592,6 @@ Scheme 関数 @code{magstep} を使用することができます。@c
 すべてのスパナは @code{spanner-interface} をサポートします。@c
 いくつかのスパナ -- 2 つのオブジェクトの間に直線を描くもの -- は、さらに、@c
 @code{line-spanner-interface} をサポートします。
-
 
 @unnumberedsubsubsec @code{spanner-interface} を使用する
 
@@ -2729,7 +2710,6 @@ e8 e e e
 e8 e e e
 @end lilypond
 
-
 @strong{@i{@code{to-barline} プロパティ}}
 
 @code{spanner-interface} の 2 番目に有用なプロパティは
@@ -2749,7 +2729,6 @@ a \< a a a a \! a a a
 例えば、スラーやフレージング スラー、@c
 あるいは小節線で終了させることに意味が無い他のスパナに対して、@c
 このプロパティを @code{#t} に設定しても効果がありません。
-
 
 @unnumberedsubsubsec @code{line-spanner-interface} を使用する
 
@@ -2894,7 +2873,6 @@ c2 \< c2 c2
 @code{\endSpanners} を使用している場合、@c
 @code{\startTextSpan} を @code{\endTextSpan} で閉じる必要はなく、@c
 ヘアピンを @code{\!} で閉じる必要もありません。
-
 
 @seealso
 内部リファレンス:
@@ -3130,8 +3108,7 @@ f4 g a b
 ベクトルの要素 3 つをすべて記述する必要がありますが、@c
 それらすべてが各レイアウト オブジェクトに対して効果を持つわけではなく、@c
 組み合わせによってはエラーになる場合もあります。@c
-
-even give errors.  The following limitations apply:
+以下の制限があります:
 
 @itemize @bullet
 @item 小節線を行の先頭に描画することはできません。
@@ -3261,7 +3238,6 @@ f4 g a b
 明示的な音部記号の変更では、@c
 @code{explicitClefVisibility} プロパティが@c
 音部記号とそれに関連するオクターブ記号の両方を制御します。
-
 
 @seealso
 学習マニュアル:
@@ -3398,8 +3374,8 @@ fis^\markup { \rotate #30 "an F-Sharp" }
 * グラフィカル オブジェクトを垂直方向にグループ化する::
 * ステンシルを変更する::
 * 形状を変更する::
+* unpure-pure コンテナ::
 @end menu
-
 
 @seealso
 学習マニュアル:
@@ -3410,14 +3386,14 @@ fis^\markup { \rotate #30 "an F-Sharp" }
 @ref{内部リファレンスの説明},
 @ref{プロパティを変更する}
 
-インストール済みファイル:
+拡張:
+@rextend{Interfaces for programmers}
+
+インストールされているファイル:
 @file{scm/define-grobs.scm}
 
 コード断片集:
 @rlsr{Tweaks and overrides}
-
-拡張:
-@rextend{Interfaces for programmers}
 
 内部リファレンス:
 @rinternals{All layout objects}
@@ -3467,7 +3443,10 @@ fis^\markup { \rotate #30 "an F-Sharp" }
 @code{break-aligned-interface} の中に特別なプロパティがあります。
 
 @seealso
+記譜法リファレンス:
 @ref{break-alignable-interface を使用する},
+
+拡張:
 @rextend{Callback functions}
 
 @menu
@@ -3839,7 +3818,6 @@ Feta フォントに含まれる任意の図柄を提供することができま
 
 @c TODO Add inserting Postscript or ref to later
 
-
 @seealso
 記譜法リファレンス:
 @ref{マークアップ内部でのグラフィック記譜法},
@@ -3929,7 +3907,6 @@ X@tie{}座標はそのタイあるいはスラーを取り付けられる音符�
 @end lilypond
 
 @knownissues
-
 同じ音楽タイミングに複数のタイあるいはスラーが存在する場合、@c
 @code{control-points} プロパティを変更しても@c
 それらの形状を変更することはできません。@c
@@ -3940,6 +3917,107 @@ X@tie{}座標はそのタイあるいはスラーを取り付けられる音符�
 @seealso
 内部リファレンス:
 @rinternals{TieColumn}
+
+@cindex Scheme, pure containers (Scheme pure コンテナ)
+@cindex Scheme, unpure containers (Scheme unpure コンテナ)
+@cindex pure containers, Scheme (Scheme pure コンテナ)
+@cindex unpure containers, Scheme (Scheme unpure コンテナ)
+@cindex horizontal spacing, overriding (水平方向のスペースを上書きする)
+
+
+@node unpure-pure コンテナ
+@subsection unpure-pure コンテナ
+@translationof Unpure-pure containers
+
+unpure-pure コンテナは @emph{Y-axis} スペース - 特に @code{Y-offset} と
+@code{Y-extent} - の算出を文字 (つまり、数字やペア) ではなく、Scheme 関数で@c
+上書きする際に有用です。
+
+ある特定のグラフィカル オブジェクトでは、@code{Y-extent} は @code{stencil}
+プロパティをベースにしていて、それらの @code{stencil} プロパティを上書きする場合は
+unpure-pure コンテナで @code{Y-extent} も上書きする必要があります。@c
+関数が @code{Y-offset} と/または @code{Y-extent} を上書きした場合、@c
+その関数はコンパイルの最中に改行の算出を早すぎるタイミングで引き起こすと見なされます。@c
+そのため、その関数はまったく評価されず (通常、@samp{0} または @samp{'(0 . 0)} の@c
+値を返します)、結果として衝突を引き起こすことがあります。@c
+@q{pure} 関数はプロパティ、オブジェクト、あるいはグラフィカル オブジェクトの消失に@c
+影響を与えないため、その関数の Y-axis に関する評価は常に正しく行われます。
+
+現在のところ @q{pure} と見なされる関数が約 30 あり、Unpure-pure コンテナを用いて
+@q{pure} ではない関数を @q{pure} な関数としてセットすることができます。@c
+@q{pure} 関数は改行の @emph{前に} 評価されるため、水平方向のスペースを
+@q{正しいタイミングで} 調節することができます。@c
+@q{unpure} 関数は改行の @emph{後に} 評価されます。
+
+@warning{@q{pure} な関数を常に把握していることは困難なので、作成する @q{pure}
+関数ではグラフィカル オブジェクト @code{Beam} や @code{VerticalAlignment} を@c
+使わないことをおすすめします。}
+
+unpure-pure コンテナは以下のように構築します:
+
+@code{(ly:make-unpure-pure-container f0 f1)}
+
+ここで @code{f0} は @var{n} (@var{n >= 1}) 個の引数を取る関数であり、最初の引数@c
+は常にグラフィカル オブジェクトである必要があります。@c
+これが実際に結果を返す関数です。@c
+@code{f1} は @q{pure} であると見なされる関数であり、@var{n + 2} 個の引数を@c
+取ります。@c
+@code{f1} も最初の引数は常にグラフィカル オブジェクトである必要があり、2 番目と
+3 番目の引数は @q{start} と @q{end} です。
+
+@q{start} と @q{end} は事実上、@code{Spanners} (つまり、@code{Hairpin} や
+@code{Beam}) だけで問題となるダミー値であり、
+@var{start} and @var{end} are, for all intents and purposes, dummy
+values that only matter for @code{Spanners} (i.e @code{Hairpin} or
+@code{Beam}), that can return different height estimations based on a
+starting and ending column.
+
+@code{f1} の残りの引数は @code{f0} の引数と同じです (@var{n = 1} である場合は@c
+残りの引数はありません)。
+
+関数 @code{f1} の結果は概算であり、@code{f0} が実際の値を得るのに用いられます。@c
+@code{f0} の結果はもっと後のスペースの処理で微調整に用いられます。
+
+@lilypond[verbatim,quote,ragged-right]
+#(define (square-line-circle-space grob)
+(let* ((pitch (ly:event-property (ly:grob-property grob 'cause) 'pitch))
+      (notename (ly:pitch-notename pitch)))
+ (if (= 0 (modulo notename 2))
+     (make-circle-stencil 0.5 0.0 #t)
+     (make-filled-box-stencil '(0 . 1.0)
+                              '(-0.5 . 0.5)))))
+
+squareLineCircleSpace = {
+  \override NoteHead #'stencil = #square-line-circle-space
+}
+
+smartSquareLineCircleSpace = {
+  \squareLineCircleSpace
+  \override NoteHead #'Y-extent =
+   #(ly:make-unpure-pure-container
+      ly:grob::stencil-height
+      (lambda (grob start end) (ly:grob::stencil-height grob)))
+}
+
+\new Voice \with { \remove "Stem_engraver" }
+\relative c'' {
+  \squareLineCircleSpace
+  cis4 ces cisis c
+  \smartSquareLineCircleSpace
+  cis4 ces cisis c
+}
+@end lilypond
+
+最初の小節では unpure-pure コンテナを用いていないため、スペース算出エンジンは符頭の@c
+幅を知ることができず、符頭と臨時記号が衝突しています。@c
+次の小節では unpure-pure コンテナを用いているため、スペース算出エンジンは符頭の幅を@c
+知ることができ、それに応じて小節の幅を増やすことで衝突を回避しています。
+
+通常、簡単な計算では、unpure-pure コンテナの @q{unpure} パートと @q{pure} パート@c
+の両方に、引数の数とスコープを変えただけのほとんど同じ関数を用いることができます。
+
+@warning{@q{pure} と見なした関数が @q{pure} でなかった場合、予期しない結果となる@c
+ことがあります。}
 
 
 @node 音楽関数を使用する
@@ -3993,14 +4071,8 @@ function =
 
 です。
 
-@ignore
-共通の変数タイプについては @ref{共通の引数タイプ} で記述されています。@c
-変数タイプについてのもっと完全な記述は
-@rextend{Music function definitions} にあります。
-@end ignore
-
 引数 @code{parser} と @code{location} を省略することはできず、@c
-@rextend{Music function definitions} で記述されている高度な状況で@c
+@rextend{Music functions} で記述されている高度な状況で@c
 使用されることがあります。
 置換関数において、必ずこれらの引数を記述してください。
 
@@ -4023,14 +4095,12 @@ symbol?
 @ref{Predefined type predicates} を参照してください。@c
 ユーザが型述語を定義することもできます。
 
-
 @seealso
-
 記譜法リファレンス:
 @ref{Predefined type predicates}
 
 拡張:
-@rextend{Music function definitions}
+@rextend{Music functions}
 
 インストールされているファイル:
 @file{lily/music-scheme.cc},
@@ -4038,42 +4108,6 @@ symbol?
 @file{scm/lily.scm}
 
 
-@ignore
-@node 共通の引数タイプ
-@subsection 共通の引数タイプ
-@translationof Common argument types
-
-エラー チェックを考慮して、@c
-音楽関数に渡される各引数タイプを定義しておく必要があります。@c
-共通の引数タイプのいくつかを以下の表で示します。@c
-
-以下の入力タイプを音楽関数で変数として使用することができます。@c
-このリストは完全なものではありません。@c
-取り得る変数タイプについての更なる情報は、
-@rextend{Music function definitions} にあります。
-
-@multitable @columnfractions .33 .66
-@headitem 入力タイプ          @tab @var{vari-type?} での記述方法
-@item 整数                    @tab @code{integer?}
-@item 浮動小数点数 (10 進数)  @tab @code{number?}
-@item テキスト文字列          @tab @code{string?}
-@item マークアップ            @tab @code{markup?}
-@item 音楽表記                @tab @code{ly:music?}
-@item Scheme ペア             @tab @code{pair?}
-@end multitable
-
-@seealso
-
-LilyPond の拡張:
-@rextend{Music function definitions}
-
-インストール済みファイル:
-@file{lily/music-scheme.cc},
-@file{scm/c++.scm}
-@end ignore
-
-
-@c ここから L3796
 @node 置換関数の例
 @subsection 置換関数の例
 @translationof Substitution function examples
