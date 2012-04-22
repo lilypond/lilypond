@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
+    Translation of GIT committish: dd8a0b7cc3280f273e66d20c72f1d4097dc6645a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -542,6 +542,7 @@ f1 d2 r
 @cindex fuente tipográfica, tamaño de
 @cindex texto, tamaño de
 
+@funindex \abs-fontsize
 @funindex \fontsize
 @funindex fontsize
 @funindex \smaller
@@ -551,42 +552,42 @@ f1 d2 r
 @funindex \magnify
 @funindex magnify
 
-El tamaño de los caracteres también se puede alterar de distintas
-maneras:
+El tamaño de la fuente tipográfica se puede alterar en relación al
+tamaño global del pentagrama, de una serie de formas como se ve a
+continuación.
 
-@itemize
-@item
-el tamaño de la tipografía se puede definir a una serie de tamaños
-estándar predefinidos,
+Se puede fijar a un tamaño predefinido,
 
-@item
-el tamaño de la tipografía se puede establecer a un valor absoluto,
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \huge Sinfonia }
+b1^\markup { \teeny da }
+b1-\markup { \normalsize camera }
+@end lilypond
 
-@item
-el tamaño de la tipografía también se puede cambiar de forma relativa
-respecto de su valor anterior.
-@end itemize
+Se puede establecer a un tamaño relativo al valor anterior,
 
-@noindent
-El ejemplo siguiente ejemplifica estos tres métodos:
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \larger Sinfonia }
+b1^\markup { \smaller da }
+b1-\markup { \magnify #0.6  camera }
+@end lilypond
 
-@lilypond[quote,verbatim,relative=1]
-f1_\markup {
-  \tiny espressivo
-  \large e
-  \normalsize intenso
-}
-a^\markup {
-  \fontsize #5 Sinfonia
-  \fontsize #2 da
-  \fontsize #3 camera
-}
-bes^\markup { (con
-  \larger grande
-  \smaller emozione
-  \magnify #0.6 { e sentimento } )
-}
-d c2 r8 c bes a g1
+Se puede aumentar o disminuir de forma relativa al valor fijado por el
+tamaño global del pentagrama,
+
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \fontsize #-2 Sinfonia }
+b1^\markup { \fontsize #1 da }
+b1-\markup { \fontsize #3 camera }
+@end lilypond
+
+También se puede establecer a un tamaño de puntos fijo,
+independientemente del tamaño global del pentagrama,
+
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \abs-fontsize #20 Sinfonia }
+b1^\markup { \abs-fontsize #8 da }
+b1-\markup { \abs-fontsize #14 camera }
 @end lilypond
 
 @cindex subíndice
@@ -596,6 +597,8 @@ d c2 r8 c bes a g1
 @funindex super
 @funindex \sub
 @funindex sub
+@funindex \normal-size-super
+@funindex normal-size-super
 
 El texto se puede imprimir como subíndice o como superíndice.  De
 forma predeterminada se imprimen en un tamaño menor, pero también se

@@ -2333,7 +2333,7 @@ Portable Document Format (PDF) と PostScript (PS) です。@c
 コマンド ライン オプションを指定することにより、@c
 Scalable Vector Graphics (SVG), Encapsulated PostScript (EPS) それに
 Portable Network Graphics (PNG) 出力フォーマットが利用可能です。@c
-@rprogram{lilypond のコマンド ライン オプション} を参照してください。
+@rprogram{Basic command line options for LilyPond} を参照してください。
 
 
 @node 記譜フォントを置換する

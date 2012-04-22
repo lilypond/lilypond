@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: f1d318170db686e9215c391a448975d5e88fad91
+    Translation of GIT committish: faf3ecd73ed2b708b4a1bc8c1150767359a73bdf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -224,9 +224,10 @@ los contextos del nivel más bajo, es decir: @code{Voice},
 ejemplos siguientes.  Veremos más tarde cuándo se debe especificar.
 
 Las últimas secciones tratan de forma exhaustiva las propiedades y sus
-valores, pero para ilustrar el formato y utilización de estas
-instrucciones usaremos sólo unas cuantas propiedades y valores
-sencillos que sean fáciles de entender.
+valores, véase @ref{Tipos de propiedades}.  Pero en esta sección
+usaremos sólo unas cuantas propiedades y valores
+sencillos que sean fáciles de entender, para ilustrar el formato
+y la utilización de estas instrucciones.
 
 Por ahora no se preocupe por el @code{#'}, que debe anteponerse a la
 propiedad de presentación, y el@tie{}@code{#}, que debe preceder al valor.
