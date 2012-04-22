@@ -1289,36 +1289,39 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
   return scm_from_double (offset + staff_space * shift);
 }
 
+/*
+  Estimate the position of a rest under a beam,
+  as the average position of its neighboring heads.
+*/
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Beam, pure_rest_collision_callback, 4, 1, "");
 SCM
 Beam::pure_rest_collision_callback (SCM smob,
-                                    SCM, /* prev_offset */
                                     SCM, /* start */
-                                    SCM /* end */)
+                                    SCM, /* end */
+                                    SCM prev_offset)
 {
-  Real amount = 0.0;
+  Real previous = robust_scm2double (prev_offset, 0.0);
 
   Grob *me = unsmob_grob (smob);
   Grob *stem = unsmob_grob (me->get_object ("stem"));
   if (!stem)
-    return scm_from_double (amount);
+    return scm_from_double (previous);
   Grob *beam = unsmob_grob (stem->get_object ("beam"));
   if (!beam
       || !Beam::normal_stem_count (beam)
       || !is_direction (beam->get_property_data ("direction")))
-    return scm_from_double (amount);
+    return scm_from_double (previous);
 
   Real ss = Staff_symbol_referencer::staff_space (me);
 
   /*
     This gives the extrema of rest positions.
-    In general, beams are never typeset more than one staff space away
-    from the staff in either direction.
+    Even with noteheads on ledgers, beams typically remain within the staff,
+    and push rests at most one staff-space (2 positions) from the staff.
   */
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
   Interval rest_max_pos = staff ? Staff_symbol::line_span (staff) : Interval (0.0, 0.0);
-  rest_max_pos.widen (1);
-  rest_max_pos *= ss / 2;
+  rest_max_pos.widen (2);
 
   extract_grob_set (beam, "stems", stems);
   vector<Grob *> my_stems;
@@ -1339,7 +1342,7 @@ Beam::pure_rest_collision_callback (SCM smob,
   Grob *right;
 
   if (idx == (vsize) - 1 || my_stems.size () == 1)
-    return scm_from_double (amount);
+    return scm_from_double (previous);
   else if (idx == 0)
     left = right = my_stems[1];
   else if (idx == my_stems.size () - 1)
@@ -1349,15 +1352,19 @@ Beam::pure_rest_collision_callback (SCM smob,
       left = my_stems[idx - 1];
       right = my_stems[idx + 1];
     }
-  Direction beamdir = get_grob_direction (beam);
-  /*
-    Take the position between the two bounding head_positions,
-    then bound it by the minimum and maximum positions outside the staff.
-    4.0 = 2.0 to get out of staff space * 2.0 for the average
-  */
-  amount = min (max ((Stem::head_positions (left)[beamdir] + Stem::head_positions (right)[beamdir]) / 4.0, rest_max_pos[DOWN]), rest_max_pos[UP]);
 
-  return scm_from_double (amount);
+  /* In stems with several heads, use the one closest to the beam. */
+  Direction beamdir = get_grob_direction (beam);
+  Real shift = min (max ( (Stem::head_positions (left)[beamdir]
+                           + Stem::head_positions (right)[beamdir]) / 2.0,
+                          rest_max_pos[DOWN]),
+                    rest_max_pos[UP]
+                   ) * ss / 2.0
+               - previous;
+  /* Always move by a whole number of staff spaces */
+  shift = ceil (fabs (shift / ss)) * ss * sign (shift);
+
+  return scm_from_double (previous + shift);
 }
 
 bool
