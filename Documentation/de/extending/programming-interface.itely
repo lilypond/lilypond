@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
+    Translation of GIT committish: 32b9cd030a1917570346e9b9ea267fe409156b2f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.17"
+@c \version "2.15.18"
 
 @c Translators: Till Paala
 
@@ -22,7 +22,10 @@ es eine grundlegende Einleitung in LilyPonds
 @ref{Scheme-Übung}.
 
 @menu
+* LilyPond-Codeabschnitte::
+* Scheme-Funktionen::
 * Musikalische Funktionen::
+* Ereignisfunktionen::
 * Textbeschriftungsfunktionen::
 * Kontexte für Programmierer::
 * Callback-Funktionen::
@@ -31,72 +34,295 @@ es eine grundlegende Einleitung in LilyPonds
 @end menu
 
 
-@node Musikalische Funktionen
-@section Musikalische Funktionen
-@translationof Music functions
+@node LilyPond-Codeabschnitte
+@section LilyPond-Codeabschnitte
+@translationof Lilypond code blocks
 
-Dieser Abschnitt behandelt die Erstellung von musikalischen Funktionen
-innerhalb von LilyPond. @emph{Musikalische Funktionen} sind Scheme-Prozeduren,
-die musikalische Ausdrücke automatisch erstellen können und dadurch die
-Eingabedatei maßgeblich vereinfachen können.
+Codeabschnitte in LilyPond sehen etwa so aus:
+
+@example
+  #@{ @var{Lilypond code} #@}
+@end example
+
+Sie können überall eingesetzt werden, wo man Scheme-Code schreiben
+kann: der Scheme-Einleser wurde geändert, um LilyPond-Codeabschnitte
+zu akzeptieren und kann mit eingebetteten Scheme-Ausdrücken umgehen,
+die mit @code{$} und@w{ }@code{#} beginnen.
+
+Er extrahiert den LilyPond-Codeabschnitt und erstellt einen Aufruf
+zum LilyPond-Parser, welcher während der Prorammausführung zur
+Interpretation des LilyPond-Codeabschnittes aufgerufen wird.  Alle
+eingebetteten Scheme-Ausdrücke werden in der lokalen Umgebung des
+LilyPond-Codeabschnittes ausgeführt, sodass man Zugruff auf lokale
+Variablen und Funktionsparameter zu dem Zeitpunkt hat, an dem
+der LilyPond-Codeabschnitt geschrieben wird.
+
+Ein LilyPond-Codeabschnitt kann jeden Inhalt haben, den man auf
+der rechten Seite einer Zuweisung einsetzt.  Zusätzlich entspricht
+ein leerer LilyPond-Abschnitt einem gültigen musikalischen Ausdruck,
+und ein LilyPond-Abschnitt, der mehrere musikalische Ereignisse enthält,
+wird in einen sequenziellen musikalischen Ausdruck umgewandelt.
+
+
+@node Scheme-Funktionen
+@section Scheme-Funktionen
+@translationof Scheme functions
+
+@cindex Scheme-Funktionen (LilyPond syntax)
+
+@emph{Scheme-Funktionen} sind Scheme-Prozeduren, die Scheme-Ausdrücke
+aus einer Eingabe erstellen können, die in LilyPond-Syntax geschrieben
+wurde.  Sie können in so gut wie allen Fällen aufgerufen werden, in
+denen es erlaubt ist, @code{#} zur Angabe eines Wertes in Scheme-Syntax
+einzusetzen.  Während Scheme auch eigene Funktionen besitzt, handelt
+% dieses kapitel von @emph{syntaktischen} Funktionen, Funktionen, die
+Argumente in LilyPond-Syntax annehmen.
 
 @menu
-* Syntax der musikalischen Funktionen::
-* Einfache Ersetzungsfunktionen::
-* Mittlere Ersetzungsfunktionen::
-* Mathematik in Funktionen::
-* Funktionen ohne Argumente::
-* Leere Funktionen::
+* Definition von Scheme-Funktionen::
+* Benutzung von Scheme-Funktionen::
+* Leere Scheme-Funktionen::
 @end menu
 
-@node Syntax der musikalischen Funktionen
-@subsection Syntax der musikalischen Funktionen
-@translationof Music function definitions
+@node Definition von Scheme-Funktionen
+@subsection Definition von Scheme-Funktionen
+@translationof Scheme function definitions
 
-Die allgemeine Form von musikalischen Funktionen ist:
+@funindex define-scheme-function
+
+Die übliche Form zur Definition von Scheme-Funktionen ist:
 
 @example
 function =
-#(define-music-function
+#(define-scheme-function
      (parser location @var{Arg1} @var{Arg2} @dots{})
      (@var{Typ1?} @var{Typ2?} @dots{})
-   @var{Noten})
+   @var{body})
 @end example
 
 @noindent
 wobei
 
 @multitable @columnfractions .33 .66
-@item @var{ArgN}
-@tab das @var{n}te Argument
+@item @code{parser}
+@tab ganz genau das Wort @code{parser} sein muss, damit LilyPond
+eine Umgebung (@code{#@{}@dots{}@code{#@}}) mit Zugriff
+auf den Parser bekommt.
 
-@item @var{TypN?}
-@tab ein Scheme-Typenprädikat (engl. type predicate), für welches
-@code{@var{ArgN}} @code{#t} ausgeben muss.  Einige dieser Prädikate
-werden durch den Parser gesondert erkannt, sodass die entsprechenden
-Werte als LilyPond-Syntx gelesen werden und nicht als Scheme-Syntax.
-Diese Prädikate sind gegenwärtig @code{ly:music?}, @code{markup?}, @code{ly:pitch?}
-und @code{ly:duration?}.  Nicht alle Kombinationen sind erlaubt:
-man kann z. B. nicht eine Dauer nach den Noten suchen, denn Noten
-können @emph{optional} mit einer Dauer enden.
+@item @code{@var{ArgN}}
+@tab @var{n}te Argument
 
-Wenn Sie wirklich einige dieser Elemente als Scheme- und nicht als
-LilyPond-Ausdruck einsetzen wollen, können Sie sie in einen Aufruf
-von @code{ly:export} einfügen.
+@item @code{@var{TypN?}}
+@tab eine Scheme-@emph{Typenprädikat}, für welches @code{@var{argN}}
+@code{#t} ausgeben muss.  Manche dieser Prädikate werden vom Parser
+besonders erkannt, siehe unten.  Es gibt auch eine Spezialform
+@code{(@emph{predicate?} @emph{default})}, um optionale Argumente
+anzugeben.  Wenn das eigentlich Argument fehlt, während die Funktion
+aufgerufen wird, wird der Standardwert anstelle eingesetzt.  Standardwerte
+werden bei ihrer Definition evaluiert (gilt auch für
+LilyPond-Codeabschnitte), so dass man besser einen speziellen Wert
+schreibt, den man einfach erkennen kann, wenn der Wert während der
+Ausführung der Position evaluiert weren soll.  Wenn man das Prädikat
+in Klammern setzt, aber  kein Standardwert folt, wird @code{#f}
+als Standard eingesetzt.  Standardwerte werden weder bei der Definition
+noch bei der Ausführung mit @emph{predicate?} verifiziert, sodass
+man selber verantworlich für funktionsfähige Werte ist.  Standardwerte,
+die musikalische Ausdrücke darstellen, werden kopiert und @code{origin}
+auf den Parameter @code{location} gesetzt.
 
-@item @var{...Noten...}
-@tab ein musikalischer Ausdruck, optional in Scheme geschrieben, mit allem
-LilyPond-Code in Raute/geschweifte Klammer eingeschlossen
-(@tie{}@w{@code{#@{@dots{}#@}}}@tie{}).  Innerhalb der LilyPond-Codeumgebungen
-wird @code{$} eingesetzt, um auf Funktionsargumente zu verweisen (etwa
-@samp{$Arg1}), oder ein neuer Scheme-Ausdruck muss begonnen werden,
-der die Funktionsargumente enthält (etwa @w{@samp{$(cons Arg1 Arg2)}}).
+@item @code{@var{body}}
+@tab Eine Folge von Scheme-Formeln, die der Reihe nach ausgewertet
+werden, wobei die letzte als Ausgabewert der Scheme-Funktion eingesetzt
+wird.  Sie kann LilyPond-Codeabschnitte enthalten, eingeschlossen mit
+Raute-Klammern (@tie{}@w{@code{#@{@dots{}#@}}}@tie{}), wie beschrieben
+in @ref{LilyPond-Codeabschnitte}.  Innerhalb von LilyPond-Codeabschnitten
+wird mit @code{#} auf Funktionsargumente (etwa @samp{#Arg1}) verwiesen
+oder ein neuer Scheme-Ausdruck mit Funktionsargumenten begonnen
+(etwa @w{@samp{#(cons Arg1 Arg2)}}).  Wo normale Scheme-Ausdrücke mit
+@code{#} nicht funktionieren, kann man auf direkte Scheme-Ausdrücke
+zurückgreifen, die mit @code{$} begonnen werden (etwa @samp{$music}).
 
+Wenn die Funktion eine musikalische Funktion ausgibt, bekommt sie einen
+Wert von @code{origin}. zugewiesen.
 @end multitable
 
+@noindent
+Einige Typenprädikate werden vom Parser besonders behandelt, weil
+er sonst die Argumente nicht zuverlässig erkennen könnte.  Im Moment
+handelt es sich um @code{ly:pitch?} und @code{ly:duration?}.
+
+Die Eignung der Argumente für alle anderen Prädikate wird festgestellt,
+indem das Prädikat aufgerufen wird, nachdem LilyPond es schon in einen
+Scheme-Ausdruck umgewandelt hat.  Demzufolge kann das Argument in
+Scheme-Syntax angegeben werden, wenn nötig (beginnend mit @code{#} oder
+als Result des Aufrufes einer Scheme-Funktion), aber LilyPond
+konvertiert auch eine Reihe von LilyPond-Strukturen nach Scheme,
+bevor dann tatsächlich die Prädikate überprüft werden.  Bei den
+letzteren handelt es sich im Moment um music (Noten), postevents,
+simple strings (einfache Zeichenketten mit oder ohne Anführungszeichen)
+numbers (Zahlen), markup (Beschriftung) und markup lists
+(Beschriftungslisten), score (Partitur), book (Buch), bookpart
+(Buchteil), Kontextdefinitions- und Ausgabedefinitionsumgebungen.
+
+Für einige Arten von Ausdrücken (wie die meisten Noten, die nicht
+in Klammern geschrieben werden) muss LilyPond weiter nach vorne
+schauen als der Ausdruck selber reicht, um das Ende des Ausdrucks
+zu bestimmen.  Wenn solche Ausdrücke für optionale Argumente mit
+einbezogen würden, indem ihre Prädikate ausgewählt würden, könnte
+LilyPond nicht mehr zurückgehen, wenn es feststellt, dass der
+Ausdruck nicht zu dem Parameter passt.  Darum müssen manche Formen
+von Noten möglicherweise in Klammern eingeschlossen werden, damit
+LilyPond sie akzeptiert.  Es gibt auch einige andere Mehrdeutigkeiten,
+die LilyPond durch Testen von Prädikatfunktionen eingrenzt:
+ist etwa @samp{-3} die Anmerkung für einen Fingersatz oder eine
+negative Zahl? Ist @code{"a" 4} im Gesangskontext eine Zeichenkette
+gefolgt von einer Zahl oder ein Gesangstextereignis mit der Dauer
+@code{4}?  LilyPond entscheidet, indem es Prädaikate befragt.  Das
+heißt, dass man zu durchlässige Prädikate wie @code{scheme?}
+vermeiden sollte, wenn man eine bestimmmte Verwendung beabsichtigt
+und nicht nur eine Funktion für die allgemeine Verwendung schreibt.
+
+Eine Liste der möglichen vordefinierten Typenprädikte findet sich in
+@ruser{Vordefinierte Typenprädikate}.
+
+@seealso
+
+Notationsreferenz
+@ruser{Vordefinierte Typenprädikate}.
+
+Installierte Dateien:
+@file{lily/music-scheme.cc},
+@file{scm/c++.scm},
+@file{scm/lily.scm}.
+
+
+@node Benutzung von Scheme-Funktionen
+@subsection Benutzung von Scheme-Funktionen
+@translationof Scheme function usage
+
+Scheme-Funktionen können überall aufgerufen werden, wo ein
+Scheme-Ausdruck beginnend mit @code{#} geschrieben werden kann.
+Man kann eine Scheme-Funktion aufrufen, indem man ihrer Bezeichnung
+@code{\} voranstellt und Argumente hinten anfügt.  Wenn ein optionales
+Argumentenprädikat nicht mit einem Argument übereinstimmt, lässt
+LilyPond dieses und alle folgenden Argumente aus und ersetzt sie
+durch ihre Standardwerte und @qq{speichert} das Argument, das nicht
+gepasst hat, bis zum nächsten zwingenden Argument.  Da das gespeicherte
+Argument auch noch irgendwo untergebracht werden muss, werden
+optionale Argumente nicht wirklich als optional angesehen, es sei denn,
+sie werden von einem zwingenden Argument gefolgt.
+
+Es gibt eine Ausnahme:  Wenn man @code{\default} anstelle eines optionalen
+Arguments schreibt, wird dieses und alle folgenden Argumente ausgelassen
+und durch ihre Standardwerte ersetzt.  Das funktioniert auch, wenn kein
+zwingendes Argument folgt, weil @code{\default} nicht gespeichert werden
+muss.  Die Befehle @code{mark} und @code{key} benützten diesen Trick,
+um ihr Standardverhalten zur verfügung zu stellen, wenn sie
+@code{\default} nachgestellt haben.
+
+Abgesehen von Stellen, wo ein Scheme-Wert benötigt ist, gibt es
+wenige Stellen, wo @code{#}-Ausdrücke zwar für ihre (Neben-)Wirkung
+akzeptiert und ausgewertet, aber ansonsten ignoriert werden.  Meistens
+handelt es sich dabei um Stellen, wo eine Zuweisung auch in Ordnung
+wäre.
+
+Weil es eine schlechte Idee ist, einen Wert auszugeben, der in einigen
+Kontexten misinterpretiert werden könnte, sollte man Scheme-Funktionen
+nur in den Fällen benutzen, in welchen sie immer einen sinnvollen
+Wert ausgeben, und leere Scheme-Funktionen an anderen stellen
+einsetzen.  Siehe auch @pxref{Leere Scheme-Funktionen}.
+
+
+@node Leere Scheme-Funktionen
+@subsection Leere Scheme-Funktionen
+@translationof Void scheme functions
+
+@funindex define-void-function
+@funindex \void
+
+Manchmal wird eine Prozedur ausgeführt, um eine Aktion zu machen und nicht,
+um einen Wert auszugeben.  Einige Programmiersprachen (wie C oder Scheme)
+setzen Funktionen für beide Konzepte ein und verwerfen einfach den
+Rückgabewert (normalerweise, indem einem Ausdruck erlaubt wird, als
+Aussage zu funktionieren und das Ergebnis ignoriert wird).  Das ist
+klug, aber auch fehleranfällig:  die meisten C-Kompilierer haben heutzutage
+Warnungen für verschiedene nicht-@qq{gültige} Ausdrücke, die verworfen
+werden.  Viele Funktionen, die eine Aktion ausführen, werden von den
+Scheme-Standards als Funktionen betrachtet, deren Wiedergabewert unspezifiert
+ist.  Der Scheme-Interpreter von LilyPond, Guile, hat den eindeutigen
+Wert @code{*unspecified*}, der normalerweise (etwa wenn man @code{set!}
+direkt auf eine Variable anwendet), aber leider nicht konsistent in
+diesen Fällen ausgegeben wird.
+
+Indem man eine LilyPond-Funktion mit @code{define-void-function} definiert,
+geht man sicher, dass dieser Spezialwert (der einzige Wert, der das
+Prädikat @code{void?} erfüllt) wiedergegeben wird.
+
+@example
+noPointAndClick =
+#(define-void-function
+     (parser location)
+     ()
+   (ly:set-option 'point-and-click #f))
+...
+\noPointAndClick   % Point and Click deaktivieren
+@end example
+
+Wenn man einen Ausdruck nur wegen seiner Nebeneffekte evaluieren will
+und keinen der möglicherweise ausgegebenen Werte interpretiert haben
+will, kann man dem Ausdruck @code{\void} voranstellen:
+
+@example
+\void #(hashq-set! eine-Tabelle ein-Schlüssel ein-Wert)
+@end example
+
+Auf diese Weise kann man sicher sein, dass LilyPond dem ausgegebenen
+Wert keine Bedeutung zuweist, unabhängig davon, wo er angetroffen wird.
+Das funktioniert auch für musikalische Funktionen wie @code{\displayMusic}.
+
+
+@node Musikalische Funktionen
+@section Musikalische Funktionen
+@translationof Music functions
+
+@cindex musikalische Funktionen
+
+@emph{Musikalische Funktionen} sind Scheme-Prozeduren,
+die musikalische Ausdrücke automatisch erstellen können und dadurch die
+Eingabedatei maßgeblich vereinfachen können.
+
+@menu
+* Definition der musikalischen Funktionen::
+* Benutzung von musikalischen Funktionen::
+* Einfache Ersetzungsfunktionen::
+* Mittlere Ersetzungsfunktionen::
+* Mathematik in Funktionen::
+* Funktionen ohne Argumente::
+* Leere musikalische Funktionen::
+@end menu
+
+
+@node Definition der musikalischen Funktionen
+@subsection Definition der musikalischen Funktionen
+@translationof Music function definitions
+
+Die allgemeine Form zur Definition musikalischer Funktionen ist:
+
+@example
+function =
+#(define-music-function
+     (parser location @var{Arg1} @var{Arg2} @dots{})
+     (@var{Typ1?} @var{Typ2?} @dots{})
+   @var{body})
+@end example
+
+@noindent
+analot zu Scheme-Funktionen, siehe @ref{Definition von Scheme-Funktionen}.
+In der Mehrzahl der Fälle ist @var{body} ein LilyPond-Codeabschnitt (siehe
+@ref{LilyPond-Codeabschnitte}.
+
 Eine Liste der möglichen Typenprädikate findet sich in
-@ruser{Vordefinierte Typenprädikate}.  Durch den Benutzer definierte
-Typenprädikate sind auch erlaubt.
+@ruser{Vordefinierte Typenprädikate}.
 
 @seealso
 
@@ -107,6 +333,47 @@ Installierte Dateien:
 @file{lily/music-scheme.cc},
 @file{scm/c++.scm},
 @file{scm/lily.scm}.
+
+
+@node Benutzung von musikalischen Funktionen
+@subsection Benutzung von musikalischen Funktionen
+@translationof Music function usage
+
+Musikalische Funktionen können zur Zeit an verschiedenen Stellen benützt
+werden.  Abhängig davon, wo sie eingesetzt werden, gibt es Begrenzungen,
+damit die Funktionen eindeutig interpretiert werden können.  Das Resultat,
+das eine musikalische Funktion wiedergibt, muss mit dem Kontext kompatibel
+sein, indem sie aufgerufen wird.
+
+@itemize
+@item
+Auf höchster Ebene in einer musikalischen Funktion.  Keine Begrenzungen.
+
+@item
+Als ein Nach-Ereignis, explizit begonnen mit einem Richtungsindikator
+(einer von @code{-}, @code{^}, @w{und @code{_}}).  Wichtig dabei ist,
+dass musikalische Funktionen, die das Nachereignis ausgeben, als
+normale Noten akzeptiert werden.  Dabei erhält man ein Resultat, das
+etwa folgendem entspricht:
+
+@example
+s 1*0-\fun
+@end example
+
+In diesem Fall kann man keinen @emph{offenen} musikalischen Ausdruck als
+letztes Argument einsetzen, also ein Argument, das in einem musikalischen
+Ausdruck schließt, der weitere Nach-Ereignisse akzeptieren kann.
+
+@item
+Als Element eines Akkordes.  Der ausgegebene Ausdruck muss vom Typ
+@code{rhythmic-event} sein, wahrscheinlich auch @code{NoteEvent}.
+
+@end itemize
+
+@noindent
+Die besonderen Regeln für noch nicht abgearbeitete Argumente machen es
+möglich, polymorphe Funktionen wie @code{\tweak} zu schreiben,
+die auf unterschiedliche Konstruktionen angewendet werden können.
 
 
 @node Einfache Ersetzungsfunktionen
@@ -139,7 +406,7 @@ manualBeam =
      (parser location beg-end)
      (pair?)
    #@{
-     \once \override Beam #'positions = $beg-end
+     \once \override Beam #'positions = #beg-end
    #@})
 
 \relative c' @{
@@ -158,7 +425,7 @@ manualBeam =
      (parser location beg end)
      (number? number?)
    #{
-     \once \override Beam #'positions = $(cons beg end)
+     \once \override Beam #'positions = #(cons beg end)
    #})
 
 \relative c' {
@@ -180,9 +447,9 @@ AltOn =
      (parser location mag)
      (number?)
    #{
-     \override Stem #'length = $(* 7.0 mag)
+     \override Stem #'length = #(* 7.0 mag)
      \override NoteHead #'font-size =
-       $(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
+       #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
    #})
 
 AltOff = {
@@ -206,9 +473,9 @@ withAlt =
      (parser location mag music)
      (number? ly:music?)
    #{
-     \override Stem #'length = $(* 7.0 mag)
+     \override Stem #'length = #(* 7.0 mag)
      \override NoteHead #'font-size =
-       $(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
+       #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
      $music
      \revert Stem #'length
      \revert NoteHead #'font-size
@@ -257,36 +524,41 @@ lilypond -d display-bar-numbers Dateiname.ly
 aufgerufen werden.
 
 
-
-@node Leere Funktionen
-@subsection Leere Funktionen
+@node Leere musikalische Funktionen
+@subsection Leere musikalische Funktionen
 @translationof Void music functions
 
 Eine musikalische Funktion muss einen musikalischen Ausdruck
-ausgeben, aber in manchen Fällen müssen Funktionen erstellt werden,
-die keine Noten enthalten (wie etwa eine Funktion, mit der
-man @qq{Point and Click} ausschalten kann).  Um das vornehmen zu
-können, wird ein @code{leere}r musikalischer Ausdruck ausgegeben.
+ausgeben.  Wenn man eine Funktion nur für ihre Nebeneffekte
+ausführt, sollte man @code{define-void-function} benützen.
+Es kann aber auch Fälle geben, in denen man teilweise eine
+musikalische Funktion erstellen will, teilweise aber nicht
+(wie im vorherigen Beispiel).  Indem man eine leere (@code{void})
+Funktion mit  @code{#@{ #@}} ausgibt, wird das erreicht.
 
-Das ist der Grund, warum die Form, die ausgegeben wird,
-@w{@code{(make-music @dots{})}} heißt.  Wird die Eigenschaft
-@code{'void} (engl. für @qq{leer}) auf @code{#t} gesetzt, wird der
-Parser angewiesen, den ausgegebenen musikalischen Ausdruck zu ignorieren.
-Der maßgebliche Teil der @code{'void}-Funktion ist also die Verarbeitung,
-die die Funktion vornimmt, nicht der musikalische Ausdruck, der ausgegeben
-wird.
 
-@example
-noPointAndClick =
-#(define-music-function
-     (parser location)
-     ()
-   (ly:set-option 'point-and-click #f)
-   (make-music 'SequentialMusic 'void #t))
-...
-\noPointAndClick   % Point and Click ausschalten
-@end example
+@node Ereignisfunktionen
+@section Ereignisfunktionen
+@translationof Event functions
 
+@funindex define-event-function
+@cindex Ereignisfunktionen
+
+Damit man eine musikalische Funktion anstelle eines Ereignisses benützen
+kann, muss man ihr einen Richtungsindikator voranstellen.  Manchmal
+entspricht dies jedoch nicht der Syntax der Konstruktionen, die man ersetzen
+will.  Dynamikbefehle beispielsweise werden normalerweise ohne Richtungsangabe
+angehängt, wie @code{c'\pp}.  Das Folgende ist eine Möglichkeit, beliebige
+Dynamikbefehle zu schreiben:
+
+@lilypond[quote,verbatim,ragged-right]
+dyn=#(define-event-function (parser location arg) (markup?)
+         (make-dynamic-script arg))
+\relative c' { c\dyn pfsss }
+@end lilypond
+
+Man kann das Gleiche auch mit einer musikalischen Funktion erreichen, aber dann
+muss man immer einen Richtungsindikator voranstellen, wie @code{@w{c-\dyn pfsss}}.
 
 
 @node Textbeschriftungsfunktionen
@@ -328,14 +600,17 @@ ist
 identisch mit
 
 @example
-\markup \column @{ \line @{ \bold \italic "hello" \raise #0.4 "world" @}
-                  \larger \line @{ foo bar baz @} @}
+#@{ \markup \column @{ \line @{ \bold \italic "hello" \raise #0.4 "world" @}
+                  \larger \line @{ foo bar baz @} @} #@}
 @end example
 
 @noindent
 Dieses Beispiel zeigt die hauptsächlichen Übersetzungsregeln
 zwischen normaler Textbeschriftungssyntax von LilyPond und der
-Textbeschriftungssyntax in Scheme.
+Textbeschriftungssyntax in Scheme.  Es ist meistens der beste
+Weg, @code{#@{ @dots{} #@}} zur Eingabe von LilyPond-Syntax zu
+benützen, aber es soll auch erklärt werden, wie man das
+@code{markup}-Makro einsetzt, um eine Lösung nur in Scheme zu bekommen.
 
 @quotation
 @multitable @columnfractions .3 .3
@@ -559,13 +834,24 @@ Auch der Abstand zwischen den zwei Kästen ist uns zu klein und soll auch
 vergrößert werden:
 
 @lilypond[quote,verbatim,ragged-right]
-\markup \override #'(box-padding . 0.4) \box \override #'(box-padding . 0.6) \box A
+\markup \override #'(box-padding . 0.4) \box
+    \override #'(box-padding . 0.6) \box A
 @end lilypond
 
 Diese lange Textbeschriftung immer wieder schreiben zu müssen, ist
 anstrengend.  Hier kömmt ein Textbeschriftungsbefehl ins Spiel.  Wir
 schreiben uns alle einen @code{double-box}-Beschriftungsbefehl, der
 ein Argument annimmt (den Text).  Er zeichnet zwei Kästen mit genügend Abstand:
+
+@lisp
+#(define-markup-command (double-box layout props text) (markup?)
+  "Draw a double box around text."
+  (interpret-markup layout props
+    #@{\markup \override #'(box-padding . 0.4) \box
+            \override #'(box-padding . 0.6) \box @{ $text @}#@}))
+@end lisp
+
+oder äquivalent
 
 @lisp
 #(define-markup-command (double-box layout props text) (markup?)
@@ -580,10 +866,11 @@ und @code{markup?} ist seine Art: hiermit wird der Befehl als
 Beschriftungsbefehl identifiziert.  Die @code{interpret-markup}-Funktion
 wird in den meisten Beschriftungsbefehlen benutzt: sie erstellt einen
 Stencil, wobei @code{layout}, @code{props} und eine Beschriftung benutzt
-werden.  In unserem Fall wird diese Beschriftung durch das
-@code{markup}-Scheme-Makro erstellt, siehe auche @ref{Beschriftungskonstruktionen in Scheme}.
+werden.  Im zweiten Fall wird diese Beschriftung durch das
+@code{markup}-Scheme-Makro erstellt, siehe auche
+@ref{Beschriftungskonstruktionen in Scheme}.
 Die Transformation des @code{\markup}-Ausdrucks in einen
-Scheme-Beschriftungsausdruck geschieht durch umschreiben des LilyPond-Codes
+Scheme-Beschriftungsausdruck geschieht durch Umschreiben des LilyPond-Codes
 in Scheme-Code.
 
 Der neue Befehl kann wie folgt benutzt werden:
@@ -600,6 +887,20 @@ und dem Text unterschieden werden könnte.  Eine neue Eigenschaft muss also
 definiert werden: @code{inter-box-padding} für den Abstand zwischen den Kästen.
 @code{box-padding} wird für den inneren Abstand benutzt.  Der neue Befehl wird
 so definiert:
+
+@lisp
+#(define-markup-command (double-box layout props text) (markup?)
+  #:properties ((inter-box-padding 0.4)
+                (box-padding 0.6))
+  "Draw a double box around text."
+  (interpret-markup layout props
+    #@{\markup \override #`(box-padding . ,inter-box-padding) \box
+               \override #`(box-padding . ,box-padding) \box
+               @{ $text @} #@}))
+@end lisp
+
+Wiederum wäre die entsprechende Version mit dem @code{markup}-Makro
+so aussehen:
 
 @lisp
 #(define-markup-command (double-box layout props text) (markup?)
@@ -630,8 +931,9 @@ der Kästen kann angepasst werden:
                 (box-padding 0.6))
   "Draw a double box around text."
   (interpret-markup layout props
-    (markup #:override `(box-padding . ,inter-box-padding) #:box
-            #:override `(box-padding . ,box-padding) #:box text)))
+    #{\markup \override #`(box-padding . ,inter-box-padding) \box
+              \override #`(box-padding . ,box-padding) \box
+              { $text } #}))
 
 \markup \double-box A
 \markup \override #'(inter-box-padding . 0.8) \double-box A
@@ -746,10 +1048,19 @@ denen die erste Zeile eingerückt ist.  Der Einzug wird aus dem
 
 @example
 #(define-markup-list-command (paragraph layout props args) (markup-list?)
-   (let ((indent (chain-assoc-get 'par-indent props 2)))
-     (interpret-markup-list layout props
-       (make-justified-lines-markup-list (cons (make-hspace-markup indent)
-                                               args)))))
+   #:properties ((par-indent 2))
+   (interpret-markup-list layout props
+     #@{\markuplist \justified-lines @{ \hspace #par-indent $args @} #@}))
+@end example
+
+Die Version nur in Scheme ist etwas komplexer:
+
+@example
+#(define-markup-list-command (paragraph layout props args) (markup-list?)
+   #:properties ((par-indent 2))
+   (interpret-markup-list layout props
+     (make-justified-lines-markup-list (cons (make-hspace-markup par-indent)
+                                             args))))
 @end example
 
 Neben den üblichen @code{layout} und @code{props}-Argumenten nimmt der
@@ -761,12 +1072,12 @@ Zuerst errechnet die Funktion die Breite des Einzugs, eine Eigenschaft
 mit der Bezeichnung @code{par-indent} anhand der Eigenschaftsliste
 @code{props}.  Wenn die Eigenschaft nicht gefunden wird, ist der
 Standardwert @code{2}.  Danach wird eine Liste von Zeilen im Blocksatz
-erstellt, wobei die @code{make-justified-lines-markup-list}-Funktion
-eingesetzt wird, die verwandt ist mit dem eingebauten
-@code{\justified-lines}-Beschriftungslistenbefehl.  Horizontaler
-Platz wird zu Beginn eingefügt mit der @code{make-hspace-markup}-Funktion.
-Zuletzt wird die Beschriftungsliste ausgewertet durch die
-@code{interpret-markup-list}-Funktion.
+erstellt, wobei der eingebaute @code{\justified-lines}-Beschriftungslistenbefehl
+eingesetzt wird, der verwandt ist mit der
+@code{make-justified-lines-markup-list}-Funktion.  Horizontaler
+Platz wird zu Beginn eingefügt mit @code{\hspace} (oder der
+@code{make-hspace-markup}-Funktion).  Zuletzt wird die Beschriftungsliste
+ausgewertet durch die @code{interpret-markup-list}-Funktion.
 
 Dieser neue Beschriftungslistenbefehl kann wie folgt benutzt werden:
 
@@ -786,7 +1097,6 @@ Dieser neue Beschriftungslistenbefehl kann wie folgt benutzt werden:
   @}
 @}
 @end example
-
 
 
 @node Kontexte für Programmierer
@@ -969,13 +1279,19 @@ mein-callback = #(lambda (grob)
 @end example
 
 
-
-
-
-
 @node Scheme-Code innerhalb LilyPonds
 @section Scheme-Code innerhalb LilyPonds
 @translationof Inline Scheme code
+
+TODO: das Beispiel für diesen Abschnitt ist nicht gut gewähtl:
+
+@example
+F = -\tweak #'font-size #-3 -\flageolet
+@end example
+(beachte @samp{-}, was ein Nachereignis anzeigt) funktioniert
+für den geschilderten Zweck sehr gut.  Aber bis der Abschnitt
+neu geschrieben wird, nehmen wir einfach an, dass wir das nicht
+wissen.
 
 Der hauptsächliche Nachteil von @code{\tweak} ist seine
 syntaktische Inflexibilität.  Folgender Code beispielsweise
@@ -990,10 +1306,6 @@ F = \tweak #'font-size #-3 -\flageolet
 @end example
 
 @noindent
-Anders gesagt verhält sich @code{\tweak} nicht wie eine Artikulation
-und kann auch nicht deren Syntax verwenden: man kann es nicht
-mit @code{^} oder @code{_} anfügen.
-
 Durch die Verwendung von Scheme kann dieses Problem umgangen werden.
 Der Weg zum Resultat wird gezeigt in
 @ref{Artikulationszeichen zu Noten hinzufügen (Beispiel)}, insbesondere
