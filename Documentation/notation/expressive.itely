@@ -989,17 +989,13 @@ indicates the pitch interval that the fall or doit will extend
 @emph{beyond} the main note.
 
 @lilypond[verbatim,quote,relative=2]
-c2-\bendAfter #+4
-c2-\bendAfter #-4
-c2-\bendAfter #+6.5
-c2-\bendAfter #-6.5
-c2-\bendAfter #+8
-c2-\bendAfter #-8
+c2\bendAfter #+4
+c2\bendAfter #-4
+c2\bendAfter #+6.5
+c2\bendAfter #-6.5
+c2\bendAfter #+8
+c2\bendAfter #-8
 @end lilypond
-
-The dash @code{-} immediately preceding the @code{\bendAfter}
-command is @emph{required} when writing falls and doits.
-
 
 @snippets
 
