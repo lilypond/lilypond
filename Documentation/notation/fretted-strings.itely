@@ -97,25 +97,25 @@ Notation Reference:
 @cindex fingering vs. string numbers
 
 The string on which a note should be played may be indicated by
-appending @code{\@var{number}} to a note inside a chord construct
-@code{<>}.
-
-@warning{String numbers @strong{must} be defined inside a chord
-construct even if there is only a single note.}
+appending @code{\@var{number}} to a note.
 
 @lilypond[verbatim,quote,relative=0]
 \clef "treble_8"
-<c\5>4 <e\4> <g\3>2
+c4\5 e\4 g2\3
 <c,\5 e\4 g\3>1
 @end lilypond
 
 When fingerings and string indications are used together, their
-placement is controlled by the order in which the two items appear
-in the code:
+placement can be controlled by the order in which the two items appear
+in the code @emph{only} if they appear inside of an explicit chord:
+applied to whole chords or single notes @emph{outside} of chords,
+fingerings are placed using a different mechanism.
 
 @lilypond[verbatim,quote,relative=1]
 \clef "treble_8"
-<g\3-0>2
+g4\3-0
+g-0\3
+<g\3-0>
 <g-0\3>
 @end lilypond
 
@@ -224,16 +224,16 @@ symbols = {
 
 By default pitches are assigned to the lowest playing position on the
 fret-board (first position).  Open strings are automatically preferred.
-If you would like a certain pitch to be played on a specific string
-you can add a string number indication to the pitch name.  If you
-define pitch names and string numbers without a chord construct
-(@code{<>}) the string number indications do not appear in traditional
-notation.  It is much more comfortable to define the playing position
-by using the value of @code{minimumFret}.  The default value for
-minimumFret is 0.
+If you would like a certain pitch to be played on a specific string you
+can add a string number indication to the pitch name.  If you don't want
+to have string number indications appear in traditional notation, you
+can override the respective stencil.  Usually it will be more
+comfortable to define the playing position by using the value of
+@code{minimumFret}.  The default value for minimumFret is 0.
 
 
 @lilypond[quote,ragged-right,verbatim]
+\layout { \override Voice.StringNumber #'stencil = ##f }
 \new StaffGroup <<
    \new Staff \relative c {
      \clef "treble_8"
@@ -374,6 +374,7 @@ Harmonic indications can be added to tablature notation as sounding
 pitches:
 
 @lilypond[verbatim,quote]
+\layout { \override Voice.StringNumber #'stencil = ##f }
 firstHarmonic = {
   d'4\4\harmonic
   g'4\3\harmonic
@@ -521,14 +522,17 @@ written.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
-  \new Staff {
+  \new Voice \with {
+    \override StringNumber #'stencil = ##f
+  } {
     \clef "bass_8"
     \relative c, {
       c4 d e f
     }
   }
-  \new TabStaff {
-    \set TabStaff.stringTunings = #bass-tuning
+  \new TabStaff \with {
+    stringTunings = #bass-tuning
+  } {
     \relative c, {
       c4 d e f
     }
@@ -1576,19 +1580,18 @@ with non-monotonic tunings.
 @funindex rightHandFinger
 @funindex \rightHandFinger
 
-Right-hand fingerings @var{p-i-m-a} must be entered within a
-chord construct @code{<>} for them to be printed in the score,
-even when applied to a single note.
+Right-hand fingerings @var{p-i-m-a} must be entered using
+@code{\rightHandFinger} followed by a number.
 
 @warning{There @strong{must} be a hyphen before
 @code{@bs{}rightHandFinger} and a space before the closing @code{>}.}
 
 @lilypond[quote,verbatim,relative=0]
 \clef "treble_8"
-<c-\rightHandFinger #1 >4
-<e-\rightHandFinger #2 >
-<g-\rightHandFinger #3 >
-<c-\rightHandFinger #4 >
+c4-\rightHandFinger #1
+e-\rightHandFinger #2
+g-\rightHandFinger #3
+c-\rightHandFinger #4
 <c,-\rightHandFinger #1 e-\rightHandFinger #2
  g-\rightHandFinger #3 c-\rightHandFinger #4 >1
 @end lilypond
