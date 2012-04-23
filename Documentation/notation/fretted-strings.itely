@@ -269,7 +269,7 @@ as @code{\tabChordRepeats}.
 
 @lilypond[quote,verbatim]
 guitar = \relative c' {
-  r8 <gis-6 cis-6 b-0>~ q4 q8~ q q4
+  r8 <gis-2 cis-3 b-0>~ q4 q8~ q q4
 }
 
 \new StaffGroup <<
